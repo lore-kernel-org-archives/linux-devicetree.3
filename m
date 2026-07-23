@@ -1,1685 +1,550 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDC594C6EE8;
-	Thu, 23 Jul 2026 13:03:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89A703EEAE7
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 13:08:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784811783; cv=none; b=M40Ht5y6Vv9XCZpC04Vrh8am9ZnvhSvOekrbRg+9/Mv4iQA2GG63515/r3pG+eQvIEAzGhhKcuPnq5iYEsHoYEWwsIVby1nubdD57PWOe50EzT5yYwNGlooH/hnZUWixXBXFb/SAkWnVWWs7gJtqppp9G4h8DFoNfhWP0NhI+fw=
+	t=1784812095; cv=none; b=nrTbWgt5P8tCxqJrg+QYA61iaijEoLU9MMM9hv+zgrhjnbrPBADUgGAhugHNclAsiHrBv75AyeQ+oMrd7UYQwwYbP999Tm2b/snI/oPhLv3a7goJtNt2uCwkmwMVob3q18hp28Yix8GAIPh6EBbGRQDcNtilYltaj/dDD/jBYCg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784811783; c=relaxed/simple;
-	bh=0AK95DIqqvXpMya/XsqpPRK1BQMqiWtyoM3MXwddWWM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=klk8WpFhaU0p6ApBk/RfHAoh3IpGvsDWFEOTqAbyGKxwlR8IM8C/vhlpcVNohn8GTNzZZVmVRSuU0jrBeTuOrvZWUcDD8YU4g86akku30p2QIvtoVYjMb6TEFksLtwhQXZeC/3JdpDm785xb7HGXr4ILOERirKY6gZ0YrpR6nl4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qWZnSWsO; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1784812095; c=relaxed/simple;
+	bh=usc0iLQZIAxUtbpo0UUexXNi+H/LP/5+tfAGpxqIDLo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QseAGdomLaL4l7KI06eZHrDJ8fp6ot9wV8HdIL0ydVAwcGEhiWcMUnL88u0OCJCghWAXFmF22LqLhQBxT5dwSxGlOoh4/qB+QQ+fhTe6jXfpM3z9MkwfzbEQDprWjwsrsEonaNWA2xWKGNa+fpFr2FRs5VJi2iK6Hv4CzEp/RFs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gJGYMGuF; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=FX23fYHU; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qWZnSWsO"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9E762C2BCFD;
-	Thu, 23 Jul 2026 13:03:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1784811783;
-	bh=0AK95DIqqvXpMya/XsqpPRK1BQMqiWtyoM3MXwddWWM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=qWZnSWsO8xifqhBO0+n99ZgWZAyoJQzHWX74UWB1iX9v6KAGwpCAAEGoJ1dSs1q3n
-	 oEYUqBDCm1uQumMZ1+wdXYk41lZAbvQqWS7RbBPrnceYEdCnb8x0dqSJ+kwfnf/xCm
-	 tyAbkizqCO1SblzEXd/otdbdlk7EmXxVKo+mICIRqC7hKjuIATpMoqAmAnodbWTv8v
-	 dpNIUOBjy0khrm9UtRQQlLgHRw7QybUlDBNmCOmlx0vThqHYmBFoh07dFJFnq07R8G
-	 fjEih5NontyMYd/0HfFxo6SAn735tucqlnJctCec8pjxKjRzYvRPIZORjPD8fTEdzE
-	 v1GT+7zt7iptQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8CB65C531D2;
-	Thu, 23 Jul 2026 13:03:03 +0000 (UTC)
-From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
-Date: Thu, 23 Jul 2026 15:02:44 +0200
-Subject: [PATCH 3/3] hwmon: pmbus: add MPQ8646 driver
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gJGYMGuF";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="FX23fYHU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1784812092;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=z8tfBjliZcRP+YVIKBiEexjxC3PGiQqhQXDQZvnOmN0=;
+	b=gJGYMGuFBr/usJ6gEDybw2lo/vtVwrQqwwXp0qemlU3Honvy2d5XOMcEMVB3wJIj0gropf
+	5naO3L+w1vDoxpZ3qsgTeKAjLWrkfIF2rjQETuVsBWpi8KmMNHfDt2GP/1OFWIoOdlquYh
+	p/VxJ4ZTF6JtSlG7hc0xibwfioZQPHo=
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
+ [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-528-B19HBA3ENeOzWSUNMccI1A-1; Thu, 23 Jul 2026 09:08:11 -0400
+X-MC-Unique: B19HBA3ENeOzWSUNMccI1A-1
+X-Mimecast-MFC-AGG-ID: B19HBA3ENeOzWSUNMccI1A_1784812090
+Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c15dfd34e4cso59362166b.0
+        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 06:08:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1784812090; x=1785416890; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=z8tfBjliZcRP+YVIKBiEexjxC3PGiQqhQXDQZvnOmN0=;
+        b=FX23fYHU6zBG+sbJAHS7BUM5LywcoupNUy2nU6HpXujE+BCkQzhnHYEWGL6cP7j1Br
+         uxpaKAZfv+moxOOEcY/6JRhMBm4Q1G9dP8PWSYa2zdzeBbzV/KSE15Pc9GxkKThDyRB1
+         FnmOPvaQ2KeC7725Cg5dECFPDycmU39q3SRT2sutC7Vvcvw1AZJtQRN2rd4bn0kBRM7W
+         sUovcsWJqKzKJ2HsBc8ewA6kjuLUTClj5HgXZ6ROkGvxLowVUCZ7R91b5tAaXssRly52
+         oeb2WQQr03jsVO5Y5DZ+0GT7QJGdjYdDxfW3kH5aklkRcwhKcr4/FamZn9XOSKYyesRz
+         V91w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784812090; x=1785416890;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z8tfBjliZcRP+YVIKBiEexjxC3PGiQqhQXDQZvnOmN0=;
+        b=kNRQWQ77tgOjVidi1uRn1vYuOkMs2T8/j7rWyJ7KjADxh85rgE5PZDQ3LZRmX6C05q
+         IZau95yC0ke9E9uhXYqWX09hxaVT6G2HRSHZ7JGtzyOsmo51vox3b0uRGN1opHUOABjr
+         yd/84WriBRJ9V/VG9x2DV3zgyBjg9VByFIVLMFuYTYuOVPCN4hzKragwneOQ7lIGowPA
+         Y/vNUJdSqchkNNAldinLka/vDuX5LI1fY6GvUc+djTikljBK1GcRTuIO1JHNzPTeOKvP
+         sXQ1Bwk0BBPStSWEzrGgsOLO1i27aSR3/oJuZQx8jfxvc7ufixQ5nFnOq9GK9o2Pla4l
+         n8+A==
+X-Forwarded-Encrypted: i=1; AHgh+RqxN9gyc9TeoSRKgqyDxUGxZJrCJkjuu/u9OYYTV37azNwQ+1SpX0Ahrx8jcI7CJXn3rLb0FrujG2mu@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxm5OJaQGZ4x3Hwwf6OujPuSLj0xj7MXa35kPmzhC2GkWVRQ8u2
+	cYJOl9kBw52z5e3AD7i7cvXq0/Fj1eHgavGSWXYRy32KB8XOutTCTcRENbGQF2adF8ejdTegd9U
+	EvQS+iTQqJE+mJyQGA/XF9Ca8bGobeYMtftk8kR3p14QgFAM+mO7Dz8yoBNCuV/0=
+X-Gm-Gg: AR+sD13kRoJa2e43v2cj3ixafHToHMBmd4aDKLw4tQQkPWRGO/PHqnzdQpeSixNUGOI
+	hH5hiZByJXsB9NryebHhHPlGf5e/m7PC08oDLis63Y27ZY3FYYjsi/P2lG3UbY7tvvfM8fcgPb7
+	b21ozbGimGvCN7JJninSWIHLx9NI1NmGOU3Dy4ZuOwFO0wjVLaltuXCsVCWqfqkW0ryk+g/0lox
+	+GwmdB3Gh90jw+ZJZQkZ4/41B6ZfPx2xDfrr6MAEvdbcHOTd7nqPhrg4m/iTBNd7f0mDFiOZdWj
+	e9SSHytw4U/sEgE6frVwrrYkprPZTm0GxnG5H8M+yN0BNW00X01FHoLJbTCWfc66tQGpwqkHMeh
+	Cq6UgC1TfNv2WK2yukeOLu1NyclSZw1xMP3i0zSMoEE8r1avD2suWiHDnW90ne5ZnuuP5qw0CjC
+	B8+w==
+X-Received: by 2002:a17:907:6088:b0:c16:1655:309d with SMTP id a640c23a62f3a-c1c50d82182mr130122166b.56.1784812089527;
+        Thu, 23 Jul 2026 06:08:09 -0700 (PDT)
+X-Received: by 2002:a17:907:6088:b0:c16:1655:309d with SMTP id a640c23a62f3a-c1c50d82182mr130117066b.56.1784812088622;
+        Thu, 23 Jul 2026 06:08:08 -0700 (PDT)
+Received: from ?IPV6:2a0d:3344:5521:6b10:58fd:68f:7756:389d? ([2a0d:3344:5521:6b10:58fd:68f:7756:389d])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1c32c90b42sm233079766b.38.2026.07.23.06.08.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 23 Jul 2026 06:08:07 -0700 (PDT)
+Message-ID: <430ff31a-4199-402f-b234-167f71d87fa6@redhat.com>
+Date: Thu, 23 Jul 2026 15:08:05 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-mpq8646_v0-v1-3-14363c75916f@free.fr>
-References: <20260723-mpq8646_v0-v1-0-14363c75916f@free.fr>
-In-Reply-To: <20260723-mpq8646_v0-v1-0-14363c75916f@free.fr>
-To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-doc@vger.kernel.org, 
- Vincent Jardin <vjardin@free.fr>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784811776; l=53700;
- i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
- bh=vcDW8O+Pzvne5Ifi19p4yp539W41bTi8Ic8H27Gu4zg=;
- b=tjthyfX1bvtyyidNnI8NGwV3ngIEhDKJB9kiRvckaTArTGXG3uSzMQtlM/Bdg6INjGg+LzSft
- are2ZCEAnF4CdzMlOUYAJYUvHwgkhBIjg6dOcvY98kOdbwfkGWCmBO3
-X-Developer-Key: i=vjardin@free.fr; a=ed25519;
- pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
-X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
- auth_id=871
-X-Original-From: Vincent Jardin <vjardin@free.fr>
-Reply-To: vjardin@free.fr
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v10 4/9] net: dsa: lan9645x: add basic dsa driver
+ for LAN9645X
+To: =?UTF-8?Q?Jens_Emil_Schulz_=C3=98stergaard?=
+ <jensemil.schulzostergaard@microchip.com>, UNGLinuxDriver@microchip.com,
+ Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Woojung Huh <woojung.huh@microchip.com>,
+ Russell King <linux@armlinux.org.uk>,
+ Steen Hegelund <Steen.Hegelund@microchip.com>,
+ Daniel Machon <daniel.machon@microchip.com>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20260713-dsa_lan9645x_switch_driver_base-v10-0-a4886a08fb15@microchip.com>
+ <20260713-dsa_lan9645x_switch_driver_base-v10-4-a4886a08fb15@microchip.com>
+From: Paolo Abeni <pabeni@redhat.com>
+Content-Language: en-US
+In-Reply-To: <20260713-dsa_lan9645x_switch_driver_base-v10-4-a4886a08fb15@microchip.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Vincent Jardin <vjardin@free.fr>
 
-Add a new single-chip driver for the MPS MPQ8646 that is
-a PMBus device.
 
-Beyond basic PMBus telemetry, the driver adds:
-  - MFR_CFG_EXT gate-close retry after CLEAR_LAST_FAULT.
-  - alarm acknowledge via inX_reset_history.
-  - STATUS_WORD MPS-extended bit decode + post-mortem clear.
-  - In-driver alarm-poll fallback work item (thanks lm90) for
-    boards without SMBALERT
-  - on_off_config/vout_margin/mfr_pmbus_lock sysfs.
+On 7/13/26 4:32 PM, Jens Emil Schulz Østergaard wrote:
+> Add the LAN9645X basic DSA driver with initialization, parent regmap
+> requests, port module initialization for NPI, CPU ports and front ports,
+> and phylink integration for MAC side configuration.
+> 
+> This patch only wires up the internal CuPHYs (ports 0-4) and the RGMII
+> paths for ports 7 and 8. The supported SerDes-based modes: SGMII,
+> QSGMII, 1000BASE-X and 2500BASE-X on ports 5-8 are deferred, and support
+> will be added in follow-up patches. Port 5-6 have no usable interface
+> mode in this patch, and should not be declared in DT until SerDes
+> support lands.
+> 
+> The intended way to bind this driver is using a parent MFD driver,
+> responsible for the register IO protocol, and distributing regmaps to
+> child devices. The goal is to use the same approach as the MFD driver in
+> drivers/mfd/ocelot-spi.c.
+> 
+> This driver expects to request named regmaps from a parent device. This
+> approach is similar to the DSA driver
+> 
+> drivers/net/dsa/ocelot/ocelot_ext.c
+> 
+> which supports being driven by an external CPU via SPI with parent
+> device drivers/mfd/ocelot-spi.c.
+> 
+> The MFD driver will come in a later series, because there are
+> requirements on the number of child devices before a driver qualifies as
+> a MFD device.
+> 
+> Reviewed-by: Steen Hegelund <Steen.Hegelund@microchip.com>
+> Signed-off-by: Jens Emil Schulz Østergaard <jensemil.schulzostergaard@microchip.com>
+> ---
+> Changes in v9:
+> - Drop the DEV4 RGMII muxing support.
+> 
+> Changes in v8:
+> - Remove the CPU_PORT macro, which named the chips internal CPU port
+>   module and collided with the DSA CPU port terminology. Reference the
+>   module as lan9645x->num_phys_ports.
+> - Rework the port map comment to distinguish the chip CPU port modules
+>   (indices 9-10) from the DSA CPU port (the NPI front port).
+> - Derive PGID_GP_START from NUM_PHYS_PORTS instead of CPU_PORT.
+> - Add a port_mux_lock mutex to serialize port mux arbitration in
+>   lan9645x_phylink_mac_prepare().
+> 
+> Changes in v7:
+> - use cpu queue LAN9645X_CPUQ_TRAP for bpdu frames
+> 
+> Changes in v5:
+> - remove dd_dis and tsn_dis, and add SKU supported port validation
+>   during setup
+> - phylink: remove MAC_2500FD
+> - phylink: add comment about empty supported_interfaces for port 5-6.
+> - phylink: fix 2:1 rgmii port muxing for port module 4 and 7 to be fully
+>   dynamic and validate requested mux settings.
+> - phylink: add comment about 2:1 rgmii port muxing for port module 4
+>   and 7.
+> - rx/tx-internal-delay-ps checked against support 2ns value
+> - update commit message
+> - init lan9645x->npi = -1 at probe and check port < 0 in npi_deinit
+> 
+> Changes in v4:
+> - add comment to QSYS_RES_CFG configuration
+> - phylink_mac_prepare: fix to make sure we can dynamically change rgmii
+>   on port 4
+> - move ports allocation to probe
+> - tag_npi_setup: reject cascaded setups
+> - skip WARN_ON in lan9645x_to_port
+> 
+> Changes in v3:
+> - move DEV_MAC_TAGS_CFG config to port setup, for vlan overhead in port
+>   frame maxlen
+> - remove code disabling ipv6 on conduit
+> - use of_property_read_u32 for {rx,tx}-internal-delay-ps
+> - use dsa_user_ports(ds) instead of
+>   GENMASK(lan9645x->num_phys_ports - 1, 0) as base flood mask.
+> - update obey vlan comment
+> 
+> Changes in v2:
+> - source Kconfig from drivers/net/dsa/Kconfig
+> - sorting in Kconfig and Makefiles
+> - remove unused struct fields
+> - remote path delays
+> - use port_setup and dp->dn instead of DTS parsing
+> - phylink: split rgmii setup into dll and speed config
+> - phylink: remove pcs/sgmii/qsgmii related code
+> - phylink: simplify mac_prepare
+> - phylink: remove phylink_ops wrappers
+> - phylink: remove unrelated config from link up
+> - phylink: reorder functions according to phylink call order
+> ---
+>  drivers/net/dsa/Kconfig                            |   2 +
+>  drivers/net/dsa/microchip/Makefile                 |   1 +
+>  drivers/net/dsa/microchip/lan9645x/Kconfig         |  11 +
+>  drivers/net/dsa/microchip/lan9645x/Makefile        |   8 +
+>  drivers/net/dsa/microchip/lan9645x/lan9645x_main.c | 447 +++++++++++++++++++++
+>  drivers/net/dsa/microchip/lan9645x/lan9645x_main.h | 332 +++++++++++++++
+>  drivers/net/dsa/microchip/lan9645x/lan9645x_npi.c  |  85 ++++
+>  .../net/dsa/microchip/lan9645x/lan9645x_phylink.c  | 382 ++++++++++++++++++
+>  drivers/net/dsa/microchip/lan9645x/lan9645x_port.c | 214 ++++++++++
+>  9 files changed, 1482 insertions(+)
+> 
+> diff --git a/drivers/net/dsa/Kconfig b/drivers/net/dsa/Kconfig
+> index 4ab567c5bbaf..91431ef6c425 100644
+> --- a/drivers/net/dsa/Kconfig
+> +++ b/drivers/net/dsa/Kconfig
+> @@ -72,6 +72,8 @@ config NET_DSA_MV88E6060
+>  
+>  source "drivers/net/dsa/microchip/Kconfig"
+>  
+> +source "drivers/net/dsa/microchip/lan9645x/Kconfig"
+> +
+>  source "drivers/net/dsa/mv88e6xxx/Kconfig"
+>  
+>  source "drivers/net/dsa/mxl862xx/Kconfig"
+> diff --git a/drivers/net/dsa/microchip/Makefile b/drivers/net/dsa/microchip/Makefile
+> index 9347cfb3d0b5..e75f17888f75 100644
+> --- a/drivers/net/dsa/microchip/Makefile
+> +++ b/drivers/net/dsa/microchip/Makefile
+> @@ -12,3 +12,4 @@ endif
+>  obj-$(CONFIG_NET_DSA_MICROCHIP_KSZ9477_I2C)	+= ksz9477_i2c.o
+>  obj-$(CONFIG_NET_DSA_MICROCHIP_KSZ_SPI)		+= ksz_spi.o
+>  obj-$(CONFIG_NET_DSA_MICROCHIP_KSZ8863_SMI)	+= ksz8863_smi.o
+> +obj-$(CONFIG_NET_DSA_MICROCHIP_LAN9645X)	+= lan9645x/
+> diff --git a/drivers/net/dsa/microchip/lan9645x/Kconfig b/drivers/net/dsa/microchip/lan9645x/Kconfig
+> new file mode 100644
+> index 000000000000..4d9fdf34104e
+> --- /dev/null
+> +++ b/drivers/net/dsa/microchip/lan9645x/Kconfig
+> @@ -0,0 +1,11 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +config NET_DSA_MICROCHIP_LAN9645X
+> +	tristate "Microchip Lan9645x switch support"
+> +	depends on NET_DSA
+> +	select NET_DSA_TAG_LAN9645X
+> +	help
+> +	  This driver adds DSA support for Microchip Lan9645x switch chips.
+> +	  The lan9645x switch is a multi-port Gigabit AVB/TSN Ethernet Switch
+> +	  with five integrated 10/100/1000Base-T PHYs. In addition to the
+> +	  integrated PHYs, it supports up to 2 RGMII/RMII, up to 2
+> +	  BASE-X/SERDES/2.5GBASE-X and one Quad-SGMII/Quad-USGMII interfaces.
+> diff --git a/drivers/net/dsa/microchip/lan9645x/Makefile b/drivers/net/dsa/microchip/lan9645x/Makefile
+> new file mode 100644
+> index 000000000000..7cc0ae0ada40
+> --- /dev/null
+> +++ b/drivers/net/dsa/microchip/lan9645x/Makefile
+> @@ -0,0 +1,8 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +obj-$(CONFIG_NET_DSA_MICROCHIP_LAN9645X) += mchp-lan9645x.o
+> +
+> +mchp-lan9645x-objs := \
+> +	lan9645x_main.o \
+> +	lan9645x_npi.o \
+> +	lan9645x_phylink.o \
+> +	lan9645x_port.o \
+> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
+> new file mode 100644
+> index 000000000000..b253813518c2
+> --- /dev/null
+> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
+> @@ -0,0 +1,447 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+> +/* Copyright (C) 2026 Microchip Technology Inc.
+> + */
+> +
+> +#include <linux/platform_device.h>
+> +
+> +#include "lan9645x_main.h"
+> +
+> +static const char *lan9645x_resource_names[NUM_TARGETS + 1] = {
+> +	[TARGET_GCB]          = "gcb",
+> +	[TARGET_QS]           = "qs",
+> +	[TARGET_CHIP_TOP]     = "chip_top",
+> +	[TARGET_REW]          = "rew",
+> +	[TARGET_SYS]          = "sys",
+> +	[TARGET_HSIO]         = "hsio",
+> +	[TARGET_DEV]          = "dev",
+> +	[TARGET_DEV + 1]      = "dev1",
+> +	[TARGET_DEV + 2]      = "dev2",
+> +	[TARGET_DEV + 3]      = "dev3",
+> +	[TARGET_DEV + 4]      = "dev4",
+> +	[TARGET_DEV + 5]      = "dev5",
+> +	[TARGET_DEV + 6]      = "dev6",
+> +	[TARGET_DEV + 7]      = "dev7",
+> +	[TARGET_DEV + 8]      = "dev8",
+> +	[TARGET_QSYS]         = "qsys",
+> +	[TARGET_AFI]          = "afi",
+> +	[TARGET_ANA]          = "ana",
+> +	[NUM_TARGETS]         = NULL,
+> +};
+> +
+> +static int lan9645x_tag_npi_setup(struct dsa_switch *ds)
+> +{
+> +	struct dsa_port *dp, *first_cpu_dp = NULL;
+> +	struct lan9645x *lan9645x = ds->priv;
+> +
+> +	dsa_switch_for_each_user_port(dp, ds) {
+> +		if (dp->cpu_dp->ds != ds) {
+> +			dev_err(ds->dev,
+> +				"NPI port on a remote switch is not supported\n");
+> +			return -EINVAL;
+> +		}
+> +
+> +		if (first_cpu_dp && dp->cpu_dp != first_cpu_dp) {
+> +			dev_err(ds->dev, "Multiple NPI ports not supported\n");
+> +			return -EINVAL;
+> +		}
+> +
+> +		first_cpu_dp = dp->cpu_dp;
+> +	}
+> +
+> +	if (!first_cpu_dp)
+> +		return -EINVAL;
+> +
+> +	lan9645x_npi_port_init(lan9645x, first_cpu_dp);
+> +
+> +	return 0;
+> +}
+> +
+> +static enum dsa_tag_protocol lan9645x_get_tag_protocol(struct dsa_switch *ds,
+> +						       int port,
+> +						       enum dsa_tag_protocol tp)
+> +{
+> +	return DSA_TAG_PROTO_LAN9645X;
+> +}
+> +
+> +static void lan9645x_teardown(struct dsa_switch *ds)
+> +{
+> +	struct lan9645x *lan9645x = ds->priv;
+> +
+> +	lan9645x_npi_port_deinit(lan9645x, lan9645x->npi);
+> +}
+> +
+> +static int lan9645x_change_mtu(struct dsa_switch *ds, int port, int new_mtu)
+> +{
+> +	return lan9645x_port_set_maxlen(ds->priv, port, new_mtu);
+> +}
+> +
+> +static int lan9645x_get_max_mtu(struct dsa_switch *ds, int port)
+> +{
+> +	struct lan9645x *lan9645x = ds->priv;
+> +	int max_mtu;
+> +
+> +	/* Actual MAC max MTU is around 16KB. We set 10000 - overhead which
+> +	 * should be sufficient for all jumbo frames. Larger frames can cause
+> +	 * problems especially with flow control, since we only have 160K queue
+> +	 * buffer.
+> +	 */
+> +	max_mtu = 10000 - ETH_HLEN - ETH_FCS_LEN;
+> +
+> +	if (port == lan9645x->npi) {
+> +		max_mtu -= LAN9645X_IFH_LEN;
+> +		max_mtu -= LAN9645X_LONG_PREFIX_LEN;
+> +	}
+> +
+> +	return max_mtu;
+> +}
+> +
+> +static int lan9645x_reset_switch(struct lan9645x *lan9645x)
+> +{
+> +	int val = 0;
+> +	int err;
+> +
+> +	lan_wr(SYS_RESET_CFG_CORE_ENA_SET(0), lan9645x, SYS_RESET_CFG);
+> +	lan_wr(SYS_RAM_INIT_RAM_INIT_SET(1), lan9645x, SYS_RAM_INIT);
+> +	err = lan9645x_rd_poll_timeout(lan9645x, SYS_RAM_INIT, val,
+> +				       SYS_RAM_INIT_RAM_INIT_GET(val) == 0);
+> +	if (err) {
+> +		dev_err(lan9645x->dev, "Failed to init chip RAM.\n");
+> +		return err;
+> +	}
+> +	lan_wr(SYS_RESET_CFG_CORE_ENA_SET(1), lan9645x, SYS_RESET_CFG);
+> +
+> +	return 0;
+> +}
+> +
+> +static int lan9645x_setup(struct dsa_switch *ds)
+> +{
+> +	struct lan9645x *lan9645x = ds->priv;
+> +	struct device *dev = lan9645x->dev;
+> +	int supported, used = 0;
+> +	struct dsa_port *dp;
+> +	u32 front_ports;
+> +	int err;
+> +
+> +	lan9645x->num_phys_ports = ds->num_ports;
+> +	front_ports = dsa_user_ports(ds);
+> +	supported = lan9645x->num_phys_ports - lan9645x->num_port_dis;
+> +
+> +	dsa_switch_for_each_available_port(dp, ds)
+> +		used++;
+> +
+> +	if (used > supported) {
+> +		dev_err(ds->dev,
+> +			"%d physical ports in use in DT, SKU supports at most %d\n",
+> +			used, supported);
+> +		return -EINVAL;
+> +	}
+> +
+> +	err = lan9645x_reset_switch(lan9645x);
+> +	if (err)
+> +		return err;
+> +
+> +	err = lan9645x_tag_npi_setup(ds);
+> +	if (err) {
+> +		dev_err(dev, "Failed to setup NPI port.\n");
+> +		return err;
+> +	}
+> +
+> +	/* Link Aggregation Mode: NETDEV_LAG_HASH_L2 */
+> +	lan_wr(ANA_AGGR_CFG_AC_SMAC_ENA |
+> +	       ANA_AGGR_CFG_AC_DMAC_ENA,
+> +	       lan9645x, ANA_AGGR_CFG);
+> +
+> +	/* Flush queues */
+> +	lan_wr(GENMASK(1, 0), lan9645x, QS_XTR_FLUSH);
+> +
+> +	/* Allow to drain */
+> +	usleep_range(1000, 2000);
+> +
+> +	/* All Queues normal */
+> +	lan_wr(0x0, lan9645x, QS_XTR_FLUSH);
+> +
+> +	/* Set MAC age time to default value, the entry is aged after
+> +	 * 2 * AGE_PERIOD
+> +	 */
+> +	lan_wr(ANA_AUTOAGE_AGE_PERIOD_SET(BR_DEFAULT_AGEING_TIME / 2 / HZ),
+> +	       lan9645x, ANA_AUTOAGE);
+> +
+> +	/* Disable learning for frames discarded by VLAN ingress filtering */
+> +	lan_rmw(ANA_ADVLEARN_VLAN_CHK_SET(1),
+> +		ANA_ADVLEARN_VLAN_CHK,
+> +		lan9645x, ANA_ADVLEARN);
+> +
+> +	/* Queue system frame ageing. We target 2s ageing.
+> +	 *
+> +	 * Register unit is 1024 cycles.
+> +	 *
+> +	 * ASIC: 165.625 Mhz  ~ 6.0377 ns period
+> +	 *
+> +	 * 1024 * 6.0377 ns =~ 6182 ns
+> +	 * val = 2000000000ns / 6182ns
+> +	 */
+> +	lan_wr(SYS_FRM_AGING_AGE_TX_ENA_SET(1) |
+> +	       SYS_FRM_AGING_MAX_AGE_SET((2000000000 / 6182)),
+> +	       lan9645x,  SYS_FRM_AGING);
+> +
+> +	/* Setup flooding PGIDs for IPv4/IPv6 multicast. Control and dataplane
+> +	 * use the same masks. Control frames are redirected to CPU, and
+> +	 * the network stack is responsible for forwarding these.
+> +	 * The dataplane is forwarding according to the offloaded MDB entries.
+> +	 */
+> +	lan_wr(ANA_FLOODING_IPMC_FLD_MC4_DATA_SET(PGID_MCIPV4) |
+> +	       ANA_FLOODING_IPMC_FLD_MC4_CTRL_SET(PGID_MC) |
+> +	       ANA_FLOODING_IPMC_FLD_MC6_DATA_SET(PGID_MCIPV6) |
+> +	       ANA_FLOODING_IPMC_FLD_MC6_CTRL_SET(PGID_MC),
+> +	       lan9645x, ANA_FLOODING_IPMC);
+> +
+> +	/* There are 8 priorities */
+> +	for (int prio = 0; prio < 8; ++prio)
+> +		lan_wr(ANA_FLOODING_FLD_MULTICAST_SET(PGID_MC) |
+> +		       ANA_FLOODING_FLD_UNICAST_SET(PGID_UC) |
+> +		       ANA_FLOODING_FLD_BROADCAST_SET(PGID_BC),
+> +		       lan9645x, ANA_FLOODING(prio));
+> +
+> +	/* Allow VLAN table to control whether cpu copy from the pgid table is
+> +	 * enabled. Index PGID_ENTRIES is CPU src pgid, so we skip it as the
+> +	 * configuration makes little sense here.
+> +	 */
+> +	for (int i = 0; i < PGID_ENTRIES; ++i)
+> +		lan_wr(ANA_PGID_CFG_OBEY_VLAN_SET(1),
+> +		       lan9645x, ANA_PGID_CFG(i));
+> +
+> +	/* Disable bridging by default */
+> +	for (int p = 0; p < lan9645x->num_phys_ports; p++) {
+> +		lan_wr(0, lan9645x, ANA_PGID(PGID_SRC + p));
+> +
+> +		/* Do not forward BPDU frames to the front ports and copy them
+> +		 * to CPU
+> +		 */
+> +		lan_wr(ANA_CPU_FWD_BPDU_CFG_BPDU_REDIR_ENA,
+> +		       lan9645x, ANA_CPU_FWD_BPDU_CFG(p));
+> +	}
+> +
+> +	for (int i = 0; i < 16; i++) {
+> +		/* The register instance number corresponds to the
+> +		 * address of the extracted frame. For instance:
+> +		 * CPUQ_8021_CFG[4].CPUQ_BPDU_VAL
+> +		 * is the cpu extraction queue used for BPDU frames
+> +		 * with address 01-80-C2-00-00-04
+> +		 */
+> +		lan_rmw(ANA_CPUQ_8021_CFG_CPUQ_BPDU_VAL_SET(LAN9645X_CPUQ_TRAP),
+> +			ANA_CPUQ_8021_CFG_CPUQ_BPDU_VAL,
+> +			lan9645x, ANA_CPUQ_8021_CFG(i));
+> +	}
+> +
+> +	/* Reserve ~1700 bytes of buffer memory per (port, prio) for source
+> +	 * tracking (resource 0, indices 0..95) and destination tracking
+> +	 * (resource 2, indices 512..607). These are access watermarks, not
+> +	 * pre-allocations: a flow draws from its reservation first, then
+> +	 * from the shared pool. Keeping the reservation above a max-size
+> +	 * Ethernet frame prevents a single frame from spilling into the
+> +	 * shared pool, and cause pause frames to be emitted without actual
+> +	 * congestion.
+> +	 */
+> +	for (int i = 0; i <= QSYS_Q_RSRV; ++i) {
+> +		lan_wr(QS_SRC_BUF_RSV / 64, lan9645x, QSYS_RES_CFG(i));
+> +		lan_wr(QS_SRC_BUF_RSV / 64, lan9645x, QSYS_RES_CFG(512 + i));
+> +	}
+> +
+> +	lan9645x_port_cpu_init(lan9645x);
+> +
+> +	/* Multicast to all front ports */
+> +	lan_wr(front_ports, lan9645x, ANA_PGID(PGID_MC));
+> +
+> +	/* IP multicast to all front ports */
+> +	lan_wr(front_ports, lan9645x, ANA_PGID(PGID_MCIPV4));
+> +	lan_wr(front_ports, lan9645x, ANA_PGID(PGID_MCIPV6));
+> +
+> +	/* Unicast to all front ports */
+> +	lan_wr(front_ports, lan9645x, ANA_PGID(PGID_UC));
 
-Signed-off-by: Vincent Jardin <vjardin@free.fr>
----
- Documentation/hwmon/mpq8646.rst |  314 ++++++++++
- MAINTAINERS                     |    8 +
- drivers/hwmon/pmbus/Kconfig     |   11 +
- drivers/hwmon/pmbus/Makefile    |    1 +
- drivers/hwmon/pmbus/mpq8646.c   | 1214 +++++++++++++++++++++++++++++++++++++++
- 5 files changed, 1548 insertions(+)
+Sashiko noted that the port mask here should likely include the CPU
+port, to allow correct handling of unknown unicast.
 
-diff --git a/Documentation/hwmon/mpq8646.rst b/Documentation/hwmon/mpq8646.rst
-new file mode 100644
-index 000000000000..61ca2a5387da
---- /dev/null
-+++ b/Documentation/hwmon/mpq8646.rst
-@@ -0,0 +1,314 @@
-+.. SPDX-License-Identifier: GPL-2.0-only
-+.. Copyright (c) 2026 Free Mobile - Vincent Jardin <vjardin@free.fr>
-+
-+Kernel driver mpq8646
-+=====================
-+
-+Supported chips:
-+
-+  * MPS MPQ8646
-+
-+    Prefix: 'mpq8646'
-+
-+Author:
-+  - Vincent Jardin <vjardin@free.fr>
-+
-+Chip-identity
-+-------------
-+
-+Support the boards that are designed with the MPS MPQ8646 probed thanks
-+to``MFR_MODEL`` register.
-+
-+This driver targets the MPQ8646 silicon specifically.
-+
-+Description
-+-----------
-+
-+The MPQ8646 is a fully integrated, PMBus-compatible, high-frequency,
-+synchronous buck converter. It offers a compact solution that
-+achieves up high Amps output current per phase, with excellent load
-+and line regulation over a wide input supply range. The chip
-+operates at high efficiency over a wide output current load range.
-+
-+The PMBus interface provides converter configurations and key
-+parameters monitoring.
-+
-+The device adopts MPS's proprietary multi-phase digital
-+constant-on-time (MCOT) control, which provides fast transient
-+response and eases loop stabilization. The MCOT scheme also allows
-+multiple devices or channels to be connected in parallel with
-+excellent current sharing and phase interleaving for high-current
-+applications.
-+
-+Fully integrated protection features include over-current
-+protection (OCP), over-voltage protection (OVP), under-voltage
-+protection (UVP), and over-temperature protection (OTP).
-+
-+This device is compliant with:
-+
-+- PMBus rev 1.3 interface.
-+
-+The driver exports the following attributes via the 'sysfs' files
-+for input voltage:
-+
-+- in1_input
-+- in1_label
-+- in1_max
-+- in1_max_alarm
-+- in1_min
-+- in1_min_alarm
-+- in1_crit
-+- in1_crit_alarm
-+
-+The driver provides the following attributes for output voltage:
-+
-+- in2_input
-+- in2_label
-+- in2_alarm
-+- in2_max
-+- in2_max_alarm
-+- in2_min
-+- in2_min_alarm
-+- in2_crit
-+- in2_crit_alarm
-+- in2_lcrit
-+- in2_lcrit_alarm
-+
-+The driver provides the following attributes for output current:
-+
-+- curr1_input
-+- curr1_label
-+- curr1_max
-+- curr1_max_alarm
-+- curr1_crit
-+- curr1_crit_alarm
-+
-+The driver provides the following attributes for temperature:
-+
-+- temp1_input
-+- temp1_max
-+- temp1_max_alarm
-+- temp1_crit
-+- temp1_crit_alarm
-+
-+Alarm acknowledgment
-+---------------------
-+
-+The hwmon-class ``inX_alarm``/``currX_alarm``/``tempX_alarm`` files are
-+read-only in pmbus_core. The driver exposes the standard
-+``PMBUS_VIRT_RESET_*_HISTORY`` virtual-register channel for fault
-+acknowledgment: writing ``1`` to ``inX_reset_history`` /
-+``currX_reset_history`` / ``tempX_reset_history`` sends the chip a
-+``CLEAR_FAULTS`` (0x03) Send-Byte, which clears the latched
-+``STATUS_WORD`` / ``STATUS_VOUT`` / ``STATUS_IOUT`` /
-+``STATUS_INPUT`` / ``STATUS_TEMPERATURE`` bits the chip is currently
-+exposing.
-+
-+The MPS-specific NVM post-mortem register
-+``PROTECTION_LAST`` (0xFB) is not cleared by this path, see the use of the
-+``clear_protection_last[_force]`` debugfs entries described below.
-+
-+Regulator framework integration
-+-------------------------------
-+
-+When ``CONFIG_REGULATOR=y`` is set, the chip is
-+exposed under ``/sys/class/regulator/`` and accepts the standard
-+regulator framework operations:
-+
-+- ``regulator_enable()`` / ``regulator_disable()`` -> ``OPERATION`` (0x01)
-+- ``regulator_set_voltage()`` -> ``VOUT_COMMAND`` (0x21)
-+- ``regulator_get_voltage()`` -> ``READ_VOUT`` (0x8B)
-+- ``regulator_is_enabled()`` -> ``OPERATION`` bit-decode
-+
-+The single regulator descriptor is named ``"vout"`` (page 0). For a
-+multi-page configuration the descriptor table can be extended in
-+the driver.
-+
-+In-driver alarm-poll fallback
-+-----------------------------
-+
-+On boards where the chip's ``SMBALERT#`` pin is unavailable to the
-+SoC, ``pmbus_core::pmbus_irq_setup`` cannot deliver SMBALERT-driven
-+``poll(POLLPRI)`` wakes or ``udev change@...`` events on the
-+``inX_alarm`` files. The driver provides a ``delayed_work``-based
-+polling fallback (inspired from ``drivers/hwmon/lm90.c``) that
-+periodically reads ``STATUS_WORD`` and calls ``hwmon_notify_event()``
-+on 0->1 transitions. The frequency of polling is tunable:
-+
-+::
-+
-+  /sys/kernel/debug/mpq8646/<bus>-<addr>/alarm_poll_interval_ms
-+
-+The default is 1000 ms.
-+
-+Set it to 0 to disable. The worker self-suppresses
-+when ``client->irq != 0`` (i.e. when DT supplies an
-+``interrupts = <...>``  property on the regulator node), so adding
-+``SMBALERT#`` wiring is a zero-driver-change uplift on a future
-+board rev.
-+
-+MPS post-mortem (PROTECTION_LAST)
-+---------------------------------
-+
-+The MPQ8646 silicon keeps a single 16-bit NVM-backed record of the
-+last protection event in ``PROTECTION_LAST`` (0xFB). It survives
-+chip power/reset. The following debugfs entries expose it:
-+
-+::
-+
-+  /sys/kernel/debug/mpq8646/<bus>-<addr>/protection_last           (RO)
-+  /sys/kernel/debug/mpq8646/<bus>-<addr>/clear_protection_last     (WO)
-+  /sys/kernel/debug/mpq8646/<bus>-<addr>/clear_protection_last_force (WO)
-+  /sys/kernel/debug/mpq8646/<bus>-<addr>/status_decoded            (RO)
-+
-+``protection_last`` decodes the 16-bit value based on the datasheet
-+fault names (``INIT_FAULT``, ``NVM_CRC_ERROR``, ``NVM_FAULT``,
-+``OC_PHASE_FAULT``, ``OTP_SELF_FAULT``, ``SWITCH_PRD_FAULT``,
-+``VIN_OV_FAULT``, ``VOUT_OV_FAULT``, ``VOUT_UV_FAULT``,
-+``OC_TOT_FAULT``, ``VIN_UVLO_FAULT``, ``DRMOS_OTP``).
-+
-+``clear_protection_last`` writes ``CLEAR_LAST_FAULT`` (0x08) Send-Byte.
-+The chip silently no-ops unless ``MFR_CFG_EXT`` (0xF5) bit[6] is set.
-+
-+``clear_protection_last_force`` performs the unlock with the following
-+six-step dansing:
-+
-+1. read ``WRITE_PROTECT`` (0x10) and ``MFR_CFG_EXT`` (0xF5) for restore
-+2. clear ``WRITE_PROTECT`` if set
-+3. set ``MFR_CFG_EXT`` bit[6] = 1, preserving other bits
-+4. send ``CLEAR_LAST_FAULT`` (0x08)
-+5. restore ``MFR_CFG_EXT`` (with retry to handle the chip's
-+   undocumented post-NVM-write busy window)
-+6. restore ``WRITE_PROTECT``
-+
-+``status_decoded`` reads ``STATUS_WORD`` (0x79) and renders the
-+16 bits with MPS-extension labels (bit12 = ``NVM_SUMMARY``,
-+bit8 = ``WATCH_DOG``, bit0 = ``DRMOS_FAULT``) instead of the
-+PMBus 1.3 spec generic names.
-+
-+NVMEM snapshot
-+--------------
-+
-+When ``CONFIG_NVMEM=y`` is set, the chip's NVM-backed
-+observability registers are exposed as a single 16-byte read-only
-+``nvmem_device`` at ``/sys/bus/nvmem/devices/<i2c-name>/nvmem``.
-+Layout (little-endian for 16-bit fields, zero-fill on per-entry read
-+failure and for the reserved tail):
-+
-+::
-+
-+  offset 0..1   PROTECTION_LAST  (0xFB)  word
-+  offset 2..3   MFR_RETRY_TIMES  (0xF4)  word
-+  offset 4..5   MFR_CONFIG_ID    (0xC0)  word
-+  offset 6..7   MFR_VBOOT_CFG    (0xFC)  word
-+  offset 8      MFR_SILICON_REV  (0xC3)  byte
-+  offset 9..15  reserved (zero)
-+
-+Suitable for single-``cat`` post-mortem capture by a fleet daemon.
-+
-+Diagnostics and introspection
-+-----------------------------
-+
-+When ``CONFIG_DEBUG_FS=y`` is set, the driver exposes the following
-+entries under ``/sys/kernel/debug/mpq8646/<bus>-<addr>/``. Most are diagnostic
-+probes; the read/write entries (marked R/W) are direct accessors to
-+the underlying chip command.
-+
-+Identity / observability (read-only):
-+
-+==========================  ==================  =================================
-+File                        PMBus / MFR cmd     Description
-+==========================  ==================  =================================
-+``mfr_config_id``           0xC0 (word)         board / SKU NVM identifier
-+``mfr_config_code_rev``     0xC1 (word)         NVM image revision (PART_RECOG +
-+                                                config code rev fields)
-+``mfr_silicon_rev``         0xC3 (byte)         die revision
-+``mfr_retry_times``         0xF4 (word)         per-fault-class recovery-mode
-+                                                configuration (NOT a retry
-+                                                count). Four 4-bit fields
-+                                                [15:12]=OTP, [11:8]=VOUT_OV,
-+                                                [7:4]=VOUT_UV, [3:0]=OCP.
-+                                                Each field: 0x0=latch-off,
-+                                                0x1..0xE=retry N times then
-+                                                latch off, 0xF=hiccup
-+                                                (retry indefinitely). The
-+                                                chip exposes no in-NVM
-+                                                retry-event counter; track
-+                                                transitions externally if
-+                                                needed (poll
-+                                                ``protection_last`` or watch
-+                                                ``inX_alarm`` / ``temp1_alarm``
-+                                                ``poll(POLLPRI)`` wakes).
-+``mfr_vboot_cfg``           0xFC (word)         ADDR/VBOOT latched at POR
-+==========================  ==================  =================================
-+
-+Timing / UVLO knobs (read-only):
-+
-+==========================  ==================  =================================
-+File                        PMBus cmd           Description
-+==========================  ==================  =================================
-+``vin_on``                  0x35 (word)         UVLO turn-on threshold
-+``vin_off``                 0x36 (word)         UVLO turn-off threshold
-+``ton_delay``               0x60 (word)         soft-start delay
-+``ton_rise``                0x61 (word)         soft-start ramp time
-+``toff_delay``              0x64 (word)         soft-stop delay
-+``toff_fall``               0x65 (word)         soft-stop ramp time
-+==========================  ==================  =================================
-+
-+Configuration (read/write):
-+
-+==========================  ==================  =================================
-+File                        PMBus / MFR cmd     Description
-+==========================  ==================  =================================
-+``on_off_config``           0x02 (byte)         PMBus vs CTRL-pin on/off source +
-+                                                active polarity
-+``vout_margin_high``        0x25 (word)         production margin-high VOUT setpoint
-+``vout_margin_low``         0x26 (word)         production margin-low VOUT setpoint
-+``mfr_pmbus_lock``          0xEE (word)         programmable PMBus write-lock
-+                                                (independent of WRITE_PROTECT)
-+``mfr_product_rev_user``    0xC2 (word)         user-programmable product revision
-+``alarm_poll_interval_ms``  --                  alarm-poll worker cadence (driver-
-+                                                local, not a chip register)
-+==========================  ==================  =================================
-+
-+NVM commit / revert (write-only):
-+
-+==========================  ==================  =================================
-+File                        PMBus cmd           Description
-+==========================  ==================  =================================
-+``store_all``               0x15                STORE_USER_ALL Send-Byte (commit RAM
-+                                                config to chip NVM)
-+``restore_all``             0x16                RESTORE_USER_ALL Send-Byte (revert
-+                                                RAM to last-NVM image)
-+==========================  ==================  =================================
-+
-+Bring-up probes (write-only triggers, results in ``last_probe``):
-+
-+==========================  ==================================================
-+File                        Action
-+==========================  ==================================================
-+``probe_smbus_rword <reg>``  i2c_smbus_read_word_data on <reg>
-+``probe_smbus_rbyte <reg>``  i2c_smbus_read_byte_data on <reg>
-+``probe_raw_xfer <reg>``     raw i2c_transfer read-word on <reg>
-+``probe_page_write <pg>``    write PMBUS_PAGE = <pg>
-+``probe_clear_faults``       send CLEAR_FAULTS (0x03) Send-Byte
-+``force_raw_xfer``           if 1, the read_word_data hook uses raw i2c_transfer
-+``delay_us``                 udelay before each chip-driver hook call
-+``stats``                    per-hook call / error counters
-+``last_probe``               result of the most recent probe_* operation
-+``reset_stats``              zero the stats counters
-+==========================  ==================================================
-+
-+Devicetree
-+----------
-+
-+The driver uses ``compatible = "mps,mpq8646"``. There are some few optional
-+properties:
-+
-+- ``mps,vout-fb-divider-ratio-permille`` : it writes ``VOUT_SCALE_LOOP``
-+  (0x29) at probe to compensate for an external resistor divider in
-+  the VOUT feedback path. The valid range is 11-bit.
-+- ``interrupts = <...>`` : if the board routes the chip's
-+  ``SMBALERT#`` pin to a SoC GPIO, declaring it here lights up
-+  ``pmbus_core::pmbus_irq_setup`` and disables the in-driver
-+  alarm-poll fallback
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 1ab8736850ea..f4766a851df5 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -18328,6 +18328,14 @@ S:	Maintained
- F:	Documentation/hwmon/mp9945.rst
- F:	drivers/hwmon/pmbus/mp9945.c
- 
-+MPS MPQ8646 PMBUS DRIVER
-+M:	Vincent Jardin <vjardin@free.fr>
-+L:	linux-hwmon@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/hwmon/pmbus/mps,mpq8646.yaml
-+F:	Documentation/hwmon/mpq8646.rst
-+F:	drivers/hwmon/pmbus/mpq8646.c
-+
- MR800 AVERMEDIA USB FM RADIO DRIVER
- M:	Alexey Klimov <alexey.klimov@linaro.org>
- L:	linux-media@vger.kernel.org
-diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
-index c8cda160b5f8..9f44e76b0b64 100644
---- a/drivers/hwmon/pmbus/Kconfig
-+++ b/drivers/hwmon/pmbus/Kconfig
-@@ -616,6 +616,17 @@ config SENSORS_MPQ8785
- 	  This driver can also be built as a module. If so, the module will
- 	  be called mpq8785.
- 
-+config SENSORS_MPQ8646
-+	tristate "MPS MPQ8646"
-+	depends on REGULATOR || !REGULATOR
-+	depends on NVMEM || !NVMEM
-+	help
-+	  If you say yes here you get hardware monitoring support for the
-+	  Monolithic Power Systems MPQ8646.
-+
-+	  This driver can also be built as a module. If so, the module
-+	  will be called mpq8646.
-+
- config SENSORS_PIM4328
- 	tristate "Flex PIM4328 and compatibles"
- 	help
-diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
-index ffc05f493213..6f8fda966600 100644
---- a/drivers/hwmon/pmbus/Makefile
-+++ b/drivers/hwmon/pmbus/Makefile
-@@ -60,6 +60,7 @@ obj-$(CONFIG_SENSORS_MP9941)	+= mp9941.o
- obj-$(CONFIG_SENSORS_MP9945)	+= mp9945.o
- obj-$(CONFIG_SENSORS_MPQ7932)	+= mpq7932.o
- obj-$(CONFIG_SENSORS_MPQ8785)	+= mpq8785.o
-+obj-$(CONFIG_SENSORS_MPQ8646)	+= mpq8646.o
- obj-$(CONFIG_SENSORS_PLI1209BC)	+= pli1209bc.o
- obj-$(CONFIG_SENSORS_PM6764TR)	+= pm6764tr.o
- obj-$(CONFIG_SENSORS_PXE1610)	+= pxe1610.o
-diff --git a/drivers/hwmon/pmbus/mpq8646.c b/drivers/hwmon/pmbus/mpq8646.c
-new file mode 100644
-index 000000000000..17096abaaaa7
---- /dev/null
-+++ b/drivers/hwmon/pmbus/mpq8646.c
-@@ -0,0 +1,1214 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Driver for MPS MPQ8646 step-down converter.
-+ *
-+ * Copyright (c) 2026 Free Mobile - Vincent Jardin <vjardin@free.fr>
-+ */
-+
-+#include <linux/bitops.h>
-+#include <linux/debugfs.h>
-+#include <linux/delay.h>
-+#include <linux/hwmon.h>
-+#include <linux/i2c.h>
-+#include <linux/ktime.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/nvmem-provider.h>
-+#include <linux/of_device.h>
-+#include <linux/pmbus.h>
-+#include <linux/property.h>
-+#include <linux/regulator/driver.h>
-+#include <linux/seq_file.h>
-+#include <linux/workqueue.h>
-+#include "pmbus.h"
-+
-+/* Default cadence for the in-driver alarm-poll fallback (ms) */
-+#define MPQ8646_ALARM_POLL_MS_DEFAULT	1000
-+
-+/* MPS vendor-extended command codes (NOT in PMBus 1.3 Part II) */
-+#define MPS_CLEAR_LAST_FAULT		0x08
-+#define MPS_MFR_CFG_EXT			0xF5
-+#define MPS_MFR_CFG_EXT_CLR_LAST_EN	BIT(6)
-+#define MPS_PROTECTION_LAST		0xFB
-+
-+/*
-+ * PMBus 1.3 NVM commit / revert commands. pmbus.h does not provide
-+ * named constants for these. MPS equivalent of STORE_ALL (15h) and
-+ * RESTORE_ALL (16h).
-+ */
-+#define PMBUS_STORE_USER_ALL		0x15
-+#define PMBUS_RESTORE_USER_ALL		0x16
-+
-+/* PMBus 1.3 timing / UVLO command codes that pmbus.h doesn't expose */
-+#define PMBUS_VIN_ON			0x35
-+#define PMBUS_VIN_OFF			0x36
-+#define PMBUS_TON_DELAY			0x60
-+#define PMBUS_TON_RISE			0x61
-+#define PMBUS_TOFF_DELAY		0x64
-+#define PMBUS_TOFF_FALL			0x65
-+
-+/* MPS vendor-extended observability / identity registers */
-+#define MPS_MFR_CONFIG_ID		0xC0
-+#define MPS_MFR_CONFIG_CODE_REV		0xC1
-+#define MPS_MFR_PRODUCT_REV_USER	0xC2
-+#define MPS_MFR_SILICON_REV		0xC3
-+#define MPS_MFR_RETRY_TIMES		0xF4
-+#define MPS_MFR_VBOOT_CFG		0xFC
-+
-+/*
-+ * MPS_MFR_PMBUS_LOCK (EEh): 16-bit WORD whose low two bits gate
-+ * subsequent PMBus writes
-+ *   bits[1:0] = 00  -- unlocked (POR default)
-+ *               01  -- lock all writes EXCEPT VOUT_COMMAND (0x21)
-+ *                      so the operator can still DVFS the rail
-+ *               11  -- lock all writes
-+ * A negative-going PG edge resets these bits to 00, the lock
-+ * is operationally reversible without a full chip POR.
-+ */
-+#define MPS_MFR_PMBUS_LOCK		0xEE
-+
-+/*
-+ * Retry parameters for the MFR_CFG_EXT gate-close write after
-+ * CLEAR_LAST_FAULT. Bench-observed NVM-busy NACK window on this
-+ * silicon is about 1 ms; the datasheet does not have information.
-+ */
-+#define MPQ8646_NVM_RETRY_MAX		5
-+#define MPQ8646_NVM_RETRY_DELAY_US_MIN	2000
-+#define MPQ8646_NVM_RETRY_DELAY_US_MAX	4000
-+
-+/*
-+ * VOUT_MODE invalid-value sentinel. PMBus chips return all-ones on
-+ * unimplemented-register reads (a 0xFF byte is otherwise a legal
-+ * encoding for VID mode 0b111, so we treat exactly 0xFF as
-+ * "register absent" rather than "valid mode 7").
-+ */
-+#define PB_VOUT_MODE_INVALID		0xFF
-+
-+/*
-+ * VOUT_MODE byte layout per PMBus 1.3 Part II Table 2:
-+ *   [7:5] mode (0=LINEAR16, 1=VID, 2=DIRECT, ...)
-+ *   [4:0] mode-specific parameter (e.g. linear-format exponent)
-+ * pmbus.h gives us PB_VOUT_MODE_MODE_MASK (0xE0) and
-+ * PB_VOUT_MODE_LINEAR/VID/DIRECT as bit-aligned mask values; we
-+ * still need an explicit shift to compare them after a right-shift
-+ * to-the-LSB.
-+ */
-+#define PB_VOUT_MODE_MODE_SHIFT		5
-+
-+#define MPQ8646_TRACE(fmt, ...) \
-+	pr_debug("mpq8646-trace: " fmt, ##__VA_ARGS__)
-+
-+/*
-+ * Maximum legal value for VOUT_SCALE_LOOP (0x29) on the MPQ8646 silicon
-+ * The chip uses an 11-bit VOUT feedback-divider scale register.
-+ */
-+#define MPQ8646_VOUT_SCALE_LOOP_MAX	GENMASK(10, 0)
-+
-+/* Forward declaration */
-+struct mpq8646_dbg_reg_ctx;
-+
-+/* Per-instance state */
-+struct mpq8646_priv {
-+	struct pmbus_driver_info info;	/* must be first, container_of target */
-+	struct i2c_client	*client;
-+
-+	atomic_t		read_byte_calls;
-+	atomic_t		read_word_calls;
-+	atomic_t		write_byte_calls;
-+	atomic_t		read_byte_err;
-+	atomic_t		read_word_err;
-+	atomic_t		clear_faults_swallowed;
-+	atomic_t		page_writes_swallowed;
-+
-+	bool			debug_force_raw_xfer;
-+	unsigned int		debug_delay_us;
-+
-+	int			last_probe_rc;
-+	u16			last_probe_data;
-+
-+	/* Serialises CLEAR_LAST_FAULT sequences and PROTECTION_LAST reads */
-+	struct mutex		mps_lock;
-+
-+	/*
-+	 * Adapted from lm90's alert_work pattern
-+	 * Set alarm_poll_interval_ms = 0 to disable.
-+	 */
-+	struct delayed_work	alarm_poll_work;
-+	struct device		*hwmon_dev;
-+	u16			last_status_word;
-+	u32			alarm_poll_interval_ms;
-+
-+#ifdef CONFIG_DEBUG_FS
-+	struct dentry		*debugfs_root;
-+	struct mpq8646_dbg_reg_ctx	*dbg_reg_ctx;
-+#endif
-+};
-+
-+struct mpq_status_bit {
-+	u16		mask;
-+	const char	*name;
-+};
-+
-+static const struct mpq_status_bit mpq8646_status_word_bits[] = {
-+	{ PB_STATUS_VOUT,         "VOUT" },
-+	{ PB_STATUS_IOUT_POUT,    "IOUT_POUT" },
-+	{ PB_STATUS_INPUT,        "INPUT" },
-+	{ PB_STATUS_WORD_MFR,     "NVM_SUMMARY" },
-+	{ PB_STATUS_POWER_GOOD_N, "POWER_GOOD#" },
-+	{ PB_STATUS_FANS,         "FANS" },
-+	{ PB_STATUS_OTHER,        "OTHER" },
-+	{ PB_STATUS_UNKNOWN,      "WATCH_DOG" },
-+	{ PB_STATUS_BUSY,         "BUSY" },
-+	{ PB_STATUS_OFF,          "OFF" },
-+	{ PB_STATUS_VOUT_OV,      "VOUT_OV_FAULT" },
-+	{ PB_STATUS_IOUT_OC,      "IOUT_OC_FAULT" },
-+	{ PB_STATUS_VIN_UV,       "VIN_UV_FAULT" },
-+	{ PB_STATUS_TEMPERATURE,  "TEMP" },
-+	{ PB_STATUS_CML,          "CML" },
-+	{ PB_STATUS_NONE_ABOVE,   "DRMOS_FAULT" },
-+	{ /* sentinel */ }
-+};
-+
-+/* PROTECTION_LAST (0xFB) bit names, it survives chip POR */
-+static const struct mpq_status_bit mpq8646_protection_last_bits[] = {
-+	{ BIT(15), "INIT_FAULT" },
-+	{ BIT(14), "NVM_CRC_ERROR" },
-+	{ BIT(13), "NVM_FAULT" },
-+	{ BIT(12), "OC_PHASE_FAULT" },
-+	{ BIT(11), "OTP_SELF_FAULT" },
-+	{ BIT(9),  "SWITCH_PRD_FAULT" },
-+	{ BIT(8),  "VIN_OV_FAULT" },
-+	{ BIT(7),  "VOUT_OV_FAULT" },
-+	{ BIT(6),  "VOUT_UV_FAULT" },
-+	{ BIT(5),  "OC_TOT_FAULT" },
-+	{ BIT(4),  "VIN_UVLO_FAULT" },
-+	{ BIT(3),  "DRMOS_OTP" },
-+	{ /* sentinel */ }
-+};
-+
-+static inline struct mpq8646_priv *mpq8646_priv_from_client(struct i2c_client *client)
-+{
-+	const struct pmbus_driver_info *info = pmbus_get_driver_info(client);
-+
-+	return container_of(info, struct mpq8646_priv, info);
-+}
-+
-+static int mpq8646_raw_xfer_rword(struct i2c_client *client, u8 reg)
-+{
-+	u8 cmd = reg;
-+	__le16 data = 0;
-+	struct i2c_msg msg[] = {
-+		{
-+			.addr = client->addr,
-+			.flags = 0,
-+			.len = sizeof(cmd),
-+			.buf = &cmd,
-+		},
-+		{
-+			.addr = client->addr,
-+			.flags = I2C_M_RD,
-+			.len = sizeof(data),
-+			.buf = (u8 *)&data,
-+		},
-+	};
-+	int rc;
-+
-+	rc = i2c_transfer(client->adapter, msg, ARRAY_SIZE(msg));
-+	if (rc < 0)
-+		return rc;
-+	if (rc != ARRAY_SIZE(msg))
-+		return -EIO;
-+	return le16_to_cpu(data);
-+}
-+
-+/*
-+ * VID-mode m/b/R coefficients per MPS datasheet:
-+ *   y_uV = (m * raw + b * 10^-R) -- m=64 / R=1 gives 6.4 mV/LSB,
-+ *   which matches the chip's VID range.
-+ */
-+#define MPQ8646_VID_M			64
-+#define MPQ8646_VID_B			0
-+#define MPQ8646_VID_R			1
-+
-+static int mpq8646_identify(struct i2c_client *client,
-+			    struct pmbus_driver_info *info)
-+{
-+	int vout_mode;
-+
-+	vout_mode = pmbus_read_byte_data(client, 0, PMBUS_VOUT_MODE);
-+	if (vout_mode < 0)
-+		return vout_mode;
-+	if (vout_mode == PB_VOUT_MODE_INVALID)
-+		return -ENODEV;
-+
-+	switch ((vout_mode & PB_VOUT_MODE_MODE_MASK) >> PB_VOUT_MODE_MODE_SHIFT) {
-+	case PB_VOUT_MODE_LINEAR >> PB_VOUT_MODE_MODE_SHIFT:
-+		info->format[PSC_VOLTAGE_OUT] = linear;
-+		break;
-+	case PB_VOUT_MODE_VID >> PB_VOUT_MODE_MODE_SHIFT:
-+	case PB_VOUT_MODE_DIRECT >> PB_VOUT_MODE_MODE_SHIFT:
-+		info->format[PSC_VOLTAGE_OUT] = direct;
-+		info->m[PSC_VOLTAGE_OUT] = MPQ8646_VID_M;
-+		info->b[PSC_VOLTAGE_OUT] = MPQ8646_VID_B;
-+		info->R[PSC_VOLTAGE_OUT] = MPQ8646_VID_R;
-+		break;
-+	default:
-+		return -ENODEV;
-+	}
-+
-+	return 0;
-+};
-+
-+static int mpq8646_read_byte_data(struct i2c_client *client, int page, int reg)
-+{
-+	struct mpq8646_priv *priv = mpq8646_priv_from_client(client);
-+	int ret;
-+
-+	atomic_inc(&priv->read_byte_calls);
-+	MPQ8646_TRACE("read_byte_data page=%d reg=0x%02x\n", page, reg);
-+
-+	if (priv->debug_delay_us)
-+		udelay(priv->debug_delay_us);
-+
-+	switch (reg) {
-+	case PMBUS_VOUT_MODE:
-+		ret = pmbus_read_byte_data(client, page, reg);
-+		MPQ8646_TRACE("  VOUT_MODE raw=0x%02x ret=%d\n", ret, ret);
-+		if (ret < 0) {
-+			atomic_inc(&priv->read_byte_err);
-+			return ret;
-+		}
-+
-+		if ((ret >> 5) == 1)
-+			return PB_VOUT_MODE_DIRECT;
-+
-+		return ret;
-+	case PMBUS_WRITE_PROTECT:
-+		MPQ8646_TRACE("  WRITE_PROTECT shimmed to 0 (framework path)\n");
-+		return 0;
-+	case PMBUS_STATUS_BYTE:
-+	case PMBUS_STATUS_CML:
-+	case PMBUS_STATUS_OTHER:
-+	case PMBUS_STATUS_MFR_SPECIFIC:
-+	case PMBUS_STATUS_FAN_12:
-+	case PMBUS_STATUS_FAN_34:
-+		return -ENXIO;
-+	case PMBUS_MFR_LOCATION:
-+	case PMBUS_MFR_DATE:
-+	case PMBUS_MFR_SERIAL:
-+	case PMBUS_IC_DEVICE_ID:
-+	case PMBUS_IC_DEVICE_REV:
-+		MPQ8646_TRACE("  unsupported mfr-info reg 0x%02x -> ENXIO\n", reg);
-+		return -ENXIO;
-+	default:
-+		return -ENODATA;
-+	}
-+}
-+
-+static int mpq8646_write_byte(struct i2c_client *client, int page, u8 value)
-+{
-+	struct mpq8646_priv *priv = mpq8646_priv_from_client(client);
-+
-+	atomic_inc(&priv->write_byte_calls);
-+	MPQ8646_TRACE("write_byte page=%d value=0x%02x\n", page, value);
-+
-+	if (priv->debug_delay_us)
-+		udelay(priv->debug_delay_us);
-+
-+	if (value == PMBUS_PAGE) {
-+		atomic_inc(&priv->page_writes_swallowed);
-+		return 0;
-+	}
-+
-+	return -ENODATA;	/* let core do the standard direct write */
-+}
-+
-+/*
-+ * Reference: ltc2978.c::ltc2978_write_word_data which uses the
-+ * same virtual-register channel for its real chip-side peak reset.
-+ */
-+static int mpq8646_write_word_data(struct i2c_client *client, int page,
-+				   int reg, u16 word)
-+{
-+	struct mpq8646_priv *priv = mpq8646_priv_from_client(client);
-+	int rc;
-+
-+	switch (reg) {
-+	case PMBUS_VIRT_RESET_VIN_HISTORY:
-+	case PMBUS_VIRT_RESET_VOUT_HISTORY:
-+	case PMBUS_VIRT_RESET_IOUT_HISTORY:
-+	case PMBUS_VIRT_RESET_TEMP_HISTORY:
-+		MPQ8646_TRACE("reset_history virt reg=0x%04x -> CLEAR_FAULTS\n",
-+			      reg);
-+		rc = i2c_smbus_write_byte(priv->client, PMBUS_CLEAR_FAULTS);
-+		if (rc < 0)
-+			MPQ8646_TRACE("  CLEAR_FAULTS rc=%d\n", rc);
-+		return rc < 0 ? rc : 0;
-+	default:
-+		return -ENODATA;	/* let pmbus_core do the direct write */
-+	}
-+}
-+
-+static int mpq8646_read_word_data(struct i2c_client *client, int page,
-+				  int phase, int reg)
-+{
-+	struct mpq8646_priv *priv = mpq8646_priv_from_client(client);
-+	int rc;
-+
-+	atomic_inc(&priv->read_word_calls);
-+	MPQ8646_TRACE("read_word_data page=%d phase=%d reg=0x%02x%s\n",
-+		      page, phase, reg,
-+		      priv->debug_force_raw_xfer ? " [force-raw]" : "");
-+
-+	if (priv->debug_delay_us)
-+		udelay(priv->debug_delay_us);
-+
-+	switch (reg) {
-+	case PMBUS_READ_VIN:
-+	case PMBUS_READ_VOUT:
-+	case PMBUS_READ_IOUT:
-+	case PMBUS_READ_TEMPERATURE_1:
-+	case PMBUS_STATUS_WORD:
-+	case PMBUS_VOUT_OV_FAULT_LIMIT:
-+	case PMBUS_VOUT_OV_WARN_LIMIT:
-+	case PMBUS_VOUT_UV_WARN_LIMIT:
-+	case PMBUS_VOUT_UV_FAULT_LIMIT:
-+	case PMBUS_IOUT_OC_FAULT_LIMIT:
-+	case PMBUS_IOUT_OC_WARN_LIMIT:
-+	case PMBUS_OT_FAULT_LIMIT:
-+	case PMBUS_OT_WARN_LIMIT:
-+	case PMBUS_VIN_OV_FAULT_LIMIT:
-+	case PMBUS_VIN_OV_WARN_LIMIT:
-+	case PMBUS_VIN_UV_WARN_LIMIT:
-+	case PMBUS_VIN_UV_FAULT_LIMIT:
-+	case PMBUS_MFR_VIN_MAX:
-+	case PMBUS_MFR_VOUT_MAX:
-+	case PMBUS_MFR_IOUT_MAX:
-+	case PMBUS_MFR_MAX_TEMP_1:
-+		break;
-+	case PMBUS_VIRT_RESET_VIN_HISTORY:
-+	case PMBUS_VIRT_RESET_VOUT_HISTORY:
-+	case PMBUS_VIRT_RESET_IOUT_HISTORY:
-+	case PMBUS_VIRT_RESET_TEMP_HISTORY:
-+		return 0;
-+	default:
-+		return -ENODATA;
-+	}
-+
-+	if (priv->debug_force_raw_xfer)
-+		rc = mpq8646_raw_xfer_rword(client, reg);
-+	else
-+		rc = i2c_smbus_read_word_data(client, reg);
-+
-+	if (rc < 0)
-+		atomic_inc(&priv->read_word_err);
-+
-+	MPQ8646_TRACE("  reg=0x%02x rc=%d\n", reg, rc);
-+	return rc;
-+}
-+
-+static struct pmbus_driver_info mpq8646_info = {
-+	.pages = 1,
-+	.format[PSC_VOLTAGE_IN] = direct,
-+	.format[PSC_CURRENT_OUT] = direct,
-+	.format[PSC_TEMPERATURE] = direct,
-+	.m[PSC_VOLTAGE_IN] = 4,
-+	.b[PSC_VOLTAGE_IN] = 0,
-+	.R[PSC_VOLTAGE_IN] = 1,
-+	.m[PSC_CURRENT_OUT] = 16,
-+	.b[PSC_CURRENT_OUT] = 0,
-+	.R[PSC_CURRENT_OUT] = 0,
-+	.m[PSC_TEMPERATURE] = 1,
-+	.b[PSC_TEMPERATURE] = 0,
-+	.R[PSC_TEMPERATURE] = 0,
-+	.func[0] = PMBUS_HAVE_VIN | PMBUS_HAVE_VOUT |
-+		   PMBUS_HAVE_IOUT | PMBUS_HAVE_TEMP |
-+		   PMBUS_HAVE_STATUS_INPUT | PMBUS_HAVE_STATUS_VOUT |
-+		   PMBUS_HAVE_STATUS_IOUT | PMBUS_HAVE_STATUS_TEMP,
-+};
-+
-+#if IS_ENABLED(CONFIG_REGULATOR)
-+static const struct regulator_desc mpq8646_reg_desc[] = {
-+	PMBUS_REGULATOR("vout", 0),
-+};
-+#endif /* CONFIG_REGULATOR */
-+
-+#if IS_ENABLED(CONFIG_NVMEM)
-+/*
-+ * Expose using
-+ *   /sys/bus/nvmem/devices/<i2c-name>/nvmem
-+ *
-+ * Layout (16 bytes):
-+ *   offset 0..1   PROTECTION_LAST (0xFB)    word, LE     -- NVM
-+ *   offset 2..3   MFR_RETRY_TIMES (0xF4)    word, LE     -- NVM
-+ *   offset 4..5   MFR_CONFIG_ID   (0xC0)    word, LE     -- NVM
-+ *   offset 6..7   MFR_VBOOT_CFG   (0xFC)    word, LE     -- NVM
-+ *   offset 8      MFR_SILICON_REV (0xC3)    byte         -- NVM
-+ *   offset 9..15  reserved (zero-fill, leaves room for additions)
-+ */
-+#define MPQ8646_NVMEM_SIZE	16
-+
-+struct mpq8646_nvmem_entry {
-+	unsigned int	off;
-+	u8		reg;
-+	bool		is_word;
-+};
-+
-+static const struct mpq8646_nvmem_entry mpq8646_nvmem_map[] = {
-+	{ 0, MPS_PROTECTION_LAST, true  },
-+	{ 2, MPS_MFR_RETRY_TIMES, true  },
-+	{ 4, MPS_MFR_CONFIG_ID,   true  },
-+	{ 6, MPS_MFR_VBOOT_CFG,   true  },
-+	{ 8, MPS_MFR_SILICON_REV, false },
-+};
-+
-+static int mpq8646_nvmem_read(void *data, unsigned int offset, void *val,
-+			      size_t bytes)
-+{
-+	struct mpq8646_priv *priv = data;
-+	u8 *out = val;
-+	size_t i;
-+
-+	if (offset >= MPQ8646_NVMEM_SIZE)
-+		return -EINVAL;
-+	if (offset + bytes > MPQ8646_NVMEM_SIZE)
-+		bytes = MPQ8646_NVMEM_SIZE - offset;
-+
-+	memset(out, 0, bytes);
-+
-+	for (i = 0; i < ARRAY_SIZE(mpq8646_nvmem_map); i++) {
-+		const struct mpq8646_nvmem_entry *e = &mpq8646_nvmem_map[i];
-+		unsigned int e_start = e->off;
-+		unsigned int e_end = e_start + (e->is_word ? 2 : 1);
-+		u8 raw[2];
-+		int rc;
-+		unsigned int j;
-+
-+		if (e_end <= offset || e_start >= offset + bytes)
-+			continue;	/* outside requested slice */
-+
-+		if (e->is_word)
-+			rc = i2c_smbus_read_word_data(priv->client, e->reg);
-+		else
-+			rc = i2c_smbus_read_byte_data(priv->client, e->reg);
-+		if (rc < 0)
-+			continue;	/* leave the zero-fill in place */
-+
-+		raw[0] = rc & 0xff;
-+		raw[1] = (rc >> 8) & 0xff;
-+
-+		for (j = 0; j < e_end - e_start; j++) {
-+			unsigned int abs = e_start + j;
-+
-+			if (abs >= offset && abs < offset + bytes)
-+				out[abs - offset] = raw[j];
-+		}
-+	}
-+	return 0;
-+}
-+#endif /* CONFIG_NVMEM */
-+
-+static const struct i2c_device_id mpq8646_id[] = {
-+	{ "mpq8646", 0 },
-+	{ },
-+};
-+MODULE_DEVICE_TABLE(i2c, mpq8646_id);
-+
-+static const struct of_device_id __maybe_unused mpq8646_of_match[] = {
-+	{ .compatible = "mps,mpq8646" },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, mpq8646_of_match);
-+
-+static struct pmbus_platform_data mpq8646_no_pec_pdata = {
-+	.flags = PMBUS_NO_CAPABILITY,
-+};
-+
-+#ifdef CONFIG_DEBUG_FS
-+/*
-+ *   /sys/kernel/debug/mpq8646/<bus>-<addr>/
-+ *       probe_smbus_rword   echo <reg>  call i2c_smbus_read_word_data
-+ *       probe_smbus_rbyte   echo <reg>  call i2c_smbus_read_byte_data
-+ *       probe_raw_xfer      echo <reg>  call i2c_transfer manually
-+ *       probe_page_write    echo <pg>   write PMBUS_PAGE = pg
-+ *       probe_clear_faults  echo 1      send CLEAR_FAULTS Send-Byte
-+ *       force_raw_xfer      0|1         production read_word_data path
-+ *       delay_us            <N>         udelay before each hook
-+ *       last_probe          read-only   "rc=<rc> data=0x<hex>"
-+ *       stats               read-only   counters
-+ *       reset_stats         write-only  zero counters
-+ */
-+
-+static int mpq8646_dbg_probe_smbus_rword(void *data, u64 val)
-+{
-+	struct mpq8646_priv *priv = data;
-+	int rc;
-+
-+	rc = i2c_smbus_read_word_data(priv->client, (u8)val);
-+	priv->last_probe_rc = rc;
-+	priv->last_probe_data = (rc < 0) ? 0 : (u16)rc;
-+	return 0;
-+}
-+DEFINE_DEBUGFS_ATTRIBUTE(mpq8646_dbg_probe_smbus_rword_fops,
-+			 NULL, mpq8646_dbg_probe_smbus_rword, "%llu\n");
-+
-+static int mpq8646_dbg_probe_smbus_rbyte(void *data, u64 val)
-+{
-+	struct mpq8646_priv *priv = data;
-+	int rc;
-+
-+	rc = i2c_smbus_read_byte_data(priv->client, (u8)val);
-+	priv->last_probe_rc = rc;
-+	priv->last_probe_data = (rc < 0) ? 0 : (u8)rc;
-+	return 0;
-+}
-+DEFINE_DEBUGFS_ATTRIBUTE(mpq8646_dbg_probe_smbus_rbyte_fops,
-+			 NULL, mpq8646_dbg_probe_smbus_rbyte, "%llu\n");
-+
-+static int mpq8646_dbg_probe_raw_xfer(void *data, u64 val)
-+{
-+	struct mpq8646_priv *priv = data;
-+	int rc;
-+
-+	rc = mpq8646_raw_xfer_rword(priv->client, (u8)val);
-+	priv->last_probe_rc = rc;
-+	priv->last_probe_data = (rc < 0) ? 0 : (u16)rc;
-+	return 0;
-+}
-+DEFINE_DEBUGFS_ATTRIBUTE(mpq8646_dbg_probe_raw_xfer_fops,
-+			 NULL, mpq8646_dbg_probe_raw_xfer, "%llu\n");
-+
-+static int mpq8646_dbg_probe_page_write(void *data, u64 val)
-+{
-+	struct mpq8646_priv *priv = data;
-+	int rc;
-+
-+	rc = i2c_smbus_write_byte_data(priv->client, PMBUS_PAGE, (u8)val);
-+	priv->last_probe_rc = rc;
-+	priv->last_probe_data = 0;
-+	return 0;
-+}
-+DEFINE_DEBUGFS_ATTRIBUTE(mpq8646_dbg_probe_page_write_fops,
-+			 NULL, mpq8646_dbg_probe_page_write, "%llu\n");
-+
-+static int mpq8646_dbg_probe_clear_faults(void *data, u64 val)
-+{
-+	struct mpq8646_priv *priv = data;
-+	int rc;
-+
-+	if (!val)
-+		return 0;
-+	rc = i2c_smbus_write_byte(priv->client, PMBUS_CLEAR_FAULTS);
-+	priv->last_probe_rc = rc;
-+	priv->last_probe_data = 0;
-+	return 0;
-+}
-+DEFINE_DEBUGFS_ATTRIBUTE(mpq8646_dbg_probe_clear_faults_fops,
-+			 NULL, mpq8646_dbg_probe_clear_faults, "%llu\n");
-+
-+static int mpq8646_dbg_last_probe_show(struct seq_file *s, void *unused)
-+{
-+	struct mpq8646_priv *priv = s->private;
-+
-+	seq_printf(s, "rc=%d data=0x%04x\n",
-+		   priv->last_probe_rc, priv->last_probe_data);
-+	return 0;
-+}
-+DEFINE_SHOW_ATTRIBUTE(mpq8646_dbg_last_probe);
-+
-+static int mpq8646_dbg_stats_show(struct seq_file *s, void *unused)
-+{
-+	struct mpq8646_priv *priv = s->private;
-+
-+	seq_printf(s,
-+		   "read_byte_calls        : %d\n"
-+		   "read_word_calls        : %d\n"
-+		   "write_byte_calls       : %d\n"
-+		   "read_byte_err          : %d\n"
-+		   "read_word_err          : %d\n"
-+		   "clear_faults_swallowed : %d\n"
-+		   "page_writes_swallowed  : %d\n"
-+		   "force_raw_xfer         : %d\n"
-+		   "delay_us               : %u\n",
-+		   atomic_read(&priv->read_byte_calls),
-+		   atomic_read(&priv->read_word_calls),
-+		   atomic_read(&priv->write_byte_calls),
-+		   atomic_read(&priv->read_byte_err),
-+		   atomic_read(&priv->read_word_err),
-+		   atomic_read(&priv->clear_faults_swallowed),
-+		   atomic_read(&priv->page_writes_swallowed),
-+		   priv->debug_force_raw_xfer,
-+		   priv->debug_delay_us);
-+	return 0;
-+}
-+DEFINE_SHOW_ATTRIBUTE(mpq8646_dbg_stats);
-+
-+static int mpq8646_dbg_reset_stats(void *data, u64 val)
-+{
-+	struct mpq8646_priv *priv = data;
-+
-+	if (!val)
-+		return 0;
-+	atomic_set(&priv->read_byte_calls, 0);
-+	atomic_set(&priv->read_word_calls, 0);
-+	atomic_set(&priv->write_byte_calls, 0);
-+	atomic_set(&priv->read_byte_err, 0);
-+	atomic_set(&priv->read_word_err, 0);
-+	atomic_set(&priv->clear_faults_swallowed, 0);
-+	atomic_set(&priv->page_writes_swallowed, 0);
-+	return 0;
-+}
-+DEFINE_DEBUGFS_ATTRIBUTE(mpq8646_dbg_reset_stats_fops,
-+			 NULL, mpq8646_dbg_reset_stats, "%llu\n");
-+
-+static void mpq8646_print_bits(struct seq_file *s, u16 v,
-+			       const struct mpq_status_bit *tab)
-+{
-+	const struct mpq_status_bit *t;
-+	bool first = true;
-+
-+	seq_printf(s, "0x%04x", v);
-+	if (!v) {
-+		seq_puts(s, " [clean]\n");
-+		return;
-+	}
-+	seq_puts(s, " [");
-+	for (t = tab; t->mask; t++) {
-+		if (v & t->mask) {
-+			if (!first)
-+				seq_putc(s, ' ');
-+			seq_puts(s, t->name);
-+			first = false;
-+		}
-+	}
-+	seq_puts(s, "]\n");
-+}
-+
-+static int mpq8646_dbg_status_decoded_show(struct seq_file *s, void *unused)
-+{
-+	struct mpq8646_priv *priv = s->private;
-+	int rc;
-+
-+	rc = i2c_smbus_read_word_data(priv->client, PMBUS_STATUS_WORD);
-+	if (rc < 0) {
-+		seq_printf(s, "ERROR: STATUS_WORD read failed (%d)\n", rc);
-+		return 0;
-+	}
-+	seq_puts(s, "STATUS_WORD: ");
-+	mpq8646_print_bits(s, (u16)rc, mpq8646_status_word_bits);
-+	seq_puts(s, "(MPS extensions: bit12=NVM_SUMMARY, bit8=WATCH_DOG, bit0=DRMOS_FAULT)\n");
-+	return 0;
-+}
-+DEFINE_SHOW_ATTRIBUTE(mpq8646_dbg_status_decoded);
-+
-+static int mpq8646_dbg_protection_last_show(struct seq_file *s, void *unused)
-+{
-+	struct mpq8646_priv *priv = s->private;
-+	int rc;
-+
-+	mutex_lock(&priv->mps_lock);
-+	rc = i2c_smbus_read_word_data(priv->client, MPS_PROTECTION_LAST);
-+	mutex_unlock(&priv->mps_lock);
-+
-+	if (rc < 0) {
-+		seq_printf(s, "ERROR: PROTECTION_LAST read failed (%d)\n", rc);
-+		return 0;
-+	}
-+	seq_puts(s, "PROTECTION_LAST: ");
-+	mpq8646_print_bits(s, (u16)rc, mpq8646_protection_last_bits);
-+	seq_puts(s, "(NVM-backed, survives chip POR; clear via clear_protection_last[_force])\n");
-+	return 0;
-+}
-+DEFINE_SHOW_ATTRIBUTE(mpq8646_dbg_protection_last);
-+
-+struct mpq8646_dbg_reg {
-+	u8		reg;
-+	bool		is_word;
-+	bool		writable;
-+	const char	*name;
-+};
-+
-+static const struct mpq8646_dbg_reg mpq8646_dbg_regs[] = {
-+	/* MPS vendor extensions (read-only identity / observability) */
-+	{ MPS_MFR_CONFIG_ID,        true,  false, "mfr_config_id" },
-+	{ MPS_MFR_CONFIG_CODE_REV,  true,  false, "mfr_config_code_rev" },
-+	{ MPS_MFR_SILICON_REV,      false, false, "mfr_silicon_rev" },
-+	{ MPS_MFR_RETRY_TIMES,      true,  false, "mfr_retry_times" },
-+	{ MPS_MFR_VBOOT_CFG,        true,  false, "mfr_vboot_cfg" },
-+	/* MPS vendor extension -- user-writable product revision string */
-+	{ MPS_MFR_PRODUCT_REV_USER, true,  true,  "mfr_product_rev_user" },
-+	/* PMBus 1.3 standard timing / UVLO (read-only introspection) */
-+	{ PMBUS_VIN_ON,             true,  false, "vin_on" },
-+	{ PMBUS_VIN_OFF,            true,  false, "vin_off" },
-+	{ PMBUS_TON_DELAY,          true,  false, "ton_delay" },
-+	{ PMBUS_TON_RISE,           true,  false, "ton_rise" },
-+	{ PMBUS_TOFF_DELAY,         true,  false, "toff_delay" },
-+	{ PMBUS_TOFF_FALL,          true,  false, "toff_fall" },
-+	/* PMBus 1.3 control / margin (read+write) */
-+	{ PMBUS_ON_OFF_CONFIG,      false, true,  "on_off_config" },
-+	{ PMBUS_VOUT_MARGIN_HIGH,   true,  true,  "vout_margin_high" },
-+	{ PMBUS_VOUT_MARGIN_LOW,    true,  true,  "vout_margin_low" },
-+	/* MPS PMBus-level write-protect (read+write) */
-+	{ MPS_MFR_PMBUS_LOCK,       true,  true,  "mfr_pmbus_lock" },
-+};
-+
-+struct mpq8646_dbg_reg_ctx {
-+	struct mpq8646_priv		*priv;
-+	const struct mpq8646_dbg_reg	*desc;
-+};
-+
-+static int mpq8646_dbg_reg_show(struct seq_file *s, void *unused)
-+{
-+	struct mpq8646_dbg_reg_ctx *ctx = s->private;
-+	int rc;
-+
-+	if (ctx->desc->is_word)
-+		rc = i2c_smbus_read_word_data(ctx->priv->client,
-+					      ctx->desc->reg);
-+	else
-+		rc = i2c_smbus_read_byte_data(ctx->priv->client,
-+					      ctx->desc->reg);
-+
-+	if (rc < 0) {
-+		seq_printf(s, "ERROR: reg 0x%02x (%s) read failed (%d)\n",
-+			   ctx->desc->reg, ctx->desc->name, rc);
-+		return 0;
-+	}
-+	seq_printf(s, "0x%0*x\n", ctx->desc->is_word ? 4 : 2, rc);
-+	return 0;
-+}
-+DEFINE_SHOW_ATTRIBUTE(mpq8646_dbg_reg);
-+
-+static int mpq8646_dbg_reg_get(void *data, u64 *val)
-+{
-+	struct mpq8646_dbg_reg_ctx *ctx = data;
-+	int rc;
-+
-+	if (ctx->desc->is_word)
-+		rc = i2c_smbus_read_word_data(ctx->priv->client,
-+					      ctx->desc->reg);
-+	else
-+		rc = i2c_smbus_read_byte_data(ctx->priv->client,
-+					      ctx->desc->reg);
-+	if (rc < 0)
-+		return rc;
-+	*val = rc;
-+	return 0;
-+}
-+
-+static int mpq8646_dbg_reg_set(void *data, u64 val)
-+{
-+	struct mpq8646_dbg_reg_ctx *ctx = data;
-+	int rc;
-+
-+	if (ctx->desc->is_word)
-+		rc = i2c_smbus_write_word_data(ctx->priv->client,
-+					       ctx->desc->reg, (u16)val);
-+	else
-+		rc = i2c_smbus_write_byte_data(ctx->priv->client,
-+					       ctx->desc->reg, (u8)val);
-+	return rc < 0 ? rc : 0;
-+}
-+DEFINE_DEBUGFS_ATTRIBUTE(mpq8646_dbg_reg_rw_fops,
-+			 mpq8646_dbg_reg_get, mpq8646_dbg_reg_set, "0x%llx\n");
-+
-+static int mpq8646_dbg_clear_protection_last(void *data, u64 val)
-+{
-+	struct mpq8646_priv *priv = data;
-+	int rc;
-+
-+	if (!val)
-+		return 0;
-+
-+	mutex_lock(&priv->mps_lock);
-+	rc = i2c_smbus_write_byte(priv->client, MPS_CLEAR_LAST_FAULT);
-+	mutex_unlock(&priv->mps_lock);
-+
-+	priv->last_probe_rc = rc;
-+	priv->last_probe_data = 0;
-+	return 0;
-+}
-+DEFINE_DEBUGFS_ATTRIBUTE(mpq8646_dbg_clear_protection_last_fops,
-+			 NULL, mpq8646_dbg_clear_protection_last, "%llu\n");
-+
-+static int mpq8646_dbg_clear_protection_last_force(void *data, u64 val)
-+{
-+	struct mpq8646_priv *priv = data;
-+	int rc, last_rc;
-+	int wp_orig, cfg_orig;
-+
-+	if (!val)
-+		return 0;
-+
-+	mutex_lock(&priv->mps_lock);
-+
-+	wp_orig = i2c_smbus_read_byte_data(priv->client, PMBUS_WRITE_PROTECT);
-+	if (wp_orig < 0) {
-+		priv->last_probe_rc = wp_orig;
-+		dev_warn(&priv->client->dev,
-+			 "clear_protection_last_force: WRITE_PROTECT read failed (%d), aborting\n",
-+			 wp_orig);
-+		goto out;
-+	}
-+	cfg_orig = i2c_smbus_read_word_data(priv->client, MPS_MFR_CFG_EXT);
-+	if (cfg_orig < 0) {
-+		priv->last_probe_rc = cfg_orig;
-+		dev_warn(&priv->client->dev,
-+			 "clear_protection_last_force: MFR_CFG_EXT read failed (%d), aborting\n",
-+			 cfg_orig);
-+		goto out;
-+	}
-+
-+	if (wp_orig != 0) {
-+		rc = i2c_smbus_write_byte_data(priv->client,
-+					       PMBUS_WRITE_PROTECT, 0);
-+		if (rc < 0) {
-+			priv->last_probe_rc = rc;
-+			dev_warn(&priv->client->dev,
-+				 "clear_protection_last_force: WP clear failed (%d), aborting\n",
-+				 rc);
-+			goto out;
-+		}
-+	}
-+
-+	rc = i2c_smbus_write_word_data(priv->client, MPS_MFR_CFG_EXT,
-+				       (u16)cfg_orig | MPS_MFR_CFG_EXT_CLR_LAST_EN);
-+	if (rc < 0) {
-+		priv->last_probe_rc = rc;
-+		dev_warn(&priv->client->dev,
-+			 "clear_protection_last_force: gate open failed (%d)\n",
-+			 rc);
-+		goto restore_wp;
-+	}
-+
-+	last_rc = i2c_smbus_write_byte(priv->client, MPS_CLEAR_LAST_FAULT);
-+	priv->last_probe_rc = last_rc;
-+	if (last_rc < 0)
-+		dev_warn(&priv->client->dev,
-+			 "clear_protection_last_force: CLEAR_LAST_FAULT failed (%d) even with gate open\n",
-+			 last_rc);
-+
-+	for (int attempt = 0; attempt < MPQ8646_NVM_RETRY_MAX; attempt++) {
-+		rc = i2c_smbus_write_word_data(priv->client, MPS_MFR_CFG_EXT,
-+					       (u16)cfg_orig);
-+		if (rc >= 0)
-+			break;
-+		usleep_range(MPQ8646_NVM_RETRY_DELAY_US_MIN,
-+			     MPQ8646_NVM_RETRY_DELAY_US_MAX);
-+	}
-+	if (rc < 0)
-+		dev_warn(&priv->client->dev,
-+			 "clear_protection_last_force: MFR_CFG_EXT restore failed after retries (%d) -- gate may stay open until POR\n",
-+			 rc);
-+
-+restore_wp:
-+	if (wp_orig != 0) {
-+		rc = i2c_smbus_write_byte_data(priv->client,
-+					       PMBUS_WRITE_PROTECT,
-+					       (u8)wp_orig);
-+		if (rc < 0)
-+			dev_warn(&priv->client->dev,
-+				 "clear_protection_last_force: WP restore failed (%d)\n",
-+				 rc);
-+	}
-+out:
-+	mutex_unlock(&priv->mps_lock);
-+	return 0;
-+}
-+DEFINE_DEBUGFS_ATTRIBUTE(mpq8646_dbg_clear_protection_last_force_fops,
-+			 NULL, mpq8646_dbg_clear_protection_last_force, "%llu\n");
-+
-+static int mpq8646_dbg_store_all(void *data, u64 val)
-+{
-+	struct mpq8646_priv *priv = data;
-+	int rc;
-+
-+	if (!val)
-+		return 0;
-+
-+	mutex_lock(&priv->mps_lock);
-+	rc = i2c_smbus_write_byte(priv->client, PMBUS_STORE_USER_ALL);
-+	mutex_unlock(&priv->mps_lock);
-+
-+	priv->last_probe_rc = rc;
-+	priv->last_probe_data = 0;
-+	if (rc < 0)
-+		dev_warn(&priv->client->dev,
-+			 "store_all: STORE_DEFAULT_ALL (0x11/0x15) write failed (%d)\n",
-+			 rc);
-+	return 0;
-+}
-+DEFINE_DEBUGFS_ATTRIBUTE(mpq8646_dbg_store_all_fops,
-+			 NULL, mpq8646_dbg_store_all, "%llu\n");
-+
-+static int mpq8646_dbg_restore_all(void *data, u64 val)
-+{
-+	struct mpq8646_priv *priv = data;
-+	int rc;
-+
-+	if (!val)
-+		return 0;
-+
-+	mutex_lock(&priv->mps_lock);
-+	rc = i2c_smbus_write_byte(priv->client, PMBUS_RESTORE_USER_ALL);
-+	mutex_unlock(&priv->mps_lock);
-+
-+	priv->last_probe_rc = rc;
-+	priv->last_probe_data = 0;
-+	if (rc < 0)
-+		dev_warn(&priv->client->dev,
-+			 "restore_all: RESTORE_DEFAULT_ALL (0x12/0x16) write failed (%d)\n",
-+			 rc);
-+	return 0;
-+}
-+DEFINE_DEBUGFS_ATTRIBUTE(mpq8646_dbg_restore_all_fops,
-+			 NULL, mpq8646_dbg_restore_all, "%llu\n");
-+
-+#define MPQ8646_DEBUGFS_DIRNAME_MAX	16
-+
-+#define MPQ8646_DEBUGFS_ROOT_NAME	"mpq8646"
-+
-+static void mpq8646_debugfs_register(struct mpq8646_priv *priv)
-+{
-+	struct dentry *root, *parent;
-+	char name[MPQ8646_DEBUGFS_DIRNAME_MAX];
-+	size_t i;
-+
-+	parent = debugfs_lookup(MPQ8646_DEBUGFS_ROOT_NAME, NULL);
-+	if (!parent)
-+		parent = debugfs_create_dir(MPQ8646_DEBUGFS_ROOT_NAME, NULL);
-+	if (IS_ERR_OR_NULL(parent))
-+		return;
-+
-+	snprintf(name, sizeof(name), "%d-%04x",
-+		 i2c_adapter_id(priv->client->adapter), priv->client->addr);
-+	root = debugfs_create_dir(name, parent);
-+	if (IS_ERR_OR_NULL(root))
-+		return;
-+
-+	priv->debugfs_root = root;
-+
-+	debugfs_create_file_unsafe("probe_smbus_rword", 0200, root, priv,
-+				   &mpq8646_dbg_probe_smbus_rword_fops);
-+	debugfs_create_file_unsafe("probe_smbus_rbyte", 0200, root, priv,
-+				   &mpq8646_dbg_probe_smbus_rbyte_fops);
-+	debugfs_create_file_unsafe("probe_raw_xfer", 0200, root, priv,
-+				   &mpq8646_dbg_probe_raw_xfer_fops);
-+	debugfs_create_file_unsafe("probe_page_write", 0200, root, priv,
-+				   &mpq8646_dbg_probe_page_write_fops);
-+	debugfs_create_file_unsafe("probe_clear_faults", 0200, root, priv,
-+				   &mpq8646_dbg_probe_clear_faults_fops);
-+	debugfs_create_bool("force_raw_xfer", 0600, root,
-+			    &priv->debug_force_raw_xfer);
-+	debugfs_create_u32("delay_us", 0600, root, &priv->debug_delay_us);
-+	debugfs_create_file("last_probe", 0400, root, priv,
-+			    &mpq8646_dbg_last_probe_fops);
-+	debugfs_create_file("stats", 0400, root, priv,
-+			    &mpq8646_dbg_stats_fops);
-+	debugfs_create_file_unsafe("reset_stats", 0200, root, priv,
-+				   &mpq8646_dbg_reset_stats_fops);
-+	/* MPS extensions: status decode + NVM-backed PROTECTION_LAST */
-+	debugfs_create_file("status_decoded", 0400, root, priv,
-+			    &mpq8646_dbg_status_decoded_fops);
-+	debugfs_create_file("protection_last", 0400, root, priv,
-+			    &mpq8646_dbg_protection_last_fops);
-+	debugfs_create_file_unsafe("clear_protection_last", 0200, root, priv,
-+				   &mpq8646_dbg_clear_protection_last_fops);
-+	debugfs_create_file_unsafe("clear_protection_last_force", 0200, root, priv,
-+				   &mpq8646_dbg_clear_protection_last_force_fops);
-+	debugfs_create_file_unsafe("store_all", 0200, root, priv,
-+				   &mpq8646_dbg_store_all_fops);
-+	debugfs_create_file_unsafe("restore_all", 0200, root, priv,
-+				   &mpq8646_dbg_restore_all_fops);
-+	debugfs_create_u32("alarm_poll_interval_ms", 0600, root,
-+			   &priv->alarm_poll_interval_ms);
-+
-+	priv->dbg_reg_ctx = devm_kcalloc(&priv->client->dev,
-+					 ARRAY_SIZE(mpq8646_dbg_regs),
-+					 sizeof(*priv->dbg_reg_ctx),
-+					 GFP_KERNEL);
-+	if (!priv->dbg_reg_ctx)
-+		return;
-+	for (i = 0; i < ARRAY_SIZE(mpq8646_dbg_regs); i++) {
-+		priv->dbg_reg_ctx[i].priv = priv;
-+		priv->dbg_reg_ctx[i].desc = &mpq8646_dbg_regs[i];
-+		if (mpq8646_dbg_regs[i].writable)
-+			debugfs_create_file_unsafe(mpq8646_dbg_regs[i].name,
-+						   0600, root,
-+						   &priv->dbg_reg_ctx[i],
-+						   &mpq8646_dbg_reg_rw_fops);
-+		else
-+			debugfs_create_file(mpq8646_dbg_regs[i].name, 0400,
-+					    root, &priv->dbg_reg_ctx[i],
-+					    &mpq8646_dbg_reg_fops);
-+	}
-+}
-+
-+static void mpq8646_debugfs_unregister(struct mpq8646_priv *priv)
-+{
-+	debugfs_remove_recursive(priv->debugfs_root);
-+}
-+#else
-+static inline void mpq8646_debugfs_register(struct mpq8646_priv *priv) {}
-+static inline void mpq8646_debugfs_unregister(struct mpq8646_priv *priv) {}
-+#endif /* CONFIG_DEBUG_FS */
-+
-+static const struct {
-+	u16 mask;
-+	enum hwmon_sensor_types type;
-+	u32 attr;
-+	int channel;
-+} mpq8646_alarm_map[] = {
-+	{ PB_STATUS_INPUT,       hwmon_in,   hwmon_in_alarm,   0 },	/* in1_alarm  (VIN)  */
-+	{ PB_STATUS_VOUT,        hwmon_in,   hwmon_in_alarm,   1 },	/* in2_alarm  (VOUT) */
-+	{ PB_STATUS_IOUT_POUT,   hwmon_curr, hwmon_curr_alarm, 0 },	/* curr1_alarm        */
-+	{ PB_STATUS_TEMPERATURE, hwmon_temp, hwmon_temp_alarm, 0 },	/* temp1_alarm        */
-+};
-+
-+/* Adapted from lm90.c */
-+static void mpq8646_alarm_poll_work(struct work_struct *work)
-+{
-+	struct mpq8646_priv *priv = container_of(to_delayed_work(work),
-+						 struct mpq8646_priv,
-+						 alarm_poll_work);
-+	int rc;
-+	u16 cur, newly_set;
-+	size_t i;
-+
-+	if (priv->client->irq)
-+		goto rearm;
-+
-+	if (!priv->alarm_poll_interval_ms)
-+		return;	/* polling disabled; don't re-arm */
-+
-+	if (!priv->hwmon_dev)
-+		goto rearm;	/* hwmon not ready yet; try again next tick */
-+
-+	rc = i2c_smbus_read_word_data(priv->client, PMBUS_STATUS_WORD);
-+	if (rc < 0)
-+		goto rearm;
-+
-+	cur = (u16)rc;
-+	newly_set = cur & ~priv->last_status_word;
-+	priv->last_status_word = cur;
-+
-+	if (!newly_set)
-+		goto rearm;
-+
-+	for (i = 0; i < ARRAY_SIZE(mpq8646_alarm_map); i++) {
-+		if (newly_set & mpq8646_alarm_map[i].mask)
-+			hwmon_notify_event(priv->hwmon_dev,
-+					   mpq8646_alarm_map[i].type,
-+					   mpq8646_alarm_map[i].attr,
-+					   mpq8646_alarm_map[i].channel);
-+	}
-+
-+rearm:
-+	if (priv->alarm_poll_interval_ms)
-+		schedule_delayed_work(&priv->alarm_poll_work,
-+				      msecs_to_jiffies(priv->alarm_poll_interval_ms));
-+}
-+
-+static int mpq8646_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct pmbus_driver_info *info;
-+	struct mpq8646_priv *priv;
-+	u32 voltage_scale;
-+	int ret;
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+	priv->client = client;
-+	mutex_init(&priv->mps_lock);
-+	memcpy(&priv->info, &mpq8646_info, sizeof(priv->info));
-+	info = &priv->info;
-+
-+	info->identify = mpq8646_identify;
-+	info->read_byte_data = mpq8646_read_byte_data;
-+	info->read_word_data = mpq8646_read_word_data;
-+	info->write_byte = mpq8646_write_byte;
-+	info->write_word_data = mpq8646_write_word_data;
-+	dev->platform_data = &mpq8646_no_pec_pdata;
-+
-+#if IS_ENABLED(CONFIG_REGULATOR)
-+	info->reg_desc = mpq8646_reg_desc;
-+	info->num_regulators = ARRAY_SIZE(mpq8646_reg_desc);
-+#endif
-+
-+	INIT_DELAYED_WORK(&priv->alarm_poll_work, mpq8646_alarm_poll_work);
-+	priv->alarm_poll_interval_ms = MPQ8646_ALARM_POLL_MS_DEFAULT;
-+
-+	mpq8646_debugfs_register(priv);
-+
-+	if (!device_property_read_u32(dev, "mps,vout-fb-divider-ratio-permille",
-+				      &voltage_scale)) {
-+		if (voltage_scale > MPQ8646_VOUT_SCALE_LOOP_MAX)
-+			return -EINVAL;
-+
-+		ret = i2c_smbus_write_word_data(client, PMBUS_VOUT_SCALE_LOOP,
-+						voltage_scale);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	ret = pmbus_do_probe(client, info);
-+	if (ret) {
-+		mpq8646_debugfs_unregister(priv);
-+		return ret;
-+	}
-+
-+	priv->hwmon_dev = pmbus_get_hwmon_device(client);
-+	schedule_delayed_work(&priv->alarm_poll_work,
-+			      msecs_to_jiffies(priv->alarm_poll_interval_ms));
-+
-+#if IS_ENABLED(CONFIG_NVMEM)
-+	{
-+		struct nvmem_config cfg = {
-+			.dev		= &client->dev,
-+			.name		= dev_name(&client->dev),
-+			.owner		= THIS_MODULE,
-+			.read_only	= true,
-+			.root_only	= true,
-+			.word_size	= 1,
-+			.stride		= 1,
-+			.size		= MPQ8646_NVMEM_SIZE,
-+			.reg_read	= mpq8646_nvmem_read,
-+			.priv		= priv,
-+		};
-+		struct nvmem_device *nv = devm_nvmem_register(&client->dev, &cfg);
-+
-+		if (IS_ERR(nv))
-+			dev_warn(&client->dev,
-+				 "nvmem snapshot register failed (%pe)\n",
-+				 nv);
-+	}
-+#endif
-+	return 0;
-+};
-+
-+static void mpq8646_remove(struct i2c_client *client)
-+{
-+	struct mpq8646_priv *priv = mpq8646_priv_from_client(client);
-+
-+	cancel_delayed_work_sync(&priv->alarm_poll_work);
-+	mpq8646_debugfs_unregister(priv);
-+}
-+
-+static struct i2c_driver mpq8646_driver = {
-+	.driver = {
-+		   .name = "mpq8646",
-+		   .of_match_table = of_match_ptr(mpq8646_of_match),
-+	},
-+	.probe = mpq8646_probe,
-+	.remove = mpq8646_remove,
-+	.id_table = mpq8646_id,
-+};
-+
-+module_i2c_driver(mpq8646_driver);
-+
-+MODULE_AUTHOR("Vincent Jardin <vjardin@free.fr>");
-+MODULE_DESCRIPTION("PMBus driver for MPS MPQ8646 (extended observability)");
-+MODULE_LICENSE("GPL");
-+MODULE_IMPORT_NS("PMBUS");
+https://sashiko.dev/#/patchset/20260713-dsa_lan9645x_switch_driver_base-v10-0-a4886a08fb15%40microchip.com
 
--- 
-2.43.0
+For the same reason I think even multicast should be forwarded to the
+CPU port.
 
+There are a couple of other reports, but I think they are false positives.
+
+Note that is expected that you replies to sashiko reports on the ML.
+
+/P
 
