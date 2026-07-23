@@ -1,104 +1,145 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66EDB470EAB
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 02:11:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40D01353A82
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 02:12:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784772705; cv=none; b=TY3mwoncwo2un0Prv3FsfH/H+NuaVtItewLKz6UfWnK2MgimcrIlbpeZsLR1eiVSw6rbz/HFz491fzgWxBagVE2zoj/XUjpTYLgq9NuCMBMErlYBMT3Zy9P83VPdHKYIA+22A676L3aAbp5IqrzQ0/mhjd1ty9xZTEXW6m8s0+0=
+	t=1784772726; cv=none; b=KsPVLs8kMAltmX0eQTnCNjit62kqmyd/7b0NXqglYB8YimLvssRiUwXb3PRrhlLaU/hrudY9kqIRJPYwFcTvLnmUtjpnsitRygS/Sngd1Kd2rJXH3BhAo4gFZk9SGtgsYaySst4l9neN0RrWupzuIMmYxQL/nHX4lJvUROY/+aA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784772705; c=relaxed/simple;
-	bh=FDh4iyelWF54aZqoGD1pfYqWx2ufT93RNiarRA07IGc=;
+	s=arc-20240116; t=1784772726; c=relaxed/simple;
+	bh=2C2+SUCqB5lb+02+WUVEnEMEuxT8lGaa8JEQaygftsE=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=OlEM1f8IFn15gqgoxbzGa3l2dNILLRk3e5TvGRkh0d+lz6WiLzxrEd6TFrdRHQKPXZK1/l4c1L2HZ8c1EvINsoLQu8O/b+FkCb+I2WP/5TKB4EcqDxomOAJWYo9VG5NkF475og/9FwqnFO+B5tgrAuB0LS3qjxpMk+NMoQ+1O1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WdTcvSwo; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Aj/AUH5d5jFsQti2Q7l8jaKoLBMsQhU4dvYgjGPLK49/Pu45/TzTkkaR6On027kheGWRaH9m+8Z9jsL2np+e1P8Gx3Ka4GMDb2eCEvtfItxyMCXNrB+UAKuhZXS0qVWg6tl6emcv3envUzbkwzBSOrnSeWO0B0VjlXkAjVvFDIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NaSigNy/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WdTcvSwo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B7401F00A3A;
-	Thu, 23 Jul 2026 02:11:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NaSigNy/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B29F1F000E9;
+	Thu, 23 Jul 2026 02:12:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784772704;
-	bh=H4511Nvs/uentpgewY8YJ4DdEM2VZy4+YdTkGDt8pIk=;
+	s=k20260515; t=1784772724;
+	bh=LrTk/nfvNHVcc396RVf5BI4a0jxMcnTliOYbYabcZNs=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WdTcvSwo75hZPYtRHQkOevVN5JVX068/PMACpjkG+28L/OvZXhMYAWlEcQbgU7ECE
-	 z1+XBTdppu1cLmkLR2U2Tmc/+ckUdR7ovumLZHit+0x4Cr5rMA4grkrAG6Fh0VpPtt
-	 CLf2jTupTEOk5GvNyp9ZYDsL31MjL9/GEj2lbuEnh9gFi0X6RnVKEm4ZI7QejbQmea
-	 bCUTTwLyj3o2BdTMopD8a3IRwu6FxD9ndLA7sUgSZMofIHRnlPjqXkFQL/cFM67yUi
-	 5qK2btfFP6DNa/foQPJn38Ndsbc3qlmci2gLKBadcHH+G4bj0G3mxXwPqoCyP7j6gz
-	 s97IDHf1nzqDw==
+	b=NaSigNy/wylq397YMSEemuBElTMLykUChC0WClMeDA86VRvlOr/nigPwZ00p5NEqZ
+	 TbQfYmqEhF57L5USfFrxUnEgrqYPqoUpFVmJx+Rb40Mr6yF+lR7MVwdW797uBroKGT
+	 0+IELxdk2oYushe7ncCC9IfPVQCSrsb7avl6VoE7R7uqlH5gDMpk+6n6347cFCHeB0
+	 xrFaMfXbdZplezJ9kamRHScYhdTrTzl5+vjOYuCEcBemsDcNHAqE/rXjh4GqRYFT18
+	 kn1Uz4ydrOVGN2xtZ7XImgRAkuvHfK0eHqCCPFY4A5LPv8OTecEtCJNiJ9qH7YvAYj
+	 de4wrFeaZ1Ikw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] phy: qcom: qmp-combo: Add SM8475 support
+Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: add initial Motorola Moto E4
+ (perry) support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Esteban Urrutia" <esteuwu@proton.me>
-Cc: devicetree@vger.kernel.org, olteanv@gmail.com, neil.armstrong@linaro.org, vkoul@kernel.org, linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260722-sm8475-bup-usbss-v3-2-0dd5da218ab2@proton.me>
-References: <20260722-sm8475-bup-usbss-v3-0-0dd5da218ab2@proton.me>
- <20260722-sm8475-bup-usbss-v3-2-0dd5da218ab2@proton.me>
+To: "Aneesh Pradhan" <aneeshpradhan2004@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260723014627.63310-4-aneeshpradhan@acm.org>
+References: <20260723012431.48499-1-aneeshpradhan@acm.org>
+ <20260723014627.63310-1-aneeshpradhan@acm.org>
+ <20260723014627.63310-4-aneeshpradhan@acm.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 02:11:43 +0000
-Message-Id: <20260723021143.8B7401F00A3A@smtp.kernel.org>
+Date: Thu, 23 Jul 2026 02:12:04 +0000
+Message-Id: <20260723021204.8B29F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] The `sm8475_usb3dpphy_cfg` structure is missing the `.calibrate_=
-dp_phy` callback assignment, which is required for robust DisplayPort link =
-training.
+- [Medium] Critical pins for the touchscreen interrupt, sensor I2C bus, sen=
+sor interrupt, and regulator enable lack pinctrl configurations.
+- [Medium] Battery design capacity is incorrectly specified for the hardwar=
+e.
 --
 
---- Patch [2]: [PATCH v3 2/2] phy: qcom: qmp-combo: Add SM8475 support ---
-commit d1b4bfb2d91dc0cdfa3d2edd1cdd59ff8122136f
-Author: Esteban Urrutia <esteuwu@proton.me>
+--- Patch [3]: [PATCH v2 3/3] arm64: dts: qcom: add initial Motorola Moto E=
+4 (perry) support ---
+commit 456da8a21ca3d3b4649cf6cd9b340f36af9edbf2
+Author: Catherine Frederick (coolguy) <serenity@floorchan.org>
 
-phy: qcom: qmp-combo: Add SM8475 support
+arm64: dts: qcom: add initial Motorola Moto E4 (perry) support
+   =20
+Adds MSM8917 and MSM8920 board files for the Motorola Moto E4 (perry) shari=
+ng a
+common dtsi. Includes regulators, eMMC/SD, USB OTG, gpio-keys, touchscreen,
+IMU, Wi-Fi, and WLED.
 
-This commit adds USB/DP combo PHY support for the SM8475 SoC, introducing
-specific RX and PCS USB tables while reusing existing serdes, TX, and PCS
-tables. It also adds v1 PLL structures to address link training issues caus=
-ed
-by reference clock differences on 4nm-v1 PLLs.
-
-> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qual=
-comm/phy-qcom-qmp-combo.c
-> index cdcfad2e86b1d..52b07de2c52b5 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-
+> diff --git a/arch/arm64/boot/dts/qcom/msm8917-motorola-perry-common.dtsi =
+b/arch/arm64/boot/dts/qcom/msm8917-motorola-perry-common.dtsi
+> new file mode 100644
+> index 0000000000000..1870958976fbe
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/msm8917-motorola-perry-common.dtsi
+> @@ -0,0 +1,412 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
 [ ... ]
-
-> @@ -2845,6 +2965,51 @@ static const struct qmp_phy_cfg sm8350_usb3dpphy_c=
-fg =3D {
->  	.has_pwrdn_delay	=3D true,
->  };
-> =20
-> +static const struct qmp_phy_cfg sm8475_usb3dpphy_cfg =3D {
-> +	.offsets		=3D &qmp_combo_offsets_v3,
-
-[ ... ]
-
-> +	.dp_aux_init		=3D qmp_v4_dp_aux_init,
-> +	.configure_dp_tx	=3D qmp_v4_configure_dp_tx,
-> +	.configure_dp_clocks	=3D qmp_v3_configure_dp_clocks,
-> +	.configure_dp_phy	=3D qmp_v4_configure_dp_phy,
+> +	battery: battery {
+> +		compatible =3D "simple-battery";
 > +
-> +	.regs			=3D qmp_v6_usb3phy_regs_layout,
+> +		charge-full-design-microamp-hours =3D <4000000>;
 
 [Severity: Medium]
-Is the .calibrate_dp_phy callback missing here?
+Does the Moto E4 have a 4000 mAh battery? The design capacity here specifies
+4000 mAh, but this device usually ships with a 2800 mAh battery.=20
 
-Other v6 DP PHY configurations (like sm8550 and sar2130p) assign this to
-qmp_v4_calibrate_dp_phy. Without the calibration callback, calls to
-phy_calibrate() from the DRM driver return 0 without actually adjusting the
-DP AUX tuning parameters (QSERDES_DP_PHY_AUX_CFG1).
+Could this incorrect capacity confuse the fuel gauge algorithms and lead to
+inaccurate state-of-charge calculations?
 
-Can this cause DP Alt Mode link training to fail on stricter sink devices or
-with marginal cables that require alternative AUX calibration values?
+> +		constant-charge-current-max-microamp =3D <1000000>;
+> +		voltage-min-design-microvolt =3D <3400000>;
+> +		voltage-max-design-microvolt =3D <4400000>;
+> +	};
+[ ... ]
+> +	i2c-sensors {
+> +		compatible =3D "i2c-gpio";
+> +		sda-gpios =3D <&tlmm 14 (GPIO_ACTIVE_HIGH|GPIO_OPEN_DRAIN)>;
+> +		scl-gpios =3D <&tlmm 15 (GPIO_ACTIVE_HIGH|GPIO_OPEN_DRAIN)>;
+
+[Severity: Medium]
+Are we missing pinctrl configurations for the I2C bitbanging pins (gpio14,
+gpio15) and the IMU interrupt pin (gpio41) below?=20
+
+Relying on bootloader state for these pins could lead to initialization
+failures if they are left floating or improperly muxed.
+
+> +		i2c-gpio,delay-us =3D <2>; /* ~100 kHz */
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+> +
+> +		imu@18 {
+> +			compatible =3D "bosch,bma253";
+> +			reg =3D <0x18>;
+> +
+> +			interrupts-extended =3D <&tlmm 41 IRQ_TYPE_EDGE_RISING>;
+[ ... ]
+> +	ts_default: ts-default-state {
+> +		pins =3D "gpio64";
+> +		function =3D "gpio";
+> +		drive-strength =3D <2>;
+> +		bias-pull-up;
+> +	};
+
+[Severity: Medium]
+Should the touchscreen interrupt pin (gpio65) be configured in this state as
+well?
+
+The touchscreen node explicitly uses it:
+
+&blsp1_i2c3 {
+	touchscreen@20 {
+		interrupts =3D <65 IRQ_TYPE_EDGE_FALLING>;
+		pinctrl-0 =3D <&ts_default>;
+		reset-gpios =3D <&tlmm 64 GPIO_ACTIVE_LOW>;
+	}
+}
+
+Missing pinctrl on this falling-edge interrupt could result in an interrupt
+storm if the bootloader doesn't set the correct pin bias.
+
+> +};
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-sm8475-bup=
--usbss-v3-0-0dd5da218ab2@proton.me?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723014627.6331=
+0-1-aneeshpradhan@acm.org?part=3D3
