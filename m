@@ -1,176 +1,124 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11020141.outbound.protection.outlook.com [52.101.201.141])
+Received: from ixit.cz (ixit.cz [185.100.197.86])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0582E41D655;
-	Thu, 23 Jul 2026 09:32:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784799161; cv=fail; b=EU3hxiHTdOOvnR56Cl0ap7x5XjLbLKWT+0dz2zefvuhZGVLxM95bhrIeMhjfx+Ko2LmvxUd4vPgWmZBvhVj0JZOonF0Vvemg/ZP6iz5w1dDjYq7szsUTp3bSTyAQuLNTgPjXorFli4TI4t40wLGFpY1hxk9H5zQusJDgVehF9Jg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784799161; c=relaxed/simple;
-	bh=SJRq2/EYcsCvAg5bl1I9ma8zFRstwjgLdGyxbAZfPkA=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=iSiSaraW/3iVGOlGWT+ePl+BMKTSzFLQ8zBTZikIWIHHpU61QIZIDA8+uZxL4CLmNY6aZ7ZywBYQZKYmb11luZBS7HzWHRxA/FdGWn2FeoUiKCx1y+bWPCisgaZZsA2IUvtTPKJz6xUU+Bswcp0HyQ39ffNBRuS+xVEvpuRptFc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com; spf=pass smtp.mailfrom=axiado.com; dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b=uJQ8SYEN; arc=fail smtp.client-ip=52.101.201.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axiado.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DB3541A938;
+	Thu, 23 Jul 2026 09:33:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784799199; cv=none; b=cU8F2d7Dvyyw2WetEIhfsszHPKmP0zNS0F+haqSSHDX7wuMKkglzrprF+uKy4Aoxr0DJatWd7C0Tmt8au1WSYfBHoJOKaQZ5uVZKF7M1bERUef9z+MJtK5VpvoH5tLucYmOoIDeRDP23Zum9x7z/GK6Y1lgjsxWjbaFjVZFPibQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784799199; c=relaxed/simple;
+	bh=IlbQqCAWxCOacFTPXXkKjZuWdIOZm30FpZLifJUf/Lo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=c3JRGKqtZMx3DIK0wDtA/nJTQKxueIT7l/KPZjhFXrgyy6GjVgjwHVOPj1Uix2luPMJfMwmtAk4+8qCFeBWy1UL2ZmxsC01JUDF2BErzRcia6rXlvrSbrDvTrEeSFDgGQiunm47Exk4z999tGefvYL/FAkHxnxNheplkp7hDSQU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=Qn5wQiPW; arc=none smtp.client-ip=185.100.197.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b="uJQ8SYEN"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lxp1xrxb0WQjJ30nlGLJUdsHtj9zwlafTDNHH7JfI8yOVtN7rbnZllF1o4aLvmirnmB5P4lSWNYkT3LeQlX3rmtr8UnDMkTk35HAezv+Hdg7GvqBkbnAYmoYNkOMsMbtawlu3gmzfuFJMMqFd4zzRER5xbJn25CeczKhW49Eb02i9hgSjQnTq2AnsLGFz6sIxDsUMtb6l/Iddh53wVVb9eJBtvDsoG4go09xD5znbtaXMfMUtMFOGEUtnPDSXExXu8h631095sudZ4CXhVpHbSWT45Nh8/qioV10r+lBhxaa7DC1KIqqi7MnAjx/XMVvOZyb+snsAvZEUEKR9sywgg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0s0hvhadmfCmYqnIAnZ9gsEtWng5IrORw8E7EtuhJK4=;
- b=d0xm/gOcBdrWFfe9boSNmHTlKUFDhowPg1nmspSlVOiodNKzIXknylPVfct7eMhV4QPY6WWpNO4/kXHX9ZBJxGj2eA2tUzX9W9Dz6q3FHsh61xv59VqmXcG3QJzG6ze7vQhy0X6CSMBOZe+iIiY2xsYr9UT+a1on0Yp9422/eXjKn7qZwyie1fVMOj2xAaILwpUKLFvZykKaechjY/CgkQqOoFY4oozLXSGq2zrhmJTCKVL6CKpx/0V4dCVmiE4n6hitnL7RrOhSOzpeZMBZ6rTJw8MVdqSLltnwb63Z2346cnEQfRZIr14zM7sbxKYbZRgqOQmKUWtRBT8W3XGvYA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 64.62.143.114) smtp.rcpttodomain=axiado.com smtp.mailfrom=axiado.com;
- dmarc=none action=none header.from=axiado.com; dkim=none (message not
- signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0s0hvhadmfCmYqnIAnZ9gsEtWng5IrORw8E7EtuhJK4=;
- b=uJQ8SYENssIDjX3zZjOXocDS75xFQamUOgAgYHG2gyT++pGCDywRPu/+EPlUDx0m+z7ewLUY7nu12WK9pHkQnqFi8dW98jfX9J6bs9fzdyMN7TiV5USTn+MNJNuiS9j/tAzVUODcjL4ZBPiQvoOVDImMqU+UT4ux4B6seavu+kH8drOX2t/EaO61nTYmqyAmmiPVL11MREOdVP+sxaMTeFgb2jgqn8T8/17MX7FeI/zMIeqOwUWyYIEeKj5SFi6aKxldEIcQBUTACe7UhEj46osOiI9yANAZJvx1vfLNgjCaYgrTNKuNM9+ilSdeDnymllaxPbN2lneGCR+Sd3dcdA==
-Received: from BN9PR03CA0533.namprd03.prod.outlook.com (2603:10b6:408:131::28)
- by SJ4PPFB9F2DC4B6.namprd18.prod.outlook.com (2603:10b6:a0f:fc02::f3a) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Thu, 23 Jul
- 2026 09:32:34 +0000
-Received: from BN1PEPF00004689.namprd05.prod.outlook.com
- (2603:10b6:408:131:cafe::a) by BN9PR03CA0533.outlook.office365.com
- (2603:10b6:408:131::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.10 via Frontend Transport; Thu,
- 23 Jul 2026 09:32:34 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 64.62.143.114)
- smtp.mailfrom=axiado.com; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=axiado.com;
-Received-SPF: Fail (protection.outlook.com: domain of axiado.com does not
- designate 64.62.143.114 as permitted sender) receiver=protection.outlook.com;
- client-ip=64.62.143.114; helo=smtp.corp.axiado.com;
-Received: from smtp.corp.axiado.com (64.62.143.114) by
- BN1PEPF00004689.mail.protection.outlook.com (10.167.243.134) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.5
- via Frontend Transport; Thu, 23 Jul 2026 09:32:33 +0000
-Received: from axz-uw1-build-vm02.corp.axiado.com (unknown [10.14.1.22])
-	by smtp.corp.axiado.com (Postfix) with ESMTP id 094B94186B53;
-	Thu, 23 Jul 2026 02:32:33 -0700 (PDT)
-From: Petar Stepanovic <pstepanovic@axiado.com>
-Subject: [PATCH v2 0/2] pwm: add Axiado AX3000 PWM support
-Date: Thu, 23 Jul 2026 02:32:17 -0700
-Message-Id: <20260723-axiado-ax3000-pwm-v2-0-22002f0b281d@axiado.com>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="Qn5wQiPW"
+Received: from [192.168.1.182] (ip-62-24-73-79.bb.vodafone.cz [62.24.73.79])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id CE57C53402FF;
+	Thu, 23 Jul 2026 11:33:07 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1784799188;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=U0fIpQyAh4rfYOP8h9yHB4NB+ynC+Rm7oT58Ok9UxtM=;
+	b=Qn5wQiPWKcQEbi0Y9M9rWCmYMp/icnHULAvI4FQeOVxvr/TzUGF7jSllEDPvDY1FKs0xuM
+	2DHQrGD6B4NWDiiFh+0y3Fn9YNnRcTaujOxyJxk+ShqHXSUjWLrByNa3FBT6PdAAe1eOXb
+	RKLcsMyAN/9iYxBAt00+QQCMptSqWVA=
+Message-ID: <bc472c4b-ec6f-4733-bace-7a1300b601cd@ixit.cz>
+Date: Thu, 23 Jul 2026 11:33:06 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAKHfYWoC/22NMQ6DMAxFr4I815UDKSFMvUfFEIVQPEBQUlEql
- Ls3hbWT9b7+f94husAuQlvsENzKkf2cobwUYEczPx1ynxlKKmu6iQbNxqb3+VREhMt7QtsrW8m
- 6kXoQkHdLcANvh/PRZR45vnz4HC9W8UtPW/3XtgoktFppZTRpKeT97Fytn6BLKX0BVx+0Y7MAA
- AA=
-X-Change-ID: 20260518-axiado-ax3000-pwm-cd7c346849f1
-To: Akhila Kavi <akavi@axiado.com>, 
- Prasad Bolisetty <pbolisetty@axiado.com>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>
-Cc: linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Petar Stepanovic <pstepanovic@axiado.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784799153; l=2552;
- i=pstepanovic@axiado.com; s=20250916; h=from:subject:message-id;
- bh=SJRq2/EYcsCvAg5bl1I9ma8zFRstwjgLdGyxbAZfPkA=;
- b=LFp8TPTEeFr8x64EjCg8hx/Zw5rULhnmrDmmdLkiJx9lyskEMIhY9WWrZGdRbf6xCamHkOrKs
- It3RDImnamvBnb8MtpvNApfksew7gDOu2oKT6uJ7veMw1Pb4ZCQ0qSG
-X-Developer-Key: i=pstepanovic@axiado.com; a=ed25519;
- pk=70f1UJOGT9U11ZK6o+ENXtv0I5wBE3e+Y9YWODzRsdI=
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00004689:EE_|SJ4PPFB9F2DC4B6:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2579383b-31ab-422b-387d-08dee89d536e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|23010399003|376014|18002099003|3023799007|13003099007|10067099003|56012099006|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	Dh7YLw5md5VUM/Bhx5rCsFYpAUBIzTOic1w1bbF4ja83yYe5PtMkbFe4M04A8nTL54sujeua0wPJxSUr/vzMrW8REbM1Az6e5rNpTAgetjVedgY1bjGRTmtzfyh0jMoYPSodelOIUusl6lIE3VUjCwBYB743A9D5ia/oRLct/1dIl5M5AdhSGg1vsjzLpuW9/hFLXhnyMWjQyzE1yNJ3ArI4yvtPq13X4vIDY+KM7W1iAm4dvVycom6XROVsGG22VDh+T/Aj9SexoM+nlhTEr83R7lRivewXouz5+GzhZveHljpu66XNlpRCTkVWRZ76P91nyCEhA93UgbqA4XeGwxYK9CokBUgs3QcLGg83Zv83MavmGIkNiKjsAOdseMVcf0qcC2Albq+bj/whs+KPF4WKY/ynYctsBbXjDFh/p6HiLkZP+Lhc8OyUoTZKjEmX6CnGvIfef3q5X/rEly4SMrFRBQJ29P4fR7uRZgFhAJrzr7pyVJ9i08mTjonPcNRkFUOsauTGZXaDbDVCy/Qtk2Ou/3DMAHj2Uc4DvNMmKdqhlBEbNYw1ce6FGNolbsp5FV1lxQOoRIVU5Jd7eKj6CmPAOyestZ8OMIKPWvP++JHioiP2f9aEl/AdvhFV+/LcFDYGGD/KaoAmhICwgM8H0w==
-X-Forefront-Antispam-Report:
-	CIP:64.62.143.114;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtp.corp.axiado.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(23010399003)(376014)(18002099003)(3023799007)(13003099007)(10067099003)(56012099006)(6133799003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	1h9ieOXWAcWsEMdQH0YEMBzAUeQRoIpTeL4IteaY3g2JWk6wvMO3yIaN1Uo6q7/1QoDpy25Mtf7yCWC1tFVmZLMdEFdVMjUBUfCPmxO850ueQaI1WlslfrlyGj1FpzP3eefWWSr7EO3yYOqRxY8DpSbiVKiQwYJtUlVwwQ2mwsSxzQ1g2xgPZtrrQLnlRcYjX71uQnTV438ckAy/S8TyKBsQqwsdPxw6Q8aSGZy2YX/4smITCZnuAMMWLQ/D4MvvdPXjUpXxKe1FJV1SXv3421uFXHtyw6RND27OgncjEOi5Nrx4TQfPZUmmcNUPyowC+7EyaueyZqAeqmddPRCLovT717DBwGOoBuXVfFljv6vHgcsmQWTi4Aj0nPGzVT3Bm5/lWoSm98mHgsEwVfS5A64TJnYXn21jlQ1Ym56cmpoh4XAMvM848+ylcWAchW4T
-X-OriginatorOrg: axiado.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 09:32:33.8684
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2579383b-31ab-422b-387d-08dee89d536e
-X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=ff2db17c-4338-408e-9036-2dee8e3e17d7;Ip=[64.62.143.114];Helo=[smtp.corp.axiado.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF00004689.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ4PPFB9F2DC4B6
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/2] arm64: dts: qcom: sdm845-google: Add dual front
+ IMX355 cameras
+To: Bryan O'Donoghue <bod@kernel.org>, Bjorn Andersson
+ <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Petr Hodina <petr.hodina@protonmail.com>,
+ Richard Acayan <mailingradian@gmail.com>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ phone-devel@vger.kernel.org
+References: <20260719-pixel3-camera-v4-0-48cab1236852@ixit.cz>
+ <g5KgTS-8gTh3DZUCsa3xlsN30x4zDnBzgLpNm2pZ_Yt3UBtxV4EuxOuFQ3M6bpmV3G1gYAocAXwLHPPwtTpnlg==@protonmail.internalid>
+ <20260719-pixel3-camera-v4-1-48cab1236852@ixit.cz>
+ <f77e5def-93d5-42fc-9d4e-ad12d2743d78@kernel.org>
+Content-Language: en-US
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <f77e5def-93d5-42fc-9d4e-ad12d2743d78@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-This series adds support for the PWM controller found on Axiado
-AX3000 and AX3005 SoCs.
+On 23/07/2026 00:01, Bryan O'Donoghue wrote:
+> On 19/07/2026 18:01, David Heidelberg via B4 Relay wrote:
+>> +        vreg_l22a_3p3: ldo22 {
+>> +            regulator-min-microvolt = <2864000>;
+>> +            regulator-max-microvolt = <2864000>;
+>> +            regulator-boot-on;
+>> +        };
+> 
+> What's rail regulator used for ?
 
-A new driver is needed because this PWM controller is a SoC-specific
-hardware block used on Axiado SoCs. It has its own register layout,
-enable control, period configuration, duty-cycle configuration, and
-does not match any existing upstream PWM driver.
+This one should be used for the actuator, but this got dropped in follow up 
+series. [1]
 
-The controller provides configurable PWM output signals. The driver
-exposes the controller through the Linux PWM framework and supports
-period and duty-cycle configuration.
+David
 
-The driver converts the requested period and duty cycle from nanoseconds
-to hardware clock cycles based on the input clock rate.
-
-The datasheet is not publicly available. Public high-level product
-information is available at:
-
-https://axiado.com/products/#AX3080
-
-The register definitions and programming sequence used by this driver
-are based on Axiado internal SoC documentation.
-
-Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
----
-Changes in v2:
-- Migrated the driver from the legacy apply/get_state API to the new
-  waveform ops API (round_waveform_tohw/fromhw, read/write_waveform).
-- Cache the clock rate at probe and lock it with
-  devm_clk_rate_exclusive_get() instead of reading it on every op.
-- Improved rounding: clamp period/duty to hardware limits, reject
-  non-zero duty offset, preserve exact 100% duty, round sub-cycle duty
-  up to the minimum.
-- Added a "Limitations" comment block documenting hardware constraints.
-- Renamed macros from AX_PWM_* to AXIADO_PWM_* and dropped unused ones.
-- DT binding: dropped clock-names, made #pwm-cells required, and
-  updated the description and compatible list to cover both the AX3000
-  and AX3005 SoCs.
-- Added axiado,ax3005-pwm to the driver's OF device match table.
-- Link to v1: https://lore.kernel.org/r/20260618-axiado-ax3000-pwm-v1-0-c9797a909414@axiado.com
-
----
-Petar Stepanovic (2):
-      dt-bindings: pwm: add Axiado AX3000 PWM
-      pwm: add Axiado AX3000 PWM driver
-
- .../devicetree/bindings/pwm/axiado,ax3000-pwm.yaml |  51 ++++
- MAINTAINERS                                        |   9 +
- drivers/pwm/Kconfig                                |  11 +
- drivers/pwm/Makefile                               |   1 +
- drivers/pwm/pwm-axiado.c                           | 272 +++++++++++++++++++++
- 5 files changed, 344 insertions(+)
----
-base-commit: 368d34807e6d04bb2089918383b58abf40e720a0
-change-id: 20260518-axiado-ax3000-pwm-cd7c346849f1
-
-Best regards,
--- 
-Petar Stepanovic <pstepanovic@axiado.com>
-
+[1] https://lore.kernel.org/all/20260721-pixel3-camera-v7-0-82d323c6c5d2@ixit.cz/>
+> ---
+> bod
