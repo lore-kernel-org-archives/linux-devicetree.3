@@ -1,97 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-06.mail-europe.com (mail-06.mail-europe.com [85.9.210.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08F8237F331
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 16:14:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3170E4963A9;
+	Thu, 23 Jul 2026 16:16:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.9.210.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784823296; cv=none; b=j2C605rgV5WxUsZTXoeQubgmL5GYFh3AaC7dLTV+FDnUkF42BDlSmwT4nodxeV7jBXg23gt6+aA87yg/cdnXGhnCH9QZ+UZhnszsU2EAzdTnvYqqTP7rBqQ4eXFfdrVsBDoOGO525AEhcsJmncKJ9pvAEBlcYs4O0+I07WujsZk=
+	t=1784823406; cv=none; b=aKzN3vIvp9PtiJ1kpB4yxI0mdEzDfIfTw6xrPDh+xgALPMkYZcMNlOdmgSZYlvC5yXJs+M4K1fqYXwhoy8pJhe3LdxAopSYouRDpP7FRrh3V4hbqaVtsX7OYiib2TwnyCdk+P6u85UR+8wul7W1+YN39vBjeTB8czEOugyaicZA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784823296; c=relaxed/simple;
-	bh=UWLZxJsio+cBbP3+dbn4Tl+msParYi0l8am4Ua+xfFc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=c9oVNIhQhwjTTp38ka5NBntNUdjAJVXHUP4B7XsWl5FfyvJ6rf4+HmTfnpqltY2o/Y6nmyLzvs7scbwcxllaXs5yoAyQeLi8PtRBuckonyeQ8Y7pxxmlPMZfsGyaEHDvfWGfWl0Cxjye8xI0oQUrPThqwaHSPuD7nJb4NRIMzEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WK8z6WJT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784823406; c=relaxed/simple;
+	bh=r50T2MhBYrVuycRIdrfmAMALY4mxSQ0LJC3LFARhy8E=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=XIr8XzHVG5SPK0ACHMUQEDSAwhx/F84DFv79QPa2/hFP1B35Td2wkkuaRbxN3DxA++lQYlAbFVu1bviu2hhE/stoGG4EeLTG0kpC8y8OLig3JbNXt7bywBB/E53n5HC6tbUPC1IWkRP8+K6Od/PfjClLf2P+Luc+djBg5ijoijE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=xlNYzpBi; arc=none smtp.client-ip=85.9.210.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WK8z6WJT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5C891F000E9;
-	Thu, 23 Jul 2026 16:14:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784823276;
-	bh=7xotAwVFCF0np0O6SMjvBhhpz7pt3eyVRxCOSFNeFT4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WK8z6WJT08qrPjPdzaYPohubWKSaVpoOs/ng139ZiEYHK3xSoxXhDmhVNqWCLoXzD
-	 wL84CQzbJQfk+bkr50V2VWS6aCfgLa+4m49ZCZDQHRkn1tVrPbFfrd6V79kIQr0F4P
-	 gxFhEfigQ49wZG4hcC9f+noAAVLvTh9htdZv0uWfqwoByWeOG254Hjj6BdBC9xdpnP
-	 HITG8p/yl4+Nii1lzput2vjind1RiqHTY0pfeIXLrhM19TnwOzJQjEXOKTjLyHSl2u
-	 ydcPSrys4klIZxYRL9+sEoCfoUiJzeqWr0TMSAgV2n0NFec44+A/abDmKT4UfvlStY
-	 dsvT9xA43AS2Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/4] clk: qcom: Add Audio Core clock controller
- support on Qualcomm Shikra SoC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Imran Shaik" <imran.shaik@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260723-shikra-audiocorecc-v3-3-90b878ae0d4e@oss.qualcomm.com>
-References: <20260723-shikra-audiocorecc-v3-0-90b878ae0d4e@oss.qualcomm.com>
- <20260723-shikra-audiocorecc-v3-3-90b878ae0d4e@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 16:14:35 +0000
-Message-Id: <20260723161435.C5C891F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="xlNYzpBi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1784823392; x=1785082592;
+	bh=lHj2JaKn6I/rJijt+vIp+5NEvZ+qxwlBgSIZwX/C1FU=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=xlNYzpBieqQuUSccbe6VE+8q6ZS1yleTG5agbdXP6hhaIWGPxJ07RGkAQukayfpiv
+	 BEGrE/J0I5mpcDeDRYHa56Dc3m6URjULGPV+4K6pZMM9xUC22iSZ00c1ZFmJ1JwF/x
+	 xUNisBiFtg1WIUiLbsixtqWYBGpu3eyC3tnWqRzQONnTMG/Rp8T5wbq9oRlntbGFn/
+	 bYkBwh8RwRAKffdSITgRtvSxrVvY3bmdLZtPnmQ2gnP/VMCqCrfyRqh/syYaVjmHK3
+	 QuxUf453uyasa4YaClzO1aoC4i4UlBpqD17MJEyrsC2EyY47Vy/lR3+vlDdwRqzxxf
+	 Cv28wlJOzyiNw==
+Date: Thu, 23 Jul 2026 16:16:24 +0000
+To: Lee Jones <lee@kernel.org>
+From: Roman Vivchar <rva333@protonmail.com>
+Cc: Sen Chu <sen.chu@mediatek.com>, Sean Wang <sean.wang@mediatek.com>, Macpaul Lin <macpaul.lin@mediatek.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Srinivas Kandagatla <srini@kernel.org>, Andy Shevchenko <andy@kernel.org>, linux-pm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, Ben Grisdale <bengris32@protonmail.ch>, Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v3 1/3] dt-bindings: mfd: mediatek: mt6397: add mt6323 PMIC EFUSE
+Message-ID: <ZNHaOI0ufFpvkyR3fCOd7I-CO8x9-adM0bJfk2U_TGsQrUGvhUV_8oXVnGWaS3bt9AuhxjXfcJGVtFFFg2X7FOWVcMf1sLK6OpRbtYe9BlQ=@protonmail.com>
+In-Reply-To: <20260723160059.GB3526803@google.com>
+References: <20260713-mt6323-nvmem-v3-0-205c39267a24@protonmail.com> <20260713-mt6323-nvmem-v3-1-205c39267a24@protonmail.com> <20260723160059.GB3526803@google.com>
+Feedback-ID: 173184497:user:proton
+X-Pm-Message-ID: e13033346bb107811f977e1b6967b3e0e4fc03a8
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The `audio_core_cc_shikra_probe` function does not validate the re=
-turn value of `device_get_match_data()`, leading to a NULL pointer derefere=
-nce.
---
+Hi Lee,
 
---- Patch [3]: [PATCH v3 3/4] clk: qcom: Add Audio Core clock controller su=
-pport on Qualcomm Shikra SoC ---
-commit de62912fa52410c163e6ab3071a5cbf9cc2887aa
-Author: Imran Shaik <imran.shaik@oss.qualcomm.com>
+On Thursday, July 23rd, 2026 at 7:01 PM, Lee Jones <lee@kernel.org> wrote:
 
-clk: qcom: Add Audio Core clock controller support on Qualcomm Shikra SoC
+> On Mon, 13 Jul 2026, Roman Vivchar via B4 Relay wrote:
 
-This commit adds support for the Audio Core Clock Controller (AUDIOCORECC)
-and Audio Core CSR resets on the Qualcomm Shikra SoC.
+...
 
-> diff --git a/drivers/clk/qcom/audiocorecc-shikra.c b/drivers/clk/qcom/aud=
-iocorecc-shikra.c
-> new file mode 100644
-> index 0000000000000..76017240f7684
-> --- /dev/null
-> +++ b/drivers/clk/qcom/audiocorecc-shikra.c
-[ ... ]
-> +static int audio_core_cc_shikra_probe(struct platform_device *pdev)
-> +{
-> +	const struct qcom_cc_desc *desc;
-> +
-> +	desc =3D device_get_match_data(&pdev->dev);
-> +
-> +	return qcom_cc_probe(pdev, desc);
+> > +        efuse {
+> > +          compatible =3D "mediatek,mt6323-efuse";
+>=20
+> Nit: This tabbing looks off to me.
+>=20
+> The example below uses 4-spaces, this uses 2.
 
-[Severity: High]
-Can this result in a NULL pointer dereference? If the driver is bound to a
-device via the driver_override sysfs attribute, device_get_match_data()
-will return NULL because the OF match fails.
+Oops, you're right... Good catch :)
 
-The NULL desc pointer is then passed unchecked to qcom_cc_probe(), which
-calls qcom_cc_map(pdev, desc), leading to a dereference of desc->config.
+We had some troubles with driver merge, so it was dropped from the nvmem
+tree for now. I will resend it with fixes (and spacing) when dependencies
+arrive.
 
-Should there be a NULL check for desc before passing it to qcom_cc_probe()?
-
-> +}
-> +
-> +static struct platform_driver audio_core_cc_shikra_driver =3D {
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723-shikra-aud=
-iocorecc-v3-0-90b878ae0d4e@oss.qualcomm.com?part=3D3
+Best regards,
+Roman
