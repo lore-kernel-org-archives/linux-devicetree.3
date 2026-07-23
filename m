@@ -1,131 +1,112 @@
-Received: from smtpfb1-g21.free.fr (smtpfb1-g21.free.fr [212.27.42.9])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4CA3036655D;
-	Thu, 23 Jul 2026 20:23:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.9
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 400DA3E3140
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 20:23:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784838203; cv=none; b=Lk4P8ibnNXqyvEviumr3sg2cGaBDB9wlSPa10s91wRaeR407E/E50ii7MInI4yiNMpl/G0GvvwH2b8Q8ZcgTg19KduKGcUEgFT/D7VzF14rfXMKDwsFAq37+GnSKh7lSeOSC49fJEEMc06IR8Cqfvpnm3mP5jKYS3AiF9pChtVw=
+	t=1784838227; cv=none; b=a+uPPk1YNtfbFxMNtbK6WyNUG1bRNS1gxYlF1ovHQtK/PPQ+i0Wc3OWAFqH56jKO81A1u7rv0VYyVWNOri7aIHq31pQE6+7qW4lqX6f8cw5dkGegHcRojC1ffJxjnhtD3S5GNlJvn4Kf36RW5UUvrIebD/YcqxXqcJ5Mc/xRfJo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784838203; c=relaxed/simple;
-	bh=DFY3Uzx+4ICb+0rQ1bSYdRMAl6vfvJhy/9J+rNwPn9Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LQ9YtAXsbCQggVC+uN+gnBOG8kYaCFbdWSsicRKVMIr3uLJ870v0QmTMi6v+Hx/ixPy5GA1lRsbwVfCgk01kodmkIvoTW6XDAQ+lMWcFbqljXFYkpJAsEZr3qTHcCO4a6cAXCrJJPVeGOmo2Pt93NAz4jsh29bkRXKfGXfG7j7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=Xe/+QOrr; arc=none smtp.client-ip=212.27.42.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+	s=arc-20240116; t=1784838227; c=relaxed/simple;
+	bh=p31nuPzvFGHztMfJEU5PcIrw/ODb4o1rno43j08o0eQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GbcvDKqJPQihpqvZAwIxa47orf3vycvcltGyhb/zagPmFKlLU/cGX4cJGLDETDepCnq+MGc6oRCx7B+0W9ujI4O0W8xUyY3FHir7ay1ob2yqaaiZYNkFbM3ujhJiHMlCv2qsy9dysnJKpUG4nr+qwOf8NcYSkIV4zDbQTOrQWFA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=TTTn1t+F; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="Xe/+QOrr"
-Received: from smtp4-g21.free.fr (smtp4-g21.free.fr [212.27.42.4])
-	by smtpfb1-g21.free.fr (Postfix) with ESMTP id 4E6DD8351CD;
-	Thu, 23 Jul 2026 22:23:16 +0200 (CEST)
-Received: from L30177.local (unknown [IPv6:2a01:e0a:ac2:22b0:8906:6856:2485:2c53])
-	(Authenticated sender: vjardin@free.fr)
-	by smtp4-g21.free.fr (Postfix) with ESMTPSA id F0AED19F5BE;
-	Thu, 23 Jul 2026 22:23:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1784838188;
-	bh=DFY3Uzx+4ICb+0rQ1bSYdRMAl6vfvJhy/9J+rNwPn9Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Xe/+QOrrRzfrKMK2G8b7wv8NdvqXQNJZr0fknroRf6qCt7XnU3BmV7CjowcT319pC
-	 tQABt5y/2YLH39fEq2j5b0QYu5oevE3mK9bIMAPhBIdNsCOSz3gzKjVhJ77Sb2MD+I
-	 YHfrcPRj2DXcCA8t+SviTmFS1zrBN/h74yGfkWgSsKXR9C3udlSdVQDD0gjvrDVWbR
-	 yfurKTWUO2WHmMz4R7PFZlIlmZw6RvbAm6T4yX3Qbc10yJVUw6gbvjCmbeRWp1e84k
-	 9b1fxw6I2LF8KI0X73HTUL8t1q4NqOqCeeBuWLEZ+38TFfW7H9T9OtHndev7I1l4vx
-	 fN+NQLUa2S8Tg==
-Date: Thu, 23 Jul 2026 22:23:02 +0200
-From: Vincent Jardin <vjardin@free.fr>
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, robh@kernel.org, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] hwmon: pmbus: add MPQ8646 driver
-Message-ID: <amJ4JvsnoQNIaTaD@L30177.local>
-References: <20260723-mpq8646_v0-v2-0-3c4cb71f23c0@free.fr>
- <20260723-mpq8646_v0-v2-3-3c4cb71f23c0@free.fr>
- <20260723160717.8AEA61F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="TTTn1t+F"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4954dff6536so8707875e9.0
+        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 13:23:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amarulasolutions.com; s=google; t=1784838224; x=1785443024; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vvDVjXMkBmC823RzTkpYCZMBAfM5/raWm5UVKD1gJ1A=;
+        b=TTTn1t+FAkGknrnGrxUaryzN72V9bviMG1+NLY2vK8+9BdsPaHi4PKoujUGcd1VbE5
+         M6Pa2tTwVfGcTQl/hr36CxFudFWvcEaTrLP0zomDlwPHzmE6IJ4gnCNHCp26nkCwplW+
+         oxd5ejN6RG+k/xAINn0/4lx0pkW+jXed6RcYk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784838224; x=1785443024;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vvDVjXMkBmC823RzTkpYCZMBAfM5/raWm5UVKD1gJ1A=;
+        b=UgWaJvS0NwnkwJ7BR/QngGZz7tXAMoXxeUy9vBvjyAq/bvmogCKcFvPfZSfnNMCu0H
+         uuQGoDAnU89GT5+QMczTndgxRc+WBZuSNdiATpzKcI3USluwkUZQ0J4tX3WdikjP4L0q
+         uuGqScaB95Svt2/fwof7tbFF76iaO3ky26bTU2tWBetvfjVd+gs6EqEC8oUiCjHAvX4f
+         wUfzGSZwbvSZx8u4dEB1Sy28kprP+IMRw2qe54A5RM0+M0jI/Eard1yM0xILLfbcMBxT
+         Bj3NIzJHR9Y3LLinzsvIO4e1ZhnoZ5T5RgP5fogMmyNMQtsIVDcfuNpFW/MKy1ktahHJ
+         FVdQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqBF4pc9cX5xwi06odiT9BJQiIFcWU97mEjionrq+IZSXf/0H+vcOH5SxzQLZ6Lq0AkTId5viSXXQQD@vger.kernel.org
+X-Gm-Message-State: AOJu0YyFlzH4nvgiMy1Ij39pDWKECsXmp5FJ44kfvno1is1P1vwXY/D0
+	u993cNKCee0MqGbcm8urqn2ZiTz4ed/b6r8vXX+yXiONcsUNW4iXZcDvMBoflT3GEoo=
+X-Gm-Gg: AR+sD11BxMSQjEXXuhpbAOO0yz2114l4ZvGUbkSbGH2FCkXVNid4fYPS91FAZUVRwgj
+	cI7cRPDYwn/PzIPEJbYNFGHCD9ioN1wbu1YR60Gp5wuJ4vkko7wlS5GI9bXNlPdpGjNCkEF4NM7
+	qLp0Gq6vrbc1Qsz2XN987AccYAi3xnGx7LUt+t3jTCxMF7u36JFlsJBl8xYEwqLdyPuZgcymXnL
+	p0H4bw3o/LseIVRB5Vq+baaYZFZ8gy6GKiRsPicEIH7/Qy8zf9G0LQWICsQHrifkl6+ze0fyPtX
+	xK6plV3u+oYGtMsqTDAcxKiZ6OGA9EkBM8nF0JZq4JUoN10K7T3x9vAY1a9u4mgj+/zrn3d3shU
+	MDMXdo16XBoU4JOMEoKsHp2qv4/s9kqPdM3Tw2fol+DASQSClPnjyQ9ajb4xFfL+SKyMFWx/I8n
+	4t0OBhuDAGpw7cAIunNQPtwhkIAz/ut0wkI65E1bWrxwbIBSmagJEFbOjdeAY33ng7cx0nYTVGy
+	K+x5mQXqP7zVoV5UWzotygx0zmfw3Kx8hgf3UnM3dPdo7e/Gn+CrSFjgNcS1HYldImrVmzROHSg
+X-Received: by 2002:a05:6000:18a2:b0:474:64bf:8fb6 with SMTP id ffacd0b85a97d-47f8dc993a7mr5621124f8f.39.1784838224153;
+        Thu, 23 Jul 2026 13:23:44 -0700 (PDT)
+Received: from dario-ThinkPad-P14s-Gen-5.amarulasolutions.com (host-79-17-119-233.retail.telecomitalia.it. [79.17.119.233])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85c631fdsm17516051f8f.28.2026.07.23.13.23.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 23 Jul 2026 13:23:43 -0700 (PDT)
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+To: linux-kernel@vger.kernel.org
+Cc: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: [PATCH 1/3] ARM: dts: stm32: add missed arm,num-irq-priority-bits for stm32f429
+Date: Thu, 23 Jul 2026 22:23:33 +0200
+Message-ID: <20260723202339.974529-1-dario.binacchi@amarulasolutions.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260723160717.8AEA61F000E9@smtp.kernel.org>
 
-Hi Mr. Bot,
+Add missed arm,num-irq-priority-bits to fix below CHECK_DTBS warning:
 
-> [Severity: High]
-> Is it safe to pass stack-allocated buffers to i2c_transfer() here?
-> If the underlying I2C adapter driver uses DMA for transfers, dma_map_single()
-> will attempt to map these stack addresses. On systems with virtually mapped
-> stacks, this violates DMA mapping rules and could lead to memory corruption.
+arch/arm/boot/dts/st/stm32f429-disco.dtb: interrupt-controller@e000e100 (arm,armv7m-nvic): 'arm,num-irq-priority-bits' is a required property
+	from schema $id: http://devicetree.org/schemas/interrupt-controller/arm,nvic.yaml
 
-It was already argued into v1, no change. See v1's answer to your analysis.
+Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+---
 
-> [Severity: Low]
-> Does this hook effectively intercept page writes?
-> The write_byte callback is used for the PMBus Send Byte protocol, but PMBus
-> page changes use the Write Byte Data protocol via i2c_smbus_write_byte_data().
-> It appears page changes will completely bypass this check.
+ arch/arm/boot/dts/st/stm32f429.dtsi | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-You have a point, I'll send a v3
+diff --git a/arch/arm/boot/dts/st/stm32f429.dtsi b/arch/arm/boot/dts/st/stm32f429.dtsi
+index ad91b74ddd0d..f94500cd90cc 100644
+--- a/arch/arm/boot/dts/st/stm32f429.dtsi
++++ b/arch/arm/boot/dts/st/stm32f429.dtsi
+@@ -794,6 +794,10 @@ rng: rng@50060800 {
+ 	};
+ };
+ 
++&nvic {
++	arm,num-irq-priority-bits = <4>;
++};
++
+ &systick {
+ 	clocks = <&rcc 1 SYSTICK>;
+ 	status = "okay";
+---
+base-commit: d326f83e819c53aa05c40d64f5805d6237b6aa1b
+branch: stm32-nvic-irq-priority-bits
 
-> [Severity: Medium]
-> Does this sequence bypass the PMBus core serialization?
-> By using the private mps_lock instead of pmbus_lock(), the PMBus core could
-> concurrently issue sysfs reads during these NVMEM reads.
+-- 
+2.43.0
 
-I'll propose something for the v3.
-
-> [Severity: Low]
-> Could concurrent debugfs writes cause torn diagnostic state here?
-> The last_probe_rc and last_probe_data variables are updated sequentially
-> without synchronization. This might expose mismatched values to userspace
-> readers in mpq8646_dbg_last_probe_show().
-
-Yes !, v3
-
-> [Severity: Low]
-> Could this direct hardware page write desynchronize the PMBus core page cache?
-> Since the core's software page cache is not updated, and the driver declares
-> pages = 1, the core assumes page switches are unnecessary and will not restore
-> it. This could cause sysfs telemetry to return incorrect data until reload.
-
-OK, I did revisit it. Because the chip is for .pages = 1, the core never re-writes
-PMBUS_PAGE, so a raw write of a non-zero page via this debugfs hook would
-fail with the hardware on that page and the core would keep reading it as page 0
-until a reload
-
-So v3 will remove probe_page_write entirely (same rationale as dropping the
-now-useless PMBUS_PAGE swallow in write_byte).
-
-> [Severity: Medium]
-> Does this multi-step unlock sequence bypass pmbus_lock()?
-> The PMBus core could issue interleaved sysfs reads while the chip is unlocked
-> or busy writing to NVM, potentially leading to I2C NACKs.
-
-yep, ok.
-The v3 will wrap the whole sequence with pmbus_lock()/pmbus_unlock(),
-nested outside the existing mps_lock.
-
-> [Severity: Medium]
-> How is the worker restarted if a user writes to this debugfs file after
-> disabling polling?
-> Because the variable is exported directly without a setter function, writing
-> a non-zero value updates the integer but fails to call schedule_delayed_work()
-> to re-arm the worker.
-
-right, the raw debugfs_create_u32() export cannot re-arm the worker.
-I'll check it.
-
-> [Severity: Medium]
-> Does this direct hardware telemetry access also bypass pmbus_lock()?
-> Without the core lock, concurrent accesses from this background worker
-> could conflict with other sysfs polling.
-
-Confirmed. The next v3 will wraps the worker's STATUS_WORD read within
-pmbus_lock()/pmbus_unlock(), so it shall no longer race the
-core's sysfs telemetry accesses.
-
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260723-mpq8646_v0-v2-0-3c4cb71f23c0@free.fr?part=3
