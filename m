@@ -1,181 +1,146 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB1CF3F5BE3
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 22:38:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B39D3EDAC1
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 22:40:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784846329; cv=none; b=UjraNyzgi6zeG1Aj0Ywt5uXbTS4bgk2QH8avLWQRHsz76Prth5ITCol5YZ9r8ccf/SvcotxpUnbCDKbRs9Gpsu3L6uXd6Pw3sLS5qt3Wpq+P+xLM++P6bfQa3Q+vCQx77useu2toVcAgne+EDRxxpK7qqGQzWiQdWSoVpAg2icU=
+	t=1784846459; cv=none; b=dEOz/wCalpaX3n5jmT3tm47VN3Dxw0mI32W5FiWJ/lCSfMfWrz6GJ0P9QLrUrot9F8pCJzx10L++mnXrc+Ijq4k2gEM4zxquPqR69ygj9xnmau4Ih6zKQlzgNQAPlEr8obT58uDYyMaRRvk5b88VSNb3vpi9l8C9t0LI2z7KRvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784846329; c=relaxed/simple;
-	bh=ZxPrjSsbxT9DJDdjFuHYqaL/tLkMGXDdbRAfKvyAZeQ=;
+	s=arc-20240116; t=1784846459; c=relaxed/simple;
+	bh=7r2R6zM6PPMCOAjjdrLv+8UY67vp6RUceBEt4+KC+XE=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=vBr13hhabrDkB9ccXyXSieifJqjjYKOs/zKgfbSq/l7gP7GLNi3d8YjXV5ohtped4UltOUKOyfH3WKVc3pLOstT494QUX3TZwMTND67GVk5+Hf7vB7RaXIvR8rNtjBNfelLWhFtYSI3BSUqzU0dEw5q54zU7vymEAp+ieQIPF6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gXManLm8; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=sz/ZRdX6qvJiFmVvVJvGGRqovNY+9Y/RAg9AqiyU44cT+FAac02+rpt35c5oII7tgkEpgvgbKNptt8bqmPt0Vb5XXxz6tDxd9gL+UHZP/BdbRF1H/p6SRkkrBwEoCAjq4LLHMLSh85/7QuSYNOhMGyEmXnpR6l5yTpFwk6cmWMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XoUhRFaP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gXManLm8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34EA11F000E9;
-	Thu, 23 Jul 2026 22:38:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XoUhRFaP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EF201F000E9;
+	Thu, 23 Jul 2026 22:40:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784846327;
-	bh=YzXgNCJrXug++jdnBenwtCBO6+ShH4iOpkGAyuOFDQE=;
+	s=k20260515; t=1784846458;
+	bh=i6pV7+GVDLekMLhc7UA9twwTX48mGetKM0g8Bw5klQM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gXManLm8CvEQBAFPKN+gK7nGb61Gz35UFD055ep8R5kzpusSAA3wl8qNxxji9w69y
-	 UOZc/BEAJLSOPUDaNmlCTlrmdE+DLSVK8hFxEZKXLsvWUitqABc0l3Ws+kCjWGyyFw
-	 hiSUSZI2F99WwEBdMGJwPrvBrdRFMEbo4CRPBanjgE6ejab0+Vnl5vyKOmC22xVmmH
-	 nPIU0nUlzRQ0m33EKhFnITogIgXhC7IfLwGbAHymUhRZ5RbgAkBkDyXwk3PXTyjMX8
-	 GXlL7BmlKLYppmrsZxfVD7BDvf1efbyW4dlHhMzjYAcmbh4dge8jX9NYw0xxp9Ub5N
-	 GVptGN2nD94ow==
+	b=XoUhRFaPBzK8xQ3+NSt+sJJoFGvCDsiD8i+soDaCKvWDgyTiADAbF18djNGEm6xqv
+	 G01vOw9EFZPZ6a2wXa4WdvD89Ln1W/7MF+uwEH60cmzZ0irQQYgDmHVdKQh3Iolb/I
+	 UYvF0mf2sOOPAchuDOyz9pShKT+PSyAPRVS4fP3vUdGFOV/uv/vRkbAXhEA6Ga4deS
+	 tQP1m647bhWGiWhTHzyV5xS8DHqc0sz5x8UsujskJxB4k+RF/UBybM/jGILhLoUvl5
+	 n7B93ELVdAE7Wljl8XLqnt8NglCzQlxD+emxVbqjp2CbUg2QwWFHvlqBJrFUnb0JBB
+	 wRtm4z7aCk3fw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 15/15] drm/bridge: synopsys: dw-dp: Add audio support
+Subject: Re: [PATCH v5 11/15] drm/rockchip: dw_dp: Add runtime PM support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260724-synopsys-dw-dp-improvements-v5-15-9445c2e87441@collabora.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
+In-Reply-To: <20260724-synopsys-dw-dp-improvements-v5-11-9445c2e87441@collabora.com>
 References: <20260724-synopsys-dw-dp-improvements-v5-0-9445c2e87441@collabora.com>
- <20260724-synopsys-dw-dp-improvements-v5-15-9445c2e87441@collabora.com>
+ <20260724-synopsys-dw-dp-improvements-v5-11-9445c2e87441@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 22:38:46 +0000
-Message-Id: <20260723223847.34EA11F000E9@smtp.kernel.org>
+Date: Thu, 23 Jul 2026 22:40:57 +0000
+Message-Id: <20260723224058.0EF201F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Critical] Unhandled error from `dw_dp_audio_infoframe_send()` results in=
- a negative SDP index, leading to out-of-bounds memory write and undefined =
-bitwise shifts.
-- [High] Typo in sample width validation allows 32-bit audio to bypass chec=
-ks and silently overflow the hardware register mask.
-- [High] `dw_dp_audio_unprepare()` unconditionally clears `audio_sdp_nr` (w=
-hich defaults to 0), potentially corrupting the active video stream's VSC S=
-DP configuration.
-- [Medium] `dw_dp_audio_unprepare()` fails to clear the audio stream and ti=
-mestamp SDP enablement bits, leaving the hardware in an inconsistent state.
+- [High] Incorrect teardown sequence in dw_dp_rockchip_unbind() causes inva=
+lid hardware access.
+- [Medium] Missing PM runtime cleanup when dw_dp_bind() fails.
 --
 
---- Patch [15]: [PATCH v5 15/15] drm/bridge: synopsys: dw-dp: Add audio sup=
-port ---
-commit 8d3e8e3c7ab668f3eaf614e21b09c813acc45d46
+--- Patch [11]: [PATCH v5 11/15] drm/rockchip: dw_dp: Add runtime PM suppor=
+t ---
+commit b12de6118be77a7ac8babe1d82f46a8db5857b90
 Author: Sebastian Reichel <sebastian.reichel@collabora.com>
-drm/bridge: synopsys: dw-dp: Add audio support
 
-This commit adds audio support to the Synopsys DesignWare DisplayPort
-controller. It implements the necessary DRM bridge audio callbacks and
-configures the hardware to transmit I2S or SPDIF audio streams.
+drm/rockchip: dw_dp: Add runtime PM support
+   =20
+Add support for runtime PM to the Rockchip RK3576/3588 Synopsys
+DesignWare DisplayPort driver.
 
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
-idge/synopsys/dw-dp.c
-> index 2bd37e5c36da8..a9e04cee002e8 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/=
+rockchip/dw_dp-rockchip.c
+> index 0ecbad24dd4e8..b1a69d8821a2c 100644
+> --- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+
 [ ... ]
-> @@ -1890,6 +1928,205 @@ static void dw_dp_bridge_oob_notify(struct drm_br=
-idge *bridge,
-[ ... ]
-> +static void dw_dp_audio_unprepare(struct drm_bridge *bridge,
-> +				  struct drm_connector *connector)
-> +{
-> +	struct dw_dp *dp =3D bridge_to_dp(bridge);
+
+> @@ -165,18 +178,32 @@ static int dw_dp_rockchip_bind(struct device *dev, =
+struct device *master, void *
+>  		return ret;
+>  	drm_encoder_helper_add(encoder, &dw_dp_encoder_helper_funcs);
+> =20
+> +	pm_runtime_use_autosuspend(dev);
+> +	pm_runtime_set_autosuspend_delay(dev, 500);
+> +	pm_runtime_set_active(dev);
+> +	pm_runtime_enable(dev);
 > +
-> +	/* Disable all audio streams */
-> +	regmap_update_bits(dp->regmap, DW_DP_AUD_CONFIG1, AUDIO_DATA_IN_EN,
-> +			   FIELD_PREP(AUDIO_DATA_IN_EN, 0));
-> +
+>  	ret =3D dw_dp_bind(dp->base, encoder);
+>  	if (ret)
+>  		return ret;
+
 [Severity: Medium]
-Does this leave the hardware attempting to send stale audio SDPs?
+If dw_dp_bind() returns an error, does this early return bypass the PM runt=
+ime
+cleanup sequence?
 
-The setup logic in dw_dp_audio_prepare() enables EN_AUDIO_STREAM_SDP and
-EN_AUDIO_TIMESTAMP_SDP in the DW_DP_SDP_VERTICAL_CTRL and
-DW_DP_SDP_HORIZONTAL_CTRL registers.
+This leaves the device's PM state enabled and unbalanced. Should this jump =
+to
+the error path to properly disable PM runtime on failure?
 
-However, this cleanup path disables AUDIO_DATA_IN_EN and clears the
-infoframe SDP slot, but does not appear to clear the stream and timestamp
-SDP bits.
-
-> +	if (dp->audio_interface =3D=3D DW_DP_AUDIO_SPDIF)
-> +		clk_disable_unprepare(dp->spdif_clk);
-> +	else if (dp->audio_interface =3D=3D DW_DP_AUDIO_I2S)
-> +		clk_disable_unprepare(dp->i2s_clk);
+> =20
+>  	connector =3D drm_bridge_connector_init(drm_dev, encoder);
+>  	if (IS_ERR(connector)) {
+> -		dw_dp_unbind(dp->base);
+> -		return dev_err_probe(dev, PTR_ERR(connector),
+> -				     "Failed to init bridge connector\n");
+> +		ret =3D PTR_ERR(connector);
+> +		dev_err_probe(dev, ret, "Failed to init bridge connector\n");
+> +		goto error;
+>  	}
+> =20
+> +	pm_request_idle(dev);
 > +
-> +	dp->audio_interface =3D DW_DP_AUDIO_UNUSED;
+>  	return 0;
 > +
-> +	dw_dp_clear_sdp(dp, dp->audio_sdp_nr);
+> +error:
+> +	pm_runtime_dont_use_autosuspend(dev);
+> +	pm_runtime_resume(dev);
+> +	pm_runtime_disable(dev);
+> +	dw_dp_unbind(dp->base);
+> +	return ret;
+>  }
+> =20
+>  static void dw_dp_rockchip_unbind(struct device *dev, struct device *mas=
+ter,
+> @@ -185,6 +212,9 @@ static void dw_dp_rockchip_unbind(struct device *dev,=
+ struct device *master,
+>  	struct rockchip_dw_dp *dp =3D dev_get_drvdata(dev);
+> =20
+>  	dw_dp_unbind(dp->base);
+> +	pm_runtime_dont_use_autosuspend(dev);
+> +	pm_runtime_resume(dev);
+> +	pm_runtime_disable(dev);
+>  }
+
 [Severity: High]
-Can this unintentionally clear the video stream configuration?
+Does this sequence cause invalid hardware access if the device is suspended?
 
-When the dw_dp structure is allocated, dp->audio_sdp_nr is initialized to 0.
-If a userspace application opens the audio device but closes it before
-hardware parameters are configured, dw_dp_audio_shutdown() will still be
-called, leading to an unconditional call to dw_dp_clear_sdp(dp, 0).
+dw_dp_unbind() is called before disabling PM runtime. dw_dp_unbind() calls
+phy_exit(), shutting down the PHY. If the device was suspended prior to unb=
+ind,
+pm_runtime_resume() forces a wake-up, which calls dw_dp_runtime_resume() th=
+en
+dw_dp_init_hw().
 
-Since slot 0 is typically already in use by the video stream (allocated by
-dw_dp_send_vsc_sdp), this could cause the display hardware to lose its VSC
-SDP configuration and break the display.
-
-> +}
-> +
-> +static int dw_dp_audio_prepare(struct drm_bridge *bridge,
-> +			       struct drm_connector *connector,
-> +			       struct hdmi_codec_daifmt *daifmt,
-> +			       struct hdmi_codec_params *params)
-> +{
-[ ... ]
-> +	if (params->sample_width < 16 || params->sample_width >> 24) {
-> +		dev_err(dp->dev, "invalid data sample width %d\n", params->sample_widt=
-h);
-> +		return -EINVAL;
-> +	}
-[Severity: High]
-Is this a typo where >> 24 was intended to be > 24?
-
-If an ALSA client configures a stream with a 32-bit sample width,
-params->sample_width >> 24 evaluates to 0, which bypasses this check.
-
-Later in this function, the 32 value is passed to
-FIELD_PREP(AUDIO_DATA_WIDTH, 32). Since AUDIO_DATA_WIDTH is GENMASK(9, 5),
-this will silently overflow the 5-bit mask and truncate to 0,
-misconfiguring the hardware.
-
-[ ... ]
-> +	ret =3D dw_dp_audio_infoframe_send(dp);
-> +	if (ret < 0)
-> +		dev_err(dp->dev, "failed to send audio infoframe\n");
-> +
-> +	dp->audio_sdp_nr =3D ret;
-[Severity: Critical]
-Could this lead to an out-of-bounds memory write if sending the infoframe
-fails?
-
-If dw_dp_audio_infoframe_send() returns a negative error code (for example,
-if dw_dp_send_sdp() returns -EBUSY because the SDP bank is full), that
-negative value is assigned to dp->audio_sdp_nr while the function proceeds
-without returning the error.
-
-During teardown, dw_dp_audio_unprepare() will then call:
-
-    dw_dp_clear_sdp(dp, dp->audio_sdp_nr);
-
-In dw_dp_clear_sdp(), this results in negative bit shifts and an
-out-of-bounds write:
-
-    EN_VERTICAL_SDP << nr
-    clear_bit(nr, dp->sdp_reg_bank);
-
-Would it be safer to return the error code here instead of continuing?
-
-> +
-> +	dev_dbg(dp->dev, "audio prepare with %d channels using DAI=3D%d\n",
-> +		dp->audio_channels, dp->audio_interface);
-> +
-> +	return 0;
-> +}
-[ ... ]
+This would perform hardware register writes on a device whose PHY has alrea=
+dy
+been exited. Should PM runtime be disabled before calling dw_dp_unbind()?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-synopsys-d=
-w-dp-improvements-v5-0-9445c2e87441@collabora.com?part=3D15
+w-dp-improvements-v5-0-9445c2e87441@collabora.com?part=3D11
