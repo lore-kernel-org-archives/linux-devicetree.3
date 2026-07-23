@@ -1,132 +1,72 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B94E3F5BFA;
-	Thu, 23 Jul 2026 11:50:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ABAA47886E;
+	Thu, 23 Jul 2026 11:52:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784807417; cv=none; b=jMBzQBppEYTfS3WIBiMXV32i/Rtip8tSrpKABP2eWdRQ8jSH642e7/koTdW4actPpkmFVCBff7HFjSfsTxXuQOZwJCHKUqRe7ieFDaVePM6T9eqrVMfQVIXs2G4wU3SQQo2hgVrqC6XQYQSLBQzwuWbJTUz/HR8DSsZVol+VxTA=
+	t=1784807532; cv=none; b=Td0T3N/zrNCaCS/r2Uu4NKjpScfMshjVzWOFY3I4TLZ1lSHIeDehycIzdTqotcRwO1ZQqVP0rs8wGrK84+9cKjVwm0metxw8bEa/MCU5+d8nQRjFMVo+zkWf5zZpc87v+cb2tAcry/xeKbTkzf3uavuckCAinQZg8+nrDt6bKKI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784807417; c=relaxed/simple;
-	bh=WuUPJAm5e+bP+tc7WqWPJD7tQMUJ9wgDl48pEF/IUR0=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=Hvc6irkGYP5Cxlo0m0oUWaIelBn9E2P9bsni6auoeSoilQz4ZYxvPJcq2No92amhYysPGwDA1VAMhBsznMams7bFZOtE+OI2i4cPPigEFuo4aXJ4wbnRYHkMFDfqZH4u+SQyfJaQbkHKH93hjhgaQLIYe+OkojQPsrvuRlxpu8Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=teWDYXeS; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1784807532; c=relaxed/simple;
+	bh=5Aeda3tYL1GjuxDi01NBEakRq/GFPPUfPSYRwRUHEbI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=re/UWDXWHuVdgxZmFFls+mHnkf2NaH1EZ3/x6BawklUHLyI0/ws91i92seHWQbCMOoyKQoIaNR1KDeH/IwImm6CR3aGpqcoCh2wft8eMzZ4F3w4aeRIs5/kVUyBT06bYZiaYRC9Xd5myw+GLomfakiAA12ZK0kEKxG4zuEm2m9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LVUQqlH7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="teWDYXeS"
-Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c68:25d4:fa24:78d1:31:7a56])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 52CB61C37;
-	Thu, 23 Jul 2026 13:49:04 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784807344;
-	bh=WuUPJAm5e+bP+tc7WqWPJD7tQMUJ9wgDl48pEF/IUR0=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=teWDYXeSBl2hmlaLPHZZpSx2KXIX4e0WgBLBFweCNSGBUCCUSNLZiYTGf2s+CCsl3
-	 zqS2y11p+ovL2uK8D8Lfa8hqbpUbSnrt3wjX304wsUxhcw5Se4iEXr2pNgt7593/SD
-	 oNd65QWKnE/hIZHefZjngPlj1lJkJ3EqT1LFIIWk=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LVUQqlH7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02F9A1F000E9;
+	Thu, 23 Jul 2026 11:52:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784807524;
+	bh=9j2nLdyru6ubKUpJUXNHKFV5tgfei3+wpK7rs2jNFW8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=LVUQqlH7yyEEmRE6f51Rev8g0QN3h4pQJFMybORgpcdBjrTa5Bi+P+rS+PiIbJpWa
+	 0XVBU7pSo1MHbXn8XePyga0kxrggxR8agpDg8yFad4Y1ugT+HODZzZr4ZNHaqtZPef
+	 a0zRj6RmJi+m28y6XAcCTxzxhrqxxGwfutKofE4oVtPs6k4Jmm6l9eWtLmhgrZdUhR
+	 qaxZO21fZIVp+L4/6U5q7mfF5Yn6/t55iDddch2lNJICA3qFm7BLTvb/1fGyiR2mYu
+	 RtIhbmOPbmNdCVwiOdsSj2jO4iyh1xi9LjZn1u7Wd4DzH0eVsAkCoEJs/N76lrcVVY
+	 9sl9zfpZ4efjA==
+From: Lee Jones <lee@kernel.org>
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Jacek Anaszewski <jacek.anaszewski@gmail.com>, 
+ Sven Schwermer <sven.schwermer@disruptive-technologies.com>, 
+ Jonas Rebmann <jre@pengutronix.de>
+Cc: Pavel Machek <pavel@ucw.cz>, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ kernel@pengutronix.de
+In-Reply-To: <20260713-multicolor-default-v3-1-fb43f3f789cf@pengutronix.de>
+References: <20260713-multicolor-default-v3-1-fb43f3f789cf@pengutronix.de>
+Subject: Re: (subset) [PATCH RESEND v3] dt-bindings: leds: Add
+ default-intensity property
+Message-Id: <178480752172.3382996.300395263332006645.b4-ty@b4>
+Date: Thu, 23 Jul 2026 12:52:01 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <amH3qaUBCOBOKxjL@zed>
-References: <20260722-mira220-v7-0-dd5f1de98cd4@ideasonboard.com> <20260722-mira220-v7-2-dd5f1de98cd4@ideasonboard.com> <178472387683.3005206.5602199112336367476@freya> <amG5CiajbwGXhb59@zed> <178479424623.3238585.7446724208192156945@freya> <amHRMQfRzppwZ5xz@zed> <178480022192.3238585.15132202916626773351@freya> <amH3qaUBCOBOKxjL@zed>
-Subject: Re: [PATCH v7 2/2] media: i2c: Add driver for AMS-OSRAM Mira220
-From: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Philippe Baetens <philippebaetens@gmail.com>, Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Date: Thu, 23 Jul 2026 17:20:00 +0530
-Message-ID: <178480740067.3238585.393583431156412387@freya>
-User-Agent: alot/0.13.dev35+g4a69c46ca
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16-dev-ad80c
 
-Quoting Jacopo Mondi (2026-07-23 16:47:09)
-> Hi Jai
->=20
-> On Thu, Jul 23, 2026 at 03:20:21PM +0530, Jai Luthra wrote:
-> > Hi Jacopo,
-> >
-> > Quoting Jacopo Mondi (2026-07-23 14:46:07)
-> > > Hi Jai
-> > >
->=20
-> [snip]
->=20
-> > > > > > > +#define MIRA220_MIPI_HSIZE_REG CCI_REG16_LE(0x207d)
-> > > > > > > +
-> > > > > > > +/* MIPI bus control */
-> > > > > > > +#define MIRA220_MIPI_LANES_REG CCI_REG8(0x6012)
-> > > > > > > +
-> > > > > > > +#define MIRA220_MIPI_CLK_MODE_REG CCI_REG8(0x6013)
-> > > > > > > +#define MIRA220_MIPI_CLK_CONTINUOUS 0x00
-> > > > > > > +#define MIRA220_MIPI_CLK_NON_CONTINUOUS 0x01
-> > > > > >
-> > > > > > Does DT allow clock-continuous property? Do we handle it?
-> > > > > >
-> > > > >
-> > > > > The bindings for this sensor allows all properties from
-> > > > > video-interfaces.yaml, including clock-noncontinuous.
-> > > > >
-> > > > > The driver doesn't support it at the moment and unconditionally u=
-se
-> > > > > continuous clock, but I guess it's nice to provide macros for the
-> > > > > non-continuous configuration as well
-> > > >
-> > > > Ah, that's not too good if the DT allows it but the driver silently=
- ignores
-> > > > it.
-> > >
-> > > Why ?
-> > >
-> > > We allow all properties from video-interfaces.yaml (something which I
-> > > think it's wrong, but that's a long time ago discussion with dt
-> > > maintainers, so I'm not contesting that) and we certainly don't handle
-> > > them in drivers (in facts, what drivers do is not relevant to which
-> > > properties are allowed for a device).
-> > >
-> >
-> > I am not saying the bindings shouldn't support that property, bindings =
-are
-> > for hardware. And yes you are free to not implement all features in the
-> > driver.
-> >
-> > But given the bindings and the hardware both support toggling between
-> > continuous or non-continous MIPI clock, from a hardware engineer or
-> > integrators perspective it would be quite confusing that setting the fi=
-eld
-> > in DT will do nothing, with *no* warning to the user either during the =
-DT
-> > validation or the driver probe that it was ignored.
-> >
->=20
-> True that.
->=20
-> But does this mean I should be doing the same for all the properties
-> that apply to the hardware ?
->=20
-> clock-noncontinuous:
+On Mon, 13 Jul 2026 10:50:28 +0200, Jonas Rebmann wrote:
+> Document the default-intensity property to set a default color on
+> multicolor LEDs.
+> 
+> Update pwm-multicolor to support it and update the example to turn the
+> LED red on boot.
+> 
+> 
+> [...]
 
-Yes, to me it seems like a low-effort win.
+Applied, thanks!
 
-> link-frequencies:
+[1/1] dt-bindings: leds: Add default-intensity property
+      commit: 2ebd1cb772b00d1223895718155a03af4c56f396
 
-Supporting different rates is hard, but at least driver should print a
-warning if the DT supplied frequency is not supported today. Most driver
-use v4l2_link_freq_to_bitmap() to make life easy.
+--
+Lee Jones [李琼斯]
 
-> lane-polarities:
-
-Does the sensor hardware support flipping polarities? I've seen some
-bridges supporting that, in which case they should handle it instead.
-
-But let's not "perfect be the enemy of good" :-)
-
-> ?
->=20
-
-Thanks,
-    Jai
