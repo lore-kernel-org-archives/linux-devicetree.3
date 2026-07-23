@@ -1,115 +1,98 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E4613BF676
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 06:08:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70EB03A4F51;
+	Thu, 23 Jul 2026 06:10:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784786911; cv=none; b=PkOCnenZvQpOOCDT6R4ZD339piqUt9CATB81D+lBn/wIWKG/WQYioN+PgDUdSLMp+e1y98p/nXAVgxt1NrMQqa6TwoJaumLe1XPMFOOazTCpAdgK3FVE9h4PxsfE0CTgDRrxpINFQoRYMYLJ8X1tkGfDBMtofED8KC0Ds7+N4Ao=
+	t=1784787011; cv=none; b=MHU0gCjvvoOzthBx9Unut4X2QbL93zPFzZJ5vGscWQTRh0j7sqxyd29CxxVWG+0SAZNg6Nz6CQzRHEwVZowxxQIOTpDR8m073ZvFLqSaTN80HohBNhPusivn9RPxIvcr7Qo3H97ND03tnHB496C6QYSQ7mq4zyPjVlYdARR8R9U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784786911; c=relaxed/simple;
-	bh=yKkOBIWDLVzZbrFG3yiQLyXNfyi/iupP2ISmcl3yvxs=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=N0YaNaIlNkj9rXpwgLSW3TS9dfXlNOqYuuk0BIkIXYAjk8FgyLRa9YmqtVme2gC0GjqVFKGks8j1fH8Trq+upzrnSn+vAAV9A5yv5/mtKchTg/pdC8jOKIp9AT8OblVwyphTanH2T7JEfjo4m1DhMFr0QlD/CL5Rd5UXwKzuiE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jIAeSBEy; arc=none smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784787011; c=relaxed/simple;
+	bh=WhdBv1DD+mg8/k0SjVnmTU+YiCvCDK2j13HmKpzYk4M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ORw8XovwQOU4bW3ZGudb7dAB7K6/EfNms0bdui8dc3O/T7oRia7KzgRJpm5uVBX6iOh0cAA9/A7sq2ofF21R6gSsk5dZqFr7FltYtidJAwDveCw0T4kKcrgnwLCqvHiTLQaV8VjKr/c39jEXVEaOJvLhX8ld0z2WCT1eg4BYgVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RerGSwqV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jIAeSBEy"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2cea3004256so3505985ad.0
-        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 23:08:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784786909; x=1785391709; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aUz1mWBpB/XSD0ZgFsInGJUX8h9hfweN14oEZfYpX44=;
-        b=jIAeSBEyIv6zcH+gH+U6/tv0Dc1Hy4ZmiER8FjFdQR0OxPwF2HpGxiBKG1JYKS6o29
-         J+EYFg+o24vlZdt40WFCfGrW2bc8btnREe1B66GqlH0dz/iGdwS73CUTbQvMib2C9Vo3
-         uo3um9rfvtjh7pBZhu4HoAvLW7KBB2+JOrM23n98BPudzbNsOCxVdUnvSjGetbZI1kBi
-         bPWtMu5KNCU6gILo4brGqfIxqkUkOLTcXyv9pQrVt6BEH7gqz0NSgqxQ6xTTiYkr4Bgn
-         LMy2p/XIryx2Cs7aWmmvGxZUoK13vzScNtxqF2AX4GWDfYUTVEWnQZZ0WavOQsGFll/n
-         i5kw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784786909; x=1785391709;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aUz1mWBpB/XSD0ZgFsInGJUX8h9hfweN14oEZfYpX44=;
-        b=HrOEKSLRZcvTZPZkPFyj+KxUu88vAnZSLx+7kIRqUy8zjPSbMF6ftGTV7n4qc+9Zsi
-         IYSnUYTePkfHiBocNorlJKQJX8YL7ICle6u4kvSYgOvGpTu/6Acwnf7o9YSeMKNIAtP0
-         Vl/1SotGfuMtvdKw+fZfAXdA8ZCujb2C24UhrYRCOs8PuoHgeVovmIrQkbcb2mAiVcI5
-         Iix1UUBLCw0WIcqzrGzQnH23o1hblZmgOWCQvqjm5Ddmg1Ot6sJyBQGU3a8ToZy0j/JE
-         Mecn6WsUHv0SoY9bvKV8+2Bp2Dx1xM+BWMuYPDZOaHWR/2WVlTFuNMANly4MgoISkYcm
-         0B1g==
-X-Forwarded-Encrypted: i=1; AHgh+RoF1twRVJQckVQ5NYLWTrf4hhQ2etm60YDhSu0VnUEq4Jpyux8omVRF2ezntYvS62ZJLkKXvpW3L+al@vger.kernel.org
-X-Gm-Message-State: AOJu0YzYPh0n2m/q8znXOzQKu+DHyCRU3yOh5ZN9gzorTkhjP3VCzzQM
-	GUFjDODFgJEJ+8zUp9hazoJlSw8EGKxo1vU5JJx/u0Gy6OQLOE+e8K09
-X-Gm-Gg: AR+sD13h3GMoWcA8ZAghlmB3DPC82s2VB7M0g2E5isfW8JCiVgkiIwFxZsUAV9XBfnZ
-	atEdj8GS5OTuBlb6yE95t2axgsO2RfRLlcFNVnU8DK6wMUIADHHzKqMohNMvYNWNYrZ1R0qy97K
-	m5pDP5dMXrWiVKz9uZKaRVPeNHYtNcvLFDh8VEIxzb9t+28vLB9WD7/rnrQsBsQ1+c++SnLhXnc
-	4RbE/bfo0QgZWADsNaLjK//mfu3M+U6FUqLnZWxLZ+EN0i6dLtiZp6IGZ9zsWzlaz5HfvPsGwXO
-	wS/C1f8AHYUnmvGfWq3aMy4OJ8sVOSMccka6zD7hpr4frFNYJ9NK4GX6OcGFav9bNqskPxCORRJ
-	A0oG/ZQmWONKG+sp7eeOFXX+pJC547c5wfVkjIqX4VTq94WdMlU5D6btMkzP1+Sm4LFtxzi/wMu
-	QS6TQ2XR3KV/toL2pSLETKyjZnLRWiIHqEl/0TLaN8xcqBRPFA3q7j0lVkklUG
-X-Received: by 2002:a17:903:2444:b0:2ca:1eef:5096 with SMTP id d9443c01a7336-2cfa6c7206emr21250435ad.36.1784786909424;
-        Wed, 22 Jul 2026 23:08:29 -0700 (PDT)
-Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf8f390dd2sm26071285ad.79.2026.07.22.23.08.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 23:08:29 -0700 (PDT)
-From: Zi-Yu Chen <zychennvt@gmail.com>
-To: Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Jacky Huang <ychuang3@nuvoton.com>,
-	Shan-Chun Hung <schung@nuvoton.com>,
-	linux-watchdog@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Zi-Yu Chen <zychennvt@gmail.com>
-Subject: [PATCH 3/3] arm64: dts: nuvoton: Add WDT node for MA35D1 SoC
-Date: Thu, 23 Jul 2026 14:07:54 +0800
-Message-Id: <20260723060755.1596858-4-zychennvt@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260723060755.1596858-1-zychennvt@gmail.com>
-References: <20260723060755.1596858-1-zychennvt@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RerGSwqV"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 4A4D21F000E9;
+	Thu, 23 Jul 2026 06:10:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784787009;
+	bh=WhdBv1DD+mg8/k0SjVnmTU+YiCvCDK2j13HmKpzYk4M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RerGSwqV8+JnsPhEugS7MoSqBzg2xH4sSz1Uw3XCOePOpKaGvz/lP4t+ZXHPC93SA
+	 7D+BGiD56Hgf/sCPeZOVQ5MzihhBo2/Tcb0KKZ5rTly91FqNLUJ4shWH+lcVSTC46w
+	 KBfZ7q+qGMrJeGJyhBoKRNbdFdmKxTPqNLxMGg1mNrPw3SSPvFchdpDysmnPfmqqyd
+	 9PZ6CEywwF+4WBCyhjAVsKiZWW/oputlml4M15qUg7Ba0287qu8UW8K/j6XSYU2zY0
+	 q/fq308ylzykregTrmKcOaLiJUu5XRK5ilvMh0PFquXhZQ/nU/nOpN3SWFkXlIpbiv
+	 ONyeT0lcrv0rA==
+Date: Thu, 23 Jul 2026 08:10:07 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Chris Packham <chris.packham@alliedtelesis.co.nz>, Andrew Morton <akpm@linux-foundation.org>, 
+	"Darrick J. Wong" <djwong@us.ibm.com>, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org
+Subject: Re: [PATCH v2 1/6] dt-bindings: hwmon: add binding for adi,adt7470
+Message-ID: <amGvR3VwfDN1Gi0Q@monoceros>
+References: <20260717-adt7470_thermalzone-v2-0-a55147958fad@gmail.com>
+ <20260717-adt7470_thermalzone-v2-1-a55147958fad@gmail.com>
+ <20260720-placid-fanatic-shrimp-d2bcd2@quoll>
+ <a8fba49c-bb72-4b3b-b598-4972304e0b4c@roeck-us.net>
+ <CAJq09z6qQnKXgBnQKCey4u47hsJTjpYXPDvDZj76sXHZuj2emQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="cll6tmmlhnoabstr"
+Content-Disposition: inline
+In-Reply-To: <CAJq09z6qQnKXgBnQKCey4u47hsJTjpYXPDvDZj76sXHZuj2emQ@mail.gmail.com>
 
-Add Watchdog Timer (WDT) device node to ma35d1.dtsi.
 
-Signed-off-by: Zi-Yu Chen <zychennvt@gmail.com>
----
- arch/arm64/boot/dts/nuvoton/ma35d1.dtsi | 7 +++++++
- 1 file changed, 7 insertions(+)
+--cll6tmmlhnoabstr
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH v2 1/6] dt-bindings: hwmon: add binding for adi,adt7470
+MIME-Version: 1.0
 
-diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-index 7228ad4735b5..14fd17cfdc5a 100644
---- a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-+++ b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-@@ -82,6 +82,13 @@ soc {
- 		#size-cells = <2>;
- 		ranges;
- 
-+		wdt1: watchdog@40440000 {
-+			compatible = "nuvoton,ma35d1-wdt";
-+			reg = <0x0 0x40440000 0x0 0x100>;
-+			interrupts = <GIC_SPI 43 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clk WDT1_GATE>;
-+		};
-+
- 		sys: system-management@40460000 {
- 			compatible = "nuvoton,ma35d1-reset", "syscon";
- 			reg = <0x0 0x40460000 0x0 0x200>;
--- 
-2.34.1
+Hi Luiz,
 
+On Mon, Jul 20, 2026 at 11:12:49PM -0300, Luiz Angelo Daros de Luca wrote:
+> Initially, I modeled the driver purely as a cooling device. However,
+> following Sashiko-dev's suggestion in a previous review, I converted
+> it to expose PWM channels so it could be used with the generic pwm-fan
+> driver (which indeed makes the code cleaner). My primary experience is
+> with DSA switches, so hwmon is a new area for me.
+
+I like the driver exposing a generic PWM. For me it's quite in line with
+the "Linux spirit" to do things with devices that are possible even if
+that doesn't figure in the vendor's scheme.
+
+> Whatever you and the DT maintainers agree on, I will gladly adjust for v3.
+
+But my opinion doesn't count ... :-)
+
+Best regards
+Uwe
+
+--cll6tmmlhnoabstr
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmphsDwACgkQj4D7WH0S
+/k7lqwf/Xq1hrcclNjopIUHYjq/ZmsRHMQe7JInwuovR5K1IvCOWdwrNpO1kvf34
+MBP6lKRJPnSHpti2MrCXjqjaapLM2p55UQkLv2VYa4tYPHYnFYo4XAMFIYlSFJJI
+9Im1yTxJmDM/jdk/taH6fimsu2ZOa9WLbz/2odo0XPVp/CeZqDyNofFGBDj8vmHC
+Du66lLvLGRfbSUwv5flPopsJwL83jgiDzx/wDWadW6+M3oUVKh2LUIkjOjz6tthH
+Wv2rEHQWRWZmf4cKJTOk69/VDovOtpelthr+1mZhkBmd/LYXID4O/ULmeUPg/GcP
+ob+Uxidpj3bmhTls6SZK4u0gs5lZgg==
+=PJzl
+-----END PGP SIGNATURE-----
+
+--cll6tmmlhnoabstr--
