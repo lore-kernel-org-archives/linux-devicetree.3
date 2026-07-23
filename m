@@ -1,243 +1,140 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010036.outbound.protection.outlook.com [52.101.69.36])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C01143DDDB1;
-	Thu, 23 Jul 2026 21:36:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.36
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784842617; cv=fail; b=eJPmTZFF7PJEIxwB4LtlYeFr7l85Eh7yYcStmYp7MhPLBD8k1UhvrUCU8PIKbtCKXzTI5OOWoKV+SiVP8MEaXezMv4tg0WmtzBZ8GpRwwVquEmYFLeF+oVaAFkpt8f3kLzxmpI2vw/v8UY7rP8FFb2RjpIYaaIViY/fq9WGAnL0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784842617; c=relaxed/simple;
-	bh=GZOhMNwLLY7RBL5dHZ6fr9bblKHQmXOeINWi0ELGmdI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=tcXKoebwR4Wch9/B/HlSRZOTaD3obCLat+IgQ985jD417S+iazuGJx7KxIKRt+PGucOksFhgGO2AIDIIlOuLuq30zpefnA1XC3IACT1UTvg5nJT3b8DZO+EzKxsa+bz0E3UeAUHF/8eLfP0y08DfQZJwAFZpU3mZtfSuQrIz4ig=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=rdO7xSvq; arc=fail smtp.client-ip=52.101.69.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE2A73FF89F;
+	Thu, 23 Jul 2026 21:38:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784842727; cv=none; b=XKW9OA62F6W6db7lxAl3sFYKFzFIzKZ1cBMztU452JeVOyZe/lDizSHdTOPZsTSUUzwmL5lLNYC4nCXLOmBLfWG1WMyb0CadkFgDyTN7fdgeKbVz7ZaeW/FhmvBfcAZ1OICzXZd0VSrfOVovUGJ6Kupaar6/+oWPYv1nwM2BViI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784842727; c=relaxed/simple;
+	bh=DLVhQmaKjnuyBa919iY7i8pN7lOModUYk9klGPgiHIw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=cBCQbZjr9lGkCJqMbvtUQ9QobFyeTortKvKeFlnz1W7jlQWmPnASdGwu8opMOubqqh4gPbnetsNL7mRV2+atbmwwNCv5cPRKg0r4ixJ45u6GvL3Wd+OZm7sg6itv90DTI3CCWtof5KEyVESs/wf66dOwDMmiXluveTlnlYzfboo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aLHdEtbb; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="rdO7xSvq"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=j6tB2eWobM64xFyAAkYYwnrrxdKf3KqKk6Cc1GxQZmKrpRUXip04CRHrcWxhw660PAmTEmT8EHfA7HPlZyK44CVLZ48SLpx4mBUEIY+B0MgaStM+M2FqEa8AU8+o4AZ3gvfuDMrtD2I+1abwqD4iqgZDPx5I57F7yRtrhGMDzeHXXMWuHbL1qHqezMdH7+J8ReZs/bZ2E9BraOd/4uTmQVbuouG0bV0LPmVcprCeSWBoEWt/4sNB1hmxBGhk2zDR9C1usgVzjDq2Rysy6IwvIVFT/QuQ1HD27BLzYYs20FqgAVlc/pWm1r6yJx5082Xzh4UPUtRccN0Xxs6U7vdrOA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PTHnXaTZ3WZ95ezN//nntkK94rOKRQfH92kroTmCcjA=;
- b=brFRskEBW/XE6MV/eScvhbaSy/mYOwqqeDKWzdobTgta5Knh6w4Km1alW16yzmbqcL2dTZT1W4w/XH09eSKI9GXFMLHATXRtY4CV+qdATXMAEh3x3NE+q92aDTeG/QGx3u4c8SGoGI4WTE4Xeeqzp4O3Y1XT4pBu/WDCU3pkSRXjsWVTF6OLbjlr0WzeBptY1Xp3cgTfeUfji2HAXYXb7CFMmkN7kYv5C13wlvB4IYTWUMrE6gCtNG0Rg/nLFbdviAqJlGHXpGtiXeT7BZskGaEMfDZqrKE4f0psMM3y6kzRERJ6M6hN2mfWrpQHo3fZGWVqApolctN1AYYmzn5jDw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PTHnXaTZ3WZ95ezN//nntkK94rOKRQfH92kroTmCcjA=;
- b=rdO7xSvqtCSbN7d1XyENsfBFMAx8Ml3ptC0a1x1kD6Ky5mvRXdE7zCwccFAtuDfQO8RmLqVk6OJqi6rqVBMj7gu4KuaXVFoOgDc11mo6keV1jL/9xUyxTBgYEy7lksARI+JF7m+cFtgrBMvYBgce5roRj4Ivx4XUnwsR1Xzv0wU8miSbG0Jwv22m9SgOlBj/vzjQH0Q/LcB/VG+T7GkaJ9WA77+UKZ1qURAKmO3ZuXPZp5uOxds+DROLwbT8+StOK/CcLsSyrkRIJt4uYZNaQ3hh687GC5daA1sG/yupfeQbF6BhllOnFQCluptbYtsiQy5PsKKH6hFLsNl7iRCrGQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AS8PR04MB8248.eurprd04.prod.outlook.com (2603:10a6:20b:3fd::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Thu, 23 Jul
- 2026 21:36:52 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0245.010; Thu, 23 Jul 2026
- 21:36:52 +0000
-Date: Thu, 23 Jul 2026 16:36:39 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Liu Ying <victor.liu@nxp.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Marek Vasut <marex@denx.de>,
-	Stefan Agner <stefan@agner.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	Sam Ravnborg <sam@ravnborg.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Robert Chiras <robert.chiras@nxp.com>, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v2 3/7] drm/panel: simple: Add waiken WKS101WX001-WCT
- support
-Message-ID: <amKJZ4CZJbeBw6L6@SMW015318>
-References: <20260715-dxl_lcdif-v2-0-da797562636e@nxp.com>
- <20260715-dxl_lcdif-v2-3-da797562636e@nxp.com>
- <alnCL7ylMyvGD-ui@raspi>
- <amAJL9TIcDAK7kbh@SMW015318>
- <amA8iVS4c0exg6pT@raspi>
- <amA_lUpWkbOFal1y@raspi>
- <amFAXwoM4j2sIENj@SMW015318>
- <amF60o7yUcqAE24N@raspi>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <amF60o7yUcqAE24N@raspi>
-X-ClientProxiedBy: PH0PR07CA0088.namprd07.prod.outlook.com
- (2603:10b6:510:f::33) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aLHdEtbb"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 024B5C2BCF7;
+	Thu, 23 Jul 2026 21:38:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1784842727;
+	bh=DLVhQmaKjnuyBa919iY7i8pN7lOModUYk9klGPgiHIw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=aLHdEtbbJDzC+4dbwCXqjKxyKmGfhElnckkqHbori+CNGOSdLNLJqRrt52/SWXpZ+
+	 oORwfFSKtmpbRzA9Uv5ydti8L6V9PA5Uu3awjwN59Nb4UoNHvz+0UGhr5ZELZDChrq
+	 VdOmNjJBZkuXo42n5Y8GK0ZDEDMFN9mR5c7OA8LAo+xyd61DZlYVtxSVFOiI3TyrYa
+	 BN+V9Pe0QhTGj7t9P+lRkQhEc+L2qU/smq+SgvSgvel0jn1dF8zEbJnK14MPxmEMMM
+	 VWbeRIH1tJ6+6AiQwYQDjDgwPBmfztnAzWTah/mOlYETTwii5mXDQRimCIRLqcJjJa
+	 KDR0nWg/87iEw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D4F06C531D0;
+	Thu, 23 Jul 2026 21:38:46 +0000 (UTC)
+From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
+Date: Thu, 23 Jul 2026 23:38:45 +0200
+Subject: [PATCH v4 2/3] dt-bindings: hwmon: pmbus: add MPS MPQ8646 binding
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS8PR04MB8248:EE_
-X-MS-Office365-Filtering-Correlation-Id: 76ae3b07-ec63-4b74-7628-08dee902823a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|19092799006|366016|1800799024|56012099006|10067099003|11063799006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	6i0QggykS0wWnCpNntBnFGmm11+pMVAMTtiZLfEQ0PwvzTxoj7AilvQQLMbUsl+VAws7Ovs+MPVJL536wgp6tusVJy95sDE9AJS8RTW0c40zv+eaGx+6AhV2R/XCBolS47Aoae084Xkuf1RhhFKgbfwJG4VcJ0G6LOa7T8GcL6UxljXfhprguPQaDkBjfnWJuraiA+SfIyFqilFeKhJr9jYnzTQahM2HBe+chP4CGuG6wcNe6ZlYx3xFHHetsdaE66x4QGAjNieQYVu4rzyqJkUX4O3+ux8CPbxlAGjGwhhX9JEcNOUmiDQwlftUAiJ53lHPANirGSZ+siB2ANy1esruQ6VSE4iei9C5LSkfI7vKP9zxokUg2vOV0lYGXA68SxAUkTKxUieS1eMkXXPblJtg6aJfhfB4CfVEW/0G32ctOmYVbbfr7hevOqG5j7gxs6Bgpa25wTZ/itkv5s7mkPXksR3p3ylHoamjzsW1J7vGQ2PO6+jbxK9rXcSA8K01EwK8i0muus5I71tG6ddsAc4TQjQUqgZS0jPJIiUo0Ra2mH2oIvk4nSNDKeMNL9C+5m6R/vG5vm9klgn03xDjXwUkmFGKGXgU31U0zusgqopUYtYVoQDwzAfqIsXVznP6aFtAU2uR0ImlJWCO6uv/lfvLvRgye13dRXRlRAtxnKk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(19092799006)(366016)(1800799024)(56012099006)(10067099003)(11063799006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?2pZvx8a5zrM3HvHHOsqka9E2klw1gA+BngDXYjjih3GC3qQ5gmsc/W7UPq2p?=
- =?us-ascii?Q?IFoEdj0NTc88PXmnone/DSQNFwBR+B1lKp2hXTGmNk1uqtGF6Jeoysx58xIa?=
- =?us-ascii?Q?WBAtTHivGtpa5OjkZam3iueXcvn2unB5DoJP0FqJ2Kow9d7IgSPm5VZxSQLm?=
- =?us-ascii?Q?LQ4lGp2y7QcKXUSPHwxYuE2HIZMFZ28c2kGMPcA7yxRA++PC2/lsfGnWPt0f?=
- =?us-ascii?Q?Mr17KwZVYfAFmpVZMFpj3PyFpLotUGiXCzedNSoaUnWYvNlifffd/GhpYFdf?=
- =?us-ascii?Q?WUZOVkPNZzgcd12z+tkMYELr5N/K64WF6HsJ9CZuwPuEPuqlgXKz3desLjAh?=
- =?us-ascii?Q?4r1sookL4q/MJNn/M5jFEg2OmaSIwZZxErGbO7+5X0EpKEdbpvZXE2VB8omP?=
- =?us-ascii?Q?Yc7nrinZ3dslpO4HQVyWjIl/aZEWLS6kRmWscskoKuzfnI16z5pkTxZBXG5v?=
- =?us-ascii?Q?YkrRsWPYk5brtd7lUh1AOx7dV/lBlL/1kzN6LFl3E5rLbbmSOj68x02KD90R?=
- =?us-ascii?Q?28/w4xfsZ86AkY8eDdjKr4l5DOalmeezkCkNFQ+CE58k2UEYgRuFigZuMPT+?=
- =?us-ascii?Q?LWUJ8rqvqG9hsCQecX60E22zlNJAfFMTws0fZ2shhbVJAlAhD/4Nw5QdFGnL?=
- =?us-ascii?Q?iZedvkVGwJ50R4MT1AGerzcOaMQxD+mRJoGxw8ZBbVdWoRHqdkZEMWBRfKCm?=
- =?us-ascii?Q?gsQ7u1ejecJyKP/qg8qtiizbmmZnS4IR8DXZNyVXYJwqwM1ORI8hVusKloIA?=
- =?us-ascii?Q?a/y9pa33MKW4dN+mf+EmNE3/4ek8zJOs5/Cp5/NghgST6Fgz+VX6YbyZFgmA?=
- =?us-ascii?Q?6nzed69rttPHPz8j/JHXFAt5Zshi1BE6vJdnx+pWSp422AhZgW03265SSTEZ?=
- =?us-ascii?Q?2R62uZXuKzZw2J5RfBUKeyLkFMTiUByVSBfoO0WxiG6Nzyz2kfiD7L17mBbo?=
- =?us-ascii?Q?PEUB2npOsTGQnOkadzgXUUMOXKpcwEfWxgQ25/3goqk5s/9MyRGyv5HzWKx8?=
- =?us-ascii?Q?qR33tlvepV1WiQmgb55dEW85IknaZEkwAfgKOyPu3mm2glLjUZCzGjKcfylt?=
- =?us-ascii?Q?aPytYPDhaKIKawUTUEyFltRjTqvtmwCx1JWTc4KZaoSn4TEv+KCar5j7+eO8?=
- =?us-ascii?Q?M7FuMZfW0ceG3yQxPcA832GU8K7mpUdZM/Xv9r7tWbgOXWgue9DaSitwvSUV?=
- =?us-ascii?Q?iael9OsaTTubovwmSnFXTq+rbCDmbOGiLp/YHIhocrP0yBwlqI7yx4u9oSZs?=
- =?us-ascii?Q?Rd78MaTj4QCIUab8DgKj5Fu2VC1HzaosOj8YrA6kV9chMx3pHjEPJ0dEJbPN?=
- =?us-ascii?Q?Q64R6MKclVzR8lOoOQn3v7U61zbZIdngnIiF4oR/j97ZwaKroEGMIkIb5PS3?=
- =?us-ascii?Q?qC+53ScuEpzxMLZqMZBEzUhX34G37/R9I+zGXhxC9clMu+DSPZKGCYKBufg2?=
- =?us-ascii?Q?UlHZQJovBARRdZ8vkjWbPM9ElfjoBYm9d/AbuSot04e3j3m3CqJCx2JBAQl1?=
- =?us-ascii?Q?bCHjAJpmz6eVOVDUTr73yMYyI8D/NF4AJLMrTKeNcmM+RcfqTFlQxRreaPGN?=
- =?us-ascii?Q?jdZB+mGsLVlM85JKJvAiuNAUAsuJ+U0VLICPojkU6xg7PGW2Skb/8A1zcCzD?=
- =?us-ascii?Q?DI6WbQubU8KgK/jSqVJSTVXVBPCetqwEp9CJYSoWIECjuwMAKjQaeS/DNcGN?=
- =?us-ascii?Q?u9u0MYCMXrLb3GlpCQSnToCidzPDzE4GzeK1HXeC28Y5kORRQ6RnLymFQkS3?=
- =?us-ascii?Q?/kLh80xn8zq783UfdEJBF2+Dpzt9oAAPqbH/KVoL3VPWTqahfK5d?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 76ae3b07-ec63-4b74-7628-08dee902823a
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 21:36:52.0526
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6XHUrMusmzthYnAJwlDJl9N87PL/Dz/qIbbXFYFqzL/hqTgjf7fmcgI751h8ITSd07MjKLwqNhddn+knjWEAN/gC94FmhFJuzqvKBf13qeiKAbBC+NRvf13iwxJa79QY
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8248
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260723-mpq8646_v0-v4-2-b6323d5fc524@free.fr>
+References: <20260723-mpq8646_v0-v4-0-b6323d5fc524@free.fr>
+In-Reply-To: <20260723-mpq8646_v0-v4-0-b6323d5fc524@free.fr>
+To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-doc@vger.kernel.org, 
+ Vincent Jardin <vjardin@free.fr>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784842725; l=1966;
+ i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
+ bh=jpM2J4BObT1ueMT0EACWE+VQr1KSy7O4X/bw3YdCS0Q=;
+ b=fhoao3hf9ITESHzo6hYX4viwfDEuxSnhI/6eN0Dh0heR0UJVN5neFRNkVhQDkh9g1pU/7A+O3
+ RFE1nkbZSEnAmy1vECvDlKgWkgIPITW59K8Vh3q78GQZ1+QoqTbnouZ
+X-Developer-Key: i=vjardin@free.fr; a=ed25519;
+ pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
+X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
+ auth_id=871
+X-Original-From: Vincent Jardin <vjardin@free.fr>
+Reply-To: vjardin@free.fr
 
-On Thu, Jul 23, 2026 at 10:22:10AM +0800, Liu Ying wrote:
-> On Wed, Jul 22, 2026 at 05:12:47PM -0500, Frank Li wrote:
-> > On Wed, Jul 22, 2026 at 11:57:09AM +0800, Liu Ying wrote:
-> > > On Wed, Jul 22, 2026 at 11:44:09AM +0800, Liu Ying wrote:
-> > > > On Tue, Jul 21, 2026 at 07:05:03PM -0500, Frank Li wrote:
-> > > > > On Fri, Jul 17, 2026 at 01:48:31PM +0800, Liu Ying wrote:
-> > > > > > On Wed, Jul 15, 2026 at 02:34:48PM -0400, Frank.Li@oss.nxp.com wrote:
-> > > > > > > From: Frank Li <Frank.Li@nxp.com>
-> > > > > > >
-> > > > > > > Add support for WKS101WX001-WCT panel, which is an industrial-grade
-> > > > > > > 10.1-inch IPS TFT LCD capacitive touch screen display module.
-> > > > > > >
-> > > > > > > Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> > > > > > > ---
-> > > > > > > change in v2
-> > > > > > > - update height to 135 from 136 (sashiko)
-> > > > > > > ---
-> > > > > > >  drivers/gpu/drm/panel/panel-simple.c | 31 +++++++++++++++++++++++++++++++
-> > > > > > >  1 file changed, 31 insertions(+)
-> > > >
-> > > > [...]
-> > > >
-> > > > > > > +	.connector_type = DRM_MODE_CONNECTOR_DPI,
-> > > > > >
-> > > > > > Seems that the panel also supports LVDS input according to the specification,
-> > > > > > since it mentions 'RGB or LVDS Interface'?
-> > > > >
-> > > > > Need hardware rework to use LVDS. Need remove banch of resistors. Should it
-> > > > > be treat as difference panel by different compatible string? hardware
-> > > > > actually changed.
-> > > >
-> > > > Not sure how to handle that.
-> > >
-> > > Wait, you probably may drop this patch, just document the compatible
-> > > string in panel-simple.yaml and panel-lvds.yaml and use add a fallback
+From: Vincent Jardin <vjardin@free.fr>
 
-panel-simple.yaml don't allow fallback to panel-dpi. Need seperated yaml
-for it.
+Add a device-tree binding for the Monolithic Power Systems
+MPQ8646 step-down converter as a PMBus device.
 
-> > > compatible string "panel-dpi" or "panel-lvds" in device tree plus a
-> > > panel-timing node.
+The schema is inspired from the mpq8785e:
+same mps,vout-fb-divider-ratio-permille property (maximum: 2047),
+and const: mps,mpq8646.
 
-previous dt-binding discuss, don't allow failback to two compatible string
-sorry, I can't remember exactly thread.
+Signed-off-by: Vincent Jardin <vjardin@free.fr>
+---
+ .../bindings/hwmon/pmbus/mps,mpq8646.yaml          | 50 ++++++++++++++++++++++
+ 1 file changed, 50 insertions(+)
 
-like
-items:
-  - const: ws101w001-wct
-  - enum:
-       - panel-dpi
-       - panel-lvds
+diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/mps,mpq8646.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/mps,mpq8646.yaml
+new file mode 100644
+index 000000000000..7acf4f235b12
+--- /dev/null
++++ b/Documentation/devicetree/bindings/hwmon/pmbus/mps,mpq8646.yaml
+@@ -0,0 +1,50 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++# Copyright (c) 2026 Free Mobile - Vincent Jardin <vjardin@free.fr>
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/hwmon/pmbus/mps,mpq8646.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Monolithic Power Systems MPQ8646 PMBus Step-Down Converter (extended)
++
++maintainers:
++  - Vincent Jardin <vjardin@free.fr>
++
++description: |
++  MPS MPQ8646 PMBus step-down converter.
++
++properties:
++  compatible:
++    const: mps,mpq8646
++
++  reg:
++    maxItems: 1
++
++  mps,vout-fb-divider-ratio-permille:
++    description:
++      The feedback resistor divider ratio, expressed in permille
++      (Vfb / Vout * 1000). This value is written to the
++      PMBUS_VOUT_SCALE_LOOP register and is required for correct output
++      voltage presentation.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    minimum: 1
++    maximum: 2047
++    default: 706
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    i2c {
++      #address-cells = <1>;
++      #size-cells = <0>;
++
++      regulator@10 {
++        compatible = "mps,mpq8646";
++        reg = <0x10>;
++      };
++    };
 
-> >
-> > Look like recently prefer add panel-timing informaiton into c code instead
-> > of put it into dts file. But I am not sure about it. Just check recent's
-> > log history.
->
-> If display timing is specified in panel-simple.c, then you have to specify
-> the connector_type there too, right?  The problem here is that you don't
-> know the connector_type, as it could be either LVDS or DPI, and I'd assume
-> that we don't want two compatible strings - one for LVDS and the other for
-> DPI.
-
-If supported both type, generally need customer property and new panel
-driver to switch between dpi / lvds
-
-or use
-	ports {
-
-		port@0: //connect dpi
-		port@1: //connect lvds
-	};
+-- 
+2.43.0
 
 
-I think we can defer this lvds work until it is actually used because
-- need a big hardware rework to support lvds, most likely it will not be
-appeared at real productions. If it mass production, vendor most likely use
-difference module number for it.
-- it may be end of life if there are not much users.
-
-Frank
-
-> Although display timing in panel-simple.c avoids duplicated panel-timing
-> nodes across various potential DT files, I think you have the "good" reason
-> here to use the panel-timing node + fallback compatible string with one single
-> panel specific compatible string.
->
-> >
-> > Add Neil Armstrong for comments.
-> >
-> > Frank
-> >
-> > >
-> > > --
-> > > Regards,
-> > > Liu Ying
->
-> --
-> Regards,
-> Liu Ying
