@@ -1,230 +1,379 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0F2878C9C;
-	Thu, 23 Jul 2026 13:45:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BA32479895
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 13:48:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784814324; cv=none; b=uGHvBHxIMRDSOVzErAP9mNk1J0U2/5IkruNhJItIBrtlHXDXuD7iTStWzr9ynnCXulpv2V6Mz12F7PS6inwTLl86rELsJ9VewCRdVYTKVRt0cyFDKjNm9eDgJUcVyuwcyHgqbPLOz3NqJg6EPiw8NJwIZupQnO5Okgxp/bgb1KI=
+	t=1784814509; cv=none; b=VTqupjzIEV+RtLG5Kn1KPTmAKXKyVTUwd3bguiiZZKWelYDJPGQJb4SL1RhwOJouHVCEAkBfDJOtuMivuz17S8iCndMpFoE6keS3fOxzBkHcO0qPAUEiSrzZ4sPmdEwlWvtM9O2T5CktXkCRGVnQFY4gV1bao+kVAS2GE9XRa3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784814324; c=relaxed/simple;
-	bh=jZax3IQ5T1OEn5br3cNYEko9rDQD904YZonZkdO9z00=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FbPkLGXo6VSB2X6sr/mlgHyfsoyVP7Ikt+T1InwVShojyLnBvm8060Ccv5L44w9MPOm7quuqpNCrEgDGd6KXts5sUmBZKUJ/lqau9ktduZfi6uYpbb5HL6NHbdQK6oYWY6jq2vfzbvoqSob9QUQuJhuoZn59QfYum0ygr0ZoruI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD0FA1F000E9;
-	Thu, 23 Jul 2026 13:45:18 +0000 (UTC)
-Date: Thu, 23 Jul 2026 14:44:47 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: "Maulik Shah (mkshah)" <maulik.shah@oss.qualcomm.com>
-Cc: yuanfang zhang <yuanfang.zhang@oss.qualcomm.com>, ulfh@kernel.org,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mike Leach <mike.leach@linaro.org>,
-	James Clark <james.clark@linaro.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Leo Yan <leo.yan@linux.dev>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>, kernel@oss.qualcomm.com,
-	coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, Jie Gan <jie.gan@oss.qualcomm.com>
-Subject: Re: [PATCH v2 00/12] coresight: Add CPU cluster
- funnel/replicator/tmc support
-Message-ID: <20260723-light-aardwolf-of-swiftness-1c46ea@sudeepholla>
-References: <20251218-cpu_cluster_component_pm-v2-0-2335a6ae62a0@oss.qualcomm.com>
- <20251218-careful-ruby-wildebeest-a8babd@sudeepholla>
- <d0ce8306-84e0-4940-98aa-dbc356d87593@oss.qualcomm.com>
- <20251219-hysterical-sparkling-meerkat-59c5eb@sudeepholla>
- <11a01108-63da-4317-a547-5977a469a7dc@oss.qualcomm.com>
+	s=arc-20240116; t=1784814509; c=relaxed/simple;
+	bh=UDM5FB1Zt33g7udDACnUJokhcXf/56BScidi0KzLrbk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AX1yjTA2R3XYA0Hcs66lq6zkqtIkw0v3iPy4NzO2SyFePJaHAerhpPjw5jCYn7WSjvZ6tjE1CmErlCsWd/m00qXqIQV2H9M3KQ8ttSh0UNnSMLmfMtxRYT+ckTny4RLaGtTJy7yaAbaQf+Q1zLs6rVtAtPSMmjsIqZZqKSWKm9A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=t4fB8OK7; arc=none smtp.client-ip=209.85.167.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="t4fB8OK7"
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5b2af9beee4so143052e87.3
+        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 06:48:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1784814500; x=1785419300; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=8Z/Y32LlMadHVaAvlj+AeJfJyfIJzuAiPRVTaYDCfC0=;
+        b=t4fB8OK7qE9GjLi2PfUOshCi8wjNBKn7Wk9yCW46NqZKvDHOV30fVrEYgD7z1Kg65H
+         xWMLXR8AEZlVQBKxwKfZvEvy18o5sGq8N0pc+fJelsa0wKIdsWZhi6K5i0J8mY0LZoHm
+         F/PpdKCIty/wnPanGdCV20yr5AwAOZ0yXHVBHEUWaEvqEJWw3oI/KTC8JkezOmoTyaLi
+         m4KPMQAy6vkBKv+YY6RUet/bYhtbJGN/9uSeG3TTT1kUPTOUFr1f5ZzRZsY2z0WB7EJ3
+         zQYXPzH16deCdx44SqTqKjeXoRh7yLPYPSApwHYE9Q4HsT8Sv0Ei97DmPqoRh7e5SoyG
+         bDfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784814500; x=1785419300;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8Z/Y32LlMadHVaAvlj+AeJfJyfIJzuAiPRVTaYDCfC0=;
+        b=lqxx9JxceBiUsepWeGHHEj6Os9Suii2qe6fd0vU/owwrHwz3/m0Bs8plVwOJh74vE+
+         HFoH28qjYBGMy7RFAG/lyO7d1r6ILNGDRqtbIv2i8dKO/dbknSkmzLktEmrKzLmxg/T8
+         Ug9iO4CWqLJrm2zGzzIJg29LZFH3CdztXxgoFIkWv3hgUkD519E+H909rqqhMKY3Z+zw
+         YKJGTgEATJQib38C7RjReHmW1UZLPqaVPcOwKa2bgmE7Z9z0Ac9O6uU+lTbvOEXOxfKn
+         BvMwHVluRzgVVFHKQvDDEM8sJ/+RKx0LhaWSWHpO7mqtLDbELGfX4krKTY6g9vYrv0yM
+         +eCg==
+X-Forwarded-Encrypted: i=1; AHgh+Ro8TJmN/3CENC5V4gFpIlmb1f7UsrJ+XCI6142Q2dpuecReVqiGfTXHXzn0HvaGFAG3gmu/hqdgLaq2@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx2Xw8Wj6Hso8+VawxK7xbAxWwL//TurSI7yaHm7EYlH9xMkbU+
+	lSJrCDtxD3y3k2UlljtvaD+hWYmrYn9h5Vnbs6J7yFeotwyjxekkjMNWUKmis7sZ3/Q=
+X-Gm-Gg: AR+sD10Cn790kFfGmpigtx91wDqzwLJUHqiINMndxVxLsBOldW75Fo0gORSKrYlw9mK
+	EAm1yo/IAgpzlrz2k8nFssJxKeZOoTfZRd5o/wjkUaEfIzmBSWArUH321L1s5PiAuMUbBfCu2yE
+	17+1pweJFvVtSv4z7SfOokGSaxTLZ83337xgKk9ao2cOeoFOLOvYu9ADB4saGYYBMHpp2F0sseX
+	oRx1/2zgLTFu4zIy/khsPJhdMY9xCI5ER0KlKvvQ0xgE6+T6WOoFGNRjNX+N6mEzvqfKjAW1Um3
+	IUpgwITkACk/2Sm6f/xR7WJgRvcpJ2axE9LZyciwsQz99gSNw7vPAIpWbz6t87X5gGlY3DJ82RV
+	i/tms0xbeW1Zyolnu9SNnxqFL4siyEfjjkGGy2U/OXMHWHYH3cAgjB2sFpKZhAVlO+xQTJmDJ7t
+	q+2xe2BMp4hxgp65Ogcdz6XmHZ9B6d+rPNoLFlvZw+cQb9InC+zYxn8La4
+X-Received: by 2002:a05:6512:2311:b0:5b1:5b49:9463 with SMTP id 2adb3069b0e04-5b2b2f6f00amr472124e87.4.1784814500437;
+        Thu, 23 Jul 2026 06:48:20 -0700 (PDT)
+Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2a9b0c511sm1057374e87.0.2026.07.23.06.48.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 23 Jul 2026 06:48:19 -0700 (PDT)
+Message-ID: <4f420ef4-b204-4d2c-bbc8-f2a2ade494d2@linaro.org>
+Date: Thu, 23 Jul 2026 16:48:19 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <11a01108-63da-4317-a547-5977a469a7dc@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/3] media: i2c: og0ve1b: Introduce per-sensor data
+ structure
+To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260708-og0va1b-v3-0-de8e44455a42@oss.qualcomm.com>
+ <20260708-og0va1b-v3-2-de8e44455a42@oss.qualcomm.com>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <20260708-og0va1b-v3-2-de8e44455a42@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, May 25, 2026 at 06:47:27PM +0530, Maulik Shah (mkshah) wrote:
+Hi Wenmeng.
+
+On 7/8/26 17:33, Wenmeng Liu wrote:
+> Refactor the driver to separate sensor-specific data from the common
+> driver code. Introduce a sensor_data structure, populated through
+> i2c_get_match_data(), to hold the chip ID, MCLK frequency, link
+> frequencies and supported modes.
 > 
+> Test pattern programming is described by a per-sensor callback, and each
+> mode stores its media bus format code (rather than a bits-per-pixel
+> value) so that sensors with a different output format can be supported.
 > 
-> On 12/19/2025 3:51 PM, Sudeep Holla wrote:
-> > On Fri, Dec 19, 2025 at 10:13:14AM +0800, yuanfang zhang wrote:
-> >>
-> >>
-> >> On 12/18/2025 7:33 PM, Sudeep Holla wrote:
-> >>> On Thu, Dec 18, 2025 at 12:09:40AM -0800, Yuanfang Zhang wrote:
-> >>>> This patch series adds support for CoreSight components local to CPU clusters,
-> >>>> including funnel, replicator, and TMC, which reside within CPU cluster power
-> >>>> domains. These components require special handling due to power domain
-> >>>> constraints.
-> >>>>
-> >>>
-> >>> Could you clarify why PSCI-based power domains associated with clusters in
-> >>> domain-idle-states cannot address these requirements, given that PSCI CPU-idle
-> >>> OSI mode was originally intended to support them? My understanding of this
-> >>> patch series is that OSI mode is unable to do so, which, if accurate, appears
-> >>> to be a flaw that should be corrected.
-> >>
-> >> It is due to the particular characteristics of the CPU cluster power
-> >> domain.Runtime PM for CPU devices works little different, it is mostly used
-> >> to manage hierarchicalCPU topology (PSCI OSI mode) to talk with genpd
-> >> framework to manage the last CPU handling in cluster.
-> > 
-> > That is indeed the intended design. Could you clarify which specific
-> > characteristics differentiate it here?
+> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+> ---
+>   drivers/media/i2c/og0ve1b.c | 99 ++++++++++++++++++++++++++++++++-------------
+>   1 file changed, 71 insertions(+), 28 deletions(-)
 > 
-> Sorry for coming very late on this.
+> diff --git a/drivers/media/i2c/og0ve1b.c b/drivers/media/i2c/og0ve1b.c
+> index 84a28cdcade10f8fbcf945999e88f84641b9bc0d..041342fbe3c822400388f58a03e6057e186f060f 100644
+> --- a/drivers/media/i2c/og0ve1b.c
+> +++ b/drivers/media/i2c/og0ve1b.c
+> @@ -65,11 +65,23 @@ struct og0ve1b_mode {
+>   	u32 height;	/* Frame height in pixels */
+>   	u32 hts;	/* Horizontal timing size */
+>   	u32 vts;	/* Default vertical timing size */
+> -	u32 bpp;	/* Bits per pixel */
+> +	u32 code;	/* MEDIA_BUS_FMT code */
+>   
+>   	const struct og0ve1b_reg_list reg_list;	/* Sensor register setting */
+>   };
+>   
+> +struct og0ve1b;
+> +
+> +struct og0ve1b_sensor_data {
+> +	u64 chip_id;
+> +	unsigned long mclk_freq;
+> +	int (*enable_test_pattern)(struct og0ve1b *og0ve1b, u32 pattern);
+> +	const s64 *link_freq_menu;
+> +	int num_link_freqs;
+> +	const struct og0ve1b_mode *modes;
+> +	int num_modes;
+> +};
+> +
+>   static const char * const og0ve1b_test_pattern_menu[] = {
+>   	"Disabled",
+>   	"Vertical Colour Bars",
+> @@ -99,6 +111,8 @@ struct og0ve1b {
+>   
+>   	/* Saved register value */
+>   	u64 pre_isp;
+> +
+> +	const struct og0ve1b_sensor_data *data;
+>   };
+>   
+>   static const struct cci_reg_sequence og0ve1b_640x480_120fps_mode[] = {
+> @@ -247,13 +261,13 @@ static const struct cci_reg_sequence og0ve1b_640x480_120fps_mode[] = {
+>   	{ CCI_REG8(0x3f47), 0x35 },
+>   };
+>   
+> -static const struct og0ve1b_mode supported_modes[] = {
+> +static const struct og0ve1b_mode og0ve1b_supported_modes[] = {
+>   	{
+>   		.width = 640,
+>   		.height = 480,
+>   		.hts = 792,
+>   		.vts = 568,
+> -		.bpp = 8,
+> +		.code = MEDIA_BUS_FMT_Y8_1X8,
+>   		.reg_list = {
+>   			.regs = og0ve1b_640x480_120fps_mode,
+>   			.num_regs = ARRAY_SIZE(og0ve1b_640x480_120fps_mode),
+> @@ -273,11 +287,21 @@ static int og0ve1b_enable_test_pattern(struct og0ve1b *og0ve1b, u32 pattern)
+>   	return cci_write(og0ve1b->regmap, OG0VE1B_REG_PRE_ISP, val, NULL);
+>   }
+>   
+> +static const struct og0ve1b_sensor_data og0ve1b_data = {
+> +	.chip_id = OG0VE1B_CHIP_ID,
+> +	.mclk_freq = OG0VE1B_MCLK_FREQ_24MHZ,
+> +	.enable_test_pattern = og0ve1b_enable_test_pattern,
+> +	.link_freq_menu = og0ve1b_link_freq_menu,
+> +	.num_link_freqs = ARRAY_SIZE(og0ve1b_link_freq_menu),
+> +	.modes = og0ve1b_supported_modes,
+> +	.num_modes = ARRAY_SIZE(og0ve1b_supported_modes),
+> +};
+> +
+>   static int og0ve1b_set_ctrl(struct v4l2_ctrl *ctrl)
+>   {
+>   	struct og0ve1b *og0ve1b = container_of(ctrl->handler, struct og0ve1b,
+>   					       ctrl_handler);
+> -	const struct og0ve1b_mode *mode = &supported_modes[0];
+> +	const struct og0ve1b_mode *mode = &og0ve1b->data->modes[0];
+>   	s64 exposure_max;
+>   	int ret;
+>   
+> @@ -314,7 +338,7 @@ static int og0ve1b_set_ctrl(struct v4l2_ctrl *ctrl)
+>   				ctrl->val + mode->height, NULL);
+>   		break;
+>   	case V4L2_CID_TEST_PATTERN:
+> -		ret = og0ve1b_enable_test_pattern(og0ve1b, ctrl->val);
+> +		ret = og0ve1b->data->enable_test_pattern(og0ve1b, ctrl->val);
+>   		break;
+>   	default:
+>   		ret = -EINVAL;
+> @@ -330,10 +354,19 @@ static const struct v4l2_ctrl_ops og0ve1b_ctrl_ops = {
+>   	.s_ctrl = og0ve1b_set_ctrl,
+>   };
+>   
+> +static s64 og0ve1b_pixel_rate(const struct og0ve1b_sensor_data *data)
+> +{
+> +	const struct og0ve1b_mode *mode = &data->modes[0];
+> +	unsigned int bpp = mode->code == MEDIA_BUS_FMT_Y8_1X8 ? 8 : 10;
+> +
+> +	return data->link_freq_menu[0] / bpp;
+> +}
+> +
+>   static int og0ve1b_init_controls(struct og0ve1b *og0ve1b)
+>   {
+>   	struct v4l2_ctrl_handler *ctrl_hdlr = &og0ve1b->ctrl_handler;
+> -	const struct og0ve1b_mode *mode = &supported_modes[0];
+> +	const struct og0ve1b_mode *mode = &og0ve1b->data->modes[0];
+> +	const struct og0ve1b_sensor_data *data = og0ve1b->data;
+>   	s64 exposure_max, pixel_rate, h_blank, v_blank;
+>   	struct v4l2_fwnode_device_properties props;
+>   	struct v4l2_ctrl *ctrl;
+> @@ -343,12 +376,12 @@ static int og0ve1b_init_controls(struct og0ve1b *og0ve1b)
+>   
+>   	ctrl = v4l2_ctrl_new_int_menu(ctrl_hdlr, &og0ve1b_ctrl_ops,
+>   				      V4L2_CID_LINK_FREQ,
+> -				      ARRAY_SIZE(og0ve1b_link_freq_menu) - 1,
+> -				      0, og0ve1b_link_freq_menu);
+> +				      data->num_link_freqs - 1,
+> +				      0, data->link_freq_menu);
+>   	if (ctrl)
+>   		ctrl->flags |= V4L2_CTRL_FLAG_READ_ONLY;
+>   
+> -	pixel_rate = og0ve1b_link_freq_menu[0] / mode->bpp;
+> +	pixel_rate = og0ve1b_pixel_rate(data);
+>   	v4l2_ctrl_new_std(ctrl_hdlr, &og0ve1b_ctrl_ops, V4L2_CID_PIXEL_RATE,
+>   			  0, pixel_rate, 1, pixel_rate);
+>   
+> @@ -407,7 +440,7 @@ static int og0ve1b_init_controls(struct og0ve1b *og0ve1b)
+>   static void og0ve1b_update_pad_format(const struct og0ve1b_mode *mode,
+>   				      struct v4l2_mbus_framefmt *fmt)
+>   {
+> -	fmt->code = MEDIA_BUS_FMT_Y8_1X8;
+> +	fmt->code = mode->code;
+>   	fmt->width = mode->width;
+>   	fmt->height = mode->height;
+>   	fmt->field = V4L2_FIELD_NONE;
+> @@ -421,8 +454,8 @@ static int og0ve1b_enable_streams(struct v4l2_subdev *sd,
+>   				  struct v4l2_subdev_state *state, u32 pad,
+>   				  u64 streams_mask)
+>   {
+> -	const struct og0ve1b_reg_list *reg_list = &supported_modes[0].reg_list;
+>   	struct og0ve1b *og0ve1b = to_og0ve1b(sd);
+> +	const struct og0ve1b_reg_list *reg_list = &og0ve1b->data->modes[0].reg_list;
+>   	int ret;
+>   
+>   	ret = pm_runtime_resume_and_get(og0ve1b->dev);
+> @@ -484,13 +517,14 @@ static int og0ve1b_set_pad_format(struct v4l2_subdev *sd,
+>   				  struct v4l2_subdev_state *state,
+>   				  struct v4l2_subdev_format *fmt)
+>   {
+> +	struct og0ve1b *og0ve1b = to_og0ve1b(sd);
+>   	struct v4l2_mbus_framefmt *format;
+>   	const struct og0ve1b_mode *mode;
+>   
+>   	format = v4l2_subdev_state_get_format(state, 0);
+>   
+> -	mode = v4l2_find_nearest_size(supported_modes,
+> -				      ARRAY_SIZE(supported_modes),
+> +	mode = v4l2_find_nearest_size(og0ve1b->data->modes,
+> +				      og0ve1b->data->num_modes,
+>   				      width, height,
+>   				      fmt->format.width,
+>   				      fmt->format.height);
+> @@ -505,10 +539,12 @@ static int og0ve1b_enum_mbus_code(struct v4l2_subdev *sd,
+>   				  struct v4l2_subdev_state *sd_state,
+>   				  struct v4l2_subdev_mbus_code_enum *code)
+>   {
+> +	struct og0ve1b *og0ve1b = to_og0ve1b(sd);
+> +
+>   	if (code->index > 0)
+>   		return -EINVAL;
+>   
+> -	code->code = MEDIA_BUS_FMT_Y8_1X8;
+> +	code->code = og0ve1b->data->modes[0].code;
+>   
+>   	return 0;
+>   }
+> @@ -517,15 +553,18 @@ static int og0ve1b_enum_frame_size(struct v4l2_subdev *sd,
+>   				   struct v4l2_subdev_state *sd_state,
+>   				   struct v4l2_subdev_frame_size_enum *fse)
+>   {
+> -	if (fse->index >= ARRAY_SIZE(supported_modes))
+> +	struct og0ve1b *og0ve1b = to_og0ve1b(sd);
+> +	const struct og0ve1b_sensor_data *data = og0ve1b->data;
+> +
+> +	if (fse->index >= data->num_modes)
+>   		return -EINVAL;
+>   
+> -	if (fse->code != MEDIA_BUS_FMT_Y8_1X8)
+> +	if (fse->code != data->modes[fse->index].code)
+>   		return -EINVAL;
+>   
+> -	fse->min_width = supported_modes[fse->index].width;
+> +	fse->min_width = data->modes[fse->index].width;
+>   	fse->max_width = fse->min_width;
+> -	fse->min_height = supported_modes[fse->index].height;
+> +	fse->min_height = data->modes[fse->index].height;
+>   	fse->max_height = fse->min_height;
+>   
+>   	return 0;
+> @@ -534,13 +573,14 @@ static int og0ve1b_enum_frame_size(struct v4l2_subdev *sd,
+>   static int og0ve1b_init_state(struct v4l2_subdev *sd,
+>   			      struct v4l2_subdev_state *state)
+>   {
+> +	const struct og0ve1b_mode *mode = &to_og0ve1b(sd)->data->modes[0];
+>   	struct v4l2_subdev_format fmt = {
+>   		.which = V4L2_SUBDEV_FORMAT_TRY,
+>   		.pad = 0,
+>   		.format = {
+> -			.code = MEDIA_BUS_FMT_Y8_1X8,
+> -			.width = supported_modes[0].width,
+> -			.height = supported_modes[0].height,
+> +			.code = mode->code,
+> +			.width = mode->width,
+> +			.height = mode->height,
+>   		},
+>   	};
+>   
+> @@ -586,9 +626,9 @@ static int og0ve1b_identify_sensor(struct og0ve1b *og0ve1b)
+>   		return ret;
+>   	}
+>   
+> -	if (val != OG0VE1B_CHIP_ID) {
+> -		dev_err(og0ve1b->dev, "chip id mismatch: %x!=%llx\n",
+> -			OG0VE1B_CHIP_ID, val);
+> +	if (val != og0ve1b->data->chip_id) {
+> +		dev_err(og0ve1b->dev, "chip id mismatch: %llx!=%llx\n",
+> +			og0ve1b->data->chip_id, val);
+>   		return -ENODEV;
+>   	}
+>   
+> @@ -624,8 +664,8 @@ static int og0ve1b_check_hwcfg(struct og0ve1b *og0ve1b)
+>   	ret = v4l2_link_freq_to_bitmap(og0ve1b->dev,
+>   				       bus_cfg.link_frequencies,
+>   				       bus_cfg.nr_of_link_frequencies,
+> -				       og0ve1b_link_freq_menu,
+> -				       ARRAY_SIZE(og0ve1b_link_freq_menu),
+> +				       og0ve1b->data->link_freq_menu,
+> +				       og0ve1b->data->num_link_freqs,
+>   				       &freq_bitmap);
+>   
+>   	v4l2_fwnode_endpoint_free(&bus_cfg);
+> @@ -686,6 +726,9 @@ static int og0ve1b_probe(struct i2c_client *client)
+>   		return -ENOMEM;
+>   
+>   	og0ve1b->dev = &client->dev;
+> +	og0ve1b->data = i2c_get_match_data(client);
+> +	if (!og0ve1b->data)
+> +		return -ENODEV;
+>   
+>   	v4l2_i2c_subdev_init(&og0ve1b->sd, client, &og0ve1b_subdev_ops);
+>   
+> @@ -700,7 +743,7 @@ static int og0ve1b_probe(struct i2c_client *client)
+>   				     "failed to get XVCLK clock\n");
+>   
+>   	freq = clk_get_rate(og0ve1b->xvclk);
+> -	if (freq && freq != OG0VE1B_MCLK_FREQ_24MHZ)
+> +	if (freq && freq != og0ve1b->data->mclk_freq)
+>   		return dev_err_probe(og0ve1b->dev, -EINVAL,
+>   				     "XVCLK clock frequency %lu is not supported\n",
+>   				     freq);
+> @@ -819,7 +862,7 @@ static const struct dev_pm_ops og0ve1b_pm_ops = {
+>   };
+>   
+>   static const struct of_device_id og0ve1b_of_match[] = {
+> -	{ .compatible = "ovti,og0ve1b" },
+> +	{ .compatible = "ovti,og0ve1b", .data = &og0ve1b_data },
+>   	{ /* sentinel */ }
+>   };
+>   MODULE_DEVICE_TABLE(of, og0ve1b_of_match);
 > 
-> This series is intended to handle coresight components which resides within CPU cluster.
-> For the cases where cluster is in deepest idle low power mode or all CPUs belonging to cluster
-> are hotplugged off, access to coresight components can not be done.
->
 
-Sure, but the question is why is the cluster entering deepest idle state if
-coresight is in use ?
+I'm sorry for a delay in completion of my review and testing.
+The change is good in my opinion:
 
-> The implementation tried to address in two parts,
-> 1. Using cluster power-domain to know which coresight component belongs to which cluster/CPUs
-
-OK
-
-> 2. Schedule the task on intended cluster's CPU to make sure the CPU (and cluster) power is
-> ON while coresight component of the cluster is being accessed (using smp_call_function_single()).
-> 
-
-Why, just block any cluster entering deeper idle state when corresponding
-coresight component is in use. This should be taken care automatically.
-
-> The use of power-domains in (1) will limit this to PSCI OS-Initiated mode,
-
-Yes
-
-> to have this support on PSCI Platform-Coordinated mode too, probably instead of power-domains,
-> cpu-maps (which also defines the clusters) from device tree is a better choice which will give
-> the information on which CPU belongs to which cluster.
-> 
-
-No, let the platform deal with it. And the whole OSI mode was pushed giving
-such use-case as example and now you are telling you want to solve the problem
-for PC mode. I am confused. Just use OSI.
-
-> (2) ensured that scheduling happened on intended CPU and while the access is in progress, CPU (and
-> cluster) will not enter power down in between.
-> 
-
-No, just block entering that state in OS(for OSI) and in the platform(for PC)
-
-> > 
-> >> It doesn’t really send IPI to wakeup CPU device (It don’t have
-> >> .power_on/.power_off) callback implemented which gets invoked from
-> >> .runtime_resume callback. This behavior is aligned with the upstream Kernel.
-> >>
-> > 
-> > I am quite lost here. Why is it necessary to wake up the CPU? If I understand
-> > correctly, all of this complexity is meant to ensure that the cluster power
-> > domain is enabled before any of the funnel registers are accessed. Is that
-> > correct?
-> 
-> Yes, This is to ensure that CPU (and cluster) power is ON while coresight components
-> for same cluster are being accessed.
-> 
-
-Or just don't turn off cluster if coresight is enabled and in use.
-
-> > 
-> > If so, and if the cluster domains are already defined as the power domains for
-> > these funnel devices, then they should be requested to power on automatically
-> > before any register access occurs. Is that not the case?
-> 
-> Cluster power-domains will be only available for PSCI OS-initiated mode but also
-> will not help for cases where all CPUs in cluster are hotplugged off as hotplugs are
-> platform coordinated.
-> 
-
-See above, let platform deal with it. It is called PC for that reason.
-
-> After discussion with our HW team to automatically request power on for coresight
-> component GPR [1] can be used but they seems not working as intended on the existing
-> SoCs and will be available on next generation SoC.
-> 
-> [1] https://developer.arm.com/documentation/ddi0480/d/Functional-Overview/Granular-Power-Requestor
-> 
-
-You are looking at it from wrong side as you allowed cluster to power down
-when the coresight in the cluster power domain was still in use, right ?
-
-> > 
-> > What am I missing in this reasoning?
-> > 
-> > The only explanation I can see is that the firmware does not properly honor
-> > power-domain requests coming directly from the OS. I believe that may be the
-> > case, but I would be glad to be proven wrong.
-> > 
-> 
-> please see below comment for more details, This seems not a firmware issue.
-> 
-> >>>
-> >>>> Unlike system-level CoreSight devices, these components share the CPU cluster's
-> >>>> power domain. When the cluster enters low-power mode (LPM), their registers
-> >>>> become inaccessible. Notably, `pm_runtime_get` alone cannot bring the cluster
-> >>>> out of LPM, making standard register access unreliable.
-> >>>>
-> >>>
-> >>> Are these devices the only ones on the system that are uniquely bound to
-> >>> cluster-level power domains? If not, what additional devices share this
-> >>> dependency so that we can understand how they are managed in comparison?
-> >>>
-> >>
-> >> Yes, devices like ETM and TRBE also share this power domain and access constraint.
-> >> Their drivers naturally handle enablement/disablement on the specific CPU they
-> >> belong to (e.g., via hotplug callbacks or existing smp_call_function paths).
-> > 
-> > I understand many things are possible to implement, but the key question
-> > remains: why doesn’t the existing OSI mechanism - added specifically to cover
-> > cases like this solve the problem today?
-> > 
-> > Especially on platforms with OSI enabled, what concrete limitation forces us
-> > into this additional “wake-up” path instead of relying on OSI to manage the
-> > dependency/power sequencing?
-> 
-> + Ulf in loop.
-> 
-> Current platforms with OSI enabled, Linux PSCI do not implement the power_on/power_off
-> requests, as far as i know, runtime PM was never meant to implement this part and
-> pm_runtime_get_sync() (from drivers/cpuidle/cpuidle-psci.c) call is only used to convey
-> to cluster power domains about a child CPU/ sub domain being on after it has already
-> been landed in Linux.
-> 
-
-When a shared power domain has one of the consumer active, why is the power
-domain being turned off. OSI is supposed to handle that, I still don't
-understand what am I missing ?
-
-> The standalone invoke of pm_runtime_get_sync() from another CPU do not really turn on/get
-> the CPU (and cluster), as the CPUs either use CPUidle / CPU hotplug paths to enter/exit
-> low power mode.
-> 
-> To put it other way,
-> For a hot-plugged off CPU, invoking a pm_runtime_get_sync() won't get the CPU (and make
-> its cluster power domain) ON. In order to turn on the CPU, one has to still request
-> the online of the CPU, say via sysfs command echo 1 > /sys/devices/system/cpu/cpuX/online
-> which would invoke PSCI CPU_ON function and the power domain for CPU gets marked as ON
-> only after CPU already landed in Linux via psci_idle_cpuhp_up() invoking pm_runtime_get_sync().
-> 
-> I used specific hotplug example but same applies to idle powered down CPU (or Cluster) too.
-> 
-
-Deny hotplug or deeper idle state if the CPU/cluster shares power domain
-with other device or components(like coresight) when active. Or fake hotplug
-and keep it alive in the platform firmware.
+Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Tested-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
 
 -- 
-Regards,
-Sudeep
+Best wishes,
+Vladimir
