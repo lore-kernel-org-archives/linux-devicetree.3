@@ -1,95 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1691C2253EE
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 02:45:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D9B4267B07;
+	Thu, 23 Jul 2026 02:46:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784774756; cv=none; b=NEhLPPYjHYfd6pJOfYTAsmWK6WSIE4J1XOwUPSkNbKoAxj2ehpqwELWqXwUD1GtbWl45qQ4ZbfRR1o0BaM5yObMYuqKPJHA0yGkUiwO8ci4+hZ8wxPXXb9N8whob1fFLzn0Z5A2a6ryqI0c0ddGHbJa/aDVlDL7kFSdtCFO6U2w=
+	t=1784774816; cv=none; b=AvxuIKRvR17t2unNWmQ8dUR1uGIM3w5zTn64A6t2bOl7kDqwBt2q0mtNPsVNSfmYEfSBqg4piVZFBljmg5gqbHAq9j/1UjBBZyXvZputBqhBZFCfr279MjqLncwk2OnCN4AQzlieEqzoy11qyaZyZkFMfjbJhocgb1IT+61Lyis=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784774756; c=relaxed/simple;
-	bh=s48PRV4zBf7y8pGvatmwDuxJVoVJXA20pPSqPbD0hPw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=r3e5wT3m/Lhaiei1j5s7/IDp8lhBOD84rAwwY5q8C3g+pfpPsI5Y8i71V6ZSMsTYOrWyeVphdmD4YNnNGsFd3d/SzS7Q2K2a4ALJI5deqKGaKPDuqaxyOB30+JKAecD3rDG4Hw7G/nBkLJjXAZxZEpVNKCs9L5cSsq9RwP+O8YY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kb6YUxny; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784774816; c=relaxed/simple;
+	bh=YdvKTHtsWdGlW0Sjxw0NjwckSvfgTwzFyzB+oIPY2a4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=BSw30WjoNo5AlahMjJDY6i9QFtKVFxP580DlcNB6JE7s9Q80H7SvVawUCHJuo7cGIFuWVpXUVhMTTi/oDsUJzrWyYHKwDg0wL8Fo5WnC/y1UMXZP1Fon8okJBdsjwbf1LA9YOcfGE5hQHa5OzLSubvYNTlQu1wnzM4zVm74c4zs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kgoOTJKm; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kb6YUxny"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 400FD1F000E9;
-	Thu, 23 Jul 2026 02:45:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784774754;
-	bh=tkW1weYwa57KGnVEv5rR7OPZS90dqSWov9q/bvtDZFk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kb6YUxnyikjgUTqDuwxvIW3Gncw+dO+DX/DvJ6WhTnKnBRTOIS/f9BZLc2Wrf037N
-	 uXNbbpll/N4CaOCKpac77E9OIo2ER33D3tIrGyvsQwMllusdHLzqf84UVeQwWAuMMt
-	 5lUMAT7R747DqndznGwZC1WkIubfypN0odLiJdnrg6MEYIIjL+OGH0LMCGULHzCsPT
-	 YOgOb3wE9o/MTRl7TjkQHTyPuzfDXeW0dyqrM8O68lqnV6XEkalrf1VM6Soh7jHTa9
-	 NuZeIwimSMUmK68+oO6++UmnaHpEELrL/J9KhiVul1UbHMDTbTXPyrw047i93n1zZR
-	 aPuW/8dRVrkDw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 5/6] arm64: dts: qcom: mahua: Replace
- pcie3a/pcie3_phy with dedicated pcie3b_phy
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Qiang Yu" <qiang.yu@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, devicetree@vger.kernel.org, linux-phy@lists.infradead.org
-In-Reply-To: <20260722-glymur_linkmode_0722-v6-5-bba8156b8cbb@oss.qualcomm.com>
-References: <20260722-glymur_linkmode_0722-v6-0-bba8156b8cbb@oss.qualcomm.com>
- <20260722-glymur_linkmode_0722-v6-5-bba8156b8cbb@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 02:45:53 +0000
-Message-Id: <20260723024554.400FD1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kgoOTJKm"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A5B0EC2BCC6;
+	Thu, 23 Jul 2026 02:46:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1784774815;
+	bh=YdvKTHtsWdGlW0Sjxw0NjwckSvfgTwzFyzB+oIPY2a4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=kgoOTJKmy+27AkDnUlAUG0J2Qb44l8ZSAOcYUxQ8V3Xxax05dsDL+12rPoluAMK5w
+	 zYRyIp+K5UkMAe3d5rdCQd/dqO8TM9fYn19T23zg6lfy2n1CJ+rSVGBGuZTKTu7Kf0
+	 EckBGMSXGubpUuE/nCznUMZp3oRO1vRQ3DcEiykvxuArlD7Nx9OWfsIDXgaD03IXjs
+	 DkFyZIdWQ51A7Tsnyni4mm6UVidIIDjcsicT0RyeIadEHiEDgYrhIcQwPLR5vVO+YE
+	 6x9X2i4VK7a1YrWocWKHsvXnw+YfYA/Yj9gF9Lyp1ACwZl9Zp8lBxkmF9ok/oNSAJN
+	 ubYzKDXw2QDHA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 86F40C531CA;
+	Thu, 23 Jul 2026 02:46:55 +0000 (UTC)
+From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
+Date: Wed, 22 Jul 2026 21:46:48 -0500
+Subject: [PATCH v3 2/2] soc/tegra: pmc: Add Tegra210B01 support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260722-t210b01-pmc-v3-2-1c5b970788f2@gmail.com>
+References: <20260722-t210b01-pmc-v3-0-1c5b970788f2@gmail.com>
+In-Reply-To: <20260722-t210b01-pmc-v3-0-1c5b970788f2@gmail.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org, 
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Aaron Kling <webgeek1234@gmail.com>, 
+ Alexandre Hamamdjian <azkali.limited@gmail.com>, 
+ Thomas Makin <halorocker89@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784774814; l=3862;
+ i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
+ bh=Y1pHP7vg6I2QmRiAaP+rGxaAo7nCvhZmwdrLipCbgNI=;
+ b=6iwi7CxRktYp4fke9ya21qJEIFqPOeABdP5l/JWtOSbgOBAR0VNvZKeWKgFu/3FnW9rLsbd6M
+ yToDu3QzuKQCkEJ8HBBhScxB4LyzeD0z7uqqYXM6jOgk6fONC6ulnnt
+X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
+ pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
+X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
+ auth_id=342
+X-Original-From: Aaron Kling <webgeek1234@gmail.com>
+Reply-To: webgeek1234@gmail.com
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The newly added `pcie3b_phy` node lacks the `vdda-phy-supply` and `=
-vdda-pll-supply` properties, which will trigger `dtbs_check` errors.
---
+From: Alexandre Hamamdjian <azkali.limited@gmail.com>
 
---- Patch [5]: [PATCH v6 5/6] arm64: dts: qcom: mahua: Replace pcie3a/pcie3=
-_phy with dedicated pcie3b_phy ---
-commit 919bcfc5a66ac884962879da8e57f8559595dcdf
-Author: Qiang Yu <qiang.yu@oss.qualcomm.com>
+The PMC in Tegra210B01 is very similar to the one in the original
+Tegra210, but has a few powergate differences. Specifically sata, venc,
+and ve2 are removed.
 
-arm64: dts: qcom: mahua: Replace pcie3a/pcie3_phy with dedicated pcie3b_phy
+Signed-off-by: Alexandre Hamamdjian <azkali.limited@gmail.com>
+Co-developed-by: Thomas Makin <halorocker89@gmail.com>
+Signed-off-by: Thomas Makin <halorocker89@gmail.com>
+Co-developed-by: Aaron Kling <webgeek1234@gmail.com>
+Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+---
+ drivers/soc/tegra/pmc.c | 61 +++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 61 insertions(+)
 
-This patch removes the unused pcie3a and shared pcie3_phy nodes from the=20
-Mahua device tree, as it only uses PCIe3b. It replaces them with a dedicate=
-d=20
-pcie3b_phy node using the existing Gen5x4 PHY compatible, and updates the=20
-GCC pipe clock parent and PCIe3b port phy references accordingly.
+diff --git a/drivers/soc/tegra/pmc.c b/drivers/soc/tegra/pmc.c
+index f419a5395545f..d133f445e4ec4 100644
+--- a/drivers/soc/tegra/pmc.c
++++ b/drivers/soc/tegra/pmc.c
+@@ -3897,6 +3897,66 @@ static const struct tegra_pmc_soc tegra210_pmc_soc = {
+ 	.has_single_mmio_aperture = true,
+ };
+ 
++static const char * const tegra210b01_powergates[] = {
++	[TEGRA_POWERGATE_CPU] = "crail",
++	[TEGRA_POWERGATE_3D] = "3d",
++	[TEGRA_POWERGATE_PCIE] = "pcie",
++	[TEGRA_POWERGATE_MPE] = "mpe",
++	[TEGRA_POWERGATE_CPU1] = "cpu1",
++	[TEGRA_POWERGATE_CPU2] = "cpu2",
++	[TEGRA_POWERGATE_CPU3] = "cpu3",
++	[TEGRA_POWERGATE_CPU0] = "cpu0",
++	[TEGRA_POWERGATE_C0NC] = "c0nc",
++	[TEGRA_POWERGATE_SOR] = "sor",
++	[TEGRA_POWERGATE_DIS] = "dis",
++	[TEGRA_POWERGATE_DISB] = "disb",
++	[TEGRA_POWERGATE_XUSBA] = "xusba",
++	[TEGRA_POWERGATE_XUSBB] = "xusbb",
++	[TEGRA_POWERGATE_XUSBC] = "xusbc",
++	[TEGRA_POWERGATE_VIC] = "vic",
++	[TEGRA_POWERGATE_IRAM] = "iram",
++	[TEGRA_POWERGATE_NVDEC] = "nvdec",
++	[TEGRA_POWERGATE_NVJPG] = "nvjpg",
++	[TEGRA_POWERGATE_AUD] = "aud",
++	[TEGRA_POWERGATE_DFD] = "dfd",
++};
++
++static const struct tegra_pmc_soc tegra210b01_pmc_soc = {
++	.supports_core_domain = false,
++	.num_powergates = ARRAY_SIZE(tegra210b01_powergates),
++	.powergates = tegra210b01_powergates,
++	.num_cpu_powergates = ARRAY_SIZE(tegra210_cpu_powergates),
++	.cpu_powergates = tegra210_cpu_powergates,
++	.has_tsense_reset = true,
++	.has_gpu_clamps = true,
++	.needs_mbist_war = false,
++	.has_io_pad_wren = true,
++	.maybe_tz_only = true,
++	.num_io_pads = ARRAY_SIZE(tegra210_io_pads),
++	.io_pads = tegra210_io_pads,
++	.num_io_pad_vctrls = ARRAY_SIZE(tegra210_io_pad_vctrls),
++	.io_pad_vctrls = tegra210_io_pad_vctrls,
++	.num_pin_descs = ARRAY_SIZE(tegra210_pin_descs),
++	.pin_descs = tegra210_pin_descs,
++	.regs = &tegra20_pmc_regs,
++	.init = tegra20_pmc_init,
++	.setup_irq_polarity = tegra20_pmc_setup_irq_polarity,
++	.powergate_set = tegra114_powergate_set,
++	.irq_set_wake = tegra210_pmc_irq_set_wake,
++	.irq_set_type = tegra210_pmc_irq_set_type,
++	.reset_sources = tegra210_reset_sources,
++	.num_reset_sources = ARRAY_SIZE(tegra210_reset_sources),
++	.reset_levels = NULL,
++	.num_reset_levels = 0,
++	.num_wake_events = ARRAY_SIZE(tegra210_wake_events),
++	.wake_events = tegra210_wake_events,
++	.pmc_clks_data = tegra_pmc_clks_data,
++	.num_pmc_clks = ARRAY_SIZE(tegra_pmc_clks_data),
++	.has_blink_output = true,
++	.has_usb_sleepwalk = true,
++	.has_single_mmio_aperture = true,
++};
++
+ static const struct tegra_io_pad_soc tegra186_io_pads[] = {
+ 	TEGRA_IO_PAD(TEGRA_IO_PAD_CSIA, 0, 0x74, 0x78, "csia"),
+ 	TEGRA_IO_PAD(TEGRA_IO_PAD_CSIB, 1, 0x74, 0x78, "csib"),
+@@ -4824,6 +4884,7 @@ static const struct of_device_id tegra_pmc_match[] = {
+ 	{ .compatible = "nvidia,tegra194-pmc", .data = &tegra194_pmc_soc },
+ 	{ .compatible = "nvidia,tegra186-pmc", .data = &tegra186_pmc_soc },
+ 	{ .compatible = "nvidia,tegra210-pmc", .data = &tegra210_pmc_soc },
++	{ .compatible = "nvidia,tegra210b01-pmc", .data = &tegra210b01_pmc_soc },
+ 	{ .compatible = "nvidia,tegra132-pmc", .data = &tegra124_pmc_soc },
+ 	{ .compatible = "nvidia,tegra124-pmc", .data = &tegra124_pmc_soc },
+ 	{ .compatible = "nvidia,tegra114-pmc", .data = &tegra114_pmc_soc },
 
-> diff --git a/arch/arm64/boot/dts/qcom/mahua.dtsi b/arch/arm64/boot/dts/qc=
-om/mahua.dtsi
-> index 22822b6b2e8b9..3280eb96d61c0 100644
-> --- a/arch/arm64/boot/dts/qcom/mahua.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/mahua.dtsi
-[ ... ]
-> @@ -134,6 +186,43 @@ &pcie_west_slv_noc {
->  	compatible =3D "qcom,mahua-pcie-west-slv-noc";
->  };
-> =20
-> +&soc {
-> +	pcie3b_phy: phy@1b90000 {
-> +		compatible =3D "qcom,glymur-qmp-gen5x4-pcie-phy";
-> +		reg =3D <0x0 0x01b90000 0x0 0x10000>;
+-- 
+2.54.0
 
-[Severity: Low]
-Does this node need to define vdda-phy-supply and vdda-pll-supply?
 
-The qcom,glymur-qmp-gen5x4-pcie-phy compatible requires these properties
-according to the bindings schema. Without them, this might trigger
-schema validation failures during make dtbs_check.
-
-> +
-> +		clocks =3D <&gcc GCC_PCIE_PHY_3B_AUX_CLK>,
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-glymur_lin=
-kmode_0722-v6-0-bba8156b8cbb@oss.qualcomm.com?part=3D5
