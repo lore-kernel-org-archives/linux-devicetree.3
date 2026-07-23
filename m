@@ -1,43 +1,37 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAF7846DFFF;
-	Thu, 23 Jul 2026 11:18:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C0AE46D56F;
+	Thu, 23 Jul 2026 11:26:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784805500; cv=none; b=IKipXb036ET6l8/GLuCIZ639MnkW3E8/uTygm5TFDZbCd6tYBqjWWH1OFelqiBGXF5IqNjr/iNL/eNyRAQ8gXGW7F7X2QepgBHE0FXAuZCgWEpVcghh/4xdiCP/YtuDNbXm3Ro9fZvzTDTmbsmxngw+bKaUmavUI3FpW4NeVznI=
+	t=1784805989; cv=none; b=Kz0UmXrx8Xht6WU4fExc1ffN9mMbnlrYM5CEDUxRZc9tnnL9izwkr88BhCd2c4aBFYW6+wj79GxQguCv8ENmMGzxq7UrFRK9yYgdgTZSwapJbhyjo7oYAZbQA4Kxdb5lgt8kIlhLisUAdUfs4Qglfva/RUtua+JiD0nFNucxjWA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784805500; c=relaxed/simple;
-	bh=xA6h8zsdnaX+TM6BX4y+1bdb+WO3NhRSnDhwMvw5JWA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=E/WgX010MHNttPcGc4w85eHCKGhav6I8trMRzUhCub1Y0mtVuRHn7ylaJCj/1VziNX9xQZQxslpHXvOw70qG5neCcYM6obIl+zd7xMMljSc3OfII2c2Ea+9Jg/AVLCu/dkIvj63ej22gAkLGw9wEvTfufBRiIEQ+1T6GGMjdo+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uo+fB922; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784805989; c=relaxed/simple;
+	bh=5sewrzOdRWac/F/uqBnoM/NQOOWvpDIJMYAeTLUEGQc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=i5eOz7ZO+0us2e20vKc2Jn42TinBltBY1aaxkyT86PDV+mFn4OnPuJlQQu1SLD+fXd1+RZKeVtLRPu4z1JZI3TEJbXp2+uPP2cj32e+SslFDQdQ8tg1XYSTfk+DAV/HKXL94m5aLzD7LKGJg1VJ6LPpPcttSQZ0WEKuwrhWATAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tEOQg8ay; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uo+fB922"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 127A81F000E9;
-	Thu, 23 Jul 2026 11:18:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784805492;
-	bh=ExTSV7lRp5vBSXIfUcF2r6dTI+azVWTcAtt1ZPH9Rcs=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Uo+fB922sAzNmaihDq8sVghUlYy/6B5tf14Hl4GJqwm5OXm8azGh/lZ1kSGT0eq8G
-	 40/W4uprF/9oguObCj0myRytAXYMNA3bDI1VovD2RBGQFPicNUZd9MRuzugy+rDEOA
-	 mG2tP+LB3sUN5GaRHuV/ApeC8iiojki6Dln/U0IrH975V9D2TEAZgl1VPxevnXOQiJ
-	 98nBd4jwbt5BgXQhBvb54Ym4R2Y8W3fQHKufEgpZWKQZVsZVeGwvEzmo5lxi2opWlt
-	 k5akrqmYnCp+1Tbc9ULkwSTffGmMRqMai7jQylPqoXKh7HPrKsoOxP8CCGyNtn/2E4
-	 OSajG9TbQ7vlg==
-From: Lee Jones <lee@kernel.org>
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Edelweise Escala <edelweise.escala@analog.com>
-Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
-In-Reply-To: <20260709-ltc3220-driver-v13-0-9b53237642eb@analog.com>
-References: <20260709-ltc3220-driver-v13-0-9b53237642eb@analog.com>
-Subject: Re: [PATCH v13 0/2] Add Support for LTC3220 18 Channel LED Driver
-Message-Id: <178480548980.3362882.161757609550080567.b4-ty@b4>
-Date: Thu, 23 Jul 2026 12:18:09 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tEOQg8ay"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 36634C2BCC7;
+	Thu, 23 Jul 2026 11:26:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1784805989;
+	bh=5sewrzOdRWac/F/uqBnoM/NQOOWvpDIJMYAeTLUEGQc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=tEOQg8ayE7enccXBYGNPNj057szmAsVQ88KnqKJjUxhqRpApf4FJ46wm3HnLi/hDe
+	 JpOGxf4WWbmUiskjzOehrnrqjux4Fb/FvGrAjUaw+olxa/t7uStKZ5D/qxNkYMLD8W
+	 EfhHMa80oAtCtjTqkez1/gg1ZxkncvMvKukBiHGGeQtthb6DlpKpKZ6rnJ538ktkRY
+	 Sl5Aph70E5OQwYMEowUrFyWCsXugGQBiIylJJjlhD7eRHW+ZLVEIWwn/vfztdp7RW3
+	 D6eDs5tPWzKLGBPsZEIIzp4KexMPEH35AvYUzN1rOG6I44YC1svXQczYsRYzk676+n
+	 q4Vu6rd3LC6Yw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 14F9AC531CF;
+	Thu, 23 Jul 2026 11:26:29 +0000 (UTC)
+From: Alexandre Hamamdjian via B4 Relay <devnull+azkali.limited.gmail.com@kernel.org>
+Date: Thu, 23 Jul 2026 18:26:28 +0700
+Subject: [PATCH 1/2] dt-bindings: display: Add AYANEO Pocket DS lower panel
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,26 +39,63 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260723-b4-st7703-pocketds-lower-v1-1-e3db246589f4@gmail.com>
+References: <20260723-b4-st7703-pocketds-lower-v1-0-e3db246589f4@gmail.com>
+In-Reply-To: <20260723-b4-st7703-pocketds-lower-v1-0-e3db246589f4@gmail.com>
+To: =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, 
+ Purism Kernel Team <kernel@puri.sm>, Ondrej Jirman <megi@xff.cz>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Alexandre Hamamdjian <azkali.limited@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784805987; l=1241;
+ i=azkali.limited@gmail.com; s=20260510; h=from:subject:message-id;
+ bh=K1fR2kK/+LjIqWnZb42cj5ThTI+3DMxTN3z6sB3tVds=;
+ b=cy2lnulZ67N5haOXuifPXUKDuZEmPIv/sPmoyjDawfnUEeURuOCsXpWoa4wsxGb0KgbavAbvw
+ I1ebApNgX4lCGJ/xj4T0zvuNdCCglSO8GNxIz8K+kqHq0WgiC2j0Kud
+X-Developer-Key: i=azkali.limited@gmail.com; a=ed25519;
+ pk=I0Z0IdCdQJqNGX+FQUnXhrHg950u3cM6Xzz3YT6JOyQ=
+X-Endpoint-Received: by B4 Relay for azkali.limited@gmail.com/20260510 with
+ auth_id=774
+X-Original-From: Alexandre Hamamdjian <azkali.limited@gmail.com>
+Reply-To: azkali.limited@gmail.com
 
-On Thu, 09 Jul 2026 08:41:18 +0800, Edelweise Escala wrote:
-> The LTC3220/LTC3220-1 is a multi-display LED driver, which contains a
-> high-efficiency, low-noise charge pump to provide power to up to
-> 18 LED current sources. The LEDs are individually configurable to
-> 64-step linear brightness control, blinking and gradation control
-> via 2-wire I2C interface. The blinking and gradation configuration
-> is shared across all LED.
-> 
-> [...]
+From: Alexandre Hamamdjian <azkali.limited@gmail.com>
 
-Applied, thanks!
+The lower (secondary) 5.0" 1024x768 IPS LCD panel of the AYANEO Pocket DS
+dual-screen handheld is driven by a Sitronix ST7703 DDIC, as identified
+by its ST7703 manufacturer command set (SETEXTC 0xB9, SETMIPI 0xBA,
+SETGIP1/2 0xE9/0xEA). Document its compatible alongside the other ST7703
+panels.
 
-[1/2] dt-bindings: leds: Add LTC3220 18 channel LED Driver
-      commit: 3c28d9d0b7e0890df3c16dc7ad5f0fd17e775ab4
-[2/2] leds: ltc3220: Add Support for LTC3220 18 channel LED Driver
-      commit: 07e028d93a57fa6217cf8eb1375ec29e7d1e4b27
+Signed-off-by: Alexandre Hamamdjian <azkali.limited@gmail.com>
+---
+ .../devicetree/bindings/display/panel/rocktech,jh057n00900.yaml         | 2 ++
+ 1 file changed, 2 insertions(+)
 
---
-Lee Jones [李琼斯]
+diff --git a/Documentation/devicetree/bindings/display/panel/rocktech,jh057n00900.yaml b/Documentation/devicetree/bindings/display/panel/rocktech,jh057n00900.yaml
+index ebfc825b8346..91e06d6a6819 100644
+--- a/Documentation/devicetree/bindings/display/panel/rocktech,jh057n00900.yaml
++++ b/Documentation/devicetree/bindings/display/panel/rocktech,jh057n00900.yaml
+@@ -22,6 +22,8 @@ properties:
+     enum:
+       # Anberic RG353V-V2 5.0" 640x480 TFT LCD panel
+       - anbernic,rg353v-panel-v2
++      # AYANEO Pocket DS lower 5.0" 1024x768 IPS LCD panel
++      - ayaneo,pocket-ds-lower-panel
+       # GameForce Chi 3.5" 640x480 TFT LCD panel
+       - gameforce,chi-panel
+       # Powkiddy RGB10MAX3 5.0" 720x1280 TFT LCD panel
+
+-- 
+2.55.0
+
 
