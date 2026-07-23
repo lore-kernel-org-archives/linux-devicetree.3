@@ -1,443 +1,260 @@
-Received: from mail.fris.de (mail.fris.de [116.203.77.234])
+Received: from ironport.ite.com.tw (219-87-157-213.static.tfn.net.tw [219.87.157.213])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A6023DDAEB;
-	Thu, 23 Jul 2026 07:37:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.203.77.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 781133E49F4;
+	Thu, 23 Jul 2026 07:37:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=219.87.157.213
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784792244; cv=none; b=lBRlCiUyzQWeRMwXIE/mscyDI6Bp8aTVcUVOEE4NrQM0rUX9h0NcYH84PELoCJ6WrFHxFyihZIFoGjfDi1E6NYSkElwZ7wIRHcwKvBfLRryMwH5ouG28qSFzALAEMQC7V8g3IJuf7ybwGnhTP+EaRGa/f4U7Q0eupRJJ4k5BszY=
+	t=1784792275; cv=none; b=C9qOpS4yU7vV1AJ1QcZebqmiuvuEIo2W+PXtv0hgA5QiAz6/qGreDx7V8XPlHNt4bM/VUVQqtKDb5OPjKd01bPQs/FiqbTieUNtCQdY1DPzAXM7VYmlWPmVlVnZ3E9/0uPLCGeJ0GvMS7Dor1YaH5EO4O+e+OGPcZkQVwXGqRtA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784792244; c=relaxed/simple;
-	bh=pJ09Chr0zTsjTHGyMcYPOOvJN+s9GeC1D7S/zVmSMEA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ND1cfD5uDvaeH7s+ynNEIkQ+i0JmwOvJIVrqOgZhVGJfh46KcZ9c1PjPvNUiL04G+NInEj9h9hlUmdksNoGLW0qd1OIaV7Ocv3JARe7a/+a+g+PTV7gplCAjSJIIQ1CVXnyV2bnzIRifv09lsiBwwEiBbhOFTkGh1gsA7A1QAeY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=PW0ZOTfE; arc=none smtp.client-ip=116.203.77.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fris.de
+	s=arc-20240116; t=1784792275; c=relaxed/simple;
+	bh=qmBOgq9KbQ84rGB/Osi/zC6GdFGJNNbiD3ew+uW4vUM=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=coUlmhIUrPUKGLUfjoTf77oD6LzhEUq6CrjYKwwU1aMtbLqANBKhXbqRz93c0CEsJ1tS8W3xwk6gyAc4/zxU9YjSdpGH0fb+97D7P5QEi+jlOMAMlNg2NG2GQmiVfmRdTHCulFivT49vqoMyR3uOTzsr4mu5C0h0flPXixfotss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw; spf=pass smtp.mailfrom=ite.com.tw; dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b=U1SYqScW; arc=none smtp.client-ip=219.87.157.213
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="PW0ZOTfE"
-From: Frieder Schrempf <frieder@fris.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fris.de; s=mail;
-	t=1784791737;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ovjESz4Mo1zxE81v9gf+AQ4y8FEezz8eXw4C5At3XN0=;
-	b=PW0ZOTfEiOzu+rfViSK48RX9fWikvezFckIoQzZ/AvHWQddJaex5NhyXjW1bablhBRe8Lt
-	lLgoMLsiIvnHNIjqAmx8dfbWRj7YHxLudyAX4fjk38K5dZSpo/OzEOIYVqppUe9hr8XVM6
-	iVI5F87EmY9pqsk/mO2XXZ7doFo+iKh9Zip/BHx4JGaDUacy5VtbqLVEHEcEcCUHifgKsn
-	4YvtRsXAZkal8nvogIcu2x4BqXK8J7KMNHSyHITK2Tlr9yPKkwgdfQSDvZTt2I46ulmn1X
-	A7PFlnFzNjgYYZQGR6G/YPR/VZxKPOIywBPVDz3ddnc/PHmh6p81nJKOhbOZqA==
-Date: Thu, 23 Jul 2026 09:27:25 +0200
-Subject: [PATCH v3 03/11] firmware: imx: ele: Export API functions
+	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b="U1SYqScW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=ite.com.tw; s=dkim;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=qmBOgq9KbQ84rGB/Osi/zC6GdFGJNNbiD3ew+uW4vUM=;
+  b=U1SYqScWD5xVRMlBXas3u8rClUcZYQD7i1hGsiraS+Kenvztv+Q/BlRO
+   ev/nGBAqij2NvgYhGm9A46jp0l9DtHcbGyGjRjfYQkhJvqP4klsU58o/x
+   Tjqu2M+eIa0tcJ+DnoJv41oeGe8EAo5i4oS+S+r0A4/wf/PDLfRTpoqqd
+   kFNAM+wCISH7bnBsHjk3o1nvSlWlf/M5evSPz5Bp7VHY1cuJSBCKlCRmO
+   n0gqH5Wb5KWdGhcGM3fpjHi20zINI/IxBfnYpi28qg6Al391rrdAwEK1+
+   Qb9lGBSRIpJq2KE0dbUZBx9qLd73Zsy47uaPvsGOOtf1qoBlE/0rXs/98
+   w==;
+X-CSE-ConnectionGUID: iWQ4r693QiepbR900+upZA==
+X-CSE-MsgGUID: jbNV9aV/R3mvWgFJGqT6nw==
+Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
+  by ironport.ite.com.tw with ESMTP; 23 Jul 2026 15:36:32 +0800
+Received: from tpemail1.internal.ite.com.tw (TPEMAIL1.internal.ite.com.tw [192.168.15.58])
+	by mse.ite.com.tw with ESMTP id 66N7aSpe088179;
+	Thu, 23 Jul 2026 15:36:28 +0800 (+08)
+	(envelope-from Hermes.Wu@ite.com.tw)
+Received: from TPEMAIL1.internal.ite.com.tw (192.168.15.58) by
+ TPEMAIL1.internal.ite.com.tw (192.168.15.58) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Thu, 23 Jul 2026 15:36:26 +0800
+Received: from TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291]) by
+ TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291%3]) with mapi id
+ 15.02.2562.037; Thu, 23 Jul 2026 15:36:26 +0800
+From: <Hermes.Wu@ite.com.tw>
+To: <krzk@kernel.org>
+CC: <mchehab@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+        <conor+dt@kernel.org>, <linux-media@vger.kernel.org>,
+        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH v7 1/2] dt-bindings: media: add ITE IT6625/IT6626 HDMI
+ bridge binding
+Thread-Topic: [PATCH v7 1/2] dt-bindings: media: add ITE IT6625/IT6626 HDMI
+ bridge binding
+Thread-Index: AQHdGnJN8NELzo76lUG008osKsC1j7Z6szuA
+Date: Thu, 23 Jul 2026 07:36:26 +0000
+Message-ID: <45c50452651e4a5b81fa7ac09a6864aa@ite.com.tw>
+References: <20260723-upstream-it6625-it6626-v7-0-f8175bb0ea12@ite.com.tw>
+ <20260723-upstream-it6625-it6626-v7-1-f8175bb0ea12@ite.com.tw>
+ <20260723-rampant-stylish-toucanet-01815e@quoll>
+In-Reply-To: <20260723-rampant-stylish-toucanet-01815e@quoll>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-tm-snts-smtp: B8F73584301CDA0A8ACC823AF7EDADB1A757F4FE02930F9286582DFD71F797402002:8
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-upstreaming-next-20260609-imx-ocotp-ele-v3-3-e26930345b4c@kontron.de>
-References: <20260723-upstreaming-next-20260609-imx-ocotp-ele-v3-0-e26930345b4c@kontron.de>
-In-Reply-To: <20260723-upstreaming-next-20260609-imx-ocotp-ele-v3-0-e26930345b4c@kontron.de>
-To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>, 
- Pankaj Gupta <pankaj.gupta@nxp.com>, 
- "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux@ew.tq-group.com, Frieder Schrempf <frieder.schrempf@kontron.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=13631;
- i=frieder.schrempf@kontron.de; h=from:subject:message-id;
- bh=YFsACKIXpkDEbrz5+O+RlLnoul4hwtGYiLybgyAbYFc=;
- b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JISvx0NbTj+euEfDcrt73dY4Pi++RCXoRN1+tbO26n/Qgh
- P3p9plTO0pZGMS4GGTFFFmk+C1e25rF+sgfq46CmcPKBDKEgYtTACZybh3DPxW/81sPWT/9c6Zh
- 1znp1TtY/HIr3/o0b/4oNSVxsmRFGgcjw9kdL5WfC9banlmi+bhqdk5Xx+OfypJuhir7VJkOeZi
- xMgMA
-X-Developer-Key: i=frieder.schrempf@kontron.de; a=openpgp;
- fpr=1A0F38EB3D365D4C1FC67B5A69761B25107C8216
+X-MAIL:mse.ite.com.tw 66N7aSpe088179
 
-From: Frieder Schrempf <frieder.schrempf@kontron.de>
-
-Export generic ELE API functions to send and receive messages. This
-allows drivers to implement functions based on the ELE API.
-
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
----
- drivers/firmware/imx/ele_base_msg.c | 42 ++++++++++----------
- drivers/firmware/imx/ele_common.c   | 35 ++++++++++++++++-
- drivers/firmware/imx/ele_common.h   | 14 -------
- drivers/firmware/imx/se_ctrl.c      |  6 +--
- drivers/firmware/imx/se_ctrl.h      | 14 +------
- include/linux/firmware/imx/se_api.h | 78 +++++++++++++++++++++++++++++++++++++
- 6 files changed, 137 insertions(+), 52 deletions(-)
-
-diff --git a/drivers/firmware/imx/ele_base_msg.c b/drivers/firmware/imx/ele_base_msg.c
-index 28b835f2880f..a4ab45efdd63 100644
---- a/drivers/firmware/imx/ele_base_msg.c
-+++ b/drivers/firmware/imx/ele_base_msg.c
-@@ -8,6 +8,7 @@
- #include <linux/cleanup.h>
- #include <linux/completion.h>
- #include <linux/dma-mapping.h>
-+#include <linux/firmware/imx/se_api.h>
- #include <linux/genalloc.h>
- 
- #include "ele_base_msg.h"
-@@ -106,8 +107,8 @@ int ele_get_info(struct se_if_priv *priv, struct ele_dev_info *s_info)
- 		}
- 	}
- 
--	se_fill_cmd_msg_hdr(priv, (struct se_msg_hdr *)&tx_msg->header,
--			    ELE_GET_INFO_REQ, ELE_GET_INFO_REQ_MSG_SZ, true);
-+	imx_se_fill_cmd_msg_hdr(priv, (struct se_msg_hdr *)&tx_msg->header,
-+				ELE_GET_INFO_REQ, ELE_GET_INFO_REQ_MSG_SZ, true);
- 
- 	tx_msg->data[0] = upper_32_bits(get_info_addr);
- 	tx_msg->data[1] = lower_32_bits(get_info_addr);
-@@ -120,8 +121,8 @@ int ele_get_info(struct se_if_priv *priv, struct ele_dev_info *s_info)
- 		return ret;
- 	}
- 
--	ret = se_val_rsp_hdr_n_status(priv, rx_msg, ELE_GET_INFO_REQ,
--				      ELE_GET_INFO_RSP_MSG_SZ, true);
-+	ret = imx_se_val_rsp_hdr_n_status(priv, rx_msg, ELE_GET_INFO_REQ,
-+					  ELE_GET_INFO_RSP_MSG_SZ, true);
- 	if (ret < 0) {
- 		ele_get_info_cleanup(priv, get_info_data, get_info_addr, get_info_len);
- 		return ret;
-@@ -156,16 +157,16 @@ int ele_ping(struct se_if_priv *priv)
- 	if (!rx_msg)
- 		return -ENOMEM;
- 
--	se_fill_cmd_msg_hdr(priv, (struct se_msg_hdr *)&tx_msg->header,
--			    ELE_PING_REQ, ELE_PING_REQ_SZ, true);
-+	imx_se_fill_cmd_msg_hdr(priv, (struct se_msg_hdr *)&tx_msg->header,
-+				ELE_PING_REQ, ELE_PING_REQ_SZ, true);
- 
- 	ret = ele_msg_send_rcv(priv->priv_dev_ctx, tx_msg, ELE_PING_REQ_SZ,
- 			       rx_msg, ELE_PING_RSP_SZ);
- 	if (ret < 0)
- 		return ret;
- 
--	ret = se_val_rsp_hdr_n_status(priv, rx_msg, ELE_PING_REQ,
--				      ELE_PING_RSP_SZ, true);
-+	ret = imx_se_val_rsp_hdr_n_status(priv, rx_msg, ELE_PING_REQ,
-+					  ELE_PING_RSP_SZ, true);
- 
- 	return ret;
- }
-@@ -196,8 +197,9 @@ int ele_service_swap(struct se_if_priv *priv,
- 	if (!rx_msg)
- 		return -ENOMEM;
- 
--	se_fill_cmd_msg_hdr(priv, (struct se_msg_hdr *)&tx_msg->header,
--			    ELE_SERVICE_SWAP_REQ, ELE_SERVICE_SWAP_REQ_MSG_SZ, true);
-+	imx_se_fill_cmd_msg_hdr(priv, (struct se_msg_hdr *)&tx_msg->header,
-+				ELE_SERVICE_SWAP_REQ, ELE_SERVICE_SWAP_REQ_MSG_SZ,
-+				true);
- 
- 	tx_msg->data[0] = flag;
- 	tx_msg->data[1] = addr_size;
-@@ -212,8 +214,8 @@ int ele_service_swap(struct se_if_priv *priv,
- 	if (ret < 0)
- 		return ret;
- 
--	ret = se_val_rsp_hdr_n_status(priv, rx_msg, ELE_SERVICE_SWAP_REQ,
--				      ELE_SERVICE_SWAP_RSP_MSG_SZ, true);
-+	ret = imx_se_val_rsp_hdr_n_status(priv, rx_msg, ELE_SERVICE_SWAP_REQ,
-+					  ELE_SERVICE_SWAP_RSP_MSG_SZ, true);
- 	if (ret)
- 		return ret;
- 
-@@ -248,8 +250,8 @@ int ele_fw_authenticate(struct se_if_priv *priv, dma_addr_t contnr_addr,
- 	if (!rx_msg)
- 		return -ENOMEM;
- 
--	se_fill_cmd_msg_hdr(priv, (struct se_msg_hdr *)&tx_msg->header,
--			    ELE_FW_AUTH_REQ, ELE_FW_AUTH_REQ_SZ, true);
-+	imx_se_fill_cmd_msg_hdr(priv, (struct se_msg_hdr *)&tx_msg->header,
-+				ELE_FW_AUTH_REQ, ELE_FW_AUTH_REQ_SZ, true);
- 
- 	tx_msg->data[0] = lower_32_bits(contnr_addr);
- 	tx_msg->data[1] = 0;
-@@ -260,8 +262,8 @@ int ele_fw_authenticate(struct se_if_priv *priv, dma_addr_t contnr_addr,
- 	if (ret < 0)
- 		return ret;
- 
--	ret = se_val_rsp_hdr_n_status(priv, rx_msg, ELE_FW_AUTH_REQ,
--				      ELE_FW_AUTH_RSP_MSG_SZ, true);
-+	ret = imx_se_val_rsp_hdr_n_status(priv, rx_msg, ELE_FW_AUTH_REQ,
-+					  ELE_FW_AUTH_RSP_MSG_SZ, true);
- 
- 	return ret;
- }
-@@ -286,8 +288,8 @@ int ele_debug_dump(struct se_if_priv *priv)
- 	if (!rx_msg)
- 		return -ENOMEM;
- 
--	se_fill_cmd_msg_hdr(priv, &tx_msg->header, ELE_DEBUG_DUMP_REQ,
--			    ELE_DEBUG_DUMP_REQ_SZ, true);
-+	imx_se_fill_cmd_msg_hdr(priv, &tx_msg->header, ELE_DEBUG_DUMP_REQ,
-+				ELE_DEBUG_DUMP_REQ_SZ, true);
- 
- 	msg_ex_cnt = 0;
- 	do {
-@@ -298,8 +300,8 @@ int ele_debug_dump(struct se_if_priv *priv)
- 		if (ret < 0)
- 			return ret;
- 
--		ret = se_val_rsp_hdr_n_status(priv, rx_msg, ELE_DEBUG_DUMP_REQ,
--					      ELE_DEBUG_DUMP_RSP_SZ, true);
-+		ret = imx_se_val_rsp_hdr_n_status(priv, rx_msg, ELE_DEBUG_DUMP_REQ,
-+						  ELE_DEBUG_DUMP_RSP_SZ, true);
- 		if (ret) {
- 			dev_err(priv->dev, "Dump_Debug_Buffer Error: %x.", ret);
- 			break;
-diff --git a/drivers/firmware/imx/ele_common.c b/drivers/firmware/imx/ele_common.c
-index fbb6e584341a..f9c56fd42af0 100644
---- a/drivers/firmware/imx/ele_common.c
-+++ b/drivers/firmware/imx/ele_common.c
-@@ -3,11 +3,26 @@
-  * Copyright 2025 NXP
-  */
- 
-+#include <linux/export.h>
-+
- #include "ele_base_msg.h"
- #include "ele_common.h"
- #include "ele_fw_api.h"
- #include "se_ctrl.h"
- 
-+/* Fill a command message header with a given command ID and length in bytes. */
-+int imx_se_fill_cmd_msg_hdr(struct se_if_priv *priv, struct se_msg_hdr *hdr,
-+			u8 cmd, u32 len, bool is_base_api)
-+{
-+	hdr->tag = priv->if_defs->cmd_tag;
-+	hdr->ver = (is_base_api) ? priv->if_defs->base_api_ver : priv->if_defs->fw_api_ver;
-+	hdr->command = cmd;
-+	hdr->size = len >> 2;
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(imx_se_fill_cmd_msg_hdr);
-+
- int se_chk_tx_msg_hdr(struct se_if_device_ctx *dev_ctx, struct se_msg_hdr *header)
- {
- 	struct se_if_priv *priv = dev_ctx->priv;
-@@ -261,6 +276,21 @@ int ele_msg_send_rcv(struct se_if_device_ctx *dev_ctx, void *tx_msg,
- 	return err;
- }
- 
-+/*
-+ * Send/receive blocking call for external drivers, operating on the SE
-+ * interface private data (the misc device context is resolved internally).
-+ */
-+int imx_se_msg_send_rcv(struct se_if_priv *priv, void *tx_msg, int tx_msg_sz,
-+			void *rx_msg, int exp_rx_msg_sz)
-+{
-+	if (!priv)
-+		return -EINVAL;
-+
-+	return ele_msg_send_rcv(priv->priv_dev_ctx, tx_msg, tx_msg_sz,
-+				rx_msg, exp_rx_msg_sz);
-+}
-+EXPORT_SYMBOL_GPL(imx_se_msg_send_rcv);
-+
- static bool check_hdr_exception_for_sz(struct se_if_priv *priv,
- 				       struct se_msg_hdr *header)
- {
-@@ -402,8 +432,8 @@ void se_if_rx_callback(struct mbox_client *mbox_cl, void *msg)
- 	}
- }
- 
--int se_val_rsp_hdr_n_status(struct se_if_priv *priv, struct se_api_msg *msg,
--			    u8 msg_id, u8 sz, bool is_base_api)
-+int imx_se_val_rsp_hdr_n_status(struct se_if_priv *priv, struct se_api_msg *msg,
-+				u8 msg_id, u8 sz, bool is_base_api)
- {
- 	struct se_msg_hdr *header = &msg->header;
- 	u32 status;
-@@ -450,6 +480,7 @@ int se_val_rsp_hdr_n_status(struct se_if_priv *priv, struct se_api_msg *msg,
- 
- 	return 0;
- }
-+EXPORT_SYMBOL_GPL(imx_se_val_rsp_hdr_n_status);
- 
- int se_save_imem_state(struct se_if_priv *priv, struct se_imem_buf *imem)
- {
-diff --git a/drivers/firmware/imx/ele_common.h b/drivers/firmware/imx/ele_common.h
-index b63a3fbf087a..8f0739960d4d 100644
---- a/drivers/firmware/imx/ele_common.h
-+++ b/drivers/firmware/imx/ele_common.h
-@@ -28,20 +28,6 @@ int ele_msg_send_rcv(struct se_if_device_ctx *dev_ctx, void *tx_msg,
- 		     int tx_msg_sz, void *rx_msg, int exp_rx_msg_sz);
- 
- void se_if_rx_callback(struct mbox_client *mbox_cl, void *msg);
--
--int se_val_rsp_hdr_n_status(struct se_if_priv *priv, struct se_api_msg *msg,
--			    u8 msg_id, u8 sz, bool is_base_api);
--
--/* Fill a command message header with a given command ID and length in bytes. */
--static inline void se_fill_cmd_msg_hdr(struct se_if_priv *priv, struct se_msg_hdr *hdr,
--				       u8 cmd, u32 len, bool is_base_api)
--{
--	hdr->tag = priv->if_defs->cmd_tag;
--	hdr->ver = (is_base_api) ? priv->if_defs->base_api_ver : priv->if_defs->fw_api_ver;
--	hdr->command = cmd;
--	hdr->size = len >> 2;
--}
--
- int se_save_imem_state(struct se_if_priv *priv, struct se_imem_buf *imem);
- 
- int se_restore_imem_state(struct se_if_priv *priv, struct se_imem_buf *imem);
-diff --git a/drivers/firmware/imx/se_ctrl.c b/drivers/firmware/imx/se_ctrl.c
-index 3c14964830a6..53f252d2f111 100644
---- a/drivers/firmware/imx/se_ctrl.c
-+++ b/drivers/firmware/imx/se_ctrl.c
-@@ -911,9 +911,9 @@ static int se_ioctl_cmd_snd_rcv_rsp_handler(struct se_if_device_ctx *dev_ctx,
- 		"message received, start transmit to user");
- 
- 	rsp_status_err =
--		se_val_rsp_hdr_n_status(priv, rx_msg, tx_msg->header.command,
--					cmd_snd_rcv_rsp_info.rx_buf_sz,
--					tx_msg->header.ver == priv->if_defs->base_api_ver);
-+		imx_se_val_rsp_hdr_n_status(priv, rx_msg, tx_msg->header.command,
-+					    cmd_snd_rcv_rsp_info.rx_buf_sz,
-+					    tx_msg->header.ver == priv->if_defs->base_api_ver);
- 
- 	if (!rsp_status_err) {
- 		err = se_dev_ctx_cpy_out_data(dev_ctx);
-diff --git a/drivers/firmware/imx/se_ctrl.h b/drivers/firmware/imx/se_ctrl.h
-index af7738ad76cd..76082e8b977c 100644
---- a/drivers/firmware/imx/se_ctrl.h
-+++ b/drivers/firmware/imx/se_ctrl.h
-@@ -7,6 +7,7 @@
- #define SE_CTRL_H
- 
- #include <linux/bitfield.h>
-+#include <linux/firmware/imx/se_api.h>
- #include <linux/miscdevice.h>
- #include <linux/mailbox_client.h>
- #include <linux/semaphore.h>
-@@ -95,22 +96,9 @@ struct se_if_device_ctx {
- 	struct kref refcount;
- };
- 
--/* Header of the messages exchange with the EdgeLock Enclave */
--struct se_msg_hdr {
--	u8 ver;
--	u8 size;
--	u8 command;
--	u8 tag;
--}  __packed;
--
- #define SE_MU_HDR_SZ		4
- #define SE_MU_HDR_WORD_SZ	1
- 
--struct se_api_msg {
--	struct se_msg_hdr header;
--	u32 data[];
--};
--
- struct se_if_defines {
- 	const u8 se_if_type;
- 	u8 cmd_tag;
-diff --git a/include/linux/firmware/imx/se_api.h b/include/linux/firmware/imx/se_api.h
-index b1c4c9115d7b..90104ecaaede 100644
---- a/include/linux/firmware/imx/se_api.h
-+++ b/include/linux/firmware/imx/se_api.h
-@@ -11,4 +11,82 @@
- #define SOC_ID_OF_IMX8ULP		0x084d
- #define SOC_ID_OF_IMX93			0x9300
- 
-+/**
-+ * struct se_msg_hdr - Header of the messages exchanged with the secure enclave.
-+ * @ver: API version the message conforms to (base or firmware API version).
-+ * @size: Message size in 32-bit words, including the header.
-+ * @command: Command identifier.
-+ * @tag: Message tag identifying it as a command or a response.
-+ */
-+struct se_msg_hdr {
-+	u8 ver;
-+	u8 size;
-+	u8 command;
-+	u8 tag;
-+}  __packed;
-+
-+/**
-+ * struct se_api_msg - A message exchanged with the secure enclave.
-+ * @header: Message header describing the command and its length.
-+ * @data: Command or response payload, sized per @header.size.
-+ */
-+struct se_api_msg {
-+	struct se_msg_hdr header;
-+	u32 data[];
-+};
-+
-+/* Opaque handle to a secure-enclave interface instance. */
-+struct se_if_priv;
-+
-+/**
-+ * imx_se_fill_cmd_msg_hdr() - Populate the header of a command message.
-+ * @priv: Secure-enclave interface instance the command targets.
-+ * @hdr: Message header to be filled in.
-+ * @cmd: Command identifier to place in the header.
-+ * @len: Total message length in bytes, including the header.
-+ * @is_base_api: %true to tag the message with the base API version, %false to
-+ *               use the firmware API version.
-+ *
-+ * Fill in the tag, version, command and size fields of @hdr so that the message
-+ * can be sent to the secure enclave.
-+ *
-+ * Return: 0 on success.
-+ */
-+int imx_se_fill_cmd_msg_hdr(struct se_if_priv *priv, struct se_msg_hdr *hdr,
-+			    u8 cmd, u32 len, bool is_base_api);
-+
-+/**
-+ * imx_se_msg_send_rcv() - Send a command to the secure enclave and wait for the
-+ *                         response.
-+ * @priv: Secure-enclave interface instance to communicate with.
-+ * @tx_msg: Buffer holding the command message to send.
-+ * @tx_msg_sz: Size of the command message in bytes.
-+ * @rx_msg: Buffer receiving the response message.
-+ * @exp_rx_msg_sz: Expected size of the response message in bytes.
-+ *
-+ * Blocking send/receive helper for external drivers. The transaction is
-+ * serialized internally and the misc device context is resolved from @priv.
-+ *
-+ * Return: number of bytes received on success, or a negative error code.
-+ */
-+int imx_se_msg_send_rcv(struct se_if_priv *priv, void *tx_msg, int tx_msg_sz,
-+			void *rx_msg, int exp_rx_msg_sz);
-+
-+/**
-+ * imx_se_val_rsp_hdr_n_status() - Validate a response header and status code.
-+ * @priv: Secure-enclave interface instance the response came from.
-+ * @msg: Response message to validate.
-+ * @msg_id: Command identifier the response is expected to match.
-+ * @sz: Expected response size in bytes.
-+ * @is_base_api: %true if the command used the base API version, %false if it
-+ *               used the firmware API version.
-+ *
-+ * Check that the response tag, command identifier, size and API version match
-+ * the expectations, and that the enclave reported a successful status.
-+ *
-+ * Return: 0 if the response is valid and successful, or a negative error code.
-+ */
-+int imx_se_val_rsp_hdr_n_status(struct se_if_priv *priv, struct se_api_msg *msg,
-+				u8 msg_id, u8 sz, bool is_base_api);
-+
- #endif /* __SE_API_H__ */
-
--- 
-2.55.0
-
+SGkgS3J6eXN6dG9mLg0KDQpUaGFua3MgZm9yIHRoZSByZXZpZXcuDQoNCj5PbiBUaHUsIEp1bCAy
+MywgMjAyNiBhdCAxMDo0NDowMkFNICswODAwLCBIZXJtZXMgV3Ugd3JvdGU6DQo+PiBEb2N1bWVu
+dCB0aGUgZGV2aWNldHJlZSBiaW5kaW5nIGZvciB0aGUgSVRFIElUNjYyNS9JVDY2MjYgSERNSSB0
+byBNSVBJIA0KPj4gQ1NJLTIgYnJpZGdlLiBUaGUgZGV2aWNlIGV4cG9zZXMgdHdvIGdyYXBoIHBv
+cnRzOiBwb3J0QDANCj4+IChNSVBJMCkgYW5kIHBvcnRAMSAoTUlQSTEpLCB0aGUgdHdvIHNlbGVj
+dGFibGUgQ1NJLTIgRC1QSFkvQy1QSFkgDQo+PiBvdXRwdXRzLiBPbmx5IHBvcnRAMCBpcyByZXF1
+aXJlZCwgc2luY2UgYSBib2FyZCBvbmx5IG5lZWRzIHRvIHdpcmUgdXAgDQo+PiBhcyBtYW55IG9m
+IHRoZSBicmlkZ2UncyBvdXRwdXRzIGFzIGl0IGFjdHVhbGx5IHVzZXMuDQo+PiANCj4+IFNpZ25l
+ZC1vZmYtYnk6IEhlcm1lcyBXdSA8SGVybWVzLnd1QGl0ZS5jb20udHc+DQo+PiAtLS0NCj4+IENo
+YW5nZXMgaW4gdjc6DQo+PiAtIEFkZCBiYWNrIHBvcnRAMiBmb3IgdGhlIEhETUkgaW5wdXQgcG9y
+dCwgcmV2ZXJzaW5nIHRoZSB2NCBkZWNpc2lvbg0KPj4gICB0byBkcm9wIGl0LiBUaGUgdjYgYXV0
+b21hdGVkIHJldmlldyByZS1yYWlzZWQgdGhlIHNhbWUgY29uY2VybiB3aXRoDQo+PiAgIHN0cm9u
+Z2VyIGZvb3RpbmcgdGhhbiB2MydzOiBkZXZpY2V0cmVlIGRlc2NyaWJlcyB0aGUgcGh5c2ljYWwN
+Cj4+ICAgaGFyZHdhcmUgaW5kZXBlbmRlbnQgb2Ygd2hhdCBhIGdpdmVuIGRyaXZlciBjb25zdW1l
+cywgYW5kIHRoZSBjaGlwDQo+PiAgIGhhcyBhIHBoeXNpY2FsIEhETUkgaW5wdXQgcmVnYXJkbGVz
+cyBvZiB3aGV0aGVyIGl0NjYyNS5jIHdpcmVzDQo+PiAgIGFueXRoaW5nIHRvIGl0LiBDaGVja2Vk
+IGFnYWluc3QgYWRpLGFkdjc2MDQueWFtbCwgYW4NCj4+ICAgYWN0aXZlbHktbWFpbnRhaW5lZCB1
+cHN0cmVhbSBiaW5kaW5nIGZvciBhIGNvbXBhcmFibGUgSERNSS1yZWNlaXZlcg0KPj4gICBjaGlw
+LCB3aGljaCBkb2N1bWVudHMgaXRzIGlucHV0IHBvcnQocykgdGhlIHNhbWUgd2F5IHZpYQ0KPj4g
+ICBncmFwaC55YW1sJ3MgZ2VuZXJpYyBwb3J0IHBhdHRlcm4gLS0gY29uY3JldGUgcHJlY2VkZW50
+IHRoYXQgYW4NCj4+ICAgaW5wdXQgcG9ydCB1bnVzZWQgYnkgdGhlIGRyaXZlciBzdGlsbCBiZWxv
+bmdzIGluIHRoZSBzY2hlbWEuDQo+PiAgIFZlcmlmaWVkIHBvcnRAMiBzdGF5cyBvcHRpb25hbCBh
+bmQgdGhlIHNjaGVtYSBzdGlsbCB2YWxpZGF0ZXMgd2l0aA0KPj4gICBkdC1kb2MtdmFsaWRhdGUv
+ZHQtdmFsaWRhdGUgYm90aCB3aXRoIGFuZCB3aXRob3V0IGl0IHByZXNlbnQuDQo+DQo+NSB2ZXJz
+aW9ucyBzZW50IHRoZSBzYW1lIGRheS4NCj4NCj5ObywgeW91IGhhdmUgdG8gc2xvdyBkb3duIGFu
+ZCBhbGxvdyBwZW9wbGUgdG8gYWN0dWFsbHkgcmV2aWV3IHlvdXIgY29kZS4NCj5PbmUgdmVyc2lv
+biBwZXIgMjRoIQ0KDQpJIHdpbGwgc2xvdyBkb3duIGFuZCBhbGxvdyBtb3JlIHRpbWUgZm9yIHJl
+dmlldyBiZWZvcmUgc2VuZGluZyBuZXcgdmVyc2lvbnMuDQoNCj5BIG5pdCwgc3ViamVjdDogZHJv
+cCBzZWNvbmQvbGFzdCwgcmVkdW5kYW50ICJiaW5kaW5nIi4gVGhlICJkdC1iaW5kaW5ncyIgcHJl
+Zml4IGlzIGFscmVhZHkgc3RhdGluZyB0aGF0IHRoZXNlIGFyZSBiaW5kaW5ncy4NCj5TZWUgYWxz
+bzoNCj5odHRwczovL2VsaXhpci5ib290bGluLmNvbS9saW51eC92Ny4xLXJjNy9zb3VyY2UvRG9j
+dW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3N1Ym1pdHRpbmctcGF0Y2hlcy5yc3QjTDIz
+DQo+DQo+PiANCj4+IENoYW5nZXMgaW4gdjY6DQo+PiAtIFVuY2hhbmdlZC4gVGhlIHY1IGF1dG9t
+YXRlZCByZXZpZXcgZmxhZ2dlZCB0aGF0IHRoZSBpdDY2MjYNCj4+ICAgY29uZGl0aW9uYWwncyBg
+cmVxdWlyZWQ6IFtidXMtdHlwZV1gIGNvbnN0cmFpbnQsIGV4cHJlc3NlZCB1bmRlcg0KPj4gICBg
+cHJvcGVydGllczogeyBlbmRwb2ludDogey4uLn0gfWAsIGRvZXNuJ3QgbWF0Y2ggYW4gYGVuZHBv
+aW50QE5gDQo+PiAgIHVuaXQtYWRkcmVzc2VkIG5vZGUgYW5kIGNvdWxkIGluIHByaW5jaXBsZSBi
+ZSBieXBhc3NlZC4gQ2hlY2tlZA0KPj4gICBhZ2FpbnN0IG1pcGktY2NzLnlhbWwsIGFuIGFjdGl2
+ZWx5LW1haW50YWluZWQgdXBzdHJlYW0gYmluZGluZyB0aGF0DQo+PiAgIHJlcXVpcmVzIGJ1cy10
+eXBlIChhbW9uZyBvdGhlciBwcm9wZXJ0aWVzKSB2aWEgdGhlIGV4YWN0IHNhbWUNCj4+ICAgYHBy
+b3BlcnRpZXMuZW5kcG9pbnQucmVxdWlyZWRgIGlkaW9tIHdpdGggbm8gcGF0dGVyblByb3BlcnRp
+ZXMgLS0NCj4+ICAgZGlyZWN0IGV2aWRlbmNlIHRoaXMgaXMgYWNjZXB0ZWQgY29udmVudGlvbiwg
+bm90IGEgZGVmZWN0LCBzbyBubw0KPj4gICBmaXggd2FzIG1hZGUuDQo+PiANCj4+IENoYW5nZXMg
+aW4gdjQ6DQo+PiAtIERyb3AgcG9ydEAyICh0aGUgSERNSSBjb25uZWN0b3IgaW5wdXQgZ3JhcGgg
+cG9ydCkgZW50aXJlbHk6IGl0DQo+PiAgIGFkZGVkIG5vIGNvbnN0cmFpbnRzIGJleW9uZCBncmFw
+aC55YW1sJ3MgZ2VuZXJpYyBlbmRwb2ludC1iYXNlLCBhbmQNCj4+ICAgdGhlIGRyaXZlciBkb2Vz
+bid0IHVzZSB0aGlzIGdyYXBoIHBvcnQgZm9yIGFueXRoaW5nIHNjaGVtYS1yZWxldmFudCwNCj4+
+ICAgc28gdGhlcmUgd2FzIG5vdGhpbmcgZm9yIGEgY29uc3VtZXIgZGV2aWNldHJlZSB0byB1c2Vm
+dWxseSB2YWxpZGF0ZQ0KPj4gICBhZ2FpbnN0IGl0LiBGb3VuZCBieSB0aGUgYXV0b21hdGVkIHJl
+dmlldyBvZiB2Mywgd2hpY2ggc3VnZ2VzdGVkDQo+PiAgIGFkZGluZyBpdCB0byBgcmVxdWlyZWRg
+IGluc3RlYWQgLS0gZHJvcHBpbmcgaXQgZW50aXJlbHkgd2FzIGp1ZGdlZA0KPj4gICB0aGUgYmV0
+dGVyIGZpeCBzaW5jZSB0aGUgcG9ydCBjYXJyaWVkIG5vIHJlYWwgY29uc3RyYWludHMgdG8gYmVn
+aW4NCj4+ICAgd2l0aC4NCj4+IC0gUmVxdWlyZSBidXMtdHlwZSBvbiBwb3J0QDAvcG9ydEAxIGVu
+ZHBvaW50cyB3aGVuIGNvbXBhdGlibGUgY29udGFpbnMNCj4+ICAgIml0ZSxpdDY2MjYiOiB0aGUg
+ZHJpdmVyIGRlZmF1bHRzIHRvIEQtUEhZIHdoZW4gYnVzLXR5cGUgaXMgb21pdHRlZCwNCj4+ICAg
+d2hpY2ggaXMgYWx3YXlzIGNvcnJlY3QgZm9yIGl0NjYyNSAoRC1QSFkgb25seSkgYnV0IHdvdWxk
+IHNpbGVudGx5DQo+PiAgIG1pc2NvbmZpZ3VyZSBhbiBpdDY2MjYgYm9hcmQgYWN0dWFsbHkgd2ly
+ZWQgZm9yIEMtUEhZLiBBbHNvIGZvdW5kIGJ5DQo+PiAgIHRoZSBhdXRvbWF0ZWQgcmV2aWV3IG9m
+IHYzLg0KPj4gDQo+PiBPbmUgb3RoZXIgdjMgcmV2aWV3IGZpbmRpbmcgd2FzIGNoZWNrZWQgYW5k
+IGlzIG5vdCBiZWluZyBhY3RlZCBvbjoNCj4+IC0gVGhlIHBsYWluIGBwcm9wZXJ0aWVzOiB7IGVu
+ZHBvaW50OiB7Li4ufSB9YCBvdmVycmlkZSB1c2VkIGZvciBlYWNoDQo+PiAgIHBvcnQgdGVjaG5p
+Y2FsbHkgZG9lc24ndCByZWFjaCBncmFwaC55YW1sJ3Mgc2VwYXJhdGUNCj4+ICAgYHBhdHRlcm5Q
+cm9wZXJ0aWVzYCBtYXRjaGVyLCBzbyBhbiBgZW5kcG9pbnRAMGAtc3R5bGUgbm9kZSBjb3VsZCBp
+bg0KPj4gICBwcmluY2lwbGUgYnlwYXNzIHRoZSBsb2NhbCBkYXRhLWxhbmVzL2J1cy10eXBlIGNv
+bnN0cmFpbnRzLiBUaGlzIGlzDQo+PiAgIHRoZSBzYW1lIGNvbnZlbnRpb24gYWxyZWFkeSB1c2Vk
+IGJ5IG90aGVyIHNpbmdsZS1lbmRwb2ludC1wZXItcG9ydA0KPj4gICBiaW5kaW5ncyBpbi10cmVl
+IChlLmcuIHRoaW5lLHRocDczMTIueWFtbCksIG5vdCBhIGRlZmVjdCB1bmlxdWUgdG8NCj4+ICAg
+dGhpcyBiaW5kaW5nLg0KPj4gDQo+PiBDaGFuZ2VzIGluIHYyOg0KPj4gLSBSZXN0cmljdCBwb3J0
+QDAvcG9ydEAxIGVuZHBvaW50IGJ1cy10eXBlIHRvIEQtUEhZICg0KSBvbmx5IHdoZW4NCj4+ICAg
+Y29tcGF0aWJsZSBpcyAiaXRlLGl0NjYyNSIsIHZpYSBhbiBhbGxPZi9pZi90aGVuIGNvbnN0cmFp
+bnQuIElUNjYyNQ0KPj4gICBvbmx5IHN1cHBvcnRzIE1JUEkgQ1NJLTIgRC1QSFkgb3V0cHV0OyB0
+aGUgc2NoZW1hIHByZXZpb3VzbHkgYWxsb3dlZA0KPj4gICBib3RoIEMtUEhZICgxKSBhbmQgRC1Q
+SFkgKDQpIHVuY29uZGl0aW9uYWxseSwgc28gYSBkZXZpY2V0cmVlDQo+PiAgIGNsYWltaW5nICJp
+dGUsaXQ2NjI1IiB3aXRoIGJ1cy10eXBlID0gQy1QSFkgcGFzc2VkIHNjaGVtYSB2YWxpZGF0aW9u
+DQo+PiAgIGRlc3BpdGUgYmVpbmcgaW52YWxpZCBvbiB0aGF0IGhhcmR3YXJlLiBJVDY2MjYsIHdo
+aWNoIHN1cHBvcnRzIGJvdGgNCj4+ICAgUEhZIHR5cGVzLCBpcyB1bmFmZmVjdGVkLiBGb3VuZCBi
+eSB0aGUgc2FzaGlrby5kZXYgYXV0b21hdGVkIHJldmlldw0KPj4gICBvZiB2MS4NCj4+IC0tLQ0K
+Pj4gIC4uLi9kZXZpY2V0cmVlL2JpbmRpbmdzL21lZGlhL2kyYy9pdGUsaXQ2NjI1LnlhbWwgIHwg
+MTc0IA0KPj4gKysrKysrKysrKysrKysrKysrKysrDQo+PiAgMSBmaWxlIGNoYW5nZWQsIDE3NCBp
+bnNlcnRpb25zKCspDQo+PiANCj4+IGRpZmYgLS1naXQgDQo+PiBhL0RvY3VtZW50YXRpb24vZGV2
+aWNldHJlZS9iaW5kaW5ncy9tZWRpYS9pMmMvaXRlLGl0NjYyNS55YW1sIA0KPj4gYi9Eb2N1bWVu
+dGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbWVkaWEvaTJjL2l0ZSxpdDY2MjUueWFtbA0KPj4g
+bmV3IGZpbGUgbW9kZSAxMDA2NDQNCj4+IGluZGV4IA0KPj4gMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMC4uMzg5OTgyOTAzNmM2YmE0MWY4ZjljNzc5MDg1Ng0KPj4gMWM3
+NWFiNGUzZjZhDQo+PiAtLS0gL2Rldi9udWxsDQo+PiArKysgYi9Eb2N1bWVudGF0aW9uL2Rldmlj
+ZXRyZWUvYmluZGluZ3MvbWVkaWEvaTJjL2l0ZSxpdDY2MjUueWFtbA0KPj4gQEAgLTAsMCArMSwx
+NzQgQEANCj4+ICsjIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiAoR1BMLTIuMC1vbmx5IE9SIEJT
+RC0yLUNsYXVzZSkgJVlBTUwgMS4yDQo+PiArLS0tDQo+PiArJGlkOiBodHRwOi8vZGV2aWNldHJl
+ZS5vcmcvc2NoZW1hcy9tZWRpYS9pMmMvaXRlLGl0NjYyNS55YW1sIw0KPj4gKyRzY2hlbWE6IGh0
+dHA6Ly9kZXZpY2V0cmVlLm9yZy9tZXRhLXNjaGVtYXMvY29yZS55YW1sIw0KPj4gKw0KPj4gK3Rp
+dGxlOiBJVEUgSVQ2NjI1L0lUNjYyNiBIRE1JIHRvIGR1YWwgTUlQSSBDU0ktMiBicmlkZ2UNCj4+
+ICsNCj4+ICttYWludGFpbmVyczoNCj4+ICsgIC0gSGVybWVzIFd1IDxIZXJtZXMud3VAaXRlLmNv
+bS50dz4NCj4+ICsNCj4+ICtkZXNjcmlwdGlvbjogfC0NCj4NCj5Ecm9wIHwtDQo+DQo+PiArICBU
+aGUgSVRFIElUNjYyNSBhbmQgSVQ2NjI2IGFyZSBIRE1JIHRvIE1JUEkgQ1NJLTIgYnJpZGdlIGRl
+dmljZXMuDQo+PiArICBJVDY2MjUgc3VwcG9ydHMgYW4gSERNSSAyLjAgaW5wdXQgYW5kIGNvbnZl
+cnRzIGl0IHRvIG9uZSBvciB0d28gDQo+PiArIEQtUEhZIENTSSAgb3V0cHV0cywgd2hpbGUgSVQ2
+NjI2IHN1cHBvcnRzIGFuIEhETUkgMi4xIGlucHV0IGFuZCANCj4+ICsgY29udmVydHMgaXQgdG8g
+b25lIG9yICB0d28gQy9ELVBIWSBDU0kgb3V0cHV0cy4gVGhlIGJyaWRnZXMgYXJlIA0KPj4gKyBw
+cm9ncmFtbWFibGUgdGhyb3VnaCBJMkMgYW5kICBleHBvc2UgdHdvIHNlbGVjdGFibGUgQ1NJLTIg
+b3V0cHV0IA0KPj4gKyBwb3J0cyBhbmQgYW4gSERNSSBpbnB1dCBwb3J0LiBUaGUgIGJyaWRnZSBj
+YW4gb3BlcmF0ZSBpbiBzcGxpdCBtb2RlIG9yIGNsb25lIG1vZGUuDQo+PiArDQo+PiArcHJvcGVy
+dGllczoNCj4+ICsgIGNvbXBhdGlibGU6DQo+PiArICAgIGVudW06DQo+PiArICAgICAgLSBpdGUs
+aXQ2NjI1DQo+PiArICAgICAgLSBpdGUsaXQ2NjI2DQo+PiArDQo+PiArICByZWc6DQo+PiArICAg
+IG1heEl0ZW1zOiAxDQo+PiArDQo+PiArICByZXNldC1ncGlvczoNCj4+ICsgICAgZGVzY3JpcHRp
+b246DQo+PiArICAgICAgR1BJTyBjb25uZWN0ZWQgdG8gdGhlIGFjdGl2ZS1sb3cgcmVzZXQgbGlu
+ZS4NCj4+ICsgICAgbWF4SXRlbXM6IDENCj4+ICsNCj4+ICsgIHBvcnRzOg0KPj4gKyAgICAkcmVm
+OiAvc2NoZW1hcy9ncmFwaC55YW1sIy9wcm9wZXJ0aWVzL3BvcnRzDQo+PiArICAgIHByb3BlcnRp
+ZXM6DQo+PiArICAgICAgcG9ydEAwOg0KPj4gKyAgICAgICAgJHJlZjogL3NjaGVtYXMvZ3JhcGgu
+eWFtbCMvJGRlZnMvcG9ydC1iYXNlDQo+PiArICAgICAgICB1bmV2YWx1YXRlZFByb3BlcnRpZXM6
+IGZhbHNlDQo+PiArICAgICAgICBkZXNjcmlwdGlvbjogQ1NJLTIgb3V0cHV0IHBvcnQgTUlQSTAN
+Cj4+ICsNCj4+ICsgICAgICAgIHByb3BlcnRpZXM6DQo+PiArICAgICAgICAgIGVuZHBvaW50Og0K
+Pj4gKyAgICAgICAgICAgICRyZWY6IC9zY2hlbWFzL21lZGlhL3ZpZGVvLWludGVyZmFjZXMueWFt
+bCMNCj4+ICsgICAgICAgICAgICB1bmV2YWx1YXRlZFByb3BlcnRpZXM6IGZhbHNlDQo+PiArDQo+
+PiArICAgICAgICAgICAgcHJvcGVydGllczoNCj4+ICsgICAgICAgICAgICAgIGRhdGEtbGFuZXM6
+DQo+PiArICAgICAgICAgICAgICAgIG1pbkl0ZW1zOiAxDQo+PiArICAgICAgICAgICAgICAgIG1h
+eEl0ZW1zOiA0DQo+PiArDQo+PiArICAgICAgICAgICAgICBidXMtdHlwZToNCj4+ICsgICAgICAg
+ICAgICAgICAgZW51bToNCj4+ICsgICAgICAgICAgICAgICAgICAtIDEgIyBNRURJQV9CVVNfVFlQ
+RV9DU0kyX0NQSFkNCj4+ICsgICAgICAgICAgICAgICAgICAtIDQgIyBNRURJQV9CVVNfVFlQRV9D
+U0kyX0RQSFkNCj4+ICsNCj4+ICsgICAgICAgICAgICAgIGNsb2NrLW5vbmNvbnRpbnVvdXM6IHRy
+dWUNCj4+ICsgICAgICAgICAgICAgIGxpbmstZnJlcXVlbmNpZXM6IHRydWUNCj4NCj5Ecm9wIGJv
+dGgNCj4NCj4+ICsNCj4+ICsgICAgICAgICAgICByZXF1aXJlZDoNCj4+ICsgICAgICAgICAgICAg
+IC0gZGF0YS1sYW5lcw0KPj4gKw0KPj4gKyAgICAgIHBvcnRAMToNCj4+ICsgICAgICAgICRyZWY6
+IC9zY2hlbWFzL2dyYXBoLnlhbWwjLyRkZWZzL3BvcnQtYmFzZQ0KPj4gKyAgICAgICAgdW5ldmFs
+dWF0ZWRQcm9wZXJ0aWVzOiBmYWxzZQ0KPj4gKyAgICAgICAgZGVzY3JpcHRpb246IENTSS0yIG91
+dHB1dCBwb3J0IE1JUEkxDQo+PiArDQo+PiArICAgICAgICBwcm9wZXJ0aWVzOg0KPj4gKyAgICAg
+ICAgICBlbmRwb2ludDoNCj4+ICsgICAgICAgICAgICAkcmVmOiAvc2NoZW1hcy9tZWRpYS92aWRl
+by1pbnRlcmZhY2VzLnlhbWwjDQo+PiArICAgICAgICAgICAgdW5ldmFsdWF0ZWRQcm9wZXJ0aWVz
+OiBmYWxzZQ0KPj4gKw0KPj4gKyAgICAgICAgICAgIHByb3BlcnRpZXM6DQo+PiArICAgICAgICAg
+ICAgICBkYXRhLWxhbmVzOg0KPj4gKyAgICAgICAgICAgICAgICBtaW5JdGVtczogMQ0KPj4gKyAg
+ICAgICAgICAgICAgICBtYXhJdGVtczogNA0KPj4gKw0KPj4gKyAgICAgICAgICAgICAgYnVzLXR5
+cGU6DQo+PiArICAgICAgICAgICAgICAgIGVudW06DQo+PiArICAgICAgICAgICAgICAgICAgLSAx
+ICMgTUVESUFfQlVTX1RZUEVfQ1NJMl9DUEhZDQo+PiArICAgICAgICAgICAgICAgICAgLSA0ICMg
+TUVESUFfQlVTX1RZUEVfQ1NJMl9EUEhZDQo+PiArDQo+PiArICAgICAgICAgICAgICBjbG9jay1u
+b25jb250aW51b3VzOiB0cnVlDQo+PiArICAgICAgICAgICAgICBsaW5rLWZyZXF1ZW5jaWVzOiB0
+cnVlDQo+DQo+RHJvcCBib3RoDQo+DQo+PiArDQo+PiArICAgICAgICAgICAgcmVxdWlyZWQ6DQo+
+PiArICAgICAgICAgICAgICAtIGRhdGEtbGFuZXMNCj4+ICsNCj4+ICsgICAgICBwb3J0QDI6DQo+
+PiArICAgICAgICAkcmVmOiAvc2NoZW1hcy9ncmFwaC55YW1sIy8kZGVmcy9wb3J0LWJhc2UNCj4+
+ICsgICAgICAgIHVuZXZhbHVhdGVkUHJvcGVydGllczogZmFsc2UNCj4+ICsgICAgICAgIGRlc2Ny
+aXB0aW9uOiBIRE1JIGlucHV0IHBvcnQNCj4+ICsNCj4+ICsgICAgcmVxdWlyZWQ6DQo+PiArICAg
+ICAgLSBwb3J0QDANCj4NCj5NaXNzaW5nIGJsYW5rIGxpbmUNCj4NCj4+ICtyZXF1aXJlZDoNCj4+
+ICsgIC0gY29tcGF0aWJsZQ0KPj4gKyAgLSByZWcNCj4+ICsgIC0gcG9ydHMNCj4+ICsNCj4+ICth
+bGxPZjoNCj4+ICsgIC0gaWY6DQo+PiArICAgICAgcHJvcGVydGllczoNCj4+ICsgICAgICAgIGNv
+bXBhdGlibGU6DQo+PiArICAgICAgICAgIGNvbnRhaW5zOg0KPj4gKyAgICAgICAgICAgIGNvbnN0
+OiBpdGUsaXQ2NjI1DQo+PiArICAgIHRoZW46DQo+PiArICAgICAgcHJvcGVydGllczoNCj4+ICsg
+ICAgICAgIHBvcnRzOg0KPj4gKyAgICAgICAgICBwcm9wZXJ0aWVzOg0KPj4gKyAgICAgICAgICAg
+IHBvcnRAMDoNCj4+ICsgICAgICAgICAgICAgIHByb3BlcnRpZXM6DQo+PiArICAgICAgICAgICAg
+ICAgIGVuZHBvaW50Og0KPj4gKyAgICAgICAgICAgICAgICAgIHByb3BlcnRpZXM6DQo+PiArICAg
+ICAgICAgICAgICAgICAgICBidXMtdHlwZToNCj4+ICsgICAgICAgICAgICAgICAgICAgICAgY29u
+c3Q6IDQNCj4+ICsgICAgICAgICAgICBwb3J0QDE6DQo+PiArICAgICAgICAgICAgICBwcm9wZXJ0
+aWVzOg0KPj4gKyAgICAgICAgICAgICAgICBlbmRwb2ludDoNCj4+ICsgICAgICAgICAgICAgICAg
+ICBwcm9wZXJ0aWVzOg0KPj4gKyAgICAgICAgICAgICAgICAgICAgYnVzLXR5cGU6DQo+PiArICAg
+ICAgICAgICAgICAgICAgICAgIGNvbnN0OiA0DQo+DQo+SWYgdGhlIGJ1cy10eXBlIGlzIGZpeGVk
+LCB3aHkgaXMgaXQgaW4gdGhlIERUIGluIHRoZSBmaXJzdCBwbGFjZT8NCj5Db21wYXRpYmxlIGRl
+ZmluZXMgaXQgYWxyZWFkeS4NCj4NCj4+ICsNCj4+ICsgIC0gaWY6DQo+PiArICAgICAgcHJvcGVy
+dGllczoNCj4+ICsgICAgICAgIGNvbXBhdGlibGU6DQo+PiArICAgICAgICAgIGNvbnRhaW5zOg0K
+Pj4gKyAgICAgICAgICAgIGNvbnN0OiBpdGUsaXQ2NjI2DQo+PiArICAgIHRoZW46DQo+PiArICAg
+ICAgcHJvcGVydGllczoNCj4+ICsgICAgICAgIHBvcnRzOg0KPj4gKyAgICAgICAgICBwcm9wZXJ0
+aWVzOg0KPj4gKyAgICAgICAgICAgIHBvcnRAMDoNCj4+ICsgICAgICAgICAgICAgIHByb3BlcnRp
+ZXM6DQo+PiArICAgICAgICAgICAgICAgIGVuZHBvaW50Og0KPj4gKyAgICAgICAgICAgICAgICAg
+IHJlcXVpcmVkOg0KPj4gKyAgICAgICAgICAgICAgICAgICAgLSBidXMtdHlwZQ0KPj4gKyAgICAg
+ICAgICAgIHBvcnRAMToNCj4+ICsgICAgICAgICAgICAgIHByb3BlcnRpZXM6DQo+PiArICAgICAg
+ICAgICAgICAgIGVuZHBvaW50Og0KPj4gKyAgICAgICAgICAgICAgICAgIHJlcXVpcmVkOg0KPj4g
+KyAgICAgICAgICAgICAgICAgICAgLSBidXMtdHlwZQ0KPj4gKw0KPj4gK2FkZGl0aW9uYWxQcm9w
+ZXJ0aWVzOiBmYWxzZQ0KPj4gKw0KPj4gK2V4YW1wbGVzOg0KPj4gKyAgLSB8DQo+PiArICAgICNp
+bmNsdWRlIDxkdC1iaW5kaW5ncy9ncGlvL2dwaW8uaD4NCj4+ICsNCj4+ICsgICAgaTJjIHsNCj4+
+ICsgICAgICAjYWRkcmVzcy1jZWxscyA9IDwxPjsNCj4+ICsgICAgICAjc2l6ZS1jZWxscyA9IDww
+PjsNCj4+ICsNCj4+ICsgICAgICBoZG1pLWJyaWRnZUA0YyB7DQo+PiArICAgICAgICBjb21wYXRp
+YmxlID0gIml0ZSxpdDY2MjUiOw0KPj4gKyAgICAgICAgcmVnID0gPDB4NGM+Ow0KPj4gKw0KPj4g
+KyAgICAgICAgcmVzZXQtZ3Bpb3MgPSA8JmdwaW8gMiBHUElPX0FDVElWRV9MT1c+Ow0KPj4gKw0K
+Pj4gKyAgICAgICAgcG9ydHMgew0KPj4gKyAgICAgICAgICAjYWRkcmVzcy1jZWxscyA9IDwxPjsN
+Cj4+ICsgICAgICAgICAgI3NpemUtY2VsbHMgPSA8MD47DQo+PiArDQo+PiArICAgICAgICAgIHBv
+cnRAMCB7DQo+PiArICAgICAgICAgICAgcmVnID0gPDA+Ow0KPj4gKyAgICAgICAgICAgIGNzaV9v
+dXQwOiBlbmRwb2ludCB7DQo+PiArICAgICAgICAgICAgICByZW1vdGUtZW5kcG9pbnQgPSA8JmNz
+aTJfcngwPjsNCj4+ICsgICAgICAgICAgICAgIGJ1cy10eXBlID0gPDQ+OyAvKiBNRURJQV9CVVNf
+VFlQRV9DU0kyX0RQSFkgKi8NCj4+ICsgICAgICAgICAgICAgIGRhdGEtbGFuZXMgPSA8MSAyIDMg
+ND47DQo+PiArICAgICAgICAgICAgfTsNCj4+ICsgICAgICAgICAgfTsNCj4NCj5JbmNvbXBsZXRl
+IGV4YW1wbGUgLSB3aGVyZSBpcyBwb3J0QDI/DQoNCnRoZSBBSSByZXZpZXcgc3VnZ2VzdCBhZGQg
+cG9ydEAyIEhETUkgY29ubmVjdG9yLCBidXQgdGhlIGl0NjYyNSBkcml2ZXIgZG9lcyBub3QgdXNl
+IHRoZSBIRE1JIGlucHV0IHBvcnQgZm9yIGFueXRoaW5nIHNjaGVtYS1yZWxldmFudCwgDQpzbyB0
+aGVyZSBpcyBub3RoaW5nIGZvciBhIGNvbnN1bWVyIGRldmljZSB0cmVlIHRvIHVzZWZ1bGx5IHZh
+bGlkYXRlIGFnYWluc3QgaXQuDQoNCkRvZXMgcG9ydEAyIEhETUkgcmVhbGx5IG5lZWQgdG8gYWRk
+IHRvIHNjaGVtYT8NCmlmIHllcywgSSB3aWxsIGFkZCB0byBleGFtcGxlIG5leHQgcGF0Y2ggLCBv
+ciBJIGNhbiBkcm9wIGl0IGZyb20gc2NoZW1hPw0KDQo+QmVzdCByZWdhcmRzLA0KPktyenlzenRv
+Zg0KPg0KPg0K
