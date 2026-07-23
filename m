@@ -1,68 +1,69 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92D6546D083;
-	Thu, 23 Jul 2026 15:52:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 297804137B5;
+	Thu, 23 Jul 2026 15:53:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784821939; cv=none; b=QjYxofi+De3Y6zdgZaJivHT9g26UL+QC5keCa+xHV2bCwL1Ye5746h5yukXmL4DpcY4Ayfm8ojLTMgrxanb4QXpQ5mQDX82S5x5RYy5mlLqvvK4g/DK4cW4AbezA8CDY1LSwZaFYGRUhOq1rS59YxTVsplaxDZ8zOjXEaIqVBKk=
+	t=1784822008; cv=none; b=TdHKwlToCFZLtQoRreYZkHt+MSptaDY9YlhZd20i+vR79Oeqp/XTIkP5MuRKAIGVOVYbqt7LfZKdv8pnSwVQLKHyXBfN2Jwz9BlTo13g4ueDmw5V5v2nvfaCbskVTcGWeCVhkoY06NyV+EOWZyAVEx9QH0tt1+r+Pw9iNcG/rzc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784821939; c=relaxed/simple;
-	bh=53l02S7VWwulf2V3B2mdLrgEp51dvVsFgTLudwV8N54=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AN78zj22PhWe+BFcUSj4dEUjQ56gSNlVNaTPjUdiW1ezE0jRHxX5uKnce/zZ3fT1jxFecKv2ut72/8PQhP5URPHAP7UtYWjMjbD5LUp1uzfmuRRZt6qoO0OosP7NQQxV4AqZiFG/qEs0mutFA9pnbb5uOPp1Qex/49u4xUZJ/Zs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q+j+oCve; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784822008; c=relaxed/simple;
+	bh=c8Kd1KeL07wmOVr/x1G+XhQFfWvEv5gxQ/tRYEQMjk0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=o5EtmQ0Uk9amYnnOnFWRM504vgJOzCFl5DHNYNS2akMBEyzsHCyluBwK/F+OiSzr9FQNIytyuwARc9KbhT1+qVf8e4Bi4FcHEga84U3SskwnSZLhP12c14Rt1xcGlpof0ploPODHU/RU6LLQV2/Y6rTV1u7EV4WZphr7fjmHc1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ex7E0q7E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q+j+oCve"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 051381F000E9;
-	Thu, 23 Jul 2026 15:52:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ex7E0q7E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF06C1F000E9;
+	Thu, 23 Jul 2026 15:53:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784821938;
-	bh=53l02S7VWwulf2V3B2mdLrgEp51dvVsFgTLudwV8N54=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Q+j+oCveXtg4mJGYHqTfiNSxBY7j0IQxpNC41eHJoexiAwLk/5St/uFcYqh6rj2bp
-	 Epjwdu1HZ5Qz82Onk3t3ZinR5Q6S2L5OPv1xiw+mxS07A2iipIIQAusFNHNShC/r1G
-	 QFXVfCcBtJqQYhX7HllONXtfZZKQpdj8InEpNkJ1CgGYrn5HmHIJ/r/y2dks7fseyH
-	 KFRJ4j1cqPl7RTF7eAiuR/npUcOOF9x51GhcPp/EAqnxxb7hxe6xUFS1Pdh/sPjMB3
-	 aUBWUgpwGh2rq4oGJJUfe3z2tyMSqiXeK7V3gUgZOXq+W34SicnHkv00Fw01y/aMZ6
-	 zPeTHgFUDIqRg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/3] hwmon: pmbus: event notification with alarms
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vincent Jardin" <vjardin@free.fr>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org
-In-Reply-To: <20260723-mpq8646_v0-v2-1-3c4cb71f23c0@free.fr>
-References: <20260723-mpq8646_v0-v2-0-3c4cb71f23c0@free.fr>
- <20260723-mpq8646_v0-v2-1-3c4cb71f23c0@free.fr>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 15:52:17 +0000
-Message-Id: <20260723155218.051381F000E9@smtp.kernel.org>
+	s=k20260515; t=1784822006;
+	bh=HO4DJak0tRVus5PdXLrieMrz/kKmMU1/AkglQrbY25o=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Ex7E0q7ExaSluRy8TAARdKgugLHh9SrmwoBove0vAxbiaFF7bKQ6TdjZNZON71fYm
+	 8DnNpQmQWVP0c7TdhUPEF2rYlKiOHPaWUAzgXSUSe9B3OO38MOAIe7Y1hLpaV8Y6zT
+	 Y9WoVP8Z+KlJ7SJpSM4z8ZUIPLLakY/7DvkibfCkprguLfK8Jh2e6gGcpGdxOgnv30
+	 tBUUiI8Ri5OGKA2W8EOi0O+MAGjDSp5CBNM7zix4alPiVs1C6HSX2p2d/7+BFI6kB8
+	 RZtU0oq3lDZubcuFWV1tHuTBUwcW8M6P5YHS7gHN5wMQRrjl2Ht17XBNHu5c535CPs
+	 c+JFsu+HYLcJQ==
+From: Lee Jones <lee@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
+ linux-kernel@vger.kernel.org, mfd@lists.linux.dev, 
+ Rob Herring <robh@kernel.org>, Eduard Bostina <egbostina@gmail.com>
+Cc: daniel.baluta@nxp.com, simona.toaca@nxp.com, goledhruva@gmail.com, 
+ m-chawdhry@ti.com
+In-Reply-To: <20260708123328.1768794-1-egbostina@gmail.com>
+References: <20260708123328.1768794-1-egbostina@gmail.com>
+Subject: Re: (subset) [PATCH] dt-bindings: mfd: Convert OMAP USB TLL to DT
+ schema
+Message-Id: <178482200364.3523234.5674686731620145841.b4-ty@b4>
+Date: Thu, 23 Jul 2026 16:53:23 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16-dev-ad80c
 
-> From: Vincent Jardin <vjardin@free.fr>
->=20
-> Let's add an accessor for the hwmon class device the pmbus core
-> registered for an i2c_client. Export it with PMBUS so chip
-> drivers can call hwmon_notify_event() on per-sensor *_alarm
-> attributes from the driver's work items.
->=20
-> The needs: for boards when the chip's SMBALERT# pin is
-> not available for the CPU, pmbus_irq_setup() cannot deliver
-> poll(POLLPRI) wakes or udev change@... events on the inX_alarm
-> files. So the drivers can install a delayed_work-based polling
-> fallback (like the lm90 driver) that periodically reads STATUS_WORD
-> and calls hwmon_notify_event() on 0->1 transitions.
->=20
-> Signed-off-by: Vincent Jardin <vjardin@free.fr>
+On Wed, 08 Jul 2026 12:33:28 +0000, Eduard Bostina wrote:
+> Convert the OMAP HS USB Host TLL bindings to DT schema.
+> 
+> During the conversion, ti,hwmods has been made optional to resolve
+> dtbs_check warnings. Modern OMAP platforms do not require this
+> property, but it is still required for older platforms.
+> 
+> 
+> [...]
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+Applied, thanks!
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723-mpq8646_v0=
--v2-0-3c4cb71f23c0@free.fr?part=3D1
+[1/1] dt-bindings: mfd: Convert OMAP USB TLL to DT schema
+      commit: dcf9d779d4f0d3c52f2949a6bb7cfb5de144c323
+
+--
+Lee Jones [李琼斯]
 
