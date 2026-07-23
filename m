@@ -1,47 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E0929475
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 11:28:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B782470101
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 11:29:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784806106; cv=none; b=QImM+6yCsoPll/FqvOEcORNSX+yqyUw2s4DVxkFq7EsAbkCwrqhenze/TQ+n931LEv3z2XE8a+tQxWzX6+ZQrAOA9ZXESh4KJzqeCJ7dybYBpYo1lIXzdU7v5ETamdV7vnq4CfZx6hrpw8p/Yov3w9AmXQLG6H/FSxerfADfHnE=
+	t=1784806193; cv=none; b=jXLlPP8JMTgE7tBQGLNpRGl4zU0m9GBr5kv9Y6p1ysktdN/grEyJYfcHxZ+VJMgSN6ycbF1n5JgcBEqzLvywOEuPhwdWMs5+vC6+Sw/D9w3IdMfsouGZEbjeR4+6b6eK2/M67uQYRes33cp4shd6ivDdlDkfRzgD87rwszQmvy0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784806106; c=relaxed/simple;
-	bh=H5OGfe2g7MbSDRGSIjSBjXxNKqFC+F2iKmciKN52m40=;
+	s=arc-20240116; t=1784806193; c=relaxed/simple;
+	bh=aFqDh0KO8+3gmnsHatkN5Bc72pTDY9SnTHDpJZX4oSw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kKimSlhcxL/mFzLmW1nlSZ5Gf+S4ymptYKKiim8rwbo6nVR0eElHKMA5/TnYKG1ba10O+g61UQt8WgDPmpIJBEjV1pqPt5XfjkBfLnCYW31kHPBB2gGwAUuLFPkkX8+AubDet+5XfvzGsqw0/48y3PC8hASlOb1FiB7v+hRtwgg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kMJPDQUY; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=TyzEZzJkaSxzE3U4cp6RodK95tnrBEJoDA2oAVA1QNuR+QCQkNqkmOFx/tVqViUQmEVAigpo6971C8lpCzpsYL599unS1iqqq+BgQFDuNSvPl9w+Q9ycEDGCgGo6T3SkQYOSt3GXAgxW5yAZTHDoXPT3TzepjFvGw0fyOzuIXV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BR+f4kON; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kMJPDQUY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 453A51F000E9;
-	Thu, 23 Jul 2026 11:28:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BR+f4kON"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 137351F000E9;
+	Thu, 23 Jul 2026 11:29:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784806105;
-	bh=n4DxSwuYTLJPkrKyGNpYMFI/XmdngyOUY7tETtgiNv8=;
+	s=k20260515; t=1784806192;
+	bh=dnU99ERJ5Jljk5CqOok/wvUgdkSlskv0czSJm0SDhQ0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kMJPDQUYA3yRYSW7DdnaY0Pfeuv3pY/hx38K+M8BjAxzhDDxMNE+8dqqaUraAQK0C
-	 dbMpWpmukWvKNFlHJrPYb7AjfzoyL4iwRRLwAmvdzKOm30LryWXwQ0RFmOmIwHdKkV
-	 g8qr+o7kuw37KSWohBrX3r72nxDXyAeIZ/xaDS6w522vh7ScDcke+bwXXQumeyTxRW
-	 wFBHCMEclU2ZUmKJ0e5+Vy0GrR23OfcdzAfE6+75c0Kv29dCmVceaOUN0fKSJpfMti
-	 7U4Lbyih7ptNMv8c01IOsQRmGTko+CXnd/OEzLuHavQ2uL0cRXV9D/qxBqL6uVuRNz
-	 YpPi7W21RDGQQ==
+	b=BR+f4kONcxVVJNzjQJyhrw/zukvnLUJNkz6mjqTyMkr2uyzUuTmCxVyOKbuZUDbUy
+	 RDNttvANr2KXiD4X+JaWy0AY2xaQMCArXmOWR7wS6LakMAV8d1wXkQOk9ncQZP4iAf
+	 J5wBKCwKn03R5EeawyvRYWHZubCNjdJAmy5tKyAC448xiVnMn51vwy+bmhk0jEgqJB
+	 iyiSe+txH0GcwvAUx90UJy01mjvYQLRLxxXGXeNWT2iQk2GFSQQNRqzScbUYQBMCa8
+	 WjnDxI42SLdSp3U43GOQ5yZCLFCfnpxds49FsB5Qj68MBJPyrg1fLQiKwbEG67acZS
+	 fRT3iSwN9SiCQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 07/17] spi: cadence-quadspi: add DQS support to read
- data capture
+Subject: Re: [PATCH v3 2/2] clk: qcom: Add LPASS VA CSR heartbeat pulse
+ clock
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Santhosh Kumar K" <s-k6@ti.com>
-Cc: devicetree@vger.kernel.org, "Richard Weinberger" <richard@nod.at>, "Pratyush
- Yadav" <pratyush@kernel.org>, "Michael Walle" <mwalle@kernel.org>, "Miquel
- Raynal" <miquel.raynal@bootlin.com>, "Vignesh Raghavendra" <vigneshr@ti.com>, "Takahiro
- Kuwano" <takahiro.kuwano@infineon.com>, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260723110219.3180747-8-s-k6@ti.com>
-References: <20260723110219.3180747-1-s-k6@ti.com>
- <20260723110219.3180747-8-s-k6@ti.com>
+To: "Sarath Ganapathiraju" <sarath.ganapathiraju@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260723-master-v3-2-3d67b79b0515@oss.qualcomm.com>
+References: <20260723-master-v3-0-3d67b79b0515@oss.qualcomm.com>
+ <20260723-master-v3-2-3d67b79b0515@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 11:28:23 +0000
-Message-Id: <20260723112824.453A51F000E9@smtp.kernel.org>
+Date: Thu, 23 Jul 2026 11:29:50 +0000
+Message-Id: <20260723112952.137351F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,66 +47,79 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The patch unconditionally disables DQS by explicitly clearing bi=
-t 8 in CQSPI_REG_READCAPTURE, breaking bisectability and systems that rely =
-on the bootloader or firmware to enable DQS.
+- [High] Missing PM runtime enablement in lpass-va-csr causes a synchronous=
+ external abort when CCF reads the hardware state.
 --
 
---- Patch [7]: [PATCH v6 07/17] spi: cadence-quadspi: add DQS support to re=
-ad data capture ---
-commit 67e381a8bfc8dddc89f5ce8ea17f73b3529e597b
-Author: Santhosh Kumar K <s-k6@ti.com>
+--- Patch [2]: [PATCH v3 2/2] clk: qcom: Add LPASS VA CSR heartbeat pulse c=
+lock ---
+commit f6c6796cc5343493b52dddf79a9e09e549136b51
+Author: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
 
-spi: cadence-quadspi: add DQS support to read data capture
+clk: qcom: Add LPASS VA CSR heartbeat pulse clock
 
-Add DQS (Data Strobe) parameter to cqspi_readdata_capture() to control
-data capture timing. DQS mode uses a dedicated strobe signal for
-improved timing margins in high-speed SPI modes.
+Adds the LPASS VA CSR driver to model the rate generator as a clock provide=
+r.
+This synchronizes the start of DMAs and Codec Interfaces and can serve as a
+periodic wakeup source for the DSP.
 
-> diff --git a/drivers/spi/spi-cadence-quadspi.c b/drivers/spi/spi-cadence-=
-quadspi.c
-> index f8e2663723677..046fa5d69b0f7 100644
-> --- a/drivers/spi/spi-cadence-quadspi.c
-> +++ b/drivers/spi/spi-cadence-quadspi.c
+> diff --git a/drivers/clk/qcom/lpass-va-csr.c b/drivers/clk/qcom/lpass-va-=
+csr.c
+> new file mode 100644
+> index 0000000000000..1d0805789e25a
+> --- /dev/null
+> +++ b/drivers/clk/qcom/lpass-va-csr.c
+
 [ ... ]
-> @@ -476,6 +477,11 @@ static void cqspi_readdata_capture(struct cqspi_st *=
-cqspi, const bool bypass,
->  	reg |=3D (delay & CQSPI_REG_READCAPTURE_DELAY_MASK)
->  	       << CQSPI_REG_READCAPTURE_DELAY_LSB;
-> =20
-> +	if (dqs)
-> +		reg |=3D BIT(CQSPI_REG_READCAPTURE_DQS_LSB);
-> +	else
-> +		reg &=3D ~BIT(CQSPI_REG_READCAPTURE_DQS_LSB);
+
+> +static int heartbeat_pulse_is_prepared(struct clk_hw *hw)
+> +{
+> +	struct lpass_va_csr *csr =3D to_lpass_va_csr(hw);
 > +
->  	writel(reg, reg_base + CQSPI_REG_READCAPTURE);
->  }
+> +	return regmap_test_bits(csr->regmap, LPASS_RATE_GEN_CTRL, LPASS_RG_CTRL=
+_EN);
+
+[Severity: High]
+Could this MMIO read cause a synchronous external abort?
+
+When CCF calls the .is_prepared callback (e.g., during late boot via
+clk_disable_unused() or a debugfs read from clk_summary), this executes an
+unprotected MMIO read. If the LPASS hardware is power-gated at this time, t=
+he
+unpowered access can crash the system.
+
+> +}
+
 [ ... ]
-> @@ -1317,7 +1323,7 @@ static void cqspi_configure(struct cqspi_flash_pdat=
-a *f_pdata,
->  		cqspi->sclk =3D sclk;
->  		cqspi_config_baudrate_div(cqspi);
->  		cqspi_delay(f_pdata);
-> -		cqspi_readdata_capture(cqspi, !cqspi->rclk_en,
-> +		cqspi_readdata_capture(cqspi, !cqspi->rclk_en, false,
->  				       f_pdata->read_delay);
->  	}
 
-[Severity: Medium]
-Does unconditionally passing false for the dqs parameter break platforms
-that rely on the bootloader or firmware to enable the data strobe?
+> +static int lpass_va_csr_probe(struct platform_device *pdev)
+> +{
 
-Previously, cqspi_readdata_capture() passively preserved the data strobe
-bit state since it only masked and set the bypass and delay bits. Now that
-the function explicitly clears the CQSPI_REG_READCAPTURE_DQS_LSB bit when
-the dqs argument is false, this will disable the strobe on systems where it
-was already configured prior to booting.
+[ ... ]
 
-Loss of this signal reduces timing margins in high-speed modes and could
-lead to read failures. Is it intended to override the bootloader configurat=
-ion
-here?
+> +	csr->hb_hw.init =3D &init;
+> +
+> +	ret =3D devm_clk_hw_register(dev, &csr->hb_hw);
+
+[Severity: High]
+Is a call to devm_pm_runtime_enable() missing before clock registration?
+
+Without PM runtime enabled on the device beforehand, CCF's
+clk_pm_runtime_get() sees core->rpm_enabled as false and skips acquiring the
+power domain. This leaves the hardware unpowered and vulnerable to crashes
+during the .is_prepared checks.
+
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to register heartbeat clock\n");
+> +
+> +	ret =3D devm_of_clk_add_hw_provider(dev, of_clk_hw_simple_get, &csr->hb=
+_hw);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to add clock provider\n");
+> +
+> +	return 0;
+> +}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723110219.3180=
-747-1-s-k6@ti.com?part=3D7
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723-master-v3-=
+0-3d67b79b0515@oss.qualcomm.com?part=3D2
