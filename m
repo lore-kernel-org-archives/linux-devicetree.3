@@ -1,113 +1,209 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6576242B326
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 10:19:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB67C345ED5;
+	Thu, 23 Jul 2026 10:20:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784801973; cv=none; b=ZBOJX+XG488Yzgug0qRSPE3nwexe+rqJZC2WZ52hvRjfflylNicHbF+5nc4WWPGI0H5RT8QodpkN6rn3BM6xsoXScP74BLXdJpKXmmrFKCAdWlSeIawVGoo1bg2QENzWUct0itdleMaIuTqf0JhVm9+P8dwTe2rrU0OIbgV4Ux8=
+	t=1784802011; cv=none; b=IWZuOdzjZ9eL/IjQRWOEezbHvMeqmiITXriVhz+WzF69bUuTCDA9fDCTrDN20GaS8lSl5X5RiahrWhsYP4JZWM8SgOh5L5zVe//m+V6P7iwmjG2tjPJ0OYrwA86TIWLyhn8n0zUr1Fp5GQ72AJszDZJJBSowLu14eiYqkCCnce8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784801973; c=relaxed/simple;
-	bh=rA0x+3/a8TFq74PpjC8Nr2dLKde8iABzPYHuFMzGLOQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=e29V1OzDycNJknPg42KbwKK4Y+RGFVdXGoyHtJctGW6gqYCguBXfvXbb6l6Cu0xDp4ADnZZgqCoM8U6DeLrplHEAzjNt90Dj070ymbbyGcWzhZVkOp3EehEXFOkBVUNW+X04iu4eneWvsHsg99xuyISNvB7uNoXLNg2ElJGnWOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 682511F000E9;
-	Thu, 23 Jul 2026 10:19:31 +0000 (UTC)
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: hamoa-iot-evk: Describe the
- PCIe M.2 Key E connector
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wei Deng" <wei.deng@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260723-hamoa-m2-dts-v2-v2-3-82254ac101fb@oss.qualcomm.com>
-References: <20260723-hamoa-m2-dts-v2-v2-0-82254ac101fb@oss.qualcomm.com>
- <20260723-hamoa-m2-dts-v2-v2-3-82254ac101fb@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 10:19:29 +0000
-Message-Id: <20260723101931.682511F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1784802011; c=relaxed/simple;
+	bh=BrmGZCIK+kF3X3ybCEmFW9dXMdQ+k+UD3NmEQRQZD7E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cYUi1xUtSbi+J6FJQZ6X5lzT3eHBCiVkvZYx0vd1gxfLFY4w9jeRe14b6r6mmoVdQ1FhY63EzLi8npJKaeRpYkIGhFhMSLv8Wf07yfb0obj4s5C31yM4y9P+a3KH9UQO0BSRHqMXSd4KZvq2uajHv6QLfL12cZrdvDeYT+/9r38=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 53955201FBB;
+	Thu, 23 Jul 2026 12:20:01 +0200 (CEST)
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ore@pengutronix.de>)
+	id 1wmqX3-000snM-0l;
+	Thu, 23 Jul 2026 12:20:01 +0200
+Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <ore@pengutronix.de>)
+	id 1wmqX3-0000000EeJp-0TPB;
+	Thu, 23 Jul 2026 12:20:01 +0200
+Date: Thu, 23 Jul 2026 12:20:01 +0200
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Jonas Jelonek <jelonek.jonas@gmail.com>
+Cc: Sander Vanheule <sander@svanheule.net>,
+	Kory Maincent <kory.maincent@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Daniel Golle <daniel@makrotopia.org>,
+	=?utf-8?B?QmrDuHJu?= Mork <bjorn@mork.no>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH net-next v8 1/4] dt-bindings: net: pse-pd: add bindings
+ for Realtek PSE MCU
+Message-ID: <amHq0XuK2y-mcfmD@pengutronix.de>
+References: <20260715075530.2491534-1-jelonek.jonas@gmail.com>
+ <20260715075530.2491534-2-jelonek.jonas@gmail.com>
+ <b3456b41152613ed45bcfde92aff89d0c33fa243.camel@svanheule.net>
+ <3f71640b-9f22-4d0b-9c4d-dc64c397d286@gmail.com>
+ <amHEgOAWYXYuZwnl@pengutronix.de>
+ <beff7c47-ef14-4108-a350-fb07bd56e166@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <beff7c47-ef14-4108-a350-fb07bd56e166@gmail.com>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The power sequencing integration for the dynamically created Bluet=
-ooth serdev is fundamentally broken due to device matching and target name =
-mismatches, leaving the Bluetooth hardware disabled in reset.
-- [Medium] The omission of the `max-speed` property silently degrades the B=
-luetooth UART operating baud rate from 3.2 Mbps to 3.0 Mbps.
---
+On Thu, Jul 23, 2026 at 11:45:20AM +0200, Jonas Jelonek wrote:
+> Hi Oleksij,
+> 
+> On 23.07.26 09:36, Oleksij Rempel wrote:
+> > [...]
+> >> Correct me if I'm wrong but from what I see, most of that budgeting machinery
+> >> isn't used in dynamic budget evaluation strategy, which is used here because the
+> >> MCU does budgeting on it's own.
+> > Hm, I guess the wording in header is a bit confusing, I see now the
+> > misconception :)
+> >
+> > dynamic vs static means - haw available budget is calculated, not where.
+> > Dynamic can be implemented in the linux core too, but so far no one did.
+> > Static can be implement in the MCU firmware as well.
+> >
+> > In static case - the Powered Device tells us haw much power budget we
+> > need to reserve for this device and it will be permanently accounted.
+> > Advantage - every device will get what it is requesting.
+> > Disadvantage - we do not use full capability of the power supply.
+> >
+> > In dynamic case - we do not fully trust the Powered Device, first we
+> > reserve requested budget and then start measuring the PD consumption.
+> > If real consumption is less as requested, the reservation will be
+> > reduced.
+> > Advantage - more PDs can be attached.
+> > Disadvantage - a spike in consumption of one PD, may kick out some low
+> > prio PDs.
+> >
+> > Since the dynamic case need a lot of measurements, it is usually
+> > implemented in the firmware. Both strategies have advantages and
+> > disadvantages and MCUs may allow to change the strategies, this is why we
+> > provide this information.
+> >
+> > In your case it is not documented, but it can be tested if you have
+> > enough PDs where you can influence the load.
+> 
+> Probably takes a bit of preparation to set up such a test.
+> 
+> >
+> > Not sure if we need an UNKNOWN flag to tell the user - we do not know
+> > what to expect, use it on your own risk.
+> 
+> So dynamic happens to be the suitable case here right now, because the core
+> doesn't handle it yet and the MCU does it on it's own without the core
+> disturbing that?
 
---- Patch [3]: [PATCH v2 3/3] arm64: dts: qcom: hamoa-iot-evk: Describe the=
- PCIe M.2 Key E connector ---
-commit aea933a1454bca4e47c0fbb1565df4f442ed9a02
-Author: Wei Deng <wei.deng@oss.qualcomm.com>
-arm64: dts: qcom: hamoa-iot-evk: Describe the PCIe M.2 Key E connector
+Yes, dynamic happens to work with current core implementation for
+software point of view. And provide correct or incorrect information to
+user space. The PSE behavior expectations for user perspective will be
+different depending on this information. 
 
-This commit replaces the Hamoa IoT EVK's chip-specific wcn7850-pmu with a
-generic pcie-m2-e-connector node. It removes the static bluetooth serdev
-and relies on the pwrseq-pcie-m2 driver to dynamically create the device
-and manage power sequencing.
+> I'd like to avoid dealing with that in this series as this seems at least to me
+> like another deep rabbit hole. The MCU comes always in kind of a
+> pre-configured state, having several limits set so it should behave safe
+> and mostly as expected without the driver changing anything.
 
-> diff --git a/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts b/arch/arm64/boot=
-/dts/qcom/hamoa-iot-evk.dts
-> --- a/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
-> +++ b/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
+Ack, reverse engineering has own limitations. I do not expect we will be
+able to find all needed information.
 
-[ ... ]
+> >> Using vpwr-supply on each PI still buys that the
+> >> supply is enabled and ref-counted by PSE-PD core, and keeps potential for what
+> >> might come. But no requesting, allocation or deallocation of power.
+> > Ack, in many cases it is for diagnostic. Please note, a "manger" is in
+> > the practice a multi channel current limiter/regulator. It has maximal
+> > load per chip and different max load per port. This can be properly
+> > reflected with the regulators. 
+> >
+> > For example, RTL8238B-VB datasheet do not document maximal rating per
+> > chip, only per port. Calculating 8 ports, with 36W max, would result in
+> > 288W. It feels like a lot of heat. Can it actually handle it?
+> 
+> I can't tell, but I would guess so. Several switches I have use a single PSE
+> chip for 8 ports. Given the advertisment of 30W per port and staying within
+> the overall budget, I might expect to be able to use it. Or the vendor hides
+> some information.
+> 
+> > May be the MCU firmware has integrated maximal power limit do avoid HW
+> > damage. A proper information in the regulator tree would help user to
+> > understand why not all ports will get requested power.
+> >
+> >> Given that, I had a closer look at PD692x0 and it seems, this has a similar setup.
+> >> The difference here being just that there's no multi-manager concept. There is
+> >> also a manager-level supply reference "vmain-supply" which the driver reads
+> >> and applies to the hardware, which does budgeting also in hardware.
+> > According to RTL8238B documentation, it has same multi-manager concept.
+> > Since one manager RTL8238B supports max 8 ports, a switch with more PoE
+> > capable ports would need more chips.
+> 
+> I see. I mixed up the terms and thought this "manager" is separate level in
+> between. If "manager" == RTL823x PSE chip, then it's the same setup.
+> 
+> What do you suggest? I would like to avoid doing any half-grounded claims
+> or assumptions here while not fully overviewing the whole picture. At the same
+> time, I have the feeling the datasheet and host command guide from Realtek
+> are genuinely trying to fool me.
+> 
+> The setup seems to be very similar to PD692x0, we have multiple managers,
+> managed by a controller (the MCU). The MCU mostly does runtime discovery
+> of the downstream managers, so right now there is no apparent need to
+> have the same manager + port definitions in DT as PD692x0.
+> 
+> In reality I haven't seen a board which has different power rails for different
+> managers. So there's usually a single wire from the PSU going to the PoE
+> daughterboard where everything lands on a single supply PCB trace. The MCU
+> has a multi-bank concept, however it's usage right now is rather confusing.
+> Managers seem to have strapping pins which tell which bank they use, and on
+> the MCU side one can set power limit for each bank.
 
-> @@ -538,6 +512,58 @@ vreg_wwan: regulator-wwan {
->  		regulator-boot-on;
->  	};
-> =20
-> +	wifi-bt-connector {
-> +		compatible =3D "pcie-m2-e-connector";
-> +		vpcie3v3-supply =3D <&vreg_wcn_3p3>;
-> +
-> +		w-disable1-gpios =3D <&tlmm 117 GPIO_ACTIVE_LOW>;
-> +		w-disable2-gpios =3D <&tlmm 116 GPIO_ACTIVE_LOW>;
+Current PSE framework already has a concept of power domain. Depending
+on implementation, the "manger" can be the weakest point in the chain.
+For example: one manager has 8 ports and can handle 200W, we have
+devices with 2 managers each 200W max and PSU providing 500W. If we
+attach 3 devices 100W each to ports 1, 2, 3 - will not work for the last
+one. If we attache them to ports 1, 2 + 9, will work just fine. Because
+it is attached to different power domain/manger.
 
-[Severity: High]
-Will this leave the Bluetooth hardware disabled in reset?
+Even if this information is hidden in the MCU. It is usable for admins,
+to understand what combination of ports should be used for optimal power
+delivery.
 
-Because the hci_qca driver currently fails to match the power sequencer
-for the "uart" target, it appears it will never un-assert w-disable2-gpios.
+> > Since we already talk about power budgeting - all of this make sense if
+> > we have port priorities. For example PD692x0 firmware has default prios
+> > bound to port numbers. Is it the same with this firmware?
+> 
+> Looking at several switches, by default all ports have a priority of 0 assigned.
+> Thus, no pre-defined prioritisation, it's up to the user to set this.
 
-Does the dynamic serdev creation properly handle matching the sequencer
-target name for this Bluetooth variant, or will the device fail to probe?
+Do this switches have PSU covering all port at max load or it is over
+provisioning by design. Haw it behave in reality If we attach more
+consumer then it is able to handle - all ports go off, or only some of
+them?
 
-> +
-> +		pinctrl-0 =3D <&wcn_wlan_en>, <&wcn_bt_en>;
-> +		pinctrl-names =3D "default";
+PD692x0 firmware has user configurable prios - but if many ports share
+same prios it has internal prios based on port number.
 
-[ ... ]
-
-> @@ -1531,17 +1490,10 @@ wcn_usb_sw_n: wcn-usb-sw-n-state {
->  &uart14 {
->  	status =3D "okay";
-> =20
-> -	bluetooth {
-> -		compatible =3D "qcom,wcn7850-bt";
-> -		max-speed =3D <3200000>;
-
-[Severity: Medium]
-Does the dynamic node creation restore this max-speed property?
-
-Without it, the Bluetooth UART falls back to 3.0 Mbps instead of 3.2 Mbps.
-
-This transition from an integer to a fractional clock divider increases
-the risk of UART framing errors and slightly degrades throughput.
-
-> -
-> -		vddaon-supply =3D <&vreg_pmu_aon_0p59>;
-> -		vddwlcx-supply =3D <&vreg_pmu_wlcx_0p8>;
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723-hamoa-m2-d=
-ts-v2-v2-0-82254ac101fb@oss.qualcomm.com?part=3D3
+-- 
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
