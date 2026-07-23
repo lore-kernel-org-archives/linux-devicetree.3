@@ -1,126 +1,252 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98C23365A1A
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 16:03:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7562F44E662;
+	Thu, 23 Jul 2026 16:07:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784822609; cv=none; b=W5t09vMCr7OKAx4YaSjE2At7PiYg9r1hbwsCXNU147yCmRJsyfRhizFvg93E+ne21CE85DIyzpEZAkllM7a6nDos7TI9juPLI/N5Wm2Iij3r5E8D7V6raKb59uk4E2Jcewx9S1BGiFbWAaxhMxw/TXEnfmAI8P1cLxZFgCbqxvs=
+	t=1784822840; cv=none; b=ttblgvT0UdUQ0w0y2QJoiK1lvue4PBzV249hy3yePRC75u4+k485uEDIWtE6wi7G6lTCbgMSKJMKR39fQitYNZflUIl4tAMeeJZapFN5q+abrMGUyIGyXN/lrkouTc+G0N6ei+Z3f0c1o+eX9Vw5RDJPvDvxdzwr9wpKFAV+1+w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784822609; c=relaxed/simple;
-	bh=VTnbRjkRfnE2uas3pcgZxwwolCVAb6XAOATCiHQXgO0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Gu2eGKXitCe+NSZG9mO9rP3rlQCXQdL6dJAduIutj0E97qTdADWXaDUVaLiYNkIqk736ZjZqEQ3F+h438+Qm5FoOioXomLGQNO5m9l+FxCoL1qusZjtgw/txVKE4xGDlzeHLMXRojOmrFfsu6tqC9eSXYbp76ezfUwJ2V2VAkpA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=HBWeEXlp; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=G3xOrwBf; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1784822840; c=relaxed/simple;
+	bh=qQk2w9GyWZ2R83vs4/zMvOqLQ8DLrpquL1dBXEEuE/c=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=LZoIryqXyehhUP0IPpNxCJ/VQT4JaYcqkseICvzUs730dw6ky9BVf20BopJ8f3A2asr1KLDYwApqIYWWhH659J0MEWEQP/rTNEAUCyu6nC3SRFO80FpytL+tRUp/Ip3QdKtWeIxKzTW1MwV/P6SX9YdZm3FC4NEXt/OOgp42+No=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZmGYEMpc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="HBWeEXlp";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="G3xOrwBf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1784822605;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JUjkJdrGHF/uTpDAifvyQqEKmF6q4j5F7jAbk0W/44I=;
-	b=HBWeEXlpVWqlroy1A1o+eBMYeRBMFyaf41U2p2e77/LL6ctSvxNm5ce2j6LiPCAc3/qzqO
-	BhhNpEUB2FpsX4rOHjziKzk3+86nDz1RchJR1omT44gd4WEmu7/Bxk1Xge4oTM2/nla2zN
-	LRTKRHwlglqO80nfXKQJWILkHVBSix8=
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-537-PJXxK_PGO4GNehLIiJlszA-1; Thu, 23 Jul 2026 12:03:24 -0400
-X-MC-Unique: PJXxK_PGO4GNehLIiJlszA-1
-X-Mimecast-MFC-AGG-ID: PJXxK_PGO4GNehLIiJlszA_1784822604
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-90284139cceso10197126d6.0
-        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 09:03:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1784822604; x=1785427404; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=JUjkJdrGHF/uTpDAifvyQqEKmF6q4j5F7jAbk0W/44I=;
-        b=G3xOrwBf+4zIzRwXkNPxKVZNrGC4lMkogycr+5KPsUITXoDc0wfLOQ2xS4uOv6k45s
-         z03lHN3JmUIaVtksdQiWLt1jPMW9VaAdmBqZsE0GB1DEYqU5b8jUvMDXJmVgOeez6sis
-         lEUl+mTd/bde6jZZtrS8Et4kndz0sPmHdLjo7KOGLCunxnPYnwHdKNUA0fx2INfnKCI5
-         DgoGZx+qaRpEf5C1OGY9InRy+a8YEv8/iXK/Qh+uF/UnVzlYCKogXPzHPJaMjb5Q9usd
-         B6aL4Lr1A+0ZKXmfBfQcPbYYt6OAOyobVszBaLtOoNEO/waIqh6A5T1gX1dIGoLk4G2h
-         +nTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784822604; x=1785427404;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JUjkJdrGHF/uTpDAifvyQqEKmF6q4j5F7jAbk0W/44I=;
-        b=Hw4RfClKcYojlHtc7K+Y+HFwMJcuMCvhIMlEuIF3IhaBj9WSJlGIeez4hvlMyERMJp
-         fDU+nH3TxUNGfg5QuZ+qkLUhh+v4Nx0vhVrlPddepaEVSsKQpkV3RQizJ/icPg5/fJ9n
-         N3MSUkHIrmAVdRIr0w5uhheNKZcVcfAQNyxwZuq1/xzIjN19Bd8lE2Z8mhP736swWWQG
-         e6eq+yAbXOCzBH+leuGxNF+pLB9QZWcmKtpDkfc2OiVkl7eEykKf9UqrCaEl+GvZCELS
-         p0dUcFqezlOG4zYyVkhgwh+HvEDj31LZ9Lzs/NofrmgfhSV6lHCOAgejYrgzo3kp5bYw
-         dxFw==
-X-Forwarded-Encrypted: i=1; AHgh+Rqlpj0UA5ylHaTRmdS1ZE7gRbHN56iSbDy7YCq7Rqw6qgoT8hQ/i64pTwiq3fofSpTwDVNDjeMot3JU@vger.kernel.org
-X-Gm-Message-State: AOJu0YxvDIdtLOgTLDfYaAgrXW+UL3+YBoHKsnkF4kuDMNyTs6BHIn3W
-	VjOzn/P9G7Mcb7+N/PgqlX916R8AfMHfIr5IwgqpQ6lQiXOH+kjwEkiVVMDYgi2i1KflR+SSVg1
-	g6Ch0+lXNJO7xZNsGotvjcOYSvHLqTV1ad89P5Nhr2G4W8U3Q5Iy65zT7DLmVOok=
-X-Gm-Gg: AR+sD12TAoG5k5AhjLQMDkLH4xwZwIrXk/31eGRT0HyU5Mht1V2fdxQ+yuvNXznvjWS
-	Tmz+OpWT7igAIjUj+oHK4j44kvtUcphfY8KVrxQ0hfJUCkFiZave+HJttUJvQHluiPgsr5Ds6wb
-	5uIVE9A9YLK2lDquhlQs/MX3+Dqyv4gAQ1wX/Mil6+4rBaeI5sTXABezzkQO0hyZjA3flTa2Cc8
-	zygZV2y8yC8VuGpxhkwcgIMmTs0zEIXnmi/8m1oLXta1YTgTt7jqakqXHKyfAiI/j+UFiavHdjX
-	kaUQlKKAVz/RubGGW7TciGXeU/CadD5kSKEEYfoUVXxVqgOQIOqvzP8e7iUO9zHdsmYwO4e7jur
-	0b9RMNWXiVYYGihKolY3JNy4DVFbyqNl1Z84=
-X-Received: by 2002:a05:6214:4303:b0:8f1:77b7:9bdc with SMTP id 6a1803df08f44-907ccfa7755mr33587996d6.1.1784822603630;
-        Thu, 23 Jul 2026 09:03:23 -0700 (PDT)
-X-Received: by 2002:a05:6214:4303:b0:8f1:77b7:9bdc with SMTP id 6a1803df08f44-907ccfa7755mr33587566d6.1.1784822603140;
-        Thu, 23 Jul 2026 09:03:23 -0700 (PDT)
-Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-907ba672806sm48357536d6.0.2026.07.23.09.03.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Jul 2026 09:03:22 -0700 (PDT)
-Date: Thu, 23 Jul 2026 12:03:20 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Zhipeng.wang_1@oss.nxp.com
-Cc: robh@kernel.org, saravanak@kernel.org, ulfh@kernel.org,
-	Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de,
-	festevam@gmail.com, peng.fan@nxp.com, aisheng.dong@nxp.com,
-	jindong.yue@nxp.com, xuegang.liu@nxp.com,
-	devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
-Subject: Re: [PATCH v5 3/3] clk: imx: imx8qxp: add soft dependency on SCU
- power domain driver
-Message-ID: <amI7SFD1bQjkj6Db@redhat.com>
-References: <20260723020524.1886806-1-Zhipeng.wang_1@oss.nxp.com>
- <20260723020524.1886806-4-Zhipeng.wang_1@oss.nxp.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZmGYEMpc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AEA61F000E9;
+	Thu, 23 Jul 2026 16:07:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784822837;
+	bh=cIUx+IkdD8M2OCasN3M99fmzbDxWRPzG4tlzT0WzXLc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZmGYEMpcltWvhFPhoT6yStyMSW1DN8CKtjhx5XGcMsvQ5O0/grZvAYf9WdyuFrvv4
+	 v+yCAvHVX+UlEkIDXNqPvK6QviGbiS/ZSvrCdnDsP0xzTgd0uhW9N14bZiUX/NVFRM
+	 J8qDseJKU3Q0cX6X6XuGy/T7xhPEpM/HrA/gIIp+bCbM3P6FBevTz/x4MRL+eGJPL4
+	 3v5CiMJZxMgmYekqL81gKjLNyOWwgrcRmvBYCkrwQPP21Nui+RpGOFEvkaMvt13asu
+	 +7XS4TNJdBQTfA5Wo9bGOcZnjwiCPL2++fQ4HaUqTde9CIa9/XLi+w52nDeh+Iw26D
+	 FA+6S/VDdUq5Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/3] hwmon: pmbus: add MPQ8646 driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vincent Jardin" <vjardin@free.fr>
+Cc: conor+dt@kernel.org, robh@kernel.org, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260723-mpq8646_v0-v2-3-3c4cb71f23c0@free.fr>
+References: <20260723-mpq8646_v0-v2-0-3c4cb71f23c0@free.fr>
+ <20260723-mpq8646_v0-v2-3-3c4cb71f23c0@free.fr>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 23 Jul 2026 16:07:17 +0000
+Message-Id: <20260723160717.8AEA61F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260723020524.1886806-4-Zhipeng.wang_1@oss.nxp.com>
-User-Agent: Mutt/2.4.0 (2026-06-19)
 
-On Thu, Jul 23, 2026 at 11:05:24AM +0900, Zhipeng.wang_1@oss.nxp.com wrote:
-> From: Zhipeng Wang <zhipeng.wang_1@nxp.com>
-> 
-> The i.MX8QXP SCU clock driver manually attaches power domains to each
-> clock device via of_genpd_add_device() in imx_clk_scu_attach_pd().
-> If the SCU power domain provider has not probed yet, the attachment
-> fails silently with a pr_warn() and the clock device is registered
-> without a power domain.
-> 
-> When both drivers are built as modules, there is no implicit
-> dependency to guarantee load order. Add MODULE_SOFTDEP("pre:
-> scu_pd") so that modprobe loads the SCU power domain module
-> before the clock module.
-> 
-> Signed-off-by: Zhipeng Wang <zhipeng.wang_1@nxp.com>
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] Stack-allocated buffers are passed to `i2c_transfer()` in `mpq8646=
+_raw_xfer_rword()`, violating DMA mapping rules.
+- [Medium] Writing to `alarm_poll_interval_ms` via debugfs fails to restart=
+ polling if it was previously disabled.
+- [Medium] The driver bypasses the PMBus core lock (`pmbus_lock()`) during =
+concurrent hardware accesses from delayed workers, debugfs, and NVMEM reads.
+- [Low] `mpq8646_write_byte` incorrectly hooks the Send Byte callback to in=
+tercept `PMBUS_PAGE` writes, making the swallow logic dead code.
+- [Low] Multi-variable data race in debugfs probe handlers leads to torn di=
+agnostic data being exposed to userspace.
+- [Low] Direct hardware page writes in debugfs bypass PMBus core, permanent=
+ly desynchronizing the cached page state.
+--
 
-Reviewed-by: Brian Masney <bmasney@redhat.com>
+--- Patch [3]: [PATCH v2 3/3] hwmon: pmbus: add MPQ8646 driver ---
+commit 8f8537703d7daf4f173be90253175f7bc734cf66
+Author: Vincent Jardin <vjardin@free.fr>
+Subject: hwmon: pmbus: add MPQ8646 driver
 
-Long term, it would be nice to fix the probe deferral issues via a
-separate series.
+This commit adds a new PMBus driver for the MPS MPQ8646 synchronous buck
+converter. It provides basic PMBus telemetry along with MPS-specific
+extensions for alarm polling, STATUS_WORD decoding, and NVM recovery.
+The driver also integrates with the regulator framework and provides debugfs
+entries for hardware introspection.
 
+> diff --git a/drivers/hwmon/pmbus/mpq8646.c b/drivers/hwmon/pmbus/mpq8646.c
+> --- /dev/null
+> +++ b/drivers/hwmon/pmbus/mpq8646.c
+[ ... ]
+> +static int mpq8646_raw_xfer_rword(struct i2c_client *client, u8 reg)
+> +{
+> +	u8 cmd =3D reg;
+> +	__le16 data =3D 0;
+> +	struct i2c_msg msg[] =3D {
+> +		{
+> +			.addr =3D client->addr,
+> +			.flags =3D 0,
+> +			.len =3D sizeof(cmd),
+> +			.buf =3D &cmd,
+> +		},
+> +		{
+> +			.addr =3D client->addr,
+> +			.flags =3D I2C_M_RD,
+> +			.len =3D sizeof(data),
+> +			.buf =3D (u8 *)&data,
+> +		},
+> +	};
+
+[Severity: High]
+Is it safe to pass stack-allocated buffers to i2c_transfer() here?
+If the underlying I2C adapter driver uses DMA for transfers, dma_map_single=
+()
+will attempt to map these stack addresses. On systems with virtually mapped
+stacks, this violates DMA mapping rules and could lead to memory corruption.
+
+[ ... ]
+> +static int mpq8646_write_byte(struct i2c_client *client, int page, u8 va=
+lue)
+> +{
+> +	struct mpq8646_priv *priv =3D mpq8646_priv_from_client(client);
+> +
+> +	atomic_inc(&priv->write_byte_calls);
+> +	MPQ8646_TRACE("write_byte page=3D%d value=3D0x%02x\n", page, value);
+> +
+> +	if (priv->debug_delay_us)
+> +		udelay(priv->debug_delay_us);
+> +
+> +	if (value =3D=3D PMBUS_PAGE) {
+> +		atomic_inc(&priv->page_writes_swallowed);
+> +		return 0;
+> +	}
+
+[Severity: Low]
+Does this hook effectively intercept page writes?
+The write_byte callback is used for the PMBus Send Byte protocol, but PMBus
+page changes use the Write Byte Data protocol via i2c_smbus_write_byte_data=
+().
+It appears page changes will completely bypass this check.
+
+[ ... ]
+> +static int mpq8646_nvmem_read(void *data, unsigned int offset, void *val,
+> +			      size_t bytes)
+> +{
+> +	struct mpq8646_priv *priv =3D data;
+> +	u8 *out =3D val;
+> +	size_t i;
+> +
+> +	if (offset >=3D MPQ8646_NVMEM_SIZE)
+> +		return -EINVAL;
+> +	if (offset + bytes > MPQ8646_NVMEM_SIZE)
+> +		bytes =3D MPQ8646_NVMEM_SIZE - offset;
+> +
+> +	memset(out, 0, bytes);
+> +
+> +	mutex_lock(&priv->mps_lock);
+> +	for (i =3D 0; i < ARRAY_SIZE(mpq8646_nvmem_map); i++) {
+
+[Severity: Medium]
+Does this sequence bypass the PMBus core serialization?
+By using the private mps_lock instead of pmbus_lock(), the PMBus core could
+concurrently issue sysfs reads during these NVMEM reads.
+
+[ ... ]
+> +static int mpq8646_dbg_probe_smbus_rword(void *data, u64 val)
+> +{
+> +	struct mpq8646_priv *priv =3D data;
+> +	int rc;
+> +
+> +	rc =3D i2c_smbus_read_word_data(priv->client, (u8)val);
+> +	priv->last_probe_rc =3D rc;
+> +	priv->last_probe_data =3D (rc < 0) ? 0 : (u16)rc;
+> +	return 0;
+> +}
+
+[Severity: Low]
+Could concurrent debugfs writes cause torn diagnostic state here?
+The last_probe_rc and last_probe_data variables are updated sequentially
+without synchronization. This might expose mismatched values to userspace
+readers in mpq8646_dbg_last_probe_show().
+
+[ ... ]
+> +static int mpq8646_dbg_probe_page_write(void *data, u64 val)
+> +{
+> +	struct mpq8646_priv *priv =3D data;
+> +	int rc;
+> +
+> +	rc =3D i2c_smbus_write_byte_data(priv->client, PMBUS_PAGE, (u8)val);
+
+[Severity: Low]
+Could this direct hardware page write desynchronize the PMBus core page cac=
+he?
+Since the core's software page cache is not updated, and the driver declares
+pages =3D 1, the core assumes page switches are unnecessary and will not re=
+store
+it. This could cause sysfs telemetry to return incorrect data until reload.
+
+[ ... ]
+> +static int mpq8646_dbg_clear_protection_last_force(void *data, u64 val)
+> +{
+> +	struct mpq8646_priv *priv =3D data;
+> +	int rc, last_rc;
+> +	int wp_orig, cfg_orig;
+> +
+> +	if (!val)
+> +		return 0;
+> +
+> +	mutex_lock(&priv->mps_lock);
+> +
+> +	wp_orig =3D i2c_smbus_read_byte_data(priv->client, PMBUS_WRITE_PROTECT);
+
+[Severity: Medium]
+Does this multi-step unlock sequence bypass pmbus_lock()?
+The PMBus core could issue interleaved sysfs reads while the chip is unlock=
+ed
+or busy writing to NVM, potentially leading to I2C NACKs.
+
+[ ... ]
+> +static void mpq8646_debugfs_register(struct mpq8646_priv *priv)
+> +{
+[ ... ]
+> +	debugfs_create_file_unsafe("restore_all", 0200, root, priv,
+> +				   &mpq8646_dbg_restore_all_fops);
+> +	debugfs_create_u32("alarm_poll_interval_ms", 0600, root,
+> +			   &priv->alarm_poll_interval_ms);
+
+[Severity: Medium]
+How is the worker restarted if a user writes to this debugfs file after
+disabling polling?
+Because the variable is exported directly without a setter function, writing
+a non-zero value updates the integer but fails to call schedule_delayed_wor=
+k()
+to re-arm the worker.
+
+[ ... ]
+> +static void mpq8646_alarm_poll_work(struct work_struct *work)
+> +{
+> +	struct mpq8646_priv *priv =3D container_of(to_delayed_work(work),
+> +						 struct mpq8646_priv,
+> +						 alarm_poll_work);
+> +	int rc;
+> +	u16 cur, newly_set;
+> +	size_t i;
+> +
+> +	if (priv->client->irq)
+> +		return;	/* SMBALERT# wired; polling not needed */
+> +
+> +	if (!priv->alarm_poll_interval_ms)
+> +		return;	/* polling disabled; don't re-arm */
+> +
+> +	if (!priv->hwmon_dev)
+> +		goto rearm;	/* hwmon not ready yet; try again next tick */
+> +
+> +	rc =3D i2c_smbus_read_word_data(priv->client, PMBUS_STATUS_WORD);
+
+[Severity: Medium]
+Does this direct hardware telemetry access also bypass pmbus_lock()?
+Without the core lock, concurrent accesses from this background worker
+could conflict with other sysfs polling.
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723-mpq8646_v0=
+-v2-0-3c4cb71f23c0@free.fr?part=3D3
