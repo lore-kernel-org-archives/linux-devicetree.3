@@ -1,210 +1,68 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 168F13FBB72;
-	Thu, 23 Jul 2026 09:48:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F21E83F54DD;
+	Thu, 23 Jul 2026 09:49:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784800088; cv=none; b=nnGt+/xecxU94TM0TYekCwLQNoIUuPNrdfdjEqxUR/0XJur6C5Su7q/t9f4vO7NM3L7TpQfj5K2Fq4G3vEgNrzmqkSU3XfG8fbfWaVvG1oHqFMTthjHJRH7SFNZPqyY3Jz5+To/N+gGGHR7k7L0zoKrOXfjT12InFApo/W2moIc=
+	t=1784800183; cv=none; b=HmMa0R9hOHVyqfmHOBFMiP6z1oB/wok6OYtX6RgAMX0oBWL6/sWfsn6jYzfb0wKXLmZp9ftaH8qT1nelMyJkxzYADcdFMRjEcqHNDmnQLrEuRH0qjrcyAdVdUIeAFn4WpLiB7Pt2oGoKtkfJZnJRv6eXd2J+C3jb/3qdXcznVS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784800088; c=relaxed/simple;
-	bh=S9G75nUA0qdOjrwnG/WU9+dBfF4MOqeUXcyghbr0eeg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BCmYJ9aa1IpAGydhmLH14UEw4m8Fc4Ur7+rZob6MX9Yg/TAd5dz6wS7vu91REr72SZKxDB4rj26jhnrIgafWXso4QgPhtIAnf0Q5spfFB799Avu5LW0rEWw0aAQOMIsvf8rvvTdD+Y29uLq7FdPG/TQu4nLWZh6aAlnicFI7yWI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C6150201FAF;
-	Thu, 23 Jul 2026 11:48:03 +0200 (CEST)
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mfe@pengutronix.de>)
-	id 1wmq27-000sTE-2J;
-	Thu, 23 Jul 2026 11:48:03 +0200
-Received: from mfe by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
-	(envelope-from <mfe@pengutronix.de>)
-	id 1wmq27-0000000EdmK-2SNv;
-	Thu, 23 Jul 2026 11:48:03 +0200
-Date: Thu, 23 Jul 2026 11:48:03 +0200
-From: Marco Felsch <m.felsch@pengutronix.de>
-To: Francesco Dolcini <francesco@dolcini.it>
-Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Alexander Stein <alexander.stein@ew.tq-group.com>, 
-	imx@lists.linux.dev, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, Francesco Dolcini <francesco.dolcini@toradex.com>, 
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2 2/4] drm: mxsfb: Add optional DPI output bus-width
- configuration
-Message-ID: <nwemnkwk5sjo5w6yelba5nmdlxgu7pxsalrxjixnrjlhfyceza@tamb54s7iswz>
-References: <20260723093813.180089-1-francesco@dolcini.it>
- <20260723093813.180089-3-francesco@dolcini.it>
+	s=arc-20240116; t=1784800183; c=relaxed/simple;
+	bh=bx2SlZSANi5rNdNFueAm5pRcCOpXCQHDFIlIL/lTm28=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=X6BSeGvVoUC3eiroEibRv3u/97J8S1vUCBznab0aTt4W5DZowzWOpSt8XtGZgrkHtJZ1xPyrk18516LBcmSb9fU7EuU1aeKBxyV97G6DS8mf1o7EzqW414gwC/3kS6S8dcwsHMhC3bRfZiA7kXJyFKLxnT7/LZ8mUhYzQmpaze8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YSPgoSaA; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YSPgoSaA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F0691F000E9;
+	Thu, 23 Jul 2026 09:49:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784800181;
+	bh=bx2SlZSANi5rNdNFueAm5pRcCOpXCQHDFIlIL/lTm28=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=YSPgoSaAE9yhxZlGjIqykB6ih4kdkCd6J50ywuSI+Gs5skwCYIGnSG1JAq30vBRXk
+	 jdWkdZJjhfPseJT3hoUB6c3/1Y6ZnScH6YnB67egEYPqNOoPwX8JEjrHKhhqQUlI7d
+	 LjKSkjXiUwcs5ocbMCpEsVU0hC4G07x/s2YydZw/5Q+GYOl016wgcFIM8FUF7Q3w76
+	 USDWCcxWYGY/HRsNqPHd4FbqCk+yMwn+NFRxazs5mfkbCh5379eeYSyjExUQdTqMGp
+	 1JdeDvVZOXbuyxrm2Z6rdX4Bxoqy+ngBuKEFhzW5R9IhZFw1FXcXIzmSYZEW6hKlRV
+	 YdYQhL56nmulg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 3/4] clk: sunxi-ng: sun6i-rtc: split main oscillator
+ div and gate
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jerome Brunet" <jbrunet@baylibre.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, "Alexandre Belloni" <alexandre.belloni@bootlin.com>, linux-sunxi@lists.linux.dev, conor+dt@kernel.org, linux-rtc@vger.kernel.org
+In-Reply-To: <20260723-a733-rtc-v7-3-8fd68aab94ae@baylibre.com>
+References: <20260723-a733-rtc-v7-0-8fd68aab94ae@baylibre.com>
+ <20260723-a733-rtc-v7-3-8fd68aab94ae@baylibre.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 23 Jul 2026 09:49:39 +0000
+Message-Id: <20260723094941.1F0691F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260723093813.180089-3-francesco@dolcini.it>
 
-Hi Francesco,
+> On the a733 the "osc24M-32k" clock has the same gate bits as the previous=
+ly
+> supported SoC but a different divider implementation.
+>=20
+> Instead of a fixed 750 divider, the divider is selected based on the
+> rate of the oscillator. It can be seen as a simple read-only divider.
+>=20
+> On the A733 the gate and the divider are on different register which is
+> not supported by sunxi combined clocks. These element will be split on the
+> A733. Split them for the older SoC as well to keep on sharing the gate
+> definition.
+>=20
+> Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
+> Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 
-On 26-07-23, Francesco Dolcini wrote:
-> From: Francesco Dolcini <francesco.dolcini@toradex.com>
-> 
-> LCDIF programs LCD_DATABUS_WIDTH from the selected media bus format. The
-> format reported by the downstream panel or bridge describes the display
-> input, but it does not describe how the LCDIF data pins are physically
-> wired on the board.
-> 
-> These can differ. For example, a 16-bit LCDIF bus can be connected to a
-> 24-bit display by wiring the available color bits to the corresponding
-> display inputs. In that case, using the display's 24-bit format to
-> configure LCDIF selects the wrong data-bus mode and changes the assignment
-> of color bits on the LCD_DATA pins.
-> 
-> Read the optional bus-width endpoint property from the LCDIF output port
-> and use it to select the media bus format used to configure LCDIF. This
-> allows the LCDIF bus mode to describe the physical interface
-> independently of the downstream display format.
-> 
-> When the optional property is absent, continue using the format reported
-> by the downstream display device, preserving the existing behavior.
-> 
-> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
-> ---
-> v2: use the common bus-width property instead of the legacy interface-pix-fmt
-> ---
->  drivers/gpu/drm/mxsfb/mxsfb_drv.c | 24 ++++++++++++++++++++++++
->  drivers/gpu/drm/mxsfb/mxsfb_drv.h |  2 ++
->  drivers/gpu/drm/mxsfb/mxsfb_kms.c | 12 ++++++++++++
->  3 files changed, 38 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.c b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-> index 9b8fbda85d28..0545718a4b65 100644
-> --- a/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-> +++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-> @@ -12,7 +12,10 @@
->  #include <linux/clk.h>
->  #include <linux/dma-mapping.h>
->  #include <linux/io.h>
-> +#include <linux/media-bus-format.h>
->  #include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/of_graph.h>
->  #include <linux/platform_device.h>
->  #include <linux/property.h>
->  #include <linux/pm_runtime.h>
-> @@ -209,7 +212,10 @@ static int mxsfb_load(struct drm_device *drm,
->  		      const struct mxsfb_devdata *devdata)
->  {
->  	struct platform_device *pdev = to_platform_device(drm->dev);
-> +	struct device_node *np = pdev->dev.of_node;
->  	struct mxsfb_drm_private *mxsfb;
-> +	struct device_node *ep;
-> +	u32 bus_width = 0;
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-With this beeing set to '0' and ...
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723-a733-rtc-v=
+7-0-8fd68aab94ae@baylibre.com?part=3D3
 
->  	int ret;
->  
->  	mxsfb = devm_kzalloc(&pdev->dev, sizeof(*mxsfb), GFP_KERNEL);
-> @@ -236,6 +242,24 @@ static int mxsfb_load(struct drm_device *drm,
->  	if (IS_ERR(mxsfb->clk_disp_axi))
->  		mxsfb->clk_disp_axi = NULL;
->  
-> +	ep = of_graph_get_next_endpoint(np, NULL);
-> +	if (ep) {
-> +		of_property_read_u32(ep, "bus-width", &bus_width);
-
-no bus-width property present, this ...
-
-> +		of_node_put(ep);
-
-Furthermore please see
-20260723-v6-18-topic-imx93-parallel-display-v13-1-ccf3f9bbc0fc@nxp.com
-for a proper error handling.
-
-> +	}
-> +
-> +	switch (bus_width) {
-
-switch should fail. Therefore I would recommend to set the default to
-24 (bit) aka no limitation.
-
-Regards,
-  Marco
-
-> +	case 16:
-> +		mxsfb->bus_format = MEDIA_BUS_FMT_RGB565_1X16;
-> +		break;
-> +	case 18:
-> +		mxsfb->bus_format = MEDIA_BUS_FMT_RGB666_1X18;
-> +		break;
-> +	case 24:
-> +		mxsfb->bus_format = MEDIA_BUS_FMT_RGB888_1X24;
-> +		break;
-> +	}
-> +
->  	ret = dma_set_mask_and_coherent(drm->dev, DMA_BIT_MASK(32));
->  	if (ret)
->  		return ret;
-> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.h b/drivers/gpu/drm/mxsfb/mxsfb_drv.h
-> index d160d921b25f..bdc47ce5be79 100644
-> --- a/drivers/gpu/drm/mxsfb/mxsfb_drv.h
-> +++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.h
-> @@ -46,6 +46,8 @@ struct mxsfb_drm_private {
->  	struct drm_connector		*connector;
->  	struct drm_bridge		*bridge;
->  
-> +	u32				bus_format;
-> +
->  	bool				crc_active;
->  };
->  
-> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_kms.c b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
-> index d8ebebc5314b..1d78c486d147 100644
-> --- a/drivers/gpu/drm/mxsfb/mxsfb_kms.c
-> +++ b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
-> @@ -386,6 +386,18 @@ static void mxsfb_crtc_atomic_enable(struct drm_crtc *crtc,
->  	if (!bus_format)
->  		bus_format = MEDIA_BUS_FMT_RGB888_1X24;
->  
-> +	/*
-> +	 * Prefer the bus format derived from the OF graph endpoint "bus-width"
-> +	 * property when available. Otherwise, use the bus format reported by
-> +	 * the downstream bridge or panel.
-> +	 *
-> +	 * This supports mismatched display and interface bus widths, such as
-> +	 * a 24-bit panel connected through an 18-bit interface or an 18-bit
-> +	 * panel connected through a 24-bit interface.
-> +	 */
-> +	if (mxsfb->bus_format)
-> +		bus_format = mxsfb->bus_format;
-> +
->  	mxsfb_crtc_mode_set_nofb(mxsfb, bridge_state, bus_format);
->  
->  	/* Write cur_buf as well to avoid an initial corrupt frame */
-> -- 
-> 2.47.3
-> 
-> 
-> 
-
--- 
-#gernperDu 
-#CallMeByMyFirstName
-
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | https://www.pengutronix.de/ |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-9    |
