@@ -1,152 +1,183 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49DCA36B902;
-	Thu, 23 Jul 2026 16:34:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFDF3345EA9;
+	Thu, 23 Jul 2026 16:36:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784824466; cv=none; b=UBhaUYBRXjipxvayFlT1n7TwsSh1yvBTvbqtGbA6kUL7g8Ygjyq5+vwJR0RBsPKgJGhMByc3SvMS0RAcNcJNWSRxCbbLA7cOME9wH72riSaazZJiWqWDAttqIOC837bPC1S/Aea4oEDEU9iCArbV+Jneiu4fYcREi2Wp2Z5XfX0=
+	t=1784824620; cv=none; b=qzfBnyCvUocbp776dLxGG6dW/x/HW8SivnL9QYYZR+U6qddcxcdeH5JxECzl2VtHkH3Dv77kNXIl3qUPdneE8NUKuX9JMI8ZsEtDVfW1XdEoqPs0nvQiRw9n8dK6if8bZe+5tX7mx1u6yN/17cSk5UYe2E7BopjtraHDdVeTTyw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784824466; c=relaxed/simple;
-	bh=j7bx3BJJRohANpxx0FlLoKaRt2dW3bi9pja3vbe6rgM=;
+	s=arc-20240116; t=1784824620; c=relaxed/simple;
+	bh=6jI0ftHgEIa4QOfa+aPb2/P+102XLq9gL5sGL+M/8w8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fv648EN5zN2QeSr7xngdnvz9D26zyg40ItKoV/MT1SvlQ/+qCPMUAraP3v7hrzvtgEPoOvt4jPTIuCvmgpb3x9xEXIvchKpCNLEHWDIJHeQ7FE7A77TBGE+5ol8/QWlSZCgn67Prw1HtN9SU2vwZEc3ZY5q/DoG3J5qwF/znS60=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id DBBA6202015;
-	Thu, 23 Jul 2026 18:34:16 +0200 (CEST)
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ore@pengutronix.de>)
-	id 1wmwNE-000vXM-2d;
-	Thu, 23 Jul 2026 18:34:16 +0200
-Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
-	(envelope-from <ore@pengutronix.de>)
-	id 1wmwNE-0000000Ei0l-2w4l;
-	Thu, 23 Jul 2026 18:34:16 +0200
-Date: Thu, 23 Jul 2026 18:34:16 +0200
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: Lee Jones <lee@kernel.org>
-Cc: Guenter Roeck <linux@roeck-us.net>, Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Peter Rosin <peda@axentia.se>,
-	kernel@pengutronix.de, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
-	linux-gpio@vger.kernel.org, David Jander <david@protonic.nl>
-Subject: Re: [PATCH v15 2/6] platform: misc: add NXP MC33978/MC34978 core
- driver
-Message-ID: <amJCiIrqLuZjXUTl@pengutronix.de>
-References: <20260710101358.2606941-1-o.rempel@pengutronix.de>
- <20260710101358.2606941-3-o.rempel@pengutronix.de>
- <20260723145300.GO3363113@google.com>
- <amItd-189DyfS52Y@pengutronix.de>
- <20260723160933.GD3526803@google.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=BYQo/Kzby2pwV6Tql3BJ0E/wqkCZsnzXtTPJ4Ez6jEzCKtmCg6Y4sB0z5YYh1uafb3zMLZ/8HcXCZStaTwLu1b6f4jBiGhkLREJ1l31K/OeKLitsXm0rWuHuKg2wRyK3xKKn/AHhXhQkzi3ZeUU7B5QkWSVpJxzQWaXztQQ7B/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kEMj4Wd/; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kEMj4Wd/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6909E1F000E9;
+	Thu, 23 Jul 2026 16:36:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784824618;
+	bh=4wJRwgPZ4AI7SWe4QB67LiniTR58MRIskUEiQ1zUBE8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kEMj4Wd/lfr3ve62GnSJ7LOnIdXKVhD/jkdJGfhM2kZaqSyYc676weklICmzyb0IG
+	 DyJxBZAHZ38qNuQLIbqnsEKIlVP+j6Y/j0kk9L5y4SPUyojBwpOLKlMVyB8CuE+v5l
+	 kgeJUP5Ds8/JJLfSc3EEZpL83DqmESHJrKP0BITIawyum2NI8u6OIg29n6H3BEiOZj
+	 57p/6pBbuYZxAoU+muC8R7FsTNM3UyZ9JjAxlkixMzdGEUPdd77Mq0ueggCnQ0keYz
+	 N8wK/4mILUyRGkhBMfSDCskcjJtCQJvruJeqhwB28ZUTGpEP+73UBkQQg9R0vCAEpO
+	 4p4KPD1bpZ6Mw==
+Date: Thu, 23 Jul 2026 17:36:54 +0100
+From: Conor Dooley <conor@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: Ariana Lazar <ariana.lazar@microchip.com>, conor+dt@kernel.org,
+	devicetree@vger.kernel.org, robh@kernel.org
+Subject: Re: [PATCH 2/3] dt-bindings: iio: dac: add support for MCP48FEB02 SPI
+Message-ID: <20260723-tinkling-apple-9cdac4921218@spud>
+References: <20260723-mcp47feb02_refactor-v1-0-ee59e63672bc@microchip.com>
+ <20260723-mcp47feb02_refactor-v1-2-ee59e63672bc@microchip.com>
+ <20260723135115.2AF451F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="gO3PmxjrUfw3GFuH"
 Content-Disposition: inline
-In-Reply-To: <20260723160933.GD3526803@google.com>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
+In-Reply-To: <20260723135115.2AF451F00A3D@smtp.kernel.org>
 
-On Thu, Jul 23, 2026 at 05:09:33PM +0100, Lee Jones wrote:
-> On Thu, 23 Jul 2026, Oleksij Rempel wrote:
-> 
-> > On Thu, Jul 23, 2026 at 03:53:00PM +0100, Lee Jones wrote:
-> > > On Fri, 10 Jul 2026, Oleksij Rempel wrote:
-> > > 
-> > > > Add the core support module for the NXP MC33978 and MC34978 Multiple
-> > > > Switch Detection Interfaces (MSDI).
-> > > > 
-> > > > The MC33978/MC34978 devices provide 22 switch detection inputs, analog
-> > > > multiplexing (AMUX), and comprehensive hardware fault detection.
-> > > > 
-> > > > This core module handles:
-> > > > - SPI communications via a custom regmap bus to support the device's
-> > > >   pipelined two-frame MISO response requirement.
-> > > > - Interrupt demultiplexing, utilizing an irq_domain to provide 22 virtual
-> > > >   IRQs for switch state changes and 1 virtual IRQ for hardware faults.
-> > > > - Inline status harvesting from the SPI MSB to detect and trigger events
-> > > >   without requiring dedicated status register polling.
-> > > > 
-> > > > It exports mc33978_core_init(), called by the MFD driver added in the
-> > > > following patch. CONFIG_MC33978_CORE carries no prompt and is selected
-> > > > by CONFIG_MFD_MC33978, so this patch alone builds nothing new.
-> > > > 
-> > > > Note: The device currently lacks suspend/resume power management
-> > > > callbacks. If the system enters a sleep state cutting power to
-> > > > VDDQ/VBATP, the device will wake up in POR state with hardware interrupt
-> > > > masks reset. Power management support is intentionally deferred for now.
-> > > > 
-> > > > Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
-> > > > ---
-> > > > changes v15:
-> > > > - Split out of the MFD patch, as requested by Lee Jones. The register
-> > > >   definitions in include/linux/mfd/mc33978.h are carried here rather than
-> > > >   with the MFD driver because this module includes them, keeping every
-> > > >   commit individually buildable.
-> > > 
-> > > I can't help feeling that this is a hack.
-> > > 
-> > > When I suggested moving the functional parts out, I meant properly
-> > > separating off and compartmentalising.  Instead, a huge slice has been
-> > > taken out of the initial submission's MFD driver and dumped into the
-> > > wild west that is drivers/platform.  Worse still; we're masquerading as
-> > > the MFD since the MFD's 'dev' pointer is being passed through so
-> > > everything here is operating as though it's the parent device.  You've
-> > > created half library / half MFD.
-> > > 
-> > > I get that we're on v15 and there's still a lot to do, but I guess
-> > > that's what happens when 3500 lines of code is submitted at the same
-> > > time.
-> > > 
-> > > My suggestion is to return to first principles; what lives where?
-> > > 
-> > > Allocating of shared resources, including the various regmaps, IRQs and
-> > > domains should live in the MFD subsystem - that's literally what it's
-> > > for. 
-> > 
-> > This is exactly, what you suggest do move to the separate location.
-> > 
-> > > Anything that does-a-thing, should be allocated a proper subsystem
-> > > and platform drivers should be created.
-> > 
-> > Every thing you suggest to move is making regmap and irq work in
-> > the first place.
-> 
-> Let me know if the above doesn't make sense and I'll try to find another
-> way to put it.  Essentially slicing the code out and simply relocating
-> it, but still operating as the same (MFD) platform device, is not an
-> acceptable strategy.  When I suggested that it should be moved, I meant
-> properly separated, not just sliced and shifted.
+--gO3PmxjrUfw3GFuH
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I mean, the problem is - this HW is kind of tricky. We need to monitor
-status bits on each SPI frame to convert them to interrupts. This is why
-we have special regmap bus implementation with all related
-IRQ code. This code allows to have simple gpio, hwmon and mux drivers.
+On Thu, Jul 23, 2026 at 01:50:59PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issu=
+e(s) to consider:
+> - [Medium] The schema retains `additionalProperties: false` at the root l=
+evel while introducing a conditional `$ref` to `spi-peripheral-props.yaml` =
+in the `allOf` block. This breaks schema validation for standard SPI proper=
+ties.
+> - [Low] The newly added SPI device tree example uses an inappropriate SPI=
+ chip select value (`0x60`), copied from the I2C device address example.
+> --
+>=20
+> --- Patch [2]: [PATCH 2/3] dt-bindings: iio: dac: add support for MCP48FE=
+B02 SPI ---
+> commit a357ffde05c7807cd64bca71103d780d8dde416b
+> Author: Ariana Lazar <ariana.lazar@microchip.com>
+>=20
+> dt-bindings: iio: dac: add support for MCP48FEB02 SPI
+>=20
+> This commit adds SPI support for the MCP48FxBy1/2/4/8 DAC families to the
+> existing MCP47FEB02 device tree binding. It introduces the new compatible
+> strings, the spi-max-frequency property, and a devicetree example for SPI.
+>=20
+> > diff --git a/Documentation/devicetree/bindings/iio/dac/microchip,mcp47f=
+eb02.yaml b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.=
+yaml
+> > index d131f136bd151..d25c763241a4f 100644
+> > --- a/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.ya=
+ml
+> > +++ b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.ya=
+ml
+> > @@ -178,6 +239,13 @@ required:
+> >    - vdd-supply
+> > =20
+> >  allOf:
+> > +  - if:
+> > +      properties:
+> > +        compatible:
+> > +          contains:
+> > +            pattern: "^microchip,mcp48f[ev]b[0-2][1248]$"
+> > +    then:
+> > +      $ref: /schemas/spi/spi-peripheral-props.yaml#
+>=20
+> [ ... ]
+>=20
+> > +    then:
+> > +      properties:
+> > +        spi-max-frequency: false
+> > +
+> >  additionalProperties: false
+>=20
+> [Severity: Medium]
+> Since this schema now includes a conditional $ref to spi-peripheral-props=
+=2Eyaml
+> in the allOf block, should this be changed to unevaluatedProperties: fals=
+e?
+>=20
+> JSON Schema limits additionalProperties: false to only evaluating propert=
+ies
+> explicitly declared in the root properties or patternProperties. Any stan=
+dard
+> SPI properties pulled in via the conditional $ref will be incorrectly rej=
+ected
+> by dt_binding_check.
 
-This hack which we are currently moving around is regmap bus and irq
-extraction layer which is coupled with regmap bus code. From my
-perspective, it make no much sense to move it to far from regmap
-registration code, which is already in the mfd part. But now
-i'm in desperate state - i have no idea what is the best
-and acceptable way to have it for all related maintainers.
+This trips up Sashiko a lot.
+This additionalProperties is fine if spi-max-frequency is the only
+property from that binding that this device uses.
 
-Best Regards,
-Oleksij
--- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+>=20
+> >  examples:
+> > @@ -299,4 +424,29 @@ examples:
+> >              };
+> >          };
+> >      };
+> > +  - |
+> > +    spi {
+> > +        #address-cells =3D <1>;
+> > +        #size-cells =3D <0>;
+> > +
+> > +        dac@60 {
+> > +          compatible =3D "microchip,mcp48feb02";
+> > +          reg =3D <0x60>;
+>=20
+> [Severity: Low]
+> Is 0x60 intended to be used as an SPI chip select here, or was this copied
+> from the I2C example?
+>=20
+> Typically, an SPI chip select would be 0 or 1, and the node would be named
+> dac@0 with reg =3D <0>.
+
+It's an example, so it doesn't matter. But yes, looks like a copy-paste
+mistake.
+
+>=20
+> > +          vdd-supply =3D <&vdac_vdd>;
+> > +          vref-supply =3D <&vref_reg>;
+> > +          spi-max-frequency =3D <10000000>;
+> > +
+> > +          #address-cells =3D <1>;
+> > +          #size-cells =3D <0>;
+> > +          channel@0 {
+> > +            reg =3D <0>;
+> > +            label =3D "Adjustable_voltage_ch0";
+> > +          };
+> > +
+> > +          channel@1 {
+> > +            reg =3D <0x1>;
+> > +            label =3D "Adjustable_voltage_ch1";
+> > +          };
+> > +        };
+> > +    };
+> >  ...
+>=20
+> --=20
+> Sashiko AI review =B7 https://sashiko.dev/#/patchset/20260723-mcp47feb02_=
+refactor-v1-0-ee59e63672bc@microchip.com?part=3D2
+
+--gO3PmxjrUfw3GFuH
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCamJDJgAKCRB4tDGHoIJi
+0qdSAQCyvH4tH2zk8ZjftTMXyjvrVt3MH+Z/o5Vg9ky5FJKqmAEA4e9dYGtSfbp3
+gVL/YmYj9j8o/YWFEb0q+FlYHX2LTQs=
+=PKMa
+-----END PGP SIGNATURE-----
+
+--gO3PmxjrUfw3GFuH--
