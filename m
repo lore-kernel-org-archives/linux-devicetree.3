@@ -1,125 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC31E41D216
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 14:03:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D94443BDDD
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 14:05:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784815394; cv=none; b=rI0nWSwu6bEMZUPmk6eWi3zMJAIt8RhBvyuOlpj9CQWJz2Ry48c58WaiRdegi7bcFh1NPhgg9O8GuNi1dpyExyL/90k26dV+60vreejmTdb/Db7Te2SKjByHilO7/yfiLN6GsCUIkzF4E7mlepO4q8VHf3Wa+S/m5AtmjkFWVN8=
+	t=1784815537; cv=none; b=kfWLXUSitjYygNc26ICfqKvwm+dJad2c8+CRLKQLGc9i2dHxsHRLDQdXFuaiccfXq6kHB0lcbZi/O26GctfQ/8NxosoJnOYj7bKGyCE9R9LhLveIvMjlTU8f38oboqrr1r3hqTDgsWiQFRQ37zBDm7/jXyQmtt7gPrggoxMAjCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784815394; c=relaxed/simple;
-	bh=zwecTFw6g2xkF5d3oUlOFy+4npSfbx3BlfQi/+MeNlI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=m+eCpEPRzneAFKZUdGwm7vT+ULEdFQjo8C6d/BwTbEI2bs7TuIiGMLEbrVKNrqbIcS0DyEXFOfl8Q05EiY07GRNzFqT4cj992baYUFUUhWeY7S+KaZb/nI6Pd7WC2KqgwHgDKGTW6IuUjMu4DQ9u9M4pqgLpqLPtLuDtUYHLSuM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 331261F000E9;
-	Thu, 23 Jul 2026 14:03:12 +0000 (UTC)
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] iio: dac: add support for Microchip MCP48FEB02
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ariana Lazar" <ariana.lazar@microchip.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260723-mcp47feb02_refactor-v1-3-ee59e63672bc@microchip.com>
-References: <20260723-mcp47feb02_refactor-v1-0-ee59e63672bc@microchip.com>
- <20260723-mcp47feb02_refactor-v1-3-ee59e63672bc@microchip.com>
-Content-Type: text/plain; charset=utf-8
+	s=arc-20240116; t=1784815537; c=relaxed/simple;
+	bh=g07NWLJw7y0NvRHni7dsYtrhlNfd5+b9+n5hJCXclz4=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=TFFw/cudJtNvtzPadByTO2IkavdczBBhX/Nh5qbE/mkyMPiypf64dIdrwfQFVIna/B0htMD47z1jmEfsHLOcQbC0oyeJYWBAYgg0qiTBG9K/9x/XR8Z6x5F6uU9JUxrngAi05FgeQX+E+yKhTKaQdmRKCFNSEyOGBjm6TvjVZe0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.114])
+	by APP-03 (Coremail) with SMTP id rQCowAAnM0GkH2JqeLvtAA--.65491S2;
+	Thu, 23 Jul 2026 22:05:25 +0800 (CST)
+Message-ID: <8ccf1a36179881b1f9662e70d728322c62c88f78.camel@iscas.ac.cn>
+Subject: Re: [PATCH v2 1/2] dt-bindings: phy: add binding for T-Head TH1520
+ USB PHY
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: sashiko-reviews@lists.linux.dev
+Cc: vkoul@kernel.org, conor+dt@kernel.org, linux-phy@lists.infradead.org, 
+	devicetree@vger.kernel.org, robh@kernel.org, olteanv@gmail.com, 
+	neil.armstrong@linaro.org
+Date: Thu, 23 Jul 2026 22:05:24 +0800
+In-Reply-To: <20260723084759.3BBF81F000E9@smtp.kernel.org>
+References: <20260723084316.3573714-1-zhengxingda@iscas.ac.cn>
+	 <20260723084316.3573714-2-zhengxingda@iscas.ac.cn>
+	 <20260723084759.3BBF81F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 14:03:11 +0000
-Message-Id: <20260723140312.331261F000E9@smtp.kernel.org>
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-CM-TRANSID:rQCowAAnM0GkH2JqeLvtAA--.65491S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7ur45JF4rCF4kuF4xJryxKrg_yoW8Kw4fpa
+	93GFy2qF1ktr9YvanrJw109F12qFs8uF15Gr1rXr1kXws8uw1Fqr9akrZ8uay8Jr4kWFW2
+	yFsruas3Jr1vk3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkFb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
+	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCY1x0262kKe7AKxVWUAVWUtwCF04k2
+	0xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI
+	8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41l
+	IxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIx
+	AIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2
+	jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07bYYLPUUUUU=
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+=E5=9C=A8 2026-07-23=E5=9B=9B=E7=9A=84 08:47 +0000=EF=BC=8Csashiko-bot@kern=
+el.org=E5=86=99=E9=81=93=EF=BC=9A
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider:
+> - [Medium] The 'reg' property is omitted from the 'required' list for
+> a memory-mapped PHY.
+> - [Medium] The 'avdd33-usb3-supply' is omitted from the 'required'
+> list based on software limitations rather than hardware description.
 
-Pre-existing issues:
-- [Critical] Missing initialization of driver data causes NULL pointer dere=
-ference in PM suspend/resume callbacks.
-- [High] Lack of locking across the EEPROM snapshot sequence causes data co=
-rruption and inconsistent state saves.
---
+Well this is also to workaround the problem raised by Sashiko yourself
+at [1].
 
---- Patch [3]: [PATCH 3/3] iio: dac: add support for Microchip MCP48FEB02 -=
---
-commit 438874da57433396f6f194cc2238c897dfc234a2
-Author: Ariana Lazar <ariana.lazar@microchip.com>
+I didn't mention it in the log because I am not sure whether this is a
+real problem.
 
-iio: dac: add support for Microchip MCP48FEB02
+[1]
+https://sashiko.dev/#/patchset/20260507081710.4090814-1-zhengxingda%40iscas=
+.ac.cn?part=3D6
 
-This is the iio driver for Microchip MCP48FxBy1/2/4/8 series of
-buffered voltage output Digital-to-Analog Converters with nonvolatile or
-volatile memory and an SPI Interface.
+> --
+>=20
+> --- Patch [1]: [PATCH v2 1/2] dt-bindings: phy: add binding for T-
+> Head TH1520 USB PHY ---
+> commit 91b4840ee15364137facb1905580d4df2ba57663
+> Author: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+>=20
+> dt-bindings: phy: add binding for T-Head TH1520 USB PHY
+>=20
+> This commit adds a device tree binding for the T-Head TH1520 USB PHY,
+> which is a Synopsys USB 3.0 FemtoPHY with custom glue logic.
+>=20
+> > Changes in v2:
+> > - Lifted avdd33-usb3-supply from required properties list. Because
+> > of
+> > =C2=A0 this the R-b from Conor isn't added yet for reconfirmation. (The
+> > =C2=A0 related regulator isn't yet controllable because no driver is
+> > =C2=A0 available.)
+>=20
+> [Severity: Medium]
+> Since device tree bindings must describe hardware independently of
+> software
+> state, shouldn't this physical supply be required if the hardware
+> mandates it?
+>=20
+> Software limitations are typically handled in the board DTS (e.g.,
+> using a
+> fixed-regulator), rather than compromising the generic hardware
+> schema.
+>=20
+> > diff --git a/Documentation/devicetree/bindings/phy/thead,th1520-
+> > usb-phy.yaml b/Documentation/devicetree/bindings/phy/thead,th1520-
+> > usb-phy.yaml
+> > new file mode 100644
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/phy/thead,th1520-usb-
+> > phy.yaml
+> [ ... ]
+> > +required:
+> > +=C2=A0 - compatible
+> > +=C2=A0 - "#phy-cells"
+> > +=C2=A0 - clocks
+> > +=C2=A0 - clock-names
+> > +=C2=A0 - resets
+> > +=C2=A0 - reset-names
+>=20
+> [Severity: Medium]
+> Since this is a memory-mapped PHY, shouldn't the reg property be
+> included in
+> the required list?
+>=20
+> Without it, device tree nodes missing the reg property will silently
+> pass
+> schema validation, leading to incomplete hardware descriptions that
+> fail at
+> runtime.
 
-> diff --git a/drivers/iio/dac/mcp47feb02-spi.c b/drivers/iio/dac/mcp47feb0=
-2-spi.c
-> new file mode 100644
-> index 0000000000000..4395d49405dd8
-> --- /dev/null
-> +++ b/drivers/iio/dac/mcp47feb02-spi.c
-[ ... ]
-> +static int mcp47feb02_spi_probe(struct spi_device *spi)
-> +{
-[ ... ]
-> +	if (IS_ERR(regmap))
-> +		return dev_err_probe(dev, PTR_ERR(regmap), "Error initializing SPI reg=
-map\n");
-> +
-> +	return mcp47feb02_common_probe(chip_features, regmap);
-> +}
-
-[Severity: Critical]
-This is a pre-existing issue, but since the new SPI driver uses
-mcp47feb02_common_probe(), will this result in a NULL pointer dereference
-during suspend and resume transitions?
-
-Looking at mcp47feb02_common_probe() in the core driver, it allocates the I=
-IO
-device with devm_iio_device_alloc() but misses setting the driver data on t=
-he
-parent device. Neither the I2C nor the new SPI probe explicitly calls
-spi_set_drvdata() or dev_set_drvdata().
-
-When the system undergoes PM suspend, mcp47feb02_suspend() runs:
-
-drivers/iio/dac/mcp47feb02-core.c:mcp47feb02_suspend() {
-    struct iio_dev *indio_dev =3D dev_get_drvdata(dev);
-    struct mcp47feb02_data *data =3D iio_priv(indio_dev);
-    ...
-    guard(mutex)(&data->lock);
-    ...
-}
-
-Because the driver data is never set, dev_get_drvdata(dev) returns NULL.
-Passing NULL to iio_priv() computes an invalid pointer for data, causing the
-guard(mutex) call to dereference unmapped memory.
-
-[Severity: High]
-This is also a pre-existing issue in the core code, but could the lack of
-locking across the EEPROM snapshot sequence cause data corruption?
-
-In the sysfs attribute handler store_eeprom_store(), the driver loops over
-channels to perform EEPROM writes:
-
-drivers/iio/dac/mcp47feb02-core.c:store_eeprom_store() {
-    ...
-    for_each_set_bit(i, &data->active_channels_mask, data->phys_channels) {
-        ret =3D mcp47feb02_write_to_eeprom(data, NV_REG_ADDR(i),
-                                         data->chdata[i].dac_data);
-    ...
-}
-
-The function mcp47feb02_write_to_eeprom() acquires and releases data->lock
-internally for each write. This leaves the overall loop sequence in
-store_eeprom_store() unprotected.
-
-Can a concurrent sysfs operation, such as mcp47feb02_write_raw(), alter the
-channel software state and hardware registers in the middle of this loop?
-This might lead to a torn or inconsistent state being persisted to the
-non-volatile memory.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723-mcp47feb02=
-_refactor-v1-0-ee59e63672bc@microchip.com?part=3D3
