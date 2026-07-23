@@ -1,197 +1,358 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010005.outbound.protection.outlook.com [52.101.84.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C91B322A2E;
-	Thu, 23 Jul 2026 18:39:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.5
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784831948; cv=fail; b=jGFcPRdJ5U+R4deUnAgGTNwArLHO7iYkuV2Q2cjAI/dJlOqbWCVyg9ugZjLVON7mszz8iWgd7ow7RN3v8nr2YIWIWcSrtxWLbh+3+UKUk/+zWaBXgQj2kqUkqhBwjCFZqSdDPsgBENSQqUtN36+jZ+weafXQTIiTQFIqQPce8eA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784831948; c=relaxed/simple;
-	bh=QD53CRavRRRuQKvnWXKzyyrquoDIrNHHT3r2Dadeo0I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=XOQBprCbZP2QKiPunJ3hWjHKZr5YMCIyhzDxHiYx2AU+si5Q7ebwWmkIoLc+CB92yLCvpMC/z8hEQYN1caGIvVlqs/bpgjeLbwQx6rk0sLVzhivyIJkqMskOAVqhKKPu3yRzC7uALGt8BBk5LKwxAAm7eH/i09ePo31TNfvW8Mo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=IFpzneoQ; arc=fail smtp.client-ip=52.101.84.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CCAE4756AE
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 18:40:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784832012; cv=none; b=kNgZWlb2/lgbihZPUXjpsDGDqzyekbCacfV1ywgM9AO5Vjpq0Lw0GB38s2psw+kKagQorkLh+Xuy3XZWv7+nedJIpnTBxcjlwQjxGwPOP+4TMnZNG5A5+FcNyljE4lUsF2SScREUW1D7jwgytc0ylrF6+/TpW3H4uVy7x/J3rYU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784832012; c=relaxed/simple;
+	bh=cL4JAZ9BV7u1m206l1hk79KytfDo0V6V2twUyH+3TcU=;
+	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ffpdUW0HNOkK7jvCnL3vVuEYozvelk24ocVGLbhP9YTO0Q9CJSP3RGaRvp9etjZBsvC380rBmnJKy3uOEku+GF+oGqJ4+/ByLdQSfuFb4jku/+UkaeweBrCvk5N94P+IIhgKsf5uO6jNi2fL4TowjY7rXPK+ipJc2gh/2VjEIlA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ah3p6xR4; arc=none smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="IFpzneoQ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=K6P8Zl1frNZZI3PacLy/zucqsxyftBe6t8alxFeVkqmSN3E5rwBzgbIdtIRoqNRkN8hjr8yUlPj6lyJL0kY2v/gXWRhO3VtPAqWvtP1z9MBaZ+N5UC+/udTVqY+mwdfjfO5f3Tm+4AxNOS26YrHppMeMupwXTQ3nt3xZWh436uSHFxO6JZsLnaLeLaGKWOaKN7E5AjNXt+DL4z5NA9wba7OZYNnsIbRiNgeEgy0uBY7/mrvD94Lbox9pe6lIQRYlUOrydy3ea4qU84tYjSF0pYPKvHzL9tt0AZ2NNrWreOo433VrgtpplDFaBbje5qlpXXkAOdbm4aY7BPG/pya7Cg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SL/I02jEEJLEbfO48Z0ZnKZB06PzoYlOP/F8sZ/0J4c=;
- b=bBuqB2mdsGwNFZ8aies9kBxEdUI4utKzLPiJ/LEjUBa14BiGEQFEs0AgXpLMwlPEKwDLibPRwGPbtotSidFgl5lNsuQ86j8+QuHt84BcKOp2WeQqFKoFE/OsURnpESOd2ceVMRqR+mDOIjs4rND+wo1lm+hgL7NrzKBTTvOBS6mAWJ4/kV7Yey5pGc9biWJgZznIkhuIODAcyVrGbl7iKVcxOKnsEdHRUCZUcNOW8E1Y2aiqZ07m6I3+wE0U6Tu4cNSLoadGXr2pzVwWwlnlYH8NpRccgfnStH2odGfBs/Rotud2WpH8FZYVHd6YLYMmqWaAbJ5cknn8pa5S8pxinA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SL/I02jEEJLEbfO48Z0ZnKZB06PzoYlOP/F8sZ/0J4c=;
- b=IFpzneoQ9JBN5+IrCNxLONn3i29NPbPRjB4/oK/jeb7oMS0iW9h0ltKQI9hpSSUcE+Bf3TseXb3T8PIILLXVdFXe/0blOZTZRNcsC4vCceazKYgeKvJbc49rS7nJ0UlwxvZwIIJIJ/8Kyv2KbcwTpdG6oTnwXc6CV2A3uoH+kELDthELddnS/obL/h24dK9nFiGVZbjB9mbI+ph3abSUjxzcJDw+oCJgzX+Y/QhUhUSr6a4Y8zX3zqRY/T0iT/fNTXIivbadjESUvZvNKnnNJ+ADrBCGRvM59DWEUN9Wut/rWFl/gjgpZaIDy4SOGHPDz2oHk25zaUD2UKrLI9el+A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by VI0PR04MB10510.eurprd04.prod.outlook.com (2603:10a6:800:233::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Thu, 23 Jul
- 2026 18:39:02 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0245.010; Thu, 23 Jul 2026
- 18:39:02 +0000
-Date: Thu, 23 Jul 2026 13:38:51 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Frieder Schrempf <frieder@fris.de>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ah3p6xR4"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-47ddf7b09aaso680074f8f.3
+        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 11:40:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784832007; x=1785436807; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:subject:cc:to:from:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RHtRx7/TrncyXEUejofUChLHf2uO3p9RQph6fNJ/fvk=;
+        b=Ah3p6xR4FX3FxixjeWpbkMewPQr68P4PJ0meRiwrb2ahHpm32X+Z22JuqbF8aLwBoy
+         sjGyjvxYc2I4uCh7hzDXI93w1eHVijBr9ySWJSdw6KCW5ZnW5cfi2QldTvI7/4j9kHMj
+         QZK/FrXjnOjPdLEwFVYnWBend8f8lUrWhzpPXUvk4Rg8f4gxpWBvw41BeQNY7mIAH+bm
+         dETSR3toAqLdIpl2fWOOX9fgHZ+KZE6GEHzkt5L95L0cjmA9NxPYdclrlWcB+qcu7zqW
+         KhRFoT7QhA2LD0B6f1xFCqDlVTkcuLIKf12LVJwgKp3uikf85BTxGDEJ99Vc1SxkIR7H
+         OzMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784832007; x=1785436807;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:subject:cc:to:from:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RHtRx7/TrncyXEUejofUChLHf2uO3p9RQph6fNJ/fvk=;
+        b=TUA+4DJpu4IFPnpgif3RirJBd53vIQ5U4X1RmHQhMUWBVVPyLe7kskzco1ZFy871rd
+         Zyq6D4fpgVrgAQTg69mpYUvY4pD60i4EMqie0bDOjLLbkuwfDE2c3woAS6QjoCIVfZ0m
+         jMteKrWfkDiFj14St1f5kCS3cYoThVNjxYnYR+T0eSVIb6HXHY+u2/8/wfpYcta00ooR
+         X8J4anATBlx+1Xx2vVVF8DzZJB7ytGCFpFKyMtO0x5AH6RvCLEPhx6P55jQ2fq3u+/2U
+         9PeM/xItXXFCWEc+vH2+4vQIKf7EvLvQGX9ghAC9VMyFbGagxJojRsPCJd4hz8xvPu/Y
+         X2Ww==
+X-Forwarded-Encrypted: i=1; AHgh+Ro11wXBlq2DIUxNJYIspC3NnePmpHdOJA9zxqOvIIpYHXJZ15ImrI1BGFNzh2HebfDnVevuiAhjtJHS@vger.kernel.org
+X-Gm-Message-State: AOJu0YxU9zbyxKj1s2+GIT1XpdFvBTiyOBT/XPxZPtWBJm3oXWS7XuQD
+	xM1dha+SEZn5C+jQxVdwAxRwhL/YTKSWdNquXAKhb6Ux+3ikJ6kFL0/8
+X-Gm-Gg: AR+sD13EK1f1mLp8gMt3vJwx1BUgW9qb9lq+VDXZQboorqNc1bw0ILLSf3D0T3+pRZw
+	sRlUek/Xm/1eNNgJey9QLYcm9ISh14RXQFzCoKt+mSWPwIFcOWzsN8JGDDyq20b3aOATi75evVG
+	Zj4MYzB1D920XVhP/EwCs6nmImLEeWIdB2raUIK/fo82TtKBpSqA9+02iaP5bUJ56LjIZukIJoi
+	3WHFB6lEVQLxHNbbSlzqcaVP1ltuUCO1/N3beLNeDPzGclz+BTOJnjbTgEBLSiw/LXRHarL1x48
+	405hG8zdTBSFpkrzgc8VLHmkeH/ishmQR7VVl3WT5gngWjnOkRz2JXZOAOSstTGPQ8A2AIJ8ADX
+	ZedM5FEAiGiDn98EwSIAtK9uQ17EI7OkQ++vIEdDi7Rs4qhIWUYCyrOKm8E/bE5qJXgKDNeS/EQ
+	5gui7wKeUE9yiR8Hn9LnUCo+qu9CJEM6Tm+lN4lFtzb6rV+sk=
+X-Received: by 2002:a05:6000:712:b0:47f:87f5:ed32 with SMTP id ffacd0b85a97d-47f8d75f5f3mr5808844f8f.46.1784832007156;
+        Thu, 23 Jul 2026 11:40:07 -0700 (PDT)
+Received: from Ansuel-XPS. (host-87-3-249-180.retail.telecomitalia.it. [87.3.249.180])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85c6f076sm18340282f8f.34.2026.07.23.11.40.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 23 Jul 2026 11:40:06 -0700 (PDT)
+Message-ID: <6a626006.4d70c427.b2b96.c939@mx.google.com>
+X-Google-Original-Message-ID: <amJgA6tsUqTinTkZ@Ansuel-XPS.>
+Date: Thu, 23 Jul 2026 20:40:03 +0200
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
-	Pankaj Gupta <pankaj.gupta@nxp.com>,
-	"Peng Fan (OSS)" <peng.fan@oss.nxp.com>, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux@ew.tq-group.com,
-	Frieder Schrempf <frieder.schrempf@kontron.de>
-Subject: Re: [PATCH v3 05/11] nvmem: imx-ocotp-ele: Remove device-specific
- reg_read()
-Message-ID: <amJfuz2eJugcQ1f7@SMW015318>
-References: <20260723-upstreaming-next-20260609-imx-ocotp-ele-v3-0-e26930345b4c@kontron.de>
- <20260723-upstreaming-next-20260609-imx-ocotp-ele-v3-5-e26930345b4c@kontron.de>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260723-upstreaming-next-20260609-imx-ocotp-ele-v3-5-e26930345b4c@kontron.de>
-X-ClientProxiedBy: SA1P222CA0152.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:806:3c3::20) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	Conor Dooley <conor+dt@kernel.org>,
+	Ryder Lee <ryder.lee@mediatek.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Jianjun Wang <jianjun.wang@mediatek.com>, linux-pci@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-mediatek@lists.infradead.org, linux-clk@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v4 4/4] PCI: mediatek-gen3: Add 2-lanes mode support for
+ Airoha AN7581
+References: <20260714115848.8537-5-ansuelsmth@gmail.com>
+ <20260722174010.GA746214@bhelgaas>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI0PR04MB10510:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1c9e6da9-99f7-4b51-8f10-08dee8e9aaa2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|376014|7416014|366016|1800799024|23010399003|56012099006|11063799006|10067099003|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	bc1YKUkFRedeWAO5VC0ZklYhpjnj/BNa8ai8v/QLrhfCQWaTGFiioJ+afjtMCvk7ZcNOnux0QbG3u0/E2dyXQ9AHNigxMoRwLwm5XJy/WNJ86ob97LIkJYwKuIpCvz35NNd4sMmXwine4YosqEL1lLV30a/xj13oDXayehDNdLNMi1r2B2CFBkjK4oaXbaG+yYl013vYkqM6kVqLk0fmoUx1gQsJdkcw0hpudrxzKbne5oZIekXOE5QjqJYwLBBrKgxoQkAQQZd3B6Hb0b9+Wxl//uDXch5ezrXF61dBgzXfcYwgBToQSyrGdVgFJjL0cIz4EQM6XcLRUJC764KUqWD0H5/I1RwYVLK3RUPC3BKnF4AjwemtW74jInAqIX2qyHm8AYXwNgHUkFKFGEkuM3rFg7ddDXNQmyfGwvFH05rMShiEhxB8pN5QxzMOtDK6k6q1xnXbE3Zt4Npf5gERG7MMg8N89Mb7odjTmb79RDPL5FLIWIHUlK0v78wbINyJXIp8lAxnwamsYw4OlCghab7lKJQAAh8MtJPt3L7eHtyzmGULlpdOyWrkX34yu5abmHcckBUsh8AGATG/jjulzAktjeRyQFTvxACrNn5oPISNWu7PjyPpXLNRzjhxXDm+HyvYNv0o+Hbq4VEagPeBYKAHDsD2/42brkW6hvBfpCI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(7416014)(366016)(1800799024)(23010399003)(56012099006)(11063799006)(10067099003)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?s85ilHzlWuqrB0oSgL4g7Gei/m5YcPvHN6PIX0bjeFeGOwowsDVYzxPgaDQJ?=
- =?us-ascii?Q?V8sARXPdXg5q5Z96RrHA35yITcuW6tVH8iX9T5UmQEigWAGvl1soVLfcTXet?=
- =?us-ascii?Q?yQoyNi1IG+UQysSbkX41svQ1EjaevhCeFDs7bEJXLJ/VD54biki4Wtdx7ect?=
- =?us-ascii?Q?uGDXdsHHWPZtOQDViAPpiq3lfhyp46e7j1Mir5PHbXHzl68MPAWAXqrRaIfx?=
- =?us-ascii?Q?6TdMN4X/H5SZ44Elm9Iwh0kawazaYWx/fttBw4+s3bUyS2e6pC4tZq8Ntxxq?=
- =?us-ascii?Q?IzDDe5oQE0v3BD4hRtlwVPWPH0bEB3kHeiJKPdcoGS7bT3ptvTZaLDr7xQ2f?=
- =?us-ascii?Q?WSHVhkijlm89iSzmTjm866i2M/207a4CdNBczsfxkvPdCv8NP4Wo8FKXtp04?=
- =?us-ascii?Q?cqvJBq2UG9/dGZUkVB/GG51bYXHcpsUw4E4DNpF8dPEVRbmt9bC0AzrhkgSD?=
- =?us-ascii?Q?a8Je+F5oNFT7Adi45HFg4xWoJNQdIwgH53VeyLjUbK2fq1cw1k9AJfWaKCou?=
- =?us-ascii?Q?uEqPF03twJADcyZHgdIFsLx20hqv2WwYpkaAHVhhUdr/e2RUP5wwBAsLuHf8?=
- =?us-ascii?Q?Hw5aZETRVzyOz+gPAgg3GSnL5nN+JCO6rsDeUleXYaoMgHl2IeeZrmw6D9i+?=
- =?us-ascii?Q?ihsykHXTOGUMWVaJMntGcYSSo9rtP+xG1SQwF5UauMwDCTllVzxNHdaKjgf/?=
- =?us-ascii?Q?GK+sDi6PBy07FtRst32jW0W6XlWIG+I4Pue7Rd73ExphgIPjsqZJ2P3Bgo+i?=
- =?us-ascii?Q?GD+y461NYN9tCDmV8swYnAQxer3SupD841sedGZ7JrvDj1dHtBsChYfmGsBa?=
- =?us-ascii?Q?cTp85ptYm4Bk08FZK0Aua7nTqMbY76t1WoMVQUrSDZTP2V1uKRG0xDoL4Y2X?=
- =?us-ascii?Q?YfMT+2rqJVCEvq8lYCz2yE9962EgtlP6yY84t6ZIRXxStDl6IwwdwX4GLnOo?=
- =?us-ascii?Q?KYnstbCSbPHwe3hdt+DId7JCfe3ZAKlV0uNqTnN2aB4CogwZeST62Vr7d264?=
- =?us-ascii?Q?u//7thtxPEt+jmE8fnqL51Qdl5bb0ycW8EnAI1T0jxr9n52ayeDSsFxWyziU?=
- =?us-ascii?Q?NAi2OmnrOPfHAAN59WVd6qRu9nOtZUHCnS6rNh5+7CAW7+03BbKJpGYbslk+?=
- =?us-ascii?Q?0j8YQ6B6LOAadU4S2GQYD2tIZSgU5LGjVD6sR2FX4sLyIAu5s+sQzWUfkKmo?=
- =?us-ascii?Q?bVVvlYSzil0vyKhzfAmrHmhk+Rl3pXdzn/qBKshA6F4GRT/Nexe1mzPgKi+3?=
- =?us-ascii?Q?A4HoVX02f7Zd5bBC6jDxlaEqQga4JcCniIsbUvyLxOnKqRbPiR7/qOHFXB0o?=
- =?us-ascii?Q?z9FB9IV4svw8bsmTF5DYNPWfeKaJgJRpQVGlil84Y3wig5atvaguLAowtoEp?=
- =?us-ascii?Q?K4g/Mj8HRAmGMayRZHbN2V5jvxixKc/KhYfnvR60Ux9/1/U1DJMMtpBrIdTo?=
- =?us-ascii?Q?BVEQQJjjA7lNvCPEnOIk6rOk4NCmGXt0sj32j8q7Z+nC5THXKN31ZiBsNnhs?=
- =?us-ascii?Q?RMddeVePBHdWth+1hw3YidzybNjrY0rvx7pRxNO3SUGmIJ1wE7bMdGXDMhPf?=
- =?us-ascii?Q?D9l3YaKxHjICAf706WxYjfrqloz+YwahXeKrOpb9nmHN/0L3hpWuhmau8+81?=
- =?us-ascii?Q?Q7rQvJtXM0asUCbUFhRVVRT3X2ZWNDj9a50qQeFqRP3qX+Sd7hXYbY6rRipw?=
- =?us-ascii?Q?7her0Sb6yDsL2T7K387QMWQdkIArbRnrr0tSI8dqGTjVbcRcZi7hAVWmnMo1?=
- =?us-ascii?Q?gqYo5e1FAAC1W7mb6BPan+HQxGX+68IShrPdfHrp1HVbMexCh6oW?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1c9e6da9-99f7-4b51-8f10-08dee8e9aaa2
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 18:39:02.4549
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: otXJQwtrj1O1eu3NA4ipq01uR9ONwuawTcJS4nUnPhjQqsPv3T6ZnTgrkUK85c9pTyrpM9xauGvGDzUGHItT6a3QBVj06hxec16k9JxHigHTuWfzFWdd3KjqiO1Gn/2P
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB10510
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260722174010.GA746214@bhelgaas>
 
-On Thu, Jul 23, 2026 at 09:27:27AM +0200, Frieder Schrempf wrote:
-> From: Frieder Schrempf <frieder.schrempf@kontron.de>
+On Wed, Jul 22, 2026 at 12:40:10PM -0500, Bjorn Helgaas wrote:
+> On Tue, Jul 14, 2026 at 01:58:46PM +0200, Christian Marangi wrote:
+> > The Airoha AN7581 SoC supports configuring the first PCIe0 lane to 2-lanes
+> > mode (2x link) by bonding it with the second PCIe lane (PCIe1). This is
+> > done by configuring the PCIe MUX in the SCU register.
+> 
+> s/2x/x2/ to match usual convention, e.g., PCIe r7.0 sec 1.2
+> 
+> I mentioned this before at
+> https://lore.kernel.org/all/20260626162508.GA27685@bhelgaas
+> 
+> > To correctly configure PCIe0 in 2x link, define in DT the following
+> > additional property:
+> 
+> s/property/properties/
+> 
+> Add a blank line here and indent the following list a couple spaces:
+> 
+> > - additional reg, 'sec-pcie-mac' for the secondary PCIe.
+> > - PERSTOUT reset for both main and secondary PCIE0, called 'perstout' and
+> >   'sec-perstout'
+> > - airoha,scu property to correctly configure the SCU register for the PCIe
+> >   MUX
+> > - 'num-lanes' set to '2' to enable PCIe0 in 2x link
+> 
+> Add '' around 'airoha,scu' to match the others
+> s/2x/x2/
+> 
+> > In such configuration the EQ preset are configured to the same values.
+> > 
+> > To permit correct configuration of the PCIe line, additional logic is added
+> > to assert and deassert the PERSTOUT resets.
+> 
+> s/line/link/
+> 
+> In the PCIe context, "line" doesn't mean anything.
+> 
+> > Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> > ---
+> >  drivers/pci/controller/pcie-mediatek-gen3.c | 106 ++++++++++++++++----
+> >  1 file changed, 89 insertions(+), 17 deletions(-)
+> > 
+> > diff --git a/drivers/pci/controller/pcie-mediatek-gen3.c b/drivers/pci/controller/pcie-mediatek-gen3.c
+> > index b0accd828589..764974045340 100644
+> > --- a/drivers/pci/controller/pcie-mediatek-gen3.c
+> > +++ b/drivers/pci/controller/pcie-mediatek-gen3.c
+> > @@ -32,6 +32,11 @@
+> >  
+> >  #include "../pci.h"
+> >  
+> > +/* AN7581 SCU register */
+> > +#define SCU_PCIC			0x88
+> > +#define SCU_PCIC_PCIE_CTRL		GENMASK(7, 0)
+> > +
+> > +/* PCIe register */
+> >  #define PCIE_BASE_CFG_REG		0x14
+> >  #define PCIE_BASE_CFG_SPEED		GENMASK(15, 8)
+> >  
+> > @@ -131,6 +136,7 @@
+> >  #define PCIE_ATR_TLP_TYPE_IO		PCIE_ATR_TLP_TYPE(2)
+> >  
+> >  #define MAX_NUM_PHY_RESETS		3
+> > +#define MAX_NUM_PERSTOUT_RESETS		2
+> >  
+> >  #define PCIE_MTK_RESET_TIME_US		10
+> >  
+> > @@ -203,9 +209,11 @@ struct mtk_msi_set {
+> >  struct mtk_gen3_pcie {
+> >  	struct device *dev;
+> >  	void __iomem *base;
+> > +	void __iomem *sec_base;
+> >  	phys_addr_t reg_base;
+> >  	struct reset_control *mac_reset;
+> >  	struct reset_control_bulk_data phy_resets[MAX_NUM_PHY_RESETS];
+> > +	struct reset_control_bulk_data perstout_resets[MAX_NUM_PERSTOUT_RESETS];
+> >  	struct phy *phy;
+> >  	struct clk_bulk_data *clks;
+> >  	int num_clks;
+> > @@ -928,6 +936,14 @@ static int mtk_pcie_parse_port(struct mtk_gen3_pcie *pcie)
+> >  	if (ret)
+> >  		return dev_err_probe(dev, ret, "failed to get PHY bulk reset\n");
+> >  
+> > +	pcie->perstout_resets[0].id = "perstout";
+> > +	pcie->perstout_resets[1].id = "sec-perstout";
+> > +
+> > +	ret = devm_reset_control_bulk_get_optional_exclusive(dev, MAX_NUM_PERSTOUT_RESETS,
+> > +							     pcie->perstout_resets);
+> > +	if (ret)
+> > +		return dev_err_probe(dev, ret, "failed to get PERSTOUT bulk reset\n");
+> > +
+> >  	pcie->mac_reset = devm_reset_control_get_optional_exclusive(dev, "mac");
+> >  	if (IS_ERR(pcie->mac_reset))
+> >  		return dev_err_probe(dev, PTR_ERR(pcie->mac_reset), "failed to get MAC reset\n");
+> > @@ -949,18 +965,38 @@ static int mtk_pcie_parse_port(struct mtk_gen3_pcie *pcie)
+> >  			pcie->num_lanes = num_lanes;
+> >  	}
+> >  
+> > +	/* Map secondary PCIe for 2-lanes mode for EN7581 */
+> > +	if (pcie->num_lanes == 2 && device_is_compatible(dev, "airoha,en7581-pcie")) {
+> > +		regs = platform_get_resource_byname(pdev, IORESOURCE_MEM, "sec-pcie-mac");
+> > +		if (!regs)
+> > +			return -EINVAL;
+> > +		pcie->sec_base = devm_ioremap_resource(dev, regs);
+> > +		if (IS_ERR(pcie->sec_base))
+> > +			return dev_err_probe(dev, PTR_ERR(pcie->sec_base), "failed to map secondary register base\n");
+> > +	}
+> > +
+> >  	return 0;
+> >  }
+> >  
+> >  static int mtk_pcie_en7581_power_up(struct mtk_gen3_pcie *pcie)
+> >  {
+> >  	struct pci_host_bridge *host = pci_host_bridge_from_priv(pcie);
+> > +	unsigned int num_lanes = max(1, pcie->num_lanes);
+> > +	struct regmap *pbus_regmap, *scu;
+> >  	struct device *dev = pcie->dev;
+> >  	struct resource_entry *entry;
+> > -	struct regmap *pbus_regmap;
+> >  	u32 val, args[2], size;
+> >  	resource_size_t addr;
+> > -	int err;
+> > +	int i, err;
+> > +
+> > +	if (num_lanes > 2)
+> > +		return dev_err_probe(dev, -EINVAL, "unsupported num-lanes, maximum 2 lanes supported\n");
+> > +
+> > +	if (num_lanes == 2) {
+> > +		scu = syscon_regmap_lookup_by_phandle(dev->of_node, "airoha,scu");
+> > +		if (IS_ERR(scu))
+> > +			return dev_err_probe(dev, PTR_ERR(scu), "failed to map SCU regmap\n");
+> > +	}
+> >  
+> >  	/*
+> >  	 * The controller may have been left out of reset by the bootloader
+> > @@ -992,6 +1028,19 @@ static int mtk_pcie_en7581_power_up(struct mtk_gen3_pcie *pcie)
+> >  	size = lower_32_bits(resource_size(entry->res));
+> >  	regmap_write(pbus_regmap, args[1], GENMASK(31, __fls(size)));
+> >  
+> > +	/* Assert PERSTOUT for all relevant lines */
+> 
+> s/lines/lanes/ (also several more places below)
+> 
+> > +	err = reset_control_bulk_assert(MAX_NUM_PERSTOUT_RESETS,
+> > +					pcie->perstout_resets);
+> > +	if (err) {
+> > +		dev_err(dev, "failed to assert PERSTOUTs\n");
+> > +		return err;
+> > +	}
+> > +
+> > +	/* Configure SCU MUX to disable PCIE1 for 2 lines mode */
+> > +	if (num_lanes == 2)
+> > +		regmap_update_bits(scu, SCU_PCIC, SCU_PCIC_PCIE_CTRL,
+> > +				   FIELD_PREP(SCU_PCIC_PCIE_CTRL, BIT(1)));
+> > +
+> >  	/*
+> >  	 * Unlike the other MediaTek Gen3 controllers, the Airoha EN7581
+> >  	 * requires PHY initialization and power-on before PHY reset deassert.
+> > @@ -1024,18 +1073,6 @@ static int mtk_pcie_en7581_power_up(struct mtk_gen3_pcie *pcie)
+> >  	pm_runtime_enable(dev);
+> >  	pm_runtime_get_sync(dev);
+> >  
+> > -	val = FIELD_PREP(PCIE_VAL_LN0_DOWNSTREAM, 0x47) |
+> > -	      FIELD_PREP(PCIE_VAL_LN1_DOWNSTREAM, 0x47) |
+> > -	      FIELD_PREP(PCIE_VAL_LN0_UPSTREAM, 0x41) |
+> > -	      FIELD_PREP(PCIE_VAL_LN1_UPSTREAM, 0x41);
+> > -	writel_relaxed(val, pcie->base + PCIE_EQ_PRESET_01_REG);
+> > -
+> > -	val = PCIE_K_PHYPARAM_QUERY | PCIE_K_QUERY_TIMEOUT |
+> > -	      FIELD_PREP(PCIE_K_PRESET_TO_USE_16G, 0x80) |
+> > -	      FIELD_PREP(PCIE_K_PRESET_TO_USE, 0x2) |
+> > -	      FIELD_PREP(PCIE_K_FINETUNE_MAX, 0xf);
+> > -	writel_relaxed(val, pcie->base + PCIE_PIPE4_PIE8_REG);
+> > -
+> >  	err = clk_bulk_prepare_enable(pcie->num_clks, pcie->clks);
+> >  	if (err) {
+> >  		dev_err(dev, "failed to prepare clock\n");
+> > @@ -1043,14 +1080,47 @@ static int mtk_pcie_en7581_power_up(struct mtk_gen3_pcie *pcie)
+> >  	}
+> >  
+> >  	/*
+> > -	 * Airoha EN7581 performs PCIe reset via clk callbacks since it has a
+> > -	 * hw issue with PCIE_PE_RSTB signal. Add wait for the time needed to
+> > -	 * complete the PCIe reset.
+> > +	 * Old Airoha EN7581 clock driver performed PCIe reset via
+> > +	 * clk callbacks since it has a hw issue with PCIE_PE_RSTB signal.
+> > +	 * This is now handled by dedicated PERSTOUT resets with clk
+> > +	 * driver only enabling the refclk.
+> 
+> This reference to the "old Airoha EN7581 clock driver" makes me think
+> there's a dependency between a EN7581 clock driver change and this
+> PERSTOUT change.  If so, please mention the commit SHA1 for the EN7581
+> clock driver change so they're connected and people backporting to
+> older kernels know to be careful to get both of them.
+> 
+> It sounds like this PERSTOUT change might be independent of the x2
+> configuration support.  If so, it should be done in a separate patch.
 >
-> We only have a single implementation of the read hook. There is no
-> need to store it in the device data.
 
-Remove .reg_read() callback in the device data because all is the same
-implementation.
+Hi,
 
-Frank
+thanks for the review. The clock change can go on a separate patch but
+since the hash will change when it will get merged what should I use as
+reference? Also any hint on the tag to use or the format?
 
->
-> Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
-> ---
->  drivers/nvmem/imx-ocotp-ele.c | 6 +-----
->  1 file changed, 1 insertion(+), 5 deletions(-)
->
-> diff --git a/drivers/nvmem/imx-ocotp-ele.c b/drivers/nvmem/imx-ocotp-ele.c
-> index dadec19ca252..9d3f94e35508 100644
-> --- a/drivers/nvmem/imx-ocotp-ele.c
-> +++ b/drivers/nvmem/imx-ocotp-ele.c
-> @@ -33,7 +33,6 @@ struct ocotp_devtype_data {
->  	u32 size;
->  	u32 num_entry;
->  	u32 flag;
-> -	nvmem_reg_read_t reg_read;
->  	const struct nvmem_keepout *keepout;
->  	unsigned int nkeepout;
->  	struct ocotp_map_entry entry[];
-> @@ -158,7 +157,7 @@ static int imx_ele_ocotp_probe(struct platform_device *pdev)
->  	priv->config.id = NVMEM_DEVID_AUTO;
->  	priv->config.owner = THIS_MODULE;
->  	priv->config.size = priv->data->size;
-> -	priv->config.reg_read = priv->data->reg_read;
-> +	priv->config.reg_read = imx_ocotp_reg_read;
->  	priv->config.word_size = 1;
->  	priv->config.stride = 1;
->  	priv->config.priv = priv;
-> @@ -190,7 +189,6 @@ static const struct nvmem_keepout imx93_ocotp_keepout[] = {
->
->  static const struct ocotp_devtype_data imx93_ocotp_data = {
->  	.reg_off = 0x8000,
-> -	.reg_read = imx_ocotp_reg_read,
->  	.size = 2048,
->  	.num_entry = 6,
->  	.entry = {
-> @@ -207,7 +205,6 @@ static const struct ocotp_devtype_data imx93_ocotp_data = {
->
->  static const struct ocotp_devtype_data imx94_ocotp_data = {
->  	.reg_off = 0x8000,
-> -	.reg_read = imx_ocotp_reg_read,
->  	.size = 3296, /* 103 Banks */
->  	.num_entry = 10,
->  	.entry = {
-> @@ -226,7 +223,6 @@ static const struct ocotp_devtype_data imx94_ocotp_data = {
->
->  static const struct ocotp_devtype_data imx95_ocotp_data = {
->  	.reg_off = 0x8000,
-> -	.reg_read = imx_ocotp_reg_read,
->  	.size = 2048,
->  	.num_entry = 12,
->  	.entry = {
->
-> --
-> 2.55.0
->
->
+Or just describe this in the commit description following the usual
+hash + commit title format?
+ 
+> > +	 * Wait is still needed for refclk to stabilize
+> >  	 */
+> >  	msleep(PCIE_T_PVPERL_MS);
+> >  
+> > +	/* Configure all the lines to the same EQ config */
+> > +	for (i = 0; i < num_lanes; i++) {
+> > +		void __iomem *base = pcie->base;
+> > +
+> > +		if (i == 1)
+> > +			base = pcie->sec_base;
+> > +
+> > +		val = FIELD_PREP(PCIE_VAL_LN0_DOWNSTREAM, 0x47) |
+> > +			FIELD_PREP(PCIE_VAL_LN1_DOWNSTREAM, 0x47) |
+> > +			FIELD_PREP(PCIE_VAL_LN0_UPSTREAM, 0x41) |
+> > +			FIELD_PREP(PCIE_VAL_LN1_UPSTREAM, 0x41);
+> > +		writel_relaxed(val, base + PCIE_EQ_PRESET_01_REG);
+> > +
+> > +		val = PCIE_K_PHYPARAM_QUERY | PCIE_K_QUERY_TIMEOUT |
+> > +			FIELD_PREP(PCIE_K_PRESET_TO_USE_16G, 0x80) |
+> > +			FIELD_PREP(PCIE_K_PRESET_TO_USE, 0x2) |
+> > +			FIELD_PREP(PCIE_K_FINETUNE_MAX, 0xf);
+> > +		writel_relaxed(val, base + PCIE_PIPE4_PIE8_REG);
+> > +	}
+> > +
+> > +	/* Deassert PERSTOUT for all relevant lines */
+> > +	err = reset_control_bulk_deassert(MAX_NUM_PERSTOUT_RESETS,
+> > +					  pcie->perstout_resets);
+> > +	if (err) {
+> > +		dev_err(dev, "failed to deassert PERSTOUTs\n");
+> > +		goto err_perstout_deassert;
+> > +	}
+> > +
+> >  	return 0;
+> >  
+> > +err_perstout_deassert:
+> > +	clk_bulk_disable_unprepare(pcie->num_clks, pcie->clks);
+> >  err_clk_prepare_enable:
+> >  	pm_runtime_put_sync(dev);
+> >  	pm_runtime_disable(dev);
+> > @@ -1136,6 +1206,8 @@ static void mtk_pcie_power_down(struct mtk_gen3_pcie *pcie)
+> >  
+> >  	phy_power_off(pcie->phy);
+> >  	phy_exit(pcie->phy);
+> > +	reset_control_bulk_assert(MAX_NUM_PERSTOUT_RESETS,
+> > +				  pcie->perstout_resets);
+> >  	reset_control_bulk_assert(pcie->soc->phy_resets.num_resets,
+> >  				  pcie->phy_resets);
+> >  }
+> > -- 
+> > 2.53.0
+> > 
+
+-- 
+	Ansuel
