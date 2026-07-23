@@ -1,148 +1,174 @@
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 511AB1A0BF3
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 02:48:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784774914; cv=pass; b=GDXZj+7z7YSzgO0O56rlyj9DDby/BRwdgqzOO4SG29fWcG+T9aIeUMlvtvjs0poub5AYuJHGAgAvx1JMgE6SkAo4e7nPV2X/++jUAk8EvphLeotmEOdUW5AAYKWhgsykC6iEgiaST8mU6qLRXOVF1+1r9fA0t6YhUQvxT0WBm5M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784774914; c=relaxed/simple;
-	bh=ke7GuAFVu437cGSyxYRHXKBdtjCTY1U8R29Cxj1Ke88=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CgG6Kff48QO2m1yId3ZuHNRTKbhuIHhSJXvExicet9oLgVPSDxr5xwWtFrHlMpxxSOUUFox+R77baZfuJ09AHXENiF3X6ljXKbCtT7UmdAEJNfSezh1HrFgiIbNPkC5qZtgx74gZ1FUEAeC9i65/2bIEXDUUWwR9Of+SwhqdYWI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g/naGK3a; arc=pass smtp.client-ip=209.85.218.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C12C12253EE
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 02:54:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784775261; cv=none; b=owcMjNB9D3kUejLlGxSRi8MdpzsJ+02VNvmbCWOXPHigJzKp9kaL+Rm47tYc33u/stMC0tcEvbH2ec+tjw5tgm09EceindENu3qP3k/Yuf3N3D5GPcyu47tacuPLx/UyNyP1zLTt5V4a7hzbDvSEXV9zFpuwGyFK0iGZ3syDYRY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784775261; c=relaxed/simple;
+	bh=Mz2O4IMUCaSHw3E0XAUjj9eD2RiXyiy2BacH4msELsA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=rVHrjo+7G490i+9J6P1o8PWuGhdvz7/VeKQ+zLkdHfjJsrwqflCSIrPDyY5KURZXSB9oAULTW2x6WbdQCrZB4ulc98BUft9/VvnBRB62pnZIs+wJQmosuj6g6KofmvfXufsGbtQrC/Imzjl6rqRr8NFzubiO5v8XUXiMYN8E3mI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T84i3KME; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g/naGK3a"
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c197eaaab00so32730366b.0
-        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 19:48:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784774911; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QQrPkGPsbt7jxLfL1PiFMzOcFSPfiHNkXz+/Jgz4OjxDs0dQAlFbKsBHArcwDcK4ju
-         yaCKsaD1dl2WCeGKFVY2Az3JiuN/NG4GcnhwFCEvrMLKKHdydf6ZQaAmIadvmnzcAn3j
-         54pwN/WJAJgyrpHaT14hzP93nTlP8XwX/4UrTc75E+o6VOHP7dzbwL/iF1QGTkCdZ58T
-         PezBt9/TyKRmy0E+Huq4q5jKSHm6pXZtIJiIHyZ+9wk0CktmMa6bMvJZYZYwXQzA8CfA
-         32j8YGNebZbg1NHiyFHhu8N+TvpqpQjFRypLO9617aMz5EKRc5YgmhBIKIAayQ/vmIND
-         DCYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=YXTUY4hlZVOZQ6Ng/x5Zh4USeJPKiqRMjOwBWZGBJKI=;
-        fh=u6EXtIfwsPJBrFgynAv5oBqRaLYyXVI+wjlHHJbarTs=;
-        b=nn2pCN76WbjqcMjBBztP2I1c5klY5iCEO2Rk9aVKhkHcuHD1inL4PXsWz0d8km+oPy
-         lqf/UBXS1S7LDxw+v0bBWXoD/cFcemtHHPVn/8bBSqjdX++UO5TbrcD2hmzW2qU0KSFo
-         mNPbWEsgftKpLMcjvxdpzx1iAabucAB9mHg5+6nztj/5aWi5WYjHXFXx/IkoZP9PmH6c
-         2VhAH6rKj9V54twdvjLcVLYSNcAec9ulGd8GYEopmq/6/ndKekKPouoYG4IcJMf2SVfw
-         R3T3Oz9duEWrOh7nwD0h3/RLrZjRC1QRUfRAhPtiB9Z2IUyxYP7gHyNgfazEl6Mx0GEw
-         Gp3Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784774911; x=1785379711; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YXTUY4hlZVOZQ6Ng/x5Zh4USeJPKiqRMjOwBWZGBJKI=;
-        b=g/naGK3avTabE5114tTgCShzUmBWRcbzEf+vhG+zFbs3JPuqAPtNOvwKI60HCMrU0O
-         vNjPm7lomimMBIFMTWQV3VxKgJDGOQBOu4Q+IIANY7VlQ5LTyDdl6uk9qW0vRVGnsIVb
-         bQM7vZVKfcvmatIYoQXBWwl81u77XEMyY0oFnt02WS6r49b8sH77X183w0xiHx17CxBs
-         IQZCi6cWSR1GbxTac28wbhvutGyVblXecNe+vaJ4IDizddNdYR8RllEWdJgPamIVk7QY
-         EImkhuA/5rVbHoXpNtOCXXJXb21kCuTCh9UKH5JrS+ub9GN8ReOl8HjWpRPqkK5Mk09c
-         iPXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784774911; x=1785379711;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=YXTUY4hlZVOZQ6Ng/x5Zh4USeJPKiqRMjOwBWZGBJKI=;
-        b=Y7JBDtAEcwSO+LSu6rj6op0KaOAIt0WDX8Y4tW5+AqoG7Lwo7CNi4agNhZjvjLmmOd
-         SkH1k7ruMUN/H+nkkpHJQCvEXOoHWMZIhWkcczHm1E7snag9XCzquMOE/XmkB6nNV+2M
-         Rit3X8s05mzxZXahPk8UX2o5Z/VB+t+H1iaHQhDKGDWsnqSOmQoBOM0TOG/IptkS6vDq
-         XdPxT0xj4oSt9jQXZtBH5v1JLc0W3hpFSwdPgMyt0NtZzFd3merXF/aJMriiSf5ROPNp
-         V0FFaPYyb7p/qzjoE5zgB7B8xJoRY+0KWlOHXg9hQjre8cCvcHWmvBIgOPbrWbk6Xhml
-         SFUA==
-X-Forwarded-Encrypted: i=1; AHgh+RrWb/OkafWv8J2X1Awkc0bxolz5GD4+y+/sUv747mwCTQZvavv3ayxotz9FU9C3mjzRfUtfkm6+VR+B@vger.kernel.org
-X-Gm-Message-State: AOJu0YwXxAW0OdxSvW3D+y0OZX902STmSPdzysQZLMT3gPR8l9Dj6C0A
-	RJXUA/Gj92poeNBQNrJuQcpVQ1rfaxEAkCS3/T4dFmX0JxeXuVY8eR2pIITXF1tIrSK6Ek+MmEX
-	3ZwpVETnif5r8aor8r1HqvU8pvNLyurIz+3lp
-X-Gm-Gg: AR+sD11kYbcyh4PZRB3dn5/Itz1BGR8C7PNihGeOyUAA1q/9PI5CPkwEqpHcjshdDty
-	xPTaSsVGhKJ5rTkjvp/sGo11oOMqID92Wg7fdILkNzslocjKypDThVRMz+S2/UGfwBJldsD6vCX
-	g0Z9XqmeKjNEyUkdDAuy/G+F3zVo4fnN22/uEYXw1fFiXQ+kVEjrTlasQ3dT5kEdc9X7/+DEPnj
-	v2XtggEG7qfE3QO6vAzepnCSQj4eMHpKxJcR/kI1eI1AGL3QqFiv2rcuFbuxzAt0jNZ124ECoK1
-	1dSPOSZMjxB11L9jIN68
-X-Received: by 2002:a17:907:a4d:b0:c16:2dc0:e1ed with SMTP id
- a640c23a62f3a-c1c5092a1e9mr61858566b.4.1784774911324; Wed, 22 Jul 2026
- 19:48:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T84i3KME"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 147231F000E9;
+	Thu, 23 Jul 2026 02:54:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784775260;
+	bh=BfJIWi5iiUbaiaQB1PIooMteYD81sdqX0/S9vDGE/8M=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=T84i3KMEvt3Y9dwXNYA4OwVipc2XrlcFzzIKPaSpaESPyoNL3PEeuiEpGa/8cvwbb
+	 dkNOj1Sq3DSaTnRtdz7csDWs5npSYTNVdyzmhn+3By8410kjVCz1eHZ8wD0ygua4Kc
+	 M7dc7tIXxx1i91xp5ks8rg5r9uIoaO7y7vNa4gX5c7GmQGbDnV/Fhh4yZtfP1lpTc/
+	 rxI5RukncrWxdl5okxvhgxxAlnWCsgRACY1PXQZCmwCWpg1qwAfr6F30LnRv9mfJ7E
+	 dM7Ii9UaF6ZUvDj9N+RW2MPEOHjju8qWuPs3CODx9ty7Nvnt5aTehmzIMN5CVMt7K8
+	 yBhtTOgZ6kszg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 2/2] media: i2c: add driver for ITE IT6625/IT6626
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Hermes Wu" <Hermes.wu@ite.com.tw>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org, conor+dt@kernel.org
+In-Reply-To: <20260723-upstream-it6625-it6626-v7-2-f8175bb0ea12@ite.com.tw>
+References: <20260723-upstream-it6625-it6626-v7-0-f8175bb0ea12@ite.com.tw>
+ <20260723-upstream-it6625-it6626-v7-2-f8175bb0ea12@ite.com.tw>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 23 Jul 2026 02:54:19 +0000
+Message-Id: <20260723025420.147231F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260717-adt7470_thermalzone-v2-0-a55147958fad@gmail.com>
- <20260717-adt7470_thermalzone-v2-1-a55147958fad@gmail.com> <al3yFHvlzQuIywEj@monoceros>
-In-Reply-To: <al3yFHvlzQuIywEj@monoceros>
-From: Luiz Angelo Daros de Luca <luizluca@gmail.com>
-Date: Wed, 22 Jul 2026 23:48:19 -0300
-X-Gm-Features: AUfX_mzkrTPcnkr7ItIXKDS6UZlJkREqRBtsmkpKmefnqjNZVsCZyHSowWgwH7Q
-Message-ID: <CAJq09z7z13hO33xpfQNYc=eHec3yN3H2yVy=oqXhuvhRZhvX3g@mail.gmail.com>
-Subject: Re: [PATCH v2 1/6] dt-bindings: hwmon: add binding for adi,adt7470
-To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>
-Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Chris Packham <chris.packham@alliedtelesis.co.nz>, 
-	Andrew Morton <akpm@linux-foundation.org>, "Darrick J. Wong" <djwong@us.ibm.com>, 
-	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-Hi Uwe,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] it6625_get_fmt() leaks active hardware state into the TRY format=
+'s width, height, and field, violating V4L2 API contracts.
+- [Medium] Incorrect pixel clock and frame height calculation for interlace=
+d signals.
+--
 
-> On Fri, Jul 17, 2026 at 05:59:14PM -0300, Luiz Angelo Daros de Luca wrote:
-> > +  "#pwm-cells":
-> > +    const: 2
-> > +    description: |
-> > +      Number of cells in a PWM specifier.
-> > +      - The first cell is the PWM channel (0 to 3).
-> > +      - The second cell is the PWM period in nanoseconds.
->
-> Please use #pwm-cells = <3> and $ref: pwm.yaml#
+--- Patch [2]: [PATCH v7 2/2] media: i2c: add driver for ITE IT6625/IT6626 =
+---
+commit ad2f8d71f0d1ad68405361b447bff0d6bd237454
+Author: Hermes Wu <Hermes.wu@ite.com.tw>
 
-Thanks for the review. I already switched to #pwm-cells = <3> for
-the next version, so that part is settled.
+media: i2c: add driver for ITE IT6625/IT6626
 
-Regarding $ref: /schemas/pwm/pwm.yaml#, it doesn't quite work here.
-When I added it and ran
-dt_binding_check, it started rejecting the example node:
+Add a V4L2 subdevice driver for the ITE IT6625/IT6626 HDMI-to-MIPI
+CSI-2 bridge chips. IT6625 accepts an HDMI 2.0 input and IT6626 an
+HDMI 2.1 input, converting it to a D-PHY (or C/D-PHY on IT6626)
+MIPI CSI-2 output.
 
-hwmon@2f (adi,adt7470): $nodename:0: 'hwmon@2f' does not match
-'^pwm(@.*|-([0-9]|[1-9][0-9]+))?$'
+> diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
+> new file mode 100644
+> index 0000000000000..9fb03ddb2acd9
+> --- /dev/null
+> +++ b/drivers/media/i2c/it6625.c
+[ ... ]
+> +static int it6625_get_detected_timings(struct it6625 *it6625,
+> +				       struct v4l2_dv_timings *timings)
+> +{
+[ ... ]
+> +	bt->hfrontporch =3D ((buffer2[0] & 0xff) << 8) + buffer2[1];
+> +	bt->hsync =3D ((buffer2[2] & 0xff) << 8) + buffer2[3];
+> +	bt->hbackporch =3D ((buffer2[4] & 0xff) << 8) + buffer2[5];
+> +	bt->vfrontporch =3D ((buffer2[6] & 0xff) << 8) + buffer2[7];
+> +	bt->vsync =3D ((buffer2[8] & 0xff) << 8) + buffer2[9];
+> +	bt->vbackporch =3D ((buffer2[10] & 0xff) << 8) + buffer2[11];
+> +
+> +	bt->pixelclock =3D it6625_get_pclk(it6625);
+> +	if (bt->interlaced =3D=3D V4L2_DV_INTERLACED) {
+> +		bt->height *=3D 2;
+> +		bt->il_vsync =3D bt->vsync + 1;
+> +		bt->pixelclock /=3D 2;
+> +	}
 
-It turns out pwm.yaml also constrains $nodename as part of the
-allOf, so referencing it forces the node name into the pwm@...
-pattern. That's not right for this device: the ADT7470 is primarily a
-hwmon chip (10 temperature inputs, 4 fan/PWM outputs), and the PWM
-channels are just one of the interfaces it exposes, so hwmon@2f is
-the correct node name here, not pwm@2f.
+[Severity: Medium]
+Are the interlaced field vertical porches and pixel clock handled correctly
+here?
 
-So, for the next version, I'm declaring #pwm-cells and
-#thermal-sensor-cells directly in the binding instead of pulling in
-pwm.yaml via $ref, and pointing to pwm.yaml only in the description
-for context:
+Halving the pixel clock and omitting the second field's porches
+(il_vfrontporch, il_vbackporch) will cause the V4L2 core macro
+V4L2_DV_BT_FRAME_HEIGHT() to compute an artificially shrunken frame height.
 
-"#pwm-cells":
-const: 3
-description:
-See Documentation/devicetree/bindings/pwm/pwm.yaml for the
-generic PWM binding description.
+When combined with the halved pixel clock, frame rate calculations like
+fps_from_bt_timings() will report incorrect values for interlaced signals.
 
-Let me know if you'd rather see this handled differently (e.g. keeping
-the $ref and accepting the pwm@ node name), but I think keeping the
-node name aligned with the device's primary function is the more
-correct approach.
+> +
+> +	return 0;
+> +}
+[ ... ]
+> +static int it6625_get_fmt(struct v4l2_subdev *sd,
+> +			  struct v4l2_subdev_state *sd_state,
+> +			  struct v4l2_subdev_format *format)
+> +{
+> +	struct it6625 *it6625 =3D sd_to_6625(sd);
+> +	struct v4l2_dv_timings timings;
+> +
+> +	if (format->pad !=3D 0)
+> +		return -EINVAL;
+> +
+> +	it6625_get_timings(it6625, &timings);
+> +	format->format.width =3D timings.bt.width;
+> +	format->format.height =3D timings.bt.height;
+> +	format->format.field =3D timings.bt.interlaced =3D=3D V4L2_DV_INTERLACE=
+D ?
+> +			       V4L2_FIELD_INTERLACED : V4L2_FIELD_NONE;
 
-Regards,
+[Severity: Medium]
+Does this code leak the active hardware state into the TRY format state?
 
-Luiz
+Active hardware timings are unconditionally written to the format structure
+here, bypassing the V4L2_SUBDEV_FORMAT_TRY state isolation entirely.
+
+> +
+> +	if (format->which =3D=3D V4L2_SUBDEV_FORMAT_TRY) {
+> +		struct v4l2_mbus_framefmt *fmt;
+> +
+> +		fmt =3D v4l2_subdev_state_get_format(sd_state, format->pad);
+> +		format->format.code =3D fmt->code;
+> +		format->format.colorspace =3D fmt->colorspace;
+> +	} else {
+> +		scoped_guard(mutex, &it6625->it6625_lock) {
+> +			format->format.colorspace =3D
+> +				format_to_colorspace(it6625->csi_format);
+> +			format->format.code =3D it6625->mbus_fmt_code;
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int it6625_set_fmt(struct v4l2_subdev *sd,
+> +			  struct v4l2_subdev_state *sd_state,
+> +			  struct v4l2_subdev_format *format)
+> +{
+[ ... ]
+> +	if (format->which =3D=3D V4L2_SUBDEV_FORMAT_TRY) {
+> +		struct v4l2_mbus_framefmt *fmt;
+> +
+> +		fmt =3D v4l2_subdev_state_get_format(sd_state, format->pad);
+> +		fmt->code =3D format->format.code;
+> +		fmt->colorspace =3D format_to_colorspace(it6625_formats[ret].csi_forma=
+t);
+> +		format->format.colorspace =3D fmt->colorspace;
+> +		v4l2_dbg(1, debug, sd, "%s: try format code =3D 0x%x",
+> +			 __func__, format->format.code);
+> +		return 0;
+> +	}
+
+[Severity: Medium]
+Will this leave the TRY state dimensions uninitialized or stale?
+
+The TRY branch in it6625_set_fmt() updates the code and colorspace, but
+fails to update the width and height in the sd_state to reflect the
+requested format dimensions.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723-upstream-i=
+t6625-it6626-v7-0-f8175bb0ea12@ite.com.tw?part=3D2
