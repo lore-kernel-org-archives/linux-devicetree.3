@@ -1,94 +1,115 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m49234.qiye.163.com (mail-m49234.qiye.163.com [45.254.49.234])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 229EA3F6C48
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 08:27:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 445C33F5BFA;
+	Thu, 23 Jul 2026 08:30:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.234
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784795262; cv=none; b=TPOjY+3eaUZs+UiOEmjK1BloH1Ot9bS7NgCHXCMdlMConfJYaa6FMQNMx9MboMVmgsAT1l9oGEh+JyiOCWx/ftm8CD4GNd7Kt6VXrt9VwxCFQafRMus7P887Gpyw963jmIBCmGwJigSqx9sNKIS3WWn8UwSB6B4+jb7LqTbRV/M=
+	t=1784795431; cv=none; b=AbOPU3L9YFQyZGHX3Q1wPU+8mspdbJGcSXR1Hf8jHzJRGSWMzI7xv26Ahgl9CDL0/NNY3ioNZdPqvwmGvYV76SgX8pLTTtgEhxpw+H24XMVv4zHxwoiEMQdrwys90Eup1TcCEIDlhD3JL5z2JGmQvHdk0MxIgTBJAevFS0Jc3XI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784795262; c=relaxed/simple;
-	bh=iUYf4ZXxUmQBkwuxQs5Vz0Lx7FC9aydiVa0qMnIiRKU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=niDL7kOx0s0lrZ+aYCjHB13Mx08oYC19qb06NEwVg/WtAmw5m5ajHNb/9ZQ4MJBNfujY6CIDbNrDWd9UJwNpcQbb3HEDSMV7BCBRmP4phMZnh0dvIw9Gf0MEET6ZVH4as0TkumbdrnepjzOJIxP/dG6aNMqUtoZxem7JpkMODX8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arturia.com; spf=pass smtp.mailfrom=arturia.com; dkim=pass (2048-bit key) header.d=arturia.com header.i=@arturia.com header.b=h5VWTN5z; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arturia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arturia.com
+	s=arc-20240116; t=1784795431; c=relaxed/simple;
+	bh=JEoccDb8nSXcL2JmQ9CO0lERWR1sAzHWgDDgksFjDb8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=SVDb9kQQ8CBpx9Gd4khg3Z2xiaMzco1wc3rCf74xdKtR00JBcvEoadf5hlxanv1F1fwsINxYXL66Zkf4MKP5xohBPsNb1flO+JababNNvwRHf8uTIRQ2hTl63X/nxLckXaAwN3tmtUHFxIE91+wxNAROT79bJliH/WK0l8bGWxk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=H6abypm/; arc=none smtp.client-ip=45.254.49.234
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arturia.com header.i=@arturia.com header.b="h5VWTN5z"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-47f81a3ccf9so232978f8f.0
-        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 01:27:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=arturia.com; s=arturia; t=1784795254; x=1785400054; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WzWVKNZJjWhBbzN1rR+/yBpzdQgpD36yDfa9L4ksi18=;
-        b=h5VWTN5zSF4+Smi2E0F5dtAAk2rsrDW9hVDHBL2OGFw1i5PK3dHHxwpVxl23xR1Xg9
-         XAP9DnCq8FSo7Gm1goH0IP6qxF//4josihcJia8+HxrCpWiL16L01P8zBrADEP6gwVi9
-         qSiLJ+mvGJ1J8g7MEGZ9qgAVkEmy+N1kjHMZXKUztAIDeNehz0PeTVV4GQzopQ80rJEV
-         FthSnrf2JizD7HcpWgBM3P8gzhGXa3hQ6NyrHirfY5brhFW/eLTu4phu4yd0fY6T3frQ
-         S3+Zjlv+Afu4WN2sP8CiBEQAhyi4p6PfNzYM6wISnCuqXPD2LbFKg7Xe2N5D6kemUftD
-         0jUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784795254; x=1785400054;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WzWVKNZJjWhBbzN1rR+/yBpzdQgpD36yDfa9L4ksi18=;
-        b=Sr1BAbOoE9qXGxZ0j2lnD4Gyo90LBN45tMjEo7lo7GN9mKDgsNVP/0V2u6SdQ4q6gC
-         YMIFNk51taMtCsQT+M0nX67QKUPwAOogIERgJ9Kpu5ljYOqJtNmg/hXAF4M2JQk5qz7Z
-         L4XMGJk5hlD6nA8wd3dQpVpF6qvxnwZghR+nRGn5tGmhxTbnj2DYiJKTh+5onL0roePO
-         tcufEltyc87/6qYTrW178fC9ktyi8bDa07OIsOfnzP8/j3O7NJ3m8O8QimCiN4Akxlkx
-         dqnafTqGHbqNBgXmoxhgQRxHM2zY3Blw56ioHx4OAWRa9Ndn6Grnko2AZP6IFIY0nCzi
-         4S+w==
-X-Forwarded-Encrypted: i=1; AHgh+RoVSQoZ7mbIFzb6xg/m70+SOz1DBHsZXR4HcGm33FAITTHXTjKMdloFumF0dL/YgljRQUePWfGfZl8X@vger.kernel.org
-X-Gm-Message-State: AOJu0YzjgUSfuESXe30fbDyzdZTyC1lqaMkTtaU66EzXSLNdEnviCTLt
-	I6y+Hn+Y2vEsxiIdp4x6FJcLxSwv0ErTyEV4h5+vE9q8qiThMd/TuYUeHwthiU112hc=
-X-Gm-Gg: AR+sD12HkRPQaMDwOj2tNQr+IKq3QomMK+kOnmGxLsV2F6QvWAFa+SaKSZR7TX9xsjW
-	7qZDkpVL3qZpEAPXjuKDrFvKi38D7bJZSAcIWLqRqOEYIAXv7xY5Uez8Sef6n68MkBSZliPYcRW
-	tWutME1Qo6gzpzXtSETQUKWCNgvG0nqNwGqmKJzQKGBnY1Wv09zOX8W7WrFn6BE/uBdCaa2vMxV
-	lY4udJh+v8WvoM8KVdUA8UZ6a3B6eqkYaKdQP9eWuUjMEfpsZgfugDUMquk11rI4bb2D6vTaXw6
-	ReUtgi/cjH7eBcbvji0tsjzABm9v3i0GPHEpWMZbC1t6remimyh2yR+s7dx8B1zrsoWHppn0SJt
-	FLFsA6OLymww9AhDUVwgIAUhYh6KxjH6uNuDKFYvIx5HX0Aem71T6HXne1WPKPqes7xVgrtCfVu
-	qICUEdUQs69zNQBt5t0c+N52nQIcii/vz263vDYqPpnTY=
-X-Received: by 2002:a05:6000:29d3:b0:47f:8f8f:db74 with SMTP id ffacd0b85a97d-47f8f8fdf24mr1439467f8f.12.1784795254579;
-        Thu, 23 Jul 2026 01:27:34 -0700 (PDT)
-Received: from [192.168.32.21] (226.142.197.77.rev.sfr.net. [77.197.142.226])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85c66cebsm12675920f8f.30.2026.07.23.01.27.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 23 Jul 2026 01:27:33 -0700 (PDT)
-Message-ID: <12c3243f-35c5-4158-acb2-f1ff4499c20c@arturia.com>
-Date: Thu, 23 Jul 2026 10:27:32 +0200
+	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="H6abypm/"
+Received: from [127.0.1.1] (unknown [36.129.139.90])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 474a1d1cc;
+	Thu, 23 Jul 2026 15:54:39 +0800 (GMT+08:00)
+From: Hongyang Zhao <hongyang.zhao@thundersoft.com>
+Date: Thu, 23 Jul 2026 15:54:29 +0800
+Subject: [PATCH 1/2] ASoC: dt-bindings: es8316: Add regulator supplies
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] regulator: dt-bindings: Add fan53555 allowed modes
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: lgirdwood@gmail.com, broonie@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20260720100336.62004-1-victor.krawiec@arturia.com>
- <20260720100336.62004-2-victor.krawiec@arturia.com>
- <20260721-modest-miraculous-cormorant-f5fa7f@quoll>
-Content-Language: en-US
-From: Victor Krawiec <victor.krawiec@arturia.com>
-In-Reply-To: <20260721-modest-miraculous-cormorant-f5fa7f@quoll>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260723-es8316-regulator-next-20260722-v1-1-721f757879a0@thundersoft.com>
+References: <20260723-es8316-regulator-next-20260722-v1-0-721f757879a0@thundersoft.com>
+In-Reply-To: <20260723-es8316-regulator-next-20260722-v1-0-721f757879a0@thundersoft.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Daniel Drake <drake@endlessm.com>, 
+ Katsuhiro Suzuki <katsuhiro@katsuster.net>, 
+ Matteo Martelli <matteomartelli3@gmail.com>, 
+ Binbin Zhou <zhoubinbin@loongson.cn>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Roger Shimizu <rosh@debian.org>, linux-sound@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Hongyang Zhao <hongyang.zhao@thundersoft.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784793277; l=1677;
+ i=hongyang.zhao@thundersoft.com; s=20260127; h=from:subject:message-id;
+ bh=JEoccDb8nSXcL2JmQ9CO0lERWR1sAzHWgDDgksFjDb8=;
+ b=XKUpH68Tm2rqMxfPTbH4p8YM6XMkuPqWfA1tlCKPhqk0vBn1HdrZpyuVP0aAOEZx8l+OT6tfJ
+ 2JuudrFREBoCN/hyzSkT9bgH5K+f08QLVk+b7p+YmjA/yyFohkWQLAM
+X-Developer-Key: i=hongyang.zhao@thundersoft.com; a=ed25519;
+ pk=D9yL5W9Zj0lPBDAq9gzY++1849VlXuTWAkROzZ88J/4=
+X-HM-Tid: 0a9f8df82c0a09d5kunmc0741ac25143f5
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSkMdVh9PH0tLGEJKSRlDGVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlITVVKSUJVSkhCVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
+	lCQ0NMVUpLS1VLWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=H6abypm/mIcuUZIzdDlEzK7kOGui+JLuXQAzG/8QheKNGcbLjsMUZDQmnErMXVJ+704ieCmdm1gYnkLRYKS43G7RdG5hqqHNPFPTJ1l0Q1/bDYbO8F0o7123q5vrjkwlheLm+ewxFGK/anegaOWbyxpUzMGSRdnTANkpkNQJh84=; c=relaxed/relaxed; s=default; d=thundersoft.com; v=1;
+	bh=bCzvgz3PNErKzP0ve8Ty5UtFs2OsEDqhcUvEDyz3eBo=;
+	h=date:mime-version:subject:message-id:from;
 
-On 7/21/26 10:29, Krzysztof Kozlowski wrote: 
-> Please run scripts/checkpatch.pl on the patches and fix reported
-> warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
-> patches and (probably) fix more warnings. Some warnings can be ignored,
-> especially from --strict run, but the code here looks like it needs a
-> fix. Feel free to get in touch if the warning is not clear.
+The ES8316 has separate AVDD, CPVDD, DVDD and PVDD supply inputs
+for its analog, charge pump, digital core and digital I/O domains.
+Describe all four inputs so boards can model the codec power topology.
 
-Sorry about this mistake. I included the checkpatch call to my patch
-generation script so it will not happen anymore
+Keep the properties optional for compatibility with existing
+descriptions.
+
+Signed-off-by: Hongyang Zhao <hongyang.zhao@thundersoft.com>
+---
+ .../devicetree/bindings/sound/everest,es8316.yaml        | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/sound/everest,es8316.yaml b/Documentation/devicetree/bindings/sound/everest,es8316.yaml
+index fe5d938ca310..f45f59b7b070 100644
+--- a/Documentation/devicetree/bindings/sound/everest,es8316.yaml
++++ b/Documentation/devicetree/bindings/sound/everest,es8316.yaml
+@@ -49,6 +49,18 @@ properties:
+     items:
+       - const: mclk
+ 
++  avdd-supply:
++    description: Regulator providing the analog supply, from 2.0 V to 3.6 V
++
++  cpvdd-supply:
++    description: Regulator providing the charge pump supply, from 1.6 V to 2.0 V
++
++  dvdd-supply:
++    description: Regulator providing the digital core supply, from 1.6 V to 3.6 V
++
++  pvdd-supply:
++    description: Regulator providing the digital I/O supply, from 1.6 V to 3.6 V
++
+   interrupts:
+     maxItems: 1
+     description: Headphone detect interrupt
+@@ -77,6 +89,10 @@ examples:
+         reg = <0x11>;
+         clocks = <&clks 10>;
+         clock-names = "mclk";
++        avdd-supply = <&reg_3p3v>;
++        cpvdd-supply = <&reg_1p8v>;
++        dvdd-supply = <&reg_1p8v>;
++        pvdd-supply = <&reg_1p8v>;
+         #sound-dai-cells = <0>;
+       };
+     };
+
+-- 
+2.43.0
+
