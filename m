@@ -1,64 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9430B318B96;
-	Thu, 23 Jul 2026 15:53:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 205282D3739;
+	Thu, 23 Jul 2026 15:53:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784822013; cv=none; b=OekeZd/BwGoS+0lkUe+zrATSuF99GGoKXCgqRXTi4yewuDEuec8uYpzR6HYML3aNGa800t79+wVj2n5+BAEisb2SaeLCw6QR0cxB8EkLQOFrVSkvRJx8LkzaQX9eX2LQFYc+NuVPZjuL34LUKFPvLNCeTu3LXBgDdaF8xke7xX4=
+	t=1784822020; cv=none; b=p26BN90JhqDt9HBgDULkS+EvFdmrojJgfwfBJFhYHTwTCNx+Jj21/YJdHphN7BAoHaaLZMVeKIPhF4bj01P6zJBluJ3z09HZCb8OfDX1ChQSMvgwPSE5irUwJBeECPgLV7yfNfxpf7mTWfb2wBQiuh5OCLUQ9bHdmP5dN5UH9Pg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784822013; c=relaxed/simple;
-	bh=dHBtZGR7J7+WB6veQIIiFvRv3Zr+o8ll5nbfo6g+pAg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=V/ZcjzVHLobGQ5eXICXTyNIzkJaHbn5jOZ/IcUTGZbR0JfnU353aXtOxDoUBarBnuMHCEsOwvEPYKyytT51c3huP+NM31VTnZAiv/ls8ANSrg2vFfaUe3ERXWxsOsOt6PYnhzJZdp9xDd0WQY9b5lTRQbtJGxU+8eXTfe4T6lLk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ER0bdsM5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784822020; c=relaxed/simple;
+	bh=vj3aE85hDbw7uCURSaP7IQSnQ+S1YI+vBlGTt2ixjNY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WYG4pxpTdeUm4JCX/iMTiHQM9TS3PNKlnCqJc3+2coV7vmHUKrINqtr//3LAaswz7C8GqnwNjg32gih+ZKO//nbbJy6QHgxBNtKb2juf7wy2heJwpwcmpaEDBhrA/oL2Z1xWW46U9+ztK2vX6u7HuVCzQSGmqa6wFwh0uNMDwHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=SnRBk3Rl; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ER0bdsM5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C48971F000E9;
-	Thu, 23 Jul 2026 15:53:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784822012;
-	bh=dHBtZGR7J7+WB6veQIIiFvRv3Zr+o8ll5nbfo6g+pAg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ER0bdsM5xdZ/aNR+6ilOl1SZe/RcVdd7VgIndbDOwMnbfvfreHFMvRWF+od2FcZa+
-	 B3C1xokl7eivEAg5vxThOBY+sELSGStYKCAPfUj4gdyh1dSV3FDuvKgSbgQHUxAzPh
-	 iNj/rjGB3Vwx5u9f8RBZ5xLOj29sdZf7DWI6gkM4Z9XEYI7RLAgFzuoovy9xBBPLrL
-	 zsepleSUfR+BlUos/SvdjLSZqdyPo4c+qMwBKa2Qn3fJP2J9YRBcTsMTxL/iEr6l7Z
-	 IFl2LIZqbDvMuGthJj8/p+GRvt01hI5CdrAb7YcUTJmU68F3uhL4tH2SEcom5SjqCq
-	 bE1wfmmjoDWmg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] dt-bindings: hwmon: pmbus: add MPS MPQ8646
- binding
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vincent Jardin" <vjardin@free.fr>
-Cc: conor+dt@kernel.org, robh@kernel.org, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260723-mpq8646_v0-v2-2-3c4cb71f23c0@free.fr>
-References: <20260723-mpq8646_v0-v2-0-3c4cb71f23c0@free.fr>
- <20260723-mpq8646_v0-v2-2-3c4cb71f23c0@free.fr>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 15:53:31 +0000
-Message-Id: <20260723155331.C48971F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="SnRBk3Rl"
+Received: from francesco-nb (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
+	by mail11.truemail.it (Postfix) with ESMTPA id 3177F1F967;
+	Thu, 23 Jul 2026 17:53:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1784822014;
+	bh=YhpAS7Om2Wra7yiqumfKj7cTlrvtZmIj2tUBITAsZvk=; h=From:To:Subject;
+	b=SnRBk3RlpWy7u4WPPOyFWREbUvUtiNbNhbllHu76fVTCIMuhI7O6uU7+mlMU9CekF
+	 nfDCEkZ0oZBRhROcj4OM6DB9ADCV6ZZkO9Jg9uXtqB0Ap4GNgAoQqQeFLA1JxrHxvf
+	 jG0qx1gh8NPyNoygqfQsrNEsJut0n2F2TR8/m52Yt2DpUO9Bp1j7UeGLfjDKDJ+APY
+	 LTtejBGO1ZmhFIG0XocNaxlCtXQPVe3uzmxO7HG4AhLjseyoOMPFcSUNeaEYHzNvkP
+	 EO1j9FJBvmfTCRGGLlKkFjVSD8NUj/atnNkj7C9AgzF6QguBKvrkgRGRjkueFA7yPV
+	 /BXTp5/IWtbtg==
+Date: Thu, 23 Jul 2026 17:53:32 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Francesco Dolcini <francesco@dolcini.it>, Marek Vasut <marex@denx.de>,
+	Stefan Agner <stefan@agner.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 2/4] drm: mxsfb: Add optional DPI output bus-width
+ configuration
+Message-ID: <20260723155332.GB4453@francesco-nb>
+References: <20260723093813.180089-1-francesco@dolcini.it>
+ <20260723093813.180089-3-francesco@dolcini.it>
+ <amI3mPBVXe0zj_tC@SMW015318>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <amI3mPBVXe0zj_tC@SMW015318>
 
-> From: Vincent Jardin <vjardin@free.fr>
->=20
-> Add a device-tree binding for the Monolithic Power Systems
-> MPQ8646 step-down converter as a PMBus device.
->=20
-> The schema is inspired from the mpq8785e:
-> same mps,vout-fb-divider-ratio-permille property (maximum: 2047),
-> and const: mps,mpq8646.
->=20
-> Signed-off-by: Vincent Jardin <vjardin@free.fr>
+On Thu, Jul 23, 2026 at 10:47:36AM -0500, Frank Li wrote:
+> On Thu, Jul 23, 2026 at 11:38:09AM +0200, Francesco Dolcini wrote:
+> > From: Francesco Dolcini <francesco.dolcini@toradex.com>
+> >
+> > LCDIF programs LCD_DATABUS_WIDTH from the selected media bus format. The
+> > format reported by the downstream panel or bridge describes the display
+> > input, but it does not describe how the LCDIF data pins are physically
+> > wired on the board.
+> >
+> > These can differ. For example, a 16-bit LCDIF bus can be connected to a
+> > 24-bit display by wiring the available color bits to the corresponding
+> > display inputs. In that case, using the display's 24-bit format to
+> > configure LCDIF selects the wrong data-bus mode and changes the assignment
+> > of color bits on the LCD_DATA pins.
+> >
+> > Read the optional bus-width endpoint property from the LCDIF output port
+> > and use it to select the media bus format used to configure LCDIF. This
+> > allows the LCDIF bus mode to describe the physical interface
+> > independently of the downstream display format.
+> >
+> > When the optional property is absent, continue using the format reported
+> > by the downstream display device, preserving the existing behavior.
+> >
+> > Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+> > ---
+> > v2: use the common bus-width property instead of the legacy interface-pix-fmt
+> > ---
+> >  drivers/gpu/drm/mxsfb/mxsfb_drv.c | 24 ++++++++++++++++++++++++
+> >  drivers/gpu/drm/mxsfb/mxsfb_drv.h |  2 ++
+> >  drivers/gpu/drm/mxsfb/mxsfb_kms.c | 12 ++++++++++++
+> >  3 files changed, 38 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.c b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+> > index 9b8fbda85d28..0545718a4b65 100644
+> > --- a/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+> > +++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+> > @@ -12,7 +12,10 @@
+> >  #include <linux/clk.h>
+> >  #include <linux/dma-mapping.h>
+> >  #include <linux/io.h>
+> > +#include <linux/media-bus-format.h>
+> >  #include <linux/module.h>
+> > +#include <linux/of.h>
+> > +#include <linux/of_graph.h>
+> >  #include <linux/platform_device.h>
+> >  #include <linux/property.h>
+> >  #include <linux/pm_runtime.h>
+> > @@ -209,7 +212,10 @@ static int mxsfb_load(struct drm_device *drm,
+> >  		      const struct mxsfb_devdata *devdata)
+> >  {
+> >  	struct platform_device *pdev = to_platform_device(drm->dev);
+> > +	struct device_node *np = pdev->dev.of_node;
+> >  	struct mxsfb_drm_private *mxsfb;
+> > +	struct device_node *ep;
+> > +	u32 bus_width = 0;
+> >  	int ret;
+> >
+> >  	mxsfb = devm_kzalloc(&pdev->dev, sizeof(*mxsfb), GFP_KERNEL);
+> > @@ -236,6 +242,24 @@ static int mxsfb_load(struct drm_device *drm,
+> >  	if (IS_ERR(mxsfb->clk_disp_axi))
+> >  		mxsfb->clk_disp_axi = NULL;
+> >
+> > +	ep = of_graph_get_next_endpoint(np, NULL);
+> 
+> use auto cleanup
+> 
+> 	struct device_node *ep __free(device_node) = of_graph_get_next_endpoint(np, NULL);
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+Does it makes the code more read-able or better in this specific case? I
+would say no, to me it is more compact and clear the way it is.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723-mpq8646_v0=
--v2-0-3c4cb71f23c0@free.fr?part=3D2
 
