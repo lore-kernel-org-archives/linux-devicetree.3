@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CC8C30F927;
-	Thu, 23 Jul 2026 02:45:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1691C2253EE
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 02:45:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784774715; cv=none; b=AS9HK1cA0f6HWsCYJ0BmqxSqqBuzsz7dg88vMpcWh6/VawTqQtmCuQxdPQA3zPAPSWJdffDaVmCnxyTdunsKBPReo0FHqyfCfEqRcOyVMjwTD2ENYgA6unU6lmJTDrftL0+AnaulyqJBajJVYomi1N6ODttVk3Tgpx1P2BAQUno=
+	t=1784774756; cv=none; b=NEhLPPYjHYfd6pJOfYTAsmWK6WSIE4J1XOwUPSkNbKoAxj2ehpqwELWqXwUD1GtbWl45qQ4ZbfRR1o0BaM5yObMYuqKPJHA0yGkUiwO8ci4+hZ8wxPXXb9N8whob1fFLzn0Z5A2a6ryqI0c0ddGHbJa/aDVlDL7kFSdtCFO6U2w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784774715; c=relaxed/simple;
-	bh=NWeZhNrPFZboRMJXRhfG5niTIqzO29fNRcpNQTZuQzc=;
+	s=arc-20240116; t=1784774756; c=relaxed/simple;
+	bh=s48PRV4zBf7y8pGvatmwDuxJVoVJXA20pPSqPbD0hPw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=qEPTowf2xoWgYjkUgzxg2i1cu5Nt0OHMUsYvyRzIkxspBX193YUbRvTZPx8eS5XQwHEgQpoc4K4V327cBzJNanJVdYpA99bJK74xouaw5OcO0JoWg9lfrc6xQm4ZdmyFBBikxQoKZmDbZabo422I2Z/fAvBuD5atdvJ/sT6VPtw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SBZcpiIM; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=r3e5wT3m/Lhaiei1j5s7/IDp8lhBOD84rAwwY5q8C3g+pfpPsI5Y8i71V6ZSMsTYOrWyeVphdmD4YNnNGsFd3d/SzS7Q2K2a4ALJI5deqKGaKPDuqaxyOB30+JKAecD3rDG4Hw7G/nBkLJjXAZxZEpVNKCs9L5cSsq9RwP+O8YY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kb6YUxny; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SBZcpiIM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 271021F00A3A;
-	Thu, 23 Jul 2026 02:45:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kb6YUxny"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 400FD1F000E9;
+	Thu, 23 Jul 2026 02:45:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784774713;
-	bh=CTZbrfl/WDIWC+O0IsSAlp/JgKxzM74U9IQSJ+1gf74=;
+	s=k20260515; t=1784774754;
+	bh=tkW1weYwa57KGnVEv5rR7OPZS90dqSWov9q/bvtDZFk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SBZcpiIMYgOSyahSiGbR57ZGc8jTfJHF1LWnD/4cge6ugOIZwMRrKwqt49pCkJrbE
-	 tBkayvPzecLpda2fvyu2oauPWGnVSSW9UbBSC7BMvT8zYyYrZELXy6eAz1nLFsZgV9
-	 rbelOb/LJYmM3/ZvgomnYWnduL/ZjK1Sah16aP5k6Xm8kwjTE27FrBAW2UA/72rklC
-	 IT3sQIC5PujASw+jzEXN1GOhuw5zB5+vp3seEwqBpxBV2XWyA5wSGmJtcTpbI/7NHw
-	 o3dQrUgjmb8h5W/W2RVN2u7vlpPsFdJ3hMS6cbxqvx79tDZLdSJU4Dz2k7ryJ/6pGI
-	 N1Z6iczBRQkpg==
+	b=kb6YUxnyikjgUTqDuwxvIW3Gncw+dO+DX/DvJ6WhTnKnBRTOIS/f9BZLc2Wrf037N
+	 uXNbbpll/N4CaOCKpac77E9OIo2ER33D3tIrGyvsQwMllusdHLzqf84UVeQwWAuMMt
+	 5lUMAT7R747DqndznGwZC1WkIubfypN0odLiJdnrg6MEYIIjL+OGH0LMCGULHzCsPT
+	 YOgOb3wE9o/MTRl7TjkQHTyPuzfDXeW0dyqrM8O68lqnV6XEkalrf1VM6Soh7jHTa9
+	 NuZeIwimSMUmK68+oO6++UmnaHpEELrL/J9KhiVul1UbHMDTbTXPyrw047i93n1zZR
+	 aPuW/8dRVrkDw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/5] ASoC: fsl_asrc: expose individual DAIs per
- conversion path
+Subject: Re: [PATCH v6 5/6] arm64: dts: qcom: mahua: Replace
+ pcie3a/pcie3_phy with dedicated pcie3b_phy
 Reply-To: sashiko-reviews@lists.linux.dev
-To: shengjiu.wang@oss.nxp.com
-Cc: devicetree@vger.kernel.org, Frank.Li@kernel.org, robh@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev
-In-Reply-To: <20260723022313.1905051-5-shengjiu.wang@oss.nxp.com>
-References: <20260723022313.1905051-1-shengjiu.wang@oss.nxp.com>
- <20260723022313.1905051-5-shengjiu.wang@oss.nxp.com>
+To: "Qiang Yu" <qiang.yu@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, devicetree@vger.kernel.org, linux-phy@lists.infradead.org
+In-Reply-To: <20260722-glymur_linkmode_0722-v6-5-bba8156b8cbb@oss.qualcomm.com>
+References: <20260722-glymur_linkmode_0722-v6-0-bba8156b8cbb@oss.qualcomm.com>
+ <20260722-glymur_linkmode_0722-v6-5-bba8156b8cbb@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 02:45:12 +0000
-Message-Id: <20260723024513.271021F00A3A@smtp.kernel.org>
+Date: Thu, 23 Jul 2026 02:45:53 +0000
+Message-Id: <20260723024554.400FD1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,100 +47,49 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Calling `hw_params` multiple times leaks channel availability, exh=
-austs pair slots, and leaves dangling pointers leading to Use-After-Free.
+- [Low] The newly added `pcie3b_phy` node lacks the `vdda-phy-supply` and `=
+vdda-pll-supply` properties, which will trigger `dtbs_check` errors.
 --
 
---- Patch [4]: [PATCH v2 4/5] ASoC: fsl_asrc: expose individual DAIs per co=
-nversion path ---
-commit f590fa927b95ce1e6a86c0ad704e429857c29260
-Author: Shengjiu Wang <shengjiu.wang@nxp.com>
+--- Patch [5]: [PATCH v6 5/6] arm64: dts: qcom: mahua: Replace pcie3a/pcie3=
+_phy with dedicated pcie3b_phy ---
+commit 919bcfc5a66ac884962879da8e57f8559595dcdf
+Author: Qiang Yu <qiang.yu@oss.qualcomm.com>
 
-ASoC: fsl_asrc: expose individual DAIs per conversion path
+arm64: dts: qcom: mahua: Replace pcie3a/pcie3_phy with dedicated pcie3b_phy
 
-The i.MX ASRC hardware supports three independent conversion pairs. This
-commit replaces the single fsl_asrc_dai instance with an array of three DAI
-drivers to allow independent conversion paths to be active simultaneously,
-retaining backward compatibility for asrc-0.
+This patch removes the unused pcie3a and shared pcie3_phy nodes from the=20
+Mahua device tree, as it only uses PCIe3b. It replaces them with a dedicate=
+d=20
+pcie3b_phy node using the existing Gen5x4 PHY compatible, and updates the=20
+GCC pipe clock parent and PCIe3b port phy references accordingly.
 
-> diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
-> index 2755ee57c6a17..a5d6c4c1e9292 100644
-> --- a/sound/soc/fsl/fsl_asrc.c
-> +++ b/sound/soc/fsl/fsl_asrc.c
+> diff --git a/arch/arm64/boot/dts/qcom/mahua.dtsi b/arch/arm64/boot/dts/qc=
+om/mahua.dtsi
+> index 22822b6b2e8b9..3280eb96d61c0 100644
+> --- a/arch/arm64/boot/dts/qcom/mahua.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/mahua.dtsi
 [ ... ]
-> @@ -792,27 +792,76 @@ static const struct snd_soc_dai_ops fsl_asrc_dai_op=
-s =3D {
->  				 SNDRV_PCM_FMTBIT_S16_LE | \
->  				 SNDRV_PCM_FMTBIT_S24_3LE)
+> @@ -134,6 +186,43 @@ &pcie_west_slv_noc {
+>  	compatible =3D "qcom,mahua-pcie-west-slv-noc";
+>  };
 > =20
-> -static struct snd_soc_dai_driver fsl_asrc_dai =3D {
-> -	.playback =3D {
+> +&soc {
+> +	pcie3b_phy: phy@1b90000 {
+> +		compatible =3D "qcom,glymur-qmp-gen5x4-pcie-phy";
+> +		reg =3D <0x0 0x01b90000 0x0 0x10000>;
+
+[Severity: Low]
+Does this node need to define vdda-phy-supply and vdda-pll-supply?
+
+The qcom,glymur-qmp-gen5x4-pcie-phy compatible requires these properties
+according to the bindings schema. Without them, this might trigger
+schema validation failures during make dtbs_check.
+
+> +
+> +		clocks =3D <&gcc GCC_PCIE_PHY_3B_AUX_CLK>,
 [ ... ]
-> +static struct snd_soc_dai_driver fsl_asrc_dai[] =3D {
-> +	{
-> +		.name =3D "asrc-0",
-> +		.playback =3D {
-> +			.stream_name =3D "ASRC-Playback",
-> +			.channels_min =3D 1,
-> +			.channels_max =3D 10,
-> +			.rate_min =3D 5512,
-> +			.rate_max =3D 192000,
-> +			.rates =3D SNDRV_PCM_RATE_KNOT,
-> +			.formats =3D FSL_ASRC_FORMATS |
-> +				   SNDRV_PCM_FMTBIT_S8,
-> +		},
-> +		.capture =3D {
-> +			.stream_name =3D "ASRC-Capture",
-> +			.channels_min =3D 1,
-> +			.channels_max =3D 10,
-> +			.rate_min =3D 5512,
-> +			.rate_max =3D 192000,
-> +			.rates =3D SNDRV_PCM_RATE_KNOT,
-> +			.formats =3D FSL_ASRC_FORMATS,
-> +		},
-> +		.ops =3D &fsl_asrc_dai_ops,
-
-[Severity: High]
-This is a pre-existing issue, but since this patch exposes multiple DAIs th=
-at
-share these operations, could calling hw_params multiple times on an open
-stream lead to a use-after-free?
-
-ALSA allows userspace to call SNDRV_PCM_IOCTL_HW_PARAMS multiple times.
-Looking at fsl_asrc_dai_hw_params(), it unconditionally requests a new pair:
-
-sound/soc/fsl/fsl_asrc.c:fsl_asrc_dai_hw_params() {
-    ...
-	ret =3D fsl_asrc_request_pair(channels, pair);
-	if (ret) {
-    ...
-}
-
-In fsl_asrc_request_pair(), the loop finds the next NULL slot, skipping any
-slot that already contains the same pair pointer:
-
-sound/soc/fsl/fsl_asrc.c:fsl_asrc_request_pair() {
-    ...
-	for (i =3D ASRC_PAIR_A; i < ASRC_PAIR_MAX_NUM; i++) {
-		if (asrc->pair[i] !=3D NULL)
-			continue;
-
-		index =3D i;
-    ...
-}
-
-Does this populate multiple slots in asrc->pair[] with the same pointer whi=
-le
-overwriting pair->index with the newest index?=20
-
-If so, when the stream is closed, fsl_asrc_dma_shutdown() clears only the
-latest index before freeing the pair. Older slots might permanently retain
-pointers to the freed memory, leading to a use-after-free when fsl_asrc_isr=
-()
-or fsl_asrc_m2m_suspend() iterates over the pairs.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723022313.1905=
-051-1-shengjiu.wang@oss.nxp.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-glymur_lin=
+kmode_0722-v6-0-bba8156b8cbb@oss.qualcomm.com?part=3D5
