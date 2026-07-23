@@ -1,109 +1,185 @@
-Received: from out-172.mta1.migadu.com (out-172.mta1.migadu.com [95.215.58.172])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE0AE476692
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 18:55:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 332333CA4B9;
+	Thu, 23 Jul 2026 19:01:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784832937; cv=none; b=sEFmaZb+xD9vggP5xTgiz33FNp7sGVQYsX92ejJKtKR7TxzZj3+DHSBQmfBJ4x57e+vCit7Uqz3Kofp/ThDq9YfPQd62AThvmJ1uYNXuXsFNwQnWqtTasKJXtQl1rZZyykPXw3FAZx5fcZn049DDl/pKv90mKHpPmFWQHWQCPy0=
+	t=1784833291; cv=none; b=H8OET9ByWH50U7KZW9AIl/txPXMG0YWBQiI0elDz8/ubRjBvUjPMZPd+1Wuc71iT5wudU7gwAVmfLLpHGURzuyiglIf4HEP2CgldW8oSNYANhpFFiCd63Bt1vpU5cCrwfi5jxiSGHclX58y0YEsnt8Z8wnbisVOqczAqfchxSXw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784832937; c=relaxed/simple;
-	bh=o54D70suDaw58koHq9IxtK7frBP4sFmNgJgUK0vIW0w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=r6rxVFXYszSW3AzlPM5RpOnmesqlwf5mvC11CHZKO+n0JMKjWB0AJ5lHBvHrcQKwJ0TRR7MO50vz67No3ipDcl0/LXVCQSerQWjbwIkViXNJ1aal9MSR+a4jeMvLqboo+dhGXB02YrA/2hheT9T9IMkV141uOx8J4HaPvt04JGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HgxdoVJi; arc=none smtp.client-ip=95.215.58.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1784833291; c=relaxed/simple;
+	bh=EZk2OxD+gEZHGoushqS4qlXklQu9SaQr4xg9e277/AQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WxTv2LY7615M9JKWR5MDnM+BDv+pMnLX54ks6jE+iLYE1iKBx9Qweb7KUvJoAHE/BbbOt1WKAW8GEwBoEn79qbLLXTuxy8jGOHQfOGAC6cmmNuvcXgdxQgKl4PEvN+nyika+F4SA2wysjqjc/DTdvk5wilreSNIhKqDdLzKFa2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C4ibDkz9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HgxdoVJi"
-Date: Thu, 23 Jul 2026 20:55:18 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1784832929;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=g69XKiXRUn1mEtZau/GQ0c7YGZnvp3Nd90/6YEjeaWk=;
-	b=HgxdoVJicEbEPkRW8UJsPppvDUyg/6tYY3szfUajikFPwM/97fHBbnEsj+ZfbWehoJuboS
-	/FWQJz8wQgnKgsyNhkrs9sgsyEo46NYz6xN3ovx2+SIWx7mJxptTLKZL1O+rgo8hLuSsMa
-	NpGQZ0f0Xu5bE2nzUbVWeGQ5Swjw7cM=
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Richard Leitner <richard.leitner@linux.dev>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Conor Dooley <conor@kernel.org>, Mark Brown <broonie@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
-	Dave Stevenson <dave.stevenson@raspberrypi.com>, Alexander Stein <alexander.stein@ew.tq-group.com>, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, driver-core@lists.linux.dev
-Subject: Re: [PATCH RFC 1/2] dt-bindings: regmap: add common schema for
- no-sequential-read
-Message-ID: <amJiqHd6I45w_e0-@bombadil>
-References: <20260722-regmap-single-read-v1-1-aaaf31591669@linux.dev>
- <cdd3b988-72cd-4143-9a17-ee0c57625e94@sirena.org.uk>
- <amD_vkMOrtKq5NvX@bombadil>
- <20260722201622.GD648629@killaraus.ideasonboard.com>
- <amEvJBOE3Ja014Ap@bombadil>
- <525338f4-cad3-4acb-94c5-a4b71cde9c02@sirena.org.uk>
- <amHznORUaOnUFyS4@bombadil>
- <20260723154541.GA764516@killaraus.ideasonboard.com>
- <20260723-hamster-juniper-5697cacade96@spud>
- <20260723161048.GC767247@killaraus.ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C4ibDkz9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC6C81F000E9;
+	Thu, 23 Jul 2026 19:01:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784833285;
+	bh=/iOx7Kdb7RsiadRvbAxhLdFG7t3D5msEa1q1juGjNWc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=C4ibDkz9AkXQAVdjpp+M76TU/m9gT6JzHtD496S9GljsgnnrGkCnHqs5GB/Id/OOc
+	 eBsMX4rgoeWi8lPJNLYbztDlHrjkTYlzkBHg9eLpbf6kz19YlGavfSc7vBswWowLcx
+	 evoKL8z6p9vjoSky8liSKLTmYRj1omyHBts1UZUF2i2nkuxPNGcSwJ9+dgiwB90atW
+	 MYlLTg1zUu67Fz2rCjx/K8RrJypbJGwNCx0QQdPCnKrzpUL8IqSZVNyo8wUdr6qhcH
+	 vNoXLVeGK/8uu4oI2aCkjj8LXmm1wtr587HKJiGJlpcgLefidHY/R5B6A9P0z9j+Ij
+	 l6nBn+yrWltPg==
+Message-ID: <1a9d18ce-e6dc-40e0-aa2a-e27f694e1217@kernel.org>
+Date: Thu, 23 Jul 2026 21:01:17 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260723161048.GC767247@killaraus.ideasonboard.com>
-X-Migadu-Flow: FLOW_OUT
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] dt-bindings: mmc: Document no-mmc-poweroff-suspend
+ property
+To: Kamal Dasu <kamal.dasu@broadcom.com>
+Cc: Ulf Hansson <ulfh@kernel.org>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Oleksij Rempel <o.rempel@pengutronix.de>,
+ Avri Altman <avri.altman@sandisk.com>,
+ Pedro Demarchi Gomes <pedrodemargomes@gmail.com>,
+ Erick Shepherd <erick.shepherd@ni.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-mmc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260722211417.3702709-1-kamal.dasu@broadcom.com>
+ <20260722211417.3702709-2-kamal.dasu@broadcom.com>
+ <20260723-venerable-infallible-oriole-434b75@quoll>
+ <CAKekbevxiN=8q60sHkRLKzEwc75PYHO7nJtMEahLF+u39g-FBw@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CAKekbevxiN=8q60sHkRLKzEwc75PYHO7nJtMEahLF+u39g-FBw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jul 23, 2026 at 07:10:48PM +0300, Laurent Pinchart wrote:
-> On Thu, Jul 23, 2026 at 05:02:42PM +0100, Conor Dooley wrote:
-> > On Thu, Jul 23, 2026 at 06:45:41PM +0300, Laurent Pinchart wrote:
-> > > On Thu, Jul 23, 2026 at 01:01:11PM +0200, Richard Leitner wrote:
-> > > > On Wed, Jul 22, 2026 at 11:03:09PM +0100, Mark Brown wrote:
-> > > > > On Wed, Jul 22, 2026 at 11:58:46PM +0200, Richard Leitner wrote:
-> > > > > 
-> > > > > > @Mark: I understood that if the fpga really intercepts the I2C bus, it
-> > > > > > should be modelled accordingly in device tree. But what would be the
-> > > > > > preferred implementation if both devices sit on the same I2C bus, but
-> > > > > > one is messing up some register reads on purpose?
-> > > > > 
-> > > > > I think we would need to have a coherent understanding and description
-> > > > > of the actual issue to know how to describe it.
-> > > > 
-> > > > Understood. I will try to figure out how the hardware is really wired
-> > > > and come back to you.
-> > > 
-> > > Based on the information I have received so far, the FPGA is interposed
-> > > between the host and sensor. It could therefore be modelled in DT as
-> > > child of the I2C bus and a parent of the sensor.
-> > > 
-> > > New version of some of the Vision Components modules have fixed the
-> > > multi-read bug, so we will still need a property in the FPGA DT node to
-> > > indicate if the quirk should be activated.
-> > 
-> > Or come up with a compatible for the FPGA DT node that uniquely
-> > identifies the revision of the RTL in use.
-> > That's my preference for things that use some custom RTL that aren't
-> > configuration parameters.
+On 23/07/2026 20:53, Kamal Dasu wrote:
+> On Thu, Jul 23, 2026 at 3:51 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
 > 
-> I'm afraid we won't be able to get that information. We have limited
-> visibility on the ecosystem of modules and what the FPGA does in each of
-> them.
+>> On Wed, Jul 22, 2026 at 05:14:16PM -0400, Kamal Dasu wrote:
+>>> On some platforms, firmware accesses the (e)MMC card directly during
+>>> system resume from Suspend-to-DRAM, before the kernel's own resume
+>>> path has run, in order to load boot code using hard wired logic that
+>>> is not field updatable. This requires the card to remain powered
+>>> and responsive throughout suspend: it cannot be put to sleep, sent a
+>>> power-off notification, or have its supply removed.
+>>>
+>>> Add a no-mmc-poweroff-suspend flag property so affected boards can
+>>> tell the mmc core to keep the card powered across suspend instead of
+>>> sleeping or powering it off.
+>>>
+>>> Signed-off-by: Kamal Dasu <kamal.dasu@broadcom.com>
+>>> ---
+>>> Changes in v3:
+>>>   - Renamed from no-mmc-sleep; dropped S_A_TIMEOUT framing per Ulf.
+>>>
+>>> Changes in v2:
+>>>   - New patch, replacing v1's card-level quirk, per Ulf.
+>>>
+>>>  .../devicetree/bindings/mmc/mmc-controller-common.yaml | 10 ++++++++++
+>>>  1 file changed, 10 insertions(+)
+>>>
+>>> diff --git
+>> a/Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml
+>> b/Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml
+>>> index 3d7195e9461c..5f7b3f8ef1dd 100644
+>>> --- a/Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml
+>>> +++ b/Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml
+>>> @@ -232,6 +232,16 @@ properties:
+>>>      description:
+>>>        All eMMC HS400 modes are not supported.
+>>>
+>>> +  no-mmc-poweroff-suspend:
+>>> +    $ref: /schemas/types.yaml#/definitions/flag
+>>> +    description:
+>>> +      On this platform, firmware accesses the attached (e)MMC card
+>>> +      directly during system resume, before the kernel's own resume
+>>> +      path runs. The card must therefore stay powered throughout
+>>> +      suspend, and the controller must not send it a sleep or
+>>> +      power-off notification. The kernel re-initializes the card
+>>> +      after resume, since firmware may have already reset it.
+>>
+>> Isn't this exactly the same as keep-power-in-suspend?
+>>
+>>
+> Not quite, though I see why it reads that way from the description
+> alone.
+> 
+> keep-power-in-suspend only takes effect through host->pm_flags, which
+> gets set at runtime via sdio_set_host_pm_flags() -- an SDIO function
+> driver opts in from its own suspend() callback, per suspend cycle.
+> The consuming logic lives entirely in mmc_sdio_suspend()/
+> mmc_sdio_resume() (drivers/mmc/core/sdio.c); pm_flags is never read
+> in mmc.c, which is what this series touches.
+> 
+> no-mmc-poweroff-suspend differs in two ways:
+> 
+>   - It's a fixed platform characteristic, not a per-driver runtime
+>     request. There's no SDIO-style function driver to call an opt-in
+>     API from for a plain (e)MMC storage card -- the requirement here
+>     (firmware always touches the card at resume, on this board) is
+>     always true, not something decided per suspend cycle.
+>   - The resume-side behavior differs. keep-power-in-suspend without a
+>     wake IRQ does nothing at resume: it assumes the card's state
+>     survived untouched. This flag needs the opposite -- keep power,
+>     but still fully re-initialize the card via mmc_init_card(), since
+>     firmware may have reconfigured it while the kernel was suspended.
 
-Thanks for the clarification. Should I continue working on this topic
-(i.e. modelling the FPGA as I2C controller with the sensor as a
-"subdevice")? Or do you want to take over Laurent? Do you have any other
-downstream work on the vc-mipi stuff, except the patches in your gitlab
-repo?
+All this is just driver stuff which I did not ask about.
 
-I've additionally wrote "my Vision Components contact" an email asking
-for clarification of the I2C bus layout on the modules yesterday. If I
-get any new information from that path I will of course take it into account.
+The property is described pretty the same - do not power off during
+suspend/resume.
 
-Thanks a lot, Laurent!
 
-regards;rl
+
+Best regards,
+Krzysztof
