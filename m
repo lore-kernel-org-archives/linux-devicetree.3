@@ -1,251 +1,174 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D96E03932C6
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 09:22:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 322BD39FCE
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 09:26:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784798562; cv=none; b=j/+6u1wzZlK0N1INK8CM4TChANu8FON9NAefPJiiKMESZAEvCsk1kWBDTZY2Il86cNtIMCmFy6DmC3ZDtQOz+6daieueIuDJX2UQ3Cw8QkdBQ1xBA4klaNlXnIs6QR88o7CzhE8wjR5J6913AkcKgySQ0oBD85GVxHJaJFDn5Mw=
+	t=1784798765; cv=none; b=px9opiDyuEWTNGE9vpYdv83JtBijtrj+1KWdRYIeM+YfyB9gppVTxk+oMMto8k1xR6MFBklXAnLB2xoBgejaANmjVYCYdVrwBu7klcxyZU8uD2zKCa5/UGDdI320ONF/Dq2qloF0lzxCmi0vmbWak8oHGSgfKIcui0biZjmc+W0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784798562; c=relaxed/simple;
-	bh=TLb9CBPPJcXvS0ddu36Mz2kPX1XsbIH7ebAE9m/0pr8=;
+	s=arc-20240116; t=1784798765; c=relaxed/simple;
+	bh=FPBVvhqLmfUrR88fb1vCikVjhNuqZ1705wlQyRwr3Pw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=unsDfxlURofMXsQbTBiDu586XLfA03mcLbgAneRmQLsfkAN2QaunBNAU33PQNZgROp3BCSRUFYfZBVLGAbp+19JXQxUvkngG6GNm+uRIhzhfDjrjcTkvgvhHtENBYGCJSFI3lReJ/8pZzcAZK7dKJyEnUK49kFLCpnhTGGXPJ74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lAeZifgp; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=GCShT6iROjsoJBmL3kTqRFM3hn/73ixaxn44TwgWcbdRy6R1uCTfTh+l3HN9E6GhcQ0ffoQAvUg05cEBBxH2CxZdye8E5ojUKfcYTK9sjtH+oE47CXzldb1j8J+/2F/bnsEmeo7rXzlCvNXYqCNMpM/86iK336zJYNO6U4UjKqo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HJ98V74C; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lAeZifgp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BE621F000E9;
-	Thu, 23 Jul 2026 09:22:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HJ98V74C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8444B1F000E9;
+	Thu, 23 Jul 2026 09:26:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784798560;
-	bh=B1gByql6LIdDIQxwvuQ1GGZx4qU8J/Zwz7Y3ANryl4Q=;
+	s=k20260515; t=1784798763;
+	bh=buPUpRWTXrfxQbOsXO2z5kqRNOzhxoIhLf2XWxs0t4o=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lAeZifgpt2mxs2+kj99JjHKcOiELCfoNRT8tgY316M8gyta6CrcchXuIZXpULxP2h
-	 EiGvI0IkWJixpS/OXosC1JOfzIgwJFvRyzC+VL0F2shiTQqITuHkncdnGUIzlhvkuk
-	 UjE3UQc332XVBvhV90P58E7MKzYn+VmHpbhtEV1mH+qougzyi3uK3MmmB7mhMWHXvD
-	 q5iarSPiutVQL35RJTkl22pUOuc7ER183+GhD07ykS9+UQuxl0xHbk6mWwHer0zDjE
-	 ebD2Rv5NoKEhHIphpwkrRCX1lX0CeWpkvvi7atu0Ppg7Elwde7dgylcnduNA/EOZBZ
-	 jmC+1QXMoRfwA==
+	b=HJ98V74CqYJ0Agwx25KXQgADauEfmsnUs8waSs1a+LKqt9vq/dowsExZfQrh6s1jP
+	 eZcINhtbtvvalfV9f9KLDSOf46kC8hPc60s/H75Zmgp03OghTEYeH0JZ580OZI4RWx
+	 zBLAA0MayqclNqmrrZL6UUzdhFQsUbzYcD1riiuiNPeTDH3PfaBBv5Diwft+ln+CT5
+	 rCgJFchKcGgw7u8Sqb4GdjENZzRztgziEebWUNMRYtOIPMdWKX1S1Vy0+QKaV//Kl0
+	 4gnpBrui8hMbGrMqRgh9whfl2aBIMEC+HyIe6WHdnniOckXdN7FFdE3/NefL/miYrK
+	 RlOxdSxyMNDdA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 2/4] clk: cix: add sky1 audss clock controller
+Subject: Re: [PATCH v3 1/3] arm64: dts: qcom: ipq5210: Add nodes for
+ multiple peripherals
 Reply-To: sashiko-reviews@lists.linux.dev
-To: joakim.zhang@cixtech.com
+To: "Varadarajan Narayanan" <varadarajan.narayanan@oss.qualcomm.com>
 Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260723090808.1727598-3-joakim.zhang@cixtech.com>
-References: <20260723090808.1727598-1-joakim.zhang@cixtech.com>
- <20260723090808.1727598-3-joakim.zhang@cixtech.com>
+In-Reply-To: <20260723-08-dts-v3-1-074eb131f382@oss.qualcomm.com>
+References: <20260723-08-dts-v3-0-074eb131f382@oss.qualcomm.com>
+ <20260723-08-dts-v3-1-074eb131f382@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 09:22:39 +0000
-Message-Id: <20260723092240.1BE621F000E9@smtp.kernel.org>
+Date: Thu, 23 Jul 2026 09:26:02 +0000
+Message-Id: <20260723092603.8444B1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [High] Ignored return values from `regmap_read` cause uninitialized stack=
- variables to be written back to CRU hardware.
-- [High] Multiple distinct CCF composite clocks share the exact same hardwa=
-re gate bits, leading to accidental clock shutdown.
-- [High] Self-deadlock via recursive CCF prepare_lock acquisition in PM run=
-time resume.
-- [Medium] Missing pm_runtime_disable() leaves PM runtime unbalanced on dri=
-ver unbind or probe failure.
-- [Medium] The driver mutates a static global array to store instance-speci=
-fic register context during suspend.
-- [Medium] The PM runtime usage counter is leaked if `devm_add_action_or_re=
-set` fails, preventing device suspend.
-- [Medium] `devm_auxiliary_device_create` returns an ERR_PTR on failure, bu=
-t the code only checks for NULL.
-- [Medium] Parent clocks and reset lines permanently leak on unbind if CONF=
-IG_PM is disabled.
+- [High] Missing `#interconnect-cells` property in the `gcc` clock controll=
+er node.
+- [High] TSENS thermal sensor interrupt is incorrectly configured as edge-t=
+riggered.
+- [High] Missing fallback compatible string for `pcie0_phy`.
+- [Low] Missing `<dt-bindings/thermal/thermal.h>` include for `THERMAL_NO_L=
+IMIT` macro.
+- [Low] Included interconnect bindings header file does not exist.
 --
 
---- Patch [2]: [PATCH v11 2/4] clk: cix: add sky1 audss clock controller ---
-commit 19bc5160a5549b717fff68a9a09d43f5b6738fca
-Author: Joakim Zhang <joakim.zhang@cixtech.com>
-Subject: clk: cix: add sky1 audss clock controller
+--- Patch [1]: [PATCH v3 1/3] arm64: dts: qcom: ipq5210: Add nodes for mult=
+iple peripherals ---
+commit b50b502c781c4dc3d469ed6c9eaf41d79df96251
+Author: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
 
-This commit adds a platform driver for the Cix Sky1 AUDSS CRU. It maps
-the CRU registers, provides mux, divider, and gate clocks, manages reference
-clocks, enables runtime PM, and creates an auxiliary reset device.
+arm64: dts: qcom: ipq5210: Add nodes for multiple peripherals
 
-diff --git a/drivers/clk/cix/clk-sky1-audss.c b/drivers/clk/cix/clk-sky1-au=
-dss.c
---- /dev/null
-+++ b/drivers/clk/cix/clk-sky1-audss.c
-@@ -0,0 +1,1206 @@
+This commit describes common IPQ5210 SoC peripherals in the base DTSI so bo=
+ard
+DTS files can enable the hardware they use. It adds nodes for USB, PCIe, QP=
+IC
+NAND/BAM, QFPROM, TSENS, and thermal zones, as well as the CPU OPP table and
+CPU cooling cells.
+
+> diff --git a/arch/arm64/boot/dts/qcom/ipq5210.dtsi b/arch/arm64/boot/dts/=
+qcom/ipq5210.dtsi
+> index 2cdc10529c489..18e4a1dfa2682 100644
+> --- a/arch/arm64/boot/dts/qcom/ipq5210.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/ipq5210.dtsi
+> @@ -4,7 +4,9 @@
+>   */
+> =20
+>  #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +#include <dt-bindings/clock/qcom,apss-ipq.h>
+>  #include <dt-bindings/clock/qcom,ipq5210-gcc.h>
+> +#include <dt-bindings/interconnect/qcom,ipq5210.h>
+
+[Severity: Low]
+Does this dt-bindings interconnect header exist yet?
+
+Including a non-existent header will cause a preprocessor fatal error during
+the device tree build.
+
 [ ... ]
-> +static u32 sky1_reg_save[][2] =3D {
-> +	{ INFO_HIFI0,  0 },
-> +	{ INFO_CLK_GATE,  0 },
-> +	{ INFO_CLK_DIV, 0 },
-> +	{ INFO_CLK_MUX, 0 },
-> +	{ INFO_MCLK, 0 },
-> +};
 
-[Severity: Medium]
-Does this global array get overwritten if multiple instances of this driver
-suspend? Since sky1_audss_clk_runtime_suspend writes instance-specific
-register context directly into this shared array, it seems like device
-states could clobber each other.
-
-[ ... ]
-> +	CFG(CLK_I2S0_APB,
-> +	    "audss_i2s0_apb",
-> +	    i2s_apb_parent,
-> +	    NULL,
-> +	    -1, 0, 0, 0,
-> +	    INFO_CLK_DIV, 0, 2, 0,
-> +	    INFO_CLK_GATE, 0, 0,
-> +	    0),
-[ ... ]
-> +	CFG(CLK_I2S0,
-> +	    "audss_i2s0",
-> +	    i2s0_parents,
-> +	    NULL,
-> +	    INFO_CLK_MUX, 0, 2, 0,
-> +	    INFO_CLK_DIV, 2, 2, 0,
-> +	    INFO_CLK_GATE, 0, 0,
-> +	    0),
+> +		pcie0_phy: phy@84000 {
+> +			compatible =3D "qcom,ipq5210-qmp-gen3x1-pcie-phy";
 
 [Severity: High]
-Do CLK_I2S0_APB and CLK_I2S0 share the exact same hardware gate bits?
-Both use INFO_CLK_GATE at shift 0. If they point to the same physical bit,
-could disabling one clock cause the CCF to write a 0 and unintentionally
-shut down the other active clock?
+Is this missing a fallback compatible string?
+
+Unlike pcie1_phy and the USB PHYs in this patch, pcie0_phy only lists the n=
+ew
+compatible string. Without a known fallback string, such as
+"qcom,ipq9574-qmp-gen3x1-pcie-phy", will the existing QMP PCIe PHY driver f=
+ail
+to bind and permanently break the PCIe0 subsystem?
 
 [ ... ]
-> +static int sky1_audss_reset_controller_register(struct device *dev)
-> +{
-> +	struct auxiliary_device *adev;
-> +
-> +	if (!of_property_present(dev->of_node, "#reset-cells"))
-> +		return 0;
-> +
-> +	adev =3D devm_auxiliary_device_create(dev, "reset", NULL);
-> +	if (!adev)
-> +		return -ENODEV;
 
-[Severity: Medium]
-Does devm_auxiliary_device_create return an ERR_PTR on failure instead of
-NULL? If it returns an ERR_PTR, the !adev check will fail to catch the erro=
-r,
-and the function will silently return success, potentially hanging downstre=
-am
-drivers that need the reset controller.
-
+> +		tsens: thermal-sensor@4a9000 {
+> +			compatible =3D "qcom,ipq5210-tsens", "qcom,ipq5332-tsens";
+> +			reg =3D <0x0 0x004a9000 0x0 0x1000>,
+> +			      <0x0 0x004a8000 0x0 0x1000>;
 [ ... ]
-> +static int sky1_audss_clk_mux_set_parent(struct clk_hw *hw, u8 index)
-> +{
-[ ... ]
-> +	if (mux->flags & CLK_MUX_HIWORD_MASK) {
-> +		reg =3D mux->mask << (mux->shift + 16);
-> +	} else {
-> +		regmap_read(sky1_mux->regmap, sky1_mux->offset, &reg);
-> +		reg &=3D ~(mux->mask << mux->shift);
-> +	}
-> +	val =3D val << mux->shift;
-> +	reg |=3D val;
-> +	regmap_write(sky1_mux->regmap, sky1_mux->offset, reg);
+> +			interrupts =3D <GIC_SPI 52 IRQ_TYPE_EDGE_RISING>;
+> +			interrupt-names =3D "combined";
 
 [Severity: High]
-Can regmap_read fail here? If it returns an error, reg remains uninitialize=
-d.
-We would then modify this uninitialized stack variable and write it back to
-the hardware, which might corrupt the hardware state.
+Should this TSENS interrupt be configured as level-sensitive instead of
+edge-triggered?
+
+TSENS hardware typically emits active-high level-sensitive interrupts for
+thermal thresholds. If configured as IRQ_TYPE_EDGE_RISING, a second thermal
+threshold crossed while the interrupt line is already asserted will not
+generate a new rising edge.=20
+
+This could cause the interrupt controller to miss the event, silently break=
+ing
+thermal throttling and potentially causing hardware damage.
 
 [ ... ]
-> +static int sky1_audss_clk_divider_set_rate(struct clk_hw *hw,
-> +					   unsigned long rate,
-> +					   unsigned long parent_rate)
-> +{
-[ ... ]
-> +	if (divider->flags & CLK_DIVIDER_HIWORD_MASK) {
-> +		val =3D clk_div_mask(divider->width) << (divider->shift + 16);
-> +	} else {
-> +		regmap_read(sky1_div->regmap, sky1_div->offset, &val);
-> +		val &=3D ~(clk_div_mask(divider->width) << divider->shift);
-> +	}
-> +	val |=3D (u32)value << divider->shift;
-> +	regmap_write(sky1_div->regmap, sky1_div->offset, val);
+
+> @@ -146,8 +358,8 @@ gcc: clock-controller@1800000 {
+>  			reg =3D <0x0 0x01800000 0x0 0x40000>;
+>  			clocks =3D <&xo_board>,
+>  				 <&sleep_clk>,
+> -				 <0>,
+> -				 <0>,
+> +				 <&pcie0_phy>,
+> +				 <&pcie1_phy>,
+>  				 <0>,
+>  				 <0>;
 
 [Severity: High]
-Similar to the mux function above, does this code handle regmap_read failur=
-es?
-If it fails, val is left uninitialized and could result in writing garbage
-back to the clock controller register.
+Since the gcc node acts as an interconnect provider for the new pcie0 and p=
+cie1
+nodes, does it need an #interconnect-cells =3D <1>; property?
+
+Without the #interconnect-cells property in the provider node, calls to
+of_interconnect_get() from the PCIe drivers will fail with -EINVAL, causing
+driver probe failures for all consumers.
 
 [ ... ]
-> +static int sky1_audss_clks_enable(struct sky1_audss_clks_priv *priv)
-> +{
-> +	const struct sky1_audss_clks_devtype_data *devtype_data =3D priv->devty=
-pe_data;
-> +	int i, err;
-> +
-> +	for (i =3D 0; i < devtype_data->clk_num; i++) {
-> +		err =3D clk_prepare_enable(priv->clks[i]);
 
+> +		cpu0-thermal {
+> +			thermal-sensors =3D <&tsens 14>;
 [ ... ]
-> +static void sky1_audss_clk_rpm_cleanup(void *data)
-> +{
-> +	pm_runtime_force_suspend(data);
-> +}
+> +			cooling-maps {
+> +				map0 {
+> +					trip =3D <&cpu0_thermal_alert>;
+> +					/* Set maximum frequency as 816 MHz */
+> +					cooling-device =3D <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
 
-[Severity: Medium]
-If the kernel is built without CONFIG_PM, pm_runtime_force_suspend is a
-no-op. Could this mean that the parent clocks and reset lines enabled during
-probe will permanently leak on unbind, since this is the only teardown path?
+[Severity: Low]
+Can this cause a syntax error during the device tree compilation?
 
-Also, since pm_runtime_enable is called during probe, should we call
-pm_runtime_disable here to keep the PM runtime state balanced on driver
-unbind or probe failure?
-
-[ ... ]
-> +static int sky1_audss_clk_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	pm_runtime_get_noresume(dev);
-> +	pm_runtime_set_active(dev);
-> +	pm_runtime_enable(dev);
-> +
-> +	/*
-> +	 * Register cleanup action before clocks/provider (released last under =
-LIFO).
-> +	 */
-> +	ret =3D devm_add_action_or_reset(dev, sky1_audss_clk_rpm_cleanup, dev);
-> +	if (ret)
-> +		return ret;
-
-[Severity: Medium]
-If devm_add_action_or_reset fails, we return directly. Does this leak the PM
-usage count incremented by pm_runtime_get_noresume just above, preventing
-the device from ever suspending?
-
-[ ... ]
-> +static int __maybe_unused sky1_audss_clk_runtime_resume(struct device *d=
-ev)
-> +{
-> +	struct sky1_audss_clks_priv *priv =3D dev_get_drvdata(dev);
-> +	const struct sky1_audss_clks_devtype_data *devtype_data =3D priv->devty=
-pe_data;
-> +	unsigned long flags;
-> +	int i, ret;
-> +
-> +	ret =3D sky1_audss_clks_enable(priv);
-
-[Severity: High]
-Could this result in a deadlock? When a consumer calls clk_prepare on an
-audss clock, CCF acquires the global prepare_lock mutex and may call
-pm_runtime_resume_and_get. This triggers sky1_audss_clk_runtime_resume,
-which calls sky1_audss_clks_enable. Since sky1_audss_clks_enable executes
-clk_prepare_enable, it will attempt to acquire the non-recursive prepare_lo=
-ck
-again.
+This line relies on THERMAL_NO_LIMIT being defined, but the required
+<dt-bindings/thermal/thermal.h> header was not included in this file. The C
+preprocessor will not expand the macro, leaving it as a string token, which
+causes a dtc syntax error when evaluating the integer expressions.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723090808.1727=
-598-1-joakim.zhang@cixtech.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723-08-dts-v3-=
+0-074eb131f382@oss.qualcomm.com?part=3D1
