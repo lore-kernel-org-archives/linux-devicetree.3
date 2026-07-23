@@ -1,282 +1,166 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFCBD43E9F5
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 09:40:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73031429CEB
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 09:40:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784799618; cv=none; b=CELxZdtwTnkFMtkih99c2zWMWZ6yVuNiCKpSKeQ7XgSN03XaTw+g0v1MNhH9zalDthbwho+xT3cx38YH8oxHFxy13vZYCulgjH7rPvgg3S5hIk+w3x7hA0gW6pe/ldSfjZgkpEVM+AofR2Y1KXYVvujKLAZzC5RuWmnq/n+Lvdw=
+	t=1784799619; cv=none; b=B3TbAyYwWFF98W3PUj8wn0RiDJPGOiHlbF/ZgYevTQyDIUk39IS4zwlZ6Eu4uiGOlAtsbjzycghP6Nd8TktIKzqk5l3ivM/groSYb2VCpnPZQz9pCjLWGvO4jzMVI4hLJ8jLKnoKe8F//Wtp2CK5vfIVje5puo29VefqElOp2Jo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784799618; c=relaxed/simple;
-	bh=ZxtEY0Po9koFr9SK/FxQWL9lGl95syc2R11eiKw1uuc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=YHh8IAng3Ekvm28D4lQpgCk8OlnMyPwZfhzgsKMfyE3Ypb0ckdPjFoZTYyLj7NQthUaM/Hs+AyRa0nwerQXps/1UzRzYwSdpXZfGZsHQxmd0ER/8Dje9gxbDbCeLTjUMHhqhlYXE9MiwxLfl0k4QlQSocUsH70pNaQGBl31t8vQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=CA+j/qPY; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1784799619; c=relaxed/simple;
+	bh=XTMjyn+ORwg/a7Efs4utC9VvgtsOY6Ae6mRbx+tRPr8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=EG02VRhueW9+gXtresFCA5R8XGkAnsBdG3MEZ5YKPtMMqeVhVWWCEEwVCrT2tLoMWl9THrptZdpiXy4yOwekVHAPLOFfzS8oZXMRIIL44dt3gI9IEN6cUowd1Jk/vuqBaiHPi04OgR0ucQrIAuXkqSHE5QbRLr9Bdx5VrNGOB1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arturia.com; spf=pass smtp.mailfrom=arturia.com; dkim=pass (2048-bit key) header.d=arturia.com header.i=@arturia.com header.b=il7B3sY0; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arturia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arturia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="CA+j/qPY"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49553515a8bso4651425e9.1
-        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 02:40:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=arturia.com header.i=@arturia.com header.b="il7B3sY0"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49556f97a9dso2811775e9.1
+        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 02:40:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1784799613; x=1785404413; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=arturia.com; s=arturia; t=1784799614; x=1785404414; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Hhejqqk/YejfwiP6Ga/bYKh4OsY78ne2Bp/UpWOM4CI=;
-        b=CA+j/qPYPAvnuEKso71/zs8nPLcbJTPWrAp9pxgjuf8Y9Bj2XOVFRad1ELsUBLz1mW
-         CE6aE3UvZNCSuWW4Hi87hNiSgx4lytPxc5DtNx+btAAo6h+dxnxCS0RRVSSk5rb1Zv4t
-         38+ISRCaKWqDM6iyQiduUfKaMBtCN1DAfPHc3TdyJAXQQgAWovfYwVwGxddapT8htZQH
-         Zt9ATXvdVlnCw/l+vnVcwxtOKuFxBM1T8X6E84O1iLlAvg92dEgOEM5GfVyws3kIK56r
-         LLmEtN7Nlx4TKer74RKDJu9WOvGXum07z9vjINmjcTSo46DKQSfPqfqT+yZSmFCHBDHb
-         iMsQ==
+        bh=ZeewQmM2+FoXz3FOSyBPMuplKaD/0MTIgbyaZFmgtY8=;
+        b=il7B3sY0yUkhxZiegNSdF8RDf3+z+4zoT3eA777PyfJc+jFP7gh9c7cMTasxOQ6R/C
+         9wZaQo3bImyLa1ERlWi5t41D8ePhzKygK8obk1b8LVItJKvbB30TaZc6EFRNoIS2AIWc
+         TyNZAmeCbFIDXJsM2UrUzNW87iIGGp920JUX/QDQD6lRbEyxZYpNmbQzMK/PR3UE6kpQ
+         YhOVn+FaUIWJL1x/E4KlQnLGXfJuzZP/ByHxtIUihGqd85FjlxG+DnNylU1B7VTHfwCA
+         5FaOlwfIVGMsYbs88GIJ96o4/jEDDLyFhnVUI3iLq2hxLx+aHB5gO0Z5OvHQIa1NG3fU
+         gWUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784799613; x=1785404413;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Hhejqqk/YejfwiP6Ga/bYKh4OsY78ne2Bp/UpWOM4CI=;
-        b=deyss+BWIKgCXzcWnb+mnJqvdLqRxLxaWCZ93SvFSUWAuR+XcYC94XepR6TWBLakYM
-         ID/PE9Q8ChswZfYpTrZyCs7WW1qNuWZUGops8A2XSQEomXHaNqmPd1c8pIf0EfIXNCAt
-         nF0BqSrKfde2OtJsnLTyBnyGKNtpIcqWRToT7I4oJrGfoPxt0ViX7RO8J0dOGFHHNcHs
-         BNeiWuVyAU1pAn4NQMl1b+IzXQ2xtNL6nYItRujN6iEU5Psh9g4yXKEqdlnvYfvNRqTF
-         zXoDLKZ0VeA99SiPCw7Dxhz6ofkCtjHmoCm3/RCHxijLX2RSLRKLAIqdKYI5LvqSweGz
-         NEdw==
-X-Forwarded-Encrypted: i=1; AHgh+RrnDFNVkvFAOaUbprIulYd/yGjPks47jvwSr5tRCeL/OvC5qPMNetsVStZ6T5RuJYd6H+mGfwnJmkXm@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw3+liSHv/TbnY3m7ddcXqf7cCxTA8PfGxeNRp/c0XzCqj3JPCx
-	w50kr1hWY5lGCresEkqrfGcxRTCuK8NrGea30NWBo/qBXU8IqRRwHEL55ouXWxbQAlY=
-X-Gm-Gg: AR+sD11g369h/t8rftn+Fc44q9yDc8aAoAT1qvr0UQKiBCWDgII8H+fQLbqvDKOJCkA
-	SY7khwuLGTs01RhHVZp0KUbx0bp8fHHkVRPYaTWRcziCwFtn54OQI+VECKgc6c8TK/tecPsEjO6
-	mcKCLjZmu2SquzTc9ZbHbRoOjL5hz7tSOyjPZOCbK3Q9xr8rB/rxcwtk7rk+8gXcepbGyTrpGc5
-	cgobc4zMrnoyywcjzJ7t6w+oKP+cKAloA/HhOaJ15hcJWlDKAqcjForcG+/7psDBcwULF0VJatp
-	U9HahKYH9Q3FoLf1uFglkVAuKTHq+PUt6YfHfAPnY0KnpgWY4IkHNCe/N7bc9FQ2cWeUwM7JDdJ
-	YhBsVVlkQAacN7/tN+6hanO/470283l+mBBVGZHxkw7qdh7oXKmWj7s4f6VrTix8MmykB7qCUPn
-	Bh
-X-Received: by 2002:a05:600c:1d21:b0:495:4856:2659 with SMTP id 5b1f17b1804b1-49573cca1b0mr23638405e9.9.1784799612784;
-        Thu, 23 Jul 2026 02:40:12 -0700 (PDT)
-Received: from localhost ([2a01:e0a:3c5:5fb1:3274:dbb5:2710:802b])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4956a4f24bcsm158047615e9.1.2026.07.23.02.40.12
+        d=1e100.net; s=20251104; t=1784799614; x=1785404414;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZeewQmM2+FoXz3FOSyBPMuplKaD/0MTIgbyaZFmgtY8=;
+        b=CHoE/ncRp5qANUJQu9bjKvEigX2FViN3Igwms6Ln85pDVYwf/Dqwkeb6TTpS+w6zRD
+         yfBa2icK5YUFStdlqcX3YDJI0xFsoxvMGlex/WMZ21+/mmtnFPfd9dUI9XE+8b5IY4x6
+         wlIiFxjCSVWn76DYmwOwjXzFxtVaQVUARuteiUJJ/li0GMkszBwPW3dQNEeAR37/M2+Q
+         88YDR4TJeNyp9uOUOBMU4Q9l2z8m3AgSenKsDnY/m5T8Sen7NcJsia6uRaNb5OUEPOHW
+         IO+FKb0ciELyCAxu9GF7aUE36O3UiNXfuf/k2MOgAnkGI7xe8CxgDo8iYKRI2zOG5p23
+         DjjQ==
+X-Forwarded-Encrypted: i=1; AHgh+RouIL7lslJbmYat1K4q3vzaSkb7var9vJLrMNbZN1iA1PBJvNDMEWjxa2xwRwaLuvtg3j5ho6DNfWU1@vger.kernel.org
+X-Gm-Message-State: AOJu0YzTreUPmVRrQ7n9foBsUZDf8gPkZY9CZv+tHSMIGFK6c2+JBNd9
+	tQSJaomYHTekCZMqomtuP8oAAgO7c6gaEIeGip7jRqHIFa4bKj9oADXsFV5uanMFZDw=
+X-Gm-Gg: AR+sD11diLbB9C6xl9Ik6aHS4zNQvnlfmqvOqC7kbQbv9kW5WlT6iOX6qNzAMhg7u6S
+	Gg4ByWQzPEVSeUpDA9mA4Wl0JqpVcWtGI8o9C3QxRhq/8juJGy/8SRkVjGH7cPj39NHrwPY9Jac
+	MASNkUtADFEWfNjbPTVljKi2/HMMURsN0Je1iKuQSLOZ2O6VX/sQNMPRxZBzIbmGUmp9ldwgKFy
+	cy7NGphPWW1OQOI/WrzlTXqJByptCZ+23Px4lug34o9JCX050I/fbxutgkwVNwgW/bsSMjbzdd9
+	TsADt747Xa9t/kZdmdOPebGUvdMTpi/5iEM3eMbITCWRlXXStjRYBE3QPZMQza1J06ob0+fxxzv
+	YvYtYGPvT+B7Dkz0Xz7JvWrLCQpqHFAtefDYJ8YWZAiH81pg4BYvmcnEfU3pK2u+l/ybUpltKg9
+	xc+XnCrp+bonaxKqN/0F3rMI0HZG02IsvA0EAma9qyme4QM23F+Oo=
+X-Received: by 2002:a05:600c:8b83:b0:495:515a:dad9 with SMTP id 5b1f17b1804b1-49573cf8131mr24716895e9.37.1784799614228;
+        Thu, 23 Jul 2026 02:40:14 -0700 (PDT)
+Received: from vkrawiec.arturia.team (226.142.197.77.rev.sfr.net. [77.197.142.226])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4956b030a64sm100986245e9.3.2026.07.23.02.40.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Jul 2026 02:40:12 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-Date: Thu, 23 Jul 2026 11:39:54 +0200
-Subject: [PATCH v7 4/4] clk: sunxi-ng: sun6i-rtc: add a733 support
+        Thu, 23 Jul 2026 02:40:13 -0700 (PDT)
+From: Victor Krawiec <victor.krawiec@arturia.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Victor Krawiec <victor.krawiec@arturia.com>
+Subject: [PATCH v3 4/4] regulator: fan53555: Add support for mode operations on Silergy devices
+Date: Thu, 23 Jul 2026 11:40:01 +0200
+Message-ID: <20260723094001.120264-5-victor.krawiec@arturia.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260723094001.120264-1-victor.krawiec@arturia.com>
+References: <20260723094001.120264-1-victor.krawiec@arturia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-a733-rtc-v7-4-8fd68aab94ae@baylibre.com>
-References: <20260723-a733-rtc-v7-0-8fd68aab94ae@baylibre.com>
-In-Reply-To: <20260723-a733-rtc-v7-0-8fd68aab94ae@baylibre.com>
-To: Junhui Liu <junhui.liu@pigmoral.tech>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Maxime Ripard <mripard@kernel.org>
-Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
- Jerome Brunet <jbrunet@baylibre.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6141; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=ZxtEY0Po9koFr9SK/FxQWL9lGl95syc2R11eiKw1uuc=;
- b=owEBbQKS/ZANAwAKAeb8Dxw38tqFAcsmYgBqYeFwGSqTbtJvNIzd3HhhthCSgN4NGzqOMzbJW
- M0apMB3fCqJAjMEAAEKAB0WIQT04VmuGPP1bV8btxvm/A8cN/LahQUCamHhcAAKCRDm/A8cN/La
- heDsD/9HQP7iuGP55hZHz1ZpmKRUvcOZL8sxSbG9MoY3tekyiDTBSVmcTb+vP1YcQdXgUQZsQVY
- fM6OrCU77nlndH8ofR47fnV5/C543J+IdjjW6bsP76vbXwpTV74y5XwUQ0ahZunbh5/iC+HEjDE
- 8Vlzl8WrGplwwHqCddqPkexkem7abHcS3UFX3gGk7KograpfM5FqiQAiLq70WtwmlN2rpEUuapQ
- 9HFV3vfZ9EebUD2kBQhJHjEDHktPjRebn/VGQ6/FfcgGphj4Rw5ZuVhcN/HThFMeN2ZYy0mu+oi
- p2oBldMsOxnUgp5CZLR5FvLXnWUOcuJvIPUzPXEzGuDpdiwxsF9SGzI62Zvk0TpfYEhABEdrp9S
- TMCYLVbMx0C9Oag9btZttNmQFTQHAS5F0GS8uDqujicn1OHh6vHdxQdaX8jeVgcqbI7kPAVI9tT
- rCpQ2zbBzAWgzzsfNNPfHJ1dlc+oSuYOY7PqInxPDG2wimTuVRAPBz37AUxqCYe46GFMrg7z7/K
- m3Urf44Je/jLHIAYLM06zMMO3dLztHfvbgn7rcmx3HkU3Zx189x8REkplZNzHzv8tXQmON3f3T1
- VCkLjeoCWaCtzmO7Pxv1OInghaBnUq0u/ZUtQ1WvW2/EY9Me0dIHkY4QnVizMH8e9r9gKfBNqNI
- O09Nwa1TS7JZMLA==
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
+Content-Transfer-Encoding: 8bit
 
-Add support for the sun60i a733 CCU RTC.
+Make the PWM mode configurable from devicetree. Some boards require forced
+PWM mode to keep the supply ripple within acceptable limits under light
+load conditions
 
-Compared to the a523, this SoC has a different input oscillator divider
-which auto-detects the oscillator rate and select a divider to provide
-a fixed 32768Hz clock. It also provides several phy reference clocks
-with dedicated clock gates.
+Support is restricted to Silergy manufacturer as it is the only one
+currently tested.
 
-Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
-Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+Signed-off-by: Victor Krawiec <victor.krawiec@arturia.com>
 ---
- drivers/clk/sunxi-ng/ccu-sun6i-rtc.c | 77 ++++++++++++++++++++++++++++++++++--
- drivers/clk/sunxi-ng/ccu-sun6i-rtc.h |  2 +-
- 2 files changed, 75 insertions(+), 4 deletions(-)
+ drivers/regulator/fan53555.c | 29 ++++++++++++++++++++++++++++-
+ 1 file changed, 28 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c b/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c
-index 25dd87e78eb7..98ae10307f43 100644
---- a/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c
-+++ b/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c
-@@ -44,9 +44,15 @@
- #define DCXO_CTRL_REG			0x160
- #define DCXO_CTRL_CLK16M_RC_EN		BIT(0)
+diff --git a/drivers/regulator/fan53555.c b/drivers/regulator/fan53555.c
+index c282236959b1..85f46874eb49 100644
+--- a/drivers/regulator/fan53555.c
++++ b/drivers/regulator/fan53555.c
+@@ -21,6 +21,7 @@
+ #include <linux/regulator/machine.h>
+ #include <linux/regulator/of_regulator.h>
+ #include <linux/slab.h>
++#include <dt-bindings/regulator/fcs,fan53555-regulator.h>
  
-+#define DCXO_GATING_REG			0x16c
-+
-+#define CLK_NUMBER_NO_GATES		(CLK_OSC24M_32K_DIV + 1)
-+
- struct sun6i_rtc_match_data {
- 	bool				have_ext_osc32k		: 1;
- 	bool				have_iosc_calibration	: 1;
-+	bool				have_dcxo_status	: 1;
-+	bool				have_phy_ref_gates	: 1;
- 	bool				rtc_32k_single_parent	: 1;
- 	const struct clk_parent_data	*osc32k_fanout_parents;
- 	u8				osc32k_fanout_nparents;
-@@ -213,7 +219,12 @@ static struct ccu_mux osc32k_clk = {
- 	},
- };
- 
--/* This falls back to the global name for fwnodes without a named reference. */
-+/*
-+ * This falls back to the global name for fwnodes without a named reference.
-+ * NOTE: osc24M name might be misleading the oscillator could also be a 26MHz
-+ * or a 19.2MHz one starting with the a733. The original name is kept anyway
-+ * in case anything is relying on it.
-+ */
- static const struct clk_parent_data osc24M[] = {
- 	{ .fw_name = "hosc", .name = "osc24M" }
- };
-@@ -227,8 +238,30 @@ static struct clk_fixed_factor osc24M_32k_div_clk = {
- 					    0),
- };
- 
--static SUNXI_CCU_GATE_HW(osc24M_32k_clk, "osc24M-32k", &osc24M_32k_div_clk.hw,
--			 LOSC_OUT_GATING_REG, BIT(16), 0);
-+static struct clk_div_table osc24M_32k_div_a733_table[] = {
-+	{ .val = 0, .div = 732 },
-+	{ .val = 1, .div = 586 },
-+	{ .val = 2, .div = 793 },
-+	{ .val = 3, .div = 732 },
-+	{ /* Sentinel */ },
-+};
-+
-+static struct ccu_div osc24M_32k_div_a733_clk = {
-+	.enable = BIT(1),
-+	.div	= _SUNXI_CCU_DIV_TABLE_FLAGS(14, 2,
-+					     osc24M_32k_div_a733_table,
-+					     CLK_DIVIDER_READ_ONLY),
-+	.common	= {
-+		.reg		= DCXO_CTRL_REG,
-+		.hw.init	= CLK_HW_INIT_PARENTS_DATA("osc24M-32k-div",
-+							   osc24M,
-+							   &ccu_rodiv_ops,
-+							   0),
-+	},
-+};
-+
-+static SUNXI_CCU_GATE(osc24M_32k_clk, "osc24M-32k", "osc24M-32k-div",
-+		      LOSC_OUT_GATING_REG, BIT(16), 0);
- 
- static const struct clk_hw *rtc_32k_parents[] = {
- 	&osc32k_clk.common.hw,
-@@ -267,6 +300,15 @@ static struct ccu_mux osc32k_fanout_clk = {
- 	},
- };
- 
-+static SUNXI_CCU_GATE_FW(hosc_serdes1_clk, "hosc-serdes1", "hosc",
-+		      DCXO_GATING_REG, BIT(5), 0);
-+static SUNXI_CCU_GATE_FW(hosc_serdes0_clk, "hosc-serdes0", "hosc",
-+		      DCXO_GATING_REG, BIT(4), 0);
-+static SUNXI_CCU_GATE_FW(hosc_hdmi_clk, "hosc-hdmi", "hosc",
-+		      DCXO_GATING_REG, BIT(1), 0);
-+static SUNXI_CCU_GATE_FW(hosc_ufs_clk, "hosc-ufs", "hosc",
-+		      DCXO_GATING_REG, BIT(0), 0);
-+
- static struct ccu_common *sun6i_rtc_ccu_clks[] = {
- 	&iosc_clk,
- 	&iosc_32k_clk,
-@@ -275,6 +317,11 @@ static struct ccu_common *sun6i_rtc_ccu_clks[] = {
- 	&osc24M_32k_clk.common,
- 	&rtc_32k_clk.common,
- 	&osc32k_fanout_clk.common,
-+	&osc24M_32k_div_a733_clk.common,
-+	&hosc_serdes1_clk.common,
-+	&hosc_serdes0_clk.common,
-+	&hosc_hdmi_clk.common,
-+	&hosc_ufs_clk.common,
- };
- 
- static struct clk_hw_onecell_data sun6i_rtc_ccu_hw_clks = {
-@@ -288,6 +335,10 @@ static struct clk_hw_onecell_data sun6i_rtc_ccu_hw_clks = {
- 		[CLK_OSC24M_32K]	= &osc24M_32k_clk.common.hw,
- 		[CLK_RTC_32K]		= &rtc_32k_clk.common.hw,
- 		[CLK_OSC24M_32K_DIV]	= &osc24M_32k_div_clk.hw,
-+		[CLK_HOSC_UFS]		= &hosc_ufs_clk.common.hw,
-+		[CLK_HOSC_HDMI]		= &hosc_hdmi_clk.common.hw,
-+		[CLK_HOSC_SERDES0]	= &hosc_serdes0_clk.common.hw,
-+		[CLK_HOSC_SERDES1]	= &hosc_serdes1_clk.common.hw,
- 	},
- };
- 
-@@ -330,6 +381,15 @@ static const struct sun6i_rtc_match_data sun55i_a523_rtc_ccu_data = {
- 	.osc32k_fanout_nparents	= ARRAY_SIZE(sun50i_r329_osc32k_fanout_parents),
- };
- 
-+static const struct sun6i_rtc_match_data sun60i_a733_rtc_ccu_data = {
-+	.have_ext_osc32k	= true,
-+	.have_iosc_calibration	= true,
-+	.have_dcxo_status	= true,
-+	.have_phy_ref_gates	= true,
-+	.osc32k_fanout_parents	= sun50i_r329_osc32k_fanout_parents,
-+	.osc32k_fanout_nparents	= ARRAY_SIZE(sun50i_r329_osc32k_fanout_parents),
-+};
-+
- static const struct of_device_id sun6i_rtc_ccu_match[] = {
- 	{
- 		.compatible	= "allwinner,sun50i-h616-rtc",
-@@ -343,6 +403,10 @@ static const struct of_device_id sun6i_rtc_ccu_match[] = {
- 		.compatible	= "allwinner,sun55i-a523-rtc",
- 		.data		= &sun55i_a523_rtc_ccu_data,
- 	},
-+	{
-+		.compatible	= "allwinner,sun60i-a733-rtc",
-+		.data		= &sun60i_a733_rtc_ccu_data,
-+	},
- 	{},
- };
- MODULE_DEVICE_TABLE(of, sun6i_rtc_ccu_match);
-@@ -375,6 +439,13 @@ int sun6i_rtc_ccu_probe(struct device *dev, void __iomem *reg)
- 	osc32k_fanout_init_data.parent_data = data->osc32k_fanout_parents;
- 	osc32k_fanout_init_data.num_parents = data->osc32k_fanout_nparents;
- 
-+	if (data->have_dcxo_status)
-+		sun6i_rtc_ccu_hw_clks.hws[CLK_OSC24M_32K_DIV] =
-+			&osc24M_32k_div_a733_clk.common.hw;
-+
-+	if (!data->have_phy_ref_gates)
-+		sun6i_rtc_ccu_hw_clks.num = CLK_NUMBER_NO_GATES;
-+
- 	return devm_sunxi_ccu_probe(dev, reg, &sun6i_rtc_ccu_desc);
+ /* Voltage setting */
+ #define FAN53555_VSEL0		0x00
+@@ -389,6 +390,18 @@ static int rk8602_voltages_setup_rockchip(struct fan53555_device_info *di)
+ 	return 0;
  }
  
-diff --git a/drivers/clk/sunxi-ng/ccu-sun6i-rtc.h b/drivers/clk/sunxi-ng/ccu-sun6i-rtc.h
-index ab7b92b47f59..4f4f4cb00f1d 100644
---- a/drivers/clk/sunxi-ng/ccu-sun6i-rtc.h
-+++ b/drivers/clk/sunxi-ng/ccu-sun6i-rtc.h
-@@ -11,6 +11,6 @@
- #define CLK_RTC_32K		6
- #define CLK_OSC24M_32K_DIV	7
++static inline unsigned int fan53555_map_mode(unsigned int mode)
++{
++	switch (mode) {
++	case FAN53555_REGULATOR_MODE_FORCE_PWM:
++		return REGULATOR_MODE_FAST;
++	case FAN53555_REGULATOR_MODE_AUTO:
++		return REGULATOR_MODE_NORMAL;
++	default:
++		return REGULATOR_MODE_INVALID;
++	}
++}
++
+ static int fan53555_voltages_setup_silergy(struct fan53555_device_info *di)
+ {
+ 	/* Init voltage range and step */
+@@ -586,6 +599,17 @@ static int fan53555_device_setup(struct fan53555_device_info *di,
+ 	return ret;
+ }
  
--#define CLK_NUMBER		(CLK_OSC24M_32K_DIV + 1)
-+#define CLK_NUMBER		(CLK_HOSC_SERDES1 + 1)
++static void fan53555_device_mode_map_setup(struct fan53555_device_info *di)
++{
++	switch (di->vendor) {
++	case FAN53555_VENDOR_SILERGY:
++		di->desc.of_map_mode = fan53555_map_mode;
++		break;
++	default:
++		break;
++	}
++}
++
+ static int fan53555_regulator_register(struct fan53555_device_info *di,
+ 			struct regulator_config *config)
+ {
+@@ -686,6 +710,10 @@ static int fan53555_regulator_probe(struct i2c_client *client)
+ 	if (!di)
+ 		return -ENOMEM;
  
- #endif /* _CCU_SUN6I_RTC_H */
-
++	di->vendor = (uintptr_t)i2c_get_match_data(client);
++
++	fan53555_device_mode_map_setup(di);
++
+ 	pdata = dev_get_platdata(&client->dev);
+ 	if (!pdata)
+ 		pdata = fan53555_parse_dt(&client->dev, np, &di->desc);
+@@ -695,7 +723,6 @@ static int fan53555_regulator_probe(struct i2c_client *client)
+ 				     "Platform data not found!\n");
+ 
+ 	di->regulator = pdata->regulator;
+-	di->vendor = (uintptr_t)i2c_get_match_data(client);
+ 	if (!dev_fwnode(&client->dev)) {
+ 		/* if no ramp constraint set, get the pdata ramp_delay */
+ 		if (!di->regulator->constraints.ramp_delay) {
 -- 
-2.47.3
+2.43.0
 
