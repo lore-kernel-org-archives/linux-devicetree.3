@@ -1,182 +1,166 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C20F43710D
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 09:40:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CFB1435EC1
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 09:40:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784799614; cv=none; b=P2VvqDXux16GGlCfXqzRBLIrImfE4DSl9RK8itaSJ4VxVh8qR1gc+lJBLP6xklolTWzhyMOfd5YLvFQ0cMXK1a1CGwiHD/QMynbaamIP0JulDxSBuk1pZZmbGG240NKv6F1XOdKocWFL+8KgsiLOEFYnyUlb/jpqrf4GiMWn6Bg=
+	t=1784799616; cv=none; b=Dizht2bZbRd1BCgZJdERxoeNbolZfQ1YubiopMeKolJgwGlfEMcCCPJF/OONptvDyeviQLFdV8IAossNsG/iRGbg5svlJEX2SEWvypXKe1Zth+t3F5I5mafcaK9iuGsqomWNUqIZ5jgibzwvYgXmp4LeCf0v40AsqLOLj0M4VgI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784799614; c=relaxed/simple;
-	bh=JBCNsbbmpvOyQAHYAiNtZ0xGeCHrftQkcKapQT6A/2Y=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Zr6fs9XxRJNiCDrQQcQBM4SNr8ITA23C3LSGXclpswYIEJfCdjvcPUJ+oJ0SXPKWytq08Ln2Kf5NXlUZ3ZIXpHRhWblH3KFWtrUq/BIUX/E2+g+IJZ00wE6YfITOx5N3iIg8LG6REEqiO3ZM/OXmNkr4DGkkC6NRzbL7zD50zMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=I6ZKG45r; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1784799616; c=relaxed/simple;
+	bh=GOBymmbdwommTeZwp/3gAy8i9YKZ/D5rwVXMRabh/Go=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=K/z79f6n5dlZdTIMVxCLltiDWOMr/yrgmZvjG0Ps5VyeSgGv5ayE74+OJqG5nE36CDm8JkR5I9jYbHoyflFHKcYx0FGFtSHtRcsikU4QD0oHKsnvK64XuF/llwi5kdHJ6fLU6ywzyNq/b+vd/qov1urmHal5V3PHLLU9bDoLEDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arturia.com; spf=pass smtp.mailfrom=arturia.com; dkim=pass (2048-bit key) header.d=arturia.com header.i=@arturia.com header.b=mykGCfiH; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arturia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arturia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="I6ZKG45r"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so3227405e9.1
-        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 02:40:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=arturia.com header.i=@arturia.com header.b="mykGCfiH"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4953de5be0aso3048705e9.0
+        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 02:40:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1784799610; x=1785404410; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=arturia.com; s=arturia; t=1784799611; x=1785404411; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ZjvDxGaz/+Ym5ockvfd8pkGSRzvwp3SWGNBrqT7Ifz0=;
-        b=I6ZKG45r9lSxmnsIBBW+WTfARHgr2knBeW99sFU55aaTq/fH7in0WJ3x6cH4+cvxj1
-         i+C+fglAf5mjy/dtFKOtKg64xwgEQVBcT36wV8TRhjeD9TxkDifw9/a7/G6ugdog3vxU
-         atYDWP/3SFjcH/6tdgzConLkBnTq6Um2Qi9x+KryeXIZjp+v/cyTtwYVpUmS4/BbXf/Q
-         k3VNflON95vMyAQcgZQ4TxvBsf2PtQpIpbGQ0oJAS82U3wFlHhg3/8kkngb6YG319sA5
-         HAHm07K7Iwzy+edDCHPiOy9kP/E71r5E5gIGWG2PYDSsQEa6iSeET3TM1+IFpSZnUBMm
-         lZag==
+        bh=QZCIb0M/YGxErNMaZ1+Or3nnTnaKMjx4d2oCxsTYqLs=;
+        b=mykGCfiHp3e+TIlArhWosUjW7YsPEy86JJE8RzWoHTpe1VP556juihLuwOQ+Ktvgta
+         7iIPkg9vCgiMXUN73nCYl+EEr8GVtAvUX9EElNWW8vFQ8nuV7wzbvVpl4bKtCqd8QoPd
+         jDPcX8i0yvVnwMKS7Re8fPR/wS3J7Jr1PbndeWEYsG/r19uETDEMrprVa1rUyA91S1+n
+         hyyPJVMdyOMqvpbCcpGmgHcnb2Sk6i58l03JymnWZxlgTpsACeisnavjdJtN9RZGKq/A
+         +YlngmXQb7uDGM2Z7uD+NPUBoypXpI9WfsipINdK4lmYnQF4Xu1SWwQmAeIVQEXv9YA2
+         G/NQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1784799611; x=1785404411;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZjvDxGaz/+Ym5ockvfd8pkGSRzvwp3SWGNBrqT7Ifz0=;
-        b=KlPP1drjif+g/2Edz82gDuPzqfeswom5tqIj9jWToH8Z3zYHAJ4XalPUnjZsLJOyOQ
-         /q4t8JJltCPpWo9kTFS2KhtzmQf02buV+PjdMSHHW9o4NMOolhrFPMfDk1lPYG6j28Le
-         ulFQ7MYMM4pbpPr0u08OiNNuJv0Za4gYvoUeE0nIg6JuaTz05tM2HEUjQ2ujmq/BhXc3
-         5QKq7tXjF/RQqieW0wCioOwhuYFyRNI4y34nXskOCdcz5SGRcBzNHUNZl9x2ilPAp2t1
-         RDBOV66SZV4zObhJdLKYuTsxSQVeAjeXFGndjbLaXoS5KnrbZe+HGM2nKEohF1R2d1zi
-         H69w==
-X-Forwarded-Encrypted: i=1; AHgh+RqgoO9dQ2bhb6VYrCS1tGNbSYoHv3xRhfXulpytpt8fVOOWlzPcrONIhwUqb7wrA4AQMrUTzAd1xzX0@vger.kernel.org
-X-Gm-Message-State: AOJu0YxHYB+6ex+wgBTO+zpGOCRAqWso3d1JbWUvZA/fzh+0BCwKWVHU
-	vrLINyF/3l3BJ7Kf81J51IsXGIfYgeL3e3GrkRqF1MtMgbwgcRtszW+BScB/NWQHVyY=
-X-Gm-Gg: AR+sD105IM1/4jIGh8T6rbxf//++RdEipPrgJ147YidGKprZ8xvdTZXq8KjPoJ3subt
-	2IrZwcBg7z26BtHsWzn5hXm3U2YvbYvv8BSRlbB9id1Hz8ESTxXL28LBYLp/aYe3KLMxRxcIccj
-	RbYHvxbO4QpdcpT5xnAUdbnIPt7gndrxXMrMmJyUiM+tzhesyc5RmYPrLz2k9l8VVP8U1x8oGnv
-	m0XUb/tWemB4FeOSHe8DM4g1FEh2rYz8NvN94sKIoN5Da+9OVOCTvmneO5YIL8QB4NRDbDvMY3u
-	2O/YnOgQFckTOF8ibqlKjr7eZ8K/eDZGjmMf83B2P9tVkvFH90L2RkNW3K8bItMToNBtkJ3bbHs
-	KtBUptrBrpicYvn8ZuIr7iG7xBYG0Azbf4lJWiSjGgD79f3MzjcdkgqPRBxYpuIa9Idy75wiB5b
-	2QPwDWZq2bH3Q=
-X-Received: by 2002:a05:600c:4ecd:b0:493:c77c:108a with SMTP id 5b1f17b1804b1-49573d218camr23593405e9.36.1784799610474;
-        Thu, 23 Jul 2026 02:40:10 -0700 (PDT)
-Received: from localhost ([2a01:e0a:3c5:5fb1:3274:dbb5:2710:802b])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-47f85c6f076sm14217894f8f.34.2026.07.23.02.40.09
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QZCIb0M/YGxErNMaZ1+Or3nnTnaKMjx4d2oCxsTYqLs=;
+        b=sryJo7n/MJigKk8RX0Ey6rNQWcVIYWlEXOumXdCwiWWttSODpJwxv0a9ukpanvzkDZ
+         PouoH+Txi45Y/Z5m5cKE/iyrQxmmvtdzwhn5QZz5pgfLrfPPZuiRSNULMBAvrzig+YRN
+         vCjndomxGbq9ZgPSWW9nXLOnnHA6BQAZji1+/2BBi0wZiuew8G79/YGX/U4rFRLZS1k6
+         vEo+9sv78nTmAeQoFWc6hRHIf8vpYCZ14Sd3nIgLa7SJteXjkcRJ9uDFWXM2GV5b61I6
+         99Dwbr0e8OPyi0hlFRwIIjulJIxlXKks9x/2tEBP3Hm5b9P/4Z+8Cr81SO7TzX0Ggftk
+         oLag==
+X-Forwarded-Encrypted: i=1; AHgh+RrgH3fbaWpsEA3Lb0cukg42cQVJ7txPkPbTCDXf6MEVIxMKJJiGn/SZGxO+TA/LzInXBYn2Z8t5sF1d@vger.kernel.org
+X-Gm-Message-State: AOJu0YxDYvxlEE16XdtmZXxNpxnLGhzCUVy8velYvczP6mFN6fNsED4J
+	TM0VVR/w2L+q/9YnGCseqi2eUAnjoKnllf65D3LbGcAagj7jujgIUBvAVRACRUT2Wq2RUyY8oZX
+	wSMld
+X-Gm-Gg: AR+sD12mcO8xB6n+15kXjRv8sP2NFVQl6T4SXGYgYi9BwDTpmfL9QTxiME62o+HdX5F
+	wLfYVfFpaS+9Ob0E0MlxLyn8u6I6ZsSvOz1oee5P6nY71t5nf+vKsVomCGvqy0tr8h19urQc+eJ
+	HWz2vGfFiACKmUPgm5SbwAbnFIDPDOB7JSzc1z78uB/jrTQ/4l+7aVHL8kyICEDJGqesAWJcx9U
+	2TddhD//xZq3eol59oNWhZDiBcKEdOaedCUT4pOmctO/NkMm4hHJseWZoUkL/8t4YMdEfBCbRCH
+	5tXrNePOU1z5QXKlEpDaV0v+4hTOqaG88+TFKvJjFmqEFl1wumDGPzcmC6+trbRVX0J85DPifK0
+	MXu7MnJdz+g1vz6iuY7Yt1coPFn1ULKGjX0iqCnvkqLMY7cdnqSNba5SJNy7bQdsYMadNvZt8y8
+	U4dv+IsmSC7MuOqaorffNPSCnSPuzXzh/Mdl+C5zH6QJalYCS9ULJy296FHdv69w==
+X-Received: by 2002:a05:600c:5942:b0:495:6397:14b1 with SMTP id 5b1f17b1804b1-49573cf0ec2mr16196835e9.34.1784799611464;
+        Thu, 23 Jul 2026 02:40:11 -0700 (PDT)
+Received: from vkrawiec.arturia.team (226.142.197.77.rev.sfr.net. [77.197.142.226])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4956b030a64sm100986245e9.3.2026.07.23.02.40.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Jul 2026 02:40:10 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-Date: Thu, 23 Jul 2026 11:39:53 +0200
-Subject: [PATCH v7 3/4] clk: sunxi-ng: sun6i-rtc: split main oscillator div
- and gate
+        Thu, 23 Jul 2026 02:40:11 -0700 (PDT)
+From: Victor Krawiec <victor.krawiec@arturia.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Victor Krawiec <victor.krawiec@arturia.com>
+Subject: [PATCH v3 1/4] regulator: dt-bindings: Add fan53555 allowed modes
+Date: Thu, 23 Jul 2026 11:39:58 +0200
+Message-ID: <20260723094001.120264-2-victor.krawiec@arturia.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260723094001.120264-1-victor.krawiec@arturia.com>
+References: <20260723094001.120264-1-victor.krawiec@arturia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-a733-rtc-v7-3-8fd68aab94ae@baylibre.com>
-References: <20260723-a733-rtc-v7-0-8fd68aab94ae@baylibre.com>
-In-Reply-To: <20260723-a733-rtc-v7-0-8fd68aab94ae@baylibre.com>
-To: Junhui Liu <junhui.liu@pigmoral.tech>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Maxime Ripard <mripard@kernel.org>
-Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
- Jerome Brunet <jbrunet@baylibre.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2641; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=JBCNsbbmpvOyQAHYAiNtZ0xGeCHrftQkcKapQT6A/2Y=;
- b=owEBbQKS/ZANAwAKAeb8Dxw38tqFAcsmYgBqYeFvjq1VgqkrnRX4lgbpVG1CsAXk0OXhBpCAY
- 2cCxet3nn2JAjMEAAEKAB0WIQT04VmuGPP1bV8btxvm/A8cN/LahQUCamHhbwAKCRDm/A8cN/La
- hf+4D/9zXNDTBscW+MTjTDh5NosjbTzIiSUcS/dzhnCjmVmQ22U54ZbigzSwc6euLyNEtodPs1C
- /83GyQHXZt+edY9PQwiZPYblQf+aVW1yKbeYf6FFTVVge5OGW3uMbf9OafZ444Ub/xyM7n9nGTL
- XW7lMm7/LwIzHt4uT1zqEwBFeGSWbtpq42X5f5XSAWzj0D/Sfg/UNEzJt+Rs+um4Vl4r6c13Ch2
- jgSCFGwtao3MN98b2BVBehZnTVyzXa3tKeJ74cHMVt1fIqo42wGGN4MW6hIyGnpcKhRZVBUTPpj
- nImEEQ/hlmQBjgiMcaKdGtY/IN8KqnMZxLGR807JujAmNNxr2G6VLFHBf69hKJMuRSFapjHy3f+
- 6g8EfwUeZcwlSHhe5v9kw7q4+t1Zn9dFcxPktxBOmr8jtipsQ+Foc6AxBT5/zYW3c/9kz7rr7hT
- /MHiWwdeMGFzyCU1iVvoPB8GrWdMpoL6V89Iin13MOxCvLchXPPD2prKYFPK6dxhZggyxOWl16M
- 87kPE9H1TtPTKfcVmm+e2FKcEVn4s/R8VC+ea3KAS9sOw8scj8hQZU7GuSCX+FTvMUZstkPhCzJ
- 9N08h3ySwaNa7DjKju7KfJTrOTYdqNgr4IKfsaevnZUUtEgvNDH5hQDqy7wzqNj2ezZl7zu5VEQ
- YE3e07IaksL7KFA==
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
+Content-Transfer-Encoding: 8bit
 
-On the a733 the "osc24M-32k" clock has the same gate bits as the previously
-supported SoC but a different divider implementation.
+Fairchild FAN53555 and its clone from Rockchip, Silergy and TCS support
+two modes of operation:
+- Auto-PFM: Allow automatic PFM during light load (default mode)
+- Forced PWM
 
-Instead of a fixed 750 divider, the divider is selected based on the
-rate of the oscillator. It can be seen as a simple read-only divider.
+Some boards require forced PWM mode to keep the supply ripple within
+acceptable limits under light load conditions.
 
-On the A733 the gate and the divider are on different register which is
-not supported by sunxi combined clocks. These element will be split on the
-A733. Split them for the older SoC as well to keep on sharing the gate
-definition.
+Regulator mode indexes are starting from 1 to keep backward compatibility
+with existing device trees
 
-Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
-Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+Signed-off-by: Victor Krawiec <victor.krawiec@arturia.com>
 ---
- drivers/clk/sunxi-ng/ccu-sun6i-rtc.c | 20 +++++++++++---------
- drivers/clk/sunxi-ng/ccu-sun6i-rtc.h |  3 ++-
- 2 files changed, 13 insertions(+), 10 deletions(-)
+ .../bindings/regulator/fcs,fan53555.yaml      |  8 ++++++++
+ .../regulator/fcs,fan53555-regulator.h        | 20 +++++++++++++++++++
+ 2 files changed, 28 insertions(+)
+ create mode 100644 include/dt-bindings/regulator/fcs,fan53555-regulator.h
 
-diff --git a/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c b/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c
-index b24c8b196e66..25dd87e78eb7 100644
---- a/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c
-+++ b/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c
-@@ -218,17 +218,18 @@ static const struct clk_parent_data osc24M[] = {
- 	{ .fw_name = "hosc", .name = "osc24M" }
- };
+diff --git a/Documentation/devicetree/bindings/regulator/fcs,fan53555.yaml b/Documentation/devicetree/bindings/regulator/fcs,fan53555.yaml
+index 69bae90fc4b2..9a18891f721e 100644
+--- a/Documentation/devicetree/bindings/regulator/fcs,fan53555.yaml
++++ b/Documentation/devicetree/bindings/regulator/fcs,fan53555.yaml
+@@ -48,6 +48,12 @@ properties:
+       VSEL0 register. When this pin is HIGH, VOUT is set by the VSEL1 register.
+     maxItems: 1
  
--static struct ccu_gate osc24M_32k_clk = {
--	.enable	= BIT(16),
--	.common	= {
--		.reg		= LOSC_OUT_GATING_REG,
--		.prediv		= 750,
--		.features	= CCU_FEATURE_ALL_PREDIV,
--		.hw.init	= CLK_HW_INIT_PARENTS_DATA("osc24M-32k", osc24M,
--							   &ccu_gate_ops, 0),
--	},
-+static struct clk_fixed_factor osc24M_32k_div_clk = {
-+	.mult = 1,
-+	.div = 750,
-+	.hw.init = CLK_HW_INIT_PARENTS_DATA("osc24M-32k-div",
-+					    osc24M,
-+					    &clk_fixed_factor_ops,
-+					    0),
- };
- 
-+static SUNXI_CCU_GATE_HW(osc24M_32k_clk, "osc24M-32k", &osc24M_32k_div_clk.hw,
-+			 LOSC_OUT_GATING_REG, BIT(16), 0);
++  regulator-initial-mode:
++    enum:
++      [ 1, 2 ]
++    description:
++      Defined in include/dt-bindings/regulator/fcs,fan53555-regulator.h
 +
- static const struct clk_hw *rtc_32k_parents[] = {
- 	&osc32k_clk.common.hw,
- 	&osc24M_32k_clk.common.hw
-@@ -286,6 +287,7 @@ static struct clk_hw_onecell_data sun6i_rtc_ccu_hw_clks = {
- 		[CLK_EXT_OSC32K_GATE]	= &ext_osc32k_gate_clk.common.hw,
- 		[CLK_OSC24M_32K]	= &osc24M_32k_clk.common.hw,
- 		[CLK_RTC_32K]		= &rtc_32k_clk.common.hw,
-+		[CLK_OSC24M_32K_DIV]	= &osc24M_32k_div_clk.hw,
- 	},
- };
+ required:
+   - compatible
+   - reg
+@@ -56,6 +62,7 @@ unevaluatedProperties: false
  
-diff --git a/drivers/clk/sunxi-ng/ccu-sun6i-rtc.h b/drivers/clk/sunxi-ng/ccu-sun6i-rtc.h
-index 9ae821fc2599..ab7b92b47f59 100644
---- a/drivers/clk/sunxi-ng/ccu-sun6i-rtc.h
-+++ b/drivers/clk/sunxi-ng/ccu-sun6i-rtc.h
-@@ -9,7 +9,8 @@
- #define CLK_EXT_OSC32K_GATE	4
- #define CLK_OSC24M_32K		5
- #define CLK_RTC_32K		6
-+#define CLK_OSC24M_32K_DIV	7
- 
--#define CLK_NUMBER		(CLK_RTC_32K + 1)
-+#define CLK_NUMBER		(CLK_OSC24M_32K_DIV + 1)
- 
- #endif /* _CCU_SUN6I_RTC_H */
+ examples:
+   - |
++    #include <dt-bindings/regulator/fcs,fan53555-regulator.h>
+     i2c {
+         #address-cells = <1>;
+         #size-cells = <0>;
+@@ -68,6 +75,7 @@ examples:
+             regulator-max-microvolt = <1800000>;
+             vin-supply = <&parent_reg>;
+             fcs,suspend-voltage-selector = <1>;
++            regulator-initial-mode = <FAN53555_REGULATOR_MODE_FORCE_PWM>;
+         };
+     };
+ ...
+diff --git a/include/dt-bindings/regulator/fcs,fan53555-regulator.h b/include/dt-bindings/regulator/fcs,fan53555-regulator.h
+new file mode 100644
+index 000000000000..ce3d6c63a0f1
+--- /dev/null
++++ b/include/dt-bindings/regulator/fcs,fan53555-regulator.h
+@@ -0,0 +1,20 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++/*
++ * Copyright (c) 2026 Arturia - All rights reserved.
++ *
++ * Device Tree binding constants for the FAN53555 PMIC regulator
++ */
++
++#ifndef _DT_BINDINGS_REGULATOR_FAN53555_H
++#define _DT_BINDINGS_REGULATOR_FAN53555_H
++
++/*
++ * Constants to specify regulator modes in device tree for SYR82X regulators
++ * FAN53555_REGULATOR_MODE_FORCE_PWM:	Force fixed PWM mode
++ * FAN53555_REGULATOR_MODE_AUTO:	Allow auto-PFM mode during light load
++ */
++
++#define FAN53555_REGULATOR_MODE_FORCE_PWM	1
++#define FAN53555_REGULATOR_MODE_AUTO		2
++
++#endif
 
+base-commit: 62b9452f5fc4d007f1ea31cfdbb53a96d91e3c66
 -- 
-2.47.3
+2.43.0
 
