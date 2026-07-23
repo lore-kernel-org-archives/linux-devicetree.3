@@ -1,90 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 769467478
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 01:34:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C1E5191F94
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 01:46:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784770459; cv=none; b=DlGywMn+5WeyojO73Dzvrtbc29IpimaDEvkLapLRkhq3AuImm4dN5IvV3mzcyYoJlyHR6T98tlF2FC2e10sOB/e84PMpRnNbV4Kli7t3cSZWdH4YUgvra7Ba0x9ghseM9Ixx6bKrhyfEeCn13dq3hA9mPOklnyxSXLV1g1/yAUM=
+	t=1784771192; cv=none; b=Nujmo3VikYcqqh+nUhGSWIZ3QizMq15zK3gOo61CTl00Vtl+hEFe97jg8vHpaqI9QEbdpTbT/Li9nMku0z2ibwOZRkqkbb5+PAGsJevIe8z8+bfSre32SHGEgE/xM3M5TXeSQKSl3QyNFMU2ZzTwNWhmIWt1wt6hbH5KvNjDNWE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784770459; c=relaxed/simple;
-	bh=gMvOGwo2GISRSxBEX6u3cMW7Ie3XAagcCOE9FNvAX14=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rHqkdcuSZLWqegM57U/xechB0VdPOa5MrXWVZqWf0xsqYybMCwcCRKxEVHGSf3dlsPE9fSMIy9mK2Zdg/47L16sAyxZMzLxBzVxEofcwukRfbJs3/BT9/fAqtx9xMcuCvnAxhCoJ0W8QjWxAK+OXV/ChTIEJpPzcK0DRA90Sja4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ME6rVm+y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784771192; c=relaxed/simple;
+	bh=68ATJgBzTZTUdvfoG0MJ+7Tai0B5DUi3LXxfB1fRbss=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jO9DsD/D2Bhm+6n03e0vvVU5FR+E0Ujg7msshROXkL3U1EO5r9uyqvNEC8NammuLWeycc0f1QVNTZE3Y8gG8XRwdd4Jbe8hJueThk7c2tYUA/iq/CS9jjwPs0YMnz/et+gaLW/36o2fvEFKq2zNtC7OMzSHRF+bTnvQEkQrV2lo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fx+fwcSo; arc=none smtp.client-ip=209.85.128.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ME6rVm+y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5DFA1F000E9;
-	Thu, 23 Jul 2026 01:34:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784770458;
-	bh=W0d3ZxhRLO+a3IqrPho1tRPxUMvDsFO3oph/Qi9L/YU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ME6rVm+yrxNesDKvgoWtWsT29UDzftcJthV7Z0ZAHgkPkkkmHfZNCy79hYDi4XPb4
-	 ra4sW4+0fQFU6bn8MLJepyqHHZzd+2WEzWDC1S/aFYVcQleFeZ0YSYGL8/0d3yrZyq
-	 RSFF77I5bppojT77qQS6nVDBHu3bgTXQpWJpDdMW8TM1rDFDouPbYIzI/4jM91c8TL
-	 AbKkqoT3sB/pIfTH8rZS0KFKtyqMlzUoFa9TeIOTYWov4FgAwnGtSsVyH3uOigEpxX
-	 bk2u+DmNB9+OQKU3oCRKflxYq9YcNX0yiOphaZm23C4j1OI2VGq07CXvRZzuD1480A
-	 iWgzUPcgnwR6Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] arm64: dts: qcom: add initial Motorola Moto E4
- (perry) support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Aneesh Pradhan" <aneeshpradhan2004@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260723012431.48499-4-aneeshpradhan@acm.org>
-References: <20260723012415.48288-1-aneeshpradhan@acm.org>
- <20260723012431.48499-1-aneeshpradhan@acm.org>
- <20260723012431.48499-4-aneeshpradhan@acm.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 01:34:17 +0000
-Message-Id: <20260723013417.D5DFA1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fx+fwcSo"
+Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-80a123ef90aso951207b3.0
+        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 18:46:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784771190; x=1785375990; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=806bBlE70dTbD9t6qcYHAWco7K+1cMcnXPvu9D6RFV8=;
+        b=fx+fwcSoIDmbocjemiSumadFxU6mfqgDpkgN6mFA+7fhUveMd7p1GtCehv++5muxVB
+         YEnZbXy9By1PTM03YShxEp7Dh87dC2xfTsXuqq7KEXqUoR94bUEzExz97ubFZnj5vEYq
+         CXzgPImUwLMHMjMIUNpIl4A+FKin0IVcR3fMVKaYaV3ubvROZyqy/yke48IaCcN3N+Wm
+         Lm+rQIFrRDSrjTDVzNAz74lHXJz8ZwlHRyrYfQjXz2vkeOH9Yv5mKd+Gbeb6wUBVcvVN
+         4c0owWXRIncFmHXRKfYYNMJtm5k+lXQkUkOfLhzGl16ZrTETvO7LW5AhNoxvKrqRb36E
+         xfUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784771190; x=1785375990;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=806bBlE70dTbD9t6qcYHAWco7K+1cMcnXPvu9D6RFV8=;
+        b=I/IiAykheFrliLS4O9BuWu76vvw79m09XqVxrb6w9MvxXmMV9Mb7pKOtKHY9LHFa/M
+         pW4nupFthyaGpKy4j+baJrK6R144is0MSyJ5iLHfDTTP7szR82NHjz22yFmfmkTeoh7e
+         0JQg7Meri4O2f1T9pqvsTfIhIUNUrwISDYiykOFVQ3PE8UP/eMCMZHPPaT+v2cGjymCq
+         umNcz3U/DL6DP85dj9PZMbxfoirat8HszcbyrrQX00oGoBYm/vE2l79QA91tRXAsx5vl
+         mUmpEAl/++EW2CxyA3K4zTgmkJ17RVqHjEpr6mMKOAyd1LWIA8MD94nF9dwdSAsEx1V2
+         O0VQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqlZMrjmtM9qFNbuHVazImmWPWGsyLLIBAAh8b3hLDN1SmTHkiX9LkL19qZ1NDKO4CZ74z86OsdkDLP@vger.kernel.org
+X-Gm-Message-State: AOJu0YxEv7jL14aPbfVbXuT1z/brRZG34layOB47TywdxQqfayhE0mw9
+	aMTSO30xShla/X6MAw8q+smw7NNlZCXGsiH5mAhHKA4K2oaJWQW/Jmc0
+X-Gm-Gg: AR+sD1176XjhRb/1OwK7Ql0l1I+bFiJI6zkbuMaTuHjtDEQsPIA8y6syCSTB3pqElQA
+	oIwz0vOu8DRVu03pg3gzhKNVvXmEqAd7acGOdiFlK5GEX/Q1t8kg3LKWub9bPZD6ZFqofIRwF0E
+	fRnv4MBO3C580d/4DttJ0LmOph1ovT+C6vvr1JlAcVZY+E/BRyU1Lp5H1JiI5UIw2xC5bY5YYFg
+	PHJl2FBvi3D3wDejZdvtDl6UThPllkrXdm14ZXnrOB/cg8ov0ezlpkmfqO2vxmCaH1+cwegsee/
+	O2uFcNmJMUve3VYEenkcutVL9YoskHoT0pbcE4gIzM+lQRZIuRIxUnmpLJg72LzeGmr64v/SEBs
+	/p8HT2/xsL47E+rOLnceyrlpx+FUzB4Jvwzi2JoqnB9J3Yo8VfnRDSTOosMO+ePSdClMHWBq6W8
+	RhqmklfBOSN65dEiGYA8dc1wDt4UM5xCGjvWvvPLo=
+X-Received: by 2002:a05:690c:6882:b0:81e:6563:72ee with SMTP id 00721157ae682-81f4d3b5891mr2221677b3.14.1784771189976;
+        Wed, 22 Jul 2026 18:46:29 -0700 (PDT)
+Received: from karli.attlocal.net ([2600:1700:7270:4eb0::19])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-81f33bf2e50sm22038487b3.10.2026.07.22.18.46.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Jul 2026 18:46:29 -0700 (PDT)
+From: Aneesh Pradhan <aneeshpradhan2004@gmail.com>
+X-Google-Original-From: Aneesh Pradhan <aneeshpradhan@acm.org>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Catherine Frederick <serenity@floorchan.org>,
+	linux-clk@vger.kernel.org,
+	Aneesh Pradhan <aneeshpradhan@acm.org>
+Subject: [PATCH v2 0/3] arm64: dts: qcom: initial MSM8920 and Motorola Moto E4 (perry)
+Date: Wed, 22 Jul 2026 18:46:24 -0700
+Message-ID: <20260723014627.63310-1-aneeshpradhan@acm.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260723012431.48499-1-aneeshpradhan@acm.org>
+References: <20260723012431.48499-1-aneeshpradhan@acm.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Device Tree blob entries in the Makefile are not sorted alphabetica=
-lly.
---
+Initial upstream support for MSM8920 and the Motorola Moto E4 (perry).
 
---- Patch [3]: [PATCH 3/3] arm64: dts: qcom: add initial Motorola Moto E4 (=
-perry) support ---
-commit f1e9e7f386e094ca8238575174ce1d5dde0b3f6c
-Author: Catherine Frederick (coolguy) <serenity@floorchan.org>
+Depends on the separate qcom,rpmcc-msm8920 clk series (binding +
+clk-smd-rpm) for the MSM8920 rpmcc compatible used by msm8920.dtsi.
 
-arm64: dts: qcom: add initial Motorola Moto E4 (perry) support
-   =20
-This commit adds MSM8917 and MSM8920 board files for the Motorola Moto E4
-(perry) sharing a common dtsi. It includes an initial subset of peripherals
-such as regulators, eMMC/SD, USB OTG, and touchscreen, while deferring
-peripherals lacking mainline drivers.
+This is a trimmed mainline-first subset of msm89x7-mainline/linux#48,
+rewritten so every phandle exists on qcom/for-next's msm8917 / pm8937 /
+pmi8950 (the fork DT assumed richer SoC/PMIC nodes that are not
+upstream yet).
 
-> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom=
-/Makefile
-> index e05414290d8e5..d92bd2863ef23 100644
-> --- a/arch/arm64/boot/dts/qcom/Makefile
-> +++ b/arch/arm64/boot/dts/qcom/Makefile
-> @@ -109,6 +109,8 @@ dtb-$(CONFIG_ARCH_QCOM)	+=3D msm8916-yiming-uz801v3.d=
-tb
->  dtb-$(CONFIG_ARCH_QCOM)	+=3D msm8917-xiaomi-riva.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+=3D msm8917-xiaomi-rolex.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+=3D msm8917-xiaomi-tiare.dtb
-> +dtb-$(CONFIG_ARCH_QCOM)	+=3D msm8917-motorola-perry.dtb
-> +dtb-$(CONFIG_ARCH_QCOM)	+=3D msm8920-motorola-perry.dtb
+Included: regulators, eMMC/SD, USB OTG (gpio-id extcon), keys, RMI4
+touch + reset-gpios, BMA253 (i2c-gpio), WCNSS (wcn3660b), PMI8950 WLED.
+Deferred follow-ups: DSI panel, IPA, QDSP6 audio, FG/smbcharger, modem.
 
-[Severity: Low]
-This isn't a bug, but shouldn't these new device tree blobs be sorted
-alphabetically within the Makefile?=20
+DTB build verified: msm8917-motorola-perry.dtb + msm8920-motorola-perry.dtb.
 
-It looks like msm8917-motorola-perry.dtb is being inserted after the=20
-msm8917-xiaomi-* entries. Placing it before msm8917-xiaomi-riva.dtb would
-follow the existing sorting convention and help minimize merge conflicts.
+Changes since v1:
+- Sort Makefile DTB entries alphabetically: place
+  msm8917-motorola-perry.dtb before msm8917-xiaomi-*, keeping
+  msm8920-motorola-perry.dtb after the msm8917 block (Sashiko review
+  on v1 patch 3/3).
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723012431.4849=
-9-1-aneeshpradhan@acm.org?part=3D3
+Catherine Frederick (coolguy) (3):
+  dt-bindings: arm: qcom: add MSM8920 and Motorola Moto E4 (perry)
+  arm64: dts: qcom: add initial MSM8920 device tree
+  arm64: dts: qcom: add initial Motorola Moto E4 (perry) support
+
+ .../devicetree/bindings/arm/qcom.yaml         |   7 +
+ arch/arm64/boot/dts/qcom/Makefile             |   2 +
+ .../qcom/msm8917-motorola-perry-common.dtsi   | 412 ++++++++++++++++++
+ .../boot/dts/qcom/msm8917-motorola-perry.dts  |  20 +
+ .../boot/dts/qcom/msm8920-motorola-perry.dts  |  20 +
+ arch/arm64/boot/dts/qcom/msm8920.dtsi         |  12 +
+ 6 files changed, 473 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/msm8917-motorola-perry-common.dtsi
+ create mode 100644 arch/arm64/boot/dts/qcom/msm8917-motorola-perry.dts
+ create mode 100644 arch/arm64/boot/dts/qcom/msm8920-motorola-perry.dts
+ create mode 100644 arch/arm64/boot/dts/qcom/msm8920.dtsi
+
+
+base-commit: a27464b0b99874d22b04a92186ab7ea9252c3847
+-- 
+2.53.0
+
