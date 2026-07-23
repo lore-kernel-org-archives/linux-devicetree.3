@@ -1,204 +1,210 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AEEB426D22
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 09:45:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 168F13FBB72;
+	Thu, 23 Jul 2026 09:48:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784799925; cv=none; b=jdl4xTxh7gHez+B1A38IgMLZdh9rtgqv0jYOjMGyrT9OFJAP8A01nN68yyxPzdWU0mxovdSbGrpVm3N6iDbl3BSXALB55Wr0VVOeWI5ApL1TzEeAlm8uiYhyJMZChgBosxElUjrtaguMTN+CU1K1z5teZXK+CvVAN0ZNmtnPj44=
+	t=1784800088; cv=none; b=nnGt+/xecxU94TM0TYekCwLQNoIUuPNrdfdjEqxUR/0XJur6C5Su7q/t9f4vO7NM3L7TpQfj5K2Fq4G3vEgNrzmqkSU3XfG8fbfWaVvG1oHqFMTthjHJRH7SFNZPqyY3Jz5+To/N+gGGHR7k7L0zoKrOXfjT12InFApo/W2moIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784799925; c=relaxed/simple;
-	bh=o6Lwomr9kCQRXkGx/1Vs5RaKg0u+FQqJS1OP3nbdFz4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qzJSpSjFolGcDhNQ6vl5Cj9jdXaPwjdNL9JvFFd8MPgwW9Gf2BCobk4J1C2Gwtd4E0Wrd73uB9FCUATJTsrOk6PBioQM2btB9ig2JSe0qi6feZyfOdOwwdmH3Hn7yLCZD0c0jyCsiLds64ecmUDm7C646AFIfu+2mPA47//sO/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bid0R0Oq; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bid0R0Oq"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4955158f26aso2794155e9.3
-        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 02:45:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784799922; x=1785404722; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=i93T0tzgCY+DP8cUZolLm0O+1zIztO+HaXRQpxg7jVc=;
-        b=bid0R0OqyBRyZSFJUTZO3/rtufQncd33mF5APL3kH42rivUI88XuxtTIHFbBEuxxci
-         AD34gyxfG713Os4Anb44Rv2Qp0o4HVINv+XTty1IsniMP26o/XQ8NfFF3wCA88tZ9Lvw
-         fuX0LdgQhyYJrPtJ0mYZ5aRFxGV2OOisKpIekmGEdY9a1reOefNVM/XbpuFwftLAS1gv
-         DZ6F3x8y6p5z+SXLjTdmVU5iZf4c8fyTBN0VCB2UxSZ6swpqIr4v+0Cv56kQKZlSYIkr
-         tWwD9X0ZPN+3H6COlCu28NbzUxNDyeVxDqx/R+fBbMnHdkFLfaq1ZRg44J/joIJvatdy
-         LANw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784799922; x=1785404722;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=i93T0tzgCY+DP8cUZolLm0O+1zIztO+HaXRQpxg7jVc=;
-        b=YNVFFJ6lrV+LN0AMAe/mQUFfLmsgvYeKoJmhIA+j/LIpRKECuqvQcei1oCdwYgdQqy
-         f2b4O1KwiKCzUzAkyP0gO9NUJxlc9lZU3w8NKh4a2j6lvZcnMbzWOLSRY1cBBPaJu4/Y
-         4lcSZk8YHynnZBjeo0ymJtuSBYEu3zBcm43zh61BFt4dKvDbLrtJpRZuV5W4fTPGOCIK
-         pAcAJwshec8pGpAYPRUKpi1oQp2A8sphC6/SqOrd97rHGY7lV9kMvl3Yqg45MAEgkeAN
-         IR+J2Tza3aTOLAYGNF1mB54YxbfMA8Qx3zJDHJDtaQ5OoThA3Rl1Y0V7Dek6nJaX2Dl1
-         KdYg==
-X-Forwarded-Encrypted: i=1; AHgh+RpzvMujYvW7pxC+hv0NwJPTI/FMQmXSYBfyRq47yvxp6wBzifqaHdreI1z42tcUpxpW1ZI1tPYMPd3E@vger.kernel.org
-X-Gm-Message-State: AOJu0YwNTAq4Yr4TJvrrtcawNq4ADTGAHso8OIDUubMAOM7LipaOROIT
-	F1phBKW1S75abfmpHLig7Jp+Tuq1t9DkXH+gXgGKdQy52BYGigBhOAGk
-X-Gm-Gg: AR+sD11z15iK2KQxklVdSt4N545gcQxHeVGa7LjgiuK4MnWP9gs6kPmBVvm+g5IO5dm
-	T1VowKIxeAwtCcam/Yao5/ecHpRLSIxO8fi0h8l9wxcjGD5Fh8Hl0g/soMCytwYwO6IDMJ0mdpa
-	NGCG3AZyI0zcLfArUQ/u9jg79HxKzUkdQtdC5FU8O03zyLveJ/s+jrqn/ECSVKit0zNIbXAV7Qh
-	n77JGDR9fj8KJhUhth68pEKCk5YP7pBlkNBoFauP6Cl81ccHfX/Jg7TcImzt8ri7zw06T7tsWCf
-	K2G45OzJ2yFtqRv58ca+1/4CDkOUsPoSsqAsHNxOLb7gv9a3TwT5nt9sp/rPvlv91r7iG72I2Te
-	JWV/P9SfoFqF3Jw99JXRppcnLXpFb8Ic8iGWbBanMZvJi6odrTug+Ajp12wqWoODYDednmobiid
-	csZLIDH6GlM4QMUAlkh0RSxJN+PFRQVw7ssRbiWP1L/ucaffu39H/x+jHS4HRFPZFy0FbWrtIMk
-	rQHi4wowmZj
-X-Received: by 2002:a05:600c:858c:b0:493:e57e:7aa5 with SMTP id 5b1f17b1804b1-49573cf6d48mr24942485e9.22.1784799921848;
-        Thu, 23 Jul 2026 02:45:21 -0700 (PDT)
-Received: from ?IPV6:2001:9e8:f11c:ec01:4d68:7f50:f537:5e2? ([2001:9e8:f11c:ec01:4d68:7f50:f537:5e2])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4956b0395f7sm90229315e9.3.2026.07.23.02.45.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 23 Jul 2026 02:45:21 -0700 (PDT)
-Message-ID: <beff7c47-ef14-4108-a350-fb07bd56e166@gmail.com>
-Date: Thu, 23 Jul 2026 11:45:20 +0200
+	s=arc-20240116; t=1784800088; c=relaxed/simple;
+	bh=S9G75nUA0qdOjrwnG/WU9+dBfF4MOqeUXcyghbr0eeg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BCmYJ9aa1IpAGydhmLH14UEw4m8Fc4Ur7+rZob6MX9Yg/TAd5dz6wS7vu91REr72SZKxDB4rj26jhnrIgafWXso4QgPhtIAnf0Q5spfFB799Avu5LW0rEWw0aAQOMIsvf8rvvTdD+Y29uLq7FdPG/TQu4nLWZh6aAlnicFI7yWI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C6150201FAF;
+	Thu, 23 Jul 2026 11:48:03 +0200 (CEST)
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mfe@pengutronix.de>)
+	id 1wmq27-000sTE-2J;
+	Thu, 23 Jul 2026 11:48:03 +0200
+Received: from mfe by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <mfe@pengutronix.de>)
+	id 1wmq27-0000000EdmK-2SNv;
+	Thu, 23 Jul 2026 11:48:03 +0200
+Date: Thu, 23 Jul 2026 11:48:03 +0200
+From: Marco Felsch <m.felsch@pengutronix.de>
+To: Francesco Dolcini <francesco@dolcini.it>
+Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Alexander Stein <alexander.stein@ew.tq-group.com>, 
+	imx@lists.linux.dev, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, Francesco Dolcini <francesco.dolcini@toradex.com>, 
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 2/4] drm: mxsfb: Add optional DPI output bus-width
+ configuration
+Message-ID: <nwemnkwk5sjo5w6yelba5nmdlxgu7pxsalrxjixnrjlhfyceza@tamb54s7iswz>
+References: <20260723093813.180089-1-francesco@dolcini.it>
+ <20260723093813.180089-3-francesco@dolcini.it>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v8 1/4] dt-bindings: net: pse-pd: add bindings
- for Realtek PSE MCU
-Content-Language: en-US
-To: Oleksij Rempel <o.rempel@pengutronix.de>
-Cc: Sander Vanheule <sander@svanheule.net>,
- Kory Maincent <kory.maincent@bootlin.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Daniel Golle <daniel@makrotopia.org>, =?UTF-8?Q?Bj=C3=B8rn_Mork?=
- <bjorn@mork.no>, Conor Dooley <conor.dooley@microchip.com>
-References: <20260715075530.2491534-1-jelonek.jonas@gmail.com>
- <20260715075530.2491534-2-jelonek.jonas@gmail.com>
- <b3456b41152613ed45bcfde92aff89d0c33fa243.camel@svanheule.net>
- <3f71640b-9f22-4d0b-9c4d-dc64c397d286@gmail.com>
- <amHEgOAWYXYuZwnl@pengutronix.de>
-From: Jonas Jelonek <jelonek.jonas@gmail.com>
-In-Reply-To: <amHEgOAWYXYuZwnl@pengutronix.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260723093813.180089-3-francesco@dolcini.it>
 
-Hi Oleksij,
+Hi Francesco,
 
-On 23.07.26 09:36, Oleksij Rempel wrote:
-> [...]
->> Correct me if I'm wrong but from what I see, most of that budgeting machinery
->> isn't used in dynamic budget evaluation strategy, which is used here because the
->> MCU does budgeting on it's own.
-> Hm, I guess the wording in header is a bit confusing, I see now the
-> misconception :)
->
-> dynamic vs static means - haw available budget is calculated, not where.
-> Dynamic can be implemented in the linux core too, but so far no one did.
-> Static can be implement in the MCU firmware as well.
->
-> In static case - the Powered Device tells us haw much power budget we
-> need to reserve for this device and it will be permanently accounted.
-> Advantage - every device will get what it is requesting.
-> Disadvantage - we do not use full capability of the power supply.
->
-> In dynamic case - we do not fully trust the Powered Device, first we
-> reserve requested budget and then start measuring the PD consumption.
-> If real consumption is less as requested, the reservation will be
-> reduced.
-> Advantage - more PDs can be attached.
-> Disadvantage - a spike in consumption of one PD, may kick out some low
-> prio PDs.
->
-> Since the dynamic case need a lot of measurements, it is usually
-> implemented in the firmware. Both strategies have advantages and
-> disadvantages and MCUs may allow to change the strategies, this is why we
-> provide this information.
->
-> In your case it is not documented, but it can be tested if you have
-> enough PDs where you can influence the load.
+On 26-07-23, Francesco Dolcini wrote:
+> From: Francesco Dolcini <francesco.dolcini@toradex.com>
+> 
+> LCDIF programs LCD_DATABUS_WIDTH from the selected media bus format. The
+> format reported by the downstream panel or bridge describes the display
+> input, but it does not describe how the LCDIF data pins are physically
+> wired on the board.
+> 
+> These can differ. For example, a 16-bit LCDIF bus can be connected to a
+> 24-bit display by wiring the available color bits to the corresponding
+> display inputs. In that case, using the display's 24-bit format to
+> configure LCDIF selects the wrong data-bus mode and changes the assignment
+> of color bits on the LCD_DATA pins.
+> 
+> Read the optional bus-width endpoint property from the LCDIF output port
+> and use it to select the media bus format used to configure LCDIF. This
+> allows the LCDIF bus mode to describe the physical interface
+> independently of the downstream display format.
+> 
+> When the optional property is absent, continue using the format reported
+> by the downstream display device, preserving the existing behavior.
+> 
+> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+> ---
+> v2: use the common bus-width property instead of the legacy interface-pix-fmt
+> ---
+>  drivers/gpu/drm/mxsfb/mxsfb_drv.c | 24 ++++++++++++++++++++++++
+>  drivers/gpu/drm/mxsfb/mxsfb_drv.h |  2 ++
+>  drivers/gpu/drm/mxsfb/mxsfb_kms.c | 12 ++++++++++++
+>  3 files changed, 38 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.c b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+> index 9b8fbda85d28..0545718a4b65 100644
+> --- a/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+> +++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+> @@ -12,7 +12,10 @@
+>  #include <linux/clk.h>
+>  #include <linux/dma-mapping.h>
+>  #include <linux/io.h>
+> +#include <linux/media-bus-format.h>
+>  #include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/of_graph.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/property.h>
+>  #include <linux/pm_runtime.h>
+> @@ -209,7 +212,10 @@ static int mxsfb_load(struct drm_device *drm,
+>  		      const struct mxsfb_devdata *devdata)
+>  {
+>  	struct platform_device *pdev = to_platform_device(drm->dev);
+> +	struct device_node *np = pdev->dev.of_node;
+>  	struct mxsfb_drm_private *mxsfb;
+> +	struct device_node *ep;
+> +	u32 bus_width = 0;
 
-Probably takes a bit of preparation to set up such a test.
+With this beeing set to '0' and ...
 
->
-> Not sure if we need an UNKNOWN flag to tell the user - we do not know
-> what to expect, use it on your own risk.
+>  	int ret;
+>  
+>  	mxsfb = devm_kzalloc(&pdev->dev, sizeof(*mxsfb), GFP_KERNEL);
+> @@ -236,6 +242,24 @@ static int mxsfb_load(struct drm_device *drm,
+>  	if (IS_ERR(mxsfb->clk_disp_axi))
+>  		mxsfb->clk_disp_axi = NULL;
+>  
+> +	ep = of_graph_get_next_endpoint(np, NULL);
+> +	if (ep) {
+> +		of_property_read_u32(ep, "bus-width", &bus_width);
 
-So dynamic happens to be the suitable case here right now, because the core
-doesn't handle it yet and the MCU does it on it's own without the core
-disturbing that?
+no bus-width property present, this ...
 
-I'd like to avoid dealing with that in this series as this seems at least to me
-like another deep rabbit hole. The MCU comes always in kind of a
-pre-configured state, having several limits set so it should behave safe
-and mostly as expected without the driver changing anything.
+> +		of_node_put(ep);
 
->> Using vpwr-supply on each PI still buys that the
->> supply is enabled and ref-counted by PSE-PD core, and keeps potential for what
->> might come. But no requesting, allocation or deallocation of power.
-> Ack, in many cases it is for diagnostic. Please note, a "manger" is in
-> the practice a multi channel current limiter/regulator. It has maximal
-> load per chip and different max load per port. This can be properly
-> reflected with the regulators. 
->
-> For example, RTL8238B-VB datasheet do not document maximal rating per
-> chip, only per port. Calculating 8 ports, with 36W max, would result in
-> 288W. It feels like a lot of heat. Can it actually handle it?
+Furthermore please see
+20260723-v6-18-topic-imx93-parallel-display-v13-1-ccf3f9bbc0fc@nxp.com
+for a proper error handling.
 
-I can't tell, but I would guess so. Several switches I have use a single PSE
-chip for 8 ports. Given the advertisment of 30W per port and staying within
-the overall budget, I might expect to be able to use it. Or the vendor hides
-some information.
+> +	}
+> +
+> +	switch (bus_width) {
 
-> May be the MCU firmware has integrated maximal power limit do avoid HW
-> damage. A proper information in the regulator tree would help user to
-> understand why not all ports will get requested power.
->
->> Given that, I had a closer look at PD692x0 and it seems, this has a similar setup.
->> The difference here being just that there's no multi-manager concept. There is
->> also a manager-level supply reference "vmain-supply" which the driver reads
->> and applies to the hardware, which does budgeting also in hardware.
-> According to RTL8238B documentation, it has same multi-manager concept.
-> Since one manager RTL8238B supports max 8 ports, a switch with more PoE
-> capable ports would need more chips.
+switch should fail. Therefore I would recommend to set the default to
+24 (bit) aka no limitation.
 
-I see. I mixed up the terms and thought this "manager" is separate level in
-between. If "manager" == RTL823x PSE chip, then it's the same setup.
+Regards,
+  Marco
 
-What do you suggest? I would like to avoid doing any half-grounded claims
-or assumptions here while not fully overviewing the whole picture. At the same
-time, I have the feeling the datasheet and host command guide from Realtek
-are genuinely trying to fool me.
+> +	case 16:
+> +		mxsfb->bus_format = MEDIA_BUS_FMT_RGB565_1X16;
+> +		break;
+> +	case 18:
+> +		mxsfb->bus_format = MEDIA_BUS_FMT_RGB666_1X18;
+> +		break;
+> +	case 24:
+> +		mxsfb->bus_format = MEDIA_BUS_FMT_RGB888_1X24;
+> +		break;
+> +	}
+> +
+>  	ret = dma_set_mask_and_coherent(drm->dev, DMA_BIT_MASK(32));
+>  	if (ret)
+>  		return ret;
+> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.h b/drivers/gpu/drm/mxsfb/mxsfb_drv.h
+> index d160d921b25f..bdc47ce5be79 100644
+> --- a/drivers/gpu/drm/mxsfb/mxsfb_drv.h
+> +++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.h
+> @@ -46,6 +46,8 @@ struct mxsfb_drm_private {
+>  	struct drm_connector		*connector;
+>  	struct drm_bridge		*bridge;
+>  
+> +	u32				bus_format;
+> +
+>  	bool				crc_active;
+>  };
+>  
+> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_kms.c b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
+> index d8ebebc5314b..1d78c486d147 100644
+> --- a/drivers/gpu/drm/mxsfb/mxsfb_kms.c
+> +++ b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
+> @@ -386,6 +386,18 @@ static void mxsfb_crtc_atomic_enable(struct drm_crtc *crtc,
+>  	if (!bus_format)
+>  		bus_format = MEDIA_BUS_FMT_RGB888_1X24;
+>  
+> +	/*
+> +	 * Prefer the bus format derived from the OF graph endpoint "bus-width"
+> +	 * property when available. Otherwise, use the bus format reported by
+> +	 * the downstream bridge or panel.
+> +	 *
+> +	 * This supports mismatched display and interface bus widths, such as
+> +	 * a 24-bit panel connected through an 18-bit interface or an 18-bit
+> +	 * panel connected through a 24-bit interface.
+> +	 */
+> +	if (mxsfb->bus_format)
+> +		bus_format = mxsfb->bus_format;
+> +
+>  	mxsfb_crtc_mode_set_nofb(mxsfb, bridge_state, bus_format);
+>  
+>  	/* Write cur_buf as well to avoid an initial corrupt frame */
+> -- 
+> 2.47.3
+> 
+> 
+> 
 
-The setup seems to be very similar to PD692x0, we have multiple managers,
-managed by a controller (the MCU). The MCU mostly does runtime discovery
-of the downstream managers, so right now there is no apparent need to
-have the same manager + port definitions in DT as PD692x0.
+-- 
+#gernperDu 
+#CallMeByMyFirstName
 
-In reality I haven't seen a board which has different power rails for different
-managers. So there's usually a single wire from the PSU going to the PoE
-daughterboard where everything lands on a single supply PCB trace. The MCU
-has a multi-bank concept, however it's usage right now is rather confusing.
-Managers seem to have strapping pins which tell which bank they use, and on
-the MCU side one can set power limit for each bank.
-
-> Since we already talk about power budgeting - all of this make sense if
-> we have port priorities. For example PD692x0 firmware has default prios
-> bound to port numbers. Is it the same with this firmware?
-
-Looking at several switches, by default all ports have a priority of 0 assigned.
-Thus, no pre-defined prioritisation, it's up to the user to set this.
-
-
-Best regards,
-Jonas
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | https://www.pengutronix.de/ |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-9    |
