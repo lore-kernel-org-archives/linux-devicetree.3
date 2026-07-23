@@ -1,115 +1,134 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17E024D90BE
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 15:55:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62E3D47A894;
+	Thu, 23 Jul 2026 15:56:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784822132; cv=none; b=KXWGR5QSB1Apmgi80Esoe6ShKY/VdEpNL0Tp0/EWLaUk50Vioas7oGvCog5BKr6XRsPQNEaTLYFis+HliMPJKOqpwRTEj31udXho04rpU1cDHr+ou77qRND2cETCiX72nqMfdPExuw+WqZzx8Hw1euwlAY8QDaG3VdYFFGf1faE=
+	t=1784822195; cv=none; b=AJERpGtJajbtsDlQj2UuoYBYjAy+4l5xlWb0FtdyAnagfgQWC/hb5aNxZVOrlRSEoe9Ezp9s1qIfAVGI0HVR7gu3okPNmRb9kNO+GtBAdvdRht9OTrGV16sDBHWVOCZh7uw0TAUws1iYjWsTR8umXHgmdsf9XIC6/gTQfxGjKOk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784822132; c=relaxed/simple;
-	bh=Ar9YbH1j4gLe1RUMMIgU6sGz8AZWlvSD9dVaDagIDJ4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=isgaQi8po/43uDJ60BQNEMTIfFdMwW0VXYGd+LsLvdHbsOgMgvjmwzPSIBDBP/uzE7xVhY40CHbRhWGtmMOx5ej+FKTyQsVie0DIDLZ5Gbum+S8+XcbrCQjSFC/8jcBt/MYrb9GMql0Qgr3Nh/GUutd22xZ1YKkygftymQljtrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jIiCsOha; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784822195; c=relaxed/simple;
+	bh=eUB2j4EQWUUNufs4hz5vBijLjKBotQhJ6i+y3V4EGjQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pk2pT1uiY/FAe7GK3jAqxy7s2e+FP0SRzocTaV5Y78lZ4KBDzTtnqq3RsgSpP8hQZFBNCwPbrnWdPZxQuXTSjkkdncbP8HmssVuE4ImLzajgjUlUsi1wHA6ULiM9CHmfGQTettrVYeOD/PlDf/6i76JOhbzjvWTrT46lTpJJ2Mw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ad6TfIEW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jIiCsOha"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6829E1F00A3D;
-	Thu, 23 Jul 2026 15:55:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ad6TfIEW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FF881F000E9;
+	Thu, 23 Jul 2026 15:56:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784822130;
-	bh=unHZ0cVT4D4LcOm+e+SeEfSXFrm460dp6sPgTMZx7bk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jIiCsOhacB1g7mgdihTNd4ADlYVXlf3FXcdeylnHMGjiJZLLVscPvJdYkdy0sKfNx
-	 BICIeqXiDOJD+l4x57FkzgJ9XtJnxFtksk2BOSfL81D9x97ZpPETYIkV0zneHzhsKO
-	 35NQFYl0Le4NwBxHe148OsNBi1j2bIag34fzGNiCMpDPaOO7uiQRqrY1HJfPUC2JM5
-	 mwleIaZXZclWXmBIKSOuEoQ+WaC3qODAXjrrn4Px+4g79FFKum3FCbB2Bmofpe02+l
-	 et8rAwe7ZfJVPqCC474t54+KGYfV+GOkmu/YPhLrPfkUCK2XHiAm5/34iAqZp/7vsa
-	 l9wcYWfqeLjrg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] dt-bindings: usb: ti,da830-ohci: Convert to DT
- schema
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Bhargav Joshi" <j.bhargav.u@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260723-ti-da830-ohci-v2-1-41e54afc4703@gmail.com>
-References: <20260723-ti-da830-ohci-v2-1-41e54afc4703@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 15:55:25 +0000
-Message-Id: <20260723155530.6829E1F00A3D@smtp.kernel.org>
+	s=k20260515; t=1784822194;
+	bh=K7LGpNbWW4vX25XMpSITKsmID5r73iugv/Hcnkc/mT8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ad6TfIEWwah7WmxjebsMb1vG6csNERnTq7Gc5dXM8PSIhLuvx86vmR5trTA+lzRV3
+	 Je6YYuYtuzNGMZOh2Q8xEOXbO+q/Qmz6W5DiNePOsIVKJj27q2s7zy0Yw9yMistkCj
+	 HeeM7L09d7eu3tuXN0kLTYhSXyL8tK6VmqbAlh/P7p0t6+k5Jay0708hkap3HTV3Co
+	 Ws2yZeMG9WWEh9WJzuxisfDlg4s1ncX3GWTkAfdSmcRl2ISgaBod8ZbepDaOEtFSii
+	 OcoQScg9OdymI2jqI+Z3AqJfSGktVtGC5adWnU6ZyzH6fTZzLzX5ob1b4ZhsxnI2/+
+	 Zvr57/Yhj2fTA==
+Date: Thu, 23 Jul 2026 16:56:29 +0100
+From: Conor Dooley <conor@kernel.org>
+To: azkali.limited@gmail.com
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Henrik Rydberg <rydberg@bitmath.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 2/4] dt-bindings: input: edt-ft5x06 - add
+ no-regmap-bulk-read property
+Message-ID: <20260723-flick-landed-db88e22531c3@spud>
+References: <20260723-b4-ft5426-v1-0-d4b4e32be042@gmail.com>
+ <20260723-b4-ft5426-v1-2-d4b4e32be042@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="D5fA0W6tE6QNM3f0"
+Content-Disposition: inline
+In-Reply-To: <20260723-b4-ft5426-v1-2-d4b4e32be042@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The DT schema does not reference the common USB HCD schema (usb-hcd=
-.yaml) and restricts properties with `additionalProperties: false`.
---
+--D5fA0W6tE6QNM3f0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
---- Patch [1]: [PATCH v2] dt-bindings: usb: ti,da830-ohci: Convert to DT sc=
-hema ---
-commit 71d5f694a3c66084670958199c0d6e277f1f74e5
-Author: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date:   Thu Jul 23 15:43:29 2026 +0000
+On Thu, Jul 23, 2026 at 06:27:09PM +0700, Alexandre Hamamdjian via B4 Relay=
+ wrote:
+> From: Alexandre Hamamdjian <azkali.limited@gmail.com>
+>=20
+> Document an optional boolean property for boards whose i2c controller
+> cannot reliably sustain the multi-byte block read of a full touch frame.
+> When set, the driver reads the frame one register at a time instead of in
+> a single bulk transfer.
+>=20
+> Signed-off-by: Alexandre Hamamdjian <azkali.limited@gmail.com>
+> ---
+>  .../devicetree/bindings/input/touchscreen/edt-ft5x06.yaml         | 8 ++=
+++++++
+>  1 file changed, 8 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/input/touchscreen/edt-ft5x=
+06.yaml b/Documentation/devicetree/bindings/input/touchscreen/edt-ft5x06.ya=
+ml
+> index 68b2f1601654..0d8310a290ea 100644
+> --- a/Documentation/devicetree/bindings/input/touchscreen/edt-ft5x06.yaml
+> +++ b/Documentation/devicetree/bindings/input/touchscreen/edt-ft5x06.yaml
+> @@ -111,6 +111,14 @@ properties:
+> =20
+>    interrupt-controller: true
+> =20
+> +  no-regmap-bulk-read:
 
-dt-bindings: usb: ti,da830-ohci: Convert to DT schema
+"regmap" is a linux software construct, nothing to do with this
+touchscreen or hardware at all for that matter - it's i2c bulk reads you
+cannot do.
 
-Convert Texas Instruments da830-ohci bindings from legacy text to DT schema=
-.=20
-Name of binding is changed to match primary compatible property. Add requir=
-ed=20
-property clocks and optional property oc-gpios which were missing from lega=
-cy=20
-binding.
+> +    type: boolean
+> +    description:
+> +      Set this when the i2c controller the touch controller is attached =
+to
 
-Link: https://patch.msgid.link/20260717-ti-da830-ohci-v1-1-3f2d111a2042@gma=
-il.com
+Problems with your controller should be dealt with at the controller
+level, not in the device node because the device doesn't have a problem,
+the controller does. I think "i2c_adapter_quirks" is the knob used for
+this.
+This kind of property seems to have come up the other day in a similar cont=
+ext:
+https://lore.kernel.org/all/20260722-regmap-single-read-v1-0-aaaf31591669@l=
+inux.dev/
+The regmap maintainer there rejected a device level property in favour
+of discovering this from the controller.
 
-> diff --git a/Documentation/devicetree/bindings/usb/ti,da830-ohci.yaml b/D=
-ocumentation/devicetree/bindings/usb/ti,da830-ohci.yaml
-> new file mode 100644
-> index 0000000000000..f7b9db6347fab
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/usb/ti,da830-ohci.yaml
+pwbot: rejected
 
-[ ... ]
+Cheers,
+Conor.
 
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - phys
-> +  - phy-names
-> +  - clocks
+> +      cannot reliably sustain the multi-byte block read of a full touch
+> +      frame and aborts long transfers. The driver then reads the touch
+> +      frame one register at a time instead of in a single bulk transfer.
 > +
-> +additionalProperties: false
+>  unevaluatedProperties: false
+> =20
+>  required:
+>=20
+> --=20
+> 2.55.0
+>=20
+>=20
 
-[Severity: Low]
-Should this schema include a $ref to usb-hcd.yaml#?
+--D5fA0W6tE6QNM3f0
+Content-Type: application/pgp-signature; name=signature.asc
 
-Since additionalProperties is set to false, omitting the reference to the
-common USB host controller schema means that any valid addition of standard=
-=20
-USB properties (such as #address-cells, #size-cells, or companion) will=20
-result in dt_binding_check failures.
+-----BEGIN PGP SIGNATURE-----
 
-> +
-> +examples:
-> +  - |
-> +    usb@225000 {
-> +        compatible =3D "ti,da830-ohci";
-> +        reg =3D <0x225000 0x1000>;
-> +        interrupts =3D <59>;
-> +        phys =3D <&usb_phy 1>;
-> +        phy-names =3D "usb-phy";
-> +        clocks =3D <&psc1 2>;
-> +        vbus-supply =3D <&reg_usb_ohci>;
-> +    };
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCamI5rQAKCRB4tDGHoIJi
+0mKdAQD9YAKnLR4JmwEuuJtqei1ZtYAL3yDkL91XFAYRVlon4gEAnFBUv5nj65+P
+l72NfXTvGyN3Ug49ufTbQPcB8GWq5Qk=
+=F/No
+-----END PGP SIGNATURE-----
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723-ti-da830-o=
-hci-v2-1-41e54afc4703@gmail.com?part=3D1
+--D5fA0W6tE6QNM3f0--
