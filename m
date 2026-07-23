@@ -1,69 +1,64 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 297804137B5;
-	Thu, 23 Jul 2026 15:53:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9430B318B96;
+	Thu, 23 Jul 2026 15:53:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784822008; cv=none; b=TdHKwlToCFZLtQoRreYZkHt+MSptaDY9YlhZd20i+vR79Oeqp/XTIkP5MuRKAIGVOVYbqt7LfZKdv8pnSwVQLKHyXBfN2Jwz9BlTo13g4ueDmw5V5v2nvfaCbskVTcGWeCVhkoY06NyV+EOWZyAVEx9QH0tt1+r+Pw9iNcG/rzc=
+	t=1784822013; cv=none; b=OekeZd/BwGoS+0lkUe+zrATSuF99GGoKXCgqRXTi4yewuDEuec8uYpzR6HYML3aNGa800t79+wVj2n5+BAEisb2SaeLCw6QR0cxB8EkLQOFrVSkvRJx8LkzaQX9eX2LQFYc+NuVPZjuL34LUKFPvLNCeTu3LXBgDdaF8xke7xX4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784822008; c=relaxed/simple;
-	bh=c8Kd1KeL07wmOVr/x1G+XhQFfWvEv5gxQ/tRYEQMjk0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=o5EtmQ0Uk9amYnnOnFWRM504vgJOzCFl5DHNYNS2akMBEyzsHCyluBwK/F+OiSzr9FQNIytyuwARc9KbhT1+qVf8e4Bi4FcHEga84U3SskwnSZLhP12c14Rt1xcGlpof0ploPODHU/RU6LLQV2/Y6rTV1u7EV4WZphr7fjmHc1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ex7E0q7E; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784822013; c=relaxed/simple;
+	bh=dHBtZGR7J7+WB6veQIIiFvRv3Zr+o8ll5nbfo6g+pAg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=V/ZcjzVHLobGQ5eXICXTyNIzkJaHbn5jOZ/IcUTGZbR0JfnU353aXtOxDoUBarBnuMHCEsOwvEPYKyytT51c3huP+NM31VTnZAiv/ls8ANSrg2vFfaUe3ERXWxsOsOt6PYnhzJZdp9xDd0WQY9b5lTRQbtJGxU+8eXTfe4T6lLk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ER0bdsM5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ex7E0q7E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF06C1F000E9;
-	Thu, 23 Jul 2026 15:53:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ER0bdsM5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C48971F000E9;
+	Thu, 23 Jul 2026 15:53:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784822006;
-	bh=HO4DJak0tRVus5PdXLrieMrz/kKmMU1/AkglQrbY25o=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Ex7E0q7ExaSluRy8TAARdKgugLHh9SrmwoBove0vAxbiaFF7bKQ6TdjZNZON71fYm
-	 8DnNpQmQWVP0c7TdhUPEF2rYlKiOHPaWUAzgXSUSe9B3OO38MOAIe7Y1hLpaV8Y6zT
-	 Y9WoVP8Z+KlJ7SJpSM4z8ZUIPLLakY/7DvkibfCkprguLfK8Jh2e6gGcpGdxOgnv30
-	 tBUUiI8Ri5OGKA2W8EOi0O+MAGjDSp5CBNM7zix4alPiVs1C6HSX2p2d/7+BFI6kB8
-	 RZtU0oq3lDZubcuFWV1tHuTBUwcW8M6P5YHS7gHN5wMQRrjl2Ht17XBNHu5c535CPs
-	 c+JFsu+HYLcJQ==
-From: Lee Jones <lee@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
- linux-kernel@vger.kernel.org, mfd@lists.linux.dev, 
- Rob Herring <robh@kernel.org>, Eduard Bostina <egbostina@gmail.com>
-Cc: daniel.baluta@nxp.com, simona.toaca@nxp.com, goledhruva@gmail.com, 
- m-chawdhry@ti.com
-In-Reply-To: <20260708123328.1768794-1-egbostina@gmail.com>
-References: <20260708123328.1768794-1-egbostina@gmail.com>
-Subject: Re: (subset) [PATCH] dt-bindings: mfd: Convert OMAP USB TLL to DT
- schema
-Message-Id: <178482200364.3523234.5674686731620145841.b4-ty@b4>
-Date: Thu, 23 Jul 2026 16:53:23 +0100
+	s=k20260515; t=1784822012;
+	bh=dHBtZGR7J7+WB6veQIIiFvRv3Zr+o8ll5nbfo6g+pAg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ER0bdsM5xdZ/aNR+6ilOl1SZe/RcVdd7VgIndbDOwMnbfvfreHFMvRWF+od2FcZa+
+	 B3C1xokl7eivEAg5vxThOBY+sELSGStYKCAPfUj4gdyh1dSV3FDuvKgSbgQHUxAzPh
+	 iNj/rjGB3Vwx5u9f8RBZ5xLOj29sdZf7DWI6gkM4Z9XEYI7RLAgFzuoovy9xBBPLrL
+	 zsepleSUfR+BlUos/SvdjLSZqdyPo4c+qMwBKa2Qn3fJP2J9YRBcTsMTxL/iEr6l7Z
+	 IFl2LIZqbDvMuGthJj8/p+GRvt01hI5CdrAb7YcUTJmU68F3uhL4tH2SEcom5SjqCq
+	 bE1wfmmjoDWmg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/3] dt-bindings: hwmon: pmbus: add MPS MPQ8646
+ binding
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vincent Jardin" <vjardin@free.fr>
+Cc: conor+dt@kernel.org, robh@kernel.org, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260723-mpq8646_v0-v2-2-3c4cb71f23c0@free.fr>
+References: <20260723-mpq8646_v0-v2-0-3c4cb71f23c0@free.fr>
+ <20260723-mpq8646_v0-v2-2-3c4cb71f23c0@free.fr>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 23 Jul 2026 15:53:31 +0000
+Message-Id: <20260723155331.C48971F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
 
-On Wed, 08 Jul 2026 12:33:28 +0000, Eduard Bostina wrote:
-> Convert the OMAP HS USB Host TLL bindings to DT schema.
-> 
-> During the conversion, ti,hwmods has been made optional to resolve
-> dtbs_check warnings. Modern OMAP platforms do not require this
-> property, but it is still required for older platforms.
-> 
-> 
-> [...]
+> From: Vincent Jardin <vjardin@free.fr>
+>=20
+> Add a device-tree binding for the Monolithic Power Systems
+> MPQ8646 step-down converter as a PMBus device.
+>=20
+> The schema is inspired from the mpq8785e:
+> same mps,vout-fb-divider-ratio-permille property (maximum: 2047),
+> and const: mps,mpq8646.
+>=20
+> Signed-off-by: Vincent Jardin <vjardin@free.fr>
 
-Applied, thanks!
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-[1/1] dt-bindings: mfd: Convert OMAP USB TLL to DT schema
-      commit: dcf9d779d4f0d3c52f2949a6bb7cfb5de144c323
-
---
-Lee Jones [李琼斯]
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723-mpq8646_v0=
+-v2-0-3c4cb71f23c0@free.fr?part=3D2
 
