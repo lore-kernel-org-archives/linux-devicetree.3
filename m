@@ -1,72 +1,109 @@
-Received: from mail-06.mail-europe.com (mail-06.mail-europe.com [85.9.210.45])
+Received: from out-186.mta1.migadu.com (out-186.mta1.migadu.com [95.215.58.186])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3170E4963A9;
-	Thu, 23 Jul 2026 16:16:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.9.210.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD39423D7E6
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 16:23:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.186
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784823406; cv=none; b=aKzN3vIvp9PtiJ1kpB4yxI0mdEzDfIfTw6xrPDh+xgALPMkYZcMNlOdmgSZYlvC5yXJs+M4K1fqYXwhoy8pJhe3LdxAopSYouRDpP7FRrh3V4hbqaVtsX7OYiib2TwnyCdk+P6u85UR+8wul7W1+YN39vBjeTB8czEOugyaicZA=
+	t=1784823842; cv=none; b=f1V1XPk7sTFK5ruVYrd6Js/Qcuu8J9q1XYoGoc+QywKsGuXiBk16Ac4th6444slvRnuLOU2gE8EiATrNbKwv+8nEtprAwEmBmTFm59v0PxMwGzXfmgl0oo9BYMbAQ4dvkg7uBAl4fn7qPyfl6zzRzwcOGnJJ4bAsbGYhXyZGC4I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784823406; c=relaxed/simple;
-	bh=r50T2MhBYrVuycRIdrfmAMALY4mxSQ0LJC3LFARhy8E=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XIr8XzHVG5SPK0ACHMUQEDSAwhx/F84DFv79QPa2/hFP1B35Td2wkkuaRbxN3DxA++lQYlAbFVu1bviu2hhE/stoGG4EeLTG0kpC8y8OLig3JbNXt7bywBB/E53n5HC6tbUPC1IWkRP8+K6Od/PfjClLf2P+Luc+djBg5ijoijE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=xlNYzpBi; arc=none smtp.client-ip=85.9.210.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	s=arc-20240116; t=1784823842; c=relaxed/simple;
+	bh=aRbNtr5GOOj+1XW4RbJIFRChUMitfCzYkn4XuG7fiN8=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=E/AJi2C/P1jeIUuNeiwuP+TZfRhMdpDIXT72D5tcyt8S2sPiu0sNx48Gx83JLJlN0fQ9qbSVxXRVP6GlBDUerK1ley+mVQ/Gy0OlRLa/4tCZ33rXyWYroEGywpfvqE3iVVN4TnfnVc4GXTIIr/y43nkjdbSsxqSExWcNp3ItR1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=INLcYNEp; arc=none smtp.client-ip=95.215.58.186
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="xlNYzpBi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1784823392; x=1785082592;
-	bh=lHj2JaKn6I/rJijt+vIp+5NEvZ+qxwlBgSIZwX/C1FU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=xlNYzpBieqQuUSccbe6VE+8q6ZS1yleTG5agbdXP6hhaIWGPxJ07RGkAQukayfpiv
-	 BEGrE/J0I5mpcDeDRYHa56Dc3m6URjULGPV+4K6pZMM9xUC22iSZ00c1ZFmJ1JwF/x
-	 xUNisBiFtg1WIUiLbsixtqWYBGpu3eyC3tnWqRzQONnTMG/Rp8T5wbq9oRlntbGFn/
-	 bYkBwh8RwRAKffdSITgRtvSxrVvY3bmdLZtPnmQ2gnP/VMCqCrfyRqh/syYaVjmHK3
-	 QuxUf453uyasa4YaClzO1aoC4i4UlBpqD17MJEyrsC2EyY47Vy/lR3+vlDdwRqzxxf
-	 Cv28wlJOzyiNw==
-Date: Thu, 23 Jul 2026 16:16:24 +0000
-To: Lee Jones <lee@kernel.org>
-From: Roman Vivchar <rva333@protonmail.com>
-Cc: Sen Chu <sen.chu@mediatek.com>, Sean Wang <sean.wang@mediatek.com>, Macpaul Lin <macpaul.lin@mediatek.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Srinivas Kandagatla <srini@kernel.org>, Andy Shevchenko <andy@kernel.org>, linux-pm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, Ben Grisdale <bengris32@protonmail.ch>, Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v3 1/3] dt-bindings: mfd: mediatek: mt6397: add mt6323 PMIC EFUSE
-Message-ID: <ZNHaOI0ufFpvkyR3fCOd7I-CO8x9-adM0bJfk2U_TGsQrUGvhUV_8oXVnGWaS3bt9AuhxjXfcJGVtFFFg2X7FOWVcMf1sLK6OpRbtYe9BlQ=@protonmail.com>
-In-Reply-To: <20260723160059.GB3526803@google.com>
-References: <20260713-mt6323-nvmem-v3-0-205c39267a24@protonmail.com> <20260713-mt6323-nvmem-v3-1-205c39267a24@protonmail.com> <20260723160059.GB3526803@google.com>
-Feedback-ID: 173184497:user:proton
-X-Pm-Message-ID: e13033346bb107811f977e1b6967b3e0e4fc03a8
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="INLcYNEp"
+Message-ID: <a79b2fd8d08d4594bbb472b005534d7c91d86e49.camel@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1784823836;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aRbNtr5GOOj+1XW4RbJIFRChUMitfCzYkn4XuG7fiN8=;
+	b=INLcYNEpHB13hBX6kVFBjCQSLteRPRKhLYt98qDAKO4tkMkerXHrM92yYAig+nTSvpv160
+	L5uQkNKrWobfYAkZJnhIGuwpBA5HQSCe4oBWM2dIBnAldhsqjYtw1D1KFnVhcIl4W0HsKi
+	sPT5e/ge7U0JKKQbbtYCDRpRM+FpX5k=
+Subject: Re: [PATCH v5 1/2] dt-bindings: iio: adc: add maxim,max40080
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Siratul Islam <siratul.islam@linux.dev>
+To: Stefan Popa <stefan.popa@analog.com>, linux-iio@vger.kernel.org
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, jic23@kernel.org, andy@kernel.org, 
+	nuno.sa@analog.com, linux@roeck-us.net, robh@kernel.org,
+ krzk+dt@kernel.org, 	conor+dt@kernel.org, dlechner@baylibre.com,
+ ciprian.hegbeli@analog.com, 	u.kleine-koenig@baylibre.com
+Date: Thu, 23 Jul 2026 22:23:39 +0600
+In-Reply-To: <20260723065036.2683075-2-stefan.popa@analog.com>
+References: <20260723065036.2683075-1-stefan.popa@analog.com>
+	 <20260723065036.2683075-2-stefan.popa@analog.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-Migadu-Flow: FLOW_OUT
 
-Hi Lee,
-
-On Thursday, July 23rd, 2026 at 7:01 PM, Lee Jones <lee@kernel.org> wrote:
-
-> On Mon, 13 Jul 2026, Roman Vivchar via B4 Relay wrote:
-
+On Thu, 2026-07-23 at 09:50 +0300, Stefan Popa wrote:
+> Add device tree bindings for the Maxim MAX40080 bidirectional
+> current-sense amplifier with a 12-bit ADC and an I2C/SMBus interface.
+>=20
+> Signed-off-by: Stefan Popa <stefan.popa@analog.com>
+> ---
+>=20
 ...
+> +
+> +title: Maxim MAX40080 bidirectional current-sense amplifier
+> +
+> +maintainers:
+> +=C2=A0 - Ciprian Hegbeli <ciprian.hegbeli@analog.com>
+> +=C2=A0 - Stefan Popa <stefan.popa@analog.com>
+> +
+> +description: |
+> +=C2=A0 The MAX40080 is a high-precision, bidirectional current-sense amp=
+lifier with
+> +=C2=A0 an integrated 12-bit ADC and an I2C/SMBus interface. It measures =
+the voltage
+> +=C2=A0 across an external shunt resistor and the input bus voltage, and =
+stores the
+> +=C2=A0 results in an internal FIFO.
+> +
+> +=C2=A0 Datasheet:
+> +=C2=A0=C2=A0=C2=A0 https://www.analog.com/en/products/max40080.html
+This URL links to a product page rather than a datasheet as the tag suggest=
+s.
+Would be difficult to fetch using CLI tools.
+Were you supposed to use something like
+"https://www.analog.com/media/en/technical-documentation/data-sheets/MAX400=
+80.pdf"?
 
-> > +        efuse {
-> > +          compatible =3D "mediatek,mt6323-efuse";
+> +
 >=20
-> Nit: This tabbing looks off to me.
->=20
-> The example below uses 4-spaces, this uses 2.
+...
+> +examples:
+> +=C2=A0 - |
+> +=C2=A0=C2=A0=C2=A0 i2c {
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 #address-cells =3D <1>;
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 #size-cells =3D <0>;
+> +
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adc@20 {
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 compa=
+tible =3D "maxim,max40080";
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reg =
+=3D <0x20>;
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 #io-c=
+hannel-cells =3D <1>;
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 shunt=
+-resistor-micro-ohms =3D <100000>;
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
+> +=C2=A0=C2=A0=C2=A0 };
 
-Oops, you're right... Good catch :)
-
-We had some troubles with driver merge, so it was dropped from the nvmem
-tree for now. I will resend it with fixes (and spacing) when dependencies
-arrive.
-
+--
 Best regards,
-Roman
+Sirat
