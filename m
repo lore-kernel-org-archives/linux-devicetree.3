@@ -1,80 +1,120 @@
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 748E32BB13;
-	Thu, 23 Jul 2026 00:56:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D652D73BC
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 01:24:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784768177; cv=none; b=ZJtx1Vahm+Azhtvl9hbsiW3UBJuCtdEvB1MsSkRH/iUxdneirvfSTloYvYvPkx3KiTF+mBaBqE9mU9cbgZl+2CUyXz/LhjKyvZ2YIs9ttXvkba5kQs+2EnVYHwDlWRFY/Wv5SaE0rkgUJxltStpfqO5psDwIfy+Swfe3RFXAhO4=
+	t=1784769862; cv=none; b=IwGuhapQfK18OYmNTFhl38iQyknUCeIAT9BVwE4532BexJZivRNwXVBoU4RWUZtXaO4xckmBFsvotlxcIW2rTqjSA1dRWZucmpyrIzW8tcIDCcsxIpjRmDsN4914kFZ2Hk11ZHCpkf32DUl0Men6Wt8AQZGwkPVMNoRBoZk2f6c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784768177; c=relaxed/simple;
-	bh=mgACCFKq2MK0Ux+A6DgXlsBhoMpXNtQXtj6PSE1bTeo=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=fmHTKZf5ShlMvZFhY4fJfEfLRBWuIjLKU1yjfXcpzCnFUSv5AOkHbqxhTJE+2yUrYb/yNvXQzstna95v8Jb5JboVm5wroFL3yUNd2FHQcD8dM8B4SG7yqA6N+bhLZApPHPVwf9E1fIE3v1vDQePlNiJRQtbZ7uCPlGG8yYz/oJg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=KB86zf9d; arc=none smtp.client-ip=203.29.241.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+	s=arc-20240116; t=1784769862; c=relaxed/simple;
+	bh=lMUvG8FMcDQny9fNqRp3TCG6/uNRxCa0yHENbOIbwBM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=APe56Qn/GGDdnfp5bRXiNlV3K+vJQmRi4C1oxeAMpsNRjW62q21YPOhrN5/uUn6wxgO1VPLw1LQqLn0T92pDb065UvbouLiJWyJAazD7jodFsa4ixhe2sgU9DJy4Qg2rJwzhWR44Cn25BX4WKY7e00BwemOWupe/+NSoVc8dnmw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Kh+L3AoG; arc=none smtp.client-ip=74.125.224.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="KB86zf9d"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Kh+L3AoG"
+Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-6680ae2031fso54896d50.3
+        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 18:24:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1784768171;
-	bh=mgACCFKq2MK0Ux+A6DgXlsBhoMpXNtQXtj6PSE1bTeo=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=KB86zf9d2WLK0LIcEJVmon6M9h3+R9wt5qyRbJsDN3s3UOE3j0omLV8x7wUMCcSzE
-	 /A9iNxgcqW8ddJf5sz6NrpO3ZXaNlEkh6rYy/wBegtezNxfcKRa5ldg/SqFC1sk2ws
-	 hi15HF+D8qN1jKbKM1CudigiTnrLXkN+gCQ1++kuXeHJ4ZynOb36Ko4Bn9P0WaqQwY
-	 yd9Rpw5gTYbafvXpQRpTj9a3ygpt6jVhGbp94DZEQqceT2GWFcYAtKGLkwviKpOWHx
-	 yQq2fRqmmdlcG/agN4xWkF1+p4L1LRWsD6CtlRCtVhe/iHHl0QH5ysCVAJ26nPAQeE
-	 fu3Jmi5RO73sQ==
-Received: from [192.168.68.117] (unknown [180.150.112.11])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 8EA60662E1;
-	Thu, 23 Jul 2026 08:56:10 +0800 (AWST)
-Message-ID: <71d33890fe1940b7e4f8f275233d4fe9d8791da7.camel@codeconstruct.com.au>
-Subject: Re: [PATCH v1] ARM: dts: aspeed: g6: Use KCS AST2600 compatible
- string
-From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: Haiyue Wang <haiyuewa@163.com>, devicetree@vger.kernel.org
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
- "moderated list:ARM/ASPEED MACHINE SUPPORT"
- <linux-arm-kernel@lists.infradead.org>, "moderated list:ARM/ASPEED MACHINE
- SUPPORT"	 <linux-aspeed@lists.ozlabs.org>, open list
- <linux-kernel@vger.kernel.org>
-Date: Thu, 23 Jul 2026 10:26:09 +0930
-In-Reply-To: <c85229c4-2c9c-4231-b294-e8012c3fead6@163.com>
-References: <20260627052708.172918-1-haiyuewa@163.com>
-	 <5333a3912656d4c85fd063dc5726106e38150ad6.camel@codeconstruct.com.au>
-	 <c85229c4-2c9c-4231-b294-e8012c3fead6@163.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+        d=gmail.com; s=20251104; t=1784769859; x=1785374659; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=p22cXgqkOK2Uxhc2g0dbrDiY3ACKRgSdYIBGvHqDRE0=;
+        b=Kh+L3AoG4Ukl/AMbbfjZWAeOjnlNvPUbtLm7ECBy6kDEsE2pC21MUlgtDk0IWfZf+c
+         oTOAdaFKIcH7RzGeWawTNwsdF4xkZtbLwnfSWyAhrFWRAbyB+UHuIXOtrBj03kUWD2/h
+         3MxSRN2PKoksLYaOYEj4C83qGOzl+2iE6RxlRFhTYy3+AS5ZIHA39jjq2sHmjEl/H5eO
+         LvnnH0+FAKvViOAj+fN9rBjMNPO3v7p8ldlV/k3MWHmiCU49SiAWgWLznymKI9A8D+R6
+         G7v5UOoLtTh47PBUakrnX62nPyVhvnsMqLI1kgTdOOQLHoorgBJfaNnTE4TSjlaSprwO
+         gsEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784769859; x=1785374659;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=p22cXgqkOK2Uxhc2g0dbrDiY3ACKRgSdYIBGvHqDRE0=;
+        b=quI4aazYOgqrxIwJXos/dRDXdacVaDIOQIoElh0hK9LOlHBoSfSgS1yf2V8TiSop2A
+         tyeVMEf4Z7oOVINOz+uVPvms3YwduVjPRozxhhpsXHp5g2VLMXmMqn5JeYMdvP45EnNJ
+         XbLOjhKuHrhIrahQPYtnoTHv1BJOFjqDQrkz/RwLdXcl10DmzDXSWhCj0qOrEDNgOwhB
+         TtfSOm+wy+3r+BtG0wwMnLBFZcuYm2jyzFipAhOzHGIizN+sXPUweiYOE0M9ze6bBGwS
+         z6HriuEoIb5wVdOV7cG+NDxaAf2zrPXJ/u3Zrp95x1nfUSjEcGK7xz960QgCwXhXkdMT
+         nWqw==
+X-Forwarded-Encrypted: i=1; AHgh+RqTWiiTrgfrPUNrFMNZg2HVZAkJzR2OJF2GCLASQwq3ImxW9dVVozerA2orcrnYr9UyQNdXjTzUCxO/@vger.kernel.org
+X-Gm-Message-State: AOJu0YwAY94gUljDDNwDmHsHKf3IwFRB3JWCnM1yaWroy79QJCf1nZE1
+	DJlRE9+aMekKkMZ7FFW2h5UzKoiEHle1jN6Vu9/Z9weVp5z1m9ysf/xh
+X-Gm-Gg: AR+sD12vCw8AeUYb3QIiEiapiUU5i7UBeD4QoVr/lsrTUci1OVo5q0B4+xe7Ut822BA
+	4Iahx2UnIKvehtdscxSBtUwXtay2/neQo6Jax0+IrJ1UWZ2t++iaF5DW7SRfoAd3xsmlPsFqE3H
+	ahUWI2cfRswcHs72JuCc4lY4k4OH5v/OUg9RVQLPjVF78VGy16culMqItKAn5p/WP8tuAxfAaHg
+	n0KoOaBfB0GNS3hCBsKuF8DTbuTPtCsNkZk+zyAa561IxVqoIaVhL8PCC/L4RnZr8EEWHuCxZ+0
+	5rFIjsslZNur2KrIvjSFcz9iTgqC0GFxMk8TrTAD7UvTmHxA0eMZMsUtq3EoFklYku5H//T0ECp
+	5/j38QFdZ8tOo84o6nRrAfTOj3s1x6NZEMs7BB1IrX1h2d0LM8ipcWLV1GyYxC6tl4DLqITZz3I
+	s1CfSU6RdjOAbVfnZewinRIO5xOR1MRIxTDJb97z4=
+X-Received: by 2002:a53:b884:0:b0:668:2f2b:f246 with SMTP id 956f58d0204a3-668a5041eb4mr198296d50.100.1784769859021;
+        Wed, 22 Jul 2026 18:24:19 -0700 (PDT)
+Received: from karli.attlocal.net ([2600:1700:7270:4eb0::19])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6689056dfbasm2319684d50.9.2026.07.22.18.24.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Jul 2026 18:24:17 -0700 (PDT)
+From: Aneesh Pradhan <aneeshpradhan2004@gmail.com>
+X-Google-Original-From: Aneesh Pradhan <aneeshpradhan@acm.org>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>
+Cc: Brian Masney <bmasney@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Catherine Frederick <serenity@floorchan.org>,
+	Aneesh Pradhan <aneeshpradhan@acm.org>
+Subject: [PATCH 0/2] clk: qcom: add MSM8920 RPM clock controller support
+Date: Wed, 22 Jul 2026 18:24:13 -0700
+Message-ID: <20260723012415.48288-1-aneeshpradhan@acm.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Wed, 2026-07-22 at 21:07 +0800, Haiyue Wang wrote:
->=20
->=20
-> On 7/22/2026 8:55 PM, Andrew Jeffery wrote:
-> > On Sat, 2026-06-27 at 13:27 +0800, Haiyue Wang wrote:
-> > > As the commit 2596f6b93a60 ("ipmi: kcs: aspeed: Add AST2600 compatibl=
-e
-> > > string") does, change the AST2600 DTS file to use kcs ast2600 compati=
-ble
-> > > string.
-> >=20
-> > Is there some other motivation? It's been a while, why now?
-> >=20
->=20
-> Just happened to see 'ast2500' when adding other nodes in DTS. Nothing=
-=20
-> special.
->=20
+Add MSM8920 support to the SMD RPM clock controller.
 
-Okay. I prefer to leave it as is until we have a functional concern
-that motivates changing it.
+MSM8920 is essentially MSM8917 with MSM8953's modem stack, which adds
+an IPA block. The new rpmcc table is MSM8917's clocks plus
+RPM_SMD_IPA_{,A_}CLK (same IPA IDs already used by MSM8940; no new
+dt-bindings/clock/qcom,rpmcc.h entries needed).
 
-Andrew
+This series is split binding-then-driver so the shared clk-smd-rpm
+changes can land via linux-arm-msm independently of the MSM8920 /
+perry device trees (requested in msm89x7-mainline/linux#48 review).
+
+Based on qcom/for-next (d36de2e50966). Applies cleanly there; also
+applies to torvalds/master with a trivial yaml-schema context shift
+(flat items vs oneOf) if preferred.
+
+Hardware context: needed for initial MSM8920 + Motorola Moto E4 (perry)
+upstream DTS follow-up. Fork PR tracking: msm89x7-mainline/linux#48.
+
+Catherine Frederick authored the original fork series; this re-roll
+keeps her From:/SoB and adds an [aneesh:] note + SoB for the split /
+rebase onto the current for-next binding schema.
+
+Catherine Frederick (coolguy) (2):
+  dt-bindings: clock: qcom,rpmcc: add MSM8920
+  clk: qcom: smd-rpm: add MSM8920 support
+
+ .../devicetree/bindings/clock/qcom,rpmcc.yaml |  2 ++
+ drivers/clk/qcom/clk-smd-rpm.c                | 31 +++++++++++++++++++
+ 2 files changed, 33 insertions(+)
+
+
+base-commit: d36de2e50966f3dd9ef3482f1faf649b3d697714
+-- 
+2.53.0
+
