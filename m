@@ -1,154 +1,131 @@
-Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 353773EFFD1;
-	Thu, 23 Jul 2026 20:18:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.233.101.22
+Received: from smtpfb1-g21.free.fr (smtpfb1-g21.free.fr [212.27.42.9])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4CA3036655D;
+	Thu, 23 Jul 2026 20:23:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784837955; cv=none; b=SkYsIPamw5SHhvjWTP43T8QrWK6edfixmHxKnYzweLRrY0HPehxah2zi4u4EXUemrJvuAPX+ABobNAfn/LrA1fxavFYHpMjBVWbllsgQ8X1c6sxy/UTbdBoNhFuuGVSTZESWPYKkqxwftvvXqu1FyX+OGDESTsbRNJ1zg/vKA9s=
+	t=1784838203; cv=none; b=Lk4P8ibnNXqyvEviumr3sg2cGaBDB9wlSPa10s91wRaeR407E/E50ii7MInI4yiNMpl/G0GvvwH2b8Q8ZcgTg19KduKGcUEgFT/D7VzF14rfXMKDwsFAq37+GnSKh7lSeOSC49fJEEMc06IR8Cqfvpnm3mP5jKYS3AiF9pChtVw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784837955; c=relaxed/simple;
-	bh=46FWN177CCjlOBe+CD5xXNqVAb5ZdbN00qmRFVOXbnw=;
+	s=arc-20240116; t=1784838203; c=relaxed/simple;
+	bh=DFY3Uzx+4ICb+0rQ1bSYdRMAl6vfvJhy/9J+rNwPn9Y=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZmGzktfgSI3dL7mr7ueYxjdfDWdj6z55/d2pWHlYXczipOh//BveTiqxoL9CGyhpmIDDZk9bhLWUiqStngvmOrRCibBrUtw0/Lke/li5hXXYBVvOwLgkAPvWId8mCily57mlFlGlwpYoSqKFzurZMrOczMZ1ZK5o0Key3oca68Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io; spf=pass smtp.mailfrom=sys-base.io; arc=none smtp.client-ip=185.233.101.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sys-base.io
-Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
-	by leonov.paulk.fr (Postfix) with ESMTPS id E587A3700EC4;
-	Thu, 23 Jul 2026 20:18:48 +0000 (UTC)
-Received: by laika.paulk.fr (Postfix, from userid 65534)
-	id 283A5B49EA2; Thu, 23 Jul 2026 20:18:47 +0000 (UTC)
-X-Spam-Level: 
-Received: from collins (unknown [192.168.1.1])
-	by laika.paulk.fr (Postfix) with ESMTPSA id C5575B49E99;
-	Thu, 23 Jul 2026 20:18:45 +0000 (UTC)
-Date: Thu, 23 Jul 2026 22:18:44 +0200
-From: Paul Kocialkowski <paulk@sys-base.io>
-To: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Cc: Jiaxing Hu <gahing@gahingwoo.com>, detlev.casanova@collabora.com,
-	mchehab@kernel.org, heiko@sntech.de, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org,
-	ezequiel@vanguardiasur.com.ar, linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 0/3] media: rockchip: VEPU510 H.264 encoder for RK3576
-Message-ID: <amJ3JJjhlBokyzB5@collins>
-References: <20260722073417.2064667-1-gahing@gahingwoo.com>
- <082e1141c38205222a91abf13b1a97d9a00e117a.camel@collabora.com>
- <20260723004642.2075233-1-gahing@gahingwoo.com>
- <210b72e32d1bd757a36b2baf532dd9f7d46ca5dc.camel@collabora.com>
- <amJgcHf2vVDb75nR@collins>
- <252d53c9e497530f9416599f9991b02c0c276a1f.camel@collabora.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=LQ9YtAXsbCQggVC+uN+gnBOG8kYaCFbdWSsicRKVMIr3uLJ870v0QmTMi6v+Hx/ixPy5GA1lRsbwVfCgk01kodmkIvoTW6XDAQ+lMWcFbqljXFYkpJAsEZr3qTHcCO4a6cAXCrJJPVeGOmo2Pt93NAz4jsh29bkRXKfGXfG7j7M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=Xe/+QOrr; arc=none smtp.client-ip=212.27.42.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="Xe/+QOrr"
+Received: from smtp4-g21.free.fr (smtp4-g21.free.fr [212.27.42.4])
+	by smtpfb1-g21.free.fr (Postfix) with ESMTP id 4E6DD8351CD;
+	Thu, 23 Jul 2026 22:23:16 +0200 (CEST)
+Received: from L30177.local (unknown [IPv6:2a01:e0a:ac2:22b0:8906:6856:2485:2c53])
+	(Authenticated sender: vjardin@free.fr)
+	by smtp4-g21.free.fr (Postfix) with ESMTPSA id F0AED19F5BE;
+	Thu, 23 Jul 2026 22:23:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1784838188;
+	bh=DFY3Uzx+4ICb+0rQ1bSYdRMAl6vfvJhy/9J+rNwPn9Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Xe/+QOrrRzfrKMK2G8b7wv8NdvqXQNJZr0fknroRf6qCt7XnU3BmV7CjowcT319pC
+	 tQABt5y/2YLH39fEq2j5b0QYu5oevE3mK9bIMAPhBIdNsCOSz3gzKjVhJ77Sb2MD+I
+	 YHfrcPRj2DXcCA8t+SviTmFS1zrBN/h74yGfkWgSsKXR9C3udlSdVQDD0gjvrDVWbR
+	 yfurKTWUO2WHmMz4R7PFZlIlmZw6RvbAm6T4yX3Qbc10yJVUw6gbvjCmbeRWp1e84k
+	 9b1fxw6I2LF8KI0X73HTUL8t1q4NqOqCeeBuWLEZ+38TFfW7H9T9OtHndev7I1l4vx
+	 fN+NQLUa2S8Tg==
+Date: Thu, 23 Jul 2026 22:23:02 +0200
+From: Vincent Jardin <vjardin@free.fr>
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, robh@kernel.org, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] hwmon: pmbus: add MPQ8646 driver
+Message-ID: <amJ4JvsnoQNIaTaD@L30177.local>
+References: <20260723-mpq8646_v0-v2-0-3c4cb71f23c0@free.fr>
+ <20260723-mpq8646_v0-v2-3-3c4cb71f23c0@free.fr>
+ <20260723160717.8AEA61F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5NbzU9qqaTRP7CtZ"
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <252d53c9e497530f9416599f9991b02c0c276a1f.camel@collabora.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260723160717.8AEA61F000E9@smtp.kernel.org>
 
---5NbzU9qqaTRP7CtZ
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Mr. Bot,
 
-Hi Nicolas,
+> [Severity: High]
+> Is it safe to pass stack-allocated buffers to i2c_transfer() here?
+> If the underlying I2C adapter driver uses DMA for transfers, dma_map_single()
+> will attempt to map these stack addresses. On systems with virtually mapped
+> stacks, this violates DMA mapping rules and could lead to memory corruption.
 
-Le Thu 23 Jul 26, 15:39, Nicolas Dufresne a =C3=A9crit :
-> Hi Paul.
->=20
-> Le jeudi 23 juillet 2026 =C3=A0 20:41 +0200, Paul Kocialkowski a =C3=A9cr=
-it=C2=A0:
-> > In my opinion it would be fine to have two drivers, but it's really up
-> > to you. Since you already have a v4l2 base for it, I would encourage you
-> > to move it to my proposal, which will probably be finalized in a shorter
-> > time frame than the other proposal and lets you reuse the code you've
-> > already written. Then you could also add RK3576 support to the drm-ish
-> > Vulkan Video proposal without too much work when it is ready, reusing t=
-he
-> > RK3588 work.
->=20
-> My main concern is that once you exposed an API, the transition path is n=
-ear
-> impossible unless you accept to support both APIs concurrently. So I may =
-raise a
-> slight objection on the above proposal.
+It was already argued into v1, no change. See v1's answer to your analysis.
 
-Well there could be a recommended implementation using your design and a
-more experimental v4l2 implementation that is discouraged to use but
-still available.
+> [Severity: Low]
+> Does this hook effectively intercept page writes?
+> The write_byte callback is used for the PMBus Send Byte protocol, but PMBus
+> page changes use the Write Byte Data protocol via i2c_smbus_write_byte_data().
+> It appears page changes will completely bypass this check.
 
-But that means another driver to maintain and more long-term involvement
-=66rom Jiaxing Hu. I am not sure it is worth it, but I don't think we
-should entirely close the door on the idea. I also understand that there
-can be a bit of frustration with trashing code and a desire to continue
-working on it (especially now that it can benefit from the technical
-knowledge acquired from your work). But I'm just speculating here.
+You have a point, I'll send a v3
 
-Still I would be interested to eventually be able to compare performance
-between the two approaches on the same hardware :)
+> [Severity: Medium]
+> Does this sequence bypass the PMBus core serialization?
+> By using the private mps_lock instead of pmbus_lock(), the PMBus core could
+> concurrently issue sysfs reads during these NVMEM reads.
 
-> Once we have the code shared (Detlev is
-> working on it), you'll see that Detlev (and Daniel Almeida) implementatio=
-n is
-> just a step ahead, and adding RK3576 to an RK3588 is just a minor update =
-(its
-> the same chip, different minor version). On top of which, once the kernel=
- driver
-> will have settled, adding more codecs will mostly (or entirely) happen in
-> userspace.
->=20
-> With no offense, the RFC here requires significant work before it can be
-> upstreamed. A lot of the code is hex tables generated from inspecting a r=
-unning
-> driver. So there is a lot of work to decipher this into clean code.
+I'll propose something for the v3.
 
-Yes I'm sure there is still a lot of work to do.
+> [Severity: Low]
+> Could concurrent debugfs writes cause torn diagnostic state here?
+> The last_probe_rc and last_probe_data variables are updated sequentially
+> without synchronization. This might expose mismatched values to userspace
+> readers in mpq8646_dbg_last_probe_show().
 
-All the best,
+Yes !, v3
 
-Paul
+> [Severity: Low]
+> Could this direct hardware page write desynchronize the PMBus core page cache?
+> Since the core's software page cache is not updated, and the driver declares
+> pages = 1, the core assumes page switches are unnecessary and will not restore
+> it. This could cause sysfs telemetry to return incorrect data until reload.
 
-> On that aspect, if you are missing any reference code or technical
-> documentation, let us know, though I believe most of this is public infor=
-mation
-> for this chip.
->=20
-> regards,
-> Nicolas
+OK, I did revisit it. Because the chip is for .pages = 1, the core never re-writes
+PMBUS_PAGE, so a raw write of a non-zero page via this debugfs hook would
+fail with the hardware on that page and the core would keep reading it as page 0
+until a reload
 
+So v3 will remove probe_page_write entirely (same rationale as dropping the
+now-useless PMBUS_PAGE swallow in write_byte).
 
+> [Severity: Medium]
+> Does this multi-step unlock sequence bypass pmbus_lock()?
+> The PMBus core could issue interleaved sysfs reads while the chip is unlocked
+> or busy writing to NVM, potentially leading to I2C NACKs.
 
---=20
-Paul Kocialkowski,
+yep, ok.
+The v3 will wrap the whole sequence with pmbus_lock()/pmbus_unlock(),
+nested outside the existing mps_lock.
 
-Independent contractor - sys-base - https://www.sys-base.io/
-Free software developer - https://www.paulk.fr/
+> [Severity: Medium]
+> How is the worker restarted if a user writes to this debugfs file after
+> disabling polling?
+> Because the variable is exported directly without a setter function, writing
+> a non-zero value updates the integer but fails to call schedule_delayed_work()
+> to re-arm the worker.
 
-Expert in multimedia, graphics and embedded hardware support with Linux.
+right, the raw debugfs_create_u32() export cannot re-arm the worker.
+I'll check it.
 
---5NbzU9qqaTRP7CtZ
-Content-Type: application/pgp-signature; name=signature.asc
+> [Severity: Medium]
+> Does this direct hardware telemetry access also bypass pmbus_lock()?
+> Without the core lock, concurrent accesses from this background worker
+> could conflict with other sysfs polling.
 
------BEGIN PGP SIGNATURE-----
+Confirmed. The next v3 will wraps the worker's STATUS_WORD read within
+pmbus_lock()/pmbus_unlock(), so it shall no longer race the
+core's sysfs telemetry accesses.
 
-iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmpidyQACgkQhP3B6o/u
-lQxJyQ//UloJz5n2lXdGyt3Z62A+B4oIbB2DTJ/v3EPlh37fTfmMOnXOR25G/Em+
-I/4rc0DjJmSROIwu4b8DnZ5VC3NVG/K1F1+MxV67UXImGveKxrKzzs8CJ5/7GoOB
-Gb8Xm6XzGYgsT+gYuNq5pxSIOZkO5RjrXlZdXGY1kkCO+0ht4ZBOZgSHWktIYWva
-1wLIDQkt+eHnQ26lVLs1bDFjy8zE3UZXYTC04Qx/P0RNMA59f0iajMuVEOR9smvA
-DqDQV7kklKA6wwqXYY4ksgDdIdyYuJVSLrBYMAIuS0CcGQEKkc3nB841bRT2Ow6y
-ll8iHyq2ACkhJMZbG5uZ8W4258sLZ7Cp1bCAlK4dWwM9e0CArnqAdP7Y8g1RBfMn
-ydWXbCl5wKIr1tQOTXDlu+pH+3k1lXj11FBi8zlB3CqwaFIibx9zTy3gAapzPJX5
-ZHLw8t7dcK8xpaHAJXb0iDuffX+iOoa1irhTt9WCgfkZhOaPyh529N9GVHm1l54N
-pLWa3cw4IkJ4n2HuKPnzkB/2sJrY/l7cng9yQH7+ls/7Weq5x/R4qMJCKOCu42GX
-tpU5Dv13enniO8YpCbm94KetXN1OqLlC259A71vC9MlalzSmyGYr/RL8RICQ0+9O
-kHxrS0Syc2qOjAfePLfm2KAMwbvsJ0K8iLN5wvSUa3gLnIkpJSc=
-=Nec2
------END PGP SIGNATURE-----
-
---5NbzU9qqaTRP7CtZ--
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260723-mpq8646_v0-v2-0-3c4cb71f23c0@free.fr?part=3
