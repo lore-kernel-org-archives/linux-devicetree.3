@@ -1,171 +1,179 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2495C348453
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 09:53:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D692418A34;
+	Thu, 23 Jul 2026 09:55:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784800393; cv=none; b=VjcZhcGaTpsXIBkELNQRP2jihUd2VembX52y74D0XFusLmi7uPF7ZQqIRO4Yrw/IYpxxVgcK4ws5329fx3iU0nfAp1OfMHlzOgHRGC90xeFfH+4IOKfNV7/gUxAHIcCvj9Py0SY/6YifCF6tMSg+QFghAJirTIyuZpVGUqAo0HU=
+	t=1784800549; cv=none; b=C96ssdPeyq4vJTRVQcvXwx9uFF0Q+2gDU3OOeCVw6cHsiHpnPpryNFlbU/WLh0vi/7rLqPHfUcRHxDQVALz5Ei1MpgMaXtc6uTZjifTx3sXNjy0jqsNzGY/ASVl7bjJYaVGrEVSUvXbjdEUzlNQA1WeSKY5jK/DA+72bGIoPMhA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784800393; c=relaxed/simple;
-	bh=+xbgRbvfKHEtaQ6s2UOTt3oy67WdC/UhiZaz1VTCmmg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=plfPj0ezwpWABrkhwgPEqzpoaJekUjq+W8g6E1xRnWnJNt03gqo60KS6CzxI/uDEWq3n2oRfAvIqaaapJNxHm/zfZKk8f6Ugz4kFdyqQlYcOHW36LwgPQMAIRzglntWLqkRRF1jaIIh0u3dqozoOWXgvZLoj7ut9bLtnNYYYkf0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=obE3qLIo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784800549; c=relaxed/simple;
+	bh=fBAToUlNTSoiOkgB9iD1FNHc0p7ZWaDmhH+aiSQc9+s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=G7B5b+EoQmk2I83XJa8pbHjklzaFJY+nRXzEPOK4U9aR0U99c//c0s2pOFGSYUA7/rENSbpcyodoAfx6emVXyQqtuxrnzmUFL2s4xQjJMIYax+onGRY3VO354RjFvoo6452t9Vqa8XeboGUWM19+6GWytdS4lt+DL5d7Fj9963o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=qaLWn5K1; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="obE3qLIo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6690C1F000E9;
-	Thu, 23 Jul 2026 09:53:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784800391;
-	bh=MtQwqZN5vmSbzHB+Dgygxxq1kxcqpIOLme0Y8Psie/s=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=obE3qLIoPK1pkGhBnr4IOvCB4NvkhU/eLFDN6/vn0TmKuY4+psmjWrgLQjE4/ZYBQ
-	 ujEq8NKtYV9xhkEvJAR4yerFuyPbl3016Q8bfwbMIktFaF3BMMZbheT2faGnUnzIMW
-	 nog4vs3yGSj/TYGT7af3sRIuexvjYkM1vUdQJg3RHCND6kmfhgOXg0BgsJVvaLwLc2
-	 v7+8niMj0+8ffd6xsxFpR5fl72xsDr5t/lFjm2XjF0U3886bXbSd8WUOakmswkhgHf
-	 bEgXQNXyu+4hpfPvEuhVpzCg/clPdNBwU3IXFLGWnLMLqN/ZqimgtpNYn1fKPz33qt
-	 phNM+BggEfHFg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/4] regulator: dt-bindings: Add fan53555 allowed
- modes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Victor Krawiec" <victor.krawiec@arturia.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260723094001.120264-2-victor.krawiec@arturia.com>
-References: <20260723094001.120264-1-victor.krawiec@arturia.com>
- <20260723094001.120264-2-victor.krawiec@arturia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 09:53:09 +0000
-Message-Id: <20260723095311.6690C1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="qaLWn5K1"
+Received: from francesco-nb (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
+	by mail11.truemail.it (Postfix) with ESMTPA id 93A361FB1B;
+	Thu, 23 Jul 2026 11:55:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1784800545;
+	bh=Y3tZ5O24GEXnRTH52xgqivlFmeqGANuaEw/IVeFgWqc=; h=From:To:Subject;
+	b=qaLWn5K1d/MISN2NzJx2HXw7bDdBbvecuILtiHNRvSZhyp46mFlAwTbb8Qe+8eGFT
+	 GLaBdBwmbyw4K3/+6VuHJcjjQUPsR2v5ELfsah4//XT3newYLL96nefSjtF8D4u2NB
+	 zAwZhIi+vKXGDRdPTeZvg1iPu5prh4Wgd1NHHRS2uG+uNr5g/1XFDhvbOV0hy7TZx9
+	 vQ889N47V5i/SgaxofkXuUHobVY+odVGxV24t/I3fSEDPm4KaD8u7FH21W8h+dgK2q
+	 Zp9ONutZFDmFglyB2QKuEntZ9dhcRG13yMzzIZ7pRx85OpCbAFq/hCNSqMJJ5PkoHI
+	 u4LqSep0mTvWQ==
+Date: Thu, 23 Jul 2026 11:55:43 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Marco Felsch <m.felsch@pengutronix.de>
+Cc: Francesco Dolcini <francesco@dolcini.it>, Marek Vasut <marex@denx.de>,
+	Stefan Agner <stefan@agner.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	imx@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 2/4] drm: mxsfb: Add optional DPI output bus-width
+ configuration
+Message-ID: <20260723095543.GB180480@francesco-nb>
+References: <20260723093813.180089-1-francesco@dolcini.it>
+ <20260723093813.180089-3-francesco@dolcini.it>
+ <nwemnkwk5sjo5w6yelba5nmdlxgu7pxsalrxjixnrjlhfyceza@tamb54s7iswz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <nwemnkwk5sjo5w6yelba5nmdlxgu7pxsalrxjixnrjlhfyceza@tamb54s7iswz>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+Hello Marco,
+thanks for the review
 
-New issues:
-- [Medium] The device tree binding introduces the `regulator-initial-mode` =
-property, but the corresponding driver lacks the `.of_map_mode` callback re=
-quired to use it.
-- [Low] The patch defines constraints for `regulator-initial-mode` but fail=
-s to define constraints for `regulator-allowed-modes`.
+On Thu, Jul 23, 2026 at 11:48:03AM +0200, Marco Felsch wrote:
+> On 26-07-23, Francesco Dolcini wrote:
+> > From: Francesco Dolcini <francesco.dolcini@toradex.com>
+> > 
+> > LCDIF programs LCD_DATABUS_WIDTH from the selected media bus format. The
+> > format reported by the downstream panel or bridge describes the display
+> > input, but it does not describe how the LCDIF data pins are physically
+> > wired on the board.
+> > 
+> > These can differ. For example, a 16-bit LCDIF bus can be connected to a
+> > 24-bit display by wiring the available color bits to the corresponding
+> > display inputs. In that case, using the display's 24-bit format to
+> > configure LCDIF selects the wrong data-bus mode and changes the assignment
+> > of color bits on the LCD_DATA pins.
+> > 
+> > Read the optional bus-width endpoint property from the LCDIF output port
+> > and use it to select the media bus format used to configure LCDIF. This
+> > allows the LCDIF bus mode to describe the physical interface
+> > independently of the downstream display format.
+> > 
+> > When the optional property is absent, continue using the format reported
+> > by the downstream display device, preserving the existing behavior.
+> > 
+> > Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+> > ---
+> > v2: use the common bus-width property instead of the legacy interface-pix-fmt
+> > ---
+> >  drivers/gpu/drm/mxsfb/mxsfb_drv.c | 24 ++++++++++++++++++++++++
+> >  drivers/gpu/drm/mxsfb/mxsfb_drv.h |  2 ++
+> >  drivers/gpu/drm/mxsfb/mxsfb_kms.c | 12 ++++++++++++
+> >  3 files changed, 38 insertions(+)
+> > 
+> > diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.c b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+> > index 9b8fbda85d28..0545718a4b65 100644
+> > --- a/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+> > +++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+> > @@ -12,7 +12,10 @@
+> >  #include <linux/clk.h>
+> >  #include <linux/dma-mapping.h>
+> >  #include <linux/io.h>
+> > +#include <linux/media-bus-format.h>
+> >  #include <linux/module.h>
+> > +#include <linux/of.h>
+> > +#include <linux/of_graph.h>
+> >  #include <linux/platform_device.h>
+> >  #include <linux/property.h>
+> >  #include <linux/pm_runtime.h>
+> > @@ -209,7 +212,10 @@ static int mxsfb_load(struct drm_device *drm,
+> >  		      const struct mxsfb_devdata *devdata)
+> >  {
+> >  	struct platform_device *pdev = to_platform_device(drm->dev);
+> > +	struct device_node *np = pdev->dev.of_node;
+> >  	struct mxsfb_drm_private *mxsfb;
+> > +	struct device_node *ep;
+> > +	u32 bus_width = 0;
+> 
+> With this beeing set to '0' and ...
+> 
+> >  	int ret;
+> >  
+> >  	mxsfb = devm_kzalloc(&pdev->dev, sizeof(*mxsfb), GFP_KERNEL);
+> > @@ -236,6 +242,24 @@ static int mxsfb_load(struct drm_device *drm,
+> >  	if (IS_ERR(mxsfb->clk_disp_axi))
+> >  		mxsfb->clk_disp_axi = NULL;
+> >  
+> > +	ep = of_graph_get_next_endpoint(np, NULL);
+> > +	if (ep) {
+> > +		of_property_read_u32(ep, "bus-width", &bus_width);
+> 
+> no bus-width property present, this ...
+> 
+> > +		of_node_put(ep);
+> 
+> Furthermore please see
+> 20260723-v6-18-topic-imx93-parallel-display-v13-1-ccf3f9bbc0fc@nxp.com
+> for a proper error handling.
 
-Pre-existing issues:
-- [High] A preexisting bug in `fan53555_set_mode()` corrupts the voltage re=
-gister when setting `REGULATOR_MODE_NORMAL` on certain vendor variants like=
- RK8602.
---
+Not sure if I see the value on doing this. You are just doing the
+validation of the DT again in the code. My understanding is that this is
+not the way to go.
 
---- Patch [1]: [PATCH v3 1/4] regulator: dt-bindings: Add fan53555 allowed =
-modes ---
-commit 23beca6378b28eed5bc10d3625b311119ecc5eb7
-Author: Victor Krawiec <victor.krawiec@arturia.com>
+BTW, I assume you are suggesting something like this, if this is not the
+case please let me know
 
-regulator: dt-bindings: Add fan53555 allowed modes
+	if (ep) {
+		err = of_property_read_u32();
+		of_node_put(ep);
 
-This commit adds device tree binding constants and schema properties to
-specify the initial operation mode (Auto-PFM or Forced PWM) for the
-FAN53555 PMIC regulator.
+		if (err && err != -EINVAL)
+			return dev_err_probe(dev, err,
+					     "failed to query bus-width\n");
+	}
 
-> diff --git a/Documentation/devicetree/bindings/regulator/fcs,fan53555.yam=
-l b/Documentation/devicetree/bindings/regulator/fcs,fan53555.yaml
-> index 69bae90fc4b28..9a18891f721e6 100644
-> --- a/Documentation/devicetree/bindings/regulator/fcs,fan53555.yaml
-> +++ b/Documentation/devicetree/bindings/regulator/fcs,fan53555.yaml
-> @@ -48,6 +48,12 @@ properties:
->        VSEL0 register. When this pin is HIGH, VOUT is set by the VSEL1 re=
-gister.
->      maxItems: 1
-> =20
-> +  regulator-initial-mode:
-> +    enum:
-> +      [ 1, 2 ]
-> +    description:
-> +      Defined in include/dt-bindings/regulator/fcs,fan53555-regulator.h
-> +
+> 
+> > +	}
+> > +
+> > +	switch (bus_width) {
+> 
+> switch should fail. Therefore I would recommend to set the default to
+> 24 (bit) aka no limitation.
 
-[Severity: Low]
-The commit message mentions adding allowed modes, but the schema only defin=
-es
-constraints for regulator-initial-mode. Does this leave
-regulator-allowed-modes unconstrained, allowing device trees to pass
-dt_binding_check even if they specify invalid integers like
-regulator-allowed-modes =3D <99>?
+I would not do that.
 
-[Severity: Medium]
-Will the regulator core actually apply this initial mode?
+We have an optional property, the DT is validated against the binding
+for correctness, we should not validate it again in the code. If the
+property is not present or it contains an invalid value it is
+just ignored, preserving the existing behavior.
 
-The fan53555 driver currently lacks the .of_map_mode callback:
+Francesco
 
-drivers/regulator/fan53555.c:fan53555_regulator_register() {
-    ...
-    rdesc->vsel_mask =3D BIT(fls(di->vsel_count - 1)) - 1;
-    rdesc->owner =3D THIS_MODULE;
-
-    rdev =3D devm_regulator_register(di->dev, &di->desc, config);
-    ...
-}
-
-Without an .of_map_mode implementation to translate the DT integer into a
-standard REGULATOR_MODE_* constant, won't the regulator core ignore this
-property completely and fail to set the mode?
-
-[ ... ]
-
-> diff --git a/include/dt-bindings/regulator/fcs,fan53555-regulator.h b/inc=
-lude/dt-bindings/regulator/fcs,fan53555-regulator.h
-> new file mode 100644
-> index 0000000000000..ce3d6c63a0f1f
-> --- /dev/null
-> +++ b/include/dt-bindings/regulator/fcs,fan53555-regulator.h
-> @@ -0,0 +1,20 @@
-> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> +/*
-> + * Copyright (c) 2026 Arturia - All rights reserved.
-> + *
-> + * Device Tree binding constants for the FAN53555 PMIC regulator
-> + */
-> +
-> +#ifndef _DT_BINDINGS_REGULATOR_FAN53555_H
-> +#define _DT_BINDINGS_REGULATOR_FAN53555_H
-> +
-> +/*
-> + * Constants to specify regulator modes in device tree for SYR82X regula=
-tors
-> + * FAN53555_REGULATOR_MODE_FORCE_PWM:	Force fixed PWM mode
-> + * FAN53555_REGULATOR_MODE_AUTO:	Allow auto-PFM mode during light load
-> + */
-> +
-> +#define FAN53555_REGULATOR_MODE_FORCE_PWM	1
-> +#define FAN53555_REGULATOR_MODE_AUTO		2
-
-[Severity: High]
-This is a pre-existing issue, but I noticed a potential hardware register
-corruption in the driver when setting modes.
-
-In the fan53555 driver, when setting REGULATOR_MODE_NORMAL, does the code
-mistakenly clear the mode mask from the voltage register instead of the mode
-register?
-
-drivers/regulator/fan53555.c:fan53555_set_mode() {
-    ...
-    case REGULATOR_MODE_NORMAL:
-        regmap_update_bits(rdev->regmap, di->vol_reg, di->mode_mask, 0);
-        break;
-    ...
-}
-
-For variants like the RK8602 where mode_reg and vol_reg are distinct
-hardware registers, clearing di->mode_mask (e.g. BIT(6)) in di->vol_reg
-could silently drop the output voltage by 64 steps (400mV). Could this lead
-to severe undervolting and system crashes if a consumer attempts to change
-the mode?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723094001.1202=
-64-1-victor.krawiec@arturia.com?part=3D1
