@@ -1,174 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m121183.xmail.ntesmail.com (mail-m121183.xmail.ntesmail.com [115.236.121.183])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9224D3CE0BB;
-	Thu, 23 Jul 2026 07:13:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3D9A3DB306;
+	Thu, 23 Jul 2026 07:13:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.121.183
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784790798; cv=none; b=poLnzvVUbasQeSuT7Vdy34J4yTzq27ZeZdsC2qDHYUIYKDEafuYUc68aOrlBDrcEQZt8LirL8zu6Ml/QsF0D0EhWcrud82KPk22QoEFoIaoyAnSGI1Zx+19pMCLXvsCL305lKmP50Ec3pnr/GyKAIx4EHcougO1JmuybWcO46tk=
+	t=1784790810; cv=none; b=Rl3vPxtxYCb4CX4uP4cmUVsoZkRguWi6umlgz5ennWxRw1uLzCM1u99dswsD/WI7frNIUJ+iRfg76bIgyN0cj5DLWITIX6P62P31M9XDGoW4ngWBCY75tMwSvMiQv+LT2h/AHrW+9gLW+sc8pH8SDvMrhR9buIuckFYF1G8yTAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784790798; c=relaxed/simple;
-	bh=7ULSNhJ+JAjeMc3Mqcg+WM3zRoMCJziGGnaCt2pYDPA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m/vj02Q1fexXVerNwzn53CaQVvzEom/wPUq1AsPKEmJYxhkMhg+SfeaQzyVcaOVbuQ4GlsraJNzP1kangECD/6I0H0AHUfiD3ZAiRrwnfPGebm3/886qT3FKW8m6eMH0GXITRM6al5xHAAkmGnDoyyaeabMLCUHO3Hgw/g/XIYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62BAB1F000E9;
-	Thu, 23 Jul 2026 07:13:16 +0000 (UTC)
-Date: Thu, 23 Jul 2026 09:13:12 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Hermes Wu <Hermes.wu@ite.com.tw>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 2/2] media: i2c: add driver for ITE IT6625/IT6626
-Message-ID: <20260723-competent-poised-jaguarundi-9ea2c7@quoll>
-References: <20260723-upstream-it6625-it6626-v7-0-f8175bb0ea12@ite.com.tw>
- <20260723-upstream-it6625-it6626-v7-2-f8175bb0ea12@ite.com.tw>
+	s=arc-20240116; t=1784790810; c=relaxed/simple;
+	bh=fP7mP1PvyxbdpviNlPMSkzU4H0gpIbtJMNA0s6KxveE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rB0LtOfoD/tfkfkKH6jdrnfv+swZC2MUQbKihq6A2dwD2VoplPV1RDlLcsFuQWfSmhYDJVgRq98BYYBZ5s+7HHYf1C39V8Cg0TYE2Rh0MAkV4bPPLiDVpNrxo8hAznky56Cj6kHqa9zxLQaFbPNpshtcdCwngCQHot0UAXj9DqM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=BRDErc+n; arc=none smtp.client-ip=115.236.121.183
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="BRDErc+n"
+Received: from [172.16.12.74] (unknown [58.22.7.114])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4746d9e60;
+	Thu, 23 Jul 2026 14:37:43 +0800 (GMT+08:00)
+Message-ID: <97e28cf5-dd68-499f-9b05-95690807a5b6@rock-chips.com>
+Date: Thu, 23 Jul 2026 14:37:43 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260723-upstream-it6625-it6626-v7-2-f8175bb0ea12@ite.com.tw>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 0/5] Add eDP lane mapping support
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260707040613.1992841-1-damon.ding@rock-chips.com>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <20260707040613.1992841-1-damon.ding@rock-chips.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0a9f8db1bbfc03a8kunmce2c72a238580c
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGh1IS1ZCQxlOHk5NGB
+	pMSE1WFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+	tIVUpLSEpKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=BRDErc+nOga+bu2rulXIPEgszcRtzplx0OBArAZBL8pXrQtJGw2+BRjUNroUJKjfDGWnaHBTTqPQhcrAsMdYAORLDKlyrnpFquwd/zm15pJqzIeaHNc3sV6C06heK9Nu1/Z3lF0D6jdo0w77EZEhEmpvp2/J+n1epPFgzk+9QV4=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=hPnxwzBAhZxcG9oWTVfy2nq7tEgZYFpIDiq2DYBjWcA=;
+	h=date:mime-version:subject:message-id:from;
 
-On Thu, Jul 23, 2026 at 10:44:03AM +0800, Hermes Wu wrote:
-> +	mutex_init(&it6625->it6625_lock);
-> +	INIT_DELAYED_WORK(&it6625->hpd_delayed_work, it6625_hpd_delayed_work);
-> +	INIT_WORK(&it6625->polling_work, it6625_polling_work);
-> +
-> +	if (client->irq) {
-> +		err = devm_request_threaded_irq(&client->dev, client->irq,
+Gentle ping.
 
-You do not have interrupts. Read your binding again. You are not
-allowed to sneak in any undocumented ABI.
-
-> +						NULL, it6625_irq_handler,
-> +						IRQF_TRIGGER_LOW |
-> +						IRQF_ONESHOT |
-> +						IRQF_NO_AUTOEN,
-> +						"it6625", it6625);
-> +		if (err)
-> +			return err;
-> +	} else {
-> +		dev_info(it6625->dev, "no IRQ, falling back to polling");
-> +		timer_setup(&it6625->timer, it6625_irq_poll_timer, 0);
-> +	}
-> +
-> +	sd = &it6625->sd;
-> +	err = it6625_init_v4l2_subdev(it6625);
-> +	if (err)
-> +		goto err_clean_work_queues;
-> +
-> +	err = v4l2_ctrl_handler_setup(sd->ctrl_handler);
-> +	if (err)
-> +		goto err_clean_hdl;
-> +
-> +	it6625->cec_adap = cec_allocate_adapter(&it6625_cec_adap_ops,
-> +						it6625, dev_name(it6625->dev),
-> +						CEC_CAP_DEFAULTS |
-> +						CEC_CAP_MONITOR_ALL |
-> +						CEC_CAP_PHYS_ADDR,
-> +						CEC_MAX_LOG_ADDRS);
-> +	if (IS_ERR(it6625->cec_adap)) {
-> +		err = PTR_ERR(it6625->cec_adap);
-> +		dev_err(it6625->dev, "%s %d", __func__, __LINE__);
-> +		goto err_clean_hdl;
-> +	}
-> +
-> +	err = cec_register_adapter(it6625->cec_adap, &client->dev);
-> +	if (err < 0) {
-> +		dev_err(it6625->dev, "%s: failed to register the cec device", __func__);
-> +		cec_delete_adapter(it6625->cec_adap);
-> +		it6625->cec_adap = NULL;
-> +		goto err_clean_hdl;
-> +	}
-> +
-> +	it6625_debugfs_init(it6625, client);
-> +
-> +	it6625_initial_setup(it6625);
-> +	it6625_v4l2_sd_ctrl_update(sd);
-> +
-> +	err = v4l2_async_register_subdev(sd);
-> +	if (err < 0) {
-> +		dev_err(it6625->dev, "%s %d err=%d", __func__, __LINE__, err);
-> +		goto err_clean_debugfs;
-> +	}
-> +
-> +	if (client->irq)
-> +		enable_irq(client->irq);
-> +	else
-> +		mod_timer(&it6625->timer, jiffies + msecs_to_jiffies(POLL_INTERVAL_MS));
-> +
-> +	return 0;
-> +
-> +err_clean_debugfs:
-> +	debugfs_remove_recursive(it6625->debugfs_dir);
-> +	cec_unregister_adapter(it6625->cec_adap);
-> +err_clean_hdl:
-> +	media_entity_cleanup(&sd->entity);
-> +	v4l2_ctrl_handler_free(&it6625->hdl);
-> +
-> +err_clean_work_queues:
-> +	if (!client->irq)
-> +		timer_shutdown_sync(&it6625->timer);
-> +	cancel_work_sync(&it6625->polling_work);
-> +	cancel_delayed_work_sync(&it6625->hpd_delayed_work);
-> +	mutex_destroy(&it6625->it6625_lock);
-> +	return err;
-> +}
-> +
-> +static void it6625_remove(struct i2c_client *client)
-> +{
-> +	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-> +	struct it6625 *it6625 = sd_to_6625(sd);
-> +
-> +	v4l2_async_unregister_subdev(sd);
-> +	v4l2_device_unregister_subdev(sd);
-> +
-> +	if (client->irq)
-> +		disable_irq(client->irq);
-> +	else
-> +		timer_shutdown_sync(&it6625->timer);
-> +
-> +	cancel_work_sync(&it6625->polling_work);
-> +	cancel_delayed_work_sync(&it6625->hpd_delayed_work);
-> +	debugfs_remove_recursive(it6625->debugfs_dir);
-> +	cec_unregister_adapter(it6625->cec_adap);
-> +	mutex_destroy(&it6625->it6625_lock);
-> +	media_entity_cleanup(&sd->entity);
-> +	v4l2_ctrl_handler_free(&it6625->hdl);
-> +}
-> +
-> +static const struct i2c_device_id it6625_id[] = {
-> +	{ .name = "it6625", .driver_data = IT6625_CHIP },
-> +	{ .name = "it6626", .driver_data = IT6626_CHIP },
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(i2c, it6625_id);
-> +
-> +static const struct of_device_id it6625_of_match[] = {
-> +	{ .compatible = "ite,it6625", .data = (void *)IT6625_CHIP },
-> +	{ .compatible = "ite,it6626", .data = (void *)IT6626_CHIP },
-
-
-I don't see any difference in the code between these two, so your
-devices are simply compatible, no?
-
-> +	{},
-> +};
-> +MODULE_DEVICE_TABLE(of, it6625_of_match);
-> +
-> +static struct i2c_driver it6625_driver = {
-> +	.driver = {
-> +		.name = "it6625",
-> +		.of_match_table = of_match_ptr(it6625_of_match),
-
-Drop of_match_ptr. You have a warning here, most likely.
-
-Best regards,
-Krzysztof
+On 7/7/2026 12:06 PM, Damon Ding wrote:
+> This series adds configurable eDP physical lane mapping support via
+> device tree data-lanes property.
+> 
+> Lane mapping is mainly used for below scenarios:
+> 1. Correct PCB lane swap and differential line routing crossover
+>     without hardware changes;
+> 2. Adapt mismatched lane pin definitions between SoC and eDP panel;
+> 3. Support multiple panel hardware variants on the same board
+>     by configuring data-lanes in device tree only.
+> 
+> The series includes driver implementation and device tree binding
+> updates to support custom lane mapping configuration from endpoint
+> node, and keeps default linear lane order if no configuration is given.
+> 
+> Patch 1: Add endpoint data-lanes property to analogix-dp binding
+> Patch 2: Add DRM DP helper API to validate DP lane counts
+> Patch 3: Restore mandatory for samsung,link-rate and samsung,lane-count
+>           properties
+> Patch 4: Add validation for samsung,lane-count property as preparation
+> Patch 5: Implement lane mapping in analogix_dp driver
+> 
+> Damon Ding (5):
+>    dt-bindings: display: bridge: analogix-dp: Add data-lanes support for
+>      endpoint
+>    drm/dp: Add helper to validate DP lane counts
+>    drm/bridge: analogix_dp: Restore mandatory samsung DP DT properties
+>    drm/bridge: analogix_dp: Add validation for samsung,lane-count
+>      property
+>    drm/bridge: analogix_dp: Add support for optional data-lanes mapping
+> 
+>   .../bindings/display/bridge/analogix,dp.yaml  | 19 +++--
+>   .../rockchip/rockchip,analogix-dp.yaml        |  1 +
+>   .../drm/bridge/analogix/analogix_dp_core.c    | 70 +++++++++++++++++--
+>   .../drm/bridge/analogix/analogix_dp_core.h    |  4 +-
+>   .../gpu/drm/bridge/analogix/analogix_dp_reg.c | 15 ++--
+>   .../gpu/drm/bridge/analogix/analogix_dp_reg.h |  4 ++
+>   include/drm/display/drm_dp_helper.h           |  6 ++
+>   7 files changed, 101 insertions(+), 18 deletions(-)
+> 
+> ---
+> 
+> Changes in v2:
+> - Add lane mapping application scenarios in commit message.
+> - Remove redundant deprecated property 'data-lanes' for eDP node.
+> - Update port@1 $ref to /schemas/graph.yaml#/$defs/port-base.
+> 
+> Changes in v3:
+> - Squash [PATCH v2 2/3] into [PATCH v2 1/3].
+> - Add unevaluatedProperties: false to both the port@1 and endpoint
+>    nodes.
+> 
+> Changes in v4:
+> - Add validation for samsung,lane-count property as preparation.
+> 
+> Changes in v5:
+> - Add DRM DP helper API to validate DP lane counts.
+> - Apply DRM DP helper API to check the validity of samsung,lane-count
+>    property.
+> - Add Acked-by and Reviewed-by tags.
+> 
+> Changes in v6:
+> - Add a seperate commit to restore mandatory samsung DP DT properties.
+> - Add Reviewed-by tag.
+> 
 
