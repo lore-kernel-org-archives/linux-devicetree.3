@@ -1,141 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 264762DF128
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 20:13:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 353773EFFD1;
+	Thu, 23 Jul 2026 20:18:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.233.101.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784837599; cv=none; b=s3bgXY8IMlE5hIjGXAtY7O3PA5jDtygyq1K46KdafS2iEobOzTrBu69YGZh0quPuOQXlmO7YpObspDnNgWg0zmulm0RqfCqx61C2ZAgdKGwqWbMD2YgBOfSU9r6ib6Mns+ktc1ppxtCbMF1lyynpc2yfT75aJS53nMAyNAlDxH4=
+	t=1784837955; cv=none; b=SkYsIPamw5SHhvjWTP43T8QrWK6edfixmHxKnYzweLRrY0HPehxah2zi4u4EXUemrJvuAPX+ABobNAfn/LrA1fxavFYHpMjBVWbllsgQ8X1c6sxy/UTbdBoNhFuuGVSTZESWPYKkqxwftvvXqu1FyX+OGDESTsbRNJ1zg/vKA9s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784837599; c=relaxed/simple;
-	bh=XIrIGe13jVQ/LDsaurxJSUGHOQL/eyvlYGaEMCfuabI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DeDF4tVdka727pH6xEWCS0rqglDC2x7J4DE7RvncoSpOtuRuNt67yOH0PIzl19ln0u+a96CfFEJ8x0/5cIS4UPx4SIqJDLAilyzSUA6iOKKtMLbneyQ3rPTomoGPLsZj+SK44ga7GNQHuzUWhx3AVAsxoK2cHGbs/WDIKAL6Apc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kP6b4xs3; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kP6b4xs3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B76B21F000E9;
-	Thu, 23 Jul 2026 20:13:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784837598;
-	bh=2XcXCrxB2i8l3j1UZxlluGc/m2XXJPQ1VH9rggZ/EH8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kP6b4xs3eD36XxTHMSQoR5f3McwDvNpPB2wSrqAD+xHAix1q5MlhmigarJWjiv1uN
-	 NrDajj36NWhOnTAfWX6NjejTaJGt/1t8HyL7+KiCSmyPicZRuzK4MoXdIx5ST6bHYO
-	 mNV8JER2WBwiFaBa8UZzXu+zQWlhLVnMF/Q8lXzKN8XLfDp4OETripVOqmy3Wuc3ik
-	 ryvI1BQXN7TsDm+8c4pcEduvnsrH+eyfMKcKvtj7xsQdhxJvb3jLWTlY8sNS9YzfHa
-	 V3lMznoeJ0eQFm+Ppkn0POZS6OkjnFwFZb2C0XO5kc+urBQMvy3fNTPZMlzK2wWvRs
-	 VjRuUdCr1vrGg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 3/5] iio: adc: ltc2378: Enable high-speed data
- capture
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marcelo Schmitt" <marcelo.schmitt@analog.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <c331ad2c4e4162c285a3c6c89798388ad4962036.1784835663.git.marcelo.schmitt@analog.com>
-References: <cover.1784835663.git.marcelo.schmitt@analog.com>
- <c331ad2c4e4162c285a3c6c89798388ad4962036.1784835663.git.marcelo.schmitt@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 20:13:17 +0000
-Message-Id: <20260723201317.B76B21F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1784837955; c=relaxed/simple;
+	bh=46FWN177CCjlOBe+CD5xXNqVAb5ZdbN00qmRFVOXbnw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZmGzktfgSI3dL7mr7ueYxjdfDWdj6z55/d2pWHlYXczipOh//BveTiqxoL9CGyhpmIDDZk9bhLWUiqStngvmOrRCibBrUtw0/Lke/li5hXXYBVvOwLgkAPvWId8mCily57mlFlGlwpYoSqKFzurZMrOczMZ1ZK5o0Key3oca68Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io; spf=pass smtp.mailfrom=sys-base.io; arc=none smtp.client-ip=185.233.101.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sys-base.io
+Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
+	by leonov.paulk.fr (Postfix) with ESMTPS id E587A3700EC4;
+	Thu, 23 Jul 2026 20:18:48 +0000 (UTC)
+Received: by laika.paulk.fr (Postfix, from userid 65534)
+	id 283A5B49EA2; Thu, 23 Jul 2026 20:18:47 +0000 (UTC)
+X-Spam-Level: 
+Received: from collins (unknown [192.168.1.1])
+	by laika.paulk.fr (Postfix) with ESMTPSA id C5575B49E99;
+	Thu, 23 Jul 2026 20:18:45 +0000 (UTC)
+Date: Thu, 23 Jul 2026 22:18:44 +0200
+From: Paul Kocialkowski <paulk@sys-base.io>
+To: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Cc: Jiaxing Hu <gahing@gahingwoo.com>, detlev.casanova@collabora.com,
+	mchehab@kernel.org, heiko@sntech.de, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org,
+	ezequiel@vanguardiasur.com.ar, linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 0/3] media: rockchip: VEPU510 H.264 encoder for RK3576
+Message-ID: <amJ3JJjhlBokyzB5@collins>
+References: <20260722073417.2064667-1-gahing@gahingwoo.com>
+ <082e1141c38205222a91abf13b1a97d9a00e117a.camel@collabora.com>
+ <20260723004642.2075233-1-gahing@gahingwoo.com>
+ <210b72e32d1bd757a36b2baf532dd9f7d46ca5dc.camel@collabora.com>
+ <amJgcHf2vVDb75nR@collins>
+ <252d53c9e497530f9416599f9991b02c0c276a1f.camel@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="5NbzU9qqaTRP7CtZ"
+Content-Disposition: inline
+In-Reply-To: <252d53c9e497530f9416599f9991b02c0c276a1f.camel@collabora.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Division by zero vulnerabilities in ltc2378_update_conversion_rate=
- due to unhandled hardware rounding of period/frequency.
-- [Low] Unlocked data race on st->cnv_Hz between read_raw and write_raw.
---
+--5NbzU9qqaTRP7CtZ
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
---- Patch [3]: [PATCH v8 3/5] iio: adc: ltc2378: Enable high-speed data cap=
-ture ---
-commit cad96004cef5739b24db063923b36678ea8e3617
-Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
-Subject: iio: adc: ltc2378: Enable high-speed data capture
+Hi Nicolas,
 
-Make use of SPI transfer offloading to speed up data capture, enabling data
-acquisition at faster sample rates (up to 2 MSPS).
+Le Thu 23 Jul 26, 15:39, Nicolas Dufresne a =C3=A9crit :
+> Hi Paul.
+>=20
+> Le jeudi 23 juillet 2026 =C3=A0 20:41 +0200, Paul Kocialkowski a =C3=A9cr=
+it=C2=A0:
+> > In my opinion it would be fine to have two drivers, but it's really up
+> > to you. Since you already have a v4l2 base for it, I would encourage you
+> > to move it to my proposal, which will probably be finalized in a shorter
+> > time frame than the other proposal and lets you reuse the code you've
+> > already written. Then you could also add RK3576 support to the drm-ish
+> > Vulkan Video proposal without too much work when it is ready, reusing t=
+he
+> > RK3588 work.
+>=20
+> My main concern is that once you exposed an API, the transition path is n=
+ear
+> impossible unless you accept to support both APIs concurrently. So I may =
+raise a
+> slight objection on the above proposal.
 
-> diff --git a/drivers/iio/adc/ltc2378.c b/drivers/iio/adc/ltc2378.c
-> index 107388f870626..7baee02450d39 100644
-> --- a/drivers/iio/adc/ltc2378.c
-> +++ b/drivers/iio/adc/ltc2378.c
-> @@ -264,7 +384,137 @@ static int ltc2378_read_raw(struct iio_dev *indio_d=
-ev,
->  			*val2 =3D chan->scan_type.realbits;
-> =20
->  		return IIO_VAL_FRACTIONAL_LOG2;
-> +	case IIO_CHAN_INFO_SAMP_FREQ:
-> +		*val =3D st->cnv_Hz;
+Well there could be a recommended implementation using your design and a
+more experimental v4l2 implementation that is discouraged to use but
+still available.
 
-[Severity: Low]
-Does this lockless read of st->cnv_Hz race with concurrent updates?
+But that means another driver to maintain and more long-term involvement
+=66rom Jiaxing Hu. I am not sure it is worth it, but I don't think we
+should entirely close the door on the idea. I also understand that there
+can be a bit of frustration with trashing code and a desire to continue
+working on it (especially now that it can benefit from the technical
+knowledge acquired from your work). But I'm just speculating here.
 
-While ltc2378_write_raw() acquires the IIO direct mode lock before calling
-ltc2378_update_conversion_rate() to update st->cnv_Hz, this read path appea=
-rs
-to access it without synchronization or READ_ONCE()/WRITE_ONCE() macros.
+Still I would be interested to eventually be able to compare performance
+between the two approaches on the same hardware :)
 
-> +		return IIO_VAL_INT;
+> Once we have the code shared (Detlev is
+> working on it), you'll see that Detlev (and Daniel Almeida) implementatio=
+n is
+> just a step ahead, and adding RK3576 to an RK3588 is just a minor update =
+(its
+> the same chip, different minor version). On top of which, once the kernel=
+ driver
+> will have settled, adding more codecs will mostly (or entirely) happen in
+> userspace.
+>=20
+> With no offense, the RFC here requires significant work before it can be
+> upstreamed. A lot of the code is hex tables generated from inspecting a r=
+unning
+> driver. So there is a lot of work to decipher this into clean code.
 
-[ ... ]
+Yes I'm sure there is still a lot of work to do.
 
-> +static int ltc2378_update_conversion_rate(struct ltc2378_state *st, int =
-freq_Hz)
-> +{
+All the best,
 
-[ ... ]
+Paul
 
-> +	/*
-> +	 * Configure SPI offload PWM trigger.
-> +	 * The trigger should fire after tBUSYLH + tCONV + tDSDOBUSYL.
-> +	 * Minimum time needed: TBUSYLH (13ns) + TCONV (part-specific) + TDSDOB=
-USYL (5ns)
-> +	 *
-> +	 * Use the same period as CNV PWM to avoid timing issues.
-> +	 * Convert back from period to frequency for the SPI offload API.
-> +	 */
-> +	offload_period_ns =3D cnv_wf.period_length_ns;
-> +	config.periodic.frequency_hz =3D div_u64(HZ_PER_GHZ, offload_period_ns);
+> On that aspect, if you are missing any reference code or technical
+> documentation, let us know, though I believe most of this is public infor=
+mation
+> for this chip.
+>=20
+> regards,
+> Nicolas
 
-[Severity: High]
-Can this result in a division by zero if offload_period_ns is 0?
 
-If pwm_round_waveform_might_sleep() rounds the requested period down to 0,
-offload_period_ns will be 0 and cause a kernel panic here.
-
-> +	min_read_offset =3D LTC2378_TBUSYLH_NS + st->info->tconv_ns + LTC2378_T=
-DSDOBUSYL_NS;
-
-[ ... ]
-
-> +	/* Check the minimum CNV to SCLK delay is met */
-> +	if (config.periodic.offset_ns < min_read_offset)
-> +		return -EDOM;
-> +
-> +	/* Check the PWM periods remain the same */
-> +	offload_period_ns =3D div64_u64(HZ_PER_GHZ, config.periodic.frequency_h=
-z);
-
-[Severity: High]
-Does this code panic if config.periodic.frequency_hz evaluates to 0?
-
-If a user writes a very low sampling frequency, the PWM driver might round
-the hardware period up to a value greater than HZ_PER_GHZ. If
-offload_period_ns > HZ_PER_GHZ, the earlier calculation for
-config.periodic.frequency_hz will evaluate to 0.
-
-Additionally, if spi_offload_trigger_validate() mutates frequency_hz down
-to 0, it would also result in a division by zero here.
-
-> +	if (cnv_wf.period_length_ns !=3D offload_period_ns)
-> +		return -EDOM;
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1784835663.gi=
-t.marcelo.schmitt@analog.com?part=3D3
+Paul Kocialkowski,
+
+Independent contractor - sys-base - https://www.sys-base.io/
+Free software developer - https://www.paulk.fr/
+
+Expert in multimedia, graphics and embedded hardware support with Linux.
+
+--5NbzU9qqaTRP7CtZ
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmpidyQACgkQhP3B6o/u
+lQxJyQ//UloJz5n2lXdGyt3Z62A+B4oIbB2DTJ/v3EPlh37fTfmMOnXOR25G/Em+
+I/4rc0DjJmSROIwu4b8DnZ5VC3NVG/K1F1+MxV67UXImGveKxrKzzs8CJ5/7GoOB
+Gb8Xm6XzGYgsT+gYuNq5pxSIOZkO5RjrXlZdXGY1kkCO+0ht4ZBOZgSHWktIYWva
+1wLIDQkt+eHnQ26lVLs1bDFjy8zE3UZXYTC04Qx/P0RNMA59f0iajMuVEOR9smvA
+DqDQV7kklKA6wwqXYY4ksgDdIdyYuJVSLrBYMAIuS0CcGQEKkc3nB841bRT2Ow6y
+ll8iHyq2ACkhJMZbG5uZ8W4258sLZ7Cp1bCAlK4dWwM9e0CArnqAdP7Y8g1RBfMn
+ydWXbCl5wKIr1tQOTXDlu+pH+3k1lXj11FBi8zlB3CqwaFIibx9zTy3gAapzPJX5
+ZHLw8t7dcK8xpaHAJXb0iDuffX+iOoa1irhTt9WCgfkZhOaPyh529N9GVHm1l54N
+pLWa3cw4IkJ4n2HuKPnzkB/2sJrY/l7cng9yQH7+ls/7Weq5x/R4qMJCKOCu42GX
+tpU5Dv13enniO8YpCbm94KetXN1OqLlC259A71vC9MlalzSmyGYr/RL8RICQ0+9O
+kHxrS0Syc2qOjAfePLfm2KAMwbvsJ0K8iLN5wvSUa3gLnIkpJSc=
+=Nec2
+-----END PGP SIGNATURE-----
+
+--5NbzU9qqaTRP7CtZ--
