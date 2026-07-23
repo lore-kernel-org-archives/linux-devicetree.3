@@ -1,87 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6418C25F984;
-	Thu, 23 Jul 2026 14:21:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from smtpfb2-g21.free.fr (smtpfb2-g21.free.fr [212.27.42.10])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8BB773290C9;
+	Thu, 23 Jul 2026 14:29:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784816492; cv=none; b=oG7zyeyNyIPsA/L3hDITvVizzLuCo/D28sSi/e1s1Ha3wFwLzhF1IGF+qoap1czkgdmJgtURoM5GNfaQzRyh1DONKB4w1kbbMrGKSRpVRwJZ0/Wwm7beng5bpUYZZtMGR33UgmLa+DR5NqZf0cYVnliGZtdM/Ao3s4Xzzv3pQ0g=
+	t=1784816950; cv=none; b=p7YQT+RSCp8bD7NCFFvtImCziSk6NMALqPTNij1N7RCzIvJ7Pma4N4mElSUmCjvUpjBRrNVa4PHsOOjyE49fRBwD7SsSc3yjFtKdi8MZnuEOh3S24QkYdmcXqPPmjlN5mq8DbU9T02fk5gJbzXsNunEkhEnu8zBy/VC9meE3qK4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784816492; c=relaxed/simple;
-	bh=L5xBPCkP8R8WGWQFmNw1G3BmcfHsJSsxFMQumnfQ9nw=;
+	s=arc-20240116; t=1784816950; c=relaxed/simple;
+	bh=iGVMYBkOnfXFadt7eZykzXvZOHOYbYNmrt7WoODA9QM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HyIE39wfosJEsrlEZ38REefYoOoPScPwrJqy0Zva0RHyalIN6mu5QqnP41FtcVMtLfv33279nPSd1bVL1Eb+Wzf1zo0u9VuKqVBYeAmwRwFU4sWZ3YRRiz+ZiV8eV24ZDRvh5jwKNpA67Lh3OrMX9NCt+iy1BnPAXwMkVCOhOCc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M8QdiKPK; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=hgBgkEkoVAZa0U12Ld/7JGzXCwwx11MOCPqhVUNVUKgJr6+bo1N8pNy5eqkJFmjtvyuPQHwAscXnJ+g+gVtT2WFQsgiXD5W42dvJpg1CeYrVULYBb7dhLqjro4f11pE/MOYuGsfNaD4TqRmpyhYqBwWHlt8ZJuubPXEuF9uH2ck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=Akjs2QHn; arc=none smtp.client-ip=212.27.42.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M8QdiKPK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 258431F000E9;
-	Thu, 23 Jul 2026 14:21:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784816491;
-	bh=rA0O4ClmUVEoh3f94Y+vEhegRimMiCmv23Q9yV4+wRQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=M8QdiKPKfruE5fG2RaIwODjw+vgzXq2cH/x6I+b/3itmT9HeryfA90xu4Kg5h4Vmh
-	 P89TfBY0fRsg4qwOYh83utM7xE6SvZSV+vp7Z52ZkefW5k2nbcO3I+cchvRyt7+jak
-	 ium1U2QO9a/IXO4HEWCFOlgggKZjHf9toTKBUMeW9ADzMWhhJrtycpjRJqUY1Iyw2N
-	 S/uExPb1dsnq6LQ1G/xEEo0Ywec9fRrzRPq9wS0SUtZL3lsAUuGi+mvrysqq/CR8Jv
-	 efzOiz0ygSBuvlm7Xrf46pEynF1T1yHC892P3QmVWR/ayNSI8441jzHol7wTZsr7EN
-	 vZ9hBnzWZguNw==
-Date: Thu, 23 Jul 2026 15:21:25 +0100
-From: Mark Brown <broonie@kernel.org>
-To: han.xu@oss.nxp.com
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Haibo Chen <haibo.chen@nxp.com>,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-spi@vger.kernel.org, Han Xu <han.xu@nxp.com>
-Subject: Re: [PATCH v3 2/3] spi: nxp-xspi: Improve AHB read performance with
- DMA
-Message-ID: <5a437693-21a5-4a32-aa17-a1e36fe564d0@sirena.org.uk>
-References: <20260722-xspi_dma_upstream-v3-0-6b7ff50cae8e@nxp.com>
- <20260722-xspi_dma_upstream-v3-2-6b7ff50cae8e@nxp.com>
+	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="Akjs2QHn"
+Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
+	by smtpfb2-g21.free.fr (Postfix) with ESMTP id DF2704DF5B;
+	Thu, 23 Jul 2026 16:29:02 +0200 (CEST)
+Received: from L30177.local (unknown [213.36.7.12])
+	(Authenticated sender: vjardin@free.fr)
+	by smtp6-g21.free.fr (Postfix) with ESMTPSA id 496F2780372;
+	Thu, 23 Jul 2026 16:28:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1784816935;
+	bh=iGVMYBkOnfXFadt7eZykzXvZOHOYbYNmrt7WoODA9QM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Akjs2QHnhoHjmIiEczTH5X8Q1GBH7quMvO9Cl8op+JITvRGrHJEfo+Ej6UHFVuXJg
+	 fOsiuHJcEU7xF9s6enE6wB1Ad8Wjv3z46Q+sqk6nwsqMOnjDuw3ebKEhbj4WyVLl46
+	 q6Xe79VtL5l/YH9HzblImLiq7zQ8gNuJhWYw1E46FlfthYJ4KtJpqKjbCjxfw0VjWa
+	 Vmtkrwi4pecQqv01l16Hr664n59rl7SM1kmo2iMd6TxHo9rb10sK3qmNjrrHUEj0vE
+	 ZPpVO8+WkZhCbbiOo05jj33XlWbqkdMwA++Ul5t3nFCbn7Fn1gF0BGVG9eszmQViMv
+	 r+w70HSjOFkOQ==
+Date: Thu, 23 Jul 2026 16:28:49 +0200
+From: Vincent Jardin <vjardin@free.fr>
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-hwmon@vger.kernel.org, robh@kernel.org,
+	devicetree@vger.kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH 1/3] hwmon: pmbus: event notification with alarms
+Message-ID: <amIlIYP3fcLh0h_E@L30177.local>
+References: <20260723-mpq8646_v0-v1-0-14363c75916f@free.fr>
+ <20260723-mpq8646_v0-v1-1-14363c75916f@free.fr>
+ <20260723131352.182B61F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="9Jg1gxkaRhzjWA0C"
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20260722-xspi_dma_upstream-v3-2-6b7ff50cae8e@nxp.com>
-X-Cookie: (null cookie
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260723131352.182B61F000E9@smtp.kernel.org>
 
+Hi Mr. Bot,
 
---9Jg1gxkaRhzjWA0C
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> This is a pre-existing issue, but while looking at how hwmon devices are
+> exposed for alarm notification, I noticed that pmbus_notify() might be
+> sending notifications to the wrong kobject:
+> 
+> drivers/hwmon/pmbus/pmbus_core.c:pmbus_notify() {
+>     ...
+>     sysfs_notify(&data->dev->kobj, NULL, da->attr.name);
+>     kobject_uevent(&data->dev->kobj, KOBJ_CHANGE);
+>     ...
+> }
+> 
+> Since the hwmon attributes are attached to the hwmon device rather than the
+> parent I2C device, does sysfs_notify() fail to find the attribute and return
+> silently?
+ ...
+> Would it make sense to update pmbus_notify() to use data->hwmon_dev->kobj
+> instead to ensure poll() and udev events work correctly?
 
-On Wed, Jul 22, 2026 at 05:00:43PM -0500, han.xu@oss.nxp.com wrote:
+OK, I'll fix in v2's 1/4, wait for the next,
+"hwmon: (pmbus/core) notify on the hwmon device, not the i2c client",
+both sysfs_notify() and kobject_uevent() will target data->hwmon_dev->kobj.
 
-> +	timeout = wait_for_completion_timeout(&xspi->dma_rx_c, NXP_XSPI_DMA_TOUT);
-> +	if (!timeout) {
-
-I'll apply this since the issues are getting a bit theoretical but a
-fixed timeout will have scaling issues - you can configure a very large
-transfer on a slow bus (eg, 1M at 1MHz) and have a bad time.  I'm not
-sure that would be a good idea in the first place.
-
---9Jg1gxkaRhzjWA0C
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpiI2QACgkQJNaLcl1U
-h9ALoQf/eRd5XC9B+m+uk8SVMqVagA9x4UsMBkV4SrRH2mY37diQ5bpB9cr79tFi
-wjf794ZOWhcmtsQQZgv2DEtj4wq3WJbRQ32NsvLc+eFp8I/MX+Ljp2C83ajdZ1yG
-KIpsaBYlCzBxDlz8Ykzf3002eqavi9rpzUvdMLok/J1S3HX8O0Ovvb94L6IR19No
-Z+GqxtJFnURhgx/2IkD3HnT/ZE30O5BcLLhEtiBfRT+D3frfWEG9Ezem0ud/V5yx
-TlR0F+Rw7kUs5SlVnR64uQ55C1v/MLzb6zr3gSjE761Yz+D0v5LOHWITDb+22yf0
-IVDAmUGHDZw1d0kuWZ4EBaDz8HhzYg==
-=DILC
------END PGP SIGNATURE-----
-
---9Jg1gxkaRhzjWA0C--
+Best regards,
+  Vincent
+  
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260723-mpq8646_v0-v1-0-14363c75916f@free.fr?part=1
