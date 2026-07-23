@@ -1,140 +1,331 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8A563CE4A3;
-	Thu, 23 Jul 2026 07:06:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE3C83D647E;
+	Thu, 23 Jul 2026 07:10:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784790395; cv=none; b=c2Tfi/qWoh0PBeIsA0hE2xxepT+ml9wWoy+7yC02I7lKUyCZHx3LcrhSIw4i1hcHEHQbymoP/qQ7FXBGEkgy0R6D5GA4s90Q/ZuCQpBzNsSo4ZMOkmjaXlfsZC8pvBIVF7zS4OOLgsjCNVqhz0mSH5Hg28zUw1qt9ceWHJuOXyk=
+	t=1784790605; cv=none; b=a+OEhDuVK82DuiZFkWpKVwWsBIiqiRaWbO7ojUyZBR3yY5navhw1mrJAUIERdsO7jJW/npintmVZjXdGDBEFiGC2eFO+teiMgjsEANirgIOMyNO655KhSC6zQnhatrOUEWK/hXMluULbOQNpQFyB4W5t0xVdDKTf+RKUBsN9QqE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784790395; c=relaxed/simple;
-	bh=yXWCbKdW4y8jr59aCQtbKgTC6KkN/5zAPMLC9a8mQew=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=snRU9ZkCub1xt5rSC7IDR2vYemUtuhLzKZPGbQ4sr8RexJxIY8yU0Wajt6yQrnFTolNadsJyNAS66HuWom8kLgdhSsv1mPd//WcaRhVSs+J4YOx4jGKEWS4wABj7mwsnbTImzlteRVyxEBCZoF3HL1d6fp+nkXlZPhme0v+ky1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JXzbuwyi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784790605; c=relaxed/simple;
+	bh=/+jm1KdSkeN/f3ePhqlCdivLUZ596YP5ZKzM6LPHU+M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jM1D1PTrhlwL+wknn9opbTnRQjApDmZvHN7g1YIAGymbcmn1Ha3ouBKXNwJiTS0mIcReYaHFcIxoAAMqowLmFEQ3j0Rr/tm+qEQ20ir+RhIcrMKGF3K1KfxWtSRjTNzLzTz1Ov7LFXAgD5uVSfB4Nv7x4/Ppcdv59AS7HnxiJVI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oE1BtWTB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JXzbuwyi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C6FD1F000E9;
-	Thu, 23 Jul 2026 07:06:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oE1BtWTB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9C3B1F000E9;
+	Thu, 23 Jul 2026 07:10:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784790393;
-	bh=Bitx58NIBLwepXqTVFkGw2TJT/qjF1gDCN1N8/6iIXA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JXzbuwyiAVhnFn+f2T4nbWcgGia11UeM0Dk/ipTd6NrwwnMcuLIb2fXRl5daKdKXf
-	 UCosDfA64rt8u31d+UxFYEyADd5KrePBK6um7BIQb4+G4QtIHxit2GCeQ3NpS88RX+
-	 iZ7qJHP2sKB5dldD7W/mcpPepHORZxADdCoH3I3COYjpK0A8pHYsAwZM9uGbPdw0E3
-	 ad+iwkc7JS+n+IdGf64KsjHZ6J6Th94Xb5RlTJ9q1/vWmgkIhXQBPF9kreFt5ibCWO
-	 m7qe43i3dzUDkJORnvkPbdtVkf//7ZoaUYNi+nNd0wm5DcKKe4Uj3Unz/dYUKax81Y
-	 II0BhStlAfPfg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/2] iio: adc: add MAX40080 current-sense amplifier
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Stefan Popa" <stefan.popa@analog.com>
-Cc: linux-hwmon@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260723065036.2683075-3-stefan.popa@analog.com>
-References: <20260723065036.2683075-1-stefan.popa@analog.com>
- <20260723065036.2683075-3-stefan.popa@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 07:06:32 +0000
-Message-Id: <20260723070633.2C6FD1F000E9@smtp.kernel.org>
+	s=k20260515; t=1784790603;
+	bh=WeVOIlBDdIHAaQVs/tgKpqXWVqgJro0UHv7Mz5bSK2I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oE1BtWTBuIyIoHePzQymJJdKC5fkn15TirRsIH/sdme4ZLCFb9iWTOrSWKMbpsvl/
+	 30esFiz2gJFqS7DGAxhqbAi1YydSDSl0On5qfziighzr6Qk+bo6uVprDxerhVpB7P7
+	 6ssciStxZHrtS901v/TUz6r5EwW8ICTQMkc8Cg+R6NNWykCZVuUkq6RWKG7YBcdQ6v
+	 AmHna8bsgAzeSCpSXVC/frN7wjLMzVHSZS6mHsj2NlZ1fhgoBaVGLUjEWqbkMcIyIv
+	 NKvQikp62yBQ9KNcuTcxb96iSdi1k7Z5h8gW/IDooEEiRTmXfjEaMaLI7+YITHWTAE
+	 uQYOY/wQLWSJw==
+Date: Thu, 23 Jul 2026 09:09:59 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Hermes Wu <Hermes.wu@ite.com.tw>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 1/2] dt-bindings: media: add ITE IT6625/IT6626 HDMI
+ bridge binding
+Message-ID: <20260723-rampant-stylish-toucanet-01815e@quoll>
+References: <20260723-upstream-it6625-it6626-v7-0-f8175bb0ea12@ite.com.tw>
+ <20260723-upstream-it6625-it6626-v7-1-f8175bb0ea12@ite.com.tw>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260723-upstream-it6625-it6626-v7-1-f8175bb0ea12@ite.com.tw>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] Software state can desynchronize from hardware configuration due=
- to TOCTOU race during concurrent sysfs writes.
-- [Low] The i2c_device_id array is missing required named initializers.
---
+On Thu, Jul 23, 2026 at 10:44:02AM +0800, Hermes Wu wrote:
+> Document the devicetree binding for the ITE IT6625/IT6626 HDMI to
+> MIPI CSI-2 bridge. The device exposes two graph ports: port@0
+> (MIPI0) and port@1 (MIPI1), the two selectable CSI-2 D-PHY/C-PHY
+> outputs. Only port@0 is required, since a board only needs to wire up
+> as many of the bridge's outputs as it actually uses.
+> 
+> Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
+> ---
+> Changes in v7:
+> - Add back port@2 for the HDMI input port, reversing the v4 decision
+>   to drop it. The v6 automated review re-raised the same concern with
+>   stronger footing than v3's: devicetree describes the physical
+>   hardware independent of what a given driver consumes, and the chip
+>   has a physical HDMI input regardless of whether it6625.c wires
+>   anything to it. Checked against adi,adv7604.yaml, an
+>   actively-maintained upstream binding for a comparable HDMI-receiver
+>   chip, which documents its input port(s) the same way via
+>   graph.yaml's generic port pattern -- concrete precedent that an
+>   input port unused by the driver still belongs in the schema.
+>   Verified port@2 stays optional and the schema still validates with
+>   dt-doc-validate/dt-validate both with and without it present.
 
---- Patch [2]: [PATCH v5 2/2] iio: adc: add MAX40080 current-sense amplifie=
-r driver ---
-commit 0c56883df0b122ded44daf6d01973fa32a6c55e4
-Author: Stefan Popa <stefan.popa@analog.com>
+5 versions sent the same day.
 
-iio: adc: add MAX40080 current-sense amplifier driver
-   =20
-This commit adds a direct-mode IIO driver for the MAX40080 bidirectional
-current-sense amplifier. It exposes current and voltage channels over an
-I2C/SMBus interface.
+No, you have to slow down and allow people to actually review your code.
+One version per 24h!
 
-> diff --git a/drivers/iio/adc/max40080.c b/drivers/iio/adc/max40080.c
+A nit, subject: drop second/last, redundant "binding". The
+"dt-bindings" prefix is already stating that these are bindings.
+See also:
+https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
+
+> 
+> Changes in v6:
+> - Unchanged. The v5 automated review flagged that the it6626
+>   conditional's `required: [bus-type]` constraint, expressed under
+>   `properties: { endpoint: {...} }`, doesn't match an `endpoint@N`
+>   unit-addressed node and could in principle be bypassed. Checked
+>   against mipi-ccs.yaml, an actively-maintained upstream binding that
+>   requires bus-type (among other properties) via the exact same
+>   `properties.endpoint.required` idiom with no patternProperties --
+>   direct evidence this is accepted convention, not a defect, so no
+>   fix was made.
+> 
+> Changes in v4:
+> - Drop port@2 (the HDMI connector input graph port) entirely: it
+>   added no constraints beyond graph.yaml's generic endpoint-base, and
+>   the driver doesn't use this graph port for anything schema-relevant,
+>   so there was nothing for a consumer devicetree to usefully validate
+>   against it. Found by the automated review of v3, which suggested
+>   adding it to `required` instead -- dropping it entirely was judged
+>   the better fix since the port carried no real constraints to begin
+>   with.
+> - Require bus-type on port@0/port@1 endpoints when compatible contains
+>   "ite,it6626": the driver defaults to D-PHY when bus-type is omitted,
+>   which is always correct for it6625 (D-PHY only) but would silently
+>   misconfigure an it6626 board actually wired for C-PHY. Also found by
+>   the automated review of v3.
+> 
+> One other v3 review finding was checked and is not being acted on:
+> - The plain `properties: { endpoint: {...} }` override used for each
+>   port technically doesn't reach graph.yaml's separate
+>   `patternProperties` matcher, so an `endpoint@0`-style node could in
+>   principle bypass the local data-lanes/bus-type constraints. This is
+>   the same convention already used by other single-endpoint-per-port
+>   bindings in-tree (e.g. thine,thp7312.yaml), not a defect unique to
+>   this binding.
+> 
+> Changes in v2:
+> - Restrict port@0/port@1 endpoint bus-type to D-PHY (4) only when
+>   compatible is "ite,it6625", via an allOf/if/then constraint. IT6625
+>   only supports MIPI CSI-2 D-PHY output; the schema previously allowed
+>   both C-PHY (1) and D-PHY (4) unconditionally, so a devicetree
+>   claiming "ite,it6625" with bus-type = C-PHY passed schema validation
+>   despite being invalid on that hardware. IT6626, which supports both
+>   PHY types, is unaffected. Found by the sashiko.dev automated review
+>   of v1.
+> ---
+>  .../devicetree/bindings/media/i2c/ite,it6625.yaml  | 174 +++++++++++++++++++++
+>  1 file changed, 174 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
 > new file mode 100644
-> index 0000000000000..cdf626dccb24f
+> index 0000000000000000000000000000000000000000..3899829036c6ba41f8f9c77908561c75ab4e3f6a
 > --- /dev/null
-> +++ b/drivers/iio/adc/max40080.c
-
-[ ... ]
-
-> +static int max40080_set_range(struct max40080_state *st, unsigned int ra=
-nge)
-> +{
-> +	int ret;
+> +++ b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
+> @@ -0,0 +1,174 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/i2c/ite,it6625.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +	ret =3D max40080_update_bits(st, MAX40080_REG_CFG, MAX40080_RANGE_MSK,
-> +				   FIELD_PREP(MAX40080_RANGE_MSK, range));
-> +	if (ret)
-> +		return ret;
+> +title: ITE IT6625/IT6626 HDMI to dual MIPI CSI-2 bridge
 > +
-> +	st->range =3D range;
+> +maintainers:
+> +  - Hermes Wu <Hermes.wu@ite.com.tw>
 > +
-> +	return 0;
-> +}
+> +description: |-
 
-[Severity: Medium]
-Since max40080_update_bits() acquires and releases the mutex internally,=20
-does this leave the assignment of st->range unprotected against concurrent
-sysfs writes?=20
+Drop |-
 
-If two threads write to the sysfs attribute at the same time, could the=20
-cached software state become permanently desynchronized from the actual=20
-hardware configuration, causing future readings to be scaled incorrectly?
-
-[ ... ]
-
-> +static int max40080_set_oversampling_ratio(struct max40080_state *st, in=
-t val)
-> +{
-> +	int ret, filter =3D max40080_oversampling_to_filter(val);
+> +  The ITE IT6625 and IT6626 are HDMI to MIPI CSI-2 bridge devices.
+> +  IT6625 supports an HDMI 2.0 input and converts it to one or two D-PHY CSI
+> +  outputs, while IT6626 supports an HDMI 2.1 input and converts it to one or
+> +  two C/D-PHY CSI outputs. The bridges are programmable through I2C and
+> +  expose two selectable CSI-2 output ports and an HDMI input port. The
+> +  bridge can operate in split mode or clone mode.
 > +
-> +	if (filter < 0)
-> +		return filter;
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - ite,it6625
+> +      - ite,it6626
 > +
-> +	ret =3D max40080_update_bits(st, MAX40080_REG_CFG, MAX40080_FILTER_MSK,
-> +				   FIELD_PREP(MAX40080_FILTER_MSK, filter));
-> +	if (ret)
-> +		return ret;
+> +  reg:
+> +    maxItems: 1
 > +
-> +	st->oversampling_ratio =3D val;
+> +  reset-gpios:
+> +    description:
+> +      GPIO connected to the active-low reset line.
+> +    maxItems: 1
 > +
-> +	return 0;
-> +}
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +    properties:
+> +      port@0:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        unevaluatedProperties: false
+> +        description: CSI-2 output port MIPI0
+> +
+> +        properties:
+> +          endpoint:
+> +            $ref: /schemas/media/video-interfaces.yaml#
+> +            unevaluatedProperties: false
+> +
+> +            properties:
+> +              data-lanes:
+> +                minItems: 1
+> +                maxItems: 4
+> +
+> +              bus-type:
+> +                enum:
+> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
+> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
+> +
+> +              clock-noncontinuous: true
+> +              link-frequencies: true
 
-[Severity: Medium]
-Similarly to max40080_set_range(), is the update of st->oversampling_ratio
-vulnerable to a race condition since it happens after max40080_update_bits()
-has released the lock?
+Drop both
 
-[ ... ]
+> +
+> +            required:
+> +              - data-lanes
+> +
+> +      port@1:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        unevaluatedProperties: false
+> +        description: CSI-2 output port MIPI1
+> +
+> +        properties:
+> +          endpoint:
+> +            $ref: /schemas/media/video-interfaces.yaml#
+> +            unevaluatedProperties: false
+> +
+> +            properties:
+> +              data-lanes:
+> +                minItems: 1
+> +                maxItems: 4
+> +
+> +              bus-type:
+> +                enum:
+> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
+> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
+> +
+> +              clock-noncontinuous: true
+> +              link-frequencies: true
 
-> +static const struct i2c_device_id max40080_i2c_ids[] =3D {
-> +	{ "max40080" },
-> +	{ }
-> +};
+Drop both
 
-[Severity: Low]
-Does this violate the I2C subsystem coding style guidelines which mandate
-named initializers for initialized arrays of type struct i2c_device_id?=20
+> +
+> +            required:
+> +              - data-lanes
+> +
+> +      port@2:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        unevaluatedProperties: false
+> +        description: HDMI input port
+> +
+> +    required:
+> +      - port@0
 
-Should this be .name =3D "max40080" to prevent issues if the struct definit=
-ion=20
-changes in the future?
+Missing blank line
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723065036.2683=
-075-1-stefan.popa@analog.com?part=3D2
+> +required:
+> +  - compatible
+> +  - reg
+> +  - ports
+> +
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: ite,it6625
+> +    then:
+> +      properties:
+> +        ports:
+> +          properties:
+> +            port@0:
+> +              properties:
+> +                endpoint:
+> +                  properties:
+> +                    bus-type:
+> +                      const: 4
+> +            port@1:
+> +              properties:
+> +                endpoint:
+> +                  properties:
+> +                    bus-type:
+> +                      const: 4
+
+If the bus-type is fixed, why is it in the DT in the first place?
+Compatible defines it already.
+
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: ite,it6626
+> +    then:
+> +      properties:
+> +        ports:
+> +          properties:
+> +            port@0:
+> +              properties:
+> +                endpoint:
+> +                  required:
+> +                    - bus-type
+> +            port@1:
+> +              properties:
+> +                endpoint:
+> +                  required:
+> +                    - bus-type
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    i2c {
+> +      #address-cells = <1>;
+> +      #size-cells = <0>;
+> +
+> +      hdmi-bridge@4c {
+> +        compatible = "ite,it6625";
+> +        reg = <0x4c>;
+> +
+> +        reset-gpios = <&gpio 2 GPIO_ACTIVE_LOW>;
+> +
+> +        ports {
+> +          #address-cells = <1>;
+> +          #size-cells = <0>;
+> +
+> +          port@0 {
+> +            reg = <0>;
+> +            csi_out0: endpoint {
+> +              remote-endpoint = <&csi2_rx0>;
+> +              bus-type = <4>; /* MEDIA_BUS_TYPE_CSI2_DPHY */
+> +              data-lanes = <1 2 3 4>;
+> +            };
+> +          };
+
+Incomplete example - where is port@2?
+
+Best regards,
+Krzysztof
+
