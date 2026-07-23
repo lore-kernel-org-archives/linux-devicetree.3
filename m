@@ -1,112 +1,186 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A864363C48;
-	Thu, 23 Jul 2026 19:31:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A276C29994B;
+	Thu, 23 Jul 2026 19:32:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784835101; cv=none; b=JIKakpySISgAAj//2donsFuk8McaqNQUs38+tll9d0k7SPCxdmGNUdhg4i0hwejSi2dwrJA1iXnbyffEubLwfTTc5o+a9BlZIZJ47pRAz4qWUiEQymkJ+l+G4fnsC9Xfnv5FnW10w9k6Wbq58WF4zkYTosuzgXmVzrm7nyUHrcM=
+	t=1784835160; cv=none; b=jUtfbyIU03ldxpcCRv2ck6mw/JvoErMIyg0zm41S4jMCS3hwpdJL2IWcAhftmNQVF6PqjKOmlWMsokFML3pmpsWY0xSr6XzUlSTR0qRCYDNgivB9LSCXQNeZhlY8ui4/x7FwqtrmAktbJp8Osomw4+ygaRw0fYwTmPUwRjzm83k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784835101; c=relaxed/simple;
-	bh=4MOMW2TU8MrvpgNCExragx0ot2LEZ3kGDdio/KDpTK8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=D+sXW70VFEDb0m9U5sriHFfHbIIYwBS+NTL2m9yMhyaGd8rBmax9DRhvd6nfRT+w4KT0EF8knWYhNCwGzk+kC0S22c4sjO9xx5dbFTgz7PBsmMNKPA9XkSW+n+FqU+RwtzkxHoj/IFV/6PapgJQnzEVl9sDbYsR+WWrmjOhW9Do=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lXOVPaBB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784835160; c=relaxed/simple;
+	bh=pw7hXCGOJgzJy9+oaO6bIye049xwPpWOj5eEECoqpZA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=p6tWyuV3AuqJEUK8RTRqjuSdnwWcFSO0jd7FJw5Pv8q+xFFq5qpbBH40237WXpx8ylR3tU1Ra1o71bj9ro5FZO34hEE/F6cElXJAvEg1JKZCskbMcEB3mbR0lcI0mtIUeawHns4ZlqYKtXNt/R0gkQsU5970mtFB4lA3vLpbYZk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GkN6Cbuf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lXOVPaBB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E0A81F000E9;
-	Thu, 23 Jul 2026 19:31:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GkN6Cbuf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 351781F000E9;
+	Thu, 23 Jul 2026 19:32:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784835100;
-	bh=++E6YjW3ZcDsMXdhzp9Ns39YSsWwNgDww1O0StPZqo4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=lXOVPaBB1dA9vj4tC6f5NaYdYURvXwn4UkRL1ifp44p+LKmwbjNKhi3+bESNYjZJW
-	 SMkKolmyvEN3lfikmtsG8Ei48A06+uaFqytqiH5Xohe37wYMBaE7eQjigLV+5JfaTB
-	 QfyxXF/gPOhLgN6voBNUVuyqqv6prypTvmY5jsBF8t6txSLZ9ATMiNE/BGi5T2+MXE
-	 mN2cSvGvZ21X0WWdBvZv6mDSoVyaQNa06KIBGhD9C0VAMqRkEQLrs+tL4SC2vS+4Jg
-	 Hcm3z3Gg7WQeeFSnyta0ilDhhEim1KWMXgcVkLQm0re2bK/J8AiuwtWTXgAVJmPBTB
-	 1oKko5gY/1kAg==
-Message-ID: <6a30c443-ed57-4443-aa34-f6bbe5049370@kernel.org>
-Date: Thu, 23 Jul 2026 21:31:31 +0200
+	s=k20260515; t=1784835155;
+	bh=9OkuSCyeDz7nXg9dn35OcN9fAqYdEXbUkChLHjMBYrU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=GkN6Cbuf5v2sdfmdivxWznyX9T2agtGAn2qcePO/HybP4bLzBG0MxivuAnm+2xuYT
+	 cX9KO3SZN+mL+LPXwHg35iAQfVQYeYG5+Vb7kYZulmN7EwuVpR2W5DxF98rIXg6jD/
+	 JvY6dDZqetWiyL9lP2z1ZT1hCS51L7cf3olGKhuDnIjRlugu3i0qV4UX8ji9KdmIig
+	 Sb6iIGKdn0RFbkO/vOkNzdE/G/Wohx/muhORh6Q63JanM4I1iLZkWa1hZ0q3gYcA08
+	 6pBVVOMDMD7MwZcvcG4Fs1KtI1iN23aEuRHA0RGVJA4Q9RU10qV7VErOPr7TNu1Co6
+	 BOZHvxKOMpJFw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/5] Input: zinitix - do not ignore non-moving fingers
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kaustabh Chakraborty" <kauschluss@disroot.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, dmitry.torokhov@gmail.com, conor+dt@kernel.org, linux-input@vger.kernel.org
+In-Reply-To: <20260724-zinitix-modes-v1-2-f6df7d86a878@disroot.org>
+References: <20260724-zinitix-modes-v1-0-f6df7d86a878@disroot.org>
+ <20260724-zinitix-modes-v1-2-f6df7d86a878@disroot.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 23 Jul 2026 19:32:34 +0000
+Message-Id: <20260723193235.351781F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] arm64: dts: qcom: kodiak: mark PCIe root port as
- bridge
-To: Rahul Samana <rahul.samana@oss.qualcomm.com>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Marcel Holtmann <marcel@holtmann.org>, Bartosz Golaszewski
- <brgl@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Rob Herring <robh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
- quic_hbandi@quicinc.com, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, quic_anubhavg@quicinc.com,
- quic_mohamull@quicinc.com
-References: <20260723-rb3-industrial-bt-uart-v1-0-3c8e580c09d1@oss.qualcomm.com>
- <20260723-rb3-industrial-bt-uart-v1-2-3c8e580c09d1@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260723-rb3-industrial-bt-uart-v1-2-3c8e580c09d1@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 23/07/2026 14:31, Rahul Samana wrote:
-> Add the PCI class compatible to pcie0_port so child nodes below the PCI
-> bridge can be matched against the enumerated PCI topology.
-> 
-> This is needed by the M.2 E-key graph description used by the RB3 Gen 2
-> Industrial mezzanine Bluetooth UART overlay.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-NAK, there is no such overlay.
+New issues:
+- [Low] The validation check in `zinitix_report_finger()` is mathematically=
+ impossible to trigger, turning the validation block into dead code and byp=
+assing all event validation.
 
-Best regards,
-Krzysztof
+Pre-existing issues:
+- [High] The input device is registered before all driver private data is f=
+ully initialized, exposing incomplete state to userspace and violating subs=
+ystem rules.
+- [High] Regulators enabled in `zinitix_start()` are not disabled on initia=
+lization failure paths, leading to a leaked reference count.
+- [High] I2C transfers are performed using stack-allocated buffers, which v=
+iolates kernel safety guidelines for DMA-mapped memory.
+--
+
+--- Patch [2]: [PATCH 2/5] Input: zinitix - do not ignore non-moving finger=
+s ---
+commit 014178afb268830e3c3cda63dc0ca293fa9a9335
+Author: Kaustabh Chakraborty <kauschluss@disroot.org>
+
+Input: zinitix - do not ignore non-moving fingers
+
+This commit addresses an issue with the ZT7548 touchscreen where non-moving
+fingers are ignored. It updates the validation mask in zinitix_report_finge=
+r()
+to include the SUB_BIT_EXIST flag. This ensures fingers that haven't moved
+since the last interrupt are properly recognized.
+
+> diff --git a/drivers/input/touchscreen/zinitix.c b/drivers/input/touchscr=
+een/zinitix.c
+> index 3421b8ffb19b2..fdcb80f52c917 100644
+> --- a/drivers/input/touchscreen/zinitix.c
+> +++ b/drivers/input/touchscreen/zinitix.c
+> @@ -406,7 +406,7 @@ static void zinitix_report_finger(struct bt541_ts_dat=
+a *bt541, int slot,
+>  	u16 x, y;
+> =20
+>  	if (unlikely(!(p->sub_status &
+> -		       (SUB_BIT_UP | SUB_BIT_DOWN | SUB_BIT_MOVE)))) {
+> +		       (SUB_BIT_EXIST | SUB_BIT_UP | SUB_BIT_DOWN | SUB_BIT_MOVE)))) {
+[Severity: Low]
+Is this validation check mathematically impossible to trigger now?
+
+The caller zinitix_ts_irq_handler() already verifies if SUB_BIT_EXIST is se=
+t:
+
+zinitix_ts_irq_handler() {
+    ...
+    if (p->sub_status & SUB_BIT_EXIST)
+        zinitix_report_finger(bt541, i, p);
+    ...
+}
+
+Since SUB_BIT_EXIST is strictly guaranteed to be present when this function
+is called, the bitwise AND always evaluates to a non-zero value.
+
+This means the negated condition will always evaluate to false, rendering
+the entire event validation block and its debug log dead code.
+
+>  		dev_dbg(&bt541->client->dev, "unknown finger event %#02x\n",
+>  			p->sub_status);
+>  		return;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the input device
+registration happen before all driver private data is fully initialized?
+
+In zinitix_ts_probe():
+    ...
+    error =3D zinitix_init_input_dev(bt541);
+    ...
+    error =3D device_property_read_u32(&client->dev, "zinitix,mode",
+                                     &bt541->zinitix_mode);
+    ...
+
+If a userspace process opens the input device immediately upon registration
+in zinitix_init_input_dev(), the driver could configure the hardware using
+an uninitialized bt541->zinitix_mode.
+
+Could this place the touchscreen into an unsupported mode?
+
+[Severity: High]
+This is a pre-existing issue, but are the regulators enabled in
+zinitix_start() correctly disabled on initialization failure paths?
+
+zinitix_start() {
+    ...
+    error =3D regulator_bulk_enable(ARRAY_SIZE(bt541->supplies),
+                                  bt541->supplies);
+    ...
+    error =3D zinitix_send_power_on_sequence(bt541);
+    if (error) {
+        dev_err(&bt541->client->dev,
+                "Error while sending power-on sequence: %d\n", error);
+        return error;
+    }
+    ...
+}
+
+If zinitix_send_power_on_sequence() or zinitix_init_touch() fail, the
+function returns without disabling the regulators.
+
+Since the input subsystem considers the device closed on open failure, it
+will not call zinitix_input_close().
+
+Could repeated open attempts leak the regulator references?
+
+[Severity: High]
+This is a pre-existing issue, but do the I2C transfers use stack-allocated
+buffers?
+
+zinitix_write_cmd() {
+    __le16 reg_le =3D cpu_to_le16(reg);
+    int ret;
+
+    ret =3D i2c_master_send(client, (u8 *)&reg_le, sizeof(reg_le));
+    ...
+}
+
+zinitix_ts_irq_handler() {
+    struct touch_event touch_event;
+    ...
+    error =3D zinitix_read_data(bt541->client, ZINITIX_POINT_STATUS_REG,
+                              &touch_event, sizeof(struct touch_event));
+    ...
+}
+
+Passing stack-allocated buffers to I2C transfer functions can lead to
+memory corruption or DMA API warnings if the underlying I2C controller
+driver attempts to use DMA.
+
+Are these buffers safe given that stack memory is not guaranteed to be
+DMA-coherent?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-zinitix-mo=
+des-v1-0-f6df7d86a878@disroot.org?part=3D2
