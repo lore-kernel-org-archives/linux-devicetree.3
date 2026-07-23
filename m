@@ -1,345 +1,171 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C2F23EDAA9;
-	Thu, 23 Jul 2026 07:34:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784792057; cv=fail; b=KNx8STzjcIvWA4/gx8RaGjvlMRN4EzBnaDcTGe8r1WOcAE9diUmcHdHPyHdM6bXNb91ZCjtZ1T++8QD1McHcElPmv9qaceXMGEcnpcqeM0XU1+JQtGpY4o7N+aaNaS2LOhd/B7BFElnq87V2lbH7TTCjyWjTTp7yWQm0RLAXPY0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784792057; c=relaxed/simple;
-	bh=ppAkONpGrd0AXaKU1uqPY9Z+Gkcnc9qX6YLiUAZgvgI=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=sRVKPQPtnQ6LFlmnK9bKrQY2++Zi3jvmzjAXmxlz7TSY86RBe8qr6neo2YfjEfbyYwCJj9MnotOGr6YB1kLq31jmoL4I6dC0rcLCK+taFnv/Fsf9zzf8DCUG16z0oPoN3u0bstTZEhUki1DCN2zo4EGYg0+FGITWCaT03EUMiWM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=OHrtkc8g; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=cmLOag/8; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="OHrtkc8g";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="cmLOag/8"
-Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
-	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 66N4vnUw3575764;
-	Thu, 23 Jul 2026 02:33:59 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=proofpoint-05-2026; bh=vEqMz4ROu/F3j
-	nAa4Y0DHGqjdBFFALlbrjWyNbS7IvU=; b=OHrtkc8g2ewWfOd9ZtBpyUwk1qZwH
-	Mil9/whcphLHNQVZ97TU9ZFB/hg3olZdn8EHTeOK5tFhMXBDetilelruLvVEcUOy
-	xj5U0MuATgrSqDPbGPszGJ8wBLw6cFq8etk+jkZCx+3sbJfIvYAp9EYKwD28vofz
-	4EJEU8uBKFWnTZ5CZL1+gH6nvxI8tQIJhciS6/+VNyV+oHoGb+aUsUBOq/PX8Fb3
-	xTynY/4sWVZcUnWDZFDG7LK4RhMva7B+sncCs0SVpKTmTDOJWNyXOdhws7H4TVRc
-	RfEph+tNP/Fo91inNz0Qvuh1z5uCrS6yIxFfdr9tGjibVwqx8vdyCxRig==
-Received: from bn1pr04cu002.outbound.protection.outlook.com (mail-eastus2azon11010011.outbound.protection.outlook.com [52.101.56.11])
-	by m0384305.ppops.net (PPS) with ESMTPS id 4fjw4jp17c-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 23 Jul 2026 02:33:58 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FD2yXcpVhkXeVks4LJxeQvVnYMxhR8gVx19hZGlHQDokW/YQv0XjCPLB14zytDj5klBCa2/LYIzLxoci3DRaaAH+wsNhLfLfh1HEZv4KXw9PfAXpaiNDKtN9GapgPyAjdpqv6ac3Jaej//cKfrUJPC4ueaqX9wZTMT4JlQCyi7K/v2DOiKIQcH881qg4b1Qn72lx43G19nLq+gioszRkEjHLgXmOgb9N2eJEo90NV3YTNeBXxccP0XSj4ezXeCMvENt/4l8e6XuF7MBVxQUZDQ76r8ZU13Zj+0/38PDM7On8C2VAsscVUdShSXMS0RHEbUmoawRB57aO/0STkvJ/Zw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vEqMz4ROu/F3jnAa4Y0DHGqjdBFFALlbrjWyNbS7IvU=;
- b=d17tunNocYEp/7r3oJfdfjfOacZ9MiYZAU5PWaZckXT9r03mJiNJFpnuCJ4R4LR5/KoJT6nD7dxWDlwrWZhOFIW2a/hNrv/4wdZ614qqw7UnhLFah5zeB/Rn4C6D1r+V1FWk9L+6lvot/2scx5ziM5RsOJEMvU+LlvVbe0Ztcj2eWnm0SJ1707Nn2l9/toYdEoWGF8MfBIxo6VsiWCqRV9iHTzpUt2vaGvRAuOCV1GPo+3DGwKrd5FNesY4p9moUq3Bj5Pmnrvh8FQgQfqeUHQptP47IXnOWOOJjpE6YHRRr7We0Obcd6JTYktVFG2KWpFv5TQ2HoSLd5w220Nn1Ig==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vEqMz4ROu/F3jnAa4Y0DHGqjdBFFALlbrjWyNbS7IvU=;
- b=cmLOag/8OmKjTaUuPXMO8pcDO+d3Tks8YvYFhc6BWdP1Jj/MYqr3M5JbmefEN3a6Mb8CkaY+irLturrKOI6heWprjzpwifdc5NsL4LNZ9gRESvTLzHIbi28//W9M8PeqHO4lU0MMCDRrZ5M8AZpu4bhM/2m9jqBlfO8ySCc4x/8=
-Received: from SJ0PR03CA0109.namprd03.prod.outlook.com (2603:10b6:a03:333::24)
- by SA1PR10MB6365.namprd10.prod.outlook.com (2603:10b6:806:255::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.11; Thu, 23 Jul
- 2026 07:33:52 +0000
-Received: from SJ1PEPF000026C3.namprd04.prod.outlook.com
- (2603:10b6:a03:333:cafe::15) by SJ0PR03CA0109.outlook.office365.com
- (2603:10b6:a03:333::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.11 via Frontend Transport; Thu,
- 23 Jul 2026 07:33:52 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
-Received: from lewvzet201.ext.ti.com (198.47.23.195) by
- SJ1PEPF000026C3.mail.protection.outlook.com (10.167.244.100) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.270.5 via Frontend Transport; Thu, 23 Jul 2026 07:33:52 +0000
-Received: from DLEE212.ent.ti.com (157.170.170.114) by lewvzet201.ext.ti.com
- (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 23 Jul
- 2026 02:33:46 -0500
-Received: from DLEE209.ent.ti.com (157.170.170.98) by DLEE212.ent.ti.com
- (157.170.170.114) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 23 Jul
- 2026 02:33:46 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE209.ent.ti.com
- (157.170.170.98) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Thu, 23 Jul 2026 02:33:46 -0500
-Received: from a0512632.dhcp.ti.com (a0512632.dhcp.ti.com [10.24.52.205])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 66N7XfMP629330;
-	Thu, 23 Jul 2026 02:33:42 -0500
-From: Swamil Jain <s-jain1@ti.com>
-To: <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>, <robh@kernel.org>,
-        <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-        <tomi.valkeinen@ideasonboard.com>
-CC: <devarsht@ti.com>, <praneeth@ti.com>,
-        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <s-jain1@ti.com>
-Subject: [PATCH] arm64: dts: ti: Add Microtips OLDI SK-LCD1 Overlay for AM625-SK
-Date: Thu, 23 Jul 2026 13:03:41 +0530
-Message-ID: <20260723073341.3229436-1-s-jain1@ti.com>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 411B43E0255;
+	Thu, 23 Jul 2026 07:36:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784792205; cv=none; b=joQ1gyiq8AIu+p1lNSuDS1oPPq8BATDd0/T1toqQ5E9MBQ2qGrXv5biKobSIULaCyxW6EGfO8i/jcwWLHVgtjo9l2L4cNttK+vmPEhiN2mLJMV1X8DDmqDXPKWmpilRrP7eXOEjnvqs/TV5LfH1XMJ+ImG02dfFpuTh1vZNjAds=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784792205; c=relaxed/simple;
+	bh=peN5snx9+EybKzxAPqEgXnx7bGQZuE05wWcM/8O3528=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DrWruDodku49GqVFrBLGHbCaRxUSif5to7Wo+dU2TGmt0fB/CecsYuJ3nnM87fcmcNRhaXPYzfAvcW/60D6zq/lLYE/wTLV8llcAav1V7ywpikVSoQRT0sQSR3bBLvGJqr6n4URX01LI1n6Gk2um6WuG4PZR4QFtlNGSjPNQD/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id B317C202459;
+	Thu, 23 Jul 2026 09:36:32 +0200 (CEST)
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ore@pengutronix.de>)
+	id 1wmnyq-000ra7-25;
+	Thu, 23 Jul 2026 09:36:32 +0200
+Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <ore@pengutronix.de>)
+	id 1wmnyq-0000000EcbG-2AOx;
+	Thu, 23 Jul 2026 09:36:32 +0200
+Date: Thu, 23 Jul 2026 09:36:32 +0200
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Jonas Jelonek <jelonek.jonas@gmail.com>
+Cc: Sander Vanheule <sander@svanheule.net>,
+	Kory Maincent <kory.maincent@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Daniel Golle <daniel@makrotopia.org>,
+	=?utf-8?B?QmrDuHJu?= Mork <bjorn@mork.no>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH net-next v8 1/4] dt-bindings: net: pse-pd: add bindings
+ for Realtek PSE MCU
+Message-ID: <amHEgOAWYXYuZwnl@pengutronix.de>
+References: <20260715075530.2491534-1-jelonek.jonas@gmail.com>
+ <20260715075530.2491534-2-jelonek.jonas@gmail.com>
+ <b3456b41152613ed45bcfde92aff89d0c33fa243.camel@svanheule.net>
+ <3f71640b-9f22-4d0b-9c4d-dc64c397d286@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C3:EE_|SA1PR10MB6365:EE_
-X-MS-Office365-Filtering-Correlation-Id: 26b7008e-6a12-42e4-e74a-08dee88cbe85
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|376014|1800799024|82310400026|13003099007|6133799003|56012099006|10067099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	GJOognFfgTyXHtC7Ab20ZqbojHJdJEIKDClRioUq9IySZ+R6nlZkUyP87FdebyfN/3e9g6PSqQpb8VSbPW6XJbUQv4APhVBQoT7CZv8GzrrcuADmz1MsuKvNklb1c+GCMOmFjFXpIIjzYBnxcfo6B562gAmSBLN3ppE5ipzEw4b2mMhrw8Qqi4l7B2smPFUAfbZpTjZQDTPPjoKVUqxZA7krRCTgOF2iC1CwpmQjJoEBx1JvaU4iIZvvbWzhtFuRYRG9VobvUp0WjG/SCpGsyTff3GCC1MOOqMK181HF7P64BIc2uLFN8wufT7G0Gh2tyTGFXLBi/bbjjCO/jsYLEaaEJibbSBlzZ4o761HEsXgYYfYzHTckHVzf0/gJoHT30RWUQ6LYVu/2/u9tANTqNfqfnlbaiExnfPwPRUqymx3xzJjIjNyIyUWijCFbvCX9vrQo1aLtuYjnpwjjNAfzPSgeBn6C0rov5k74cPtOxGMVwiEJxZWgeJ9vZ4+Tpo9GjjG0FsDiQnft8sE3tcT5NVLHsXjtkMkzkiDNBxb2e3enTJgxLxykpWRA2X2AONCghGJpmTxK4vnMV2vn+PxXc9ZGNJN0rRDHQAA2/9zlCVvT8CzQjT0wGsOO0PI6SRQdFGvt9qEx3oz29HYY4t+Vpw==
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(376014)(1800799024)(82310400026)(13003099007)(6133799003)(56012099006)(10067099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	3WA5G+S4mDH7b8x7+BiqtKxicHb2MLY6R0Btt6mSPI39yVaAf6U+QWZmm8T8fPAD+208TAlalXoJTj8GRIWxZH6YYXVgnCMlT9UX5lMjqwh6U5izv1nX+7PJn1wRh2qbK+19fkaQroq2E/yvXMyspiJgtfWMuxg71diBoQJRUnd3y8hAcl+KQjRBRxJTgb7/+M/P48XweUxnwee7cetbdtFnQfyOE1YuIoN0dtyLpAe4t91bnJGaC8CSLmbYnmS/eQ2lzAz9FfxJngyjAn8bmokM8VN1X8T9Jh+Sw7DyofUjHxhjwOmWa4gSvmD/xIZybM8S1C9o0rBfEpySPvcBnN7leNNoEH44+G62Vii+DY386n+zjZJAY0rAfBBPgN2IRrsuSevkoH2eb4G9qwoN6g2y9gydzH8KVr2bi1xP6ziWKHWswYQk9lTW5bmymNiN
-X-Exchange-RoutingPolicyChecked:
-	EBVu3Ceqm5HEfU4ss+NqGJAR9litqsz4rK5Kxpu+fg7+G6xpE7gBwDPtKso3xS+WwLjwC/5sg4z8U/M82RffykHaE9wZAvJCQPWXFxAzBdBDbSyytHPhUp+14L7+JG6tURqSazWIwK66aeNHFGrOvCDOUbfMauHb2ijfUC7eCWc+ZsZLJ2CsgbiriRogEXkZKM3bNUFYGbuE10q4LvQWpMD5YnZtumYqtdrzL70w0tvUZV0UTjQ4pQDwrgpSNOeszEDWgsgRSc1aEHYI47/nHq8aVoGtExq9Z+tImazrNNj+e2fIXQZjJhmaP17vpuzJsjU37KMcdasOnvstuNbkrw==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 07:33:52.1336
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 26b7008e-6a12-42e4-e74a-08dee88cbe85
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000026C3.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR10MB6365
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIzMDA3NCBTYWx0ZWRfX/AsP/j1XZnu+
- n2boTrMTtyOApbWMi+67m2QkFkf0dR8+fQ27pHwnAMK5z78ucjjCuFd2FRImWPmKLMXhAJQ+gtN
- t5l5Rih2kXPqziXpemAW9OH+y4nVNDA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIzMDA3NCBTYWx0ZWRfX6/iKm3KHvJM7
- 6abLTwznKsjVO15DwmXPRFohyyxs3V6f4bzrXzv/5TaQhf/AmAcxrfPI3S4OiYyOUftgn3FO9r9
- 9p1s8n9Qpng090L7as1djlgsNkShY4ndnoKlujuaXMg2wB0KkzTr3AmSqcbe4fW53Feddlv38j/
- FT8YqKR0vxxg8hID9xB2TAcFf5f7qWAMOwxFcifxK0cVAm/qjOcb+VafqRsw7EVzxAp7mqQucG2
- 9CWs2n5kLuc4E1sdRrfxfk2KuvKms87wQjePIeaVkLnwinCwaXKJ6FkZ4iCAfNYl1ClKGmXbPG7
- 2FhXuPDBqO6jVbVh+d45HPm1R/SeBovWpde2S3eVTRL/qfhS//3auzAhkgYuDaxGCtQ98Jx7CFX
- aVswrm/pErW3vVK3f3Vt/emXBHeLMtD3fRMZnGBnO5ZiBMob3aMjn1GcAmqgnCt5x9MQPhmUFGJ
- pJbyUcnzApxh4Mc+9oA==
-X-Proofpoint-GUID: l0y8y_cJpsxevRKT6tVo17e1srv89sxS
-X-Authority-Analysis: v=2.4 cv=ONwXGyaB c=1 sm=1 tr=0 ts=6a61c3e6 cx=c_pps
- a=zclsoE7mv10+eI8hWvbpiQ==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=RAioF0-LDSMA:10 a=s63m1ICgrNkA:10
- a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=taLDd7a_hP9WKsMzeGRc:22 a=sozttTNsAAAA:8 a=VwQbUJbxAAAA:8
- a=NFUEwmjP61wPHLW1lN4A:9
-X-Proofpoint-ORIG-GUID: l0y8y_cJpsxevRKT6tVo17e1srv89sxS
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-23_02,2026-07-22_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 bulkscore=0 phishscore=0 adultscore=0
- suspectscore=0 clxscore=1015 priorityscore=1501 malwarescore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607230074
+In-Reply-To: <3f71640b-9f22-4d0b-9c4d-dc64c397d286@gmail.com>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
 
-From: Aradhya Bhatia <a-bhatia1@ti.com>
+Hi Jonas,
 
-The panel is Microtips Technology USA MF-101HIEBCAF0[1]. It is a
-Dual-Link LVDS panel and supports WUXGA resolution (1920x1200).
-Furthermore, it has an i2c based touch controller: Ilitek-ILI2511.
+On Wed, Jul 22, 2026 at 09:49:24PM +0200, Jonas Jelonek wrote:
+> Hi,
+> 
+> On 22.07.26 19:49, Sander Vanheule wrote:
+> > [...]
+> >
+> >> +  power-supply:
+> >> +    description: Regulator supplying the PoE power rail.
+> > As I reported to Jonas earlier [1], I used this property to define a power
+> > supply for the 54V rail. While everything was working nicely, I still got this
+> > warning for the missing vpwr-supply property on the PSE-PI nodes:
+> >
+> > regulator regulator.2: supply vpwr not found, using dummy regulator
+> > Of course I don't like seeing warnings when everything is seemingly working
+> > fine, but I was also wondering if this duplicated way of providing the PoE power
+> > rail is a good way to go forward and if the generic pse-pi@n/vpwr-supply
+> > shouldn't just be used instead. The latter is admittedly more verbose, with a
+> > property on every node, but going forward offers a few advantages IMHO:
+> >  * Being able to reserve "power-supply" on the main node for the MCU's actual
+> >    3.3V regulator (not needed anywhere at the moment AFAIK)
+> 
+> I would probably rename this, mirroring the PD692x0 naming. "power" is actually
+> too blurry, leaving too much room for interpretation. Still keeping its purpose
+> to reference the supply that serves the PoE rail for this MCU with its downstream
+> PSE. Reasoning below.
+> 
+> >  * Being able to take advantage of the generic pse-pi framework evolving to take
+> >    into account more properties of the parent regulator, such as requesting more
+> >    power, or ensuring the parent supply is not overdrawn by the combined PSE-PI
+> >    outputs.
+> 
+> Correct me if I'm wrong but from what I see, most of that budgeting machinery
+> isn't used in dynamic budget evaluation strategy, which is used here because the
+> MCU does budgeting on it's own.
 
-Add DT overlay for the OLDI Panel.
+Hm, I guess the wording in header is a bit confusing, I see now the
+misconception :)
 
-[1]: https://www.ti.com/tool/SK-LCD1
+dynamic vs static means - haw available budget is calculated, not where.
+Dynamic can be implemented in the linux core too, but so far no one did.
+Static can be implement in the MCU firmware as well.
 
-Signed-off-by: Aradhya Bhatia <a-bhatia1@ti.com>
-Signed-off-by: Swamil Jain <s-jain1@ti.com>
----
-Note:
-This patch is previously posted with "Add SK-LCD1 support for AM62X"[1].
+In static case - the Powered Device tells us haw much power budget we
+need to reserve for this device and it will be permanently accounted.
+Advantage - every device will get what it is requesting.
+Disadvantage - we do not use full capability of the power supply.
 
-[1]: https://lore.kernel.org/all/20251017115325.1942591-1-s-jain1@ti.com/
+In dynamic case - we do not fully trust the Powered Device, first we
+reserve requested budget and then start measuring the PD consumption.
+If real consumption is less as requested, the reservation will be
+reduced.
+Advantage - more PDs can be attached.
+Disadvantage - a spike in consumption of one PD, may kick out some low
+prio PDs.
 
-Respinning as a separate patch.
+Since the dynamic case need a lot of measurements, it is usually
+implemented in the firmware. Both strategies have advantages and
+disadvantages and MCUs may allow to change the strategies, this is why we
+provide this information.
 
-Changelog:
-- Change Copyright year from 2024 to 2026
-- Rebase on top of linux-next
----
- arch/arm64/boot/dts/ti/Makefile               |   4 +
- .../k3-am625-sk-microtips-mf101hie-panel.dtso | 121 ++++++++++++++++++
- 2 files changed, 125 insertions(+)
- create mode 100644 arch/arm64/boot/dts/ti/k3-am625-sk-microtips-mf101hie-panel.dtso
+In your case it is not documented, but it can be tested if you have
+enough PDs where you can influence the load.
 
-diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-index f4d109ef6798..dba641193144 100644
---- a/arch/arm64/boot/dts/ti/Makefile
-+++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -28,6 +28,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-am625-beagleplay-csi2-ov5640.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am625-beagleplay-csi2-tevi-ov5640.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am625-phyboard-lyra-rdk.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am625-sk.dtb
-+dtb-$(CONFIG_ARCH_K3) += k3-am625-sk-microtips-mf101hie-panel.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am625-tqma62xx-mba62xx.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am625-var-som-symphony.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dev-mezzanine-can.dtbo
-@@ -255,6 +256,8 @@ k3-am625-sk-csi2-ov5640-dtbs := k3-am625-sk.dtb \
- k3-am625-sk-csi2-tevi-ov5640-dtbs := k3-am625-sk.dtb \
- 	k3-am62x-sk-csi2-tevi-ov5640.dtbo
- k3-am625-sk-hdmi-audio-dtbs := k3-am625-sk.dtb k3-am62x-sk-hdmi-audio.dtbo
-+k3-am625-sk-microtips-mf101hie-panel-dtbs := k3-am625-sk.dtb \
-+	k3-am625-sk-microtips-mf101hie-panel.dtbo
- k3-am625-verdin-wifi-dev-dsi-to-lvds-panel-cap-touch-10inch-dtbs := \
- 	k3-am625-verdin-wifi-dev.dtb \
- 	k3-am625-verdin-dsi-to-lvds-panel-cap-touch-10inch.dtbo
-@@ -418,6 +421,7 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
- 	k3-am625-sk-csi2-ov5640.dtb \
- 	k3-am625-sk-csi2-tevi-ov5640.dtb \
- 	k3-am625-sk-hdmi-audio.dtb \
-+	k3-am625-sk-microtips-mf101hie-panel.dtb \
- 	k3-am625-verdin-wifi-dev-dsi-to-lvds-panel-cap-touch-10inch.dtb \
- 	k3-am625-verdin-wifi-dev-dsi-to-lvds-v2-panel-cap-touch-10inch.dtb \
- 	k3-am625-verdin-wifi-dev-mezzanine-can.dtb \
-diff --git a/arch/arm64/boot/dts/ti/k3-am625-sk-microtips-mf101hie-panel.dtso b/arch/arm64/boot/dts/ti/k3-am625-sk-microtips-mf101hie-panel.dtso
-new file mode 100644
-index 000000000000..ce7b31c5b9a6
---- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-am625-sk-microtips-mf101hie-panel.dtso
-@@ -0,0 +1,121 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/**
-+ * Microtips integrated OLDI panel (MF-101HIEBCAF0) and touch DT overlay for AM625 - SK
-+ *
-+ * Copyright (C) 2026 Texas Instruments Incorporated - http://www.ti.com/
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+
-+#include "k3-pinctrl.h"
-+
-+&{/} {
-+	display {
-+		compatible = "microtips,mf-101hiebcaf0";
-+		/*
-+		* Note that the OLDI TX 0 transmits the odd set of pixels
-+		* while the OLDI TX 1 transmits the even set. This is a
-+		* fixed configuration in the IP integration and is not
-+		* changeable. The properties, "dual-lvds-odd-pixels" and
-+		* "dual-lvds-even-pixels" have been used to merely
-+		* identify if a Dual Link configuration is required.
-+		* Swapping them will cause an error in the dss oldi driver.
-+		*/
-+		power-supply = <&vcc_3v3_sys>;
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+				dual-lvds-odd-pixels;
-+				lcd_in0: endpoint {
-+					remote-endpoint = <&oldi_0_out>;
-+				};
-+			};
-+			port@1 {
-+				reg = <1>;
-+				dual-lvds-even-pixels;
-+				lcd_in1: endpoint {
-+					remote-endpoint = <&oldi_1_out>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&dss {
-+	status = "okay";
-+};
-+
-+&oldi0 {
-+	status = "okay";
-+	ti,companion-oldi = <&oldi1>;
-+};
-+
-+&oldi1 {
-+	status = "okay";
-+	ti,secondary-oldi;
-+	ti,companion-oldi = <&oldi0>;
-+};
-+
-+&oldi0_port0 {
-+	oldi_0_in: endpoint {
-+		remote-endpoint = <&dpi0_out0>;
-+	};
-+};
-+
-+&oldi0_port1 {
-+	oldi_0_out: endpoint {
-+		remote-endpoint = <&lcd_in0>;
-+	};
-+};
-+
-+&oldi1_port0 {
-+	oldi_1_in: endpoint {
-+		remote-endpoint = <&dpi0_out1>;
-+	};
-+};
-+
-+&oldi1_port1 {
-+	oldi_1_out: endpoint {
-+		remote-endpoint = <&lcd_in1>;
-+	};
-+};
-+
-+&dss_ports {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	/* VP1: Output to OLDI */
-+	port@0 {
-+		reg = <0>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		dpi0_out0: endpoint@0 {
-+			reg = <0>;
-+			remote-endpoint = <&oldi_0_in>;
-+		};
-+		dpi0_out1: endpoint@1 {
-+			reg = <1>;
-+			remote-endpoint = <&oldi_1_in>;
-+		};
-+	};
-+};
-+
-+&main_i2c0 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	touchscreen@41 {
-+		compatible = "ilitek,ili251x";
-+		reg = <0x41>;
-+		interrupt-parent = <&exp1>;
-+		interrupts = <22 IRQ_TYPE_EDGE_FALLING>;
-+	};
-+};
+Not sure if we need an UNKNOWN flag to tell the user - we do not know
+what to expect, use it on your own risk.
+
+> Using vpwr-supply on each PI still buys that the
+> supply is enabled and ref-counted by PSE-PD core, and keeps potential for what
+> might come. But no requesting, allocation or deallocation of power.
+
+Ack, in many cases it is for diagnostic. Please note, a "manger" is in
+the practice a multi channel current limiter/regulator. It has maximal
+load per chip and different max load per port. This can be properly
+reflected with the regulators. 
+
+For example, RTL8238B-VB datasheet do not document maximal rating per
+chip, only per port. Calculating 8 ports, with 36W max, would result in
+288W. It feels like a lot of heat. Can it actually handle it?
+May be the MCU firmware has integrated maximal power limit do avoid HW
+damage. A proper information in the regulator tree would help user to
+understand why not all ports will get requested power.
+
+> Given that, I had a closer look at PD692x0 and it seems, this has a similar setup.
+> The difference here being just that there's no multi-manager concept. There is
+> also a manager-level supply reference "vmain-supply" which the driver reads
+> and applies to the hardware, which does budgeting also in hardware.
+
+According to RTL8238B documentation, it has same multi-manager concept.
+Since one manager RTL8238B supports max 8 ports, a switch with more PoE
+capable ports would need more chips.
+
+Since we already talk about power budgeting - all of this make sense if
+we have port priorities. For example PD692x0 firmware has default prios
+bound to port numbers. Is it the same with this firmware?
+
+pw-bot: changes-requested
+-- 
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
