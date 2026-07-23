@@ -1,87 +1,37 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6606131AA92
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 01:47:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE5362BF3D7;
+	Thu, 23 Jul 2026 02:03:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784771234; cv=none; b=l/5pEg7dYVdGY6YoUZXQ9/F9kAuapFpksO3u9v+KrGx+/q9uIh4eeR8S67ZjtF8vegqKh9ZLuZwgUcluBZNW4n6qMg8Y7bnXxFO/gq7hhni5DPwLrwl5jX41F1hKWRLyglbOm6T6uC95qFtLAsqPs+q0lUKWka4ZHnY9oVXZgLs=
+	t=1784772182; cv=none; b=mxkJGJgabrK5OG7NCUk4fi0kQH1hkg/DWiPRTEi+PmH+CVjQl+SQv5HFASUbglF+exYTKm0XI4XXRznJX5XOX8nfRRZ1RSTEAyazhXNqPOxSP2myqbjGXzMqlnPpCFzB8eLvwSfz5syXhZZdcpeGhZs189y2EtJxUCrs+7IW2os=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784771234; c=relaxed/simple;
-	bh=cnjRfXOGCiLdO/PiqrdR1gHMAwcIDL3Y5bbe8uCeOcs=;
+	s=arc-20240116; t=1784772182; c=relaxed/simple;
+	bh=DEG8euhd5JLh30PfhiVY4dSvqS4JvY1creVU//YkYZk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=bWYsmcSdalZKWRCNJ+qRLZlSS/uWH8s6XRxPBfuCl60QnPcSoW9y/kkcN3L2gP9ojDKKkiDDD4CDzvfTTGAX2fDuy4I1G2Fao91l8yi0CkiEYpDUGUjoYXh9b82+c17M3AqY9+vmlHGs6NZxa/9RWRwLDLWJl3GL4bxH6coBLR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MlmkC3/L; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QJQpLv+t; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:To:Cc; b=pZig26RjgGLy8oP9Bt6Ujx8r+7fwcM82HH99wN+S5x5htrOTK63yiCadEjzGLM3EEEKphi+MtKWlDQfAo+u1NdIZG44VYRppMmSnhzjKJYTy+AOStVXp9gQGWQ1V7AVH5ts8dmBJE1xSZMjHi3Rkff18KB+8WTivFbUQs+3oow0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nk66nb0E; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MlmkC3/L";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QJQpLv+t"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66N0Wgwf2519458
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 01:47:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	XEXpysVN2Cq1RmgHhBcEAoYNQnMTgQ3salknRUMhBIE=; b=MlmkC3/LNxypJsY3
-	eOhk465/rpgP7QKN/FPX0J/nXY6s64+X7OvIobG8S03V9vaUO2EJ7VYx/t4fN0jD
-	a3aYjxTQFzCFH/anFOyejIb5xsx4SwLQ694tYeBKptiHNbhz7gNtt9bWFjOxi8U2
-	2w5KDHBBXjF05fe3A4MB45RnHJ9zZtDhjtjO2plW8yojplOUrslIUMASqFU74qDp
-	OLsDDvhzA6irRPiWmRV79WC2Y06fm0YwgSi8EmIiBt82g4kSYs3jEkTywBqc52/v
-	A+WgNIQpIx6lDTTkdnz62sZpxf51GyS1sOUxCPxR7PUVDGYi+ZE1Ez+KDnyHyEQI
-	qAPUqA==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fk6c7gjar-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 01:47:10 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2ce8a76df2dso2731375ad.2
-        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 18:47:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784771230; x=1785376030; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XEXpysVN2Cq1RmgHhBcEAoYNQnMTgQ3salknRUMhBIE=;
-        b=QJQpLv+tNcn+Lm7McTLQAFXpMy/A4l6nRakQPfWUEhqbuV9jYMBTFhIyRXk3todaZV
-         1ZRpY6I5o0geBeGR1aSIRGHIltToZ0CEv1amRCFHWTHzAenVuivPW61mk8oRhwfHl42T
-         30WlpttejmHpNbtTuZsSyJ7Cph0papwtfv0GgxDMXO26qSW2WgtqqwBDBAvRu3zFTUkT
-         YkDSTg+Y5gh4YsIcqxbNrk+x27LxAzYJsoC4xjcTn8RsyWDUUYx70WAnIIkifym8e/wQ
-         f4tYcUOLfAesM56a4psYIlvNX5r687wd7I76PetnfM2mV8ZHvh3+2qxyPK9mjtoulmJe
-         ghiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784771230; x=1785376030;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XEXpysVN2Cq1RmgHhBcEAoYNQnMTgQ3salknRUMhBIE=;
-        b=SyS2ql5KUErZ2MRC1TixxNG6zqogRKFxjGaI/H/c9lA/DHVnUidOVAcPNFrZoqN4yu
-         fZ0RWnQjQZhmbsJC4y1glbWe3mpIry5S7V3t9C3vfI9HFodMYw6m//OZ0MbPa+1tlLn8
-         KRGPRDyRgeyzbdtbpGS0W4HGLr97dih3rMwzpDePGr39Vc1qmvd1Cqag+gyot4Qith8K
-         RkfGjrmuPBeWJfWRoJOs1KnnG5tFWcJiy0THX5cTpdwITcpiv1Y8R9DH5xwLnaw4WIo2
-         DeFzTN0QtiuflE1BWHdQQcfkAvwOjNhF9dT/IwPIO3iKHOTAXqdo6Bk5nNIRjUD3aOdH
-         Wwsw==
-X-Forwarded-Encrypted: i=1; AHgh+Ro4PhkTm9zY0CnXr3XKfBY1M2MaimjwyMXBlJwvlQTEXGhqtisYNmZE1HNnpHVQ/wskQoDkyhvrTO/B@vger.kernel.org
-X-Gm-Message-State: AOJu0YzM07wqv8QGGU4fBXogLrsOlymsdNrDBRhhVywEAnip5cJjNfjt
-	6IZzDtvIo/XHA77FgDaeugkFZlnQjRRrnNUSTriAg5SSklEycVOoVnypYH07vxfLba4q6CV6C8a
-	sfiza7EaIGmdObpoW8gAk2mphG0tNJmNxO/+TGYZU2BGOkUJ/tFPJcgeRY5j39ckY
-X-Gm-Gg: AR+sD11QX3+CFMKn84xkllyhtbOU0KNhS0ebRJqt1ZMVX09JAEecwpbDCxlroIcHnZ/
-	LjNWcP7Zd2G6S8lbai97qnBgCgVvqqyURsHgyOWifnNwhhHOxeX6E89Fx1MKubqCLC8HC37Z2jr
-	Rt0NecO4SOJkFm65CYgXDlnvwSiRtVf0J3tBqA3hcu1znPf7CVVJTBIasTzay24kOJPjJlDBp/U
-	0G2kXoPN4CUEJaWoWEm5yJyZQDRui7vdToj6KwBM7Mx7qdqIxafzN9XqCXS4oXgIBzJVwOsWFtW
-	1hsgHFnC/1+f78GGIbRy3fsPmwrMuQEeJjc2ipoy11RpItS4v3hjajBLfA6IW9qKUYXHJf+fQFC
-	c6gzLMg7Dy+NcTfHEeI+HgXVbzoLxVJVgEEgmanyosX4HoPcwHbb1wkZ4PGnu3s4=
-X-Received: by 2002:a17:902:f685:b0:2ca:73aa:b48f with SMTP id d9443c01a7336-2cfa71ab275mr14600325ad.35.1784771229383;
-        Wed, 22 Jul 2026 18:47:09 -0700 (PDT)
-X-Received: by 2002:a17:902:f685:b0:2ca:73aa:b48f with SMTP id d9443c01a7336-2cfa71ab275mr14599855ad.35.1784771228798;
-        Wed, 22 Jul 2026 18:47:08 -0700 (PDT)
-Received: from jiegan-gv.ap.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf8efa39e9sm23389995ad.10.2026.07.22.18.47.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 18:47:08 -0700 (PDT)
-From: Jie Gan <jie.gan@oss.qualcomm.com>
-Date: Thu, 23 Jul 2026 09:46:31 +0800
-Subject: [PATCH 2/2] arm64: dts: qcom: shikra: Add coresight nodes
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nk66nb0E"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 9D12DC2BCFA;
+	Thu, 23 Jul 2026 02:03:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1784772182;
+	bh=DEG8euhd5JLh30PfhiVY4dSvqS4JvY1creVU//YkYZk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=Nk66nb0EumFc+yhJqCNdbbdhWiTFHis9VvIQjTBGbCTIe1GVRnr0KjFsi5uLrXqNf
+	 Q4+VR2gte+2ewvjOfEr5iaY0F0YC8Jh5uNnCad2+HKUnY8ynHsLvxXcvvnn9b+xF+L
+	 B4nhaJTICKO25JNSKbFXdMEb37pXi+221YUPB8nebtzQjubk3sfAIXPgSPAcQt196L
+	 E4/t+VJlyeLw2b64DcGkiPdvd1zGGX7P7wWpt3n1bIHQcZWyh9qQAFdMSnXhWSc3zq
+	 Z2HZs+CyxhCAE3Mol2fGHOGzNylTLfpbuDLcRWAnS7mbq5cQe5OJhHl559IYoi7/hN
+	 UEbWR3fNhTOig==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 74602C4453F;
+	Thu, 23 Jul 2026 02:03:02 +0000 (UTC)
+From: Esteban Urrutia via B4 Relay <devnull+esteuwu.proton.me@kernel.org>
+Date: Wed, 22 Jul 2026 22:00:02 -0400
+Subject: [PATCH v3 2/2] phy: qcom: qmp-combo: Add SM8475 support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,1397 +40,260 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-add-coresight-nodes-for-shikra-v1-2-992615f9ea15@oss.qualcomm.com>
-References: <20260723-add-coresight-nodes-for-shikra-v1-0-992615f9ea15@oss.qualcomm.com>
-In-Reply-To: <20260723-add-coresight-nodes-for-shikra-v1-0-992615f9ea15@oss.qualcomm.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
-        James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
-        Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
-        Mao Jinlong <jinlong.mao@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-        Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
-        Alexandre Ghiti <alex@ghiti.fr>
-Cc: coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-        Jie Gan <jie.gan@oss.qualcomm.com>
-X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784771207; l=27710;
- i=jie.gan@oss.qualcomm.com; s=20250909; h=from:subject:message-id;
- bh=cnjRfXOGCiLdO/PiqrdR1gHMAwcIDL3Y5bbe8uCeOcs=;
- b=2i5/rx6Bg3d1oMOydJCALBc6G74On17HchlnZpjdX0DcCjVdT5N1tnDLv98PfQe7pmG1KvQsx
- s+26IIi97jEBSHKPLxWhHUAlP1rRibW1KGPwya2aM46EX18HYb0POjY
-X-Developer-Key: i=jie.gan@oss.qualcomm.com; a=ed25519;
- pk=3LxxUZRPCNkvPDlWOvXfJNqNO4SfGdy3eghMb8puHuk=
-X-Proofpoint-GUID: W14L8fOeZZ28GcN9lrKfpfvBLN5aV2sk
-X-Proofpoint-ORIG-GUID: W14L8fOeZZ28GcN9lrKfpfvBLN5aV2sk
-X-Authority-Analysis: v=2.4 cv=baZbluPB c=1 sm=1 tr=0 ts=6a61729e cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=cwPG6XMBaqf5cbKo9vYA:9 a=6PrL1bzTSInMHGBt:21
- a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIzMDAxNSBTYWx0ZWRfX3Wuv0dM4Ht8d
- 9LcMfDuhorNsMqtCCgb5OTyeeJN0T7KLyxKNf2ejHsBKpsdvNNpdc7hfKarGB6W/hnOzz9UV2zq
- Yngz8NoVUV1SOKxpFRGcFdB4+KEs8Rc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIzMDAxNSBTYWx0ZWRfX4/tS24c7Cl7z
- R9+Q08He7sfVaiMPUJul3ORWyLLDYINh5RP/W8FHZ9ht0LoHmeTHejDjeGAA1N8VvrX5zTa80kk
- LqXonq89AiiyjMUBkPPYG4cDpTEVxSqh/chGovP0v+VJalf+meG2XOxYM3ejI38hiCbVy1y8W2R
- KiiYNejm+piakxsKbHGzdqKunYHET2zrW0r2BsgtHfZ7llZuK0PYBBul6pplTaq3tLxff0yrmcV
- JchiISmmXoqMFb+rBtSWMhiZWL5KyAHY6VJGLJGS5Km3SLqupQsLYFSPpNT7uEPtE8ksqw5soFB
- Q4LO8pV4OJjOBt6bB6QhAZz2dHiQsR6qPoCmhjuUiWRj5GM0Un9aRJjguhIXkuQQmU4ghYYfHsT
- iLfvBD5ljYJT2tFuoVwc4shBZhBRsOAXC+pJNszYZ7tw/jTrZvDw4wFGpZI+PCx7bO7kL7u2FDp
- CAPLYTcxJ5mDT3wj7Fw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-23_01,2026-07-22_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 lowpriorityscore=0 phishscore=0 suspectscore=0
- adultscore=0 impostorscore=0 priorityscore=1501 bulkscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607230015
+Message-Id: <20260722-sm8475-bup-usbss-v3-2-0dd5da218ab2@proton.me>
+References: <20260722-sm8475-bup-usbss-v3-0-0dd5da218ab2@proton.me>
+In-Reply-To: <20260722-sm8475-bup-usbss-v3-0-0dd5da218ab2@proton.me>
+To: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, Esteban Urrutia <esteuwu@proton.me>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784772180; l=11066;
+ i=esteuwu@proton.me; s=20260622; h=from:subject:message-id;
+ bh=RVLN86+UQKtmY9cCYU0KqvQIUlUqHpXKayiKQtybKmE=;
+ b=F4eBt1SBFh2GtJf/0GaF/GYKSh6NM8whNKW0ToKvoE0yzYEYspnQn31s2u+SM5UdAO3j9IT0O
+ 5OnF622M08UDWLlQ+TFIasoFgGd5Oz8bTRD4gC9heq0RHCVPFRUwEyp
+X-Developer-Key: i=esteuwu@proton.me; a=ed25519;
+ pk=wToFt4mOAWkzbqb15Ye1hrhevI13vK9BcMUFiQ/me1M=
+X-Endpoint-Received: by B4 Relay for esteuwu@proton.me/20260622 with
+ auth_id=835
+X-Original-From: Esteban Urrutia <esteuwu@proton.me>
+Reply-To: esteuwu@proton.me
 
-Add DT nodes for the CoreSight debug and trace subsystem on Qualcomm
-Shikra SoC.
+From: Esteban Urrutia <esteuwu@proton.me>
 
-Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
+Has been tested with the following capabilities:
+- USB Type-C at 10Gb/s
+- DP Alt Mode, using HBR2
+- USB Type-C at 480Mb/s + DP Alt Mode, using HBR2
+
+RX and PCS USB tables had to be added, while serdes, TX and PCS tables were
+reused from other SoCs.
+
+Some SoCs such as SAR2130P, SM7550, SM7635 and SM8475 use 4nm-v1 PLLs.
+For SM8475, trying to use qmp_v6_dp_serdes_tbl structs (which are for
+4nm-v1.1 PLLs) causes link training to fail because of ref clock
+differences, which in turn makes these structs differ.
+Add structs for v1 PLLs as well.
+
+Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
 ---
- arch/arm64/boot/dts/qcom/shikra.dtsi | 1295 ++++++++++++++++++++++++++++++++++
- 1 file changed, 1295 insertions(+)
+ drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 169 ++++++++++++++++++++++++++++++
+ 1 file changed, 169 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/qcom/shikra.dtsi
-index 4e5bc9e17c8e..eb0f3c36068f 100644
---- a/arch/arm64/boot/dts/qcom/shikra.dtsi
-+++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
-@@ -113,6 +113,88 @@ l3: l3-cache {
- 		};
- 	};
+diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+index 9bd666ac2c49..8b46f36bd24c 100644
+--- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
++++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+@@ -1063,6 +1063,55 @@ static const struct qmp_phy_init_tbl sm8350_usb3_pcs_usb_tbl[] = {
+ 	QMP_PHY_INIT_CFG(QPHY_V5_PCS_USB3_RXEQTRAINING_DFE_TIME_S2, 0x07),
+ };
  
-+	dummy-eud {
-+		compatible = "arm,coresight-dummy-sink";
++static const struct qmp_phy_init_tbl sm8475_usb3_rx_tbl[] = {
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_UCDR_FO_GAIN, 0x0a),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_UCDR_SO_GAIN, 0x06),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_UCDR_FASTLOCK_FO_GAIN, 0x2f),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_UCDR_SO_SATURATION_AND_ENABLE, 0x7f),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_UCDR_FASTLOCK_COUNT_LOW, 0xff),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_UCDR_FASTLOCK_COUNT_HIGH, 0x0f),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_UCDR_PI_CONTROLS, 0x99),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_UCDR_SB2_THRESH1, 0x08),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_UCDR_SB2_THRESH2, 0x08),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_UCDR_SB2_GAIN1, 0x00),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_UCDR_SB2_GAIN2, 0x08),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_AUX_DATA_TCOARSE_TFINE, 0xa0),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_VGA_CAL_CNTRL1, 0x54),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_VGA_CAL_CNTRL2, 0x0f),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_GM_CAL, 0x13),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_RX_EQU_ADAPTOR_CNTRL2, 0x0f),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_RX_EQU_ADAPTOR_CNTRL3, 0x4a),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_RX_EQU_ADAPTOR_CNTRL4, 0x0a),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_RX_IDAC_TSETTLE_LOW, 0x07),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_RX_IDAC_TSETTLE_HIGH, 0x00),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_RX_EQ_OFFSET_ADAPTOR_CNTRL1, 0x47),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_SIGDET_CNTRL, 0x04),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_SIGDET_DEGLITCH_CNTRL, 0x0e),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_RX_MODE_00_LOW, 0x3f),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_RX_MODE_00_HIGH, 0xff),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_RX_MODE_00_HIGH2, 0xff),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_RX_MODE_00_HIGH3, 0xdf),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_RX_MODE_00_HIGH4, 0xfe),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_RX_MODE_01_LOW, 0xdc),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_RX_MODE_01_HIGH, 0x5c),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_RX_MODE_01_HIGH2, 0x9c),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_RX_MODE_01_HIGH3, 0x1d),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_RX_MODE_01_HIGH4, 0x09),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_DFE_EN_TIMER, 0x04),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_DFE_CTLE_POST_CAL_OFFSET, 0x38),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_DCC_CTRL1, 0x0c),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_VTH_CODE, 0x10),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_SIGDET_CAL_CTRL1, 0x14),
++	QMP_PHY_INIT_CFG(QSERDES_V6_RX_SIGDET_CAL_TRIM, 0x08),
++};
 +
-+		label = "eud";
++static const struct qmp_phy_init_tbl sm8475_usb3_pcs_usb_tbl[] = {
++	QMP_PHY_INIT_CFG(QPHY_V6_PCS_USB3_LFPS_DET_HIGH_COUNT_VAL, 0xf8),
++	QMP_PHY_INIT_CFG(QPHY_V6_PCS_USB3_RXEQTRAINING_DFE_TIME_S2, 0x07),
++	QMP_PHY_INIT_CFG(QPHY_V6_PCS_USB3_RCVR_DTCT_DLY_U3_L, 0x40),
++	QMP_PHY_INIT_CFG(QPHY_V6_PCS_USB3_RCVR_DTCT_DLY_U3_H, 0x00),
++};
 +
-+		in-ports {
-+			port {
-+				eud_in: endpoint {
-+					remote-endpoint = <&replicator_eud_out1>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm0 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu0>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm0_out: endpoint {
-+					remote-endpoint = <&funnel_cpuss0_in0>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm1 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu1>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm1_out: endpoint {
-+					remote-endpoint = <&funnel_cpuss0_in1>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm2 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu2>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm2_out: endpoint {
-+					remote-endpoint = <&funnel_cpuss0_in2>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm3 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu3>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm3_out: endpoint {
-+					remote-endpoint = <&funnel_cpuss0_in3>;
-+				};
-+			};
-+		};
-+	};
-+
- 	firmware {
- 		scm {
- 			compatible = "qcom,scm-shikra", "qcom,scm";
-@@ -131,6 +213,21 @@ memory@80000000 {
- 		reg = <0x0 0x80000000 0x0 0x0>;
- 	};
+ static const struct qmp_phy_init_tbl sm8550_usb3_serdes_tbl[] = {
+ 	QMP_PHY_INIT_CFG(QSERDES_V6_COM_SSC_STEP_SIZE1_MODE1, 0xc0),
+ 	QMP_PHY_INIT_CFG(QSERDES_V6_COM_SSC_STEP_SIZE2_MODE1, 0x01),
+@@ -1337,6 +1386,29 @@ static const struct qmp_phy_init_tbl qmp_v5_5nm_dp_tx_tbl[] = {
+ 	QMP_PHY_INIT_CFG(QSERDES_V5_5NM_TX_TX_BAND, 0x01),
+ };
  
-+	modem-etm0 {
-+		compatible = "arm,coresight-dummy-source";
++static const struct qmp_phy_init_tbl qmp_v6_dp_v1_serdes_tbl[] = {
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_SVS_MODE_CLK_SEL, 0x15),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_SYSCLK_EN_SEL, 0x3b),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_SYS_CLK_CTRL, 0x02),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_CLK_ENABLE1, 0x0c),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_SYSCLK_BUF_ENABLE, 0x06),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_CLK_SELECT, 0x30),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_PLL_IVCO, 0x0f),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_PLL_CCTRL_MODE0, 0x36),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_PLL_RCTRL_MODE0, 0x16),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_CP_CTRL_MODE0, 0x06),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_DIV_FRAC_START1_MODE0, 0x00),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_CMN_CONFIG_1, 0x12),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_INTEGLOOP_GAIN0_MODE0, 0x3f),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_INTEGLOOP_GAIN1_MODE0, 0x00),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_VCO_TUNE_MAP, 0x00),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_BG_TIMER, 0x0e),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_PLL_CORE_CLK_DIV_MODE0, 0x14),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_VCO_TUNE_CTRL, 0x00),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_PLL_BIAS_EN_CLK_BUFLR_EN, 0x17),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_CORE_CLK_EN, 0x0f),
++};
 +
-+		label = "modem_etm0";
-+		arm,static-trace-id = <36>;
-+
-+		out-ports {
-+			port {
-+				modem_etm0_out: endpoint {
-+					remote-endpoint = <&funnel_in1_in4>;
-+				};
-+			};
-+		};
-+	};
-+
- 	pmu-a55 {
- 		compatible = "arm,cortex-a55-pmu";
- 		interrupts = <GIC_PPI 5 IRQ_TYPE_LEVEL_HIGH &ppi_cluster0>;
-@@ -640,6 +737,1189 @@ &clk_virt SLAVE_QUP_CORE_0 RPM_ALWAYS_TAG>,
- 			};
- 		};
+ static const struct qmp_phy_init_tbl qmp_v6_dp_serdes_tbl[] = {
+ 	QMP_PHY_INIT_CFG(QSERDES_V6_COM_SVS_MODE_CLK_SEL, 0x15),
+ 	QMP_PHY_INIT_CFG(QSERDES_V6_COM_SYSCLK_EN_SEL, 0x3b),
+@@ -1471,6 +1543,54 @@ static const struct qmp_phy_init_tbl qmp_v8_n3p_dp_tx_tbl[] = {
+ 	QMP_PHY_INIT_CFG(QSERDES_V8_LALB_TX1_RESTRIM_POST_CAL_OFFSET, 0x10),
+ };
  
-+		ctcu@8001000 {
-+			compatible = "qcom,shikra-ctcu", "qcom,sa8775p-ctcu";
-+			reg = <0x0 0x08001000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb";
-+
-+			in-ports {
-+				port {
-+					ctcu_in0: endpoint {
-+						remote-endpoint = <&etr0_out>;
-+					};
-+				};
-+			};
-+		};
-+
-+		stm@8002000 {
-+			compatible = "arm,coresight-stm", "arm,primecell";
-+			reg = <0x0 0x08002000 0x0 0x1000>,
-+			      <0x0 0x0e280000 0x0 0x180000>;
-+			reg-names = "stm-base",
-+				    "stm-stimulus-base";
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			out-ports {
-+				port {
-+					stm_out: endpoint {
-+						remote-endpoint = <&funnel_in0_in7>;
-+					};
-+				};
-+			};
-+		};
-+
-+		tpdm@8003000 {
-+			compatible = "qcom,coresight-tpdm", "arm,primecell";
-+			reg = <0x0 0x08003000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			label = "tpdm_dcc";
-+			qcom,cmb-element-bits = <32>;
-+
-+			out-ports {
-+				port {
-+					tpdm_dcc_out: endpoint {
-+						remote-endpoint = <&tpda_qdss_in0>;
-+					};
-+				};
-+			};
-+		};
-+
-+		tpda@8004000 {
-+			compatible = "qcom,coresight-tpda", "arm,primecell";
-+			reg = <0x0 0x08004000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			in-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					tpda_qdss_in0: endpoint {
-+						remote-endpoint = <&tpdm_dcc_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					tpda_qdss_in1: endpoint {
-+						remote-endpoint = <&tpdm_spdm_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					tpda_qdss_out: endpoint {
-+						remote-endpoint = <&funnel_in0_in6>;
-+					};
-+				};
-+			};
-+		};
-+
-+		tpdm@800f000 {
-+			compatible = "qcom,coresight-tpdm", "arm,primecell";
-+			reg = <0x0 0x0800f000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			label = "tpdm_spdm";
-+			qcom,cmb-element-bits = <32>;
-+
-+			out-ports {
-+				port {
-+					tpdm_spdm_out: endpoint {
-+						remote-endpoint = <&tpda_qdss_in1>;
-+					};
-+				};
-+			};
-+		};
-+
-+		funnel@8041000 {
-+			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
-+			reg = <0x0 0x08041000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			in-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@5 {
-+					reg = <5>;
-+
-+					funnel_in0_in5: endpoint {
-+						remote-endpoint = <&snoc_out>;
-+					};
-+				};
-+
-+				port@6 {
-+					reg = <6>;
-+
-+					funnel_in0_in6: endpoint {
-+						remote-endpoint = <&tpda_qdss_out>;
-+					};
-+				};
-+
-+				port@7 {
-+					reg = <7>;
-+
-+					funnel_in0_in7: endpoint {
-+						remote-endpoint = <&stm_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					funnel_in0_out: endpoint {
-+						remote-endpoint = <&funnel_merg_in0>;
-+					};
-+				};
-+			};
-+		};
-+
-+		funnel@8042000 {
-+			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
-+			reg = <0x0 0x08042000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			in-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					funnel_in1_in1: endpoint {
-+						remote-endpoint = <&tpda_aodbg_out>;
-+					};
-+				};
-+
-+				port@4 {
-+					reg = <4>;
-+
-+					funnel_in1_in4: endpoint {
-+						remote-endpoint = <&modem_etm0_out>;
-+					};
-+				};
-+
-+				port@6 {
-+					reg = <6>;
-+
-+					funnel_in1_in6: endpoint {
-+						remote-endpoint = <&funnel_cpuss1_out>;
-+					};
-+				};
-+
-+				port@7 {
-+					reg = <7>;
-+
-+					funnel_in1_in7: endpoint {
-+						remote-endpoint = <&funnel_center_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					funnel_in1_out: endpoint {
-+						remote-endpoint = <&funnel_merg_in1>;
-+					};
-+				};
-+			};
-+		};
-+
-+		funnel@8045000 {
-+			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
-+			reg = <0x0 0x08045000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			in-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					funnel_merg_in0: endpoint {
-+						remote-endpoint = <&funnel_in0_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					funnel_merg_in1: endpoint {
-+						remote-endpoint = <&funnel_in1_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					funnel_merg_out: endpoint {
-+						remote-endpoint = <&tmc_etf_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		replicator@8046000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x08046000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			in-ports {
-+				port {
-+					replicator_qdss_in: endpoint {
-+						remote-endpoint = <&tmc_etf_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					replicator_qdss_out0: endpoint {
-+						remote-endpoint = <&etr0_in>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					replicator_qdss_out1: endpoint {
-+						remote-endpoint = <&replicator_eud_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		tmc@8047000 {
-+			compatible = "arm,coresight-tmc", "arm,primecell";
-+			reg = <0x0 0x08047000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			in-ports {
-+				port {
-+					tmc_etf_in: endpoint {
-+						remote-endpoint = <&funnel_merg_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					tmc_etf_out: endpoint {
-+						remote-endpoint = <&replicator_qdss_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		tmc@8048000 {
-+			compatible = "arm,coresight-tmc", "arm,primecell";
-+			reg = <0x0 0x08048000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			iommus = <&apps_smmu 0x0160 0x0>;
-+			arm,scatter-gather;
-+
-+			in-ports {
-+				port {
-+					etr0_in: endpoint {
-+						remote-endpoint = <&replicator_qdss_out0>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					etr0_out: endpoint {
-+						remote-endpoint = <&ctcu_in0>;
-+					};
-+				};
-+			};
-+		};
-+
-+		replicator@804a000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x0804a000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			in-ports {
-+				port {
-+					replicator_eud_in: endpoint {
-+						remote-endpoint = <&replicator_qdss_out1>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					replicator_eud_out1: endpoint {
-+						remote-endpoint = <&eud_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		tpdm@8800000 {
-+			compatible = "qcom,coresight-tpdm", "arm,primecell";
-+			reg = <0x0 0x08800000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			label = "tpdm_cdsp";
-+			qcom,dsb-element-bits = <32>;
-+			qcom,dsb-msrs-num = <4>;
-+
-+			out-ports {
-+				port {
-+					tpdm_cdsp_out: endpoint {
-+						remote-endpoint = <&funnel_cdsp_in0>;
-+					};
-+				};
-+			};
-+		};
-+
-+		funnel@8801000 {
-+			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
-+			reg = <0x0 0x08801000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			in-ports {
-+				port {
-+					funnel_cdsp_in0: endpoint {
-+						remote-endpoint = <&tpdm_cdsp_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					funnel_cdsp_out0: endpoint {
-+						remote-endpoint = <&tpda_center_in3>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cti@8807000 {
-+			compatible = "arm,coresight-cti", "arm,primecell";
-+			reg = <0x0 0x08807000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+			label = "cti_turing_q6";
-+		};
-+
-+		cti@8833000 {
-+			compatible = "arm,coresight-cti", "arm,primecell";
-+			reg = <0x0 0x08833000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+			label = "cti_mss_q6";
-+		};
-+
-+		tpdm@8840000 {
-+			compatible = "qcom,coresight-tpdm", "arm,primecell";
-+			reg = <0x0 0x08840000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			label = "tpdm_vsense";
-+			qcom,cmb-element-bits = <32>;
-+
-+			out-ports {
-+				port {
-+					tpdm_vsense_out: endpoint {
-+						remote-endpoint = <&tpda_center_in6>;
-+					};
-+				};
-+			};
-+		};
-+
-+		tpdm@8844000 {
-+			compatible = "qcom,coresight-tpdm", "arm,primecell";
-+			reg = <0x0 0x08844000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			label = "tpdm_dlct_1";
-+			qcom,dsb-element-bits = <32>;
-+			qcom,dsb-msrs-num = <32>;
-+
-+			out-ports {
-+				port {
-+					tpdm_dlct_1_out: endpoint {
-+						remote-endpoint = <&tpda_center_in13>;
-+					};
-+				};
-+			};
-+		};
-+
-+		tpda@8845000 {
-+			compatible = "qcom,coresight-tpda", "arm,primecell";
-+			reg = <0x0 0x08845000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			in-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					tpda_center_in0: endpoint {
-+						remote-endpoint = <&funnel_mcu_out>;
-+					};
-+				};
-+
-+				port@2 {
-+					reg = <2>;
-+
-+					tpda_center_in2: endpoint {
-+						remote-endpoint = <&tpdm_dlct_out>;
-+					};
-+				};
-+
-+				port@3 {
-+					reg = <3>;
-+
-+					tpda_center_in3: endpoint {
-+						remote-endpoint = <&funnel_cdsp_out0>;
-+					};
-+				};
-+
-+				port@4 {
-+					reg = <4>;
-+
-+					tpda_center_in4: endpoint {
-+						remote-endpoint = <&funnel_ddr_out0>;
-+					};
-+				};
-+
-+				port@6 {
-+					reg = <6>;
-+
-+					tpda_center_in6: endpoint {
-+						remote-endpoint = <&tpdm_vsense_out>;
-+					};
-+				};
-+
-+				port@7 {
-+					reg = <7>;
-+
-+					tpda_center_in7: endpoint {
-+						remote-endpoint = <&tpdm_prng_out>;
-+					};
-+				};
-+
-+				port@8 {
-+					reg = <8>;
-+
-+					tpda_center_in8: endpoint {
-+						remote-endpoint = <&tpdm_west_out>;
-+					};
-+				};
-+
-+				port@9 {
-+					reg = <9>;
-+
-+					tpda_center_in9: endpoint {
-+						remote-endpoint = <&tpdm_qm_out>;
-+					};
-+				};
-+
-+				port@a {
-+					reg = <0xa>;
-+
-+					tpda_center_in10: endpoint {
-+						remote-endpoint = <&tpdm_pimem_out>;
-+					};
-+				};
-+
-+				port@d {
-+					reg = <0xd>;
-+
-+					tpda_center_in13: endpoint {
-+						remote-endpoint = <&tpdm_dlct_1_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					tpda_center_out: endpoint {
-+						remote-endpoint = <&funnel_center_in0>;
-+					};
-+				};
-+			};
-+		};
-+
-+		funnel@8846000 {
-+			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
-+			reg = <0x0 0x08846000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			in-ports {
-+				port {
-+					funnel_center_in0: endpoint {
-+						remote-endpoint = <&tpda_center_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					funnel_center_out: endpoint {
-+						remote-endpoint = <&funnel_in1_in7>;
-+					};
-+				};
-+			};
-+		};
-+
-+		tpdm@884c000 {
-+			compatible = "qcom,coresight-tpdm", "arm,primecell";
-+			reg = <0x0 0x0884c000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			label = "tpdm_prng";
-+			qcom,cmb-element-bits = <32>;
-+
-+			out-ports {
-+				port {
-+					tpdm_prng_out: endpoint {
-+						remote-endpoint = <&tpda_center_in7>;
-+					};
-+				};
-+			};
-+		};
-+
-+		tpdm@8850000 {
-+			compatible = "qcom,coresight-tpdm", "arm,primecell";
-+			reg = <0x0 0x08850000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			label = "tpdm_pimem";
-+			qcom,cmb-element-bits = <64>;
-+			qcom,dsb-element-bits = <32>;
-+
-+			out-ports {
-+				port {
-+					tpdm_pimem_out: endpoint {
-+						remote-endpoint = <&tpda_center_in10>;
-+					};
-+				};
-+			};
-+		};
-+
-+		tpdm@8980000 {
-+			compatible = "qcom,coresight-tpdm", "arm,primecell";
-+			reg = <0x0 0x08980000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			label = "tpdm_mcu";
-+			qcom,dsb-element-bits = <32>;
-+			qcom,dsb-msrs-num = <16>;
-+
-+			out-ports {
-+				port {
-+					tpdm_mcu_out: endpoint {
-+						remote-endpoint = <&funnel_mcu_in0>;
-+					};
-+				};
-+			};
-+		};
-+
-+		funnel@8982000 {
-+			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
-+			reg = <0x0 0x08982000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			in-ports {
-+				port {
-+					funnel_mcu_in0: endpoint {
-+						remote-endpoint = <&tpdm_mcu_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					funnel_mcu_out: endpoint {
-+						remote-endpoint = <&tpda_center_in0>;
-+					};
-+				};
-+			};
-+		};
-+
-+		tpdm@89d0000 {
-+			compatible = "qcom,coresight-tpdm", "arm,primecell";
-+			reg = <0x0 0x089d0000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			label = "tpdm_qm";
-+			qcom,dsb-element-bits = <32>;
-+
-+			out-ports {
-+				port {
-+					tpdm_qm_out: endpoint {
-+						remote-endpoint = <&tpda_center_in9>;
-+					};
-+				};
-+			};
-+		};
-+
-+		tpdm@8a01000 {
-+			compatible = "qcom,coresight-tpdm", "arm,primecell";
-+			reg = <0x0 0x08a01000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			label = "tpdm_mapss";
-+			qcom,cmb-element-bits = <32>;
-+			qcom,dsb-element-bits = <32>;
-+			qcom,dsb-msrs-num = <16>;
-+
-+			out-ports {
-+				port {
-+					tpdm_mapss_out: endpoint {
-+						remote-endpoint = <&tpda_aodbg_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cti@8a02000 {
-+			compatible = "arm,coresight-cti", "arm,primecell";
-+			reg = <0x0 0x08a02000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+			label = "cti_mapss";
-+		};
-+
-+		tpda@8a04000 {
-+			compatible = "qcom,coresight-tpda", "arm,primecell";
-+			reg = <0x0 0x08a04000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			in-ports {
-+				port {
-+					tpda_aodbg_in: endpoint {
-+						remote-endpoint = <&tpdm_mapss_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					tpda_aodbg_out: endpoint {
-+						remote-endpoint = <&funnel_in1_in1>;
-+					};
-+				};
-+			};
-+		};
-+
-+		tpdm@8a58000 {
-+			compatible = "qcom,coresight-tpdm", "arm,primecell";
-+			reg = <0x0 0x08a58000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			label = "tpdm_west";
-+			qcom,dsb-element-bits = <32>;
-+			qcom,dsb-msrs-num = <16>;
-+
-+			out-ports {
-+				port {
-+					tpdm_west_out: endpoint {
-+						remote-endpoint = <&tpda_center_in8>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cti@8b30000 {
-+			compatible = "arm,coresight-cti", "arm,primecell";
-+			reg = <0x0 0x08b30000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+			label = "cti_cortex_m3";
-+		};
-+
-+		tpdm@8b58000 {
-+			compatible = "qcom,coresight-tpdm", "arm,primecell";
-+			reg = <0x0 0x08b58000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			label = "tpdm_dlct";
-+			qcom,dsb-element-bits = <32>;
-+			qcom,dsb-msrs-num = <16>;
-+
-+			out-ports {
-+				port {
-+					tpdm_dlct_out: endpoint {
-+						remote-endpoint = <&tpda_center_in2>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cti@8b59000 {
-+			compatible = "arm,coresight-cti", "arm,primecell";
-+			reg = <0x0 0x08b59000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+			label = "cti_dlct_0";
-+		};
-+
-+		cti@8b5a000 {
-+			compatible = "arm,coresight-cti", "arm,primecell";
-+			reg = <0x0 0x08b5a000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+			label = "cti_dlct_1";
-+		};
-+
-+		cti@8b5b000 {
-+			compatible = "arm,coresight-cti", "arm,primecell";
-+			reg = <0x0 0x08b5b000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+			label = "cti_dlct_2";
-+		};
-+
-+		cti@8b5c000 {
-+			compatible = "arm,coresight-cti", "arm,primecell";
-+			reg = <0x0 0x08b5c000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+			label = "cti_dlct_3";
-+		};
-+
-+		tpdm@8b60000 {
-+			compatible = "qcom,coresight-tpdm", "arm,primecell";
-+			reg = <0x0 0x08b60000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			label = "tpdm_ddr";
-+			qcom,cmb-element-bits = <32>;
-+			qcom,cmb-msrs-num = <1>;
-+			qcom,dsb-element-bits = <32>;
-+			qcom,dsb-msrs-num = <32>;
-+
-+			out-ports {
-+				port {
-+					tpdm_ddr_out: endpoint {
-+						remote-endpoint = <&funnel_ddr_in0>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cti@8b62000 {
-+			compatible = "arm,coresight-cti", "arm,primecell";
-+			reg = <0x0 0x08b62000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+			label = "cti_ddr_dl_0";
-+		};
-+
-+		funnel@8b65000 {
-+			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
-+			reg = <0x0 0x08b65000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			in-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					funnel_ddr_in0: endpoint {
-+						remote-endpoint = <&tpdm_ddr_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					funnel_ddr_out0: endpoint {
-+						remote-endpoint = <&tpda_center_in4>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cti@8b70000 {
-+			compatible = "arm,coresight-cti", "arm,primecell";
-+			reg = <0x0 0x08b70000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+			label = "cti_ddr_dl_0_1";
-+		};
-+
-+		cti@8b71000 {
-+			compatible = "arm,coresight-cti", "arm,primecell";
-+			reg = <0x0 0x08b71000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+			label = "cti_ddr_dl_1_1";
-+		};
-+
-+		cti@9020000 {
-+			compatible = "arm,coresight-cti", "arm,primecell";
-+			reg = <0x0 0x09020000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+			label = "cti_apss_pe0";
-+		};
-+
-+		cti@90e0000 {
-+			compatible = "arm,coresight-cti", "arm,primecell";
-+			reg = <0x0 0x090e0000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+			label = "cti_apss_cluster";
-+		};
-+
-+		cti@9120000 {
-+			compatible = "arm,coresight-cti", "arm,primecell";
-+			reg = <0x0 0x09120000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+			label = "cti_apss_pe1";
-+		};
-+
-+		cti@9220000 {
-+			compatible = "arm,coresight-cti", "arm,primecell";
-+			reg = <0x0 0x09220000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+			label = "cti_apss_pe2";
-+		};
-+
-+		cti@9320000 {
-+			compatible = "arm,coresight-cti", "arm,primecell";
-+			reg = <0x0 0x09320000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+			label = "cti_apss_pe3";
-+		};
-+
-+		funnel@9800000 {
-+			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
-+			reg = <0x0 0x09800000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			in-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					funnel_cpuss0_in0: endpoint {
-+						remote-endpoint = <&etm0_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					funnel_cpuss0_in1: endpoint {
-+						remote-endpoint = <&etm1_out>;
-+					};
-+				};
-+
-+				port@2 {
-+					reg = <2>;
-+
-+					funnel_cpuss0_in2: endpoint {
-+						remote-endpoint = <&etm2_out>;
-+					};
-+				};
-+
-+				port@3 {
-+					reg = <3>;
-+
-+					funnel_cpuss0_in3: endpoint {
-+						remote-endpoint = <&etm3_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					funnel_cpuss0_out: endpoint {
-+						remote-endpoint = <&funnel_cpuss1_in0>;
-+					};
-+				};
-+			};
-+		};
-+
-+		funnel@9810000 {
-+			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
-+			reg = <0x0 0x09810000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			in-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					funnel_cpuss1_in0: endpoint {
-+						remote-endpoint = <&funnel_cpuss0_out>;
-+					};
-+				};
-+
-+				port@3 {
-+					reg = <3>;
-+
-+					funnel_cpuss1_in3: endpoint {
-+						remote-endpoint = <&tpda_apss_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					funnel_cpuss1_out: endpoint {
-+						remote-endpoint = <&funnel_in1_in6>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cti@982b000 {
-+			compatible = "arm,coresight-cti", "arm,primecell";
-+			reg = <0x0 0x0982b000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+			label = "cti_riscv";
-+		};
-+
-+		tpdm@9860000 {
-+			compatible = "qcom,coresight-tpdm", "arm,primecell";
-+			reg = <0x0 0x09860000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			label = "tpdm_actpm";
-+			qcom,cmb-element-bits = <64>;
-+			qcom,cmb-msrs-num = <1>;
-+
-+			out-ports {
-+				port {
-+					tpdm_actpm_out: endpoint {
-+						remote-endpoint = <&tpda_apss_in2>;
-+					};
-+				};
-+			};
-+		};
-+
-+		tpdm@9861000 {
-+			compatible = "qcom,coresight-tpdm", "arm,primecell";
-+			reg = <0x0 0x09861000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			label = "tpdm_hwe";
-+			qcom,dsb-element-bits = <32>;
-+			qcom,dsb-msrs-num = <32>;
-+
-+			out-ports {
-+				port {
-+					tpdm_hwe_out: endpoint {
-+						remote-endpoint = <&tpda_apss_in3>;
-+					};
-+				};
-+			};
-+		};
-+
-+		tpda@9863000 {
-+			compatible = "qcom,coresight-tpda", "arm,primecell";
-+			reg = <0x0 0x09863000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			in-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					tpda_apss_in0: endpoint {
-+						remote-endpoint = <&tpdm_llm_silver_out>;
-+					};
-+				};
-+
-+				port@2 {
-+					reg = <2>;
-+
-+					tpda_apss_in2: endpoint {
-+						remote-endpoint = <&tpdm_actpm_out>;
-+					};
-+				};
-+
-+				port@3 {
-+					reg = <3>;
-+
-+					tpda_apss_in3: endpoint {
-+						remote-endpoint = <&tpdm_hwe_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					tpda_apss_out: endpoint {
-+						remote-endpoint = <&funnel_cpuss1_in3>;
-+					};
-+				};
-+			};
-+		};
-+
-+		tpdm@98a0000 {
-+			compatible = "qcom,coresight-tpdm", "arm,primecell";
-+			reg = <0x0 0x098a0000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+
-+			label = "tpdm_llm_silver";
-+			qcom,cmb-element-bits = <32>;
-+			qcom,cmb-msrs-num = <12>;
-+
-+			out-ports {
-+				port {
-+					tpdm_llm_silver_out: endpoint {
-+						remote-endpoint = <&tpda_apss_in0>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cti@98e0000 {
-+			compatible = "arm,coresight-cti", "arm,primecell";
-+			reg = <0x0 0x098e0000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+			label = "cti_apss_0";
-+		};
-+
-+		cti@98f0000 {
-+			compatible = "arm,coresight-cti", "arm,primecell";
-+			reg = <0x0 0x098f0000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+			label = "cti_apss_1";
-+		};
-+
-+		cti@9900000 {
-+			compatible = "arm,coresight-cti", "arm,primecell";
-+			reg = <0x0 0x09900000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+			label = "cti_apss_2";
-+		};
-+
- 		sram@c11e000 {
- 			compatible = "qcom,shikra-imem", "mmio-sram";
- 			reg = <0x0 0x0c11e000 0x0 0x1000>;
-@@ -831,6 +2111,21 @@ frame@f42d000 {
- 		};
- 	};
++static const struct qmp_phy_init_tbl qmp_v6_dp_v1_serdes_tbl_rbr[] = {
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_HSCLK_SEL_1, 0x05),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_DEC_START_MODE0, 0x69),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_DIV_FRAC_START2_MODE0, 0x80),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_DIV_FRAC_START3_MODE0, 0x07),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_LOCK_CMP1_MODE0, 0x6f),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_LOCK_CMP2_MODE0, 0x08),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_LOCK_CMP_EN, 0x04),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_BIN_VCOCAL_CMP_CODE1_MODE0, 0xe2),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_BIN_VCOCAL_CMP_CODE2_MODE0, 0x18),
++};
++
++static const struct qmp_phy_init_tbl qmp_v6_dp_v1_serdes_tbl_hbr[] = {
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_HSCLK_SEL_1, 0x03),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_DEC_START_MODE0, 0x69),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_DIV_FRAC_START2_MODE0, 0x80),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_DIV_FRAC_START3_MODE0, 0x07),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_LOCK_CMP1_MODE0, 0x0f),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_LOCK_CMP2_MODE0, 0x0e),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_LOCK_CMP_EN, 0x08),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_BIN_VCOCAL_CMP_CODE1_MODE0, 0xe2),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_BIN_VCOCAL_CMP_CODE2_MODE0, 0x18),
++};
++
++static const struct qmp_phy_init_tbl qmp_v6_dp_v1_serdes_tbl_hbr2[] = {
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_HSCLK_SEL_1, 0x01),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_DEC_START_MODE0, 0x8c),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_DIV_FRAC_START2_MODE0, 0x00),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_DIV_FRAC_START3_MODE0, 0x0a),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_LOCK_CMP1_MODE0, 0x1f),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_LOCK_CMP2_MODE0, 0x1c),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_LOCK_CMP_EN, 0x08),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_BIN_VCOCAL_CMP_CODE1_MODE0, 0x2e),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_BIN_VCOCAL_CMP_CODE2_MODE0, 0x21),
++};
++
++static const struct qmp_phy_init_tbl qmp_v6_dp_v1_serdes_tbl_hbr3[] = {
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_HSCLK_SEL_1, 0x00),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_DEC_START_MODE0, 0x69),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_DIV_FRAC_START2_MODE0, 0x80),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_DIV_FRAC_START3_MODE0, 0x07),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_LOCK_CMP1_MODE0, 0x2f),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_LOCK_CMP2_MODE0, 0x2a),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_LOCK_CMP_EN, 0x08),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_BIN_VCOCAL_CMP_CODE1_MODE0, 0xe2),
++	QMP_PHY_INIT_CFG(QSERDES_V6_COM_BIN_VCOCAL_CMP_CODE2_MODE0, 0x18),
++};
++
+ static const struct qmp_phy_init_tbl qmp_v6_dp_serdes_tbl_rbr[] = {
+ 	QMP_PHY_INIT_CFG(QSERDES_V6_COM_HSCLK_SEL_1, 0x05),
+ 	QMP_PHY_INIT_CFG(QSERDES_V6_COM_DEC_START_MODE0, 0x34),
+@@ -2838,6 +2958,51 @@ static const struct qmp_phy_cfg sm8350_usb3dpphy_cfg = {
+ 	.has_pwrdn_delay	= true,
+ };
  
-+	snoc {
-+		compatible = "arm,coresight-dummy-source";
++static const struct qmp_phy_cfg sm8475_usb3dpphy_cfg = {
++	.offsets		= &qmp_combo_offsets_v3,
 +
-+		label = "snoc";
-+		arm,static-trace-id = <18>;
++	.serdes_tbl		= sar2130p_usb3_serdes_tbl,
++	.serdes_tbl_num		= ARRAY_SIZE(sar2130p_usb3_serdes_tbl),
++	.tx_tbl			= sm8550_usb3_tx_tbl,
++	.tx_tbl_num		= ARRAY_SIZE(sm8550_usb3_tx_tbl),
++	.rx_tbl			= sm8475_usb3_rx_tbl,
++	.rx_tbl_num		= ARRAY_SIZE(sm8475_usb3_rx_tbl),
++	.pcs_tbl		= sm8550_usb3_pcs_tbl,
++	.pcs_tbl_num		= ARRAY_SIZE(sm8550_usb3_pcs_tbl),
++	.pcs_usb_tbl		= sm8475_usb3_pcs_usb_tbl,
++	.pcs_usb_tbl_num	= ARRAY_SIZE(sm8475_usb3_pcs_usb_tbl),
 +
-+		out-ports {
-+			port {
-+				snoc_out: endpoint {
-+					remote-endpoint = <&funnel_in0_in5>;
-+				};
-+			};
-+		};
-+	};
++	.dp_serdes_tbl		= qmp_v6_dp_v1_serdes_tbl,
++	.dp_serdes_tbl_num	= ARRAY_SIZE(qmp_v6_dp_v1_serdes_tbl),
++	.dp_tx_tbl		= qmp_v6_dp_tx_tbl,
++	.dp_tx_tbl_num		= ARRAY_SIZE(qmp_v6_dp_tx_tbl),
 +
- 	timer {
- 		compatible = "arm,armv8-timer";
++	.serdes_tbl_rbr		= qmp_v6_dp_v1_serdes_tbl_rbr,
++	.serdes_tbl_rbr_num	= ARRAY_SIZE(qmp_v6_dp_v1_serdes_tbl_rbr),
++	.serdes_tbl_hbr		= qmp_v6_dp_v1_serdes_tbl_hbr,
++	.serdes_tbl_hbr_num	= ARRAY_SIZE(qmp_v6_dp_v1_serdes_tbl_hbr),
++	.serdes_tbl_hbr2	= qmp_v6_dp_v1_serdes_tbl_hbr2,
++	.serdes_tbl_hbr2_num	= ARRAY_SIZE(qmp_v6_dp_v1_serdes_tbl_hbr2),
++	.serdes_tbl_hbr3	= qmp_v6_dp_v1_serdes_tbl_hbr3,
++	.serdes_tbl_hbr3_num	= ARRAY_SIZE(qmp_v6_dp_v1_serdes_tbl_hbr3),
++
++	.swing_hbr_rbr		= &qmp_dp_v5_voltage_swing_hbr_rbr,
++	.pre_emphasis_hbr_rbr	= &qmp_dp_v6_pre_emphasis_hbr_rbr,
++	.swing_hbr3_hbr2	= &qmp_dp_v5_voltage_swing_hbr3_hbr2,
++	.pre_emphasis_hbr3_hbr2 = &qmp_dp_v5_pre_emphasis_hbr3_hbr2,
++
++	.dp_aux_init		= qmp_v4_dp_aux_init,
++	.configure_dp_tx	= qmp_v4_configure_dp_tx,
++	.configure_dp_clocks	= qmp_v3_configure_dp_clocks,
++	.configure_dp_phy	= qmp_v4_configure_dp_phy,
++
++	.regs			= qmp_v6_usb3phy_regs_layout,
++	.reset_list		= msm8996_usb3phy_reset_l,
++	.num_resets		= ARRAY_SIZE(msm8996_usb3phy_reset_l),
++	.vreg_list		= qmp_phy_vreg_l,
++	.num_vregs		= ARRAY_SIZE(qmp_phy_vreg_l),
++};
++
+ static const struct qmp_phy_cfg sm8550_usb3dpphy_cfg = {
+ 	.offsets		= &qmp_combo_offsets_v3,
  
+@@ -5001,6 +5166,10 @@ static const struct of_device_id qmp_combo_of_match_table[] = {
+ 		.compatible = "qcom,sm8450-qmp-usb3-dp-phy",
+ 		.data = &sm8350_usb3dpphy_cfg,
+ 	},
++	{
++		.compatible = "qcom,sm8475-qmp-usb3-dp-phy",
++		.data = &sm8475_usb3dpphy_cfg,
++	},
+ 	{
+ 		.compatible = "qcom,sm8550-qmp-usb3-dp-phy",
+ 		.data = &sm8550_usb3dpphy_cfg,
 
 -- 
-2.34.1
+2.55.0
+
 
