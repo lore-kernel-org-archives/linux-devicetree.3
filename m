@@ -1,63 +1,61 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DEE643D4F7
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 09:40:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92709437112
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 09:40:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784799617; cv=none; b=fLPaMzoBpfXOrp0GyzUpTVByWNZ8pvknqGWq49sIpVnVGKJ1V192JcvJ5BAwvrFVypSc3Fc4EnbA3LAx9m6fLMaL7H3Dc9QKpoI51mua4p/9k4QGFUW0RyfdgUEGjmDOeZTInTdBI5ZQ/KOyDcyjUFIUZ0FetMPPJOrgCGwAaK0=
+	t=1784799617; cv=none; b=aoLTGveTJKThKYtgbTy+icLTuNMS4+MpqUKazTsmoanStY8zEne+y7ci1S0m/cM6L0dOnWJch7yWhXL8N3ppMuXKplxKiX4Q8/EgtRjvpt49PXNbiQ0QGHoPKB+yt5YzPtyvqNAYt14y59N71tfGAUET8KHyVHU2YlIS1Zo0ZS0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784799617; c=relaxed/simple;
-	bh=yHDhlavl9vHp0NqPh9jIiLQu4IZ5LAW/yrrGE6EGg+k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=h2XMiVdyOzpMfJKoKli0mI5W9gF5YyN3aHUJcSPqCNVdwGIKabks8UPy4uVf3nIW2T4zZATQU6a4jfpVHWU3PkFytzKzOrYW4NQ/a+V7yxDXfm6zltDzTzoVWwcc6xCYykE26EGlbaKWtY4FSKJNZf2rb+hcZOOxwxK9IlbTH9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arturia.com; spf=pass smtp.mailfrom=arturia.com; dkim=pass (2048-bit key) header.d=arturia.com header.i=@arturia.com header.b=fdhSsbHB; arc=none smtp.client-ip=209.85.128.51
+	bh=0TXrED/ELdAfYxoufpiHLXZ0/sbQ4UCoALRt+wj5+j4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mXjBepdG3QuZhxmWG6T6rqK3AvPVnC0DS1taKEFp+XGH0BTchDuElLxzf8HIbFI+LNPpnsD6MPoV4UHhpsc7upl2vJSn7lt0FEAqOlO53HtgTxX/FxC9hvtuSgelrET/JoH6mYKSS+dMbmvJryzy8UYwOSiMcSw5c1Ubv/rPjBk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arturia.com; spf=pass smtp.mailfrom=arturia.com; dkim=pass (2048-bit key) header.d=arturia.com header.i=@arturia.com header.b=OD0AOI9v; arc=none smtp.client-ip=209.85.128.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arturia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arturia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arturia.com header.i=@arturia.com header.b="fdhSsbHB"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4955aa106b1so4141765e9.0
-        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 02:40:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=arturia.com header.i=@arturia.com header.b="OD0AOI9v"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4954aff6088so3501205e9.3
+        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 02:40:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=arturia.com; s=arturia; t=1784799612; x=1785404412; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5Uqg9pdeMYpDqmcMIc9g/0AdIWRM6TR7uMO47bmc1pw=;
-        b=fdhSsbHB+gbvukQD9XYxHIFnnfNry+D+Dj4RsJWhsRkjX1jgGiTs9Km22x2m8k0c4D
-         cekM/PnXiWN5aCJUFvj9Bk+vJ2S9A3mK7ym76rPr4vrNR7d2ZiGzxIhDkMNBKgzwMi7b
-         +5axYjQoP1GDAYvyak0pLOG8dqQ8k/5jmp/AvDXsrL6s3mtorK9E8FbBynWoJ7i0Jex2
-         JxPFf2esRvdGuXtvjEm4sv4z8cgDD1UK2N7zK6NEvMDSAObdot14ow0jU5tye4l20IO7
-         3PWAl/F8PVYw9Fc+YzBBPIahe2lIRRd8QD1dfeMSWit1s0k5WQEBf6tdvv/Vt0OI61J1
-         gTmw==
+        d=arturia.com; s=arturia; t=1784799611; x=1785404411; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LYRmmyX1UMFqTmuZPlCBuUIHyjl4ElamXFYGU9WMWv0=;
+        b=OD0AOI9vgcMTIRco76uvRK6/JGPRLsrWQdPivfmGqLpFD3D3uNr4XbW10nBZuH9VmZ
+         5PmBUok6USKNjXBrNpwnya80pbOzZg8M0YNCUCwCnLNamEASk0QUKgLQUKR1WO6ObE4L
+         HVBDb9U2VTicE8HEOo+dbNZGL83cCA27zKkkHAE5gT33n/6Umed5ofaBJPq8IvymC4qT
+         jFPnwEGerBGcqimIJL5NBIff52ewxsWcPtPBN+OShyd9rkdcoT5eupkfYGEF97PmiG9j
+         XVFuCAahfdKzx3yQcIkkUjWKGinpFhkbTsy6lg3ZC4Jf6QDSkKYNP8ikeQszrtm8OIXl
+         03AA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784799612; x=1785404412;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5Uqg9pdeMYpDqmcMIc9g/0AdIWRM6TR7uMO47bmc1pw=;
-        b=HyERdKO5SKW0DbXslbJ/36tv9dBzozDcu0XpHJV19GbRQU/Mb1wJ8IAfFUjV8ofL8D
-         AvlP0H4LlDfAqXhWXT6wDIRchSMaOCivllDEYJ6O0TP3vYdoIycAA6Hn8B2L8MNhyuOy
-         WrgEO6BUfDn5NHOtdgdnigy1VvXHLcnkNQCL8XBJBZDJR5YHaqMrVIPl2FpzgGMGMX+c
-         52LPeEqJ5f80CW+bG1Tjx3RNgh7JHit0K9bx06oOJAXJ4Mb70noNKSo1u+uocQQmebJR
-         jyXbBW2qPI/nF0N54czGgE9LjWK5w3edUlkD+tlmnq5ckY2EfOqBhCHEnn+poQQ52ZPT
-         fEsg==
-X-Forwarded-Encrypted: i=1; AHgh+Rqesep9OsH3tLZqiE0ZJ6eLABvNIkGEJkcx3BXyQYJ/ox+Zb8YiV23ono5R8LeH4txFCAcghA87rZmI@vger.kernel.org
-X-Gm-Message-State: AOJu0YzvicaNqf6YeIMfHRFXYF6ETPOZSYp9Y+UgpzW4PwgT5p/4yQJd
-	X07LThgxMonUHa0uK0vX7v3WLkERMxHn5Cszgab6VsA8gEmID22dZtbFLOkGtTYj+Ec=
-X-Gm-Gg: AR+sD11qcv1SFJtaod5C3vxI433qPSlQcTPkkEk8Av5Y0xg74ewcs8iANKChZAJQ1hR
-	lzQBRqGN5KieHfGSsNz5xww3DrF7SN2xfcIQJAEGx4qYhEgActkGR3sgOLvTUl+BKKQE8lv/42U
-	IJ9hu/PfgsjvvlLLy+TzA0rJzdkgWUko4pfmVua1Naxl9VGmuuHPRsYnysQXCPZ3oMkrs37fo6A
-	wGiY0Mf8Jx1JhjF+Q8W/O6G3s4o2yy5GZWwzkofCGxkDn1e/O9KI57nKN633TetcPrQh6cqO/R5
-	BgyRHwDpBa5OIH/1HCfjjQ2j6C6f7q5X5xqNLolzqw3//+St7cXfEvGwRcOgKPK8mbtnB36b7XH
-	eln9kA1Mzw4828uQ4fPiCIi4Cp2/BaUoOTJYoGle/UomcpfG+y5976s6o0NJhd6l7suO8iFIBxQ
-	tY/JxiMLIP0fnoVmw38Bcl/dbc4od8/GSoIGlt/9NJyKYVTc8JuiU=
-X-Received: by 2002:a05:600c:35d0:b0:493:e79e:da63 with SMTP id 5b1f17b1804b1-49573d13720mr23201225e9.34.1784799612187;
-        Thu, 23 Jul 2026 02:40:12 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1784799611; x=1785404411;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LYRmmyX1UMFqTmuZPlCBuUIHyjl4ElamXFYGU9WMWv0=;
+        b=nm+3nQKJVwP2VCcCdyuUohsX3SfgwyO2ID66/ICrTQ6UGfWZad5A2YYNeKh9tMhbpz
+         PXjbWW/xNU/MoH+h/7BMsZvl/jZRXEJcm8MwuSsTxjgBXXgGOSeRkbCWbwuJN73N6Yi3
+         rqlIdM7npqqwp3hubtN2JFzGT2Dvf2r8/GbT8L2Idc5tekOVt1jqMAIAIWP4i5qlRtoZ
+         BrJ3X0/LJslHNpw256daemt1YFSUfNcFGSHzCdmu2KiphGByV6MaldRIGfaA9I4uNutk
+         1YocH3zKHpWWACR1gNpficnI45ztjlSlypHhjK9r3Cf/jCZGgDvUfcDnt3d/F9FEWqgk
+         l+dw==
+X-Forwarded-Encrypted: i=1; AHgh+RrLJb/ajJD0wrHetKNTfmwsygnGa56Vzo7tUFpmcpMl3JhIbDVfFLKL4JA2ibMN6mY+gRhLrq9cMbxi@vger.kernel.org
+X-Gm-Message-State: AOJu0YzkDtJDWROtXvI2JpnCgUB9WUwgS/ODyeW1IER2nC/qEB9rOvlz
+	iYrDQHlRqzzEeIIaJAcGBFfzXb+DX664nqeIaQmK/NQMxJx63sdaYNom8pipE1vPIX8=
+X-Gm-Gg: AR+sD13BZgXG2yMelYp80q2dNWMpqay4+0juBYDUM8R16ttpaRqDdDtf+rSNdbuJw2d
+	lEgInIEZZubEpQZ07rLVADHtyYVnQ9L/KE+3GTRBj2qtdnYjVAmzgKhThhwwGe7HC1bWFJS/Pad
+	aPp63Af+RUr8qvdZba3J1ZNXZmnhZFBGYYeRik4U5Y8nfxwQ7EXmrRSbt56BDPSS73Qp7ITl+eB
+	/53tNHnC1ScOsQMhan6fq+KJWRY1y0F1dK3jm97gGES9GQ5jYd+0YHtPNiXmXVCpa+Lok/5J+m1
+	q1XNFrDZzW9pxUIKcHhMf+M66oZ4PdCupS8sVVGPMJmp7EcL3zBOrJ7/o2wM9Qtcvg0k+MNzdQC
+	P5aCuuAZrjhhzz+rTGTdOHLMaieUTwJEfTEdplVfa/GGn3c9sOxbJE4qTOgqZF7QH0mqcYn1kV5
+	JarOEteAhtML1br5B3f+KmLG/qhg+hh+l1GpCP+PXHTMhzXGUWMss=
+X-Received: by 2002:a7b:ca4a:0:b0:493:b56b:c45c with SMTP id 5b1f17b1804b1-49573cf09f4mr14957235e9.30.1784799610756;
+        Thu, 23 Jul 2026 02:40:10 -0700 (PDT)
 Received: from vkrawiec.arturia.team (226.142.197.77.rev.sfr.net. [77.197.142.226])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4956b030a64sm100986245e9.3.2026.07.23.02.40.11
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4956b030a64sm100986245e9.3.2026.07.23.02.40.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Jul 2026 02:40:11 -0700 (PDT)
+        Thu, 23 Jul 2026 02:40:10 -0700 (PDT)
 From: Victor Krawiec <victor.krawiec@arturia.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org,
@@ -67,12 +65,10 @@ To: lgirdwood@gmail.com,
 Cc: linux-kernel@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	Victor Krawiec <victor.krawiec@arturia.com>
-Subject: [PATCH v3 2/4] arm64: dts: rk3399-rock-4c-plus: Use device tree bindings constants for SYR828 regulator initial mode
-Date: Thu, 23 Jul 2026 11:39:59 +0200
-Message-ID: <20260723094001.120264-3-victor.krawiec@arturia.com>
+Subject: [PATCH v3 0/4] Configure SYR82X regulator modes via device tree
+Date: Thu, 23 Jul 2026 11:39:57 +0200
+Message-ID: <20260723094001.120264-1-victor.krawiec@arturia.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260723094001.120264-1-victor.krawiec@arturia.com>
-References: <20260723094001.120264-1-victor.krawiec@arturia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -81,34 +77,53 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Prefer using a device tree bindings constant over a hardcoded value
+SYR82X is a regulator that supports two modes of operation:
+- Auto-PFM: Allow automatic PFM during light load (default mode)
+- Forced PWM
 
-Signed-off-by: Victor Krawiec <victor.krawiec@arturia.com>
+Some boards require to configure forced PWM mode from device tree to keep
+the supply ripple within acceptable limits under light load conditions.
+
+SYR82X is a clone of FAN53555 regulator and its configuration is handled by
+the fcs,fan53555 driver. All clones of FAN53555 regulator share the same
+two mode of operation (Auto-PFM / Forced PWM).
+
+However the implementation in the driver is currently restricted to SYR82X
+as it is the only tested hardware. 
 ---
- arch/arm64/boot/dts/rockchip/rk3399-rock-4c-plus.dts | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+V1 -> V2:
+  - Add missing dt binding property description
+  - Naming changes since all clones handled by the fan53555 driver share
+    the same two modes
+      - dt binding header name changed from silergy,syr82x.h to 
+        fcs,fan53555-regulator.h - dt binding header constants changed from
+        SYR82X_* to FAN53555_* 
+      - fan53555_silergy_map_mode() changed to fan53555_map_mode()
+  - More detailed commit descriptions
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3399-rock-4c-plus.dts b/arch/arm64/boot/dts/rockchip/rk3399-rock-4c-plus.dts
-index d9ff777b4913..0387172cb470 100644
---- a/arch/arm64/boot/dts/rockchip/rk3399-rock-4c-plus.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3399-rock-4c-plus.dts
-@@ -7,6 +7,7 @@
+V2 -> V3:
+  - Remove garbage in commit description of first commit and duplicated
+    SoB line
  
- /dts-v1/;
- #include <dt-bindings/leds/common.h>
-+#include <dt-bindings/regulator/fcs,fan53555-regulator.h>
- #include "rk3399-t.dtsi"
- 
- / {
-@@ -448,7 +449,7 @@ vdd_gpu: regulator@41 {
- 		regulator-always-on;
- 		regulator-boot-on;
- 		vin-supply = <&vcc5v0_sys>;
--		regulator-initial-mode = <1>; /* 1:force PWM 2:auto */
-+		regulator-initial-mode = <FAN53555_REGULATOR_MODE_FORCE_PWM>;
- 		regulator-state-mem {
- 			regulator-off-in-suspend;
- 		};
+Victor Krawiec (4):
+  regulator: dt-bindings: Add fan53555 allowed modes
+  arm64: dts: rk3399-rock-4c-plus: Use device tree bindings constants
+    for SYR828 regulator initial mode
+  arm64: dts: rockchip: rk3399-hugsun-x99: Update SYR828 regulator
+    initial mode to use device tree bindings constants
+  regulator: fan53555: Add support for mode operations on Silergy
+    devices
+
+ .../bindings/regulator/fcs,fan53555.yaml      |  8 +++++
+ .../boot/dts/rockchip/rk3399-hugsun-x99.dts   |  3 +-
+ .../boot/dts/rockchip/rk3399-rock-4c-plus.dts |  3 +-
+ drivers/regulator/fan53555.c                  | 29 ++++++++++++++++++-
+ .../regulator/fcs,fan53555-regulator.h        | 20 +++++++++++++
+ 5 files changed, 60 insertions(+), 3 deletions(-)
+ create mode 100644 include/dt-bindings/regulator/fcs,fan53555-regulator.h
+
+
+base-commit: 62b9452f5fc4d007f1ea31cfdbb53a96d91e3c66
 -- 
 2.43.0
 
