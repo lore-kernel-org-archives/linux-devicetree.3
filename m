@@ -1,75 +1,74 @@
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9805838422D
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 17:45:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20C452DF701
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 17:46:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784828751; cv=none; b=j3GVavAtJGh3iGtZBljzVb6bttE0qvK1ea6v9eo391azmHUrAlBa8eIWkn4VFYuwwTL3NvZHlXZDN3f3tR7hqs2De6iReTbvZ/+6t5PD1Fv06QgPdeIfzvpGlYq6X1Nw1JLktTDTr8LUcokVZEwV+gk8I/6eE06yf63kwemBrLY=
+	t=1784828793; cv=none; b=sAlwD6hkyXjXGO4165XCtA+mTl9a4N1qnsMlp8cqfp9U+HPd0jPSSE7XqDS6knanpsOCaHt5jbmjQZqGti8PDPRjl3kDShg4KxmfAwxK78BrsQ5TkZzrdSpPmUXCrpzJeChdxl1HH91MCNKb+L/RpPlXYaAEv6lCXBz/P/iRv5s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784828751; c=relaxed/simple;
-	bh=KZY5Per6gqC//uqwYOs8Lx6+Xn/30uRA+CAzdNfsmCU=;
+	s=arc-20240116; t=1784828793; c=relaxed/simple;
+	bh=3RmCpCtF4yIf9Hb4baaN0F02LAHwJj3+PIw/VB7441o=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JiYcDFO2X4Lbo1+iJoRC2oVq0q3Pt/f7TXDHvrV0XlsR6H3NtsvKkuEqfzvmtgS92/4gTibo6O37cpH+xYuVkBMJ0Y/TblBtcBvBbpGxpLXrei/smrrtGxd3i6FzVigCShBA1o5yWhR+aeZ/5neglWq4LtgwY4hFQh7vxE6gCC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pML5cErP; arc=none smtp.client-ip=209.85.215.172
+	 Content-Type:Content-Disposition:In-Reply-To; b=la3ky2ZFI7fj6gLAh+XvHF5SLiifAGyiVNIRGAsOxXb0WhxcREWNppUImkP9X/gaEI41qdsjElc4dTwBh7RJIOoU0ZMFfKNWeiawVJ2m06TKsRmQEIUUHq97HMK768T6zeJYQdPeHZk23qTqQ91sZWOFnnmt9gvlYgjAq0lIUvY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S+L1haSk; arc=none smtp.client-ip=209.85.221.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pML5cErP"
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cb5a6aa8760so633671a12.1
-        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 10:45:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S+L1haSk"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-47f64ca1c2dso279528f8f.2
+        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 10:46:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784828747; x=1785433547; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784828790; x=1785433590; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=2O4xFuAHBp+wc0jU7apiTfSbaN5z+iCv3LYdHU3FUCI=;
-        b=pML5cErPOAAtVMKfuUfPf8PEO/flUn9Y51MYDcpFUFYnvZlsUVemqVvoVTPuJ0htZt
-         uoKAWgDbOry4V/7Y6iXSRRa6ASi0r7KH/yAYiK4pFMy5vUE26Pb2XnhDQzql/cxfm4b6
-         yn81KjB3h5Yyu2Tz9bjiE1vDeWxYb/tm270TNG3RYrMgQF/nBMPKlW6NSXsubmM00hUR
-         UhxxRxplljfmm7c9foraJEN9RH2Tg1khZGnxw8V7Wofv4Ws5N5q8rzoIl1BjddqA9Gan
-         inmwP8GVqRFiCFjW3xWHXrHKimVaodgYKhqiurqX6OfBg7QR8G2zNo2iiczTaluHGl+U
-         DrsA==
+        bh=gGSQO4wVOMVCplq246iaqpf6IUDoviOjGxAJtPnPFUs=;
+        b=S+L1haSkE0XZQOFR/u7KIjmsppK/aLtCQGfnJJ8v+0mpps6Octx3ka0vNs2u4Q2Y3j
+         YmiSYf5FHMULnkm60dduttou8215NWUTShYnNmrYK5xR02TlGhsGOswk9SNSeGma9rfV
+         g4VRw3fIhJc8mXxoefUmwcqGoOJ++guJXvh+UDBhn0JSjNZT81gORk5h1Nn/lLMQuAee
+         szTrCpZSq7iuWkXUGlmzqxmrRQ5LiU+0npP8wDQ07VGFgItErW01jS8DLmA7qkjFNlmu
+         M47yAj8YNn0d4DH46Uoj2U9vWhA+wM0yOnrOoObGHTZFCAFIuCYYTIYNUeh3kZuksWV0
+         HESg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784828747; x=1785433547;
+        d=1e100.net; s=20251104; t=1784828790; x=1785433590;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2O4xFuAHBp+wc0jU7apiTfSbaN5z+iCv3LYdHU3FUCI=;
-        b=R0hS7jgSJ7WUAHmAF1KKl+5OzEEhTNjC8vG78MDFQS9sqPQKGnhfDLTSmOq44QBAIh
-         cFabtYntzhMkjCF5B40pydiHccpKZKnyxh/eVZDVekf65tluZmKI+Oh7un+w8MbKIG/q
-         SRTz70X9ShJndY9zzYYd3XvGkmGWW34vzRf4jbrXb6bE/p3uTbFUuUsssgqRQ08P0Zq5
-         B9gd8dgZ9PTMqJgSIw2oFRT41JJiDGmSchgRfHcyO3n/MGcsXRTtAndiJh1lvjleoeqL
-         Cwwa0zV79NoWR07q7/b/sTT0GAEeezKIUdg5WR/eCtjfw79Du1XpeRPaJFa+t/cq/T3U
-         9Dtw==
-X-Forwarded-Encrypted: i=1; AHgh+RrAm2xTwhLHYdUl/7/Tx6aj7ECGVU+MDfc9ekBnahvLGrOdVuQVpnCSOXzdFkOIkOFuuCVJWtziI8l9@vger.kernel.org
-X-Gm-Message-State: AOJu0YzV4/JKum72gUHvt3IcWsVMlNqIr+yrqox0kdaWfTtzEfXUaQ9x
-	47PGc5HmiKp9tEtpLkoUGXhHVm7azD8rMgx3NhiWoIhuzUl/Ubos2d5P
-X-Gm-Gg: AR+sD10mUNDWmRLLc+Lrndj77d7LTC/SHo3mZ6klduEJKiltdgbvg83bgomHx1lFwpO
-	WVKwKLOQcKcEYR+c122OSstqLwrQgsRR+77ddowxpgkr4s7U+6+N5kYwck5a9NN/sTuEqZf/hKa
-	cwfh1dFKR7jp/tDSYHENJH0ccbHXaCVhcmml+IPkmtgCN7959UBIuBfKBxQl3infXQrhD16kZe9
-	XwE6tvQl3lJOt+WqrYjd7OO/AWuPFOEF2moG6FCnIwc6c5rAoHkg1Tp4iVvgQm/m2hmwj2yyZ6Q
-	9p4n+pAOdsm7V1v1lfuEl+sPV8GOy8EBv/bI9lp+0KKCyS9Kp0y5qDWpwN8HjrtCe0YMhrGkHZf
-	MelaxQGQg2pR6CjprPpbTJbqdsIzcR1ivG7G1fecV7pA/rTJTumoFBporBnalLwUWoSCsMGzuIK
-	KUxhcJWV6yF4aWd6Kp0q/Rf4JIRKbmNwvGJSK03INAWw==
-X-Received: by 2002:a05:6a20:e292:b0:3c3:7fff:ba72 with SMTP id adf61e73a8af0-3c44b2b9706mr4676613637.70.1784828747494;
-        Thu, 23 Jul 2026 10:45:47 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:f5d:dfe5:9bb9:71ad])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3147e1c7ff4sm23572393eec.27.2026.07.23.10.45.45
+        bh=gGSQO4wVOMVCplq246iaqpf6IUDoviOjGxAJtPnPFUs=;
+        b=SKpYKP3j7qLKPq6BHYWgf3QsLLDvnK/KmYYdvnQ8LFLMj56bqv+FRZ/UPG3/YXZjax
+         2G4NHJT5l3xRwoTNK44IJmwJqCtpkSiquH8YMHpeUKynGK4/a+qWWP2MjDauO3DMOuxb
+         35C4L4agfs4SUxXXzUrWiU2h623W4F1GBWYt4kQyVY7X4mTPLc/eBLOF6M8rvQw7S+rx
+         yoG+TUipriWf2wAc+FBRq6v7NQNd1xcKWKo7aRjC7Axb+ORCaQlWcA9a6tOUFetEAKg1
+         A4GpBZl3IUZOQvvoH5rOnggzjksDeikDqIi4DcV4Rd3aVHdqFu8WOlFudj7YGSHmPrko
+         AHzg==
+X-Forwarded-Encrypted: i=1; AHgh+RqDYLZgszfj0mDxNOUwXrqxk78+/nzB50xW4u95oJCd+LdvHkOynURFD+9b85ZmMYEHWnikFNptsDo1@vger.kernel.org
+X-Gm-Message-State: AOJu0YzuTQfkdmBevhgEa/+oz5MNi3+Zc59FlHGL1wAIis7DdC+trBy2
+	dpxecqLnW1Ynlkhjmu37JMB69QXpV+HWZz+Rf6UVex0AiUYZaXzQZ1Tr
+X-Gm-Gg: AR+sD13KBC0UZufi9TrpDjA2HmeimNT+tTjnp/Qu98Hd0AY55yVnWPXhdyPjQCnG9jA
+	0CmbhswxxFWhTpNH/+NcdE7fXDjVb6k6lx8lewffFSYcTsfPqD9I+aNeTS4q313m6OytGjPL5IO
+	wrIAwdnyU8bCDErJzocrF41eK6K0TylYWEbEuxmQbopo/qU10Owp4XKgPyD3KcdX0UjNymXIjz+
+	2FndAg5RyEcmWfrf6nPazLBc3C6JC/U0yfCoejt8K5P04DDVFKk28bUZ8VvQuHbNdo/o4l+14Tj
+	MghR6NqdtLszO0cJdMlHFRNPIpLfhX4pmV/5bezYE6GejiYASKRIoB/nvHCm+LcZTVHL31r891U
+	o3JfIIVzGeiSstV6UEeQNYOOSK+0zInglJBbFlb9M7tOXLenRIgXbdlMoxkCYiBQD+Af3g9prjI
+	kXiu1Q
+X-Received: by 2002:a05:6000:1848:b0:47e:aa3e:e75e with SMTP id ffacd0b85a97d-47f8da5c992mr5740400f8f.10.1784828790260;
+        Thu, 23 Jul 2026 10:46:30 -0700 (PDT)
+Received: from antoniarch ([78.212.250.35])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f939c1465sm3363002f8f.26.2026.07.23.10.46.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Jul 2026 10:45:46 -0700 (PDT)
-Date: Thu, 23 Jul 2026 10:45:43 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+        Thu, 23 Jul 2026 10:46:29 -0700 (PDT)
+Date: Thu, 23 Jul 2026 19:45:05 +0200
+From: Antoni Pokusinski <apokusinski01@gmail.com>
 To: sashiko-reviews@lists.linux.dev
-Cc: Alexandre Hamamdjian <azkali.limited@gmail.com>, conor+dt@kernel.org, 
-	devicetree@vger.kernel.org, linux-input@vger.kernel.org, robh@kernel.org
-Subject: Re: [PATCH 1/4] Input: edt-ft5x06 - ignore contacts with an
- out-of-range slot id
-Message-ID: <amJSt_g5We0R-eJo@google.com>
-References: <20260723-b4-ft5426-v1-0-d4b4e32be042@gmail.com>
- <20260723-b4-ft5426-v1-1-d4b4e32be042@gmail.com>
- <20260723114100.D6D641F000E9@smtp.kernel.org>
+Cc: linux-rtc@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, devicetree@vger.kernel.org
+Subject: Re: [PATCH 3/6] rtc: abx80x: use regmap instead of I2C specific API
+Message-ID: <amJSJYp8xECJ4Hx9@antoniarch>
+References: <20260722195814.298552-1-apokusinski01@gmail.com>
+ <20260722195814.298552-4-apokusinski01@gmail.com>
+ <20260722201646.115101F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -78,24 +77,138 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260723114100.D6D641F000E9@smtp.kernel.org>
+In-Reply-To: <20260722201646.115101F000E9@smtp.kernel.org>
 
-On Thu, Jul 23, 2026 at 11:40:59AM +0000, sashiko-bot@kernel.org wrote:
+On Wed, Jul 22, 2026 at 08:16:45PM +0000, sashiko-bot@kernel.org wrote:
 > Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [High] Hardware unlock sequence is broken by read-modify-write inversion
+> - [Low] Incompatible pointer types passed to regmap_read()
+> --
 > 
-> Pre-existing issues:
-> - [High] Unbalanced `disable_irq()` calls when suspending and resuming in factory mode lead to a permanently disabled touchscreen.
+> --- Patch [3]: [PATCH 3/6] rtc: abx80x: use regmap instead of I2C specific API ---
+> commit 97cd1f33d168c96f848a8f59ba284bfe9c5f89fe
+> Author: Antoni Pokusinski <apokusinski01@gmail.com>
+> Date:   Wed Jul 22 19:58:11 2026 +0000
+> 
+>     rtc: abx80x: use regmap instead of I2C specific API
+>     
+>     Rework the driver so that it uses regmap_* functions for communication
+>     with the device instead of the i2c_smbus_* API. This way the support for
+>     ABX81X RTCs which use SPI can be added later.
+> 
+> > diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
+> > index 9b0e1d48d9ba3..e5ba821a67689 100644
+> > --- a/drivers/rtc/rtc-abx80x.c
+> > +++ b/drivers/rtc/rtc-abx80x.c
+> > @@ -125,52 +126,53 @@ static struct abx80x_cap abx80x_caps[] = {
+> [ ... ]
+> > -static int abx80x_is_rc_mode(struct i2c_client *client)
+> > +static int abx80x_is_rc_mode(struct device *dev)
+> >  {
+> > -	int flags = 0;
+> > +	struct abx80x_priv *priv = dev_get_drvdata(dev);
+> > +	int err, flags = 0;
+> >  
+> > -	flags =  i2c_smbus_read_byte_data(client, ABX8XX_REG_OSS);
+> > -	if (flags < 0) {
+> > -		dev_err(&client->dev,
+> > -			"Failed to read autocalibration attribute\n");
+> > -		return flags;
+> > +	err = regmap_read(priv->regmap, ABX8XX_REG_OSS, &flags);
+> 
+> [Severity: Low]
+> Does this pass an incompatible pointer type to regmap_read()?
+> 
+> The API signature of regmap_read() expects an unsigned int * for its third
+> argument, but the address of a local int variable (&flags) is passed here.
+> While this may not cause memory corruption since int and unsigned int are
+> the same size, it violates the function signature and generates
+> -Wincompatible-pointer-types warnings, which can break builds compiling with
+> -Werror.
+> 
+> > +	if (err < 0) {
+> > +		dev_err(dev, "Failed to read autocalibration attribute\n");
+> > +		return err;
+> >  	}
+> [ ... ]
+> > @@ -259,13 +260,13 @@ static int abx80x_rtc_set_time(struct device *dev, struct rtc_time *tm)
+> >  
+> >  static irqreturn_t abx80x_handle_irq(int irq, void *dev_id)
+> >  {
+> > -	struct i2c_client *client = dev_id;
+> > -	struct abx80x_priv *priv = i2c_get_clientdata(client);
+> > +	struct device *dev = dev_id;
+> > +	struct abx80x_priv *priv = dev_get_drvdata(dev);
+> >  	struct rtc_device *rtc = priv->rtc;
+> > -	int status;
+> > +	int err, status;
+> >  
+> > -	status = i2c_smbus_read_byte_data(client, ABX8XX_REG_STATUS);
+> > -	if (status < 0)
+> > +	err = regmap_read(priv->regmap, ABX8XX_REG_STATUS, &status);
+> 
+> [Severity: Low]
+> Does this pass an incompatible pointer type to regmap_read()?
+> 
+> Similar to abx80x_is_rc_mode() above, this passes an int pointer (&status)
+> instead of an unsigned int pointer.
+>
+I don't think it matters in all these cases, but I could make
+these values unsigned int just to maintain the pointer type
+compatibility.
 
-This is obviously not caused by your series but might be real, need to
-check...
+> > +	if (err < 0)
+> >  		return IRQ_NONE;
+> [ ... ]
+> > @@ -294,14 +294,13 @@ static int abx80x_read_alarm(struct device *dev, struct rtc_wkalrm *t)
+> >  	if (priv->irq <= 0)
+> >  		return -EINVAL;
+> >  
+> > -	err = i2c_smbus_read_i2c_block_data(client, ABX8XX_REG_ASC,
+> > -					    sizeof(buf), buf);
+> > +	err = regmap_bulk_read(priv->regmap, ABX8XX_REG_ASC, buf, sizeof(buf));
+> >  	if (err)
+> >  		return err;
+> >  
+> > -	irq_mask = i2c_smbus_read_byte_data(client, ABX8XX_REG_IRQ);
+> > -	if (irq_mask < 0)
+> > -		return irq_mask;
+> > +	err = regmap_read(priv->regmap, ABX8XX_REG_IRQ, &irq_mask);
+> 
+> [Severity: Low]
+> Does this pass an incompatible pointer type to regmap_read()?
+> 
+> This passes an int pointer (&irq_mask) instead of an unsigned int pointer.
+> 
+> > +	if (err < 0)
+> > +		return err;
+> [ ... ]
+> > @@ -379,22 +376,22 @@ static int abx80x_rtc_set_autocalibration(struct device *dev,
+> >  	}
+> >  
+> >  	/* Unlock write access to Oscillator Control Register */
+> > -	if (abx80x_write_config_key(client, ABX8XX_CFG_KEY_OSC) < 0)
+> > +	if (abx80x_write_config_key(dev, ABX8XX_CFG_KEY_OSC) < 0)
+> >  		return -EIO;
+> >  
+> > -	retval = i2c_smbus_write_byte_data(client, ABX8XX_REG_OSC, flags);
+> > +	retval = regmap_write(priv->regmap, ABX8XX_REG_OSC, flags);
+> 
+> [Severity: High]
+> Does this hardware unlock sequence get broken by read-modify-write inversion?
+> 
+> According to the datasheet, any subsequent I2C access (read or write) resets
+> the configuration key to zero. If this sequence uses a read-modify-write
+> operation (such as regmap_write_bits()), a hardware read is performed after
+> the unlock key is written. This read resets the configuration key, causing the
+> hardware to ignore the subsequent write and breaking features like
+> autocalibration.
+>
+I see no issue here. The datasheet clearly states that
+"CONFKEY is reset to 0x00 on any register **write**". I experienced no
+issues with the current version of the driver when testing it on AB1815 hardware.
 
-> - [High] Stack-allocated buffers are passed to `regmap_bulk_read()` and `i2c_transfer()`, which can cause memory corruption or panics if the underlying I2C host controller driver uses DMA.
+(this comment also applies to the other read-modify-write "bug" reports by
+sashiko in this patch series)
 
-Sashiko hallucinates here. I added I2C prompt to teach it that I2C is
-generally safe wrt on-stack buffers, but I am not sure if it will trace
-it to regmap.
 
-Thanks.
-
--- 
-Dmitry
