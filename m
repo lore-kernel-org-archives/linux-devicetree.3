@@ -1,140 +1,148 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71AD0441606;
-	Thu, 23 Jul 2026 10:52:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83BBF386C31
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 10:52:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784803978; cv=none; b=RlUcfZnJO6jSTg4O1btCodRP9ideuBAVsJ0nq4b8XHe4qe4erZCwpMRHcWhfwETksvm0AjQ4taEuwdWYKPQB83K6ZEZKXBpzjBMJevH+ZK/ktTMno0Gu4OkA0BDz5n1/QKdY0y7Dkbal/BSXrUCOEE5h0y6JfP/prJYbZ/shiY8=
+	t=1784803983; cv=none; b=ROJQ6UTbSlT4lPKOnItAwqAXQLEWIKzIvD3YB4Q02HmeG+dc66km9FHF0kEca7k8Yc74R3SwgJfNpDpMxSr0n5t20ujTO+IMGx4+5ExweUnTe+j9h1I70C09PLbYxtKQRYj1zv1RBhqCu1uVDeQ2cgdlKsbKptZ78D604wseCXc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784803978; c=relaxed/simple;
-	bh=w4oIO16IDuOvS5RyGywVj8oxyUESVRGhwIvOHYnEuKg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gLQUHLI+wNSzil+0yUrKwdRb26bs62FVTLjYMlBrSDq4g5n9J+GZt5CtoafnhUjQM0F7jiVflWzFFaAqPLBJ0A3F+rpjDt76CsvdUGXE7o8SamgN4Mqd4ETjG1cpk5HNIF00xfEcgQzFaEh6BUsRBE8aKeqPuasha7wLxM9bZrc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=nYiQCa4P; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1784803983; c=relaxed/simple;
+	bh=QFOao14LXJtAodilipzjjKx5htSEXbFHWHXZaej3ePw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=aGRfskovlmlMIEOCvmG0N0Xxg5c2Qwu8t4yVrriHW/3pjE0w/Lf6kRELbExul17Am7oocdL3yVHUr5jMoXNLg2w3hTfsbNIbE7kJri9Dr1vmgP7mZVturS19er8Skv77KODBH6tSiPjsiyjovLO4XDdpjHeOGgOw/g0vYp3nAt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jEPiAZWR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="nYiQCa4P"
-Received: from francesco-nb.. (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
-	by mail11.truemail.it (Postfix) with ESMTPA id C43A222840;
-	Thu, 23 Jul 2026 12:52:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1784803971;
-	bh=kpfgjpmbWEvJpnbRaKNJI1gY1e5+GVRgVOkxtwDXyA8=; h=From:To:Subject;
-	b=nYiQCa4PGfBaNzzBsjOKBhdewqe3G1roXV1HZnqTwO4IcegYLe8AiKH/SOT72akNp
-	 k3u68JdR7pwPEUKo6l4/ApJVl1GDsakjXl5oVpm3E1ZY68zEUO7g9ZKpukSgcik+1S
-	 3wKbpQsm3xk2mX/lnLcVyS3alffUznO67NUeQO3VVKf+iObEiDeDr2sZ08BWc2k5MZ
-	 zZP4PxdP/kp3LQhrIbuByo3+LAamfqHAkqVVYfIZR5w9uDZP/3LsHHFULt30gf+SSC
-	 7wrHr9lTuTKbqbh8zaDPm5Aqw6QdDj3CelarWfHkLOaVoPnjox84b6NZT3lhU/iPmi
-	 pR4lQl2O0NrZQ==
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 3/3] ARM: dts: imx7d-colibri-emmc: Add Toradex Resistive Touch Display 7" Parallel
-Date: Thu, 23 Jul 2026 12:52:19 +0200
-Message-ID: <20260723105225.194366-4-francesco@dolcini.it>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260723105225.194366-1-francesco@dolcini.it>
-References: <20260723105225.194366-1-francesco@dolcini.it>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jEPiAZWR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FDBA1F000E9;
+	Thu, 23 Jul 2026 10:52:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784803977;
+	bh=zM4d1YWvSA7LMb5Ojb/5xsA/wpJa1Wp/Xkz/CICY0bY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=jEPiAZWRq8vVHmAjkeSId8aI03/oi4AHQ2Rsq8q2zJPyno7XBAJtmUqLRIKpXoIPZ
+	 LQIQT7dqERMiLZdEr7mluQjVqP5KpYE7v092Te5xgsrXFv0hWFRefsF4wAN7bbWWhT
+	 +zhn1re7bfzcXtxFj/v6SddPYXNhgPBxZ6D2/j9SodGs4Qk/cyzIclHHoENvkY2UTy
+	 pSPQ8CurvH3SspA+oCLzaMNhwAqAALtL5eJnsCSBBk7+PifTIBpJz2JwZs4CXBbJLl
+	 +YA5LkWEZ/dIgcNuJQ8QDsVlPIHnx6CMMwDb1CTbhPT+eTtlD6oXocrYLF4HPXzjsv
+	 T9DmSpirvmHnQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/2] arm64: dts: ti: k3-am62l3-evm: Add HDMI support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Swamil Jain" <s-jain1@ti.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260723102519.3581762-3-s-jain1@ti.com>
+References: <20260723102519.3581762-1-s-jain1@ti.com>
+ <20260723102519.3581762-3-s-jain1@ti.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 23 Jul 2026 10:52:55 +0000
+Message-Id: <20260723105257.8FDBA1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Francesco Dolcini <francesco.dolcini@toradex.com>
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] The DSS display output pins (VOUT0) are incorrectly assigned to =
+the external HDMI bridge's pinctrl instead of the Display Subsystem (DSS).
+- [Medium] The `VOUT0_EXTPCLKIN` pad is incorrectly configured as `PIN_OUTP=
+UT`.
+- [Medium] The HDMI bridge configuration lacks critical physical state cont=
+rols (reset GPIO and FET routing switch).
+--
 
-Add a device tree overlay for the Resistive Touch Display 7" Parallel
-on the Colibri iMX7 parallel RGB LCD interface.
+--- Patch [2]: [PATCH v3 2/2] arm64: dts: ti: k3-am62l3-evm: Add HDMI suppo=
+rt ---
+commit a0fd4c63c267b044d2bd1cd9570eb64898918cf9
+Author: Devarsh Thakkar <devarsht@ti.com>
 
-The panel is a LogicTechno LT161010-2NHR 7" WVGA TFT Transmissive LCD
-with a resistive touch.
+arm64: dts: ti: k3-am62l3-evm: Add HDMI support
 
-The overlay is also combined with the Eval carrier board device tree to
-provide a ready-to-use DTB.
+This patch adds the SII9022 HDMI bridge and HDMI connector nodes, along with
+the DPI pinmux configuration connecting VOUT0 to the bridge. It also enables
+the DSS and hooks up its DPI output port to the SII9022 bridge input.
 
-Link: https://developer.toradex.com/hardware/accessories/displays/resistive-touch-display-7inch-parallel/
-Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
----
- arch/arm/boot/dts/nxp/imx/Makefile            |  5 +++
- ...i-emmc-panel-res-touch-7inch-parallel.dtso | 32 +++++++++++++++++++
- 2 files changed, 37 insertions(+)
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-colibri-emmc-panel-res-touch-7inch-parallel.dtso
+> diff --git a/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts b/arch/arm64/boot/d=
+ts/ti/k3-am62l3-evm.dts
+> index a1af4571a815d..dd16a73e581ec 100644
+> --- a/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
+> +++ b/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
+[ ... ]
+> @@ -192,6 +204,38 @@ exp2: gpio@23 {
+>  		bootph-all;
+>  	};
+> =20
+> +	sii9022: bridge-hdmi@3b {
+> +		compatible =3D "sil,sii9022";
+> +		reg =3D <0x3b>;
+> +		interrupt-parent =3D <&exp1>;
+> +		interrupts =3D <20 IRQ_TYPE_EDGE_FALLING>;
+> +		#sound-dai-cells =3D <0>;
+> +		sil,i2s-data-lanes =3D < 0 >;
+> +		pinctrl-names =3D "default";
+> +		pinctrl-0 =3D <&dpi_pins_default>;
 
-diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
-index 3c16843c3071..e9f95c3b8353 100644
---- a/arch/arm/boot/dts/nxp/imx/Makefile
-+++ b/arch/arm/boot/dts/nxp/imx/Makefile
-@@ -432,6 +432,10 @@ imx7d-colibri-emmc-eval-v3-panel-cap-touch-7inch-parallel-touch-adapter-dtbs :=
- 	imx7d-colibri-emmc-eval-v3.dtb \
- 	imx7d-colibri-emmc-panel-cap-touch-7inch-parallel-touch-adapter.dtbo
- 
-+imx7d-colibri-emmc-eval-v3-panel-res-touch-7inch-parallel-dtbs := \
-+	imx7d-colibri-emmc-eval-v3.dtb \
-+	imx7d-colibri-emmc-panel-res-touch-7inch-parallel.dtbo
-+
- dtb-$(CONFIG_SOC_IMX7D) += \
- 	imx7d-cl-som-imx7.dtb \
- 	imx7d-colibri-aster.dtb \
-@@ -442,6 +446,7 @@ dtb-$(CONFIG_SOC_IMX7D) += \
- 	imx7d-colibri-emmc-iris-v2-panel-cap-touch-7inch-parallel.dtb \
- 	imx7d-colibri-emmc-eval-v3.dtb \
- 	imx7d-colibri-emmc-eval-v3-panel-cap-touch-7inch-parallel-touch-adapter.dtb \
-+	imx7d-colibri-emmc-eval-v3-panel-res-touch-7inch-parallel.dtb \
- 	imx7d-colibri-emmc-panel-cap-touch-7inch-parallel.dtbo \
- 	imx7d-colibri-eval-v3.dtb \
- 	imx7d-colibri-iris.dtb \
-diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-colibri-emmc-panel-res-touch-7inch-parallel.dtso b/arch/arm/boot/dts/nxp/imx/imx7d-colibri-emmc-panel-res-touch-7inch-parallel.dtso
-new file mode 100644
-index 000000000000..b926cc020e62
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/imx/imx7d-colibri-emmc-panel-res-touch-7inch-parallel.dtso
-@@ -0,0 +1,32 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Toradex Resistive Touch Display 7" Parallel connected through the 40-way
-+ * Unified Interface Display connector.
-+ *
-+ * https://docs.toradex.com/104498-7-inch-parallel-resistive-touch-display-800x480.pdf
-+ * https://developer.toradex.com/hardware/accessories/displays/resistive-touch-display-7inch-parallel/
-+ * https://www.toradex.com/accessories/resistive-touch-display
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+&ad7879_ts {
-+	status = "okay";
-+};
-+
-+&backlight {
-+	status = "okay";
-+};
-+
-+&lcdif {
-+	status = "okay";
-+};
-+
-+&panel_dpi {
-+	compatible = "logictechno,lt161010-2nhr";
-+
-+	status = "okay";
-+};
--- 
-2.47.3
+[Severity: Medium]
+Should the dpi_pins_default pinctrl be assigned to the &dss node instead of
+the sii9022 bridge?
 
+The SoC's display subsystem (DSS) physically drives these output pins. If t=
+he
+sii9022 bridge unbinds, fails to probe, or suspends independently of the DS=
+S,
+it will release the DSS's physical output pins. Conversely, if the DSS is
+running, it will not have its pins configured unless the bridge is bound.
+
+Also, shouldn't the sii9022 node have a reset-gpios property defined?
+
+The board's IO expander (exp2) explicitly defines "GPIO_HDMI_RSTn" and
+"VOUT0_FET_SEL0". Without the reset-gpios property, the driver cannot bring
+the bridge out of reset or recover it from a bad state. Additionally, missi=
+ng
+control for VOUT0_FET_SEL0 could mean the DPI signals physically fail to
+route to the HDMI bridge if the bootloader hasn't enabled the FET switch.
+
+> +		bootph-all;
+> +
+> +		ports {
+> +			#address-cells =3D <1>;
+[ ... ]
+> +			AM62LX_IOPAD(0x00d0, PIN_OUTPUT, 1) /* (P22) GPMC0_BE1n.VOUT0_DATA21 =
+*/
+> +			AM62LX_IOPAD(0x00d4, PIN_OUTPUT, 1) /* (N23) GPMC0_WAIT0.VOUT0_DATA22=
+ */
+> +			AM62LX_IOPAD(0x00d8, PIN_OUTPUT, 1) /* (N22) GPMC0_WAIT1.VOUT0_DATA23=
+ */
+> +			AM62LX_IOPAD(0x00ec, PIN_OUTPUT, 5) /* (M23) GPMC0_CSn2.VOUT0_EXTPCLK=
+IN */
+
+[Severity: Medium]
+Is it intentional to configure VOUT0_EXTPCLKIN as PIN_OUTPUT?
+
+Configuring an input pin as an output disables its receiver and actively
+drives it. Since the sii9022 HDMI bridge receives the pixel clock from the
+SoC (VOUT0_PCLK) and does not supply one, this pin appears to be unused for
+this display pipeline and could probably be removed, or configured as
+PIN_INPUT if genuinely needed.
+
+> +		>;
+> +		bootph-all;
+> +	};
+> +
+[ ... ]
+> +&dss {
+> +	status =3D "okay";
+> +	bootph-all;
+> +};
+
+[Severity: Medium]
+As mentioned above, should this &dss node claim the pinctrl-0 assignment
+for its own DPI output pins instead of the external HDMI bridge claiming th=
+em?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723102519.3581=
+762-1-s-jain1@ti.com?part=3D2
