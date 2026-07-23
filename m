@@ -1,132 +1,152 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34B1F345ECF
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 16:32:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49DCA36B902;
+	Thu, 23 Jul 2026 16:34:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784824344; cv=none; b=tNxFNNH1NEuAKs652/H8z1fQx3a3zrfhUopFe9tc9nOsF60MC/H3lPWTLrTlW2COgCcfpRTQSU3EQtf2P7QpczDAAmQd36lkg+0gBGeUlnMYUSPd2NoqGiMuXMvBctFlpV5Y15SiUMHSlJHJjU4PaXASsWI+ykJpy1zMjUaBvao=
+	t=1784824466; cv=none; b=UBhaUYBRXjipxvayFlT1n7TwsSh1yvBTvbqtGbA6kUL7g8Ygjyq5+vwJR0RBsPKgJGhMByc3SvMS0RAcNcJNWSRxCbbLA7cOME9wH72riSaazZJiWqWDAttqIOC837bPC1S/Aea4oEDEU9iCArbV+Jneiu4fYcREi2Wp2Z5XfX0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784824344; c=relaxed/simple;
-	bh=BLWdS7ls6yh2R1mNrfKWAkzXGvBmaZR8H5PKIJOEF54=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=CXlI/Tkec9JwN/NLx0zxFTzrDBHx25Z1ACOrAyyDOPAaccmsA8u9F/rlfKZVRRJ4xnV4MF1YkERTbmj6wMYmGkdiBb/7oJ1BV0HjKlsgNaor3zzx0GK7I3qvOUWQIpQm3eGwYcAQ0GIxGM1BfuV9yryGl1BhTFSTxL3cV3j5iE0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=gChkYnh9; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="gChkYnh9"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 4CBCD1A11BE;
-	Thu, 23 Jul 2026 16:32:20 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 19ABD6038D;
-	Thu, 23 Jul 2026 16:32:20 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id ACC6811C1122C;
-	Thu, 23 Jul 2026 18:32:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1784824339; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=MM+M8rHkJncpiN3+he3kwjEM79mP/B+n3GQzIblaN7A=;
-	b=gChkYnh9J0LfiLxbEGY8Xxig/IANeSd/Ks9jz//SBZHq5MdN96ZBzbABw8bfME0Ylzpo6T
-	QTdl+oLdJK0kOiJrOckJcV/o9SsJSDcjwTyQNR3cA2fDj81edLaBNo7+K7/v4sDPerlIYI
-	WHcaC40NJkCOZDXWpPYd2ozNX/KtW/1XLaBMn5ard4UH7usxllaRSk3fTnrhcbJTIMfLum
-	5HYPhsh/Vkb4Y0KRtStJxFPghvMRXeEZphgzg4DaPIFDIt61Y8iUGq2nvgf6pBNjPQ3sGG
-	lcelV0O847ZOCRQCe6Ei8dfcyK2RvjZ4SG0bUwLgTmTiFT+bN2VNoZj9u+fvOQ==
-From: Paul Louvel <paul.louvel@bootlin.com>
-Date: Thu, 23 Jul 2026 18:31:50 +0200
-Subject: [PATCH 2/2] drm/panel: simple: Add Ampire AM-800480N3TZQW-00H
+	s=arc-20240116; t=1784824466; c=relaxed/simple;
+	bh=j7bx3BJJRohANpxx0FlLoKaRt2dW3bi9pja3vbe6rgM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fv648EN5zN2QeSr7xngdnvz9D26zyg40ItKoV/MT1SvlQ/+qCPMUAraP3v7hrzvtgEPoOvt4jPTIuCvmgpb3x9xEXIvchKpCNLEHWDIJHeQ7FE7A77TBGE+5ol8/QWlSZCgn67Prw1HtN9SU2vwZEc3ZY5q/DoG3J5qwF/znS60=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id DBBA6202015;
+	Thu, 23 Jul 2026 18:34:16 +0200 (CEST)
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ore@pengutronix.de>)
+	id 1wmwNE-000vXM-2d;
+	Thu, 23 Jul 2026 18:34:16 +0200
+Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <ore@pengutronix.de>)
+	id 1wmwNE-0000000Ei0l-2w4l;
+	Thu, 23 Jul 2026 18:34:16 +0200
+Date: Thu, 23 Jul 2026 18:34:16 +0200
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Lee Jones <lee@kernel.org>
+Cc: Guenter Roeck <linux@roeck-us.net>, Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Peter Rosin <peda@axentia.se>,
+	kernel@pengutronix.de, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
+	linux-gpio@vger.kernel.org, David Jander <david@protonic.nl>
+Subject: Re: [PATCH v15 2/6] platform: misc: add NXP MC33978/MC34978 core
+ driver
+Message-ID: <amJCiIrqLuZjXUTl@pengutronix.de>
+References: <20260710101358.2606941-1-o.rempel@pengutronix.de>
+ <20260710101358.2606941-3-o.rempel@pengutronix.de>
+ <20260723145300.GO3363113@google.com>
+ <amItd-189DyfS52Y@pengutronix.de>
+ <20260723160933.GD3526803@google.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-support-am-800480n3tzqw-00h-v1-2-6a4ae0575a19@bootlin.com>
-References: <20260723-support-am-800480n3tzqw-00h-v1-0-6a4ae0575a19@bootlin.com>
-In-Reply-To: <20260723-support-am-800480n3tzqw-00h-v1-0-6a4ae0575a19@bootlin.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Paul Louvel <paul.louvel@bootlin.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784824328; l=2086;
- i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
- bh=BLWdS7ls6yh2R1mNrfKWAkzXGvBmaZR8H5PKIJOEF54=;
- b=8N9W7ZGo+1WMIF8GJpr2k/q9OaBtyb1CK+eH9CEW02SjYSan9xIwLAXRLAcCDwRIDPAVDdwXs
- gqeQBW0W2RXB7oxaMPzriErVNCbZFcvCIc87AX64gGNrtdGDJfx1TF9
-X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
- pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260723160933.GD3526803@google.com>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
 
-Add support for the Ampire AM-800480N3TZQW-00H 5" WVGA TFT LCD panel.
+On Thu, Jul 23, 2026 at 05:09:33PM +0100, Lee Jones wrote:
+> On Thu, 23 Jul 2026, Oleksij Rempel wrote:
+> 
+> > On Thu, Jul 23, 2026 at 03:53:00PM +0100, Lee Jones wrote:
+> > > On Fri, 10 Jul 2026, Oleksij Rempel wrote:
+> > > 
+> > > > Add the core support module for the NXP MC33978 and MC34978 Multiple
+> > > > Switch Detection Interfaces (MSDI).
+> > > > 
+> > > > The MC33978/MC34978 devices provide 22 switch detection inputs, analog
+> > > > multiplexing (AMUX), and comprehensive hardware fault detection.
+> > > > 
+> > > > This core module handles:
+> > > > - SPI communications via a custom regmap bus to support the device's
+> > > >   pipelined two-frame MISO response requirement.
+> > > > - Interrupt demultiplexing, utilizing an irq_domain to provide 22 virtual
+> > > >   IRQs for switch state changes and 1 virtual IRQ for hardware faults.
+> > > > - Inline status harvesting from the SPI MSB to detect and trigger events
+> > > >   without requiring dedicated status register polling.
+> > > > 
+> > > > It exports mc33978_core_init(), called by the MFD driver added in the
+> > > > following patch. CONFIG_MC33978_CORE carries no prompt and is selected
+> > > > by CONFIG_MFD_MC33978, so this patch alone builds nothing new.
+> > > > 
+> > > > Note: The device currently lacks suspend/resume power management
+> > > > callbacks. If the system enters a sleep state cutting power to
+> > > > VDDQ/VBATP, the device will wake up in POR state with hardware interrupt
+> > > > masks reset. Power management support is intentionally deferred for now.
+> > > > 
+> > > > Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+> > > > ---
+> > > > changes v15:
+> > > > - Split out of the MFD patch, as requested by Lee Jones. The register
+> > > >   definitions in include/linux/mfd/mc33978.h are carried here rather than
+> > > >   with the MFD driver because this module includes them, keeping every
+> > > >   commit individually buildable.
+> > > 
+> > > I can't help feeling that this is a hack.
+> > > 
+> > > When I suggested moving the functional parts out, I meant properly
+> > > separating off and compartmentalising.  Instead, a huge slice has been
+> > > taken out of the initial submission's MFD driver and dumped into the
+> > > wild west that is drivers/platform.  Worse still; we're masquerading as
+> > > the MFD since the MFD's 'dev' pointer is being passed through so
+> > > everything here is operating as though it's the parent device.  You've
+> > > created half library / half MFD.
+> > > 
+> > > I get that we're on v15 and there's still a lot to do, but I guess
+> > > that's what happens when 3500 lines of code is submitted at the same
+> > > time.
+> > > 
+> > > My suggestion is to return to first principles; what lives where?
+> > > 
+> > > Allocating of shared resources, including the various regmaps, IRQs and
+> > > domains should live in the MFD subsystem - that's literally what it's
+> > > for. 
+> > 
+> > This is exactly, what you suggest do move to the separate location.
+> > 
+> > > Anything that does-a-thing, should be allocated a proper subsystem
+> > > and platform drivers should be created.
+> > 
+> > Every thing you suggest to move is making regmap and irq work in
+> > the first place.
+> 
+> Let me know if the above doesn't make sense and I'll try to find another
+> way to put it.  Essentially slicing the code out and simply relocating
+> it, but still operating as the same (MFD) platform device, is not an
+> acceptable strategy.  When I suggested that it should be moved, I meant
+> properly separated, not just sliced and shifted.
 
-Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
----
- drivers/gpu/drm/panel/panel-simple.c | 33 +++++++++++++++++++++++++++++++++
- 1 file changed, 33 insertions(+)
+I mean, the problem is - this HW is kind of tricky. We need to monitor
+status bits on each SPI frame to convert them to interrupts. This is why
+we have special regmap bus implementation with all related
+IRQ code. This code allows to have simple gpio, hwmon and mux drivers.
 
-diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-index c09bf3db5e78..fb60d8e7f47c 100644
---- a/drivers/gpu/drm/panel/panel-simple.c
-+++ b/drivers/gpu/drm/panel/panel-simple.c
-@@ -912,6 +912,36 @@ static const struct panel_desc ampire_am_800480l1tmqw_t00h = {
- 	.connector_type = DRM_MODE_CONNECTOR_DPI,
- };
- 
-+static const struct display_timing ampire_am_800480n3tzqw_00h_timing = {
-+	.pixelclock = {23000000, 25000000, 27000000},
-+	.hactive = { 800, 800, 800 },
-+	.hfront_porch = { 4, 8, 48 },
-+	.hback_porch = { 4, 8, 48 },
-+	.hsync_len = { 2, 8, 8 },
-+	.vactive = { 480, 480, 480 },
-+	.vfront_porch = { 4, 8, 12 },
-+	.vback_porch = { 4, 8, 12 },
-+	.vsync_len = { 2, 4, 8 },
-+	.flags = DISPLAY_FLAGS_HSYNC_LOW | DISPLAY_FLAGS_VSYNC_LOW |
-+		 DISPLAY_FLAGS_DE_HIGH | DISPLAY_FLAGS_PIXDATA_POSEDGE |
-+		 DISPLAY_FLAGS_SYNC_POSEDGE,
-+};
-+
-+static const struct panel_desc ampire_am_800480n3tzqw_00h = {
-+	.timings = &ampire_am_800480n3tzqw_00h_timing,
-+	.num_timings = 1,
-+	.bpc = 8,
-+	.size = {
-+		.width = 108,
-+		.height = 65,
-+	},
-+	.bus_format = MEDIA_BUS_FMT_RGB888_1X24,
-+	.bus_flags = DRM_BUS_FLAG_DE_HIGH |
-+		     DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE |
-+		     DRM_BUS_FLAG_SYNC_SAMPLE_NEGEDGE,
-+	.connector_type = DRM_MODE_CONNECTOR_DPI,
-+};
-+
- static const struct panel_desc ampire_am800480r3tmqwa1h = {
- 	.modes = &ampire_am800480r3tmqwa1h_mode,
- 	.num_modes = 1,
-@@ -5648,6 +5678,9 @@ static const struct of_device_id platform_of_match[] = {
- 	}, {
- 		.compatible = "ampire,am-800480l1tmqw-t00h",
- 		.data = &ampire_am_800480l1tmqw_t00h,
-+	}, {
-+		.compatible = "ampire,am-800480n3tzqw-00h",
-+		.data = &ampire_am_800480n3tzqw_00h,
- 	}, {
- 		.compatible = "ampire,am800480r3tmqwa1h",
- 		.data = &ampire_am800480r3tmqwa1h,
+This hack which we are currently moving around is regmap bus and irq
+extraction layer which is coupled with regmap bus code. From my
+perspective, it make no much sense to move it to far from regmap
+registration code, which is already in the mfd part. But now
+i'm in desperate state - i have no idea what is the best
+and acceptable way to have it for all related maintainers.
 
+Best Regards,
+Oleksij
 -- 
-2.55.0
-
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
