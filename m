@@ -1,322 +1,187 @@
-Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7A6E368D4D
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 19:51:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FB8E625;
+	Thu, 23 Jul 2026 19:52:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784836269; cv=none; b=WHfJBcaKkJQp8u3WODgXcA8Kh+tp+Kowl/YBK9BiW8tVmduY1gWHEV4dF0a7NR8i44FyemPF9f9MMLVxmSrtwMPYyuNynw8ZqTFEljrVIOqPrIBO3LBGPRi1ske1QIcrEF/qhfrpCHgdYutnS+a5opyT/3np+4ArV41uPr8oZ28=
+	t=1784836332; cv=none; b=IJaYPl8BsfKz32+JLXOk8+GMgSOuVObVE9DbzPlLmg8tWs2cAgdcmFw9r2U8lqsSPgAKTxjat9mwjOd8G8KbL6pvzSS/gKCqGy4CH0IWlc6kr3nv+HTGiZDg0q2v62Hz66ziJW0aEytJAQ2i/6nR+Z5Pa1kRzYf8ZPCwOOxZSlc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784836269; c=relaxed/simple;
-	bh=Yj/BpI8u/uZa0ogdSDaxR8fYEeS1NxYgmHoKMpGK7tI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MddNVHpueDkAxG7jVmd+zcAIXcfZdIej8HB0MvF3xUc+AyA0Lqi9XrDMwBf2t05WFZT9hR5ntJM0HEVk6oLkdu8Dt4gr6525QHaLzyPzbbVoTdsasEDWeyrvc5MsKsc1cYe4EkJWJJK3z+i4r6YGyo9wJoGO98A1991uH3BHKlA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=AXP6A3ME; arc=none smtp.client-ip=209.85.216.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1784836332; c=relaxed/simple;
+	bh=gIYcICP4flzQpFnZDAMKluBR9JjsxtPahknImjM9bZ4=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=X0bgxnH/rXuSesMfWlavF/0xihtQmRzQKPydN3vc9530iaW+IF0UOw3Uptd7sEdGDiz4enLvN8Fl3Ry+J3J5PWC7LnX+yPUYOFfTLEKdlio/AfY7V8fPrIzEDyYZOfl+Nzndd/hz75GslzygNFfwEN9BZ6roVT/Lswq2oHQqVvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=a6EUh8A0; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="AXP6A3ME"
-Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-383cb94f742so1071576a91.3
-        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 12:51:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784836265; x=1785441065;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KPugTD3fLQxhuCsvRm2rims8Q7kBXYN8/mgm6PVuz8s=;
-        b=C5+0RR7rJsEMxJ9mj3SZ2a6HBKkjeMLoz12gyuP82TMPBoqmDc6I+5lYWH9D6vLEkL
-         qosBppZ8mmUmE3uMCS74ITYC6C+O9kEuiBLgeGM2hQeqUGUqbORSb6R0IupwyUoUMaW8
-         OQUZOYNfmL6oM8FsqQ5ZK5RablZlTUJT50m7e/5UFdODnXxRR6zt+NAxdq8+p2T5Iw5B
-         IBBZyNpu35K4lYT1WqnhCyphYMS2p+gjIS9QQ/MGpReGVkXEKkaoXs4vubqvjW+K9Mpd
-         1P83d6Nf0tBTfc2AKStXaRa439vGgfve17qAkUVvJwtS5eJTuIiGnyCjOkpwk2foa7Th
-         Kt7g==
-X-Forwarded-Encrypted: i=1; AHgh+RpyhbvAjPKCH+D5R8XKoz4VRTmge6QKrUMWzaAJyXAs5BsEe6fEeWDVOz2Q82Me4fl/5sRgiUHn8tdu@vger.kernel.org
-X-Gm-Message-State: AOJu0YxqE9BYZp6xLQo+e3xo5kXQ9Cr8MFUbMJ/FS5Ugxr0GtPnI5v79
-	w6Dmn0uue8pJYnGPSfQZv5cxwrVl/Qe9BNh/zDslGiQI7i+2cH9yxCHwUJ7skCF35W/5dL6WQGS
-	SgFRLMfQRkmdXpe2Lp0TOmgUR3FzonLi/dszuoRGD2eoO/zGWCnERvSFdDyl8zLB7hPHjmoJ5oP
-	JHK8pZfvyo2syZS3xpmFj6bS0XW2H4Bzp5VEdSnmqjD0NzlT9vmkorgnEAfNxaqm+gp1pv8/q0c
-	ZQdteG+kr3e8g==
-X-Gm-Gg: AR+sD10BLX+aWIivli0PaBvvcnPlVUtLSr9mY/BNCDlVSf2kPPdCCEkhHxbyZjPP865
-	+OkmjK9UcSqx0qKJjfPlPgPWYOk7a60LTfDgiICTk5bkQ/78vUNRwdb0k5tUVLZksBsJ4iLcPP9
-	zq0C/ktbeVH5u6Hlws0uLQN+hCMlK7TIb7Nh6qGKdgXtjlssKcKUMZNlRRP3gMcetaOu7agTZC4
-	c0/dWJ/iEjt+hnY5MdUSyqRJlakpcdcWLDsaW9+vJWoApT3c3t2OvT/Kp/EmcYkpUSitmjaXFRA
-	N6IKhh4DC5ddsB7c7Me8VEIp+myvnE8/E6eA9OwZMXs6hlqS7eebBwf12QQKFR8J20BeUcDu5dG
-	AHAiSId//cDangbOKTlKPTcN5vXBMkfFGSZggzJiFnM9HAqrj44aAXetut6whP/1crYe9ZN4q5w
-	+u7Gv/5YtFMD3ufDwyaOQ2tfkAKRvc++Ww
-X-Received: by 2002:a17:90b:4a44:b0:38e:740f:9748 with SMTP id 98e67ed59e1d1-38ec6956a5amr4103326a91.1.1784836264727;
-        Thu, 23 Jul 2026 12:51:04 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-73.dlp.protect.broadcom.com. [144.49.247.73])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-38f02fc5e3dsm60150a91.0.2026.07.23.12.51.04
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 23 Jul 2026 12:51:04 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38e25e4b41cso1103614a91.0
-        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 12:51:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1784836263; x=1785441063; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KPugTD3fLQxhuCsvRm2rims8Q7kBXYN8/mgm6PVuz8s=;
-        b=AXP6A3ME37bXgeDU5O5lP2WU1Z5XmB5VnVDwa8DgORpxLs3iNOj04WgOEc6hKkkm38
-         ROw94HMjxKERnalHLFSGYp2o33aCjgw+mOmoevIEwKqz9LxWfvTdkoJhBrW/PVCAdUWa
-         Ui2n0qqRawQxkW3FYthgImI+bd2rg+/yw+NBU=
-X-Forwarded-Encrypted: i=1; AHgh+Rq9p0nXtNf/zpTb+HMJafNjDTsGcBpdxK89iYghjnkyAt9rqrVa9gpwDUN3SwEtchXxfCt9r8wR24s/@vger.kernel.org
-X-Received: by 2002:a17:90b:1d52:b0:38e:75f3:ad4d with SMTP id 98e67ed59e1d1-38ec69575acmr4652364a91.7.1784836262822;
-        Thu, 23 Jul 2026 12:51:02 -0700 (PDT)
-X-Received: by 2002:a17:90b:1d52:b0:38e:75f3:ad4d with SMTP id
- 98e67ed59e1d1-38ec69575acmr4652325a91.7.1784836262308; Thu, 23 Jul 2026
- 12:51:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="a6EUh8A0"
+Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66NImJ5I2703520;
+	Thu, 23 Jul 2026 15:52:05 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=OaPnpQmCc6vVh5xVWIzviznmSld
+	bScUpHOunLDNTpYM=; b=a6EUh8A00rZhphvUPIfFEjJqN+xR0M+jtvtM1djmz4E
+	CTTat3+qHAjsDECkDFeBPEFpivkJqRur4fGYyoDjPN/n+uQGHkykZHEAdIlMmw3E
+	F7r+Wb2HfSuzzvEa6hIizMA1kPS0e10o2pS52QV8uC6CRbIPrrGvvg/zia4Chmkc
+	KrqP8Hb8IVtqCcw6aKZlijAalqeMu7xmYR98kJTUbz8TTlRH2202w5oxXuN0hdsX
+	WJ6Wh8mbjJyLLk52hyGu5tnxSWWgFcHTTk6lidEQ1l6BVaLAmL9fN/VrpXrBwvvZ
+	JNO0HDZLwrTZJox1pJkzhisDX5N0pQqw+2lTErx4qzw==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4fjgp0stuw-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 23 Jul 2026 15:52:05 -0400 (EDT)
+Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 66NJq40S049434
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 23 Jul 2026 15:52:04 -0400
+Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
+ ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Thu, 23 Jul 2026 15:52:04 -0400
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by
+ ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Thu, 23 Jul 2026 15:52:03 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Thu, 23 Jul 2026 15:52:03 -0400
+Received: from work.maxim-ic.internal ([10.66.6.192])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 66NJpqnv030707;
+	Thu, 23 Jul 2026 15:51:55 -0400
+From: Marcelo Schmitt <marcelo.schmitt@analog.com>
+To: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>
+CC: <jic23@kernel.org>, <nuno.sa@analog.com>, <Michael.Hennerich@analog.com>,
+        <dlechner@baylibre.com>, <andy@kernel.org>, <robh@kernel.org>,
+        <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <julianbraha@gmail.com>,
+        <marcelo.schmitt1@gmail.com>
+Subject: [PATCH v8 0/5] iio: adc: Add support for LTC2378 and similar ADCs
+Date: Thu, 23 Jul 2026 16:51:46 -0300
+Message-ID: <cover.1784835663.git.marcelo.schmitt@analog.com>
+X-Mailer: git-send-email 2.39.2
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260722211417.3702709-1-kamal.dasu@broadcom.com>
- <20260722211417.3702709-2-kamal.dasu@broadcom.com> <20260723-venerable-infallible-oriole-434b75@quoll>
- <CAKekbevxiN=8q60sHkRLKzEwc75PYHO7nJtMEahLF+u39g-FBw@mail.gmail.com>
- <1a9d18ce-e6dc-40e0-aa2a-e27f694e1217@kernel.org> <CAKekbetBskYyteYn2bMG+fNZrGhEQziZB3p+bKOvjx1CWRZA8g@mail.gmail.com>
- <5021dbc6-35a7-4af1-bc7b-d918faa2c4fc@kernel.org>
-In-Reply-To: <5021dbc6-35a7-4af1-bc7b-d918faa2c4fc@kernel.org>
-From: Kamal Dasu <kamal.dasu@broadcom.com>
-Date: Thu, 23 Jul 2026 15:50:25 -0400
-X-Gm-Features: AUfX_mzt2vs2fKjckmO7rB0MSeGpeZYQXDFqKeyCSNIF3I52W6eCoxZ7V8Hkggs
-Message-ID: <CAKekbeuMtzwYWax97DRo89p_UnG-Gg0ALnhRNFjS-XP9-KV_WA@mail.gmail.com>
-Subject: Re: [PATCH v3 1/2] dt-bindings: mmc: Document no-mmc-poweroff-suspend property
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Ulf Hansson <ulfh@kernel.org>, Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Wolfram Sang <wsa+renesas@sang-engineering.com>, Oleksij Rempel <o.rempel@pengutronix.de>, 
-	Avri Altman <avri.altman@sandisk.com>, Pedro Demarchi Gomes <pedrodemargomes@gmail.com>, 
-	Erick Shepherd <erick.shepherd@ni.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="00000000000073a4ca06574c9345"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIzMDE5MyBTYWx0ZWRfX4lwnf37k13Dn
+ Ef1J+F+vYKSL2JVCb5fJb3CcKLXkQIQormcB6mZlo6L/eHVDo9golovcuDjw9S2nG2r1ZPKjdmr
+ VHgT63kZIYGSeo3GQAy9Ph3Pexey0wgTwhjyZx/KsnnxHlP9rFPQ
+X-Proofpoint-GUID: TpdFYfnbDRx04C8qQftgkrRVWsJApI0V
+X-Proofpoint-ORIG-GUID: TpdFYfnbDRx04C8qQftgkrRVWsJApI0V
+X-Authority-Analysis: v=2.4 cv=cPXQdFeN c=1 sm=1 tr=0 ts=6a6270e5 cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=Z0pTeXoby7EwIRygza74:22 a=gAnH3GRIAAAA:8 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8
+ a=XqN69BuZ7wOcV2cAv7kA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIzMDE5MyBTYWx0ZWRfX4xB5fKXaJm1c
+ lwx3pvidnXDgjYYUGwBN3VkfGZhzDXvaRx5YTWm9fWvXkQAUAG/L5PBPDNDSSlJ5euT8S5sU/ym
+ sAQoKmF+CbojFAQgawvFDa0Y4TgyS/GV6V80ydhFyIWo0rr3Hb61KM0huURRMQwQ1KZLDzJ2szY
+ ikEzhxJqYOY6iYineted6dVDrDOOo91CYRmSbPSMcO2a0MNs1rcM3pPpbPIkx/FcJZ+ztpgR146
+ vQLIi5NmO1XBWcfynyRqpBAiMQlsiOqbgIfi/j5twmCgDpnfYAyxB1AHV4uOjDwKqxkGGxiNoa9
+ knwDQhrOahjt3z2ztKON2SUsWV4p9e1JI13RodY8/X3Cg7oq7CwP06st6SnwhFyAl0v6AbaZkFL
+ h6treuHTOR5941v6kY9WE72ZzZWXkiXxHjv9yehyd1aXrrOtIBaoW7+K+yFHml2mvZ8jCll892D
+ ooH0FrMUxTLlE4JB/aw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-23_06,2026-07-22_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 spamscore=0 bulkscore=0 malwarescore=0
+ priorityscore=1501 clxscore=1015 impostorscore=0 adultscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607230193
 
---00000000000073a4ca06574c9345
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This patch series adds support for LTC2378 and similar low noise, low power,
+high speed, successive approximation register (SAR) ADCs. These ADCs are similar
+among each other, varying mainly on the amount of precision bits, maximum sample
+rate, and input configuration (either fully differential or pseudo-differential).
 
-On Thu, Jul 23, 2026 at 3:36=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.or=
-g> wrote:
->
-> On 23/07/2026 21:24, Kamal Dasu wrote:
-> > On Thu, Jul 23, 2026 at 3:01=E2=80=AFPM Krzysztof Kozlowski <krzk@kerne=
-l.org> wrote:
-> >>
-> >> On 23/07/2026 20:53, Kamal Dasu wrote:
-> >>> On Thu, Jul 23, 2026 at 3:51=E2=80=AFAM Krzysztof Kozlowski <krzk@ker=
-nel.org> wrote:
-> >>>
-> >>>> On Wed, Jul 22, 2026 at 05:14:16PM -0400, Kamal Dasu wrote:
-> >>>>> On some platforms, firmware accesses the (e)MMC card directly durin=
-g
-> >>>>> system resume from Suspend-to-DRAM, before the kernel's own resume
-> >>>>> path has run, in order to load boot code using hard wired logic tha=
-t
-> >>>>> is not field updatable. This requires the card to remain powered
-> >>>>> and responsive throughout suspend: it cannot be put to sleep, sent =
-a
-> >>>>> power-off notification, or have its supply removed.
-> >>>>>
-> >>>>> Add a no-mmc-poweroff-suspend flag property so affected boards can
-> >>>>> tell the mmc core to keep the card powered across suspend instead o=
-f
-> >>>>> sleeping or powering it off.
-> >>>>>
-> >>>>> Signed-off-by: Kamal Dasu <kamal.dasu@broadcom.com>
-> >>>>> ---
-> >>>>> Changes in v3:
-> >>>>>   - Renamed from no-mmc-sleep; dropped S_A_TIMEOUT framing per Ulf.
-> >>>>>
-> >>>>> Changes in v2:
-> >>>>>   - New patch, replacing v1's card-level quirk, per Ulf.
-> >>>>>
-> >>>>>  .../devicetree/bindings/mmc/mmc-controller-common.yaml | 10 ++++++=
-++++
-> >>>>>  1 file changed, 10 insertions(+)
-> >>>>>
-> >>>>> diff --git
-> >>>> a/Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml
-> >>>> b/Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml
-> >>>>> index 3d7195e9461c..5f7b3f8ef1dd 100644
-> >>>>> --- a/Documentation/devicetree/bindings/mmc/mmc-controller-common.y=
-aml
-> >>>>> +++ b/Documentation/devicetree/bindings/mmc/mmc-controller-common.y=
-aml
-> >>>>> @@ -232,6 +232,16 @@ properties:
-> >>>>>      description:
-> >>>>>        All eMMC HS400 modes are not supported.
-> >>>>>
-> >>>>> +  no-mmc-poweroff-suspend:
-> >>>>> +    $ref: /schemas/types.yaml#/definitions/flag
-> >>>>> +    description:
-> >>>>> +      On this platform, firmware accesses the attached (e)MMC card
-> >>>>> +      directly during system resume, before the kernel's own resum=
-e
-> >>>>> +      path runs. The card must therefore stay powered throughout
-> >>>>> +      suspend, and the controller must not send it a sleep or
-> >>>>> +      power-off notification. The kernel re-initializes the card
-> >>>>> +      after resume, since firmware may have already reset it.
-> >>>>
-> >>>> Isn't this exactly the same as keep-power-in-suspend?
-> >>>>
-> >>>>
-> >>> Not quite, though I see why it reads that way from the description
-> >>> alone.
-> >>>
-> >>> keep-power-in-suspend only takes effect through host->pm_flags, which
-> >>> gets set at runtime via sdio_set_host_pm_flags() -- an SDIO function
-> >>> driver opts in from its own suspend() callback, per suspend cycle.
-> >>> The consuming logic lives entirely in mmc_sdio_suspend()/
-> >>> mmc_sdio_resume() (drivers/mmc/core/sdio.c); pm_flags is never read
-> >>> in mmc.c, which is what this series touches.
-> >>>
-> >>> no-mmc-poweroff-suspend differs in two ways:
-> >>>
-> >>>   - It's a fixed platform characteristic, not a per-driver runtime
-> >>>     request. There's no SDIO-style function driver to call an opt-in
-> >>>     API from for a plain (e)MMC storage card -- the requirement here
-> >>>     (firmware always touches the card at resume, on this board) is
-> >>>     always true, not something decided per suspend cycle.
-> >>>   - The resume-side behavior differs. keep-power-in-suspend without a
-> >>>     wake IRQ does nothing at resume: it assumes the card's state
-> >>>     survived untouched. This flag needs the opposite -- keep power,
-> >>>     but still fully re-initialize the card via mmc_init_card(), since
-> >>>     firmware may have reconfigured it while the kernel was suspended.
-> >>
-> >> All this is just driver stuff which I did not ask about.
-> >>
-> >> The property is described pretty the same - do not power off during
-> >> suspend/resume.
-> >>
-> >
-> > Do you want me to fold this change into using 'keep-power-in-suspend'
-> > for mmc as well ?.
->
-> I don't want a new property if it has exactly the same meaning. Of
-> course I am happy to hear why the property has different meaning in
-> terms of hardware description. We do not talk here about drivers, obvious=
-ly.
->
+Patch 1 adds device tree documentation for LTC2378.
 
-In terms of hardware description, yes, it's the same meaning: don't
-power off the card across suspend/resume. I've folded this into
-keep-power-in-suspend rather than keeping a separate property --
-extended its description to cover (e)MMC alongside the existing SDIO
-wording, and reworked the mmc core side to honor it for (e)MMC too.
+Patch 2 enables single-shot sample read with a GPIO connected to the LTC2378 CNV pin.
 
-Sending v4 shortly.
+Patch 3 enables high-speed data captures with SPI offloading.
+The setup is similar to AD4030, with a specialized PWM generator being used both
+for SPI offload triggering and conversion start signaling.
+
+Patch 4 enables running buffered data captures without SPI offloading.
+
+Patch 5 recommends using voltageY-voltageZ ABI for differential parts.
+
+Even though these parts are somewhat similar to AD4000, the wiring configuration
+for LTC parts is different as well as the available HDL for high speed sample
+rate mode. Because of that, I propose creating a new device driver for
+supporting LTC2378-like devices.
+
+Specifications can be found at:
+https://www.analog.com/media/en/technical-documentation/data-sheets/233818fa.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/236416fa.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/236418f.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/236716fa.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/236718f.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/236816f.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/236818f.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/236918fa.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/237016fa.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/237616fa.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/237618fa.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/237620fb.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/237716fa.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/237718fa.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/237720fb.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/237816fa.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/237818fa.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/237820fb.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/237918fb.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/238016fb.pdf
+
+Previous submissions:
+  v7: https://lore.kernel.org/linux-iio/cover.1784235595.git.marcelo.schmitt@analog.com/
+  v6: https://lore.kernel.org/linux-iio/cover.1783629101.git.marcelo.schmitt@analog.com/
+  v5: https://lore.kernel.org/linux-iio/cover.1783028033.git.marcelo.schmitt@analog.com/
+  v4: https://lore.kernel.org/linux-iio/cover.1782397418.git.marcelo.schmitt@analog.com/
+  v3: https://lore.kernel.org/linux-iio/cover.1781661028.git.marcelo.schmitt@analog.com/
+  v2: https://lore.kernel.org/linux-iio/cover.1779976379.git.marcelo.schmitt@analog.com/
+  v1: https://lore.kernel.org/linux-iio/cover.1779117444.git.marcelo.schmitt1@gmail.com/
+
+Change log v7 -> v8:
+[DT]
+No changes in device tree doc.
+[IIO]
+- Updated channel macros to make up indexed IIO channels.
+- Encourage differential voltage ABI usage [NEW PATCH].
+- Simplified if/else to consecutive if statements on ltc2378_refin_setup().
+- Picked up review tags.
+
+With best regards,
+Marcelo
 
 
-> Best regards,
-> Krzysztof
+Marcelo Schmitt (5):
+  dt-bindings: iio: adc: Add ltc2378
+  iio: adc: ltc2378: Add support for LTC2378-20 and similar ADCs
+  iio: adc: ltc2378: Enable high-speed data capture
+  iio: adc: ltc2378: Enable triggered buffer data capture
+  iio: ABI: Encourage differential voltage ABI usage
 
---00000000000073a4ca06574c9345
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
+ Documentation/ABI/testing/sysfs-bus-iio       |   9 +-
+ .../bindings/iio/adc/adi,ltc2378.yaml         | 170 ++++
+ MAINTAINERS                                   |   8 +
+ drivers/iio/adc/Kconfig                       |  19 +
+ drivers/iio/adc/Makefile                      |   1 +
+ drivers/iio/adc/ltc2378.c                     | 851 ++++++++++++++++++
+ 6 files changed, 1054 insertions(+), 4 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/iio/adc/adi,ltc2378.yaml
+ create mode 100644 drivers/iio/adc/ltc2378.c
 
-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
-H0K0rs+X8O45xZIUJlxzf5UZex3BLi1f/H+08rSQULWEtO/ECwkFod2DIzSX7fZdz5RQ1PpziEOp
-goo/JZPYIeCmgt3rIyvMuupj8Ymb0J/velhpXfQuYUM52viw2nmqVcxCwBqyM3Iq7eI4xtEOFRmR
-wxSizd3MSQMf6GCHA4/B/6ttnxhGAr3utaOU+x/RnzG0gPLTW1XRAQ0+GVc/tGFdI864OG1cyrRl
-GvBnHJQSAFOIKwYrUk2oFpgMbafQ6osCAwEAAaOCAdswggHXMA4GA1UdDwEB/wQEAwIFoDAMBgNV
-HRMBAf8EAjAAMIGTBggrBgEFBQcBAQSBhjCBgzBGBggrBgEFBQcwAoY6aHR0cDovL3NlY3VyZS5n
-bG9iYWxzaWduLmNvbS9jYWNlcnQvZ3NnY2NyNnNtaW1lY2EyMDIzLmNydDA5BggrBgEFBQcwAYYt
-aHR0cDovL29jc3AuZ2xvYmFsc2lnbi5jb20vZ3NnY2NyNnNtaW1lY2EyMDIzMGUGA1UdIAReMFww
-CQYHZ4EMAQUDAzALBgkrBgEEAaAyASgwQgYKKwYBBAGgMgoDAjA0MDIGCCsGAQUFBwIBFiZodHRw
-czovL3d3dy5nbG9iYWxzaWduLmNvbS9yZXBvc2l0b3J5LzBBBgNVHR8EOjA4MDagNKAyhjBodHRw
-Oi8vY3JsLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAyMy5jcmwwIgYDVR0RBBswGYEX
-a2FtYWwuZGFzdUBicm9hZGNvbS5jb20wEwYDVR0lBAwwCgYIKwYBBQUHAwQwHwYDVR0jBBgwFoAU
-ACk2nlx6ug+vLVAt26AjhRiwoJIwHQYDVR0OBBYEFOV9h+N/T9ZsJ40qRxh7NYYD+N6MMA0GCSqG
-SIb3DQEBCwUAA4ICAQAKtKh30wv1/30230mCimgUjMWQE/LImRmyfDgrp2IhBVS6mDun+wH8thEB
-WhBHQMz3gsGixU4ZBJG72eWi39IzQ7CGnisJwA0+hsGaGg03AVtFtqo1rXYRZ81MEDOb6BPYLigJ
-RsHbNmrUGR+LsGeUwOWUeRXqBrYaYFrkgHKvVK1NEewv+vUY08n4tsezO3jq0HKhVDY46bMbf8vL
-oQqqhtcQvu2+5FK2jpUayeubpzPwobjEG61RIhBvM0KivY4CB2s9A7qgjL1XBycAybIvG03BbFoT
-t282FqXwk9JU6YihLlt+hpzO9UF7E8GZYlQlVIZOLOvytqilhua+2h77Yy8Jz/FJyIXKuaLPtvb2
-SC2shL7jF28kQbP3QUKwAig+cxwbpngnUkd9D9cXSHVq9PPwYm0A4eAO0YQ/80Uq20+gXF++g0sy
-NKrrV3i0T1dbCd86miGDKvarGzjh7pdsdwNY15liGP6Orib1tnWkJcbtP1rJty4r/mbbxcK8ILO4
-IvTGFG6BfjJ+La0aRt69i1fQmjUWHLwzkLNpw9cJH8/MONZcEJeDkq9WELSyy29bagStk5KHu7NO
-TH65sZg+i/4qmj3DEeEGTr/Shzp4YWSNn4W7NEelr0VgDlwa7xqlwZjXxG4MIJqy0SsQlAwEXtqd
-nH2FpJfzgAetkuyU6DGCAlcwggJTAgEBMGIwUjELMAkGA1UEBhMCQkUxGTAXBgNVBAoTEEdsb2Jh
-bFNpZ24gbnYtc2ExKDAmBgNVBAMTH0dsb2JhbFNpZ24gR0NDIFI2IFNNSU1FIENBIDIwMjMCDEca
-ZUGCu6d0oT1M+zANBglghkgBZQMEAgEFAKCBxzAvBgkqhkiG9w0BCQQxIgQgU2E2q1UkaoRVegRW
-XhXCP3FEfp77dDpIbStnIr1yxl0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0B
-CQUxDxcNMjYwNzIzMTk1MTAzWjBcBgkqhkiG9w0BCQ8xTzBNMAsGCWCGSAFlAwQBKjALBglghkgB
-ZQMEARYwCwYJYIZIAWUDBAECMAoGCCqGSIb3DQMHMAsGCSqGSIb3DQEBBzALBglghkgBZQMEAgEw
-DQYJKoZIhvcNAQEBBQAEggEAXxwD0/mJPNUhidipvjEdz5S2vzFY5dOhVqJbCyOy3IORylQ4ycLh
-exvR/yOEgvm5lUsUDKLplAxqj3sueawtH9xj1twGlUuuravVzRSdMoDaYEH3oAaadH3pQD00sXAG
-7mxCycikPAWLHymqgQlo35YVDxebnMTjV7019TDm/BJ4s33ZLcqkdKEMyADc/6Fe2RQc2+S/UsdK
-cLMMKdJLxtyqto3a5z120MmC/R91nEqfkUPkt29Q5IksemrblBBfZDI756MhHom5cuEaIBfpBiEs
-NUEwbDadu8qIZccLml9P4W8OJf7t38846GzAbpCd+Ep47a4NlMMMRBTT/dRWow==
---00000000000073a4ca06574c9345--
+
+base-commit: aa58ecc73466d0cb8c418de98e2225490bf600e3
+-- 
+2.53.0
+
