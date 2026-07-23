@@ -1,58 +1,61 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-00823401.pphosted.com (mx0a-00823401.pphosted.com [148.163.148.104])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FEE643900D;
-	Thu, 23 Jul 2026 09:38:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBA744334D1;
+	Thu, 23 Jul 2026 09:39:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.148.104
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784799511; cv=none; b=LKXBfY+ntU8Hl17ssmX1lJmGxaZgGWSxfoMUAPKpm0JKCdwZDndD7deavzgiCdyXAZnsu3GsD12D3t5wwXQqCVhdnQrgdWl1Q2h/kKAuUWjjHKqYOQofyOKUrrXFxwRkdOWMVp03ZtrEGu9HkhmE0NGPnjFVVvh298OO97ovhts=
+	t=1784799572; cv=none; b=SlfXl7r7BL09X5Blg1+jc3Qzep/zK7AJrJrN+6D3+Ri9IGkcElNxZ6Ti3JwfbphiKglU30t3CSv7oUSvWy9QKGb8mtuXJYdhrUGX3MtUn5l0RM5xZVB5SW997gpIxkkquDEDUAi2ZapK+sUgGSwxtXM9vIkY/pbs1FsCy7x4WEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784799511; c=relaxed/simple;
-	bh=GJTs5OlJ9SKxLMi3iaVn3trVVgQFAhsQU610J3LnjyM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JbqVA/7XLeRESXR/QP/KhzBStswWqOrhA4+1cmmdFbyCfLMmIrcZ7Z6SD9t9EA59O7xe4SO3kxqMRZzIz09StafrxFoRZL58iWzCSB9i+lYBWSoUUfm5f6Jb6InYnTGvm+9fWVVPXyIKTKfYsg8xWTs8zH+HtvE9KD8opDPfKEQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=KmZioJc9; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1784799572; c=relaxed/simple;
+	bh=rTh6wtCLa7IrdLZ28Kq68nU4MTx4V6bR4yG3TrjBSS8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KtiFy7IdLFvg6ym+Z3bE7TF/h1POB7cC/IE1qa9uZMjbyhjcAyPFLGVIfq7dq+Mn7zLk6AGaUPkPZlttihl5Bsla4M+bEnIDlERhV1f483rb3OI8lkXr/7wC9t+Wc6fixKJtbluEjltCoSeX/OoR2WI3OJDTPKP8B21vNAdeuTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lenovo.com; spf=pass smtp.mailfrom=lenovo.com; dkim=pass (2048-bit key) header.d=lenovo.com header.i=@lenovo.com header.b=4GJ/UGXK; arc=none smtp.client-ip=148.163.148.104
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lenovo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lenovo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="KmZioJc9"
-Received: from francesco-nb.. (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
-	by mail11.truemail.it (Postfix) with ESMTPA id 583621FB1B;
-	Thu, 23 Jul 2026 11:38:21 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1784799502;
-	bh=JJLBjhTwK9Uo53TmNSc/cJ9oL3cSqYdaSEVBlK9j7mw=; h=From:To:Subject;
-	b=KmZioJc9sYaepD7gYtFjjcIDXj72DQt0fCOxDqITgrd6g54GW5QKCMnSvFzi84PDi
-	 1R47KYfSgyI46cU3MvkLhIR+b3Inj9CYnkCPaJ9ep6d1YnoHHkILF8kYy0s435I2gT
-	 ClzG4DWgzGY6gY1GAgcw6JSG0aWWZ0zi/fOjCnxbo5+9NmoPFQeRSZsTXHSMLv8kCI
-	 +2B80fYvR2pfu+CnFN0/VaFjEPhynDnK7HLoE7HaGBsiRn96wpafF/OU/4zHZiq4Re
-	 21TFqmkVaHDyDwqTBdz4v0+esdjq7GsbMVxk5UVLxQxO/D1qZCRkMcOE1Ce4LID/1V
-	 u5yPp/5ZHaRug==
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Marek Vasut <marex@denx.de>,
-	Stefan Agner <stefan@agner.ch>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Alexander Stein <alexander.stein@ew.tq-group.com>
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v2 0/4] drm: mxsfb: Support LCDIF interface bus width
-Date: Thu, 23 Jul 2026 11:38:07 +0200
-Message-ID: <20260723093813.180089-1-francesco@dolcini.it>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=lenovo.com header.i=@lenovo.com header.b="4GJ/UGXK"
+Received: from pps.filterd (m0355086.ppops.net [127.0.0.1])
+	by mx0a-00823401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66N8sIHX2325546;
+	Thu, 23 Jul 2026 09:39:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lenovo.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=DKIM202306; bh=UZtN4+71vj
+	4objsOy7KMn6loza8lnIOPo4NWAQPgrK4=; b=4GJ/UGXK7w3PmhEGdGpG77J81Y
+	exvXpFbn/BNQyqxMVLsl9FAyVj7MWtj5AH8WfMvAGmlDAI47SQIQzM6C489yJ4Kr
+	+muR9LFSa1/QVuuS2RwcHX1fMA4N1Ji0W3Ch97+hfNaXFT1iJ5hOeIaNlNB+hSMk
+	pZEH/uhFjOL6KC6OL/CVhqTLypjMxb29SKFKXMvH4Erv9iNzXJ4pv9vzH0or+23b
+	6m511KhtM5APUO15NjKrbnkDJ3V9kWCP4/8/W4Gb6siVKQRJNnaL7Jnh9/8ePOa3
+	A6AaaVcvadxKJtzmev/I57vmX6+LsEKZIb7n3fWOYq2AUZNYS33iJOyfbeSQ==
+Received: from hkglppfpool1.lenovo.com ([103.30.235.218])
+	by mx0a-00823401.pphosted.com (PPS) with ESMTPS id 4fgq8g16bw-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 23 Jul 2026 09:39:19 +0000 (GMT)
+Received: from hetlppfpool2.lenovo.com (unknown [10.196.132.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by hkglppfpool1.lenovo.com (Postfix) with ESMTPS id 4h5R0P2q6Rz9vVtk;
+	Thu, 23 Jul 2026 09:39:17 +0000 (UTC)
+Received: from lenovo.com (unknown [10.119.171.213])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by hetlppfpool2.lenovo.com (Postfix) with ESMTPS id 4h5R0P2L5tz18W8pb;
+	Thu, 23 Jul 2026 09:39:17 +0000 (UTC)
+From: Jiqi Li <lijq9@lenovo.com>
+To: mperttunen@nvidia.com
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, jonathanh@nvidia.com,
+        krzk+dt@kernel.org, krzk@kernel.org, lijq9@lenovo.com,
+        linux-tegra@vger.kernel.org, mpearson-lenovo@squebb.ca,
+        robh+dt@kernel.org, thierry.reding@gmail.com
+Subject: Re: [External] Re: [PATCH 2/2] arm64: tegra: Add Lenovo ThinkEdge SE70 device tree
+Date: Thu, 23 Jul 2026 17:39:16 +0800
+Message-ID: <20260723093917.895242-1-lijq9@lenovo.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <qH2CwJ61SfKj2xT1jc5N9Q@nvidia.com>
+References: <qH2CwJ61SfKj2xT1jc5N9Q@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -60,46 +63,47 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=HYAkiCE8 c=1 sm=1 tr=0 ts=6a61e147 cx=c_pps
+ a=yIlUyoB/d3ZP/uZUHEUQoQ==:117 a=yIlUyoB/d3ZP/uZUHEUQoQ==:17
+ a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=2RTuljz969oO5usasWGy:22
+ a=hJVLCblJc-VYA0_z04R5:22 a=voM4FWlXAAAA:8 a=suagau-rg9_qL2Wug8AA:9
+ a=IC2XNlieTeVoXbcui8wp:22
+X-Proofpoint-ORIG-GUID: rbkCuITroNMgnWHw0OpU9dhkLQFcHzJ4
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIzMDA5NSBTYWx0ZWRfXxfnSSgs/Y37+
+ r5s81K1y1+kYNC+9BRmK0fD+SH8cgBHjg0pxNTE50EUPu8mS/S1boObNCqkpOMjyonJz/ABLLS3
+ LIEJKcXa/UXlysGEmdQ/PFdOzNHs8G5RKii6i8u9/6BayPiNUBurcCuPFWrw8eUwafE+zTTCek4
+ vuMYnX11nP79oQSbcrLYEP4+FTNk0S1HSviKRehS2OK8DhOKDP0NcQXkAaEh2qKh/+gCAwVD5Qw
+ osYUbUxvODJNj4DIwcUSmed3PbcAvPlGnqLvl3L9j06WrUDpH4+sJtCUY4oZajGlfhE8gVhFQ2Z
+ MYepGjkWq4+yNrEe5yUxLAb/waf7gNIVDPl7hTIWO3zU1J6Jk6XOtnQv/qQloa+Zr1yy+Y0FLYL
+ TmCVoqQqKeMFhoymEs9V0k9lNcMtPYNHh2Tk661IG7B0ZAYAiHruYxDdAxxKRgfEAo0XNEvFD7g
+ UljBgAyiOgmry0aksNw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIzMDA5NSBTYWx0ZWRfX/kGb+5CM+VqJ
+ wBwHcnm1Vx787vNcuVqtpPXb3TJ1skLLUXv+HnsC8yBDJmHAUzD8HFmXXxM5Pw+ARoWB6oMrkBg
+ ChYjcM/kzCEKAC7W7/frpzy/u5JoeX0=
+X-Proofpoint-GUID: rbkCuITroNMgnWHw0OpU9dhkLQFcHzJ4
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-23_03,2026-07-22_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 clxscore=1015 adultscore=0 bulkscore=0
+ malwarescore=0 spamscore=0 suspectscore=0 priorityscore=1501
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=-20 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607230095
 
-From: Francesco Dolcini <francesco.dolcini@toradex.com>
+Hi Mikko,
 
-The width of the physical LCDIF output bus can differ from the input bus
-format advertised by the downstream panel or bridge.
+Just a gentle ping on this series. Based on your previous feedback, the
+v4 patches were sent on July 8 and addressed all your comments:
+- Renamed regulator-sd-3v3 to regulator-vdd-3v3-sd
+- Moved regulator nodes to the bottom and sorted them alphabetically
+- Added a comment to vdd_5v0_sys clarifying it is required by the SoM
+  and SoC layers (as it is referenced by USB and PMIC nodes)
 
-Such a distinction is required when the LCDIF bus width does not match the
-width of the downstream display interface. For example, an 18-bit or
-16-bit LCDIF bus can drive a 24-bit display by wiring the available color
-bits to the appropriate display inputs. Configuring LCDIF solely from the
-display's 24-bit format in this case selects the wrong LCD_DATABUS_WIDTH
-mode, changing the color-bit assignment on the LCD_DATA pins and resulting
-in incorrect colors.
+Could you please take another look when you have a moment?
 
-Use the common OF graph endpoint bus-width property to describe the width
-of the physical LCDIF output bus. Make the mxsfb driver derive the
-corresponding media bus format from this property and use it in preference
-to the format reported by the downstream display. When the property is
-absent, the existing behavior is preserved.
+Patchwork link for reference:
+https://patchwork.ozlabs.org/project/linux-tegra/list/?series=512658
 
-Set the endpoint bus width for the Colibri iMX6ULL and Colibri iMX7 boards,
-which route an 18-bit LCD interface.
-
-v2: use the common bus-width property instead of the legacy interface-pix-fmt
-v1: https://lore.kernel.org/all/20260717121847.488148-1-francesco@dolcini.it/
-
-Francesco Dolcini (4):
-  dt-bindings: lcdif: Add endpoint bus-width property
-  drm: mxsfb: Add optional DPI output bus-width configuration
-  ARM: dts: imx6ull-colibri: Set LCDIF bus-width
-  ARM: dts: imx7-colibri: Set LCDIF bus-width
-
- .../bindings/display/fsl,lcdif.yaml           |  9 +++++++
- .../arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi |  1 +
- arch/arm/boot/dts/nxp/imx/imx7-colibri.dtsi   |  1 +
- drivers/gpu/drm/mxsfb/mxsfb_drv.c             | 24 +++++++++++++++++++
- drivers/gpu/drm/mxsfb/mxsfb_drv.h             |  2 ++
- drivers/gpu/drm/mxsfb/mxsfb_kms.c             | 12 ++++++++++
- 6 files changed, 49 insertions(+)
-
--- 
-2.47.3
-
+Best regards,
+Jiqi Li
