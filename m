@@ -1,174 +1,176 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013058.outbound.protection.outlook.com [52.101.83.58])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE2623DAADB;
-	Thu, 23 Jul 2026 19:14:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.58
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784834093; cv=fail; b=Kk4nHGZr2T4eSvM80KbYIDMBaJ9GwOHhJT3i8739Zt3imBvM+j39NEj6Zn1xLSG6iA8yoEJ0ROM3/B5BcWioD4+n01e+yGN0gT+W8wU7td8JpZR2NtfFEnHlogg5SY2ILUIqfG9lSTOMOP72ACjraq/DhzWrr6yWAQkFHSflYyw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784834093; c=relaxed/simple;
-	bh=RL4iKZ+XIDNZRWGC++UJo8LIE2xI5HLxqljx3ceoWEE=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=LOnbCQEglEL8Gz+93Ace4Okqa7T7CNFl6NgQXXGbGQPKXJyMFRLZazfehtOsLcA/4QMUcoMvlpR96aBDiukeuFQ9CBQiI77NvCERVdOdZehs1tDLNK+xTyCSjaBcotnAZbXms5N0n+nXlnYM4dyyROE2o5cU7os2zI5vTgfyraI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=cQ5Imk22; arc=fail smtp.client-ip=52.101.83.58
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D73A144C4E6
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 19:15:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784834163; cv=none; b=QojLGN2ixh1Bh+SeDgbEKOdH8eYiWNhaDbVLQtq79QXXRjmoefIeVCxcJnncmQ3jDvZaPd3VjsmnzEr7jFCBrGDBO6H+Euk/zQ4tXvKpENT9h0pRRwJ5HShaj9z2zbTQ/Yl5w6j6E6L6MtAS2LkrSX1kzzq3B8U5seaR33RgBwU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784834163; c=relaxed/simple;
+	bh=YkSunlZPicyxCzpJlPuj17GeSBpv7ouTWseyO6FapQU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=XLTGyME/Az4ZBVYeZ3s3N4ewGLaCsXBvjCSERlBjz8twkKBeyyhhqqdNi1abwnP2mTszVmVV0k0f80vD9+DvKtZ49kBLVDRLVpvRQfV//8tRF0Ku+s/TEQ212pc83LXUMDrgZifQl6ItI+g/NmHxujf4LAsCpPKqZyvAMlJDOK4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Iu8iEovV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="cQ5Imk22"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XwiA8gJuEpwCLVsFY88ntEuvqewvownXX1t1BX3ku0EEOywJEnVxSyrdZavlU8lJWIQSKC51hnhk+nO7CTCn00AqWA42DhYZ6jMV6WVRfPpLqehBZk+84ERB0f0ALQUXtF+L/cs9gTHiV1atAjAut+CcIQCZr9NuY5zwbEBSH+ajE9w3fZUDRhpJ926rjhwdP+Xx0VPslCjUyPKYjuHnG+OeIo5g1K3RV5Fliw/4tGnKBoccFYfxsI0JedQD22lG8VvqJUXpAlNyPtIGyJMbvFWz5Q6xMb3Pk1bW/KkWGu3o1Fx7Ay23/biKUYFciJfKkP0BivRmAhvXz8uZbRcH4Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=s4tehzPf7uu/ei0Ds6mLsD/PtUbJuEqJ+QFyCb16DaM=;
- b=KclaY6Hjsc/tMR6F6k3or5uqGT8pr6TzmdzbDAIiFxK1+kZKd0/IzMmepwEG6+KuZTQ3O65H12wyNaOBP8JAClDbXbZaI0HzzHFHMxJ7zY5/wIFvq6lBbpjPdZA+bUiMEiR3t2xz5xYUDegWAaYiiUSt2UpxWc2RpvEBwIzYXT5U/oP+yoacpH2ZRzxOzr/fH+siihSpd5NW9qfMUatZGg5G2RQoBIpviEkSBiSjFisX9EHscOJY5pE1euJT3K6oVBVTVrvEXaaAPdR/7AfVjcBGVWQagLQmHLPD4LPilZpi4AaF1BU1Bud+YkqFetXI0R02L+1nZeANIZuf7TC/eA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s4tehzPf7uu/ei0Ds6mLsD/PtUbJuEqJ+QFyCb16DaM=;
- b=cQ5Imk22VTlBDmTs3b6dzaRmedCUwNdnPJGBuaQ0IdowwIM9dD6zRLQYH/OGnMg1TL8Je2RnfiBRJViQN4LqSP5oSNMYpE2NT73qFa7Gr9NXcI7LKBMcpWYi0ybtyf/ULLh5OFhdr7VQpJ1bj0wyv5IK8H+ayGbaMOgRt+n1VCcoINVXVR8WRODxbrFYuBfmCaBhiWZ6OP4M3RJcDmW9Xat+NCJc76mxp5DVyzHrt4KRHtgkor8FdQtawyrOB3B7sU9ebjb1SJiklffL15GCO/u+CDcYokEtWngQbaKo1+Xyei45ex0oSrjZhhWLon5o8l72qhTjMDMWw9sunvDXhA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AM0PR04MB6818.eurprd04.prod.outlook.com (2603:10a6:208:186::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.11; Thu, 23 Jul
- 2026 19:14:42 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0245.010; Thu, 23 Jul 2026
- 19:14:42 +0000
-From: Frank.Li@oss.nxp.com
-Date: Thu, 23 Jul 2026 15:14:18 -0400
-Subject: [PATCH v3 4/4] ARM: dts: imx6ul-tx6ul: rename disp0 to display0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-arm_dts_ldb-v3-4-96c784b2b84f@nxp.com>
-References: <20260723-arm_dts_ldb-v3-0-96c784b2b84f@nxp.com>
-In-Reply-To: <20260723-arm_dts_ldb-v3-0-96c784b2b84f@nxp.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>, 
- Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, Frank Li <Frank.Li@nxp.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784834058; l=859;
- i=Frank.Li@nxp.com; s=20240130; h=from:subject:message-id;
- bh=0hpK498VUO8dxtBKG2KA9GUlzyB29UEOvgq/J4+0ua0=;
- b=yH5c/yV0Mq+7dDqYrI5agBvOk2c7EXNU4T1fHZJkye3zDcX4IZaB+7jDuA4je0ktLantKsidS
- L2SWMtaFFqRBD+ZZKJb1RZ8K6TbDZpGRAyZPIcmgIjS6itJRYTECdaz
-X-Developer-Key: i=Frank.Li@nxp.com; a=ed25519;
- pk=I0L1sDUfPxpAkRvPKy7MdauTuSENRq+DnA+G4qcS94Q=
-X-ClientProxiedBy: SA0PR11CA0071.namprd11.prod.outlook.com
- (2603:10b6:806:d2::16) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Iu8iEovV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 598481F000E9;
+	Thu, 23 Jul 2026 19:15:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784834146;
+	bh=WnAHz8umnk1/jUIqr56eBmKrDPsR9RrMIuYndq3rJYY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Iu8iEovV3+DenZgX3nA/JvXWdeNXSkPyEcxALjjEfEuRIcFGhmgv7zf1W5PPPfrIZ
+	 gPF93ICkPpW9Q8yy/zeTMjAYHUQFSR+v51XZXUYs/LPJPhcQsczv2sI0J+75goktMA
+	 NDO7p/8m6TEiu2STT/yDv5/4rNTYnzhY4Hv7iJS1S4TcwuEUrJyxtJURO+l/UwN/+L
+	 PhQ3fnAXsuH9b3hWEgtAHxHesiTKNptAg80AAjMhTsBY1lpcCeCAaStOxWeD6KkNQx
+	 eZ2yEpR4ZZ9ClwuSFzHh5L8L/5dmXrLcofs7EZ8uyYdUFqMvYJeCWS61UY4LTPkkLn
+	 jzNr43iQQR0Dg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] clk: en7523: add support for dedicated PCIe
+ PERSTOUT reset
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Christian Marangi" <ansuelsmth@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260723190133.22577-2-ansuelsmth@gmail.com>
+References: <20260723190133.22577-1-ansuelsmth@gmail.com>
+ <20260723190133.22577-2-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 23 Jul 2026 19:15:45 +0000
+Message-Id: <20260723191546.598481F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM0PR04MB6818:EE_
-X-MS-Office365-Filtering-Correlation-Id: b91775d3-192b-4741-f66a-08dee8eea613
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|19092799006|23010399003|376014|7416014|56012099006|10067099003|11063799006|22082099003|18002099003|921020;
-X-Microsoft-Antispam-Message-Info:
-	RRqBDuUhfOCG14RFxUmTzJM+5mDcE916C9c6L8h+y4k49Q5NHN42BkBuP1MTlxeO40YYpeMHA1aRw+dfyp0rimGrGDrZ/pceIRFeNSQXk395vFo+C11b8vm0aMNt3HC0gw1iRySrXuYHBcFZ07yQoIfnWdmp7y4B0oiYArVYue3Qb2AClJxWdUvJ+b+9kgiIa7JXxA7wF1xBdOON1e+pKGGUZ9K6VWdQIACGvuhDUfldHpiK15QhpOSJ3N8HHNTXzTlEd0B+T4OH5ahSUHtKbq6aRjUL4SP2fOPT5MhIvgPEUDi/4lSO5k7uCOBwjTR87NndPiDdSMKJb1ZYneuBx5EQsFH22J1eDWK+xOyfUAKmr91MdlQ8qdmTX/I0gjgs3ZNlfPBbIz1s8nNeXw3Wtffl2FpAS8WO1XepyniUxYuzghN+cYjEXYRZgajku7nY8R0MLE4B5MTmfuXcBRklmtFo1RI9BaSoDWl03crEHQyWNJApNfhJ5g1rR7fsXDYEcHURfIWDnZ+Fc327mcB1gW6db1HlChMpcEFX1XEkOWwe3wT6sYoSQDifS52ppt2z5wy8IK4NbMcgXDgSzZs6Z5VOVuGuCUbp33pRgdJAC+gldMKDbtGv5uOApPhuPQFSSGCp7dGW+NGn9k+6Dh0sukrWKE9asjjXyzQn3hqAWJ9iIUmA18+hyyVZT4roWpm85G20cTzAiBuh71kBRzGRGQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(19092799006)(23010399003)(376014)(7416014)(56012099006)(10067099003)(11063799006)(22082099003)(18002099003)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eTRJZmdjUkIza3dCai96Zm9FRVhZZDZCMVJrNEFTVW9WWjhINHpxbGttL29H?=
- =?utf-8?B?NXc3K1ZiYjk4WlVJYnFBVmJiZ0IrTTN4OFN5YnBiQUhBc2xXRmN6Z0FKdEZ3?=
- =?utf-8?B?TmZrcnVaZ0UxRXNwS2ZGUCs5NlVqWXozWTAyTGY3WThRTnBMTm1HNlRwZlYv?=
- =?utf-8?B?UTVIelE0MTNWc1hUd3VMN3BUNGovTkFaZ3VXUllLNXYzQXFJamlWVlFLemRI?=
- =?utf-8?B?OGFURFU5N3BETER1RW15bWxaMkVRVkNSd2IzV09kMjVycSs2RFNKZFExLys4?=
- =?utf-8?B?K1Z4RnpOQjhyS0JHQ3hUWm5NaFBqWCswTkhkMWpvb0dCdjM3NC9mSFpxWEEy?=
- =?utf-8?B?ZjQvNWYxaE5TK2lTS1pIcXVOTit1YUJxN2hab20rWTZGa1VmNlVlWmdmRFNi?=
- =?utf-8?B?aXREVEVVWE13TDBLZlpZZDBmTEIyenpUZmJSalRoWGtDbjNrV0R0Zm04ZzRx?=
- =?utf-8?B?VldUMUVlVHJ4NGR2UklpcHVPNk5Db0krbHRUZlNaWnpPM0IwMGxTUWlkRDNW?=
- =?utf-8?B?ai9WU05aTFphN081WDVpeFpNSGxRemU4eXRUYnpOZUFXOHpJUVBqSVBaQWZm?=
- =?utf-8?B?akJxcmhtd05DMjljRmpoKytTVG9PamRPS0dXZnhNNkZPWnZqQnJ0MHVqblpP?=
- =?utf-8?B?b2dpTXhuMmt4RmpoVk1kWWNYVjNSZHgrcElwOG9BWUhlcFVFa3lZbm52TTdi?=
- =?utf-8?B?dGUxTTRXQlJuM3lkZ28rOEFDVGFmYVhhVzdySGxwWGpTMWxFc05vVnFqY3B6?=
- =?utf-8?B?NGIvUFNCMXExSGtuVWtEbGZHd0hJblY3TFJCVSs4aThMZFhKQTJ2WDloRlo1?=
- =?utf-8?B?VkRuMkMwdFlCV2twbHgrb2Nna3g4cjlpQzNqczVYQXZtNnNOWGpBUnl0a3NR?=
- =?utf-8?B?L2ZibnF2azNmZFQrSjdXU0c5U1NwdURoNXVqV3F6WkE2RGluTkUySzhNRktF?=
- =?utf-8?B?UUxBdURrWlp1RXB0R1M1ZVVPdmZHRFlpdXVGRWlwcHJOOWQrVHM0dFp0SEhn?=
- =?utf-8?B?V2NTaTRRSWVUdWpBdmpkQmxXcE1BRDVudmhMSTNFWmw2SXI2SUpvSytpZFEr?=
- =?utf-8?B?aGM4bUMxZlZqMGUyQmFxVyswVVdtWlIwSkxQdDJiYVlLeStmL2hEd3RuZWZX?=
- =?utf-8?B?cFdScUcwR2YzL3NZK3VpNE5tZkJ5ejkwZVFMVVltb09HUjd1S0FBSHhGV3Fh?=
- =?utf-8?B?OUdPSVQ3RXdSMlIyenNub1hSVVc4N0NhZUhrZm1TU2dRL0hzTGhUb2R0c0dE?=
- =?utf-8?B?cnYyenU4M2tEbDEzcHg5cFQxbFJQd3lacTVjS3BFR3FqMjIrTnJ6WXBwSHBV?=
- =?utf-8?B?T0J1Y2lHRytrTzhBUTAvUUxObUlZbHRtQWZjMVpiRXVJK2w5UTgrRUFYUXNt?=
- =?utf-8?B?NFNjYWpGWGVSRVNFV1IvVU9NSGlXOFk4dUxRem8vNmpyRnBLbjJXVFhNYUQr?=
- =?utf-8?B?ejVpampVak1zVlhaRjN6K0lNek8yaE5nQXFPK2xWMEJNQkFURDZGdHlXR3Z3?=
- =?utf-8?B?VkVWa1RqbzFVdldDS1FDbjhtaUtacmJ6SktMZk9vMUZOZkJQcll6RXNTUksw?=
- =?utf-8?B?VjlhVUg1Nkx0K2pmaFB4bk9oYkUxbndRRlJmckNZRXMvSlVmaGNFdU0wSUx4?=
- =?utf-8?B?dW9tS2lGeDYxcXpPNHBOZ2VFVEdtSEhTWEJmNnFjKzM0WFB2ejBGM3ZUNTJz?=
- =?utf-8?B?TmQxbCtlakluVGZmU01HNXRBRUl0NnMzTTZGNThKN2xMd0VSWVBzYTBTS2d4?=
- =?utf-8?B?RkJnRjIvbUVGMndBVGw0L3JBczlpemEydkp6VjVkSXlDeFhqZjU1SDdZOVpr?=
- =?utf-8?B?bU5XUjR1d2JuK3ZLOFZlQnUyQzRLOURLa29sdXZibFRrUGpoenhUcUhkUGpI?=
- =?utf-8?B?ZnVOYk5RRGZwRW04YUZPVmp1U1pIbXQzdmhTaVVSZjAxNXJEREFoMElxcWRz?=
- =?utf-8?B?Z0IvSXJ1c3Z1YnBaUVVwMStPcUdwTVBoSjFiNVVhVUd0SDgzdStMcysrSzBq?=
- =?utf-8?B?V3NHQmU4R1Fna3hzZG5RUitkcGh4VzN4RlltbVM2VWRVUldMQklkZG9sTTFD?=
- =?utf-8?B?QzhQcVpGcWU2d0FGTFNlaGlWOFlFKzBZZkl0bUVzdW5lMEZ1bWIvRWtPK3RP?=
- =?utf-8?B?Y3NMQ0tyNnA0cU1wdkswSW9qWlEzaGUrNy9Da3BFZGlmWjhwQkxqaGdjdUpQ?=
- =?utf-8?B?YWtwb0RnMzdyRmJyM0RpdHFvVklzdVRhVVk1a1BCbitoeXdQL0cxUnBnSjJy?=
- =?utf-8?B?ZXJRYXhvNmg5ZmNwU0JwNEZhbWdLNi9UcW8yeTdnaHB5VEhaaVdRZldGSWZB?=
- =?utf-8?B?aG42VEg2UE05NXNHbTBIZkMzUnJ2bHIySUhZYm4yRkI4R3dyNnpKQ0tRaXVI?=
- =?utf-8?Q?TlZiOGGRwP5LdpsIpuxG9+W7KxV+5wjAVp3eT?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b91775d3-192b-4741-f66a-08dee8eea613
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 19:14:42.0933
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XHvhG2h/enUyX8nEyxLWMC6pvHrrYnJssab6LrTU8PZKcubwwkcQ3cBTkF4DcV0FoB1/cq1EkbGMYC6JkyAP86k5zAYmg6tpzNvecSjyMYYe3OFmeD8zYjZs67FdhH8A
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB6818
 
-From: Frank Li <Frank.Li@nxp.com>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Change node name disp0 to display0 to match binding define.
+New issues:
+- [High] Read-modify-write data race on the shared REG_PCI_CONTROL/REG_NP_S=
+CU_PCIC register (0x88) between the clock and reset frameworks, alongside m=
+issing internal locking in the reset framework.
 
-Fix the following CHECK_DTBS warning:
-  arch/arm/boot/dts/nxp/imx/imx6ul-tx6ul-0010.dtb: lcdif@21c8000 (fsl,imx6ul-lcdif): 'disp0' does not match any of the regexes: '^pinctrl-[0-9]+$'
+Pre-existing issues:
+- [High] The clock disable callback `en7581_pci_disable()` calls `usleep_ra=
+nge()` while in atomic context.
+--
 
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
----
- arch/arm/boot/dts/nxp/imx/imx6ul-tx6ul.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+--- Patch [2]: [PATCH 2/2] clk: en7523: add support for dedicated PCIe PERS=
+TOUT reset ---
+commit c3a062a3f7b8267d37e6c439a55235bdea9e26a6
+Author: Christian Marangi <ansuelsmth@gmail.com>
 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6ul-tx6ul.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ul-tx6ul.dtsi
-index 192c6a95ae589..2f6916c0359c5 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6ul-tx6ul.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx6ul-tx6ul.dtsi
-@@ -369,7 +369,7 @@ &lcdif {
- 	display = <&display>;
- 	status = "okay";
- 
--	display: disp0 {
-+	display: display0 {
- 		bits-per-pixel = <32>;
- 		bus-width = <24>;
- 		status = "okay";
+clk: en7523: add support for dedicated PCIe PERSTOUT reset
 
--- 
-2.43.0
+Add support for resetting the PCIe lines with the PERSTOUT reset. These
+special reset are controlled by the PCIC register and are specific to each
+of the 3 PCIe lines.
 
+Contrary to the dedicated reset register where 0 deassert and 1 assert the
+reset line for the related bit, for PCIe PERSTOUT reset in the PCIC
+register, the deassert and assert value is swapped, with 1 for deassert and
+0 for assert. (HW have these bit set as 1 by default after a cold boot)
+This is internally handled in the reset function.
+
+PCI enable/disable are updated to drop PERSTOUT bits in favor dedicated
+reset handling.
+
+Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+
+> diff --git a/drivers/clk/clk-en7523.c b/drivers/clk/clk-en7523.c
+> index 1ab0e2eca5d32..2f53e0b42ead7 100644
+> --- a/drivers/clk/clk-en7523.c
+> +++ b/drivers/clk/clk-en7523.c
+[ ... ]
+> @@ -635,9 +641,7 @@ static int en7581_pci_enable(struct clk_hw *hw)
+>  	void __iomem *np_base =3D cg->base;
+>  	u32 val, mask;
+> =20
+> -	mask =3D REG_PCI_CONTROL_REFCLK_EN0 | REG_PCI_CONTROL_REFCLK_EN1 |
+> -	       REG_PCI_CONTROL_PERSTOUT1 | REG_PCI_CONTROL_PERSTOUT2 |
+> -	       REG_PCI_CONTROL_PERSTOUT;
+> +	mask =3D REG_PCI_CONTROL_REFCLK_EN0 | REG_PCI_CONTROL_REFCLK_EN1;
+>  	val =3D readl(np_base + REG_PCI_CONTROL);
+>  	writel(val | mask, np_base + REG_PCI_CONTROL);
+
+[Severity: High]
+Since this patch delegates the PERSTOUT bits to the reset framework via the
+REG_NP_SCU_PCIC alias for the same register (0x88), is there a risk of a
+read-modify-write data race here?
+
+The clock framework modifies the REFCLK_EN bits while holding the CCF
+enable_lock, but the reset framework updates the PERSTOUT bits without
+acquiring any shared lock. If clk_enable() and reset_control_assert() are
+called concurrently, could they clobber each other's register writes?
+
+> =20
+>  	return 0;
+>  }
+> =20
+>  static void en7581_pci_disable(struct clk_hw *hw)
+>  {
+>  	struct en_clk_gate *cg =3D container_of(hw, struct en_clk_gate, hw);
+>  	void __iomem *np_base =3D cg->base;
+>  	u32 val, mask;
+> =20
+> -	mask =3D REG_PCI_CONTROL_REFCLK_EN0 | REG_PCI_CONTROL_REFCLK_EN1 |
+> -	       REG_PCI_CONTROL_PERSTOUT1 | REG_PCI_CONTROL_PERSTOUT2 |
+> -	       REG_PCI_CONTROL_PERSTOUT;
+> +	mask =3D REG_PCI_CONTROL_REFCLK_EN0 | REG_PCI_CONTROL_REFCLK_EN1;
+>  	val =3D readl(np_base + REG_PCI_CONTROL);
+>  	writel(val & ~mask, np_base + REG_PCI_CONTROL);
+>  	usleep_range(1000, 2000);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does calling usleep_range()
+in the .disable callback trigger a scheduling while atomic bug?
+
+In the Common Clock Framework, .disable callbacks run with the global
+enable_lock spinlock held and hardware interrupts disabled. Operations
+requiring sleeping delays usually need to use a non-sleeping delay like
+udelay() or be moved to the .unprepare callback.
+
+[ ... ]
+> @@ -754,11 +756,17 @@ static int en7523_reset_update(struct reset_control=
+ler_dev *rcdev,
+>  			       unsigned long id, bool assert)
+>  {
+>  	struct en_rst_data *rst_data =3D container_of(rcdev, struct en_rst_data=
+, rcdev);
+> -	void __iomem *addr =3D rst_data->base + rst_data->bank_ofs[id / RST_NR_=
+PER_BANK];
+> +	u32 offset =3D rst_data->bank_ofs[id / RST_NR_PER_BANK];
+> +	void __iomem *addr =3D rst_data->base + offset;
+> +	bool inverted =3D false;
+>  	u32 val;
+> =20
+> +	/* For PCIC reset logic is inverted, 0:assert 1:deassert */
+> +	if (offset =3D=3D REG_NP_SCU_PCIC)
+> +		inverted =3D true;
+> +
+>  	val =3D readl(addr);
+> -	if (assert)
+> +	if (assert ^ inverted)
+>  		val |=3D BIT(id % RST_NR_PER_BANK);
+>  	else
+>  		val &=3D ~BIT(id % RST_NR_PER_BANK);
+>  	writel(val, addr);
+
+[Severity: High]
+Could concurrent reset operations race on this register write?
+
+The reset framework performs an unlocked read-modify-write on the shared
+register (0x88) to toggle PERSTOUT bits. Since this function lacks an
+internal spinlock, concurrent resets on different lines within the same bank
+might race, as the reset core does not serialize operations across different
+lines.
+
+This also races with the clock framework modifications in
+en7581_pci_enable(), since they share the same underlying register.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723190133.2257=
+7-1-ansuelsmth@gmail.com?part=3D2
