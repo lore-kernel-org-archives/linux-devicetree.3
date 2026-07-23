@@ -1,183 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFDF3345EA9;
-	Thu, 23 Jul 2026 16:36:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 279BF36F428;
+	Thu, 23 Jul 2026 16:38:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784824620; cv=none; b=qzfBnyCvUocbp776dLxGG6dW/x/HW8SivnL9QYYZR+U6qddcxcdeH5JxECzl2VtHkH3Dv77kNXIl3qUPdneE8NUKuX9JMI8ZsEtDVfW1XdEoqPs0nvQiRw9n8dK6if8bZe+5tX7mx1u6yN/17cSk5UYe2E7BopjtraHDdVeTTyw=
+	t=1784824736; cv=none; b=ttrGTbk0pmq8mve4au4lnyuI9j6rbu48EkLoFrYYgjBoRAn36nr+heVS2Yxw07mfjU+zVBcFcfn8F6rNnU3i5agu01bFgSc1zrSygWdGi6gSar9DOYjpUOfg3DxJH8ZN4kl3TYzOeONO8W48+0NdcMiK1Yv93DTjkReeFI63Z8U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784824620; c=relaxed/simple;
-	bh=6jI0ftHgEIa4QOfa+aPb2/P+102XLq9gL5sGL+M/8w8=;
+	s=arc-20240116; t=1784824736; c=relaxed/simple;
+	bh=OAHPvY4BE23yFOBedjwhdqbEYvsiJ2oMhLDpRTUAQy0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BYQo/Kzby2pwV6Tql3BJ0E/wqkCZsnzXtTPJ4Ez6jEzCKtmCg6Y4sB0z5YYh1uafb3zMLZ/8HcXCZStaTwLu1b6f4jBiGhkLREJ1l31K/OeKLitsXm0rWuHuKg2wRyK3xKKn/AHhXhQkzi3ZeUU7B5QkWSVpJxzQWaXztQQ7B/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kEMj4Wd/; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=fqgVzo9/74088uIzkmOtc1vgvFh8c5rF+y/BVEIagwvU5mTCdHn1O8UnacRKX31s54TdxtBUli7OjserEzUOl+zZKdjcsZvv/Qiu/vjYJ/o04bPLNYVh6lCxhnNI+BnAJ3RnBrbTuJ+uZyYGNZx6a6YDG9YWVGkb3ZpEiDEC9rw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=I6uSSXoo; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kEMj4Wd/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6909E1F000E9;
-	Thu, 23 Jul 2026 16:36:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784824618;
-	bh=4wJRwgPZ4AI7SWe4QB67LiniTR58MRIskUEiQ1zUBE8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kEMj4Wd/lfr3ve62GnSJ7LOnIdXKVhD/jkdJGfhM2kZaqSyYc676weklICmzyb0IG
-	 DyJxBZAHZ38qNuQLIbqnsEKIlVP+j6Y/j0kk9L5y4SPUyojBwpOLKlMVyB8CuE+v5l
-	 kgeJUP5Ds8/JJLfSc3EEZpL83DqmESHJrKP0BITIawyum2NI8u6OIg29n6H3BEiOZj
-	 57p/6pBbuYZxAoU+muC8R7FsTNM3UyZ9JjAxlkixMzdGEUPdd77Mq0ueggCnQ0keYz
-	 N8wK/4mILUyRGkhBMfSDCskcjJtCQJvruJeqhwB28ZUTGpEP+73UBkQQg9R0vCAEpO
-	 4p4KPD1bpZ6Mw==
-Date: Thu, 23 Jul 2026 17:36:54 +0100
-From: Conor Dooley <conor@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: Ariana Lazar <ariana.lazar@microchip.com>, conor+dt@kernel.org,
-	devicetree@vger.kernel.org, robh@kernel.org
-Subject: Re: [PATCH 2/3] dt-bindings: iio: dac: add support for MCP48FEB02 SPI
-Message-ID: <20260723-tinkling-apple-9cdac4921218@spud>
-References: <20260723-mcp47feb02_refactor-v1-0-ee59e63672bc@microchip.com>
- <20260723-mcp47feb02_refactor-v1-2-ee59e63672bc@microchip.com>
- <20260723135115.2AF451F00A3D@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="I6uSSXoo"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9366819C;
+	Thu, 23 Jul 2026 18:37:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1784824663;
+	bh=OAHPvY4BE23yFOBedjwhdqbEYvsiJ2oMhLDpRTUAQy0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=I6uSSXoobNdpJx3Lvye2UNhET54EydTgPBer27uc949K/tqM5zBoqFiL4gzJTFBol
+	 o8+5s/2dQjhL3+OrvlPM6QEhnWT9SmyKfTqXrqsPWndmL173D+0YZ9wrvWipZBGhOv
+	 l/ySM3dKVPcb9Cmx5LejaJR4wr6t9CoWBjvf9h7Y=
+Date: Thu, 23 Jul 2026 19:38:43 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Richard Leitner <richard.leitner@linux.dev>,
+	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	driver-core@lists.linux.dev
+Subject: Re: [PATCH RFC 1/2] dt-bindings: regmap: add common schema for
+ no-sequential-read
+Message-ID: <20260723163843.GD767247@killaraus.ideasonboard.com>
+References: <cdd3b988-72cd-4143-9a17-ee0c57625e94@sirena.org.uk>
+ <amD_vkMOrtKq5NvX@bombadil>
+ <20260722201622.GD648629@killaraus.ideasonboard.com>
+ <amEvJBOE3Ja014Ap@bombadil>
+ <525338f4-cad3-4acb-94c5-a4b71cde9c02@sirena.org.uk>
+ <amHznORUaOnUFyS4@bombadil>
+ <20260723154541.GA764516@killaraus.ideasonboard.com>
+ <20260723-hamster-juniper-5697cacade96@spud>
+ <20260723161048.GC767247@killaraus.ideasonboard.com>
+ <20260723-empathy-seventh-b4aecf8f1b18@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="gO3PmxjrUfw3GFuH"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260723135115.2AF451F00A3D@smtp.kernel.org>
+In-Reply-To: <20260723-empathy-seventh-b4aecf8f1b18@spud>
 
---gO3PmxjrUfw3GFuH
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Thu, Jul 23, 2026 at 05:31:25PM +0100, Conor Dooley wrote:
+> On Thu, Jul 23, 2026 at 07:10:48PM +0300, Laurent Pinchart wrote:
+> > On Thu, Jul 23, 2026 at 05:02:42PM +0100, Conor Dooley wrote:
+> > > On Thu, Jul 23, 2026 at 06:45:41PM +0300, Laurent Pinchart wrote:
+> > > > On Thu, Jul 23, 2026 at 01:01:11PM +0200, Richard Leitner wrote:
+> > > > > On Wed, Jul 22, 2026 at 11:03:09PM +0100, Mark Brown wrote:
+> > > > > > On Wed, Jul 22, 2026 at 11:58:46PM +0200, Richard Leitner wrote:
+> > > > > > 
+> > > > > > > @Mark: I understood that if the fpga really intercepts the I2C bus, it
+> > > > > > > should be modelled accordingly in device tree. But what would be the
+> > > > > > > preferred implementation if both devices sit on the same I2C bus, but
+> > > > > > > one is messing up some register reads on purpose?
+> > > > > > 
+> > > > > > I think we would need to have a coherent understanding and description
+> > > > > > of the actual issue to know how to describe it.
+> > > > > 
+> > > > > Understood. I will try to figure out how the hardware is really wired
+> > > > > and come back to you.
+> > > > 
+> > > > Based on the information I have received so far, the FPGA is interposed
+> > > > between the host and sensor. It could therefore be modelled in DT as
+> > > > child of the I2C bus and a parent of the sensor.
+> > > > 
+> > > > New version of some of the Vision Components modules have fixed the
+> > > > multi-read bug, so we will still need a property in the FPGA DT node to
+> > > > indicate if the quirk should be activated.
+> > > 
+> > > Or come up with a compatible for the FPGA DT node that uniquely
+> > > identifies the revision of the RTL in use.
+> > > That's my preference for things that use some custom RTL that aren't
+> > > configuration parameters.
+> > 
+> > I'm afraid we won't be able to get that information. We have limited
+> > visibility on the ecosystem of modules and what the FPGA does in each of
+> > them.
+> 
+> Oh well, I tried..
 
-On Thu, Jul 23, 2026 at 01:50:59PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issu=
-e(s) to consider:
-> - [Medium] The schema retains `additionalProperties: false` at the root l=
-evel while introducing a conditional `$ref` to `spi-peripheral-props.yaml` =
-in the `allOf` block. This breaks schema validation for standard SPI proper=
-ties.
-> - [Low] The newly added SPI device tree example uses an inappropriate SPI=
- chip select value (`0x60`), copied from the I2C device address example.
-> --
->=20
-> --- Patch [2]: [PATCH 2/3] dt-bindings: iio: dac: add support for MCP48FE=
-B02 SPI ---
-> commit a357ffde05c7807cd64bca71103d780d8dde416b
-> Author: Ariana Lazar <ariana.lazar@microchip.com>
->=20
-> dt-bindings: iio: dac: add support for MCP48FEB02 SPI
->=20
-> This commit adds SPI support for the MCP48FxBy1/2/4/8 DAC families to the
-> existing MCP47FEB02 device tree binding. It introduces the new compatible
-> strings, the spi-max-frequency property, and a devicetree example for SPI.
->=20
-> > diff --git a/Documentation/devicetree/bindings/iio/dac/microchip,mcp47f=
-eb02.yaml b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.=
-yaml
-> > index d131f136bd151..d25c763241a4f 100644
-> > --- a/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.ya=
-ml
-> > +++ b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.ya=
-ml
-> > @@ -178,6 +239,13 @@ required:
-> >    - vdd-supply
-> > =20
-> >  allOf:
-> > +  - if:
-> > +      properties:
-> > +        compatible:
-> > +          contains:
-> > +            pattern: "^microchip,mcp48f[ev]b[0-2][1248]$"
-> > +    then:
-> > +      $ref: /schemas/spi/spi-peripheral-props.yaml#
->=20
-> [ ... ]
->=20
-> > +    then:
-> > +      properties:
-> > +        spi-max-frequency: false
-> > +
-> >  additionalProperties: false
->=20
-> [Severity: Medium]
-> Since this schema now includes a conditional $ref to spi-peripheral-props=
-=2Eyaml
-> in the allOf block, should this be changed to unevaluatedProperties: fals=
-e?
->=20
-> JSON Schema limits additionalProperties: false to only evaluating propert=
-ies
-> explicitly declared in the root properties or patternProperties. Any stan=
-dard
-> SPI properties pulled in via the conditional $ref will be incorrectly rej=
-ected
-> by dt_binding_check.
+Let's look at the bright side: the vendor has fixed the issue after we
+reported them, so DT for newer modules will be better :-)
 
-This trips up Sashiko a lot.
-This additionalProperties is fine if spi-max-frequency is the only
-property from that binding that this device uses.
+-- 
+Regards,
 
->=20
-> >  examples:
-> > @@ -299,4 +424,29 @@ examples:
-> >              };
-> >          };
-> >      };
-> > +  - |
-> > +    spi {
-> > +        #address-cells =3D <1>;
-> > +        #size-cells =3D <0>;
-> > +
-> > +        dac@60 {
-> > +          compatible =3D "microchip,mcp48feb02";
-> > +          reg =3D <0x60>;
->=20
-> [Severity: Low]
-> Is 0x60 intended to be used as an SPI chip select here, or was this copied
-> from the I2C example?
->=20
-> Typically, an SPI chip select would be 0 or 1, and the node would be named
-> dac@0 with reg =3D <0>.
-
-It's an example, so it doesn't matter. But yes, looks like a copy-paste
-mistake.
-
->=20
-> > +          vdd-supply =3D <&vdac_vdd>;
-> > +          vref-supply =3D <&vref_reg>;
-> > +          spi-max-frequency =3D <10000000>;
-> > +
-> > +          #address-cells =3D <1>;
-> > +          #size-cells =3D <0>;
-> > +          channel@0 {
-> > +            reg =3D <0>;
-> > +            label =3D "Adjustable_voltage_ch0";
-> > +          };
-> > +
-> > +          channel@1 {
-> > +            reg =3D <0x1>;
-> > +            label =3D "Adjustable_voltage_ch1";
-> > +          };
-> > +        };
-> > +    };
-> >  ...
->=20
-> --=20
-> Sashiko AI review =B7 https://sashiko.dev/#/patchset/20260723-mcp47feb02_=
-refactor-v1-0-ee59e63672bc@microchip.com?part=3D2
-
---gO3PmxjrUfw3GFuH
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCamJDJgAKCRB4tDGHoIJi
-0qdSAQCyvH4tH2zk8ZjftTMXyjvrVt3MH+Z/o5Vg9ky5FJKqmAEA4e9dYGtSfbp3
-gVL/YmYj9j8o/YWFEb0q+FlYHX2LTQs=
-=PKMa
------END PGP SIGNATURE-----
-
---gO3PmxjrUfw3GFuH--
+Laurent Pinchart
