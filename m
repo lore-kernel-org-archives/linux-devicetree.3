@@ -1,126 +1,154 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 489D230FC12;
-	Thu, 23 Jul 2026 02:41:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70EF82D2486
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 02:41:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784774465; cv=none; b=LBWDMNSYwAXa06GNkoQk1tQ6cxQAkglPGL12MqvrNLK0DhDgLUW+D1/OS9g8QYW9ccI1fFJf0ssexR+NZGiydvI4y8Qy1PRMxxsmpxcdw6whppKeMXFwGXx6PZiqj118Io/iRIt5xVN6N8qDWQdML5DGFi2aiSDawk/s17GSwsI=
+	t=1784774476; cv=none; b=KdSfmBjROcpSfCqVKR6M+kUfDA4PKSYMC/htGZe4j8Fc8bUIJMkxd5IqrT8/lfJ2erPpCwkhJ/kcuKLdPF1niQHRheCCRbxjkrCQJbBi7097dFIb2jUcryGK1GUipH3DKKoHsNEeFWm1Rs0E1HNAi9fky8ZV3j5BukMb+z6l9Eo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784774465; c=relaxed/simple;
-	bh=X6f4lNHqW9zXwOdfJxnv2FjZNk0+9qi37SmtjTS/IR4=;
+	s=arc-20240116; t=1784774476; c=relaxed/simple;
+	bh=FQRapFzVB6qmSc9NO63TIzvCz3hYgzX7xaqlNkARLO4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rr+M1nzxQWkggdQ1/nB7lUxLX1d2MDgTxBzoAMfzG+9K8A+Kg1R8BXijEZXUAsk/TcK0F1A4+kKaVjdO/7JLTeOKpEb+sIBqlBJY7/aQ8pPQeeVjq3+gKOPrS5xmfjxTzYbU5qPmiY4Cz9+N37fLVzbfA6ORZY/IkPwJ2TjOAvw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q6HKJJcZ; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=uuPx49zhQigXn7/L7Jmc7knIp07c7DwoDEd+clgHWzusTwr29Buadp6OgMfeIcxuCh5uiNEOpFfx2ECTvbqfzOpno/MxYQnUflgrmmF0qWJIDsU4um5YTiNEg58HD9I5rS89ZedKDJl3l7d36Z2VxyOA4jUG/sxPRlQM2bU5jdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dN1G7EcO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q6HKJJcZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B2821F000E9;
-	Thu, 23 Jul 2026 02:41:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dN1G7EcO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 921F01F000E9;
+	Thu, 23 Jul 2026 02:41:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784774463;
-	bh=s7InTUwj8VWWRngQhLix6q6jEY4+4i5MXfIQ9FII1i8=;
+	s=k20260515; t=1784774475;
+	bh=uo6cs1GBIeoh2IxEM1iWgYfpm9Q81pEyiR0+Y2kaLDE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Q6HKJJcZYq+5hRcrgdefJ+ZFy39tm4yo8Re7alGVnEfmMc46zwbGe3GKpurk3Qhn1
-	 Yjt8un17E6Fpkzt0SfdWQKURSR25wsRS0lxsr8BHmZILJbZ1P53+2j3CzivA0eqycd
-	 BmsxtW7DF17DVv5MyglQudivGBnX487CgbD07jnEDbbNPq/n5OgPQK+lXZJiRPFpmg
-	 twC38PCRWHrge3EvKEdMU+TKnTCJUTIhoVbBK2u9VXlaWnlkff/7ppE2qPX2Bka/hO
-	 jZYg+DYJqjpC4HPh29v4A2XNNd2ufHOrJHHoLfJN84+98lpQEhVoOhoKKV/F0x48jU
-	 FXRD1ouXXWW+A==
+	b=dN1G7EcOnSgaNkq40iDzRzRddmVLiBBDKZdMsaBhxe/KLWoeDbrtzeStHIMxuASVo
+	 E6E3ucsGmViiTa5eWl+FWheSLLRbw0CgV3fR8R8+rnb83mYOHX8KGsZqBBgOmG1X/Y
+	 XaFnV8PJzVlWB0vKPNctE2KtwGOP8/QSP2Q/tzW1LafYIagzCXsCL6Kn/F6IhqfK1A
+	 pKDx3kAgh8DrQKuVx89VnyKO1q5kHku8eCw/mHo3Ga82sy+eco1EuHEsQpS9bWCcH9
+	 S9lZvqoZ2esOoqFdHjIE0u+QQDXJoNpS3cWdt+sKdS8UZp3Eu+rqMlreH5ex/VYbGt
+	 QTLAYPrbCtAXQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/5] ASoC: fsl_asrc/fsl_easrc: move DMA params into
- pair/context struct
+Subject: Re: [PATCH v6 3/6] arm64: dts: qcom: glymur: Wire PCIe3a/3b to
+ shared Gen5x8 PHY
 Reply-To: sashiko-reviews@lists.linux.dev
-To: shengjiu.wang@oss.nxp.com
-Cc: imx@lists.linux.dev, Frank.Li@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260723022313.1905051-4-shengjiu.wang@oss.nxp.com>
-References: <20260723022313.1905051-1-shengjiu.wang@oss.nxp.com>
- <20260723022313.1905051-4-shengjiu.wang@oss.nxp.com>
+To: "Qiang Yu" <qiang.yu@oss.qualcomm.com>
+Cc: linux-phy@lists.infradead.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, robh@kernel.org, olteanv@gmail.com, devicetree@vger.kernel.org
+In-Reply-To: <20260722-glymur_linkmode_0722-v6-3-bba8156b8cbb@oss.qualcomm.com>
+References: <20260722-glymur_linkmode_0722-v6-0-bba8156b8cbb@oss.qualcomm.com>
+ <20260722-glymur_linkmode_0722-v6-3-bba8156b8cbb@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 02:41:02 +0000
-Message-Id: <20260723024103.6B2821F000E9@smtp.kernel.org>
+Date: Thu, 23 Jul 2026 02:41:14 +0000
+Message-Id: <20260723024114.921F01F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Critical] Mapping a dynamically allocated per-substream structure to a g=
-lobally shared CPU DAI pointer reintroduces concurrent stream data races an=
-d causes a Use-After-Free (UAF) vulnerability.
+- [High] The pcie3a controller is incorrectly configured for an 8-lane PCIe=
+ link instead of a bifurcated 4-lane link.
+- [Medium] The 32-bit PCI memory window in the `pcie3a` `ranges` property u=
+ses an incorrect child address, breaking identity mapping.
+- [Medium] The 'pcie3a_port0' root port node is missing the 'compatible =3D=
+ "pciclass,0604";' property.
 --
 
---- Patch [3]: [PATCH v2 3/5] ASoC: fsl_asrc/fsl_easrc: move DMA params int=
-o pair/context struct ---
-commit 00cf71a6ea96804fe20d59cf4d7658270bb9bebf
-Author: Shengjiu Wang <shengjiu.wang@nxp.com>
+--- Patch [3]: [PATCH v6 3/6] arm64: dts: qcom: glymur: Wire PCIe3a/3b to s=
+hared Gen5x8 PHY ---
+commit 563e57122857b4066dc260031df9a220f41387c4
+Author: Qiang Yu <qiang.yu@oss.qualcomm.com>
 
-ASoC: fsl_asrc/fsl_easrc: move DMA params into pair/context struct
+arm64: dts: qcom: glymur: Wire PCIe3a/3b to shared Gen5x8 PHY
 
-This patch moves the dma_params fields into struct fsl_asrc_pair so each
-concurrent stream pair owns its own copy. It removes the per-DAI probe
-callbacks and assigns the per-pair DMA parameters to the CPU DAI during
-startup.
+Glymur's PCIe3a and PCIe3b controllers share a single Gen5x8 QMP PHY block
+that can be bifurcated into two independent x4 links, rather than each
+controller owning its own dedicated PHY. This commit adds a pcie3_phy node
+and wires up both controllers.
 
-> diff --git a/sound/soc/fsl/fsl_asrc_dma.c b/sound/soc/fsl/fsl_asrc_dma.c
-> index 38f2b7c63133a..64d66420e7ada 100644
-> --- a/sound/soc/fsl/fsl_asrc_dma.c
-> +++ b/sound/soc/fsl/fsl_asrc_dma.c
+> diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/q=
+com/glymur.dtsi
+> index f32af66a3f1c8..6355499ee5e50 100644
+> --- a/arch/arm64/boot/dts/qcom/glymur.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
+
 [ ... ]
-> @@ -390,6 +390,20 @@ static int fsl_asrc_dma_startup(struct snd_soc_compo=
-nent *component,
-> =20
->  	runtime->private_data =3D pair;
-> =20
-> +	/*
-> +	 * Point the cpu DAI dma_data at the per-pair params so that
-> +	 * concurrent hw_params calls on different pairs each write to
-> +	 * their own struct and do not race on addr/maxburst.  Use the
-> +	 * per-direction setters so that a concurrent open of the other
-> +	 * direction on the same DAI does not NULL out its pointer.
-> +	 */
-> +	if (tx)
-> +		snd_soc_dai_dma_data_set_playback(snd_soc_rtd_to_cpu(rtd, 0),
-> +						  &pair->dma_params);
-> +	else
-> +		snd_soc_dai_dma_data_set_capture(snd_soc_rtd_to_cpu(rtd, 0),
-> +						 &pair->dma_params);
 
-[Severity: Critical]
-Does setting the shared CPU DAI dma_data to a per-substream allocated
-structure reintroduce data races and create a use-after-free regression?
+> +		pcie3a: pci@1c10000 {
+> +			device_type =3D "pci";
+> +			compatible =3D "qcom,glymur-pcie", "qcom,pcie-x1e80100";
+> +			reg =3D <0x0 0x01c10000 0x0 0x3000>,
+> +			      <0x0 0x70000000 0x0 0xf20>,
+> +			      <0x0 0x70000f40 0x0 0xa8>,
+> +			      <0x0 0x70001000 0x0 0x4000>,
+> +			      <0x0 0x70100000 0x0 0x100000>,
+> +			      <0x0 0x01c13000 0x0 0x1000>;
+> +			reg-names =3D "parf",
+> +				    "dbi",
+> +				    "elbi",
+> +				    "atu",
+> +				    "config",
+> +				    "mhi";
+> +			#address-cells =3D <3>;
+> +			#size-cells =3D <2>;
+> +			ranges =3D <0x01000000 0x0 0x00000000 0x0 0x70200000 0x0 0x100000>,
+> +				 <0x02000000 0x0 0x70000000 0x0 0x70300000 0x0 0x3d00000>,
 
-Since snd_soc_dai is a singleton per component, concurrent streams might
-overwrite this single pointer. If we have two concurrent streams mapping to
-ASRC, stream 2 could overwrite the shared CPU DAI playback_dma_data to
-point to its own pair2.
+[Severity: Medium]
+Is this 32-bit PCI memory window child address correct?=20
 
-If stream 2 then closes or fails in startup, pair2 is freed:
+The standard for Qualcomm PCIe controllers in this device tree is to have
+identical parent and child addresses for the 32-bit outbound memory window
+(like pcie3b). Here it looks like cpu address 0x70300000 is mapped to pci
+address 0x70000000, which appears to be copied from the dbi register base.
+Could this break the identity mapping convention?
 
-sound/soc/fsl/fsl_asrc_dma.c:fsl_asrc_dma_shutdown() {
-    ...
-    kfree(pair);
-    ...
-}
+> +				 <0x03000000 0x7 0x00000000 0x7 0x00000000 0x0 0x40000000>,
+> +				 <0x43000000 0x70 0x00000000 0x70 0x00000000 0x10 0x00000000>;
+> +
+> +			bus-range =3D <0 0xff>;
+> +
+> +			dma-coherent;
+> +
+> +			linux,pci-domain =3D <3>;
+> +			num-lanes =3D <8>;
 
-The shared CPU DAI pointer is never nullified, leaving it dangling. If
-stream 1 subsequently calls hw_params(), it would fetch this dangling
-pointer:
+[Severity: High]
+Should this controller be configured for 8 lanes instead of 4?
 
-sound/soc/fsl/fsl_asrc_dma.c:fsl_asrc_dma_hw_params() {
-    ...
-    dma_params_fe =3D snd_soc_dai_get_dma_data(snd_soc_rtd_to_cpu(rtd, 0),
-                                             substream);
-    dma_params_fe->addr =3D asrc->paddr + asrc->get_fifo_addr(!dir, index);
-    dma_params_fe->maxburst =3D dma_params_be->maxburst;
-    ...
-}
+The commit message explicitly states that the single Gen5x8 PHY block
+is "bifurcated into two independent x4 links", and pcie3b correctly requests
+4 lanes. By requesting 8 lanes here, and further down setting eq-presets and
+an OPP table for 8 lanes, won't this cause the PCIe controller to attempt an
+unsupported 8-lane training on the bifurcated PHY?
 
-Could this lead to cross-stream corruption or a use-after-free vulnerability
-by writing to and reading from the freed memory?
+> +
+> +			operating-points-v2 =3D <&pcie3a_opp_table>;
+
+[ ... ]
+
+> +			pcie3a_port0: pcie@0 {
+> +				device_type =3D "pci";
+> +				reg =3D <0x0 0x0 0x0 0x0 0x0>;
+> +				bus-range =3D <0x01 0xff>;
+> +
+
+[Severity: Medium]
+Is this node missing the compatible =3D "pciclass,0604"; property?
+
+All other PCIe root port nodes in the file (including pcie3b_port0) specify
+this string. Omitting it here might break compatibility matching for generic
+OF-based PCI bridge drivers.
+
+> +				phys =3D <&pcie3_phy 0>;
+> +
+> +				#address-cells =3D <3>;
+> +				#size-cells =3D <2>;
+> +				ranges;
+> +			};
+> +		};
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723022313.1905=
-051-1-shengjiu.wang@oss.nxp.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-glymur_lin=
+kmode_0722-v6-0-bba8156b8cbb@oss.qualcomm.com?part=3D3
