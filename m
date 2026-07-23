@@ -1,112 +1,186 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B247F429CF4
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 09:37:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0D234398F8;
+	Thu, 23 Jul 2026 09:38:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784799435; cv=none; b=j30cxNvaU963RoJCLwHwRRtx0z9iX662GJbCEcWv29XDvDdYfn+c40MILZ3dK1FFraxXFYnWomHrzrPdFzhonDmUhcjPvKllLwKP5xILOyLyGaWykZlfhvlzPc/dGmdPaRYcSsbaHZ8npWjkfLAWE1A8iXpa+rNH9lWjMdyD42I=
+	t=1784799507; cv=none; b=kA85w3oS8Ld2u/dlyruzfrKkgh2wQrDe2onsUYAzVkLPoD2TRXtc9gd9vcL3edmibuJXeYiSR2a4k+fXj4FBpAbwDZ74OdmDBSdvREB2oxMdsbocYaHx3hzrLomEMl++jHocBcVnSK84Kx7EUqgDBP3fReBgK1N8kBzvKF33ZAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784799435; c=relaxed/simple;
-	bh=UHHEYrKMvzuzSupr2/g84h0S2cJB1TfXy3IzxYoKXmw=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=stZyIWWV/xhbUMz5G2rQUnW5VjoS+nS8b4/WHYawb0c6n+CA83FPMWeGeFLvQD0gbl+b4Uw5hTz1BXAlREwTybarmdaC5OoaEw/50cwNp+Dl8nqEfwPxqG/zpneAanrEN0zh9lDPvxLfJA7Hl65ex4OHDU3iJGXuudazbRYkzcU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=De2vccG8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784799507; c=relaxed/simple;
+	bh=bThWBGwyiiDx43kBl7bLVzpvwMBgEyFvEokhx0P4nhE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=D628wAbc+MNyokw7CEFSrlsu5GvB1fGq/ZtcE5JjQZFiMa2c3i28lRgDz8D9lV45ov9hlUYaRLqNNJ/v1vuy8wEtBLttPrZWrFwcX9XUNF5fPTdXyimZ/KHEX+zqXsd6tNb98qDcS7uYU8bhzhKP3XiV/9Sv2c3J6qxOt1ekNwM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=ATFiBh03; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="De2vccG8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 587221F000E9
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 09:37:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784799434;
-	bh=fTzES2E2d90tPH+9oRQlOp14dLhGN56YzmJZ+EdSxi8=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=De2vccG81S7SBxTicB+LgAOlsekppl1JLbKaAO7GGKKJKprFWL16l3a/iSpNab+zd
-	 ek2i8TCAIJB/E/j6i75oz402igXsdYLxWaTW3crieTNrbVc8KlPhamSnLyIdasjNVY
-	 nA/x5/yc9lPDC+sRxWeQdEBJPzVp8zXP4bTYKfeRH0JIIPxVEFHq0w9wECcr+q5G8g
-	 40++kwMFRIdFMllTCmYdB1EoDqLkisXuSaDQ2fYYp3hdlYV2mZTAUjOlqcFTahFjfD
-	 zUVATOUjQyu0lJfAnMjhyBm3P9JnuTLu+GiPmi/b/WP/pq2ES0Yyf+9ET+aYhZkbbJ
-	 cYxH+2OkJ1VfA==
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5aeb98460c6so453594e87.2
-        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 02:37:14 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RrCyoUJ7q0UrxYRbJtwm1K87QnxTK96ZnjT6h+q94jq4P5WcUwLrLWEUvJqKTNk6gLuKEPQGU0rKQqK@vger.kernel.org
-X-Gm-Message-State: AOJu0YxEmxuBAE096298h9u4HdXCqb15cK15pQdM7723o3rT/zcCpC1U
-	m4i+jaZnFI7kmLDlq3BXl0DUMz/L3ENVy+FsZpMkrvQyzywRVP9LyTr4ykS6sJ6+OtzLlwQMeJ0
-	BwoQP2CzVNexV5qCKGW6MonDYgtzXKJTB7zok4VQrhQ==
-X-Received: by 2002:a05:6512:1503:20b0:5b2:9dcc:8e26 with SMTP id
- 2adb3069b0e04-5b2b2f7c367mr296386e87.60.1784799433063; Thu, 23 Jul 2026
- 02:37:13 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 23 Jul 2026 05:37:11 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 23 Jul 2026 05:37:11 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260722120217.3609506-1-prasad.kumpatla@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="ATFiBh03"
+Received: from francesco-nb.. (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
+	by mail11.truemail.it (Postfix) with ESMTPA id 001181FB7B;
+	Thu, 23 Jul 2026 11:38:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1784799503;
+	bh=9eFptTX/PMVEvciVeEhONSLkS9aIwGTXcS3cNjnrq0g=; h=From:To:Subject;
+	b=ATFiBh03lA5JHFY+G2PNx8LfiPAOhMOfngqWlVYl2HxDu1IGQzzHQLhhjcdDQ39cF
+	 ovR9Cy6BjmgcP2etiky9ZU/qU41hTF5iysMGTgljoZULQVn4oxwY2uv7yCqsGN/ipL
+	 +wpSE+pnEYJcvnuzMO7+WXXlLWJkR56mOZChrC9bG7rT0TYp9c/D6RWdZcYQ+ZpW7O
+	 ix8s3QLky/IDZVk/v5BbuEVEzEs/WTiOlH9pVxCum8wBlWbvEFcENkH0AB+DS/hNmk
+	 03HP5dxdTag76NqvCg/3S3N3ObA37toY5Agqg9ckRQb/nRn3xSw8Mb1uIFpoi65/EP
+	 /Gsr1C4JB/Nig==
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Marek Vasut <marex@denx.de>,
+	Stefan Agner <stefan@agner.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>
+Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v2 2/4] drm: mxsfb: Add optional DPI output bus-width configuration
+Date: Thu, 23 Jul 2026 11:38:09 +0200
+Message-ID: <20260723093813.180089-3-francesco@dolcini.it>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260723093813.180089-1-francesco@dolcini.it>
+References: <20260723093813.180089-1-francesco@dolcini.it>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260722120217.3609506-1-prasad.kumpatla@oss.qualcomm.com>
-Date: Thu, 23 Jul 2026 05:37:11 -0400
-X-Gmail-Original-Message-ID: <CAMRc=MddF5CzMgkUeCWbMFw=J3ZvbxK3qm0-oqvnaHFK61SKNw@mail.gmail.com>
-X-Gm-Features: AUfX_mwNmj-4-Z-iXOivesxKtl8VG-OrWT9cvLrkpa9dzEwo-spPvV65NSiA9ho
-Message-ID: <CAMRc=MddF5CzMgkUeCWbMFw=J3ZvbxK3qm0-oqvnaHFK61SKNw@mail.gmail.com>
-Subject: Re: [PATCH v5 0/4] ASoC: qcom and pinctrl: add LPASS LPR voting and
- Hawi LPASS LPI TLMM
-To: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, 
-	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org, 
-	Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Srinivas Kandagatla <srini@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Wed, 22 Jul 2026 14:02:13 +0200, Prasad Kumpatla
-<prasad.kumpatla@oss.qualcomm.com> said:
-> This series adds support for LPASS low-power resource (LPR) voting
-> through PRM and introduces LPASS LPI TLMM pinctrl support for newer
-> platforms such as Hawi.
->
-> On such platforms, LPASS requires LPR resource voting via PRM to keep
-> the subsystem active. This is handled by adding a new clock ID and
-> support for PARAM_ID_RSC_CPU_LPR in q6prm.
->
-> Additionally, a new LPASS LPI TLMM block is introduced, requiring a
-> dedicated DT binding and pinctrl driver.
->
-> Dependencies and merge strategy
-> ===============================
->
-> The series introduces a new clock identifier, LPASS_HW_LPR_VOTE, in
-> qcom,q6dsp-lpass-ports.h. This clock ID is consumed both by the ASoC
-> LPASS LPR voting support and by the Hawi LPASS LPI DT binding.
->
-> As a result, the DT binding header update introducing
-> LPASS_HW_LPR_VOTE is the only cross-subsystem dependency in this
-> series.
->
-> The intended merge strategy is:
->
->   1. Merge the LPASS_HW_LPR_VOTE definition in
->      qcom,q6dsp-lpass-ports.h.
->
->   2. Merge the ASoC LPASS LPR voting support via the ASoC tree.
->
->   3. Merge the Hawi LPASS LPI DT binding and pinctrl driver via the
->      pinctrl tree.
->
-> Apart from the shared DT binding header update, the ASoC and pinctrl
-> changes are independent and do not introduce additional build-time
-> dependencies between the two subsystems.
+From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-But that was my question all along. If I take only patches 3 and 4,
-`make dt_bindings_check` will not work in my tree. Krzysztof: do we not care
-about make dt_bindings_check in linux-next?
+LCDIF programs LCD_DATABUS_WIDTH from the selected media bus format. The
+format reported by the downstream panel or bridge describes the display
+input, but it does not describe how the LCDIF data pins are physically
+wired on the board.
 
-Thanks,
-Bartosz
+These can differ. For example, a 16-bit LCDIF bus can be connected to a
+24-bit display by wiring the available color bits to the corresponding
+display inputs. In that case, using the display's 24-bit format to
+configure LCDIF selects the wrong data-bus mode and changes the assignment
+of color bits on the LCD_DATA pins.
+
+Read the optional bus-width endpoint property from the LCDIF output port
+and use it to select the media bus format used to configure LCDIF. This
+allows the LCDIF bus mode to describe the physical interface
+independently of the downstream display format.
+
+When the optional property is absent, continue using the format reported
+by the downstream display device, preserving the existing behavior.
+
+Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+---
+v2: use the common bus-width property instead of the legacy interface-pix-fmt
+---
+ drivers/gpu/drm/mxsfb/mxsfb_drv.c | 24 ++++++++++++++++++++++++
+ drivers/gpu/drm/mxsfb/mxsfb_drv.h |  2 ++
+ drivers/gpu/drm/mxsfb/mxsfb_kms.c | 12 ++++++++++++
+ 3 files changed, 38 insertions(+)
+
+diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.c b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+index 9b8fbda85d28..0545718a4b65 100644
+--- a/drivers/gpu/drm/mxsfb/mxsfb_drv.c
++++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+@@ -12,7 +12,10 @@
+ #include <linux/clk.h>
+ #include <linux/dma-mapping.h>
+ #include <linux/io.h>
++#include <linux/media-bus-format.h>
+ #include <linux/module.h>
++#include <linux/of.h>
++#include <linux/of_graph.h>
+ #include <linux/platform_device.h>
+ #include <linux/property.h>
+ #include <linux/pm_runtime.h>
+@@ -209,7 +212,10 @@ static int mxsfb_load(struct drm_device *drm,
+ 		      const struct mxsfb_devdata *devdata)
+ {
+ 	struct platform_device *pdev = to_platform_device(drm->dev);
++	struct device_node *np = pdev->dev.of_node;
+ 	struct mxsfb_drm_private *mxsfb;
++	struct device_node *ep;
++	u32 bus_width = 0;
+ 	int ret;
+ 
+ 	mxsfb = devm_kzalloc(&pdev->dev, sizeof(*mxsfb), GFP_KERNEL);
+@@ -236,6 +242,24 @@ static int mxsfb_load(struct drm_device *drm,
+ 	if (IS_ERR(mxsfb->clk_disp_axi))
+ 		mxsfb->clk_disp_axi = NULL;
+ 
++	ep = of_graph_get_next_endpoint(np, NULL);
++	if (ep) {
++		of_property_read_u32(ep, "bus-width", &bus_width);
++		of_node_put(ep);
++	}
++
++	switch (bus_width) {
++	case 16:
++		mxsfb->bus_format = MEDIA_BUS_FMT_RGB565_1X16;
++		break;
++	case 18:
++		mxsfb->bus_format = MEDIA_BUS_FMT_RGB666_1X18;
++		break;
++	case 24:
++		mxsfb->bus_format = MEDIA_BUS_FMT_RGB888_1X24;
++		break;
++	}
++
+ 	ret = dma_set_mask_and_coherent(drm->dev, DMA_BIT_MASK(32));
+ 	if (ret)
+ 		return ret;
+diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.h b/drivers/gpu/drm/mxsfb/mxsfb_drv.h
+index d160d921b25f..bdc47ce5be79 100644
+--- a/drivers/gpu/drm/mxsfb/mxsfb_drv.h
++++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.h
+@@ -46,6 +46,8 @@ struct mxsfb_drm_private {
+ 	struct drm_connector		*connector;
+ 	struct drm_bridge		*bridge;
+ 
++	u32				bus_format;
++
+ 	bool				crc_active;
+ };
+ 
+diff --git a/drivers/gpu/drm/mxsfb/mxsfb_kms.c b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
+index d8ebebc5314b..1d78c486d147 100644
+--- a/drivers/gpu/drm/mxsfb/mxsfb_kms.c
++++ b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
+@@ -386,6 +386,18 @@ static void mxsfb_crtc_atomic_enable(struct drm_crtc *crtc,
+ 	if (!bus_format)
+ 		bus_format = MEDIA_BUS_FMT_RGB888_1X24;
+ 
++	/*
++	 * Prefer the bus format derived from the OF graph endpoint "bus-width"
++	 * property when available. Otherwise, use the bus format reported by
++	 * the downstream bridge or panel.
++	 *
++	 * This supports mismatched display and interface bus widths, such as
++	 * a 24-bit panel connected through an 18-bit interface or an 18-bit
++	 * panel connected through a 24-bit interface.
++	 */
++	if (mxsfb->bus_format)
++		bus_format = mxsfb->bus_format;
++
+ 	mxsfb_crtc_mode_set_nofb(mxsfb, bridge_state, bus_format);
+ 
+ 	/* Write cur_buf as well to avoid an initial corrupt frame */
+-- 
+2.47.3
+
