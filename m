@@ -1,153 +1,322 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 446CA355048
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 02:44:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B3D357CF4;
+	Thu, 23 Jul 2026 02:44:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784774645; cv=none; b=hxTpJCd4B+sucGck2C0Q0c49GHKu6+e/JITwg0Up05R1HYZlRuXwUhPZov34X1cc2yeLm02DfPAW/Y463ZEbFFcaK6ZWbJNsdXFgpyETaU3NR1AioPTE4wdfu5GNfgQLgzK3G2BU//UPiMk+B45EZZWJWtEtqvw1TpNDCPOYsLM=
+	t=1784774645; cv=none; b=fo8GDffIlASr1ceIeQNRL0I69DJYuhpWeVNixQRTgUEd3a+Brc2iDeKudagr55tMwC5xzzD/3MIlsKAMXCXDM2Wqkl1C5l9iPUGpAkzSXCt7pbxr420TN/cdGuriN093lf+aT5VLKgcAu1cv5f6A5AyKEesZcs8h1ZQ5RoKaF9k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784774645; c=relaxed/simple;
-	bh=NPLSY9k9knrDG+QgQjpAJt501oG3X5HQ4HdCYtlX0ns=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Ox+Wo7bQ54+8pltLebuy0O2TwtqVnlPeCOk8lCN4pya0MmbGWB3+XqRZ0lY+vY2iF01eJMnT+6269Yne9CSMmsIV2tKHfPGQEH0K9QdK4/dFSLV7NwLvaoEBmPmxzP7v0TH/4QHISK2/eISl+jrySkQ2mrw/yzZaYoTLzsRIpUQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DFiMZ44a; arc=none smtp.client-ip=100.103.45.18
+	bh=WMyTl5a6rEYDMRSvVwjNXQH/fNF1UFXXcg1VgIJCW1Q=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=pt7NBr0VSU/iGT2UGFCPHtjvp/kakaTlabhIGIB+zZTVKRvxpqRsxHe1fmSEWdbhRL4AvZSowv9qAid8x+GFPWHn18sAeU7m/HFb/mD8PXLKAIvd48Wf8gAWyr0FBWLZIUka4D+TlNnj6XFmgdoUzcerys2lW8765pfF/31LzMM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hlnhAodz; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DFiMZ44a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA4DD1F00A3A;
-	Thu, 23 Jul 2026 02:44:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784774642;
-	bh=cZ0RpoRsNCBnMwb6W/Jn4NaTuUluXiHIqDeqXMQxRVY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DFiMZ44agY+2bgobgW0iGHvNLrDnj0SZhvDN862jDnckBbpJdCZESR7YDWQNie+43
-	 bcxcIoml0Sc5j43e47qzB2O4qGgrIe+ZK9rZRfDS0fOpWFkqdR5m/gElgXSrmG+9bf
-	 u/fn5KFIuiHhI+xuiI8tq5HYMf4f/X3/TKtDUJM5nfW5bfEBJwK14Ba0auV/NgDSQV
-	 qUD87D+jqM7FP62wXZh3pnT+Sdoz2ZrgOk5qxGwedjOPUb8EYp8qOxmm8i+PUDbbxi
-	 N4Yq5lRntnxwzo0+EPz5aUIDtwLsYZOOgSJOsalRNwGcrUi7ax7ZrhDWG2GbRQqK/u
-	 kDUrZqsSY24VQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/6] phy: qcom: qmp-pcie: Add QMP PCIe Multi-PHY
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Qiang Yu" <qiang.yu@oss.qualcomm.com>
-Cc: neil.armstrong@linaro.org, olteanv@gmail.com, vkoul@kernel.org, linux-phy@lists.infradead.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260722-glymur_linkmode_0722-v6-2-bba8156b8cbb@oss.qualcomm.com>
-References: <20260722-glymur_linkmode_0722-v6-0-bba8156b8cbb@oss.qualcomm.com>
- <20260722-glymur_linkmode_0722-v6-2-bba8156b8cbb@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 02:44:00 +0000
-Message-Id: <20260723024401.EA4DD1F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hlnhAodz"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A3BDFC2BCB3;
+	Thu, 23 Jul 2026 02:44:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1784774644;
+	bh=WMyTl5a6rEYDMRSvVwjNXQH/fNF1UFXXcg1VgIJCW1Q=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=hlnhAodzYPTsybIyEO4sRXCx350ROJw35iUdy8SFHtpUQdddzAIF36tgl9c61H2Bg
+	 AMFm/mMbRMovq+aSrhE8CkMC6BjVJPVDG23Vx9HNMf3htSf8/MpFS9v79KnEf2lrAR
+	 6O9QF3CxY+Uu/ieA1lCbgvhQXh6cVE7lgktl/vC+2SlQi+qU198NnQQJiNebzdXTMO
+	 iNWC7DQwn14RL0XApuZbLc0sFX3PmMAohSimQmCiFzwv6GL0BtOKUGzR/tEjt7uAAi
+	 kHWPfFJIGeFTz2zzQeOxJTTjSFEFbY+3JvFk513vviR2sl4pc5EENMjKRTqpal1IiR
+	 I3V/LeNwiFDgA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 85DE6C4453A;
+	Thu, 23 Jul 2026 02:44:04 +0000 (UTC)
+From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
+Date: Thu, 23 Jul 2026 10:44:02 +0800
+Subject: [PATCH v7 1/2] dt-bindings: media: add ITE IT6625/IT6626 HDMI
+ bridge binding
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260723-upstream-it6625-it6626-v7-1-f8175bb0ea12@ite.com.tw>
+References: <20260723-upstream-it6625-it6626-v7-0-f8175bb0ea12@ite.com.tw>
+In-Reply-To: <20260723-upstream-it6625-it6626-v7-0-f8175bb0ea12@ite.com.tw>
+To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784774643; l=8537;
+ i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
+ bh=jxmlgFo/hBZDbPAKV+42sQG86MHfcuQMfKIjz+Nd+o4=;
+ b=xfi0KrLGBPkiNpw4RCPU/wvsPWVUfCaYPhcgmLDoBXUVk5a441K4xeSUuIkc0Dl3ffoHZAoVO
+ rI8WqZgsH7mCMGfQCvM0683NuwBJxofll9KbaC0AojSAHacJOWZTKuH
+X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
+ pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
+X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
+ auth_id=310
+X-Original-From: Hermes Wu <Hermes.wu@ite.com.tw>
+Reply-To: Hermes.wu@ite.com.tw
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Missing NULL check for power domain devices causes a kernel panic =
-if a power domain is missing in the device tree.
---
+From: Hermes Wu <Hermes.wu@ite.com.tw>
 
---- Patch [2]: [PATCH v6 2/6] phy: qcom: qmp-pcie: Add QMP PCIe Multi-PHY d=
-river ---
-commit 7fe1c90cb97487fff90a2cef8d97abd7bb798202
-Author: Qiang Yu <qiang.yu@oss.qualcomm.com>
+Document the devicetree binding for the ITE IT6625/IT6626 HDMI to
+MIPI CSI-2 bridge. The device exposes two graph ports: port@0
+(MIPI0) and port@1 (MIPI1), the two selectable CSI-2 D-PHY/C-PHY
+outputs. Only port@0 is required, since a board only needs to wire up
+as many of the bridge's outputs as it actually uses.
 
-phy: qcom: qmp-pcie: Add QMP PCIe Multi-PHY driver
+Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
+---
+Changes in v7:
+- Add back port@2 for the HDMI input port, reversing the v4 decision
+  to drop it. The v6 automated review re-raised the same concern with
+  stronger footing than v3's: devicetree describes the physical
+  hardware independent of what a given driver consumes, and the chip
+  has a physical HDMI input regardless of whether it6625.c wires
+  anything to it. Checked against adi,adv7604.yaml, an
+  actively-maintained upstream binding for a comparable HDMI-receiver
+  chip, which documents its input port(s) the same way via
+  graph.yaml's generic port pattern -- concrete precedent that an
+  input port unused by the driver still belongs in the schema.
+  Verified port@2 stays optional and the schema still validates with
+  dt-doc-validate/dt-validate both with and without it present.
 
-This commit adds a dedicated driver for QMP PCIe PHY hardware blocks that
-support multiple link topologies. It uses a per-mode config table to
-instantiate one qmp_pcie per sub-PHY required by the link mode.
+Changes in v6:
+- Unchanged. The v5 automated review flagged that the it6626
+  conditional's `required: [bus-type]` constraint, expressed under
+  `properties: { endpoint: {...} }`, doesn't match an `endpoint@N`
+  unit-addressed node and could in principle be bypassed. Checked
+  against mipi-ccs.yaml, an actively-maintained upstream binding that
+  requires bus-type (among other properties) via the exact same
+  `properties.endpoint.required` idiom with no patternProperties --
+  direct evidence this is accepted convention, not a defect, so no
+  fix was made.
 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-pcie-multiphy.c b/drivers/=
-phy/qualcomm/phy-qcom-qmp-pcie-multiphy.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-pcie-multiphy.c
+Changes in v4:
+- Drop port@2 (the HDMI connector input graph port) entirely: it
+  added no constraints beyond graph.yaml's generic endpoint-base, and
+  the driver doesn't use this graph port for anything schema-relevant,
+  so there was nothing for a consumer devicetree to usefully validate
+  against it. Found by the automated review of v3, which suggested
+  adding it to `required` instead -- dropping it entirely was judged
+  the better fix since the port carried no real constraints to begin
+  with.
+- Require bus-type on port@0/port@1 endpoints when compatible contains
+  "ite,it6626": the driver defaults to D-PHY when bus-type is omitted,
+  which is always correct for it6625 (D-PHY only) but would silently
+  misconfigure an it6626 board actually wired for C-PHY. Also found by
+  the automated review of v3.
 
-[ ... ]
+One other v3 review finding was checked and is not being acted on:
+- The plain `properties: { endpoint: {...} }` override used for each
+  port technically doesn't reach graph.yaml's separate
+  `patternProperties` matcher, so an `endpoint@0`-style node could in
+  principle bypass the local data-lanes/bus-type constraints. This is
+  the same convention already used by other single-endpoint-per-port
+  bindings in-tree (e.g. thine,thp7312.yaml), not a defect unique to
+  this binding.
 
-> +static int qmp_pcie_pd_power_on(struct qmp_pcie *qmp)
-> +{
-> +	const struct qmp_phy_cfg *cfg =3D qmp->cfg;
-> +	int i, ret;
-> +
-> +	for (i =3D 0; i < cfg->num_pds; i++) {
-> +		ret =3D pm_runtime_resume_and_get(qmp->pd_devs[i]);
+Changes in v2:
+- Restrict port@0/port@1 endpoint bus-type to D-PHY (4) only when
+  compatible is "ite,it6625", via an allOf/if/then constraint. IT6625
+  only supports MIPI CSI-2 D-PHY output; the schema previously allowed
+  both C-PHY (1) and D-PHY (4) unconditionally, so a devicetree
+  claiming "ite,it6625" with bus-type = C-PHY passed schema validation
+  despite being invalid on that hardware. IT6626, which supports both
+  PHY types, is unaffected. Found by the sashiko.dev automated review
+  of v1.
+---
+ .../devicetree/bindings/media/i2c/ite,it6625.yaml  | 174 +++++++++++++++++++++
+ 1 file changed, 174 insertions(+)
 
-[Severity: High]
-If dev_pm_domain_attach_by_name() returns NULL during initialization, could
-passing that NULL to pm_runtime_resume_and_get() here cause a kernel panic?
+diff --git a/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
+new file mode 100644
+index 0000000000000000000000000000000000000000..3899829036c6ba41f8f9c77908561c75ab4e3f6a
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
+@@ -0,0 +1,174 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/ite,it6625.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: ITE IT6625/IT6626 HDMI to dual MIPI CSI-2 bridge
++
++maintainers:
++  - Hermes Wu <Hermes.wu@ite.com.tw>
++
++description: |-
++  The ITE IT6625 and IT6626 are HDMI to MIPI CSI-2 bridge devices.
++  IT6625 supports an HDMI 2.0 input and converts it to one or two D-PHY CSI
++  outputs, while IT6626 supports an HDMI 2.1 input and converts it to one or
++  two C/D-PHY CSI outputs. The bridges are programmable through I2C and
++  expose two selectable CSI-2 output ports and an HDMI input port. The
++  bridge can operate in split mode or clone mode.
++
++properties:
++  compatible:
++    enum:
++      - ite,it6625
++      - ite,it6626
++
++  reg:
++    maxItems: 1
++
++  reset-gpios:
++    description:
++      GPIO connected to the active-low reset line.
++    maxItems: 1
++
++  ports:
++    $ref: /schemas/graph.yaml#/properties/ports
++    properties:
++      port@0:
++        $ref: /schemas/graph.yaml#/$defs/port-base
++        unevaluatedProperties: false
++        description: CSI-2 output port MIPI0
++
++        properties:
++          endpoint:
++            $ref: /schemas/media/video-interfaces.yaml#
++            unevaluatedProperties: false
++
++            properties:
++              data-lanes:
++                minItems: 1
++                maxItems: 4
++
++              bus-type:
++                enum:
++                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
++              clock-noncontinuous: true
++              link-frequencies: true
++
++            required:
++              - data-lanes
++
++      port@1:
++        $ref: /schemas/graph.yaml#/$defs/port-base
++        unevaluatedProperties: false
++        description: CSI-2 output port MIPI1
++
++        properties:
++          endpoint:
++            $ref: /schemas/media/video-interfaces.yaml#
++            unevaluatedProperties: false
++
++            properties:
++              data-lanes:
++                minItems: 1
++                maxItems: 4
++
++              bus-type:
++                enum:
++                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
++              clock-noncontinuous: true
++              link-frequencies: true
++
++            required:
++              - data-lanes
++
++      port@2:
++        $ref: /schemas/graph.yaml#/$defs/port-base
++        unevaluatedProperties: false
++        description: HDMI input port
++
++    required:
++      - port@0
++required:
++  - compatible
++  - reg
++  - ports
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: ite,it6625
++    then:
++      properties:
++        ports:
++          properties:
++            port@0:
++              properties:
++                endpoint:
++                  properties:
++                    bus-type:
++                      const: 4
++            port@1:
++              properties:
++                endpoint:
++                  properties:
++                    bus-type:
++                      const: 4
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: ite,it6626
++    then:
++      properties:
++        ports:
++          properties:
++            port@0:
++              properties:
++                endpoint:
++                  required:
++                    - bus-type
++            port@1:
++              properties:
++                endpoint:
++                  required:
++                    - bus-type
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++      #address-cells = <1>;
++      #size-cells = <0>;
++
++      hdmi-bridge@4c {
++        compatible = "ite,it6625";
++        reg = <0x4c>;
++
++        reset-gpios = <&gpio 2 GPIO_ACTIVE_LOW>;
++
++        ports {
++          #address-cells = <1>;
++          #size-cells = <0>;
++
++          port@0 {
++            reg = <0>;
++            csi_out0: endpoint {
++              remote-endpoint = <&csi2_rx0>;
++              bus-type = <4>; /* MEDIA_BUS_TYPE_CSI2_DPHY */
++              data-lanes = <1 2 3 4>;
++            };
++          };
++        };
++      };
++    };
 
-> +		if (ret < 0) {
-> +			dev_err(qmp->dev, "failed to power on %s domain\n",
-> +				cfg->pd_names[i]);
-> +			goto err_power_off;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +
-> +err_power_off:
-> +	while (--i >=3D 0)
-> +		pm_runtime_put(qmp->pd_devs[i]);
-> +
-> +	return ret;
-> +}
-> +
-> +static void qmp_pcie_pd_power_off(struct qmp_pcie *qmp)
-> +{
-> +	const struct qmp_phy_cfg *cfg =3D qmp->cfg;
-> +	int i;
-> +
-> +	for (i =3D cfg->num_pds - 1; i >=3D 0; i--)
-> +		pm_runtime_put(qmp->pd_devs[i]);
+-- 
+2.34.1
 
-[Severity: High]
-Similarly, could this pm_runtime_put() panic if qmp->pd_devs[i] is NULL?
 
-[ ... ]
-
-> +static int qmp_pcie_pd_init(struct qmp_pcie *qmp)
-> +{
-> +	const struct qmp_phy_cfg *cfg =3D qmp->cfg;
-> +	struct device *dev =3D qmp->dev;
-> +	int i, ret;
-> +
-> +	if (!cfg->num_pds)
-> +		return 0;
-> +
-> +	qmp->pd_devs =3D devm_kcalloc(dev, cfg->num_pds, sizeof(*qmp->pd_devs),
-> +				    GFP_KERNEL);
-> +	if (!qmp->pd_devs)
-> +		return -ENOMEM;
-> +
-> +	for (i =3D 0; i < cfg->num_pds; i++) {
-> +		qmp->pd_devs[i] =3D dev_pm_domain_attach_by_name(dev,
-> +							       cfg->pd_names[i]);
-> +		if (IS_ERR(qmp->pd_devs[i])) {
-
-[Severity: High]
-dev_pm_domain_attach_by_name() returns NULL if the power domain is missing
-in the device tree. Because this only checks IS_ERR(), a NULL pointer will
-be stored in qmp->pd_devs[i] in that scenario.
-
-Should this check be IS_ERR_OR_NULL(), or should the power on/off functions
-check for NULL before calling the runtime PM APIs?
-
-I noticed that qmp_pcie_pd_detach() correctly uses !IS_ERR_OR_NULL() when
-cleaning up, so it seems like NULL might be an expected value to handle.
-
-> +			ret =3D PTR_ERR(qmp->pd_devs[i]);
-> +			goto err_detach;
-> +		}
-> +	}
-> +
-> +	return devm_add_action_or_reset(dev, qmp_pcie_pd_detach, qmp);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-glymur_lin=
-kmode_0722-v6-0-bba8156b8cbb@oss.qualcomm.com?part=3D2
