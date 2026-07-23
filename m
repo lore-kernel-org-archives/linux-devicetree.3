@@ -1,132 +1,212 @@
-Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E1C6447818;
-	Thu, 23 Jul 2026 14:43:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F7773403FA
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 14:46:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784817791; cv=none; b=Khfl79lLR8+tKF35/PSEINKhbO3JT7rGZefes1DaxqIVujCdeJz6B+RSQYt1JD2w00uLqKaH2ex6GvIx2KLQSQLsHOi5wXKilmpYF8XTDsC5gspcuB+DQWha9+cnIAV3ON/sqaADD1q6vy1Xsrj7fkSWyk5MSkwCu9mWTxOHV+g=
+	t=1784818004; cv=none; b=TQrpvY59oe4LSzdfkonxPLzgP8FWLvNY4YmG8up2D/fe5HyrGYyqG0LUZkhS7v4TYRXbdm5jW1Vmir8M+sx+Vr66s2nrWngZMNFPQRWcdSZrsld9CesvNcAcLqK2ATEgZXXC6u3MogjtFVvaXtFzZJG5pcl1wYq1r8dOIRa4dzw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784817791; c=relaxed/simple;
-	bh=s+90TIMlAgkRuTbRIWsiZLA/SX5RB1AtNdi90FmN19I=;
+	s=arc-20240116; t=1784818004; c=relaxed/simple;
+	bh=VU4TKSqEqdPzpKL/vrnFYvQyEafE7LqTSA924z9OF4U=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d9EL+AhWyVcCOViLP/B08QGm0oOK6VkjUc+IGbv+fzGPtlKyxyQeQ9PDZBaKvb16JZeQ28EJzYsoM3qlUak+81cZoBkxunZnK7Gpk782rREZNenmjyNN8pAZ3GfDYxw6zRepTgwiHJEhruuIXNDwFL9L+s3qLcclAJNjE7+r9hw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=Z+Jrows5; arc=none smtp.client-ip=212.27.42.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+	 Content-Type:Content-Disposition:In-Reply-To; b=K8H5v9O/FwjhOlvmKxcj1jw84ULEhuhb6/BpNaKQGPaEzQTbcpMY57j3ST2DYXXFmoAujL84ZOVPIRRGwSuyCQSNZCdbunmiY9x7LLuPaYoNtgCmtJ28elsSP0FnEF+ZjJpS1cTP6e/XlOp5dtSsvv4gHvlkAfGFqYW1swAeQxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lIgStT47; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TAiMMBIL; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="Z+Jrows5"
-Received: from L30177.local (unknown [213.36.7.12])
-	(Authenticated sender: vjardin@free.fr)
-	by smtp6-g21.free.fr (Postfix) with ESMTPSA id B6741780506;
-	Thu, 23 Jul 2026 16:42:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1784817784;
-	bh=s+90TIMlAgkRuTbRIWsiZLA/SX5RB1AtNdi90FmN19I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Z+Jrows52qPHrntvg9sDv9V2rMDrUu6s/E+qFGZY3LGYtFlnlGF4lboGNKnOdhvKs
-	 LhiGKNet5JowFFAQAVfWtbNLlbhE4Jll/uTI7dhr6R7mM/wkHBZ/10llE7qX3uzeaZ
-	 kQtxvCD/AL87F8KQZptQHl52DRG2mumIYKtGuTBzTzsNFBsvUmV74c+cFtfRnBVuKZ
-	 3dhHLarj5n6f3BscBVeSP/JqaBWLfr01pr4NrEXsZmwiY8FHDqcsnd6DmiyKRRPAfU
-	 iXCYPyriPz245P0hjRzHucNGmWcJFNGi+A05gFReNE+NEiMMw35d8OZNDIz5t0ZgvW
-	 pk5WZKuGbRUdw==
-Date: Thu, 23 Jul 2026 16:42:58 +0200
-From: Vincent Jardin <vjardin@free.fr>
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH 3/3] hwmon: pmbus: add MPQ8646 driver
-Message-ID: <amIocoxA_omNKz-I@L30177.local>
-References: <20260723-mpq8646_v0-v1-0-14363c75916f@free.fr>
- <20260723-mpq8646_v0-v1-3-14363c75916f@free.fr>
- <20260723131952.198BD1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lIgStT47";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TAiMMBIL"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66NCvfVV4172612
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 14:46:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=sI3FJbWondD2nkr78gzMhxoD
+	OIU48NccLMlqvMaraaI=; b=lIgStT472fWGi5Z9LTE4SW4t3i/+Yk45sjzwrixx
+	2PXRCZm6ZJoqMNponwzr51ORZJsyENv9weQdhIvnljKcwUDKm0zbUGNMwd+8dbi4
+	deL/fo/VcGeTcl53j7JVZRmprUcwfXzoYxq/RaKNadgE2BKhmNh1eXuyWxm2Ne6B
+	68LXyHVGjYEoLs6roNfAzR7/FSQBEu8vN6nYclVIDIqzDk7J/E3HQOF1fzkwpUBL
+	TwSgHlMyqKhq9WwzX1ok+6iECE7iskN7I/QfDOgb/SBcymSr6BRjHlKxW7Mb6wUc
+	7aMVe8X7anTm3y+JuwXz/Fz14SxhuMT2d9otknQHOy+Ncg==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fke7qhvy2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 14:46:40 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5276a49e761so1781881cf.3
+        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 07:46:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784817999; x=1785422799; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sI3FJbWondD2nkr78gzMhxoDOIU48NccLMlqvMaraaI=;
+        b=TAiMMBILEDHIySML4VfUWVznO2vbR3eQDJGvLGuj0UBdYFDufmL8GTHk+NRk5BJBdS
+         B3pn7l/KjTvCOmpR72saH7v+5gi/JVgMtkWAwBko/WOd9uw170l2XGPzVJ3YBw7GNKEz
+         qBKJ0fnzncCW/u+5aaeaTBB1hA6GxfkSbCq12U5L2ukJ5axyPVLDkx4pr4ruJtb/AfEp
+         pIueDkL7zQqjt/9hujkTJbb6wPzyXNMVzbYXNoUV6CQH+QGCXd9/paVfXh1IknPPrwv9
+         o/S3ifqlgsyMpTPZrm2sliDuJCt9SP3Cp4v0cIaLby8ypjlFRi5B5kyHRDAWm9/rXDw6
+         ogrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784817999; x=1785422799;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sI3FJbWondD2nkr78gzMhxoDOIU48NccLMlqvMaraaI=;
+        b=EdJknmU5cEbupJGRQRXlBwxDm8OMCLrdJAm/hsn/aYKKkCSsHpyEi0nuSBHbwkcOW9
+         ftbFGJJsSj+3RrxiEC1PfJ+ENI6ufR6MsTToVvUlp0FW9hgCTOUhef3xQcylva9Zcms+
+         QSiIi5zkTLx286u1sngxWnHnpuz+AuujWjGcLAA8OtSj4g8iqdnJ2F2M/7lnzoB8uNZY
+         W+HuZ/GpJHAyd8QU5Pwarmi5Vhwkn9ajqCIFFh8B+HzfC5RtL70Lo5i89iQoXQ5XhE2P
+         MQr+f777NW2H+OY6rvqWdmuCsJEyFmMwvuarvg6qsj3T2Nbpch++Iv/TD7a3nlFxKMs7
+         reIw==
+X-Forwarded-Encrypted: i=1; AHgh+Rre/fdOXnkkebGC/dmkHN8jisytgoRMWyxIavjPGhM5ycPnhMq6pufJ2FS2fgBi13pkpHN7jnsAmVF2@vger.kernel.org
+X-Gm-Message-State: AOJu0YyACmo/W7+3Dc4F5iKcBugRcdqRVW1mOvyc6DL/J4dpQnPEdnfK
+	wJNIJHFrQ7kjMMbuJ0TazF+7DamsdAiNlxglgiqobRm+f0066oFRKzRbdgWeJbHrcwaWT55Omi0
+	TjgESXRFaNjgo020HxsP8UiqYhAxA5gDGX6M3llsbA4o+NUmqJqJ7EfQeNaMmhOuw
+X-Gm-Gg: AR+sD127IP/+ghhvDCs3tHEtQTaHmtSv+AFkSRgKV4DNsbZybqAz0Iq/ps8m0eTuzlC
+	RFcUXuXbZJBSgYEaCnJVdo8tzXMHLWcIBYV5lVnMI8yihT5okVH0DjRkz6RPG365z9BfsvWexnc
+	ox8EI8+qpjXABSJhcId3AEwnfznL3UKNppYP/ui3t+Z0X2l+1cKK2XKmKfQWZ/31bjnAlpUuObg
+	74E/JXtXE6+68NGmLl8BBi0YSHgnUIk+xsC3HM+Z7JpNFFVqs/e12KkEiMcnjZ734ct0XTCkhKV
+	S2h0AhZXHcY110Clf1jk1+Nt+X4e9T677M5vCZmVNvDn2JdWRIifDRRmpiLAcTvnjlO8an5hNMh
+	WjhXoO+Tvgmp/gW+ZGIZYh/vycPCyr+G7SQvHZ+l44+BCbi0PhzwkytfYc3epvAct5HuxntpF03
+	3NzBkXSSAEHPzx+5poTkPN
+X-Received: by 2002:a05:622a:840c:20b0:51c:4ffa:9b71 with SMTP id d75a77b69052e-528474b0ec0mr5761801cf.6.1784817999517;
+        Thu, 23 Jul 2026 07:46:39 -0700 (PDT)
+X-Received: by 2002:a05:622a:840c:20b0:51c:4ffa:9b71 with SMTP id d75a77b69052e-528474b0ec0mr5761561cf.6.1784817998972;
+        Thu, 23 Jul 2026 07:46:38 -0700 (PDT)
+Received: from hu-vishsain-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2a9badae1sm1072445e87.28.2026.07.23.07.46.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 23 Jul 2026 07:46:37 -0700 (PDT)
+Date: Thu, 23 Jul 2026 20:16:28 +0530
+From: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        venkata.valluru@oss.qualcomm.com,
+        Jessica Zhang <jesszhan0024@gmail.com>
+Subject: Re: [PATCH 1/3] arm64: dts: qcom: lemans-evk: Add LVDS display
+ overlay
+Message-ID: <amIpRKHXYKxvGCej@hu-vishsain-blr.qualcomm.com>
+References: <20260719-lvds-support-v1-0-1f1aca3213ba@oss.qualcomm.com>
+ <20260719-lvds-support-v1-1-1f1aca3213ba@oss.qualcomm.com>
+ <b2pbwtqd5mf5d3sbbadx3e5o3ohys4mmjv5dxc3grycuuqjvgg@rh5veftljlrt>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260723131952.198BD1F000E9@smtp.kernel.org>
+In-Reply-To: <b2pbwtqd5mf5d3sbbadx3e5o3ohys4mmjv5dxc3grycuuqjvgg@rh5veftljlrt>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIzMDE0NiBTYWx0ZWRfX+oGFPClGqQBO
+ 2a+ixe36NStMV200bprxLrCl8Kadj8mE2F4yJM7mptjpKJ2Fwsm91EESguHfsQ7vuyZDwvgs3sI
+ PuKCcAK1xY86Lhp3qq3lgaFkBH77r78=
+X-Authority-Analysis: v=2.4 cv=aYxRWxot c=1 sm=1 tr=0 ts=6a622950 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=w-N4q8XgX6vL9HKy4AIA:9 a=CjuIK1q_8ugA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-GUID: xXfE8-qmOzxMWTPb6xMCml3-MRVjJvRZ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIzMDE0NiBTYWx0ZWRfX49A1tCWBzhpd
+ fsD8lxMQ7jLTqQnRecoHrUsZJEeGSuWvdoPI1gEIVsRsD7nEDO35jIwnDiNMr5MuBmzHDyol82Q
+ ED2MJ9nUwvzsuLHj3YqSrhw7ZXl1yh/NqCM8eY3EoolY0wf8L+38JE4ru2LCQ9jRWLY1ceuKl9C
+ Hlcra+5Q7q43zLXle7ty1JBjLaHhqR4eNrBtQ4muRVLkkr5HFpDuFNJ998zV2qQV6YmTsytlIdr
+ ymzAP/GlHxobJ6CYiUcEMnYya4TLOIotfxXuOn5TdCdwGgBfO9qaKUJI9YPR+VSps92b0Vp/5LU
+ Y+gkB2TkjvZKsRgBifxE4/AEKltsMuEYnZSWgQhCbtRnMZEbIbAGClEoO1F42OuHKGfGlCpu5fo
+ U2XbJzxeYE7mA9mmdH9R4wFO1uvv9LIyB2iFJB6rlbh76Gz/ojv2koczXv+Mg4U4ZVzh5rwjsKQ
+ HZCqg1t1v9cAJY8YZBg==
+X-Proofpoint-ORIG-GUID: xXfE8-qmOzxMWTPb6xMCml3-MRVjJvRZ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-23_04,2026-07-22_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 malwarescore=0 spamscore=0
+ lowpriorityscore=0 phishscore=0 bulkscore=0 clxscore=1015 adultscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607230146
 
-Hi Bot,
-
-> [Severity: High]
-> Does this pass stack-allocated buffers to i2c_transfer()? Since many I2C
-> host controllers use DMA, mapping stack memory for DMA can cause a kernel
-> panic if CONFIG_VMAP_STACK is enabled. Should these buffers be dynamically
-> allocated?
-
-According to Documentation/i2c/dma-considerations.rst:
-"it is NOT mandatory that the buffer of an I2C message is DMA safe
-
-Since DMA safety is opt-in per message via I2C_M_DMA_SAFE which means that
-Users of i2c_transfer() shall set the I2C_M_DMA_SAFE flag manually,
-and the host drivers doing DMA get "either msg->buf for the I2C_M_DMA_SAFE case
-or a bounce buffer" from i2c_get_dma_safe_msg_buf().
-
-These messages do not set the flag, and at 1 and 2 bytes they are far below the
-about 8-byte DMA thresholds the same document describes. This is also a root-only
-debugfs probe helper.
-
--> So no.
-
-> Will these coefficients result in the correct voltage scaling? The Direct
-> format equation converts register Y to physical X using
-> X = (Y * 10^-R - b) / m. With m = 64, b = 0, and R = 1, the effective LSB is
-> 10^-1 / 64 = 1.5625 mV/LSB.
+On Wed, Jul 22, 2026 at 04:44:14PM +0300, Dmitry Baryshkov wrote:
+> On Sun, Jul 19, 2026 at 11:35:06PM +0530, Vishnu Saini wrote:
+> > The Lemans EVK IFP mezzanine supports LVDS display output using the
+> > Lontium LT9211C DSI-to-LVDS bridge. The bridge is connected to the
+> > DSI0 output and drives a dual-channel 1920x1080 LVDS panel in
+> > VESA-24 mapping.
+> > 
+> > Add a DTBO overlay, lemans-evk-lvds-boe,dv215fhm-r01.dtso, that wires
+> > up the LT9211C bridge on I2C1 (address 0x2d) with reset on GPIO37,
+> > a panel-lvds node describing the 476x268mm 1080p panel timing, and
+> > an LCD display bias regulator supplied through the GPIO expander.
+> > DSI power is provided by vreg_s4a.
+> > 
+> > The overlay is built as a composite DTB combining the base
+> > lemans-evk.dtb, the IFP mezzanine overlay, and this LVDS overlay.
+> > 
+> > Signed-off-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+> > ---
+> >  arch/arm64/boot/dts/qcom/Makefile                  |   4 +
+> >  .../dts/qcom/lemans-evk-lvds-boe,dv215fhm-r01.dtso | 127 +++++++++++++++++++++
+> >  2 files changed, 131 insertions(+)
+> > 
+> > +	model = "Qualcomm Technologies, Inc. Lemans-evk Mezzanine Lvds";
 > 
-> To match the 6.4 mV/LSB mentioned in the macro comments, would the correct
-> coefficients be m = 15625 and R = -2?
-
-My code and comment were not aligned, comments updated for v2.
-
-> [Severity: High]
-> Does returning 0 here prevent the PMBus core from automatically unlocking the
-> chip? The core initialization code checks PMBUS_WRITE_PROTECT and writes 0 to
-> unlock it only if it appears enabled. By faking an unlocked state, the core
-> skips the unlock command, which might cause the hardware to silently ignore
-> sysfs configuration writes.
-
-ok, shall be fixed for v2
-
-> [Severity: Medium]
-> Does this sequence need to hold mps_lock during the NVM register reads? If
-> an nvmem read races with a force clear or an NVM store/restore operation, it
-> might hit an undocumented NVM-busy window, resulting in NACKs and silently
-> returning zero-filled snapshot data.
-
-ok, shall be fixed for v2
-
-> [Severity: Medium]
-> Does this code leak the dentry reference returned by debugfs_lookup()? If the
-> directory already exists, debugfs_lookup() returns it with an incremented
-> reference count, which requires a matching dput() to prevent a memory leak.
-
-ok, shall be fixed for v2
-
-> [Severity: Medium]
-> Does this unconditionally reschedule the worker even when an IRQ is already
-> configured? If client->irq is present, taking the goto rearm path will cause
-> the worker to perpetually wake up and reschedule itself without performing
-> any checks.
-
-ok, shall be fixed for v2
-
-> [Severity: High]
-> Can this early return cause a use-after-free in debugfs?
+> EVK, LVDS.
+Will correct this in next revision. 
+> > +
+> > +	panel_lvds: panel-lvds {
+> > +		compatible = "boe,dv215fhm-r01", "panel-lvds";
 > 
-> Since mpq8646_debugfs_register() has already created files referencing the
-> devm_kzalloc-allocated priv struct, returning -EINVAL here leaves dangling
-> dentry files. If these files are read later, they will dereference the freed
-> priv structure. Should mpq8646_debugfs_unregister() be called before
-> returning?
+> Thinking about it, does your panel have EDID? Is it readable from the
+> device via the I2C bus?
 
-ok, shall be fixed for v2
+The panel doesn't have edid and not connected with I2C bus. 
+> My major concern is that if the user changes the LVDS panel, they'd need
+> a new DTBO.
+> 
+> Would it make sense to implement EDID-based handling (like it's done in
+> panel-edp)?
+Your concern is valid, edid read will not work for this panel.
 
-Best regards,
-  Vincent
-
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260723-mpq8646_v0-v1-0-14363c75916f@free.fr?part=3
+> > +		data-mapping = "vesa-24";
+> > +		width-mm = <476>;
+> > +		height-mm = <268>;
+> > +		power-supply = <&lcd_disp_bias>;
+> > +		status = "okay";
+> > +
+> > +		panel-timing {
+> > +			clock-frequency = <148500000>;
+> > +			hactive = <1920>;
+> > +			vactive = <1080>;
+> > +			hfront-porch = <88>;
+> > +			hback-porch = <148>;
+> > +			hsync-len = <44>;
+> > +			vfront-porch = <4>;
+> > +			vback-porch = <36>;
+> > +			vsync-len = <5>;
+> > +			de-active = <1>;
+> > +		};
+> 
+> [..]
+> 
+> > +
+> > +&i2c1 {
+> > +	#address-cells = <1>;
+> > +	#size-cells = <0>;
+> > +	pinctrl-names = "default";
+> > +	pinctrl-0 = <&qup_i2c1_default>;
+> > +	status = "okay";
+> 
+> Empty lines before the status property (here and later).
+will correct this in next revision 
+> > +
+> 
+> -- 
+> With best wishes
+> Dmitry
