@@ -1,156 +1,211 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 858BA4749C5
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 11:48:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C0AE4746C7
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 11:48:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784807295; cv=none; b=psDwzOyuSc5xH57lW7zMGfXFzcaVBhY6oW6IEkxCalaUow3EwUUg3tcyBnXj4ibbNLnBnd503wXy+PKOLxGhj8s5S5SbxVYq3vNlAvHnZBPeMVtGqYfhvWEay51QRwjpt3YS7ThadXnVWbGl8/NUdpp6ucaALj7ueiIIw5SNB+0=
+	t=1784807317; cv=none; b=Buo2Rxdma1T2lKfG2uIqe5oStOYBvOq1D9sT1mACwuGNCHc7HPKiVEK00yq+b1OlqC7uGm9RBpDYk+uCAYtwCECQrGchpV0eRM91ON0TWlz6SAUZOh//Yammi9EwVsJtIgdBKNBYSPFqHmpjStkhyl/1SPPBA+ARYxoLCDqPRVc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784807295; c=relaxed/simple;
-	bh=Q7N7rBlryX2SYfbJcTZPG4GzP41xl/BiCYT2Y3sYeqU=;
+	s=arc-20240116; t=1784807317; c=relaxed/simple;
+	bh=9oAS8o+edDZBvSm1pnf5pZp4bZYJXvr1gZCOmAhOB3Q=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QvWoLsnZtcKq49QyYSqsVfdx7AKYoG2lnBaTjB8Icacqh8QbvAdw/DGGFs1yXAggX6Et0r3qewh+8YiZcgk58mkeoFtM6CTtzYdpFafxqEI49klxAvfA7VJPV0N3kpAvvbmLH0vMs/fpXf1RuFmX+SDI2Xe3JKOGbZ5KEGdnmho=
+	 Message-Id; b=sjdeoBEBMtOXirnbOTZjU/FN3gcR84OF0EPL1Z1+Sp52aRCCq+aIaJUagXf2oP8UJpCPYb885dLxGOXrs+na+d+cCmt1AuNrK/xfIgX4JxrcnFBxsACuBE1vEG/5rfjp2utbpHF1glG0RyVfkrK0mIET74enVZ/13uLMhu7tZxw=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2C101F000E9;
-	Thu, 23 Jul 2026 11:48:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 926A11F00A3A;
+	Thu, 23 Jul 2026 11:48:29 +0000 (UTC)
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 09/17] spi: cadence-quadspi: skip DDR PHY tuning for
- 2-byte-address ops (i2383)
+Subject: Re: [PATCH v6 11/17] spi: cadence-quadspi: enable PHY for direct
+ reads
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Santhosh Kumar K" <s-k6@ti.com>
-Cc: "Pratyush Yadav" <pratyush@kernel.org>, "Michael Walle" <mwalle@kernel.org>, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, "Miquel
- Raynal" <miquel.raynal@bootlin.com>, "Takahiro Kuwano" <takahiro.kuwano@infineon.com>, "Richard
- Weinberger" <richard@nod.at>, "Vignesh Raghavendra" <vigneshr@ti.com>
-In-Reply-To: <20260723110219.3180747-10-s-k6@ti.com>
+Cc: robh@kernel.org, "Pratyush Yadav" <pratyush@kernel.org>, "Michael Walle" <mwalle@kernel.org>, "Richard
+ Weinberger" <richard@nod.at>, "Takahiro Kuwano" <takahiro.kuwano@infineon.com>, "Vignesh
+ Raghavendra" <vigneshr@ti.com>, devicetree@vger.kernel.org, conor+dt@kernel.org, "Miquel
+ Raynal" <miquel.raynal@bootlin.com>
+In-Reply-To: <20260723110219.3180747-12-s-k6@ti.com>
 References: <20260723110219.3180747-1-s-k6@ti.com>
- <20260723110219.3180747-10-s-k6@ti.com>
+ <20260723110219.3180747-12-s-k6@ti.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 11:48:04 +0000
-Message-Id: <20260723114804.F2C101F000E9@smtp.kernel.org>
+Date: Thu, 23 Jul 2026 11:48:25 +0000
+Message-Id: <20260723114829.926A11F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
 s) to consider:
-- [Critical] PHY tuning results are completely ignored for normal flash ope=
-rations because the PHY is explicitly disabled after tuning, rendering the =
-entire PHY tuning infrastructure a no-op.
-- [High] The function `cqspi_am654_ospi_execute_tuning()` evaluates and ret=
-urns an uninitialized `ret` variable if `write_op` is NULL and `f_pdata->ph=
-y_pattern_partition_offset` is 0.
-- [High] Dereference of `cqspi->ddata` without a NULL check in `cqspi_mem_o=
-p_execute_tuning()`.
+
+New issues:
+- [High] Unaligned portions of a direct read are executed at max frequency =
+without the tuned PHY, causing data corruption.
+- [High] cqspi_tune_phy() modifies hardware configuration registers before =
+ensuring the controller is idle.
+- [Medium] Integer underflow when decrementing zero dummy cycles in cqspi_t=
+une_phy().
+- [Medium] Unhandled timeout in cqspi_tune_phy(true) leaves the PHY permane=
+ntly enabled.
+- [Medium] cqspi_direct_read_execute() ignores the return value of cqspi_tu=
+ne_phy(false), potentially causing cascading DMA failures.
+
+Pre-existing issues:
+- [High] Indirect read/write functions mix stream I/O accessors with regist=
+er accessors, corrupting data on big-endian systems.
 --
 
---- Patch [9]: [PATCH v6 09/17] spi: cadence-quadspi: skip DDR PHY tuning f=
-or 2-byte-address ops (i2383) ---
-commit 4c906c102926bb1609336a42cd87a62ace96246a
+--- Patch [11]: [PATCH v6 11/17] spi: cadence-quadspi: enable PHY for direc=
+t reads ---
+commit 4223586f65bba407ee59a0d012c45b1e0b10727f
 Author: Santhosh Kumar K <s-k6@ti.com>
 
-spi: cadence-quadspi: skip DDR PHY tuning for 2-byte-address ops (i2383)
+spi: cadence-quadspi: enable PHY for direct reads
 
-Erratum i2383 on AM654 locks the address phase in PHY DDR mode when a
-2-byte column address is used. DDR PHY tuning must not be attempted for
-such operations; non-PHY DDR usage is unaffected. Add
-CQSPI_NO_PHY_TUNING_WITH_ODDR_2B_ADDR quirk and check it in
-cqspi_am654_ospi_execute_tuning().
-
-Link: https://www.ti.com/lit/er/sprz544c/sprz544c.pdf
+Add cqspi_tune_phy() to toggle PHY mode. Enabling sets the calibrated
+read-capture delay, asserts PHY_EN and PHY_PIPELINE, and decrements the
+dummy cycle count by one since the PHY pipeline absorbs that latency.
 
 > diff --git a/drivers/spi/spi-cadence-quadspi.c b/drivers/spi/spi-cadence-=
 quadspi.c
-> index 22a5c88bbd8dc..5070ffc53d5e8 100644
 > --- a/drivers/spi/spi-cadence-quadspi.c
 > +++ b/drivers/spi/spi-cadence-quadspi.c
 
 [ ... ]
 
-> @@ -3183,6 +3184,20 @@ static int cqspi_am654_ospi_execute_tuning(struct =
-spi_mem *mem,
->  		return -EOPNOTSUPP;
->  	}
-> =20
-> +	/*
-> +	 * Erratum i2383: in PHY DDR mode, a 2-byte column address locks up
-> +	 * the address phase. Skip DDR PHY tuning for such operations.
-> +	 */
-> +	if ((cqspi->ddata->quirks & CQSPI_NO_PHY_TUNING_WITH_ODDR_2B_ADDR) &&
-> +	    read_op->addr.nbytes =3D=3D 2 &&
-> +	    (read_op->cmd.dtr || read_op->addr.dtr || read_op->dummy.dtr ||
-> +	     read_op->data.dtr)) {
-> +		dev_dbg(dev,
-> +			"i2383: skipping DDR PHY tuning (2-byte address)\n");
-> +		read_op->max_freq =3D 0;
-> +		return 0;
-> +	}
+> +static int cqspi_tune_phy(struct cqspi_flash_pdata *f_pdata, bool enable)
+> +{
+> +	struct cqspi_st *cqspi =3D f_pdata->cqspi;
+> +	void __iomem *reg_base =3D cqspi->iobase;
+> +	u32 reg;
+> +	u8 dummy;
+> +	int ret;
 > +
+> +	if (enable) {
+
+[ ... ]
+
+> +		reg =3D readl(reg_base + CQSPI_REG_CONFIG);
+> +		reg |=3D CQSPI_REG_CONFIG_PHY_EN | CQSPI_REG_CONFIG_PHY_PIPELINE;
+> +		writel(reg, reg_base + CQSPI_REG_CONFIG);
 
 [Severity: High]
-Does this code dereference cqspi->ddata without checking if it is NULL?
+Should we verify the controller is idle before modifying these hardware
+configuration registers?
 
-Looking at cqspi_mem_op_execute_tuning():
+cqspi_tune_phy() modifies CQSPI_REG_CONFIG and CQSPI_REG_RD_INSTR
+immediately, but only calls cqspi_wait_idle() at the end of the function.
 
-static int cqspi_mem_op_execute_tuning(...)
-{
-	struct cqspi_st *cqspi =3D
-		spi_controller_get_devdata(mem->spi->controller);
+Modifying core configuration registers while the SPI controller might still
+be internally active (like finishing the previous AHB read or de-asserting
+CS) can hang the controller state machine.
 
-	if (!cqspi->ddata->execute_tuning)
-		return -EOPNOTSUPP;
-...
+> +
+> +		/*
+> +		 * The PHY data-capture pipeline absorbs one dummy cycle's
+> +		 * worth of latency; reduce the count to avoid over-compensation.
+> +		 */
+> +		reg =3D readl(reg_base + CQSPI_REG_RD_INSTR);
+> +		dummy =3D FIELD_GET(CQSPI_REG_RD_INSTR_DUMMY_MASK
+> +					  << CQSPI_REG_RD_INSTR_DUMMY_LSB,
+> +				  reg);
+> +		dummy--;
 
-If the driver design allows ddata to be NULL, this will cause a kernel panic
-due to a NULL pointer dereference.
+[Severity: Medium]
+Can this underflow if the command requires zero dummy cycles?
+
+If a read command matching the maximum frequency has 0 dummy cycles,
+unconditionally executing dummy-- will cause an underflow to 255.
+
+Since FIELD_PREP masks this to the maximum field value, could this
+configure the hardware to wait 31 dummy cycles instead of 0, resulting
+in read corruption?
+
+[ ... ]
+
+> +	return cqspi_wait_idle(cqspi);
+> +}
+
+[Severity: Medium]
+If this wait times out, does it leave the PHY permanently enabled?
+
+When called with enable=3Dtrue, cqspi_tune_phy() modifies the hardware
+registers and then waits for idle. If the wait times out, the error is
+returned but the PHY_EN and PHY_PIPELINE bits remain set.
+
+Could this leave the PHY permanently enabled for subsequent operations
+that might not support it?
+
+[ ... ]
+
+> +	/* Split into unaligned head, aligned middle, unaligned tail */
+> +	from_aligned =3D ALIGN(from, 16);
+> +	to_aligned =3D ALIGN_DOWN(from + len, 16);
+> +	len_aligned =3D to_aligned - from_aligned;
+> +
+> +	if (from !=3D from_aligned) {
+> +		ret =3D cqspi_direct_read_dma(f_pdata, buf, from,
+> +					    from_aligned - from);
+> +		if (ret)
+> +			return ret;
+> +		buf +=3D from_aligned - from;
+> +	}
 
 [Severity: High]
-Can cqspi_am654_ospi_execute_tuning() evaluate an uninitialized variable?
+Does this execute the unaligned head read at the maximum tuned frequency
+without the PHY protection?
 
-Looking at cqspi_am654_ospi_execute_tuning():
+When a direct read operation is not 16-byte aligned, it is split into an
+unaligned head, aligned middle, and unaligned tail. The driver explicitly
+disables the tuned PHY for the head and tail portions, but it does not
+seem to reduce the SPI clock frequency.
 
-	int ret;
-...
-	if (write_op) {
-...
-	} else {
-		if (!f_pdata->phy_pattern_partition_offset) {
-			dev_warn(dev, "pattern partition not found, skipping tuning\n");
-			goto out;
-		}
-...
-	}
-...
-out:
-	if (!ret) {
+Could executing high-frequency reads without the calibrated PHY capture
+delays result in setup/hold timing violations and sample garbage data?
 
-If write_op is NULL and f_pdata->phy_pattern_partition_offset is 0, the code
-jumps to the out label and evaluates the uninitialized ret variable.
+> +
+> +	if (len_aligned) {
+> +		ret =3D cqspi_tune_phy(f_pdata, true);
+> +		if (ret)
+> +			return ret;
+> +		ret =3D cqspi_direct_read_dma(f_pdata, buf, from_aligned,
+> +					    len_aligned);
+> +		cqspi_tune_phy(f_pdata, false);
+> +		if (ret)
+> +			return ret;
 
-[Severity: Critical]
-Are the PHY tuning results completely ignored for normal flash operations?
+[Severity: Medium]
+Is the return value of cqspi_tune_phy(false) intentionally ignored here?
 
-In cqspi_am654_ospi_execute_tuning(), after tuning finishes:
+If disabling the PHY fails due to a hardware wait timeout, the error is
+discarded.
 
-	cqspi_phy_post_config(cqspi, f_pdata->read_delay);
+Could this cause the code to unconditionally proceed and start another DMA
+transaction for the tail read on a controller that is in an unresponsive
+state, leading to cascading failures?
 
-This passes the untuned default f_pdata->read_delay and explicitly disables
-the PHY in cqspi_phy_post_config().
+[ ... ]
 
-Then in cqspi_configure():
+[Severity: High]
+This isn't a bug introduced by this patch, but do the indirect read and
+write functions mix stream I/O accessors with register accessors?
 
-	cqspi_readdata_capture(cqspi, !cqspi->rclk_en, false,
-			       f_pdata->read_delay);
+Looking at cqspi_indirect_read_execute():
 
-During normal operations, dqs is hardcoded to false and the untuned read_de=
-lay
-is used, which bypasses the PHY tuning entirely.
+    unsigned int temp =3D ioread32(ahb_base);
+    if (rxbuf) {
+        memcpy(rxbuf, &temp, mod_bytes);
+        rxbuf +=3D mod_bytes;
+    }
 
->  	if (write_op) {
+The bulk transfers use stream semantics with no byteswapping, while these
+remainder bytes use register semantics which includes CPU-to-device
+byteswapping.
+
+Will these mixed semantics cause the remainder bytes to be swapped
+incorrectly and corrupt data on big-endian architectures?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723110219.3180=
-747-1-s-k6@ti.com?part=3D9
+747-1-s-k6@ti.com?part=3D11
