@@ -1,136 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 918554746D5
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 11:49:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B94E3F5BFA;
+	Thu, 23 Jul 2026 11:50:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784807379; cv=none; b=RPEJmfukoO1tXkvhb5/9s4pxqqblmsKQKl4LUdFzvFgizZwr4C5DMg3BDYpMVwYTX/JaWy852blnH6oGWZZnP0rK4C8fPGBb2p2b+azntQOI4cynpfudxdV+68EYMcru+tIXiz1EhLoMgAwtjuZfFrE6MyqdWvm3fTuzx57Mt2E=
+	t=1784807417; cv=none; b=jMBzQBppEYTfS3WIBiMXV32i/Rtip8tSrpKABP2eWdRQ8jSH642e7/koTdW4actPpkmFVCBff7HFjSfsTxXuQOZwJCHKUqRe7ieFDaVePM6T9eqrVMfQVIXs2G4wU3SQQo2hgVrqC6XQYQSLBQzwuWbJTUz/HR8DSsZVol+VxTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784807379; c=relaxed/simple;
-	bh=qQhck4gkMBxCHbE8AczLlEVnvOWAQbTF8MsBU0C4uew=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IaNheB+IyqTrDVeKE0vkEetxa3N57YEI88IeuhyIRF9eM7vxwO0LSytvk6QWLWENcHcfV1AuLoIy4U3S9IEDoOZwxHQj+sTAU3Dj6NUTJw6jTsFMMavinJYM+UYXEZck6SmyX1jlebcWqLOM+9mBe14zBeFUDfIsZc6e+7XclZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DdvXzkkW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784807417; c=relaxed/simple;
+	bh=WuUPJAm5e+bP+tc7WqWPJD7tQMUJ9wgDl48pEF/IUR0=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=Hvc6irkGYP5Cxlo0m0oUWaIelBn9E2P9bsni6auoeSoilQz4ZYxvPJcq2No92amhYysPGwDA1VAMhBsznMams7bFZOtE+OI2i4cPPigEFuo4aXJ4wbnRYHkMFDfqZH4u+SQyfJaQbkHKH93hjhgaQLIYe+OkojQPsrvuRlxpu8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=teWDYXeS; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DdvXzkkW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE5CE1F00A3A;
-	Thu, 23 Jul 2026 11:49:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784807342;
-	bh=mwrC4kSteXEWCheKXntAg/RjNsbOpv9AVoNEWR914M4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DdvXzkkWR2aX8+j6e/YNhlkNd3lh0lv5bcjo0kxW/tp0NW/MqppdsPdbtsGg68Y6r
-	 PcAtmUl8q3R2YL7IBqfR+lyt1+HIkLcpXzYtXzj2OEghywAYbAt1endXKxC5abFpvX
-	 lk8T2WFGfHGqTa/A8COOmSo40B538PThITPDsCG7tNO5tAmP+wQ9GVUzP0RiSk4xTW
-	 G+CDq+kxUkrFkB5lvgxf6SUc4DBtQGm970GY0CwG/nnoE1WXj/LwMsizSgH98Uk8fX
-	 onbLf2Ch7s7+ggfv98xdLBrl9WF1XXAct4m1L7RUU0b6aScE0Bohq5AEhC7hq9XGdH
-	 mZJn3VXuFhN1A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 13/17] spi: cadence-quadspi: reprogram CS timing on
- every chip-select switch
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Santhosh Kumar K" <s-k6@ti.com>
-Cc: "Michael Walle" <mwalle@kernel.org>, "Vignesh Raghavendra" <vigneshr@ti.com>, devicetree@vger.kernel.org, "Takahiro
- Kuwano" <takahiro.kuwano@infineon.com>, "Richard Weinberger" <richard@nod.at>, conor+dt@kernel.org, robh@kernel.org, "Pratyush
- Yadav" <pratyush@kernel.org>, "Miquel Raynal" <miquel.raynal@bootlin.com>
-In-Reply-To: <20260723110219.3180747-14-s-k6@ti.com>
-References: <20260723110219.3180747-1-s-k6@ti.com>
- <20260723110219.3180747-14-s-k6@ti.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 11:49:00 +0000
-Message-Id: <20260723114901.BE5CE1F00A3A@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="teWDYXeS"
+Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c68:25d4:fa24:78d1:31:7a56])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 52CB61C37;
+	Thu, 23 Jul 2026 13:49:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1784807344;
+	bh=WuUPJAm5e+bP+tc7WqWPJD7tQMUJ9wgDl48pEF/IUR0=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=teWDYXeSBl2hmlaLPHZZpSx2KXIX4e0WgBLBFweCNSGBUCCUSNLZiYTGf2s+CCsl3
+	 zqS2y11p+ovL2uK8D8Lfa8hqbpUbSnrt3wjX304wsUxhcw5Se4iEXr2pNgt7593/SD
+	 oNd65QWKnE/hIZHefZjngPlj1lJkJ3EqT1LFIIWk=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <amH3qaUBCOBOKxjL@zed>
+References: <20260722-mira220-v7-0-dd5f1de98cd4@ideasonboard.com> <20260722-mira220-v7-2-dd5f1de98cd4@ideasonboard.com> <178472387683.3005206.5602199112336367476@freya> <amG5CiajbwGXhb59@zed> <178479424623.3238585.7446724208192156945@freya> <amHRMQfRzppwZ5xz@zed> <178480022192.3238585.15132202916626773351@freya> <amH3qaUBCOBOKxjL@zed>
+Subject: Re: [PATCH v7 2/2] media: i2c: Add driver for AMS-OSRAM Mira220
+From: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Philippe Baetens <philippebaetens@gmail.com>, Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Date: Thu, 23 Jul 2026 17:20:00 +0530
+Message-ID: <178480740067.3238585.393583431156412387@freya>
+User-Agent: alot/0.13.dev35+g4a69c46ca
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+Quoting Jacopo Mondi (2026-07-23 16:47:09)
+> Hi Jai
+>=20
+> On Thu, Jul 23, 2026 at 03:20:21PM +0530, Jai Luthra wrote:
+> > Hi Jacopo,
+> >
+> > Quoting Jacopo Mondi (2026-07-23 14:46:07)
+> > > Hi Jai
+> > >
+>=20
+> [snip]
+>=20
+> > > > > > > +#define MIRA220_MIPI_HSIZE_REG CCI_REG16_LE(0x207d)
+> > > > > > > +
+> > > > > > > +/* MIPI bus control */
+> > > > > > > +#define MIRA220_MIPI_LANES_REG CCI_REG8(0x6012)
+> > > > > > > +
+> > > > > > > +#define MIRA220_MIPI_CLK_MODE_REG CCI_REG8(0x6013)
+> > > > > > > +#define MIRA220_MIPI_CLK_CONTINUOUS 0x00
+> > > > > > > +#define MIRA220_MIPI_CLK_NON_CONTINUOUS 0x01
+> > > > > >
+> > > > > > Does DT allow clock-continuous property? Do we handle it?
+> > > > > >
+> > > > >
+> > > > > The bindings for this sensor allows all properties from
+> > > > > video-interfaces.yaml, including clock-noncontinuous.
+> > > > >
+> > > > > The driver doesn't support it at the moment and unconditionally u=
+se
+> > > > > continuous clock, but I guess it's nice to provide macros for the
+> > > > > non-continuous configuration as well
+> > > >
+> > > > Ah, that's not too good if the DT allows it but the driver silently=
+ ignores
+> > > > it.
+> > >
+> > > Why ?
+> > >
+> > > We allow all properties from video-interfaces.yaml (something which I
+> > > think it's wrong, but that's a long time ago discussion with dt
+> > > maintainers, so I'm not contesting that) and we certainly don't handle
+> > > them in drivers (in facts, what drivers do is not relevant to which
+> > > properties are allowed for a device).
+> > >
+> >
+> > I am not saying the bindings shouldn't support that property, bindings =
+are
+> > for hardware. And yes you are free to not implement all features in the
+> > driver.
+> >
+> > But given the bindings and the hardware both support toggling between
+> > continuous or non-continous MIPI clock, from a hardware engineer or
+> > integrators perspective it would be quite confusing that setting the fi=
+eld
+> > in DT will do nothing, with *no* warning to the user either during the =
+DT
+> > validation or the driver probe that it was ignored.
+> >
+>=20
+> True that.
+>=20
+> But does this mean I should be doing the same for all the properties
+> that apply to the hardware ?
+>=20
+> clock-noncontinuous:
 
-Pre-existing issues:
-- [High] Hardware timing delays are silently truncated and can overflow, le=
-ading to near-zero delays and data corruption.
---
+Yes, to me it seems like a low-effort win.
 
---- Patch [13]: [PATCH v6 13/17] spi: cadence-quadspi: reprogram CS timing =
-on every chip-select switch ---
-commit cfd5fbcbe64f53f00c899f4f86da36ebc0b596a7
-Author: Santhosh Kumar K <s-k6@ti.com>
+> link-frequencies:
 
-spi: cadence-quadspi: reprogram CS timing on every chip-select switch
+Supporting different rates is hard, but at least driver should print a
+warning if the DT supplied frequency is not supported today. Most driver
+use v4l2_link_freq_to_bitmap() to make life easy.
 
-This patch updates the cadence-quadspi driver to reprogram per-device CS
-timing and read-capture registers on any chip-select switch, preventing
-devices on the same frequency from using stale timing parameters.
+> lane-polarities:
 
-> diff --git a/drivers/spi/spi-cadence-quadspi.c b/drivers/spi/spi-cadence-=
-quadspi.c
-> index 542ad331ff167..8bf3a5a8bf43d 100644
-> --- a/drivers/spi/spi-cadence-quadspi.c
-> +++ b/drivers/spi/spi-cadence-quadspi.c
-> @@ -1570,10 +1570,19 @@ static void cqspi_configure(struct cqspi_flash_pd=
-ata *f_pdata,
->  		cqspi_chipselect(f_pdata);
->  	}
-> =20
-> -	/* Setup baudrate divisor and delays */
-> +	/* Update baudrate only on clock change. */
->  	if (switch_ck) {
->  		cqspi->sclk =3D sclk;
->  		cqspi_config_baudrate_div(cqspi);
-> +	}
-> +
-> +	/*
-> +	 * Reprogram per-device CS timing and non-PHY read capture on any
-> +	 * chip-select or clock switch. Without this, two devices at the same
-> +	 * frequency would each see the other's timing parameters after a CS
-> +	 * switch, since the lazy clock-only check would never trigger.
-> +	 */
-> +	if (switch_cs || switch_ck) {
->  		cqspi_delay(f_pdata);
+Does the sensor hardware support flipping polarities? I've seen some
+bridges supporting that, in which case they should handle it instead.
 
-[Severity: High]
-This is a pre-existing issue, but I noticed a potential problem in the
-hardware timing calculations when cqspi_delay() is called here.
+But let's not "perfect be the enemy of good" :-)
 
-If a large delay is specified in the device tree (like cdns,tshsl-ns) or
-the system operates at a high reference clock, could the calculation in
-calculate_ticks_for_ns() overflow a 32-bit integer?
+> ?
+>=20
 
-drivers/spi/spi-cadence-quadspi.c:calculate_ticks_for_ns() {
-    ...
-    ticks =3D ref_clk_hz / 1000;
-    ticks =3D DIV_ROUND_UP(ticks * ns_val, 1000000);
-    ...
-}
-
-If the reference clock is high and the requested delay exceeds ~8.5
-microseconds, the multiplication might overflow.
-
-Additionally, in cqspi_delay(), the calculated ticks are masked rather
-than clamped:
-
-drivers/spi/spi-cadence-quadspi.c:cqspi_delay() {
-    ...
-    reg =3D (tshsl & CQSPI_REG_DELAY_TSHSL_MASK)
-           << CQSPI_REG_DELAY_TSHSL_LSB;
-    reg |=3D (tchsh & CQSPI_REG_DELAY_TCHSH_MASK)
-           << CQSPI_REG_DELAY_TCHSH_LSB;
-    ...
-}
-
-If the calculated tick count exceeds 255 (the mask limit), wouldn't the
-masking cause the value to wrap around to a near-zero delay instead of
-clamping to the maximum allowed 255 ticks? This might lead to inadequate
-timing delays and silent data corruption.
-
->  		cqspi_readdata_capture(cqspi, !cqspi->rclk_en, false,
->  				       f_pdata->read_delay);
->  	}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723110219.3180=
-747-1-s-k6@ti.com?part=3D13
+Thanks,
+    Jai
