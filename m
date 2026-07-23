@@ -1,154 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B066B367B73
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 16:03:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98C23365A1A
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 16:03:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784822602; cv=none; b=FC7bY3JMl0PUY/7Xa07C7nlgfEvcx+xHlyuEGy21nVrfEm/+YlfRHPGIfa7/loLix6RvxDY0NoK4Ztda+tJyvBOgBhzeWDWMrKVU6sNJPKxm1KFqeb0hQJ40VBxJXRPKqaPKMn6x9nHBluzFuXNZ8HZP0St1Rb7ibf2tUZDHRc4=
+	t=1784822609; cv=none; b=W5t09vMCr7OKAx4YaSjE2At7PiYg9r1hbwsCXNU147yCmRJsyfRhizFvg93E+ne21CE85DIyzpEZAkllM7a6nDos7TI9juPLI/N5Wm2Iij3r5E8D7V6raKb59uk4E2Jcewx9S1BGiFbWAaxhMxw/TXEnfmAI8P1cLxZFgCbqxvs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784822602; c=relaxed/simple;
-	bh=RluGc6Czty5Jx6Q7uFhd2+PTiuPVPI690xUkXsC1PH0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=A3YpllTZX5UCXardLPOrkqrtlsBtVekCJOP3dko4PiUeLxTbADdtho7/gB/+jRpLPJnUhAlEz8DUlqKIythBCvO23hgb1GJlfQs+IG7Ax9g9m235HTaa1o7Qxz7cv7bn4SrcGCWzPwJ4YlkpI4NrOt3NdTg7ErlhoAZrnZMc1hU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21B771F00A3A;
-	Thu, 23 Jul 2026 16:03:21 +0000 (UTC)
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v19 2/4] arm64: dts: renesas: r9a08g046: Add SDHI nodes
- for RZ/G3L SoC and SDHI1 pincontrol on SMARC EVK
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Biju <biju.das.au@gmail.com>
-Cc: wsa+renesas@sang-engineering.com, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260723154154.319674-3-biju.das.jz@bp.renesas.com>
-References: <20260723154154.319674-1-biju.das.jz@bp.renesas.com>
- <20260723154154.319674-3-biju.das.jz@bp.renesas.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 16:03:03 +0000
-Message-Id: <20260723160321.21B771F00A3A@smtp.kernel.org>
+	s=arc-20240116; t=1784822609; c=relaxed/simple;
+	bh=VTnbRjkRfnE2uas3pcgZxwwolCVAb6XAOATCiHQXgO0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Gu2eGKXitCe+NSZG9mO9rP3rlQCXQdL6dJAduIutj0E97qTdADWXaDUVaLiYNkIqk736ZjZqEQ3F+h438+Qm5FoOioXomLGQNO5m9l+FxCoL1qusZjtgw/txVKE4xGDlzeHLMXRojOmrFfsu6tqC9eSXYbp76ezfUwJ2V2VAkpA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=HBWeEXlp; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=G3xOrwBf; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="HBWeEXlp";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="G3xOrwBf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1784822605;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JUjkJdrGHF/uTpDAifvyQqEKmF6q4j5F7jAbk0W/44I=;
+	b=HBWeEXlpVWqlroy1A1o+eBMYeRBMFyaf41U2p2e77/LL6ctSvxNm5ce2j6LiPCAc3/qzqO
+	BhhNpEUB2FpsX4rOHjziKzk3+86nDz1RchJR1omT44gd4WEmu7/Bxk1Xge4oTM2/nla2zN
+	LRTKRHwlglqO80nfXKQJWILkHVBSix8=
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-537-PJXxK_PGO4GNehLIiJlszA-1; Thu, 23 Jul 2026 12:03:24 -0400
+X-MC-Unique: PJXxK_PGO4GNehLIiJlszA-1
+X-Mimecast-MFC-AGG-ID: PJXxK_PGO4GNehLIiJlszA_1784822604
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-90284139cceso10197126d6.0
+        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 09:03:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1784822604; x=1785427404; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=JUjkJdrGHF/uTpDAifvyQqEKmF6q4j5F7jAbk0W/44I=;
+        b=G3xOrwBf+4zIzRwXkNPxKVZNrGC4lMkogycr+5KPsUITXoDc0wfLOQ2xS4uOv6k45s
+         z03lHN3JmUIaVtksdQiWLt1jPMW9VaAdmBqZsE0GB1DEYqU5b8jUvMDXJmVgOeez6sis
+         lEUl+mTd/bde6jZZtrS8Et4kndz0sPmHdLjo7KOGLCunxnPYnwHdKNUA0fx2INfnKCI5
+         DgoGZx+qaRpEf5C1OGY9InRy+a8YEv8/iXK/Qh+uF/UnVzlYCKogXPzHPJaMjb5Q9usd
+         B6aL4Lr1A+0ZKXmfBfQcPbYYt6OAOyobVszBaLtOoNEO/waIqh6A5T1gX1dIGoLk4G2h
+         +nTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784822604; x=1785427404;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JUjkJdrGHF/uTpDAifvyQqEKmF6q4j5F7jAbk0W/44I=;
+        b=Hw4RfClKcYojlHtc7K+Y+HFwMJcuMCvhIMlEuIF3IhaBj9WSJlGIeez4hvlMyERMJp
+         fDU+nH3TxUNGfg5QuZ+qkLUhh+v4Nx0vhVrlPddepaEVSsKQpkV3RQizJ/icPg5/fJ9n
+         N3MSUkHIrmAVdRIr0w5uhheNKZcVcfAQNyxwZuq1/xzIjN19Bd8lE2Z8mhP736swWWQG
+         e6eq+yAbXOCzBH+leuGxNF+pLB9QZWcmKtpDkfc2OiVkl7eEykKf9UqrCaEl+GvZCELS
+         p0dUcFqezlOG4zYyVkhgwh+HvEDj31LZ9Lzs/NofrmgfhSV6lHCOAgejYrgzo3kp5bYw
+         dxFw==
+X-Forwarded-Encrypted: i=1; AHgh+Rqlpj0UA5ylHaTRmdS1ZE7gRbHN56iSbDy7YCq7Rqw6qgoT8hQ/i64pTwiq3fofSpTwDVNDjeMot3JU@vger.kernel.org
+X-Gm-Message-State: AOJu0YxvDIdtLOgTLDfYaAgrXW+UL3+YBoHKsnkF4kuDMNyTs6BHIn3W
+	VjOzn/P9G7Mcb7+N/PgqlX916R8AfMHfIr5IwgqpQ6lQiXOH+kjwEkiVVMDYgi2i1KflR+SSVg1
+	g6Ch0+lXNJO7xZNsGotvjcOYSvHLqTV1ad89P5Nhr2G4W8U3Q5Iy65zT7DLmVOok=
+X-Gm-Gg: AR+sD12TAoG5k5AhjLQMDkLH4xwZwIrXk/31eGRT0HyU5Mht1V2fdxQ+yuvNXznvjWS
+	Tmz+OpWT7igAIjUj+oHK4j44kvtUcphfY8KVrxQ0hfJUCkFiZave+HJttUJvQHluiPgsr5Ds6wb
+	5uIVE9A9YLK2lDquhlQs/MX3+Dqyv4gAQ1wX/Mil6+4rBaeI5sTXABezzkQO0hyZjA3flTa2Cc8
+	zygZV2y8yC8VuGpxhkwcgIMmTs0zEIXnmi/8m1oLXta1YTgTt7jqakqXHKyfAiI/j+UFiavHdjX
+	kaUQlKKAVz/RubGGW7TciGXeU/CadD5kSKEEYfoUVXxVqgOQIOqvzP8e7iUO9zHdsmYwO4e7jur
+	0b9RMNWXiVYYGihKolY3JNy4DVFbyqNl1Z84=
+X-Received: by 2002:a05:6214:4303:b0:8f1:77b7:9bdc with SMTP id 6a1803df08f44-907ccfa7755mr33587996d6.1.1784822603630;
+        Thu, 23 Jul 2026 09:03:23 -0700 (PDT)
+X-Received: by 2002:a05:6214:4303:b0:8f1:77b7:9bdc with SMTP id 6a1803df08f44-907ccfa7755mr33587566d6.1.1784822603140;
+        Thu, 23 Jul 2026 09:03:23 -0700 (PDT)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-907ba672806sm48357536d6.0.2026.07.23.09.03.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 23 Jul 2026 09:03:22 -0700 (PDT)
+Date: Thu, 23 Jul 2026 12:03:20 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Zhipeng.wang_1@oss.nxp.com
+Cc: robh@kernel.org, saravanak@kernel.org, ulfh@kernel.org,
+	Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de,
+	festevam@gmail.com, peng.fan@nxp.com, aisheng.dong@nxp.com,
+	jindong.yue@nxp.com, xuegang.liu@nxp.com,
+	devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
+Subject: Re: [PATCH v5 3/3] clk: imx: imx8qxp: add soft dependency on SCU
+ power domain driver
+Message-ID: <amI7SFD1bQjkj6Db@redhat.com>
+References: <20260723020524.1886806-1-Zhipeng.wang_1@oss.nxp.com>
+ <20260723020524.1886806-4-Zhipeng.wang_1@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260723020524.1886806-4-Zhipeng.wang_1@oss.nxp.com>
+User-Agent: Mutt/2.4.0 (2026-06-19)
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] The SDHI device tree nodes specify only the SoC-specific compatibl=
-e string (`renesas,sdhi-r9a08g046`) and omit the required fallback string (=
-`renesas,rzg2l-sdhi`).
-- [Medium] Missing `#else` branch leaves `sdhi1` enabled without pin multip=
-lexing or supplies when `RZ_BOOT_MODE3` is disabled.
-- [Medium] The pin configuration for `sd1-data` in the `sdhi1_pins` and `sd=
-hi1_uhs_pins` nodes is missing the `bias-pull-up` property.
---
+On Thu, Jul 23, 2026 at 11:05:24AM +0900, Zhipeng.wang_1@oss.nxp.com wrote:
+> From: Zhipeng Wang <zhipeng.wang_1@nxp.com>
+> 
+> The i.MX8QXP SCU clock driver manually attaches power domains to each
+> clock device via of_genpd_add_device() in imx_clk_scu_attach_pd().
+> If the SCU power domain provider has not probed yet, the attachment
+> fails silently with a pr_warn() and the clock device is registered
+> without a power domain.
+> 
+> When both drivers are built as modules, there is no implicit
+> dependency to guarantee load order. Add MODULE_SOFTDEP("pre:
+> scu_pd") so that modprobe loads the SCU power domain module
+> before the clock module.
+> 
+> Signed-off-by: Zhipeng Wang <zhipeng.wang_1@nxp.com>
 
---- Patch [2]: [PATCH v19 2/4] arm64: dts: renesas: r9a08g046: Add SDHI nod=
-es for RZ/G3L SoC and SDHI1 pincontrol on SMARC EVK ---
-commit 6289153083cb6f174266f6b60614c70a75cd4294
-Author: Biju Das <biju.das.jz@bp.renesas.com>
+Reviewed-by: Brian Masney <bmasney@redhat.com>
 
-arm64: dts: renesas: r9a08g046: Add SDHI nodes for RZ/G3L SoC and SDHI1 pin=
-control on SMARC EVK
-   =20
-Add device tree nodes for the three SDHI controllers (SDHI{0,1,2})
-on the RZ/G3L SoC (r9a08g046) and enable SDHI1 on the RZ/G3L SMARC
-EVK platform with pincontrol and GPIO-based voltage switching
-regulator support.
+Long term, it would be nice to fix the probe deferral issues via a
+separate series.
 
-> diff --git a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi b/arch/arm64/boot=
-/dts/renesas/r9a08g046.dtsi
-> --- a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-> @@ -762,9 +762,80 @@ dmac: dma-controller@11820000 {
->  			dma-channels =3D <16>;
->  		};
-> =20
-> +		sdhi0: mmc@11c00000 {
-> +			compatible =3D "renesas,sdhi-r9a08g046";
-
-[Severity: High]
-Does this node need the "renesas,rzg2l-sdhi" fallback compatible string?
-
-The driver source code for SDHI does not contain a direct match for
-"renesas,sdhi-r9a08g046", so it relies on the "renesas,rzg2l-sdhi"
-fallback to successfully probe the device. Without the fallback string,
-the driver will not probe the controllers, breaking SD/eMMC support.
-
-This same issue also appears in the sdhi1 and sdhi2 nodes below.
-
-[ ... ]
-
-> diff --git a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts b/arch/ar=
-m64/boot/dts/renesas/r9a08g046l48-smarc.dts
-> --- a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-> +++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-
-[ ... ]
-
-> +	sdhi1_pins: sd1 {
-> +		sd1-cd {
-> +			pinmux =3D <RZG3L_PORT_PINMUX(J, 0, 8)>; /* SD1_CD */
-> +		};
-> +
-> +		sd1-clk {
-> +			pinmux =3D <RZG3L_PORT_PINMUX(G, 0, 1)>; /* SD1_CLK */
-> +			power-source =3D <3300>;
-> +		};
-> +
-> +		sd1-cmd {
-> +			pinmux =3D <RZG3L_PORT_PINMUX(G, 1, 1)>; /* SD1_CMD */
-> +			input-enable;
-> +			power-source =3D <3300>;
-> +			bias-pull-up;
-> +		};
-> +
-> +		sd1-data {
-> +			pinmux =3D <RZG3L_PORT_PINMUX(G, 2, 1)>, /* SD1_DAT0 */
-> +				 <RZG3L_PORT_PINMUX(G, 3, 1)>, /* SD1_DAT1 */
-> +				 <RZG3L_PORT_PINMUX(G, 4, 1)>, /* SD1_DAT2 */
-> +				 <RZG3L_PORT_PINMUX(G, 5, 1)>; /* SD1_DAT3 */
-> +			input-enable;
-> +			power-source =3D <3300>;
-
-[Severity: Medium]
-Should the data lines also specify bias-pull-up?
-
-The sd1-cmd node correctly includes bias-pull-up. If the board relies on
-the SoC's internal pull-ups rather than external resistors, leaving the data
-lines floating when the bus is idle could lead to intermittent SD card
-communication errors.=20
-
-This also applies to the sdhi1_uhs_pins configuration.
-
-[ ... ]
-
-> +#if RZ_BOOT_MODE3
-> +&sdhi1 {
-> +	pinctrl-0 =3D <&sdhi1_pins>;
-> +	pinctrl-1 =3D <&sdhi1_uhs_pins>;
-> +	pinctrl-names =3D "default", "state_uhs";
-> +
-> +	vmmc-supply =3D <&reg_3p3v>;
-> +	vqmmc-supply =3D <&vqmmc_sd1_pvdd>;
-> +};
-> +#endif
-
-[Severity: Medium]
-Does this conditional block need an #else branch to set status =3D "disable=
-d"
-for &sdhi1 when RZ_BOOT_MODE3 is false?
-
-Since the included renesas-smarc2.dtsi unconditionally sets status =3D "oka=
-y"
-for &sdhi1, failing to disable it here when RZ_BOOT_MODE3 is 0 leaves the
-node enabled but without required pin multiplexing and supplies. The MMC dr=
-iver
-would then attempt to probe a non-routed device, which could lead to timeou=
-ts
-and boot delays.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723154154.3196=
-74-1-biju.das.jz@bp.renesas.com?part=3D2
