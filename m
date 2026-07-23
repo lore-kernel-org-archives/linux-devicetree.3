@@ -1,304 +1,209 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E22C4CA286
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 15:42:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC831331EB5
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 15:43:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784821330; cv=none; b=kdBv4eNsNnHcHqDY4Z0lzVugjOpUIYQ1Of+kuU8h7h77lTsJcrrkyFjJKMqKXTNs145l6xKhYgwDLR+vWYy33Cbqvwm97t3h7HMtsbXfSL2Y46vslo6sjaW4b46wSf+JOBDf6ZzGWL83VD1DBCm8KcxwmQKv1mDZd4dwroWy/Ro=
+	t=1784821441; cv=none; b=BPWC1IRctPEOkvYwYIxwyiZgG1eyFepEjY7fcF4yPnBhtn1EsngFQkWQ+5K27zu7PFlIByXx4wsXUfOof70pPbMm2ujODZOplTx+DGi31dxdWP2V9NElR0JauyVFutU+wgK3tPwI+vzUrEDLeQUdEGiKXYsnCIuNHJ5OqyP9fnI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784821330; c=relaxed/simple;
-	bh=NiM0i3wLzihtseVQe9RRGwQ0xHZi6+9ZkOtD4VUdltg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HFRBSB67GB8a5YCFjmWW6y7uv1GGe2HxPwoEEpWicsOzvDa3msJQaIhWyrqxjOsxr7CgaC6bHcKvFOScLOLLqsrGN+YMRaD294cSB4NJF1GlcCIwyL+wYy+mY1wHJxJK2uDksAg2aGjRhtp3TcQJoHAXlQyeBRjJgAZcjo2t+Ks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hNJ+ii9O; arc=none smtp.client-ip=209.85.221.52
+	s=arc-20240116; t=1784821441; c=relaxed/simple;
+	bh=SjXOgsWZt36xtI037Agf67Nz/GYoL0JZ4+eWdHP3ucs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=cvV/N77kd4BdSFO1BuANgPcYY+nCN52o0OL1jP2rTowKyxWQiiTMP/OWP/excws8KhMKtrvuwLR7Xs3/wI8KWljLpJL0ltBoT+ZHOagnVH0LPcLECKHPyho8T2MvCB8vA1HhWCrbnjSSjkLsGq7m3LN3Cpt+CvdVbdjhchBR8JE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dfm+BKr3; arc=none smtp.client-ip=209.85.216.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hNJ+ii9O"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-47f6609c657so410846f8f.2
-        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 08:42:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dfm+BKr3"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-384422b05b5so137285a91.2
+        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 08:43:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784821320; x=1785426120; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DZ8QAc8qJULY7/QHPktrWVDTniFgBIQqY4nl+TBZBrk=;
-        b=hNJ+ii9OjsDX8G/bQGCeNbal3zn+9GHwqq0p4YSYdEp7qZ5+qmIqAmT+KTCQOfNzru
-         S4aK99LgCrOnZFKKb6L8oNG1JeseOm6CS4o+YPOspfXnnQfgh0KO5qNhnS+L+Od4AVs0
-         zGSl8IRI2u29zBNKa0HP8PYWgc7nFBO+6XFcKhmEAzQABmpWAx2g/OVvDjxzv878WPmK
-         yJyX+bl+LHBG4PVnvU1O3uqORDidOv4RPdMXahMjc0DJXAMKQXW/IVn0BKzd30mQNDtc
-         JyXQ69F8F9z5HmiaItvAeu9ZD0feIiF697Euj7PrjNB1Ak08w3ppuACPUdllFcCHxujw
-         msvw==
+        d=gmail.com; s=20251104; t=1784821435; x=1785426235; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=CrFSm+DdK14Fnc3SXG/vOdR9yhbSk9Li45ghwvsAXGo=;
+        b=Dfm+BKr3H8Ko57yn+46+RRSF4nyG/TYa67YOpy7uipiY7ga5gGsdHAUEKBgGJxGjcW
+         uT9M3cvaY1SpA+NVdfHl+mA/AnxdlfKCcr3OEpw130dUunsSC4yt81OqZ3Dx/pcNl2Wb
+         eHvvcU5T372rmqCOn+1QOBGu37PRgrnGYVpj1CITvf+nGamYFf61IT5mKRxRg5Zg4FtW
+         El5ycJ9iKSGmFhxsktf4iQ8oXWI+CaJFgGv4ykez8TSxjX5AoUBgJQSh2854PHpBdz9k
+         Fvg7LF+lQs9A23XnsjY5iDoQlDhrJ6+YvqJ0kow9AMcc4E+/lQuKRtXqgq6An0qSgZlS
+         RDSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784821320; x=1785426120;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DZ8QAc8qJULY7/QHPktrWVDTniFgBIQqY4nl+TBZBrk=;
-        b=QiyXj6gV6UPXk/gfFbYHP0pz3d/ibVFS2J9FK1t673731pCZv9I4NXyQ3167y3ZD/2
-         c5Xq7hX/gFP6jiV//Fe0WPq/QL4/EXDOM4cd4T46ciAay4Ls7ri/ik12EpAcOfjVs+6I
-         sOK49Ssyz/AgDLAYi4yQ0eDoVtO0WwnNlbu0J4MQregQUzpdstEh2QCpITn2fvU7ZYJt
-         CDb6BZFW3FyTgvdhLB+m/Zk3VrkpWK98Kcrt+Kn5c3qcUWczV65XXpd3J0VdEkmOsPhp
-         O6HGSMUNvQwYkKTB0Q8IgpPDLg6aWrOYrdfdYHbGtosWoa+avKJNFXCSbJPC2SuAhLBx
-         SBEg==
-X-Forwarded-Encrypted: i=1; AHgh+RrjMLHHLlrQHxMdOsa3+WyjC/c6qacDZJKfMKkBr3OGWjJLSYK7TSMY6F3DjjIJ+MHwa4bS/fcv2Nxv@vger.kernel.org
-X-Gm-Message-State: AOJu0YyHU+xO+ahlV1mkA56oJCw8+5I9ylRGRafyKvkfWZtmgmFlpjVh
-	VTfGaWqwLKfdC0e2CjnFG27hu5zn2BMjYSI1qlxhOVb0ClHVF4a+LdFd
-X-Gm-Gg: AR+sD12KA4WL0tMuDhmFpFGHkb5Ed5OiOPyjlakPGlfA+TMK0tDiimNVF/3/i3khsv6
-	U9eFZdx2+bqrSevnnOFaI/KBGTafAAxWkydh8E7ruOsiAKURCWZXGlB/vCONU318XrVqGRmnX01
-	7SzIY4zt0fze3PZfhssJZiCSMIEB8+cuOX0EDYJ5L0BNamkLF4TJAUMEn7VLhhYAIEhAKGXUc7b
-	BDhgjDB8AoTfsYr12DGTmNCw7FkZoBd4innGayM44k2nsJjOYxqEgu7rDOyBwteOP9Ruie3/DTj
-	SM52yR2fhBq7K1RfErcNzC3ujrgXoUUSyy9of2KM9QrRabI7sO0PyzNZnE27FpIMBUf4faRN7vI
-	4IkdNWUmdQCvfxDyzCUt+esV41wyLWeUrzDTLTjjX+MZBClVFIeYKxXge6dAhULr7XsCf2TVlMH
-	QkZ9Co2cuO4nHwyKrA4HKcLPEfzzQ=
-X-Received: by 2002:a05:600c:a0a:b0:495:4dea:f7f5 with SMTP id 5b1f17b1804b1-49573ce968emr48765705e9.29.1784821319409;
-        Thu, 23 Jul 2026 08:41:59 -0700 (PDT)
-Received: from localhost.localdomain ([2a00:23c4:a702:d301:f073:32ed:a057:cd3d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4957af5d3c2sm3411345e9.1.2026.07.23.08.41.58
+        d=1e100.net; s=20251104; t=1784821435; x=1785426235;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=CrFSm+DdK14Fnc3SXG/vOdR9yhbSk9Li45ghwvsAXGo=;
+        b=o2se+fcZR9BjJo362Dilgz0U/jCJsfbFyusVtemg0AwMpuszF+1uBQWQrdysiToz0z
+         cSmkdH2BuWuJy20S0W812pclCXiOVZ1xYdAlFoo2T/mm74BbU4o7iRUqK/hZXneXNgUr
+         0HBlarzFEtFU3LCmvGx9qjP2uQUzYUgOOFWD0GMdgM1wXGdJ/tIMgz0iRA/XajbJx9x8
+         jIHkYVlKiGi13MfrSKA7mLhB/2zrDV0Tik79D8OQ3VB9NIh1ZLOmehl+sxM5NKCzCFpo
+         qHZnQg6CSTLaUU97NgVcxdFdQ3Hk3tIx4HXxe86XnpnXPkHex7omfkirnMdigJBu82po
+         yA2w==
+X-Forwarded-Encrypted: i=1; AHgh+RopxbvbZNhZxtINCYvf7HCityQj/w1BNRcNQHqQAPKnG1d4sHGxUaJeY/oOk6wMkp5BqQIr3GKiC44k@vger.kernel.org
+X-Gm-Message-State: AOJu0YwhwWHIx/8+qdmDjoM+b+F+X3DVtpgX9uMnJHewkTQ3G7jSawhD
+	CBN0Ow2vEWE4/tf97VY68v8besSqiLmyr1JqgUifyYt9ih4TpHLk3wfT
+X-Gm-Gg: AR+sD10c7nvl7h1wBZBF4BIZy13knM8PDpbHHGt07vnJ4XlAbfRWM/FyT/B79cJ/XsD
+	D/4IxmuxElB9iAJvfC6xbltBEAYvxr4aQCjXMsV6L2+u0NIi+9F6WR4LzBL0bTE4vU71MQdRCNu
+	qwNqAUGyplrSSKRT8VoygFt9TUNH9usTKL/FOUt/Mt9BqmCXY+/p1fxuz42IqlbpH3AN3/dTVfF
+	9NJQYd1I5bMu76zFjiQM7whGwNyJbXr7akiWxhuFmJdsw8DvB86GSHZSNi96SNZaFyqqe/GeQaN
+	mcLtED2fJOX2UGab+Gr+obfl4J6s3z1silBx4AklC8hJtpOj/zmclGlh916z/ALMvijzNDzITEf
+	Wv3qH66w7rAMcFErLgm8kUZxQtfkaCTIuiQM3xfMVZpN+m+0qbvfmOhUPn8X2+ujChmnXKkupa7
+	ljX20/snd6HanxmSI=
+X-Received: by 2002:a17:90b:3891:b0:381:cef1:11b2 with SMTP id 98e67ed59e1d1-38ec66586c3mr2768166a91.7.1784821434937;
+        Thu, 23 Jul 2026 08:43:54 -0700 (PDT)
+Received: from [172.28.140.252] ([2409:40c2:5011:6ee7:9d84:3e0a:3875:8cd6])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13d13002f39sm17560943c88.1.2026.07.23.08.43.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Jul 2026 08:41:59 -0700 (PDT)
-From: Biju <biju.das.au@gmail.com>
-X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Biju Das <biju.das.au@gmail.com>
-Subject: [PATCH v19 3/4] arm64: dts: renesas: rzg3l-smarc-som: Enable SD/eMMC on SDHI0
-Date: Thu, 23 Jul 2026 16:41:49 +0100
-Message-ID: <20260723154154.319674-4-biju.das.jz@bp.renesas.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260723154154.319674-1-biju.das.jz@bp.renesas.com>
-References: <20260723154154.319674-1-biju.das.jz@bp.renesas.com>
+        Thu, 23 Jul 2026 08:43:54 -0700 (PDT)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Date: Thu, 23 Jul 2026 21:13:29 +0530
+Subject: [PATCH v2] dt-bindings: usb: ti,da830-ohci: Convert to DT schema
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260723-ti-da830-ohci-v2-1-41e54afc4703@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/12Nyw6CMBBFf4XM2jGdAUFc+R+GRW0LjBFqWiQaw
+ r/LY+fyJOeeO0F0QVyESzJBcKNE8f0CfEjAtLpvHIpdGFhxrnJmHAStPqcKfWsEWTOXpVXZyTE
+ sm1dwtXy23q3aOb7vD2eGNbIarcTBh+92ONLq7e2Cir/2SEiY1myJSLPK+Np0Wp5H4zuo5nn+A
+ RAzhT+8AAAA
+X-Change-ID: 20260622-ti-da830-ohci-2a2299d045e2
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Axel Haslam <ahaslam@baylibre.com>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
+ daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784821427; l=3201;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=SjXOgsWZt36xtI037Agf67Nz/GYoL0JZ4+eWdHP3ucs=;
+ b=rT/ljDJF2XW+8FOly2isZNkv04p2A9s3YKx8ZlKXx1jUZRWKydNgllzsgj85gX8b7o7+HQ4h/
+ Td8WmxF/NhABDsCJ4okI5SUE70+uvsXG3+O35i6lFEVyqf0/v0o5aIw
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-From: Biju Das <biju.das.jz@bp.renesas.com>
+Convert Texas Instruments da830-ohci bindings from legacy text to DT
+schema. Name of binding is changed to match primary compatible property.
+Add required property clocks and optional property oc-gpios which were
+missing from legacy binding.
 
-Add support for enabling SD card or eMMC on SDHI0 on the RZ/G3L SMARC
-SoM. The selection between SD and eMMC is controlled by the
-SW_SD0_DEV_SEL macro in the board DTS, which must match the position
-of switch SYS.1 on the SoM. By default, eMMC is enabled.
-
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
 ---
-v18->v19:
- * Split SD0_CLK and SD0_CMD separate as input enable not available for
-   SD0_CLK.
- * Added bias_pull_down, input enable, default drive strength for SD0_DS.
- * Added input enable for SD0_CMD and SD0_DAT*
- * Added default drive-strength for all SD0 pins except cd.
-v17->v18:
- * No change.
-v1->v17:
- * No change.
+Changes in v2:
+- Added clocks as required property which was missing in legacy binding.
+- Added oc-gpios property which is checked by driver.
+- Link to v1: https://patch.msgid.link/20260717-ti-da830-ohci-v1-1-3f2d111a2042@gmail.com
 ---
- .../boot/dts/renesas/r9a08g046l48-smarc.dts   |   1 +
- .../boot/dts/renesas/rzg3l-smarc-som.dtsi     | 145 ++++++++++++++++++
- 2 files changed, 146 insertions(+)
+ .../devicetree/bindings/usb/ohci-da8xx.txt         | 23 ---------
+ .../devicetree/bindings/usb/ti,da830-ohci.yaml     | 58 ++++++++++++++++++++++
+ 2 files changed, 58 insertions(+), 23 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-index 0b6b7e109200..96cc7ee46a6a 100644
---- a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-+++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-@@ -9,6 +9,7 @@
- 
- /* Switch selection settings */
- #define RZ_BOOT_MODE3		1
-+#define SW_SD0_DEV_SEL		0
- #define SW_SD2_EN		0
- #define SW_DPI_EN		0
- #define SW_GPIO4		1
-diff --git a/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi b/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
-index 091a227233cb..c365b8087520 100644
---- a/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
-+++ b/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
-@@ -9,6 +9,10 @@
-  * Please set the below switch position on the SoM and the corresponding macro
-  * on the board DTS:
-  *
-+ * Switch position SYS.1, Macro SW_SD0_DEV_SEL:
-+ *      0 - SD0 is connected to eMMC (default)
-+ *      1 - SD0 is connected to uSD0 card
-+ *
-  * Switch position SYS.2, Macro SW_I3C_EN:
-  *      0 - SMARC_I2C_GP is enabled
-  *      1 - I3C is enabled
-@@ -37,6 +41,7 @@ aliases {
- 		ethernet0 = &eth0;
- 		ethernet1 = &eth1;
- 		i2c0 = &i2c0;
-+		mmc0 = &sdhi0;
- 	};
- 
- 	memory@48000000 {
-@@ -63,6 +68,19 @@ reg_3p3v: regulator-3p3v {
- 		regulator-always-on;
- 	};
- 
-+#if SW_SD0_DEV_SEL
-+	vqmmc_sd0_pvdd: vqmmc-sd0-pvdd {
-+		compatible = "regulator-gpio";
-+		regulator-name = "SD0_PVDD";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <3300000>;
-+		gpios = <&pinctrl RZG3L_GPIO(L, 4) GPIO_ACTIVE_HIGH>;
-+		gpios-states = <0>;
-+		states = <3300000 0>, <1800000 1>;
-+		regulator-ramp-delay = <1200>;
-+	};
-+#endif
+diff --git a/Documentation/devicetree/bindings/usb/ohci-da8xx.txt b/Documentation/devicetree/bindings/usb/ohci-da8xx.txt
+deleted file mode 100644
+index 24a826d5015e..000000000000
+--- a/Documentation/devicetree/bindings/usb/ohci-da8xx.txt
++++ /dev/null
+@@ -1,23 +0,0 @@
+-DA8XX USB OHCI controller
+-
+-Required properties:
+-
+- - compatible: Should be "ti,da830-ohci"
+- - reg:        Should contain one register range i.e. start and length
+- - interrupts: Description of the interrupt line
+- - phys:       Phandle for the PHY device
+- - phy-names:  Should be "usb-phy"
+-
+-Optional properties:
+- - vbus-supply: phandle of regulator that controls vbus power / over-current
+-
+-Example:
+-
+-ohci: usb@225000 {
+-        compatible = "ti,da830-ohci";
+-        reg = <0x225000 0x1000>;
+-        interrupts = <59>;
+-        phys = <&usb_phy 1>;
+-        phy-names = "usb-phy";
+-        vbus-supply = <&reg_usb_ohci>;
+-};
+diff --git a/Documentation/devicetree/bindings/usb/ti,da830-ohci.yaml b/Documentation/devicetree/bindings/usb/ti,da830-ohci.yaml
+new file mode 100644
+index 000000000000..f7b9db6347fa
+--- /dev/null
++++ b/Documentation/devicetree/bindings/usb/ti,da830-ohci.yaml
+@@ -0,0 +1,58 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/usb/ti,da830-ohci.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- 	x2_clk: x2-clock {
- 		compatible = "fixed-clock";
- 		#clock-cells = <0>;
-@@ -216,7 +234,134 @@ i2c0_pins: i2c0 {
- 		pinmux = <RZG3L_PORT_PINMUX(L, 2, 4)>, /* RIIC0_SCL */
- 			 <RZG3L_PORT_PINMUX(L, 3, 4)>; /* RIIC0_SDA */
- 	};
++title: DA8XX USB OHCI controller
 +
-+	sd0-pwr-en-hog {
-+		gpio-hog;
-+		gpios = <RZG3L_GPIO(5, 1) GPIO_ACTIVE_HIGH>;
-+		output-high;
-+		line-name = "sd0_pwr_en";
-+	};
++maintainers:
++  - Axel Haslam <ahaslam@baylibre.com>
 +
-+	sdhi0_emmc_pins: sd0-emmc {
-+		sd0-clk {
-+			pins = "SD0_CLK";
-+			power-source = <1800>;
-+			drive-strength-microamp = <9000>;
-+		};
++properties:
++  compatible:
++    const: ti,da830-ohci
 +
-+		sd0-cmd {
-+			pins = "SD0_CMD";
-+			input-enable;
-+			drive-strength-microamp = <9000>;
-+			power-source = <1800>;
-+		};
++  reg:
++    maxItems: 1
 +
-+		sd0-data {
-+			pins = "SD0_DAT0", "SD0_DAT1", "SD0_DAT2", "SD0_DAT3",
-+			       "SD0_DAT4", "SD0_DAT5", "SD0_DAT6", "SD0_DAT7";
-+			input-enable;
-+			drive-strength-microamp = <9000>;
-+			power-source = <1800>;
-+		};
++  interrupts:
++    maxItems: 1
 +
-+		sd0-rst {
-+			pins = "SD0_RST#";
-+			drive-strength-microamp = <9000>;
-+			power-source = <1800>;
-+		};
++  phys:
++    maxItems: 1
 +
-+		sd0-ds {
-+			pins = "SD0_DS";
-+			input-enable;
-+			bias-pull-down;
-+			drive-strength-microamp = <9000>;
-+			power-source = <1800>;
-+		};
-+	};
++  clocks:
++    maxItems: 1
 +
-+	sdhi0_usd_pins: sd0-usd {
-+		sd0-cd {
-+			pinmux = <RZG2L_PORT_PINMUX(5, 0, 8)>; /* SD0_CD */
-+		};
++  phy-names:
++    const: usb-phy
 +
-+		sd0-clk {
-+			pins = "SD0_CLK";
-+			drive-strength-microamp = <8000>;
-+			power-source = <3300>;
-+		};
++  vbus-supply:
++    description:
++      phandle of regulator that controls vbus power / over-current
 +
-+		sd0-cmd {
-+			pins = "SD0_CMD";
-+			input-enable;
-+			drive-strength-microamp = <8000>;
-+			power-source = <3300>;
-+		};
++  oc-gpios:
++    maxItems: 1
 +
-+		sd0-data {
-+			pins = "SD0_DAT0", "SD0_DAT1", "SD0_DAT2", "SD0_DAT3";
-+			input-enable;
-+			drive-strength-microamp = <8000>;
-+			power-source = <3300>;
-+		};
-+	};
++required:
++  - compatible
++  - reg
++  - interrupts
++  - phys
++  - phy-names
++  - clocks
 +
-+	sdhi0_usd_uhs_pins: sd0-usd-uhs {
-+		sd0-cd {
-+			pinmux = <RZG2L_PORT_PINMUX(5, 0, 8)>; /* SD0_CD */
-+		};
++additionalProperties: false
 +
-+		sd0-clk {
-+			pins = "SD0_CLK";
-+			drive-strength-microamp = <9000>;
-+			power-source = <1800>;
-+		};
-+
-+		sd0-cmd {
-+			pins = "SD0_CMD";
-+			input-enable;
-+			drive-strength-microamp = <9000>;
-+			power-source = <1800>;
-+		};
-+
-+		sd0-data {
-+			pins = "SD0_DAT0", "SD0_DAT1", "SD0_DAT2", "SD0_DAT3";
-+			input-enable;
-+			drive-strength-microamp = <9000>;
-+			power-source = <1800>;
-+		};
-+	};
-+};
-+
-+#if (SW_SD0_DEV_SEL)
-+&sdhi0 {
-+	pinctrl-0 = <&sdhi0_usd_pins>;
-+	pinctrl-1 = <&sdhi0_usd_uhs_pins>;
-+	pinctrl-names = "default", "state_uhs";
-+
-+	vmmc-supply = <&reg_3p3v>;
-+	vqmmc-supply = <&vqmmc_sd0_pvdd>;
-+	bus-width = <4>;
-+	sd-uhs-sdr50;
-+	sd-uhs-sdr104;
-+	status = "okay";
-+};
-+#else
-+&sdhi0 {
-+	pinctrl-0 = <&sdhi0_emmc_pins>;
-+	pinctrl-1 = <&sdhi0_emmc_pins>;
-+	pinctrl-names = "default", "state_uhs";
-+
-+	vmmc-supply = <&reg_3p3v>;
-+	vqmmc-supply = <&reg_1p8v>;
-+	bus-width = <8>;
-+	mmc-hs200-1_8v;
-+	mmc-hs400-1_8v;
-+	mmc-hs400-enhanced-strobe;
-+	non-removable;
-+	fixed-emmc-driver-type = <1>;
-+	status = "okay";
- };
-+#endif
- 
- &wdt0 {
- 	timeout-sec = <60>;
++examples:
++  - |
++    usb@225000 {
++        compatible = "ti,da830-ohci";
++        reg = <0x225000 0x1000>;
++        interrupts = <59>;
++        phys = <&usb_phy 1>;
++        phy-names = "usb-phy";
++        clocks = <&psc1 2>;
++        vbus-supply = <&reg_usb_ohci>;
++    };
+
+---
+base-commit: ef0c9f75a19532d7675384708fc8621e10850104
+change-id: 20260622-ti-da830-ohci-2a2299d045e2
+
+Best regards,
 -- 
-2.43.0
+Bhargav
 
