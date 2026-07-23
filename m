@@ -1,150 +1,120 @@
-Received: from mail.fris.de (mail.fris.de [116.203.77.234])
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011027.outbound.protection.outlook.com [40.107.208.27])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 747B03E9580;
-	Thu, 23 Jul 2026 07:29:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.203.77.234
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784791749; cv=none; b=BuQaqixTa4b4sb/B1Ehj/UTJQOliMNHoLk9jQV3GtByj3YZi2O5SE1Om0OdvmwJ0CXRtAPZYI3qV0Ka6PFr1VgLFmA+OV6TepY8f4OdoVKcJ6m1ABi18Eb9qjGOy/UZvaSeP6zOkSUtEJgE6/MP0K6tfh9MHRSygSJEWel3SwoA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784791749; c=relaxed/simple;
-	bh=hguiKqe0Uuyua2AX1GYt1cNVLRmZaSGClWVkNI+fC/I=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=HvpT7ZmgZm1eQiRrmoGCNDCFMu9323zYYNY+MpO64BJtEw0Bi3KRCZMPHmKQ+/ORs3Ghkg+HoZEHtIfdgwehRJ+7BN6yGQ+Po/dEsfzHSmmtwULbrKiggYyFvv31a5PPVdRv1GG62+T4gnYCDzcF2Era0LncFCXZjiIKJHtMwzo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=tLt2lds2; arc=none smtp.client-ip=116.203.77.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fris.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B04355F46;
+	Thu, 23 Jul 2026 07:31:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.27
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784791885; cv=fail; b=iH0Oj+uNYUBqaLn9RRWABoT4w4RMNGMUUq73a8A3ctPDPK/dxfn82dg+zM2EXYJ2Tu3V9joobtVuJb/Do30oOD9xV9c1BafwpHzPcSwDp1sA9/Wpd8yuNEAHzom4Ixt2GqLQtqBY/ypAOiG8UqiIIAJDieUCfqGVJcMlq69E6D4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784791885; c=relaxed/simple;
+	bh=MYVKE5mmJtjTn82FVjCAbZIeCYNYBOqPUJMSpmeG3ps=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=teQ6umVJRW2adOxrR6oSx6npvIWK99DEoJhUvrNYnd7tFtm9+6AeadpDIbHq6E56zctLcIqa+W5pYh7+MxLwSMT90/MoGVmGZC7fLF0EFepXHpM3lDCYmVwAlqJUQAVArsJqHXS8CZqdyDUXVOzL2i2B/SJMmE1VJlGNgGJU+lw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=slec681P; arc=fail smtp.client-ip=40.107.208.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="tLt2lds2"
-From: Frieder Schrempf <frieder@fris.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fris.de; s=mail;
-	t=1784791739;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mnjH8bUvLNMs032Y3RxCllB4beQC3Ai/Gw/n6qJweSY=;
-	b=tLt2lds2o+xcOPDJjekdPbcqbQgBJ/mhXEl8qpM8OXYfre9m1JeYyDUqWjPbCWrGVAunun
-	GBHjvigpDqNegs3SRiJET/Y6QDn20w5zFqx+WjbBVEqgZi5+AopdQRItxp8InIcN11sTox
-	OcCetf12vtKyZzHHzRO+l0bWCAVhvUYufViBjKnWNV8cVKtn7uGX3FwY9Ll4/5X1uQOT23
-	AzxdQjjEOpfHbvxiBS53TocMoYw9iqvipsv8Ipdh1YeQmoykOKt177YnTt9jAYxb9Bke6F
-	LTDjfF6QAQOsYPfpo2S0ZG1Ni79RHKJZpNpKu2nVhFf3wEr2ZGaYrEkZ6B1QOw==
-Date: Thu, 23 Jul 2026 09:27:31 +0200
-Subject: [PATCH v3 09/11] nvmem: imx-ocotp-ele: Rename FSB access map
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="slec681P"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wozJle++uxB+kMApqZfEa5wQTcw7N1B7DwlUIvIahFLrq3BnQD8Bcwi4uIRyNqGdGsx5KqIzFyTcO9h7vlh4wmhOk15HmlCyDmjZvPpq1P/0RfTjdKnRmY1gYogy1sBniY9Nh+WrXVcUrwAB6reKA1MH81BjButV+xH1K6C9SkA58sUZjjAN21Ia0VBEcw2n4DAj7fdZ46jHNRZTzTfNXukkBzJ4DbXcqDJAEezBNGzF3Lz0PxFhmTYo1W9fY8JZG7fJkmZktytzA/Uu4RbXWi2VnXQjhraPrs+uXhGan2M70XMGV4vy8u7BKk8vBqqpDPNFP1zGyYL7HKojp51mWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MYVKE5mmJtjTn82FVjCAbZIeCYNYBOqPUJMSpmeG3ps=;
+ b=CLQyd0laxttIa980ZUbWep8xKSTq7Q0pSeHqfPJ62Bmc2hx1CDkJUWHHxDXUVVJ2tnFvhW7RADORvqXQkN3Wgr0hQkHVj5YBt+oxpG46TBiZjvIdOEiYriesjjb6rMDbNEvIN4zc05OF1TY35jR4C3ToCLCnjf1DrDSFgkLppXidMKAMKUDrRVQ9u5s4WCwKwyvrZdJlIS5UU/npEEF/9YMyC361PhH/p2wD8qr774lQs9ZjGtk8oi2P5d+VQZOvi3/5+idIB6SotxP+ANWRMVpzCfNdzMs1wZ82CxZcyPaQY6J5GtXu5zAUT9rBxoxe4UcvyI37/E+WDA9kGPV19Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=codeconstruct.com.au
+ smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=nvidia.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MYVKE5mmJtjTn82FVjCAbZIeCYNYBOqPUJMSpmeG3ps=;
+ b=slec681PwAQ3piONRgV61w22T5Z0GlIvnZPIfbXdZaez2qz9YSh97noROK8ulYpC/njjmkLBzM0lVxwI2UhN6v2aeYSqG/MoySx8Jhc/ceFHES0U7Ev45uprtvztakDwNp7/Amcs6wt1ayCQR9gVpnNVrRMxESTfmle7XGrbgSV5QCC3TbOAJnEccq7HNQ/D9DoRY/nCQiphmeyVNknEQSnQHy6SK/EqD5AWjKBo5jhwQp3AhmfkbsJjTX3m0hIAUzcuPIXdf2yFyqKOLE6FfiOmygQ9C7kwBhpERZuv8KcQzfAGaTyYPZb9Y8YWn5C+cXo5Vz+cxVvN9/p1I0xJpw==
+Received: from DM6PR02CA0126.namprd02.prod.outlook.com (2603:10b6:5:1b4::28)
+ by PH7PR12MB7308.namprd12.prod.outlook.com (2603:10b6:510:20c::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Thu, 23 Jul
+ 2026 07:31:19 +0000
+Received: from CH3PEPF00000018.namprd21.prod.outlook.com
+ (2603:10b6:5:1b4:cafe::8b) by DM6PR02CA0126.outlook.office365.com
+ (2603:10b6:5:1b4::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.10 via Frontend Transport; Thu,
+ 23 Jul 2026 07:31:19 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ CH3PEPF00000018.mail.protection.outlook.com (10.167.244.123) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.270.0 via Frontend Transport; Thu, 23 Jul 2026 07:31:18 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 23 Jul
+ 2026 00:31:02 -0700
+Received: from nvidia.com (10.126.230.37) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 23 Jul
+ 2026 00:31:00 -0700
+From: Jacky Huang <jackyhuang@nvidia.com>
+To: Andrew Jeffery <andrew@codeconstruct.com.au>, Krzysztof Kozlowski
+	<krzysztof.kozlowski@oss.qualcomm.com>
+CC: Jacky Huang <jackyhuang@nvidia.com>, Joel Stanley <joel@jms.id.au>, "Rob
+ Herring" <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrew Lunn
+	<andrew@lunn.ch>, <devicetree@vger.kernel.org>,
+	<linux-aspeed@lists.ozlabs.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <openbmc@lists.ozlabs.org>
+Subject: Re: [PATCH v3 2/2] ARM: dts: aspeed: Add NVIDIA VR-NVL BMC
+Date: Thu, 23 Jul 2026 16:29:55 +0900
+Message-ID: <20260723073032.1666282-1-jackyhuang@nvidia.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <3b6aa85161702da4322cc361e500a90c832af6a7.camel@codeconstruct.com.au>
+References: <20260710054849.3178747-1-jackyhuang@nvidia.com> <20260710054849.3178747-3-jackyhuang@nvidia.com> <b707f061cbdfe52f8d72ccd33ec177113e20a5e5.camel@codeconstruct.com.au> <3523fefc-8ba8-4512-b088-7a94a2df73f8@oss.qualcomm.com> <3b6aa85161702da4322cc361e500a90c832af6a7.camel@codeconstruct.com.au>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-upstreaming-next-20260609-imx-ocotp-ele-v3-9-e26930345b4c@kontron.de>
-References: <20260723-upstreaming-next-20260609-imx-ocotp-ele-v3-0-e26930345b4c@kontron.de>
-In-Reply-To: <20260723-upstreaming-next-20260609-imx-ocotp-ele-v3-0-e26930345b4c@kontron.de>
-To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>, 
- Pankaj Gupta <pankaj.gupta@nxp.com>, 
- "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux@ew.tq-group.com, Frieder Schrempf <frieder.schrempf@kontron.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2464;
- i=frieder.schrempf@kontron.de; h=from:subject:message-id;
- bh=Ui1yqAl2SncRGvJ6Cd8lkM+A+lQmMiIxti+ManRJv8M=;
- b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JISvx0DYNlxexbPabTNc8fPnIi+HV22hplem7P/HNWs7yd
- Oe+R3PsOkpZGMS4GGTFFFmk+C1e25rF+sgfq46CmcPKBDKEgYtTACYiNZORYfGdNxcm+i07EZd4
- 56xv3pPlvhsLLa8/iuQxe/T41RSpb0cZ/ju9fab16sSLF/ZFmnLFrdaeTgeiZXpS959duFPz0bP
- sIDYA
-X-Developer-Key: i=frieder.schrempf@kontron.de; a=openpgp;
- fpr=1A0F38EB3D365D4C1FC67B5A69761B25107C8216
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF00000018:EE_|PH7PR12MB7308:EE_
+X-MS-Office365-Filtering-Correlation-Id: b48fcbfc-e735-4993-3226-08dee88c631a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|82310400026|1800799024|7416014|376014|36860700016|56012099006|4143699003|11063799006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	8cIsfS6CTP7x6Do6tFgWn2ZyznvzelN3y+Kn0r/bQ39LC+pcsnJntlLPEUGW8wRE/dol8HCX2jXmey0zvy0NEzwNzG+F+3oPK+rz2WrwdSX7AxDBo1LnfYBv+js07VH59UDGnCtSw4t2imiXRaWZFUwHkaenb40z2aJsOfFve2VfjkG1rbOA7IkkFc3kcHOR7hT93/yBfyR2c65q5XrZDeIFK75afr94xwc5cI7mbAg/nMknhk64afkh2AzqEuvQMCWrjWnjQMeKrkLMpFzpTZtnGewTUeRj55F8RS0xuJSS1VqCHRb0an9M/GYqQTY4+Y3l/iphrPNOMZAiKVNP/B+IeJI1CfglVs4VirN/BMnRzqNqK41A0u+3esp4Aly7vUS/eZbQDrXuK42Gw4sMuNFvP698TMT8crMSa+XizqLDd0Krc1fZ+MAgXpVsNM2udTJnOWYGgYHIOQ+1hYcgotozTGwLcMplCEVK5qbhFMesjC11JZYoXee/yRg9kKQGeMmV+pdJJdc4AUDpAj3ItGerIShd0S7izJkE8Ph+mxGFdRLhMkhhu1jyqx7jRZKlLodDp3GBbz9jIvv5SomuZ/NaJKvVZNtC4Cf9vNex/ZAoYtxKhSW+yYawkGG5RjKAajRV+LXBHaF8DN1bj7+K9DjfP6UC3UHmTuHpl0CvzNUdwuhHROAaWPcQRYFgU8BZpq7HNTZEF1NWFmp85wjxDw==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(1800799024)(7416014)(376014)(36860700016)(56012099006)(4143699003)(11063799006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Z8rxm3BZdAMw5MnG9djBN1yq3CFH8Q2nNrrDsHcipvGTtEf9J95mI6lqyBiXTEF6xlCkPtVJCnBMKUDzrE8HIjRzW2ku1/q273zmIT1hHpbfI2+BPAyene7qbqcJms5tn5pvNPXdD1Q2PPV8CXsJVQb+qA9uJZqKD71Nm2f1SsmGJYKIjgwpRelFDZ2KP3CCnU53lSqbdFZds0WTRzy/9XsbAHGLUXSbL4Hx+31abLFM7K/B7Bbnu+Ltpq6E2qAeaJfvudP0wFsr+k87UbqULIVpliB4gMBNMk7Bfy7wD3v0p6JcuzyCZf5Puk4vJuyGry0ZDCWZDikXedHSzxpyy7GK+MFp6HyBi5GHEXnYKmM0erjK2iJFARRA1gTfiGUs18hiAWXJfhnE6mc75UkABGl/he77lgSpxMF2RYi7ragjFA2l22USkESM91PyD4Wj
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 07:31:18.7273
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b48fcbfc-e735-4993-3226-08dee88c631a
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH3PEPF00000018.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7308
 
-From: Frieder Schrempf <frieder.schrempf@kontron.de>
+Hi Andrew and Krzysztof,
 
-The table is used to declare which fuse registers are accessible
-through the FSB block. Name it accordingly to make this clearer for
-the reader.
+Appreciate the guidance and clarification! I will address the warnings
+and prepare the next version.
 
-No functional changes intended.
-
-Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
----
- drivers/nvmem/imx-ocotp-ele.c | 24 ++++++++++++------------
- 1 file changed, 12 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/nvmem/imx-ocotp-ele.c b/drivers/nvmem/imx-ocotp-ele.c
-index f07565c0a02d..1a125f9c5b1d 100644
---- a/drivers/nvmem/imx-ocotp-ele.c
-+++ b/drivers/nvmem/imx-ocotp-ele.c
-@@ -33,11 +33,11 @@ struct ocotp_devtype_data {
- 	u32 reg_off;
- 	char *name;
- 	u32 size;
--	u32 num_entry;
-+	u32 num_fsb_map;
- 	u32 flag;
- 	const struct nvmem_keepout *keepout;
- 	unsigned int nkeepout;
--	struct ocotp_map_entry entry[];
-+	struct ocotp_map_entry fsb_map[];
- };
- 
- struct imx_ocotp_priv {
-@@ -160,12 +160,12 @@ static enum fuse_type imx_ocotp_fuse_type(void *context, u32 index)
- 	u32 start, end;
- 	int i;
- 
--	for (i = 0; i < data->num_entry; i++) {
--		start = data->entry[i].start;
--		end = data->entry[i].start + data->entry[i].num;
-+	for (i = 0; i < data->num_fsb_map; i++) {
-+		start = data->fsb_map[i].start;
-+		end = data->fsb_map[i].start + data->fsb_map[i].num;
- 
- 		if (index >= start && index < end)
--			return data->entry[i].type;
-+			return data->fsb_map[i].type;
- 	}
- 
- 	return FUSE_INVALID;
-@@ -364,8 +364,8 @@ static const struct nvmem_keepout imx93_ocotp_keepout[] = {
- static const struct ocotp_devtype_data imx93_ocotp_data = {
- 	.reg_off = 0x8000,
- 	.size = 2048,
--	.num_entry = 2,
--	.entry = {
-+	.num_fsb_map = 2,
-+	.fsb_map = {
- 		{ 0, 52, FUSE_FSB },
- 		{ 312, 200, FUSE_FSB }
- 	},
-@@ -376,8 +376,8 @@ static const struct ocotp_devtype_data imx93_ocotp_data = {
- static const struct ocotp_devtype_data imx94_ocotp_data = {
- 	.reg_off = 0x8000,
- 	.size = 3296, /* 103 Banks */
--	.num_entry = 9,
--	.entry = {
-+	.num_fsb_map = 9,
-+	.fsb_map = {
- 		{ 0, 1, FUSE_FSB | FUSE_ECC },
- 		{ 7, 1, FUSE_FSB | FUSE_ECC },
- 		{ 9, 3, FUSE_FSB | FUSE_ECC },
-@@ -393,8 +393,8 @@ static const struct ocotp_devtype_data imx94_ocotp_data = {
- static const struct ocotp_devtype_data imx95_ocotp_data = {
- 	.reg_off = 0x8000,
- 	.size = 2048,
--	.num_entry = 9,
--	.entry = {
-+	.num_fsb_map = 9,
-+	.fsb_map = {
- 		{ 0, 1, FUSE_FSB | FUSE_ECC },
- 		{ 7, 1, FUSE_FSB | FUSE_ECC },
- 		{ 9, 3, FUSE_FSB | FUSE_ECC },
-
--- 
-2.55.0
-
+Thanks,
+Jacky
