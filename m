@@ -1,86 +1,87 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89A703EEAE7
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 13:08:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D41041378D
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 13:09:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784812095; cv=none; b=nrTbWgt5P8tCxqJrg+QYA61iaijEoLU9MMM9hv+zgrhjnbrPBADUgGAhugHNclAsiHrBv75AyeQ+oMrd7UYQwwYbP999Tm2b/snI/oPhLv3a7goJtNt2uCwkmwMVob3q18hp28Yix8GAIPh6EBbGRQDcNtilYltaj/dDD/jBYCg=
+	t=1784812186; cv=none; b=Lm55ZKCXZXxoyywASfurYJOl8ob2+lbGQMTSzLPzBlQw2/4CYVwWG4v8Rla8Rw+N7SWWgqa6z/bLr63dS5eMPJ/Nt2IqBKKAWNhSAqj8553TVZQHmeTfdPJTda1OsaNRujAVQt3tvivofOmuWgczAImXEu0/jz69XWak/b31lgk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784812095; c=relaxed/simple;
-	bh=usc0iLQZIAxUtbpo0UUexXNi+H/LP/5+tfAGpxqIDLo=;
+	s=arc-20240116; t=1784812186; c=relaxed/simple;
+	bh=CNKvIyuRMUmNUe9hldyt1F36eDg0bIAgRNM4BeXJs4E=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QseAGdomLaL4l7KI06eZHrDJ8fp6ot9wV8HdIL0ydVAwcGEhiWcMUnL88u0OCJCghWAXFmF22LqLhQBxT5dwSxGlOoh4/qB+QQ+fhTe6jXfpM3z9MkwfzbEQDprWjwsrsEonaNWA2xWKGNa+fpFr2FRs5VJi2iK6Hv4CzEp/RFs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gJGYMGuF; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=FX23fYHU; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 In-Reply-To:Content-Type; b=r4LfWHhNrl1JaZxIHIKeJi9h7BdEwt0ADuDSLqz9eCkXqHp95k1Vd3XkuW5te8yVwn0+BQu3lW5tBWl95b1Ppy0hDqFnUfTT4y3ht5CvHw2sjA6ay133T2rADuKugpjWj5Dj3A6LijdBhf6qI166tJxc+HOhca4+ImLLAfGylTo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YWytQw4b; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SJCfGrNu; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gJGYMGuF";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="FX23fYHU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1784812092;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=z8tfBjliZcRP+YVIKBiEexjxC3PGiQqhQXDQZvnOmN0=;
-	b=gJGYMGuFBr/usJ6gEDybw2lo/vtVwrQqwwXp0qemlU3Honvy2d5XOMcEMVB3wJIj0gropf
-	5naO3L+w1vDoxpZ3qsgTeKAjLWrkfIF2rjQETuVsBWpi8KmMNHfDt2GP/1OFWIoOdlquYh
-	p/VxJ4ZTF6JtSlG7hc0xibwfioZQPHo=
-Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
- [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-528-B19HBA3ENeOzWSUNMccI1A-1; Thu, 23 Jul 2026 09:08:11 -0400
-X-MC-Unique: B19HBA3ENeOzWSUNMccI1A-1
-X-Mimecast-MFC-AGG-ID: B19HBA3ENeOzWSUNMccI1A_1784812090
-Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c15dfd34e4cso59362166b.0
-        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 06:08:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YWytQw4b";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SJCfGrNu"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66NCvgwA020909
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 13:09:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	KYZXn2rMd8QXiAaMCeSTebeopGesML12+K9l8VKCmk0=; b=YWytQw4b2MYXel2Q
+	85vv17LogPADiM+DaizyMO56OnUI2nzuvizaz8+Im84V8WwOw3IPTyJ9kJGMilt2
+	7SsjU5BqDz252feWoCjph6gH9h1DTamF8TWk4rGeVV8Ka4exuIOwVm3WVaTJMjP1
+	Y4Z+zsEW/4D1zUX3M2F1wlAtvAixgLGrC6o8AwSqaSUfc1aMasM3yDoA+hpuWbx2
+	Y+3KqmlGZIKRZaKx3yow22oY8ZcwFZmuLTvGI9W33tVzbMgh2T9tAl0NeP1C3ssA
+	mvwjMUc+r/yk7qQltiAGIe2OFWnytcXCEOqIeQ0rDmS4MM8C60vqotYWweWl2ONW
+	u5X9nw==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fk6c7k5rp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 13:09:27 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-738ffe90415so83365137.3
+        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 06:09:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1784812090; x=1785416890; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=z8tfBjliZcRP+YVIKBiEexjxC3PGiQqhQXDQZvnOmN0=;
-        b=FX23fYHU6zBG+sbJAHS7BUM5LywcoupNUy2nU6HpXujE+BCkQzhnHYEWGL6cP7j1Br
-         uxpaKAZfv+moxOOEcY/6JRhMBm4Q1G9dP8PWSYa2zdzeBbzV/KSE15Pc9GxkKThDyRB1
-         FnmOPvaQ2KeC7725Cg5dECFPDycmU39q3SRT2sutC7Vvcvw1AZJtQRN2rd4bn0kBRM7W
-         sUovcsWJqKzKJ2HsBc8ewA6kjuLUTClj5HgXZ6ROkGvxLowVUCZ7R91b5tAaXssRly52
-         oeb2WQQr03jsVO5Y5DZ+0GT7QJGdjYdDxfW3kH5aklkRcwhKcr4/FamZn9XOSKYyesRz
-         V91w==
+        d=oss.qualcomm.com; s=google; t=1784812167; x=1785416967; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KYZXn2rMd8QXiAaMCeSTebeopGesML12+K9l8VKCmk0=;
+        b=SJCfGrNukWdzm+iljAWff1T3O2zC+c7VN1HKwNsj9fyxVxR7YB97U1pGsTOz3QA2z9
+         HLoymLp0TUANUdqF0P/J7nfYJYZXE4AdUclWkEqpM7bbCVZ8okzhF69xD0H30i/asNWf
+         yuQ/MedMLgJPTD7PaYcq0AtMDqcWdmcJIY6yqUH5/aYxfPl5l3GsA7Qpfcn1awqM9oRH
+         onTlxse00wFAn0I+DAFjQh2hdKhZU/n/DpnuocztyR54xSHOo0gz4BQjNC3IFFKSwN2+
+         RvXH/fryPVN0XR5Xzn+YOsdLMvwqD/B03bu/sLE2ovJCrvmd3QYURujsh5HxSb2pgo21
+         0O+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784812090; x=1785416890;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1784812167; x=1785416967;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=z8tfBjliZcRP+YVIKBiEexjxC3PGiQqhQXDQZvnOmN0=;
-        b=kNRQWQ77tgOjVidi1uRn1vYuOkMs2T8/j7rWyJ7KjADxh85rgE5PZDQ3LZRmX6C05q
-         IZau95yC0ke9E9uhXYqWX09hxaVT6G2HRSHZ7JGtzyOsmo51vox3b0uRGN1opHUOABjr
-         yd/84WriBRJ9V/VG9x2DV3zgyBjg9VByFIVLMFuYTYuOVPCN4hzKragwneOQ7lIGowPA
-         Y/vNUJdSqchkNNAldinLka/vDuX5LI1fY6GvUc+djTikljBK1GcRTuIO1JHNzPTeOKvP
-         sXQ1Bwk0BBPStSWEzrGgsOLO1i27aSR3/oJuZQx8jfxvc7ufixQ5nFnOq9GK9o2Pla4l
-         n8+A==
-X-Forwarded-Encrypted: i=1; AHgh+RqxN9gyc9TeoSRKgqyDxUGxZJrCJkjuu/u9OYYTV37azNwQ+1SpX0Ahrx8jcI7CJXn3rLb0FrujG2mu@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxm5OJaQGZ4x3Hwwf6OujPuSLj0xj7MXa35kPmzhC2GkWVRQ8u2
-	cYJOl9kBw52z5e3AD7i7cvXq0/Fj1eHgavGSWXYRy32KB8XOutTCTcRENbGQF2adF8ejdTegd9U
-	EvQS+iTQqJE+mJyQGA/XF9Ca8bGobeYMtftk8kR3p14QgFAM+mO7Dz8yoBNCuV/0=
-X-Gm-Gg: AR+sD13kRoJa2e43v2cj3ixafHToHMBmd4aDKLw4tQQkPWRGO/PHqnzdQpeSixNUGOI
-	hH5hiZByJXsB9NryebHhHPlGf5e/m7PC08oDLis63Y27ZY3FYYjsi/P2lG3UbY7tvvfM8fcgPb7
-	b21ozbGimGvCN7JJninSWIHLx9NI1NmGOU3Dy4ZuOwFO0wjVLaltuXCsVCWqfqkW0ryk+g/0lox
-	+GwmdB3Gh90jw+ZJZQkZ4/41B6ZfPx2xDfrr6MAEvdbcHOTd7nqPhrg4m/iTBNd7f0mDFiOZdWj
-	e9SSHytw4U/sEgE6frVwrrYkprPZTm0GxnG5H8M+yN0BNW00X01FHoLJbTCWfc66tQGpwqkHMeh
-	Cq6UgC1TfNv2WK2yukeOLu1NyclSZw1xMP3i0zSMoEE8r1avD2suWiHDnW90ne5ZnuuP5qw0CjC
-	B8+w==
-X-Received: by 2002:a17:907:6088:b0:c16:1655:309d with SMTP id a640c23a62f3a-c1c50d82182mr130122166b.56.1784812089527;
-        Thu, 23 Jul 2026 06:08:09 -0700 (PDT)
-X-Received: by 2002:a17:907:6088:b0:c16:1655:309d with SMTP id a640c23a62f3a-c1c50d82182mr130117066b.56.1784812088622;
-        Thu, 23 Jul 2026 06:08:08 -0700 (PDT)
-Received: from ?IPV6:2a0d:3344:5521:6b10:58fd:68f:7756:389d? ([2a0d:3344:5521:6b10:58fd:68f:7756:389d])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1c32c90b42sm233079766b.38.2026.07.23.06.08.06
+        bh=KYZXn2rMd8QXiAaMCeSTebeopGesML12+K9l8VKCmk0=;
+        b=KTyEYZmmBMN4ZONa+LEUWImcA9wpEE7THAayB6hvWnOJcfZm41JjFM8C6LDh5Bu+PX
+         TodZApb1x/m6tw7OctgmckYNpPVw8sNTqZEQzJJoIJZ0V/kVWmj0sOWlKzpcCbJipjrY
+         LYpmSgxne/Skk8bNK2VJF90N5BsrqC0DU0l6sRnz7UBqvlxoSZH//ov/Rblc2KXykduP
+         kpAkI7WHgb8cCu95bQQIlV22rFvTtJnrNCuKsyhyKFvN3vv1j4qx74NTA3NPFDwA/8XU
+         /Q+BT/5/koCcD7FbXD1QIJYKAI+yBBG/mHEG/e4r6S8kC1Lky5nmvZCPkTZelus+LRzX
+         SRRA==
+X-Forwarded-Encrypted: i=1; AHgh+RqK3lq8UPTnQY8T2iNWwIth19bIPtS9bbFUnCouxjI5OP9vf6bfVpb1t+zSzwr+mzDWZkTKV+87AU1u@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw2cLz5GwSwUrelPOxmRtqLeXA2PrMKh5e3GO2HMWo2mq5W+4WS
+	tiTwYwQbRCG1ejVaRCYRkRTjOt0x9vKQaHFQItbgxc76VwE0Wu/ewwm2byejKdE0LoMWXnAIrB2
+	l6gjg3lbmnYxYFv9ROvTebWmzV74Sy+cu/avLLCx71xztcu19gi/ZE9y+l43GTNNy
+X-Gm-Gg: AR+sD126JO3YnYEN38pnJ2wj2iRjlSvgpnSlKmWqXbhypImgYDAxKZnDr3nq9JwY3O6
+	5yvYftsD4qrsXFJXK0lxeVaIMDiHIJBiEY6ZelvLyYgRMQvpzOELswh8n64IMT3q+viRRnVujeo
+	vw2IkdCQpBkjslZAkY1lxd8Rv4qN8/xfhRjbzXAQl/G9esKoal4+NtV3UkjG5Pyt64owocDFUGf
+	SNUH8a9Magwu8lkbp7SWfJRfj9EI6prGazkWd0G/VWdTKVJPxKQVHF3yzxC9N1M/YgxBEd4yBRa
+	YcNUEAc5K9D3f9qlGjUKJNYBfXuRq5AF2LviS4blSGgP2FitrlM4YIJtwIRABfbGLZ2KQr6bbNy
+	cWMUVh6pQe7GDI4rBMoEceHySDw/p8Bitbmc=
+X-Received: by 2002:a05:6102:2d0d:b0:740:2d5f:e37b with SMTP id ada2fe7eead31-74d61016d97mr1173137137.29.1784812166888;
+        Thu, 23 Jul 2026 06:09:26 -0700 (PDT)
+X-Received: by 2002:a05:6102:2d0d:b0:740:2d5f:e37b with SMTP id ada2fe7eead31-74d61016d97mr1173098137.29.1784812166476;
+        Thu, 23 Jul 2026 06:09:26 -0700 (PDT)
+Received: from [10.219.57.229] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9774424ce26sm4513322241.13.2026.07.23.06.09.14
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 23 Jul 2026 06:08:07 -0700 (PDT)
-Message-ID: <430ff31a-4199-402f-b234-167f71d87fa6@redhat.com>
-Date: Thu, 23 Jul 2026 15:08:05 +0200
+        Thu, 23 Jul 2026 06:09:26 -0700 (PDT)
+Message-ID: <d859dad2-b9d2-4d1c-abd5-bf007af0ebd2@oss.qualcomm.com>
+Date: Thu, 23 Jul 2026 18:39:11 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,463 +89,151 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v10 4/9] net: dsa: lan9645x: add basic dsa driver
- for LAN9645X
-To: =?UTF-8?Q?Jens_Emil_Schulz_=C3=98stergaard?=
- <jensemil.schulzostergaard@microchip.com>, UNGLinuxDriver@microchip.com,
- Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Woojung Huh <woojung.huh@microchip.com>,
- Russell King <linux@armlinux.org.uk>,
- Steen Hegelund <Steen.Hegelund@microchip.com>,
- Daniel Machon <daniel.machon@microchip.com>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20260713-dsa_lan9645x_switch_driver_base-v10-0-a4886a08fb15@microchip.com>
- <20260713-dsa_lan9645x_switch_driver_base-v10-4-a4886a08fb15@microchip.com>
-From: Paolo Abeni <pabeni@redhat.com>
+Subject: Re: [PATCH v23 03/13] power: reset: reboot-mode: Add support for
+ predefined reboot modes
+To: Pavan Kondeti <pavan.kondeti@oss.qualcomm.com>
+Cc: Sebastian Reichel <sre@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Christian Loehle <christian.loehle@arm.com>,
+        Ulf Hansson <ulfh@kernel.org>, Lee Jones <lee@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+        Souvik Chakravarty <Souvik.Chakravarty@arm.com>,
+        Andy Yan <andy.yan@rock-chips.com>,
+        Matthias Brugger
+ <matthias.bgg@gmail.com>,
+        John Stultz <john.stultz@linaro.org>,
+        Moritz Fischer <moritz.fischer@ettus.com>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Sudeep Holla
+ <sudeep.holla@kernel.org>, linux-pm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+        Florian Fainelli <florian.fainelli@broadcom.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+        Andre Draszik <andre.draszik@linaro.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
+        mfd@lists.linux.dev, Srinivas Kandagatla <srini@kernel.org>
+References: <20260714-arm-psci-system_reset2-vendor-reboots-v23-0-e7453c548c21@oss.qualcomm.com>
+ <20260714-arm-psci-system_reset2-vendor-reboots-v23-3-e7453c548c21@oss.qualcomm.com>
+ <0c55125d-5304-415d-86c0-a589c612babf@quicinc.com>
 Content-Language: en-US
-In-Reply-To: <20260713-dsa_lan9645x_switch_driver_base-v10-4-a4886a08fb15@microchip.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+In-Reply-To: <0c55125d-5304-415d-86c0-a589c612babf@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: 0zH9GDW5hJWahf8_jS9UJfowNLzMedJh
+X-Proofpoint-ORIG-GUID: 0zH9GDW5hJWahf8_jS9UJfowNLzMedJh
+X-Authority-Analysis: v=2.4 cv=baZbluPB c=1 sm=1 tr=0 ts=6a621287 cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=rfji2Jk2iV-f214sYr0A:9 a=QEXdDO2ut3YA:10
+ a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIzMDEyOSBTYWx0ZWRfXz0TybQaMQTGx
+ +lZHAeeIz8xbK+/wfvNbHClCJPQnG9iAszV9tFb9FxkZXegEpR97w5h5pY2x9IXGv9ufGdpq2yz
+ tGNhwz7FvzUvEM7vos8dZmTnIGNbkBk=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIzMDEyOSBTYWx0ZWRfX/w6QaB+9ZF34
+ BPtSuvnBVbMfMSpfbB5MwHLaYRp7LDeof7f0lJA0fvm0doWV1YV10FYNaPLVe5iY9RWa/0TGFHw
+ 9kRO4vaCCHcDSB7umPgiWvJjVJUAg2gQ+fmsVc6sMTcxGl5b+wSzmUsLT8Pa6uhdIEA2RR7wzfu
+ wLXSo1DEKwaVR18R5zTmEBMaSLKcV8zXbl91qZdJUQx0OKB+8PjkpouzITYVc7Ys1BoIT0Ljf7a
+ hYCEPXg9QQ4hrsq7Rq1Yw0oXfWu1joNeT67nx4TzZ3k/+D7jiXNensuBsv07YACn2qyoOdwT0Vq
+ nLtAviIuntP8U3Z+My3pHdFYBqv3DL9xZKbRakZfxNloayWmAIBjdiVY1oZ6pS4XovppSC46esH
+ sm2kvBx8HuioH44fDKDF4S35vfZNdBBJdAxyoHIWVh7GKl2vFfVnI96yiHZ/qWgr68CceKqzR+R
+ ykdGdSMJTqXy02L0RyQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-23_04,2026-07-22_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 lowpriorityscore=0 phishscore=0 suspectscore=0
+ adultscore=0 impostorscore=0 priorityscore=1501 bulkscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607230129
 
 
 
-On 7/13/26 4:32 PM, Jens Emil Schulz Østergaard wrote:
-> Add the LAN9645X basic DSA driver with initialization, parent regmap
-> requests, port module initialization for NPI, CPU ports and front ports,
-> and phylink integration for MAC side configuration.
+On 22-07-2026 13:10, Pavan Kondeti wrote:
+> On Tue, Jul 14, 2026 at 10:46:31PM +0530, Shivendra Pratap wrote:
+>> reboot-mode based drivers can define a reboot-mode by adding it under
+>> the reboot-mode node in device tree. This limits such drivers, to define
+>> any predefined reboot-modes statically within the driver and creates a
+>> dependency on device-tree.
+>>
+>> Extend the reboot-mode framework to handle predefined modes alongside
+>> those defined in device tree. Drivers can now define their own
+>> reboot-modes and register them via the framework. A centralized init
+>> call has been added to the reboot-mode framework and adopted by
+>> existing drivers. This ensures driver state is initialized together
+>> with predefined modes.
+>>
+>> Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+>> @@ -195,35 +264,17 @@ int reboot_mode_register(struct reboot_mode_driver *reboot)
+>>   			continue;
+>>   		}
+>>   
+>> -		info = kzalloc(sizeof(*info), GFP_KERNEL);
+>> -		if (!info) {
+>> -			ret = -ENOMEM;
+>> -			goto error;
+>> -		}
+>> -
+>> -		if (!memchr_inv(magic, 0, count * sizeof(u32))) {
+>> -			pr_debug("reboot mode %s with zero magic values\n", prop->name);
+>> -			info->count = -1;
+>> -		} else {
+>> -			memcpy(info->magic, magic, count * sizeof(u32));
+>> -			info->count = count;
+>> -		}
+>> -
+>> -		info->mode = kstrdup_const(prop->name + len, GFP_KERNEL);
+>> -		if (!info->mode) {
+>> -			ret =  -ENOMEM;
+>> -			goto error;
+>> -		} else if (info->mode[0] == '\0') {
+>> -			kfree_const(info->mode);
+>> -			ret = -EINVAL;
+>> -			pr_err("invalid mode name(%s): too short!\n", prop->name);
+>> +		info = reboot_mode_create_info(prop->name + len, magic, count);
+>> +		if (IS_ERR(info)) {
+>> +			ret = PTR_ERR(info);
+>>   			goto error;
+>>   		}
+>>   
+>>   		list_add_tail(&info->list, &reboot->head);
+>> -		info = NULL;
+>>   	}
+>>   
+>> +predefined_modes:
+>> +	list_splice_tail_init(&reboot->predefined_modes, &reboot->head);
+>>   	reboot->reboot_notifier.notifier_call = reboot_mode_notify;
+>>   	register_reboot_notifier(&reboot->reboot_notifier);
+>>   
 > 
-> This patch only wires up the internal CuPHYs (ports 0-4) and the RGMII
-> paths for ports 7 and 8. The supported SerDes-based modes: SGMII,
-> QSGMII, 1000BASE-X and 2500BASE-X on ports 5-8 are deferred, and support
-> will be added in follow-up patches. Port 5-6 have no usable interface
-> mode in this patch, and should not be declared in DT until SerDes
-> support lands.
-> 
-> The intended way to bind this driver is using a parent MFD driver,
-> responsible for the register IO protocol, and distributing regmaps to
-> child devices. The goal is to use the same approach as the MFD driver in
-> drivers/mfd/ocelot-spi.c.
-> 
-> This driver expects to request named regmaps from a parent device. This
-> approach is similar to the DSA driver
-> 
-> drivers/net/dsa/ocelot/ocelot_ext.c
-> 
-> which supports being driven by an external CPU via SPI with parent
-> device drivers/mfd/ocelot-spi.c.
-> 
-> The MFD driver will come in a later series, because there are
-> requirements on the number of child devices before a driver qualifies as
-> a MFD device.
-> 
-> Reviewed-by: Steen Hegelund <Steen.Hegelund@microchip.com>
-> Signed-off-by: Jens Emil Schulz Østergaard <jensemil.schulzostergaard@microchip.com>
-> ---
-> Changes in v9:
-> - Drop the DEV4 RGMII muxing support.
-> 
-> Changes in v8:
-> - Remove the CPU_PORT macro, which named the chips internal CPU port
->   module and collided with the DSA CPU port terminology. Reference the
->   module as lan9645x->num_phys_ports.
-> - Rework the port map comment to distinguish the chip CPU port modules
->   (indices 9-10) from the DSA CPU port (the NPI front port).
-> - Derive PGID_GP_START from NUM_PHYS_PORTS instead of CPU_PORT.
-> - Add a port_mux_lock mutex to serialize port mux arbitration in
->   lan9645x_phylink_mac_prepare().
-> 
-> Changes in v7:
-> - use cpu queue LAN9645X_CPUQ_TRAP for bpdu frames
-> 
-> Changes in v5:
-> - remove dd_dis and tsn_dis, and add SKU supported port validation
->   during setup
-> - phylink: remove MAC_2500FD
-> - phylink: add comment about empty supported_interfaces for port 5-6.
-> - phylink: fix 2:1 rgmii port muxing for port module 4 and 7 to be fully
->   dynamic and validate requested mux settings.
-> - phylink: add comment about 2:1 rgmii port muxing for port module 4
->   and 7.
-> - rx/tx-internal-delay-ps checked against support 2ns value
-> - update commit message
-> - init lan9645x->npi = -1 at probe and check port < 0 in npi_deinit
-> 
-> Changes in v4:
-> - add comment to QSYS_RES_CFG configuration
-> - phylink_mac_prepare: fix to make sure we can dynamically change rgmii
->   on port 4
-> - move ports allocation to probe
-> - tag_npi_setup: reject cascaded setups
-> - skip WARN_ON in lan9645x_to_port
-> 
-> Changes in v3:
-> - move DEV_MAC_TAGS_CFG config to port setup, for vlan overhead in port
->   frame maxlen
-> - remove code disabling ipv6 on conduit
-> - use of_property_read_u32 for {rx,tx}-internal-delay-ps
-> - use dsa_user_ports(ds) instead of
->   GENMASK(lan9645x->num_phys_ports - 1, 0) as base flood mask.
-> - update obey vlan comment
-> 
-> Changes in v2:
-> - source Kconfig from drivers/net/dsa/Kconfig
-> - sorting in Kconfig and Makefiles
-> - remove unused struct fields
-> - remote path delays
-> - use port_setup and dp->dn instead of DTS parsing
-> - phylink: split rgmii setup into dll and speed config
-> - phylink: remove pcs/sgmii/qsgmii related code
-> - phylink: simplify mac_prepare
-> - phylink: remove phylink_ops wrappers
-> - phylink: remove unrelated config from link up
-> - phylink: reorder functions according to phylink call order
-> ---
->  drivers/net/dsa/Kconfig                            |   2 +
->  drivers/net/dsa/microchip/Makefile                 |   1 +
->  drivers/net/dsa/microchip/lan9645x/Kconfig         |  11 +
->  drivers/net/dsa/microchip/lan9645x/Makefile        |   8 +
->  drivers/net/dsa/microchip/lan9645x/lan9645x_main.c | 447 +++++++++++++++++++++
->  drivers/net/dsa/microchip/lan9645x/lan9645x_main.h | 332 +++++++++++++++
->  drivers/net/dsa/microchip/lan9645x/lan9645x_npi.c  |  85 ++++
->  .../net/dsa/microchip/lan9645x/lan9645x_phylink.c  | 382 ++++++++++++++++++
->  drivers/net/dsa/microchip/lan9645x/lan9645x_port.c | 214 ++++++++++
->  9 files changed, 1482 insertions(+)
-> 
-> diff --git a/drivers/net/dsa/Kconfig b/drivers/net/dsa/Kconfig
-> index 4ab567c5bbaf..91431ef6c425 100644
-> --- a/drivers/net/dsa/Kconfig
-> +++ b/drivers/net/dsa/Kconfig
-> @@ -72,6 +72,8 @@ config NET_DSA_MV88E6060
->  
->  source "drivers/net/dsa/microchip/Kconfig"
->  
-> +source "drivers/net/dsa/microchip/lan9645x/Kconfig"
-> +
->  source "drivers/net/dsa/mv88e6xxx/Kconfig"
->  
->  source "drivers/net/dsa/mxl862xx/Kconfig"
-> diff --git a/drivers/net/dsa/microchip/Makefile b/drivers/net/dsa/microchip/Makefile
-> index 9347cfb3d0b5..e75f17888f75 100644
-> --- a/drivers/net/dsa/microchip/Makefile
-> +++ b/drivers/net/dsa/microchip/Makefile
-> @@ -12,3 +12,4 @@ endif
->  obj-$(CONFIG_NET_DSA_MICROCHIP_KSZ9477_I2C)	+= ksz9477_i2c.o
->  obj-$(CONFIG_NET_DSA_MICROCHIP_KSZ_SPI)		+= ksz_spi.o
->  obj-$(CONFIG_NET_DSA_MICROCHIP_KSZ8863_SMI)	+= ksz8863_smi.o
-> +obj-$(CONFIG_NET_DSA_MICROCHIP_LAN9645X)	+= lan9645x/
-> diff --git a/drivers/net/dsa/microchip/lan9645x/Kconfig b/drivers/net/dsa/microchip/lan9645x/Kconfig
-> new file mode 100644
-> index 000000000000..4d9fdf34104e
-> --- /dev/null
-> +++ b/drivers/net/dsa/microchip/lan9645x/Kconfig
-> @@ -0,0 +1,11 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +config NET_DSA_MICROCHIP_LAN9645X
-> +	tristate "Microchip Lan9645x switch support"
-> +	depends on NET_DSA
-> +	select NET_DSA_TAG_LAN9645X
-> +	help
-> +	  This driver adds DSA support for Microchip Lan9645x switch chips.
-> +	  The lan9645x switch is a multi-port Gigabit AVB/TSN Ethernet Switch
-> +	  with five integrated 10/100/1000Base-T PHYs. In addition to the
-> +	  integrated PHYs, it supports up to 2 RGMII/RMII, up to 2
-> +	  BASE-X/SERDES/2.5GBASE-X and one Quad-SGMII/Quad-USGMII interfaces.
-> diff --git a/drivers/net/dsa/microchip/lan9645x/Makefile b/drivers/net/dsa/microchip/lan9645x/Makefile
-> new file mode 100644
-> index 000000000000..7cc0ae0ada40
-> --- /dev/null
-> +++ b/drivers/net/dsa/microchip/lan9645x/Makefile
-> @@ -0,0 +1,8 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +obj-$(CONFIG_NET_DSA_MICROCHIP_LAN9645X) += mchp-lan9645x.o
-> +
-> +mchp-lan9645x-objs := \
-> +	lan9645x_main.o \
-> +	lan9645x_npi.o \
-> +	lan9645x_phylink.o \
-> +	lan9645x_port.o \
-> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
-> new file mode 100644
-> index 000000000000..b253813518c2
-> --- /dev/null
-> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
-> @@ -0,0 +1,447 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +/* Copyright (C) 2026 Microchip Technology Inc.
-> + */
-> +
-> +#include <linux/platform_device.h>
-> +
-> +#include "lan9645x_main.h"
-> +
-> +static const char *lan9645x_resource_names[NUM_TARGETS + 1] = {
-> +	[TARGET_GCB]          = "gcb",
-> +	[TARGET_QS]           = "qs",
-> +	[TARGET_CHIP_TOP]     = "chip_top",
-> +	[TARGET_REW]          = "rew",
-> +	[TARGET_SYS]          = "sys",
-> +	[TARGET_HSIO]         = "hsio",
-> +	[TARGET_DEV]          = "dev",
-> +	[TARGET_DEV + 1]      = "dev1",
-> +	[TARGET_DEV + 2]      = "dev2",
-> +	[TARGET_DEV + 3]      = "dev3",
-> +	[TARGET_DEV + 4]      = "dev4",
-> +	[TARGET_DEV + 5]      = "dev5",
-> +	[TARGET_DEV + 6]      = "dev6",
-> +	[TARGET_DEV + 7]      = "dev7",
-> +	[TARGET_DEV + 8]      = "dev8",
-> +	[TARGET_QSYS]         = "qsys",
-> +	[TARGET_AFI]          = "afi",
-> +	[TARGET_ANA]          = "ana",
-> +	[NUM_TARGETS]         = NULL,
-> +};
-> +
-> +static int lan9645x_tag_npi_setup(struct dsa_switch *ds)
-> +{
-> +	struct dsa_port *dp, *first_cpu_dp = NULL;
-> +	struct lan9645x *lan9645x = ds->priv;
-> +
-> +	dsa_switch_for_each_user_port(dp, ds) {
-> +		if (dp->cpu_dp->ds != ds) {
-> +			dev_err(ds->dev,
-> +				"NPI port on a remote switch is not supported\n");
-> +			return -EINVAL;
-> +		}
-> +
-> +		if (first_cpu_dp && dp->cpu_dp != first_cpu_dp) {
-> +			dev_err(ds->dev, "Multiple NPI ports not supported\n");
-> +			return -EINVAL;
-> +		}
-> +
-> +		first_cpu_dp = dp->cpu_dp;
-> +	}
-> +
-> +	if (!first_cpu_dp)
-> +		return -EINVAL;
-> +
-> +	lan9645x_npi_port_init(lan9645x, first_cpu_dp);
-> +
-> +	return 0;
-> +}
-> +
-> +static enum dsa_tag_protocol lan9645x_get_tag_protocol(struct dsa_switch *ds,
-> +						       int port,
-> +						       enum dsa_tag_protocol tp)
-> +{
-> +	return DSA_TAG_PROTO_LAN9645X;
-> +}
-> +
-> +static void lan9645x_teardown(struct dsa_switch *ds)
-> +{
-> +	struct lan9645x *lan9645x = ds->priv;
-> +
-> +	lan9645x_npi_port_deinit(lan9645x, lan9645x->npi);
-> +}
-> +
-> +static int lan9645x_change_mtu(struct dsa_switch *ds, int port, int new_mtu)
-> +{
-> +	return lan9645x_port_set_maxlen(ds->priv, port, new_mtu);
-> +}
-> +
-> +static int lan9645x_get_max_mtu(struct dsa_switch *ds, int port)
-> +{
-> +	struct lan9645x *lan9645x = ds->priv;
-> +	int max_mtu;
-> +
-> +	/* Actual MAC max MTU is around 16KB. We set 10000 - overhead which
-> +	 * should be sufficient for all jumbo frames. Larger frames can cause
-> +	 * problems especially with flow control, since we only have 160K queue
-> +	 * buffer.
-> +	 */
-> +	max_mtu = 10000 - ETH_HLEN - ETH_FCS_LEN;
-> +
-> +	if (port == lan9645x->npi) {
-> +		max_mtu -= LAN9645X_IFH_LEN;
-> +		max_mtu -= LAN9645X_LONG_PREFIX_LEN;
-> +	}
-> +
-> +	return max_mtu;
-> +}
-> +
-> +static int lan9645x_reset_switch(struct lan9645x *lan9645x)
-> +{
-> +	int val = 0;
-> +	int err;
-> +
-> +	lan_wr(SYS_RESET_CFG_CORE_ENA_SET(0), lan9645x, SYS_RESET_CFG);
-> +	lan_wr(SYS_RAM_INIT_RAM_INIT_SET(1), lan9645x, SYS_RAM_INIT);
-> +	err = lan9645x_rd_poll_timeout(lan9645x, SYS_RAM_INIT, val,
-> +				       SYS_RAM_INIT_RAM_INIT_GET(val) == 0);
-> +	if (err) {
-> +		dev_err(lan9645x->dev, "Failed to init chip RAM.\n");
-> +		return err;
-> +	}
-> +	lan_wr(SYS_RESET_CFG_CORE_ENA_SET(1), lan9645x, SYS_RESET_CFG);
-> +
-> +	return 0;
-> +}
-> +
-> +static int lan9645x_setup(struct dsa_switch *ds)
-> +{
-> +	struct lan9645x *lan9645x = ds->priv;
-> +	struct device *dev = lan9645x->dev;
-> +	int supported, used = 0;
-> +	struct dsa_port *dp;
-> +	u32 front_ports;
-> +	int err;
-> +
-> +	lan9645x->num_phys_ports = ds->num_ports;
-> +	front_ports = dsa_user_ports(ds);
-> +	supported = lan9645x->num_phys_ports - lan9645x->num_port_dis;
-> +
-> +	dsa_switch_for_each_available_port(dp, ds)
-> +		used++;
-> +
-> +	if (used > supported) {
-> +		dev_err(ds->dev,
-> +			"%d physical ports in use in DT, SKU supports at most %d\n",
-> +			used, supported);
-> +		return -EINVAL;
-> +	}
-> +
-> +	err = lan9645x_reset_switch(lan9645x);
-> +	if (err)
-> +		return err;
-> +
-> +	err = lan9645x_tag_npi_setup(ds);
-> +	if (err) {
-> +		dev_err(dev, "Failed to setup NPI port.\n");
-> +		return err;
-> +	}
-> +
-> +	/* Link Aggregation Mode: NETDEV_LAG_HASH_L2 */
-> +	lan_wr(ANA_AGGR_CFG_AC_SMAC_ENA |
-> +	       ANA_AGGR_CFG_AC_DMAC_ENA,
-> +	       lan9645x, ANA_AGGR_CFG);
-> +
-> +	/* Flush queues */
-> +	lan_wr(GENMASK(1, 0), lan9645x, QS_XTR_FLUSH);
-> +
-> +	/* Allow to drain */
-> +	usleep_range(1000, 2000);
-> +
-> +	/* All Queues normal */
-> +	lan_wr(0x0, lan9645x, QS_XTR_FLUSH);
-> +
-> +	/* Set MAC age time to default value, the entry is aged after
-> +	 * 2 * AGE_PERIOD
-> +	 */
-> +	lan_wr(ANA_AUTOAGE_AGE_PERIOD_SET(BR_DEFAULT_AGEING_TIME / 2 / HZ),
-> +	       lan9645x, ANA_AUTOAGE);
-> +
-> +	/* Disable learning for frames discarded by VLAN ingress filtering */
-> +	lan_rmw(ANA_ADVLEARN_VLAN_CHK_SET(1),
-> +		ANA_ADVLEARN_VLAN_CHK,
-> +		lan9645x, ANA_ADVLEARN);
-> +
-> +	/* Queue system frame ageing. We target 2s ageing.
-> +	 *
-> +	 * Register unit is 1024 cycles.
-> +	 *
-> +	 * ASIC: 165.625 Mhz  ~ 6.0377 ns period
-> +	 *
-> +	 * 1024 * 6.0377 ns =~ 6182 ns
-> +	 * val = 2000000000ns / 6182ns
-> +	 */
-> +	lan_wr(SYS_FRM_AGING_AGE_TX_ENA_SET(1) |
-> +	       SYS_FRM_AGING_MAX_AGE_SET((2000000000 / 6182)),
-> +	       lan9645x,  SYS_FRM_AGING);
-> +
-> +	/* Setup flooding PGIDs for IPv4/IPv6 multicast. Control and dataplane
-> +	 * use the same masks. Control frames are redirected to CPU, and
-> +	 * the network stack is responsible for forwarding these.
-> +	 * The dataplane is forwarding according to the offloaded MDB entries.
-> +	 */
-> +	lan_wr(ANA_FLOODING_IPMC_FLD_MC4_DATA_SET(PGID_MCIPV4) |
-> +	       ANA_FLOODING_IPMC_FLD_MC4_CTRL_SET(PGID_MC) |
-> +	       ANA_FLOODING_IPMC_FLD_MC6_DATA_SET(PGID_MCIPV6) |
-> +	       ANA_FLOODING_IPMC_FLD_MC6_CTRL_SET(PGID_MC),
-> +	       lan9645x, ANA_FLOODING_IPMC);
-> +
-> +	/* There are 8 priorities */
-> +	for (int prio = 0; prio < 8; ++prio)
-> +		lan_wr(ANA_FLOODING_FLD_MULTICAST_SET(PGID_MC) |
-> +		       ANA_FLOODING_FLD_UNICAST_SET(PGID_UC) |
-> +		       ANA_FLOODING_FLD_BROADCAST_SET(PGID_BC),
-> +		       lan9645x, ANA_FLOODING(prio));
-> +
-> +	/* Allow VLAN table to control whether cpu copy from the pgid table is
-> +	 * enabled. Index PGID_ENTRIES is CPU src pgid, so we skip it as the
-> +	 * configuration makes little sense here.
-> +	 */
-> +	for (int i = 0; i < PGID_ENTRIES; ++i)
-> +		lan_wr(ANA_PGID_CFG_OBEY_VLAN_SET(1),
-> +		       lan9645x, ANA_PGID_CFG(i));
-> +
-> +	/* Disable bridging by default */
-> +	for (int p = 0; p < lan9645x->num_phys_ports; p++) {
-> +		lan_wr(0, lan9645x, ANA_PGID(PGID_SRC + p));
-> +
-> +		/* Do not forward BPDU frames to the front ports and copy them
-> +		 * to CPU
-> +		 */
-> +		lan_wr(ANA_CPU_FWD_BPDU_CFG_BPDU_REDIR_ENA,
-> +		       lan9645x, ANA_CPU_FWD_BPDU_CFG(p));
-> +	}
-> +
-> +	for (int i = 0; i < 16; i++) {
-> +		/* The register instance number corresponds to the
-> +		 * address of the extracted frame. For instance:
-> +		 * CPUQ_8021_CFG[4].CPUQ_BPDU_VAL
-> +		 * is the cpu extraction queue used for BPDU frames
-> +		 * with address 01-80-C2-00-00-04
-> +		 */
-> +		lan_rmw(ANA_CPUQ_8021_CFG_CPUQ_BPDU_VAL_SET(LAN9645X_CPUQ_TRAP),
-> +			ANA_CPUQ_8021_CFG_CPUQ_BPDU_VAL,
-> +			lan9645x, ANA_CPUQ_8021_CFG(i));
-> +	}
-> +
-> +	/* Reserve ~1700 bytes of buffer memory per (port, prio) for source
-> +	 * tracking (resource 0, indices 0..95) and destination tracking
-> +	 * (resource 2, indices 512..607). These are access watermarks, not
-> +	 * pre-allocations: a flow draws from its reservation first, then
-> +	 * from the shared pool. Keeping the reservation above a max-size
-> +	 * Ethernet frame prevents a single frame from spilling into the
-> +	 * shared pool, and cause pause frames to be emitted without actual
-> +	 * congestion.
-> +	 */
-> +	for (int i = 0; i <= QSYS_Q_RSRV; ++i) {
-> +		lan_wr(QS_SRC_BUF_RSV / 64, lan9645x, QSYS_RES_CFG(i));
-> +		lan_wr(QS_SRC_BUF_RSV / 64, lan9645x, QSYS_RES_CFG(512 + i));
-> +	}
-> +
-> +	lan9645x_port_cpu_init(lan9645x);
-> +
-> +	/* Multicast to all front ports */
-> +	lan_wr(front_ports, lan9645x, ANA_PGID(PGID_MC));
-> +
-> +	/* IP multicast to all front ports */
-> +	lan_wr(front_ports, lan9645x, ANA_PGID(PGID_MCIPV4));
-> +	lan_wr(front_ports, lan9645x, ANA_PGID(PGID_MCIPV6));
-> +
-> +	/* Unicast to all front ports */
-> +	lan_wr(front_ports, lan9645x, ANA_PGID(PGID_UC));
+> This splice here makes me ask why we need separate API for registering
+> pre-defined reboot modes? why not extend `struct reboot_mode_driver` to
+> pass on the pre-defined modes and let `reboot_mode_register()` take care
+> of both OF & pre-defined modes.
 
-Sashiko noted that the port mask here should likely include the CPU
-port, to allow correct handling of unknown unicast.
+so something like a struct reboot_mode_driver should have a member
+with list of predefined_modes and this member will be owned by calling 
+driver?
 
-https://sashiko.dev/#/patchset/20260713-dsa_lan9645x_switch_driver_base-v10-0-a4886a08fb15%40microchip.com
+> 
+> The semantics of `reboot_mode_reset_predefined_modes()` is very
+> confusing. It is not clear if any client driver needs to really call
+> before unregistering? The unregister it self is cleaning up these
+> pre-defined modes since they are spliced.
 
-For the same reason I think even multicast should be forwarded to the
-CPU port.
+sure can try to align this using above approach.
 
-There are a couple of other reports, but I think they are false positives.
-
-Note that is expected that you replies to sashiko reports on the ML.
-
-/P
-
+thanks,
+Shivendra
