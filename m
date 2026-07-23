@@ -1,47 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB9FE470104
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 11:41:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58B7B47252F
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 11:44:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784806899; cv=none; b=betoXtx9ExO1e3mab6X7Lovv7z3vXfocXtZoxVzvOam4HJbp9aynbD2edQXjC+s2M5Bf3zJyzEb8ju7P+xnh4TJyMwkcTcJ2GZJnF8ANiu3YoL+95m6vGNLbkaDlNt0b/BPygiRtQVPWKo+SrKgH7XKw1Tsws6s8fu+Zo0XKkfs=
+	t=1784807079; cv=none; b=BpczZUtvO7tNQ0CCNmjVcc08ZPBer6Wy7C00dxIuNr6tFC4zvhVfxkA30d2P+UyEEmQZfIwYPpBJwx85rMTmU0SKhX0XO6H14cCq7TLN//1O8xh+ZCW0TtJ3EXHFZ41vTCqrpmFUNc73FybJfsZ2LHZfC+4sVMpF8+gsgRTl8Dc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784806899; c=relaxed/simple;
-	bh=+CQX+JKfeKJLrNTH93rPeu72dnKyjqfC+yruklJGiyM=;
+	s=arc-20240116; t=1784807079; c=relaxed/simple;
+	bh=sQ/1E/TUp6ZAqA1fdiKI+J9LCg6oMapUWprd4UHFCq0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kMjvbmGd9f0IHejHWPx9qOThBGVYKCVU1kCLozXNnaf0HGz8BeVMlJVoegArTZnjbhlQV7vPNq6J6SSnTH6y0eToK5zdR6J+exWXtFRF40+U/2Ym88Mr9uFFkxhZXthrC84L/tcmzTycdh4j8GLDYQrd0Ur9raRjz1tSEvdAefk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lvIq6tMo; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lvIq6tMo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E149A1F000E9;
-	Thu, 23 Jul 2026 11:41:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784806897;
-	bh=6DUBalBmaSYvBb+h+JYdPGthkyr76Xr8UcbLSfhmtTs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lvIq6tMofq2Yuu+5pCQtV2+lmiCEsaP+fJOOUviNunjOn/fVr+O2hWEmshKthOVnD
-	 /F19R5x/pBvI7pkbo9dYDfjn3WR0OSh03Stxwc845upw+TXsByefrDaAPLlrH+RssA
-	 vTkr8o0JpV5wM+H6YuK6eCj79bzIRLZlsJ1j+7vg3V4hA6EWs/P721Jr6oePp091Pu
-	 2EK/YZ9cmwwsPcynazJWwVxwZPuZdVKI7OqUZulThLe0RSLSNvMI+0AEAw9gIMBLhr
-	 DHiB14I0sz/CtTO5MoexeKMwT/XmCGvwGDvSF0bAKxfJTdlW06e6Y+PKYfY7NP+qMp
-	 j1yhyx7CA2aaA==
+	 Message-Id; b=gj2cymz28SiFXjSgJ83mgRSTZ4T848rVT0pHX+a+gJ66tOFpXpDEV5DgwtyVqC6kPatd8gVOY94Ye+twWrH1WX7V1vUKRnBRS5K2/vhBLQIcV0qhuj/mg4+a+0DNA26WzCoEvT+ecaESn3RYZ0s+9qGIj/DD8lHUP4RrY0fWPtg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35E981F000E9;
+	Thu, 23 Jul 2026 11:44:32 +0000 (UTC)
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 10/17] spi: cadence-quadspi: refactor direct read
- path for PHY support
+Subject: Re: [PATCH v6 12/17] spi: cadence-quadspi: enable PHY for indirect
+ writes
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Santhosh Kumar K" <s-k6@ti.com>
-Cc: "Takahiro Kuwano" <takahiro.kuwano@infineon.com>, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, "Pratyush
- Yadav" <pratyush@kernel.org>, "Vignesh Raghavendra" <vigneshr@ti.com>, "Miquel
- Raynal" <miquel.raynal@bootlin.com>, "Michael Walle" <mwalle@kernel.org>, "Richard
- Weinberger" <richard@nod.at>
-In-Reply-To: <20260723110219.3180747-11-s-k6@ti.com>
+Cc: "Richard Weinberger" <richard@nod.at>, devicetree@vger.kernel.org, "Vignesh
+ Raghavendra" <vigneshr@ti.com>, "Pratyush Yadav" <pratyush@kernel.org>, conor+dt@kernel.org, robh@kernel.org, "Michael
+ Walle" <mwalle@kernel.org>, "Takahiro Kuwano" <takahiro.kuwano@infineon.com>, "Miquel
+ Raynal" <miquel.raynal@bootlin.com>
+In-Reply-To: <20260723110219.3180747-13-s-k6@ti.com>
 References: <20260723110219.3180747-1-s-k6@ti.com>
- <20260723110219.3180747-11-s-k6@ti.com>
+ <20260723110219.3180747-13-s-k6@ti.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 11:41:36 +0000
-Message-Id: <20260723114136.E149A1F000E9@smtp.kernel.org>
+Date: Thu, 23 Jul 2026 11:44:27 +0000
+Message-Id: <20260723114432.35E981F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,107 +38,122 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] cqspi_memcpy_fromio() directly casts an arbitrary destination poin=
-ter to u16* and dereferences it, triggering unaligned access exceptions on =
-strict-alignment architectures.
-- [High] cqspi_memcpy_fromio() triggers a hardware alignment fault (Data Ab=
-ort) by issuing __raw_readw() on odd device memory addresses.
-- [High] cqspi_memcpy_fromio() delegates bulk copies to memcpy_fromio(), wh=
-ich can fall back to 8-bit I/O reads and violate the strict 16-bit AHB requ=
-irement for 8D-8D-8D mode.
+- [High] PHY tuning and configuration are illegally executed while the indi=
+rect write controller is already active, causing a guaranteed timeout and h=
+ardware state corruption.
+- [High] Incorrect teardown order on the `failwr` error path causes a secon=
+dary 500ms timeout by waiting for the controller to become idle while it is=
+ still hung.
+- [Medium] Reusing `cqspi_tune_phy()` for writes underflows the dummy cycle=
+ count, injecting 31 unintended dummy cycles.
 --
 
---- Patch [10]: [PATCH v6 10/17] spi: cadence-quadspi: refactor direct read=
- path for PHY support ---
-commit f23703adf58b1895572efb17e7d5f736dc1bf89f
+--- Patch [12]: [PATCH v6 12/17] spi: cadence-quadspi: enable PHY for indir=
+ect writes ---
+commit 37f2245caf607b9e33d418045174172a49f40271
 Author: Santhosh Kumar K <s-k6@ti.com>
-Subject: spi: cadence-quadspi: refactor direct read path for PHY support
 
-This commit extracts the DMA transfer code from cqspi_direct_read_execute()
-into a new cqspi_direct_read_dma() helper. It also adds
-cqspi_memcpy_fromio() to handle non-DMA transfers, attempting to guarantee
-2-byte-aligned I/O accesses for 8D-8D-8D mode.
+spi: cadence-quadspi: enable PHY for indirect writes
+
+This commit enables PHY for indirect writes of at least 1KB that run at the
+calibrated post-config frequency. It threads the max speed parameter into
+the write execution path to match the read path's frequency guard.
 
 > diff --git a/drivers/spi/spi-cadence-quadspi.c b/drivers/spi/spi-cadence-=
 quadspi.c
-> index 5070ffc53d5e8..322e95b3bc17d 100644
+> index 35a4000739449..542ad331ff167 100644
 > --- a/drivers/spi/spi-cadence-quadspi.c
 > +++ b/drivers/spi/spi-cadence-quadspi.c
 
 [ ... ]
 
-> @@ -1580,8 +1577,61 @@ static int cqspi_direct_read_execute(struct cqspi_=
-flash_pdata *f_pdata,
->  	return ret;
->  }
+> @@ -1377,6 +1381,18 @@ static int cqspi_indirect_write_execute(struct cqs=
+pi_flash_pdata *f_pdata,
+>  	if (cqspi->apb_ahb_hazard)
+>  		readl(reg_base + CQSPI_REG_INDIRECTWR);
 > =20
-> +static void cqspi_memcpy_fromio(const struct spi_mem_op *op, void *to,
-> +				const void __iomem *from, size_t count)
-> +{
-> +	if (op->data.buswidth =3D=3D 8 && op->data.dtr) {
-> +		unsigned long from_addr =3D (unsigned long)from;
+> +	/* Use PHY only for large writes at the calibrated rate */
+> +	use_tuned_phy_write =3D n_tx >=3D CQSPI_PHY_MIN_INDIRECT_WRITE_LEN &&
+> +			      f_pdata->use_tuned_phy &&
+> +			      f_pdata->phy_write_op.max_freq =3D=3D
+> +				      post_config_max_speed_hz;
 > +
-> +		/* Handle unaligned start with 2-byte read */
-> +		if (count && !IS_ALIGNED(from_addr, 4)) {
-> +			*(u16 *)to =3D __raw_readw(from);
+> +	if (use_tuned_phy_write) {
+> +		ret =3D cqspi_tune_phy(f_pdata, true);
 
 [Severity: High]
-Is it safe to cast 'to' directly to a u16 pointer?
+Does this call to cqspi_tune_phy() happen after the hardware state machine
+has already been started?
 
-If the destination buffer 'to' is not 2-byte aligned, won't this pointer
-dereference cause an unaligned access exception on strict-alignment
-architectures? Should put_unaligned() be used here instead?
+In cqspi_indirect_write_execute(), the CQSPI_REG_INDIRECTWR_START_MASK bit
+is written to CQSPI_REG_INDIRECTWR just before this block. This activates
+the state machine, making the controller busy as it waits for AHB data.=20
 
-[Severity: High]
-Will __raw_readw() cause a hardware alignment fault (Data Abort) on
-architectures like ARM if 'from' is an odd address?
+When cqspi_tune_phy() is called here, it eventually calls cqspi_wait_idle().
+Will this create a deadlock where the CPU waits 500ms for the controller
+to become idle, while the controller waits for the CPU to push data?
 
-Since IS_ALIGNED(from_addr, 4) only checks for 4-byte alignment, an odd
-'from' address will enter this block and trigger a 16-bit I/O read on an
-unaligned device memory address. Should the driver enforce even address
-offsets for these operations?
+[Severity: Medium]
+Does reusing cqspi_tune_phy() for writes cause an underflow of the dummy=20
+cycle count?
 
-> +			from +=3D 2;
-> +			to +=3D 2;
-> +			count -=3D 2;
-> +		}
-> +
-> +		/* Use 4-byte reads for aligned bulk (no readq for 32-bit) */
-> +		if (count >=3D 4) {
-> +			size_t len =3D round_down(count, 4);
-> +
-> +			memcpy_fromio(to, from, len);
+The cqspi_tune_phy() function unconditionally decrements the dummy cycle co=
+unt:
 
-[Severity: High]
-Could memcpy_fromio() fall back to 8-bit I/O reads on some architectures
-(like ARM32), violating the controller's strict >=3D16-bit AHB requirement
-for 8D-8D-8D mode?
+drivers/spi/spi-cadence-quadspi.c:cqspi_tune_phy() {
+    ...
+    dummy =3D FIELD_GET(CQSPI_REG_RD_INSTR_DUMMY_MASK
+                      << CQSPI_REG_RD_INSTR_DUMMY_LSB,
+                      reg);
+    dummy--;
+    ...
+}
 
-To guarantee the AHB transaction size irrespective of the architecture's
-memcpy_fromio() implementation, would it be better to use explicit 32-bit
-or 16-bit I/O accessors (like an explicit __raw_readl() loop with
-put_unaligned())?
+Since indirect writes typically have 0 dummy cycles, does this unsigned
+decrement underflow to 255 and overwrite CQSPI_REG_RD_INSTR with 31=20
+unintended dummy cycles?
 
-> +			from +=3D len;
-> +			to +=3D len;
-> +			count -=3D len;
-> +		}
-> +
-> +		/* Handle remaining 2 bytes */
-> +		if (count)
-> +			*(u16 *)to =3D __raw_readw(from);
-
-[Severity: High]
-Similar to the issue above, does this need put_unaligned() to prevent
-unaligned memory access exceptions if 'to' is not aligned?
-
-> +
-> +		return;
+> +		if (ret)
+> +			goto failwr;
 > +	}
 > +
-> +	memcpy_fromio(to, from, count);
-> +}
+>  	while (remaining > 0) {
+>  		size_t write_words, mod_bytes;
+> =20
+
+[ ... ]
+
+> @@ -1425,9 +1441,15 @@ static int cqspi_indirect_write_execute(struct cqs=
+pi_flash_pdata *f_pdata,
+> =20
+>  	cqspi_wait_idle(cqspi);
+> =20
+> +	if (use_tuned_phy_write)
+> +		cqspi_tune_phy(f_pdata, false);
+> +
+>  	return 0;
+> =20
+>  failwr:
+> +	if (use_tuned_phy_write)
+> +		cqspi_tune_phy(f_pdata, false);
+> +
+
+[Severity: High]
+Will this teardown order cause a secondary timeout during error recovery?
+
+When the initial cqspi_tune_phy() call times out, execution jumps to the
+failwr label. At this point, cqspi_tune_phy(..., false) is called before=20
+the active indirect write is cancelled via CQSPI_REG_INDIRECTWR_CANCEL_MASK.
+
+Since the controller is still actively waiting for data, does the mandatory=
+=20
+cqspi_wait_idle() call inside the PHY disable sequence also time out,=20
+stalling the CPU for another 500ms?
+
+>  	/* Disable interrupt. */
+>  	writel(0, reg_base + CQSPI_REG_IRQMASK);
+>
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723110219.3180=
-747-1-s-k6@ti.com?part=3D10
+747-1-s-k6@ti.com?part=3D12
