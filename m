@@ -1,101 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 132603A4F2F;
-	Thu, 23 Jul 2026 06:05:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2593533A9CB
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 06:08:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784786730; cv=none; b=hviZyQldqhFo6IdYabSWgET2d9GZr9grS3apaDED2tFPkR9DUG2BZLVJwNAG/0/AGHjf5E7yhPZsOHvAuGyhIFEq/EU7UW9g65ysuvb22L5AcOUET8rhSv8oFVI05ARhNRwdOA5EahKmkDoDkVBVr3IukyH6sMrOsKe5mAbbpcE=
+	t=1784786904; cv=none; b=Xt8eeEXwIbSuvtv9wEEjqlsaGh2HaywbbBFkClttPTX21b5JocRA1jH67ncddbpFNjW604TrF0IbVCgiiG+FHwBajBtWVIizLhL+wa7DgbsIFnDu0jLVKrJ5nw4JZFuqd15Fab4HTSfdMi3QavgD2HN16Yjg1Gf1tjdhQkD4I9w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784786730; c=relaxed/simple;
-	bh=UrwnRF2+Xl/uAvdxijfUZ4/LKWODbJLPfYscRBTs/iM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Py0uEZFQKtjFgAr4HWGwEWuZlifoYe/R7z5wboHobF264aaf3bZRgD0mw7gA42Rrw8EZwdvwialrX7B0BEW5ptk7d2ktezvZ7RKcZAcp8ifihMCYpAbnAPuvw406MG1DUyIZc8F7116JIjvB/CWFryERcfYkA61EsigbR4sTdOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZbERONB6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784786904; c=relaxed/simple;
+	bh=PyrWdns1OrOzxEPcfbY+R34j4aE+Z2Ud3FTa8IgPb7g=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=F2Uipg2UniVvsm/TBesnAZ5f0ycGpS73fCQi573TQDmYv+F6YBnASa3mZiLNXT87RAGrmI48xxafw+yjkuJ+67SuKAEh9yGRk1CpbEci8A9nOxOIEq4ZdxxPq0PYvEFQs4krCcKBiGppV7nFKgdZgfYyU3E+1bztaB6uOuDBVuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dSMjpX6z; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZbERONB6"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D3D671F000E9;
-	Thu, 23 Jul 2026 06:05:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784786727;
-	bh=UrwnRF2+Xl/uAvdxijfUZ4/LKWODbJLPfYscRBTs/iM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZbERONB6JYz/ABX4SImHlzDkN+VXaQmE7uumsjswMJtK8fTdOoY6Fi19G88N0EXg8
-	 Ob5+s6MUNmrl3DQzHevgEO51Fp3midErum46nabFA4ymYbnxLyESwpYIxFmAsPvPV0
-	 Fpn8QXbemLy6Asgk17RD7CJQdWFyVdMOUb5/I0uIGf1KtmVbxtLcvE862GEfrnIzSq
-	 KqeIbfGbpbFbshhVWGp1cb+KdS1wRXuGkp7mfFLZw9JQc8FMNXum6t4nfRBeR8hyc6
-	 AqRXlBwysNEpt1RbIFb6J6u5cx/4JQjJ9Z2ZyIqQuXg5j6S8lbUBbqG9SqjPZ1oQc/
-	 84rgkSuRl09Pw==
-Date: Thu, 23 Jul 2026 08:05:24 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Luiz Angelo Daros de Luca <luizluca@gmail.com>
-Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Chris Packham <chris.packham@alliedtelesis.co.nz>, Andrew Morton <akpm@linux-foundation.org>, 
-	"Darrick J. Wong" <djwong@us.ibm.com>, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org
-Subject: Re: [PATCH v2 1/6] dt-bindings: hwmon: add binding for adi,adt7470
-Message-ID: <amGu_z_AfhBKo6zi@monoceros>
-References: <20260717-adt7470_thermalzone-v2-0-a55147958fad@gmail.com>
- <20260717-adt7470_thermalzone-v2-1-a55147958fad@gmail.com>
- <al3yFHvlzQuIywEj@monoceros>
- <CAJq09z7z13hO33xpfQNYc=eHec3yN3H2yVy=oqXhuvhRZhvX3g@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dSMjpX6z"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2cc891373e0so3443105ad.2
+        for <devicetree@vger.kernel.org>; Wed, 22 Jul 2026 23:08:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784786902; x=1785391702; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RjXGzvZcsEIuIReWqV3AthYPTgXMH2ZnkuQulSBosYI=;
+        b=dSMjpX6zDmwv9VF08XBefORxhYuMNZ8TaNMIJ9lbzmZE/K/4TubML4wbuU4jxizGfK
+         0UUrk7CEF37RJg7se+0oPlE/kNWj2wc3W7iCbu9UWdCF4QE1kxCymFmNtZb/I79U+aqX
+         JDzSAplkBs5/Gwz/byEGBEthjzjAUBI2otMXKprUU0IEY+NbfApqA+RFKqeNEsaPvBMk
+         Qk1LrY2Nc7wSftFHkV384gOSGmvsIatfMQgl2mV6oePxk9p7O8P3V+wZouhNx3OK87Xg
+         SodqkdWkw882zl50bSrUwErGZJBbkDXZ7vr8rede7GS5l+joNTL2kRzQCM4kxV2//LxM
+         LVAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784786902; x=1785391702;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RjXGzvZcsEIuIReWqV3AthYPTgXMH2ZnkuQulSBosYI=;
+        b=L0sPKw2/f9ky2WKi5kyqT4rVA2vS66ccZnZQ+dU9AtQ0TQAlN1Li0TyMcb19gYArJY
+         mTt8W4E+zB5lV7yJb1iPD6mssRVs8jKg5/whRt1T5b4UXgEVZLxGlOf6iBMEPeuQ6WLc
+         6Vj4EXD2LSEsCD6BHBFEqmqw+SRRIS4YlNnNQlzelmQxD9+JuyB3HeiINHdXYW/n2lF/
+         FxNmSZH72CoKZXIWT2BTCXIv7dLkJBlGd4EvCGN3fCEsxSPukQ4Gg0HVnXyoX85ug5jd
+         xWy2D4eUr7yU7ktyOHL9TMf7s+czfcj+k4UeZmQpvTXneVUoUgGl8zg8KZmiNHNl7imk
+         bYmA==
+X-Forwarded-Encrypted: i=1; AHgh+Rq+ssi1p8nybEMbeAEvtnD2Er1HRph9QnbTSaLeefd4sPKkGCaN0G8Feg7HPZ42XlmYiwdSd858pcTh@vger.kernel.org
+X-Gm-Message-State: AOJu0YxrPLupqmGEA8BPdBAlYtU7C5jOZ6kG7Uu/CpororgEAJF+6fcP
+	qXIrTFZwpd8SsrBPXayAQFozsJF/bJlzVLAWOiuBvxNeL6BpEyzFg7EW
+X-Gm-Gg: AR+sD13t46CEfItEGE2GCsebDV7frLS7fC3qdAGk6ZA+4wRm1lanFgdk1OM2xylXQgA
+	Brrw8X1Q2vmhesffDpSGQSNwWC73Cn9vpinVa/45eEKMNR8nqVz6ZN8Vudy6fkzFWa93Xw+3no7
+	HMCLdkXg7LhiPbyHXX8O7dLrzWQw3aETGYjV9i6M7oEwF+mFY/8W7rMR72SCzAlpAmhXh05CWs3
+	/rKgusrGOiy978Yyi1HioTQyABTIi0wFkW3UVSYOLyb/nRsIEjM1ee0V/MzbdgYyiB+Rx9AG9fq
+	cSvVp6vKGliLuknKp200c5wwBwmdw4S9HQYUPd7H+TLNRdORk5jWuaw139WBoaO9SWf5Opp+Clc
+	E53HGVbuqk0t60L5c6c86JWcxE9y1Zta2jjFRctdN56fbk/cFUVaDCXSgmE5fh2pcGBn1iCcORN
+	2C3YX48kEyIejlTSjxPU63iAMZyVZuEQwzp5cQnZ0RZ52XXvP3J/m4v2EyNfxS
+X-Received: by 2002:a17:902:c402:b0:2c9:a5e9:c26e with SMTP id d9443c01a7336-2cfa6b740b7mr21724555ad.13.1784786902450;
+        Wed, 22 Jul 2026 23:08:22 -0700 (PDT)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf8f390dd2sm26071285ad.79.2026.07.22.23.08.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Jul 2026 23:08:22 -0700 (PDT)
+From: Zi-Yu Chen <zychennvt@gmail.com>
+To: Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Jacky Huang <ychuang3@nuvoton.com>,
+	Shan-Chun Hung <schung@nuvoton.com>,
+	linux-watchdog@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Zi-Yu Chen <zychennvt@gmail.com>
+Subject: [PATCH 0/3] watchdog: ma35d1: Add support for MA35D1 Watchdog
+Date: Thu, 23 Jul 2026 14:07:51 +0800
+Message-Id: <20260723060755.1596858-1-zychennvt@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5p2z5vjgxof4kl2h"
-Content-Disposition: inline
-In-Reply-To: <CAJq09z7z13hO33xpfQNYc=eHec3yN3H2yVy=oqXhuvhRZhvX3g@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+
+This patch series introduces watchdog timer support for the Nuvoton MA35D1
+SoC platform.
+
+The MA35D1 watchdog timer hardware provides a programmable countdown timer
+capable of triggering a system reset upon timeout expiration or generating
+an interrupt to wake up the system from low-power states.
+
+Key features supported in this driver:
+ - Standard watchdog operations (start, stop, ping, set_timeout).
+ - Boot status detection to identify watchdog reset events (WDIOF_CARDRESET).
+ - Power management support including suspend/resume and wakeup functionality.
+
+Series breakdown:
+ - Patch 1: Add DT binding documentation for Nuvoton MA35D1 watchdog.
+ - Patch 2: Add the watchdog driver implementation for MA35D1.
+ - Patch 3: Add the watchdog node in the MA35D1 SoC DeviceTree file.
+
+Testing:
+ - Tested on the Nuvoton MA35D1 development board using standard watchdog
+   test utilities (e.g., watchdog-test from tools/testing/selftests/watchdog).
 
 
---5p2z5vjgxof4kl2h
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 1/6] dt-bindings: hwmon: add binding for adi,adt7470
-MIME-Version: 1.0
+Zi-Yu Chen (3):
+  dt-bindings: watchdog: Add MA35D1 Watchdog binding
+  watchdog: Add Nuvoton MA35D1 watchdog driver support
+  arm64: dts: nuvoton: Add WDT node for MA35D1 SoC
 
-Hello,
+ .../bindings/watchdog/nuvoton,ma35d1-wdt.yaml |  55 +++
+ arch/arm64/boot/dts/nuvoton/ma35d1.dtsi       |   7 +
+ drivers/watchdog/Kconfig                      |  11 +
+ drivers/watchdog/Makefile                     |   1 +
+ drivers/watchdog/ma35d1_wdt.c                 | 357 ++++++++++++++++++
+ 5 files changed, 431 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/watchdog/nuvoton,ma35d1-wdt.yaml
+ create mode 100644 drivers/watchdog/ma35d1_wdt.c
 
-On Wed, Jul 22, 2026 at 11:48:19PM -0300, Luiz Angelo Daros de Luca wrote:
-> So, for the next version, I'm declaring #pwm-cells and
-> #thermal-sensor-cells directly in the binding instead of pulling in
-> pwm.yaml via $ref, and pointing to pwm.yaml only in the description
-> for context:
->=20
-> "#pwm-cells":
-> const: 3
-> description:
-> See Documentation/devicetree/bindings/pwm/pwm.yaml for the
-> generic PWM binding description.
->=20
-> Let me know if you'd rather see this handled differently (e.g. keeping
-> the $ref and accepting the pwm@ node name), but I think keeping the
-> node name aligned with the device's primary function is the more
-> correct approach.
+-- 
+2.34.1
 
-Sounds sensible. Thanks for looking into that.
-
-Best regards
-Uwe
-
---5p2z5vjgxof4kl2h
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmphryIACgkQj4D7WH0S
-/k6gWwf/WG8fdvb+TZqNbtvaAx472geug81LG7tvpOpJxyDzMhc1GiJFkZEjo7xF
-Ox9+FsS0IieUFCw5XO01PGQymBC6wFLwQb/vidQ5EzfbHGR6kCWTJzCRA8SDVwDd
-81rr76Xz5tOwp4/p445euBJba1UDgM5oYHFf+wl6dPvxB6CrM/8VlkrBR00apTUY
-VwZ2dFvNaeHqvy6eHSijyww+fRljgFVw4vGKTleX3FQMNaT9mOGmvvoGgB4C1pSp
-/oibYQZlqUGNdiDubhwhJRM0m+HIwSqL1POV3G29ikRrEEuExEg3AfGThZ2kbqiF
-1muORCj3A/k9Cs7KtDV00XuNaw0e4g==
-=EE1B
------END PGP SIGNATURE-----
-
---5p2z5vjgxof4kl2h--
