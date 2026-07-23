@@ -1,193 +1,171 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from flow-b2-smtp.messagingengine.com (flow-b2-smtp.messagingengine.com [202.12.124.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 244DB353A8B;
-	Thu, 23 Jul 2026 21:54:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B372330647;
+	Thu, 23 Jul 2026 22:09:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784843668; cv=none; b=T6yZ7W5bEzxY3xn/26QbzZZP86fyWE/IiDhvxt+gujm6hYx8uX+xoefv6vv/M/CrSCOOUfc+udovHYb3geD1PRJwma0VhX0st2+J59jhgQK8Lp+lb8COZzUtkLXmON5evx4yn8t+5qhOdoJiMF4TwfyzvR7P5rDsCpC6zb9+2ZY=
+	t=1784844583; cv=none; b=dNUv5KelzgZsu6rkP5B5lpy63IktI3BBAvWFAKo2Sw/b0l5cFLoVlL/hvH9xMC8qeHS56RG1j1np7z70eLQMjfLaGo0fjFywVVB1S3o2SJpElq8OpojDPX/pZ7zqJ8BteKz7HWpMCY3kW5f4QbliM9KYhspW0xF7uihzvggwYjs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784843668; c=relaxed/simple;
-	bh=QDA1n0F780C0rM9/BFIx5Umj8/3AnosqNDzh8tGvlW4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EOPnRbCVlNCYQIcGa9UQK15a5C8mGF5vMthv1pRh3xjIEZgdKeiwPNdrAPHo6jL3EPseQ/+3tJ8IwxQuWuoP+oQiv6fIv/tmMBIphbof8hl+Gy1s4BTFhSteydSe6v9dGEeHk7oYyk1xtFK3iNSAtrGt1+2bFhfykcSOpRpAiiI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FXS5R+On; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784844583; c=relaxed/simple;
+	bh=08Vd4vj0vBOHxp6n6UUYarIgUYV6i+W7ia2Q7GQHbZc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uKHaxyrznlpV/ikHBUIUTycg4f00JC9tQ1OK+KnzPmb45gYY9ub9szg2IOulOh0F3PT2R8vOOuG0i8qxeXODpQ37Se1J6k1hkdtpnqHFW9LVPgQPKNYn1HLeHk0kUVqCfJpHkYXGkww4F4tZV+N1VutRpWd7nMrObbxA/yS/lZw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com; spf=pass smtp.mailfrom=gahingwoo.com; dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b=Iw0GqnH2; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=pvNmtjve; arc=none smtp.client-ip=202.12.124.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FXS5R+On"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D5591F000E9;
-	Thu, 23 Jul 2026 21:54:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784843662;
-	bh=Q17FwaUcs9wtjnsc8JU2nHsBtx+LfDtUQRfLqHN7ZRM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FXS5R+On48fGawqtgzE++VWpTLo4na2s0qOqwvA5e3IhbhAJ0uaBDVcszju5u+/Qn
-	 jFmg8MBIw1p0Ils9sYOBt0/FgBBCa/LF8YK/RkCpBB9sL5YlWOof0Puc1AXF8A8Lqd
-	 yj5Fp6viNde2fftOKVw2aNum6Jji1/GVlteIRrIxk2QJWJn5f1dx6/70U2R77QJ/LL
-	 f1VrtqDKChM0kkrMe7a0KB3bXT4hd0UT15rUttw4rnoUXtYveILk3aIh3KowAiyi9e
-	 ViYoe1PRrPsktnhgAhVA5+vdqekrLnAk73ysA4gq/FRJIbdvkvc7AMSKv8vxEKFbo/
-	 1wXQaTmTrRIfA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/3] hwmon: pmbus: add MPQ8646 driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vincent Jardin" <vjardin@free.fr>
-Cc: conor+dt@kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260723-mpq8646_v0-v4-3-b6323d5fc524@free.fr>
-References: <20260723-mpq8646_v0-v4-0-b6323d5fc524@free.fr>
- <20260723-mpq8646_v0-v4-3-b6323d5fc524@free.fr>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 21:54:22 +0000
-Message-Id: <20260723215422.7D5591F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="Iw0GqnH2";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="pvNmtjve"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailflow.stl.internal (Postfix) with ESMTP id 5EE431300184;
+	Thu, 23 Jul 2026 18:09:40 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-06.internal (MEProxy); Thu, 23 Jul 2026 18:09:40 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm1; t=1784844580; x=
+	1784848180; bh=08Vd4vj0vBOHxp6n6UUYarIgUYV6i+W7ia2Q7GQHbZc=; b=I
+	w0GqnH2zARrvIjMVElIGy99EtGyy5PDy8k73ogt/ccKAIoupm9R4L66BehTOJTgZ
+	0ajqXUpLwQzqqJ30nbcgAao8Q8LdReMEtRoZBbZo7j6Hou1com+IlY0BGvdGctf2
+	zYcoBgRKZrmsGSUPcDRcv348NZhPd4/Zp8y+yNsKi49EhO4afaLQMMi+bBHzNEDJ
+	eeJbshnoI0sgV8qWX1Z3jtI+J7s9+eWLJHkdrtzRctlwBnfnPR4fE78PLgWLpAt7
+	8u1O4tBgNjwq43LWDgEkVNrASHTOxYTcVuE0UbkCrujF/0AVlpyvQJ7Vzvnz3G3o
+	khDFqJalanO2k078J2Kpw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm2; t=1784844580; x=1784848180; bh=0
+	8Vd4vj0vBOHxp6n6UUYarIgUYV6i+W7ia2Q7GQHbZc=; b=pvNmtjvedinG9BIc8
+	Rq2e9k6xkjh5zwX6Q1ZCNXI5GkyHskVitn3u1ukPidIzU9k2zsTsclRy2bEPCmk0
+	Hc3bt3k7wqJSQb0ZwOxGz42zDOdffEoSZx4WFMeAZ1pwjgzKZ6waxYNw4bQX/MPN
+	NtoKeDIEeh7DNOwJc9OYf2V2HhzL6+mVBsjG0G0iQ+weuSSVBNZePcZM92DXCyeK
+	zzZOm/1CaxjcCx6w7/6lq/ZX8s0CpMQ5DPTuoqDYetuFu4IiEa/rFgS5SVPqEu4S
+	yrsV9EZZlOyQS66jdyPjJh1VWTxim4fmZJKbZqYe/xh5T9vHU0OEIReGRjoDa3BN
+	Im4rA==
+X-ME-Sender: <xms:I5Fiavj_fJMjrXZwUJJ_mp1WBJEkB1JIVcNJsoYIviY7mT517c8FFA>
+    <xme:I5Fian1UIzfXE09PyqDROekqe6oojJtuhcw3ZKEIoXs-jcVCjxe-3tkQm_f9NFjD9
+    0V_E_lJ-9PVm3yuObfV_xI3DSigN2pXUL2Sl2LXr1DMe5-uoNKWRnVs>
+X-ME-Received: <xmr:I5FiakmFtWDQgiVHNPSzx6N_1FX-PfHw4Upx8RFKSD6ocGNjD6XrNE3bc8XdC8a_3bWFfpD06rnKImKg_N3_vXtFiVEpW3IRCYqagQZMqbTS>
+X-ME-Proxy-Cause: dmFkZTEIDoSZFQH3ibbkdIMliwsQ8yGxUqGqOd0h8qFv/8gZwbx4zY14jxCs29cyvCKMMS
+    8NbQc35lUVkljqLj7KRP3wdRrYrAXy4fKERbA/afDEAa1r4f6HrxX9dYd6J/CZguZpbRej
+    P2ktg7gtK96Snwg+Ln3QayQdtU6L+TTX0GAB9D3nqW/3GEKYmcl0wiL1snFtU4ZcH3yUL1
+    DSDFiP8W/zm+AUFQd/PYsrxEBf4rdc50SK16jE7QsyzUnYTINQSSni/do2vHIpTLWrKsUh
+    dsB9AmtSVTBoMPcT5evRiy5QdFbkGK/Jf1ap9r+UJILaLx1Jw+d5gsGls5ar2xP03uJKSk
+    6vrb1qjWmed1vdY4Pwkhmhh55jwsVHXhqljb2Wns4UrSfl22D6G5AqCN69fUwKPiGB2M8+
+    Vzo7as6+uPd/SuXToYUI5W6TThWjfpT171iaq6EDwJcr57J2Bk/TSxJRzJR9rMNRmzKshK
+    DSacqJuVa3bMPo/eCpzTmeHcNooKAf1tKDgHtKKQk7CyRhwQet1iu3Y+8xpGiNFw0g0sBZ
+    kIWr4Q0gRRhaU01yXE6hErtxbiRC0JE8S0RzIiZQoZwuWA3avgxHjHd3IfNTHWPYhIRpZl
+    JQe4XgzTQeiWg44RBQFdl+gvBpzpX/6AwG6ugFo/DKLhNRqrKsEvBs+u7BTQ
+X-ME-Proxy: <xmx:I5FiautxUebroOImJ7i0ACgpQksj35zKeevJm2MOKigMPlIIJJr7qQ>
+    <xmx:I5Fias3uEN2yrfn4ylTeNqPQfPOeIHROcRYS7O1rTvS1J9lUT7gg8Q>
+    <xmx:I5FiaiQZvRGqK2A9A_DWptKlLSYmjH8FQZVB9MfIWAr7flFpatyHYA>
+    <xmx:I5FiaouKghN75Fkag2DAXEAXz166lNvzqCKynd2LU34VYVKceDFfSw>
+    <xmx:JJFiaoNZf8FCL9eQ5ivZNACoAvTk3lFxTrlkMA_h_9QVNwCXRYpNfICx>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 23 Jul 2026 18:09:33 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: nicolas.dufresne@collabora.com,
+	detlev.casanova@collabora.com
+Cc: paulk@sys-base.io,
+	heiko@sntech.de,
+	mchehab@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	ezequiel@vanguardiasur.com.ar,
+	linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jiaxing Hu <gahing@gahingwoo.com>
+Subject: Re: [RFC PATCH 0/3] media: rockchip: VEPU510 H.264 encoder for RK3576
+Date: Fri, 24 Jul 2026 10:09:29 +1200
+Message-ID: <20260723220929.2080095-1-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <210b72e32d1bd757a36b2baf532dd9f7d46ca5dc.camel@collabora.com>
+References: <20260722073417.2064667-1-gahing@gahingwoo.com> <20260723004642.2075233-1-gahing@gahingwoo.com> <210b72e32d1bd757a36b2baf532dd9f7d46ca5dc.camel@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] Stack-allocated variables are passed to `i2c_transfer()`, violatin=
-g DMA safety constraints.
-- [Medium] Incorrect channel indices in mpq8646_alarm_map cause off-by-one =
-uevent generation for voltage alarms.
-- [Low] The shared debugfs root directory 'mpq8646' is leaked upon module u=
-nload.
-- [Low] The debugfs entry `probe_page_write` is documented but its implemen=
-tation is missing.
-- [Low] Spelling mistake in the documentation.
---
+Hi Nicolas, Paul, Detlev,
 
---- Patch [3]: [PATCH v4 3/3] hwmon: pmbus: add MPQ8646 driver ---
-commit f8de07401397e8a8db3fd6012638f3548f012fb7
-Author: Vincent Jardin <vjardin@free.fr>
-Date:   Thu Jul 23 21:38:46 2026 +0000
+Thanks both for laying out the trade-offs so clearly.
 
-    hwmon: pmbus: add MPQ8646 driver
-   =20
-    Add a new single-chip driver for the MPS MPQ8646 that is
-    a PMBus device.
-   =20
-    Beyond basic PMBus telemetry, the driver adds:
-      - MFR_CFG_EXT gate-close retry after CLEAR_LAST_FAULT.
-      - alarm acknowledge via inX_reset_history.
-      - STATUS_WORD MPS-extended bit decode + post-mortem clear.
-      - In-driver alarm-poll fallback work item (thanks lm90) for
-        boards without SMBALERT
-      - on_off_config/vout_margin/mfr_pmbus_lock sysfs.
+Decision from my side: I'll converge on the DRM-ish / Vulkan Video
+direction and sync with Detlev, rather than push the stateful V4L2
+driver further. Nicolas' point about UAPI lock-in is the deciding one
+for me -- I don't want to expose an encoder UAPI that then has to be
+supported forever -- and if RK3576 is just a minor delta on Detlev's
+RK3588 base, that's exactly where my hardware work is worth the most.
 
-diff --git a/Documentation/hwmon/mpq8646.rst b/Documentation/hwmon/mpq8646.=
-rst
-new file mode 100644
-index 0000000000000..61ca2a5387daa
---- /dev/null
-+++ b/Documentation/hwmon/mpq8646.rst
-@@ -0,0 +1,314 @@
-[ ... ]
-> +clear_protection_last_force performs the unlock with the following
-> +six-step dansing:
+Paul -- thank you for the generous offer. I read both your Media Summit
+decks and your posted series ([PATCH 00/14], the generic in-kernel
+h264-enc core + rbsp + rate control on VC8000E); it's clearly further
+along than I'd assumed. I'm not closing the door on a V4L2 version
+later, but I'd rather not commit to maintaining two drivers up front, so
+I'll treat that as a possible follow-up, not the primary path.
 
-[Severity: Low]
-This isn't a bug, but there is a typo here (dansing instead of dancing).
+Where I think I can be useful right now is the hardware, since that part
+is shared with RK3588 regardless of interface:
 
-[ ... ]
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D
-> +File                        Action
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D
-> +``probe_smbus_rword <reg>``  i2c_smbus_read_word_data on <reg>
-> +``probe_smbus_rbyte <reg>``  i2c_smbus_read_byte_data on <reg>
-> +``probe_raw_xfer <reg>``     raw i2c_transfer read-word on <reg>
-> +``probe_page_write <pg>``    write PMBUS_PAGE =3D <pg>
+> I know in his case he was trying to avoid reconstructed frame
+> compression, and it only started working when he enable that
+> compression. Though, he had mmu faults prior to that.
 
-[Severity: Low]
-The documentation explicitly describes the probe_page_write debugfs entry,
-but its implementation appears to be missing from the driver in
-mpq8646_debugfs_register().
+Useful data point, but let me be precise about where I already am, so I
+don't send Detlev chasing something I've done. This driver already runs
+with reconstruction compression enabled (enc_pic.rec_fbc_dis = 0) -- the
+state Detlev needed -- and the first inter frame still hangs. Disabling
+it (rec_fbc_dis = 1) was one of my experiments and also hung, so FBC
+state alone doesn't explain my stall.
 
-[ ... ]
-diff --git a/drivers/hwmon/pmbus/mpq8646.c b/drivers/hwmon/pmbus/mpq8646.c
-new file mode 100644
-index 0000000000000..95abd347e3e9b
---- /dev/null
-+++ b/drivers/hwmon/pmbus/mpq8646.c
-@@ -0,0 +1,1237 @@
-[ ... ]
-> +static int mpq8646_raw_xfer_rword(struct i2c_client *client, u8 reg)
-> +{
-> +	u8 cmd =3D reg;
-> +	__le16 data =3D 0;
-> +	struct i2c_msg msg[] =3D {
-> +		{
-> +			.addr =3D client->addr,
-> +			.flags =3D 0,
-> +			.len =3D sizeof(cmd),
-> +			.buf =3D &cmd,
-> +		},
-> +		{
-> +			.addr =3D client->addr,
-> +			.flags =3D I2C_M_RD,
-> +			.len =3D sizeof(data),
-> +			.buf =3D (u8 *)&data,
-> +		},
-> +	};
+The part that does line up is the mmu fault. I still have a residual
+rk_iommu write fault on this path; I traced it from a boot-varying
+garbage IOVA down to a benign IOVA 0, and I'd concluded it was a
+separate AXI transaction from the recon write, independent of the
+P-frame hang. Detlev's report -- that his mmu faults and his missing
+P-frames cleared together -- is a direct reason to distrust that
+"independent" conclusion and re-check whether the fault and the stall
+share a root cause on RK3576 too.
 
-[Severity: High]
-Are these stack-allocated variables safe for DMA operations?
+Detlev -- when you have a moment: on RK3588, were the mmu fault and the
+P-frame failure the same underlying problem? And did enabling
+reconstruction compression clear the fault on its own, or did the
+reference-read mapping (how the previous frame's reconstruction is
+mapped for the encoder to fetch) need a separate change as well?
+Whatever you can share, I'm happy to test on RK3576 and feed back a
+Tested-by.
 
-Passing stack addresses like &cmd and &data in i2c_msg.buf to i2c_transfer()
-violates the DMA API when the kernel is compiled with CONFIG_VMAP_STACK=3Dy.
-This could lead to a system crash if the underlying I2C controller driver
-relies on DMA for transfers.
+One point on the current code, since it came up:
 
-[ ... ]
-> +static void mpq8646_debugfs_register(struct mpq8646_priv *priv)
-> +{
-> +	struct dentry *root, *parent;
-> +	char name[MPQ8646_DEBUGFS_DIRNAME_MAX];
-> +	bool parent_ref =3D false;
-> +	size_t i;
-> +
-> +	mutex_lock(&mpq8646_debugfs_root_lock);
-> +	parent =3D debugfs_lookup(MPQ8646_DEBUGFS_ROOT_NAME, NULL);
-> +	if (!parent)
-> +		parent =3D debugfs_create_dir(MPQ8646_DEBUGFS_ROOT_NAME, NULL);
+> A lot of the code is hex tables generated from inspecting a running
+> driver.
 
-[Severity: Low]
-Does this leave a stale directory in debugfs upon module unload?
+Fair, and I won't pretend otherwise -- the PARAM/SQI classes are
+currently shipped as fixed tables taken from a captured encode rather
+than computed. The one thing I'd add is that those particular values are
+mpp's public default-tuning tables (the RDO lambda/cost and
+subjective-quality tables in Rockchip's open-source mpp HAL, Apache-2.0),
+so they're constants I can cite to mpp source rather than opaque state.
+But I fully agree the driver needs significant cleanup before it's
+upstream-worthy, and in the DRM-ish model most of that tuning moves to
+userspace anyway, so a lot of it won't survive the transition in its
+current form.
 
-The shared mpq8646 root directory is created here, but there does not seem
-to be a module_exit function handling global teardown to remove it. The
-driver relies on module_i2c_driver(), and mpq8646_debugfs_unregister()
-only removes the per-device subdirectories, which might leak this root
-directory when the module is removed.
+So: please point me at Detlev's shared branch / early code whenever it's
+in a shape to build against, and I'll start porting the RK3576 hardware
+bring-up onto it.
 
-[ ... ]
-> +static const struct {
-> +	u16 mask;
-> +	enum hwmon_sensor_types type;
-> +	u32 attr;
-> +	int channel;
-> +} mpq8646_alarm_map[] =3D {
-> +	{ PB_STATUS_INPUT,       hwmon_in,   hwmon_in_alarm,   0 },	/* in1_alar=
-m  (VIN)  */
-> +	{ PB_STATUS_VOUT,        hwmon_in,   hwmon_in_alarm,   1 },	/* in2_alar=
-m  (VOUT) */
-
-[Severity: Medium]
-Will this correctly attribute the uevents to the intended channels?
-
-Since hwmon_attr_base(hwmon_in) returns 0, hwmon_notify_event() requires
-channel 1 for in1_alarm and channel 2 for in2_alarm.
-
-Using 0 and 1 here in mpq8646_alarm_map would misattribute VOUT faults to
-in1_alarm, and incorrectly attempt to generate events for in0_alarm which
-does not exist.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723-mpq8646_v0=
--v4-0-b6323d5fc524@free.fr?part=3D3
+Thanks,
+Jiaxing
