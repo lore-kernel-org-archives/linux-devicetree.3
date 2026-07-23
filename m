@@ -1,123 +1,154 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EFD0364933;
-	Thu, 23 Jul 2026 16:03:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B066B367B73
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 16:03:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784822590; cv=none; b=ikFnyClMwW7oz6ZA1LAwlaNsndb0bmuGeFw5SAOONgkjfXI+HaY+mYc+oSRPmAeW7xhl93bKZF1CbEgIw+LaR6jHmGmfk6JYlPMhP1zt+hu8g1pHsVFfBCM7N7BBeSEo+x8Ca6V2q+21ZbcyZlmcwt14FbksPmKwC4vEz72ks7U=
+	t=1784822602; cv=none; b=FC7bY3JMl0PUY/7Xa07C7nlgfEvcx+xHlyuEGy21nVrfEm/+YlfRHPGIfa7/loLix6RvxDY0NoK4Ztda+tJyvBOgBhzeWDWMrKVU6sNJPKxm1KFqeb0hQJ40VBxJXRPKqaPKMn6x9nHBluzFuXNZ8HZP0St1Rb7ibf2tUZDHRc4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784822590; c=relaxed/simple;
-	bh=VX40IOg2m9R6OtmuKe98ovEWZ8IBRZC5MbBvpVgZasI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aLDlrfGDG8yly82btnRe0YSaKgmh4l5qGhsbCV6suvBE+h4KENFbcw//MmFM04yrB2rUhVXu41XNDBvvarEuyHuUEo52bP9XDm0hx/ixs+Z2Xs4mSP5zQ9+GJBpnNmxxqcJQGB0K1pkrffnoIOqRkqIw9SyZyiRqTd9Rm8iq2+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dz7A4txv; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dz7A4txv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9741D1F000E9;
-	Thu, 23 Jul 2026 16:03:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784822585;
-	bh=VX40IOg2m9R6OtmuKe98ovEWZ8IBRZC5MbBvpVgZasI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dz7A4txvtz95r11j8oExGjEEvtX+SCb6dus1NYolYEItFL4Cb9Rbz2koL5LnbSnaA
-	 UqTCaqhVbmKCG1h3EMPXMx59EISHhQ0QnIUvF/eD+UBjNsP7gcOcg7txVxay7H0Bof
-	 F1Ko+/RVAevfyLO7r5sgSjU9YW7g7+eAaQYxqb6SUflYq3Z7/7PC416MqFsJctUhak
-	 jBu90oCh2LF0toC+wwVJ7cjNgXZAZL/E/BB6sHJgWtSvWl0F6pJX364sxDQp3Lk0qv
-	 P8j5xcjN8wfR/0XGxveqC3P/8FkETtjJU91nnZAELkcjan//A3IPkUCAA+cfgzPmGt
-	 ecrJcgd746oiw==
-Date: Thu, 23 Jul 2026 17:02:42 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Richard Leitner <richard.leitner@linux.dev>,
-	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Alexander Stein <alexander.stein@ew.tq-group.com>,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	driver-core@lists.linux.dev
-Subject: Re: [PATCH RFC 1/2] dt-bindings: regmap: add common schema for
- no-sequential-read
-Message-ID: <20260723-hamster-juniper-5697cacade96@spud>
-References: <20260722-regmap-single-read-v1-0-aaaf31591669@linux.dev>
- <20260722-regmap-single-read-v1-1-aaaf31591669@linux.dev>
- <cdd3b988-72cd-4143-9a17-ee0c57625e94@sirena.org.uk>
- <amD_vkMOrtKq5NvX@bombadil>
- <20260722201622.GD648629@killaraus.ideasonboard.com>
- <amEvJBOE3Ja014Ap@bombadil>
- <525338f4-cad3-4acb-94c5-a4b71cde9c02@sirena.org.uk>
- <amHznORUaOnUFyS4@bombadil>
- <20260723154541.GA764516@killaraus.ideasonboard.com>
+	s=arc-20240116; t=1784822602; c=relaxed/simple;
+	bh=RluGc6Czty5Jx6Q7uFhd2+PTiuPVPI690xUkXsC1PH0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=A3YpllTZX5UCXardLPOrkqrtlsBtVekCJOP3dko4PiUeLxTbADdtho7/gB/+jRpLPJnUhAlEz8DUlqKIythBCvO23hgb1GJlfQs+IG7Ax9g9m235HTaa1o7Qxz7cv7bn4SrcGCWzPwJ4YlkpI4NrOt3NdTg7ErlhoAZrnZMc1hU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21B771F00A3A;
+	Thu, 23 Jul 2026 16:03:21 +0000 (UTC)
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v19 2/4] arm64: dts: renesas: r9a08g046: Add SDHI nodes
+ for RZ/G3L SoC and SDHI1 pincontrol on SMARC EVK
+Reply-To: sashiko-reviews@lists.linux.dev
+To: Biju <biju.das.au@gmail.com>
+Cc: wsa+renesas@sang-engineering.com, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260723154154.319674-3-biju.das.jz@bp.renesas.com>
+References: <20260723154154.319674-1-biju.das.jz@bp.renesas.com>
+ <20260723154154.319674-3-biju.das.jz@bp.renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 23 Jul 2026 16:03:03 +0000
+Message-Id: <20260723160321.21B771F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="XY5rrJ73sw2k5tIT"
-Content-Disposition: inline
-In-Reply-To: <20260723154541.GA764516@killaraus.ideasonboard.com>
 
---XY5rrJ73sw2k5tIT
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] The SDHI device tree nodes specify only the SoC-specific compatibl=
+e string (`renesas,sdhi-r9a08g046`) and omit the required fallback string (=
+`renesas,rzg2l-sdhi`).
+- [Medium] Missing `#else` branch leaves `sdhi1` enabled without pin multip=
+lexing or supplies when `RZ_BOOT_MODE3` is disabled.
+- [Medium] The pin configuration for `sd1-data` in the `sdhi1_pins` and `sd=
+hi1_uhs_pins` nodes is missing the `bias-pull-up` property.
+--
 
-On Thu, Jul 23, 2026 at 06:45:41PM +0300, Laurent Pinchart wrote:
-> On Thu, Jul 23, 2026 at 01:01:11PM +0200, Richard Leitner wrote:
-> > On Wed, Jul 22, 2026 at 11:03:09PM +0100, Mark Brown wrote:
-> > > On Wed, Jul 22, 2026 at 11:58:46PM +0200, Richard Leitner wrote:
-> > >=20
-> > > > @Mark: I understood that if the fpga really intercepts the I2C bus,=
- it
-> > > > should be modelled accordingly in device tree. But what would be the
-> > > > preferred implementation if both devices sit on the same I2C bus, b=
-ut
-> > > > one is messing up some register reads on purpose?
-> > >=20
-> > > I think we would need to have a coherent understanding and description
-> > > of the actual issue to know how to describe it.
-> >=20
-> > Understood. I will try to figure out how the hardware is really wired
-> > and come back to you.
->=20
-> Based on the information I have received so far, the FPGA is interposed
-> between the host and sensor. It could therefore be modelled in DT as
-> child of the I2C bus and a parent of the sensor.
->=20
-> New version of some of the Vision Components modules have fixed the
-> multi-read bug, so we will still need a property in the FPGA DT node to
-> indicate if the quirk should be activated.
+--- Patch [2]: [PATCH v19 2/4] arm64: dts: renesas: r9a08g046: Add SDHI nod=
+es for RZ/G3L SoC and SDHI1 pincontrol on SMARC EVK ---
+commit 6289153083cb6f174266f6b60614c70a75cd4294
+Author: Biju Das <biju.das.jz@bp.renesas.com>
 
-Or come up with a compatible for the FPGA DT node that uniquely
-identifies the revision of the RTL in use.
-That's my preference for things that use some custom RTL that aren't
-configuration parameters.
+arm64: dts: renesas: r9a08g046: Add SDHI nodes for RZ/G3L SoC and SDHI1 pin=
+control on SMARC EVK
+   =20
+Add device tree nodes for the three SDHI controllers (SDHI{0,1,2})
+on the RZ/G3L SoC (r9a08g046) and enable SDHI1 on the RZ/G3L SMARC
+EVK platform with pincontrol and GPIO-based voltage switching
+regulator support.
 
->=20
-> > > Please do not add random characters to my name.
-> >=20
-> > Sorry, I didn=E2=80=99t mean any harm.
->=20
-> --=20
-> Regards,
->=20
-> Laurent Pinchart
+> diff --git a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi b/arch/arm64/boot=
+/dts/renesas/r9a08g046.dtsi
+> --- a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
+> @@ -762,9 +762,80 @@ dmac: dma-controller@11820000 {
+>  			dma-channels =3D <16>;
+>  		};
+> =20
+> +		sdhi0: mmc@11c00000 {
+> +			compatible =3D "renesas,sdhi-r9a08g046";
 
---XY5rrJ73sw2k5tIT
-Content-Type: application/pgp-signature; name=signature.asc
+[Severity: High]
+Does this node need the "renesas,rzg2l-sdhi" fallback compatible string?
 
------BEGIN PGP SIGNATURE-----
+The driver source code for SDHI does not contain a direct match for
+"renesas,sdhi-r9a08g046", so it relies on the "renesas,rzg2l-sdhi"
+fallback to successfully probe the device. Without the fallback string,
+the driver will not probe the controllers, breaking SD/eMMC support.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCamI7IQAKCRB4tDGHoIJi
-0pDjAQCCkxMHtYm0qaav7zMioSvLLMQb9aX8A5aBIFfQ0YnkJwEA96ezgJWQxhQ9
-dHDDsCd7WMlhBZHxaOkLxA4g0TN34w0=
-=cFk7
------END PGP SIGNATURE-----
+This same issue also appears in the sdhi1 and sdhi2 nodes below.
 
---XY5rrJ73sw2k5tIT--
+[ ... ]
+
+> diff --git a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts b/arch/ar=
+m64/boot/dts/renesas/r9a08g046l48-smarc.dts
+> --- a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
+> +++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
+
+[ ... ]
+
+> +	sdhi1_pins: sd1 {
+> +		sd1-cd {
+> +			pinmux =3D <RZG3L_PORT_PINMUX(J, 0, 8)>; /* SD1_CD */
+> +		};
+> +
+> +		sd1-clk {
+> +			pinmux =3D <RZG3L_PORT_PINMUX(G, 0, 1)>; /* SD1_CLK */
+> +			power-source =3D <3300>;
+> +		};
+> +
+> +		sd1-cmd {
+> +			pinmux =3D <RZG3L_PORT_PINMUX(G, 1, 1)>; /* SD1_CMD */
+> +			input-enable;
+> +			power-source =3D <3300>;
+> +			bias-pull-up;
+> +		};
+> +
+> +		sd1-data {
+> +			pinmux =3D <RZG3L_PORT_PINMUX(G, 2, 1)>, /* SD1_DAT0 */
+> +				 <RZG3L_PORT_PINMUX(G, 3, 1)>, /* SD1_DAT1 */
+> +				 <RZG3L_PORT_PINMUX(G, 4, 1)>, /* SD1_DAT2 */
+> +				 <RZG3L_PORT_PINMUX(G, 5, 1)>; /* SD1_DAT3 */
+> +			input-enable;
+> +			power-source =3D <3300>;
+
+[Severity: Medium]
+Should the data lines also specify bias-pull-up?
+
+The sd1-cmd node correctly includes bias-pull-up. If the board relies on
+the SoC's internal pull-ups rather than external resistors, leaving the data
+lines floating when the bus is idle could lead to intermittent SD card
+communication errors.=20
+
+This also applies to the sdhi1_uhs_pins configuration.
+
+[ ... ]
+
+> +#if RZ_BOOT_MODE3
+> +&sdhi1 {
+> +	pinctrl-0 =3D <&sdhi1_pins>;
+> +	pinctrl-1 =3D <&sdhi1_uhs_pins>;
+> +	pinctrl-names =3D "default", "state_uhs";
+> +
+> +	vmmc-supply =3D <&reg_3p3v>;
+> +	vqmmc-supply =3D <&vqmmc_sd1_pvdd>;
+> +};
+> +#endif
+
+[Severity: Medium]
+Does this conditional block need an #else branch to set status =3D "disable=
+d"
+for &sdhi1 when RZ_BOOT_MODE3 is false?
+
+Since the included renesas-smarc2.dtsi unconditionally sets status =3D "oka=
+y"
+for &sdhi1, failing to disable it here when RZ_BOOT_MODE3 is 0 leaves the
+node enabled but without required pin multiplexing and supplies. The MMC dr=
+iver
+would then attempt to probe a non-routed device, which could lead to timeou=
+ts
+and boot delays.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723154154.3196=
+74-1-biju.das.jz@bp.renesas.com?part=3D2
