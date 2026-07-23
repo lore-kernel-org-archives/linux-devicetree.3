@@ -1,136 +1,181 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from MTA-11-3.privateemail.com (mta-11-3.privateemail.com [198.54.122.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D76BA3DA7E6;
-	Thu, 23 Jul 2026 19:39:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B364385D9F;
+	Thu, 23 Jul 2026 19:41:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.122.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784835605; cv=none; b=gDT29N0NddldxG2dy+fmoO0Z8sayxMnDByf+D0JHzbfFqBg+r6lLFumc4/Oc3/PP1gf3LJo4ksnOznMPj+vl58DdwaQqUcr+ng0FoMkmX6t0x+UkbJ1cIoxFVp6YTFI8KMDz8j58HJ4HOBUUnWrXDLBLnWvGL7Hox4T11auUWP4=
+	t=1784835694; cv=none; b=X3YwPrr+qL054MXZ3AAMf04P/JGhd4PwWwXEcJdQ5DlMeVCgYb+XX9WE+TX9yht2K2lSSTgIuvuAkc1Vso/kbznzi0uS9SBt1nGVqEsn//A4M0NFHrm29oaiW20HpYN9ggp56sqUnWIhsw0lPlAPh7s4Ddc8mH9/Tl6JUERBwqU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784835605; c=relaxed/simple;
-	bh=G0M9MI9dB901g7cMmjTeOdPTQ6Gbf1ggOTiUNsSEHfQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=dZ9TYiaiZygVJkAsgNzyPKaOq39EBO9aHD5wZmajcThL76CuZTcqQXao9pqTILRqbeyv5w6fwCVcfRTsTtrvHvsLktEogko/aS8jK/sVxFIbTxSqw+HRhnz691I8MEFglvSE1xg8Q+/cSMZU3T6b6wnhAPNiD/Vvn4yJniBkxn8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Pfv6T1TP; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Pfv6T1TP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1784835588;
-	bh=G0M9MI9dB901g7cMmjTeOdPTQ6Gbf1ggOTiUNsSEHfQ=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=Pfv6T1TPiUoHMM8XOwWq3m9en+TZtkiHrQ2rbxona1O1sAaw25V90llKOZcuzq3f7
-	 j68dTeoDGGFEtv6qdvAFgBM8BhHhUj9xDL2zPqB7HSg2Ia6CpY0HLHMF4OBicd4icm
-	 hK7V43P/axbMKKilDlAJ9dsbhUJ00ExG9dxCAtbXATaaalmhzvLEnfbH9qctlVehG7
-	 t+rnoePEbI5Z1kquA8jSiue5lGvcaH3uTW8X5ETrVSiwYAYMsDaPyzkgXtEBWe4tDl
-	 otZc6woBFcv91VTkf1f1ozczcSAnT6ad3K8p1AiGJYB5U+Q+dyBZFkt/fTbOmp5Ovk
-	 Nge3QqZdiDmJQ==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id D36BA17E0A46;
-	Thu, 23 Jul 2026 21:39:46 +0200 (CEST)
-Message-ID: <252d53c9e497530f9416599f9991b02c0c276a1f.camel@collabora.com>
-Subject: Re: [RFC PATCH 0/3] media: rockchip: VEPU510 H.264 encoder for
- RK3576
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Paul Kocialkowski <paulk@sys-base.io>
-Cc: Jiaxing Hu <gahing@gahingwoo.com>, detlev.casanova@collabora.com, 
-	mchehab@kernel.org, heiko@sntech.de, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, ezequiel@vanguardiasur.com.ar,
- linux-media@vger.kernel.org, 	devicetree@vger.kernel.org,
- linux-rockchip@lists.infradead.org, 	linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Date: Thu, 23 Jul 2026 15:39:45 -0400
-In-Reply-To: <amJgcHf2vVDb75nR@collins>
-References: <20260722073417.2064667-1-gahing@gahingwoo.com>
-	 <082e1141c38205222a91abf13b1a97d9a00e117a.camel@collabora.com>
-	 <20260723004642.2075233-1-gahing@gahingwoo.com>
-	 <210b72e32d1bd757a36b2baf532dd9f7d46ca5dc.camel@collabora.com>
-	 <amJgcHf2vVDb75nR@collins>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-dZVtlSGeZCfvrclufsh3"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	s=arc-20240116; t=1784835694; c=relaxed/simple;
+	bh=EHbV5b4pM+yqB8Fvu5UDqJ+ul5JiE8AwLN9LGhuIaHw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=DJ6pFHBtcKMR4JkQl38Ncn9I/5sPyMa7TX9iq09D5TpljwDFAVAVg8AGGmMps1/t7kSdQQansFfN/Md3fvvivaYfpJ86hCbsUmJavW8nr/W6u8l/d2l4qNk53DkSd/zIgkXAh4qcpKiUZSrcihviHS/QvG/5LiGaDcB7BLvVZPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net; spf=pass smtp.mailfrom=catcrafts.net; arc=none smtp.client-ip=198.54.122.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catcrafts.net
+Received: from mail.privateemail.com (K8S-PROD-WORKER-14 [87.215.145.39])
+	by mta-11.privateemail.com (Postfix) with ESMTPA id 4h5hLd179Sz3hhTK;
+	Thu, 23 Jul 2026 15:40:56 -0400 (EDT)
+From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Cc: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
+	Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Maciej Strozek <mstrozek@opensource.cirrus.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	linux-sound@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	patches@opensource.cirrus.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 0/8] ASoC: SDCA: enable on DT platforms and add Qualcomm WCD9378 (Tambora) codec
+Date: Thu, 23 Jul 2026 21:40:45 +0200
+Message-ID: <20260723194045.49021-1-jorijnvdgraaf@catcrafts.net>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260722234221.884765-1-srinivas.kandagatla@oss.qualcomm.com>
+References: <20260722234221.884765-1-srinivas.kandagatla@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+Hi Srini,
 
---=-dZVtlSGeZCfvrclufsh3
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Thu, 23 Jul 2026 00:42:10 +0100, Srinivas Kandagatla wrote:
+> The most obvious follow-up is figuring out how the mobile-mode and
+> compute-mode WCD9378 drivers coexist under one compatible.  Jorijn's
+[...]
+> tree without racing to bind the same slave.  I would like to line this
+> uip with Jorijn as a follow-up to this series.
 
-Hi Paul.
+Happy to line this up. To ground the discussion I ported the series
+onto my FP6 tree and have mobile-mode capture working end-to-end
+through the class framework, including PipeWire in Plasma — findings
+and a proposal below.
 
-Le jeudi 23 juillet 2026 =C3=A0 20:41 +0200, Paul Kocialkowski a =C3=A9crit=
-=C2=A0:
-> In my opinion it would be fine to have two drivers, but it's really up
-> to you. Since you already have a v4l2 base for it, I would encourage you
-> to move it to my proposal, which will probably be finalized in a shorter
-> time frame than the other proposal and lets you reuse the code you've
-> already written. Then you could also add RK3576 support to the drm-ish
-> Vulkan Video proposal without too much work when it is ready, reusing the
-> RK3588 work.
+1) Arbitration, near term
 
-My main concern is that once you exposed an API, the transition path is nea=
-r
-impossible unless you accept to support both APIs concurrently. So I may ra=
-ise a
-slight objection on the above proposal. Once we have the code shared (Detle=
-v is
-working on it), you'll see that Detlev (and Daniel Almeida) implementation =
-is
-just a step ahead, and adding RK3576 to an RK3588 is just a minor update (i=
-ts
-the same chip, different minor version). On top of which, once the kernel d=
-river
-will have settled, adding more codecs will mostly (or entirely) happen in
-userspace.
+Your probe already returns -ENODEV when qcom,compute-mode is absent;
+v2 of my mobile series will add the mirror check, so neither driver
+can bind the other's slaves regardless of probe order. If a single
+owner of the modalias is preferred instead, a small wcd9378-common
+stub dispatching on the property also works for me — your call.
+Either path can later sanity-check the fused mode the way the
+downstream driver does (EFUSE_REG_29 PLATFORM_BLOWN, else
+PLATFORM_CTL MODE) once register access is up.
 
-With no offense, the RFC here requires significant work before it can be
-upstreamed. A lot of the code is hex tables generated from inspecting a run=
-ning
-driver. So there is a lot of work to decipher this into clean code.
+One mobile-specific data point for the split: in mobile mode the SDCA
+control space is only decoded on the TX slave. On the FP6, a paged
+read of DEV_MANU_ID/DEV_PART_ID (0x40100060/0x40100068) via the TX
+slave returns 0x0217/0x0110, while the same reads via the RX slave
+return zeros — with the RX slave's standard SCP DevID registers
+reading fine. That matches the downstream driver, which creates its
+only regmap on the TX device and drives the render dataports through
+the RX slave. So for mobile RX playback the function control and its
+dataports live on *different* slaves; a per-dataport slave mapping
+(or similar) would be needed in the class framework for that. Capture
+doesn't have this problem — the TX dataports sit on the control
+slave, so no cross-slave mapping is needed there.
 
-On that aspect, if you are missing any reference code or technical
-documentation, let us know, though I believe most of this is public informa=
-tion
-for this chip.
+2) Bindings — one file
 
-regards,
-Nicolas
+Patch 7 adds the same new file as my series
+(Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml), so
+one of us should carry a merged version and the other drop it.
+Suggestion: the mobile side keeps my v1's tx/rx split shape, with
+the v2 changes already committed on my binding thread
+(qcom,{tx,rx}-port-mapping staying optional, matching
+qcom,wcd938x-sdw.yaml; qcom,{tx,rx}-channel-mapping dropped). The
+compute side keeps your qcom,compute-mode if/then, extended to also
+cover qcom,port-mapping and #sound-dai-cells. As posted, patch 7's mobile shape wouldn't
+validate my mobile DTS: it defines a combined qcom,port-mapping but
+the description references qcom,tx/rx-port-mapping, and
+#sound-dai-cells is required unconditionally while the mobile DAIs
+live on the top-level codec node. I'm happy to carry the merged file
+in my v2 so your v2 can drop patch 7 — or the reverse, whichever you
+prefer.
 
---=-dZVtlSGeZCfvrclufsh3
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+3) Prototype findings on patches 1-6 (mobile capture, FP6)
 
------BEGIN PGP SIGNATURE-----
+What I ran: your 8 patches on my 7.1.2-based tree, plus a new
+wcd9378-sdca-mobile codec registering its own sdw_driver for the TX
+slave, static sdca_function_data for the SmartMic0 function
+(IT11 -> OT10 on DP1, with PDE11 as the power domain), and hw_ops
+doing the vendor bring-up
+(micbias routing, bus-clock indication, a clock-stop hold; supplies
+stay on the mobile top-level codec node, so hw_init has nothing to
+do — that part of the design accommodates the mobile supply model
+as-is). Capture works: the card binds, PDE11 reaches PS0 through the
+DAPM supply widget, and a 1 kHz tone played from the speakers
+captures at ~46% of full scale through the SDCA path. The bus-clock
+indication in hw_ops is partly a stopgap: the core path discussed
+with Pierre-Louis on my driver thread needs the qcom controller to
+set prop.mclk_freq, and that patch is still on my list. The
+prototype branch (your series + the mobile codec on a 7.1.2 base) is
+at https://forgejo.catcrafts.net/Catcrafts/milos-linux, branch
+sdca-mobile, if useful.
 
-iHQEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCamJuAQAKCRDZQZRRKWBy
-9ChrAQDFYy3+9EG1k90i3qFuQHquFaa7OckWKYC1S7LgGkjApAD2KOYjLf8wKd7p
-VqiNDw9wJaVm7ANxBYaRrp7s4J2DCw==
-=OgIE
------END PGP SIGNATURE-----
+Findings:
 
---=-dZVtlSGeZCfvrclufsh3--
+a) PDM dataports. class_function_sdw_add_peripheral() derives the
+   SoundWire stream/port config from the host-visible PCM params via
+   snd_sdw_params_to_config(), but the WCD9378 mic dataports carry
+   1-bit PDM on a single channel (the working mobile driver programs
+   sconfig.bps = 1 and port ch_mask = BIT(0)). Result with the
+   generic path: "bps not matching" from the qcom master and silence
+   on the capture while the PDE sits happily in PS0. I prototyped
+   optional per-dataport overrides in sdca_entity_iot
+   (sdw_bps/sdw_ch_mask) consumed in add_peripheral, which fixed it;
+   maybe DisCo has a proper home for this, but something is needed
+   for PDM parts.
+
+b) The IT33 micbias cache-vs-hardware workaround in your patch 8
+   (drop cache + rewrite from pde_pre_pmu) ported directly to the
+   mobile part's IT11; I carried it prophylactically and haven't yet
+   isolated whether mobile strictly needs it. If it does turn out to
+   be family behavior, it might argue for the class handling
+   has_default controls on PDE power-up generically.
+
+Userspace needed no changes beyond UCM: the class-driver card works
+with a ControlExists conditional in the same profile (the stock
+branch of the conditional is the unchanged stock sequence).
+
+On interrupts: sdca_irq_allocate() got a valid IRQ out of the box on
+my board via the bus irq domain; I haven't exercised actual SDCA
+interrupt delivery (capture doesn't need it), so I can't yet say
+whether the INTSTAT dispatch issue in your patch-8 comment reproduces
+here.
+
+Longer term: until the framework covers mobile end-to-end (the PDM
+transport and the cross-slave RX question), my posted mobile series
+stays the working mobile path — the v2 above is about the two
+drivers coexisting cleanly in the meantime. Mobile capture converging
+on the class framework looks realistic (my static tables came
+straight from the posted mobile driver); I'll keep using the FP6 as
+the mobile-mode test vehicle for the next revisions.
+
+One dependency note for your platform posting: SDCA register access
+on Qualcomm controllers needs the SCP address paging support now in
+soundwire next, commit 999f80904763 ("soundwire: qcom: add SCP
+address paging support").
+
+One small nit: link [2] in the cover credits "Jorijn Rikhof" — the
+surname is van der Graaf.
+
+Thanks,
+Jorijn
