@@ -1,130 +1,184 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDDD637EFE7
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 17:41:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 152B7355048
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 17:42:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784828513; cv=none; b=LIR6ZkiSZH0hZzjHRmVShUlcURJ2DiQmOH1TZ42h+yYN+Jr4vYzqpCyl4a0figCcFK7bOGw63DGc+FoDu4UrmsKJHTnn89W5GufunffPMj6AZ9p3f7DgaCB12oWtk8gFALNofLKRQRVH20ovwgrM1AufMlzwil2r3JnQyjyBkWc=
+	t=1784828531; cv=none; b=EQq4N9cccHCbJ8isSIc4oPLLB4zfk6NhPCJ+kfX7a0+NxWlu4ZB9lcVOsfsDlJbWRSo2WD4EblR9lq6IfCr/JEKnYAiIU2kA+T4YUgkYj6Bi+JHmY2/ZFvQ0EXMINwPEIoJi+0jaZXgIOK9hibd7QUxJpxyDeZv4jVLQ5fcPZvg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784828513; c=relaxed/simple;
-	bh=HYXrlvqtrQdNNzQelGdgyUv5AdeibpkKDdW6V9qsEIU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jvRYebsmiO/Mjput3OLApOF7iZIsZ0qTUyYXD+J3U55jR+Wn+z/Of3lcqOkJ7997oTcIaUN/vc2ILHi8fNZFuaUNyuu+Y3hi903FbulsT3JU1+QR0xYGh6mVbll3WpSINjfbH0R5jNDW0RMVIhfv12P8o4Ob75I1EFGF58XqLlE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A1CF1F00A3D
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 17:41:37 +0000 (UTC)
-Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-7eb42a2f5feso446139a34.1
-        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 10:41:37 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqZ0V5St0lHmouwl3KkZkRnXYlZYw3IGC2KOfHXCmPN51cVsIO9TsAbedFxcZsiT9rTyLyyFoOQBze7@vger.kernel.org
-X-Gm-Message-State: AOJu0YzOXjKtm81X3gqXAOysWFhFMM6H1xJkm58eU3aJPkScWYewEVId
-	SLIgkXrpLqu/MJPu4doqZpP84DlBnqWgKE+1LDh/uWZ6vFzg/weamCoNiz0eX3OD7cSEMno7ogh
-	pqltcN05Tvc5ejpSdsDE9qON99ClDf4w=
-X-Received: by 2002:a05:6808:180b:b0:496:daf:8709 with SMTP id
- 5614622812f47-4ab352fcfd5mr1725016b6e.17.1784828490837; Thu, 23 Jul 2026
- 10:41:30 -0700 (PDT)
+	s=arc-20240116; t=1784828531; c=relaxed/simple;
+	bh=B/zNBgXVZyKUjBeBKaBVWmqIpKEITY2JufcS0MhbhV0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YK/IsmbgGZVQlOUrFgWykwrYvhyknK5LM04SobvCs0rhKn7PtuFwUExyzYMBKNjLWxk42z547Oj79D6kPkRpUVxOMb1oiou7ZQG2XGYroY+ri0sdqILCYUNrmnho3NRNnIR7iLFo1oxVjeXhte29KUaoKOFi3Oo5Ni7AuRTX8KU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gdy7sExc; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gdy7sExc"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49554ebb87dso9939555e9.3
+        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 10:42:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784828521; x=1785433321; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CvvOjkSIIOXtcwPEkIypGzvmNd95Ui/vslKtK/NZXXc=;
+        b=Gdy7sExcpmzbExrSQiSZfIHtWgQT6E/aHV7TDRtbj27i/i0u5D9bUKdqdXvNk7TXDo
+         RU0QyYMOyUnAn7nXPI67XN6XFS5/LK/nAFZRUhS9KdYZWs1K/aP1DrnYDd6Hkjd1dPau
+         1maBU7ugLDS4ik32bn20sd3Ch2Yex3Z0EB+8M2j8EWKobAg5xNWSodAuzLGo2Zl0ps1Z
+         gcjl7YVICoN0ukcPOXEWvkNyPKLKJpSH0XQCksspPCF5hWH8B5BLssEvPjYKqul5I2Bq
+         Kh8pellvWlv393Y1OTwVRSaNyRbq6u0mKkIlqzeYpErkIXwOIawMyS0ksQzzKjSGyt7P
+         8WxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784828521; x=1785433321;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=CvvOjkSIIOXtcwPEkIypGzvmNd95Ui/vslKtK/NZXXc=;
+        b=sI70+uU4tbJA+Ee7Aen2txDWMART0Ixs6VPVKqUB2sqaj8oYBMrenoQ1S3f8pnTxDO
+         TLrMpiDYbHuOohfNrIn3F/UYD9aWJpDQsF/JYndLB/xVsBWud9tIVUyDuIM1S1P/9724
+         nDTLWo9Yme373P0ipBer9oEGdO+y7akjp2cBYluhEcBnpP6ePzmfB/25SWL+ozaTOVpr
+         pwFgKnbPYSFWi3LpAIy1/7D2OuCw+tNOTfhjh+KMqchiPHs+3ksnTO5af/u+/TGzwiu/
+         CTHfPGQr8rmw/huqIxFOY1N+yN8+bAbk3+rnzn6ECP46cqoy+4pMbUC5Hub8/dJt6xOM
+         nBig==
+X-Forwarded-Encrypted: i=1; AHgh+RpOwR+UIGCqKqG9z3mTemjurtOMy+6b4jv9nWuesz5UInYdQc/RF1yGg4P0r+/PSPrWkUJa8Iyw91Uh@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw3VKbeAiwwpYVB5JEeRiy2kGjVwrHGZHoXnvF0WLYqnf1xfIdO
+	+J8VjP16ZieKoGY6k62yiI3kZGye8aKA/crgpQrBFxgaLPJu3o1CHLh3
+X-Gm-Gg: AR+sD13F4l5g3Ak8xPJPG1SUSxru4hsR/Dyr79KXMWQBNKRU1REr3S8XAFhkjAmPwEE
+	YbwozzpVlOfzadfQzCgkBgeP1yNoFos71N3S56RmkaCUCnTRX3IZPJoEz5MYInlyCkCbHARi79q
+	4tqAarlgN3Zyv4GG06cqi6BU5XPKcPbvaCk8wZQAhAwwbidw95biDTzWsT4PGYfjhpl6/Gf/ByI
+	ZW1wxJt/C81tsGcHo3U0lSqwYIISjJp4lohFetPVgnb7jwCFrQhrzJnzqzV91lh0Oi/gd3npwWF
+	Y5netJU25R5fb5vnDDprFdLp8D1dE0eyvwQJX30iANjw+86Hxb5SuRUZKHN/DFbhPh9dnQ9cfx7
+	0FZyJlCTRdPjLYFzbsaBpn0tzoiDt0Dx1PPXGZ9DDWNjtQSbCzadMtregeDpRjyXpXjzlCXcvSg
+	A2blqu
+X-Received: by 2002:a05:600c:4689:b0:492:6f6f:fa42 with SMTP id 5b1f17b1804b1-49573d37f29mr49484495e9.37.1784828520954;
+        Thu, 23 Jul 2026 10:42:00 -0700 (PDT)
+Received: from antoniarch ([78.212.250.35])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85bb5127sm16520989f8f.10.2026.07.23.10.41.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 23 Jul 2026 10:42:00 -0700 (PDT)
+Date: Thu, 23 Jul 2026 19:40:36 +0200
+From: Antoni Pokusinski <apokusinski01@gmail.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, conor+dt@kernel.org, linux-rtc@vger.kernel.org, 
+	devicetree@vger.kernel.org, Alexandre Belloni <alexandre.belloni@bootlin.com>
+Subject: Re: [PATCH 2/6] rtc: abx80x: add irq to struct abx80x_priv
+Message-ID: <amJPSCvn_ufaDxvL@antoniarch>
+References: <20260722195814.298552-1-apokusinski01@gmail.com>
+ <20260722195814.298552-3-apokusinski01@gmail.com>
+ <20260722201354.3BDA11F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260722233604.3001063-1-utilityemal77@gmail.com> <20260722233604.3001063-3-utilityemal77@gmail.com>
-In-Reply-To: <20260722233604.3001063-3-utilityemal77@gmail.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Fri, 24 Jul 2026 01:41:13 +0800
-X-Gmail-Original-Message-ID: <CAGb2v666_Kf8+zMukQ1CFydK61P-v-=gPg4Bqmr-QaL45i6Fyg@mail.gmail.com>
-X-Gm-Features: AUfX_mxiGIwd1DR_-imghumxMZEIIVSDAtRpqxp4hP74t3UviUvfCAjTiBCIbkk
-Message-ID: <CAGb2v666_Kf8+zMukQ1CFydK61P-v-=gPg4Bqmr-QaL45i6Fyg@mail.gmail.com>
-Subject: Re: [PATCH v3 2/4] arm64: dts: allwinner: a523: add IR receiver nodes
-To: Justin Suess <utilityemal77@gmail.com>
-Cc: Sean Young <sean@mess.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Maxime Ripard <mripard@kernel.org>, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, Sashiko <sashiko-bot@kernel.org>, 
-	Andre Przywara <andre.przywara@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260722201354.3BDA11F000E9@smtp.kernel.org>
 
-On Thu, Jul 23, 2026 at 7:36=E2=80=AFAM Justin Suess <utilityemal77@gmail.c=
-om> wrote:
->
-> The A523 has two CIR receivers, both compatible with the A31 CIR: one
-> in the CPUX domain, clocked from the main CCU, and one in the RTC
-> power domain, clocked from the R-CCU.
->
-> Add nodes for both instances, disabled by default. Since the RX signal
-> of each instance can be routed to more than one pin, boards with an IR
-> receiver are expected to add the pinctrl properties next to where they
-> enable the node. Keep the PL11 pin description in the dtsi, as boards
-> commonly use that pin for the RTC domain instance.
->
-> Reviewed-by: Andre Przywara <andre.przywara@arm.com>
-> Signed-off-by: Justin Suess <utilityemal77@gmail.com>
-> ---
->  .../arm64/boot/dts/allwinner/sun55i-a523.dtsi | 28 +++++++++++++++++++
->  1 file changed, 28 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi b/arch/arm64/=
-boot/dts/allwinner/sun55i-a523.dtsi
-> index ca6a16807049..c2de662140ce 100644
-> --- a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
-> +++ b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
-> @@ -327,6 +327,17 @@ ccu: clock-controller@2001000 {
->                         #reset-cells =3D <1>;
->                 };
->
-> +               ir: ir@2005000 {
-> +                       compatible =3D "allwinner,sun55i-a523-ir",
-> +                                    "allwinner,sun6i-a31-ir";
-> +                       reg =3D <0x02005000 0x400>;
-> +                       interrupts =3D <GIC_SPI 27 IRQ_TYPE_LEVEL_HIGH>;
-> +                       clocks =3D <&ccu CLK_BUS_IR_RX>, <&ccu CLK_IR_RX>=
-;
-> +                       clock-names =3D "apb", "ir";
-> +                       resets =3D <&ccu RST_BUS_IR_RX>;
-> +                       status =3D "disabled";
-> +               };
-> +
->                 ledc: led-controller@2008000 {
->                         compatible =3D "allwinner,sun55i-a523-ledc",
->                                      "allwinner,sun50i-a100-ledc";
-> @@ -927,6 +938,23 @@ r_i2c_pins: r-i2c-pins {
->                                 allwinner,pinmux =3D <2>;
->                                 function =3D "r_i2c0";
->                         };
-> +
-
-Please add /omit-if-no-ref/.
-
-> +                       r_ir_rx_pin: r-ir-rx-pin {
-
-There are two pin mux possibilities for r-ir-rx. Please name it accordingly=
-,
-like "r-ir-rx-pl-pin".
-
-> +                               pins =3D "PL11";
-> +                               allwinner,pinmux =3D <2>;
-> +                               function =3D "s_cir_rx";
-> +                       };
-> +               };
-> +
-> +               r_ir: ir@7040000 {
-> +                       compatible =3D "allwinner,sun55i-a523-ir",
-> +                                    "allwinner,sun6i-a31-ir";
-> +                       reg =3D <0x07040000 0x400>;
-> +                       interrupts =3D <GIC_SPI 167 IRQ_TYPE_LEVEL_HIGH>;
-> +                       clocks =3D <&r_ccu CLK_BUS_R_IR_RX>, <&r_ccu CLK_=
-R_IR_RX>;
-> +                       clock-names =3D "apb", "ir";
-> +                       resets =3D <&r_ccu RST_BUS_R_IR_RX>;
-> +                       status =3D "disabled";
->                 };
->
->                 pck600: power-controller@7060000 {
+On Wed, Jul 22, 2026 at 08:13:53PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> 
+> Pre-existing issues:
+> - [High] The shared IRQ handler unconditionally returns IRQ_HANDLED and inadvertently clears all status bits.
+> - [High] The `abx80x_read_alarm` function fails unconditionally on success due to incorrect error checking.
 > --
-> 2.54.0
->
+> 
+> --- Patch [2]: [PATCH 2/6] rtc: abx80x: add irq to struct abx80x_priv ---
+> commit ccef71986338cc749e8440b88d073968d465ea5c
+> Author: Antoni Pokusinski <apokusinski01@gmail.com>
+> 
+> rtc: abx80x: add irq to struct abx80x_priv
+>     
+> This patch moves the irq number into struct abx80x_priv so that it
+> is no longer tied to the i2c_client. This allows the irq number to
+> be accessed in the case of ABX81X SPI clocks.
+> 
+> > diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
+> > index 5486d9d0b1e5d..9b0e1d48d9ba3 100644
+> > --- a/drivers/rtc/rtc-abx80x.c
+> > +++ b/drivers/rtc/rtc-abx80x.c
+> [ ... ]
+> > @@ -285,11 +286,12 @@ static irqreturn_t abx80x_handle_irq(int irq, void *dev_id)
+> >  static int abx80x_read_alarm(struct device *dev, struct rtc_wkalrm *t)
+> >  {
+> >  	struct i2c_client *client = to_i2c_client(dev);
+> > +	struct abx80x_priv *priv = i2c_get_clientdata(client);
+> >  	unsigned char buf[7];
+> >  
+> >  	int irq_mask, err;
+> >  
+> > -	if (client->irq <= 0)
+> > +	if (priv->irq <= 0)
+> >  		return -EINVAL;
+> >  
+> >  	err = i2c_smbus_read_i2c_block_data(client, ABX8XX_REG_ASC,
+> 
+> [Severity: High]
+> This is a pre-existing issue, but doesn't i2c_smbus_read_i2c_block_data() 
+> return the number of bytes read on success?
+> 
+> Looking at drivers/rtc/rtc-abx80x.c:abx80x_read_alarm():
+> 
+> 	err = i2c_smbus_read_i2c_block_data(client, ABX8XX_REG_ASC,
+> 					    sizeof(buf), buf);
+> 	if (err)
+> 		return err;
+> 
+> Since it returns 7 on success, will this unconditionally fail and return
+> early with an error code, leaving the alarm structure uninitialized?
+> 
+> [ ... ]
+True but this is fixed in one of the subsequent patches where the
+regmap usage is introduced.
+
+> > @@ -921,19 +925,19 @@ static int abx80x_probe(struct i2c_client *client)
+> >  	if (err)
+> >  		return err;
+> >  
+> > -	if (client->irq > 0) {
+> > -		dev_info(&client->dev, "IRQ %d supplied\n", client->irq);
+> > -		err = devm_request_threaded_irq(&client->dev, client->irq, NULL,
+> > +	if (priv->irq > 0) {
+> > +		dev_info(&client->dev, "IRQ %d supplied\n", priv->irq);
+> > +		err = devm_request_threaded_irq(&client->dev, priv->irq, NULL,
+> >  						abx80x_handle_irq,
+> >  						IRQF_SHARED | IRQF_ONESHOT,
+> 
+> [Severity: High]
+> This isn't a bug introduced by this patch, but since the IRQ is registered
+> here with IRQF_SHARED, does abx80x_handle_irq() correctly handle shared
+> interrupts?
+> 
+> Looking at drivers/rtc/rtc-abx80x.c:abx80x_handle_irq():
+> 
+> static irqreturn_t abx80x_handle_irq(int irq, void *dev_id)
+> {
+> 	[ ... ]
+> 	status = i2c_smbus_read_byte_data(client, ABX8XX_REG_STATUS);
+> 	if (status < 0)
+> 		return IRQ_NONE;
+> 	[ ... ]
+> 	i2c_smbus_write_byte_data(client, ABX8XX_REG_STATUS, 0);
+> 
+> 	return IRQ_HANDLED;
+> }
+> 
+> If no relevant interrupt flags are set for this device, it still returns
+> IRQ_HANDLED and writes 0 to ABX8XX_REG_STATUS, clearing all status bits
+> including non-IRQ bits like BLF. Can this break other devices sharing the
+> interrupt line and silently drop hardware status flags?
+> 
+Yeah so this looks like a genuine bug and should be fixed in a separate
+patch I guess. In REG_STATUS we should only clear the bits AF or WDT if
+they were set.
+
+> >  						"abx8xx",
+> >  						client);
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260722195814.298552-1-apokusinski01@gmail.com?part=2
