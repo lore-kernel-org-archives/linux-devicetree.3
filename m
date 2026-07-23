@@ -1,177 +1,188 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C3E62DC350
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 03:35:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B084350285
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 03:39:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784777757; cv=none; b=DIwJ47NwdBmgXz6Sf8GgOkbn/FX4Ww1ku02UuZhGO/9NHaYftdP1f4ElpRiU+uMsT4JanOJz80NYZMImz4DlX9wsb2Mbh3EWhGFVH26ZMUftSsdWLkweUESwZ1KiZfOsHbbnN3KMrlj8DoV9VASakpXGCn/8JTGALQhFvCw22aA=
+	t=1784777958; cv=none; b=CV2l8vLsX0ImnsV5xZP0XaBYwBmW5UxwBjKMJYFg/J/aCgLLRl8aotpoMYz4IBRBIiyP+djzVdhUpmcViZP8Ahw1gBboopjggza94Y8/iLx26O5UU9K7N0mQ4QmoDcnFdZq6knotK/sC74tg5d3PoSb+opAnQvhNy4x+INwfAnk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784777757; c=relaxed/simple;
-	bh=V6I3dOmXcTXauh2W8DLKiekwTTiPSfqP+9pHhzOGyQo=;
+	s=arc-20240116; t=1784777958; c=relaxed/simple;
+	bh=wNAcD1REj4oFN9209azDI2+3PC9t+k/9i4TUMpc3180=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Hfc5+V1W/+YIs7QeQaq0B/9ugABkYj/fBhrLKdOTmF3W3kw49GKaKJOBj3dOwP6TvVenSmLhO1xnvU/JNeWI85HH4ZiDJf4rinL1jWWYZXo01G5a49ZEmFNwEfO5y6whCY3jUfE0ceiCrV+iQs+4s/kynXMsQjq0XOWse5ZaTOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=huX9nf6y; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=LOvMwplp9Io5jk+/0/F3PhRxOsjJAnVh6aDXePBh3P5KnU3YI1VkFgvCQg5z3dXUYBAX5iLSChBJBZtTDvJkzAwNHdmxbH1D4VGLab9RfvL9kLruXhyrBoZ+ZOaPuJ9/0KfI855Vszjbzj44xzAiDbZVZxOeBkbRlVKLNOJcjNU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=POGqGYgf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="huX9nf6y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 022251F00A3A;
-	Thu, 23 Jul 2026 03:35:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="POGqGYgf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D6A61F000E9;
+	Thu, 23 Jul 2026 03:39:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784777754;
-	bh=NWo6aqvLn4oI/Iq5guapRYXAkRhi8+3hwLPbN7vzA/0=;
+	s=k20260515; t=1784777956;
+	bh=ISIwV1dfxKUcP447XAyrnY6EcJXlnvoGTSKi17RyAAA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=huX9nf6y02a7UsqF5S76Mnz/IayZCsUc4GUtkmZ9umgK5CDazKU/i5KKov3iVz97h
-	 OkbDy+6oQQiTjkRpjYNUiRTE0H9o2arbjaqZwXYO7LA/tZxRywX/D5MBolYE3rm75U
-	 0SSoAS/Z7j9Pdxepo8fnXwur+hHNQtuXD3hCbakB7TRh+9EoBn7tQG9A7D+Fq7xpO5
-	 02aNxLa1HXs4p3GYc5u0i1BBXwreHRC40emGZd/WJsVWu11k61hXXFzOR3rajeTkBm
-	 caX/oZQD7ryBtoFOBEN+Lx9kC5sADekZXseJ+8rRW4qtraalWWAebkEOVSLfdG4wxK
-	 mgxuYKnJzXuog==
+	b=POGqGYgfkmcFWir3VDRbFY6CeoiAoOcBJLqJ8nYQnvsavgAHXFYBUAXJ67rFcHDNk
+	 XD1ht/jFG8AmH1+El47NTEfZTnT191iV+upPIk39SpF3K3f5o3pRha2zwsnJ+ffnWP
+	 kgkHnSSZ01gpAFDb6QDoeEAcx4CdWQok2BYuXifMnF3KzWZANthG5mu3WhQOVMPdXk
+	 sHNXurOOIJ5LPlGjdo4Am8FQIOpwIEjzOkywHXZSowMHQke36zlMTIoj5EgUQ95lts
+	 a2oMypIMZmfcnhlPU2PU49wjPVDO61kf7zSBiX4JV0CMVV1/lxbiVPFV3vXB358krr
+	 AQTsct5O8iP4A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/9] of: hold a reference on of_aliases during alias
- path resolution
+Subject: Re: [PATCH v5 5/9] of/overlay: don't keep a negative id in ovcs->id
+ on idr_alloc() failure
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260722-nh-of-alias-overlay-v5-1-2abe2bb9cdbc@nexthop.ai>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260722-nh-of-alias-overlay-v5-5-2abe2bb9cdbc@nexthop.ai>
 References: <20260722-nh-of-alias-overlay-v5-0-2abe2bb9cdbc@nexthop.ai>
- <20260722-nh-of-alias-overlay-v5-1-2abe2bb9cdbc@nexthop.ai>
+ <20260722-nh-of-alias-overlay-v5-5-2abe2bb9cdbc@nexthop.ai>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 03:35:53 +0000
-Message-Id: <20260723033554.022251F00A3A@smtp.kernel.org>
+Date: Thu, 23 Jul 2026 03:39:15 +0000
+Message-Id: <20260723033916.6D6A61F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Calling of_node_put() while holding a raw spinlock causes a sleep-=
-in-atomic bug if it drops the last reference to a dynamic node.
-- [High] Lockless iteration of device tree properties is unsafe because upd=
-ated or removed properties have their `next` pointer modified, which derail=
-s concurrent readers.
+- [High] This problem wasn't introduced by this patch, but callers of `of_o=
+verlay_fdt_apply()` fail to call `of_overlay_remove()` when the application=
+ fails, leading to a memory leak.
+- [High] This problem wasn't introduced by this patch, but if `of_changeset=
+_attach_node()` fails in `add_changeset_node()`, the newly allocated device=
+ node `tchild` is permanently leaked.
+- [High] This problem wasn't introduced by this patch, but if `init_overlay=
+_changeset()` fails after successfully parsing one or more fragments, the O=
+F node references for those initialized fragments are leaked.
 --
 
---- Patch [1]: [PATCH v5 1/9] of: hold a reference on of_aliases during ali=
-as path resolution ---
-commit aa90279de0a9f76f84e2b40b29743f11984c3ffb
+--- Patch [5]: [PATCH v5 5/9] of/overlay: don't keep a negative id in ovcs-=
+>id on idr_alloc() failure ---
+commit bdff881a51ac56990164b0a5479bf6e47e64305a
 Author: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Subject: of: hold a reference on of_aliases during alias path resolution
 
-This patch modifies of_find_node_opts_by_path to hold a reference to
-of_aliases during alias path resolution. It also validates the alias value
-to prevent crashes or infinite recursion with malformed device trees.
+    of/overlay: don't keep a negative id in ovcs->id on idr_alloc() failure
 
-> Take a reference across the walk. The walk itself stays lock-free
-> like every other property iteration: removed properties keep their
-> ->next and are only freed when the node is released, so the node
-> reference is sufficient.
+This commit fixes a bug where a negative return value from idr_alloc()
+is stored in ovcs->id. On the error path, free_overlay_changeset() checks
+if ovcs->id is non-zero, leading to idr_remove() being called with a
+negative id and list_del() operating on an uninitialized list.
 
-[Severity: High]
-This isn't a bug introduced by this patch, but is the description of the
-lock-free walk accurate?
-
-Looking at __of_remove_property() and __of_update_property(), when a
-property is removed, it is moved to the node's deadprops list:
-
-drivers/of/base.c:__of_remove_property() {
-    ...
-    /* Found the property, add it to deadprops list */
-    prop->next =3D np->deadprops;
-    np->deadprops =3D prop;
-    ...
-}
-
-If a concurrent writer (e.g., overlay application) removes a property while
-for_each_property_of_node() is iterating over it, won't the reader's next
-access of pp->next follow the pointer into the deadprops list?=20
-
-This would cause the reader to traverse the dead properties and skip the
-remaining valid properties in np->properties, potentially causing spurious
-lookup failures.
-
-> diff --git a/drivers/of/base.c b/drivers/of/base.c
-> index 6e7a42dedad3f..6f79f593fc779 100644
-> --- a/drivers/of/base.c
-> +++ b/drivers/of/base.c
-
-[ ... ]
-
-> @@ -1002,16 +1004,24 @@ struct device_node *of_find_node_opts_by_path(con=
-st char *path, const char **opt
->  			p =3D separator;
->  		len =3D p - path;
-> =20
-> -		/* of_aliases must not be NULL */
-> -		if (!of_aliases)
-> +		/* the load pairs with writers that retire the node */
-> +		raw_spin_lock_irqsave(&devtree_lock, flags);
-> +		aliases =3D of_node_get(of_aliases);
-> +		raw_spin_unlock_irqrestore(&devtree_lock, flags);
-> +		if (!aliases)
->  			return NULL;
-> =20
-> -		for_each_property_of_node(of_aliases, pp) {
-> -			if (strlen(pp->name) =3D=3D len && !strncmp(pp->name, path, len)) {
-> -				np =3D of_find_node_by_path(pp->value);
-> +		for_each_property_of_node(aliases, pp) {
-> +			if (!strncmp(pp->name, path, len) && !pp->name[len]) {
-> +				if (of_alias_value_ok(pp))
-> +					value =3D pp->value;
->  				break;
->  			}
->  		}
-> +		/* the reference on @aliases keeps @value alive */
-> +		if (value)
-> +			np =3D of_find_node_by_path(value);
-> +		of_node_put(aliases);
->  		if (!np)
->  			return NULL;
->  		path =3D p;
+> diff --git a/drivers/of/overlay.c b/drivers/of/overlay.c
+> index 284c9bc6c9cfc..f1aa8574069a6 100644
+> --- a/drivers/of/overlay.c
+> +++ b/drivers/of/overlay.c
+> @@ -1038,6 +1038,8 @@ int of_overlay_fdt_apply(const void *overlay_fdt, u=
+32 overlay_fdt_size,
+>  	ovcs->id =3D idr_alloc(&ovcs_idr, ovcs, 1, 0, GFP_KERNEL);
+>  	if (ovcs->id <=3D 0) {
+>  		ret =3D ovcs->id;
+> +		/* free_overlay_changeset() treats a set id as registered */
+> +		ovcs->id =3D 0;
+>  		goto err_free_ovcs;
+>  	}
 
 [Severity: High]
-This is a pre-existing issue, but does calling __of_find_node_by_full_path()
-while holding devtree_lock further down in this function risk a
-sleep-in-atomic bug?
+This isn't a bug introduced by this patch, but callers of
+of_overlay_fdt_apply() fail to call of_overlay_remove() when the
+application fails, leading to a memory leak.
 
-Right after this block in of_find_node_opts_by_path(), devtree_lock (which =
-is
-a raw spinlock) is acquired around __of_find_node_by_full_path():
+If of_overlay_apply() fails inside of_overlay_fdt_apply(), the function
+intentionally leaves the returned changeset ID set via the pointer,
+expecting the caller to handle cleanup by calling of_overlay_remove().
+However, callers simply return the error code upon failure without
+calling of_overlay_remove().
 
-drivers/of/base.c:of_find_node_opts_by_path() {
+For example, in tilcdc_panel_legacy_probe():
+
+drivers/gpu/drm/tilcdc/tilcdc_panel_legacy.c:tilcdc_panel_legacy_probe() {
     ...
-    /* Step down the tree matching path components */
-    raw_spin_lock_irqsave(&devtree_lock, flags);
-    if (!np)
-        np =3D of_node_get(of_root);
-    np =3D __of_find_node_by_full_path(np, path);
-    raw_spin_unlock_irqrestore(&devtree_lock, flags);
-    ...
-}
-
-Inside __of_find_node_by_full_path(), it iteratively drops node references:
-
-drivers/of/base.c:__of_find_node_by_full_path() {
-    ...
-    node =3D __of_find_node_by_path(node, path);
-    of_node_put(tmp);
+	ret =3D of_overlay_fdt_apply(dtbo_start, dtbo_size, &ovcs_id, NULL);
+	if (ret)
+		return ret;
     ...
 }
 
-If a parallel thread (such as an overlay removal) detaches a dynamic node,
-its primary tree reference is dropped.
+And in lan966x_pci_probe():
 
-If of_node_put() drops the last reference to that node while held under the
-raw spinlock, won't it synchronously invoke of_node_release()?
+drivers/misc/lan966x_pci.c:lan966x_pci_probe() {
+    ...
+	ret =3D lan966x_pci_load_overlay(data);
+	if (ret)
+		return ret;
+    ...
+}
 
-For dynamic nodes, of_node_release() calls fwnode_links_purge(), which
-acquires fwnode_link_lock (a sleeping mutex), resulting in a sleep-in-atomic
-scenario.
+The helper returns the result directly to lan966x_pci_probe(), which bails
+on error without invoking the corresponding lan966x_pci_unload_overlay().
+
+Can this result in a permanent memory and ID leak of the overlay changeset,
+especially since probe functions can be repeatedly triggered via sysfs
+bind/unbind or deferred probing?
+
+
+[Severity: High]
+This isn't a bug introduced by this patch, but if of_changeset_attach_node()
+fails in add_changeset_node(), is the newly allocated device node
+permanently leaked?
+
+In add_changeset_node(), __of_node_dup() creates a new node (tchild) with a
+reference count of 1:
+
+drivers/of/overlay.c:add_changeset_node() {
+    ...
+		ret =3D of_changeset_attach_node(&ovcs->cset, tchild);
+		if (ret)
+			return ret;
+    ...
+}
+
+If of_changeset_attach_node() fails, the function returns the error
+immediately without dropping the reference to tchild via of_node_put().
+
+Could this leak the device node structure and its associated name string?
+
+
+[Severity: High]
+This isn't a bug introduced by this patch, but if init_overlay_changeset()
+fails after successfully parsing one or more fragments, are the OF node
+references for those initialized fragments leaked?
+
+In init_overlay_changeset(), the function iterates over overlay fragments
+and acquires references via of_get_child_by_name() and find_target(). If
+find_target() fails for a subsequent fragment, it jumps to err_out without
+dropping the current overlay_node reference or updating ovcs->count:
+
+drivers/of/overlay.c:init_overlay_changeset() {
+    ...
+		fragment->target =3D find_target(node, target_base);
+		if (!fragment->target) {
+			of_node_put(node);
+			ret =3D -EINVAL;
+			goto err_out;
+		}
+    ...
+}
+
+Because ovcs->count remains 0, free_overlay_changeset() skips the cleanup
+loop entirely:
+
+drivers/of/overlay.c:free_overlay_changeset() {
+    ...
+	for (i =3D 0; i < ovcs->count; i++) {
+		of_node_put(ovcs->fragments[i].target);
+		of_node_put(ovcs->fragments[i].overlay);
+	}
+    ...
+}
+
+Could this skip cleanup and leak the successfully acquired OF nodes from
+previous iterations?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722-nh-of-alia=
-s-overlay-v5-0-2abe2bb9cdbc@nexthop.ai?part=3D1
+s-overlay-v5-0-2abe2bb9cdbc@nexthop.ai?part=3D5
