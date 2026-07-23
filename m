@@ -1,44 +1,44 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B106940587A;
-	Thu, 23 Jul 2026 22:17:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A024071E2;
+	Thu, 23 Jul 2026 22:17:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784845053; cv=none; b=mgW3YwyQ71hxAdjgc1TKTi/XVfq/ko0+LL6bdaYpKL2fcv1UD9fZ3Qm6c5+pH9MPCgejnexE+SVV4x4w5PQBhJOjw4WA+lgADuPifuazrxKddm0Diqe629bhHMHRXqZRtp1I0bTNXCQUqGh/qsccrZmTJHAyE/7pjqE+68BaiVE=
+	t=1784845054; cv=none; b=L1thZLfxssfSjnhAfI8JhOa5cbxU+jQOinpeuvD34h29JuSI8y/YHxaefUSOViLM/LBqPKQslZcljL+cVVfhy9lPwFI+S5rfawA0c2pFcx6b8Na7voTyYjzMViXRfwiiHTnJUyvj/MR+qNZPH385VrmEE0O1eJmmWwQVP9UuCCk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784845053; c=relaxed/simple;
-	bh=k0eRRol0juQKDRwk26Fz36sBhpAIKfOBZOjBCwiTCgw=;
+	s=arc-20240116; t=1784845054; c=relaxed/simple;
+	bh=yiVcOQ4cf/0UvZlieIJedpMgqZji9/jQ/GmCQgXnTqI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=F/U6oZp3JKWRaGbztQANVpT21izKzktCQiVPUWkruJh3gkIqBJ2bplHEfDO19DvZRN2HOpIHrTsk/aDav5c3oYOjRIxMWXVt/Cxx+tQIVbW8P7ahcpl5UVo1o4l8elU2CWLdrZDqK4KIyq47ppEECOfpbsUrDdN7HhjZd4C0eb8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=NB1+Vu1f; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=WAJ2zDIb1LgTrRaQofGvhQiSyqefZ1wcrIK5ea0weW1Rmg51jsAjdIsQjtDy6COd2JPRqUEsoahWE8p4zJM9cxkCmcxu/CYA70sLQAzfsPiRmf3/mxCZmtVLwIKiyYp9nkSq3hW7RGe4TjOpz1oPpocp9BpHMUM0qbNZgW0yhXs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Z85Mkh3D; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="NB1+Vu1f"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Z85Mkh3D"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1784845043;
-	bh=k0eRRol0juQKDRwk26Fz36sBhpAIKfOBZOjBCwiTCgw=;
+	bh=yiVcOQ4cf/0UvZlieIJedpMgqZji9/jQ/GmCQgXnTqI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=NB1+Vu1fCV1nTwlfRNX8qIOTQOeHT0VDJjO29BiOv5/vnbUH4W9CcWE8u0QCO+uRe
-	 414bGO78KmWtQrpd6debnqr4phILoNI3K/4igfqD43wC2Nds3qeMtHg4Bm1K9rU48V
-	 i6GEQElMGrMVhGiP7EoIC9cSGeFkQUNPoDWlRwBhbnVclhdg9Z6WNmjloZZBeOnhv+
-	 bQXqA2X9zz5a/Xw3yDQ6O9S4+OvHnEm+KKRIeAZykv00vAthEHMF3DjLuvw7+ybp+I
-	 Avg+Gveuxsd1XnVuTxD2r6DLKm01n75bMzggSBYZTUGWzmRgJQrWF/B6QXMenm8Hae
-	 wv8hZ+5gEbhTg==
+	b=Z85Mkh3DNHW7qzU/LG6t8wfGogFx5Zb89EabGl4dpXzH/RKTVZ/bc11+Sk7lkqVQ8
+	 yzVnpQnBTfu0m3MMwdgrTXCTLsb7evM8/bCIjytav23AzjBdXA4KC/qsr2aQ0pFjj4
+	 BObSGvyJ4zNyvsvlTrHIr6cYH08mbGeycU1c7LHgaiH0OiDz9dJHec4FErtXhSHa/2
+	 hTot6SEJvhvXdvoq3kwjqZiqdDakQrSCjb6AaJj2r4op59VunRtQHHuZZPEzW7WuBB
+	 2ktSgZ1DLjsQcnenOFhf2abMN/hLQ0u03aXhIDeyyR3kdWXJhE5VkSAMYiVNRJQ9SP
+	 sj0l0GmoDOoUg==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id D2AD917E3BAF;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id C6C9C17E3BAA;
 	Fri, 24 Jul 2026 00:17:22 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 20F9F480052; Fri, 24 Jul 2026 00:17:22 +0200 (CEST)
+	id 1DC1548004C; Fri, 24 Jul 2026 00:17:22 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Fri, 24 Jul 2026 00:17:22 +0200
-Subject: [PATCH v5 14/15] dt-bindings: display: rockchip: dw-dp: Fix sound
- DAI cells
+Date: Fri, 24 Jul 2026 00:17:20 +0200
+Subject: [PATCH v5 12/15] drm/bridge: synopsys: dw-dp: Protect sdp_reg_bank
+ from concurrent access
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,7 +47,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260724-synopsys-dw-dp-improvements-v5-14-9445c2e87441@collabora.com>
+Message-Id: <20260724-synopsys-dw-dp-improvements-v5-12-9445c2e87441@collabora.com>
 References: <20260724-synopsys-dw-dp-improvements-v5-0-9445c2e87441@collabora.com>
 In-Reply-To: <20260724-synopsys-dw-dp-improvements-v5-0-9445c2e87441@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -72,103 +72,98 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-arm-kernel@lists.infradead.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3080;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2444;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=k0eRRol0juQKDRwk26Fz36sBhpAIKfOBZOjBCwiTCgw=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpikvGv9aRl1I9rdbdJ6KY1XhUsBepalYuih
- ZEu76KK2kiAaYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqYpLxAAoJENju1/PI
- O/qaRUgQAKkImUwS1rKg0zuMtEhVWrCaFS3D5vDthyqS7K+2R1JO/YNMsOFmSckaE2J1kcPhZt7
- AifYn6vnevhgWbH+rGjA/RheouA/KtUDjgpLrYD15Pxt58NTZUB6AMHUor2kuIKNVP03PLE0gul
- EVmrOFYUMwIccgtsfWn+9JwXXJWYTatbeRrL4VszH5iE4LDUnd/R6SAJ0sq9Gj9OdR5BInO8G6V
- tr/mB7HrqmkgZ6hPBTsnB/jv0ODAk+fbr4XPXvk8+JBnrlC9xudDSqhvizZSt9MTaH9CIktX7TK
- bHSRw7SyRgxjq27rtuVVQvC6V1zLquKTvzu7ACPn+PtiDFRpcUQ9mSz6tDkHIayTRRL849eplhE
- lmv3FXv6Ycun3P7IvxN99pObMxVBMTVkfmFvY4tGNIhxs121VLnt/XpOG0YXM9JKuhUxg6v63Ct
- /hjPG9RPmR7NGxczUFwfCfCB7PlpNqEGRUbCJ/6f15HKgeIf4icimMvzpyya+m3XFW+UGlcshZg
- X/wwQJC2JrMMYN2oXexH9GCBrLJ5MMQTLWhDxln21sUV/B+5dfUgNcMVDDVjVL6yUWpqwaWOXmu
- 6ecd2oKlbOHfyaVBujoM1A6PN66D1wc2LOR1ED3AtYgOCkaA+AisE9tvt+C/RJibbnBLFwu+LDX
- VqChl59YcHs6czxMnJ6o3lQ==
+ bh=yiVcOQ4cf/0UvZlieIJedpMgqZji9/jQ/GmCQgXnTqI=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpikvHEw4LvDdG8llV+u2zZRHNqbeIAiaSlG
+ 72XvR6XhYdaIYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqYpLxAAoJENju1/PI
+ O/qafXMP/jFMp4SCX2G92JHFicza/4wAJs3ZJ7EjVOVrMINYPnw4RPXnUXgs72lT5CoC/SOlRYe
+ 6pnYqUqhUk6tFYZ0XF3o+hg1D+TVSibh6RlRoCVNMNkEdnn15YLGEuVLIyEdtV0wN2jxcmsG4CJ
+ DylLIw5NXZt4P+Aa+2xXRMXExGawmW3+NGZtuRRSPg0/CtVXwDQ+hyVJJanuvLfehd6M2ovajx4
+ u6x3D+DrfFyA49To61kU7oUf6cE8QInoLf4DKxCQ0L+j9tyvt+0Qk9S1MXGfgA8aFEjydukvZdu
+ Zeuc+QPR/p55Dm7IvIRw6kLtHICpUntdVlG1wynE/GxHA4/Dmv6k3saAAPe+s/wCR2mOhoHRbTi
+ XUJMhY0YORAIZf25w9ubQN0GkphrpfBx4ezqkArm1sF9nkfSvt2Gvpf4e7d6zoFTwyRpmmdTDah
+ xCrEzXxUp1xovrdDibt+fZJ8OP9u25bwDsxF7UY5SDPS2GoTTJrerr4u81i0cwsPWc2CXKMErUt
+ johLykS/swqPvWlaJ2J4VIle0PYL2TVufzYZs7IJqLw78wFnard7Q+bik5B07KDAAC566uInHne
+ tlWoLQd+AJJw61vxSag9WRlOK/ildlMfx7l7woWXjKPXWMnnnGM8PEzaVMZPKmZTY+Iwk5oFXf9
+ 0qtrAtKPnc/wgBsEQLqU88g==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-The RK3588 and RK3576 DesignWare DisplayPort controllers both have two
-possible DAI interfaces: I2S and S/PDIF. Thus an argument is needed to
-to select the right interface.
+Right now sdp_reg_bank is only used during atomic enable/disable and
+thus there is no risk of two threads accidently claiming the same bit.
 
-In addition to that the RK3576 DisplayPort controller is configured
-with Multi Stream Transport (MST) enabled for up to 3 displays and
-thus has a total of 6 DAI interfaces (I2S and S/PDIF for each possible
-stream). Meanwhile the RK3588 does not support MST and thus has only 2
-DAI interfaces.
-
-The binding update from this patch has only been tested with the simple
-single stream transport (SST) setup as the Linux driver does not yet
-support MST. Once MST support is added, the plan is to simply add more
-numbers to the argument, so that it looks like this for RK3576:
-
-0 = I2S on stream 0,
-1 = S/PDIF on stream 0
-2 = I2S on stream 1,
-3 = S/PDIF on stream 1
-4 = I2S on stream 2,
-5 = S/PDIF on stream 2
-
-As the arguments are not part of the binding itself the audio side
-is also ready for MST after this change.
-
-Switching '#sound-dai-cells' from 0 to 1 without keeping compatibility
-is an ABI break. The rationale for going that way is, that there is not
-a single known driver implementation for the current binding. It's also
-unclear how the current binding would be used (only support I2S or
-S/PDIF for stream 0?). The mainline rk3588 DTS include sets it to 0, but
-does not have any soundcard using the DAI. This will be fixed up
-separately. The RK3576 does not set it at all.
+This changes once more SDP users (like audio support) are added, so
+introduce a mutex to protect concurrent access to the bitmap.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- .../devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml     | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 24 +++++++++++++++++-------
+ 1 file changed, 17 insertions(+), 7 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
-index 2b0d9e23e943..c4f8959dd65d 100644
---- a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
-+++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
-@@ -25,7 +25,7 @@ description: |
-   * Supports up to 8/10 bits per color component
-   * Supports RBG, YCbCr4:4:4, YCbCr4:2:2, YCbCr4:2:0
-   * Pixel clock up to 594MHz
--  * I2S, SPDIF audio interface
-+  * I2S, S/PDIF audio interface
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+index bcf7ad84f217..435f23fe391e 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+@@ -322,6 +322,8 @@ struct dw_dp {
+ 	struct dw_dp_hotplug hotplug;
+ 	/* Serialize hpd status access */
+ 	struct mutex irq_lock;
++	/* Serialize sdp_reg_bank access */
++	struct mutex sdp_lock;
  
- properties:
-   compatible:
-@@ -46,7 +46,7 @@ properties:
-       - description: DisplayPort AUX clock
-       - description: HDCP clock
-       - description: I2S interface clock
--      - description: SPDIF interfce clock
-+      - description: S/PDIF interfce clock
+ 	struct drm_dp_aux aux;
  
-   clock-names:
-     minItems: 3
-@@ -83,7 +83,8 @@ properties:
-     maxItems: 1
+@@ -1045,11 +1047,13 @@ static int dw_dp_send_sdp(struct dw_dp *dp, struct dw_dp_sdp *sdp)
+ 	u32 reg;
+ 	int i, nr;
  
-   "#sound-dai-cells":
--    const: 0
-+    const: 1
-+    description: 0 for I2S, 1 for S/PDIF
+-	nr = find_first_zero_bit(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
+-	if (nr < SDP_REG_BANK_SIZE)
+-		set_bit(nr, dp->sdp_reg_bank);
+-	else
+-		return -EBUSY;
++	scoped_guard(mutex, &dp->sdp_lock) {
++		nr = find_first_zero_bit(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
++		if (nr < SDP_REG_BANK_SIZE)
++			set_bit(nr, dp->sdp_reg_bank);
++		else
++			return -EBUSY;
++	}
  
- required:
-   - compatible
-@@ -144,7 +145,7 @@ examples:
-         resets = <&cru SRST_DP0>;
-         phys = <&usbdp_phy0 PHY_TYPE_DP>;
-         power-domains = <&power RK3588_PD_VO0>;
--        #sound-dai-cells = <0>;
-+        #sound-dai-cells = <1>;
+ 	reg = DW_DP_SDP_REGISTER_BANK + nr * 9 * 4;
  
-         ports {
-           #address-cells = <1>;
+@@ -1740,7 +1744,8 @@ static void dw_dp_bridge_atomic_enable(struct drm_bridge *bridge,
+ 		return;
+ 	}
+ 
+-	set_bit(0, dp->sdp_reg_bank);
++	scoped_guard(mutex, &dp->sdp_lock)
++		set_bit(0, dp->sdp_reg_bank);
+ 
+ 	ret = dw_dp_link_enable(dp);
+ 	if (ret < 0) {
+@@ -1780,7 +1785,8 @@ static void dw_dp_bridge_atomic_disable(struct drm_bridge *bridge,
+ 
+ 	dw_dp_video_disable(dp);
+ 	dw_dp_link_disable(dp);
+-	bitmap_zero(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
++	scoped_guard(mutex, &dp->sdp_lock)
++		bitmap_zero(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
+ 	dw_dp_reset(dp);
+ 	pm_runtime_put_autosuspend(dp->dev);
+ }
+@@ -2173,6 +2179,10 @@ struct dw_dp *dw_dp_probe(struct platform_device *pdev, const struct dw_dp_plat_
+ 	if (ret)
+ 		return ERR_PTR(ret);
+ 
++	ret = devm_mutex_init(dev, &dp->sdp_lock);
++	if (ret)
++		return ERR_PTR(ret);
++
+ 	res = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(res))
+ 		return ERR_CAST(res);
 
 -- 
 2.53.0
