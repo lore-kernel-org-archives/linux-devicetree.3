@@ -1,231 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E75063EF64F;
-	Thu, 23 Jul 2026 21:06:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784840794; cv=none; b=t7+HWpIPJ4gB9JaV0ioLZWmxZCD/pbYm67GFhdGcEZQ6uvq1rZtRpFxwcQ6enrQytwVQhwpsSUKpbK98i4lbAt+bBlPaPkKwZSuQCEjT3gr268Z+EYo7/3JQOyLdQ5zO3/2X3R4UfwQ4ZgP8asAKbESoNSIXWPTXXvf3f7B4M/I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784840794; c=relaxed/simple;
-	bh=D3a6h5x9ABX0vdZ7WgN8inTOwcRFkneG1NtDKoel3i4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ULVCEZacy+lDiTGJgmUO/PhwHHgCc/eMihD3opnBY93q6Rw995DsXqN32VoG2njbx4nxxUbXmlWF+TCERUzhgU4AX5vxL+yW5MB58zWmZbhZoVdpi8uSDpNTMUjpqfXJtMW/QpQnYOBObPmgm3txUyT/gSDHue5wbnvlzGYIZsY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oVwbiyCQ; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 785433E00A3;
+	Thu, 23 Jul 2026 21:07:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784840868; cv=pass; b=cMWJnMBuyvVI9kJ0GWu+f27GIZRhuEQk9uFV7iGmlYB4yJevEiwe6eQbjxMIfMWH+22p9ZMG/aNLjVzmPwbBdTc+MnpLL0JOkXBxRUherd6MMmWOfVY4gsqdihgvl4SedZWWRGHNVv7C5HQ4uqxVy7mCDlIiORg1Qu02omyCc6w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784840868; c=relaxed/simple;
+	bh=onML3DLVMKuPRl+V+Az/a14wN5ZS4jTlJNcdrRmQV9w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PGYH6+TPgaZ7hVKyVSljU2ZC29lPE1lRgR07sRlNHKoIjpKOdtqmtPRpif9BS8OxyrPO4Tuqz95ble5IwTjM7aRQ7izDnHQmjUw+1b1ghBorHgawEUdMlP+Ht15a0ANs3NobxZPmJYlVHqrb0829ykS/Ac7cRVIHnQkjVPd6kFQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=amPpSWRD; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oVwbiyCQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF85B1F000E9;
-	Thu, 23 Jul 2026 21:06:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784840790;
-	bh=8rwOS4tmnI2KRxC6h9KPRpRYTvCeN1O8lMnmuv/V/0w=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oVwbiyCQIrmWxsJSwMVnQ8QhXPd+Zp1/eoOotkaRmrcIbct9HSETbzGa/Y+zJ6V6q
-	 ChNaRV4CdUGbeM4s/lUHxgG+IMMSwTF7PVVZH2gs2bNCMsiGFAF0TjLCcaeoU7UHfB
-	 4oAYHPD4iaRD5eKaBiknrP2pi10/nfCyCoyFns0cZ+Tr728ihuc1airO9x/WStKms3
-	 geR0A3n0dIzzhsr18/OnA2NWSzMbEjFFQwgTwRWOTvQUeyXBGBguNRwYAmH3c/L7Vd
-	 EhZ/9xvQ893HV1uaaIFkcLp2x2DD9XO44vWVMqpPYRT3fZ42hlZE0mM9sUl3yBJjsI
-	 uZEf2cIt+FrZg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/3] hwmon: pmbus: add MPQ8646 driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vincent Jardin" <vjardin@free.fr>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, linux-hwmon@vger.kernel.org
-In-Reply-To: <20260723-mpq8646_v0-v3-3-1af1f3d38848@free.fr>
-References: <20260723-mpq8646_v0-v3-0-1af1f3d38848@free.fr>
- <20260723-mpq8646_v0-v3-3-1af1f3d38848@free.fr>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 21:06:29 +0000
-Message-Id: <20260723210629.DF85B1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="amPpSWRD"
+ARC-Seal: i=1; a=rsa-sha256; t=1784840846; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=UbSRRyiq4UBWkWjCiZwEN5+D5j44j59m4V+dy12Vq9SuquHzklkgkkxFvxLZBXsdaCDQpnDXK1fEYeodd091n2o8AwdnjNt3NrTpe+JqWPN9YUvoMx/Uy85zfX0ptIVfFUZmssPlP240CtutyjL1kxzynL/cWVuq/qqpmTgREgI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1784840846; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Ylh7Y4NM96Y1K3UYEmAplxHb/OJOQpXgOdrp8UvyGms=; 
+	b=T7FkKlw3eCyXnnBBwJ510N7uYE9YT6eJzc0E70BMSZXgM+avST8NeXC18IgLhQb/rnjTqjFh8EloKV9x+S+rdiTcvaXkpmPSM5hRt37TQd7zp0jdqU+utA62MP9onAHbhDSpBCbQANuGdfmfps6i1HnIo5NIus7aFtztKE/SCXg=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784840846;
+	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=Ylh7Y4NM96Y1K3UYEmAplxHb/OJOQpXgOdrp8UvyGms=;
+	b=amPpSWRDaVPD67O0JPV3NK3XDV1KW3LPZtW2RUJOwZgfoaXxsopf0pftnEIckLTa
+	muUl8zZqtJK2bS2vCy1sYdDkxx44QS2HCSrhSJbX6NWnLgolqxe0bzkUe4kqk3O8/kw
+	p2fmwLgqyI55EuxiMlruQDA2O7nd9B/GtShEqMug=
+Received: by mx.zohomail.com with SMTPS id 178484084539279.68028284519187;
+	Thu, 23 Jul 2026 14:07:25 -0700 (PDT)
+Message-ID: <6ec14924-7e29-43cb-963d-cf9703f03ebe@collabora.com>
+Date: Fri, 24 Jul 2026 00:07:21 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/4] dt-bindings: media: snps,dw-hdmi-rx: add
+ #sound-dai-cells
+To: Igor Paunovic <royalnet026@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260721064115.64809-1-royalnet026@gmail.com>
+ <20260721064115.64809-2-royalnet026@gmail.com>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <20260721064115.64809-2-royalnet026@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] Premature debugfs registration exposes userspace interfaces before=
- device probe completes, allowing NULL pointer dereferences and Use-After-F=
-ree on probe error.
-- [High] Incorrect teardown order in `mpq8646_remove()` allows a concurrent=
- debugfs write to re-queue a delayed work on freed memory.
-- [High] Stack-allocated buffers are passed to `i2c_transfer()`, which viol=
-ates the DMA API rules and can cause kernel panics.
-- [Medium] Concurrent I2C probes will cause debugfs registration to fail fo=
-r some device instances.
-- [Low] The debugfs diagnostic fields last_probe_rc and last_probe_data are=
- updated outside of mps_lock, leading to torn reads.
---
-
---- Patch [3]: [PATCH v3 3/3] hwmon: pmbus: add MPQ8646 driver ---
-commit 543735e252009063d43f85076b5597345b0c78ea
-Author: Vincent Jardin <vjardin@free.fr>
-
-hwmon: pmbus: add MPQ8646 driver
-
-Add a new single-chip driver for the MPS MPQ8646 that is a PMBus device.
-Beyond basic PMBus telemetry, the driver adds several features like
-alarm acknowledge and in-driver alarm-poll fallback.
-
-> diff --git a/drivers/hwmon/pmbus/mpq8646.c b/drivers/hwmon/pmbus/mpq8646.c
-> index 0000000000000..830f5724b6ee5
-> --- /dev/null
-> +++ b/drivers/hwmon/pmbus/mpq8646.c
-[ ... ]
-> +static int mpq8646_raw_xfer_rword(struct i2c_client *client, u8 reg)
-> +{
-> +	u8 cmd =3D reg;
-> +	__le16 data =3D 0;
-> +	struct i2c_msg msg[] =3D {
-> +		{
-> +			.addr =3D client->addr,
-> +			.flags =3D 0,
-> +			.len =3D sizeof(cmd),
-> +			.buf =3D &cmd,
-> +		},
-> +		{
-> +			.addr =3D client->addr,
-> +			.flags =3D I2C_M_RD,
-> +			.len =3D sizeof(data),
-> +			.buf =3D (u8 *)&data,
-> +		},
-> +	};
-> +	int rc;
+On 7/21/26 09:41, Igor Paunovic wrote:
+> The HDMI RX controller can expose the audio embedded in the incoming
+> HDMI stream as an ALSA capture device. Document the #sound-dai-cells
+> property so that a sound card can reference the HDMI RX audio DAI.
+> 
+> Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
+> ---
+> Changes in v4 (both suggested by Krzysztof Kozlowski):
+> - reference dai-common.yaml and switch additionalProperties to
+>   unevaluatedProperties: false
+> - drop the consumer comment from the binding example
+> 
+> Changes in v3:
+> - no changes
+> 
+> Changes in v2 (all suggested by Sebastian Reichel):
+> - reworded the commit message to describe the hardware
+> - property description now documents the DAI indexes (0 = I2S,
+>   1 = S/PDIF)
+> - moved the consumer reference into the binding example
+>  .../devicetree/bindings/media/snps,dw-hdmi-rx.yaml  | 13 ++++++++++++-
+>  1 file changed, 12 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml b/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml
+> index b7f6c87..b80660d 100644
+> --- a/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml
+> +++ b/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml
+> @@ -78,6 +78,13 @@ properties:
+>        The phandle of the syscon node for the Video Output GRF register
+>        to enable EDID transfer through SDAIN and SCLIN.
+>  
+> +  "#sound-dai-cells":
+> +    const: 1
+> +    description:
+> +      The HDMI RX controller has two digital audio interfaces, one for
+> +      I2S and one for S/PDIF. The DAI cell selects the interface, 0 for
+> +      I2S and 1 for S/PDIF.
 > +
-> +	rc =3D i2c_transfer(client->adapter, msg, ARRAY_SIZE(msg));
-
-[Severity: High]
-Can this cause a kernel panic if the I2C host controller uses DMA? The cmd
-and data buffers are allocated on the stack and passed directly to
-i2c_transfer(). On platforms with CONFIG_VMAP_STACK, this can lead to memory
-corruption or a crash since stack memory is virtually mapped. Could these
-buffers be allocated dynamically or embedded in a DMA-safe structure instea=
-d?
-
-[ ... ]
-> +static int mpq8646_dbg_clear_protection_last(void *data, u64 val)
-> +{
-> +	struct mpq8646_priv *priv =3D data;
-> +	int rc;
+>  required:
+>    - compatible
+>    - reg
+> @@ -90,7 +97,10 @@ required:
+>    - pinctrl-0
+>    - hpd-gpios
+>  
+> -additionalProperties: false
+> +allOf:
+> +  - $ref: /schemas/sound/dai-common.yaml#
 > +
-> +	if (!val)
-> +		return 0;
-> +
-> +	mutex_lock(&priv->mps_lock);
-> +	rc =3D i2c_smbus_write_byte(priv->client, MPS_CLEAR_LAST_FAULT);
-> +	mutex_unlock(&priv->mps_lock);
-> +
-> +	priv->last_probe_rc =3D rc;
-> +	priv->last_probe_data =3D 0;
+> +unevaluatedProperties: false
+>  
+>  examples:
+>    - |
+> @@ -129,4 +139,5 @@ examples:
+>        pinctrl-0 = <&hdmim1_rx_cec &hdmim1_rx_hpdin &hdmim1_rx_scl &hdmim1_rx_sda &hdmirx_5v_detection>;
+>        pinctrl-names = "default";
+>        hpd-gpios = <&gpio1 22 GPIO_ACTIVE_LOW>;
+> +      #sound-dai-cells = <1>;
+>      };
 
-[Severity: Low]
-Are these fields intentionally updated outside of mps_lock? Since a concurr=
-ent
-reader in mpq8646_dbg_last_probe_show() takes the lock, it might observe a
-torn state between last_probe_rc and last_probe_data.
+Reviewed-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 
-[ ... ]
-> +static int mpq8646_dbg_clear_protection_last_force(void *data, u64 val)
-> +{
-> +	struct mpq8646_priv *priv =3D data;
-> +	int rc, last_rc;
-> +	int wp_orig, cfg_orig;
-> +
-> +	if (!val)
-> +		return 0;
-> +
-> +	pmbus_lock(priv->client);
-> +	mutex_lock(&priv->mps_lock);
-
-[Severity: High]
-Could this cause a NULL pointer dereference if it's called before probe
-finishes? The debugfs files are registered before pmbus_do_probe() complete=
-s,
-so pmbus_lock() might try to access an uninitialized clientdata pointer.
-
-[ ... ]
-> +static int mpq8646_dbg_store_all(void *data, u64 val)
-> +{
-> +	struct mpq8646_priv *priv =3D data;
-> +	int rc;
-> +
-> +	if (!val)
-> +		return 0;
-> +
-> +	mutex_lock(&priv->mps_lock);
-> +	rc =3D i2c_smbus_write_byte(priv->client, PMBUS_STORE_USER_ALL);
-> +	mutex_unlock(&priv->mps_lock);
-> +
-> +	priv->last_probe_rc =3D rc;
-> +	priv->last_probe_data =3D 0;
-
-[Severity: Low]
-Similarly to mpq8646_dbg_clear_protection_last(), these fields are updated
-outside the locked region. Might this lead to inconsistent diagnostic data
-being read?
-
-[ ... ]
-> +static void mpq8646_debugfs_register(struct mpq8646_priv *priv)
-> +{
-> +	struct dentry *root, *parent;
-> +	char name[MPQ8646_DEBUGFS_DIRNAME_MAX];
-> +	bool parent_ref =3D false;
-> +	size_t i;
-> +
-> +	parent =3D debugfs_lookup(MPQ8646_DEBUGFS_ROOT_NAME, NULL);
-> +	if (!parent)
-> +		parent =3D debugfs_create_dir(MPQ8646_DEBUGFS_ROOT_NAME, NULL);
-> +	else
-> +		parent_ref =3D true;
-> +	if (IS_ERR_OR_NULL(parent))
-> +		return;
-
-[Severity: Medium]
-Will concurrent probes of multiple devices cause debugfs registration to fa=
-il?
-Since the creation of the shared root directory is not serialized, a second
-thread might see NULL from debugfs_lookup(), attempt debugfs_create_dir(),
-and receive -EEXIST. That would cause IS_ERR_OR_NULL(parent) to evaluate to
-true, aborting debugfs initialization for the second device.
-
-[ ... ]
-> +static int mpq8646_probe(struct i2c_client *client)
-> +{
-[ ... ]
-> +	mpq8646_debugfs_register(priv);
-> +
-> +	ret =3D pmbus_do_probe(client, info);
-> +	if (ret) {
-> +		mpq8646_debugfs_unregister(priv);
-> +		return ret;
-> +	}
-
-[Severity: High]
-Does registering debugfs before pmbus_do_probe() expose the driver interfac=
-es
-too early? Besides the pmbus_lock() issue mentioned earlier, a userspace
-write to alarm_poll_interval_ms could queue priv->alarm_poll_work. If
-pmbus_do_probe() then fails, the work isn't cancelled before priv is freed,
-which could lead to a use-after-free when the timer fires.
-
-[ ... ]
-> +static void mpq8646_remove(struct i2c_client *client)
-> +{
-> +	struct mpq8646_priv *priv =3D mpq8646_priv_from_client(client);
-> +
-> +	cancel_delayed_work_sync(&priv->alarm_poll_work);
-> +	mpq8646_debugfs_unregister(priv);
-> +}
-
-[Severity: High]
-Is it safe to cancel the delayed work before unregistering debugfs? A
-concurrent userspace write to the alarm_poll_interval_ms debugfs file
-could re-queue the work right after cancel_delayed_work_sync() returns.
-Then mpq8646_remove() completes, freeing priv, which leads to a
-use-after-free when the re-armed timer executes.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723-mpq8646_v0=
--v3-0-1af1f3d38848@free.fr?part=3D3
+-- 
+Best regards,
+Dmitry
