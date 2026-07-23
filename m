@@ -1,147 +1,101 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68BE144AB69
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 12:48:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9FFA46D0A7
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 12:49:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784810914; cv=none; b=fBDOVLs9gRhTBMSfpaH+srI/nhcyGQaWFdfMEEBGL6DL/yNbpeozDvd2trspr0o/kr4ahsKsujqhSXpFAwgEwdWZdhWUwygM+owpdK07AoaC02KhgR4WOHlB9gmwp/b/LfYK7XX8cUYpsrZ46YY7KqbChiG322z8kEnkAeP7vOs=
+	t=1784810987; cv=none; b=uwbjicHMPuzNX985pXlGlom75fHAXpF1b+Vu/EPk2p/wwywDyPm2RmclafkD5Ma2vqvtiKIr6WZpAMKmWlK+LKLbdrQPK1Lqt0pYpT0GnM9N99b9qdPBhXo+a29stVG2FOPdTw1a6GRjX5TmmoE6406PwSQgfyDTDpT1etaE2RI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784810914; c=relaxed/simple;
-	bh=B58w8MyAdrLl5CsvlDNY9PlN1ldaLhgvjkX5doqTGEk=;
+	s=arc-20240116; t=1784810987; c=relaxed/simple;
+	bh=6VK3x4hFmMoTUWy09q47nqRJgYiBvndTtyd84/k3ov4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=a8fSeip1CJeKBZvlzhkkib+ot5W1xutXMPrDxQ/jN/kvjMKv81T+wenbWf23osm2nN2ROMEYJ3kCJ5TFEZ6C2q9h6v4vMzOAKkVnTC8DPCIxdPXQQkyqNDgUhunXROyQOykRJzA+r+4jDRlW7YTup9gvoYivigmk0exYTk04DXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d1sR+jG8; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=SmUI6HOHmIqmJt2B1+kfMzssRe7oiDPxifTxxCFv2qVhdrqvdsk0kfRi55Pny8XLO2Dt/F/2c31eP9WYZj7fFswFzLVzpXH9zUT5WXXYQApNO/ak6mRb80Fn0/VRgT8g39Zdo9u6QpaerfDTZaRXfkWeuReYfJJdco5qMv6ONrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bvRUy3ql; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d1sR+jG8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EC301F00A3A;
-	Thu, 23 Jul 2026 12:48:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bvRUy3ql"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F25CB1F000E9;
+	Thu, 23 Jul 2026 12:49:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784810913;
-	bh=J+cgtSouLIajQZ6WwqdQLntG6d8iQqJ3EgeroEooGjQ=;
+	s=k20260515; t=1784810986;
+	bh=l6ZkVJ5Ht3hhnXR29U55c6Y8/mPj+RuY6hFsjEu9sbU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=d1sR+jG8jD0iOOz/n85OWDKD5Jpc4ktubYpxfLFjoygDikEjUeJanGI06nnN4RQLE
-	 4c/I3RDTlLMNw5+iVie6N4dE+1mZVZFiSOrkPnKoByziywOAqAnArYAgg23x38BdVK
-	 H39r4eOsumnPuuLfsBhdO1BIYaJEGKQOpB9Xrwwf8yOpBtggOhQQ3JWQnmtoVXoTpl
-	 Rb+4c/gRxTRonMhIhgPXlcRCZPx4CF/kY2QdprBxnumNOURGq5+ACHkD8bzyIPF/iN
-	 vjApZ1MZey3kJAh01ZeU62mr32AX41Mm2XsJupSzjqRG0ZQI/syMjLx7NkDBGsUIjW
-	 km265+9CHSwVg==
+	b=bvRUy3qlL/UYRe4V1XLGAgdNm2Wq6sAhne8umP5q+8HwF3qyZFiRYljEwhsZ38RWy
+	 xvz1X462SAmJ4LzuOdCllGeETfrgtqIAFl77Bpa/YGjmPPFtFn18B2gG5wtoz6BEF/
+	 gCN3A4k2RDF3/s2S+VDsllQSW5pOO2oiBWJlCsh/El5Ch6OFmeqZsajFY3dkgntZNE
+	 8ta6wmsRQ3Jp9FFmxMZv3OJnJ3nY3nfsKE4AIy5h7GcMcgGsK6ScrKs0eUvIcc62An
+	 5kzTrnBTVobf78lN6doEKnu2YNzpa+l5nr8oTtzvec38VHcBwOjvN/xPXvc+jTXghD
+	 KHOZs9wwG9yrA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] Bluetooth: qca: add QCC2072 support
+Subject: Re: [PATCH 3/3] arm64: dts: qcom: rb3gen2: add Industrial BT UART
+ overlay
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Rahul Samana" <rahul.samana@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260723-rb3-industrial-bt-uart-v1-1-3c8e580c09d1@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260723-rb3-industrial-bt-uart-v1-3-3c8e580c09d1@oss.qualcomm.com>
 References: <20260723-rb3-industrial-bt-uart-v1-0-3c8e580c09d1@oss.qualcomm.com>
- <20260723-rb3-industrial-bt-uart-v1-1-3c8e580c09d1@oss.qualcomm.com>
+ <20260723-rb3-industrial-bt-uart-v1-3-3c8e580c09d1@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 12:48:28 +0000
-Message-Id: <20260723124832.9EC301F00A3A@smtp.kernel.org>
+Date: Thu, 23 Jul 2026 12:49:43 +0000
+Message-Id: <20260723124945.F25CB1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-New issues:
-- [High] Uninitialized `config.calib_name` when using the `firmware-name` d=
-evice tree property causes failure to load calibration data.
-
-Pre-existing issues:
-- [High] Unbounded polling loop on the TX queue can lead to a permanent tas=
-k hang.
+- [Medium] Device Tree Overlay attempts to use `/delete-property/` which is=
+ not supported, resulting in schema validation errors.
 --
 
---- Patch [1]: [PATCH 1/3] Bluetooth: qca: add QCC2072 support ---
-commit a8d57bcf86987ec0c8079a742e8a1f1f50322cdc
+--- Patch [3]: [PATCH 3/3] arm64: dts: qcom: rb3gen2: add Industrial BT UAR=
+T overlay ---
+commit 28aeca4684147ad8ef66aae33d88bd048694447b
 Author: Rahul Samana <rahul.samana@oss.qualcomm.com>
 
-    Bluetooth: qca: add QCC2072 support
-   =20
-    Add QCC2072 as a supported Qualcomm Bluetooth controller.
+arm64: dts: qcom: rb3gen2: add Industrial BT UART overlay
 
-> diff --git a/drivers/bluetooth/btqca.c b/drivers/bluetooth/btqca.c
-> index 10c496eaea2c1..69427cc7eb5a9 100644
-> --- a/drivers/bluetooth/btqca.c
-> +++ b/drivers/bluetooth/btqca.c
+Add an overlay for the RB3 Gen 2 Industrial mezzanine variant that routes
+QCC2072 Bluetooth over UART4 and models the M.2 E-key connector graph
+endpoints for PCIe and UART. The overlay also disables the on-board WCN6750
+PMU and UART7 path so the M.2 QCC2072 Bluetooth controller can be used inst=
+ead.
+
+> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanin=
+e-bt-uart.dtso b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzan=
+ine-bt-uart.dtso
+> new file mode 100644
+> index 0000000000000..06560df0a7192
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine-bt-ua=
+rt.dtso
+[ ... ]
+> +&uart4 {
+> +	status =3D "okay";
+> +	/delete-property/ interrupts;
+> +	interrupts-extended =3D <&intc GIC_SPI 605 IRQ_TYPE_LEVEL_HIGH>,
+> +			      <&tlmm 19 IRQ_TYPE_EDGE_FALLING>;
+
+[Severity: Medium]
+Does this /delete-property/ directive get ignored by the device tree compil=
+er
+since it is inside an overlay file?
+
+Because the FDT overlay format lacks a standard mechanism for property
+deletions, dtc silently drops this directive when compiling the overlay.
+
+As a result, both the original interrupts property and the new
+interrupts-extended property will coexist in the uart4 node when the
+overlay is applied.=20
+
+Does this violate the device tree schema by having both interrupt properties
+and cause validation errors during dtbs_check?
 
 [ ... ]
-
-> @@ -614,6 +662,11 @@ static int qca_download_firmware(struct hci_dev *hde=
-v,
->  	memcpy(data, fw->data, size);
->  	release_firmware(fw);
-> =20
-> +	if (soc_type =3D=3D QCA_QCC2072 && config->type =3D=3D TLV_TYPE_NVM)
-> +		qca_combine_nvm_calib(hdev, &data, &size,
-> +				      config->calib_name,
-> +				      sizeof(config->calib_name));
-> +
->  	ret =3D qca_tlv_check_data(hdev, config, data, size, soc_type);
-
-[Severity: High]
-Does this code handle custom firmware names properly?
-
-In qca_uart_setup(), if the firmware-name device tree property is set, the
-driver enters the if (firmware_name) branch:
-
-	if (firmware_name) {
-		/* The firmware name has an extension, use it directly */
-		if (qca_filename_has_extension(firmware_name)) {
-
-When this path is taken, config.calib_name is never initialized. Then,
-qca_download_firmware() unconditionally passes the empty string to
-qca_combine_nvm_calib() for the QCC2072 controller.
-
-This causes request_firmware() to fail with -EINVAL, logging a spurious err=
-or
-and skipping the calibration data append.
-
-Could we initialize config.calib_name when a custom firmware name is provid=
-ed
-via the device tree?
-
-[ ... ]
-
-> diff --git a/drivers/bluetooth/hci_qca.c b/drivers/bluetooth/hci_qca.c
-> index 1222f97800f4a..6fe3aab688e64 100644
-> --- a/drivers/bluetooth/hci_qca.c
-> +++ b/drivers/bluetooth/hci_qca.c
-
-[ ... ]
-
-> @@ -1375,6 +1375,7 @@ static int qca_set_baudrate(struct hci_dev *hdev, u=
-int8_t baudrate)
-> =20
->  	/* Give the controller time to process the request */
->  	switch (qca_soc_type(hu)) {
-> +	case QCA_QCC2072:
->  	case QCA_WCN3950:
-
-[Severity: High]
-This is a pre-existing issue, but can this lead to a permanent task hang?
-
-Just above this switch statement in qca_set_baudrate(), there is a polling
-loop that checks the transmit queue:
-
-	while (!skb_queue_empty(&qca->txq))
-		usleep_range(100, 200);
-
-This loop polls the transmit queue indefinitely without a bounding timeout.
-
-If the UART hardware stops accepting bytes, for example due to stuck flow
-control or a hardware crash, the queue is never emptied and the loop will s=
-pin
-indefinitely.
-
-Could a timeout mechanism be added here to prevent a task hang if the hardw=
-are
-malfunctions?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723-rb3-indust=
-rial-bt-uart-v1-0-3c8e580c09d1@oss.qualcomm.com?part=3D1
+rial-bt-uart-v1-0-3c8e580c09d1@oss.qualcomm.com?part=3D3
