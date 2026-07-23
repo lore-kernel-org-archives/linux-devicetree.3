@@ -1,87 +1,212 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE8143B3E7;
-	Thu, 23 Jul 2026 10:34:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B66EE427A1F
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 10:39:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784802869; cv=none; b=VPzvByBKGV2vjwO4zHthg003mLU6l7TR5t2r6l9H5UgYN1xhrbULCEtwDeesLFp/iPpVz1ID42WLCAiBZIduyQwEmm2BL7GmBZMR0Oxzcw+3Q7FLeh7YArPTnVPqe2Li5r7qTQVwhnSkpFAtQQtXWvhkTjExRk7ze0cbI0wATRU=
+	t=1784803158; cv=none; b=nBkHj3/77bqNkWB9iuDlkOp5Mtqb413qja8uk0sGteZuoqmpLcBXHU6PXO/rhG6oVd31kBAi6EDnlgFCO0uaNZmQGVceIhxVqTBkkfov4sEr7ER/n4d9+P9SqAj+DTfaeq6xmm6J2tn/CgVP7yoKgduiqDBTW6wszHL03vn0+kA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784802869; c=relaxed/simple;
-	bh=K7FsJb35z6jEDs1gKdsMSV+AYBwMwJHCmZGh7clmwVs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CdcWqE/vhjD+dAVYS965iLmlgPtLZYNoZ5bIh1i8NsIj3uGzYC0/gTANLNAtbAtDJkyvANsB33ZOmP0olMD0qIbv2aXkhmRdqttAdFw0hOr185GsLeAbXbn1XgsUVkrG5KQcM/EH2QGsviAq3AswojpgFrrm9TI8qtUczXu2cDQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 510A11F000E9;
-	Thu, 23 Jul 2026 10:34:27 +0000 (UTC)
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 4/4] dt-bindings: leds: backlight: Convert TPS65217
- to DT schema
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Eduard Bostina" <egbostina@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, lee@kernel.org, dmitry.torokhov@gmail.com, linux-leds@vger.kernel.org, devicetree@vger.kernel.org, linux-input@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260723100605.628882-5-egbostina@gmail.com>
-References: <20260723100605.628882-1-egbostina@gmail.com>
- <20260723100605.628882-5-egbostina@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 10:34:26 +0000
-Message-Id: <20260723103427.510A11F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1784803158; c=relaxed/simple;
+	bh=95aRlnqGGcjXiiM0uMEb3A+wNWlk0AP0T2azwmwkXDc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=BOMLSLA125IniyjyKNcoxBbzMQ3Ha0lecMvNauE+RgvJQbKt2yEi3kHgGCrsTEnKjUm5qv8ljbS9fuENfrAeNrtldvZp4fCW2SRUkWqeXLiI2zemObPTr6BKVjoQZ8zJEAgGi1MFoInkJSE9MvbXoeJUfyvudFMw4x/ur+ucwkA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SKOzv3Ft; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NiQZMrP0; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SKOzv3Ft";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NiQZMrP0"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66N8qWfW3044686
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 10:39:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=SjKJs+Talp5i5s1FC33zjJ
+	TMZ2uKeAJS7dad2YjJSPc=; b=SKOzv3FtVQ+I/avpr+mnxraoXYtZ/lL3/kdQit
+	1PH207QgmUcTwUz0w3cNXF4RxF46Ut9XsEf4yEMf8tjaRi69fzSGo2ndYl7GWblK
+	q7chxSZEYtZWJSnefp7mImXvNOR+4GjCjbazN1DhmCNccd29d/IfSu4xsgSHVEmd
+	kJAU826gBVKA6xQnwy7lRLXfdK1MGXK3346NV1N8gy4t7e7kflOn0uGsa0GTg3SH
+	HlemRph0UJHmAqp7kvKbECNKiZgMD7YzEnqTN8WKF2jZ9LqBMgt9FwqDiZhqBh6v
+	ChLOHRgDS6W3zwlLECkWO6XQt/WkZf0Bk/OHwkuQwpTxV6yA==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fkeuq8nje-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 10:39:15 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-84e048a801dso909607b3a.3
+        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 03:39:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784803155; x=1785407955; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=SjKJs+Talp5i5s1FC33zjJTMZ2uKeAJS7dad2YjJSPc=;
+        b=NiQZMrP0bM+TgDIyzkygp54tJB0qfIBkG03h/7joTwtgwIw8wuSqQxHi/8SYyCqjAw
+         2x5AwVqvHpUc5XFBlG+UK7aR7EiG9b3ojqhl/Oh1OesVAu+NbnB/qrubgRduIM9trsNR
+         E7ojOHhhJOsCtoCHKl1I3FVQOI4fmOr3QqLBfehwcrqUOoLVhLgqWlh3uJKrjKR0HSsw
+         MuvZE/RdCb16kzw5jRHxp3mcNW23JkMvxM9dwVKzPdekmuCRrwnY0l+9cM0FbbHDrNYE
+         B40ZdSpQUeVcyHxEDiCrsHCnO/qTzdrWQ3Jw/T5DhPrP43kEP+Gi04R/ThFr3v93i/6L
+         OcQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784803155; x=1785407955;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=SjKJs+Talp5i5s1FC33zjJTMZ2uKeAJS7dad2YjJSPc=;
+        b=NbDEK0s4HQoS+/upc0CPzT9b8ZZtr2akWZc44X5tXSHnDGde4rJT57HF9Li4vQLhga
+         ys/hsVZX8yoJYrqPo2/+aeCNzyjMKkaeOama0AFzqYezYUzqjaA49BNmdCbcfGmKNTlm
+         RFwPP8kmcLzZHi9mkGfAa0FycuCqF8jzyyUZoE510n3DYheiIpAt7Jw+4TJw2DmeMKg8
+         ijAcAmW+t37DkdG0NF071gSKrO7AojNOpnsJfuHdxhqAmR1cU0lQVDll537Yia4RBSeS
+         2IF2hhtqd5v6LVyYN15YRGWTzCaag4RGr6vZayiZT71pfLP89LV6bVnDsOJD4jSJznPx
+         u0yA==
+X-Forwarded-Encrypted: i=1; AHgh+RrT1ztCRsKW6splIQFvWyLeArzTn/Zp60/jMW9ONN/nSCgPtjgP/emM7OBDv0Jw0eYNe31q+FPIhItb@vger.kernel.org
+X-Gm-Message-State: AOJu0YyxqBu0TO5GsRdUTTx4A2DKpjcseAEpJddl7SsiXxYh4wHXyEcU
+	CeztP1m9EgTizKteePGA9r5DrEJk3RrWMQ1rKnr8mzrXB0gN48xTYl0NzHPtuSci5qylmfwW+iS
+	3Y3+ApdB6NFzgJDQjEpoSBaNXgJlaDtvO15Uba9UNcF13bA7ub5ixV2dUFKXQFXJa
+X-Gm-Gg: AR+sD12S7VYWFElouwuRu5/43jleZFQbrb2udKYlrr5rB/gtMyVuNEvFGP5R0jMuOH/
+	eQhxqi56SjThZNH58NhC5vtRNBofYnM7rTl3Zi6CwZXGw/SdPh1OmGI7gc2Mhb13NrcKb8+35rv
+	/Gx+VxC8KpjzNDZQl0o1l4V4CVKvIufH/975xYjxL+6b4plyf4bDB2trU8F8G8dwhCvntQy33TF
+	yBeguehkwFSj9jI2sZOJAnBmWDuUzUfDGwGZ/gH5QKwA9ppiBsxVrFQIZRcJe0tdVwQA7r1Ip5j
+	4IGAPprgnd+7bnExwg2kiIuntDge/uw7JZNNlK0rsY3fWgGaaXVPN5fx4hf097231COmJbeKKgy
+	NVm1U6SszU5wnddUGrDRIl99TPg6XUdErW2zDM10F31pVkujJwjnlXVFPioQMelZgPo1dkQ==
+X-Received: by 2002:a05:6a00:12c7:b0:847:902a:57c1 with SMTP id d2e1a72fcca58-84e2bb3282dmr2946924b3a.57.1784803154918;
+        Thu, 23 Jul 2026 03:39:14 -0700 (PDT)
+X-Received: by 2002:a05:6a00:12c7:b0:847:902a:57c1 with SMTP id d2e1a72fcca58-84e2bb3282dmr2946891b3a.57.1784803154461;
+        Thu, 23 Jul 2026 03:39:14 -0700 (PDT)
+Received: from hu-kriskura-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e17604a46sm2864469b3a.60.2026.07.23.03.39.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 23 Jul 2026 03:39:13 -0700 (PDT)
+From: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+Subject: [PATCH v5 0/5] Modify interrupt handling for eUSB2 Phy targets
+Date: Thu, 23 Jul 2026 16:09:03 +0530
+Message-Id: <20260723-eusb2-int-handling-v5-v5-0-f32ea6c1a318@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEfvYWoC/yXMQQqDMBCF4avIrB3QKTHiVYoLY0adUtKSMSKId
+ 2+qy4/H+w9QjsIKXXFA5E1UPiHDlAWMyxBmRvHZQBU1la1b5KSOUMKKefZvCTNuBpmc9TSZ1tk
+ H5O838iT71X32tzW5F4/rPwbn+QOQsClIeQAAAA==
+X-Change-ID: 20260718-eusb2-int-handling-v5-e2b7d2f58b73
+To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-usb@vger.kernel.org,
+        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784803149; l=2757;
+ i=krishna.kurapati@oss.qualcomm.com; s=20260707; h=from:subject:message-id;
+ bh=95aRlnqGGcjXiiM0uMEb3A+wNWlk0AP0T2azwmwkXDc=;
+ b=sFSifNo1uwvjssJXARa1tPt8jF0YG84JsenqWOBkD77tPe7VwWU7nWjZNj7bKC8Pwm/rmawVm
+ U8KV6/0qz/rCKJWaWVOuUZzqLHYguR50rGUfnE8ga/7ZYz8gcKiLyD5
+X-Developer-Key: i=krishna.kurapati@oss.qualcomm.com; a=ed25519;
+ pk=6PmiuwGCdov3wRO+bdmRlRxRtmJyDKz3ED57LLPVgds=
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIzMDEwNCBTYWx0ZWRfX8Z4pgSBX+DAd
+ 1iBMgftgvf6l6vUIBWhLp+yy3t616CWflSceeA6/+5EBl7OxdRe9DHPISz8U89fUsdZ6QI7IsKx
+ U1h3kG/7OE53P+NpD7bWBguX7u++yeg=
+X-Proofpoint-ORIG-GUID: Y4VaUxBbv4e3qB39P73J46kuUEO0tYkb
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIzMDEwNCBTYWx0ZWRfXzHT+edHM4mJd
+ xlHfUjMbdUjR/tiEMIVBYoTgwEY3qjr7DwRyfGzOKxXM8ROSj/BgEezdljc0qV2BlA4COmIzCBM
+ 0FkbQIBcfItX12R9ImmVclNQsqcD+bzs0xM8muPL0yDKqjbCuLgyKIIbvZSuFgxtxrEcQ0Wfow3
+ SmyZpE1ktqEcc74PmAawLbZH2hfUTq/qYfPatEvwH5c6+QTj6pUwXcAjMD+L94ipbit/LJZHu+M
+ WR09WOtaaf/I2HrACpl5L+eJePVhWMnJVZEws4n2GcTPy3kBWy63WFCEA1wZ/vxLqZcgT9FyVVb
+ xV6ZXfMuq07nKjYv5Pg2zcovTLIg6bbfiQkhuTvIBqpmBux6ja39YOcpGHAM5Vc9cL0rYLSH/km
+ D9o+mn/0wkiTPb86ZEOhyRj1u7CSjEGgUywZGDvv9XhP0zJj8DMyWA0O42+c69fsGu9UqGf5zEE
+ h9XmwV77ZZVh4aPfM3g==
+X-Authority-Analysis: v=2.4 cv=cPDQdFeN c=1 sm=1 tr=0 ts=6a61ef53 cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=xjCIpWma6R3UThYtaJkA:9 a=QEXdDO2ut3YA:10
+ a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-GUID: Y4VaUxBbv4e3qB39P73J46kuUEO0tYkb
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-23_03,2026-07-22_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 lowpriorityscore=0 adultscore=0 phishscore=0
+ clxscore=1015 suspectscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607230104
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The converted MFD (Multifunction Device) core binding is incorre=
-ctly placed in the `leds/backlight/` directory.
-- [Low] The commit message uses an incorrect subsystem prefix for a Multifu=
-nction Device (PMIC).
---
+eUSB2 targets handle wakeup interrupts differently depending on device
+speed when operating in host mode.
 
---- Patch [4]: [PATCH v4 4/4] dt-bindings: leds: backlight: Convert TPS6521=
-7 to DT schema ---
-commit 1f4c2bf543a28045151b5cf16c5be1f7c2cee8e1
-Author: Eduard Bostina <egbostina@gmail.com>
+According to the eUSB2 specification, remote wakeup signaling in host
+mode is detected via different data-line assertions based on the
+connected device speed.
 
-dt-bindings: leds: backlight: Convert TPS65217 to DT schema
+When a low-speed device is connected, the host repeater drives eD+ to
+logic '1' upon detecting a K-state on the USB lines during remote wakeup
+(eUSB2 specification, Section 5.5.14).
 
-This commit converts the Texas Instruments TPS65217 bindings to DT schema.
-It consolidates the old regulator and backlight bindings into a single
-schema file while documenting additional child nodes and properties.
+When a full-speed or high-speed device is connected, the host repeater
+drives eD- to logic '1' upon detecting a K-state on the USB line during
+remote wakeup (eUSB2 specification, Sections 5.5.15 and 5.5.18).
 
-> dt-bindings: leds: backlight: Convert TPS65217 to DT schema
+Since the eUSB2 PHY's "DP" and "DM" interrupt lines monitor the eD+ and
+eD- line states, configure the wakeup interrupts accordingly
 
-[Severity: Low]
-Is the subsystem prefix correct for this device? The TPS65217 is a PMIC=20
-and its core driver resides in drivers/mfd/tps65217.c. Since this patch=20
-consolidates the bindings for a Multifunction Device into a single unified=
-=20
-schema, should the prefix reflect the MFD subsystem instead, such as
-dt-bindings: mfd: ti,tps65217:?
+Add support for a new phy "type" attribute to be set by eusb2 phy drivers
+and be read by consumers (in this case usb controller) and act accordingly
 
-> diff --git a/Documentation/devicetree/bindings/leds/backlight/ti,tps65217=
-.yaml b/Documentation/devicetree/bindings/leds/backlight/ti,tps65217.yaml
-> new file mode 100644
-> index 0000000000000..4d2f4dbd2d52e
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/leds/backlight/ti,tps65217.yaml
-> @@ -0,0 +1,170 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/leds/backlight/ti,tps65217.yaml#
+Changes in v5:
+- Add support for phy "type" attribute and set it from m31 and snps eusb2
+phy probes.
+- Removed adding a new binding property
 
-[Severity: Medium]
-Since this schema consolidates the regulator, backlight, and other PMIC
-functions into a single file, should this be placed in the mfd/ directory=20
-rather than leds/backlight/? Placing it in leds/backlight/ seems to=20
-categorize the device's primary role as a dedicated backlight rather than=20
-an MFD. If moved, the id and file path would become=20
-http://devicetree.org/schemas/mfd/ti,tps65217.yaml#.
+Link to v4:
+https://lore.kernel.org/all/20260709-eusb2-interrupt-handling-v5-v4-0-d4f993925608@oss.qualcomm.com/
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723100605.6288=
-82-1-egbostina@gmail.com?part=3D4
+Changes in v4:
+- Moved to using binding approach as suggested by Thinh
+
+Link to v3:
+https://lore.kernel.org/all/20260511094422.3561509-1-krishna.kurapati@oss.qualcomm.com/
+
+Changes in v3:
+- Removed multiple glymur-dwc3-mp pdata entries
+- Replaced use of ternary operators with if-else
+
+Link to v2:
+https://lore.kernel.org/all/20260505194242.1947891-1-krishna.kurapati@oss.qualcomm.com/
+
+Changes in v2:
+- Updated commit message
+- added supported eUSB2 targets
+
+Link to v1:
+https://lore.kernel.org/all/20260502095616.666938-1-krishna.kurapati@oss.qualcomm.com/
+
+Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+---
+Krishna Kurapati (5):
+      dt-bindings: phy: Add PHY_TYPE_EUSB2 definition
+      include: linux: phy: Add phy attribute "type" and associated helpers
+      phy: snps-eusb2: Set phy type to EUSB2
+      phy: qcom: m31-eusb2: Set phy type to EUSB2
+      usb: dwc3: qcom: Modify interrupt handling for eUSB2 Phy targets
+
+ drivers/phy/phy-snps-eusb2.c              |  4 +++
+ drivers/phy/qualcomm/phy-qcom-m31-eusb2.c |  4 +++
+ drivers/usb/dwc3/dwc3-qcom.c              | 53 +++++++++++++++++++++++++------
+ include/dt-bindings/phy/phy.h             |  1 +
+ include/linux/phy/phy.h                   | 27 ++++++++++++++++
+ 5 files changed, 79 insertions(+), 10 deletions(-)
+---
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+change-id: 20260718-eusb2-int-handling-v5-e2b7d2f58b73
+
+Best regards,
+--  
+Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+
