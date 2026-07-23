@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 945B844C4EA;
-	Thu, 23 Jul 2026 19:19:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01CF8308F32;
+	Thu, 23 Jul 2026 19:22:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784834394; cv=none; b=Ji8gRK3po4xCLTDM3cDwV24ZON7aBuCXqKJOdqaydcz5Qmy8gZCYuKHw3unIHZ78Svmb3R0SEz9Sh2RTpP4Ti/MRTK+1gMXXjxvVA6g8tFatvpZg4d8g7c1RH4Axia0JIWGbs6EjbXutYz52YutvDTFUxqSLgLPEjO3R6RFSIEA=
+	t=1784834533; cv=none; b=aMLHCc3xwBZQ04rCYpb/UHQx8XP4BQxKaA2upXsTPNsuQlzzgmB8lkFSq0h/PU6yY2/Tf5gvPbSxru/ZcILXs5GNbC5HNHheYRXiSN/KBPF8enGeFs/ERGWpeVqYRC5nswHEBd/0sHBWmnte8ODXUKTr3FT4LCAakGD8yI7+22w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784834394; c=relaxed/simple;
-	bh=vD/kNz1mSbptF8R4h/+7S5y3d+qsbZoguGFHMqb3OFI=;
+	s=arc-20240116; t=1784834533; c=relaxed/simple;
+	bh=+RpcCgv21DCM016Wz9/zOl4+4jh4NH6ChHCTXBLwl7o=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hZgIYXXN6FdbOWBKV0WzkfLXapojDF/M5Hxr16DsdXJlttWERW54OB1a+7Ks2euWh1tpr2gFnKyZgZB5Okgisn914WthouYPEvThLQ+bZDW4O7FAs3vr3KHAKeaS7ZO2nUOaPEMxjbxY0wPteNVV/p8Npf8sdmia8nQzKOCh8tQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=np62X96+; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=Cy0ZL10wJ1ZDpUOS1VPcbk2UNOmm+7p5imfStNueK3eWkTUmN07FCZvWB1OhBNGx4azUfzwgizyMnouOemFZDyZXE/TnQcuQJkFszq/BFzBWCQ7BpjBkqJekrS3O/CtrAFOSS0IektpjXtrdSEwt72boXfTZIMm0mMANPaIfH1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XqJ1j51f; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="np62X96+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78D4F1F000E9;
-	Thu, 23 Jul 2026 19:19:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XqJ1j51f"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18FEC1F000E9;
+	Thu, 23 Jul 2026 19:22:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784834388;
-	bh=g1et1ehML0/kGNVH6lDiCjlsje9E1J5r4c+e022yp3Y=;
+	s=k20260515; t=1784834531;
+	bh=+UVgw9SS39ORb8/aVu/+0NFZ+th3kWmIhwdefbORwmg=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=np62X96+ZydrQjMsMKO7lLuiBzUAuw4qHpU99qXLrdUqwfxkDRQQlKtLi48BODIi6
-	 Dl72+Jk/YVeyNpxT0trfPWxl9DngXQrXyPtS/z8TGSiLsKuFnABE427Z08ls/BkYxl
-	 LxZE46Qb1ZqqnGmV9O+AbqtxDkl3N+ICRB8Bq4gSVHmUhrfNcRtZY2lkTxj2y6JzJ5
-	 7Wi/t11fLJT2H4SuZ1DRBK9liwPmAn9esVoF988rXD+vasR6hJJDuRd41j0tV5w7Y3
-	 kOgtLDoRqCLPbIKuH22KGuyysb7aXFu3pMcpvfHeAg2JBPV8oU6rBy7y0QAKiQWyYV
-	 qKIMugId7xQDg==
-Message-ID: <591cea7a-0892-42c7-aa38-51a90cd2c450@kernel.org>
-Date: Thu, 23 Jul 2026 21:19:38 +0200
+	b=XqJ1j51fRGHG8JRtpcnW6N5WjpOZD++glkmXO6uctnlpGOTeJi+bPUIi0eY1ju5uh
+	 q8lgNeicBe82DNIR7uZ697B0nsYI6Tk95LTvDg194D2/sTo3+azZnW1DmaUvius2zH
+	 sxtvIs7GmHpGSpDW97DgLlJ4ihrkZhBY/8VtZIBjwrM/LPZVhbOJe23xpGxIUZDJXb
+	 hxIHf0D9FcWSh8rIb2yq5CiaG7TITUhqWDM5G/4oLQtEGzQtu5TZhI2c9tiUdVh0ho
+	 VdWmpmK8NxLU9p6/WXgpB4zhJLYt17E7YbkC0omr7mgHwwwJljJjYpwjZM0qIJVr0q
+	 9wwWGi6FT5XqA==
+Message-ID: <9cc5af16-d95e-4f10-8b4a-5e29c136079c@kernel.org>
+Date: Thu, 23 Jul 2026 21:22:03 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,20 +35,19 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] Bluetooth: qca: add QCC2072 support
-To: Rahul Samana <rahul.samana@oss.qualcomm.com>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Marcel Holtmann <marcel@holtmann.org>, Bartosz Golaszewski
- <brgl@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Rob Herring <robh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
- quic_hbandi@quicinc.com, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, quic_anubhavg@quicinc.com,
- quic_mohamull@quicinc.com
-References: <20260723-rb3-industrial-bt-uart-v1-0-3c8e580c09d1@oss.qualcomm.com>
- <20260723-rb3-industrial-bt-uart-v1-1-3c8e580c09d1@oss.qualcomm.com>
+Subject: Re: [PATCH 3/3] power: sequencing: pwrseq-pcie-m2: Add QCC2072 BT PCI
+ device ID
+To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-pm@vger.kernel.org
+References: <20260703-eliza_evk-v1-0-7624440bd76d@oss.qualcomm.com>
+ <20260703-eliza_evk-v1-3-7624440bd76d@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -94,29 +93,35 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260723-rb3-industrial-bt-uart-v1-1-3c8e580c09d1@oss.qualcomm.com>
+In-Reply-To: <20260703-eliza_evk-v1-3-7624440bd76d@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 23/07/2026 14:31, Rahul Samana wrote:
-> Add QCC2072 as a supported Qualcomm Bluetooth controller.
+On 03/07/2026 14:38, Krishna Chaitanya Chundru wrote:
+> Add the Qualcomm QCC2072 Bluetooth device (PCI ID 0x1112) to the
+> pwrseq_m2_pci_ids table so the M.2 power sequencer can create the
+> serdev node for its BT interface on enumeration.
 > 
-> QCC2072 uses the ORN firmware and NVM naming scheme. Select the NVM file
-> and BCS calibration file using the controller board ID when available,
-> with fallback to the default files.
+> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+> ---
+>  drivers/power/sequencing/pwrseq-pcie-m2.c | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
-> Register the QCC2072 compatible with hci_qca and route it through the
-> same UART setup, speed switching and power-control paths as recent
-> Qualcomm Bluetooth controllers.
-> 
-> Signed-off-by: Rahul Samana <rahul.samana@oss.qualcomm.com>
+> diff --git a/drivers/power/sequencing/pwrseq-pcie-m2.c b/drivers/power/sequencing/pwrseq-pcie-m2.c
+> index b5ed80d03953..4aac52062fae 100644
+> --- a/drivers/power/sequencing/pwrseq-pcie-m2.c
+> +++ b/drivers/power/sequencing/pwrseq-pcie-m2.c
+> @@ -190,6 +190,8 @@ static const struct pci_device_id pwrseq_m2_pci_ids[] = {
+>  	  .driver_data = (kernel_ulong_t)"qcom,wcn6855-bt" },
+>  	{ PCI_DEVICE(PCI_VENDOR_ID_QCOM, 0x1107),
+>  	  .driver_data = (kernel_ulong_t)"qcom,wcn7850-bt" },
+> +	{ PCI_DEVICE(PCI_VENDOR_ID_QCOM, 0x1112),
+> +	  .driver_data = (kernel_ulong_t)"qcom,qcc2072-bt" },
 
 
-Please run scripts/checkpatch.pl on the patches and fix reported
-warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
-patches and (probably) fix more warnings. Some warnings can be ignored,
-especially from --strict run, but the code here looks like it needs a
-fix. Feel free to get in touch if the warning is not clear.
+Bartosz,
+Please push back on this. This is undocumented (indirect) compatible.
+This cannot get accepted to kernel in such form.
 
 Best regards,
 Krzysztof
