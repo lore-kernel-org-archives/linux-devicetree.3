@@ -1,133 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.chunchunmaru.org (mail.chunchunmaru.org [45.79.219.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACB5B396B68;
-	Thu, 23 Jul 2026 17:54:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 459CD36167B;
+	Thu, 23 Jul 2026 18:15:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.219.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784829292; cv=none; b=maGiFcA+jIYRm+fHmzs1QlPTlCvOXqzofXBM31LFl4CcopQI992S6E+0sgnwBeomNASIBSXxL7ortq7ys+niVGCYCxQWfzL3bwpkOWCQyQL+GHGMm7575VsuX21CDC7dalU77cgUzA7THx9A7iFM7W/f/0Kj7P6XD5vHGSD7dWw=
+	t=1784830561; cv=none; b=jFpS+2Kr65uP0b5v5xsVRuLwYsN6XKZV0+5y4/IWiiMhg953sFPXNt0GAkoG6mcsdzhC+AhXaYr1JcQLneZdX7l9uItK6MRVZD+5UJEMeCbAyNkM0tOgoL4VbD6FN9LZ6ak3XDaaV5hLeSVzUFYdAumV0TT/iI5yvyk9sXW08Fk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784829292; c=relaxed/simple;
-	bh=4HgACGrFInHbGQzg75GMMOTedzoqj60aSoXWkFd1/1c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U856TEbC8qSEZxkwWJYnELtUHVVz5vCjArBjSKJokguKpbWATQ4J0qsD3S1l6bMEtizDuF1m8fXyMb7oQIVkeVQPNyaAV3/u/+HdDW0goBGf36KWiMlVw6DeizzSc0T4EVPu6kWveQCSxLFEMTTfiucbWj9Pv0B95oSwZk5AT3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7477B1F000E9;
-	Thu, 23 Jul 2026 17:54:47 +0000 (UTC)
-Date: Thu, 23 Jul 2026 12:54:44 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rakesh Kota <rakesh.kota@oss.qualcomm.com>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, jishnu.prakash@oss.qualcomm.com, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Sebastian Reichel <sre@kernel.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: soc: qcom: pmic-glink: Document
- batteryless property
-Message-ID: <amJTpv7FY3uh8KcX@baldur>
-References: <20260521071341.q4efqssppvettaey@hu-kamalw-hyd.qualcomm.com>
- <86f76a81-832d-4ba5-81d5-38b46b7dc0a7@kernel.org>
- <6c595a5f-b979-4e8b-ae77-d28d24700588@oss.qualcomm.com>
- <e07085c5-0fe8-4ea7-8e51-ebe104e7aa2d@kernel.org>
- <82019c2e-6b6e-4edd-91b3-a28ef6eb09eb@oss.qualcomm.com>
- <20260525120139.dyfnm6nwfzuoxd7p@hu-kotarake-hyd.qualcomm.com>
- <20260702113010.zjrk4kr7fpjp6asj@hu-kotarake-hyd.qualcomm.com>
- <dqe3ntmtmjqixp2l5n7qm6zpcwh4sizr7jd5g3cl3tzpvl6tvo@casnjg3orldd>
- <allz1-dD9V_Ck8LK@baldur>
- <gnmx5m5dt5676oox5cypzg26vbwtmzhzkh4bhyq6z27kwi2bf3@z24ov6esgtx4>
+	s=arc-20240116; t=1784830561; c=relaxed/simple;
+	bh=0LXgM6lBnNy8A6fXRY/1YNF8xjD+3loy2Cl67PFisNg=;
+	h=Message-ID:Date:MIME-Version:Subject:References:To:Cc:From:
+	 In-Reply-To:Content-Type; b=r+K8tpD5uFrN702zNfTzwWcUmlVPloxxpR6nVks5dF9DxgsZsSQw5HEWqkpq+DaHE4yMMK5I7peEcN/dS15WUJ0ms6BAvfPyrK/Z3xKnC4mG6Z2aCcowV0EexgohwvslspZJ6ZEViOcb9Hsubk82N7IQmKqvUZ3CGgywNWEI9uk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=floorchan.org; spf=none smtp.mailfrom=floorchan.org; arc=none smtp.client-ip=45.79.219.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=floorchan.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=floorchan.org
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 05D183208F9;
+	Thu, 23 Jul 2026 18:07:04 +0000 (EDT)
+Message-ID: <247df8ea-49c7-46e4-acfc-e56d0ad9f8ed@floorchan.org>
+Date: Thu, 23 Jul 2026 14:07:06 -0400
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <gnmx5m5dt5676oox5cypzg26vbwtmzhzkh4bhyq6z27kwi2bf3@z24ov6esgtx4>
+User-Agent: Mozilla Thunderbird
+Subject: Fwd: [PATCH v2 0/3] arm64: dts: qcom: initial MSM8920 and Motorola
+ Moto E4 (perry)
+References: <4006f966cd5f0c077c413410d79bae1e@floorchan.org>
+Content-Language: en-US
+To: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Catherine Frederick <serenity@floorchan.org>, linux-clk@vger.kernel.org
+From: Catherine Frederick <serenity@floorchan.org>
+In-Reply-To: <4006f966cd5f0c077c413410d79bae1e@floorchan.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, Jul 22, 2026 at 04:59:32PM +0300, Dmitry Baryshkov wrote:
-> On Thu, Jul 16, 2026 at 07:14:37PM -0500, Bjorn Andersson wrote:
-> > On Thu, Jul 02, 2026 at 02:49:37PM +0300, Dmitry Baryshkov wrote:
-> > > On Thu, Jul 02, 2026 at 05:00:10PM +0530, Rakesh Kota wrote:
-> > > > On Mon, May 25, 2026 at 05:31:39PM +0530, Rakesh Kota wrote:
-> > > > > On Fri, May 22, 2026 at 11:24:19AM +0200, Konrad Dybcio wrote:
-> > > > > > On 5/21/26 11:58 AM, Krzysztof Kozlowski wrote:
-> > > > > > > On 21/05/2026 10:46, Konrad Dybcio wrote:
-> > > > > > >> On 5/21/26 9:20 AM, Krzysztof Kozlowski wrote:
-> > > > > > >>>> Since firmware does not have a way to dynamically tell if it on a
-> > > > > > >>>> debug-board powered device or a DCIN powered device, We are required to
-> > > > > > >>>> add this new DT property.
-> > > > > > >>>
-> > > > > > >>> Neither debug-board powered device nor battery-less will have
-> > > > > > >>> monitored-battery, thus again, why lack of that property cannot tell you
-> > > > > > >>> what you need?
-> > > > > > >>
-> > > > > > >> A device with a battery will not have a monitored-battery either
-> > > > > > > But why? If for such device property "no battery" is suitable, then for
-> > > > > > > me "monitored-battery" is suitable as well. IOW, if you say that having
-> > > > > > > a property describing batter is not a accurate hardware property here,
-> > > > > > > then neither saying "no battery" is, because no batter is basically some
-> > > > > > > sort of battery (just like empty set is still a set, empty array is
-> > > > > > > still an array).
-> > > > > > 
-> > > > > > The battmgr service running on one of the remoteprocs already has all
-> > > > > > the information about the battery and it also handles all the type-c,
-> > > > > > PD and charger configuration, only letting the OS know about the
-> > > > > > results.
-> > > > > > 
-> > > > > > Hence, unless there's some other hardware at play (e.g. for custom
-> > > > > > 200 W charging), which wasn't fully implemented in the QC firmware,
-> > > > > > there is no reason to describe a battery separately, since the OS
-> > > > > > can't do anything useful with that information
-> > > > > > 
-> > > > > > In some abstract way, perhaps monitored_battery = <&pmic_glink> could
-> > > > > > be thought of as valid (since that's the data source the OS gets to
-> > > > > > see)
-> > > > > 
-> > > > > Should we use monitored-battery = <&pmic_glink>; If so, would it be
-> > > > > incorrect to mark pmic_glink as simple-battery, as that may cause the
-> > > > > schema validation to fail?
-> > > > 
-> > > > Hi @Konrad Dybcio, @Krzysztof Kozlowski , 
-> > > > 
-> > > > Following up on the earlier discussion — is monitored-battery =
-> > > > <&pmic_glink>; a valid pattern? And if so, would marking pmic_glink as
-> > > > simple-battery cause DT schema validation failures?
-> > > 
-> > > I'd say, no, monitored-battery should be pointing to the battery device.
-> > > Please fix this on the firmware side, so that the firmware can report
-> > > having no battery at all.
-> > > 
-> > 
-> > This won't be fixed in the firmware on my devices.
-> 
-> Why?
-> 
+Forwarding to everyone on the list, since this didn't make it there 
+(Damn you roundcube!). A lot of the errors in this PR are results of 
+Claude mindlessly copy-pasting my in-progress work (bad whitespace, 
+incorrect copyright assignments). Fuck man. Sorry in advance if my email 
+client makes a mess on the list.
 
-Because at least the presence/absence of the battery is modelled in the
-ACPI tables that ships together with this platform firmware.
+-------- Forwarded Message --------
+Subject: 	Re: [PATCH v2 0/3] arm64: dts: qcom: initial MSM8920 and 
+Motorola Moto E4 (perry)
+Date: 	Thu, 23 Jul 2026 08:49:25 -0400
+From: 	serenity@floorchan.org
+To: 	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-That said, I'm not aware of a standard mechanisms for e.g. wireless
-charging or how this is implemented in the Windows drivers. This part
-requires some more research.
 
-But even then, I don't expect this to be fixed and deployed in older
-firmware.
 
-Regards,
-Bjorn
+On 2026-07-23 08:00, Konrad Dybcio wrote:
+> On 7/23/26 3:46 AM, Aneesh Pradhan wrote:
+>> Initial upstream support for MSM8920 and the Motorola Moto E4 (perry).
+>>
+>> Depends on the separate qcom,rpmcc-msm8920 clk series (binding +
+>> clk-smd-rpm) for the MSM8920 rpmcc compatible used by msm8920.dtsi.
+>>
+>> This is a trimmed mainline-first subset of msm89x7-mainline/linux#48,
+>> rewritten so every phandle exists on qcom/for-next's msm8917 / pm8937 /
+>> pmi8950 (the fork DT assumed richer SoC/PMIC nodes that are not
+>> upstream yet).
+>>
+>> Included: regulators, eMMC/SD, USB OTG (gpio-id extcon), keys, RMI4
+>> touch + reset-gpios, BMA253 (i2c-gpio), WCNSS (wcn3660b), PMI8950 WLED.
+>> Deferred follow-ups: DSI panel, IPA, QDSP6 audio, FG/smbcharger, modem.
+>>
+>> DTB build verified: msm8917-motorola-perry.dtb + 
+>> msm8920-motorola-perry.dtb.
+>
+> Please send all series as separate threads and all revisions as separate
+> threads too. You can use the b4 tool [1] which takes care of that and a
+> couple other annoyances
+>
+> Konrad
+>
+> [1] https://b4.docs.kernel.org/en/latest/
+Hi,
 
-> > 
-> > Regards,
-> > Bjorn
-> > 
-> > > -- 
-> > > With best wishes
-> > > Dmitry
-> 
-> -- 
-> With best wishes
-> Dmitry
+I just wanted to let you know, this is a drive-by-vibe rendition of my 
+patch series from earlier this year. You aren't talking to a person, but 
+claude code instead:
+
+https://github.com/aneesh-pradhan/xylitol/commit/4bdb6eaac4724ae0071095a925795c5e5b8b9985
+
+I can confirm both the MSM8917 and MSM8920 variants exist in the wild, 
+as I own both. As for what you want to do with all this information, 
+that's up to you. This also contains hacked up versions of my in 
+progress DT for perry available on the msm89x7-mainline git. I was 
+planning on picking up this series when I had time again.
+
+Thanks,
+Catherine
