@@ -1,138 +1,101 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 205282D3739;
-	Thu, 23 Jul 2026 15:53:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22AE647ACEF
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 15:55:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784822020; cv=none; b=p26BN90JhqDt9HBgDULkS+EvFdmrojJgfwfBJFhYHTwTCNx+Jj21/YJdHphN7BAoHaaLZMVeKIPhF4bj01P6zJBluJ3z09HZCb8OfDX1ChQSMvgwPSE5irUwJBeECPgLV7yfNfxpf7mTWfb2wBQiuh5OCLUQ9bHdmP5dN5UH9Pg=
+	t=1784822105; cv=none; b=b2IqnqyIX0tLWv4QiLUAM7F/Fo0s46NNwSwbZDh/eA4ykQpryFkC7TJ1pzP7q/A5bTUfUwNtXQcqrnlf23mSkv/rX1/riI7DOd8jxMKNn1SAb+lh2WlMiKNUPNTzyfqbiy2GsWlY0xefT9KuQuptppozrOSsP235pqypFA4zsNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784822020; c=relaxed/simple;
-	bh=vj3aE85hDbw7uCURSaP7IQSnQ+S1YI+vBlGTt2ixjNY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WYG4pxpTdeUm4JCX/iMTiHQM9TS3PNKlnCqJc3+2coV7vmHUKrINqtr//3LAaswz7C8GqnwNjg32gih+ZKO//nbbJy6QHgxBNtKb2juf7wy2heJwpwcmpaEDBhrA/oL2Z1xWW46U9+ztK2vX6u7HuVCzQSGmqa6wFwh0uNMDwHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=SnRBk3Rl; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1784822105; c=relaxed/simple;
+	bh=Ea+qgor4INJY8XkI4NeJdMhor9c5RwSKtg/1N50dv24=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=lFYElB2JaiJWGNyYMw6KrkPv+AWlx+W5BVv3kqNSigqB3tyIKKcBbEBhUuThhUzSHd0KWvVpXhaVr7wk8zExEeVtLQ2vRfUcUnfs3ZXAhIG3lTnel++mLsa9qbO4oWpR0etBI/1PpeoTOxQrVJgyLRwWzdsHFilWViO5XXbXMyM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=igUx56Zh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="SnRBk3Rl"
-Received: from francesco-nb (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
-	by mail11.truemail.it (Postfix) with ESMTPA id 3177F1F967;
-	Thu, 23 Jul 2026 17:53:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1784822014;
-	bh=YhpAS7Om2Wra7yiqumfKj7cTlrvtZmIj2tUBITAsZvk=; h=From:To:Subject;
-	b=SnRBk3RlpWy7u4WPPOyFWREbUvUtiNbNhbllHu76fVTCIMuhI7O6uU7+mlMU9CekF
-	 nfDCEkZ0oZBRhROcj4OM6DB9ADCV6ZZkO9Jg9uXtqB0Ap4GNgAoQqQeFLA1JxrHxvf
-	 jG0qx1gh8NPyNoygqfQsrNEsJut0n2F2TR8/m52Yt2DpUO9Bp1j7UeGLfjDKDJ+APY
-	 LTtejBGO1ZmhFIG0XocNaxlCtXQPVe3uzmxO7HG4AhLjseyoOMPFcSUNeaEYHzNvkP
-	 EO1j9FJBvmfTCRGGLlKkFjVSD8NUj/atnNkj7C9AgzF6QguBKvrkgRGRjkueFA7yPV
-	 /BXTp5/IWtbtg==
-Date: Thu, 23 Jul 2026 17:53:32 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Francesco Dolcini <francesco@dolcini.it>, Marek Vasut <marex@denx.de>,
-	Stefan Agner <stefan@agner.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Alexander Stein <alexander.stein@ew.tq-group.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2 2/4] drm: mxsfb: Add optional DPI output bus-width
- configuration
-Message-ID: <20260723155332.GB4453@francesco-nb>
-References: <20260723093813.180089-1-francesco@dolcini.it>
- <20260723093813.180089-3-francesco@dolcini.it>
- <amI3mPBVXe0zj_tC@SMW015318>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="igUx56Zh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A58951F000E9;
+	Thu, 23 Jul 2026 15:55:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784822104;
+	bh=u+HKT74TUcPmfzCXDus6MU+AcFK0t/zJo7zaNWR5U34=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=igUx56Zh/RVJevzQZ4bQ5qOwx5ySlN1FMW5njt9Wz3yWY8GRb2G3FzLi96kFbsu0O
+	 99vV9y+A4hPpBWoRTBG07X/3bj6h583lRXnT4MSjFSm+VyzsGxtPgcR/epZ1qktQ+h
+	 vxE1+gerUhml8ApcKwWJYpwVnGGvfCv+7RTzV/FXXkADixO/IJjM5Iw0kp5vw5f7gl
+	 7/++A3hNJjbjxvVlvZyYepkVohj7MykPky2PSkyfLoOvV+BB/wCld7MTtoY8QqOyRy
+	 MozHY8eoAxQDg2kixLMnZFmogX9Hnwn0nO19wOqFgOHmPaZBUsjW9it2OKysmF4gur
+	 jtK1iGLXHpFtA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v19 3/4] arm64: dts: renesas: rzg3l-smarc-som: Enable
+ SD/eMMC on SDHI0
+Reply-To: sashiko-reviews@lists.linux.dev
+To: Biju <biju.das.au@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20260723154154.319674-4-biju.das.jz@bp.renesas.com>
+References: <20260723154154.319674-1-biju.das.jz@bp.renesas.com>
+ <20260723154154.319674-4-biju.das.jz@bp.renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 23 Jul 2026 15:55:03 +0000
+Message-Id: <20260723155503.A58951F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <amI3mPBVXe0zj_tC@SMW015318>
 
-On Thu, Jul 23, 2026 at 10:47:36AM -0500, Frank Li wrote:
-> On Thu, Jul 23, 2026 at 11:38:09AM +0200, Francesco Dolcini wrote:
-> > From: Francesco Dolcini <francesco.dolcini@toradex.com>
-> >
-> > LCDIF programs LCD_DATABUS_WIDTH from the selected media bus format. The
-> > format reported by the downstream panel or bridge describes the display
-> > input, but it does not describe how the LCDIF data pins are physically
-> > wired on the board.
-> >
-> > These can differ. For example, a 16-bit LCDIF bus can be connected to a
-> > 24-bit display by wiring the available color bits to the corresponding
-> > display inputs. In that case, using the display's 24-bit format to
-> > configure LCDIF selects the wrong data-bus mode and changes the assignment
-> > of color bits on the LCD_DATA pins.
-> >
-> > Read the optional bus-width endpoint property from the LCDIF output port
-> > and use it to select the media bus format used to configure LCDIF. This
-> > allows the LCDIF bus mode to describe the physical interface
-> > independently of the downstream display format.
-> >
-> > When the optional property is absent, continue using the format reported
-> > by the downstream display device, preserving the existing behavior.
-> >
-> > Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
-> > ---
-> > v2: use the common bus-width property instead of the legacy interface-pix-fmt
-> > ---
-> >  drivers/gpu/drm/mxsfb/mxsfb_drv.c | 24 ++++++++++++++++++++++++
-> >  drivers/gpu/drm/mxsfb/mxsfb_drv.h |  2 ++
-> >  drivers/gpu/drm/mxsfb/mxsfb_kms.c | 12 ++++++++++++
-> >  3 files changed, 38 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.c b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-> > index 9b8fbda85d28..0545718a4b65 100644
-> > --- a/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-> > +++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-> > @@ -12,7 +12,10 @@
-> >  #include <linux/clk.h>
-> >  #include <linux/dma-mapping.h>
-> >  #include <linux/io.h>
-> > +#include <linux/media-bus-format.h>
-> >  #include <linux/module.h>
-> > +#include <linux/of.h>
-> > +#include <linux/of_graph.h>
-> >  #include <linux/platform_device.h>
-> >  #include <linux/property.h>
-> >  #include <linux/pm_runtime.h>
-> > @@ -209,7 +212,10 @@ static int mxsfb_load(struct drm_device *drm,
-> >  		      const struct mxsfb_devdata *devdata)
-> >  {
-> >  	struct platform_device *pdev = to_platform_device(drm->dev);
-> > +	struct device_node *np = pdev->dev.of_node;
-> >  	struct mxsfb_drm_private *mxsfb;
-> > +	struct device_node *ep;
-> > +	u32 bus_width = 0;
-> >  	int ret;
-> >
-> >  	mxsfb = devm_kzalloc(&pdev->dev, sizeof(*mxsfb), GFP_KERNEL);
-> > @@ -236,6 +242,24 @@ static int mxsfb_load(struct drm_device *drm,
-> >  	if (IS_ERR(mxsfb->clk_disp_axi))
-> >  		mxsfb->clk_disp_axi = NULL;
-> >
-> > +	ep = of_graph_get_next_endpoint(np, NULL);
-> 
-> use auto cleanup
-> 
-> 	struct device_node *ep __free(device_node) = of_graph_get_next_endpoint(np, NULL);
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Inconsistent use of the RZG2L_PORT_PINMUX macro in a file that othe=
+rwise strictly uses RZG3L_PORT_PINMUX.
+--
 
-Does it makes the code more read-able or better in this specific case? I
-would say no, to me it is more compact and clear the way it is.
+--- Patch [3]: [PATCH v19 3/4] arm64: dts: renesas: rzg3l-smarc-som: Enable=
+ SD/eMMC on SDHI0 ---
+commit dcc213ca53944f7a953171eac4a8625b70907250
+Author: Biju Das <biju.das.jz@bp.renesas.com>
 
+arm64: dts: renesas: rzg3l-smarc-som: Enable SD/eMMC on SDHI0
 
+This commit adds support for enabling SD card or eMMC on SDHI0 on the
+RZ/G3L SMARC SoM. The selection between SD and eMMC is controlled by the
+SW_SD0_DEV_SEL macro in the board DTS. By default, eMMC is enabled.
+
+> diff --git a/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi b/arch/arm6=
+4/boot/dts/renesas/rzg3l-smarc-som.dtsi
+> index 091a227233cba..c365b8087520b 100644
+> --- a/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
+[ ... ]
+> @@ -216,7 +234,134 @@ i2c0_pins: i2c0 {
+[ ... ]
+> +	sdhi0_usd_pins: sd0-usd {
+> +		sd0-cd {
+> +			pinmux =3D <RZG2L_PORT_PINMUX(5, 0, 8)>; /* SD0_CD */
+
+[Severity: Low]
+This isn't a bug, but should this macro be RZG3L_PORT_PINMUX(5, 0, 8) inste=
+ad?
+
+Since the rest of the file appears to use the RZG3L_PORT_PINMUX wrapper,
+would it make sense to keep the styling consistent?
+
+> +		};
+> +
+> +		sd0-clk {
+[ ... ]
+> +	sdhi0_usd_uhs_pins: sd0-usd-uhs {
+> +		sd0-cd {
+> +			pinmux =3D <RZG2L_PORT_PINMUX(5, 0, 8)>; /* SD0_CD */
+
+[Severity: Low]
+This isn't a bug, but the same question applies here regarding the use of
+RZG2L_PORT_PINMUX instead of the RZG3L variant.
+
+> +		};
+> +
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723154154.3196=
+74-1-biju.das.jz@bp.renesas.com?part=3D3
