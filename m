@@ -1,67 +1,65 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azolkn19012013.outbound.protection.outlook.com [52.103.23.13])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azolkn19011029.outbound.protection.outlook.com [52.103.12.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29289395ADB;
-	Sun,  9 Aug 2026 10:09:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.23.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A975837A48A;
+	Sun,  9 Aug 2026 10:09:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.12.29
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786270163; cv=fail; b=UHiagCN6ffuMoZNCOwtx3Tv08kB1vacAWEEeG418EIpoxkFC50dzgBd1i4ml4gbpe7yg/Xgoic7X2cRsFXM+8rG9c5/Lo0uqqWnH305XUWrw1YLUMyg+Lf4hVuXUn6zpUcOjkOGbGdgO5cMVdBeuWOIL+NTmk9LSVK0rZehI0LM=
+	t=1786270183; cv=fail; b=gZfGrZhR2REO9fb1HsXuHmhR9WxArR/OxT8u4yTOrmv7c3mkYrK6mlsQAcvjMj7PCYM4fsgcaKXWoKaiMRS9f1abNfJPuO2Vc5jTd4trvzswFy64ikccMZUXVH6FkkQyGdywBbQaZKMSy+veIKtDz9DUfvknJPcUCT40W2RtMwk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786270163; c=relaxed/simple;
-	bh=jim9KPHXKYXVuB7QCsupCF0rQCxJwjsZnwDPtMpoAno=;
+	s=arc-20240116; t=1786270183; c=relaxed/simple;
+	bh=BqSi0eR0/+N5PuJpHvoAtNgfi6VLgt/NZYELt1ktU3k=;
 	h=From:Date:Subject:To:Cc:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=js4QaTzvhCjdq+yUJhLssFJhKUij/jn9YuwOcPdpTu8g2asULIWPgHFIUzydHmarrG+1/VwliKtLhzUpBV3tO0EovgXtX/lM+BZAiyOafUnBZmCIjXNECgv1qpSL95jJbvDHkPtou2cHUnkFQlGbcyogzq42BtcGJKYdJUu4+dw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=LN0E7P8O; arc=fail smtp.client-ip=52.103.23.13
+	 Content-Type:MIME-Version; b=k8NXBviO+4OLPkRbftW2Rq8biCchgKIiU1lURHdEr6fQA+g1L1VX54RsEuX0VLKxemmNjL4IA0ST3g49glUsvFqvkJU+aQCnUiuSGqieyTi/s+2CvCjkCyBBo/ur7IRGOPsLhIHGqnYGX6g3uTbCj2VjYsWv5uxPD5kEnJChxyc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=gLZMPJsF; arc=fail smtp.client-ip=52.103.12.29
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="LN0E7P8O"
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="gLZMPJsF"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Osi+sZ4JCTO9q6TqvUNNZpIYV/uIpboPk/uMgHfW3AoyYqztl8hCWgxTJw2zSVpu0HNA8WGd4Df81kDZpuHSt6dAdRJ2WpTuArjneQBwFhjB7t+x8tNqd0qkm5TADnL5Fp+pJBkQLGMK8bl76mgllKnVkC7NzRuRdvCCC/HwMs9l/ZsfLykHMHVb3Mip7T2YO4p3Xa1GcVilENjGTkLYlot9PvLqxB+cq8OZh//GKh1J7zzufz50k6AyXTJp8PwP+qEvNxB/0eGkKyaRCmAp5glrx465iW307bUDbEUn4ASu/PYsXDWFQWBDTJsY725UnwBzJ0Oftw8isTZb+veGSA==
+ b=mH7iJuYszM1e6xBhABTyznzDIpbljORCJ7rLXAuIdCuodSbGBfnUyC6dr1e7qgI7GiC29+ZaW3cLIWq/f3f9aHlqiNhDU/MhjFgjZfo6vzMf5LO0c51QyzZq2cAovnqKdaLrJ1W+SPJqskgSZNQFpv7GW9WYSWInl8OIObWC92cGgezIszeWPtPwXFa9F2Bg2uDAHqjaGM93h8FJaY9sz3LZXYqUGCqI8wX5DWaQPBmIwLy1PG7qg7mD8aBjCuedZsaA8Ic3UJHJSKrZe5GmFbpf5yGeLGBoS0ENWgV2K/biGw5+JCiuEgFA1KmPUGzvanP9oBfVpMlcI881eDSsnA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Aub2XwzjTiNskuDsIXj48sJ1Vutboetzr6qDC0R31Xw=;
- b=RDGmlTUZdo/exc3tbe0TYqd6ArfTdZaWNdXuFjA2Z8N1bxbbGYSGdMoK32DX41BOpoidGrsngs28q8bNcrtSxuK3qmVkWbmjP09pwb0mYNUoZLS9uGPrncMIjdlPJ/94wRdoMTGP+zlqkW65gT1/IB6jj/NuDU+UtPr47gBpDVafZuLbboyal9tXUpPZEbIqpyUDAEdeVmLDSEJJ+ddGLpUzX7m+iWQilaukTs2QIX5iScYz1da+J5E9tx/9TZpuSVkuBQcFbFOPSVSfGfshFJeVYmjZFp9cxX4BQopk6L2zppsNNeMvdLRyd5UkoSoKL4auXHukdmA4oA1wPqLxXQ==
+ bh=jwLvHbFMsrnvIb8/HywdysqQLGBUS88ozn6AgAuahnQ=;
+ b=Iv3bvSWQXeeKjmQTzKb//aXJ7YboLgMYD+pYIO9Eft2JW+BZuodLBm94/68m4z0m25pgWNPL9EP3HLaf1JZx3PnOJ0hyOsv5AzLCPucgTPeZsS0RjW61uZQEg3DqBNDDuZXfyE/EgaEQ6e6v93l+SXAq5oy4SREFR5PUFeBc/270nsWPxl45tdhOCIaVngGvHcMCIzPg0zXeVf0IrnKEBzLH5PVpiONT9uf4NSJs76wMwZH9hhyrru3dfa+DBsmU1Gfl8fVp4hSPFhHrIMD34hA71bxWSLhqH92/QNDklsdGhWmpkA5G87YqGIwn0bypK3eJL5IFNRHlhdO66t9oyQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Aub2XwzjTiNskuDsIXj48sJ1Vutboetzr6qDC0R31Xw=;
- b=LN0E7P8OJtwyWX/o2JyCruNmneFZkfhowJuN+kL/X6iJVAZNLB2Hwlz5cbFo29WxWsrr7jIJEqw8cejJOLse2fQC9PvWJufoLUqK3wuxn7hpQcFLwZpA92tmA1c33AzBVmGQq1s4gkiTrvGS96W0kXQxEFqEj9c6A9r4wTpw6y8bAgFWz/zHz9yRopUtcBAObGdEf8bfkwBV91Z9W0AhViFKesMea+UCvh4okUD3SsMWPOQpep9+m6HIADF9i5pWNX64gB4byloc3iEByALvrV7x4CfHdfmPmYkA7K4LtZ6utDmHt12tmBG2Rmvmt345zmJAo+NHsp5Gg6d35lGbBg==
+ bh=jwLvHbFMsrnvIb8/HywdysqQLGBUS88ozn6AgAuahnQ=;
+ b=gLZMPJsFWIi/ZZG5dpOYO3f79BpAlt5wP32JPD+o8DaenxbSoSr0e4lKLCpV9DGlIsyfnQXsdFAR+8yNkIIP26BYHb4m5wtxdJNa4+16kRfx83sEpXTToMlLhjzPQvUhuhXJNi/gi+a7R8MO1MqeyYcaYXDtinycZDB47Oj+PyskCWhysqgnr+iXfw2b7yw4aX6TrMu6F29GKw1hwc0Ovu3+06fBNnI84jGZMvjcg2iWj3Jz5lU7Ocrfoi4+0PExJIUkyVN6UkU2Qw6Q1bdEIQaHGi2YqerDt2M6OJm5FZiSAqbvRpxYpi0k1aje8XvZ051/iHRrkVZEQl+56xa1CQ==
 Received: from MN0PR19MB6091.namprd19.prod.outlook.com (2603:10b6:208:382::21)
  by CY8PR19MB7667.namprd19.prod.outlook.com (2603:10b6:930:77::16) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Sun, 9 Aug
- 2026 10:09:20 +0000
+ 2026 10:09:39 +0000
 Received: from MN0PR19MB6091.namprd19.prod.outlook.com
  ([fe80::af9a:4cc3:facf:9374]) by MN0PR19MB6091.namprd19.prod.outlook.com
  ([fe80::af9a:4cc3:facf:9374%5]) with mapi id 15.21.0292.024; Sun, 9 Aug 2026
- 10:09:20 +0000
+ 10:09:39 +0000
 From: Liu Changjie <liucj1228@outlook.com>
-Date: Thu, 23 Jul 2026 23:48:46 +0800
-Subject: [PATCH v2 2/9] dt-bindings: clock: stm32: add STM32H7RS RCC
-To: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
+Date: Thu, 23 Jul 2026 23:49:03 +0800
+Subject: [PATCH v2 4/9] dt-bindings: pinctrl: stm32: add STM32H7RS
+To: Antonio Borneo <antonio.borneo@foss.st.com>,
+ Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Lee Jones <lee@kernel.org>,
- Dario Binacchi <dario.binacchi@amarulasolutions.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- mfd@lists.linux.dev
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 Message-ID:
- <PH7PR19MB6088AFA7804E27BDD3F00C5FACDF2@PH7PR19MB6088.namprd19.prod.outlook.com>
+ <MN0PR19MB6091D8D00C93174C6DDD020AACDF2@MN0PR19MB6091.namprd19.prod.outlook.com>
 In-Reply-To: <MN0PR19MB6091DB524E7A07E16D108F52ACDF2@MN0PR19MB6091.namprd19.prod.outlook.com>
 References: <MN0PR19MB6091DB524E7A07E16D108F52ACDF2@MN0PR19MB6091.namprd19.prod.outlook.com>
 Content-Type: text/plain
-X-ClientProxiedBy: TPYP295CA0023.TWNP295.PROD.OUTLOOK.COM (2603:1096:7d0:a::7)
- To PH7PR19MB6088.namprd19.prod.outlook.com (2603:10b6:510:1df::20)
+X-ClientProxiedBy: TP0P295CA0004.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:910:2::14) To MN0PR19MB6091.namprd19.prod.outlook.com
+ (2603:10b6:208:382::21)
 X-Microsoft-Original-Message-ID:
- <178627018290.53236.16415746725122032087@outlook.com>
+ <178627020495.53236.17813350487839471873@outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,42 +69,59 @@ MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: MN0PR19MB6091:EE_|CY8PR19MB7667:EE_
-X-MS-Office365-Filtering-Correlation-Id: cc1cb3c5-7e35-4788-04aa-08def5fe45de
+X-MS-Office365-Filtering-Correlation-Id: 78b0fd60-77a5-407d-471c-08def5fe52da
 X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|25010399006|5072599009|15080799012|23021999003|8060799015|19110799012|24021099003|51005399006|440099028|3412199025|26104999009|40105399003|2607281247196008;
+	BCL:0;ARA:14566002|25010399006|5072599009|15080799012|37011999003|23021999003|12121999013|16051099003|8060799015|19110799012|24021099003|51005399006|440099028|3412199025|26104999009|40105399003|2607281247196008;
 X-Microsoft-Antispam-Message-Info:
-	y6HXmmI3YpLG3c5upVBDStMrdIDV1MjSgCq0du86Dd9blPvrvraOYMM+eQR38JBMkD9wNOhnD2rfm/V6ZSqa+dHsCdHbkFz7SARen+sePPQMQcoTZZTxGmrs1uKPBllNGY+46XXDQT4JxvnET7d9N+lMr5LuqW4h5R+noO7U9YtvYwueJ7kI4aVLUVrnHiZ4ky2oSwR8FUuM2fYm/ylE8AEcOA8m6jGVLicca5ceL3CjHSBPe+Kx1SONc4mTgSwUMaWrxEe29AHQed8RkvQvM4aEzpKJS0D7B94QfW1PaJ7KVOq34b7neHf3uCTIcexWFTnyWdkMC3vB+MjTyx03hov1iBr+FPir+f61PYlbxwqHv/psa4N8ufwao1iUln9Ah+6EencVs78n8u/HBJF0lIIhrSrc4qoSRo3V6JOMMWKmq1YfQ48Cs6LUBN9tHV8os+15o7g/tJSE/atmeONev4KYT6UWLi7rdZS0JCTQ0d9vlclp8TM+TOpQNsG7TLCIH1cGx8NwUlHDS09n/d29lOOJGfUCJlaP0kSL5ilYSLP2ISt2pFrL2s3uPEw9Lla3DVD1IuUSHyTsiaNBkN8t7OIF3e698bwUoPSi6O1egHuLwujbMU9z7t4eN2avDGY0kAoDCbc9rWbG8ZtTobMsOG98qqR46oU3w5uw5pDxZF5KeTrZ09EULO4Ew30JFkFrnXhTN4AS/CE/LiPJT9Ts1caWMiRYv+SQ4DEhZmoZXI4N5YU9o/N6rDo4HtMuZ1R2jPMQn4BAN0hy/+5310rsvzwnnS6a4uY/p1ZSJmBGw2BIDrl/5rBNBJkY5yqXQn/nblOWWYCv8B7cyd8e8RbxolMBnN5eBdjhxZE3l2IRpz/EbuXJ3pjT/kXxBvNcHlgv+XtTuyuS99ZW9iCwI/VxU02H7DMfXXPu/mv1YgP2FLcgbe1MIgUKrqGUwMJ7Kol8
+	=?us-ascii?Q?5VWWOIZViEZmqM8VizgVvrimE9jy05kWm6Sexo1+i05O9JASsYoiHPsSwwSE?=
+ =?us-ascii?Q?gTsWDtTwZVeS1QBnkgIBQwlg3NTGIk/qQ1Du0UGhgkJO5D8QkTKp9xb0D6xj?=
+ =?us-ascii?Q?PqCaJlvh48CkZQT0OsFVNS8KX3nJr1ECqBOBcvXgurxJ+uCbMPEC3GFkdVnT?=
+ =?us-ascii?Q?2Wdej1KYcd+OjgwK22HhRycYUUfhH8h56Vm36WoPJmDUqmHjSgiNjE8XoZ/n?=
+ =?us-ascii?Q?2UltvJVRWiUoASesCPzocTF0TF+reQIl5ULtobG4cgpVY+emzv2Tg+zsNd3f?=
+ =?us-ascii?Q?7GAWK67R7z5XWU0dgav0e/icRAvwOOoFLAJDeJIMBp2anNe2hqO/GtoqvUMh?=
+ =?us-ascii?Q?btkIF4UWVadfDYUFcLOShs5MwhYNGaD5TGzv0M+Aa1Cw9zW24PFVPr/1Ru4R?=
+ =?us-ascii?Q?aSCCGOV85TuS6ULexKIxryZwF0dnFpDNZ6y71ZalGtLBmQhlipYuB+y9Nnpm?=
+ =?us-ascii?Q?ZfM/fH8ulgG3yUh6Jn2QbO2NEgFHFoT7CAXxdbWbpfrkU55Z3/RXN+EflmMZ?=
+ =?us-ascii?Q?YG6SOYTEqGsIqrFDT8r3Sobut59mPLM2IalaKb+TAlHpQcqdV+/dqYwdlIwa?=
+ =?us-ascii?Q?zBU9N5E0TiHHrnnl77zaGl1hV/YUgXTS6/kqbTlhXRUtgLzu5TjQxnao39x/?=
+ =?us-ascii?Q?Pq1y+qugDdA+ZppqgeD5aQHffzCcNyw+jQv5fU/LfYFZCt1VZbGEmDdZOV/x?=
+ =?us-ascii?Q?ovI9p5Dm4IGUFG9MRabeh6fq7x68KOLlyWpQg2y12CZ9zqvx6oM/KLsUY/dx?=
+ =?us-ascii?Q?PKgvlYvT6BDutWjA/p99Js4XaZsu3rvpTQr5zXGhB2pEkCvRVS8jCvnCFTtu?=
+ =?us-ascii?Q?4q6zVfyVXwuSm+xyHJYo2Hde2WzN6bIuMwn65lrSbD56Km3KvaAIu2mSQffm?=
+ =?us-ascii?Q?VZEZlqgCNPT2suIcyPRqSPj3gMgr/uNG9CuKmp++anrp0UcZDxTr8H9FFKob?=
+ =?us-ascii?Q?7lsc16Vjy9rk/gyu3IpcpQb8mT0LB933dSf0h0TJOs3fVIj6uzfi1uEBzuN0?=
+ =?us-ascii?Q?1qCYgMaBkA3ewpTYX8wzM4WH1A=3D=3D?=
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?1qRH9CpM4Ak8q+6q2cnsq9F8qaiQ3Hr/8du26Fo+IrA1HCb909JPSDHbox5Y?=
- =?us-ascii?Q?HrYPHyqwx7jEbXzxLvCiiJIfyGUVtznRRZNHoLRvhGWb0dEW7TtMyLssYAqo?=
- =?us-ascii?Q?aJL1fG0yGeRQhv9WL+91c8HhL14EPr7Y2a8EswF8aEJGtS0aMvo4hnJSyPvK?=
- =?us-ascii?Q?QifdQjHlKCRnlX5aRuVm11hgTp6TvDGP9SrYMqhWyHgXrmCLrQakvYj28KGk?=
- =?us-ascii?Q?8iKnoMhEbxYl3xxp9Ckeu1mKR+6xJmiIuGwMBAMz9plBbd6P8r+Rag7vH35b?=
- =?us-ascii?Q?uRea8CU5gSTXW/FiRxN2x76MVl4rE2DtiHlg/dytdq5M5lwSMlHkZTfON2KM?=
- =?us-ascii?Q?znQM7H5AfHZO6DwJeT/QdAeLBip2thML7zoXuGBTcYQ6sPeUwjPAWcIuqv5T?=
- =?us-ascii?Q?iqDBHwUzI+QE/yD9gKMxEHaPlsWH5ZkW5vavzzHeVQYLMY41iDgrPNdXuuFX?=
- =?us-ascii?Q?mn1EN93BMhvFLd6Ki+qgoRfcP/F2r83DQft7/qWDJCXDD0A0wVh9JVpS0MWk?=
- =?us-ascii?Q?A3byoaHzPe9K9QoewZLvxdSEZMqKrH21cv+zawrf8ZDTe7pDDS3TPATusMG4?=
- =?us-ascii?Q?U+WhEljd13NuCBQoXDrX+cv8knTv39WaM5gkWDlF0o2lTxH15sGfkUMs1Pzu?=
- =?us-ascii?Q?JIgMNy+MwZAkh2TnFwLXSt/ZlYNyT5baZZazb4QN5Z5xE5khaldFD41bb3mK?=
- =?us-ascii?Q?r0MZeVi1nmDmfeehaZjSNKEqIeL9Jxu3S66fLgJ+PQFx6w1vEfdUyvQ+DR86?=
- =?us-ascii?Q?CZsT13aB7E1LdUUmL05pXhP8RDM/q574AoRdj3H+wp+9WMYXKqJTawxCTPfK?=
- =?us-ascii?Q?/P9zg+l8ICoSmLLPhsA5HUkCiMuXtzbpUl4bfQAfhh+y6stdnuoN+36MMoFW?=
- =?us-ascii?Q?RhnSw9Z60wguTae8hDRWkw5/mzFzxhZ3UgBONsV6cALrfyjExyY3tyxG4nlT?=
- =?us-ascii?Q?LdllBngA6BR+HI/kuH3L0PX/XCQVHXUisKe7UA8Js16GLu0WvE7rJLrvYNy7?=
- =?us-ascii?Q?vH8y/7om6lXbDJca2wI0G11bBvW6FD9AwNm5HnjvHGrytujw57n2UNwildnn?=
- =?us-ascii?Q?w48/yLB5IAWMSwas58Os20RXp3EPasZmwpWEE9JPjpbaKOiIkoSuJVXDAWj7?=
- =?us-ascii?Q?DC6sOi3NukVvMuzO4eS3/IHmlNDQHvRsNL0SQfYgeInuW6gwET0nkvDMzYAj?=
- =?us-ascii?Q?B9KVTgjeXzZuBd+jSYp+d2MAX+zcAL+t+jyPZWs4mlrUIQyVtxvnrOeaNa6M?=
- =?us-ascii?Q?2j3fPzI4ta9ztsHZxj2IQjPqp+wwt9Ko4pl17REmETAXSp78pgu8OCHgzkDb?=
- =?us-ascii?Q?0neAawWs6y33Eag9OoYtQAA1Gi8wO3IUfHEhSQaZLpvj+srYTy07CpPXrUiL?=
- =?us-ascii?Q?nHwyEMub5UYPZ/0LXue6uz0aZpToJusDOBdbsob5CEwDMlfEEg=3D=3D?=
+	=?us-ascii?Q?DyZW89f3j/0p4MYKq6aTWuGQR5l2PAWI1c1kiofypAOud49cDeBPUmeBfkkE?=
+ =?us-ascii?Q?6Zhx1qBrBxGHjbh95/v9D3BEmpZeC7sbPb8CHEcnqqsEiw3s/yS8rmJhevOb?=
+ =?us-ascii?Q?riyPiTgQ85mU9xGzhScw+TfwsDTglugpWR31kP5ateolr88N148eUNnSv/EA?=
+ =?us-ascii?Q?4FL4qzGWMu5cgYn5ssCVGfBnN29FkzgSSit9Pi9z+L10K0UhmjX0bgxX1rZX?=
+ =?us-ascii?Q?3aKC/VdRhEEw+BIAFKTzysz6L2zVhVdhbrmpb0cZgAsRTiAFiPnWkp6r+O6n?=
+ =?us-ascii?Q?H2N0nT0vu2wazqHHUyJRUdbd6L+kukbRPImh2IPip34YDxLyjQExhHYd8Gh/?=
+ =?us-ascii?Q?sl/KSeF1mWUVuRnM8e4aVE+P9ZUaQ+I3Rqm97hSxAo6tuYjyzWbH3jbIw34y?=
+ =?us-ascii?Q?Q+O5pX1vTWuFpEYlo4dehVOyTX0i90EVLx/slP8+eJQbUj8ZLfOIIEw8JAKA?=
+ =?us-ascii?Q?oF/V6npw9HeGi6+4iE1AxHYqCdGkJcbU/xbqwkkhJTuXG7SEBwRDbrd8EOsE?=
+ =?us-ascii?Q?uiRNGaYq7DgikzmnRPUL12ORmyJLqtnaj4Ed1+NDZP8RV7cQE70I0Asg/MLP?=
+ =?us-ascii?Q?UvlJvP1fhSE9Mg7GM1YGNuSr7FVTGGxgLfTV/CVMFnjwnxNgebIpENGOPe0q?=
+ =?us-ascii?Q?SEzEyRzQuErGz/b78RIhvvI5QA+TxkJYDYrTETxQ1OOZirLrgVfY4mu+1OfC?=
+ =?us-ascii?Q?qYIrY4rDJBnHlUZSDcqKAxc+f9vC27AE1oVficAxlQqXFyP8Jb4KBWduaCBG?=
+ =?us-ascii?Q?XQxsVbS401dRkIWYCwv0VztaGqmwmhmrt5QjQpJPgQZLdhMJsPcpm4e+vYCj?=
+ =?us-ascii?Q?Ot2MBvmStLvxX0iHrnn5sL6P7Dekcz5aMEg5Y2bGbxdpFmKg9vSXxCCKwFZJ?=
+ =?us-ascii?Q?aHZ6oT8QMnzhGA5G6nYY7Uu4KznNO4tI8eDIk1l+stuIUX7LPMppVoLiSBV/?=
+ =?us-ascii?Q?NNutMMgT7/hNBvgiYAivtdN2/pX/EfDnOrH1OsvsSfP9KjaCb9CU9yN+UdjL?=
+ =?us-ascii?Q?jEjVzhN2cVNt3nb44Qne6zWdxyvMO2OzY2FzCLZBK5SEBoNeFiHrd6W5lS3X?=
+ =?us-ascii?Q?6MxMCBVuGyd+WajDCGm9i6MeDV4wLjXer7T/y+k/TBQSGAD891MbY9XMwx6D?=
+ =?us-ascii?Q?baAJQP/OrizFN0tSqvwIK5PPB/kkJKtzvwGLjT1PNNMrkBdcyD4D+P/TO/Xh?=
+ =?us-ascii?Q?If7ag/Ddv2FuEHNT8jTqoQV8Kw9e/9/v9lnLny0bKEebsxCIRbdHwKquIIbJ?=
+ =?us-ascii?Q?wV60kmMz7hqt8iQJch0mKLFV14pTHsqpD5AYS4XPbP1jzNAk2WQdFMTrVkbB?=
+ =?us-ascii?Q?gKzLaTQyY7bqaKnVfW0nf2vuNTwZiRl/Kg9fGhR0pbOE5gher+gFOTYUA1c2?=
+ =?us-ascii?Q?XRfSiuEijr1v+zx7nlOiZWT53b6uXejK+GremqZfnPPqigkOkg=3D=3D?=
 X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cc1cb3c5-7e35-4788-04aa-08def5fe45de
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR19MB6088.namprd19.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 78b0fd60-77a5-407d-471c-08def5fe52da
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR19MB6091.namprd19.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Aug 2026 10:09:20.1870
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Aug 2026 10:09:39.5547
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
@@ -114,203 +129,47 @@ X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
 	00000000-0000-0000-0000-000000000000
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR19MB7667
 
-Extend the STM32 RCC binding for STM32H7RS and add its clock and
-reset IDs. First-stage firmware configures the clock tree for
-external-memory execution, so Linux consumes the active tree and
-controls peripheral gates and resets.
+Add the STM32H7RS pin controller compatible. The H7RS family exposes
+GPIO banks M through P, so extend the bank names and EXTI I/O port
+selector range accordingly.
 
 Signed-off-by: Liu Changjie <liucj1228@outlook.com>
 ---
-Changes in v2:
-- Give "st,stm32h7rs-rcc" its own standalone compatible (drop the
-  "st,stm32-rcc" fallback) so the RCC node is matched only by the
-  STM32H7RS clock driver and not by the generic reset-simple platform
-  driver; update the example accordingly.
+ .../devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml      | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
- .../bindings/clock/st,stm32-rcc.yaml          | 73 +++++++++++++++----
- include/dt-bindings/clock/stm32h7rs-clks.h    | 32 ++++++++
- include/dt-bindings/mfd/stm32h7rs-rcc.h       | 11 +++
- 3 files changed, 102 insertions(+), 14 deletions(-)
- create mode 100644 include/dt-bindings/clock/stm32h7rs-clks.h
- create mode 100644 include/dt-bindings/mfd/stm32h7rs-rcc.h
-
-diff --git a/Documentation/devicetree/bindings/clock/st,stm32-rcc.yaml b/Documentation/devicetree/bindings/clock/st,stm32-rcc.yaml
-index f83a6120d..b512da6c2 100644
---- a/Documentation/devicetree/bindings/clock/st,stm32-rcc.yaml
-+++ b/Documentation/devicetree/bindings/clock/st,stm32-rcc.yaml
-@@ -23,6 +23,7 @@ properties:
-               - st,stm32f746-rcc
-               - st,stm32h743-rcc
-           - const: st,stm32-rcc
-+      - const: st,stm32h7rs-rcc
-       - items:
-           - enum:
-               - st,stm32f469-rcc
-@@ -47,6 +48,10 @@ properties:
-     minItems: 2
-     maxItems: 3
+diff --git a/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
+index 76d956b4a..6e74485b1 100644
+--- a/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
+@@ -24,6 +24,7 @@ properties:
+       - st,stm32f746-pinctrl
+       - st,stm32f769-pinctrl
+       - st,stm32h743-pinctrl
++      - st,stm32h7rs-pinctrl
+       - st,stm32mp135-pinctrl
+       - st,stm32mp157-pinctrl
+       - st,stm32mp157-z-pinctrl
+@@ -115,6 +116,10 @@ patternProperties:
+           - GPIOI
+           - GPIOJ
+           - GPIOK
++          - GPIOM
++          - GPION
++          - GPIOO
++          - GPIOP
+           - GPIOZ
  
-+  clock-names:
-+    minItems: 2
-+    maxItems: 2
-+
-   st,syscfg:
-     $ref: /schemas/types.yaml#/definitions/phandle
-     description:
-@@ -79,14 +84,13 @@ required:
-   - '#reset-cells'
-   - '#clock-cells'
-   - clocks
--  - st,syscfg
+       st,bank-ioport:
+@@ -123,7 +128,7 @@ patternProperties:
+           to select GPIOs as interrupts).
+         $ref: /schemas/types.yaml#/definitions/uint32
+         minimum: 0
+-        maximum: 11
++        maximum: 15
  
- allOf:
-   - if:
-       properties:
-         compatible:
-           contains:
--            const: st,stm32h743-rcc
-+            const: st,stm32h7rs-rcc
-     then:
-       properties:
-         '#clock-cells':
-@@ -97,23 +101,55 @@ allOf:
-           items:
-             - description: high speed external (HSE) clock input
-             - description: low speed external (LSE) clock input
--            - description: Inter-IC sound (I2S) clock input
-+        clock-names:
-+          items:
-+            - const: hse
-+            - const: lse
-+        st,syscfg: false
-         st,ssc-modfreq-hz: false
-         st,ssc-moddepth-permyriad: false
-         st,ssc-modmethod: false
-+      required:
-+        - clock-names
- 
-     else:
--      properties:
--        '#clock-cells':
--          const: 2
--          description: |
--            - The first cell is the clock type, possible values are 0 for
--              gated clocks and 1 otherwise.
--            - The second cell is the clock index for the specified type.
--        clocks:
--          items:
--            - description: high speed external (HSE) clock input
--            - description: Inter-IC sound (I2S) clock input
-+      required:
-+        - st,syscfg
-+      allOf:
-+        - if:
-+            properties:
-+              compatible:
-+                contains:
-+                  const: st,stm32h743-rcc
-+          then:
-+            properties:
-+              '#clock-cells':
-+                const: 1
-+                description: |
-+                  The clock index for the specified type.
-+              clocks:
-+                items:
-+                  - description: high speed external (HSE) clock input
-+                  - description: low speed external (LSE) clock input
-+                  - description: Inter-IC sound (I2S) clock input
-+              clock-names: false
-+              st,ssc-modfreq-hz: false
-+              st,ssc-moddepth-permyriad: false
-+              st,ssc-modmethod: false
-+
-+          else:
-+            properties:
-+              '#clock-cells':
-+                const: 2
-+                description: |
-+                  - The first cell is the clock type, possible values are 0 for
-+                    gated clocks and 1 otherwise.
-+                  - The second cell is the clock index for the specified type.
-+              clocks:
-+                items:
-+                  - description: high speed external (HSE) clock input
-+                  - description: Inter-IC sound (I2S) clock input
-+              clock-names: false
- 
- additionalProperties: false
- 
-@@ -140,5 +176,14 @@ examples:
-         clocks = <&clk_hse>, <&clk_lse>, <&clk_i2s>;
-         st,syscfg = <&pwrcfg>;
-     };
-+  - |
-+    reset-clock-controller@58024400 {
-+        compatible = "st,stm32h7rs-rcc";
-+        reg = <0x58024400 0x400>;
-+        #clock-cells = <1>;
-+        #reset-cells = <1>;
-+        clocks = <&clk_hse>, <&clk_lse>;
-+        clock-names = "hse", "lse";
-+    };
- 
- ...
-diff --git a/include/dt-bindings/clock/stm32h7rs-clks.h b/include/dt-bindings/clock/stm32h7rs-clks.h
-new file mode 100644
-index 000000000..e62e5d7e4
---- /dev/null
-+++ b/include/dt-bindings/clock/stm32h7rs-clks.h
-@@ -0,0 +1,32 @@
-+/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
-+#ifndef _DT_BINDINGS_CLOCK_STM32H7RS_CLKS_H
-+#define _DT_BINDINGS_CLOCK_STM32H7RS_CLKS_H
-+
-+#define STM32H7RS_SYS_CK	0
-+#define STM32H7RS_HCLK		1
-+#define STM32H7RS_PCLK1		2
-+#define STM32H7RS_PCLK2		3
-+#define STM32H7RS_PCLK4		4
-+#define STM32H7RS_PCLK5		5
-+
-+#define STM32H7RS_TIM5_CK	6
-+#define STM32H7RS_UART4_CK	7
-+
-+#define STM32H7RS_GPIOA_CK	8
-+#define STM32H7RS_GPIOB_CK	9
-+#define STM32H7RS_GPIOC_CK	10
-+#define STM32H7RS_GPIOD_CK	11
-+#define STM32H7RS_GPIOE_CK	12
-+#define STM32H7RS_GPIOF_CK	13
-+#define STM32H7RS_GPIOG_CK	14
-+#define STM32H7RS_GPIOH_CK	15
-+#define STM32H7RS_GPIOM_CK	16
-+#define STM32H7RS_GPION_CK	17
-+#define STM32H7RS_GPIOO_CK	18
-+#define STM32H7RS_GPIOP_CK	19
-+
-+#define STM32H7RS_SDMMC1_CK	20
-+
-+#define STM32H7RS_MAX_CLKS	21
-+
-+#endif /* _DT_BINDINGS_CLOCK_STM32H7RS_CLKS_H */
-diff --git a/include/dt-bindings/mfd/stm32h7rs-rcc.h b/include/dt-bindings/mfd/stm32h7rs-rcc.h
-new file mode 100644
-index 000000000..2302e0df1
---- /dev/null
-+++ b/include/dt-bindings/mfd/stm32h7rs-rcc.h
-@@ -0,0 +1,11 @@
-+/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
-+#ifndef _DT_BINDINGS_MFD_STM32H7RS_RCC_H
-+#define _DT_BINDINGS_MFD_STM32H7RS_RCC_H
-+
-+/* AHB5 */
-+#define STM32H7RS_RCC_AHB5_SDMMC1	8
-+
-+#define STM32H7RS_AHB5_RESET(bit) \
-+	(STM32H7RS_RCC_AHB5_##bit + (0x7c * 8))
-+
-+#endif /* _DT_BINDINGS_MFD_STM32H7RS_RCC_H */
+     patternProperties:
+       "^(.+-hog(-[0-9]+)?)$":
 -- 
 2.55.0
 
