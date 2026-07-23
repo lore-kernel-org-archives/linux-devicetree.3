@@ -1,171 +1,121 @@
-Received: from flow-b2-smtp.messagingengine.com (flow-b2-smtp.messagingengine.com [202.12.124.137])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B372330647;
-	Thu, 23 Jul 2026 22:09:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0926D403E81;
+	Thu, 23 Jul 2026 22:17:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784844583; cv=none; b=dNUv5KelzgZsu6rkP5B5lpy63IktI3BBAvWFAKo2Sw/b0l5cFLoVlL/hvH9xMC8qeHS56RG1j1np7z70eLQMjfLaGo0fjFywVVB1S3o2SJpElq8OpojDPX/pZ7zqJ8BteKz7HWpMCY3kW5f4QbliM9KYhspW0xF7uihzvggwYjs=
+	t=1784845050; cv=none; b=gGuV2cCIEeiePwFGSyZ1CV2k5GECxIfGWA8hfr0Gz8JzCH+BeIhWdlnW8TOxlUeI3VsGxPVF1qALIwFqUMGEdAq9DC54f1BGnCdJSPCW3GH9Wvey9KXrN+3luYTOE2R9aWJmjxo+qJKkFJhbqWCADlrFTsWztPxph5zxIXtN1Mo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784844583; c=relaxed/simple;
-	bh=08Vd4vj0vBOHxp6n6UUYarIgUYV6i+W7ia2Q7GQHbZc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uKHaxyrznlpV/ikHBUIUTycg4f00JC9tQ1OK+KnzPmb45gYY9ub9szg2IOulOh0F3PT2R8vOOuG0i8qxeXODpQ37Se1J6k1hkdtpnqHFW9LVPgQPKNYn1HLeHk0kUVqCfJpHkYXGkww4F4tZV+N1VutRpWd7nMrObbxA/yS/lZw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com; spf=pass smtp.mailfrom=gahingwoo.com; dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b=Iw0GqnH2; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=pvNmtjve; arc=none smtp.client-ip=202.12.124.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
+	s=arc-20240116; t=1784845050; c=relaxed/simple;
+	bh=MgTdUT23fOeo4lJpFf5pU2z6Cd/OH2vC6NoaMbjXKuM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=faNj8K6QroiifVvgDA2FZbNGGyObKyRuVeEScc3BY+j2IS+7pWQTe0FX2yTuv4wCjjg6qplHNGkzJZ+Kfo3EQMndjFNpzhSCNSLvCwWAFSz3YaWO2OsRk8qA9/RFkNhP9zXT/zG54LnkD+qfDCB6tAtjhwu6i/suZE3v/ROum9s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=diXfHJOQ; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="Iw0GqnH2";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="pvNmtjve"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailflow.stl.internal (Postfix) with ESMTP id 5EE431300184;
-	Thu, 23 Jul 2026 18:09:40 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-06.internal (MEProxy); Thu, 23 Jul 2026 18:09:40 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1784844580; x=
-	1784848180; bh=08Vd4vj0vBOHxp6n6UUYarIgUYV6i+W7ia2Q7GQHbZc=; b=I
-	w0GqnH2zARrvIjMVElIGy99EtGyy5PDy8k73ogt/ccKAIoupm9R4L66BehTOJTgZ
-	0ajqXUpLwQzqqJ30nbcgAao8Q8LdReMEtRoZBbZo7j6Hou1com+IlY0BGvdGctf2
-	zYcoBgRKZrmsGSUPcDRcv348NZhPd4/Zp8y+yNsKi49EhO4afaLQMMi+bBHzNEDJ
-	eeJbshnoI0sgV8qWX1Z3jtI+J7s9+eWLJHkdrtzRctlwBnfnPR4fE78PLgWLpAt7
-	8u1O4tBgNjwq43LWDgEkVNrASHTOxYTcVuE0UbkCrujF/0AVlpyvQJ7Vzvnz3G3o
-	khDFqJalanO2k078J2Kpw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm2; t=1784844580; x=1784848180; bh=0
-	8Vd4vj0vBOHxp6n6UUYarIgUYV6i+W7ia2Q7GQHbZc=; b=pvNmtjvedinG9BIc8
-	Rq2e9k6xkjh5zwX6Q1ZCNXI5GkyHskVitn3u1ukPidIzU9k2zsTsclRy2bEPCmk0
-	Hc3bt3k7wqJSQb0ZwOxGz42zDOdffEoSZx4WFMeAZ1pwjgzKZ6waxYNw4bQX/MPN
-	NtoKeDIEeh7DNOwJc9OYf2V2HhzL6+mVBsjG0G0iQ+weuSSVBNZePcZM92DXCyeK
-	zzZOm/1CaxjcCx6w7/6lq/ZX8s0CpMQ5DPTuoqDYetuFu4IiEa/rFgS5SVPqEu4S
-	yrsV9EZZlOyQS66jdyPjJh1VWTxim4fmZJKbZqYe/xh5T9vHU0OEIReGRjoDa3BN
-	Im4rA==
-X-ME-Sender: <xms:I5Fiavj_fJMjrXZwUJJ_mp1WBJEkB1JIVcNJsoYIviY7mT517c8FFA>
-    <xme:I5Fian1UIzfXE09PyqDROekqe6oojJtuhcw3ZKEIoXs-jcVCjxe-3tkQm_f9NFjD9
-    0V_E_lJ-9PVm3yuObfV_xI3DSigN2pXUL2Sl2LXr1DMe5-uoNKWRnVs>
-X-ME-Received: <xmr:I5FiakmFtWDQgiVHNPSzx6N_1FX-PfHw4Upx8RFKSD6ocGNjD6XrNE3bc8XdC8a_3bWFfpD06rnKImKg_N3_vXtFiVEpW3IRCYqagQZMqbTS>
-X-ME-Proxy-Cause: dmFkZTEIDoSZFQH3ibbkdIMliwsQ8yGxUqGqOd0h8qFv/8gZwbx4zY14jxCs29cyvCKMMS
-    8NbQc35lUVkljqLj7KRP3wdRrYrAXy4fKERbA/afDEAa1r4f6HrxX9dYd6J/CZguZpbRej
-    P2ktg7gtK96Snwg+Ln3QayQdtU6L+TTX0GAB9D3nqW/3GEKYmcl0wiL1snFtU4ZcH3yUL1
-    DSDFiP8W/zm+AUFQd/PYsrxEBf4rdc50SK16jE7QsyzUnYTINQSSni/do2vHIpTLWrKsUh
-    dsB9AmtSVTBoMPcT5evRiy5QdFbkGK/Jf1ap9r+UJILaLx1Jw+d5gsGls5ar2xP03uJKSk
-    6vrb1qjWmed1vdY4Pwkhmhh55jwsVHXhqljb2Wns4UrSfl22D6G5AqCN69fUwKPiGB2M8+
-    Vzo7as6+uPd/SuXToYUI5W6TThWjfpT171iaq6EDwJcr57J2Bk/TSxJRzJR9rMNRmzKshK
-    DSacqJuVa3bMPo/eCpzTmeHcNooKAf1tKDgHtKKQk7CyRhwQet1iu3Y+8xpGiNFw0g0sBZ
-    kIWr4Q0gRRhaU01yXE6hErtxbiRC0JE8S0RzIiZQoZwuWA3avgxHjHd3IfNTHWPYhIRpZl
-    JQe4XgzTQeiWg44RBQFdl+gvBpzpX/6AwG6ugFo/DKLhNRqrKsEvBs+u7BTQ
-X-ME-Proxy: <xmx:I5FiautxUebroOImJ7i0ACgpQksj35zKeevJm2MOKigMPlIIJJr7qQ>
-    <xmx:I5Fias3uEN2yrfn4ylTeNqPQfPOeIHROcRYS7O1rTvS1J9lUT7gg8Q>
-    <xmx:I5FiaiQZvRGqK2A9A_DWptKlLSYmjH8FQZVB9MfIWAr7flFpatyHYA>
-    <xmx:I5FiaouKghN75Fkag2DAXEAXz166lNvzqCKynd2LU34VYVKceDFfSw>
-    <xmx:JJFiaoNZf8FCL9eQ5ivZNACoAvTk3lFxTrlkMA_h_9QVNwCXRYpNfICx>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 23 Jul 2026 18:09:33 -0400 (EDT)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: nicolas.dufresne@collabora.com,
-	detlev.casanova@collabora.com
-Cc: paulk@sys-base.io,
-	heiko@sntech.de,
-	mchehab@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	ezequiel@vanguardiasur.com.ar,
-	linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Jiaxing Hu <gahing@gahingwoo.com>
-Subject: Re: [RFC PATCH 0/3] media: rockchip: VEPU510 H.264 encoder for RK3576
-Date: Fri, 24 Jul 2026 10:09:29 +1200
-Message-ID: <20260723220929.2080095-1-gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <210b72e32d1bd757a36b2baf532dd9f7d46ca5dc.camel@collabora.com>
-References: <20260722073417.2064667-1-gahing@gahingwoo.com> <20260723004642.2075233-1-gahing@gahingwoo.com> <210b72e32d1bd757a36b2baf532dd9f7d46ca5dc.camel@collabora.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="diXfHJOQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1784845042;
+	bh=MgTdUT23fOeo4lJpFf5pU2z6Cd/OH2vC6NoaMbjXKuM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=diXfHJOQhpat50Yj8UjuPHjcPpMH1Pxbzl/KywdL3a9VLv8Pl/JIhtHtvYYYlQBXB
+	 4sHNt80vTdOKdpPMZk0JsBsQB+t+WoJn1sk0TIkrwgW4nP8GpG/bRCBlnhPqQGfhTn
+	 sBbPcgKanSsI5vY1lVCfbfyTTGBm7N1ETjAiV2RJ+fajIpXIQmm0sot5GuwQ3STcIw
+	 bENUXLq2tlhyLxZkHLfc3CGMpvSI4cKECdy/JsyimQbt/jZ62+rwRHi7ucG3ZuF94c
+	 GifmJSSIjZS1fxUcFutE/Y9QR75i9+dP4jysCgr23J7ZDWljnQtAOD2c0iC1bLFrnz
+	 KVBsi4fJbtthA==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5725617E1029;
+	Fri, 24 Jul 2026 00:17:22 +0200 (CEST)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id 0D74848002C; Fri, 24 Jul 2026 00:17:22 +0200 (CEST)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Fri, 24 Jul 2026 00:17:10 +0200
+Subject: [PATCH v5 02/15] drm/bridge: synopsys: dw-dp: Cancel pending HPD
+ work on unbind
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260724-synopsys-dw-dp-improvements-v5-2-9445c2e87441@collabora.com>
+References: <20260724-synopsys-dw-dp-improvements-v5-0-9445c2e87441@collabora.com>
+In-Reply-To: <20260724-synopsys-dw-dp-improvements-v5-0-9445c2e87441@collabora.com>
+To: Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
+ Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Alexey Charkov <alchark@flipper.net>, dri-devel@lists.freedesktop.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, kernel@collabora.com, 
+ linux-arm-kernel@lists.infradead.org, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Sashiko <sashiko-bot@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1048;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=MgTdUT23fOeo4lJpFf5pU2z6Cd/OH2vC6NoaMbjXKuM=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpikvGDjccanOTLYRbt1ooX6YNI1kYURd4zZ
+ WL4pxZ1R5gtW4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqYpLxAAoJENju1/PI
+ O/qaS2IP/2bRifTSYf+HwS6tZngTO/DbSw9PZS5iVbDAjiMgf69V00V+i9V6lsAFP10WyjuNzs7
+ 04yFJWp3IoDu95ZjgJBcUUnqpfh1ms1yC8XXuS873f5SaCZ5S4TYYb/FEXPHDfWnWB29A8eRXJW
+ UoSBcN3U1BqZE3NV1cilfaB4DdDgtvgWdRDPIgM8TpRGtMED44jHIxZE4jCBijqs7OnjDnjN4b+
+ Rc0jqU2VpR8kQI8xB4Hsh5Haj7L+iKYfSbbpTI+Lv+aiD6jbh2kJZ7hmkrIXrWPUmd8WA13g3zY
+ 4lsdPkfKBlBIT5iED7dXkY7GvaXNs+/hJ+vShs48u00m8KpAeIE8Ri5iT/ajOQR9baBEMdZaJuT
+ x4MDqw2qz3Qk9mWJi7qrtm1UXbr2r2Ero3IWMiu3Qp3WiQ0G7GbvRvx5I2xA9OYPTmhT/eugv/1
+ 4h83W0orfzddi/ZmJGW30tazaJa0zJ+kUxNjDL6b2vbO1RADTN47dIe1jDoZbok5bluWNHkXsDT
+ CW+bksDGkImmvJN1KIVWm0JwYU8PlOumlnqmKOBo3VFDHsYDmUbXBLj5VNa2f6XR/bi4CL+5yNW
+ 7xKrxeWOPHo0WJmNY8O+itEnpjiR3sIH0GqtFrpdrnv9Fx4q8lOZ0lft0YjYcSKLzwhnsfWaPiW
+ AlALko9vBs/9IG9UbYc4tpg==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Hi Nicolas, Paul, Detlev,
+There is a race condition during device unbind: If the HPD interrupt
+started an HPD worker exactly when the unbind happens, the worker
+thread might access invalid resources. Avoid this by stopping any
+pending work immediately after disabling the interrupt.
 
-Thanks both for laying out the trade-offs so clearly.
+Fixes: 86eecc3a9c2e ("drm/bridge: synopsys: Add DW DPTX Controller support library")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Decision from my side: I'll converge on the DRM-ish / Vulkan Video
-direction and sync with Detlev, rather than push the stateful V4L2
-driver further. Nicolas' point about UAPI lock-in is the deciding one
-for me -- I don't want to expose an encoder UAPI that then has to be
-supported forever -- and if RK3576 is just a minor delta on Detlev's
-RK3588 base, that's exactly where my hardware work is worth the most.
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+index 368e1f85e625..21bd08571dcf 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+@@ -2009,6 +2009,7 @@ EXPORT_SYMBOL_GPL(dw_dp_bind);
+ void dw_dp_unbind(struct dw_dp *dp)
+ {
+ 	disable_irq(dp->irq);
++	cancel_work_sync(&dp->hpd_work);
+ 	phy_exit(dp->phy);
+ 	drm_dp_aux_unregister(&dp->aux);
+ 	drm_bridge_remove(&dp->bridge);
 
-Paul -- thank you for the generous offer. I read both your Media Summit
-decks and your posted series ([PATCH 00/14], the generic in-kernel
-h264-enc core + rbsp + rate control on VC8000E); it's clearly further
-along than I'd assumed. I'm not closing the door on a V4L2 version
-later, but I'd rather not commit to maintaining two drivers up front, so
-I'll treat that as a possible follow-up, not the primary path.
+-- 
+2.53.0
 
-Where I think I can be useful right now is the hardware, since that part
-is shared with RK3588 regardless of interface:
-
-> I know in his case he was trying to avoid reconstructed frame
-> compression, and it only started working when he enable that
-> compression. Though, he had mmu faults prior to that.
-
-Useful data point, but let me be precise about where I already am, so I
-don't send Detlev chasing something I've done. This driver already runs
-with reconstruction compression enabled (enc_pic.rec_fbc_dis = 0) -- the
-state Detlev needed -- and the first inter frame still hangs. Disabling
-it (rec_fbc_dis = 1) was one of my experiments and also hung, so FBC
-state alone doesn't explain my stall.
-
-The part that does line up is the mmu fault. I still have a residual
-rk_iommu write fault on this path; I traced it from a boot-varying
-garbage IOVA down to a benign IOVA 0, and I'd concluded it was a
-separate AXI transaction from the recon write, independent of the
-P-frame hang. Detlev's report -- that his mmu faults and his missing
-P-frames cleared together -- is a direct reason to distrust that
-"independent" conclusion and re-check whether the fault and the stall
-share a root cause on RK3576 too.
-
-Detlev -- when you have a moment: on RK3588, were the mmu fault and the
-P-frame failure the same underlying problem? And did enabling
-reconstruction compression clear the fault on its own, or did the
-reference-read mapping (how the previous frame's reconstruction is
-mapped for the encoder to fetch) need a separate change as well?
-Whatever you can share, I'm happy to test on RK3576 and feed back a
-Tested-by.
-
-One point on the current code, since it came up:
-
-> A lot of the code is hex tables generated from inspecting a running
-> driver.
-
-Fair, and I won't pretend otherwise -- the PARAM/SQI classes are
-currently shipped as fixed tables taken from a captured encode rather
-than computed. The one thing I'd add is that those particular values are
-mpp's public default-tuning tables (the RDO lambda/cost and
-subjective-quality tables in Rockchip's open-source mpp HAL, Apache-2.0),
-so they're constants I can cite to mpp source rather than opaque state.
-But I fully agree the driver needs significant cleanup before it's
-upstream-worthy, and in the DRM-ish model most of that tuning moves to
-userspace anyway, so a lot of it won't survive the transition in its
-current form.
-
-So: please point me at Detlev's shared branch / early code whenever it's
-in a shape to build against, and I'll start porting the RK3576 hardware
-bring-up onto it.
-
-Thanks,
-Jiaxing
