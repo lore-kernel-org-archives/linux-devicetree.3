@@ -1,162 +1,110 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72317385D8E
-	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 12:02:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784808154; cv=none; b=d8BWUhi0r+PZ/6wbfs6qRTlNexVJ7t+ECsXSYtXY5AVTioOLRrS7Rbb0Mcp1TQhpJdWUm+R21kjNT9mtMrLB0BK6234FqMf5d17hII+q9N6fpivy8JtJFBMy5ofQQXqFL/CvhMwcVlqaeyOWlaygXLhx78QFmwhoQaF5GeiBWtg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784808154; c=relaxed/simple;
-	bh=HugAla5NxeGvUAW6ybPWIq/99Qvbl3GRpGgOPmECK8Q=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=mLfB7a9VVEe+bb2I++oNTd774NDQLp06wvMaZHGs8qHurfVe96IfwnKwXoVgTeX5/YrETUBZBEBG5yTLFoFy3HI9ejlZnXL+uRChYuJ0aOEJF+t/D62PmvaGM+vpKfXrvIdDl+n+tYmXHTvO+zbZm+a5EmBEhxXxQdsNHBBfmso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vayavyalabs.com; spf=pass smtp.mailfrom=vayavyalabs.com; dkim=pass (1024-bit key) header.d=vayavyalabs.com header.i=@vayavyalabs.com header.b=bUhJW4dE; arc=none smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vayavyalabs.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vayavyalabs.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42BE647DFA4
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 12:02:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784808158; cv=pass; b=e9ChWM2WjzO+51vzY/A+FEvdeKDNwQg3VO0lYMVnQPU+45m/pH9rpRKQ1vGHIX7YmBGQT+wF8Rfq2n30FsjQbCmbro2XnVNYdKiH3nLc2NBPzoD1A5Vl5CfFlzNBEQFS8XnbgxRPI1yfhHCrNbjYD6a3PSXSQSlw+n+mykdUuXA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784808158; c=relaxed/simple;
+	bh=tyWA1/2ISC+u9lt0b7ZwAN5p18uP4g/R9ttJqeaGfVU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ISIYRPmOlkNEy5TVJKY/zYiDnG19CNBTBxOnarT10V/HLYwEjz6MJklvoAiujDVxLzewa/Ffmd3j5YFd26MLf1yZrpCrC9aWyAVsfIsEkYPQQA/XoGJi3dWNISddzMmQjQ/hHy6O2qUyCkYJc98grPHySVMajchvqGPEogEnszs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=v+AyHx9W; arc=pass smtp.client-ip=209.85.208.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=vayavyalabs.com header.i=@vayavyalabs.com header.b="bUhJW4dE"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2cace91f112so6634555ad.0
-        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 05:02:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="v+AyHx9W"
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-69eae037da1so825561a12.3
+        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 05:02:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784808146; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Z9cdEybCA2igp98bkmPHkN7KvjA6SWGln0u0f2nT8iuhqpsxAj+nLtWjK5l/rs+6AP
+         SfeDPfmYvsst7huwiEG3EUsKnHR7kAjspLKYAWZqhULRIQMLzFrrH4GYI2vrVhHbI54Z
+         6sfJPsX2qcN+hAKLDF/YQIHMx8b9PqdDGvPRqz24WQQH04s2ZypGinFuAvvQU1uoXJRL
+         as/JlH1fSE51Yd4JpH3wzt/IBnk0lmShFvLdP26RUdiu5RX8EcIc7GcGvlzvwx61qLuW
+         6KXBbvPhZweLBPN7lA/KDPr6ghitUhCPRtlH+l/7cWj5dv2Whrx3KyXcZP4zJDhw9gGd
+         M9rw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=tyWA1/2ISC+u9lt0b7ZwAN5p18uP4g/R9ttJqeaGfVU=;
+        fh=kcfcGPnp1qscg5QtObsIvqjAIcBeMTJ7RBDk7P0OJjU=;
+        b=LZYE1LQ/MAP9cWw+EXnx8bcwpuHyMhlSBf39rYt0cKYibAvNs5ACx7KnPzwptyd1u/
+         UdRfV6dhZy+8BAVlQC35ej0cKBgw3aL901oBnGlRBpQDglU97jJGqTehxMUmMCQJAJer
+         x7IZJiQXdq82JG2madUxwbf4lJJsJQEhnVHGXkLIPAlxbpBfJr9zqYWYH6SzU0z5RmP1
+         ggYy6zZuHdky3mQosZi6YPmB9LFmZtwP1/bxq+HJG+c+QnHMR3A8d/X/klWsWFNKATyO
+         W7YwosdUAKWSXWjzZ/Pq3yq6lkAYmMFeMfg6hJujloNOPSzhuHekqx9710LyCdPDLpCg
+         2gzw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=vayavyalabs.com; s=google; t=1784808144; x=1785412944; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dNttZqyddGtfpM6shjyHncnhqR2TNAPYpAsPVppmIzU=;
-        b=bUhJW4dEoMf1MPBDa/ByXDHOXKSUk7M1zG0Dufppl9LJwHkrbHQatX97s2SApt5XRS
-         QRG/fffRujj4rIgsiJZZpk3lAr1SGObC3nN2wpH4lzf/wrGcGGc8rtyz14DSwF00wB7q
-         S9sYzON+WMa2RyFo43Dzqj9er/AtcbB2XSupQ=
+        d=linaro.org; s=google; t=1784808146; x=1785412946; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tyWA1/2ISC+u9lt0b7ZwAN5p18uP4g/R9ttJqeaGfVU=;
+        b=v+AyHx9WSDmiTYs5ZMYZcSIOJhG9HHngHhft25qdCmJnS9LNVI39tdQOJQreSXqB1j
+         5VGsuYMRGQTWCpVhiZyw64xcOcxFgkHo5p/RYVVYU3c8hgOjnBigCiWuz2cqSg1KHc4Q
+         SmPrVi8Mwnmq9/o07WPSWVLZpfrAItCjFodr9vtCc8CTECGumd1L2wU459np45EEUadk
+         2go9EF73CGn/GV3V64TcnAsSn2c4MbnHx8OLTtRp/pcwmZcNpXCBqRk8PL3XN2kSLr+m
+         7rDdE+YsioHMWh0JwvS3rwK0DHxdyYSkmmhVRC8jGO/TZ+MeQS0N0+W0s0TsxTLKplmt
+         OqhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784808144; x=1785412944;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dNttZqyddGtfpM6shjyHncnhqR2TNAPYpAsPVppmIzU=;
-        b=pfy+uPWEoGTOAOaNmjTGscSgHeOIwcCBY9q6AF3GeP0Bww/2D/TwsATfJEtR5R+v/8
-         IoMUuZP02g3OT0LuXIOhhO21h7R1vJ4QGw4Kn/bMLD5rcszvdPqThsTtm5EgIzAk2Po0
-         8tViwIx4KLgIqYn5lB0NIle8BmAo8og/iHYoMUUZmVF9FsDONgcITBvkPbz37or777Wu
-         HZ8AUUb7cAyLJwIQag3FZs/1mIFUZCZ9v8z/csMeuG/NB5KIMjp5pZEog+80ZRwkLSK4
-         h9a1Wz1da62RkaHE71t+qcAVgyzIa9KRDj7O9iGzMF6MXZcGVCynx6TjABx0jsWiJ0vb
-         08Bg==
-X-Forwarded-Encrypted: i=1; AHgh+RrvmFxuXsSUu+fkRPzyI4B6q4LgR8si5DlXjxPNagvg6f0REPm+CukiJaQqSPNm+iNMR/wMXhwhuvmi@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywvp6IHmfg89T1FnR/+sz6KC5JhMm/H8XFRf+krHD65Fgp0AOoC
-	7SH0Kn0ZJBSUqT2RJ8gTc+x478QWJkqRsCt/ZyXsmHJx2nBAeP6Z+ybFBly0YYaMOEg=
-X-Gm-Gg: AR+sD124xYemd6f9AElFopU6fpwGNNaHkSu01zV7iSobBCsXBz3IcQLegxdQMDQDCa8
-	VLyNVHucTJd+6OOXKuYZvCYDiqEe6YP4XTRSTVWq/keg5g6aQddU8d48uHrSC2ScU1Zz0Q7Yu4C
-	MwqfJ2+M9XRnA4ugVB5K4jqXvQWR4eYSCxFSf9IzMUuunn6RETxTYCu2fei8GkePs8Bi8KRlBGK
-	vYciu9ldfRO+oNzRAevmHL59O3Zv3GGweJuwsvTznZpHR+Qz3lMMfyiHIgQlf1qMmRwRrL77wnq
-	tOSRw+TzFMS6LsLcsDH+ApkFowEBIbXarGheWkaHRBnpKR1FHvGIjN8Pe3CR3VvmEFxmVspPNzl
-	TpOlrxOBWqD3/KTuLa9Oi9yuU1bEGW/sDHZX4jg1QIVupf4yPAAXeXbVq3VvPBFtQ8ue9yD2mnJ
-	5aBJGmTKPZx3Bn9gvsaPZPEnNsx01uRjWKVHOklYxv5GOPcpKL0a2FhX1LoSUspQji9+JTdgsrZ
-	2zSTEUz5D5KdwhmWq6vF5/zZTQ7O3T6BYq4xkzKHarCIQ==
-X-Received: by 2002:a05:6a20:c784:b0:3ba:f5c7:6bc3 with SMTP id adf61e73a8af0-3c44afcd253mr2853658637.10.1784808144217;
-        Thu, 23 Jul 2026 05:02:24 -0700 (PDT)
-Received: from localhost.localdomain ([103.108.57.9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3147df06864sm19359125eec.15.2026.07.23.05.02.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Jul 2026 05:02:23 -0700 (PDT)
-From: Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
-To: linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	herbert@gondor.apana.org.au,
-	robh@kernel.org
-Cc: krzk@kernel.org,
-	conor+dt@kernel.org,
-	ruud.derwig@gf.com,
-	rbannerm@synopsys.com,
-	manjunath.hadli@vayavyalabs.com,
-	adityak@vayavyalabs.com,
-	navami.telsang@vayavyalabs.com,
-	bhoomikak@vayavyalabs.com,
-	nazim.khan@vayavyalabs.com,
-	Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
-Subject: [PATCH v18 1/4] dt-bindings: crypto: Document support for SPAcc
-Date: Thu, 23 Jul 2026 17:31:53 +0530
-Message-Id: <20260723120156.285270-2-pavitrakumarm@vayavyalabs.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260723120156.285270-1-pavitrakumarm@vayavyalabs.com>
-References: <20260723120156.285270-1-pavitrakumarm@vayavyalabs.com>
+        d=1e100.net; s=20251104; t=1784808146; x=1785412946;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=tyWA1/2ISC+u9lt0b7ZwAN5p18uP4g/R9ttJqeaGfVU=;
+        b=Gtf3FZ0lobaCVl5/vYEbX64gZD/45iPAM2Vv/CGG2ami1nCLpwxsSl4yULa0silh7V
+         oIKymM1Olv6hWnndwClH8it7Lb5/h3/uHQ1JZUtfeBCxmt+mWTamd/wYjbNpC1RJl/Mx
+         MA3SPqaS9a+5U+awPAs7SUZIgowla5vzSjZfLYbCTMOLZgZH+/Owe4yyLTwNDmgpYi8A
+         IMDWzXbwBqEFdvWeRnaUbyFveDY206Edeu8F708BI++XgZZTEW6wCHnBJS+00IjAhC6J
+         SlmZ89Nm1e9EhC7GdvAPZJN2fS5ztJiAhs2K07Qgle32cslPMtAGQ4e0+xg9eLBp1GnN
+         8hRA==
+X-Forwarded-Encrypted: i=1; AHgh+Rq2q7PzCufhogfXnTUc7Y9/SQwnuQKB4lJyH3u/sM4wNFYEw+wH4GU0P2ewn4d7iJUKU/2s5Vl1tRUs@vger.kernel.org
+X-Gm-Message-State: AOJu0YzNXGGRCtyKHIDf/u7M6NMXGQAxJX5Wh6yL+qRnPg61dAmIGWUL
+	z2VTY5nGv8BfszoaA9ghGMTJMYCdvVnXpoCJyPpxDRXFec3IyNeDIXXndpJPbzes4OG077bQyBM
+	Nxj90JvxeMGya5laJloxTfOssV2o0n2fdxfNCJFf4oQ==
+X-Gm-Gg: AR+sD10OtLGjq4t+PapWp/rK44bv0Nj4WXmef9nR1Rj9y9/q9LJ2T4VpGYtYC6Lm15Q
+	lxFZLA2u4Gj15prl1VqNCjNkOgs77NkNsJEjrbqrR6BF8T4HisglJIZC3w6HzDXm6mQYP1DnR5y
+	10wGe+9sEhxDsWf/GBoH8tQGIk52vFPDl3mpK3ilx0UQywgJpefOTN3WaJJg3AUSow3xYwFCGs5
+	sSPOsluovqKmDPSUXt3CNbIfiKHnbrq8san4yQe3zFfGSIJiLSZHduLhRKVCRr6dr6pyQRFdjcr
+	zLhsuhr1kzDZp1MtQpe3
+X-Received: by 2002:a05:6402:3241:b0:698:a9de:16e4 with SMTP id
+ 4fb4d7f45d1cf-69f6bf1f611mr861984a12.20.1784808146288; Thu, 23 Jul 2026
+ 05:02:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260722-exynos9610-clocks-v3-0-c672a2a30889@chimac.ro> <20260722-exynos9610-clocks-v3-2-c672a2a30889@chimac.ro>
+In-Reply-To: <20260722-exynos9610-clocks-v3-2-c672a2a30889@chimac.ro>
+From: Peter Griffin <peter.griffin@linaro.org>
+Date: Thu, 23 Jul 2026 13:02:13 +0100
+X-Gm-Features: AUfX_mx4AjbYjM6fZT-ntJeRozz1HqK4uJ3kqrvaInoQuZ9gHqexg1gg38S2Mz0
+Message-ID: <CADrjBPqSc8kuC7AUg34CKrVSbRWjO7i90Bff0b0P7nOc+m=PCQ@mail.gmail.com>
+Subject: Re: [PATCH v3 2/5] dt-bindings: soc: exynos-sysreg: Add Exynos9610
+ SYSREG bindings
+To: Alexandru Chimac <alex@chimac.ro>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Sylwester Nawrocki <s.nawrocki@samsung.com>, 
+	Chanwoo Choi <cw00.choi@samsung.com>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-samsung-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Add DT bindings related to the SPAcc driver for Documentation.
-DWC Synopsys Security Protocol Accelerator(SPAcc) Hardware Crypto
-Engine is a crypto IP designed by Synopsys.
+On Wed, 22 Jul 2026 at 21:44, Alexandru Chimac <alex@chimac.ro> wrote:
+>
+> Add bindings for SYSREG nodes (required for ACG), compatible with the
+> standard syscon driver.
+>
+> Signed-off-by: Alexandru Chimac <alex@chimac.ro>
+> ---
 
-Co-developed-by: Bhoomika Kadabi <bhoomikak@vayavyalabs.com>
-Signed-off-by: Bhoomika Kadabi <bhoomikak@vayavyalabs.com>
-Acked-by: Ross Bannerman <rbannerm@synopsys.com>
-Signed-off-by: Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
-Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
----
- .../bindings/crypto/snps,dwc-spacc.yaml       | 50 +++++++++++++++++++
- 1 file changed, 50 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/crypto/snps,dwc-spacc.yaml
-
-diff --git a/Documentation/devicetree/bindings/crypto/snps,dwc-spacc.yaml b/Documentation/devicetree/bindings/crypto/snps,dwc-spacc.yaml
-new file mode 100644
-index 0000000000000..a337f7b473cc7
---- /dev/null
-+++ b/Documentation/devicetree/bindings/crypto/snps,dwc-spacc.yaml
-@@ -0,0 +1,50 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/crypto/snps,dwc-spacc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Synopsys DesignWare Security Protocol Accelerator (SPAcc) Crypto Engine
-+
-+maintainers:
-+  - Ross Bannerman <rbannerm@synopsys.com>
-+
-+description: |
-+  The Synopsys DWC Security Protocol Accelerator (SPAcc) is a
-+  semiconductor IP designed to accelerate cryptographic operations,
-+  such as encryption, decryption, and hashing.
-+
-+  In this configuration, the SPAcc IP is instantiated within the Synopsys
-+  NSIMOSCI virtual SoC platform, a SystemC simulation environment used for
-+  software development and testing. The device is accessed as a memory-mapped
-+  peripheral and generates interrupts to the ARC interrupt controller.
-+
-+properties:
-+  compatible:
-+    items:
-+      - const: snps,nsimosci-hs-spacc
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    crypto@40000000 {
-+        compatible = "snps,nsimosci-hs-spacc";
-+        reg = <0x40000000 0x40000>;
-+        interrupts = <28>;
-+        clocks = <&clock>;
-+    };
---
-2.25.1
-
+Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
