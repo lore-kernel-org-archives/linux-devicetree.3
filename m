@@ -1,359 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 677DD46F494;
-	Thu, 23 Jul 2026 11:27:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E0929475
+	for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 11:28:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784806030; cv=none; b=KvAbCAc9Ws1vO/itdQnsNUTSIL/CLYRuhi6BfSfJiYVVIOzc33MjkEodlrCRspLAZRVJMOz4QtQKwpH5mnS1r5SflAGRHgSFeBhi6Gr1xU9giEdB1Jah1Fq+5+OUwuX1Z82DVogEsWgDpebv6cgfXvO6WLy3nU7sUeFS7aetNDk=
+	t=1784806106; cv=none; b=QImM+6yCsoPll/FqvOEcORNSX+yqyUw2s4DVxkFq7EsAbkCwrqhenze/TQ+n931LEv3z2XE8a+tQxWzX6+ZQrAOA9ZXESh4KJzqeCJ7dybYBpYo1lIXzdU7v5ETamdV7vnq4CfZx6hrpw8p/Yov3w9AmXQLG6H/FSxerfADfHnE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784806030; c=relaxed/simple;
-	bh=zUO9LnLrXA6kWhyHaixyYZdwF04RJZtsbTKEU/mNKDM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=llNL2GSU9jk/FGSpsrm4HxEgQ2ibrj/m2SyNYkGOWFNyzSUt+3nwB+aD6rpw+Q5cYjId9XKc5uZSmHEj5ZLZQO/mmU4326MaYEBiXxMY4rekBMBhLp6fx3MGIS+udzdSGkY0sS+Y+UkNblwcldzPTlDJhT02EGut3AE2DzZNg/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iHbQJDR2; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1784806106; c=relaxed/simple;
+	bh=H5OGfe2g7MbSDRGSIjSBjXxNKqFC+F2iKmciKN52m40=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=kKimSlhcxL/mFzLmW1nlSZ5Gf+S4ymptYKKiim8rwbo6nVR0eElHKMA5/TnYKG1ba10O+g61UQt8WgDPmpIJBEjV1pqPt5XfjkBfLnCYW31kHPBB2gGwAUuLFPkkX8+AubDet+5XfvzGsqw0/48y3PC8hASlOb1FiB7v+hRtwgg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kMJPDQUY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iHbQJDR2"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 33D2DC2BCC9;
-	Thu, 23 Jul 2026 11:27:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1784806030;
-	bh=zUO9LnLrXA6kWhyHaixyYZdwF04RJZtsbTKEU/mNKDM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=iHbQJDR225qkCqYnW/ZZQeK5b2myaEVgws2mwnGJ7QHw2subKkzo5M9wn/XfYHDQo
-	 /WtNjKNa4XIIpA+5JZNF2euBh1HV7bVmKDKZl0acFJfqSHMdZPXU20enhfPOrd2h9b
-	 mHhYhxKLzV9dfDoETAGlnJMKHXutuXu/XurxaAhzx6o11hxYyR9e11T1/zzofRfop4
-	 TeCEcgSfWbwfeTjkGgNWKBTXzunNJiYRXAJaizlRDD/arhFFz96ioJG22Byc9lAp8I
-	 P6mIN29vmqFk38szIOC+nseommIcnTkzUA6f+WUHouvU5qCeFhlkDntJO7gPEe5VV6
-	 uphNyyy+8/dTA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 22F64C531CF;
-	Thu, 23 Jul 2026 11:27:10 +0000 (UTC)
-From: Alexandre Hamamdjian via B4 Relay <devnull+azkali.limited.gmail.com@kernel.org>
-Date: Thu, 23 Jul 2026 18:27:11 +0700
-Subject: [PATCH 4/4] Input: edt-ft5x06 - poll while a contact is down to
- recover dropped releases
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kMJPDQUY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 453A51F000E9;
+	Thu, 23 Jul 2026 11:28:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784806105;
+	bh=n4DxSwuYTLJPkrKyGNpYMFI/XmdngyOUY7tETtgiNv8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=kMJPDQUYA3yRYSW7DdnaY0Pfeuv3pY/hx38K+M8BjAxzhDDxMNE+8dqqaUraAQK0C
+	 dbMpWpmukWvKNFlHJrPYb7AjfzoyL4iwRRLwAmvdzKOm30LryWXwQ0RFmOmIwHdKkV
+	 g8qr+o7kuw37KSWohBrX3r72nxDXyAeIZ/xaDS6w522vh7ScDcke+bwXXQumeyTxRW
+	 wFBHCMEclU2ZUmKJ0e5+Vy0GrR23OfcdzAfE6+75c0Kv29dCmVceaOUN0fKSJpfMti
+	 7U4Lbyih7ptNMv8c01IOsQRmGTko+CXnd/OEzLuHavQ2uL0cRXV9D/qxBqL6uVuRNz
+	 YpPi7W21RDGQQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 07/17] spi: cadence-quadspi: add DQS support to read
+ data capture
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Santhosh Kumar K" <s-k6@ti.com>
+Cc: devicetree@vger.kernel.org, "Richard Weinberger" <richard@nod.at>, "Pratyush
+ Yadav" <pratyush@kernel.org>, "Michael Walle" <mwalle@kernel.org>, "Miquel
+ Raynal" <miquel.raynal@bootlin.com>, "Vignesh Raghavendra" <vigneshr@ti.com>, "Takahiro
+ Kuwano" <takahiro.kuwano@infineon.com>, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260723110219.3180747-8-s-k6@ti.com>
+References: <20260723110219.3180747-1-s-k6@ti.com>
+ <20260723110219.3180747-8-s-k6@ti.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 23 Jul 2026 11:28:23 +0000
+Message-Id: <20260723112824.453A51F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-b4-ft5426-v1-4-d4b4e32be042@gmail.com>
-References: <20260723-b4-ft5426-v1-0-d4b4e32be042@gmail.com>
-In-Reply-To: <20260723-b4-ft5426-v1-0-d4b4e32be042@gmail.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
- Henrik Rydberg <rydberg@bitmath.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Alexandre Hamamdjian <azkali.limited@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784806028; l=10202;
- i=azkali.limited@gmail.com; s=20260510; h=from:subject:message-id;
- bh=yaHIDDdKuKyw2nsbkxWJtOZ/A0eSGr3eWe261NjiyQE=;
- b=T6SY2d0DjXAzZSw785Jshbz8BI1LNpFgkHDPoW+gd2hdfEKYphOaAJ5/mdIJDGx/sYKvpKa0w
- PydLL2S35ESBt48QR9am11oLAd2vpJBl4pt2oFaHPploX3LYivBk6I+
-X-Developer-Key: i=azkali.limited@gmail.com; a=ed25519;
- pk=I0Z0IdCdQJqNGX+FQUnXhrHg950u3cM6Xzz3YT6JOyQ=
-X-Endpoint-Received: by B4 Relay for azkali.limited@gmail.com/20260510 with
- auth_id=774
-X-Original-From: Alexandre Hamamdjian <azkali.limited@gmail.com>
-Reply-To: azkali.limited@gmail.com
 
-From: Alexandre Hamamdjian <azkali.limited@gmail.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The patch unconditionally disables DQS by explicitly clearing bi=
+t 8 in CQSPI_REG_READCAPTURE, breaking bisectability and systems that rely =
+on the bootloader or firmware to enable DQS.
+--
 
-The driver is purely interrupt driven: a touch-up is only reported when
-the controller raises an edge for the release frame and that frame is
-read successfully. On a marginal i2c bus a read can fail or be dropped,
-and if the read that carried the release is the one lost there is no
-further edge to re-read it, so the contact stays held down forever - the
-pointer sticks mid-drag. This is readily reproducible on the AYANEO
-Pocket DS, whose FT5426 hangs off an unreliable Qualcomm GENI bus.
+--- Patch [7]: [PATCH v6 07/17] spi: cadence-quadspi: add DQS support to re=
+ad data capture ---
+commit 67e381a8bfc8dddc89f5ce8ea17f73b3529e597b
+Author: Santhosh Kumar K <s-k6@ti.com>
 
-Stop trusting a single edge to deliver the release. Track which slots are
-held down in a mask and, while any contact is down, re-read the frame on
-a short timer. A contact missing from the frame is released only after a
-few consecutive misses so a lone glitchy read cannot cut a still-present
-tap or drag; conversely, once the finger is really gone the polled reads
-stop listing it and it is released regardless of whether an explicit
-touch-up frame ever arrives. The timer stops as soon as the last contact
-is released, so an idle panel is still fully interrupt driven.
+spi: cadence-quadspi: add DQS support to read data capture
 
-The read path also gains a bounded retry over the transient bus errors
-and, when reads keep failing for over a second, a reset-line pulse to
-recover a wedged controller, dropping any held contacts afterwards since
-the post-reset finger state is unknown. The poll worker is cancelled on
-suspend and, via a devm action registered before the IRQ, on removal, so
-it can never touch i2c after the device is powered down or the IRQ freed.
+Add DQS (Data Strobe) parameter to cqspi_readdata_capture() to control
+data capture timing. DQS mode uses a dedicated strobe signal for
+improved timing margins in high-speed SPI modes.
 
-Signed-off-by: Alexandre Hamamdjian <azkali.limited@gmail.com>
----
- drivers/input/touchscreen/edt-ft5x06.c | 173 ++++++++++++++++++++++++++++++---
- 1 file changed, 157 insertions(+), 16 deletions(-)
+> diff --git a/drivers/spi/spi-cadence-quadspi.c b/drivers/spi/spi-cadence-=
+quadspi.c
+> index f8e2663723677..046fa5d69b0f7 100644
+> --- a/drivers/spi/spi-cadence-quadspi.c
+> +++ b/drivers/spi/spi-cadence-quadspi.c
+[ ... ]
+> @@ -476,6 +477,11 @@ static void cqspi_readdata_capture(struct cqspi_st *=
+cqspi, const bool bypass,
+>  	reg |=3D (delay & CQSPI_REG_READCAPTURE_DELAY_MASK)
+>  	       << CQSPI_REG_READCAPTURE_DELAY_LSB;
+> =20
+> +	if (dqs)
+> +		reg |=3D BIT(CQSPI_REG_READCAPTURE_DQS_LSB);
+> +	else
+> +		reg &=3D ~BIT(CQSPI_REG_READCAPTURE_DQS_LSB);
+> +
+>  	writel(reg, reg_base + CQSPI_REG_READCAPTURE);
+>  }
+[ ... ]
+> @@ -1317,7 +1323,7 @@ static void cqspi_configure(struct cqspi_flash_pdat=
+a *f_pdata,
+>  		cqspi->sclk =3D sclk;
+>  		cqspi_config_baudrate_div(cqspi);
+>  		cqspi_delay(f_pdata);
+> -		cqspi_readdata_capture(cqspi, !cqspi->rclk_en,
+> +		cqspi_readdata_capture(cqspi, !cqspi->rclk_en, false,
+>  				       f_pdata->read_delay);
+>  	}
 
-diff --git a/drivers/input/touchscreen/edt-ft5x06.c b/drivers/input/touchscreen/edt-ft5x06.c
-index ac61ac44fd64..794c0650f5cb 100644
---- a/drivers/input/touchscreen/edt-ft5x06.c
-+++ b/drivers/input/touchscreen/edt-ft5x06.c
-@@ -19,6 +19,7 @@
- #include <linux/gpio/consumer.h>
- #include <linux/i2c.h>
- #include <linux/interrupt.h>
-+#include <linux/workqueue.h>
- #include <linux/input.h>
- #include <linux/input/mt.h>
- #include <linux/input/touchscreen.h>
-@@ -147,8 +148,19 @@ struct edt_ft5x06_ts_data {
- 	unsigned int crc_errors;
- 	unsigned int header_errors;
- 	bool no_regmap_bulk_read;
-+	unsigned long last_reset;
-+	unsigned long last_success;
-+	struct delayed_work poll_work;
-+	/* io_lock serialises the frame read between the IRQ and the poll work */
-+	struct mutex io_lock;
-+	u16 down_mask;
-+	u8 miss[16];
- };
- 
-+/* poll cadence and release debounce for the poll-while-touched recovery */
-+#define EDT_POLL_INTERVAL_MS	15
-+#define EDT_RELEASE_MISSES	3
-+
- struct edt_i2c_chip_data {
- 	int  max_support_points;
- };
-@@ -321,26 +333,83 @@ static int edt_ft5x06_bulk_read(struct regmap *map, unsigned int start,
- 	return 0;
- }
- 
--static irqreturn_t edt_ft5x06_ts_isr(int irq, void *dev_id)
-+static void edt_ft5x06_release_all(struct edt_ft5x06_ts_data *tsdata)
-+{
-+	int id;
-+
-+	if (!tsdata->down_mask)
-+		return;
-+
-+	for (id = 0; id < tsdata->max_support_points; id++) {
-+		if (!(tsdata->down_mask & BIT(id)))
-+			continue;
-+		input_mt_slot(tsdata->input, id);
-+		input_mt_report_slot_state(tsdata->input, MT_TOOL_FINGER, false);
-+	}
-+	tsdata->down_mask = 0;
-+	memset(tsdata->miss, 0, sizeof(tsdata->miss));
-+	input_mt_report_pointer_emulation(tsdata->input, true);
-+	input_sync(tsdata->input);
-+}
-+
-+static void edt_ft5x06_fetch_and_report(struct edt_ft5x06_ts_data *tsdata)
- {
--	struct edt_ft5x06_ts_data *tsdata = dev_id;
- 	struct device *dev = &tsdata->client->dev;
-+	u16 new_mask = 0, released = 0;
- 	u8 rdbuf[63];
- 	int i, type, x, y, id;
--	int error;
-+	int error, tries;
- 
- 	memset(rdbuf, 0, sizeof(rdbuf));
--	if (tsdata->no_regmap_bulk_read)
--		error = edt_ft5x06_bulk_read(tsdata->regmap, tsdata->tdata_cmd,
--					     rdbuf, tsdata->tdata_len);
--	else
--		error = regmap_bulk_read(tsdata->regmap, tsdata->tdata_cmd,
--					 rdbuf, tsdata->tdata_len);
-+	for (tries = 0; tries < 4; tries++) {
-+		if (tsdata->no_regmap_bulk_read)
-+			error = edt_ft5x06_bulk_read(tsdata->regmap,
-+						     tsdata->tdata_cmd, rdbuf,
-+						     tsdata->tdata_len);
-+		else
-+			error = regmap_bulk_read(tsdata->regmap,
-+						 tsdata->tdata_cmd, rdbuf,
-+						 tsdata->tdata_len);
-+		if (!error)
-+			break;
-+		if (error != -EAGAIN && error != -ETIMEDOUT &&
-+		    error != -EIO && error != -ENXIO)
-+			break;
-+		usleep_range(min(1000U << tries, 4000U),
-+			     min(2000U << tries, 8000U));
-+	}
- 	if (error) {
- 		dev_err_ratelimited(dev, "Unable to fetch data, error: %d\n",
- 				    error);
--		goto out;
-+		/*
-+		 * A run of failed reads with no success for over a second means
-+		 * the controller is wedged rather than just glitching; pulse the
-+		 * reset line to recover it and drop any held contacts, since the
-+		 * post-reset finger state is unknown.
-+		 */
-+		if (tsdata->reset_gpio &&
-+		    time_after(jiffies, tsdata->last_success + HZ) &&
-+		    time_after(jiffies, tsdata->last_reset + 2 * HZ)) {
-+			tsdata->last_reset = jiffies;
-+			gpiod_set_value_cansleep(tsdata->reset_gpio, 1);
-+			usleep_range(5000, 6000);
-+			gpiod_set_value_cansleep(tsdata->reset_gpio, 0);
-+			msleep(300);
-+			tsdata->last_success = jiffies;
-+			dev_warn_ratelimited(dev, "reset to recover controller\n");
-+			edt_ft5x06_release_all(tsdata);
-+		}
-+		return;
- 	}
-+	tsdata->last_success = jiffies;
-+
-+	/*
-+	 * TD_STATUS holds the active-contact count; a value above the panel
-+	 * maximum means the frame is corrupt, so keep the previous state.
-+	 */
-+	if (tsdata->version != EDT_M06 &&
-+	    (rdbuf[2] & 0x0f) > tsdata->max_support_points)
-+		return;
- 
- 	for (i = 0; i < tsdata->max_support_points; i++) {
- 		u8 *buf = &rdbuf[i * tsdata->point_len + tsdata->tdata_offset];
-@@ -349,10 +418,12 @@ static irqreturn_t edt_ft5x06_ts_isr(int irq, void *dev_id)
- 		/* ignore Reserved events */
- 		if (type == TOUCH_EVENT_RESERVED)
- 			continue;
--
- 		/* M06 sometimes sends bogus coordinates in TOUCH_DOWN */
- 		if (tsdata->version == EDT_M06 && type == TOUCH_EVENT_DOWN)
- 			continue;
-+		/* releases are derived from the down-mask diff below */
-+		if (type == TOUCH_EVENT_UP)
-+			continue;
- 
- 		x = get_unaligned_be16(buf) & 0x0fff;
- 		y = get_unaligned_be16(buf + 2) & 0x0fff;
-@@ -363,21 +434,75 @@ static irqreturn_t edt_ft5x06_ts_isr(int irq, void *dev_id)
- 		id = (buf[2] >> 4) & 0x0f;
- 		if (id >= tsdata->max_support_points)
- 			continue;
-+		if (tsdata->prop.max_x &&
-+		    (x > tsdata->prop.max_x || y > tsdata->prop.max_y))
-+			continue;
- 
- 		input_mt_slot(tsdata->input, id);
--		if (input_mt_report_slot_state(tsdata->input, MT_TOOL_FINGER,
--					       type != TOUCH_EVENT_UP))
--			touchscreen_report_pos(tsdata->input, &tsdata->prop,
--					       x, y, true);
-+		input_mt_report_slot_state(tsdata->input, MT_TOOL_FINGER, true);
-+		touchscreen_report_pos(tsdata->input, &tsdata->prop, x, y, true);
-+		new_mask |= BIT(id);
- 	}
- 
-+	/*
-+	 * Reconcile held contacts with this frame. A contact absent from the
-+	 * frame is released only after EDT_RELEASE_MISSES consecutive misses so
-+	 * a single glitchy read cannot cut a still-present tap or drag.
-+	 */
-+	for (id = 0; id < tsdata->max_support_points; id++) {
-+		if (new_mask & BIT(id)) {
-+			tsdata->miss[id] = 0;
-+			continue;
-+		}
-+		if (!(tsdata->down_mask & BIT(id)))
-+			continue;
-+		if (++tsdata->miss[id] >= EDT_RELEASE_MISSES) {
-+			input_mt_slot(tsdata->input, id);
-+			input_mt_report_slot_state(tsdata->input,
-+						   MT_TOOL_FINGER, false);
-+			tsdata->miss[id] = 0;
-+			released |= BIT(id);
-+		}
-+	}
-+	tsdata->down_mask = (tsdata->down_mask | new_mask) & ~released;
-+
- 	input_mt_report_pointer_emulation(tsdata->input, true);
- 	input_sync(tsdata->input);
-+}
-+
-+static irqreturn_t edt_ft5x06_ts_isr(int irq, void *dev_id)
-+{
-+	struct edt_ft5x06_ts_data *tsdata = dev_id;
-+
-+	guard(mutex)(&tsdata->io_lock);
-+	edt_ft5x06_fetch_and_report(tsdata);
-+	if (tsdata->down_mask)
-+		mod_delayed_work(system_wq, &tsdata->poll_work,
-+				 msecs_to_jiffies(EDT_POLL_INTERVAL_MS));
- 
--out:
- 	return IRQ_HANDLED;
- }
- 
-+static void edt_ft5x06_poll_work(struct work_struct *work)
-+{
-+	struct edt_ft5x06_ts_data *tsdata =
-+		container_of(to_delayed_work(work),
-+			     struct edt_ft5x06_ts_data, poll_work);
-+
-+	guard(mutex)(&tsdata->io_lock);
-+	edt_ft5x06_fetch_and_report(tsdata);
-+	if (tsdata->down_mask)
-+		mod_delayed_work(system_wq, &tsdata->poll_work,
-+				 msecs_to_jiffies(EDT_POLL_INTERVAL_MS));
-+}
-+
-+static void edt_ft5x06_cancel_poll(void *data)
-+{
-+	struct edt_ft5x06_ts_data *tsdata = data;
-+
-+	cancel_delayed_work_sync(&tsdata->poll_work);
-+}
-+
- struct edt_ft5x06_attribute {
- 	struct device_attribute dattr;
- 	size_t field_offset;
-@@ -1244,6 +1369,10 @@ static int edt_ft5x06_ts_probe(struct i2c_client *client)
- 
- 	tsdata->no_regmap_bulk_read =
- 		device_property_read_bool(&client->dev, "no-regmap-bulk-read");
-+	tsdata->last_success = jiffies;
-+	tsdata->last_reset = jiffies;
-+	mutex_init(&tsdata->io_lock);
-+	INIT_DELAYED_WORK(&tsdata->poll_work, edt_ft5x06_poll_work);
- 
- 	/*
- 	 * Check which sleep modes we can support. Power-off requires the
-@@ -1341,6 +1470,15 @@ static int edt_ft5x06_ts_probe(struct i2c_client *client)
- 		return error;
- 	}
- 
-+	/*
-+	 * Registered before the IRQ so it unwinds after the IRQ is freed on
-+	 * removal: no edge can re-arm the poll worker once it is cancelled.
-+	 */
-+	error = devm_add_action_or_reset(&client->dev, edt_ft5x06_cancel_poll,
-+					 tsdata);
-+	if (error)
-+		return error;
-+
- 	irq_flags = irq_get_trigger_type(client->irq);
- 	if (irq_flags == IRQF_TRIGGER_NONE)
- 		irq_flags = IRQF_TRIGGER_FALLING;
-@@ -1383,6 +1521,9 @@ static int edt_ft5x06_ts_suspend(struct device *dev)
- 	struct gpio_desc *reset_gpio = tsdata->reset_gpio;
- 	int ret;
- 
-+	/* stop the poll worker so it cannot touch i2c after power-down */
-+	cancel_delayed_work_sync(&tsdata->poll_work);
-+
- 	if (device_may_wakeup(dev))
- 		return 0;
- 
+[Severity: Medium]
+Does unconditionally passing false for the dqs parameter break platforms
+that rely on the bootloader or firmware to enable the data strobe?
 
--- 
-2.55.0
+Previously, cqspi_readdata_capture() passively preserved the data strobe
+bit state since it only masked and set the bypass and delay bits. Now that
+the function explicitly clears the CQSPI_REG_READCAPTURE_DQS_LSB bit when
+the dqs argument is false, this will disable the strobe on systems where it
+was already configured prior to booting.
 
+Loss of this signal reduces timing margins in high-speed modes and could
+lead to read failures. Is it intended to override the bootloader configurat=
+ion
+here?
 
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723110219.3180=
+747-1-s-k6@ti.com?part=3D7
