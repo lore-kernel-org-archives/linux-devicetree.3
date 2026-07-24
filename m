@@ -1,196 +1,104 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011011.outbound.protection.outlook.com [52.101.65.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FEED3CC9F2;
-	Fri, 24 Jul 2026 08:15:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784880946; cv=fail; b=T3HsbAtFj4NPCzkhZ5+NiwrjRgO3IYKTnlIfo2o95V6m/3B4uNWCKqw4ZgIAIk65Rc9tSQOilODWt8b4L6NCg5IcDIwAwDj2JXeD3lROtf4GSg8xD39mutYXIpgYCxaET7K2DR8pVbko5A23pHGK9WPjQ2t2mc8Fm2jlAgbWTNE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24FEF3ACEE0
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 08:15:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784880946; cv=none; b=n8+r0QhYGOo0g5XRVNG6DteOG9x/5xe7KlthVt3n81yN5Xg4MaHe93FzjvG7unGN9Z91sQ++r+VqFLojrfCE4PlCONdlZC4bOlw7yBuLU7AnjVX9lkTCgRPfgChbwNhqp5sQLTMoVbtOxsv744ahInUqpPhlIGK8X+t4p5Z3wEc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784880946; c=relaxed/simple;
-	bh=eisH3ZzrDh+hLBa9c2zZk17ChWgErwwFwnskuaDb/2s=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=MuiBgLvAIqFj6jmhUpDZesSZEo8eTXonse0B6wQddm2yLRtM8ZsDVewBHYMZXtNGwyx4BnBQCLKt8ToF2hfJEnHTRs2iUODlh9Fe5YJ8WmE8AFvsaV5M7NFmORsrv9Y/IM8kfe6XTiFIpXh8RH+7uZ/qBiFMoxEv7KGbG+XZe54=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=B21Gnk7s; arc=fail smtp.client-ip=52.101.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	bh=1Z1QT2/A+0r7VoEL/05EXD8buIxe8+5hVhNtwZ+nYAo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=VsJ40895Gohx1VM625XQ7nIkyyRZbKVDYKERw5Qw50B985XGnOLIwWgYZl7widWgrWVNkTndiZUiBQY8RoNxD5bQGARkuvjqNnk0CSKJ28qSQgAo6lLjXohCGj2EAhJgTChikzeyzTW7gSMTK6JwWO1ZpqUVow4CMmc2QP/9BSU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lGvzYXZV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="B21Gnk7s"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mQykeI00FJubxMZIqbKEPAu1Qcc/hbuQGldY1TEPI5dKNE99gZqFR/p7QLUBjCtBzOzU07/lKqpJ4bEEuDkClYPiFZwwMRx+FWfWdDU6CJShjIrjJDgI25W+KwQFlCRNVCqiIWtI4123m540zmqAoeb5qxjlHz4GAjYHHrafYG4HhMvBG2/kdSZ7eeO0mRIaMbhdEvzDfN62I+Ot6XpYOIjKAgUTByfXJXj+Fqo1A2sHBVA19lLCd3GjMLHvcuyZP8c58kYKgWkLq325hSLfN/euV+CTSguNcIdojluN62+J/3rEz7JhX/MTORgR0TmiNtW+reibVjyj30oPZvDKBQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hKjiIt9hYDPiE/hdIlDvt855PXBC9SRffRl/W4QGM1E=;
- b=qF9p7Vrwvva0vYrknxSMSJT+o0eu091fUR/hU5L5FWaP0eH3lqvkpESVFSQxzlV/AlE4bxsoZMnxceFwjxL63t4sScatmG+cTAfa4OsyWQ3PsqcUzjdRW7RX0MWWQ2ygXP1uLc2xqNawi5j/2uuX5W7ytZrINzfEX91e81dTe+QtrLrSz1h+EXuxNCGmwsLBg7lbIpkP6MTmfNCmtPN0sH8+OT8MjaDDGeGw59riop3jAeBvE+KU7wLr/Kye7EKinnjLJuOeqvt4Eoi6Btagod8JEBueiPkiHKz12+cRhv9qwfC79TNEyEfz0+RCNRXRUIcRNUJxaIA9QtNZghGkjg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hKjiIt9hYDPiE/hdIlDvt855PXBC9SRffRl/W4QGM1E=;
- b=B21Gnk7s8WeSK1v6g29WVfKjLfvRWLVHA+ox2CKiNORdItG7WdHmgBkv90wanLkciYT4Q40wKylF0zvTlh/aCP3Vm7xVIqwpEQAPnrHMhbKlaHl8LRbSTwuWkwvbI1UnltlywDCwV42OdvfIWNxZJdXQfmF74fh45QNsHmWZcVo46f4fDeM7A4gaGXYjSRP6rslC1qrXAbIktHJSMv477vHrna4Fp/AMA2DZtqlwfzpyla3DhoWEQ1n2qAM5gep31+rFeRCHCAFK84pDfyf4nsyTtxVacSXmXkK+a0HMj3qw6PsWg/9GAPO5f9uY0U6yh0sHrpSC5+LOKPZBfEKNEw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM9PR04MB8469.eurprd04.prod.outlook.com (2603:10a6:20b:414::15)
- by AS8PR04MB9048.eurprd04.prod.outlook.com (2603:10a6:20b:443::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.11; Fri, 24 Jul
- 2026 08:15:16 +0000
-Received: from AM9PR04MB8469.eurprd04.prod.outlook.com
- ([fe80::1f31:d3d0:6150:b49c]) by AM9PR04MB8469.eurprd04.prod.outlook.com
- ([fe80::1f31:d3d0:6150:b49c%4]) with mapi id 15.21.0245.010; Fri, 24 Jul 2026
- 08:15:16 +0000
-From: pankaj.gupta@oss.nxp.com
-Date: Fri, 24 Jul 2026 14:35:14 +0530
-Subject: [PATCH v30 6/7] arm64: dts: imx8ulp: add secure enclave node
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260724-imx-se-if-v30-6-ce8ba256692c@nxp.com>
-References: <20260724-imx-se-if-v30-0-ce8ba256692c@nxp.com>
-In-Reply-To: <20260724-imx-se-if-v30-0-ce8ba256692c@nxp.com>
-To: Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Pankaj Gupta <pankaj.gupta@nxp.com>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784883913; l=1315;
- i=pankaj.gupta@nxp.com; s=20240523; h=from:subject:message-id;
- bh=/Cm38yt4M/hkBFoKCi0zK1fscSGHpPw358A2kZ01vrY=;
- b=rv0Rvd13zQ4u1FlMyMd4zpfxLVpXePDUdu+NCvJx7+vHqMCqGbAtUoxsaJxYgmExfRXmcFZiG
- 1Wbqxur+lZSD0KXtSXCqycxRtvx76m3mifM/vhT1mRboOS/wb9tnMm8
-X-Developer-Key: i=pankaj.gupta@nxp.com; a=ed25519;
- pk=OA0pBQoupy5lV0XfKzD8B0OOBVB6tpAoIf+0x1bYGRg=
-X-ClientProxiedBy: MA5P287CA0251.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1ae::12) To AM9PR04MB8469.eurprd04.prod.outlook.com
- (2603:10a6:20b:414::15)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lGvzYXZV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39C0A1F00ADE;
+	Fri, 24 Jul 2026 08:15:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784880936;
+	bh=B79XrBFxr4epxtiKU6rMvmYMaPXmHZdbVcvKxCtaFQ4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=lGvzYXZVzOmmM8+e7XzhOXZYrchGj+/8sZqeygOFcTN30JzegNDCReZ0bWalZTM8W
+	 qeUtRn86yCdTZvZ7wqiNisWWCcBxOZnS6SD3MYu2vLGRrM4SXeqSBLSM4hEeIdeMPO
+	 7yMU1BMAfOQHR2x6RUTE/XKOEb1fiOR1qsF4aXpqPUt/+GSDMsWl7urcmHMSek5v+o
+	 8ImtjzL4/hJCVqc/bw2jywTFOlKh0e+bSBMpo0GMUD9csquLXFdQmX74K9Rx2wHF13
+	 VMX7d4Ck8IMmMzNYHFiEFlgTBHgGSj+IVyu0rmpgOTCXtzpM/ZOpvTOXsA4eautWc2
+	 hemn9++f8QnAg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 5/5] arm64: tegra: Add Tegra264 SDMMC1 device tree node
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Prathamesh Shete" <pshete@nvidia.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260724075700.714261-6-pshete@nvidia.com>
+References: <20260724075700.714261-1-pshete@nvidia.com>
+ <20260724075700.714261-6-pshete@nvidia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 24 Jul 2026 08:15:35 +0000
+Message-Id: <20260724081536.39C0A1F00ADE@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM9PR04MB8469:EE_|AS8PR04MB9048:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4d1f9e4f-22e6-459a-c9f6-08dee95bb1b9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|19092799006|366016|376014|7416014|1800799024|921020|56012099006|11063799006|10067099003|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	3W9kiIAbO+zmCIdZA2QIaST0ImxuXPfgyzfpR+1lzpjU1bbEfcu2Ik64LrbvHBcr0toOTka+10KLCxr2EmzXJAhiRviv3CHsoaNvD/9mnrw/eFb3huOjdzCG+681Gq6QENg+fDT6qPqpA2lfcQXMpsadzGJi7+WqVPk3WKdR+cVDWVDaRMOJUvTtytU+HavJL9ckWRhJqT3sVT6jp0y9URB92pz5FbPcqQOyAuRpLClMBYwxzqijM1r+E7DIbvnmaWStDMoVZDJCQM7IDT78y8rrW0LvZ6o2/UPKmd/qz2pbS8ZGPp5n47JRvqGWgSuc5a6AjeYi70Lh2T6ojzxIn+wdSAhnvj5HsbpT4WWqaT6iSYzsxru034JPOHX0LjgORgFxZP3c8q2Www6J2p1clyRmBbc0l8Ifa5cfUttqO6CDZhSZEi8szjBHGKt4idAxjxOSpho5ym8E5vrhw0m4pS097mM1FvIeXN4VSC5Pk6lWdgvdbOCKX74W3jbxclrkVakvIX3Hh8P8Qr1hcj+SH4GY/3hGLGKNE2YjILgHnc2NN2/ZobgbGuXevxEDCcXQzVpis3kF/7uAgYPev1RxH+VFvJm6pvBpVNSW+00c+lrtXnFtzLukzdzTvcS9R4Ka0C4Qnj22WLgLCPO/w5uIz9HxtmTSq0M9FqyOlrGr4BoZbV7+iqDW8PvAISgR5ijHkixxBw5RPoCf2Hx4kw4cSQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR04MB8469.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(366016)(376014)(7416014)(1800799024)(921020)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RGVoMzVSRzNvTmhuZ2VCSHV3cWZlU29yUjB4YjdWc3lCU1ViZUgrSmZnQjI2?=
- =?utf-8?B?UFM1NndLRnpwZ3VhK25oRHFOenN4VXpZSDlST3pVZEN0eTI0Y0k0RnBmL1dU?=
- =?utf-8?B?VjJmVmFRaDNIbXdPdlJVcU9COThYQXJQVlZkYU5YSXNUZXhNc3VMZDl6S05B?=
- =?utf-8?B?dzdmYUwrbkR1VkVaSGpoZUdtMHlsR092QlE4QmdnUTQzZkhyeXI4VmNaR3B0?=
- =?utf-8?B?dDNDM1JBeUpMaHhhYUdSU3FGMVZRQzA0YVg3cGhCdHpzcUpsRGYvYVVhZmhO?=
- =?utf-8?B?MmhBcFQrci9NWGFxZ0Mxa2Q5azFTeU4wRHhUaVNReDlIajJzVkM5dWF6WW5j?=
- =?utf-8?B?NFZWUVcydmNhS3BaL3Ewd1RzSXFXbXJmVjJ1YUJ6cFRTa2lLRzlVRDZIWWsx?=
- =?utf-8?B?S24wNmZNczkxblRmRDZvNjFKc1BQSGkwZkF5S28rdzdnRmZWMjBqOVEydnV1?=
- =?utf-8?B?SHVaRVA1RVlpMmo2SHZCakMyTmVqOHEvUDRHVnV1WS9mRUozeGhKenB2Y0gv?=
- =?utf-8?B?SXBuSmNKWkZZVUxzSTlJU3JjUWRVS0l5aXNLMkFIZEVjZ2VUeURXQzViUUcr?=
- =?utf-8?B?NFZMdHRRd1VhRHFUZ3pzeS83ZWVrSGpHN1dUdGVNcklDWHZEOUJIUEZRTmFn?=
- =?utf-8?B?OTBrMWovaldOcEFqS004dVJFZTJuSHlJSUs5bTIzSjdGdGdPLzNEWlFRVytV?=
- =?utf-8?B?dnlUQ2xhT2drdjdoWW84Wnl3N1hEY1BGRk5CTFAzZnd5a3o4dXg1RTRibVZk?=
- =?utf-8?B?UmJicUwxTHlYNnN4TERRZkdLOFBzQmdialR2dUlvTUlrcGk3THJpMVZsUk9W?=
- =?utf-8?B?V2phdlRkajJZMWFBZUovemtiOHBoVW93cDAyOEQ1WXl3V3ZFa2RWS3RhRnVu?=
- =?utf-8?B?YnN4YjJLNGxhLzk1S28vTDVpR1F2bU9iaE5BaityOEM2UWd1OEpib3N3T2wy?=
- =?utf-8?B?bW03UGRxbm1rbGhqUEZQUlBPYjRNLzJwSmhSK1o2ZGpPdkVXS2hBN1ZsQXZ5?=
- =?utf-8?B?bzdxeEh3Y2JxdkFrcTBXTkZDYUluR3ptanZaZ1NpSEJrSmhVQ1dMclJnbnBj?=
- =?utf-8?B?NEVxZStKMWR4TENVQWpJYjF3VHdyS3RPYTdzai9Nc3B3U0NlaTBuOXNxRU5h?=
- =?utf-8?B?YSt5MU1lUVZhek0xUWw1b3JjVGVtL25WZ0h3S2p6RTlFL1FCYUNVTEltRW95?=
- =?utf-8?B?MUNrZSs3Q0VCa3VEdCtDZURvc1FZMVlPSUJvanZhT20wMEhFM1JGK21UcDBq?=
- =?utf-8?B?dnMxckw2cnZZMXN3Qk55ZVpFUzVQSEpCUWFJeTFOUEtVOTBaamRYZDBoZnZw?=
- =?utf-8?B?YmM5VHR5dmFIVU5GazFpY3E2ekIycUdVbFhTTldnbVRoL0ZEenN4WXd3Nkdo?=
- =?utf-8?B?UDliN292VG45L2VNTWtzYnNpOUloaW5PbzJETWRiNmpFRkNOQnRjbzA5eHlh?=
- =?utf-8?B?WWFqS1FkajJVby9haEIyVjdxVGFNWkw3cktRaDdBRzF1THNtMjhUY001YnJx?=
- =?utf-8?B?akwwbCtXb1B0SWdzNGR5dXNTRVBJMEdUTDFEbkc2cUdaRGtyMjZUZU45cjMz?=
- =?utf-8?B?R0x6TUI2QjdSUnFuZjQ5c0pqV3crZUtDT0kvM1B5ZTJzOEdlb1Jwci9ZSmVy?=
- =?utf-8?B?MEw0TVppWDNxa3k1ZWd2eUM2dExMT1R3UHR6Y3Z5UUt3d29XOGhXWENydm91?=
- =?utf-8?B?SGZhQUdITytCbzBuUmd6OXFNN1VEcmN1Y1I5ZDJFL1A3S1hmL2h5SFl3Y0x0?=
- =?utf-8?B?cVVKbklPOVkzWS82N1ZaV3ZLaktBWjVESWFNVzlIVHBwTUVJMHRkS3RpY3ox?=
- =?utf-8?B?dVZHUDhseHNHU2NTOEcrN1JwQlZzeWZTblB5VTgwOTdtdWg4V0NLRCtRa0Fr?=
- =?utf-8?B?OXlVZUxlM2JnTDc0RTd4TnBHQlBEaWZ4NVRxSENuamdHcy9JWHhXS1pDbC91?=
- =?utf-8?B?YjFPOUFOM0FucEFQNXp0ZDNyQlFiWkFmS0lPZjJCN3hjU2JyeXFQVDRTY1FN?=
- =?utf-8?B?MFJMVHJOYjNoZnNpV2dramtYMDcvcG9jai9WTjJpZktyL2U1b0JHVTZSNVAr?=
- =?utf-8?B?QmhVMlQ0TWNYYkNzbWQ3VlhhcjFVOFNKMDU4U2I1WnVRbWtNSjNaL3dBL21x?=
- =?utf-8?B?Z0dGTStISjRNaG5mMENpWmJiVkl4K2t2cnZOY25zandVL1NVMktiNlMxZGZ6?=
- =?utf-8?B?NElzQlFTYlNoeWo3Q1V1LzBhb3hVZ0U3cG8xZkdFeWhoZk1uYkxyMzh3YllQ?=
- =?utf-8?B?N1REaC9TTHY5NSs5UnoyYTNoMTQ2K3Bxbzc5WnNyeXI4cVN5OVpEakg0b2pZ?=
- =?utf-8?B?dEJZeWpLRXBOZFBhNjdQWjBBVXJWQXdWa1lKdkVPU0lxR09FSjRvRGV1V0dl?=
- =?utf-8?Q?XgghJSXRYs1aPBYKPbuTK3ZtEwkKMumcPylv7?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4d1f9e4f-22e6-459a-c9f6-08dee95bb1b9
-X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8469.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2026 08:15:16.7225
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: z6/Dq3dc2mo+QXM931HHPPM+tDvq+f076RtBYg2sW9laFQt9PCgEbbdpCfgs1G5AjNP8CeeN/Y7qzKXI1o6br5HU8Wm/7FkGhvsBU22wdqx0oOZio34nmAEeQ6yWPqzS
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB9048
 
-From: Pankaj Gupta <pankaj.gupta@nxp.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Missing pinctrl configuration for SDMMC1 pad voltage switching.
+--
 
-Add support for NXP secure enclave called EdgeLock Enclave firmware (se-fw)
-for imx8ulp-evk.
+--- Patch [5]: [PATCH 5/5] arm64: tegra: Add Tegra264 SDMMC1 device tree no=
+de ---
+commit 9ce1cc837d5e304cb5792016306e46a502dddf18
+Author: Prathamesh Shete <pshete@nvidia.com>
 
-Add label sram0 for sram@2201f000 and add secure-enclave node
+arm64: tegra: Add Tegra264 SDMMC1 device tree node
 
-Signed-off-by: Pankaj Gupta <pankaj.gupta@nxp.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
----
- arch/arm64/boot/dts/freescale/imx8ulp.dtsi | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+Add device tree node for the Tegra264 SDMMC1 instance.
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8ulp.dtsi b/arch/arm64/boot/dts/freescale/imx8ulp.dtsi
-index c6d1bb9edf38..182f1444b643 100644
---- a/arch/arm64/boot/dts/freescale/imx8ulp.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8ulp.dtsi
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: (GPL-2.0+ OR MIT)
- /*
-- * Copyright 2021 NXP
-+ * Copyright 2021, 2025 NXP
-  */
- 
- #include <dt-bindings/clock/imx8ulp-clock.h>
-@@ -153,7 +153,7 @@ sosc: clock-sosc {
- 		#clock-cells = <0>;
- 	};
- 
--	sram@2201f000 {
-+	sram0: sram@2201f000 {
- 		compatible = "mmio-sram";
- 		reg = <0x0 0x2201f000 0x0 0x1000>;
- 
-@@ -185,6 +185,13 @@ scmi_sensor: protocol@15 {
- 				#thermal-sensor-cells = <1>;
- 			};
- 		};
-+
-+		hsm0: secure-enclave {
-+			compatible = "fsl,imx8ulp-se-ele-hsm";
-+			mbox-names = "tx", "rx";
-+			mboxes = <&s4muap 0 0>, <&s4muap 1 0>;
-+			sram = <&sram0>;
-+		};
- 	};
- 
- 	cm33: remoteproc-cm33 {
+> diff --git a/arch/arm64/boot/dts/nvidia/tegra264.dtsi b/arch/arm64/boot/d=
+ts/nvidia/tegra264.dtsi
+> index 2d8e7e37830ff..8b1f45b5c4cb9 100644
+> --- a/arch/arm64/boot/dts/nvidia/tegra264.dtsi
+> +++ b/arch/arm64/boot/dts/nvidia/tegra264.dtsi
+> @@ -3631,6 +3631,40 @@ i2c16: i2c@c430000 {
+>  			status =3D "disabled";
+>  		};
+> =20
+> +		mmc@c570000 {
+> +			compatible =3D "nvidia,tegra264-sdhci", "nvidia,tegra194-sdhci";
+> +			reg =3D <0x00 0x0c570000 0x0 0x10000>;
 
--- 
-2.43.0
+[Severity: High]
+Does this node need pinctrl configurations to support the declared UHS mode=
+s?
 
+This node defines UHS modes (e.g., sd-uhs-sdr104) later in the block but la=
+cks
+the corresponding pinctrl-names and pinctrl-x properties required by the
+sdhci-tegra driver to safely switch pad voltages.
+
+Because the Tegra264 SDHCI host driver declares NVQUIRK_NEEDS_PAD_CONTROL,
+missing these properties causes tegra_sdhci_init_pinctrl_info() to fail dur=
+ing
+probe. This skips assigning the sdhci_tegra_start_signal_voltage_switch
+callback.
+
+When the MMC core later attempts to switch to 1.8V for the declared UHS mod=
+es,
+it will fall back to the default sdhci_start_signal_voltage_switch()
+implementation. This modifies the controller registers but fails to adjust =
+the
+actual Tegra SoC pad driver voltages.
+
+Could this leave the physical pads stuck at 3.3V while negotiating 1.8V,
+potentially causing signal integrity issues, data corruption, or hardware
+damage when an SD card capable of UHS modes is inserted?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724075700.7142=
+61-1-pshete@nvidia.com?part=3D5
