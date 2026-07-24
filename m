@@ -1,159 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6317A3859E0;
-	Fri, 24 Jul 2026 10:48:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC16B3C10AE;
+	Fri, 24 Jul 2026 10:49:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784890136; cv=none; b=PrgFZu0HR9JKt9W3nsycq5/vDBNKZ+M9IQtem1tF1mVktYKIhoAiB8yxO3U04Rrd9mupFOZ1Y8Npwx7snYxJLfcYyxcR/+dnrW/Em2E7y6+EZQKonYuLKVXIVseisB77M2WvibFsjmcrY14TUxIDW1AsZ7mbNzOjlIbzNrvK7g0=
+	t=1784890157; cv=none; b=hu+Ki5yDUNN1158P90Ur5W2Y6u5c5UAKTWQaxXh+mpZUgAIBtGIfEU7W30GFbMah+ppQ+wzvIi8MJjMlImWCrDF+I0UYBW6mrPsENLirqBMhbpxiz/W8KYQTXlSzCYUXKVa//CtTVfTO2Te6vHOGiJ1TArUvpQEUHaOTW2e+NMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784890136; c=relaxed/simple;
-	bh=U+4kGWb/OH++9k/cnyaAqWRscGLl1Gjnp6J1XeJZJ6U=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bRXBl4BbxESFRm6GLO3mgC2/rrjcApiV5myXOgRrHjNZb6oRdZXCbJ+Tslx2W8zSwV/xDi31hGfpF9jnr492hqdmTv7fVWwS7P4pGWKpnncxQXCfyzj2nwftH3VTxX9HXpCE1GrakTgGCzY9QVZULI8wVqPx5vHQCCR7ibjqW8M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZkPFEjWZ; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZkPFEjWZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D38971F000E9;
-	Fri, 24 Jul 2026 10:48:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784890135;
-	bh=AKyBkjl5p16HnZ20sR7ZVM26h8JtLCK599D6rzSUi8g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZkPFEjWZUaNQbZyeX8ChAtdd/j8iJrKgwuSJ5GwH0F6AJwxsus85I2JewuakN3am5
-	 WCz3H4QWMlE1NjakjiuCK5sG0ywvsQTBzymdbrgKZYf78NcqUjq2dzceyeJZgn1pW/
-	 xNqDpQIBy+hWs0C6hSL2yUlRCmuyY240bvox5on9F9qdhH/aRNCt8C9adbDAjYokWM
-	 k8UjBEKnOnV1BR0EY+NUDjGbnp4s1rr/heRK8dSO6yjhPC8aU26nxeSgc0jGmOdERh
-	 kvlRqaSmmagBwBcA8EyWx8LsERtVvAaesJkxESJVFO2YvKMSzy6e+/nuv5ip/e6Ha1
-	 tYd9pPMF2XFCA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 15/19] dmaengine: ti: k3-psil-am62l: Add AM62Lx PSIL
- and PDMA data
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sai Sree Kartheek Adivi" <s-adivi@ti.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, dmaengine@vger.kernel.org, vkoul@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20260724102115.2854-16-s-adivi@ti.com>
-References: <20260724102115.2854-1-s-adivi@ti.com>
- <20260724102115.2854-16-s-adivi@ti.com>
-Content-Type: text/plain; charset=utf-8
+	s=arc-20240116; t=1784890157; c=relaxed/simple;
+	bh=okXQBzs/oPe7SiFq0kQlbRNc2jeyn5LJ68OTdABhEuk=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=phBj0ZzoMgJeJ1ZRt1Rz+4U2lhXx0ATeSEDQSsXutennrt9aiItflfRzFGdSBMkR1WIISvAuzrKsLlMe3Vp40SJkKm4C41S4Le4eqFf9qShxCAdQ0jCV1F3Lp1PTUPkyzAJpCe/9Gv/WN+jLELXfHSJCtuEl6YGiq3si23cS0Kw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 31870202074;
+	Fri, 24 Jul 2026 12:49:11 +0200 (CEST)
+Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wnDSp-00132y-0M;
+	Fri, 24 Jul 2026 12:49:11 +0200
+Received: from pza by lupine with local (Exim 4.98.2)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wnDSo-000000006wz-4C49;
+	Fri, 24 Jul 2026 12:49:11 +0200
+Message-ID: <1eca6815953b50fe3f276b64d74be2795b8382aa.camel@pengutronix.de>
+Subject: Re: [PATCH v3 1/4] clk: qcom: common: Register reset controller
+ only when resets are present
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Imran Shaik <imran.shaik@oss.qualcomm.com>, Bjorn Andersson	
+ <andersson@kernel.org>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Rob
+ Herring <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio	 <konradybcio@kernel.org>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>, Taniya Das	
+ <taniya.das@oss.qualcomm.com>, Jagadeesh Kona
+ <jagadeesh.kona@oss.qualcomm.com>, 	linux-arm-msm@vger.kernel.org,
+ linux-clk@vger.kernel.org, 	linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, Konrad Dybcio	
+ <konrad.dybcio@oss.qualcomm.com>, Dmitry Baryshkov	
+ <dmitry.baryshkov@oss.qualcomm.com>, Vladimir Zapolskiy	
+ <vladimir.zapolskiy@linaro.org>
+Date: Fri, 24 Jul 2026 12:49:10 +0200
+In-Reply-To: <20260723-shikra-audiocorecc-v3-1-90b878ae0d4e@oss.qualcomm.com>
+References: <20260723-shikra-audiocorecc-v3-0-90b878ae0d4e@oss.qualcomm.com>
+	 <20260723-shikra-audiocorecc-v3-1-90b878ae0d4e@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 24 Jul 2026 10:48:54 +0000
-Message-Id: <20260724104854.D38971F000E9@smtp.kernel.org>
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] NULL pointer dereference in psil_get_ep_config_by_id() if the SoC =
-is not matched.
-- [High] psil_set_new_ep_config() incorrectly checks the client device node=
- instead of the DMA controller node for compatibility.
-- [Medium] Uninitialized stack variable 'thread_id' is logged on the error =
-path, leaking stack memory.
---
-
---- Patch [15]: [PATCH v7 15/19] dmaengine: ti: k3-psil-am62l: Add AM62Lx P=
-SIL and PDMA data ---
-commit 508a30e21ce25dc9ce58a2b1505b256e86a5d8a4
-Author: Sai Sree Kartheek Adivi <s-adivi@ti.com>
-
-dmaengine: ti: k3-psil-am62l: Add AM62Lx PSIL and PDMA data
-
-Add PSIL and PDMA data for AM62Lx SoC.
-
-Introduce new PSIL_EP_PDMA_XYMF type for channels that have multiple
-selectable fifos. Also add a new fifo_id field to psil_endpoint_config
-to specify the selectable fifo_id.
-
-> diff --git a/drivers/dma/ti/k3-psil.c b/drivers/dma/ti/k3-psil.c
-> index c4b6f0df46861..ed9c92d5a7b2b 100644
-> --- a/drivers/dma/ti/k3-psil.c
-> +++ b/drivers/dma/ti/k3-psil.c
-[ ... ]
-> @@ -71,6 +72,57 @@ struct psil_endpoint_config *psil_get_ep_config(u32 th=
-read_id)
->  }
->  EXPORT_SYMBOL_GPL(psil_get_ep_config);
-> =20
-> +struct psil_endpoint_config *psil_get_ep_config_by_id(u32 channel_id,
-> +						       bool is_pktdma,
-> +						       u32 *thread_id,
-> +						       bool *dev_to_mem)
-> +{
-> +	int i;
-> +
-> +	mutex_lock(&ep_map_mutex);
-> +	if (!soc_ep_map) {
-> +		const struct soc_device_attribute *soc;
-> +
-> +		soc =3D soc_device_match(k3_soc_devices);
-> +		if (soc)
-> +			soc_ep_map =3D soc->data;
-> +	}
-> +
-> +	if (soc_ep_map->src) {
-
-[Severity: High]
-If soc_device_match() fails to find a match, soc_ep_map is not populated and
-remains NULL. Will this unconditionally dereference soc_ep_map here?
-
-> +		for (i =3D 0; i < soc_ep_map->src_count; i++) {
-> +			struct psil_ep *ep =3D &soc_ep_map->src[i];
-[ ... ]
-> @@ -90,9 +142,22 @@ int psil_set_new_ep_config(struct device *dev, const =
-char *name,
->  				       index, &dma_spec))
->  		return -ENOENT;
-> =20
-> -	thread_id =3D dma_spec.args[0];
-> -
-> -	dst_ep_config =3D psil_get_ep_config(thread_id);
-> +	if (of_device_is_compatible(dev->of_node, "ti,am62l-dmss-pktdma")) {
-
-[Severity: High]
-Are we checking the compatibility of the correct device node here?
-
-dev->of_node is the client device's node, which won't match the DMA
-controller's compatible string. Should this check dma_spec.np instead?
-
-> +		bool dev_to_mem;
-> +
-> +		dst_ep_config =3D psil_get_ep_config_by_id(dma_spec.args[0],
-> +							  true,
-> +							  &thread_id, &dev_to_mem);
-> +	} else if (of_device_is_compatible(dev->of_node, "ti,am62l-dmss-bcdma")=
-) {
-
-[Severity: High]
-This check also seems to use the client device node (dev->of_node) instead =
-of
-the DMA controller node.
-
-> +		bool dev_to_mem;
-> +
-> +		dst_ep_config =3D psil_get_ep_config_by_id(dma_spec.args[0],
-> +							  false,
-> +							  &thread_id, &dev_to_mem);
-> +	} else {
-> +		thread_id =3D dma_spec.args[0];
-> +		dst_ep_config =3D psil_get_ep_config(thread_id);
-> +	}
->  	if (IS_ERR(dst_ep_config)) {
->  		pr_err("PSIL: thread ID 0x%04x not defined in map\n",
->  		       thread_id);
-
-[Severity: Medium]
-If psil_get_ep_config_by_id() fails to find a channel and returns an error
-pointer, thread_id is left uninitialized. Does this cause the error log to
-print uninitialized stack memory?
-
->  		of_node_put(dma_spec.np);
->  		return PTR_ERR(dst_ep_config);
+On Do, 2026-07-23 at 21:15 +0530, Imran Shaik wrote:
+> Some clock controller descriptors do not define resets. Avoid registering
+> a reset controller in such cases by checking desc->num_resets.
+>=20
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+> Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
+> ---
+>  drivers/clk/qcom/common.c | 24 +++++++++++++-----------
+>  1 file changed, 13 insertions(+), 11 deletions(-)
+>=20
+> diff --git a/drivers/clk/qcom/common.c b/drivers/clk/qcom/common.c
+> index 2c09abaf1d2a15b7fbbbfeb67c03075381185a00..d6ff83045da8f308dcb9c5836=
+af48090323248de 100644
+> --- a/drivers/clk/qcom/common.c
+> +++ b/drivers/clk/qcom/common.c
+> @@ -359,17 +359,19 @@ int qcom_cc_really_probe(struct device *dev,
+>  		qcom_cc_clk_regs_configure(dev, desc->driver_data, regmap);
 >  	}
+> =20
+> -	reset =3D &cc->reset;
+> -	reset->rcdev.of_node =3D dev->of_node;
+> -	reset->rcdev.ops =3D &qcom_reset_ops;
+> -	reset->rcdev.owner =3D dev->driver->owner;
+> -	reset->rcdev.nr_resets =3D desc->num_resets;
+> -	reset->regmap =3D regmap;
+> -	reset->reset_map =3D desc->resets;
+> -
+> -	ret =3D devm_reset_controller_register(dev, &reset->rcdev);
+> -	if (ret)
+> -		goto put_rpm;
+> +	if (desc->num_resets) {
+> +		reset =3D &cc->reset;
+> +		reset->rcdev.of_node =3D dev->of_node;
+> +		reset->rcdev.ops =3D &qcom_reset_ops;
+> +		reset->rcdev.owner =3D dev->driver->owner;
+> +		reset->rcdev.nr_resets =3D desc->num_resets;
+> +		reset->regmap =3D regmap;
+> +		reset->reset_map =3D desc->resets;
+> +
+> +		ret =3D devm_reset_controller_register(dev, &reset->rcdev);
+> +		if (ret)
+> +			goto put_rpm;
+> +	}
+> =20
+>  	if (desc->gdscs && desc->num_gdscs) {
+>  		scd =3D devm_kzalloc(dev, sizeof(*scd), GFP_KERNEL);
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724102115.2854=
--1-s-adivi@ti.com?part=3D15
+Is it possible to have num_resets =3D=3D 0 but num_gdscs > 0?
+If so, the now uninitialized reset variable will be dereferenced and
+passed into gdsc_register() a few lines below:
+
+		ret =3D gdsc_register(scd, &reset->rcdev, regmap);
+
+The whole gdsc reset handling looks very spooky, with
+gdsc_(de)assert_reset() calling directly into the rcdev->ops with no
+regard for reset control state.
+
+regards
+Philipp
