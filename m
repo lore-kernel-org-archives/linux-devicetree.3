@@ -1,123 +1,140 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from h7.fbrelay.privateemail.com (h7.fbrelay.privateemail.com [162.0.218.230])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ACCC345EB6
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 19:06:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48B1C367B6D;
+	Fri, 24 Jul 2026 19:18:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.0.218.230
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784919976; cv=none; b=e7a3TFUjs2O3/BZtc08Adwl94IZqulkEH0G/Zl6gQsxT1cTJoccM2WV57GaQ45yXIcxvI9BNmpPe69lXd+MLcleptqEYuqMY8xOCdNB1nqXbsmwBglPp8M79UXp3wMvo+LJPnfDff2sB2lIfDGBeQS0WV0wn4jVPW/TCvO7IPnw=
+	t=1784920709; cv=none; b=ZXuJCdi40e5bjqxO7VGZpRUAMx4MK8AeZDIf2vB4VIMAa3PYh99cMg7URHVWEHSPdSfRe1e5jk3OW8k2W0Z5zyIA2KJcIMzUtuJwS1E2d7tOrknRdu2bqcQDcfiJzl/kD+fEX8Zx6F6LOUqD+fei/gRrjjdqFDAVXd1/4/SorzE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784919976; c=relaxed/simple;
-	bh=O2iyMgC+AvzLJjevlmOcN4mbL02965SyrDBtMI+zJT8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JY1rHCJigRAlL4ANa199qLroB1PCAvRouV5eAmENSc4YDs/yz3lld+iA26Lsa9bHXpvScpAcVhRZekRiXnUMQ1NO5F7IcPKJEtzBJ01SQp1T3jZU4SXt+gkLA6Z9TZR0964GvMrAvmbW58KuUCL+u89qxPQ7f9Tsc/NiyTz83Vw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OOAu+tzT; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Gk5+3b3L; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OOAu+tzT";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Gk5+3b3L"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1784919973;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bSqKtq9R3JDxVUXd7m+hWxueSWIWc3a+tAAVUY+kWL4=;
-	b=OOAu+tzTdr7HUS1Ddk5dav6wmz+Seqe7m7iza5PGudIHACCpfXic3d7dau0jKosXmfP5Zv
-	pXg/JkKe3xWDVNPS7uQaK1n6oKmOwDWZSwdCgEN9plEjKWTDFjN8Tgb7zpw+EYjkdXskZe
-	SQSO9YXBzLze2mA3mwN9AtHlN8hu1+A=
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-660-tVe140rTOE2ILtMF1H3OKg-1; Fri, 24 Jul 2026 15:06:11 -0400
-X-MC-Unique: tVe140rTOE2ILtMF1H3OKg-1
-X-Mimecast-MFC-AGG-ID: tVe140rTOE2ILtMF1H3OKg_1784919971
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-930f5da3467so121576285a.2
-        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 12:06:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1784919971; x=1785524771; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=bSqKtq9R3JDxVUXd7m+hWxueSWIWc3a+tAAVUY+kWL4=;
-        b=Gk5+3b3LULGZPv0/iXmhYcYFMRVMBKk7x7k+lFSwL2UUCxkGhfxAxkjtUA7M9pxk0a
-         JfoEu7zKcWgTjVnMjY3744cLnxC8Eai7uMtHhi+2ULLfY61idvrMKmOiOHM5W4mccDNx
-         F2xg3R4ib9GixttOrPNOW/9XGbMUe3fdaW/DzSD1zB9T1Cg4abo6U80DdY1/PCk0Pe+I
-         pwVmO83/m4pUXgg7gGlcfJlROHaG1G3b8PgkfhPyjtHSMrs+7fatvHY8VglVDQP0iQc3
-         WrcmIIKnhWcaLr/JV7ZG8OhZA9RuX+9K3vmnUd5KCojZ/TZESDaaDx7NA1TLCKbzQfNL
-         7G8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784919971; x=1785524771;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bSqKtq9R3JDxVUXd7m+hWxueSWIWc3a+tAAVUY+kWL4=;
-        b=KDN+DNVmZ3zPxA8uNq4BnKQqCyFlAdfvW/MrCYtz60S0vBjdD54TMQpbUfA4zD6Cxp
-         78+AigTkozvq7DDrYoSEZ6XdmLH2qDL/IJBYv7plh8rFIUaj2+qH3uUc/bgjPjTI+2zv
-         mMBCa2AHPBLKsJw2one7ehWO9tGS1G961iFwSFdmp32cks3xz2jItjlesfrMSExP7E1Z
-         dVu6FUEYXGXiwYZ7ABKqnTCLSDqL3qVmVrkgHmlfcsiK4/2YVqqE8qIMlOlq+u7aeRc2
-         GYqQMkn1jfhGkSngn95gPuZeCAzhvuUsIh63gzNgJ+RzrqtgW75xNme8QbHDPg0yViRp
-         qzwg==
-X-Forwarded-Encrypted: i=1; AHgh+Rrrx8CdA9ut2mGr9RkY6o6tPMYyagoUyXvnjrhGAMhW5l2ZoWl8PplXaCTLBNRwYNkDhiQ0OFYoKJwR@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw68L/iHZr3vchVDYwjHVkSuDKf1Xe4t7r3ipLqFyYdNC4HuGN9
-	2KyNCHJ+4q0biNlzmewBH1JpBgyYeUJCDNhrSnwnXxT2Eg6Xo8OT2eODuliWCXlXIdZIbOraEcM
-	hmHEJkCHm80xJmZa1K0sI7veIl6nH1NG6TwVCvd6QBddEKHlnjlAo5FghqUfXGYI=
-X-Gm-Gg: AR+sD11Q+pqTR0Bcwe7NWSRK7Dsyt57XHh5i34o0IaAbscSQGzU8hojWINIeLBvSmNL
-	MX+m/Kixdrmb+w5cyW3w2oN5rlFufv2asLSfqB0L5+O1dG9kvjzogLs8PT8OfVPBvLp/2TP4FjO
-	mc/XCl8bE+EuTl1hjiHiZXA8BmdyeVu+qlK758GxjBJ7c/hcenfKuER4qsVj8BTtZ40vJ6YRtRa
-	C76iiwqoaRXGfpkMd5vDRngegsIQ7heS4V15VtnnrEeO8bYN+lmuk7fuUDjYfeRyF48TrbFSfIb
-	D+x4JYYQtIZjEiLntKSVTWaRRHvuQsjz33ds9u7GewbPYkFdCRt+Kw9rcg04XCfHPVe0LqVaNIe
-	6JrFJtxkxwad8cDpYkm1wVxImCoYCvulCeks=
-X-Received: by 2002:a05:620a:4706:b0:92b:6805:9197 with SMTP id af79cd13be357-93103910d40mr1008951285a.63.1784919971300;
-        Fri, 24 Jul 2026 12:06:11 -0700 (PDT)
-X-Received: by 2002:a05:620a:4706:b0:92b:6805:9197 with SMTP id af79cd13be357-93103910d40mr1008946585a.63.1784919970832;
-        Fri, 24 Jul 2026 12:06:10 -0700 (PDT)
-Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-930f6a88b88sm710983185a.42.2026.07.24.12.06.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 24 Jul 2026 12:06:10 -0700 (PDT)
-Date: Fri, 24 Jul 2026 15:06:08 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
+	s=arc-20240116; t=1784920709; c=relaxed/simple;
+	bh=ixWNwLfVz61mzrBIXIEsXmzlE2Ha3tHFrKL8fyNJVQs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=fN7s/XNqADd01a2YUy1m20ryWfT2boVkFF4BQ0mp9Kutz03DKFWOjG1JHXfFXAWihdULQhfftWy7jhaqlUcmudxVG9+TX7re6HjJT2LLTUtA/1Z3KfEKit99Rq1RlC06PqyoQGT9C/YgtA4bOT+HHTxl0z8t19boV82FXpidWY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net; spf=pass smtp.mailfrom=catcrafts.net; arc=none smtp.client-ip=162.0.218.230
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catcrafts.net
+Received: from MTA-08-4.privateemail.com (mta-08.privateemail.com [198.54.118.215])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by h7.fbrelay.privateemail.com (Postfix) with ESMTPSA id 4h6Hk30Zb4z2xHQ;
+	Fri, 24 Jul 2026 15:14:51 -0400 (EDT)
+Received: from mail.privateemail.com (K8S-PROD-WORKER-14 [87.215.145.39])
+	by mta-08.privateemail.com (Postfix) with ESMTPA id 4h6HjQ5F22z3hhTR;
+	Fri, 24 Jul 2026 15:14:18 -0400 (EDT)
+From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Cc: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
+	Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Maciej Strozek <mstrozek@opensource.cirrus.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 2/2] clk: en7523: add support for dedicated PCIe PERSTOUT
- reset
-Message-ID: <amO3oF6B6aHVfL9K@redhat.com>
-References: <20260723190133.22577-1-ansuelsmth@gmail.com>
- <20260723190133.22577-2-ansuelsmth@gmail.com>
+	Conor Dooley <conor+dt@kernel.org>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	linux-sound@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	patches@opensource.cirrus.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 0/8] ASoC: SDCA: enable on DT platforms and add Qualcomm WCD9378 (Tambora) codec
+Date: Fri, 24 Jul 2026 21:14:06 +0200
+Message-ID: <20260724191406.7855-1-jorijnvdgraaf@catcrafts.net>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <06aef9a5-7e8e-4262-9b41-a9c43f588da9@oss.qualcomm.com>
+References: <20260722234221.884765-1-srinivas.kandagatla@oss.qualcomm.com> <20260723194045.49021-1-jorijnvdgraaf@catcrafts.net> <06aef9a5-7e8e-4262-9b41-a9c43f588da9@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260723190133.22577-2-ansuelsmth@gmail.com>
-User-Agent: Mutt/2.4.0 (2026-06-19)
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jul 23, 2026 at 09:01:31PM +0200, Christian Marangi wrote:
-> Add support for resetting the PCIe lines with the PERSTOUT reset. These
-> special reset are controlled by the PCIC register and are specific to each
-> of the 3 PCIe lines.
-> 
-> Contrary to the dedicated reset register where 0 deassert and 1 assert the
-> reset line for the related bit, for PCIe PERSTOUT reset in the PCIC
-> register, the deassert and assert value is swapped, with 1 for deassert and
-> 0 for assert. (HW have these bit set as 1 by default after a cold boot)
-> This is internally handled in the reset function.
-> 
-> PCI enable/disable are updated to drop PERSTOUT bits in favor dedicated
-> reset handling.
-> 
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+Hi Srini,
 
-Reviewed-by: Brian Masney <bmasney@redhat.com>
+On Fri, 24 Jul 2026 13:17:06 +0100, Srinivas Kandagatla wrote:
+> > Your probe already returns -ENODEV when qcom,compute-mode is absent;
+> > v2 of my mobile series will add the mirror check, so neither driver
+> > can bind the other's slaves regardless of probe order. If a single
+> > owner of the modalias is preferred instead, a small wcd9378-common
+> > stub dispatching on the property also works for me — your call.
+> [...]
+> We need single entry point, if not we will endup with two modalias. Yes
+> current RFC driver was only tested for compute.
+> I agree we should have a common so that we can leverage some code from
+> both modes.
 
+Single entry point it is — that replaces the mirror check I had queued
+above. My v2 will add the common stub instead: one sdw_driver owning
+the 0x0217/0x0110 ID table, probe dispatching on the DT mode
+properties (qcom,compute-mode -> compute, otherwise the mobile TX/RX
+paths), with the compute branch returning -ENODEV until your driver
+lands. Happy to shape the factoring to whatever slots into your v2
+best, and shared code can accumulate in the common module as it shows
+up.
+
+> That is expected on WCD codecs. only TX has CSR registers space.
+> RX can not read/write any of the codec register space.
+> However the soundwire SCP address space is accessible and expected to
+> set data ports for both tx and rx.
+
+Thanks, good to have that confirmed.
+
+> Thanks that would be nice, Also am thinking that we should just have
+> qcom,port-mapping for both modes and mark one of the device as
+> qcom,control-device which is tx in mobile case. That way we have some
+> level of clean bindings that overlap. But I will leave it up to you.
+
+Let's use your shape. The merged file then has a single
+qcom,port-mapping (still optional, as the wcd938x mappings are) on both
+slave nodes, and qcom,control-device marking the TX slave in the
+mobile presentation — the explicit flag takes over the TX/RX
+discrimination that the split property names provided in my v1, and it
+doubles as dispatch information for the common stub. Compute-only
+requirements (#sound-dai-cells on the slave nodes, and whatever else
+your v2 needs there) go behind if: qcom,compute-mode. I'll
+carry the merged file in my v2 so your v2 can drop patch 7.
+
+> Yes, This is definitely an useful experiment, I was trying something
+> similar with both tx and rx side on mobile mode, things got really
+> complex because the sdw stream has to be handled by rx codec where as tx
+> side will be handled by sdca side.. it was really messy.
+> [...]
+> I think you should continue to do the mobile mode driver as it was done
+> in v1 not think about sdca. Function setup on mobile mode are dynamic
+> user can set sys_usage based on usecase so the sdca functions will
+> change, this is not static anymore so its not really worth thinking of
+> sdca for mobile atm, but we could try to see if we can get some leverage
+> from sdca helpers.
+>
+> Sorry for the noise i hope it was a worth experiment on mobile mode.
+
+No noise at all — it answered the RX-slave question and produced the
+coexistence data above, so it paid for itself. Agreed on the
+direction: mobile v2 stays the v1 approach, no SDCA; where a class
+helper fits the mobile driver internals I'll borrow rather than
+reinvent. I'll leave the sdca-mobile branch up, frozen at the RFC
+state, for reference.
+
+> Am really Sorry not sure how I missed that.
+
+No worries.
+
+So, concretely: my v2 carries the common entry point, the merged
+binding as above, and the driver review items already queued from the
+v1 thread; on your side patch 7 goes away and the compute probe hooks
+into the stub. I'm spinning v2 next, so the merged binding will be
+on the list for your v2 to reference.
+
+Thanks,
+Jorijn
