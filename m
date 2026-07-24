@@ -1,47 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B83270575;
-	Fri, 24 Jul 2026 07:10:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EE773A63F2;
+	Fri, 24 Jul 2026 07:12:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784877048; cv=none; b=JLYxPqveGpGHAePHUb85AWYsfYWqKVu/wkNi9Z9VMxgCWXsNCat6AZ1KLZc6091inMoHtaURynIRxrMQh4osFBX5mCxAXAXtG/j1MZIKav9L2DSt+iIfQZsstc2GBQsaf5OtF7S53cGURWIwqzn8IFlYBRXiSUG1UFyXveEFI6s=
+	t=1784877144; cv=none; b=PTb4MR8tvuIFxdz3EiPW9hwU8JpS1NymADVv0lEy+UBfCi/wKx0xa4cwSXSUc5L6YgNyVbdRYesbrF2sAfggFtQCnv86Z9v3qXZOtI/kaTxXHm8v8Kw21hEFT/nq4Y4ULbOdG4H9CnfxzdntnTXs9uyguMwBp58wG1Q7iN8TiGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784877048; c=relaxed/simple;
-	bh=wlB2rHbkyocBl2DyyirfIuC5sUNXkf3WFZtNn8yWboU=;
+	s=arc-20240116; t=1784877144; c=relaxed/simple;
+	bh=rEWzvv1GfCjawzXEzExywbzcCr1VJxAIckBRPMYzNGU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dsyF99o2KP2qi1fa+qZhNqQRUEpCx7gpNEkxgGM6QKWAzs7YJUt3dUVavlO1wLz60W+PuE+Q/SYRaJfaCrjQutobElqYoIdYCK7ahag2JFQHzkAoqB0nyy7GbM/W/8V0dJ/obPL8IgJykYk/phvkd9E1wYUoUVP6w3fpLzWYsUY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fTDE9oGe; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=G0lzX4MFFA2klwWIDjzrAyD6COceMH8NsaTTzWUxWNoprXvqS5oAmuW8F7/n8raRtGNis9jilvzgeB7AWDB2VFftmqLXJE2cS0v2eOZ0/fYTtjgrLPqL6R8cyVtmx3SyeUXqelXfum7tS3NAx/CczUhL3rSFZ3k1rJKW+fc9Tw8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wqoe1mP7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fTDE9oGe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96B591F00A3A;
-	Fri, 24 Jul 2026 07:10:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wqoe1mP7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A088E1F000E9;
+	Fri, 24 Jul 2026 07:12:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784877046;
-	bh=wlB2rHbkyocBl2DyyirfIuC5sUNXkf3WFZtNn8yWboU=;
+	s=k20260515; t=1784877142;
+	bh=v6nYx9y6dWRh6PicsBH/tR+T1Q1L5zz/k6rKVHSru6E=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fTDE9oGeOmKus3fdDEuPk4jMyBN0V6r/AOl59/k3g3zDTBGxjKml3NnXxhtUNXXiX
-	 M+BwrPOcWJFZIJ2rJGILvAXBxw+LXnukCro9MnC1t7ncjT7crWcIO0JTpiTLWH0HYb
-	 JYUQmyMUbSp6xd5iFcW46kjlrMfLzNL7h3uzIA0NshKzjQjYa7ilPzPmJuGHzFTBMa
-	 f0ZD3i79zkfjQ+/1ueQ1UG2Fb2noxJNcRXAE2xlZDPkNCZ6wF3y/E4ap/8FCUBZOrS
-	 D6Vrn0ePIQClOVqqckTxXTBU/AFcqnca7lbPZBx4OGH2GAVrKAPp7H/D2A9F5C93Do
-	 0GXlX1YGUcZfA==
-Date: Fri, 24 Jul 2026 09:10:42 +0200
+	b=Wqoe1mP7pNSebiUhjwwY+j5b7Ct+KRaJJnhA3jE9CYq8jyNiC83Wdkf5/NNT+1hcw
+	 tAf75swaviKnr8yABEikDkou6AC+uOF7TUJF7DCTVkBdKZ6Y7Gu5i6DUeeSX8aMH8U
+	 8LdIHGUac5uo78S8H0GH2v7+jLqKJKy0/VrLOH9dTo28GWjUh9j6TwW+wtqfprdMEI
+	 RPd57oBtAXHf2A0CaXH2/xQTyB/khPhpB0hvRoVgoqfRWPFBB2EdW7rlW1qSG5iKE3
+	 ogkNocqf1LiekiOiYxnivdUE4p2XmMgScfToS7+AjeQFa4rYirpzRt9g3wl0pagLHP
+	 y+S+MiQY3CunA==
+Date: Fri, 24 Jul 2026 09:12:18 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: =?utf-8?B?U8O2cmVu?= Hantel <fugininsane@gmail.com>
-Cc: linux-pm@vger.kernel.org, Vasily Khoruzhick <anarsoul@gmail.com>, 
-	Yangtao Li <tiny.windzz@gmail.com>, "Rafael J . Wysocki" <rafael@kernel.org>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Philipp Rossak <embed3d@gmail.com>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	=?utf-8?B?U8O2cmVu?= Hantel <fugininsane@googlemail.com>, Claude Fable 5 <noreply@anthropic.com>
-Subject: Re: [PATCH v2 2/3] thermal/drivers/sun8i: Add support for the A80 THS
-Message-ID: <20260724-independent-humble-lion-931e6a@quoll>
-References: <20260722203341.2917852-1-fugininsane@googlemail.com>
- <20260722210046.2932498-1-fugininsane@googlemail.com>
- <20260722210046.2932498-3-fugininsane@googlemail.com>
+To: Aneesh Pradhan <aneeshpradhan2004@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Catherine Frederick <serenity@floorchan.org>, linux-clk@vger.kernel.org, 
+	Aneesh Pradhan <aneeshpradhan@acm.org>
+Subject: Re: [PATCH v2 1/3] dt-bindings: arm: qcom: add MSM8920 and Motorola
+ Moto E4 (perry)
+Message-ID: <20260724-dodo-of-satisfying-leadership-a2b6da@quoll>
+References: <20260723012431.48499-1-aneeshpradhan@acm.org>
+ <20260723014627.63310-1-aneeshpradhan@acm.org>
+ <20260723014627.63310-2-aneeshpradhan@acm.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,42 +49,45 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260722210046.2932498-3-fugininsane@googlemail.com>
+In-Reply-To: <20260723014627.63310-2-aneeshpradhan@acm.org>
 
-On Wed, Jul 22, 2026 at 11:00:45PM +0200, S=C3=B6ren Hantel wrote:
-> The Allwinner A80 thermal sensor is an early relative of the THS found
-> in the A83T and later SoCs. It shares its register block, bus gate,
-> 4 MHz module clock and reset line with the GPADC; the THS registers
-> live at offset 0x40 of the shared block, with four data registers for
-> the four sensors (0: big cluster, 1: DRAM, 2: GPU, 3: little cluster).
->=20
-> Register layout, initialization values and the temperature formula
-> (T =3D 190 - raw * 1000 / 14543, i.e. offset 190000 / scale 688 in this
-> driver's convention) are taken from the vendor BSP kernel. The init
-> sequence also programs the hardware alarm (~90 degC) and emergency
-> shutdown (~105 degC) thresholds the BSP uses, since their reset
-> defaults are undefined.
->=20
-> Unlike on later SoCs the data-ready interrupt fires at the conversion
-> rate (tens of kHz), and the level triggered alarm interrupt would
-> retrigger for as long as an over-temperature condition persists, so
-> both stay disabled and the thermal core polls the sensors; only the
-> emergency shutdown event keeps its interrupt enabled.
->=20
-> Since the A80 chip description has no calibrate callback, guard the
-> callback invocation in sun8i_ths_calibrate(); the A80 SID is not yet
-> supported by the sunxi nvmem driver anyway, so calibration data is
-> currently unavailable and the driver falls back to the defaults,
-> which yield plausible results (idle temperatures around 40 degC,
-> full-load peaks in the mid 50s on a Cubieboard4).
->=20
-> Tested on a Cubietech Cubieboard4: all four zones report load-reactive
-> temperatures via polling.
->=20
-> Co-authored-by: Claude Fable 5 <noreply@anthropic.com>
+On Wed, Jul 22, 2026 at 06:46:25PM -0700, Aneesh Pradhan wrote:
+> From: "Catherine Frederick (coolguy)" <serenity@floorchan.org>
+> 
+> Document the Motorola Moto E4 (perry) board compatible for MSM8917 and
+> MSM8920, and add qcom,msm8920 to the SoC compatible list.
+> 
+> Signed-off-by: Catherine Frederick (coolguy) <serenity@floorchan.org>
+> [aneesh: split bindings into their own patch; add msm8920 SoC enum]
+> Signed-off-by: Aneesh Pradhan <aneeshpradhan@acm.org>
+> ---
+>  Documentation/devicetree/bindings/arm/qcom.yaml | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+> index f8c37096df46..5556f81c0af5 100644
+> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
+> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+> @@ -261,11 +261,17 @@ properties:
+>  
+>        - items:
+>            - enum:
+> +              - motorola,perry
+>                - xiaomi,riva
+>                - xiaomi,rolex
+>                - xiaomi,tiare
+>            - const: qcom,msm8917
+>  
+> +      - items:
+> +          - enum:
+> +              - motorola,perry
 
-Same as for binding: nope. Claude is not a person.
+Duplicated compatible. Same device cannot be both - msm8920 and 8917.
+
+Do not attach (thread) your patchsets to some other threads (unrelated
+or older versions). This buries them deep in the mailbox and might
+interfere with applying entire sets. See also:
+https://elixir.bootlin.com/linux/v6.16-rc2/source/Documentation/process/submitting-patches.rst#L830
 
 Best regards,
 Krzysztof
