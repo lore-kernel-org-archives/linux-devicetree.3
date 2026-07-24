@@ -1,169 +1,263 @@
-Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010024.outbound.protection.outlook.com [52.101.61.24])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC6F5360ECE
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 14:47:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.181
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784904442; cv=none; b=NgnF+yJFRakaym43p6F5nGNegxQen4MpDS+uJEoS9d63QMOtj9RMN3LOtK63fSlaoduhrSxv71YJVY/5BuCHSIVgiAr2fEw0BeT+aYFx0gDLei9BLtqWLZK9ENKHJuvD6vB4LFyRFaZ7VWlDQfSs+xcC/DIzIauO+GrUqDEFtGY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784904442; c=relaxed/simple;
-	bh=OxwT/NZpAw9aMLGpXFCht2PPuvSomIUkFsVv2SQEvHY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rbWcFgIHOmqTshWNiuHc/q2f7Kww+UiCidHJaHI/edzNiUlPazn/8bJY72wEddq5PpGbXeUSkYYsFZC7D7t+jILzS0tqojGJ1mSiFmvmLlc2JCMKbJFwJVfMtW9a2NbMrsQHm4PGxqP2EEUzES760MtqX/cZBlLaI1ncdf9IvJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=itevPDil; arc=none smtp.client-ip=209.85.221.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A535E2BB13;
+	Fri, 24 Jul 2026 14:50:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.24
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784904621; cv=fail; b=FfG4NFntC1n0ibA8QTzuSFUgQ5QyQg47f5sZu3PWYRBGewiiRXRRPuJkjmR2gOJebCif2HC36PoPjJveGBkhs9mePGGPLLJGG5y5Wk4dG2amAjbyCRQE3rhZESLNYhW9hlTps9MNheXfM+kZi1JSkjbuo2VIC/d1t9Vm4A+ifCQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784904621; c=relaxed/simple;
+	bh=DU62ImXH9D3mBb9/uVeFclZg53azEmAdq2orFJ3bcbA=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=hsPJU9d2PbpgaAn7AhkNNt1goS5fctwyoGikmrU/qlFUfpy5PsjX1QL3DpSIsMSVXCGGm1PdKew1hZWkgDUepkVPbzLTxTwmPetPhYRV38oA/U3ZU8q8HwYqOLFCuqlsNQfQ7WBzn4kLv+glUTig3K6wZZD6d8zZyHAgFO302gI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=tL0Glzgz; arc=fail smtp.client-ip=52.101.61.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="itevPDil"
-Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5bf95ade656so158084e0c.1
-        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 07:47:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784904439; x=1785509239; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dd5ljADXPcqLcjndY5eXs0DUhwwgIKl9NmXiyKOKsEA=;
-        b=itevPDilwuZk9FwyjF5z+V160Wj4S+iiLNXLFxSmA5G7dsSsO2+AxZ+0kq0btzFCuX
-         38arPPZu2hKIvJqOv03DbrGCQAmrU8ikkY3FVmKIu9I5ZDPqEg72Degsim1XB5wS0b8j
-         76dOyYpFE0TVVdd5UEq+ljQ6CoapGCxQ8MJO4+oVNytb5K04w0VhS2H5y8Z0oku+ausA
-         0n3gjbbevUJY2AQdoHTBwHkkSibSwbknYCh7j45QISoFQu4wIFSx4ffhRexEilHCuHR4
-         LigR2P13BTHQ5moFgbfVIEWzEm2QIl7l68o151I1ms0IjCnW6RWWwRCvqDUY6BWWKT74
-         C6gQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784904439; x=1785509239;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dd5ljADXPcqLcjndY5eXs0DUhwwgIKl9NmXiyKOKsEA=;
-        b=JA06O0tzwhVqXHV3v6rCWH5zeA1f4pg0pO7EOOr4hA0j1qGeIl9/WJSRkbuRK5The3
-         u+y0QxxsQcUXKbXguwQYjih1brQmbzWMiESWSTrv8PC5ywqV/NmtFrr9PcB9r2roJxji
-         PHNpNBYnxZNqEbkiwZiyXEv0J6OQ0iH2xt8rRZuFbV+IYOWpRusEmJCzU1PoVY0SQNJN
-         YA0CRGJDwSRtIKXkYVFdWtn0IE++lNNu4kOqfowsdm5jAhVspgOqXmFo/iiAVyYKmu8A
-         PPcTcSIFJ6zEnKnCVWgOoLFgHx6C4kxf9QjDmreZtOSCeRx2S6l61AyukikiD1TcRlGu
-         l4Yw==
-X-Forwarded-Encrypted: i=1; AHgh+Rp5tbIiWzhOQpFrI23wl/RxrZLZ9/hE3YKRKQIECwRQvCJzXgZsh6YUzggl2av9VHJ32aki1lZ5Mmcd@vger.kernel.org
-X-Gm-Message-State: AOJu0YxX1vMP7EAEBtV72sPLQ+J6Vp+ll47as3U8A9eVcOWv1t9/VFOT
-	v2UgC9EqLshk904FFkzY5esxKV1sqeS/n9A4udSTwCGgD1gCzaWNbDXwhy2SSg==
-X-Gm-Gg: AR+sD10HnQ9GFtM7cuToyi9hWY89Rf2ZATjn6bVnL1MYxQRo+5hx024KuLAf+RNXLXq
-	Ffrs2LRW992HbyzYWMG3DPXMN0MBxLw4TidB1kvZ7i+pqpwdeCTXHorbgiZCyvAMDsa02+MMKg1
-	NGJ+A2DltvyExjVux8fxjDgYd4BYxhGcIXrrRWQ7jluUdlAR0jQhT6kySvH/mCZGq41Q44Onp4v
-	yjtnYWr/El8JkxlHA3AFnwQsjHIsEul7Jer1hFvGJmS0cWek1K5aBudRfSu7plbO2VnznjNYiVB
-	vOcsN8TPZyigFuMXJHYe7xdUs1/UL/Vn4IP/M9Px7OilFp/Z/qIgdvAa8HQtoOWXKoiKVOJOOUr
-	wD0O/Gw0qSF61PIBoKcCf2bG7D0zhT6X2rcYwwoQkOgU/chLy02oKc6f+T6CxZLiKLfs535Fg/h
-	QxZEwFrKHVYQ==
-X-Received: by 2002:a05:6122:3a12:b0:5bf:a181:d46d with SMTP id 71dfb90a1353d-5c2d9ff4689mr3368040e0c.3.1784904439086;
-        Fri, 24 Jul 2026 07:47:19 -0700 (PDT)
-Received: from localhost ([2804:30c:90d:6100:8a69:5cf5:f1f8:a1e1])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c2c6276fbfsm9432671e0c.4.2026.07.24.07.47.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 24 Jul 2026 07:47:18 -0700 (PDT)
-Date: Fri, 24 Jul 2026 11:48:23 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: linux-iio@vger.kernel.org
-Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, conor+dt@kernel.org,
-	robh@kernel.org, devicetree@vger.kernel.org,
-	marcelo.schmitt1@gmail.com
-Subject: Re: [PATCH v8 3/5] iio: adc: ltc2378: Enable high-speed data capture
-Message-ID: <amN7N-U7KCb03sGa@debian-BULLSEYE-live-builder-AMD64>
-References: <cover.1784835663.git.marcelo.schmitt@analog.com>
- <c331ad2c4e4162c285a3c6c89798388ad4962036.1784835663.git.marcelo.schmitt@analog.com>
- <20260723201317.B76B21F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="tL0Glzgz"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PiYrLCX7WFxKyLKgGwWBQmDKDiiJs3RxEEbRHp3RPuu/LZBapzu5NOVI3tqr/Rtbgaxve2s9+cVLHU6aguSbZBNlUeEj3CxHKlZHm+HjSnZ+RFlGmCFzM5pkRxUTiFHfm0gh80VcI/3h7RjGLRCShoKDQWNLNifPO9NTxbOjH2Z2BtiGpdDUtTyHxribcXVFvrV071xg+5hUKRRkrZQqNSOPDjVvewMRqREHd1rzuIAVyNIp4A+9uxCXRsPJjnjvHvO+Xf1vAM5bYsjJNaX8vkH0fX/G3TC0vDzrcWTUiEPqCQl+ryU0YYH3djkqJ1upXYnsMGIjed7bPonkjSISmQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=a6UPToKeQSX+lbph+ZWByTUVOJzyf2V/+EERi+pcj+Q=;
+ b=qWsDQaEASIrkVeNxI1bhBiSAG1BTdCaitiyD8JcEUlxI3Rpi0iftGLO5XaD8Sp2GR7KjBzPAMaay1olG8+DJs7urKG+8t3NOxNylFjere+5d3RJN6zfJBolgyhWc3aYiAaE/zuax1GeJswAPcgNzj4mOkVai4VG4PomZ4b6PRpOQLwz8Cpst5CmBnBrcUszK1CwTPfQmGUY1GsUjq3PGylauxGtDuCaFr0cwL2yXc7GWY0GwpgyeAGotBebvqEUKgNdg2AtiUlC4pyhfsa/bGjf7p836F0yYEobHUXp7k7B6sfELORvEMV/ICKQLmIHt/Hc0sqsBehvNpxJATQMZvg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=a6UPToKeQSX+lbph+ZWByTUVOJzyf2V/+EERi+pcj+Q=;
+ b=tL0GlzgzIC7lCidsdJUWii1A1hiXy3pqDA1uq9SuvJY89rgMQRP4zN4swisBCp2reEvm79XzVLjVQUcT1l+e3Tx0+TvcyBtKWlyEQc9imDOR6SHAoMcp6p41mNclyhpl+3pr62zXf09WZ6usML3fGp/tniYUX67zCc2eVXg2DyuX8ld57yuRjkx6o/ikQy9C1OX8XQwiN0BLhyWbJ4+qC1rLh3mkGhgQyv8TobKeQDOj6RKIkyEtuRDwaMGWailCwNeMP452ybhJ/z9EbUpTVXs2kQk4QPaUbNkOk97I1cvzW5LZ9jWEw3GqeVjSmUAJMhJhX7mSuh7D73QFriZqpQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from DM4PR03MB6208.namprd03.prod.outlook.com (2603:10b6:5:39c::19)
+ by SA6PR03MB7904.namprd03.prod.outlook.com (2603:10b6:806:42a::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Fri, 24 Jul
+ 2026 14:50:16 +0000
+Received: from DM4PR03MB6208.namprd03.prod.outlook.com
+ ([fe80::2216:93ef:67b:9e04]) by DM4PR03MB6208.namprd03.prod.outlook.com
+ ([fe80::2216:93ef:67b:9e04%3]) with mapi id 15.21.0245.010; Fri, 24 Jul 2026
+ 14:50:15 +0000
+From: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
+To: linux-mmc@vger.kernel.org
+Cc: ulfh@kernel.org,
+	adrian.hunter@intel.com,
+	krzk+dt@kernel.org,
+	robh@kernel.org,
+	conor+dt@kernel.org,
+	dinguyen@kernel.org,
+	p.zabel@pengutronix.de,
+	devicetree@vger.kernel.org,
+	Tanmay Kathpalia <tanmay.kathpalia@altera.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 1/8] dt-bindings: mmc: add Cadence SD6HC binding
+Date: Fri, 24 Jul 2026 07:50:00 -0700
+Message-Id: <20260724145009.7456-1-tanmay.kathpalia@altera.com>
+X-Mailer: git-send-email 2.32.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SJ0PR03CA0073.namprd03.prod.outlook.com
+ (2603:10b6:a03:331::18) To DM4PR03MB6208.namprd03.prod.outlook.com
+ (2603:10b6:5:39c::19)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260723201317.B76B21F000E9@smtp.kernel.org>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR03MB6208:EE_|SA6PR03MB7904:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8ef2b4fa-bb2c-4a94-429e-08dee992df77
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|10067099003|56012099006|11063799006|18002099003|3023799007|55112099003;
+X-Microsoft-Antispam-Message-Info:
+	UAxmhZp7eByPa166vKHSIhnipE/ofUq8nuiVOVL8NwwGYB7kDF5+lP5ZdBbZnHIuBRal44migMkmkylrCgrA3lJVcOSX5K3BSQpTQ/Z2ykbgTqICcZndl81kHvwJ4RpcOjfzYKHtinyirFUxmbzbmbtkYkmVwEAPy9EoiuLNXGX1JKFVsUes/XmHCTyikHUkCObJBg3IBuE7GGE28XuMUHodoDNHfs4JhaKs7tHhwwLL4digjYrokV5AJd6hbnBXTWzYpj8s/7ZL+DhoglaCdXwpyFoqG6WbVvqPpcdXWq9g/XG0LyhcSyvLwQd4HgZZtmcdX1fRw7rwWKkcsZ9+G3qOj7QZPCzjqEDSTZFQZ2v25wSxHS9yFkbkgSwgMJBIJ7b0EOlxx5w24WpEv0gcIrbevkHJm1TzddWBLK2fOdXuIWZ+ug4bVGd4h/T0yMeDE1eLj9EeCrBo7QNRewp1SziwdZtYNUpSaJkCmbGN4ZcMbuNrNItf7jmQMld05psH9Rpy/MHLqRkIlgjUuW8X6H6gSnaT/BEy6xuGTc+8aNYxTfmg6g7ZJSo9YyLkaxjiSpEHtXru3o4wdKgsTXLeG5y7FFix2qZL9Dg5ymIHZngHnIviWneitu4eIegqS3n5
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR03MB6208.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(10067099003)(56012099006)(11063799006)(18002099003)(3023799007)(55112099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?J5s2H9HEeYkN83Y/L5vjpidc6IzQjIx4e3eiXg4n5Yv/hRbd3GVXsvEaQxcA?=
+ =?us-ascii?Q?9O/ObVPbrb4pkn9ojrw9HY/NxkB4NO838WZgBqOirXmqWf96U1woDu6avbZ/?=
+ =?us-ascii?Q?08t3fXJme0x6QXGM6O69XtfuZlDTgdpdn5Ud0HObzVzgsi1ETUjbemcDRwtm?=
+ =?us-ascii?Q?pUu3uYH91qqtHLlIUZomUuI3Tauk1V/hB/BiQOcZxFnwIcIslzQkKCZ9IcON?=
+ =?us-ascii?Q?qeexoB7Pd2xF0MRH9tYAeobLBTcCkwll9a0DLL/3ghTJPgtjovD03j1RF9mA?=
+ =?us-ascii?Q?XeTM7owhN5KZdd/h0cPeq4pCbq+9SA7VREENa0VgFH2kl2c3ncPEWwpCqEEE?=
+ =?us-ascii?Q?mC5mslxEGyIf/EO0XD+3BjwxRRIvKsCBWCeM/4sVb3g4UhgBd9nhct/XLXu6?=
+ =?us-ascii?Q?WTfbgQtWLSxVr7+qZk5AFe1SCyur1Cpf6gRjBpxwIfLz97yQmTURmY0WNAzu?=
+ =?us-ascii?Q?ZrcSCdKUY6oDdlcIEy0yfDP/7ArsBObWhdGjvS3VGfQN6pJIAgWxVUJX75fZ?=
+ =?us-ascii?Q?nWLMh1rHwVZcCYm+RMyat7g9zZOj1SKVgQro1G66EYPOYxPj8uXBRHs6CZmf?=
+ =?us-ascii?Q?Qlq95DMZs6XN1f5VGvlPKONlLVehSmB76XIkdKd2OAQsAlPrSeSQ5fvdUWOM?=
+ =?us-ascii?Q?naEVEClp4QREqbIbjGN0PYacW6LPrP/iSHmivRo7y6oGyQAvESfoZoHeYiNE?=
+ =?us-ascii?Q?PbdBgDnPRnkqyYhgyrY35XHrwsY+JQDGHR3mGZazFMdTb/OBewsD8JcuSvza?=
+ =?us-ascii?Q?zh30p4Eb5LxC32bah8S8Y4811zwqIKKTwwadEHm39lGbNY+w+U4+etq16xPj?=
+ =?us-ascii?Q?wr/4VYHfFl+ZM4ULq8OjK15LJ3huEhIzrCV9w7isVGDAvQGjYvTudURIq6JP?=
+ =?us-ascii?Q?bC1CRdLiYLnSnBTui3bSVj/CqKNE10120QOqdHqJAVj/8+l5RHwaOgICNu8c?=
+ =?us-ascii?Q?21qCZDeIGNQkpV3Z79CgH9FkkllrNp+jbSsxDKn3VoHGdKlEgB7Xj21Jix1D?=
+ =?us-ascii?Q?jQrMhrhve4+l8ee+edDiXHzLGAr70btXfys8L20JxdXIMjxfPfnzumEIt4h1?=
+ =?us-ascii?Q?+BTc0wGt96nVBNADoW9XR64W3+b91+49RtPNXwrbV1H8xMSTm3cO+YONmgr7?=
+ =?us-ascii?Q?0F9tn5o3TzrWgc63YnWm1GigXfcO+IAceNipQX+HCq9SEtMKsfgcpf8Ib0+L?=
+ =?us-ascii?Q?HgQb8nDC9t/MclW3ct8dcsJp2S+/br8KtBmwYCTgdec1A6gQnXSB92Q3HwnM?=
+ =?us-ascii?Q?wsrD01+U307sVDiLv5tu41hK6qLmRuTMordlt2faACaEGHp9HejrRJB12ZBV?=
+ =?us-ascii?Q?uI8JxETaz1X9YMfGz/ZLWZ3GoUm0cB0UATd8R8Wqc1YqS/DH5fHNuWLJMoZY?=
+ =?us-ascii?Q?7g09VIcTTHpAjt+am3HpDND3RccY6SyAV/nu7UbFDxmVSXjMrUBU18P1ixL6?=
+ =?us-ascii?Q?TYgwde2aTetkxeoG/HzXTetMrv0HitAzPBm1QJ4Nj2Zs2PQmxv1vczsDHC3x?=
+ =?us-ascii?Q?j2ivWFFQWFMWhc7wStzRxyYqF7qzoKi9TD4yuG0uhdNzAWUZ9szsqArljXFN?=
+ =?us-ascii?Q?nIbfbXTJhZ1yo8UOnSwQ/DZcBT7BAJmUJBqj0jISnO696hcHRFwK6xPYaQ9R?=
+ =?us-ascii?Q?3w6J2cHwIGfF4JvEcutYNcgfe/xoKqOSh1JHcQFmdjb3Yby+r/AOCDx5peWN?=
+ =?us-ascii?Q?WWzpRc9vhc85/fSLlh0vq0jXIOqzvr3gwnR6I1PlJgo6vKkY5D8/PKSySTqi?=
+ =?us-ascii?Q?bxlSE1h5zLyqJ8e5ysoBBV9qJ0odqws=3D?=
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8ef2b4fa-bb2c-4a94-429e-08dee992df77
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR03MB6208.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2026 14:50:15.8728
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wclTgY9ssGpDITptlLWnUAhFU/UAESIFLDegT2mFVf17O9jneOr78Hx1Xzw0gqFBXhF6b3b07iJLHM0P3FTpajmsWjl/ifVPQg1HsL82sj4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA6PR03MB7904
 
-On 07/23, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [High] Division by zero vulnerabilities in ltc2378_update_conversion_rate due to unhandled hardware rounding of period/frequency.
-> - [Low] Unlocked data race on st->cnv_Hz between read_raw and write_raw.
-> --
-> 
-> --- Patch [3]: [PATCH v8 3/5] iio: adc: ltc2378: Enable high-speed data capture ---
-> commit cad96004cef5739b24db063923b36678ea8e3617
-> Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
-> Subject: iio: adc: ltc2378: Enable high-speed data capture
-> 
-> Make use of SPI transfer offloading to speed up data capture, enabling data
-> acquisition at faster sample rates (up to 2 MSPS).
-> 
-> > diff --git a/drivers/iio/adc/ltc2378.c b/drivers/iio/adc/ltc2378.c
-> > index 107388f870626..7baee02450d39 100644
-> > --- a/drivers/iio/adc/ltc2378.c
-> > +++ b/drivers/iio/adc/ltc2378.c
-> > @@ -264,7 +384,137 @@ static int ltc2378_read_raw(struct iio_dev *indio_dev,
-> >  			*val2 = chan->scan_type.realbits;
-> >  
-> >  		return IIO_VAL_FRACTIONAL_LOG2;
-> > +	case IIO_CHAN_INFO_SAMP_FREQ:
-> > +		*val = st->cnv_Hz;
-> 
-> [Severity: Low]
-> Does this lockless read of st->cnv_Hz race with concurrent updates?
-> 
-Not a big deal, IMHO.
+Cadence SD6HC is a sixth-generation SD/SDIO/eMMC host controller with a
+dedicated Cadence Combo PHY interface. It uses separate card-interface
+(CIU/SDMCLK) and bus-interface (BIU) clock domains.
 
-> While ltc2378_write_raw() acquires the IIO direct mode lock before calling
-> ltc2378_update_conversion_rate() to update st->cnv_Hz, this read path appears
-> to access it without synchronization or READ_ONCE()/WRITE_ONCE() macros.
-> 
-> > +		return IIO_VAL_INT;
-> 
-> [ ... ]
-> 
-> > +static int ltc2378_update_conversion_rate(struct ltc2378_state *st, int freq_Hz)
-> > +{
-> 
-> [ ... ]
-> 
-> > +	/*
-> > +	 * Configure SPI offload PWM trigger.
-> > +	 * The trigger should fire after tBUSYLH + tCONV + tDSDOBUSYL.
-> > +	 * Minimum time needed: TBUSYLH (13ns) + TCONV (part-specific) + TDSDOBUSYL (5ns)
-> > +	 *
-> > +	 * Use the same period as CNV PWM to avoid timing issues.
-> > +	 * Convert back from period to frequency for the SPI offload API.
-> > +	 */
-> > +	offload_period_ns = cnv_wf.period_length_ns;
-> > +	config.periodic.frequency_hz = div_u64(HZ_PER_GHZ, offload_period_ns);
-> 
-> [Severity: High]
-> Can this result in a division by zero if offload_period_ns is 0?
-> 
-> If pwm_round_waveform_might_sleep() rounds the requested period down to 0,
-> offload_period_ns will be 0 and cause a kernel panic here.
-> 
-> > +	min_read_offset = LTC2378_TBUSYLH_NS + st->info->tconv_ns + LTC2378_TDSDOBUSYL_NS;
-> 
-> [ ... ]
-> 
-> > +	/* Check the minimum CNV to SCLK delay is met */
-> > +	if (config.periodic.offset_ns < min_read_offset)
-> > +		return -EDOM;
-> > +
-> > +	/* Check the PWM periods remain the same */
-> > +	offload_period_ns = div64_u64(HZ_PER_GHZ, config.periodic.frequency_hz);
-> 
-> [Severity: High]
-> Does this code panic if config.periodic.frequency_hz evaluates to 0?
-> 
-> If a user writes a very low sampling frequency, the PWM driver might round
-> the hardware period up to a value greater than HZ_PER_GHZ. If
-> offload_period_ns > HZ_PER_GHZ, the earlier calculation for
-> config.periodic.frequency_hz will evaluate to 0.
-> 
-> Additionally, if spi_offload_trigger_validate() mutates frequency_hz down
-> to 0, it would also result in a division by zero here.
-> 
-> > +	if (cnv_wf.period_length_ns != offload_period_ns)
-> > +		return -EDOM;
-> 
-Theory already refuted in previous version.
-https://lore.kernel.org/linux-iio/alpZwoau3QVPtBsP@debian-BULLSEYE-live-builder-AMD64/
+PHY timing depends on board IO-cell input/output delays and the DLL
+delay-element size. On Altera Agilex5, the SDHC, Combo PHY, and SDMMC
+OCP bridge are each reset independently through the HPS Reset Manager.
+
+Signed-off-by: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
+---
+ .../devicetree/bindings/mmc/cdns,sd6hc.yaml   | 114 ++++++++++++++++++
+ 1 file changed, 114 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/mmc/cdns,sd6hc.yaml
+
+diff --git a/Documentation/devicetree/bindings/mmc/cdns,sd6hc.yaml b/Documentation/devicetree/bindings/mmc/cdns,sd6hc.yaml
+new file mode 100644
+index 000000000000..0586d2e530b6
+--- /dev/null
++++ b/Documentation/devicetree/bindings/mmc/cdns,sd6hc.yaml
+@@ -0,0 +1,114 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/mmc/cdns,sd6hc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Cadence SD6HC SD/SDIO/eMMC Host Controller
++
++maintainers:
++  - Tanmay Kathpalia <tanmay.kathpalia@altera.com>
++
++description:
++  Cadence SD6HC is a sixth-generation SD/SDIO/eMMC host controller with an
++  interface to a Cadence Combo PHY. The controller has separate card interface
++  and bus interface clock domains.
++
++properties:
++  compatible:
++    items:
++      - const: altr,agilex5-sd6hc
++      - const: cdns,sd6hc
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: card interface unit (CIU / SDMCLK) clock
++      - description: bus interface unit (BIU) clock
++
++  clock-names:
++    items:
++      - const: ciu
++      - const: biu
++
++  resets:
++    minItems: 1
++    maxItems: 3
++
++  reset-names:
++    minItems: 1
++    maxItems: 3
++
++  iommus:
++    maxItems: 1
++
++  dma-coherent: true
++
++  cdns,iocell-input-delay-ps:
++    description:
++      Input delay across the IO cells, used for SD6HC PHY timing calculations.
++    minimum: 0
++    maximum: 20000
++
++  cdns,iocell-output-delay-ps:
++    description:
++      Output delay across the IO cells, used for SD6HC PHY timing calculations.
++    minimum: 0
++    maximum: 20000
++
++  cdns,delay-element-ps:
++    description:
++      DLL delay element size, used for SD6HC PHY timing calculations.
++    minimum: 1
++    maximum: 1000
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - clock-names
++
++allOf:
++  - $ref: sdhci-common.yaml#
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: altr,agilex5-sd6hc
++    then:
++      properties:
++        resets:
++          minItems: 3
++          maxItems: 3
++        reset-names:
++          items:
++            - const: sdhc-reset
++            - const: combophy
++            - const: sdmmc-ocp
++      required:
++        - resets
++        - reset-names
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    mmc@10808000 {
++        compatible = "altr,agilex5-sd6hc", "cdns,sd6hc";
++        reg = <0x10808000 0x1000>;
++        interrupts = <GIC_SPI 96 IRQ_TYPE_LEVEL_HIGH>;
++        clocks = <&clkmgr 0>, <&clkmgr 1>;
++        clock-names = "ciu", "biu";
++        resets = <&rst 0>, <&rst 1>, <&rst 2>;
++        reset-names = "sdhc-reset", "combophy", "sdmmc-ocp";
++        iommus = <&smmu 5>;
++        dma-coherent;
++    };
+-- 
+2.43.7
+
