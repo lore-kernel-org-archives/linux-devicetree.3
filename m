@@ -1,217 +1,94 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68280768EA
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 04:46:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CA7629B228;
+	Fri, 24 Jul 2026 04:48:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784868402; cv=none; b=EA4+ubaUxC852fbv5YrkjXBVkSDZIhYqPwNk/Pxmh+ZkO+S3AipqC9qEq+LypA/YpdogMEwpdrNiy29yycf4ZAV3uRA/U7t4J7C3njZXHgKND56vEj/SiGVc/6pXx990cxKiCmwmdgwaiGasiLw+jOx4nsXslcnyPZZwRpQJ8ic=
+	t=1784868506; cv=none; b=ckzPsOrQFdM0P4mzm+DsrEaJ6tqssfl/as/2oujHGhF+yVp0BriiCpRE9lDSLxQXHGJwO+53B2snGitjwlpcYZtnP8+YtY1S6XfWQjeSofT0EW6IWTKTwVa6a9FFu0xiyKsVNHo6AX/BnmGO1PBUcsPPIVFY2OFVQ+Cotr6sXmw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784868402; c=relaxed/simple;
-	bh=rVkZOr71z6ecc/lXHb+MqO277rJQGUcX9YfkfACG+Qo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DBBO+KOSJx2nOSC6sminkMBH+ENdvk6x95ZgGk6I8k4JKN1t9ZygfyrHqM5TDSLVi4FQ9wwEGVd+WaPsdTwLNF7eHvZyjJKrpwi67hOYx/rvcJlBqrSnfIuwKhL7znxtFij5cKxyslHQcw8o3lvkuiDZhzr09o4LrqspwR1VMpQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DxMolseq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=L2hXNzhi; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784868506; c=relaxed/simple;
+	bh=QtvNGTmJu3wnH3/EKrsVJTh7dhIcj6i73e0+4O4P2eA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=rcOhNLrmP6CIqZx0MlCqeSt8VBrvuNu51b1jaKaFHpqZb6oAYOClqRPsAkj3vsHkKAuyDslsnkMp0ebAl47CQJV5CT4Y0GzHuuPmwahgIBpX3HvxLxsDMztneTeBVBFpMKV7XBKSKNmo+IAS+JrcyzWnHtJ1kifzmQBu/E4Sca8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S5UBuLof; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DxMolseq";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="L2hXNzhi"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66O447X01772618
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 04:46:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	rVkZOr71z6ecc/lXHb+MqO277rJQGUcX9YfkfACG+Qo=; b=DxMolseqtUPvVIbi
-	KY5fI/kXhLQj682NjL/Lz4gI2YuiXYHmk6BL8j2dB2sQtbdSW7StjzRZMziYFV8c
-	I49ECSDAVVydKKV/QlHRknQ+FkuzVKY6ExMIv7HLuGl+ax9tVb0bOsBBCjCQFuCF
-	O47ukkrmB6nx1vDoOfxNP+OxdRvQ35HNBZEUrIxJqf/tjZ0vYGhD2cimTqByEir0
-	bFXvN6Pzs3flLwqsUO3sRDtSwm5RVRzCPdCyeZlFlbsb8Y1XXfR0GfGd//AiIaiz
-	01crQ5OVNldZIZLXeK8aj4RJvBZ+tdSZKPA55SJoTLqcCflFR7Y9d6NGDRUA9Eku
-	d1LfrA==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fm0pw841a-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 04:46:40 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-ca7c1e22995so70687a12.3
-        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 21:46:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784868399; x=1785473199; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rVkZOr71z6ecc/lXHb+MqO277rJQGUcX9YfkfACG+Qo=;
-        b=L2hXNzhi3p8mQzrumToGlPqhuCYlcCAlKy4qjFyEdnDfwwelguK5hkQIjpdFrcmS6c
-         A5sfx+oc6ZGqrp9pRyCKkX6d4mPOFdJfP2LH/QtFiYrHynR6ut1sh3XP81uF9BG5mabe
-         jhshM7Tg2DS6R3g+7xeTaoaTGErTPTYGAZG72ER3Gszwcvb+WcRGuzlhrJ/MvFq4cmB6
-         +ElrqCFJjccs7NG48foZrI3uqOotoFjIEsLb/5CduFQHSACu/7tlAF36wyV5Dp/G2/0N
-         59aAQV8fr8g3L//qsfT/64ejALFrVCPedPrGgc3OQXtU/zeL5tuTGfPP3c/tb1om612C
-         Qj+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784868399; x=1785473199;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rVkZOr71z6ecc/lXHb+MqO277rJQGUcX9YfkfACG+Qo=;
-        b=agVeOW657LxNwRDasAuwWSnCpxQIGo9XPCZq/J53HgQodccsBAfXb6M1m8C5Bblix0
-         j+Q9/L/RzrHaizWiFeeiN1gSw7lIn78H3T5MxS2PnO5ytPsDPjPAvzrDBh7Yq4Lo5DWC
-         osTz76Gox9QnXRvsMhgPuPX73DM45bATx49bZyuOBZ+uuc1Y8Bu/Jo82bUcxd94jLplg
-         fuorb/yKGmRZQEXtMTvXSLDxYZ2T4cIRn96U/KJxDm/WO/yj2LSeJw7xgGmOqGlMTDHT
-         rgwniwam0jrnqbRizwR3vy/5WnGM3EbisXV/IOGUBWtXt1JfZesLppkyHIz+SN4kIp3H
-         auwQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrSXcL2NVMY802hFQkif23VcYfRs4xhPJvuUU2IZumWvE2+2nWhrMX2BLmA+PPV3vx8SeuT9RAyR/ej@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywrv+WcqlMPUbs1Q+B+bODPjsnsN//mCyZGBY0twBn3+b1WYpX8
-	oR9UW29eIq65F2Cp81NqqyPoV3aQzWhm8Yi5vKQ9lis91rwWviIYwkjnpw8qhqTFS2StJW/dgDh
-	TqAvd94Ejz5mD2FPiVdaQflKWnD4QZb+kQXh+AY/5PX9Q7u9jgd+42A0hpkHkbY4t
-X-Gm-Gg: AR+sD13lJjTsTcMaw1ZAnbKREkEdE53REgw1xb2q44Kw8tEIMwz7QTR3O1eNhwVeLdv
-	9AZofipXxXqOA9fKfqs6Co4/dyTGjVCdYd4puoR6z68lYlm6JvofAKEXtseEAvVRIKXF2d58+oa
-	Y+FyQbqZlyM8o6OSEr8aiXDUXYCEpdmU7eQcGUs09qzfPwTabtT2VVGeCYg405kBmKCbrbSisrc
-	gUtW1HXu1l4+bqJoGCmvmFt+WN2V5xkIuJdhAqPWxX6eEo2aXaGyCsZxgy/5uYNAM9HQDtJw1i4
-	pANP/bgs8zNFq3DfCXDEBqQ9wex5bsUpwnOZ4vQZ36vvm9pR7vG80/8uyx6TSxDHGd9YyT/Es2Z
-	wy+bWolgzDqkZfGXDoPtgUalW74PmVX9T8g==
-X-Received: by 2002:a05:6300:2204:b0:3bf:a38b:e8ca with SMTP id adf61e73a8af0-3c44b211035mr6789564637.59.1784868399160;
-        Thu, 23 Jul 2026 21:46:39 -0700 (PDT)
-X-Received: by 2002:a05:6300:2204:b0:3bf:a38b:e8ca with SMTP id adf61e73a8af0-3c44b211035mr6789544637.59.1784868398747;
-        Thu, 23 Jul 2026 21:46:38 -0700 (PDT)
-Received: from [10.218.31.237] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3147df09ac0sm22951882eec.16.2026.07.23.21.46.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 23 Jul 2026 21:46:38 -0700 (PDT)
-Message-ID: <c8417ff3-db92-446a-acf8-8c73c83b85de@oss.qualcomm.com>
-Date: Fri, 24 Jul 2026 10:16:31 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S5UBuLof"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0AD6EC2BCF7;
+	Fri, 24 Jul 2026 04:48:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1784868506;
+	bh=QtvNGTmJu3wnH3/EKrsVJTh7dhIcj6i73e0+4O4P2eA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=S5UBuLoflPQYa0Dm21p7zVQYcdLkb6+Uvj6KhUI50KRPKqEJ6WbPkUK0178E7ADV8
+	 cLlOay7m1jZapEz+ZTIhPrieIK0ThayGs08QlXAb/6OqbNENSMtVQEX0EM3lfvHJWQ
+	 tZECLb5lyUJVNcToIl10Eeyqv55MeWbrzEif6ZwWpB7Fgq4slq0tfEjHraP24t+m61
+	 ZPxVxK8qFagVcnLipcWfaglaeCEmtN+9eBgXChPqvwXy5OPze6dgR6X8oVNKtTpCPj
+	 J5+SAoWWaVtmQ27gbLByWi2XabqbX0xHIZCSjjKCOBlGjYb3V/y3FSv7Rc2CRG7D+u
+	 dVt1UQCLiBH/g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E0F02C53200;
+	Fri, 24 Jul 2026 04:48:25 +0000 (UTC)
+From: Andy Chung via B4 Relay <devnull+Andy.Chung.amd.com@kernel.org>
+Date: Fri, 24 Jul 2026 12:47:38 +0800
+Subject: [PATCH v5 2/4] dt-bindings: trivial-devices: Add Kandou KB9002
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] net: wwan: qcom_bam_dmux: Alloc RX buffers as a
- single coherent block
-To: Stephan Gerhold <stephan.gerhold@linaro.org>
-Cc: Stephan Gerhold <stephan@gerhold.net>,
-        Andrew Lunn
- <andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Sergey Ryazanov <ryazanov.s.a@gmail.com>,
-        Johannes Berg <johannes@sipsolutions.net>,
-        linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        chris.lew@oss.qualcomm.com,
-        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-References: <20260714-qcom-bam-dmux-vmid-ext-v1-0-3f29da7cca76@oss.qualcomm.com>
- <20260714-qcom-bam-dmux-vmid-ext-v1-2-3f29da7cca76@oss.qualcomm.com>
- <alXm0rp3NK62G3-3@linaro.org>
-Content-Language: en-US
-From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-In-Reply-To: <alXm0rp3NK62G3-3@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI0MDA0MCBTYWx0ZWRfX2vIqHohoyyH3
- kXFRMBHAD7ONPUZxZb3rJgSABC6Xlete+1Q4EUb09f2SjNARwY36ISsUEgqyfZbyq5MlDHXFwFP
- 2EXDgenZleZ5bcoEdRAyb4Q7MVjkRtdYb0FceR4CxKGCMdv4rBXRx0zIEVbr4XtK6FZI2/s+NbN
- 5unK8vYpYT3/yACmWvLbLWrqM0tag/Jm29/rjtcCKe/bti+tR+Vwl2iOMQ8eiy1JWiUsD14YaC9
- 9PnZ0LK/7mgRVDaBy1yax/cC4Y/TQz2p0ICjOFHx2qbeMKzQXM43P2poG9Dvg8FuIs5tjWVcD5M
- 1KIgpLZ1mwAEYmaBnbDDCoTDoYF1rCr7C63HzRc3r3P8pTZCZBZKBS9Q1ZmX6RQtYJrFIrFhZ9X
- //5BRwmIxV1hQYKJd+mO0dUS5UFYxP1lqXDEqwFH0MNTds17CN9OGcL0b9tpVeHBBxxMQYcjDHl
- tjyqtGdVvFWAjkBR/bg==
-X-Authority-Analysis: v=2.4 cv=RJeD2Yi+ c=1 sm=1 tr=0 ts=6a62ee30 cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=2eDN7aXksB4whfXZn5AA:9 a=QEXdDO2ut3YA:10
- a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-ORIG-GUID: _9d3Y1Z6smGD1Kl7z3U4wJW-cMhAVYNk
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI0MDA0MCBTYWx0ZWRfX8hdepnhYY+/i
- Uty/hsZowMOW2UdJgvX+vjnD9oZvctdeaScH7ZK0cm1JZ5yRmIganXjL6Tmr6y8EPcgt9YwGRY1
- RokIiP9oQ8rVtobCvhqqoV9KBtc/N1Q=
-X-Proofpoint-GUID: _9d3Y1Z6smGD1Kl7z3U4wJW-cMhAVYNk
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-23_07,2026-07-22_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 spamscore=0 phishscore=0 bulkscore=0
- impostorscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607240040
+Message-Id: <20260724-kb9002-upstream-v5-2-9523c3ffe83a@amd.com>
+References: <20260724-kb9002-upstream-v5-0-9523c3ffe83a@amd.com>
+In-Reply-To: <20260724-kb9002-upstream-v5-0-9523c3ffe83a@amd.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Andy Chung <andy.chung@amd.com>, 
+ Guenter Roeck <linux@roeck-us.net>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org, 
+ Andy Chung <Andy.Chung@amd.com>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784868474; l=1062;
+ i=Andy.Chung@amd.com; s=20260327; h=from:subject:message-id;
+ bh=TfOP3I9AnbSWPiG1JcCS6En65Z1EONrNQPwWXvx4lew=;
+ b=fJmuMEykS6vLWiDtBpkZW2fAtJpHVJIT71Mr3ZgGp1vp8HjL28vKRzgprw0GueLumyxRa1FAr
+ E93lYkDygZNDoglXLVobKapTQ8/ENOWHNIXb+F3XxVEKDz9M78y2ob4
+X-Developer-Key: i=Andy.Chung@amd.com; a=ed25519;
+ pk=X2gaHRnhU2q5hvMjkC6xmIcC03vKNvHY9CQRdsj9ecM=
+X-Endpoint-Received: by B4 Relay for Andy.Chung@amd.com/20260327 with
+ auth_id=696
+X-Original-From: Andy Chung <Andy.Chung@amd.com>
+Reply-To: Andy.Chung@amd.com
+
+From: Andy Chung <Andy.Chung@amd.com>
+
+The Kandou KB9002 is an 8-lane PCIe 5.0 retimer exposing an SMBus target
+that reports an aggregated die temperature. It needs no device-specific
+device tree properties beyond its address, so add it to trivial-devices.
+
+Signed-off-by: Andy Chung <Andy.Chung@amd.com>
+---
+ Documentation/devicetree/bindings/trivial-devices.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Documentation/devicetree/bindings/trivial-devices.yaml
+index 435c4baab436..d93d4caa8ab1 100644
+--- a/Documentation/devicetree/bindings/trivial-devices.yaml
++++ b/Documentation/devicetree/bindings/trivial-devices.yaml
+@@ -196,6 +196,8 @@ properties:
+           - isil,isl76682
+             # JEDEC JESD300 (SPD5118) Hub and Serial Presence Detect
+           - jedec,spd5118
++            # Kandou KB9002 PCIe 5.0 retimer
++          - kandou,kb9002
+             # Linear Technology LTC2488
+           - lineartechnology,ltc2488
+             # Regulated 12V, 860W, Digital DC/DC Power Module
+
+-- 
+2.34.1
 
 
-On 14-07-2026 01:05 pm, Stephan Gerhold wrote:
-> On Tue, Jul 14, 2026 at 11:02:32AM +0530, Vishnu Santhosh wrote:
->> On Qualcomm SoCs where the modem (e.g. the mDSP on Shikra, VMID 43 /
->> NAV) is the AXI master for BAM-DMUX RX transfers and the XPU enforces
->> per-region access control, each individually DMA-mapped RX buffer
->> requires its own XPU resource group (RG). With ~16 RGs available, the
->> 32 per-buffer dma_map_single() calls exhaust the table and the first
->> inbound transfer faults with an XPU violation.
->>
->> BAM-DMUX is a singleton (exactly one instance per SoC), so the
->> destination VMID does not need to be a DT property; it is looked up
->> from the compatible string's match data instead. Add struct
->> bam_dmux_data with a single vmid field, and a shikra_data instance
->> hardcoding QCOM_SCM_VMID_NAV for qcom,shikra-bam-dmux.
->>
->> When match data is present, allocate all BAM_DMUX_NUM_SKB RX buffers as
->> a single contiguous dma_alloc_coherent() block and SCM-assign that
->> block to HLOS plus the VMID once at probe. This reduces RG consumption
->> from 32 to 1. The block is never reclaimed across a modem power cycle
->> (bam_dmux_power_off() does not touch it), so the probe-time assignment
->> covers every subsequent restart without re-assigning or reclaiming. It
->> is reclaimed to HLOS only once, at remove or on a probe error, and if
->> that reclaim fails it is leaked rather than returned to the page
->> allocator.
->>
->> Each rx_skbs[] slot is pre-assigned its virtual and DMA address from
->> the block, so no per-buffer mapping is needed at power-on. Because the
->> coherent block is not page-backed, received payload is copied into a
->> regular netdev skb before handoff to the network stack; this is an
->> unavoidable extra copy on the XPU-enforced RX path.
->>
->> Platforms without match data are unaffected: rx_virt stays NULL, no
->> coherent memory is allocated, and the per-buffer dma_map_single() path
->> is unchanged.
->>
->> Co-developed-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
->> Signed-off-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
->> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-> So how do you handle TX buffers? Right now, they are just passed on from
-> the net subsystem. There can be up to 32 TX buffers in progress as well.
->
-> Overall, I have mixed feelings about this patch. It looks reasonably
-> simple, but fundamentally I don't understand why we need to go back to
-> the old days of implementing protection using a highly limited MPU (in
-> your case: the xPU).
->
-> Why does the setup of BAM-DMUX differ e.g. from the setup for the crypto
-> engine? Crypto is also using bam-dma, but it avoids this inflexibility
-> by making use of the &apps_smmu. Is BAM-DMUX not covered by the SMMU? Or
-> did you just decide to bypass the SMMU in this case? (If so: Why?)
-
-I checked with secure systems team on this. Crypto BAM is
-behind apps_smmu, so protection is enforced through the SMMU's Stage-2
-page tables.
-
-A2 BAM (used by BAM-DMUX) is present in secure domain and does not
-support Stage-2 translation on this SoC, and there is no IOMMU domain
-that can be attached to it. The only protection mechanism available is
-the xPU.
-
-
-Thanks,
-Vishnu
-
->
-> If you had BAM-DMUX mapped using the SMMU you would get all of this for
-> free. No changes would be needed in the BAM-DMUX driver ...
->
-> Thanks,
-> Stephan
