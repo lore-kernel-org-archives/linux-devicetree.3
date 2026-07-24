@@ -1,102 +1,329 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5143427FB8
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 12:18:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE211417BFC
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 12:19:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784895538; cv=none; b=BRFwtTvaVrfaPsrRnT9KOMVNnBA0jA3DPhqRtFxVvH9c7nGu41H/S8K/kb98aUOVRoZ98enmk2opPYP3X4OGLM0k9g3YBByZGnaXtO4S9IE86x0mMm1g2vShYA0hpLdWri3xtGEar0F1fQY5MUkke8cjyPSjqNweBGvkVkYmZGQ=
+	t=1784895566; cv=none; b=Lt+RzTcvN8RPlUrmeAfkXwl+B1lFOXDyAQqNfC2+7hIP+6UNAwNm9HF77mvawTmDxjiOdfMSsCKh4NDllq9G/HW5dVRNMCHJ6djxUtSOcNYnB6mfh6OJxqgC61Y9KqPunWdadMZCw2N1lIIAhG/06uo2wPur9mNJtwVo3k3Iys0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784895538; c=relaxed/simple;
-	bh=uo8E8OH8OWSNcoH/Wf6h7GTutggHz5CXVuSQcWw0SNE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tBd4PYTrpVad6w5sgc2UIm6SiOB50XU3SYolk/twPS4dYKCUXmi+N7ZkUJAMjvA2bh0ToRdcstz3frlA4L8WI0umKuW/rQgyl9PXpStZUZnPJ1o34DSl6yr+aJ9kjWva6gRBXcce5cxW6R7lAwF65CfuZGU+19aSqMmhAgJnz0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JVwyMKxd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784895566; c=relaxed/simple;
+	bh=hdOPs4e+5gEq2NTHhTotVnUSWG0HZXdm18O6hz1wWQQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dGUn+ZZ20kwMEa5/BGaQGcu45OaBSy9ZDym5mbvwr+qYAGWV8hS+hwDFX0TOhixdckt5R4+1lXGCPme+SD10dx7hWz8yyMTVb6bEYQa6LEm+f+Dl7sD6cBvvE2MKBIrhDbi6b/7FT8WfdW4hmYx9T6iOL+XjG/6okAV0+6WO5UE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BQpqW4t3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=F1z2VO1R; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JVwyMKxd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE1DF1F000E9;
-	Fri, 24 Jul 2026 12:18:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784895536;
-	bh=RHjMoksDi7j9GX3KbkuljhwPfMvo1GU8PXUvyGwj/aM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JVwyMKxdglfLpWIReaEl/NKQ3egyNAZZo7j+mh3PiiFYoCuCzr7n3LyvNKo/Q682I
-	 eljAz9OkfXILu1NTg/PqbR/G1HsaAew6QDWDkSmiNJItnzGoBDy3ypH1nzsQ+9p5bl
-	 pZbHmRPyciUvf/J+qBj8Ah/nk0fi2PnTJQu1FGhBguujl7ZM97jq21upez7sIPRsn9
-	 Dhu1eHnpoiaTnguZWV7ih3NgnzquFoP1blDgRsY/a7qcWv2xV39aJBoOkP3u8t1bGR
-	 +rB4ypENSs47XWkmszPpZqSNBfnPv2VVpUSumFjuzRE1cbJKxqrQuRTz5YK05ejRG7
-	 Im5wIs94xJqvg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/6] dt-bindings: iio: dac: ad5696: add
- AD5673R/AD5677R support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Rodrigo Alencar" <rodrigo.alencar@analog.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260724-ad5686-extend-dev-support-v2-1-cfc2b30ce988@analog.com>
-References: <20260724-ad5686-extend-dev-support-v2-0-cfc2b30ce988@analog.com>
- <20260724-ad5686-extend-dev-support-v2-1-cfc2b30ce988@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 24 Jul 2026 12:18:55 +0000
-Message-Id: <20260724121855.CE1DF1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BQpqW4t3";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="F1z2VO1R"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66OAE5gE2256708
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 12:19:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=B7KdEphz0j0cMMYZkSRPqY7M
+	aSr6YFxDvjx2kGx481A=; b=BQpqW4t3MZKyXVmNVh3f9UNpfhOk3BHnv4rkYaSt
+	LLLx3QkU3+k8tmRV8c6+q3zphB1Ol91xhq6BnBujJLkxzEbWQRkiZEI7f4+NJdS4
+	2u0hPSrhIXFapAJhYqc123gCk6eLa3Z/SufOX4IBEijzgr5KEaChuzJJOd2dSXjx
+	CxQ5rlPwJ9FOn6Pwvtxt1/PcPi30f42D/ieaTwOJafg5ZemJh0Kjn4CN5bSPRzYl
+	pWyHn9tE8tGJ4ony9R42mkaG/3kZyBVXk/dnoYXY24ndBuPrtuD47YDrIlsmxIQ8
+	YvvydMmKd7QZiGfrwybgTATZApU7015XTkmmcMe9Nh2ImA==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fkusrtm12-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 12:19:23 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-ca8aee88725so609337a12.3
+        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 05:19:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784895563; x=1785500363; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=B7KdEphz0j0cMMYZkSRPqY7MaSr6YFxDvjx2kGx481A=;
+        b=F1z2VO1RJn4tmMEvE3qBzYgmayL98VfQRn3aEYKEp1ZDxjNpGThwfENcqahd7J2A0q
+         jOQYhUkOxToCz/hWPeo9oD36u4LrY3Xp+KVfsKb47eTDUtPLZLsgzaG5jQL/nbWERseI
+         IYjFsNjSQAQ3perk2DAO0EzbuoHTxY0k1Vl4xIeLxweCu7EEm+LjYbfXZKx96ySZ8TwE
+         ThZNiMrNxXYnz5uJ2sn5CHm++TPAlZ49nADStX77048dLBhc452KPEm+NVT32iZUaJav
+         ZOSgj2DJZZoXLXRokSAh+kNdg8/Ibj8hvma7/EiHlaKETRIsWVhKGgrEzN/t8OiWTEKP
+         aiEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784895563; x=1785500363;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=B7KdEphz0j0cMMYZkSRPqY7MaSr6YFxDvjx2kGx481A=;
+        b=Da2WSe7aLAI576PGpCtZ/hzOSHfYtmoye0kgwfdSRYSCeiuwWyKfITvZPb7UNT6XKa
+         pYc7NRK62ZtLCiGy6+I9mRfmZj0Ywffy1x36tAIEIsdrpOEReVTqbcD4VdFLAE3V5OyE
+         UGKWE/o0TCtrv7iP1zRZVkyjLnARMZrMQEhOGwJOI4zMyXG9Z9tpyESaKQ3O1hFibW5+
+         GhVcQ2I9Iu+w2LaDCccwnKo0GorrTtmT5q2ENx6KK7jt5gV3jYUSYNLopdEZajawmxQq
+         som9GjjWsb97JrdJ/500meGaJAvidn1NeQE3YnjQnIpy+Mbffcgh/mwIrH+tpM5w1wPN
+         Ae5g==
+X-Forwarded-Encrypted: i=1; AHgh+Rp926L9YySdCXlNMZx+SuFJhLGmD0MOvu8pinl0svMJps0tgjNzbqFiyAvRiS05ejjvm1AH9F92ENP9@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx7zwBeWq7TzvZ2xZ+ihPoqjVxjW/BOyrK81UUn4GmOqBt3hNxR
+	HXKr3l+lrqrnJWfT1YCKl8hsYVkCMsaRHjRj3WoNu7+MQn7TxcVUTB5+ULWGglqsWSCiZFDlwfy
+	Cquvpj+6uoo7st4KzY+s+37s6/2n9AS6PT003XW1mNMbtOTaqiXNgtBJHncVTB96X
+X-Gm-Gg: AR+sD13E/kVwp0Y6vQMXfjzLy/5jimFxhljXwrqNWZtAvDICm30lU0AJ1xwd4raeWZW
+	DWwBfiQEb6ak22Aqza7n3st0uUdmCXbt6CJSmB9+p3nuS5/yMAWq6uziN5qItltDWDko+RRbg2b
+	PqZd8Du1s8sH6lhIvMfuBnbQoOa/QhKZBb2awgaYrUdlXIeP6cgIy/66q6SxOo9QuOBDfNKmb5R
+	qQbB6VSL+jhFbqmEAaY0b0SNhillXrajbdpzSdxQUefHj+aSKS7kn9aWyeIi6a+L0jugf6be9ib
+	NO2eSfFZQE+yrIizZFtvryr9wxsSCSF40Mz9s/RK+ecfDQmn48B+crzPSicfB4H+crCxYuPzPVW
+	uYtIyytzlDelVpXQou8cuYMpW7qRa9pE8SFqudXJR28Q=
+X-Received: by 2002:a17:90b:586c:b0:38e:7446:d2b8 with SMTP id 98e67ed59e1d1-38ec6890685mr7895014a91.41.1784895563179;
+        Fri, 24 Jul 2026 05:19:23 -0700 (PDT)
+X-Received: by 2002:a17:90b:586c:b0:38e:7446:d2b8 with SMTP id 98e67ed59e1d1-38ec6890685mr7894978a91.41.1784895562731;
+        Fri, 24 Jul 2026 05:19:22 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13d13014d27sm26626295c88.4.2026.07.24.05.19.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 24 Jul 2026 05:19:22 -0700 (PDT)
+Date: Fri, 24 Jul 2026 20:19:16 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] dt-bindings: remoteproc: qcom,nord-pas: Document
+ Nord PAS
+Message-ID: <amNYRMIkmf2hfYXV@QCOM-aGQu4IUr3Y>
+References: <20260724103848.233804-1-shengchao.guo@oss.qualcomm.com>
+ <20260724103848.233804-3-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260724103848.233804-3-shengchao.guo@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI0MDExMSBTYWx0ZWRfXwgGtOM5slMyG
+ GBIFMdqM+NMfzYziA0x4q17Ry0+x6kTTlfgJ/dGJZ6a1LFwSY9Pv64WD6WqFIpl3mLdB4+1LtGS
+ 8sHe7L+uowod6WDbrTDQS+KjAPB+gwY=
+X-Proofpoint-ORIG-GUID: rQyiVPTIRlp2QpXjrskQdEEQU1aIYnJb
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI0MDExMSBTYWx0ZWRfXwi1owTDRm4lB
+ Cycz+/d0351eysXIG2Ds1b2AJ5PiY5J9FF0O+cY7AgxB9cH7zHrQgb30qRWrB32er0a1S8VrIJ+
+ vQw7G0scb2WiAxoAYYiPkqW9MDWyWGxR5XSPsWSVkbIVxnEiNt9c4M12UgoUfB/kVfksmlxI7it
+ AQeZqn66N/++nxeNOU9T+JrXJeJjwgIh4m26aXgubkvU5daQaESIHzfYQYx1s29trigS5h0zfw9
+ qlpLJi08q5iPEImDanAIZJGPDm4r1ydYohxG1rPZv0AFxDYx6fjJFmSCPcOXIEyBesJAn5spahi
+ AA2stPUXYEX/YUEiXe8o8Z0gG5A1ejpJC/HwpEYXoZvtI8AME8b8rRkSZSV9htcEnGOPPzjKzkO
+ x2fKsVsOJQz4pQzYHg7FPPKzVgoRpGjtSt+bXQ7YuAK/qyn3ITHKGwgP3aW/V48U6xqDs3hD12Q
+ 7rfS+h1f3HNfkiLzgQg==
+X-Authority-Analysis: v=2.4 cv=PtejqQM3 c=1 sm=1 tr=0 ts=6a63584c cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=PhCFR9l94pDFD3z7aeYA:9 a=CjuIK1q_8ugA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-GUID: rQyiVPTIRlp2QpXjrskQdEEQU1aIYnJb
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-24_02,2026-07-22_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1015 suspectscore=0 malwarescore=0 phishscore=0
+ lowpriorityscore=0 adultscore=0 priorityscore=1501 spamscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607240111
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Fri, Jul 24, 2026 at 06:38:47PM +0800, Shawn Guo wrote:
+> Add a dedicated binding for the Qualcomm Nord SoC PAS devices: ADSP
+> and CDSPs. Nord ADSP uses CX and MX power domains while the CDSPs
+> add an NSP domain on top of that.
+> 
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> ---
+>  .../bindings/remoteproc/qcom,nord-pas.yaml    | 167 ++++++++++++++++++
+>  1 file changed, 167 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/remoteproc/qcom,nord-pas.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,nord-pas.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,nord-pas.yaml
+> new file mode 100644
+> index 000000000000..c1d60ca6c63c
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,nord-pas.yaml
+> @@ -0,0 +1,167 @@
+> +# SPDX-License-Identifier: GPL-2.0 OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/remoteproc/qcom,nord-pas.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm Nord SoC Peripheral Authentication Service
+> +
+> +maintainers:
+> +  - Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> +
+> +description:
+> +  Qualcomm Nord SoC Peripheral Authentication Service loads and boots firmware
+> +  on the Qualcomm DSP Hexagon cores.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - qcom,nord-adsp-pas
+> +      - qcom,nord-cdsp0-pas
+> +      - qcom,nord-cdsp1-pas
+> +      - qcom,nord-cdsp2-pas
+> +      - qcom,nord-cdsp3-pas
+> +
+> +  power-domains:
+> +    minItems: 2
+> +    items:
+> +      - description: CX power domain
+> +      - description: MX power domain
+> +      - description: NSP power domain
+> +
+> +  power-domain-names:
+> +    minItems: 2
+> +    items:
+> +      - const: cx
+> +      - const: mx
+> +      - const: nsp
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: XO clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: xo
+> +
+> +  qcom,qmp:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description: Reference to the AOSS side-channel message RAM.
+> +
+> +  smd-edge: false
+> +
+> +  firmware-name:
+> +    items:
+> +      - description: Firmware name of the Hexagon core
+> +      - description: Firmware name of the Hexagon Devicetree
+> +
+> +  memory-region:
+> +    items:
+> +      - description: Memory region for main Firmware authentication
+> +      - description: Memory region for Devicetree Firmware authentication
+> +
+> +  interrupts:
+> +    items:
+> +      - description: Watchdog interrupt
+> +      - description: Fatal interrupt
+> +      - description: Ready interrupt
+> +      - description: Handover interrupt
+> +      - description: Stop acknowledge interrupt
+> +      - description: Shutdown acknowledge interrupt
+> +
+> +  interrupt-names:
+> +    items:
+> +      - const: wdog
+> +      - const: fatal
+> +      - const: ready
+> +      - const: handover
+> +      - const: stop-ack
+> +      - const: shutdown-ack
+> +
+> +  qcom,smem-states:
+> +    maxItems: 1
+> +    description: States used by the AP to signal the Hexagon core
+> +
+> +  qcom,smem-state-names:
+> +    maxItems: 1
+> +    description: The names of the state bits used for SMP2P output
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - memory-region
+> +
+> +allOf:
+> +  - $ref: /schemas/remoteproc/qcom,pas-common.yaml#
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          enum:
+> +            - qcom,nord-adsp-pas
+> +    then:
+> +      properties:
+> +        power-domains:
+> +          maxItems: 2
+> +        power-domain-names:
+> +          maxItems: 2
 
-Pre-existing issues:
-- [High] Missing 'adi,ad5673r' and 'adi,ad5677r' in the ad5696-i2c driver's=
- of_device_id table breaks module autoloading.
---
+Sashiko had a valid comment on this.  Since the global power-domains
+property defines minItems: 2, this will allow CDSP variants to incorrectly
+pass schema validation if they omit the NSP power domain.
 
---- Patch [1]: [PATCH v2 1/6] dt-bindings: iio: dac: ad5696: add AD5673R/AD=
-5677R support ---
-commit 0615f695e24a3ce3cbdf232377b1a0e2894200a2
-Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
+I will fix it.
 
-dt-bindings: iio: dac: ad5696: add AD5673R/AD5677R support
+Shawn
 
-Add compatible entries for the AD5673R and AD5677R devices to the ad5696
-device tree bindings. These 16-channel devices use different bit resolutions
-so no fallback compatibles are used.
-
-> diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5696.yaml b/=
-Documentation/devicetree/bindings/iio/dac/adi,ad5696.yaml
-> index e10f8596f9d3f..5a93edc976f01 100644
-> --- a/Documentation/devicetree/bindings/iio/dac/adi,ad5696.yaml
-> +++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5696.yaml
-> @@ -19,7 +19,9 @@ properties:
->        - adi,ad5337r
->        - adi,ad5338r
->        - adi,ad5671r
-> +      - adi,ad5673r
->        - adi,ad5675r
-> +      - adi,ad5677r
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does the driver also need
-to be updated to match these new compatible strings?
-
-Looking at drivers/iio/dac/ad5696-i2c.c:ad5686_of_match():
-
-static const struct of_device_id ad5686_of_match[] =3D {
-	{ .compatible =3D "adi,ad5311r", .data =3D &ad5311r_chip_info },
-    ...
-
-It appears 'adi,ad5673r' and 'adi,ad5677r' are missing from this table.
-
-When the system boots and the I2C core generates an of: modalias for=20
-DT-instantiated devices, could the lack of these entries cause module
-autoloading to silently fail for the ad5696-i2c driver?
-
->        - adi,ad5691r
->        - adi,ad5692r
->        - adi,ad5693
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-ad5686-ext=
-end-dev-support-v2-0-cfc2b30ce988@analog.com?part=3D1
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/qcom,rpmh.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +    #include <dt-bindings/mailbox/qcom-ipcc.h>
+> +    #include <dt-bindings/power/qcom,rpmhpd.h>
+> +    #define IPCC_MPROC_ADSP0
+> +
+> +    remoteproc@4c00000 {
+> +        compatible = "qcom,nord-adsp-pas";
+> +        reg = <0x04c00000 0x10000>;
+> +
+> +        clocks = <&rpmhcc RPMH_CXO_CLK>;
+> +        clock-names = "xo";
+> +
+> +        interrupts-extended = <&intc GIC_SPI 159 IRQ_TYPE_EDGE_RISING>,
+> +                              <&smp2p_adsp_in 0 IRQ_TYPE_EDGE_RISING>,
+> +                              <&smp2p_adsp_in 1 IRQ_TYPE_EDGE_RISING>,
+> +                              <&smp2p_adsp_in 2 IRQ_TYPE_EDGE_RISING>,
+> +                              <&smp2p_adsp_in 3 IRQ_TYPE_EDGE_RISING>,
+> +                              <&smp2p_adsp_in 7 IRQ_TYPE_EDGE_RISING>;
+> +        interrupt-names = "wdog",
+> +                          "fatal",
+> +                          "ready",
+> +                          "handover",
+> +                          "stop-ack",
+> +                          "shutdown-ack";
+> +
+> +        memory-region = <&hpass_dsp0_mem>, <&hpass_dsp0_dtb_mem>;
+> +
+> +        firmware-name = "qcom/nord/adsp.mbn",
+> +                        "qcom/nord/adsp_dtb.mbn";
+> +
+> +        power-domains = <&rpmhpd RPMHPD_CX>,
+> +                        <&rpmhpd RPMHPD_MX>;
+> +        power-domain-names = "cx",
+> +                             "mx";
+> +
+> +        qcom,qmp = <&aoss_qmp>;
+> +        qcom,smem-states = <&smp2p_adsp_out 0>;
+> +        qcom,smem-state-names = "stop";
+> +
+> +        glink-edge {
+> +            interrupts-extended = <&ipcc IPCC_MPROC_ADSP0
+> +                                         IPCC_MPROC_SIGNAL_GLINK_QMP
+> +                                         IRQ_TYPE_EDGE_RISING>;
+> +            mboxes = <&ipcc IPCC_MPROC_ADSP0 IPCC_MPROC_SIGNAL_GLINK_QMP>;
+> +
+> +            label = "adsp";
+> +            qcom,remote-pid = <2>;
+> +
+> +            /* ... */
+> +        };
+> +    };
+> -- 
+> 2.43.0
+> 
