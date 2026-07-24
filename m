@@ -1,89 +1,89 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A552F40F749
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 09:54:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20BA74028D9
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 09:54:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784886898; cv=none; b=pBklLMBFZbih3OFbtDiFb/DbRBylOaSZjauEHc34y+5TlYNZEvHwR9XU96MIxr6Fx4MAUZoEuYd/U/GJL3kGXZLr++1qLsKBE/8wNyB1evqHXE84JrpAu20JEOa6skfuusu4Um4ElbgU/bHOZO6Ic9FnefuxblKri6bic8AqBpM=
+	t=1784886900; cv=none; b=iJWb7UZGQpTmPeYkBi4JWDT6hF4xc0wKpdPGudv/eZ71v7Yx352cM+GdxxWprwxnSVE4C45wTLrCNlFDgdHA10CMZCkaREnMbGYi69gDsq8emM3LZ0qlvlCd3N9OsXdsIb9/X8MI27YGV6YgMIZLyuIUQBcPnhmVncgD2n+xxoo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784886898; c=relaxed/simple;
-	bh=Xc4PXMaoYldFY9uHwsgJyrcRAuOBTYgT1lD6R3KdCfo=;
+	s=arc-20240116; t=1784886900; c=relaxed/simple;
+	bh=qcVLJczhLVF77VjvKP3+H0o12u0hwIN/GBWxg/eWzGo=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Bmmw/hQsIAGtE3is+RspLv6oHRwRBWRlCy+nr+wmarB6txqGFQAweg2NmL8deHQWhGVXRheCutkEUfZiYPXtMqvSFQyTwWNSblgEL4V2uHea0PwzdbkZYhEjxw9/VmoIHKnU9CZ/huGRLxLP9BimkSK3A8vlFEGxCGy6TDwoZTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FEwASyY8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AKnkkIfq; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=fBoQ4QAhkv5r3JEeT/3KYPacIj8oO0oaH6Q9cKFe6YonOqZrKzXzyVG1vdmSLp8Ej/QB91DiYa9Ogoxf3MQsMNl95X4A1pIUnhgaT5bCCbCQN7BBD5gKIx3Jp1heXozfZMnodmgPZEh8HRo9fmAfD9evkVEdKYzJLkI8j7WJAvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZxFIYv3q; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QFlkdjUE; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FEwASyY8";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AKnkkIfq"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66O4lbpD1869755
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 09:54:55 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZxFIYv3q";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QFlkdjUE"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66O4lUo61510162
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 09:54:58 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	QH8MfES3pr72T5irLL292Vri+hNWh1CPgEIsdIlnYgE=; b=FEwASyY8gd+qSQIU
-	1LD7jzcdivCPSiWjI+wanlhVQB+fn8i1AgeaMMmw1ieKf0KOiJl4wnVDhKLnLiHf
-	m/cJOl7R3SzM/ZQSaFLcp/UYqo7izlO/znWsvinivqmUg/1z8ubrzI/EJZkxhuVH
-	x4QYbhQXZ5rupdnK1VByGD+6/TtpGqQYPJSbAnjUBQWtpxn4X1o4mwQUGPT33gV8
-	Ma5KEULWzSu0dMEEPKhllLoVDV/0Y8xFoETE4la25nlFbmjRCa8+M4LmfxvNz5db
-	5KM98NzxsO+AZjKc8d6/FygyucqeIWXwvLklL0CkK+d05loeOExwG4eRfQX3xqdv
-	d2eeeg==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fm0pw96st-1
+	QJ+XG8fKARImpjXxnXkd7ors2tn1d27g2wgp4VBamlo=; b=ZxFIYv3qVWW6oXEs
+	adkORp+bL4RY51VpA/lXOTtn/j/7GnXHSycD0uaplDA8S8lz2TLUetVGc0SqoWQW
+	qP5NEnY9BEBQh4PvRj459KKqlLvci36vOrGoVj07MR8FX8XRaW1dakIgKSXZTJ8A
+	kcKdFMJ9rO4ZHAeWFRzVlYSVlkKIzitzq3dpFVboPvCXFLXmGFz5BoTmaPPZw1S+
+	nRDAOlTMEjERq8m8p10xHZGnAQlXMv1QIoykVbxb3bWJgeZFHSOx5YocwGEfjkbe
+	RY1gpAmRCVNJbt6Egd0AHiKMbzc0XcReZdy/uo8jLuhZ2Z22Wr+f7ATCthMhrls0
+	C0Gxww==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fkusrt36j-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 09:54:55 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-380b630c505so294162a91.1
-        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 02:54:55 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 09:54:58 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cbb92868263so321695a12.2
+        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 02:54:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784886894; x=1785491694; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1784886898; x=1785491698; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=QH8MfES3pr72T5irLL292Vri+hNWh1CPgEIsdIlnYgE=;
-        b=AKnkkIfq2N292jDOwcYb3oAWtpIuWIt/1fWEKxYnZIrZF5OltiG5gLvx24M+hZGXWE
-         jLWDjwlZX62haASx7EFWYg7eR70ChJnKPZMy5pJo50CMBodJvKCzrC619MBMlSyiMAqY
-         1EfEa2XqVHjCzVCEBh1/6KZtcebTq9x2/HZylkwsa1NZFIz6AK0M8wIRJofKhCrtl+Kd
-         EaVltqupK6Yfsun+AhHuYf4YvH8N4L9WxyjlIa441thDIm26CHTYsyiAQwqBMKHI2a//
-         qVOluh1MBZdv6jWJyep+tmnpMMGLh9011dRA8QL1IhtSCyhgWKc/8AceAPyhkQ0JVnmG
-         sP1w==
+        bh=QJ+XG8fKARImpjXxnXkd7ors2tn1d27g2wgp4VBamlo=;
+        b=QFlkdjUEJ7XYywRAi5zPqMf107bP2op5i8mJ0x7qR3//NGs1mSj2babG9rbzsrBqiK
+         mqD/6FFpZASy3YOoQ9c0/14LzWvq2JESZRN4xdKeQGSuL0rUNoppFh4+anwtlaGWnsYT
+         fNF9bvtAgzP9l7Qc78LRWsktN0PpqnvSsPym/t+jxRtWsMUgPH3akoJ2zD66gYyv32eb
+         N6YgQENFIGRSdRM5PG2f+8IFxU/LRTiLDbCSkX+N2Vv2hyOniQbbonFd2S13+MvEeeoz
+         q6XBoZIcQqIVqE91pzGTPXRwLInHtNU7kDbB0SJpJhF+ZahmC2SvWtl5J7wBWSyxn5JX
+         LAoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784886894; x=1785491694;
+        d=1e100.net; s=20251104; t=1784886898; x=1785491698;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=QH8MfES3pr72T5irLL292Vri+hNWh1CPgEIsdIlnYgE=;
-        b=JD7te8e8Vx8GIkkVjTlbjifSa+Th3YhG7VHnE9cCNE2KWLtzU1dYeJ6u8ZCpnsKglH
-         955FYTL/MTL/L5u8qsLgvjfGTfn0UhBpmhm6fdfOOV0GMRKmHKFnIMnIwKM2V5SG/vuB
-         Wmb1pSn87GR3q2u0cDBw1IbCOQ/rOD5logzyuQWKntBiqmp9442i6Ib12I3Q8yq+05gT
-         YEYRq/iTNo/oA6xuvKK3NiWGzh/2tuZssqP+lUWK1IyCwhyGvZo7dC4J80zsxg+W3hq6
-         U7hOR4zonDsQEHdwme3u5tQjlifiTnR8Qu0TwXaWMPoD3qAG8+k70j2/qm3muabsT4dv
-         PnNw==
-X-Forwarded-Encrypted: i=1; AHgh+RqyL2GSpCE3imwhqyMrHvBqoe0VA5B10DddUC2GqYP/rpCoKPGBP6mdNdq1tbCZ5p5vQVe1lf/BiHIK@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw9y+lw0z/ascT0ogEDAUKWCeoxrXXoH31bLuYZob3vCDBsYjM4
-	HU9T1e73pfcj/B5gAui5cmFq1XcbFakZIXeL4s8tTr5JMWq2sZXjRK7Yw0d9ZBlHpakA0AJcSCZ
-	8lop0j63z8XBMtZpfCuPDOxZ6L04SKtOS5HUjO2nhmWWGxb4G7mLF6nX0SFAdI+oSeG/MmvDX
-X-Gm-Gg: AR+sD11PSjBB7R1vWpW/FFb21BcoKZ5dspBj6U4sH2cOP4ugo2vXKyoGcDbBlVNpC4o
-	ATFQbDnRxdw5EoXBaLX46PJZ/enMAl/yVpR21VEFfOyT8eVX4Nxn+I5G2dwR4AFzXo7uD1Xzwtv
-	jz9CMA/lguUqrncjgQsKxDqwZdb4Wg34wsilyuWQHenqJm0SQBj9vyoIJc0eYuigJ6My7tr1ocq
-	Xq42Rvi5Ns1K+AVjaY9sY48ZhfwqdvFTIEvalzm1uOMjxN84uAoDt5nZ4skl8Bfu1D01WPOEVMU
-	GugTejB2gbFRHHnpFy93fDHgduGyxyDSPErCOeLd3l6TK4Wk7/qoDy5SV6oFuPRlWOBGbh8GlEI
-	aO6Fa2KzjKqA2Ug9L/RC9x/RXh26qZi2eQRtF0MmbHLZ5JOW2MrC7prxCKIsDbWaz4Qx5xwqxUa
-	ZFVQaB0uTIqNmt/lOKKir1iFgwElDmwA==
-X-Received: by 2002:a05:6a20:938c:b0:3bf:b6e3:fbe1 with SMTP id adf61e73a8af0-3c44b1fc81emr8556037637.55.1784886894070;
-        Fri, 24 Jul 2026 02:54:54 -0700 (PDT)
-X-Received: by 2002:a05:6a20:938c:b0:3bf:b6e3:fbe1 with SMTP id adf61e73a8af0-3c44b1fc81emr8555998637.55.1784886893496;
-        Fri, 24 Jul 2026 02:54:53 -0700 (PDT)
+        bh=QJ+XG8fKARImpjXxnXkd7ors2tn1d27g2wgp4VBamlo=;
+        b=VWdOtHp83MlwcTJMWWjHyLplSjTiR2DmNlwyoCgzkucj0Fep+JPOtuCVNcl8zZy+gp
+         3hics4pE7DTJjX2PX6n5yUSw/UgdoSgjPaiqUz00fV6LzuWtuVSva1Yo+tlRiWh8DHvn
+         A2ZNYLoshv8CrPOBQesKS8ApCkaY7baQbINQSsr2GPd0EvcVNb2XriPvrBayV5rCjIAU
+         kCg4kBCPD1laZV1OFJGwEni26IRCkU7ZTtalRCDUt1gohDH0862s6KWYbXi/Eko9S1GP
+         W3USiT93rxUYBqx4+/rKa0C0comeucOh7i5xRnXts2zDQ9SXvzWB4n7zet5QXQiLUf4B
+         KyDA==
+X-Forwarded-Encrypted: i=1; AHgh+RpnUxb8Spe0Bq231Penpt4Px3b29y953vYYAD8vPQrXUQVOqj5Utibn2+/o0zKWgYbKUs46zS1EWx98@vger.kernel.org
+X-Gm-Message-State: AOJu0YxGceZ9gmNpwcL10F1XSztZsIDe/bUSqDe7+XAnnG4d+AIG3B6Z
+	4kBBzeV4+gQhzc9NVvmWIrIglnYNfwr9ZriyftQAY/ZyfFfnETKFR9hipbXCKtUJZrYbQQV+Jiq
+	746K1xzLdEckq9Am5kW0xFkOMPSs1qsnXYaxQ5ZJrXH91YQ67nM2OFA6glrQRDJN+H3Cq1BOE
+X-Gm-Gg: AR+sD1296Dk3en6Uj+jK98VKpm/Kqg+BMl2v7iuCzuV4ObI58k6qAFb0MV471YtOZze
+	/k0D75Wbb3X0CHjpG39dvqzzED9swSUqysyOMStDQn6Ff19GeHjhpl3/ykAw4JqnAdaO0EGkma/
+	F/0prTarNKrqZbTsGhWgSIE4KaivE8vHWQ+lvtgAMV6NNdRISYyuyK/sABHbTGx3jtihgNMF35f
+	DensKzfCXAPbzWKMnZucPLK1H3fG7kXbW1x8tkS5oDdbSJouqST8G1NCRmYacFm3RFwCKqsDuaA
+	/sml6oQ4ag1Il3Q5qUal/vCbM+VCyHwPhYZtEZQkO+zgr+Sm/sSazpp+UVLn/t30nBa0O9RF9CZ
+	LSnd2WGUCbb+lS9Gj++V2lgROviBj7YIESZ3ry8aNGw4pL8bEjLNifI29LBduwKyPwdAsvCaUc6
+	qMbJqNSxDi3+Grguh/5x7xQjmESBBuLA==
+X-Received: by 2002:a05:6a21:e8b:b0:3bf:6011:53b with SMTP id adf61e73a8af0-3c44b18c993mr7612953637.38.1784886897585;
+        Fri, 24 Jul 2026 02:54:57 -0700 (PDT)
+X-Received: by 2002:a05:6a21:e8b:b0:3bf:6011:53b with SMTP id adf61e73a8af0-3c44b18c993mr7612929637.38.1784886897132;
+        Fri, 24 Jul 2026 02:54:57 -0700 (PDT)
 Received: from hu-varada-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3147e1b6a45sm28975093eec.28.2026.07.24.02.54.50
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3147e1b6a45sm28975093eec.28.2026.07.24.02.54.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 24 Jul 2026 02:54:53 -0700 (PDT)
+        Fri, 24 Jul 2026 02:54:56 -0700 (PDT)
 From: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Date: Fri, 24 Jul 2026 15:24:44 +0530
-Subject: [PATCH v4 1/3] arm64: dts: qcom: ipq5210: Add nodes for multiple
- peripherals
+Date: Fri, 24 Jul 2026 15:24:45 +0530
+Subject: [PATCH v4 2/3] arm64: dts: qcom: ipq5210: Introduce RDP504 common
+ DT file
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -92,7 +92,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260724-08-dts-v4-1-65e61a1061f0@oss.qualcomm.com>
+Message-Id: <20260724-08-dts-v4-2-65e61a1061f0@oss.qualcomm.com>
 References: <20260724-08-dts-v4-0-65e61a1061f0@oss.qualcomm.com>
 In-Reply-To: <20260724-08-dts-v4-0-65e61a1061f0@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
@@ -103,739 +103,363 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
         linux-kernel@vger.kernel.org,
         Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI0MDA5MCBTYWx0ZWRfXwTY+xtsYvojF
- R84KlqPuy6BRmpueAjcnYGqlbxmeP6a7HRG1Pc8YOWfS1IyqcYGlhF/lYNBqzvzG09EkY958d1B
- Y0fP60+eEyKtAtAexBG/BKXjOTvkse4XZWG6G+gh/QVPwKkidCkil+Ep+4tgX/drEhpbD3VCVHZ
- jRBqHd9mqg5OCbvEP1J3ptuuMugCTcGu/LOCsuR5/CrfcsKNgjddUSDP1smKnIIDflKvo2kVfHv
- OT/BKQ8V5UIE9sxu1vvgkMlZnw/NaZQfD98g3e6ZqBGMx0LPiUEtAHUonlOBD9QKQ/EnRr1p3Jw
- +n5dksfv9uBjeRULcQ/kLvH9VIbDikDe6N0lEVMxXI+ICR6XPv3yui2Whsbk8RYu/6507UzM3uO
- /ux6JxompOIuDt58vqM9CAULTip2IAiU5TdclAvfFf/SyB3jBYMSZcKSfQru4m8yva69Iwl9Qop
- WIjINB31Sg2TEtmT9IQ==
-X-Authority-Analysis: v=2.4 cv=RJeD2Yi+ c=1 sm=1 tr=0 ts=6a63366f cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI0MDA5MCBTYWx0ZWRfX1kyaFAyTZ85w
+ EjvnBFmYbsQlRsp+Mvf/LrtHds2x5mLTpagDWlnZmuzSXYbFNSSAW0WYoDjCz6FXP636QAKgIsi
+ UbmsifG0Cyf7KHw4qVh0FjDrlwmjM5A=
+X-Proofpoint-ORIG-GUID: YutKztO0aDAecN__6Zou5k1tVYdP3F_I
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI0MDA5MCBTYWx0ZWRfX6bXlZ4n4OPpR
+ dlobTcojNkB2wRCkGTidnQ/V4tzIVJf8stlTYws60HRSDP8VC+QjJmp5udYcY++/KP3+NT/km6Y
+ Snx0goxeR2XQN/AnDWNH2Z6LNYcfMfuAggutL9Eb9PPLlDYYJFTcrdOY3bsC/Rg0ie9CgWhNl8+
+ czeMR1u9O6/XbED5/ybtyIx6Agqo3PHdtwSWUUYaN1loio09w+0LDEqm1ubkFZ4fZ9H3QBTVdZd
+ P7VofEy0iG7SJaUOdiLpcWjjOo8YIr5LLOIXxuIc634Vu+lD5oBgEjDr9pjxN2pIKOv9c7LCcSl
+ VRUT3rA01MdWgnky91XYLIuZWE2plMT5GMZ7LqBJAo9EI+Yin/hz83ElPIdAjE7iQuu7z+T3qYp
+ p5YmYSVcLWfD7QWUHDbVtJK1zii0Qg0cUP7fZivSj8hHZ6Ul5utQwsqbyObxHLcSoteRm0+uFQt
+ /oV+1G1k3XH6/2v5JyQ==
+X-Authority-Analysis: v=2.4 cv=PtejqQM3 c=1 sm=1 tr=0 ts=6a633672 cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=a-56kPbHyNSDQn79x5kA:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-ORIG-GUID: BA_6pPWqVJ_y5oNPguLJOe402qXfLCcW
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI0MDA5MCBTYWx0ZWRfXyPX6uVZhm0Gu
- 8Ssji4ox9/TFgMm8g2CFVpiRJrbI0UPzZMhRXOepkM28AzxKI8hx1qIZkWS9gZWYRxi5vzApquE
- jyyAHwdlXAq6lD/i/bU8FdGGjznxe74=
-X-Proofpoint-GUID: BA_6pPWqVJ_y5oNPguLJOe402qXfLCcW
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=sBhH8NEu279NYU_71NoA:9 a=QEXdDO2ut3YA:10
+ a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-GUID: YutKztO0aDAecN__6Zou5k1tVYdP3F_I
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-24_01,2026-07-22_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 spamscore=0 phishscore=0 bulkscore=0
- impostorscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0 suspectscore=0
+ impostorscore=0 clxscore=1015 suspectscore=0 malwarescore=0 phishscore=0
+ lowpriorityscore=0 adultscore=0 priorityscore=1501 spamscore=0 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607240090
 
-Describe common IPQ5210 SoC peripherals in the base DTSI so board DTS files
-can enable the hardware they use.
+RDP504 has USB, PCIe and SPI NAND devices populated. EMMC and NAND
+share the GPIOs. The board has to be reworked to change from EMMC
+to NAND variant. Rename ipq5210-rdp504.dts as ipq5210-rdp504-common.dtsi
+and include it in variant specific DTS file.
 
-Add nodes for USB, PCIe, QPIC NAND/BAM, QFPROM, TSENS and thermal zones.
-Also describe the CPU OPP table and CPU cooling cells needed for CPU
-frequency scaling and thermal throttling.
+Describe the fixed USB regulators, PCIe reset GPIOs, QPIC SPI NAND flash
+and required pinctrl states. Enable QPIC BAM, USB and PCIe for the board.
+
+Remove ipq5210-rdp504.dtb from Makefile to avoid build break.
 
 Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/qcom/ipq5210.dtsi | 605 +++++++++++++++++++++++++++++++++-
- 1 file changed, 599 insertions(+), 6 deletions(-)
+ arch/arm64/boot/dts/qcom/Makefile                  |   1 -
+ .../arm64/boot/dts/qcom/ipq5210-rdp504-common.dtsi | 209 +++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/ipq5210-rdp504.dts        |  79 --------
+ 3 files changed, 209 insertions(+), 80 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/ipq5210.dtsi b/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-index 20e8b240642c..161b5bb5a7f7 100644
---- a/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-+++ b/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-@@ -4,8 +4,11 @@
-  */
- 
- #include <dt-bindings/interrupt-controller/arm-gic.h>
-+#include <dt-bindings/clock/qcom,apss-ipq.h>
- #include <dt-bindings/clock/qcom,ipq5210-gcc.h>
-+#include <dt-bindings/interconnect/qcom,ipq5210.h>
- #include <dt-bindings/reset/qcom,ipq5210-gcc.h>
-+#include <dt-bindings/thermal/thermal.h>
- 
- / {
- 	#address-cells = <2>;
-@@ -28,36 +31,48 @@ cpus {
- 		#address-cells = <1>;
- 		#size-cells = <0>;
- 
--		cpu@0 {
-+		cpu0: cpu@0 {
- 			device_type = "cpu";
- 			compatible = "arm,cortex-a53";
- 			reg = <0x0>;
- 			enable-method = "psci";
- 			next-level-cache = <&l2_0>;
-+			#cooling-cells = <2>;
-+			clocks = <&apcs_glb APCS_ALIAS0_CORE_CLK>;
-+			operating-points-v2 = <&cpu_opp_table>;
- 		};
- 
--		cpu@1 {
-+		cpu1: cpu@1 {
- 			device_type = "cpu";
- 			compatible = "arm,cortex-a53";
- 			reg = <0x1>;
- 			enable-method = "psci";
- 			next-level-cache = <&l2_0>;
-+			#cooling-cells = <2>;
-+			clocks = <&apcs_glb APCS_ALIAS0_CORE_CLK>;
-+			operating-points-v2 = <&cpu_opp_table>;
- 		};
- 
--		cpu@2 {
-+		cpu2: cpu@2 {
- 			device_type = "cpu";
- 			compatible = "arm,cortex-a53";
- 			reg = <0x2>;
- 			enable-method = "psci";
- 			next-level-cache = <&l2_0>;
-+			#cooling-cells = <2>;
-+			clocks = <&apcs_glb APCS_ALIAS0_CORE_CLK>;
-+			operating-points-v2 = <&cpu_opp_table>;
- 		};
- 
--		cpu@3 {
-+		cpu3: cpu@3 {
- 			device_type = "cpu";
- 			compatible = "arm,cortex-a53";
- 			reg = <0x3>;
- 			enable-method = "psci";
- 			next-level-cache = <&l2_0>;
-+			#cooling-cells = <2>;
-+			clocks = <&apcs_glb APCS_ALIAS0_CORE_CLK>;
-+			operating-points-v2 = <&cpu_opp_table>;
- 		};
- 
- 		l2_0: l2-cache {
-@@ -84,6 +99,40 @@ memory@80000000 {
- 		reg = <0x0 0x80000000 0x0 0x0>;
- 	};
- 
-+	cpu_opp_table: opp-table-cpu {
-+		compatible = "operating-points-v2-kryo-cpu";
-+		opp-shared;
-+		nvmem-cells = <&cpu_speed_bin>;
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index e05414290d8e..88c898d8ac3b 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -25,7 +25,6 @@ dtb-$(CONFIG_ARCH_QCOM)	+= hamoa-iot-evk-el2.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= hamoa-lenovo-ideacentre-mini-01q8x10.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= ipq5018-rdp432-c2.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= ipq5018-tplink-archer-ax55-v1.dtb
+-dtb-$(CONFIG_ARCH_QCOM)	+= ipq5210-rdp504.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= ipq5332-rdp441.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= ipq5332-rdp442.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= ipq5332-rdp468.dtb
+diff --git a/arch/arm64/boot/dts/qcom/ipq5210-rdp504-common.dtsi b/arch/arm64/boot/dts/qcom/ipq5210-rdp504-common.dtsi
+new file mode 100644
+index 000000000000..30c8560822b5
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/ipq5210-rdp504-common.dtsi
+@@ -0,0 +1,209 @@
++// SPDX-License-Identifier: BSD-3-Clause
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
 +
-+		opp-816000000 {
-+			opp-hz = /bits/ 64 <816000000>;
-+			opp-supported-hw = <0x3>;
-+			opp-microvolt = <850000>;
-+			clock-latency-ns = <200000>;
++/dts-v1/;
++
++#include <dt-bindings/gpio/gpio.h>
++#include "ipq5210.dtsi"
++
++/ {
++	aliases {
++		serial0 = &uart1;
++	};
++
++	chosen {
++		stdout-path = "serial0";
++	};
++
++	vreg_misc_3p3: regulator-usb-3p3 {
++		compatible = "regulator-fixed";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		regulator-boot-on;
++		regulator-always-on;
++		regulator-name = "usb_hs_vdda_3p3";
++	};
++
++	vreg_misc_1p8: regulator-usb-1p8 {
++		compatible = "regulator-fixed";
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <1800000>;
++		regulator-boot-on;
++		regulator-always-on;
++		regulator-name = "vdda_1p8_usb";
++	};
++
++	vreg_misc_0p925: regulator-usb-0p925 {
++		compatible = "regulator-fixed";
++		regulator-min-microvolt = <925000>;
++		regulator-max-microvolt = <925000>;
++		regulator-boot-on;
++		regulator-always-on;
++		regulator-name = "vdd_core_usb";
++	};
++};
++
++&pcie0 {
++	pinctrl-0 = <&pcie0_default_state>;
++	pinctrl-names = "default";
++
++	status = "okay";
++};
++
++&pcie0_phy {
++	status = "okay";
++};
++
++&pcie0_port0 {
++	reset-gpios = <&tlmm 32 GPIO_ACTIVE_LOW>;
++};
++
++&pcie1 {
++	pinctrl-0 = <&pcie1_default_state>;
++	pinctrl-names = "default";
++
++	status = "okay";
++};
++
++&pcie1_phy {
++	status = "okay";
++};
++
++&pcie1_port0 {
++	reset-gpios = <&tlmm 29 GPIO_ACTIVE_LOW>;
++};
++
++&qpic_bam {
++	status = "okay";
++};
++
++&qpic_nand {
++	pinctrl-0 = <&qpic_snand_default_state>;
++	pinctrl-names = "default";
++
++	flash@0 {
++		compatible = "spi-nand";
++		reg = <0>;
++		#address-cells = <1>;
++		#size-cells = <1>;
++		nand-ecc-engine = <&qpic_nand>;
++		nand-ecc-strength = <4>;
++		nand-ecc-step-size = <512>;
++	};
++};
++
++&qusb_phy_0 {
++	vdd-supply = <&vreg_misc_0p925>;
++	vdda-pll-supply = <&vreg_misc_1p8>;
++	vdda-phy-dpdm-supply = <&vreg_misc_3p3>;
++
++	status = "okay";
++};
++
++&sdhc {
++	max-frequency = <192000000>;
++	bus-width = <4>;
++	mmc-ddr-1_8v;
++	mmc-hs200-1_8v;
++	pinctrl-0 = <&sdhc_default_state>;
++	pinctrl-names = "default";
++};
++
++&sleep_clk {
++	clock-frequency = <32000>;
++};
++
++&ssphy_0 {
++	vdda-pll-supply = <&vreg_misc_1p8>;
++	vdda-phy-supply = <&vreg_misc_0p925>;
++
++	status = "okay";
++};
++
++&tlmm {
++	pcie1_default_state: pcie1-default-state {
++		pins = "gpio29";
++		function = "gpio";
++		drive-strength = <6>;
++		bias-pull-down;
++	};
++
++	pcie0_default_state: pcie0-default-state {
++		pins = "gpio32";
++		function = "gpio";
++		drive-strength = <6>;
++		bias-pull-down;
++	};
++
++	qpic_snand_default_state: qpic-snand-default-state {
++		data-pins {
++			pins = "gpio0", "gpio1", "gpio2", "gpio3";
++			function = "qspi_data";
++			drive-strength = <8>;
++			bias-disable;
 +		};
 +
-+		opp-1008000000 {
-+			opp-hz = /bits/ 64 <1008000000>;
-+			opp-supported-hw = <0x3>;
-+			opp-microvolt = <850000>;
-+			clock-latency-ns = <200000>;
++		cs-pins {
++			pins = "gpio4";
++			function = "qspi_cs_n";
++			drive-strength = <8>;
++			bias-disable;
 +		};
 +
-+		opp-1200000000 {
-+			opp-hz = /bits/ 64 <1200000000>;
-+			opp-supported-hw = <0x3>;
-+			opp-microvolt = <850000>;
-+			clock-latency-ns = <200000>;
-+		};
-+
-+		opp-1416000000 {
-+			opp-hz = /bits/ 64 <1416000000>;
-+			opp-supported-hw = <0x1>;
-+			opp-microvolt = <1000000>;
-+			clock-latency-ns = <200000>;
++		clock-pins {
++			pins = "gpio5";
++			function = "qspi_clk";
++			drive-strength = <8>;
++			bias-disable;
 +		};
 +	};
 +
- 	pmu {
- 		compatible = "arm,cortex-a53-pmu";
- 		interrupts = <GIC_PPI 7 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_HIGH)>;
-@@ -130,6 +179,170 @@ soc@0 {
- 		dma-ranges = <0 0 0 0 0x10 0>;
- 		ranges = <0 0 0 0 0x10 0>;
- 
-+		qusb_phy_0: phy@7b000 {
-+			compatible = "qcom,ipq5210-qusb2-phy", "qcom,ipq6018-qusb2-phy";
-+			reg = <0x0 0x0007b000 0x0 0x180>;
-+			#phy-cells = <0>;
-+
-+			clocks = <&gcc GCC_USB0_PHY_CFG_AHB_CLK>,
-+				 <&xo_board>;
-+			clock-names = "cfg_ahb",
-+				      "ref";
-+
-+			resets = <&gcc GCC_QUSB2_0_PHY_BCR>;
-+			status = "disabled";
-+		};
-+
-+		ssphy_0: phy@7d000 {
-+			compatible = "qcom,ipq5210-qmp-usb3-phy", "qcom,ipq9574-qmp-usb3-phy";
-+			reg = <0x0 0x0007d000 0x0 0xa00>;
-+			#phy-cells = <0>;
-+
-+			clocks = <&gcc GCC_USB0_AUX_CLK>,
-+				 <&xo_board>,
-+				 <&gcc GCC_USB0_PHY_CFG_AHB_CLK>,
-+				 <&gcc GCC_USB0_PIPE_CLK>;
-+			clock-names = "aux",
-+				      "ref",
-+				      "cfg_ahb",
-+				      "pipe";
-+
-+			resets = <&gcc GCC_USB0_PHY_BCR>,
-+				 <&gcc GCC_USB3PHY_0_PHY_BCR>;
-+			reset-names = "phy",
-+				      "phy_phy";
-+
-+			#clock-cells = <0>;
-+			clock-output-names = "usb0_pipe_clk";
-+
-+			status = "disabled";
-+		};
-+
-+		pcie0_phy: phy@84000 {
-+			compatible = "qcom,ipq5210-qmp-gen3x1-pcie-phy";
-+			reg = <0x0 0x00084000 0x0 0x1000>;
-+
-+			clocks = <&gcc GCC_PCIE0_AUX_CLK>,
-+				 <&gcc GCC_PCIE0_AHB_CLK>,
-+				 <&gcc GCC_PCIE0_PIPE_CLK>;
-+			clock-names = "aux", "cfg_ahb", "pipe";
-+
-+			assigned-clocks = <&gcc GCC_PCIE0_AUX_CLK>;
-+			assigned-clock-rates = <20000000>;
-+
-+			resets = <&gcc GCC_PCIE0_PHY_BCR>,
-+				 <&gcc GCC_PCIE0PHY_PHY_BCR>;
-+			reset-names = "phy", "common";
-+
-+			#clock-cells = <0>;
-+			clock-output-names = "pcie0_pipe_clk";
-+
-+			#phy-cells = <0>;
-+			status = "disabled";
-+		};
-+
-+		pcie1_phy: phy@f4000 {
-+			compatible = "qcom,ipq5210-qmp-gen3x2-pcie-phy",
-+				     "qcom,ipq9574-qmp-gen3x2-pcie-phy";
-+			reg = <0x0 0x000f4000 0x0 0x2000>;
-+
-+			clocks = <&gcc GCC_PCIE1_AUX_CLK>,
-+				 <&gcc GCC_PCIE1_AHB_CLK>,
-+				 <&gcc GCC_PCIE1_PIPE_CLK>;
-+			clock-names = "aux", "cfg_ahb", "pipe";
-+
-+			assigned-clocks = <&gcc GCC_PCIE1_AUX_CLK>;
-+			assigned-clock-rates = <20000000>;
-+
-+			resets = <&gcc GCC_PCIE1_PHY_BCR>,
-+				 <&gcc GCC_PCIE1PHY_PHY_BCR>;
-+			reset-names = "phy", "common";
-+
-+			#clock-cells = <0>;
-+			clock-output-names = "pcie1_pipe_clk";
-+
-+			#phy-cells = <0>;
-+			status = "disabled";
-+		};
-+
-+		efuse@a4000 {
-+			compatible = "qcom,ipq5210-qfprom", "qcom,qfprom";
-+			reg = <0x0 0x000a4000 0x0 0x741>;
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			cpu_speed_bin: cpu-speed-bin@28 {
-+				reg = <0x28 0x1>;
-+				bits = <0 8>;
-+			};
-+
-+			tsens_sens11_off: s11@3dd {
-+				reg = <0x3dd 0x1>;
-+				bits = <4 4>;
-+			};
-+
-+			tsens_sens12_off: s12@3de {
-+				reg = <0x3de 0x1>;
-+				bits = <0 4>;
-+			};
-+
-+			tsens_sens13_off: s13@3de {
-+				reg = <0x3de 0x1>;
-+				bits = <4 4>;
-+			};
-+
-+			tsens_sens14_off: s14@3e5 {
-+				reg = <0x3e5 0x2>;
-+				bits = <7 4>;
-+			};
-+
-+			tsens_sens15_off: s15@3e6 {
-+				reg = <0x3e6 0x1>;
-+				bits = <3 4>;
-+			};
-+
-+			tsens_mode: mode@419 {
-+				reg = <0x419 0x1>;
-+				bits = <0 3>;
-+			};
-+
-+			tsens_base0: base0@419 {
-+				reg = <0x419 0x2>;
-+				bits = <3 10>;
-+			};
-+
-+			tsens_base1: base1@41a {
-+				reg = <0x41a 0x2>;
-+				bits = <5 10>;
-+			};
-+		};
-+
-+		tsens: thermal-sensor@4a9000 {
-+			compatible = "qcom,ipq5210-tsens", "qcom,ipq5332-tsens";
-+			reg = <0x0 0x004a9000 0x0 0x1000>,
-+			      <0x0 0x004a8000 0x0 0x1000>;
-+			nvmem-cells = <&tsens_mode>,
-+				      <&tsens_base0>,
-+				      <&tsens_base1>,
-+				      <&tsens_sens11_off>,
-+				      <&tsens_sens12_off>,
-+				      <&tsens_sens13_off>,
-+				      <&tsens_sens14_off>,
-+				      <&tsens_sens15_off>;
-+			nvmem-cell-names = "mode",
-+					   "base0",
-+					   "base1",
-+					   "tsens_sens11_off",
-+					   "tsens_sens12_off",
-+					   "tsens_sens13_off",
-+					   "tsens_sens14_off",
-+					   "tsens_sens15_off";
-+			interrupts = <GIC_SPI 52 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "combined";
-+			#thermal-sensor-cells = <1>;
-+			#qcom,sensors = <5>;
-+		};
-+
- 		tlmm: pinctrl@1000000 {
- 			compatible = "qcom,ipq5210-tlmm";
- 			reg = <0x0 0x01000000 0x0 0x300000>;
-@@ -146,8 +359,8 @@ gcc: clock-controller@1800000 {
- 			reg = <0x0 0x01800000 0x0 0x40000>;
- 			clocks = <&xo_board>,
- 				 <&sleep_clk>,
--				 <0>,
--				 <0>,
-+				 <&pcie0_phy>,
-+				 <&pcie1_phy>,
- 				 <0>,
- 				 <0>;
- 			#clock-cells = <1>;
-@@ -205,6 +418,87 @@ sdhc: mmc@7804000 {
- 			status = "disabled";
- 		};
- 
-+		qpic_bam: dma-controller@7984000 {
-+			compatible = "qcom,bam-v1.7.0";
-+			reg = <0x0 0x07984000 0x0 0x1c000>;
-+			interrupts = <GIC_SPI 56 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&gcc GCC_QPIC_AHB_CLK>;
-+			clock-names = "bam_clk";
-+			#dma-cells = <1>;
-+			qcom,ee = <0>;
-+			status = "disabled";
-+		};
-+
-+		qpic_nand: spi@79b0000 {
-+			compatible = "qcom,ipq5210-snand", "qcom,ipq9574-snand";
-+			reg = <0x0 0x079b0000 0x0 0x10000>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			clocks = <&gcc GCC_QPIC_CLK>,
-+				 <&gcc GCC_QPIC_AHB_CLK>,
-+				 <&gcc GCC_QPIC_IO_MACRO_CLK>;
-+			clock-names = "core",
-+				      "aon",
-+				      "iom";
-+
-+			dmas = <&qpic_bam 0>,
-+			       <&qpic_bam 1>,
-+			       <&qpic_bam 2>;
-+			dma-names = "tx",
-+				    "rx",
-+				    "cmd";
-+
-+			status = "disabled";
-+		};
-+
-+		usb3: usb@8a00000 {
-+			compatible = "qcom,ipq5210-dwc3", "qcom,snps-dwc3";
-+			reg = <0x0 0x08a00000 0x0 0x200000>;
-+
-+			clocks = <&gcc GCC_CNOC_USB_CLK>,
-+				 <&gcc GCC_USB0_MASTER_CLK>,
-+				 <&gcc GCC_USB0_PHY_CFG_AHB_CLK>,
-+				 <&gcc GCC_USB0_SLEEP_CLK>,
-+				 <&gcc GCC_USB0_MOCK_UTMI_CLK>;
-+
-+			clock-names = "cfg_noc",
-+				      "core",
-+				      "iface",
-+				      "sleep",
-+				      "mock_utmi";
-+
-+			assigned-clocks = <&gcc GCC_USB0_MASTER_CLK>,
-+					  <&gcc GCC_USB0_MOCK_UTMI_CLK>;
-+			assigned-clock-rates = <200000000>,
-+					       <24000000>;
-+
-+			interrupts-extended = <&intc GIC_SPI 161 IRQ_TYPE_LEVEL_HIGH>,
-+					      <&intc GIC_SPI 163 IRQ_TYPE_LEVEL_HIGH>,
-+					      <&intc GIC_SPI 165 IRQ_TYPE_LEVEL_HIGH>,
-+					      <&intc GIC_SPI 174 IRQ_TYPE_LEVEL_HIGH>,
-+					      <&intc GIC_SPI 175 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "dwc_usb3",
-+					  "pwr_event",
-+					  "qusb2_phy",
-+					  "dp_hs_phy_irq",
-+					  "dm_hs_phy_irq";
-+
-+			phys = <&qusb_phy_0>,
-+			       <&ssphy_0>;
-+			phy-names = "usb2-phy",
-+				    "usb3-phy";
-+
-+			resets = <&gcc GCC_USB_BCR>;
-+
-+			tx-fifo-resize;
-+			snps,is-utmi-l1-suspend;
-+			snps,hird-threshold = /bits/ 8 <0x0>;
-+			snps,dis_u2_susphy_quirk;
-+			snps,dis_u3_susphy_quirk;
-+
-+			status = "disabled";
-+		};
-+
- 		intc: interrupt-controller@b000000 {
- 			compatible = "qcom,msm-qgic2";
- 			interrupt-controller;
-@@ -244,6 +538,24 @@ watchdog@b017000 {
- 			clocks = <&sleep_clk>;
- 		};
- 
-+		apcs_glb: mailbox@b111000 {
-+			compatible = "qcom,ipq5210-apcs-apps-global",
-+				     "qcom,ipq6018-apcs-apps-global";
-+			reg = <0x0 0x0b111000 0x0 0x1000>;
-+			#clock-cells = <1>;
-+			clocks = <&a53pll>, <&xo_board>, <&gcc GPLL0>;
-+			clock-names = "pll", "xo", "gpll0";
-+			#mbox-cells = <1>;
-+		};
-+
-+		a53pll: clock@b116000 {
-+			compatible = "qcom,ipq5210-a53pll";
-+			reg = <0x0 0x0b116000 0x0 0x1000>;
-+			#clock-cells = <0>;
-+			clocks = <&xo_board>;
-+			clock-names = "xo";
-+		};
-+
- 		timer@b120000 {
- 			compatible = "arm,armv7-timer-mem";
- 			reg = <0x0 0x0b120000 0x0 0x1000>;
-@@ -307,6 +619,287 @@ frame@b128000 {
- 				status = "disabled";
- 			};
- 		};
-+
-+		pcie1: pcie@50000000 {
-+			compatible = "qcom,pcie-ipq5210", "qcom,pcie-ipq9574";
-+			reg = <0x0 0x50000000 0x0 0xf1c>,
-+			      <0x0 0x50000f20 0x0 0xa8>,
-+			      <0x0 0x50001000 0x0 0x1000>,
-+			      <0x0 0x000f0000 0x0 0x3000>,
-+			      <0x0 0x50100000 0x0 0x1000>,
-+			      <0x0 0x000f6000 0x0 0x1000>;
-+			reg-names = "dbi",
-+				    "elbi",
-+				    "atu",
-+				    "parf",
-+				    "config",
-+				    "mhi";
-+			device_type = "pci";
-+			linux,pci-domain = <1>;
-+			bus-range = <0x00 0xff>;
-+			#address-cells = <3>;
-+			#size-cells = <2>;
-+
-+			ranges = <0x01000000 0x0 0x0 0x0 0x50200000 0x0 0x00100000>,
-+				 <0x02000000 0x0 0x0 0x0 0x50300000 0x0 0x0fd00000>;
-+
-+			#interrupt-cells = <1>;
-+			interrupt-map-mask = <0 0 0 0x7>;
-+			interrupt-map = <0 0 0 1 &intc 0 0 GIC_SPI 200 IRQ_TYPE_LEVEL_HIGH>,
-+					<0 0 0 2 &intc 0 0 GIC_SPI 201 IRQ_TYPE_LEVEL_HIGH>,
-+					<0 0 0 3 &intc 0 0 GIC_SPI 202 IRQ_TYPE_LEVEL_HIGH>,
-+					<0 0 0 4 &intc 0 0 GIC_SPI 203 IRQ_TYPE_LEVEL_HIGH>;
-+
-+			interrupts = <GIC_SPI 191 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 192 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 193 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 194 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 195 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 196 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 197 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 198 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 199 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "msi0",
-+					  "msi1",
-+					  "msi2",
-+					  "msi3",
-+					  "msi4",
-+					  "msi5",
-+					  "msi6",
-+					  "msi7",
-+					  "global";
-+
-+			clocks = <&gcc GCC_PCIE1_AXI_M_CLK>,
-+				 <&gcc GCC_PCIE1_AXI_S_CLK>,
-+				 <&gcc GCC_PCIE1_AXI_S_BRIDGE_CLK>,
-+				 <&gcc GCC_PCIE1_RCHNG_CLK>,
-+				 <&gcc GCC_PCIE1_AHB_CLK>,
-+				 <&gcc GCC_PCIE1_AUX_CLK>;
-+			clock-names = "axi_m",
-+				      "axi_s",
-+				      "axi_bridge",
-+				      "rchng",
-+				      "ahb",
-+				      "aux";
-+
-+			resets = <&gcc GCC_PCIE1_PIPE_ARES>,
-+				 <&gcc GCC_PCIE1_CORE_STICKY_RESET>,
-+				 <&gcc GCC_PCIE1_AXI_S_STICKY_RESET>,
-+				 <&gcc GCC_PCIE1_AXI_S_ARES>,
-+				 <&gcc GCC_PCIE1_AXI_M_STICKY_RESET>,
-+				 <&gcc GCC_PCIE1_AXI_M_ARES>,
-+				 <&gcc GCC_PCIE1_AUX_ARES>,
-+				 <&gcc GCC_PCIE1_AHB_ARES>;
-+			reset-names = "pipe",
-+				      "sticky",
-+				      "axi_s_sticky",
-+				      "axi_s",
-+				      "axi_m_sticky",
-+				      "axi_m",
-+				      "aux",
-+				      "ahb";
-+
-+			interconnects = <&gcc MASTER_CNOC_PCIE1 &gcc SLAVE_CNOC_PCIE1>,
-+					<&gcc MASTER_SNOC_PCIE1 &gcc SLAVE_SNOC_PCIE1>;
-+			interconnect-names = "pcie-mem", "cpu-pcie";
-+
-+			status = "disabled";
-+
-+			pcie1_port0: pcie@0 {
-+				device_type = "pci";
-+				reg = <0x0 0x0 0x0 0x0 0x0>;
-+				bus-range = <0x01 0xff>;
-+
-+				phys = <&pcie1_phy>;
-+
-+				#address-cells = <3>;
-+				#size-cells = <2>;
-+				ranges;
-+			};
-+		};
-+
-+		pcie0: pcie@70000000 {
-+			compatible = "qcom,pcie-ipq5210", "qcom,pcie-ipq9574";
-+			reg = <0x0 0x70000000 0x0 0xf1c>,
-+			      <0x0 0x70000f20 0x0 0xa8>,
-+			      <0x0 0x70001000 0x0 0x1000>,
-+			      <0x0 0x00080000 0x0 0x3000>,
-+			      <0x0 0x70100000 0x0 0x1000>,
-+			      <0x0 0x00086000 0x0 0x1000>;
-+			reg-names = "dbi",
-+				    "elbi",
-+				    "atu",
-+				    "parf",
-+				    "config",
-+				    "mhi";
-+			device_type = "pci";
-+			linux,pci-domain = <0>;
-+			bus-range = <0x00 0xff>;
-+			#address-cells = <3>;
-+			#size-cells = <2>;
-+
-+			ranges = <0x01000000 0x0 0x0 0x0 0x70200000 0x0 0x00100000>,
-+				 <0x02000000 0x0 0x0 0x0 0x70300000 0x0 0x0fd00000>;
-+
-+			#interrupt-cells = <1>;
-+			interrupt-map-mask = <0 0 0 0x7>;
-+			interrupt-map = <0 0 0 1 &intc 0 0 GIC_SPI 185 IRQ_TYPE_LEVEL_HIGH>,
-+					<0 0 0 2 &intc 0 0 GIC_SPI 186 IRQ_TYPE_LEVEL_HIGH>,
-+					<0 0 0 3 &intc 0 0 GIC_SPI 187 IRQ_TYPE_LEVEL_HIGH>,
-+					<0 0 0 4 &intc 0 0 GIC_SPI 188 IRQ_TYPE_LEVEL_HIGH>;
-+
-+			interrupts = <GIC_SPI 176 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 177 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 178 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 179 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 180 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 181 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 182 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 183 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 184 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "msi0",
-+					  "msi1",
-+					  "msi2",
-+					  "msi3",
-+					  "msi4",
-+					  "msi5",
-+					  "msi6",
-+					  "msi7",
-+					  "global";
-+
-+			clocks = <&gcc GCC_PCIE0_AXI_M_CLK>,
-+				 <&gcc GCC_PCIE0_AXI_S_CLK>,
-+				 <&gcc GCC_PCIE0_AXI_S_BRIDGE_CLK>,
-+				 <&gcc GCC_PCIE0_RCHNG_CLK>,
-+				 <&gcc GCC_PCIE0_AHB_CLK>,
-+				 <&gcc GCC_PCIE0_AUX_CLK>;
-+			clock-names = "axi_m",
-+				      "axi_s",
-+				      "axi_bridge",
-+				      "rchng",
-+				      "ahb",
-+				      "aux";
-+
-+			resets = <&gcc GCC_PCIE0_PIPE_ARES>,
-+				 <&gcc GCC_PCIE0_CORE_STICKY_RESET>,
-+				 <&gcc GCC_PCIE0_AXI_S_STICKY_RESET>,
-+				 <&gcc GCC_PCIE0_AXI_S_ARES>,
-+				 <&gcc GCC_PCIE0_AXI_M_STICKY_RESET>,
-+				 <&gcc GCC_PCIE0_AXI_M_ARES>,
-+				 <&gcc GCC_PCIE0_AUX_ARES>,
-+				 <&gcc GCC_PCIE0_AHB_ARES>;
-+			reset-names = "pipe",
-+				      "sticky",
-+				      "axi_s_sticky",
-+				      "axi_s",
-+				      "axi_m_sticky",
-+				      "axi_m",
-+				      "aux",
-+				      "ahb";
-+
-+			interconnects = <&gcc MASTER_CNOC_PCIE0 &gcc SLAVE_CNOC_PCIE0>,
-+					<&gcc MASTER_SNOC_PCIE0 &gcc SLAVE_SNOC_PCIE0>;
-+			interconnect-names = "pcie-mem", "cpu-pcie";
-+
-+			status = "disabled";
-+
-+			pcie0_port0: pcie@0 {
-+				device_type = "pci";
-+				reg = <0x0 0x0 0x0 0x0 0x0>;
-+				bus-range = <0x01 0xff>;
-+
-+				phys = <&pcie0_phy>;
-+
-+				#address-cells = <3>;
-+				#size-cells = <2>;
-+				ranges;
-+			};
-+		};
++	qup_uart1_default_state: qup-uart1-default-state {
++		pins = "gpio38", "gpio39";
++		function = "qup_se1";
++		drive-strength = <6>;
++		bias-pull-down;
 +	};
 +
-+	thermal_zones: thermal-zones {
-+		ethphy-thermal {
-+			thermal-sensors = <&tsens 11>;
-+
-+			trips {
-+				ethphy-critical {
-+					temperature = <125000>;
-+					hysteresis = <9000>;
-+					type = "critical";
-+				};
-+			};
++	sdhc_default_state: sdhc-default-state {
++		data-pins {
++			pins = "gpio0", "gpio1", "gpio2", "gpio3";
++			function = "sdc_data";
++			drive-strength = <8>;
++			bias-pull-up;
 +		};
 +
-+		pon-uniphy-thermal {
-+			thermal-sensors = <&tsens 12>;
-+
-+			trips {
-+				pon-uniphy-critical {
-+					temperature = <125000>;
-+					hysteresis = <9000>;
-+					type = "critical";
-+				};
-+			};
++		cmd-pins {
++			pins = "gpio4";
++			function = "sdc_cmd";
++			drive-strength = <8>;
++			bias-pull-up;
 +		};
 +
-+		nss-top-thermal {
-+			thermal-sensors = <&tsens 13>;
-+
-+			trips {
-+				nss-top-critical {
-+					temperature = <125000>;
-+					hysteresis = <9000>;
-+					type = "critical";
-+				};
-+			};
++		clk-pins {
++			pins = "gpio5";
++			function = "sdc_clk";
++			drive-strength = <8>;
++			bias-disable;
 +		};
++	};
++};
 +
-+		cpu0-thermal {
-+			thermal-sensors = <&tsens 14>;
++&uart1 {
++	pinctrl-0 = <&qup_uart1_default_state>;
++	pinctrl-names = "default";
 +
-+			trips {
-+				cpu-critical {
-+					temperature = <120000>;
-+					hysteresis = <9000>;
-+					type = "critical";
-+				};
++	status = "okay";
++};
 +
-+				cpu0_thermal_alert: cpu-passive {
-+					temperature = <110000>;
-+					hysteresis = <9000>;
-+					type = "passive";
-+				};
-+			};
++&usb3 {
++	dr_mode = "host";
 +
-+			cooling-maps {
-+				map0 {
-+					trip = <&cpu0_thermal_alert>;
-+					/* Set maximum frequency as 816 MHz */
-+					cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+		};
++	status = "okay";
++};
 +
-+		cpu1-thermal {
-+			thermal-sensors = <&tsens 15>;
-+
-+			trips {
-+				cpu-critical {
-+					temperature = <120000>;
-+					hysteresis = <9000>;
-+					type = "critical";
-+				};
-+
-+				cpu-passive {
-+					temperature = <110000>;
-+					hysteresis = <9000>;
-+					type = "passive";
-+				};
-+			};
-+		};
- 	};
- 
- 	timer {
++&xo_board {
++	clock-frequency = <24000000>;
++};
+diff --git a/arch/arm64/boot/dts/qcom/ipq5210-rdp504.dts b/arch/arm64/boot/dts/qcom/ipq5210-rdp504.dts
+deleted file mode 100644
+index 941f866ecfe9..000000000000
+--- a/arch/arm64/boot/dts/qcom/ipq5210-rdp504.dts
++++ /dev/null
+@@ -1,79 +0,0 @@
+-// SPDX-License-Identifier: BSD-3-Clause
+-/*
+- * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+- */
+-
+-/dts-v1/;
+-
+-#include "ipq5210.dtsi"
+-
+-/ {
+-	model = "Qualcomm Technologies, Inc. IPQ5210 RDP504";
+-	compatible = "qcom,ipq5210-rdp504", "qcom,ipq5210";
+-
+-	aliases {
+-		serial0 = &uart1;
+-	};
+-
+-	chosen {
+-		stdout-path = "serial0";
+-	};
+-};
+-
+-&sdhc {
+-	max-frequency = <192000000>;
+-	bus-width = <4>;
+-	mmc-ddr-1_8v;
+-	mmc-hs200-1_8v;
+-	pinctrl-0 = <&sdhc_default_state>;
+-	pinctrl-names = "default";
+-
+-	status = "okay";
+-};
+-
+-&sleep_clk {
+-	clock-frequency = <32000>;
+-};
+-
+-&tlmm {
+-	qup_uart1_default_state: qup-uart1-default-state {
+-		pins = "gpio38", "gpio39";
+-		function = "qup_se1";
+-		drive-strength = <6>;
+-		bias-pull-down;
+-	};
+-
+-	sdhc_default_state: sdhc-default-state {
+-		clk-pins {
+-			pins = "gpio5";
+-			function = "sdc_clk";
+-			drive-strength = <8>;
+-			bias-disable;
+-		};
+-
+-		cmd-pins {
+-			pins = "gpio4";
+-			function = "sdc_cmd";
+-			drive-strength = <8>;
+-			bias-pull-up;
+-		};
+-
+-		data-pins {
+-			pins = "gpio0", "gpio1", "gpio2", "gpio3";
+-			function = "sdc_data";
+-			drive-strength = <8>;
+-			bias-pull-up;
+-		};
+-	};
+-};
+-
+-&uart1 {
+-	pinctrl-0 = <&qup_uart1_default_state>;
+-	pinctrl-names = "default";
+-
+-	status = "okay";
+-};
+-
+-&xo_board {
+-	clock-frequency = <24000000>;
+-};
 
 -- 
 2.34.1
