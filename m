@@ -1,161 +1,160 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A67664746A3;
-	Fri, 24 Jul 2026 22:46:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 627D947427E;
+	Fri, 24 Jul 2026 23:00:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784933181; cv=none; b=HxO16wRuO/tFhEDsJd2YQllqAXS8/IJ0CgOB+d3zn73X74QxBZeX3a4XLoSw0JdFssDf4tF7XDWbtHrlzBeZhlNFsUPszcn72W5iCvi1kF5PiFLwEHqKZtK2uuskD6o8AaKSLW2bZXgIPy+MGuc2CtxQiJZSZw0NCKiWRdh+SjE=
+	t=1784934013; cv=none; b=XsGswTZNqTv4Kjgb7pA5/wRotO8b6lRHHJIoqCYcxITE8GonWGwLQt35xxMmviJX9PI2ZUTBi98xRdRVuIBBHpkUw7weV/dUhu+umwKWsC1KQRMul9yZO+jdusC3MudsNmWMmNl6iO/nP0VpdJZwCxoermd7M65kZLapnq4//JA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784933181; c=relaxed/simple;
-	bh=5h3/hVOTJiRIciAZzBSRPdsrEV/CPJS70Btcat84KYc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lhugCXhDuV/r1NTLFYNoIz0ujOQz+sp8Ul8Q+zhwIerGEBJ1QAxCf+WSv91KdeXI2IJ5CtmhuO1xSwXc0qI4gqWxDCFZ/CqsH4UVDxLnSfpHTvQRliAmd3Q2fHZGBUMy5aK3r8X5MdVWhsAWL81R3vFDst0VnnNdV4B+Xq/WFiI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DNutic3y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784934013; c=relaxed/simple;
+	bh=foPblbdU4EjDYT/LU2p8y4gcIRkuuLU5KXoas6qNbts=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=aKNqjCGsXOcSEN4YXrSbmomNFiFybkKQIEJDBQ72lz+4Q3mP6AXyQKUqM0g4WGaNF6pHSI+RRgj99jN2YkpvgULAz2dJhjUPY146lgvpra4x2RbD4b36/32SZMIE8/XO3YktTwYzVc3P5s8IwKcpeNIbTvSQ4JoJBFDZccD1eGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Eldyq2HT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DNutic3y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A7F21F00AC4;
-	Fri, 24 Jul 2026 22:46:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Eldyq2HT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D31B1F00A3D;
+	Fri, 24 Jul 2026 23:00:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784933164;
-	bh=K125TY74W87vhbOlzJ/FpCa02u74B+oM2H9sVUMeeOo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DNutic3y4iV6+eyYcy4rwQNwLeQzrjFdAqTJiqrBOyOEWptY1tUjsPrZCB7a+2Rce
-	 7WKRN2fpfQ1BH4OSNlv8Ygz7piMxGyuqiTFOB8siO1bB/P+YFJYYg/dEVTSiGcUTE8
-	 vnkofqb9758AL8BRwmY7SqDav0yzD69GE//A7v8wrhXIdBukMFDnjNUXOlaQv8a7bg
-	 IIDvyg+zxVPf1kHcdIsUIza3Z+0MpbDf5Hv1uMxPb9oZ07wF+23iVfKnQBx42N2MsD
-	 63lPpGj83DQB5USxWPX/mQEXEEV6YfJSeeDPKCHeiIPK+rS8ur8iXo7sySJCthZoVE
-	 H0eTUUDBYX25Q==
-From: Jakub Kicinski <kuba@kernel.org>
-To: bartosz.golaszewski@oss.qualcomm.com
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	andersson@kernel.org,
-	konradybcio@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com,
-	vkoul@kernel.org,
-	peppe.cavallaro@st.com,
-	wens@kernel.org,
-	jernej.skrabec@gmail.com,
-	neil.armstrong@linaro.org,
-	khilman@baylibre.com,
-	jbrunet@baylibre.com,
-	shawnguo@kernel.org,
-	festevam@gmail.com,
-	jan.petrous@oss.nxp.com,
-	s32@nxp.com,
-	mohd.anwar@oss.qualcomm.com,
-	romain.gantois@bootlin.com,
-	geert+renesas@glider.be,
-	magnus.damm@gmail.com,
-	mripard@kernel.org,
-	christophe.roullier@foss.st.com,
-	brgl@kernel.org,
-	radu@rendec.net,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	dfustini@tenstorrent.com,
-	linux-sunxi@lists.linux.dev,
-	linux-amlogic@lists.infradead.org,
-	linux-mips@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-renesas-soc@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	sophgo@lists.linux.dev,
-	linux-riscv@lists.infradead.org,
-	bartosz.golaszewski@linaro.org
-Subject: Re: [PATCH net-next v13 09/10] net: stmmac: qcom-ethqos: factor out linux-level setup into a separate function
-Date: Fri, 24 Jul 2026 15:46:02 -0700
-Message-ID: <20260724224602.1650002-1-kuba@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260713-qcom-sa8255p-emac-v13-9-119f8699ef8e@oss.qualcomm.com>
-References: <20260713-qcom-sa8255p-emac-v13-9-119f8699ef8e@oss.qualcomm.com>
+	s=k20260515; t=1784934009;
+	bh=QRFJ6Hfu7ktmcToupdz3vbf6Pc9ju8PldTxoQxkm6Xc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Eldyq2HTGQVj+kb6gBOy9elHCZuzzScC9Ai7W64pmtUPq6qEgl3WMZpjWVv0dbcCi
+	 v3ppZY5FAil2MSVbYUAgl3kVovaf7SPY/qojAKtwJ2X7VuMT/9AJpv8qoRZBOSxked
+	 J0ESvl01/Nq42P0bQrPB8YT0U0lw56BDptWCB3mIJ70Y5IHJejrV1zfJ7RoCBtiKwG
+	 SPtDgAW/hQ5lllQ1JBcRYuYXiqjA7cnhBoTssyHDCPyIZaXnxXEF3Z4kSfVxhsniXh
+	 svlLPuWKPCi4kTWK72W4H42hnxacLEHl13YVQU3Jnzg5heuPPKOTNgC9A9FNPtL4VG
+	 ySrXXH3T5o6oA==
+Date: Fri, 24 Jul 2026 23:59:59 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Siratul Islam <siratul.islam@linux.dev>
+Cc: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>, Jonathan Cameron
+ <jonathan.cameron@oss.qualcomm.com>, David Lechner 
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko  <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski  <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Uwe
+ =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?=  <u.kleine-koenig@baylibre.com>, Luca
+ Weiss <luca.weiss@fairphone.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] iio: magnetometer: add support for QST QMC6308
+Message-ID: <20260724235959.32093b7d@jic23-huawei>
+In-Reply-To: <e2f4b1c8df3f1d4193cff00e72e2bfc4affa05d1.camel@linux.dev>
+References: <20260721134843.7484-1-jorijnvdgraaf@catcrafts.net>
+	<20260721134843.7484-3-jorijnvdgraaf@catcrafts.net>
+	<e2f4b1c8df3f1d4193cff00e72e2bfc4affa05d1.camel@linux.dev>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
----
-net: stmmac: qcom-ethqos: factor out linux-level setup into a separate function
+On Wed, 22 Jul 2026 02:19:37 +0600
+Siratul Islam <siratul.islam@linux.dev> wrote:
 
-This refactor extends ethqos_emac_driver_data with a setup() callback,
-implements it for the existing models, and moves operations not required
-in SCMI mode into it, in preparation for firmware-controlled EMAC
-variants.
+> On Tue, 2026-07-21 at 15:48 +0200, Jorijn van der Graaf wrote:
+> > The QST QMC6308 is a 3-axis anisotropic magnetoresistive (AMR)
+> > magnetometer on I2C, found e.g. in the Fairphone 6. Its register map
+> > is not compatible with the QMC5883L's, so add a separate driver rather
+> > than extending the QMC5883L driver.
+> >  =20
+> ...
+> > - Switch the license to GPL-2.0-only: the dual license had been
+> > =C2=A0 carried over from qmc5883l.c, which this driver is modeled on,
+> > =C2=A0 without a reason of our own (Jonathan). =20
+> I wrote the QMC5883L driver. My reason to use dual-license was I wanted=
+=C2=A0
+> people to be able to port the driver to Non-GPL OSes like Zephyr, NuttX, =
+BSDs (specially RTOSes,=C2=A0
+> none of them are GPL, and these sensors are widely used with MCUs)=C2=A0w=
+ith least friction.
+> There are stuff that can't be ported (like regmap etc.) but the rest of i=
+t could.
+> Also, I read the "Linux Device Drivers 3" book where the samples use Dual=
+ BSD/GPL.
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> index 43384960278b..3af1608fc21c 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> @@ -5,6 +5,7 @@
->  #include <linux/of.h>
->  #include <linux/of_net.h>
->  #include <linux/platform_device.h>
-> +#include <linux/pm_domain.h>
->  #include <linux/phy.h>
->  #include <linux/phy/phy.h>
+That's a valid reason but I do expect people to have one rather than cut
+and paste.  I suspect a port that way rarely happens because of things
+like regmap that you call out.=20
 
-[Low]
-Is there a reason linux/pm_domain.h is added here?  Looking through
-this commit, no pm_domain symbols (pm_genpd_*, dev_pm_domain_*,
-PD_FLAG_*, etc.) appear to be referenced.
+> >  =20
+> > +static int qmc6308_probe(struct i2c_client *client)
+> > +{ =20
+> ...
+> > +
+> > +	ret =3D devm_add_action_or_reset(dev, qmc6308_power_down_action, data=
+);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	pm_runtime_use_autosuspend(dev);
+> > +	pm_runtime_set_autosuspend_delay(dev, QMC6308_AUTOSUSPEND_DELAY_MS); =
+=20
+> Add a space here.
+This one feels marginal given close relationship of the 3 lines. Still I th=
+ink
+I agree it is a tiny bit better with a blank line where you suggest.
 
-The header seems to belong with the follow-up patch that introduces
-devm_pm_domain_attach_list() and struct dev_pm_domain_list usage.
+> > +	ret =3D devm_pm_runtime_enable(dev);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	return devm_iio_device_register(dev, indio_dev);
+> > +}
+> > +
+> > +static int qmc6308_runtime_resume(struct device *dev)
+> > +{
+> > +	struct iio_dev *indio_dev =3D dev_get_drvdata(dev);
+> > +	struct qmc6308_data *data =3D iio_priv(indio_dev);
+> > +	unsigned int status;
+> > +	int ret;
+> > +
+> > +	ret =3D qmc6308_set_mode(data, QMC6308_MODE_NORMAL);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	/*
+> > +	 * DRDY may still be set for a sample converted before the last
+> > +	 * suspend; reading the status register clears it so the next
+> > +	 * measurement waits for fresh data.
+> > +	 */
+> > +	ret =3D regmap_read(data->regmap, QMC6308_REG_STATUS, &status);
+> > +	if (ret) {
+> > +		/* Best effort to leave the chip in a consistent state */
+> > +		qmc6308_set_mode(data, QMC6308_MODE_SUSPEND);
+> > +	} =20
+> It's single line so the brackets { } are not needed.
+That gets complex when comments like this get involved.  In these
+cases I tend to leave it to the author.
 
-Would it be preferable to move this include into the patch that
-actually needs it, so each patch remains self-contained?
+So I've left this one alone.
 
-[ ... ]
+Series applied with tweaks to patch 1 to resolve the feedback from
+Krzysztof.  I'll apply it initially to the testing branch of iio.git
+but probably push that out for linux-next to pick up (as togreg) within
+a few days.  If on balance you want to change the license back to dual
+with BSD just send me a patch stating the reason and I'll merge that on top.
 
-> @@ -765,21 +815,8 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
->  		return dev_err_probe(dev, PTR_ERR(ethqos->serdes_phy),
->  				     "Failed to get serdes phy\n");
->  
-> -	ethqos_set_clk_tx_rate(ethqos, NULL, plat_dat->phy_interface,
-> -			       SPEED_1000);
-> -
-> -	qcom_ethqos_set_sgmii_loopback(ethqos, true);
-> -	ethqos_set_func_clk_en(ethqos);
-> -
-> -	/* The clocks are controlled by firmware, so we don't know for certain
-> -	 * what clock rate is being used. Hardware documentation mentions that
-> -	 * the AHB slave clock will be in the range of 50 to 100MHz, which
-> -	 * equates to a MDC between 1.19 and 2.38MHz.
-> -	 */
->  	plat_dat->clk_csr = STMMAC_CSR_60_100M;
->  	plat_dat->bsp_priv = ethqos;
-> -	plat_dat->set_clk_tx_rate = ethqos_set_clk_tx_rate;
-> -	plat_dat->dump_debug_regs = rgmii_dump;
->  	plat_dat->ptp_clk_freq_config = ethqos_ptp_clk_freq_config;
->  	plat_dat->core_type = DWMAC_CORE_GMAC4;
->  	if (data->has_emac_ge_3)
+thanks,
 
-[Low]
-Was the comment above plat_dat->clk_csr = STMMAC_CSR_60_100M; intended
-to be dropped?
+Jonathan
 
-The assignment itself is preserved, but the rationale for choosing
-STMMAC_CSR_60_100M (firmware-controlled AHB clock in the 50-100MHz
-range yielding an MDC between 1.19 and 2.38MHz) is now gone.
+> > +
+> > +	return ret;
+> > +}
+> > + =20
+> ...
 
-The commit message describes a mechanical refactor and does not
-mention removing this rationale.  Should the comment be kept next to
-the assignment, or moved into ethqos_hlos_setup() where the
-surrounding clock setup now lives?
+> > +
+> > +MODULE_DESCRIPTION("QST QMC6308 3-Axis Magnetic Sensor driver");
+> > +MODULE_AUTHOR("Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>");
+> > +MODULE_LICENSE("GPL"); =20
+>=20
+> --
+> Best regards,
+> Sirat
+
