@@ -1,93 +1,190 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 698CF2EEE6A;
-	Fri, 24 Jul 2026 00:59:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9186A30C178
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 02:07:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784854742; cv=none; b=tz5+IevlRVJBZA33Jt2YrMsGdNUbv/hXvoOy8AE9h+C4Lvh/l07seNVXsMrG+3BRuSCTnkFCoWVXK/H6D6oV+mIirJSKNDapXHcV11XTzFkbof7xD6nPRe413kDFtaw8JBk3FNeYcFZwIJHqW6bu6IHskuC7DKA4bCTOqiysTww=
+	t=1784858844; cv=none; b=sZr7BuvUYpDRULM0d8ER8LUO2swszrVHA/VooQGPdRb7quLyiCHV1lVwb+dz+719/4OQlCVl0sE6KHtr/JspSq96JRxkniqqROT8cXlv8anAaPbb1dPswD5DKgQyNXECTgofPlqhgCOPsXMdKkbvhNrJhXoUtFianNxAIZ6iLUE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784854742; c=relaxed/simple;
-	bh=0mDYqZmy8MkRizZfFYfK+DRi3BZuzdXAA9blzDbiphc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=vEt8VBfbKyKgtT56L7fNaG2uSjo54TREf8InY5kkphI0NBOl92R+rq1fMAy9xO3CcU3/HopvILUpW0bJVGwu1WYpSLhabNquf2OBrSjTxT8LdtI5+wCfjatUr47rrXUlHfwedLRdxqsA51vx6hZbUr8+b1Cs+Vvtgzb+XUpq3YI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bv7tZcdF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784858844; c=relaxed/simple;
+	bh=zcIh3xhJPfZul3vgF+1M9u53SutSZDLGPVP9Rpe9+8M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EN7pZlbetcpgJ2smzuf8pbcdhWNEq/N87cgkZhHyun3OL+xBgfRgfNPZ+nn2Pgzlbw4nsCvs/1rV7OYipUO1+vMY9TS1uPKx9KHGAbRXEHsh+uFvFr2MeteIZMhGSa9J29LjE9GnzFmcC2FGE1OM2ryBPXW1YGfnKOYHlgzEaoQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GZa0BVG+; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bv7tZcdF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 550351F000E9;
-	Fri, 24 Jul 2026 00:58:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784854741;
-	bh=gj/HXjeSnZmqPX52UguXUuV+ZUY5c/zfkv1bO85kAGw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=bv7tZcdFazuaZ9VBG0l5w7VllGPFysIPpj52x18tPxrX5KwGSKMfPXMu5KfYGr/bs
-	 tgID9wM58/n+haDVWtUH3wvAi3gUoRqaSHLt9/ebebXsbfKKWF8MuwlYPkO4RUbgTm
-	 GyaKYlG/6RosTgv69fIPoCiPk1frsiO9xNcxfSenLrkU3SCnxqmHE93qkb1zo633m4
-	 HoHJRdOqKKdHI7esvc/Xu30W+4pTvdKGi1E87XbftSLSbc09mGnxgZgcJ0th5fedjm
-	 rbudvOI7hXESrBaRZFBqBvlQnW41YzGg2112Vzz0oF6jRbaESHdoORmvBo8IIS0tFC
-	 WoBsA+6qa32OQ==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260722111655.3558096-1-prasad.kumpatla@oss.qualcomm.com>
-References: <20260722111655.3558096-1-prasad.kumpatla@oss.qualcomm.com>
-Subject: Re: [PATCH] ASoC: qcom: qdsp6: Remove unused Q6AFE_MAX_CLK_ID
- define
-Message-Id: <178472993178.5645.8348722893682291056.b4-ty@b4>
-Date: Wed, 22 Jul 2026 15:18:51 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GZa0BVG+"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-381b831d535so1385245a91.0
+        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 19:07:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784858842; x=1785463642; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Dl8tyxT4KPIKqu864RkA+VQDYik03yogsDeWzT/nylM=;
+        b=GZa0BVG+Miox4cMg37ImbDW2SBtb9a7B4WN3Ue6RJXVlbyASOgLnwNSEyVsQxFkg/f
+         +DPP1grOR//q8HCj7JQasE5RJdOgwYxgVl6fpuTrc/4Um99JQLBhWgB0MSZNLUgk8+w6
+         2f7fAReWVozVX+D7/JHoQQfXj0rKaz5iYQDwiwCsJJoJmZK8p54E2xn3MXJjvGSR/lr1
+         MkCHI0W95Hgw7px92UF+FyZ/Yc0B7lXngcd8UUbIWTjeKRtxbb64wiwtUQa6GMvyEDQv
+         eUPU0P6DIaNslBdABCiyhOls/vROnznASxdxaOdOtNbkryRQ4IJSIxohAoZOIRDh+630
+         p/LA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784858842; x=1785463642;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Dl8tyxT4KPIKqu864RkA+VQDYik03yogsDeWzT/nylM=;
+        b=rppOvygkSLZEdv/tUkta1have15DB3rPDGitNmA28oPsH+YsXlNiGBpkoimy66WOXZ
+         rlbO/Z+USjjw3ar1OTADFFrGUwscy6+HzOQaMHP8M1+85nY1oqIVd3p1IlOiU4TCbT70
+         ktoR8gJi46/nODZAof7gROaExGosRS1x5sLYXwuxzUQq8vZk7u/8ra34BOLF62dyVNE2
+         cTh1wTCoLWng47CwAMeFXvI0NFr5eQYFHapuYKAdAlwHRaUolQmAi88SN2xdjdgj5NzF
+         KFgXzG/p+ezfDZGpslvT+Z0M6wpe4Poy2qt9CWNz2zXE9daBQyEf646vTviryqqanPx/
+         7qGg==
+X-Forwarded-Encrypted: i=1; AHgh+RqWk274QTmqQmJkPL4H+cmbgTqT5kNc7m4qjQ3U1SMg5fvBQiXHxXf6vMR0vxKSYlA2tv0bOtG1uanY@vger.kernel.org
+X-Gm-Message-State: AOJu0YxpPhRqx83JHJnuMlwuFm/m4xGk9qKk51AvSR/EAXFJTL8yrdY2
+	uBSLDtymw0GFY5kf8EaWWvc2neZ9N5EdJvNx94yDSg2rmOCcZ4u2+ioJ
+X-Gm-Gg: AR+sD11rETy8ijt7oHcqdVUhqmz1W+Mvr3gkJAlAAvUdVFQWkEudNjjfaWDZ0bGuSk/
+	gbyCaZZ6L3KEiU0QKZMmNhgyKwgYQ7oSLThbXi0zGUd6MQyvTWAm3NANomeRUYOMtmByQm3RroH
+	mrpqrn+Rx5jrGx+uuyCt15RraF2jDGWbc2yDdlc4BTF/PnwQES7C7lLXFA3bXcLFzOE2XYhssrB
+	vd1FEv+IJrP/vQThbmumFAAC9ThesPFFDbZyynsMKtieKqlUNqvF8ltq5LhdunyzPjbZcZAHW/4
+	y3kBEziJ27Ur+tppnngNRBI+iHWAu0reczN5iJ4pX+F6ihP5cfnfA2+tuAF3wdQyGQI39rQbOjV
+	60ueNxhvuCs4zFOOjoeMxXJEtZnS5L03om5WHHLK390LwL9gcAU2YlDHJZVIBQTTyf++E8xNgw/
+	5Gb+Y9h2OH2VaLS1Zl5WHY9UZckarN1/SNqWrjC1H+VK/RyU0uhTI=
+X-Received: by 2002:a17:90b:4c12:b0:37f:c2a8:ce45 with SMTP id 98e67ed59e1d1-38ec6539535mr5383662a91.4.1784858841861;
+        Thu, 23 Jul 2026 19:07:21 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf9bfbf725sm33637515ad.36.2026.07.23.19.07.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 23 Jul 2026 19:07:21 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <b5c0741a-b9da-4a3a-81ae-33368e6dd756@roeck-us.net>
+Date: Thu, 23 Jul 2026 19:07:20 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 3/3] hwmon: pmbus: add MPQ8646 driver
+To: sashiko-reviews@lists.linux.dev, Vincent Jardin <vjardin@free.fr>
+Cc: linux-hwmon@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org,
+ devicetree@vger.kernel.org
+References: <20260724-mpq8646_v0-v5-0-5915b5ae9aa2@free.fr>
+ <20260724-mpq8646_v0-v5-3-5915b5ae9aa2@free.fr>
+ <20260724000643.E60C81F000E9@smtp.kernel.org>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260724000643.E60C81F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1133; i=broonie@kernel.org;
- h=from:subject:message-id; bh=0mDYqZmy8MkRizZfFYfK+DRi3BZuzdXAA9blzDbiphc=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqYrjSWtSrq2rSqIfXvQxbjMYjg9ZwmjjImtvlo
- jztwlpuoyiJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCamK40gAKCRAk1otyXVSH
- 0EDqB/wMs2QW4fL3QuRnifRLgeXwmQfQ0yCm2E5U+oN3dRmtZifC98PaLltGBPWD/93ZsEbfHwZ
- ntwGVOokwDhg5pOEV+1BKLCtA8+98EM6Mr9n7X5YVY6X7n6fx/vLUiFmqfxF8TuX4Wq4s0yNSIG
- kpxSj6WnhSXyZUyor0ICRYFTE8EaY17PkufejfEKzuX8f3PZkkDdjKYWe5SMEZ8dK0We8yg4WFE
- AyQLbWszuLrnJOK1XPH7rIMgqrPb2bPDuTsxwM0HGRbvJq9NHQjWVSpvgbZEGYVwQCsCHBnLdiC
- 6bCVmb/QY7PiJjVrr35eLkhzzWTk+xAfcGSWZEe/rUm0WUyg
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Wed, 22 Jul 2026 16:46:55 +0530, Prasad Kumpatla wrote:
-> ASoC: qcom: qdsp6: Remove unused Q6AFE_MAX_CLK_ID define
+On 7/23/26 17:06, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] Stack variables passed to i2c_transfer() can cause memory corruption or panics with CONFIG_VMAP_STACK.
+> --
+> 
+> --- Patch [3]: [PATCH v5 3/3] hwmon: pmbus: add MPQ8646 driver ---
+> commit 1098fecfca1c29b33a174b200465134bc5be4be8
+> Author: Vincent Jardin <vjardin@free.fr>
+> 
+> hwmon: pmbus: add MPQ8646 driver
+> 
+> Add a new single-chip driver for the MPS MPQ8646 that is a PMBus device.
+> The driver adds extended bits decode, alarm acknowledge, gate-close retry,
+> and an in-driver alarm-poll fallback.
+> 
+>> diff --git a/drivers/hwmon/pmbus/mpq8646.c b/drivers/hwmon/pmbus/mpq8646.c
+>> index 0000000000000..f8dfabef09df3 100644
+>> --- /dev/null
+>> +++ b/drivers/hwmon/pmbus/mpq8646.c
+> [ ... ]
+>> @@ -187,24 +187,24 @@ static inline struct mpq8646_priv *mpq8646_priv_from_client(struct i2c_client *c
+>>   static int mpq8646_raw_xfer_rword(struct i2c_client *client, u8 reg)
+>>   {
+>>   	u8 cmd = reg;
+>>   	__le16 data = 0;
+>>   	struct i2c_msg msg[] = {
+>>   		{
+>>   			.addr = client->addr,
+>>   			.flags = 0,
+>>   			.len = sizeof(cmd),
+>>   			.buf = &cmd,
+>>   		},
+>>   		{
+>>   			.addr = client->addr,
+>>   			.flags = I2C_M_RD,
+>>   			.len = sizeof(data),
+>>   			.buf = (u8 *)&data,
+>>   		},
+>>   	};
+>>   	int rc;
+>>   
+>>   	rc = i2c_transfer(client->adapter, msg, ARRAY_SIZE(msg));
+> 
+> [Severity: High]
+> Can this cause memory corruption or a kernel panic?
+> 
+> I2C adapter drivers often use DMA for transfers. When CONFIG_VMAP_STACK is
+> enabled, the kernel stack is not guaranteed to be physically contiguous.
+> Passing stack-allocated buffers like cmd and data to DMA-capable APIs
+> like i2c_transfer() will cause dma_map_single() to map incorrect physical
+> memory.
+> 
+> Although this is triggered via debugfs, executing it on a DMA-capable I2C bus
+> could reliably crash or corrupt the system. Should these buffers be dynamically
+> allocated instead?
+> 
 
-Applied to
+Do not address. This is a false positive. Sashiko's I2C subsystem prompts
+need to be updated.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.3
-
-Thanks!
-
-[1/1] ASoC: qcom: qdsp6: Remove unused Q6AFE_MAX_CLK_ID define
-      https://git.kernel.org/broonie/sound/c/784e04110272
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Guenter
 
