@@ -1,163 +1,299 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013020.outbound.protection.outlook.com [40.107.162.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19ED030EF95
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 03:14:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784862873; cv=none; b=tiVn8t7n+QIf8gI/9nsCnyKOHvQwaS1IqF2lf5qym4hv00/bahDzl7jdZOwCPk/8hlpC7neGWE2gRFuSmsQez2sFPmM1/eDhT+RF5wE/e7YgyY1/0bk+lcG51LMQ7/HYEIeSDj/MQ3f/9b6U+pp9Sxdh8bobp9F+kveQ1Gr14bo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784862873; c=relaxed/simple;
-	bh=HF4d6zrltc7yW3OPQ6URMeKzQVhv3k9Ek1HfGgvlezI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Xq8F5NJfusOSCJYrh/NMPfRy+seSSkfS6yNKw/8P1W1b7lAx9ESJtrhBdww5MB/fvnaTUNT6lj47p8JPkq24R8u9xAQpOfo5KzY3f9DduSYjzgymkF1WHzjSHMucRA4Fy2xYmX5MdPb2fRs1OS/Dnuj8BWprZ+YnKXYFACC41PE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fWwR7hDv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=J5wieL+z; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E8A12DD5F6;
+	Fri, 24 Jul 2026 03:16:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.20
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784862998; cv=fail; b=DqOTHLrNe2X0QX+/yVMHyHURBgD8wmGtcy9gFxXS9P6PBrY+nk2EI+iY9Ys6DcCbGGdqk9t9BerhGu51i4tNACa2VjtLLID9z/WfpEnoCXNWlZSD2L/M7gw0MwHincF/aGproRoVHjg6Hiq3u0KCSPBq9f0PltLQNI8xSXjMOqk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784862998; c=relaxed/simple;
+	bh=v9kbRxXf3yNq4KlzlS/+YF+Y3ADoJroyGfaieIatqKo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=LEgxvGuvI5cdzySPaZOYhSDO0FllgMQtT2Az4M3nm+TzBYp3eTgTCqJ6RcLCJ+kGCaKFXdHlamJZLAZRjDouUyV8Ap8i2qZSVCfRrMslIph3zz9TBQdft1DPQWpdyZlkZ/kgr2VNrzrCS+twvgXXx+TCNJpIyWZ5Uau5dnkNDMk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=EKKJezni; arc=fail smtp.client-ip=40.107.162.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fWwR7hDv";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="J5wieL+z"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66O2iHod1853401
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 03:14:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	x+cZu//uq3jqVyi8sU0PHp7XZPXvLOX48uYW36QdbxI=; b=fWwR7hDvXxJ52pUX
-	L4Ea1zKpfZbMIMU8Cpqc069pSGdNYWvCI58vvsJ1m6CJTNZL7twJfsHMgRTkGO6s
-	QpQ9U3AnF81j8PiU7zjgkA58g6tpLJWUOfgccSl1Q0go1IEk1cCozBehPvGcWEfE
-	xy8VPehJr/TeVnJPgrBgTFggNEm9U/napz/ph7kdtxzQgZCDMgwJAqjzHUdNoSOQ
-	j9g54uJyHRqDDE8I55fsaBhWyf/Byw6S+mQcumkKmeDB0Drb6mLx67T5OS05+fpl
-	ajnG6gdRqL1lyD9nKKr3acRVPyNgFrgzXBKZYzPjgJQ//b/GoX+p+AGEvqnmlClN
-	OZrKEg==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fkqamssm8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 03:14:30 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2c7f385887bso27355555ad.0
-        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 20:14:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784862870; x=1785467670; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=x+cZu//uq3jqVyi8sU0PHp7XZPXvLOX48uYW36QdbxI=;
-        b=J5wieL+zGm++oDAq05c23lH6P0BWmbnkGUu3LNSWRRGZV5zxExpub/0gNi9i/X87Wz
-         i1mPWls7DQH9jrqmRpvPHOS5LKKWsUIiX+tMfa/wgGpzNJe2An3ay/MIKmhwaVg8NBoZ
-         BuhoOAECtoC9ydVdJFEdxiFKQFoODVGXJMTGEhpBivXCiOqAsWM+/XN7fYPnag3iiRa8
-         SxYWDQqgdxhCVV08P5VypaD2dcuXbVrG3cl0P9rcAwjLBKgrZq1I/wg5A1UXVyHDTPe0
-         sRJixmlcfmlC6piGgXLcZqlVITeFVWVk3ygaf5woRn5ANvzBp8VHpZSHWc/cecDvsiRM
-         dYiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784862870; x=1785467670;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=x+cZu//uq3jqVyi8sU0PHp7XZPXvLOX48uYW36QdbxI=;
-        b=NpEsnHzEiay0DyY+BruKyNvycGiHbDmGXY+kdfInmeyvYrQ9l4bfnOxvdAACr0QKaz
-         zdKevhQ/DSpJ17icR2I/I4vI8Qziw9Sm7bSJgMznArEIiRlXidBlqYSmdmRuC8k59QQe
-         AGqSxN+5+sjTGff3iOWZ9xbQt5NuYmiW0nuJ35J8minFKP0hNGdsIjXYCFi2/kqaKtFL
-         4eqoyiPfiKqub907TsB3JqnfJMMbLS35JSTrqmeQXtwzWGu467vAoii+9GOo0Lot9qh+
-         O6DFU3U/mCNAW4UA+Eb8u/TmTn3GfagmnmTanQLreXZUleCCS6RfmuAreeyIFnuZYpfj
-         npvA==
-X-Forwarded-Encrypted: i=1; AHgh+RrXOzIEtsG8uc2XGwe0IACLuS18RI32fV/v2Vt5i/re31yEuZ2NBD6g6NXKwXQHbFml4BskIQ0clcn7@vger.kernel.org
-X-Gm-Message-State: AOJu0YxqUCcanttvYszqB/2AshzcM4ENa/2AJttRq1wgq5Po/Y5FCzjX
-	Xr94yv2fjp4YBO7q22NNkR1m9SMIjOcuwAu5jAcwmq+Lcz/YpMWiPdrqDVc9sbF8K+vkmrSDRwp
-	09GdGir0xkZrhhc7qLDZygdrV7cxl62k2vWIB6KEocuIjBK7XyULdbQ1CNium96L3DNqS40C0
-X-Gm-Gg: AR+sD11H5RPqFLfE+2YS5hE4CdESRwvVfWWBvZl4MUnlnFWd331sTZ1xXuQA5dY5p72
-	t37K4AQIvKgMK30mqtlizUBh8Tcs/6anYwLErt484opwCGyVoMP1xSsxWmhuAxGcauEQZ2v3C11
-	+AfJ73YCq+4B+XB9631XqxOtk48rTICxX8LAdeyKMXjViYfs1hLxuCtmGN65PTmhAp4YQfrQeb6
-	NErb8VSsPgz4g2LnVGafXhQHkPZdaSVsiwO/85l0wxzg32sQflKPNm/Xg/3cRXBJQ/SROdRxjgP
-	F/CdpmTLyPeAAtG79I0/sk42uDXHITdkURhr7JafoTnutkcFgV0yYoee9u3Dvj4DL+Rp6PYNyzh
-	Oi4vkb6V97VsJPoWtzFw8yImphXV9jLsRn0YrX7lidoY0uiWuzNvPaROfZ2wPyhUVSfB6tGaD
-X-Received: by 2002:a17:902:d490:b0:2cc:a977:4260 with SMTP id d9443c01a7336-2cfa6bc41bemr74485645ad.21.1784862869881;
-        Thu, 23 Jul 2026 20:14:29 -0700 (PDT)
-X-Received: by 2002:a17:902:d490:b0:2cc:a977:4260 with SMTP id d9443c01a7336-2cfa6bc41bemr74485355ad.21.1784862869451;
-        Thu, 23 Jul 2026 20:14:29 -0700 (PDT)
-Received: from [10.133.33.215] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf8f00a6f5sm43577125ad.37.2026.07.23.20.14.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 23 Jul 2026 20:14:28 -0700 (PDT)
-Message-ID: <0971c95d-d848-4688-b67a-87b8488fc9b8@oss.qualcomm.com>
-Date: Fri, 24 Jul 2026 11:14:23 +0800
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="EKKJezni"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JCvB4bPRma6G1Q27lnmut0xJAYyIUk4xwIDRx76e/YqMkNFC4FQ8777OtKnW/Gmm28x0wtsndd7qmWDali4pIS2Imtda8EI7aUJ7ZSXGn++OC/NiTUVyulKkB0vNJ3WHXMmPy2mD4z1uN5tIYAEFHCgmNzdvRKzist4wv0WUneSbVkL4t2S7ViEEv96zeeybz6gLCD5uD7P9gg/YyJP+SnX8VrOqzx1EQe0gT37nHRnSValDp+GSNLoLz0D38+yx6haTaAd/di18o/Xmh1tjrIGZfUcfyDFOPJqWuOPmTM+hdYo08r/oANJIIk+nDzN2Z5F3qz8IZ3jM0aK4V9RP0g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PReVExVUFS054Msy1lzepp249G4YHQR2yUilqIYlGJ8=;
+ b=Lm5UAAbaa0S+2tHg3AUI5xYwErnjPWXX2AvNdil0bKuF9yyaSCYGELYozQkKfCc7khoXxrTLT4FWpBksV6NiAwtpdu1mGRDimC0HefXoX+Kx+Z2uUpp3bafcia5CtNNAOMmHBFmAkwzeBZnDN3EspJBv5EUzYUCe0xSQ1J1DevbYtOJxLap0CfhY/7EJ/TI8/4wyisqplINrBNl1bdUuORsfNCsC7gC98/N4IulqCgOkPuzeSGN40h3YdvIBm9gQUb+gNXA+HekfeJZTX90TSlZVO612+HvPd9SkV1VXqL5F0wgcSGv72cfcWePYrnJ9rxNGfDs4t4UkwBmisragMA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PReVExVUFS054Msy1lzepp249G4YHQR2yUilqIYlGJ8=;
+ b=EKKJezniRM0/1EQyk4zZ58/69eKmBefct0kR/s/ZpYn487IChPZWAtnGohb5fl3H8N0Od+XSrpdGsOaw8Xyb8HITVvkAl1R0QVoyepTfvDdMv0pX1Etu/z0Dp9H+lnHMORBUyk4m5cdIJ6J6KX9t1aN2ZThqwTqhHmquuJ+8jFDo9e1/CRVjIU5boPbFjvrmFn3ZBhXAKkHNFXmXLsqJk8YZes2j6hlfQMEUrtRhmYn2A8HrgypXDEZfaqEQ4yHwIgmsxYlmSMRMetTtBIz1y4Cf1RshzON7+gA2DB2wDxrUY/7+0OSoqZTwtmYXLwVsvdFDH9yYKfHQKUZU9Xybww==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by DB9PR04MB9648.eurprd04.prod.outlook.com (2603:10a6:10:30c::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Fri, 24 Jul
+ 2026 03:16:32 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0245.010; Fri, 24 Jul 2026
+ 03:16:32 +0000
+Date: Thu, 23 Jul 2026 22:16:18 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Liu Ying <victor.liu@nxp.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Marek Vasut <marex@denx.de>,
+	Stefan Agner <stefan@agner.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Thierry Reding <thierry.reding@gmail.com>,
+	Sam Ravnborg <sam@ravnborg.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Robert Chiras <robert.chiras@nxp.com>, Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v2 3/7] drm/panel: simple: Add waiken WKS101WX001-WCT
+ support
+Message-ID: <amLZAu2RQXORogoG@SMW015318>
+References: <20260715-dxl_lcdif-v2-0-da797562636e@nxp.com>
+ <20260715-dxl_lcdif-v2-3-da797562636e@nxp.com>
+ <alnCL7ylMyvGD-ui@raspi>
+ <amAJL9TIcDAK7kbh@SMW015318>
+ <amA8iVS4c0exg6pT@raspi>
+ <amA_lUpWkbOFal1y@raspi>
+ <amFAXwoM4j2sIENj@SMW015318>
+ <amF60o7yUcqAE24N@raspi>
+ <amKJZ4CZJbeBw6L6@SMW015318>
+ <amLNge6hp25xHDYc@raspi>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <amLNge6hp25xHDYc@raspi>
+X-ClientProxiedBy: SA1P222CA0120.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:806:3c5::16) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: crypto: qcom,inline-crypto-engine:
- Add x1e80100 support
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Herbert Xu <herbert@gondor.apana.org.au>,
-        "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-crypto@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260722-devtool-v2-0-d7e609ef7388@oss.qualcomm.com>
- <20260722-devtool-v2-1-d7e609ef7388@oss.qualcomm.com>
- <20260723-impossible-invaluable-sturgeon-3b2ce1@quoll>
-From: Wenjia Zhang <wenjia.zhang@oss.qualcomm.com>
-In-Reply-To: <20260723-impossible-invaluable-sturgeon-3b2ce1@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI0MDAyNyBTYWx0ZWRfX8M3por2HZTIT
- nZTbmCJoGQGlrhBtyuhF8cNccAFOxpZYnPuA227/TMHFAzFD/9EnlAUBK03+5URzySbiedUEUoC
- OiHWCXPsr1i51i2n0svp6E2Z/jM/EKNRdQqoCMkFIoa/ocnPZCWn1GWddoZ15Dx05RDDQl98D7D
- 5z4QdailbX75pR8i3J3PAeeXy4P1NC5J3CVOTtXAA7pIl6sgcLSHMVLoxwSySHmebuOoYaVoe2D
- ahCWlF14p24UHLxVuJEd+Z0RztbCSpnQPX2Jf89q/+7iN8LesAh7HVIcRCRF8F/ZyGiZ3nuLNzd
- kjCpPNc0HXDBFcruxLh5B4b8vD8cvgSla1DVSwmcNP1wslHvV75KW2cH+DmSdB8Z9n5zD4dBnff
- 3OsrGJRhfEVRj+K+2yMpu+Fy3sXbZ4L/WzJhuowoXzZyBShCONbbfnU0mIqY/ytpdrX0G5E+TDx
- U3zmON2qBtkx1QMLtOA==
-X-Proofpoint-GUID: dFhV8WyqadgMHB_oVQVNZLSI2KLhQgsG
-X-Authority-Analysis: v=2.4 cv=DfAnbPtW c=1 sm=1 tr=0 ts=6a62d896 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=FcgZ0nHOkWYqsIbrD10A:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI0MDAyNyBTYWx0ZWRfX+adY/Q40V9/6
- Rq1U7dnGviwUAWDU//OlW6B8Rl60DI925WRthwnHbJ3PcMpJhRhwLUQIPttwdXHyrTODE5X8rWG
- qdtfu2NevIkdt6D/Szd8SOysO2xpWLo=
-X-Proofpoint-ORIG-GUID: dFhV8WyqadgMHB_oVQVNZLSI2KLhQgsG
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-23_07,2026-07-22_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 clxscore=1015 suspectscore=0 spamscore=0
- priorityscore=1501 impostorscore=0 bulkscore=0 adultscore=0 malwarescore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607240027
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DB9PR04MB9648:EE_
+X-MS-Office365-Filtering-Correlation-Id: 48f63160-fb1a-42d5-0496-08dee931f598
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|7416014|23010399003|1800799024|19092799006|22082099003|18002099003|3023799007|4143699003|56012099006|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	NBA9eiFej7zl8zaAxsXPF7JZb5vyWzYhwnoWcaZ5otcGvg8VeR5As2MzV1XYGKZXqYp9y4gu2H+/tYANktTvCcAt7KFdqzE/OMazHcwU8apfIs54xtzmMk8+1dnGm9WiCICHHpZKD0+tTMTxN9a6ljtRYBKmVuWXxhJLnZEivbEpuSO8RbHqv9ItlHxfp3y8rnGW2jV/BVBp1LGafW64aEeWwKwSNNmo4JY5bQwHAsjgyv7Y5PtmLfVsm1zBXLUtf8e/W82IHIkjjVn5LnwtT7nRL9UJmbncbI8C+0da6m13ctQyQ82625p2mX4aGdWMwtmzMxqjpE7Dy/4cEFTLFgn2U0hBhrrlxp0q60bHxY+O1iO5y4V4O8KbPsSm52ej+pv9FykfE363XDa91ESDLVjJiupNZnX0OCm6Uz8ZDJC0ufwzal3gW3lrnXiMo+X0CfdgMaE3Jj98nh+fj7u/VAlk9gDMqfJYDQMD6qILlzyH9ZDJDVk+E/rexsI81wb4abDt1XfrtaKul2ONd3dw6WAF+bjz8yTkWP4aywbco4Dr6stJxzNGOmmCzvSK2Oc6SAHUEntguGcEOOeLo6jylCATVGJrqOskJaGk4Q/sIHB1FfAXyZuf7Fp4IEhZjmq+58XylVEh+ibZp/n7WThPQKIbvoRUh4ugFLuUbFIeiHo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(23010399003)(1800799024)(19092799006)(22082099003)(18002099003)(3023799007)(4143699003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?flkQhMxViO4vpXFAo3n1kBUVpRM93GbIuYw76lkQpFuAtbCqt6vM708I1eKW?=
+ =?us-ascii?Q?zu0R0mvHKKvRkgF44BvkeXquekZmGKwx6dyrP0mgAM7p4sWMbrNSgBBmjYgs?=
+ =?us-ascii?Q?ga+JMl6XZQKzZrAldWOsUqxKlCQ+PxyY62lGUe73tT5+72OdbVZMpP4m7/Yi?=
+ =?us-ascii?Q?1ILS2iRq//8aH3DXtqBpQVdrp9kuQ8zExtoMpbCo60gE9BvzQhXWfzfZRckk?=
+ =?us-ascii?Q?EFkxLWWcVEgSwHKrE4tUAXdxK54X3sSsVy2tVh+q7rtqQIlSr5ShE2tAn2nm?=
+ =?us-ascii?Q?W2R/XhMEbYywBtpNtBN7NJw46i/7g03tSdNlyq9AS6yUc4QMObjojXEyPGc+?=
+ =?us-ascii?Q?vLkAvgXr0q/owKNpHC+FbORI92BTi9HB4bsWOk6C3hXxf9C4Fkm7gLaXsNyQ?=
+ =?us-ascii?Q?2tY+aMc6SR2KZYl6KSNUSfPOrTTIRwIgTRWTudd5Er6Pq86TBNzJZBzrOM8T?=
+ =?us-ascii?Q?wBAgVHika3hn9k70gsVglGY88OMdGe5mCWVS4yizVdQj0ZD83fDs45uVnTEH?=
+ =?us-ascii?Q?xGYBoGPgsJuR4LMs7x7h3K7XAFDabxLdDvvI8CsKAodm+VtoMk4+ODaP4gb3?=
+ =?us-ascii?Q?RFA3J05w0g8kWQcas+6cF/CDItXmzuHE8d24jXHmbD3SaT/rHJGJzoZgQ+F0?=
+ =?us-ascii?Q?QQZQaenrGr0RLFQ93gMaSPO3pXDxlTf6AEO4rY+DrphhlR6G6geh/t28jegC?=
+ =?us-ascii?Q?LUsFutteJxrdPymj7fMTz+IwP5D3PG5WbKtptud2hq1X1EqagU1NEjPQpXEc?=
+ =?us-ascii?Q?YR7OnsoaEm3TS2j92s8fl9VBdeL4fBehQ4GDeVl+nad6KQxnl12pD9ffe4cp?=
+ =?us-ascii?Q?VIcCRBEDclkagVDfojqfhbLjgRvyN3z0SDNBuorB/id8c1bwbmdut9hylI2c?=
+ =?us-ascii?Q?kMVCoivWcYKOC/zzDu5wu0g+E0GhxJbN0qczHyKWTKsfnA3CvvJCfSiH9NAa?=
+ =?us-ascii?Q?36nl0/MKtgLeYZ4lJca7ZxAhP0NgThtmDD1cYafT1MSfIVSVoj6Eh8zZoTdl?=
+ =?us-ascii?Q?7rFpEZZmJ5kOgYR09ZHQxUrKmAFa/yb+jnCME6idepaT3E/vbH43zRPWmiuM?=
+ =?us-ascii?Q?OKEivGt/CfAw/neuDpcrsxSeo8bGHRkFUtjh8Po+7vRFlnuCVGYBsgZr7Iqz?=
+ =?us-ascii?Q?FOWlqZCi3aKNQhyzD96PoCHSG6wobkUW7pLLRwa1YT1tTFSqGl7U7apR10dQ?=
+ =?us-ascii?Q?w2ZVxvRLLKENyIvOKlvJ9WozZ9FRur3cvTxY9p3xJAmEWy1++w29doNJuTvX?=
+ =?us-ascii?Q?o2leqcJu1UtXaC1vRTqAam30Mk5/wZUN6Rl31219P+W7rgeUEunNCcJRSiKf?=
+ =?us-ascii?Q?PsfGL3kLreJ1AMhG2O0wPAEYhdOcbNH7DlKqvpYQ40gi43a4rxfi0BwKq+AG?=
+ =?us-ascii?Q?tM9aLaoDb5KRIAfzO4xOZ/+iuN6JuxP0IXqSFuOTP1+CZtoGfjkdpAkNRgV6?=
+ =?us-ascii?Q?0JQiasOIqKOUGn91a13Iik443qx3Gpr6l7GztcNPQr6i4Tj+RhbT9ZpSALzE?=
+ =?us-ascii?Q?2jKo4FnasH2Mszd8l33TSwdy4RR/0ZXlWeaapfYzqL6b6My+4qCTgJ/myhdL?=
+ =?us-ascii?Q?KDryHFlBGrwQzIfhAhfd3+K9JsnZWI35xZ1OUzclpu2cdaQOMdHs2sTLni3t?=
+ =?us-ascii?Q?PYKf5RA9qlUr7IwvSWHWCL19DfZ0z4UtFdXISHxg5AIRUHmKGWYDkb1XJ2Z4?=
+ =?us-ascii?Q?3yoQ+f6wrCPhHejAv8tAgE8bt9xoyx+WIIF/gIAVTvI/QW47gCsnvflGk+Jl?=
+ =?us-ascii?Q?ZX1NwpbmcVvJpK9oNFiaHW8UbVg8e9PEbcg5D5n9DCWpWpKMHzfv?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 48f63160-fb1a-42d5-0496-08dee931f598
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2026 03:16:31.9709
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: V006yibAnIvE/V8tIBQZYOTxfMT970zSAVceAshmlX8wAeTX6U+Y9noamfkXSWnZA47HaKAH+tk7YD/Qq3QVS42QBnUF1db7ViFEy/sh8HsgzoEsU+4G7SwIvYVrDTwQ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB9648
 
-
-On 7/23/2026 4:15 PM, Krzysztof Kozlowski wrote:
-> On Wed, Jul 22, 2026 at 05:26:28PM +0800, Wenjia Zhang wrote:
->> Document the compatible string for inline crypto engine found
->> on the Qualcomm X1E80100 SoC, used by the Hamoa IoT EVK board.
->>
->> Signed-off-by: Wenjia Zhang <wenjia.zhang@oss.qualcomm.com>
->> ---
->>   Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml | 1 +
->>   1 file changed, 1 insertion(+)
->>
-> This is incomplete, although maybe you based this on Kuldeep's work but
-> nothing explains that here nor in the cover letter.
+On Fri, Jul 24, 2026 at 10:27:13AM +0800, Liu Ying wrote:
+> On Thu, Jul 23, 2026 at 04:36:39PM -0500, Frank Li wrote:
+> > On Thu, Jul 23, 2026 at 10:22:10AM +0800, Liu Ying wrote:
+> > > On Wed, Jul 22, 2026 at 05:12:47PM -0500, Frank Li wrote:
+> > > > On Wed, Jul 22, 2026 at 11:57:09AM +0800, Liu Ying wrote:
+> > > > > On Wed, Jul 22, 2026 at 11:44:09AM +0800, Liu Ying wrote:
+> > > > > > On Tue, Jul 21, 2026 at 07:05:03PM -0500, Frank Li wrote:
+> > > > > > > On Fri, Jul 17, 2026 at 01:48:31PM +0800, Liu Ying wrote:
+> > > > > > > > On Wed, Jul 15, 2026 at 02:34:48PM -0400, Frank.Li@oss.nxp.com wrote:
+> > > > > > > > > From: Frank Li <Frank.Li@nxp.com>
+> > > > > > > > >
+> > > > > > > > > Add support for WKS101WX001-WCT panel, which is an industrial-grade
+> > > > > > > > > 10.1-inch IPS TFT LCD capacitive touch screen display module.
+> > > > > > > > >
+> > > > > > > > > Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> > > > > > > > > ---
+> > > > > > > > > change in v2
+> > > > > > > > > - update height to 135 from 136 (sashiko)
+> > > > > > > > > ---
+> > > > > > > > >  drivers/gpu/drm/panel/panel-simple.c | 31 +++++++++++++++++++++++++++++++
+> > > > > > > > >  1 file changed, 31 insertions(+)
+> > > > > >
+> > > > > > [...]
+> > > > > >
+> > > > > > > > > +	.connector_type = DRM_MODE_CONNECTOR_DPI,
+> > > > > > > >
+> > > > > > > > Seems that the panel also supports LVDS input according to the specification,
+> > > > > > > > since it mentions 'RGB or LVDS Interface'?
+> > > > > > >
+> > > > > > > Need hardware rework to use LVDS. Need remove banch of resistors. Should it
+> > > > > > > be treat as difference panel by different compatible string? hardware
+> > > > > > > actually changed.
+> > > > > >
+> > > > > > Not sure how to handle that.
+> > > > >
+> > > > > Wait, you probably may drop this patch, just document the compatible
+> > > > > string in panel-simple.yaml and panel-lvds.yaml and use add a fallback
+> >
+> > panel-simple.yaml don't allow fallback to panel-dpi. Need seperated yaml
+> > for it.
 >
-> Best regards,
-> Krzysztof
+> Really?  How does it disallow that?
+>
+> I can see newhaven,nhd-4.3-480272ef-atxl and osddisplays,osd070t1718-19ts
+> are documented in panel-simple.yaml and used with the "panel-dpi" fallback
+> compatible string.
+>
+> Documentation/devicetree/bindings/display/panel/panel-simple.yaml:244:      - newhaven,nhd-4.3-480272ef-atxl
+> arch/arm/boot/dts/ti/omap/am437x-sk-evm.dts:127:                compatible = "newhaven,nhd-4.3-480272ef-atxl", "panel-dpi";
+>
+> Documentation/devicetree/bindings/display/panel/panel-simple.yaml:268:      - osddisplays,osd070t1718-19ts
+> arch/arm/boot/dts/ti/omap/am437x-gp-evm.dts:89:         compatible = "osddisplays,osd070t1718-19ts", "panel-dpi";
+> arch/arm/boot/dts/ti/omap/am43x-epos-evm.dts:45:                compatible = "osddisplays,osd070t1718-19ts", "panel-dpi";
+> arch/arm/boot/dts/ti/omap/am57xx-evm.dtso:62:           compatible = "osddisplays,osd070t1718-19ts", "panel-dpi";
 
-I added the prerequisites and note information in the cover letter. Here 
-is the linkage of the prerequisite [PATCH v4 1/6] dt-bindings: crypto: <https://lore.kernel.org/lkml/20260714-b4-shikra_crypto_changse-v4-1-06a4ea97c209@oss.qualcomm.com/>
-qcom,inline-crypto-engine: Fix legacy/new SoC strictness split - Kuldeep 
-Singh <https://lore.kernel.org/lkml/20260714-b4-shikra_crypto_changse-v4-1-06a4ea97c209@oss.qualcomm.com/>
+It can't pass DTB_CHECK. it may add at earily time. panel-simple.yaml
+have not fallback compatible string. I tried it. DTB_CHECK will complain
+too long compatible string if add "panel-dpi".
 
-Best regards,
-Wenjia Zhang
+>
+> >
+> > > > > compatible string "panel-dpi" or "panel-lvds" in device tree plus a
+> > > > > panel-timing node.
+> >
+> > previous dt-binding discuss, don't allow failback to two compatible string
+> > sorry, I can't remember exactly thread.
+> >
+> > like
+> > items:
+> >   - const: ws101w001-wct
+> >   - enum:
+> >        - panel-dpi
+> >        - panel-lvds
+>
+> I meant just to document the panel in panel-simple.yaml and panel-lvds.yaml.
+> No need to add a dedicated DT binding file with such a compatible property
+> for this panel.
 
+panel-lvds.yaml allow fallback to panel-lvds, but panel-simple.yaml not.
+all binding which allow fallback to panel-dpi, there are seperate yaml file
+for it.
+
+of course TI or old platform, especially arm32 platform wrongly use it
+regardless DTB check warning. But for new platform, we can't do that as it.
+
+Frank
+>
+> >
+> > > >
+> > > > Look like recently prefer add panel-timing informaiton into c code instead
+> > > > of put it into dts file. But I am not sure about it. Just check recent's
+> > > > log history.
+> > >
+> > > If display timing is specified in panel-simple.c, then you have to specify
+> > > the connector_type there too, right?  The problem here is that you don't
+> > > know the connector_type, as it could be either LVDS or DPI, and I'd assume
+> > > that we don't want two compatible strings - one for LVDS and the other for
+> > > DPI.
+> >
+> > If supported both type, generally need customer property and new panel
+> > driver to switch between dpi / lvds
+> >
+> > or use
+> > 	ports {
+> >
+> > 		port@0: //connect dpi
+> > 		port@1: //connect lvds
+> > 	};
+>
+> I'd say a new panel driver for this panel is a bit overkill.
+>
+> >
+> >
+> > I think we can defer this lvds work until it is actually used because
+> > - need a big hardware rework to support lvds, most likely it will not be
+>
+> Per panel spec, just remove a few resistors, which doesn't sound like a
+> big rework to me.  But, perhaps, this doesn't impact SW solution a lot though.
+>
+> > appeared at real productions. If it mass production, vendor most likely use
+> > difference module number for it.
+> > - it may be end of life if there are not much users.
+>
+> I'd prefer a mature solution which handles both DPI and LVDS interfaces
+> correctly in the first place.
+>
+> Anyway, just my two cents here.  "DRM PANEL DRIVERS" maintainers or DRM
+> subsystem maintainers may override me.
+>
+> >
+> > Frank
+> >
+> > > Although display timing in panel-simple.c avoids duplicated panel-timing
+> > > nodes across various potential DT files, I think you have the "good" reason
+> > > here to use the panel-timing node + fallback compatible string with one single
+> > > panel specific compatible string.
+> > >
+> > > >
+> > > > Add Neil Armstrong for comments.
+> > > >
+> > > > Frank
+> > > >
+> > > > >
+> > > > > --
+> > > > > Regards,
+> > > > > Liu Ying
+> > >
+> > > --
+> > > Regards,
+> > > Liu Ying
+>
+> --
+> Regards,
+> Liu Ying
