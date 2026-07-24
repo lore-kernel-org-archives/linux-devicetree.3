@@ -1,85 +1,60 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04E56345CD0;
-	Fri, 24 Jul 2026 16:53:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 784071C5D7D;
+	Fri, 24 Jul 2026 16:53:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784912017; cv=none; b=T7dqAeHTfwq2GUeynNVIe5H9I9x4kXlzuBvhlovK53vo4RX7wva0AvbYF2OoLkYTRInUcHjTAI1gsPx5D0jhazGfNxnoXDl3BmD0dSl3pVdxJVP4CqwXgmEdvxwNJRHIrQnvtfPFb328hvjOmvHHb5svE8NoYvs5xphha6p9F88=
+	t=1784912028; cv=none; b=ZLXam0aF212uVDhZRZUfMNAEveCcvF6aDa1Rvri3uE7C/CaFmHuKiAFtfKC0WWlv6Hi8L2GJm4m1Y/QtqBik9dXZSKIyKegX41J6cunh4pz0VdD8qvdDypU1KPIliGmknEiniS1SQZYJSebC+bVSZN18Sx6RdqMB6O84hlYvqrw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784912017; c=relaxed/simple;
-	bh=Ej7dj+z0Cyu0ZFrtcH0Y8M2eGSdFCAL+KFVos5SqCWA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ePcSCGGzvT5vPtIvTknAguWz4uBaoG92qRLMdu4rEtsJXq3X162lw6jEuYfKsQSd4f0+UV9WRMUIMey66pKqLu4GALZSBf5TEWmO87zh2WLsSYRe4iDJ6anC62C4zKkHMboY5hi2vcl83JNq6rpzFBBule9GrwFA68i8KJqKMN0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oLGX2pdn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784912028; c=relaxed/simple;
+	bh=w5bVi972XEbFIpszKIZ6oxgAkWwOETqM4piywIzhY2I=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=tQMoEmORv30mUrF3r1qVfSuEm1VUjPZA9Yae9lceU95V7LfgbXSp1wUByA0nuwmrvitg4tgkYJ+M8/m4yHs6MKP1TJdBFiT022lPHmXTZL9wDXHtOAVarhC2Z3xA6qiLWjXY20Tc19C3TKf2fzS0u51Y0KBB0i4JC4l4tY7M4VY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iocV83Pb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oLGX2pdn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 402321F000E9;
-	Fri, 24 Jul 2026 16:53:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iocV83Pb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B49371F000E9;
+	Fri, 24 Jul 2026 16:53:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784912015;
-	bh=Ej7dj+z0Cyu0ZFrtcH0Y8M2eGSdFCAL+KFVos5SqCWA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oLGX2pdnaWt/NjnbnfrHCWMTE8gFdfyVkNOXr2ezRATGDYdZEd7qvq1RQwHWy7r+Q
-	 nsRanSFXZ98wKeEa+apwOfiKiaH4G8fcx+v+hZHDxMTx6dZzzxLdPApAImYPuHImqX
-	 +LEQw0zfKEtixr1vv7Gvvxoi3crzIvuDzwZONgYLgH9AWv9q7PMYshxSENd16QmoAU
-	 /YhsFhfufwjAHSVwhaMr9oJzILue7pCV5fwEycxSG4gxsgMlquObEdA4OQh/Znea/W
-	 YT4crIW0WwphwBkKpGbCdeLbb8cn6g2w+Y+ph821FDGL9vZZK+UhRNpLfrEJZ3Mh1C
-	 /YEShhZLUppGQ==
-Date: Fri, 24 Jul 2026 17:53:31 +0100
-From: Conor Dooley <conor@kernel.org>
-To: rodrigo.alencar@analog.com
-Cc: Michael Auchter <michael.auchter@ni.com>, linux@analog.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Subject: Re: [PATCH v2 1/6] dt-bindings: iio: dac: ad5696: add
- AD5673R/AD5677R support
-Message-ID: <20260724-rescuer-sliding-49b446591d52@spud>
-References: <20260724-ad5686-extend-dev-support-v2-0-cfc2b30ce988@analog.com>
- <20260724-ad5686-extend-dev-support-v2-1-cfc2b30ce988@analog.com>
+	s=k20260515; t=1784912024;
+	bh=w5bVi972XEbFIpszKIZ6oxgAkWwOETqM4piywIzhY2I=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=iocV83Pbk/3m4t2LWOr7HAyeKriPe60KF5VQOiOhTrBhipq/n6FwA8nAISKpu/guI
+	 R0gKJDt/OQYa7dI3fYwtqXZ6TcOoJfyjlbqLcqsy8PD6dLe7lXrbrdya2gkheV2SXk
+	 vmXrBY8og2XE92dGoyjp8p0CIrbtRGv22shN4U4GcXzlH/ua2Zxq3/yaQCZL3K8kNt
+	 IDI8Nrs9reZxFt6h+da6glZo4j/r/ccAgw2OzHUQtFTk/j79LdxJqS2J1MKQ3uMYkx
+	 ZDagtQlvs48/q9AWxyJ94RiqEQOngml9ru3HASi+4O8o4vrabXLHHn9lTFIElJ+gXO
+	 0QWvZaTZAoZNQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: hwmon: pmbus: Add Analog Devices
+ MAX16545/MAX16550 and Volterra VT7505
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?UHJhZGhhbiwgU2FubWFu?= <sanman.pradhan@hpe.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260724164919.247162-2-sanman.pradhan@hpe.com>
+References: <20260724164919.247162-1-sanman.pradhan@hpe.com>
+ <20260724164919.247162-2-sanman.pradhan@hpe.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 24 Jul 2026 16:53:43 +0000
+Message-Id: <20260724165343.B49371F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bz+ABYr8mY0hYAYT"
-Content-Disposition: inline
-In-Reply-To: <20260724-ad5686-extend-dev-support-v2-1-cfc2b30ce988@analog.com>
 
---bz+ABYr8mY0hYAYT
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Jul 24, 2026 at 01:03:11PM +0100, Rodrigo Alencar via B4 Relay wrot=
-e:
-> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> From: Sanman Pradhan <psanman@juniper.net>
 >=20
-> Add compatible entries for AD5673R and AD5677R. These 16-channel devices
-> have different bit resolutions so no fallback compatibles are used.
+> Add device tree binding documentation for the Analog Devices MAX16545 and
+> MAX16550, and the Volterra VT7505 PMBus controllers.
 >=20
-> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> Signed-off-by: Sanman Pradhan <psanman@juniper.net>
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+Sashiko has reviewed this patch and found no issues. It looks great!
 
---bz+ABYr8mY0hYAYT
-Content-Type: application/pgp-signature; name=signature.asc
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724164919.2471=
+62-1-sanman.pradhan@hpe.com?part=3D1
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCamOYiwAKCRB4tDGHoIJi
-0kROAP9KXP6liZdyUuR5UvS1kbLN4JXdZpPa4EDBKRWFY3omIwEA9SWNnqk+vb0N
-tEXaU8YRm0ULu7w6OKBGpu3cX/ScvQg=
-=9/qd
------END PGP SIGNATURE-----
-
---bz+ABYr8mY0hYAYT--
