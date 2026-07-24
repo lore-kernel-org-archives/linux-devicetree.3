@@ -1,182 +1,196 @@
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98CDF4156CC;
-	Fri, 24 Jul 2026 13:15:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.152.168
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784898919; cv=fail; b=tJcr1ZGJAuq8bA00j1Pdf83cnQeyf0ywY4XivxloARAVeVO7rbQNp2shKD/7a0FoEHIdo4u+Gp4/KVRD9lFyPI18dAakm0AOoQfhL4rJjJwBQpS/Aa521KrblsHTgVnXR+ayE+MzVeL7ZfH94TqwYSoYVx+VfauuKA2pFGGmxnk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784898919; c=relaxed/simple;
-	bh=6MGJwoYZPfp/SUJueV1+9kySdIR3aRyIM0aXUHhWcjk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s3+GFsvjqlnOUBen3BJI9gUOrYhtw+TTcTvw25KOUZMyiPosjsVlL7ia67I/dGoED5GLl01p55U8Ynotwyh3BOBNLoa3ao80UHLVI4b0pvS3hqd96wh4PhFEb3sTw/vr4MS03Rjltj4LOqWGNuiI3xVjTmwvugyasTS6/7GblrA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=qD/onX8b; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=r+HqvDZ0; arc=fail smtp.client-ip=67.231.152.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F6712EBDE9
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 13:15:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784898940; cv=none; b=YDpcPoiw0gBApNu8oMFNz+qLTIsJGnnV/6fSFvoyOwYVpWBW0f19dGbbz5IfReH0lcDPcRdkMKFjT6h7W1KO2vbXEphehtV4A+OTtR3NMidZyIrBMVXiPP5StXDVR0U4iRN0JMaL/FO6LsZG8BwfaF2R1EPRgvS04kEOyBp7750=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784898940; c=relaxed/simple;
+	bh=zN02l9wsONJF0xp56emJt602spK7CI9T5fHICpGtv9s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ecGeoZDyh9pMLZXod94bUGiOSG7IJMzU1THtmY7VNqyDXhNCkUv9va5y/ZyTzWUcNdPfklpaGsTAHn79cT6J1PvS4CHgGbK5en/bKlM52QUNjomp5Z3aQrVAB5F9Fjhx/NoWd79jeHeAL23XIfrlh///dPFiyfP/Blobd1hukUY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mq9OapMK; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="qD/onX8b";
-	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="r+HqvDZ0"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66O5hhD72897547;
-	Fri, 24 Jul 2026 08:14:57 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=PODMain02222019; bh=HDGQMzydHDzoYI/z21
-	uvyd/RurBtCZzOovyfiYeDnGI=; b=qD/onX8blQ6X/w4bfVPCH6neGhG4aQzCsJ
-	Kp4SDWIbB149eyUaE3FLYHQ7ygPcx8ZVk8pCACRpOTvj+Bt6jrl9hz2Ci/saWg/S
-	oyUxQqeuwAUWWTkLyNJbCogaRVa1McpnTIqkEQzSxEtiZlOgWDHV3u4N13/m4XTs
-	dZxPjF3KKLcPqACngPGAiIHpNm1S3cVjNTlduCh3dMs4lexLVaQcZOIKp2il6N8H
-	AcJxUqLgNfPJ1DYgI6boFc/3bHXjuzGf4EkZQ5P/Qj35R07ZpNMY8QX+pSZfGGad
-	cdUh+1rIK/v5GjLutudeuMnJudpgWSRZcJihqJN6RFrFJ0qzprUw==
-Received: from ph8pr06cu001.outbound.protection.outlook.com (mail-westus3azon11022112.outbound.protection.outlook.com [40.107.209.112])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4fg5wfgvjd-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 24 Jul 2026 08:14:57 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zVeW77JzeHLWIbzUW57ThCsxXN320gBcwzai9ZVgS4m94YpA+aMR4MdLUZhtuowM+QUPvU5ZlwmciF/BCAOXCMzoL10wY06ugnJkhRuP9HGT26wcN3aReBgnsyHtSgOfVFhYEuno3vAzKgk3RgBZDpqv45IGgrtdZARn9BzbdJz0cY4jpUf/iWS1JcehhRnrmNU9XTQF8md4UenPP3ROK40oMO/oGBCmcQwS8IqzJD/FTPf4poZmlZ9ih57BKYOOyOUq/PhcWhGA7NEf6aG/96Cc9CMn9hTFo1cXIwUnVVxmR5s3U2f5lLHk5tVZyAI+NLa1WEkqsuGT3pHMLA/LXA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HDGQMzydHDzoYI/z21uvyd/RurBtCZzOovyfiYeDnGI=;
- b=RIdT5sYuIcsrqsTLRWpg5TPOd9n2IfSHDZ4bNGFXMbzVP501UDi6orGuvm00vWHvK8FxQIUG8zT2lZV25zHgtFlT5gRMK1+OQ0fFw62/wlaT3ZY49DDW/pYplU6KkYx1t+U87Sg4SWhqgGM44rizY7Ce10no+zGi6Swp4BiQKjW+1pGEWlhniYho9LR953yoA8mCTilKXvSM9KWYeVMwQSuxB2DN/EoxaZOTxOMCr4lMlIcddbFZs6yXmGP5A0FGLZ3pX74xLA9bIko8QexZE4IaOAYcdoSOga0dUo4WWkdWCL1dc9bjHcJMvIh6C+fDkkwVCbn4aTUkkU3FaKpJ+Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 84.19.233.75) smtp.rcpttodomain=catcrafts.net
- smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
- action=oreject header.from=opensource.cirrus.com; dkim=none (message not
- signed); arc=none (0)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mq9OapMK"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso303262a91.1
+        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 06:15:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HDGQMzydHDzoYI/z21uvyd/RurBtCZzOovyfiYeDnGI=;
- b=r+HqvDZ0oCRQNtbYi/NTKfiBFt9mrM5U3RM6b78hIAGikqKLoK+2PcSUebjF/hif/dC6mx9eB5sDPChOhBqkW03fRa6ZhYHUEU+KEWdD2Ckw7EcKr9l9WDzb9GQnbD9wzyNVIFLvLv70AdMqgSTH9mMpwnSW/8QFtLfGkM7awHA=
-Received: from SA1P222CA0074.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:2c1::20)
- by SA1PR19MB997342.namprd19.prod.outlook.com (2603:10b6:806:4c4::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.11; Fri, 24 Jul
- 2026 13:14:54 +0000
-Received: from SN1PEPF000397B4.namprd05.prod.outlook.com
- (2603:10b6:806:2c1:cafe::ab) by SA1P222CA0074.outlook.office365.com
- (2603:10b6:806:2c1::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.12 via Frontend Transport; Fri,
- 24 Jul 2026 13:14:54 +0000
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 84.19.233.75)
- smtp.mailfrom=opensource.cirrus.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=oreject header.from=opensource.cirrus.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
-Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
- SN1PEPF000397B4.mail.protection.outlook.com (10.167.248.58) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.5
- via Frontend Transport; Fri, 24 Jul 2026 13:14:53 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id E4288406541;
-	Fri, 24 Jul 2026 13:14:51 +0000 (UTC)
-Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id C9A2882024C;
-	Fri, 24 Jul 2026 13:14:51 +0000 (UTC)
-Date: Fri, 24 Jul 2026 14:14:50 +0100
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        Maciej Strozek <mstrozek@opensource.cirrus.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Srinivas Kandagatla <srini@kernel.org>,
-        Bard Liao <yung-chuan.liao@linux.intel.com>,
-        Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-        Richard Fitzgerald <rf@opensource.cirrus.com>,
-        Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
-        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, patches@opensource.cirrus.com,
-        linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 1/8] ASoC: SDCA: hw_params: program upstream Input
- Terminals for OT DAI
-Message-ID: <amNlSu3mcwKOmqvf@opensource.cirrus.com>
-References: <20260722234221.884765-1-srinivas.kandagatla@oss.qualcomm.com>
- <20260722234221.884765-2-srinivas.kandagatla@oss.qualcomm.com>
+        d=gmail.com; s=20251104; t=1784898938; x=1785503738; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Lw2GFuJUfu9OTUa+lzPk++Vy8wm0NltxAfjufIsFhwQ=;
+        b=mq9OapMKP1eSM5INulqiNC8x4uS9Eft8L0EM3TpMsI3MT0pNFp1m0hLqeF0KsORlJE
+         dsV79m0xyBkFgz8PtDLByNZw5cuCsL8Bj+WUpcg8gPQE1QIxu4eOQGn2mPIItxQpBXZ9
+         aN+MmH2rXb0rBujkJmn4dgU/+R90hguTTa9SQwKs73LX6yGg9Bj/ZS6qJfJdzVdiE+n6
+         nlhEvFLoDcekoN4j7h8iBqQRG+I4Ekdxrna/3LB+oyklW/xD48Vasvk0oLTTFTkTwWum
+         LEHtrk2y3D1d8Y/4PeFaqEERSBfiEAKKtjCNUyHLpHhW1T/waAz2JiRRebWJpmseZ+cI
+         gi7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784898938; x=1785503738;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Lw2GFuJUfu9OTUa+lzPk++Vy8wm0NltxAfjufIsFhwQ=;
+        b=pR7SWQtL29JCBVQWIXMNJaRGkIArabxTPxMvhlIfrtJb5gH9XKzbgKDkKeZ8aePlFy
+         ke8LV+g3QY3J1BqnSZ5c7CzFuB+8BL6HRck31fxkysI6BP++GKsexnUdYpjJZe0bXE1f
+         Xe6n1AxHyMjGBR3tUR6Dfd+EpKhwGWI6fZEtpWeaM9dFqalHDu6R57c739odHtMyuJAb
+         GpZSKT9TdfNGsSLSrJo1v6pNKqSYXjK5h8hqvBjhFnCLhBu54KEPg68+VB6fEqLMzt5w
+         3/69eupzQ867FQXzjPs2hJ9zO7gEGGR1W54ycYj3D5fLS4tFVMMWkR4OzD6jTPQGk2HG
+         tsfg==
+X-Forwarded-Encrypted: i=1; AHgh+RqF5asI6l1tZXJ8wYJZnv8qAr72/oA6SDk+9FVi/9T4WCPosMAfdcrLGCAeKFiLj1cZak/9y+TzrESe@vger.kernel.org
+X-Gm-Message-State: AOJu0YwwZLAsQ2ehvGIqaP0Vm8uJlOJRkPxW8+4G4lXKnhb6NKMhGrDj
+	JGCncmXMwyykkusPfD7/hnI3oPtySSImAWbTdf6kTeM39ZA2nZKgshXE
+X-Gm-Gg: AR+sD13GNbr+KDswS8Jgyynd7AC9V5GCXjz4KaFCssijBE9mEBfrBL67ro1vd/4k9je
+	ppJDYyjVQX0tl9+JNZPv75PI/3f/P9PyDOaEi5Co0Z1m0awnyhsp+W9va7m8Po1bi8G7J9TPekA
+	izZLzplRdZrxr4FsyEWkwTtOdZvqZU2otJlZEi8TRfG26K54wOd+iRvtvdwcoZjIn11KyZkF/+H
+	3ADxRNMPWRqOw02p13Z40A2Vj2vWIdX4kOVeW9/xsy5PsJsabbqEEjMz0FP7+/MDGW9VgOVWRfQ
+	hqda38GBlBLbTX0Z1yMtI7Vo4ghMpbUAVAqIhwexejkRaxBKL9XET9YKHi0aprAixEVi+fP4rAx
+	9dItefb9YFALM2jZpLAIX/NRCE610Gqoqy/ZWuNhhxeC+eiE412tHWMxEtdh0DR116IHGiKQmEy
+	UmynQLb0yvitIU3pL6F3eU8zvXUCessxgY5AfEsgMVMwsn8VItNUUZMlPPgWtwAQ==
+X-Received: by 2002:a17:90b:1dc5:b0:36b:77b9:5c8c with SMTP id 98e67ed59e1d1-38ec651c6d2mr7652113a91.17.1784898937701;
+        Fri, 24 Jul 2026 06:15:37 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13d130f55c6sm42746637c88.15.2026.07.24.06.15.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 24 Jul 2026 06:15:37 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <668b28b1-875f-4fdd-b367-b09edef95367@roeck-us.net>
+Date: Fri, 24 Jul 2026 06:15:35 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260722234221.884765-2-srinivas.kandagatla@oss.qualcomm.com>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000397B4:EE_|SA1PR19MB997342:EE_
-X-MS-Office365-Filtering-Correlation-Id: fdc3bc8d-3700-4d8d-a9da-08dee9858cf0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|7416014|376014|61400799027|82310400026|56012099006|11063799006|4143699003|10067099003|16102099003|22082099003|3023799007|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	D9zy7Q7iN+J/prT5wTX5aKOjpTgcOuDX6G1hUs3vRu06YbVn64ez5NdKj87hCqDQ84Dpgo3AbtZnZbPcMJjDF8H54fK83rtf51kk1/KnbE25pB/7RpAqEASFJld8LnzxR8sv5hMR0d8DrtksXe3bhM9r0aXS+VIHQgTy43nSl0HqWNGRXpuaXL7wcJWZ2eFzbkTVj2n3gY0ckmXKqbU5WOrQqyJ4PdNJC2L26pjlFpMRtMGvkHuLIMhJdBCDZCJnMRDRE5YOdBl7F25TxIc2w+rjh/7o0RN6VgOpChCBzSTgVNoK5jrsYtgrKjgDdvK2vYzjpuxNgaEMfYwfFyxD1PJV3N4j2k8Svc5UlmxPdeqTi5EI5YhpR0b/8oFfNydbhjQi5ZmBfIl6NBc4JvAR+68W0ic9lHcKH2Jq1dF2FRcMEHWUaiPndgXytc6CuDTJUMdZtHYwRk9O0X3phfa0uNBFhlkvyb5HwIRNu5pePs0aR4hAZyjLDxypxGczkqCvI/RgVWQUAhUBypR5W5ar+AwIW+81qEApRnjg68GqW3uDNhL/qbTKh34LaC+FYru4gBzXi18+g5uMDZCfCvTtXKL7yn2i37bpR6pUZh2Wu71ZTbuICEi3mSIn5ZqOcGOMABJx6t31N6tZ7PU4Y9e+la1kck0v1HAqJigRbnQusM1Usqesh/U4EkpnpU0zaf4+4mHeebjhUhwcluRzCMJb+w==
-X-Forefront-Antispam-Report:
-	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(7416014)(376014)(61400799027)(82310400026)(56012099006)(11063799006)(4143699003)(10067099003)(16102099003)(22082099003)(3023799007)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	uhK+Y3wZ2/ivZKmjkM3cvjdUfLdQp/SMKgMRPo9LqHQOfI6jrOdQzS7HwYGy7Yq/tcmEKNOXVC/gVqZgb0Gz/nGxtjjOAxCk1DLIY9gYilCSUQMpkSdU1v39W4jJDkOxMgrIcFm8l2edw9uwRyK3YZ/IHbLguKOVrZHTfO6O/sTIwDD7yBS7llgDXg3CMX0ZYx8w3J0MRmhXfhWPuT1kqSdV11AiDWrxW9kewIAJ+zV2SzneKONpvqBzXFhoZ3pA7xL2W8fJAEmo7B5GvM60otvJ2W4FnL9T07CwAMerXDxNxTCAnxMtuPcHGiYfwg4muDzXv/eftgh3ACLRpFdeD43kzM1cVhvKNxRdyWSjnYJzps1Ku5/6kRT20cLz2yw2E/aFFNVB7OiTU5Q1YLBfgeEq/MqyQow801Drabw+pYnGP4Z7DedZkMYa74sDLlAw
-X-Exchange-RoutingPolicyChecked:
-	qvdgWOQnm0k34GYSn8kBhoYE1E8hETK+PIO3C3BGSuSaFuIx4MIgsm6e+GhOGL+gjkR5wzXbWLvmM6VtgQAHccGBtlHT2rvdST9Nm5f1q4ml3ZAoINTHby4MQpFXDlR8zoBPSkdFex4Fv8+BJA00yXgoXxOKjJQefpbzgSDDQnnpWqCDgeab7otukbG0NpZ7O+fnYJtnGIQyO1CVd0IvV97dAIRQLDEQWu6KjpKSI8fe0MqNZrBRWWoXdSYhxNhwASYiqcM4ChhXtCxBMM7XVnoF0ePAzUM4q71tu8/ZaBNZNxV5zN9AjYS+mG05L5NCEBFhRoAc6J13awMLA3Y2nQ==
-X-OriginatorOrg: opensource.cirrus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2026 13:14:53.4998
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fdc3bc8d-3700-4d8d-a9da-08dee9858cf0
-X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-SN1PEPF000397B4.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR19MB997342
-X-Proofpoint-ORIG-GUID: 929vbj2YZRQjdZKy3Vt5I16QzGxjgHhb
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI0MDEyMCBTYWx0ZWRfXwzzo9F6b2eUy
- cBzYw7Hu+NuuwUlTt3yBUSEuNkxeynbO29wOyFgC6Ftj7prxs37PqDX+W9PbrrnZhfTkZbWdWn/
- uWG6aOUbZW2t28QR1K0OSMBRfN4n94Y=
-X-Proofpoint-GUID: 929vbj2YZRQjdZKy3Vt5I16QzGxjgHhb
-X-Authority-Analysis: v=2.4 cv=BdjoFLt2 c=1 sm=1 tr=0 ts=6a636551 cx=c_pps
- a=JRWdLbceQoGhO7osvHke3A==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22
- a=cswVol7K_y8G6oM_2sQA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI0MDEyMCBTYWx0ZWRfX04yUKx+X3l5P
- Wes3ung4LXarXqPhOOI3KM6R/xhs5X1rEDmondJ+mO+G/0OY+xesZ1Qq0pdT4kN2WRcukjbd+6N
- 61NxRIp3Y78ZNoy+odfJqAbQtDOuxhwvffAIqP4H+8ZwvmrMs7DKX/uPVJUtqlBKg1Ne0dcR5/U
- 8N1PUA0McdmYCpan8PKafzjNDck/Iszt5PaH55Q7XpsVTudSC51+ms8Lmfa+zx8jidINoiCPNwV
- NYpfAfDgbqrhaXgb1CGR5himwKPW3v805joRR1g6Ov/MByTeS201bnEfv4aitGvK1it7o8NwQ1b
- jbN25FVi33F7Mz7SsEEYwVIMwgHQM9Q6KDF0EoqfpLHYH0z+iMFxnvZfH/G0/ngVizz21Xb0rp7
- jab9LCVJi8tF1lGUVnQYEyGS1v5tFwWcdR9XSVEI5nM7mnHadqTJkenVpF9jL1t5KYMC6iNKs95
- CtW5Etme7I5SeeS5GCg==
-X-Proofpoint-Spam-Reason: safe
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] hwmon: (pmbus/vt7505) Add driver for Analog
+ Devices MAX16545/MAX16550 and Volterra VT7505
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+ "Pradhan, Sanman" <sanman.pradhan@hpe.com>
+Cc: "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
+ "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
+ <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+ "corbet@lwn.net" <corbet@lwn.net>,
+ "skhan@linuxfoundation.org" <skhan@linuxfoundation.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Sanman Pradhan <psanman@juniper.net>, Georgi Vlaev <gvlaev@juniper.net>,
+ Dhruva Devineni <ddevineni@juniper.net>, Debjit Ghosh <dghosh@juniper.net>,
+ Jawahar Balaji Thirumalaisamy <jawaharb@juniper.net>,
+ Avadhut Naik <avadhutn@juniper.net>,
+ Santhanakrishnan Balraj <sbalraj@juniper.net>, Brian Mak <makb@juniper.net>
+References: <20260723164249.199442-1-sanman.pradhan@hpe.com>
+ <20260723164249.199442-3-sanman.pradhan@hpe.com>
+ <20260724-skink-of-unmistakable-novelty-d97d95@quoll>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260724-skink-of-unmistakable-novelty-d97d95@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jul 23, 2026 at 12:42:11AM +0100, Srinivas Kandagatla wrote:
-> For a capture stream the DAI is the Output Terminal so
-> sdca_asoc_hw_params() only programs the OT itself: cluster, clock
-> and Usage.  The upstream Input Terminals that actually source the
-> audio never get their Usage, ClusterIndex or clock programmed, so
-> the power domain comes up but no samples are produced.
+On 7/24/26 02:03, Krzysztof Kozlowski wrote:
+> On Thu, Jul 23, 2026 at 04:43:59PM +0000, Pradhan, Sanman wrote:
+>> diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
+>> index 080d366809f3..daa4b49bc90f 100644
+>> --- a/drivers/hwmon/pmbus/Makefile
+>> +++ b/drivers/hwmon/pmbus/Makefile
+>> @@ -75,6 +75,7 @@ obj-$(CONFIG_SENSORS_TPS53679)	+= tps53679.o
+>>   obj-$(CONFIG_SENSORS_TPS546D24)	+= tps546d24.o
+>>   obj-$(CONFIG_SENSORS_UCD9000)	+= ucd9000.o
+>>   obj-$(CONFIG_SENSORS_UCD9200)	+= ucd9200.o
+>> +obj-$(CONFIG_SENSORS_VT7505)	+= vt7505.o
+>>   obj-$(CONFIG_SENSORS_XDP710)	+= xdp710.o
+>>   obj-$(CONFIG_SENSORS_XDP720)	+= xdp720.o
+>>   obj-$(CONFIG_SENSORS_XDPE122)	+= xdpe12284.o
+>> diff --git a/drivers/hwmon/pmbus/vt7505.c b/drivers/hwmon/pmbus/vt7505.c
+>> new file mode 100644
+>> index 000000000000..a96abf75b1aa
+>> --- /dev/null
+>> +++ b/drivers/hwmon/pmbus/vt7505.c
+>> @@ -0,0 +1,274 @@
+>> +// SPDX-License-Identifier: GPL-2.0-or-later
+>> +/*
+>> + * Hardware monitoring driver for Analog Devices MAX16545/MAX16550 and
+>> + * Volterra VT7505 PMBus controllers.
+>> + *
+>> + * SPDX-FileCopyrightText: Copyright Hewlett Packard Enterprise Development LP
 > 
-> Walk the source graph from the OT and program every Input Terminal
-> reachable through it.
+> Tag is accepted but discouraged. Use standard copyright header.
+> 
+> ...
+> 
+> 
+>> +#define VT7505_MFR_PEAK_VIN		0xd1
+>> +#define VT7505_MFR_PEAK_IOUT		0xd2
+>> +#define VT7505_MFR_PEAK_PIN		0xd3
+>> +#define VT7505_MFR_PEAK_TEMP		0xd4
+>> +#define VT7505_MFR_CLEAR_PEAKS		0xd5
+>> +#define VT7505_MFR_PEAK_VOUT		0xfd
+>> +
+>> +#define VT7505_RLOAD_DEFAULT		4750
+>> +
+>> +enum chips { max16550, vt7505 };
+> 
+> You must adjust to upstream kernel style and such constants/defines are
 
-What was the thinking with respect to the units in the middle?
-It's not clear to me things are quite as simple as we can copy the
-cluster from the output terminal to the input terminal. Various
-entities in the middle could change the cluster, such as CRUs,
-MPFUs, UDMPUs. Also possibly SUs to consider too, since they
-may change which ITs are actually connected at that point in time,
-although potentially an argument to be made that programming the
-unconnected ones would have no ill effects I guess.
+No, you must not.
 
-Any thoughts as well on the propogation of the clock and usage.
-Its a little less clear to me from the spec that they are even
-intended to propogate in this fashion, although it does seem
-fairly logical to me.
+> UPPER CASE (I know there are antipatterns in existing drivers, though).
+> 
 
-Thanks,
-Charles
+Not in the hardware monitoring subsystem, where the chips enumeration is
+and always has been traditionally lower case.
+
+Guenter
+
