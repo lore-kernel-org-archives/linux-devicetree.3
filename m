@@ -1,68 +1,68 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4283DF59
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 21:02:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B8C8DF59
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 21:02:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784926947; cv=none; b=AohcdajqeWwkTGbMorto2R+2hn2AEpG8/UuPIrP4bhG2Zc+xbJXpY0+DBK3zfuyy3ewWwJpqyeOBxLIVO2Ljrb6D1bK1aRwXHT9CxD/14fl6fbHVN/h4QGDM19gMkY9Q85UioRBdEU410R9NShudkrjCn1+bJtf1DL6rxIWgn58=
+	t=1784926956; cv=none; b=Sna+eqxSZECYMORt/S14moom4MNRAg5cm13U3fibA4IROuUtE4wCc80zXaWXezTw+qNxKHQqOdRiqt1ptfNLguSp2AuDsHftvz4Z+rUb1VnlZzBTklLnmxT0g8wwEyD7yMl3bCYONEO5ktqRE4+vdS8qbuc56Xq/5dfX6K/TA1k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784926947; c=relaxed/simple;
-	bh=BP5isHWJVSgsQc7eHb27miIKkXny1ILGVxUFS9gjsgw=;
+	s=arc-20240116; t=1784926956; c=relaxed/simple;
+	bh=U+tsQLnWyDRDHVr0CTIeZd5q+U3+1+j8XgyYVIUKJgY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nRWtO0CaCygAjazKc91U+V+s9Dh/YmgYRlWzReSJc7jBNw3WpKEPd0pP+VXMBkikYo5W1bzAwi7/jO3QyevKpTRBVv3TX5ojFjEUB9nH309icTQ2CgQYaMO+ZpAkGofzmXGGSTqV9ePBLe3Sx7WR93Pxa5+smd95to7pv2J77GU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KAaQkehJ; arc=none smtp.client-ip=209.85.216.53
+	 In-Reply-To:To:Cc; b=W8gS4v8UAYOWvoGnYJPmeRfjuBcIl6poZh55ulPbqucAXprsl0lKYcbkH7dU7oHXWa+wlH7bdbxNDfybPp5W826IIuj0tD03ShT1PU1XvPDzHTKiRso3YDmp9nEeIFvkCDao78LDzKT9/efayzy6GcYj25ROe5jSz6VFhUdzWWw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LfiW1P8Z; arc=none smtp.client-ip=209.85.216.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KAaQkehJ"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-384c94c9423so115534a91.2
-        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 14:02:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LfiW1P8Z"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-381d656c36eso58825a91.1
+        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 14:02:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784926944; x=1785531744; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784926955; x=1785531755; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VjB+Pa1McUr4XyZZTJgTh82TNmXCDaoM/UdBX+H7SC8=;
-        b=KAaQkehJ3bkez/cewHZmwzD3268RHAuXVh9QTKDgq6ggmeJnSg/AjhRGVdpKFlMtdt
-         i6oGaWtWN8zHxggfAVomNLYYh+A30lEq8rd452cNNdYEk9elCnW2AhsIbLug8tyLQWYx
-         p164558eFWoDvz/JEr7cguAiBVcsILazPVX1gIHfm0G0VyugqMs89cF3m6XAJ321foBI
-         qouPnX8VclQBJXhUvZYG2pcCZQmuy2JW3N48zvWIbF1B4X3f2j+X896LLBflTY5mnnRS
-         h3KrjYrAMP88LyvVJJE5XMv6YuMPDIYWzRVSyld9o6Yrzq60mpY6zwpDUv6mYKsga5Rp
-         5ICg==
+        bh=g9LXkLmF0QQK9cYGRfMDJlE9q0WVIrmOfOlOL01nvng=;
+        b=LfiW1P8ZS/ZESMgWDvDXF3Du/XRUg/2lLHGnWeOlRofkS4hRgKu+cxSLluflt3CyjT
+         PXEclwGiL4+4AVUbaYv5kki/OrDEpiJD/w0kCGb7hJ8dtg4v892MImyvSLMPqmvyxYPK
+         FzK4225qvhL3X+hAOmorqfWQX3XPm+Go6HMNPTYexVtQNVU22ESeqttjRo+f7C9TcRmE
+         hBb6CDcLJqTrO4eOaer+XVYz5+LXZwIzeeoiXX7JbTy8XiRRTe3u0ujrMVraUgxcNVMU
+         U/uCV86Pgjtux2Jit/Op/es9t5iPWBTk2U7ti+zWjx8d0YGvkFVF+iAlfhldN/EfGSKk
+         vYbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784926944; x=1785531744;
+        d=1e100.net; s=20251104; t=1784926955; x=1785531755;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VjB+Pa1McUr4XyZZTJgTh82TNmXCDaoM/UdBX+H7SC8=;
-        b=JCRYwu8473w3FYXkkT1+BGK6nLhF5nfve/eyNU79YHoPax9WAShmW5IQLRvDBIPTzl
-         bBdr0zDqKs/SYVmxrGz4nQSnClir7ylRVPdl1tXWJ4NtDN8iStnl30csBzD2qzFqMjmB
-         4krtXDKYOGOvtBGo0CCF9o/mZvDynpXfoi24GSyKkziJLMDBrUHaRwZHUkCjW0TMSEIN
-         pghRFBnkKX+5xJxRE+L09BKBH302nm9udqGXEb40zJPk6z4/iWpfG1ROYfwwjv5rA64B
-         hjjKAh77J36DdQvbfrgb1iAtZdoJu7tBF0a479u4JeD7vSbAL4LpTs6vQi3G2KxBe2Dz
-         Xx5Q==
-X-Forwarded-Encrypted: i=1; AHgh+RqgiZLThd0jSw0Mj3ByvlmyByHGFCwP2FX1bJs0O1juN33AoQt355eH0TzoXlpYJVPGf/hAKuxlg78a@vger.kernel.org
-X-Gm-Message-State: AOJu0YzeiWJmLSU6HRqBmiYo7xoHp+DKseRxwnBAgive6juqjukdHuAJ
-	EI3zaSKZadmUAO9fCBJofqAR2HRZHAhLqQvPoEwSD1MXTff0q1GHgLWm
-X-Gm-Gg: AR+sD10t5pn9ygmaAuLJTBvJ1upl3pmgZesN5/Rm+8U0VIMGBhd+tQczhXwLyMCHAzo
-	Bn6duzugy6ZMmVgAxgjkb2NcHd5QD6dom0lt96cwDcDMNAbggSyk1doCk6yLBPys/FNeLyFpUWT
-	pnyaSlkitebUR0Saykijr7JRJeeGZ/Fq6EvisyM9qXLs2zCyHtVAPHvLsEditw5PEoqn/ouAZzV
-	unymBuGPR74UXTjkbIRYNeHQpOGGk+HL5JXdvdaq5dL0irybm9KSvTlULL+Gx2wXheyBomaB8x7
-	Obr32zZe7CFPBUe1OmzxAo3GY4GQYBGSr+eUS6C6g0VuhgDGypF3gWLQDYLZV7rVVvGXW5+4xTw
-	0p6mQO+8OMvrpQWCImMnv4XLYvyGv8PUs/pxdoZRQMZUzmiUFqY/NouWvJ2WfMvxRqmM9IObcGA
-	ndGlec+PYqdo8KwL0=
-X-Received: by 2002:a17:90b:5707:b0:38d:90c1:2485 with SMTP id 98e67ed59e1d1-38f2963f507mr38503a91.5.1784926944335;
-        Fri, 24 Jul 2026 14:02:24 -0700 (PDT)
+        bh=g9LXkLmF0QQK9cYGRfMDJlE9q0WVIrmOfOlOL01nvng=;
+        b=a/gEvdB8N3S9rKY72iXybMvn/VMq0+xMWKiIROhW60Adh96K+R+Mu/k1POPZf2f5cA
+         vvhr3KUuDzxfINorNQpByzTQh0G40oeurlaQUnk6SGNS0st1w+Q+yfjmV+4ow1TruT9P
+         dl3IE60+CGpfbUBSy4zumig73bjNd2DSpORFJPQDM/jEKioxcOlluwBRZG0wgSBulb6L
+         oEq3J+mLXpJJ3kLOK6y2ug68PhRNhMljWE3r42DMJIPltnhSaDSjmNXFNKTNN3+0t8n7
+         Oj5Yft0qqtP1cbJ3wPmFbyw2ePUZcF35vrblE2Khafpo9CCA3peE4YcKcTHOEvZjM7At
+         vDdg==
+X-Forwarded-Encrypted: i=1; AHgh+RpFAIk16u35jf75wOXyCTgRqcNaAt2HpK3DJRwheZr8umgpmhG6BsVJB1SUpqRjZ1nPDUolj7fmButS@vger.kernel.org
+X-Gm-Message-State: AOJu0YwiXtepbeRu74XOstn/Gu036SVY5bOLGucCXGr2Bb1O01UNLBFl
+	ec+JaQa54CKDC4/q2eys85fvyDx8YRb5F7rYNOY4HrAMRRKFFKEBC2L0
+X-Gm-Gg: AR+sD12ciio6WXo4IjQPaibP/IAOKIRf76QXp66TGjB5V77b03aFG2mxpazjVbNFNB7
+	sWrMys23n1H3clDHGpLXXguSa2z0SOuqWA/85s1KebdGJ93fNXiM3ZJezgGYwNEdXbwe8mW6dnm
+	rlEF8RqwDBydwUIn7Kr+qijq1/dwhZqWd+de2RTjuU6+vdFcCmByWFeOzAzaxdIwKMLc1eK07OA
+	cYYR2PwbESMec18SoJb6dGjBn3QJZ/Tqw8mUxsfb2qCqkyX+lKzCc7W0DHvi+2MtE4ueg0t7rsN
+	5rlNPuHSoApTR7NsqwOBAmso5evX/HDcHwIOkOr7hbzTjaCT65fCizGNQSKxcvFSodTVsPN2Krc
+	I3QfvdpTVvNXOFLf5p7x53ZBcUD0CTDUmnC785KFHIVMLY9tLyumwMyUsgg7e6M4vh6IFIi/pVC
+	UMregquc5AmYR6PZM=
+X-Received: by 2002:a17:90b:2f05:b0:36d:b30b:14ed with SMTP id 98e67ed59e1d1-38f293c6044mr58730a91.2.1784926954876;
+        Fri, 24 Jul 2026 14:02:34 -0700 (PDT)
 Received: from [172.28.140.252] ([2409:40c2:505f:3320:3d54:c6f0:368a:d94b])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-314bc548e63sm2485324eec.19.2026.07.24.14.02.14
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-314bc548e63sm2485324eec.19.2026.07.24.14.02.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 24 Jul 2026 14:02:23 -0700 (PDT)
+        Fri, 24 Jul 2026 14:02:34 -0700 (PDT)
 From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Sat, 25 Jul 2026 02:31:56 +0530
-Subject: [PATCH v2 1/3] ARM: dts: ti: am57xx-idk-common: Remove unused
- ext-clk-src property
+Date: Sat, 25 Jul 2026 02:31:57 +0530
+Subject: [PATCH v2 2/3] ARM: dts: ti: am335x-shc: Remove unused ti,no-init
+ property
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260725-ti-omap-rtc-v2-1-13f765ca96b3@gmail.com>
+Message-Id: <20260725-ti-omap-rtc-v2-2-13f765ca96b3@gmail.com>
 References: <20260725-ti-omap-rtc-v2-0-13f765ca96b3@gmail.com>
 In-Reply-To: <20260725-ti-omap-rtc-v2-0-13f765ca96b3@gmail.com>
 To: Aaro Koskinen <aaro.koskinen@iki.fi>, 
@@ -86,38 +86,38 @@ Cc: linux-omap@vger.kernel.org, devicetree@vger.kernel.org,
  goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
  simona.toaca@nxp.com, j.bhargav.u@gmail.com
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784926923; l=818;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784926923; l=689;
  i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=BP5isHWJVSgsQc7eHb27miIKkXny1ILGVxUFS9gjsgw=;
- b=GZPjhTALNqNqEfqW7quMWgJj2Rh1x7yZRa6ZgyLobMt9wQ45rj6S/AMJuNBFY0uPEXflzMmHC
- MO5HSWxDxNbAVzCaPd/+kBztjYa5zlH0RyLkbkVIyWoItqadOrd4R2S
+ bh=U+tsQLnWyDRDHVr0CTIeZd5q+U3+1+j8XgyYVIUKJgY=;
+ b=KOMlrWJBSgCQ58z4hGD0KndOSJu3JPpG7wvEFOkTt91LKenGQVK+yI1DudVtQt05AbabXzjN4
+ cdp+7KH6ldtCOOP0anv94T/cqy3gRDKiyAvuwTZrReIeYmz0DMLGIfy
 X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
  pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-The 'ext-clk-src' property is a legacy, undocumented boolean property
-that is entirely unhandled by the rtc-omap driver. The driver instead
-determines the clock source natively by checking the presence of the
-"ext-clk" clock via devm_clk_get().
-
-Remove this unnecessary property.
+The 'ti,no-init' property is a legacy, undocumented boolean property
+that is entirely unhandled by the rtc-omap driver.
+Remove this unnecessary property from dts.
 
 Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
 ---
- arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi | 1 -
- 1 file changed, 1 deletion(-)
+ arch/arm/boot/dts/ti/omap/am335x-shc.dts | 4 ----
+ 1 file changed, 4 deletions(-)
 
-diff --git a/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi b/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi
-index 43e3623f079c..ef4bd554e92b 100644
---- a/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi
-@@ -445,7 +445,6 @@ &uart3 {
- 
- &rtc {
+diff --git a/arch/arm/boot/dts/ti/omap/am335x-shc.dts b/arch/arm/boot/dts/ti/omap/am335x-shc.dts
+index 597482822608..2b946823928f 100644
+--- a/arch/arm/boot/dts/ti/omap/am335x-shc.dts
++++ b/arch/arm/boot/dts/ti/omap/am335x-shc.dts
+@@ -241,10 +241,6 @@ &mmc3 {
  	status = "okay";
--	ext-clk-src;
  };
  
- &mac_sw {
+-&rtc {
+-	ti,no-init;
+-};
+-
+ &sham {
+ 	status = "okay";
+ };
 
 -- 
 2.55.0
