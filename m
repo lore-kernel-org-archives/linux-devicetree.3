@@ -1,173 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com [209.85.221.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F85A4137A5
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 14:34:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B14513F3280
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 14:39:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784903665; cv=none; b=Mp1QMHZDpfpuOkxAwS4sSpIzrtl7pxmbrDVgdkydJbX7rK2obdsdGgZfNTlXZB8ZdgP0XwMhHolLks8orDoSHYYcfR/s8wMdG/qjZn4fdPHMsT/RUGyjTO0/HRayHFZkWj5QPeqDkgkcam01jkf4+9zN6xpor+91p8AtCA/5obU=
+	t=1784903957; cv=none; b=MoIvr0EncqmYRxVV3E6b6WEONJrQ2L3BOYO+Iv6fH+5apJiivmaNeGnNIqLiLeUZH/nk8Z2V5fHv31MzWnhJCVsUwB1wFEbo0rQSpcB/dtJsKVAhz4AvInsiC/uiILV3FIrxvXroJRfUUk7d4AW+Sfo8MFrzIU4Yz9v/PngGqf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784903665; c=relaxed/simple;
-	bh=DM3qBtJl3Jp81ZUOV3czUPQlj0qKe2aUA7jHuiH+B6g=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=E2d5G0mGcONjaB4b70/gF7Dx9uwN2gwlTWawRYLVgBmItB4glL8ozsJU9V1uwn0diIW28oDSB2MIKSWj+w87XTaXEHgxEN4mGDrMqy4BySYKkMjSURvZjcGfF+6v3d7yACChV8SWvL8wQWVo/NFmNWE7j/SGyH2Db0sX3NqZD9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NH31Vmv9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784903957; c=relaxed/simple;
+	bh=qwH94DLIB7dhjexW2Ov73pc9+u+IGg0Yc9qPyosGQS4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ku5wXdSSTWfZl+MUkdGcKe0URiJXNmIiS9X2McTTob7y5SAMcAhnoJgTz6XsKp6kC9Himka7BDP2Lhqzpn34118pM5o8fO3oNj9/wvyDHPxeA82yz8IL6VMRjRyzOn3uWOlcfSphdpsa3oDPAAlr1ecrGGD/nrN6HlN0pvO6zPY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wg6klG1P; arc=none smtp.client-ip=209.85.221.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NH31Vmv9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D2151F000E9;
-	Fri, 24 Jul 2026 14:34:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784903662;
-	bh=wLhRqprnW96W5KoFpqm/Ojaivkskuyg1XWCKvHtTjtk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NH31Vmv9sfRz9i/0EIzi+aoZUm7VGvoUlO92+wLithe4co7vyZvATV2BPXq4vOP7S
-	 fo2UJqstHU6LIGqJYiaM15d8ieTufsPpIdF++e/Wik3TjwUoY6wK8gjkug4PnBkk78
-	 EUGmmUwp+FD8Pwhxm9aUJjF/BPbd7RgprOFm12bkjRUcWhFfJQPmzZjQsIot6PileS
-	 5XAxgzdivT/LO2clIOEjsXBFawhN/hRjx+3RYRVfudGVWaTSrs3bilv206jeb7kmyK
-	 tNV2jsCTkrhjnykQaNWwlvznjb8DaSDedj83OfgxxQninkKa44Rl1rR5FEG11cJXJr
-	 WtHXG4IQjlU9A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/5] ASoC: qcom: qdsp6: Increase Q6DSP_MAX_CLK_ID for
- LPASS LPR vote clock
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Prasad Kumpatla" <prasad.kumpatla@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260724141708.2212057-3-prasad.kumpatla@oss.qualcomm.com>
-References: <20260724141708.2212057-1-prasad.kumpatla@oss.qualcomm.com>
- <20260724141708.2212057-3-prasad.kumpatla@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 24 Jul 2026 14:34:21 +0000
-Message-Id: <20260724143422.1D2151F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wg6klG1P"
+Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5c2c96286f0so177791e0c.3
+        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 07:39:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784903948; x=1785508748; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=T8TvgdhQY1bgvemL1xhDLy9Sz7Qig1A4ISSSjeskkls=;
+        b=Wg6klG1PMBf0BowYfiFXTJ+Gtmf3KIjQTbM/4CqW0HuXAJv5BoiAqd9bHxWWeCvYTR
+         qoipQQjviyRNHUaaU+Us+cPwDNszIr9w87XPbG3HNA9nx3jszBfiA3S03ODqGqLkAh6e
+         oFfj1eUnaZiK2aT3hlcHfPDWn3o8hqQV9LJT8Nb6frSg2ot/A6VYPLzSEUkp/yFrNz+4
+         Da0lMSAtFh6Q5FqzIUyvGtpyeiO1d5bdHQKr2EkhWZlPJ6hBh68667ormLDN6K6XUm4t
+         fcEYEXYPusbEKwUr0giTcZY4POEUawhH1N+J6hVluj/k01LZf+0Ic3pWY0cCTw7zoBIk
+         Z13g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784903948; x=1785508748;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=T8TvgdhQY1bgvemL1xhDLy9Sz7Qig1A4ISSSjeskkls=;
+        b=mHsIPVZj0+f4sm5KZkkRv6IgueyNfN8KRcZto0BUYkOH0h2xs/TPDttaFdXydTVgLW
+         RMYANNOh9ykrGwTvQcuUy++NlqUQ/EdmfKABqZuL7RUkBvWEnuELS9A0gdvy3FKYXyQn
+         FFLZ2GI6TVt3HbvqVwgEoMn8uYMSRaQ6Zhux0Vb/cNAKLFqnq2uZOYVnWYiFK8bN3G4C
+         MiI/Q5A/rZM/p5112LQQzkAwrxaf2zGuVPLknAlmjGm6XPfPea/BImVVadsJ7M1UD5Wa
+         a2UGzPLEaSMAKGCoEPpR7NcweIZB9tbw2N1Rjsfyp8fL1pSD2irFtrYDQDeGnwnnYyL4
+         cGsQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpSyARvCDZ755hU6reeg+a7Gmj2Ou0h5SRg9HCd2fB58kaWTlsiegoSE9zq9TcvRVDngvgkjQ6qqB4T@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyj93MRLdO7ga4QUjBoXOy3UPaCHb+Hrvj5USkarRG8if36s5N1
+	TFP9lnFA/ewEpvpFUlprPySpB8m8EN2UfqVnlmcbsxoGa9R5bHikGLuk
+X-Gm-Gg: AR+sD11zhLnzfnLdDSWXASYpFCGwY9/qdLRCeJ32jsusUeszjQW8Clyfkb037d7djv9
+	T0XeWoLBXxha7QdLr3Rt1VWpwDvaoEZGbf7WzE9Av5YwEVLne6fobuLgKyVVJZPyzYkPWeENv53
+	Cx/lUq0HqMMuvSRFocNthI42eQ95yBZ+RRfBV1qRaEhk5yTpUX/pYBkasX+h2q0Z50VEyQ5FlKF
+	m0KrZUfNa760UYoe+fckr/a2FHfkEUH/V/MupprodxHrCCHanFDmS4e/gWKU498aFeMt2VVUQoU
+	JQXmhaVHayk9vsmXOd/AiQ4Bbq2YYjnBYDjSPid0ORBPeAnv40IYfxi4fGEN5Vwtc9j2s3DXPMv
+	03Avcw4z9gJb7s6keEq8wQ4xE5tMmBPXDsL2578GtnNMEiBHjNW9GADE3z1rC0bySg90mCH677+
+	Lrx+ktkHKuvw==
+X-Received: by 2002:a05:6122:e1aa:b0:5a4:6680:64f0 with SMTP id 71dfb90a1353d-5c2da0434d8mr3538060e0c.4.1784903948539;
+        Fri, 24 Jul 2026 07:39:08 -0700 (PDT)
+Received: from localhost ([2804:30c:90d:6100:8a69:5cf5:f1f8:a1e1])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c2c654c9c3sm8815019e0c.18.2026.07.24.07.39.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 24 Jul 2026 07:39:06 -0700 (PDT)
+Date: Fri, 24 Jul 2026 11:40:11 -0300
+From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+To: linux-iio@vger.kernel.org
+Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, robh@kernel.org,
+	conor+dt@kernel.org, devicetree@vger.kernel.org,
+	marcelo.schmitt1@gmail.com
+Subject: Re: [PATCH v8 2/5] iio: adc: ltc2378: Add support for LTC2378-20 and
+ similar ADCs
+Message-ID: <amN5Sw-EsciZCF1V@debian-BULLSEYE-live-builder-AMD64>
+References: <cover.1784835663.git.marcelo.schmitt@analog.com>
+ <1c12e37f273d4f99916768e1a9b44dbae30f9d0c.1784835663.git.marcelo.schmitt@analog.com>
+ <20260723200452.082871F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260723200452.082871F00A3D@smtp.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On 07/23, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] The IIO scale factor exported for the LTC2338-18 is incorrect due to an unaccounted internal resistor divider (missing 2.5x multiplier).
+> --
+> 
+> --- Patch [2]: [PATCH v8 2/5] iio: adc: ltc2378: Add support for LTC2378-20 and similar ADCs ---
+> commit 79bd7cc98e49057401d7fb8d26685b9092c4787e
+> Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
+> 
+> iio: adc: ltc2378: Add support for LTC2378-20 and similar ADCs
+> 
+> Support for LTC2378-20 and similar analog-to-digital converters.
+> 
+> > diff --git a/drivers/iio/adc/ltc2378.c b/drivers/iio/adc/ltc2378.c
+> > new file mode 100644
+> > index 0000000000000..107388f870626
+> > --- /dev/null
+> > +++ b/drivers/iio/adc/ltc2378.c
+> [ ... ]
+> > +static const struct ltc2378_chip_info ltc2338_18_chip_info = {
+> > +	.name = "ltc2338-18",
+> > +	.internal_ref_uV = 2048000,
+> > +	.chan = LTC2378_DIFF_CHANNEL(18),
+> > +};
+> 
+> [Severity: Medium]
+> Does this chip info need a field to indicate the scale multiplier?
+> 
+> The LTC2338-18 has an internal resistor divider which acts as a 2.5x multiplier,
+> but this struct doesn't currently contain a way to specify it.
 
-New issues:
-- [Medium] The LPASS LPR vote clock is supported by the array bound increas=
-e, but the clock itself is never actually instantiated in the provider tabl=
-es.
-
-Pre-existing issues:
-- [High] Clock operations can be called before device drvdata is initialize=
-d, leading to a NULL pointer dereference.
-- [Medium] Concurrent or multiple OF clock lookups mutate shared clock attr=
-ibutes locklessly.
---
-
---- Patch [2]: [PATCH v6 2/5] ASoC: qcom: qdsp6: Increase Q6DSP_MAX_CLK_ID =
-for LPASS LPR vote clock ---
-commit c2ccafc9793d5fdece974aa409ae112fa2b07ae4
-Author: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-
-ASoC: qcom: qdsp6: Increase Q6DSP_MAX_CLK_ID for LPASS LPR vote clock
-   =20
-Q6DSP_MAX_CLK_ID defines the upper bound of supported clock
-identifiers in the qdsp6 LPASS clock driver.
-   =20
-Increase the maximum clock ID value to accommodate the LPASS
-LPR vote clock identifier.
-
-> diff --git a/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c b/sound/soc/qcom/q=
-dsp6/q6dsp-lpass-clocks.c
-> index 03838582aeade..ab7d20580638b 100644
-> --- a/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c
-> +++ b/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c
-> @@ -12,7 +12,7 @@
->  #include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
->  #include "q6dsp-lpass-clocks.h"
-> =20
-> -#define Q6DSP_MAX_CLK_ID			104
-> +#define Q6DSP_MAX_CLK_ID			105
-
-[Severity: Medium]
-Will consumers actually be able to get this clock?  While the bounds limit =
-has
-been increased, it does not appear that the clock is ever instantiated in t=
-he
-provider tables (like q6afe_clks[] or q6prm_clks[]).
-
-If a consumer requests LPASS_HW_LPR_VOTE (104), cc->clks[104] will remain N=
-ULL
-during lookup, resulting in a safe but incorrect fallback:
-
-sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c:q6dsp_of_clk_hw_get() {
-    ...
-	if (cc->clks[idx]) {
-		cc->clks[idx]->attributes =3D attr;
-		return &cc->clks[idx]->hw;
-	}
-
-	return ERR_PTR(-ENOENT);
-}
-
-Is there a missing clock provider array update in this patch?
-
->  #define Q6DSP_LPASS_CLK_ROOT_DEFAULT		0
-
-[Severity: High]
-This is a pre-existing issue, but can this lead to a NULL pointer dereferen=
-ce
-during early clock operations?
-
-The driver registers the hardware clock provider before setting the device
-drvdata:
-
-sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c:q6dsp_clock_dev_probe() {
-    ...
-	ret =3D devm_of_clk_add_hw_provider(dev, q6dsp_of_clk_hw_get, cc);
-	if (ret)
-		return ret;
-
-	dev_set_drvdata(dev, cc);
-
-	return 0;
-}
-
-If an asynchronous or deferred probe consumer requests the clock and calls
-the prepare operations, the callback fetches drvdata which will be NULL:
-
-sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c:clk_q6dsp_prepare() {
-	struct q6dsp_clk *clk =3D to_q6dsp_clk(hw);
-	struct q6dsp_cc *cc =3D dev_get_drvdata(clk->dev);
-
-	return cc->desc->lpass_set_clk(clk->dev, clk->q6dsp_clk_id, clk->attribute=
-s,
-                                 ...
-}
-
-Should dev_set_drvdata() be moved before devm_of_clk_add_hw_provider()?
-
-[Severity: Medium]
-This is also a pre-existing issue, but does this clock lookup introduce a d=
-ata
-race if multiple consumers share the same clock?
-
-When a consumer requests a clock via of_clk_get(), the shared clock
-attributes are mutated locklessly based on the caller's arguments:
-
-sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c:q6dsp_of_clk_hw_get() {
-    ...
-	if (cc->clks[idx]) {
-		cc->clks[idx]->attributes =3D attr;
-		return &cc->clks[idx]->hw;
-	}
-    ...
-}
-
-If multiple consumers request the same clock concurrently, this could race.
-Additionally, the last consumer's attributes will silently overwrite those =
-of
-earlier consumers, potentially causing subsequent prepare operations for all
-consumers to execute with incorrect attributes.
-
-Could this shared state mutation be avoided or protected?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724141708.2212=
-057-1-prasad.kumpatla@oss.qualcomm.com?part=3D2
+I guess it makes sense. Might split support for this specific part into a
+separate patch to avoid it holding on the rest of the series in v9.
