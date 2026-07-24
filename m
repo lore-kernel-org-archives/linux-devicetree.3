@@ -1,47 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C22725D530;
-	Fri, 24 Jul 2026 09:55:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A00503DFC99;
+	Fri, 24 Jul 2026 09:57:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784886952; cv=none; b=QNhkvTMuLAeBN3zY0J7dG8sG55Wo/sBjaqSb/J4Ln/VbLSEjIXdOfxI0gTHwHnHAHK4m9pKn+rELIvGGNMIfQFNdgdNJsBzgJytRYLPce2obKn9sNqoj4uoiRiKaPaAVkO7wJnhCoUXtL2m/gq7o2gaYGNDF4tTUTvsK3ii9VjA=
+	t=1784887022; cv=none; b=p+tdVV5htY6wpMDZd3gNJ/2d6VYe4Z8Vr7qj+5R8paxRlHAAOJmtGqQ3CK76PkZZWkYlSyxo7ml06q9DQBr0jVMLAc9mK8FkNDlBRpdie9glseBHDRwpTBFF7ZWBoFz7qLu+n9NnBaFfqY04gxvrBB2C21r6o4tKstlhtvX0OWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784886952; c=relaxed/simple;
-	bh=VSopN+Fwpto8t20mqCBeQZiJ4y4NitvhKC0QxOBdC0E=;
+	s=arc-20240116; t=1784887022; c=relaxed/simple;
+	bh=Polwfszr45wyABFQ4a6qYp1a2g3lupj6safwCCCtLCY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BYcdq3AIkWR4lZ5fwWTMxfDeM5RyzGcdQoCG+T93CkOSn/MtXgbIAXDe62n6XIM3Q9EbUu0PvIVqiWDAgrN7xeC8jkrw34f8kMHEcQ4E6C3UVu5nK1gY3+dnd6P27xDXACaYO9JIHdvs/6hrnM+GbLeeLkZzDY/0BEpNTDdcQT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ITGaH58d; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=OLuzASwJ9pxo11pbjMNPwXvRVxk0bJDAELZGQxDpwHBtzrKw83oj+79acTac6vRb7GVsPWOB79huZeGCk7UoHoSehsbDON3PrztcAs+lD/LAyjYu7szvC922oxXwAG77uHPjEcHpcyLqQc9cQR5rUJTt5999LDaGTTyBB4z4I+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ee1OCH5X; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ITGaH58d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93C7D1F000E9;
-	Fri, 24 Jul 2026 09:55:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ee1OCH5X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 087A01F000E9;
+	Fri, 24 Jul 2026 09:56:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784886950;
-	bh=4GIrrcMk6JokeZ01gAtuDEZ+WrIu9l+M5RXtW7uNr84=;
+	s=k20260515; t=1784887020;
+	bh=jyfrV6IPcu9aYnh7T4e1n7N5xbj+4GI4NND7Tjzrj/w=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ITGaH58diJxBCmPQEf5T5hV26voL5PB67MDmmpuIH5RvbU6N2GXDnPdgk6haJseSA
-	 rhVXxLl+ZRzrt59/yUulsmRuh9K6ICu4EGa7BO3e5FneKoWTU3RWwO2mDGOgUipoU8
-	 vygmtB+4zB9K0BxTIRUK7w7lES9vX0RKeJC0DA/2CzMpcRAqALLWKtxCq89BPaQ4OU
-	 TGEl+neuHtkaHDnJxFL7mUmUMUABQv6MF/axrSCwzDABLqQMG6tDIyLUzt16BAz9kz
-	 Oyb+j2nlcFx/rk6x6y0KYYzQBTMbW3RPcXaNUs1JfkXig63R7/h5FSPtxpmyiB+vZ8
-	 D/fiEhoeaLnCQ==
-Date: Fri, 24 Jul 2026 11:55:46 +0200
+	b=Ee1OCH5XZOCRkCkmSTJ92KBA78L5d/rE7iiYMsVSBojZtNn2AcPdDADImGQM4neEM
+	 opp0N/azuu++khI/wIZV/HZp+BCYmGbevYr6/qE6w6JqW94eoXMG6FrrYwgaS++BNG
+	 FKSFML9UFlZAeWFCfcfZz/FsXRgONHFdZ9mpXfkw17hXbvcwylH0BgDvcZ/m2zUGid
+	 udMbTeIOyhpCa9219KiBtgiTk3CmIuyHJH1RDsKrbcwoxI7hWH8hf4Uca6LG47BYJO
+	 hlzgxazQxS2bcQntp/ZbBTDXgVindye6lhkEg9qgwFGS5GpDowO8pbQROm70SODey1
+	 HH0FanAJ+FOKw==
+Date: Fri, 24 Jul 2026 11:56:55 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Paul Louvel <paul.louvel@bootlin.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, dri-devel@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH 1/2] dt-bindings: display: simple: Add Ampire
- AM-800480N3TZQW-00H
-Message-ID: <20260724-debonair-brass-serval-e6bfc1@quoll>
-References: <20260723-support-am-800480n3tzqw-00h-v1-0-6a4ae0575a19@bootlin.com>
- <20260723-support-am-800480n3tzqw-00h-v1-1-6a4ae0575a19@bootlin.com>
+To: Kaustabh Chakraborty <kauschluss@disroot.org>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Michael Srba <Michael.Srba@seznam.cz>, 
+	Linus Walleij <linusw@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-samsung-soc@vger.kernel.org
+Subject: Re: [PATCH 4/5] dt-bindings: input/ts/zinitix: document mode 0
+Message-ID: <20260724-lemon-bird-of-opposition-e9dc7e@quoll>
+References: <20260724-zinitix-modes-v1-0-f6df7d86a878@disroot.org>
+ <20260724-zinitix-modes-v1-4-f6df7d86a878@disroot.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,15 +48,19 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260723-support-am-800480n3tzqw-00h-v1-1-6a4ae0575a19@bootlin.com>
+In-Reply-To: <20260724-zinitix-modes-v1-4-f6df7d86a878@disroot.org>
 
-On Thu, Jul 23, 2026 at 06:31:49PM +0200, Paul Louvel wrote:
-> Add compatible for the AM-800480N3TZQW-00H from Ampire Co. Ltd.
+On Fri, Jul 24, 2026 at 12:54:06AM +0530, Kaustabh Chakraborty wrote:
+> Zinitix touchscreens support three modes, numbered 0 to 2. These modes
+> differ based on their event report schema.
 > 
-> Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
+> The devicetree schema does not mention mode 0, thus does not consider it
+> as a valid state. Add it.
+> 
+> Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
 > ---
->  Documentation/devicetree/bindings/display/panel/panel-simple.yaml | 2 ++
->  1 file changed, 2 insertions(+)
+>  .../devicetree/bindings/input/touchscreen/zinitix,bt400.yaml          | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 
 Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
