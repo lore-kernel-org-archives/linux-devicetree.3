@@ -1,282 +1,108 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012052.outbound.protection.outlook.com [52.101.66.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6781024A05D;
-	Fri, 24 Jul 2026 02:25:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784859951; cv=fail; b=L8aFaSX5JuzpgWsRD0+veUgL2MqdoDgWLRfbR6EgDeLUhhkucs79GOC+MANi0J5lAYTr1GPP+CpP9wXMZJQnYbg5631FcqVLcc88LqoW++WoJvpMgEQsHDTrGEEzP4ik3NC9prRClaWHB/rwNU4gwhR6DtELI6ymMAt6hFdfN/Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784859951; c=relaxed/simple;
-	bh=c3E7ou2b5jxjOMHoHU8TyEePpoRSEUnyFLcw4b/UKi4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=fptpw6TGxEb08hOFNpNWlKAXlzvtnMhjafIHfW4JaD5z/9/lC9MZOxuhLZ4QSVzLuqbqZ1IkrcBWWEa3PgkmzmiRWiajd502dpiW5HcAPpJiga4nnWa08THHxVsxYDIpl9B0PvP5xEvdMnBslAGcMZCjhRwY7uO1JdSrJrpO7lc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=f5xAFCAz; arc=fail smtp.client-ip=52.101.66.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C2B3515D1
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 02:54:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784861652; cv=none; b=Qi8Za3VOBraDnwltQ4ukJIMmxfSjpjazg/zkKX0Pd/7QyJmW4gXuHS8evWKg0Sja/MLnuq7OASlE9r7EaZImW07xLpiDWXR5NqnK7h4daeYuBtECcqoeVtNdziNEn6Zv7H9qjtiUe8P0W/hVkvpMWRnRLlRVeEP3vY7bW2ObpkA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784861652; c=relaxed/simple;
+	bh=3YNhJa3B7BJ+5/hGFL9dz3h9OwH3cAo/rRkf4mBqYck=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NE+685rXqMpUvALTxOJnCDMoNLiBdbbgPV+enC6w5diZJOC9eySsDyAobUSTJypfmwxawWnjT1DVSHJmH+g/9QWw2hfeQByPJlww+PQc+oP9DbJNB/Lt8QQW3Lqq/8akbs4a1S9MBm2xNXu8wOv9HT14DM8WhzRD+CnZBJMTybk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oYLBfK4X; arc=none smtp.client-ip=209.85.210.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="f5xAFCAz"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xhz22k7qc+I+tikRk0NpDWmQi0DbMT4zS9rZoIrcB4CuJ+ZEZxjkPZskwT1c+ITZISPmpBUd1+9f60Gbu8+G6KsZnnEcggKTPLV+ghLc41z7fwCSSThkrhdTWKszw+hK8KRZamGZmtisfe4aVsSzFbxq0/r6TW/S3X+nUtkCkAybMEgfwVV7ToTbSX1/qPOM2PRfe8WudvCOQAGWxL7QrflU1BqFEmOZM4wMVZm25MLhyElTdN0wOC+abIg7/OC1an4w/RtI1JjaDhMF1ZE8SfxUTZXWkaPli/TXNjakacvcfsTHe06ezOIxvPT5IvTq1Ds3HMt1XB5SBBPAR0Au4w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ixuvoYfoJYkUEx4+oSB66cEN5lAePAqdl2TR+wY3X2A=;
- b=xWZ9JQglLj/4KCrenLI04ttIjCMoEKhd5a600H991+HmSuH3Az248EjltPeuaAHLeaecps4HxlaxH4rCCRZM3OX9gt7Y5artQSWJiQD9QaDE8AI+bmIUU1VbCbjOzpBThNvroLHL6g42w7cJ2p/Nx4XqZr/qEDffA0JhGKyhu0GyTNT+l/NSxeJ5nwgSB5qhyOpJTIzPETjLysS1gxW1yOpAdLSAgxYEVmoK1ooWudpo7vZ9k7BZH9ykJ6FNp12bcrDLL3kmVYV36eF0ynPD7AvPhXc2RjolEvh4XDop9Vla0Ww5Xof+Zya+/eAoqNRMxyPnRTRQX+4DPA3tcACeKQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ixuvoYfoJYkUEx4+oSB66cEN5lAePAqdl2TR+wY3X2A=;
- b=f5xAFCAzTY5dW8JBPmPKmhDaZuPRRLJsq2g2zBX6U7iXvCz/FmBf3XfUK2pfn1PZ2IppdKGjaLcyy7iUYGF09wdxRtJmrxEpg4+N5ICw5r19QMVXXCDttdreIhEui3DMKCjcT5ZIT3gSuKsp4EjVbANslWK9G5w/E8sFz8xpUL6rcJPT+ybz1BtQQgj0ZSAdB9ygVGME+EE4dhd0s6xJoOkLTEa07qPtVoDt/CWYBMlSQz9iJ0elJE1VQBwCbH7D3tDtKMIKK1c9T+a72YNjLNfHk7/sdfpht1auztOJrjMJVKyjBZcLvPd93kkfK3u2IrLF6ul70Fbmebog5WVWaA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AS1PR04MB9287.eurprd04.prod.outlook.com (2603:10a6:20b:4dd::8)
- by VI2PR04MB10168.eurprd04.prod.outlook.com (2603:10a6:800:229::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Fri, 24 Jul
- 2026 02:25:44 +0000
-Received: from AS1PR04MB9287.eurprd04.prod.outlook.com
- ([fe80::6f30:763d:17d2:b79c]) by AS1PR04MB9287.eurprd04.prod.outlook.com
- ([fe80::6f30:763d:17d2:b79c%3]) with mapi id 15.21.0245.010; Fri, 24 Jul 2026
- 02:25:44 +0000
-Date: Fri, 24 Jul 2026 10:27:13 +0800
-From: Liu Ying <victor.liu@nxp.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Marek Vasut <marex@denx.de>,
-	Stefan Agner <stefan@agner.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	Sam Ravnborg <sam@ravnborg.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Robert Chiras <robert.chiras@nxp.com>, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v2 3/7] drm/panel: simple: Add waiken WKS101WX001-WCT
- support
-Message-ID: <amLNge6hp25xHDYc@raspi>
-References: <20260715-dxl_lcdif-v2-0-da797562636e@nxp.com>
- <20260715-dxl_lcdif-v2-3-da797562636e@nxp.com>
- <alnCL7ylMyvGD-ui@raspi>
- <amAJL9TIcDAK7kbh@SMW015318>
- <amA8iVS4c0exg6pT@raspi>
- <amA_lUpWkbOFal1y@raspi>
- <amFAXwoM4j2sIENj@SMW015318>
- <amF60o7yUcqAE24N@raspi>
- <amKJZ4CZJbeBw6L6@SMW015318>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <amKJZ4CZJbeBw6L6@SMW015318>
-X-ClientProxiedBy: SG2PR04CA0209.apcprd04.prod.outlook.com
- (2603:1096:4:187::12) To AS1PR04MB9287.eurprd04.prod.outlook.com
- (2603:10a6:20b:4dd::8)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oYLBfK4X"
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-848595b338cso1421284b3a.0
+        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 19:54:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784861646; x=1785466446; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lPCe44TL9Lu4Q6XqOnCQ1df/GtP84+ufX9r8RseyaR4=;
+        b=oYLBfK4XIgQhxAUYYOk/xS2wM5lD+EDj99dAz2vsWUcPuABexuBt6yR/e6BhHb3/wF
+         4unqI0tGjwrmninMsbWdh+KDoDZp2y8NYy5e83OjNYeYnzjqycGxyoN3I/qmyK09382P
+         fnk2aUD0s6VCVrt111JnQSdS8zyosCQ+/qOHeUJp1PFKDiQG0f/zlBHQhgoct2WjU3py
+         SGibogHymnziE62mnm/yPSvCnDkpx7gylE+0w8DqlmCq77rs4G0uc5sA/0JFjT8QJuwa
+         LTUZxe8ffDcvLcJXGz+qiKDYgqnOwM31TrXuqXeI+qTzV6QCOGeyIGTirD8BhReL2uo6
+         TtsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784861646; x=1785466446;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lPCe44TL9Lu4Q6XqOnCQ1df/GtP84+ufX9r8RseyaR4=;
+        b=kOxabf3zKqui2kG2bkaoXefnKM89P/vLkUTgazeSjA/lvec6UZCc7K5YKuGBCd48i2
+         62yGbw/i+7Yck9hiVJHM8SFXyzAAWAYdbLI8b+kdK7WQqiZ3mFzWysyqzIDaS3jReBC9
+         LCjqRWC2Va4FHnZJx+hdn5kKzW7CqvoEjPLVYsnIsoExkzpoJvxRUZljHtx/3Qswn1+V
+         wyQE/2/G7f6G2H8wf3QgFk7k8q9no9gyEcrwoeqFAJ4c91el2ndvaDTMS+7gtwIcbRcK
+         9+cNCL6xSGH1bJk0uOVkNpLGXnt2AaNkNk0B/q23j1MBbEEscqkNB2ICg82VQEJuoT7N
+         5PqQ==
+X-Forwarded-Encrypted: i=1; AHgh+RogZFHkPfALCfG8vlbbxdo3r/7UCtbQIrkiHGeOMystzHktKFIwc+jPgqcOQdcWlyvgShr2qJw+rKJo@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy8NITciZBuk/kQTedKlz5iFCeaApWlMx62hDGJhCIL6eprAyis
+	nfO8KKegqq+aRDoh5L6ssmPhCMuzQkNuoFN1006aUR4p2UM5Gj/baDsS
+X-Gm-Gg: AR+sD11ASz8SCYoAqYZtqQirhLIBy7lzDd3VBWkicewH0doEQl1VHCxEskqYEU2znD6
+	glURF9naTfraC575ivmvuGG6DXxodqMHM/N1+eENodQJrVkExvXtBCY1VxzHeNeV1K3k/GLyl7k
+	5O4StpnZ8vRRuCmh8vcny5EAzcz3K2THQcseZH1EV/qZIKDUu/Qy2dXrMZ2BR2UciRg2qeHicQK
+	nIj6XJRYEnoz/3qKQvqziKJZKheSi00r8Xp5NE+rPm9HaD2iw8cSwJK0AE8aryhIo6R6aVv29Bv
+	REc8xxmGAOqlWSy6aO9a7j5Gjsp2e2ibl7IdVJxOEhgDiWccgEobwvmJNTYf98BwwfICMyvex78
+	fciPEKX3O69osXDyPeKs/6Kh2hBkt9Od7q883mOodQQV9LCZUw6t0n6Z9QA45yUuLGY00Da3mZv
+	VE8WZGd/TyzmhFEY1U7xMI9hqNgY2bQKAo1gAVw2bYhE1NALE5vw==
+X-Received: by 2002:a05:6a00:230a:b0:845:4928:8655 with SMTP id d2e1a72fcca58-84e2bb3733cmr6297375b3a.39.1784861645606;
+        Thu, 23 Jul 2026 19:54:05 -0700 (PDT)
+Received: from [172.19.1.48] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e1757852dsm3919741b3a.28.2026.07.23.19.54.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 23 Jul 2026 19:54:05 -0700 (PDT)
+Message-ID: <1c930200-11b1-451d-a7a7-170b42aa30fa@gmail.com>
+Date: Fri, 24 Jul 2026 10:54:01 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS1PR04MB9287:EE_|VI2PR04MB10168:EE_
-X-MS-Office365-Filtering-Correlation-Id: 38eddd25-bd45-4a56-df07-08dee92add4c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|19092799006|376014|366016|1800799024|10067099003|11063799006|4143699003|56012099006|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	cRIx+NBFcwTSNc8q63I/3k64Z/91oIvMfHPjA5UqSpGutZGrYT53l4OwTEastUx57U/trrSYXLrrG/iHoT7E/H8ImlCuSIzpkR4tzPkiVXavPEzyF8SJNcE6u0whfJRYl/fq306Bbg/x1W+duzx9S5UjWzVW2WokG5sbyugkEAD0tRjBeFTmne6VIkSZ46liqPbCpLH/LEx0sRIawBV5ho8G3xfKElWN005DuGJ0RjF6e1RO+NsnCIcpcRmKwzPhP4q4sV/zPUdpuFUhwkHpb1eIegRCQ/iILIlaTWYfP6GOGgFUl/ZL1nDIsEBq+x/EACkf8sBXMlrgbTgRNo67WmKhzXm4d6LKTNvX+JNdr5e8dOnD/3e0LdoLZI44iS0JpPHUCjTQ1LeQQQXNdggQPT8AggRmyWan+vvBs+LGRhT+bvEKQvVPknrQGVrf82U3JU80Q+hibitL2f2FfM/JBMNRRRRx+WR77toTDc/DBuwfyaoC+z/jzK6su9GadWobmRxy0AN5pO/my5rGDBQ0HcicHghxHxDZJcK7rs7c5s7FmwbZvtlaXfkP/YRmvNtzCZjDmbGrpC+WgOVsfeX87KBF121JfvNEIiQQ8yW4JxCCFwF2iND05/wdvNSE9ExD7DY5pM8xIvwQt47OmUNDBzr4v+H6ttJJbrtgTqTV+NA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS1PR04MB9287.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(19092799006)(376014)(366016)(1800799024)(10067099003)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?zvv9iDLDYLo8gFsjkDGINz6ed+IMwAMVm5SBfzCDXJujEbgfkjRKx2H9g9W/?=
- =?us-ascii?Q?rWBGGHnsNsOOF3ET01H4RPv+tIH9fs0SkKTvvOU2oO/Sm/kXtzfdh+RO/J+t?=
- =?us-ascii?Q?VyyBQ5itJAUN5j9rrLRjeg9JgbeniPxX7CAVnsG/cublrXkv6kCw0b0fFUjX?=
- =?us-ascii?Q?F3s9AJSq0iSkBR4wsNlRx7rM62LfKiGoVhym7dRGQLRrPLlULARD4pPdyB98?=
- =?us-ascii?Q?gvxHHwXflX72dM5B5TqwfhpnXtfBnrB3ISYbC+NYnB584Ygnys2ufa0rKl/5?=
- =?us-ascii?Q?X0pcyitGPPQdc48J+S9x0RlyteaohmJShPa+KHt3o63ZGxKeuVsGS03L1FjS?=
- =?us-ascii?Q?g3RSomJNkSuzDv9RAkOMcI/IOC3PZTVBoKPZ7VvEI8lZcbXwi6ZLHHmCYbX/?=
- =?us-ascii?Q?WEs5lYqCy1mMtb8/xTFH4ZXbhwCYCGZoGyC/414oBSY57lijhmKTCKnUrjos?=
- =?us-ascii?Q?9UJ3wbgU0urYrXx6cht1ulZ9Ugq+Le+mGT7FuYCCpARIoTaylhDfD83OCG59?=
- =?us-ascii?Q?fOAM6Rrd0nyJkvwG6spZ/fa4j5d0v7ITAxnDYpx31/aGDYEG3QYj2MhMU281?=
- =?us-ascii?Q?uiy+3aU+kg4igeuxbGrbDnh/N+oBPxRoGIBXoLmivTGZUqG7O0CsRkcLSFd1?=
- =?us-ascii?Q?qEEUWpIEqtd2kPtl/M8ILwdCeeiZf9SNcUg51MO5wn3lappZRJNb3cJl8dgg?=
- =?us-ascii?Q?jUoJS+PdXf1YnVGAdJ4LzrB8Kw6pgv9gyO2jSEab/+QpP25HyosOJru/SeGB?=
- =?us-ascii?Q?/MJKChQaaWt1IDluYuTa3VAhdG254O2w4dzqrHONgPejEaDdIv2KueaDihjH?=
- =?us-ascii?Q?6L/OCWt60NYSJGKqhpDIyUXFyPDtCRHZ5Dovu9Cp/KbVYctZBQ55G2zsVIGn?=
- =?us-ascii?Q?QT94cM7ujmJF1q7wxNIDkeFkzk1TSIeFc342G/SJug7A6/A+bYqlTUh22a0c?=
- =?us-ascii?Q?EbJgLAxmpIqG2ZN7PufsDuza2gCE3d1PBQvhZwljjwxLsTrVX1u/P+dO4+JY?=
- =?us-ascii?Q?cWiUgUTWKXo/cX8JndNxRnoqayq1ydaC6qpMPjBv9YO7/ffHcwwkkBr38Ede?=
- =?us-ascii?Q?p6S2fsOp8YP6K/mKfmDc32cL+ESuxmdF0J9VX17nGpF6EgjMPx7qWdp/AkX8?=
- =?us-ascii?Q?GVjtSVYnSYVyiXnBPqIonhMArYxgn+u+ngdU/Q5Wve6+vu/0JWqxFdn1NdX5?=
- =?us-ascii?Q?OteM8MsA2Pn3ZIKVOhQ4uW5JMEcx0X9x/s8i5yLMYeVaH+oTEVH5AsaGYl6V?=
- =?us-ascii?Q?BcMtevfDk/pRgjK41ni6EUw2rnuN6iWQXbsull/Jo93jl44rjiGAaUFEMicN?=
- =?us-ascii?Q?INpnaGD0PW5hfRO1f/Ii9sCbkOz6tIZK7lpq+6HAPwYetg2sEWWnmI/gA/IL?=
- =?us-ascii?Q?nwpD5M9z1lOkup7VncWCxTcQV7ezFCnKxUTgTmh0WFs9Y8LOPYP5/UWnynDf?=
- =?us-ascii?Q?hY9A1BICMc/B8bZxQITzDMTDMcSD4+xf8cHACDT5UAZL7PxdcA188H1S5q4a?=
- =?us-ascii?Q?4dtishsEpURRAtJQIk/pebMZApJQxYvxd9bpBndPlWCgOrqET/MUGW3uzKIR?=
- =?us-ascii?Q?syh+QGgyIZk65oryXZd7YlOisAhdbsu5a38ByJxG48y6ePT3NefmayjW9+Gz?=
- =?us-ascii?Q?8J8jSc54Ju3da79dtPtK8AHirz8zPJeWhvGBbtS7TxNy6kzpfik/sEFKoYjJ?=
- =?us-ascii?Q?VQLHOZNDqf2FH5CBi63uJoq9JseqUmuuCaxHzPVb4Ni4UzWF5+5puCBYChbp?=
- =?us-ascii?Q?0Tgo1E/57w=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 38eddd25-bd45-4a56-df07-08dee92add4c
-X-MS-Exchange-CrossTenant-AuthSource: AS1PR04MB9287.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2026 02:25:44.7088
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IcWvnSZVP0rNfv2ktUlc6KVH9lCPoogPRXYy6ukkUTiosEf1kB0h5AaQUgUNbBt01zU4/S2RL4c83IXeASiMOg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10168
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] watchdog: Add Nuvoton MA35D1 watchdog driver support
+To: Guenter Roeck <linux@roeck-us.net>, sashiko-reviews@lists.linux.dev
+Cc: linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org,
+ conor+dt@kernel.org, robh@kernel.org
+References: <20260723060755.1596858-1-zychennvt@gmail.com>
+ <20260723060755.1596858-3-zychennvt@gmail.com>
+ <20260723062030.B20F41F000E9@smtp.kernel.org>
+ <a04cc256-4c60-4e92-b196-47aeed1d5453@roeck-us.net>
+Content-Language: en-US
+From: zychen <zychennvt@gmail.com>
+In-Reply-To: <a04cc256-4c60-4e92-b196-47aeed1d5453@roeck-us.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jul 23, 2026 at 04:36:39PM -0500, Frank Li wrote:
-> On Thu, Jul 23, 2026 at 10:22:10AM +0800, Liu Ying wrote:
-> > On Wed, Jul 22, 2026 at 05:12:47PM -0500, Frank Li wrote:
-> > > On Wed, Jul 22, 2026 at 11:57:09AM +0800, Liu Ying wrote:
-> > > > On Wed, Jul 22, 2026 at 11:44:09AM +0800, Liu Ying wrote:
-> > > > > On Tue, Jul 21, 2026 at 07:05:03PM -0500, Frank Li wrote:
-> > > > > > On Fri, Jul 17, 2026 at 01:48:31PM +0800, Liu Ying wrote:
-> > > > > > > On Wed, Jul 15, 2026 at 02:34:48PM -0400, Frank.Li@oss.nxp.com wrote:
-> > > > > > > > From: Frank Li <Frank.Li@nxp.com>
-> > > > > > > >
-> > > > > > > > Add support for WKS101WX001-WCT panel, which is an industrial-grade
-> > > > > > > > 10.1-inch IPS TFT LCD capacitive touch screen display module.
-> > > > > > > >
-> > > > > > > > Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> > > > > > > > ---
-> > > > > > > > change in v2
-> > > > > > > > - update height to 135 from 136 (sashiko)
-> > > > > > > > ---
-> > > > > > > >  drivers/gpu/drm/panel/panel-simple.c | 31 +++++++++++++++++++++++++++++++
-> > > > > > > >  1 file changed, 31 insertions(+)
-> > > > >
-> > > > > [...]
-> > > > >
-> > > > > > > > +	.connector_type = DRM_MODE_CONNECTOR_DPI,
-> > > > > > >
-> > > > > > > Seems that the panel also supports LVDS input according to the specification,
-> > > > > > > since it mentions 'RGB or LVDS Interface'?
-> > > > > >
-> > > > > > Need hardware rework to use LVDS. Need remove banch of resistors. Should it
-> > > > > > be treat as difference panel by different compatible string? hardware
-> > > > > > actually changed.
-> > > > >
-> > > > > Not sure how to handle that.
-> > > >
-> > > > Wait, you probably may drop this patch, just document the compatible
-> > > > string in panel-simple.yaml and panel-lvds.yaml and use add a fallback
+Hi Guenter,
+
+Guenter Roeck 於 2026/7/23 下午 10:07 寫道:
+> On 7/22/26 23:20, sashiko-bot@kernel.org wrote:
+>> Thank you for your contribution! Sashiko AI review found 9 potential issue(s) to consider:
+>> - [High] The `ma35d1_wdt->dev` pointer is never initialized, leading to NULL pointer dereferences in logging functions.
+Fix in v2. Switched to using wdt_dev->parent and direct device pointers for logging functions.Remove redundant ma35d1_wdt->dev>> - [High] Read-modify-write operations on REG_WDT_CTL inadvertently clear W1C (write-one-to-clear) status flags.
+Not real.The W1C flags (IF/WKF) are only utilized by PM callbacks during the suspend/resume window for wake-up event handling. During runtime, clearing these flags via RMW in set_timeout causes no functional side-effects. Furthermore, RSTF is already consumed and cleared during probe().>> - [High] Missing clock domain synchronization (`ma35d1_wdt_wait_sync`) after writes to `REG_WDT_CTL` can lead to dropped register writes.
+Fix in v2.Add ma35d1_wdt_wait_sync() after writing WDTEN to REG_WDT_CTL in ma35d1_wdt_start().>> - [High] Driver overwrites `wdt_dev->timeout`, breaking the software heartbeat extension.
+Fix in v2>> - [High] Missing cleanup for wake IRQ allocated by dev_pm_set_wake_irq(), leading to a memory leak and permanent device unbind/bind failures.
+Fix in v2.switch to devm_pm_set_wake_irq() in v2.>> - [High] The driver fails to check if the watchdog was already enabled by the bootloader, causing unexpected system reboots during boot.
+Fix in v2.Added a check to set WDOG_HW_RUNNING when necessary.>> - [Medium] Unsigned integer comparison against zero renders IRQ error handling dead code.
+Fix in v2.Change the IRQ variable type to int in v2 to properly handle negative error codes.>> - [Medium] Integer overflow in `target_ticks` calculation triggers unexpected system resets for large timeouts.
+Fix in v2.Add a check to skip calculation for large timeouts.>> - [Low] Unnecessary dependency: selects `MFD_SYSCON` without using it.
+Fix in v2.remove select MFD_SYSCON.
 > 
-> panel-simple.yaml don't allow fallback to panel-dpi. Need seperated yaml
-> for it.
-
-Really?  How does it disallow that?
-
-I can see newhaven,nhd-4.3-480272ef-atxl and osddisplays,osd070t1718-19ts
-are documented in panel-simple.yaml and used with the "panel-dpi" fallback
-compatible string.
-
-Documentation/devicetree/bindings/display/panel/panel-simple.yaml:244:      - newhaven,nhd-4.3-480272ef-atxl
-arch/arm/boot/dts/ti/omap/am437x-sk-evm.dts:127:                compatible = "newhaven,nhd-4.3-480272ef-atxl", "panel-dpi";
-
-Documentation/devicetree/bindings/display/panel/panel-simple.yaml:268:      - osddisplays,osd070t1718-19ts
-arch/arm/boot/dts/ti/omap/am437x-gp-evm.dts:89:         compatible = "osddisplays,osd070t1718-19ts", "panel-dpi";
-arch/arm/boot/dts/ti/omap/am43x-epos-evm.dts:45:                compatible = "osddisplays,osd070t1718-19ts", "panel-dpi";
-arch/arm/boot/dts/ti/omap/am57xx-evm.dtso:62:           compatible = "osddisplays,osd070t1718-19ts", "panel-dpi";
-
+> Please fix or explain why the issues reported by Sashiko are not real.
 > 
-> > > > compatible string "panel-dpi" or "panel-lvds" in device tree plus a
-> > > > panel-timing node.
+> Thanks,
+> Guenter
 > 
-> previous dt-binding discuss, don't allow failback to two compatible string
-> sorry, I can't remember exactly thread.
-> 
-> like
-> items:
->   - const: ws101w001-wct
->   - enum:
->        - panel-dpi
->        - panel-lvds
-
-I meant just to document the panel in panel-simple.yaml and panel-lvds.yaml.
-No need to add a dedicated DT binding file with such a compatible property
-for this panel.
-
-> 
-> > >
-> > > Look like recently prefer add panel-timing informaiton into c code instead
-> > > of put it into dts file. But I am not sure about it. Just check recent's
-> > > log history.
-> >
-> > If display timing is specified in panel-simple.c, then you have to specify
-> > the connector_type there too, right?  The problem here is that you don't
-> > know the connector_type, as it could be either LVDS or DPI, and I'd assume
-> > that we don't want two compatible strings - one for LVDS and the other for
-> > DPI.
-> 
-> If supported both type, generally need customer property and new panel
-> driver to switch between dpi / lvds
-> 
-> or use
-> 	ports {
-> 
-> 		port@0: //connect dpi
-> 		port@1: //connect lvds
-> 	};
-
-I'd say a new panel driver for this panel is a bit overkill.
-
-> 
-> 
-> I think we can defer this lvds work until it is actually used because
-> - need a big hardware rework to support lvds, most likely it will not be
-
-Per panel spec, just remove a few resistors, which doesn't sound like a
-big rework to me.  But, perhaps, this doesn't impact SW solution a lot though.
-
-> appeared at real productions. If it mass production, vendor most likely use
-> difference module number for it.
-> - it may be end of life if there are not much users.
-
-I'd prefer a mature solution which handles both DPI and LVDS interfaces
-correctly in the first place.
-
-Anyway, just my two cents here.  "DRM PANEL DRIVERS" maintainers or DRM
-subsystem maintainers may override me.
-
-> 
-> Frank
-> 
-> > Although display timing in panel-simple.c avoids duplicated panel-timing
-> > nodes across various potential DT files, I think you have the "good" reason
-> > here to use the panel-timing node + fallback compatible string with one single
-> > panel specific compatible string.
-> >
-> > >
-> > > Add Neil Armstrong for comments.
-> > >
-> > > Frank
-> > >
-> > > >
-> > > > --
-> > > > Regards,
-> > > > Liu Ying
-> >
-> > --
-> > Regards,
-> > Liu Ying
-
--- 
 Regards,
-Liu Ying
+Zi-Yu Chen
