@@ -1,196 +1,117 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F6712EBDE9
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 13:15:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9E002DC79A;
+	Fri, 24 Jul 2026 13:16:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784898940; cv=none; b=YDpcPoiw0gBApNu8oMFNz+qLTIsJGnnV/6fSFvoyOwYVpWBW0f19dGbbz5IfReH0lcDPcRdkMKFjT6h7W1KO2vbXEphehtV4A+OTtR3NMidZyIrBMVXiPP5StXDVR0U4iRN0JMaL/FO6LsZG8BwfaF2R1EPRgvS04kEOyBp7750=
+	t=1784899013; cv=none; b=HZQIKUyMUrI+EZBae5GrBX6p7RBKl1CWGFBMMsE7iRZBMNPZgZ9zDKQm7V2BcrkKOFrATcw02mbYb2TZrRxWlZbtrdGVCtbN0TMHT56QEvBMR2DdoFPawJ67OzMhfsXdGeNshg7fY5mOitIxRuwcldUxnk/K4rtXKdechHhyy+k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784898940; c=relaxed/simple;
-	bh=zN02l9wsONJF0xp56emJt602spK7CI9T5fHICpGtv9s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ecGeoZDyh9pMLZXod94bUGiOSG7IJMzU1THtmY7VNqyDXhNCkUv9va5y/ZyTzWUcNdPfklpaGsTAHn79cT6J1PvS4CHgGbK5en/bKlM52QUNjomp5Z3aQrVAB5F9Fjhx/NoWd79jeHeAL23XIfrlh///dPFiyfP/Blobd1hukUY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mq9OapMK; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784899013; c=relaxed/simple;
+	bh=5fg70FATkdTPlB+r5sELlMsftIy9haRZRX0/8GePUIo=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=SCAqStDwYrLDJS+AQQ3FYRR+gn4F4W7Y+2bl2i7I1zwvYd9pdWrxzXMzfBR328c5ubmOJjmlo3uUr87pcGr45tlCyrhx+KbrLoLZ/+w7Cqq+laVgAcvuUB3g+PVzL3yb9uH7F1kp/R3kOWCsPtdOXQyAdtk8gSSbBrQVKdYnJZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SfT2mN54; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mq9OapMK"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso303262a91.1
-        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 06:15:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784898938; x=1785503738; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Lw2GFuJUfu9OTUa+lzPk++Vy8wm0NltxAfjufIsFhwQ=;
-        b=mq9OapMKP1eSM5INulqiNC8x4uS9Eft8L0EM3TpMsI3MT0pNFp1m0hLqeF0KsORlJE
-         dsV79m0xyBkFgz8PtDLByNZw5cuCsL8Bj+WUpcg8gPQE1QIxu4eOQGn2mPIItxQpBXZ9
-         aN+MmH2rXb0rBujkJmn4dgU/+R90hguTTa9SQwKs73LX6yGg9Bj/ZS6qJfJdzVdiE+n6
-         nlhEvFLoDcekoN4j7h8iBqQRG+I4Ekdxrna/3LB+oyklW/xD48Vasvk0oLTTFTkTwWum
-         LEHtrk2y3D1d8Y/4PeFaqEERSBfiEAKKtjCNUyHLpHhW1T/waAz2JiRRebWJpmseZ+cI
-         gi7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784898938; x=1785503738;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Lw2GFuJUfu9OTUa+lzPk++Vy8wm0NltxAfjufIsFhwQ=;
-        b=pR7SWQtL29JCBVQWIXMNJaRGkIArabxTPxMvhlIfrtJb5gH9XKzbgKDkKeZ8aePlFy
-         ke8LV+g3QY3J1BqnSZ5c7CzFuB+8BL6HRck31fxkysI6BP++GKsexnUdYpjJZe0bXE1f
-         Xe6n1AxHyMjGBR3tUR6Dfd+EpKhwGWI6fZEtpWeaM9dFqalHDu6R57c739odHtMyuJAb
-         GpZSKT9TdfNGsSLSrJo1v6pNKqSYXjK5h8hqvBjhFnCLhBu54KEPg68+VB6fEqLMzt5w
-         3/69eupzQ867FQXzjPs2hJ9zO7gEGGR1W54ycYj3D5fLS4tFVMMWkR4OzD6jTPQGk2HG
-         tsfg==
-X-Forwarded-Encrypted: i=1; AHgh+RqF5asI6l1tZXJ8wYJZnv8qAr72/oA6SDk+9FVi/9T4WCPosMAfdcrLGCAeKFiLj1cZak/9y+TzrESe@vger.kernel.org
-X-Gm-Message-State: AOJu0YwwZLAsQ2ehvGIqaP0Vm8uJlOJRkPxW8+4G4lXKnhb6NKMhGrDj
-	JGCncmXMwyykkusPfD7/hnI3oPtySSImAWbTdf6kTeM39ZA2nZKgshXE
-X-Gm-Gg: AR+sD13GNbr+KDswS8Jgyynd7AC9V5GCXjz4KaFCssijBE9mEBfrBL67ro1vd/4k9je
-	ppJDYyjVQX0tl9+JNZPv75PI/3f/P9PyDOaEi5Co0Z1m0awnyhsp+W9va7m8Po1bi8G7J9TPekA
-	izZLzplRdZrxr4FsyEWkwTtOdZvqZU2otJlZEi8TRfG26K54wOd+iRvtvdwcoZjIn11KyZkF/+H
-	3ADxRNMPWRqOw02p13Z40A2Vj2vWIdX4kOVeW9/xsy5PsJsabbqEEjMz0FP7+/MDGW9VgOVWRfQ
-	hqda38GBlBLbTX0Z1yMtI7Vo4ghMpbUAVAqIhwexejkRaxBKL9XET9YKHi0aprAixEVi+fP4rAx
-	9dItefb9YFALM2jZpLAIX/NRCE610Gqoqy/ZWuNhhxeC+eiE412tHWMxEtdh0DR116IHGiKQmEy
-	UmynQLb0yvitIU3pL6F3eU8zvXUCessxgY5AfEsgMVMwsn8VItNUUZMlPPgWtwAQ==
-X-Received: by 2002:a17:90b:1dc5:b0:36b:77b9:5c8c with SMTP id 98e67ed59e1d1-38ec651c6d2mr7652113a91.17.1784898937701;
-        Fri, 24 Jul 2026 06:15:37 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13d130f55c6sm42746637c88.15.2026.07.24.06.15.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 24 Jul 2026 06:15:37 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <668b28b1-875f-4fdd-b367-b09edef95367@roeck-us.net>
-Date: Fri, 24 Jul 2026 06:15:35 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SfT2mN54"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F5311F000E9;
+	Fri, 24 Jul 2026 13:16:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784899011;
+	bh=J5CUcwtybRsnP7K85MNqacwjWecyslUsjby8+ZC9UXw=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=SfT2mN54HZxMmsREoVtswZlYPLgI8qEJG1+7Hxsj1WWftapWz00QtYB9irMeStjSm
+	 XqMvusvqJsssC6KlCh5TzZIuf+44vryFOMpoU/Bo4ebqVSpEHbdUaSR3YrH/Ep7bRW
+	 rvh1LIp8AkVxRnJJhIbDEJkNF3IumU4S/3G//pZWHyGIAUffaoPla2XCV4fzI/uhOs
+	 S/RawXOOiOwtaew7SnE5ee65HwVkei5jlf8foS8aTrQG3Cg0mDSA6r4VmsdmH8G+1y
+	 4Hu8BmSqKlS3/kpN3tSgEFwgcyHCG9ymFbUjvQuHtFxL6fohbeCYYlo+VXNR742ZTR
+	 0GTFxZKgNBFXA==
+Date: Fri, 24 Jul 2026 08:16:49 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] hwmon: (pmbus/vt7505) Add driver for Analog
- Devices MAX16545/MAX16550 and Volterra VT7505
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- "Pradhan, Sanman" <sanman.pradhan@hpe.com>
-Cc: "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
- "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
- <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "corbet@lwn.net" <corbet@lwn.net>,
- "skhan@linuxfoundation.org" <skhan@linuxfoundation.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Sanman Pradhan <psanman@juniper.net>, Georgi Vlaev <gvlaev@juniper.net>,
- Dhruva Devineni <ddevineni@juniper.net>, Debjit Ghosh <dghosh@juniper.net>,
- Jawahar Balaji Thirumalaisamy <jawaharb@juniper.net>,
- Avadhut Naik <avadhutn@juniper.net>,
- Santhanakrishnan Balraj <sbalraj@juniper.net>, Brian Mak <makb@juniper.net>
-References: <20260723164249.199442-1-sanman.pradhan@hpe.com>
- <20260723164249.199442-3-sanman.pradhan@hpe.com>
- <20260724-skink-of-unmistakable-novelty-d97d95@quoll>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260724-skink-of-unmistakable-novelty-d97d95@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Danilo Krummrich <dakr@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J . Wysocki" <rafael@kernel.org>, driver-core@lists.linux.dev, 
+ netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>, 
+ Eric Dumazet <edumazet@google.com>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Michal Simek <michal.simek@amd.com>, Jonathan Corbet <corbet@lwn.net>, 
+ linux-clk@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>, 
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Shyam Pandey <radhey.shyam.pandey@xilinx.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, Conor Dooley <conor+dt@kernel.org>, 
+ Russell King <linux@armlinux.org.uk>, 
+ "David S . Miller" <davem@davemloft.net>, linux-doc@vger.kernel.org, 
+ Brian Masney <bmasney@redhat.com>, harini.katakam@amd.com, 
+ Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Suraj Gupta <suraj.gupta2@amd.com>
+In-Reply-To: <20260723123838.125145-4-suraj.gupta2@amd.com>
+References: <20260723123838.125145-1-suraj.gupta2@amd.com>
+ <20260723123838.125145-4-suraj.gupta2@amd.com>
+Message-Id: <178489900988.2774291.12161691819404985580.robh@kernel.org>
+Subject: Re: [PATCH net-next 3/7] dt-bindings: net: xlnx,axi-ethernet: Add
+ 10G/25G (XXV) ethernet
 
-On 7/24/26 02:03, Krzysztof Kozlowski wrote:
-> On Thu, Jul 23, 2026 at 04:43:59PM +0000, Pradhan, Sanman wrote:
->> diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
->> index 080d366809f3..daa4b49bc90f 100644
->> --- a/drivers/hwmon/pmbus/Makefile
->> +++ b/drivers/hwmon/pmbus/Makefile
->> @@ -75,6 +75,7 @@ obj-$(CONFIG_SENSORS_TPS53679)	+= tps53679.o
->>   obj-$(CONFIG_SENSORS_TPS546D24)	+= tps546d24.o
->>   obj-$(CONFIG_SENSORS_UCD9000)	+= ucd9000.o
->>   obj-$(CONFIG_SENSORS_UCD9200)	+= ucd9200.o
->> +obj-$(CONFIG_SENSORS_VT7505)	+= vt7505.o
->>   obj-$(CONFIG_SENSORS_XDP710)	+= xdp710.o
->>   obj-$(CONFIG_SENSORS_XDP720)	+= xdp720.o
->>   obj-$(CONFIG_SENSORS_XDPE122)	+= xdpe12284.o
->> diff --git a/drivers/hwmon/pmbus/vt7505.c b/drivers/hwmon/pmbus/vt7505.c
->> new file mode 100644
->> index 000000000000..a96abf75b1aa
->> --- /dev/null
->> +++ b/drivers/hwmon/pmbus/vt7505.c
->> @@ -0,0 +1,274 @@
->> +// SPDX-License-Identifier: GPL-2.0-or-later
->> +/*
->> + * Hardware monitoring driver for Analog Devices MAX16545/MAX16550 and
->> + * Volterra VT7505 PMBus controllers.
->> + *
->> + * SPDX-FileCopyrightText: Copyright Hewlett Packard Enterprise Development LP
-> 
-> Tag is accepted but discouraged. Use standard copyright header.
-> 
-> ...
-> 
-> 
->> +#define VT7505_MFR_PEAK_VIN		0xd1
->> +#define VT7505_MFR_PEAK_IOUT		0xd2
->> +#define VT7505_MFR_PEAK_PIN		0xd3
->> +#define VT7505_MFR_PEAK_TEMP		0xd4
->> +#define VT7505_MFR_CLEAR_PEAKS		0xd5
->> +#define VT7505_MFR_PEAK_VOUT		0xfd
->> +
->> +#define VT7505_RLOAD_DEFAULT		4750
->> +
->> +enum chips { max16550, vt7505 };
-> 
-> You must adjust to upstream kernel style and such constants/defines are
 
-No, you must not.
-
-> UPPER CASE (I know there are antipatterns in existing drivers, though).
+On Thu, 23 Jul 2026 18:08:34 +0530, Suraj Gupta wrote:
+> The XXV Ethernet IP integrates a 10G/25G Ethernet MAC with an in-core
+> PCS/PMA driving a high-speed serial transceiver. Extend the existing
+> xlnx,axi-ethernet binding to describe it.
+> 
+> Add the "xlnx,xxv-ethernet-1.0" compatible and make the resource
+> requirements conditional based on the XXV compatible string:
+> 
+>   - "dmas", "dma-names", and "phy-mode" are required.
+>   - Interrupt properties are not required as it does not have a dedicated
+>     Ethernet core interrupt.
+>   - "phy-handle" is not required as it has internal PCS and PMA.
+>   - Add the 10gbase-r and 25gbase-r phy-mode values used by XXV.
+> Annotate the existing compatibles, generalise the title to cover both
+> variants, and add an example node for XXV.
+> 
+> Define properties at top level per binding style and use if/then to
+> constrain requirements and phy-mode per compatible. Forbid 1G-only and
+> unused ethernet-controller properties on XXV nodes.
+> 
+> Signed-off-by: Suraj Gupta <suraj.gupta2@amd.com>
+> ---
+>  .../bindings/net/xlnx,axi-ethernet.yaml       | 144 ++++++++++++++----
+>  1 file changed, 117 insertions(+), 27 deletions(-)
 > 
 
-Not in the hardware monitoring subsystem, where the chips enumeration is
-and always has been traditionally lower case.
+My bot found errors running 'make dt_binding_check' on your patch:
 
-Guenter
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/xlnx,axi-ethernet.yaml: allOf:2:then:properties:clocks: {'maxItems': 3, 'items': [{'description': 'RX AXI4-Stream clock (rx_core_clk).'}, {'description': 'GT DRP clock (dclk).'}, {'description': 'AXI4-Lite register clock (s_axi_aclk).'}]} should not be valid under {'required': ['maxItems']}
+	hint: "maxItems" is not needed with an "items" list
+	from schema $id: http://devicetree.org/meta-schemas/items.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/xlnx,axi-ethernet.yaml: allOf:2:then:properties:clock-names: {'maxItems': 3, 'items': [{'const': 'rx_core_clk'}, {'const': 'dclk'}, {'const': 's_axi_aclk'}]} should not be valid under {'required': ['maxItems']}
+	hint: "maxItems" is not needed with an "items" list
+	from schema $id: http://devicetree.org/meta-schemas/items.yaml
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260723123838.125145-4-suraj.gupta2@amd.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
