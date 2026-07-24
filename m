@@ -1,192 +1,243 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012070.outbound.protection.outlook.com [40.93.195.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 174E834214A
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 15:00:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784905245; cv=none; b=iiM2ZqlwBF8arHMESaTYV2bFoxY1NR/qHaiJZSOgyGNqjZ9IkqvyTFM52BEI41XtPlj6S9LrswOjHGmfkKVy8xQk819beIyiVJkNIDZtemGayAoja7/rA4jzU1nEa8Lh4J2Afe5bI6alXExsOdoGdGq8viMAFxIG/qGtodSkbqk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784905245; c=relaxed/simple;
-	bh=wbagZecBaQaRTzpU5oWRY+OBJJnCD2znP6i38nr/QN4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Sg5VnVw5onPcHEnQKtgUt0WnF0HwConRLFbdajGPQr2T0cDTLnWX3Q1fFpqFZsGudj2bU5lZg9rATtvPnU4/h42wowpNJavHUgvoS7B3yzfRoxa5qQ57UtFvBJVAbm+dEYzyEKh4EyKwsTLK4rVJx51pEOdn8TXHxVYqAjooZKY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Jt6KMXoA; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eV7Cejxm; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A84B43B6D2;
+	Fri, 24 Jul 2026 15:00:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.70
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784905251; cv=fail; b=UvuBRBxsC03tRo262CmP0i1oAM6Y9FhwcJ8msERi6u6UoDCte0GyZoKReKOqnsZuYCtteCJ6l1wxY/sTNYhN15xLE9tOdMO5kTKVmz/wYvrWf6EWjDfBOkr1YLhtL6oEhRD7p+5ikMBLlaTMsjdWikhNJ71G6s5HKvxmSSX7bFg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784905251; c=relaxed/simple;
+	bh=mOmW0cRHJXV5ovwz/aFwlItGsJf1QEYS9Bd30Ocfp9Q=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=C9kJj4CgcikfVFAKIpW0v0lRkkHPrV6IX+7JTnDhe1jmochwKNkYObCiUqx03gA/KSmOds+tTAjGYmGALtsvGCWJqYNUFbQUkFJFzBEZivvXY9nUrf4L2uBbWKMdrNf0Dmb7qxamuIEQennQG+jKrzzd3rZF13trB3FxSYAw4lA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=F4LEXgJT; arc=fail smtp.client-ip=40.93.195.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Jt6KMXoA";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eV7Cejxm"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66ODbNdD2933756
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 15:00:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Fla9eVpDtoO8o2/FJMp5AumGNTB0vGzRk4H0vkXm3gw=; b=Jt6KMXoABCG3Y554
-	syw/UST7zaZqjp9sQ/ZDNusMUycnpCAUBnpGXf16fmg3kjXibgqmVLgGpC0KxfX/
-	PaMMJSnHzIjgAg9HULthgXQzodtFRxuA3CgHT6/wFUWk8a0Gm9/WuRpfsNJZwaQn
-	nPZ2k3xYBbG0qKeQ/DivqjTu3YBqj3xyQsng9xcMKC3RwGOrIXu4AR4SGvMdTVQ8
-	dCihX8hos2I1FdClxVp47S+hZWcZqnnTQIrC3cd1PgVFTmv2TY+azsLr6hkoMd6G
-	mKdTGgSI8VBvOKpn2e7ecC2m3Z8Sm9Sbk4Qhi3SknMBCvTD6NZFe9yz3hKtt0ule
-	wL8Myg==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fm8cj8fye-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 15:00:38 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2cccfa32670so6825295ad.2
-        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 08:00:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784905238; x=1785510038; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Fla9eVpDtoO8o2/FJMp5AumGNTB0vGzRk4H0vkXm3gw=;
-        b=eV7Cejxm2B4natjVaBXyUevgPp153r4SuL1+nMhEtz1ilZX/RxzEFHH65sswW+rELs
-         n/17YLEmn7yBnEvn8QxSliUbaMpccwQ4mh6QN2LgZPoReRu+my2IP8qlLe172b+Jea1s
-         i+lKBeNJl9B7Ccqmkdb30GEAhmN/lbXYtcVyFcV5W9tC3vUnKQ3bG7SArefqYs3rh7BS
-         IusYKMqS7tEQWIM2EcDXRNcNnEmoLAQKyvnGT4hruYC7UdZhb8MXexoZ4VxMakM7B/yC
-         9I0nWzjnJVZ3V+SWF/K7rXVDuNim7w0jvqv4o8rtKeth7GYiVT9KB4z02WMSn5hAtW7q
-         qD8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784905238; x=1785510038;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Fla9eVpDtoO8o2/FJMp5AumGNTB0vGzRk4H0vkXm3gw=;
-        b=YH4Azv+61CRYSaAOnCAwTaA78JP+c04PKLCKWWBee7XSc37WeS+iSW90AKLtJUl3VK
-         L7UiqxnEn+kkpZjZehOsf32QJQ2YAicgrxOh42A0l6Gat+NTdi9Hvlio0KBoNkwF20EK
-         DMaY9WFx38cYK6IOOLTCBcWdx72JMXnK/1FbI72Ema+CvuYr5aAf1/KfjMsnCNllBF0x
-         0fpqB+29EXdwxJXmD7Kn2iu5j31hQUUGwf+m3vXL9zXMS4jrMT0Uo9yRcUXr7DchU2Lf
-         5ZO+ijIsOgr/q1+RzLMFltAxuXlE9B4f2Hf952h1zBi8y6Qitd5GoE3daaDBVYNm47sv
-         ueHQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rql5bo+WosF/All66uBvfbJWEluiNpNI2nv88HE8Dki2xSwbA5GlyNYhDKoyIws4oqVJXnNkEPD7dH2@vger.kernel.org
-X-Gm-Message-State: AOJu0YwnI4P66FFeXH3EcJoB24YhTPtNDMiwgH1Zah2QhZ0lKhsVEjNh
-	2jfn0W0TfCH//jo9+XEYAObgScxPRKlM7FJyyc5ob6erbVnkEQ08JYbOI1hjW6B/f+U3DK+uiMQ
-	Wo2k0qs9TAQGSLVBO4MnAvYK5/nS5hNf/GlbhD3gL4mR0FOfdo8ljL93E+w3LhtYGUtt3q3crsy
-	Kzrg==
-X-Gm-Gg: AR+sD11Psek0mu29D6pBPyG/N3QWBxB/MompIexo7ADsXesA9XTUP5CIdMGaR2NgUAP
-	iITRopINPOXMCG0WBvxK8ubHzPM82hlerh+wywRcWmpgh7/RH4HkAR4lK9Rv0oEW0VVlhT1aSjM
-	o4HjYaFS4YYXS9IdDkkUkPqGAVsWhmPEWnUEwHS6OKHbHWjAytfr7ruikeMBEVhT/bYdpA6Mf6U
-	NiBPIZb5NbblbSDht2f+DY6l9uY9kT3IAJHcqqoXYOONSrWNS8NA96sO5V9aoxtbkP3gMOUulmw
-	EA7sARi9gSqCGHthuRTSIBym1ij8lzHg6vLjeTyDUaa1ywTWIcuSNKTTCDPf513v0E7f+Bok6Q8
-	8tGjCz9i6HEkEyeKVK9CpZ14xlP5KzMrGnriquiKD60E=
-X-Received: by 2002:a17:903:ac4:b0:2ca:ed41:d331 with SMTP id d9443c01a7336-2cfa708d196mr89843185ad.45.1784905238208;
-        Fri, 24 Jul 2026 08:00:38 -0700 (PDT)
-X-Received: by 2002:a17:903:ac4:b0:2ca:ed41:d331 with SMTP id d9443c01a7336-2cfa708d196mr89842385ad.45.1784905237511;
-        Fri, 24 Jul 2026 08:00:37 -0700 (PDT)
-Received: from hu-luoj-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-314bc593b57sm621809eec.25.2026.07.24.08.00.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 24 Jul 2026 08:00:37 -0700 (PDT)
-From: Luo Jie <jie.luo@oss.qualcomm.com>
-Date: Fri, 24 Jul 2026 08:00:34 -0700
-Subject: [PATCH 12/12] arm64: dts: qcom: Update IPQ5210 xo_board to use
- fixed factor clock
+	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="F4LEXgJT"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fxMEPTOl/Bj2Dzj0N2n1qDobge9Kp/AX2flMAf12gds3zxTiIkvNcDHBHIPHOv3P/SfowUuPHec8/S2jAzd6nAca+hcY5Jrda9xOmWGLPmPRjAyhy8gqz5cZQaXy7c3SYN5UGaH4LiIYYibOxVFhX99ePEawquCVonJ7MMggPo2mrsFReymJ8DklS3Yz2FdXBC37C4DxTgjmiIDVyCDMR6NrFw0hMp6SXPfaMm0w0WESm+fEdMx9lslGkZN3Bv5xMiYbKSdU2NeBvFfMDhihwuUwUHox1PcA30vUb5iKyBdGiaDxFNRGYaeU1O/HzNSW6Op4qzP4NXR/NRGEhbP9cg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=K+Su/dIQxiaqEMXayqMgd/4IIBizo08cQhtr+TmC670=;
+ b=NcEMvi3OnRZuE6UNj0zizl7bxYjSqPrusy/T2U/VVfmol+fylMjX7jgLMVVCeeVwmaLF238WDhGLlUd3ZAVyeZVnPnfIXOaSTeNwisrDxCXb5fXz7MaXzQd386m7NFF4jCsylZ3luKLQerGS+l+uSVqvjmBrSH26e1ydkj5NpMN9ixv7oy0P/dU1MsAEn3b3NK8oTA4iZ5I21iSY00vswrV+0KrzpDb/lRPSv/tLrWjyAN+nsVo9QyG9V7AZUv/w+JBJYA80EkLRFZJz0ZPJdMmu0oVCugtKZyfTgP2i4rSX5NH3BP+LqRDQ0p9O675fS5sfI8MOKDhcJNCz058/Mw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=K+Su/dIQxiaqEMXayqMgd/4IIBizo08cQhtr+TmC670=;
+ b=F4LEXgJTKbppEfsvsoFC7XSThRTv9RUYEiGcPxeo4vP06pYFz7hJyWOM5bcCYtM+ZwQIcK6ahVewhf/gBHcohdpXF+36RtIbC296a/zCbd0WNLcmEr+pttMeIU5j67JeODc/JUlf3YLysBdI7qZEAPn9ie0SYljWlviNZe2yl+rMAVrWZXQzU7bTtTEbhcGNdMJlAaX1ElC5eN2s+lsgIQnQshloz+LIvmv/OwnUMsW95Rnakxmg6jnfiaf1oWSVorMUkXgbTOdJkcsezoBjAbRJuLUKKFv8mUNsTUIRt+PkD1W+zcwL8GDINACgjoMWr665lTwo+1zG7+wagcWggA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from DM4PR03MB6208.namprd03.prod.outlook.com (2603:10b6:5:39c::19)
+ by SJ2PR03MB7072.namprd03.prod.outlook.com (2603:10b6:a03:500::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.11; Fri, 24 Jul
+ 2026 15:00:42 +0000
+Received: from DM4PR03MB6208.namprd03.prod.outlook.com
+ ([fe80::2216:93ef:67b:9e04]) by DM4PR03MB6208.namprd03.prod.outlook.com
+ ([fe80::2216:93ef:67b:9e04%3]) with mapi id 15.21.0245.010; Fri, 24 Jul 2026
+ 15:00:42 +0000
+From: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
+To: linux-mmc@vger.kernel.org
+Cc: ulfh@kernel.org,
+	adrian.hunter@intel.com,
+	krzk+dt@kernel.org,
+	robh@kernel.org,
+	conor+dt@kernel.org,
+	dinguyen@kernel.org,
+	p.zabel@pengutronix.de,
+	devicetree@vger.kernel.org
+Subject: [PATCH v3 0/8] mmc: sdhci-cadence: add SD6HC support and Agilex5 enablement
+Date: Fri, 24 Jul 2026 08:00:39 -0700
+Message-Id: <20260724150039.23387-1-tanmay.kathpalia@altera.com>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20260724145009.7456-1-tanmay.kathpalia@altera.com>
+References: <20260724145009.7456-1-tanmay.kathpalia@altera.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BY5PR04CA0006.namprd04.prod.outlook.com
+ (2603:10b6:a03:1d0::16) To DM4PR03MB6208.namprd03.prod.outlook.com
+ (2603:10b6:5:39c::19)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260724-qcom_ipq5210_cmnpll-v1-12-a8b8679d215f@oss.qualcomm.com>
-References: <20260724-qcom_ipq5210_cmnpll-v1-0-a8b8679d215f@oss.qualcomm.com>
-In-Reply-To: <20260724-qcom_ipq5210_cmnpll-v1-0-a8b8679d215f@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        quic_kkumarcs@quicinc.com, quic_linchen@quicinc.com,
-        quic_leiwei@quicinc.com, quic_suruchia@quicinc.com,
-        Luo Jie <jie.luo@oss.qualcomm.com>
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784905224; l=1388;
- i=jie.luo@oss.qualcomm.com; s=20251128; h=from:subject:message-id;
- bh=wbagZecBaQaRTzpU5oWRY+OBJJnCD2znP6i38nr/QN4=;
- b=II2tJeI+QYrAlC0j4VnZRc0EEtf+s+4DoQ2s23PX28N451oypkU+KqQirS4y3dyrCa8XgagYz
- ENZHwYOcxEEACdz3lO8dJ2BdSOYHK+NC4EkY82URuCHEcJHcEQMvlXC
-X-Developer-Key: i=jie.luo@oss.qualcomm.com; a=ed25519;
- pk=gSsYMDakxtd6UDFYDdA9y9yjIs5Etp5GK/3DoXWPyS0=
-X-Authority-Analysis: v=2.4 cv=GJE41ONK c=1 sm=1 tr=0 ts=6a637e17 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=CPdYy-Otk887xBsD2wUA:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI0MDEzNSBTYWx0ZWRfX8nOukI0UbB+Y
- EYnxZ6jRyqSZLVS6baHwvPZnPBFDZ3XBy3wZ2BQLy7X7O/gmG2eo5oZoAqydAIj3jK5wwt3r2O5
- 0KYc15wh7/SVf1Sl8UsUmFRZuNu2VAL729Oh/WVC/sc5SjOEMzgHnfASUTmguWp1q1icta/9Foe
- oT4zZ2+qBvLYvhYUO5LCn81bzMBdwwV3prCly5uqSDbzFscw/nfkabAIy0A1QGUfP3Yov4Gt/wM
- njpikrn1JNvlqegnP6dcc4IvGCdcmSJGNTlAM//7Nb/B5kuEAZrCtK/lAlRCzt/GrDNOA1QuKJG
- W9walkUVfPUXwODpGc5/nMWNaHYtMe4lcsr63NIp6/cuxt2lsn4ONIiZTn2mTjaZ+c+kEZhXlDD
- 0ZmrVaYJynfboYiWajj3TDYtaj2PoOmiCYdKOty1oI+Y4Z+n6pHlx1bCCkN7polNBkuXzTQCo2B
- GbAgBqwYRyorjbzoccQ==
-X-Proofpoint-ORIG-GUID: pKAVIU_n4VTagkJVIeM-lvzSylYUr294
-X-Proofpoint-GUID: pKAVIU_n4VTagkJVIeM-lvzSylYUr294
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI0MDEzNSBTYWx0ZWRfX/j34wV2t+r4f
- LrLxHiH8ZoPJjQtzF/0KhXv9ncVZ5dAYyMq+yK/WcUuXQoLVZ/icRZXZn65MiafeXkPdrKQdzvc
- SFkA24YvERlqAEJC4MAheAt8fpLc0DI=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-24_03,2026-07-24_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
- priorityscore=1501 spamscore=0 impostorscore=0 phishscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607240135
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR03MB6208:EE_|SJ2PR03MB7072:EE_
+X-MS-Office365-Filtering-Correlation-Id: fdd4f950-9a43-4f94-9a1f-08dee99454b6
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|18002099003|22082099003|55112099003|56012099006|11063799006|3023799007|6133799003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	kYOuFCAE7R3u7ryuEisxEjk6rOnpNLI3Q00I0uEmX00eP0oToPPGFru5lB2nBTDuaUz6T6fV6VG2XIAAAX64o+gxuKhu1f0ah1jkJrZM2nhXGNNc6KKHhLhPNBSDuHATF4rU1PlqGPdLc+tpAHbqpPjylknKxnC4UZCZmO1aGRcOCA596ikaUlN5FvY7hw24tycjH3iXw9h1RK9GeteKBcHSVdSqvUU6tPWyQM8vKdW5N0wa6dPtCZ3eg9Nf9J+aCpqLsJL6IveXTzagVqgKuPzIC6U5XeZMPu55LvhtDnTrs3qljogjmgS6/adeu4g/Boq9v1B7kUHcJ11pgUKWbFEnI/9aRaxWMRU7beb6b2qiobDfpc2JHBwxZuetmY4nqaPyv75yvu1rX+9uMXyoSNI9Tm5YMbh3OGUTJGIoYQNbbX4JT9K4A2yeIIxDeTeAssAUunBWXBsGH4YNw1U1Z3BGlQML2jaggST4VV+nZP0nGlHILk7UKWWTNssrYFX4C5a1dtAmdyeg4eQPsEjjqfNFwOTxGGisGIZhiMkYBmScpOvSa5QSF9x/TY5PeWsBZz6BzbLvSNBzX4MQevKv57oixPrIpN+oYVQvlxf0w+DtOxQXw+mZLibswsAHchE+
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR03MB6208.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(18002099003)(22082099003)(55112099003)(56012099006)(11063799006)(3023799007)(6133799003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?gMhiQMc886LIhmRncbxCe9o31jX3GxDuedMxRWQBkkk79M0H+JmVsxTGCj5I?=
+ =?us-ascii?Q?E7Ojc9l0oF6DxbtNO69bjmZej95vjv0UN0VnD+G398J5ypHBF47geWF9jqmF?=
+ =?us-ascii?Q?iZwpCJmqg0D9R6CToIRZAplHdR6IqOAusHWaIPZARsn2MppqTIpjlLmkhyLH?=
+ =?us-ascii?Q?p57Ei+vKHOQpArkDp8GqSLWehc4nPR5RZ1urAO6hoh+1dGLnX1YAqLDtmFo/?=
+ =?us-ascii?Q?WsGa3YXA6K7bjaO0J7kvAzfzyDK9Ngiz4m2ca3IFO9/ypyN7b6WZbMyizPhc?=
+ =?us-ascii?Q?a/lsJFTrjDGqxZ2w8Cz1+l4WmwcB+LqkgQJk088gcy3nhbXFc+MgD5tfFbUl?=
+ =?us-ascii?Q?PxhIldw7zMC2PwW1Y5nzIz80yLf6RgFsLjKedMXQLn0UhEye5ZoER9v8kKm/?=
+ =?us-ascii?Q?e5z9NEVs83pyuRNtfnrg3zeWX/snaV+hCZwwEeRCv5pTCqxiQJAnpBBSxIUa?=
+ =?us-ascii?Q?SgjEuRx6OGRGAjxNB141tJ3nVmZDa3OmTB44dI+UMRJDzZrQ4NQBgpwi+ZHc?=
+ =?us-ascii?Q?ippDvfJx9Kx4NCILPsxDXeJ9mVM/142FSuLA5HZu4vtw6I2BxNuNa6IKCk1R?=
+ =?us-ascii?Q?Trq47s9YHBMocAa53NE3KV55W0MwYS7MD3HQ/6L4/zpNb/uhyoO5FzYHFV4y?=
+ =?us-ascii?Q?W/o5oeddCWGyxOo78OeO2VboK/MSiUDaA9Uux7lzJ6NjvzhvEZ8cY+XaJzgh?=
+ =?us-ascii?Q?Qyeve0gbQOEMoXzdWHIpVcxkcwda1od0mYD8bgLUfuRQ2nBDitB+FCk0zkhr?=
+ =?us-ascii?Q?UWUmvkLN1N8+NIbibr5oz9cPr7yl64frUzCTUu7ifFP5UGz3LpNa+B5Dxs9G?=
+ =?us-ascii?Q?jZDYX6fFt1Vo14BBTCKGxZi2C2n+m9cOKs6teJpjhM8Ydx45jFyIIie9Tt0l?=
+ =?us-ascii?Q?lG8ZaP1kufL7minPiRUkeLvfqgYf3kdV2FkoQT68w4f95NjjRzHfi1+yzxgX?=
+ =?us-ascii?Q?uO36K7DhjFUbElXcGVkZJnTyfDFRVGOXsOcF5DZpclo1K71chet+AEbdTM4G?=
+ =?us-ascii?Q?nEVeuRJweHsGbEm5CGbbP2vKY1WLVAq/A515KRfTYKxEgWY6t7I0IEO/0Yro?=
+ =?us-ascii?Q?vP1MjTBaE5HNnnlKUG9bCfhF2hICkZ8P/RXDFX2crruJtkeNdsLSq3fUQ4xP?=
+ =?us-ascii?Q?JNbCQOI9SKwOm6EqEcFxY+lZ0PYd4UjDkQDhfULSGhk4oRLSAF/WV7Bn6lhJ?=
+ =?us-ascii?Q?YVzZw/0e58lVAWCEFiyFTWyTLmUrccyrV652bSjBUwXcw1sOxhaM4/V9Xrui?=
+ =?us-ascii?Q?cGiPSepMqmoT67KMG6GkpbFAQVqz1h98AHHeAvV9le+VcglQDNlEnCCwQJh7?=
+ =?us-ascii?Q?wufq+7p/CeyXCEJPD17XVK2r1PqDzGO8WDKTchjq6eigTAfrf02B9rkGnH2B?=
+ =?us-ascii?Q?LfxyuumoggHV4Vl9DRj8qV5q8ubulyIbwlaSY46CjtJek/8Ib4iVHQdEBWQt?=
+ =?us-ascii?Q?Lr8TO0A3vgxolNJVHifLHhjEJ6w7ReqU4mRR9NnlVFGuqyNx2TyOd45ufUTj?=
+ =?us-ascii?Q?ZwecMRnxYx2Y+Gc98+YV4Kd6JadBzaksaMumd19b6s9hO4c3Y4tb+goqNFco?=
+ =?us-ascii?Q?FJo1x278/08Gl0sHgHCx07LGrMchMaLKnmC4G0FOKzioR0LEpnI06TkCQW7p?=
+ =?us-ascii?Q?UKjl2UWQRYA1y6Odn5A77aBCePMqmoqpekYWrEgYLrydUAih2GNO5Og+nXXI?=
+ =?us-ascii?Q?ANpw6j/lSBb7//RSLEqliZoiOkwkm7yaGSoGWpm56c6c2lFk5BcDyqyenaCy?=
+ =?us-ascii?Q?OkXH8OfKcOdbg7AOhZUNPxOmdMCdwm0=3D?=
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fdd4f950-9a43-4f94-9a1f-08dee99454b6
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR03MB6208.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2026 15:00:42.0771
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: G5HNyBDZJUZdrG8UeFRCbM4U367C4jbB6KNuXE5BAOZjr1aEKNX7A75qdVnech875CXLoeFyStW3SbG9yrr6JibRVj8yRJ9TXRbvKYRJS5c=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR03MB7072
 
-xo_board is fixed to 24 MHZ, which is routed from WiFi output clock
-48 MHZ (also being the reference clock of CMN PLL) divided 2 by
-analog block routing channel.
+This series adds support for the Cadence SD6HC (sixth-generation) SDHCI
+controller and enables it on Altera Agilex5 SoCs.
 
-Signed-off-by: Luo Jie <jie.luo@oss.qualcomm.com>
+The SD6HC PHY architecture differs substantially from the SD4HC: it
+requires dedicated per-speed-mode IO cell timing parameters and a
+DLL-based delay line to achieve correct signal margins across all speed
+grades from Default Speed through HS400. These are programmed through a
+new sdhci-cadence-phy-v6.c file; shared driver infrastructure lives in
+sdhci-cadence-core.c.
+
+Note: this series depends on commit ab45ecfab540 ("dt-bindings: reset:
+altr: add COMBOPHY_RESET for Agilex5"), which is already in mainline via
+the reset tree. It is not yet in mmc/next; apply or merge that commit
+when building/testing this series on top of mmc/next. The previous v1/v2
+reset binding patch is therefore omitted from this series.
+
+Patch 1: DT binding
+  Adds a dedicated cdns,sd6hc.yaml binding with SD6HC compatible strings,
+  clock/reset/IOMMU constraints, and PHY timing properties.
+
+Patches 2-4: Device tree
+  Patch 2 adds the SD6HC controller node to the Agilex5 SoC DTSI and
+  enables SD card operation (4-bit, SDR104, 200 MHz) on the SOCDK board
+  with GPIO-switched IO-voltage regulation.
+  Patch 3 registers the intel,socfpga-agilex5-socdk-emmc board variant
+  in the arm/altera binding.
+  Patch 4 adds socfpga_agilex5_socdk_emmc.dts for eMMC-only operation
+  (8-bit, HS200/HS400, 1.8 V IO, 200 MHz).
+
+Patches 5-8: Driver
+  Patch 5 renames SD4HC-specific functions and structures with a "cdns4"
+  prefix to separate them from shared driver paths.
+  Patch 6 encapsulates SD4HC PHY probing in sdhci_cdns4_phy_probe() and
+  makes every of_device_id entry carry explicit platform data, removing
+  the silent fallback.
+  Patch 7 introduces the SD6HC PHY driver (sdhci-cadence-phy-v6.c): DLL
+  lock/bypass, per-speed-mode IO cell timing, tuning, and HW reset. The
+  common driver core selects between v4 and v6 PHY operations based on
+  the SDHCI specification version reported by the controller.
+  Patch 8 adds the Agilex5 platform overlay under altr,agilex5-sd6hc:
+  40-bit DMA mask for the SMMU address space, quirks for
+  CAP_CLOCK_BASE_BROKEN, PRESET_VALUE_BROKEN, ACMD23_BROKEN and
+  MULTIBLOCK_READ_ACMD12, .get_max_clock set to
+  sdhci_pltfm_clk_get_max_clock, and an init hook that asserts and
+  deasserts the three named resets together.
+
+Tested on Agilex5 SOCDK:
+  - SD card: Default Speed, High Speed, SDR25, SDR50, SDR104
+  - eMMC daughter board: HS200, HS400
+
+Signed-off-by: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
+
 ---
- arch/arm64/boot/dts/qcom/ipq5210-rdp504.dts | 7 ++++++-
- arch/arm64/boot/dts/qcom/ipq5210.dtsi       | 3 ++-
- 2 files changed, 8 insertions(+), 2 deletions(-)
+Changes in v3:
 
-diff --git a/arch/arm64/boot/dts/qcom/ipq5210-rdp504.dts b/arch/arm64/boot/dts/qcom/ipq5210-rdp504.dts
-index 7410d092814e..fa537633d5f5 100644
---- a/arch/arm64/boot/dts/qcom/ipq5210-rdp504.dts
-+++ b/arch/arm64/boot/dts/qcom/ipq5210-rdp504.dts
-@@ -85,8 +85,13 @@ &ref_48mhz_clk {
- 	clock-mult = <1>;
- };
- 
-+/*
-+ * The frequency of xo_board is fixed to 24 MHZ, which is routed
-+ * from WiFi output clock 48 MHZ divided by 2.
-+ */
- &xo_board {
--	clock-frequency = <24000000>;
-+	clock-div = <2>;
-+	clock-mult = <1>;
- };
- 
- &xo_clk {
-diff --git a/arch/arm64/boot/dts/qcom/ipq5210.dtsi b/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-index 9bbd55cc1e75..45026f7835bf 100644
---- a/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-+++ b/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-@@ -26,7 +26,8 @@ sleep_clk: sleep-clk {
- 		};
- 
- 		xo_board: xo-board-clk {
--			compatible = "fixed-clock";
-+			compatible = "fixed-factor-clock";
-+			clocks = <&xo_clk>;
- 			#clock-cells = <0>;
- 		};
- 
+  [bindings]
+  - Drop the COMBOPHY_RESET binding patch; it is already in mainline as
+    commit ab45ecfab540 via the reset tree.
+  - Split SD6HC into a dedicated cdns,sd6hc.yaml binding instead of
+    extending cdns,sdhci.yaml (Krzysztof).
+  - Rename PHY timing properties with standard unit suffixes:
+    cdns,iocell-*-delay-ps and cdns,delay-element-ps (Krzysztof).
+  - Define clock-names and reset-names in the SD6HC binding, and keep
+    iommus / dma-coherent at the top level (Krzysztof).
+  - Rewrite binding/driver commit messages to describe the hardware
+    rather than restating the diff (Krzysztof).
+  - Fix alphabetical order of the SOCDK eMMC board compatible in
+    altera.yaml, and retitle the patch as dt-bindings: arm: altera
+    (Krzysztof).
+
+  [drivers]
+  - Trim sdhci-cadence.h to include only what it uses (types.h,
+    compiler.h, spinlock.h, sdhci-pltfm.h) and keep direct includes in
+    the .c files that need them (Adrian) (patch 7).
+  - Pulse combophy with sdhc-reset and sdmmc-ocp (exclusive assert /
+    deassert together). SoftPHY is shared with NAND at the SoC level,
+    but only one of SDMMC or NAND is enabled on a given board
+    (replaces shared_deasserted-only handling from v2) (patch 8).
+  - Keep #include <linux/iopoll.h> when adding dma-mapping.h (patch 8).
+  - Unwrap dev_err_probe() lines that already fit in 100 columns
+    (Adrian) (patch 8).
+
+Link V2: https://lore.kernel.org/linux-mmc/20260627201457.12318-1-tanmay.kathpalia@altera.com/
+Link V1: https://lore.kernel.org/linux-mmc/20260511202132.5597-1-tanmay.kathpalia@altera.com/
+
+Tanmay Kathpalia (8):
+  dt-bindings: mmc: add Cadence SD6HC binding
+  arm64: dts: agilex5: add SD/eMMC host controller
+  dt-bindings: arm: altera: add Agilex5 SOCDK eMMC board variant
+  arm64: dts: agilex5: add SOCDK eMMC daughter board
+  mmc: sdhci-cadence: rename SD4HC symbols for SD6HC groundwork
+  mmc: sdhci-cadence: refactor driver structure for V6 controller
+    support
+  mmc: sdhci-cadence: add Cadence SD6HC support
+  mmc: sdhci-cadence: add Altera Agilex5 SD6HC support
+
+ .../devicetree/bindings/arm/altera.yaml       |   1 +
+ .../devicetree/bindings/mmc/cdns,sd6hc.yaml   | 114 +++
+ MAINTAINERS                                   |   7 +
+ arch/arm64/boot/dts/intel/Makefile            |   1 +
+ .../arm64/boot/dts/intel/socfpga_agilex5.dtsi |  25 +
+ .../boot/dts/intel/socfpga_agilex5_socdk.dts  |  38 +-
+ .../dts/intel/socfpga_agilex5_socdk_emmc.dts  | 127 +++
+ drivers/mmc/host/Makefile                     |   1 +
+ .../{sdhci-cadence.c => sdhci-cadence-core.c} | 314 ++++--
+ drivers/mmc/host/sdhci-cadence-phy-v6.c       | 929 ++++++++++++++++++
+ drivers/mmc/host/sdhci-cadence.h              | 111 +++
+ 11 files changed, 1596 insertions(+), 72 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/mmc/cdns,sd6hc.yaml
+ create mode 100644 arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_emmc.dts
+ rename drivers/mmc/host/{sdhci-cadence.c => sdhci-cadence-core.c} (65%)
+ create mode 100644 drivers/mmc/host/sdhci-cadence-phy-v6.c
+ create mode 100644 drivers/mmc/host/sdhci-cadence.h
 
 -- 
-2.43.0
-
+2.43.7
