@@ -1,129 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40B8B41D20E;
-	Fri, 24 Jul 2026 09:26:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB7FA3E3D85;
+	Fri, 24 Jul 2026 09:28:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784885183; cv=none; b=MAbo6MZMT6zTQIAmvIBqxbjBKuVNPvZaxcgjat3LW17YC2MoewN7MgpaM97CC105TqY0ZVoq7CtHfm5odYNWVJunzytvPtEb5wAJnAwyN16WrGVSlKq5czKM3dhG46wbL5H/XqelJXvlfp0h42CWepeDvtmjYIVo/G0Rrd//sfg=
+	t=1784885305; cv=none; b=CMxOYfbSIdFLQHWBbMmo9Q8O0KwAESxjJ0jY4W6BfXcPJB/n3Ktzn9WGpkELDPlHHXXBD4fHnRMKbAqIamN+qi2TThmPQs6eD+ppnzE5txerdXHdslRVa4wWbKohtH2JOYfarH/pM3uoojhMaDt6TGIZiTO0UoSlrWKu5pxVBGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784885183; c=relaxed/simple;
-	bh=YHDEU0sCn5sv5ZLLRITsCwaYF4WVXeaOC8u/ncuhpRU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=R7XFP9gQKmyfoo1ezy/D8/S5ncWnRW/M/rmeBfFNU37yqF3vfLpGYTfhnSIKbexFGY1QZInITuWhKowPtcbD47P38c+c+GM3XQugFKUOBYBts0gXRKYbgXsspwJ4oLqXTtRD6lwoQ5MrnTg6eThLNTLiOtgbmQNCe5N2To8NQBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aUUxbupp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784885305; c=relaxed/simple;
+	bh=nhLFan2ihvZzmyzJSMHZkWevh4Nk25HPvpyVLxcXLMQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=o0tZqg6w1fhZQHfBYFFkgzMpDqYTuvXPS8fT4SReBDq2YoGJxEceV8Mv0IXZ9XGJinAxa/dVVIqiECTRJpw7fxkQuRW4BZCTf8Oc8aHnFEulCB0DPyTn4SCw8a6Bk3Au8SVAXTaO8p2SPRlMsdQuvkGnsuJGn4UeiJkTZvXtHQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=bjhSETa0; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aUUxbupp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22DA91F000E9;
-	Fri, 24 Jul 2026 09:26:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784885177;
-	bh=rVkQWJdxeGEXUoFmYL6K47M7buUaWNJirjSNuJEvmXw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=aUUxbuppcCRNX9Q5x9y4pYQnmPIOYn/cvSjwoORjb33bquDzGZxumneNdHPax1VXX
-	 Ijd6a+4mdZbSUfqstTZgPf3R2QsIRA3yJYHuuJE+cWlc6D7xRsSqvcdUrk6hqr46GJ
-	 czgKr6m05JnpvfTJAnsKV3D3MTEkPxJuqZRIzADzIJqjvTSq9jjL59jkfoYtjTepCy
-	 Kb5RSFCApOD+j0BCVDdh/LwV08OTvATRM1igcyAGe1c5nnPXNB2uHPb3AXu1anuI8r
-	 adyEz/smgDiE5/LjiC7pvZSrgNa3n6NLFpipIdlpV1opzIW9r8QqfGvyfSjzZcwKsC
-	 sEW2m9BT3d8TA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] dt-bindings: rtc: ti,omap-rtc: Convert to DT schema
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Bhargav Joshi" <j.bhargav.u@gmail.com>
-Cc: conor+dt@kernel.org, linux-rtc@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org, "Alexandre
- Belloni" <alexandre.belloni@bootlin.com>
-In-Reply-To: <20260724-ti-omap-rtc-v1-3-ffef78853cd6@gmail.com>
-References: <20260724-ti-omap-rtc-v1-0-ffef78853cd6@gmail.com>
- <20260724-ti-omap-rtc-v1-3-ffef78853cd6@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 24 Jul 2026 09:26:16 +0000
-Message-Id: <20260724092617.22DA91F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="bjhSETa0"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1EABB524;
+	Fri, 24 Jul 2026 11:27:13 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1784885233;
+	bh=nhLFan2ihvZzmyzJSMHZkWevh4Nk25HPvpyVLxcXLMQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=bjhSETa0gNjVCr4kSoV5cKZkcIW67f3XMtzL4aed5rk2Vi3tNDM6xsQqDJcG/Gpzz
+	 3uUTNgDqL7nyxjFtKqvxaRsceICvOWGO+zlLvVLPD2+ADm57KHrV1OJrw5EIyt+wad
+	 FcGHQPGMKx+ealxlWfV/0xfoXXbJEmzflKcfnQn4=
+Date: Fri, 24 Jul 2026 12:28:12 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Richard Leitner <richard.leitner@linux.dev>
+Cc: Conor Dooley <conor@kernel.org>, Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	driver-core@lists.linux.dev
+Subject: Re: [PATCH RFC 1/2] dt-bindings: regmap: add common schema for
+ no-sequential-read
+Message-ID: <20260724092812.GD712773@killaraus.ideasonboard.com>
+References: <cdd3b988-72cd-4143-9a17-ee0c57625e94@sirena.org.uk>
+ <amD_vkMOrtKq5NvX@bombadil>
+ <20260722201622.GD648629@killaraus.ideasonboard.com>
+ <amEvJBOE3Ja014Ap@bombadil>
+ <525338f4-cad3-4acb-94c5-a4b71cde9c02@sirena.org.uk>
+ <amHznORUaOnUFyS4@bombadil>
+ <20260723154541.GA764516@killaraus.ideasonboard.com>
+ <20260723-hamster-juniper-5697cacade96@spud>
+ <20260723161048.GC767247@killaraus.ideasonboard.com>
+ <amJiqHd6I45w_e0-@bombadil>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <amJiqHd6I45w_e0-@bombadil>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] The legacy text binding file `rtc-omap.txt` was not removed during =
-the conversion to the new YAML DT schema.
-- [Low] The schema unconditionally allows `system-power-controller` and `ex=
-t-wakeup` properties for all hardware variants, lacking required conditiona=
-l constraints.
---
+On Thu, Jul 23, 2026 at 08:55:18PM +0200, Richard Leitner wrote:
+> On Thu, Jul 23, 2026 at 07:10:48PM +0300, Laurent Pinchart wrote:
+> > On Thu, Jul 23, 2026 at 05:02:42PM +0100, Conor Dooley wrote:
+> > > On Thu, Jul 23, 2026 at 06:45:41PM +0300, Laurent Pinchart wrote:
+> > > > On Thu, Jul 23, 2026 at 01:01:11PM +0200, Richard Leitner wrote:
+> > > > > On Wed, Jul 22, 2026 at 11:03:09PM +0100, Mark Brown wrote:
+> > > > > > On Wed, Jul 22, 2026 at 11:58:46PM +0200, Richard Leitner wrote:
+> > > > > > 
+> > > > > > > @Mark: I understood that if the fpga really intercepts the I2C bus, it
+> > > > > > > should be modelled accordingly in device tree. But what would be the
+> > > > > > > preferred implementation if both devices sit on the same I2C bus, but
+> > > > > > > one is messing up some register reads on purpose?
+> > > > > > 
+> > > > > > I think we would need to have a coherent understanding and description
+> > > > > > of the actual issue to know how to describe it.
+> > > > > 
+> > > > > Understood. I will try to figure out how the hardware is really wired
+> > > > > and come back to you.
+> > > > 
+> > > > Based on the information I have received so far, the FPGA is interposed
+> > > > between the host and sensor. It could therefore be modelled in DT as
+> > > > child of the I2C bus and a parent of the sensor.
+> > > > 
+> > > > New version of some of the Vision Components modules have fixed the
+> > > > multi-read bug, so we will still need a property in the FPGA DT node to
+> > > > indicate if the quirk should be activated.
+> > > 
+> > > Or come up with a compatible for the FPGA DT node that uniquely
+> > > identifies the revision of the RTL in use.
+> > > That's my preference for things that use some custom RTL that aren't
+> > > configuration parameters.
+> > 
+> > I'm afraid we won't be able to get that information. We have limited
+> > visibility on the ecosystem of modules and what the FPGA does in each of
+> > them.
+> 
+> Thanks for the clarification. Should I continue working on this topic
+> (i.e. modelling the FPGA as I2C controller with the sensor as a
+> "subdevice")? Or do you want to take over Laurent? Do you have any other
+> downstream work on the vc-mipi stuff, except the patches in your gitlab
+> repo?
 
---- Patch [3]: [PATCH 3/3] dt-bindings: rtc: ti,omap-rtc: Convert to DT sch=
-ema ---
-commit d0c7ea3e6873301494678b3cfd1db8646ed9ff66
-Author: Bhargav Joshi <j.bhargav.u@gmail.com>
+I'm afraid I won't have time for the time being, as I will soon start my
+summer holidays. The patches in the git tree you mentioned are all I
+have.
 
-dt-bindings: rtc: ti,omap-rtc: Convert to DT schema
+> I've additionally wrote "my Vision Components contact" an email asking
+> for clarification of the I2C bus layout on the modules yesterday. If I
+> get any new information from that path I will of course take it into account.
+> 
+> Thanks a lot, Laurent!
 
-Convert the Texas Instruments OMAP Real Time Clock (RTC) binding from
-the legacy text format to the DT schema. Mark 'ti,hwmods' as deprecated
-as it is no longer used, it is kept to support legacy boards.
+-- 
+Regards,
 
-> diff --git a/Documentation/devicetree/bindings/rtc/ti,omap-rtc.yaml b/Doc=
-umentation/devicetree/bindings/rtc/ti,omap-rtc.yaml
-> new file mode 100644
-> index 0000000000000..eeea1bab65309
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/rtc/ti,omap-rtc.yaml
-
-[Severity: Low]
-Should this conversion also delete the legacy text binding? It appears
-Documentation/devicetree/bindings/rtc/rtc-omap.txt was left in the tree,
-which leaves duplicate binding documentation.
-
-> @@ -0,0 +1,129 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-
-[ ... ]
-
-> +  interrupts:
-> +    minItems: 2
-> +    maxItems: 2
-> +
-> +  system-power-controller:
-> +    type: boolean
-> +    description:
-> +      Indicates that this RTC controls system power via the pmic_power_e=
-n pin.
-
-[Severity: Low]
-Does this schema unconditionally allow system-power-controller for all
-hardware variants?
-
-For instance, the ti,da830-rtc variant doesn't appear to support PMIC mode.
-Should there be an allOf / if-then block restricting this property to
-ti,am3352-rtc and ti,am4372-rtc?
-
-[ ... ]
-
-> +  ti,hwmods:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    description:
-> +      Name of the hwmod associated with the RTC.
-> +    const: rtc
-> +    deprecated: true
-> +
-> +patternProperties:
-> +  "^ext-wakeup(-[0-9]+)?$":
-> +    type: object
-> +
-> +    description:
-> +      Child node describing external wakeup pin configuration.
-
-[Severity: Low]
-Similar to the system-power-controller property, should this subnode also be
-restricted to variants that support it?=20
-
-Without an allOf / if-then block, it seems device trees configured with
-ext-wakeup for older hardware like ti,da830-rtc will silently pass schema
-validation.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-ti-omap-rt=
-c-v1-0-ffef78853cd6@gmail.com?part=3D3
+Laurent Pinchart
