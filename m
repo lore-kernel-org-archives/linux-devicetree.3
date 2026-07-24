@@ -1,94 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B49E0339382
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 23:09:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 878EB396D2E;
+	Fri, 24 Jul 2026 23:14:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784934559; cv=none; b=ct5y02XezvLJsBzjJG3dduz0uyOulLMYUCRDMHI/El/V5ftpzgL4mRFQhqBVErVNHTkhE8xRY4+E0rTgyAz1tDljUen2A51p5oFtMb5FdqVh1NDssGO0392fJiJWOOAMC3XCmHARFNaoUG9b25Q7fAzN6gkcN61PXwYUQpHYqTw=
+	t=1784934863; cv=none; b=FhgAY89HXMRUlgp5LdLLbcfmT5RyNngPc3w/bJtkI9/7uWvQ2s/auca4R2Lyybsdsd2UGJM9/WmOeGJqu/78pmJaUTVtCzra82yRaxS6NprH0bGinXRALvC9BO1Yk+kPD0LOxwE/L+PvxJyVTHM2akiCsrdkUYu1FuTTh/GmcCI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784934559; c=relaxed/simple;
-	bh=7NErWPPwTksuDyDsIyZYt1gzH4mmFsojiBNOcuIO9Fc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=PHQ9HONPBubjWYIrGUM9HXbfBv2jI2TG0ojfz4Nzv+f2/13lS4kVvDDAGKBDEO0OKD8R7hqQLsNMIhptaXk2lIyWJCigfA4uOQinMV4oIu4YmmNMilzpKhY59afPq4JGQXDB0ni43SkHR6Hr3x6TfcJBUOMn2GgaKlqkfIY07a8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Twd9TLWU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784934863; c=relaxed/simple;
+	bh=jpDGtDnRPaMMnPDSnfxEHiO0PBGIiudwaMIsPeGw/aQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=OuASRICwE4YwDnTHqZR445dcFraChgtknHdikIvwcxkKT4AkQMmzDSRuHZH2O2Fm+mxLI5XrMNMK6AnWqATpi3CW15hOuOilx/BZTYOscV70q23yPT6Ux/3so4Ag66sbN3l8KhLxuEiFC1++PMCjfixwvbAM1OZwP9wTTIiBEeg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lvogha9Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Twd9TLWU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F4B71F000E9;
-	Fri, 24 Jul 2026 23:09:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lvogha9Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF4B31F000E9;
+	Fri, 24 Jul 2026 23:14:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784934558;
-	bh=Xfa3cAlHGBdW9UPj0ROfMt9224hZO03twOS2RqkoYe8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Twd9TLWULQAfsgYudqDmSvLWqaNZcPW/xZ6sYDqmN9sRExjRisEMKyWwsOxvnWvI5
-	 WHT26SIm/OstfQit2FNFkLetDbiQK2RIN23e6k6b4mSfUmwwVawVWJhir/m9fDEKyA
-	 B4Z5fqv7Y0KCyXZkEMW9vGDoEWcSdFPw4kY4gMZB/Rl8QozZ4MrgNkAxFI7MAYkL+a
-	 u7qCg5VKYaHxoTgvwQ565wTYgkjVrsmw1/WhuwhSxOsp+3gdjt36fPfZtj6pTQDE7G
-	 q8Nqf2R2BNaFppAn01V82rFK0gR07zy0/NLEQ1v/7U7kxOh/BSItxaOY6/1nDCMMGZ
-	 ubZkXCl0uUx8Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: dpll: zl3073x: add ZL30643 compatible
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vincent Jardin" <vjardin@free.fr>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260724-for-upstream-zl30643-v1-1-ea93ba4d85c8@free.fr>
-References: <20260724-for-upstream-zl30643-v1-0-ea93ba4d85c8@free.fr>
- <20260724-for-upstream-zl30643-v1-1-ea93ba4d85c8@free.fr>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 24 Jul 2026 23:09:17 +0000
-Message-Id: <20260724230918.0F4B71F000E9@smtp.kernel.org>
+	s=k20260515; t=1784934862;
+	bh=eDBxGFi10DQ8GvAbeqF5XURIexdwkwtlbC0hkdJxXb0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=lvogha9Q2jHjXGerDa7FnFjnhWHfmmCggY7uq3nCzUjuJv9IUBDzSIBf8PdjPYqY1
+	 1aQIKXEGCjLutW3ncn56pkP5vpJ7VmNWKAcbDU3M2iWoZBQM0c7kxw0fpnVAxMZ6hx
+	 4ZIAch8PwOsXSTT3V0htdEak1I8RbhKvtQpf2aRILwPeFL5Z8BUfw34uEjzODTH6Qo
+	 HhyAbFB9nWD6BtrItIBej30R5cC6CA4PXMx08+Efo0DuQmSMgt4dKScj4hJ8iPk4lw
+	 HHCECeJ54rne+MUDh+ZdaoDBNUmO3b98BRN0bwAUfc8VyQB/zgXSUntMMd0MoHxIjl
+	 M2+c13u0S+KtQ==
+Date: Sat, 25 Jul 2026 00:14:17 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] iio: dac: mcp47a1: add support for new device
+Message-ID: <20260725001417.159653b8@jic23-huawei>
+In-Reply-To: <20260721-mcp47a1-add-support-v1-2-da045a2567e3@gmail.com>
+References: <20260721-mcp47a1-add-support-v1-0-da045a2567e3@gmail.com>
+	<20260721-mcp47a1-add-support-v1-2-da045a2567e3@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Incomplete Implementation: Missing driver support for microchip,=
-zl30643.
---
+On Tue, 21 Jul 2026 20:24:39 +0200
+Joshua Crofts <joshua.crofts1@gmail.com> wrote:
 
---- Patch [1]: [PATCH 1/2] dt-bindings: dpll: zl3073x: add ZL30643 compatib=
-le ---
-commit 890eef3f2bfb25bd5d633b88f0a74281dde779f7
-Author: Vincent Jardin <vjardin@free.fr>
+> The Microchip MCP47A1 is a 6-bit volatile Digital-to-Analog converted
+> which communicates via I2C.
+> 
+> Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
 
-dt-bindings: dpll: zl3073x: add ZL30643 compatible
+A few really small comments inline.  Nice little driver.
 
-This commit adds the microchip,zl30643 compatible string to the ZL3073x
-family device tree binding schema.
+Given the really small number of registers, regmap does seem like
+it might be overkill
 
-> diff --git a/Documentation/devicetree/bindings/dpll/microchip,zl30731.yam=
-l b/Documentation/devicetree/bindings/dpll/microchip,zl30731.yaml
-> index fa5a8f8e390cd..13ea55c2c1467 100644
-> --- a/Documentation/devicetree/bindings/dpll/microchip,zl30731.yaml
-> +++ b/Documentation/devicetree/bindings/dpll/microchip,zl30731.yaml
-> @@ -18,6 +18,7 @@ description:
->  properties:
->    compatible:
->      enum:
-> +      - microchip,zl30643
+> diff --git a/drivers/iio/dac/mcp47a1.c b/drivers/iio/dac/mcp47a1.c
+> new file mode 100644
+> index 000000000000..251c2281634f
+> --- /dev/null
+> +++ b/drivers/iio/dac/mcp47a1.c
+> @@ -0,0 +1,193 @@
 
-[Severity: Medium]
-Are there accompanying driver changes for this new compatible string, or is
-this regression expected to be addressed in a subsequent patch in a series?
+...
 
-If a device tree uses this new compatible string, it appears the device will
-fail to bind and probe. The zl3073x_i2c_of_match table in
-drivers/dpll/zl3073x/i2c.c and the zl3073x_spi_of_match table in
-drivers/dpll/zl3073x/spi.c currently do not include "microchip,zl30643".=20
 
-Additionally, the commit message mentions the ZL30643 has a chip ID of
-0x0E3B, but this ID is missing from the zl3073x_chip_ids array in
-drivers/dpll/zl3073x/core.c. Without it, zl3073x_dev_probe() will fail to
-identify the device and return -ENODEV.
+> +static int mcp47a1_probe(struct i2c_client *client)
+> +{
 
->        - microchip,zl30731
->        - microchip,zl30732
->        - microchip,zl30733
+...
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-for-upstre=
-am-zl30643-v1-0-ea93ba4d85c8@free.fr?part=3D1
+> +	/*
+> +	 * This is a volatile DAC which doesn't have an ID register, instead
+> +	 * the value register is set to 0x20 every Power-on-Reset (table 4-1).
+> +	 * Any other read value at startup could indicate that the device is
+> +	 * damaged etc.
+
+or some earlier software wrote it and the all the regulators are stubs
+provided as they can't be turned off by software.
+
+I'd drop this test - it is a bit too flakey as a way to tell the chip
+is there and working. 
+
+> +	 */
+> +	ret = regmap_read(data->regmap, MCP47A1_CMD_CODE, &reg_val);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "Failed to read register on startup\n");
+> +
+> +	if (reg_val != 0x20)
+> +		dev_info(dev, "Read value 0x%02x at startup\n", reg_val);
+> +
+> +	indio_dev->name = "mcp47a1";
+> +	indio_dev->modes = INDIO_DIRECT_MODE;
+> +	indio_dev->info = &mcp47a1_info;
+> +	indio_dev->channels = mcp47a1_channels;
+> +	indio_dev->num_channels = ARRAY_SIZE(mcp47a1_channels);
+> +
+> +	return devm_iio_device_register(dev, indio_dev);
+> +}
