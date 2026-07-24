@@ -1,93 +1,46 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39A173DC87B
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 08:44:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [207.46.229.174])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 631F63E8354;
+	Fri, 24 Jul 2026 08:44:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.46.229.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784882676; cv=none; b=SfNtJvcJptYRHfwUD5S63Eg7IL7m3LKqRANxei9WgDq8tJC7TVgpq5wn54GJuNKlqjJIVxVcTnK7/pC8K6GIqaW7a7L6xGtjTbgnxenKS55UA0+fcgtdz1n8LplRDYWQDv3DUdsU/VzlrCjYBX1AuNwMcjQMdW/eEhcxce3ByWM=
+	t=1784882678; cv=none; b=KWcXK6UoU97wr+QjwdIiGUFO6gevBLzP0FqJb+vevOXeEEIiXrT2avVrR8XliE4TcCf2g6c0isllSdW05yDSCXIa/DZItk62PJ+QZiSbbT7VrPMdZl19hTWb5njtP8jJpgXYSqXYSE8amd8TiQWNpkMRiw/qFjaECgpPWSY89iM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784882676; c=relaxed/simple;
-	bh=rDxhkqymr7zNZNO5s5LLG26mVpihgtL4jhXYrXXJ+wY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CBTVovZdvloylblaHKhy7COwUAFO1P8emcmwHzRmYy71F85KeHg059GtTu8AWBRr+MCZuFQ4+6zfeSxi8eWTamrRN3rtHzPxZ8lzrtDsQtatEF3/BaljIBrV/Y4JRT87ub7TD2+Ruegn6EsgCP4QGvxHOZuDAhMBX9lDDo3b0qw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=PnEiqRJr; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="PnEiqRJr"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-38125cebfdaso193966a91.1
-        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 01:44:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1784882674; x=1785487474; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fHUpdIaIyIIyz0xHiffTwBnjBb2ySQuUos1Tr0diNj4=;
-        b=PnEiqRJrRe5wFFiJ1HBYbmRp8FtlCtmUVL8RHxvEoNBOMl1UdTWWHxBdyASchsDvBZ
-         9uWdAQQLJxK1sYBPojAdAqCs4VzfkwC8xhIrjy3CGqG1jpsz4OF7qlz2/u6xWMU/nbJI
-         iSACTGs47Ur3bpX5WAsLMjXhdKLfSGdXqWlSg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784882674; x=1785487474;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fHUpdIaIyIIyz0xHiffTwBnjBb2ySQuUos1Tr0diNj4=;
-        b=GtNbav53hk/PlP2nsbLAQOwrbeii0/TcbeNs8AhwZan84MUm2H2CK+/eggialRs2s0
-         NcAxY4wIqa0Ke16Y971nHX3ncvZpLyMVmAVj3uPAO7REi1XgSdYPhet33oqxFfNX6kul
-         V8gLnH9ys5/DNMicXzysf7C9nqnEanacHKPY6jVWPSd8mA6n/tNNybCkKkBAEFRg4oIj
-         pnMoQkdn5Pb7ng6fV21TrMia70z7tVUlCGEiLG1A855NNysVNZ7v38iymZoKriD6UaII
-         yds/1gi6huDX33uXneIC0T5LcHKYo2W43Vx/EFiq9//uG6VTS5n0n+G/vF9AZ084pfbG
-         b00A==
-X-Forwarded-Encrypted: i=1; AHgh+RoHl/qlxpM1Jt8EaWqy4DXlbcLqex7Mil/Yp2elrbpFP3DFCJSXsiab7RDU5oGteYthuSWX4zEEi8g9@vger.kernel.org
-X-Gm-Message-State: AOJu0YyyZPgn4NdzxxlbdSBjOmH6kcyQXJeY2TMVUVtQZvJ1a3sVnu3o
-	3kGGOaNMK3t+39KlaYKqCwGqetUf0BqZqRrj4wKTbHxnoPOpNNP9PBxoSwg+OX7q+w==
-X-Gm-Gg: AR+sD13Y6heWmkw2tmfwSSwbdbw5GsE8Tb1ZbS5T7OZGYKGlE8kKhCil2j5vPIjbhun
-	U8Vl6O4DQIUc/bSWKRB/9ZH+eM/z74/KE2Q8r6pvEOeWAmvmwOeEWK5oiHqUNMkQtHV4RetO2Ky
-	brBWfWe6D1wzUztXS5nsUaUvqMJ4Ovm5cj5hIz8Y6su4QtNFFuHbBm4CmiWTaQTi8BpcYsR4q1+
-	hOeSFEUdXyF+nTM/5gsaQ6ExoliiyjF+/GDO8gn1ln1PqEcPBrXx+Xp59/+0EqhsVJjw+b34cqN
-	TrbZQO4s3dhI/OthkQC2PDm6v9q/WAr9kF8fux9KXmPzjqQ5doHYvRw5YSxKCz8Xtbiwpzl5P/B
-	URje3xrEF2RNcUJPYGH3prgMSYcSlAZRsNsFpmLg0pcvvxOwAsH8h8fZ1jw7ExypE+JFCz2D1KN
-	TMLshpRgtS06yv63CfbzKB3df76FBl/xglStOm42cg6+hEzlUBaGFOBbvAi7k=
-X-Received: by 2002:a17:90b:5407:b0:38e:64b0:8bce with SMTP id 98e67ed59e1d1-38ec6650435mr6482024a91.20.1784882674612;
-        Fri, 24 Jul 2026 01:44:34 -0700 (PDT)
-Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:f131:86cc:5858:7325])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f089ac6d8sm434546a91.2.2026.07.24.01.44.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 24 Jul 2026 01:44:33 -0700 (PDT)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Wei Deng <wei.deng@oss.qualcomm.com>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	linux-acpi@vger.kernel.org,
-	driver-core@lists.linux.dev,
-	linux-pm@vger.kernel.org,
-	linux-usb@vger.kernel.org,
+	s=arc-20240116; t=1784882678; c=relaxed/simple;
+	bh=dh/du7Uk0Ql6cULT3pGKoKFY6MRS9Z9uv8V9RNL1qA8=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=H3nec8+6dRdbpiCGAyvrZLIez/grjEm/KJV6IZw9w9r7lF+40UVkf2nmV1VgN4qdzJbAwV8CNOJDfO7p5Eb7UHBVDiSijlaJr1qvcH6V9iTqV4a22dQS7owZacsa2DJUUj1wQKS0dKT57M6ZK14HQLkjXbwgVk0K5h+bESdfb8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=207.46.229.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from E0005152DT.eswin.cn (unknown [10.12.96.41])
+	by app2 (Coremail) with SMTP id TQJkCgBXbaDmJWNqGe02AA--.20050S2;
+	Fri, 24 Jul 2026 16:44:23 +0800 (CST)
+From: dongxuyang@eswincomputing.com
+To: ukleinek@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	ben-linux@fluff.org,
+	ben.dooks@codethink.co.uk,
+	linux-pwm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: [PATCH v7 06/16] usb: hub: Associate port@ fwnode with USB port device
-Date: Fri, 24 Jul 2026 16:43:15 +0800
-Message-ID: <20260724084328.3943997-7-wenst@chromium.org>
-X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
-In-Reply-To: <20260724084328.3943997-1-wenst@chromium.org>
-References: <20260724084328.3943997-1-wenst@chromium.org>
+	p.zabel@pengutronix.de,
+	daniel.lezcano@kernel.org,
+	tglx@kernel.org
+Cc: ningyu@eswincomputing.com,
+	linmin@eswincomputing.com,
+	xuxiang@eswincomputing.com,
+	wangguosheng@eswincomputing.com,
+	pinkesh.vaghela@einfochips.com,
+	Xuyang Dong <dongxuyang@eswincomputing.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v13 4/5] dt-bindings: timer: dwc: Update resets property items
+Date: Fri, 24 Jul 2026 16:44:19 +0800
+Message-Id: <20260724084419.1795-1-dongxuyang@eswincomputing.com>
+X-Mailer: git-send-email 2.31.1.windows.1
+In-Reply-To: <20260724084153.1473-1-dongxuyang@eswincomputing.com>
+References: <20260724084153.1473-1-dongxuyang@eswincomputing.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -95,100 +48,57 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:TQJkCgBXbaDmJWNqGe02AA--.20050S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Ww43tF1kXF1rJr4rGFW8Xrb_yoW8Gr48pF
+	WxCFs2qF93XF13Xw4kJFn2ka45Zas8Cr4xCF1IgwsFyFW7Ja1YqF4Fkr1jqFW3Ar4I9FW3
+	WF4xuw4Yya4jyr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBm14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r4a6rW5MxkIecxEwVCm-wCF04
+	k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
+	MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr4
+	1lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1U
+	MIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I
+	8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjTRKtCzDUUUU
+X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/
 
-When a USB hub port is connected to a connector in a firmware node
-graph, the port itself has a node in the graph.
+From: Xuyang Dong <dongxuyang@eswincomputing.com>
 
-Associate the port's firmware node with the USB port's device,
-usb_port::dev. This is used in later changes for the M.2 slot power
-sequencing provider to match against the requesting port.
+The DesignWare DW_apb_timers IP has two active-low reset inputs:
+presetn resets the register interface logic in the pclk (bus) domain,
+and timer_N_resetn resets the counter/timer logic in the timer_N_clk
+domain. The existing snps,dw-apb-timer binding only describes one.
 
-To avoid potential conflicts with ACPI firmware nodes and then causing
-power management issues, only assign the firmware node if the hub's
-firmware node is not an ACPI firmware node.
+Update snps,dw-apb-timer binding to allow up to two reset lines,
+matching the hardware capabilities of the DesignWare IP family.
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Xuyang Dong <dongxuyang@eswincomputing.com>
 ---
-Changes since v5:
-- Added extra |struct fwnode_handle *| local variables to shorten lines
-  (Andy)
-- Added comment about passing fwnode_graph_get_port_by_id() return value
-  directly to device_set_node() (Andy)
+ .../devicetree/bindings/timer/snps,dw-apb-timer.yaml         | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-Changes since v4:
-- Dropped unused |hdev| variable
-- Added flags for fwnode_graph_get_port_by_id() with
-  FWNODE_GRAPH_DEVICE_DISABLED so that even incomplete
-  ports can be connected
+diff --git a/Documentation/devicetree/bindings/timer/snps,dw-apb-timer.yaml b/Documentation/devicetree/bindings/timer/snps,dw-apb-timer.yaml
+index d33c9205a909..4d30cd01ac65 100644
+--- a/Documentation/devicetree/bindings/timer/snps,dw-apb-timer.yaml
++++ b/Documentation/devicetree/bindings/timer/snps,dw-apb-timer.yaml
+@@ -25,7 +25,10 @@ properties:
+     maxItems: 1
 
-Changes since v3:
-- Added missing fwnode_handle_put()
+   resets:
+-    maxItems: 1
++    minItems: 1
++    items:
++      - description: Timer ticks reference (timer_N_resetn) reset
++      - description: APB interface (presetn) reset
 
-Changes since v2:
-- Skip assignment if hub firmware node is ACPI node
----
- drivers/usb/core/port.c | 25 +++++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
-
-diff --git a/drivers/usb/core/port.c b/drivers/usb/core/port.c
-index b4452b665f59..c0a51d9b06a6 100644
---- a/drivers/usb/core/port.c
-+++ b/drivers/usb/core/port.c
-@@ -7,6 +7,7 @@
-  * Author: Lan Tianyu <tianyu.lan@intel.com>
-  */
- 
-+#include <linux/acpi.h>
- #include <linux/kstrtox.h>
- #include <linux/slab.h>
- #include <linux/string_choices.h>
-@@ -358,6 +359,11 @@ static void usb_port_device_release(struct device *dev)
- {
- 	struct usb_port *port_dev = to_usb_port(dev);
- 
-+	/*
-+	 * At this point ACPI nodes and swnodes have been removed by
-+	 * device_platform_notify_remove() in device_del().
-+	 */
-+	fwnode_handle_put(dev_fwnode(dev));
- 	kfree(port_dev->req);
- 	kfree(port_dev);
- }
-@@ -754,6 +760,7 @@ int usb_hub_create_port_device(struct usb_hub *hub, int port1)
- {
- 	struct usb_port *port_dev;
- 	struct usb_device *hdev = hub->hdev;
-+	struct fwnode_handle *fwnode = dev_fwnode(&hdev->dev);
- 	int retval;
- 
- 	port_dev = kzalloc_obj(*port_dev);
-@@ -782,6 +789,24 @@ int usb_hub_create_port_device(struct usb_hub *hub, int port1)
- 	port_dev->dev.driver = &usb_port_driver;
- 	dev_set_name(&port_dev->dev, "%s-port%d", dev_name(&hub->hdev->dev),
- 			port1);
-+
-+	/*
-+	 * ACPI FW nodes are associated later when device_register() happens.
-+	 * Skip assigning one here to avoid potential conflicts.
-+	 */
-+	if (!is_acpi_node(fwnode)) {
-+		struct fwnode_handle *port;
-+
-+		/*
-+		 * fwnode_graph_get_port_by_id() returns either a valid fwnode handle
-+		 * or NULL. Passing NULL to device_set_node() clears any associated
-+		 * fwnode. It is effectively a no-op here, since no fwnode has been
-+		 * assigned to the newly created device yet.
-+		 */
-+		port = fwnode_graph_get_port_by_id(fwnode, port1, FWNODE_GRAPH_DEVICE_DISABLED);
-+		device_set_node(&port_dev->dev, port);
-+	}
-+
- 	mutex_init(&port_dev->status_lock);
- 	retval = device_register(&port_dev->dev);
- 	if (retval) {
--- 
-2.55.0.229.g6434b31f56-goog
+   clocks:
+     minItems: 1
+--
+2.34.1
 
