@@ -1,125 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5C674483A2
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 18:28:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 132D7384CD1
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 18:30:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784917688; cv=none; b=tSZ2pfXux3Lj5zHNbSC/6sX9xa1/UQycc0X6ixCdPUVpyJ7CX0LzPkIVWTyfikPZZyvgdwvyEkvFzn/0sAEiZDbSlk5mPvBrIhpeXpC7tP0fj4xxo2OgAHO9ss1tbD2bdXYKoolcWNf8RixHM3LUd+TqAIqeG8h02m8u/Fkuuyo=
+	t=1784917824; cv=none; b=OYfd5Y6tWvjHNmOYLE4xYd+RVjVQkve4WmhGcaKdZqSdfmLlTOQevGgue36nEEo98hjHAStl0/1aTVMpz8oiKKezgvEjPCPIhBAC+aIT/KVNH2lsLrozF3YG3uwAh9q0K/puh2NYXru0LPjDf9/eu3PHX44hw1hQhdPL6/lBQK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784917688; c=relaxed/simple;
-	bh=a6zi2knFaUmr4WLL5uL4yN+IxJqfcwsukCZNN0jQD/Y=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=twsTEEo7B0TGBLV+Np4+M9+x67xBI/CAVViWCtD1EGAub/ABIuIyhUDPnen+XZGY8VUyweHem+WUUM+m4vHvv3mtKg+lM4LNvTDLKUnrrv9GgeebskU4S2mrcwnfmYTddrPkP5nnWHStMmwVDQC4aBQCS5ErTKK+xH+W+CppEOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DpqZd3BD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784917824; c=relaxed/simple;
+	bh=vEWLGKEjbPeqn+JrSclqs8A/PUv6oQMDepAljrMFR6U=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=KaUR8NondZXjLnk1VfUMZTbmjNbZuZP/wwERcvdsvYc3BxQ88OxDsuJsLgIaZjy7A9+bu8JIuOZlc6o7JUqDJOOMOVrN7o5TIvwltQfpTv95bH6Yns3VOlPYhKKuOoN9JekxmHiL3LNSGPrRf3tcWgPTQsX0xb++yu3WWZ00t4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nKJSC4VV; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DpqZd3BD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B24C1F000E9;
-	Fri, 24 Jul 2026 18:28:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784917687;
-	bh=fdQwAsXHFdYta7x8NX/UgfYqANKPW0nDRxzqDha3Psg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DpqZd3BDu9Finm7b9XRH1lojysUXuxN+DeZaqtHMbCRjhBMmbkIrYb81XHytWtqUc
-	 +h4lNuuuKIWvu4dm8Ky1TJ59S505UCi7ie0M5ZjOUMha/9uMV/uu+/aujs+Uk2o44s
-	 K+LW2/f0fk5kGEBHlVHJjp554NML7r4RT4UAk+mZ96x4wfRfne3Z813kF0GIAFAvEm
-	 FImwDXozaFQFek3MmUNWjjS/uYkcSGsc64r2GdwFrWfdHk+7FankEzGw1tUllOoPGL
-	 xL+91qfHVk1S/tgjwTDerUiZA3LZxwtfOEk9arxX3efsOUOt5AV1gUlTWQDdDaS8vf
-	 D2X8EF0JDiQFg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/9] dt-bindings: interrupt-controller: apple,aic2:
- Invert #interrupt-cells condition
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Janne Grunau" <j@jannau.net>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260724-apple-t603x-initial-devices-v3-2-bbeba0420603@jannau.net>
-References: <20260724-apple-t603x-initial-devices-v3-0-bbeba0420603@jannau.net>
- <20260724-apple-t603x-initial-devices-v3-2-bbeba0420603@jannau.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 24 Jul 2026 18:28:06 +0000
-Message-Id: <20260724182807.5B24C1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nKJSC4VV"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47ddf7b09e5so775846f8f.1
+        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 11:30:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784917821; x=1785522621; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CTyim+3+s6xPpPDNa8YNRWmvmeAtgAU4Rem7Wi+YNIE=;
+        b=nKJSC4VVJOM+PX+u2WuKHRtUTtO4ViJl1WUzQe6csRI+6g4WBphkDDTZpLrWplgaMD
+         S4O8oiFmI4UnXvuImNckyu+UIpEE9GyatVWeOH6ONd9Xje9zI2j1lrLLqQz/vf5AnqnJ
+         x7Ta3rx9uFKEqj7lkp5qoQtko8Q3cCeG32vH2qy1RR8PAdGV8luDAZaaIfYEGABi4kxb
+         xK+ZRfzUMn5Aa8ph/gCNI5n4ejRPss3bz2eFlRE5ahxcQkjYIpra3eZ/IN4yG4/jcBDt
+         IXphoinIIDWNP3DVnv0lKv+D3yJwdNAmyBAxJIIJxok/wEXrRaC5E6qxBlrh+DbqEIkg
+         I81w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784917821; x=1785522621;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=CTyim+3+s6xPpPDNa8YNRWmvmeAtgAU4Rem7Wi+YNIE=;
+        b=HgYWedeC/uhQY0dh9WELbOjCxaLRnOOxFpQcTPUSiaDks7eL7pb1t5mhs1skItN6Uw
+         czFOnQvBXefLGcvWxZ3fQ4Co0Y3ShhpvNj4+xmG6J4hWF30QtOPTmmbQBJcpxQHiCclr
+         BCDM5ThIb1an9HmKbdxtGGqBIMlqWQejX6Fd1AZATtNl3NGUg613aCEM5W/TrOCXVFyI
+         PZvqkRAHeN9GZpFv/NnNspNet3B93fYJgBNMSm0/Dxh0hyMcRmX1VyUmpd0u5xcNEq7e
+         jNC1nsjiU4bAQSWrC75NZuWErCAQzVvAbhO34Svg2rP3T3x4npQvYWCHgRhEFb7w5j1I
+         ly7A==
+X-Forwarded-Encrypted: i=1; AHgh+Rro9tieaKOMH8rCsaeZrCHf8xd6zeXUizSLYXHhW1BotZ3g9sayNUTuxtrKZI5Cs/4F02FadkFMyUro@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy90jvCcB5lG0xSt/b5RHKOSCWqn1YUD+fJrCpn3WwlC+6G4+xg
+	9zTLBLs3boACpI+66n6tz0e7IAW0tVBehWrSOaAnMBFPTb+L6/7x3RbX
+X-Gm-Gg: AR+sD13PVNte8N0Xw1LXNICRTYmIPKx4e29tVM6HWS9a0wbgOafNmeu8jyvpQOJaqmU
+	EQK3NCyh0fmR/RjwHkp3jyfnkGLM/qLLsqNwibsqUIVbHPoMrZHokTzTMyrF0SsCCgI3VBIAC3e
+	myFfEWxo+2tAQ+AmasgSicfFsX9MrQDnawjEUV1MKZPDq5iaK9xfnyCJpBF79NNiL9PlbRoenAA
+	UoNrSmcYKWo1Fgfjb4G+Gbxo27alULwpzsNAyLIXwtKKXhapzLiN3yAr0TDB1mBKolPI8kTt5YR
+	GcZWDR6prTkVpQx2KDkygiGGFs56V+1nVEiZ/Hp/Njlc2I1ZhGA9tYtO25x520TfI9lnQjWguGF
+	RfaW1IA1hEQhgCLSeA0ph11a24ahogwUal4CMdQnQ07PMwtwb+VqfSh0Ntnoo9K4rQ9fG6NmE/Q
+	tjWWAv+OJexagY78YWKucz9nxu0xMSCPyJC7BdKgGLHQO1nDw7E5/kI6Xhumkvfgx4e//BUOLI+
+	WM=
+X-Received: by 2002:a05:6000:1ac5:b0:47f:81c4:36b4 with SMTP id ffacd0b85a97d-47f8da6b7e7mr11367085f8f.14.1784917821051;
+        Fri, 24 Jul 2026 11:30:21 -0700 (PDT)
+Received: from Ansuel-XPS24.localdomain (host-87-3-249-180.retail.telecomitalia.it. [87.3.249.180])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-47f85c531afsm26396571f8f.24.2026.07.24.11.30.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 24 Jul 2026 11:30:20 -0700 (PDT)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Benjamin Larsson <benjamin.larsson@genexis.eu>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	John Ogness <john.ogness@linutronix.de>,
+	Peng Zhang <zhangpeng.00@bytedance.com>,
+	Jacques Nilo <jnilo@free.fr>,
+	Rong Zhang <rongrong@oss.cipunited.com>,
+	Gerhard Engleder <eg@keba.com>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Binbin Zhou <zhoubinbin@loongson.cn>,
+	Lubomir Rintel <lkundrak@v3.sk>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org
+Subject: [PATCH v2 0/2] serial: 8250: Add AN7581 UART support
+Date: Fri, 24 Jul 2026 20:30:04 +0200
+Message-ID: <20260724183007.188172-1-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The newly inverted conditional block fails to include the M3 gen=
-eration multi-die SoCs (e.g., `apple,t6031-aic3`), incorrectly restricting =
-them to 3 interrupt cells and defeating the purpose of the patch.
-- [Medium] The compatible string `apple,t6031-aic3` explicitly mentioned in=
- the commit message is missing from the top-level schema definition.
---
+This is a new version of [1] to support UART driver for
+Airoha SoC.
 
---- Patch [2]: [PATCH v3 2/9] dt-bindings: interrupt-controller: apple,aic2=
-: Invert #interrupt-cells condition ---
-commit fc6ebf906f40d7b153e442ba25ef2691b2d4b00f
-Author: Janne Grunau <j@jannau.net>
+One additional function was needed serial8250_get_baud_rate()
+for the driver to work correctly for baud rate calculation.
 
-dt-bindings: interrupt-controller: apple,aic2: Invert #interrupt-cells cond=
-ition
+While at it also try to clarify a long standing issue with
+new UART driver when adding new ids for uart_config[].
 
-This commit changes the conditional logic for #interrupt-cells in the Apple
-AIC2 binding. It aims to explicitly list multi-die SoC compatibles that
-require 4 cells instead of defaulting to 4.
+[1] https://lore.kernel.org/all/20250209210241.2622309-1-benjamin.larsson@genexis.eu/
 
-> The condition for 3 or 4 #interrupt-cells list compatibles for the 3
-> cells variant (not used in SoCs consisting out of multiple dies). This
-> includes the AICv3 base compatible "apple,t8122-aic3". This will match
->     compatible =3D "apple,t6031-aic3", "apple,t8122-aic3";
-> shared for M3 Max and Ultra based devices which require the additional
-> interrupt cell for the die number.
+Changes v2:
+- Drop intermediate patch
+- Use .set_divisor OPs
+- Use div_u64 instead of / 40 for 32 bit overflow
+- Drop dedicated match table and use compatible for type
 
-[Severity: Medium]
-Should apple,t6031-aic3 be added to the top-level properties:compatible arr=
-ay?
+Changes compared to [1]:
+- Fix all formal error
+- Use better compatible names
+- Drop unneeded header
+- Drop usage of irq (it's filled by the generic function)
+- General code cleanup and reorg
+- Split to patch and add the UAPI map patch
 
-Any device tree using the apple,t6031-aic3 compatible string will fail
-dt_binding_check validation because it is entirely undocumented in the sche=
-ma.
+Benjamin Larsson (1):
+  dt-bindings: serial: 8250: Add Airoha compatibles
 
-> diff --git a/Documentation/devicetree/bindings/interrupt-controller/apple=
-,aic2.yaml b/Documentation/devicetree/bindings/interrupt-controller/apple,a=
-ic2.yaml
-> index d0d9a90e96e7b..a94787939d345 100644
-> --- a/Documentation/devicetree/bindings/interrupt-controller/apple,aic2.y=
-aml
-> +++ b/Documentation/devicetree/bindings/interrupt-controller/apple,aic2.y=
-aml
-> @@ -128,16 +128,16 @@ allOf:
->          compatible:
->            contains:
->              enum:
-> -              - apple,t8112-aic
-> -              - apple,t8122-aic3
-> +              - apple,t6000-aic
-> +              - apple,t6020-aic
+Christian Marangi (1):
+  serial: 8250: Add Airoha SoC UART and HSUART support
 
-[Severity: Medium]
-Does this enum explicitly list all multi-die SoCs that require 4 cells?
+ .../devicetree/bindings/serial/8250.yaml      |   5 +
+ drivers/tty/serial/8250/8250.h                |   6 +
+ drivers/tty/serial/8250/8250_airoha.c         | 190 ++++++++++++++++++
+ drivers/tty/serial/8250/8250_port.c           |  16 ++
+ drivers/tty/serial/8250/Kconfig               |  11 +
+ drivers/tty/serial/8250/Makefile              |   1 +
+ 6 files changed, 229 insertions(+)
+ create mode 100644 drivers/tty/serial/8250/8250_airoha.c
 
-The commit message mentions that the 4-cell requirement applies to=20
-apple,t6031-aic3, but since it is missing from this newly added enum,=20
-the schema logic will fall into the else branch and apply the const: 3=20
-constraint.=20
+-- 
+2.53.0
 
-Will this incorrectly restrict M3 Max/Ultra multi-die SoCs to 3 interrupt
-cells, causing valid device trees to fail schema validation?
-
->      then:
->        properties:
->          '#interrupt-cells':
-> -          const: 3
-> +          const: 4
->      else:
->        properties:
->          '#interrupt-cells':
-> -          const: 4
-> +          const: 3
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-apple-t603=
-x-initial-devices-v3-0-bbeba0420603@jannau.net?part=3D2
