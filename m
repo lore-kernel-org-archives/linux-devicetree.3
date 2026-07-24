@@ -1,222 +1,259 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011009.outbound.protection.outlook.com [40.107.130.9])
+Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DCEE44684B;
-	Fri, 24 Jul 2026 17:02:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.9
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784912539; cv=fail; b=jipHaPLiBKToSNuPbfgc8MGl3ZXmztWgt56jSIDM7BG3V6prt9TC+ofuplGPTj3Mf4o/n7N4IaqSEgRb0LvlITDUGe6Sz/Sn3CcV29qJtn2gakNSNQFE5O6Qe/nnTeSkDG8oYschDvoMdNyPWXx5kazLqDMGng/B2a4mIQjS3l4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784912539; c=relaxed/simple;
-	bh=XSfSa2GhuBdv0ZnqbJ6A5py77Ab1/6QYO6NsJUAi+qo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=A8sUZnFGYQ6fcnpN3g1ap+OgPQ511MH2JTdk0Gr8I53PN/kDKKuq+CwreIEFv1YB3OvGLYL2UyS/W9ZTCJuVYhRQRhlXVbGmRbHM1XM4gfkUucA8mt4A7siEzXOXfzg0TkXoFm/8d1xZQ4I4kOdAOqW2jokJOGvg4+iXPQPCEhg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=iztIZmg5; arc=fail smtp.client-ip=40.107.130.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C2BF4457D7
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 17:10:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.65
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784913051; cv=none; b=ZlA5kdvnJN8ScNULTMjCjSBJl2WX79tyYI4Qx+EHQ9ka4TuHgEaHnx/dTy/11Vi123nxscEBC9CxNzYz531Q56ZQaG056OfjnPjIFWntWlEq9wrUgEk//rM82Uo5D7GBB4mHNFUUbLgva/ZbQe2hlJVWE/Ifgf8cF072l+clk3U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784913051; c=relaxed/simple;
+	bh=u8aHzo6YOpyuVWIFesAn1V1sPYc1XXrryYAOWdRd7/c=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=jqXLZth5139zHCKY9GsaqxLLNapdxek8nnA/Ij9NM4JkyhaiIotUS5907RChxKYW7ALURwE+HN4GxFfRHtgQ5Q0ftQxLl4YHGC56aRwGD4RL/0uzV+alvTR1MuGLN+3qNglqwR16So67ThXb7E/G8pKTVCtknBXXrX7gxxQr0Ik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=PAncg0Sw; arc=none smtp.client-ip=185.67.36.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="iztIZmg5"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tkYcUzp3wwkk4IxIBaO611igGUjS/arjBKVXNF7XST20erZ7KdrUmFZXN8EUH+zTDOjpQexv0XCUSlEemY+P7CidTWpvrtP7qo9gABezwm9K965ryr6g5D+TOA23p2xkuhM9wWLQFWXwwIXeyCO15bCMhEzw6BOA8ImzjLj0z2bnoPc0ss+M/+9V3M0lBP8VHYv14gVa1hoPThhq0KzM9gsSAfcZTnDp1w/dy7R2vBs6XBkW22uE4LyEshVnHwfQZoHFsJtziWCzOrYTmj5J5SWzAccepxkDPslgJ96iIx2WqtkG/7QB6gh8OJABon3CqI4+YSViwdaDd5QR23wnVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=X+JvtQWFeUfdhPiG5CAfpYlJXUbzdSRsyJMa/rk8u2c=;
- b=h9TIvV7qKPuhpsjOtoqlxTTlhGoOVg+nDLx2adfYMWECU2l5ODKTrq2ikrS/7gVooq/1ahgVaXw3lLmcD3IH89MIPQCAgFG6iqa3WpgaksAVcY6Lz3EF5GFVuf9fYlOXX0JOE0PLp/p16hNK5+ZEDAxA4TLyzVrdKH1oXCHFyvULUdmOzp2EpHc9m9ygZEzbA5rjhZLD/LcP0GF9foE/rud9Ou/YDLBH86UkObLZf9qIpZF9upnD/CuqWrS2X5tHKtEt23a41YhqDGA5RuOAxNkVfkwZ+ocgCWaZcGlqNg6+3u0I+6P/jcuU0aA+hsQ0rDlGe0cvf6o+wgSfmeOpZw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X+JvtQWFeUfdhPiG5CAfpYlJXUbzdSRsyJMa/rk8u2c=;
- b=iztIZmg5/Yw1XjlM0LsIhbjzH/2HAvICTVYBYRShcdeJ+wNdrTXTTYfTbPwS3k29FnbsAwc1B5b8AvhYbXqmRmjWykzzigai20yCEqR4/5dIqJzUnh+CkSNncUQH1u0GnLyKDsE7imn9KutHQATEZaaKWXa+lfjFF/QNqrJ9yJGK7F/OpEHsB+lgb/EKBpF4cRuziDXigpGQtSHg7DPBIkLOYFwk46PldX3G76vJgDCqWnW5+Uv9/owv2Fuu8V8xdRHnkEdsuZxhExKqMlkaM8vDvJ6Ivm17kzy2ZpfnacJNtvnYSTuSD/p3gfdeuNYddn8RtnO9NVXQTIfCzz5z9g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by BESPR04MB12610.eurprd04.prod.outlook.com (2603:10a6:b10:ff::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.11; Fri, 24 Jul
- 2026 17:02:12 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0245.010; Fri, 24 Jul 2026
- 17:02:11 +0000
-Date: Fri, 24 Jul 2026 12:01:59 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Francesco Dolcini <francesco@dolcini.it>
-Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Alexander Stein <alexander.stein@ew.tq-group.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2 2/4] drm: mxsfb: Add optional DPI output bus-width
- configuration
-Message-ID: <amOah-mILi_y32rB@SMW015318>
-References: <20260723093813.180089-1-francesco@dolcini.it>
- <20260723093813.180089-3-francesco@dolcini.it>
- <amI3mPBVXe0zj_tC@SMW015318>
- <20260723155332.GB4453@francesco-nb>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260723155332.GB4453@francesco-nb>
-X-ClientProxiedBy: PH7PR17CA0009.namprd17.prod.outlook.com
- (2603:10b6:510:324::17) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="PAncg0Sw"
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout01.posteo.de (Postfix) with ESMTPS id 07C3F24002A
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 19:10:47 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
+	s=1984.8680eb; t=1784913047;
+	bh=LxFef067aXI8pdvSjenLeDrbE4lQ07r35UMMskhl4VU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:To:Cc:Autocrypt:OpenPGP:From;
+	b=PAncg0SwEii9Sv/1myJSHgrDY6l2dHa++xSIiZx5u/Z+4IeO/wWs2JuBwWimdtvCW
+	 VFXkj0yB1dtjAxGW0pgI7/gMI/CEuPCNqN+8TVGpGTDHTjej16MNz12hARf9a7d6T5
+	 KeOSZ4+zU00LfHOIXk8KI5mUcBbaPF6j0GgXiZiS7Q+7k2k803gYWJu6nZEM5pU2La
+	 +seI6jIKlT8t3NKLdN07tyq8cbPIaUU8CkZ+AmLtyRul3iu4fTEZ2d3zf2C2bI/Rbw
+	 NijlOx2cFFDxlxUPhG7tGtiQf9Z2sDYBgsXnrFHP+Doult3OpNIkGU5am7ypXC9ilm
+	 xwMrsm3b0mGww==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4h6Dyr1s7Cz9rxD;
+	Fri, 24 Jul 2026 19:10:44 +0200 (CEST)
+From: Markus Probst <markus.probst@posteo.de>
+Date: Fri, 24 Jul 2026 17:10:45 +0000
+Subject: [PATCH v18 1/2] dt-bindings: embedded-controller: Add synology
+ microp devices
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|BESPR04MB12610:EE_
-X-MS-Office365-Filtering-Correlation-Id: aeac41c0-4727-47b7-c926-08dee9a54dc0
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|7416014|376014|366016|19092799006|1800799024|23010399003|18002099003|22082099003|3023799007|4143699003|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info:
- 5PL100StD+mbGaRPZuSqeRW39CBVsFGP4cJQi9LJrPxDQTXCTAzqvgKMcwL72D3nJyXpXUvqk3D2vruy17y7qXqR58lm9YDs6QlHdj3k/AkyKBRB5fJAIHQ03neFV58lP1poAF9OFr4/ZXFBN/8pKEbkDYEErr94+27aZ5qtPeORxEymIixo0s1QYTAhEWJZ8fvggUOboFjFjOdhYxdjn6dPiWH7PA30Rxk66zzFHbkPOgkW8VaJEUqhsePEMRuoF9ewTmb29VwNNND0Tlv4pZKJ0YjBOz2W2VRoni+XuCjh+zcw+GgvppNTvQ2wxQdTZNdp/srRIUcc8JL16aqY5qmJ3wE1IqqTVQ138Iru+sdUuBeclrSQjm1rX63s/OBug5lHOuLjccgtF3vVb632hsIAiFA3hqAvIxUlzh2b24jXSNR0jRuF6iw/Pp0i4Dr/TWfFVmV1bFJUso/wI/bKjNrfl+BDpjrhaOkFl7P8u1IeXSGNT3GfYoZVUs8O/+Uo2dRCpsDrddy/ol5oVm16c8g4CTAkdwWi9ikbvTavwvRDKfa9XgXWTB7ULTqUA88pkmZ1uubYIfvQ+vrSKSbtd72ClkOyHOt9Ee0DLExlwMqdc/XLqI7Pzx/SqqLVb6K6BZi4527yI/txE4rxFg6VAyuiDRoLTfOjewLbbNCIvcs=
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(19092799006)(1800799024)(23010399003)(18002099003)(22082099003)(3023799007)(4143699003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?us-ascii?Q?wC59Ex0z5901i8xoRmKqsvuPGPnNv1b/+HZMMNAxroATZLPUHuK/cNMmHm87?=
- =?us-ascii?Q?wnBYVT/zL3WqabpFuAbvl9GvCM3d0wvC07DR/jTwYpnVCmtLYkjug5YUSMo/?=
- =?us-ascii?Q?1hOzPVuf8A1IH0uJNnabytdJyUEI6/UfzdmfdEi8jbgLkhyxTWuoysq38tee?=
- =?us-ascii?Q?9ag+wa0fZpu/8gZqTfWp6W+RSz2Q2ivLPv5Modu8ltoWKVW2GsLiEQIeqXMu?=
- =?us-ascii?Q?7P0Hxu3ZuG4HoH2+LFcbwoDhtR/f+vDHN5DEY2xqEpuxXF2oFM6D6mvcLME8?=
- =?us-ascii?Q?H/GFpqHyyg7C5qP3XV/+EvEWgaAHiH45Pd//28zKgi9ebkh+URbFbr2Z5eru?=
- =?us-ascii?Q?BFVLeqSji4CLHFtjsalm6C7XzSV3RGFSXkis03K86U8nm4hzuLdB+NBZxz/L?=
- =?us-ascii?Q?MKVhgKmZrXy2h2Zn8j0RaBrAng1FYupk9Rs6lhbSOjk4HWmZYKoCQcR8v76g?=
- =?us-ascii?Q?0o4NiTBAW/d7IpO3x0K5iG9TFoc24qcedOZ2zeTqa2sPynjA8mDjz6DrifW0?=
- =?us-ascii?Q?KoCJm98fT+21lDK392h0vMZS8MkRtn/I6IUC/jbLWhXATiK7C2kp0/RaKjhc?=
- =?us-ascii?Q?ZJpW0ZnucVcSojLU/Ls1mcdQmUfkMIeIRBO+hC7cYwBx17AE0MRDp2L97opx?=
- =?us-ascii?Q?YGx1IidyULmfQOc23A9yZF/olwEKlOEaIniz/fBs/aTZaS49xIUPlIWmO18q?=
- =?us-ascii?Q?ivMFfaDzjbzc8auVtsRkzHQThhZ3oioBhMUb2xDrTKwI+4ccacYwLo0t5PZ2?=
- =?us-ascii?Q?8M0AyJIRD5mhvrN0H5f2+D/DYd1EGnLnPIVg+jVdwCclYckC4jdsU1E6ba3S?=
- =?us-ascii?Q?gnqvCbiki+i2b18H5d/r7lFSooN+xIG7iz6qRw9c7C0bwSAOWVvXCDKIkaE+?=
- =?us-ascii?Q?X9fzBLqc27Gty2Bov8sK11Zro1iVgO+Jv/7yKSK7S/WSLrGyvPIIsV6Joosx?=
- =?us-ascii?Q?ZCH8xCMCbJ6liJfKT5hKo7kN7Szs9l701hj/+kiAPxY14401WeLHv6HOA+dU?=
- =?us-ascii?Q?kn6/4d4Hr8enn12IrrCNYI2DffBNLW9OUuFuuUrL5fK3xsIj3oRmGuQPEgG7?=
- =?us-ascii?Q?sYQlzAZInOty7DON4JUccqQBfpNCaBab079+P9oyPuSusgOhSnzmntmXfLfh?=
- =?us-ascii?Q?YWbHU2PtGy22kE6ooua6EnNaYXjADJ7/weEBCWtaqfl4tdb+DNeys9SWUVkx?=
- =?us-ascii?Q?QYXyCRER1nNj/Q11PvI0Wi7zWMWBeaa1tJ5dllR1qclZ+w5i0TsEVsB7vcKF?=
- =?us-ascii?Q?oq11GB0UD6MCL65I1CftZmZ/UOPq5jyhtoRKfGPkiSmavE215wD9uP6tuS8A?=
- =?us-ascii?Q?wYG5ZXmHuvP2J4W69QY+UxsmHqIrUdQH/mZwf2+ClECW2znJ0bpRewCMm2s3?=
- =?us-ascii?Q?LgHVte5X4ygs/OUffx7PvKlXdqAM2JdYniKlfVvprnFa8emOdMmNzHfyeODf?=
- =?us-ascii?Q?QQGY8M1ZE8PeDVLfgD3HVLagfQj2AXgA7MlDweFcOMIaZB1Yyo8qe3Al/e+Y?=
- =?us-ascii?Q?smDfB2Lir9TsuC8pcwaZF7mvj0GV+7TR9vpcq2nkcZ10tZkFxmup4O7z2WG2?=
- =?us-ascii?Q?NeMY/QccF7z4l4AHywsLBHvRNjthy3VIuJ+oNd/FGZXdX2mFBlpQxExZ+4Rc?=
- =?us-ascii?Q?Nm5RUhxcEqGNyqZ5nC7qdEibPJMwAc3X8Gl2zG30Xgg1lLksHL9Sl0bQ4Awt?=
- =?us-ascii?Q?uYMgge1MsN4L7LP5QmVMpSH03Y9hHmA+5G0zJEKvAQMz/zrhKAPEMN5yKYLF?=
- =?us-ascii?Q?EloK3uhgnZHxEuDKmxiZ11+bZyduR90p8GLMSHcaLGvgklfGoIhH?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: aeac41c0-4727-47b7-c926-08dee9a54dc0
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2026 17:02:11.9050
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZvgNDF+DTtDeoVKACXWn0sujvc8oO3Xh63o1Kt6A1bidp1LiyoJNIMgkn+Uz6gT24+q5WNTIIJC6337Hf3AAi0QyZStVSYbcgupMJ7GH4AgYZ0wqoN320C3Tt5KMr9jS
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BESPR04MB12610
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260724-synology_microp_initial-v18-1-fb2f49f10e77@posteo.de>
+References: <20260724-synology_microp_initial-v18-0-fb2f49f10e77@posteo.de>
+In-Reply-To: <20260724-synology_microp_initial-v18-0-fb2f49f10e77@posteo.de>
+To: Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Lee Jones <lee@kernel.org>, 
+ Pavel Machek <pavel@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Cc: platform-driver-x86@vger.kernel.org, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, Markus Probst <markus.probst@posteo.de>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4079;
+ i=markus.probst@posteo.de; h=from:subject:message-id;
+ bh=u8aHzo6YOpyuVWIFesAn1V1sPYc1XXrryYAOWdRd7/c=;
+ b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBqY5yRTf58Y2C4WRUz+9iuS9B3UDQV20rRYuqIs
+ 3R0pYp6WjeJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCamOckRsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9KykA//SAPMYCxQdbNO1kXmu74C6ycg8FzqSz3
+ Y0l5ebxri4qkF7aTCV8I646NMQ9/llLshH57KE2+cGaKgY8OGOL+oOI0Dl9ayx1YrWfHSY/6q1l
+ 363V3h08CUNr2WX+wfPe9lOwtowy5SsjQNsMB/Bo1Ei+iGgOlD3vIEjfl1Zs5J10yoN9fX8+2JH
+ 0yRHR0USQAiQjI9m83G5wxj1BPkvXpc/3DZJwGSwfG/y247/cjo4DXjoYKlcFHJ0mMBaVT+15vc
+ KrSoL7OwjLADMmzOxdStnTFLCnZmFNoe5/zR5/KlaTKHWviXFdiwdrvUk73yvbt0HRPLeNlELvp
+ btgjd00sG7b3yWmw9taEj9KzgiDLwqE7IowcMDYe49PGipwi4FtsNM7TuRQ06tU02w+ZAhOi8u2
+ j8v/b2EEBg7llJA4ue2MPOfZdCelQk1QurK3X7IR0P4qb7YTyiM6H0b1r0N2BvyN1TrJGI+tv0Z
+ hbyoH/dtVo1UBimgZAffdkXW3RS9DKNJh3fTDA9gs/U5oULwcnKV4RnPWYQnij05b+yRBSLLjpP
+ P70iGWQUx7SU+MXeY3wqhuCKWwVO1hK6t27yLXQOaA/SDOAvvCIJgWReUwot1NJEK6xdAqrU/Cb
+ aJpSs1OeN8+Xl8RZy2uE2PUdSMmeGXSlkngz+586n9v9LuIIy87g=
+X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
+ fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
+Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
+  keydata=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
+  aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
+OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
 
-On Thu, Jul 23, 2026 at 05:53:32PM +0200, Francesco Dolcini wrote:
-> On Thu, Jul 23, 2026 at 10:47:36AM -0500, Frank Li wrote:
-> > On Thu, Jul 23, 2026 at 11:38:09AM +0200, Francesco Dolcini wrote:
-> > > From: Francesco Dolcini <francesco.dolcini@toradex.com>
-> > >
-> > > LCDIF programs LCD_DATABUS_WIDTH from the selected media bus format. The
-> > > format reported by the downstream panel or bridge describes the display
-> > > input, but it does not describe how the LCDIF data pins are physically
-> > > wired on the board.
-> > >
-> > > These can differ. For example, a 16-bit LCDIF bus can be connected to a
-> > > 24-bit display by wiring the available color bits to the corresponding
-> > > display inputs. In that case, using the display's 24-bit format to
-> > > configure LCDIF selects the wrong data-bus mode and changes the assignment
-> > > of color bits on the LCD_DATA pins.
-> > >
-> > > Read the optional bus-width endpoint property from the LCDIF output port
-> > > and use it to select the media bus format used to configure LCDIF. This
-> > > allows the LCDIF bus mode to describe the physical interface
-> > > independently of the downstream display format.
-> > >
-> > > When the optional property is absent, continue using the format reported
-> > > by the downstream display device, preserving the existing behavior.
-> > >
-> > > Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
-> > > ---
-> > > v2: use the common bus-width property instead of the legacy interface-pix-fmt
-> > > ---
-> > >  drivers/gpu/drm/mxsfb/mxsfb_drv.c | 24 ++++++++++++++++++++++++
-> > >  drivers/gpu/drm/mxsfb/mxsfb_drv.h |  2 ++
-> > >  drivers/gpu/drm/mxsfb/mxsfb_kms.c | 12 ++++++++++++
-> > >  3 files changed, 38 insertions(+)
-> > >
-> > > diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.c b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-> > > index 9b8fbda85d28..0545718a4b65 100644
-> > > --- a/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-> > > +++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-> > > @@ -12,7 +12,10 @@
-> > >  #include <linux/clk.h>
-> > >  #include <linux/dma-mapping.h>
-> > >  #include <linux/io.h>
-> > > +#include <linux/media-bus-format.h>
-> > >  #include <linux/module.h>
-> > > +#include <linux/of.h>
-> > > +#include <linux/of_graph.h>
-> > >  #include <linux/platform_device.h>
-> > >  #include <linux/property.h>
-> > >  #include <linux/pm_runtime.h>
-> > > @@ -209,7 +212,10 @@ static int mxsfb_load(struct drm_device *drm,
-> > >  		      const struct mxsfb_devdata *devdata)
-> > >  {
-> > >  	struct platform_device *pdev = to_platform_device(drm->dev);
-> > > +	struct device_node *np = pdev->dev.of_node;
-> > >  	struct mxsfb_drm_private *mxsfb;
-> > > +	struct device_node *ep;
-> > > +	u32 bus_width = 0;
-> > >  	int ret;
-> > >
-> > >  	mxsfb = devm_kzalloc(&pdev->dev, sizeof(*mxsfb), GFP_KERNEL);
-> > > @@ -236,6 +242,24 @@ static int mxsfb_load(struct drm_device *drm,
-> > >  	if (IS_ERR(mxsfb->clk_disp_axi))
-> > >  		mxsfb->clk_disp_axi = NULL;
-> > >
-> > > +	ep = of_graph_get_next_endpoint(np, NULL);
-> >
-> > use auto cleanup
-> >
-> > 	struct device_node *ep __free(device_node) = of_graph_get_next_endpoint(np, NULL);
->
-> Does it makes the code more read-able or better in this specific case? I
-> would say no, to me it is more compact and clear the way it is.
+Add the Synology Microp devicetree bindings. Those devices are
+microcontrollers found on Synology NAS devices. They are connected to a
+serial port on the host device.
 
-Recently there are bunch of patch to fix miss of_put_node(). auto cleanup
-help avoid manual to manage it and let us to force key part.
+Those devices are used to control certain LEDs, fan speeds, a beeper, to
+handle buttons, fan failures and to properly shutdown and reboot the
+device.
 
-recently, perfer use fwnode_graph_get_next_endpoint() and other fwnode_xxx
-node function.
+The device has a different feature set depending on the Synology NAS
+model, like having different number of fans, buttons and leds. Depending
+on the architecture of the model, they also need a different system
+shutdown behaviour.
 
-it is also okay to keep use of_xxx() to align existing code.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Markus Probst <markus.probst@posteo.de>
+---
+ .../synology,ds918p-microp.yaml                    | 100 +++++++++++++++++++++
+ 1 file changed, 100 insertions(+)
 
-Frank
+diff --git a/Documentation/devicetree/bindings/embedded-controller/synology,ds918p-microp.yaml b/Documentation/devicetree/bindings/embedded-controller/synology,ds918p-microp.yaml
+new file mode 100644
+index 000000000000..a44101884322
+--- /dev/null
++++ b/Documentation/devicetree/bindings/embedded-controller/synology,ds918p-microp.yaml
+@@ -0,0 +1,100 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/embedded-controller/synology,ds918p-microp.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Synology NAS on-board Microcontroller
++
++maintainers:
++  - Markus Probst <markus.probst@posteo.de>
++
++description: |
++  Synology Microp is a microcontroller found in Synology NAS devices.
++  It is connected to a serial port on the host device.
++
++  It is necessary to properly shutdown and reboot the NAS device and
++  provides additional functionality such as led control, fan speed control,
++  a beeper and buttons on the NAS device.
++
++properties:
++  compatible:
++    oneOf:
++      - items:
++          - enum:
++              - synology,rs1221rpp-microp
++              - synology,rs822p-microp
++              - synology,rs422p-microp
++          - const: synology,rs1221p-microp
++
++      - items:
++          - const: synology,ds1825p-microp
++          - const: synology,ds1823xsp-microp
++
++      - items:
++          - enum:
++              - synology,ds725p-microp
++              - synology,ds225p-microp
++              - synology,ds723p-microp
++              - synology,ds710p-microp
++          - const: synology,ds214play-microp
++
++      - items:
++          - enum:
++              - synology,ds425p-microp
++              - synology,ds1525p-microp
++              - synology,ds925p-microp
++              - synology,ds923p-microp
++              - synology,ds1522p-microp
++              - synology,ds1010p-microp
++              - synology,ds411p-microp
++          - const: synology,ds918p-microp
++
++      - items:
++          - enum:
++              - synology,ds124-microp
++              - synology,ds223j-microp
++              - synology,ds223-microp
++          - const: synology,ds118-microp
++
++      - enum:
++          - synology,ds118-microp
++          - synology,ds1823xsp-microp
++          - synology,rs1221p-microp
++          - synology,ds918p-microp
++          - synology,ds214play-microp
++
++  fan-failure-gpios:
++    description: GPIOs needed to determine which fans stopped working on a fan failure event.
++    minItems: 2
++    maxItems: 3
++
++required:
++  - compatible
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - synology,ds918p-microp
++              - synology,rs422p-microp
++    then:
++      required:
++        - fan-failure-gpios
++    else:
++      properties:
++        fan-failure-gpios: false
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    embedded-controller {
++      compatible = "synology,ds923p-microp", "synology,ds918p-microp";
++
++      fan-failure-gpios = <&gpio 68 GPIO_ACTIVE_HIGH>, <&gpio 69 GPIO_ACTIVE_HIGH>;
++    };
 
->
->
+-- 
+2.54.0
+
