@@ -1,270 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D56640683F
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 15:58:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70E37440A2D
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 16:01:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784908701; cv=none; b=pQdghkqtBS03iG/siLFU4fu099vveYm+pfLilyW0Z2bBLTE7gEMH1ManNHMvsuP6tFBhWfJOXBnH2C4WsOIQe/RI8tRPzOM2rS0J13lC8DbzUecMP8X1too2KuQBT3Q5ywzxfX7f/3T8f3UOVbZXYXPQOR4TM37I/r3fU+BwG7Q=
+	t=1784908871; cv=none; b=FU9cqltFiFV27zNU9aOpgpug8nQofV9gOe9gQ2r/0YIP1NlEEZnUY8ubd/3y2XzzwXyeHA4DAtv741vqTiK4aNH4WsSkfso8Jy97ocedc7ebqvHYCoByQH8/fU3hr7WLdQmy08NrBiwZSGKuTHFt+ZpOBRtjaiUP+HRvNlMQ9FY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784908701; c=relaxed/simple;
-	bh=vIv5sBC+V2XzsxjIlqU0HlOzc1zzpkNN0+/P1S6JlL4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=PsJi+EvFFRt5tw+RT6877Z2KWDQhNZkEoUUjAU7lN+phZPKydjFgNBCfQ2cuDtpsJzIZnHjHj9Z/wBf+qRWZzcT0r3tnJyqZ+AgmkfjptqnB8Vtw7E1bkyFvbW4AJ6TXmXlytBA1VCqVETUZgV8hrCr/JtkVZu9IG+30ogljqYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iWS+N+m6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784908871; c=relaxed/simple;
+	bh=Fn1LSFnvcQPwl+OpOHERR5ed7+JefDQcZI+Vfb0q8B0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iz0i6Sq2hBuQFBDR3WGRECADW+i2hxftXfpVZrr3bFP10OaKY4BifcKaWxmL63KH1Uo5b+a+ym4uNaRgA3bbGqazb5vcQmpaewqcPIpxYsUYqjyzkW1GzNz5zDziDO1fvPKl8Oa2JarcDqS+RcDR0zQrScz+95H/z5MNfsE7E6I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Lb8M6sfn; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=hlEu+pdZ; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iWS+N+m6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7753C1F000E9;
-	Fri, 24 Jul 2026 15:58:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784908698;
-	bh=gi++JS39nsxTdNwf+D+OrilxZIwrKSiuJaLPOOdK04I=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=iWS+N+m6eNCdv2lO73TQiMrFrP4uZjakyJ/WADs0PTk5D3og7mGrE8ghZon5FAaWw
-	 r9fJTf8wobSp641NcpG0S0hqU1mDeelwXAiDgXU1C7FxiAGQsIVKXw+L+xlc78tqH9
-	 p2kLaq03w0CMaU6Eim2TgtyMFwMrru+LjxllZxNjBstYaZMJ5ROqM0fp3yU/gGgKqk
-	 K2xSB9m/L0AwMOda2Hj0T6wMLYgMISY17HACVphQke0TXqB5faSGb0jHg/bP69knIL
-	 ff4E3zJi3iJjluihZ2fBXd4fwH6z+VyRQIkdyhsfxpzRsG/0EYneCPl2vofwvpB+hJ
-	 HwhAjlsGLfzXg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 2/2] media: i2c: Add driver for AMS-OSRAM Mira220
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jacopo Mondi" <jacopo.mondi@ideasonboard.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, devicetree@vger.kernel.org
-In-Reply-To: <20260724-mira220-v8-2-d1899ab64709@ideasonboard.com>
-References: <20260724-mira220-v8-0-d1899ab64709@ideasonboard.com>
- <20260724-mira220-v8-2-d1899ab64709@ideasonboard.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 24 Jul 2026 15:58:17 +0000
-Message-Id: <20260724155818.7753C1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Lb8M6sfn";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="hlEu+pdZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1784908869;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+bkEHSp7uhvmCp1vkWRoofsHVhKJ4GQ+rCHfCWSCHbk=;
+	b=Lb8M6sfnShlXEq2LLahwEJSEfYlLQ+BMcSKIr108PpQsuAxa2p2o8gLC6VhM/Zg80FZy3W
+	IfSEriTnrDs03+4AayUnsUIlY3XkC1dDXVKAtvbxoHXds7xf53gRMVRov1ki5xD4qr0aai
+	HgkvXywpaZn2wHHNWmnozfgfPcrer+Y=
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-636-c9mu5ie4MxGGWdJ22txuCA-1; Fri, 24 Jul 2026 12:01:08 -0400
+X-MC-Unique: c9mu5ie4MxGGWdJ22txuCA-1
+X-Mimecast-MFC-AGG-ID: c9mu5ie4MxGGWdJ22txuCA_1784908867
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-92e6ed4fe99so122375985a.0
+        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 09:01:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1784908867; x=1785513667; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=+bkEHSp7uhvmCp1vkWRoofsHVhKJ4GQ+rCHfCWSCHbk=;
+        b=hlEu+pdZ71+vAy50pQIwy7Lf9whVopXa+O/Kv2J8qWag8WnYyn6NFF0OcWJis/UeZg
+         0PqybQpu0CVIy6iqRdrUiVzW0XPyQD7GtzpQvWNOzyBOX2sVsvU6GKVZrXgqyEBRJdLo
+         ltP/TkvhFhJWvf3N6RvwsTuroJH7JtFvugKptHGQj9z1xry0Phl/3sivMIewHM/3ghly
+         S/UlN+aDEPSkMqby8AoNfvZTg9xwiI/XMwWXbkqW73k5kOomMfspLawzJ1GqDLXsou23
+         vBrcLjFZTX9Fpq7hxh2f5EzvLFQmOZO78r9JLti6KuPnJZIZOddvaX6XRiIoXMpp3SMZ
+         NAhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784908867; x=1785513667;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+bkEHSp7uhvmCp1vkWRoofsHVhKJ4GQ+rCHfCWSCHbk=;
+        b=gR3Gysolscywe6sjoCzlGNzJ16OzZ1sSFPkB34GMxpGDorX5V6T7xLCDEVQZctJMhD
+         nVEyPT2RmLMs6W1lcB5vc3tgm2QAqq3O3ZfnQ9deNjT0oMc06ZoNaPGLgnRviCRykLwl
+         yY3CR62Bjmn76cCyxo8t980Zqbz8FYTMywSP/Fxz3LvQPH0dYqPbY3LcuTMmskAXmE6C
+         TbhkXCQH9O20aNCi0tF3JFKjRUNuehWZmeueBCcv1y41uWf0C5aqQ6Cqi+si44pfeKNM
+         pMZ1wi0s78sXTVYUpSwgY5W+gBhYgcfhJABsLHJJyhJ8kRKMZT1PIHemLsaQwDiOU8tR
+         yonA==
+X-Forwarded-Encrypted: i=1; AHgh+RoXBxiNcpvddxN2v7mQfrOAAfFzH7zimjq/l90uyfc+RkGRPJqNKJhZ7On3jUJnbsC7gHvVZX86nNrw@vger.kernel.org
+X-Gm-Message-State: AOJu0YymKpZpNR9qnxniiwozWOMrbHRxWGFC+/bAr7X7U9Tzr8XIon7a
+	etCkY+qijkHK30wR6SzG1/F3H3zmRKe8tD83tKbPbicz2ntELOD9aeGVgfF/7vWZBgVBw42882R
+	qiz+yaITjhtfguQjcg1P9M4PByjVDB2m/0Sg7BqYt7VSgQ9EskXAXPHwclAIFJIXgiepWmY8=
+X-Gm-Gg: AR+sD10U8Cc3ZOqsK/iPEh/jrzaxEvJj7TN8Etl/IbQgz6P1E56/0kXmCx8hux+iENv
+	2pNs8GUHY0j9vVJ0l+i2vj39CNu3wmXc7sXpKhHsowZAk0P/Lwp8PHhMTzFVldJ1oM0ZyHX65Pb
+	jU0SrzuwGZlY1zB+T+s6GQWxmOt9TAUDZU1Do4wkAb9AEynjhBPz1ekKibpd0GY1iaowVb6X4rm
+	mMJ/t6zi4ZphXg7vFPVWSCQQvSzbklKaQxax7ApeGay+BA5IzGuYhGGrGf+wSpLVZGbBleKnrcM
+	HSoq2Bg724tL/JzFPTZdgvaa1kzjOrO2hOC0wmkbhFilcWOBSyH+0fwtAgrD2GKWeqjv4F4FJkX
+	4vLlQdf8VepxZPbkLZoDlQhdaoch/tQP2ZhM=
+X-Received: by 2002:a05:620a:4706:b0:92e:7c0e:5912 with SMTP id af79cd13be357-93103aee644mr937771785a.56.1784908867052;
+        Fri, 24 Jul 2026 09:01:07 -0700 (PDT)
+X-Received: by 2002:a05:620a:4706:b0:92e:7c0e:5912 with SMTP id af79cd13be357-93103aee644mr937759585a.56.1784908866130;
+        Fri, 24 Jul 2026 09:01:06 -0700 (PDT)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-930f6a0371asm684521085a.27.2026.07.24.09.01.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 24 Jul 2026 09:01:04 -0700 (PDT)
+Date: Fri, 24 Jul 2026 12:01:02 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Luo Jie <jie.luo@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	quic_kkumarcs@quicinc.com, quic_linchen@quicinc.com,
+	quic_leiwei@quicinc.com, quic_suruchia@quicinc.com
+Subject: Re: [PATCH 08/12] clk: composite: Export
+ devm_clk_hw_register_composite_pdata
+Message-ID: <amOMPmn1fBE1gGoe@redhat.com>
+References: <20260724-qcom_ipq5210_cmnpll-v1-0-a8b8679d215f@oss.qualcomm.com>
+ <20260724-qcom_ipq5210_cmnpll-v1-8-a8b8679d215f@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260724-qcom_ipq5210_cmnpll-v1-8-a8b8679d215f@oss.qualcomm.com>
+User-Agent: Mutt/2.4.0 (2026-06-19)
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] Teardown order in `mira220_remove` creates a Use-After-Free / NULL=
- pointer dereference race with `mira220_set_ctrl`.
-- [High] The device can be unexpectedly runtime suspended during probe, lea=
-ding to I2C communication failures.
-- [High] Unconditional dereference of `ep_cfg.link_frequencies` crashes the=
- kernel if the `link-frequencies` property is missing from the device tree.
-- [Medium] The `mira220_set_pad_format` function unconditionally resets the=
- user-configured `vblank` control back to its minimum limit on every format=
- access.
-- [Medium] Missing delays in the hardware power-on sequence before attempti=
-ng I2C communication.
-- [Low] Missing Kconfig dependency and select statements for V4L2_FWNODE an=
-d VIDEO_V4L2_SUBDEV_API.
---
+On Fri, Jul 24, 2026 at 08:00:30AM -0700, Luo Jie wrote:
+> devm_clk_hw_register_composite_pdata() is defined but not exported,
+> preventing its use from loadable modules. Add EXPORT_SYMBOL_GPL() so
+> that out-of-tree and built-as-module clock drivers can call it.
+> 
+> Signed-off-by: Luo Jie <jie.luo@oss.qualcomm.com>
 
---- Patch [2]: [PATCH v8 2/2] media: i2c: Add driver for AMS-OSRAM Mira220 =
----
-commit d6f8c2bd4b0b5b01ffb4db66a1a981625b434f77
-Author: Philippe Baetens <philippebaetens@gmail.com>
+Reviewed-by: Brian Masney <bmasney@redhat.com>
 
-media: i2c: Add driver for AMS-OSRAM Mira220
-   =20
-Add a V4L2 subdev driver for driver for the AMS-OSRAM Mira220 image sensor.
-The driver implements support for mono and RGB 12, 10 and 8 bits formats.
+FYI there's a separate series for the UltraRISC DP1000 SoC to export
+this same symbol. It depends on which series Stephen merges first gets
+in.
 
-> diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-> index 5c52007f9cbeb..650d5c86baa4d 100644
-> --- a/drivers/media/i2c/Kconfig
-> +++ b/drivers/media/i2c/Kconfig
-> @@ -313,6 +313,18 @@ config VIDEO_IMX678
->  config VIDEO_MAX9271_LIB
->  	tristate
-> =20
-> +config VIDEO_MIRA220
-> +	tristate "ams MIRA220 sensor support"
-> +	depends on I2C && VIDEO_DEV
-> +	depends on GPIOLIB
-> +	select V4L2_CCI_I2C
+https://lore.kernel.org/linux-clk/20260720-ultrarisc-clock-v4-1-fe639d63bbac@ultrarisc.com/
 
-[Severity: Low]
-Are we missing dependencies on V4L2_FWNODE and VIDEO_V4L2_SUBDEV_API here?
-
-If a configuration enables VIDEO_MIRA220 but leaves CONFIG_V4L2_FWNODE
-or CONFIG_VIDEO_V4L2_SUBDEV_API disabled, it looks like the build might
-fail with undefined references since the driver heavily relies on functions
-from these modules.
-
-> diff --git a/drivers/media/i2c/mira220.c b/drivers/media/i2c/mira220.c
-> new file mode 100644
-> index 0000000000000..8b9148efc581e
-> --- /dev/null
-> +++ b/drivers/media/i2c/mira220.c
-
-[ ... ]
-
-> +static int mira220_power_on(struct device *dev)
-> +{
-> +	struct i2c_client *client =3D to_i2c_client(dev);
-> +	struct v4l2_subdev *sd =3D i2c_get_clientdata(client);
-> +	struct mira220 *mira220 =3D to_mira220(sd);
-> +	int ret;
-> +
-> +	ret =3D regulator_bulk_enable(ARRAY_SIZE(mira220_supplies),
-> +				    mira220->supplies);
-> +	if (ret) {
-> +		dev_err(&client->dev, "%s: failed to enable regulators\n",
-> +			__func__);
-> +		return ret;
-> +	}
-> +
-> +	ret =3D clk_prepare_enable(mira220->xclk);
-> +	if (ret) {
-> +		dev_err(&client->dev, "%s: failed to enable clock\n", __func__);
-> +		goto reg_off;
-> +	}
-> +
-> +	gpiod_set_value_cansleep(mira220->reset_gpio, 0);
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Should there be a delay before returning here?
-
-After de-asserting the reset GPIO line, the driver returns and the probe
-sequence proceeds directly to mira220_identify_module(), which begins I2C
-reads to the OTP memory.
-
-If the sensor requires a minimum delay after reset de-assertion to boot its
-internal microcontroller, skipping this delay could cause I2C communication
-to fail on faster platforms.
-
-[ ... ]
-
-> +static int mira220_set_pad_format(struct v4l2_subdev *sd,
-> +				  struct v4l2_subdev_state *state,
-> +				  struct v4l2_subdev_format *fmt)
-> +{
-
-[ ... ]
-
-> +	/* Update vblank based on new mode. */
-> +	min_vblank =3D mira220_calc_min_vblank(mira220);
-> +	ret =3D __v4l2_ctrl_modify_range(mira220->vblank, min_vblank,
-> +				       MIRA220_MAX_VBLANK, 1, min_vblank);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return __v4l2_ctrl_s_ctrl(mira220->vblank, min_vblank);
-> +}
-
-[Severity: Medium]
-Does this inadvertently wipe out custom user configurations?
-
-Whenever userspace configures the format via VIDIOC_SUBDEV_S_FMT, the
-driver calls __v4l2_ctrl_modify_range() to adjust the vblank control limits.
-
-However, explicitly calling __v4l2_ctrl_s_ctrl() to force the value to
-min_vblank overrides whatever value the user had previously configured or
-clamped to, which seems to violate V4L2 API expectations for control
-orthogonality.
-
-[ ... ]
-
-> +static int mira220_parse_endpoint(struct device *dev, struct mira220 *mi=
-ra220)
-> +{
-
-[ ... ]
-
-> +	if (ep_cfg.nr_of_link_frequencies > ARRAY_SIZE(mira220_link_freqs)) {
-> +		ret =3D -EINVAL;
-> +		dev_err(dev, "Unsupported number of link_frequencies: %u\n",
-> +			ep_cfg.nr_of_link_frequencies);
-> +		goto error_out;
-> +	}
-> +
-> +	if (ep_cfg.link_frequencies[0] !=3D MIRA220_LINK_FREQ_750M) {
-
-[Severity: High]
-Can this dereference a NULL pointer if the device tree omits the
-link-frequencies property?
-
-If v4l2_fwnode_endpoint_alloc_parse() parses an endpoint without a
-link-frequencies property, it successfully returns 0 but leaves
-ep_cfg.link_frequencies as NULL and ep_cfg.nr_of_link_frequencies as 0.
-
-Since the check directly above only tests if nr_of_link_frequencies is
-greater than the array size, an empty property evaluates to false (0 > 1).
-The code then immediately accesses ep_cfg.link_frequencies[0], which would
-dereference the NULL pointer.
-
-[ ... ]
-
-> +static int mira220_probe(struct i2c_client *client)
-> +{
-
-[ ... ]
-
-> +	ret =3D mira220_power_on(dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Enable runtime PM and power on the device */
-> +	pm_runtime_set_active(dev);
-> +	pm_runtime_enable(dev);
-> +
-> +	ret =3D mira220_identify_module(mira220);
-
-[Severity: High]
-Is there a race condition here where the device might be suspended during
-probe?
-
-Enabling runtime PM with pm_runtime_enable() while the device usage count is
-0 makes the device eligible for suspension immediately.
-
-If userspace has set power/control to auto, a concurrent suspend operation
-could call mira220_power_off() exactly as mira220_identify_module() or
-mira220_init_controls() are attempting to perform hardware I2C reads, causi=
-ng
-initialization to fail.
-
-Would it be safer to call pm_runtime_get_noresume(dev) before enabling
-runtime PM, and then drop the reference at the end of the probe function?
-
-[ ... ]
-
-> +static void mira220_remove(struct i2c_client *client)
-> +{
-> +	struct v4l2_subdev *sd =3D i2c_get_clientdata(client);
-> +	struct mira220 *mira220 =3D to_mira220(sd);
-> +
-> +	v4l2_async_unregister_subdev(sd);
-> +	v4l2_subdev_cleanup(&mira220->sd);
-> +	media_entity_cleanup(&sd->entity);
-> +
-> +	v4l2_ctrl_handler_free(mira220->sd.ctrl_handler);
-
-[Severity: High]
-Could this cleanup order trigger a use-after-free or NULL pointer
-dereference?
-
-Calling v4l2_subdev_cleanup() frees sd->active_state and sets it to NULL,
-but the control handler is still active and registered at this point.
-
-If userspace unbinds the driver via sysfs while concurrently issuing a
-VIDIOC_S_CTRL ioctl on an open file descriptor, mira220_set_ctrl() could
-execute during this window:
-
-mira220_set_ctrl() {
-    ...
-    state =3D v4l2_subdev_get_locked_active_state(&mira220->sd);
-    format =3D v4l2_subdev_state_get_format(state, 0);
-}
-
-Since mira220_set_ctrl() acquires the control lock and expects the state to
-be valid, this sequence would dereference the freed state. Calling
-v4l2_ctrl_handler_free() before v4l2_subdev_cleanup() might avoid this race.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-mira220-v8=
--0-d1899ab64709@ideasonboard.com?part=3D2
