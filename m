@@ -1,93 +1,47 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.eswincomputing.com (mail.eswincomputing.com [123.124.195.78])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 112E23E9C23
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 08:45:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 279F33EB0F7;
+	Fri, 24 Jul 2026 08:45:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=123.124.195.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784882730; cv=none; b=brKy1QTt6jjzBA247Egc9Wik2TAP+JH7a7yqKD2HsKCo6Gqo1p5ZLkGL93Hg8qPIXiHTSif5bdLAvv9KQQxc22w0fivRbE1wNu+LaWnIEP8W89qjRd+JrKUJtsIROcLQMGDQSPV7MWg1TQ98MwcmcNEJODDDbaanchM1LChrSK4=
+	t=1784882738; cv=none; b=biJbYnlnlHKJclsTKXRqvYZIYypjpOYxQX7HrQn9/g8wuIy0P2rGGyDQsfzPUOMdxKh3VEvp3XRdh3uG1wVqhSaNtBWHwUO7zIrZcrVyDPRDq1DlVCxiRFPa0BzfZcvn1MU1Xsjd8yekx8TmPQh8MBRA0yDdY3ugz10SxDAMjqY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784882730; c=relaxed/simple;
-	bh=mNpG544f4x3HV+KP/4A0iAH5FCpy/+89CTapAoZKNGU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=il6mcxkpZFZaa3NutAAfW0ADhFjPrs5YFk/E9BSrKMRp0Pwt/KTVaPecMcVEixq8sJErV0tnrTb3VpQlHTWIhCOsL9DOwj76/NMLqo8AB3Wlh7jcPKmSawXUORxaWxSIk1jVwwyPtBPYcfyWVMF241GsH9l2OmsLgOrQj+CF3+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=j6xxCHeZ; arc=none smtp.client-ip=209.85.216.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="j6xxCHeZ"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-38e347638adso164677a91.0
-        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 01:45:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1784882728; x=1785487528; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yabl9CFEsxsu5a/1yJNSCfa/j6/qqQrQ3CInFfZaiRc=;
-        b=j6xxCHeZXbNDEEKhJlJKtEL2IBzxDezAX+JJ0JwcGaGvUlpqLNB3ywgYSNrYuDdUDf
-         zxygXdeFoQNGqWLI8V3ezxpsnqYIZMAFXp8ve+Ept6GbhLVPLROTrqgaz+ZYnb/w/CEA
-         IFKFd8AIwfKmUyEbgx5BqmG1s7+tY65s/r8oo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784882728; x=1785487528;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yabl9CFEsxsu5a/1yJNSCfa/j6/qqQrQ3CInFfZaiRc=;
-        b=jWSCQJKqAg6fv4KpPT1UQCCJpdsHGysofiVCBXc2bQlGUo/zN6cYMuWjqlxvFgGWL3
-         IhYKDk2w7qXAdD+PimlJwRmTx7sHQHshT8YRpW2ZXOak/jvDlZJhmdsnjoirEd+yH4Bh
-         F4tWkObQKKCK8wt/xqec1St+84/raFSdo/JM4oqInZxzG7nNZplJq+AMkNEz+ulereWH
-         nl1LE8l7efwjDvLm9hv8tZuBum+ZpS53t34h+KBrWYofgK9wTp1bxOE4z+fzP9oxseQJ
-         zUU+8x5KW23jNaZrYWIOdmpSUC309x48mwOv6hGTj4jHudhWkcDGVdhfzkJ4H75rN/ni
-         zW7A==
-X-Forwarded-Encrypted: i=1; AHgh+Rpx5aicD2Gkg/isGgtMtufBQIlbA4f1KPaqwGUEILqD9rrYrKHkJqM07DfNIOWOy4GN3DUVn9ObataH@vger.kernel.org
-X-Gm-Message-State: AOJu0YyP5OmjNcfskUI2GPxsSoIK76ZwZgZJnWqY4RQYhY7p75yvXGkY
-	YaJtYqQgCWhENoWCwsDSeH/Xzjw8HPKBzF90DkCzas9OOYCCdCLRf9OTMs6NdvVihw==
-X-Gm-Gg: AR+sD11vFhqQE7YfTisrLaIj38Sq2pbiU2Zw5TZfq0WJ/RvOihR4wZ/nSrc+Vua77Rx
-	zF/1WbcmtQu7ZypHqYLBg+b0FzU65M5gU5SCWmCvQxBez7WFTj7Fg5ErUIqun/R7r6gGTYiak26
-	f7m6fbSUnbIRQ4QQ6MQns91DMlDjsDzIG7yDpRPTvnCssoq3lLFuPQz8RN/WV2oyE2Yd4/uK8IA
-	9AAIUOJWzKr3ER3eHW/vZsCdSQ0zfCGKoQ2v8lzT4Nyr4VcIK6rQGn7vrH6DOusqcDTJeNcfCeq
-	mApxRSivIy2yVuRkkDSScCGpwV88u4J25srcCnFQwhLmjiQbH0j8DdtLpqYjc81vWY6vpfNZKh+
-	KeSsdcECPP3qkxFzZSMzSQ+Dap9Y4QylYi+57iwuKqIVdTUb9yl+B4VYun/AiAgzGy7aR7Uq05E
-	PukARW6Kgd2Hb34htU5vwEd+gq0kSjRyoOtOZnl8SBXI090UEh8L73edL04pwRVDWByg8lvw==
-X-Received: by 2002:a17:90b:38c8:b0:38e:b400:a860 with SMTP id 98e67ed59e1d1-38ec642bd98mr7208354a91.13.1784882728495;
-        Fri, 24 Jul 2026 01:45:28 -0700 (PDT)
-Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:f131:86cc:5858:7325])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f089ac6d8sm434546a91.2.2026.07.24.01.45.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 24 Jul 2026 01:45:27 -0700 (PDT)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Wei Deng <wei.deng@oss.qualcomm.com>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	linux-acpi@vger.kernel.org,
-	driver-core@lists.linux.dev,
-	linux-pm@vger.kernel.org,
-	linux-usb@vger.kernel.org,
+	s=arc-20240116; t=1784882738; c=relaxed/simple;
+	bh=71xXZyo77HeZR+z7h3T5MQpAle6zFFn2lTgrSBG5SH4=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=Z82qkWmc+N9by8pZ1VRNP33aQGjxx+KcUvs0E1eQwenvfo3UWKPmxYXPWIlYidrMndj/pFMJXFPsk3960vXylnBNjRm5ZkepzSszg6Q21ttnv/3czuLHPZIL1LhA0Zaj6pchIFcLUFndpjI9QJnKbT9ZnKxdKf6HeB+cCoquzVQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=123.124.195.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from E0005152DT.eswin.cn (unknown [10.12.96.41])
+	by app1 (Coremail) with SMTP id TAJkCgBH22_3JWNqjPs2AA--.3626S2;
+	Fri, 24 Jul 2026 16:44:41 +0800 (CST)
+From: dongxuyang@eswincomputing.com
+To: ukleinek@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	ben-linux@fluff.org,
+	ben.dooks@codethink.co.uk,
+	linux-pwm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: [PATCH v7 16/16] arm64: dts: mediatek: mt8188-geralt: Add WiFi/BT as M.2 E-key slot
-Date: Fri, 24 Jul 2026 16:43:25 +0800
-Message-ID: <20260724084328.3943997-17-wenst@chromium.org>
-X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
-In-Reply-To: <20260724084328.3943997-1-wenst@chromium.org>
-References: <20260724084328.3943997-1-wenst@chromium.org>
+	p.zabel@pengutronix.de,
+	daniel.lezcano@kernel.org,
+	tglx@kernel.org
+Cc: ningyu@eswincomputing.com,
+	linmin@eswincomputing.com,
+	xuxiang@eswincomputing.com,
+	wangguosheng@eswincomputing.com,
+	pinkesh.vaghela@einfochips.com,
+	Xuyang Dong <dongxuyang@eswincomputing.com>
+Subject: [PATCH v13 5/5] clocksource: dw_apb_timer: Use reset array API to handle all resets
+Date: Fri, 24 Jul 2026 16:44:37 +0800
+Message-Id: <20260724084437.1850-1-dongxuyang@eswincomputing.com>
+X-Mailer: git-send-email 2.31.1.windows.1
+In-Reply-To: <20260724084153.1473-1-dongxuyang@eswincomputing.com>
+References: <20260724084153.1473-1-dongxuyang@eswincomputing.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -95,185 +49,61 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:TAJkCgBH22_3JWNqjPs2AA--.3626S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Ww4fuw4xGFWrAFyDGr43Awb_yoW8WFy3pa
+	1fGry3GFy8uF45ua1vya4UuFyfZ3WrGFyUJrWFkws7Aw43JFy8JrW2kry5AFy7ArW0vrWa
+	vF4S9w1ruFWjyF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBG14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r4a6rW5MxkIecxEwVCm-wCF04
+	k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
+	MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr4
+	1lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4U
+	JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0pRByxiUUUUU=
+X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/
 
-The MT8188 Geralt design features a chip-on-board WiFi/BT solution. This
-is a M.2 E-key WiFi/BT board layout directly inserted into the mainboard
-design. The connections to the rest of the board are almost the same as
-if it were a separate M.2 card. The only addition is the PMU_EN pin on
-the chip; on M.2 cards this would be tied to the primary power source.
+From: Xuyang Dong <dongxuyang@eswincomputing.com>
 
-Model the chip-on-board WiFi/BT solution as a M.2 E-key slot with PCIe,
-USB and auxiliary signals. The PMU_EN pin, which enables the internal
-power controls and regulators, is modeled as a regulator fed by the
-pp3300_wlan regulator. Since power sequencing is now correctly modeled
-using the M.2 E-key slot, drop the "regulator-always-on" property one
-pp3300_wlan regulator. Also drop the comment in xhci2 saying "MT7921's
-power is controlled by PCIe".
+timer_get_base_and_rate() only ever fetched a single, index-0 reset
+control via of_reset_control_get(np, NULL), which does not consult
+reset-names and always resolves to the first entry. With the binding
+now allowing a second entry, a device tree that lists both lines would
+leave the second entry permanently unasserted, since the driver never
+touches it.
 
-Also drop the voltage range on the pp3300_wlan regulator. This
-"regulator" is just a load switch and does not provide any regulation.
+Replace it with devm_reset_control_array_get_optional_exclusive() to
+fetch and control all reset lines listed in the device tree, ensuring
+every line is properly asserted and deasserted rather than only the first.
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+Signed-off-by: Xuyang Dong <dongxuyang@eswincomputing.com>
 ---
-Changes since v2:
-- Drop default GPIO output state from kill pins pinconfig
----
- .../boot/dts/mediatek/mt8188-geralt.dtsi      | 92 ++++++++++++++++++-
- 1 file changed, 88 insertions(+), 4 deletions(-)
+ drivers/clocksource/dw_apb_timer_of.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-index dee946309121..73b5c0fdeae6 100644
---- a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-@@ -88,13 +88,11 @@ pp3300_z1: regulator-pp3300-z1 {
- 	pp3300_wlan: regulator-pp3300-wlan {
- 		compatible = "regulator-fixed";
- 		regulator-name = "pp3300_wlan";
--		regulator-always-on;
--		regulator-min-microvolt = <3300000>;
--		regulator-max-microvolt = <3300000>;
- 		enable-active-high;
- 		gpio = <&pio 12 GPIO_ACTIVE_HIGH>;
- 		pinctrl-0 = <&wlan_en>;
- 		pinctrl-names = "default";
-+		/* load switch */
- 		vin-supply = <&pp3300_z1>;
- 	};
- 
-@@ -161,6 +159,17 @@ ppvar_mipi_disp_avee: regulator-ppvar-mipi-disp-avee {
- 		vin-supply = <&pp5000_z1>;
- 	};
- 
-+	/* PMU_EN pin controls internal regulators and power sequence */
-+	wlan_pmu: regulator-wlan-pmu {
-+		compatible = "regulator-fixed";
-+		regulator-name = "wlan-pmu";
-+		enable-active-high;
-+		gpio = <&pio 145 GPIO_ACTIVE_HIGH>;
-+		pinctrl-0 = <&wlan_pmu_en>;
-+		pinctrl-names = "default";
-+		vin-supply = <&pp3300_wlan>;
-+	};
-+
- 	reserved_memory: reserved-memory {
- 		#address-cells = <2>;
- 		#size-cells = <2>;
-@@ -195,6 +204,39 @@ adsp_dma_mem: memory@61000000 {
- 			no-map;
- 		};
- 	};
-+
-+	wifi-bt-connector {
-+		compatible = "pcie-m2-e-connector";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&m2_e_key_kill_pins>;
-+		vpcie1v8-supply = <&mt6359_vcn18_ldo_reg>;
-+		vpcie3v3-supply = <&wlan_pmu>;
-+		w-disable1-gpios = <&pio 13 GPIO_ACTIVE_LOW>;
-+		w-disable2-gpios = <&pio 14 GPIO_ACTIVE_LOW>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			/* PCIe for WiFi */
-+			port@0 {
-+				reg = <0>;
-+
-+				wifi_ep: endpoint {
-+					remote-endpoint = <&pcie_ep>;
-+				};
-+			};
-+
-+			/* USB for Bluetooth */
-+			port@2 {
-+				reg = <2>;
-+
-+				bt_ep: endpoint {
-+					remote-endpoint = <&usb2_ep>;
-+				};
-+			};
-+		};
-+	};
- };
- 
- &adsp {
-@@ -659,6 +701,22 @@ &pcie {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pcie_pins>;
- 	status = "okay";
-+
-+	pcie@0 {
-+		compatible = "pciclass,0604";
-+		reg = <0 0 0 0 0>;
-+		device_type = "pci";
-+		num-lanes = <1>;
-+		#address-cells = <3>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		port {
-+			pcie_ep: endpoint {
-+				remote-endpoint = <&wifi_ep>;
-+			};
-+		};
-+	};
- };
- 
- &pciephy {
-@@ -1002,6 +1060,13 @@ pins-bus {
- 		};
- 	};
- 
-+	m2_e_key_kill_pins: m2-e-key-kill-pins {
-+		pins-kill {
-+			pinmux = <PINMUX_GPIO13__FUNC_B_GPIO13>,
-+				 <PINMUX_GPIO14__FUNC_B_GPIO14>;
-+		};
-+	};
-+
- 	mipi_disp_avdd_en: mipi-disp-avdd-en-pins {
- 		pins-en-ppvar-mipi-disp {
- 			pinmux = <PINMUX_GPIO3__FUNC_B_GPIO3>;
-@@ -1174,6 +1239,13 @@ pins-bus {
- 		};
- 	};
- 
-+	wlan_pmu_en: wlan-pmu-en-pins {
-+		pins-wlan-pmu-en {
-+			pinmux = <PINMUX_GPIO145__FUNC_B_GPIO145>;
-+			output-low;
-+		};
-+	};
-+
- 	wlan_en: wlan-en-pins {
- 		pins-en-pp3300-wlan {
- 			pinmux = <PINMUX_GPIO12__FUNC_B_GPIO12>;
-@@ -1417,10 +1489,22 @@ vdosys1_ep_ext: endpoint@1 {
- };
- 
- &xhci2 {
--	/* no power supply since MT7921's power is controlled by PCIe */
- 	/* MT7921's USB BT has issues with USB2 LPM */
- 	usb2-lpm-disable;
- 	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@1 {
-+			reg = <1>;
-+
-+			usb2_ep: endpoint {
-+				remote-endpoint = <&bt_ep>;
-+			};
-+		};
-+	};
- };
- 
- #include <arm/cros-ec-keyboard.dtsi>
--- 
-2.55.0.229.g6434b31f56-goog
+diff --git a/drivers/clocksource/dw_apb_timer_of.c b/drivers/clocksource/dw_apb_timer_of.c
+index 3245eb0c602d..ffe495a8416a 100644
+--- a/drivers/clocksource/dw_apb_timer_of.c
++++ b/drivers/clocksource/dw_apb_timer_of.c
+@@ -29,9 +29,11 @@ static int __init timer_get_base_and_rate(struct device_node *np,
+
+ 	/*
+ 	 * Reset the timer if the reset control is available, wiping
+-	 * out the state the firmware may have left it
++	 * out the state the firmware may have left it.
++	 * Use array variant to handle multiple resets (e.g., timer
++	 * and APB interface resets) if specified in the device tree.
+ 	 */
+-	rstc = of_reset_control_get(np, NULL);
++	rstc = of_reset_control_array_get_optional_exclusive(np);
+ 	if (!IS_ERR(rstc)) {
+ 		reset_control_assert(rstc);
+ 		reset_control_deassert(rstc);
+--
+2.34.1
 
