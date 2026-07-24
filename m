@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11307370AD5
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 10:11:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 837D0370AD5
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 10:12:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784887893; cv=none; b=Zdz3T+/y8t0FrOyo6YorVFsNakuyLEoMxZvz4AIyhKxaipy8lvLE+dAhiVARZ1ppw17f5dq6+ETpPbmB+F6rKhxxT/w8TMMJWUBlqeejvFvBRF7ArZeQj1MDYA9eRSntDJUsA+isC9nEHkLy/JNQXeL3Cb1Y4/Her0nr5x1+Xxs=
+	t=1784887929; cv=none; b=NPpK6D9N9nHYSZpj6JPKWpIFgHpBjfj8xOsie5PTrNKPtANxo3JXVhHOZF/blmgIpk8/lTLkcEamq7+SWmSRu+o8FK2r1scIm/D6J284KpQnu8uLbmiAXfyEeuNTNKjSrvXkMBZANKBR9aBdfI7glMV4olXnjZC+P7QqO2ExLqU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784887893; c=relaxed/simple;
-	bh=7shkwiNkPV+/4wb0T6DGy9mwUepKOiBITXuNArTa6hI=;
+	s=arc-20240116; t=1784887929; c=relaxed/simple;
+	bh=vJmrT11AfyfQsY+wSJF64dGln69Hls62f5CYax+oqko=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=E9syg1NrlJ1nq3EHh13FwN1gsDuWCc2/Bm3ho9FBCrGWj9NFCbwzlLqe1VA2axU90+5y8tHv0Dnokmj0apQSG0O2cKMRci1OrwPXtLrTAA5s3TLtCUDpsN32x77SAV99dOk7mZ67okLwU9j/+3UwEEs0TO328ZyCnfvqFrRqFKc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ojdBA6c1; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=RAW2W6AuAJx1mmXE0LbIRQE0p1LF8z432L0ekQfYrWZsmbveW66GeZLZaXfs/T+RBXPZDjfGCGUS0gBNGiml+5Vt3U9kRSsm/uy6ry6qY6lsWqzxA0wDD8t+jTLSYm8XkuKGdf3O8u+WjRonS3QcFz84n9pohew2ZryHTK20nNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kldd6Wx1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ojdBA6c1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62DA51F00A3A;
-	Fri, 24 Jul 2026 10:11:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kldd6Wx1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD91E1F000E9;
+	Fri, 24 Jul 2026 10:12:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784887891;
-	bh=YRS8JSseWHPnt6e57YxMU1LN0mCqoGEeQrnV3ObcQLo=;
+	s=k20260515; t=1784887928;
+	bh=xOKOHFc9g0k1D9WtwT+0BuB86ggXpOKqrNZ51pBDOAw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ojdBA6c1Y7GGv1JwZH+sMTVO04lJpuMuXWOrZD5e8PwVAnbpdf8Wyc8wALoM7MCc8
-	 LgXig0BfhOWunyQceHmjFDIZhbP3b1q1xzfRo99d3/STQzeMWelfeZkOWSFsLQTYtx
-	 tECXfHhrGLytOSPalMptSM55ghj8LYnwTd24YNFSrMs/YGdjWd8gR4gahaDiAA5u21
-	 CBXEFOUxELAuyOmqoH4Fls6RYjtcslObxNkLUmtoL5eNZY4ANRurd+a2dCvtp4cSzl
-	 7fAM/nnkYWuIXwyV99/VuK8+RS3EjKvwOJPyAaHU5lZrV8Ib+Md2E3jMYZl8fzdsPz
-	 qPum6p1KTsElQ==
+	b=kldd6Wx17Pj+PihF0qUQ93MWiweDx0M2SL/1i3NoIXzlxRA7SRgd3mVvl3Sy7fGqA
+	 LdqsROeZxVyUyICBygVk29H95bxtBz+wBtcOFgFjOSbi8thPF4MfUO+JnRpsOMrjFI
+	 LUQtb/WR2n8aT9LasW1SGuRjwMXlgWISoql5m5dkh8aRkhwiEipARL6MRvO0wxV6Uw
+	 D7rinvS2Nr8p05QkGNiV7k1LVVr4mhr7tZTh4AeAe15VMrbs3ZDFGWnXSBY0uPn6jZ
+	 vO2CnE/aytxj8ZRAaZhhq8lzc4bV3ABVV0uJ+a2MaBeFRVMP96AxFTN1aXBrH2kKtr
+	 zrfFG9r8EOY+w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/3] arm64: dts: qcom: ipq5210: Add nodes for
- multiple peripherals
+Subject: Re: [PATCH v7 2/6] phy: qcom: qmp-pcie: Add QMP PCIe Multi-PHY
+ driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Varadarajan Narayanan" <varadarajan.narayanan@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260724-08-dts-v4-1-65e61a1061f0@oss.qualcomm.com>
-References: <20260724-08-dts-v4-0-65e61a1061f0@oss.qualcomm.com>
- <20260724-08-dts-v4-1-65e61a1061f0@oss.qualcomm.com>
+To: "Qiang Yu" <qiang.yu@oss.qualcomm.com>
+Cc: robh@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, vkoul@kernel.org, linux-phy@lists.infradead.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260724-glymur_linkmode_0724-v7-2-65c8469c6b65@oss.qualcomm.com>
+References: <20260724-glymur_linkmode_0724-v7-0-65c8469c6b65@oss.qualcomm.com>
+ <20260724-glymur_linkmode_0724-v7-2-65c8469c6b65@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 24 Jul 2026 10:11:30 +0000
-Message-Id: <20260724101131.62DA51F00A3A@smtp.kernel.org>
+Date: Fri, 24 Jul 2026 10:12:07 +0000
+Message-Id: <20260724101207.DD91E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,109 +47,72 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] The `cpu1-thermal` zone defines a `cpu-passive` trip point but lac=
-ks a `cooling-maps` block to enforce CPU throttling.
-- [Low] The `cpu0-thermal` cooling maps use `THERMAL_NO_LIMIT` bounds, whic=
-h contradicts the stated intention to cap the frequency at 816 MHz.
+- [High] Missing AHB clock `cfg_ahb_b` (and `rchng_b`) in X8 mode clock lis=
+t will likely cause bus hangs when polling `port_b` registers.
+- [Low] Unused `pipe_clk_fixed` field in `struct qmp_pcie`.
 --
 
---- Patch [1]: [PATCH v4 1/3] arm64: dts: qcom: ipq5210: Add nodes for mult=
-iple peripherals ---
-commit 1a65f86590b0031ce931c8fec8d83a0167f7d018
-Author: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+--- Patch [2]: [PATCH v7 2/6] phy: qcom: qmp-pcie: Add QMP PCIe Multi-PHY d=
+river ---
+commit f6ac710b3219c54fc755a82474f60ba0b32281bb
+Author: Qiang Yu <qiang.yu@oss.qualcomm.com>
 
-arm64: dts: qcom: ipq5210: Add nodes for multiple peripherals
+phy: qcom: qmp-pcie: Add QMP PCIe Multi-PHY driver
    =20
-Describe common IPQ5210 SoC peripherals in the base DTSI so board DTS files
-can enable the hardware they use. Add nodes for USB, PCIe, QPIC NAND/BAM,
-QFPROM, TSENS and thermal zones. This also describes the CPU OPP table and
-CPU cooling cells needed for frequency scaling and thermal throttling.
+Add a dedicated driver for QMP PCIe PHY hardware blocks that support
+multiple link topologies (e.g. x8 or x4+x4). Match data carries a per-mode
+cfg table; qmp_pcie_multiphy_probe() reads the current link mode and
+instantiates one qmp_pcie per sub-PHY.
 
-> diff --git a/arch/arm64/boot/dts/qcom/ipq5210.dtsi b/arch/arm64/boot/dts/=
-qcom/ipq5210.dtsi
-> index 2cdc10529c489..2e6f99d894aba 100644
-> --- a/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-
+> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-pcie-multiphy.c b/drivers/=
+phy/qualcomm/phy-qcom-qmp-pcie-multiphy.c
+> new file mode 100644
+> index 0000000000000..210c951e997d2
+> --- /dev/null
+> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-pcie-multiphy.c
 [ ... ]
-
-> @@ -306,6 +618,287 @@ frame@b128000 {
-
-[ ... ]
-
-> +		cpu0-thermal {
-> +			thermal-sensors =3D <&tsens 14>;
-> +
-> +			trips {
-> +				cpu-critical {
-> +					temperature =3D <120000>;
-> +					hysteresis =3D <9000>;
-> +					type =3D "critical";
-> +				};
-> +
-> +				cpu0_thermal_alert: cpu-passive {
-> +					temperature =3D <110000>;
-> +					hysteresis =3D <9000>;
-> +					type =3D "passive";
-> +				};
-> +			};
-> +
-> +			cooling-maps {
-> +				map0 {
-> +					trip =3D <&cpu0_thermal_alert>;
-> +					/* Set maximum frequency as 816 MHz */
-> +					cooling-device =3D <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +struct qmp_pcie {
+> +	struct device *dev;
+> +	const struct qmp_phy_cfg *cfg;
+> +	void __iomem **base;
+> +	struct clk_bulk_data *clks;
+> +	struct clk_bulk_data *pipe_clks;
+> +	struct reset_control_bulk_data *nocsr_resets;
+> +	struct regulator_bulk_data *vregs;
+> +	struct device **pd_devs;
+> +	struct clk_fixed_rate pipe_clk_fixed;
 
 [Severity: Low]
-This isn't a bug, but does THERMAL_NO_LIMIT match the comment about setting
-the maximum frequency to 816 MHz?
+Is this pipe_clk_fixed field used anywhere?
 
-Passing THERMAL_NO_LIMIT simply delegates the entire range of cooling states
-to the thermal governor rather than applying a hard upper frequency limit.
+It appears the driver dynamically allocates an array of struct clk_fixed_ra=
+te
+in qmp_data->pipe_out_clks instead, so this might be an unused leftover from
+the single-PHY driver.
 
-If the intention is to clamp the frequency to 816 MHz, should explicit cool=
-ing
-states be used?
-
-> +							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-> +				};
-> +			};
-> +		};
-> +
-> +		cpu1-thermal {
-> +			thermal-sensors =3D <&tsens 15>;
-> +
-> +			trips {
-> +				cpu-critical {
-> +					temperature =3D <120000>;
-> +					hysteresis =3D <9000>;
-> +					type =3D "critical";
-> +				};
-> +
-> +				cpu-passive {
-> +					temperature =3D <110000>;
-> +					hysteresis =3D <9000>;
-> +					type =3D "passive";
-> +				};
-> +			};
-> +		};
+> +};
+[ ... ]
+> +static const char * const glymur_pciephy_clk_l[] =3D {
+> +	"aux", "cfg_ahb", "ref", "rchng", "phy_b_aux",
+> +};
 
 [Severity: High]
-Is a cooling-maps block missing for this thermal zone?
+Does this clock list for X8 mode need to include cfg_ahb_b and rchng_b?
 
-The cpu1-thermal zone defines a passive trip point but lacks a cooling-maps
-section to enforce CPU throttling.
+In X8 mode, glymur_qmp_gen5x8_pciephy_cfg sets num_regs =3D 2 and includes =
+both
+"port_a" and "port_b". When qmp_pcie_power_on() runs, it iterates over both
+sub-PHYs:
 
-If CPU1's thermal sensor detects a temperature exceeding 110C independent of
-CPU0, won't it exceed the passive threshold unmitigated until it reaches the
-120C critical trip, causing an abrupt hardware thermal shutdown?
+	for (i =3D 0; i < cfg->num_regs; i++) {
+		status =3D qmp->base[i] + offs->pcs + cfg->regs[QPHY_PCS_STATUS];
+		ret =3D readl_poll_timeout(status, val, !(val & cfg->phy_status), 200,
 
->  	};
-> =20
->  	timer {
+If cfg_ahb_b is not enabled, reading port_b's PCS status register at
+qmp->base[1] could cause an unclocked MMIO access, which typically leads to=
+ a
+synchronous external abort on these platforms.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-08-dts-v4-=
-0-65e61a1061f0@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-glymur_lin=
+kmode_0724-v7-0-65c8469c6b65@oss.qualcomm.com?part=3D2
