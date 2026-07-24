@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA373429CD5
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 11:10:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA0BC438FF7
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 11:11:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784891427; cv=none; b=ZekoKvNLyGpSye7FFy1026rM1f0rBljK81wnnuohiAiCehpu45NDLQZiqMK46ANvwaueYPQf4QqyugwutNc2+pWQIUzFx8ZjvOhHJwMwkFr2UpsEIfsKEBVK1yImMQ1XJhveREGiBgOfGUyybAD4XSXmi9Au3LftFRy38M5MHHs=
+	t=1784891515; cv=none; b=Li+zqojDz43XQ1CydJZ9jtBBY0P6KImz5113s8cntndTZvsw00nCfo20EJEMsA+KYzedkCq9wllSnIdcFP+RPMKF7hWolvweXtxfbc0Uo5NCFO+JZsWwo6FU36k+hHp/biH25zTFxd6EJTyXeRFeVTrCfwaqTNIS48oVkDRuQBE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784891427; c=relaxed/simple;
-	bh=TyqQuTreFMBpaFJBtkgXl3Ywm/L3om1BdJzH2lzbeEQ=;
+	s=arc-20240116; t=1784891515; c=relaxed/simple;
+	bh=VZAXo8diFqw9Z5WA+tTfGuouyQMdyEuYHGy0g5Z+lvo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=UX9WHPkd3nNSOVKMzb/EE9MLnCtG8vbbQyIF6hRvgnEDg+3fHEsOjyUuvJSbNNNh4EIVobBJi85MJjYZQhthAtcG6gdginiP1/Wu/MgGrWKoI1GoKQ8WdLACGrGFlI9CbE1grNvO1w+YUVWiPa9sMdqMg2gCdkf1LAO/CvSvnaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hDTxTKRr; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=rOAVtMiyt3KCuY53FeTwP2dUtIf+UNjlm9Eq+7os19NgevEuyJduNzkdR2PZ6TNSPelItJ+FZH5Joyr7zLNXTcMf+UzLUJqOAD4toZImwohLnmr6+eWshy860xrFITvrArdreBS1Usi1sPRHZP/WUuAcDlQeax6vqYUo3WMY7go=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=by8VReAS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hDTxTKRr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D7751F04290;
-	Fri, 24 Jul 2026 11:10:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="by8VReAS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5496E1F0429A;
+	Fri, 24 Jul 2026 11:11:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784891426;
-	bh=bQ83Gv0ohR6Y3lCQSIwgjz/es5AVOK6IyFRHK33lgZ0=;
+	s=k20260515; t=1784891514;
+	bh=vauIDmbEXdk1wi7aBAapxHypN64V9uG2/eddAZKsCqY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hDTxTKRrRwvCJ6R7CE2McZPANBxf8GGHlgfYuUkygrIkr5X2n7N/CCktMcnybfhzp
-	 l3FEgvxoD23TX787ZjMi5QuM7iTXa/TLpSQWAxED8uZkNNPLIAySPEH6CTOX6xDAjf
-	 BIrDUfk1tgIvdBsry1oPZyJSjqkGOTbK6SSfFvTN4vRfbbs42P77srW8V+TDIFvXvJ
-	 NBlzIOMgUWkWGkiL/H4mnPourVYPdrqGr02Ba900RVr2jPRKbtcKNJ5ZJXMc8HdS0f
-	 ZsK01doSpXR2UntLVUQ0k6JBBt5i81jl/qjAhj+ZYNJf3dMjSO92cNrnfFNqvW0cjO
-	 Oc6gUbfvIbXPQ==
+	b=by8VReASVv1FIPkCXBcF8ZW7Y78FgN2OXsAaQU3fCBPzNjmURQSez7VH3TTIRZx9S
+	 FyAGmbuxbgo7mYzR1znRRfSsJw5SS1cA5Umnm4p60NqO3WDepPcprC7u5ZeuiUJ2iD
+	 l7PWStN0oLdnIKG5AQQypHhCCtPYW+53JfOkFWUw5a0mHfB+wmUZxPECKHV/6ORIu0
+	 tvaVRta/iP3USzhU8Rc447MWN29ThL2LELJK7XaRPbsz+wdfvTN3+74/z7ie5BMKTy
+	 93fk6Rc86SCM7OCPNh05g4daxJXhxx1mqPc68pNyRviBwyLexDZXjl8IIRHAJxqNdv
+	 f+eVUmddGu50w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/3] remoteproc: qcom: pas: Add Nord ADSP and CDSP
+Subject: Re: [PATCH v3 4/6] clk: qcom: Add Nord display clock controller
  support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Shawn Guo" <shengchao.guo@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260724103848.233804-4-shengchao.guo@oss.qualcomm.com>
-References: <20260724103848.233804-1-shengchao.guo@oss.qualcomm.com>
- <20260724103848.233804-4-shengchao.guo@oss.qualcomm.com>
+To: "Taniya Das" <taniya.das@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260724-nords_mm_v1-v3-4-32b45232217f@oss.qualcomm.com>
+References: <20260724-nords_mm_v1-v3-0-32b45232217f@oss.qualcomm.com>
+ <20260724-nords_mm_v1-v3-4-32b45232217f@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 24 Jul 2026 11:10:25 +0000
-Message-Id: <20260724111026.6D7751F04290@smtp.kernel.org>
+Date: Fri, 24 Jul 2026 11:11:53 +0000
+Message-Id: <20260724111154.5496E1F0429A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,51 +47,81 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Incorrect `crash_reason_smem` value for `nord_cdsp3_resource`.
+- [Medium] Missing `clk_alpha_pll_postdiv` object for `PLL1_OUT_EVEN`, resu=
+lting in incorrect parent aliasing.
 --
 
---- Patch [3]: [PATCH v2 3/3] remoteproc: qcom: pas: Add Nord ADSP and CDSP=
- support ---
-commit e1a98d51f6d64eea0602e8e964394bba2b37262b
-Author: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+--- Patch [4]: [PATCH v3 4/6] clk: qcom: Add Nord display clock controller =
+support ---
+commit 15bad88e0e41a7dac6339581fa90741a6515e990
+Author: Taniya Das <taniya.das@oss.qualcomm.com>
 
-remoteproc: qcom: pas: Add Nord ADSP and CDSP support
+clk: qcom: Add Nord display clock controller support
 
-This commit adds support for the ADSP and four CDSPs found on the Qualcomm=
-=20
-Nord SoC. It configures the ADSP for early boot and sets up the necessary=20
-resource structures for all five DSPs.
+Add support for the display clock controllers (DISPCC) on the
+Qualcomm Nord platform.
 
-> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom=
-_q6v5_pas.c
-> index 25599d7282083..6f3850a3fa9e8 100644
-> --- a/drivers/remoteproc/qcom_q6v5_pas.c
-> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
+> diff --git a/drivers/clk/qcom/dispcc0-nord.c b/drivers/clk/qcom/dispcc0-n=
+ord.c
+> new file mode 100644
+> index 0000000000000..835aba1596136
+> --- /dev/null
+> +++ b/drivers/clk/qcom/dispcc0-nord.c
 
 [ ... ]
 
-> +static const struct qcom_pas_data nord_cdsp3_resource =3D {
-> +	.crash_reason_smem =3D 666,
+> +static const struct parent_map disp_cc_0_parent_map_7[] =3D {
+> +	{ P_BI_TCXO, 0 },
+> +	{ P_MDSS_0_DISP_CC_PLL1_OUT_MAIN, 4 },
+> +	{ P_MDSS_0_DISP_CC_PLL1_OUT_EVEN, 6 },
+> +};
+> +
+> +static const struct clk_parent_data disp_cc_0_parent_data_7[] =3D {
+> +	{ .index =3D DT_BI_TCXO },
+> +	{ .hw =3D &mdss_0_disp_cc_pll1.clkr.hw },
+> +	{ .hw =3D &mdss_0_disp_cc_pll1.clkr.hw },
+> +};
 
 [Severity: Medium]
-Is this SMEM item ID correct?
+Will this cause the Common Clock Framework to miscalculate the frequency
+if the bootloader leaves the hardware configured to select the OUT_EVEN
+parent?
 
-The sequence for the other CDSPs increases by 32:
-nord_cdsp0_resource: 601
-nord_cdsp1_resource: 633
-nord_cdsp2_resource: 665
+Because both OUT_MAIN and OUT_EVEN alias directly to the main PLL hardware
+object without a post-divider object, it appears the CCF will read the
+undivided main PLL rate for both. This could result in reporting a
+frequency higher than reality, potentially causing downstream display
+pipeline underflows or glitches during splash screen handoff.
 
-If that pattern holds, should this be 697 instead of 666?
-
-Querying the wrong SMEM item ID will result in a failure to retrieve the=20
-crash reason when the CDSP3 remote processor crashes.
-
-> +	.firmware_name =3D "cdsp3.mdt",
-> +	.dtb_firmware_name =3D "cdsp3_dtb.mbn",
-> +	.pas_id =3D 58,
+Does there need to be a separate clk_alpha_pll_postdiv object to
+properly model the OUT_EVEN divider?
 
 [ ... ]
 
+> +static const struct parent_map disp_cc_0_parent_map_8[] =3D {
+> +	{ P_BI_TCXO, 0 },
+> +	{ P_MDSS_0_DISP_CC_PLL0_OUT_MAIN, 1 },
+> +	{ P_MDSS_0_DISP_CC_PLL1_OUT_MAIN, 4 },
+> +	{ P_MDSS_0_DISP_CC_PLL1_OUT_EVEN, 6 },
+> +};
+> +
+> +static const struct clk_parent_data disp_cc_0_parent_data_8[] =3D {
+> +	{ .index =3D DT_BI_TCXO },
+> +	{ .hw =3D &mdss_0_disp_cc_pll0.clkr.hw },
+> +	{ .hw =3D &mdss_0_disp_cc_pll1.clkr.hw },
+> +	{ .hw =3D &mdss_0_disp_cc_pll1.clkr.hw },
+> +};
+
+[Severity: Medium]
+This struct has the same aliasing of OUT_EVEN to the main PLL hardware as
+disp_cc_0_parent_data_7 above.
+
+Could this also miscalculate the mdss_0_disp_cc_mdss_mdp_clk_src frequency
+if inherited from the bootloader?
+
+(Note: This exact same pattern appears in drivers/clk/qcom/dispcc1-nord.c
+for disp_cc_1_parent_data_7 and disp_cc_1_parent_data_8 as well).
+
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724103848.2338=
-04-1-shengchao.guo@oss.qualcomm.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-nords_mm_v=
+1-v3-0-32b45232217f@oss.qualcomm.com?part=3D4
