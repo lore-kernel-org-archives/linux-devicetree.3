@@ -1,107 +1,175 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED19E3BBFC4
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 08:01:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB2523B9922
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 08:02:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784880110; cv=none; b=n8XdEOM4lPaVr46Pj6MxQu66bh1CmJ9PRUf0Pv6VgJhh5AcFvSEkle5SfV+F18ZTU65BTjoEjg0mVP1ajuXU75DfWueYRURdBLOPCr5LANemA+01sbvAcQ1T6YoXbCXeeUylQowXOg3DittTu3VpO9tXYFbHw26Fmq9vYHrZ9RM=
+	t=1784880141; cv=none; b=mesntqvnsmrTh9L49FQJ28t0rD0gsciuI4+1JmUrzI5ZmHWdkLh91RG+2Myh5j0QUfqajGhYzK5rr2yv7R5pCidmJmJJ3t3hiqEdVOYAGJvSF6XVuN0DFAehhldMo5+1Tn14dRw2raVIuJyQpCaHGHz5QSZVhB57XalQ3Cy/KYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784880110; c=relaxed/simple;
-	bh=++8P9b6t3+0ruZz9HgjzfNrk+tJ70euPx5DFBAKOAjI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=LNwO5Moj0V42FBF5tcoVrBXRXRSCqGhZPqvRGatKX292dTXlpnSRantm8z2OKggk10Pon91DzFLazG2/RiBeBgao0uskUNyrCEFl5YASer9zq+Da/GRXvfj7nI/GJRkhoBmVq8VlSlOJvC31Mznh46JCFPgzQmTXaohwn08N/3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=gQ0Y7JWU; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1784880141; c=relaxed/simple;
+	bh=eU1HJeg93SSr/oTa8pUhai6mKfyTGLRRMjqX6oMMAXo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=X17RO5sZnU7zf3jXXGOJkYS6CtxpjdhiwtvAx9c1H4a22EK60AoGKafC0HX8yY5f03coF/j1o5FINJP/n+lKdNX3j0EXIPqY08DlPubDWwsAjQxgHw8mFvF3GvyWpNDEFvoE/O16p9dFggbivQS8TsWZtqj8CPDodkl8HlWzKTM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DV7y2KOq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Il65q+C9; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="gQ0Y7JWU"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4954a9e8490so6241645e9.1
-        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 01:01:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DV7y2KOq";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Il65q+C9"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66O4lKdB2137634
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 08:02:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	iHaQAyJrwMTgyLoUAt+XD1qDXwZG4W1qzyvi7HKMkZQ=; b=DV7y2KOqjSEhUawT
+	v4IA1OmOmSYhH3VsuvRF5Hmw/o7KXKzN+HWk/aDuj8wVGokQyZ3PqNWlhitQa/j1
+	Sg+KoJ/pJxlBBBl27GSEd0NZKuROF8P3N2B7onVkQaagLyd5PZ2qI2w023qQfZpU
+	BOhbeJywI2OTyKyIuD/wVgvv2rLb6ikLkLQrRf2rxGsuTbHxkYqbKspIw1ckvjqh
+	MnR8F8VRy/826nYXxIkZTUdPlao9lxeG/wMSzXOYeW3LPlq2eu7Cl58WaM2G+Z/n
+	WtAwTN2C6kX8jk8iG3PzcHklp+e45OeS63oSzhgjsl8T2vGdwn8O+8svtZ51Eqn3
+	IwniDQ==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fkqa1asvt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 08:02:19 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2cea6a46766so3597815ad.0
+        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 01:02:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1784880106; x=1785484906; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rAfX3k5wj/8KZVt25ucKMpfpE6MXGKKgl1Anbl2kKTI=;
-        b=gQ0Y7JWUoXU6SwWLWEC+HkTck+vsElbO+RjfjqiPh4qig/yMsthqRncW0vlFosGiFE
-         TqYSkYeHY5U8PccsWyIV36gJDIntLbg7wmICp1eEVyaTPv2D8ranUtJ4pERVEdAKJat/
-         ZfJ70lz3LVNpA6KH/VcNx8sNDC7lpNrlgukE/SSr5BvYtIYAfVaZsviuTFNvXDhOrhym
-         atqyAJiHTKesroSue4KUlGV89tpXMX3+QnxFhaESLSq3RYnMUPivOV0aHdMpQLZPz7O8
-         hx+ns1u6hpVUSTo4Ednog+C5jvx968dlPyek/kEXRT97PFAf09+1ywuuiPjk/B0ABEdp
-         GgcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784880106; x=1785484906;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1784880139; x=1785484939; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=rAfX3k5wj/8KZVt25ucKMpfpE6MXGKKgl1Anbl2kKTI=;
-        b=YAuPKpU4lFKH0BznMXZVKKsWZXa+t9CxRix9gsIPI3zRW42WoXgFzIETAlrJUQ2wSh
-         qh74170tcfT3NLkfKCTyqyekWGMrmJfsi5CudeByx8KxqehDCPVxg0i8Z5DSiD4vTTUV
-         T6qFjbEvKevdoxFAG82qRbiPZCOPRhCKNOChwamZG82h656pu1VcIUSsJzNxk0hiUx7N
-         n82ou0OWPm8j31/BH0u9iisWSFZxil5asSCsx3qJfPjSGEj8nAU0u4r2fcCCCTzHJUR1
-         /tecAOjaoQqs2kBBhWAV4En4q/B7Ta9Df93p8Aj67OvHiHW5RHpW0qJeuMPNrgyO20YQ
-         1NLQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoJhIc+Lk0MdhwZXoVde5j5Abw+Dpq2JQPHSP3/019DLiDWcRsoaAqLXvrp7gEkg8SbcjrmcR+bnFDh@vger.kernel.org
-X-Gm-Message-State: AOJu0YzL3pABdDk9qxgBlbR3wt6AW4T8h7dGLzzCxV8QuxxmodVxmWZ8
-	64zDB1e+SEEFYu3IiLgL3Cl0xqngE9FGGUDxm8KdsF8AO2IP+/h+DlwNH+RGjwCS1AE=
-X-Gm-Gg: AR+sD10suC5/NjMWTi4+k0CSO5z+0EgZBV/QensEVBZdw+Wg4kBxt2TBJgDF8w/5Wu9
-	ftm2UWhFruLCAZpG5xCLrlebfn2xooX2puQcFhMCUhVg6jeUMsNz9pbxf/kiObG58UQ+zrrIaI9
-	B3pxnYQrPEs+sYCkOP0pnezWy1V93C+9sTRi4dl7FJO+f0bDEkj+mV9Eo6DK/3GGYx2bwXxShUp
-	76hG9QKN2KZRtSNSzcsmYOZ85ZGKJ6AKOVEBYducxOTQp7rXKRHL4JljZzvkq2WZH48y6SAng3G
-	UxlTZx2/Zn6dFQ4nJ+s6WKIFEIVBj1GomcLsQO4hmkPqpprrdtVfIp9852CJJ5/sMRafOCM1fF/
-	iZvmoFBT0twU8r9uk2gyqXvX+RErD5Aj9JzYRK7hqH+ImOnzQY+OiUPLioL8/s3THQ/66Uc+dTL
-	BxU5TyTlPTF3IlxyDINwIYiFo=
-X-Received: by 2002:a05:600c:26d3:b0:493:f478:4c71 with SMTP id 5b1f17b1804b1-49574593d20mr42472695e9.7.1784880105557;
-        Fri, 24 Jul 2026 01:01:45 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4957af5d4d7sm54404835e9.2.2026.07.24.01.01.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 24 Jul 2026 01:01:45 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-To: laurent.pinchart@ideasonboard.com, jesszhan0024@gmail.com, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, 
- conor+dt@kernel.org, nm@ti.com, vigneshr@ti.com, kristo@kernel.org, 
- prabhakar.mahadev-lad.rj@bp.renesas.com, thierry.reding@gmail.com, 
- sam@ravnborg.org, Leonardo Costa <leoreis.costa@gmail.com>
-Cc: leonardo.costa@toradex.com, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org
-In-Reply-To: <20260623195741.495734-1-leoreis.costa@gmail.com>
-References: <20260623195741.495734-1-leoreis.costa@gmail.com>
-Subject: Re: (subset) [PATCH 0/5] arm64: dts: ti: k3-am62-verdin: Add
- Toradex Capacitive Touch Display 10.1" LVDS
-Message-Id: <178488010464.449291.8023888105582692289.b4-ty@b4>
-Date: Fri, 24 Jul 2026 10:01:44 +0200
+        bh=iHaQAyJrwMTgyLoUAt+XD1qDXwZG4W1qzyvi7HKMkZQ=;
+        b=Il65q+C977HQxgsQtjTfIQlzHIaEFJu6cLX3dbk/3N+IixWTvEQCdO2UMBLuPz42S0
+         /Qn5CQoOziPIMApegE0JY5VNTKMimsiI4rsS6t05ltr/+Num0cHQKo7kokt5A8r60N6X
+         3bhyX1ZqNzVXxW5KPuVsspXGuMnTtX1obmsEhCURCnMKQiR4ijmXV1Y33JRo/y2cHf5u
+         8e0D5lM5xIm1p3rfefsoS2A5fhe47bres3m/U70qUVxfdPRKNfqQr5XaoYUGya2dgSyW
+         W/reVGWj+4x/TqNg3uhYYu0v6baeliKBD3mnWkLu9T+vLdx/I3OVPOfAw4dcZXyfQtQD
+         zRxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784880139; x=1785484939;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iHaQAyJrwMTgyLoUAt+XD1qDXwZG4W1qzyvi7HKMkZQ=;
+        b=elF16uROAvQexZITrDXK2OnuUlVTcavdOkG3wVCqfQoSIYqaBFeVX58A0jh5QwTrjq
+         MfF28tVNJ5nk+KDbdUOOY3T6E16/3eIyQfTBgIYbl1n2314F8BdRyQK/8PTqCZ8Awie+
+         6NvsGFJuVGW+bKRbM37YG9mOCoWAlr/r3iD4fm5HEwvnA/Cw3awReCEQ8MVMlFaSDt2A
+         Qtcnkx0MDzxzjbadP/Ohr7PfB7PygH/UcFtzckAihKv+2jHqaOFZxL1X/YC5Z6bpVf5b
+         NbJTf4gqdWspBZYlhbTo7/cSACqr3I3sC5kiaa6xMmguqyWog+9Kx1EXctF21M5mo+Ab
+         uTlA==
+X-Forwarded-Encrypted: i=1; AHgh+RpohO8aFWocFWhXs6ALDnCqozZgwxfVsJn0l73TyceCfrLY3wHiqBTAvl7ccQaB6Sux6/l5xO+3nNAa@vger.kernel.org
+X-Gm-Message-State: AOJu0YyPyGUd45zJCsAg3Vhb4HtsRCFnndVaHhm1V/mr8ArYfXIh3X2e
+	PpwFENcyGRsx1SrqGkZB6M965DdVPWMzoamCgBJYNE8uEEdQbzKmlUjzYGAbFE+OPPtvcUUfkPy
+	CDgbdSTgKUPSQtgQ7V5HNVKsV5Ce2+UyKCvCjjobrOPwWM+bnKF/SjXmMcJehPOZH
+X-Gm-Gg: AR+sD12bKrZsT+wP+fFQxX6w4yY/6LB9tOdea5dyieXHeIAAzRw91iNbKXkvaNW+EOr
+	o4aNZDjxg99DHXlPzUG+xf615ufY+LlzPxHsoORaFprcwbPXMlGYWRcXlJnU8QRqL2XMOmZwsaC
+	ojaDyD2usJ7oQV8hKmzSoIPTHC8n/Ux3C+y/c6JjZ6ixVkgD5EJpEi8gPUHB5ZhIaAegydW9810
+	pmuIc3uJ+G50t1CWduBZ62DRzD/5SrSCGWaYZ6kQnfvemosCI9AYrHrSrCQsGqJFHWw6/cGP813
+	zpLzbsVl6zGws+qpQ5z/OykrtygGU4NEpt0Ou3+0TvpY1NACYKWqGoujYuYiTH06WCwWB2YKgoS
+	9hfEportq7HYemOe2VYOOclONeltXeh0=
+X-Received: by 2002:a17:902:ce05:b0:2ca:ef16:8e8 with SMTP id d9443c01a7336-2cfa708d1f0mr73509225ad.29.1784880139132;
+        Fri, 24 Jul 2026 01:02:19 -0700 (PDT)
+X-Received: by 2002:a17:902:ce05:b0:2ca:ef16:8e8 with SMTP id d9443c01a7336-2cfa708d1f0mr73509025ad.29.1784880138738;
+        Fri, 24 Jul 2026 01:02:18 -0700 (PDT)
+Received: from [10.217.252.136] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf8efe3afbsm46566895ad.33.2026.07.24.01.02.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 24 Jul 2026 01:02:18 -0700 (PDT)
+Message-ID: <7bc5d5cb-7f35-4eee-9e3a-695fcd39db6b@oss.qualcomm.com>
+Date: Fri, 24 Jul 2026 13:32:12 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] arm64: dts: qcom: kodiak: mark PCIe root port as
+ bridge
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Marcel Holtmann <marcel@holtmann.org>,
+        Bartosz Golaszewski
+ <brgl@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
+        quic_hbandi@quicinc.com, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, quic_anubhavg@quicinc.com,
+        quic_mohamull@quicinc.com,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+References: <20260723-rb3-industrial-bt-uart-v1-0-3c8e580c09d1@oss.qualcomm.com>
+ <20260723-rb3-industrial-bt-uart-v1-2-3c8e580c09d1@oss.qualcomm.com>
+ <6a30c443-ed57-4443-aa34-f6bbe5049370@kernel.org>
+Content-Language: en-US
+From: Rahul Samana <rahul.samana@oss.qualcomm.com>
+In-Reply-To: <6a30c443-ed57-4443-aa34-f6bbe5049370@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.1
+X-Proofpoint-ORIG-GUID: 1SHGjDlR3gnVClyBvjySpJT5N2RgmDXo
+X-Authority-Analysis: v=2.4 cv=L4wtheT8 c=1 sm=1 tr=0 ts=6a631c0b cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=vWUw25gFCHY1kBUJboQA:9 a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI0MDA3MiBTYWx0ZWRfX8tIdx6FAniDL
+ 3xK8tX17c3gKDH/pShxIPPjDhQsOrfijV1MIlZxRcqLKfeGB6cTUgVaEmWuxm3k22oubwtx03cu
+ UIAMcm5ZRCZTunwpdEZ2gyY/m1DkkWSDNG4PqD9De+Mc0wLJHkWDF/w1ynvJmRPgBfSibyC5ijX
+ bBZIaWh/R2PfWMmY7zBX8yIL2TGPBj5DhC3W2mi+y5uK0EE8qpBwW5zX+yz7QMiXY/fCWxO5GXD
+ 5OnIUvEjiKuir3dzsIlncinYKlvnFCtc4t4X+mtW/0JO+wQTVsPgVnq7lhL5SsQk9DULpGuVnhO
+ gSZnGkTp8zSwt1mLwbnCM0GajzY6kbeS10N1yWh+GPa/hVH91F4XLKXC4sFr/SfTAdQR9vxFcNQ
+ U8XXiaf5jdPTM75E8Liy4Lf8ObHqEDbUG4y6BRZr2XuRKAvGrLYfhe7Kqaw8yUFmDTWraDVeF0U
+ 2Y4ZRFOSNRyw2L3p4Bw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI0MDA3MiBTYWx0ZWRfX7YKmWwPzFGPO
+ Et4gVmYFWUZuzGDV6SjinKhpXMKeRsr/v7NRGGF3hsO8ZWyDecm603hdT0WCOn/62Nm/8OlYcHj
+ IC38CXDlMA7euUmLcMKnNwv3Il/95C8=
+X-Proofpoint-GUID: 1SHGjDlR3gnVClyBvjySpJT5N2RgmDXo
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-24_01,2026-07-22_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 suspectscore=0 adultscore=0 clxscore=1015
+ lowpriorityscore=0 malwarescore=0 impostorscore=0 phishscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607240072
 
-Hi,
 
-On Tue, 23 Jun 2026 16:57:36 -0300, Leonardo Costa wrote:
-> From: Leonardo Costa <leonardo.costa@toradex.com>
+
+On 24-07-2026 01:01, Krzysztof Kozlowski wrote:
+> On 23/07/2026 14:31, Rahul Samana wrote:
+>> Add the PCI class compatible to pcie0_port so child nodes below the PCI
+>> bridge can be matched against the enumerated PCI topology.
+>>
+>> This is needed by the M.2 E-key graph description used by the RB3 Gen 2
+>> Industrial mezzanine Bluetooth UART overlay.
 > 
-> This series adds device tree overlays for Toradex Capacitive
-> Touch Display 10.1" LVDS V2 on Verdin AM62.
+> NAK, there is no such overlay.
 > 
-> The display addition covers two interface types:
-> 
-> [...]
+> Best regards,
+> Krzysztof
 
-Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
+Hi Dmitry, Krzysztof,
 
-[1/5] dt-bindings: vendor-prefixes: Add Opto Logic
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/4685230d8288a99f1c664768b6eb2bd1545524c7
+Ack, I will rework this patch in v2.
 
--- 
-Neil
+For the commit message, I will explain the reason first and then describe
+the actual change.
+
+For the overlay reference, I was referring to patch 3 in this same series,
+but I agree the commit message should not justify the SoC dtsi change by
+referring to a board overlay. I will make this patch stand on its own by
+explaining that compatible = "pciclass,0604" is needed on the pcie0_port
+node in kodiak.dtsi to allow the PCI subsystem to associate the DT node
+with the PCI-to-PCI bridge device.
+
+Thanks,
+Rahul
 
