@@ -1,248 +1,223 @@
-Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011008.outbound.protection.outlook.com [52.101.125.8])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDCCB349CE7;
-	Fri, 24 Jul 2026 15:26:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 602D2335BBB
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 15:35:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784906774; cv=fail; b=E5PKVZMsDGXyH3Uqk9KXi8N75xGRxRiIHbYS8libgWZO6pQaizg+8GJ+mbWNodgU0l2MoVGRYchvc1IdtAB020/Ux/Fpy/3y/PFKjFnmmTZi/n06VQlvzYMllTegmLuOjklC/uxW+CVKDKXnJ3KmJajDGoCFMIcCQE/Np8X0I14=
+	t=1784907347; cv=pass; b=FjUlYupjenzq4w6nt2bKvnywDE7JZFdydXHuwVoefr9YmOyOYAt9083bmVVWhOofbtsVaDMdqwj311i611/luXDbop1ACVutkTaOCkJGe7JNxcGasEy/Ox71iwpIBS13Mcyx3aZbw1F334Q00alCMC9NG7tr3ZW9CzR7cSERqfc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784906774; c=relaxed/simple;
-	bh=Bn290QntClTazrj6y6uAwUPtuVlGYIqEhG2sDmyad+E=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=tvc7f3LfsopAisc6/MIROnIW7vUN7iFtpYLT7a3d60XyKS+vkCcE2wdTaNU7h4BuorAo8Bo4cEg3rT9dpSvE1FCgGZ6VFbGiY6edX+h+ZY5Si4xi11r6lZ3fuq/mgniLR75JCTjGVLup/v3mRd2oTLPcUyXfKAKUSPAF/sB5ohQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=QGqUadbn; arc=fail smtp.client-ip=52.101.125.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	s=arc-20240116; t=1784907347; c=relaxed/simple;
+	bh=0AxRvCjS4SeGauYtGrq3Gxj0CFvSuzE9MU+SB8VxZqM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=RWSPFlIUZ5DKkFsvjEmeUr78E7PiAWuxb328gZe11qtYg/8KSeo8uE1cDopbkhFHL8rXN4NZu0JUVsjE3Imv6Z/pQTpAwMgNF7jDBqBGXGGEGqUmCPzxYJ9XMcoNPBcJoUnaVmXndHHi0mJvT5No8slvCql1wIzN/8IHVEBlK9w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=U0UZBLpm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SVitZbLB; arc=pass smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="QGqUadbn"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JOYWtjp+jJlt4BvDe+kTrzUeYjvTiPL7KnQTeWKEiJB8GMTkeRyhDGxvbz2FnA7G+bY02MvmTSLFHt+OnnFIHqoG1E2AgB6rVB891yyX2nin3aeZRC2cGd2xBTAYkCByBJHk29GY7UWe7V23eYoAxpsbmqdoZnos8f99/RzlQLTcpILbZAP4+CkFBUIiiWSWS1ZhsDLX95tzC6dQYUxXdSbRf6PM/tcYWqAF8uELlYRfuFVME5PcaprqwaIfNAYy/DjAT4wjTeuX1sppCJV3oSqwWK1CLP8y9qYUoA1jpujJmnkCk/NwPu2vPP+MZEhxKTLEiz5Pm13Es5rHNXzrag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=acxgN6MmaigVkpF8PkUnG4vjA+SwsGFRzA2jDWSu1fs=;
- b=WD29lb/1JycoebsrcTYgbag3X1JUDdWeWt+plM2DRyQt+YwWkc2jZ9DeWgfshgktgVRU7UxYyou20kcPSZSNP1zp9Xcw+nmhqqaLFUjgqDCL2828kLiEsMJu7I4WIaGsymHQkUtiAAbEPbNh1lJT3ykoz1MrNC2MUhnnYWXiBZS6yBiQXzoVZoVGMGx3s2uHFT1SJj/mbqw2Tw81G4jpe6PDUJYMiawn/1qMT5QTnmjC1S1+PMQgOyHiWYJ0M57s9ZibbpU5v+JFjprXXb49EJJbS+5K+wGsD3+wF+gyZkfPHafx6FuurIl05YBhEt22xrFxfZRBp2h/VaY6JNDHIA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=acxgN6MmaigVkpF8PkUnG4vjA+SwsGFRzA2jDWSu1fs=;
- b=QGqUadbnbX2Jhhoit2DA7Abg0Rkjlr0GMqahl1JUZ6dBNRONzcEramkfH/8OHiz7m3DTbcClOe9zRvzRDFwXB6zYsktbfJa2CdPnC32D3tRov79wXBmk89wh/KrKNoZKIJALCF970bYhIVjwk1mcHE2gv2O51RrMyxDs18cUPmg=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by OS7PR01MB18410.jpnprd01.prod.outlook.com (2603:1096:604:4c2::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.12; Fri, 24 Jul
- 2026 15:26:09 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.21.0245.012; Fri, 24 Jul 2026
- 15:26:09 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Biju Das <biju.das.jz@bp.renesas.com>, biju.das.au
-	<biju.das.au@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>, Vinod Koul
-	<vkoul@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Geert Uytterhoeven
-	<geert+renesas@glider.be>, Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Mark
- Brown <broonie@kernel.org>, magnus.damm <magnus.damm@gmail.com>, Bartosz
- Golaszewski <brgl@kernel.org>
-CC: Neil Armstrong <neil.armstrong@linaro.org>, Yoshihiro Shimoda
-	<yoshihiro.shimoda.uh@renesas.com>, "linux-phy@lists.infradead.org"
-	<linux-phy@lists.infradead.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-clk@vger.kernel.org"
-	<linux-clk@vger.kernel.org>, "linux-renesas-soc@vger.kernel.org"
-	<linux-renesas-soc@vger.kernel.org>, Prabhakar Mahadev Lad
-	<prabhakar.mahadev-lad.rj@bp.renesas.com>, biju.das.au
-	<biju.das.au@gmail.com>
-Subject: RE: [PATCH v4 0/9] Add RZ/G3L USB2.0 host support
-Thread-Topic: [PATCH v4 0/9] Add RZ/G3L USB2.0 host support
-Thread-Index: AQHdD31PanBotJGjU0WhwiGgIXx1z7Z5/a6QgALhSkA=
-Date: Fri, 24 Jul 2026 15:26:08 +0000
-Message-ID:
- <TY3PR01MB11346FA21EFADC8A3D53D81BE86CF2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20260709083108.108370-1-biju.das.jz@bp.renesas.com>
- <TY3PR01MB1134672A4A05BBD95782F70C486C12@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-In-Reply-To:
- <TY3PR01MB1134672A4A05BBD95782F70C486C12@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|OS7PR01MB18410:EE_
-x-ms-office365-filtering-correlation-id: 314e7d11-20d1-4e2a-8930-08dee997e2ee
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|11063799006|56012099006|4143699003|10067099003|3023799007|22082099003|18002099003|921020|38070700021;
-x-microsoft-antispam-message-info:
- htgUL8jAsPuCINQYtW1hHUGw/HNOXOUg2zjiJBjc7kxRl57zsjJKPkCKp+B0O6Mc+aZlrmjcum2IxGgROVzldn7O/qiVUh3K8TORs/613FbZv/AACaoQcyk3+FyRq8RI+fG6DgLtFJi17LjMrOJmIt/kg8JRJNDhbowuYJFo2kqxsIW4P8Bove368tDbdGtIR4xMNWWsP/qJI9DREBxBYfeHH7fSNHmjSWUCz4z0GpxoYjpMhkPX4btbRWJjEeLRe6tLNtGb1RKL+OWD5R4EMikuhd2L85FK/tFbBA4/mUPuhK9pyzzlxDR8XnJJ/kFGf2ahwx91JmYKQvykQJYVh3xKsoPpgrBVwUPtOIMO2+iNQaulm+nGkZXlFmHgO2EiChWHD5D7yfFuGqWZFeSwArhjAKXHanBLjpT+F0YkSKRkijAGK7wR7BnCMjE6bRLWrgZv1+5n6S2QH7hF/mGBLUnorfxc3t43xJWKotSAC57/sJ8MGSFtTlG9LcCKBiOeQs9uaEKnMqAl3X2VwA8PBicHG5TDb4GAcj6bUtGoQ06A7WxW6ZoXlGY6byrKiijtzp8ZhP2TCawFlSL0zGZlfPYN3CzEXTz3MFW00gEozzUotC9fn59xYv97emaXLaWM0ybzhFpWlJgZ9hwSzen7Vj1G8v1xm8VGEsLLkUUmu+Pn5Tszr3xY+0M8ywvomtWR
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(11063799006)(56012099006)(4143699003)(10067099003)(3023799007)(22082099003)(18002099003)(921020)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?2UGrnqWsnbqg7BTndEOOYRtkDfJfyA+hOKaRHWGFUOD0t6N9VdEa3sTW6jjW?=
- =?us-ascii?Q?JUxQ2Cf4IVNufWItTwHJi/yXH+PMS/uq/hARFJctj3jsBzyoLTwqIiQd6quh?=
- =?us-ascii?Q?kuDJyhTeOEhj8dY02jBVcV7wrzlpKtCLlnNu63wVW1B/GHHqGmEVl4zAz435?=
- =?us-ascii?Q?HnnNZuSYkiFyJN4MroxtMc0y0MCYbUGSsim1oNdiQmkbrV8jSXSDhirtqFKA?=
- =?us-ascii?Q?imI6hKT/O+CdkJzFh5gAliY42hv+MH+LmBh97O01q4Yh8Y88f4Oyh9EnLYJs?=
- =?us-ascii?Q?bN0+okG3vFkWpQ8pLjISO4a9e+I2Vx/E6wJSR8LLtAtez59cT3URc4ZzDJdG?=
- =?us-ascii?Q?IiS4oxb6QGMREYeDqfyuJtTS86bCnfkxpQ2LfBzNH4l0z1ZhBFL/V+P/wtC2?=
- =?us-ascii?Q?pfo0oi/T7HTpboS9XK3mFAW2RDzr9+JflUEgPnsJMFl5vd/FTAQn4DkRnBw+?=
- =?us-ascii?Q?34B2u/raVrGgzpSa3Pp/uipwEDxxPrmEt0Lg7I+6oLvRTlcI9Zgt5UCrzX7Y?=
- =?us-ascii?Q?ROVOyiH3+z5xB+bcvnIIr846nCzkONuQKANZsvwCCDAc6oIAo4Mhln9IVYx6?=
- =?us-ascii?Q?BWiFNgmG+3y6sRabsLqn0bAQADI6D5H0i9h+aQcm4eEIXMUwKkPma45sk/kh?=
- =?us-ascii?Q?1oxhQBKvisqDBU4x+f2S9oQX4DfRjYXiSO7T8sYGHSnmDnicowHGgBATWGX7?=
- =?us-ascii?Q?+a+3DGBm/egBJq87nKAHUwXltHlkCLkIQCsW9Sk7F8k2vJDZ6Md3zQ3C4s0q?=
- =?us-ascii?Q?SDHQB6VmpyiqO6amZr7yyC6vp7VsndzFPDU/tNmg7fM58nyWig4kwggWJdE4?=
- =?us-ascii?Q?iUGeBvRpMSS5KAc1GloJ3pOGf0idD/Kn/oMyxaHDXs6FMrje1o6+4JIEMuTA?=
- =?us-ascii?Q?8nYT5D8ZzLdDpU2mSGWgccbiqHu4q6yt3QALM7ix5KDPworv3i+QibeHfaG2?=
- =?us-ascii?Q?pa8+kOFXq2rDUXymJTcgSiyZ/L41eHQVjfV85PB0wZubWnmzwtzoqt7nomZ9?=
- =?us-ascii?Q?xTX8v3m19GvvI2sM4bRHWfyywVJf3OmuIXFYTJn4/yim7LtVT63BCrdlY6eR?=
- =?us-ascii?Q?bruo/TrzrFE8wTGE7Yf6cZicVrUZV5LZD9a/SE8/DAn+vjva1ajdF1oIJLU8?=
- =?us-ascii?Q?/6Eue33eHezb4HFBRmYn8Vkwqvhs4aY4a902ZX6xEFJGqiUry9BzZjPi74x0?=
- =?us-ascii?Q?zmcLw6cunc5yZF6IbvyphR1yayQAizxw6kpMysmaMPywwB3WQonpnf+yL09l?=
- =?us-ascii?Q?z5oT9W8dtU8Gg2OixL59vaP+KBJJNTCg28uNEgY83z9sG9+WVpxivxEZi30c?=
- =?us-ascii?Q?7weqrIivxI4/i4F+QgRwbYANXqeBicBwy8RXfoRsit/W3NSrFQY6qFnh/nh2?=
- =?us-ascii?Q?p3G35/VTBMXMm0S9xHNeNo2voHgUoSrNOb4fvVLVA6QeqcB3gFFmvrvzuzRQ?=
- =?us-ascii?Q?z83EzF0r9C87Ns2xDZQcj4w2Q+7vQUJekOMO/2xo1iSayLkKQJH/kFcPBZvR?=
- =?us-ascii?Q?5ih3rR+iWXEal/lUGNHtI8aog5aCd3sSjyjlGmadi5bV7iOv5mavtbp7g1WH?=
- =?us-ascii?Q?frTXXdFAnI+aVUlmYlefCBaFuzyJte7S3n7XBcRvBBUeH84eQjPfhFz8eViQ?=
- =?us-ascii?Q?UJzG9wHmDOcNBHiuehaWaY8yfDLPLT7OWU7EsCY4V5+h+riwL4HqfCSaX7F2?=
- =?us-ascii?Q?WJn6wqIT/kFbtFAAF3MxkFqw91jSc7tl6ywkcmUv5l80S/+eJh1mauPHKgc4?=
- =?us-ascii?Q?M3BrYnvLyQ=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="U0UZBLpm";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SVitZbLB"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66ODb5ha2933423
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 15:35:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	0AxRvCjS4SeGauYtGrq3Gxj0CFvSuzE9MU+SB8VxZqM=; b=U0UZBLpmLfPDvk4s
+	5VVXy1GRsf9VjasKo9AZa15zarTyGa1QjJqnsNNIcbBeIhq1YHNQb+NLdvyNnDBN
+	7R2Qp6iSbQ65AuK6J6JrFFQ1KCQdPr2+h/xLiVb0Y/MG478NDq04DnEdkLa8RE0C
+	q+9xAuEvlxgPwplct6yAF7BlP/BSC51W0qX4xC1wqPCC2kNiVj4k938GrWe9if+u
+	71b3BDT2ouTx0lPbmDcd2jAvWSKlChEuLO3YlNrfAItJPh+7d33op3mu57wYkF5k
+	m5xvoz86F6mTz6U79nCSLiaxF3eZb68e4/ZCxZPnHU/bjNLEQ39PFmoJr1mgXWyD
+	Gn0Tzg==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fm8cj8kts-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 15:35:44 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-526da7e3c9dso8849931cf.1
+        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 08:35:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784907344; cv=none;
+        d=google.com; s=arc-20260327;
+        b=pVrf35Q1uKu8ObKtjGdiTekFoGrVrg3me2w7+no2g2hmrJMkOj+R/zvPPSu35sbYGf
+         3WugVL1iRZao/47dYAI/tY0UQmGqFE1VaxVw+s6Y7YySTMG6Y/Qz56XMg6ZEsAOPg+XI
+         Cyk0ODFg8aTbXfjCQ9ryvF+6Ss2sr+6aUD7/brzdhr/6VmBHRidbvCAl5OR7S04dApCA
+         JpGPe9pyPu2YR+RD6iYrPeCItMTqnr9paXjID+toXr5i6YP4MeYB3tiPUaLkJoRNblc6
+         jAmjWmCi0SzScGdY5I8EXGOl46r3bCdz1V2yKfDn3g+XVmny8obLFloVPEJzfGbQWglG
+         XW9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0AxRvCjS4SeGauYtGrq3Gxj0CFvSuzE9MU+SB8VxZqM=;
+        fh=aZKWSSWWswG5pXmt4Ta2kpRV4hGMqt6V/jdd15AyqqY=;
+        b=WOzX0Dk6hNtFuuQcJfa0cK/dNvUEwqIExZ/aHezZ25AyuE9hSpyml3/ehuP5/Ui5/M
+         awfL67at4FEg0Qu0ea6wr6mIvs1IPI83G7tc4AfPmvmBOT4CpxqTdRCxXh4YoJydvgZQ
+         xnNKH1e6WAgIXAUFX66IERn/xfjrNwXrJFqBhLFd1zeZx5YVqSxsNJB4M1i6LofYy2dY
+         M8TSj8CgIDuQDKvIwXFR8RRifiaVQ2f2nKAky6XjKKj+K3mZfjqZ1Q1mCSyQEhxnc1Sx
+         0y/F9JYhYPBMKbm/ci7EMXvtMw8n+w/BuW7ysBUkozAzR/SfMbwiKnGssrpU1BqchBlK
+         dNwg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784907344; x=1785512144; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0AxRvCjS4SeGauYtGrq3Gxj0CFvSuzE9MU+SB8VxZqM=;
+        b=SVitZbLBEQeqhXDYttKqcffl1bS8srPij46robugKSWL9bw3tuZrUUnPKAYt5pApKd
+         tCBNmFfDUHtXQJAl73/hW25Eyn+edSA6L2iRFurPwLFpHJOpMd2oDiUtU1bfM8eyesCX
+         GuOQOamdO7slnkWhiK5z2X2slT4JH7LANGzFtPnonmH2oQCU0tBOkw2W9pmfXYjMJDR3
+         A4CSzAWZ2mfMacNxnuGzXYmaydr2aDKe2avf9dm+T6HvPdDZ95Wph9wfSJOiP0ZEAjvD
+         vpeyuD9ls10BdyB63miOd4BGoIyQbGSe6it3/AVvHhHoFFdTyL7FhzRYem1esx6oS/jN
+         vscQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784907344; x=1785512144;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0AxRvCjS4SeGauYtGrq3Gxj0CFvSuzE9MU+SB8VxZqM=;
+        b=QtMk6z/xvSdHvZRgjw5yv4ZUe4Ad37uToDWZ8RKPKMnAdzCyyhTXVMLVVZlKfbQB0H
+         qKDsLQBte2xZxs57bIQZGlo74JEm0Q68y7ccMiWfmyyZeuBVOC2NbdaJPyJTzrpCpzNl
+         4WCKC5yW5zYFHRjKzjIpQkyyWrVkklh2QOl9+DmuoAKZP1i+F4oH7umIO5mJ0HGyRGVp
+         8n3zzsshylWPQV0fKdsOtqXH+XZq8PDi3H+FPtrnxumLfK2zO8nFDDrXO3PbMX9O+pel
+         xWYdUhZnuODB1CcioMv9y3oCi55E2nZ9hTo4cAS2ZSskGIR2gPlrk/zSFYOk8E7VpSbZ
+         WsIg==
+X-Forwarded-Encrypted: i=1; AHgh+RqWJaaQgunVfhJSBFquIvKbmNKNL+lwSLRK2D0UTtkBLZn7IoS3lADGVjWSp1YEPCQIg6coPD2F0ewe@vger.kernel.org
+X-Gm-Message-State: AOJu0YyNQ0VYuSq/bhpSRq0/Bd4+N5RBgVi8jj9Cf9L5z1rj/i3HTi1R
+	XQ1YP7vuc3K5Damd1pbobTx0iPBhUnvgeDZnTl+J10uk1M/EXDCeCCEOdwtb2rUJIWKIU6jtB+w
+	V6/uYcm5mxLLsBWP5xU5+eCTHcOmInYoOxArMzm/n1QvnS3A1zm7pSKMGuVwYP/MDExXJTPyfo/
+	Xn2oPKC76zrBrKSB8Bx5xfClp+A2nzU0CowbryBkE=
+X-Gm-Gg: AR+sD12LVKXri/TNDl08F+eCELghsAIqbjTm08d1+cSmrs9286STVtwvOgSFEVCduDG
+	BQLhO5bdj3JBF5gp6am6wB+9ToaaUvuJgZEjqyBlnIQ5wN5sDFJrzEKef3akIUrJWwaFzheEDZI
+	wWLFXVNHbq3CwbMUEPlwXCV5XzhFOUbfdl6AsakgdUJt0B3ySOie4NOjGMIA==
+X-Received: by 2002:a05:622a:228a:b0:51c:1241:3b09 with SMTP id d75a77b69052e-5283de54e1fmr76891481cf.39.1784907343585;
+        Fri, 24 Jul 2026 08:35:43 -0700 (PDT)
+X-Received: by 2002:a05:622a:228a:b0:51c:1241:3b09 with SMTP id
+ d75a77b69052e-5283de54e1fmr76890551cf.39.1784907342860; Fri, 24 Jul 2026
+ 08:35:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 314e7d11-20d1-4e2a-8930-08dee997e2ee
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Jul 2026 15:26:08.9327
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: TAvjVmJXHcQRIxBYmoP0uo4AvacQrgVfGFL0ql7aLEB+mBPZAlc5QJtmrJjop+Ezkb69ezx80VaBX974gKM7VXn/+6VT71JPDpuckGa2D5s=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS7PR01MB18410
+References: <20260703-block-as-nvmem-v8-0-98ae32bfc49a@oss.qualcomm.com> <3d954cdd-6dde-4be6-84c9-2f2f7d008f5b@kernel.org>
+In-Reply-To: <3d954cdd-6dde-4be6-84c9-2f2f7d008f5b@kernel.org>
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Date: Fri, 24 Jul 2026 17:35:31 +0200
+X-Gm-Features: AUfX_mwd1WNIZvdvXqoWeMIN9Hp4kEAy8VC-hn59NszviBxEKOIP4_juVgFnXVE
+Message-ID: <CAPx+jO8-9YSJtXNfnTrUX_JiCyddXHn=wHek9=c99+fNp22Zog@mail.gmail.com>
+Subject: Re: [PATCH v8 0/9] Support for block device NVMEM providers
+To: Srinivas Kandagatla <srini@kernel.org>
+Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+        Johannes Berg <johannes@sipsolutions.net>,
+        Jeff Johnson <jjohnson@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Marcel Holtmann <marcel@holtmann.org>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
+        Rocky Liao <quic_rjliao@quicinc.com>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+        Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+        Russell King <linux@armlinux.org.uk>,
+        Saravana Kannan <saravanak@kernel.org>,
+        Christian Marangi <ansuelsmth@gmail.com>, linux-mmc@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-block@vger.kernel.org,
+        linux-wireless@vger.kernel.org, ath10k@lists.infradead.org,
+        linux-bluetooth@vger.kernel.org, netdev@vger.kernel.org,
+        daniel@makrotopia.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Piotr Kwapulinski <piotr.kwapulinski@intel.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=GJE41ONK c=1 sm=1 tr=0 ts=6a638650 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8 a=VT4XjZGOAAAA:8 a=EUspDBNiAAAA:8
+ a=XoVDlNqzt-XzKL8N3f0A:9 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
+ a=6CpsfURP9XNmmWg3j1mJ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI0MDEzOSBTYWx0ZWRfXy2+yX82JJvfT
+ D3BiCJiJQn41K3JOH/4/NhTZu9mfaHaLURVowSA9eWjzB8+ist3oFGdznmU5wNMRu6/VzELRsRJ
+ Yxl8BVWIhY51Dsgo3G4DR+atk4piHufBAc001/YjvUEQ1/3dyod7iyyIUOVXPJDzGfQQCYw9O+Q
+ ZktqZTkbF09zXFO/VrCYBphpdEgWXQojA69yjm4eViqHY//I2NthxlLSxZIxH89cCn7PCDIttiZ
+ auNA/i9gUstnPnIIUqgwwrTsB8NWKWVt141uomwUhGYSfoY0YPYIpOLw4UpRwIs3thNvmv2eJLM
+ q63jyBKsoqZeft9R9GX6uKyG3NJo3jSHZzzRzuXzz06D5tiHT6kl0o5Wx8OppwbyqkjjB6htovi
+ X59RlXVmiQxgYyGYfHphCyTwOdyI+jWcUf7hERbtzRTVFA/rzBh1FOB3ayUYM1uBXUYnTA1V3Wo
+ liq+hWi/F8ayqA9ii2A==
+X-Proofpoint-ORIG-GUID: bNMvXEionm0K1zdMJAcAUiuLtBH5B3_I
+X-Proofpoint-GUID: bNMvXEionm0K1zdMJAcAUiuLtBH5B3_I
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI0MDEzOSBTYWx0ZWRfXx1JKRiBs0yvM
+ 0UkLnY/BZeRnZdOvDLELti7TIY9OWtjSuGGsAR1qtECSAhZx4l5RfKs2HUMNz8iCCzrBlA+sOjj
+ +HPM6kxByPRVBQ78H1GhX92Bo1QqySw=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-24_03,2026-07-24_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
+ priorityscore=1501 spamscore=0 impostorscore=0 phishscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607240139
 
-Hi All,
-
-> -----Original Message-----
-> From: Biju Das <biju.das.jz@bp.renesas.com>
-> Sent: 22 July 2026 20:15
-> Subject: RE: [PATCH v4 0/9] Add RZ/G3L USB2.0 host support
->=20
-> Hi All,
->=20
-> > -----Original Message-----
-> > From: Biju <biju.das.au@gmail.com>
-> > Sent: 09 July 2026 09:31
-> > Subject: [PATCH v4 0/9] Add RZ/G3L USB2.0 host support
+On Wed, Jul 22, 2026 at 3:56=E2=80=AFPM Srinivas Kandagatla <srini@kernel.o=
+rg> wrote:
+>
+>
+>
+> On 7/3/26 2:45 PM, Loic Poulain wrote:
+> > On embedded devices, it is common for factory provisioning to store
+> > device-specific information, such as Ethernet or WiFi MAC addresses,
+> > in a dedicated area of an eMMC partition. This avoids the need for
+> > and additional EEPROM/OTP and leverages the persistence of eMMC.
 > >
-> > From: Biju Das <biju.das.jz@bp.renesas.com>
+> > One example is the Arduino UNO-Q, where the WiFi MAC address and the
+> > Bluetooth Device address are stored in the eMMC Boot1 partition.
 > >
-> > Hi All,
+> > Until now, accessing this information required a custom bootloader
+> > to read the data and inject it into the Device Tree before handing
+> > control over to the kernel. This approach is fragile and leads to
+> > device-specific workarounds.
 > >
-> > This patch series aims to add USB2.0 host support for the RZ/G3L SMARC
-> > EVK. The RZ/G3L USB PHY block is similar to RZ/G3S, but each port has
-> > an OTG controller, unlike RZ/G3S, which has an OTG controller only on
-> > port 1. This series migrates regulator driver to use id-table so there =
-is hard dependency between reset
-> driver and regulator driver.
+> > Rather than adding a new NVMEM provider specifically to the eMMC
+> > subsystem, the new support operates at the block layer, allowing any
+> > block device to behave like other non-volatile memories such as EEPROM
+> > or OTP.
 > >
-> > Merge strategy:
-> >   An Ack/Rb tag from Regulator Maintainer for patch#4.
-> >   Patch #1,#2,#3,#4 - Reset subsystem
-> >   Patch #5,#6,#7 - PHY subsystem
-> >   Patch #8,#9 - Renesas SoC
+> > This series builds on earlier work by Daniel Golle that enables block
+> > devices to act as NVMEM providers:
+> > https://lore.kernel.org/all/6061aa4201030b9bb2f8d03ef32a564fdb786ed1.17=
+09667858.git.daniel@makrotopia.org/
 > >
-> > v3->v4:
-> >  * Updated cover letter with merge strategy
-> >  * Reorder the phy binding patch for easy merging.
-> >  * Updated the commit description for patch #2,#3, #4.
-> >  * Moved the handling of regulator_driver_name to patch #3
-> >    in preparation for id_table match.
-> >  * Migrated to id_table match using driver_name and reduced the length
-> >    < 24.
-> >  * Dropped rzg3l specific platform driver.
-> >  * Dropped the tag for regulator driver,
-> >  * Added id_table handling by introducing a common probe().
-> > v2->v3:
-> >  * Replaced items->enum in reset controller bindings.
-> >  * Collected the tag for reset binding patch.
-> >  * Dropped clock patch as it is accepted.
-> > v1->v2:
-> >  * Dropped patch#6(Introduce helper for regulator registration)
-> >  * Passing pointer to an array of regulators to make it scalable.
-> >  * Dropped regulator1-vbus and added a regulators group node.
-> >  * Updated commit description for patch#1,#4,#6,#7,#8,#9 and #10.
-> >  * Added enum instead of const in the compatible section.
-> >  * Updated schema check.
-> >  * Collected tag for PHY binding patch.
-> >    in the regulator driver.
-> >  * Added regulators group node and its children in SoC dtsi.
+> > It also introduces an NVMEM layout description for the Arduino UNO-Q,
+> > allowing device-specific data stored in the eMMC Boot1 partition to
+> > be accessed in a standard way.
 > >
-> > Biju Das (9):
-> >   dt-bindings: reset: renesas,rzg2l-usbphy-ctrl: Document RZ/G3L suppor=
-t
-> >   reset: rzg2l-usbphy-ctrl: Introduce info struct for match data
-> >   reset: rzg2l-usbphy-ctrl: Add RZ/G3L support
-> >   regulator: renesas-usb-vbus-regulator: Add RZ/G3L VBUS regulator
-> >     support
-> >   dt-bindings: phy: renesas,usb2-phy: Document RZ/G3L PHY bindings
-> >   phy: renesas: phy-rcar-gen3-usb2: Add RZ/G3L support
-> >   phy: renesas: phy-rcar-gen3-usb2: Fix devm action registration for
-> >     disabled VBUS regulator
-> >   arm64: dts: renesas: r9a08g046: Add USB2.0 device nodes
-> >   arm64: dts: renesas: r9a08g046l48-smarc: Add USB2.0 support
+> > WiFi and Ethernet already support retrieving MAC addresses from NVMEM.
+> > Bluetooth requires similar support, which is also addressed.
 > >
-> >  .../bindings/phy/renesas,usb2-phy.yaml        |   2 +
-> >  .../reset/renesas,rzg2l-usbphy-ctrl.yaml      |  48 +++++++-
-> >  arch/arm64/boot/dts/renesas/r9a08g046.dtsi    | 105 ++++++++++++++++++
-> >  .../boot/dts/renesas/r9a08g046l48-smarc.dts   |  49 ++++++++
-> >  drivers/phy/renesas/phy-rcar-gen3-usb2.c      |  20 ++--
-> >  .../regulator/renesas-usb-vbus-regulator.c    |  74 +++++++++++-
-> >  drivers/reset/reset-rzg2l-usbphy-ctrl.c       |  44 +++++---
-> >  7 files changed, 316 insertions(+), 26 deletions(-)
+> > Note that this is currently limited to MMC-backed block devices, as
+> > only the MMC core associates a firmware node with the block device
+> > (add_disk_fwnode). This can be easily extended in the future to
+> > support additional block drivers.
 > >
-> > --
-> > 2.43.0
->=20
-> Gentle ping.
+> > Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+>
+> What is the merge strategy here, Am happy to take it via nvmem tree if
+> all the non nvmem patches are acked or reviewed-by.
 
-Based on the feedback on [1],
+I am planning to pick up patch1 (dt), but waiting until all the
+complete series is ready to go.
 
-I have modelled pwrrdy signal as power sequence driver and used
-with DSI driver and it works fine. So, it should work with USB PHY control
-driver as well.
+[...]
 
-So, there will binding change to dropping renesas,sysc-pwrrdy for RZ/G3L.
-and the driver will use Power sequence driver for configuring Power ready s=
-ignal.
-
-What should I do for RZ/G3S as it uses renesas,sysc-pwrrdy? Should I leave =
-like
-as it is to avoid ABI breakage? Or do you want me to add backward compatibi=
-lity?
-
-Please let me know.
-
-[1] https://lore.kernel.org/all/TY3PR01MB11346892D9619A8D1A6C2DF4A86CF2@TY3=
-PR01MB11346.jpnprd01.prod.outlook.com/
-
-
-Cheers,
-Biju
+Kind regards
+Uffe
