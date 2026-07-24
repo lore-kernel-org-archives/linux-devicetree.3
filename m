@@ -1,323 +1,217 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011008.outbound.protection.outlook.com [40.107.130.8])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29141340412;
-	Fri, 24 Jul 2026 04:12:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.8
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784866358; cv=fail; b=q/3F7w1RFpHSANoH32epIwixnt8AFTuLRn+fo0YMyhchd8voS7NGZUc0Z0s7DLjuIVCVn+2WahU/7a6Nuk/rXq5oDnalPb5nkRdLMFAVs+avUq/pB3fl4Tb9vOb0/qE2emnCDgVTuMyZvCDkZOgTMl7xPFhfo5mfDdtlSUSLGpU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784866358; c=relaxed/simple;
-	bh=EGzj6XkL02oa+VXu2r+QCvIkd+0afcFlTnMWl4Am7zw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=KDxoilEsk5tq+eJ3Ko7DSOv1QG8p/I5wLr6Dk/iXopUHzJMAiLXtwRQo74cQHikfDeUGprlQb1GWVlqYor/3UQ1Rc9E0ielVjULJuCerMQ2ch7dSy54En3ZrSCOZt59XKNUs3n4Xk9duLg4yj1CD5d9YoyaXiW0PADCjb1L6HWA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=DM1k3Qc7; arc=fail smtp.client-ip=40.107.130.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68280768EA
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 04:46:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784868402; cv=none; b=EA4+ubaUxC852fbv5YrkjXBVkSDZIhYqPwNk/Pxmh+ZkO+S3AipqC9qEq+LypA/YpdogMEwpdrNiy29yycf4ZAV3uRA/U7t4J7C3njZXHgKND56vEj/SiGVc/6pXx990cxKiCmwmdgwaiGasiLw+jOx4nsXslcnyPZZwRpQJ8ic=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784868402; c=relaxed/simple;
+	bh=rVkZOr71z6ecc/lXHb+MqO277rJQGUcX9YfkfACG+Qo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DBBO+KOSJx2nOSC6sminkMBH+ENdvk6x95ZgGk6I8k4JKN1t9ZygfyrHqM5TDSLVi4FQ9wwEGVd+WaPsdTwLNF7eHvZyjJKrpwi67hOYx/rvcJlBqrSnfIuwKhL7znxtFij5cKxyslHQcw8o3lvkuiDZhzr09o4LrqspwR1VMpQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DxMolseq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=L2hXNzhi; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="DM1k3Qc7"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TrnRrtBUHbr/0AifhOZ0AcA2OxJ2fjkS3bSub9EqKtxu2L6QjSkUyzplQ9Lf3PFDQhlNCV9JyO3w9FLnxxac+iUW4f0kBndFKYaZ1Zi1YaQTBYss33fDyk9sUBWnN2+lQyn3WZ9P4Ewo1noUvs1KcCfs+bKJj9smN6dtiX+gTXTEiwNrY47OUAqkB5Do41vtFvPFvJhYfUdyzkEx8WolbJai8ifoIIVOWPyOyieLhONjHjOjqoDDmwTt7hwDqk9E0Al3hB0TJ3iLW9+E/0u5X11WUTS+lTy38mmxIHDOmSP2tLv7lLQ36PPpMib4osnru6Va6+P4jDgspXgTj5mIVg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bKx8j17VfXteH3cvoFAZazFKVUiyNadP4JgkdAICPV4=;
- b=G1cPYLsx/3hN8WjlwGx0Uh7UVYVXKeLUIekWBx5I4GezgiyIPsgCeWvXRLW9luliUsMRsij4PCF/wB86eLJKl57lAeQgYdIlYYUEIKkjivIPFI0pf/8loKwrxScZJr49cHpf9GQ3RMwEUbWywX+sSHu2UpPj8bJJbCr+w73qPAjMWfG9m3UGwGYAjecOiWc36jn1TYDqx1zQ5+YT1SzfwDvnBwKf1dJC/wX6F5HAqdi25aiCII5hCX0bNHjNCYdsvfbUWRtbARInAmV6zoNwHQxK5GOWcFHcENq0Ks5bNuKNAV+upO06nen6m9B+LEQNz/rE0szLLzdA248Ps3nrPA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bKx8j17VfXteH3cvoFAZazFKVUiyNadP4JgkdAICPV4=;
- b=DM1k3Qc7UTjLEmRB0Vlh4OvJqArunUIUjG3vhjrDq99Z1UIpVsz9X+b48JuCmLkokBjR2Luqc+WVGz8Hp7JVKEOcjF8L9PaORSS1CVSVvO4wu13fxdxzA9+xBbxK+xBTs1ctJJVKZHjki55vpZGJzOuO39YciFJ+7mAY9Q6icg+ZBcCTkdMEf+HFVjF0kltb0Q4odShtPfEqVdTeT/6xNI7X70GIs0VuOOJYOO+Ka6uO3w4fQl0TMa4SVGp/ypaB7NwSfYAlxNqYeoLU9SUXmzIVPbUWknBOfGZcVp5UR5somiEvAANQNqAthDj1eYSnGsa4AnLVmGc81cSRrSxOyQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AS1PR04MB9287.eurprd04.prod.outlook.com (2603:10a6:20b:4dd::8)
- by AM9PR04MB9002.eurprd04.prod.outlook.com (2603:10a6:20b:409::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.11; Fri, 24 Jul
- 2026 04:12:29 +0000
-Received: from AS1PR04MB9287.eurprd04.prod.outlook.com
- ([fe80::6f30:763d:17d2:b79c]) by AS1PR04MB9287.eurprd04.prod.outlook.com
- ([fe80::6f30:763d:17d2:b79c%3]) with mapi id 15.21.0245.010; Fri, 24 Jul 2026
- 04:12:29 +0000
-Date: Fri, 24 Jul 2026 12:13:54 +0800
-From: Liu Ying <victor.liu@nxp.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Marek Vasut <marex@denx.de>,
-	Stefan Agner <stefan@agner.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	Sam Ravnborg <sam@ravnborg.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Robert Chiras <robert.chiras@nxp.com>, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v2 3/7] drm/panel: simple: Add waiken WKS101WX001-WCT
- support
-Message-ID: <amLmgrfQVrYo3knq@raspi>
-References: <alnCL7ylMyvGD-ui@raspi>
- <amAJL9TIcDAK7kbh@SMW015318>
- <amA8iVS4c0exg6pT@raspi>
- <amA_lUpWkbOFal1y@raspi>
- <amFAXwoM4j2sIENj@SMW015318>
- <amF60o7yUcqAE24N@raspi>
- <amKJZ4CZJbeBw6L6@SMW015318>
- <amLNge6hp25xHDYc@raspi>
- <amLZAu2RQXORogoG@SMW015318>
- <amLibmRsBY8lgj2K@raspi>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <amLibmRsBY8lgj2K@raspi>
-X-ClientProxiedBy: MA5PR01CA0161.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1cf::16) To AS1PR04MB9287.eurprd04.prod.outlook.com
- (2603:10a6:20b:4dd::8)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DxMolseq";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="L2hXNzhi"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66O447X01772618
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 04:46:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	rVkZOr71z6ecc/lXHb+MqO277rJQGUcX9YfkfACG+Qo=; b=DxMolseqtUPvVIbi
+	KY5fI/kXhLQj682NjL/Lz4gI2YuiXYHmk6BL8j2dB2sQtbdSW7StjzRZMziYFV8c
+	I49ECSDAVVydKKV/QlHRknQ+FkuzVKY6ExMIv7HLuGl+ax9tVb0bOsBBCjCQFuCF
+	O47ukkrmB6nx1vDoOfxNP+OxdRvQ35HNBZEUrIxJqf/tjZ0vYGhD2cimTqByEir0
+	bFXvN6Pzs3flLwqsUO3sRDtSwm5RVRzCPdCyeZlFlbsb8Y1XXfR0GfGd//AiIaiz
+	01crQ5OVNldZIZLXeK8aj4RJvBZ+tdSZKPA55SJoTLqcCflFR7Y9d6NGDRUA9Eku
+	d1LfrA==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fm0pw841a-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 04:46:40 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-ca7c1e22995so70687a12.3
+        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 21:46:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784868399; x=1785473199; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rVkZOr71z6ecc/lXHb+MqO277rJQGUcX9YfkfACG+Qo=;
+        b=L2hXNzhi3p8mQzrumToGlPqhuCYlcCAlKy4qjFyEdnDfwwelguK5hkQIjpdFrcmS6c
+         A5sfx+oc6ZGqrp9pRyCKkX6d4mPOFdJfP2LH/QtFiYrHynR6ut1sh3XP81uF9BG5mabe
+         jhshM7Tg2DS6R3g+7xeTaoaTGErTPTYGAZG72ER3Gszwcvb+WcRGuzlhrJ/MvFq4cmB6
+         +ElrqCFJjccs7NG48foZrI3uqOotoFjIEsLb/5CduFQHSACu/7tlAF36wyV5Dp/G2/0N
+         59aAQV8fr8g3L//qsfT/64ejALFrVCPedPrGgc3OQXtU/zeL5tuTGfPP3c/tb1om612C
+         Qj+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784868399; x=1785473199;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rVkZOr71z6ecc/lXHb+MqO277rJQGUcX9YfkfACG+Qo=;
+        b=agVeOW657LxNwRDasAuwWSnCpxQIGo9XPCZq/J53HgQodccsBAfXb6M1m8C5Bblix0
+         j+Q9/L/RzrHaizWiFeeiN1gSw7lIn78H3T5MxS2PnO5ytPsDPjPAvzrDBh7Yq4Lo5DWC
+         osTz76Gox9QnXRvsMhgPuPX73DM45bATx49bZyuOBZ+uuc1Y8Bu/Jo82bUcxd94jLplg
+         fuorb/yKGmRZQEXtMTvXSLDxYZ2T4cIRn96U/KJxDm/WO/yj2LSeJw7xgGmOqGlMTDHT
+         rgwniwam0jrnqbRizwR3vy/5WnGM3EbisXV/IOGUBWtXt1JfZesLppkyHIz+SN4kIp3H
+         auwQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrSXcL2NVMY802hFQkif23VcYfRs4xhPJvuUU2IZumWvE2+2nWhrMX2BLmA+PPV3vx8SeuT9RAyR/ej@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywrv+WcqlMPUbs1Q+B+bODPjsnsN//mCyZGBY0twBn3+b1WYpX8
+	oR9UW29eIq65F2Cp81NqqyPoV3aQzWhm8Yi5vKQ9lis91rwWviIYwkjnpw8qhqTFS2StJW/dgDh
+	TqAvd94Ejz5mD2FPiVdaQflKWnD4QZb+kQXh+AY/5PX9Q7u9jgd+42A0hpkHkbY4t
+X-Gm-Gg: AR+sD13lJjTsTcMaw1ZAnbKREkEdE53REgw1xb2q44Kw8tEIMwz7QTR3O1eNhwVeLdv
+	9AZofipXxXqOA9fKfqs6Co4/dyTGjVCdYd4puoR6z68lYlm6JvofAKEXtseEAvVRIKXF2d58+oa
+	Y+FyQbqZlyM8o6OSEr8aiXDUXYCEpdmU7eQcGUs09qzfPwTabtT2VVGeCYg405kBmKCbrbSisrc
+	gUtW1HXu1l4+bqJoGCmvmFt+WN2V5xkIuJdhAqPWxX6eEo2aXaGyCsZxgy/5uYNAM9HQDtJw1i4
+	pANP/bgs8zNFq3DfCXDEBqQ9wex5bsUpwnOZ4vQZ36vvm9pR7vG80/8uyx6TSxDHGd9YyT/Es2Z
+	wy+bWolgzDqkZfGXDoPtgUalW74PmVX9T8g==
+X-Received: by 2002:a05:6300:2204:b0:3bf:a38b:e8ca with SMTP id adf61e73a8af0-3c44b211035mr6789564637.59.1784868399160;
+        Thu, 23 Jul 2026 21:46:39 -0700 (PDT)
+X-Received: by 2002:a05:6300:2204:b0:3bf:a38b:e8ca with SMTP id adf61e73a8af0-3c44b211035mr6789544637.59.1784868398747;
+        Thu, 23 Jul 2026 21:46:38 -0700 (PDT)
+Received: from [10.218.31.237] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3147df09ac0sm22951882eec.16.2026.07.23.21.46.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 23 Jul 2026 21:46:38 -0700 (PDT)
+Message-ID: <c8417ff3-db92-446a-acf8-8c73c83b85de@oss.qualcomm.com>
+Date: Fri, 24 Jul 2026 10:16:31 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS1PR04MB9287:EE_|AM9PR04MB9002:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2d43ee81-f1cb-4dca-c9fc-08dee939c6a3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|19092799006|366016|23010399003|7416014|376014|56012099006|10067099003|11063799006|4143699003|3023799007|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	Fid8l4iW0eyCZxYbW6hlh3pPAEvzaEYyLn69hoDxbsT81dT+GVtqgZLJjsxA1rkLcqKycAxZyphHohvuM0QSKuE7Ua9IywXEWqGQGwf3X7+1TwxUr9INRlZXEkDby7T9UGbejqsQYCmRAqfruTZQ1FxLUn+eEg+XsYKwhRYeAeeQ2xjacyA/RLtk7Z+ztuWu8MAUF9s7MSw+bScJZyLCBrzqLKJ0ivCIl4CgFhz1S9fZzba3CYITGRl68DAJrqhmOPk4BUuPlZhI2r8fyudiAdfyTg0wMXhxdkQweyczFb64MJTUyF6ASWiDNoU7feUZz1G1pN5MBpRztGAmIB5gQiDl6xFJiBMFR8KfpKqcIYebTtcYXETg+nE6qyfA5VHYvO1RcMNzzqyqvKrDmd+XKBlzwsJLRJs6mK54/egPhJ4+ZkYGkqvGA9mMfDzs8tfZsWY8i4sMIOyT+AziQpswTuh2FZBPII69GaFNiHs0cgaxwSCRhiebJwEr62GHJgNXiuJjRBckOFdUsFx3uI/+BX//g582uUjmzIxEBqli9VvkmChOR4qwj8LQhfvTcW/87FCraH2z9IOG8tprRDHGjppRmCU0O8Cw3UBl6h4vE9ZmeULGnW4p3KaiqODyr4E6btryCVKpTOZKNKRtjIo566Daj/tNBDauE84jwwgNeyY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS1PR04MB9287.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(366016)(23010399003)(7416014)(376014)(56012099006)(10067099003)(11063799006)(4143699003)(3023799007)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?mK4h0/bJISodVHhyegrbWNp6qY3hhy9IUd3bBk0yzBXHPyZFlDZeogSY4YTw?=
- =?us-ascii?Q?HD6kzd3Fpgw6YjfKoYuHCw44Xw/4bOdHhJTRmU/C1hdRtvH3sUklSfhy/7UP?=
- =?us-ascii?Q?2UjG/Z57cMdQvixyovI4al9J4vA3wFRkeNnCjEY9viFeFsj1khmSNIg3FBzX?=
- =?us-ascii?Q?KqOz8EEj1Dq2xU6gtkAJBt2G2h1ppOSde+IVNFP1TuUcBLgJ+6oFqhMWvcQ7?=
- =?us-ascii?Q?yNt5ddK6WvICILbT9cyi11RS7wBOoZ17UumK4GsIh7jv9OrBlmF3IT0mD9ri?=
- =?us-ascii?Q?HWemh3gN7imznCwc5gW3x9geQRn7roRjQHbeLqn3McqJQAYjvqn15skSIeiL?=
- =?us-ascii?Q?86rZVwrhsdsGBDnrEv93/B+f9CWt2vPlH1QNSBKY6xGMiHWC43p6Laq6BeRY?=
- =?us-ascii?Q?0EOKyW+SSZEFkGr+jbe0sgZsnZ32AIGCvOLF6v7iXTGKE/fcl6R8HYDEOLpg?=
- =?us-ascii?Q?b/0vaYkJNj84dGFj9PSvBwryD2LgOdQJCapc6UAMS0xPbX+Mwp1mUOAruqSd?=
- =?us-ascii?Q?SNFS+ObmQ5XZgstcy//3rPfB3JUwSe+vVRHjk9XkoWljgp6VYuknyWm9iEc5?=
- =?us-ascii?Q?AEU0T2VrpSUPrFT+1yv+7clDhzpwgigQo4pjmHhQVJK+pMo7bgn2i+g2KsXC?=
- =?us-ascii?Q?fR7GeIRgkUbkQXQojmupAbth4BY8XhK9F3Uc4IOvSkIg5sprQ0DIIy4rVXXy?=
- =?us-ascii?Q?J2rFUKbExiFXxeL9kLzoBTU8dTh8zFq4sbxk4ihgG+hZGTbpsMJdgvw5Jemj?=
- =?us-ascii?Q?fLnTASpCIK085/UPUVAb5kM0TOoRcaXHmBqUYm+//IevoJqsLz685Wn2rW4A?=
- =?us-ascii?Q?1kBnp6MTy4LRDonyyn6s2BX6+lxFOgpoFTK72QkHH2tHcZGNLbfpq0fWEAdP?=
- =?us-ascii?Q?0zdxytOj3e0x8u6gnt/DBtK1eMQfnXAM18R0zKrIEfm0CWxWhOZ1XFHwSh8Q?=
- =?us-ascii?Q?1wj7Unphe4nvAs818pxUv4Ju1zoISmYP/fixq/Ha3eQEatBHAp68mkwH75t9?=
- =?us-ascii?Q?cNmUL6Bu/Bd/lJAHmN+QzaMGmeXcSbBSoh9eRS9KDWZ9cnUfGA1TCxYtSdQi?=
- =?us-ascii?Q?UAhhnHdk95182Nf7r718WmE4Awjt8iUBnIh3sayOZ/wK1jiCbT+bodCPPGFj?=
- =?us-ascii?Q?FE/JrtldOKAX26U5eYBTT5ycpyLCmP06UJa2OAcopB4NXQ3N29/HXvO++3g6?=
- =?us-ascii?Q?ExJr8YND5bhYjkD0s6ZnMifimJc2uV0TmcvAI+nk9nut3eZkdx1GXIMM2GPk?=
- =?us-ascii?Q?lJC3eKR5nNzGky+Kwctd2uvRKLhTE7OGnK1Jz3+Ha498uTkw/83neKmvr100?=
- =?us-ascii?Q?XkogvvevPJ7u5BAd/FS9AogNf/XCOOJEaA0l3/7nemI0K9dxX++q2LTUmEwU?=
- =?us-ascii?Q?g5idF1rVgxSzqKPpdfnjEJMieMrtuSD/02dyDCQx2auRyng3VkiZJuegjRzO?=
- =?us-ascii?Q?jcM41SzLoTPcJGN5TOeYuWabkDAGQxqouuhk3mXNYSq5ew5D9cAe6fN4Ag3M?=
- =?us-ascii?Q?PvXOXt3Ur5I8zr+pyifJKFElGU/7d2/RVlRkkRMRDQUV6Poq9ywTe3Nop3Ss?=
- =?us-ascii?Q?DdwYkYWpKm8ICoKtET6FgFjGtIzOEXO0/ke9kGrsA4mEyT+94lwvDeNiuk5a?=
- =?us-ascii?Q?km01E6xTwEx/vk7KqZyD96LaBTNwHLz399vqIb8JPWPESYJAMZzh0qy79h7n?=
- =?us-ascii?Q?O6bp4Y7vJNwwcxhx4sL/oF2W+a/dYHAMVMD+doket8hB9ipBhr4IiIyFh5xj?=
- =?us-ascii?Q?h7CtCY1YAg=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2d43ee81-f1cb-4dca-c9fc-08dee939c6a3
-X-MS-Exchange-CrossTenant-AuthSource: AS1PR04MB9287.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2026 04:12:29.0628
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: scLdCXkuq9asa9N8fZtzk6LPESt+3uyR7EkX5ePWJQNSinQd7J+86fUwSR2BeDc0Kb2JojhMayuYHEW9zhJu8g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB9002
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] net: wwan: qcom_bam_dmux: Alloc RX buffers as a
+ single coherent block
+To: Stephan Gerhold <stephan.gerhold@linaro.org>
+Cc: Stephan Gerhold <stephan@gerhold.net>,
+        Andrew Lunn
+ <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Sergey Ryazanov <ryazanov.s.a@gmail.com>,
+        Johannes Berg <johannes@sipsolutions.net>,
+        linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        chris.lew@oss.qualcomm.com,
+        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+References: <20260714-qcom-bam-dmux-vmid-ext-v1-0-3f29da7cca76@oss.qualcomm.com>
+ <20260714-qcom-bam-dmux-vmid-ext-v1-2-3f29da7cca76@oss.qualcomm.com>
+ <alXm0rp3NK62G3-3@linaro.org>
+Content-Language: en-US
+From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+In-Reply-To: <alXm0rp3NK62G3-3@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI0MDA0MCBTYWx0ZWRfX2vIqHohoyyH3
+ kXFRMBHAD7ONPUZxZb3rJgSABC6Xlete+1Q4EUb09f2SjNARwY36ISsUEgqyfZbyq5MlDHXFwFP
+ 2EXDgenZleZ5bcoEdRAyb4Q7MVjkRtdYb0FceR4CxKGCMdv4rBXRx0zIEVbr4XtK6FZI2/s+NbN
+ 5unK8vYpYT3/yACmWvLbLWrqM0tag/Jm29/rjtcCKe/bti+tR+Vwl2iOMQ8eiy1JWiUsD14YaC9
+ 9PnZ0LK/7mgRVDaBy1yax/cC4Y/TQz2p0ICjOFHx2qbeMKzQXM43P2poG9Dvg8FuIs5tjWVcD5M
+ 1KIgpLZ1mwAEYmaBnbDDCoTDoYF1rCr7C63HzRc3r3P8pTZCZBZKBS9Q1ZmX6RQtYJrFIrFhZ9X
+ //5BRwmIxV1hQYKJd+mO0dUS5UFYxP1lqXDEqwFH0MNTds17CN9OGcL0b9tpVeHBBxxMQYcjDHl
+ tjyqtGdVvFWAjkBR/bg==
+X-Authority-Analysis: v=2.4 cv=RJeD2Yi+ c=1 sm=1 tr=0 ts=6a62ee30 cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=2eDN7aXksB4whfXZn5AA:9 a=QEXdDO2ut3YA:10
+ a=3WC7DwWrALyhR5TkjVHa:22
+X-Proofpoint-ORIG-GUID: _9d3Y1Z6smGD1Kl7z3U4wJW-cMhAVYNk
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI0MDA0MCBTYWx0ZWRfX8hdepnhYY+/i
+ Uty/hsZowMOW2UdJgvX+vjnD9oZvctdeaScH7ZK0cm1JZ5yRmIganXjL6Tmr6y8EPcgt9YwGRY1
+ RokIiP9oQ8rVtobCvhqqoV9KBtc/N1Q=
+X-Proofpoint-GUID: _9d3Y1Z6smGD1Kl7z3U4wJW-cMhAVYNk
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-23_07,2026-07-22_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 spamscore=0 phishscore=0 bulkscore=0
+ impostorscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607240040
 
-On Fri, Jul 24, 2026 at 11:56:30AM +0800, Liu Ying wrote:
-> On Thu, Jul 23, 2026 at 10:16:18PM -0500, Frank Li wrote:
-> > On Fri, Jul 24, 2026 at 10:27:13AM +0800, Liu Ying wrote:
-> > > On Thu, Jul 23, 2026 at 04:36:39PM -0500, Frank Li wrote:
-> > > > On Thu, Jul 23, 2026 at 10:22:10AM +0800, Liu Ying wrote:
-> > > > > On Wed, Jul 22, 2026 at 05:12:47PM -0500, Frank Li wrote:
-> > > > > > On Wed, Jul 22, 2026 at 11:57:09AM +0800, Liu Ying wrote:
-> > > > > > > On Wed, Jul 22, 2026 at 11:44:09AM +0800, Liu Ying wrote:
-> > > > > > > > On Tue, Jul 21, 2026 at 07:05:03PM -0500, Frank Li wrote:
-> > > > > > > > > On Fri, Jul 17, 2026 at 01:48:31PM +0800, Liu Ying wrote:
-> > > > > > > > > > On Wed, Jul 15, 2026 at 02:34:48PM -0400, Frank.Li@oss.nxp.com wrote:
-> > > > > > > > > > > From: Frank Li <Frank.Li@nxp.com>
-> > > > > > > > > > >
-> > > > > > > > > > > Add support for WKS101WX001-WCT panel, which is an industrial-grade
-> > > > > > > > > > > 10.1-inch IPS TFT LCD capacitive touch screen display module.
-> > > > > > > > > > >
-> > > > > > > > > > > Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> > > > > > > > > > > ---
-> > > > > > > > > > > change in v2
-> > > > > > > > > > > - update height to 135 from 136 (sashiko)
-> > > > > > > > > > > ---
-> > > > > > > > > > >  drivers/gpu/drm/panel/panel-simple.c | 31 +++++++++++++++++++++++++++++++
-> > > > > > > > > > >  1 file changed, 31 insertions(+)
-> > > > > > > >
-> > > > > > > > [...]
-> > > > > > > >
-> > > > > > > > > > > +	.connector_type = DRM_MODE_CONNECTOR_DPI,
-> > > > > > > > > >
-> > > > > > > > > > Seems that the panel also supports LVDS input according to the specification,
-> > > > > > > > > > since it mentions 'RGB or LVDS Interface'?
-> > > > > > > > >
-> > > > > > > > > Need hardware rework to use LVDS. Need remove banch of resistors. Should it
-> > > > > > > > > be treat as difference panel by different compatible string? hardware
-> > > > > > > > > actually changed.
-> > > > > > > >
-> > > > > > > > Not sure how to handle that.
-> > > > > > >
-> > > > > > > Wait, you probably may drop this patch, just document the compatible
-> > > > > > > string in panel-simple.yaml and panel-lvds.yaml and use add a fallback
-> > > >
-> > > > panel-simple.yaml don't allow fallback to panel-dpi. Need seperated yaml
-> > > > for it.
-> > >
-> > > Really?  How does it disallow that?
-> > >
-> > > I can see newhaven,nhd-4.3-480272ef-atxl and osddisplays,osd070t1718-19ts
-> > > are documented in panel-simple.yaml and used with the "panel-dpi" fallback
-> > > compatible string.
-> > >
-> > > Documentation/devicetree/bindings/display/panel/panel-simple.yaml:244:      - newhaven,nhd-4.3-480272ef-atxl
-> > > arch/arm/boot/dts/ti/omap/am437x-sk-evm.dts:127:                compatible = "newhaven,nhd-4.3-480272ef-atxl", "panel-dpi";
-> > >
-> > > Documentation/devicetree/bindings/display/panel/panel-simple.yaml:268:      - osddisplays,osd070t1718-19ts
-> > > arch/arm/boot/dts/ti/omap/am437x-gp-evm.dts:89:         compatible = "osddisplays,osd070t1718-19ts", "panel-dpi";
-> > > arch/arm/boot/dts/ti/omap/am43x-epos-evm.dts:45:                compatible = "osddisplays,osd070t1718-19ts", "panel-dpi";
-> > > arch/arm/boot/dts/ti/omap/am57xx-evm.dtso:62:           compatible = "osddisplays,osd070t1718-19ts", "panel-dpi";
-> > 
-> > It can't pass DTB_CHECK. it may add at earily time. panel-simple.yaml
-> > have not fallback compatible string. I tried it. DTB_CHECK will complain
-> > too long compatible string if add "panel-dpi".
-> 
-> Yeah, I missed testing panel-simple.yaml with DTB_CHECK.
-> 
-> So, just don't document the panel compatible string in panel-simple.yaml
-> and only document it in panel-lvds.yaml(not today, but until someone really
-> uses it).  Then, I'd assume that the "fallback compatible" solution still
-> works.
 
-I need to correct here that if we follow the "fallback compatible" solution,
-then we need to document the panel compatible string in panel-lvds.yaml today
-otherwise there would be the below error:
+On 14-07-2026 01:05 pm, Stephan Gerhold wrote:
+> On Tue, Jul 14, 2026 at 11:02:32AM +0530, Vishnu Santhosh wrote:
+>> On Qualcomm SoCs where the modem (e.g. the mDSP on Shikra, VMID 43 /
+>> NAV) is the AXI master for BAM-DMUX RX transfers and the XPU enforces
+>> per-region access control, each individually DMA-mapped RX buffer
+>> requires its own XPU resource group (RG). With ~16 RGs available, the
+>> 32 per-buffer dma_map_single() calls exhaust the table and the first
+>> inbound transfer faults with an XPU violation.
+>>
+>> BAM-DMUX is a singleton (exactly one instance per SoC), so the
+>> destination VMID does not need to be a DT property; it is looked up
+>> from the compatible string's match data instead. Add struct
+>> bam_dmux_data with a single vmid field, and a shikra_data instance
+>> hardcoding QCOM_SCM_VMID_NAV for qcom,shikra-bam-dmux.
+>>
+>> When match data is present, allocate all BAM_DMUX_NUM_SKB RX buffers as
+>> a single contiguous dma_alloc_coherent() block and SCM-assign that
+>> block to HLOS plus the VMID once at probe. This reduces RG consumption
+>> from 32 to 1. The block is never reclaimed across a modem power cycle
+>> (bam_dmux_power_off() does not touch it), so the probe-time assignment
+>> covers every subsequent restart without re-assigning or reclaiming. It
+>> is reclaimed to HLOS only once, at remove or on a probe error, and if
+>> that reclaim fails it is leaked rather than returned to the page
+>> allocator.
+>>
+>> Each rx_skbs[] slot is pre-assigned its virtual and DMA address from
+>> the block, so no per-buffer mapping is needed at power-on. Because the
+>> coherent block is not page-backed, received payload is copied into a
+>> regular netdev skb before handoff to the network stack; this is an
+>> unavoidable extra copy on the XPU-enforced RX path.
+>>
+>> Platforms without match data are unaffected: rx_virt stays NULL, no
+>> coherent memory is allocated, and the per-buffer dma_map_single() path
+>> is unchanged.
+>>
+>> Co-developed-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+>> Signed-off-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+>> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+> So how do you handle TX buffers? Right now, they are just passed on from
+> the net subsystem. There can be up to 32 TX buffers in progress as well.
+>
+> Overall, I have mixed feelings about this patch. It looks reasonably
+> simple, but fundamentally I don't understand why we need to go back to
+> the old days of implementing protection using a highly limited MPU (in
+> your case: the xPU).
+>
+> Why does the setup of BAM-DMUX differ e.g. from the setup for the crypto
+> engine? Crypto is also using bam-dma, but it avoids this inflexibility
+> by making use of the &apps_smmu. Is BAM-DMUX not covered by the SMMU? Or
+> did you just decide to bypass the SMMU in this case? (If so: Why?)
 
-failed to match any schema with compatible: ['waiken,101wx001', 'panel-dpi']
+I checked with secure systems team on this. Crypto BAM is
+behind apps_smmu, so protection is enforced through the SMMU's Stage-2
+page tables.
 
-> 
-> > 
-> > >
-> > > >
-> > > > > > > compatible string "panel-dpi" or "panel-lvds" in device tree plus a
-> > > > > > > panel-timing node.
-> > > >
-> > > > previous dt-binding discuss, don't allow failback to two compatible string
-> > > > sorry, I can't remember exactly thread.
-> > > >
-> > > > like
-> > > > items:
-> > > >   - const: ws101w001-wct
-> > > >   - enum:
-> > > >        - panel-dpi
-> > > >        - panel-lvds
-> > >
-> > > I meant just to document the panel in panel-simple.yaml and panel-lvds.yaml.
-> > > No need to add a dedicated DT binding file with such a compatible property
-> > > for this panel.
-> > 
-> > panel-lvds.yaml allow fallback to panel-lvds, but panel-simple.yaml not.
-> > all binding which allow fallback to panel-dpi, there are seperate yaml file
-> > for it.
-> > 
-> > of course TI or old platform, especially arm32 platform wrongly use it
-> > regardless DTB check warning. But for new platform, we can't do that as it.
-> > 
-> > Frank
-> > >
-> > > >
-> > > > > >
-> > > > > > Look like recently prefer add panel-timing informaiton into c code instead
-> > > > > > of put it into dts file. But I am not sure about it. Just check recent's
-> > > > > > log history.
-> > > > >
-> > > > > If display timing is specified in panel-simple.c, then you have to specify
-> > > > > the connector_type there too, right?  The problem here is that you don't
-> > > > > know the connector_type, as it could be either LVDS or DPI, and I'd assume
-> > > > > that we don't want two compatible strings - one for LVDS and the other for
-> > > > > DPI.
-> > > >
-> > > > If supported both type, generally need customer property and new panel
-> > > > driver to switch between dpi / lvds
-> > > >
-> > > > or use
-> > > > 	ports {
-> > > >
-> > > > 		port@0: //connect dpi
-> > > > 		port@1: //connect lvds
-> > > > 	};
-> > >
-> > > I'd say a new panel driver for this panel is a bit overkill.
-> > >
-> > > >
-> > > >
-> > > > I think we can defer this lvds work until it is actually used because
-> > > > - need a big hardware rework to support lvds, most likely it will not be
-> > >
-> > > Per panel spec, just remove a few resistors, which doesn't sound like a
-> > > big rework to me.  But, perhaps, this doesn't impact SW solution a lot though.
-> > >
-> > > > appeared at real productions. If it mass production, vendor most likely use
-> > > > difference module number for it.
-> > > > - it may be end of life if there are not much users.
-> > >
-> > > I'd prefer a mature solution which handles both DPI and LVDS interfaces
-> > > correctly in the first place.
-> > >
-> > > Anyway, just my two cents here.  "DRM PANEL DRIVERS" maintainers or DRM
-> > > subsystem maintainers may override me.
-> > >
-> > > >
-> > > > Frank
-> > > >
-> > > > > Although display timing in panel-simple.c avoids duplicated panel-timing
-> > > > > nodes across various potential DT files, I think you have the "good" reason
-> > > > > here to use the panel-timing node + fallback compatible string with one single
-> > > > > panel specific compatible string.
-> > > > >
-> > > > > >
-> > > > > > Add Neil Armstrong for comments.
-> > > > > >
-> > > > > > Frank
-> > > > > >
-> > > > > > >
-> > > > > > > --
-> > > > > > > Regards,
-> > > > > > > Liu Ying
-> > > > >
-> > > > > --
-> > > > > Regards,
-> > > > > Liu Ying
-> > >
-> > > --
-> > > Regards,
-> > > Liu Ying
-> 
-> -- 
-> Regards,
-> Liu Ying
+A2 BAM (used by BAM-DMUX) is present in secure domain and does not
+support Stage-2 translation on this SoC, and there is no IOMMU domain
+that can be attached to it. The only protection mechanism available is
+the xPU.
 
--- 
-Regards,
-Liu Ying
+
+Thanks,
+Vishnu
+
+>
+> If you had BAM-DMUX mapped using the SMMU you would get all of this for
+> free. No changes would be needed in the BAM-DMUX driver ...
+>
+> Thanks,
+> Stephan
