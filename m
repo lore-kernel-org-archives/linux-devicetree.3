@@ -1,139 +1,129 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7C5F41A57E;
-	Fri, 24 Jul 2026 09:25:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40B8B41D20E;
+	Fri, 24 Jul 2026 09:26:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784885123; cv=none; b=gI6wRv4+2blKOQ9knUWQ0cPuuHvytWEGcG48Q7d3vvs05kaS24yd8+EXR7yGxieLIWt0IFkJfVlHbFN+ZROiKev46rjV78jMj/v6kxH1/hQIdEcuEDI7q06eEbvTTet8DjTF0LiJ+47BS9ME/grhm2LExmlmC8BTQEPexK23mo0=
+	t=1784885183; cv=none; b=MAbo6MZMT6zTQIAmvIBqxbjBKuVNPvZaxcgjat3LW17YC2MoewN7MgpaM97CC105TqY0ZVoq7CtHfm5odYNWVJunzytvPtEb5wAJnAwyN16WrGVSlKq5czKM3dhG46wbL5H/XqelJXvlfp0h42CWepeDvtmjYIVo/G0Rrd//sfg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784885123; c=relaxed/simple;
-	bh=WNHjXO/UuL39xekOIK3huhNRC9yzlniUsw5SOIfMolU=;
+	s=arc-20240116; t=1784885183; c=relaxed/simple;
+	bh=YHDEU0sCn5sv5ZLLRITsCwaYF4WVXeaOC8u/ncuhpRU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tfR5hFmN4qChCoXnFBuqwoBLCYV52ucP2w7V6uS8Q6o7x2qo1bco4ogOr1w/Ar+bpjQBWGx40lo0bnhPhHfUtlsYF/JOv53SAvvqugZEaT2RRNo16Wdo3Y9jKW2JVU4PgziiT2TgmxceG6a9L0LFRaapz4gancvyK847lZvFcuY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jykeq5T4; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=R7XFP9gQKmyfoo1ezy/D8/S5ncWnRW/M/rmeBfFNU37yqF3vfLpGYTfhnSIKbexFGY1QZInITuWhKowPtcbD47P38c+c+GM3XQugFKUOBYBts0gXRKYbgXsspwJ4oLqXTtRD6lwoQ5MrnTg6eThLNTLiOtgbmQNCe5N2To8NQBc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aUUxbupp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jykeq5T4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 197D81F000E9;
-	Fri, 24 Jul 2026 09:25:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aUUxbupp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22DA91F000E9;
+	Fri, 24 Jul 2026 09:26:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784885116;
-	bh=SwWfwFIGbk97BGw0fuaDSY/jq2X2DKeafxB1u6UlYcM=;
+	s=k20260515; t=1784885177;
+	bh=rVkQWJdxeGEXUoFmYL6K47M7buUaWNJirjSNuJEvmXw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Jykeq5T4lcitCRknHsPZkXqJ7rDefI/G8mUviGG2JGpnLslp3IcSijEQMjnZvsXwh
-	 APJvKX+nnZad8Pzp7CjIEJgZ7q2HjuYWfcXCRPKrg2eHMNQNCWoV1ZgVnRJixEdGzc
-	 /AJiGmf++jgKjlvVixP7k2Obhk3KexqvrKTM/qbQVXEijKgu2mQsfm0MzvH5HT4Ibw
-	 sYWsS07XiTmZOBlFmA645qAd4AmXVWvvHJvcOEjD64KyPaJdFLw8NkM3ul8WcPJAx3
-	 clXX3+RYRu2vor2dmjatlVJsgMGY79X1zp/pkhCfLSNVu0VZ+RMPX2fY8+v/CjBWcp
-	 gOytgYcU48P5Q==
+	b=aUUxbuppcCRNX9Q5x9y4pYQnmPIOYn/cvSjwoORjb33bquDzGZxumneNdHPax1VXX
+	 Ijd6a+4mdZbSUfqstTZgPf3R2QsIRA3yJYHuuJE+cWlc6D7xRsSqvcdUrk6hqr46GJ
+	 czgKr6m05JnpvfTJAnsKV3D3MTEkPxJuqZRIzADzIJqjvTSq9jjL59jkfoYtjTepCy
+	 Kb5RSFCApOD+j0BCVDdh/LwV08OTvATRM1igcyAGe1c5nnPXNB2uHPb3AXu1anuI8r
+	 adyEz/smgDiE5/LjiC7pvZSrgNa3n6NLFpipIdlpV1opzIW9r8QqfGvyfSjzZcwKsC
+	 sEW2m9BT3d8TA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/3] arm64: dts: nuvoton: Add WDT node for MA35D1 SoC
+Subject: Re: [PATCH 3/3] dt-bindings: rtc: ti,omap-rtc: Convert to DT schema
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Zi-Yu Chen" <zychennvt@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260724091427.1689980-4-zychennvt@gmail.com>
-References: <20260724091427.1689980-1-zychennvt@gmail.com>
- <20260724091427.1689980-4-zychennvt@gmail.com>
+To: "Bhargav Joshi" <j.bhargav.u@gmail.com>
+Cc: conor+dt@kernel.org, linux-rtc@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>
+In-Reply-To: <20260724-ti-omap-rtc-v1-3-ffef78853cd6@gmail.com>
+References: <20260724-ti-omap-rtc-v1-0-ffef78853cd6@gmail.com>
+ <20260724-ti-omap-rtc-v1-3-ffef78853cd6@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 24 Jul 2026 09:25:15 +0000
-Message-Id: <20260724092516.197D81F000E9@smtp.kernel.org>
+Date: Fri, 24 Jul 2026 09:26:16 +0000
+Message-Id: <20260724092617.22DA91F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Read-modify-write operations on REG_WDT_CTL do not mask write-1-to=
--clear (W1C) flags, leading to unintentional clearing of pending interrupts=
- or reset flags.
+- [Low] The legacy text binding file `rtc-omap.txt` was not removed during =
+the conversion to the new YAML DT schema.
+- [Low] The schema unconditionally allows `system-power-controller` and `ex=
+t-wakeup` properties for all hardware variants, lacking required conditiona=
+l constraints.
 --
 
---- Patch [3]: [PATCH v2 3/3] arm64: dts: nuvoton: Add WDT node for MA35D1 =
-SoC ---
-commit a67dd4dd104040028c3121676f3993b8ca0f94db
-Author: Zi-Yu Chen <zychennvt@gmail.com>
+--- Patch [3]: [PATCH 3/3] dt-bindings: rtc: ti,omap-rtc: Convert to DT sch=
+ema ---
+commit d0c7ea3e6873301494678b3cfd1db8646ed9ff66
+Author: Bhargav Joshi <j.bhargav.u@gmail.com>
 
-arm64: dts: nuvoton: Add WDT node for MA35D1 SoC
+dt-bindings: rtc: ti,omap-rtc: Convert to DT schema
 
-This commit adds the Watchdog Timer (WDT) device node to the Nuvoton
-MA35D1 device tree. It defines the register space, interrupt, and clock
-for the watchdog controller.
+Convert the Texas Instruments OMAP Real Time Clock (RTC) binding from
+the legacy text format to the DT schema. Mark 'ti,hwmods' as deprecated
+as it is no longer used, it is kept to support legacy boards.
 
-> diff --git a/drivers/watchdog/ma35d1_wdt.c b/drivers/watchdog/ma35d1_wdt.c
+> diff --git a/Documentation/devicetree/bindings/rtc/ti,omap-rtc.yaml b/Doc=
+umentation/devicetree/bindings/rtc/ti,omap-rtc.yaml
 > new file mode 100644
-> index 0000000000000..e5247e55dfee4
+> index 0000000000000..eeea1bab65309
 > --- /dev/null
-> +++ b/drivers/watchdog/ma35d1_wdt.c
-[ ... ]
-> +static int ma35d1_wdt_stop(struct watchdog_device *wdt_dev)
-> +{
-> +	struct ma35d1_wdt_dev *ma35d1_wdt =3D watchdog_get_drvdata(wdt_dev);
-> +	unsigned int val;
-> +	int ret;
-> +
-> +	guard(spinlock_irqsave)(&ma35d1_wdt->lock);
-> +	val =3D readl_relaxed(ma35d1_wdt->wdt_base + REG_WDT_CTL);
-> +	val &=3D ~WDTEN;
-> +	writel_relaxed(val, ma35d1_wdt->wdt_base + REG_WDT_CTL);
+> +++ b/Documentation/devicetree/bindings/rtc/ti,omap-rtc.yaml
 
-[Severity: High]
-Does this read-modify-write clear pending write-1-to-clear (W1C) flags?
+[Severity: Low]
+Should this conversion also delete the legacy text binding? It appears
+Documentation/devicetree/bindings/rtc/rtc-omap.txt was left in the tree,
+which leaves duplicate binding documentation.
 
-If IF, WKF, or RSTF bits are set when this reads REG_WDT_CTL, writing the
-value back without masking those bits will unintentionally clear them, which
-could result in dropped interrupts or wakeup events.
+> @@ -0,0 +1,129 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 
 [ ... ]
-> +static int ma35d1_wdt_set_timeout(struct watchdog_device *wdt_dev,
-> +				  unsigned int timeout)
-> +{
+
+> +  interrupts:
+> +    minItems: 2
+> +    maxItems: 2
+> +
+> +  system-power-controller:
+> +    type: boolean
+> +    description:
+> +      Indicates that this RTC controls system power via the pmic_power_e=
+n pin.
+
+[Severity: Low]
+Does this schema unconditionally allow system-power-controller for all
+hardware variants?
+
+For instance, the ti,da830-rtc variant doesn't appear to support PMIC mode.
+Should there be an allOf / if-then block restricting this property to
+ti,am3352-rtc and ti,am4372-rtc?
+
 [ ... ]
-> +	guard(spinlock_irqsave)(&ma35d1_wdt->lock);
-> +	val =3D readl_relaxed(ma35d1_wdt->wdt_base + REG_WDT_CTL);
-> +	val &=3D ~TOUTSEL;
-> +	val |=3D FIELD_PREP(TOUTSEL, i);
-> +	writel_relaxed(val, ma35d1_wdt->wdt_base + REG_WDT_CTL);
 
-[Severity: High]
-Does this update silently drop pending interrupts?
-
-By performing a read-modify-write without masking out the W1C bits (such as
-IF or WKF), any currently pending flags will be written back as 1s and clea=
-red
-before they can be processed.
-
-[ ... ]
-> +static int ma35d1_wdt_suspend(struct device *dev)
-> +{
-> +	struct ma35d1_wdt_dev *ma35d1_wdt =3D dev_get_drvdata(dev);
+> +  ti,hwmods:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    description:
+> +      Name of the hwmod associated with the RTC.
+> +    const: rtc
+> +    deprecated: true
 > +
-> +	if (watchdog_active(&ma35d1_wdt->wdt_dev)) {
-> +		u32 val;
-> +		int ret;
+> +patternProperties:
+> +  "^ext-wakeup(-[0-9]+)?$":
+> +    type: object
 > +
-> +		guard(spinlock_irqsave)(&ma35d1_wdt->lock);
-> +		val =3D readl_relaxed(ma35d1_wdt->wdt_base + REG_WDT_CTL);
-> +
-> +		if (device_may_wakeup(dev)) {
-> +			val &=3D ~RSTEN;
-> +			val |=3D (INTEN | WKEN);
-> +		} else {
-> +			val &=3D ~(WDTEN | RSTEN);
-> +		}
-> +		writel_relaxed(val, ma35d1_wdt->wdt_base + REG_WDT_CTL);
+> +    description:
+> +      Child node describing external wakeup pin configuration.
 
-[Severity: High]
-Could this lose a race with a wakeup event?
+[Severity: Low]
+Similar to the system-power-controller property, should this subnode also be
+restricted to variants that support it?=20
 
-Writing back the modified control register without clearing the W1C bits fi=
-rst
-will unintentionally acknowledge and drop any wakeup or interrupt events th=
-at
-occurred just before the read.
+Without an allOf / if-then block, it seems device trees configured with
+ext-wakeup for older hardware like ti,da830-rtc will silently pass schema
+validation.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724091427.1689=
-980-1-zychennvt@gmail.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-ti-omap-rt=
+c-v1-0-ffef78853cd6@gmail.com?part=3D3
