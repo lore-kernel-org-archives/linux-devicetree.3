@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 259504908B3
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 07:16:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E2B84908B3
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 07:16:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784877370; cv=none; b=NRNNS7Cj/f4GuImNfe8Fmr5oynIWvokFjH6bXyIvTw1Eo66MoImsd2OQBVd2Tb2s+xaHiKeUqTPvP77adfMYNa4H53n9tRdIzTgwd35pXHj/v+v0EExoch8XSy/isxMt3C0bSAeStmld8XPr3LKt8KzvvoaYi5HRai5/wtYvvK4=
+	t=1784877396; cv=none; b=hItNdpetUjAGdETzUvHIBO7Gc6E8olTWK3niQy96flugEobimVN+O5bfEuLiU9F4x0CifTG6m1cYIyDc2Fwsdzd0Cj5GFLjX0qs0YRZUXmW3R414m93jYHldTSe0AtxX5O8tBcXHFgAdtQHyvdnVppIYV/ew9DpGrfZITNcKbfg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784877370; c=relaxed/simple;
-	bh=0S/dBZaZIjQaLoHVct76/lS2eY5Gsp2YfmFYKvs10/s=;
+	s=arc-20240116; t=1784877396; c=relaxed/simple;
+	bh=9bQb/QgNT5nVMCaDrWwkoWs6qV24v2YHK6dKD53IKR0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=X4SjG/0XbIK1HafhgD0lIq6ZJsElviNgT4+SUBleLS/0yj9F3Fi16uYzhFz2mcHu/Zjqn5nz4m0Uu5utIcTUEzE/O4BP/PEGtq/NFwcDwRIzsXIHSRSgWl1jxl9bvayEdYS0sAKTc6DJt+/0CEAMBBWCu3TxXeJymN6GePzkK28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GrOvOIkW; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=XcDJCvKW5oAVgaY3r16avjeqCnj9vIs5smuvCmKH7ss7TIqb1ZORnKfvbHugIOPfWzam4NDCS6arf+w4sa07fCUV8qu8n6OoxRYnfhvExQMre25tkGrbAtekcZa/qA76iA473skRkKmf7BKpoJKGEn6U6VW37Rqpkq87hb8qLIA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n0Bd/aBN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GrOvOIkW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ACC41F000E9;
-	Fri, 24 Jul 2026 07:16:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n0Bd/aBN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F30D1F00A3A;
+	Fri, 24 Jul 2026 07:16:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784877368;
-	bh=+4IWhtuFRIrmQydBixVdMD0bFYP1Rq35pmFdpkfn9l4=;
+	s=k20260515; t=1784877394;
+	bh=6gAwAFLXES+/tcPY54PonDzfLnzSzsanD75SOyawZ68=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=GrOvOIkWrs9nI5stk6Vb183U+jxbm0w32wnocdR4U2uVD/ZrGlANbKKGBiRtLYCF7
-	 YHeOYjZYge1SYPzNN+sXpwUpJRoQ4uqQKPSs11ZQgtJp/sXwYXdUiaZ538+5slZmzA
-	 xpjEyQGDZwr5HgQOWQ678V84lFSgJh9gjYjqnMqKIHzpq5SaVd9cLiIODurl21a2UN
-	 W2JjKKctmFIPL2mulH3GKpjlGo8TbOsx+MUN2AfKWCiGDnvJ5OE0KjqJ8HFqtdj3Pv
-	 oc6ZH9UvYYp/vitrc9aIXaQCsAJykYzv4LJrfZD9yhZ8vkL9O3hsqnw/V9w0H7pfEM
-	 yulmEFi69l2RA==
+	b=n0Bd/aBNLQ3X32N+0DIO/m2ZPRarUqn/m2u4rvwSbkwgO6A4wm/gltlMa0/NiBvhl
+	 9oANmTii7QhKEFuSEqB3hKGBj1VAugFVF9FO8zVUdKyH8ae6TiEvt+jbf3jW9WOVzh
+	 dQOK27QrsOwcL+XV6MD95hk4I1buRTMi2MiU+WoLicO8v55apWMgDbqe9qordo9xzF
+	 02hJ9woE9WR32LSD+d/7k05wsJdv68KS2QAHQeBtv8WdsyfYXlcw1QQDvoxc/xgSRk
+	 lGetWowBffjGpglwPZm7cDX4xc/+qJHPUBSRaStLnmjYaoQrO/l/wtm0lLKQzboVZl
+	 ktUGx9X008P7g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 1/6] firmware: meson: sm: Add video firmware loading
- SMC call
+Subject: Re: [PATCH v6 5/6] arm64: dts: amlogic: Add video decoder driver
+ support for S4 SOCs
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Zhentao Guo" <zhentao.guo@amlogic.com>
-Cc: linux-amlogic@lists.infradead.org, media-ci@linuxtv.org, conor+dt@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org, robh@kernel.org
-In-Reply-To: <20260724-b4-s4-vdec-upstream-v6-1-6072a7ee7428@amlogic.com>
+Cc: neil.armstrong@linaro.org, linux-amlogic@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20260724-b4-s4-vdec-upstream-v6-5-6072a7ee7428@amlogic.com>
 References: <20260724-b4-s4-vdec-upstream-v6-0-6072a7ee7428@amlogic.com>
- <20260724-b4-s4-vdec-upstream-v6-1-6072a7ee7428@amlogic.com>
+ <20260724-b4-s4-vdec-upstream-v6-5-6072a7ee7428@amlogic.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 24 Jul 2026 07:16:07 +0000
-Message-Id: <20260724071608.5ACC41F000E9@smtp.kernel.org>
+Date: Fri, 24 Jul 2026 07:16:33 +0000
+Message-Id: <20260724071634.5F30D1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,40 +47,50 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] The command index `SM_LOAD_VIDEO_FW` is used in the command table b=
-ut is never declared, resulting in a compilation error.
+- [Medium] Undocumented addition of an `optee` node placed at the incorrect=
+ level in the devicetree hierarchy.
 --
 
---- Patch [1]: [PATCH v6 1/6] firmware: meson: sm: Add video firmware loadi=
-ng SMC call ---
-commit 4e1de8a3e47aa991a20a91f21ed6881a59dc9c49
+--- Patch [5]: [PATCH v6 5/6] arm64: dts: amlogic: Add video decoder driver=
+ support for S4 SOCs ---
+commit 613b0bbb17703610934daa7467b942478e1bb9c6
 Author: Zhentao Guo <zhentao.guo@amlogic.com>
 
-firmware: meson: sm: Add video firmware loading SMC call
+arm64: dts: amlogic: Add video decoder driver support for S4 SOCs
 
-This commit adds a new Secure Monitor Call (SMC) ID for loading video
-firmware on Amlogic Meson chips.
+This commit adds a vdec node and related canvas node to enable Amlogic
+V4L2 stateless video decoder support. It also includes an undocumented
+addition of an OP-TEE node.
 
-> diff --git a/drivers/firmware/meson/meson_sm.c b/drivers/firmware/meson/m=
-eson_sm.c
-> index ab9751a59b552..887caa5c625db 100644
-> --- a/drivers/firmware/meson/meson_sm.c
-> +++ b/drivers/firmware/meson/meson_sm.c
-> @@ -48,6 +48,7 @@ static const struct meson_sm_chip gxbb_chip =3D {
->  		CMD(SM_THERMAL_CALIB_READ,	0x82000047),
->  		CMD(SM_A1_PWRC_SET,		0x82000093),
->  		CMD(SM_A1_PWRC_GET,		0x82000095),
-> +		CMD(SM_LOAD_VIDEO_FW,		0xb200000f),
+> diff --git a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi b/arch/arm64/boot/=
+dts/amlogic/meson-s4.dtsi
+> index 2a6fbd5308362..04fa52b357a20 100644
+> --- a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
+> +++ b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
+> @@ -96,6 +96,11 @@ saradc: adc@fe026000 {
+>  		status =3D "disabled";
+>  	};
+> =20
+> +	optee {
+> +		compatible =3D "linaro,optee-tz";
+> +		method =3D "smc";
+> +	};
+> +
 
-[Severity: Low]
-Is SM_LOAD_VIDEO_FW declared anywhere? It looks like it was missed in the
-command enum in include/linux/firmware/meson/meson_sm.h alongside the other
-SM commands, which would cause a compilation error when building the driver.
+[Severity: Medium]
+Is this optee node addition intentional in this patch? The commit message
+only mentions adding the vdec node, making this an undocumented change.
 
->  		{ /* sentinel */ },
->  	},
->  };
+Additionally, standard devicetree conventions and OP-TEE bindings expect
+the optee node to reside within the /firmware node. Should this be moved
+into the existing firmware node rather than being placed at the root level?
+
+>  	soc {
+>  		compatible =3D "simple-bus";
+>  		#address-cells =3D <2>;
+
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-b4-s4-vdec=
--upstream-v6-0-6072a7ee7428@amlogic.com?part=3D1
+-upstream-v6-0-6072a7ee7428@amlogic.com?part=3D5
