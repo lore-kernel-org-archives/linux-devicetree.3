@@ -1,63 +1,64 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 024284570CE
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC3E6456E19
 	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 18:43:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784918606; cv=none; b=Rps2K1wtQ8wLEkQI6iZwQOA0SqubOAVotCa2MamT8GD6ETbIqeQPnfqHgAD1RVAAVUSeQLeJ6Uu9ADrLBqDmWJXTPI3a3KXi8ekDpuijy+HnlBgZNoAN8sUQ6Q5VtWz8uy495VXmGxBptiKOMwMp47yCcAGwdKmYjlAM5zsDvQA=
+	t=1784918610; cv=none; b=The+ElAsRYglDUqOcNrUtCamqsi4/mZ7TmMAb4V7BUpQwC1CTNINM0u2PqeU6wjmHGb0AatZCDPNtiO0nvU0kcJF6E/DWWKgI04xd65sZtJ6cHgAwRe1/7wIvCXZU6+pFFU7DFHH+vUpDTikCvr720j9OgPzvRksccwOq4MMd3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784918606; c=relaxed/simple;
-	bh=S3Q/+d2FsBlN/P12XJtwUtJEKsGGawcHMg9yNFW2tL4=;
+	s=arc-20240116; t=1784918610; c=relaxed/simple;
+	bh=Hho4WoSWjB2rIrpB51n+bmgU2MgNFQPIScLmcE/W97w=;
 	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=O0WLSbci8PTrbsm47KIPYrIVA9qvLategOEkW/oktXfszMGg8jelcYp6ewBhoQdHJt0osiG0ACisUPFzlpM0Ovz/npWxHanGdiARqx3LAdnZ0/3JRMjmX+Sav84qNKIjaJQcbbyyjGFzUAgwGxcMByImJaOarxjGTlRB/2xFVNA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZMGS2RdJ; arc=none smtp.client-ip=209.85.128.48
+	 MIME-Version; b=aC4ut0uGh38wijdi6jbluaTxwOJsr3Xs2rH3FtsTCpXcaCZlnmF+kL4Hh18PuEGnlm6HQbF0CiglNNMHkJsCCpKTyvGcn/p/NsRFi4b4AYLH/pEDJDxj1StUgciXQ0tb1r76rOoVZSzzTW9PFFPiF7J4o/fh5pCMFWS8nS0zsMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AEw1r4kL; arc=none smtp.client-ip=209.85.221.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZMGS2RdJ"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49548aebcd8so5818425e9.3
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AEw1r4kL"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-47f9ab7ee38so428846f8f.2
         for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 11:43:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784918596; x=1785523396; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784918597; x=1785523397; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=crj6kaAmoeOOOLVaGiQbQt/QdMV68EZw3l9HAE3uANU=;
-        b=ZMGS2RdJ0GtqRkA211F+SMByk3aayyin9mlCmoGtbusutxbss4XSPX+o46CA8rqO7v
-         v0vdGlCH+E2k9EHIh6hbQox9D+UDAbbTcH0wj6ULkxr9n/I60DFJE70SxFFgHLrVeObS
-         5jfQDkakgHGEdhmk5v8mxmjqrzxOqfI9Db7QqqEB8iroXWEKwceowkgIvUVKUgdYYYoF
-         End0LE7JK+zhYFMxYUPHQY6Qn5cz1eKTG5SUF7bG28Hxv6Z4wjIKRjkEBv4f2I4hEmO4
-         KrhwJvANOi+UzjeSrFqoRo3usX5/8aIExYkoBg/KORA3fXA0T8qolVURRlpTLcYlxfQE
-         7Zxg==
+        bh=jv4z1LhL7ndXVWFW9IHlXeU6IP582amPe/jHp+pPs7U=;
+        b=AEw1r4kLwr3+RPXuVLmLbBZktYNlLN3x9qLQKnxE28wAHRIRbmILiHnIyHMvjVVKyz
+         8/HfXu7qw+7tDR7jBzvPNepVY3NeMn9/VIKeblpPCDVM5EcLro0RIlPnru839+NhSOxf
+         gD0Sx32pZZzPCbMVX9PlV4gGz3Y89BMtFp//LDUn/nvuqbAL7Dl69oiStHHBrq1+lQPG
+         ubjl1W0wCgh5fEHgMmHg4gU0Hant1I7FnqsYEr88vpRczQSlyRXrlK+Qk/n47RpvuLXy
+         gDs+Ox0vi7rHM35wXFNwtPrEiP3KzEdYbmSvskzYK7iiL1JTjM9Nr86oPIS98doBWbAG
+         GyNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784918596; x=1785523396;
+        d=1e100.net; s=20251104; t=1784918597; x=1785523397;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=crj6kaAmoeOOOLVaGiQbQt/QdMV68EZw3l9HAE3uANU=;
-        b=EG3yE8mjsCra3KoZLhUAaOVj9zIyGpyL4Ncl7vdf8Tcrgl0d5F9YdWl6+6YI4am/4J
-         TvOKaCxg+u278rV4dtymsUu/imb45VE243n8A6ALhBoGahosRPfaHm6XC1MQ3XfKj6Vx
-         IF5VwPH3lj1sCf9jalU5oQj7dn9azRzZV7LX7kpVwP3TZzmRlpXFC3LitCd1wu5wSwFm
-         DC6iM+Of3UnjQLffNvH6Rknol2rQ3EqchoZTIBc+vkyxtEgv/nTOopf9hvhXnogtZZlX
-         Wx3KW+iJJXaiAAvZhnK+bXFDJThX7iuKgmBLg5f6Kw7MYqm5rW2BH2CuzaaL01pOaGbo
-         rSTQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rr7eqaFhOckQPsfQ8UAgA1ffPa2t2nbr9MU0mxtwhRNELk8tsZIUxJvL16iVRBcKcl2Hd2kDO6u87Cj@vger.kernel.org
-X-Gm-Message-State: AOJu0YwmmZIteZmvHvPkHIvEzfoQzs67eOqpDiiMb/XZbCULIC7IXuMt
-	gSqDrzJcdH7zo/NhfTiPSppEcCi59RiBw2WYdrlUVrYJElPc86aFSWGy
-X-Gm-Gg: AR+sD13pI1ajtYTYdnmYG4+rGljOAfWnp4SzXiP7PBGKO3AJpH0m8a1wsieX3MA7/24
-	E2kegSyN+hUos+t26giK2pSp2pOXBqaPKbMw64CKtbPhJeVQccCUqIWx3MVabKR7W4fOLXVN4tH
-	yPUgxx+5SuSf8WMVqJay+Ogz4CU9N5Sp9ZHDlZEztLDxC8/jFcwcDHOmyNCuBPjPdIyjR9UztK7
-	zkAVRod1h5Mgcj3w05MNo1D3Hd4KD4juYy4qKVrDNw9z5hvbPg0TaoAvX+Ua9TKrp9wXhLQc8SS
-	GDNyt4jrh3AUTU5AWBil+5i5289ENgSPt8miSlajDMJCCI4XMq48DtSzjRCEEeT5jSRa/heNYVy
-	PoV/uEgFo9CizrVW0fUE6nxBx9Tc0SvSMFkiaZ1LimNzTi3hRP8xYbIMBuE93I2PLfcscn6pwll
-	kYmECorAvWTJiDew5B/XXvF+fYHwx2OOnQ8z4uEuEkuw9JUzOa1+3bFfIfBJlPD4A9
-X-Received: by 2002:a05:600c:198d:b0:493:c773:c3f4 with SMTP id 5b1f17b1804b1-49573cffcdcmr98305755e9.22.1784918595771;
-        Fri, 24 Jul 2026 11:43:15 -0700 (PDT)
+        bh=jv4z1LhL7ndXVWFW9IHlXeU6IP582amPe/jHp+pPs7U=;
+        b=UT3s92hBo06gXvxJIYDg0RUjy8ND7C9nkVtCAQtToEvdOaYFXNJhVRKZqWcZ5+/vHx
+         aX3eLZweaFS++Jd4jwH7I6SQI+cA9eoRpEzqiWhaom0U5myHDPpCnfZ5tvZU/6ksT6F+
+         lsOKX5GyTPuKvE74T7D5pCGpBIOWVdcOAMcMqS/JhimdBn/Dl5SfbWDfsz8D4Sz2qPjn
+         YgPzjQmh4T94ktl4qymodBg3MDBurEWjQSw2IFHlhjU8P9X8Hq12o8AAQi5KlvnKjtZL
+         JEA+NTLERU1dxXseFLFOEm3iCVa94oUDBzdQIkoIuUbEQ2rNxJAruMg1G1UGbXVDTUN7
+         O17A==
+X-Forwarded-Encrypted: i=1; AHgh+RoBfcEXPuKv/H6N4+Ji9KOq0GrCqpbVkmuliNQGmFQDrpBZGzvGkQZOenmF6+O77kfvRVZa6hQheHj2@vger.kernel.org
+X-Gm-Message-State: AOJu0YxZu0S7OJgEcoYkHY0gGTqlqQPILC3cb509g1FaDHdRvzQomiqC
+	l4OXaBSeGjUsvTZ75hmzQW6yBcVrn8nuvX87MLrhV9UXGAWbtR2So9cK
+X-Gm-Gg: AR+sD11y32rlZa+b3mpuyofO+QS4JDt4B4tEYQFu5ZJQHUyGC7uiqlG6tZQN8qe57lK
+	ltW//iUEyD+FPrLVO78D9cMQMeo3NFxCFYjztwGlTTjMB33NKcavIalxHoaQV47urlHXLKmk8Mp
+	Knn+9MeMGaMAyauWlvMb04UdaqOwRvdUok6HyXYiBFzzpsVMorVNqbKyq5HseqSkwRM18L6Qr3m
+	bcisxqgcwmutX1Wswk17ylI2yqQhjLaZgUYkeFeJ2UZtCd5//Xox2xkLmQ77ddIv3oqZI/jzodW
+	0bGc7MYACwqxOVPDPCqgyAYZFKvs3IvMQH/m7Ofmfc9LqV+jXOqnDZEXgxALepQGDkbhCZsR0R3
+	QHkED7CswmTOBUkraIDKO+lbutBQeTMGUQLiJmATP5/XhJiP6i0SdQGuCFe+pGmWp32TkHAIuOs
+	7bqwQIkE6/hCyrYkRAfN6ChXEvzMX+DCWRt51NhhCBWMLeQlnSFokqVtMJZQI5KrCwjkwPIHBMu
+	Z0=
+X-Received: by 2002:a05:6000:4381:b0:47f:9201:6409 with SMTP id ffacd0b85a97d-47f9201644bmr9614445f8f.40.1784918597081;
+        Fri, 24 Jul 2026 11:43:17 -0700 (PDT)
 Received: from Ansuel-XPS24.localdomain (host-87-3-249-180.retail.telecomitalia.it. [87.3.249.180])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-47f85bd850asm25701300f8f.15.2026.07.24.11.43.14
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-47f85bd850asm25701300f8f.15.2026.07.24.11.43.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 24 Jul 2026 11:43:15 -0700 (PDT)
+        Fri, 24 Jul 2026 11:43:16 -0700 (PDT)
 From: Christian Marangi <ansuelsmth@gmail.com>
 To: Michael Turquette <mturquette@baylibre.com>,
 	Stephen Boyd <sboyd@kernel.org>,
@@ -70,9 +71,9 @@ To: Michael Turquette <mturquette@baylibre.com>,
 	linux-clk@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] dt-bindings: clock: airoha: Add PHY binding for Serdes port
-Date: Fri, 24 Jul 2026 20:43:01 +0200
-Message-ID: <20260724184304.192962-2-ansuelsmth@gmail.com>
+Subject: [PATCH 2/2] clk: en7523: Add support for selecting the Serdes port in SCU
+Date: Fri, 24 Jul 2026 20:43:02 +0200
+Message-ID: <20260724184304.192962-3-ansuelsmth@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260724184304.192962-1-ansuelsmth@gmail.com>
 References: <20260724184304.192962-1-ansuelsmth@gmail.com>
@@ -84,101 +85,337 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add PHY cell property for Serdes port selection. Currently supported only
-for Airoha AN7581 SoC, that support up to 4 Serdes port.
+In the SCU register for clock and reset, there are also some register to
+select the Serdes port mode. The Airoha AN7581 SoC have 4 different Serdes
+that can switch between PCIe, USB or Ethernet mode.
 
-The Serdes port can support both PCIe, USB3 or Ethernet mode.
+Add a simple PHY provider that expose the .set_mode OP to toggle the
+requested mode for the Serdes port.
 
-- PCIe1 Serdes can support PCIe or Ethernet mode.
-- PCIe2 Serdes can support PCIe or Ethernet mode.
-- USB1 Serdes can support USB3 or HSGMII mode.
-- USB2 Serdes can support USB3 or PCIe mode.
-
-Add bindings to permit correct reference of the Serdes ports in DT.
-Values are just symbolic and enumerates the Serdes port with a specific
-number for precise reference.
-
-The available Serdes port can be selected following the dt-binding header
-in [2].
-
-[2] <include/dt-bindings/soc/airoha,scu-ssr.h>
-
+Reviewed-by: Brian Masney <bmasney@redhat.com>
 Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 ---
- .../bindings/clock/airoha,en7523-scu.yaml     | 24 ++++++++++++++++---
- include/dt-bindings/soc/airoha,scu-ssr.h      | 11 +++++++++
- 2 files changed, 32 insertions(+), 3 deletions(-)
- create mode 100644 include/dt-bindings/soc/airoha,scu-ssr.h
+ drivers/clk/Kconfig      |   1 +
+ drivers/clk/clk-en7523.c | 218 ++++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 216 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
-index eb24a5687639..fc37786ac7ed 100644
---- a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
-+++ b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
-@@ -23,6 +23,7 @@ description: |
+diff --git a/drivers/clk/Kconfig b/drivers/clk/Kconfig
+index 1717ce75a907..4d58c35d88bc 100644
+--- a/drivers/clk/Kconfig
++++ b/drivers/clk/Kconfig
+@@ -221,6 +221,7 @@ config COMMON_CLK_EN7523
+ 	bool "Clock driver for Airoha/EcoNet SoC system clocks"
+ 	depends on OF
+ 	depends on ARCH_AIROHA || ECONET || COMPILE_TEST
++	select GENERIC_PHY
+ 	default ARCH_AIROHA
+ 	help
+ 	  This driver provides the fixed clocks and gates present on Airoha
+diff --git a/drivers/clk/clk-en7523.c b/drivers/clk/clk-en7523.c
+index 1ab0e2eca5d3..183cf7fe4bda 100644
+--- a/drivers/clk/clk-en7523.c
++++ b/drivers/clk/clk-en7523.c
+@@ -6,14 +6,18 @@
+ #include <linux/io.h>
+ #include <linux/mfd/syscon.h>
+ #include <linux/platform_device.h>
++#include <linux/phy.h>
++#include <linux/phy/phy.h>
+ #include <linux/property.h>
+ #include <linux/regmap.h>
+ #include <linux/reset-controller.h>
++#include <linux/spinlock.h>
+ #include <dt-bindings/clock/en7523-clk.h>
+ #include <dt-bindings/reset/airoha,en7523-reset.h>
+ #include <dt-bindings/reset/airoha,en7581-reset.h>
+ #include <dt-bindings/clock/econet,en751221-scu.h>
+ #include <dt-bindings/reset/econet,en751221-scu.h>
++#include <dt-bindings/soc/airoha,scu-ssr.h>
  
-   All these identifiers can be found in:
-   [1]: <include/dt-bindings/clock/en7523-clk.h>.
-+  [2]: <include/dt-bindings/soc/airoha,scu-ssr.h>.
+ #define RST_NR_PER_BANK			32
  
-   The clocks are provided inside a system controller node.
+@@ -40,9 +44,22 @@
+ #define   REG_HIR_MASK			GENMASK(31, 16)
+ /* EN7581 */
+ #define REG_NP_SCU_PCIC			0x88
++#define REG_NP_SCU_SSR3			0x94
++#define REG_SSUSB_HSGMII_SEL_MASK	BIT(29)
++#define REG_SSUSB_HSGMII_SEL_HSGMII	FIELD_PREP_CONST(REG_SSUSB_HSGMII_SEL_MASK, 0x0)
++#define REG_SSUSB_HSGMII_SEL_USB	FIELD_PREP_CONST(REG_SSUSB_HSGMII_SEL_MASK, 0x1)
+ #define REG_NP_SCU_SSTR			0x9c
+ #define REG_PCIE_XSI0_SEL_MASK		GENMASK(14, 13)
++#define REG_PCIE_XSI0_SEL_PCIE		FIELD_PREP_CONST(REG_PCIE_XSI0_SEL_MASK, 0x0)
++#define REG_PCIE_XSI0_SEL_XFI		FIELD_PREP_CONST(REG_PCIE_XSI0_SEL_MASK, 0x1)
++#define REG_PCIE_XSI0_SEL_HSGMII	FIELD_PREP_CONST(REG_PCIE_XSI0_SEL_MASK, 0x2)
+ #define REG_PCIE_XSI1_SEL_MASK		GENMASK(12, 11)
++#define REG_PCIE_XSI1_SEL_PCIE		FIELD_PREP_CONST(REG_PCIE_XSI1_SEL_MASK, 0x0)
++#define REG_PCIE_XSI1_SEL_XFI		FIELD_PREP_CONST(REG_PCIE_XSI1_SEL_MASK, 0x1)
++#define REG_PCIE_XSI1_SEL_HSGMII	FIELD_PREP_CONST(REG_PCIE_XSI1_SEL_MASK, 0x2)
++#define REG_USB_PCIE_SEL_MASK		BIT(3)
++#define REG_USB_PCIE_SEL_PCIE		FIELD_PREP_CONST(REG_USB_PCIE_SEL_MASK, 0x0)
++#define REG_USB_PCIE_SEL_USB		FIELD_PREP_CONST(REG_USB_PCIE_SEL_MASK, 0x1)
+ #define REG_CRYPTO_CLKSRC2		0x20c
+ /* EN751221 */
+ #define EN751221_REG_SPI_DIV		0x0cc
+@@ -81,6 +98,8 @@ enum en_hir {
+ 	HIR_MAX		= 14,
+ };
  
-@@ -50,6 +51,12 @@ properties:
-     description: ID of the controller reset line
-     const: 1
++#define EN_SERDES_PHY_NUM		4
++
+ struct en_clk_desc {
+ 	int id;
+ 	const char *name;
+@@ -113,6 +132,18 @@ struct en_rst_data {
+ 	struct reset_controller_dev rcdev;
+ };
  
-+  '#phy-cells':
-+    description:
-+      The first cell indicates the serdes phy number, see [2] for the
-+      available serdes port.
-+    const: 1
++struct en_serdes_phy_instance {
++	struct phy *phy;
++	unsigned int serdes_port;
++};
 +
- required:
-   - compatible
-   - reg
-@@ -65,12 +72,23 @@ allOf:
-         reg:
-           minItems: 2
++struct en_clk_priv {
++	void __iomem *base;
++	/* protect SCU register */
++	spinlock_t lock;
++	struct en_serdes_phy_instance *serdes_phys[EN_SERDES_PHY_NUM];
++};
++
+ struct en_clk_soc_data {
+ 	u32 num_clocks;
+ 	const struct clk_ops pcie_ops;
+@@ -830,12 +861,179 @@ static int en7581_reset_register(struct device *dev, void __iomem *base,
+ 	return devm_reset_controller_register(dev, &rst_data->rcdev);
+ }
  
-+        '#phy-cells': false
++static int en7581_serdes_phy_set_mode(struct phy *phy, enum phy_mode mode,
++				      int submode)
++{
++	struct en_serdes_phy_instance *instance = phy_get_drvdata(phy);
++	struct en_clk_priv *priv = dev_get_drvdata(phy->dev.parent);
++	u32 reg, mask, sel, val;
++	unsigned long flags;
 +
-+  - if:
-+      properties:
-+        compatible:
-+          const: econet,en751221-scu
-+    then:
-+      properties:
-+        reg:
-+          maxItems: 1
++	switch (instance->serdes_port) {
++	case AIROHA_SCU_SERDES_PCIE1:
++		reg = REG_NP_SCU_SSTR;
++		mask = REG_PCIE_XSI0_SEL_MASK;
 +
-+        '#phy-cells': false
++		if (mode != PHY_MODE_ETHERNET && mode != PHY_MODE_PCIE)
++			return -EINVAL;
 +
-   - if:
-       properties:
-         compatible:
--          enum:
--            - airoha,en7581-scu
--            - econet,en751221-scu
-+          const: airoha,en7581-scu
-     then:
-       properties:
-         reg:
-diff --git a/include/dt-bindings/soc/airoha,scu-ssr.h b/include/dt-bindings/soc/airoha,scu-ssr.h
-new file mode 100644
-index 000000000000..33c64844ada3
---- /dev/null
-+++ b/include/dt-bindings/soc/airoha,scu-ssr.h
-@@ -0,0 +1,11 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++		if (mode == PHY_MODE_ETHERNET) {
++			switch (submode) {
++			case PHY_INTERFACE_MODE_USXGMII:
++			case PHY_INTERFACE_MODE_10GBASER:
++				sel = REG_PCIE_XSI0_SEL_XFI;
++				break;
++			case PHY_INTERFACE_MODE_SGMII:
++			case PHY_INTERFACE_MODE_1000BASEX:
++			case PHY_INTERFACE_MODE_2500BASEX:
++				sel = REG_PCIE_XSI0_SEL_HSGMII;
++				break;
++			default:
++				return -EINVAL;
++			}
++		} else {
++			sel = REG_PCIE_XSI0_SEL_PCIE;
++		}
 +
-+#ifndef __DT_BINDINGS_AIROHA_SCU_SSR_H
-+#define __DT_BINDINGS_AIROHA_SCU_SSR_H
++		break;
++	case AIROHA_SCU_SERDES_PCIE2:
++		reg = REG_NP_SCU_SSTR;
++		mask = REG_PCIE_XSI1_SEL_MASK;
 +
-+#define AIROHA_SCU_SERDES_PCIE1		0
-+#define AIROHA_SCU_SERDES_PCIE2		1
-+#define AIROHA_SCU_SERDES_USB1		2
-+#define AIROHA_SCU_SERDES_USB2		3
++		if (mode != PHY_MODE_ETHERNET && mode != PHY_MODE_PCIE)
++			return -EINVAL;
 +
-+#endif /* __DT_BINDINGS_AIROHA_SCU_SSR_H */
++		if (mode == PHY_MODE_ETHERNET) {
++			switch (submode) {
++			case PHY_INTERFACE_MODE_USXGMII:
++			case PHY_INTERFACE_MODE_10GBASER:
++				sel = REG_PCIE_XSI1_SEL_XFI;
++				break;
++			case PHY_INTERFACE_MODE_SGMII:
++			case PHY_INTERFACE_MODE_1000BASEX:
++			case PHY_INTERFACE_MODE_2500BASEX:
++				sel = REG_PCIE_XSI1_SEL_HSGMII;
++				break;
++			default:
++				return -EINVAL;
++			}
++		} else {
++			sel = REG_PCIE_XSI1_SEL_PCIE;
++		}
++
++		break;
++	case AIROHA_SCU_SERDES_USB1:
++		reg = REG_NP_SCU_SSR3;
++		mask = REG_SSUSB_HSGMII_SEL_MASK;
++
++		if (mode != PHY_MODE_ETHERNET && mode != PHY_MODE_USB_DEVICE &&
++		    mode != PHY_MODE_USB_DEVICE_SS)
++			return -EINVAL;
++
++		if (mode == PHY_MODE_ETHERNET)
++			sel = REG_SSUSB_HSGMII_SEL_HSGMII;
++		else
++			sel = REG_SSUSB_HSGMII_SEL_USB;
++
++		break;
++	case AIROHA_SCU_SERDES_USB2:
++		reg = REG_NP_SCU_SSTR;
++		mask = REG_USB_PCIE_SEL_MASK;
++
++		if (mode != PHY_MODE_PCIE && mode != PHY_MODE_USB_DEVICE &&
++		    mode != PHY_MODE_USB_DEVICE_SS)
++			return -EINVAL;
++
++		if (mode == PHY_MODE_PCIE)
++			sel = REG_USB_PCIE_SEL_PCIE;
++		else
++			sel = REG_USB_PCIE_SEL_USB;
++
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	spin_lock_irqsave(&priv->lock, flags);
++	val = readl(priv->base + reg);
++	val &= ~mask;
++	val |= sel;
++	writel(val, priv->base + reg);
++	spin_unlock_irqrestore(&priv->lock, flags);
++
++	return 0;
++}
++
++static const struct phy_ops en7581_serdes_phy_ops = {
++	.set_mode	= en7581_serdes_phy_set_mode,
++	.owner		= THIS_MODULE,
++};
++
++static struct phy *en7581_serdes_phy_xlate(struct device *dev,
++					   const struct of_phandle_args *args)
++{
++	struct en_clk_priv *priv = dev_get_drvdata(dev);
++	struct en_serdes_phy_instance *instance;
++	unsigned int serdes_port;
++
++	if (args->args_count != 1) {
++		dev_err(dev, "invalid number of cells in 'phy' property\n");
++		return ERR_PTR(-EINVAL);
++	}
++
++	serdes_port = args->args[0];
++	if (serdes_port >= EN_SERDES_PHY_NUM) {
++		dev_err(dev, "invalid serdes port: %d\n", serdes_port);
++		return ERR_PTR(-EINVAL);
++	}
++
++	instance = priv->serdes_phys[serdes_port];
++	if (!instance) {
++		dev_err(dev, "failed to find appropriate serdes phy\n");
++		return ERR_PTR(-EINVAL);
++	}
++
++	return instance->phy;
++}
++
++static int en7581_serdes_phy_register(struct device *dev)
++{
++	struct en_clk_priv *priv = dev_get_drvdata(dev);
++	struct phy_provider *phy_provider;
++	int i;
++
++	for (i = 0; i < EN_SERDES_PHY_NUM; i++) {
++		struct en_serdes_phy_instance *instance;
++
++		instance = devm_kzalloc(dev, sizeof(*instance),
++					GFP_KERNEL);
++		if (!instance)
++			return -ENOMEM;
++
++		instance->phy = devm_phy_create(dev, NULL,
++						&en7581_serdes_phy_ops);
++		if (IS_ERR(instance->phy))
++			return dev_err_probe(dev, PTR_ERR(instance->phy), "failed to create phy\n");
++
++		instance->serdes_port = i;
++		priv->serdes_phys[i] = instance;
++
++		phy_set_drvdata(instance->phy, instance);
++	}
++
++	phy_provider = devm_of_phy_provider_register(dev, en7581_serdes_phy_xlate);
++
++	return PTR_ERR_OR_ZERO(phy_provider);
++}
++
+ static int en7581_clk_hw_init(struct platform_device *pdev,
+ 			      struct clk_hw_onecell_data *clk_data)
+ {
++	struct en_clk_priv *priv = platform_get_drvdata(pdev);
+ 	struct regmap *map;
+ 	void __iomem *base;
+ 	u32 val;
++	int ret;
+ 
+ 	map = syscon_regmap_lookup_by_compatible("airoha,en7581-chip-scu");
+ 	if (IS_ERR(map))
+@@ -845,6 +1043,8 @@ static int en7581_clk_hw_init(struct platform_device *pdev,
+ 	if (IS_ERR(base))
+ 		return PTR_ERR(base);
+ 
++	priv->base = base;
++
+ 	en7581_register_clocks(&pdev->dev, clk_data, map, base);
+ 
+ 	val = readl(base + REG_NP_SCU_SSTR);
+@@ -853,9 +1053,12 @@ static int en7581_clk_hw_init(struct platform_device *pdev,
+ 	val = readl(base + REG_NP_SCU_PCIC);
+ 	writel(val | 3, base + REG_NP_SCU_PCIC);
+ 
+-	return en7581_reset_register(&pdev->dev, base, en7581_rst_map,
+-				     ARRAY_SIZE(en7581_rst_map),
+-				     en7581_rst_ofs);
++	ret = en7581_reset_register(&pdev->dev, base, en7581_rst_map,
++				    ARRAY_SIZE(en7581_rst_map), en7581_rst_ofs);
++	if (ret)
++		return ret;
++
++	return en7581_serdes_phy_register(&pdev->dev);
+ }
+ 
+ static enum en_hir get_hw_id(void __iomem *np_base)
+@@ -962,16 +1165,25 @@ static int en7523_clk_probe(struct platform_device *pdev)
+ 	struct device_node *node = pdev->dev.of_node;
+ 	const struct en_clk_soc_data *soc_data;
+ 	struct clk_hw_onecell_data *clk_data;
++	struct en_clk_priv *priv;
+ 	int r;
+ 
+ 	soc_data = device_get_match_data(&pdev->dev);
+ 
++	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
++	if (!priv)
++		return -ENOMEM;
++
++	spin_lock_init(&priv->lock);
++
+ 	clk_data = devm_kzalloc(&pdev->dev,
+ 				struct_size(clk_data, hws, soc_data->num_clocks),
+ 				GFP_KERNEL);
+ 	if (!clk_data)
+ 		return -ENOMEM;
+ 
++	platform_set_drvdata(pdev, priv);
++
+ 	clk_data->num = soc_data->num_clocks;
+ 	r = soc_data->hw_init(pdev, clk_data);
+ 	if (r)
 -- 
 2.53.0
 
