@@ -1,116 +1,181 @@
-Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.73])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7B2633D4E8;
-	Fri, 24 Jul 2026 13:29:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.72.192.73
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 188002D97AA
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 13:35:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784899792; cv=none; b=BDKnRM5IlALjvbAVCFWWfyQgqqPKGVt2zYqMWvg6P1cazPjWc1otPLda5DiCet83g/HzuiUvcAYFx5JjXWe1wVqEjcN9c58qxfXiukksw8/umvoPEQ9I50KrLepl62STsZgWjOfNwbEDXs3nUOc8YAxAlAjDYRYo/C9/S6zzWb0=
+	t=1784900111; cv=none; b=gV67I7es0mmxCCYWCGbJXfRjRz5ekle3eHY+Iq2pQp5C59NXWuZDmXlm5DNf+OgtCGnyWpNmnEx8tlLtQvw+1iUcCVHcCOp1EX3SIXgBHrJqD9QBR3eMF7T5lBAJiUBP2aUdgdXqYZ52BEV6nQmqNlcTnjB6IKbe+nfx1QJ8n6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784899792; c=relaxed/simple;
-	bh=OCJ5QJpFX+/c47h/UFE3+oYD1nX5lByuRL1l3DGr4ck=;
+	s=arc-20240116; t=1784900111; c=relaxed/simple;
+	bh=qmz8Olh968JBH6ptndhpYYMI2Ghc3K34GM2MQQsPr38=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Q5DY7ZuvCIAIIRNUmv5v83SKhNxWEwvBEzZ4WhQThOPU5joI1+EotI0e3H7wBWeUx2Zm5TBaMI9d9bvJN+mCdAa7qyjWQjdBN+LWiViLBVoZOGWDA9HYPY6ym/TZux4rjHywPPQB6bBFyncp4JK6e07nQfL3JYd3etKwoC+z3B4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oldschoolsolutions.biz; spf=pass smtp.mailfrom=oldschoolsolutions.biz; dkim=pass (2048-bit key) header.d=oldschoolsolutions.biz header.i=jens.glathe@oldschoolsolutions.biz header.b=dOHC6zQS; arc=none smtp.client-ip=217.72.192.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oldschoolsolutions.biz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oldschoolsolutions.biz
+	 In-Reply-To:Content-Type; b=NxJ4AAQOx+qZ8wWiadJpSmiCSCCyoHnmtcClYz1HkrOpLUlfSCoxnB9U6mFsTIdORmqY0NcsO/7f+ft00X3SdVmpR2zJnmmmx+dr0ApuIxTZmi1WhIerQDu0KdYd1SJCGYrlLUd9kPZStLX8WARXGH967hSv99CQUdub5mE6mbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Hj1Yp48M; arc=none smtp.client-ip=209.85.208.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oldschoolsolutions.biz header.i=jens.glathe@oldschoolsolutions.biz header.b="dOHC6zQS"
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Hj1Yp48M"
+Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-39db55d6e0bso288751fa.0
+        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 06:35:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=oldschoolsolutions.biz; s=s1-ionos; t=1784899761; x=1785504561;
-	i=jens.glathe@oldschoolsolutions.biz;
-	bh=OCJ5QJpFX+/c47h/UFE3+oYD1nX5lByuRL1l3DGr4ck=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=dOHC6zQSkeuAOPK2kByHb+WIyTkf5mVh82MCV6tPEi11OQDB30qfkzmXHV14XC5r
-	 TBhgjpvJPDf7PKvtEQKUa7QDT7diXDglTG7+Z2m3fUNb6UKFBa3S7/ulBVg31uOhI
-	 YQIbuvXa3PSDaevw/yoSn97YEWIxrNnOvW4EHceARGA2EGmP2XObtIx9NgVf47YTF
-	 Id9nRFn/8oD1zmGemt93Uq1ds7aSej6W5EAKU2e6jREnz6Ve//N72lAon12cOCEc0
-	 aascGryUVEa7vCQRip0clAWVmb8gw60VI4aGz1FqAambQjjQziuSXCMQFNIXGjAMc
-	 Sb2niX7K7v2d/bQo6Q==
-X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
-Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue106
- [212.227.15.183]) with ESMTPSA (Nemesis) id 1M3lLh-1wmR180QEt-007yID; Fri, 24
- Jul 2026 15:29:21 +0200
-Message-ID: <1dbfb670-202b-48e9-8bad-185bf2c395b8@oldschoolsolutions.biz>
-Date: Fri, 24 Jul 2026 15:29:18 +0200
+        d=linaro.org; s=google; t=1784900104; x=1785504904; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=mgKIS+5xBtHEKSRegBUC2zumkBX3DCdGRkB1nHczz3Y=;
+        b=Hj1Yp48MrPzySyohKsMU//J7cNz/KNf47rjAolUf+izp0LFy9WkTYMHAiZC+rLtrmh
+         iGIVKGvRRgEPjp9076K3i9OQyBGGJU4Egj856KevvQ8Jc4iZUZr/PjcfzlyJmeInNHGv
+         TYnHcHpbN6mzyOvH3+jciMPH9j0fvrpd7cxJJtJkaf3MzYs6KD0dCHG4DFlftcfX6cSn
+         JVhT19Gfi7vKNF+i6+NHxRCKSjj8dNlqvrO1gKFBTkHLY1vWZ9twIjwzmAIemSCAFLg+
+         XKBP9QVT4k/Qv1bzgscSqRKx65vMu/Q1zaito9WZ7kE636TMlJSgAoqerWjSj6uiPPx3
+         kl3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784900104; x=1785504904;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mgKIS+5xBtHEKSRegBUC2zumkBX3DCdGRkB1nHczz3Y=;
+        b=cXjDDR79bJ7+GezwDtLD01dzaV+UvrvtJMD6pZk1Aqiiw6CKTEqyUHru3VXBv+NRxN
+         kozNsht5jF9Igs9WTqU56MxQv6qyh5EP2ifAGJW23W5rj6yXbIHUYV4AOSsx1a14PiX2
+         iPP4uZF+AiatAGeVc7Lfp2aAsMfqIctDGdrIWmAEN+TVaMpLM04SljdKWZJDufxBSqkn
+         viaoqPTUDcGsavLV97KTZqHaqOHnSXJRb+5A+MQrFTNPtFVyLwtWaQwwJHbC/zZ+9DsD
+         zVu8zn2jdUzL/mHz+4YnKZG2JLA1LsJivSFOasnohSUw5Jqyr5DoZiqS2OJ2gT6DcxoS
+         uwwQ==
+X-Forwarded-Encrypted: i=1; AHgh+Ro6lG0tiznpeyGcTpiMqKqASJ6UDQ5OUNxuvaFQObbNWKn7xdvYWzdEuV32Vcjrmw0S2SFU9nnK66je@vger.kernel.org
+X-Gm-Message-State: AOJu0YwyBWUgBg4TZZXxBzUy2i4qaqs7mnLVJKhFVjwZNtlQ+5f/GI0f
+	xS9Vogvbme24frxn/r/Fu8oe8/dTx0EAYIxbKkfYEtXcjuqXtED0Dkc0wuiStMt8t+8=
+X-Gm-Gg: AR+sD11GQWx/0yO2cVTEWw2XWqZRbqByRpgGSFQ+xxJutZ8lSX/ONM4gXPW7jxmiJOx
+	iokj2FbDJRXj1F8yHdok6XG5g9AimqqgFxFdXwLhXd7Hhwiv29cwYITXUFnE7Tq6dWG+a9jxVum
+	XcEocHIfeOIuq52TU94hkErY4B89hvb9dLcWZXuamfOocvnGQIPlAHQviFXgleWMA9+f+5rG6Jk
+	q70igx/JDC+DTA3mCIBw4WcOuCdSziMsQuO3/XJsOLntCYifDEZeW6nom1HHi4jc/W8fyxCupgF
+	wXmZoPJDlfvRx66wL47z764ICpBm30fGgTMH+wNwQdaTLEjf58x+vQBqSvo2xPBCfb440uOobj9
+	5qbmAuqszAcK0EgHgDZs923l8veJMVgqiZWfvx8vd4YLn15NqsSk4OzpNS8jgi7RW90fd1DJ3aZ
+	LvBj9hK+k/8CfEZvIwF9yidHPKRJL5LQ9jcffLcDtlciL+WuV176HckiMO
+X-Received: by 2002:a05:6512:3b09:b0:5b1:5c72:2f0d with SMTP id 2adb3069b0e04-5b2b7b1bc4emr512493e87.4.1784900103990;
+        Fri, 24 Jul 2026 06:35:03 -0700 (PDT)
+Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2a9e4e965sm1533392e87.71.2026.07.24.06.35.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 24 Jul 2026 06:35:03 -0700 (PDT)
+Message-ID: <dca44ea4-60af-4a9b-a6cb-7ba5f2014016@linaro.org>
+Date: Fri, 24 Jul 2026 16:35:02 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH 0/5] usb: typec: ps883x: fixes for older Thunderbolt 4 /
- USB4 docks
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, stable@vger.kernel.org,
- "Dr. David Alan Gilbert" <dave@treblig.org>
-References: <20260718-ps883x-disable-usb4-v1-0-cec86d0b909e@oldschoolsolutions.biz>
- <rmckncb6oimniwd6venptbzaidxh4v6ffhbkebztqcuxg67ixy@u3bi5tclfon7>
-Content-Language: en-US
-From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-In-Reply-To: <rmckncb6oimniwd6venptbzaidxh4v6ffhbkebztqcuxg67ixy@u3bi5tclfon7>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/3] media: i2c: og0ve1b: Add support for OmniVision
+ OG0VA1B
+To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260708-og0va1b-v3-0-de8e44455a42@oss.qualcomm.com>
+ <20260708-og0va1b-v3-3-de8e44455a42@oss.qualcomm.com>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <20260708-og0va1b-v3-3-de8e44455a42@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:9ybLy0eRt+/YFF09Ll6hqlkouUS7uVkT7sQ4hQ59ukuEGO1WLX9
- BkLryKfezYSFxPZSTPu2t1/ehHET4bskv7Fv1VAYkDKe9RER/hRcLlBiA7plnrkoRsV76Hd
- jhkF/WMr7+vbnrk/q7uTDbJ9841YSJZPjv3zLQBO6U+kJhVkWz2A5uH+06P+yGEtcMHpnS3
- 6XKlysaVEPMwqreuWP5WA==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:7WiYxy4H1SM=;B2pfNGTc2Ac8YWHNdjhjM7d5Phv
- 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
- =
+Content-Transfer-Encoding: 7bit
 
-Hi,
+Hi Wenmeng.
 
-On 7/21/26 19:56, Dmitry Baryshkov wrote:
-> Just for my understanding, here you mean a Type-C cable with all 4 lanes
-> and the SBU lines?
+On 7/8/26 17:33, Wenmeng Liu wrote:
+> The OmniVision OG0VA1B is a monochrome image sensor closely related to
+> the OG0VE1B. It shares the SCCB control interface, power supplies and
+> the single-lane MIPI D-PHY description, and differs in its chip id, the
+> test pattern register, the register programming and the output format
+> (10-bit RAW instead of 8-bit).
+> 
+> Add an og0ve1b_sensor_data entry describing the OG0VA1B together with
+> its 640x480 60fps register sequence.
+> 
+> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+> ---
+>   drivers/media/i2c/og0ve1b.c | 278 ++++++++++++++++++++++++++++++++++++++++++--
+>   1 file changed, 266 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/media/i2c/og0ve1b.c b/drivers/media/i2c/og0ve1b.c
+> index 041342fbe3c822400388f58a03e6057e186f060f..c558cdd43314931db35e463641dd28e10b94ec8a 100644
+> --- a/drivers/media/i2c/og0ve1b.c
+> +++ b/drivers/media/i2c/og0ve1b.c
+> @@ -14,10 +14,14 @@
+>   #include <media/v4l2-device.h>
+>   #include <media/v4l2-fwnode.h>
+>   
+> +#define OG0VA1B_LINK_FREQ_480MHZ	(480 * HZ_PER_MHZ)
+> +#define OG0VA1B_MCLK_FREQ_19_2MHZ	(19200 * HZ_PER_KHZ)
+> +
+>   #define OG0VE1B_LINK_FREQ_500MHZ	(500 * HZ_PER_MHZ)
+>   #define OG0VE1B_MCLK_FREQ_24MHZ		(24 * HZ_PER_MHZ)
+>   
+> -#define OG0VE1B_REG_CHIP_ID		CCI_REG24(0x300a)
+> +#define OG0V_REG_CHIP_ID		CCI_REG24(0x300a)
+> +#define OG0VA1B_CHIP_ID			0xc75641
+>   #define OG0VE1B_CHIP_ID			0xc75645
+>   
+>   #define OG0VE1B_REG_MODE_SELECT		CCI_REG8(0x0100)
+> @@ -45,12 +49,18 @@
+>   #define OG0VE1B_REG_VTS			CCI_REG16(0x380e)
+>   #define OG0VE1B_VTS_MAX			0xffff
+>   
+> -/* Test pattern */
+> +/* Test pattern - OG0VA1B uses 0x5100, OG0VE1B uses 0x5e00 */
+> +#define OG0VA1B_REG_TEST_PATTERN	CCI_REG8(0x5100)
+> +#define OG0VA1B_TEST_PATTERN_BAR_SHIFT	2
+>   #define OG0VE1B_REG_PRE_ISP		CCI_REG8(0x5e00)
+>   #define OG0VE1B_TEST_PATTERN_ENABLE	BIT(7)
+>   
+>   #define to_og0ve1b(_sd)			container_of(_sd, struct og0ve1b, sd)
+>   
+> +static const s64 og0va1b_link_freq_menu[] = {
+> +	OG0VA1B_LINK_FREQ_480MHZ,
+> +};
+> +
+>   static const s64 og0ve1b_link_freq_menu[] = {
+>   	OG0VE1B_LINK_FREQ_500MHZ,
+>   };
+> @@ -73,15 +83,31 @@ struct og0ve1b_mode {
+>   struct og0ve1b;
+>   
+>   struct og0ve1b_sensor_data {
+> +	const char *name;
+>   	u64 chip_id;
+>   	unsigned long mclk_freq;
+>   	int (*enable_test_pattern)(struct og0ve1b *og0ve1b, u32 pattern);
+> +	const char * const *test_pattern_menu;
+> +	int num_test_patterns;
+> +	bool cache_test_pattern_reg;
+> +	/* Exposure register unit: OG0VE1B 1/16 line (4), OG0VA1B whole lines (0). */
+> +	unsigned int exposure_shift;
+> +	/* Pixel rate multiplier: OG0VA1B uses CSI-2 DDR (2), OG0VE1B keeps 1. */
+> +	unsigned int pixel_rate_mul;
+>   	const s64 *link_freq_menu;
+>   	int num_link_freqs;
+>   	const struct og0ve1b_mode *modes;
+>   	int num_modes;
+>   };
+>   
+> +static const char * const og0va1b_test_pattern_menu[] = {
+> +	"Disabled",
+> +	"Standard Color Bar",
+> +	"Top-Bottom Darker Color Bar",
+> +	"Right-Left Darker Color Bar",
+> +	"Bottom-Top Darker Color Bar",
+> +};
+> +
 
-Yes. I used the type-c cables from my portable USB-C display, which does=
-=20
-4k@60.
+In the original og0ve1b_test_pattern_menu[] I copied a pretty regular
+test pattern name "Vertical Colour Bars" inapproptiately, and here
+the references to "Colour Bars" are also present... Due to quite
+an obvious reason of sensor specifics would you consider to change
+the test pattern names to something else?.. Sorry for late comment.
 
-with best regards
-
-Jens
-
-
+-- 
+Best wishes,
+Vladimir
