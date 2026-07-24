@@ -1,121 +1,153 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011026.outbound.protection.outlook.com [52.101.52.26])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19D5A3A6B82;
-	Fri, 24 Jul 2026 07:29:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.26
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784878163; cv=fail; b=qKfi5btveVebr8XaEtjW2Ez3OF1njgSv3r9gfmgocfKmvhQ6t6pevH/A/nRxmaaU4ueiQIUhTEKhREHxs1N5S8Gj7LryFFsb3LFlnbDfjkibk2jBiNoAXWa8/2FhHlpinWx2dV0qFi86AV/uOWKginFUF/63t4i35FgfS0y3qnQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784878163; c=relaxed/simple;
-	bh=PhSpGppKZT2hx0KJDkfUt2TZZ4oQRE9LK5Rie4nh6y4=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KZg5Mnn1W1YUGm61vYZco46otJre8hV1DQynoO+vvLGRW3KiISnCUX81MiaICchfT7pRTQUcjnOA93MbFZ5jNY0ZAZjNmP9nNfRPjw6Kq0kXrAmNatBuZKFyVOTCL3yHdxv7+hoAX+OoxeSsFXuCFYfN7krOycRJ0+8g6hmxe48=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=1YR6XW0Y; arc=fail smtp.client-ip=52.101.52.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1C2B4908A2
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 07:30:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784878227; cv=none; b=XFD0myB3NO+JaV+W3BdnDtOFXbU+4rkzW5MjXpQZgTaB5UDARw8yMNA3MAfAQwWYocygBoG6jEae6pzF/NZLdoOd6YLzax55JNniS/vZLj1nHkT+xMeeokSoiyMPSqrxQsDqEQ5jzb3DpTxLWPkRnrhU9P5Neof0gaYHuR6MPdQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784878227; c=relaxed/simple;
+	bh=8gh2lfmaGjo3ucwEe9lnwyDq0xh0/q9vXW2SRUvYE9o=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=dqZaQmKGQW1ok3WyerBlT9Icqut1yH8UdOWowG+yR0y1Hyvxh/D4bWdsaFuMj18uOmIW/Arec2Zcb1jKfVJUnF8dbM/q7893W3kS/Q4+bCd3Ux8XNrT+ZWE7EL72Ojbp5Y2xZeAf/kFJK+btLo59jJhAYNqewHA516P1Qli4NK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oW5z74uL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="1YR6XW0Y"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lEKPNEZnNDHcQqYgE0+lCv4HVgeEh7wGM9P+VixUSIxDqpD5UFtp8pDGySkF3TBl4uwT2+MgxOunMCANz77WonRqbkAzkSLkorbpJLd5dtt+LMNNoZteW7aLGLahFDkz7NShfB593d2Uimk9yKxi9crXM4OdOte/oUHvHoxygph7yGaAR86Y1gpYlPfwtfXHcYWb0hENo05BInrdpeWLCxhsItDgnmxBon6jVtoQV1lxWFCFn3kcHb0//PrCwFXORFNUeU6KOYt7h3jxvsBle8RYptnP/K9bq3ejoVCPVp85GAt0CUmTez/pi7Rk2ByqcUpHs4BFOSwUMhR92MGE2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PhSpGppKZT2hx0KJDkfUt2TZZ4oQRE9LK5Rie4nh6y4=;
- b=wWCP+p7gUoOn80Mdm7p0pP3I10oeKQ2aFVgOikD9Jr+UOMQIsJqLoCLLp/VUKbll3kJdXvkCc4qrjQB8p+WEoJMw15XJGMMBeXpK4nTMs4coEHhIla6t5WxSWMDhvnoRlWbxNpo2SwCVXSau7913mIlcMxAK5mSwZTh+1CKp3L+xrxvAcS6meHONZbPmKtlNzBrX95UILh/BRbO0+iE2bOT2VNSYkUTIF9FaljRvfEvM1/a3H9ZUkJZMqJfbQPCXEBpf4s1CEVf/M2xBPTwdB8e9fWip7sodvjRXyq8AX75qEvr+le6gpKkeUqcvNEaUyeLY+h+m/ubf8GUWYmsHoQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PhSpGppKZT2hx0KJDkfUt2TZZ4oQRE9LK5Rie4nh6y4=;
- b=1YR6XW0Y3S0fFxTwhJmR+2bk+OR8Nxdqp04Iepfrx4Op+xpSgkahJpg68cxwOeC829DZn06ICLOou63G/5Cd5CyDkVRpNJbPbopkZ398MqK/55EyOfgv87yoP0zT3kWGXUhsLpC1jgzTi3ROABDDyLcUZ+HSRMeK94w/j8tIIxI=
-Received: from BN9PR03CA0369.namprd03.prod.outlook.com (2603:10b6:408:f7::14)
- by PH7PR12MB7115.namprd12.prod.outlook.com (2603:10b6:510:1ee::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Fri, 24 Jul
- 2026 07:29:14 +0000
-Received: from BN1PEPF00004688.namprd05.prod.outlook.com
- (2603:10b6:408:f7:cafe::a6) by BN9PR03CA0369.outlook.office365.com
- (2603:10b6:408:f7::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.12 via Frontend Transport; Fri,
- 24 Jul 2026 07:29:14 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN1PEPF00004688.mail.protection.outlook.com (10.167.243.133) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.270.5 via Frontend Transport; Fri, 24 Jul 2026 07:29:14 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 24 Jul
- 2026 02:29:13 -0500
-Received: from localhost.localdomain (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Fri, 24 Jul 2026 02:29:11 -0500
-From: Andy Chung <Andy.Chung@amd.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>,
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-hwmon@vger.kernel.org>, <linux-doc@vger.kernel.org>, Andy Chung
-	<Andy.Chung@amd.com>
-Subject: Re: [PATCH v3 2/4] dt-bindings: hwmon: Add Kandou KB9002
-Date: Fri, 24 Jul 2026 15:28:33 +0800
-Message-ID: <20260724072833.2918337-1-Andy.Chung@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260722-efficient-mussel-of-enthusiasm-1df91c@quoll>
-References: <20260722-efficient-mussel-of-enthusiasm-1df91c@quoll>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oW5z74uL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 233221F000E9;
+	Fri, 24 Jul 2026 07:30:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784878225;
+	bh=clXDc43qXBeeTRuUM4mfdHNPmNz3sScV8iQ5FVRwu/k=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=oW5z74uLtqZc/Gyn61l26EvzW3XptoP4UE7ruHPtqVgipNvwVtkjAa2B0mTT+pGXh
+	 1Ff1QZNy1Iav3NCRzYYEZfjbKzdXnS/2PRkVM1hkW0shbnyLSxiWyjdPKJd5xjBBIe
+	 2pJOpFRuacQ9BWAfozJ3gQ+i/Y1hESKlOBAm9bCxLpZzuytShTCV6cUAXxXCUeXAzs
+	 ns53ls7Gz+UqPS4TJp/6tf6SgKf+Ci1AsHsywg1MCi9eGqrWNLhfI8wuxpoD5OwCVh
+	 6qbp0Yg0MFj1oFJBEGGYXnIbPNt5pjlSfWGx+pEPkcnQ23Hekhs/q3oiqM/SzsTVGm
+	 gsCxVkksd+cDg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC 03/10] firmware: arm_scmi: vendors: Add QCOM SCMI
+ Generic Extensions
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Pragnesh Papaniya" <pragnesh.papaniya@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260724-rfc_v8_scmi_memlat-v1-3-cb732bcff1f4@oss.qualcomm.com>
+References: <20260724-rfc_v8_scmi_memlat-v1-0-cb732bcff1f4@oss.qualcomm.com>
+ <20260724-rfc_v8_scmi_memlat-v1-3-cb732bcff1f4@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 24 Jul 2026 07:30:24 +0000
+Message-Id: <20260724073025.233221F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00004688:EE_|PH7PR12MB7115:EE_
-X-MS-Office365-Filtering-Correlation-Id: f2acffed-e6a6-4f09-b823-08dee955432c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|376014|7416014|23010399003|36860700016|5023799004|11063799006|18002099003|22082099003|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	q89VvzmanktKYN6n29fAoi6Hzgv8AAJPQy6l1MQpsj8WO5ag4QZSU1SfzvGV6qbBOSh2nPp7WeTPX4NIardKUKMtOOLUTCimTqu47Qo9H8LzG6cbbzv4vLfl1ttPWWbRAKea1cOSDdTgxBdUMmMdtmG6OGb2Bof+lwOOTiORV8OmX9MC77oudtoPCeIfmCnHs9ajUMYnQ0gAbr2ZN2sz++fkPO9K+AvMUnaiXtvCA7RNqS+OHPfm1WbdttMUJvovyVmu5tBtOxaPXOHLPckWxtdZMaNtmt/y/lwfuiTICO4NhzU7otMTdpcQwXeE4PpcR6GZf2BVZzBwQCAoYcgElxMfAn48oQftf05Hzc184ARrhULl7fSgKjaaXykmxl7UmwTowe7nLExpDL0mZFy3/U+kBivRWkvEOB1dKlDjRKATyOtjp4m+ZPJgKEVvXBkuvZ9xxUApAql5OjS5LhBa5WOrlqnAI70px4k3vt599vOfKHyIKJUkofZNCcM8WlBZnvPxfdwDpu2Xyr/tL5DP7VnfLMkOoh4ZqUQgA3mY1CK+m0Nz2+mCvftC4Itv0TC/STq+3CHFxQWMR67klqhPo8wEmIeeyD/Ka2H50CXeaKS88A69P0ddasPzTg00T0H4MB6/6TKE4fkSNCpy8EYrZ3CzXPx+YeVjUNT5jw3F6ZvS1Bq4w6uwCxXx0BVXe0cu
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(7416014)(23010399003)(36860700016)(5023799004)(11063799006)(18002099003)(22082099003)(56012099006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	LntpxaT7ZLUKVyiSsCVs661wvLydqkwGIGNCBSSG0qSukFQceMK4OwnLrPeE1Qm6H+UTk3Jd/93Dn2gRUi9NT+teg4c9/G4Xh6aLxmRWB7AxtHZUrSmp68Dt5NPPI5lAhuRixKtqc/0OMz0kzCZn20jPzM/8r1r0T5SJyr7mP41YqSDGOKBMX/isJXhECNb8mekrbJyw5qWcx+aDz7yZXsYpNjUGg3CFCC+LqlxbyD218TLuhNLKWAm8RTBMp+uz7dBmILTIsvj3LoZlkju7TwREDCNZwjwC2spVY4XiWRVzd9yF+zEjE+mAedELL+MAIAhv6dt0Ub27q8vdiK0BCt9SgJ82zrghn7e//0v/LFAqwsc+H/MBW92TPDvBdReCbCsNCPvgDOJWu6Clf2zwDXBJmag0YXR7QLjIbZ6kMUl0IF5+LuBz2AKsox/291rf
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2026 07:29:14.1269
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f2acffed-e6a6-4f09-b823-08dee955432c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF00004688.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7115
 
-On Wed, 22 Jul 2026 09:41:29 +0200, Krzysztof Kozlowski wrote:
-> So a trivial device and can go to trivial-devices? What is incomplete
-> here, what is missing?
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] The API tightly couples TX payload size and RX buffer capacity int=
+o a single `buf_len` parameter, breaking commands where RX size exceeds TX =
+size and leaking uninitialized kernel memory.
+- [High] An integer overflow in the transmit size calculation bypasses SCMI=
+ core bounds checks, leading to an out-of-bounds write.
+- [Medium] The 64-bit constant representing the "MEMLAT" algorithm string i=
+s incorrectly split and endian-swapped, resulting in the mangled string "TA=
+LMEM\0\0" being laid out in memory.
+--
 
-Right, nothing beyond compatible and reg. v5 drops the dedicated binding
-and adds kandou,kb9002 to trivial-devices.yaml. I also changed the
-vendor-prefix description to "Kandou AI" per your other comment
-("Kandou Bus SA" is the registered legal entity, "Kandou AI" the current
-branding -- same company).
+--- Patch [3]: [PATCH RFC 03/10] firmware: arm_scmi: vendors: Add QCOM SCMI=
+ Generic Extensions ---
+commit 9dcfeae2ae27c1a2917b7de276eae7604cac163d
+Author: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
 
-Thanks,
-Andy
+firmware: arm_scmi: vendors: Add QCOM SCMI Generic Extensions
+   =20
+The System Control Management Interface (SCMI) Qualcomm Generic Extension
+Protocol consists of a small set of generic SET/GET/ START/STOP commands,
+which is used to turn on/off and configure Qualcomm SoC specific algorithms
+that run on the SCP.
+
+> diff --git a/drivers/firmware/arm_scmi/vendors/qcom/qcom-generic-ext.c b/=
+drivers/firmware/arm_scmi/vendors/qcom/qcom-generic-ext.c
+> new file mode 100644
+> index 0000000000000..7ca920c8da059
+> --- /dev/null
+> +++ b/drivers/firmware/arm_scmi/vendors/qcom/qcom-generic-ext.c
+> @@ -0,0 +1,183 @@
+[ ... ]
+> +/*
+> + * The firmware only implements a handful of algorithm strings. Keep an
+> + * allowlist so a client cannot push an unsupported (or garbage) string =
+to
+> + * the firmware; extend it as new algorithms are added.
+> + */
+> +static const u64 qcom_scmi_algo_str[] =3D {
+> +	0x4d454d4c4154ULL, /* "MEMLAT" */
+> +};
+[ ... ]
+> +static int qcom_scmi_common_xfer(const struct scmi_protocol_handle *ph,
+> +				 enum qcom_generic_ext_protocol_cmd cmd_id, void *buf,
+> +				 size_t buf_len, u64 algo_str, u32 param_id, size_t rx_size)
+> +{
+> +	struct scmi_xfer *t;
+> +	struct qcom_scmi_msg *msg;
+> +	int ret;
+> +
+> +	if (!qcom_scmi_algo_str_valid(algo_str))
+> +		return -EINVAL;
+> +
+> +	/* Reject calls where rx_size exceeds buf_len. */
+> +	if (rx_size > buf_len)
+> +		return -EINVAL;
+> +
+> +	ret =3D ph->xops->xfer_get_init(ph, cmd_id, buf_len + sizeof(*msg), rx_=
+size, &t);
+
+[Severity: High]
+Can buf_len + sizeof(*msg) overflow?
+
+If a caller passes a very large buf_len, could the addition wrap around to a
+small positive integer?=20
+
+This would bypass the max_msg_size bounds check in xfer_get_init(), leading
+to an out-of-bounds write in the subsequent memcpy() call.
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	msg =3D t->tx.buf;
+> +	msg->ext_id =3D 0;
+> +	msg->algo_low =3D cpu_to_le32(lower_32_bits(algo_str));
+> +	msg->algo_high =3D cpu_to_le32(upper_32_bits(algo_str));
+
+[Severity: Medium]
+Does the firmware expect this string as an 8-byte character array?
+
+The constant 0x4d454d4c4154ULL represents "MEMLAT" in big-endian hex. When
+this is split into algo_low and algo_high and passed through cpu_to_le32(),
+the resulting little-endian memory layout becomes 0x54 0x41 0x4C 0x4D ("TAL=
+M")
+followed by 0x45 0x4D 0x00 0x00 ("EM\0\0").
+
+Will the firmware correctly reconstruct the 64-bit integer, or might it
+reject the mangled string "TALMEM\0\0" if it reads it as a character array?
+
+> +	msg->param_id =3D cpu_to_le32(param_id);
+> +	if (buf_len)
+> +		memcpy(msg->buf, buf, buf_len);
+
+[Severity: High]
+If a caller uses qcom_scmi_get_param() expecting an RX payload but has no TX
+payload, doesn't buf_len need to be at least rx_size to pass the validation
+check at the top of this function?
+
+If buf_len is artificially inflated to satisfy rx_size <=3D buf_len, won't =
+this
+memcpy() read buf_len bytes from the caller's buffer into the TX payload,
+potentially leaking uninitialized kernel memory to the firmware?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-rfc_v8_scm=
+i_memlat-v1-0-cb732bcff1f4@oss.qualcomm.com?part=3D3
