@@ -1,569 +1,424 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF58339021C;
-	Fri, 24 Jul 2026 06:59:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 556A939021C;
+	Fri, 24 Jul 2026 07:05:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784876398; cv=none; b=ZQX1Et4FuRsGlTRZ71RN5JMXgQGR7s7jwI5KZVJaIEWpBPr1UttbilWbYNelbXB3vruId+etI9KpihtWj8WVwl0SiybvCwNO0p5CVg66DjBjrdN8lFaekyZaDPa1q2xdVoaD3xv220znehR/XrSAd/mUClFFPFZS9IlaSeXbDx8=
+	t=1784876709; cv=none; b=iqYPjaNhfjikJ00eEe1BQm/3Q9LoeT9l9fUJVLjhThzlKeJ8rqG/j/Fq5HQ0sG/NgB7AFGf5CPNLPu1iWSK5tzpYjhwx5khB6L5+lzXWF9Cq8zK/LOdb9BDQhn0JlWqVeh4yuF/xDkhnMO8O/GA7ceUas66ZnsqOtl5a/R+6LHU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784876398; c=relaxed/simple;
-	bh=fHx8pNdmwoklRN2RNxaIYqJUcmhw1LNxbFHUGbbP0eM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Asdgv/vyUss3aYiaXvrSWvN8p9BqE3a3DW0Td/vfKjLxNLappGU+yhDMbhwpp8zAQr03cTP9iRyh0EMfDkOt/UC+5RLa7sIT0eUsB4yw6WSWsc27SbsYmSyawlaHvBzwf7d28N6eGvqo9l40apQ+T2FsDBQjwfuKCXZdoaYmtis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DJ7+CdB7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784876709; c=relaxed/simple;
+	bh=9C4gLOKrahYHS0EhTAMuYyrLkBqjtE/iASrMf4jZr/o=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=bQOFcwWN20ItF87/VwoVDBtwQkRCk5s0sLaYrEwVyVCpgIoBlzCU6rIcSOrIcyEOij/P1P2hj0ya/DO4mrWk01CoSYb1V9+J6kxFzdELQ7lCivNWOQGMeqc4pe5KVbWeeNY5Plrd0uUy5wtaUL6r3C4fEq1NhDnEa4TgiY1A2Vk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QgBJcgGP; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DJ7+CdB7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59D701F000E9;
-	Fri, 24 Jul 2026 06:59:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784876396;
-	bh=1P+YKRH7oEKm/7S1fZQeb6pspYaX4pWi3DXBCs4o13Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DJ7+CdB7cuu8RGteiJIxjlgqZPXuDupioLqiSlYx4ZdYHY34noTaS5M5zi9wOLOYf
-	 laaLsbGDGPR57QjT1kJSPSo5MgRfFzsV2GA5/NJOk2TzK9ooq6GY+dEi/GkkOFBN1U
-	 j44exzWbEqSabCtg2Mqa0QY/GI+DxgHZemz1LrkqWbIuaHpFmKvvlHJug7qiRHm4dE
-	 eKgkpCp+tdkvAvhLl4K3Tc1umqioYmiPSF+d1p5+k1aJdY+zFZU0J1cW2K8sl45qgm
-	 bV2fwbc22CzilX+kEs0tIZD8GgVSfnnAIJY/eSsfBueTg6KCi9tNwimgnIKfk+9ies
-	 AvKyYzV34oBEA==
-Date: Fri, 24 Jul 2026 08:59:52 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Peter Griffin <peter.griffin@linaro.org>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	=?utf-8?B?QW5kcsOp?= Draszik <andre.draszik@linaro.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Linus Walleij <linusw@kernel.org>, 
-	Drew Fustini <fustini@kernel.org>, Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, linux-serial@vger.kernel.org, 
-	soc@lists.linux.dev, Douglas Anderson <dianders@chromium.org>, 
-	Juan Yescas <jyescas@google.com>, RD Babiera <rdbabiera@google.com>, 
-	Brian Norris <briannorris@google.com>, William McVicker <willmcvicker@google.com>, 
-	kernel-team@android.com
-Subject: Re: [PATCH v2 4/5] arm64: dts: google: Add initial dts for
- frankel/blazer/mustang
-Message-ID: <20260724-dancing-skunk-of-novelty-72c1b8@quoll>
-References: <20260722-contrib-pg-pixel10-initial-dts-v2-0-3abae9717feb@linaro.org>
- <20260722-contrib-pg-pixel10-initial-dts-v2-4-3abae9717feb@linaro.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QgBJcgGP"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D7D44C19425;
+	Fri, 24 Jul 2026 07:05:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1784876708;
+	bh=9C4gLOKrahYHS0EhTAMuYyrLkBqjtE/iASrMf4jZr/o=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=QgBJcgGPnh1Iu9j0RFGu/Y0lfwWaJMzdVLWIG8ELDjmonePpxtudQNg+sOWurnZp7
+	 hsit10vtd2zSHkXp3dkh3RogQbeShkqhdR+m5dYUg0eMI4sJ10QLp/T3AQL4qwwDq9
+	 1aGOZCHlJKPpSLid2vnmKLi5tt7pJ14mYqskgH5Q7Hf6VPLrHWgitL4HTiGnMBicAz
+	 sDTTl1St+BKzjwbVUOI+yVeJ8wc7c/RL6ahT5fZ8D3cSwiU11YecnuAgxWUen0SINM
+	 IXdr6YrB6HyhSno364ThTxcFrstLMHTNxuzGaiPLdi5J4mMplU6vGzf2NNDPhmky/d
+	 hvvpqGHTmAJjg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B0D6FC531FA;
+	Fri, 24 Jul 2026 07:05:08 +0000 (UTC)
+From: Zhentao Guo via B4 Relay <devnull+zhentao.guo.amlogic.com@kernel.org>
+Subject: [PATCH v6 0/6] Add Amlogic stateless H.264 video decoder for S4
+Date: Fri, 24 Jul 2026 15:04:50 +0800
+Message-Id: <20260724-b4-s4-vdec-upstream-v6-0-6072a7ee7428@amlogic.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260722-contrib-pg-pixel10-initial-dts-v2-4-3abae9717feb@linaro.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJIOY2oC/33OS2rDMBCA4asErauieUi2u+o9Shd6ORHUcZBS0
+ RJ89yqBYopNl//AfDM3UWJOsYiXw03kWFNJ87mFeToIf7LnY5QptBaoUIPCTjqWhWUN0cvPS7n
+ maCepjCIPln3PVrTNS45j+nqob++tT6lc5/z9OFLhPv3fqyCVNKhYQQ/kdHi108d8TP7Zz5O4i
+ xVXBZD3FWyKC875SCOANVuFfhWjAGFfoaYwD8ZGT6Eb4lbhVUGgfYWb4rv2a1AqGINbRa+KRrO
+ v6KYQOd9DNw408l9lWZYfm8RjgtABAAA=
+X-Change-ID: 20251027-b4-s4-vdec-upstream-0603c1a4c84a
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ devicetree@vger.kernel.org, Zhentao Guo <zhentao.guo@amlogic.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784876706; l=15936;
+ i=zhentao.guo@amlogic.com; s=20251024; h=from:subject:message-id;
+ bh=9C4gLOKrahYHS0EhTAMuYyrLkBqjtE/iASrMf4jZr/o=;
+ b=QWUxZjRyaieRa0Wg2+sMWqlnzrDt0xiUZ0cb2slfLNEBErcIzQQjjs8qUtgMK1ztpQSOsSVbB
+ m1L/KJ4xhLyBWnfSKycQmcprCjVa+CYxh8tZpd8IVna5C5g7+2/5AbE
+X-Developer-Key: i=zhentao.guo@amlogic.com; a=ed25519;
+ pk=5yfDKrjreXwcAoEUsdtWafy6YN500upXp/CgtnXjLVU=
+X-Endpoint-Received: by B4 Relay for zhentao.guo@amlogic.com/20251024 with
+ auth_id=555
+X-Original-From: Zhentao Guo <zhentao.guo@amlogic.com>
+Reply-To: zhentao.guo@amlogic.com
 
-On Wed, Jul 22, 2026 at 10:55:55AM +0100, Peter Griffin wrote:
-> diff --git a/arch/arm64/boot/dts/google/lga-pixel-common.dtsi b/arch/arm64/boot/dts/google/lga-pixel-common.dtsi
-> new file mode 100644
-> index 000000000000..57c318ab44c9
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/google/lga-pixel-common.dtsi
-> @@ -0,0 +1,23 @@
-> +// SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
-> +/*
-> + * Google Pixel 10 family common dtsi.
-> + *
-> + * Copyright 2024-2025 Google LLC.
-> + */
-> +
-> +#include "lga.dtsi"
-> +
-> +&{/} {
+Introduce initial driver support for Amlogic's new video acceleration
+hardware architecture, designed for video stream decoding.
 
-This is overlay style, but the file is DTSI. Just use standard '/ {' -
-that's simple and obvious enough path.
+Compared to the current Amlogic video decoder hardware architecture,
+this new implementation eliminates the Esparser hardware component,
+enabling direct vb2 buffer input. The driver is designed to support
+the V4L2 M2M stateless decoder API. The initial phase includes support
+for H.264 decoding on Amlogic S805X2 platform.
 
-> +	chosen {
-> +		stdout-path = "serial0";
-> +	};
-> +
-> +	aliases {
-> +		serial0 = "/soc@0/serial@db62000";	/* &lsion_cli16_uart */
-> +		ufs0 = "/ufs-placeholder";		/* &ufs - TODO "/soc@0/ufs@3c400000" */
+The driver needs to work alongside with a signed firmware. The loading process of
+the signed fw is as follow.
+Stage1: Decypt and decompose the full firmware package when the driver is probed.
+  +---------------------+                        +---------------------+
+  |  Decoder Driver     |                        |  TEE Shared Memory  |
+  |  (Kernel Space)     |                        |                     |
+  |  +---------------+  |                        |  +---------------+  |
+  |  | video_ucode   |  |                        |  | firmware      |  |
+  |  |    .bin       |  |  Copy payload to SHM   |  |   payload     |  |
+  |  | (from fs)     |  | ---------------------> |  | (Secure RAM)  |  |
+  |  +---------------+  |                        |  +---------------+  |
+  +---------------------+                        +----------+----------+
+                                                            |
+                                                            | PTA Invocation
+                                                            v
+                                       +-------------------------------+
+                                       |             BL32              |
+                                       |  +-------------------------+  |
+                                       |  | Decrypt Firmware        |  |
+                                       |  +-----------+-------------+  |
+                                       |              |                |
+                                       |              v                |
+                                       |  +-------------------------+  |
+                                       |  | Decompose the full      |  |
+				       |  | firmware pacakge        |  |
+                                       |  +-----------+-------------+  |
+                                       |              |                |
+                                       |              v                |
+                                       |  +-------------------------+  |
+                                       |  | Store decomposed .bin   |  |
+                                       |  | in Secure Memory        |  |
+                                       |  +-------------------------+  |
+                                       +-------------------------------+
 
-UFS does not have aliases, please drop.
+Stage2: When a decode job is scheduled, load decrypted fw via secure monitor.
 
-> +	};
-> +};
-> +
-> +&osc {
-> +	clock-frequency = <38400000>;
-> +};
-> diff --git a/arch/arm64/boot/dts/google/lga.dtsi b/arch/arm64/boot/dts/google/lga.dtsi
-> new file mode 100644
-> index 000000000000..343156a8c039
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/google/lga.dtsi
-> @@ -0,0 +1,423 @@
-> +// SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
-> +/*
-> + * Google Tensor G5 (laguna) SoC rev B0
-> + *
-> + * Copyright 2024-2025 Google LLC.
-> + */
-> +
-> +/dts-v1/;
-> +
-> +#include <dt-bindings/interrupt-controller/arm-gic.h>
-> +#include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +/ {
-> +	#address-cells = <2>;
-> +	#size-cells = <2>;
-> +	interrupt-parent = <&gic>;
-> +
-> +	osc: clock-38400000 {
-> +		compatible = "fixed-clock";
-> +		#clock-cells = <0>;
-> +	};
-> +
-> +	cpus: cpus {
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +
-> +		hayes_0: cpu@0 {
-> +			compatible = "arm,cortex-a520";
-> +			reg = <0x000>;
-> +
-> +			#cooling-cells = <2>;
-> +			capacity-dmips-mhz = <258>;
-> +			device_type = "cpu";
-> +			enable-method = "psci";
-> +			power-domain-names = "psci";
-> +			power-domains = <&cpu_pd0>;
-> +		};
-> +
-> +		hayes_1: cpu@100 {
-> +			compatible = "arm,cortex-a520";
-> +			reg = <0x100>;
-> +
-> +			#cooling-cells = <2>;
-> +			capacity-dmips-mhz = <258>;
-> +			device_type = "cpu";
-> +			enable-method = "psci";
-> +			power-domain-names = "psci";
-> +			power-domains = <&cpu_pd1>;
-> +		};
-> +
-> +		hunter_0: cpu@200 {
-> +			compatible = "arm,cortex-a725";
-> +			reg = <0x200>;
-> +
-> +			#cooling-cells = <2>;
-> +			capacity-dmips-mhz = <891>;
-> +			device_type = "cpu";
-> +			enable-method = "psci";
-> +			power-domain-names = "psci";
-> +			power-domains = <&cpu_pd2>;
-> +		};
-> +
-> +		hunter_1: cpu@300 {
-> +			compatible = "arm,cortex-a725";
-> +			reg = <0x300>;
-> +
-> +			#cooling-cells = <2>;
-> +			capacity-dmips-mhz = <891>;
-> +			device_type = "cpu";
-> +			enable-method = "psci";
-> +			power-domain-names = "psci";
-> +			power-domains = <&cpu_pd3>;
-> +		};
-> +
-> +		hunter_2: cpu@400 {
-> +			compatible = "arm,cortex-a725";
-> +			reg = <0x400>;
-> +
-> +			#cooling-cells = <2>;
-> +			capacity-dmips-mhz = <891>;
-> +			device_type = "cpu";
-> +			enable-method = "psci";
-> +			power-domain-names = "psci";
-> +			power-domains = <&cpu_pd4>;
-> +		};
-> +
-> +		hunter_3: cpu@500 {
-> +			compatible = "arm,cortex-a725";
-> +			reg = <0x500>;
-> +
-> +			#cooling-cells = <2>;
-> +			capacity-dmips-mhz = <891>;
-> +			device_type = "cpu";
-> +			enable-method = "psci";
-> +			power-domain-names = "psci";
-> +			power-domains = <&cpu_pd5>;
-> +		};
-> +
-> +		hunter_4: cpu@600 {
-> +			compatible = "arm,cortex-a725";
-> +			reg = <0x600>;
-> +
-> +			#cooling-cells = <2>;
-> +			capacity-dmips-mhz = <891>;
-> +			device_type = "cpu";
-> +			enable-method = "psci";
-> +			power-domain-names = "psci";
-> +			power-domains = <&cpu_pd6>;
-> +		};
-> +
-> +		hunterelp_0: cpu@700 {
-> +			compatible = "arm,cortex-x4";
-> +			reg = <0x700>;
-> +
-> +			#cooling-cells = <2>;
-> +			capacity-dmips-mhz = <1024>;
-> +			device_type = "cpu";
-> +			enable-method = "psci";
-> +			power-domain-names = "psci";
-> +			power-domains = <&cpu_pd7>;
-> +		};
-> +
-> +		cpu-map {
-> +			cluster0 {
-> +				core0 {
-> +					cpu = <&hayes_0>;
-> +				};
-> +				core1 {
-> +					cpu = <&hayes_1>;
-> +				};
-> +				core2 {
-> +					cpu = <&hunter_0>;
-> +				};
-> +				core3 {
-> +					cpu = <&hunter_1>;
-> +				};
-> +				core4 {
-> +					cpu = <&hunter_2>;
-> +				};
-> +				core5 {
-> +					cpu = <&hunter_3>;
-> +				};
-> +				core6 {
-> +					cpu = <&hunter_4>;
-> +				};
-> +				core7 {
-> +					cpu = <&hunterelp_0>;
-> +				};
-> +			};
-> +		};
-> +
-> +		idle-states {
-> +			entry-method = "psci";
-> +
-> +			cpu_lit_c2: cpu-lit-c2 {
-> +				compatible = "arm,idle-state";
-> +
-> +				entry-latency-us = <132>;
-> +				exit-latency-us = <296>;
-> +				min-residency-us = <3610>;
-> +
-> +				idle-state-name = "cpu-lit-c2";
-> +				local-timer-stop;
-> +
-> +				arm,psci-suspend-param = <0x40000003>;
-> +			};
-> +
-> +			cpu_mid1_c2: cpu-mid1-c2 {
-> +				compatible = "arm,idle-state";
-> +
-> +				entry-latency-us = <130>;
-> +				exit-latency-us = <274>;
-> +				min-residency-us = <2720>;
-> +
-> +				idle-state-name = "cpu-mid1-c2";
-> +				local-timer-stop;
-> +
-> +				arm,psci-suspend-param = <0x40000003>;
-> +			};
-> +
-> +			cpu_mid2_c2: cpu-mid2-c2 {
-> +				compatible = "arm,idle-state";
-> +
-> +				entry-latency-us = <130>;
-> +				exit-latency-us = <274>;
-> +				min-residency-us = <2720>;
-> +
-> +				idle-state-name = "cpu-mid2-c2";
-> +				local-timer-stop;
-> +
-> +				arm,psci-suspend-param = <0x40000003>;
-> +			};
-> +
-> +			cpu_big_c2: cpu-big-c2 {
-> +				compatible = "arm,idle-state";
-> +
-> +				entry-latency-us = <110>;
-> +				exit-latency-us = <413>;
-> +				min-residency-us = <3950>;
-> +
-> +				idle-state-name = "cpu-big-c2";
-> +				local-timer-stop;
-> +
-> +				arm,psci-suspend-param = <0x40000003>;
-> +			};
-> +		};
-> +
-> +		domain-idle-states {
-> +			cluster_1_c3: cluster-1-c3 {
-> +				compatible = "domain-idle-state";
-> +
-> +				entry-latency-us = <325>;
-> +				exit-latency-us = <553>;
-> +				min-residency-us = <10000>;
-> +
-> +				idle-state-name = "cluster-1-c3";
-> +
-> +				arm,psci-suspend-param = <0x40010033>;
-> +			};
-> +
-> +			cluster_2_c3: cluster-2-c3 {
-> +				compatible = "domain-idle-state";
-> +
-> +				entry-latency-us = <345>;
-> +				exit-latency-us = <673>;
-> +				min-residency-us = <10000>;
-> +
-> +				idle-state-name = "cluster-2-c3";
-> +
-> +				arm,psci-suspend-param = <0x40010033>;
-> +			};
-> +
-> +			cluster_c4_deep: cluster-c4-deep {
-> +				compatible = "domain-idle-state";
-> +
-> +				entry-latency-us = <510>;
-> +				exit-latency-us = <1027>;
-> +				min-residency-us = <10000>;
-> +
-> +				idle-state-name = "cluster-c4-deep";
-> +
-> +				arm,psci-suspend-param = <0x40020333>;
-> +			};
-> +		};
-> +	};
-> +
-> +	memory: memory@80000000 {
-> +		device_type = "memory";
-> +		/* We expect the bootloader to fill in the size */
-> +		reg = <0x0 0x80000000 0x0 0x0>;
-> +	};
+  +---------------------+
+  |  V4L2 M2M Framework |
+  |  +---------------+  |
+  |  |  device_run   |  |
+  |  +------+--------+  |
+  +---------+-----------+
+            |
+            v
+  +---------------------+                  +---------------------+
+  |  Decoder Driver     |                  |  Secure Monitor     |
+  |  (Kernel Space)     |                  |      (bl32)         |
+  |  +---------------+  |     SMC Call     |  +---------------+  |
+  |  | Select Codec  |  | ---------------> |  | Select & Load |  |
+  |  | Specific FW   |  |                  |  | firmware.bin  |  |
+  |  +---------------+  |                  |  | to AMRISC     |  |
+  +---------------------+                  |  +-------+-------+  |
+                                           +----------+----------+
+                                                      |
+                                                      v
+                                           +---------------------+
+                                           |     AMRISC Core     |
+                                           |  +---------------+  |
+                                           |  | Running fw on |  |
+                                           |  | AMRISC        |  |
+                                           |  +---------------+  |
+                                           +---------------------+
 
-The memory node should go to the DTS (or common DTSI). It's not part of
-SoC usually.
+The driver is capable of:
+- Supporting stateless H.264 decoding up to a resolution 1920x1088(on the S805X2 platform).
+- Supporting I/P/B frame handling.
+- Supporting vb2 mmap and dma-buf modes.
+- Supporting frame-based decode mode. (Note that some H.264 bitstreams require
+  DPB reordering to generate reference lists, the stateless decoder driver
+  cannot access reordered reference lists in this mode, requiring the driver
+  to perform reference list reordering itself)
+- Supporting NV12/NV21 output.
+- Supporting Annex B start codes.
 
-Also, add short comment why do you need label. It will cause
-dt-style-check warning.
+This driver is tested with Gstreamer.
+Example:
+gst-launch-1.0 filesrc location=/tmp/video_640x360_mp4_hevc_450kbps_no_b.mp4 !
+parsebin ! v4l2slh264dec ! filesink location=/tmp/output.yuv
 
+Retry the compliance test based on kernel 7.1.0:
+v4l2-compliance 1.30.1, 64 bits, 64-bit time_t
 
-> +
-> +	psci {
-> +		compatible = "arm,psci-1.0";
-> +		method = "smc";
-> +
-> +		cpu_pd0: power-domain-cpu0 {
-> +			#power-domain-cells = <0>;
-> +			domain-idle-states = <&cpu_lit_c2>;
-> +			power-domains = <&cpu_top_cl>;
-> +		};
-> +
-> +		cpu_pd1: power-domain-cpu1 {
-> +			#power-domain-cells = <0>;
-> +			domain-idle-states =  <&cpu_lit_c2>;
-> +			power-domains = <&cpu_top_cl>;
-> +		};
-> +
-> +		cpu_pd2: power-domain-cpu2 {
-> +			#power-domain-cells = <0>;
-> +			domain-idle-states =  <&cpu_mid1_c2>;
-> +			power-domains = <&cpucl1>;
-> +		};
-> +
-> +		cpu_pd3: power-domain-cpu3 {
-> +			#power-domain-cells = <0>;
-> +			domain-idle-states =  <&cpu_mid1_c2>;
-> +			power-domains = <&cpucl1>;
-> +		};
-> +
-> +		cpu_pd4: power-domain-cpu4 {
-> +			#power-domain-cells = <0>;
-> +			domain-idle-states =  <&cpu_mid1_c2>;
-> +			power-domains = <&cpucl1>;
-> +		};
-> +
-> +		cpu_pd5: power-domain-cpu5 {
-> +			#power-domain-cells = <0>;
-> +			domain-idle-states =  <&cpu_mid2_c2>;
-> +			power-domains = <&cpucl2>;
-> +		};
-> +
-> +		cpu_pd6: power-domain-cpu6 {
-> +			#power-domain-cells = <0>;
-> +			domain-idle-states =  <&cpu_mid2_c2>;
-> +			power-domains = <&cpucl2>;
-> +		};
-> +
-> +		cpu_pd7: power-domain-cpu7 {
-> +			#power-domain-cells = <0>;
-> +			domain-idle-states =  <&cpu_big_c2>;
-> +			power-domains = <&cpucl2>;
-> +		};
-> +
-> +		cpucl1: power-domain-cluster-1 {
-> +			#power-domain-cells = <0>;
-> +			domain-idle-states = <&cluster_1_c3>;
-> +			power-domains = <&cpu_top_cl>;
-> +		};
-> +
-> +		cpucl2: power-domain-cluster-2 {
-> +			#power-domain-cells = <0>;
-> +			domain-idle-states = <&cluster_2_c3>;
-> +			power-domains = <&cpu_top_cl>;
-> +		};
-> +
-> +		cpu_top_cl: power-domain-top-cluster {
-> +			#power-domain-cells = <0>;
-> +			domain-idle-states = <&cluster_c4_deep>;
-> +		};
-> +	};
-> +
-> +	reserved_memory: reserved-memory {
-> +		#address-cells = <2>;
-> +		#size-cells = <2>;
-> +		ranges;
-> +
-> +		/*
-> +		 * Store ramoops at a known location in DRAM, for access by the ABL
-> +		 * following a crash-reset.
-> +		 */
-> +		ramoops@95200000 {
-> +			compatible = "ramoops";
-> +			reg = <0x0 0x95200000 0x0 0x400000>;
-> +			console-size = <0x200000>;
-> +			pmsg-size = <0x200000>;
-> +		};
-> +
-> +		/* bootloader logs */
-> +		bldr_log_reserved: bldr-log-reserved@95600000 {
-> +			reg = <0x0 0x95600000 0x0 0x100000>;
-> +			no-map;
-> +		};
-> +
-> +		/* gsa logs */
-> +		gsa_reserved_log: gsa-reserved-log@a61b0000 {
-> +			reg = <0x0 0xa61b0000 0x0 0x00004000>;
-> +			no-map;
-> +		};
-> +
-> +		/* Android BootLoader (ABL) for ramdump/coredump processing */
-> +		abl@be000000 {
-> +			reg = <0x0 0xbe000000 0x0 0x1000000>;
-> +			no-map;
-> +		};
-> +	};
-> +
-> +	soc: soc@0 {
-> +		compatible = "simple-bus";
-> +		ranges = <0 0 0 0 0x10 0>;
-> +
-> +		dma-ranges = <0 0 0 0 0x10 0>;
-> +
-> +		#address-cells = <2>;
-> +		#size-cells = <2>;
-> +
-> +		gic: interrupt-controller@5880000 {
-> +			compatible = "arm,gic-v3";
-> +			reg = <0 0x05880000 0 0x10000>,
-> +			      <0 0x05900000 0 0x200000>;
+Compliance test for aml-vdec-drv device /dev/video0:
 
-In some other places you use hex everywhere, also for '0' (so '0x0').
-Switch to consistent 0x0 everywhere for new code.
+Driver Info:
+Driver name : aml-vdec-drv
+Card type : platform:aml-vdec-drv
+Bus info : platform:fe320000.video-codec
+Driver version : 7.1.0
+Capabilities : 0x84204000
+Video Memory-to-Memory Multiplanar
+Streaming
+Extended Pix Format
+Device Capabilities
+Device Caps : 0x04204000
+Video Memory-to-Memory Multiplanar
+Streaming
+Extended Pix Format
+Detected Stateless Decoder
+Media Driver Info:
+Driver name : aml-vdec-drv
+Model : aml-vdec-drv
+Serial :
+Bus info : platform:fe320000.video-codec
+Media version : 7.1.0
+Hardware revision: 0x00000000 (0)
+Driver version : 7.1.0
+Interface Info:
+ID : 0x0300000c
+Type : V4L Video
+Entity Info:
+ID : 0x00000001 (1)
+Name : aml_dev_drv-source
+Function : V4L2 I/O
+Pad 0x01000002 : 0: Source
+Link 0x02000008: to remote pad 0x1000004 of entity 'aml_dev_drv-proc' (Video Decoder): Data, Enabled, Immutable
 
-> +			ranges;
+Required ioctls:
+test MC information (see 'Media Driver Info' above): OK
+test VIDIOC_QUERYCAP: OK
+test invalid ioctls: OK
 
-Why ranges? There is no MSI child node with unit address.
+Allow for multiple opens:
+test second /dev/video0 open: OK
+test VIDIOC_QUERYCAP: OK
+test VIDIOC_G/S_PRIORITY: OK
+test for unlimited opens: OK
 
-> +
-> +			#address-cells = <2>;
-> +			#size-cells = <2>;
-> +
-> +			#interrupt-cells = <4>;
-> +			interrupt-controller;
-> +			interrupts = <GIC_PPI 9 IRQ_TYPE_LEVEL_HIGH 0>;
-> +
-> +			ppi-partitions {
-> +				ppi_cluster0: interrupt-partition-0 {
-> +					affinity = <&hayes_0 &hayes_1
-> +						    &hunter_0 &hunter_1 &hunter_2
-> +						    &hunter_3 &hunter_4>;
-> +				};
-> +
-> +				ppi_cluster1: interrupt-partition-1 {
-> +					affinity = <&hunterelp_0>;
-> +				};
-> +			};
-> +		};
-> +
-> +		lsion_cli16_uart: serial@db62000 {
-> +			compatible = "google,lga-uart", "snps,dw-apb-uart";
-> +			reg = <0 0x0db62000 0 0x100>;
-> +
-> +			clock-frequency = <200000000>;
-> +			interrupts = <GIC_SPI 688 IRQ_TYPE_LEVEL_HIGH 0>;
-> +			reg-io-width = <4>;
-> +			reg-shift = <2>;
-> +
-> +			status = "disabled";
-> +		};
-> +	};
-> +
-> +	timer {
-> +		compatible = "arm,armv8-timer";
-> +		interrupts =
-> +			<GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW) 0>,
+Debug ioctls:
+test VIDIOC_DBG_G/S_REGISTER: OK (Not Supported)
+test VIDIOC_LOG_STATUS: OK (Not Supported)
 
-Join line:
+Input ioctls:
+test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+test VIDIOC_ENUMAUDIO: OK (Not Supported)
+test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+test VIDIOC_G/S_AUDIO: OK (Not Supported)
+Inputs: 0 Audio Inputs: 0 Tuners: 0
 
-interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW) 0>,
+Output ioctls:
+test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+Outputs: 0 Audio Outputs: 0 Modulators: 0
 
-even if it goes beyond 80 char limit. That's fine, exceptions are
-allowed and one line makes 'greps' or 'seds' easier.
+Input/Output configuration ioctls:
+test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+test VIDIOC_G/S_EDID: OK (Not Supported)
 
-> +			<GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW) 0>,
-> +			<GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW) 0>,
-> +			<GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW) 0>;
-> +	};
-> +
-> +	/*
-> +	 * The Pixel bootloader considers it a fatal error if it doesn't find
-> +	 * a `ufs0` alias so it can add calibration data to the node. Until
+Control ioctls:
+test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+test VIDIOC_QUERYCTRL: OK
+test VIDIOC_G/S_CTRL: OK
+test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+Standard Controls: 6 Private Controls: 0
+Standard Compound Controls: 4 Private Compound Controls: 0
 
-Fake node is ok, but alias won't fly because aliases are not allowed for
-ufs. Well, would work 10 years ago, but this is a device from ~2025 (so
-SoC maybe a bit earlier), thus Google already knew that they MUST talk
-with upstream open source maintainers before they ship such ABI.
+Format ioctls:
+test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
+test VIDIOC_G/S_PARM: OK (Not Supported)
+test VIDIOC_G_FBUF: OK (Not Supported)
+test VIDIOC_G_FMT: OK
+test VIDIOC_TRY_FMT: OK
+test VIDIOC_S_FMT: OK
+test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+test Cropping: OK (Not Supported)
+test Composing: OK (Not Supported)
+test Scaling: OK (Not Supported)
 
-They did not talk, so you reap what you sow.
+Codec ioctls:
+test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+test VIDIOC_(TRY_)DECODER_CMD: OK
 
-There is no more excuse for a vendor to ignore open source and push
-whatever-ABI-they-wish into their product, if they ever want to upstream
-that product.
+Buffer ioctls:
+test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
+test CREATE_BUFS maximum buffers: OK
+test VIDIOC_REMOVE_BUFS: OK
+test VIDIOC_EXPBUF: OK
+test Requests: OK
+test blocking wait: OK
 
-I know it is not your fault, obviously. And I know that not much you can
-do, so that is not rant towards you nor towards Doug.
+Total for aml-vdec-drv device /dev/video0: 49, Succeeded: 49, Failed: 0, Warnings: 0
+Fluster test result of JVT-AVC_V1.
+Result:
+Ran 77/135 tests successfully
 
-You will have to keep this part of patch out of tree or fix the Pixel
-bootloader.
+- 52 test vectors failed due to interlaced or mbaff clips: The Amlogic stateless
+  decoder driver only support bitstreams with frame_mbs_only_flags == 1.
+  Test Vectors:
+        cabac_mot_fld0_full
+        cabac_mot_mbaff0_full
+        cabac_mot_picaff0_full
+        CABREF3_Sand_D
+        CAFI1_SVA_C
+        CAMA1_Sony_C
+        CAMA1_TOSHIBA_B
+        cama1_vtc_c
+        cama2_vtc_b
+        CAMA3_Sand_E
+        cama3_vtc_b
+        CAMACI3_Sony_C
+        CAMANL1_TOSHIBA_B
+        CAMANL2_TOSHIBA_B
+        CAMANL3_Sand_E
+        CAMASL3_Sony_B
+        CAMP_MOT_MBAFF_L30
+        CAMP_MOT_MBAFF_L31
+        CANLMA2_Sony_C
+        CANLMA3_Sony_C
+        CAPA1_TOSHIBA_B
+        CAPAMA3_Sand_F
+        cavlc_mot_fld0_full_B
+        cavlc_mot_mbaff0_full_B
+        cavlc_mot_picaff0_full_B
+        CVCANLMA2_Sony_C
+        CVFI1_Sony_D
+        CVFI1_SVA_C
+        CVFI2_Sony_H
+        CVFI2_SVA_C
+        CVMA1_Sony_D
+        CVMA1_TOSHIBA_B
+        CVMANL1_TOSHIBA_B
+        CVMANL2_TOSHIBA_B
+        CVMAPAQP3_Sony_E
+        CVMAQP2_Sony_G
+        CVMAQP3_Sony_D
+        CVMP_MOT_FLD_L30_B
+        CVNLFI1_Sony_C
+        CVNLFI2_Sony_H
+        CVPA1_TOSHIBA_B
+        FI1_Sony_E
+        MR6_BT_B
+        MR7_BT_B
+        MR8_BT_B
+        MR9_BT_B
+        Sharp_MP_Field_1_B
+        Sharp_MP_Field_2_B
+        Sharp_MP_Field_3_B
+        Sharp_MP_PAFF_1r2
+        Sharp_MP_PAFF_2r
+        CVMP_MOT_FRM_L31_B
+- 3 test vectors failed due to unsupported bitstream.
+  num_slice_group_minus1 greater than zero is not supported by the
+  hardware.
+  Test Vectors:
+        FM1_BT_B
+        FM1_FT_E
+        FM2_SVA_C
+- 2 test vectors failed because SP_SLICE type is not supported by the
+  hardware.
+  Test Vectors:
+        SP1_BT_A
+        sp2_bt_b
 
-> +	 * the proper UFS controller node is added under the SoC, create a
-> +	 * temporary node to make the bootloader happy.
-> +	 */
-> +	ufs: ufs-placeholder {
-> +	};
+One remain failure is CVFC1_Sony_C, which contains crop information. The md5sum of every decoded YUV indicates that original output from the decoder was correct. The YUV was cropped by gstreamer. The correct cropping method for this bitstream should be to crop 30*2 rows of pixels from both the top and bottom of the image, and 13*2 columns of pixels from both the left and right sides.However, gstreamer cropped 13*4 columns of pixels from the right side and 30*4 rows of pixels from the bottom. We are trying to find out the cause of this. Other failuers mentioned in V1 and V2 were resolved.
+
+Changes in v6:
+- Rename the HEVC core and the associated power, clock, and interrupt names. 'HEVC' was a development codename of the decoder IP which accelerates h265 vp9 av1 decoding, but it coincidentally matches the acronym for High Efficiency Video Coding. To avoid naming ambiguity, HEVC core is renamed to HVDEC core(H stands for HEVC).
+- Get rid of the unused function and interface.
+- Link to v5: https://lore.kernel.org/r/20260526-b4-s4-vdec-upstream-v5-0-33bc817f93f4@amlogic.com
+
+Changes in v5:
+- Rename the compatible and the clock item accroding to Krzysztof's feedback.
+- Use tee & meson_sm helpers to decrypt load the signed decoder firmware. Add the meson_sm describsion and reference to dt-binding and dts.
+- Link to v4: https://lore.kernel.org/r/20260213-b4-s4-vdec-upstream-v4-0-c7112d00d662@amlogic.com
+
+Changes in v4:
+- Use %pad to print dma_addr_t type instead of using %llx.
+- Add initial values to some local variables.
+- Link to v3: https://lore.kernel.org/r/20260121-b4-s4-vdec-upstream-v3-0-4496aec3d79e@amlogic.com
+
+Changes in v3:
+- Fixed the DT check error:
+  arch/arm64/boot/dts/amlogic/meson-s4-s805x2-aq222.dtb: video-codec@fe320000 (amlogic,s4-vcodec-dec): 'amlogic,canvas' does not match any of the regexes: '^pinctrl-[0-9]+$' 
+  from schema $id: http://devicetree.org/schemas/media/amlogic,vcodec-dec.yaml
+- Added DOS reset lines to dtsi and dt-binding.
+- Fixed the issue where some B-frames were not decoded correctly(The fluster failures mentioned in patch V1 and V2 were mostly caused by this).
+- Fixed the issue where canvas_index leaks occurred during the decoding of some bitstreams.
+- Rework the src/dst format storage. Use v4l2_pix_format_mplane to store formats that related to bitstreams into the context. Add the reset format function to reset all the formats to default value. 
+- Store decoding parameters related to chip platforms, such as maximum width/height and alignment requirement, organized by chip platform.
+- Link to v2: https://lore.kernel.org/r/20251124-b4-s4-vdec-upstream-v2-0-bdbbce3f11a6@amlogic.com
+
+Changes in v2:
+- Fixed incorrect generation of the reference lists for some B-frames.
+- Rename or get rid of some properties in DTS and dt-binding.
+- Remove some useless code or helper functions, (eg. clk helper functions, reg I/O macros, and some superfluous print messages) replace these functions with existing ones.
+- Replace all the printk messages with dev_err/dev_info/dev_dbg
+- Use the helper functions from the existing meson-canvas driver.
+- Use clk_bulk_data to map clocks from DTS.
+- Retry the V4L2 Compliance test on 6.18-rc6, fix a newly introduced bug.
+- Link to v1: https://lore.kernel.org/r/20251027-b4-s4-vdec-upstream-v1-0-620401813b5d@amlogic.com
+
+Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
+---
+Zhentao Guo (6):
+      firmware: meson: sm: Add video firmware loading SMC call
+      firmware: meson: sm: video firmware loading via secure monitor
+      media: dt-bindings: Add Amlogic V4L2 video decoder
+      decoder: Add V4L2 stateless H.264 decoder driver
+      arm64: dts: amlogic: Add video decoder driver support for S4 SOCs
+      arm64: defconfig: Enable CONFIG_VIDEO_AMLOGIC_VDEC
+
+ .../devicetree/bindings/media/amlogic,s4-vdec.yaml |  103 +
+ MAINTAINERS                                        |    7 +
+ arch/arm64/boot/dts/amlogic/meson-s4.dtsi          |   34 +
+ arch/arm64/configs/defconfig                       |    1 +
+ drivers/firmware/meson/meson_sm.c                  |    1 +
+ drivers/media/platform/amlogic/Kconfig             |    1 +
+ drivers/media/platform/amlogic/Makefile            |    1 +
+ drivers/media/platform/amlogic/vdec/Kconfig        |   18 +
+ drivers/media/platform/amlogic/vdec/Makefile       |    4 +
+ drivers/media/platform/amlogic/vdec/TODO           |    7 +
+ drivers/media/platform/amlogic/vdec/aml_vdec.c     |  736 +++++++
+ drivers/media/platform/amlogic/vdec/aml_vdec.h     |   33 +
+ drivers/media/platform/amlogic/vdec/aml_vdec_drv.c |  239 +++
+ drivers/media/platform/amlogic/vdec/aml_vdec_drv.h |  172 ++
+ drivers/media/platform/amlogic/vdec/aml_vdec_hw.c  |  538 +++++
+ drivers/media/platform/amlogic/vdec/aml_vdec_hw.h  |  157 ++
+ .../platform/amlogic/vdec/aml_vdec_platform.c      |   81 +
+ .../platform/amlogic/vdec/aml_vdec_platform.h      |   46 +
+ .../media/platform/amlogic/vdec/aml_vdec_tee_fw.c  |  240 +++
+ .../media/platform/amlogic/vdec/aml_vdec_tee_fw.h  |   27 +
+ drivers/media/platform/amlogic/vdec/h264.c         | 2067 ++++++++++++++++++++
+ drivers/media/platform/amlogic/vdec/h264.h         |  299 +++
+ drivers/media/platform/amlogic/vdec/reg_defines.h  |  177 ++
+ include/linux/firmware/meson/meson_sm.h            |    1 +
+ 24 files changed, 4990 insertions(+)
+---
+base-commit: b4515cf4156356e8f4fe6e0fdc17f59adab9772f
+change-id: 20251027-b4-s4-vdec-upstream-0603c1a4c84a
 
 Best regards,
-Krzysztof
+-- 
+Zhentao Guo <zhentao.guo@amlogic.com>
+
 
