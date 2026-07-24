@@ -1,111 +1,98 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96FFA280335;
-	Fri, 24 Jul 2026 12:45:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC1D22931CD
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 12:48:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784897151; cv=none; b=LtSfnaWERGjX3m2KbaOHsltFf9AKg/OzBf9v0AsE6WR/l2tFEyAcZTJL+VPyTKMIJgsfzpiBpg56JCauShRdVmMdQeVRuBNRnVnRfVUIQ5EdmKPVlpQD26BIfwLXJ/KZ+uyIM1stQKFC3m/zjqe7+YcHd9Jr9Nznz1w7rBdRXCk=
+	t=1784897316; cv=none; b=ifaGdFPyjSvgLbVC06G9W//G7nqwDfel2dAJTx2gXhvPGimnH+V1I2WMrPR2ox0cLEBY/ygFiQ3PykgSoT5b5vbfYGud6FKTbzsF8RAjsk5ZDSbSDm7Ey5OoIyLRc+XrIHbcZ8kp6jXN8FtknTT78j8JZbbqf4iVRp+P48E3YZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784897151; c=relaxed/simple;
-	bh=5gWu1etmGQzpc+vJtn73eRzN6InGTYFK7N+DVx5BuKY=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SdPeW1uiRuqOsZsPsJ9g/Efx1Oa8lz8YwmH79K6GXHYPTMrBGxKitpTRkNJQnrytmRvXVcsHs6u2pCuyzwkIwu6N5EHc9BIxyS7KMSrwOllzgqMWmUcONYzXFsXt83lzimafygnfC3DguHTzl5N0Dt2V0B7tz5C1Sw73ojaRtiU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=KvghDC5K; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1784897316; c=relaxed/simple;
+	bh=oaUvS21NmaZZ2iyY0Q4bI6y6K4KeUWFw1qgciyiNdKY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=eDJ9W8LanJ2P08mmq3MooFeIZ/RSRzV4R9Wn0zS799Mz+2NcICPh2yde74EXUCIXRtEt5iWRudm4iVsd4R/Lr2F5RsEYPKo71Iq6xAOBfNi8noghKCJ5gZ6R7uBsCiBYVxEcqSK/r1dT61828otPRuw03gdpRJrcU0QQ8FQX3pM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cq1bp6QZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="KvghDC5K"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1784897150; x=1816433150;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=5gWu1etmGQzpc+vJtn73eRzN6InGTYFK7N+DVx5BuKY=;
-  b=KvghDC5KzPeDZ013i69SzGcSYQkHfb0SPibCeEzsgpWnbb195jDhQNAr
-   3xl1DH/QHSux+is3ClyyY04hIXttAwe9/qTz79m9gL4Z1IUGyzPStBuhL
-   erlgr7mCw9J9RPrazPe0/UWQYeYa2DUMeIisCftQJ2P7YgwpTmwDy5Mug
-   K+0NcQKMzIXQcqBXqZ3uR7Ry6FXetaYwCGtSmaaC0oVQ+pbFhm3r/ohRX
-   uHJU8re2UQVWN9lQ8eU9mmXARpUZcwf2XCRw1ylypgtRYbF2yDi7t9MXS
-   l8fcoXF3tfTR59rqMGOTZCzfktXoCuFTf1SdkwMXnpGyEda7xUIsd97Yk
-   Q==;
-X-CSE-ConnectionGUID: j8P26unpR3qSDDrHoA/YGg==
-X-CSE-MsgGUID: X8FcsQ38ThK0MtMz5sEZnw==
-X-IronPort-AV: E=Sophos;i="6.25,182,1779174000"; 
-   d="asc'?scan'208";a="292499516"
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 24 Jul 2026 05:45:48 -0700
-Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Fri, 24 Jul 2026 05:45:47 -0700
-Received: from wendy (10.10.85.11) by chn-vm-ex02.mchp-main.com (10.10.85.144)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
- Transport; Fri, 24 Jul 2026 05:45:45 -0700
-Date: Fri, 24 Jul 2026 13:44:46 +0100
-From: Conor Dooley <conor.dooley@microchip.com>
-To: <Ariana.Lazar@microchip.com>
-CC: <conor@kernel.org>, <dlechner@baylibre.com>, <nuno.sa@analog.com>,
-	<linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>, <robh@kernel.org>,
-	<jic23@kernel.org>, <andy@kernel.org>, <krzk+dt@kernel.org>,
-	<linux-kernel@vger.kernel.org>, <conor+dt@kernel.org>
-Subject: Re: [PATCH 2/3] dt-bindings: iio: dac: add support for MCP48FEB02 SPI
-Message-ID: <20260724-jailhouse-cherub-7a27b62bc8a6@wendy>
-References: <20260723-mcp47feb02_refactor-v1-0-ee59e63672bc@microchip.com>
- <20260723-mcp47feb02_refactor-v1-2-ee59e63672bc@microchip.com>
- <20260723-festive-genetics-3645c8e0b318@spud>
- <7e121a7afaaa5aa72e39a4a70de2b0edff796def.camel@microchip.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cq1bp6QZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8D4A1F000E9;
+	Fri, 24 Jul 2026 12:48:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784897304;
+	bh=NwoOkllxKlPc/xkZZ+tc7RIgRUy+EY862TaxW0LdT78=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Cq1bp6QZjegr5X2b1bPqGfGstqYrb4xBtN3VzXGKtRhT+Tr8MsP8w7CBwLUKjG1L8
+	 giI7MYSXQVUurfN4rw6+p5jk+EPzMMgQhsgi2gBRrrlZsbX1gGTIQOQ+FYuPk5a0L+
+	 ILjNtZV4ylie9wzzGXdn4UyKTnVz3YYM44wMhgalaoRq/JQGRzxfKdHTz7IZp54Atb
+	 uaTcPG3v8gJk4Uvl8H9RFMcuUf1OKQVL/ftJLGaK+fO3uKtgQxTQEWazkuSw8tgSv3
+	 aFedlCOiI09/U5dGMHuMEUuKAAOFKE+q548sNNWewDKE5G5GGMBJgH3ZXis4/T0z+S
+	 tcyYeixAyVNPg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] iommu/arm-smmu-v3: Override for Inst/Data attribute
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Peter Griffin" <peter.griffin@linaro.org>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260724-arm-smmu-v3-instcfg-override-v1-2-e7acf4a8a525@linaro.org>
+References: <20260724-arm-smmu-v3-instcfg-override-v1-0-e7acf4a8a525@linaro.org>
+ <20260724-arm-smmu-v3-instcfg-override-v1-2-e7acf4a8a525@linaro.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 24 Jul 2026 12:48:23 +0000
+Message-Id: <20260724124823.D8D4A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="FSLcchgfNrSvT+e1"
-Content-Disposition: inline
-In-Reply-To: <7e121a7afaaa5aa72e39a4a70de2b0edff796def.camel@microchip.com>
 
---FSLcchgfNrSvT+e1
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Incorrect parenthesis placement in `arm_smmu_make_cdtable_ste()` c=
+auses the `STRTAB_STE_1_INSTCFG` bitfield to be evaluated outside the `cpu_=
+to_le64()` macro. On big-endian platforms, this mixes little-endian data wi=
+th host-endian data, leading to corruption of the Stream Table Entry.
+--
 
-On Fri, Jul 24, 2026 at 12:30:31PM +0000, Ariana.Lazar@microchip.com wrote:
-> Hi Conor,
->=20
-> > This is actually a v2, right? This was submitted before using a bit
-> > of a
-> > different approach IIRC?
->=20
-> This is the first version combining both the refactoring and the SPI
-> support into a single series. Originally I have sent the refactoring
-> patches separately and in order to avoid confusion (cannot do a diff
-> with old patches) and to be tracked easily I have decided to make this
-> series as version 1.
->=20
-> If you think it is a good idea to mark it as version 2, I can resend
-> the series as version 2 and point to the old patches as version 1.
+--- Patch [2]: [PATCH 2/2] iommu/arm-smmu-v3: Override for Inst/Data attrib=
+ute ---
+commit af569c8fadcbad6c95ec600eb667d4a653e847dd
+Author: Peter Griffin <peter.griffin@linaro.org>
 
-Yeah, if you submit something and then do a big rework or consolidation
-of series you should treat it as being a new version of whichever you
-consider to be a new version rather than a new series.
+iommu/arm-smmu-v3: Override for Inst/Data attribute
 
-Cheers,
-Conor.
+This commit adds an option to override the instruction/data attribute of
+incoming traffic to Data by setting the INSTCFG override in all Stream Table
+Entries. The option is configurable via the arm,instdata-override device tr=
+ee
+property.
 
---FSLcchgfNrSvT+e1
-Content-Type: application/pgp-signature; name="signature.asc"
+> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/=
+arm/arm-smmu-v3/arm-smmu-v3.c
+> index 57b750ebcd3d6..2b39cb5aa49d0 100644
+> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+[ ... ]
+> @@ -1835,7 +1838,11 @@ void arm_smmu_make_cdtable_ste(struct arm_smmu_ste=
+ *target,
+>  			 STRTAB_STE_1_S1STALLD :
+>  			 0) |
+>  		FIELD_PREP(STRTAB_STE_1_EATS,
+> -			   ats_enabled ? STRTAB_STE_1_EATS_TRANS : 0));
+> +			   ats_enabled ? STRTAB_STE_1_EATS_TRANS : 0)) |
+> +		FIELD_PREP(STRTAB_STE_1_INSTCFG,
+> +			   smmu->options & ARM_SMMU_OPT_OVR_INSTCFG_DATA ?
+> +				   STRTAB_STE_1_INSTCFG_DATA :
+> +				   STRTAB_STE_1_INSTCFG_INCOMING);
 
------BEGIN PGP SIGNATURE-----
+[Severity: High]
+Does this prematurely close the cpu_to_le64() macro?
 
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCamNePgAKCRB4tDGHoIJi
-0l8IAQC8KK+RzW8Y7t+567swcy4oZO4DXKFNrSOpQ5VDjtVJ7AD/c/fv/Kz02tD5
-9GqHfF3TxAnRipbPhVD0so4sxX8tWgQ=
-=JOTt
------END PGP SIGNATURE-----
+By having the extra parenthesis after 0, the STRTAB_STE_1_INSTCFG field
+appears to be bitwise-ORed in host endianness rather than being
+little-endian swapped along with the rest of the fields.
 
---FSLcchgfNrSvT+e1--
+On big-endian platforms, could this mix little-endian and host-endian data,
+leading to corruption of the Stream Table Entry?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-arm-smmu-v=
+3-instcfg-override-v1-0-e7acf4a8a525@linaro.org?part=3D2
