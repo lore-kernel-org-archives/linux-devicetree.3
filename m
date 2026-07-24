@@ -1,252 +1,197 @@
-Received: from mx0b-00128a01.pphosted.com (mx0b-00128a01.pphosted.com [148.163.139.77])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2A33E56A;
-	Fri, 24 Jul 2026 00:03:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.139.77
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784851402; cv=fail; b=WqnNQfm1HedXuv8lJPi9Jo3ED86QRTFEqCDZSI4BSGXqo7wnyY6esYK3zuUBflUDhy+847JMk1YTXJCeYjGj6o804XEjgVo7p67inA93GeLRawuGrl2DTL8wbVQrGPXIgWQTBSZZRA4TS/m0Pgz1nOvsj7or0cVnR8+D5yKjpT4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784851402; c=relaxed/simple;
-	bh=2Yvtw1Vwho4cRIQgQroILV0s79rAVwRQAht1gEm5ORo=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=OH3M/Jy6ELqc6iIRl2/xYbd+X92jATIZkuR32EyxFoEFa8Iz5erVOEjhbZoL57kCFmyPThLog/pNQ/xk6zjuZ53g2hoKwUwIhYkGR6F8J/33dmtLewhe4bqKi2ezqZEAMU/PlPTf6zQ0U5dtcUnVqo22znosMMNMoFntpBEi5w4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=pOkAXP9P; arc=fail smtp.client-ip=148.163.139.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BB254A0C
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 00:04:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784851458; cv=none; b=BUtqPCKuxlhQs1n6PhlEkvBrg0uj7Q1Cfn4nqgoLdtEvidbO/JfUdyWxLJrgQBTEM5zJdBM1U8TjEBidspEXZlls9+8ZoCoHMsMtg6NJFs40b2ax05Je8dLq8sRhs0SkN1fHmCA+7Vu7px9Du2G7t1AKxD48aM03BayErrVKQC8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784851458; c=relaxed/simple;
+	bh=htkBWgItY3UpvgqBlapz7qh+V+BpL09BzZYpTbe4qE4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UPp8yEavrB1htTdCH227lhJcLQeK9dRgL4QLnK5ZVk6QYopz8cPqPzKDMjfs4z+M7vJ+aOE3yvBx2XxDtGT7+eP5Ee3QHr7rMhyEViVyZ2vDO0xgrB682HUU6DlDilkPfyfEjgV7GdzcyriNV+YaES/krr51dHEJKTAuc1uWeVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iy0HZBmG; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="pOkAXP9P"
-Received: from pps.filterd (m0375854.ppops.net [127.0.0.1])
-	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66NMJx3N1249682;
-	Thu, 23 Jul 2026 20:03:05 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=+YxfM
-	FtCITh6UULmsPiBeH9ZPlKq23Zf3EJ3rUTnhAA=; b=pOkAXP9PJcxGPgcbDxzq0
-	xKtEJCHP5Rbp+TYf14eh915+sNzYPp99Ilkr7oXHIf/SqxFexHUflTdWAaXgNj3H
-	IHOkA9wbwCfythQprQm0lseeyUI4UO/p/t/mFH5Q4MjbWfWFuJYgJvkEQAHw8Kpx
-	rkTqBFY7MK85ElybZbZhmp8h3N53xcoDW8F3GyMfSyBzu7en7DswucCNUZCDLYDH
-	sNYZclj0bX9/AVR9cXQA+cQKwjbkoT3WbOPZVjSTFFIQN/mdMFjRGqSnOdNGvehk
-	t4qecebYgP5f3xj4wnnb33FGz5MBGnE2MPN4CnqWJiR1pmKDq6PoyinULRnWxvzB
-	w==
-Received: from bn1pr04cu002.outbound.protection.outlook.com (mail-eastus2azon11010048.outbound.protection.outlook.com [52.101.56.48])
-	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4fkunj07wh-2
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 23 Jul 2026 20:03:05 -0400 (EDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kZjr5yxPH9BwPRYcHIUjq22zSttOofsC51smz0RpWe3ikSGAJrZa8cho1Xt3/+pw7yLHgtRahoJlFgkdV9xjrWrPfQNG3rD1JVnY/P+F4epqQf6P8Ve4ABbEPSjppyFed+BgaMlKyJn+/bIcYcn4ULjr9VTZ3YjwD/qIljhEHYvaQ4Yu3LnWdCDgjMNvaJ5CRhFDQ78jd4TTr+Z32+iiJ+YkMP5WEQD03QPDj+DltfgqRMvmd1OZNaeaUvnungpwadmoghuhdP0aP46whU+OnTMnv5vkyW4TzG4KgY9wf/yThD1WZ3yOhINcm5XYuEtrgi4ODkcenkkInvT3i5qwKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+YxfMFtCITh6UULmsPiBeH9ZPlKq23Zf3EJ3rUTnhAA=;
- b=ec9iuwnADrzjfJly4c+SvIAzjn049xIuB6dhrWHqALoYfeD0HJCxGwlTJRiYYMa/gXENHKti1nMMNYgp8/O2oSeU/uxOyhNbuqYJI+Fd84HzcTHOOSmdj1NQlgFt14GHrqop13RyWmlrtspo+PSdqiwfdpi+HJH3MqsGYE3fU1PeqgvA/9nAxWLljuypMoiG8gNT7DsfLl8eZHgFGM8kzWSZmVnfvBgMvKaO4JGoT58S3DaU75kd2RxIQYwo9E+fGhIIlzfkFNHKu9rmPfMU/Ay6LCV25cCF5yopT0tZC+VxHJj3twbjj4Yb7G2qR9eDHYHVN43fOoGSAPaIroI2vQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
- dkim=pass header.d=analog.com; arc=none
-Received: from BN8PR03MB4977.namprd03.prod.outlook.com (2603:10b6:408:de::11)
- by DS0PR03MB8319.namprd03.prod.outlook.com (2603:10b6:8:297::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Fri, 24 Jul
- 2026 00:03:03 +0000
-Received: from BN8PR03MB4977.namprd03.prod.outlook.com
- ([fe80::4d86:70cf:8006:e219]) by BN8PR03MB4977.namprd03.prod.outlook.com
- ([fe80::4d86:70cf:8006:e219%4]) with mapi id 15.21.0245.010; Fri, 24 Jul 2026
- 00:03:03 +0000
-From: "Roleda, Jan carlo" <Jancarlo.Roleda@analog.com>
-To: =?iso-8859-1?Q?Uwe_Kleine_K=F6nig?= <u.kleine-koenig@baylibre.com>
-CC: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
-        Rob Herring
-	<robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
-	<conor+dt@kernel.org>,
-        "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>,
-        "linux-leds@vger.kernel.org"
-	<linux-leds@vger.kernel.org>,
-        "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>
-Subject: RE: [PATCH v7 2/2] leds: ltc3208: Add driver for LTC3208 Multidisplay
- LED Driver
-Thread-Topic: [PATCH v7 2/2] leds: ltc3208: Add driver for LTC3208
- Multidisplay LED Driver
-Thread-Index: AQHdDqd6X68+iu/GPkGM5ITU5Y/EhLZwSUGAgAuX8kA=
-Date: Fri, 24 Jul 2026 00:03:03 +0000
-Message-ID:
- <BN8PR03MB49770B8628FD152B1E86FE0296CF2@BN8PR03MB4977.namprd03.prod.outlook.com>
-References: <20260708-upstream-ltc3208-v7-0-aed7f7bd461c@analog.com>
- <20260708-upstream-ltc3208-v7-2-aed7f7bd461c@analog.com>
- <aljweARVNZ7PvgSY@monoceros>
-In-Reply-To: <aljweARVNZ7PvgSY@monoceros>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN8PR03MB4977:EE_|DS0PR03MB8319:EE_
-x-ms-office365-filtering-correlation-id: 3b9c1efe-b6f8-4cc6-b443-08dee916ee7a
-x-ld-processed: eaa689b4-8f87-40e0-9c6f-7228de4d754a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|38070700021|22082099003|18002099003|10067099003|4143699003|11063799006|56012099006;
-x-microsoft-antispam-message-info:
- dWmpjlBlyR2V3a25us5HXFrnfUXUZAXg7F7Z20dSO0H1z7C87zeIX06BX2OLiDUmKk1poYpB1/O9jqSQ+xPNpf/UBg0f6oLhPjlBgYYW5yKFaxceLhHQ+jsMHNgu68ybyqMsroO1Jgfs7Px9h3SF1kS2WBZyMPOFIt0SPeowoDIUlCs1Gpcx/mfEthBtL6gI8cBcS1HwfYwMmCDpAeC/aTROeR2750YY5gIwxBfR6rwnPjjH+b4UQUkqajG5ynCHBpHKa9yt3Xri8AkloqSvaciapyOnS+zBtrGxCyAe9yczOqqPkRsMMEo3OjrRyGKYBZQK9car0zvLC0ZyXjNxEbJ2dSDkJMxyCayB/ygq42iJoZNcK8UmsIR6t+Fnjw2ggB7w7dFIpNbWVcD0V1mNFyRlpyd7/IMgvc7p362BMe3J/gNqAGKMYmWyhlPCedSAe5pmDcX0w8RB0z4DGvsDQWxelv2+wEe3ORXNZMhYF1mJx3MuZafFxWrlLjE8a0yR5wJv9bJixcQU38HwjI1MDCvL8RnaGTDiKO7Q6zMAw8xYpd0rKJZt1Wb/1P0L7Uz8map+v8nq8QD/3d+GbuIiMHx1RDy/KqonDZOMYsxoBTNPhTIRr6ObJccKU2fap+jP+8Rgd4A3oh5Bb5x6sZb0Vdw+g3vwQKyUg72W3RyR1AgMVzaMY0WvSnCxgVHlv0LWRjwq2b1ol7V/bRYay92LuX3tB1RCqsHE1iijAxWd5yI=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN8PR03MB4977.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(38070700021)(22082099003)(18002099003)(10067099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?VCIRemop0B2K2UKGNQThT5GU85184Wt3nU1ODKk42N+leUHnvouqHX/Oz8?=
- =?iso-8859-1?Q?96Oil/FCgWdwKsYCnc6F3qCt6X9Rr7cBmWd1vvZgSoc55Wiql0SYN2P6MH?=
- =?iso-8859-1?Q?SN76GXx9vOpiKb6f2Y6DwkJCAsJ/whuJedYuQNh56NOroUf/OLAIWr02SI?=
- =?iso-8859-1?Q?WNMLGCt+s2/2Bo9GSmyVcKOXFiVbGkT5dDQ5eqyy3O9K5iV7um1b4t2wix?=
- =?iso-8859-1?Q?e4rOe/mHmjn261ib5pw+a6G66HOun2aMvLFfe2H9ax2CyUwiFQNocZQOMs?=
- =?iso-8859-1?Q?yBUM475rAyOhhJt2r+anJ1MChJlAbCqqAuxf9c7mJFc1tGf8I/3vog5TT3?=
- =?iso-8859-1?Q?WGcXjMjJRB+/qjoTnl/Fjm9GpRT5qT49aGy22WPKXBB6q408J0qD9tzdQb?=
- =?iso-8859-1?Q?0bCOHTruhkTahler7t1NPnZrnxfp2Q+SnYRw/Y4QSRdOe3nqUUrrrUOhHw?=
- =?iso-8859-1?Q?igm4NPvmqNYPdE81pP9Aox/yWlXtlXDNEnoO9X9KMLCRRH2WFi8AEYhLjC?=
- =?iso-8859-1?Q?UHS4s++h/JANVbWt+MoTIqhxRAUONbIndjBh8lFa6GE8iIK6yk2Q+zoZzQ?=
- =?iso-8859-1?Q?+GkGqwjBn+xftfjg419hVQweFzrLfFuhOpe74GKXpTv2YHf/uBfrXbHUGJ?=
- =?iso-8859-1?Q?HeDjW/1wlYKR2/SfBo11jmzAQm5+HgnkliuPyJKm1+7RyfF0hKAEAjoTVH?=
- =?iso-8859-1?Q?Xi30i9YgND54hlrhJcyj/eqxl2lnk5GgjwO1DBa2A726KYVvjzYM4PnUYZ?=
- =?iso-8859-1?Q?t6daL/GZZyEUSc1a2vudcNk1TfkGC1KOdqXfTHKjdqPknJQyIcM4mapqm6?=
- =?iso-8859-1?Q?xqLVYdamSyRJnyqc9AJv3eHfy6I34kH/Br/W3fwI68gSQWSu1eca1s1Wg9?=
- =?iso-8859-1?Q?990T7IfMT3ak+VsTak6CePVi6P987pStXd5vamm0vmMioQQMhjbeDVdsX6?=
- =?iso-8859-1?Q?XstNS15WwHZugGT/+4vfyPCcLxSdoaVBcHJCc9kKQUhHjtu7j4Cat9Xnqq?=
- =?iso-8859-1?Q?7XfzSCeIpYw9JNq1IheFGTKBNfJO3Gjjz27fmgkHE37kYaSbKgDkma7BPT?=
- =?iso-8859-1?Q?urdseaqVE8yyuFgazaZxKg6PvFilqJg5uDlqKb5aFCPbhMnMrBSW2dmpYp?=
- =?iso-8859-1?Q?iWmC8XDwrk8zTGckw68C3NiQEFRcnrocaXqsqCNuBj/I1ZgUD7ogA152Xm?=
- =?iso-8859-1?Q?6YB+lk77nu7LZXAdNjkLDBzVkAirsOab3nq07nuY/973ccwlgfyiV3iA+T?=
- =?iso-8859-1?Q?zbceFmV/g8I0qU/645gUuT/x+4Dye+rEFt0kCArpg+VMn+tVr3cCSml9n2?=
- =?iso-8859-1?Q?qKGQ8gMFXGT3027qOBmMkOKvXR06HVofKy0lk0Fozcss7MKuTdUWehm9Fz?=
- =?iso-8859-1?Q?6fe23StWij4xxCbyvxMaW58Ryi/MYGC4TxYNHUszLbzp5samGJs5qjWmDn?=
- =?iso-8859-1?Q?bZg/Vyi81ANVQZ6/Kk7/apjSjCowDVu9zKnBROk3bdRvQ9x//T7hLIVFO3?=
- =?iso-8859-1?Q?7Bs56bg5DYkxOFWbSZ1H8tOeQdbFJOS0ncma/NPDgZ9o8ieaNhHwtOI2xZ?=
- =?iso-8859-1?Q?Q3t/lbGXBDi8jj7KyGiABSaBPaKIKGcSF9CkzzI3xfnN8Q+9I+A6MHSxTe?=
- =?iso-8859-1?Q?YQ3FZOr33LKpp1BLG8rG6kaXZ40O1xK6VxyUa+lKT4EUV6zR5eeQ0noX42?=
- =?iso-8859-1?Q?w2ljLVIyp0EWLXp4xJWGk71dIow1L2UVCuFrl389QhjiDlpQ+q8vInoFxz?=
- =?iso-8859-1?Q?yuAFP9lIyPWyhtyGGbNa4TLrjjIsD4yz4WP4B3nJuRr9CFGWb8BIVMO/YQ?=
- =?iso-8859-1?Q?sDcx+azySQ=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iy0HZBmG"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso1042416a91.1
+        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 17:04:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784851456; x=1785456256; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uqXA3l+1RVLqpQXh1uOHdaNNU8aITjkp+/540G9QIxE=;
+        b=iy0HZBmGq+Y9RTU4+JtN1W0MGt3X01keGufIfw3/RqAIyku5OWPDLwv32WQ1t3yrxh
+         y4SIrabWaSAtiYygfyPM5ujD2Dsk5NXcGJOXFS7Ql+sJeeZUXpWnshRn8mGQaPAtJtvX
+         rylICHuplan6adhA5UcJVlSx6L74sTEHxWzd4JgpLPWUfx9o4+nbQrDA0nQsrtwUbAwj
+         VpW81EQw0pGf8WDkenZCAK+r2u54RO+VSlLokCl+GfT1ywPujUwbnwoFvANS4dj1q0YT
+         cDqbLhByrJ57g8NdI2tU5zzcG2l3FPKPPLSiRJPN9k6xaOFmYYkzExgQPqA9zsWVO+ka
+         LEZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784851456; x=1785456256;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=uqXA3l+1RVLqpQXh1uOHdaNNU8aITjkp+/540G9QIxE=;
+        b=JW8oySlAW/k6jlh6VEhgcfmodkHEgdMttKgelDzx7Medv+x6t6lSVmDcvjBAkOcw1U
+         +SfWqmz3cjTMoaFZ00yg20xAHljoPag/J51Z0NlIVh5nmxrcLLkqnHXiDq9qECCcWWpA
+         wSclIaRHbmZAxrOMqT10QVce+JZjpA47A6dX8jczyw6/d4dAQUnTiRysSaRyRs1YzrAS
+         0ZoXI8Rqox+Z2QkTQ42jLO7DeH60Zs8EerbV4Uh/KkKe5HkoJ2FH1409WFN+0U/TghUc
+         kzo27s0wR8d1el1LaP+6NPS6+2KcUQoprWkCD/RadStjAi+ZZxaI33tqsd8SlHDgh/wk
+         1Efw==
+X-Forwarded-Encrypted: i=1; AHgh+RrhY8KSJXWfnynwMzJyc+s+OHyLaKlqmO6OkwPidZ7OLr5o9fgWLLVehTpDha6tkBCLnw+g+e/Lefr3@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw3MvgppA3b74aRnn9IFV5G5inkGnHZKuUIXMVfh7feY0/f3BXA
+	39XTjlqbMidnz+KVcY90C6tE0vfUKJ61TcLE+oZhqcLhXqVdfWNaxl/S
+X-Gm-Gg: AR+sD12oFG6z4CWsi93udW5CXYMP4lsfZGiU912sQVaYonYyXsL/xUTmS/3SKRI8AKF
+	KhLEO3YmfxdiHxTkA2QSvrMIreqip5ut6oDRcxJcck71YP3TJFQ70Oxm0MPsEcUlcLTE5l2QJ1a
+	9Hz6Ob0Dvo8xEjSCfdwZChrq3dO0sk4g+Tk+pkA47wCWO5xrgpoB51sCCiok7FUGzgG3ZdaJD/K
+	fmCH1yCXWXIOmOa/bu2MkLQ9my1uHXTDUC0RMeGUVqlWhwETB5bBCu5GLpxC33uwrtXVnRLI/QZ
+	ZEzdxsa5+KuHOD9uf+ytOwM5ioQKx3X7bG1DsGGxkKXhq16enOwvv/7MIAH4HbqsOjHq+0U6Kf4
+	GG+uZ6dkqMEBKiSMXUolX1B//IBvm0CHO/t0Q1LoHd0k6JNvLwsxhZ63ux05pwdmzFeV2l7VV7N
+	cQo7mbrhHnUzsP2jj7/o13P3LtUC3Le0N/SMS7ts3hsVidxgwnPkEozxVAot0Erg==
+X-Received: by 2002:a17:90b:2552:b0:38e:712a:be68 with SMTP id 98e67ed59e1d1-38ec688d5f4mr4417362a91.43.1784851456508;
+        Thu, 23 Jul 2026 17:04:16 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f041b8be9sm567601a91.14.2026.07.23.17.04.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 23 Jul 2026 17:04:15 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <df2f8d63-4972-4b59-883f-0a919e7cb409@roeck-us.net>
+Date: Thu, 23 Jul 2026 17:04:14 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	oILNGuUwaCBSQjO/wszXBf2F+RuvTcyiKnQXR41zwS2KFVCghyzEiDDDbwVSaGewgT3pshcpSrQpSyolShn/1NcFhEA/dSdQ4DtFkEWUJ+veFh+BAxcW/X6YshUmFup5tDWwX/42lQLEchN2Acyay5BsVd/ZeyzgmMCt+Dtbmr7j87FUYuodJf7fJf9/zIIRWNrQh8l6T0TRQdfd23KMqiMdJtra7+9/ELd+DEDadqh63TC2IgD9pjhJ7h0gMW+U8C0wgt42dKeF7+WVZlx+nkWOOFQOdvMGmS5Lr/7plVncqZotii5TJxlH5ss1X5eYDkyPJ3Vuhh1gI8P1P7PnGg==
-X-OriginatorOrg: analog.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR03MB4977.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3b9c1efe-b6f8-4cc6-b443-08dee916ee7a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Jul 2026 00:03:03.2239
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: HhJSa//b8SyH3Gwrg/f985ty9/M1WSdZQnh+7Mi7riIDnhKoMYqotoI0QlzElImcLdCTP5vQOW6TvX9NIITvU2kVzHdHCYoenxNNLdu6B4c=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR03MB8319
-X-Proofpoint-ORIG-GUID: 6ojdr_m3tizHDEr5d-e6a4zIKRH3HZH_
-X-Proofpoint-GUID: 6ojdr_m3tizHDEr5d-e6a4zIKRH3HZH_
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIzMDIzMiBTYWx0ZWRfX8XgsKWeWNneL
- es0C8Eb6sk3tilJfpwG42vuUepf9vGLWLZG/Cf/FJMtJSPSSg3EFJY6d2LtkA7gQhqEDqJ9ZTh1
- XOCF+uFL6OP51TnmO3pje9wn9bjcuDrzer2McIqu832OeeRgJ+Vdunrmfc1xBfnliIpatjAchas
- 1qX8ybhGcRHjIuULCqoQPT4zKuoFQnLD3hJi16aRCM32ELOnLP53qb2IVSo0bRose0CtoAtN58K
- Yl3QSHT5QDiaZfNb4P8OA9dv7T0fL74YbKsGxZN5nV578xA8xfddRbjGy2OTh5h+MLzlhSyXawf
- fTOwyql8yksF1qvKqQYrnh1az7s9FwZr/PNafIocrget+MA2gVCRc+Z0zDdiDjVNVTokNkFSds6
- mYFwiZ/uMHCFPh0fkf+5npknoKL64xZcQsUhjZ89yyxaL3ZYG5ORy97Z71fxmebh1Lcd+7Gn2LT
- Qcs98CHXSgAqCsMCCMg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIzMDIzMiBTYWx0ZWRfXxnTpQ4yq3IZ1
- yo9/SbX2K1qSKMFcuf0vKFS+UvNCTJ+ykIBQjtP4kGXp3rX3jQOPzVmCruroMozRGNGE7Rjxaom
- jHbunjeed6S+Z2aCwu9mTaXFP+q4NREyLiKWbTg/tyFr3OAiwDEe
-X-Authority-Analysis: v=2.4 cv=TqTWQjXh c=1 sm=1 tr=0 ts=6a62abb9 cx=c_pps
- a=TQumU+mCWarTt0EIZfG+ng==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
- a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=iZSIUCweCk2Oy3QsdGPA:22 a=IpJZQVW2AAAA:8 a=gAnH3GRIAAAA:8 a=VwQbUJbxAAAA:8
- a=gKHlflU1-kAaRK41rqoA:9 a=wPNLvfGTeEIA:10 a=IawgGOuG5U0WyFbmm1f5:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-23_07,2026-07-22_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 malwarescore=0 impostorscore=0 adultscore=0 phishscore=0
- suspectscore=0 clxscore=1011 priorityscore=1501 spamscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607230232
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 02/10] hwmon: Add Qualcomm PMIC BCL driver
+To: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+ Stephen Boyd <sboyd@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+Cc: linux-hwmon@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ mfd@lists.linux.dev, Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+References: <20260722-qcom-bcl-hwmon-v2-0-febe2805e17b@oss.qualcomm.com>
+ <20260722-qcom-bcl-hwmon-v2-2-febe2805e17b@oss.qualcomm.com>
+ <373bd00e-bfcd-4f6c-b64e-a707af01417c@roeck-us.net>
+ <cdc0fb5c-d277-40b4-8b00-c73eb881c062@oss.qualcomm.com>
+ <4f2d9c51-1059-489c-a469-562ec52015da@roeck-us.net>
+ <24a0ac2f-792e-4296-949c-047d9ce1c1f3@oss.qualcomm.com>
+ <3635cd34-4c11-40fe-a9ff-48b752fb5150@roeck-us.net>
+ <c1db2ca4-ad1c-440f-bff8-eb7660af8021@oss.qualcomm.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <c1db2ca4-ad1c-440f-bff8-eb7660af8021@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hello Uwe,
+On 7/23/26 12:16, Manaf Meethalavalappu Pallikunhi wrote:
+> Hi Guenter,
+> 
+> On 7/23/2026 12:29 AM, Guenter Roeck wrote:
+>> On 7/22/26 11:19, Manaf Meethalavalappu Pallikunhi wrote:
+>>> Hi Guenter,
+>>>
+>>> On 7/22/2026 11:16 PM, Guenter Roeck wrote:
+>>>> On 7/22/26 10:38, Manaf Meethalavalappu Pallikunhi wrote:
+>>>> ...
+>>>>>>
+>>>>>> I am curious: Why not use static initialization and use the is_visible
+>>>>>> function to determine if an attribute is visible or not ?
+>>>>>
+>>>>> ACK. There is already a comment in v1 suggesting the use of dynamic allocation based on the available attributes rather than static initialization. The intent is to avoid having to perform enable flag checks in multiple places.
+>>>>> . >
+>>>>
+>>>> You lost me, sorry. There is only a single is_visible function,
+>>>> and its intent is exactly to handle situations where some sensors
+>>>> are not always available.
+>>>>
+>>>> What would be those "multiple places" ?
+>>>
+>>> Understood, thanks for the clarification. I'll revert to static attribute initialization in the next revision and use is_visible() to control attribute visibility where needed.
+>>>
+>>>>
+>>>>>>  From the earlier exchange I had the impression that there is a large
+>>>>>> number of current and voltage channels, but it looks like there is only
+>>>>>> one each. That doesn't really warrant or need all this dynamic code
+>>>>>
+>>>>> Yes, this hardware only supports one or two channels (voltage and current). What we discussed earlier was that each channel can have up to three threshold alarms (warning, critical, and emergency). However, the hwmon framework currently supports only two limit alarms for these sensor types. I have not added support for the third alarm threshold in this series to keep the initial driver support aligned with the existing hwmon capabilities. Once the basic driver support is accepted, I can queue a follow-up series to add support for the third limit alarm.
+>>>>>
+>>>>
+>>>> What does that have to do with attribute visibility ?
+>>>
+>>> I was only clarifying that the channel count has always been small (maximum of two channels) and has not changed since v1. The earlier discussion was primarily around the limit alarm attributes. That said, you're right that this is unrelated to attribute visibility.
+>>>
+>>
+>> Feel free to use (and test)
+>> https://lore.kernel.org/linux-hwmon/20260722185749.2313572-1- linux@roeck-us.net/T/#u
+> 
+> Thanks for working on this. I'll use that change as the base, rebase my series on top of it, and add support for the third alarm level.
+> By the way, for the voltage channel, the hardware monitors undervoltage conditions and provides three threshold levels. At the moment, I am mapping:
+> 
+> LVL0 → min
+> LVL1 → lcrit
+> 
+> For LVL2, would it be possible to introduce a corresponding low-voltage emergency threshold, such as lemergency (or another more appropriate name), to represent the third alarm level for voltage sensors ?
+> 
 
-Thank you for the review.
+We can, but I really have no idea how to name it. lcrit is bad enough,
+but lemergency is even worse (or at least I think so). "lemerg" would
+be almost as bad, but at least it would kind of match "lcrit".
+I tried to ask Google AI, but it didn't give me any useful ideas.
+Any other suggestions or ideas ?
 
-> -----Original Message-----
-> From: Uwe Kleine-K=F6nig <u.kleine-koenig@baylibre.com>
-> Sent: Thursday, July 16, 2026 10:56 PM
-> To: Roleda, Jan carlo <Jancarlo.Roleda@analog.com>
-> Cc: Lee Jones <lee@kernel.org>; Pavel Machek <pavel@kernel.org>; Rob
-> Herring <robh@kernel.org>; Krzysztof Kozlowski <krzk+dt@kernel.org>; Cono=
-r
-> Dooley <conor+dt@kernel.org>; linux-kernel@vger.kernel.org; linux-
-> leds@vger.kernel.org; devicetree@vger.kernel.org
-> Subject: Re: [PATCH v7 2/2] leds: ltc3208: Add driver for LTC3208 Multidi=
-splay
-> LED Driver
->=20
-> [External]
->=20
-> Hello,
->=20
-> On Wed, Jul 08, 2026 at 03:00:07PM +0800, Jan Carlo Roleda wrote:
-> > +#include <linux/bitfield.h>
-> > +#include <linux/errno.h>
-> > +#include <linux/i2c.h>
-> > +#include <linux/leds.h>
-> > +#include <linux/mod_devicetable.h>
->=20
-> Please don't include this header. The the device-id structs you use are a=
-vailable
-> via <linux/i2c.h> already.
->=20
-
-Noted, Thank you for the information!
-
-> > +#include <linux/module.h>
-> > +#include <linux/property.h>
-> > +#include <linux/regmap.h>
-> > +#include <linux/types.h>
-> > [...]
-> > +static const struct reg_default ltc3208_reg_defaults[LTC3208_REG_G_OPT=
-]
-> =3D {
-> > +	{LTC3208_REG_A_GRNRED, 0},
-> > +	{LTC3208_REG_B_AUXBLU, 0},
-> > +	{LTC3208_REG_C_MAIN, 0},
-> > +	{LTC3208_REG_D_SUB, 0},
-> > +	{LTC3208_REG_E_AUX_SELECT, 0},
-> > +	{LTC3208_REG_F_CAM, 0},
-> > +	{LTC3208_REG_G_OPT, 0}
->=20
-> Space after opening { and before } please.
->=20
-
-Noted on these changes.
-
-> > +};
-> > [...]
-> > +	device_for_each_child_node_scoped(&client->dev, child) {
-> > +		struct ltc3208_led *led;
-> > +		struct led_init_data init_data =3D {};
->=20
-> s/{}/{ }/ is the more usual option.
->=20
-> > +		u32 chan;
->=20
-> Best regards
-> Uwe
-
-I will combine these suggestions with those of Lee Jones in the next patch.
-
-Regards,
-Carlo
+Guenter
 
