@@ -1,183 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1848E3603EF;
-	Fri, 24 Jul 2026 21:32:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784928732; cv=none; b=dbQSAN08BA5bPuV4W9tpHgb0zozaRUZHFBtz1ZTXB2LDEbli8b28/rChXQEnUTeP4OdWQLc5Jsmqj1bhsZaqJmoiSpk96s94h8a9FvGQURboLORSwcN013iDafTJLJFuXQz5K7OU9rmNQ9uz94XV6FNTW1mzJeGrkvFWe15pNmA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784928732; c=relaxed/simple;
-	bh=0SoReVqPG8OARZk3PKxhC9ElIHsbHT70s0BWq+efhYI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=IdLu/gapnSOb1ARdlvRpgD40+Jq606nMt27uazc7sT3jkomzarz9e6kDVtLnZBjswPPpGk/ZnutXqMKD4GqYf5e9vsF+AWtdsFz77F3UQ+9r8pjv7oHn4V40ju+dld9b6RrmLS4Clkr9bz2R6gzzWC9jhX1WhsEUy8pPW6amqiA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YsrG/i62; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3061138D687;
+	Fri, 24 Jul 2026 21:51:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784929910; cv=pass; b=cOPrbOJqdt+KFLLaVmPw2C5aWuWct/GvHK2TJ6sQ/nzO3Xt57pBnsjrg4HU5V8XkKgBI/u5tzy3h9R6gdQqifK5gZb6cpQbWpSYCjC7QKpTA7VAW9nyIBXb/d/gMswJfpSFObFBYRB3zzXZQBMqtAMN1Mmm69jp6vr3vcOXQqPc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784929910; c=relaxed/simple;
+	bh=ua2qwYr6S4tpVPJjIjGVRtMMBQ8njszvyH/aingQNhU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LbX9LNqTO3YWUCi2M/Vb+Cymqj0v/4vCVEXcGwxPnYIVfv/wt9+xaf18e3c8sVG2qQo5RVN8GgKUlK5CPPETlqf9YOLc2Jil9QedKX4aQM3Ulw2OjytBQ55a5Q2hravOkEqlLNvsLkYPan18JfpXB8PpIvjR6ZXZ++1T1cJBdKY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=atvDK0mQ; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YsrG/i62"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7342D1F000E9;
-	Fri, 24 Jul 2026 21:32:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784928730;
-	bh=gfkC5Hgbwc7M1k5qZ5mj/SEyy6byTNhChcQuDHwZrXo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=YsrG/i62boOuWezgB+3hMCRv6Cbk0GDNTz0RDbZ8bivCoJdvgQTz9kFM5baq8IyQW
-	 1EZg50maocEvl3quH8ENgSvaRWdMjE5gVtcruTGmk7aTtiassr2AVDT2a5BK2QW0WL
-	 B8GFpeHUt+7/RrpjcdG59vHhGt7PK3KIL6XHISMd0Ved7HOd0jWItbJB1Gtfz6xNor
-	 RWzHU21o5Ue6aKa/qxpz29JvkY7OMy42gGttpGwpDOM0dyI5fZoixbPRmy10J4qaJo
-	 adbXxdzBSh1X4OPbUEXMJ6gkUx00ojQXHiU7aXJ8UZ4KEcwT6EssEA93A8pYWDqSwD
-	 YlYkr/R//VzTw==
-Date: Fri, 24 Jul 2026 22:32:05 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Piyush Patle <piyushpatle228@gmail.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, ak@it-klinger.de, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, andy@kernel.org,
- nuno.sa@analog.com, dlechner@baylibre.com
-Subject: Re: [PATCH v11 00/11] iio: adc: Add support for AVIA HX710B ADC
-Message-ID: <20260724223205.25184e92@jic23-huawei>
-In-Reply-To: <CAMB+xkbpgDxv1Lt=qxqKyeEhXyxRpZ3Y1v7ZDaMGKUqAa1hDxg@mail.gmail.com>
-References: <20260603184859.89693-1-piyushpatle228@gmail.com>
-	<20260614220400.106dd636@jic23-huawei>
-	<CAMB+xkbpgDxv1Lt=qxqKyeEhXyxRpZ3Y1v7ZDaMGKUqAa1hDxg@mail.gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="atvDK0mQ"
+ARC-Seal: i=1; a=rsa-sha256; t=1784929893; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=oDXJGvsrkabItjiH+v4NuUbnqaJXs9R5UMnFLoeALWPjgS3E9uwieCTPysdaXlqtQx7Y0glSQUdvXkPfVvwkEzwSRINfHfr0Q1JTW1Gok8jUaiRMueLjhndyiVQEcdMN1phJAxTCQh34jm06Q7hH3JUtXoJTqWw0NUTOdpQaSuI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1784929893; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=rxObKoBYz9bdL1QDIAY38u1ujROlN6uVzdz2O8QptDc=; 
+	b=RB0co4FTwKqnrPA6pjLLZ713gW0Q0PTePi1zV+IyVeuuPquzonPTmhgnAhfuWaJPv04lBdj46SpdD9TGnXpn6cJGlDjgUZQSya+A1FsKRJWvrHzlfBdA6Fd+y5A5rgUwFKSsFa0Jp9kAN5jt+1/1gHDoZeDsN4gBtS8i2dIHzQQ=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784929893;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=rxObKoBYz9bdL1QDIAY38u1ujROlN6uVzdz2O8QptDc=;
+	b=atvDK0mQ8rOk1q1Cl/hJbTPH1cdUWpWueM1L/ETUu7NRbP6HMTeR03A+Esw30YlC
+	ANd/Z77xm6JykrrewsP96vFrCHkqSaW4mDpHqCtppyS2/nXIUvHMMI3ORKglr0bcjn/
+	bD5iqewvFeSMvisjM9YKei0KR1agwMO2dn9+3vQ0=
+Received: by mx.zohomail.com with SMTPS id 178492989200395.17774346570991;
+	Fri, 24 Jul 2026 14:51:32 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id EE334181F16; Fri, 24 Jul 2026 23:51:27 +0200 (CEST)
+Date: Fri, 24 Jul 2026 23:51:27 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org
+Subject: Re: [PATCH v5 3/5] phy: snps-eusb2: Set phy type to EUSB2
+Message-ID: <amPdeL2GWkNhPoal@venus>
+References: <20260723-eusb2-int-handling-v5-v5-0-f32ea6c1a318@oss.qualcomm.com>
+ <20260723-eusb2-int-handling-v5-v5-3-f32ea6c1a318@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="m55f6i4q6qo7c2yd"
+Content-Disposition: inline
+In-Reply-To: <20260723-eusb2-int-handling-v5-v5-3-f32ea6c1a318@oss.qualcomm.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/284.919.37
+X-ZohoMailClient: External
+
+
+--m55f6i4q6qo7c2yd
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v5 3/5] phy: snps-eusb2: Set phy type to EUSB2
+MIME-Version: 1.0
 
-On Fri, 24 Jul 2026 05:51:25 +0530
-Piyush Patle <piyushpatle228@gmail.com> wrote:
+Hi,
 
-> On Mon, Jun 15, 2026 at 2:34=E2=80=AFAM Jonathan Cameron <jic23@kernel.or=
-g> wrote:
-> >
-> > On Thu,  4 Jun 2026 00:18:48 +0530
-> > Piyush Patle <piyushpatle228@gmail.com> wrote:
-> > =20
-> > > The HX710B is a 24-bit ADC from AVIA Semiconductor, related to the
-> > > HX711 already supported in this driver.  Unlike the HX711 (which has
-> > > selectable gain and two input channels), the HX710B has a fixed gain
-> > > of 128 and two operating modes selected by the trailing PD_SCK pulse
-> > > count after each conversion:
-> > >
-> > >   25 pulses (1 trailing): differential input at 10 SPS
-> > >   26 pulses (2 trailing): DVDD-AVDD supply monitor at 40 SPS
-> > >   27 pulses (3 trailing): differential input at 40 SPS
-> > >
-> > > This series first extends the existing HX711 binding and driver with
-> > > preparatory refactoring, then adds HX710B support on top.
-> > >
-> > > The differential input is exposed as a single IIO channel with
-> > > IIO_CHAN_INFO_SAMP_FREQ, allowing userspace to select 10 or 40 SPS
-> > > without needing two separate channels for the same physical input.
-> > > The supply monitor is a second channel at fixed 40 SPS.
-> > >
-> > > This revision is rebased onto current mainline.  Note that
-> > > iio_device_claim_direct_mode() / iio_device_release_direct_mode() were
-> > > removed from the IIO core since v10, so 11/11 now uses the replacement
-> > > iio_device_claim_direct() / iio_device_release_direct() API.
-> > >
-> > > Tested on a PocketBeagle2 (TI AM625): the avia,hx710b node probes and
-> > > the driver registers its two IIO channels.
-> > >
-> > > Changes from v10:
-> > >   - 02/11: Retitled to "add VSUP and DVDD supply properties"; the
-> > >     commit message now documents both supplies (the patch already
-> > >     added both; only the title/text were out of sync). [Jonathan]
-> > >   - 04/11: Reworded commit message so DVDD is no longer described as
-> > >     HX710B-specific (it is added for both parts in 02/11). The
-> > >     compatible match now uses "contains: const: avia,hx710b" so the
-> > >     constraints still apply if the compatible is later used as a
-> > >     fallback. dvdd-supply is now required for HX710B (in the HX710B
-> > >     branch only, so existing HX711 device trees are unaffected) and
-> > >     added to the HX710B example. [Jonathan, Conor, Sashiko]
-> > >   - 11/11: Kconfig title and file header use "similar" instead of
-> > >     "compatible". Simplified the tail of hx711_set_hx710b_channel()
-> > >     to "return hx711_wait_for_ready()". Dropped an unrelated
-> > >     reindentation of the iio_push_to_buffers_with_timestamp() call.
-> > >     Converted hx710b_write_raw() to the new
-> > >     iio_device_claim_direct() API (see above). [Jonathan]
-> > >
-> > > The Reviewed-by (Andy Shevchenko) and Acked-by (Conor Dooley) tags on
-> > > 02/11 and 04/11 are carried over although those patches changed; plea=
-se
-> > > re-confirm if you disagree with the reworked constraints. =20
-> > As the only comments I had (well mostly sashiko) were on the 710b patch
-> > at the end and some patches were queued from previous patches, I now ha=
-ve
-> > patches 1-3 and 5-10 applied to the testing branch of iio.git. =20
+On Thu, Jul 23, 2026 at 04:09:06PM +0530, Krishna Kurapati wrote:
+> USB controllers like DWC3 are agnostic of the kind of phy (USB2/eUSB2)
+> connected to it. Set the phy type to EUSB2 to let the controller know
+> the phy type when queried during its probe.
 >=20
-> Thanks a lot for picking those up, and for the reviews through the
-> series.
+> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+> ---
+>  drivers/phy/phy-snps-eusb2.c | 4 ++++
+>  1 file changed, 4 insertions(+)
 >=20
-> Two questions, mostly to make sure I do the right thing next:
+> diff --git a/drivers/phy/phy-snps-eusb2.c b/drivers/phy/phy-snps-eusb2.c
+> index f90bf7e95463..e139b17bcda5 100644
+> --- a/drivers/phy/phy-snps-eusb2.c
+> +++ b/drivers/phy/phy-snps-eusb2.c
+> @@ -13,6 +13,8 @@
+>  #include <linux/regulator/consumer.h>
+>  #include <linux/reset.h>
+> =20
+> +#include <dt-bindings/phy/phy.h>
+> +
+>  #define EXYNOS_USB_PHY_HS_PHY_CTRL_RST	(0x0)
+>  #define USB_PHY_RST_MASK		GENMASK(1, 0)
+>  #define UTMI_PORT_RST_MASK		GENMASK(5, 4)
+> @@ -597,6 +599,8 @@ static int snps_eusb2_hsphy_probe(struct platform_dev=
+ice *pdev)
+>  		return PTR_ERR(generic_phy);
+>  	}
+> =20
+> +	phy_set_type(generic_phy, PHY_TYPE_EUSB2);
+
+Isn't there a potential race condition if it's handled in this way?
+
+1. phy-snps-eusb2 probe: PHY is registered
+2. dwc3 probes
+3. phy-snps-eusb2 probe: PHY type is set
+
+Greetings,
+
+-- Sebastian
+
+> +
+>  	dev_set_drvdata(dev, phy);
+>  	phy_set_drvdata(generic_phy, phy);
+> =20
 >=20
-> Looking at mainline I currently only see 01/11 ("dt-bindings: iio: adc:
-> hx711: clean up existing binding text") and 05/11 ("iio: adc: hx711:
-> move scale computation to per-device storage") under my name.  I assume
-> the rest are still sitting in testing/togreg and will flow in at the
-> next merge window rather than anything having gone missing, is that
-> right?  Just checking I'm reading the tree correctly, no rush from my
-> side.
-
-Exactly that - assuming nothing odd happens they should go into mainline
-in the next merge window.=20
-
+> --=20
+> 2.34.1
 >=20
-> For the two that weren't applied, 04/11 (dt-bindings HX710B) and 11/11
-> (driver HX710B support): would you prefer I resend just those two as a
-> standalone v12 based on the testing branch, once I've worked through
-> the remaining comments from you and Sashiko?  That seemed cleaner than
-> reposting all eleven, but happy to send the full series again if you'd
-> rather have it that way.
-
-Go for the togreg branch (it's a little behind but should have all your
-work on it) and make sure to have a Based-on entry in the cover letter.
-I'm not sure if Sashiko will find the right thing test on but worth a go.
-
-
 >=20
-> If there is anything still outstanding on 04/11 or 11/11 beyond what
-> was raised on v11, please do point me at it and I'll fold it in.
 
-Not that I know of, but we'll see on v11 :)
+--m55f6i4q6qo7c2yd
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Jonathan
+-----BEGIN PGP SIGNATURE-----
 
->=20
-> Thanks,
-> Piyush
-> >
-> > Thanks,
-> >
-> > Jonathan
-> > =20
-> > >
-> > > Patches 01/11, 03/11, and 05/11 are unchanged from v10.
-> > >
-> > > Piyush Patle (11):
-> > >   dt-bindings: iio: adc: hx711: clean up existing binding text
-> > >   dt-bindings: iio: adc: hx711: add VSUP and DVDD supply properties
-> > >   dt-bindings: iio: adc: hx711: add RATE GPIO property
-> > >   dt-bindings: iio: adc: hx711: add HX710B support
-> > >   iio: adc: hx711: move scale computation to per-device storage
-> > >   iio: adc: hx711: introduce hx711_chip_info structure
-> > >   iio: adc: hx711: pass trailing pulse count into hx711_read
-> > >   iio: adc: hx711: split variable assignments in hx711_read and
-> > >     hx711_reset
-> > >   iio: adc: hx711: localize loop iterators in hx711_read
-> > >   iio: adc: hx711: pass iio_chan_spec to hx711_reset_read
-> > >   iio: adc: hx711: add support for HX710B
-> > >
-> > >  .../bindings/iio/adc/avia-hx711.yaml          |  82 ++++-
-> > >  drivers/iio/adc/Kconfig                       |   8 +-
-> > >  drivers/iio/adc/hx711.c                       | 343 +++++++++++++++-=
---
-> > >  3 files changed, 359 insertions(+), 74 deletions(-)
-> > > =20
-> > =20
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmpj3lsACgkQ2O7X88g7
++ppUyQ/9Em5Or2yxSmbUYLORK19KD1Ah9p71VebqMaZ/N4eIcJpgJ+U7LU//WbV0
+K/UeAVFd7AFU0w/aPAQBgz/WgUW406YPriExgZsr8CWHDQyWlmVrr0LVeCHy+x+Q
+UzeBQaZsXISMhjKClU0lVhcQHUoedsdj7CFydDsyuRoz/xZvc0TcJ79UMvrDqVAl
+jlksFfBQQ8pDU0N81xv0F5ESB5GUID27RAAT3UnCub9WwKqoTvxcrpkwqsIw4EgQ
+ttU/wwf7lM+9mzoYYXupTG8g2OuhpJSFdJTf0EHFh1una9EZ/5fy76xzESsSlQ6j
+Q+V91T74J94m3His2Tm9SHXzv2JFj7GG8Ayk6uvYzBlZJ8VBvEZajNyR0zmYHq6v
+TgNBh89YATTx/0QHiZPQC3bBiWNvsQDNkkQU/Rjk97UM2n09M3CH/Ymkcdgmb+f1
+H9/8wYK4RLJPFnOodSPqQFsXqBvYXAIgembbFCupDvPz76EycTHDIiscGiXQhVfw
+EdM2GOlvc77BrGSfCpjbULsLd1pqBHRwxQym15cTY8FUM4/d9ZqdS3+fDtY5URPv
+eayatF4MyBo8+jhol6prDNPvKuSxuPZnMZaskylhUMYvEElxTnHBBlnkWGyRFsYO
+T4pbgRFEclb/xZA/YYLdZ/7rtwsfqrAKjh2je+eKfh+eb3rpfxM=
+=Pqf2
+-----END PGP SIGNATURE-----
 
+--m55f6i4q6qo7c2yd--
