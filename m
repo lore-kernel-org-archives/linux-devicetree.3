@@ -1,153 +1,121 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1C2B4908A2
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 07:30:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D2611F192E
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 07:31:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784878227; cv=none; b=XFD0myB3NO+JaV+W3BdnDtOFXbU+4rkzW5MjXpQZgTaB5UDARw8yMNA3MAfAQwWYocygBoG6jEae6pzF/NZLdoOd6YLzax55JNniS/vZLj1nHkT+xMeeokSoiyMPSqrxQsDqEQ5jzb3DpTxLWPkRnrhU9P5Neof0gaYHuR6MPdQ=
+	t=1784878292; cv=none; b=rKJdOKONpBy8P6Zz6q3wGGY+sU6aWwfTs1x4id1Ltm+kLpvCY5IfY+ech6/q2iSXURS39kBU9XwyxghI77do+LM9liM8C7gEMLMk0BtqMfyDXmr0CUuu1k9gfebLIbQkgG74k8jpgkiAhynCDODYtxYhwBf3hcO2MK+k+2rI1bs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784878227; c=relaxed/simple;
-	bh=8gh2lfmaGjo3ucwEe9lnwyDq0xh0/q9vXW2SRUvYE9o=;
+	s=arc-20240116; t=1784878292; c=relaxed/simple;
+	bh=Ggqwh/qXVUfqEhVcxtOz+d8qmprV13EUQJqPGtZJuZA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=dqZaQmKGQW1ok3WyerBlT9Icqut1yH8UdOWowG+yR0y1Hyvxh/D4bWdsaFuMj18uOmIW/Arec2Zcb1jKfVJUnF8dbM/q7893W3kS/Q4+bCd3Ux8XNrT+ZWE7EL72Ojbp5Y2xZeAf/kFJK+btLo59jJhAYNqewHA516P1Qli4NK0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oW5z74uL; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ntqSQolJxzQNm3RLQZvwL4s/QX9VMjVL71qMlSlY+SH8anAigwCvwelZ83iP7UruVquj9+Z+QuabgnVegUxvB24arY2CPyLJ4jMm31NE2ssmYZ/8juDvTfZTmGMHLlgQTYtevI1ScE8b7AtI8nVokHP3uIjkiD4nxPt8e1/Fz2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MV4EFzym; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oW5z74uL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 233221F000E9;
-	Fri, 24 Jul 2026 07:30:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MV4EFzym"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12F331F000E9;
+	Fri, 24 Jul 2026 07:31:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784878225;
-	bh=clXDc43qXBeeTRuUM4mfdHNPmNz3sScV8iQ5FVRwu/k=;
+	s=k20260515; t=1784878291;
+	bh=htc4RcBPVBcvVLPb2MEf3+fXIMq1z9omwmKptybx3ac=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oW5z74uLtqZc/Gyn61l26EvzW3XptoP4UE7ruHPtqVgipNvwVtkjAa2B0mTT+pGXh
-	 1Ff1QZNy1Iav3NCRzYYEZfjbKzdXnS/2PRkVM1hkW0shbnyLSxiWyjdPKJd5xjBBIe
-	 2pJOpFRuacQ9BWAfozJ3gQ+i/Y1hESKlOBAm9bCxLpZzuytShTCV6cUAXxXCUeXAzs
-	 ns53ls7Gz+UqPS4TJp/6tf6SgKf+Ci1AsHsywg1MCi9eGqrWNLhfI8wuxpoD5OwCVh
-	 6qbp0Yg0MFj1oFJBEGGYXnIbPNt5pjlSfWGx+pEPkcnQ23Hekhs/q3oiqM/SzsTVGm
-	 gsCxVkksd+cDg==
+	b=MV4EFzymuUPSXcRTmQ3ZulQZNebqqoGOY4C5rkX7EQS/TPjL1R+4dcLt81NqcdApO
+	 7DwqfqmQ18m/cwLw4rU3wUuIF6KFuctdThMjAQuMm6lyqDPgWMCvO46RhZNljUre9t
+	 TdKwrTcFxC6lijxewRIijt7t7l3PATInq+5mgxpXQ+kzFa8bGrCIVsg7whciu3H19G
+	 9jCZ034QJueDl7ZXYC8O+LBpzLqxyggxoBPqAtKp80Mr8iyYMnMBPhjmf1a1p/82re
+	 W4HURD2qeSShQbQuI5Ar6CdmBeyctP4U3PmSTORy122V8+/66txf1lbw+By8m3Ezg+
+	 DpYyvIgE5XYmw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 03/10] firmware: arm_scmi: vendors: Add QCOM SCMI
- Generic Extensions
+Subject: Re: [PATCH RFC 05/10] PM / devfreq: Add new track_remote flag for
+ governors
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Pragnesh Papaniya" <pragnesh.papaniya@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260724-rfc_v8_scmi_memlat-v1-3-cb732bcff1f4@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260724-rfc_v8_scmi_memlat-v1-5-cb732bcff1f4@oss.qualcomm.com>
 References: <20260724-rfc_v8_scmi_memlat-v1-0-cb732bcff1f4@oss.qualcomm.com>
- <20260724-rfc_v8_scmi_memlat-v1-3-cb732bcff1f4@oss.qualcomm.com>
+ <20260724-rfc_v8_scmi_memlat-v1-5-cb732bcff1f4@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 24 Jul 2026 07:30:24 +0000
-Message-Id: <20260724073025.233221F000E9@smtp.kernel.org>
+Date: Fri, 24 Jul 2026 07:31:30 +0000
+Message-Id: <20260724073131.12F331F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The API tightly couples TX payload size and RX buffer capacity int=
-o a single `buf_len` parameter, breaking commands where RX size exceeds TX =
-size and leaking uninitialized kernel memory.
-- [High] An integer overflow in the transmit size calculation bypasses SCMI=
- core bounds checks, leading to an out-of-bounds write.
-- [Medium] The 64-bit constant representing the "MEMLAT" algorithm string i=
-s incorrectly split and endian-swapped, resulting in the mangled string "TA=
-LMEM\0\0" being laid out in memory.
+- [High] Skipping `profile->target()` for `TRACK_REMOTE` bypasses OPP frequ=
+ency rounding, causing state desynchronization and permanently failing `dev=
+freq_update_status()` on QoS-clamped frequencies.
 --
 
---- Patch [3]: [PATCH RFC 03/10] firmware: arm_scmi: vendors: Add QCOM SCMI=
- Generic Extensions ---
-commit 9dcfeae2ae27c1a2917b7de276eae7604cac163d
+--- Patch [5]: [PATCH RFC 05/10] PM / devfreq: Add new track_remote flag fo=
+r governors ---
+commit 3b4a905187566fcb4b261840b1355a57916fec6b
 Author: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
 
-firmware: arm_scmi: vendors: Add QCOM SCMI Generic Extensions
-   =20
-The System Control Management Interface (SCMI) Qualcomm Generic Extension
-Protocol consists of a small set of generic SET/GET/ START/STOP commands,
-which is used to turn on/off and configure Qualcomm SoC specific algorithms
-that run on the SCP.
+PM / devfreq: Add new track_remote flag for governors
 
-> diff --git a/drivers/firmware/arm_scmi/vendors/qcom/qcom-generic-ext.c b/=
-drivers/firmware/arm_scmi/vendors/qcom/qcom-generic-ext.c
-> new file mode 100644
-> index 0000000000000..7ca920c8da059
-> --- /dev/null
-> +++ b/drivers/firmware/arm_scmi/vendors/qcom/qcom-generic-ext.c
-> @@ -0,0 +1,183 @@
-[ ... ]
-> +/*
-> + * The firmware only implements a handful of algorithm strings. Keep an
-> + * allowlist so a client cannot push an unsupported (or garbage) string =
-to
-> + * the firmware; extend it as new algorithms are added.
-> + */
-> +static const u64 qcom_scmi_algo_str[] =3D {
-> +	0x4d454d4c4154ULL, /* "MEMLAT" */
-> +};
-[ ... ]
-> +static int qcom_scmi_common_xfer(const struct scmi_protocol_handle *ph,
-> +				 enum qcom_generic_ext_protocol_cmd cmd_id, void *buf,
-> +				 size_t buf_len, u64 algo_str, u32 param_id, size_t rx_size)
-> +{
-> +	struct scmi_xfer *t;
-> +	struct qcom_scmi_msg *msg;
-> +	int ret;
+Some devfreq governors need to track frequency changes performed on remote
+devices rather than driving the frequency updates themselves. Add a new
+DEVFREQ_GOV_FLAG_TRACK_REMOTE governor flag to skip the local target() call
+and just keep its transition statistics and notifiers in sync.
+
+> diff --git a/drivers/devfreq/devfreq.c b/drivers/devfreq/devfreq.c
+> index 2f27a239e34a6..71c6ced9e4e1d 100644
+> --- a/drivers/devfreq/devfreq.c
+> +++ b/drivers/devfreq/devfreq.c
+> @@ -348,6 +348,26 @@ static int devfreq_set_target(struct devfreq *devfre=
+q, unsigned long new_freq,
+>  	unsigned long cur_freq;
+>  	int err =3D 0;
+> =20
+> +	/*
+> +	 * When a remote agent (e.g. firmware) owns the frequency, skip the
+> +	 * local profile->target() call. Still emit the PRECHANGE/POSTCHANGE
+> +	 * pair and the trace event so that transition-notifier subscribers
+> +	 * (passive governor, devfreq cooling, etc.) and tracing observe the
+> +	 * frequency change exactly as they would on the normal path.
+> +	 */
+> +	if (devfreq->governor &&
+> +	    IS_SUPPORTED_FLAG(devfreq->governor->flags, TRACK_REMOTE)) {
+> +		freqs.old =3D devfreq->previous_freq;
+> +		freqs.new =3D new_freq;
+> +		devfreq_notify_transition(devfreq, &freqs, DEVFREQ_PRECHANGE);
 > +
-> +	if (!qcom_scmi_algo_str_valid(algo_str))
-> +		return -EINVAL;
+> +		if (trace_devfreq_frequency_enabled() && new_freq !=3D freqs.old)
+> +			trace_devfreq_frequency(devfreq, new_freq, freqs.old);
 > +
-> +	/* Reject calls where rx_size exceeds buf_len. */
-> +	if (rx_size > buf_len)
-> +		return -EINVAL;
-> +
-> +	ret =3D ph->xops->xfer_get_init(ph, cmd_id, buf_len + sizeof(*msg), rx_=
-size, &t);
+> +		devfreq_notify_transition(devfreq, &freqs, DEVFREQ_POSTCHANGE);
+> +		goto update_status;
 
 [Severity: High]
-Can buf_len + sizeof(*msg) overflow?
+Does skipping profile->target() here cause issues with unrounded frequencie=
+s?
 
-If a caller passes a very large buf_len, could the addition wrap around to a
-small positive integer?=20
+When a frequency update occurs, devfreq_update_target() can clamp the
+requested frequency to a PM QoS limit (e.g., min_freq) that might not be an
+exact valid OPP frequency.
 
-This would bypass the max_msg_size bounds check in xfer_get_init(), leading
-to an out-of-bounds write in the subsequent memcpy() call.
+By skipping profile->target() (which normally rounds the frequency to a val=
+id
+OPP), this unrounded frequency is passed directly to devfreq_update_status()
+via the goto.
 
-> +	if (ret)
-> +		return ret;
+Inside devfreq_update_status(), devfreq_get_freq_level() requires an exact
+match in the freq_table. If the unrounded frequency is not found, it fails
+and returns < 0, preventing stats updates and leaving previous_freq as an
+invalid OPP.
+
+> +	}
 > +
-> +	msg =3D t->tx.buf;
-> +	msg->ext_id =3D 0;
-> +	msg->algo_low =3D cpu_to_le32(lower_32_bits(algo_str));
-> +	msg->algo_high =3D cpu_to_le32(upper_32_bits(algo_str));
-
-[Severity: Medium]
-Does the firmware expect this string as an 8-byte character array?
-
-The constant 0x4d454d4c4154ULL represents "MEMLAT" in big-endian hex. When
-this is split into algo_low and algo_high and passed through cpu_to_le32(),
-the resulting little-endian memory layout becomes 0x54 0x41 0x4C 0x4D ("TAL=
-M")
-followed by 0x45 0x4D 0x00 0x00 ("EM\0\0").
-
-Will the firmware correctly reconstruct the 64-bit integer, or might it
-reject the mangled string "TALMEM\0\0" if it reads it as a character array?
-
-> +	msg->param_id =3D cpu_to_le32(param_id);
-> +	if (buf_len)
-> +		memcpy(msg->buf, buf, buf_len);
-
-[Severity: High]
-If a caller uses qcom_scmi_get_param() expecting an RX payload but has no TX
-payload, doesn't buf_len need to be at least rx_size to pass the validation
-check at the top of this function?
-
-If buf_len is artificially inflated to satisfy rx_size <=3D buf_len, won't =
-this
-memcpy() read buf_len bytes from the caller's buffer into the TX payload,
-potentially leaking uninitialized kernel memory to the firmware?
+>  	if (devfreq->profile->get_cur_freq)
+>  		devfreq->profile->get_cur_freq(devfreq->dev.parent, &cur_freq);
+>  	else
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-rfc_v8_scm=
-i_memlat-v1-0-cb732bcff1f4@oss.qualcomm.com?part=3D3
+i_memlat-v1-0-cb732bcff1f4@oss.qualcomm.com?part=3D5
