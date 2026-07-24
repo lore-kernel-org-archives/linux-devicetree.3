@@ -1,136 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECB202D7DC6;
-	Fri, 24 Jul 2026 16:41:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C75CB6BB5B;
+	Fri, 24 Jul 2026 16:46:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784911298; cv=none; b=MtzS1qZntOct43nCHdVUseLd2LyAElTiUx+7WRGcSP3aROyOb2aPCcJJ6a/oGkTN9LfxaHFyFEvTNbIKWQBbb+/zEnxDPDURVM9AWo77AW66I7VNPFmihMAY8TOrmc5+4NqFKxMSMiMk246djA+6zbyIjXE9I4Sbrh9pnERxhOg=
+	t=1784911595; cv=none; b=nWy4RwElSwT67DTcHb6R9a2ClmXljaBbKIPDRlxIpDGYmSQQ0UJD1cNcMcllYJ8uTgjYkh4cvPE++Uxpf0/NrqMyXOPlvGUJfTYxOklQqbx7W8kw4ek6s0B5SqFwe9SfCYQ9FzleG+mMeDP5C/6y8bhSnGLls1w/6JJOrEhHfNs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784911298; c=relaxed/simple;
-	bh=ty4j+1/oOGE25knCqpf7bj3e2UU9fugp8MDLwKbH1vk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CfKe4BAv2BqQIwtC01rmEhgXwXGs6tQclrjUSRT/xlU7NcmwWt5DI0ssEPl9a5ChsZ63g9hNVhv+eFiZjRIHMkWelI+p69zl8D8K+QusjDv64gQUe039Gg2YvX7nmLHcCAzYerOLqTIU2WbZbRr1HV5WPGzmogtWJ0k2v2v0408=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nh/c5A2/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784911595; c=relaxed/simple;
+	bh=BfHOLuCcxekGxLh7PKFijYXSHsRTznbMzmHB+ggbcxc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DGAMTV2vmUClSt9LCfTBIic85/dEsw4sDNej6RvZF4GSYyIC9VFBUZsxQr1rT56XdwpnZ1g7Atq81T6NroZlzxRdCrcbdfp4wOWNh5tvnyZ8FzdFTmoVriGF/t/jX0I0H8QHCDKxEBI0rpxnJKcuqBh/+cqB5DTnmAWwHdLAs9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k4INEk9c; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nh/c5A2/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7527D1F000E9;
-	Fri, 24 Jul 2026 16:41:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k4INEk9c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BE241F000E9;
+	Fri, 24 Jul 2026 16:46:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784911292;
-	bh=6APhXfNITMyAOspWnFvMchwyWMxJZinVfcVV0utcYJ0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nh/c5A2/GWa8c5vPVYafe260vMPGGbl1P9g0nWEtMtFZ1feOY7P/aA6OFSwYHB42c
-	 UZ37BkZ55BmX1NMqYVCq7WhLTtuh6rzk90lrGPdnyD/PZKRCzKd5S//Sy45tEtlZdG
-	 Mfb1Py/2ifvS0kn3DoRYzggPX3oKBblzMQel4jTCMOQdtU1eR7kRX1BO0WA/OSr5IY
-	 hCUgFtNR7W/p4UILF2OVN4HtqPcPzU5p+gFiX/LTNyq0DfnuS7A1Lz8IjKlwFZx1aB
-	 e2LTtp7pXiMRGKzJOAEJQbQaCHWlXpjlqwdWYeB+gHjSkhyHDFKM7b5kTip50ymbF7
-	 fEr+9TONV7nag==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 6/7] arm64: dts: freescale: imx8mm-verdin: Add
- Cortex-M4F remoteproc
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ernest Van Hoecke" <ernestvanhoecke@gmail.com>
-Cc: devicetree@vger.kernel.org, Frank.Li@kernel.org, robh@kernel.org, imx@lists.linux.dev, conor+dt@kernel.org
-In-Reply-To: <20260724-v1-verdin-imx8mm-dtbos-v2-6-9d7988bd76f6@toradex.com>
-References: <20260724-v1-verdin-imx8mm-dtbos-v2-0-9d7988bd76f6@toradex.com>
- <20260724-v1-verdin-imx8mm-dtbos-v2-6-9d7988bd76f6@toradex.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 24 Jul 2026 16:41:32 +0000
-Message-Id: <20260724164132.7527D1F000E9@smtp.kernel.org>
+	s=k20260515; t=1784911594;
+	bh=j/CCzSHtYumyFcj8LN2KX2hcSNpm3ATQp9Nbq1J3VPM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=k4INEk9cAkJofXWYbjyuHijGQ2Wks6/4KK6OIBninzhNI4zIrCTjDh/DSNRlIY5hb
+	 LmIOtoFM1YRnSfN7EgUoORDpBxx6G7VDQSMamwYpcYYix/iUZLktP7hbmO0zNmLUmW
+	 2y78hw5QT8a0VB78TcfGM6uaC1ozePuYMPWH2M0ETty3pVXU1Q3doyMIZHPgutnCnV
+	 f89tf8eYvrXaR7TBqw6kHts92aa0oJoHqLFMAr9DiPJGPwJ+PFzLJNC/xpQjkEX+Bt
+	 0aM+3iGy9EcLeo1iN9+ZFUPCFKjq5gYcathjqKP9cg6P8xG1yfEJWGMEqQJSvOyZNh
+	 ycHDVe6jr2mKQ==
+Date: Fri, 24 Jul 2026 17:46:29 +0100
+From: Conor Dooley <conor@kernel.org>
+To: vjardin@free.fr
+Cc: Ivan Vecera <ivecera@redhat.com>,
+	Prathosh Satish <Prathosh.Satish@microchip.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+	Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
+	Jiri Pirko <jiri@resnulli.us>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: dpll: zl3073x: add ZL30643 compatible
+Message-ID: <20260724-gloater-palpable-89703c14e394@spud>
+References: <20260724-for-upstream-zl30643-v1-0-ea93ba4d85c8@free.fr>
+ <20260724-for-upstream-zl30643-v1-1-ea93ba4d85c8@free.fr>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="I7Gc7VPNPQPd6uOV"
+Content-Disposition: inline
+In-Reply-To: <20260724-for-upstream-zl30643-v1-1-ea93ba4d85c8@free.fr>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Unconditional enablement of the Cortex-M4 co-processor and its m=
-emory reservations in a base SoM device tree file.
---
+--I7Gc7VPNPQPd6uOV
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
---- Patch [6]: [PATCH v2 6/7] arm64: dts: freescale: imx8mm-verdin: Add Cor=
-tex-M4F remoteproc ---
-commit 5627e466b821e2ae1d5d44438ab0c467605d30f9
-Author: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+On Fri, Jul 24, 2026 at 01:09:12AM +0200, Vincent Jardin via B4 Relay wrote:
+> From: Vincent Jardin <vjardin@free.fr>
+>=20
+> The Microchip ZL30643 (chip ID 0x0E3B) is a 3 DPLL channel member
+> of the ZL3073x family. Add its compatible string to the binding enum.
+>=20
+> Signed-off-by: Vincent Jardin <vjardin@free.fr>
 
-arm64: dts: freescale: imx8mm-verdin: Add Cortex-M4F remoteproc
+What about this device makes it incomaptible with existing ones?
 
-This patch describes the Cortex-M4F remote processor available on the
-Verdin iMX8M Mini SoM.
+Cheers,
+Conor.
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi b/arch/arm6=
-4/boot/dts/freescale/imx8mm-verdin.dtsi
-> index 5fc177f589cb2..ac450fc6cbfb3 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
-> @@ -52,6 +52,18 @@ hdmi_connector: hdmi-connector {
->  		status =3D "disabled";
->  	};
-> =20
-> +	imx8mm-cm4 {
-> +		compatible =3D "fsl,imx8mm-cm4";
-> +		clocks =3D <&clk IMX8MM_CLK_M4_DIV>;
+> ---
+>  Documentation/devicetree/bindings/dpll/microchip,zl30731.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/dpll/microchip,zl30731.yam=
+l b/Documentation/devicetree/bindings/dpll/microchip,zl30731.yaml
+> index fa5a8f8e390c..13ea55c2c146 100644
+> --- a/Documentation/devicetree/bindings/dpll/microchip,zl30731.yaml
+> +++ b/Documentation/devicetree/bindings/dpll/microchip,zl30731.yaml
+> @@ -18,6 +18,7 @@ description:
+>  properties:
+>    compatible:
+>      enum:
+> +      - microchip,zl30643
+>        - microchip,zl30731
+>        - microchip,zl30732
+>        - microchip,zl30733
+>=20
+> --=20
+> 2.43.0
+>=20
+>=20
 
-[Severity: Medium]
-Should this node default to disabled?
+--I7Gc7VPNPQPd6uOV
+Content-Type: application/pgp-signature; name=signature.asc
 
-Because it is added unconditionally to the base SoM dtsi, it defaults
-to "okay". This causes the imx_rproc driver to bind and call
-devm_clk_get_enabled() during probe, which keeps the IMX8MM_CLK_M4_DIV
-clock permanently running even if the M4 firmware is never booted.
+-----BEGIN PGP SIGNATURE-----
 
-> +		mbox-names =3D "tx", "rx", "rxdb";
-> +		mboxes =3D <&mu 0 1
-> +			  &mu 1 1
-> +			  &mu 3 1>;
-> +		memory-region =3D <&vdev0buffer>, <&vdev0vring0>, <&vdev0vring1>,
-> +				<&rsc_table>;
-> +		syscon =3D <&src>;
-> +	};
-> +
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCamOW4gAKCRB4tDGHoIJi
+0pI1AQCTItjWH90t6ZeuThBADNdxZVWTwaKv9JD2pQSH5/97KQD8CxvwSwe6db4t
+5IqREuyQ6cV81POEJqCslLbUwMxH/gY=
+=qp9N
+-----END PGP SIGNATURE-----
 
-[ ... ]
-
-> @@ -164,6 +176,27 @@ reserved-memory {
-> =20
->  		/* Use the kernel configuration settings instead */
->  		/delete-node/ linux,cma;
-> +
-> +		vdev0vring0: vdev0vring0@55000000 {
-> +			reg =3D <0 0x55000000 0 0x8000>;
-> +			no-map;
-> +		};
-> +
-> +		vdev0vring1: vdev0vring1@55008000 {
-> +			reg =3D <0 0x55008000 0 0x8000>;
-> +			no-map;
-> +		};
-> +
-> +		rsc_table: rsc-table@550ff000 {
-> +			reg =3D <0 0x550ff000 0 0x1000>;
-> +			no-map;
-> +		};
-> +
-> +		vdev0buffer: vdev0buffer@55400000 {
-> +			compatible =3D "shared-dma-pool";
-> +			reg =3D <0 0x55400000 0 0x100000>;
-> +			no-map;
-> +		};
-
-[Severity: Medium]
-Are we sure we want to unconditionally reserve these memory regions for
-all boards using this base SoM?
-
-Because of the no-map properties, this removes roughly 1.1MB of RAM
-from the kernel's linear mapping permanently across all Verdin i.MX8MM
-boards, even when the M4 coprocessor is not used.
-
->  	};
->  };
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-v1-verdin-=
-imx8mm-dtbos-v2-0-9d7988bd76f6@toradex.com?part=3D6
+--I7Gc7VPNPQPd6uOV--
