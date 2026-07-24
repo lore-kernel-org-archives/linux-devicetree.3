@@ -1,43 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 978FC47799D;
-	Fri, 24 Jul 2026 23:39:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C080047CA74
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 23:42:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784936382; cv=none; b=XiqT8AjteN9jaPkurUsMfqa8le5qsDSwPZei7ePWmKsv8SN5Mg7WQx4rq+cQ7r39plV2gGRwjLthrGf+Sg2YjDXtPTDjOX6YfRxV2ae5tnwkWH9mTuesx6VyPGeQkWkcL/kT8Rrg6J65nLwO7oi99EcQeL0UDFtTrAoiyyViFkY=
+	t=1784936578; cv=none; b=JCMMjiTvy6J6VrljQTe2OBhfNcq1F/cufdGROtOJ6ff0kAgCXHomDdL6eZrUshHFDgbawjyP9gVPf5KqNexJvVSU+mMjAN87mYPRrlw9PKWOeQYWxOBz1qsP95DAvTbshQ8dPrRe0NPL9A5Mm3rknDLw0bfHidtl08/HtRxlZ5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784936382; c=relaxed/simple;
-	bh=b34mnL8lz+jqePxApZ67oQEx7ehiqH1YMnfnZBnYE/0=;
+	s=arc-20240116; t=1784936578; c=relaxed/simple;
+	bh=zq1/aw2rzNVAiRX3dG7S0FIaSXrYCkGPyRirT0DKjo8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NNKFQxiXE84oJMz5+2iSb/fqCGOHEOt21cZ/QoHzwLiB4umwWsV0u3S1hxs3VkpUABYN/XwoeeyryvPNggZAN8qGmtrrMzARFAGaowa4NQMthGG+dctxucGOTKK4LbahGJH2KJENgXR5KI8RGicHqvJsG5isEgq06T0DLJlPpjY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tux6D86R; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=h28ymKFchaDtJjZXZGdgP89YZFRp6XAQ6UFhrC1cXSYbE/2rhGJ2b6jS3uYAoluRRQDBR2JYaqsiIMcZjK/ROUjwWq6vJfGGWZp2cR6tnQsRF6/i3cbY19RenZJHx54qlN0GoMEvivrfS8FnT5rVDqRAkvdRjOn/FMd+PvvfZmg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SYlKKMrt; arc=none smtp.client-ip=209.85.210.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tux6D86R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F2731F00A3A;
-	Fri, 24 Jul 2026 23:39:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784936379;
-	bh=Vt00kE+VeAluddWBb/3f728DfsTAsADGwy6DhFGLIuY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Tux6D86RKmmsfF2vucVcN2unXJ31MfPKRPNaGCmbW3lMCxEEPXe3o1lVu7fwUJdP+
-	 q6Q4rD9xGVSsSuZxeGpwoz6mzELxFffoAufS3eSubciaKiZFk9Tz/eL40pGHSyycZj
-	 dCJ7Zg1CH0+VZwTjqS9m7Xja3aU2FWXZiJiYI/rODJKVKbN5wAy+twr0VDBcmawpDw
-	 0YTi9im9g37VBk14IEn2c5WTYV1LdSCGpKVCaZ3iR1WDbuGCJ6NcxKborAFX8kGzJx
-	 xxfUheNiXDTzsZ89lgP2Gn4aIkwEtL4ANNZz4atw+4ykZjR7/PoKpckpHTK5O1Kj1W
-	 ndtsNLjvzja9w==
-Date: Sat, 25 Jul 2026 01:39:35 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Hongliang Wang <wanghongliang@loongson.cn>
-Cc: Binbin Zhou <zhoubinbin@loongson.cn>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
-	loongarch@lists.linux.dev, Huacai Chen <chenhuacai@loongson.cn>, stable@vger.kernel.org
-Subject: Re: [PATCH v8 2/2] i2c: ls2x: Add clocks property parsing and adjust
- bus speed
-Message-ID: <amPz7-dljqdfwNGc@zenone.zhora.eu>
-References: <20260721122604.12717-1-wanghongliang@loongson.cn>
- <20260721122604.12717-3-wanghongliang@loongson.cn>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SYlKKMrt"
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8486ac3f347so2114787b3a.1
+        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 16:42:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784936571; x=1785541371; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WIvddm/SoVY0JsjcwTl95nJ9aWsgQES49WF7YDGAcvw=;
+        b=SYlKKMrt2HJ55cCy7poivcZI4+TaYB7DOm9qFL8eX1GXIiFar2HDA3LdoAL2jBOPRO
+         Zt76s4YDb1Swf8TfMLtkuwKbunz7yl+TxxpYo+ehTYcfdjMIiFWsoJ4dff4FKNP//DqV
+         gyi0m7EoHaB1i0eVMBk6yZboHaMm2ogcqYqx6CykGVq04EC2B1xzgK3/WOGlzOx50+up
+         XNy8ckT5oS0YK5Q480Um/gkUnyJAw6SZY2CtfHegc5Fr/WtPYkEDyu0G9PBJeprgUK7x
+         4jP515go5S+R6o3gYlJk0UBH9cO/cvaWtIIZMFMQ250UNBHvZrA1w4EIYQCKXFt/G/u4
+         +PxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784936571; x=1785541371;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WIvddm/SoVY0JsjcwTl95nJ9aWsgQES49WF7YDGAcvw=;
+        b=D5B2bHDDXSHJW30E7AahhcL/YY74IdIO5L/PQ55bpXzGfFf6FwAHUdHLo+wWUkWjU5
+         Xft1NTP/C1CiLmKXsd1bv95E+VG7/m5leq4WfCbGfXvdmLtlp0uArvXNAQK31kpyVjXP
+         NS8Yei9nPY/ut0K6u653FccMO/JG+BXTxJbnznF2XRWTt1RnlSe1WCmubwcJZkxOUP3I
+         3fWEI4YX7WU/H5pTRsidVcOmVHIGVGJm6/pCa266i5za7MguzSSZ6Ak5km0SzeAJB5Qw
+         FnXMxCWu3o5clK0YZ9jPIPVIymsCxkQLevEMRzurlLu50TNLucNNT0U6r2iVwv8psgoP
+         fh2g==
+X-Forwarded-Encrypted: i=1; AHgh+Ro1r+dMZ9R8na0M+97/ilyK50vTbiraKBJCCWYY1ictAUQsk3w73tcF6QBEGf5O2AzcH+40fpO1nwHi@vger.kernel.org
+X-Gm-Message-State: AOJu0YyP97a5P9hb4OSup724UPk/Sxz5xaznc7tsiAElVYDC0D4HqV8Y
+	+JDqQkNft6WBGTAr3gGXZQ/gR3fjrVskVZyFA1gPpcq2mZuxPXL6z8vg
+X-Gm-Gg: AR+sD109P/lWQB5xCC+nvWT+PCUqb3UwMWgfDlMGmsUbgvsiRYIEtn+hhPKYWexV+Gy
+	i+MyP8fvuGQlSOXMPRtBDe7rc3Y4RBruVVS5tLAL9rPlsGSZHOpgLuMpgm6IpgeWgsnOW7NcFR5
+	isd9KTeFTKELFIMQbn02t1mv+sWD6jMaGGKkDpmBB1p5LEpbe5BTqf6nyIBEmm9NlxQJiB9Ag04
+	mo+IIUhOZ9bGAa4+gXDUk4H/jc1n9MZJJ8mLI2XUz8WrYu5G4H4H4CqSeYM7IvJIf4JiS48TN/a
+	+rFRai2mVWDeE7EKAUyvt/gGeEj1cjJOoHdou15fdkqdQitJ/JYr+5gInNJ3kvjzT7sHPFm13Fd
+	QgsWwsj8izeymUaHbHaWi/zWxYG20Mhkq2YwoA/h8w7/WvLPYs9vkVIsvBKWUMgy6CNiruNoqg2
+	UuDHJlEKYi/kYIqBKRH/kp+7YcBdB7p8T/W/Zte4oCzG4=
+X-Received: by 2002:a05:6300:2287:b0:3b3:3506:cf3f with SMTP id adf61e73a8af0-3c67236feb3mr2624676637.1.1784936571055;
+        Fri, 24 Jul 2026 16:42:51 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:40e1:40e4:dabe:543e])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-314bc4164ddsm3312255eec.9.2026.07.24.16.42.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 24 Jul 2026 16:42:50 -0700 (PDT)
+Date: Fri, 24 Jul 2026 16:42:46 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Eduard Bostina <egbostina@gmail.com>
+Cc: Aaro Koskinen <aaro.koskinen@iki.fi>, 
+	Andreas Kemnade <andreas@kemnade.info>, Conor Dooley <conor+dt@kernel.org>, 
+	Daniel Thompson <danielt@kernel.org>, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	Jingoo Han <jingoohan1@gmail.com>, Kevin Hilman <khilman@baylibre.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Lee Jones <lee@kernel.org>, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org, linux-omap@vger.kernel.org, 
+	Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, Roger Quadros <rogerq@kernel.org>, 
+	Tony Lindgren <tony@atomide.com>, daniel.baluta@nxp.com, simona.toaca@nxp.com, 
+	goledhruva@gmail.com, m-chawdhry@ti.com
+Subject: Re: [PATCH v2 2/3] dt-bindings: input: Convert TI TPS65217 power
+ button to DT schema
+Message-ID: <amP4csGgdg51VRZw@google.com>
+References: <20260718215632.3295049-1-egbostina@gmail.com>
+ <20260718215632.3295049-3-egbostina@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,84 +84,15 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260721122604.12717-3-wanghongliang@loongson.cn>
+In-Reply-To: <20260718215632.3295049-3-egbostina@gmail.com>
 
-On Tue, Jul 21, 2026 at 08:26:04PM +0800, Hongliang Wang wrote:
-> The i2c-ls2x driver supports dts and acpi parameter passing.
+On Sat, Jul 18, 2026 at 09:56:31PM +0000, Eduard Bostina wrote:
+> Convert the Texas Instruments TPS65217 and TPS65218 Power Button
+> bindings to DT schema.
 > 
-> In dts, uses clock framework, by parsing clocks property to
-> get i2c bus reference clock, and define the div of reference
-> clock by device data.
-> 
-> In acpi, by passing clocks property to describe i2c bus reference
-> clock and clock-div property to describe the div of reference clock.
-> 
-> Based on i2c bus reference clock(clock_a), i2c bus speed(clock_s)
-> and div, calculate the prcescale of i2c divider register. The
-> calculation formula is
-> 
-> prcescale = (clock_a*10)/(div*clock_s)-1
+> Signed-off-by: Eduard Bostina <egbostina@gmail.com>
 
-This commit log is not understandable, what did you actually do
-here? Please read carefully the submitting-patches documentation
-(under the "Describe your changes" paragraph).
+Applied, thank you.
 
-> Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
-
-I haven't seen Huacai's review on patch 2, as far as I've seen he
-has reviewed only patch 1. Have I missed anything?
-
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongliang Wang <wanghongliang@loongson.cn>
-
-Is this a Fix? I asked you this already. Please read carefully
-the paragraph I suggested and add the necessary tag.
-
-> ---
->  drivers/i2c/busses/i2c-ls2x.c | 40 ++++++++++++++++++++++++++++++++---
->  1 file changed, 37 insertions(+), 3 deletions(-)
-> 
-
-...
-
-> @@ -107,12 +116,13 @@ static void ls2x_i2c_adjust_bus_speed(struct ls2x_i2c_priv *priv)
->  	else
->  		t->bus_freq_hz = LS2X_I2C_FREQ_STD;
->  
-> +	val = (priv->pclk * 10) / (priv->div * t->bus_freq_hz) - 1;
-
-Sashiko pointed out that this might overflow. While your replied
-that the expected platform values may not overflow, the code does
-not enforce those constraints.
-
-The clock rate comes from firmware or the clock framework, so at
-least a zero rate should be rejected. Using 64-bit arithmetic here
-would also avoid relying on undocumented assumptions about the
-input range at essentially no cost.
-
-> +
-
-...
-
-> +	if (dev_of_node(dev)) {
-> +		clk = devm_clk_get_optional_enabled(dev, NULL);
-> +		if (IS_ERR(clk))
-> +			return PTR_ERR(clk);
-> +		if (clk)
-> +			priv->pclk = clk_get_rate(clk);
-> +		else
-> +			priv->pclk = LS2X_I2C_PCLK_FREQ;
-> +
-> +		priv->div = (unsigned long)device_get_match_data(dev);
-> +		if (!priv->div)
-> +			priv->div = LS2X_I2C_2K_CLOCK_DIV;
-> +	} else {
-> +		/* clocks and clock-div are only ACPI properties. */
-
-clocks is also DT property.
-
-Andi
-
-> +		ret = device_property_read_u32(dev, "clocks", &priv->pclk);
-> +		if (ret)
-> +			priv->pclk = LS2X_I2C_PCLK_FREQ;
+-- 
+Dmitry
