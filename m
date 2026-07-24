@@ -1,156 +1,236 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C226446BF5
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 16:24:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EE36383320
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 16:25:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784910294; cv=none; b=jfu8A7U3SIXmPtqt7XQ/9P1hJtpejeeqfBENWCi+PzXJ1g8dZ5iNoC1eQEE3b3KUrg5iGCyxtLLxxbp7DOT19RTfeN6wbAdp8scE0L2OT0WwYNnAQ7nU4sofKAYBgV1Hf8/m/spnYi4/Oe1i5O3OIGKzgq0BMIHouvVWzk+WX2U=
+	t=1784910326; cv=none; b=Ma6ji8Pwmt7M56r9zn2nWQZlG4EpAFN4+qmHNyS5Ijh9X+5dyaFf2+wuoNO0yu0GpDSp22bMEK3HkHxRR8TuHYQTMMmsWU8lCvJj57Fs1mUwsWg4q1HPKBb28qLdWoeztln1XWlegbmgF9SUGRwa2A8EotNMv9ew7QaWbbuDmOs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784910294; c=relaxed/simple;
-	bh=Dt11JjlnXRNlsfRDZJaKONmkHC1Tz3sJpFyIwNZn6oU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=pkAjKrvJX9pvcdEqojrLqyhj1emTDgX93Yf90PAaBx2KyVApxr3/27mqRy+EFxl50zRL2k6YDhIdVupPfs3cdf6NsE07RhqCBqkuyAJ41km6c9KCvYoacNa+6roo46q5L6Ie2TJ9tHvhTvfhJSXKXxw4HeKQcB4KcRFjDeV+NBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MtTTt3wV; arc=none smtp.client-ip=209.85.221.44
+	s=arc-20240116; t=1784910326; c=relaxed/simple;
+	bh=QRhVBSuXVEoQIY3bGLpzbuEnhuAMXEhnpVZXREUzxAI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=chkx9CWQhECYPkgQLo/ReLLJvo0NThKthrhCADomCnDC09Ttbrrl2Zmv8OTDzOSwNfg8r993JKrW8EbJFps4Qbl3dJJOcPoexf7Xzjr7qwS/n8823jugbEYAIHIwBECfahI0T+pd/eJC6mcPImChJ29X+maLmoAigbvPB+Y2GCU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NmhdF5tc; arc=none smtp.client-ip=209.85.215.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MtTTt3wV"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-47f92e3c14bso629197f8f.0
-        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 09:24:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NmhdF5tc"
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cbb7926836eso455491a12.3
+        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 09:25:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784910289; x=1785515089; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Oca1257RcNleArjY25A/HuTOrlgfLsamKajTMfVExe0=;
-        b=MtTTt3wVxs3MZWuwUSI+tABUB+lgqXYdHwXMpnKvxCHwnbHYRfvNS9Mc3U2bNEHUNX
-         3wXuwBKCzQ6cqx5WUg/C5Gp8LwwVnvXU9ukmnxr19FA/WMbbdbqsqwc+tbZX+BREr6Ul
-         wPavMHdmVFliTipCtQkEesi98hnAMzTRSsevvrBL0LTwUgOx175AXdZW9WM4mHRK7c4I
-         5kJd8ZFoSpJaXgLvljVmkn5Wthron2kX5uMAa9hy8rNLvy0IUN9HZN+jjBeGUe983Pzm
-         7UlQd1T7mgDBYksoTwR4PCvsQqqoSXKYFG8pYbmpUsmp21cmyiedabqWmNfd0c44xvwc
-         JdgQ==
+        d=gmail.com; s=20251104; t=1784910325; x=1785515125; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iIveEnsC2i4BV8ze8aVcBp+MK1iWZOOv1jA6qIdT6uQ=;
+        b=NmhdF5tcjEnk83tCdriS199zsfUSXWnwFS5232BmzC3qpDrUGtcTXiT2GMyoth4AH9
+         heokU014TSiEz+jceo+acAtaFXyEy2rj/lNuamP6Ufyf0bhtpqcAVHPdQLp0i1kJmb40
+         vyAwVAgXY4bEdiey582Pwe+YV/Btkq+87NgMA0Ss4ibfHIK4cxfrnY/Xr/fcfXbLYMYs
+         TwmYITUM8UATzM3HNI4DuWLVMREXJJ5LBsVXfV0Al0IqkKe1/wwQQtQvnnSOzo0z8/JL
+         LTD4WldM56ZB1da4JKRBMSMd0N6K/ZEP/E+kDJ6gzZ6I5zmtjIZv80MGyHERV+VK+WkW
+         S+wQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784910289; x=1785515089;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Oca1257RcNleArjY25A/HuTOrlgfLsamKajTMfVExe0=;
-        b=TEGvTYAl+QIyBb7336UpOxOStMij5SEKE1VHTLAhQpJt/GrxjvelxkExkWJATBXp6Z
-         DsrSVILxk5VcdZ+E8qpTbvzN9PvRkjVBxdnRjOVDF4uhnWGrRY8OtIpa0MqyNxJEWjKV
-         uMQ434ke73BgfTukBz1WB8Rp2JllNbWiPRXIIcCN0fTiF+xL5YBFYSlMVl+/VQQQM2yA
-         6/livSFH5nNsOdQTOj5PK8bnEuV+uqfgkXKZ6Ou76MWX76gL/NLVGq+KJ6+YUrdHn1Gk
-         Emub3YKhuDmnxe9NnMEmNqAKqH09I1/5082WjGUwNLVNdD8r3vwykOVcZNxuIlQNnJXz
-         Mlmg==
-X-Forwarded-Encrypted: i=1; AHgh+RpMv72wFXmAKj0oEvyAi+psg6VS3bowrLShOHmQrRSuCKyOIB5tiYksNV2JyrDUbLiWvzKfkH1PzqmX@vger.kernel.org
-X-Gm-Message-State: AOJu0YyQEQ4Co+aP24/5QzEPbQdPlXlJRN5dFGOTSwAE/ic/ZZNgW57X
-	F8S1Imc2FWLDxbcOWegE4AbiIKWi7g899qRU5ddXHlosFEPKUcfHGKkt
-X-Gm-Gg: AR+sD12l3apcG17FAPowl/ENlsBdF9zjXLmYt6pUp3XQI15VucbkyX6IcMkL8qb2YTM
-	uYGZcGHt9cJPDUHADcE/YmSzcSFgyrGOIHX/9E+wg/4K8G5UWSgm1fCzqi0fRcaiUBd6oTKUDtx
-	rF6+JjQFF4ZS2ENonWOKPiQCWQRx0+M+FLbliraO4lGrzhstYt8RJ7t0VA4fIwDFV543smPJt28
-	be1d+1+aZKVrZCYCcpxssmG8u/7bB+ivGSGZVeXimLmQAEIYyCSqi9FT623cqqNNUBP93/JB1FU
-	oizdpWxFqL3eLoJZrUAzaF6fMLS8gRyM07K7qHsnIlG+H69OwPrKBwNbkaMp8tIEQNgLfN2eLnD
-	OAjMOH0rV2E9GFh1NX3xsOvpA48+v3bEc8RCS98fA1eO9GvgVWLz2Ent4b2GAFzXPTztC5Lsle7
-	DMoGOPv+o3wnx6mSblCkN6ahDFJZMXAowazLDGP514yUtfVbXy/s0Hbo2XyfbJh/OsfI+caauJd
-	+QOhw==
-X-Received: by 2002:a05:6000:1869:b0:47e:8e8a:43f5 with SMTP id ffacd0b85a97d-47f8d71c758mr10505852f8f.20.1784910288925;
-        Fri, 24 Jul 2026 09:24:48 -0700 (PDT)
-Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85b9a5d9sm24366255f8f.5.2026.07.24.09.24.48
+        d=1e100.net; s=20251104; t=1784910325; x=1785515125;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iIveEnsC2i4BV8ze8aVcBp+MK1iWZOOv1jA6qIdT6uQ=;
+        b=FJ9dELKe/h+THwkGPG/ABwaKYQUniA23LfDoNCs9WSwmJ7X2b4QC1eDHauWSkOD2aj
+         2oUgHGxVrt+xNujedJTkfibcfETs4Dj5c4Yki92L8NWtB+lkUjNrgT5m9L5A6PE94V3Y
+         2DUQB+u5Cwr2EPpw+tOm03nFUrhGxFKfC6P+8/YtNUq8ZpBca/O75+mgk8ttHgzBG7Gh
+         pmUTWXC/WISSfb0RFP0tNAj0CG8RjOhVepDZ8ZRoj6G+YSpQTvXO7yZ0qX61reRkPTP+
+         UzON79YqHXdCu3PSNcFxqg4wuEwy1p8veJyNNK8xSej3Oi0RzjYTzhM4xTQAUtRwYjKo
+         2vzA==
+X-Forwarded-Encrypted: i=1; AHgh+RoxtEWy32s8riDIqX87yVa8KezdjJDVRgxH4agRfZuzpueJssn2xGDWmJU/I+DjkN2WWBNV01O/BqZu@vger.kernel.org
+X-Gm-Message-State: AOJu0YxKjIe030MvNCT5peYJvhmIVWU7EH9WFRwQxppcbUukpcCcLSQw
+	pZP6zIQXcpuwd0ND+TTvf1GHQelXJjBLUmt24Q+lqL7Tcl6/y8Omm/zR
+X-Gm-Gg: AR+sD11EhvemrAgkxwTdaVyzTwj+kZKa5lVIiLLf9iOkqL0qg/8CVQgRTNy4wsm8fkk
+	uwvI+15QZzFgEghg6Nlz6GGm2+dhxdPQW7NnRap6VYndgYaMmg+X1XNYbeCbrY1BeToy/aG6n8b
+	RdhbwKFANn33jwYZZW1Ny7Vt/lPPaMAHZS3FvkOVShVxnri1ldDlgAB36v0P7LUme6u3OTQA1Jh
+	lm96K5rVK8EKQNKqESYAuhy+j5i4v6UIEHSwCX8y1R/1K+mzcsIv47GS/oAvdZ3r+M860au2iwm
+	3TdnzgxsPTd7z2q8RMUAqhVUdCeNLlvZ/YIzzLTg7YZ7rV/3UBMCCpCiS5JTE7cukPHs2GtmbaE
+	QgLU1f+Hf72Nh13uN8RrQIAguvvTIxEJu+wN5P7ES+7Elx+mU+QkRHW42yU4OyrccC+DOSCHwWz
+	8UXJifboQ8bFN6Kpls6LgXbaURlm5XX+t1/LPX4S/eX/mWByBY6kGPeHwtF2SblXSIv/1CxSBId
+	MDYriwC8AM2F8nyyw==
+X-Received: by 2002:a05:6300:141:b0:3c3:a1a4:862c with SMTP id adf61e73a8af0-3c44b2680b9mr8889730637.68.1784910324540;
+        Fri, 24 Jul 2026 09:25:24 -0700 (PDT)
+Received: from fedora ([202.179.95.46])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-314bc3e1255sm1323838eec.4.2026.07.24.09.25.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 24 Jul 2026 09:24:48 -0700 (PDT)
-From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Date: Fri, 24 Jul 2026 18:24:33 +0200
-Subject: [PATCH v2 7/7] arm64: dts: freescale: imx8mm-verdin: Add
- Cortex-M4F UART_4 overlay
+        Fri, 24 Jul 2026 09:25:23 -0700 (PDT)
+From: Ninad Naik <ninadnaik07@gmail.com>
+To: lee@kernel.org,
+	pavel@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	simon.guinot@sequanux.org
+Cc: linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	me@brighamcampbell.com,
+	linux-kernel-mentees@lists.linux.dev,
+	skhan@linuxfoundation.org,
+	Ninad Naik <ninadnaik07@gmail.com>,
+	kernel test robot <lkp@intel.com>
+Subject: [PATCH v3] dt-bindings: leds: lacie,ns2-leds: Convert to DT schema
+Date: Fri, 24 Jul 2026 21:53:32 +0530
+Message-ID: <20260724162332.32291-1-ninadnaik07@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260724-v1-verdin-imx8mm-dtbos-v2-7-9d7988bd76f6@toradex.com>
-References: <20260724-v1-verdin-imx8mm-dtbos-v2-0-9d7988bd76f6@toradex.com>
-In-Reply-To: <20260724-v1-verdin-imx8mm-dtbos-v2-0-9d7988bd76f6@toradex.com>
-To: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Kieran Bingham <kieran.bingham@ideasonboard.com>
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-X-Mailer: b4 0.13.0
+Content-Transfer-Encoding: 8bit
 
-From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+Convert lacie,ns2-leds to DT schema.
 
-Verdin UART_4 can be assigned to Cortex-M4F firmware. Add an overlay
-that marks the UART as reserved so Linux does not claim the port.
-
-The overlay is also combined with the Verdin iMX8M Mini Development
-Board device tree to provide a ready-to-use DTB for the WiFi SoM
-variant.
-
-Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/r/202607231542.6ovJrInT-lkp@intel.com/
+Signed-off-by: Ninad Naik <ninadnaik07@gmail.com>
 ---
- arch/arm64/boot/dts/freescale/Makefile                     |  3 +++
- arch/arm64/boot/dts/freescale/imx8mm-verdin-uart4-mcu.dtso | 14 ++++++++++++++
- 2 files changed, 17 insertions(+)
+Changes in v3:
+- Add optional property num-modes to the schema.
 
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index fe261d7bdab5..95ae85ab4adf 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -192,6 +192,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-nonwifi-yavia.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-nonwifi-zinnia.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-panel-cap-touch-10inch-dsi.dtbo
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-panel-cap-touch-7inch-dsi.dtbo
-+dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-uart4-mcu.dtbo
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dahlia-dsi-to-hdmi.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dahlia-panel-cap-touch-10inch-dsi.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dahlia.dtb
-@@ -199,6 +200,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dev-dsi-to-hdmi.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dev-dsi-to-lvds-panel-cap-touch-10inch.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dev-nau8822-btl.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dev-panel-cap-touch-7inch-dsi.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dev-uart4-mcu.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dev.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-ivy.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-mallow.dtb
-@@ -220,6 +222,7 @@ imx8mm-verdin-wifi-dev-dsi-to-lvds-panel-cap-touch-10inch-dtbs := imx8mm-verdin-
- imx8mm-verdin-wifi-dev-nau8822-btl-dtbs := imx8mm-verdin-wifi-dev.dtb imx8mm-verdin-dev-nau8822-btl.dtbo
- imx8mm-verdin-wifi-dev-panel-cap-touch-7inch-dsi-dtbs := imx8mm-verdin-wifi-dev.dtb \
- 	imx8mm-verdin-panel-cap-touch-7inch-dsi.dtbo
-+imx8mm-verdin-wifi-dev-uart4-mcu-dtbs := imx8mm-verdin-wifi-dev.dtb imx8mm-verdin-uart4-mcu.dtbo
- imx8mm-verdin-wifi-yavia-dsi-to-hdmi-dtbs := imx8mm-verdin-wifi-yavia.dtb imx8mm-verdin-dsi-to-hdmi.dtbo
- 
- imx8mm-tqma8mqml-mba8mx-lvds-g133han01-dtbs += imx8mm-tqma8mqml-mba8mx.dtb imx8mm-tqma8mqml-mba8mx-lvds-g133han01.dtbo
-diff --git a/arch/arm64/boot/dts/freescale/imx8mm-verdin-uart4-mcu.dtso b/arch/arm64/boot/dts/freescale/imx8mm-verdin-uart4-mcu.dtso
+ .../bindings/leds/lacie,ns2-leds.yaml         | 85 +++++++++++++++++++
+ .../devicetree/bindings/leds/leds-ns2.txt     | 35 --------
+ 2 files changed, 85 insertions(+), 35 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/leds/lacie,ns2-leds.yaml
+ delete mode 100644 Documentation/devicetree/bindings/leds/leds-ns2.txt
+
+diff --git a/Documentation/devicetree/bindings/leds/lacie,ns2-leds.yaml b/Documentation/devicetree/bindings/leds/lacie,ns2-leds.yaml
 new file mode 100644
-index 000000000000..8dbecffe9e7b
+index 000000000000..2138c75c0413
 --- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8mm-verdin-uart4-mcu.dtso
-@@ -0,0 +1,14 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Verdin iMX8M Mini UART_4 for Cortex-M4F
-+ */
++++ b/Documentation/devicetree/bindings/leds/lacie,ns2-leds.yaml
+@@ -0,0 +1,85 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/leds/lacie,ns2-leds.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+/dts-v1/;
-+/plugin/;
++title: Dual-GPIO LEDs found on Network Space v2 (and parents)
 +
-+/* Verdin UART_4 */
-+&uart4 {
-+	status = "reserved";
-+};
-
++maintainers:
++  - Simon Guinot <simon.guinot@sequanux.org>
++
++description:
++  The Network Space v2 dual-GPIO LED is wired to a CPLD. Three different LED
++  modes are available, off, on and SATA activity blinking. The LED modes are
++  controlled through two GPIOs (command and slow), each combination of values
++  for the command/slow GPIOs corresponds to a LED mode.
++
++properties:
++  compatible:
++    const: lacie,ns2-leds
++
++additionalProperties:
++  type: object
++  $ref: common.yaml#
++  unevaluatedProperties: false
++
++  description: Each child node represents a single LED
++
++  properties:
++    cmd-gpio:
++      maxItems: 1
++      description: GPIO connected to the command LED output
++
++    slow-gpio:
++      maxItems: 1
++      description: GPIO connected to the slow LED output
++
++    num-modes:
++      $ref: /schemas/types.yaml#/definitions/uint32
++      description:
++        Number of entries in modes-map.
++
++    modes-map:
++      $ref: /schemas/types.yaml#/definitions/uint32-matrix
++      description:
++        A mapping between LED modes (off, on or SATA activity blinking) and
++        the corresponding cmd-gpio/slow-gpio values. All the GPIO values
++        combinations should be given in order to avoid having an unknown
++        mode at driver probe time.
++
++      items:
++        items:
++          - description: LED mode
++            enum: [0, 1, 2]
++          - description: Command GPIO level
++            enum: [0, 1]
++          - description: Slow GPIO level
++            enum: [0, 1]
++
++  required:
++    - cmd-gpio
++    - slow-gpio
++    - modes-map
++
++required:
++  - compatible
++
++examples:
++  - |
++    #include <dt-bindings/leds/leds-ns2.h>
++
++    led-controller {
++        compatible = "lacie,ns2-leds";
++
++        led-0 {
++            label = "ns2:blue:sata";
++            slow-gpio = <&gpio0 29 0>;
++            cmd-gpio = <&gpio0 30 0>;
++            modes-map = <NS_V2_LED_OFF  0 1
++                         NS_V2_LED_ON   1 0
++                         NS_V2_LED_ON   0 0
++                         NS_V2_LED_SATA 1 1>;
++        };
++    };
++...
+diff --git a/Documentation/devicetree/bindings/leds/leds-ns2.txt b/Documentation/devicetree/bindings/leds/leds-ns2.txt
+deleted file mode 100644
+index 9f81258a5b6e..000000000000
+--- a/Documentation/devicetree/bindings/leds/leds-ns2.txt
++++ /dev/null
+@@ -1,35 +0,0 @@
+-Binding for dual-GPIO LED found on Network Space v2 (and parents).
+-
+-Required properties:
+-- compatible: "lacie,ns2-leds".
+-
+-Each LED is represented as a sub-node of the ns2-leds device.
+-
+-Required sub-node properties:
+-- cmd-gpio: Command LED GPIO. See OF device-tree GPIO specification.
+-- slow-gpio: Slow LED GPIO. See OF device-tree GPIO specification.
+-- modes-map: A mapping between LED modes (off, on or SATA activity blinking) and
+-  the corresponding cmd-gpio/slow-gpio values. All the GPIO values combinations
+-  should be given in order to avoid having an unknown mode at driver probe time.
+-
+-Optional sub-node properties:
+-- label: Name for this LED. If omitted, the label is taken from the node name.
+-- linux,default-trigger: Trigger assigned to the LED.
+-
+-Example:
+-
+-#include <dt-bindings/leds/leds-ns2.h>
+-
+-ns2-leds {
+-	compatible = "lacie,ns2-leds";
+-
+-	blue-sata {
+-		label = "ns2:blue:sata";
+-		slow-gpio = <&gpio0 29 0>;
+-		cmd-gpio = <&gpio0 30 0>;
+-		modes-map = <NS_V2_LED_OFF  0 1
+-			     NS_V2_LED_ON   1 0
+-			     NS_V2_LED_ON   0 0
+-			     NS_V2_LED_SATA 1 1>;
+-	};
+-};
 -- 
-2.43.0
+2.55.0
 
