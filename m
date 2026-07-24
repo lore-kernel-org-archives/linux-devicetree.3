@@ -1,187 +1,223 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B27E84508F7
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 19:00:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78A5338C410
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 19:01:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784919668; cv=none; b=p/PnxtjkzYhazoU/kw30uogN7imUFZ+Ys+Z2sqqhpNX6sAjfovyeb9AwtEp37UAmIk+Os+X8UK1DI6BEsKtck1Ex3zf5OcuzqYmgyULMJwk9GGC1xh5jDWnD9Hdh88uLOFX7q31jQQvGJqpMhr7dJ3znRBAMofqgQm7rd5FYxLU=
+	t=1784919697; cv=none; b=JUxY/g8622fAlHmrtBIk5nNRmmXeOrW+CyPdTtimy8/AADcTGfLU6sM67jNeeWyuA5NSgiiepF7iT4zloeFIS3vwhnUaIC39+pFSpyk2qLsfKKRufXITr+tg0zdqiDos+pYilhkWCBuoL+suqpGgZnJzV+oTDSjNeXnVNkzxnoM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784919668; c=relaxed/simple;
-	bh=Dbe4+AReL8h7MG584hVaFyq7sq6Nx1aDlRNh19brikw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h4RJTUZrS9y/GjlJwL4sG8N1PzRIZXZpBi2X4dWApQC2Tc/0FKhRCPCrJlHaI0j2lYdAzsa/V8y4Uv0TmKRoeij4hlk4hvmbf4t/mH+CTQ5p4bWbCqxgvp+mVrmNnjKKEjFGqoAd8zwEwZvLBdnOyoGdzSJAVBJ6T36AdHxWEls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=YWzltlAK; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=AvyhujxN; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1784919697; c=relaxed/simple;
+	bh=T8nxv+c+fCDehE2pdoSRoe7QvfJ5UNO316nHyAqvXqo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=dro2SNMFIKv/t4IJYyxP4Ew14zZsoB0itkKF/RlScwHmM+FXN+1dcSvyIOksfFnFpZ6tUYQrlIZxL5qeZuhbsHbRytut1Snje7j6oSFvvc74+14gkVxS6wqWtZCL4u45WdDbdi8HHPH43FNbe91vY/3UcuxaXdM2yLn4Z7jzPnM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Im382gLm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="YWzltlAK";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="AvyhujxN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1784919642;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=T6vnPk2ZVMVXDwCeXPFzptG9mWQ76bEG5faIrTyQk74=;
-	b=YWzltlAKpy3SlBkXyBv9vi6eIn6FK1+r96r1J5C7vMETkTHdkj8XcodObsrdJEDmfaUvBh
-	5/UGFV97SVcyHm8cuwfXfrQY+uVUqfG0ThPs1t11uddI2ucKLrHb3TXMRaH48syE3Cvwx+
-	maL50VMy6FVhaGCKllOBbaR8FrbVVCs=
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-42-w5vYjMdBNl-bPl_kcc5Y9Q-1; Fri, 24 Jul 2026 15:00:41 -0400
-X-MC-Unique: w5vYjMdBNl-bPl_kcc5Y9Q-1
-X-Mimecast-MFC-AGG-ID: w5vYjMdBNl-bPl_kcc5Y9Q_1784919641
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-92e66f9e2baso110961085a.0
-        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 12:00:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1784919641; x=1785524441; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=T6vnPk2ZVMVXDwCeXPFzptG9mWQ76bEG5faIrTyQk74=;
-        b=AvyhujxNHkYHgn7Kur011GQzJFXm2S/vxrOQIDIn3LNZdIeW+92f2WjJGqAtfFppcM
-         UmstvRMfcZPWoadLvOqsCXtKFeYnWJHU7prZCgE2WWCvXrn6ezOLYL5/+D0mRedSLHA8
-         dIUD+LY0yBJA37w0L4plezg2BdL3XD+sJ4Un2UoGQQpzEXuLWeUKIMohoVBqCv3t37N3
-         wgc+es+g+nHcFD1kcGqsv5iLWbcGoqO3EDgIMhfLHAk8S7m2hutBvUn220cCN20uNIkb
-         ZIXLWIren2Drle71vE6xbKngZLZ1w2ux9N8NKzryHqNs/V6i6mV+xhL8txMSP+y3ulE0
-         fZxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784919641; x=1785524441;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=T6vnPk2ZVMVXDwCeXPFzptG9mWQ76bEG5faIrTyQk74=;
-        b=N7AX3SNyapy2OX0TQKiUEgG9ImB9jYfUNmuRd6RVI19vV3SMtffJdUxTsDRM5vGpBj
-         olJM1T8nVr0DJVWmUqsqLo8DD7DGKouNgI0gHYoh8gvTjRRmXmqIWFf68hPoZ3skc9ZS
-         t66Ehkg3/0Xwa8iokNv+rZLS5IJcrX44pDkGj0XSAmlUfQe77HgtgsqZI/+IKAf7pG05
-         JgsrivuJDcBJuGs7rSHPrgxmPrRtSSxz7uut3y9hLBG1iejGIz8kXHpvWeKfc2IDmg1c
-         fy0f/bdvCuoW65wuDaxveELLCoWKinAtcPBZgoPACMIPUKL/ajRaiMBL9499hbnQEdls
-         s+vA==
-X-Forwarded-Encrypted: i=1; AHgh+RoO2Ea+6X1h8KhLa8DOgqLguP8wuKr8awaNOkvWTuZRF9vzudHnM7cwwmEUIvWc+lOXl5l8qTGblHNu@vger.kernel.org
-X-Gm-Message-State: AOJu0YweuQ7BRFWLOGKsIcM2Ngr2ufYJAMQOBW/uD3pyxMvNEqS1NJak
-	uc4upG9/Fp8GTgJ7UpQvKKDfXsXBWS0DP6qHnywb5pG4MGTrJg0ZT/Agjp+d5QoAZYf5F28jV5E
-	WyuvtVl8iPdzP1/CVd4SOwPZfJV5qwWvprrzDSqGb7cdtDb/0+4eBPz00zQ2kDu0=
-X-Gm-Gg: AR+sD13/MkFq6WyLEJpA+e1eXnoWsFoSAsWAbfqJevuDuxbHIt1XRm/7eC/k+YJIkDO
-	o/M0JHsW30PpB8jE2hUWqzSVgaN8mEW4WrQ2ypnuvugiN/EXhsN72OeZGEQk/t0hhYq/0savJZK
-	rsCx+pkO2Vtq4qExcHXucoADcZ3DelyxDCqbNCZAcI1FLWz9mRWQfrVdUZRfBlxJyWu1C2b2Tg+
-	1QlqpwOakmUFPaO2Tuz/AavDHIfAjUwULkVMqR2uLef0iZb7sQfgr5aFLdx4ds3E+NSqqk66EHs
-	/0yzNN1Dv38UzoTh/kowDZnW5zraWrq/sCIKSvs7v0Kwv9USEIiUtQHCVAdgjdSCP25uRWvKZaD
-	waqgcLcSE2VR5AY1cyfmeGlusk9j63zdjIDg=
-X-Received: by 2002:a05:620a:3912:b0:915:a111:86ae with SMTP id af79cd13be357-93103853ca1mr848658085a.35.1784919640795;
-        Fri, 24 Jul 2026 12:00:40 -0700 (PDT)
-X-Received: by 2002:a05:620a:3912:b0:915:a111:86ae with SMTP id af79cd13be357-93103853ca1mr848649585a.35.1784919640237;
-        Fri, 24 Jul 2026 12:00:40 -0700 (PDT)
-Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-930f6aab2c7sm714011885a.46.2026.07.24.12.00.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 24 Jul 2026 12:00:39 -0700 (PDT)
-Date: Fri, 24 Jul 2026 15:00:37 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Joakim  Zhang <joakim.zhang@cixtech.com>
-Cc: "mturquette@baylibre.com" <mturquette@baylibre.com>,
-	"sboyd@kernel.org" <sboyd@kernel.org>,
-	"robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
-	cix-kernel-upstream <cix-kernel-upstream@cixtech.com>,
-	"linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [PATCH v11 2/4] clk: cix: add sky1 audss clock controller
-Message-ID: <amO2VSHtSQE98CNz@redhat.com>
-References: <20260723090808.1727598-1-joakim.zhang@cixtech.com>
- <20260723090808.1727598-3-joakim.zhang@cixtech.com>
- <amJEjofx348vF4Vd@redhat.com>
- <SEYPR06MB6226EA6519C74A0FF0AB677482CF2@SEYPR06MB6226.apcprd06.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Im382gLm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B22051F000E9;
+	Fri, 24 Jul 2026 19:01:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784919696;
+	bh=b/2fAmPzybAY+X6MbMbrFn/6g3tSWxJ53kcCCGeEU34=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Im382gLmmjTwqpeViaLQR/Nb+E+w6w5zSHzoout8LChHLzDSSt0AT0GIfxo+iivhC
+	 Hv0FOBQ5UStPUiS4AeblA4zC+2pVfVx+AUVI5Htl5LF9dwslBGfVL7MYNfm3lWHAp5
+	 //55D1GPORi5V0Wl0lF69VjCnZI24h8ZSXsEuwLFicWOqiIbrTEz24VJjdbgj8F/Uj
+	 IhXmXmqj5Vc2imQZSeRDhCVqEXE5vHd6awYeELTItGqZNsjb4nbnOeP3hNQiXb+zcy
+	 iaVpBXigRn7TdLgYBfHpcy9iG+5IFJ6Taga3/zd0uRuif79fXrMHN5qhlz8gpsbxa2
+	 XPQqQ/iaGL5Gw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v11 3/3] phy: airoha: Add support for Airoha AN7581 USB
+ PHY
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Christian Marangi" <ansuelsmth@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, robh@kernel.org, olteanv@gmail.com, neil.armstrong@linaro.org, linux-phy@lists.infradead.org
+In-Reply-To: <20260724184523.193661-4-ansuelsmth@gmail.com>
+References: <20260724184523.193661-1-ansuelsmth@gmail.com>
+ <20260724184523.193661-4-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 24 Jul 2026 19:01:35 +0000
+Message-Id: <20260724190135.B22051F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <SEYPR06MB6226EA6519C74A0FF0AB677482CF2@SEYPR06MB6226.apcprd06.prod.outlook.com>
-User-Agent: Mutt/2.4.0 (2026-06-19)
 
-Hi Joakim,
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] Missing PHY Initialization for SerDes PHY (API Violation)
+- [High] Incorrect Register Update using regmap_set_bits with a multi-bit m=
+ask
+- [Medium] Semantic Mismatch: Hardcoding SerDes PHY to DEVICE mode ignores =
+HOST controller capability
+- [Low] Missing Header Files for Core Kernel APIs
+--
 
-On Fri, Jul 24, 2026 at 06:14:29AM +0000, Joakim  Zhang wrote:
-> > -----Original Message-----
-> > From: Brian Masney <bmasney@redhat.com>
-> > Sent: Friday, July 24, 2026 12:43 AM
-> > To: Joakim Zhang <joakim.zhang@cixtech.com>
-> > Cc: mturquette@baylibre.com; sboyd@kernel.org; robh@kernel.org;
-> > krzk+dt@kernel.org; conor+dt@kernel.org; p.zabel@pengutronix.de; cix-kernel-
-> > upstream <cix-kernel-upstream@cixtech.com>; linux-clk@vger.kernel.org;
-> > devicetree@vger.kernel.org; linux-kernel@vger.kernel.org; linux-arm-
-> > kernel@lists.infradead.org
-> > Subject: Re: [PATCH v11 2/4] clk: cix: add sky1 audss clock controller
-> > 
-> > EXTERNAL EMAIL
-> > 
-> > Hi Joakim,
-> > 
-> > There's one question from Sashiko that I don't see where you answered that seems
-> > to be legit.
-> > 
-> > On Thu, Jul 23, 2026 at 05:08:06PM +0800, joakim.zhang@cixtech.com wrote:
-> > > From: Joakim Zhang <joakim.zhang@cixtech.com>
-> > >
-> > > Add a platform driver for the Cix Sky1 AUDSS CRU. The driver maps the
-> > > CRU registers and registers mux, divider and gate clocks for DSP,
-> > > SRAM, HDA, DMAC, I2S, mailbox, watchdog and timer blocks.
-> > >
-> > > Four SoC-level audio reference clocks are enabled as inputs to the
-> > > internal clock tree. The driver releases the AUDSS NOC reset, enables
-> > > runtime PM and instantiates the auxiliary reset device.
-> > >
-> > > Signed-off-by: Joakim Zhang <joakim.zhang@cixtech.com>
-> > 
-> > [snip]
-> > 
-> > > +static int __maybe_unused sky1_audss_clk_runtime_resume(struct device
-> > > +*dev) {
-> > > +     struct sky1_audss_clks_priv *priv = dev_get_drvdata(dev);
-> > > +     const struct sky1_audss_clks_devtype_data *devtype_data = priv-
-> > >devtype_data;
-> > > +     unsigned long flags;
-> > > +     int i, ret;
-> > > +
-> > > +     ret = sky1_audss_clks_enable(priv);
-> > 
-> > From Sashiko:
-> > 
-> >     [Severity: High]
-> >     Could this result in a deadlock? When a consumer calls clk_prepare on an
-> >     audss clock, CCF acquires the global prepare_lock mutex and may call
-> >     pm_runtime_resume_and_get. This triggers sky1_audss_clk_runtime_resume,
-> >     which calls sky1_audss_clks_enable. Since sky1_audss_clks_enable executes
-> >     clk_prepare_enable, it will attempt to acquire the non-recursive prepare_lock
-> >     again.
-> 
-> prepare_lock is re-entrant for the same task (see clk_prepare_lock(): if prepare_owner == current it just bumps prepare_refcnt). So calling clk_prepare_enable() on the parent SCMI clocks from runtime_resume(), while already in clk_prepare() for an AUDSS clock, does not deadlock. This matches how CCF recursively prepares parents under the same lock.
-> 
-> That safety assumes resume of the AUDSS CRU is driven from CCF while the same task already owns prepare_lock. If another device device-links to the AUDSS CRU (or otherwise runtime resumes it outside clk_prepare), a concurrent clk_prepare() can deadlock:
->   Thread A: holds prepare_lock, waits in pm_runtime for our resume
->   Thread B: in our runtime_resume, clk_prepare_enable() waits for prepare_lock
-> 
-> We do not have such a device-link usage today. Would you prefer we add a short comment near sky1_audss_clk_runtime_resume() / sky1_audss_clks_enable() documenting that consumers should use these clocks via CCF and should not PM-resume this device through a device link (or other non-CCF path) that can race with clk_prepare? Happy to add that in the next version if useful.
-> 
-> > I found drivers/clk/samsung/clk-exynos-audss.c that is similar to your driver and it
-> > calls clk_prepare_enable() in probe.
-> 
-> Exynos AUDSS is only partially similar. It clk_prepare_enable()s EPLL in probe and keeps it enabled for the lifetime of the driver; its runtime PM callbacks only save/restore AUDSS registers and never disable that parent.
-> 
-> We cannot follow that pattern. Our parent clocks come from SCMI and also gate the audio subsystem power domain. If we clk_prepare_enable() them in probe and leave them enabled, their enable counts stay non-zero, so after system suspend (and on runtime idle) those SCMI clocks cannot be disabled and the audio SS power domain stays on.
-> 
-> That is why we enable the parent SCMI clocks in runtime_resume() and disable them in runtime_suspend(), instead of keeping a permanent prepare/enable from probe like Exynos.
+--- Patch [3]: [PATCH v11 3/3] phy: airoha: Add support for Airoha AN7581 U=
+SB PHY ---
+commit 22b1a55f0db8cf42614375aa158b5f25ac5f97d6
+Author: Christian Marangi <ansuelsmth@gmail.com>
+Subject: phy: airoha: Add support for Airoha AN7581 USB PHY
 
-That makes sense and thanks for the clarification.
+This commit adds support for the Airoha AN7581 USB PHY driver, which suppor=
+ts
+up to 2 USB ports. USB 2.0 is always supported, while USB 3.0 mode is only
+available if the Serdes port is correctly configured. The driver includes s=
+lew
+rate calibration logic using a selectable monitor clock.
 
-Reviewed-by: Brian Masney <bmasney@redhat.com>
+> diff --git a/drivers/phy/airoha/phy-an7581-usb.c b/drivers/phy/airoha/phy=
+-an7581-usb.c
+> new file mode 100644
+> index 0000000000000..92c5e5c2fbf3b
+> --- /dev/null
+> +++ b/drivers/phy/airoha/phy-an7581-usb.c
+> @@ -0,0 +1,559 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Author: Christian Marangi <ansuelsmth@gmail.com>
+> + */
+> +
+> +#include <dt-bindings/phy/phy.h>
+> +#include <dt-bindings/soc/airoha,scu-ssr.h>
+> +#include <linux/bitfield.h>
+> +#include <linux/math.h>
+> +#include <linux/module.h>
+> +#include <linux/mfd/syscon.h>
+> +#include <linux/phy/phy.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/regmap.h>
 
+[Severity: Low]
+Does this file need to include linux/delay.h for usleep_range(), linux/of.h
+for of_property_read_u32(), and linux/err.h for PTR_ERR_OR_ZERO() to avoid
+potential build breaks on other architectures if implicit inclusions change?
+
+[ ... ]
+> +static void an7581_usb_phy_u3_init(struct an7581_usb_phy_priv *priv)
+> +{
+[ ... ]
+> +	regmap_update_bits(priv->regmap, AIROHA_USB_PHY_U3_PHYA_REG0,
+> +			   AIROHA_USB_PHY_SSUSB_BG_DIV,
+> +			   AIROHA_USB_PHY_SSUSB_BG_DIV_4);
+> +
+> +	regmap_set_bits(priv->regmap, AIROHA_USB_PHY_U3_PHYA_REG1,
+> +			FIELD_PREP(AIROHA_USB_PHY_SSUSB_XTAL_TOP_RESERVE, 0x600));
+
+[Severity: High]
+Is it intentional to use regmap_set_bits() here with a multi-bit mask?
+This performs a logical OR, which sets the desired bits but will not clear =
+any
+pre-existing bits in the mask from the bootloader. Should this be
+regmap_update_bits() instead to ensure a clean state?
+
+> +
+> +	regmap_update_bits(priv->regmap, AIROHA_USB_PHY_U3_PHYA_DA_REG19,
+> +			   AIROHA_USB_PHY_SSUSB_PLL_SSC_DELTA1_U3,
+> +			   FIELD_PREP(AIROHA_USB_PHY_SSUSB_PLL_SSC_DELTA1_U3, 0x43));
+> +}
+> +
+> +static int an7581_usb_phy_init(struct phy *phy)
+> +{
+> +	struct an7581_usb_phy_instance *instance =3D phy_get_drvdata(phy);
+> +	struct an7581_usb_phy_priv *priv =3D dev_get_drvdata(phy->dev.parent);
+> +	int ret;
+> +
+> +	switch (instance->type) {
+> +	case PHY_TYPE_USB2:
+> +		an7581_usb_phy_u2_init(priv);
+> +		break;
+> +	case PHY_TYPE_USB3:
+> +		ret =3D phy_set_mode(priv->serdes_phy, PHY_MODE_USB_DEVICE_SS);
+
+[Severity: High]
+This calls phy_set_mode() on priv->serdes_phy, but does the underlying
+serdes PHY hardware ever get initialized? It appears phy_init() is missing
+before this call, which could leave the serdes PHY in an uninitialized stat=
+e.
+
+[Severity: Medium]
+Additionally, is it correct to hardcode the serdes PHY mode to
+PHY_MODE_USB_DEVICE_SS here? The commit message mentions xHCI which is a ho=
+st
+controller, so forcing device mode might cause initialization failures if t=
+he
+serdes PHY driver distinguishes between host and device operational modes.
+
+> +		if (ret)
+> +			return ret;
+> +
+> +		an7581_usb_phy_u3_init(priv);
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	return 0;
+> +}
+[ ... ]
+> +static int an7581_usb_phy_power_on(struct phy *phy)
+> +{
+> +	struct an7581_usb_phy_instance *instance =3D phy_get_drvdata(phy);
+> +	struct an7581_usb_phy_priv *priv =3D dev_get_drvdata(phy->dev.parent);
+> +
+> +	switch (instance->type) {
+> +	case PHY_TYPE_USB2:
+> +		an7581_usb_phy_u2_power_on(priv);
+> +		break;
+> +	case PHY_TYPE_USB3:
+> +		an7581_usb_phy_u3_power_on(priv);
+
+[Severity: High]
+Does priv->serdes_phy need to be powered on here as well? The wrapper
+powers on its USB3 instance, but it looks like phy_power_on(priv->serdes_ph=
+y)
+is never called.
+
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	return 0;
+> +}
+[ ... ]
+> +static int an7581_usb_phy_set_mode(struct phy *phy, enum phy_mode mode, =
+int submode)
+> +{
+> +	struct an7581_usb_phy_instance *instance =3D phy_get_drvdata(phy);
+> +	struct an7581_usb_phy_priv *priv =3D dev_get_drvdata(phy->dev.parent);
+> +
+> +	switch (instance->type) {
+> +	case PHY_TYPE_USB2:
+> +		return an7581_usb_phy_u2_set_mode(priv, mode);
+> +	default:
+> +		return 0;
+
+[Severity: Medium]
+Does this code silently ignore the consumer's requested mode for
+PHY_TYPE_USB3? Since an7581_usb_phy_init() forces PHY_MODE_USB_DEVICE_SS,
+should this function handle propagating the requested mode to the serdes PHY
+instead of hardcoding it during initialization?
+
+> +	}
+> +}
+[ ... ]
+> +static const struct phy_ops airoha_phy =3D {
+> +	.init		=3D an7581_usb_phy_init,
+> +	.power_on	=3D an7581_usb_phy_power_on,
+> +	.power_off	=3D an7581_usb_phy_power_off,
+> +	.set_mode	=3D an7581_usb_phy_set_mode,
+> +	.owner		=3D THIS_MODULE,
+> +};
+
+[Severity: High]
+Is the .exit callback intentionally omitted here? Without an .exit hook,
+there doesn't seem to be a way to call phy_exit() on the serdes PHY, which
+might lead to resource leaks when the PHY is released.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724184523.1936=
+61-1-ansuelsmth@gmail.com?part=3D3
