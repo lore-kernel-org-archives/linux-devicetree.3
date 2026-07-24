@@ -1,239 +1,167 @@
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D0F542BE8F
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 15:00:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0909233BBC0
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 15:00:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784905241; cv=none; b=K0Ay2vnGfPL2dY2K+fra9TkYIml6xDcY1a80Ri+9v5A8NG9inc5wfP53rkqimMe5XyW+j4+fCvu074BgeuXlZ8H+KWpWe3fXOGGoFyaYMSwZdjAZoq8cLdBpNjJ7azoE7r4eqmeum/vEabWJKB6ETvdXrwH0nSo9DseAEoSyNe0=
+	t=1784905241; cv=none; b=Qfp7OfWLUIuOqvB3buKkMZYmG/MrU+8+bdk08pa+n5pp9LrHfkqwMjRt60j82meQ0Z5jGTvh1ItUck2loo4dU1cFp+cfWsKj5ULzYtMpztakriso5SxYHkHs6QJr42qSPcPG0ZxRpBOU70mAByhr4bAoTQ/vknd9Uhu3epAnUKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784905241; c=relaxed/simple;
-	bh=DGO16UZqE1c7kBKgZWWWmvqwIdGLbbOauuEtxuhSB+U=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LnyTDPuyuC6d7T8afdE0jpxntQnNklGFSmxbQ4yBqjE7dwgbcUQ4xz0S/Zo7KDa+b2INOhToqFYMKhTlMqetHfPBVI3WS0QC6oKaQOHk983/ECMifInpgdqKDd3Sjjnam2j1g+mouso7tLX5VFb7QtWUkKfF2Hgaw/L8KioDhms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=cRi8aLE7; arc=none smtp.client-ip=209.85.208.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	bh=KJR+wN2GxxX47mMq0L5v9qiUYbR7CJ2cgzDyV7M/EXA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=WQhiD2PdDnxfTgGeufUBb3Z0m88ldMvyvDlBYHBVwsTCnBMIzR/6NQ3IOhT+Y3uErGSVusWY9WtSo6Nnp9GE+bRSCULNST4K4mbHPlJMCJlLjJM2foOaiwldz5WpLXDUSA5XfwpglCXlv2QTsHInvxazZdNhvHzCo5hGwmkgPHY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hApBTm6N; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ev7JhizW; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="cRi8aLE7"
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-69e28b554ceso872444a12.0
-        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 08:00:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hApBTm6N";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ev7JhizW"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66ODbNEv3071688
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 15:00:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	tSLKcsIekv64LYnxmYxCKFM0mL6dqYQx2lNZ4wZsNLQ=; b=hApBTm6NRVZ5bonL
+	t0SelTEWld3+JBuSN7edbMk4LzTdiIKKP9gEAdAE3zJWBDHLpqNVaWIz9Mcec9Hf
+	OUSEYb7PIN0cWGPymrM4E5WQsYo+necrHAEJ6btHwAMgR7W6nUv2X6y+RZQUSL6t
+	+eKaDw4M5MNwap5fBvX1tPqe5ZtnP6/aTsOArNNNTm4E7EZSokeNyRVUtv/lFX4C
+	dPFyJV9+Qqp3g7i+mXESUxfun/awAac5d3t8d4sPi639P0leVRxkqmmsOGVGLPRD
+	LzpsABYmDdxs/ahRfKhibYnIif5+BgCrM4G2iQj2Eg8DaLStqJ7HFZh6H1S9Hzzq
+	jYHqtQ==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fm0pwaagp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 15:00:36 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2cf1c86963bso16660445ad.0
+        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 08:00:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1784905235; x=1785510035; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZagFeF2KNjwSqmz3F8+h72EZ8Dn6xlzEVHPl1dEkLtw=;
-        b=cRi8aLE7AFtjQBtQrtpF04A9088ACXwQPkxcCQhkOnnXf4vh41Q+6nn6Ii3OBZo9xQ
-         XbhzfykcXFlsEWw5lHtz9xvhbUk/pRoJf6rL0ZJDXUicEvHGX5NciSV66IFgI7TQrIZk
-         2b9mCaNWDeFBu8Dbc6OehJBgBdyxrcLfJg/4AgHxxgkDJb0wK17IldUJl/+lzxKolZkc
-         /WZVT5BCjyG8/qB9EtrEGqkMtCODqJeY/QJ63H30thFw7sAo+2baa99m/v66m5C5QHPx
-         KK0+0nWS2EzpZ5jdsvibSgmy076T2hVu/tiqAOFDQ67jvOReozcI1ER9ioS1HxrspbA8
-         6iYw==
+        d=oss.qualcomm.com; s=google; t=1784905236; x=1785510036; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tSLKcsIekv64LYnxmYxCKFM0mL6dqYQx2lNZ4wZsNLQ=;
+        b=ev7JhizWa6j5hVNMDxp9JpCPoRXDE7mPk+JFr3sEhzVzY8SLO8zhOvssYIdt+aMIwC
+         yxXq8OdGaForbvJmFH4VLWxwYiLhLfvdu2E98oXQEOK1EvdfGLiiXQboIdAujl5Ci7CR
+         qaJOVFQzAYRpE0hHNiWkelgNYAiLur4q5JyQdAj9zdcfE98WTC753AJhekjuV1JWlJgx
+         GMBAVhRGUFX5Qktc7N7U0JbpQB7Lnxu86e1zz9yOI1xTGTeQwUF9+NcfpoV4MGH3pblc
+         PQnI3y5DOlHGHOvPMJkZ9V8sSsVxr6dd4dWVnz8L2RYrb3h/b3A6HgI+t/RCyi19zB1e
+         7k6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784905235; x=1785510035;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ZagFeF2KNjwSqmz3F8+h72EZ8Dn6xlzEVHPl1dEkLtw=;
-        b=dUe73eCD6IM+KsYrL0YSWooyPZrsZqm9X+5VbnYJzJsoJPQuVgdm1hS67Kd04w8+Md
-         HUiUmjN310Q3L+kejvJmAB6fc2H3g0pSjagv7zaTwiURB1iltJX0WDYKsm7HHcNL24Jl
-         KGKufIlAPUG7eGCZ1bq31f/mltC9qeolJ386xeLUU5GIqtdkykqzCQMyN0UGGia0Jt4W
-         LuwBZ561mvSlBNAEQLBczkWwop5kfYhyK/CUHWJBRhKBH0cZVzuWAN5pg1VPqaKKK39e
-         uY0hj+KvbyIPIOvbc7oVyEtuGiCFhI4+s3/8ORnLvIZhz+fvndVKOMirjm8ADr/4THTc
-         xAHA==
-X-Forwarded-Encrypted: i=1; AHgh+RopdsTWSbyNjZ2XZXDxfZrqNHtR0Xc8edQpX43Wvb9noovcRU/Z7UcGMyReVx1KBka5JaWjHpQkqZKz@vger.kernel.org
-X-Gm-Message-State: AOJu0YwbneR7m7Xk+4IlI1rgqty8qXNfpiTUi5C0VvFrHRCvlPeEYVyY
-	1Z9ftnICsQ2X8+CIPGVOvueE7Nu7EIy101Gds7pWqOTvNJMftJjhKn8IO8JM3Hr3obE=
-X-Gm-Gg: AR+sD12CwKitT7p6QRQLVGZTk71kdnFHj4vvuVbhqQ10bsZaLkulB+RGChL8CkgNiPt
-	mKRUVPW+5XkxVPcviQOj2pwTt/Cnz5g/LDZVUB9dautNhtjJIUd3Dvyr6NTVxe5eW7JsahJDAAp
-	gr3vIyiXufZbbalo2ps5pJ+RlhWwbgrL2/OLKkqRtW0Ici6TbLBj1gNV7UvTp8pqjtCyUkHnuOn
-	YCUz4uAdoHwjaCC3UA/inRRAR14H/d+Mvtz7ZQjzeW5Vue2XUPT2KLP4KbLz6IjMyYWGizusEaq
-	+MUk1KqDPpGwCdc4ZsvxMW0pg9DAtrcakJm4FQbzr62jaNlj1hFVfiicccAzRuBbt8ap2CEZrC1
-	5sDflpT7Brqf5JCXI4lhoWBdWOEI0JmvHNUUwXgm91so0w2324pNMfs9Nac0GZalI42U4vKJ/cC
-	SN
-X-Received: by 2002:a17:907:b04d:20b0:c19:fb6e:5ff0 with SMTP id a640c23a62f3a-c1c50978dabmr253423966b.15.1784905235039;
+        d=1e100.net; s=20251104; t=1784905236; x=1785510036;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tSLKcsIekv64LYnxmYxCKFM0mL6dqYQx2lNZ4wZsNLQ=;
+        b=dx8AOvqqe4TTzzFtAa79k4hU7B58pAja+SvlQ2STEoHlcvGncFu45JUuyKgStbyg1j
+         FPInar2lYTWm2QkYoc63LdwIUoOlsXqrPQdjo8tBQ2TaueH1jL/WmeYDk0Vq/3ngBxSu
+         cIMRaCr9Q+Nz7Kxi9ad3p6bl36+BPFvUa39jUC0cETtLRRGailjVEgXB2W/U+j4IVan8
+         z+cHHstUU+pR/BLJrXz/Rb9NmlNR5SGV/vQ+9QN46oWloy2RwsRR0TeO3tUqbcjedxXp
+         FptGbwjjJO5wBSy8EMxsUEIO0picfF1zgsm8vOnAf13unzPrP2B4UJrtcHbIAz4hCjq7
+         h2VA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp7EiX7Lf/bkOd8E8WYKdA5xZZ9PxtAdCfxHj/odbJHXqicjITbvE+VZOnQUARnRPYnW/fUoH7RKV3n@vger.kernel.org
+X-Gm-Message-State: AOJu0YyehRuTYYjkJi07NhKbcJZIb+7QGdx7XhQpK36eEfhKy99K4wFU
+	rAMepCyF7d2R/JIiAA62OJPaDo+qSLSj0Dqg6vogaAMyBSyE8B+ZTN2hrADLGB6o2ZtLZ6Z0+Ys
+	a/MRpeiiggPM/ShhbixEDq+nUr/YnJ0ULqySsDPPbavAaKVdHWI3o/WdGXKonI/3g1iW7L2RtAj
+	QAOQ==
+X-Gm-Gg: AR+sD101BVU4hLFCW6LKwiAvmJF3xMMI7IlG56ux3hSJMKBmxDz9F/0eg6a5mD4gAIl
+	202DzaBmMPXku+iqIH94oGYkedqVJnXs76SRCxDqUdCD1OZJ8Co6tcDZ6l7o8P5wcJalKAjg8Nx
+	kgwXFNyFqOhuex8zdLzCkmuEeeyAEjrgOqGZoS/CzhzA0dWnpDjPVclkmNwr2P3uiXV1vNN9HmE
+	CALEEARNxJsFaoM9Of+XJ7s4erG/yBMwB1zJdkTFfNQLuXCMKBvbEUOiY/wzuqi2AhEVaw1Afek
+	/bkiA7PEPsL5aCpInXo6TEsQiFYpQtlzOv7/sLTXfIIoyoWSRZy1V/7OS2l+c9gYy9tsTcY1KSa
+	KjdgeOH9hCHxKBsID30IQw6DDivuv7qZ4z6ZGQgdjFP4=
+X-Received: by 2002:a17:902:e884:b0:2ca:d034:ee7d with SMTP id d9443c01a7336-2cfd70c0993mr8093285ad.4.1784905235316;
         Fri, 24 Jul 2026 08:00:35 -0700 (PDT)
-Received: from localhost ([195.94.145.62])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1c32f13cb4sm373963366b.61.2026.07.24.08.00.34
+X-Received: by 2002:a17:902:e884:b0:2ca:d034:ee7d with SMTP id d9443c01a7336-2cfd70c0993mr8091595ad.4.1784905233416;
+        Fri, 24 Jul 2026 08:00:33 -0700 (PDT)
+Received: from hu-luoj-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-314bc593b57sm621809eec.25.2026.07.24.08.00.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 24 Jul 2026 08:00:34 -0700 (PDT)
-From: Andrea della Porta <andrea.porta@suse.com>
-X-Google-Original-From: Andrea della Porta <aporta@suse.de>
-Date: Fri, 24 Jul 2026 17:04:04 +0200
-To: sashiko-reviews@lists.linux.dev
-Cc: Andrea della Porta <andrea.porta@suse.com>, devicetree@vger.kernel.org,
-	conor+dt@kernel.org, robh@kernel.org, ukleinek@kernel.org
-Subject: Re: [PATCH v7 2/3] pwm: rp1: Add RP1 PWM controller driver
-Message-ID: <amN-5B5POX3rNb29@apocalypse>
-References: <cover.1784539788.git.andrea.porta@suse.com>
- <a83d65b2d91865eb722337c547c94dce175e6086.1784539788.git.andrea.porta@suse.com>
- <20260720100212.BEF1D1F000E9@smtp.kernel.org>
+        Fri, 24 Jul 2026 08:00:32 -0700 (PDT)
+From: Luo Jie <jie.luo@oss.qualcomm.com>
+Date: Fri, 24 Jul 2026 08:00:30 -0700
+Subject: [PATCH 08/12] clk: composite: Export
+ devm_clk_hw_register_composite_pdata
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260720100212.BEF1D1F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260724-qcom_ipq5210_cmnpll-v1-8-a8b8679d215f@oss.qualcomm.com>
+References: <20260724-qcom_ipq5210_cmnpll-v1-0-a8b8679d215f@oss.qualcomm.com>
+In-Reply-To: <20260724-qcom_ipq5210_cmnpll-v1-0-a8b8679d215f@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        quic_kkumarcs@quicinc.com, quic_linchen@quicinc.com,
+        quic_leiwei@quicinc.com, quic_suruchia@quicinc.com,
+        Luo Jie <jie.luo@oss.qualcomm.com>
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784905224; l=749;
+ i=jie.luo@oss.qualcomm.com; s=20251128; h=from:subject:message-id;
+ bh=KJR+wN2GxxX47mMq0L5v9qiUYbR7CJ2cgzDyV7M/EXA=;
+ b=DRoCiALCPxHYfgApbZY8XM2JEu7UnvsJshHqGT5Wzcb0/ZfKVMybazdkOpoktKJK3sfTwIBlt
+ mczsdlNRSK5AAwf6i0VJOS+7oLLv7ES55kGeFe8h4FmX0gyrKoKu10u
+X-Developer-Key: i=jie.luo@oss.qualcomm.com; a=ed25519;
+ pk=gSsYMDakxtd6UDFYDdA9y9yjIs5Etp5GK/3DoXWPyS0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI0MDEzNSBTYWx0ZWRfX5tosYtda3MYX
+ jDVuubumfGBbGt/SYtGUYxQYbhr2KBv5UUfZddAXCw7n6XJlS+LUXGSx0xN5hY8C5FqRNR9VyZ3
+ HkBzMleAg4hBb1L7pdwdhuMbDywrslW7luqngt1YQwRkb2YuYRoE7afiZfqn5cEcXk0aCfAa/eC
+ oMk3EyE+TEqfF3J6eoss+3DjWWDHj1I+kRF4mTKjlWuPDWrAKW86B+yMNhnFm5wLpiMM55sknmJ
+ o/3QhNEF6AFPwnpRXctBAbGwWnPcR4mC+F2jnPZKi5ghyPOPVcNup4Si4sbQb/WrqQYDd1d79M0
+ cKKlFN/LH03lQdNuKOYHSQDdD2M4fdzkyBe45LK/DTGZbS83qVrDL80zGXYB2VUUg3Y2597dZaH
+ HBz6ncSKO4bShE9VC2pnSPfD6nxyAKkqHNh75oVhM4orTwRQnv7GKAFhQMwhwPda0/iF8PwlwwT
+ JwE1YI2VCvNkJWCjO6Q==
+X-Authority-Analysis: v=2.4 cv=RJeD2Yi+ c=1 sm=1 tr=0 ts=6a637e14 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=Lly5wiSg1jk5MYLGpuEA:9 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-ORIG-GUID: H2jQuRomEXQd5vjfssF2bKa4JeZbp61p
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI0MDEzNSBTYWx0ZWRfX7/gDg+yilKEM
+ wgPIfh3JkXmfx8UljdjprvYapd/VLkX2fgyQc+DTjvrtxRSIewuBWLjCCyE78hpvUnrwS2Au6hE
+ 7lW7biYJKrBzGVIOF8pBRuHzBH5WskI=
+X-Proofpoint-GUID: H2jQuRomEXQd5vjfssF2bKa4JeZbp61p
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-24_03,2026-07-24_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 spamscore=0 phishscore=0 bulkscore=0
+ impostorscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607240135
 
-Hi,
+devm_clk_hw_register_composite_pdata() is defined but not exported,
+preventing its use from loadable modules. Add EXPORT_SYMBOL_GPL() so
+that out-of-tree and built-as-module clock drivers can call it.
 
-On 10:02 Mon 20 Jul     , sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
-> - [High] Missing `.remove` callback leads to Use-After-Free in the PWM and Syscon cores and leaks clock resources on driver unbind.
-> - [High] Register context loss on suspend/resume silently breaks PWM output.
-> - [High] Unclamped hardware duty ticks lead to integer underflow in the PWM core for normal polarity.
-> --
-> 
-> --- Patch [2]: [PATCH v7 2/3] pwm: rp1: Add RP1 PWM controller driver ---
-> commit 0c98703d857577902e57d25b42a3d46dfbde5795
-> Author: Naushir Patuck <naush@raspberrypi.com>
-> 
-> pwm: rp1: Add RP1 PWM controller driver
-> 
-> The Raspberry Pi RP1 southbridge features an embedded PWM controller with
-> 4 output channels, alongside an RPM interface to read the fan speed on the
-> Raspberry Pi 5. Add the supporting driver.
-> 
-> > diff --git a/drivers/pwm/pwm-rp1.c b/drivers/pwm/pwm-rp1.c
-> > new file mode 100644
-> > --- /dev/null
-> > +++ b/drivers/pwm/pwm-rp1.c
-> 
-> [ ... ]
-> 
-> > +static int rp1_pwm_round_waveform_fromhw(struct pwm_chip *chip,
-> > +					 struct pwm_device *pwm,
-> > +					 const void *_wfhw,
-> > +					 struct pwm_waveform *wf)
-> > +{
-> > +	struct rp1_pwm *rp1 = pwmchip_get_drvdata(chip);
-> > +	const struct rp1_pwm_waveform *wfhw = _wfhw;
-> > +	u64 clk_rate = rp1->clk_rate;
-> > +	u64 ticks;
-> > +
-> > +	*wf = (struct pwm_waveform){ };
-> > +
-> > +	if (!wfhw->enabled)
-> > +		return 0;
-> > +
-> > +	wf->period_length_ns = DIV_ROUND_UP_ULL(((u64)wfhw->period_ticks + 1) * NSEC_PER_SEC,
-> > +						clk_rate);
-> > +
-> > +	if (!wfhw->inverted_polarity) {
-> > +		wf->duty_length_ns = DIV_ROUND_UP_ULL((u64)wfhw->duty_ticks * NSEC_PER_SEC,
-> > +						      (u32)clk_rate);
-> > +	} else {
-> 
-> [Severity: High]
-> Does the normal polarity case need to clamp the duty ticks similar to the
-> inverted polarity case?
-> 
-> If the bootloader configures a continuous-high state where the raw hardware
-> duty ticks exceed the period ticks + 1, this path calculates a duty_length_ns
-> that is strictly greater than the period_length_ns.
-> 
-> When the PWM core subsequently reads this initial state, pwm_wf2state()
-> handles duty > period by treating it as an inverted polarity and calculating
-> duty_cycle = period - duty_length_ns. This subtraction can silently
-> underflow, causing the core to interpret the hardware state as having a badly
-> corrupted duty cycle.
+Signed-off-by: Luo Jie <jie.luo@oss.qualcomm.com>
+---
+ drivers/clk/clk-composite.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-The conditional right after the opening bracket of this else branch (see below
-for the code) is there just for that: clamping the duty to sane values. So it
-already takes care of that.
+diff --git a/drivers/clk/clk-composite.c b/drivers/clk/clk-composite.c
+index 835b1e4e5869..11842bce5918 100644
+--- a/drivers/clk/clk-composite.c
++++ b/drivers/clk/clk-composite.c
+@@ -462,3 +462,4 @@ struct clk_hw *devm_clk_hw_register_composite_pdata(struct device *dev,
+ 						rate_hw, rate_ops, gate_hw,
+ 						gate_ops, flags);
+ }
++EXPORT_SYMBOL_GPL(devm_clk_hw_register_composite_pdata);
 
-> 
-> > +		if (wfhw->duty_ticks > (u64)wfhw->period_ticks + 1) {
-> > +			/* 100% duty cycle case */
-> > +			ticks = 0;
-> > +		} else {
-> 
-> [ ... ]
-> 
-> > +static int rp1_pwm_write_waveform(struct pwm_chip *chip,
-> > +				  struct pwm_device *pwm,
-> > +				  const void *_wfhw)
-> > +{
-> > +	struct rp1_pwm *rp1 = pwmchip_get_drvdata(chip);
-> > +	const struct rp1_pwm_waveform *wfhw = _wfhw;
-> > +	u32 value, ctrl;
-> > +
-> > +	/* set polarity */
-> > +	regmap_read(rp1->regmap, RP1_PWM_CHAN_CTRL(pwm->hwpwm), &value);
-> > +	if (!wfhw->inverted_polarity)
-> > +		value &= ~RP1_PWM_CHAN_CTRL_POLARITY;
-> > +	else
-> > +		value |= RP1_PWM_CHAN_CTRL_POLARITY;
-> > +	regmap_write(rp1->regmap, RP1_PWM_CHAN_CTRL(pwm->hwpwm), value);
-> 
-> [Severity: High]
-> Could the PWM controller lose its hardware configuration after a system
-> suspend and resume?
-> 
-> During rp1_pwm_request(), the channel control register is initialized with
-> essential bits like RP1_PWM_CHAN_CTRL_DEFAULT, which includes the
-> MODE_TE_MS and FIFO_POP_MASK configurations.
-> 
-> If the hardware loses power during suspend, the registers reset. On resume,
-> when a consumer re-applies its state, this regmap_read() will read the wiped
-> hardware register. The driver will then update only the polarity bit and
-> write it back, failing to restore the required operational mode bits that
-> were initialized during the request phase.
+-- 
+2.43.0
 
-I think I've already answered this here: 
-https://lore.kernel.org/all/aiGAINsTG8VZLn28@apocalypse/
-so I guess Sashiko is not sotring the entire history as
-context, so I'll reply it here:
-
-AFAIK the RP1 is never powered-off, so just shutting down the clock should be ok
-and no register are reset to default.
-
-> 
-> > +
-> > +	/* early exit if disabled */
-> 
-> [ ... ]
-> 
-> > +static struct platform_driver rp1_pwm_driver = {
-> > +	.probe = rp1_pwm_probe,
-> > +	/*
-> > +	 * .remove is not needed because this driver cannot be removed/unbound
-> > +	 * cause it relies on syscon which cannot be removed
-> > +	 */
-> > +	.driver = {
-> > +		.name = "rp1-pwm",
-> 
-> [Severity: High]
-> Is it safe to omit the remove callback here?
-> 
-> Even with suppress_bind_attrs set on the driver, if the parent RP1 PCIe
-> device is removed, reset, or unbound via sysfs, it will forcibly unbind all
-> child devices.
-> 
-> Without a remove callback to run cleanup, pwmchip_remove() is never called
-> and the clock is left enabled. Because the backing memory is devm-managed,
-> the devres subsystem will eventually free the pwm_chip and regmap memory.
-> This can leave dangling pointers in the core pwm_chips IDR and the global
-> syscon_list, which could result in a use-after-free.
-
-This is true. Uwe, I guess I should reintroduce the .remove callback,
-what do you think?
-
-Thanks,
-Andrea
-
-> 
-> > +		.of_match_table = rp1_pwm_of_match,
-> > +		.pm = pm_ptr(&rp1_pwm_pm_ops),
-> > +		.suppress_bind_attrs = true,
-> > +	},
-> > +};
-> 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/cover.1784539788.git.andrea.porta@suse.com?part=2
