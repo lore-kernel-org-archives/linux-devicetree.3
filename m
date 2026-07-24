@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F002417BFC
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 12:17:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5143427FB8
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 12:18:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784895457; cv=none; b=sDb0pkHuaFPNkLg8QD/z4LO2h83L9MnSAJUm65HFsLPtWgCJQmxdsicsMJT1za4Ybaqz2E439nwKLmg3m6SzjnLMaIyBNWVgyCNDnP36c//UNCwzHxaeZ80xxj3JPuNVDbZnBZ/GDZnJmcpXt4p6zHoIDs0AoI/HDMjonBDMfbg=
+	t=1784895538; cv=none; b=BRFwtTvaVrfaPsrRnT9KOMVNnBA0jA3DPhqRtFxVvH9c7nGu41H/S8K/kb98aUOVRoZ98enmk2opPYP3X4OGLM0k9g3YBByZGnaXtO4S9IE86x0mMm1g2vShYA0hpLdWri3xtGEar0F1fQY5MUkke8cjyPSjqNweBGvkVkYmZGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784895457; c=relaxed/simple;
-	bh=rH5eeYyMFtLEgWLyFAiNwp+2X/viBdH2DXUhpZvRCv0=;
+	s=arc-20240116; t=1784895538; c=relaxed/simple;
+	bh=uo8E8OH8OWSNcoH/Wf6h7GTutggHz5CXVuSQcWw0SNE=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=K7M+kRCmlSYnCbNjzmV1FfTgnJEzmIO0f7lb/GsEdjPZSKfZHMagyRiH7PDHSyF0OblFStPKA+51/L6taOhRFaYGBcAhbmgfkvBMr2vxZ4JGyyvq28i+r7YOUbVIv29JrSTb1FiHkYnu1Nh9C00KE+2U+np4XtUXOm67fGepvNg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gzSLciQO; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=tBd4PYTrpVad6w5sgc2UIm6SiOB50XU3SYolk/twPS4dYKCUXmi+N7ZkUJAMjvA2bh0ToRdcstz3frlA4L8WI0umKuW/rQgyl9PXpStZUZnPJ1o34DSl6yr+aJ9kjWva6gRBXcce5cxW6R7lAwF65CfuZGU+19aSqMmhAgJnz0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JVwyMKxd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gzSLciQO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED8E31F000E9;
-	Fri, 24 Jul 2026 12:17:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JVwyMKxd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE1DF1F000E9;
+	Fri, 24 Jul 2026 12:18:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784895454;
-	bh=3ebT33QSWEtlXMsZqnZsg9W7vB9drONwVKsRlM4bPDI=;
+	s=k20260515; t=1784895536;
+	bh=RHjMoksDi7j9GX3KbkuljhwPfMvo1GU8PXUvyGwj/aM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gzSLciQOTF5nKw9CvtcUle7Qe+FfA8ysAZ1mXVzZsyuGqOQYj1QZOWLqTvmjJh2hj
-	 0tKK8U/XwKG6WJZfdJoPBmg0bz16iYJoisUmOQg7oL5AeIJbIMImLqjO1i1mQjcxKi
-	 rsprygz4YuEXJAVOIz4gVF4vXcJ1IIXSnSUQ5fMCzTX1JqdWL+/E2MaKfahat3GOjT
-	 KZSyFAq7b8Day29leuAOlDGR8RVzrNKRtRG+efhH6qgC+XuTiJMhyUAuy/BdUKOash
-	 Hv+jwGoOaEiSvQDnxYKzY0+2kjp7ZAz2XUConKvCEjZNXaGPbal+Vb3r3BquH2WwkB
-	 mbrdR93tizW9Q==
+	b=JVwyMKxdglfLpWIReaEl/NKQ3egyNAZZo7j+mh3PiiFYoCuCzr7n3LyvNKo/Q682I
+	 eljAz9OkfXILu1NTg/PqbR/G1HsaAew6QDWDkSmiNJItnzGoBDy3ypH1nzsQ+9p5bl
+	 pZbHmRPyciUvf/J+qBj8Ah/nk0fi2PnTJQu1FGhBguujl7ZM97jq21upez7sIPRsn9
+	 Dhu1eHnpoiaTnguZWV7ih3NgnzquFoP1blDgRsY/a7qcWv2xV39aJBoOkP3u8t1bGR
+	 +rB4ypENSs47XWkmszPpZqSNBfnPv2VVpUSumFjuzRE1cbJKxqrQuRTz5YK05ejRG7
+	 Im5wIs94xJqvg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/6] dt-bindings: iio: dac: ad5696: extend device
- support
+Subject: Re: [PATCH v2 1/6] dt-bindings: iio: dac: ad5696: add
+ AD5673R/AD5677R support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Rodrigo Alencar" <rodrigo.alencar@analog.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260724-ad5686-extend-dev-support-v2-4-cfc2b30ce988@analog.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260724-ad5686-extend-dev-support-v2-1-cfc2b30ce988@analog.com>
 References: <20260724-ad5686-extend-dev-support-v2-0-cfc2b30ce988@analog.com>
- <20260724-ad5686-extend-dev-support-v2-4-cfc2b30ce988@analog.com>
+ <20260724-ad5686-extend-dev-support-v2-1-cfc2b30ce988@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 24 Jul 2026 12:17:33 +0000
-Message-Id: <20260724121733.ED8E31F000E9@smtp.kernel.org>
+Date: Fri, 24 Jul 2026 12:18:55 +0000
+Message-Id: <20260724121855.CE1DF1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,47 +47,56 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Missing driver implementation for newly added compatible strings.
+
+Pre-existing issues:
+- [High] Missing 'adi,ad5673r' and 'adi,ad5677r' in the ad5696-i2c driver's=
+ of_device_id table breaks module autoloading.
 --
 
---- Patch [4]: [PATCH v2 4/6] dt-bindings: iio: dac: ad5696: extend device =
-support ---
-commit 4e58650f8c4c07db88580b9ce728f26ca5b2ce81
+--- Patch [1]: [PATCH v2 1/6] dt-bindings: iio: dac: ad5696: add AD5673R/AD=
+5677R support ---
+commit 0615f695e24a3ce3cbdf232377b1a0e2894200a2
 Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-dt-bindings: iio: dac: ad5696: extend device support
+dt-bindings: iio: dac: ad5696: add AD5673R/AD5677R support
 
-This commit updates the AD5696 DAC device tree bindings to include the
-AD5316R, AD5675, and AD5697R devices. It specifically notes that no fallback
-compatibles are used due to differing bit resolutions and channel counts.
+Add compatible entries for the AD5673R and AD5677R devices to the ad5696
+device tree bindings. These 16-channel devices use different bit resolutions
+so no fallback compatibles are used.
 
 > diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5696.yaml b/=
 Documentation/devicetree/bindings/iio/dac/adi,ad5696.yaml
+> index e10f8596f9d3f..5a93edc976f01 100644
 > --- a/Documentation/devicetree/bindings/iio/dac/adi,ad5696.yaml
 > +++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5696.yaml
-> @@ -16,10 +16,12 @@ properties:
->    compatible:
->      enum:
->        - adi,ad5311r
-> +      - adi,ad5316r
+> @@ -19,7 +19,9 @@ properties:
+>        - adi,ad5337r
+>        - adi,ad5338r
+>        - adi,ad5671r
+> +      - adi,ad5673r
+>        - adi,ad5675r
+> +      - adi,ad5677r
 
-[Severity: Medium]
-Are there driver changes intended to be paired with this binding update?
+[Severity: High]
+This isn't a bug introduced by this patch, but does the driver also need
+to be updated to match these new compatible strings?
 
-The commit message states that no fallback compatibles are used, meaning the
-driver needs an exact match to bind. However, looking at the driver source,
-the entries for these new compatible strings appear to be missing:
+Looking at drivers/iio/dac/ad5696-i2c.c:ad5686_of_match():
 
-drivers/iio/dac/ad5696-i2c.c:ad5686_of_match[] {
-    /* Missing entries for adi,ad5316r, adi,ad5675, and adi,ad5697r */
-};
+static const struct of_device_id ad5686_of_match[] =3D {
+	{ .compatible =3D "adi,ad5311r", .data =3D &ad5311r_chip_info },
+    ...
 
-Will this prevent the newly added devices from successfully probing, since
-the driver core won't find a matching driver to bind against when parsing
-the device tree?
+It appears 'adi,ad5673r' and 'adi,ad5677r' are missing from this table.
 
-[ ... ]
+When the system boots and the I2C core generates an of: modalias for=20
+DT-instantiated devices, could the lack of these entries cause module
+autoloading to silently fail for the ad5696-i2c driver?
+
+>        - adi,ad5691r
+>        - adi,ad5692r
+>        - adi,ad5693
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-ad5686-ext=
-end-dev-support-v2-0-cfc2b30ce988@analog.com?part=3D4
+end-dev-support-v2-0-cfc2b30ce988@analog.com?part=3D1
