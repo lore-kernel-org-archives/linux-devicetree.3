@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A0C6411FA0;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A1D5414A37;
 	Fri, 24 Jul 2026 12:03:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784894594; cv=none; b=mY6iPDbv6xN9h8kmh34/zTqjJghRidwgStkVaomH/qGAnn1TvJiDkQNGvq1CLtBApyGd4nbK2x0tnycj2q3cUfxGjP1/takmjcIe9WlVlfrePEb1eaZr95kL+8xRSmNeJwL8w/Rnkyr5nOBgVVDW67rxgWV2kQuTW0QIOuOugjE=
+	t=1784894594; cv=none; b=AAKizbAoj5kdnaAjljsB+IkHBqVu0FShVRQJKA9hOkgRuv1MaqBGw1EZfJ70nULsyHf0dAI90ECUNxKiPH6fM/15H85JO4Q3FkgU6nNQ7a/NFAtToYf44jPEbaYKRb2MAlaSohCXMm3x94zynIuYwx1EyLyiLPpY887yCvNR/m0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784894594; c=relaxed/simple;
-	bh=PautfhJ21skWgcmXc4dS2ZLa2nUW8ouG7TfVnowoPDo=;
+	bh=xQ7i5O7xzqtX6gPknQYlgjTSO65uAy4SX/x/+L0kdKM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Hy+FlyKsYsrHOKjnr9oTiyjZTcMzHJ0ymOvTGMUBEKtXmX6LU18i6HRxQIX6AaIAUnIu20VrMeolCiyE/TgA58GQTdX1DvilGdLMQpK8/NRuaPd0R9EqmQhqGUdu3McG7A5H4co6IGA7tC69seO0UoKPs1ois4DHZNq6KzlHy0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z3zTyf3J; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=dpMH8EKpSSh9DM/M7TGLik4vq2DYxQ7NSR6DptbqMgfosh62VgnispfxgSarNtV3Pb2yG9sx9JCOvEPpX9vYWa7a7Tf2VRifODf8gykdiN4gAscS7cm0WW3cXjTHlyqnhPQSSNj2SlmgEp0SNONl8F1OSqtmk7wtgdLx6N8mmxg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tiy8dduX; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z3zTyf3J"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D038DC2BCF7;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tiy8dduX"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E5B65C2BD05;
 	Fri, 24 Jul 2026 12:03:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1784894593;
-	bh=PautfhJ21skWgcmXc4dS2ZLa2nUW8ouG7TfVnowoPDo=;
+	bh=xQ7i5O7xzqtX6gPknQYlgjTSO65uAy4SX/x/+L0kdKM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Z3zTyf3JrpGyTGMQwrX1FkUUvdpm6TpQh8FLvktrrQBotId6aBtOW8xnTI2wYMdn0
-	 HJfs9mdc2bX1h03ljrxm+qgtblzkag2LguMGQB0pUgr8T764fuCeNuXtqX0/XkGyVt
-	 kLb7LMTYaO8TwfHXq68ifochAjQ8+T5j9nvmU/lTF094rH9aUUAQ3EKl/ThvzzYMVd
-	 08Wirwk7VqKScA0FIJcCIe5XQkZwngZQxZmzpRlkQp2lqgiQfquvrQqLVqABicZ2q1
-	 6ZDy+Z9AX7XYhBvBV/VfT7o+GNB9v8w9X1+TF9e19AR4mZUBhSWkQm0CZ2FY6lx5uk
-	 GYhre8/50z3lw==
+	b=tiy8dduX3ffkQlUtnC1mBRmhGqr3KVWNt8YjO0CzDTwxJSgN1QmPMBOO2XDFgkHIA
+	 3fr2JoPb9MWcVDWu36m4n6Bx5Crxat67BAfX+Nh/0qY+o2GsKAcvvo8SD0vLzcDvWZ
+	 VWRjQV6z4H+W1OgnoCRZjLM42qlZXLmCURzeYGCcqmcZu5tKdvl2nYk8DY7uUKT9Nh
+	 o3/Y3riniWZIXbF+TIOgifbBnfHD4pDdcHEPpNHxiod0z2IOcXp3+yczCRDfKCehlc
+	 irnqj615G/3GJriz4/+yXTQISBzxWuGISXukQzu6M/JMrB4N14PoBFRV8RbpAawZvK
+	 B4S0zXlN8NDKw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B2746C53200;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D2406C53219;
 	Fri, 24 Jul 2026 12:03:13 +0000 (UTC)
 From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Date: Fri, 24 Jul 2026 13:03:13 +0100
-Subject: [PATCH v2 3/6] iio: dac: ad5686: refactor device list and file
- header comments
+Date: Fri, 24 Jul 2026 13:03:15 +0100
+Subject: [PATCH v2 5/6] dt-bindings: iio: dac: ad5686: extend device
+ support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260724-ad5686-extend-dev-support-v2-3-cfc2b30ce988@analog.com>
+Message-Id: <20260724-ad5686-extend-dev-support-v2-5-cfc2b30ce988@analog.com>
 References: <20260724-ad5686-extend-dev-support-v2-0-cfc2b30ce988@analog.com>
 In-Reply-To: <20260724-ad5686-extend-dev-support-v2-0-cfc2b30ce988@analog.com>
 To: Michael Auchter <michael.auchter@ni.com>, linux@analog.com, 
@@ -52,13 +52,14 @@ Cc: Michael Hennerich <Michael.Hennerich@analog.com>,
  Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
- Rodrigo Alencar <rodrigo.alencar@analog.com>
+ Rodrigo Alencar <rodrigo.alencar@analog.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784894592; l=3788;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784894592; l=2105;
  i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
- bh=o2YHmFSPNHfxwtoVvwK2R8/4/1vdStVyZFyqOCVnCto=;
- b=TfN4fMrTTF+iXIVpK9r0Y8PZN/XKQtGNiNkvoYlEUsbXWqHIod7XwG48s4T59lAp3iIlUZSDP
- VUi0NYXfByYB/Lqt2x/B6rSjWqZzQDjHdMp2bwBERv35pp2LX0JydNG
+ bh=Ns24MscU2vZDNQferz6p0S9pqqd8IKrb5WBkwEhcXhc=;
+ b=0uz5AU+C1uivsYzd4P0UnxNx2L8ua/yYz4ztwbhVNz9DcAraP03l0WP0pcXzNlZKiE2Og2R8Y
+ GxIMxWR67BLDXLsGIyhQwnMp8Okwaa1z/AE0B0THASDP/GW1ZA3AwJs
 X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
  pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
 X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
@@ -68,107 +69,72 @@ Reply-To: rodrigo.alencar@analog.com
 
 From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-Refactor device list in Kconfig, sorting devices by channel count. Also,
-remove device description from file headers. One can rely on the ID
-table(s) to check for supported devices. AD5337R is ommited as it does
-not seem to exist, i.e. its documentation could not be found.
+Add compatible entries for AD5313R, AD5317R, AD5674, AD5679, AD5687,
+AD5687R, AD5689, AD5689R. These devices have unique combination of channel
+count, bit resolution and supported command set, so that fallback
+compatibles are not used. Also, a small copy-and-paste error is fixed to
+the title field.
 
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
 ---
- drivers/iio/dac/Kconfig      | 29 ++++++++++++++++++++++-------
- drivers/iio/dac/ad5686-spi.c |  5 +----
- drivers/iio/dac/ad5686.c     |  2 +-
- drivers/iio/dac/ad5696-i2c.c |  4 +---
- 4 files changed, 25 insertions(+), 15 deletions(-)
+ Documentation/devicetree/bindings/iio/dac/adi,ad5686.yaml | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/iio/dac/Kconfig b/drivers/iio/dac/Kconfig
-index d6d560c09e25..3ae997939ff5 100644
---- a/drivers/iio/dac/Kconfig
-+++ b/drivers/iio/dac/Kconfig
-@@ -251,9 +251,16 @@ config AD5686_SPI
- 	depends on SPI
- 	select AD5686
- 	help
--	  Say yes here to build support for Analog Devices AD5672R, AD5674R,
--	  AD5676, AD5676R, AD5679R, AD5684, AD5684R, AD5684R, AD5685R, AD5686,
--	  AD5686R Voltage Output Digital to Analog Converter.
-+	  Say yes here to build support for Analog Devices Voltage Output
-+	  Digital to Analog Converters:
-+	  - Single-channel:
-+	    AD5310R, AD5681R, AD5682R, AD5683, AD5683R
-+	  - Quad-channel:
-+	    AD5684, AD5684R, AD5685R, AD5686, AD5686R
-+	  - 8-channel:
-+	    AD5672R, AD5676, AD5676R
-+	  - 16-channel:
-+	    AD5674R, AD5679R
+diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5686.yaml b/Documentation/devicetree/bindings/iio/dac/adi,ad5686.yaml
+index 02e8c78e36d3..d1bb09054440 100644
+--- a/Documentation/devicetree/bindings/iio/dac/adi,ad5686.yaml
++++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5686.yaml
+@@ -4,7 +4,7 @@
+ $id: http://devicetree.org/schemas/iio/dac/adi,ad5686.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
  
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called ad5686.
-@@ -263,10 +270,18 @@ config AD5696_I2C
- 	depends on I2C
- 	select AD5686
- 	help
--	  Say yes here to build support for Analog Devices AD5311R, AD5337,
--	  AD5338R, AD5671R, AD5673R, AD5675R, AD5677R, AD5691R, AD5692R, AD5693,
--	  AD5693R, AD5694, AD5694R, AD5695R, AD5696, and AD5696R Digital to
--	  Analog converters.
-+	  Say yes here to build support for Analog Devices Voltage Output
-+	  Digital to Analog Converters:
-+	  - Single-channel:
-+	    AD5311R, AD5691R, AD5692R, AD5693, AD5693R
-+	  - Dual-channel:
-+	    AD5338R
-+	  - Quad-channel:
-+	    AD5694, AD5694R, AD5695R, AD5696, AD5696R
-+	  - 8-channel:
-+	    AD5671R, AD5675R
-+	  - 16-channel:
-+	    AD5673R, AD5677R
+-title: Analog Devices AD5360 and similar SPI DACs
++title: Analog Devices AD5686 and similar SPI DACs
  
- 	  To compile this driver as a module, choose M here: the module will be
- 	  called ad5696.
-diff --git a/drivers/iio/dac/ad5686-spi.c b/drivers/iio/dac/ad5686-spi.c
-index 227ddb269669..2689d66c7c20 100644
---- a/drivers/iio/dac/ad5686-spi.c
-+++ b/drivers/iio/dac/ad5686-spi.c
-@@ -1,9 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-- * AD5672R, AD5674R, AD5676, AD5676R, AD5679R,
-- * AD5681R, AD5682R, AD5683, AD5683R, AD5684,
-- * AD5684R, AD5685R, AD5686, AD5686R
-- * Digital to analog converters driver
-+ * SPI driver for AD5686 and similar Digital to Analog Converters
-  *
-  * Copyright 2018 Analog Devices Inc.
-  */
-diff --git a/drivers/iio/dac/ad5686.c b/drivers/iio/dac/ad5686.c
-index 873dfb5b9107..e2beba6d54b1 100644
---- a/drivers/iio/dac/ad5686.c
-+++ b/drivers/iio/dac/ad5686.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-- * AD5686R, AD5685R, AD5684R Digital to analog converters  driver
-+ * Core driver for AD5686 and similar Digital to Analog Converters
-  *
-  * Copyright 2011 Analog Devices Inc.
-  */
-diff --git a/drivers/iio/dac/ad5696-i2c.c b/drivers/iio/dac/ad5696-i2c.c
-index 4ddf2e151d47..4a249f9cdb8f 100644
---- a/drivers/iio/dac/ad5696-i2c.c
-+++ b/drivers/iio/dac/ad5696-i2c.c
-@@ -1,8 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-- * AD5338R, AD5671R, AD5673R, AD5675R, AD5677R, AD5691R, AD5692R, AD5693,
-- * AD5693R, AD5694, AD5694R, AD5695R, AD5696, AD5696R
-- * Digital to analog converters driver
-+ * I2C driver for AD5696 and similar Digital to Analog Converters
-  *
-  * Copyright 2018 Analog Devices Inc.
-  */
+ maintainers:
+   - Michael Hennerich <michael.hennerich@analog.com>
+@@ -14,10 +14,14 @@ properties:
+   compatible:
+     enum:
+       - adi,ad5310r
++      - adi,ad5313r
++      - adi,ad5317r
+       - adi,ad5672r
++      - adi,ad5674
+       - adi,ad5674r
+       - adi,ad5676
+       - adi,ad5676r
++      - adi,ad5679
+       - adi,ad5679r
+       - adi,ad5681r
+       - adi,ad5682r
+@@ -28,6 +32,10 @@ properties:
+       - adi,ad5685r
+       - adi,ad5686
+       - adi,ad5686r
++      - adi,ad5687
++      - adi,ad5687r
++      - adi,ad5689
++      - adi,ad5689r
+ 
+   reg:
+     maxItems: 1
+@@ -84,10 +92,14 @@ allOf:
+         compatible:
+           contains:
+             enum:
++              - adi,ad5674
+               - adi,ad5676
++              - adi,ad5679
+               - adi,ad5683
+               - adi,ad5684
+               - adi,ad5686
++              - adi,ad5687
++              - adi,ad5689
+     then:
+       required:
+         - vref-supply
 
 -- 
 2.43.0
