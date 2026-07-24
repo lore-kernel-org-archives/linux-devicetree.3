@@ -1,342 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A2BE414DCB;
-	Fri, 24 Jul 2026 12:03:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 379D1427F9C
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 12:16:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784894594; cv=none; b=dCUX7AKCX2smkUZPeMxqYqmgwXxleCzU+INdt627+tgVIj8TGesZNVQfGak0Ka9M9Pvxi3vt/kQR/m1TlA6MrigwPFamRYVBcK9Ga9iFY1bWH9m4+RmTYbIfShGEeqa1GAR9m0xUuxPNeEM59RZQTQDxY86aYFUYtK9FBiUMMNA=
+	t=1784895402; cv=none; b=ZS9vmJ6oa/GzCkcpIUe4TytqyUYKgtE6bPqYvpwoR792qUo9UtQtARV/Mqw0K3fQ2wMp3jRhIWbpMi00ou69uX/qov95dErzCP3bH/bdJpDPdKZ12RUECgbMqgXJDHz5o8pjbgxU/nRosGx9tm8nXkgWZYio0FAJvuvCD9nIpVs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784894594; c=relaxed/simple;
-	bh=tnGDiskgp+7aCQ7/TOqAAUPC2zOTii+6FY8zASwETVQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Anc2qV9cdxdTx1nHdQxA6jmYf6AWbhC3MzmgnSR9AdmGDM3OGXSV0GkDOy5rbtVyeW4PG9k2SvarGeh8qFEWQc5EX0Tl8ccdmXSzQevk3JELmVMYmGzl4Hb3v/0DDATyR2rWeko87QQWAw5Ei6vPnAFpDkUQXmNoIwnZN6gDfac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qA/rjhoX; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1784895402; c=relaxed/simple;
+	bh=jdcVsRqbDRtlDkkC5iz3gUPjvodAW4MHuRcauK+yiho=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=H7q5p+29mgtMBJw4rMy1P8VoUM/JsNVvTr3tm6rlkajCq8tmKElpcMm8ZGVLdCpyc0lZRQPVF00c7xM4aijHwFDfg+PKGZ6yyd6kRRxSzOgUlBX72vHN6qCVtHe+qVnBs3pXQsX/IK3dRUqz9TjPbLm1CJSSTK2rqdZqe5Tg1Oc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XROpzxl/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qA/rjhoX"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 08041C4AF15;
-	Fri, 24 Jul 2026 12:03:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1784894594;
-	bh=tnGDiskgp+7aCQ7/TOqAAUPC2zOTii+6FY8zASwETVQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=qA/rjhoXbACpvsxVFpdd9IAddf6REz4XEkPvOEenIrXGrUs67jEzQqBC7PhEBG0NV
-	 bvSXrvy9eLDVe/d00zsUYmZUO0RgfSUPP0d9Akw/m0G9n66rNnflB4xV4jZ0lZ19gC
-	 CYD+CmhUIj6hv3HwNKgrahV2XgGZ8UY4o2G7pjABTD9MNPkWNBeOkJ0fMq9PO69c/Q
-	 fzTNYD3qJEa55xyJAyKIHH8u3c5v/vtzZhiAIwgCkA3lLvn7bsdsYEIzr27qVGs83u
-	 ziGNgyccK2aY8iFcJcdVcBrHf4EB9pDPdydfSzrZdenTpLWxsEFbHfYITRZZzJuhJD
-	 859ysId90xnlQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E7323C531F9;
-	Fri, 24 Jul 2026 12:03:13 +0000 (UTC)
-From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Date: Fri, 24 Jul 2026 13:03:16 +0100
-Subject: [PATCH v2 6/6] iio: dac: ad5686: extend device support with new
- parts
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XROpzxl/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB3811F000E9;
+	Fri, 24 Jul 2026 12:16:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784895398;
+	bh=oco4ltOW3S7Mkz9qXxqcEE/ds+kmtiAVdBxLCsLhTrE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XROpzxl/sq2k97wKHFWySuyEHpYXlZveIhC6na+lkiaPpzf6/BF9hUnre8xAdQrpc
+	 PHJ60eD6vq0sAqjCpbUY1EZvQFp5LWqwbZYAU4rB9m2JMAVgUtsaUOnNBV/JaV9Rc8
+	 ZvoUlP1qH24IhaAgOhN0QzVE1+Vh7d5IQYBygMIs9Gw+4QoPE2N5ho3MwikHsdoQT+
+	 stgL10wFq1kMkJ3/CoMKbheE1utkGhVBoztBGyYkh3WXDaY+pcfGrrMb5BHbvO2wDp
+	 mFC1DRW3tyJHxsA5qEJlqcLdzBbpCNkYzCfr5rj8XK67NbPGwS2jBYPxdCPRyrW2pV
+	 RKEllvNrAyFcg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/6] iio: dac: ad5686: refactor device list and file
+ header comments
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Rodrigo Alencar" <rodrigo.alencar@analog.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260724-ad5686-extend-dev-support-v2-3-cfc2b30ce988@analog.com>
+References: <20260724-ad5686-extend-dev-support-v2-0-cfc2b30ce988@analog.com>
+ <20260724-ad5686-extend-dev-support-v2-3-cfc2b30ce988@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 24 Jul 2026 12:16:37 +0000
+Message-Id: <20260724121637.EB3811F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260724-ad5686-extend-dev-support-v2-6-cfc2b30ce988@analog.com>
-References: <20260724-ad5686-extend-dev-support-v2-0-cfc2b30ce988@analog.com>
-In-Reply-To: <20260724-ad5686-extend-dev-support-v2-0-cfc2b30ce988@analog.com>
-To: Michael Auchter <michael.auchter@ni.com>, linux@analog.com, 
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-Cc: Michael Hennerich <Michael.Hennerich@analog.com>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Rodrigo Alencar <rodrigo.alencar@analog.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784894592; l=12031;
- i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
- bh=r4tTUPqjyaUCmzwMhrMqRzy8M9AM9PAmGC+d3VXToU8=;
- b=H4+5YhZ8Fl2fOCs4vwCDyD+NFeekiMEtVENPpy8smPQlKXrCAqGgmVJAZz1MjwaUOFJxrXNeR
- 1bVHtbI8jZSDhz23kO05o1Xgh1gzPkz8vXxkEp4Y/Ln+DEmQoRDK8Uc
-X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
- pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
-X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
- with auth_id=561
-X-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-Reply-To: rodrigo.alencar@analog.com
 
-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Incomplete implementation of device removal: AD5337R is left in =
+ID tables despite commit message claim.
+--
 
-Add support for AD5313R, AD5317R, AD5674, AD5679, AD5687, AD5687R, AD5689,
-AD5689R to the AD5686 SPI driver. Also adding support for AD5316R, AD5675,
-AD5697R to the AD5696 I2C driver. This includes the creation of seven chip
-info struct instances and reuse of existing ones.
+--- Patch [3]: [PATCH v2 3/6] iio: dac: ad5686: refactor device list and fi=
+le header comments ---
+commit f78bcff1ca70cede516f95f60a18e8d26ad243b8
+Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
----
- drivers/iio/dac/Kconfig      | 12 ++++++----
- drivers/iio/dac/ad5686-spi.c | 16 +++++++++++++
- drivers/iio/dac/ad5686.c     | 55 ++++++++++++++++++++++++++++++++++++++++++++
- drivers/iio/dac/ad5686.h     |  7 ++++++
- drivers/iio/dac/ad5696-i2c.c |  6 +++++
- 5 files changed, 91 insertions(+), 5 deletions(-)
+iio: dac: ad5686: refactor device list and file header comments
 
-diff --git a/drivers/iio/dac/Kconfig b/drivers/iio/dac/Kconfig
-index 3ae997939ff5..18a27785e28b 100644
---- a/drivers/iio/dac/Kconfig
-+++ b/drivers/iio/dac/Kconfig
-@@ -255,12 +255,14 @@ config AD5686_SPI
- 	  Digital to Analog Converters:
- 	  - Single-channel:
- 	    AD5310R, AD5681R, AD5682R, AD5683, AD5683R
-+	  - Dual-channel:
-+	    AD5313R, AD5687, AD5687R, AD5689, AD5689R
- 	  - Quad-channel:
--	    AD5684, AD5684R, AD5685R, AD5686, AD5686R
-+	    AD5317R, AD5684, AD5684R, AD5685R, AD5686, AD5686R
- 	  - 8-channel:
- 	    AD5672R, AD5676, AD5676R
- 	  - 16-channel:
--	    AD5674R, AD5679R
-+	    AD5674, AD5674R, AD5679, AD5679R
- 
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called ad5686.
-@@ -275,11 +277,11 @@ config AD5696_I2C
- 	  - Single-channel:
- 	    AD5311R, AD5691R, AD5692R, AD5693, AD5693R
- 	  - Dual-channel:
--	    AD5338R
-+	    AD5338R, AD5697R
- 	  - Quad-channel:
--	    AD5694, AD5694R, AD5695R, AD5696, AD5696R
-+	    AD5316R, AD5694, AD5694R, AD5695R, AD5696, AD5696R
- 	  - 8-channel:
--	    AD5671R, AD5675R
-+	    AD5671R, AD5675, AD5675R
- 	  - 16-channel:
- 	    AD5673R, AD5677R
- 
-diff --git a/drivers/iio/dac/ad5686-spi.c b/drivers/iio/dac/ad5686-spi.c
-index 2689d66c7c20..2a09b448acd4 100644
---- a/drivers/iio/dac/ad5686-spi.c
-+++ b/drivers/iio/dac/ad5686-spi.c
-@@ -175,10 +175,14 @@ static int ad5686_spi_probe(struct spi_device *spi)
- 
- static const struct spi_device_id ad5686_spi_id[] = {
- 	{ .name = "ad5310r", .driver_data = (kernel_ulong_t)&ad5310r_chip_info },
-+	{ .name = "ad5313r", .driver_data = (kernel_ulong_t)&ad5338r_chip_info },
-+	{ .name = "ad5317r", .driver_data = (kernel_ulong_t)&ad5317r_chip_info },
- 	{ .name = "ad5672r", .driver_data = (kernel_ulong_t)&ad5672r_chip_info },
-+	{ .name = "ad5674",  .driver_data = (kernel_ulong_t)&ad5674_chip_info },
- 	{ .name = "ad5674r", .driver_data = (kernel_ulong_t)&ad5674r_chip_info },
- 	{ .name = "ad5676",  .driver_data = (kernel_ulong_t)&ad5676_chip_info },
- 	{ .name = "ad5676r", .driver_data = (kernel_ulong_t)&ad5676r_chip_info },
-+	{ .name = "ad5679",  .driver_data = (kernel_ulong_t)&ad5679_chip_info },
- 	{ .name = "ad5679r", .driver_data = (kernel_ulong_t)&ad5679r_chip_info },
- 	{ .name = "ad5681r", .driver_data = (kernel_ulong_t)&ad5681r_chip_info },
- 	{ .name = "ad5682r", .driver_data = (kernel_ulong_t)&ad5682r_chip_info },
-@@ -190,16 +194,24 @@ static const struct spi_device_id ad5686_spi_id[] = {
- 	{ .name = "ad5685r", .driver_data = (kernel_ulong_t)&ad5685r_chip_info },
- 	{ .name = "ad5686",  .driver_data = (kernel_ulong_t)&ad5686_chip_info },
- 	{ .name = "ad5686r", .driver_data = (kernel_ulong_t)&ad5686r_chip_info },
-+	{ .name = "ad5687",  .driver_data = (kernel_ulong_t)&ad5687_chip_info },
-+	{ .name = "ad5687r", .driver_data = (kernel_ulong_t)&ad5687r_chip_info },
-+	{ .name = "ad5689",  .driver_data = (kernel_ulong_t)&ad5689_chip_info },
-+	{ .name = "ad5689r", .driver_data = (kernel_ulong_t)&ad5689r_chip_info },
- 	{ }
- };
- MODULE_DEVICE_TABLE(spi, ad5686_spi_id);
- 
- static const struct of_device_id ad5686_of_match[] = {
- 	{ .compatible = "adi,ad5310r", .data = &ad5310r_chip_info },
-+	{ .compatible = "adi,ad5313r", .data = &ad5338r_chip_info },
-+	{ .compatible = "adi,ad5317r", .data = &ad5317r_chip_info },
- 	{ .compatible = "adi,ad5672r", .data = &ad5672r_chip_info },
-+	{ .compatible = "adi,ad5674",  .data = &ad5674_chip_info },
- 	{ .compatible = "adi,ad5674r", .data = &ad5674r_chip_info },
- 	{ .compatible = "adi,ad5676",  .data = &ad5676_chip_info },
- 	{ .compatible = "adi,ad5676r", .data = &ad5676r_chip_info },
-+	{ .compatible = "adi,ad5679",  .data = &ad5679_chip_info },
- 	{ .compatible = "adi,ad5679r", .data = &ad5679r_chip_info },
- 	{ .compatible = "adi,ad5681r", .data = &ad5681r_chip_info },
- 	{ .compatible = "adi,ad5682r", .data = &ad5682r_chip_info },
-@@ -210,6 +222,10 @@ static const struct of_device_id ad5686_of_match[] = {
- 	{ .compatible = "adi,ad5685r", .data = &ad5685r_chip_info },
- 	{ .compatible = "adi,ad5686",  .data = &ad5686_chip_info },
- 	{ .compatible = "adi,ad5686r", .data = &ad5686r_chip_info },
-+	{ .compatible = "adi,ad5687",  .data = &ad5687_chip_info },
-+	{ .compatible = "adi,ad5687r", .data = &ad5687r_chip_info },
-+	{ .compatible = "adi,ad5689",  .data = &ad5689_chip_info },
-+	{ .compatible = "adi,ad5689r", .data = &ad5689r_chip_info },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, ad5686_of_match);
-diff --git a/drivers/iio/dac/ad5686.c b/drivers/iio/dac/ad5686.c
-index e2beba6d54b1..0cc1c9c22a28 100644
---- a/drivers/iio/dac/ad5686.c
-+++ b/drivers/iio/dac/ad5686.c
-@@ -409,8 +409,11 @@ DECLARE_AD5683_CHANNELS(ad5683r_channels, 16, 0);
- /* dual-channel */
- DECLARE_AD5338_CHANNELS(ad5337r_channels, 8, 8);
- DECLARE_AD5338_CHANNELS(ad5338r_channels, 10, 6);
-+DECLARE_AD5338_CHANNELS(ad5687r_channels, 12, 4);
-+DECLARE_AD5338_CHANNELS(ad5689r_channels, 16, 0);
- 
- /* quad-channel */
-+DECLARE_AD5686_CHANNELS(ad5317r_channels, 10, 6);
- DECLARE_AD5686_CHANNELS(ad5684r_channels, 12, 4);
- DECLARE_AD5686_CHANNELS(ad5685r_channels, 14, 2);
- DECLARE_AD5686_CHANNELS(ad5686r_channels, 16, 0);
-@@ -486,6 +489,44 @@ const struct ad5686_chip_info ad5338r_chip_info = {
- };
- EXPORT_SYMBOL_NS_GPL(ad5338r_chip_info, "IIO_AD5686");
- 
-+const struct ad5686_chip_info ad5687_chip_info = {
-+	.channels = ad5687r_channels,
-+	.num_channels = 2,
-+	.regmap_type = AD5686_REGMAP,
-+};
-+EXPORT_SYMBOL_NS_GPL(ad5687_chip_info, "IIO_AD5686");
-+
-+const struct ad5686_chip_info ad5687r_chip_info = {
-+	.channels = ad5687r_channels,
-+	.int_vref_mv = 2500,
-+	.num_channels = 2,
-+	.regmap_type = AD5686_REGMAP,
-+};
-+EXPORT_SYMBOL_NS_GPL(ad5687r_chip_info, "IIO_AD5686");
-+
-+const struct ad5686_chip_info ad5689_chip_info = {
-+	.channels = ad5689r_channels,
-+	.num_channels = 2,
-+	.regmap_type = AD5686_REGMAP,
-+};
-+EXPORT_SYMBOL_NS_GPL(ad5689_chip_info, "IIO_AD5686");
-+
-+const struct ad5686_chip_info ad5689r_chip_info = {
-+	.channels = ad5689r_channels,
-+	.int_vref_mv = 2500,
-+	.num_channels = 2,
-+	.regmap_type = AD5686_REGMAP,
-+};
-+EXPORT_SYMBOL_NS_GPL(ad5689r_chip_info, "IIO_AD5686");
-+
-+const struct ad5686_chip_info ad5317r_chip_info = {
-+	.channels = ad5317r_channels,
-+	.int_vref_mv = 2500,
-+	.num_channels = 4,
-+	.regmap_type = AD5686_REGMAP,
-+};
-+EXPORT_SYMBOL_NS_GPL(ad5317r_chip_info, "IIO_AD5686");
-+
- const struct ad5686_chip_info ad5684_chip_info = {
- 	.channels = ad5684r_channels,
- 	.num_channels = 4,
-@@ -547,6 +588,13 @@ const struct ad5686_chip_info ad5676r_chip_info = {
- };
- EXPORT_SYMBOL_NS_GPL(ad5676r_chip_info, "IIO_AD5686");
- 
-+const struct ad5686_chip_info ad5674_chip_info = {
-+	.channels = ad5674r_channels,
-+	.num_channels = 16,
-+	.regmap_type = AD5686_REGMAP,
-+};
-+EXPORT_SYMBOL_NS_GPL(ad5674_chip_info, "IIO_AD5686");
-+
- const struct ad5686_chip_info ad5674r_chip_info = {
- 	.channels = ad5674r_channels,
- 	.int_vref_mv = 2500,
-@@ -555,6 +603,13 @@ const struct ad5686_chip_info ad5674r_chip_info = {
- };
- EXPORT_SYMBOL_NS_GPL(ad5674r_chip_info, "IIO_AD5686");
- 
-+const struct ad5686_chip_info ad5679_chip_info = {
-+	.channels = ad5679r_channels,
-+	.num_channels = 16,
-+	.regmap_type = AD5686_REGMAP,
-+};
-+EXPORT_SYMBOL_NS_GPL(ad5679_chip_info, "IIO_AD5686");
-+
- const struct ad5686_chip_info ad5679r_chip_info = {
- 	.channels = ad5679r_channels,
- 	.int_vref_mv = 2500,
-diff --git a/drivers/iio/dac/ad5686.h b/drivers/iio/dac/ad5686.h
-index c1222ef83a4f..482bc70515f7 100644
---- a/drivers/iio/dac/ad5686.h
-+++ b/drivers/iio/dac/ad5686.h
-@@ -106,8 +106,13 @@ extern const struct ad5686_chip_info ad5683r_chip_info;
- /* dual-channel instances */
- extern const struct ad5686_chip_info ad5337r_chip_info;
- extern const struct ad5686_chip_info ad5338r_chip_info;
-+extern const struct ad5686_chip_info ad5687_chip_info;
-+extern const struct ad5686_chip_info ad5687r_chip_info;
-+extern const struct ad5686_chip_info ad5689_chip_info;
-+extern const struct ad5686_chip_info ad5689r_chip_info;
- 
- /* quad-channel instances */
-+extern const struct ad5686_chip_info ad5317r_chip_info;
- extern const struct ad5686_chip_info ad5684_chip_info;
- extern const struct ad5686_chip_info ad5684r_chip_info;
- extern const struct ad5686_chip_info ad5685r_chip_info;
-@@ -120,7 +125,9 @@ extern const struct ad5686_chip_info ad5676_chip_info;
- extern const struct ad5686_chip_info ad5676r_chip_info;
- 
- /* 16-channel instances */
-+extern const struct ad5686_chip_info ad5674_chip_info;
- extern const struct ad5686_chip_info ad5674r_chip_info;
-+extern const struct ad5686_chip_info ad5679_chip_info;
- extern const struct ad5686_chip_info ad5679r_chip_info;
- 
- /**
-diff --git a/drivers/iio/dac/ad5696-i2c.c b/drivers/iio/dac/ad5696-i2c.c
-index 4a249f9cdb8f..bffe60452c34 100644
---- a/drivers/iio/dac/ad5696-i2c.c
-+++ b/drivers/iio/dac/ad5696-i2c.c
-@@ -78,10 +78,12 @@ static int ad5686_i2c_probe(struct i2c_client *i2c)
- 
- static const struct i2c_device_id ad5686_i2c_id[] = {
- 	{ .name = "ad5311r", .driver_data = (kernel_ulong_t)&ad5311r_chip_info },
-+	{ .name = "ad5316r", .driver_data = (kernel_ulong_t)&ad5317r_chip_info },
- 	{ .name = "ad5337r", .driver_data = (kernel_ulong_t)&ad5337r_chip_info },
- 	{ .name = "ad5338r", .driver_data = (kernel_ulong_t)&ad5338r_chip_info },
- 	{ .name = "ad5671r", .driver_data = (kernel_ulong_t)&ad5672r_chip_info },
- 	{ .name = "ad5673r", .driver_data = (kernel_ulong_t)&ad5674r_chip_info },
-+	{ .name = "ad5675",  .driver_data = (kernel_ulong_t)&ad5676_chip_info },
- 	{ .name = "ad5675r", .driver_data = (kernel_ulong_t)&ad5676r_chip_info },
- 	{ .name = "ad5677r", .driver_data = (kernel_ulong_t)&ad5679r_chip_info },
- 	{ .name = "ad5691r", .driver_data = (kernel_ulong_t)&ad5681r_chip_info },
-@@ -93,16 +95,19 @@ static const struct i2c_device_id ad5686_i2c_id[] = {
- 	{ .name = "ad5695r", .driver_data = (kernel_ulong_t)&ad5685r_chip_info },
- 	{ .name = "ad5696",  .driver_data = (kernel_ulong_t)&ad5686_chip_info },
- 	{ .name = "ad5696r", .driver_data = (kernel_ulong_t)&ad5686r_chip_info },
-+	{ .name = "ad5697r", .driver_data = (kernel_ulong_t)&ad5687r_chip_info },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, ad5686_i2c_id);
- 
- static const struct of_device_id ad5686_of_match[] = {
- 	{ .compatible = "adi,ad5311r", .data = &ad5311r_chip_info },
-+	{ .compatible = "adi,ad5316r", .data = &ad5317r_chip_info },
- 	{ .compatible = "adi,ad5337r", .data = &ad5337r_chip_info },
- 	{ .compatible = "adi,ad5338r", .data = &ad5338r_chip_info },
- 	{ .compatible = "adi,ad5671r", .data = &ad5672r_chip_info },
- 	{ .compatible = "adi,ad5673r", .data = &ad5674r_chip_info },
-+	{ .compatible = "adi,ad5675",  .data = &ad5676_chip_info },
- 	{ .compatible = "adi,ad5675r", .data = &ad5676r_chip_info },
- 	{ .compatible = "adi,ad5677r", .data = &ad5679r_chip_info },
- 	{ .compatible = "adi,ad5691r", .data = &ad5681r_chip_info },
-@@ -114,6 +119,7 @@ static const struct of_device_id ad5686_of_match[] = {
- 	{ .compatible = "adi,ad5695r", .data = &ad5685r_chip_info },
- 	{ .compatible = "adi,ad5696",  .data = &ad5686_chip_info },
- 	{ .compatible = "adi,ad5696r", .data = &ad5686r_chip_info },
-+	{ .compatible = "adi,ad5697r", .data = &ad5687r_chip_info },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, ad5686_of_match);
+This commit refactors the Kconfig device list by sorting devices by channel
+count and removes device descriptions from the file headers. It also states
+in the commit message that AD5337R is being omitted.
 
--- 
-2.43.0
+> AD5337R is ommited as it does not seem to exist, i.e. its documentation c=
+ould not be found.
 
+[Severity: Medium]
+Is the removal of AD5337R incomplete in this patch?
 
+The commit message notes that AD5337R is omitted, and it was removed from
+the Kconfig text, but the driver still registers the device.
+
+For example, it remains in the i2c_device_id table:
+
+drivers/iio/dac/ad5696-i2c.c:ad5686_i2c_id[] =3D {
+    ...
+    { .name =3D "ad5337r", .driver_data =3D (kernel_ulong_t)&ad5337r_chip_i=
+nfo },
+    ...
+}
+
+It also remains in the of_device_id table in the same file:
+
+drivers/iio/dac/ad5696-i2c.c:ad5686_of_match[] =3D {
+    ...
+    { .compatible =3D "adi,ad5337r", .data =3D &ad5337r_chip_info },
+    ...
+}
+
+The core driver also still exports its chip info structure:
+
+drivers/iio/dac/ad5686.c:
+const struct ad5686_chip_info ad5337r_chip_info =3D {
+    .channels =3D ad5337r_channels,
+    .int_vref_mv =3D 2500,
+    .num_channels =3D 2,
+    .regmap_type =3D AD5686_REGMAP,
+};
+EXPORT_SYMBOL_NS_GPL(ad5337r_chip_info, "IIO_AD5686");
+
+Should these entries be removed as well to fully drop the device support?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-ad5686-ext=
+end-dev-support-v2-0-cfc2b30ce988@analog.com?part=3D3
