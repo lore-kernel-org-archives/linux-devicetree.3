@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 976E5367F48;
-	Fri, 24 Jul 2026 09:45:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68E50175A7D;
+	Fri, 24 Jul 2026 09:46:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784886349; cv=none; b=i96frDfS/bDraKLnZPesdxI6eWXLbRzfMO+sf5L838oBhJfEenebvn4lFl28Khu6zJdpJd0Ab77PfoQ7XUDaj1JqQgwASGZzG8QRLLMkYo9vhwJJr9FzcGbqZGSEh0daO6pzFIgGMc26l63toS9CljrMzDGTZ1wFL4ksIyqItnY=
+	t=1784886410; cv=none; b=gvG3dcEp8iFBfXcFD0UCISWwFjb4v7QgpIE+iARMt29CeW96/SjRExbtvU9EcbYvSzQiJIrdbZR7BimK+g4y5aTOZSjIupNEcOfDhl+0sTax+dK5C/+BV5bwUhzEkJMxhdTGSQEN2s5X9wsgKN6sYZ/bFCYvtbi9geDU6KuOMS0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784886349; c=relaxed/simple;
-	bh=maZ3U0+UJ3NAMf77Cv9vNrjExKAESa9XxOLNkDWkuQ8=;
+	s=arc-20240116; t=1784886410; c=relaxed/simple;
+	bh=xqoSf/rLpqZcYXHNTcx2E2Ye2ZX7Ngqq4Aokhv8stwY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bEqSz3NvhrPYrqq+Yt9I0nDKhF/52VLiVLCqNX3RS1z2C4lPoNOpohKC4kK/1rNYpoA/QILPRmzWrYo2Lp9YqeMKu1f/fGabN7aHVOQWHSFIsuevOvOs6z7WG5iaiu3EcPPnAoodXpP6w8btmkhd/winiPoNAQVNFyw9KxjA2Ak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gmuDKJ7e; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=UF6pTOCVSAg9ylsedEtXvCPLsf8448z/GDwUA/znaMd3/Gg0lAV8DufA3t2+ZAGCPnAvXItGvTi6/gA8aVDgTkVWsQsnns2n2oISiXaOyMeYXvVi01ImMYjZEWNWcqn00gZTlp8jkBwG9U/Vyb40OP8sxnxJCfWyh+C+SaFeE0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PcVLkLnv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gmuDKJ7e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DA911F000E9;
-	Fri, 24 Jul 2026 09:45:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PcVLkLnv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0D441F000E9;
+	Fri, 24 Jul 2026 09:46:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784886348;
-	bh=7c7vhpEup6VOBqUns/9puAzJgpwqbpDNftz2EG8wb4E=;
+	s=k20260515; t=1784886409;
+	bh=n62E9IT/cKjOufWuXfuAMAyh0rhkAvAWEF5k0pSnHzk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gmuDKJ7enNtUDQnzQgyDysKdjMH+51EhGpEr9b3ytIpOX17Xw30CpgWE49QGdlz32
-	 7L8Cqx4J6yGMDRZhmuVVjSm9mcURmnuw4RW4gttNiN8j/024TB9J/JKCSpL4jo2SY4
-	 GWakn7GXkvigsMzpkMysBY9JIgAjd+JQDV+a/brI6fgLo9OKBW8k1o/kBdwkzBRd4u
-	 8fOrVrXB9/CXAgqMccyk9PtI9DgnRC+oyxy4pAyagej6yJDuf04avvqL71bdfJEvx2
-	 +aib/ZDACXT5O6RPsmQgQH21DB3C9VzkmWDtysFxmWPWhqSJNbaYiQVgd/KbyVC3lZ
-	 Tohy/JYo6ej0Q==
-Date: Fri, 24 Jul 2026 11:45:44 +0200
+	b=PcVLkLnvZQMPKZh1bWEhhJRn40ZSXzeTaC3oJs8J5DE0Q3XucXPWl6LcGhznTEC5o
+	 /DI1Fy14ENiYtIZtyhs6KSGG2APGnk41Laf2We3dIIBmTmKrfnPFDtihsSb/9F04K5
+	 YVbYay3iCoGkO/jVqENRfNi1duRSNvKW8x68zClzUkmdXcK+hmvVDOexlh2GICVMvP
+	 GgtJZgHJ7VLuOSSptpGvRXliwyIe0FqT7MlUhLZmeHiMmAUnvcyXOqMbpF58HaErXx
+	 TEKW42mGwbt1ukzelbjfuOB0fJGDQ7bAXSWMtHs1ValYey4e549VpgRgEo70RmUqXZ
+	 89oKl6IsX6sBA==
+Date: Fri, 24 Jul 2026 11:46:45 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jason Yang <jason98166@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Guochun Huang <hero.huang@rock-chips.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: phy: rockchip,rk3588-mipi-dcphy:
- support per-direction phys
-Message-ID: <20260724-incredible-colorful-trogon-9df033@quoll>
-References: <20260721-dcphy-rx-v1-v1-0-4fc83c0ccac9@gmail.com>
- <20260721-dcphy-rx-v1-v1-1-4fc83c0ccac9@gmail.com>
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH 1/3] dt-bindings: arm: qcom: Add Asus Zenbook A16
+ (UX3607OA)
+Message-ID: <20260724-zealous-porcelain-bulldog-39f0dc@quoll>
+References: <20260721-topic-a16_submission-v1-0-8ea213130d05@oss.qualcomm.com>
+ <20260721-topic-a16_submission-v1-1-8ea213130d05@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,27 +46,28 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260721-dcphy-rx-v1-v1-1-4fc83c0ccac9@gmail.com>
+In-Reply-To: <20260721-topic-a16_submission-v1-1-8ea213130d05@oss.qualcomm.com>
 
-On Tue, Jul 21, 2026 at 06:35:19PM +0800, Jason Yang wrote:
->    clocks:
->      maxItems: 2
-> @@ -82,6 +92,6 @@ examples:
->                   <&cru SRST_S_MIPI_DCPHY0>;
->          reset-names = "m_phy", "apb", "grf", "s_phy";
->          rockchip,grf = <&mipidcphy0_grf>;
-> -        #phy-cells = <1>;
-> +        #phy-cells = <2>;
->        };
->      };
-> diff --git a/include/dt-bindings/phy/phy-rockchip-samsung-dcphy.h b/include/dt-bindings/phy/phy-rockchip-samsung-dcphy.h
-> new file mode 100644
-> index 000000000000..60f6630f58b3
-> --- /dev/null
-> +++ b/include/dt-bindings/phy/phy-rockchip-samsung-dcphy.h
+On Tue, Jul 21, 2026 at 07:11:26PM +0200, Konrad Dybcio wrote:
+> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> 
+> UX3607OA is a variant of the Asus Zenbook A16 built on the Qualcomm
+> Glymur platform. It comes with an 18-core X2 Elite Extreme SoC, 48GiB
+> of RAM, NVMe storage, a 2880 x 1800 OLED screen, and the other typical
+> Glymur platform capabilities.
+> 
+> The hardware wiring is very different versus the 14" SKU.
+> 
+> Add a compatible for this machine.
+> 
+> [1] https://www.asus.com/us/laptops/for-home/zenbook/asus-zenbook-a16-ux3607/techspec/
+> 
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-Filename must follow compatible or binding filename, so this is
-rockchip,rk3588-mipi-dcphy.h for example.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
