@@ -1,45 +1,88 @@
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 21C89353A90;
-	Fri, 24 Jul 2026 08:43:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 181823CE4B6
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 08:44:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784882615; cv=none; b=RrXT8TKeB41krf7zGjl/dopPWSEvk1pRKS9mleGM3XEN2dLbhmGkFGAB6A9PW2dWt+AaYkGzQJ1qOf5P5S6hk6TszHa2OJtkENiyBE3uD6Jbe/lJMqnltJ+STzcA6zKswnT3Pm3hG7gLohRuBw2HylFIY2egxJ8xZ/Eqq7R5Kds=
+	t=1784882645; cv=none; b=nprAgV3aNxGeDOvRPb6xWI8CNtew0w3YPE4z9Y3n0p8uPUkFAMpoArA1bsRMphPuRmmwh44LIkducNdiQNKKg7Y3JbLK586uJM0+4gLnUk1LKznfsjd8yHeg6u9XzMrMjk9jQKsRdkkWzvOr7hGw1//2GcJdxBbrzS0H+qO1mgQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784882615; c=relaxed/simple;
-	bh=8sxOBXk1JNr87/68n0T3t+zL+wugHNQJuvHPyvVkgaA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=iyK35go+Ji399LWR/EVV0Rjj9JVyYmuEPGVZTcwR4g0KawHWvKI9TkK2b5VaRyGRqdy1IpnMqM08aRCJXkwCaTpkZUxFGWVrc4RSxJBBSdxSbM++lUOIkPRrxzsnfNzAsZwslW+3mByZugBllQK/140q3ZY6lGy1djdv6x8+ML4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=162.243.164.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from E0005152DT.eswin.cn (unknown [10.12.96.41])
-	by app1 (Coremail) with SMTP id TAJkCgA3y2+qJWNqe_s2AA--.3579S2;
-	Fri, 24 Jul 2026 16:43:24 +0800 (CST)
-From: dongxuyang@eswincomputing.com
-To: ukleinek@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	ben-linux@fluff.org,
-	ben.dooks@codethink.co.uk,
-	linux-pwm@vger.kernel.org,
+	s=arc-20240116; t=1784882645; c=relaxed/simple;
+	bh=D641+Ox8WwOubV8wQRPz1AyhB3owgeyyQrVNtyLD084=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X+AOKp925vI0SyZ5pR7HnCQHHnertq8hJDt7a9H7/24NAL12dp29MNI/fjNE1S/kUvsBmrrFXz7ajthhs216WZEA3z9d3zHygRjWzSXoOAP36V1XKKgR6ANg/gaY9l9H2XLkmbFnII3rWJeU980NFZwjdxbAmfeqZswN/6hu1as=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Q9cyxnlB; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Q9cyxnlB"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3810c5d691bso137688a91.1
+        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 01:44:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1784882643; x=1785487443; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2qNCTVRLYatmEuVZZMDqxlvQqG1O3E6TO+1mmGjI9sQ=;
+        b=Q9cyxnlBYVNOScHsVQ/+U78eKbJ6wu0pDltzu9Fn/QIex7IiDGsi0XaKxTBCg64/e1
+         T5e5HhcNZAxWpxKGHHLT3sh+WqGCE5WNjyeYRlu/gECfDml/ep8Jylgs1SJUcs46KXFT
+         lC+aO5N2FINsmvhTCS7+mb7RSxDIlwwjHqa/M=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784882643; x=1785487443;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2qNCTVRLYatmEuVZZMDqxlvQqG1O3E6TO+1mmGjI9sQ=;
+        b=Ae/sggk7JAS5mwZRpCJaeMwmpgLidsI6Ndpz9+KbouClatsmvdkvcJuRu8q5HumnAQ
+         yCWZfIK4GCcCe+h2Sgp9tsxsCP26XNEcJg9oHzoIJl9bCGRyAVeiPBfsOApWkk8ORV2x
+         1ZNLZ/rC8Lu3q/kDaHf56nDz8tMS+Kc3eOvG6im+zllKBeJYJUEU99dHgJeZU4ChZZRC
+         5udpM54YUwxHlgqGlxTbg+/Uf+QCPZPiZR1X5m+6Vtl81HsS0CneLwHWZUUdUCqhO9iU
+         eHm9TLUWMRBz0SQy5DMVqJWyih/2aHVjgItf/WbvewKiaTwzP2aSJ1iNen9y2srCz1tN
+         Epiw==
+X-Forwarded-Encrypted: i=1; AHgh+RqHy53sKt6CvPp7i/0GftKeQ8C42OgOUwty9Icq/fkSCU4o5bFqRs8eRzLQnkXQ6RnxlQyWcjcts76L@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxs3dldUclAUMl8R+Ukr8YrRWK7as0vKPEby6o9dhTBOptMsI52
+	yXkqEYiiRVYMWmbgsG3PmGWaev4N9oH2DXHEtPXf4uxRGDJqhQjz/hx7V9LJHVnMWA==
+X-Gm-Gg: AR+sD11GnvWNmRFKnUiJRVI6DzQ+R/kUFWJ8l6J98OuQHi7Z1wcQCY2uQuaGDtwH8k8
+	ST54ejHzwBGsiEmGHa5xKD7bgoJpz9y4b68RnX2FtqBJgktBylsXwkhQbfIGMf8RncNiHaa5hSW
+	DufWc2gM75PNdZzvrP35LOWXsIkUGrAIVCPbSZaVa8FD47/m6TsOfyhqd3mEySYipY+ogr2vefx
+	nQGEv7z0lNO3h1ijA9X79WwWd+xbTV89Ug0PT2+7pK/2+nd2+zu4ddDpe1TA8qCX4UZZ1CeLZJs
+	W13FgeI3LDSsb6nmz81BFJ8LFSDWDNkTosSlQMn7vFi1m8fQk9Ifkoagvh8HIHxy9HZcK17bLth
+	g8egq9WJGbeH5WSsHN9CPX2p9tZI/Dy+/LQBUXt+mris4D+R5D8fWzm5X8SLltOQMTJbQYJIzUm
+	2P62n8lkh87AZUqcwnrmKMbZafS4j9o3emoutjAeg7OIZQ38zjNy/EWGDvExM=
+X-Received: by 2002:a17:90a:e7c5:b0:38e:895f:25fc with SMTP id 98e67ed59e1d1-38ec6a9b239mr5922762a91.38.1784882643256;
+        Fri, 24 Jul 2026 01:44:03 -0700 (PDT)
+Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:f131:86cc:5858:7325])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f089ac6d8sm434546a91.2.2026.07.24.01.43.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 24 Jul 2026 01:44:02 -0700 (PDT)
+From: Chen-Yu Tsai <wenst@chromium.org>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Wei Deng <wei.deng@oss.qualcomm.com>,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	linux-acpi@vger.kernel.org,
+	driver-core@lists.linux.dev,
+	linux-pm@vger.kernel.org,
+	linux-usb@vger.kernel.org,
 	devicetree@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	p.zabel@pengutronix.de,
-	daniel.lezcano@kernel.org,
-	tglx@kernel.org
-Cc: ningyu@eswincomputing.com,
-	linmin@eswincomputing.com,
-	xuxiang@eswincomputing.com,
-	wangguosheng@eswincomputing.com,
-	pinkesh.vaghela@einfochips.com,
-	Xuyang Dong <dongxuyang@eswincomputing.com>
-Subject: [PATCH v13 2/5] dt-bindings: pwm: dwc: Add eswin compatible
-Date: Fri, 24 Jul 2026 16:43:20 +0800
-Message-Id: <20260724084320.1586-1-dongxuyang@eswincomputing.com>
-X-Mailer: git-send-email 2.31.1.windows.1
-In-Reply-To: <20260724084153.1473-1-dongxuyang@eswincomputing.com>
-References: <20260724084153.1473-1-dongxuyang@eswincomputing.com>
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Alan Stern <stern@rowland.harvard.edu>
+Subject: [PATCH v7 00/16] arm64: mediatek: Add M.2 E-key slot on Chromebooks
+Date: Fri, 24 Jul 2026 16:43:09 +0800
+Message-ID: <20260724084328.3943997-1-wenst@chromium.org>
+X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,112 +90,271 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:TAJkCgA3y2+qJWNqe_s2AA--.3579S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Ww43uw4fXrW5XF1xJr1kKrg_yoW8tFWUpF
-	WfuFWvqr1fXr17Zws5XF18CF13Xas5JF43Kr1xtr4UAayqqFWjqFWakF15AFW7Zr4xZrW3
-	Wan3ur13A3Wj9r7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBm14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r4a6rW5MxkIecxEwVCm-wCF04
-	k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
-	MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr4
-	1lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1U
-	MIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I
-	8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjTRNSdgDUUUU
-X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/
 
-From: Xuyang Dong <dongxuyang@eswincomputing.com>
+Hi everyone,
 
-EIC7700 integrates the DesignWare PWM IP described by the generic
-snps,dw-apb-timers-pwm2 binding. On this SoC, the presetn and
-timer_N_resetn inputs are physically tied together to a single reset
-line, so exactly one reset is both required and sufficient, unlike
-the generic binding where up to two independent lines are optional.
+This is v7 of my attempt at integrating the power sequencing API into
+the USB core to support the USB connection on M.2 E-key slots. M.2
+E-key was enabled in v7.1-rc1 with just PCIe and UART supported [1].
+Hopefully this is the last revision. However the pwrseq patches haven't
+been reviewed yet, and the fwnode patches need a review from the fwnode
+owners.
 
-Add the eswin,eic7700-pwm compatible string and constrain its resets
-property to exactly one entry.
+As for Sashiko's comment about fwnode_get_next_*() not putting the
+reference to @prev when @node is NULL, I plan to update the kernel-doc
+for all the functions in a separate patch later.
 
-Signed-off-by: Xuyang Dong <dongxuyang@eswincomputing.com>
----
- .../bindings/pwm/snps,dw-apb-timers-pwm2.yaml | 35 ++++++++++++++++---
- 1 file changed, 31 insertions(+), 4 deletions(-)
+Changes since v6:
+- Patch 3 (power: sequencing: Add pwrseq_get_state())
+  - Adopted enum for valid return codes (Bartosz)
+- Patch 10 (usb hub pwrseq integration)
+  - Added braces ("{}") to for loop in hub_is_port_power_switchable() (Andy)
+  - Adapted usb_port_is_power_on() to new pwrseq_get_state() function
+    return values (Bartosz)
+- Link to v6:
+  https://lore.kernel.org/all/20260721065413.2306137-1-wenst@chromium.org/
 
-diff --git a/Documentation/devicetree/bindings/pwm/snps,dw-apb-timers-pwm2.yaml b/Documentation/devicetree/bindings/pwm/snps,dw-apb-timers-pwm2.yaml
-index 1f9d72f9f359..c65174e2045a 100644
---- a/Documentation/devicetree/bindings/pwm/snps,dw-apb-timers-pwm2.yaml
-+++ b/Documentation/devicetree/bindings/pwm/snps,dw-apb-timers-pwm2.yaml
-@@ -20,12 +20,11 @@ description:
-   instead of having to encode the IP version number in the device tree
-   compatible.
+Changes since v5:
+- Patch 1 (device property: Add fwnode_graph_get_port_by_id())
+  - Dropped left-over declaration in header (Sashiko)
+- Patch 3 (power: sequencing: Add pwrseq_power_is_on())
+  - Reverted back to returning -EINVAL if descriptor is NULL (Andy /
+    Bartosz)
+- Patch 6 (usb: hub: Associate port@ fwnode with USB port device)
+  - Added extra |struct fwnode_handle *| local variables to shorten lines (Andy)
+  - Added comment about passing fwnode_graph_get_port_by_id() return value 
+    directly to device_set_node() (Andy)
+- Patch 10 (usb hub pwrseq integration)
+  - Only assign port_dev->pwrseq if successfully retrieved pwrseq
+    descriptor (Andy)
+  - Dropped the pwrseq error pointer check in the release function
+    (Andy)
+  - Added check for port->pwrseq != NULL before calling
+    pwrseq_is_power_on() (API change from patch 3)
+- Link to v5:
+  https://lore.kernel.org/all/20260715085348.3457359-1-wenst@chromium.org/
 
--allOf:
--  - $ref: pwm.yaml#
--
- properties:
-   compatible:
--    const: snps,dw-apb-timers-pwm2
-+    enum:
-+      - snps,dw-apb-timers-pwm2
-+      - eswin,eic7700-pwm
+Changes since v4:
+- Added flags parameter to fwnode_graph_get_port_by_id() so users can
+  specify whether incomplete ports are returned or not (Sashiko)
+- Made pwrseq_power_is_on() return 1 if descriptor is NULL, i.e. if
+  the descriptor is optional, matching the other pwrseq consumer APIs
+- Added patch to swap out conditional set_bit()/clear_bit() with
+  assign_bit() (split out from "usb: hub: Power on connected M.2 E-key
+  connectors with power sequencing API") (Andy)
+- Call fwnode_graph_get_port_by_id() with FWNODE_GRAPH_DEVICE_DISABLED
+  so that even incomplete ports can be connected (Sashiko)
+- Dropped unused |hdev| variable from usb_hub_remove_port_device()
+  (Greg / Sashiko)
+- Dropped 'extern' from usb_port_is_power_on() header declaration (Andy)
 
-   reg:
-     maxItems: 1
-@@ -44,11 +43,13 @@ properties:
-       - const: timer
+- Patch 10 (usb hub pwrseq integration)
+  - Rewrote usb_port_is_power_on() to better express intent and
+    restrictions of pwrseq API (Andy)
+  - Switched to dev_fwnode() in port_pwrseq_is_supported() (Andy)
+  - Added blank line separating normal variable declarations and __free()
+    type declarations (Andy)
+  - Split out assign_bit() rewrite (Andy)
+  - Moved pwrseq_put() to release function to avoid UAF (Sashiko)
+  - Added back pwrseq_power_off() call in usb_hub_remove_port_device();
+    otherwise power off could be delayed to object release
+  - Don't clear hub->ports[port1 - 1] in main error path;
+    by that time the port device is registered and sysfs attributes are
+    available to userspace (Sashiko)
 
-   resets:
-+    minItems: 1
-     items:
-       - description: Interface bus (presetn) reset
-       - description: PWM timer logic (timer_N_resetn) reset
+- Dropped blank line between __free() variable declaration and
+  subsequent use of the variable in conditional (Andy)
+- Added patch to split Bluetooth pwrseq units (Wei)
+- Link to v4:
+  https://lore.kernel.org/all/20260709095726.704448-1-wenst@chromium.org/
 
-   reset-names:
-+    minItems: 1
-     items:
-       - const: bus
-       - const: timer
-@@ -64,6 +65,23 @@ required:
-   - clocks
-   - clock-names
+Changes since v3:
+- Added missing stub function for !POWER_SEQUENCING (patch 3) (Sashiko)
+- Added missing fwnode_handle_put() (patch 5) (Sashiko)
+- Added new patch to move |struct usb_port| related declarations to
+  separate header (patch 6) (Andy)
+- Patch 9 (usb hub pwrseq integration)
+  - Adapted to move of usb_port_is_power_on() to port.c and port.h
+  - Simplified usb_hub_set_port_pwrseq() (Andy)
+  - Renamed usb_hub_set_port_pwrseq()'s "set" parameter to "on"
+  - Dropped usb_hub_restore_port_pwrseq() (use usb_hub_set_port_pwrseq()
+    with inverted argument)
+  - Fixed off-by-one access in hub_is_port_power_switchable() (Sashiko)
+  - Assign retval from dev_err_probe() instead of the other way around (Andy)
+  - Clear hub->ports[port1 - 1] in USB port error and remove paths to
+    avoid other threads from accidental UAF while the USB hub device is
+    being unwound (Sashiko)
+  - Short-circuit out of helpers if !IS_ENABLED(CONFIG_POWER_SEQUENCING)
+    to avoid errors from stub functions (Sashiko)
+- Drop redundant device node validity check; device_match_of_node()
+  does it internally (patch 11) (Andy)
+- Link to v3:
+  https://lore.kernel.org/all/20260703110317.1283411-1-wenst@chromium.org/
 
-+allOf:
-+  - $ref: pwm.yaml#
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: eswin,eic7700-pwm
-+    then:
-+      properties:
-+        resets:
-+          items:
-+            - description: Combined APB interface and timer logic reset
-+        reset-names: false
-+      required:
-+        - resets
-+
- additionalProperties: false
+Major changes since v2:
+- Removed changes for MT8192 Asurada family: one of the device is
+  shipped with RTL8822CE-VR, which is PCIe + UART and needs more work.
+- Removed changes for USB A ports: VBUS one the type A ports on
+  Chromebooks are not directly controllable from the OS and VBUS is
+  modeled as always on. As such the changes I made don't actually
+  change how the system works.
+- Added new pwrseq_power_is_on() function
+- Make new pwrseq integration effectively OF only by not assigning the
+  port fwnode if the hub's fwnode is an ACPI node
+- Added patch to convert remaining instances of directly setting/clearing
+  USB_PORT_FEAT_POWER to usb_hub_set_port_power()
+- Power sequencing state removed again in favor of state tracking by
+  pwrseq subsystem
+- Power sequencing descriptor again separately requested for HS and SS
+  ports
+- Dropped pwrseq_power_off() call before pwrseq_put(); the latter calls
+  the former implicitly if the power state was left on
+- Squashed DT binding revert and addition into one patch
+- Link to v2:
+  https://lore.kernel.org/all/20260610084053.2059858-1-wenst@chromium.org/
 
- examples:
-@@ -75,3 +93,12 @@ examples:
-       clocks = <&bus>, <&timer>;
-       clock-names = "bus", "timer";
-     };
-+  - |
-+    pwm@50818000 {
-+      compatible = "eswin,eic7700-pwm";
-+      reg = <0x50818000 0x4000>;
-+      #pwm-cells = <3>;
-+      clocks = <&bus>, <&timer>;
-+      clock-names = "bus", "timer";
-+      resets = <&reset>;
-+    };
---
-2.34.1
+
+Major changes since v1:
+- No longer adding the "index" parameter the power sequencing API
+- Switched from OF graph to fwnode graph APIs
+- Tie "port@" node to usb_port device, and use this device as consumer
+  to acquire power sequencing descriptor
+- Power sequencing descriptor now only tied to USB 2.0 port to avoid
+  double reference
+- Power sequencing state tracking added
+- Link to v1
+  https://lore.kernel.org/all/20260515090149.3169406-1-wenst@chromium.org/
+
+The series is based on next-20260723.
+
+
+Patch 1 and 2 add new fwnode graph helpers. These are used by the patch
+5 and 8, respectively.
+
+Patch 3 adds a new pwrseq_get_state() for power sequencer consumers
+to query the current request state. Note that this is not the _actual_
+state.
+
+Patch 4 swaps out the existing conditional set_bit()/clear_bit() with
+assign_bit(), which does the same thing.
+
+Patch 5 reworks the USB hub driver to return the actual error code from
+hub_configure() in hub_probe(). This is needed in the next patch to
+correctly return -EPROBE_DEFER returned by pwrseq_get() in patch 9.
+
+Patch 6 makes the USB port device associated with a "port@" fwnode if
+available. This depends on patch 1.
+
+Patch 7 moves some |struct usb_port| related stuff from hub.c and hub.h
+to port.c and port.h. No actual code or functionality is changed.
+
+Patch 8 changes usb_port_is_power_on() so that |struct usb_port*| is
+passed in instead of |struct usb_hub*|. This patch does not change any
+functionality.
+
+Patch 9 changes some USB hub port power control code that directly
+toggles USB_PORT_FEAT_POWER to use usb_hub_set_port_power().
+
+Patch 10 lets the USB hub driver look for power sequencers for each port.
+Currently this only works for M.2 E-key connections, but it could be
+extended to cover other cases. It should also make port reset via turning
+off the port VBUS work, even when VBUS is not directly controlled by the
+hub. This depends on patch 2 and 3 for the new helpers.
+
+Patch 11 reverts an incorrectly modeled OF graph connection for the
+MediaTek XHCI controller and adds a proper representation.
+
+Patch 12 adds matching pwrseq consumer by "port@" node to the M.2 slot
+driver. This is only used for the USB target, but there is no attempt
+to differentiate the connection type. The driver simply tries matching
+the "port@" node first, then falling back to the port parent or device's
+node.
+
+Patch 13 reworks the power sequencing targets for the E-key connector in
+the pcie-m2 driver to add targets for USB and SDIO. The former is used
+later on in this series.
+
+Patch 14 splits the Bluetooth power sequencing unit so that the USB and
+serdev consumers can separately toggle the actual state of W_DISABLE#2.
+This patch is purposefully not squashed into the previous one to provide
+a clear target for discussions.
+
+Patches 15 and 16 enable the M.2 E-key slots (or slot-like integration)
+found on MT8195 and MT8188 MediaTek-based Chromebooks. 
+
+
+This series unfortunately spans multiple trees. The way I see it:
+
+  - Patches 1 and 2 go through the driver core, and an immutable tag is
+    provided to be merged together with the USB patches.
+
+  - Patch 3 has an ack from Bartosz, and goes through the USB tree. But
+    Bartosz also wants an immutable branch/tag to have a copy in the
+    pwrseq tree.
+
+  - Patches 4 through 10 (all the USB related ones) go through the USB
+    tree, along with the dependencies above.
+
+  - Patches 11 and 12 go through the power sequencing tree.
+
+  - Patches 13 and 14 (device tree only) go through the soc tree via the
+    mediatek tree.
+
+Some of us discussed v1 at Embedded Recipes, and I believe Bartosz, Mani
+and I agree on this approach. The debate is likely going to be on
+whether this should be integrated into the USB core or not. I believe it
+should, so that the power sequencing timing is tied to the USB port
+being brought up. I do have a fallback option of just enabling the USB
+power sequencing target inside the M.2 slot driver if a valid OF graph
+connection is seen. But this is less desired for the reason given above.
+
+Please have a look and share your thoughts.
+
+
+Thanks
+ChenYu
+
+
+[1] https://lore.kernel.org/all/20260326-pci-m2-e-v7-0-43324a7866e6@oss.qualcomm.com/
+
+Chen-Yu Tsai (16):
+  device property: Add fwnode_graph_get_port_by_id()
+  device property: Add fwnode_graph_get_next_port_endpoint()
+  power: sequencing: Add pwrseq_get_state()
+  usb: hub: Use assign_bit() in usb_hub_set_port_power()
+  usb: hub: Return actual error from hub_configure() in hub_probe()
+  usb: hub: Associate port@ fwnode with USB port device
+  usb: core: Move struct usb_port and related APIs to port.h
+  usb: hub: Pass |struct usb_port*| to usb_port_is_power_on()
+  usb: hub: Use usb_hub_set_port_power() to control port power
+    everywhere
+  usb: hub: Power on connected M.2 E-key connectors with power
+    sequencing API
+  dt-bindings: usb: mediatek,mtk-xhci: Switch to ports for USB
+    connections
+  power: sequencing: pcie-m2: support matching on remote "port" node
+  power: sequencing: pcie-m2: Add usb and sdio targets for E-key
+    connector
+  power: sequencing: pcie-m2: Split Bluetooth unit based on interface
+  arm64: dts: mediatek: mt8195-cherry: Add M.2 E-key slot
+  arm64: dts: mediatek: mt8188-geralt: Add WiFi/BT as M.2 E-key slot
+
+ .../bindings/usb/mediatek,mtk-xhci.yaml       |  17 ++-
+ .../boot/dts/mediatek/mt8188-geralt.dtsi      |  92 +++++++++++++++-
+ .../boot/dts/mediatek/mt8195-cherry.dtsi      |  73 ++++++++++++-
+ drivers/base/property.c                       |  54 +++++++++
+ drivers/power/sequencing/core.c               |  19 ++++
+ drivers/power/sequencing/pwrseq-pcie-m2.c     |  64 ++++++++---
+ drivers/usb/Kconfig                           |   1 +
+ drivers/usb/core/hub.c                        |  72 ++++++------
+ drivers/usb/core/hub.h                        |  58 ++--------
+ drivers/usb/core/port.c                       | 103 +++++++++++++++++-
+ drivers/usb/core/port.h                       |  68 ++++++++++++
+ include/linux/property.h                      |   4 +
+ include/linux/pwrseq/consumer.h               |  12 ++
+ 13 files changed, 525 insertions(+), 112 deletions(-)
+ create mode 100644 drivers/usb/core/port.h
+
+-- 
+2.55.0.229.g6434b31f56-goog
 
