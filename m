@@ -1,94 +1,139 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EE773A63F2;
-	Fri, 24 Jul 2026 07:12:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C8773939B6
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 07:13:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784877144; cv=none; b=PTb4MR8tvuIFxdz3EiPW9hwU8JpS1NymADVv0lEy+UBfCi/wKx0xa4cwSXSUc5L6YgNyVbdRYesbrF2sAfggFtQCnv86Z9v3qXZOtI/kaTxXHm8v8Kw21hEFT/nq4Y4ULbOdG4H9CnfxzdntnTXs9uyguMwBp58wG1Q7iN8TiGE=
+	t=1784877233; cv=none; b=bBGc0DFuNTK2TJY7GTU6OXJrWizow7OVwQGWq4TZ9RfdhPuJHVAq/fpmpJmUEudsR6KeyPYKT2PROUowv1QaaJnHwgkM8P5HgObAyf7N+pBu1ksuyeSFxFu4PU/A8hQGI9hA/vnxzJlSTvmJTlWKk+mYryA17Xqnp63x50pSV38=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784877144; c=relaxed/simple;
-	bh=rEWzvv1GfCjawzXEzExywbzcCr1VJxAIckBRPMYzNGU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G0lzX4MFFA2klwWIDjzrAyD6COceMH8NsaTTzWUxWNoprXvqS5oAmuW8F7/n8raRtGNis9jilvzgeB7AWDB2VFftmqLXJE2cS0v2eOZ0/fYTtjgrLPqL6R8cyVtmx3SyeUXqelXfum7tS3NAx/CczUhL3rSFZ3k1rJKW+fc9Tw8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wqoe1mP7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784877233; c=relaxed/simple;
+	bh=Uggy1hgkHndMbKnYqSniTt3zRHewLC1RfyBrESb3F/k=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=WG+SZ9s1pLdgcoTl451QFKVKo1Zmed103PXPqy1cq4moaV2YTd4iqJw6eC1iheULZddahSNSiT0Ar/2jX/I4BPE+4IcG1Gs+9rs901cf9iOI6uW+PSCT7ZnrMJtJpuIWEgdL9PNgm/S1CtUexR3xwpgD7LspyFpRASwLvsN1P6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E8XfNRRT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wqoe1mP7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A088E1F000E9;
-	Fri, 24 Jul 2026 07:12:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E8XfNRRT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EF411F000E9;
+	Fri, 24 Jul 2026 07:13:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784877142;
-	bh=v6nYx9y6dWRh6PicsBH/tR+T1Q1L5zz/k6rKVHSru6E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Wqoe1mP7pNSebiUhjwwY+j5b7Ct+KRaJJnhA3jE9CYq8jyNiC83Wdkf5/NNT+1hcw
-	 tAf75swaviKnr8yABEikDkou6AC+uOF7TUJF7DCTVkBdKZ6Y7Gu5i6DUeeSX8aMH8U
-	 8LdIHGUac5uo78S8H0GH2v7+jLqKJKy0/VrLOH9dTo28GWjUh9j6TwW+wtqfprdMEI
-	 RPd57oBtAXHf2A0CaXH2/xQTyB/khPhpB0hvRoVgoqfRWPFBB2EdW7rlW1qSG5iKE3
-	 ogkNocqf1LiekiOiYxnivdUE4p2XmMgScfToS7+AjeQFa4rYirpzRt9g3wl0pagLHP
-	 y+S+MiQY3CunA==
-Date: Fri, 24 Jul 2026 09:12:18 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Aneesh Pradhan <aneeshpradhan2004@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Catherine Frederick <serenity@floorchan.org>, linux-clk@vger.kernel.org, 
-	Aneesh Pradhan <aneeshpradhan@acm.org>
-Subject: Re: [PATCH v2 1/3] dt-bindings: arm: qcom: add MSM8920 and Motorola
- Moto E4 (perry)
-Message-ID: <20260724-dodo-of-satisfying-leadership-a2b6da@quoll>
-References: <20260723012431.48499-1-aneeshpradhan@acm.org>
- <20260723014627.63310-1-aneeshpradhan@acm.org>
- <20260723014627.63310-2-aneeshpradhan@acm.org>
+	s=k20260515; t=1784877231;
+	bh=Eu0D8k7gCIluWZCHDKO6pkMJ4BT1HYY8LQCwUpUWD/E=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=E8XfNRRTtAgRvwpamx1uWRbzfCPfdj8b/X6qfATtPXwjgNLdQF3kxXUhti/vJa3jc
+	 vVjO2lnpxBOrMwvQ1mBvrgGebZWEJRgAJvJ2zCpFtJj05YSgplDOgEc4aGyR5r7enn
+	 HMU1P+/JvQT7ohIsAyDwrFx1dS64MJ0vuBDw/Bimc7/H81IkcrBuTKm1ST+zudjQbS
+	 oP9KDiE2YpntvKu+vpjbpdfhti6HVrW1w4h5fYDxaBK+16tEuIgYaJHMhn0eVeW0bz
+	 og3vfSdaj5vyoHOz9SGzGX51s6abkBwVZOYgn/7Lk/nH/vRGFJKEwk5D0G40LKhok9
+	 xqJt7hOoOxujw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 3/6] media: dt-bindings: Add Amlogic V4L2 video
+ decoder
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Zhentao Guo" <zhentao.guo@amlogic.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, devicetree@vger.kernel.org, media-ci@linuxtv.org, linux-amlogic@lists.infradead.org
+In-Reply-To: <20260724-b4-s4-vdec-upstream-v6-3-6072a7ee7428@amlogic.com>
+References: <20260724-b4-s4-vdec-upstream-v6-0-6072a7ee7428@amlogic.com>
+ <20260724-b4-s4-vdec-upstream-v6-3-6072a7ee7428@amlogic.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 24 Jul 2026 07:13:50 +0000
+Message-Id: <20260724071351.3EF411F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260723014627.63310-2-aneeshpradhan@acm.org>
 
-On Wed, Jul 22, 2026 at 06:46:25PM -0700, Aneesh Pradhan wrote:
-> From: "Catherine Frederick (coolguy)" <serenity@floorchan.org>
-> 
-> Document the Motorola Moto E4 (perry) board compatible for MSM8917 and
-> MSM8920, and add qcom,msm8920 to the SoC compatible list.
-> 
-> Signed-off-by: Catherine Frederick (coolguy) <serenity@floorchan.org>
-> [aneesh: split bindings into their own patch; add msm8920 SoC enum]
-> Signed-off-by: Aneesh Pradhan <aneeshpradhan@acm.org>
-> ---
->  Documentation/devicetree/bindings/arm/qcom.yaml | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-> index f8c37096df46..5556f81c0af5 100644
-> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
-> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-> @@ -261,11 +261,17 @@ properties:
->  
->        - items:
->            - enum:
-> +              - motorola,perry
->                - xiaomi,riva
->                - xiaomi,rolex
->                - xiaomi,tiare
->            - const: qcom,msm8917
->  
-> +      - items:
-> +          - enum:
-> +              - motorola,perry
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The `interrupts` property allows up to 3 items but lacks descrip=
+tions (`items:`) and omits an `interrupt-names` definition.
+- [Medium] The `resets` property is defined and used in the example but is =
+missing from the `required` list.
+--
 
-Duplicated compatible. Same device cannot be both - msm8920 and 8917.
+--- Patch [3]: [PATCH v6 3/6] media: dt-bindings: Add Amlogic V4L2 video de=
+coder ---
+commit 289a73f667fca4eaf3038cecf5c55be6082f5801
+Author: Zhentao Guo <zhentao.guo@amlogic.com>
 
-Do not attach (thread) your patchsets to some other threads (unrelated
-or older versions). This buries them deep in the mailbox and might
-interfere with applying entire sets. See also:
-https://elixir.bootlin.com/linux/v6.16-rc2/source/Documentation/process/submitting-patches.rst#L830
+media: dt-bindings: Add Amlogic V4L2 video decoder
 
-Best regards,
-Krzysztof
+This commit describes the initial support for the V4L2 stateless video deco=
+der
+driver used with the Amlogic S4 (S805X2) platform.
 
+> diff --git a/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml=
+ b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
+> new file mode 100644
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
+> @@ -0,0 +1,103 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+
+[ ... ]
+
+> +  reg-names:
+> +    items:
+> +      - const: dos
+> +      - const: dmc
+> +
+> +  interrupts:
+> +    maxItems: 3
+
+[Severity: Medium]
+Is it possible to add descriptions or an interrupt-names array here?
+
+Without descriptions for each array item or an interrupt-names property,
+device tree authors do not have documentation on the required order and
+purpose of the 3 interrupts.
+
+Additionally, dt_binding_check cannot enforce the exact number of interrupts
+or their order without an items list, meaning a device tree node with only
+1 or 2 interrupts could silently pass validation.
+
+> +
+> +  clocks:
+> +    maxItems: 3
+
+[ ... ]
+
+> +  amlogic,canvas:
+> +    description: should point to a canvas provider node
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +
+> +  secure-monitor:
+> +    description: phandle to the secure-monitor node
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reg-names
+> +  - interrupts
+> +  - clocks
+> +  - clock-names
+> +  - power-domains
+> +  - power-domain-names
+> +  - amlogic,canvas
+> +  - secure-monitor
+
+[Severity: Medium]
+Should resets be included in this required properties list?
+
+The resets property is defined above in the schema and used in the example.
+
+Since Amlogic video decoder hardware blocks typically require a hardware
+reset line (e.g., the DOS reset) for proper initialization, omitting resets
+from the required list might allow an incomplete device tree node to
+silently pass schema validation but fail at runtime.
+
+> +
+> +additionalProperties: false
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-b4-s4-vdec=
+-upstream-v6-0-6072a7ee7428@amlogic.com?part=3D3
