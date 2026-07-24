@@ -1,149 +1,187 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0486336B90C;
-	Fri, 24 Jul 2026 18:57:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B27E84508F7
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 19:00:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784919458; cv=none; b=smpyq0+37LwUCb4jQg5wnLKFiKgEBNxrqjR9B2VlCyt6GYtvXpshWipP5zvkyRQIGuogPMc9tJemR9IubdGkJAfFFlNvv56a6OZrHPhiPvfWkfgNZJpheQJj2rmrWydCJoyJZGpUWXn5xs6CMpSvv6zZ/W7SPXruhoqYgCVYaeI=
+	t=1784919668; cv=none; b=p/PnxtjkzYhazoU/kw30uogN7imUFZ+Ys+Z2sqqhpNX6sAjfovyeb9AwtEp37UAmIk+Os+X8UK1DI6BEsKtck1Ex3zf5OcuzqYmgyULMJwk9GGC1xh5jDWnD9Hdh88uLOFX7q31jQQvGJqpMhr7dJ3znRBAMofqgQm7rd5FYxLU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784919458; c=relaxed/simple;
-	bh=1En3RPDMIB/14I8DRItwn5lmTiRaTJc/2qBBcRNvft8=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=P2i7YZBwYfVdxsdlBOG8ytbIOGafnE0MgGeKXtaVGUYoidbxpijSoc/SfUO6qGc9FX/lthHqoy717Bhy3tj2ayh+Y3LJ9BmGM9ZMYMta9GztNBDj8bJD2kqtQNjzupxGqcu2UzRKr5gul9Bvtu1c9bBVd24nG79mRnS0u3I0qlQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=b/FZSJBY; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1784919668; c=relaxed/simple;
+	bh=Dbe4+AReL8h7MG584hVaFyq7sq6Nx1aDlRNh19brikw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=h4RJTUZrS9y/GjlJwL4sG8N1PzRIZXZpBi2X4dWApQC2Tc/0FKhRCPCrJlHaI0j2lYdAzsa/V8y4Uv0TmKRoeij4hlk4hvmbf4t/mH+CTQ5p4bWbCqxgvp+mVrmNnjKKEjFGqoAd8zwEwZvLBdnOyoGdzSJAVBJ6T36AdHxWEls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=YWzltlAK; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=AvyhujxN; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="b/FZSJBY"
-Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c68:25d4:fa24:78d1:31:7a56])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5B54B73B;
-	Fri, 24 Jul 2026 20:56:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784919389;
-	bh=1En3RPDMIB/14I8DRItwn5lmTiRaTJc/2qBBcRNvft8=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=b/FZSJBYmTXBNI4xzYgx/wMzP4UWp+Qsvve3G7kAxVDshyQBv1oKxdmjvkOtPc2Ef
-	 gTQpBTtODtW8IqicVUGuk5U+Nkd6FOGTjOXDMh+qHY1CKacwdrxuBBaY+x5OkfrIZl
-	 CSYZQLxsaoIIXTGEiPhIf8qOEp7WzQFM4GRPPe48=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="YWzltlAK";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="AvyhujxN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1784919642;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=T6vnPk2ZVMVXDwCeXPFzptG9mWQ76bEG5faIrTyQk74=;
+	b=YWzltlAKpy3SlBkXyBv9vi6eIn6FK1+r96r1J5C7vMETkTHdkj8XcodObsrdJEDmfaUvBh
+	5/UGFV97SVcyHm8cuwfXfrQY+uVUqfG0ThPs1t11uddI2ucKLrHb3TXMRaH48syE3Cvwx+
+	maL50VMy6FVhaGCKllOBbaR8FrbVVCs=
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-42-w5vYjMdBNl-bPl_kcc5Y9Q-1; Fri, 24 Jul 2026 15:00:41 -0400
+X-MC-Unique: w5vYjMdBNl-bPl_kcc5Y9Q-1
+X-Mimecast-MFC-AGG-ID: w5vYjMdBNl-bPl_kcc5Y9Q_1784919641
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-92e66f9e2baso110961085a.0
+        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 12:00:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1784919641; x=1785524441; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=T6vnPk2ZVMVXDwCeXPFzptG9mWQ76bEG5faIrTyQk74=;
+        b=AvyhujxNHkYHgn7Kur011GQzJFXm2S/vxrOQIDIn3LNZdIeW+92f2WjJGqAtfFppcM
+         UmstvRMfcZPWoadLvOqsCXtKFeYnWJHU7prZCgE2WWCvXrn6ezOLYL5/+D0mRedSLHA8
+         dIUD+LY0yBJA37w0L4plezg2BdL3XD+sJ4Un2UoGQQpzEXuLWeUKIMohoVBqCv3t37N3
+         wgc+es+g+nHcFD1kcGqsv5iLWbcGoqO3EDgIMhfLHAk8S7m2hutBvUn220cCN20uNIkb
+         ZIXLWIren2Drle71vE6xbKngZLZ1w2ux9N8NKzryHqNs/V6i6mV+xhL8txMSP+y3ulE0
+         fZxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784919641; x=1785524441;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=T6vnPk2ZVMVXDwCeXPFzptG9mWQ76bEG5faIrTyQk74=;
+        b=N7AX3SNyapy2OX0TQKiUEgG9ImB9jYfUNmuRd6RVI19vV3SMtffJdUxTsDRM5vGpBj
+         olJM1T8nVr0DJVWmUqsqLo8DD7DGKouNgI0gHYoh8gvTjRRmXmqIWFf68hPoZ3skc9ZS
+         t66Ehkg3/0Xwa8iokNv+rZLS5IJcrX44pDkGj0XSAmlUfQe77HgtgsqZI/+IKAf7pG05
+         JgsrivuJDcBJuGs7rSHPrgxmPrRtSSxz7uut3y9hLBG1iejGIz8kXHpvWeKfc2IDmg1c
+         fy0f/bdvCuoW65wuDaxveELLCoWKinAtcPBZgoPACMIPUKL/ajRaiMBL9499hbnQEdls
+         s+vA==
+X-Forwarded-Encrypted: i=1; AHgh+RoO2Ea+6X1h8KhLa8DOgqLguP8wuKr8awaNOkvWTuZRF9vzudHnM7cwwmEUIvWc+lOXl5l8qTGblHNu@vger.kernel.org
+X-Gm-Message-State: AOJu0YweuQ7BRFWLOGKsIcM2Ngr2ufYJAMQOBW/uD3pyxMvNEqS1NJak
+	uc4upG9/Fp8GTgJ7UpQvKKDfXsXBWS0DP6qHnywb5pG4MGTrJg0ZT/Agjp+d5QoAZYf5F28jV5E
+	WyuvtVl8iPdzP1/CVd4SOwPZfJV5qwWvprrzDSqGb7cdtDb/0+4eBPz00zQ2kDu0=
+X-Gm-Gg: AR+sD13/MkFq6WyLEJpA+e1eXnoWsFoSAsWAbfqJevuDuxbHIt1XRm/7eC/k+YJIkDO
+	o/M0JHsW30PpB8jE2hUWqzSVgaN8mEW4WrQ2ypnuvugiN/EXhsN72OeZGEQk/t0hhYq/0savJZK
+	rsCx+pkO2Vtq4qExcHXucoADcZ3DelyxDCqbNCZAcI1FLWz9mRWQfrVdUZRfBlxJyWu1C2b2Tg+
+	1QlqpwOakmUFPaO2Tuz/AavDHIfAjUwULkVMqR2uLef0iZb7sQfgr5aFLdx4ds3E+NSqqk66EHs
+	/0yzNN1Dv38UzoTh/kowDZnW5zraWrq/sCIKSvs7v0Kwv9USEIiUtQHCVAdgjdSCP25uRWvKZaD
+	waqgcLcSE2VR5AY1cyfmeGlusk9j63zdjIDg=
+X-Received: by 2002:a05:620a:3912:b0:915:a111:86ae with SMTP id af79cd13be357-93103853ca1mr848658085a.35.1784919640795;
+        Fri, 24 Jul 2026 12:00:40 -0700 (PDT)
+X-Received: by 2002:a05:620a:3912:b0:915:a111:86ae with SMTP id af79cd13be357-93103853ca1mr848649585a.35.1784919640237;
+        Fri, 24 Jul 2026 12:00:40 -0700 (PDT)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-930f6aab2c7sm714011885a.46.2026.07.24.12.00.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 24 Jul 2026 12:00:39 -0700 (PDT)
+Date: Fri, 24 Jul 2026 15:00:37 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Joakim  Zhang <joakim.zhang@cixtech.com>
+Cc: "mturquette@baylibre.com" <mturquette@baylibre.com>,
+	"sboyd@kernel.org" <sboyd@kernel.org>,
+	"robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
+	cix-kernel-upstream <cix-kernel-upstream@cixtech.com>,
+	"linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [PATCH v11 2/4] clk: cix: add sky1 audss clock controller
+Message-ID: <amO2VSHtSQE98CNz@redhat.com>
+References: <20260723090808.1727598-1-joakim.zhang@cixtech.com>
+ <20260723090808.1727598-3-joakim.zhang@cixtech.com>
+ <amJEjofx348vF4Vd@redhat.com>
+ <SEYPR06MB6226EA6519C74A0FF0AB677482CF2@SEYPR06MB6226.apcprd06.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260724-mira220-v8-2-d1899ab64709@ideasonboard.com>
-References: <20260724-mira220-v8-0-d1899ab64709@ideasonboard.com> <20260724-mira220-v8-2-d1899ab64709@ideasonboard.com>
-Subject: Re: [PATCH v8 2/2] media: i2c: Add driver for AMS-OSRAM Mira220
-From: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Kieran Bingham <kieran.bingham@ideasonboard.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Conor Dooley <conor+dt@kernel.org>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Philippe Baetens <philippebaetens@gmail.com>, Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>
-Date: Sat, 25 Jul 2026 00:27:25 +0530
-Message-ID: <178491944579.3026322.17711300671190246368@freya>
-User-Agent: alot/0.13.dev35+g4a69c46ca
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <SEYPR06MB6226EA6519C74A0FF0AB677482CF2@SEYPR06MB6226.apcprd06.prod.outlook.com>
+User-Agent: Mutt/2.4.0 (2026-06-19)
 
-Hi Jacopo,
+Hi Joakim,
 
-Thank you for the fixes!
+On Fri, Jul 24, 2026 at 06:14:29AM +0000, Joakim  Zhang wrote:
+> > -----Original Message-----
+> > From: Brian Masney <bmasney@redhat.com>
+> > Sent: Friday, July 24, 2026 12:43 AM
+> > To: Joakim Zhang <joakim.zhang@cixtech.com>
+> > Cc: mturquette@baylibre.com; sboyd@kernel.org; robh@kernel.org;
+> > krzk+dt@kernel.org; conor+dt@kernel.org; p.zabel@pengutronix.de; cix-kernel-
+> > upstream <cix-kernel-upstream@cixtech.com>; linux-clk@vger.kernel.org;
+> > devicetree@vger.kernel.org; linux-kernel@vger.kernel.org; linux-arm-
+> > kernel@lists.infradead.org
+> > Subject: Re: [PATCH v11 2/4] clk: cix: add sky1 audss clock controller
+> > 
+> > EXTERNAL EMAIL
+> > 
+> > Hi Joakim,
+> > 
+> > There's one question from Sashiko that I don't see where you answered that seems
+> > to be legit.
+> > 
+> > On Thu, Jul 23, 2026 at 05:08:06PM +0800, joakim.zhang@cixtech.com wrote:
+> > > From: Joakim Zhang <joakim.zhang@cixtech.com>
+> > >
+> > > Add a platform driver for the Cix Sky1 AUDSS CRU. The driver maps the
+> > > CRU registers and registers mux, divider and gate clocks for DSP,
+> > > SRAM, HDA, DMAC, I2S, mailbox, watchdog and timer blocks.
+> > >
+> > > Four SoC-level audio reference clocks are enabled as inputs to the
+> > > internal clock tree. The driver releases the AUDSS NOC reset, enables
+> > > runtime PM and instantiates the auxiliary reset device.
+> > >
+> > > Signed-off-by: Joakim Zhang <joakim.zhang@cixtech.com>
+> > 
+> > [snip]
+> > 
+> > > +static int __maybe_unused sky1_audss_clk_runtime_resume(struct device
+> > > +*dev) {
+> > > +     struct sky1_audss_clks_priv *priv = dev_get_drvdata(dev);
+> > > +     const struct sky1_audss_clks_devtype_data *devtype_data = priv-
+> > >devtype_data;
+> > > +     unsigned long flags;
+> > > +     int i, ret;
+> > > +
+> > > +     ret = sky1_audss_clks_enable(priv);
+> > 
+> > From Sashiko:
+> > 
+> >     [Severity: High]
+> >     Could this result in a deadlock? When a consumer calls clk_prepare on an
+> >     audss clock, CCF acquires the global prepare_lock mutex and may call
+> >     pm_runtime_resume_and_get. This triggers sky1_audss_clk_runtime_resume,
+> >     which calls sky1_audss_clks_enable. Since sky1_audss_clks_enable executes
+> >     clk_prepare_enable, it will attempt to acquire the non-recursive prepare_lock
+> >     again.
+> 
+> prepare_lock is re-entrant for the same task (see clk_prepare_lock(): if prepare_owner == current it just bumps prepare_refcnt). So calling clk_prepare_enable() on the parent SCMI clocks from runtime_resume(), while already in clk_prepare() for an AUDSS clock, does not deadlock. This matches how CCF recursively prepares parents under the same lock.
+> 
+> That safety assumes resume of the AUDSS CRU is driven from CCF while the same task already owns prepare_lock. If another device device-links to the AUDSS CRU (or otherwise runtime resumes it outside clk_prepare), a concurrent clk_prepare() can deadlock:
+>   Thread A: holds prepare_lock, waits in pm_runtime for our resume
+>   Thread B: in our runtime_resume, clk_prepare_enable() waits for prepare_lock
+> 
+> We do not have such a device-link usage today. Would you prefer we add a short comment near sky1_audss_clk_runtime_resume() / sky1_audss_clks_enable() documenting that consumers should use these clocks via CCF and should not PM-resume this device through a device link (or other non-CCF path) that can race with clk_prepare? Happy to add that in the next version if useful.
+> 
+> > I found drivers/clk/samsung/clk-exynos-audss.c that is similar to your driver and it
+> > calls clk_prepare_enable() in probe.
+> 
+> Exynos AUDSS is only partially similar. It clk_prepare_enable()s EPLL in probe and keeps it enabled for the lifetime of the driver; its runtime PM callbacks only save/restore AUDSS registers and never disable that parent.
+> 
+> We cannot follow that pattern. Our parent clocks come from SCMI and also gate the audio subsystem power domain. If we clk_prepare_enable() them in probe and leave them enabled, their enable counts stay non-zero, so after system suspend (and on runtime idle) those SCMI clocks cannot be disabled and the audio SS power domain stays on.
+> 
+> That is why we enable the parent SCMI clocks in runtime_resume() and disable them in runtime_suspend(), instead of keeping a permanent prepare/enable from probe like Exynos.
 
-Quoting Jacopo Mondi (2026-07-24 21:07:01)
-> From: Philippe Baetens <philippebaetens@gmail.com>
->=20
-> Add a V4L2 subdev driver for driver for the AMS-OSRAM Mira220 image
-> sensor.
->=20
-> Mira220 is a global shutter image sensor with a resolution of 1600x1400
-> pixels.
->=20
-> The driver implements support for mono and RGB 12, 10 and 8 bits
-> formats. The output data-rate per lane is 1500Mbit/s, with a maximum
-> frame rate up to 90 fps.
->=20
-> Signed-off-by: Philippe Baetens <philippebaetens@gmail.com>
-> Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
->=20
+That makes sense and thanks for the clarification.
 
-[...]
+Reviewed-by: Brian Masney <bmasney@redhat.com>
 
-> +static int mira220_parse_endpoint(struct device *dev, struct mira220 *mi=
-ra220)
-> +{
-> +       struct fwnode_handle *endpoint;
-> +       struct v4l2_fwnode_endpoint ep_cfg =3D {
-> +               .bus_type =3D V4L2_MBUS_CSI2_DPHY
-> +       };
-> +       int ret =3D 0;
-> +
-> +       endpoint =3D fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, =
-0, 0);
-> +       if (!endpoint) {
-> +               dev_err(dev, "Endpoint node not found\n");
-> +               return -EINVAL;
-> +       }
-> +
-> +       if (v4l2_fwnode_endpoint_alloc_parse(endpoint, &ep_cfg)) {
-> +               ret =3D -EINVAL;
-> +               dev_err(dev, "Failed to parse endpoint\n");
-> +               goto error_out;
-> +       }
-> +
-> +       /* Non-continuous mode not implemented. */
-> +       if (ep_cfg.bus.mipi_csi2.flags & V4L2_MBUS_CSI2_NONCONTINUOUS_CLO=
-CK) {
-> +               dev_warn(dev, "clock non-continuous mode not supported\n"=
-);
-> +               ret =3D -EINVAL;
-> +               goto error_out;
-> +       }
-> +
-> +       if (ep_cfg.nr_of_link_frequencies > ARRAY_SIZE(mira220_link_freqs=
-)) {
-> +               ret =3D -EINVAL;
-> +               dev_err(dev, "Unsupported number of link_frequencies: %u\=
-n",
-> +                       ep_cfg.nr_of_link_frequencies);
-> +               goto error_out;
-> +       }
-> +
-> +       if (ep_cfg.link_frequencies[0] !=3D MIRA220_LINK_FREQ_750M) {
-
-The LLM-bot says link_frequencies[0] might be invalid if DT omitted the
-link-frequencies property, and I think that's a valid concern.
-
-Any particular reason for not using the v4l2_link_freq_to_bitmap() helper I
-had suggested? It can handles all of these cases and error msgs too.
-
-With the edge case fixed (with or without the helper):
-
-Reviewed-by: Jai Luthra <jai.luthra@ideasonboard.com>
-
-Thanks,
-    Jai
-> +               ret =3D -EINVAL;
-> +               dev_err(dev, "Unsupported link_frequency: %llu\n",
-> +                       ep_cfg.link_frequencies[0]);
-> +               goto error_out;
-> +       }
-> +
-> +       /* Check the number of MIPI CSI2 data lanes */
-> +       if (ep_cfg.bus.mipi_csi2.num_data_lanes !=3D 1 &&
-> +           ep_cfg.bus.mipi_csi2.num_data_lanes !=3D 2) {
-> +               ret =3D -EINVAL;
-> +               dev_err(dev, "%u data lanes are not supported\n",
-> +                       ep_cfg.bus.mipi_csi2.num_data_lanes);
-> +               goto error_out;
-> +       }
-> +
-> +       mira220->lanes =3D ep_cfg.bus.mipi_csi2.num_data_lanes;
-> +       mira220->row_length =3D MIRA220_ROW_LENGTH_MIN * (2 / mira220->la=
-nes);
-> +
-> +error_out:
-> +       v4l2_fwnode_endpoint_free(&ep_cfg);
-> +       fwnode_handle_put(endpoint);
-> +
-> +       return ret;
-> +}
-> +
