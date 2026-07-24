@@ -1,125 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ironport.ite.com.tw (60-251-196-230.hinet-ip.hinet.net [60.251.196.230])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25CA01C84DC
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 10:08:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BD0B218592;
+	Fri, 24 Jul 2026 10:08:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.251.196.230
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784887699; cv=none; b=LuulgK5ep1KDTvp+S1dss5whb18eUjJ4zqjSZBOLo/wDvJkJZWnbSSrc/DV8AWRQ3L9CAclSZp2msVRYvfkIwrWvAOB2dwEFO4GElgL3Rr8LUdHD1gW4jUqt/A6AjsQokHphFIXcp25qh6yTfGFMCMfju8AOUupV2vJQbTU7wnk=
+	t=1784887736; cv=none; b=dfuB2kXrqHOIp4DiwV7+spFpCYUuupn4qPXvgULJv8vGG5FHDBdp1Ncg/iSffncbcGU2YoHu9xXmgLP4xgvTd2L7yWoSmn29Zg1e7LIDX588MUv+6D3Ad71IIPj4ZlvmnVKng8ko58KrhYoHNkyDFWPid5i7s9ZgJYFLJnaqyrs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784887699; c=relaxed/simple;
-	bh=K3deSjeQMmx7UU5/jNAwgC4jaHRTmH+R4yfxVkOp83I=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JfpLIKHbZqqAp2HTcU78Sf8IBV8vjtulWPf3ChL3FixvGG/U0Bx4wDSGWW6WB808eWJZ47Rfo5yLdlZuY6zYmaHYPxlAXF+Wm5r/gWBEhjYUTqjqPG86UJ8yDfBvRpUYBPxoEUgVTd222whK/seti3OcRgh0dEORC25/x6f7rRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dh936rMt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784887736; c=relaxed/simple;
+	bh=jXr+d29cM7/bs+EgTGZiqe9DF7qRXPgO6kkYLF/np+M=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=evlagN46vuhoLYI1wFQtqeE/hXTISqySK5EnxEiDWjuurPBpri5AV+i+/jOcV4EP5zZHWS3YqSU+ZszHOmcl/OhlZIs+5/4is6YevrQqFOkvT1gcb4jTD4YASkvasOUEaKCneaPHlwbM5yIUboCPFByw9sqcWZw2PxncHeiI2sk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw; spf=pass smtp.mailfrom=ite.com.tw; dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b=mnzUllrZ; arc=none smtp.client-ip=60.251.196.230
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dh936rMt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A29B31F000E9;
-	Fri, 24 Jul 2026 10:08:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784887698;
-	bh=13/TUJQu/mTEywO741VUcp6+OOeDVFYM3SI4KVeubx0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dh936rMt035+UjtO6p6xdSOME0KUz3CHdFTo9ssuh1iGkLMJ1khXorf0XQ4e51pOq
-	 XdW7i+uxuZc1N638EP31t47cypgFFTQod5YE1AyYZZdcAOX1AQUS1CzpTG4/FgIoW0
-	 fBp7RgvohQQByjX4tNE2D+u9HrhXjNVS7Wt/AoX+fWhDafX4Fc4+XhPK6ttaMFTTs3
-	 45pis0YF4DQLUKIsGIwrQD0MZpSrWIqRuyc28OmZ/y2+ORovCfyQp0DZk8jr26b6Ph
-	 IBNYkyLFSIXq/0aCb+6B7Zkf5mbgrBCHBKhnuYwr0UARvZGKVO3FaTiv4wJaUCkbvr
-	 i3LNDL7aAjvfg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] media: i2c: Add Samsung S5KJN5 image sensor
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wenmeng Liu" <wenmeng.liu@oss.qualcomm.com>
-Cc: media-ci@linuxtv.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260724-sk5jn5-v2-2-871d3b9a2e47@oss.qualcomm.com>
-References: <20260724-sk5jn5-v2-0-871d3b9a2e47@oss.qualcomm.com>
- <20260724-sk5jn5-v2-2-871d3b9a2e47@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 24 Jul 2026 10:08:17 +0000
-Message-Id: <20260724100817.A29B31F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b="mnzUllrZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=ite.com.tw; s=dkim;
+  h=from:subject:date:message-id:mime-version:
+   content-transfer-encoding:to:cc;
+  bh=y0rjAn7uCDN2T2yvFgBmTw9GhAV5ePHmiXKBOSDvXqs=;
+  b=mnzUllrZCShcQ/vPCbCOck2bu0Mn0DdXawAKpnT775lkW3O4bTtC46Ie
+   MJAwnI5wgfrWV1slnjhLn3aKs/roMwii8kKW+jodocZftjJPP7SJLGJ/c
+   pNGj1uT4XQRYWpDFsQRkREr5MqFpDgxj2SS0e8TutVa8AmfW5wcEYYq3a
+   hO0TwIXA4f5TezijvWNO1yIQvOJ3vUXL/WEBxBwKXzKpkuXSBc74sMmHs
+   krAFEITMT71QF4TZtByvDHkExlgZLdBbzQ4FqO6feTBz0NrLHaia9I3+s
+   zUPD7nEKpmDQ+iLrOCkDv5cG0Xqbk3R/Y3YmDtsDfqQfkZDuugoYKb76o
+   A==;
+X-CSE-ConnectionGUID: 6nbddMcYT86uTbh5sgQjsg==
+X-CSE-MsgGUID: 3BixHLXARESTyQDz7FajHg==
+Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
+  by ironport.ite.com.tw with ESMTP; 24 Jul 2026 18:08:44 +0800
+Received: from hscmail1.internal.ite.com.tw (HSCMAIL1.internal.ite.com.tw [192.168.35.58])
+	by mse.ite.com.tw with ESMTP id 66OA8gF1061254;
+	Fri, 24 Jul 2026 18:08:42 +0800 (+08)
+	(envelope-from amber.kao@ite.com.tw)
+Received: from [127.0.1.1] (192.168.37.107) by HSCMAIL1.internal.ite.com.tw
+ (192.168.35.58) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 24 Jul
+ 2026 18:08:41 +0800
+From: Amber Kao <amber.kao@ite.com.tw>
+Subject: [PATCH v5 0/2] usb: typec: ucsi: Add ITE IT8851/IT8853 support
+Date: Fri, 24 Jul 2026 18:09:18 +0800
+Message-ID: <20260724-ucsi-itepd-v5-0-d1a83e5c9c77@ite.com.tw>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NQQ6CMBREr0L+2pJCi6gr72FYlPZXvomUtKVqC
+ He34Nblm8y8WSCgJwxwKRbwmCiQGzM0hwL0oMY7MjKZoeb1kbdVy2YdiFHEyTCJZymwEqfacsi
+ DyaOl9y67dT8Oc/9AHTfD1hgoROc/+1uSW++vOEnGmRW9apQxhht7zXmp3bOML+jWdf0CN1uOe
+ 7cAAAA=
+X-Change-ID: 20260717-ucsi-itepd-4e943e1382f0
+To: Jeson Yang <jeson.yang@ite.com.tw>, Yaode Fang <Yaode.Fang@ite.com.tw>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Rob Herring
+	<robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+	<conor+dt@kernel.org>,
+        Heikki Krogerus <heikki.krogerus@linux.intel.com>
+CC: <linux-usb@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, Amber Kao <amber.kao@ite.com.tw>,
+        Bling
+ Chiang <Bling.Chiang@ite.com.tw>, Eric Su <Eric.Su@ite.com.tw>,
+        Doreen Lin
+	<doreen.lin@ite.com.tw>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: TPEMAIL1.internal.ite.com.tw (192.168.15.58) To
+ HSCMAIL1.internal.ite.com.tw (192.168.35.58)
+X-TM-SNTS-SMTP:
+	A777936220F962DB246E32E4F53B96F706C5AD182E13193963A6C0ADC02FCE2A2002:8
+X-MAIL:mse.ite.com.tw 66OA8gF1061254
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The exposure hardware register is not updated when the maximum exp=
-osure limit changes due to a VBLANK modification, leaving the hardware out =
-of sync.
-- [Medium] V4L2 controls are silently ignored when CONFIG_PM is disabled, l=
-eaving the sensor unconfigured.
---
+This series adds Device Tree bindings and minimal UCSI driver support 
+for the ITE IT8851/IT8853 USB Type-C Power Delivery controller over I2C.
 
---- Patch [2]: [PATCH v2 2/2] media: i2c: Add Samsung S5KJN5 image sensor d=
-river ---
-commit 583bdec13ff5578760991a928a272b7f11a48522
-Author: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+Changes in v5:
+- dt-bindings: express compatible as ite,it8853 + ite,it8851 fallback
+  instead of a plain enum, since the driver treats both parts
+  identically (Krzysztof)
+- dt-bindings: use consistent quoting for patternProperties key
+  (Krzysztof)
+- dt-bindings: add anyOf requiring at least one of connector@0/
+  connector@1 (Krzysztof)
+- Drop the unnecessary heap-allocated tx/rx buffers in
+  itepd_read_reg()/itepd_write_reg(); use the caller-supplied buffer
+  and a local variable directly instead (Heikki)
+- Ack the interrupt in itepd_process_event() even when the CCI/
+  msg-in I2C read fails, instead of bailing out before acking, to
+  avoid an interrupt storm on transient I2C errors (Sashiko)
+- Not changed: keep ucsi_unregister() before free_irq() in remove().
+  the IRQ handler is the only event consumer/acker on this device,
+  so freeing the IRQ first stalls in-flight commands until timeout.
+  ucsi_unregister() disables notifications via async_control() first,
+  narrowing the reported UAF window to the interval before free_irq() 
+  masks the interrupt; IRQF_ONESHOT and free_irq()'s synchronous wait
+  mean only a newly-arriving event in that narrow window remains exposed
+  (Sashiko, not addressed)
+- Not changed: keep itepd_read_reg()/itepd_write_reg() built on
+  i2c_transfer() rather than switching to
+  i2c_smbus_{read,write}_i2c_block_data(). The read path needs this
+  regardless, since the message-in register can return up to 40
+  bytes, exceeding the 32-byte SMBus block-read limit; write is kept
+  on the same helper style for consistency rather than mixing APIs
+  for a few lines of savings. (Heikki, not addressed)
 
-media: i2c: Add Samsung S5KJN5 image sensor driver
-   =20
-This commit adds a V4L2 sub-device driver for the Samsung S5KJN5 50 MP
-GBRG 10-bit RAW MIPI CSI-2 image sensor. It supports 4096x3072 mode and
-exposes standard controls such as exposure, gain, and vblank/hblank.
+Link to v4: https://lore.kernel.org/all/20260717-ucsi-itepd-v4-0-f3ba5addd0df@ite.com.tw/
+Link to v3: https://lore.kernel.org/all/20260710-ucsi-itepd-feature-v3-0-8523e1e1c47a@ite.com.tw/
+Link to v2: https://lore.kernel.org/all/20260710-ucsi-itepd-feature-v2-0-41943fd5df38@ite.com.tw/
+Link to v1: https://lore.kernel.org/all/20260615-ucsi-itepd-feature-v1-0-a826cfd0df6a@ite.com.tw/
 
-> diff --git a/drivers/media/i2c/s5kjn5.c b/drivers/media/i2c/s5kjn5.c
-> new file mode 100644
-> index 0000000000000..865db808aabcf
-> --- /dev/null
-> +++ b/drivers/media/i2c/s5kjn5.c
-[ ... ]
-> +static int s5kjn5_s_ctrl(struct v4l2_ctrl *ctrl)
-> +{
-> +	struct s5kjn5 *s5kjn5 =3D
-> +		container_of(ctrl->handler, struct s5kjn5, ctrl_handler);
-> +	const struct s5kjn5_mode *mode =3D &s5kjn5_modes[0];
-> +	struct device *dev =3D s5kjn5->sd.dev;
-> +	u32 exposure_max;
-> +	int ret =3D 0;
-> +
-> +	if (ctrl->id =3D=3D V4L2_CID_VBLANK) {
-> +		/* Update max exposure while meeting expected vblanking */
-> +		exposure_max =3D mode->height + ctrl->val - mode->exposure_margin;
-> +		__v4l2_ctrl_modify_range(s5kjn5->exposure,
-> +					 s5kjn5->exposure->minimum,
-> +					 exposure_max,
-> +					 s5kjn5->exposure->step,
-> +					 s5kjn5->exposure->default_value);
-> +	}
+Signed-off-by: Amber Kao <amber.kao@ite.com.tw>
+---
+Amber Kao (2):
+      dt-bindings: usb: Add ITE IT8851/IT8853 Type-C PD controllers
+      usb: typec: ucsi: Add ITE IT8851/IT8853 Type-C PD controller driver
 
-[Severity: High]
-If a user decreases VBLANK causing the V4L2 framework to clamp
-s5kjn5->exposure->val to the new exposure_max, will this leave the hardware
-exposure register out of sync?
+ .../devicetree/bindings/usb/ite,it8851.yaml        | 151 +++++++++
+ MAINTAINERS                                        |   9 +
+ drivers/usb/typec/ucsi/Kconfig                     |  10 +
+ drivers/usb/typec/ucsi/Makefile                    |   1 +
+ drivers/usb/typec/ucsi/ucsi_itepd.c                | 365 +++++++++++++++++++++
+ 5 files changed, 536 insertions(+)
+---
+base-commit: 8fde5d1d47f69db6082dfa34500c27f8485389a5
+change-id: 20260717-ucsi-itepd-4e943e1382f0
 
-Since the vblank and exposure controls are not clustered, s_ctrl is only
-invoked for VBLANK. It updates the VTS register but does not sync the newly
-clamped exposure value to the hardware, potentially leaving it with an inva=
-lid
-value that exceeds the new frame length.
+Best regards,
+--  
+Amber Kao <amber.kao@ite.com.tw>
 
-> +
-> +	if (pm_runtime_get_if_active(dev) <=3D 0)
-> +		return 0;
-
-[Severity: Medium]
-When the kernel is built without CONFIG_PM, pm_runtime_get_if_active() is
-stubbed to return -EINVAL.
-
-Will this cause the check to evaluate to true and silently drop all hardware
-writes in s_ctrl, leaving the camera unconfigurable?
-
-> +
-> +	switch (ctrl->id) {
-> +	case V4L2_CID_EXPOSURE:
-> +		ret =3D cci_write(s5kjn5->regmap, S5KJN5_REG_EXPOSURE,
-> +				ctrl->val, NULL);
-> +		break;
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-sk5jn5-v2-=
-0-871d3b9a2e47@oss.qualcomm.com?part=3D2
