@@ -1,68 +1,68 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9186A30C178
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 02:07:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9803B188CC9
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 02:15:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784858844; cv=none; b=sZr7BuvUYpDRULM0d8ER8LUO2swszrVHA/VooQGPdRb7quLyiCHV1lVwb+dz+719/4OQlCVl0sE6KHtr/JspSq96JRxkniqqROT8cXlv8anAaPbb1dPswD5DKgQyNXECTgofPlqhgCOPsXMdKkbvhNrJhXoUtFianNxAIZ6iLUE=
+	t=1784859338; cv=none; b=boI6dCvi7xoak7FqKBMjGyQ6Kj2YXdM3FydwbS6eZ5xcS4yM6fNLWFeGbNv7RkvKWF+ylRuuU90d8WL062VMkaUhyEQmCpi6L0V4G9/xBnAu06Hjlw0xmhyruUo9rczGcAPGyNW2Fxli8UNUVc7Ksbeidq+XUBMduPHJsad80FM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784858844; c=relaxed/simple;
-	bh=zcIh3xhJPfZul3vgF+1M9u53SutSZDLGPVP9Rpe9+8M=;
+	s=arc-20240116; t=1784859338; c=relaxed/simple;
+	bh=L+t4HV7Sv1Yr6ycKAZe9fxoigD3ECM35jt241Mi1QXY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EN7pZlbetcpgJ2smzuf8pbcdhWNEq/N87cgkZhHyun3OL+xBgfRgfNPZ+nn2Pgzlbw4nsCvs/1rV7OYipUO1+vMY9TS1uPKx9KHGAbRXEHsh+uFvFr2MeteIZMhGSa9J29LjE9GnzFmcC2FGE1OM2ryBPXW1YGfnKOYHlgzEaoQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GZa0BVG+; arc=none smtp.client-ip=209.85.216.54
+	 In-Reply-To:Content-Type; b=oVrdjwTD/5HJnoKpC2+9L1P9z3z/INIoNI+fZVh+jmt3kilVwR4j4LTLEq1Ti8Nx6rNyCqxxfsSQCi/cWWLFHgewsbcI9EAj5iP4sUSmxfJ2ejsmZLrun4UGRMlbLWvz4TJ98JIKbVfPeYvZ0ZnJMEGaN8ZDSSEhFQzj3jamXNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RBnQ4VEO; arc=none smtp.client-ip=209.85.210.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GZa0BVG+"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-381b831d535so1385245a91.0
-        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 19:07:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RBnQ4VEO"
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-84874b52eabso1749098b3a.0
+        for <devicetree@vger.kernel.org>; Thu, 23 Jul 2026 19:15:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784858842; x=1785463642; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784859337; x=1785464137; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Dl8tyxT4KPIKqu864RkA+VQDYik03yogsDeWzT/nylM=;
-        b=GZa0BVG+Miox4cMg37ImbDW2SBtb9a7B4WN3Ue6RJXVlbyASOgLnwNSEyVsQxFkg/f
-         +DPP1grOR//q8HCj7JQasE5RJdOgwYxgVl6fpuTrc/4Um99JQLBhWgB0MSZNLUgk8+w6
-         2f7fAReWVozVX+D7/JHoQQfXj0rKaz5iYQDwiwCsJJoJmZK8p54E2xn3MXJjvGSR/lr1
-         MkCHI0W95Hgw7px92UF+FyZ/Yc0B7lXngcd8UUbIWTjeKRtxbb64wiwtUQa6GMvyEDQv
-         eUPU0P6DIaNslBdABCiyhOls/vROnznASxdxaOdOtNbkryRQ4IJSIxohAoZOIRDh+630
-         p/LA==
+        bh=AErqtQxtjWESFK/cC8ZbXVOsghSEV1lk9NocrdQ1hHk=;
+        b=RBnQ4VEOZuZC3AKktZrl5VfIys/dqIjCzoGvKOtK9dWZs+DAinYlIYBijIneqRRWn5
+         uEGG5rQzf/9tcVKbtWqJiyRrib+Qz62asqCSrP7fDbTlqSr7WluEDCf5XC8XatKp5Eus
+         rKvhtIRzQaRHN2ozHh2G41q2a+ie9Wc+ug6Pg+jTEFiwTWS3ewKF7cOwsA74eGBtgI8c
+         D8LdtjibEVo+gNjxGep30INl6cFt/IbGphzw+iTE/qi0LclIPz4/dI7AdFMHT9MhOlNK
+         vVLibFCkflion2JcRHM2u7FvaMhtxQHBzarR/uAxhR0LePUH/jHjEgn756ZDBljdEapk
+         0Pwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784858842; x=1785463642;
+        d=1e100.net; s=20251104; t=1784859337; x=1785464137;
         h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=Dl8tyxT4KPIKqu864RkA+VQDYik03yogsDeWzT/nylM=;
-        b=rppOvygkSLZEdv/tUkta1have15DB3rPDGitNmA28oPsH+YsXlNiGBpkoimy66WOXZ
-         rlbO/Z+USjjw3ar1OTADFFrGUwscy6+HzOQaMHP8M1+85nY1oqIVd3p1IlOiU4TCbT70
-         ktoR8gJi46/nODZAof7gROaExGosRS1x5sLYXwuxzUQq8vZk7u/8ra34BOLF62dyVNE2
-         cTh1wTCoLWng47CwAMeFXvI0NFr5eQYFHapuYKAdAlwHRaUolQmAi88SN2xdjdgj5NzF
-         KFgXzG/p+ezfDZGpslvT+Z0M6wpe4Poy2qt9CWNz2zXE9daBQyEf646vTviryqqanPx/
-         7qGg==
-X-Forwarded-Encrypted: i=1; AHgh+RqWk274QTmqQmJkPL4H+cmbgTqT5kNc7m4qjQ3U1SMg5fvBQiXHxXf6vMR0vxKSYlA2tv0bOtG1uanY@vger.kernel.org
-X-Gm-Message-State: AOJu0YxpPhRqx83JHJnuMlwuFm/m4xGk9qKk51AvSR/EAXFJTL8yrdY2
-	uBSLDtymw0GFY5kf8EaWWvc2neZ9N5EdJvNx94yDSg2rmOCcZ4u2+ioJ
-X-Gm-Gg: AR+sD11rETy8ijt7oHcqdVUhqmz1W+Mvr3gkJAlAAvUdVFQWkEudNjjfaWDZ0bGuSk/
-	gbyCaZZ6L3KEiU0QKZMmNhgyKwgYQ7oSLThbXi0zGUd6MQyvTWAm3NANomeRUYOMtmByQm3RroH
-	mrpqrn+Rx5jrGx+uuyCt15RraF2jDGWbc2yDdlc4BTF/PnwQES7C7lLXFA3bXcLFzOE2XYhssrB
-	vd1FEv+IJrP/vQThbmumFAAC9ThesPFFDbZyynsMKtieKqlUNqvF8ltq5LhdunyzPjbZcZAHW/4
-	y3kBEziJ27Ur+tppnngNRBI+iHWAu0reczN5iJ4pX+F6ihP5cfnfA2+tuAF3wdQyGQI39rQbOjV
-	60ueNxhvuCs4zFOOjoeMxXJEtZnS5L03om5WHHLK390LwL9gcAU2YlDHJZVIBQTTyf++E8xNgw/
-	5Gb+Y9h2OH2VaLS1Zl5WHY9UZckarN1/SNqWrjC1H+VK/RyU0uhTI=
-X-Received: by 2002:a17:90b:4c12:b0:37f:c2a8:ce45 with SMTP id 98e67ed59e1d1-38ec6539535mr5383662a91.4.1784858841861;
-        Thu, 23 Jul 2026 19:07:21 -0700 (PDT)
+        bh=AErqtQxtjWESFK/cC8ZbXVOsghSEV1lk9NocrdQ1hHk=;
+        b=kkVu76WtWXbCZR00y5BjhxLZmYI0FYFF06EVmxRTHHhsQyVtx+890w5UsAD0njgEvj
+         kJW/wxQs03VvPqBmP9pwT/jDRvyVANnengtvJoYZlVDy0o+LV7UykfL3kIjqSeea4vqB
+         XRvnyblz3kJeO9wTV64iGVx0z7Pj5ICEMqrUkBh2xeQGRmwA/6nhHCA350+qZrHSVQMV
+         BgQJJpD4qhjY84A2WYLYG700Ea0WtDd8yd7JGP7Ta4coCoBf0ybOaTYRW8LV40WfC8/P
+         8OgUTrukSdis86Y2l/SnZx+j1Jt0dT8c+z2dhEUcca3cxjAWhzVyJnI/2oPQeh78r05L
+         iHzg==
+X-Forwarded-Encrypted: i=1; AHgh+RpUAROVEvdjg0ywe4IwKJIEONVapeeAi0gxqdDDH8PG4Ft2G7QFopkoTEtq8BVXwWc/vqremlPMgCgQ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyt8YM+aP6kftNx5IpZZ6sAX2OOYaMd6n0RZQ0Q0w5Lob5SFvrW
+	nATkLryZtE/E5+PcP3jQ9ngKGsc3x5bhRDL9YESRLAoXPj+BGpky6YFL
+X-Gm-Gg: AR+sD111pH6s2n3D9IG3fIPzym8wse5Nx8XNBaVIi1z/mhay/oWMuf87XvEBTrQuqa6
+	QGixvibIHnsmHbXIV/3lQ9aJz0QWzr95tN/oCcRR5iwgooN1Y/aGj6teyZfSKTSoDwgqANSfaNv
+	szdyhN6Ho9kYXmhP/LsGA8milQyUvZk0sGmsQ5iUBpLgSVj9I2Ze1VQywbalFdmBs8+0NXtdjjS
+	62EZelRv+gsLWvidJfAK1COcABlTBDHMcSSUDVSVSsrcchQbMVAOkQWy/MRkiIklh2IePX4JfmB
+	t81lfMgSujstet4jykzatQp6fS4lZ9dAx32bElTFRudf1K/zLmy3++B6VLrv8dq5w33fatxItOv
+	fl8KqbqajDx6PNKfA/10IIEHO5RfbFD7J/hazpTWFYJYOpDnw2C2OlrCLtvIfd7cRv9caJ2TjKD
+	UKuQUPBndueL5q3SeSlC2UJG6m8d3PV1Kk4g15Wx57iEoty75VfHE=
+X-Received: by 2002:a05:6a00:4206:b0:847:902a:57b5 with SMTP id d2e1a72fcca58-84e2c181f5emr5752517b3a.35.1784859336878;
+        Thu, 23 Jul 2026 19:15:36 -0700 (PDT)
 Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf9bfbf725sm33637515ad.36.2026.07.23.19.07.20
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e172862f7sm3835625b3a.21.2026.07.23.19.15.35
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 23 Jul 2026 19:07:21 -0700 (PDT)
+        Thu, 23 Jul 2026 19:15:36 -0700 (PDT)
 Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <b5c0741a-b9da-4a3a-81ae-33368e6dd756@roeck-us.net>
-Date: Thu, 23 Jul 2026 19:07:20 -0700
+Message-ID: <6abbdabe-91ec-4757-a646-8b2b2d4058d3@roeck-us.net>
+Date: Thu, 23 Jul 2026 19:15:35 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,12 +71,14 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v5 3/3] hwmon: pmbus: add MPQ8646 driver
-To: sashiko-reviews@lists.linux.dev, Vincent Jardin <vjardin@free.fr>
-Cc: linux-hwmon@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org,
- devicetree@vger.kernel.org
+To: vjardin@free.fr, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-doc@vger.kernel.org
 References: <20260724-mpq8646_v0-v5-0-5915b5ae9aa2@free.fr>
  <20260724-mpq8646_v0-v5-3-5915b5ae9aa2@free.fr>
- <20260724000643.E60C81F000E9@smtp.kernel.org>
 Content-Language: en-US
 From: Guenter Roeck <linux@roeck-us.net>
 Autocrypt: addr=linux@roeck-us.net; keydata=
@@ -122,69 +124,55 @@ Autocrypt: addr=linux@roeck-us.net; keydata=
  F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
  FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
  np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260724000643.E60C81F000E9@smtp.kernel.org>
+In-Reply-To: <20260724-mpq8646_v0-v5-3-5915b5ae9aa2@free.fr>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 7/23/26 17:06, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] Stack variables passed to i2c_transfer() can cause memory corruption or panics with CONFIG_VMAP_STACK.
-> --
-> 
-> --- Patch [3]: [PATCH v5 3/3] hwmon: pmbus: add MPQ8646 driver ---
-> commit 1098fecfca1c29b33a174b200465134bc5be4be8
-> Author: Vincent Jardin <vjardin@free.fr>
-> 
-> hwmon: pmbus: add MPQ8646 driver
-> 
-> Add a new single-chip driver for the MPS MPQ8646 that is a PMBus device.
-> The driver adds extended bits decode, alarm acknowledge, gate-close retry,
-> and an in-driver alarm-poll fallback.
-> 
->> diff --git a/drivers/hwmon/pmbus/mpq8646.c b/drivers/hwmon/pmbus/mpq8646.c
->> index 0000000000000..f8dfabef09df3 100644
->> --- /dev/null
->> +++ b/drivers/hwmon/pmbus/mpq8646.c
-> [ ... ]
->> @@ -187,24 +187,24 @@ static inline struct mpq8646_priv *mpq8646_priv_from_client(struct i2c_client *c
->>   static int mpq8646_raw_xfer_rword(struct i2c_client *client, u8 reg)
->>   {
->>   	u8 cmd = reg;
->>   	__le16 data = 0;
->>   	struct i2c_msg msg[] = {
->>   		{
->>   			.addr = client->addr,
->>   			.flags = 0,
->>   			.len = sizeof(cmd),
->>   			.buf = &cmd,
->>   		},
->>   		{
->>   			.addr = client->addr,
->>   			.flags = I2C_M_RD,
->>   			.len = sizeof(data),
->>   			.buf = (u8 *)&data,
->>   		},
->>   	};
->>   	int rc;
->>   
->>   	rc = i2c_transfer(client->adapter, msg, ARRAY_SIZE(msg));
-> 
-> [Severity: High]
-> Can this cause memory corruption or a kernel panic?
-> 
-> I2C adapter drivers often use DMA for transfers. When CONFIG_VMAP_STACK is
-> enabled, the kernel stack is not guaranteed to be physically contiguous.
-> Passing stack-allocated buffers like cmd and data to DMA-capable APIs
-> like i2c_transfer() will cause dma_map_single() to map incorrect physical
-> memory.
-> 
-> Although this is triggered via debugfs, executing it on a DMA-capable I2C bus
-> could reliably crash or corrupt the system. Should these buffers be dynamically
-> allocated instead?
-> 
+On 7/23/26 16:55, Vincent Jardin via B4 Relay wrote:
+...
+> +
+> +/* Adapted from lm90.c */
+> +static void mpq8646_alarm_poll_work(struct work_struct *work)
+> +{
+> +	struct mpq8646_priv *priv = container_of(to_delayed_work(work),
+> +						 struct mpq8646_priv,
+> +						 alarm_poll_work);
+> +	int rc;
+> +	u16 cur, newly_set;
+> +	size_t i;
+> +
+> +	if (priv->client->irq)
+> +		return;	/* SMBALERT# wired; polling not needed */
+> +
+> +	if (!priv->alarm_poll_interval_ms)
+> +		return;	/* polling disabled; don't re-arm */
+> +
+> +	if (!priv->hwmon_dev)
+> +		goto rearm;	/* hwmon not ready yet; try again next tick */
+> +
+> +	/* Serialise with the pmbus core's own transactions on this client. */
+> +	pmbus_lock(priv->client);
+> +	rc = i2c_smbus_read_word_data(priv->client, PMBUS_STATUS_WORD);
+> +	pmbus_unlock(priv->client);
+> +	if (rc < 0)
+> +		goto rearm;
+> +
+> +	cur = (u16)rc;
+> +	newly_set = cur & ~priv->last_status_word;
+> +	priv->last_status_word = cur;
+> +
+> +	if (!newly_set)
+> +		goto rearm;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(mpq8646_alarm_map); i++) {
+> +		if (newly_set & mpq8646_alarm_map[i].mask)
+> +			hwmon_notify_event(priv->hwmon_dev,
+> +					   mpq8646_alarm_map[i].type,
+> +					   mpq8646_alarm_map[i].attr,
+> +					   mpq8646_alarm_map[i].channel);
 
-Do not address. This is a false positive. Sashiko's I2C subsystem prompts
-need to be updated.
+This is wrong. This will require a new exported notification function
+in pmbus code.
 
 Guenter
 
