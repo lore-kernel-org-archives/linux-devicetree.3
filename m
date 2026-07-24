@@ -1,209 +1,252 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A4C63B8407
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 09:03:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784883838; cv=none; b=c2RDtkiL5QzLUkbUJKXOjAYnpCtRngZ3Mxc7Q/e4KxypTpVOfoaKt9gDvlA15wSpsuBsKW4GNX+MFr6YhEkF1egd+oSt20x/Lqx9U/R4YH6m65FLWP99hyYb8dkp+9A/fqA9aOffigGESn2jcz3Yj2CBNLdhpYrw1UJBaIvqgUQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784883838; c=relaxed/simple;
-	bh=AMXF8Yd2sHgsE628dgnM76BbxDRhxBPbmCb3MxLcuDw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nj7ryFTArAi4P8KUE5cRkDK0ifjXI52W61PNdPbkAcAD69sRhT/Dgv5V1+BLQDZFmg3FbkeedUlKkge4/jMR4QExGGFDYnQNiaG5oJJAXtI/i87VE7cT52hS35qTO3441TuyCZy5AsZtzs8F3QwqpmMkBIUrZU8YLAwaUCkS0+Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eR6dW5JM; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5A8B3EC2F8
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 09:11:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784884276; cv=pass; b=piTJ1UVkVxCbFIwELb2ptk/x0VOJHhAqUVxh91r1JlfCPxvmr9THFhyJFGlOSbqfEoQosPTLp7P2sKzsPkYDrSxVsp4Q8Oqo65QoCAKuM3SraPC8pdj7VHV/VSYjvt75OQC8J50+YhFVT1L17fTtxSAHxue3963vUdSEnXrBxqo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784884276; c=relaxed/simple;
+	bh=7EyO1PFX7c4qnZ1MSpCu7kR9TuJqAkb7msYvLxkohB4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qP8YSbCu+dLY2HqeGwanrUl5Mnb4oXzq30FEdSRHGtlLwro0K2MTODiyN2+xqTPU39CJGJGxhHj12Gh9zMdg/FS3iExwVwhLvAr0tV6cI3apc4i2T8nHiAHhEzpncvlQSXw1f9XMg/Vi1JecEUGPpkFd8ZjU0cYuey570cG5vRQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fFoOGKKO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CzbrUCas; arc=pass smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eR6dW5JM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD51E1F00A3A;
-	Fri, 24 Jul 2026 09:03:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784883837;
-	bh=dho8sJQBV9jiLA5KfXFWUNm5o1/32ANC5yJ5GM3FP+g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eR6dW5JMJKOlpb6/Ub2rjANLA+h3/xb6sbjenAIftk3dd9Y8xMkRU2W2UoH9cxOAi
-	 lmSl5cLuh4a3T6t/SfBtly/WKAzcb+20wrcJH4AqBi6jFOBF7+lSeRLmBO/X8Ig2z/
-	 HAuUfCyRD9c5PlmZss6rfmmPnMA2SdvLgIiAA+arsGARpKQPsG4ZbVPMpdCt0F3mhI
-	 s4cwkYeX6QeN5na4FEPtHJypPt+N8+IgKFtUAXY9jEqION1WtQWbHaus0xD2pSJNu9
-	 giOww+R4mhHYSnipZyX0SRJEespfMj1be7eeFiNZVFw1kQ7+dwufV0UWMIdcspt32C
-	 QcqupC730klPg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 02/16] device property: Add
- fwnode_graph_get_next_port_endpoint()
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chen-Yu Tsai" <wenst@chromium.org>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260724084328.3943997-3-wenst@chromium.org>
-References: <20260724084328.3943997-1-wenst@chromium.org>
- <20260724084328.3943997-3-wenst@chromium.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 24 Jul 2026 09:03:56 +0000
-Message-Id: <20260724090356.AD51E1F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fFoOGKKO";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CzbrUCas"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66O4lUC21510157
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 09:11:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	O5OlX/Y6fa0OuZR2iBX6/mXLJfOttN3HOhph3Z5qUHg=; b=fFoOGKKO4kuyp0nT
+	fF4He1gizvhJK/K+jNtuOmypiLe6jcOVryJajikOpMWYCWrTS20qU1uMr4+XdwJN
+	tTM0mxWFT/Od2Mrr2t5O8+Q2SdbOmkq1KLhcxc02DyHdofedHmiCoIbGVoFhg/xR
+	l5KYAG0qovNkLgmzyMcM/AtZac0ZULjkaLPLANK6D1fpZM0jLeSV5wiH7vMXdmB6
+	z5dXGDJENHc63BKY/hdm8PiZ1lKJ9fh/srkorkOtsJl6da+w4lUgzG887tC08ZQm
+	si2bm2K2ch2+CbmZj7ViAsAjYEoAlGSfqOxdtFumsP+R95kw2BTpuZKHKPnHy5e4
+	dNOL1Q==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fkusrswpn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 09:11:13 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92ac0a54110so27584985a.2
+        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 02:11:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784884273; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FOdUZ8pZq2YQSz8Qt/cFWHmKolQC97L2LhmJDJdc96da2y+rWkai0w+BwZASqMJQAy
+         5iqpPkvQiP7r8GVW/m1mgJZVrSbiJ/N+qFb2dtJcV3BYFKij1XGHwSDvBQBRN1uYhpwa
+         RrSKaoVVNIsTTn01Kj0fcPUyUu4BoJV80R0m/RGrgSABchF/2T1J9in5Dnh1zMnIV+R8
+         6/Gg1+qn0NSLqFgVckCPpb1zWOARi9vbyHcdNH4mBOX/+g4ftwz2KAlhj9LcOKD6u8V/
+         zSLj91CpjSQt/htkwOl9lbLJkdO6b2wXzIKqyIGPIpuyg8p/kRhmLi536PDtcpt3vLh2
+         w0Gw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=O5OlX/Y6fa0OuZR2iBX6/mXLJfOttN3HOhph3Z5qUHg=;
+        fh=wmJuZfg6Cu8B97J+zGsoSz2LWgB10PNQ3tL6ME14ahQ=;
+        b=OGTNSyVEWEOzgrj5BBj3shpKRaZ4Gcb+4w2jtxlp/V2wNeZpQqAaJFQDSiMxHUFkLn
+         BZZ0FEmRiRnHdi7cOl7Iay+xOH4671OQM33z+uGnKfyinYsFh8VSNKJog3eujQKCh1X3
+         egDIvFjoBy4zUuqLSpy8D2LLxPSrziequfRM+p57gs4IZMjiWVaXI+XIkEXhNdzqIsZK
+         wDKKsYxdMRAcwTrzkN/aHJ6TzddpzFKAB2A0CfGEnWU6Kr/sliJ8zAyErxUCMOeeOz1q
+         gCsmXNKLi59sF0nR9KHIVbAeXOMVslsXwFF4Cv8GZ+zQUDQyhApVOf0OQbCFxsJ6grhK
+         UNBA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784884273; x=1785489073; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=O5OlX/Y6fa0OuZR2iBX6/mXLJfOttN3HOhph3Z5qUHg=;
+        b=CzbrUCas+5tjv40ZdelknaMJ7RkM+1BseC7Ji54i9ySlJ8pLVsi7K1xaNCAVBXf6dt
+         6hSIW7XBjbJAp0alGW86KGmGXV0SXe8MfgJ63PpwWTKiQGUwMHjXoaC+eR9EP0yOXzgP
+         PWWceqZNuirniUPc4+rZENttk+AOxCJec92RGLKcnYv8lzFBpPxNyy3vc9y1Em8+vBhW
+         Kp5n56jYeD0O5tWn1kmP9RuRVQn9NQw9ZOu0NWhWG2LkWHkgBk8qdc+n5UEsAv7jx5gw
+         crksYiYrEboNuK4Fw9xWpJ1kyVK0LF4exIAYEC5/aoO8h4ue/zkmq2lv1ofiMOg5DqZd
+         SABw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784884273; x=1785489073;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=O5OlX/Y6fa0OuZR2iBX6/mXLJfOttN3HOhph3Z5qUHg=;
+        b=Q4/R8Za60LV1fqgMl0MDuSFkfiZpfuEQecKqfdkGqi5O2aRaOSJ5hU97CIUxhyc0t3
+         E1XZHh1za89RN6wmk7mFkP202HXIjU74PorfWPHku85HTkLK7Y517JZaGjkGdH2d1CEn
+         vsPfPUiqgxBU23bow08rcJuIAbI4TjrqUKGufbnT8Jcct5h7VQC2vgB6r9bFFeB5sp+8
+         nNsFvD8XWg8bFMyqMvYOxOqcsKfeQ0i7s+NNvMBWa7cPWe25FEtjz20R3iqLPLs3Kdqz
+         XqDX6g/oRp6VcEKCNQzatmAM/7fpt4M4iESZz6XmlhO2KzXBNJ6FJ78eOtZn1u6M0TD1
+         2Biw==
+X-Forwarded-Encrypted: i=1; AHgh+RqhMBauUa/3Or/z7CSiVMFyL9Nwd7QOSViPI6SRPrBuXOpFTvulYQv/uDBN2BZqRbfdPfn9HIa2h5yb@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyuh1SrQpuIdazl5zOSg03ymwzNiOL1Guq0GYejwIA4uhOKj5e0
+	uI84Iq78Bet4cTq0hG2plBcFdXLscKQS50MAhhh5Ri/nyF+ceK5Z9H4z6iFHbw12toa5A8A1FQ2
+	m6p+3I2i8yyVMsxQa/b4t42F59L5QhIKEFyCuGzapCVL7l0ayf5+Tk7dmAZ9bUoWbzQ9r4qTsL1
+	dRMrKB4K3SsluS3HCOYx7bRDTQS8rjnGzTyMu5fwY=
+X-Gm-Gg: AR+sD1083CwXx46IlBegtiLkc0BqoWpxeAPfynca0wpg2UE3l+yyJPsvN0QioJLv24q
+	mxbnnKaybmiq3jcZDHymJm4ce4+a81Wgs9dWyhhRpI59gBvmOhhHk4j2twjes25zrIsF6lNxzh0
+	pCJpOJa08yjrmRNu78slfW4A6f57XXVCxBje4pTStmwlSwL69YJHIQnyZb3CGoSTuIxx8Ewxdnp
+	KNVagkctIfmAYJ03i2O4+R0CdtWsViCArwIIh/mXgkwyrAppFyHHpXZZ2ILrFnXqCBl9odda9c=
+X-Received: by 2002:a05:620a:403:b0:930:af44:8b21 with SMTP id af79cd13be357-93103a68f31mr501109585a.79.1784884272911;
+        Fri, 24 Jul 2026 02:11:12 -0700 (PDT)
+X-Received: by 2002:a05:620a:403:b0:930:af44:8b21 with SMTP id
+ af79cd13be357-93103a68f31mr501106385a.79.1784884272380; Fri, 24 Jul 2026
+ 02:11:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260703-block-as-nvmem-v8-0-98ae32bfc49a@oss.qualcomm.com>
+ <20260703-block-as-nvmem-v8-5-98ae32bfc49a@oss.qualcomm.com> <amLwz6WuHYUwKKJo@infradead.org>
+In-Reply-To: <amLwz6WuHYUwKKJo@infradead.org>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Fri, 24 Jul 2026 11:10:58 +0200
+X-Gm-Features: AUfX_mzY-jAiHKnG4b5Pch2pLupvUwr-6r7tvUG9t9AtuCn-3Z_s2fU6zpincMM
+Message-ID: <CAFEp6-1_iariDyqWj0KezHAtULSO+piPHX0F=Z46Rx4KDNLmXw@mail.gmail.com>
+Subject: Re: [PATCH v8 5/9] block: implement NVMEM provider
+To: Christoph Hellwig <hch@infradead.org>
+Cc: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+        Johannes Berg <johannes@sipsolutions.net>,
+        Jeff Johnson <jjohnson@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Marcel Holtmann <marcel@holtmann.org>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
+        Rocky Liao <quic_rjliao@quicinc.com>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+        Srinivas Kandagatla <srini@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
+        Heiner Kallweit <hkallweit1@gmail.com>,
+        Russell King <linux@armlinux.org.uk>,
+        Saravana Kannan <saravanak@kernel.org>,
+        Christian Marangi <ansuelsmth@gmail.com>, linux-mmc@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-block@vger.kernel.org,
+        linux-wireless@vger.kernel.org, ath10k@lists.infradead.org,
+        linux-bluetooth@vger.kernel.org, netdev@vger.kernel.org,
+        daniel@makrotopia.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI0MDA4MyBTYWx0ZWRfXybHKi6k1K0UK
+ uq9JUxNs5Bi+6cTJEkFuThvhgmfeqtK5/fYeU6mQEPxGcWK1TXPUpcsJyvXFquQqNsJsAm7nRkI
+ UO4SxlcyqZeCdOSou+hFG/EgiyYQloU=
+X-Proofpoint-ORIG-GUID: g9baIdlaOdFuXSdoRL5HwLCggtUHZ2rR
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI0MDA4MyBTYWx0ZWRfX+HNTJ4kjUfyD
+ m4Q9s4r35XsAEa2EOkXpVBY0f1A0DflNddK6o3e35mCDTEAkPabrVCpMA2zAfxAL/gSUreWkluw
+ R/6njQ4K+GY6oT+tLgd2g039ypv+3NOx+mv6k4CsUXldqxKmPl7qG0tMrb6r30Y7i8nDH9he2Vg
+ 9qunyoS35WD6b31ZwgdMXXMkw2thZtgi5jEdGKL78ruEcJNN7N7kg18emtgwjGAcAFj3Vk2piqk
+ radRwL7Eg9b/5/JEobBS/7tjVVavL/boV+EleToAcDixmURf20r1W0OQqvchDLMQeu73TBzcnGh
+ CzmGRGZ9lJG7sj402/twOngxdXkamBhWNNhnjRmF+NhKsGb4TQaG87FAgRj6hKV0acmxMl4zj0n
+ XWGK9Q+LMUpaablTmluUYS22ZdsFqCcmFuXN0+IslwBSCSAraxg20ppIgzDz5VpaS4DocuTi1xf
+ 4e+Fz6ZNHefs+dEfklw==
+X-Authority-Analysis: v=2.4 cv=PtejqQM3 c=1 sm=1 tr=0 ts=6a632c31 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=DJpcGTmdVt4CTyJn9g5Z:22 a=JfrnYn6hAAAA:8 a=u64WRsu7ulRtC4VldfMA:9
+ a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22 a=1CNFftbPRP8L7MoqJWF3:22
+X-Proofpoint-GUID: g9baIdlaOdFuXSdoRL5HwLCggtUHZ2rR
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-24_01,2026-07-22_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1015 suspectscore=0 malwarescore=0 phishscore=0
+ lowpriorityscore=0 adultscore=0 priorityscore=1501 spamscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607240083
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+Hi Christoph,
 
-New issues:
-- [High] The new helper `fwnode_graph_get_next_port_endpoint` ignores the A=
-CPI-specific compatibility logic for identifying endpoint nodes by hardcodi=
-ng an OF-specific naming convention.
+On Fri, Jul 24, 2026 at 6:57=E2=80=AFAM Christoph Hellwig <hch@infradead.or=
+g> wrote:
+>
+> On Fri, Jul 03, 2026 at 03:45:18PM +0200, Loic Poulain wrote:
+> > +       Allow block devices (or partitions) to act as NVMEM providers,
+>
+> Based on the code below I don't think you actually support partitions.
 
-Pre-existing issues:
-- [Critical] `fwnode_get_next_child_node` improperly handles transitioning =
-from the primary fwnode to the secondary fwnode, causing double frees, refe=
-rence leaks, and an infinite loop. This problem wasn't introduced by this p=
-atch, but it is a critical pre-existing issue exposed by new loops.
-- [High] Calling `mutex_lock(&fwnode_link_lock)` while holding `raw_spin_lo=
-ck_irqsave(&devtree_lock)` causes a sleeping in atomic context BUG when the=
- last reference to a dynamic OF node is dropped during iteration. This prob=
-lem wasn't introduced by this patch, but it is a severe pre-existing lockin=
-g violation.
---
+Right, I was planning to add partition support in a follow-up series.
+But since this is really supposed to be a block-agnostic feature,
+whether it's a disk or a partition, I'll include partition in v8.
 
---- Patch [2]: [PATCH v7 02/16] device property: Add fwnode_graph_get_next_=
-port_endpoint() ---
-commit 0be52c3289b5692b190b7583fe9b05fd00691fca
-Author: Chen-Yu Tsai <wenst@chromium.org>
+>
+> > +static int blk_nvmem_reg_read(void *priv, unsigned int from, void *val=
+, size_t bytes)
+>
+> Overly long line.
+>
+> > +{
+> > +     dev_t devt =3D (dev_t)(uintptr_t)priv;
+> > +     size_t bytes_left =3D bytes;
+> > +     loff_t pos =3D from;
+> > +     int ret =3D 0;
+> > +
+> > +     struct file *bdev_file __free(fput) =3D
+> > +             bdev_file_open_by_dev(devt, BLK_OPEN_READ, NULL, NULL);
+>
+> Please try to avoid all that magic autfree stuff that makes the code
+> impossible to read about.
 
-device property: Add fwnode_graph_get_next_port_endpoint()
+Ack, I've received mixed feedback on this. However, given that there
+aren't any particularly complex or numerous exit paths, I guess the
+explicit release will make the code clearer.
 
-Due to design constraints of the power sequencing API, the consumer must fi=
-rst
-be sure that the other side is actually a provider, or it will continually =
-get
--EPROBE_DEFER when requesting the power sequencing descriptor. This commit
-introduces a helper to get the endpoint under a known port firmware node.
+> > +     if (IS_ERR(bdev_file))
+> > +             return PTR_ERR(bdev_file);
+> > +
+> > +     while (bytes_left) {
+>
+> .. and just use __kernel_read instead of badly reimplementing it.
 
-> diff --git a/drivers/base/property.c b/drivers/base/property.c
-> index 0bd45f8b01c14..62c6221d65d05 100644
-> --- a/drivers/base/property.c
-> +++ b/drivers/base/property.c
+Ack.
 
-[ ... ]
+>
+> > +     config.name =3D dev_name(dev);
+> > +     config.owner =3D THIS_MODULE;
+> > +     config.priv =3D (void *)(uintptr_t)dev->devt;
+>
+> Why is this storing the dev_t and not the block device itself?
 
-> @@ -1099,6 +1099,31 @@ int fwnode_irq_get_byname(const struct fwnode_hand=
-le *fwnode, const char *name)
->  }
->  EXPORT_SYMBOL(fwnode_irq_get_byname);
-> =20
-> +/**
-> + * fwnode_graph_get_next_port_endpoint - Get next endpoint firmware node=
- in port
-> + * @port: Pointer to the target port firmware node
-> + * @prev: Previous endpoint node or %NULL to get the first
-> + *
-> + * The caller is responsible for calling fwnode_handle_put() on the retu=
-rned
-> + * fwnode pointer. Note that this function also puts a reference to @prev
-> + * unconditionally.
-> + *
-> + * Return: an endpoint firmware node pointer or %NULL if no more endpoin=
-ts
-> + * are available.
-> + */
-> +struct fwnode_handle *fwnode_graph_get_next_port_endpoint(const struct f=
-wnode_handle *port,
-> +							  struct fwnode_handle *prev)
-> +{
-> +	do {
-> +		prev =3D fwnode_get_next_child_node(port, prev);
+It was originally intended to avoid races with device removal, but now
+that we're synchronized with the block subsystem, that's no longer
+strictly necessary.
 
-[Severity: Critical]
-This is a pre-existing issue, but does fwnode_get_next_child_node() imprope=
-rly
-handle transitioning from the primary fwnode to the secondary fwnode?
+>
+> > +
+> > +             blk_nvmem_add(disk->part0);
+>
+> Hmm, and you're always doing it for the whole device.  So the intefaces
+> really should be based on a gendisk, not a block_device.
 
-When the primary fwnode iterator exhausts its children, it drops the refere=
-nce
-to the child node and returns NULL.
+I will add it for partitions as well.
 
-Inside fwnode_get_next_child_node(), it then passes this already-freed child
-pointer to the secondary fwnode's iterator:
-
-drivers/base/property.c:fwnode_get_next_child_node() {
-    ...
-    /* Try to find a child in primary fwnode */
-    next =3D fwnode_call_ptr_op(fwnode, get_next_child_node, child);
-    if (next)
-        return next;
-
-    /* When no more children in primary, continue with secondary */
-    return fwnode_call_ptr_op(fwnode->secondary, get_next_child_node, child=
-);
-}
-
-Checking is_software_node(child) inside the secondary iterator accesses the
-freed node's ops, causing a UAF. Since child is not a software node, the
-iterator returns the first software node child. On the subsequent iteration,
-this software node is passed back into the primary OF iterator, which ignor=
-es
-it and restarts from the first OF child, resulting in an infinite loop.
-
-Can this be triggered by any device graph traversal on a parent node posses=
-sing
-both primary and secondary children?
+>
+> Also once you register the whole devices as nvmem provider, we really
+> should keep it from being used a block device, shouldn't we?
 
 
-[Severity: High]
-This is also a pre-existing issue, but is there a risk of a sleeping in ato=
-mic
-context BUG here when dropping the final reference to a dynamic OF node?
+I'm not sure, the whole concept is block backed NVMEM, so we still
+need to add that block as base layer, though we could discuss
+suppressing uevent for it. Preventing block usage would make the
+feature much more intrusive than other NVMEM providers like MTD, where
+the underlying device stays accessible. And we may genuinely still
+want to write the disk (e.g. for factory provisioning), updating the
+very data the cells point to, etc. There's also the layering aspect,
+if a disk (e.g. mmcblk0) has logical partitions on top (mmcblk0pX), we
+still register/expose the whole disk mmcblk0 as a block device
+regardless. So if a disk contains NVMEM cells, I think it should still
+be exposed as a block device as well.
 
-Iterator functions within the OF subsystem (like of_get_next_status_child) =
-drop
-the reference to the prev fwnode using of_node_put() while explicitly holdi=
-ng
-the devtree_lock raw spinlock.
-
-If the node being put is dynamically allocated (e.g., from DT overlays) and=
- this
-is its final reference, of_node_put() synchronously invokes of_node_release=
-().
-
-This release function then calls fwnode_links_purge(), which attempts to
-acquire the fwnode_link_lock mutex:
-
-drivers/base/core.c:fwnode_links_purge_suppliers() {
-    ...
-    guard(mutex)(&fwnode_link_lock);
-    ...
-}
-
-Will this lock nesting hierarchy violation trigger a BUG on both RT and non=
--RT
-kernels when terminating the loop on the final reference of a dynamically
-allocated node?
-
-> +		if (fwnode_name_eq(prev, "endpoint"))
-
-[Severity: High]
-Does this strict naming check ignore the ACPI-specific compatibility logic =
-for
-identifying endpoint nodes?
-
-In the ACPI subsystem, graph nodes are often identified by the presence of =
-an
-endpoint property rather than their exact node name (e.g., as handled by
-is_acpi_graph_node()).
-
-If drivers using this generic fwnode_graph_* API on ACPI platforms don't ha=
-ve
-the literal name "endpoint", will they fail to find valid endpoints and bre=
-ak
-device functionality?
-
-> +			break;
-> +	} while (prev);
-> +
-> +	return prev;
-> +}
-> +EXPORT_SYMBOL_GPL(fwnode_graph_get_next_port_endpoint);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724084328.3943=
-997-1-wenst@chromium.org?part=3D2
+Regards,
+Loic
