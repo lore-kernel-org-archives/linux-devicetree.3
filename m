@@ -1,44 +1,44 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B713137E5FA;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EB6E37B011;
 	Fri, 24 Jul 2026 18:03:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784916217; cv=none; b=pXniqGJ+5VaoPbfTRpY9NVwS1j7s/aNYExzfEN9uOMhpg6KNsBwWbp3A/qnLtUls1H87uUFgiUnx2nP6rZdyAN9jgVo1P1d7MbqYKJPcLyK3IwMTOm5JE+xyLrjg7GvsUKJ3gN7md4uODzZHta3PllMT4g+I4o0qdyIQVKWza78=
+	t=1784916217; cv=none; b=FOXITt/JWeyO7V79cFyEEo6mfWQeYEAH9FxuzdivhpfnW8FCQHiDOwIM+BjZq/q8jtdMeZlkMoRvXRAfGM9klYdOCrdliNuvx5hJdVXO0OqCjaLnaCJRvSPdzH3QQIy8zDIkW2yC+4dC7hnt5sfzClA0QAFC54zmQqck6gOZgFo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784916217; c=relaxed/simple;
-	bh=ZVoO+TO8uWEwz9LdVqxFuCH+Ajmt6oSDwVT54yj0maE=;
+	bh=+BP3yAfmv0iJDhc03rsvm9pbQVWfq3cvB1j4UIg782o=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=PknRxvEPMTTOwqCzsrkgphzkKyESTjlhsmWSpI+gokSYZNfLdXwttwZUC/oIO/OcQFTGabPZPG+lfQ3kYkby+YmSjUP+eqMyhEJ/MrWlfdRYqh7tcxCYj+gnwYhJeUhHJ6ZR4ZXHMBLFp9wE1oNcrM1dKJV3WjlpJdAK9vs2cI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=VLNzWbB/; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=tkMOAsIAVSHvc0htzb0AdwDV3SPms6lC2cqnM7AUf7m0J0o/it7C6gjgz2C4blVS7n8yX+ZxzHE9QXFVKJIQ3vTsZkqhNSdO7BO8WecXaDUdsYWCT5vHjxUZEB+cPG8tHQV5OZgT0+Oj7QT7AayvaNSbVBFYiQKRyV1JQq09VW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=XG3slHku; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="VLNzWbB/"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="XG3slHku"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1784916209;
-	bh=ZVoO+TO8uWEwz9LdVqxFuCH+Ajmt6oSDwVT54yj0maE=;
+	bh=+BP3yAfmv0iJDhc03rsvm9pbQVWfq3cvB1j4UIg782o=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=VLNzWbB/g4HqO8DnfBTdyUeydm4rmk6WHBa6jv5kwj9Whxa8jhC1yiaKz/dCcGyyW
-	 txRCwCxkTuy872zTMITc2DCBrEoiOY+hSkTIBv7+80mrCxDX9IZMsvFSLRuNICwWoO
-	 zjTf1Imh+hKXGYtBcfkWgU4Q8FBMYEUPPCfZk9/IhHa3IBW+BakuP7H8U5zq20s+sP
-	 kHFiWXOSCndaMmm18tf00vit9dyoz3qvHY+hX43Z42eHg4zIdUE9+BDzQpc6MV9dbU
-	 K597Zem3wSKtFsPPgTiy6RIx3eNTzo+GKuXYo4oDd3wO4LOcbegGWcioBmAG3Qt4Ao
-	 2+SHHEBVPBFLA==
+	b=XG3slHkuYYUv9w+gzQWXlmuz4zl7FC/xS8R8E0/XRCYI4L0vOC4Mio/9cgzxtkoeP
+	 5PmJ/M9XE+teJCqD0F5p6+VzPJADuAx8FnsMGAKIsfckZbyFykkDQweIIkiZp/UgYi
+	 0X625OQzZVOPapBE6rJAV1MzeH07F2FWmWSafIk9RYoPR393feTjH8ZwJGPXMvCa/6
+	 n6LvbRZY2IgrP8dwqu0wAeEDbSglpsgWzKFLIi+BujXzKZqjvtmR6RV4CIYNFHXnNc
+	 n+J8iMvx/9y5+9dPVMDbtbMomqxFrrHRzs9cuJP6aZRrhXXAG/aoIcVMjZcih06KYy
+	 WoTm+plwsx2kA==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 8A82E17E0269;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 8247A17E0254;
 	Fri, 24 Jul 2026 20:03:29 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id E5DEC480038; Fri, 24 Jul 2026 20:03:28 +0200 (CEST)
+	id E2388480031; Fri, 24 Jul 2026 20:03:28 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Fri, 24 Jul 2026 20:03:29 +0200
-Subject: [PATCH v6 07/16] drm/bridge: synopsys: dw-dp: Add follow-up bridge
- support
+Date: Fri, 24 Jul 2026 20:03:27 +0200
+Subject: [PATCH v6 05/16] drm/bridge: synopsys: dw-dp: Free output_fmts
+ when none are valid
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,7 +47,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260724-synopsys-dw-dp-improvements-v6-7-041d99a19c4e@collabora.com>
+Message-Id: <20260724-synopsys-dw-dp-improvements-v6-5-041d99a19c4e@collabora.com>
 References: <20260724-synopsys-dw-dp-improvements-v6-0-041d99a19c4e@collabora.com>
 In-Reply-To: <20260724-synopsys-dw-dp-improvements-v6-0-041d99a19c4e@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -70,116 +70,55 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
  devicetree@vger.kernel.org, kernel@collabora.com, 
  linux-arm-kernel@lists.infradead.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Sashiko <sashiko-bot@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2801;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1057;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=ZVoO+TO8uWEwz9LdVqxFuCH+Ajmt6oSDwVT54yj0maE=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpjqPBt+d+PL6B9eF1+QKpltTd/ZEWpxZF0o
- RUjyOZQHg03CYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqY6jwAAoJENju1/PI
- O/qa4bQP/iD1nY7GVxlDczJhQ4MM9ry4m0ubrm6201/KiAAJVW6neTdQUCpq/oK5vxkN88gJFDU
- auulRqBTi7qyXiZbEHYAUlKev1B+nmSemXwyU1o7SYXOMJojyncdmhQvrwRmTyxtjar/Rc8DTl0
- ZHpPpU0jRlLmEf11ciHB8KLBm4kk0qo2hL6V2ps/GyYtAbXIQMBsqtO91dNOJB26koqZIYvdNuR
- tWbblM0Uw/iBpAfcsmlLmPeMGbCZevsZ4UnLhCwBnW4XRSsC4o1RmRP4g73Ld2mTVIRIMrubT3G
- UGFxTR7rMXUK5SwYuEhyxGL4g+D4U5veyUKKlTT+ok7ah88EiLcuXF5TTITKpFaAAIRpxcOVfSW
- PlpWo7qC+Uou8PwbCxXeebiIhTjFL44TGo4W6stbmkJL0aQwmZq1AA78pY/MmqtKuJlgKKVP31K
- N7gZlbIa3xnfE++7oW6uBBN325tXYs/n4qsqoz7QDTRK2GvQVKKEvYQnkhCwEHr7dUs+d+duRJq
- 0LqFsfjUrs+LOho21+34Mnvu6z/SvtsgmausVxVBahYOmZFQRYrqgVIfLCCIq8K+Q+rq/D3QsJA
- YqvJTSKPoEG3TH9xY3ub/mQMOT1kZGvk6CfxRADLdq+KQoc+f5Ijn5MBka7oiN6lL5fjIWbSbsH
- nqLiKCc7kje7vgsFCUkksog==
+ bh=+BP3yAfmv0iJDhc03rsvm9pbQVWfq3cvB1j4UIg782o=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpjqPBjdywFTzDTaVXGdilCObTvMKWIYLtxk
+ 2K7suQeIqIUyIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqY6jwAAoJENju1/PI
+ O/qa4S8P/07bfGaDPegp+ACmrRP/MJhMDqIesDaqld6fnMYkczHA21y64CKkseZr2L3n7mOmcWT
+ X4+zsKYgXdYx/Z6DQkwhPee/7j3rCYu1nImgE51FSF7/JMxsSPQzl1dX+48xxm3cyKIGlp24TvA
+ ypdlWIJ7ZjWN7hUIc4MrJ4NCLBGHlzagTsh7nbIdzA5U475BXekto0Gyq/jE+58jxHXNraR71EO
+ ZcALPNOG7GyjoHH1z3kKhsM/Vk4wnSE5QFqG3QTcVESwMgcYTWQ9igzZuVFAe2sIyrhIuDKbQAq
+ M9Q5IZe7c5myotflUKflVeXcdJsCSv67Z/7gM9mdDhT3LiK7oaiFW8TBZzfLrE+xiv2fuplofjs
+ NVMNRL6GMMA+44Fb5jP+HYj5KFZsP4U1DR9oeEVqX/fW4pSZrTHZejUe9kHRZh/jGpS8TaQzOLl
+ fjQfczxMnUE6u8c1LfIyBVGWWTY3LtQeAs+nGJjbgwon33E+POS6uTAa5sqgZKWAb9rC6gmIIth
+ /NMUI9/eF1gHDe9q29RPAw7oCHDAAwV6K//21CkaaZI9VPNODd7/DQfZjUTqE5FL/mKTzvBywhI
+ /pQqPK+b6D+TzWPBacth74WOHra9xilW8AdXjdpiGk62Wl0oXtTQWUAoRtRPlVWUnOkP0WWvpSW
+ R+kORJPKhCqWdIIluoO4sCw==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Add support to use USB-C connectors with the DP altmode helper code on
-devicetree based platforms. To get this working there must be a DRM
-bridge chain from the DisplayPort controller to the USB-C connector.
-E.g. on Rockchip RK3576:
+If dw_dp_bandwidth_ok() returns false for all formats, *num_output_fmts
+might end up becoming 0. In this case functions calling it assume that
+nothing needs to be free'd, so free output_fmts within the function to
+avoid leaking memory.
 
-root@rk3576 # cat /sys/kernel/debug/dri/0/encoder-0/bridges
-bridge[0]: dw_dp_bridge_funcs
-        refcount: 7
-        type: [10] DP
-        OF: /soc/dp@27e40000:rockchip,rk3576-dp
-        ops: [0x47] detect edid hpd
-bridge[1]: drm_aux_bridge_funcs
-        refcount: 4
-        type: [0] Unknown
-        OF: /soc/phy@2b010000:rockchip,rk3576-usbdp-phy
-        ops: [0x0]
-bridge[2]: drm_aux_hpd_bridge_funcs
-        refcount: 5
-        type: [10] DP
-        OF: /soc/i2c@2ac50000/typec-portc@22/connector:usb-c-connector
-        ops: [0x4] hpd
-
-It's fine to fatally error out when there is no follow-up bridge
-as the Rockchip Designware Displayport controller is the only
-user of the bridge helper and has the port marked as required
-in its binding.
-
+Fixes: 86eecc3a9c2e ("drm/bridge: synopsys: Add DW DPTX Controller support library")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 22 +++++++++++++++++++++-
- 1 file changed, 21 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index 259efc25b56e..591b75c4cc36 100644
+index 2f0ee7ab7feb..7f6506f8d4bd 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -329,6 +329,8 @@ struct dw_dp {
- 	struct dw_dp_plat_data plat_data;
- 	u8 pixel_mode;
- 
-+	struct drm_bridge *next_bridge;
-+
- 	DECLARE_BITMAP(sdp_reg_bank, SDP_REG_BANK_SIZE);
- };
- 
-@@ -2021,18 +2023,35 @@ int dw_dp_bind(struct dw_dp *dp, struct drm_encoder *encoder)
- 		goto unregister_aux;
+@@ -1797,6 +1797,11 @@ static u32 *dw_dp_bridge_atomic_get_output_bus_fmts(struct drm_bridge *bridge,
+ 		output_fmts[j++] = fmt->bus_format;
  	}
  
-+	dp->next_bridge = of_drm_get_bridge_by_endpoint(dev->of_node, 1, 0);
-+	if (IS_ERR(dp->next_bridge)) {
-+		ret = PTR_ERR(dp->next_bridge);
-+		dev_err_probe(dev, ret, "failed to get follow-up bridge.\n");
-+		goto unregister_aux;
++	if (j == 0) {
++		kfree(output_fmts);
++		output_fmts = NULL;
 +	}
 +
-+	ret = drm_bridge_attach(encoder, dp->next_bridge, bridge,
-+				DRM_BRIDGE_ATTACH_NO_CONNECTOR);
-+	if (ret) {
-+		dev_err_probe(dev, ret, "Failed to attach next bridge\n");
-+		goto put_next_bridge;
-+	}
-+
- 	dw_dp_init_hw(dp);
+ 	*num_output_fmts = j;
  
- 	ret = phy_init(dp->phy);
- 	if (ret) {
- 		dev_err_probe(dev, ret, "phy init failed\n");
--		goto unregister_aux;
-+		goto put_next_bridge;
- 	}
- 
- 	enable_irq(dp->irq);
- 
- 	return 0;
- 
-+put_next_bridge:
-+	drm_bridge_put(dp->next_bridge);
-+
- unregister_aux:
- 	drm_dp_aux_unregister(&dp->aux);
- 
-@@ -2048,6 +2067,7 @@ void dw_dp_unbind(struct dw_dp *dp)
- 	disable_irq(dp->irq);
- 	cancel_work_sync(&dp->hpd_work);
- 	phy_exit(dp->phy);
-+	drm_bridge_put(dp->next_bridge);
- 	drm_dp_aux_unregister(&dp->aux);
- 	drm_bridge_remove(&dp->bridge);
- }
+ 	return output_fmts;
 
 -- 
 2.53.0
