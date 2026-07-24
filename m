@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55738390CB2;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 873FC3A6418;
 	Fri, 24 Jul 2026 07:05:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784876709; cv=none; b=S6wKSdBt4QI7DXL7uLRkgX4RLQx+Xrf4pQZxjdEVR+26kNe7mc4datGxmpERQuCxqi47++8E/xhMQ27bC7JigQkXsgHJb1UBZ02Ljc+nsOY6P5aPw89csEwoXEiXkAknlMqHOb0sf97g4NnYS847EaASAVIsGzakk7NP1KjPVOo=
+	t=1784876709; cv=none; b=taUP2Ixlmj96/nCgLxf7RpXIxiS64i6W5WKW6fWTDMgU83KR6otflFgyPVWH8KDC2jwdDv3uw8uyyQ0i7lbm0DakZk5y3g0uM2bFvyOGlviqjTaJ7jTCbWUg1np8vGTrf2Wv3l8wN3zEcVxsRIsiw37bQluXjif9JyikJB4ZYrU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784876709; c=relaxed/simple;
-	bh=HbDm3MaRy5luRr54fSjkCIxl0iG/cmZ6ibtyRahFCyc=;
+	bh=Dvkr+uEhnVeHQbkd2qjDl5C7zix0sF4Yy1/nuWyIBSk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=XvmDc2VP0Zo+y1UNcqMg7lZTZ83+pOHAKTzCAGRy+HsilfUXqlxnIQP/nmvVnasTetHaAh2L5gLEqevNp5gFCCO3xz5fdC5B5Pe2A4GJEfzY/xy6SqcCNhUJ6g0DWWOsywew9NYHzsp50zxGEmQctJIlGQqby+bO7a2AecPs2go=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CzWy/GPe; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=uO+n6j8dpEvKUVXA1fFrU8cw97g9o/45qwQOv6p5G29EesPuHj2UZpOqigfTkQyhL3j/9XLP1+qDnKA7071/3AklbtqIyZ7AJNaQLcc32/wAIaePSptu5vG7C3qgeOGyZ45xy8eX2KM5Tlx7JrKQ7SgrP44jmQJPE+iPMvbZVgo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qupc5YkQ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CzWy/GPe"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 0A9A5C2BCFD;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qupc5YkQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 313F3C2BCFC;
 	Fri, 24 Jul 2026 07:05:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1784876709;
-	bh=HbDm3MaRy5luRr54fSjkCIxl0iG/cmZ6ibtyRahFCyc=;
+	bh=Dvkr+uEhnVeHQbkd2qjDl5C7zix0sF4Yy1/nuWyIBSk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=CzWy/GPeiA2I6PTSycTU4YX0kclMSO3lX32kRXg1YIyoi1siXFvORsqlbAbpz+Nu9
-	 mf7FmOOiMFbCz0WOKCBoGq0e65JzCE76SnTZw2ijojmXWnMKm8BjGFU9oGLxBMeffy
-	 kmEzw0iP99b1yreJboXH23vQQ2LVkI3lcFaEpcaQwe62mTTQ8Fyw1rulaNuNSubUwH
-	 I5Ipczojn7yX2BEXtnxVOhsNCqptu9DNH3RTiww/wWrRkdeJ5iK3A4hMEuVUtYeziq
-	 f4P5TJAsRBnokTdjZu0OAUgjFHtOP3P+76hNtGt5ddoCa1cIl9a+B6L4RyuMWSfUsU
-	 lt/+g97H6V5dQ==
+	b=Qupc5YkQL+yRX5jYJxZTrEQNnxeBsXElXcAKC6L6etBdlxxp8h2b9hTx5pbWxIS8w
+	 q6Wrg1A234rO7JQo4NvAeTJZdnU0EJj5Lpjq1aFgTUqWuGh23YLIhbP9O/VsqZF6Sj
+	 ct66VaLhVvZDqBMYzIU0J1PmQ6/f9a/0bCbTzuQQ03ol4qMfVpaEJa8yAJRGv0g6y/
+	 NjnwsTFmRpJnMlDq8ZY7gkQY9PTtx80WC0PE0hiJGwA0FUabR7GkUS/9TVmQX9jId5
+	 XLNFHX6JhF7IDsCUvV1QQTV5lYoH6OINCnDYqiINOFZDUzM9pMdWi4pQjy+Q+eYtf/
+	 U8XCspOqNug0w==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E1B7EC531F9;
-	Fri, 24 Jul 2026 07:05:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C5A3C53209;
+	Fri, 24 Jul 2026 07:05:09 +0000 (UTC)
 From: Zhentao Guo via B4 Relay <devnull+zhentao.guo.amlogic.com@kernel.org>
-Date: Fri, 24 Jul 2026 15:04:53 +0800
-Subject: [PATCH v6 3/6] media: dt-bindings: Add Amlogic V4L2 video decoder
+Date: Fri, 24 Jul 2026 15:04:55 +0800
+Subject: [PATCH v6 5/6] arm64: dts: amlogic: Add video decoder driver
+ support for S4 SOCs
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260724-b4-s4-vdec-upstream-v6-3-6072a7ee7428@amlogic.com>
+Message-Id: <20260724-b4-s4-vdec-upstream-v6-5-6072a7ee7428@amlogic.com>
 References: <20260724-b4-s4-vdec-upstream-v6-0-6072a7ee7428@amlogic.com>
 In-Reply-To: <20260724-b4-s4-vdec-upstream-v6-0-6072a7ee7428@amlogic.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -53,11 +54,11 @@ Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
  linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
  devicetree@vger.kernel.org, Zhentao Guo <zhentao.guo@amlogic.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784876706; l=3279;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784876706; l=1761;
  i=zhentao.guo@amlogic.com; s=20251024; h=from:subject:message-id;
- bh=Z6EOYrybE4FwQa2JPELwUlSBBqVih6opcvzLnX0kafg=;
- b=Bcd0E3m01QGxq2H0qaAOGQsZaKGF3fwL+gGechdY9KwVXYHGsS8w1J5nRmRIW7jgP4hCora7e
- VYUzWrK+t85CZTZqF6uAjOMFA5Me1w+vpp3PA7sojWBlXxGK6rPvilH
+ bh=heUARX7B2nDJwzsPVfHcLo1flwPNThmBb50f2yWVTd0=;
+ b=UewVk8O/ZOSo/t1J3MgXi2igEsiSygKLsJsMRYAIcVO8FJFBxb2xvwv5D+cSCkNCSuTDJAGnn
+ xoUHo5mTjPtCtHbtscNi2djvc6gTrFkA5Fi0geI7M0lJJljRDY+Vnxw
 X-Developer-Key: i=zhentao.guo@amlogic.com; a=ed25519;
  pk=5yfDKrjreXwcAoEUsdtWafy6YN500upXp/CgtnXjLVU=
 X-Endpoint-Received: by B4 Relay for zhentao.guo@amlogic.com/20251024 with
@@ -67,123 +68,65 @@ Reply-To: zhentao.guo@amlogic.com
 
 From: Zhentao Guo <zhentao.guo@amlogic.com>
 
-Describe the initial support for the V4L2 stateless video decoder
-driver used with the Amlogic S4 (S805X2) platform.
+Add vdec node to enable Amlogic V4L2 stateless video decoder
+support.
 
 Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
 ---
- .../devicetree/bindings/media/amlogic,s4-vdec.yaml | 103 +++++++++++++++++++++
- 1 file changed, 103 insertions(+)
+ arch/arm64/boot/dts/amlogic/meson-s4.dtsi | 34 +++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
-new file mode 100644
-index 000000000000..e3c2ab4000aa
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
-@@ -0,0 +1,103 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+# Copyright (C) 2025 Amlogic, Inc. All rights reserved
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/amlogic,s4-vdec.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
+index 2a6fbd530836..04fa52b357a2 100644
+--- a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
++++ b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
+@@ -96,6 +96,11 @@ saradc: adc@fe026000 {
+ 		status = "disabled";
+ 	};
+ 
++	optee {
++		compatible = "linaro,optee-tz";
++		method = "smc";
++	};
 +
-+title: Amlogic Video Decode Accelerator
+ 	soc {
+ 		compatible = "simple-bus";
+ 		#address-cells = <2>;
+@@ -907,5 +912,34 @@ emmc: mmc@fe08c000 {
+ 			assigned-clocks = <&clkc_periphs CLKID_SD_EMMC_C>;
+ 			assigned-clock-rates = <24000000>;
+ 		};
 +
-+maintainers:
-+  - Zhentao Guo <zhentao.guo@amlogic.com>
++		canvas: video-lut@fe036048 {
++			compatible = "amlogic,canvas";
++			reg = <0x0 0xfe036048 0x0 0x14>;
++		};
 +
-+description:
-+  The Video Decoder Accelerator present on Amlogic SOCs.
-+  It supports stateless h264 decoding.
-+
-+properties:
-+  compatible:
-+    const: amlogic,s4-vdec
-+
-+  reg:
-+    maxItems: 2
-+
-+  reg-names:
-+    items:
-+      - const: dos
-+      - const: dmc
-+
-+  interrupts:
-+    maxItems: 3
-+
-+  clocks:
-+    maxItems: 3
-+
-+  clock-names:
-+    items:
-+      - const: dos
-+      - const: vdec
-+      - const: hevcf
-+
-+  power-domains:
-+    maxItems: 2
-+
-+  power-domain-names:
-+    items:
-+      - const: vdec
-+      - const: hvdec
-+
-+  resets:
-+    maxItems: 1
-+
-+  amlogic,canvas:
-+    description: should point to a canvas provider node
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+
-+  secure-monitor:
-+    description: phandle to the secure-monitor node
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+
-+required:
-+  - compatible
-+  - reg
-+  - reg-names
-+  - interrupts
-+  - clocks
-+  - clock-names
-+  - power-domains
-+  - power-domain-names
-+  - amlogic,canvas
-+  - secure-monitor
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/amlogic,s4-pll-clkc.h>
-+    #include <dt-bindings/clock/amlogic,s4-peripherals-clkc.h>
-+    #include <dt-bindings/power/meson-s4-power.h>
-+    #include <dt-bindings/reset/amlogic,meson-s4-reset.h>
-+    video-codec@fe320000 {
-+      compatible = "amlogic,s4-vdec";
-+      reg = <0xfe320000 0x10000>,
-+            <0xfe036000 0x20>;
-+      amlogic,canvas = <&canvas>;
-+      reg-names = "dos",
-+                  "dmc";
-+      interrupts = <GIC_SPI 91 IRQ_TYPE_EDGE_RISING>,
-+                   <GIC_SPI 92 IRQ_TYPE_EDGE_RISING>,
-+                   <GIC_SPI 93 IRQ_TYPE_EDGE_RISING>;
-+      clocks = <&clkc_periphs CLKID_DOS>,
-+               <&clkc_periphs CLKID_VDEC_SEL>,
-+               <&clkc_periphs CLKID_HEVCF_SEL>;
-+      clock-names = "dos",
-+                    "vdec",
-+                    "hevcf";
-+      power-domains = <&pwrc PWRC_S4_DOS_VDEC_ID>,
-+                      <&pwrc PWRC_S4_DOS_HEVC_ID>;
-+      power-domain-names = "vdec",
-+                           "hvdec";
-+      resets = <&reset RESET_DOS>;
-+      secure-monitor = <&sm>;
-+    };
++		video-codec@fe320000 {
++			compatible = "amlogic,s4-vdec";
++			reg = <0x0 0xfe320000 0x0 0x10000>,
++			      <0x0 0xfe036000 0x0 0x20>;
++			amlogic,canvas = <&canvas>;
++			reg-names = "dos",
++				    "dmc";
++			interrupts = <GIC_SPI 91 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 92 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 93 IRQ_TYPE_EDGE_RISING>;
++			clocks = <&clkc_periphs CLKID_DOS>,
++				 <&clkc_periphs CLKID_VDEC_SEL>,
++				 <&clkc_periphs CLKID_HEVCF_SEL>;
++			clock-names = "dos",
++				      "vdec",
++				      "hevcf";
++			power-domains = <&pwrc PWRC_S4_DOS_VDEC_ID>,
++					<&pwrc PWRC_S4_DOS_HEVC_ID>;
++			power-domain-names = "vdec",
++					     "hvdec";
++			resets = <&reset RESET_DOS>;
++			secure-monitor = <&sm>;
++		};
+ 	};
+ };
 
 -- 
 2.42.0
