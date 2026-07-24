@@ -1,125 +1,74 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14F3F3A7D6F;
-	Fri, 24 Jul 2026 07:44:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D45B3AF641
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 07:45:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784879067; cv=none; b=GVzpthZd+FdFh6qUUIy1GgfSRP1cERfn3jVSIakzCjNPwTV7SQ733p056Jr7HOptrexvCiEynf55JuvhgbZlw6pGXtXLGggQ/quzXqgP1nqWeiyDR0SU/6z5lHeRzafL1btxmjvhTOOKJ5XMX3L95MaA6TnAapiWx5hCwEimj+g=
+	t=1784879112; cv=none; b=ChuCU8+7FsC30UXYRfHB9HhJIuHd+vwaKZkkeR+IUU/DtWAKOouXp8yWojPpdUgxwLIPE5CKq/QusNBjb2wnM0bo6RNnhCjQToDrla5pu/K+ShHLb9s+lmT71kB/ois4ni/9zz67Hhiyb2w6x+lIgr9rzuENm/H7kv3Wvx6nZUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784879067; c=relaxed/simple;
-	bh=LDvMaaSmzaSgGhbmd1K4s8X4A9d5quPXu1ojSw/HVgc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CZ7zBloLzT6S3xkEU2+3DhENGwPe9WjAWUjoJxojnCDcJlGbzljqvXAecMtaAilALHgKBi5v1PJEiQxVlG8j9QDiUEoG8mgHTAciHyaOkz9DyV+GaouTxfEsaskfkPDXib2S/S9kp2Jf4+LYLc0ayeIOaCaaMQU/ctFawCs3s10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C18662004F0;
-	Fri, 24 Jul 2026 09:44:15 +0200 (CEST)
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ore@pengutronix.de>)
-	id 1wnAZr-0011ly-2F;
-	Fri, 24 Jul 2026 09:44:15 +0200
-Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
-	(envelope-from <ore@pengutronix.de>)
-	id 1wnAZr-0000000H9x9-2PLD;
-	Fri, 24 Jul 2026 09:44:15 +0200
-Date: Fri, 24 Jul 2026 09:44:15 +0200
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: Jonas Jelonek <jelonek.jonas@gmail.com>
-Cc: Sander Vanheule <sander@svanheule.net>,
-	Kory Maincent <kory.maincent@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Daniel Golle <daniel@makrotopia.org>,
-	=?utf-8?B?QmrDuHJu?= Mork <bjorn@mork.no>,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH net-next v8 1/4] dt-bindings: net: pse-pd: add bindings
- for Realtek PSE MCU
-Message-ID: <amMXz_KbLyiwB0wz@pengutronix.de>
-References: <20260715075530.2491534-1-jelonek.jonas@gmail.com>
- <20260715075530.2491534-2-jelonek.jonas@gmail.com>
- <b3456b41152613ed45bcfde92aff89d0c33fa243.camel@svanheule.net>
- <3f71640b-9f22-4d0b-9c4d-dc64c397d286@gmail.com>
- <amHEgOAWYXYuZwnl@pengutronix.de>
- <beff7c47-ef14-4108-a350-fb07bd56e166@gmail.com>
- <amHq0XuK2y-mcfmD@pengutronix.de>
- <e7f50ff9-b5e3-4247-bef3-c0cc3581a50b@gmail.com>
+	s=arc-20240116; t=1784879112; c=relaxed/simple;
+	bh=JOkH4bJPZ4oxOTdkNXcqPnL97AALaEla0GzprUGCIPA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Mq1cMIcVvr7cOS9yxwIEVJbwOdYZ3qoXM1KPLdL+3CyZnOYZgiLTrrc/S+sDaAt4DVXVsD/w52q1mf8fZzPN9ju48/RUX0+MDZIvnCAKoKnxoq4/asH9x7ivnE4GiCyXCOzHtR3e+EDMX6/DYnyAguWqmHc1OVgOnEg2PeYIYok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M9SqYyMc; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M9SqYyMc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1495D1F00A3A
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 07:45:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784879111;
+	bh=JOkH4bJPZ4oxOTdkNXcqPnL97AALaEla0GzprUGCIPA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=M9SqYyMcNdKDeEiTzusuj7XKglRPdxXehjJeB173s8d0iBxD3PayDZliz5zFOyE8c
+	 caSt3bXwlcYZj8g7tGcp5A9KSiuF2YDSzpOL/fcxb7EG6ztt99VSCP9biqfZQU0BVZ
+	 NdbeYkKfX8I+Cph01vgfrjwFU1KhgmeBWsUjd7Bai1vUwKhgqjiVi/RavCpv6p33lC
+	 I+wcstKtHnfZPwdfUQH3sn0WZrr0zWF0f/t9IiWG1wBWpK70tkMMZVXofcmgS3KlJj
+	 6smJ49mQ8XofhULpciPbaXD/dbduEJVQkrQXI9oXCY4WbVIglLMsDyNir0y8WBnadq
+	 GgmKZgnPD/Daw==
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5aeb2bc82ccso145992e87.2
+        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 00:45:11 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpNrGTpBybpEgPAqD1B+kbC4ZtJqGbxGkNpGacjqLlA2auIXVLH5vQ7XZE3z8hK+zpaY5Iz10lhElqL@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxt1XvSbRU5aOPxeE+PK9Mo+svF4h5KcgwHPxCtRP2NojzE2QRc
+	MuTuew4xGk6MTfcWx0IsQMSMjWjxqSyyGxiO1CnZlxe8nCL8p+WRoGEBPihwq/Ri/Gh9kHb93CC
+	w8IgTfnU0nUjaCj+c8iMM6PGrtOL9Kj0=
+X-Received: by 2002:ac2:568f:0:b0:5b0:1c19:2cf8 with SMTP id
+ 2adb3069b0e04-5b2b2f5b3bdmr1237296e87.11.1784879109866; Fri, 24 Jul 2026
+ 00:45:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <e7f50ff9-b5e3-4247-bef3-c0cc3581a50b@gmail.com>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
+References: <20260709-ixp4xx-little-endian-v1-0-e9622d0ba9e4@kernel.org>
+ <20260709-ixp4xx-little-endian-v1-1-e9622d0ba9e4@kernel.org>
+ <20260708224834.138FC1F00A3D@smtp.kernel.org> <CAD++jLmUwxEdEw23H0sk6YsBCVDPLtY_SA=SeBRcxf+jTO=4tQ@mail.gmail.com>
+ <68d6b870-593c-47f1-aaff-373a448e518d@app.fastmail.com>
+In-Reply-To: <68d6b870-593c-47f1-aaff-373a448e518d@app.fastmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 24 Jul 2026 09:44:57 +0200
+X-Gmail-Original-Message-ID: <CAD++jLn-4YR7HONhRhSUEikhamy87gY7N00CWNECy-9O-+2GNA@mail.gmail.com>
+X-Gm-Features: AUfX_mzgMeefpXCB53sxClSIpJp5_NO7r4doCUj02ZlVId0gXik_zvqvRjssp48
+Message-ID: <CAD++jLn-4YR7HONhRhSUEikhamy87gY7N00CWNECy-9O-+2GNA@mail.gmail.com>
+Subject: Re: [PATCH 1/3] ARM: decompressor: always set endianess on xscale
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: sashiko-reviews@lists.linux.dev, Conor Dooley <conor+dt@kernel.org>, 
+	devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jul 24, 2026 at 09:18:45AM +0200, Jonas Jelonek wrote:
-> Hi Oleksij,
-> 
-> On 23.07.26 12:20, Oleksij Rempel wrote:
-> > On Thu, Jul 23, 2026 at 11:45:20AM +0200, Jonas Jelonek wrote:
-> >>> Since we already talk about power budgeting - all of this make sense if
-> >>> we have port priorities. For example PD692x0 firmware has default prios
-> >>> bound to port numbers. Is it the same with this firmware?
-> >> Looking at several switches, by default all ports have a priority of 0 assigned.
-> >> Thus, no pre-defined prioritisation, it's up to the user to set this.
-> > Do this switches have PSU covering all port at max load or it is over
-> > provisioning by design. 
-> 
-> In most cases it's overprovisioned by design, the PSU budget is usually lower
-> than what would be needed for all ports at max load. Even one of my switches,
-> having a PoE budget of 400W, has 8 ports with 32W and 16 ports with 60 W,
-> managed by 5 managers. Usually a manager is not overprovisioned but the
-> system PSU is.
-> 
-> > Haw it behave in reality If we attach more
-> > consumer then it is able to handle - all ports go off, or only some of
-> > them?
-> 
-> That's a good question ^^. Unfortunately, I do not have enough PoE-powered
-> devices here to test this scenario, or at least it takes a bit of time to get
-> enough devices.
-> 
-> >
-> > PD692x0 firmware has user configurable prios - but if many ports share
-> > same prios it has internal prios based on port number.
-> >
-> 
-> At least I'm not aware of that but since the firmware on the MCU is a
-> blackbox, in the end this could be the case too. But it's not an obvious
-> feature.
+On Tue, Jul 14, 2026 at 9:12=E2=80=AFPM Arnd Bergmann <arnd@arndb.de> wrote=
+:
 
-It would be nice to have both of this answers, but they are not blocker
-for this patch set.
+> I think the version you posted makes more sense as this is the
+> officially documented sequence from the manual.
+>
+> The potential bug I mentioned is with the instructions that are
+> already there, not the ones you add, so nothing changes there.
 
-> I'd like to slightly adjust the bindings, given the confusion about the naming
-> that came up with Sander.
+I updated the patch in Russell's patch tracker with this version:
+https://www.arm.linux.org.uk/developer/patches/viewpatch.php?id=3D9482/3
 
-Ack.
-
-> Is there anything else that should be changed? Or is everything else in
-> terms of supply, budgeting, etc. fine for follow-ups?
-
-Ack, can be done in follow-ups.
-
--- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+Yours,
+Linus Walleij
