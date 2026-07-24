@@ -1,186 +1,101 @@
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E639377EA1
-	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 16:06:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784909196; cv=pass; b=qOHx5w3RmEl55YC3rB9z3iL37YIDGk4KuwCKn6QrLHUa+xJ2XSbOst1P9tLS8At9CEGc525iXw+0gvkOpeJD6X7gqKLx6ENTRCmWveu0PLtJFDzLuRHKKFFHHZFdDRo48SdL/cgwSQcTN1GHU302r1sXQinSbMAemUFMvG/Lgqk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784909196; c=relaxed/simple;
-	bh=1dBkWVsU5nHQtb3BqWAkQFOoST3tB7IFEaIZgopWRGA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ijHCTrFaQPw43A5eleYkvRU87d38gX5aStimzSGcOKtYmTcrF1Of+Inaj1JIUpICx7ZeCN2GsymiYMKGEgxIgbKPtPwtHDeVwI4QQgCsLDUQTaBuKofJ7BHma10ZhUD0+BvANnwcm4BDT4y611HFoTJ1M20PpORAlCwlpAqgdPU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OO2uouth; arc=pass smtp.client-ip=209.85.128.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 200C63B634C
+	for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 16:07:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784909232; cv=none; b=G0BJtcR/4Ux32h99X6yfP/cnTJDuw8C7Pr5Zwxu4uI2chhzfJ4DL5wSSUe2ai/SWtzhU4OGklb25Pi4iljNBG04SMmMXsmY/cQOgX0m4Qq27tHz582OZaGNj3aSAlQcMXFmliP9EMAi/4iEhaLvm7nhWlWIZSj5/Dt2wmNcky7w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784909232; c=relaxed/simple;
+	bh=i+oWKZOb/p/8kF51VJZLbmBSUaMxGA1MMQ4mIXAG6Es=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=RiFt7H94XoNORNPyUFwF+roWe0wlr4nr6x0Wy+cboqQ5uZV74xiY96+9avvOPkmCXYSU7fdYZE9ubfgMt2leA/bFa9a8iGXGpWjrzNTImsoKX0Fs1CDUqQpCPkElwfjChu1y56aJWBcaOmhcc0noCpm9C7dyM96zPk+Pk7xICys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=jli0MbXZ; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OO2uouth"
-Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-81e6f0b4610so4672577b3.2
-        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 09:06:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784909193; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gHfc1peg+tcL65o713m3XXo0yotwB3SXDdhPQOXHg9CXM1kW2g2BUjFdXF7X8N9bCo
-         SF2NISjZ2CvNMxvOFR38bO35H29SgAbHbcQ/hDzJdSmuN9nlPKjBSj/SIBK2ohABaVMh
-         q4YPj5mM1bEpAgZX2CITdNAjwTUiu+OSjSOY8Ki1rMa5WDQY8UXfu3d8KM/vCcjxlnBM
-         x3TkJ5nkR32nOwYtWvVAn+wcEB2ERNKNisp5PdLNwQITgQ1BEgoCUfyDSP+uEbuvvsI/
-         ebszPF8yWjd38Y157psaqL0wVuvMty0IdnQuIYIXumkSD5hRj+14odU/GuYqpubfxNcI
-         Imgg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Ew5N2TuKUsw5wpMVRlPG3PrZBjIkKWPJShY0hQYMAWU=;
-        fh=DMmHBLGsXz22+TKBIgTSFt3EBCGkVsbJ9S+ItOW5v4A=;
-        b=m00w/VkUEVbUufG54U1+PxX8IekeqsMDiWVp5dzFQ2ubcyjLPqtA0JNuK+4oJJm1NF
-         nMuGSrhJ+NIE6dYPwlHT5bbYJq0cY1G91Z3r8pncwwHgpszVocoe9CQfhW3XVAnImuXB
-         AruBMaSWd7ZWSki+ssvxHlbPjsl8GbVJ4GhWWkB4tyrOHEyh+AkPJiXcSLLfuwJuKHTr
-         UsYEJW4KYNiUZvkkQmLPXZiVpzfKtkCLCimZMSip4B8i2pb2bfdpBwDVrti3EvavFnIC
-         XQaI5512DOOJ6FM1RbiCPsfkX5ZPdMd7cCmfzvfTl6UQw+BQFkBdzZ0v5GQt9o48qz2B
-         pVxg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="jli0MbXZ"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-495590dde14so7576475e9.0
+        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 09:07:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784909193; x=1785513993; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ew5N2TuKUsw5wpMVRlPG3PrZBjIkKWPJShY0hQYMAWU=;
-        b=OO2uouthDhLEjPKAJHic3XFqLdb9Kqi8PIanuTGzfZkZf/PbZXulPzmIz2wVXi6k/x
-         srbjUlq2Gc2vylaHKLx/3Xwu02C5BakXDra9HjdmKaT2OvxQAzUvhNDRGqwh9QzPbVDe
-         kVVSkUtnH3O+faTHFqskIkgqECZhe1/75Pb/cGM5wQu2USv3XsjwPsBcXs8pqM9kpWDh
-         AQtE21RS4pnQA/G8hB/IuSYluvy9PqUQbSQdITKYb+lyW9jwsbTkwhIPzEd19Z+9m5bp
-         zlWDgszp/jcPFZd4so/20xEecE5/I2lpEsJ6qm0UqX8mNd5YoM50xxT+kTtQAt/FAp2I
-         4ChA==
+        d=baylibre.com; s=google; t=1784909228; x=1785514028; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Nhf9VFdcJj67d9mnRhCsj+1NVc5VUfS8waKbVdijXcw=;
+        b=jli0MbXZfPvgv+B9kQMu0bX97NCWZFcO4kLNJ3dPyURiWSffP3ywksuZHOitI06IPB
+         LCKEIltQBwujGdsQGeP695YsQ9yGxLDZX+A+3ZfLmgtitJwS+h0tiBCgwM2nH6bwnDxL
+         Iv2VT5MZPCGpR7Tz3oOfl/N2NXZeboPPvAH0ZY6PYsku3lZoCfni1IkteN9LEEaE+Xbe
+         PgwVeKrRr86/8T68N9hKVDnPHILJqltA4YPFjPCITwawHKHUF4DHWkE0seGfjER7isjI
+         MYY7c1riSOAQsL0nmc9tOiwv4wqFFR5LoW5g6/jduQ+nOONz17PwgfycDwxTB0s6M3jo
+         bnpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784909193; x=1785513993;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1784909228; x=1785514028;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Ew5N2TuKUsw5wpMVRlPG3PrZBjIkKWPJShY0hQYMAWU=;
-        b=GimkFQtWWoD18kosLU7/Di51Tis5Mwiee0QIPRAgyNzmZNnTmeQmlHnptvv4Tk7PZl
-         BaEahw4qQZau7Uovcuj9d3W5A6IsRFelfQ7HALzJdDRIiE522VbU50M/r6dh5+lGYsn6
-         puIizfCordk0ie8mUt3sd2wSPzg5NFy+fo0UwLBhRO9Iu8M8UT1BqS88TC7PbaEnZGaV
-         RdH5uv5u4zhyKv9tU07OeVpERRK9oi97TJFFzzpr6PqZsWX35d3hCrbCF4NHQaZLliTk
-         nLc8bbekuXW4m+IH7SX8vNPFaVgCvbaS1nvoW16AeAXjk7sAzH1lGmR77CgBnzLhykvI
-         xSHg==
-X-Gm-Message-State: AOJu0YxnodNzd0SZL8rKOT6y+ytNL/lKLhz+ux/xuSOvo8NNI7Rv2Yja
-	dz1OJvA2+wM1LvdPXaTa6YuMvVxa3BnHbkxXDOzy9iLCKFxa2+wKlkpKFn3msoqbA6eYHhF1ojx
-	y68Slm0hQhGcEx2U+Oav6Dz4/ludyZt0=
-X-Gm-Gg: AR+sD12pIz1mUFGQyBVB4iIiw3fjmNXr5MNht/qu6iWNuPT8Fd+99M96s9G4fcnUeyN
-	HPinWZRwGrFeNZ11BxxHBWmWfM+oVJYeRnAc98qiYYsc9eeokY5HZZoFa3n+N3kpI2FSFVOhJ9f
-	Xe02oYDfq+3orK57sdxVeOqQC8clf+Q2iKukHJAUUVT87PGUINqtq2Hqwv2inG22G52q2hoHfda
-	46ArCcxMdaYSTVZk9TDyqcBkugxJIBPG+UiXHGjATRUWQIUtZp0Z38nmw==
-X-Received: by 2002:a05:690c:7403:b0:81e:8985:4046 with SMTP id
- 00721157ae682-81f4c34faaemr23190557b3.53.1784909193265; Fri, 24 Jul 2026
- 09:06:33 -0700 (PDT)
+        bh=Nhf9VFdcJj67d9mnRhCsj+1NVc5VUfS8waKbVdijXcw=;
+        b=QYsr44GV9gXWy059MkEX4PrT038SaVSZpUWsoLwuz7O3vQ9uURulLU4qCzpU0FG7Dr
+         e8B/S1dMQp8LYhaLKmb+Gv9YD1bBAkFm0T9K3FuP3DUCs8A5urhSgP/e0sTMlx9QvZTd
+         cvDYBd+AzcDlOc7wxeObC812kCo+4tQPoiBm+bLV3FpoiusC4ifYdtl/o12HOmO7Uu0a
+         qmRrp1ZPeUmPF/uahcuTS1wUnPfnFnV7vmRyrblCaPyXxzsOn2X1Cc/5v/96pklMXYcg
+         c0ZhjzJ+HEpWx0W6PDJftHoHNmgHNGZy5619JRdz9XRKnaknzEjklw93tNuI6TBm+1RT
+         CX5w==
+X-Forwarded-Encrypted: i=1; AHgh+RroggymWc4PX88iP/NyJe9SZFPbhB44GBo/ZUsBot5ws9MUWEixLuwUkvmrR0uz5IVMvWa6/R+CsNxf@vger.kernel.org
+X-Gm-Message-State: AOJu0YysHvqX99LXcJFFpzaNVWcPJx3LuxS5hl7p2pekF93dQH5aj84T
+	gvBci6WprJ/QWB9JTXnqYPQ1HyJk8dAjwdhPyNxZW/16Uuxai5miSALWffPga8SYn68=
+X-Gm-Gg: AR+sD13c+nOiJtwTQwGilqVHtlB6M6uHcTHpCO7scdSH5oS7F4Yk7AJ8ahBhbFfZe5g
+	W0HvBhu7Fu/eko+hNfiymSIzWSMogP7/4pni8NRgNe2JqDcmJlhgpBGFT7BOMmH5Sr3589QYy0/
+	ZrxNL86RFQ0fJmcK1rA+Fw6/g4GAY13RcSRfE0K5crsQpSspLQrHu/ftLyritiVC5AZ/LuuU+S0
+	h0Dv4SMu1/xC/2Dwtj4SinyqXToCCTzIL4tyM30IH9HhIVR6JRiMDBa+YnW6EmnWhU3rU8Fef0+
+	9Q1VOYzs+BC7ySGJUWpIGPA9I2HoPB3x/IRnppQhRgf/LVTIkpTNECIRieXBZDEiVftvt0bHkwL
+	S2ghNfoAzNcujE9cyVCOVAKs3N8F1BI8vf1/H9CaQaOtM9W792jm4Dpb4WnMxmTM84p5gbt2fPS
+	gf
+X-Received: by 2002:a05:600c:47c4:b0:493:e983:806e with SMTP id 5b1f17b1804b1-49573cb963dmr58020255e9.3.1784909228253;
+        Fri, 24 Jul 2026 09:07:08 -0700 (PDT)
+Received: from localhost ([2a01:e0a:3c5:5fb1:cd72:3055:a9af:4365])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-496b487a3e5sm734285e9.14.2026.07.24.09.07.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 24 Jul 2026 09:07:07 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Xianwei Zhao <xianwei.zhao@amlogic.com>, 
+ Kevin Hilman <khilman@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Brian Masney <bmasney@redhat.com>, Jian Hu <jian.hu@amlogic.com>
+Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, 
+ Conor Dooley <conor.dooley@microchip.com>
+In-Reply-To: <20260701-a9_peripherals-v6-0-9630f39879e5@amlogic.com>
+References: <20260701-a9_peripherals-v6-0-9630f39879e5@amlogic.com>
+Subject: Re: [PATCH v6 0/2] clk: amlogic: Add A9 peripherals clock
+ controller
+Message-Id: <178490922597.2801722.3885834711328764674.b4-ty@b4>
+Date: Fri, 24 Jul 2026 18:07:05 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260721082410.18275-1-kaipeng94@gmail.com> <20260721082410.18275-3-kaipeng94@gmail.com>
- <aee1e26d-d3f7-4903-a34f-02fcda6a6beb@oss.qualcomm.com>
-In-Reply-To: <aee1e26d-d3f7-4903-a34f-02fcda6a6beb@oss.qualcomm.com>
-From: Kaipeng Zeng <kaipeng94@gmail.com>
-Date: Sat, 25 Jul 2026 00:06:21 +0800
-X-Gm-Features: AUfX_mzozQx6sr91XfGqke3GYXZuO5xcMO6Cbzc3XJrpc52p229Z8CNFI3YTA0s
-Message-ID: <CAHk8ZduR9PxqM1-biv_6jAZ7cej-+JJpFHkjbSB3-Ba=-csKkg@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: Add support for Acer Swift Go
- Pro AI (SFA14-11)
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org, 
-	konradybcio@kernel.org, andersson@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-On Tue, Jul 21, 2026 at 6:22=E2=80=AFPM Konrad Dybcio
-<konrad.dybcio@oss.qualcomm.com> wrote:
->
-> On 7/21/26 10:24 AM, Kaipeng Zeng wrote:
-> > Introduce device tree for the Acer Swift Go Pro AI (SFA14-11).
-> > It is a laptop based on the Qualcomm Snapdragon X Elite (X1E78100) SoC.
-> > This device tree implementation references nodes from the x1-crd.dtsi.
-> >
-> > Supported features:
-> >
-> >  - Internal display & Brightness control
-> >  - Keyboard & Touchpad
-> >  - USB Type-C, Type-A
-> >  - Wi-Fi & Bluetooth
-> >  - ADSP & CDSP
-> >  - Adreno X1-85 GPU
-> >  - HDMI & USB Type-C display
-> >  - Webcam
-> >
-> > Signed-off-by: Kaipeng Zeng <kaipeng94@gmail.com>
-> > ---
->
-> [...]
->
-> > +             wcd-playback-dai-link {
-> > +                     link-name =3D "WCD Playback";
-> > +
-> > +                     cpu {
-> > +                             sound-dai =3D <&q6apmbedai RX_CODEC_DMA_R=
-X_0>;
-> > +                     };
-> > +
-> > +                     codec {
-> > +                             sound-dai =3D <&wcd938x 0>, <&swr1 0>, <&=
-lpass_rxmacro 0>;
-> > +                     };
->
-> 'co'dev < 'cp'u (other nodes have it correct), please also re-sort
-> the -link {} nodes alphabetically
->
-> [...]
->
-> > +&iris {
-> > +     firmware-name =3D "qcom/x1e80100/ACER/SFA14-11/qcvss8380.mbn";
-> > +     status =3D "okay";
->
-> Let's also keep a \n before 'status', file-wide
->
-> [...]
->
->
-> > +&mdss_dp1 {
-> > +     ports {
-> > +             /delete-node/ port@1;
-> > +     };
->
-> Hm?
->
-> [...]
->
-> > +     wcd_default: wcd-reset-n-active-state {
-> > +             pins =3D "gpio191";
-> > +             function =3D "gpio";
-> > +             drive-strength =3D <16>;
-> > +             bias-disable;
-> > +             output-low;
->
-> You don't need to specify output-foo on TLMM pins, the GPIO consumer
-> will assert it as necessary
+Applied to clk-meson (clk-meson-next), thanks!
 
-I noticed this before.
-spkr_01_sd_n_active and spkr_23_sd_n_active (in lpass_tlmm) are also set to
-output-low.
+[1/2] dt-bindings: clock: Add Amlogic A9 peripherals clock controller
+      https://github.com/BayLibre/clk-meson/commit/33972977d632
+[2/2] clk: amlogic: Add A9 peripherals clock controller driver
+      https://github.com/BayLibre/clk-meson/commit/f905fc7b7a81
 
-I tested that Gnome cannot detect either the speakers or the headphone usin=
-g
-the current DTS.
-If I remove the "output-low" from wcd_default, Gnome can detect headphone
-plug-in (not the speakers) and speakers will randomly output an audio pop n=
-oise,
-specifically when playback starts and stops.
-I kept the "output-low" of them for safety.
+Best regards,
+--
+Jerome
 
-Is it still proper to remove this "output-low"?
-Should I also remove the "output-low" from spkr_*?
-
->
-> Konrad
