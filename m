@@ -1,143 +1,174 @@
-Received: from out-178.mta1.migadu.com (out-178.mta1.migadu.com [95.215.58.178])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 056DE16A395
-	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 14:14:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B450E19D065
+	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 14:21:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784988851; cv=none; b=h05pI/OwsLmM1/0DVYGzykH0YEq8Zsi9NnU1TPYQbzzqkhA+cCON1AWGvEew3iBObRusvcnewupQt/wROSYbMDXfBTJIY9VpYXeE8gt/k1MjAK67NUrngubDZS7cX1oScWtHWEEYkUHVUBYeVtj5AMpkhGtwPnLH5Tkglf9JTHc=
+	t=1784989262; cv=none; b=M9L7PFC3T1ayKYzXn1WSgEb+fjSQe+AovaZjberh+zOVJwVBKvnq0b3eum0+s9IswHQ55apZEj7KmPyQSl9hYfNKzYwdSdKKb2UhuKVP/sv08YJh6rBYti2G/5mVc5AbjUcEn3D6nNMJ5HQHn1FSdMZJho9DqzgY1NIR5uLGQ+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784988851; c=relaxed/simple;
-	bh=XaiiDgwrOlI8vEMiMyKkT+LVbivn03Etl8oTlsYtgs8=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
-	 References:In-Reply-To; b=OvM8RnuGgKREFz3wIXVM7TpMIkwtCSsItOb8pha8YdwLhcWBCX5zke8CsGMK6lzlV/F//ij8lJ4x4VaJo7NDWdzurQ5BabsLSxzRZyTe/MRx84TLqs71Z4pAHKtBuInR/gEUSwp4B1ZBk6/fUQLQhjqI+oL5Sm1CzH5GNmdwBAg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=da3/HJr1; arc=none smtp.client-ip=95.215.58.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
+	s=arc-20240116; t=1784989262; c=relaxed/simple;
+	bh=ZJMMLW4CIKOt8hObECVhV+W33ebpE5udSZTaVK2TUrk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ACgX7zhBIM6+M3IMq17Nov8zUAalLAGGgxTxtx7JqpnLgE1etWAhHZUGAdmyAkiAAY4cHamKKnnZG8gsY1y5MvVz4l+R/IREH0WZiz9CJGW6rl7AMX/dUful+ip7Sgfgqw0PpPNsfUrmK0i5H9N8ZOXWC31sZjh/x0m9gSfZfNo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m1R2zUla; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="da3/HJr1"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m1R2zUla"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 899221F00A3E
+	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 14:21:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784989261;
+	bh=XY8MC71SnzeX56HU4E9bqCj1+66dX2IXIeiHX0g85Lg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=m1R2zUlafNmL9NPWkTzThL/jw5aEs6NCB113IDMdgD9JvxrTXU52vCPZXwSWr///p
+	 RfiS3PjJJrBVGztkjbl5u5NE/kfka7OMJuJ9EDWSy383ptHei8oW4u1Ghd22/7WWYi
+	 OOZ8kc9ek7UMAVN8Cp+/yuptA/gScAMEtECaQJSOfUG7PCmn5qZMhbjcT25VdwYS1U
+	 uzbHExfBkFGbEqNcbmf9+LwOOYooPLny8rvvbvczBIfA/gYeZ4FqTungS24LZHFw+v
+	 sapW0UBszCgr//jz4rx6t+jJNL4Zwkh9qJRgJIP0LAsWGMAgikEhVs7AADWJGkUGZO
+	 ojAM3GWxWaTtw==
+Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-39ca300db70so11819281fa.2
+        for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 07:21:01 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rp4bi0Vv+5H29o+FPeH9aLolLRuqOmK85zFLiJrpC1W84EPBHcevpA6emJg48nPVEzkgkzyN+Ha7Rvm@vger.kernel.org
+X-Gm-Message-State: AOJu0YyQ/aNHQM6hPGqSnivBztAXapXGkzJOnMDUreO9cW01cbxB8Ywq
+	La6/sAtn2F/sriXThdut0KF3uk6ztjhSTCoeL3ugJpaG7nXciLQeoaC29kULtl8ySJgH2/6a0aT
+	rzoEEklxrgFe5zahfm6/6V/TNGP5d1Co=
+X-Received: by 2002:a05:6512:1390:b0:5b1:5ee0:6662 with SMTP id
+ 2adb3069b0e04-5b2c1b6973fmr389925e87.51.1784989260287; Sat, 25 Jul 2026
+ 07:21:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cknow-tech.com;
-	s=key1; t=1784988826;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aurhGwZBtBlsxKOKCfqWZVexhQ9NLkHWaOYsLZ76OpY=;
-	b=da3/HJr1HSGbmZyx2j9hWWmH/1NxbPWVXq53bqxfd0z44gcBfNWmUIIA6poL2n64I8AuhQ
-	uRHFtQfiyIIfxu8b/wyNuRkBxvQN3BM0BJfvHvei1IPRL4KeXvslOUP9ZiE66TA+Otldtv
-	hRIQf1bPl6eVm6eCP6JLYkI4iPPpCAG4g1JCSP9zKpHY0ubdI06qGvyfrPkGNyIR5aDcBu
-	nCjm1OdSU9fHObwgOmGP+BVHPMGnGxKbOyZygf/C3kQjZ1gSMQCRPRuew+tMnCp2EHx4cY
-	fTuUI51v5ibUUcc94fhxhBG8aXJlReALfZbHTprdNh640ubIcPrefCADtSLD0g==
+MIME-Version: 1.0
+References: <20260603055347.66845-1-changhuang.liang@starfivetech.com>
+ <20260603055347.66845-5-changhuang.liang@starfivetech.com>
+ <CAD++jL=Qd8ADR_kX2Q7msM4Dd0xFayPGM4ZzB3uv2ufvkuybtQ@mail.gmail.com> <ZQ4PR01MB120228AD03507B4836EFE19DF2CE2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+In-Reply-To: <ZQ4PR01MB120228AD03507B4836EFE19DF2CE2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+From: Linus Walleij <linusw@kernel.org>
+Date: Sat, 25 Jul 2026 16:20:48 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnNa6HsS5q5aYHxCLkQdZ3eh09PspO=eZx-4=p4EFr4PA@mail.gmail.com>
+X-Gm-Features: AUfX_mx8pVfrmx8WsONlAC7SoRWaJsjzkzgK-nLnNjT-L4xyZdV9VUod-aCvGBI
+Message-ID: <CAD++jLnNa6HsS5q5aYHxCLkQdZ3eh09PspO=eZx-4=p4EFr4PA@mail.gmail.com>
+Subject: Re: [PATCH v3 04/21] pinctrl: starfive: Add StarFive JHB100 sys0
+ controller driver
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>, Paul Walmsley <pjw@kernel.org>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Bartosz Golaszewski <brgl@kernel.org>, "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>, 
+	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 25 Jul 2026 16:13:20 +0200
-Message-Id: <DK7PPYNCUU5F.31BXH4215WDKI@cknow-tech.com>
-To: "Dawid Olesinski" <dawidro@gmail.com>, =?utf-8?q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>
-Cc: "Sebastian Reichel" <sebastian.reichel@collabora.com>, "Herbert Xu"
- <herbert@gondor.apana.org.au>, "David S . Miller" <davem@davemloft.net>,
- "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Corentin
- Labbe" <clabbe@baylibre.com>, <linux-crypto@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-rockchip@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 3/4] arm64: dts: rockchip: Add crypto node to
- rk356x-base
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: "Diederik de Haas" <diederik@cknow-tech.com>
-References: <20260708175837.1718437-1-dawidro@gmail.com>
- <20260708175837.1718437-4-dawidro@gmail.com> <ak7jEYTAGgeDdi1W@venus>
- <4011768.FjKLVJYuhi@diego> <20260710153012.0a840512@enyo>
-In-Reply-To: <20260710153012.0a840512@enyo>
-X-Migadu-Flow: FLOW_OUT
 
-On Fri Jul 10, 2026 at 4:30 PM CEST, Dawid Olesinski wrote:
-> On Thu, 09 Jul 2026 09:07:23 +0200
-> Heiko St=C3=BCbner <heiko@sntech.de> wrote:
->
->> Am Donnerstag, 9. Juli 2026, 01:56:10 Mitteleurop=C3=A4ische Sommerzeit
->> schrieb Sebastian Reichel:
->> > Hi,
->> >=20
->> > On Wed, Jul 08, 2026 at 06:58:24PM +0100, Dawid Olesinski wrote: =20
->> > > Add the device tree node for the V2 cryptographic hardware
->> > > accelerator on RK356x SoCs (RK3566, RK3568).
->> > >=20
->> > > The IP block sits in the non-secure peripheral domain. Its three
->> > > clocks (core, aclk, hclk) and reset line are accessible directly
->> > > through the main non-secure CRU, so no firmware intermediary is
->> > > required.
->> > >=20
->> > > The node is disabled by default; board files that wish to use
->> > > hardware crypto offload must enable it. =20
->> >=20
->> > Why is it disabled by default? It doesn't seem to be board specific
->> > at all to me (the same question applies to the RK3588 DT). =20
->>=20
->> You're definitly right about that ... there are no board specific
->> resources needed, so Dawid please drop the status from both nodes.
->>=20
->
-> I'll drop the `status =3D "disabled";`=20
-> lines from both the RK356x and RK3588 device trees in v3.
+On Sat, Jul 25, 2026 at 12:25=E2=80=AFPM Changhuang Liang
+<changhuang.liang@starfivetech.com> wrote:
+> > On Wed, Jun 3, 2026 at 7:54=E2=80=AFAM Changhuang Liang
+> > <changhuang.liang@starfivetech.com> wrote:
 
-That also means you can drop the label/phandle as there's no longer a need
-to reference it in board files.
+> > > +static unsigned int jhb100_gpio_to_pin(struct gpio_chip *gc, unsigne=
+d
+> > > +int gpio) {
+> > > +       struct jhb100_gpio_bank *bank =3D jhb100_gc_to_bank(gc);
+> > > +
+> > > +       return bank->id * JHB100_NR_GPIOS_PER_BANK + gpio; }
+> >
+> > This usually tells me that GPIO_GENERIC can be used but maybe this has =
+been
+> > discussed before...
+>
+> Here, the main purpose is to convert GPIOs into pins for configuring cert=
+ain pinctrl
+> settings. I haven't found the part where GPIO_GENERIC can assist with thi=
+s.
+> Can you point it out for me? Thank you very much.
 
-Cheers,
-  Diederik
+Normally GPIO chips use the .config() callback when you want to
+set pin config for a certain pin in a pinctrl backend.
 
-> Thanks for the review!
->
-> Dawid
->
->> > >=20
->> > > Signed-off-by: Dawid Olesinski <dawidro@gmail.com>
->> > > ---
->> > >  arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 12 ++++++++++++
->> > >  1 file changed, 12 insertions(+)
->> > >=20
->> > > diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
->> > > b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi index
->> > > a5832895bd39..9de7e7487ca1 100644 ---
->> > > a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi +++
->> > > b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi @@ -1112,6
->> > > +1112,18 @@ sdhci: mmc@fe310000 { status =3D "disabled";
->> > >  	};
->> > > =20
->> > > +	crypto: crypto@fe380000 {
->> > > +		compatible =3D "rockchip,rk3568-crypto";
->> > > +		reg =3D <0x0 0xfe380000 0x0 0x2000>;
->> > > +		interrupts =3D <GIC_SPI 4 IRQ_TYPE_LEVEL_HIGH>;
->> > > +		clocks =3D <&cru CLK_CRYPTO_NS_CORE>, <&cru
->> > > ACLK_CRYPTO_NS>,
->> > > +			 <&cru HCLK_CRYPTO_NS>;
->> > > +		clock-names =3D "core", "aclk", "hclk";
->> > > +		resets =3D <&cru SRST_CRYPTO_NS_CORE>;
->> > > +		reset-names =3D "core";
->> > > +		status =3D "disabled";
->> > > +	};
->> > > +
->> > >  	/*
->> > >  	 * Testing showed that the HWRNG found in RK3566
->> > > produces unacceptably
->> > >  	 * low quality of random data, so the HWRNG isn't
->> > > enabled for all RK356x =20
->> >  =20
->>=20
->>=20
->>=20
->>=20
->
->
-> _______________________________________________
-> Linux-rockchip mailing list
-> Linux-rockchip@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-rockchip
+See Documentation/driver-api/gpio/driver.rst:
 
+"The .set_config() callback uses the same enumerators and configuration
+semantics as the generic pin control drivers. This is not a coincidence: it=
+ is
+possible to assign the .set_config() to the function gpiochip_generic_confi=
+g()
+which will result in pinctrl_gpio_set_config() being called and eventually
+ending up in the pin control back-end "behind" the GPIO controller, usually
+closer to the actual pins. This way the pin controller can manage the below
+listed GPIO configurations.
+
+If a pin controller back-end is used, the GPIO controller or hardware
+description needs to provide "GPIO ranges" mapping the GPIO line offsets to=
+ pin
+numbers on the pin controller so they can properly cross-reference each oth=
+er."
+
+Maybe this is what you're looking for?
+
+If you define gpio-ranges in your device tree, the GPIO and pin control
+core deals with the cross-referencing for you.
+
+> > > +       sfp->num_banks =3D DIV_ROUND_UP(sfp->ngpios,
+> > > + JHB100_NR_GPIOS_PER_BANK);
+> > > +
+> > > +       for (unsigned int i =3D 0; i < sfp->num_banks; i++) {
+> > > +               if (sfp->ngpios > (i + 1) *
+> > JHB100_NR_GPIOS_PER_BANK)
+> > > +                       sfp->banks[i].gc.ngpio =3D (i + 1) *
+> > JHB100_NR_GPIOS_PER_BANK;
+> > > +               else
+> > > +                       sfp->banks[i].gc.ngpio =3D sfp->ngpios - i *
+> > > + JHB100_NR_GPIOS_PER_BANK;
+> >
+> > This looks completely bananas, shouldn't this be simply:
+> >
+> > sfp->banks[i].gc.ngpio =3D JHB100_NR_GPIOS_PER_BANK;
+>
+> The JHB100 GPIO domain is not fully aligned to 32. For example, in the pe=
+r0 domain,
+> there are 60 GPIOs, so I split it into:
+> bank0: 32 GPIOs
+> bank1: 28 GPIOs.
+
+At least add that, what you just wrote, as a comment right above this loop.
+
+There is something with this math I think can be made simpler
+with bitwise artithmetic. Think about it.
+
+> > > +               sfp->banks[i].gc.request =3D pinctrl_gpio_request;
+> >
+> > Use
+> > gpiochip_generic_request
+> >
+> > > +               sfp->banks[i].gc.free =3D pinctrl_gpio_free;
+> >
+> > Use
+> > gpiochip_generic_free
+> >
+> > These calls will do what you want, and also check that the right gpio r=
+anges
+> > are available.
+> >
+> > Make sure you add GPIO ranges (the mapping between pin control pins and
+> > corresponding GPIO offsets) for this to work properly.
+> >
+> > I'm pretty sure you can have a generic pin config backend as well.
+> >
+> > sfp->banks[i].gc.set_config =3D gpiochip_generic_config;
+
+This is pertaining to what I said above about using the gpio
+ranges and .config etc.
+
+> > This will make config calls to the gpiochip call into the pinctrl backe=
+nd =3D what
+> > you want.
+
+I still think this is what you want.
+
+Yours,
+Linus Walleij
