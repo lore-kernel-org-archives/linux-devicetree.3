@@ -1,388 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7A012C21D9
-	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 16:36:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BD59246782;
+	Sat, 25 Jul 2026 16:38:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784997415; cv=none; b=XaiI2QMCmiSu5fCA6BCZQVHxd2oRVx6AxN348+W8cgc2rqzAj3Rh6SWMH6TtKcArYunKuTs71Dqpk+ueEvNGj21qcE8Cxq/CPypUjTUJDLY2+6tVUhJYwsallj1M4gKXoednfFfcGnP1Hvb0gU5IJRN0WqSSf2ksXLMG7itXqro=
+	t=1784997482; cv=none; b=XqoJvhVMApHoCwOhn3oS6liucP2JJx6mDuaRK1IpyjC1iQ11JHi9bBvj5Yrju7u8PNHXHl2fnSu3TuNnwraMiAREcBmJW7npcpjmQ9B9HTflouoYE3hXsDl3feyWl0yjxDtnDp5skBmU/W/xAltFVF+cuWOxvJHTNj4UpX79Js4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784997415; c=relaxed/simple;
-	bh=3VtTQNGofL2PttJenb5JRB8un2HYQ+AfQmAWPLZsIEQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=lVHXD/MpHK15t8iYn1zTo8z9UY5Lu2No8IjGLTjCDpad/TeHQeO9OAPRh9R1OlAXe5937en1WMLPSZS2xKhU9WctLjbjl4mWTJxSeoCMvnofO2Z6/8Xrp3QWqn2JvpO2WhQ/RTKkR/cpZ27asHzvoPsaIYgJSmKlEuJwQXhENAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UkffTRQe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784997482; c=relaxed/simple;
+	bh=QxcqZUng7Q+EsvdVOiNbdZzcNghqutTiIy4UiSoCxCc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cOd/n16FMJlIIYpQOSpS8ZkIqUxu6YbI5JNqLnfgbwNOhfVi65hnd66dEAbZMXfK6uak2cjtvcLTks3wteVbCgqMLCBcj9De3VHErlv18HeQEUxqlhOvr+qu5RTAK3APhGu8uYyhrcXCUBh6n/KffrzqMtFFtdMnUGG0WSKOHOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bb0slKKb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UkffTRQe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C0111F000E9;
-	Sat, 25 Jul 2026 16:36:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bb0slKKb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA9521F000E9;
+	Sat, 25 Jul 2026 16:37:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784997413;
-	bh=Bj/hHbncUMeNlKh8qRg+5IJHF6YE4P6/GLi+MUrGLVE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UkffTRQehA4neYcYdiVCixtViIt88XCMECVYh3Z1PsSoqTcYRk+zFHYnFlsdNJnat
-	 aND3lIHSfNNo+ce3ELPYogOot8DlWLO2rMRsiJgBdVzm7AIi8doMpyrb1gOoPWanJg
-	 QwSrQH4Coka0xAEddBi/OPX75UIg7UvrkUD1UG2jmkGR0v2C42jfbe+58Hhg7GPm9t
-	 EV+iL7DOeOxlCXptluVledvwcZ42B1I/IMS63DxIhH3rXjYQli2yvsiNR4QlpMhQhX
-	 mbla/PMLzffkxYuyaq0LB94EEsqU4w0v1aXb/vbQ7ODL3qoWcPz6RrZ+L15TETQCsm
-	 tW9HcjdrAoEpg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] usb: typec: tipd: Add sn201202x support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sasha Finkelstein" <k@chaosmail.tech>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260725-tipd-ace3-v1-3-73202d36138a@chaosmail.tech>
-References: <20260725-tipd-ace3-v1-0-73202d36138a@chaosmail.tech>
- <20260725-tipd-ace3-v1-3-73202d36138a@chaosmail.tech>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 25 Jul 2026 16:36:52 +0000
-Message-Id: <20260725163653.4C0111F000E9@smtp.kernel.org>
+	s=k20260515; t=1784997481;
+	bh=rW21ROPPGXt0ORTRaV2wwN5UZkCXyjKTZAO/UfgAEos=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Bb0slKKbkb3JRKIc5r8joi4vBKdWh3c3TikaDIIK7zWJLTb4zsSKyJarAkrnswqkH
+	 V+qTS50EtL1F5A9whGzdIhmCMP4PykNYO7yH55gMAZULZXAQNsPaz0HxOuVTzf2p3m
+	 DWAvI10IM8t/0IvfoBY1+cuIDNJYBN84DFY4iaRJZNvM/pvN8u/DCN773zASuudO9H
+	 PvBTfO4DVZ8Gs5TyKgGV+tMmW5MCLXNj92UKzqyyZIQF340ClWzDw9imO0ATJP2mt4
+	 SItPIiH/EmGyqiI4PJ5bxl3c+X8Lq0UEKZhRhxOzX8PZt4/tzrpHTUQHe3KLDp5ujj
+	 Vc1xOdjjm4CDA==
+Message-ID: <9a415731-0de0-4cb4-b6c1-fc78806f6414@kernel.org>
+Date: Sat, 25 Jul 2026 18:37:56 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ARM: dts: broadcom: bcm7445: Correct indentation
+To: Florian Fainelli <florian.fainelli@broadcom.com>,
+ bcm-kernel-feedback-list@broadcom.com,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Florian Fainelli <f.fainelli@gmail.com>
+References: <20260706101920.341586-2-krzysztof.kozlowski@oss.qualcomm.com>
+ <20260721172801.3591970-1-florian.fainelli@broadcom.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260721172801.3591970-1-florian.fainelli@broadcom.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 12 potential issue=
-(s) to consider:
+On 21/07/2026 19:28, Florian Fainelli wrote:
+> From: Florian Fainelli <f.fainelli@gmail.com>
+> 
+> On Mon,  6 Jul 2026 12:19:21 +0200, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com> wrote:
+>> Correct spaces or mix of tabs+spaces into proper tab-indented lines.
+>> No functional impact (same DTB).
+>>
+>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>>
+>> ---
+> 
+> Applied to https://github.com/Broadcom/stblinux/commits/devicetree/next, thanks!
 
-New issues:
-- [High] Massive code duplication caused by including a large source file a=
-s a header.
-- [High] Linking `trace.o` into multiple modules causes multiple definition=
- linker errors.
-- [High] Missing `reinit_completion()` before `wait_for_completion_timeout(=
-)` in suspend and resume paths.
-- [High] Race condition causing NULL pointer dereference if regmap debugfs =
-is accessed during probe.
-- [High] The `while (1)` polling loop in `regmap_sn201202x_select_reg` lack=
-s a timeout or retry limit, leading to an indefinite kernel thread hang.
-- [High] Resume will always timeout and fail if a `reset-gpios` property is=
- present due to incorrect ordering.
-- [High] If `sn201202x_suspend` fails to put the device to sleep, it return=
-s an error without rolling back the state of the core `tps6598x` controller.
-- [High] Failing to return on invalid `count` in `regmap_sn201202x_write` c=
-auses a buffer underflow and out-of-bounds memory access.
-- [Medium] Unmet direct Kconfig dependencies for REGMAP_SPMI and REGMAP_I2C.
-- [Medium] Unnecessary latency overhead from using a threaded IRQ solely fo=
-r `complete()`.
-- [Medium] The SPMI device is woken up during probe but never put back to s=
-leep on driver removal or probe failure.
+It is still not there. Last commit is v7.2-rc1.
 
-Pre-existing issues:
-- [High] Delayed works are left queued when `tps6598x_probe` fails, causing=
- Use-After-Free.
---
+Your next branch:
+https://github.com/Broadcom/stblinux/commits/next
+has last commit from May 29. Something was not pushed?
 
---- Patch [3]: [PATCH 3/3] usb: typec: tipd: Add sn201202x support ---
-commit 69eff8a2ada62351102ded8bb2c3563aa5e66570
-Author: Sasha Finkelstein <k@chaosmail.tech>
-
-usb: typec: tipd: Add sn201202x support
-
-Add support for sn201202x (aka ACE3), a tipd variant that uses a very
-similar register map, that is exposed over a "logical register"
-interface on the SPMI bus.
-
-> diff --git a/drivers/usb/typec/tipd/Kconfig b/drivers/usb/typec/tipd/Kcon=
-fig
-> --- a/drivers/usb/typec/tipd/Kconfig
-> +++ b/drivers/usb/typec/tipd/Kconfig
-[ ... ]
-> +config TYPEC_SN201202X
-> +	tristate "TI SN201202x USB Power Delivery controller support"
-> +	select POWER_SUPPLY
-> +	select REGMAP_I2C
-> +	select USB_ROLE_SWITCH
-> +	select REGMAP_SPMI
-
-[Severity: Medium]
-Will this trigger Kconfig unmet direct dependency warnings and build failur=
-es
-if the underlying SPMI or I2C subsystems are disabled?
-
-Kconfig rules mandate that when using select, the selector must also depend
-on the selected item's dependencies. TYPEC_SN201202X selects REGMAP_SPMI
-and REGMAP_I2C without inheriting their dependencies (depends on SPMI and
-depends on I2C). Also, is REGMAP_I2C needed at all in the SPMI driver?
-
-> diff --git a/drivers/usb/typec/tipd/Makefile b/drivers/usb/typec/tipd/Mak=
-efile
-> --- a/drivers/usb/typec/tipd/Makefile
-> +++ b/drivers/usb/typec/tipd/Makefile
-[ ... ]
-> -obj-$(CONFIG_TYPEC_TPS6598X)	+=3D tps6598x.o
-> -tps6598x-y			:=3D i2c.o
-> -tps6598x-$(CONFIG_TRACING)	+=3D trace.o
-> +obj-$(CONFIG_TYPEC_TPS6598X)			+=3D tps6598x.o
-> +tps6598x-y					:=3D i2c.o
-> +tps6598x-$(CONFIG_TRACING)			+=3D trace.o
-> +
-> +obj-$(CONFIG_TYPEC_SN201202X)			+=3D sn201202x.o
-> +sn201202x-y					:=3D spmi.o
-
-[Severity: High]
-Does including core.h from multiple modules cause massive binary bloat?
-
-Because core.h contains a large amount of driver logic as static functions,
-compiling i2c.c and spmi.c into separate modules forces the compiler to bui=
-ld
-two independent copies of the entire driver logic (one for tps6598x.ko and
-one for sn201202x.ko). Should shared core logic be placed in a common .c fi=
-le
-and exported instead?
-
-> +sn201202x-$(CONFIG_TRACING)			+=3D trace.o
-
-[Severity: High]
-Does linking trace.o into both modules cause multiple definition errors?
-
-The Makefile appends trace.o to both tps6598x-y and sn201202x-y. Because
-trace.c defines CREATE_TRACE_POINTS, it instantiates global tracepoint symb=
-ols.
-If both CONFIG_TYPEC_TPS6598X=3Dy and CONFIG_TYPEC_SN201202X=3Dy are set, K=
-build
-will link trace.o into both composite objects, leading to multiple definiti=
-on
-errors for the tracepoint symbols during the vmlinux link.
-
-> diff --git a/drivers/usb/typec/tipd/spmi.c b/drivers/usb/typec/tipd/spmi.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/usb/typec/tipd/spmi.c
-[ ... ]
-> +static int regmap_sn201202x_select_reg(struct spmi_device *sdev, u8 reg)
-> +{
-> +	int err;
-> +	u8 val;
-> +	bool warned =3D false;
-> +	struct tps6598x *tps =3D spmi_device_get_drvdata(sdev);
-> +	struct sn201202x *sn =3D tps_to_sn(tps);
-> +
-> +	reinit_completion(&sn->select_completion);
-
-[Severity: High]
-Can this dereference a NULL pointer if a user accesses regmap debugfs early?
-
-In sn201202x_probe(), devm_regmap_init_sn201202x() is called before the dev=
-ice
-drvdata is set with spmi_device_set_drvdata(). This makes the regmap debugfs
-nodes immediately available.
-
-If debugfs is read before probe finishes, regmap_sn201202x_read() will call
-regmap_sn201202x_select_reg(), which fetches a NULL drvdata here and passes
-it to tps_to_sn(). This will crash when accessing &sn->select_completion.
-
-> +	err =3D spmi_register_zero_write(sdev, reg);
-> +	if (err)
-> +		return err;
-> +
-> +	if (!wait_for_completion_timeout(&sn->select_completion, msecs_to_jiffi=
-es(100)))
-> +		return -ETIMEDOUT;
-> +
-> +	while (1) {
-> +		err =3D spmi_register_read(sdev, 0, &val);
-> +		if (err)
-> +			return err;
-> +		if (val =3D=3D (reg | 0x80)) {
-> +			if (!warned) {
-> +				dev_warn(tps->dev,
-> +					 "Got interrupt but selection not complete?\n");
-> +				warned =3D true;
-> +			}
-> +			msleep(20);
-> +			continue;
-> +		}
-
-[Severity: High]
-Does this polling loop lack a timeout condition?
-
-If the device repeatedly returns val =3D=3D (reg | 0x80) due to a hardware
-malfunction, this loop will endlessly sleep for 20ms and retry without a
-limit. This permanently hangs the calling kernel thread while holding the
-regmap mutex.
-
-> +		if (val =3D=3D reg)
-> +			break;
-> +		return -EIO;
-> +	}
-[ ... ]
-> +static int regmap_sn201202x_write(void *context, const void *data,
-> +				  size_t count)
-> +{
-> +	int err =3D 0;
-> +	unsigned int offset =3D 0xa0;
-> +	size_t len;
-> +	u8 addr;
-> +
-> +	WARN_ON(count < 1);
-> +
-> +	addr =3D *(u8 *)data;
-> +	data +=3D 1;
-> +	count -=3D 1;
-
-[Severity: High]
-Does failing to return on an invalid count cause a massive out-of-bounds ac=
-cess?
-
-WARN_ON(count < 1) evaluates the condition but does not abort execution.
-If count is 0 (e.g., via a regmap debugfs zero-length write), the operations
-above execute on the invalid data pointer, and count -=3D 1 causes count to
-underflow to SIZE_MAX.
-
-The subsequent while (count) loop will execute up to SIZE_MAX bytes, floodi=
-ng
-the SPMI bus with out-of-bounds memory accesses.
-
-> +
-> +	WARN_ON(count > 0x40);
-[ ... ]
-> +static irqreturn_t sn201202x_irq(int irq, void *data)
-> +{
-> +	struct completion *c =3D data;
-> +
-> +	complete(c);
-> +	return IRQ_HANDLED;
-> +}
-[ ... ]
-> +static int sn201202x_probe(struct spmi_device *device)
-> +{
-[ ... ]
-> +	ret =3D devm_request_threaded_irq(&device->dev, irq_select, NULL, sn201=
-202x_irq,
-> +					IRQF_ONESHOT, NULL, &sn->select_completion);
-
-[Severity: Medium]
-Does registering a threaded IRQ handler that only calls complete() add
-unnecessary context-switch latency?
-
-Because the primary handler is NULL, the kernel must wake up and schedule a
-dedicated thread for every single SPMI register read/write transaction or
-state transition. Could this be handled in a primary hardirq context using
-devm_request_irq() instead?
-
-> +	if (ret)
-> +		return ret;
-[ ... ]
-> +	ret =3D spmi_command_wakeup(device);
-> +	if (ret)
-> +		return ret;
-> +	if (!wait_for_completion_timeout(&sn->wake_completion, msecs_to_jiffies=
-(100)))
-> +		return -ETIMEDOUT;
-> +
-> +	spmi_device_set_drvdata(device, tps);
-> +	return tps6598x_probe(tps);
-> +}
-
-[Severity: Medium]
-If tps6598x_probe() fails, is the device left permanently awake?
-
-This function wakes the SPMI device via spmi_command_wakeup(), but if
-tps6598x_probe() returns an error, the function aborts without calling
-spmi_command_sleep() to roll back the hardware state, leaking power.
-
-[Severity: High]
-This is a pre-existing issue, but does a failure in tps6598x_probe() leave
-delayed works queued, causing a Use-After-Free?
-
-In core.h, the tps6598x_probe() error paths jump to err_disconnect and
-clean up, but fail to cancel scheduled delayed works (like cd321x->update_w=
-ork).
-When probe fails, devres frees the device structures, leaving the delayed
-work queued to dereference freed memory later.
-
-> +static void sn201202x_remove(struct spmi_device *device)
-> +{
-> +	struct tps6598x *tps =3D spmi_device_get_drvdata(device);
-> +
-> +	tps6598x_remove(tps);
-> +}
-
-[Severity: Medium]
-Does removing the driver leave the hardware permanently awake?
-
-sn201202x_probe() sends a wakeup command to the SPMI device, but this remove
-function fails to issue an spmi_command_sleep() command to balance it.
-
-> +static int __maybe_unused sn201202x_resume(struct device *dev)
-> +{
-> +	struct tps6598x *tps =3D dev_get_drvdata(dev);
-> +	struct sn201202x *sn =3D tps_to_sn(tps);
-> +	int err;
-> +
-> +	err =3D spmi_command_wakeup(sn->sdev);
-> +	if (err)
-> +		return err;
-> +	if (!wait_for_completion_timeout(&sn->wake_completion, msecs_to_jiffies=
-(100)))
-> +		return -ETIMEDOUT;
-
-[Severity: High]
-Does this completion wait need a prior reinit_completion() call?
-
-The completions for sleep and wake are never re-initialized. If a prior
-wait timed out but the interrupt fired later, or a spurious interrupt
-incremented the counter, this wait_for_completion_timeout() will observe
-done > 0 and return immediately without waiting for the hardware transition.
-
-[Severity: High]
-Will this resume operation always timeout and fail if a reset-gpios property
-is present?
-
-This function sends an spmi_command_wakeup() and waits for the completion
-BEFORE calling tps6598x_resume(). However, if a reset-gpios property is
-present, tps6598x_suspend() asserts the hardware reset line.
-
-Because tps6598x_resume() (which de-asserts the reset line) hasn't executed
-yet, the device is physically held in hardware reset when the SPMI wake
-command is sent, guaranteeing a timeout failure.
-
-> +	return tps6598x_resume(dev);
-> +}
-> +
-> +static int __maybe_unused sn201202x_suspend(struct device *dev)
-> +{
-> +	struct tps6598x *tps =3D dev_get_drvdata(dev);
-> +	struct sn201202x *sn =3D tps_to_sn(tps);
-> +	int err;
-> +
-> +	err =3D tps6598x_suspend(dev);
-> +	if (err)
-> +		return err;
-> +	err =3D spmi_command_sleep(sn->sdev);
-> +	if (err)
-> +		return err;
-
-[Severity: High]
-If spmi_command_sleep() fails, is the core tps6598x controller left
-indefinitely disabled?
-
-tps6598x_suspend() disables the main IRQ and cancels active workqueues.
-If the subsequent sleep command fails, this function returns an error witho=
-ut
-calling tps6598x_resume(). The PM core will abort the system suspend, but it
-will not call resume for devices that failed to suspend, leaving the hardwa=
-re
-inoperable.
-
-> +	if (!wait_for_completion_timeout(&sn->sleep_completion, msecs_to_jiffie=
-s(100)))
-> +		return -ETIMEDOUT;
-
-[Severity: High]
-Does this completion wait need a prior reinit_completion() call?
-
-Similar to the resume path, sn->sleep_completion is not re-initialized befo=
-re
-the wait, which could cause it to incorrectly return immediately if the
-completion state is stale.
-
-> +	return 0;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260725-tipd-ace3-=
-v1-0-73202d36138a@chaosmail.tech?part=3D3
+Best regards,
+Krzysztof
