@@ -1,85 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E83E72E2DD2;
-	Sat, 25 Jul 2026 01:13:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BAAB30B51E
+	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 01:22:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784941997; cv=none; b=cHXYhRhBArPRyvQzJqhQNEhmTuW9y0keDcgFvoc0Jh8K2nXwQHmKdjcjPVhLsYzjSI8yHIUkUIf6rVUAkXgmGKbdkZNryN50AYBbggEESXz7zufY2RwEnuIFOYmxsBPvQQMjp8B4UsFNDOUvhsmSMDN+mAhDcfTsPHyf6CmNw2Y=
+	t=1784942566; cv=none; b=GmVQDgnQlHSsScFYEpJ/uNrKn952pv95GQutpEd2bFS51Wwf56z4yWsgZtOcb8EWmOJIaflT6ljwqTDG0lKemb8CuEjSCSNnPV8rRmmgW+WSAIj3owYMf+xJsY4bf3odCYQdGHy4XMlLssO95kiHz+4Jin5WJcBZK1L2N60njhY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784941997; c=relaxed/simple;
-	bh=wMTv7ouTbh8kd01Bag4xgT8hg28FiN8AqmtebnHgpNY=;
+	s=arc-20240116; t=1784942566; c=relaxed/simple;
+	bh=Z9QXS6xGrKf+qCy5+yj/0vWiDbZXZ5ugExXA6xy0B7o=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JLi7kxXKN8Avw6bayaKs2akdEpCySvAcWfQH6NFhIeblTjrHG7O0F0ncsQ8wTp/hAW2RMCqVkTV1g/5ypmcgXSkeIe/wNeA61LuNgQdxrsHxF/EvX7ECojham9eEUPqzVS5Y0Il9Sd+YLrAlEppRvu/ykyX9Ktik+qqoxNGGb5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jA2UhvST; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=W/+rO7M8EYduj7xkuA0a6pECoCDMY00AeRLc05zF5VABsSv1Ka7eoSp2NxeQ/JF+Mw367NqcZ+evbo72rFxmO73kiuj9dboKXenC0yyOkyYft3A7jd3H2YZMrqa13c56EGJnyKL4mc4ukMbd/htsE8i03ZaDi4p5wpydL6udGFg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ApfGXoKL; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jA2UhvST"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A2AA1F000E9;
-	Sat, 25 Jul 2026 01:13:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784941996;
-	bh=XzgySLzyI7kn1ZvUP96iUq3OPAcH6C94rAtubMSU488=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jA2UhvSTjA7f/EZ9Ybxev5I6gGDmT4xOd0GH5OK5qFpAMvE/dS3JPfrsvbLE2bF2o
-	 /n/Hutdz18852HzCOhsfXH2Bx8EJofg98KGSl6xahzQyX+aC3c5AVXymo38yxuSuu8
-	 jGmiknIyDbO8tdE9+hKxj67CaUYPBChabIptZkX/N+v1wyrgJlNkX2N0DV40LbQ4PL
-	 pKtYL/npXpRkZF1mi6W3ka/lSQP8nU5xFwqsEqmib0q+ThrYvw7jmqDKkcjJ8bg4VD
-	 RxuPFwfbaX8cSjD6jMxiUkToskLY/sZmM29+3RuSCUKDYlTFOJUdNfGifhEFn/Xm/N
-	 bUc0tHW7GzezQ==
-Date: Sat, 25 Jul 2026 01:13:14 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: Inochi Amaoto <inochiama@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org, Yixun Lan <dlan@gentoo.org>,
-	Longbin Li <looong.bin@gmail.com>
-Subject: Re: [PATCH 0/2] riscv: dts: spacemit: Fix phy id check for the phy
-Message-ID: <20260725011314-GKB77474@kernel.org>
-References: <20260725005804.373698-1-inochiama@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ApfGXoKL"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2ceab75934dso12718935ad.2
+        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 18:22:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784942564; x=1785547364; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=evBctyG9uOAPggGOtV7ej6S8jtXBTYTc0DEyRDvPdb8=;
+        b=ApfGXoKLoxH36oQl9LPirR/bcjNUIAzXBsyE9CRN1c50OuGMqZvpzkPLLiIqf7n1na
+         X6pH8/bmWeqXW3qJDtfbsfdyWN7GrRYXymp03cfHP9JqVnHomAEpqG9rsMtsFeKLxzSS
+         rKf6pwr0YzJK7Ye53tWoU4ugASp4bYvnUBnwMFbovt2lzzOhQyfssfgOwioSMwzlvjYX
+         hTSPzQsGpMAzZczc8CR3Ww3D+PHu9FIN4eDrB1wbAYlG/viHoUTn6d0MUG8riYAJk26u
+         o6BjBd7bU2qs/1ZM38PyEgQl+wJIAfbThekFRRU7/5zwNCdxxC5z3oFTvSipdANnzUSU
+         omkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784942564; x=1785547364;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=evBctyG9uOAPggGOtV7ej6S8jtXBTYTc0DEyRDvPdb8=;
+        b=pBrMFF2jS4A9kefACOtaZ8TaVsOkjbfBUpzvaFS4EC45zzJzL+9PUIL59JUNJyY3v6
+         3Meky6/IZvniZa5kXKwf+T0R8+q51bNIz73sYB4aczRlKSCpKUVr+s0e6n0ZimR7QVGU
+         pkwnbi350pv0hgqY+A0GM6UX8je+rJ7WZDRkWuHi8vWb+T2jSi41vAJqFRLDNJ6sZxvD
+         pJdFyKB6j0FG8PYKLQy7O4ikZE9KAMFRnMHYmhpGhnjfgat4vsL4N5lz1ahFctcPTepo
+         hhoUEIpO/jAA6wboQmuOWMrOTdr6S762TZ2diaIEeKEMjVKXUH/T4nsq/4V52Bydv+ne
+         x8vw==
+X-Forwarded-Encrypted: i=1; AHgh+RrY1eTLzRB0axqUji9cj1r0qPokBp3wfewyqxWcUXslpByXHrUlLO+Owbdcol9DsPTlVjwTMuD++17g@vger.kernel.org
+X-Gm-Message-State: AOJu0YzbfqOnca+E9Pd7PF+bWSPtqFE5+mKVp8Fz0lIS4x5th2g4ACTe
+	5Wy4LnbRzcg9mtMi2P6OZiwjqyWwqDN9mBws/4zpgoODr61h5PO12Q9l
+X-Gm-Gg: AR+sD139ojl9hJjPQms+q24g1dlT1ZJZtDdxhHAOFnT2DbZZY6SrazhQwE5RNlaMuTf
+	2XsltUKePcI0OQ/ES39ERqJRhRAW4QByDqHHkai7PVkVFrZhksvqVAmvKaKAZxfG/rHe/HUKMZD
+	u4Rdr/evxZS/rirbTakpxTG9pLMTxlMrP3ZTrUNcUnhplwf0dePx5Pfav5Lop5pnH2fil9HaqnO
+	dk/2rFPLqkvcTfTNt9ZOrOxSE1og1aKx4iMe3CVyfDzTAopPBl9TISu4OOh+dFc3t70rxfwC6ED
+	yQlUFzWj1YqEvG2d8hLc2n1betFCkpPfRZTZ0L5qwxFmCry4y9CKkagK9IY/hbkgdGcv/xl43Oz
+	zanfXrGhrwAu/nSmt7QRclBWYxmiWmCR3HasTXEM1TFrrDuyZtLlxcwSu0qBCJbIqGlrY4WqI2o
+	CO8+KbTKXK8b5kou7BGM/mTGe/phNNGiFJJDSkog7fP3A=
+X-Received: by 2002:a17:90b:254c:b0:387:e0db:3d8d with SMTP id 98e67ed59e1d1-38f298859c2mr719734a91.40.1784942564547;
+        Fri, 24 Jul 2026 18:22:44 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:40e1:40e4:dabe:543e])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-314bc5cb670sm5037501eec.31.2026.07.24.18.22.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 24 Jul 2026 18:22:43 -0700 (PDT)
+Date: Fri, 24 Jul 2026 18:22:40 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Eduard Bostina <egbostina@gmail.com>
+Cc: Aaro Koskinen <aaro.koskinen@iki.fi>, 
+	Andreas Kemnade <andreas@kemnade.info>, Conor Dooley <conor+dt@kernel.org>, 
+	Daniel Thompson <danielt@kernel.org>, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	Jingoo Han <jingoohan1@gmail.com>, Kevin Hilman <khilman@baylibre.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Lee Jones <lee@kernel.org>, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org, linux-omap@vger.kernel.org, 
+	Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, Roger Quadros <rogerq@kernel.org>, 
+	Tony Lindgren <tony@atomide.com>, daniel.baluta@nxp.com, simona.toaca@nxp.com, 
+	goledhruva@gmail.com, m-chawdhry@ti.com
+Subject: Re: [PATCH v2 2/3] dt-bindings: input: Convert TI TPS65217 power
+ button to DT schema
+Message-ID: <amQPyzm6P4BUUGHk@google.com>
+References: <20260718215632.3295049-1-egbostina@gmail.com>
+ <20260718215632.3295049-3-egbostina@gmail.com>
+ <amP4csGgdg51VRZw@google.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260725005804.373698-1-inochiama@gmail.com>
+In-Reply-To: <amP4csGgdg51VRZw@google.com>
 
-Hi Inochi,
+On Fri, Jul 24, 2026 at 04:42:46PM -0700, Dmitry Torokhov wrote:
+> On Sat, Jul 18, 2026 at 09:56:31PM +0000, Eduard Bostina wrote:
+> > Convert the Texas Instruments TPS65217 and TPS65218 Power Button
+> > bindings to DT schema.
+> > 
+> > Signed-off-by: Eduard Bostina <egbostina@gmail.com>
+> 
+> Applied, thank you.
 
-On 08:58 Sat 25 Jul     , Inochi Amaoto wrote:
-> As reported, the phy framework can not detected the phy id correctly
-> when reiniting this. So add the phy id compatible string to the
-> etherenet phy, so the phy can be reinit successfully.
-> 
-> Note: separate this patchset as two patch for backport if necessary.
-> 
-> Inochi Amaoto (2):
->   riscv: dts: spacemit: Fix phy id check for the phy on pico-itx board
->   riscv: dts: spacemit: Fix phy id check for the phy on com260 board
-> 
-for the series, with R-B
-
-Reviewed-by: Yixun Lan <dlan@kernel.org>
-
->  arch/riscv/boot/dts/spacemit/k3-com260.dtsi  | 3 ++-
->  arch/riscv/boot/dts/spacemit/k3-pico-itx.dts | 3 ++-
->  2 files changed, 4 insertions(+), 2 deletions(-)
-> 
-> --
-> 2.55.0
-> 
+I actually picked up v4 of the patch.
 
 -- 
-Yixun Lan (dlan)
+Dmitry
