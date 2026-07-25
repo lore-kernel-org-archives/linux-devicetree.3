@@ -1,59 +1,61 @@
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 048E3311967
-	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 00:58:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A9F2318EE1
+	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 00:58:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784941093; cv=none; b=TiZxlTXxjKLKK0QBWMvGTWqrHzm+WkSuWytZ4IVz6NZZzxsbyPvEE+ALblamAiSBKwfzuiECz1iyVIWudbCYfzo6eTArzbNQKAej+QK/cBGy/5o5ZDLkJNJ/swYsPzNHfyqOo8XItaDpjryLAx05LXGpEcWy0olPH0ptutMlGk4=
+	t=1784941096; cv=none; b=riSNvB+Ef2Z5m1Xo8YD6271CadIdDifVo0XW+5FxMKSxeehw/31IcqaII9HiEjci5hw+VY78X1riY39CCMUYZHxvRj5/0bKAGy54303hlreTKoMcHXiEssxyz8ph9yuy7xv6lcJtLSE00q6Y5Bu9+SzEh3HkOi7szflTsBw2DpA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784941093; c=relaxed/simple;
-	bh=kuTSarj9ZfJEd/4fshM2vXhKd0SE7Hs9HNHQbQ1dtwM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oG0qdfNj+HtTj3Lv6lzhJr36+1oglLyk8ffvtK8UXbJNaZQbkrATvNDYMHpHaLTLFzJpCtjLEvNwXa6DT9tr/8ccz8i2tCTvID2Qfsl53Fxs0NQyXSMKr08425JWXwouXfioFf75QfoVxOMvtV7XVThshd2aDc54hYZU7lSSJyU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fyeFUaVG; arc=none smtp.client-ip=209.85.210.172
+	s=arc-20240116; t=1784941096; c=relaxed/simple;
+	bh=qvt1xeKZaGMzjY4GmRnBlOy13neWiePcPbv4luremNg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QH/byUyGJjBE1O5NSIGjKm0wOotDrLp12h5EVpsLT3zif3RLShiKwepLcVm2Z/n2s0hQNxbVvTdqd9w6uHroWOy3LcPDJmAqiVCKI96URvS9BToQ3kTmKRhOcbBZ9FtacnItHI0rclNCPSMEVNu+2/F+v7JLFDkTW2aT/Q4NgSE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=evbwxWue; arc=none smtp.client-ip=209.85.215.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fyeFUaVG"
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8487b7b3fc8so1040879b3a.3
-        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 17:58:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="evbwxWue"
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-c9aea40d799so562821a12.0
+        for <devicetree@vger.kernel.org>; Fri, 24 Jul 2026 17:58:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784941091; x=1785545891; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3RPSKOAGTuMe7DirYFHsiGB/35uTeF1WdVdXjVBBsZg=;
-        b=fyeFUaVGEb6c8p+RLJ6dR6egto59MbbQvWXzBF42H9f6TYc5viPCMfz45lA/W8E/9a
-         ZkKPimF/+BgGAQnC7/CUF4QQZN81GuhSkHWsLNgTSWfpbZe5/MmCHJ+agFwwsEl0H0kA
-         +pswLirVQSeB2P+JqUvGV6NrRl560taQkMvIUgEQPUrBgFdujUlFlcEqZyC2okdbm83Q
-         fzguk4b0EZqxr4g/YBpD7fjMRf+G5q0hPeIpOYQuturWpYuzS00glBE45oxWGPBlg/wO
-         3O08Gd/3Ti8O5gKiO3nbTQM7ArDpguwemNFz2Mpalttz7ubjUp3CiQSZO257vfDXh8Dy
-         OfSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784941091; x=1785545891;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1784941094; x=1785545894; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=3RPSKOAGTuMe7DirYFHsiGB/35uTeF1WdVdXjVBBsZg=;
-        b=Pq/4Gixph5d8WCozSIw6+alSoi5wqdOVohCTkurZHmUXuYUhxXmKd/Dsond4rYopJh
-         TYpPk8XjU+w+r3KQqciIlVo1u/2QJ3gPBCkxQczlU9MTO4ErrRVcvPLx8fp4xdMRm31S
-         YFO+B7JIzi0agzotEWSliuCccMriQH7g4Dl3N1ffeKxByXoNnYfdjJWjlE1/KK/tmKia
-         trOY0mv1nPUWE2E8eEEHamgWQLRq3a41ogYYHKVaNldWyKR6WMiiZ3FnTpbNFEz72j6c
-         +YitXOFSvZbSq6Q15TY6/aK3hb1ZvGWIPVVIWhgq+2WxOJhOAWVBam1DA1biirML+lMv
-         UvCQ==
-X-Gm-Message-State: AOJu0Yy3Sf0oUzHzUn+o1sFKtfMhCA2Bm9ShXE8PfosTKMbofDIuBJn9
-	IPo0JKvdg/PZMWlmU3BT/ZF47Jmbf9eIGwJYdQ7x2/PgfzjgmM/qbyC8
-X-Gm-Gg: AR+sD12fXQhuuKJ+NODeeneDeaPS0IM3EAoulNSHjXNmNoXlTxUxyMH8YiEv3SKNm0S
-	DeN4ImD6/exSuYNIJpSfXAVgSgdZaI3LdBOw5t882cBktmbAKQZEYBsfxq93vx7indS4/iIVY0Q
-	xKiVyA/3LRDw6tjPVWHs1eiWdBBOCoWhhBIJ4+Xi3cQeIqWwVBdaijqpaxLgBI3WvW0pLk2Xmum
-	ITKo/y4Ep0Lr2C43NvCoBMIupVJeYmqmOXTMak/m7Ft/5m4aGozR22VBiyro2nZL80bv3xJ4Fnp
-	IRc2moFtXhAFb7rN7mexrT7DfwEyfUFDHdJOtpaqz2CKsD5/xdkgQE89QsIokcvpiC2VyUMyVaX
-	YXrPtRLm++i2YVxcjZEsOX4rbfLGpPjlm/yXmsq/EnN3EeJOU0EcuWGW0JtDeqVjGxoSvdL7E
-X-Received: by 2002:a05:6a00:4c07:b0:847:df4c:40c9 with SMTP id d2e1a72fcca58-84e595543b9mr406839b3a.46.1784941091167;
-        Fri, 24 Jul 2026 17:58:11 -0700 (PDT)
+        bh=tJzCpl1A9lMuSv16O58Xsv9A30hSmOZtX21l624BoiU=;
+        b=evbwxWueggAWYfOBVgUastnpkYx3b10tob6zyes6TGPyS1+2HWRkFou37/D92BmxzD
+         4q8THs7UVigJ5pTUrwCQDMXHQ/war04EbqpHjjqUJCALHGpxfneeBPtT5fKhengzSF5h
+         u/ywhw9HBLGTLmUR4/4at6s/lng3naJfC3xSbW7mAgr/OmuGhRwDDRlk7DcAQA9cV93S
+         FkYgAOpas/IMhc1MvPa45lb7FzC1riOfX+eiN3U5iYy+ffgQc8jAiiQXDti8MxZZJ5sx
+         +vc4szEQZuSuZS5reyEUOhLTW4BNTrbqZmHAomfbfMfH26DGafs7qdq3u/cvMtKmhyqa
+         mw9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784941094; x=1785545894;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tJzCpl1A9lMuSv16O58Xsv9A30hSmOZtX21l624BoiU=;
+        b=ejBIE9HpGk3BVyvg3/fzzoFmPAxcZFS05dpKf0tOEAdzhlNYkG5+mcI98X4WEfbmXH
+         biBhOzORl79BhRcnVyUxAGHePOTerdnwpZy0oNeexvk2FTuUtUbcBhh65lTynBe7oViT
+         tV1KGiyzbMW6HlYRaBWh+gl6nu3GbfRz4GdDdXOUNxOOiJQRik/XtwEiFO4V6iOBGjaN
+         MGvIIpQN3KGviW/JCjS89UYYeFh9fiIms2iMEQWfsK3OGTLsBZOEDf0dTyDf+FPlF7em
+         alGXvbNzX2l9q70UjPWTZOmjgW2ScUdHe3fY+DYTq34vWXozBNkDGJEYP4T0Q+bUQ4YS
+         zdnQ==
+X-Gm-Message-State: AOJu0YwMFxRzXjF50SrRqve1U6Z5gqv0SsqfaJuKI0gxY/Kqk3XR6pqJ
+	SxJZNvO4pbmWF77l6nN9pA8A3w7ONTORhOq/VLPObcgGZeYERBKeRoPE
+X-Gm-Gg: AR+sD10qIzmf2DKbLute9PLBuFaeYPvS6Hro+7rN1NdQVaPra8tg6aasxRAN1yQi9bL
+	/pd6jRvAQAM3DdWyeFRfZydSSI82Dq2BI49UQOO7UWWgiJSq/AazpQIOm1lSKIYWuahixvGkJ7M
+	VadPJKFeRe3J94L8TsVgexezENzr7nZg9jtoBAPvsMu6LGmCHvLd8Ma2qR8W6LNysfmoXCJmdO1
+	XWky9tY4xpSihiykGZonqnV5dRJzqfNwxaOmFR6EuoXuhc1JM/Gl0WXLU2+VSJN3167ny6KGq3d
+	nwFRQe78PIQDVOMEWCkJkUrSIGVthsCm+3XPcbLxlBKrvJ+Ph+/DPzktgeZ1u+62rcX6/2H6lr3
+	HkoQbG5T7Dr9cdmsDcjPjeGtJ3YnNZlAYQAhHBk3kyUnzrqwF9cfLGPHyJVRWZQ==
+X-Received: by 2002:a05:6a21:6196:b0:3c1:d78:6457 with SMTP id adf61e73a8af0-3c67daecd72mr595029637.32.1784941094334;
+        Fri, 24 Jul 2026 17:58:14 -0700 (PDT)
 Received: from localhost ([2001:da8:7001:2000::1:5491])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e53254f57sm566254b3a.1.2026.07.24.17.58.09
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbbb66dc15asm654002a12.30.2026.07.24.17.58.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 24 Jul 2026 17:58:10 -0700 (PDT)
+        Fri, 24 Jul 2026 17:58:14 -0700 (PDT)
 From: Inochi Amaoto <inochiama@gmail.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -77,11 +79,14 @@ Cc: devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	netdev@vger.kernel.org,
 	Yixun Lan <dlan@gentoo.org>,
-	Longbin Li <looong.bin@gmail.com>
-Subject: [PATCH 0/2] riscv: dts: spacemit: Fix phy id check for the phy
-Date: Sat, 25 Jul 2026 08:58:01 +0800
-Message-ID: <20260725005804.373698-1-inochiama@gmail.com>
+	Longbin Li <looong.bin@gmail.com>,
+	E Shattow <e@freeshell.de>
+Subject: [PATCH 1/2] riscv: dts: spacemit: Fix phy id check for the phy on pico-itx board
+Date: Sat, 25 Jul 2026 08:58:02 +0800
+Message-ID: <20260725005804.373698-2-inochiama@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260725005804.373698-1-inochiama@gmail.com>
+References: <20260725005804.373698-1-inochiama@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,20 +95,35 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-As reported, the phy framework can not detected the phy id correctly
-when reiniting this. So add the phy id compatible string to the
-etherenet phy, so the phy can be reinit successfully.
+Current phy framework can not reinit the phy correctly, as it will
+assert the phy reset GPIO so the phy id can not be readed. Setting
+the phy id of board pico-itx manually so the phy id dectection can
+be skipped.
 
-Note: separate this patchset as two patch for backport if necessary.
-
-Inochi Amaoto (2):
-  riscv: dts: spacemit: Fix phy id check for the phy on pico-itx board
-  riscv: dts: spacemit: Fix phy id check for the phy on com260 board
-
- arch/riscv/boot/dts/spacemit/k3-com260.dtsi  | 3 ++-
+Fixes: 74657a376960 ("riscv: dts: spacemit: Add ethernet device for K3")
+Reported-by: E Shattow <e@freeshell.de>
+Reported-by: Inochi Amaoto <inochiama@gmail.com>
+Closes: https://lore.kernel.org/netdev/20260712045233.800748-1-inochiama@gmail.com
+Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+Tested-by: E Shattow <e@freeshell.de>
+---
  arch/riscv/boot/dts/spacemit/k3-pico-itx.dts | 3 ++-
- 2 files changed, 4 insertions(+), 2 deletions(-)
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
---
+diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+index b2a7d2d0d3a8..b9d2de878f38 100644
+--- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
++++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+@@ -196,7 +196,8 @@ &eth0 {
+ 
+ 	mdio {
+ 		phy0: phy@1 {
+-			compatible = "ethernet-phy-ieee802.3-c22";
++			compatible = "ethernet-phy-id001c.c916",
++				     "ethernet-phy-ieee802.3-c22";
+ 			reg = <1>;
+ 			reset-gpios = <&gpio 0 15 GPIO_ACTIVE_LOW>;
+ 			reset-assert-us = <10000>;
+-- 
 2.55.0
 
