@@ -1,171 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C9392EC0A6;
-	Sat, 25 Jul 2026 13:15:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784985361; cv=none; b=XhuFqOfVnAHSSI1Jy21eGEKm8ZpDEyDOU5xdcjHvdVitqFeIH04IKLNguTeZoi3C9+i3h9G4jWpI0/+nEPvAJu0uc398bAwpYRopmAXU6YGHw8vaBakd5SWIOMjVABUE+Nyk/dT6CyvRZKfjzNSiysk7t0pOoFITgdPJLjfRW1I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784985361; c=relaxed/simple;
-	bh=Jza9dBmNX95LB2vhP/MvN/dtx1frZDbFAwWceC7KWz4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=q+jx//T0bRjO3crMeMt0I66fbKSkrDyuyFthnb5tCChLxSTRPJqe4Q4lXrbMXU2bO0sQ7unzeB1ENYLHUDUANRpJqxAN3rkFjXM/sJcwAv1shqRZGsXfYEaCJ4dqVGQIQYgqHaIry42x7qswL4aBDL4S7X5D57cFDyhpmyDCh6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SFJfQxef; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9BDF305660
+	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 13:23:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.175
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784985807; cv=pass; b=lIkaVlhCPAzeHNXddUMQIGxdVFDu9AXirN2MBdj/v7tWfyJaJwcPXA0PTiAajB/encmI99/wt4IjEqBW9eR28N6rm6UR1gj6623Y9pTRY5CfH2MYxOxy7UT1Es6Bgpn2C6Aww3NBaqBDgMFrafk6Veb5xP/msNrdbT85U+cEhJI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784985807; c=relaxed/simple;
+	bh=iyfAphcrJGor91FmD7IGYNutyAxV9/ncvttL25PE830=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=T7ixAMCrfpY+SDbUaSBmEoNCjWEV4pLr0yLDblIVOFqzr/l68mZCiEWN2s9ElMxyZVMDyIM8wKdyWHTzNdPXj4V4ADwDe7ci1SmHjsbP/B0HKGHhcJfYlHVJz96Gi1XUKoVn7TZSmaQNVvh7YgHaOTRhzSBXt3rH6LMFK3i/DGo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rwr4tQOP; arc=pass smtp.client-ip=209.85.215.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SFJfQxef"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80ADE1F000E9;
-	Sat, 25 Jul 2026 13:15:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784985359;
-	bh=kT5XrLFshmt7cvuC4cpsKMz5cnoF+ktfQ+kqzEfCPuQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SFJfQxef8TkdhDhuHbCYgas9g0LlIQnUIIhdbCouH/cKjxxpZbbujjdsrJpiW9nLE
-	 +yfo5ZMcHjUKhAhKGmrfJvMw7pu2Y4s424P5tM4KL2tCbDYPCYkZdhOCcmJrqOG95b
-	 2OTNB/fhFOhPyGGVryhbRfVE14Ag9lAgc2/JDvXOmi4yDcrq/55Ty4ETL0a8FADyCO
-	 OOHTTQGukDWXnARLvg3GnsHUFF2VkGCZEWmc//4FMXZJ8YQFwXb51qcIaR8gW6w8zT
-	 DvckpRVH3c4HHuRBHyRhfItKxBnhHqObNnH76AabdflG1pqb2eyfpqk0TveoLeyI1Z
-	 YXzavmMCwjQrQ==
-Date: Sat, 25 Jul 2026 13:15:55 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: Zhengyu He <hezhy472013@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Mark Brown <broonie@kernel.org>, Alex Elder <elder@kernel.org>,
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-spi@vger.kernel.org, wefu@redhat.com,
-	liyeshan <yeshan.li@spacemit.com>,
-	Guodong Xu <docular.xu@gmail.com>
-Subject: Re: [PATCH 1/4] riscv: dts: spacemit: add K3 PDMA request numbers
-Message-ID: <20260725131555-GKF77545@kernel.org>
-References: <20260717-k3-com260-spi-v7-2-rc2-b4-preview-20260716-v1-0-969a1b0f783f@gmail.com>
- <20260717-k3-com260-spi-v7-2-rc2-b4-preview-20260716-v1-1-969a1b0f783f@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rwr4tQOP"
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-c9e7391839cso1241466a12.0
+        for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 06:23:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784985805; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YVomlwSO49IZa1gZJjyGR8MepptYPvLjgY8Ba7hdKJb6GxNYAzVk4eCLHAxj+dY2k2
+         +ZlAchcfKieUDq88BPGDC3eT9Zo0OgyBknWqxm/xZOaNrm6C9+OzR+lNEkUUheyStRiw
+         9Z1Rget+bhhiWp7/pN7f1B1MhzfauarMWuTSpGL/nNyT/uauuOKAiN2zxZIlsBBIrE77
+         R5gHrwCzK2i2fqyGYIDsTTSTMQb/caLHtqEgfDIFbTZCF1YC/UVRnzAJh3z+Wol6lyJx
+         o1f4Iz7PFuKG9XZxvdOc6GyVtavKcpZ805VSUeExxPfOmdlZLKsrQ5HIM7xY2dfPQiD6
+         ZDAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Dw44hJDz7rSvpH5qvEi2DXJBQouyq2n4xZUL150B+WY=;
+        fh=d+zKcGkoYeQoNVljh7xRhyb6YhiSvy91lAYtUcTn8eQ=;
+        b=rvwuLke1ZpufBxEMXujPfWQae6rOaPJqt9KcPB+H6T3vQdiTkt+wdo7Pz4MgHKBePa
+         1L9T5WgywO5MCwINxP3Y1SefXiZJnJK6YPreUE3AiaWIPcKWwz/45MTTky8E9BWYlbY9
+         6UA8ViMM5r501F35RjbcFbpBMxzK3dbafZaxCOZfGBu4c0ev2fSO2Qd2mlzbwUASnP/W
+         T1LbxTK6uZ7Xmr+zK/LCQmMqdZNcHqRKiGaMy/ThZ6KW3dozSIk6t0HX3awTakqlknQo
+         ApE78mydZooOouc8YvMdszKMMmyf2/LVIVT6ACdk6mKrBkD+xwbPb0n0ZwnqSYxlaNtb
+         m1Qw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784985805; x=1785590605; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Dw44hJDz7rSvpH5qvEi2DXJBQouyq2n4xZUL150B+WY=;
+        b=rwr4tQOP/NDuSVNy6MSTjghqfhqv/9wiglejRt1ULV6Th9ZpXSsgm5REam0H9lKkzk
+         o896/WR/6nNlL7/9jA0Dl7db0LpDOtVkkqJbmMGG5Q0A0dFsSwRlAiOSpOnLQa59vwZQ
+         lb/qby2aAFMubawZFbk9pH6OTbCd0xQI+VV+MlfrNEwwdY1foEztzk19SFDoBOaau+qJ
+         Jn0Q6WM26eRMQ3YfafZw8yfEJlCgHzxzGgR5GU9ilx4q+RTu0q23b6DyfWS62TSshZQ5
+         fD+eQZrNToPFKs2IYJ8/NHhI2AwCIH1QuaYVO5NtVzyqFuWeYNmvSCIB9Wn9qcqau3Kq
+         BckA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784985805; x=1785590605;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Dw44hJDz7rSvpH5qvEi2DXJBQouyq2n4xZUL150B+WY=;
+        b=k+/fOUUKHVD/pMBmx5xU183E0yfR23NtcXIzyUeXrBUUS7ONx6QTUwfLH6iv72Ixr9
+         6+Ie1R+m1TfYRWzqbcHcDqTsr5w06e1FX82yDHt0AKg9dIimJL39dzH4zDzPkSpmC5wu
+         SbRzx+SQyAlFhNpb+up0q+lwmakk9kDhqqohvuVqx8qPHXILFpnJoddCXxlLPffwmlWH
+         C+vywZmYXgU3iHsxhpoFYfWxG7dleFfdJ/+Iv8MKK5DMXGVz0u6eKjq8FBsTkVp+M5+9
+         ujZAAY6d5HXZxXzxxnEn4K4RYzB0lWWvVPgpKR+dTH5NZbxUQUlDto1pPMxfixt+StZg
+         YoNQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqKilr0JqMvaYV8ngIMsrikmiCEet7aIVCyXfl/YsKF4q7NApbgAim9qmShv6EisXScdf8PReLBQFZ0@vger.kernel.org
+X-Gm-Message-State: AOJu0YwX1duZoUywPFphib6m5Bc9p29mf5b/cT/zHtwvKObvDN7HNaBz
+	nDaO7DGajoY+DBepyWUw+6H/kVEfLODwfgYL3YTe7KztDX/wwOmMyu5sl4b4njKFBvcIguCr5Mw
+	7fnAmHc5T9K4lqF2lRMdl8Gzl4F9YmgI=
+X-Gm-Gg: AR+sD10wkvnq+Dd23C/JAHFjOy0Rj+S2Qg/bi6vJzyaLRrSpS6LYLBS7UZRRPOPcCb7
+	PmH0Rimo/7qbZW8/TFmX3aEJdTnuOcfDtBxCP2MLgCFAt2KVB7EzwLCZG2As0uyiSSVx7dRg9Ou
+	ORelYd4vZ3lMk6dMdVnuq0SBX5V7odrtrUx01cTMFAW45/PwadBXFBPSfVCfSQb/NvEcSudNTf5
+	aDzmmktU3Cbw27lvuRPPI6oDIOoP66HgC5G1aR4GQnOWIN5m4bFGFTA6g7mJYAbSyFiaSVvHznF
+	xwSqQ7svaUM1NKVqZB8=
+X-Received: by 2002:a05:6a20:c5aa:b0:3c0:9c1b:d0b3 with SMTP id
+ adf61e73a8af0-3c67e026f9dmr2180177637.62.1784985805156; Sat, 25 Jul 2026
+ 06:23:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260717-k3-com260-spi-v7-2-rc2-b4-preview-20260716-v1-1-969a1b0f783f@gmail.com>
+References: <20260721095233.420823-1-clamor95@gmail.com> <20260721095233.420823-3-clamor95@gmail.com>
+ <amGx2fJCUB4_XW1M@monoceros>
+In-Reply-To: <amGx2fJCUB4_XW1M@monoceros>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Sat, 25 Jul 2026 16:23:13 +0300
+X-Gm-Features: AUfX_mx8PDd_aHDdNKfdxjyqn_bGAG_YlQFuZHOTbUPdXQnkuKB3mJ4_MrnWIhc
+Message-ID: <CAPVz0n2yWtTOgruRc+MAYTZ9=rd6qf6sEnX9v8THvJkN_opvbA@mail.gmail.com>
+Subject: Re: [PATCH v10 2/7] mfd: Add driver for ASUS Transformer embedded controller
+To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Sebastian Reichel <sre@kernel.org>, 
+	Ion Agorria <ion@agorria.com>, =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-input@vger.kernel.org, linux-leds@vger.kernel.org, 
+	linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Zhengyu,
+=D1=87=D1=82, 23 =D0=BB=D0=B8=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 09:25 Uwe =
+Kleine-K=C3=B6nig
+<u.kleine-koenig@baylibre.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> Hello,
+>
+> On Tue, Jul 21, 2026 at 12:52:28PM +0300, Svyatoslav Ryhel wrote:
+> > From: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
+> >
+> > Support Nuvoton NPCE795-based ECs as used in Asus Transformer TF201,
+> > TF300T, TF300TG, TF300TL and TF700T pad and dock, as well as TF101 dock
+> > and TF600T, P1801-T and TF701T pad. This is a glue driver handling
+> > detection and common operations for EC's functions.
+> >
+> > Co-developed-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > Signed-off-by: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
+>
+> Documentation/process/submitting-patches.rst has:
+>
+>         [...] the ordering of Signed-off-by: tags should reflect the
+>         chronological history of the patch insofar as possible [...]
+>
+> So your S-o-b should be last when you submit a patch.
+>
+> > +#include <linux/i2c.h>
+> > [...]
+> > +#include <linux/mod_devicetable.h>
+>
+> <linux/mod_devicetable.h> will go away soon. Please rely on
+> <linux/i2c.h> to provide a definition of struct of_device_id and drop
+> the #include of mod_devicetable.h.
+>
+> > +static const struct of_device_id asus_ec_match[] =3D {
+> > +     {
+> > +             .compatible =3D "asus,sl101-ec-dock",
+> > +             .data =3D &asus_ec_sl101_dock_data
+> > +     }, {
+> > +             .compatible =3D "asus,tf101-ec-dock",
+> > +             .data =3D &asus_ec_tf101_dock_data
+> > +     }, {
+> > +             .compatible =3D "asus,tf201-ec-pad",
+> > +             .data =3D &asus_ec_tf201_pad_data
+> > +     }, {
+> > +             .compatible =3D "asus,tf600t-ec-pad",
+> > +             .data =3D &asus_ec_tf600t_pad_data
+> > +     },
+> > +     { /* sentinel */ }
+> > +};
+>
+> Trailing comma after the assignments to .data please.
+>
 
-On 07:45 Fri 17 Jul     , Zhengyu He wrote:
-> From: liyeshan <yeshan.li@spacemit.com>
-> 
-> Add a local DTS header that gives symbolic names to the SpacemiT K3
-> PDMA request lines of the non-secure peripherals. Device trees can use
-> these K3_PDMA_* macros instead of hard-coded request numbers when wiring
-> a peripheral "dmas" property.
-> 
-> Signed-off-by: liyeshan <yeshan.li@spacemit.com>
-> Signed-off-by: Guodong Xu <docular.xu@gmail.com>
-> Signed-off-by: Zhengyu He <hezhy472013@gmail.com>
+Sure, but out of curiosity, why in this case you ask for trailing
+comma and if entries are in one line, you don't.
 
-Reviewed-by: Yixun Lan <dlan@kernel.org>
-
-> ---
->  arch/riscv/boot/dts/spacemit/k3-pdma.h | 83 ++++++++++++++++++++++++++++++++++
->  1 file changed, 83 insertions(+)
-> 
-> diff --git a/arch/riscv/boot/dts/spacemit/k3-pdma.h b/arch/riscv/boot/dts/spacemit/k3-pdma.h
-> new file mode 100644
-> index 000000000000..a5b723ad616a
-> --- /dev/null
-> +++ b/arch/riscv/boot/dts/spacemit/k3-pdma.h
-> @@ -0,0 +1,83 @@
-> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> +/*
-> + * DMA request number (DRQ) definitions for non-secure peripherals of
-> + * the SpacemiT K3 PDMA.
-> + *
-> + * Copyright (c) 2025 SpacemiT
-> + * Copyright (c) 2026 Guodong Xu <docular.xu@gmail.com>
-> + */
-> +
-> +#ifndef _DTS_SPACEMIT_K3_PDMA_H
-> +#define _DTS_SPACEMIT_K3_PDMA_H
-> +
-> +/* UART DMA request numbers */
-> +#define K3_PDMA_UART0_TX	3
-> +#define K3_PDMA_UART0_RX	4
-> +#define K3_PDMA_UART2_TX	5
-> +#define K3_PDMA_UART2_RX	6
-> +#define K3_PDMA_UART3_TX	7
-> +#define K3_PDMA_UART3_RX	8
-> +#define K3_PDMA_UART4_TX	9
-> +#define K3_PDMA_UART4_RX	10
-> +#define K3_PDMA_UART5_TX	25
-> +#define K3_PDMA_UART5_RX	26
-> +#define K3_PDMA_UART6_TX	27
-> +#define K3_PDMA_UART6_RX	28
-> +#define K3_PDMA_UART7_TX	29
-> +#define K3_PDMA_UART7_RX	30
-> +#define K3_PDMA_UART8_TX	31
-> +#define K3_PDMA_UART8_RX	32
-> +#define K3_PDMA_UART9_TX	33
-> +#define K3_PDMA_UART9_RX	34
-> +#define K3_PDMA_UART10_TX	53
-> +#define K3_PDMA_UART10_RX	54
-> +
-> +/* I2C DMA request numbers */
-> +#define K3_PDMA_I2C0_TX	11
-> +#define K3_PDMA_I2C0_RX	12
-> +#define K3_PDMA_I2C1_TX	13
-> +#define K3_PDMA_I2C1_RX	14
-> +#define K3_PDMA_I2C2_TX	15
-> +#define K3_PDMA_I2C2_RX	16
-> +#define K3_PDMA_I2C4_TX	17
-> +#define K3_PDMA_I2C4_RX	18
-> +#define K3_PDMA_I2C5_TX	35
-> +#define K3_PDMA_I2C5_RX	36
-> +#define K3_PDMA_I2C6_TX	37
-> +#define K3_PDMA_I2C6_RX	38
-> +#define K3_PDMA_I2C8_TX	41
-> +#define K3_PDMA_I2C8_RX	42
-> +
-> +/* SSP/SPI DMA request numbers */
-> +#define K3_PDMA_SSP3_TX	19
-> +#define K3_PDMA_SSP3_RX	20
-> +#define K3_PDMA_SSPA0_TX	21
-> +#define K3_PDMA_SSPA0_RX	22
-> +#define K3_PDMA_SSPA1_TX	23
-> +#define K3_PDMA_SSPA1_RX	24
-> +#define K3_PDMA_SSPA2_TX	56
-> +#define K3_PDMA_SSPA2_RX	57
-> +#define K3_PDMA_SSPA3_TX	58
-> +#define K3_PDMA_SSPA3_RX	59
-> +#define K3_PDMA_SSPA4_TX	60
-> +#define K3_PDMA_SSPA4_RX	61
-> +#define K3_PDMA_SSPA5_TX	62
-> +#define K3_PDMA_SSPA5_RX	63
-> +
-> +/* CAN DMA request numbers */
-> +#define K3_PDMA_CAN0_RX	43
-> +#define K3_PDMA_CAN1_RX	44
-> +#define K3_PDMA_CAN2_RX	51
-> +#define K3_PDMA_CAN3_RX	52
-> +
-> +/* SSP0/1 DMA request numbers */
-> +#define K3_PDMA_SSP0_TX	64
-> +#define K3_PDMA_SSP0_RX	65
-> +#define K3_PDMA_SSP1_TX	66
-> +#define K3_PDMA_SSP1_RX	67
-> +
-> +/* QSPI DMA request numbers */
-> +#define K3_PDMA_QSPI_RX	84
-> +#define K3_PDMA_QSPI_TX	85
-> +
-> +#endif /* _DTS_SPACEMIT_K3_PDMA_H */
-> 
-> -- 
-> 2.53.0
-> 
-
--- 
-Yixun Lan (dlan)
+> Best regards
+> Uwe
