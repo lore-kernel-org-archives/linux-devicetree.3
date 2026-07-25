@@ -1,158 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out203-205-221-236.mail.qq.com (out203-205-221-236.mail.qq.com [203.205.221.236])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35EBC254B03
-	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 05:56:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3588C3358DA
+	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 07:06:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.236
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784959018; cv=none; b=Ahd3pKGCNNoChiXw+mTxhfmN1sIElsjm8Ae7kgbFRqWAYs6DnODem5vyq31tpW74jx/xThTILPjWkcZ347+F9+c0JAt1O4wyhUpH3VehXIwXWt7NxaQ3c53cCZfg98AD1q079HZ0E7IIVv/JSKPZCjH/wsXk439NtpNw2gFf4YQ=
+	t=1784963202; cv=none; b=MMOUTxxhxXidaTTTKTBHvvryFTlZDMTJ6Jjk+uG+jOBzbEb3DGKBVCjW8JN/FjY0kqmJI/AMPkzCplV3aDdZrOSbJlAZ3+DbW994/o/lcRF22kkJNvNuwwXIChx9lhioq8/wvX5P5jhiL616fmCpFVLJ+gQfh7WivNbP4m+b8K4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784959018; c=relaxed/simple;
-	bh=9j7XAqQVJGd+eTY3Wy1ySZiwaSe8FhnvwhUrUZv5bKw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=o6Q7anxgyYVn2+G4KL7xITyni1ZinmEEj0Tr3G27p/Fa7SGSjkHiSvdQRy0U/MggE3Stk7GeNogpucFr8UDqJeKgzFN/YEFAaNfADiVYAq8guJtxKgzUH61M/cIUI0oiDXzfG+uncjQbL6FVkYhf4vWw2aQEWZ8wr8oMOp20FTU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ua8U8SQy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784963202; c=relaxed/simple;
+	bh=ew2brvOSYmN1ky2D8NosJqzmW3szyey/bOJzq3A82QI=;
+	h=Message-ID:From:Date:Subject:MIME-Version:Content-Type:References:
+	 In-Reply-To:To:Cc; b=Z835mdivcUo9IDyTYmVeGcedVYGQq5pa39Lz6Jh0O14X+sivz8/6KnCRQDsntUJIC3FRpavdz9ghD4SIcPfL761hSWSBGaJBOXJbmBxcwrvnTvK54LGrjP5ZUHIlRS4QI8JbrPh/5uGBaY6FKDPPUiYDY8uUkIis6yaa3jbtmbU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=nBM5G76E; arc=none smtp.client-ip=203.205.221.236
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ua8U8SQy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B69161F00A3A;
-	Sat, 25 Jul 2026 05:56:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784959017;
-	bh=71OkEQgRRSb3pnZmEsbDRdyaKBcA9odKJeSUrsK0LmU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Ua8U8SQyvsLgaNyTzVZeuTe5nQfGfiJcvHvPSE8Pk1V9kIQ9hkWdYcnioOnZFIocg
-	 3NIhe9DObD7reLFaAQebsnaNb+AQgJngA0zXr/G/iJX3J+4xWarBwDh73/DQbasIm+
-	 rmV21fLCOhXHr7rE6lVlOoB6sQ4QXjnuGMbH3V+O7kGDztQ79f51D4AeDKyUdUa76c
-	 Lo+1WIbcK1CR+5CL2bUaTKi2h4X/uunpS92d53pdl5mLhFWP7aEI6nSUm6EkBMCzdI
-	 fML4efMBLeC0qSBndP6I1p/FNYeGIb4+YoU02l7VP7kjaJEwh7tfMLMy+UH6/7W6JI
-	 yV/CAkqTU3paA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v6 3/8] net: phy: add
- (*notify_phy_attach/detach)() hooks to struct mii_bus
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Markus Stockhausen" <markus.stockhausen@gmx.de>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260724055611.1008577-4-markus.stockhausen@gmx.de>
-References: <20260724055611.1008577-1-markus.stockhausen@gmx.de>
- <20260724055611.1008577-4-markus.stockhausen@gmx.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 25 Jul 2026 05:56:56 +0000
-Message-Id: <20260725055656.B69161F00A3A@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="nBM5G76E"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1784963191; bh=Vz7yzuowqwsGsfyfQvMihkNn4ZFIprdXXMLcR6PYob8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=nBM5G76EomdYu6Mtfaa1Bg+4j5FbbUhAGzMY2LgEjJMQuyE56jgLq2W0NAzLzwVZg
+	 SgDU5Xa4nx/w2SqTVaAtI/COZvcDu6LseDm8FflNXcOSeo11mZIYv26kK3nhyicsNq
+	 KacebA7SMSx1ovVYa6l68WPemxyArme74VfRgiZM=
+Received: from ubuntu2204.localdomain ([2409:8d20:22b:54c:9e54:40ff:fe02:3f0f])
+	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
+	id 19989659; Sat, 25 Jul 2026 15:06:25 +0800
+X-QQ-mid: xmsmtpt1784963188t0x0rjvih
+Message-ID: <tencent_76C8BC251C8C3C068C23BAF859351DD3300A@qq.com>
+X-QQ-XMAILINFO: NbgegmlEc3Jue+F2vLrGacXGOKYvYWpO/RUL+wYGsTf9uoi7RscE/8TTfquBm2
+	 vySwgYzgaR2oSCHZ6b2EkQdw1AsaUJv7hwj/PVw25xNkQ42W/C90hKpHj0eW5QmmO3fFTiWu/Ddz
+	 xAJaukWp5J4UtF7go9HnWgi2oFwpOZE0wAihCXYdPc3dHRitJQGIaJ1MRWnKUQpKnZp1+IvFGaZ6
+	 VHQpIeaBODL5FO/MDOf7S4A8avPl04TrJXhGgkVKiG5zoOo3wb6oHk9JDSc9/ZFb+RwQqEcVq1n3
+	 eQW9iq50zlUUSdqfbf69GOeAeHnV7r7MahllGHb5+tQ58Gasr5Kfz1J1M7JmmwqvZwTxH/ESFHTj
+	 /SPF9zm0HHXd+h/hHoWw5oDQ8x9Ha0jVwWMcJCH2QcdcWkZHjmgAqjXTzFzYPRRQKCrGy26MJUj9
+	 gfmtmquyIg+P/sRuf1iIDtIGV34fcCvlL7kjxaqkHWq17V3mm3lcE52gh86UzuXvtyrR5tqC0vlb
+	 pe52R5KGhgz3IZMoNeICC7zihGldGARJNmUtVCMvfEHwUPAJViGKgebb7y8tCB/tZf4P7tlE4W6o
+	 SlO69PBFux5sqCZutf8J5jHgqC9VaovsBJ2q2KoCPs18eAP2NvQuBD/STEhzqL8/ITLJygM/KC9F
+	 OtdXhGFU0y6UFH5Vm3dC+TyP5q1E3waIGhlvESHrVPz9Snw8yplCtG7M13XaLv+YGRpSMF5qSXy4
+	 MlPYV144tZcQfp92GRhue/dSlLRlTKKXeymBp1Jgb8g5wj/21F8dttx8xLRqHKPmOd8lIfDxVZE+
+	 XsDu2DgluVZnfdU1lyWBmDdV5K6zMVk3E9zV0X7qG1XzifWnJhH/TzchcG5iF5T0J+ktVW/J1rzq
+	 qiRyBxLYQeejM703DPFtvaGwoSy26DVLFy1toxVr9OvjBA7F2aTJQ6tu+MsrOZzYO2HU6K/H08Fr
+	 jM4QrFv+ShjN1d4YRSPAA0B2iepLkYe9l/JRgYKsZLBZJs3TGryqR9UQqeyy4kU5gIRSpwp4BF2D
+	 0ZscVtRhj80OXAA4FnFklKXtlzzWNn3EWfvAea+ZmRoAj2MLF2KsvDOH4UFhMqCZhfTeGSrrKTay
+	 cgdVFlv9Tetdc5knVzH0wu/1sTibZDpdUSktgvmbAQl4t0c2psis+fXRu5yaa9IBYT28qyR07jAq
+	 t25sBvS/8b8bs6fg==
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+From: Cunhao Lu <1579567540@qq.com>
+Date: Sat, 25 Jul 2026 15:03:31 +0800
+Subject: [PATCH v5 1/4] dt-bindings: can: rockchip: add rk3588 CAN-FD
+ compatible
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-OQ-MSGID: <20260725-master-v5-1-75da459d2b93@qq.com>
+References: <20260725-master-v5-0-75da459d2b93@qq.com>
+In-Reply-To: <20260725-master-v5-0-75da459d2b93@qq.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de, 
+ Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: linux-can@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Cunhao Lu <1579567540@qq.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] LIFO teardown violation in __phy_detach() clears phydev->attache=
-d_dev before invoking notify_phy_detach() hook.
-- [Medium] Calling phy_attach_direct() on an already attached PHY destructi=
-vely tears down the existing attachment without notifying the MDIO bus, ris=
-king hardware lockups.
---
+RK3588 integrates a Rockchip CAN-FD controller variant that is not
+fully compatible with RK3568v2. The RX FIFO count register field is
+encoded in bits 7:5 on RK3588, while RK3568v2 uses bits 6:4.
 
---- Patch [3]: [PATCH net-next v6 3/8] net: phy: add (*notify_phy_attach/de=
-tach)() hooks to struct mii_bus ---
-commit d7589ba7dbd162eb0da02fc6dd0debdc3bbed116
-Author: Daniel Golle <daniel@makrotopia.org>
+Add a dedicated rockchip,rk3588-canfd compatible to describe this
+variant. Do not use rockchip,rk3568v2-canfd as a fallback, because that
+would describe a register layout that does not match the hardware.
 
-net: phy: add (*notify_phy_attach/detach)() hooks to struct mii_bus
+Signed-off-by: Cunhao Lu <1579567540@qq.com>
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+v3 -> v4:
+- Collect Krzysztof's Acked-by tag.
+v2 -> v3:
+- Move the Changelog below ---
+- Collect Heiko's Reviewed-by tag
+v1 -> v2:
+- Use enum for the single-compatible entries, as suggested by Krzysztof.
+- Reword the commit message to explain the hardware difference instead
+  of referring to Linux driver match data.
+---
+ .../devicetree/bindings/net/can/rockchip,rk3568v2-canfd.yaml          | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-This patch adds notify_phy_attach() and notify_phy_detach() hooks to=20
-struct mii_bus. This allows MDIO bus drivers to handle PHY specific=20
-initialization without reinventing bus scanning. It implements a symmetric
-LIFO teardown where the detach hook is called only if the attach notificati=
-on
-succeeded.
+diff --git a/Documentation/devicetree/bindings/net/can/rockchip,rk3568v2-canfd.yaml b/Documentation/devicetree/bindings/net/can/rockchip,rk3568v2-canfd.yaml
+index a077c0330013..81e2b6dfeb02 100644
+--- a/Documentation/devicetree/bindings/net/can/rockchip,rk3568v2-canfd.yaml
++++ b/Documentation/devicetree/bindings/net/can/rockchip,rk3568v2-canfd.yaml
+@@ -16,7 +16,9 @@ allOf:
+ properties:
+   compatible:
+     oneOf:
+-      - const: rockchip,rk3568v2-canfd
++      - enum:
++          - rockchip,rk3568v2-canfd
++          - rockchip,rk3588-canfd
+       - items:
+           - const: rockchip,rk3568v3-canfd
+           - const: rockchip,rk3568v2-canfd
 
-Link: https://github.com/openwrt/openwrt/pull/21515#discussion_r2714069716
-Link: https://lore.kernel.org/netdev/cover.1769053496.git.daniel@makrotopia=
-.org/
+-- 
+2.34.1
 
-> diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-> index 94b2e85e00a37..38b31fc272d7d 100644
-> --- a/drivers/net/phy/phy_device.c
-> +++ b/drivers/net/phy/phy_device.c
-> @@ -1734,6 +1734,95 @@ static bool phy_drv_supports_irq(const struct phy_=
-driver *phydrv)
->  	return phydrv->config_intr && phydrv->handle_interrupt;
->  }
-> =20
-> +static void __phy_detach(struct phy_device *phydev, bool notify_bus)
-> +{
-> +	struct net_device *dev =3D phydev->attached_dev;
-> +	struct module *ndev_owner =3D NULL;
-> +	struct mii_bus *bus;
-
-[ ... ]
-
-> +	if (dev) {
-> +		struct hwtstamp_provider *hwprov;
-> +
-> +		/* hwprov may technically be protected by ops lock but
-> +		 * not for devices with a phydev, see phy_link_topo_add_phy()
-> +		 */
-> +		hwprov =3D rtnl_dereference(dev->hwprov);
-> +		/* Disable timestamp if it is the one selected */
-> +		if (hwprov && hwprov->phydev =3D=3D phydev) {
-> +			rcu_assign_pointer(dev->hwprov, NULL);
-> +			kfree_rcu(hwprov, rcu_head);
-> +		}
-> +
-> +		phydev->attached_dev->phydev =3D NULL;
-> +		phydev->attached_dev =3D NULL;
-> +		phy_link_topo_del_phy(dev, phydev);
-> +	}
-> +
-> +	phydev->phy_link_change =3D NULL;
-> +	phydev->phylink =3D NULL;
-> +
-> +	if (notify_bus && phydev->mdio.bus->notify_phy_detach)
-> +		phydev->mdio.bus->notify_phy_detach(phydev);
-
-[Severity: Medium]
-The commit message mentions a symmetric LIFO teardown. However,
-phydev->attached_dev is cleared before notify_phy_detach() is called here.
-
-In phy_attach_direct(), phydev->attached_dev is set before
-notify_phy_attach() is invoked. Does this break the LIFO symmetry,
-preventing bus drivers from accessing the attached network interface during
-teardown?
-
-[ ... ]
-
-> @@ -1890,8 +1985,8 @@ int phy_attach_direct(struct net_device *dev, struc=
-t phy_device *phydev,
->  	return err;
-> =20
->  error:
-> -	/* phy_detach() does all of the cleanup below */
-> -	phy_detach(phydev);
-> +	/* cleanup without bus notification */
-> +	__phy_detach(phydev, false);
-
-[Severity: Medium]
-If phy_attach_direct() is called on an already attached PHY, it hits the
--EBUSY check and jumps to this error path.
-
-This is a pre-existing issue, but destructively tearing down an existing
-attachment upon a second attach attempt still occurs. With this patch, the
-error path now explicitly passes false to __phy_detach(), suppressing the b=
-us
-notification.
-
-Since the existing attachment would have previously triggered a successful
-notify_phy_attach(), doesn't skipping the detach notification here leave the
-bus out of sync, potentially causing MDIO timeouts if the bus continues
-polling a reset PHY?
-
->  	return err;
-> =20
->  error_module_put:
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724055611.1008=
-577-1-markus.stockhausen@gmx.de?part=3D3
