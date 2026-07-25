@@ -1,174 +1,204 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B450E19D065
-	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 14:21:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CCDD2C0296
+	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 14:23:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784989262; cv=none; b=M9L7PFC3T1ayKYzXn1WSgEb+fjSQe+AovaZjberh+zOVJwVBKvnq0b3eum0+s9IswHQ55apZEj7KmPyQSl9hYfNKzYwdSdKKb2UhuKVP/sv08YJh6rBYti2G/5mVc5AbjUcEn3D6nNMJ5HQHn1FSdMZJho9DqzgY1NIR5uLGQ+A=
+	t=1784989399; cv=none; b=RpcAjtJiicUanpDdxd/KAyq3oHgEpcLenZqvypIQomoPHtSEmD0dZqnMNwNR7Lx/Li66OJdyDtjEspEuIfRZ2K/sa0Gh9mjU7zjyDMW9U1HRB8PwlEy2PzJa8/4xhXA7+FcYytowPnUVrJX4PZ4eArG7IC5rsZinTYbqkrnQtbo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784989262; c=relaxed/simple;
-	bh=ZJMMLW4CIKOt8hObECVhV+W33ebpE5udSZTaVK2TUrk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ACgX7zhBIM6+M3IMq17Nov8zUAalLAGGgxTxtx7JqpnLgE1etWAhHZUGAdmyAkiAAY4cHamKKnnZG8gsY1y5MvVz4l+R/IREH0WZiz9CJGW6rl7AMX/dUful+ip7Sgfgqw0PpPNsfUrmK0i5H9N8ZOXWC31sZjh/x0m9gSfZfNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m1R2zUla; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784989399; c=relaxed/simple;
+	bh=CkQtizK4VkMHMnQs8GKBodR2V58IDw4SiMug9gws+T4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hRwVxcsfRY7T3bD1LDMSe45oI59PtueNRg9PaFpMHy9Pouo/DWnIe6HdWkz8xRnpbANQumpMltf7YGH9NUervXdovNjJsZK6cwiaRqXaerr1MPL1EkiPVXzeljggIdLcsJ51ZUigaXDFe9ngh6tvSbp/o6fF7omochHQVKPGNCU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fMWbKylS; arc=none smtp.client-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m1R2zUla"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 899221F00A3E
-	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 14:21:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784989261;
-	bh=XY8MC71SnzeX56HU4E9bqCj1+66dX2IXIeiHX0g85Lg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=m1R2zUlafNmL9NPWkTzThL/jw5aEs6NCB113IDMdgD9JvxrTXU52vCPZXwSWr///p
-	 RfiS3PjJJrBVGztkjbl5u5NE/kfka7OMJuJ9EDWSy383ptHei8oW4u1Ghd22/7WWYi
-	 OOZ8kc9ek7UMAVN8Cp+/yuptA/gScAMEtECaQJSOfUG7PCmn5qZMhbjcT25VdwYS1U
-	 uzbHExfBkFGbEqNcbmf9+LwOOYooPLny8rvvbvczBIfA/gYeZ4FqTungS24LZHFw+v
-	 sapW0UBszCgr//jz4rx6t+jJNL4Zwkh9qJRgJIP0LAsWGMAgikEhVs7AADWJGkUGZO
-	 ojAM3GWxWaTtw==
-Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-39ca300db70so11819281fa.2
-        for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 07:21:01 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rp4bi0Vv+5H29o+FPeH9aLolLRuqOmK85zFLiJrpC1W84EPBHcevpA6emJg48nPVEzkgkzyN+Ha7Rvm@vger.kernel.org
-X-Gm-Message-State: AOJu0YyQ/aNHQM6hPGqSnivBztAXapXGkzJOnMDUreO9cW01cbxB8Ywq
-	La6/sAtn2F/sriXThdut0KF3uk6ztjhSTCoeL3ugJpaG7nXciLQeoaC29kULtl8ySJgH2/6a0aT
-	rzoEEklxrgFe5zahfm6/6V/TNGP5d1Co=
-X-Received: by 2002:a05:6512:1390:b0:5b1:5ee0:6662 with SMTP id
- 2adb3069b0e04-5b2c1b6973fmr389925e87.51.1784989260287; Sat, 25 Jul 2026
- 07:21:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fMWbKylS"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-84e507b079dso655655b3a.0
+        for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 07:23:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784989396; x=1785594196; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3+uBAPRCroeRo5mjG5+ZSRsQyaGZHZteMBuB0HnXeE0=;
+        b=fMWbKylS8VL1Y+JcCAi3ngznQL/v9IWpegITRdPktZ8wru4OymgEgs1I58ztFHLRXO
+         dd8eN1E1Nvjejcddb8UNvmctLp3bmmT/5cUybZiC8mOMECibI+P20sVyUq3oDDC0E0kw
+         5vAXZ4dW14iFuVb+zlXouUHY57j4dhtgX3FUwjVFzuvmN3h8l9NAWml4kVoU8IDTnrwt
+         brizDnmNSLmdlj2vs8MK/MZt8fC7VMIwbpwCxmfjejXnt06jDyK3y9n6yZkxvCyxxtbA
+         0ayCMMvhfggjvEMYEmlX6N9FjOdchhvWYJKRX+pZFzXQZwE0w2ZTBjt7bHWXxcKScBdE
+         bqbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784989396; x=1785594196;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=3+uBAPRCroeRo5mjG5+ZSRsQyaGZHZteMBuB0HnXeE0=;
+        b=cwEPyJ/CSAJ2TLfvfNyCHZeccKM3XXNOOelejOTr9ZNcD+PL/DS3nDHRfx0vckDfVX
+         8slQWU0pqXBW5JX70jK5Zn5CujxH+hpezTS5joa1lprTztF3Ea22iMrZYTIxpl5wwH2r
+         SdVvJZ0E9P2gkGfIJTK3/PTPMxdC1kkPBZFB/e1oQ3dSOLay67k98YR9UbGlwE++ZOtd
+         gVYdxJUUm1ILr6FhiVvY5qdyAXUqGwaFKY29CW53Zfbl83Wjo7PvwBHVCt+AYum1qQtE
+         tyI6LWEyw5uGnObhgAghO6JUWw6nleg4TYNWYVRjmE1KMv0vJ4K0wFzbyg1ab6FL//sW
+         SP6g==
+X-Forwarded-Encrypted: i=1; AHgh+RprWpp0330/j91AmdlcBatA5pldBCJQcq3Mai+gCmw+VFt7hGU9HZI5S3fgfeYyObqnOYcOX3hKFiHZ@vger.kernel.org
+X-Gm-Message-State: AOJu0YwWzCJm7V4LNs0uyME8Y6Q1cEccrymvs8cEgruRoUKJ5NpKhvV5
+	j8gJclxVuPYEIWbWKl1FxW8x+uTD84DhavbRLYLcUbYKjPi0yDc7kKzg
+X-Gm-Gg: AR+sD10EmYBU3TzrcaxHO371GPdl3YeMWKMX5a7I0CuVnFUAQPzKodfHwlRfvmN48ft
+	ARSlPp2mVGL6prCNvx22wOpp//ot7KB9SlMwE8xKQUav3ItgpUyQW0HrRu1pr3v0RoRfFMMuBYb
+	7n5ikcyL90cFngGMPfdnwI1HDEWM/NQP2HJo6Kvk58H1DDu/P+LBY9m+t+kEHlzoxMGCY/BmaeZ
+	HtdrCW845wVsfHu7JmapLG6D1iyWt82R4GZwKMOWBx5t/whxUBPy6OUHIHLmK0Cp6VvHKMf1ciX
+	DvWKaoEjfmjwNoPVQR7KQu2mUJadhZoiQd23Ea+EGdYPemfGRv9raZbYGhfifJyNzSb9MWYHBzE
+	jA2i7ORROSfF/HLx/kZ02MwH2XPp9h7IeOZD2CUu8vUhJ2c1Hg1sy3M0zKUDcVQcM89BkqtO5xI
+	4x4q88ttCTNSIu90HFI8BWcrKiOHX7aWD/8pkPXGIH2fM/qPXBujw=
+X-Received: by 2002:a05:6a20:244e:b0:3c0:9c1a:8952 with SMTP id adf61e73a8af0-3c67e0dbc72mr2275973637.74.1784989395556;
+        Sat, 25 Jul 2026 07:23:15 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-314bc584433sm10233729eec.23.2026.07.25.07.23.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 25 Jul 2026 07:23:14 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <1d7b6ff4-4ea6-41c4-b59c-25e14fdd8b53@roeck-us.net>
+Date: Sat, 25 Jul 2026 07:23:13 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260603055347.66845-1-changhuang.liang@starfivetech.com>
- <20260603055347.66845-5-changhuang.liang@starfivetech.com>
- <CAD++jL=Qd8ADR_kX2Q7msM4Dd0xFayPGM4ZzB3uv2ufvkuybtQ@mail.gmail.com> <ZQ4PR01MB120228AD03507B4836EFE19DF2CE2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-In-Reply-To: <ZQ4PR01MB120228AD03507B4836EFE19DF2CE2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-From: Linus Walleij <linusw@kernel.org>
-Date: Sat, 25 Jul 2026 16:20:48 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnNa6HsS5q5aYHxCLkQdZ3eh09PspO=eZx-4=p4EFr4PA@mail.gmail.com>
-X-Gm-Features: AUfX_mx8pVfrmx8WsONlAC7SoRWaJsjzkzgK-nLnNjT-L4xyZdV9VUod-aCvGBI
-Message-ID: <CAD++jLnNa6HsS5q5aYHxCLkQdZ3eh09PspO=eZx-4=p4EFr4PA@mail.gmail.com>
-Subject: Re: [PATCH v3 04/21] pinctrl: starfive: Add StarFive JHB100 sys0
- controller driver
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>, Paul Walmsley <pjw@kernel.org>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Bartosz Golaszewski <brgl@kernel.org>, "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
-	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>, 
-	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/3] hwmon: (emc1403) Convert to use OF bindings
+To: Svyatoslav Ryhel <clamor95@gmail.com>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Cc: Jean Delvare <jdelvare@suse.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260721095935.439174-1-clamor95@gmail.com>
+ <20260721095935.439174-3-clamor95@gmail.com> <amGz2YZogakb5XAv@monoceros>
+ <CAPVz0n3WKw74zg0HmBBOo8Z7JV_pku-DjsgKF_74B8EdD5cXgA@mail.gmail.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <CAPVz0n3WKw74zg0HmBBOo8Z7JV_pku-DjsgKF_74B8EdD5cXgA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sat, Jul 25, 2026 at 12:25=E2=80=AFPM Changhuang Liang
-<changhuang.liang@starfivetech.com> wrote:
-> > On Wed, Jun 3, 2026 at 7:54=E2=80=AFAM Changhuang Liang
-> > <changhuang.liang@starfivetech.com> wrote:
+On 7/25/26 06:24, Svyatoslav Ryhel wrote:
+> чт, 23 лип. 2026 р. о 09:28 Uwe Kleine-König
+> <u.kleine-koenig@baylibre.com> пише:
+>>
+>> Hello,
+>>
+>> On Tue, Jul 21, 2026 at 12:59:34PM +0300, Svyatoslav Ryhel wrote:
+>>> From: Jonas Schwöbel <jonasschwoebel@yahoo.de>
+>>>
+>>> Add OF match compatible table to be able to use this driver with Device
+>>> Trees.
+>>>
+>>> Signed-off-by: Jonas Schwöbel <jonasschwoebel@yahoo.de>
+>>> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+>>> Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+>>
+>> Please put your S-o-b line last.
+>>
+> 
+> If S-o-b's should be chronological, then this order is correct.
+> Guenter added his reviewed-by after I have added my signed-off-by.
+> 
 
-> > > +static unsigned int jhb100_gpio_to_pin(struct gpio_chip *gc, unsigne=
-d
-> > > +int gpio) {
-> > > +       struct jhb100_gpio_bank *bank =3D jhb100_gc_to_bank(gc);
-> > > +
-> > > +       return bank->id * JHB100_NR_GPIOS_PER_BANK + gpio; }
-> >
-> > This usually tells me that GPIO_GENERIC can be used but maybe this has =
-been
-> > discussed before...
->
-> Here, the main purpose is to convert GPIOs into pins for configuring cert=
-ain pinctrl
-> settings. I haven't found the part where GPIO_GENERIC can assist with thi=
-s.
-> Can you point it out for me? Thank you very much.
+That refers to S-o-B, not to Reviewed-by: trailers.
 
-Normally GPIO chips use the .config() callback when you want to
-set pin config for a certain pin in a pinctrl backend.
+Do we really have to argue about something like this ? Do I have
+to mandate the order of non-SoB trailers for this subsystem ?
 
-See Documentation/driver-api/gpio/driver.rst:
+Guenter
 
-"The .set_config() callback uses the same enumerators and configuration
-semantics as the generic pin control drivers. This is not a coincidence: it=
- is
-possible to assign the .set_config() to the function gpiochip_generic_confi=
-g()
-which will result in pinctrl_gpio_set_config() being called and eventually
-ending up in the pin control back-end "behind" the GPIO controller, usually
-closer to the actual pins. This way the pin controller can manage the below
-listed GPIO configurations.
+>>> ---
+>>>   drivers/hwmon/emc1403.c | 16 ++++++++++++++--
+>>>   1 file changed, 14 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/drivers/hwmon/emc1403.c b/drivers/hwmon/emc1403.c
+>>> index cd753b38709f2..b7ab6069ec7b1 100644
+>>> --- a/drivers/hwmon/emc1403.c
+>>> +++ b/drivers/hwmon/emc1403.c
+>>> @@ -16,6 +16,7 @@
+>>>   #include <linux/hwmon.h>
+>>>   #include <linux/hwmon-sysfs.h>
+>>>   #include <linux/err.h>
+>>> +#include <linux/mod_devicetable.h>
+>>
+>> Don't add <linux/mod_devicetable.h> please. struct of_device_id is also
+>> provided by <linux/i2c.h> so adding <linux/mod_devicetable.h> isn't
+>> needed.
+>>
+>>>   #include <linux/sysfs.h>
+>>>   #include <linux/regmap.h>
+>>>   #include <linux/util_macros.h>
+>>> [...]
+>>> @@ -682,10 +683,21 @@ static const unsigned short emc1403_address_list[] = {
+>>>        0x18, 0x1c, 0x29, 0x3c, 0x4c, 0x4d, 0x5c, I2C_CLIENT_END
+>>>   };
+>>>
+>>> +static const struct of_device_id emc1403_of_match[] = {
+>>> +     { .compatible = "smsc,emc1402", .data = (void *)emc1402 },
+>>> +     { .compatible = "smsc,emc1403", .data = (void *)emc1403 },
+>>> +     { .compatible = "smsc,emc1404", .data = (void *)emc1404 },
+>>> +     { .compatible = "smsc,emc1428", .data = (void *)emc1428 },
+>>> +     { }
+>>> +
+>>
+>> Unusual empty line here.
+>>
+>>> +};
+>>> +MODULE_DEVICE_TABLE(of, emc1403_of_match);
+>>> +
+>>
+>> Best regards
+>> Uwe
 
-If a pin controller back-end is used, the GPIO controller or hardware
-description needs to provide "GPIO ranges" mapping the GPIO line offsets to=
- pin
-numbers on the pin controller so they can properly cross-reference each oth=
-er."
-
-Maybe this is what you're looking for?
-
-If you define gpio-ranges in your device tree, the GPIO and pin control
-core deals with the cross-referencing for you.
-
-> > > +       sfp->num_banks =3D DIV_ROUND_UP(sfp->ngpios,
-> > > + JHB100_NR_GPIOS_PER_BANK);
-> > > +
-> > > +       for (unsigned int i =3D 0; i < sfp->num_banks; i++) {
-> > > +               if (sfp->ngpios > (i + 1) *
-> > JHB100_NR_GPIOS_PER_BANK)
-> > > +                       sfp->banks[i].gc.ngpio =3D (i + 1) *
-> > JHB100_NR_GPIOS_PER_BANK;
-> > > +               else
-> > > +                       sfp->banks[i].gc.ngpio =3D sfp->ngpios - i *
-> > > + JHB100_NR_GPIOS_PER_BANK;
-> >
-> > This looks completely bananas, shouldn't this be simply:
-> >
-> > sfp->banks[i].gc.ngpio =3D JHB100_NR_GPIOS_PER_BANK;
->
-> The JHB100 GPIO domain is not fully aligned to 32. For example, in the pe=
-r0 domain,
-> there are 60 GPIOs, so I split it into:
-> bank0: 32 GPIOs
-> bank1: 28 GPIOs.
-
-At least add that, what you just wrote, as a comment right above this loop.
-
-There is something with this math I think can be made simpler
-with bitwise artithmetic. Think about it.
-
-> > > +               sfp->banks[i].gc.request =3D pinctrl_gpio_request;
-> >
-> > Use
-> > gpiochip_generic_request
-> >
-> > > +               sfp->banks[i].gc.free =3D pinctrl_gpio_free;
-> >
-> > Use
-> > gpiochip_generic_free
-> >
-> > These calls will do what you want, and also check that the right gpio r=
-anges
-> > are available.
-> >
-> > Make sure you add GPIO ranges (the mapping between pin control pins and
-> > corresponding GPIO offsets) for this to work properly.
-> >
-> > I'm pretty sure you can have a generic pin config backend as well.
-> >
-> > sfp->banks[i].gc.set_config =3D gpiochip_generic_config;
-
-This is pertaining to what I said above about using the gpio
-ranges and .config etc.
-
-> > This will make config calls to the gpiochip call into the pinctrl backe=
-nd =3D what
-> > you want.
-
-I still think this is what you want.
-
-Yours,
-Linus Walleij
