@@ -1,140 +1,64 @@
-Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com [209.85.160.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3945C2BE65F
-	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 20:38:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DECC81EF39E;
+	Sat, 25 Jul 2026 20:48:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785011904; cv=none; b=mD8DH5BgVyyAQvi8RIgvI3lhI6XeLewJLjTtUh9nzuZ8/C0hAR9mh/YTzu2msN+gX31ciD1d7lyzrJTIQOZFs1Wyayoq4VH5S02sC8TIYoimlJltObdSOY1BOny0FI2rsUhWNbe4GTD3MBtLNG/B36QCj78R7cbcWdpA/viOBdQ=
+	t=1785012518; cv=none; b=mQTlPssjIvxZwv51oV21MqWqcPdD61SWxnTDJeTHz/VYbVMJxszuoXawXrpM6eEazgC7iaDWlCpsQqKdYyBwqOU7HJaVdn+nvoSXMNNRCRsXdi9rzsJWry30+NGopPlUcvMNPaUcFsSNuscOdsT15Dt0W7HIg08AjNcYaKfyuJA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785011904; c=relaxed/simple;
-	bh=iONqM2Lq54NpnqmXjiLdtYtjE4xrJUW9mk+59xZC6g0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MNjwmk+eekw76XLdwoJXPthCnc0k66K0dJTSpd3D6SiwwRNamvViktLxWrORuzUoTo6LU2Ec24Q1Opal4flFHiuFL5J/lwjzdItaU12Q2QKVwtvynT/cYlWv+Yjv1lIfisXRgeJjI+0VHyBRYUu3TzYhRW1CnTX6DcXYIDrRsQs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=T245BYQd; arc=none smtp.client-ip=209.85.160.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1785012518; c=relaxed/simple;
+	bh=t6PhaJPPov93qe/frNB6MZWbq9BsECuXnqykEm8bOes=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ojHxr+tPrZbnZoQDqjfus9Hfny2oxYuafJAd25IV0TWScvQsQyb6dXlVfK3OS2UFvqLFCPEJlj5MDovMznYCebDmZ5BABuouqL3nONZQkEqFXbTN5gS7HvIxMeJv5j/5KWR8Li8OQYl4AedfJZhgmbcG1s3welzd5Mn6xi5JXJg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mdxongxr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="T245BYQd"
-Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-448de0cc236so1203545fac.2
-        for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 13:38:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1785011901; x=1785616701; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6IaoMi6Hd0SLtKbgts/aDL0YFdHS36nKYEo+scTrYk4=;
-        b=T245BYQdhzhB2xMb26XRlbPzRglEvd/9VdyuCGfwOmPkyWQLDuWDZDqTnktAKCpat2
-         FNdo0Dr97uCS6ne4I4RAgFownIgs1cKLd95XgkEXt/rUEceVg6v31K8cqtD0JU2tH9VE
-         9eN6Rj8LnYs7wjGjnTybcnc4JOBxyO69PxlFt4Skw+Ext1uwYmbFlOH4svgPVBB8Zqpw
-         OlCI7bmiZOUpoeRlGSlHi1R3tzmEOgPMS28e9nHmpdlUpiwSw4eyRRmqa890DPnTS1Vb
-         lSCdU7Vi0J+jBWK44dCvTVukx4+i20mKW7XcjppJi8VR8c4j/iouMPHxx2obpRgTY8ls
-         3eSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785011901; x=1785616701;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6IaoMi6Hd0SLtKbgts/aDL0YFdHS36nKYEo+scTrYk4=;
-        b=j7B/9/Va3WMaKguKtRm2hpZT1Yy02Er1mIBfnLt25htelclSnpfN/mEhmNwQt0pz5W
-         kFG1Bc7z867JdxeRut3rO1iQUKnIjXSj+plt3gPeLPhPTNaPSTyg3IxqURntdK3Mhf8r
-         4YaydEBabaQTW5sD9OV4zJjieYxMDtwRkDr0PZYI6/HcS+VUN25898BPSTDHWlE2d2XW
-         9QnoqYobEjryt/YwQbC/lExRO1agPLpTQZVoFd+l2jfZiTLgwYOYIYAm6HIrjGta8kOK
-         QaYnoAs+Lpz8xTWepwg90MTDKoMchexhb7CS3BfwiUz+PcKiDhAeRu4mPZVIiHitG4Ue
-         qA+A==
-X-Forwarded-Encrypted: i=1; AHgh+RrhuYl7kjOO89e4eFC4+uMGLjMBd9x+NnAdtOUTDOE1I2KAqrYqa9e92Z09CjOJA2C3/p7m2Yar3xR6@vger.kernel.org
-X-Gm-Message-State: AOJu0Yykm7EjqJA70dp1Qv35I073EMRK9iE2Kev7D8XrieL6tbC8faV4
-	4qlOKvD8aoR7Z1g1e6x8mgodaop/0ZtLSGz2TtouKudekMOnyyHwdn8D9LdFK3Yg2Sw=
-X-Gm-Gg: AR+sD10VjWGhX5WiytVLeq7g5AqBesUbA0Gpmd05m/s7pbQIq6U2oV2tW7LQNU3dMQ/
-	hGjMHltq2xLr5uNwRqC/5Z5di489EI52PJbl1vZzWQPEZdtFfkE88ZxtsKfMTuJBSGnO2sX3/yy
-	35CQ0EWTZXnJVm+41KyNEkrwctTBDFT6h3dnlWJpH2c46FYDnC4mT56PpiGAI4hgB7SG4CWE1oR
-	PQql3Yi7spjCi5nlvfbQFfHrPllXwfmEwnTlWQylGKtMVk7Cxjzr2xMs07QsGYfyjg1fSVevsxC
-	/6ckXyPh/+unxnLblFYHAmGSf+uAu0BC33qYSLSQTWXeEoLpOD/tvlgG39tfzQetOF7wCbGrjV3
-	SjmhKuU1swsTaCgejwoXo+OLxPX9hQ5tiXAP0YmKlFTwwwpX8eTS9POFSEgKlKZRYj2vazSZ4bK
-	U5E47GbhqA+W5ejRGKkJ7OXMI2EJmRuKxvIn2XurbxRGCVP7f+REy4
-X-Received: by 2002:a05:6870:3c07:b0:43b:6ad5:6ab8 with SMTP id 586e51a60fabf-457f26bb220mr3050354fac.20.1785011901114;
-        Sat, 25 Jul 2026 13:38:21 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:677a:56dd:37eb:cf53? ([2600:8803:e7e4:500:677a:56dd:37eb:cf53])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-45766f16dfcsm11225502fac.7.2026.07.25.13.38.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 25 Jul 2026 13:38:19 -0700 (PDT)
-Message-ID: <e39a9345-0302-425d-ac43-53a524f13394@baylibre.com>
-Date: Sat, 25 Jul 2026 15:38:17 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mdxongxr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 184461F000E9;
+	Sat, 25 Jul 2026 20:48:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785012516;
+	bh=KOmL0CnJCd+9BgF1lWQ87vbI2jwqTrH0CBCL3BgOgnQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mdxongxrGDOmaWvmpqv6awjE+xsf1uuypD+R6mW5bkMRUe3s2DDoelCWTrs6ODPJp
+	 8uLoXU6reu41chqvJdBvsbGyZh3lJQmISmkFLUVB4E8d0WOiG5zVvAac1qpe9mXYxZ
+	 ebJOsXvTZutFzZE7gb25HyKMM4gp3LQzDL+G/xRQkupyeoYL5n7f3I3eiZT5e2uwHf
+	 WE4VjLLDL5O465oi6ZlqC7K0C8FoklfehWS1Gg937pnO2Dq91ciEmg+rptvpKgbKaQ
+	 VEB7zkvr3u0aa1/9Cf8VU+/8l2EYRutphLukHBwxvv9uKBc9tgoUey7QomGdHsjND2
+	 uE26XfRS0u9Uw==
+Date: Sat, 25 Jul 2026 20:48:34 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Chukun Pan <amadeus@jmu.edu.cn>
+Cc: Rob Herring <robh@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Alexandre Ghiti <alex@ghiti.fr>, Albert Ou <aou@eecs.berkeley.edu>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, spacemit@lists.linux.dev
+Subject: Re: [PATCH 1/1] riscv: dts: spacemit: enable PCIe on OrangePi R2S
+Message-ID: <20260725204834-GKC77474@kernel.org>
+References: <20260602100000.2402784-1-amadeus@jmu.edu.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 6/7] dt-bindings: iio: dac: Add AD5529R
-To: Janani Sunil <janani.sunil@analog.com>,
- Lars-Peter Clausen <lars@metafoo.de>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Mark Brown <broonie@kernel.org>,
- Marius Cristea <marius.cristea@microchip.com>,
- Marcus Folkesson <marcus.folkesson@gmail.com>,
- Kent Gustavsson <kent@minoris.se>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- Janani Sunil <jan.sun97@gmail.com>, linux-spi@vger.kernel.org,
- Kent Gustavsson <nedo80@gmail.com>
-References: <20260722-ad5529r-driver-v7-0-7781cd74ad75@analog.com>
- <20260722-ad5529r-driver-v7-6-7781cd74ad75@analog.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260722-ad5529r-driver-v7-6-7781cd74ad75@analog.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260602100000.2402784-1-amadeus@jmu.edu.cn>
 
-On 7/22/26 2:54 AM, Janani Sunil wrote:
-> Devicetree bindings for AD5529R 16 channel 12/16 bit high voltage,
-> buffered voltage output digital-to-analog converter (DAC) with an
-> integrated precision reference.
+Hi Chukun,
+
+On 18:00 Tue 02 Jun     , Chukun Pan wrote:
+> Enable the two RTL8125 network controllers and corresponding
+> PHYs connected via the PCIe controllers on the OrangePi R2S.
 > 
+> Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
+Sorry for missing this one, and thanks
 
-...
+Reviewed-by: Yixun Lan <dlan@kernel.org>
 
-> +  vdd-supply:
-
-So vdd-io-supply to match the datasheet name?
-
-> +    description: Digital power supply (1.08V to 1.98V)
-> +
-> +  avdd-supply:
-
-And vdd-5v-supply? Datasheet doesn't mention any AVDD.
-
-> +    description: Analog power supply (4.75V to 5.25V)
-> +
-> +  hvdd-supply:
-
-There are 4 of these according to the datasheet. e.g. vdd-hd0-supply ...
-
-> +    description:
-> +      High voltage positive supply (7V to 45V). Supply voltage should be chosen
-> +      based on configured output ranges (see datasheet Table 9).
-> +
-> +  hvss-supply:
-
-Same here.
-
-> +    description:
-> +      High voltage negative supply (-22.5V to 0V). Required only when using
-> +      bipolar output ranges (±5V, ±10V, ±15V, ±20V). Supply voltage should be
-> +      chosen based on configured output ranges (see datasheet Table 9).
-> +
-> +  vref-supply:
-> +    description:
-> +      External voltage reference supply (4.056V to 4.136V, typically 4.096V).
-> +      When specified, the device uses external reference mode and the VREF pin
-> +      becomes an input. The device uses the internal 4.096V precision reference
-> +      otherwise.
-> +
+-- 
+Yixun Lan (dlan)
