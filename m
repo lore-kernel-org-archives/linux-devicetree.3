@@ -1,232 +1,140 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com [209.85.160.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E31D935E1B0
-	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 20:05:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3945C2BE65F
+	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 20:38:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785009906; cv=none; b=pEznkAuLuVmyUdm9jljfdrtI/aNvek5sEcXg8MqKSieknEQpRzdWhIQQaDg7EL2A9JnssRZ/5eSeucoh/gzL+G4V9bVbkJefcdbLC7VLI83C4mSkGWcdeCopWHWBz5AxJs/OPnTpiRHbZDBWZREbvKOKQfAPkRQ5sIfBq57qhA4=
+	t=1785011904; cv=none; b=mD8DH5BgVyyAQvi8RIgvI3lhI6XeLewJLjTtUh9nzuZ8/C0hAR9mh/YTzu2msN+gX31ciD1d7lyzrJTIQOZFs1Wyayoq4VH5S02sC8TIYoimlJltObdSOY1BOny0FI2rsUhWNbe4GTD3MBtLNG/B36QCj78R7cbcWdpA/viOBdQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785009906; c=relaxed/simple;
-	bh=nIlnJRPNwvzsEQ9oqxaZZWX8opcLYnBostsYhgueMJg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=RsQlZ5+BrgfLzZ17iBsGwM12Nl+NkBH8lPPMYYBxA5I6wA3KvuKQFoUfgwWQJQ9UgMQW/iCCkTxFJOHifRREHYBAJON2z5mkeclvPeNpa6DJ6Xn2dk4v0PbYkY5eoHMEh3C9PyjVnsW19wJh253UsncuMDAF0YHD0WCHabf1tzo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KEoKA0T2; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785011904; c=relaxed/simple;
+	bh=iONqM2Lq54NpnqmXjiLdtYtjE4xrJUW9mk+59xZC6g0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MNjwmk+eekw76XLdwoJXPthCnc0k66K0dJTSpd3D6SiwwRNamvViktLxWrORuzUoTo6LU2Ec24Q1Opal4flFHiuFL5J/lwjzdItaU12Q2QKVwtvynT/cYlWv+Yjv1lIfisXRgeJjI+0VHyBRYUu3TzYhRW1CnTX6DcXYIDrRsQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=T245BYQd; arc=none smtp.client-ip=209.85.160.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KEoKA0T2"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2cf420670bbso2775065ad.1
-        for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 13:05:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="T245BYQd"
+Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-448de0cc236so1203545fac.2
+        for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 13:38:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785009904; x=1785614704; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=I7YnUNHQ+9mCV7Z3kMgXnU2VDcDD/IXSwFksJNwhhcY=;
-        b=KEoKA0T2mEkyJvTNPM5Vm/Xvyp9hwRzZlnqM16eRfXhdZf9OzsMXH4xKHwsYMihsgl
-         +CEkEZrkc7BWEl0rFWev1ZHfXhTadwHc8TDPcPOXfOulOtkK8lftpWZgPp3bBL2wxyaM
-         EV8YsQ+RnT7g3beOC+Ip5S4ouExrx0EH0XrZwTRMKlydNm8OdQyv7o/52ib17sXK4875
-         iRHrRi+ZIAzzZhGVhPsgmR16r66pqpRQvlzzeOug/VTSXjnvNVWptfVtm2QOQqtHvhMm
-         iHql2kwTLRPwibP38CgFUQtYF4rNR9j9QzolLsjDqYcs5LrvmGJpR6FNen4TF1bis1kH
-         fFeA==
+        d=baylibre.com; s=google; t=1785011901; x=1785616701; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6IaoMi6Hd0SLtKbgts/aDL0YFdHS36nKYEo+scTrYk4=;
+        b=T245BYQdhzhB2xMb26XRlbPzRglEvd/9VdyuCGfwOmPkyWQLDuWDZDqTnktAKCpat2
+         FNdo0Dr97uCS6ne4I4RAgFownIgs1cKLd95XgkEXt/rUEceVg6v31K8cqtD0JU2tH9VE
+         9eN6Rj8LnYs7wjGjnTybcnc4JOBxyO69PxlFt4Skw+Ext1uwYmbFlOH4svgPVBB8Zqpw
+         OlCI7bmiZOUpoeRlGSlHi1R3tzmEOgPMS28e9nHmpdlUpiwSw4eyRRmqa890DPnTS1Vb
+         lSCdU7Vi0J+jBWK44dCvTVukx4+i20mKW7XcjppJi8VR8c4j/iouMPHxx2obpRgTY8ls
+         3eSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785009904; x=1785614704;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=I7YnUNHQ+9mCV7Z3kMgXnU2VDcDD/IXSwFksJNwhhcY=;
-        b=DgO2eu/H9fs1hOBsb/5lP4/BlaAIXOVPHbEzsx3pNkNOt2SSWxGFf3q+ZmmCIgrM+3
-         INEh/ymNZzFRR93yCtR4e1x69XyXVbRN6dhxAxy9wTMVQkrKCT0W3pApxchRCg7Www4e
-         kDyNLjpnh8os+Fz5UpL58MFvpPQsld1DmLg5ZiggaL4gJVDii+qR0WvnMVYK4I9YOmlG
-         usgCdzs8X00MSNFsaPOH+18a6kkT8itB1dezzWyr18HhKIhsH+CztoAhgoZ0zXrp5VVp
-         yEyRhGfWN2vk/rXgsTxK4EIrU8U8u7QnwOS4Sy316pGm4f/+qfPKNLDsXwmYFXg8mVtN
-         p6lw==
-X-Forwarded-Encrypted: i=1; AHgh+RrsvizLWXQCtCpoRxjGYVvgAz+tLeFsFFVqLp3fpZH2q1ch8vIsDFr/2pOUIdeynQxRVxIkNeo3D7Bh@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz+vEpnIXNjIsAehpnZAAZgqyD9hTP5+KJludgPfaIk6WC5aoLk
-	V0VxxA6Z9SBrPCDMrdIfnEqUp+iWvgMTQ6W27KpV6dkOkUpZERpK898f
-X-Gm-Gg: AR+sD11zIcnvRcD1oAXd5YgshbEwxNYr2+f99OVuYnceCoAk3NIUPgF/xcA7ZDTtwaT
-	gqMV/wGKw8CkDaP4D9/1z0tDnMdEwcm+4AVLThN86EIbfVlSAqRbCT5X6vASFmgHZ5g5EZ4nXRz
-	2zHs/FZp+954d+TOMn2VdR2nb6ZFAoKZKrGGjnb3JOOTsUXycLVzL1M+GxRdl5iF2PLUwy3tiW1
-	cch+qkqYSb5sIPXfdicPMw2WmMs2nh3aEaCivxD9MRfJBT/hdmxK8X++yI464lSYYkM4AyqnB32
-	F3hpTbsa5BLx2uxXLC1Qcaso/Ur8Ls4L0SJPVE3fJL3LL2GSw3ZlMTuwwe0vZsJzFlz84Kh+22V
-	j/20gllcoY0fFeFKQA6YriHpQPHlO2hxsluHZdwDN+JM+Mem+cBNXmzRDuzWdo0xcCJBXumK7iE
-	Y0XQfC2RGesg83dRM=
-X-Received: by 2002:a17:902:d485:b0:2cf:9e90:8be with SMTP id d9443c01a7336-2cfde882c08mr26162755ad.4.1785009904026;
-        Sat, 25 Jul 2026 13:05:04 -0700 (PDT)
-Received: from [172.28.140.252] ([2409:40c2:5424:789e:7bf2:671d:d7ae:b910])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-314bc548e29sm13487817eec.15.2026.07.25.13.04.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 25 Jul 2026 13:05:03 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Sun, 26 Jul 2026 01:34:08 +0530
-Subject: [PATCH] dt-bindings: clock: ti,keystone-gate: Convert to DT schema
+        d=1e100.net; s=20251104; t=1785011901; x=1785616701;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6IaoMi6Hd0SLtKbgts/aDL0YFdHS36nKYEo+scTrYk4=;
+        b=j7B/9/Va3WMaKguKtRm2hpZT1Yy02Er1mIBfnLt25htelclSnpfN/mEhmNwQt0pz5W
+         kFG1Bc7z867JdxeRut3rO1iQUKnIjXSj+plt3gPeLPhPTNaPSTyg3IxqURntdK3Mhf8r
+         4YaydEBabaQTW5sD9OV4zJjieYxMDtwRkDr0PZYI6/HcS+VUN25898BPSTDHWlE2d2XW
+         9QnoqYobEjryt/YwQbC/lExRO1agPLpTQZVoFd+l2jfZiTLgwYOYIYAm6HIrjGta8kOK
+         QaYnoAs+Lpz8xTWepwg90MTDKoMchexhb7CS3BfwiUz+PcKiDhAeRu4mPZVIiHitG4Ue
+         qA+A==
+X-Forwarded-Encrypted: i=1; AHgh+RrhuYl7kjOO89e4eFC4+uMGLjMBd9x+NnAdtOUTDOE1I2KAqrYqa9e92Z09CjOJA2C3/p7m2Yar3xR6@vger.kernel.org
+X-Gm-Message-State: AOJu0Yykm7EjqJA70dp1Qv35I073EMRK9iE2Kev7D8XrieL6tbC8faV4
+	4qlOKvD8aoR7Z1g1e6x8mgodaop/0ZtLSGz2TtouKudekMOnyyHwdn8D9LdFK3Yg2Sw=
+X-Gm-Gg: AR+sD10VjWGhX5WiytVLeq7g5AqBesUbA0Gpmd05m/s7pbQIq6U2oV2tW7LQNU3dMQ/
+	hGjMHltq2xLr5uNwRqC/5Z5di489EI52PJbl1vZzWQPEZdtFfkE88ZxtsKfMTuJBSGnO2sX3/yy
+	35CQ0EWTZXnJVm+41KyNEkrwctTBDFT6h3dnlWJpH2c46FYDnC4mT56PpiGAI4hgB7SG4CWE1oR
+	PQql3Yi7spjCi5nlvfbQFfHrPllXwfmEwnTlWQylGKtMVk7Cxjzr2xMs07QsGYfyjg1fSVevsxC
+	/6ckXyPh/+unxnLblFYHAmGSf+uAu0BC33qYSLSQTWXeEoLpOD/tvlgG39tfzQetOF7wCbGrjV3
+	SjmhKuU1swsTaCgejwoXo+OLxPX9hQ5tiXAP0YmKlFTwwwpX8eTS9POFSEgKlKZRYj2vazSZ4bK
+	U5E47GbhqA+W5ejRGKkJ7OXMI2EJmRuKxvIn2XurbxRGCVP7f+REy4
+X-Received: by 2002:a05:6870:3c07:b0:43b:6ad5:6ab8 with SMTP id 586e51a60fabf-457f26bb220mr3050354fac.20.1785011901114;
+        Sat, 25 Jul 2026 13:38:21 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:677a:56dd:37eb:cf53? ([2600:8803:e7e4:500:677a:56dd:37eb:cf53])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-45766f16dfcsm11225502fac.7.2026.07.25.13.38.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 25 Jul 2026 13:38:19 -0700 (PDT)
+Message-ID: <e39a9345-0302-425d-ac43-53a524f13394@baylibre.com>
+Date: Sat, 25 Jul 2026 15:38:17 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260726-ti-keystone-gate-clk-v1-1-5b2449bc31ee@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MSwqAMBDFriKzdqBWqJ+riIuiTx2UKm0RRby7x
- WUgyUMBXhCozR7yOCXI7hIUeUbDYt0MljExaaWNqrThKLziDnF34NlG8LCtXE41StWYpFSU0sN
- jkuvfdv37filDG2BmAAAA
-X-Change-ID: 20260726-ti-keystone-gate-clk-3f8e30966077
-To: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Mathieu Poirier <mathieu.poirier@linaro.org>, 
- Santosh Shilimkar <santosh.shilimkar@ti.com>, 
- Murali Karicheri <m-karicheri2@ti.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
- goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
- simona.toaca@nxp.com, j.bhargav.u@gmail.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785009889; l=4399;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=nIlnJRPNwvzsEQ9oqxaZZWX8opcLYnBostsYhgueMJg=;
- b=tD0xE+8Vd2J6xBsPdrE5/hOSJEeWwG8G8stlnOTdRmfvqtVdO53Vho6dZ2rPDvV+knjEL6iUJ
- bPQ6WZZhneaADjLF+fTE1J4fS/IhkSeWm+0n6P1IYvLMad/RkBc+I3J
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 6/7] dt-bindings: iio: dac: Add AD5529R
+To: Janani Sunil <janani.sunil@analog.com>,
+ Lars-Peter Clausen <lars@metafoo.de>,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Mark Brown <broonie@kernel.org>,
+ Marius Cristea <marius.cristea@microchip.com>,
+ Marcus Folkesson <marcus.folkesson@gmail.com>,
+ Kent Gustavsson <kent@minoris.se>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ Janani Sunil <jan.sun97@gmail.com>, linux-spi@vger.kernel.org,
+ Kent Gustavsson <nedo80@gmail.com>
+References: <20260722-ad5529r-driver-v7-0-7781cd74ad75@analog.com>
+ <20260722-ad5529r-driver-v7-6-7781cd74ad75@analog.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260722-ad5529r-driver-v7-6-7781cd74ad75@analog.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Convert Texas Instruments keystone PSC clock binding to DT schema.
+On 7/22/26 2:54 AM, Janani Sunil wrote:
+> Devicetree bindings for AD5529R 16 channel 12/16 bit high voltage,
+> buffered voltage output digital-to-analog converter (DAC) with an
+> integrated precision reference.
+> 
 
-The vendor-specific 'domain-id' property is intentionally kept without a
-"ti," prefix to preserve existing ABI since driver and existing board
-file use property without "ti," prefix.
+...
 
-Also update the reference to this binding in ti,keystone-rproc.txt to
-point at the new filename.
+> +  vdd-supply:
 
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
----
- .../devicetree/bindings/clock/keystone-gate.txt    | 27 ----------
- .../bindings/clock/ti,keystone,psc-clock.yaml      | 60 ++++++++++++++++++++++
- .../bindings/remoteproc/ti,keystone-rproc.txt      |  2 +-
- 3 files changed, 61 insertions(+), 28 deletions(-)
+So vdd-io-supply to match the datasheet name?
 
-diff --git a/Documentation/devicetree/bindings/clock/keystone-gate.txt b/Documentation/devicetree/bindings/clock/keystone-gate.txt
-deleted file mode 100644
-index 43f6fb6c9392..000000000000
---- a/Documentation/devicetree/bindings/clock/keystone-gate.txt
-+++ /dev/null
-@@ -1,27 +0,0 @@
--Binding for Keystone gate control driver which uses PSC controller IP.
--
--This binding uses the common clock binding[1].
--
--[1] Documentation/devicetree/bindings/clock/clock-bindings.txt
--
--Required properties:
--- compatible : shall be "ti,keystone,psc-clock".
--- #clock-cells : from common clock binding; shall be set to 0.
--- clocks : parent clock phandle
--- reg :	psc control and domain address address space
--- reg-names : psc control and domain registers
--- domain-id : psc domain id needed to check the transition state register
--
--Optional properties:
--- clock-output-names : From common clock binding to override the
--			default output clock name
--Example:
--	clkusb: clkusb {
--		#clock-cells = <0>;
--		compatible = "ti,keystone,psc-clock";
--		clocks = <&chipclk16>;
--		clock-output-names = "usb";
--		reg = <0x02350008 0xb00>, <0x02350000 0x400>;
--		reg-names = "control", "domain";
--		domain-id = <0>;
--	};
-diff --git a/Documentation/devicetree/bindings/clock/ti,keystone,psc-clock.yaml b/Documentation/devicetree/bindings/clock/ti,keystone,psc-clock.yaml
-new file mode 100644
-index 000000000000..ed42adb27832
---- /dev/null
-+++ b/Documentation/devicetree/bindings/clock/ti,keystone,psc-clock.yaml
-@@ -0,0 +1,60 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/clock/ti,keystone,psc-clock.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: TI Keystone PSC clock
-+
-+maintainers:
-+  - Santosh Shilimkar <santosh.shilimkar@ti.com>
-+  - Murali Karicheri <m-karicheri2@ti.com>
-+
-+properties:
-+  compatible:
-+    const: ti,keystone,psc-clock
-+
-+  reg:
-+    items:
-+      - description: PSC control
-+      - description: Domain
-+
-+  reg-names:
-+    items:
-+      - const: control
-+      - const: domain
-+
-+  domain-id:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: PSC domain id needed to check the transition state register
-+
-+  clocks:
-+    maxItems: 1
-+
-+  clock-output-names:
-+    maxItems: 1
-+
-+  "#clock-cells":
-+    const: 0
-+
-+required:
-+  - compatible
-+  - reg
-+  - reg-names
-+  - domain-id
-+  - clocks
-+  - "#clock-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    clkusb@2350008 {
-+        compatible = "ti,keystone,psc-clock";
-+        reg = <0x02350008 0xb00>, <0x02350000 0x400>;
-+        reg-names = "control", "domain";
-+        domain-id = <0>;
-+        clocks = <&chipclk16>;
-+        clock-output-names = "usb";
-+        #clock-cells = <0>;
-+    };
-diff --git a/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.txt b/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.txt
-index 91f0a3b0c0b2..847552133633 100644
---- a/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.txt
-+++ b/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.txt
-@@ -75,7 +75,7 @@ SoCs only:
- 
- - clocks: 		Should contain the device's input clock, and should be
- 			defined as per the bindings in,
--			Documentation/devicetree/bindings/clock/keystone-gate.txt
-+			Documentation/devicetree/bindings/clock/ti,keystone,psc-clock.yaml
- 
- The following are mandatory properties for Keystone 2 66AK2G SoCs only:
- 
+> +    description: Digital power supply (1.08V to 1.98V)
+> +
+> +  avdd-supply:
 
----
-base-commit: 0ce37745d4bfbc493f718169c3974898ffec8ee7
-change-id: 20260726-ti-keystone-gate-clk-3f8e30966077
+And vdd-5v-supply? Datasheet doesn't mention any AVDD.
 
-Best regards,
--- 
-Bhargav
+> +    description: Analog power supply (4.75V to 5.25V)
+> +
+> +  hvdd-supply:
 
+There are 4 of these according to the datasheet. e.g. vdd-hd0-supply ...
+
+> +    description:
+> +      High voltage positive supply (7V to 45V). Supply voltage should be chosen
+> +      based on configured output ranges (see datasheet Table 9).
+> +
+> +  hvss-supply:
+
+Same here.
+
+> +    description:
+> +      High voltage negative supply (-22.5V to 0V). Required only when using
+> +      bipolar output ranges (±5V, ±10V, ±15V, ±20V). Supply voltage should be
+> +      chosen based on configured output ranges (see datasheet Table 9).
+> +
+> +  vref-supply:
+> +    description:
+> +      External voltage reference supply (4.056V to 4.136V, typically 4.096V).
+> +      When specified, the device uses external reference mode and the VREF pin
+> +      becomes an input. The device uses the internal 4.096V precision reference
+> +      otherwise.
+> +
