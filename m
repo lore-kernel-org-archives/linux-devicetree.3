@@ -1,120 +1,151 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D24B12F7F14;
-	Sat, 25 Jul 2026 17:58:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785002332; cv=pass; b=FK0UTHhsiWN0FtHzyr0mcsIaw8kvouUzuy2hctd6rCJQtP1qtX9rB1oREyTxtRUw/Qb+buBEyCnClE4kRAOR81HjgI0rdQTXGNw+054BqGxZs+4uoyyR6cNUDXsYL7AvChM9pNrEBonLX2WqaHiwv37bouJlJRNEWvEFz8O3lPU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785002332; c=relaxed/simple;
-	bh=pfu3zjS5WkePtFXxcCBU0wjbUnPANiPCh2t0VuuKmA4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fS7vmytu65Y5yjYGtuzwuSF405JPx69HFrR4Y8ZASgFjjsa3hxVX/MNPGLGgS6GGCYJ8Cs6svxMpdvJd+RPgx1akOYHofVgK1Ij/+f3u4dv/6DfhfPp+W8TlAyo6cjHXQBGUl95uBMQemHwvQ9bP7MtQ+UbcNyG53NbIZ77NJyQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=QoxLz1Cl; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97E6B288C2D
+	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 18:42:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785004977; cv=none; b=KvqnQdNi1WZxqlhNLqh0u78kv83puoZnj/gumWaBHpFXqmEApHqLKuWQ4ghB0Vkc/LokbtNkhmtGHP7Qe/bn7O6ZijsmCqSelxxnu+zeO3KI08AluT4pTR3kVN3ZB7ZJFcl81aSDtLt2iIYpblNe0teeYd65O5fl00gDZz2tVTE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785004977; c=relaxed/simple;
+	bh=srUUvtKEX0/HxmoZoGJMkwyUOLS18ex6QG639b0h75A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lUZTkPlb07pcUN6pk0tthaUN3BS3+fwwcJ+mgDEZ08tlNBbQsIh3uxT/tJZMn4KZJJfyn6VcTcUEf/K32uv7mWbemsIH+5G+Uw6X3st+aiB84rbumqtYoB7aJYHcNBifUTZS7srgUR9vzempuJjbSTwXFq87aCdyODsqkZ03PaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OQQ+6tA5; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="QoxLz1Cl"
-ARC-Seal: i=1; a=rsa-sha256; t=1785002311; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=g7YI44btuhP5MiuhLz/EKXLdg/YtTeW8gVShiV1mTxxTJwifsf9emILB1ZGMUuh6GdtsE89iFvJTHCIS01ICcaJ7oXQozj4ntO/LNd1n72prj0sGB53Iq4hoc/ASuykEQ0hI2emKXdEei1yEVfwdRhlNbV5tOHQ+KGRz/8LrzSU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1785002311; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=MRbJi/1N24OFbuQVxv7b6LbUHMhpaoO6runK3Llbbuo=; 
-	b=EnzwLV2gCMlit+OUkB2oI3lT3BmjSxyWs2/HpTfyxqkSkWJC1aFlJPX5AiIFsva/rNs2boJ1B5ozIGRYI2nbsAdRjA842oQrrjuCnwUgf0B06AI8mUL1+ixpkjWmFEMseoV5drqVauy5xC29SlbWhLzpnDPMEBkPg3+MBHXCKYM=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
-	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785002311;
-	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=MRbJi/1N24OFbuQVxv7b6LbUHMhpaoO6runK3Llbbuo=;
-	b=QoxLz1Cl4MVPsAUboaaFVWBpj0jAbdcFWzmd+I9/f3+IXgBtzt/jDHrwzhJHXdaD
-	mtzTwotmOVlbnFaA8AyryTfq57v2hE7nMXK9bitw2oTa/SE2WC662nQJXS5tWqsbJgn
-	oTWTDmC2PFQJ4Q+a9A8hfZmZpc3GLCOCqo4GFq94=
-Received: by mx.zohomail.com with SMTPS id 1785002308379763.0905164719212;
-	Sat, 25 Jul 2026 10:58:28 -0700 (PDT)
-Message-ID: <e1034df6-3801-424a-ba1e-a03d61b37222@collabora.com>
-Date: Sat, 25 Jul 2026 20:58:23 +0300
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OQQ+6tA5"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-495757ccbc1so13155675e9.2
+        for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 11:42:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785004974; x=1785609774; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Yim8vL4SATQPCHdmJdo+DTQlfgUOkNLfDRGu6BOoAio=;
+        b=OQQ+6tA5K/Q6ibtSWEV6IggOcGSaDrqLu8ghqXk9ucbUtC8SfsSj41F/dymC9jHd2o
+         x2e6lJpCb+r1kMVstAdsH8yVFyB3g5JeyCC9tocLYSkD6YdJ9nqBQ057rk+jzMFMjgJY
+         NMToioIQeP8/esnn0UgQJzyzw8Ki9GSz2lijTeJHIJ8hmNnyhzuWo7yVJpui9DFeqbKW
+         Ihkg4Ar8vLUkjQjXM+Q/PyswFJSb0DCm1a/M2438lqSao7uxXYUxrUYJeycDIcvNIbUF
+         RexOSG5G+otuZgZ37TzdIWKSfOk85TneKUw7f8ZaXnw94prqoMoEDdQs41r3IkBxJCsf
+         J1ww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785004974; x=1785609774;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Yim8vL4SATQPCHdmJdo+DTQlfgUOkNLfDRGu6BOoAio=;
+        b=fWOnXhMEEHvFvAj5Cz82/+/65mDw1vkahmE8jLqTbB0EwpAhKvBi1YCpedJ1dqNCbJ
+         IHlXoWFCUNgekHHxiPGA9IHlYhDCnW6CmEHzAqdVk4Fe1qv/2hoqh8vvOUMS7v1nEkpL
+         OuiLHcRu28SzE65uWm5ScQSY+V37k7LQbxcD8AqkM9Fl7o8Rv4Y44RVBG0WtwRJLJyEn
+         QKMAFwD5arQDIsGctPa7YCwUpy2CfmA/+4SpbxxZYKG4Lq8MMfBuqUAv7mSx/EOVjaOr
+         if6wjRFGTLt9joZM8vMSg6MqZkCm+4iTq2MZs/Ug9F4znZ0ZXCsSnTHqT194w0WUHd7G
+         2ENw==
+X-Forwarded-Encrypted: i=1; AHgh+Rr+9An1cQ4x/1h9moxrUVthxaNUyn5T/MP8G82b2RKqf9ugnHiEHKFpvk0ecvRWUKd7qBb727buKN1P@vger.kernel.org
+X-Gm-Message-State: AOJu0YyaR3rDreuK4YmJxE4YdvUGNSM3RL8jb2v8ivsQ7j3QwdD64u+/
+	10fgLKsCY2r5EQLDwC4dWbXhQEmGYyp8sZCvUCrMfm3WnxdEzfUa9v4e
+X-Gm-Gg: AR+sD12RG8c8li1jzeDzdWs0aUeJPNPEIX0VlPixdKTcLd2lS48TuKS8ENJM+JNZSpN
+	AQGu8DjR0mJrfMBC/BWBOTVF/If1L/LseoqH1JDCtVZrM+qNoo/xiqQ4Tn3vCMpkY8czOklmYaw
+	3YS9TbiWsJztJO7bYZrtkQWWhq+98cIf2tuq3ofnqOdn90SWEZs/Er5NfrF4EC474Ij7YKWkf9m
+	HkNwWZv0zPYV5pc4G0e+9ySOfqCfo6cN7yG1n61GVIyLAiQo1rlYLSgyUnB4C2odN2ePgUutHea
+	CNA3W8CSsjmIY0ymQBdBXj9QDQ5mPEdAtKs7M21tkzArOCw+KUiWNrxg7GfVqqW4fj8mss5wzj+
+	8RL7HN7EmeNsnZVstMH2h747Q3tAlBYAsikzPunFYEqKcSDEM30iC+0Cl7TDNagmxjgzyUbDEZo
+	N/6Q==
+X-Received: by 2002:a05:600c:354f:b0:495:5062:17f9 with SMTP id 5b1f17b1804b1-496b5702398mr44354255e9.30.1785004973580;
+        Sat, 25 Jul 2026 11:42:53 -0700 (PDT)
+Received: from antoniarch ([78.212.96.5])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496b49a5f98sm88482475e9.12.2026.07.25.11.42.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 25 Jul 2026 11:42:53 -0700 (PDT)
+Date: Sat, 25 Jul 2026 20:41:27 +0200
+From: Antoni Pokusinski <apokusinski01@gmail.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-rtc@vger.kernel.org, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 8/8] rtc: abx80x: add support for ABX81X
+Message-ID: <amUBF4oc3YhFRUYO@antoniarch>
+References: <20260725145718.14733-1-apokusinski01@gmail.com>
+ <20260725145718.14733-9-apokusinski01@gmail.com>
+ <20260725153032.874311F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/4] media: synopsys: hdmirx: add HDMI audio capture
- support
-To: Igor Paunovic <royalnet026@gmail.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260718085728.6797-1-royalnet026@gmail.com>
- <20260718085728.6797-3-royalnet026@gmail.com>
- <25922edc-4ff1-4d28-9a64-2c28b2b690cb@collabora.com>
- <CAEWPSH70FecQRuGtA=S8+_CnLY5sMyf1j57Uwzwv54zceS1HZg@mail.gmail.com>
- <b8d63f61-b73e-412e-8119-ced1afdd4551@collabora.com>
- <CAEWPSH5j3tYNb1JKRGwa00PVnYAgCKS+B-Qz07D8Z7TJea5cMw@mail.gmail.com>
- <1ac66aab-8985-4441-8ce1-07e2ea5183bd@collabora.com>
- <CAEWPSH4aB4KZsrLx2TESjPvUG0+A_Z_7uuO=5Rd-VidKU9U3eg@mail.gmail.com>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <CAEWPSH4aB4KZsrLx2TESjPvUG0+A_Z_7uuO=5Rd-VidKU9U3eg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260725153032.874311F000E9@smtp.kernel.org>
 
-Hi,
-
-On 7/24/26 02:47, Igor Paunovic wrote:
-> Hi Dmitry,
+On Sat, Jul 25, 2026 at 03:30:32PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [Medium] Incorrect SPI read/write flag masks invert SPI commands.
+> - [Medium] Masking of valid error codes from `devm_regmap_init_*()`.
+> --
 > 
-> Thank you -- and thank you for reviewing the whole series and testing
-> 2/4. It went through a lot of back-and-forth since the RFC, so having
-> it land with your Tested-by means a lot.
+> --- Patch [8]: [PATCH v2 8/8] rtc: abx80x: add support for ABX81X ---
+> commit f05e60a6ab0d5bdeb5665a7f2de3be7428abd444
+> Author: Antoni Pokusinski <apokusinski01@gmail.com>
+> Subject: rtc: abx80x: add support for ABX81X
 > 
-> I'll prepare the follow-ups as separate patches once this series is in:
+> This commit adds SPI support for the Abracon ABX81X family of RTCs. It
+> introduces the required regmap configuration and SPI driver probe logic.
 > 
-> - The video_device lifetime issue on the V4L2 side (the devm-allocated
->   struct with video_device_release_empty that the automated review
->   flagged) -- as a standalone fix for the existing driver, since it's
->   independent of the audio support.
-> - An atomicity fix for the GLOBAL_SWENABLE read-modify-write, now that
->   the audio path adds a second writer to that register alongside the
->   CEC code.
+> > diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
+> > index 7cba72656d094..46434f05a1f7a 100644
+> > --- a/drivers/rtc/rtc-abx80x.c
+> > +++ b/drivers/rtc/rtc-abx80x.c
+> [ ... ]
+> > @@ -1026,14 +1029,107 @@ static void abx80x_unregister_driver(void)
+> >  
+> >  #endif /* IS_ENABLED(CONFIG_I2C) */
+> >  
+> > +#if IS_ENABLED(CONFIG_SPI_MASTER)
+> > +
+> > +static const struct regmap_config abx80x_regmap_config_spi = {
+> > +	.reg_bits = 8,
+> > +	.val_bits = 8,
+> > +	.max_register = ABX8XX_SRAM_BASE + ABX8XX_SRAM_WIN_SIZE - 1,
+> > +
+> > +	.rd_table = &abx80x_read_table,
+> > +	.wr_table = &abx80x_write_table,
+> > +
+> > +	.write_flag_mask = BIT(7),
+> > +};
 > 
-> The repeated-suspend wedge I mentioned in the cover letter I'd rather
-> send only once I have a clean, reproducible trigger for it -- it's
-> still under investigation and I don't want to send a fix ahead of a
-> solid repro.
+> [Severity: Medium]
+> Does the hardware expect MSB=1 for writes and MSB=0 for reads? Since
+> .read_flag_mask is omitted, regmap defaults it to 0. If the device expects
+> the opposite (MSB=1 for reads), the SPI commands could be inverted.
+Everything ok here. According to the datasheet, the MSB of the register
+indicates read (if 0) or write (if 1).
+
 > 
-> The dynamic codec registration you suggested (bind on the plug event,
-> read the actual wire sample rate and restrict the codec's rate) is the
-> direction I'd like to explore after these, once I've looked at what it
-> needs from hdmi_codec_ops.
+> [ ... ]
+> > +static int abx81x_spi_probe(struct spi_device *spi)
+> > +{
+> > +	unsigned int part = (uintptr_t)spi_get_device_match_data(spi);
+> > +	struct regmap *regmap;
+> > +
+> > +	regmap = devm_regmap_init_spi(spi, &abx80x_regmap_config_spi);
+> > +	if (IS_ERR(regmap)) {
+> > +		dev_err(&spi->dev, "Unable to allocate regmap\n");
+> > +		return -EIO;
+> > +	}
+> 
+> [Severity: Medium]
+> Should this return PTR_ERR(regmap) instead of a hardcoded -EIO? Returning
+> -EIO here masks the true error code from devm_regmap_init_spi() (like -ENOMEM
+> or -EPROBE_DEFER), which could disrupt probe deferral logic. (It looks like
+> the existing abx80x_i2c_probe() might have the same behavior.)
+> 
+> [ ... ]
+> 
+Yes, this should return PTR_ERR(), not sure why I added -EIO here...
+Will change this in v3.
 
-Good plan
-
-RE the sample rate restriction, hdmi_codec_ops has get_eld() that
-restricts rate based on HDMI ELD [1]. For RX we could tell the exact
-rate to CODEC without ELD or we could generate ELD in the driver, either
-way should require extension of CODEC driver with support of RX rate
-restriction. This way userspace will see that there is only one rate
-available for capture, so it won't be able to choose wrong rate and will
-resample audio itself as it needs.
-
-HDMI plug event -> signal stable -> gate audio rate from ACR -> register
-CODEC device -> ops.get_eld() returns our ELD
-
-[1]
-https://elixir.bootlin.com/linux/v7.1.3/source/sound/soc/codecs/hdmi-codec.c#L477
-
--- 
-Best regards,
-Dmitry
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260725145718.14733-1-apokusinski01@gmail.com?part=8
