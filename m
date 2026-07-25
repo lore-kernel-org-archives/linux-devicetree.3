@@ -1,54 +1,52 @@
-Received: from out203-205-221-231.mail.qq.com (out203-205-221-231.mail.qq.com [203.205.221.231])
+Received: from out162-62-58-211.mail.qq.com (out162-62-58-211.mail.qq.com [162.62.58.211])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB98D2F8E8F
-	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 07:06:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.231
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7218234DCCD
+	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 07:07:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.58.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784963207; cv=none; b=FXuamgAM/Yzl4YY5v3Y7M6lLwKFN/WniH0SDBGtaT4sE9KABqnuChYk+v7GR0+cg/2MRCgrBLfTQSudFPMk3LQQjKYQd90m5jG2nmjICLrxMshNrk3xWYrVDpMpQi75TS2IMhTieCGl+Po+1Ma1TCQzuPe7g9YiBFf/mQ3e1t2g=
+	t=1784963276; cv=none; b=WGgH0Dgcrx+y28b3uGAKYZ1jZ15zoLQRCQwjmGlMhXMRDgzQo026xCiT6nPHdyQRQOhgUlP9Kt1uMAPdli8qWVrVL08LS5xnjmJQBSI5/RdJRKhJzLC7BpxiQGxG7D7PfG+o8pDYCti905wJyrkdwlMmrVivfU4bOTKh6+QOgGA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784963207; c=relaxed/simple;
-	bh=DX+szNrz7DTLcMXoXNU6DNJcfUI4KfQcHuk1pG+QKxw=;
-	h=Message-ID:From:Date:Subject:MIME-Version:Content-Type:References:
-	 In-Reply-To:To:Cc; b=uB22Ilo87JQQLHJ7jVV6Brlz0rkYcPyt/DBBt5nMqYGKD7443rcgJ6cn4xH+FIXQHyL9qycaCRb0tZebFcauBbVTxIvZ2ielSE8p61rJBfQ49SbDirKChejijN7j+1kSIA4XHtcyqC9l9rk1VqTjORjWUt6cacNNYzSAvq1EHzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=jmZHkJ08; arc=none smtp.client-ip=203.205.221.231
+	s=arc-20240116; t=1784963276; c=relaxed/simple;
+	bh=wktxRFmuvhJMB8KqsehkaKuvQGmUjAdIBCq/NAHUgWo=;
+	h=Message-ID:From:Subject:Date:MIME-Version:Content-Type:To:Cc; b=s62gI1cx7pk//ywthc4mwWZ92P5HJfHAw0zJ8WeE0T3jvDNJn0Kg5/RL25cqYKU1QEqr5eDfUYC4Znn55ex7mQheTPVzZDM+sC+2t0S7o3FJUoTjf8YZHNrzN0eAcxe99p8IxUo3kPlUtOqWB+MnT7AZ8tkPiJymGwPUMEKCHZ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=yMHiqz1U; arc=none smtp.client-ip=162.62.58.211
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="jmZHkJ08"
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="yMHiqz1U"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1784963198; bh=L3LDk1ob8lSeDF4p3l0ihZVgutygUEgJnbVoCOXhudc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=jmZHkJ084J/fLc3xVV9c3YR5XtXKQzLfdMMZ3BocCMqQE4QShVn2iKlcvVh1w7IYr
-	 uDMhjYQktfKq7up21+QcgpQEHq72sDqqlZ7HWcVGJJnwQKJCIjM9PpZ6Ka856WPell
-	 mAVG+7dA7edonfNC2tAvLekg35cMrPeMRkq8eZw4=
+	t=1784963263; bh=UJHt9ywOQl2bnmRRbANrsvI4ILo3SAjG24mslnqrFmA=;
+	h=From:Subject:Date:To:Cc;
+	b=yMHiqz1Uv4UoWmEzjEd2rBEPcaBIduHvGRnRhxnnFzhEN/Cz0mb6B7JlH4HJZudv+
+	 Sx9fC7ibhMumAnCtWfFltaQkENaL1ZpviIVKOsgSaxZZx2+9YTwDfCnFQiYH/2toHK
+	 f1gLtqcHJ50mSwYYMk+7S9lxenNt95fGuVyGGQr0=
 Received: from ubuntu2204.localdomain ([2409:8d20:22b:54c:9e54:40ff:fe02:3f0f])
 	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
 	id 19989659; Sat, 25 Jul 2026 15:06:25 +0800
-X-QQ-mid: xmsmtpt1784963194t29xv9a84
-Message-ID: <tencent_8E35228F9F4F133FCDBCCC4902F6887D0006@qq.com>
-X-QQ-XMAILINFO: N2ZoPGp9lKFW6O+7p5ZF8g+DCHmxkQcPFO9v1rbFeYY0V7uOwLUPdFrXOHVysY
-	 piP0nwKdWprL4pEiZgFSN9bI0pG9g1C1nkheUdlHLBxmvve8zKbtzGCuvvopyXnQP+6soTSEhh6D
-	 Kk9OLi1vKr0lK+OjJ6PU66i55uSLgIXsLZsA9GueukkLYEdM5MkFjR7RJv551QUWoi1ZqkvcWJU4
-	 t/TTw9riTDgt2E8QFLIxQOiTQZ2OoEUIUW7hvk8fBOBErUUZNLM+eZoEbJdb2O7o/UsAv+XOdc4b
-	 9QOfCKE36W5ub9smZwb2VUGld4c8NchI5JqEwYkpwlYkGux7XASFxGoH1Y54drfstuWxj3JKNSst
-	 XgIIf7CKk14Pui6+dearVzb+77RazXLx+uf/KEvOL8lBkp0CfCooXjk3wLEFyQwmM8vHhXRuv+O5
-	 oCzOuOpWZ4cMlocWw4mg5aIt2sZxjMIglU6HSmqBU62PoSuNt1TBXjGGW2RRsxXwRxwHn+IEBV4H
-	 ewOIMb4epPaRDxD9c8Ye0506mKxlBRRjKojQ/EJTpJPUtGzDmEy5T2xRfDuYLwRjpQPhygOxrJ6G
-	 f/QDXRPc1YBHYUhD8Xf8UKxCVhCBOpM69wr2wnAhuYnUIPhMz+EnZCwyWYVUN72iaR5Ebqo8dyJK
-	 5QA/p4aES+TgJyTSUbDEKrtwU11zE4FBRoKK+7ORqjpD6Z294xCmusITWozh78s2GLQVAwa0ifFZ
-	 2rVYD8Bnuw/31XoQ7pssED7UxKBw4OPhTkhMC43Q075u1SDlAWu/vqhqJggrfzUDEU9H6QLvkN6k
-	 KW7btVpLcJ4DmAmhete/Tyg0AagMqf+ydoSdLU2O6EJLJ8JXkfkMWFYuBVisbxD9ppW247IVdVMC
-	 lAiJ1eUQqbF7GzFz86UGy4195Y6d9f7zDP+6UetApcYOlv78jabYoLcREt20buAYXa8J8Ydx7txV
-	 2bd3XgxnL2eIHtrZBvCUTFchUMt1TSEIc7Y2SOMLcyCsnz4pLXa0EVma8HXpZEi1z48TDJF87N0d
-	 nONVjvlY+F+H43JoXG2wnBH8UxNPo4x31GVUikMVMAr+oNdbZaC/HxXVQBmdGaVUu2EaVoHxGFYO
-	 atnmVshJZUg+YTvNoAY2hecZaLhCfCsb79UdnnBOdrCBN3l9O6zUQmnuApXlNgYh9hai3u+f4umT
-	 tr/i0m8HcaT+9Um0L6rsD+YOlgUtkTcXn50tA=
+X-QQ-mid: xmsmtpt1784963185t2gcjelk0
+Message-ID: <tencent_AE0DC47B3FBB26371A1699AC849811AD8007@qq.com>
+X-QQ-XMAILINFO: MyIXMys/8kCtP/BCvwWKJmXXDPshPqly9CxPJGOru6tiLb4qQEORL0PNSzZryG
+	 qqhcx6t5hhamUBNSmU8fdLuD9m8ONw9BBOG055z1eyuMgDbH2cOrvD53JA9r6qDICpQJArexOt+W
+	 sLRP6tFxH9DGjxsi37s8DeYefMUtmvsyy3heZPHMIzJ9BzK9vU/f/oQUu8rEEzMapyrqhk9aVoG/
+	 LzoAFrg1EmB8vjWjR03oZAkGfH7YednBE7kVabq6XMzAIKTPUF8GJ4kl89SD34ZGIWTrj6wl6/IG
+	 muskOpMoV08vmFnO9OH4URYcNRmO3CzRUiNMpD0ss5LIrPuGBW9z7fpwjzgXFZ/amJGuWzXFrECG
+	 EE/aGqtAVamb50YFMgIV2HG1pALdSRj20zBf+ShqLOV88eMOkyTpllaCReQrtMd87EC4I/FcuXfs
+	 2odrjwsIygMG5xtTy+xkK3klS6E0pA/9J6ICLdOPsgXJT4V5UvoAAxRX29DO9vUkuhffvNAjE6qp
+	 i9wfBsP0AOUqdEjTdJRI8kY+AnJj8HK7N2BRcgAwtewyHHmmHpmqoqhRjNIGw33AMaH9ytPkp3TM
+	 9lntPntexlmN4AdCtpwYoke2x+rc78xE/hUFBTGT0Mu1GRlwPGOW6gQQYYqXnE5OlBT5OWXk7FoT
+	 Mes1tCXcHKBkRq4pjeCtETOx8Tx2vVCxkIcIt8r21IZNOk0vxkjgVLTeAmmPVNNBWhD+a1eNc8lK
+	 jh8vjjHslkZCgQZPj8A4b5H9URhMksJbkd5LEdKTvOqz9QCdvZhv1bpXeoSn7aX5B69DRFN/5aVQ
+	 CvshKeU/U3U01z3MCoBQI79cRzjEnjW0jO4bMoMhYsOeVjv+g0+RQ1d3FzKYJJgcEi+cvjNJumBS
+	 A5CoZI+d3zx/1zXdUtbHDh280bxEnE8oGoo3gpNz7sg5j6wSunbYDx0dzhuLmxv2KeFhhoaC1Lpk
+	 OwXLlwNqR+5+opyJ70jpveLRBzyCS1g29wttJSU65kl1wurA90t+0snqDchS0fwDbDus5Wlts7sw
+	 GyBezakNF2K17V1b0eRtD00VTCASzbnCG39GLjJ4JXinxXdrFifxgRjV5mFGGhQYYtkoU+iwo0N6
+	 OSXy5+2Cg8w8mqDWpFwBCDhUgKrNhMroe9+Q1+8jM+V3Xp2P1rgdoryu8MjHNL/sk7gCZh
 X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
 From: Cunhao Lu <1579567540@qq.com>
-Date: Sat, 25 Jul 2026 15:03:34 +0800
-Subject: [PATCH v5 4/4] arm64: dts: rockchip: Enable CAN controller on
- RK3588-Tiger-Haikou
+Subject: [PATCH v5 0/4] can: rockchip: add RK3588 CAN support
+Date: Sat, 25 Jul 2026 15:03:30 +0800
+X-OQ-MSGID: <20260725-master-v5-0-75da459d2b93@qq.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -57,9 +55,11 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-OQ-MSGID: <20260725-master-v5-4-75da459d2b93@qq.com>
-References: <20260725-master-v5-0-75da459d2b93@qq.com>
-In-Reply-To: <20260725-master-v5-0-75da459d2b93@qq.com>
+X-B4-Tracking: v=1; b=H4sIAMJfZGoC/22NyQrCMBRFf6VkbSRkanXlf4iLDC82QqekBqX03
+ 00qdeXywD3nLihC8BDRuVpQgOSjH/oM4lAh06r+DtjbzIgSKklNKO5UnCHgxgiqoTlRxRzK4zG
+ A868tdL19OT71A8xc7LJofZyH8N6eEiu7Pcr2aGKYYGmFtCCdpY5dpulohg6VYuL/HZ4dXltOt
+ HbCWfVz1nX9ALUKrNXfAAAA
+X-Change-ID: 20260702-master-8c52be892a3f
 To: Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de, 
  Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -67,43 +67,105 @@ To: Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de,
 Cc: linux-can@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  linux-kernel@vger.kernel.org, Cunhao Lu <1579567540@qq.com>, 
- Heiko Stuebner <heiko.stuebner@cherry.de>
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Heiko Stuebner <heiko.stuebner@cherry.de>, 
+ Quentin Schulz <quentin.schulz@cherry.de>
 X-Mailer: b4 0.15.2
 
-From: Heiko Stuebner <heiko.stuebner@cherry.de>
+Add support for the RK3588 CAN controller.
 
-CAN0 is piped through the Q7-connector to the CAN-Header on the Haikou
-base-board, so enable support for it there.
+RK3588 integrates three CAN-FD controllers that are closely related to
+the existing Rockchip CAN-FD IP already supported in the kernel. The
+RK3588 variant is not fully compatible with RK3568v2 because the RX
+FIFO count register field has a different layout.
 
-At least on RK3588-Tiger, the CAN clocks default to 99MHz, limiting
-usable CAN bitrates without skew. Errata documentation mentions
-300MHz as the default frequency on RK3568, so replicate this here
-to allow more bitrates.
+This series therefore:
 
-Signed-off-by: Heiko Stuebner <heiko.stuebner@cherry.de>
+- extends the existing Rockchip CAN-FD binding with the
+  rockchip,rk3588-canfd compatible
+- adds a dedicated RK3588 match entry and devtype in the driver
+- describes the three CAN controller nodes in rk3588-base.dtsi
+- enables CAN on the RK3588 Tiger Haikou board
+
+RK3588 encodes RX_FIFO_CNT in bits 7:5 instead of 6:4. This
+difference was found by comparing Rockchip's vendor kernel 6.1 CAN
+support for RK3568 and RK3588, and was also confirmed by runtime
+testing.
+
+RK3588 uses the existing erratum 5 empty-FIFO workaround. Based on
+Heiko's testing, v2 also enables the erratum 6 workaround for extended
+frames being transmitted as standard frames.
+
+CAN-FD is enabled for RK3588. The BRS bus-off issue seen in earlier
+testing was caused by the transmit delay compensation setting. With
+RKCANFD_REG_TRANSMIT_DELAY_COMPENSATION programmed to 0 on RK3588,
+CAN-FD with BRS works in local testing.
+
+Tested on an embedfire,rk3588-lubancat-5io board with can0/can1
+directly connected, no other device on the bus, 60 Ohm bus
+termination, and a 300 MHz CAN clock. The test used 500 kbit/s
+arbitration bitrate and 1, 3 and 5 Mbit/s data bitrates. The 5 Mbit/s
+data phase test ran for 15 minutes with:
+
+  ip link set can0 type can bitrate 500000 sample-point 0.8 dbitrate 5000000 dsample-point 0.8 fd on berr-reporting on
+  ip link set can1 type can bitrate 500000 sample-point 0.8 dbitrate 5000000 dsample-point 0.8 fd on berr-reporting on
+  cangen can0 -I 2 -Li -Di -p 10 -f -g 1 -c32 -b
+  cansequence -rv can1 -f
+
+The receiver reported continuous sequence wrap-around messages up to
+sequence wrap around (37219). Both interfaces reported 9528377 packets
+and 150667356 bytes, with 0 bus-errors, 0 error-warn, 0 error-pass and
+0 bus-off events.
+
 Signed-off-by: Cunhao Lu <1579567540@qq.com>
 ---
- arch/arm64/boot/dts/rockchip/rk3588-tiger-haikou.dts | 6 ++++++
- 1 file changed, 6 insertions(+)
+v4 -> v5:
+- collect Quentin's Reviewed-by tag for the binding patch
+- Link to v4: https://lore.kernel.org/lkml/tencent_42B49B0E68A8659A13EC46A402E41133FC09@qq.com
+v3 -> v4:
+- disable TDC on RK3588 by programming
+  RKCANFD_REG_TRANSMIT_DELAY_COMPENSATION to 0
+- drop RKCANFD_QUIRK_CANFD_BROKEN for RK3588 and enable CAN-FD support
+- document successful RK3588 CAN-FD/BRS testing at 500 kbit/s
+  arbitration bitrate and 1, 3 and 5 Mbit/s data bitrates
+- collect Krzysztof's Acked-by tag for the binding patch
+- Link to v3: https://lore.kernel.org/lkml/tencent_AA108D2806AC225EF9553469D218C8C0260A@qq.com
+v2 -> v3:
+- Move the Changelog below ---
+- Collect Heiko's Reviewed-by and the driver patch Tested-by tag
+- Use Co-developed-by for Heiko's RK3588 contributions and add his
+  Signed-off-by
+- Link to v2: https://lore.kernel.org/lkml/tencent_87CB2824608F3C06B4229EF99D3609D00C0A@qq.com
+v1 -> v2:
+- use real author name
+- fold the single-compatible entries into an enum, as suggested by Krzysztof
+- enable the erratum 6 workaround for RK3588 based on Heiko's testing
+- add Heiko's RK3588 Tiger Haikou CAN enablement patch
+- keep RKCANFD_QUIRK_CANFD_BROKEN enabled for RK3588 so CAN-FD stays disabled
+- document the RK3588 CAN-FD/BRS bus-off failure mode
+- Link to v1: https://lore.kernel.org/lkml/tencent_1A4614039A100DFD8A9AE2692865FE126009@qq.com
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-tiger-haikou.dts b/arch/arm64/boot/dts/rockchip/rk3588-tiger-haikou.dts
-index 873fbeb8daa1..6273e695b039 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-tiger-haikou.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-tiger-haikou.dts
-@@ -155,6 +155,12 @@ vddd_audio_1v6: regulator-vddd-audio-1v6 {
- 	};
- };
- 
-+&can0 {
-+	assigned-clocks = <&cru CLK_CAN0>;
-+	assigned-clock-rates = <300000000>;
-+	status = "okay";
-+};
-+
- &combphy2_psu {
- 	status = "okay";
- };
+---
+Cunhao Lu (3):
+      dt-bindings: can: rockchip: add rk3588 CAN-FD compatible
+      can: rockchip: add RK3588 CAN support
+      arm64: dts: rockchip: add CAN-FD nodes for RK3588
 
--- 
-2.34.1
+Heiko Stuebner (1):
+      arm64: dts: rockchip: Enable CAN controller on RK3588-Tiger-Haikou
+
+ .../bindings/net/can/rockchip,rk3568v2-canfd.yaml  |  4 ++-
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi      | 39 ++++++++++++++++++++++
+ .../boot/dts/rockchip/rk3588-tiger-haikou.dts      |  6 ++++
+ drivers/net/can/rockchip/rockchip_canfd-core.c     | 17 ++++++++++
+ drivers/net/can/rockchip/rockchip_canfd-rx.c       |  5 ++-
+ drivers/net/can/rockchip/rockchip_canfd.h          | 14 +++++++-
+ 6 files changed, 82 insertions(+), 3 deletions(-)
+---
+base-commit: 0ce37745d4bfbc493f718169c3974898ffec8ee7
+change-id: 20260702-master-8c52be892a3f
+
+Best regards,
+--  
+Cunhao Lu <1579567540@qq.com>
 
