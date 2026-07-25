@@ -1,61 +1,75 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4E4B625;
-	Sat, 25 Jul 2026 01:02:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5AD92E2DD2;
+	Sat, 25 Jul 2026 01:10:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784941322; cv=none; b=u+MTXr7kmX3f1Tl0mITqa/HoBUAaBcsiRUSFKwKwZvNx6C3v4E1C/4KN55Pe2qIkua4OFQc3C5F5R0M6GB6chEpnq5AWKpwzzwK/OeKTno2ROrBkjiYa9/y38bWAe2VYmEfTY+tr2bGoVH3/64a1Frj3nbM0F0oJaoxDxqeZUzg=
+	t=1784941833; cv=none; b=KGIF/AtfgRPWU0L5tSZS23fW0JcXnsXrm3pVykq9w3ELKhzLwkaG+Ho0oPYWuXRIdUiUzZuLSWrv1BI2ivRklLx1AJ8ZnI3kW9z2C+0xOYwi7ddKPfEOWoZSmxVde//CYxGmm0JAtxTUseUv0qPgs1U3URHRIOZLBsM5DEIISE8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784941322; c=relaxed/simple;
-	bh=WQVuY/xHb9UemvXKHlOmW1cciHm15eKxer7SGv8pDsg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=dSfLabOobBVka1URplU0KeAqE0oUqvfjBweQ6HGgkE+AwEVQYhJgO6kRSt23mTqeXgBcAjUI28vRN0aQ30rLeotcJAqo0cWeFSsroPHuLvPBj1Pl5IxXIERZmaJvmSn4uQ2c4yOiUhciZy8aDvAS0Wxn9bOkSYbsq7MLZ/uYkVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DB3D1F000E9;
-	Sat, 25 Jul 2026 01:02:01 +0000 (UTC)
-Received: by venus (Postfix, from userid 1000)
-	id 78EC3181F17; Sat, 25 Jul 2026 03:01:59 +0200 (CEST)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Waqar Hameed <waqar.hameed@axis.com>
-Cc: kernel@axis.com, linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
- devicetree@vger.kernel.org
-In-Reply-To: <cover.1782683551.git.waqar.hameed@axis.com>
-References: <cover.1782683551.git.waqar.hameed@axis.com>
-Subject: Re: [PATCH v3 0/2] Add driver for TI BQ25630 charger
-Message-Id: <178494131947.716677.16555003920225344121.b4-ty@collabora.com>
-Date: Sat, 25 Jul 2026 03:01:59 +0200
+	s=arc-20240116; t=1784941833; c=relaxed/simple;
+	bh=Pae+INSr6JAw2Gdln9UU9PBXItb860scM2fflpK/6DE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IEWZkFrNGG651yQ+uPPLhSSU44aWW2rCDvaLkLVVQDKZM3OlSPhVfPaNsLD0JaKbFHwc7gn27izUb4h65xiJlLAYrpZSCKK6vlrfURbDe4/XlT5I3RUah7N7HDPzW0UAzV6GBCBLy2MD9ARnNDWs3ccKB3uMu5D89q/GK0hqYM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bDb0U3Cz; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bDb0U3Cz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D413B1F000E9;
+	Sat, 25 Jul 2026 01:10:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784941832;
+	bh=7Tdgl5VWtqICxb+Y8DVatCG+1v07WZyrS2hVZIJk20Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bDb0U3Cz9TrjtxczsWNxtfeuuyiPtLOWKyqkdUKkaJRbznCe2PHVl9UXzK8yDX9qT
+	 elV3PJOS1UAJn5NQ4lVn3lk/A78AdnkxrdYtznbUYBsKVnT/myzA1oqH78E8oFVgHu
+	 cK4AYqR/jGadyvVhDAWRteWh4EWDK3RDsXJ6pF8+ThK4Y8iLszO6Ov/rjoIndB0b47
+	 EMXqgFOzwzmuEOscxBjaFE1jKLEsA9Mo6Dt8P8zzkeQ1qFg3sRjddfJSdMBzS/5T0m
+	 txsyoi6FHflbPHkIqx/uOZYfHTjZOyHgCvOm+I4NH8Iog2p5xHQWoXXSPtqFOOOFWz
+	 33WMhZGvKlkUA==
+Date: Sat, 25 Jul 2026 01:10:30 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Inochi Amaoto <inochiama@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
+Subject: Re: [PATCH 1/2] riscv: dts: spacemit: Add enough deassert time for
+ the PHY on PICO ITX
+Message-ID: <20260725011030-GKA77474@kernel.org>
+References: <20260710063314.1030249-1-inochiama@gmail.com>
+ <20260710223804-GKB106000@kernel.org>
+ <amQKpgD7NKlR8qEE@inochi.infowork>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <amQKpgD7NKlR8qEE@inochi.infowork>
 
+Hi Inochi,
 
-On Mon, 29 Jun 2026 00:01:18 +0200, Waqar Hameed wrote:
-> This patch series contains a fully working driver for the basic
-> functionality for the new TI BQ25630 charger (see datasheet [1]). The
-> other "advanced" functionalities such as USB OTG, BATFET control and
-> liquid detection, will be handled in separate patches (after necessary
-> framework changes) according to the design discussions in the first RFC
-> version.
+On 09:01 Sat 25 Jul     , Inochi Amaoto wrote:
+> On Fri, Jul 10, 2026 at 10:38:04PM +0000, Yixun Lan wrote:
+> > Hi Inochi,
+> > 
+> > On 14:33 Fri 10 Jul     , Inochi Amaoto wrote:
+> > > RTL8211F require at least 50ms deassert to guarantee the register
+> > > access, 10ms is only enough for the PHY reset.
+> > > 
+> > IMO, it's kind of too trivial to split into two separate patches,
+> > while duplicating the commit message
+> > 
 > 
-> [...]
+> For backport, I suggest keeping two patches, so it can be backported
+> in a more clear way
+> 
+Ok, fine by me, I will queue the patches for v7.3
 
-Applied, thanks!
-
-[1/2] dt-bindings: power: supply: Add TI BQ25630 charger
-      commit: 7380075135496df3b07a61c002928af0582b2bf6
-[2/2] power: supply: Add driver for TI BQ25630 charger
-      commit: 81a10126cb33d553e9b08a5c09b0cb9835cab2d7
-
-Best regards,
 -- 
-Sebastian Reichel <sebastian.reichel@collabora.com>
-
+Yixun Lan (dlan)
