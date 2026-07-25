@@ -1,228 +1,160 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11023108.outbound.protection.outlook.com [40.107.162.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27C1A3F44FC;
-	Sat, 25 Jul 2026 16:56:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.108
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784998590; cv=fail; b=AxIOTwFmDXDoEonrfHO+3o5zt8fQs+M/imAaPw/gY/09ESxuJ4pWpAvXnpyc+ctCT3JV4WnLEXS/7SGRHgAWChCWZCYDo5PbLglsuaKlHrVSPfZLjdO/hzFhejtGzRr1NJNjz+Hlf9WVxrXfzAPsAz9Nx33lYvp2GSF3HqwGjyM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784998590; c=relaxed/simple;
-	bh=+s6AHh07LMn/WyMHVK6UmJcRvvKc1ILZngZSq5zMuxw=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=uTkKnno/Lki/vUlnlCdkIiGdbrGvPDxo/ABY5+64lF6ZtZA9l5d4js9T+VQ15l1MhlT0I814y0yb/eYbqEG84A2fFDf43PASMWEFSsUq9bXesOGhHcGPlIb6SPCe1vu1MUnlP/O7/yFVej/aOgIl7QOC/LsAk03G25Vricy3pZQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wolfvision.net; spf=pass smtp.mailfrom=wolfvision.net; dkim=pass (1024-bit key) header.d=wolfvision.net header.i=@wolfvision.net header.b=D6iwbZ56; arc=fail smtp.client-ip=40.107.162.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wolfvision.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wolfvision.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A39A2D5412
+	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 17:04:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784999053; cv=none; b=ZaD/md1alsPgsY6s2nJW9pFKt+I19qC/bt+wYvFVEs1yaAnw79Bvla7r4pBx1GHwwtKDhesMrWmmq5/bXQILv+sth0EO1bsmk1vSZDR5VWQt9T9oEvWTaPOyHQQ6r+bWc33FplRxMZoqK70OvKVDwRmxAGKSmO8+l8aoDC2Wcns=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784999053; c=relaxed/simple;
+	bh=KS24fp2hjExXdJWJKJNGazja21SQfq3QfZA0W7djCYc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=nPoOwlwcUufcfwAp20KmTPJQS5Qp9Zj0bUzCKkR+JJiQguMUTzcY+3hwEqB4KR8N9pE2cdNgrHglhl2x3eJy+rYYJtee/xxCmv3iEQvNFwDJdXE+tqlfoYcG9VKSxVbLyvhtFotXEbBLlWBMdGmG6+odEzUpP28AdgMOoPeN6NI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hQ2EQCFc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=wolfvision.net header.i=@wolfvision.net header.b="D6iwbZ56"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RZiGBtKrfjwJuomG0DUeaBkfj3VWRZOX3zwtio138m6BeSuNsVRSo1avLGEMrJGYqObkbIXTwnAJDGc6aAVj+/nTKe6GwRmp88VFxeJpTFyZ47yjM3ar4JaJbE+xiAOViZLn4gdzhSbgvEKNBWIkyciqVSJusk+vSpcLPhU1E9uOipSAQBx0L4gM+IjasPrriY03jGSc0BNeNJUD+sdti4f6fJMMZ4TiTpbiZQAxyJXsjvVXuDSa01DWkEvVR4JhCsqNl59vbSQCThZbA/J0ozv8lJdrYASpk1NKr9g8vK2KKMjdeliv5DKkEx/hQeHHK4/29vVf8N05PdoY+YVbUg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ID2Xd54wzV2+7KgvTJP1XPfUiNGyuBOf6ayXzxFxT4E=;
- b=nxMVix/kl6kW+0sQCy1ExDGNgsL7cY6EcjLlwmQpq2gFW1BC/LEjGWaJDB8odMB0tQCcKZxrgY1XsdIqsfpHGXVURbYwru8fj6H3GcN6R+mqpy3z5+ytdUatDX+inZqQpJ5R4JSLqfeBVPimFllEsDqftYZzML+JAElSwCin0EZS9EogTHjIuXmF46KKZdiRsLARiMh7ZR8MkJGfPeYU6+n4pBwat1S7KuTjTyOLNWFqIF74sCnMFXC5LirfeF/gIKZiMzNsZLjhN1KtnSnSSXWY6cHJAaHVnTejRpBQBRPc0PebL9q1aAr0SZBzQJEyN+RAdZq6wSPFRWTNcgKN/Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=wolfvision.net; dmarc=pass action=none
- header.from=wolfvision.net; dkim=pass header.d=wolfvision.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wolfvision.net;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ID2Xd54wzV2+7KgvTJP1XPfUiNGyuBOf6ayXzxFxT4E=;
- b=D6iwbZ56Hj8DLugxCaSlab5+u4eq48Vv1xMe1ADKmZDIn3C62Jb5lnzr9vLl4DSZxTChOxJ8KhvDDlc5T0/nqhQu5pC8bDGjcF1B4hddWtYqyJCIgdns8mYVq7eyx0ha9jOJ3fj0E9k3FVksgUa26Kua9Et8l7ALYNkz9FQGeco=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=wolfvision.net;
-Received: from GVXPR08MB11763.eurprd08.prod.outlook.com
- (2603:10a6:150:313::16) by GV1PR08MB10789.eurprd08.prod.outlook.com
- (2603:10a6:150:163::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.12; Sat, 25 Jul
- 2026 16:56:18 +0000
-Received: from GVXPR08MB11763.eurprd08.prod.outlook.com
- ([fe80::8790:5e3:beb2:5bc6]) by GVXPR08MB11763.eurprd08.prod.outlook.com
- ([fe80::8790:5e3:beb2:5bc6%4]) with mapi id 15.21.0245.012; Sat, 25 Jul 2026
- 16:56:18 +0000
-From: Gerald Loacker <gerald.loacker@wolfvision.net>
-Date: Sat, 25 Jul 2026 18:56:05 +0200
-Subject: [PATCH v4 3/3] phy: rockchip: phy-rockchip-inno-csidphy: add clock
- lane phase tuning
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260725-feature-mipi-csi-dphy-4k60-v4-3-5b2c4626d31e@wolfvision.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hQ2EQCFc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BC9A1F000E9;
+	Sat, 25 Jul 2026 17:04:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784999051;
+	bh=9yDTOoJHkJsbvQ7Dq8/vdLVppCEVxAzUpjtQ9OQeIWI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=hQ2EQCFcgZlxv+lC5fa15ePQIEbXO7uZJxEnh60qjJ5lc+FIYSmePRxwnrzK6auI3
+	 31nBsWgxE/Rtc+zclevNUa4EFioVQ3ms4+slvx6jk1lTfwpR4Fi8YPfwMpd6e+UGFN
+	 rJpI/ggrektvtvJGecc9O3uBT7NaRZmLCpog5DROGhsHGWed15Q0dmXW7ooXv8/1LD
+	 FTwTc4vyrVvszfo645brXqCfAQueV5KSr4m1LpiX4om2gPaBC7i01hIJfOMM3lXpm4
+	 kzVG9FaTA2kxjN5OZUtQPM/8yIOOOi5gznIjvGmq1HO+WuFKvuF2RECRvtXjr+WLrl
+	 wyFei2sEV4GIw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 1/3] phy: rockchip: phy-rockchip-inno-csidphy: fix
+ rk1808 hsfreq table
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Gerald Loacker" <gerald.loacker@wolfvision.net>
+Cc: olteanv@gmail.com, linux-phy@lists.infradead.org, neil.armstrong@linaro.org, robh@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260725-feature-mipi-csi-dphy-4k60-v4-1-5b2c4626d31e@wolfvision.net>
 References: <20260725-feature-mipi-csi-dphy-4k60-v4-0-5b2c4626d31e@wolfvision.net>
-In-Reply-To: <20260725-feature-mipi-csi-dphy-4k60-v4-0-5b2c4626d31e@wolfvision.net>
-To: Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Gerald Loacker <gerald.loacker@wolfvision.net>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784998575; l=3092;
- i=gerald.loacker@wolfvision.net; s=20230502; h=from:subject:message-id;
- bh=+s6AHh07LMn/WyMHVK6UmJcRvvKc1ILZngZSq5zMuxw=;
- b=ipE0EfL0dDYxrsAhd6i/Oe4PMZeoYgwaI6sPwfcwZ9spRNeUFFTyMLqnzJ4qoMoMYVrCqgEma
- DCHdths6S1jBHaUhdKTALEDQhGq4NZsYJb6dJUpOVzOIF1P50e3JIt0
-X-Developer-Key: i=gerald.loacker@wolfvision.net; a=ed25519;
- pk=UXhp+obGMUOjknszonesnb29P6a2Kk/K5eBuz62ggVE=
-X-ClientProxiedBy: VE1PR03CA0041.eurprd03.prod.outlook.com
- (2603:10a6:803:118::30) To GVXPR08MB11763.eurprd08.prod.outlook.com
- (2603:10a6:150:313::16)
+ <20260725-feature-mipi-csi-dphy-4k60-v4-1-5b2c4626d31e@wolfvision.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 25 Jul 2026 17:04:10 +0000
+Message-Id: <20260725170411.6BC9A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GVXPR08MB11763:EE_|GV1PR08MB10789:EE_
-X-MS-Office365-Filtering-Correlation-Id: 34f4c847-5cc2-4221-7366-08deea6da5de
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|52116014|376014|7416014|1800799024|23010399003|38350700014|56012099006|11063799006|10067099003|3023799007|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	C1oIfIY2+e9cVnjTAXFA7SIvc9gQsV8cfcN9W3DJjHzT+irHkhdFdoGD7kUG+t/nS8PnERP7glsgGNHahGJJ2Z75Kh6aOgvwp87hN7Kc3DEFN3eC4bv/UDbdKRUD1ugDLfMvfBJwLyUtgth55MH25wJpo7kQlC0Z6ujKaOWN4screowUvJVA+coXpsKSP3s8sfNLu4gdeVlURmpBwwMGoeFEZg9H0qhaxaIFxVx4zuqxz84XlY+0k+405Uv5otn1q8bUNidyOT1zdpugv3/B4+nTHW7vH5CpfdJTwqXgl2cHpPVYM1jQIEilRraoyvSeXkowx0lKOJw/4khVTdpgV4A4EezHLWPQNvadPA36pSucAMtZ47fTr6oxvJNX7HWiEIv+E09lxcYHmstduVdkbaxW7+FU+1hP5GRvmGStUC2fdL6RL2bGjY3wS1zDRBVLJgItvMIp3LiLMOYwne9cp+RMBbc5cOuBdBL1ja8ThZsuKtNSgDW6+A/+9E0yDTawOdEnRngh6Dwh4n6f7+I8qdwgPgCEBbKXn70l/dX6uSOhqBX2hl/8M9ge58qIQnlTcM50Ly7qX05S5TKJIpuwjZ+juZsp/rrP7XHRFVKwn8rG0F8Lh3OXG6qpSUS+QlGrXzDquIdNWM/XRZnPIMVD2cPxxVTMjPWNf7nG66G6fZPyffaPko6sSLtneRRNyR+rpHAKlYA1emri0sKrJLH/h/GZqctR2R01rzVstUkNWG4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR08MB11763.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(52116014)(376014)(7416014)(1800799024)(23010399003)(38350700014)(56012099006)(11063799006)(10067099003)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eG1xaHpoTlBlTkhTb09UUXZuUHdJRFpFSHhVVnBYTCs3NTdMS1RabzBYVkRK?=
- =?utf-8?B?elFpRVUwMmhqcUdGTXhOb010dkNJeGZhbmZLaTB4ank3L04yNnBic01pekt1?=
- =?utf-8?B?cE9WNW9wTjludXl1dWZpVDFKY0JDVDMxQ09BT3hNNCtJWit6dUlSU0JFdkdq?=
- =?utf-8?B?V2hkMVpieThFbUxUVDROTDVIaTNpQTFNZGgvVEpPSHBtUHJFWTJNMmRrTnlW?=
- =?utf-8?B?MnhERERTOGpYbHN6QWxFSG82Y2YrWkhwMFp4RlRZTFZkOERzcERXeGlBSjE5?=
- =?utf-8?B?bWduNk54Z1NEdFVZN0ZaUmxrTlEybUtmcFVpTjNnUkRBbXQrRWpCUFVHWERL?=
- =?utf-8?B?QkJJdFE2TlNCN3FnekRoekdFZVQ0Y0gya3I4OGlWR1hXd2NuanZpYi9JUDFv?=
- =?utf-8?B?dHRwTmhuRHJYRFFGTnhsVTFQam81N3JIcys5TDM1WHNLaG5heGxtNGErU0Vk?=
- =?utf-8?B?Z1BvTTJkQjl0cnN6ZGx1TVlqMS8wSC9oamRvdElHRDFoa2UrZlIrbk8rTXdT?=
- =?utf-8?B?dG9LR1FBTWUwYUM0RzNONUppMER0aGtId1Boem5tMkxKYjFzTlJJOFhPc3Aw?=
- =?utf-8?B?dmVQZkhRY3grUXZUMGFHOHI4UkNuNXB5d3NRUStiNm1tcEQxV2NnMElSbU1k?=
- =?utf-8?B?MHIvb0VJRlhUeTI4RThMc3lncDlzeklNSlhmNmE1em9lMEhkRGFaS294VXNG?=
- =?utf-8?B?R05BL2JnaklqTlpiaUR1OHdTL1Rhb1BNeFlIT213bmVCYW1yeEVmalNYaTBo?=
- =?utf-8?B?ZTdoU2dVZEkyVXFBbnVtc1lETjZVaUdSUEdUWWtTNlBQemFkWnNQR0NtNUxK?=
- =?utf-8?B?MjFNZUZxSmo0MVBqd3F3ZUFjM0pJQldkbVRqZDlONVA0OE8yQUordnlydUkx?=
- =?utf-8?B?djdqOU1qRUtYbTBMQ09sOWlrTkl1TFk4RlJSWHVsNmJuMlE3aTRZSzQ5R1ZD?=
- =?utf-8?B?NlNWeTRHMmZSeUZiOHBxcXY1V2JoTE9XaXVPSDhVNlBPWWU1Z2xCb0JyMjdo?=
- =?utf-8?B?RkZPMGtjZklQSzNUWmhUU0tGZUNyQ2VMQWVqS0Y4K2ZFSWxER0tiZUhRd2pY?=
- =?utf-8?B?VEg1MDRlOHduakpld2xXL0hwR2QzVk12U2dnSEhJVmlDeVFRN29xNXhkY0Fz?=
- =?utf-8?B?d29JbFJ1b0xWNmN3UmlLY3FxTTVTNldTWDRrTXRzamdEaGVIYndqVENxNVdY?=
- =?utf-8?B?cUpSb3NDeWlKOUZqdllsRTNMdHRLSEkyM1lRd3ZvTkpzakJGcmE0UkV3OTJh?=
- =?utf-8?B?ZzJ2OG9aV3hlSm0xZGVKa2FsV01yUHRkUGpuN1BhZC9JWnI0bjFzYnN5VEVk?=
- =?utf-8?B?MW1GU0JCT2JGc1VJbzNDSm9Wd3R6YjJZV1FTakJHbElVSnFsRkJLckExcFd4?=
- =?utf-8?B?b3gyaERTRHZxT2libE1oc2Y5SUlDUzFNVEk4ZjhUZmMxb20yY2I3ejRlUE9H?=
- =?utf-8?B?Q3ZTMmpCaEtFb0FMWmVuRG5ua3lXcXNVNjF0ODVCUW1LSk4wamRaeWRzaFht?=
- =?utf-8?B?TDJBMHk4T1owaFhJZ2JKQVppQ0RrUW9hcFV5MzBRbEJIN0JidG4yZWxFK2Rp?=
- =?utf-8?B?RTNxWUhDUjY0U2xyQUs0dGFMQ2c3b3dUQVFCU2ZwdDdrZytrc1Uxd1VpNHh0?=
- =?utf-8?B?MlRyZ0h0Y25VeWVpT2lueDZzbkRKR2QxaFFWQjc2STI3Q0ROM0RSMzJZaEdS?=
- =?utf-8?B?ekVnU2ZxR1daTDhXc0tyMkowSHJZK0Q2S291Q2JldTNPZXMwWHM5eHljN25F?=
- =?utf-8?B?b0RyczVuUkkrREpYZm1nek9GNVZ5ejRGb0FvY3lmbHdwN3pBQlpyQ2UwTllD?=
- =?utf-8?B?OHRYMWNWWERmQXNHeGlpK1A1dENqeDExbU1JakRnZ3JyTmd2ckZWKzNtUE1K?=
- =?utf-8?B?bGdiUHd3VjBXOXBReDVqWEw4b25ESTF5cDFrM2tSeHhJYXVFUGlidFB5Mmdo?=
- =?utf-8?B?M1ZFdTUwTk1sTEdCaDZub293a1RFbk9OczdQMVBhQ2lydFp2Mkx3VWJDMzJn?=
- =?utf-8?B?ZU5IbEhXTk1QazBPN0NwSDlkTjdSVnRGcWMzWDVuNkJQU0pTWUZGV25FRld0?=
- =?utf-8?B?cUZXYURDYW9zMVRENFZVZVJPS3phRkV3QzZLYXdMKy9xbjV2Y0NtaEVPYzdp?=
- =?utf-8?B?WjNLNkpVTHZwc0ViWGdNVm5kNzc2VUtQL1Y2bTE0UHB3Y0wrcGlhTWdlQTU5?=
- =?utf-8?B?b0hLQUh4V25iRHRSeE5TSjh2ZzRTN1NKempZZEtyKzN3TEhmYzA0RlBuMDRT?=
- =?utf-8?B?dmFMODJjUVZmVmtRMGhBajhYY29TeFNHQ1BuajJhRTZWVnNNNWczTnYrdkJB?=
- =?utf-8?B?U3liWWo5UmVUMkdTWGNDVDN6UndnQUpxb05FSVErWVJhd0JEaGlYRnNMNmdQ?=
- =?utf-8?Q?eIjAGLe1KW3z3n4U=3D?=
-X-OriginatorOrg: wolfvision.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 34f4c847-5cc2-4221-7366-08deea6da5de
-X-MS-Exchange-CrossTenant-AuthSource: GVXPR08MB11763.eurprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2026 16:56:18.8994
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e94ec9da-9183-471e-83b3-51baa8eb804f
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qPDbpE7dnY1p1FxUTBY/KfMwxL5zH6qTRumNpCvGkwVq84zDTDQgb/UrdSayEUQUisl0+B8PvGQw2u01giAFij+zMskMP3M93nmKul8Qplc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR08MB10789
 
-At high data rates like 4K60 (2500 Mbps), such as when using an
-LT6911GXD bridge chip on an RK3588 board, fixed default timing parameters
-can cause signal integrity issues and clock-data recovery failures.
-The driver currently lacks a mechanism to adjust the clock lane sampling
-phase to compensate for board-specific trace variations.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Resolve this by parsing and applying the optional 'rockchip,clk-lane-phase'
-device tree property. This enables board-specific tuning of the clock
-lane sampling phase in ~40 ps steps (range 0-7) to optimize link
-stability. If the property is absent, the driver falls back to the
-hardware default.
+Pre-existing issues:
+- [High] Valid MIPI D-PHY data rates <=3D 109 Mbps are incorrectly rejected=
+ due to an ambiguous sentinel check on `hsfreq`.
+- [High] The driver requests exclusive hardware reset controls during probe=
+ but fails to ever deassert them.
+- [High] The PHY provider is registered before PM runtime is enabled, leadi=
+ng to a race condition that can cause unexpected `-EACCES` failures on init=
+ialization.
+--
 
-Signed-off-by: Gerald Loacker <gerald.loacker@wolfvision.net>
----
- drivers/phy/rockchip/phy-rockchip-inno-csidphy.c | 25 ++++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
+--- Patch [1]: [PATCH v4 1/3] phy: rockchip: phy-rockchip-inno-csidphy: fix=
+ rk1808 hsfreq table ---
+commit 4840808911c634155f4b288f67fa4f3c71720406
+Author: Gerald Loacker <gerald.loacker@wolfvision.net>
 
-diff --git a/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c b/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c
-index 5281f8dea0ad3..d989f1649b0e4 100644
---- a/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c
-+++ b/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c
-@@ -69,6 +69,10 @@
- #define RK1808_CSIDPHY_CLK_CALIB_EN		0x168
- #define RK3568_CSIDPHY_CLK_CALIB_EN		0x168
- 
-+#define CSIDPHY_LANE_CLK_3_PHASE		0x38
-+#define CSIDPHY_CLK_PHASE_MASK			GENMASK(6, 4)
-+#define CSIDPHY_CLK_PHASE_DEFAULT		3
-+
- #define RESETS_MAX				2
- 
- /*
-@@ -151,6 +155,7 @@ struct rockchip_inno_csidphy {
- 	const struct dphy_drv_data *drv_data;
- 	struct phy_configure_opts_mipi_dphy config;
- 	u8 hsfreq;
-+	int clk_phase;
- };
- 
- static inline void write_grf_reg(struct rockchip_inno_csidphy *priv,
-@@ -304,6 +309,13 @@ static int rockchip_inno_csidphy_power_on(struct phy *phy)
- 		rockchip_inno_csidphy_ths_settle(priv, priv->hsfreq,
- 						 CSIDPHY_LANE_THS_SETTLE(i));
- 
-+	if (priv->clk_phase >= 0) {
-+		val = readl(priv->phy_base + CSIDPHY_LANE_CLK_3_PHASE);
-+		val &= ~CSIDPHY_CLK_PHASE_MASK;
-+		val |= FIELD_PREP(CSIDPHY_CLK_PHASE_MASK, priv->clk_phase);
-+		writel(val, priv->phy_base + CSIDPHY_LANE_CLK_3_PHASE);
-+	}
-+
- 	write_grf_reg(priv, GRF_DPHY_CSIPHY_CLKLANE_EN, 0x1);
- 	write_grf_reg(priv, GRF_DPHY_CSIPHY_DATALANE_EN,
- 		      GENMASK(priv->config.lanes - 1, 0));
-@@ -449,6 +461,7 @@ static int rockchip_inno_csidphy_probe(struct platform_device *pdev)
- 	struct device *dev = &pdev->dev;
- 	struct phy_provider *phy_provider;
- 	struct phy *phy;
-+	u32 phase;
- 	int ret;
- 
- 	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-@@ -464,6 +477,18 @@ static int rockchip_inno_csidphy_probe(struct platform_device *pdev)
- 		return -ENODEV;
- 	}
- 
-+	priv->clk_phase = -1;
-+	if (device_property_read_u32(dev, "rockchip,clk-lane-phase",
-+				     &phase) == 0) {
-+		if (phase > 7) {
-+			dev_warn(dev,
-+				 "invalid rockchip,clk-lane-phase %u, using default %u\n",
-+				 phase, CSIDPHY_CLK_PHASE_DEFAULT);
-+			phase = CSIDPHY_CLK_PHASE_DEFAULT;
-+		}
-+		priv->clk_phase = phase;
-+	}
-+
- 	priv->grf = syscon_regmap_lookup_by_phandle(dev->of_node,
- 						    "rockchip,grf");
- 	if (IS_ERR(priv->grf)) {
+phy: rockchip: phy-rockchip-inno-csidphy: fix rk1808 hsfreq table
 
--- 
-2.34.1
+The rk1808 hsfreq table capped at 2499 Mbps, preventing a data rate of
+exactly 2500 Mbps. Extend the final entry to 2500 Mbps to support this
+rate.
 
+> diff --git a/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c b/drivers/p=
+hy/rockchip/phy-rockchip-inno-csidphy.c
+> index c79fb53d8ee5c..5281f8dea0ad3 100644
+> --- a/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c
+> +++ b/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c
+> @@ -170,7 +170,7 @@ static const struct hsfreq_range rk1808_mipidphy_hsfr=
+eq_ranges[] =3D {
+>  	{ 299, 0x06}, { 399, 0x08}, { 499, 0x0b}, { 599, 0x0e},
+>  	{ 699, 0x10}, { 799, 0x12}, { 999, 0x16}, {1199, 0x1e},
+>  	{1399, 0x23}, {1599, 0x2d}, {1799, 0x32}, {1999, 0x37},
+> -	{2199, 0x3c}, {2399, 0x41}, {2499, 0x46}
+> +	{2199, 0x3c}, {2399, 0x41}, {2500, 0x46}
+>  };
+> =20
+>  static const struct hsfreq_range rk3326_mipidphy_hsfreq_ranges[] =3D {
+
+[Severity: High]
+This isn't a bug introduced by this patch, but since you are modifying the=
+=20
+hsfreq table, I noticed a potential problem in how these entries are=20
+processed.
+
+In rk3326_mipidphy_hsfreq_ranges, the lowest frequency range sets the=20
+configuration bit to 0x00:
+
+static const struct hsfreq_range rk3326_mipidphy_hsfreq_ranges[] =3D {
+	{ 109, 0x00}, { 149, 0x01}, { 199, 0x02}, { 249, 0x03},
+
+Later in rockchip_inno_csidphy_configure(), we check for a match and fail=20
+if hsfreq is zero:
+
+	for (i =3D 0; i < drv_data->num_hsfreq_ranges; i++) {
+		if (drv_data->hsfreq_ranges[i].range_h >=3D data_rate_mbps) {
+			hsfreq =3D drv_data->hsfreq_ranges[i].cfg_bit;
+			break;
+		}
+	}
+	if (!hsfreq)
+		return -EINVAL;
+
+Does this condition mistakenly reject valid low data rates (<=3D 109 Mbps)?=
+=20
+When data_rate_mbps is 109 or lower, hsfreq becomes 0x00, which causes the=
+=20
+check to fail and return -EINVAL.=20
+
+[Severity: High]
+This is a pre-existing issue, but looking at the driver's initialization,=20
+it requests exclusive resets but doesn't seem to use them:
+
+rockchip_inno_csidphy_probe() {
+    ...
+	ret =3D devm_reset_control_bulk_get_exclusive(dev, priv->resets_num,
+						    priv->resets);
+    ...
+}
+
+I don't see any calls to reset_control_bulk_deassert() or=20
+reset_control_bulk_assert() for priv->resets anywhere in=20
+rockchip_inno_csidphy_power_on(). Can this leave the PHY hardware stuck in=
+=20
+reset if the bootloader didn't deassert it beforehand?
+
+[Severity: High]
+This is another pre-existing issue, but I noticed a potential race=20
+condition during initialization in rockchip_inno_csidphy_probe():
+
+	phy_provider =3D devm_of_phy_provider_register(dev, of_phy_simple_xlate);
+	if (IS_ERR(phy_provider)) {
+		dev_err(dev, "failed to register phy provider\n");
+		return PTR_ERR(phy_provider);
+	}
+
+	pm_runtime_enable(dev);
+
+Does this expose the PHY provider to consumers before PM runtime is fully=20
+enabled?=20
+
+If a consumer probes concurrently and calls phy_power_on(), the call routes=
+=20
+to rockchip_inno_csidphy_power_on(). That function attempts to call=20
+pm_runtime_resume_and_get().=20
+
+Wouldn't this return -EACCES since runtime PM isn't enabled yet, causing=20
+unexpected probe failures for the consumer?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260725-feature-mi=
+pi-csi-dphy-4k60-v4-0-5b2c4626d31e@wolfvision.net?part=3D1
