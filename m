@@ -1,115 +1,133 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD131286425;
-	Sat, 25 Jul 2026 22:55:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B540286425;
+	Sat, 25 Jul 2026 22:56:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785020160; cv=none; b=eiiSbRyN68cFCzNEASZV5vrolKgI3uKyhpkvkdlL59Zaq+7/7SxeOPVeSYOBi/sd7+QaOo5g3VTj5GEDhRaJkynrO9nLEWF9o/RAkw8cR6EVRd0WCvwCAGp/UAP4pS7vj22vjGlSjf07qRhygW0FJsbRls9jaTi7zvYPzGp8WwA=
+	t=1785020189; cv=none; b=GKC5Um314qPg3LLk4yw4IBNEeu+fZhKlutaI9KtyCsoPdHgSlTT23zVPYBA9L1BR29C2BUmo8FSaiPo716Wr6I1wDWkUo34e6bATcquukTkR+XA7n64TGl5MGTpagT25O3I4uOYnBARg/C5o6S7utfIkOMr0k/zeu434TrzEMNc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785020160; c=relaxed/simple;
-	bh=B9NCKoUoJU/1EAbzc0PbyaPxgauAvRu340M6DlCKfW4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dCjhPUF5x4I0ySjUqehN8REO7BiN2YWaDtEHpiCtI3vJ60A2ZwC4lxR86CicUE3Snufzg4jSL5wbjOAtV9aoAD6Dp6wc93a9C8ghhNkvvbBHKLh0Z4zy1Kxpjt4cBlE/ile/eQp7k6IvkcgeVot0WIQPNcMN5hQs2w3FYJvSotg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=DA1E0E3f; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1785020189; c=relaxed/simple;
+	bh=iDWpAqRkfZ35v8WKKY0xbWLOfcTI8IuQYHGt4m8Um1s=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=F6KNd1fzBIKgj7gp/51CmbRYDqKP77Fac+8l/ZyEBbmMUEIipfoZi3vDZ8coK4P9X2Yw4uVAlAF53BTNYwfQTaWmqBnimg96SQDoRxUZ1G4w/18hYy4wiD0j7ncI/Q9mTymoi6KLtlQCxU3MSpndWPIqJCFQCDSzTbO7d4c6tFM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rq0kxMt2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="DA1E0E3f"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 0596D4E40F60;
-	Sat, 25 Jul 2026 22:55:48 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id AEF7E6039A;
-	Sat, 25 Jul 2026 22:55:47 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F368711C10784;
-	Sun, 26 Jul 2026 00:55:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1785020147; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=P9/nVjd3fMouCVIy5ky/jRRRBoNzhhxohToy1vtH9N0=;
-	b=DA1E0E3fz5DjOzLSHget2aL34+lLHc0UySgVqkGrXY9dWBt9mGsMGfsaCCY7D4fVdYsN/B
-	wnKkdV44g2GjBypPsauiweg1Cw28HU5NLgxE/S1+Axna1E4izSoNCGckXx1WkWLwBGshTB
-	DBozggAdfya1EGiIgBBzfpvplXvuconGzZ/8Oqq2W+VrrZLJGkEpKg1mO+qGpdDAGdMlrY
-	3xMa1pehoeeSaabU6ou7guTGpPFqh90UcQ0i8NTf/XWpsdpzvmyrx2WhWn1IWifPPG7E7R
-	ySPGva/kk9TCO16L78sR1M3FnvHEBkVHiXh0bu1xhF3x8dc3Iyk2mDQOoG/0EA==
-Date: Sun, 26 Jul 2026 00:55:45 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Antoni Pokusinski <apokusinski01@gmail.com>
-Cc: sashiko-reviews@lists.linux.dev, conor+dt@kernel.org,
-	linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
-	robh@kernel.org
-Subject: Re: [PATCH v2 2/8] rtc: abx80x: move part autodetection before
- RV1805 configuration
-Message-ID: <20260725225545942a7df7@mail.local>
-References: <20260725145718.14733-1-apokusinski01@gmail.com>
- <20260725145718.14733-3-apokusinski01@gmail.com>
- <20260725150753.325271F000E9@smtp.kernel.org>
- <amUI6JY3BFTrbdqp@antoniarch>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rq0kxMt2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D228F1F000E9;
+	Sat, 25 Jul 2026 22:56:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785020188;
+	bh=oe/e1NIktgaY3sdLbPwFx54yVzEFlDJX9fTvKfXYWuw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Rq0kxMt26gE2Xqbm0ouVxEIwNxdbIX8x2dHFd9/IAqvcbkTQc+r81CZZDK+RS7nwA
+	 KlWnqELmHO0+CcfdkuxjQq8woacKEzvpOiPxAF9zyIKH7gvhCjDzdspKqmf7juzPL+
+	 663kPcfuCKfevDWT+KNOb0fLWcfsS8szPsQa4lsoeuisjP45W0RK2dd6hlsUUryzpy
+	 O3OgmXOWAWcpWOtQCfN9ko8TtMc9E/OxlPFLmVe0APKEKJqbjqbkGGG424zwxTiV14
+	 ihrWD3oF51Tbx3rc7jg9KkyO3X3/kl/RyxfbEYm/Nh03WgnZnFwwELxXZES59Z2TvG
+	 MTMDeYaN3U82w==
+Date: Sat, 25 Jul 2026 23:56:21 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Rodrigo Alencar via B4 Relay
+ <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: rodrigo.alencar@analog.com, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, Lars-Peter
+ Clausen <lars@metafoo.de>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp
+ Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, Shuah
+ Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, "Gustavo A.
+ R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH v9 15/17] iio: frequency: ad9910: show channel priority
+ in debugfs
+Message-ID: <20260725235621.6dd73e71@jic23-huawei>
+In-Reply-To: <20260722-ad9910-iio-driver-v9-15-459d1df5ac56@analog.com>
+References: <20260722-ad9910-iio-driver-v9-0-459d1df5ac56@analog.com>
+	<20260722-ad9910-iio-driver-v9-15-459d1df5ac56@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <amUI6JY3BFTrbdqp@antoniarch>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 25/07/2026 21:19:36+0200, Antoni Pokusinski wrote:
-> On Sat, Jul 25, 2026 at 03:07:52PM +0000, sashiko-bot@kernel.org wrote:
-> > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> > - [Medium] The patch fails to resolve the issue it describes because part autodetection for the RV1805 incorrectly resolves to AB1805.
-> > --
-> > 
-> > --- Patch [2]: [PATCH v2 2/8] rtc: abx80x: move part autodetection before RV1805 configuration ---
-> > commit e37ea6c1257442ff3423e6bacb742916beb85bbb
-> > Author: Antoni Pokusinski <apokusinski01@gmail.com>
-> > 
-> > rtc: abx80x: move part autodetection before RV1805 configuration
-> > 
-> > This commit moves the part autodetection logic before the RV1805
-> > configuration block. The intention is to ensure the RV1805 specifics are
-> > applied even when the driver is bound using a generic compatible string.
-> > 
-> > > diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
-> > > index 5486d9d0b1e5d..ca3af91c29977 100644
-> > > --- a/drivers/rtc/rtc-abx80x.c
-> > > +++ b/drivers/rtc/rtc-abx80x.c
-> > > @@ -814,6 +814,25 @@ static int abx80x_probe(struct i2c_client *client)
-> > >  		return -EIO;
-> > >  	}
-> > >  
-> > > +	/* part autodetection */
-> > > +	if (part == ABX80X) {
-> > > +		for (i = 0; abx80x_caps[i].pn; i++)
-> > > +			if (partnumber == abx80x_caps[i].pn)
-> > > +				break;
-> > 
-> > [Severity: Medium]
-> > Does this code introduce a regression by preventing the RV1805 configuration
-> > from running during autodetection?
-> > 
-> > Since AB1805 and RV1805 share the same part number (0x1805), and AB1805
-> > appears earlier in the abx80x_caps array, it appears this loop will always
-> > match AB1805 first.
-> > 
-> > If the driver is bound using the generic abracon,abx80x compatible string,
-> > part will be set to AB1805 instead of RV1805.
-> > 
-> Ok so I missed the fact that "AB1805 and RV1805 share the same part number".
-> Hence, I see no way to make the driver run the RV1805 configuration when
-> it is bound using the generic ABX80X, because it may happen that the
-> detected part is RV1805 even though the real one is AB1805 or the
-> reverse (depending on the order that we define in `abx80x_caps[]`).
-> Therefore, I'll drop this patch in v3 and leave things as they were
-> (i.e. autodetecton after the `if (part == RV1805)` ).
+On Wed, 22 Jul 2026 16:50:24 +0100
+Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
 
-Yes, don't bother. Autodetection was a bad idea anyway and will never be
-used with an rv1805.
+> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> 
+> Expose frequency_source, phase_source and amplitude_source attributes in
+> debugfs. Those indicate from which channel the specific DDS parameter is
+> being sourced by returning its label. The implementation follows the
+> priority table found in the datasheet.
+> 
+For this one sashiko raised some questions and made me wonder how this
+actually works given it is using active_scan_masks and so far we don't
+have any buffered support in the driver.  My guess is you backported
+this from on top of some other code that you haven't posted yet.
+
+Please have another check that this all works with just the series
+posted.
+
+Note that you will need to claim buffer mode successfully to mess
+around with that in paths that aren't inherently only used in buffered
+mode.
 
 
--- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+
+> @@ -2078,6 +2092,171 @@ static int ad9910_setup(struct device *dev, struct ad9910_state *st,
+>  	return ad9910_io_update(st);
+>  }
+>  
+> +static inline const char *ad9910_frequency_source_get(struct iio_dev *indio_dev)
+> +{
+> +	struct ad9910_state *st = iio_priv(indio_dev);
+> +	bool ram_en, mode_en;
+> +
+> +	guard(mutex)(&st->lock);
+> +
+> +	/* RAM enabled and data destination is frequency */
+> +	ram_en = AD9910_RAM_ENABLED(st);
+> +	if (ram_en && AD9910_DEST_FREQUENCY ==
+> +		      FIELD_GET(AD9910_CFR1_RAM_PLAYBACK_DEST_MSK,
+> +				st->reg[AD9910_REG_CFR1].val32))
+> +		return ad9910_channel_str[AD9910_CHAN_IDX_RAM];
+> +
+> +	/* DRG enabled and data destination is frequency */
+> +	mode_en = FIELD_GET(AD9910_CFR2_DRG_ENABLE_MSK,
+> +			    st->reg[AD9910_REG_CFR2].val32);
+> +	if (mode_en && AD9910_DEST_FREQUENCY ==
+> +		       FIELD_GET(AD9910_CFR2_DRG_DEST_MSK,
+> +				 st->reg[AD9910_REG_CFR2].val32))
+> +		return ad9910_channel_str[AD9910_CHAN_IDX_DRG_FREQ];
+> +
+> +	/* Parallel data port enabled and data destination is frequency */
+> +	mode_en = FIELD_GET(AD9910_CFR2_PARALLEL_DATA_PORT_EN_MSK,
+> +			    st->reg[AD9910_REG_CFR2].val32);
+> +	if (mode_en && indio_dev->active_scan_mask &&
+
+active_scan_mask is only set on a call to iio_enable_buffers.
+So what is this checking?  I guess today it will always fail as
+active_scan_mask is NULL.  Once that is in use, it will be racy
+however, so you'll need to claim buffered mode (or fail in which
+case the null check isn't needed).  That claim will hold it
+in a particular state - under the hood it is taking mlock
+which is what sashiko suggests - that is just meant to be opaque
+to drivers so do it with an explicit attempt to claim buffered mode.
+
+
+> +	    test_bit(AD9910_SCAN_IDX_FREQ, indio_dev->active_scan_mask))
+> +		return ad9910_channel_str[AD9910_CHAN_IDX_PARALLEL_FREQ];
+> +
+> +	/* FTW: RAM enabled and data destination is phase, amplitude, or polar */
+> +	if (ram_en)
+> +		return ad9910_channel_str[AD9910_CHAN_IDX_RAM];
+> +
+> +	/* single tone profiles */
+> +	return ad9910_channel_str[AD9910_CHAN_IDX_PROFILE_0 + st->profile];
+> +}
