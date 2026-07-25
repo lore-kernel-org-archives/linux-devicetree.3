@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BD59246782;
-	Sat, 25 Jul 2026 16:38:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BA743F1AD5;
+	Sat, 25 Jul 2026 16:52:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784997482; cv=none; b=XqoJvhVMApHoCwOhn3oS6liucP2JJx6mDuaRK1IpyjC1iQ11JHi9bBvj5Yrju7u8PNHXHl2fnSu3TuNnwraMiAREcBmJW7npcpjmQ9B9HTflouoYE3hXsDl3feyWl0yjxDtnDp5skBmU/W/xAltFVF+cuWOxvJHTNj4UpX79Js4=
+	t=1784998357; cv=none; b=Mj95+74rBAX/+jcr3JeGTBhVPJ1F7+dA5iRhJQEVl5cof0j5edMMsSeIAwfV1PtjFN7EflhOvmUdTWJzcbofWWwH8Itu9IcWg2ZMILfKQQsAr9ecy07KZFjcyW5IS3ZMbJIMseS7j8girpugSR6TimVG+oB8xslaofc+k+aEoBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784997482; c=relaxed/simple;
-	bh=QxcqZUng7Q+EsvdVOiNbdZzcNghqutTiIy4UiSoCxCc=;
+	s=arc-20240116; t=1784998357; c=relaxed/simple;
+	bh=MVyXG6Sfi0u8RXFuamEp3pADYdc3fC2na0Er+LCHPMY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cOd/n16FMJlIIYpQOSpS8ZkIqUxu6YbI5JNqLnfgbwNOhfVi65hnd66dEAbZMXfK6uak2cjtvcLTks3wteVbCgqMLCBcj9De3VHErlv18HeQEUxqlhOvr+qu5RTAK3APhGu8uYyhrcXCUBh6n/KffrzqMtFFtdMnUGG0WSKOHOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bb0slKKb; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=Zlwqi20LcMX5a69WPACFMtGNe48stCTHK6QQtMjE7I4eq2xBq4OYSX4Cf3KSReMZu6MPqRV7HVjNaWk3bSAU8X6SbjumDvtl3uMERChzgrmr+io0magnw562l1U5nQO0lpo3mVRvFTpUrsxISdYUzNekcDDNjrCWX9Kts9TLV/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QH+C+LHE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bb0slKKb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA9521F000E9;
-	Sat, 25 Jul 2026 16:37:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QH+C+LHE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 863ED1F000E9;
+	Sat, 25 Jul 2026 16:52:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784997481;
-	bh=rW21ROPPGXt0ORTRaV2wwN5UZkCXyjKTZAO/UfgAEos=;
+	s=k20260515; t=1784998354;
+	bh=4oi+M1DASh9sr/5/9NIilXPuOVkktsUCJvsmJfqY6HY=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Bb0slKKbkb3JRKIc5r8joi4vBKdWh3c3TikaDIIK7zWJLTb4zsSKyJarAkrnswqkH
-	 V+qTS50EtL1F5A9whGzdIhmCMP4PykNYO7yH55gMAZULZXAQNsPaz0HxOuVTzf2p3m
-	 DWAvI10IM8t/0IvfoBY1+cuIDNJYBN84DFY4iaRJZNvM/pvN8u/DCN773zASuudO9H
-	 PvBTfO4DVZ8Gs5TyKgGV+tMmW5MCLXNj92UKzqyyZIQF340ClWzDw9imO0ATJP2mt4
-	 SItPIiH/EmGyqiI4PJ5bxl3c+X8Lq0UEKZhRhxOzX8PZt4/tzrpHTUQHe3KLDp5ujj
-	 Vc1xOdjjm4CDA==
-Message-ID: <9a415731-0de0-4cb4-b6c1-fc78806f6414@kernel.org>
-Date: Sat, 25 Jul 2026 18:37:56 +0200
+	b=QH+C+LHELslG0cAGc8E9FATQkLJ/oQNzf/glLSKkCiRCegd/ufmlOAMHlX1xVOngX
+	 yTV34xOOHaozmcLJ+/k5rB3OuYcqYRjMKUNTpamVSlaOQUDHqeC3qbpi6MUIE68+m/
+	 yLKhJESeGEV0P+bEyRSjFphzkco1yvAgbHgm3ySekEwovv+rz/fnm1EF12gc0TB2lB
+	 8DY5IOLd1URjjSQ7sgoY406B2DVeoFWE0Tw4zd0uowWpS6i22Hs0lURYmY0p6ty/75
+	 ciCOEcM7gBoWiI68P82mNlnLR8hjbw3RHAvJ49fbo1eKgptNlnrjatROXiJmmEPFvY
+	 Cz0DoqN6OkO5g==
+Message-ID: <49a2ee73-f9fa-483c-82fb-0e1471e7758e@kernel.org>
+Date: Sat, 25 Jul 2026 18:52:28 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,16 +35,16 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ARM: dts: broadcom: bcm7445: Correct indentation
-To: Florian Fainelli <florian.fainelli@broadcom.com>,
- bcm-kernel-feedback-list@broadcom.com,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Florian Fainelli <f.fainelli@gmail.com>
-References: <20260706101920.341586-2-krzysztof.kozlowski@oss.qualcomm.com>
- <20260721172801.3591970-1-florian.fainelli@broadcom.com>
+Subject: Re: [PATCH RESEND v3 2/2] dt-bindings: memory-controllers: mtk-smi:
+ Add support for mt8189
+To: congcong.yao@mediatek.com, Yong Wu <yong.wu@mediatek.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org
+References: <20260722-8189-smi-support-v3-0-ae00e13deeac@mediatek.com>
+ <20260722-8189-smi-support-v3-2-ae00e13deeac@mediatek.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -90,28 +90,28 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260721172801.3591970-1-florian.fainelli@broadcom.com>
+In-Reply-To: <20260722-8189-smi-support-v3-2-ae00e13deeac@mediatek.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 21/07/2026 19:28, Florian Fainelli wrote:
-> From: Florian Fainelli <f.fainelli@gmail.com>
+On 22/07/2026 14:02, Congcong Yao via B4 Relay wrote:
+> From: Congcong Yao <congcong.yao@mediatek.com>
 > 
-> On Mon,  6 Jul 2026 12:19:21 +0200, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com> wrote:
->> Correct spaces or mix of tabs+spaces into proper tab-indented lines.
->> No functional impact (same DTB).
->>
->> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->>
->> ---
+> Add smi larb, common and sub-commom binding description for mt8189.
 > 
-> Applied to https://github.com/Broadcom/stblinux/commits/devicetree/next, thanks!
+> About what smi-sub-common is, please check the below diagram,
+> we add it in mediatek,smi-common.yaml file.
+> 
+> Signed-off-by: Congcong Yao <congcong.yao@mediatek.com>
+> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> ---
+>  .../memory-controllers/mediatek,smi-common.yaml        | 18 ++++++++++++++++++
+>  .../bindings/memory-controllers/mediatek,smi-larb.yaml |  3 +++
 
-It is still not there. Last commit is v7.2-rc1.
+Still incorrect order of patches. Please read submitting patches
+documents (both).
 
-Your next branch:
-https://github.com/Broadcom/stblinux/commits/next
-has last commit from May 29. Something was not pushed?
+Fixed it up while applying.
 
 Best regards,
 Krzysztof
