@@ -1,56 +1,59 @@
 Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11023108.outbound.protection.outlook.com [40.107.162.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC2D8339705;
-	Sat, 25 Jul 2026 16:56:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE6E538887E;
+	Sat, 25 Jul 2026 16:56:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.108
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784998583; cv=fail; b=XDTkos/Mbc/wMCN0PDaoSmCePCWHodE3IRUzLQXavql2xJTuh+tc0M758f+RwM25ci53dRfGhogFNe7dkps0GkdpAAELO5YIfkHmM2iQd8+3IzRM5cDECU1PQSN2rwi1eYS40ZG9nVIOJ0YlaVtYe6sjv0PTnUi1YKoyx/AbdpM=
+	t=1784998585; cv=fail; b=a1ozfXA1QO/yh/+hSCziuvVXdFngtCiEsP1m7xXt0y3gIMFOOAPL1PmVV3EJISHX64j375m5gCth8bHJXB9iK+F4EUST5mNdF0wAZRyfWpxreNC5bxgHEHuPAkpGuFSur08pLeVirb7VFlDmKSqvCmfxgro06b6GVGzWLucuxlQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784998583; c=relaxed/simple;
-	bh=gsb3kIgLVfw8TVHsx90GcFRFRQa70jJK6PQfa4pNJDg=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=J0x4j5cMbN1kLMOqZvcJKG/sPsSx165lR6s7dFiZ/Bry6pilGgHBfhA01wXnWv2x8YztjuMEX1194KBhFDBEoRrwNORlWqPhwlxxT9etlSioDQWnjMa6CgqrkDJzLpOBu1Tm9WTjZUnNXSJwuNDSZCgPi2JQjJ4SbMS4GEw10aw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wolfvision.net; spf=pass smtp.mailfrom=wolfvision.net; dkim=pass (1024-bit key) header.d=wolfvision.net header.i=@wolfvision.net header.b=l+tOtxlM; arc=fail smtp.client-ip=40.107.162.108
+	s=arc-20240116; t=1784998585; c=relaxed/simple;
+	bh=6HWl8dQBwPu13ahq4/IEhhhKgmOS4CGLdYLivmL6Tls=;
+	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=jYG1hLDSvxba20KHzdQ5yZgsRgqpUY6AJGnhGkE0508c3vdjGfLVrEaoJn7q63fPV0J+fJxDwMZKVSN5SFYhxyuqG5sGgVYqdsm7luGVpQBwMd3pSGMxhgHzwn54kKe4EPEoxBX/z5hZa3cMq05OVE/Y8Ubgz32zal1ipbXuOM4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wolfvision.net; spf=pass smtp.mailfrom=wolfvision.net; dkim=pass (1024-bit key) header.d=wolfvision.net header.i=@wolfvision.net header.b=HNxiIvA8; arc=fail smtp.client-ip=40.107.162.108
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wolfvision.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wolfvision.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=wolfvision.net header.i=@wolfvision.net header.b="l+tOtxlM"
+	dkim=pass (1024-bit key) header.d=wolfvision.net header.i=@wolfvision.net header.b="HNxiIvA8"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RDN18IBcgKhwN+xFzxDMQD844cvMgnBDCkECXYNNYKmr2pLlnpsH/lm6vd60xHq+WqptKSsJna03pP8A0OGaiq4AJ9FUQVJt3JLMy4BX/DA1XeciDBEd9aYY9hBSpmHsxLb6pIzhKt+SffZbrh7f5Cq95utOBlm9QBmmsTBCEhfy0UAs0RRlBuPDbvImzu1mVAfU2jdWpOF9/+gd8gKtvLesGAikieaJBfRHJay8aQreiSBIucTehlbVZyG3fsPvPOIYDBRVYHYJVX3HybVFxtc1Z7crxxply0IJ2tt/DINFqd4eDcy/YNKTRlH4Y4mhUtkPgpXBkxtodPkD0a/l2g==
+ b=i/5hoeyDWJIH0P2HnKeNLZiMTCXWlIeMZ0G/Qx9PGEul9btC21aqFHsnz/faqVk3bSKP8k/3c7c/ICV7lO8lKxt+xXrUn0rJG7SKl5BuBEObVqyZOd/7+MZDwStDTGNKOxEUw+HdzaZ0/59FfXVOXXYGvu+NHEAcM6yj3hgB41UfFhzpeCuQBqQZ94pp5X7HStERSE3JMTjdv74iGBztIRADwXpLG+LrSIIq1MubBMUK7bZVWs9/P8USEwhjbqP6lJG3V8/iuLiWbwbTxNoRF8yfaXJZ7D1QljSy8wHYV7CYGEQqx1TO4juH+LrOTOrbb/Hreu2raUwzIq3zdg6mVw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Z3lkRqlcMCl08pqlr+6aVriT15XwFGt3vlX3oAKf1iQ=;
- b=IIM9+EhzHJcnz1r4WCjA1K5+5b5l8gE27UdAnN/KVzfZTPaeecTTlmaTHNNlh5o+QVoD/hJS/XzBGsBY/Rr/XrttSiw+WzepKJfdzzuZ8gPsS7lgQKgXW/OfUL8Jks+AGUb7C2Whq73vfItPQQsXeOK4LH/hdvejRpJJFtzrz7Er0mUOAvGfZDaacpxRXRko+oP7QmoNiC0PTvCtF9BFvG2XjeaWBlWn8tSGKoWgrwwatNVL+yJ4fe/tHt5TDB81VZh6kpeEN3CWqPorSWkfLtFaVkzt7kkZwXOpprCECy4w2EQd78pQD5lnTBtzzEFvoLvenU45oLVxnCSLsBRa/Q==
+ bh=egu+Y2r5neCKJI1VPUzOHK+6rqQB3jxaMTenNgwRk7c=;
+ b=xlsCUd3emcCH5vKxMmArWZ0VDGmct+UOy/Un0gPIUesR3TZpIomiAQ11lJFaTkM9iYQYCPS//KyWyVi5w4nt6Bhtxf8Zia/QhqOLBS9k8PHlQ0/upS93T9W+421jSgkqFBIQpnd94+FKwT0jXSIyCZKnYlMtwf//9ezMIl/QrB7LR4v0k8HFsFNVG9To8ecwTGORHuOLLpD5Mvh4b7BCIoG6jnm/L+ZJa79ZHCR0LjQDjPBJe8Vopa6xCzr294uVc6hMCgiNPMsj73hhR/GGzagsSJkhv6Qoq8rlQMS6EduZyuVnphEt4anPZ672jm5a0VEqQ5/9h7PMLBDSVSA0mQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=wolfvision.net; dmarc=pass action=none
  header.from=wolfvision.net; dkim=pass header.d=wolfvision.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wolfvision.net;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Z3lkRqlcMCl08pqlr+6aVriT15XwFGt3vlX3oAKf1iQ=;
- b=l+tOtxlMMAmv0YDnzMMMPkjxgOi0kOnf2W+H+uQesSRAOTb30yT2CguNhuHt5CBe8fNp3s10G27FER7qglq9prGfoxp8vzxITnnHQxI9hGVciCpDDL+kBD5Z9FjFDHatsiZkNzl9U3PVl9ejA/R68/P4CHkRuCbIi4jMek/AJNw=
+ bh=egu+Y2r5neCKJI1VPUzOHK+6rqQB3jxaMTenNgwRk7c=;
+ b=HNxiIvA8gIp8EsIN7CCKe5gfJsLquybjUJD80Im3SEvDVWqD8XDdUYEE+JNlM7deVQealAarg4gIvIvKNht12TcwfKVfEs8TuJUhTi5igLYqSczjensgsOpd+6AJaoJ0/ezMuKdpPNza0ztqBdcA84F7K7saUWUmuqARuvY60IA=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=wolfvision.net;
 Received: from GVXPR08MB11763.eurprd08.prod.outlook.com
  (2603:10a6:150:313::16) by GV1PR08MB10789.eurprd08.prod.outlook.com
  (2603:10a6:150:163::8) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.12; Sat, 25 Jul
- 2026 16:56:18 +0000
+ 2026 16:56:16 +0000
 Received: from GVXPR08MB11763.eurprd08.prod.outlook.com
  ([fe80::8790:5e3:beb2:5bc6]) by GVXPR08MB11763.eurprd08.prod.outlook.com
  ([fe80::8790:5e3:beb2:5bc6%4]) with mapi id 15.21.0245.012; Sat, 25 Jul 2026
- 16:56:18 +0000
+ 16:56:16 +0000
 From: Gerald Loacker <gerald.loacker@wolfvision.net>
-Date: Sat, 25 Jul 2026 18:56:04 +0200
-Subject: [PATCH v4 2/3] dt-bindings: phy: rockchip-inno-csi-dphy: add
- rockchip,clk-lane-phase property
+Subject: [PATCH v4 0/3] phy: rockchip: inno-csidphy: fix 2500 Mbps support
+ and add clock lane phase tuning
+Date: Sat, 25 Jul 2026 18:56:02 +0200
+Message-Id: <20260725-feature-mipi-csi-dphy-4k60-v4-0-5b2c4626d31e@wolfvision.net>
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260725-feature-mipi-csi-dphy-4k60-v4-2-5b2c4626d31e@wolfvision.net>
-References: <20260725-feature-mipi-csi-dphy-4k60-v4-0-5b2c4626d31e@wolfvision.net>
-In-Reply-To: <20260725-feature-mipi-csi-dphy-4k60-v4-0-5b2c4626d31e@wolfvision.net>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKLqZGoC/43OzW7CMBAE4FdBPrOVf1K76anvgTgkzi5ZCklkJ
+ wGE8u51kgtSEeI40uibuYuIgTGK781dBBw5ctukkG03wtdFc0DgKmWhpbbSKgeERT8EhDN3DD4
+ yVF19g+zXSsi/XO5NpQgzEgnoAhJfF3y3X3McyiP6fhbnRs2xb8NtWR/V3HtraFQgIbNKEUlZS
+ qKfS3ui9fxHg72Y10b96OUvPZ08o435tF57r/GpZx48I196JnnKWZfronSKin/eNE1/SPkr4Hs
+ BAAA=
+X-Change-ID: 20260617-feature-mipi-csi-dphy-4k60-9879c3d1fe4f
 To: Vinod Koul <vkoul@kernel.org>, 
  Neil Armstrong <neil.armstrong@linaro.org>, 
  Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, 
@@ -61,11 +64,11 @@ Cc: linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org, Michael Riesch <michael.riesch@collabora.com>, 
  Gerald Loacker <gerald.loacker@wolfvision.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784998575; l=1343;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784998575; l=2373;
  i=gerald.loacker@wolfvision.net; s=20230502; h=from:subject:message-id;
- bh=gsb3kIgLVfw8TVHsx90GcFRFRQa70jJK6PQfa4pNJDg=;
- b=S4U+1+Odj/D3fcnYAmG/fEmiE7Uz1bP9Sh4oYSARzUARKrLOMXffuUgeJKKnaPkMpJBklVcLh
- PDmS2PXBBkjBCA4t9UmWRACXoBb2PJcycwYMJ29/KVkU/RNS5cSVn82
+ bh=6HWl8dQBwPu13ahq4/IEhhhKgmOS4CGLdYLivmL6Tls=;
+ b=c7RcXV/HYhppYYr5B/+h87TYqNHWnQpqkq5yCluWKa0fvUSyZTZ2CXRGr/Iu8c87NpdmSQIPr
+ SmHanWsyg6lAZnlnjbRs1sHwY0oWdHkSbEMxSBTahePf9DMAiAcKJGu
 X-Developer-Key: i=gerald.loacker@wolfvision.net; a=ed25519;
  pk=UXhp+obGMUOjknszonesnb29P6a2Kk/K5eBuz62ggVE=
 X-ClientProxiedBy: VE1PR03CA0041.eurprd03.prod.outlook.com
@@ -79,102 +82,123 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: GVXPR08MB11763:EE_|GV1PR08MB10789:EE_
-X-MS-Office365-Filtering-Correlation-Id: 84dc2f61-6de6-48ee-6280-08deea6da55f
+X-MS-Office365-Filtering-Correlation-Id: 9941f15f-9700-447f-3fc1-08deea6da451
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|52116014|376014|7416014|1800799024|23010399003|38350700014|56012099006|11063799006|10067099003|3023799007|18002099003|22082099003;
+	BCL:0;ARA:13230040|366016|52116014|376014|7416014|1800799024|23010399003|38350700014|56012099006|11063799006|10067099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	RKmktbJniQpSA5vZinqKghxsGnspsUKFdDWEMc3rV6j2SenrMdpVZ6gSoyNxfD7URvbTkqmYSL0GJV6iPshAbEgptamY8tmiaJkt0sDxLQ/m1jO3wlgX44qnqNjYIi38nsrffEqWrTvis6FJ9iuso6UtyRVO1isCUWihFBHZijcgKjyaE94z0GiBtG4VXpbwXMkm3qrl1sESUQ82KzjcIOp9CPUheYlWt5X0q81uFrgQ7hHy3SSHCz8Ja+ihEgTGiYh20p0/SzpiXaBSH/Mi/E2duv6iTRlbMeCpHSK2AIWumFRa3m2Z4L/ahgnhrNbYFnlfDwKH6KcM2eRzUAQQcVOtcfG2M90VV0y+xW4+i0hqUERguikkJTKfDtfpx4K3CKPAUwG7APiPeDa96G+izZAmHMHv2fGY6VTy/CgU4KxFCsIEFhalkFoN1Mf23Dka3hJv4AccQgKXg3xTHxpgIEqKzAfGlF/7dQKMxgfipkhatJ4DLpH4WVNtrVO18brJk0kl6/b2RdJ6dM+X0ssDl0HQJ5P8Wp698eh4z/WJIvnvg2S1NGtm8/whN4f7v8ICJxq3vF+UMrangase2TrbKlirp6M9DUqOWFFtuKy1nUnNNSsp1ydNH6S6yiwzdswV3HJq3SY8EvItloUaCK8C6GziokjeZ4PEHfyVE6/dR2iAsxwZd6ARPrzjvnisbZOQx10tc/srkAKh6XYT+mb4tWg0LuvgDSfkGRyqV/mDgeg=
+	FKq2JoEPoUL56XuY7NOcF+wX8sUT20evoCCzUfJE/fzk+4HFLCZdw6cMpawY7I2Wfn4EK/xHFfhCqIB7XNbDwIt5gRGIrYv3Vt+zQSLJV0SwQr1BuE56vWiEgzVE6tgfYljWnNTs1LIJ7x6dNt5Bk95jDJklKyTxf3rMvE4AU5/9Me01ueMUfe1d5lVePB3fMbFjr746qZyEkHclDnbZqUm7Q+wwLyjapfaSpJuvFlz+wicYolH3JiXF66qn027HaiXwzssjJF2gOhZplHkGAPNCbpuLS7LvfW6CClgQqvufk4T7Zx0B8EbFU4j1b5cJpwbQF5Kqf3+LpYPaCwInqNNU4PanHQdti4S3t5uxUmEwFWEdeXMV5E8BUGFWck3T32PF01GYZjlbWH55TuKJgs2uyk93x7yb2UOzE3v64io87HUR/1I1pJYiMqc47daxJuRx6Sbtu6LUV0Ss0ADgGJTqeeKSxX2V/O8MptRdKZAC6MmIEO2pcqiEXbvJ/b82yKFFVfJuyzLivBZPT/z1IJkqEabmYtFP7Hciv+Yx3EPu5ckDpUmkzA2vziJwF+cFMWfB/AMOSv1i7BbJmm+LqcEwDMQBFCtfhoF/1juddJxdfy+QLLb0JFKa2WEIbMlXoT00YH/+sdU16aG196KmEowrHbMd5Shx+WCw+kvTe7s=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR08MB11763.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(52116014)(376014)(7416014)(1800799024)(23010399003)(38350700014)(56012099006)(11063799006)(10067099003)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR08MB11763.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(52116014)(376014)(7416014)(1800799024)(23010399003)(38350700014)(56012099006)(11063799006)(10067099003)(18002099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UUNpejhYMGNmVjN0T24rQ3RMQ0F5OTlYdGo2UkFKK1N0UU5LUVRlL1BGbW1P?=
- =?utf-8?B?d08zMXUxRkRnN2Q5amlneEdYcElVbWcxL3g2K3I0ZzQyT3VZbTc2eDlQeS8w?=
- =?utf-8?B?azBRZGlCL2ZPNkd5b0FWNWZ5bDU0MWhFSER2Q1o5ZnR1RVlTYTNZOVJrUktG?=
- =?utf-8?B?ZnNNQitzVWlSUFVHOUtEckVwUVFqN05SenlHQ25GOVRoZDI1SE1QSTRTbEo4?=
- =?utf-8?B?TGZyYVk1b2diaGdQMjZVZmIwY2EyQjNTTVZLdnF2VzhwNHJzVDcrKzdGVWow?=
- =?utf-8?B?bnF4T2RLUlkwcDNmV3o1OTVCYjYwUXl1TGdHczJMcUFzaFVIOUM0R3RHeEN3?=
- =?utf-8?B?QmllTk1pTC9tc05IcFdtVWZlUFZmclI5YnE0amRmekI5UnZ1d1lrbDdzQzZB?=
- =?utf-8?B?cEdESW1rVUREbXdzbVBDOXVVMG1VZWl5MFJmRnRsUXRBS05qMkRobHlYY2VE?=
- =?utf-8?B?aGROYlVURkdDY0dCY2drbThFZW82V1VPRmtxNitpQnhwZlpkMi9pL2FOWVRO?=
- =?utf-8?B?RE1RZDVNODl4ZEJNbEx5WHZubk5aZnFFRUMzYWxQQWxWbFA5QVB0RXl5QWFy?=
- =?utf-8?B?SmF3c2xvMkN5UUtIdnlIWVA2U2g5Y2V0eSszRDlVTi92aEQvTmQ2eWMrYnNm?=
- =?utf-8?B?d3BZeVppU1Y2akt6ZXFTT0JKdjFxWWdlS0pyTnlIOEpoQUlrMEZKQ3o4Um1k?=
- =?utf-8?B?SXhEa0F3YVZQVFFTMTBVc2hhd2RLK01oRm9mcFRGd1Vwd2hpaEkzc0dOVnk0?=
- =?utf-8?B?SmlYSUhpWENVeHZJeEVyR3NZMU13UWh2cDFTNTZMcEx4eUpvSHFiUitIN2NJ?=
- =?utf-8?B?YXRCcUpCWTd3Ylc0WDVNSndVbWJiWkRsejVIak9vbXUvZStxVTFxNVN6MjFp?=
- =?utf-8?B?T2YvU0x1MktIR2RLWE5ta1NEZW03MjZlVFJkVERNR0ZEakVvOEIyS3o0WktC?=
- =?utf-8?B?dDI5RXJsQ2JQZGZiTFd5UVkwb21RT3M0K1NFb2orOTBSY0hSNThUVUhJMmF5?=
- =?utf-8?B?TXcvYVFOOXVKNXVLMERpNXBBK09ldm0xSWkvRm54SUF1RXp0SzZDRFpRMzd2?=
- =?utf-8?B?TlB2eUFncXpJKzBST3hlNTYvTkNDN1pGbmZ3dmNaVVZkenFPQ2J4bml6ZUt6?=
- =?utf-8?B?MmZ1NmM5WVBJZmF0S0VYeGpoQ3VZVHAxaEtDYmRWUnQwZmRNT1dDYmVtSi9k?=
- =?utf-8?B?NWpDdDErTFNhZnRwaCtsdjBxUWZvWEV0OWZLVjhNZ1RXQTRBc3J0NDF5NkdN?=
- =?utf-8?B?b2dDNjJ4UnE3Q3NaRU1LU3ZWYnZDbzhMV1dCeXF1SFJuR0tRSXl3UTNiend3?=
- =?utf-8?B?ZjJJcDBXV0dsUXl4RTFZeHhUU2FjbGJoRFR2Sk5hdVRieE8vYjYrR3dtTFNu?=
- =?utf-8?B?SmVrYlU4c2YwSXhjbVhWeTNHSWdRVjlyT2lCYy8vVzBHdjg4MERyY3RqVEkr?=
- =?utf-8?B?OThaaks0MUx0cGR1MTcwdzNlcVMxNisrdStDSWQ0dXVDY1FRUXZlS09Fd1I2?=
- =?utf-8?B?ZVlQZnd4eHMvNE5VSHdFanVRbEVkRzFuelFKNHk4Y0pTVFUxbHJXYlE1SUFq?=
- =?utf-8?B?RTE3b1hDYlFFdTRqVXRNaWFlMnVDanFlYmY4UnF5S3Nlb0hFblV4Rk5SZTRL?=
- =?utf-8?B?L0xMTFpEQjRNUmQ0SzJyM1UweGVQQU83T0ZxYy9FaXFkVHdWMjViQ2diUmd0?=
- =?utf-8?B?ajhBRHRGdWJRTWFWRDJzRk9aY0E2TGFEVm93N005TWRhMVUwemZBTDBaLzlw?=
- =?utf-8?B?bG5RNmZ1aDVwMjNQbU5WL2Z6M0lzc1RKZEVmeW1tT1ZqYzlxWjU4SGhvTUJk?=
- =?utf-8?B?azdtZWh4RjRUSWJDZXYxUEczekltbzhvWmxtZnRvSmtaU2pmV0Y5N21NL0xG?=
- =?utf-8?B?WWJyT201SFFNbHA4ajZuN2FaR3dFcFRUR1FPODhDdzZ2N0xiQmRKaGlNaUN5?=
- =?utf-8?B?eDBmUW8vczREdExVdThXK09sUnl2dDFSdHp2bW8rTGdqTEpZWkVMRlNodlQv?=
- =?utf-8?B?aXQ5aTZkd1BsNnZqaGFLR05iWnlHWVk0VStlcTNsc3VKN09RQWNzcllJVDc5?=
- =?utf-8?B?Qzc0LzRjdmkvWENWMS9LRi9rbFBLYzJuQW00aFZ4eEVwTFlaZk4xcmtIeFV5?=
- =?utf-8?B?dmpIdW15Rmx6ZzVBNTdYb1R1S0VzVUF6SzNVdXFmTjBNSmJJSXBuckhXemhS?=
- =?utf-8?B?ck0vV0IvRmhEYk1Sck03SmtFN1ArSU14VFRIYzJLR01HbUlEcjZES3RhYVRt?=
- =?utf-8?B?MVFZYjZydDdDbVBLclZQc3lrMXZtUTBOQ1l1bEY0UldQY3p2SkFLNE5ISzky?=
- =?utf-8?B?dE90U3BHM2FQMlczc2ZoK3pmVUZ2TDdzejgwVzVhVFdRUWs5M0FRY0JYQzJa?=
- =?utf-8?Q?pIgue0lfGRYNgx0c=3D?=
+	=?utf-8?B?TCtKdWoxc09BbVdSVHdWc2Y4bUJZeXN5VHB0SDN3QW8yN0ZWeHBsZGN5cS9w?=
+ =?utf-8?B?dzROWTVmWmJwZGdUakx2a1d1ZmJIVG5STXRNTnB1R1k1UVVSY0MvcXlZSFFk?=
+ =?utf-8?B?Tjg0L3ozZEx1RVhyLzlpbmJISDQrazRiL0xEYllpNWNkRUQzUzEzZXFGWDYr?=
+ =?utf-8?B?eUg2elMzOXFpYkt4alVrWDBJVitwQ2RqcnNMZFdVSEZaM01uU3lXRHA4YVVD?=
+ =?utf-8?B?TmNELzRpNEthWTZDZDR2NUkrL0k0U2lHenJMZ215S0FrMXhERXRkOHhieVRa?=
+ =?utf-8?B?eC9ZUG9hYWN6R2tDN1dDaVpUY05IUHlCS3VhY1duMmp5YmplK2E2U3BPMTB6?=
+ =?utf-8?B?MjJWOG5EZ0RUOEZOMmdVVEZxNHA5M1A2bExPSnVrZE1rQWVUU1duSjVpMXhG?=
+ =?utf-8?B?NmxucTFHd2dVYWFsRW9nZ0g2UEx3STVnSVdmRnFVbXBYemI0S3ZWMk14SWRX?=
+ =?utf-8?B?YTB5MDNXOVRwQytoMGdGZ1N6cHpTbmdjWVpBK3RZeFczYkNPTjBJclorNURw?=
+ =?utf-8?B?MGIvRXhnWkgyQmZ0RXFabWxuQ0MrSG5BMVordlN0S21OY0ZrRGZLclg0RU1T?=
+ =?utf-8?B?WnYyYzQ4eUhlRkhqOTNWcnlQeHVRZCtjR01XcytPbWp0OWdQT2pGMlE5aWhI?=
+ =?utf-8?B?dmJNaGZjZmRvdmhKR01hL1NVaXE0WW51QTlabnczQWM1cjU1VzR5MERUNzJ5?=
+ =?utf-8?B?OEVSVi9NVm5HUUNWejg2bDVsU0xtS0RiSldhVjFkZW5xTGdHdXFXRHVtaFh1?=
+ =?utf-8?B?SGdnaUhSN0dtdFplTTFGajd5eVFvSkJwZ3VVMjZXZGhxV21YMis4QlJMY0N1?=
+ =?utf-8?B?eXNlWWZFcWdlQkhrUXI5N0VxKzVkZk9EYVNPempBTVByMXY4alpYSDByeGdq?=
+ =?utf-8?B?RnVnTXlENXZyUU5oU3M4T2RqNGRBMEJsYXRkaDA5cGplZjZhdklKa2NETlZa?=
+ =?utf-8?B?KzlhK0orWUh5UHEyMUhlWGtTSDlTM0x2aEpla2lMWU5NTUZidEhia3FUVTJI?=
+ =?utf-8?B?OXI5OC9KU0ZCS2Zkdm5rS3hrbTRHYnpNL0ZtajY4TjhwTDBNdUlvclduYjd3?=
+ =?utf-8?B?WitzaURYYVRmT2RRc1N0WlRiQlRwbVBUQXlTNFkrazAyc0JqRU1RL043TUR5?=
+ =?utf-8?B?VHFYTlJiUHgrRXg5aTdnQUExbDkySitrWVBwM0trQTVPRkZtN1Z2VFdLYjVs?=
+ =?utf-8?B?cVhoZ2ZPWnB2QVRKT1pHbnlTM1ZPd09ocGdUQnhMa21JakVUY3NYcWNJbGI5?=
+ =?utf-8?B?ejJNS2hFbE82b3BrOFp2V2lLWi9FQmFPbHZWTXo0dnFodTZ2T1lwbW5HbjFR?=
+ =?utf-8?B?ZUZBRis0a1ZUYXByc1FITTU4RzN6aEN6WHFScVBZS3hIdStSdUxkdGdmakdh?=
+ =?utf-8?B?U3l3bTU2MXU3UU1LcnBlRkl3VGJoQllyaHlJZUtRTWtCRmkwaUpnSE5HQzFs?=
+ =?utf-8?B?M3dMd1dHa2ZLMjJYMmY5anVZTnUxb3AybXJidHJLZitwdWdxQ2tuTDJmd25i?=
+ =?utf-8?B?NURiNDhCK1FvdDFFM0ZoQ0FqNmxtajN6K1dXaHpJbEg0aGR5WUd0eWE5YVM3?=
+ =?utf-8?B?djB3NDd2OFN3Nmc5eFlKQnhiTzJuUXpPN0N6TExuRjRPdFllcjUycldTMWJX?=
+ =?utf-8?B?dWVhMmI0RUtja3dWeVBqNWdxY25xTStvRXorU2tobjV4Q1dzcUdnRU0xcHg4?=
+ =?utf-8?B?czVxTzkreE4zZzhIUXhHcU1XazlkTS9LNmZIYXRGSldDZjBYQ0xpRGhmY2VY?=
+ =?utf-8?B?WjZnYlRRelpNanVmUFFaMnlQaTVLWnRjWEFFVmdVQWE2TXBIVnhld0dJb3VF?=
+ =?utf-8?B?SW5GQ2puTi9wdUlUWGFtYnhqZWRYSHlERnlMdnJCSGZqclErZHJPSyt1dkZS?=
+ =?utf-8?B?VnVJWVlSYVcxZW9iS0ZYeDBxc3BDU0djYWQvZW15OGZEUDlEWFo2aDhETERx?=
+ =?utf-8?B?dkVVbGVhVGJYNWtmR3lkQk5BcjhleXU2elJLQ3lVQ0FIQkpzUnNDcjgzNmRH?=
+ =?utf-8?B?MVRmR0JoNDY1ZVZJdWg5WEhOcHhiYk9MZGhrZEdGenZiTUJ6OFZpM1krS055?=
+ =?utf-8?B?d0ZUcW1MVHRGcFE3enIycjBGczFTTXpsbSttVmdXRWthZkVaREx4cXJQZ2Vn?=
+ =?utf-8?B?Z2NkNVR6eHBGcFMxTHUrK2hKUExBQThFUkpXL1dhWFVuNHIzcUtsL29IQ1dE?=
+ =?utf-8?B?NmwraXB2c3pYazV1WWdUMjVJWG8yb0pramZSOXl2Z3Z0aWdhK2hBWVN2Vm1S?=
+ =?utf-8?B?UnVPRnJiR2VBTWVGaHFsdTJuSXVtd3BaWGR6TnJjUEhaVFJ4ZHVxVEF5UU5V?=
+ =?utf-8?B?VnBVZjNiTVFocmRsaXRNdkl1N3ZaVlB1UkgzSG5TSVJtQXJENmQ2UG56a05o?=
+ =?utf-8?Q?x0swuWRELe/1dSkY=3D?=
 X-OriginatorOrg: wolfvision.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 84dc2f61-6de6-48ee-6280-08deea6da55f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9941f15f-9700-447f-3fc1-08deea6da451
 X-MS-Exchange-CrossTenant-AuthSource: GVXPR08MB11763.eurprd08.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2026 16:56:18.0681
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2026 16:56:16.2972
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: e94ec9da-9183-471e-83b3-51baa8eb804f
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fZRJmrdS6VhLLyS13SqNMIi5XeXvASexsGtLOE73QnzWNpZz0w1RNa7s/8eDG52+qEH7aQOK7CWO6hZ6PNLx6HgT8SxX9LKggz6/74r+sgI=
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0/uO5rdzzmFnmisIVmlb5bi0I5xphkThHt60Vaz56cK4Y8OUWiT7isi+xHGX/6liQAKg/nY2rYkkEKiEPRpJZvbZ6Rrbpr34nfIBYzsSCi8=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR08MB10789
 
-Add support for the optional rockchip,clk-lane-phase device tree property
-to allow board-specific tuning of the clock lane sampling phase for
-improved signal integrity across supported data rates.
+This series fixes and extends the Rockchip Innosilicon CSI D-PHY driver
+to support data rates up to 2500 Mbps and adds optional board-specific
+clock lane phase tuning for signal integrity.
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
-Acked-by: Michael Riesch <michael.riesch@collabora.com>
-Signed-off-by: Gerald Loacker <gerald.loacker@wolfvision.net>
+Patch 1 fixes an off-by-one error in the rk1808 hsfreq range table:
+the final entry was capped at 2499 Mbps, causing a rejection of the
+maximum supported rate of 2500 Mbps.
+
+Patches 2 and 3 add an optional rockchip,clk-lane-phase device tree
+property that allows tuning the clock lane sampling phase in ~40 ps
+steps to compensate for board-level signal integrity variations.
+
 ---
- .../devicetree/bindings/phy/rockchip-inno-csi-dphy.yaml        | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+Changes in v4:
+- phy: rockchip: inno-csidphy: warn and clamp to default instead of
+  failing probe for invalid rockchip,clk-lane-phase values (Michael Riesch)
+- Rebased series onto latest phy/next
+- Link to v3: https://patch.msgid.link/20260630-feature-mipi-csi-dphy-4k60-v3-0-176792ab71fa@wolfvision.net
 
-diff --git a/Documentation/devicetree/bindings/phy/rockchip-inno-csi-dphy.yaml b/Documentation/devicetree/bindings/phy/rockchip-inno-csi-dphy.yaml
-index 03950b3cad08c..913aa688c0ae9 100644
---- a/Documentation/devicetree/bindings/phy/rockchip-inno-csi-dphy.yaml
-+++ b/Documentation/devicetree/bindings/phy/rockchip-inno-csi-dphy.yaml
-@@ -56,6 +56,16 @@ properties:
-     description:
-       Some additional phy settings are access through GRF regs.
- 
-+  rockchip,clk-lane-phase:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    minimum: 0
-+    maximum: 7
-+    default: 3
-+    description:
-+      Clock lane sampling phase selection (hardware tap index 0–7). Each step
-+      corresponds to an approximately 40 ps delay as described in the hardware
-+      specification.
-+
- required:
-   - compatible
-   - reg
+Changes in v3:
+- dt-bindings: add default for rockchip,clk-lane-phase
+- Link to v2: https://patch.msgid.link/20260619-feature-mipi-csi-dphy-4k60-v2-0-323356c2cc2e@wolfvision.net
 
--- 
-2.34.1
+Changes in v2:
+- dt-bindings: improve rockchip,clk-lane-phase description wording
+  (Conor Dooley)
+- Link to v1: https://patch.msgid.link/20260617-feature-mipi-csi-dphy-4k60-v1-0-4611ff00b0ff@wolfvision.net
+
+To: Vinod Koul <vkoul@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Heiko Stuebner <heiko@sntech.de>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-phy@lists.infradead.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-rockchip@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+
+---
+Gerald Loacker (3):
+      phy: rockchip: phy-rockchip-inno-csidphy: fix rk1808 hsfreq table
+      dt-bindings: phy: rockchip-inno-csi-dphy: add rockchip,clk-lane-phase property
+      phy: rockchip: phy-rockchip-inno-csidphy: add clock lane phase tuning
+
+ .../bindings/phy/rockchip-inno-csi-dphy.yaml       | 10 ++++++++
+ drivers/phy/rockchip/phy-rockchip-inno-csidphy.c   | 27 +++++++++++++++++++++-
+ 2 files changed, 36 insertions(+), 1 deletion(-)
+---
+base-commit: ee6aa0f01d4e8eddf1c7fda49d65c7ef12444e78
+change-id: 20260617-feature-mipi-csi-dphy-4k60-9879c3d1fe4f
+
+Best regards,
+--  
+Gerald Loacker <gerald.loacker@wolfvision.net>
 
