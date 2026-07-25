@@ -1,298 +1,351 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC4A94908B6
-	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 05:04:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EA5836D510
+	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 05:04:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784955871; cv=none; b=Sn2iNtcqJ1owA4GnG8cP0Aj40Cp9rl+KNUx9YSt2baFLx2bIN2zQMv6/httEJ4N2EZ4tPyAW1lf2vObooGt/qF6O5bPVOSgqhYK3JKkgj7jGASedhVCCvXJprYtaDcZ9+Ew92dzWeVdLH1qQhFv46ES0Ng0fwZKpn4NfrLhBa70=
+	t=1784955882; cv=none; b=r+8f+5Z6uUR6RlQykz66Kj2KFBYwKJ/z9IiokF6q88f1M2EZ2eWrMs5bkoPGAbw0MN1Tk0voWd+5kFsB7leNppDOjnRRP4IQPqt1l4JDquiRA6yuzGyLzMKrhcf8lAhzuKpYm4QNukJpwRo3JXtBX0jpXBeUVRlIeuwn8veiPr8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784955871; c=relaxed/simple;
-	bh=m++C/wRcYSmuEclcZbuthCev1JJ4qRndQLku4W+ailo=;
+	s=arc-20240116; t=1784955882; c=relaxed/simple;
+	bh=BSuU/qw3p4x2jbf1dgQkmWjohQLJ58GH2LiN3hMtujw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=o83ZWkPTA1czz/bXGSQdbeBfrpv7wIild/N6PZg3+9CjEecln+nZlew68x4Q9i9xgt3t5zzL5AER3u7M25C+1EOrSAxP8KOdOP56heS/3+cQViQvxknvjr9DUjyRiBTk5Ur3OAxScwuAY7MSGinL8tz5Pz9CZQEzECkGe/fdnBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W8iof5dT; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Kws5j6gZ4fas0LdatVs/FBVnI+rnT+KznLXPkXRzLA9yn1M7MvCFN7e4lBYih6FTQxptp3bQ3TBQj204706ANTW9cUhrX9W3T+lnR/3qSVpUMo9bhNgPM3bC6LlPzxJfjD77qxBrCF1itVoOnJ67H9kZw56vxpFVSOOZ+GkFaD4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hr9jAH+Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W8iof5dT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33AE91F000E9;
-	Sat, 25 Jul 2026 05:04:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hr9jAH+Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 302CF1F000E9;
+	Sat, 25 Jul 2026 05:04:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784955867;
-	bh=ut+438AG3bp1406wS3uQ/QfvCDFxEWBO9W7UtMXiDew=;
+	s=k20260515; t=1784955878;
+	bh=ScRUpYKSPgrAR31jwAZGd/CQy0c2eVCu1switjuiMik=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=W8iof5dTQBVMQ+pWzQUGbIOAbSnCoZpG7k76AX4rfnZFz1MgYiJVcUeyVmmAV7dHz
-	 GgsvJyzW+BxZSV8LAFxbGc6vUp0igMxs2ba1bCYOo9fqqg3GT7fJa5n0dwPht/i+nQ
-	 XESPVtr9431i7QlfFTJgjxx7EdAWpNCVrOvkLOHz0Ouj42fuc/64aDXvkr5bKWFwrz
-	 jyGXMoRR4QRf1zzsA6Bi7NluFN/87/r0JRDYNd6WPLPAFLRcDkK9ec0ilPrdKv7EGh
-	 9WDoSGpwKBICUlK2x0OtodkWFv+vyCu4nXHHmR6buTanD0QlKKM5gXR2xJk1/sLGPR
-	 JxLzW79PAQnag==
+	b=Hr9jAH+YvHTEq0AGIB7/3HUqt0JXUefr/Es4AhZaem2ROXOxLiRtCOXz/H2Ya9Rvf
+	 fPDO1tOSGXYYbPe3QRutjzViVyJBE8rqJikvVr+ejOkgF/NfU0mYiA7e3EOsS28Nrw
+	 Iv/LNFLxwcJ1JT8QeLSbb+WBlcHPTF3hm0n26/92bn5b/skImha7/OMYBqGvQ2nt1j
+	 1AC5HdKn9YpXtXi4dyTNdGhv3WKLoLN9gBgf7CC4QmTODKrePOJKKdXdDq1JJZJxbs
+	 VI4IivNw8nq4zPRqqEZu8zN/CBPQ9L/PW6JfxNBFJTAG7jtlggiJSOBGheTQ2VvpFb
+	 Z0CWTsYh1EeWw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND 10/17] drm/spacemit: add Saturn DPU KMS pipeline
+Subject: Re: [PATCH RESEND 12/17] drm/spacemit: add Innosilicon DP/eDP
+ controller bridge driver
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Cody Kang" <codykang.hk@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-phy@lists.infradead.org, olteanv@gmail.com, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260725-k3-display-v1-10-6de34d80e86c@gmail.com>
+Cc: neil.armstrong@linaro.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, linux-phy@lists.infradead.org, olteanv@gmail.com, dri-devel@lists.freedesktop.org, vkoul@kernel.org
+In-Reply-To: <20260725-k3-display-v1-12-6de34d80e86c@gmail.com>
 References: <20260725-k3-display-v1-0-6de34d80e86c@gmail.com>
- <20260725-k3-display-v1-10-6de34d80e86c@gmail.com>
+ <20260725-k3-display-v1-12-6de34d80e86c@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 25 Jul 2026 05:04:26 +0000
-Message-Id: <20260725050427.33AE91F000E9@smtp.kernel.org>
+Date: Sat, 25 Jul 2026 05:04:37 +0000
+Message-Id: <20260725050438.302CF1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 10 potential issue=
+Thank you for your contribution! Sashiko AI review found 11 potential issue=
 (s) to consider:
-- [High] Sleeping functions are called from CRTC atomic enable and disable =
-callbacks, which execute in atomic context.
-- [High] TOCTOU race when updating the `clocks_on` flag and gating hardware=
- clocks leads to MMIO stalls.
-- [High] Calling `devm_drm_dev_alloc` inside a component `bind` callback le=
-aks the DRM device on rebinds.
-- [High] Enabling the DPU interrupt before hardware is initialized leads to=
- an unhandled IRQ storm.
-- [High] `spacemit_plane_reset` bypasses the custom state destructor, leaki=
-ng DMA coherent memory.
-- [High] `disable_irq()` is called before `drm_atomic_helper_shutdown()` du=
-ring driver unbind, causing shutdown to hang.
-- [High] `spacemit_plane_atomic_check()` assigns RDMA channels based on unv=
-alidated `zpos`, leading to channel collisions.
-- [High] Unconditional `spin_unlock_irq` used in atomic context improperly =
-re-enables interrupts.
-- [Medium] Leaking DRM property blob references in `spacemit_crtc_duplicate=
-_state` on error.
-- [Medium] Missing NULL check on `plane->state` in `spacemit_plane_atomic_d=
-uplicate_state` causes a crash if the state is missing.
+- [High] Custom EDID read function bypasses DRM core and breaks I2C repeate=
+d-start (MOT) rules, corrupting EDID reads for blocks > 0 or on active adap=
+ters.
+- [High] The hardirq handler returns `IRQ_NONE` after clearing hardware int=
+errupt flags, permanently disabling the IRQ line.
+- [High] Late attachment of the eDP panel bridge violates drm_bridge_connec=
+tor architecture and breaks panel support if the panel probes asynchronousl=
+y.
+- [High] DP Transfer Unit (TU) miscalculation due to pixel clock truncation.
+- [High] The IRQ handler returns `IRQ_NONE` without clearing the hardware i=
+nterrupt when `drm_dev_enter()` fails, leading to an interrupt storm.
+- [High] `spacemit_dp_bridge_atomic_create_state` returns an error pointer =
+instead of `NULL` on allocation failure, causing a kernel crash in the DRM =
+core.
+- [High] The hardirq handler calls regmap functions which use a sleepable l=
+ock on PREEMPT_RT.
+- [Medium] The atomic_check and mode_valid callbacks access DPCD link capab=
+ilities without holding mode_lock, leading to data races with the hotplug I=
+RQ handler.
+- [Medium] The DP IRQ handler silently drops hotplug notifications because =
+drm_bridge_hpd_notify() is a no-op when DRM_BRIDGE_OP_HPD is omitted.
+- [Medium] Calling clk_set_parent() on an already enabled clock.
+- [Medium] Resetting the AUX controller without holding aux->hw_mutex races=
+ with concurrent AUX transfers.
 --
 
---- Patch [10]: [PATCH RESEND 10/17] drm/spacemit: add Saturn DPU KMS pipel=
-ine ---
-commit cf6665928c2c5fcf07a88c5cd2141feb18245e17
+--- Patch [12]: [PATCH RESEND 12/17] drm/spacemit: add Innosilicon DP/eDP c=
+ontroller bridge driver ---
+commit b7eace372254ab27e120213d38c3a656b2a195b8
 Author: Cody Kang <codykang.hk@gmail.com>
-Subject: drm/spacemit: add Saturn DPU KMS pipeline
 
-Add the atomic KMS implementation on top of the hardware backend: one
-CRTC and one primary plane per DPU instance. atomic_check validates
-the plane rectangle 1:1 against the mode and sizes the per-channel FBC
-line buffer.
+drm/spacemit: add Innosilicon DP/eDP controller bridge driver
 
-> diff --git a/drivers/gpu/drm/spacemit/spacemit_crtc.c b/drivers/gpu/drm/s=
-pacemit/spacemit_crtc.c
-> new file mode 100644
-> index 0000000000000..b75ff63205011
+Add the DP/eDP controller that sits downstream of the Saturn DPU. Two
+identical instances share one compatible; the eDP-vs-DP role is board
+wiring, so it is taken from the devicetree.
+
+> diff --git a/drivers/gpu/drm/spacemit/spacemit_inno_dp.c b/drivers/gpu/dr=
+m/spacemit/spacemit_inno_dp.c
+> index 0000000000000..e88731d9b18bf
 > --- /dev/null
-> +++ b/drivers/gpu/drm/spacemit/spacemit_crtc.c
-
-[ ... ]
-
-> @@ -91,7 +91,7 @@ static void spacemit_crtc_atomic_enable(struct drm_crtc=
- *crtc,
->  		dpu_reset_assert(a_crtc->dev, "lcd", a_crtc->lcd_reset);
->  		dpu_reset_assert(a_crtc->dev, "esc", a_crtc->esc_reset);
->  		dpu_reset_assert(a_crtc->dev, "mclk", a_crtc->mclk_reset);
->  		dpu_reset_assert(a_crtc->dev, "aclk", a_crtc->aclk_reset);
->  		dpu_reset_assert(a_crtc->dev, "dsc", a_crtc->dsc_reset);
->  		usleep_range(10000, 20000);
-
-[Severity: High]
-Does this sleep in an atomic context? The spacemit_crtc_atomic_enable
-callback is executed during a non-blocking DRM atomic commit, which runs
-in an atomic context. Calling usleep_range() here might violate atomic
-context rules and lead to scheduling-while-atomic warnings.
-
-[ ... ]
-
-> @@ -145,13 +145,13 @@ static void spacemit_crtc_atomic_disable(struct drm=
-_crtc *crtc,
->  	 * must finish its status reads before dpu_pm_suspend() gates the
->  	 * clocks.
->  	 */
->  	if (a_crtc->irq_online > 0)
->  		synchronize_irq(a_crtc->irq_online);
+> +++ b/drivers/gpu/drm/spacemit/spacemit_inno_dp.c
+> @@ -248,16 +248,10 @@
+>  static inline struct spacemit_dp_bridge_state *
+>  to_spacemit_dp_bridge_state(struct drm_bridge_state *state)
+>  {
+>  	return container_of(state, struct spacemit_dp_bridge_state, base);
+>  }
+> =20
+>  static const struct regmap_config spacemit_dp_regmap_config =3D {
+>  	.name		=3D "dp",
+>  	.reg_bits	=3D 32,
+>  	.val_bits	=3D 32,
+>  	.reg_stride	=3D 4,
+>  	.max_register	=3D 0x3ffc,	/* full 0x4000 reg region from binding */
+>  };
 
 [Severity: High]
-Can synchronize_irq() safely execute here? This callback runs in an atomic
-context, but synchronize_irq() blocks waiting for executing handlers.
+Is it safe to omit use_raw_spinlock from the regmap configuration? Because
+this is not set to true, the regmap defaults to a sleepable lock on
+PREEMPT_RT. This causes a BUG when regmap read/write functions are called
+from the hardirq handler spacemit_dp_irq_handler().
+
+> [ ... ]
+> @@ -661,16 +661,10 @@
+>  static void spacemit_dp_link_disable(struct spacemit_dp_dev *dp)
+>  {
+>  	regmap_write_bits(dp->regs, DP_VIDEO_VSAMPLE_REG,
+>  			  DP_VIDEO_STREAM_ENABLE,
+>  			  FIELD_PREP(DP_VIDEO_STREAM_ENABLE, 0));
+>  	spacemit_dp_phy_off(dp);
+> =20
+>  	regmap_write_bits(dp->regs, DP_SOFT_RESET, DP_AUX_RESET,
+>  			  FIELD_PREP(DP_AUX_RESET, 0x1));
+
+[Severity: Medium]
+Could this reset corrupt concurrent AUX transfers? Modifying the AUX
+hardware in spacemit_dp_link_disable() without holding the aux->hw_mutex
+could race against a userspace or deferred transfer, potentially wedging
+the controller.
+
+> [ ... ]
+> @@ -936,15 +936,10 @@
+>  static void spacemit_dp_hw_set_msa_and_enable_video(struct spacemit_dp_d=
+ev *dp,
+>  						    const struct drm_display_mode *mode,
+>  					       enum spacemit_dp_link_rate rate,
+>  					       enum spacemit_dp_lane_count lanes,
+>  		u32 color_format)
+>  {
+>  	u64 hb_num;
+>  	u32 link_rate;
+>  	u32 fp; /* Pixel clock in MHz */
+>  	u32 bpp, misc0;
+>  	u32 tu, tu_frac, tu_int, rd_thres;
+>  	u32 hsync_len;
+> =20
+>  	/* mode->clock unit is kHz, fp unit is MHz */
+>  	if (dp->use_ext_pixel_clock)
+>  		fp =3D dp->pixel_clock / 1000;
+>  	else
+>  		fp =3D mode->clock / 1000;
 
 [Severity: High]
-Does this code leave a race window before the flags are updated? An interru=
-pt
-could fire immediately after synchronize_irq() returns but before clocks_on
-is toggled to false, leading the ISR to access MMIO while dpu_pm_suspend()
-is shutting down the clocks.
+Can this truncation of the pixel clock to an integer MHz value cause DP
+FIFO underflows or overflows? For non-integer MHz pixel clocks like
+148.5 MHz, this truncates to 148, introducing precision errors in the
+Transfer Unit (TU) calculations which results in corrupted video.
 
+> [ ... ]
+> @@ -1286,13 +1286,10 @@
+>  static int spacemit_dp_conn_get_edid_block(void *data, u8 *buf,
+>  					   unsigned int block, size_t len)
+>  {
+>  	struct spacemit_dp_dev *dp =3D data;
+>  	unsigned int start =3D block * EDID_LENGTH;
+>  	u8 segment =3D block >> 1;
+>  	int ret, retry;
+>  	size_t offset;
+> =20
+>  	if (segment) {
+>  		for (retry =3D 0; retry < 3; retry++) {
+>  			ret =3D spacemit_dp_aux_i2c_write(dp,
+>  				SPACEMIT_DP_DDC_SEGMENT_ADDR, &segment, 1);
+
+[Severity: High]
+Does this custom EDID read function bypass the Middle-Of-Transaction (MOT)
+rules for I2C repeated-start? Issuing writes and reads without the MOT flag
+resets the DDC segment pointer to 0, breaking EDID reads for displays with
+multiple EDID blocks (block >=3D 1) or on active adapters.
+
+> [ ... ]
+> @@ -1632,15 +1632,10 @@
+>  static int spacemit_dp_bridge_atomic_check(struct drm_bridge *bridge,
+>  					   struct drm_bridge_state *bridge_state,
+>  				      struct drm_crtc_state *crtc_state,
+>  				      struct drm_connector_state *conn_state)
+>  {
+>  	struct spacemit_dp_dev *dp =3D container_of(bridge,
+>  						  struct spacemit_dp_dev,
+>  						  bridge);
+>  	struct spacemit_dp_bridge_state *st =3D
+>  			to_spacemit_dp_bridge_state(bridge_state);
+>  	const struct drm_display_mode *mode =3D &crtc_state->adjusted_mode;
+>  	int bpp;
+>  	u32 req_bw;
+>  	int i;
+> =20
+>  	/* A single output bus format, see ->atomic_get_output_bus_fmts(). */
+>  	st->color_format =3D SOC_VIDEO_RGB_8BIT;
+>  	bpp =3D spacemit_dp_get_bpp(dp, st->color_format);
+>  	req_bw =3D spacemit_dp_calc_required_bw(mode, bpp);
+> =20
+>  	/* No caps yet: leave idx unset and let ->atomic_enable() retry. */
+>  	if (!dp->link.max_rate || !dp->link.max_num_lanes) {
+
+[Severity: Medium]
+Could reading the DPCD link capabilities here race with the hotplug IRQ
+handler? Accessing the dp->link capabilities in
+spacemit_dp_bridge_atomic_check() without holding mode_lock might observe
+intermediate or torn states if a concurrent interrupt triggers a capability
+re-read, leading to transient rejections of valid modes.
+
+> [ ... ]
+> @@ -1705,10 +1705,10 @@
+>  static struct drm_bridge_state *
+>  spacemit_dp_bridge_atomic_create_state(struct drm_bridge *bridge)
+>  {
+>  	struct spacemit_dp_bridge_state *new;
+> =20
+>  	new =3D kzalloc_obj(*new);
+>  	if (!new)
+>  		return ERR_PTR(-ENOMEM);
+
+[Severity: High]
+Should this return NULL on allocation failure instead of an error pointer?
+The DRM core's reset helper assigns the returned state directly without
+checking for errors. Returning an error pointer here causes a fatal page
+fault when the DRM core later dereferences it.
+
+> [ ... ]
+> @@ -1742,16 +1742,10 @@
+>  static int spacemit_dp_edp_link_panel(struct drm_dp_aux *aux)
+>  {
+>  	struct spacemit_dp_dev *dp =3D container_of(aux, struct spacemit_dp_dev,
+>  						  aux);
+>  	struct drm_bridge *next;
+>  	int ret;
+> =20
+>  	next =3D devm_drm_of_get_bridge(dp->dev, dp->dev->of_node, 1, 0);
+>  	if (IS_ERR(next))
+>  		return PTR_ERR(next);
+> =20
+>  	dp->next_bridge =3D next;
 > =20
 >  	/*
->  	 * Nothing else cancels the watchdog; it would fire against freed state.
+>  	 * A non-NULL bridge.encoder means .attach already ran: late-chain
+>  	 * panel-edp.
 >  	 */
->  	timer_delete_sync(&a_crtc->cfg_rdy_timer);
-> =20
->  	/* Close the ISR's MMIO gate before the clocks actually stop. */
->  	a_crtc->clocks_on =3D false;
->  	dpu_pm_suspend(a_crtc->dev);
+>  	if (dp->bridge.encoder) {
+>  		ret =3D drm_bridge_attach(dp->bridge.encoder, next,
+>  					&dp->bridge,
+>  					DRM_BRIDGE_ATTACH_NO_CONNECTOR);
 
 [Severity: High]
-Does dpu_pm_suspend() sleep in this atomic context? It calls usleep_range()
-which could trigger kernel warnings and deadlocks when reached via
-spacemit_crtc_atomic_disable().
+Does dynamically attaching the panel bridge late bypass connector
+initialization? If the eDP panel defers its probe,
+drm_bridge_connector_init() builds the connector without the panel bridge.
+Attaching it here later violates the drm_bridge_connector architecture and
+breaks panel support, because the connector will lack the panel's mode or
+EDID operations.
 
-> =20
->  	spin_lock_irq(&drm->event_lock);
->  	if (crtc->state->event) {
->  		drm_crtc_send_vblank_event(crtc, crtc->state->event);
->  		crtc->state->event =3D NULL;
->  	}
->  	spin_unlock_irq(&drm->event_lock);
-
-[Severity: High]
-Is it safe to use unconditional spin_unlock_irq() here? Since this callback
-executes in an atomic context (e.g. from drm_atomic_helper_commit_tail),
-unconditionally re-enabling interrupts breaks the caller's atomic assumptio=
-ns.
-Should this use spin_lock_irqsave() and spin_unlock_irqrestore() instead?
-
-[ ... ]
-
-> @@ -231,6 +231,5 @@ static struct drm_crtc_state *
->  	__drm_atomic_helper_crtc_duplicate_state(crtc, &state->base);
-> =20
->  	n_rdma =3D hwdev->rdma_nums;
->  	state->rdmas =3D kzalloc_objs(*state->rdmas, n_rdma);
->  	if (!state->rdmas) {
->  		kfree(state);
->  		return NULL;
->  	}
-
-[Severity: Medium]
-Does this error path leak DRM property blob references?
-__drm_atomic_helper_crtc_duplicate_state() increments references on blobs
-like mode_blob, ctm, and gamma_lut. Returning NULL here without releasing
-them could leak those references.
-
-[ ... ]
-
-> @@ -418,6 +418,5 @@ static irqreturn_t spacemit_dpu_isr(int irq, void *da=
-ta)
->  	/* Reading a clock-gated DPU's status registers stalls the bus. */
->  	if (unlikely(!a_crtc->clocks_on)) {
->  		drm_dev_exit(idx);
->  		return IRQ_NONE;
->  	}
-
-[Severity: High]
-Does this code cause an IRQ storm? By returning IRQ_NONE without clearing
-the hardware interrupt status when clocks_on is false, the interrupt
-controller might continuously re-trigger the ISR if the bootloader left the
-interrupt asserted.
-
-[ ... ]
-
-> @@ -496,6 +496,5 @@ static int spacemit_drm_master_bind(struct device *de=
-v)
->  	}
-> =20
->  	kms =3D devm_drm_dev_alloc(dev, &spacemit_drm_drv,
->  				 struct spacemit_kms, drm);
->  	if (IS_ERR(kms))
-
-[Severity: High]
-Will this leak the DRM device on rebind? devm_drm_dev_alloc ties the
-allocation lifetime to the platform device's probe/remove cycle. If the
-component unbinds and rebinds, new DRM devices are allocated but the old
-ones are never freed.
-
-[ ... ]
-
-> @@ -573,6 +573,5 @@ static int spacemit_drm_master_bind(struct device *de=
-v)
->  	drm_mode_config_reset(drm);
->  	drmm_kms_helper_poll_init(drm);
->  	drm_helper_hpd_irq_event(drm);
-> =20
->  	enable_irq(priv->irq_online);
-
-[Severity: High]
-Is it safe to enable the IRQ before the hardware state is fully initialized?
-If the bootloader left the display hardware active, the ISR might fire
-immediately while a_crtc->clocks_on is still false, leading to the IRQ storm
-mentioned above.
-
-[ ... ]
-
-> @@ -594,6 +594,5 @@ static void spacemit_drm_master_unbind(struct device =
-*dev)
-> =20
->  	disable_irq(priv->irq_online);
-> =20
->  	drm_dev_unregister(drm);
->  	drm_atomic_helper_shutdown(drm);
->  	component_unbind_all(dev, drm);
-
-[Severity: High]
-Will calling drm_atomic_helper_shutdown() hang if the IRQ is already
-disabled? The shutdown helper flushes pending atomic commits and disables
-CRTCs, which requires the hardware vblank interrupt to signal completion.
-Without it, the commit wait could time out.
-
-> diff --git a/drivers/gpu/drm/spacemit/spacemit_planes.c b/drivers/gpu/drm=
-/spacemit/spacemit_planes.c
-> new file mode 100644
-> index 0000000000000..3442013b0c37f
-> --- /dev/null
-> +++ b/drivers/gpu/drm/spacemit/spacemit_planes.c
-
-[ ... ]
-
-> @@ -98,6 +98,5 @@ static int spacemit_plane_atomic_check(struct drm_plane=
- *plane,
->  	if (src_w =3D=3D 0 && src_h =3D=3D 0)
->  		cur_rdma_id =3D RDMA_INVALID_ID;	/* constant-fill layer, no RDMA */
->  	else if (cur_rdma_id =3D=3D RDMA_INVALID_ID)
->  		cur_rdma_id =3D state->zpos;	/* first commit: bind channel by zpos */
->  	cur_state->rdma_id =3D cur_rdma_id;
-
-[Severity: High]
-Does this code assign RDMA channels based on unvalidated zpos? Userspace
-could submit a configuration with duplicate zpos values across multiple
-planes, resulting in channel collisions where planes overwrite each other's
-hardware registers during spacemit_plane_atomic_update().
-
-[ ... ]
-
-> @@ -193,7 +193,6 @@ static void spacemit_plane_reset(struct drm_plane *pl=
-ane)
->  	if (plane->state) {
->  		s =3D to_spacemit_plane_state(plane->state);
->  		__drm_atomic_helper_plane_destroy_state(plane->state);
->  		kfree(s);
->  		plane->state =3D NULL;
->  	}
-
-[Severity: High]
-Does freeing the state directly bypass the driver's custom destructor?
-Calling kfree(s) directly in spacemit_plane_reset() skips
-spacemit_plane_atomic_destroy_state(), which means the DMA coherent buffers
-for mmu_tbl.va and cl.va could be permanently leaked when a plane is reset.
-
-[ ... ]
-
-> @@ -211,6 +211,5 @@ static struct drm_plane_state *
->  spacemit_plane_atomic_duplicate_state(struct drm_plane *plane)
+> [ ... ]
+> @@ -1782,10 +1782,10 @@
+>  static irqreturn_t spacemit_dp_irq_handler(int irq, void *data)
 >  {
->  	struct spacemit_plane_state *s;
->  	struct spacemit_plane_state *old_state =3D
->  			to_spacemit_plane_state(plane->state);
->  	struct spacemit_crtc *a_crtc =3D NULL;
+>  	struct spacemit_dp_dev *dp =3D data;
+>  	irqreturn_t ret =3D IRQ_NONE;
+>  	int idx;
+> =20
+>  	if (!drm_dev_enter(dp->drm, &idx))
+>  		return IRQ_NONE;
+
+[Severity: High]
+Will returning IRQ_NONE here without clearing the hardware interrupt cause
+an interrupt storm? If an interrupt fires while the DRM device is
+unregistered (such as during module unload), the handler exits without
+acknowledging the hardware interrupt, causing it to continuously fire and
+stall the CPU.
+
+> [ ... ]
+> @@ -1796,11 +1796,10 @@
+>  	/*
+>  	 * Only compare here: the authoritative connector_status update
+>  	 * happens in the thread under mode_lock, via .detect().
+>  	 */
+>  	if (spacemit_dp_hw_detect_hpd(dp) !=3D READ_ONCE(dp->connector_status))
+>  		ret =3D IRQ_WAKE_THREAD; /* Call hotplug_event */
+>  	spacemit_dp_hw_clean_hpd(dp);
+> =20
+>  	drm_dev_exit(idx);
+>  	return ret;
+>  }
+
+[Severity: High]
+Is it safe to return IRQ_NONE after clearing the hardware interrupt flags?
+If the logical state has not changed (e.g. from a transient hardware
+glitch), returning IRQ_NONE causes the kernel's spurious interrupt detector
+to eventually disable the IRQ line, which results in all future hotplug
+events being permanently missed.
+
+> [ ... ]
+> @@ -1813,11 +1813,10 @@
+>  static irqreturn_t spacemit_dp_hotplug_event_handler(int irq, void *data)
+>  {
+>  	struct spacemit_dp_dev *dp =3D data;
+>  	enum drm_connector_status status;
+>  	int idx;
+> =20
+>  	if (!drm_dev_enter(dp->drm, &idx))
+>  		return IRQ_HANDLED;
+> =20
+>  	/*
+>  	 * .detect() owns mode_lock and re-reads the sink caps on a fresh plug
+>  	 */
+>  	status =3D spacemit_dp_bridge_detect(&dp->bridge, dp->connector);
+>  	drm_bridge_hpd_notify(&dp->bridge, status);
 
 [Severity: Medium]
-Will this crash if plane->state is NULL? The to_spacemit_plane_state()
-macro uses container_of, which will produce a negative pointer if
-plane->state is NULL. Dereferencing old_state->rdma_id later would trigger
-a fault.
+Will this hotplug notification be silently dropped? Since
+DRM_BRIDGE_OP_HPD is not set for the DP bridge during inno_dp_probe(), the
+bridge->hpd_cb is NULL, making drm_bridge_hpd_notify() a no-op and forcing
+the DRM core to rely entirely on periodic polling.
+
+> [ ... ]
+> @@ -2338,10 +2338,15 @@
+>  static int inno_dp_probe(struct platform_device *pdev)
+>  {
+>  	struct device *dev =3D &pdev->dev;
+> [ ... ]
+>  	if (dp->pxclk) {
+>  		ret =3D clk_prepare_enable(dp->pxclk);
+>  		if (ret) {
+>  			dev_err(dev, "failed to enable pxclk: %d\n", ret);
+>  			goto err_reset;
+>  		}
+>  	}
+> [ ... ]
+>  	if (dp->pxclk) {
+>  		ret =3D clk_set_parent(dp->pxclk, dp->pll_clk);
+
+[Severity: Medium]
+Can calling clk_set_parent() on an already enabled clock cause hardware
+glitches? The pxclk is prepared and enabled earlier in inno_dp_probe(), and
+reparenting a running clock without hardware-specific glitch-free muxing
+can lock up downstream logic.
+
+> [ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260725-k3-display=
--v1-0-6de34d80e86c@gmail.com?part=3D10
+-v1-0-6de34d80e86c@gmail.com?part=3D12
