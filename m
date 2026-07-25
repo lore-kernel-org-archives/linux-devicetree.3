@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 604AA3955EA;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7714E399375;
 	Sat, 25 Jul 2026 04:51:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784955085; cv=none; b=oCIzaB9smvixjOymc3ey9mTT8yUkVqLFU0zjV8NkFwx84EjF7PNl0Q61EPska01kJwz1INKxhbJC7rfe4AmGZT4+md0TcrMPm1vjsDJyi+mJ5pIDMrNDgBjJoqL79Pk4AOb7bIDtx8G7LfWq8+71f7i1RN9XdoSBv0jYoyIsIB0=
+	t=1784955085; cv=none; b=BcB1TO4reQfgicEnv0LIAkuD1CfmYEn8IrY8S8lSIxI6SlaP2lAZ6fJmxQPGHU7Z/e6Q7e09ZYDsIhipUw0HZpzRh6vzmegQhooV9vAbDDnCen6QUbJvalmftKm0AIlpwcuxI7rn4jcEyWyWFGeMat0FajqkVshZDFYhaXC22cE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784955085; c=relaxed/simple;
-	bh=9qrfSi0dqpKDAFRV2RbducxzGp3eRK+ai4x/64wkHRg=;
+	bh=lS9ZHO5cU1PIgcluobW44ILgdd41TC3FoJ2uJmzxlZg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LR9UyZ9TdiZ4YOW17jG2kFOVrl3XNjIYgre41FsniCZ9+QnsjBRDpnDqk5sZyLjBIF+u9yq0H60Pg+Sx3pvhnYByZOSEP/NQ+3l86zMJwvZP52o34HxGmiE4UkZw5+BsmbxBrShS85e0HPB+3HSRA9Zy0sraHe3BR/ldP3spm6A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nteoxp0P; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=ZNo1kuxxsUJ2SlOQqn8yVpr6AUss25KYlPTDwvQWsl6tHmm1iKj8kNiLsPxvLO2HTwxGTWE2MKTnKamlWnGq9vYkAxaJqvMFZ9GovU0nPkgwP5Oky3yl1pFva2dq48DswKze9UjHoz4X3P/54ZNMsM57Sluh0WKOKLG4t3UrHTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OCfYhLcG; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nteoxp0P"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1DD4CC4AF50;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OCfYhLcG"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 35739C4AF62;
 	Sat, 25 Jul 2026 04:51:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1784955085;
-	bh=9qrfSi0dqpKDAFRV2RbducxzGp3eRK+ai4x/64wkHRg=;
+	bh=lS9ZHO5cU1PIgcluobW44ILgdd41TC3FoJ2uJmzxlZg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Nteoxp0Ph/UGytwGxmdgheDn6Z60XWNJ5gD5IDzONV1EgRGSIRibgfZ3BvWsvplQ+
-	 Xt3vAsgPOM7PXp6hEXd/Rd1j1jhYqEsrokm3LvcLy2qzFYHmzOx9efGbfeJnGkEj6I
-	 /Yf37A4LQymOfPkDcYx6/ueTbZGpzQ73L1yGBWSoq9jU+8NKl8lnPB6ejgQg+v04SL
-	 nqnbVsvTiuNMqybhwIYT5iBxC/usRSmwdwjppoQY4Ghc/y+oDohpyh6pFlXhzVut8e
-	 gG7EFA9antMaaKrbRJBpGVa8mMi4QLWbUOSs9/bhZuVQbl8kWrmS1WeOyrAdE1lzUP
-	 OuHBiCiYDv4Kw==
+	b=OCfYhLcGTWSu0OGpNjadtm8op1mPLTctO2pSILFrQ2L3j2MFumVB3xJnvdVnZdKMy
+	 ShwgXb5VXXqeDlcTzWymuL9BTlJsC/Zca4lSiCFaooESHyp3eSmzmd55Yt8qUiFBnc
+	 LwBXypkzOAQKELiaDBL0Q6zIxQf0D61m515ZUfCgXqRZs087O+QxsHnWwV8ZzDa9wI
+	 Cw81qB2GoQ3JLtZRue92DueGgeJdVYQl81kCsIE2bvOFnPFuBx/i2exHNAUWOd/o0w
+	 jMfykA3Ynv4Wm0PLUnwyfzIV10+wEhyCs2fGgqtygblXw2tRfo5G2FD3pOjw9P/ilq
+	 klQWNQlmh8MsA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F1FD1C531C9;
-	Sat, 25 Jul 2026 04:51:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F702C5321B;
+	Sat, 25 Jul 2026 04:51:25 +0000 (UTC)
 From: Cody Kang via B4 Relay <devnull+codykang.hk.gmail.com@kernel.org>
-Date: Sat, 25 Jul 2026 00:51:23 -0400
-Subject: [PATCH RESEND 14/17] riscv: dts: spacemit: k3: add display nodes
+Date: Sat, 25 Jul 2026 00:51:25 -0400
+Subject: [PATCH RESEND 16/17] riscv: dts: spacemit: k3-com260-ifx: enable
+ the DisplayPort output
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260725-k3-display-v1-14-6de34d80e86c@gmail.com>
+Message-Id: <20260725-k3-display-v1-16-6de34d80e86c@gmail.com>
 References: <20260725-k3-display-v1-0-6de34d80e86c@gmail.com>
 In-Reply-To: <20260725-k3-display-v1-0-6de34d80e86c@gmail.com>
 To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -59,11 +60,11 @@ Cc: dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org,
  linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
  linux-clk@vger.kernel.org, Cody Kang <codykang.hk@gmail.com>
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784955080; l=5154;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784955080; l=1589;
  i=codykang.hk@gmail.com; s=codykang; h=from:subject:message-id;
- bh=Grthmsr7K7t1VnCPujULIM8MkKQHBQfZ26CPMfOLQdI=;
- b=xzN0JYKMSL4bNrCX8DbfHJ6cepxRnukELKks2PFQ3Bg0Qq9WrmhOaoJADUesuiDpWJFdBrRp/
- MbT4h2/IkwYDTm2n/zy/uYm05y3gZ/rHmC5a48/bOXFgmE8FI01gxLP
+ bh=Ich4f6q4tajR0qNR1lNUbENzsTq+U+zWcM4jg4iHZLI=;
+ b=svT50cqkUT9tdXpDqDr8V4BCs5YfVqOAVZzNMJjzwWS+MDxblUOIeTkUanQD2/zeXYdqDIDCB
+ 879Z9RzlqsCAxiurj9ssQLux8/nRm6Sx4LLBYT5iRHCVAXS2c+o8rjy
 X-Developer-Key: i=codykang.hk@gmail.com; a=ed25519;
  pk=Osn6/cs9Su/mHHw4P19cmVc3v2FMQfiWahjsN0vEkuk=
 X-Endpoint-Received: by B4 Relay for codykang.hk@gmail.com/codykang with
@@ -73,179 +74,63 @@ Reply-To: codykang.hk@gmail.com
 
 From: Cody Kang <codykang.hk@gmail.com>
 
-Add the SoC-level display nodes: the two Saturn DPUs, the two DP/eDP
-controllers with their PHY children.
-
-The PHY PLLs are fed back into the APMU as pixel-clock mux parents, so
-updated the &syscon_apmu node in the display dtsi.
+CoM260-IFX carries a single DisplayPort output, so the second DPU and
+the DisplayPort controller it feeds are enabled.
 
 Signed-off-by: Cody Kang <codykang.hk@gmail.com>
 ---
- arch/riscv/boot/dts/spacemit/k3-display.dtsi | 156 +++++++++++++++++++++++++++
- 1 file changed, 156 insertions(+)
+ arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts | 11 +++++++++++
+ arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi   | 11 +++++++++++
+ 2 files changed, 22 insertions(+)
 
-diff --git a/arch/riscv/boot/dts/spacemit/k3-display.dtsi b/arch/riscv/boot/dts/spacemit/k3-display.dtsi
-new file mode 100644
-index 000000000000..4892ee6acda2
---- /dev/null
-+++ b/arch/riscv/boot/dts/spacemit/k3-display.dtsi
-@@ -0,0 +1,156 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-+/*
-+ * SpacemiT K3 display subsystem (DPU0/eDP0 + DPU1/DP1) shared
-+ * device-tree definitions for inclusion alongside k3.dtsi.
-+ *
-+ * Copyright (C) 2026 SpacemiT Co., Ltd.
-+ */
+diff --git a/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts b/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
+index 238bb03d0e9e..114d0e02fed9 100644
+--- a/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
++++ b/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
+@@ -5,6 +5,7 @@
+  */
+ 
+ #include "k3-com260.dtsi"
++#include "k3-display.dtsi"
+ 
+ / {
+ 	model = "SpacemiT K3 CoM260 IFX";
+@@ -19,3 +20,13 @@ chosen {
+ 		stdout-path = "serial0:115200n8";
+ 	};
+ };
 +
-+#include <dt-bindings/clock/spacemit,k3-clocks.h>
-+#include <dt-bindings/reset/spacemit,k3-resets.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+
-+&soc {
-+	dpu0_crtc0: dpu@c0340000 {
-+		compatible = "spacemit,k3-saturn-dpu";
-+		reg = <0x0 0xc0340000 0x0 0x54000>;
-+		interrupts = <90 IRQ_TYPE_LEVEL_HIGH>,
-+			     <89 IRQ_TYPE_LEVEL_HIGH>;
-+		interrupt-names = "online", "offline";
-+		clocks = <&syscon_apmu CLK_APMU_LCD_PXCLK>,
-+			 <&syscon_apmu CLK_APMU_LCD_MCLK>,
-+			 <&syscon_apmu CLK_APMU_DPU_ACLK>,
-+			 <&syscon_apmu CLK_APMU_DSI_ESC>,
-+			 <&syscon_apmu CLK_APMU_LCD_DSC>;
-+		clock-names = "pxclk", "mclk", "aclk", "escclk", "dscclk";
-+		resets = <&syscon_apmu RESET_APMU_LCD_MCLK>,
-+			 <&syscon_apmu RESET_APMU_LCD>,
-+			 <&syscon_apmu RESET_APMU_DSI_ESC>,
-+			 <&syscon_apmu RESET_APMU_DPU_ACLK>,
-+			 <&syscon_apmu RESET_APMU_LCD_DSCCLK>;
-+		reset-names = "mclk", "lcd", "esc",
-+			      "aclk", "dsc";
-+		status = "disabled";
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+				dpu0_out: endpoint {
-+					remote-endpoint = <&edp0_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	edp0: edp@cac84000 {
-+		compatible = "spacemit,k3-inno-dp";
-+		reg = <0x0 0xcac84000 0x0 0x4000>;
-+		interrupts = <132 IRQ_TYPE_LEVEL_HIGH>;
-+		clocks = <&syscon_apmu CLK_APMU_EDP0_PXCLK>, <&edp0_phy>;
-+		clock-names = "pxclk", "pll";
-+		resets = <&syscon_apmu RESET_APMU_EDP0>;
-+		phys = <&edp0_phy>;
-+		phy-names = "dp";
-+		status = "disabled";
-+
-+		edp0_phy: phy {
-+			compatible = "spacemit,k3-inno-dp-phy";
-+			#phy-cells = <0>;
-+			#clock-cells = <0>;
-+			clock-output-names = "edp0_pll_pxclk";
-+		};
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+				edp0_in: endpoint {
-+					remote-endpoint = <&dpu0_out>;
-+				};
-+			};
-+			/* port@1 (panel output) is added by boards fitting an eDP panel */
-+		};
-+	};
-+
-+	dpu1_crtc0: dpu@c0440000 {
-+		compatible = "spacemit,k3-saturn-dpu";
-+		reg = <0x0 0xc0440000 0x0 0x54000>;
-+		interrupts = <139 IRQ_TYPE_LEVEL_HIGH>,
-+			     <138 IRQ_TYPE_LEVEL_HIGH>;
-+		interrupt-names = "online", "offline";
-+		clocks = <&syscon_apmu CLK_APMU_DSI4LN2_LCD_PXCLK>,
-+			 <&syscon_apmu CLK_APMU_DSI4LN2_LCD_MCLK>,
-+			 <&syscon_apmu CLK_APMU_DSI4LN2_DPU_ACLK>,
-+			 <&syscon_apmu CLK_APMU_DSI4LN2_DSI_ESC>,
-+			 <&syscon_apmu CLK_APMU_DSI4LN2_LCD_DSC>;
-+		clock-names = "pxclk", "mclk", "aclk", "escclk", "dscclk";
-+		resets = <&syscon_apmu RESET_APMU_DSI4LN2_LCD_MCLK>,
-+			 <&syscon_apmu RESET_APMU_DSI4LN2_LCD_SW>,
-+			 <&syscon_apmu RESET_APMU_DSI4LN2_ESCCLK>,
-+			 <&syscon_apmu RESET_APMU_DSI4LN2_DPU_ACLK>,
-+			 <&syscon_apmu RESET_APMU_DSI4LN2_LCD_DSCCLK>;
-+		reset-names = "mclk", "lcd", "esc",
-+			      "aclk", "dsc";
-+		status = "disabled";
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+				dpu1_out: endpoint {
-+					remote-endpoint = <&dp1_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	dp1: dp@cac88000 {
-+		compatible = "spacemit,k3-inno-dp";
-+		reg = <0x0 0xcac88000 0x0 0x4000>;
-+		interrupts = <140 IRQ_TYPE_LEVEL_HIGH>;
-+		clocks = <&syscon_apmu CLK_APMU_EDP1_PXCLK>, <&dp1_phy>;
-+		clock-names = "pxclk", "pll";
-+		resets = <&syscon_apmu RESET_APMU_EDP1>;
-+		phys = <&dp1_phy>;
-+		phy-names = "dp";
-+		status = "disabled";
-+
-+		dp1_phy: phy {
-+			compatible = "spacemit,k3-inno-dp-phy";
-+			#phy-cells = <0>;
-+			#clock-cells = <0>;
-+			clock-output-names = "edp1_pll_pxclk";
-+		};
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+				dp1_in: endpoint {
-+					remote-endpoint = <&dpu1_out>;
-+				};
-+			};
-+			/* no port@1: the DP TX drives the external connector directly */
-+		};
-+	};
++&dpu1_crtc0 {
++	status = "okay";
 +};
 +
-+/*
-+ * Feed the PHY PLL pixel clocks back in as the APMU mux parents. This lives
-+ * here, not in k3.dtsi: the PHYs only exist where this file is included.
-+ */
-+&syscon_apmu {
-+	clocks = <&osc_32k>, <&vctcxo_1m>, <&vctcxo_3m>, <&vctcxo_24m>,
-+		 <&edp0_phy>, <&dp1_phy>;
-+	clock-names = "osc", "vctcxo_1m", "vctcxo_3m", "vctcxo_24m",
-+		      "edp0_pll_pxclk", "edp1_pll_pxclk";
++&dp1 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&dp1_3_cfg>;
++	status = "okay";
 +};
+diff --git a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
+index 2f36eba20f1e..dbe8db4a8b76 100644
+--- a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
+@@ -22,6 +22,17 @@ dp1-pins {
+ 		};
+ 	};
+ 
++	/omit-if-no-ref/
++	dp1_3_cfg: dp1-3-cfg {
++		dp1-pins {
++			pinmux = <K3_PADCONF(72, 4)>;	/* dp1 hpd */
++
++			bias-disable;
++			drive-strength = <25>;
++			power-source = <3300>;
++		};
++	};
++
+ 	gmac0_rgmii_0_cfg: gmac0-rgmii-0-cfg {
+ 		gmac0-rgmii-0-pins {
+ 			pinmux = <K3_PADCONF(0, 1)>,	/* gmac0_rxdv */
 
 -- 
 2.43.0
