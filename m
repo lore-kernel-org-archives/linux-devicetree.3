@@ -1,107 +1,89 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBC0C3264D6
-	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 21:58:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C4D9355F41
+	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 22:00:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785016696; cv=none; b=HQ7NI9Tz3t96sMUDbf6LbQfDnD4DvAiRIERXQIddW6LdKlFdIk/aHDNyx4IL/HahsGvgSYmEBbyyimzLxSTOx4vl3pBB/k9elPXdMBwIr6NNDmDktfFEfJ898DugABj5uBa+O+tSpswK1Zb7GAajBBe0SjrXVoZVv8e/qaikBpQ=
+	t=1785016860; cv=none; b=mMthFa1Q/Ksw4tO1T7a9atZJJmtt9xwajbSCOAz/QDIA41zyEF8B/LBvGziA+q+S0AHg4owMpyhKOSCX0afAiRkNxYAruQ6/9c6wgsfarUj3Xetn3/2MWInpG9kh7cVt6YJ937b9OzdYAMP2qiJvrjen6N+UZVeRLJ0GbZo1pWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785016696; c=relaxed/simple;
-	bh=Epth2ZLUWzDJnM1AjRHfGIIdlXfu5lcDmpaRuSef8Cg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Yt855TTfp8HNWD0gsIm69dKwGy2BtsmwI/uiQMZAjKg6/LFnNIlVR7WlhehNxMMcw1R40cxoS5uM0KeoMSrbILKLu8/Uz/mZK48uoPhUFY8dt2TjBmVHFiXX9Q5Dk30SvUcgPOX+HX574f+Oh9xfy5BoeJxuWyb1GEjvRZqm3s8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VfcSe8CH; arc=none smtp.client-ip=209.85.210.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785016860; c=relaxed/simple;
+	bh=xrlUg1NEi9GbbfyeOUapud73Dliurvt3+VKo9N+dHho=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=tvNvShjV2OwazkNcRBg0Iygx0Xls+CG9hVZuRqUvPOqyG4AzW1GyfTjhfGow9nd4tJ7/WVDkFeg2h7T4wIVkJZjxtJzKf7MbCWOrqBq4sOEg6xqMcCMURbSuG3sPu3Sd7ZdXpWXCNPRv15u6kbnPKxQxVRcyuLA5T0wk3Zk8jjs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dbJ5Ec2B; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VfcSe8CH"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-84e27035206so1474052b3a.3
-        for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 14:58:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785016694; x=1785621494; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=seeewYXoR94yHU0Jb4LssP0T9jXVvg/3bB6Rnh2Pz3s=;
-        b=VfcSe8CH3HvkZG9ca7F46+3O8otYkw4pi99E/wp5zgXTYidfWz6rLvM05kWDikauNQ
-         GmLbyuSOz5GwAcT2hFhro9dD87Yzqtp+nNsTT4Tb61SAHCKjDsU0Q8RY7uVflJE0OaAg
-         6hPzMx2OeANW22TBRlffCzE4dzhM3DOj4GfYWjAQpq5QgdvRShkbLldtZRTv1uAoMeTD
-         zjxlW/SrN5/Gfq/Yp6xbD8K2orVTrrYn4LPMIIvX75ayxns5XWlT3odh8uxyftp/v2qL
-         Q9YNjnqeDs5RSMLyW9WEkjGaIccxDvxV+09VImVVTCKNhPlJEppA0j7CHG0lNOIqqDDf
-         KOww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785016694; x=1785621494;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=seeewYXoR94yHU0Jb4LssP0T9jXVvg/3bB6Rnh2Pz3s=;
-        b=NYzsxPXco0Ilpo1NvuWjslD7w9tkWIK0HjUxJ7YqfDDfj3dAP3X5XxEueDfci2XnVh
-         ljHobKuVbhAd7oyywS11RYBP3NFfza6O/2nOEU3M/r3lWHahAXJ5huVj1v7HLgf6WI03
-         EyBlZDpAL5oXGEkaqUGYS3kVSvnn1Mm0jbE4ziphAb3N7veIsn0C0VToRgMvRhbq0Wdr
-         001tV/BUKX0rkkeFzzhre0qMUyMMoBrCjyEpy8MV//x03Drh8484y43zoNL9RFIoP5k9
-         N9FarnZExkauJixt5gUgG4dwiaB87o3O3JiESt7hq5GybxfpxcNA+/iaVw+lUTLCq9lO
-         1Nxw==
-X-Gm-Message-State: AOJu0YyIx42exaTTRAX61itI6r3aWwkWouKbuHJ/8fYbvQVWGJjc3+Ah
-	ljlchNzYHwp7JfUES0W/dIzVqPBI3onr/YR1v2LVHcCacrhuQK4k6pwTkU864Q==
-X-Gm-Gg: AR+sD11v9mhEkB2AsidASpU5nlMp/OJ4A03NWMRVNwsrk6NO7MjSPCNJ7HuRH/P67Xr
-	jpMhgsDayW9XBaqG82/aQfonXkVELRnbPbwgqVHb9nYWd/dbUf/7xiFpZ7mV1Rd9zGafF5DMwm7
-	Pj1bw0znkC6VAHAv37OdcqUo584jb9eRQvUoGYF5D3DdTL/H5HtEN4ulE4GBFrzLxJNdc7weg1L
-	XMHRj5QsD9CeqiDFXx0rh1rIpZBp1SUaa7KMFT1b1quySo5XT11VP3KVrVVKz/1cTbyOh4SH14Z
-	twH0pdFbTPwoEjvBPXBuQWeELPtWO+lwbkI8SISgseERSh+DMHSowfr2qejWPEdr/Qp2mrB0XBk
-	FBr9MDUroEm1dmtq/ftpx5Xo9iLkA2ieOi09fyKAYJKOiyG7ZpKxpUzqC0aYv2gMIBLuWWxAE3O
-	fW9GD3WsvnZ61KSkWXMvEsoIAgOsvtQ/2/Ke24RewHzR0+WXpBFxQakFCC+lQS07XxtVRs0O9J7
-	wPPI+VFBUyArFBlTwmtSUm8m28DFFvhojBTbrZbs81oRPbRKXTlWz4=
-X-Received: by 2002:a05:6a00:8d0:b0:848:60a3:bdc2 with SMTP id d2e1a72fcca58-84e5956c456mr2427856b3a.60.1785016694068;
-        Sat, 25 Jul 2026 14:58:14 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e5327f3fbsm1375376b3a.19.2026.07.25.14.58.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 25 Jul 2026 14:58:12 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: devicetree@vger.kernel.org
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
-	Hauke Mehrtens <hauke@hauke-m.de>,
-	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-kernel@lists.infradead.org (moderated list:BROADCOM BCM5301X ARM ARCHITECTURE),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] ARM: dts: BCM5301X: EA6300: fix USB3
-Date: Sat, 25 Jul 2026 14:58:09 -0700
-Message-ID: <20260725215809.9464-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dbJ5Ec2B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 902C31F000E9;
+	Sat, 25 Jul 2026 22:00:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785016858;
+	bh=SFqkGYUxzSiJIKuxWzyAKpLvpZ10VnMtnwscn2LdZ+M=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=dbJ5Ec2B+CNlBMUERbuexuVOoYG4Wr2VmfaOEQ3nkHHuarPOJqUl62Iwae76duceX
+	 nbpj8VVd08A/oEzlKKWKpgDqmDmwEk8slYilOt1Yyx3Ex6KZfKh0mOooX/Mq5QJrV2
+	 9Y/UMsi67sK065QQwsOvS95Q0G9zn5AKusUm9Qr+AbyUqhncub9gNOSkqi/De80Vp0
+	 4rRA9yhA7uewRKD8sEVhLCUIwhkanHFm9hqa1VVIOIk7Mq3/TPn411jf7jiAIBtyGy
+	 /vUac1Sw15vU1pGAtS1vSTFJCW11Iih/1ETW0YRu8ZtUf6Nm7YMqD5ND7Gmu7CCp7D
+	 KrZFlByoRBBjA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] ARM: dts: BCM5301X: fix PCIe controller 2 second
+ interrupt
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Rosen Penev" <rosenp@gmail.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260725215722.9323-1-rosenp@gmail.com>
+References: <20260725215722.9323-1-rosenp@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 25 Jul 2026 22:00:58 +0000
+Message-Id: <20260725220058.902C31F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-USB3 needs to have a GPIO pulled HIGH in order to function. Add vcc-gpio
-to do so.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The commit message inaccurately claims that PCIe controller 2 ha=
+s interrupts 0-4 mapping to GIC SPI 138-142, omitting the mapping for inter=
+rupt 5 to GIC SPI 143.
+--
 
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- arch/arm/boot/dts/broadcom/bcm4708-linksys-ea6300-v1.dts | 4 ++++
- 1 file changed, 4 insertions(+)
+--- Patch [1]: [PATCH] ARM: dts: BCM5301X: fix PCIe controller 2 second int=
+errupt ---
+commit 61d1b598a171b93e277ba55c095b09aad8291a33
+Author: Rosen Penev <rosenp@gmail.com>
 
-diff --git a/arch/arm/boot/dts/broadcom/bcm4708-linksys-ea6300-v1.dts b/arch/arm/boot/dts/broadcom/bcm4708-linksys-ea6300-v1.dts
-index 44cf867b223d..a772db0121fb 100644
---- a/arch/arm/boot/dts/broadcom/bcm4708-linksys-ea6300-v1.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm4708-linksys-ea6300-v1.dts
-@@ -51,6 +51,10 @@ &usb3_phy {
- 	status = "okay";
- };
- 
-+&usb3 {
-+	vcc-gpio = <&chipcommon 10 GPIO_ACTIVE_HIGH>;
-+};
-+
- &srab {
- 	status = "okay";
- 
--- 
-2.55.0
+ARM: dts: BCM5301X: fix PCIe controller 2 second interrupt
 
+This commit corrects the interrupt mapping for PCIe controller 2 in the
+device tree. It updates interrupt 1 to map to GIC SPI 139, fixing a
+copy-paste error where it was previously mapped to 138.
+
+> PCIe controller 2 has interrupts 0-4 mapping to GIC SPI 138-142. The
+> mapping for interrupt 1 was incorrectly set to 138 due to a copy-paste
+> error. Fix it to 139.
+
+[Severity: Medium]
+Is this description accurate regarding the number of mapped interrupts?
+
+Looking at arch/arm/boot/dts/broadcom/bcm-ns.dtsi, the device tree explicit=
+ly
+maps interrupts 0 through 5 for PCIe controller 2:
+
+			/* PCIe Controller 2 */
+			<0x00014000 0 &gic GIC_SPI 138 IRQ_TYPE_LEVEL_HIGH>,
+			<0x00014000 1 &gic GIC_SPI 139 IRQ_TYPE_LEVEL_HIGH>,
+			<0x00014000 2 &gic GIC_SPI 140 IRQ_TYPE_LEVEL_HIGH>,
+			<0x00014000 3 &gic GIC_SPI 141 IRQ_TYPE_LEVEL_HIGH>,
+			<0x00014000 4 &gic GIC_SPI 142 IRQ_TYPE_LEVEL_HIGH>,
+			<0x00014000 5 &gic GIC_SPI 143 IRQ_TYPE_LEVEL_HIGH>,
+
+Could the commit message be updated to mention that interrupts 0-5 map to
+GIC SPI 138-143?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260725215722.9323=
+-1-rosenp@gmail.com?part=3D1
