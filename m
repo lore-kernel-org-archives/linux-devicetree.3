@@ -1,155 +1,133 @@
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46C3932B12B
-	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 20:57:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E04A17B418;
+	Sat, 25 Jul 2026 21:08:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785013031; cv=none; b=Xnw9uuAa+Z9yLD3qn7ySEnKIW+CNN/BMUXmv2How2HIIiw7ITnm5p+efEuTNnLlCz38X1F2C0KVIzF5OOk6B5MgkCx9AzOJrKnY+7pZ4B7BbdO5TkPZZsvUFBpXuEzD8fX0j5b2XF/10XG3l9oaVeLyFxWHTWSSa/4+J3zx8Sws=
+	t=1785013683; cv=none; b=H3KiUeQvde20mQ3t4uvQQ1Xx+td/hmkXOYtAEXJFkM9PS36W5h5Obm9nXYnWGTJoJs2g5vVbxUA0tM21Uhws2If7+1Mu/tscWd4V4MWauGRVTkJ7M5zkf5iyPX5X2AahQKdMoi2wY2povza5MfnEu97jPmK3gE1ieOe/QEOQFAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785013031; c=relaxed/simple;
-	bh=Sywa6/Ye08B6vTkrcTaHJZX5fieJQ2q2ifsiIriTUl4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IPv7ij62ELZCdOJZW6QzZ29qAZ3C12hJOYb31AuuvPECJqXsIqXjEUZTlzugP8iKdl4pdlgcqS4ew5hsRznYhd9nJAp5nGCvsvip3loTHHrhDhvDu+i2P6AyS3S4LAzw9YWDEjiCVk+fG6hY78ov+LZi4gl9ss60pW9Q6Xu+FQM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=XgXGecnW; arc=none smtp.client-ip=209.85.210.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1785013683; c=relaxed/simple;
+	bh=WCKwmnv+Dre8IIde9Vio1GITjiopZo5e8iu1MsCuha4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=khQUuMqGU684M6PJCqY5tUZidqFXECp1h3WM0C3EF5158fojNW3SqMq8iEA2a1zlTGklTcoaAHQ3JzLVV9O8jsGne9pTRIBXNwiLPtTjynN5bibBqBS6EXtmQztw6rYkKupHeAQrnl+TQwPta6EEvbEdrMcG/ZB8NaGGReZU23Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gLTGreJ1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="XgXGecnW"
-Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-7eb42a2f5feso616029a34.1
-        for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 13:57:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1785013029; x=1785617829; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7BJq+VUPT3xZNhGxvs3I7o0afQFSkLHmMhg0Yb2V7f4=;
-        b=XgXGecnWc2nEmXeTMJu4aE+7fYlkAajlinZaSfzJqoYWHspr36w66qq6lE9JiL1rO/
-         YGJj13SiwXIjqC/4fp5RVpVhP+onvxpmqUXUGOO6Sp9UMx0vhZqVCKcMRe3rQpmFBwKP
-         8Crb3Gk/URnYS6g5TZzGm2cg3gXqzNmSTsUfThmm+zgXR8DkG8GDZkIvNeGq6QlM/kab
-         7ho5dDQ3jzpmKLdh7Bp+FGYNTWBeLcEQ1AJ/eW+0ns9/RvHv+BCjcZEcJtrG9FOtuS0w
-         r0cnJdzeGZ979yUmbd4DmcrNg89ZdbNvpAxuQH0N0t2JeghqlXP6zblvP6+ZvRnS0OS5
-         MaKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785013029; x=1785617829;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7BJq+VUPT3xZNhGxvs3I7o0afQFSkLHmMhg0Yb2V7f4=;
-        b=KAz0kvfnRUaHySbNDvQvhb5h0h9qWuPEBsZqbzHgkQjI8eBCH4RHMfigNgbpi8AQDN
-         1My8726y5di7MBtUGqoh5QnDGsmMUqhdFBvzVBy2mYbNo2dSG0mnvyuDFEERTaM+QEG0
-         a0PmzZWJw342zpHrHyqudcH59/IKN3fitp4+SOslPiaYNVypL332ztJqk+MnFrikjFn3
-         ap7XOlHW4JeDSNnB39GI1W2QTQOW55RHHTgF5qZnpwaE82phVJbPph5W5jSziRZV/XuA
-         n/Ifox1CsMbSsGbvwX04KDbBN1l7ouyJ+KlVfARB+wxipd/ysRB5XtDCxkHMvDIxfrxJ
-         /3nQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrAUJBwD7zuJi4nkKG9ioYU85zQ3atnuyQwBKwjGidb/Qu1YGVL1sJFXCnxP2Fz8jT6/VAgu9WtySbh@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx9b1TCB/B/d+BGDf5XmuG01fsfU8B/48SS46hcha1Wf1KbRKxk
-	kUY0DQRWOKkIWAQlCUcDWe5KVFvQKebUmgHCVLC8pBCvaP7FpecVDhiu3w5D8OS3NRk=
-X-Gm-Gg: AR+sD11R5sJCEgXhzS0gQLfqFr8ufhwo3qUOZPH6zp/TMovKaNdYKe4W/9Zi6aX2t8T
-	OmxuwOhHxyg4xDd13xfvoQN6IWBEXdcHaO/h4Kx7VISm/wOJ70yKqAIYILG/JjnkNJ6LH7btIuD
-	n83ItNxbyU2KGelHmaMdqgEcQg11B0JLmliUM584jRl9TI2H/qrLSAtUJlLQJaouYlPicdhhZqz
-	Pjs6KbsnYmOaFiJ8yiZ/lvdIwuvlcHAYnFctZNiFs9HCcwco06Pn/YdWZnNz27vZanXsavuBYZ6
-	n5JsphGW/SsmVNkN8ux2cHQ0b/IGSZdmvTLUnb1c6M8f+TAlPr+5Ph4i9C7rTm1rsf+3vQWin9R
-	0r+QlzN/BeO9c0RP+rkpNCcPnT+CIZSxZWKPceTze2nX6wp81Uq6nwBI96jUl9NpTW/9WiyQIBV
-	sEfPIBjfdshXFDS10gnh6wI8EOjtYb8d5eEqs1OKSS5NXtYWe2r/0k
-X-Received: by 2002:a05:6830:2906:b0:7ed:ceed:95b9 with SMTP id 46e09a7af769-7ee78d2ae71mr2872531a34.32.1785013029154;
-        Sat, 25 Jul 2026 13:57:09 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:677a:56dd:37eb:cf53? ([2600:8803:e7e4:500:677a:56dd:37eb:cf53])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7ee2a0ad02fsm9782435a34.19.2026.07.25.13.57.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 25 Jul 2026 13:57:08 -0700 (PDT)
-Message-ID: <cb4098c1-4bad-4a11-9a6f-a833e554f197@baylibre.com>
-Date: Sat, 25 Jul 2026 15:57:07 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gLTGreJ1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AE881F000E9;
+	Sat, 25 Jul 2026 21:07:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785013682;
+	bh=zK2W7XnfhLHZwo5OuA5GVAxklIXTwrHCQBOa0VnhdYg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gLTGreJ11hwkRNoFwC3cBfg42SNt5MBiyteFJ9lToBppEJAc9E9+iQl2CFQwK+Tr0
+	 /p0KE2vzWrlC3MbmL+dJ9nhDI0wNk+LSdLSnJJCdkDHSic9bcWYw5ASKFtx8uBZMUr
+	 0mm78o31amOEbsYT4GqQmFdvp+TU5ToZITWGmWKSs21UfXQ9VBI0qK+B1y1WPTR6ZH
+	 FUzxrwWKCqeYL/r1yRKuzsJ3jyihGx0q3r2wbdMnCZ4kHLujmr7UWGrEQmP43Qq0BD
+	 ie+LMoFVYRUWsLn6r2ezAdAQGKta/3fzGG8YEp5s/n3E7Pp/PMXUoVGErFy+S/IDKz
+	 CjHAzt50qifhA==
+Date: Sat, 25 Jul 2026 22:07:54 +0100
+From: Lee Jones <lee@kernel.org>
+To: Markus Probst <markus.probst@posteo.de>
+Cc: Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Pavel Machek <pavel@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	platform-driver-x86@vger.kernel.org, linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v18 0/2] Introduce Synology Microp driver
+Message-ID: <20260725210754.GE3526803@google.com>
+References: <20260724-synology_microp_initial-v18-0-fb2f49f10e77@posteo.de>
+ <20260724184128.10861-1-work@onurozkan.dev>
+ <ad14014c1faf415d51b494d57100e47c5f8234ad.camel@posteo.de>
+ <20260724202036.14055-1-work@onurozkan.dev>
+ <2da3a7a15cce427c4171d45e172d99b47bb52043.camel@posteo.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 2/7] dt-bindings: iio: adc: microchip,mcp3564: Add
- spi-device-addr
-To: Janani Sunil <janani.sunil@analog.com>,
- Lars-Peter Clausen <lars@metafoo.de>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Mark Brown <broonie@kernel.org>,
- Marius Cristea <marius.cristea@microchip.com>,
- Marcus Folkesson <marcus.folkesson@gmail.com>,
- Kent Gustavsson <kent@minoris.se>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- Janani Sunil <jan.sun97@gmail.com>, linux-spi@vger.kernel.org,
- Kent Gustavsson <nedo80@gmail.com>
-References: <20260722-ad5529r-driver-v7-0-7781cd74ad75@analog.com>
- <20260722-ad5529r-driver-v7-2-7781cd74ad75@analog.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260722-ad5529r-driver-v7-2-7781cd74ad75@analog.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2da3a7a15cce427c4171d45e172d99b47bb52043.camel@posteo.de>
 
-On 7/22/26 2:54 AM, Janani Sunil wrote:
-> Add the generic spi-device-addr property to the binding and deprecate
-> the existing vendor specific microchip,hw-device-address property.
+On Fri, 24 Jul 2026, Markus Probst wrote:
+
+> On Fri, 2026-07-24 at 23:20 +0300, Onur Özkan wrote:
+> > On Fri, 24 Jul 2026 18:45:56 +0000
+> > Markus Probst <markus.probst@posteo.de> wrote:
+> > 
+> > > On Fri, 2026-07-24 at 21:41 +0300, Onur Özkan wrote:
+> > > > On Fri, 24 Jul 2026 17:10:44 +0000
+> > > > Markus Probst <markus.probst@posteo.de> wrote:
+> > > > 
+> > > > > Synology uses a microcontroller in their NAS devices connected to a
+> > > > > serial port to control certain LEDs, fan speeds, a beeper, to handle
+> > > > > proper shutdown and restart, buttons and fan failures.
+> > > > > 
+> > > > > This patch series depends on the rust led abstraction [1] and the rust
+> > > > > serdev abstraction [2]. The latter already being in driver-core.
+> > > > > 
+> > > > > This is only a initial version of the driver able to control LEDs.
+> > > > > The following rust abstractions would be required, to implement the
+> > > > > remaining features:
+> > > > > - hwmon (include/linux/hwmon.h)
+> > > > > - input (include/linux/input.h)
+> > > > > - sysoff handler (include/linux/reboot.h)
+> > > > > 
+> > > > > [1] https://lore.kernel.org/rust-for-linux/20260716-rust_leds-v23-0-e91f5b608b56@posteo.de/
+> > > > > [2] https://lore.kernel.org/rust-for-linux/20260718-rust_serdev-v16-0-5809384d2e1b@posteo.de/
+> > > > > 
+> > > > > Signed-off-by: Markus Probst <markus.probst@posteo.de>
+> > > > > ---
+> > > > > Changes in v18:
+> > > > > - fix issues reported by Sashiko:
+> > > > >   - fix hardware blink delays not reported if every subled has
+> > > > >     intensity = 0
+> > > > > - fix blink aborting if every subled has intensity = 0
+> > > > > - Link to v17: https://patch.msgid.link/20260724-synology_microp_initial-v17-0-e2f70b4dc691@posteo.de
+> > > > > 
+> > > > > Changes in v17:
+> > > > > - adapted to rust serdev abstraction v16
+> > > > > - Link to v16: https://patch.msgid.link/20260629-synology_microp_initial-v16-0-601e91c49e0d@posteo.de
+> > > > > 
+> > > > 
+> > > > Hi Markus,
+> > > > 
+> > > > Please avoid sending multiple versions within a very short timeframe and give us
+> > > > some time (at least a day) to review before sending another version.
+> > > Correct me if I am wrong, but wasn't Sashiko reviews the exception to
+> > > this?
+> > > 
+> > 
+> > To me, that doesn't make much sense because it effectively means you could send
+> > 3–4 versions depending on how Sashiko behaves. Imagine multiple people sending
+> > large patch series several times in a row (and it could easily be more than
+> > twice). That would make things much harder for other people as the mailing list
+> > would become very spammy.
+> Yes, that would be an issue, especially in your example.
 > 
-> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
-> ---
->  .../devicetree/bindings/iio/adc/microchip,mcp3564.yaml         | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/microchip,mcp3564.yaml b/Documentation/devicetree/bindings/iio/adc/microchip,mcp3564.yaml
-> index 675319276197..de1ea289e7f5 100644
-> --- a/Documentation/devicetree/bindings/iio/adc/microchip,mcp3564.yaml
-> +++ b/Documentation/devicetree/bindings/iio/adc/microchip,mcp3564.yaml
-> @@ -80,6 +80,7 @@ properties:
->      $ref: /schemas/types.yaml#/definitions/uint32
->      minimum: 0
->      maximum: 3
-> +    deprecated: true
->      description:
->        The address is set on a per-device basis by fuses in the factory,
->        configured on request. If not requested, the fuses are set for 0x1.
-> @@ -91,6 +92,12 @@ properties:
->        clocking of the device address (BITS[7:6] - top two bits of COMMAND BYTE
->        which is first one on the wire).
->  
-> +  spi-device-addr:
-> +    maxItems: 1
+> A pre-review Sashiko mailing list would be great to avoid the issue
+> alltogether.
 
-Does it not make sense to all for more than once device connected
-to the same CS here? I would expect maxItems to be 4 to match the
-number of possible addresses.
+You can run Sashiko locally.
 
-> +    items:
-> +      enum: [0, 1, 2, 3]
-> +    default: [1]
-> +
->    "#io-channel-cells":
->      const: 1
->  
-> @@ -123,7 +130,6 @@ dependencies:
->  required:
->    - compatible
->    - reg
-> -  - microchip,hw-device-address
->    - spi-max-frequency
->  
->  allOf:
-> @@ -159,7 +165,7 @@ examples:
->              spi-cpha;
->              spi-cpol;
->              spi-max-frequency = <10000000>;
-> -            microchip,hw-device-address = <1>;
-> +            spi-device-addr = <1>;
->  
->              #address-cells = <1>;
->              #size-cells = <0>;
-> 
-
+-- 
+Lee Jones
