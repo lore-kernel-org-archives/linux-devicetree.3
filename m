@@ -1,54 +1,51 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A14945039;
-	Sat, 25 Jul 2026 22:07:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3EAC42048;
+	Sat, 25 Jul 2026 22:16:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785017268; cv=none; b=fojDvDx+ensG77AdB6EpD1Qt5jBibzgpPDVfNjd9x4IUrqREbXao37EvQ750K67aMXVJkMAfMR0S88MdzpTPkM5skHZuVdnDRSIKP5Nt68IIFrz94NuoWlInLQ5E4ix2IiKFr/aKh+thWdEIHTzOv3FGFWk5+A6ES3X/IOUtivY=
+	t=1785017767; cv=none; b=nUwmeVBJLKmZ6Objnbwy7CaLhQkoWDpuhrrpivQg5nhZuiLVL9QSIfdBuMdoWr84FjoWypvDAuuV5QS1LOn2UfEPjoyeQEKAw55xNvKXjGY6tGWMxbAhZPj17oWRzQscYehlIRlbOPyfMIPqlKif8XY2c4vyuZNLFJtDdeJZ0Kw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785017268; c=relaxed/simple;
-	bh=9hoBPLWjtW8H6/G9SFcJCKiStKt1yPcHqg7PfWX0t0s=;
+	s=arc-20240116; t=1785017767; c=relaxed/simple;
+	bh=bQyjKZ7gpY+DVg7XBLRNMeRTCAu69E2bYAxHP5tBIok=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tsEYY4riab2zyw5UUuENkgm9UNvzrnvpd5k53n8OHmm4nypthWDG7vBJbpVuv8Rs4UdwZ3xB2VgHbICHNZ5CVoiL0RHJIAWZQfxWWRog0WHfcVgF0IiNgA1nQjrp58nAxUuueuATPv3V9Owo8ONzJBgTtG8AipA/VS826DVp71c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cGCgcseY; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=eMDmyQQgKBFQYobYAMVvqt4qtQ6QGOQvCiVoT4Q+fRPnNXzaWPYdYK49IkViKids9FsxYWqZq9ow0FCJ/0BM1n9AUCvFgVMxTO7JrKJt6ym2qjrZ0h6pYFHm6fBC/0ZfgaQDTc+Lfvip1lx11XBWNOKsu+zps/diDo53/HRkjzc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gCY7fywO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cGCgcseY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE75A1F000E9;
-	Sat, 25 Jul 2026 22:07:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gCY7fywO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 692621F00A3A;
+	Sat, 25 Jul 2026 22:16:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785017267;
-	bh=Cv/aYRG/taYJih8iMhkHPxpMiNDEpXM4DMRQI2zjEUo=;
+	s=k20260515; t=1785017766;
+	bh=5ZKAddQE+9s6nkQA3GBq4kjWWjNkeT4NOUnjROL36M4=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=cGCgcseYNOov8g8Z8+k9oG+97EsclrawqMLIDMamVf0YR0v4M6QLv8vit/hZg+gIs
-	 XAq8xz5BfhgYtfEOrLm3I33WGN2kl8obaH0ATj5emNv4gI+wWGqy5YBqvgWMnvWQL2
-	 /tVtNDr9SJJZJCnWMzY7wdwv3G4TW0vHAAzFKK3IaZGrCvTOWqJ59RfY9VknHJPSFs
-	 kmSl50Pg0Fb7BkCz/jqiuJK6r6X9zZMNvvcNiV6sYTdEng3jTEaT45RgnB9TKB5nTS
-	 CKxmRxQkZIrkI4tcsKSmjH79bvrpS/i/pkghq+YVsUNHyfD/84BJzvO5SLfVk53L/L
-	 yi9z8wdRJiJ4w==
-Date: Sat, 25 Jul 2026 23:07:39 +0100
+	b=gCY7fywOoZqGJVLJZkjB40Eoj5zYto1TS0/JvO0DlDCIhTRzksbpP+YklvcbX9hUK
+	 4vCaH+F5CgRif0jXVyQVKrw+wTsoBvW4NIQ7vESqZeHDij0W2Hgd438fKOpRJUtAEi
+	 0NE9JFINMnCvGHv5Jos9c0GbDzX0hqtgW7PXmXaO+uriH4GSugcIqpNre9qnIUneec
+	 j4KY4uioWtQlaLpQehqg3A2fnA1+GfMej9o+Uh5D/jXoDCeSrDn7pRVbq4aKTGwhL6
+	 AbaH/thWCnGuvzpDhrXVgm+tMk0ZtZQiGHEh+32WCN2VskbBvdUXS4pQpIDBAisHzf
+	 AuXnZAArfQXaw==
+Date: Sat, 25 Jul 2026 23:15:53 +0100
 From: Jonathan Cameron <jic23@kernel.org>
-To: David Lechner <dlechner@baylibre.com>
-Cc: Janani Sunil <janani.sunil@analog.com>, Lars-Peter Clausen
- <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Mark Brown <broonie@kernel.org>, Marius Cristea
- <marius.cristea@microchip.com>, Marcus Folkesson
- <marcus.folkesson@gmail.com>, Kent Gustavsson <kent@minoris.se>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, Janani Sunil
- <jan.sun97@gmail.com>, linux-spi@vger.kernel.org, Kent Gustavsson
- <nedo80@gmail.com>
-Subject: Re: [PATCH v7 2/7] dt-bindings: iio: adc: microchip,mcp3564: Add
- spi-device-addr
-Message-ID: <20260725230739.63ff7000@jic23-huawei>
-In-Reply-To: <cb4098c1-4bad-4a11-9a6f-a833e554f197@baylibre.com>
-References: <20260722-ad5529r-driver-v7-0-7781cd74ad75@analog.com>
-	<20260722-ad5529r-driver-v7-2-7781cd74ad75@analog.com>
-	<cb4098c1-4bad-4a11-9a6f-a833e554f197@baylibre.com>
+To: Rodrigo Alencar via B4 Relay
+ <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: rodrigo.alencar@analog.com, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, Lars-Peter
+ Clausen <lars@metafoo.de>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp
+ Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, Shuah
+ Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, "Gustavo A.
+ R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH v9 07/17] iio: test: add kunit tests for channel prefix
+ naming generation
+Message-ID: <20260725231553.6be8b2eb@jic23-huawei>
+In-Reply-To: <20260722-ad9910-iio-driver-v9-7-459d1df5ac56@analog.com>
+References: <20260722-ad9910-iio-driver-v9-0-459d1df5ac56@analog.com>
+	<20260722-ad9910-iio-driver-v9-7-459d1df5ac56@analog.com>
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -59,73 +56,61 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Sat, 25 Jul 2026 15:57:07 -0500
-David Lechner <dlechner@baylibre.com> wrote:
+On Wed, 22 Jul 2026 16:50:16 +0100
+Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
 
-> On 7/22/26 2:54 AM, Janani Sunil wrote:
-> > Add the generic spi-device-addr property to the binding and deprecate
-> > the existing vendor specific microchip,hw-device-address property.
-> > 
-> > Signed-off-by: Janani Sunil <janani.sunil@analog.com>
-> > ---
-> >  .../devicetree/bindings/iio/adc/microchip,mcp3564.yaml         | 10 ++++++++--
-> >  1 file changed, 8 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/iio/adc/microchip,mcp3564.yaml b/Documentation/devicetree/bindings/iio/adc/microchip,mcp3564.yaml
-> > index 675319276197..de1ea289e7f5 100644
-> > --- a/Documentation/devicetree/bindings/iio/adc/microchip,mcp3564.yaml
-> > +++ b/Documentation/devicetree/bindings/iio/adc/microchip,mcp3564.yaml
-> > @@ -80,6 +80,7 @@ properties:
-> >      $ref: /schemas/types.yaml#/definitions/uint32
-> >      minimum: 0
-> >      maximum: 3
-> > +    deprecated: true
-> >      description:
-> >        The address is set on a per-device basis by fuses in the factory,
-> >        configured on request. If not requested, the fuses are set for 0x1.
-> > @@ -91,6 +92,12 @@ properties:
-> >        clocking of the device address (BITS[7:6] - top two bits of COMMAND BYTE
-> >        which is first one on the wire).
-> >  
-> > +  spi-device-addr:
-> > +    maxItems: 1  
+> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 > 
-> Does it not make sense to all for more than once device connected
-> to the same CS here? I would expect maxItems to be 4 to match the
-> number of possible addresses.
+> Add a KUnit test suite covering __iio_chan_prefix_emit(), the helper
+> that builds IIO sysfs attribute name prefixes from an iio_chan_spec.
+> The suite groups cases by the enum iio_shared_by mode it exercises:
 > 
+>   - IIO_SHARED_BY_ALL: produces an empty prefix.
+>   - IIO_SHARED_BY_DIR: emits direction only ("in" / "out").
+>   - IIO_SHARED_BY_TYPE: emits "<dir>_<type>" and the differential
+>     "<dir>_<type>-<type>" variant.
+>   - IIO_SEPARATE: covers the full matrix of indexed, differential,
+>     modified, output and extend_name combinations, plus the two
+>     documented error paths (differential without indexed, differential
+>     with modifier).
+> 
+> A final case exercises the seq_buf overflow path by passing an
+> undersized buffer and expects -EOVERFLOW.
+> 
+> Also, an entry is created under MAINTAINERS dedicated to tests for IIO
+> core helpers.
+> 
+> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+https://sashiko.dev/#/patchset/20260722-ad9910-iio-driver-v9-0-459d1df5ac56%40analog.com
 
-I think for this part their isn't a reason to aggregate.
-No magic accesses that touch them all at once.  So this hits
-exactly the point you raised about how we set the address for
-more than one of them.
+Calls out missing MODULE_LICENSE()
+
+If nothing else comes up I'll take the SPDX tag as expressing your preferences
+and add the missing macro.  Please do shout if you'd prefer something else!
+
+Please check the reset of sashiko though.  I'm not sure on the firmware
+related ones (new I think?) and have to much of a backlog to go digging
+today.
+
+I might comment on some of the others as I take a fresh look
 
 Jonathan
 
-> > +    items:
-> > +      enum: [0, 1, 2, 3]
-> > +    default: [1]
-> > +
-> >    "#io-channel-cells":
-> >      const: 1
-> >  
-> > @@ -123,7 +130,6 @@ dependencies:
-> >  required:
-> >    - compatible
-> >    - reg
-> > -  - microchip,hw-device-address
-> >    - spi-max-frequency
-> >  
-> >  allOf:
-> > @@ -159,7 +165,7 @@ examples:
-> >              spi-cpha;
-> >              spi-cpol;
-> >              spi-max-frequency = <10000000>;
-> > -            microchip,hw-device-address = <1>;
-> > +            spi-device-addr = <1>;
-> >  
-> >              #address-cells = <1>;
-> >              #size-cells = <0>;
-> >   
+
+
+> diff --git a/drivers/iio/test/iio-test-channel-prefix.c b/drivers/iio/test/iio-test-channel-prefix.c
+> new file mode 100644
+> index 000000000000..d049e4222c40
+> --- /dev/null
+> +++ b/drivers/iio/test/iio-test-channel-prefix.c
+> @@ -0,0 +1,304 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Unit tests for IIO channel prefix generation.
+> + */
+
+...
+
+> +MODULE_IMPORT_NS("EXPORTED_FOR_KUNIT_TESTING");
 > 
 
