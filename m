@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28BD539183B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41F6439185A;
 	Sat, 25 Jul 2026 08:59:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784969983; cv=none; b=IwmXESj9W0bzy6beXzuKFzHRFSpt64W2UAnOaWi15lXKv+fiCa7W20HYPIUCy2uCJrmSxN06ydXG+oGlY/Vv/3Kd92mqc0HBG1w7QFijPKaCberztT1FbfMN/9RHTQJYn8sQsqAJa/pbwLCZuRD7E8HR1Li2YIR1JsDVJjBjQrQ=
+	t=1784969983; cv=none; b=ArrcwU7UXtmuyDvPzHm3JzjKb47lZBef/NnZMa6d/IaI7Zi5nHP9mbDDJlXgH2sa51BXP4a7EQYo7nUaNJ/wFLoYD3lliRMZ0N+gVtWM+EEeTY69mFTd2N7cuOzNDlksKv3bQPaFpnwDrmoPp7O90633dGUjH7B7ywOa2I0MNfs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784969983; c=relaxed/simple;
-	bh=NgSSbWDnO6CxVFfsF+Pnh233e34/8qV4kIPNvfIG0vQ=;
+	bh=gJCqQ+ls6Akl2xg5rfI3vBzdw6CDZdsdxI56pKMlR84=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=r/nRhfDnYwv8cB0aA7nrZPRbWjNu7Q+R2wX74uonlLY1WCSOQ73CI3J6Gn6BxfWZtgZM5ZXcnLYc0DI2LTrEWh7CORHopHehj19qVQgQvIohJScPRTYZ11ezUp/uNuKEhYTAO+gEqwQ0xINW1C7v9nE3DMdedhQw+lMXDMLqmVk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=chuIffI1; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=jRbdAt92GKqUwMdWWBu2mNfbB2YB+xkTc9FqLQHwB0R7rQWRS9ilQoa9Co0sasID5Rm392RaMiGQJNeAYAEa1Yhs0HrdbBcNp2MeI2920s04d3oEwSyzFuOmmKYWLqC0iNL/p4wsB4pqbNxiK+Bmls0lAXPLCoUhJ1cS7FBQ8T8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oo1Kgu/F; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="chuIffI1"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CD64FC2BCB8;
-	Sat, 25 Jul 2026 08:59:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oo1Kgu/F"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 11F7DC2BCFD;
+	Sat, 25 Jul 2026 08:59:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1784969982;
-	bh=NgSSbWDnO6CxVFfsF+Pnh233e34/8qV4kIPNvfIG0vQ=;
+	s=k20201202; t=1784969983;
+	bh=gJCqQ+ls6Akl2xg5rfI3vBzdw6CDZdsdxI56pKMlR84=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=chuIffI1ubnOH+pEVkhBkFwwdYjTJPSBTv+CSmR5Ddq0DSOW+wkkDdgfA3uVlcMPT
-	 k30t/i9JgHsA5txrQb7u8i6gzdbuxALVymjOO9N9OE3AjHucwNCnBx63i2wbPvk0cq
-	 oVRcslGdpldMOJY7h1iwPPBOJEW/Gww0dBmV7SmPZmZbPRHNQTZRuMuAQZJyXuel41
-	 JAEVmjDkHLMG91HlyF5dxkWekKmGauOcFA7kYNoZO3QyRWLFGnQNptXt+kgfZGvhXP
-	 k3l+MJiaBgwyoInpRus4cgYVEDBwurB0p8ps9cNNDpWGdB/wtq5z2D1+/a3umoY3u9
-	 K4klU6EAp1S0A==
+	b=oo1Kgu/F6fU2Eo5OQahAIFu1EUv2t/odZBqaS/P1zsK8PKdIxLqPWD4XAdxxy8liE
+	 +9ABDQMwJaZ8xZ2WDVd8HEh49tPy3shZ2oxhUEaw+cbFCR9TNkoh8nCXGd47HXl/Wg
+	 qm0dZWrXiAZvH+XH/kLkc0aSVaEWM4cYfuNRhqcEwYRwtQl8skjjDwSwLgu84uYQgz
+	 IvoICDrJ5/bnqm5+wouoJSFDIrU/Desr3ZWkgXBp8fbnIC/cGBofbgPI69wxC21Cbe
+	 ZNisQkpBCsKcgyKGxvy7WFzi5SQlNgbBk6gSW8QJgNvrwjUjFvGk6zgYmN0mMdDOn9
+	 GWcIX0lNINbzQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ACB62C531C9;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EE457C531C9;
 	Sat, 25 Jul 2026 08:59:42 +0000 (UTC)
 From: Manivannan Sadhasivam via B4 Relay <devnull+manivannan.sadhasivam.oss.qualcomm.com@kernel.org>
-Date: Sat, 25 Jul 2026 10:59:13 +0200
-Subject: [PATCH 1/6] dt-bindings: PCI: toshiba,tc9563: Restrict Tx
- Amplitude, DFE and N_FTS to USP, DSP1 and DSP2
+Date: Sat, 25 Jul 2026 10:59:16 +0200
+Subject: [PATCH 4/6] PCI/pwrctrl: tc9563: Skip Tx amplitude and DFE tuning
+ for DSP3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260725-tc9563-fix-v1-1-ec4286e31331@oss.qualcomm.com>
+Message-Id: <20260725-tc9563-fix-v1-4-ec4286e31331@oss.qualcomm.com>
 References: <20260725-tc9563-fix-v1-0-ec4286e31331@oss.qualcomm.com>
 In-Reply-To: <20260725-tc9563-fix-v1-0-ec4286e31331@oss.qualcomm.com>
 To: Bjorn Helgaas <bhelgaas@google.com>, 
@@ -57,16 +57,16 @@ Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, Alex Elder <elder@riscstar.com>, 
  Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2392;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1891;
  i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
- bh=2krJ+Gl92wRTcPKqXItla8eODcjbHgeoYFXahBYG2pU=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBqZHr6GfqZP1O6wg6ZdYOJhuB6Pnrk+LD1NamFs
- f1d4sqK8ceJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCamR6+gAKCRBVnxHm/pHO
- 9SzmB/wJLR15r38GlMgy4fVT3L3qnm69jIjilA1lEsYNbcXJXZi0y6UugCxATLL45NED5KoAbUX
- cZjbRGF8+gmlyodDl9NvBGIZpK+8rj85noRq13V7Ej5tF5pNDHSu6vo3AjL7czZ4eG439H8WFP8
- tN5njts3qpL11EHUIVG1vZDImqFA6j/NeuGGCWfbkKQmujW+dAN42TVv7wbpPW/3gpq4QWFCcrY
- PBzfptiA538Q/f/dmo9JG6wfrbn3d64WcH4owl4Vcl6/eD16gRmBE/9iS1ryJYNAq8XiKzHZt1w
- gErpIyWrv5Q2rREHbK1bZdd0rrKJpYSWYc5nRmgnvt4ynmws
+ bh=EGn5tsg1B9QVm91PpLmPy5u1U7n/Z+bnKmRxSSYCALc=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBqZHr7SNsPHW/XY2MtS+D+0iYl7FOL7fzBOEsDv
+ nuI8tToBCiJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCamR6+wAKCRBVnxHm/pHO
+ 9aiIB/9oVyGHq7cs4RtEXJTvESJLfesplg08buYt36fnlVhHANez0x/wXJRmYJYLQskwdAbN+GP
+ QMJFGGCfr5lCKA0FPbvNhOGee5iHjcJ28Ro1n7FyAHRZ1cMWRqmieXzhzpFYcDssFEYUXh+hWN+
+ 49F+GUWuTXBVz6PZ3XnGeErlLw1EsBclbJb5kKQ/00WgI2AXv43Ohg9m7bELF3nE2AlNk55D//N
+ JNMN60F4MdyEnjYImcKMa261HpflEY6Deoz+XueZowKjJb+x22GFOREhFyGHEWUL4zMWa3VIYYW
+ jXW3RZEzgJsH6jBXrC3POjtASr/UWcdvPo/AqUxMD5JlnzxE
 X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
  fpr=C668AEC3C3188E4C611465E7488550E901166008
 X-Endpoint-Received: by B4 Relay for
@@ -76,73 +76,56 @@ Reply-To: manivannan.sadhasivam@oss.qualcomm.com
 
 From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-TC9563 switch allows configuring Tx Amplitude, DFE and N_FTS settings only
-to USP, DSP1 and DSP2 ports. These settings don't apply to DSP3 and also
-the integrated Ethernet MAC Endpoint.
+DSP3 doesn't support tuning Tx amplitude and DFE settings. So just skip
+the setting if DT has passed the tuning properties. There is no need to
+error out the whole driver because of it.
 
-So restrict these properties and also move the
-'toshiba,tx-amplitude-microvolt' property to DSP2 in the example to conform
-to the binding.
-
-Fixes: 26f3ac884835 ("dt-bindings: PCI: Add binding for Toshiba TC9563 PCIe switch")
+Fixes: 4c9c7be47310 ("PCI: pwrctrl: Add power control driver for TC9563")
 Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 ---
- .../devicetree/bindings/pci/toshiba,tc9563.yaml     | 21 ++++++++++++++++++---
- 1 file changed, 18 insertions(+), 3 deletions(-)
+ drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/pci/toshiba,tc9563.yaml b/Documentation/devicetree/bindings/pci/toshiba,tc9563.yaml
-index b3ad05d90201..f084830c6d0c 100644
---- a/Documentation/devicetree/bindings/pci/toshiba,tc9563.yaml
-+++ b/Documentation/devicetree/bindings/pci/toshiba,tc9563.yaml
-@@ -54,7 +54,7 @@ properties:
-           - description: I2C slave address
+diff --git a/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c b/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
+index ca19bf60d290..28e9ec3e172a 100644
+--- a/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
++++ b/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
+@@ -308,6 +308,7 @@ static int tc9563_pwrctrl_set_l0s_l1_entry_delay(struct tc9563_pwrctrl *tc9563,
+ static int tc9563_pwrctrl_set_tx_amplitude(struct tc9563_pwrctrl *tc9563,
+ 					   enum tc9563_pwrctrl_ports port)
+ {
++	struct device *dev = tc9563->pwrctrl.dev;
+ 	u32 amp = tc9563->cfg[port].tx_amp;
+ 	int port_access;
  
- patternProperties:
--  "^pcie@[1-3],0$":
-+  "^pcie@[1-2],0$":
-     description:
-       child nodes describing the internal downstream ports of
-       the tc9563 switch.
-@@ -64,6 +64,21 @@ patternProperties:
-       - $ref: /schemas/pci/pci-pci-bridge.yaml#
-     unevaluatedProperties: false
+@@ -327,6 +328,9 @@ static int tc9563_pwrctrl_set_tx_amplitude(struct tc9563_pwrctrl *tc9563,
+ 	case TC9563_DSP2:
+ 		port_access = 0x8;
+ 		break;
++	case TC9563_DSP3:
++		dev_dbg(dev, "Tx amplitude tuning not supported for DSP3\n");
++		return 0;
+ 	default:
+ 		return -EINVAL;
+ 	}
+@@ -345,6 +349,7 @@ static int tc9563_pwrctrl_disable_dfe(struct tc9563_pwrctrl *tc9563,
+ 				      enum tc9563_pwrctrl_ports port)
+ {
+ 	struct tc9563_pwrctrl_cfg *cfg = &tc9563->cfg[port];
++	struct device *dev = tc9563->pwrctrl.dev;
+ 	int port_access, lane_access = 0x3;
+ 	u32 phy_rate = 0x21;
  
-+  "^pcie@[3],0$":
-+    description:
-+      child node describing the internal downstream port connected to the
-+      integrated Ethernet MAC endpoint of the tc9563 switch.
-+    type: object
-+    $ref: /schemas/pci/pci-pci-bridge.yaml#
-+    properties:
-+      n-fts: false
-+    patternProperties:
-+      "^ethernet@0,[0-1]$":
-+        type: object
-+        properties:
-+          n-fts: false
-+    unevaluatedProperties: false
-+
- $defs:
-   tc9563-node:
-     type: object
-@@ -154,6 +169,8 @@ examples:
-                     device_type = "pci";
-                     ranges;
-                     bus-range = <0x04 0xff>;
-+
-+                    toshiba,tx-amplitude-microvolt = <10>;
-                 };
- 
-                 pcie@3,0 {
-@@ -165,8 +182,6 @@ examples:
-                     ranges;
-                     bus-range = <0x05 0xff>;
- 
--                    toshiba,tx-amplitude-microvolt = <10>;
--
-                     ethernet@0,0 {
-                         reg = <0x50000 0x0 0x0 0x0 0x0>;
-                     };
+@@ -363,6 +368,9 @@ static int tc9563_pwrctrl_disable_dfe(struct tc9563_pwrctrl *tc9563,
+ 		port_access = 0x8;
+ 		lane_access = 0x1;
+ 		break;
++	case TC9563_DSP3:
++		dev_dbg(dev, "DFE tuning not supported for DSP3\n");
++		return 0;
+ 	default:
+ 		return -EINVAL;
+ 	}
 
 -- 
 2.43.0
