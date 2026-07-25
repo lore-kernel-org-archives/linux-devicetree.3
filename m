@@ -1,63 +1,63 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD4602E739A
-	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 14:59:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D47AB32E72F
+	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 14:59:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784991544; cv=none; b=ToX1CeZ9fzLi17rEvn4NETlMafQ6qfzmz1DAfXM3qP2qxkopT6cRBlybLLSdn6z9qUv5q/K2A7B4leY0oMx88YAmOaeQNJ9tGxNGkiEaIXkfq5gbr0cOM7M9sb+w6HCE15OdePUAioGAPoJbZbFIdw8jRYzPSNJBsMgwRB3Q/Pk=
+	t=1784991545; cv=none; b=WcY3LyrPOHAm0tzQNucG9DOp7+h61q2vZY3mId5qTpHFuLDJWThNnkNKusaMT5/I5iUDruPn0/smM981WNI+kxZ3rKMVxb0j+d0n7Z16AyQ3tLuAcsHGI/idtgWQckeVlh5Db7TYek+oevw4oleXTj0p4WNARGs4LdTwQZtLISo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784991544; c=relaxed/simple;
-	bh=Hjl8YUuwI2RUUAealAZ//gciV6VVdeB7BO6O20R4EvY=;
+	s=arc-20240116; t=1784991545; c=relaxed/simple;
+	bh=Pwd4YSfxEyl7HnB6nRuYBkHVUVP1n0LKb+GUrztoMgA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KIjsrOdP3M0ynMAWmEFTGGsoYz3FLIwnptRHrg7ad5Q7uRIa2KObdOn1fGV7FxAA5u6qCwKLoCFaq+zYHyeBR3eYsOALgCnhgCE+HQGAEPIi0MS7MPmK/jPSwDpclWXa25uYY097qw0UlbtzWs4uvcwH3DA/Hipbv7Ok1SeSPeQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gneozfZS; arc=none smtp.client-ip=209.85.128.43
+	 MIME-Version; b=iLZxlZ0EWw/8tYQfLsyKk+pvSFVDJ3pfGz7FP4vGz6aMhlqBTQA7v8maIEgXyoO7I5ukjd1GDzp79/EtYUf3kQNPcA962uNmCyG/cKElvbplnlwDdVlS8a5+zIUxS3GcdeD+d/ZCMh0pzmRqglZJW86c4A7xn6YDcIr3Chnp6Lw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nzJJuIZM; arc=none smtp.client-ip=209.85.221.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gneozfZS"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4954a2e73a9so8002175e9.3
-        for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 07:59:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nzJJuIZM"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-47f7854678cso820053f8f.1
+        for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 07:59:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784991541; x=1785596341; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784991542; x=1785596342; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=p9mT6kRYYeY4OTXZcaA4jx+EmFfcw5jGtIIdRPmXoAE=;
-        b=gneozfZSGR8PuRUgrHYGNEoO7yHN3tH1wIm6hbAkDyN44LX3riKsIZfOdeez5T2b6m
-         OQgt9byQ5z/kdn48bGRCXPPFaZHMIIYO/56WW5gtNdP7sjAqwS0yhI2F8qAEUIzkv8Ve
-         wBqiOgU6IkflziOJjNF6OJgAzPs0GG648VUE2jBkm703gE2QdGA4CB0/6CjaCGtTyZNJ
-         wmjgPX5PI1ivfLh2+xtu4AZNVmPI1cj7apCwqVXHuNm9cNEYW+smMtsYbPIwAvgIL0+v
-         IQ3aj6do+uHhplGnWfsfF9ou6jIODFVdpaYFtrTP7mLENKtuhX0Lam8psbjgKeMjf/Z6
-         vz+A==
+        bh=Xzb/s1u/mCU9WDH925m/XnJN8r8j9QkReDz7KZh82UM=;
+        b=nzJJuIZMxqWId/S3g3CVHY6P/pvhOITCFL4lJ/ohKyKumvMdYpTPW10rnLctZiFC54
+         zZ8UgQWkIeKxKS903tlnuz0rvM7XLP8nooGnpsNplkzNpuAsQhmAQQfr5/E/8oCzEjcB
+         V1iWCt9ggsW3R2HNiglA+XV+5xvpJw2fHsKD6jGdGYaUOjaaGpNAxWCz8RHSdYPAsd9C
+         pQa33WejQmvuG9oH06ZzFxmvVBJeSjhF525kJcTv3edrKf9DvEkf96k/9W3O1JOeuv2D
+         E9ve6ANFBHrYeqFegn7tAqJefN9blV5/2rWBtj9bUm0tOHbShabWV6/x3Ft4/1cxRG/J
+         nfbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784991541; x=1785596341;
+        d=1e100.net; s=20251104; t=1784991542; x=1785596342;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=p9mT6kRYYeY4OTXZcaA4jx+EmFfcw5jGtIIdRPmXoAE=;
-        b=bFgPJU8AOA+WeqiF7pbfhQZzaYh0748MkyQN4ymsYBzcSCOvfIqfAWwPa1lxweZIQ/
-         jUtRtoa9P8x8QnCShJ55AtufLLlyTTqVVjbDk/4AuFOAieHufdtdHzgtXEwmcWNQr/GH
-         54AJ1FABKj+kbj/HOlZYokXpS3MezfXqPYhZmFmBFRdFsEs3Ys0lQDJeglcCSI2e40uf
-         /G4U+Qws9LvSLkhsynGI9y8JNPK2xP5XiSPOCEsDxV17ULR5JJV1URa/fGCwIxqygPho
-         k0GOM2qCA2AmsQt1VK/ldUOE43murq9QyLGIfN8/3D1bGRHR2RBEzJvnfoeFyZWwJUzF
-         FcIw==
-X-Forwarded-Encrypted: i=1; AHgh+RrtrFcC+J4Capgk1Trpits5Nvh+y4bBaZ9Wh55RjfpBpXF/i2Zgpm1XMlBrK6QdBJowu8I55jgtRvHy@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz+FJ+xvB8nL31TgoPvIcHXTLtE09VKI/jK/GOoigGFfhOHDnNb
-	Irxgiq69eigVDsWLLktQzIvTWwKuKEVHycMFS4K+pVeecLORQyAbD7kA
-X-Gm-Gg: AR+sD12LRt8QjLZsEbfJU0D76KCfpz+g9kVbEN6dZ0rkykcSFeSxocZ4qVVJ+/SID5J
-	PpFwssFd5baBJKZti90yBZv7oHM3aCC7UoPF0qHKZbZULrktQXY5BFdruGVsjKBRnMdU03uDhz7
-	C96re7SuTy4ddTgHvAD8r0zGJO7EzQ+4mn406wch2y2ni4BrjfVDN4QWG1wY/shsSFLvGKL81O1
-	Groidxz3hzmUFGJZQlNPhDhd3aMLYvh7PxrRVzTRYy5UsTBKnyBJPdBUMyc3BGU0fb+C8/BwY3v
-	mK0JgYWQO1Aq+yJUwgm3u8WyF76zxbDxfTc3fdadvCdiIsdO75Qh9DmQVTHmllamlpgbkvANphQ
-	0keo+EFRwHY2xXBTuswZu9h1Qhxq9IVzyMw+WhC9R930WvZu/nnpHOeW5PoTalo4XdN0L58mWqa
-	u8Ag==
-X-Received: by 2002:a05:600c:1906:b0:495:6b8a:5227 with SMTP id 5b1f17b1804b1-496b56ff17cmr33776335e9.23.1784991540815;
-        Sat, 25 Jul 2026 07:59:00 -0700 (PDT)
+        bh=Xzb/s1u/mCU9WDH925m/XnJN8r8j9QkReDz7KZh82UM=;
+        b=a1APn74bKrk4KS/b9jlUg7Voa9RxPiZ5pZdtcgFJ5vk/x4f5XSGZuxdwruujSrNi0y
+         8/WUoLyzKJ1fl2MNNGJybggt+Nv2EjdkvnwesWk36RVQGRFX+UFZlsqof7OwnpH+opP4
+         5Ugq3P13U5zRza7CYuCi8bLvlUUoB3XvMEr8cE1lC73b91zCQ6E1ZfZ2A30lwXIHS7id
+         6klmd2W6wZOIJk9Pc8HCL8cspSj8Q0mLJPjq8YO6eaDiVQaNesruFuMYXgvBuxlVkPNr
+         eO7Hb9OhQyhkzJdaF1FOANw+gAVS8SQbpQZB7s1pS5y3Tp3XrcEyRF9brDmi/2NETNzw
+         RdTA==
+X-Forwarded-Encrypted: i=1; AHgh+RpMRqNSa8ScnBNoVv+EHQp0bKxY4ZHB0E1uPWmoygTgpAg1JE6yS8Hk4hJPESKwOXCvQ+eQn5skkBZV@vger.kernel.org
+X-Gm-Message-State: AOJu0YxrWGoDlOAcMm05sSqncS29f7RarV3FNcfx+mCUYZUw+22HrNwD
+	P6pflv3R5z2nNKNogRfXa0CPMM2JSrDH104h96NPzstV/WDalXZgL51E
+X-Gm-Gg: AR+sD10nb8km4IfI30LlYD2HKdhnb4kRcM10/xs/d9Pn+F9XONnOpAbwnveGLJDn2E/
+	LLMvl+Zo86AmYSb9fLZUOkIwP1jliKl+a43fVO0xvH26Y0FiSYIv2fXXZEacvSUnzzGO9kgUJA+
+	H7znjqVD01lzUGWfVvS1UWQWzoQkeIEran9n8ENE0nbAa5KitPAJ7ci7X5RgMA68zcNEvC//O60
+	1cOgs+BCAV8FykvJpK+jGmgeWBIUgi9wO163SlkFTHsqlwbgw0QVq1Jn4gyZEsJdq8fr1POkyHg
+	PvLn2hedoGpynmwFlQYahhOq5TCsS/KsA2rihIMsLxYYQpH/utgNWtvK2nVU+VP31l6ih0a0hgl
+	X03WOtI8x1rN8ZLvQwjCFO3Mwmg1kLoxkkxr0icuA7f7HZA8kvNmyNHOpEdJ02LxO7pqOVWhAZE
+	fcZQ==
+X-Received: by 2002:a05:600c:1387:b0:495:689a:b3ff with SMTP id 5b1f17b1804b1-496b56b212fmr34762135e9.8.1784991541892;
+        Sat, 25 Jul 2026 07:59:01 -0700 (PDT)
 Received: from antoniarch ([78.212.96.5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496b4f24a93sm79704435e9.11.2026.07.25.07.58.59
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496b4f24a93sm79704435e9.11.2026.07.25.07.59.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 25 Jul 2026 07:59:00 -0700 (PDT)
+        Sat, 25 Jul 2026 07:59:01 -0700 (PDT)
 From: Antoni Pokusinski <apokusinski01@gmail.com>
 To: alexandre.belloni@bootlin.com,
 	robh@kernel.org,
@@ -67,9 +67,9 @@ Cc: marex@denx.de,
 	linux-rtc@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	Antoni Pokusinski <apokusinski01@gmail.com>
-Subject: [PATCH v2 1/8] dt-bindings: rtc: abx80x: document ABX81X RTCs
-Date: Sat, 25 Jul 2026 16:57:11 +0200
-Message-ID: <20260725145718.14733-2-apokusinski01@gmail.com>
+Subject: [PATCH v2 2/8] rtc: abx80x: move part autodetection before RV1805 configuration
+Date: Sat, 25 Jul 2026 16:57:12 +0200
+Message-ID: <20260725145718.14733-3-apokusinski01@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260725145718.14733-1-apokusinski01@gmail.com>
 References: <20260725145718.14733-1-apokusinski01@gmail.com>
@@ -81,71 +81,73 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Abracon AB0815 and AB1815 are RTC modules with SPI interface.
+When the driver is bound using the generic "abracon,abx80x" compatible
+string or I2C ID, the RV1805 configuration is silently skipped because it
+happens before the part autodetection. Fix this by moving
+the autodetection before the RV1805-specific configuration.
 
+Fixes: 75455e258ea2 ("rtc: abx80x: Configure reserved bits in RV1805")
 Signed-off-by: Antoni Pokusinski <apokusinski01@gmail.com>
 ---
- .../bindings/rtc/abracon,abx80x.yaml           | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+ drivers/rtc/rtc-abx80x.c | 38 +++++++++++++++++++-------------------
+ 1 file changed, 19 insertions(+), 19 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/rtc/abracon,abx80x.yaml b/Documentation/devicetree/bindings/rtc/abracon,abx80x.yaml
-index 355b0598411a..d105570bcd5a 100644
---- a/Documentation/devicetree/bindings/rtc/abracon,abx80x.yaml
-+++ b/Documentation/devicetree/bindings/rtc/abracon,abx80x.yaml
-@@ -4,7 +4,7 @@
- $id: http://devicetree.org/schemas/rtc/abracon,abx80x.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
+index 5486d9d0b1e5..ca3af91c2997 100644
+--- a/drivers/rtc/rtc-abx80x.c
++++ b/drivers/rtc/rtc-abx80x.c
+@@ -814,6 +814,25 @@ static int abx80x_probe(struct i2c_client *client)
+ 		return -EIO;
+ 	}
  
--title: Abracon ABX80X I2C ultra low power RTC/Alarm chip
-+title: Abracon ABX80X (I2C) and ABX81X (SPI) ultra low power RTC/Alarm chips
- 
- maintainers:
-   - linux-rtc@vger.kernel.org
-@@ -21,10 +21,12 @@ properties:
-       - abracon,ab0803
-       - abracon,ab0804
-       - abracon,ab0805
-+      - abracon,ab0815
-       - abracon,ab1801
-       - abracon,ab1803
-       - abracon,ab1804
-       - abracon,ab1805
-+      - abracon,ab1815
-       - microcrystal,rv1805
- 
-   reg:
-@@ -61,6 +63,7 @@ required:
-   - reg
- 
- allOf:
-+  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-   - $ref: rtc.yaml#
-   - if:
-       properties:
-@@ -73,6 +76,8 @@ allOf:
-                 - abracon,ab1804
-                 - abracon,ab0805
-                 - abracon,ab1805
-+                - abracon,ab0815
-+                - abracon,ab1815
-     then:
-       properties:
-         abracon,tc-diode: false
-@@ -96,3 +101,14 @@ examples:
-             interrupts = <44 IRQ_TYPE_EDGE_FALLING>;
-         };
-     };
++	/* part autodetection */
++	if (part == ABX80X) {
++		for (i = 0; abx80x_caps[i].pn; i++)
++			if (partnumber == abx80x_caps[i].pn)
++				break;
++		if (abx80x_caps[i].pn == 0) {
++			dev_err(&client->dev, "Unknown part: %04x\n",
++				partnumber);
++			return -EINVAL;
++		}
++		part = i;
++	}
 +
-+  - |
-+    spi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
++	if (partnumber != abx80x_caps[part].pn) {
++		dev_err(&client->dev, "partnumber mismatch %04x != %04x\n",
++			partnumber, abx80x_caps[part].pn);
++		return -EINVAL;
++	}
 +
-+        rtc@0 {
-+            compatible = "abracon,ab1815";
-+            reg = <0>;
-+        };
-+    };
+ 	/* Configure RV1805 specifics */
+ 	if (part == RV1805) {
+ 		/*
+@@ -865,25 +884,6 @@ static int abx80x_probe(struct i2c_client *client)
+ 		}
+ 	}
+ 
+-	/* part autodetection */
+-	if (part == ABX80X) {
+-		for (i = 0; abx80x_caps[i].pn; i++)
+-			if (partnumber == abx80x_caps[i].pn)
+-				break;
+-		if (abx80x_caps[i].pn == 0) {
+-			dev_err(&client->dev, "Unknown part: %04x\n",
+-				partnumber);
+-			return -EINVAL;
+-		}
+-		part = i;
+-	}
+-
+-	if (partnumber != abx80x_caps[part].pn) {
+-		dev_err(&client->dev, "partnumber mismatch %04x != %04x\n",
+-			partnumber, abx80x_caps[part].pn);
+-		return -EINVAL;
+-	}
+-
+ 	if (np && abx80x_caps[part].has_tc)
+ 		trickle_cfg = abx80x_dt_trickle_cfg(client);
+ 
 -- 
 2.55.0
 
