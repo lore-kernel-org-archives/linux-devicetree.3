@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28C6539183C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28B22391513;
 	Sat, 25 Jul 2026 08:59:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784969983; cv=none; b=boMBuSM6Zm19Zcz4ilHPeFzAkx3GROgA0EzZ/eIf/JGG+2Q1V/IgTcFfDlqyvaMRYDJxsuflrKU2/ba1y7VXfkED91JVbu1VIZbERgo58Sn4FIDR4YSUgVJcTkS1VvPjDlsBGVcU3I0qm6IfKutwSz2ZJ81jIJrHgO/9r0HNLes=
+	t=1784969983; cv=none; b=ISbb6Kh3/6rfnIX4+cmkZZM54Xj+ynfkFBh4IQIbFSeQlB0nCNPWPYCfrhMlQBrSDjiQLTQkT+m7MvM2PygT1X+LfPfjvc1RjiH1c8kxE5g6hlEsg0rffkeOBRgHaaceqZu0thllXxL7h/+nSvJAVAQKu6oEoqu5/Kl00eF+RUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784969983; c=relaxed/simple;
-	bh=31NjIQUTeWZLc6fEIFAJVTJ8DcSVltuYCnuiJreAzYM=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=NS67i7KkhW04j05LLbmnnZXBNUbztLQCZKiodkqNhT9FaGbmwxjsixYGh5yk1YjtDe4/yw1jg0xvHPcE032ZvPxqx3Efq99CdG7Gqq2ozb3yGVSWS1cJT5Yq1FOYnqzX+UaTWVpNwjKafHi5ZJNM4oEWV8UW/cnS0ioXgJxv2Nc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MOSKb71b; arc=none smtp.client-ip=10.30.226.201
+	bh=mUFcY7Ucvkqa0Ukxu85HKc8cAHh68+ylRnL7IKPsVQY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=MnjaQfzqqIcWKv29IGMm/2RxAk3n/9JgbIgwp5kn14TKV06BeusjpWUfqMzKlNfJNAnYA4CSm5Lexu2solscFmfoccQGUbhZ7hgECY9gSLi+dgFl8tBl6HQ/kLofGDJy2HjqZTP0d4kUfe1RQW6YMLadE0txapD/Ls4IZlH32Lk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IQ0osC1u; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MOSKb71b"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BD7B2C2BCF6;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IQ0osC1u"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E414EC4AF0C;
 	Sat, 25 Jul 2026 08:59:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1784969982;
-	bh=31NjIQUTeWZLc6fEIFAJVTJ8DcSVltuYCnuiJreAzYM=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=MOSKb71bQqY/G0o/D9M2NKEbVH7mqwhUT9OFbKU1AKLG5mSMXRmQgFiupDNWboZfT
-	 yOygZz5oNn3nvrcuwJm1U2cOKF+hfAhM3rFQnrBZVGqtNp9jsYkucmSlBoUfpXzTlG
-	 VD+g0fXRI/rEK1E7hFzBGxMxmyT+hvhgzUtbXfZdsy+EdMPpskbGOdX1aYKtWXDJ9V
-	 KlE1JyoSIKdl8dwY91a3jcOgG+DTJWzWtdkEvGHPlcgpzPHfcutMs/YLt8ALwtS6zf
-	 jCnlKS9kLWSP+MEbaA54A+GjIa0jq3HGZ4xIwtoQQF7Ynb5nE94Tm5Xi+GSf+ySr5H
-	 Ks6PHGY5K3ifg==
+	s=k20201202; t=1784969983;
+	bh=mUFcY7Ucvkqa0Ukxu85HKc8cAHh68+ylRnL7IKPsVQY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=IQ0osC1uoGdCz2rMEFT3stROJyHe6IZWrJ3jWd2re7kEluicKDobpoiGDJ968g49d
+	 xYVxH3kHE1exk2JJUz84et3PaqPVOOCmEMuUJP2YcC6+3mbWDzf3U7OrQubZRbR+cm
+	 yItTW24SJ3DORYwS52hCNZexQOCudFIT4NQXHXTEoEgQwqbfNU9+wvyB8m3V+xX3Dg
+	 qjSM5XuGYngZqT1ZdpdMoC3FCEBoBXCKw84l9tEptCwwsQLxgScRIvZzOeU+QBtqWS
+	 4ivgxIS1B6Ngz6zTC1mQ99AwC5Oxi3d1nrd+H9+r4yPJjbR2d/YDAJkVVEUNezw5L+
+	 c8kdN20S+TQPg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 962ACC531FA;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C1609C53209;
 	Sat, 25 Jul 2026 08:59:42 +0000 (UTC)
 From: Manivannan Sadhasivam via B4 Relay <devnull+manivannan.sadhasivam.oss.qualcomm.com@kernel.org>
-Subject: [PATCH 0/6] PCI/pwrctrl: tc9563: Several fixes and improvements
-Date: Sat, 25 Jul 2026 10:59:12 +0200
-Message-Id: <20260725-tc9563-fix-v1-0-ec4286e31331@oss.qualcomm.com>
+Date: Sat, 25 Jul 2026 10:59:14 +0200
+Subject: [PATCH 2/6] PCI/pwrctrl: tc9563: Fix parsing the integrated
+ Ethernet MAC Endpoint node
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -39,11 +40,10 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAOF6ZGoC/yXMQQ5AMBCF4avIrDXRQYWriIXWYCxK2hKJuLti+
- b3k/Rd4ckwemuQCRwd7Xm2ETBMwc28nEjxEA2aosgpLEUxdqlyMfApVkK6M1hKxhnjYHMX5i7X
- db7/rhUx4C3DfD2Zcx8xuAAAA
-X-Change-ID: 20260725-tc9563-fix-64eb7cbb1229
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260725-tc9563-fix-v1-2-ec4286e31331@oss.qualcomm.com>
+References: <20260725-tc9563-fix-v1-0-ec4286e31331@oss.qualcomm.com>
+In-Reply-To: <20260725-tc9563-fix-v1-0-ec4286e31331@oss.qualcomm.com>
 To: Bjorn Helgaas <bhelgaas@google.com>, 
  Lorenzo Pieralisi <lpieralisi@kernel.org>, 
  =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
@@ -57,16 +57,16 @@ Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, Alex Elder <elder@riscstar.com>, 
  Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1352;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1699;
  i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
- bh=31NjIQUTeWZLc6fEIFAJVTJ8DcSVltuYCnuiJreAzYM=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBqZHr1zcV4JoKB7ZAz2UA4gLrLm9guZhHRTAzpT
- eaWDbd56eqJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCamR69QAKCRBVnxHm/pHO
- 9ZX3B/4nGwuzQaqqcm7w4n38qxllmFOlJvMCfWYo81HL2K2T2Yfmp5Kw7O5OH3Fm56MtsUgmQh+
- qsuRdYFQwuMmWsByL38GwABeFTgCq3pRXBN8H3TBlMbNDhCmDLDm/8GYVTJ2U9/JWGgA22rZWV0
- xSpbYjnPELIM6MkIUmxIebwrLyXGkwGv9VUNWv96okH/fPzZ/gcuH9txAnQDOrP0mhCZ8bnqdft
- vueLCccD7FQzE0Ep+3JuTVD8ubaNV/prAgxYX2Y8B74pbCDrF39DqytRNefNseFjO84yWn3r+zG
- 8PSh95Jm20S9vIfvnzrjPaDhUm5tdW7fSMzB0mT0C2CHXTFM
+ bh=/ecxH7WNWbI7kGxlGTagbRtkJaVRNHl2xR/seTMJO/c=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBqZHr7jKmdMtuHO0GC8dPK2xrKIW1K+ct1FcSAw
+ yx2meup4AiJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCamR6+wAKCRBVnxHm/pHO
+ 9WdgCACM1InRnx+D0thXR+EDXhVP/VoRB6w6hNq0SBHArGqWSgpISTRvzDU51mRZnmq2X3QhvbK
+ RWYrHo+L2skFvfEWrqBDmtDIhvZzBFKtaGVlCJe0CoUKrPcwvvpLCnFsKjDVU0jaH+GOVSZZ7b3
+ AXypsK9hLOU0i8HHYFkjDJ+4CSlI50/l8jbzOpGmwO+boNp65OMir0uT3/l3+W27EGnFtpRobpS
+ Bh/NGPKjdteGVNxk+yFTkWyHFV8NGszw6beJ/dAX3QUh32zcOFkeIxxPcPDQmLfJj4OBuE2LuXc
+ pVpBS2gI3yx9/qWvSZSonVkbog6pbr3IacOuueNQzQ0bxvgP
 X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
  fpr=C668AEC3C3188E4C611465E7488550E901166008
 X-Endpoint-Received: by B4 Relay for
@@ -74,39 +74,51 @@ X-Endpoint-Received: by B4 Relay for
 X-Original-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 Reply-To: manivannan.sadhasivam@oss.qualcomm.com
 
-Hi,
+From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-This series contains several fixes and improvements for the TC9563 Pwrctrl
-driver and the switch binding. Most of the fixes are related to ensuring
-correctness in parsing the DT properties for the switch ports and the
-integrated Endpoint.
+DSP3 has an integrated Ethernet MAC Endpoint which has its own set of
+config registers for configuring settings such as ASPM. The Endpoint
+device has 2 physical functions and those 2 functions share the same
+settings.
 
-More details are in the individual patches.
+Hence, parse the Endpoint node under DSP3 instead of parsing both the
+functions. The existing parsing logic also has one OOB issue as parsing
+both functions will result in accessing past the tc9563_pwrctrl->cfg array.
 
-Testing
-=======
-
-This series was validated on the RB3Gen2 board.
-
+Fixes: 4c9c7be47310 ("PCI: pwrctrl: Add power control driver for TC9563")
 Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 ---
-Manivannan Sadhasivam (6):
-      dt-bindings: PCI: toshiba,tc9563: Restrict Tx Amplitude, DFE and N_FTS to USP, DSP1 and DSP2
-      PCI/pwrctrl: tc9563: Fix parsing the integrated Ethernet MAC Endpoint node
-      PCI/pwrctrl: tc9563: Power off only the external ports in tc9563_pwrctrl_disable_port()
-      PCI/pwrctrl: tc9563: Skip Tx amplitude and DFE tuning for DSP3
-      PCI/pwrctrl: tc9563: Rename DSP3 to VDSP
-      PCI/pwrctrl: tc9563: Move Integrated MAC Endpoint out of 'tc9563_pwrctrl_ports' enum
+ drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
- .../devicetree/bindings/pci/toshiba,tc9563.yaml    |  21 +++-
- drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c           | 129 ++++++++++++++-------
- 2 files changed, 104 insertions(+), 46 deletions(-)
----
-base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
-change-id: 20260725-tc9563-fix-64eb7cbb1229
+diff --git a/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c b/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
+index 488e1ec34a7f..482e82e433dd 100644
+--- a/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
++++ b/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
+@@ -596,12 +596,17 @@ static int tc9563_pwrctrl_probe(struct platform_device *pdev)
+ 		ret = tc9563_pwrctrl_parse_device_dt(tc9563, child, port);
+ 		if (ret)
+ 			break;
+-		/* Embedded ethernet device are under DSP3 */
++
++		/*
++		 * The integrated Ethernet MAC Endpoint under DSP3 is a single
++		 * device whose functions share the same config registers.
++		 */
+ 		if (port == TC9563_DSP3) {
+-			for_each_child_of_node_scoped(child, child1) {
+-				port++;
++			struct device_node *eth __free(device_node) =
++					of_get_next_available_child(child, NULL);
++			if (eth) {
+ 				ret = tc9563_pwrctrl_parse_device_dt(tc9563,
+-								child1, port);
++								eth, TC9563_ETHERNET);
+ 				if (ret)
+ 					break;
+ 			}
 
-Best regards,
---  
-மணிவண்ணன் சதாசிவம்
+-- 
+2.43.0
 
 
