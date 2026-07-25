@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 409562DC79A
-	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 13:59:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D83621883E
+	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 14:00:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784987991; cv=none; b=u/eY47g8h7L7UtbIE+BZnor1YdltxJKRvmy5mjrVArqSAs93FiuGtz7SZGtxNsh9nN8u68rDts4hQ6fhf/+mKyh/EFJNUlqd3cKo3COIp2FDj/jLGDrHkUyqB9V0cXwzGYd6099Y2lxfZZOQhccc97gsLRvygf6fnLhWVGiDynk=
+	t=1784988027; cv=none; b=M13T7DbEwv9z81VnS3fy6a2K2UAWOSTSSeLY2cofx1YKelR8GzxJ5sv/YfVywgeTAg9W7c/94pOyTMfEHwyZzpTOhwxWMXajg5P0JHD0J7h5Ct43ubeOxUP661vO+3c/UR5VfQZaOouIB2paa7H412+Ks8C2dCIfkhDaHlMd560=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784987991; c=relaxed/simple;
-	bh=D6Zi1MSBGGeFYIitVQbRcqPOAhyQaNI0fqv5N1ZByic=;
+	s=arc-20240116; t=1784988027; c=relaxed/simple;
+	bh=ne1e+vMvJCOh/p92tuk9qmsHPMt6OmOMrc92qcSAfbs=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Chkif1fJj5yG7jo2go3QqyQYBWDF8Q5yZgTdlNBDrX0wiKk78grY1KxWuoMFExYER8nH9IzuKb/2XqgdOwXY2rXTHH8XL/4QtVQ6jElHUcakDUmQdDRyCIEoFjmDQtYKgJFgytVajKIOdEVUr5/YHUMGZKdvXem2VVJHnSMBUjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GeS4kl3R; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=de+mzioEWNi4Hpbnx12u/LJ+liMLlQ9v7zdimFllYAuRULDISxxdYWzlkCeVDfRYADPBXSVE52ZajbqvXzJtKf42aZg2sy51PMT9IbKYzHpAA/R2dIYAAABcCSBcWOB8NGr8u0oexQR5iDeMQCc9hU/XJjkTrrY0w5nqCt0U1eo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=agGjMo7G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GeS4kl3R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA3A61F000E9;
-	Sat, 25 Jul 2026 13:59:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="agGjMo7G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 798431F000E9;
+	Sat, 25 Jul 2026 14:00:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784987989;
-	bh=BYWbCYaLfseETTUY1cxm/FKh1MXL8PyT2CCxew1Etds=;
+	s=k20260515; t=1784988025;
+	bh=uP16DNA9nrsdRrTku7zteIga3Bk2T8baXAZYgBXBvXo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=GeS4kl3Ry5QvTqfMYjrHj9gDMsjfrGCe2C+9Jr1tpeWdNEQlgkcmlc7PLZbYMCIpC
-	 iqBlUSBL3aMaIVuWgja/WgUqSWjQZhNx2gN6f6GtxaM75ktMlK2lrlhsG/6NAPvNya
-	 y6uU6wj4CEmdClzRIr0GE/koHj4GIkGdtPWVSaDEtTJchQJE42bj8fSUQvZsVku38/
-	 mO9+xNlqWz+BOCTqeiWGigBL02+c9vjmlmOfdlr0ApP5SiyVQ/M1oBHKpUdtxECjHm
-	 BBKh8NJ03WImH9CJRV8BJk4FIR0xrQBKbnmZDDmu3BNJjKSvlmaPLipSLCeq19OgHn
-	 5Zbp81zux0jOw==
+	b=agGjMo7G+koJSWpbE4af7RXSWID6kw6w6806nNH9sTdRKkSKgPUHujyjxERu3z0HZ
+	 jHZIKtrVBRisC3syDnr45PmoN+tOSGiNU/vNKvric3b5zgm8jLTOL5qir9swMyxhla
+	 vg1nr2D+rkPFNjbpVTGu7JRu7gFKPqrGn7UiPrrbgH/cHIx12R0pzJITm6AjCDiBxQ
+	 vFBPny062Nv9NT6dg9i4zsEymQsVf1FX8+DR7/dnzUfME9lX6CU5LhBowRZcg3ScbT
+	 0JqF39SqXcsra2QejxaxGThuuKWAnJATisvVOebxSMXJQbfb4/axGfUYg3+118RGO2
+	 Pr/xTu4qQgOXQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 7/7] spmi: apple: interrupt controller functionality
+Subject: Re: [PATCH 2/7] spmi: apple: Validate FIFO state
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sasha Finkelstein" <k@chaosmail.tech>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260725-t603x-spmi-v1-7-e1a29fcd2d38@chaosmail.tech>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260725-t603x-spmi-v1-2-e1a29fcd2d38@chaosmail.tech>
 References: <20260725-t603x-spmi-v1-0-e1a29fcd2d38@chaosmail.tech>
- <20260725-t603x-spmi-v1-7-e1a29fcd2d38@chaosmail.tech>
+ <20260725-t603x-spmi-v1-2-e1a29fcd2d38@chaosmail.tech>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 25 Jul 2026 13:59:49 +0000
-Message-Id: <20260725135949.AA3A61F000E9@smtp.kernel.org>
+Date: Sat, 25 Jul 2026 14:00:25 +0000
+Message-Id: <20260725140025.798431F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,118 +46,94 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Using the 32-bit `BIT()` macro with 64-bit integers causes data tr=
-uncation and undefined behavior on 32-bit architectures.
-- [Low] Missing inclusion of `<linux/io-64-nonatomic-lo-hi.h>` causes build=
- failures on 32-bit architectures under `COMPILE_TEST`.
+
+Pre-existing issues:
+- [High] The driver detects unexpected extra data in the RX FIFO but fails =
+to drain it, leaving the hardware permanently desynchronized for subsequent=
+ SPMI commands.
+- [High] The driver lacks synchronization locks, allowing concurrent SPMI b=
+us transactions to interleave and corrupt the command and FIFO state.
 --
 
---- Patch [7]: [PATCH 7/7] spmi: apple: interrupt controller functionality =
----
-commit d1caa99a04e657899090218f53dc529fd1b04548
+--- Patch [2]: [PATCH 2/7] spmi: apple: Validate FIFO state ---
+commit c5c6cb6b2f161dd887167b0a07acf4d194f4cc70
 Author: Alba Mendez <me@alba.sh>
 
-spmi: apple: interrupt controller functionality
+spmi: apple: Validate FIFO state
 
-Add support for interrupts sent by slave devices.
+This patch adds checks to ensure there is data before reading the body of a
+reply, and checks for the end of data afterwards.
 
 > diff --git a/drivers/spmi/spmi-apple-controller.c b/drivers/spmi/spmi-app=
 le-controller.c
-> index d627187b3ac00..13b48fd66aec4 100644
+> index 376cf682c43e0..b4f442d0b4ad7 100644
 > --- a/drivers/spmi/spmi-apple-controller.c
 > +++ b/drivers/spmi/spmi-apple-controller.c
+> @@ -78,6 +78,10 @@ static int spmi_read_cmd(struct spmi_controller *ctrl,=
+ u8 opc, u8 sid,
+
+[Severity: High]
+This isn't a bug introduced by this patch, but I noticed spmi_read_cmd()
+performs a multi-step bus transaction without acquiring any locks to prevent
+concurrent interleaving.
+
+Since the SPMI subsystem core does not serialize callbacks across different
+slave devices, if two threads concurrently initiate SPMI transactions, could
+their command writes and FIFO reads interleave? This might lead to data
+corruption or misdirected responses on a busy bus.
+
+>  	/* Read SPMI data reply */
+>  	while (len_read < len) {
+> +		if (readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY) {
+> +			dev_err(&ctrl->dev, "FIFO lacks reply data, controller stuck?\n");
+> +			return -EIO;
+> +		}
+>  		rsp =3D readl(spmi->regs + SPMI_RSP_REG);
 
 [ ... ]
 
-> @@ -228,11 +234,123 @@ static void apple_spmi_irq_unmask_raw(struct apple=
-_spmi *spmi, u32 irq)
->  	writel(readl(reg) | BIT(irq % 32), reg);
->  }
-> =20
-> +static void apple_spmi_irq_ack(struct irq_data *d)
-> +{
-> +	struct apple_spmi *spmi =3D irq_data_get_irq_chip_data(d);
-> +
-> +	apple_spmi_irq_ack_raw(spmi, d->hwirq);
-> +}
-> +
-> +static void apple_spmi_irq_mask(struct irq_data *d)
-> +{
-> +	struct apple_spmi *spmi =3D irq_data_get_irq_chip_data(d);
-> +	unsigned long flags;
-> +
-> +	raw_spin_lock_irqsave(&spmi->irq_mask_lock, flags);
-> +	apple_spmi_irq_mask_raw(spmi, d->hwirq);
-> +	spmi->irq_mask_cache[d->hwirq / 64] &=3D ~BIT(d->hwirq % 64);
-
-[Severity: High]
-Does using BIT() instead of BIT_ULL() here unintentionally clear the upper
-32 bits of the 64-bit irq_mask_cache entry on 32-bit systems?
-
-When d->hwirq % 64 is >=3D 32, this might also cause undefined behavior on
-32-bit architectures, which can be reached via COMPILE_TEST.
-
-> +	raw_spin_unlock_irqrestore(&spmi->irq_mask_lock, flags);
-> +}
-> +
-> +static void apple_spmi_irq_unmask(struct irq_data *d)
-> +{
-> +	struct apple_spmi *spmi =3D irq_data_get_irq_chip_data(d);
-> +	unsigned long flags;
-> +
-> +	raw_spin_lock_irqsave(&spmi->irq_mask_lock, flags);
-> +	apple_spmi_irq_unmask_raw(spmi, d->hwirq);
-> +	spmi->irq_mask_cache[d->hwirq / 64] |=3D BIT(d->hwirq % 64);
-
-[Severity: High]
-Similarly, could this cause undefined behavior on 32-bit systems when
-d->hwirq % 64 is >=3D 32?
-
-> +	raw_spin_unlock_irqrestore(&spmi->irq_mask_lock, flags);
-> +}
-
-[ ... ]
-
-> @@ -241,6 +359,23 @@ static irqreturn_t apple_spmi_irq_handler(int irq, v=
-oid *dev_id)
->  		handled =3D true;
+>  		}
 >  	}
 > =20
-> +	for (offset =3D 0; offset < SPMI_IRQ_USER_SIZE; offset +=3D sizeof(val)=
-) {
-> +		val =3D readq(spmi->regs + SPMI_IRQ_ACK_BASE + offset);
-
-[Severity: Low]
-Does calling readq() here cause a build failure on 32-bit architectures
-under COMPILE_TEST since <linux/io-64-nonatomic-lo-hi.h> is not included?
-
-> +		/**
-> +		 * because of other masters in the bus, we're going to get a multitude=
- of
-> +		 * interrupts we're not interested in. irq_resolve_mapping isn't very
-> +		 * optimized for the nonexistent path, so instead we mask with (a loca=
-lly
-> +		 * cached version of) the IRQ mask
-> +		 */
-> +		val &=3D spmi->irq_mask_cache[offset / sizeof(val)];
-> +		while (val) {
-> +			bit =3D __builtin_ctzll(val);
-> +			generic_handle_domain_irq(spmi->irqd, offset * 8 + bit);
-> +			handled =3D true;
-> +			val &=3D ~BIT(bit);
+> +	if (!(readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY))
+> +		dev_warn(&ctrl->dev, "FIFO has extra data\n");
 
 [Severity: High]
-Since val is a 64-bit integer, and bit can range from 0 to 63, would
-~BIT(bit) on 32-bit systems produce a 32-bit inverted mask that zero-extends
-when promoted to 64 bits? This might unintentionally clear the upper 32 bits
-of val.
+This is a pre-existing issue, but since we are now checking for extra data
+at the end of spmi_read_cmd(), shouldn't we also drain the FIFO here?
 
-> +		}
-> +	}
-> +
->  	return handled ? IRQ_HANDLED : IRQ_NONE;
+If a device misbehaves and leaves extra data in the RX FIFO, the next SPMI
+read or write will immediately see this stale data. It could consume it as
+its own response, leaving its actual response in the FIFO, creating a
+permanent cascading desynchronization on the bus.
+
+>  	return 0;
+>  }
+> =20
+> @@ -115,6 +122,9 @@ static int spmi_write_cmd(struct spmi_controller *ctr=
+l, u8 opc, u8 sid,
+
+[Severity: High]
+This is a pre-existing issue, but similar to the read command above,
+spmi_write_cmd() also appears to lack synchronization locks.
+
+Would it be safer to wrap the entire transaction in a mutex to prevent
+concurrent bus transactions from corrupting the command and FIFO state?
+
+>  	/* Discard */
+>  	readl(spmi->regs + SPMI_RSP_REG);
+> =20
+> +	if (!(readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY))
+> +		dev_warn(&ctrl->dev, "FIFO has extra data\n");
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this code need to loop
+and read from the FIFO until it is actually empty? Otherwise, the hardware
+may remain permanently desynchronized for subsequent commands.
+
+>  	return 0;
 >  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260725-t603x-spmi=
--v1-0-e1a29fcd2d38@chaosmail.tech?part=3D7
+-v1-0-e1a29fcd2d38@chaosmail.tech?part=3D2
