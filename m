@@ -1,164 +1,105 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA9392D9780
-	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 13:25:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784985911; cv=pass; b=ILjhiiGJH2n+7G1eyg7HU6UBYbT92z3aCzDrPc5gWduWkWOuaFeyQHQFqd6P2uNEAN0P0cqEPK6tqmYE7sxCyzfv1d9drxiMuB22/oeazGVbGxf106JYae2W4JtpvN+I2QBGv194quVK1KbcRrKdMsIiAn6zCz0XzgAHcLwl/kI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784985911; c=relaxed/simple;
-	bh=O+PLvidt4qQJi+8RWeGqsl1wZYXnZW4fi4aLhPE+zgQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gRxHxULaa2BH35FTmpB9LQRbvt30NyqokHwqYHEdA9qx9YFsV6xLghRxi0TBflHJYu9QiZDJ8w8uSX/lJLT8P/zXMiopOaH66ERLThZdtWg53fXT+qArr+t1jvR0roVJlwRoIn1bLyIY8SZyX15Nh3qcqcJ2h5aeR2gGZXMwrVU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VjxjY++2; arc=pass smtp.client-ip=209.85.215.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB60330B529;
+	Sat, 25 Jul 2026 13:27:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784986066; cv=none; b=QGVe6r9Sr/X6rpcohSSNoZrqCtq2s9PAWYxE+uX49LvHHTkunHz6wGYVivArmImbh0fTARhP7New8ucyRt25/r5HY6BFKD552efSJVbk6YKsxZdtk0hNJXF/RAqQGTEAixByW8hmsU3DyXGzCn5R8RxSndBrTdM+JWOgUlE+emE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784986066; c=relaxed/simple;
+	bh=9WAUYmGdYHeNw4c8/Qc1K8kSlawGxPNaRVBmKIGiUII=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=N2lvNyYJSMo/XD6XF1YWFho6CpYRCJ3pVqDhJQJjCGolAnmZwTP6nVaFLEODR4lnZxfPGdodg/FeKAHUx8Fcr17abqW3kNnAe6XDm0T5anETmi6cjopjlZHe9LQBXHha+nydgIumi4oxA0Doz7DkviKfB/f8tKhxX00HR86WfMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BGThAtup; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VjxjY++2"
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-c96b08cdd1cso973039a12.0
-        for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 06:25:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784985909; cv=none;
-        d=google.com; s=arc-20260327;
-        b=e9ZDHIg14OgUG0GHQElK9n0R6v/tlH5VuVb6pIkoMt/BcS48GzPzeaSku7P5X0LMyh
-         AayvWDrf+siuXiXeW6nZOcpL3M+srIP/yKZPmd9NpX2W/WibSIcga8u+PuLGdJ19Ft4V
-         d/vMkrcgzlwD8b8nS6m3hHePsIHE3piXm6+TFy5stU7LezfcEVaRAnluvmdjUk7x9ZwM
-         3FqSnW6ESr7b9YH2cTB1q6QfQodcoxC7Y4LpZEFAzoWn71us5TiEtnZlvQosChbFDGCA
-         RXFUKjeMI5Rxp8WYrKLwXlXOwIMMbUSEoDRUmt7EQs5FrLUCawX7tHlAivXWdIRn/GvV
-         bCrg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=RsVrgRB1j+9eE5XFcyDuofqOTr5n/vldNF5OvYr6AZ8=;
-        fh=HfzUS2JN5iSI64pDePF0lSYzJ1SRfYmdRm4k9i9v3R8=;
-        b=I3P4rNoGytcu257HioPTHu6SUwbIAyKo+wXHY2K2Z5J8wZtW9tKSKrdoHOHqRtzrAT
-         t+2QqML6SGPjyFYZtBhBxVc+1tlVtFix3xckjivKdA8Bk54stcL+x1fvxY3dzIL1qGZO
-         7Ir6ZYQDV2jXjuKZSPnwIelW+l9gCJQk/U2qWRc/lcPM9K9jPP92p4HTygDmkxQAXi/z
-         ttlwRqMbcdsyk6I5zjpeM0TaMlpAKnYtJDC0THQf4W88EAdDz8ATwDpT5Oarx1BMWTCv
-         BY+7DZGBi7Du8Tt9WFNUsDwN4SFr2xQySwhwo3JPc9HSpc9Fu9AqYQAlVHOVnLmpZRWI
-         P3Fg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784985909; x=1785590709; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RsVrgRB1j+9eE5XFcyDuofqOTr5n/vldNF5OvYr6AZ8=;
-        b=VjxjY++2eQWSOulzM32m3nPH5SG5ZI835qe5quWSHgIc5wpEbBT7osgsRZXpkDevqO
-         lAerjlE9CwD+sVBNVLa5zTfcJZ7hpsF0iB68TfEPQxddSWosM600mzhu7zNyrVo+1M5Q
-         xgvYwJHfO0CVjXFGMvKmmsGvH971LEPGxT0RxQwOrvZXk2dzCWEafib5wvHyuLgEJdQL
-         jkQIkQsFz+qlzW0JPW+tmi7sW03fLmgPS9IVEj6w0/GtGs3qD9T0b0MduUG0816hXCP0
-         fmhXaTuL8WOZw+CRR7voIdhtp4wg3x836U8Xi/H9vy4kPO9RjUlEP3RcwDthpbOZilzS
-         oX9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784985909; x=1785590709;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RsVrgRB1j+9eE5XFcyDuofqOTr5n/vldNF5OvYr6AZ8=;
-        b=Ce55jMVbCEA5Zc7THUZYE8+xYlGBeoOHyS7NSSdx7Y2uQdM55BHMFQlEDCDSC1aHZ0
-         mwNcp6ySFlq82vvzD9XV/wViuDhkazKXqTU2qihFUOIlzJvp4JvxW8ttNPK/d+NLxJLQ
-         GKzJxccRAI1ZVMKpLEWYQC0apBlHBR2yyrq/U9iOBuSt9cwnDsuZIzXB2a5K51YcwF2Q
-         WpSe0k72RBfBPKkFqPFsUyq/QWOGslkUyHH/bBTWjfaf7/6YtWjMZjGKxsByusrYIHyM
-         1LWh/VlZDPVNk2lqE3y9JUrvwMSUDY6HPrpGwlrhyCoOlHHvVo9S7w7+uc7t39jgUUmK
-         8Y7Q==
-X-Forwarded-Encrypted: i=1; AHgh+RomMCLBCq7p4VfuR3wNGhbvrw75PfK8cm7taASOGNDlHNFHW4ygmj5jqWYtfXiVKRHxJlmU7VUJxo8B@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy+l6NOpjdJD6dHbteFEzZPSB86B8yDCjGgnoL0qIFelSYCZvYT
-	+3v2qQ8NyDG6zvyYp4QgRK8QNemwC2b68i+/LcPihtZvv0rvVCb2cHvLyZN7P400Gj7Lr1fHu5+
-	ldfE4ZUBgbmuGmVOjUecARkJ6bCbQHnU=
-X-Gm-Gg: AR+sD10yh31Ag2QxAtzCsjJNnUXAfKeP7AFgF3ywhYRpB6sqbeIj4VsZeeuYQnqAqKM
-	w4nKjrEaxyYATnZR5s789ghE74vDXbunLFhZk0OIHkK6YwlYDW3oWIiy+qcFwyjbtRxFe2aogfz
-	nHp+YhgzsI7C1wCDxy7YMTWNu1+VQLTJ4D3XcWl9XRrBLIQ28wsFNDt07hXr2ZPH5y6+uuDZP1q
-	I4FWOPma+wq+7aSCKo/Sc98u/dd1tR8AZoLIKRrvrh3eMYJII6wSLnnE45dHdP/Ngln4awCl9XW
-	vyFP+mQGdU/7poBzcYg=
-X-Received: by 2002:a05:6a20:2d11:b0:3bf:d487:4b38 with SMTP id
- adf61e73a8af0-3c67dd8a2dbmr2233399637.23.1784985909177; Sat, 25 Jul 2026
- 06:25:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BGThAtup"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F3C11F000E9;
+	Sat, 25 Jul 2026 13:27:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784986064;
+	bh=DsJhSTaLOqEFyvKvQH1QRB+ENNlkLh84i18wRSEe3Fo=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=BGThAtup56cMrZOpHQ3HrO1XCzugN8xYb+nlsrR59wMwLo95nvMiyMj1j1P1U0tMl
+	 36B7d663p9g0Mzd8SLpeThazz4+fWhykbjf2aym9VGzslsosVFXnunmLudx5s8PH63
+	 0Ix+aKMuSvIdNXr5nZl9yb7XFPn/tZwb/mAjcKQ4ERNnG+H1UMD7h93e40NOwnqINb
+	 V0di6zDAkIH9OXVcd3hw7v12RAKQlkOPvyCXtrAKrXXgyTHjjhHEAVBJ0xa/xK5sqj
+	 T9vh+GwPX318xX/JuaFlxK5GOQYpT6PvrJqyxjVUj9T8LN4xNNJBuvUX8NcLDL9REr
+	 1IqOae2wEI8Aw==
+Date: Sat, 25 Jul 2026 08:27:43 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260721095935.439174-1-clamor95@gmail.com> <20260721095935.439174-3-clamor95@gmail.com>
- <amGz2YZogakb5XAv@monoceros>
-In-Reply-To: <amGz2YZogakb5XAv@monoceros>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Sat, 25 Jul 2026 16:24:57 +0300
-X-Gm-Features: AUfX_mwi2WZv66EGYRzBQrw-ixRBZCIhNyd1PMWCLX6j69ZyCS0eS-15Y1-6-Ng
-Message-ID: <CAPVz0n3WKw74zg0HmBBOo8Z7JV_pku-DjsgKF_74B8EdD5cXgA@mail.gmail.com>
-Subject: Re: [PATCH v3 2/3] hwmon: (emc1403) Convert to use OF bindings
-To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Cc: Jean Delvare <jdelvare@suse.com>, Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Bart Van Assche <bvanassche@acm.org>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alim Akhtar <alim.akhtar@samsung.com>, 
+ Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
+ spacemit@lists.linux.dev, Aurelien Jarno <aurelien@aurel32.net>, 
+ Paul Walmsley <pjw@kernel.org>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ Jennifer Berringer <jberring@redhat.com>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, devicetree@vger.kernel.org, 
+ "Martin K. Petersen" <martin.petersen@oracle.com>, 
+ Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>, 
+ linux-riscv@lists.infradead.org, Avri Altman <avri.altman@sandisk.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-scsi@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Yixun Lan <dlan@kernel.org>
+In-Reply-To: <20260725-08-k3-ufs-support-v2-1-45036a2a2418@kernel.org>
+References: <20260725-08-k3-ufs-support-v2-0-45036a2a2418@kernel.org>
+ <20260725-08-k3-ufs-support-v2-1-45036a2a2418@kernel.org>
+Message-Id: <178498606385.3230542.8227126824689788827.robh@kernel.org>
+Subject: Re: [PATCH v2 1/3] scsi: ufs: spacemit: dt-bindings: Add UFS
+ controller for K3 SoC
 
-=D1=87=D1=82, 23 =D0=BB=D0=B8=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 09:28 Uwe =
-Kleine-K=C3=B6nig
-<u.kleine-koenig@baylibre.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> Hello,
->
-> On Tue, Jul 21, 2026 at 12:59:34PM +0300, Svyatoslav Ryhel wrote:
-> > From: Jonas Schw=C3=B6bel <jonasschwoebel@yahoo.de>
-> >
-> > Add OF match compatible table to be able to use this driver with Device
-> > Trees.
-> >
-> > Signed-off-by: Jonas Schw=C3=B6bel <jonasschwoebel@yahoo.de>
-> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > Reviewed-by: Guenter Roeck <linux@roeck-us.net>
->
-> Please put your S-o-b line last.
->
 
-If S-o-b's should be chronological, then this order is correct.
-Guenter added his reviewed-by after I have added my signed-off-by.
+On Sat, 25 Jul 2026 10:37:44 +0000, Yixun Lan wrote:
+> Document the compatible for UFS (Universal Flash Storage) Host Controller
+> which found in SpacemiT K3 SoC chip. Its features are listed below:
+> 
+> - Compliant with MIPI UniPro v1.61 specification.
+> - Compliant with M-PHY v3.0 specification.
+> - Compliant with UFS HCI v2.1 specification.
+> - Supports up to 2 Tx and 2 Rx lanes, up to HS-GEAR3 5.8 Gbps per lane.
+> - Supports standard low-power hibernate to reduce power consumption.
+> 
+> Signed-off-by: Yixun Lan <dlan@kernel.org>
+> ---
+>  .../devicetree/bindings/ufs/spacemit,k3-ufshc.yaml | 56 ++++++++++++++++++++++
+>  1 file changed, 56 insertions(+)
+> 
 
-> > ---
-> >  drivers/hwmon/emc1403.c | 16 ++++++++++++++--
-> >  1 file changed, 14 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/hwmon/emc1403.c b/drivers/hwmon/emc1403.c
-> > index cd753b38709f2..b7ab6069ec7b1 100644
-> > --- a/drivers/hwmon/emc1403.c
-> > +++ b/drivers/hwmon/emc1403.c
-> > @@ -16,6 +16,7 @@
-> >  #include <linux/hwmon.h>
-> >  #include <linux/hwmon-sysfs.h>
-> >  #include <linux/err.h>
-> > +#include <linux/mod_devicetable.h>
->
-> Don't add <linux/mod_devicetable.h> please. struct of_device_id is also
-> provided by <linux/i2c.h> so adding <linux/mod_devicetable.h> isn't
-> needed.
->
-> >  #include <linux/sysfs.h>
-> >  #include <linux/regmap.h>
-> >  #include <linux/util_macros.h>
-> > [...]
-> > @@ -682,10 +683,21 @@ static const unsigned short emc1403_address_list[=
-] =3D {
-> >       0x18, 0x1c, 0x29, 0x3c, 0x4c, 0x4d, 0x5c, I2C_CLIENT_END
-> >  };
-> >
-> > +static const struct of_device_id emc1403_of_match[] =3D {
-> > +     { .compatible =3D "smsc,emc1402", .data =3D (void *)emc1402 },
-> > +     { .compatible =3D "smsc,emc1403", .data =3D (void *)emc1403 },
-> > +     { .compatible =3D "smsc,emc1404", .data =3D (void *)emc1404 },
-> > +     { .compatible =3D "smsc,emc1428", .data =3D (void *)emc1428 },
-> > +     { }
-> > +
->
-> Unusual empty line here.
->
-> > +};
-> > +MODULE_DEVICE_TABLE(of, emc1403_of_match);
-> > +
->
-> Best regards
-> Uwe
+My bot found errors running 'make dt_binding_check' on your patch:
+
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+Lexical error: Documentation/devicetree/bindings/ufs/spacemit,k3-ufshc.example.dts:31.27-46 Unexpected 'CLK_APMU_UFS_REFCLK'
+FATAL ERROR: Syntax error parsing input tree
+make[2]: *** [scripts/Makefile.dtbs:140: Documentation/devicetree/bindings/ufs/spacemit,k3-ufshc.example.dtb] Error 1
+make[2]: *** Waiting for unfinished jobs....
+make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1669: dt_binding_check] Error 2
+make: *** [Makefile:248: __sub-make] Error 2
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260725-08-k3-ufs-support-v2-1-45036a2a2418@kernel.org
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
