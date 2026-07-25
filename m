@@ -1,151 +1,270 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97E6B288C2D
-	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 18:42:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 824DD3F4DD9
+	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 18:48:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785004977; cv=none; b=KvqnQdNi1WZxqlhNLqh0u78kv83puoZnj/gumWaBHpFXqmEApHqLKuWQ4ghB0Vkc/LokbtNkhmtGHP7Qe/bn7O6ZijsmCqSelxxnu+zeO3KI08AluT4pTR3kVN3ZB7ZJFcl81aSDtLt2iIYpblNe0teeYd65O5fl00gDZz2tVTE=
+	t=1785005288; cv=none; b=Kyhu81M2BpzeHkWsoPSGCMk3F6Rf/6L4QgPrOGVECfoz8tmsSe7osBd8V6BbgTWTIy9URqMmm3HiKnEeDzjWA1FVHHotNOyeW356HXh+WPbImIPX+HXXB85JNo+jkpCB7ccpqpREWLqDjLS77IlDwdoOSVgjjOAhSNG9F//un0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785004977; c=relaxed/simple;
-	bh=srUUvtKEX0/HxmoZoGJMkwyUOLS18ex6QG639b0h75A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lUZTkPlb07pcUN6pk0tthaUN3BS3+fwwcJ+mgDEZ08tlNBbQsIh3uxT/tJZMn4KZJJfyn6VcTcUEf/K32uv7mWbemsIH+5G+Uw6X3st+aiB84rbumqtYoB7aJYHcNBifUTZS7srgUR9vzempuJjbSTwXFq87aCdyODsqkZ03PaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OQQ+6tA5; arc=none smtp.client-ip=209.85.128.51
+	s=arc-20240116; t=1785005288; c=relaxed/simple;
+	bh=Xt3kGZtAAdd+HzHAVAMZgGdEC9llEbMYpKzHMhd/MkQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=cAdjHBEBVavqxU+J8d1sICjW8xpIsVyTynBqcdG0tJWMOrRdHzF8abeulb4O5DXW70ZK9X4ymCtOcI1X6X0h2Im8C/AIdIo40oXGlddEVAarsXMZpsG43YSHBU8Li2otY/Ukl0y4XxO+drY6KNkde7n60OeNFwE7UMcrw8lfJW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bPtLj2E5; arc=none smtp.client-ip=209.85.210.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OQQ+6tA5"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-495757ccbc1so13155675e9.2
-        for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 11:42:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bPtLj2E5"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-84a3e5ca66eso148054b3a.3
+        for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 11:48:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785004974; x=1785609774; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Yim8vL4SATQPCHdmJdo+DTQlfgUOkNLfDRGu6BOoAio=;
-        b=OQQ+6tA5K/Q6ibtSWEV6IggOcGSaDrqLu8ghqXk9ucbUtC8SfsSj41F/dymC9jHd2o
-         x2e6lJpCb+r1kMVstAdsH8yVFyB3g5JeyCC9tocLYSkD6YdJ9nqBQ057rk+jzMFMjgJY
-         NMToioIQeP8/esnn0UgQJzyzw8Ki9GSz2lijTeJHIJ8hmNnyhzuWo7yVJpui9DFeqbKW
-         Ihkg4Ar8vLUkjQjXM+Q/PyswFJSb0DCm1a/M2438lqSao7uxXYUxrUYJeycDIcvNIbUF
-         RexOSG5G+otuZgZ37TzdIWKSfOk85TneKUw7f8ZaXnw94prqoMoEDdQs41r3IkBxJCsf
-         J1ww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785004974; x=1785609774;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=gmail.com; s=20251104; t=1785005286; x=1785610086; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=Yim8vL4SATQPCHdmJdo+DTQlfgUOkNLfDRGu6BOoAio=;
-        b=fWOnXhMEEHvFvAj5Cz82/+/65mDw1vkahmE8jLqTbB0EwpAhKvBi1YCpedJ1dqNCbJ
-         IHlXoWFCUNgekHHxiPGA9IHlYhDCnW6CmEHzAqdVk4Fe1qv/2hoqh8vvOUMS7v1nEkpL
-         OuiLHcRu28SzE65uWm5ScQSY+V37k7LQbxcD8AqkM9Fl7o8Rv4Y44RVBG0WtwRJLJyEn
-         QKMAFwD5arQDIsGctPa7YCwUpy2CfmA/+4SpbxxZYKG4Lq8MMfBuqUAv7mSx/EOVjaOr
-         if6wjRFGTLt9joZM8vMSg6MqZkCm+4iTq2MZs/Ug9F4znZ0ZXCsSnTHqT194w0WUHd7G
-         2ENw==
-X-Forwarded-Encrypted: i=1; AHgh+Rr+9An1cQ4x/1h9moxrUVthxaNUyn5T/MP8G82b2RKqf9ugnHiEHKFpvk0ecvRWUKd7qBb727buKN1P@vger.kernel.org
-X-Gm-Message-State: AOJu0YyaR3rDreuK4YmJxE4YdvUGNSM3RL8jb2v8ivsQ7j3QwdD64u+/
-	10fgLKsCY2r5EQLDwC4dWbXhQEmGYyp8sZCvUCrMfm3WnxdEzfUa9v4e
-X-Gm-Gg: AR+sD12RG8c8li1jzeDzdWs0aUeJPNPEIX0VlPixdKTcLd2lS48TuKS8ENJM+JNZSpN
-	AQGu8DjR0mJrfMBC/BWBOTVF/If1L/LseoqH1JDCtVZrM+qNoo/xiqQ4Tn3vCMpkY8czOklmYaw
-	3YS9TbiWsJztJO7bYZrtkQWWhq+98cIf2tuq3ofnqOdn90SWEZs/Er5NfrF4EC474Ij7YKWkf9m
-	HkNwWZv0zPYV5pc4G0e+9ySOfqCfo6cN7yG1n61GVIyLAiQo1rlYLSgyUnB4C2odN2ePgUutHea
-	CNA3W8CSsjmIY0ymQBdBXj9QDQ5mPEdAtKs7M21tkzArOCw+KUiWNrxg7GfVqqW4fj8mss5wzj+
-	8RL7HN7EmeNsnZVstMH2h747Q3tAlBYAsikzPunFYEqKcSDEM30iC+0Cl7TDNagmxjgzyUbDEZo
-	N/6Q==
-X-Received: by 2002:a05:600c:354f:b0:495:5062:17f9 with SMTP id 5b1f17b1804b1-496b5702398mr44354255e9.30.1785004973580;
-        Sat, 25 Jul 2026 11:42:53 -0700 (PDT)
-Received: from antoniarch ([78.212.96.5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496b49a5f98sm88482475e9.12.2026.07.25.11.42.52
+        bh=KZ0jpJTuTc9mIF747vkGOggfpm0DkF4Pd0GiKsVCCcQ=;
+        b=bPtLj2E56JLZHhv59qBNEl+qnx8s4ZEQcmE5GuZECHOakYCZ+MNpXr/HRtvvjgpIPG
+         UbLcEEYqzuqaKIP7N1wB1h9EeOwZfIO4xI6nObz3gak2RbM78uVeDINVNBrjtoynd2yf
+         WIO5H4ROGgMZ1Hcdk4oK1kSKgFBxzcyTkLjzzLnu+kBIRFqRBz666rC4hWODxSsoU6IG
+         oSvwxVy3Q8xiwRAlyHrfaCHTE9d9xp9HHQczz9XJqIn5IZfchqz8k2QGfsusOeT0lQQ4
+         xBoJcjoYqB7euXoiw8xMwSKk9QdcXZFBqTOBAQvCQfT584V4bme6RkX30zVSlFna0NEk
+         Ie4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785005286; x=1785610086;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=KZ0jpJTuTc9mIF747vkGOggfpm0DkF4Pd0GiKsVCCcQ=;
+        b=Di99RFkMYxW59NsbjRCJaNAmxvLFGGvtjXJ5UY/Rd9U6N30R70bV4cWJXjINpUUmEa
+         KtmwITaLv4WjWghpBNgQYlTwFtHyUn0efuGktmSYvKbzsehLYIzwwhBIyUWnJaglS0Wc
+         9GOqZ796td7MfOHiVUov+4W7zBxPyS0Io13AYlHyqVYV76pM5ZyuIbejVMLb8dJoEYfK
+         z8wNhsx/f+DGySKgeYvzdJCu73EEBHB3Tn+ohVgYvXTzmGTW3U/Zd22nLy2SHbKypcWL
+         RsGz9Ho/AlUyC/fedKVAasrj9bXYRSC1+rIvJpQMWOFIOuRnYTcSG9UOdfFwD+2zTZaD
+         dJhA==
+X-Forwarded-Encrypted: i=1; AHgh+RoW+bixOe9yU8/f12E/l1im0PO+L453HYX5o9RP49iMlUenzORsMDHYx+hDbi8/aSR5HCKFc41z3s6Z@vger.kernel.org
+X-Gm-Message-State: AOJu0YyXzoST+VQKLRXIHw2tdTqkZYpvLNiZo66FCo8+kwl7DA2szQNJ
+	kfqyqOkXBe29Dv9sIFjcoquaRuuiYmYjN40UAIBSGPwSyg7BfG7gSfVp
+X-Gm-Gg: AR+sD11k6G48NMF0Zp7ZN5zR0WlDBAi9DSYsBBr181pYC3d9rxFptOA6ewHbV5Pc61Z
+	kebcoOi9oPaOQIKqkYQ37ZahyDjtg3rcfDsx4uJWn5TqezamuYev7tdBOGrk/idIqbdrgYTJhxh
+	mzdu9Zm9wVt/5gSt0R5/Qr8HVw5UnW/0bjdLryaoYAGR5DuxZ2MG/zXyv9lpBm8ASpW6z84pVb5
+	EOqqo/jQgi7aig09CFoxXm+pgpH3mzoP7Nd7LHXGJPM/iqG7kai+zGmT9iXWzKMXYgs1ILVJAum
+	IwZbvAKlSI59Gn9rA5U5CjftS+kkbK0kWhH3AVqmLmYMJ0h3v7/+Z8RUSEtRuGABUBAKES9m4/a
+	WMiyE4EFXURI70P8aMY8iHL7+cjodbhVhKJ9sFGMU19jxKsArWYw1Ka2G6fCJ9X52a9FdawyOoU
+	BNiOGBkiyXZDNSp0I=
+X-Received: by 2002:a17:902:d491:b0:2ca:ecf6:9115 with SMTP id d9443c01a7336-2cfde7901b2mr25140865ad.2.1785005285581;
+        Sat, 25 Jul 2026 11:48:05 -0700 (PDT)
+Received: from [172.28.140.252] ([2409:40c2:5424:789e:7bf2:671d:d7ae:b910])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-314bc3e261fsm14812770eec.6.2026.07.25.11.47.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 25 Jul 2026 11:42:53 -0700 (PDT)
-Date: Sat, 25 Jul 2026 20:41:27 +0200
-From: Antoni Pokusinski <apokusinski01@gmail.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-rtc@vger.kernel.org, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 8/8] rtc: abx80x: add support for ABX81X
-Message-ID: <amUBF4oc3YhFRUYO@antoniarch>
-References: <20260725145718.14733-1-apokusinski01@gmail.com>
- <20260725145718.14733-9-apokusinski01@gmail.com>
- <20260725153032.874311F000E9@smtp.kernel.org>
+        Sat, 25 Jul 2026 11:48:05 -0700 (PDT)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Date: Sun, 26 Jul 2026 00:17:47 +0530
+Subject: [PATCH] dt-bindings: clock: ti,DM814x-ADPLL: Convert to DT schema
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260725153032.874311F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260726-ti-adpll-v1-1-86f6fc936507@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDcyNT3ZJM3cSUgpwc3ZSUtBQLk1ST1DRDCyWg8oKi1LTMCrBR0bEQfnF
+ pUlZqcglIv1JtLQBiOHEObAAAAA==
+X-Change-ID: 20260725-ti-adpll-ddfd84e4ef18
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Tony Lindgren <tony@atomide.com>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
+ daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785005275; l=5339;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=Xt3kGZtAAdd+HzHAVAMZgGdEC9llEbMYpKzHMhd/MkQ=;
+ b=ITeD0cUQVPuY+i/l0gXqbHWzlAktaK4dPooTrjuuFr7CrtQcCu/fKDflhr5pSju008mJsF/bw
+ OwBDu8gaUfYC7iYRv8otfvge7B9agH9VWpZgGAQHrLoQW7fvZWItrqK
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-On Sat, Jul 25, 2026 at 03:30:32PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [Medium] Incorrect SPI read/write flag masks invert SPI commands.
-> - [Medium] Masking of valid error codes from `devm_regmap_init_*()`.
-> --
-> 
-> --- Patch [8]: [PATCH v2 8/8] rtc: abx80x: add support for ABX81X ---
-> commit f05e60a6ab0d5bdeb5665a7f2de3be7428abd444
-> Author: Antoni Pokusinski <apokusinski01@gmail.com>
-> Subject: rtc: abx80x: add support for ABX81X
-> 
-> This commit adds SPI support for the Abracon ABX81X family of RTCs. It
-> introduces the required regmap configuration and SPI driver probe logic.
-> 
-> > diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
-> > index 7cba72656d094..46434f05a1f7a 100644
-> > --- a/drivers/rtc/rtc-abx80x.c
-> > +++ b/drivers/rtc/rtc-abx80x.c
-> [ ... ]
-> > @@ -1026,14 +1029,107 @@ static void abx80x_unregister_driver(void)
-> >  
-> >  #endif /* IS_ENABLED(CONFIG_I2C) */
-> >  
-> > +#if IS_ENABLED(CONFIG_SPI_MASTER)
-> > +
-> > +static const struct regmap_config abx80x_regmap_config_spi = {
-> > +	.reg_bits = 8,
-> > +	.val_bits = 8,
-> > +	.max_register = ABX8XX_SRAM_BASE + ABX8XX_SRAM_WIN_SIZE - 1,
-> > +
-> > +	.rd_table = &abx80x_read_table,
-> > +	.wr_table = &abx80x_write_table,
-> > +
-> > +	.write_flag_mask = BIT(7),
-> > +};
-> 
-> [Severity: Medium]
-> Does the hardware expect MSB=1 for writes and MSB=0 for reads? Since
-> .read_flag_mask is omitted, regmap defaults it to 0. If the device expects
-> the opposite (MSB=1 for reads), the SPI commands could be inverted.
-Everything ok here. According to the datasheet, the MSB of the register
-indicates read (if 0) or write (if 1).
+Convert the Texas Instruments DM814x ADPLL clock binding to DT schema
+format. Add 'clock-output-names' as required which was missing in
+legacy binding, as the driver (clk-adpll.c) mandates it and fails
+probing if it is missing.
 
-> 
-> [ ... ]
-> > +static int abx81x_spi_probe(struct spi_device *spi)
-> > +{
-> > +	unsigned int part = (uintptr_t)spi_get_device_match_data(spi);
-> > +	struct regmap *regmap;
-> > +
-> > +	regmap = devm_regmap_init_spi(spi, &abx80x_regmap_config_spi);
-> > +	if (IS_ERR(regmap)) {
-> > +		dev_err(&spi->dev, "Unable to allocate regmap\n");
-> > +		return -EIO;
-> > +	}
-> 
-> [Severity: Medium]
-> Should this return PTR_ERR(regmap) instead of a hardcoded -EIO? Returning
-> -EIO here masks the true error code from devm_regmap_init_spi() (like -ENOMEM
-> or -EPROBE_DEFER), which could disrupt probe deferral logic. (It looks like
-> the existing abx80x_i2c_probe() might have the same behavior.)
-> 
-> [ ... ]
-> 
-Yes, this should return PTR_ERR(), not sure why I added -EIO here...
-Will change this in v3.
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+---
+ .../devicetree/bindings/clock/ti/adpll.txt         |  39 --------
+ .../bindings/clock/ti/ti,dm814-adpll-clock.yaml    | 108 +++++++++++++++++++++
+ 2 files changed, 108 insertions(+), 39 deletions(-)
 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260725145718.14733-1-apokusinski01@gmail.com?part=8
+diff --git a/Documentation/devicetree/bindings/clock/ti/adpll.txt b/Documentation/devicetree/bindings/clock/ti/adpll.txt
+deleted file mode 100644
+index 3122360adcf3..000000000000
+--- a/Documentation/devicetree/bindings/clock/ti/adpll.txt
++++ /dev/null
+@@ -1,39 +0,0 @@
+-Binding for Texas Instruments ADPLL clock.
+-
+-This binding uses the common clock binding[1]. It assumes a
+-register-mapped ADPLL with two to three selectable input clocks
+-and three to four children.
+-
+-[1] Documentation/devicetree/bindings/clock/clock-bindings.txt
+-
+-Required properties:
+-- compatible : shall be one of "ti,dm814-adpll-s-clock" or
+-  "ti,dm814-adpll-lj-clock" depending on the type of the ADPLL
+-- #clock-cells : from common clock binding; shall be set to 1.
+-- clocks : link phandles of parent clocks clkinp and clkinpulow, note
+-  that the adpll-s-clock also has an optional clkinphif
+-- reg : address and length of the register set for controlling the ADPLL.
+-
+-Examples:
+-	adpll_mpu_ck: adpll@40 {
+-		#clock-cells = <1>;
+-		compatible = "ti,dm814-adpll-s-clock";
+-		reg = <0x40 0x40>;
+-		clocks = <&devosc_ck &devosc_ck &devosc_ck>;
+-		clock-names = "clkinp", "clkinpulow", "clkinphif";
+-		clock-output-names = "481c5040.adpll.dcoclkldo",
+-				     "481c5040.adpll.clkout",
+-				     "481c5040.adpll.clkoutx2",
+-				     "481c5040.adpll.clkouthif";
+-	};
+-
+-	adpll_dsp_ck: adpll@80 {
+-		#clock-cells = <1>;
+-		compatible = "ti,dm814-adpll-lj-clock";
+-		reg = <0x80 0x30>;
+-		clocks = <&devosc_ck &devosc_ck>;
+-		clock-names = "clkinp", "clkinpulow";
+-		clock-output-names = "481c5080.adpll.dcoclkldo",
+-				     "481c5080.adpll.clkout",
+-				     "481c5080.adpll.clkoutldo";
+-	};
+diff --git a/Documentation/devicetree/bindings/clock/ti/ti,dm814-adpll-clock.yaml b/Documentation/devicetree/bindings/clock/ti/ti,dm814-adpll-clock.yaml
+new file mode 100644
+index 000000000000..7f551dfca030
+--- /dev/null
++++ b/Documentation/devicetree/bindings/clock/ti/ti,dm814-adpll-clock.yaml
+@@ -0,0 +1,108 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/clock/ti/ti,dm814-adpll-clock.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments DM814x ADPLL Clock
++
++maintainers:
++  - Tony Lindgren <tony@atomide.com>
++
++description:
++  The ADPLL is a register-mapped clock generator found on TI DM814x SoCs. It
++  provides multiple output clocks from two or three selectable input clocks and
++  three to four children.
++
++properties:
++  compatible:
++    enum:
++      - ti,dm814-adpll-s-clock
++      - ti,dm814-adpll-lj-clock
++
++  reg:
++    maxItems: 1
++
++  '#clock-cells':
++    const: 1
++
++  clocks:
++    minItems: 2
++    maxItems: 3
++
++  clock-names:
++    minItems: 2
++    maxItems: 3
++
++  clock-output-names:
++    minItems: 3
++    maxItems: 4
++
++required:
++  - compatible
++  - reg
++  - '#clock-cells'
++  - clocks
++  - clock-output-names
++
++if:
++  properties:
++    compatible:
++      contains:
++        const: ti,dm814-adpll-s-clock
++then:
++  properties:
++    clocks:
++      minItems: 3
++    clock-names:
++      items:
++        - const: clkinp
++        - const: clkinpulow
++        - const: clkinphif
++    clock-output-names:
++      items:
++        - description: dcoclkldo
++        - description: clkout
++        - description: clkoutx2
++        - description: clkouthif
++else:
++  properties:
++    clocks:
++      maxItems: 2
++    clock-names:
++      items:
++        - const: clkinp
++        - const: clkinpulow
++    clock-output-names:
++      items:
++        - description: dcoclkldo
++        - description: clkout
++        - description: clkoutldo
++
++additionalProperties: false
++
++examples:
++  - |
++    adpll@40 {
++        compatible = "ti,dm814-adpll-s-clock";
++        reg = <0x40 0x40>;
++        #clock-cells = <1>;
++        clocks = <&devosc_ck &devosc_ck &devosc_ck>;
++        clock-names = "clkinp", "clkinpulow", "clkinphif";
++        clock-output-names = "481c5040.adpll.dcoclkldo",
++                             "481c5040.adpll.clkout",
++                             "481c5040.adpll.clkoutx2",
++                             "481c5040.adpll.clkouthif";
++    };
++
++  - |
++    adpll@80 {
++        compatible = "ti,dm814-adpll-lj-clock";
++        reg = <0x80 0x30>;
++        #clock-cells = <1>;
++        clocks = <&devosc_ck &devosc_ck>;
++        clock-names = "clkinp", "clkinpulow";
++        clock-output-names = "481c5080.adpll.dcoclkldo",
++                             "481c5080.adpll.clkout",
++                             "481c5080.adpll.clkoutldo";
++    };
+
+---
+base-commit: 0ce37745d4bfbc493f718169c3974898ffec8ee7
+change-id: 20260725-ti-adpll-ddfd84e4ef18
+
+Best regards,
+-- 
+Bhargav
+
