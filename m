@@ -1,93 +1,170 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5516386C3D;
-	Sat, 25 Jul 2026 15:57:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BF6C2EEE79;
+	Sat, 25 Jul 2026 16:21:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.81.229.115
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784995080; cv=none; b=ajI9EhPrdaldyEL+VzqcZZYEB3rFCXvPSrCq85a8IYS510MOsUDzzcyWBaUb4CchPYofF70KxLjqck5Kx2v+P2DCMfsFwTRnjZUWV3KjpO2v4uVVjOIqadWyeq0sPba5A4bx00Lqw+/ByKVP8o0XZ8VU/htgmV2zD+0Qbmx8BHM=
+	t=1784996469; cv=none; b=biuv/KN0TJuZbsLsnKHzEf31l+RUkw4jN0Hrsm64WBCBkm1+Vgx5/2c7Fkzd7sYc+f1/vK6mqSuIw89d95lXAH9E0S1kOFJ80NlejmyF7P3khf1hra4usiPu7PIHJkXlkUHk1YIPM0XrJE1TRx9roX0fYwjJp2R12D5GUKd8E4Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784995080; c=relaxed/simple;
-	bh=8v4akMFID5xsxgiJnCDCF/p/7xIBw54PZPOaiynEh3M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tS2chY1iXYw+Lm6Gz/t7da3IInICh+olH30hyNGXW1W44XF+5FWfhqaeH++Nf1mcr9xr5y4iPoRfyJPzrl1ewS/t8Bo532A7lc88kcjVM57wLSMEdQ1UMbumuaA2rBhUKCMsquzEtqAaEUg2t7N2wb0f6nDswz6GAsomvr27LmE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=aXXlbmLd; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1784996469; c=relaxed/simple;
+	bh=kUq+5IiVyFZIO6HVawlTT3vsFaAkD2ugMp4vmnMDr8Y=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ajHEb73Ol3a5qY4jlm2i50YM/BtYp9qLLvLXwuhZ8vcyBwI/NFXx9tlZT29gDoEV7hhPgUP0oaro9gEjqtKpffWeHvvdco6tmJQcOR65B6nk5dSINk1nxrpWpUW4I3LyV5JfrbVcGIx5+YHs3/u8rlEkU6h3ayyLosYA8DA4nSo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech; spf=pass smtp.mailfrom=chaosmail.tech; dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b=kIkjYOe7; arc=none smtp.client-ip=77.81.229.115
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="aXXlbmLd"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=jgtuDnxQHEcklSeiDd1KgmBuuv8iaStyhrluO90ziCo=; b=aXXlbmLdbUaQPC3cjZ4BdXrF6i
-	kqFuWuGky72WVRw8gdnecWTFVPorfj/UXuSshZda+KE3VOXB1ngc/y/ZwyG08337V0V7oYJGAas2X
-	28kh/uP3z8AVwibMp+3/W1UbOcui9FcXds/vMJhbSiJqy1xRKyy9fC11DileQTMQlGQo=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wnekw-00E9wW-NK; Sat, 25 Jul 2026 17:57:42 +0200
-Date: Sat, 25 Jul 2026 17:57:42 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Inochi Amaoto <inochiama@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Yixun Lan <dlan@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org, Yixun Lan <dlan@gentoo.org>,
-	Longbin Li <looong.bin@gmail.com>, E Shattow <e@freeshell.de>
-Subject: Re: [PATCH 1/2] riscv: dts: spacemit: Fix phy id check for the phy
- on pico-itx board
-Message-ID: <0d11de51-546a-42b6-80cb-8ca258389a17@lunn.ch>
-References: <20260725005804.373698-1-inochiama@gmail.com>
- <20260725005804.373698-2-inochiama@gmail.com>
+	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b="kIkjYOe7"
+Received: by chaosmail.tech (Postfix) id 4E4621C8829;
+	Sat, 25 Jul 2026 16:21:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
+	s=mail; t=1784996465;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=sM2F7cRsJhOB+wTzn5wZj1Mny995buVgtLgdbqbcLH4=;
+	b=kIkjYOe7kX7WMilioriupdlp2P+396xYPhF2fIFgdu/5+FGhCaXl5ATSElU+8iYWWaLG00
+	62GScKF7zzQO+l0u/+FSIlqXvT2LaKAEASFWUu2621yHsWurnIo9oVgDxNKIYmlAb0tK+t
+	qNOQuCO93PFUgnYo0eRo+40Iwoj+fa4=
+From: Sasha Finkelstein <k@chaosmail.tech>
+Date: Sat, 25 Jul 2026 18:20:56 +0200
+Subject: [PATCH 1/3] dt-bindings: usb: tps6598x: Add sn201202x/ACE3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260725005804.373698-2-inochiama@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260725-tipd-ace3-v1-1-73202d36138a@chaosmail.tech>
+References: <20260725-tipd-ace3-v1-0-73202d36138a@chaosmail.tech>
+In-Reply-To: <20260725-tipd-ace3-v1-0-73202d36138a@chaosmail.tech>
+To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+ Neal Gompa <neal@gompa.dev>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Sasha Finkelstein <k@chaosmail.tech>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784996463; l=3417;
+ i=k@chaosmail.tech; s=20241124; h=from:subject:message-id;
+ bh=kUq+5IiVyFZIO6HVawlTT3vsFaAkD2ugMp4vmnMDr8Y=;
+ b=+NfRbJtvWEDq1MQmo/o4cVMJ4FUVddbCWlWgNnxz4llexNy6cec5lt20O0/kXaFowjVI7xAfy
+ 28RI0Jq5AykBVVK8KU0tCli4vFJvZMcMMkp4ceE0oGNdlX7xBajD6mn
+X-Developer-Key: i=k@chaosmail.tech; a=ed25519;
+ pk=aSkp1PdZ+eF4jpMO6oLvz/YfT5XkBUneWwyhQrOgmsU=
 
-On Sat, Jul 25, 2026 at 08:58:02AM +0800, Inochi Amaoto wrote:
-> Current phy framework can not reinit the phy correctly, as it will
-> assert the phy reset GPIO so the phy id can not be readed. Setting
-> the phy id of board pico-itx manually so the phy id dectection can
-> be skipped.
-> 
-> Fixes: 74657a376960 ("riscv: dts: spacemit: Add ethernet device for K3")
-> Reported-by: E Shattow <e@freeshell.de>
-> Reported-by: Inochi Amaoto <inochiama@gmail.com>
-> Closes: https://lore.kernel.org/netdev/20260712045233.800748-1-inochiama@gmail.com
-> Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
-> Tested-by: E Shattow <e@freeshell.de>
-> ---
->  arch/riscv/boot/dts/spacemit/k3-pico-itx.dts | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-> index b2a7d2d0d3a8..b9d2de878f38 100644
-> --- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-> +++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-> @@ -196,7 +196,8 @@ &eth0 {
->  
->  	mdio {
->  		phy0: phy@1 {
-> -			compatible = "ethernet-phy-ieee802.3-c22";
-> +			compatible = "ethernet-phy-id001c.c916",
-> +				     "ethernet-phy-ieee802.3-c22";
+A variant of tps6598x that is attached to a SPMI bus and is found on
+Apple devices starting from the M3 series
 
-There was a patch recently from one of the DT Maintainers removing the
--c22 compatible when there was a specific PHY ID. I did not look into
-why. Does this pass all the binding tool checks?
+Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
+---
+ Documentation/devicetree/bindings/usb/apple,sn201202x.yaml | 78 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ MAINTAINERS                                                |  1 +
+ 2 files changed, 79 insertions(+)
 
-     Andrew
+diff --git a/Documentation/devicetree/bindings/usb/apple,sn201202x.yaml b/Documentation/devicetree/bindings/usb/apple,sn201202x.yaml
+new file mode 100644
+index 000000000000..84d230ccccc7
+--- /dev/null
++++ b/Documentation/devicetree/bindings/usb/apple,sn201202x.yaml
+@@ -0,0 +1,78 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/usb/apple,sn201202x.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments sn201202x Type-C Power Delivery controller
++
++maintainers:
++  - Sasha Finkelstein <k@chaosmail.tech>
++
++description: |
++  Texas Instruments sn201202x Type-C Power Delivery controller
++
++  A variant of tps6598x controller also known as Apple ACE3
++  present on hardware with Apple SoCs starting from the M3.
++
++properties:
++  compatible:
++    enum:
++      - apple,sn201202x
++
++  reg:
++    minItems: 1
++
++  interrupts:
++    items:
++      - description: Primary irq used for tps6598x events
++      - description: Logical register selection completed
++      - description: Standby command completed
++      - description: Wakeup command completed
++
++  interrupt-names:
++    items:
++      - const: irq
++      - const: select
++      - const: sleep
++      - const: wake
++
++  connector:
++    $ref: /schemas/connector/usb-connector.yaml#
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - interrupt-names
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++    #include <dt-bindings/spmi/spmi.h>
++    spmi {
++        #address-cells = <2>;
++        #size-cells = <0>;
++        usb-pd@c {
++            compatible = "apple,sn201202x";
++            reg = <0xc SPMI_USID>;
++            interrupts = <11 IRQ_TYPE_EDGE_RISING>,
++                         <13 IRQ_TYPE_EDGE_RISING>,
++                         <17 IRQ_TYPE_EDGE_RISING>,
++                         <19 IRQ_TYPE_EDGE_RISING>;
++            interrupt-names = "irq", "select", "sleep", "wake";
++
++            connector {
++                compatible = "usb-c-connector";
++                label = "USB-C";
++
++                port {
++                    typec_ep: endpoint {
++                        remote-endpoint = <&otg_ep>;
++                    };
++                };
++            };
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index ff08a65d942a..b2819ca62e0c 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -2610,6 +2610,7 @@ F:	Documentation/devicetree/bindings/rtc/apple,smc-rtc.yaml
+ F:	Documentation/devicetree/bindings/spi/apple,spi.yaml
+ F:	Documentation/devicetree/bindings/spmi/apple,spmi.yaml
+ F:	Documentation/devicetree/bindings/usb/apple,dwc3.yaml
++F:	Documentation/devicetree/bindings/usb/apple,sn201202x.yaml
+ F:	Documentation/devicetree/bindings/watchdog/apple,wdt.yaml
+ F:	Documentation/hwmon/macsmc-hwmon.rst
+ F:	arch/arm64/boot/dts/apple/
+
+-- 
+2.55.0
+
