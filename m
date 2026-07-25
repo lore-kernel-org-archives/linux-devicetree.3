@@ -1,130 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DF2821CFEF;
-	Sat, 25 Jul 2026 14:47:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784990833; cv=none; b=aLnyqkx68OaTjlfciT9whrMB+TPHsD43DW2nDw6NomebAHpWwMLIqiti17p4MWAn00wosEhPkcX5L5kbvk+grp1TYaohJws+xYReAm0I20/Z5PnhOLXOqV5uqODDVzmMAQ4zFboS+jTfG/n/WL9rkWo0zICdRjYzd8UEENDLe/o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784990833; c=relaxed/simple;
-	bh=ftYgWDwY08hriXhljZT4P6e6rLF/2CHavpvWkXdLAns=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tqD9Ci/S3cwzqRQ5BtPq+sozjUkNSJk6+mN7szbWAVgTWn6Y52Ygb3qEqfSBvFQxqDErE40q9znGT5xopxdG1AJqnIpk3WAA+XiYdv16TN3O8+m9T8hd+LpD6sAS5c3WIaFAtHPpr26n23q8xwoEhxEfc4vvsPa5R70cVx1fmec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ui07jVD7; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3D032E06EF
+	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 14:51:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784991064; cv=pass; b=mNL5vMwp9ayidSxZ6e9qkn4FHYZJNwm7VGBj5vDFXn2KRPE1twA/LpvAhMCouAywaTRi70gZacCKyMW8gX8afbg8shPZcfZUQ41gsm1dEraMdpgCuKEFqvn6MOLYh0lWCDqmBOf6oQHNjSSgKon0uwCeSVqdrlJ6d1Ikk7sGUFQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784991064; c=relaxed/simple;
+	bh=szwjKwTuz+yNKvdBSprSzOYxNaUpFRKs+Hx1+fytJsE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=RrGoiXlduwynK5ihRkN08sih6GR0uE+I2SDdB4HbuOxDzBDbSUZBz7a3NQy8eRjWomJZzlmrDAmIKa4YA9BAyMPQHgnY6gFInGaI1bbkNJWHQrxC5Tf6RepQf4ir3bwr4vyeKLpYen01OrzadlpabHR+lzHpD5zJkn8nFEtKqXk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.tenstorrent.com; spf=pass smtp.mailfrom=tenstorrent.com; dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b=D6mkLxNr; arc=pass smtp.client-ip=74.125.224.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.tenstorrent.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tenstorrent.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ui07jVD7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 411BB1F000E9;
-	Sat, 25 Jul 2026 14:47:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784990832;
-	bh=AH7musQwdSBmrm7K680xBXlwyD/B2D2oxodOewI599c=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Ui07jVD7TqPcbEtWi8KQwsiiT3q55LxrbhPz2KIyF83ieFaWTHM2MAA/0Ltu4FlA7
-	 Y8D0i2nB2t2q5uY8sNwJNAC5zrewvwogCX8OmLYq5o8BsOfMtG49AAuzsI04k4m0Oe
-	 WN8RqTTfW4JpFgMEBipzUx+//hgnNQSk91hvuBCegLwQ+5lsZoEn8uDYLtq0sAgkam
-	 3MmjFYVUB+odWpaekFSGqWYSl2Uma0emArQQ6szE+SA6HxctD7wyUasDj4D4SYA4NT
-	 bIPwz5iHfgptyXZbiawMyjJ8CRBpYZudjSaKQQ4AsvFtG2IE2UMItOF+X9BZJi9mPJ
-	 3k3bfZnvzyZww==
-Message-ID: <0eca3486-57c9-469f-b846-8c10ec07ffba@kernel.org>
-Date: Sat, 25 Jul 2026 16:47:03 +0200
+	dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b="D6mkLxNr"
+Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-6689f36ae56so1570052d50.3
+        for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 07:51:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784991061; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DXdcZ/crkeKXgyzSEZPxfDAWhu6iG5YyvEmgDd1G2WTSKJxRrXWqJ9voJHIO7N8WZB
+         OSLC8jy2MP2tEUWgmYNusJ/pj1jbv7A+iX/98FAgI+Kli+PMAxdT/TgK2B/bWFjahUCc
+         /ldsQQtw1T8ATWazCl4VQHEpTa3PV8A5jb9Xz9kleree2FpH2zq1OBkwTSQaJ3R38ySR
+         H0r+Gopim3DRGbc4dyIyuALog2RGZFdRNgmL3e/8pbX63Hq5CZZ7OPACCfFu4a2DjpMB
+         45hm74oHeRehhZ8GyjeZvz+drM4Ya/9VmQ1atViXRbHpxmVOiPar2YcruMGyFgyUQMTD
+         72Dg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=pnFY+NL1wMs6HQctnpLrg5MSHuL5XLJldyr4+uKR9zM=;
+        fh=Eb85HIDbBz/wKUiotmu7Ylw9KvXqzJD28ZlwI1ACKWs=;
+        b=fwTLLxyiqHYsJPWfIBCrmLBbost+YAwhVNk6SxsZenkLqPlO1iTROWtbs2cP/6Y7la
+         t/9gFJkw0OwtFlDZf+6KGO+YQiYOLsg/mEMRDsA3HgyN3dhz3fuU7MHKBLv+8WF6v+Gx
+         /HdiepyO+NTgeo7TYJ8HdZOa75/Gd4rKS8Jexqm8LPO2n4OEOWgk87eCVhsiF8gNbRUx
+         dInRTzOoCS++JYAxkBM/wnoBOWW5CKf9XCco9VA1NBxzuKuIeCo+Mr8rgeCqcRqfsGrY
+         fm/VStmdii3QboIOVwGC9ROQ+QEUbOEys167Iq79rdd2qgSoxKsdb7QnDoaFUno1KhE2
+         jBWA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=tenstorrent.com; s=google; t=1784991061; x=1785595861; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pnFY+NL1wMs6HQctnpLrg5MSHuL5XLJldyr4+uKR9zM=;
+        b=D6mkLxNrMx7ZOuG9IBzlKwQ4jOU/JZaA/PBfJMrnB45cwUpt+qt4XnZJaSX3a15Ngw
+         S8wf+BNtyllzw0gBCA1EYavRJXAQp1qTcv94PDbD2Yx/VSkId2TEzUjsLZryQFT68O5n
+         0RcCb3NkGLm15MBQtgh0daaHHxaZ1EA5QuD1uvSR91S6QjeHzXUm0LpgKNwR227HnCiY
+         CGlOaFYksokO//0F+GBiEIdbX9NEz+NWcws874+skagAuslTowv93OyeVMgXPGWLuLnS
+         81kB2VJOzMWWtK6bHIDJGCs6mc5mjM5OFMQppfRkyqWDGSBfG/OOeQ7TZvZvY0crITTV
+         rd0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784991061; x=1785595861;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pnFY+NL1wMs6HQctnpLrg5MSHuL5XLJldyr4+uKR9zM=;
+        b=LMZ7/nLMVT1kTz26b1zGUJOCURxm78OHea3uZnBJc2jm/3qNeK0Lcz/D0KC9SOyc+F
+         rcRh9OK6H6M2Q/LJTIrzL+84Bb/49xF/vF18Fv1oAPsQIpC5c6bX9k7dI+XK0/4XOluI
+         BX2ca+Zy3MQS+fGqMjhCtOfpdmhoFNtXlM+CyQl842ZzzBbv8n0bmnTALcjs8B5DzXWo
+         ZRNqrjSdaOGpOFGcwE1BJYCiR3yA9N/cTAsYPsXxkIXwDGvl/4p3B9XefnkT+cJH5m+t
+         +Reb/KANGIx+frSTH9KL75Q15esHH4Hq/wRD6ttd9bd1YewHBWQT3bBaG0u3g9kWlEb8
+         XZLA==
+X-Forwarded-Encrypted: i=1; AHgh+RqMXGAicWXijg/peL7ynrNQZWJx4I7R2HoJLN/BcigRT6vPmJ+VsEgwsoFqyu1Njz6TMvY1SZdIp16u@vger.kernel.org
+X-Gm-Message-State: AOJu0YzrcUJjIr7vkYYBE2REOSg7Opt4U0o0fMr9uv6K071qQuJeSkYB
+	tJ+IVbKbEDeBDFD+HeEqdad6ynW0k006xUr3ydGZBsGSN40PhG1DETyeZC+cuV+4CMU47GDTZ5d
+	CpDopcQvPRZxLLbQHbDN5TFGqwB77sxfGHI4NXgZRKBisy+G4X3gylXo=
+X-Gm-Gg: AR+sD100F/Fv7DIgDyPXabkd0xmyI31VqT6gAPQwcUFRCWMBQAcKe61BiqLlzJT3sLo
+	570Tn8xYwEiiqx7OIL65MlxDiZ2JfvVgaBBq5IPWia+fc5FY8iPFGOW/El+fgUw4MTJBuY/FrW4
+	VGAUR4SHdDNT2wAqqjSKNRbcuSCOF9LpFmersqGaPS5FxMnZZCtDx6hn/iZfZ9iy8xwAFbnpA3Z
+	MoM12OPCPFdawpnlhlrs+WVXi9edzRzEe1g72CByPQEHCz0vsLUTJ6V0y6zH6xWrJt9/zmAWs6C
+	P7VD9Kwyzjf+JAtpja7JvvKCkTMmIejNtmerWGZKYyraAsWW1ZU=
+X-Received: by 2002:a53:acd0:0:10b0:668:98b:dc54 with SMTP id
+ 956f58d0204a3-668c7a3fc07mr491029d50.41.1784991060853; Sat, 25 Jul 2026
+ 07:51:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 0/6] Add dt-bindings and PHY updates for CAMSS on
- x1e80100 silicon
-To: Daniel J Blueman <daniel@quora.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
- Todor Tomov <todor.too@gmail.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Bryan O'Donoghue <bod@kernel.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-0-f8588da41f16@linaro.org>
- <CAMVG2stKmNxe-mdqbqO4MDLDrJCiNXw9kt8SA8egYAmByf9fKw@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <CAMVG2stKmNxe-mdqbqO4MDLDrJCiNXw9kt8SA8egYAmByf9fKw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260702-08-k3-ufs-support-v1-0-1a64a3ab128f@kernel.org>
+ <20260702-08-k3-ufs-support-v1-2-1a64a3ab128f@kernel.org> <7x3b4sttnc4oxkuvxmpkihfi76lkapjcigo7khgcgfytvol7w2@v5ykuyrk2z3m>
+ <20260725091824-GKA77545@kernel.org>
+In-Reply-To: <20260725091824-GKA77545@kernel.org>
+From: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+Date: Sat, 25 Jul 2026 09:50:50 -0500
+X-Gm-Features: AUfX_mxi8h9KJVu9G6xUZkOpr4TATQAXRS0gOluTWc4FpB0HNeql-4Yjcvl9SVk
+Message-ID: <CAEev2e8z3cJn+ALoqu=ZoozpTJ6vO_eTgiDrSjC4nOC1XK57FA@mail.gmail.com>
+Subject: Re: [PATCH 2/3] scsi: ufs: spacemit: k3: Add UFS Host Controller driver
+To: Yixun Lan <dlan@kernel.org>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@sandisk.com>, 
+	Bart Van Assche <bvanassche@acm.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	"Martin K. Petersen" <martin.petersen@oracle.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, linux-scsi@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 25/07/2026 14:47, Daniel J Blueman wrote:
-> On Wed, 8 Jul 2026 at 08:06, Bryan O'Donoghue
-> <bryan.odonoghue@linaro.org> wrote:
->> Changes in v12:
->> - Updates camss sensor find method to find the sensor in the CSIPHY port. -
->>   Neil, Vlad, Bryan
->> - Drops dependency on passing polarities and positions. Moved into CSIPHY
->>   port as agreed. Neil, Vlad, Bryan
->> - Omitted mux to CSID as discussed this will be done when splitting CSID
->>   out as its own individual node. Neil, Bryan
->> - Updated Reviewed-by: - Loic
->> - Link to v11: https://lore.kernel.org/r/20260326-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v11-0-5b93415be6dd@linaro.org
-> [...]
->> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> 
-> Works for me on 7.2.0-rc4 with 'qcam'.
-> 
-> Tested-by: Daniel J Blueman <daniel@quora.org> # Lenovo Slim 7x X1E80100
-> 
+Hi Yixun,
 
-You cannot test bindings and I doubt that you actually tested even the
-driver code without DTS.
+On Sat, Jul 25, 2026 at 4:18=E2=80=AFAM Yixun Lan <dlan@kernel.org> wrote:
+>
+> Hi Anirudh,
+>
+> On 15:16 Sun 12 Jul     , Anirudh Srinivasan wrote:
+> > On Thu, Jul 02, 2026 at 02:31:36AM +0000, Yixun Lan wrote:
+> > > SpacemiT K3 SoC consist of UFS (Universal Flash Storage) Host Control=
+ler
+> > > which has features compatible with JEDEC UFS 2.2, MIPI UniPro v1.61 a=
+nd
+> > > M-PHY v3.0 standard.
+> > >
+> > > Signed-off-by: Yixun Lan <dlan@kernel.org>
+> > > ---
+> > >  drivers/ufs/host/Kconfig        |  12 +
+> > >  drivers/ufs/host/Makefile       |   1 +
+> > >  drivers/ufs/host/ufs-spacemit.c | 931 ++++++++++++++++++++++++++++++=
+++++++++++
+> > >  drivers/ufs/host/ufs-spacemit.h |  90 ++++
+> > >  4 files changed, 1034 insertions(+)
+> > >
+> > > diff --git a/drivers/ufs/host/Kconfig b/drivers/ufs/host/Kconfig
+> > > index ff170c0b6da0..4f53b7f7688f 100644
+> > > --- a/drivers/ufs/host/Kconfig
+> > > +++ b/drivers/ufs/host/Kconfig
+> > > @@ -132,6 +132,18 @@ config SCSI_UFS_VARIABLE_SG_ENTRY_SIZE
+> > >     bool
+> > >     default y if SCSI_UFS_EXYNOS && SCSI_UFS_CRYPTO
+> > >
+> > > +config SCSI_UFS_SPACEMIT
+> > > +   tristate "SpacemiT UFS controller driver"
+> > > +   depends on SCSI_UFSHCD_PLATFORM && ARCH_SPACEMIT
+> >
+> > Can you add SCSI_UFSHCD_PLATFORM and SCSI_UFS_SPACEMIT as modules to
+> > riscv defconfig (or just add the former and add a default y if
+> > ARCH_SPACEMIT in this Kconfig entry). This will let defconfig kernels
+> > to boot with persistant rootfs on these devices.
+> >
+> Ok, will consider adding one entry to riscv defconfig, but this should be
+> handled in another separate patch, for making it as module or built-in dr=
+iver,
+> I'm incline to choose latter one, but would be glad to hear different opi=
+nion
 
-Best regards,
-Krzysztof
+Module sounds good.
+
+> --
+> Yixun Lan (dlan)
