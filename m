@@ -1,51 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B540286425;
-	Sat, 25 Jul 2026 22:56:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 640A83A1C9;
+	Sat, 25 Jul 2026 23:31:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785020189; cv=none; b=GKC5Um314qPg3LLk4yw4IBNEeu+fZhKlutaI9KtyCsoPdHgSlTT23zVPYBA9L1BR29C2BUmo8FSaiPo716Wr6I1wDWkUo34e6bATcquukTkR+XA7n64TGl5MGTpagT25O3I4uOYnBARg/C5o6S7utfIkOMr0k/zeu434TrzEMNc=
+	t=1785022320; cv=none; b=GE2YlNfmccIstqJanOrHaH7AAMpo0V3zETqc20aLLnwr5tCUsG8x+taCSPek5lPOHDcc3Mz4HsSEUI/0pcqe3qh/2fX3IHIv6Cxcbn+AY0DDbr2xxxglVD8ePrjGNap24IIuHideYVwWLH6gfXwNwL+KjoFkjGVzfWaxZHtwZzI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785020189; c=relaxed/simple;
-	bh=iDWpAqRkfZ35v8WKKY0xbWLOfcTI8IuQYHGt4m8Um1s=;
+	s=arc-20240116; t=1785022320; c=relaxed/simple;
+	bh=aY1qNjDsB6k1qwUTIATswpYBPoOiWoNOA34+hdLN4i8=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=F6KNd1fzBIKgj7gp/51CmbRYDqKP77Fac+8l/ZyEBbmMUEIipfoZi3vDZ8coK4P9X2Yw4uVAlAF53BTNYwfQTaWmqBnimg96SQDoRxUZ1G4w/18hYy4wiD0j7ncI/Q9mTymoi6KLtlQCxU3MSpndWPIqJCFQCDSzTbO7d4c6tFM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rq0kxMt2; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=gopVh1diBrFMP1L+35glrTkpyeSfHkkPD3aHgJMMoGux89VuQk/YqOzBr0y7CrPX0Ip/ptVsg63NvhGeq2gICkB8bpYXGP+kMVRiYVV8AXnhk9tad3p0Ata0CrSCZUiZ7vQscEg2LVfB+O4zIYvAZCgOQ/cUKGMuwMko4WHGO3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iCJvO7J6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rq0kxMt2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D228F1F000E9;
-	Sat, 25 Jul 2026 22:56:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iCJvO7J6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 214A51F000E9;
+	Sat, 25 Jul 2026 23:31:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785020188;
-	bh=oe/e1NIktgaY3sdLbPwFx54yVzEFlDJX9fTvKfXYWuw=;
+	s=k20260515; t=1785022319;
+	bh=nKniyWVT5M6jxG4Y1dgkt+TX5tVQqlg1n4lifZmFS0A=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Rq0kxMt26gE2Xqbm0ouVxEIwNxdbIX8x2dHFd9/IAqvcbkTQc+r81CZZDK+RS7nwA
-	 KlWnqELmHO0+CcfdkuxjQq8woacKEzvpOiPxAF9zyIKH7gvhCjDzdspKqmf7juzPL+
-	 663kPcfuCKfevDWT+KNOb0fLWcfsS8szPsQa4lsoeuisjP45W0RK2dd6hlsUUryzpy
-	 O3OgmXOWAWcpWOtQCfN9ko8TtMc9E/OxlPFLmVe0APKEKJqbjqbkGGG424zwxTiV14
-	 ihrWD3oF51Tbx3rc7jg9KkyO3X3/kl/RyxfbEYm/Nh03WgnZnFwwELxXZES59Z2TvG
-	 MTMDeYaN3U82w==
-Date: Sat, 25 Jul 2026 23:56:21 +0100
+	b=iCJvO7J6Ys/lcbOw6loRv/eIOtLZ6D26GbOziC9hUS7vPjEyK8Wo+0mMPneV0ATCv
+	 P0NQpAjwf2DTF7WuFs3spKOSOz/NoZ5PZkHHFIYmLrR73KRJdpKzsn9QcGTz4NTZ81
+	 2xsormCoS+PgZ2x/8qTXuS4556q2ITvLMujNhko+HBy1oJryPmoxcjDj4OxxR+9qMi
+	 CiHtrInq8jTm01c7TFVK8PmnST7otLK3Z0wE9iqHPOmHJ0gH63EJoMpBi56TxxDgG9
+	 a/ut12GbPJ+27Rr1QGV50CaXByzMfiquBDMFQYjjJktJ9tcIrtt1G2LWxsonaIOh5N
+	 El248t/x+orPA==
+Date: Sun, 26 Jul 2026 00:31:52 +0100
 From: Jonathan Cameron <jic23@kernel.org>
-To: Rodrigo Alencar via B4 Relay
- <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: rodrigo.alencar@analog.com, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, Lars-Peter
- Clausen <lars@metafoo.de>, Michael Hennerich
- <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp
- Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, Shuah
- Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, "Gustavo A.
- R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH v9 15/17] iio: frequency: ad9910: show channel priority
- in debugfs
-Message-ID: <20260725235621.6dd73e71@jic23-huawei>
-In-Reply-To: <20260722-ad9910-iio-driver-v9-15-459d1df5ac56@analog.com>
-References: <20260722-ad9910-iio-driver-v9-0-459d1df5ac56@analog.com>
-	<20260722-ad9910-iio-driver-v9-15-459d1df5ac56@analog.com>
+To: Siratul Islam <siratul.islam@linux.dev>
+Cc: Stefan Popa <stefan.popa@analog.com>, linux-iio@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, andy@kernel.org, nuno.sa@analog.com,
+ linux@roeck-us.net, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, dlechner@baylibre.com, ciprian.hegbeli@analog.com,
+ u.kleine-koenig@baylibre.com
+Subject: Re: [PATCH v5 1/2] dt-bindings: iio: adc: add maxim,max40080
+Message-ID: <20260726003152.1d9f36d5@jic23-huawei>
+In-Reply-To: <a79b2fd8d08d4594bbb472b005534d7c91d86e49.camel@linux.dev>
+References: <20260723065036.2683075-1-stefan.popa@analog.com>
+	<20260723065036.2683075-2-stefan.popa@analog.com>
+	<a79b2fd8d08d4594bbb472b005534d7c91d86e49.camel@linux.dev>
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -53,81 +48,84 @@ List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 22 Jul 2026 16:50:24 +0100
-Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+On Thu, 23 Jul 2026 22:23:39 +0600
+Siratul Islam <siratul.islam@linux.dev> wrote:
 
-> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> 
-> Expose frequency_source, phase_source and amplitude_source attributes in
-> debugfs. Those indicate from which channel the specific DDS parameter is
-> being sourced by returning its label. The implementation follows the
-> priority table found in the datasheet.
-> 
-For this one sashiko raised some questions and made me wonder how this
-actually works given it is using active_scan_masks and so far we don't
-have any buffered support in the driver.  My guess is you backported
-this from on top of some other code that you haven't posted yet.
+> On Thu, 2026-07-23 at 09:50 +0300, Stefan Popa wrote:
+> > Add device tree bindings for the Maxim MAX40080 bidirectional
+> > current-sense amplifier with a 12-bit ADC and an I2C/SMBus interface.
+> >=20
+> > Signed-off-by: Stefan Popa <stefan.popa@analog.com>
+> > ---
+> >  =20
+> ...
+> > +
+> > +title: Maxim MAX40080 bidirectional current-sense amplifier
+> > +
+> > +maintainers:
+> > +=C2=A0 - Ciprian Hegbeli <ciprian.hegbeli@analog.com>
+> > +=C2=A0 - Stefan Popa <stefan.popa@analog.com>
+> > +
+> > +description: |
+> > +=C2=A0 The MAX40080 is a high-precision, bidirectional current-sense a=
+mplifier with
+> > +=C2=A0 an integrated 12-bit ADC and an I2C/SMBus interface. It measure=
+s the voltage
+> > +=C2=A0 across an external shunt resistor and the input bus voltage, an=
+d stores the
+> > +=C2=A0 results in an internal FIFO.
+> > +
+> > +=C2=A0 Datasheet:
+> > +=C2=A0=C2=A0=C2=A0 https://www.analog.com/en/products/max40080.html =20
+> This URL links to a product page rather than a datasheet as the tag sugge=
+sts.
+> Would be difficult to fetch using CLI tools.
+> Were you supposed to use something like
+> "https://www.analog.com/media/en/technical-documentation/data-sheets/MAX4=
+0080.pdf"?
 
-Please have another check that this all works with just the series
-posted.
+I think the argument for using product pages is that they are stable and da=
+tasheet
+paths sometimes change.
 
-Note that you will need to claim buffer mode successfully to mess
-around with that in paths that aren't inherently only used in buffered
-mode.
+For ADI there is a neater form as well that is supposed to be stable (and
+has been for last few years at least)
+https://www.analog.com/max40080
+Works for any product and takes you to the equilvalent product page to the
+link above.
 
+So whilst you make a good point I think we will have to let Analog decide
+on a standard way to link to their product info / datasheets.  That is
+on the perhaps optimistic basis they have more insight into stable choices
+than we do!
 
+>=20
+> > +
+> >  =20
+> ...
+> > +examples:
+> > +=C2=A0 - |
+> > +=C2=A0=C2=A0=C2=A0 i2c {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 #address-cells =3D <1>;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 #size-cells =3D <0>;
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adc@20 {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 com=
+patible =3D "maxim,max40080";
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reg=
+ =3D <0x20>;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 #io=
+-channel-cells =3D <1>;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 shu=
+nt-resistor-micro-ohms =3D <100000>;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
+> > +=C2=A0=C2=A0=C2=A0 }; =20
+>=20
+> --
+> Best regards,
+> Sirat
+>=20
 
-> @@ -2078,6 +2092,171 @@ static int ad9910_setup(struct device *dev, struct ad9910_state *st,
->  	return ad9910_io_update(st);
->  }
->  
-> +static inline const char *ad9910_frequency_source_get(struct iio_dev *indio_dev)
-> +{
-> +	struct ad9910_state *st = iio_priv(indio_dev);
-> +	bool ram_en, mode_en;
-> +
-> +	guard(mutex)(&st->lock);
-> +
-> +	/* RAM enabled and data destination is frequency */
-> +	ram_en = AD9910_RAM_ENABLED(st);
-> +	if (ram_en && AD9910_DEST_FREQUENCY ==
-> +		      FIELD_GET(AD9910_CFR1_RAM_PLAYBACK_DEST_MSK,
-> +				st->reg[AD9910_REG_CFR1].val32))
-> +		return ad9910_channel_str[AD9910_CHAN_IDX_RAM];
-> +
-> +	/* DRG enabled and data destination is frequency */
-> +	mode_en = FIELD_GET(AD9910_CFR2_DRG_ENABLE_MSK,
-> +			    st->reg[AD9910_REG_CFR2].val32);
-> +	if (mode_en && AD9910_DEST_FREQUENCY ==
-> +		       FIELD_GET(AD9910_CFR2_DRG_DEST_MSK,
-> +				 st->reg[AD9910_REG_CFR2].val32))
-> +		return ad9910_channel_str[AD9910_CHAN_IDX_DRG_FREQ];
-> +
-> +	/* Parallel data port enabled and data destination is frequency */
-> +	mode_en = FIELD_GET(AD9910_CFR2_PARALLEL_DATA_PORT_EN_MSK,
-> +			    st->reg[AD9910_REG_CFR2].val32);
-> +	if (mode_en && indio_dev->active_scan_mask &&
-
-active_scan_mask is only set on a call to iio_enable_buffers.
-So what is this checking?  I guess today it will always fail as
-active_scan_mask is NULL.  Once that is in use, it will be racy
-however, so you'll need to claim buffered mode (or fail in which
-case the null check isn't needed).  That claim will hold it
-in a particular state - under the hood it is taking mlock
-which is what sashiko suggests - that is just meant to be opaque
-to drivers so do it with an explicit attempt to claim buffered mode.
-
-
-> +	    test_bit(AD9910_SCAN_IDX_FREQ, indio_dev->active_scan_mask))
-> +		return ad9910_channel_str[AD9910_CHAN_IDX_PARALLEL_FREQ];
-> +
-> +	/* FTW: RAM enabled and data destination is phase, amplitude, or polar */
-> +	if (ram_en)
-> +		return ad9910_channel_str[AD9910_CHAN_IDX_RAM];
-> +
-> +	/* single tone profiles */
-> +	return ad9910_channel_str[AD9910_CHAN_IDX_PROFILE_0 + st->profile];
-> +}
