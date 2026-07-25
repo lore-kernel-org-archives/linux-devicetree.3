@@ -1,121 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6547F1E492D;
-	Sat, 25 Jul 2026 12:35:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784982936; cv=none; b=lFAQ1DOzGzgMCAMHhf3OcJibUIIWx2kBw8vXjWwaokBdtGww+j+6AiY9xCC+qGhr2GwoVDFwG8k9pADXQQYLSKJ6HN2lMBOq72ilsQgPcfJO1yNXpks40MIu8ziRmE5q5eEFYGiG/2iTzUPQZc0mbqInacpOMsTRB91ztKRS8p0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784982936; c=relaxed/simple;
-	bh=4qCQdaM9dOGRg5e8Y66mDNI9/3y8p18DT8QxyhsWwdA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=X/vM+GTgcXnDLiGE8qJIa+3/4BSvCzTmomVwcJy5hrTwBDMOy6OPMHrJD8ymv2/Mz2pWoOO07mI4vr0h2Y/RYPP7gds/eXAZ6nBxcPiYEbDOQFMBHxeq9yXqPqtLFhN47ojJlArJBbhhLLImost21tXOD1N6gesc/IqZ/6UTZpA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZgYWc9fS; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E369E212542
+	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 12:47:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.182
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784983624; cv=pass; b=CvjyG/JgxuQ7rXct4zaTjIyFYk9wzaEP5QGhl4/P1TCEjDsfmuY4ThhQ3CHEnlkwVd3sfd+WDZm3UAi5z8Sj52kChC7RJgfA1EausDA1gzd0G/ZiJr+JlHevst0AWRUiDUp96NC/4QmakC53a3dCfo3/O/m4lfxO98LnmSRVp3A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784983624; c=relaxed/simple;
+	bh=OvrNT+93qZFUenq04qZyqRBg/XnwRXOAV++TlHjqWj8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=sDE3UqnREo9mC/YeUI9PrxpTerExWzdKGMWr9y+Gk/UesgGfW0BNKEaxAYBPcjHzZgkZatSIWDlAmzwG/AReDK9XacfRSmg7r9YonCnFTUCzMlzbMUKCFvhsLkwATFhhsf7Y7SAqtMx8GJEtmYYU59i/mo+wXQI1xVHrW9XltiY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quora.org; spf=pass smtp.mailfrom=quora.org; dkim=pass (1024-bit key) header.d=quora.org header.i=@quora.org header.b=VDSZ/t6G; arc=pass smtp.client-ip=209.85.215.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quora.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quora.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZgYWc9fS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 972861F000E9;
-	Sat, 25 Jul 2026 12:35:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784982935;
-	bh=14j3s6VceEsHb91H5pJ7MWrS8NMUkLwu4jqXDFTd81I=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZgYWc9fSvbyJjERuPdpzi/+toBAGz26GZlt/76EnWChuqUGL0fYeZivQCGpqW1dEW
-	 GsfsdQUvImrv7bvGPnTxVuP+ONtTRU0trzhw7PqwL9srDdUcyNwBgyuAJW96pE1jt4
-	 EH4/QCt1b2mvuBVgG2Ye7mPJ3kHG5BWakXD7nUKK+7vKSQUO5g/y1W1Ad54ZeBM/zp
-	 D+oeICXum5oJeCxl4maiDeoLhwejnQQKL1pqGm18V7PAPszStmhQ5NPnWhZbtpcLFe
-	 CkcRmVwS3n8KMPc8LfAQLJEnThxE5r9oKAnSRh2qOMtQuq28wBByuQNG93g6Es2QFB
-	 OskqaorlQ19Zw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] dmaengine: apple-admac: Add M3 generation ADMACs
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sasha Finkelstein" <k@chaosmail.tech>
-Cc: vkoul@kernel.org, dmaengine@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20260725-t603x-admac-v1-2-6a4dec023f02@chaosmail.tech>
-References: <20260725-t603x-admac-v1-0-6a4dec023f02@chaosmail.tech>
- <20260725-t603x-admac-v1-2-6a4dec023f02@chaosmail.tech>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 25 Jul 2026 12:35:34 +0000
-Message-Id: <20260725123534.972861F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=quora.org header.i=@quora.org header.b="VDSZ/t6G"
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-ca88130e09aso935361a12.3
+        for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 05:47:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784983622; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hePt4j37touhV8A/AZ9udihJ1eUz5wsRVBQSzgg+msHh45U3dWS92rlMaZtN8Z2pWB
+         lUlqP0LIrALHo7yJvjRuUKIzuhdjSxRybgPjloP+RAqqjNY8PDy3zN6GNgDJfc6gtQ5z
+         yc5fqSIUEOQuOsuACfkP4vpIVklfuw575QCnyCiyI2ttRTVVJD+OpgUR+zY+k01JeTpV
+         BCrjZnC5Lv41jdsD2BeJRmgi6/ewgEOKaWNfwMUSH1IfJD2KiUIzB89GhxzgnXFqElTL
+         3KEoCtRxRHVVogNtToYG9qabYrT0XYppF41EPR8gCer2YvGAgswKZYaDZM9ttpsF59GQ
+         3U4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=SABMkpCvnpZQFfCqjkujdH0sHrHtEaNsZiUpRammpMY=;
+        fh=avMKm7k/AzFliM5Q1TnkTd0fmJtu/eBs7uwsQQRdFS4=;
+        b=PPJ5HJQvAFdM2vZIdVdLQ8Tg5rYyUTZN7VfdC/MB9Jo2Fu/aZXsVZPrnCeNLg+nhv4
+         Mggyeyw2ngrqYbzi1Rc7WyKpd9Bp1CsdjdTuegpPj0nZRNp2ND8OpdKQzTpKRmN9MZnW
+         tzpPMYw1vdvVOKzIyf1kfm0bIAPbTIl7z4soN2bSglxzxgOcPO+OUXQ0FIsO7VwLpF2s
+         ZuAg+bfhQEyrij4qOqZT+JYzI/y1Wk0KTzMBeB7VIpAVFTRlonG4f0PrrF49WsThMEBs
+         uBjCgYEUTWOTkMCL+GcidYlfp3Yx2XdzMGCA3T/oASwFzFzsHf7taDb3JLGcLUT2R0HE
+         Y2kQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=quora.org; s=google; t=1784983622; x=1785588422; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SABMkpCvnpZQFfCqjkujdH0sHrHtEaNsZiUpRammpMY=;
+        b=VDSZ/t6GfsDy310tFkkEXjR/iFq9qAkdkm81dNdcrTPYS/NwS7jGhBzDmc2oNjFKYf
+         Op0k+/wMSeABxhExD5CvZntxJ/pDTEAKghPjrO9BYzCktmj9WF5Ae0rgIFuGvbK6BbSa
+         FnkGQ+acFaoUX0owBowE3Pn7jgYDwsRMReq1Y=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784983622; x=1785588422;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=SABMkpCvnpZQFfCqjkujdH0sHrHtEaNsZiUpRammpMY=;
+        b=VLS1Wud+OTPGZVCU+bUQPYldfkgxKnyg1TEHt2DgxC5rhAXoCCAch1C9MNnop3JZsf
+         8as7Ts9nSjleZpD8vPfDNQAecVvjQTKFTwIlkH5+1/G9T3PjjBjvyp7ioAuSQwrE9nC/
+         jFUzWXCSIv5w2Vve9EJsnmPrk3bSIjHiPESUdUrN0hASVSnowIW1pOeKgtpQgTVGZswX
+         hYzvsnSPGqCazzubw3bmovjcsv/7uai41/FiMdW6sZTqo+mxT7Dli+8I+qwqMOtoMnlW
+         IdhQ5SZqseWlCBkI2d+KiL/qbGF98mApcpt00EhHFjHAggFLm6U+qbs07flPGy7iQYdn
+         eQnA==
+X-Forwarded-Encrypted: i=1; AHgh+RrQOxU2yrY3zK1QDszij3NFckBMBg5vITpB8iEAUkzSzgI9prggI/LojVRht71dmyAPrh+eqNGXLKHz@vger.kernel.org
+X-Gm-Message-State: AOJu0Yynk0uaKigD50CrrV1BAwi5hAmf8bvdZnB4BINvnAeKpjuRLd8V
+	+O1IH+VN8uEe4TMkLhm2RX1NVUA6QL3Ss8oXakBSfGGmUXKh9ozKzA+z8YxQiF8IL/N5hgxij6c
+	GONEtkRuO4jnnES/MAnO6Lrw7JQ3M+IsCdxa3k+krVQ==
+X-Gm-Gg: AR+sD12/SkhXNAmC03u2PNhU+NxTQSrC2AxYDXJzPn4+vJJKgE2NEIv7Xo2TlfARVk+
+	fSBe5cFHG3X/DhnrRCgawPeUBifM0cSPGAsYsfH8qPeXtoaBMUFDyboD+fN0HmIEJnWCDGKOC23
+	gPQR6btfKX/d3M0oEliaYsR2XNvfcQugHaBknaEmDiZyboTUOj43e3n11M/ZsCGlwVseMFfjzhn
+	FbmfFLLXfJaljZus8leat1Fhdd3WNS0fH+yBEEItrWICkpoqFRPClDpjul4P3gpdOFm4E6jiu3r
+	ddtqP5JuaiOIBOmzYOpSmnlJeQjaxvhGsfTasFQvuhr1ZrdUp3unQiV8igdoO+RI3eFQ/T2Mjo0
+	EKcwn8WRruY1TrwrceFAyKg3HPanl5EuRtfKiskoZ7NtnRO4XAnyJHoGARW3s1+lOczCTRPtcXX
+	noF5A8W8qf+vwyE5neGUoEK5HLr3qY8crv/Ny9KI9NtGyKCqeh+2QbNHWgX5I=
+X-Received: by 2002:a05:6a21:918c:b0:3c3:8ce8:1fd with SMTP id
+ adf61e73a8af0-3c67e0821cbmr2043147637.73.1784983622294; Sat, 25 Jul 2026
+ 05:47:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260708-x1e-camss-csi2-phy-dtsi-v4-0-572348ad1b2a@linaro.org>
+In-Reply-To: <20260708-x1e-camss-csi2-phy-dtsi-v4-0-572348ad1b2a@linaro.org>
+From: Daniel J Blueman <daniel@quora.org>
+Date: Sat, 25 Jul 2026 20:46:50 +0800
+X-Gm-Features: AUfX_myLwI7kMfc-XbFzlYvC_Qj91PEJsD-glXmxVIjHTMm2QKWFeYyYEBStVBk
+Message-ID: <CAMVG2st=wGNYF0AbqRqadVqJL6x_F8G2u6BJd6VOweQ0nNebKg@mail.gmail.com>
+Subject: Re: [PATCH v4 00/11] arm64: dts: qcom: Add x1e/Hamoa camera DTSI
+To: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+	Christopher Obbard <christopher.obbard@linaro.org>, 
+	Aleksandrs Vinarskis <alex.vinarskis@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Wed, 8 Jul 2026 at 08:44, Bryan O'Donoghue
+<bryan.odonoghue@linaro.org> wrote:
+> Changes in v4:
+> - Implements agreed port/endpoint bindings in CSIPHY series
+> - Depends-on: https://lore.kernel.org/r/20260708-x1e-csi2-phy-v9-0-0210b90c04cf@linaro.org
+> - Depends-on: https://lore.kernel.org/r/20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-0-f8588da41f16@linaro.org
+> - Link to v3: https://lore.kernel.org/r/20260326-x1e-camss-csi2-phy-dtsi-v3-0-1d5a9306116a@linaro.org
 
-New issues:
-- [Low] Typo in the hardware data structure name for the Apple M1 (t8103) S=
-oC.
+Superb work Bryan! This works for me on 7.2.0-rc4 with 'qcam'. I
+support integrating this dependency into 7.2-rc to reduce complexity
+later.
 
-Pre-existing issues:
-- [High] Tasklets are not killed on device unbind, leading to a use-after-f=
-ree when scheduled tasklets run after driver data is freed.
---
+Tested-by: Daniel J Blueman <daniel@quora.org> # Lenovo Slim 7x X1E80100
 
---- Patch [2]: [PATCH 2/2] dmaengine: apple-admac: Add M3 generation ADMACs=
- ---
-commit f948efc911901cc77f53f693f8dbf1d4ad04e169
-Author: Sasha Finkelstein <k@chaosmail.tech>
-
-dmaengine: apple-admac: Add M3 generation ADMACs
-
-This commit adds support for the ADMACs found on Apple t8122 and t603x SoCs.
-It introduces additional register writes required for correct operation on
-these platforms, and updates the device match table accordingly.
-
-> diff --git a/drivers/dma/apple-admac.c b/drivers/dma/apple-admac.c
-> index 14a5ee14a4815..7ee9a59081c1a 100644
-> --- a/drivers/dma/apple-admac.c
-> +++ b/drivers/dma/apple-admac.c
-
-[ ... ]
-
-> @@ -935,9 +954,18 @@ static void admac_remove(struct platform_device *pde=
-v)
->  	reset_control_rearm(ad->rstc);
->  }
-
-[Severity: High]
-This is a pre-existing issue, but does this code leave scheduled tasklets
-running after the driver is unbound?
-
-If the device is unbound via sysfs, admac_remove() is called and frees the
-IRQ, but it does not appear to stop scheduled tasklets for its channels.
-If an interrupt fires just before free_irq() and schedules a tasklet,
-the software tasklet won't be canceled.
-
-Since the driver uses devm-allocated memory for struct admac_data, that
-memory is automatically freed after admac_remove() returns. If the tasklet
-runs after this, could it lead to a use-after-free? Should we be calling
-tasklet_kill() for all active channels before returning?
-
-> +static const struct admac_hw admac_t8013_hw =3D {
-
-[Severity: Low]
-This isn't a bug, but should this be named admac_t8103_hw to match the
-apple,t8103-admac compatible string it targets?
-
-> +	.set_unk28 =3D false,
-> +};
-> +
-> +static const struct admac_hw admac_t8122_hw =3D {
-> +	.set_unk28 =3D true,
-> +};
-> +
->  static const struct of_device_id admac_of_match[] =3D {
-> -	{ .compatible =3D "apple,t8103-admac", },
-> -	{ .compatible =3D "apple,admac", },
-> +	{ .compatible =3D "apple,t8122-admac", .data =3D &admac_t8122_hw },
-> +	{ .compatible =3D "apple,t8103-admac", .data =3D &admac_t8013_hw },
-> +	{ .compatible =3D "apple,admac", .data =3D &admac_t8013_hw },
->  	{ }
->  };
->  MODULE_DEVICE_TABLE(of, admac_of_match);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260725-t603x-adma=
-c-v1-0-6a4dec023f02@chaosmail.tech?part=3D2
+Dan
+-- 
+Daniel J Blueman
