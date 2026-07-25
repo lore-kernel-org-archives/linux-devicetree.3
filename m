@@ -1,160 +1,232 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2CB135200B
-	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 19:21:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E31D935E1B0
+	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 20:05:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785007266; cv=none; b=b2/ZPCIoCp7gTSxRaWzyAbub67MTMgoewYVLnl7Me+YMOJ6/4xlHdbJ1SmoedEMvCZ0WT/H1gqFaNCwBogTNd0yETC4BbHg4PvdALBha8oJuSxv3hgWQMuyLIwUNux3ze07/qEJj4RTUUl1EqYZV0xu5dYI/K7Y2sVo6L+LwTro=
+	t=1785009906; cv=none; b=pEznkAuLuVmyUdm9jljfdrtI/aNvek5sEcXg8MqKSieknEQpRzdWhIQQaDg7EL2A9JnssRZ/5eSeucoh/gzL+G4V9bVbkJefcdbLC7VLI83C4mSkGWcdeCopWHWBz5AxJs/OPnTpiRHbZDBWZREbvKOKQfAPkRQ5sIfBq57qhA4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785007266; c=relaxed/simple;
-	bh=bbXKsLmsWgE5qcfQH6W3dtcu7Nl3Mn1hAuZTK1MZ9JM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OB7azZxwts7sJUYE5mEpvO882UeqpMn9US0gcJQkwk5UCk8nE50F9N739cH918ptC7fSwmtwNaBf7ouwyhk+Nf4PvCt2CSMo3WZFA6cA/OTde4CX+G4eCA/hT8z//lywzycbFEF6GTcv3XYMLoZUoKOOCkhmooUxFK4pp7fEbwQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fj0/w/RQ; arc=none smtp.client-ip=209.85.128.48
+	s=arc-20240116; t=1785009906; c=relaxed/simple;
+	bh=nIlnJRPNwvzsEQ9oqxaZZWX8opcLYnBostsYhgueMJg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=RsQlZ5+BrgfLzZ17iBsGwM12Nl+NkBH8lPPMYYBxA5I6wA3KvuKQFoUfgwWQJQ9UgMQW/iCCkTxFJOHifRREHYBAJON2z5mkeclvPeNpa6DJ6Xn2dk4v0PbYkY5eoHMEh3C9PyjVnsW19wJh253UsncuMDAF0YHD0WCHabf1tzo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KEoKA0T2; arc=none smtp.client-ip=209.85.214.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fj0/w/RQ"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-493b966dd74so9251965e9.3
-        for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 12:21:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KEoKA0T2"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2cf420670bbso2775065ad.1
+        for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 13:05:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785007262; x=1785612062; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BGq1MYuzS+pjKAqXa5uKrnlzlVFHDeU8OLo2EF6piLs=;
-        b=fj0/w/RQ//N/B6UvsHwYlD2aDOL05Vlw8YO0L/nIkfgecUZiA/tJgKBwqpi46caBnl
-         vOETKUghK3o5Un/rkn4Bd/ve9vyW9OvJUtPTCJ8OzJ7i4vOEwU6NJWytMd/aCHINCEPC
-         xDQVZwjqsnPY7ORSmXs+XkGVe5c+6F7Cg31d1xLI8K/Wj6XvsTfZvp7ura6HFZFNdvLQ
-         c+HtqOK9kmO5cwiYeO3CoM7X2rIPwL+5Z2Dpja48frlpGwGCnJrQ5gljVBnmOMFVj+xg
-         WkiKgN4IhUJXeKMuIJa8hbf19nE2YcpQuiAM1WzaOMkFaOq2K9R1EoegsobdQs3oardO
-         0zbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785007262; x=1785612062;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=gmail.com; s=20251104; t=1785009904; x=1785614704; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=BGq1MYuzS+pjKAqXa5uKrnlzlVFHDeU8OLo2EF6piLs=;
-        b=WfAdHBPJweuRIXlnNuZWasPgy+pzEbxYE5g6IGiUfyTeS3QkGPF1Hue2CBbmtJtikR
-         i9HxMFHGVb7cqnLVcCr8a1YFrWxgltNZtibiZzc5MW1dyRJLuO+FfENl5LHFNN7Vqc24
-         r9WZJQ17vIg37ASzJfAAdpAB5K+gGdATWfxI5zK+/mGF6LbOY0vDjFTv+EM5z7sE6+uc
-         fjXc2PIzqdOH2BMGYebwXZ1Mxw8Zp07f+ViokgbWBZG0aWRI+B0fEo1pdabWySDHMqd6
-         s2tiIAascV4k81PCpXNLpVYgNLH6+CJvH8xVdcVTUwZwQYGQPrteOIiOt37RIkYZJBBB
-         qE8A==
-X-Forwarded-Encrypted: i=1; AHgh+RqZHzniIpxFNTOo/WzNrW9EflvTGNaLtl4rTRBbVJGgPBFVSETT6BBFw7SXzgV3qX9Ph6luUutUxGyQ@vger.kernel.org
-X-Gm-Message-State: AOJu0YyLrXtZrV3a8dFn1ksO79O0dIZnW1FY7rQmG2b+lvxaZ1c6O7uX
-	Y3dpbZgQ+B/PHu4MPhNboxtmBfCFi0JGI1J0gSh42s/Q6Rl7EbEyia2o
-X-Gm-Gg: AR+sD13I2EJEnHAoHjjMqrIhlQN1ubavoCIUv3c+MdZGv+XILmyeGKxwCEZOCYqYGTg
-	VT8oMPdHWwU0yPBiAuHOWqg1RMO/J+8CzpcekDsQzk7ItdwSEdfJz+pHDN6UZ/A/+aljod+/FJt
-	MlnhOpjs0MayNhAd3PGkLLqsyuEksTqguBgsSz8I4xaOg3FmQqgvW2vWp/nDQT7Oau/h3F/7E9y
-	U7AietDxbi1vk/w62LAvW0Ttf5h3jArNOCpV1ep+1jg5tjwplKRziqS0Js3Dn+Dbfso+YUyxt2J
-	pRTy1M2goo5nd7QHkmpGYy2X2ZXlKCi7NR8LgIkhb9phFNS2XKXmfhc2ylniN+XRIlkSlEThSIL
-	xtmFxuzs48JemcupK7lxLS3a/P+8Rr+Ow5c3OpLzidWll2IMeDcN+kZJ4UfbrkvKxT5Ah54OoVp
-	lfyw==
-X-Received: by 2002:a05:600c:5487:b0:495:7287:293f with SMTP id 5b1f17b1804b1-496b690a85dmr29215635e9.35.1785007261955;
-        Sat, 25 Jul 2026 12:21:01 -0700 (PDT)
-Received: from antoniarch ([78.212.96.5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496b49b2ffdsm86513875e9.15.2026.07.25.12.21.00
+        bh=I7YnUNHQ+9mCV7Z3kMgXnU2VDcDD/IXSwFksJNwhhcY=;
+        b=KEoKA0T2mEkyJvTNPM5Vm/Xvyp9hwRzZlnqM16eRfXhdZf9OzsMXH4xKHwsYMihsgl
+         +CEkEZrkc7BWEl0rFWev1ZHfXhTadwHc8TDPcPOXfOulOtkK8lftpWZgPp3bBL2wxyaM
+         EV8YsQ+RnT7g3beOC+Ip5S4ouExrx0EH0XrZwTRMKlydNm8OdQyv7o/52ib17sXK4875
+         iRHrRi+ZIAzzZhGVhPsgmR16r66pqpRQvlzzeOug/VTSXjnvNVWptfVtm2QOQqtHvhMm
+         iHql2kwTLRPwibP38CgFUQtYF4rNR9j9QzolLsjDqYcs5LrvmGJpR6FNen4TF1bis1kH
+         fFeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785009904; x=1785614704;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=I7YnUNHQ+9mCV7Z3kMgXnU2VDcDD/IXSwFksJNwhhcY=;
+        b=DgO2eu/H9fs1hOBsb/5lP4/BlaAIXOVPHbEzsx3pNkNOt2SSWxGFf3q+ZmmCIgrM+3
+         INEh/ymNZzFRR93yCtR4e1x69XyXVbRN6dhxAxy9wTMVQkrKCT0W3pApxchRCg7Www4e
+         kDyNLjpnh8os+Fz5UpL58MFvpPQsld1DmLg5ZiggaL4gJVDii+qR0WvnMVYK4I9YOmlG
+         usgCdzs8X00MSNFsaPOH+18a6kkT8itB1dezzWyr18HhKIhsH+CztoAhgoZ0zXrp5VVp
+         yEyRhGfWN2vk/rXgsTxK4EIrU8U8u7QnwOS4Sy316pGm4f/+qfPKNLDsXwmYFXg8mVtN
+         p6lw==
+X-Forwarded-Encrypted: i=1; AHgh+RrsvizLWXQCtCpoRxjGYVvgAz+tLeFsFFVqLp3fpZH2q1ch8vIsDFr/2pOUIdeynQxRVxIkNeo3D7Bh@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz+vEpnIXNjIsAehpnZAAZgqyD9hTP5+KJludgPfaIk6WC5aoLk
+	V0VxxA6Z9SBrPCDMrdIfnEqUp+iWvgMTQ6W27KpV6dkOkUpZERpK898f
+X-Gm-Gg: AR+sD11zIcnvRcD1oAXd5YgshbEwxNYr2+f99OVuYnceCoAk3NIUPgF/xcA7ZDTtwaT
+	gqMV/wGKw8CkDaP4D9/1z0tDnMdEwcm+4AVLThN86EIbfVlSAqRbCT5X6vASFmgHZ5g5EZ4nXRz
+	2zHs/FZp+954d+TOMn2VdR2nb6ZFAoKZKrGGjnb3JOOTsUXycLVzL1M+GxRdl5iF2PLUwy3tiW1
+	cch+qkqYSb5sIPXfdicPMw2WmMs2nh3aEaCivxD9MRfJBT/hdmxK8X++yI464lSYYkM4AyqnB32
+	F3hpTbsa5BLx2uxXLC1Qcaso/Ur8Ls4L0SJPVE3fJL3LL2GSw3ZlMTuwwe0vZsJzFlz84Kh+22V
+	j/20gllcoY0fFeFKQA6YriHpQPHlO2hxsluHZdwDN+JM+Mem+cBNXmzRDuzWdo0xcCJBXumK7iE
+	Y0XQfC2RGesg83dRM=
+X-Received: by 2002:a17:902:d485:b0:2cf:9e90:8be with SMTP id d9443c01a7336-2cfde882c08mr26162755ad.4.1785009904026;
+        Sat, 25 Jul 2026 13:05:04 -0700 (PDT)
+Received: from [172.28.140.252] ([2409:40c2:5424:789e:7bf2:671d:d7ae:b910])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-314bc548e29sm13487817eec.15.2026.07.25.13.04.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 25 Jul 2026 12:21:01 -0700 (PDT)
-Date: Sat, 25 Jul 2026 21:19:36 +0200
-From: Antoni Pokusinski <apokusinski01@gmail.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, linux-rtc@vger.kernel.org, 
-	devicetree@vger.kernel.org, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	robh@kernel.org
-Subject: Re: [PATCH v2 2/8] rtc: abx80x: move part autodetection before
- RV1805 configuration
-Message-ID: <amUI6JY3BFTrbdqp@antoniarch>
-References: <20260725145718.14733-1-apokusinski01@gmail.com>
- <20260725145718.14733-3-apokusinski01@gmail.com>
- <20260725150753.325271F000E9@smtp.kernel.org>
+        Sat, 25 Jul 2026 13:05:03 -0700 (PDT)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Date: Sun, 26 Jul 2026 01:34:08 +0530
+Subject: [PATCH] dt-bindings: clock: ti,keystone-gate: Convert to DT schema
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260725150753.325271F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260726-ti-keystone-gate-clk-v1-1-5b2449bc31ee@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MSwqAMBDFriKzdqBWqJ+riIuiTx2UKm0RRby7x
+ WUgyUMBXhCozR7yOCXI7hIUeUbDYt0MljExaaWNqrThKLziDnF34NlG8LCtXE41StWYpFSU0sN
+ jkuvfdv37filDG2BmAAAA
+X-Change-ID: 20260726-ti-keystone-gate-clk-3f8e30966077
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, 
+ Santosh Shilimkar <santosh.shilimkar@ti.com>, 
+ Murali Karicheri <m-karicheri2@ti.com>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
+ goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
+ simona.toaca@nxp.com, j.bhargav.u@gmail.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785009889; l=4399;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=nIlnJRPNwvzsEQ9oqxaZZWX8opcLYnBostsYhgueMJg=;
+ b=tD0xE+8Vd2J6xBsPdrE5/hOSJEeWwG8G8stlnOTdRmfvqtVdO53Vho6dZ2rPDvV+knjEL6iUJ
+ bPQ6WZZhneaADjLF+fTE1J4fS/IhkSeWm+0n6P1IYvLMad/RkBc+I3J
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-On Sat, Jul 25, 2026 at 03:07:52PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] The patch fails to resolve the issue it describes because part autodetection for the RV1805 incorrectly resolves to AB1805.
-> --
-> 
-> --- Patch [2]: [PATCH v2 2/8] rtc: abx80x: move part autodetection before RV1805 configuration ---
-> commit e37ea6c1257442ff3423e6bacb742916beb85bbb
-> Author: Antoni Pokusinski <apokusinski01@gmail.com>
-> 
-> rtc: abx80x: move part autodetection before RV1805 configuration
-> 
-> This commit moves the part autodetection logic before the RV1805
-> configuration block. The intention is to ensure the RV1805 specifics are
-> applied even when the driver is bound using a generic compatible string.
-> 
-> > diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
-> > index 5486d9d0b1e5d..ca3af91c29977 100644
-> > --- a/drivers/rtc/rtc-abx80x.c
-> > +++ b/drivers/rtc/rtc-abx80x.c
-> > @@ -814,6 +814,25 @@ static int abx80x_probe(struct i2c_client *client)
-> >  		return -EIO;
-> >  	}
-> >  
-> > +	/* part autodetection */
-> > +	if (part == ABX80X) {
-> > +		for (i = 0; abx80x_caps[i].pn; i++)
-> > +			if (partnumber == abx80x_caps[i].pn)
-> > +				break;
-> 
-> [Severity: Medium]
-> Does this code introduce a regression by preventing the RV1805 configuration
-> from running during autodetection?
-> 
-> Since AB1805 and RV1805 share the same part number (0x1805), and AB1805
-> appears earlier in the abx80x_caps array, it appears this loop will always
-> match AB1805 first.
-> 
-> If the driver is bound using the generic abracon,abx80x compatible string,
-> part will be set to AB1805 instead of RV1805.
-> 
-Ok so I missed the fact that "AB1805 and RV1805 share the same part number".
-Hence, I see no way to make the driver run the RV1805 configuration when
-it is bound using the generic ABX80X, because it may happen that the
-detected part is RV1805 even though the real one is AB1805 or the
-reverse (depending on the order that we define in `abx80x_caps[]`).
-Therefore, I'll drop this patch in v3 and leave things as they were
-(i.e. autodetecton after the `if (part == RV1805)` ).
+Convert Texas Instruments keystone PSC clock binding to DT schema.
+
+The vendor-specific 'domain-id' property is intentionally kept without a
+"ti," prefix to preserve existing ABI since driver and existing board
+file use property without "ti," prefix.
+
+Also update the reference to this binding in ti,keystone-rproc.txt to
+point at the new filename.
+
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+---
+ .../devicetree/bindings/clock/keystone-gate.txt    | 27 ----------
+ .../bindings/clock/ti,keystone,psc-clock.yaml      | 60 ++++++++++++++++++++++
+ .../bindings/remoteproc/ti,keystone-rproc.txt      |  2 +-
+ 3 files changed, 61 insertions(+), 28 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/clock/keystone-gate.txt b/Documentation/devicetree/bindings/clock/keystone-gate.txt
+deleted file mode 100644
+index 43f6fb6c9392..000000000000
+--- a/Documentation/devicetree/bindings/clock/keystone-gate.txt
++++ /dev/null
+@@ -1,27 +0,0 @@
+-Binding for Keystone gate control driver which uses PSC controller IP.
+-
+-This binding uses the common clock binding[1].
+-
+-[1] Documentation/devicetree/bindings/clock/clock-bindings.txt
+-
+-Required properties:
+-- compatible : shall be "ti,keystone,psc-clock".
+-- #clock-cells : from common clock binding; shall be set to 0.
+-- clocks : parent clock phandle
+-- reg :	psc control and domain address address space
+-- reg-names : psc control and domain registers
+-- domain-id : psc domain id needed to check the transition state register
+-
+-Optional properties:
+-- clock-output-names : From common clock binding to override the
+-			default output clock name
+-Example:
+-	clkusb: clkusb {
+-		#clock-cells = <0>;
+-		compatible = "ti,keystone,psc-clock";
+-		clocks = <&chipclk16>;
+-		clock-output-names = "usb";
+-		reg = <0x02350008 0xb00>, <0x02350000 0x400>;
+-		reg-names = "control", "domain";
+-		domain-id = <0>;
+-	};
+diff --git a/Documentation/devicetree/bindings/clock/ti,keystone,psc-clock.yaml b/Documentation/devicetree/bindings/clock/ti,keystone,psc-clock.yaml
+new file mode 100644
+index 000000000000..ed42adb27832
+--- /dev/null
++++ b/Documentation/devicetree/bindings/clock/ti,keystone,psc-clock.yaml
+@@ -0,0 +1,60 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/clock/ti,keystone,psc-clock.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: TI Keystone PSC clock
++
++maintainers:
++  - Santosh Shilimkar <santosh.shilimkar@ti.com>
++  - Murali Karicheri <m-karicheri2@ti.com>
++
++properties:
++  compatible:
++    const: ti,keystone,psc-clock
++
++  reg:
++    items:
++      - description: PSC control
++      - description: Domain
++
++  reg-names:
++    items:
++      - const: control
++      - const: domain
++
++  domain-id:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: PSC domain id needed to check the transition state register
++
++  clocks:
++    maxItems: 1
++
++  clock-output-names:
++    maxItems: 1
++
++  "#clock-cells":
++    const: 0
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - domain-id
++  - clocks
++  - "#clock-cells"
++
++additionalProperties: false
++
++examples:
++  - |
++    clkusb@2350008 {
++        compatible = "ti,keystone,psc-clock";
++        reg = <0x02350008 0xb00>, <0x02350000 0x400>;
++        reg-names = "control", "domain";
++        domain-id = <0>;
++        clocks = <&chipclk16>;
++        clock-output-names = "usb";
++        #clock-cells = <0>;
++    };
+diff --git a/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.txt b/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.txt
+index 91f0a3b0c0b2..847552133633 100644
+--- a/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.txt
++++ b/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.txt
+@@ -75,7 +75,7 @@ SoCs only:
  
-> > +		if (abx80x_caps[i].pn == 0) {
-> > +			dev_err(&client->dev, "Unknown part: %04x\n",
-> > +				partnumber);
-> > +			return -EINVAL;
-> > +		}
-> > +		part = i;
-> > +	}
-> > +
-> > +	if (partnumber != abx80x_caps[part].pn) {
-> > +		dev_err(&client->dev, "partnumber mismatch %04x != %04x\n",
-> > +			partnumber, abx80x_caps[part].pn);
-> > +		return -EINVAL;
-> > +	}
-> > +
-> >  	/* Configure RV1805 specifics */
-> >  	if (part == RV1805) {
-> 
-> [Severity: Medium]
-> Will this check now evaluate to false due to the autodetection resolving to
-> AB1805 above?
-> 
-> If part is overwritten with AB1805 during autodetection, the RV1805 specifics
-> will continue to be silently skipped. This leaves the device vulnerable to
-> accidentally entering test mode and leaking extra power, meaning the patch
-> might not resolve the issue it describes.
-> 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260725145718.14733-1-apokusinski01@gmail.com?part=2
+ - clocks: 		Should contain the device's input clock, and should be
+ 			defined as per the bindings in,
+-			Documentation/devicetree/bindings/clock/keystone-gate.txt
++			Documentation/devicetree/bindings/clock/ti,keystone,psc-clock.yaml
+ 
+ The following are mandatory properties for Keystone 2 66AK2G SoCs only:
+ 
+
+---
+base-commit: 0ce37745d4bfbc493f718169c3974898ffec8ee7
+change-id: 20260726-ti-keystone-gate-clk-3f8e30966077
+
+Best regards,
+-- 
+Bhargav
+
