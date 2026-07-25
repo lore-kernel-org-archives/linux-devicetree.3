@@ -1,79 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59DF72EEE6C;
-	Sat, 25 Jul 2026 13:28:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4145E28488D;
+	Sat, 25 Jul 2026 13:48:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.81.229.115
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784986091; cv=none; b=Lop76BKD6wMvGHqtXZn7oqSqxm4kUDoTLWm/AOYd08N+rM9wvUc4HwzjTYrXRote4gs6shrD80bPoFHNaMz8gr14KTZsGVNpnPDAXZMrm+XCRDaSeYbJK6sRrpYZsYx1QGWHc/XpkDKv1Ge4DJ6vYzxXvofRrS6aXyq7m0Mdisk=
+	t=1784987294; cv=none; b=CkRaNvye5Pa0UwJtHy5/tusrs8CfgBY1+I2OYE6GGWd2kH1xR561vgwOkdkOtgmaDLTRzFr3EKPPv6cAoUaxYcWQeeKrAL4GPHKAlbI0K65a8+PdU92v6g4I58WZA7zgGmwkNZduU9Ao43y3/mPWmHD5bCS+WAIeW+baqtD+DxA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784986091; c=relaxed/simple;
-	bh=osnBtyWqH1U9KQGI/44wOEjhZ/fjNSGFfB8OxWMNZWw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N9WDoZc+NGLod5ZrpID0LGeGrqSuAm5sviPMJSNunnr5JYNsTclbM6beNqS6xiqrxkFK8q0gtG3l6ZaRSWvuFXYbNfh6zl2Vn9I8AC94gkgBV2E4t6y4wIN+lj97EtTQs0UAmAkrthlcZOXG+NA3AlB97WY2Zi2GZLpOLkAQltA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G25tGZQw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784987294; c=relaxed/simple;
+	bh=wqm7+TUC34pSmi/zpOaYMoWGiag20QOgkChGwgMHchI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=oAq+6aQZ/wg9LpfGVGGNpuzG5a2qaNqms5MLXvv7nGedWjRMbCdkplFpKZFLyT+HLI9//GVwxsQYa81mllQ8ZDJVh7RFwEVHMTbch646eeJvzRqGcImV3M7VSmRRSoQ09D6tvbNI43U7B7uxRYXugxWhXw8vhPJUz2Wr70cgBGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech; spf=pass smtp.mailfrom=chaosmail.tech; dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b=vcG7XnN8; arc=none smtp.client-ip=77.81.229.115
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G25tGZQw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AAC81F000E9;
-	Sat, 25 Jul 2026 13:28:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784986090;
-	bh=h0WVTrNqm2vTc3/56dVsB7JggUAIXw2Y+0evxBAD9XM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=G25tGZQwqVd7GR58SDdll5vPMe1mOc0QskFm3OxBAi8xWD8lJWgKWeIHgth+cShU5
-	 dxTToTDkeE5eK/ySOsHJxKlctJzyx4gIu4fdfKUaGB83LAzLbnsPshw5/sWQEEL8yE
-	 +FkGVSdoh5kdi9eWaT/KxI8yTp7llg2K1nYKfIaayUbUJS9uKGZ5BohcwKPNUiVn+u
-	 Lc1Moj4roRR11j9DfLFdg3S081jt6KE2TLosdsA4fI9L+cEqV/7EQK8Bk0LQBgPlHZ
-	 85Wk/zBkHJqKocNbK3psiScKS603E7/mtg9cVa0kzJd7OKCGZJzYSG5Tuv4y3hNmC5
-	 GfLYXvKbnj2Fg==
-Date: Sat, 25 Jul 2026 13:28:05 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: Jennifer Berringer <jberring@redhat.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] riscv: dts: spacemit: add eeprom for K3 CoM260
-Message-ID: <20260725132805-GKG77545@kernel.org>
-References: <20260722202848.1817988-1-jberring@redhat.com>
+	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b="vcG7XnN8"
+Received: by chaosmail.tech (Postfix) id 633891C8684;
+	Sat, 25 Jul 2026 13:48:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
+	s=mail; t=1784987290;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=H86t3gf/zmT834UnYberSZX5pHmm8loG9uhscxnY3uM=;
+	b=vcG7XnN8GCLBHY7JTLMMcIAx6D7SdKRWHgtPYeWr5qzKYtZs6zUOwdg1q/nnbqMdciL3iv
+	iHRwZeqt+oEaZh59b88RS9UOVp9gQXfzMxbdQ1GEMTB+5e77tHmjCvm8OWRl7vCt2jXJGe
+	2ks96ERFQF+BDgnJqCd7ZxfGequU02s=
+From: Sasha Finkelstein <k@chaosmail.tech>
+Date: Sat, 25 Jul 2026 15:47:58 +0200
+Subject: [PATCH 1/7] dt-bindings: spmi: apple,spmi: Add t603x
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260722202848.1817988-1-jberring@redhat.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260725-t603x-spmi-v1-1-e1a29fcd2d38@chaosmail.tech>
+References: <20260725-t603x-spmi-v1-0-e1a29fcd2d38@chaosmail.tech>
+In-Reply-To: <20260725-t603x-spmi-v1-0-e1a29fcd2d38@chaosmail.tech>
+To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+ Neal Gompa <neal@gompa.dev>, Stephen Boyd <sboyd@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ Sasha Finkelstein <k@chaosmail.tech>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784987288; l=1183;
+ i=k@chaosmail.tech; s=20241124; h=from:subject:message-id;
+ bh=wqm7+TUC34pSmi/zpOaYMoWGiag20QOgkChGwgMHchI=;
+ b=GYNQYwGqsfIDojVYIcLBsknBtdJECDpVEFwrgGgfI8vD4HIQS5gLW6KUw46QNkw0pr0xvHpnm
+ 0FpT9FSgeykAElDNeEuXMvb0mRLnc6gdo8SBPOAcl3OsgVSAigt68GS
+X-Developer-Key: i=k@chaosmail.tech; a=ed25519;
+ pk=aSkp1PdZ+eF4jpMO6oLvz/YfT5XkBUneWwyhQrOgmsU=
 
-Hi Jennifer,
+Add t603x compatibles, interrupt support, and support for SPMI
+controllers that are not always-on
 
-On 16:28 Wed 22 Jul     , Jennifer Berringer wrote:
-> SpacemiT K3 CoM260 Dev Kit has two eeproms: one on the compute
-> module and one on the carrier board. Both use a Giantec
-> GT24C02B-2TFLI-TR.
-> 
+Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
+---
+ Documentation/devicetree/bindings/spmi/apple,spmi.yaml | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-Patch looks good, so
-
-Reviewed-by: Yixun Lan <dlan@kernel.org>
-
-> Jennifer Berringer (2):
->   riscv: dts: spacemit: k3-com260: add eeprom on i2c2
->   riscv: dts: spacemit: k3-com260-ifx: add eeprom on i2c1
-> 
->  .../riscv/boot/dts/spacemit/k3-com260-ifx.dts | 15 +++++++++
->  arch/riscv/boot/dts/spacemit/k3-com260.dtsi   | 32 +++++++++++++++++++
->  arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi  | 12 +++++++
->  3 files changed, 59 insertions(+)
-> 
-> 
-> base-commit: 199380e4d8cd22e539a08d4949e9582b09390bd5
-> -- 
-> 2.55.0
-> 
+diff --git a/Documentation/devicetree/bindings/spmi/apple,spmi.yaml b/Documentation/devicetree/bindings/spmi/apple,spmi.yaml
+index 3e5b14bc8c31..9fc511bb0cb8 100644
+--- a/Documentation/devicetree/bindings/spmi/apple,spmi.yaml
++++ b/Documentation/devicetree/bindings/spmi/apple,spmi.yaml
+@@ -20,6 +20,8 @@ properties:
+       - items:
+           - enum:
+               - apple,t6020-spmi
++              - apple,t6030-spmi
++              - apple,t6031-spmi
+               - apple,t8012-spmi
+               - apple,t8015-spmi
+           - const: apple,t8103-spmi
+@@ -34,6 +36,18 @@ properties:
+   reg:
+     maxItems: 1
+ 
++  interrupts:
++    maxItems: 1
++    description: Optional, operates in polled mode if not present
++
++  interrupt-controller: true
++
++  "#interrupt-cells":
++    const: 2
++
++  power-domains:
++    maxItems: 1
++
+ required:
+   - compatible
+   - reg
 
 -- 
-Yixun Lan (dlan)
+2.55.0
+
