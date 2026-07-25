@@ -1,270 +1,160 @@
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 824DD3F4DD9
-	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 18:48:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2CB135200B
+	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 19:21:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785005288; cv=none; b=Kyhu81M2BpzeHkWsoPSGCMk3F6Rf/6L4QgPrOGVECfoz8tmsSe7osBd8V6BbgTWTIy9URqMmm3HiKnEeDzjWA1FVHHotNOyeW356HXh+WPbImIPX+HXXB85JNo+jkpCB7ccpqpREWLqDjLS77IlDwdoOSVgjjOAhSNG9F//un0E=
+	t=1785007266; cv=none; b=b2/ZPCIoCp7gTSxRaWzyAbub67MTMgoewYVLnl7Me+YMOJ6/4xlHdbJ1SmoedEMvCZ0WT/H1gqFaNCwBogTNd0yETC4BbHg4PvdALBha8oJuSxv3hgWQMuyLIwUNux3ze07/qEJj4RTUUl1EqYZV0xu5dYI/K7Y2sVo6L+LwTro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785005288; c=relaxed/simple;
-	bh=Xt3kGZtAAdd+HzHAVAMZgGdEC9llEbMYpKzHMhd/MkQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=cAdjHBEBVavqxU+J8d1sICjW8xpIsVyTynBqcdG0tJWMOrRdHzF8abeulb4O5DXW70ZK9X4ymCtOcI1X6X0h2Im8C/AIdIo40oXGlddEVAarsXMZpsG43YSHBU8Li2otY/Ukl0y4XxO+drY6KNkde7n60OeNFwE7UMcrw8lfJW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bPtLj2E5; arc=none smtp.client-ip=209.85.210.174
+	s=arc-20240116; t=1785007266; c=relaxed/simple;
+	bh=bbXKsLmsWgE5qcfQH6W3dtcu7Nl3Mn1hAuZTK1MZ9JM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OB7azZxwts7sJUYE5mEpvO882UeqpMn9US0gcJQkwk5UCk8nE50F9N739cH918ptC7fSwmtwNaBf7ouwyhk+Nf4PvCt2CSMo3WZFA6cA/OTde4CX+G4eCA/hT8z//lywzycbFEF6GTcv3XYMLoZUoKOOCkhmooUxFK4pp7fEbwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fj0/w/RQ; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bPtLj2E5"
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-84a3e5ca66eso148054b3a.3
-        for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 11:48:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fj0/w/RQ"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-493b966dd74so9251965e9.3
+        for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 12:21:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785005286; x=1785610086; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=KZ0jpJTuTc9mIF747vkGOggfpm0DkF4Pd0GiKsVCCcQ=;
-        b=bPtLj2E56JLZHhv59qBNEl+qnx8s4ZEQcmE5GuZECHOakYCZ+MNpXr/HRtvvjgpIPG
-         UbLcEEYqzuqaKIP7N1wB1h9EeOwZfIO4xI6nObz3gak2RbM78uVeDINVNBrjtoynd2yf
-         WIO5H4ROGgMZ1Hcdk4oK1kSKgFBxzcyTkLjzzLnu+kBIRFqRBz666rC4hWODxSsoU6IG
-         oSvwxVy3Q8xiwRAlyHrfaCHTE9d9xp9HHQczz9XJqIn5IZfchqz8k2QGfsusOeT0lQQ4
-         xBoJcjoYqB7euXoiw8xMwSKk9QdcXZFBqTOBAQvCQfT584V4bme6RkX30zVSlFna0NEk
-         Ie4A==
+        d=gmail.com; s=20251104; t=1785007262; x=1785612062; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BGq1MYuzS+pjKAqXa5uKrnlzlVFHDeU8OLo2EF6piLs=;
+        b=fj0/w/RQ//N/B6UvsHwYlD2aDOL05Vlw8YO0L/nIkfgecUZiA/tJgKBwqpi46caBnl
+         vOETKUghK3o5Un/rkn4Bd/ve9vyW9OvJUtPTCJ8OzJ7i4vOEwU6NJWytMd/aCHINCEPC
+         xDQVZwjqsnPY7ORSmXs+XkGVe5c+6F7Cg31d1xLI8K/Wj6XvsTfZvp7ura6HFZFNdvLQ
+         c+HtqOK9kmO5cwiYeO3CoM7X2rIPwL+5Z2Dpja48frlpGwGCnJrQ5gljVBnmOMFVj+xg
+         WkiKgN4IhUJXeKMuIJa8hbf19nE2YcpQuiAM1WzaOMkFaOq2K9R1EoegsobdQs3oardO
+         0zbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785005286; x=1785610086;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=KZ0jpJTuTc9mIF747vkGOggfpm0DkF4Pd0GiKsVCCcQ=;
-        b=Di99RFkMYxW59NsbjRCJaNAmxvLFGGvtjXJ5UY/Rd9U6N30R70bV4cWJXjINpUUmEa
-         KtmwITaLv4WjWghpBNgQYlTwFtHyUn0efuGktmSYvKbzsehLYIzwwhBIyUWnJaglS0Wc
-         9GOqZ796td7MfOHiVUov+4W7zBxPyS0Io13AYlHyqVYV76pM5ZyuIbejVMLb8dJoEYfK
-         z8wNhsx/f+DGySKgeYvzdJCu73EEBHB3Tn+ohVgYvXTzmGTW3U/Zd22nLy2SHbKypcWL
-         RsGz9Ho/AlUyC/fedKVAasrj9bXYRSC1+rIvJpQMWOFIOuRnYTcSG9UOdfFwD+2zTZaD
-         dJhA==
-X-Forwarded-Encrypted: i=1; AHgh+RoW+bixOe9yU8/f12E/l1im0PO+L453HYX5o9RP49iMlUenzORsMDHYx+hDbi8/aSR5HCKFc41z3s6Z@vger.kernel.org
-X-Gm-Message-State: AOJu0YyXzoST+VQKLRXIHw2tdTqkZYpvLNiZo66FCo8+kwl7DA2szQNJ
-	kfqyqOkXBe29Dv9sIFjcoquaRuuiYmYjN40UAIBSGPwSyg7BfG7gSfVp
-X-Gm-Gg: AR+sD11k6G48NMF0Zp7ZN5zR0WlDBAi9DSYsBBr181pYC3d9rxFptOA6ewHbV5Pc61Z
-	kebcoOi9oPaOQIKqkYQ37ZahyDjtg3rcfDsx4uJWn5TqezamuYev7tdBOGrk/idIqbdrgYTJhxh
-	mzdu9Zm9wVt/5gSt0R5/Qr8HVw5UnW/0bjdLryaoYAGR5DuxZ2MG/zXyv9lpBm8ASpW6z84pVb5
-	EOqqo/jQgi7aig09CFoxXm+pgpH3mzoP7Nd7LHXGJPM/iqG7kai+zGmT9iXWzKMXYgs1ILVJAum
-	IwZbvAKlSI59Gn9rA5U5CjftS+kkbK0kWhH3AVqmLmYMJ0h3v7/+Z8RUSEtRuGABUBAKES9m4/a
-	WMiyE4EFXURI70P8aMY8iHL7+cjodbhVhKJ9sFGMU19jxKsArWYw1Ka2G6fCJ9X52a9FdawyOoU
-	BNiOGBkiyXZDNSp0I=
-X-Received: by 2002:a17:902:d491:b0:2ca:ecf6:9115 with SMTP id d9443c01a7336-2cfde7901b2mr25140865ad.2.1785005285581;
-        Sat, 25 Jul 2026 11:48:05 -0700 (PDT)
-Received: from [172.28.140.252] ([2409:40c2:5424:789e:7bf2:671d:d7ae:b910])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-314bc3e261fsm14812770eec.6.2026.07.25.11.47.55
+        d=1e100.net; s=20251104; t=1785007262; x=1785612062;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=BGq1MYuzS+pjKAqXa5uKrnlzlVFHDeU8OLo2EF6piLs=;
+        b=WfAdHBPJweuRIXlnNuZWasPgy+pzEbxYE5g6IGiUfyTeS3QkGPF1Hue2CBbmtJtikR
+         i9HxMFHGVb7cqnLVcCr8a1YFrWxgltNZtibiZzc5MW1dyRJLuO+FfENl5LHFNN7Vqc24
+         r9WZJQ17vIg37ASzJfAAdpAB5K+gGdATWfxI5zK+/mGF6LbOY0vDjFTv+EM5z7sE6+uc
+         fjXc2PIzqdOH2BMGYebwXZ1Mxw8Zp07f+ViokgbWBZG0aWRI+B0fEo1pdabWySDHMqd6
+         s2tiIAascV4k81PCpXNLpVYgNLH6+CJvH8xVdcVTUwZwQYGQPrteOIiOt37RIkYZJBBB
+         qE8A==
+X-Forwarded-Encrypted: i=1; AHgh+RqZHzniIpxFNTOo/WzNrW9EflvTGNaLtl4rTRBbVJGgPBFVSETT6BBFw7SXzgV3qX9Ph6luUutUxGyQ@vger.kernel.org
+X-Gm-Message-State: AOJu0YyLrXtZrV3a8dFn1ksO79O0dIZnW1FY7rQmG2b+lvxaZ1c6O7uX
+	Y3dpbZgQ+B/PHu4MPhNboxtmBfCFi0JGI1J0gSh42s/Q6Rl7EbEyia2o
+X-Gm-Gg: AR+sD13I2EJEnHAoHjjMqrIhlQN1ubavoCIUv3c+MdZGv+XILmyeGKxwCEZOCYqYGTg
+	VT8oMPdHWwU0yPBiAuHOWqg1RMO/J+8CzpcekDsQzk7ItdwSEdfJz+pHDN6UZ/A/+aljod+/FJt
+	MlnhOpjs0MayNhAd3PGkLLqsyuEksTqguBgsSz8I4xaOg3FmQqgvW2vWp/nDQT7Oau/h3F/7E9y
+	U7AietDxbi1vk/w62LAvW0Ttf5h3jArNOCpV1ep+1jg5tjwplKRziqS0Js3Dn+Dbfso+YUyxt2J
+	pRTy1M2goo5nd7QHkmpGYy2X2ZXlKCi7NR8LgIkhb9phFNS2XKXmfhc2ylniN+XRIlkSlEThSIL
+	xtmFxuzs48JemcupK7lxLS3a/P+8Rr+Ow5c3OpLzidWll2IMeDcN+kZJ4UfbrkvKxT5Ah54OoVp
+	lfyw==
+X-Received: by 2002:a05:600c:5487:b0:495:7287:293f with SMTP id 5b1f17b1804b1-496b690a85dmr29215635e9.35.1785007261955;
+        Sat, 25 Jul 2026 12:21:01 -0700 (PDT)
+Received: from antoniarch ([78.212.96.5])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496b49b2ffdsm86513875e9.15.2026.07.25.12.21.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 25 Jul 2026 11:48:05 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Sun, 26 Jul 2026 00:17:47 +0530
-Subject: [PATCH] dt-bindings: clock: ti,DM814x-ADPLL: Convert to DT schema
+        Sat, 25 Jul 2026 12:21:01 -0700 (PDT)
+Date: Sat, 25 Jul 2026 21:19:36 +0200
+From: Antoni Pokusinski <apokusinski01@gmail.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, linux-rtc@vger.kernel.org, 
+	devicetree@vger.kernel.org, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+	robh@kernel.org
+Subject: Re: [PATCH v2 2/8] rtc: abx80x: move part autodetection before
+ RV1805 configuration
+Message-ID: <amUI6JY3BFTrbdqp@antoniarch>
+References: <20260725145718.14733-1-apokusinski01@gmail.com>
+ <20260725145718.14733-3-apokusinski01@gmail.com>
+ <20260725150753.325271F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260726-ti-adpll-v1-1-86f6fc936507@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDcyNT3ZJM3cSUgpwc3ZSUtBQLk1ST1DRDCyWg8oKi1LTMCrBR0bEQfnF
- pUlZqcglIv1JtLQBiOHEObAAAAA==
-X-Change-ID: 20260725-ti-adpll-ddfd84e4ef18
-To: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Tony Lindgren <tony@atomide.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
- daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785005275; l=5339;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=Xt3kGZtAAdd+HzHAVAMZgGdEC9llEbMYpKzHMhd/MkQ=;
- b=ITeD0cUQVPuY+i/l0gXqbHWzlAktaK4dPooTrjuuFr7CrtQcCu/fKDflhr5pSju008mJsF/bw
- OwBDu8gaUfYC7iYRv8otfvge7B9agH9VWpZgGAQHrLoQW7fvZWItrqK
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260725150753.325271F000E9@smtp.kernel.org>
 
-Convert the Texas Instruments DM814x ADPLL clock binding to DT schema
-format. Add 'clock-output-names' as required which was missing in
-legacy binding, as the driver (clk-adpll.c) mandates it and fails
-probing if it is missing.
-
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
----
- .../devicetree/bindings/clock/ti/adpll.txt         |  39 --------
- .../bindings/clock/ti/ti,dm814-adpll-clock.yaml    | 108 +++++++++++++++++++++
- 2 files changed, 108 insertions(+), 39 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/clock/ti/adpll.txt b/Documentation/devicetree/bindings/clock/ti/adpll.txt
-deleted file mode 100644
-index 3122360adcf3..000000000000
---- a/Documentation/devicetree/bindings/clock/ti/adpll.txt
-+++ /dev/null
-@@ -1,39 +0,0 @@
--Binding for Texas Instruments ADPLL clock.
--
--This binding uses the common clock binding[1]. It assumes a
--register-mapped ADPLL with two to three selectable input clocks
--and three to four children.
--
--[1] Documentation/devicetree/bindings/clock/clock-bindings.txt
--
--Required properties:
--- compatible : shall be one of "ti,dm814-adpll-s-clock" or
--  "ti,dm814-adpll-lj-clock" depending on the type of the ADPLL
--- #clock-cells : from common clock binding; shall be set to 1.
--- clocks : link phandles of parent clocks clkinp and clkinpulow, note
--  that the adpll-s-clock also has an optional clkinphif
--- reg : address and length of the register set for controlling the ADPLL.
--
--Examples:
--	adpll_mpu_ck: adpll@40 {
--		#clock-cells = <1>;
--		compatible = "ti,dm814-adpll-s-clock";
--		reg = <0x40 0x40>;
--		clocks = <&devosc_ck &devosc_ck &devosc_ck>;
--		clock-names = "clkinp", "clkinpulow", "clkinphif";
--		clock-output-names = "481c5040.adpll.dcoclkldo",
--				     "481c5040.adpll.clkout",
--				     "481c5040.adpll.clkoutx2",
--				     "481c5040.adpll.clkouthif";
--	};
--
--	adpll_dsp_ck: adpll@80 {
--		#clock-cells = <1>;
--		compatible = "ti,dm814-adpll-lj-clock";
--		reg = <0x80 0x30>;
--		clocks = <&devosc_ck &devosc_ck>;
--		clock-names = "clkinp", "clkinpulow";
--		clock-output-names = "481c5080.adpll.dcoclkldo",
--				     "481c5080.adpll.clkout",
--				     "481c5080.adpll.clkoutldo";
--	};
-diff --git a/Documentation/devicetree/bindings/clock/ti/ti,dm814-adpll-clock.yaml b/Documentation/devicetree/bindings/clock/ti/ti,dm814-adpll-clock.yaml
-new file mode 100644
-index 000000000000..7f551dfca030
---- /dev/null
-+++ b/Documentation/devicetree/bindings/clock/ti/ti,dm814-adpll-clock.yaml
-@@ -0,0 +1,108 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/clock/ti/ti,dm814-adpll-clock.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Texas Instruments DM814x ADPLL Clock
-+
-+maintainers:
-+  - Tony Lindgren <tony@atomide.com>
-+
-+description:
-+  The ADPLL is a register-mapped clock generator found on TI DM814x SoCs. It
-+  provides multiple output clocks from two or three selectable input clocks and
-+  three to four children.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - ti,dm814-adpll-s-clock
-+      - ti,dm814-adpll-lj-clock
-+
-+  reg:
-+    maxItems: 1
-+
-+  '#clock-cells':
-+    const: 1
-+
-+  clocks:
-+    minItems: 2
-+    maxItems: 3
-+
-+  clock-names:
-+    minItems: 2
-+    maxItems: 3
-+
-+  clock-output-names:
-+    minItems: 3
-+    maxItems: 4
-+
-+required:
-+  - compatible
-+  - reg
-+  - '#clock-cells'
-+  - clocks
-+  - clock-output-names
-+
-+if:
-+  properties:
-+    compatible:
-+      contains:
-+        const: ti,dm814-adpll-s-clock
-+then:
-+  properties:
-+    clocks:
-+      minItems: 3
-+    clock-names:
-+      items:
-+        - const: clkinp
-+        - const: clkinpulow
-+        - const: clkinphif
-+    clock-output-names:
-+      items:
-+        - description: dcoclkldo
-+        - description: clkout
-+        - description: clkoutx2
-+        - description: clkouthif
-+else:
-+  properties:
-+    clocks:
-+      maxItems: 2
-+    clock-names:
-+      items:
-+        - const: clkinp
-+        - const: clkinpulow
-+    clock-output-names:
-+      items:
-+        - description: dcoclkldo
-+        - description: clkout
-+        - description: clkoutldo
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    adpll@40 {
-+        compatible = "ti,dm814-adpll-s-clock";
-+        reg = <0x40 0x40>;
-+        #clock-cells = <1>;
-+        clocks = <&devosc_ck &devosc_ck &devosc_ck>;
-+        clock-names = "clkinp", "clkinpulow", "clkinphif";
-+        clock-output-names = "481c5040.adpll.dcoclkldo",
-+                             "481c5040.adpll.clkout",
-+                             "481c5040.adpll.clkoutx2",
-+                             "481c5040.adpll.clkouthif";
-+    };
-+
-+  - |
-+    adpll@80 {
-+        compatible = "ti,dm814-adpll-lj-clock";
-+        reg = <0x80 0x30>;
-+        #clock-cells = <1>;
-+        clocks = <&devosc_ck &devosc_ck>;
-+        clock-names = "clkinp", "clkinpulow";
-+        clock-output-names = "481c5080.adpll.dcoclkldo",
-+                             "481c5080.adpll.clkout",
-+                             "481c5080.adpll.clkoutldo";
-+    };
-
----
-base-commit: 0ce37745d4bfbc493f718169c3974898ffec8ee7
-change-id: 20260725-ti-adpll-ddfd84e4ef18
-
-Best regards,
--- 
-Bhargav
-
+On Sat, Jul 25, 2026 at 03:07:52PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] The patch fails to resolve the issue it describes because part autodetection for the RV1805 incorrectly resolves to AB1805.
+> --
+> 
+> --- Patch [2]: [PATCH v2 2/8] rtc: abx80x: move part autodetection before RV1805 configuration ---
+> commit e37ea6c1257442ff3423e6bacb742916beb85bbb
+> Author: Antoni Pokusinski <apokusinski01@gmail.com>
+> 
+> rtc: abx80x: move part autodetection before RV1805 configuration
+> 
+> This commit moves the part autodetection logic before the RV1805
+> configuration block. The intention is to ensure the RV1805 specifics are
+> applied even when the driver is bound using a generic compatible string.
+> 
+> > diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
+> > index 5486d9d0b1e5d..ca3af91c29977 100644
+> > --- a/drivers/rtc/rtc-abx80x.c
+> > +++ b/drivers/rtc/rtc-abx80x.c
+> > @@ -814,6 +814,25 @@ static int abx80x_probe(struct i2c_client *client)
+> >  		return -EIO;
+> >  	}
+> >  
+> > +	/* part autodetection */
+> > +	if (part == ABX80X) {
+> > +		for (i = 0; abx80x_caps[i].pn; i++)
+> > +			if (partnumber == abx80x_caps[i].pn)
+> > +				break;
+> 
+> [Severity: Medium]
+> Does this code introduce a regression by preventing the RV1805 configuration
+> from running during autodetection?
+> 
+> Since AB1805 and RV1805 share the same part number (0x1805), and AB1805
+> appears earlier in the abx80x_caps array, it appears this loop will always
+> match AB1805 first.
+> 
+> If the driver is bound using the generic abracon,abx80x compatible string,
+> part will be set to AB1805 instead of RV1805.
+> 
+Ok so I missed the fact that "AB1805 and RV1805 share the same part number".
+Hence, I see no way to make the driver run the RV1805 configuration when
+it is bound using the generic ABX80X, because it may happen that the
+detected part is RV1805 even though the real one is AB1805 or the
+reverse (depending on the order that we define in `abx80x_caps[]`).
+Therefore, I'll drop this patch in v3 and leave things as they were
+(i.e. autodetecton after the `if (part == RV1805)` ).
+ 
+> > +		if (abx80x_caps[i].pn == 0) {
+> > +			dev_err(&client->dev, "Unknown part: %04x\n",
+> > +				partnumber);
+> > +			return -EINVAL;
+> > +		}
+> > +		part = i;
+> > +	}
+> > +
+> > +	if (partnumber != abx80x_caps[part].pn) {
+> > +		dev_err(&client->dev, "partnumber mismatch %04x != %04x\n",
+> > +			partnumber, abx80x_caps[part].pn);
+> > +		return -EINVAL;
+> > +	}
+> > +
+> >  	/* Configure RV1805 specifics */
+> >  	if (part == RV1805) {
+> 
+> [Severity: Medium]
+> Will this check now evaluate to false due to the autodetection resolving to
+> AB1805 above?
+> 
+> If part is overwritten with AB1805 during autodetection, the RV1805 specifics
+> will continue to be silently skipped. This leaves the device vulnerable to
+> accidentally entering test mode and leaking extra power, meaning the patch
+> might not resolve the issue it describes.
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260725145718.14733-1-apokusinski01@gmail.com?part=2
