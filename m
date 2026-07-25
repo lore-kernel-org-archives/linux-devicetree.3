@@ -1,131 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48E2C4908D5;
-	Sat, 25 Jul 2026 22:04:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785017095; cv=none; b=sVfPG/lGJEwUbpAQ9/SBVlfcVOZmYtRaqgDpWXCJ5xJPE3lPQP49/cOI/1RMxdSgGK/h/gQlSuaePtryFTcsF6vTjRaXQ3WLtXpMvmyf4JRiV52hFj3ar4hP8JuEIDyOZ8nj/7tIP8Cbah3sU/3jP6/DqbGJwsuhuDMFHCpdnJw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785017095; c=relaxed/simple;
-	bh=sBvP77nDqvs7b3/rasZlyhu8wl5UbFK1tgyQbe4JUlg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HwZaQodcmfhfsh9RLpFHx7kIUisOZbmKV4ip9GR3vS7EkxyPrlueDD9wT7qU42P8a2trpo5+t7m99Xm5HQEZ0iqTSgTc2qKePj9VMyZ/6+dln+QL7Wjn9hZsp/ZlOtbsYkq1xr7qaJkkd3C5Ny8GBAbld7h0nwILz6Z9y/M+6W4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kz1xxdVp; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D866437F32B
+	for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 22:06:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785017167; cv=pass; b=jbVXzTuNgBe4x/GVQzNGod82lan2LzNZlODmc8FoRf9dZtZUomKyqdIn90pxFDdFcqBuQWXyuQYMbzzpxqpZgqM6hcWyVeSSdPi7gabqjAXIpyigBxjCWZIgMGbxKq9dErV6JHi2Xwt9Zl7OYxbVKtGuJTKSyGfONmTUNgVXexA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785017167; c=relaxed/simple;
+	bh=PuJxkWbxxjGwAHNUh1rcqgo6iNIRPAowfqugEAiHDOc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=c1kzN8xICcVcej/xo3cdpmOLryQ24Qg4pYfQf2lreUdJZtdEH4i7Wltv/UHtMTLTFKxmC+Hh/xKZi4AvNnsUCTAlCHbInDqUDTygyxF3o4920xnz6mLUfI0XbwQCS9+A6ACp+a1zuQQC28/derDzPdDS5Xkgi1UzY3CQNj8wiOQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quora.org; spf=pass smtp.mailfrom=quora.org; dkim=pass (1024-bit key) header.d=quora.org header.i=@quora.org header.b=qzwpqnwu; arc=pass smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quora.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quora.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kz1xxdVp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E303E1F000E9;
-	Sat, 25 Jul 2026 22:04:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785017094;
-	bh=tsy/2HA8AH0lGrICc0FjsCAfMhHDa6b9pKycKEmlL4U=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=kz1xxdVpFy6lwB7uwS/QxtM//bbPg4/mjyLDMKOi4z5DcqIVfIWJUawtBqyGKA+HQ
-	 mbsfcLk4yh+kTDt3pUfn7x07hYBWkDu4wjF95/u0Lz0Kdors65DOUsQOr5qymNvqit
-	 OYs131j+GzDQbdwEhgwlRXzqFf5ywAEkh8ppcJ4+6wBnt9bIVGHy6rCMJJ839K/d9J
-	 McrF0tXUVwddQxR2ZmYNEjXoJE0YTH8RB7/LUYbFpgqtCrnVVADqAA8Vy5LuHZKe5H
-	 N8rntdqOxKuWswOuRLg8T1fmgzx2qGDF5rP4w8fWW5RmoDH7Dp9A7jBSNCwjPFLtjF
-	 30uN5+ws4nWAg==
-Date: Sat, 25 Jul 2026 23:04:45 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: David Lechner <dlechner@baylibre.com>
-Cc: Janani Sunil <janani.sunil@analog.com>, Lars-Peter Clausen
- <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Mark Brown <broonie@kernel.org>, Marius Cristea
- <marius.cristea@microchip.com>, Marcus Folkesson
- <marcus.folkesson@gmail.com>, Kent Gustavsson <kent@minoris.se>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, Janani Sunil
- <jan.sun97@gmail.com>, linux-spi@vger.kernel.org, Kent Gustavsson
- <nedo80@gmail.com>
-Subject: Re: [PATCH v7 1/7] spi: dt-bindings: Add spi-device-addr peripheral
- property
-Message-ID: <20260725230445.60a445a0@jic23-huawei>
-In-Reply-To: <e2118cfc-feef-4843-917f-844834ef4e60@baylibre.com>
-References: <20260722-ad5529r-driver-v7-0-7781cd74ad75@analog.com>
-	<20260722-ad5529r-driver-v7-1-7781cd74ad75@analog.com>
-	<e2118cfc-feef-4843-917f-844834ef4e60@baylibre.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=quora.org header.i=@quora.org header.b="qzwpqnwu"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2cad4170e8eso23278785ad.3
+        for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 15:06:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785017159; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aXOMkAcPUm9w7b8u4CloFSN0CKOEI4tSLdiFtOVnK77zQ89No44uEDqUyjekQhqIHP
+         zGT/AmeFU9TC0ndH8SNiTZJkqIsEJvhiqsJ5VgAoi7AZHBx8oZ6EPCLjkgf93JttBrkC
+         aLBta72ObUZOqqjXiLSPYvoTNGib2bV9Z2UtiNiZkDairByMk2Ql4CQw4iYm/VRqUuwl
+         ww+l1lJIfyG1D6RyWgFL79g0UOHeRLQgUEfOJTA7mBPgk9fLXHCrQH3Lq9lkRwbrvld4
+         bmYJLQEXJR+opcZt86XBeHEvDgp++tx01pC5o+yAqYMvf45xrUw2GHg1RxaWTBc4MPtr
+         syaQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=zImywQZnzpvQhiwmwZ529O7OAp/WrjEjQ2gnTEWU+lA=;
+        fh=MrAS2QPfZkB+hS1pdruP8RTgx0XmzjxFyScCZiFdgjY=;
+        b=I7fSZ5F66QUuxLnmbGn7PvbeiiROjFeml2GmRtBibbe+wk8+5/blEzBMpKZ3N24JMF
+         gntQOsBBqEWqsY1Bp0IJE4aK/jWJyOgSrun5Qh/2+V0R0c4K+OU8DsC6+iiaA04As46g
+         OyLtjOtsk1eo3PrZtJQsEvGaNu/yP0LRt9yWLC69gdk5Y/LP+39ZE28DwbkcJ+RtlUXZ
+         PM08qHWeHolk7sM/E1ybWLzefJ/nuHjv2H/EsA715VWvMkMibTGB4EKzB6uC81+fTQDM
+         TmhboWFX3W9LOE04eilnvSqAPgcOS90tIdnnlww5e0l4b3Ur6xHO8Ga2g5obvSiLfbAV
+         KM7w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=quora.org; s=google; t=1785017159; x=1785621959; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zImywQZnzpvQhiwmwZ529O7OAp/WrjEjQ2gnTEWU+lA=;
+        b=qzwpqnwu9BV3OhHOqDlLIsbmurMYPVqzAgOy/8gSMts1FKVlMRVz3xH8qRjezm5kCM
+         8EL6CfaKxyBoX3wmLyfJVT9t9ov29OOtIYlCal79RNrbkRxslakqdpqkzMXDWb41uvHQ
+         FONox5h1KSTnoLoFadk2M+aBCaoUKhVAclqV0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785017159; x=1785621959;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=zImywQZnzpvQhiwmwZ529O7OAp/WrjEjQ2gnTEWU+lA=;
+        b=KthJMzxSxfF65wtZqVcywN80RTnWJ/1DTYHDs1ziRtyDPq+D4cwI7uBIT/jtn5zokd
+         JYN10vFznZfiiTzMPB79CEvjPT0QZFpA2ZT0jxAlQzKC5cDvLDESExx6o8zAHwObTx7E
+         ED+aLr3tgLxm7gug/YvaMus9L5zsJQs1KiTHqwPXi7kszEKf6IhwlI5t6t8mUahaxc2F
+         m4ZtUe+pDJWYtqAeZ4gw3Zj839JPlOmB6g0DW1ZHAaHT5jcJVqgBGM3mlkPBeOtfnWD8
+         BV768669SSr9dyprBx2LFmkQ9VMRiNqka1rNlOq2uBxycL8wToEHTpQXG7bG5nmJnAh6
+         Kf4w==
+X-Forwarded-Encrypted: i=1; AHgh+RocGLYUzCOFtmmA2SVVa+eAUzCHHnemjpcJTjHY2d0qOSwWoyC2Qy/K0eGgqgLKMWTp+pHlfcnyHD/l@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy3qaxN5SyXFyqNAjtzAW+xzH6PlQJwSwio4BBnkIts0oMS3yRx
+	TJX8ZVzRhFHNl6m5NaDyPMY3sSwmtlZpV5Tm/W0gWbGSE9obpj8cW0Y9cEa+zASEAj0mnG8jsn2
+	3lwdxQ7FVCDHhyivp9SbpIAE3LMH1Xm13P6j9+e6arA==
+X-Gm-Gg: AR+sD113eMEymz/mad/HGj8FXs+ACeQLPGfP2LTa/q1wOVJ/2xdqdOTGJdrKfaF3z49
+	kR2px5tYGD1jFVG5jCSB6pm6hy7bs4l77fX2wjQjuW9t4vJmGYYLuwWGzRVDCo8czM7/6MB/pYa
+	n00rluOieTxJWtSCsJwHyTxmqxFus1nBqaRQmU7OOTifeVh7OM3To+06auZJQlzkaLYqlm9R9S9
+	jTm9rtFFC9MYORrVzwuHJM7Y8sMNEYlY7wLRSJrA1RAerzRDWqUx7Q83d+bt0oWXeaDji5JRuad
+	zGN+KZVgTJqQBDDR0W/oI8tfg8UGgMV9Wq7IYD80SoWG7Lw4z1GYokO4KOb5Jsq177Fhm7fa6/X
+	5oERil3A1S4QkKOkC009pKMMNNaDK3UdOu2zSRRIlMq7NWMsW0YNzZfy1atXQ95pk52Fk69JhOt
+	sj1iKdcYb/zCFpIJETBioKslMMzZHlf+JrLdgrH5EXxFPSNN7SbBgE2+9jlAbo
+X-Received: by 2002:a17:903:22c9:b0:2cc:864b:539 with SMTP id
+ d9443c01a7336-2cfde687914mr33554325ad.6.1785017159017; Sat, 25 Jul 2026
+ 15:05:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-0-f8588da41f16@linaro.org>
+ <CAMVG2stKmNxe-mdqbqO4MDLDrJCiNXw9kt8SA8egYAmByf9fKw@mail.gmail.com> <0eca3486-57c9-469f-b846-8c10ec07ffba@kernel.org>
+In-Reply-To: <0eca3486-57c9-469f-b846-8c10ec07ffba@kernel.org>
+From: Daniel J Blueman <daniel@quora.org>
+Date: Sun, 26 Jul 2026 06:05:47 +0800
+X-Gm-Features: AUfX_myiHAoB9UrW4Ep9Nn6HkjmTDkhFOjfKf8GaUMMaVbSg4cGPO6RekbYQPSY
+Message-ID: <CAMVG2suGdLUcA1gCjNq4xi_wq8QJhx3LeLcNqDJpgBUZLZ-2uA@mail.gmail.com>
+Subject: Re: [PATCH v12 0/6] Add dt-bindings and PHY updates for CAMSS on
+ x1e80100 silicon
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Robert Foss <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, "Bryan O'Donoghue" <bod@kernel.org>, 
+	Loic Poulain <loic.poulain@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Sat, 25 Jul 2026 15:55:01 -0500
-David Lechner <dlechner@baylibre.com> wrote:
+On Sat, 25 Jul 2026 at 22:47, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+> On 25/07/2026 14:47, Daniel J Blueman wrote:
+> > On Wed, 8 Jul 2026 at 08:06, Bryan O'Donoghue
+> > <bryan.odonoghue@linaro.org> wrote:
+> >> Changes in v12:
+> >> - Updates camss sensor find method to find the sensor in the CSIPHY port. -
+> >>   Neil, Vlad, Bryan
+> >> - Drops dependency on passing polarities and positions. Moved into CSIPHY
+> >>   port as agreed. Neil, Vlad, Bryan
+> >> - Omitted mux to CSID as discussed this will be done when splitting CSID
+> >>   out as its own individual node. Neil, Bryan
+> >> - Updated Reviewed-by: - Loic
+> >> - Link to v11: https://lore.kernel.org/r/20260326-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v11-0-5b93415be6dd@linaro.org
+> > [...]
+> >> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> >
+> > Works for me on 7.2.0-rc4 with 'qcam'.
+> >
+> > Tested-by: Daniel J Blueman <daniel@quora.org> # Lenovo Slim 7x X1E80100
+> >
+>
+> You cannot test bindings and I doubt that you actually tested even the
+> driver code without DTS.
 
-> On 7/22/26 2:54 AM, Janani Sunil wrote:
-> > Some SPI devices support sharing a single chip select across multiple
-> > physical chips by encoding a device address in the SPI frame itself.
-> > Add the generic spi-device-addr property for describing these hardware
-> > addresses. The property is placed on the SPI peripheral node and may
-> > contain multiple addresses.
-> > 
-> > Signed-off-by: Janani Sunil <janani.sunil@analog.com>
-> > ---
-> >  Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml | 7 +++++++
-> >  1 file changed, 7 insertions(+)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
-> > index 880a9f624566..b59d047cf117 100644
-> > --- a/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
-> > +++ b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
-> > @@ -142,6 +142,13 @@ properties:
-> >      minItems: 2
-> >      maxItems: 4
-> >  
-> > +  spi-device-addr:
-> > +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> > +    description:
-> > +      Device addresses used when multiple peripherals share a single chip
-> > +      select. The array allows one logical peripheral to comprise multiple
-> > +      physical devices, with one address per device.  
-> 
-> "per physical device" for clarity.
-> 
+This series was tested as a dependent of and together with
+https://lore.kernel.org/lkml/20260708-x1e-camss-csi2-phy-dtsi-v4-0-572348ad1b2a@linaro.org/
+and other dependents on my X1E setup.
 
-We may end up relaxing that again if multichip packages start doing this.
-Fine to add that clarification for now. We can revisit when / if it ever
-needs that relaxing.
-
-> > +
-> >    st,spi-midi-ns:
-> >      deprecated: true
-> >      description: |
-> >   
-> 
-> If there is nothing useful the SPI core code can do with this information,
-> I'm not entirely convinced that this needs to be a common property.
-
-I think being common does make some sense from a standarization point of
-view and it isn't obvious where to put it other than under spi.
-
-> 
-> And this only allows for one logical device. If we wanted to treat each
-> address as a logical device (all with same CS), we would need #address-cells = <2>;
-> instead where the DT "address" is two values, the CS and the device address.
-
-Ah.  Good point for the adc@address or similar needing to match a combination
-of CS and spi-device-addr.  Conor any thoughts on how this would be done?
-
-
-Also feels like this series should update the one use of the microchip binding
-in tree.
-
-arch/riscv/boot/dts/microchip/mpfs-beaglev-fire.dts
-
-Jonathan
-> 
-> This isn't a nak or request for change - just putting my thoughts out there
-> to make sure we considered it thoroughly.
-> 
-> 
-
+Thanks,
+  Dan
+-- 
+Daniel J Blueman
