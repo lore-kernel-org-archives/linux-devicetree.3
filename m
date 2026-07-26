@@ -1,88 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 421263D3D0E;
-	Sun, 26 Jul 2026 17:22:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 249F83D953E;
+	Sun, 26 Jul 2026 17:40:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785086544; cv=none; b=hoFHeDQZq5U37pKmXxKgYs6S7I0B0jUrRlptUWJncVJHCAAbSWkl6lM/Menui1TQ7NXaAiHGBQTepuzdfMxQAN532VU44cCIA5GsxlChs5HZi1N1H/6Iz5hZZGDVR97Puwm1WzMClfU9xbnzk+gMqIFteP+xXsxjJYoJualpLr4=
+	t=1785087631; cv=none; b=g+ZL4yxTnZB2LGR2dppb5lo2z7qOSSrUi2yIGL+C4zZDeF6TU8f/++APgNCxMZgwE7tUE249ydcMP5+ekxH7Eppg8tzK2Wd6EamgTG40Pds+wDi9wxSree/ajyoI07Spb1qPtqvfMADov3xRtL7J6QwtN+f/JI0u55SwbJ+p6I4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785086544; c=relaxed/simple;
-	bh=pTTA95gw3YO0si+WhRm+dNngxFM1b/mutpYw52jPbA4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HchSjVS/OoFt5N/k4DESiqYHOmomDPsJksgpY276puqL+B3Eh8Ghx9XevYcsaurv9kxWhUud7OLJWZyQ+5uKZtRKd9hKfcade3b8nnz+u6Je1MVA7F5hgsZmL2XwVxqE/QZ+XMd7dU21MNSQLlpPx4apdyaA/78hO1SOq9ykQNM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JgJ2eK91; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785087631; c=relaxed/simple;
+	bh=0BGKt1m91nvEolRdnYWTfp/T+RfvOFvPKeLAV0WvmMg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=CEnw2AZbfIawzEUGG0CS1rsM7PNdSEVqwfRmZJW+rFo4+FaN4jerIvs06rqR/9MlgjpbNEvCf7TRTXAFur8qZP2yuB/Rq+aZg3EYOWZYZddnAp3DsJgT1p5oiu6Gq8dQVcTFgNbXt27JmHlDa83lHindb9KwpXlmZJAkgkPyMoY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P2H2PA6z; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JgJ2eK91"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8851F1F000E9;
-	Sun, 26 Jul 2026 17:22:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785086540;
-	bh=pTTA95gw3YO0si+WhRm+dNngxFM1b/mutpYw52jPbA4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JgJ2eK91BqHg8Cjxv5ekCKZ57z+fZ3EUnL8rFxK4W+0BY6Vli3RhC/meBrxZlqqQ4
-	 jzwoyG2ECSg0LcY0Y35PNk9Rh3DvBglWci7FGRh8Op81ROnMu1eRcPsv6H+JA6CNG0
-	 hxA9LdHEPoiqlxlYaHpVtFt9iklHUbYyVC7qKlo1BrOYS01KemhEgR8uYGfy02Pv8z
-	 YssimzJxXSMTrC+Nf5MiLifxb7fV0hKcFz0jBk5wvkbibTZJgNz0pGWT3PseOfW0gv
-	 7ANU+K2dr8XlwFDaz4LNvk0LkAG7aR4sBtxqxGNIDf0cVkBQDqSrRrT98+kjldQHX7
-	 4IhB8mJfaN09Q==
-Date: Sun, 26 Jul 2026 18:22:15 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: lee@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, lgirdwood@gmail.com,
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-	mfd@lists.linux.dev, linux-kernel@vger.kernel.org,
-	patches@opensource.cirrus.com
-Subject: Re: [PATCH 0/3] Add support for cs42l44
-Message-ID: <5ee2a6cd-b021-4221-b6da-4fe179104814@sirena.org.uk>
-References: <20260708140039.1993489-1-ckeepax@opensource.cirrus.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P2H2PA6z"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id AD5EBC2BCB3;
+	Sun, 26 Jul 2026 17:40:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1785087630;
+	bh=0BGKt1m91nvEolRdnYWTfp/T+RfvOFvPKeLAV0WvmMg=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=P2H2PA6ziBfqos3MLlI4RAfBDRmVLWhRFXuPVXCkXE/d3YM8P9vOHwGWZ/DUEUE+/
+	 NnSehOjl4ca4319rB0GpVCB7pUNigJ8LeC7hac1s8Kjk3mJWk3+oU5a+3aKdsumErm
+	 Cibpw8D3A38bkyiGe3qCow37o/SuuzVkMhkL6ICkrV0V3rE30JcWfz8UZX7mIsROJ9
+	 r+NbtTYVGHUT19KJFn7fY/Xury2qDJy1VuS8Dg/lItusvek672AGVEURsA17sAsFAt
+	 IvNcBLnnVXeqNGZ5ipuEa2A7xa17yFl1lEOnc7o5MslPtXzOr6/ZZ3RPgATQv2zT6w
+	 XAYoTg5L4FLRg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8867DC5321C;
+	Sun, 26 Jul 2026 17:40:30 +0000 (UTC)
+From: Vyacheslav Yurkov via B4 Relay <devnull+V.Yurkov.EXT.bruker.com@kernel.org>
+Subject: [PATCH v4 0/2] A proposal to add a gpio-locked fixed clock driver.
+Date: Sun, 26 Jul 2026 17:40:23 +0000
+Message-Id: <20260726-feature-clock-guard-v4-0-e9c8b372b71c@bruker.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rgiNE/44NynmqA6X"
-Content-Disposition: inline
-In-Reply-To: <20260708140039.1993489-1-ckeepax@opensource.cirrus.com>
-X-Cookie: You might have mail.
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAIdGZmoC/33OSw6CMBCA4auQrq2ZvgBdeQ/joh0KNCiYAo2Gc
+ HcLG2IkLv9J5puZSG+9sz05JxPxNrjedW0MeUgI1rqtLHVFbMKBpyBYTkurh9FbivcOG1qN2he
+ 05KA5CmVOqSJx8+lt6V6rer3Frl0/dP69Hglsmf73AqNAUyYyNBJyabKL8WNj/RG7B1nAwDdEM
+ dhH+IIgV1LlhRISfhCxIfGXfUREBBiiBq1BavWFzPP8AcrEKWxBAQAA
+X-Change-ID: 20260318-feature-clock-guard-f20a2c35b965
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Brian Masney <bmasney@redhat.com>
+Cc: linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, Vyacheslav Yurkov <uvv.mail@gmail.com>, 
+ Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785087629; l=2038;
+ i=V.Yurkov.EXT@bruker.com; s=20260318; h=from:subject:message-id;
+ bh=0BGKt1m91nvEolRdnYWTfp/T+RfvOFvPKeLAV0WvmMg=;
+ b=U5P+KGTE2a51jq9XrlPK1UhndU8uYVaFida+8VpsN/WEAM2lhyW8CHJUA/njEUAET9sGkUyTf
+ TaKEPZWuIGJDZlAvpxvn7UA0Uo/lOzG3j4TQ04mdqdLe1qih/bt2q1M
+X-Developer-Key: i=V.Yurkov.EXT@bruker.com; a=ed25519;
+ pk=snJmgYVOKlp7aQtK9tWnEI7QTYxpPpJJvxdVsnxA7Fk=
+X-Endpoint-Received: by B4 Relay for V.Yurkov.EXT@bruker.com/20260318 with
+ auth_id=686
+X-Original-From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+Reply-To: V.Yurkov.EXT@bruker.com
+
+A gpio-locked fixed clock aggregates one or more input clocks and/or one
+or more GPIOs. It's similar to a gated-fixed-clock, but GPIO direction is
+inverted. Consumers can use the output clock to wait until all input
+clocks are locked and only then initialize / access dependent peripherals.
+
+The usage example for such a driver is when peripherals depend on PLLs in
+a FPGA, which can't be directly accessed by the CPU, but need a GPIO pin
+to check whether clock is actually usable. E.g. some of the IPs might not
+have a proper split between registers and IP core, which means that if an
+external clock and/or PLL lock is missing and one tries to access the 
+registers, the response never comes, thus the CPU stalls.
+
+Signed-off-by: Vyacheslav Yurkov <uvv.mail@gmail.com>
+Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+---
+Changes in v4:
+- Removed driver specifics from DT binding
+- Link to v3: https://lore.kernel.org/r/20260603-feature-clock-guard-v3-0-01cca0aa04a5@bruker.com
+
+Changes in v3:
+- Removed unnecessary dt bindings
+- Improved HW description and commit messages
+- Link to v2: https://lore.kernel.org/r/20260510-feature-clock-guard-v2-0-6c25458d5340@bruker.com
+
+Changes in v2:
+- Renamed to clk-gpio-locked to express intent.
+- Provide enable() / is_enabled() operations so the clock behaves as
+  expected
+- Fixed DTS errors / warnings
+- Link to v1: https://lore.kernel.org/r/20260318-feature-clock-guard-v1-0-6137cb4084b7@bruker.com
+
+---
+Vyacheslav Yurkov (2):
+      dt-bindings: Add GPIO-locked fixed clock
+      clk: Add gpio-locked fixed clock driver
+
+ .../bindings/clock/gpio-locked-fixed-clock.yaml    |  59 ++++
+ drivers/clk/Makefile                               |   1 +
+ drivers/clk/clk-gpio-locked.c                      | 306 +++++++++++++++++++++
+ 3 files changed, 366 insertions(+)
+---
+base-commit: 3dab139d4795f688e4f243e40c7474df00d329d9
+change-id: 20260318-feature-clock-guard-f20a2c35b965
+
+Best regards,
+-- 
+Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
 
 
---rgiNE/44NynmqA6X
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, Jul 08, 2026 at 03:00:36PM +0100, Charles Keepax wrote:
-> This series add support for the cs42l44 to the cs42l43 driver.
->=20
-> I have based these patches on the series by Uwe from here:
->=20
-> https://lore.kernel.org/lkml/cover.1783507945.git.u.kleine-koenig@baylibr=
-e.com/
->=20
-> Since they both touch the device id arrays, does mean Uwe's series will
-> need to be merged before these but probably simpler this way round as
-> his series is a lot bigger.
-
-This doesn't apply, please resend whenver there is something it can be
-applied against.
-
---rgiNE/44NynmqA6X
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpmQkcACgkQJNaLcl1U
-h9ASAwf+MVPpdeRt3X4QUFkW0xVMLE4sAjnt9eUKWOjCJU/dBiZchbrDCwPWEwbO
-BIauQtdNDulDYt55+F3qvzR1XPPEVUNWrjKiANJzLc96YaZvUptAmFhc+dihhSy5
-4Fs1PM/TgYUKCejzcqQN4/dBBju+NFID50zmteBO+GqgHaQLLrdkv/WZ+bPNUr0y
-v4yeVX1aQ0rVGmtQEwejoklAFom6H5DHktE4Kar4alWcp9Z2/QsQUOqWFcCaUagO
-aUslOlAXXtz/lyUvRU5yTl2A4qGyes7wKdzt3PmiWMTrwCe+Bbcf3pbHQDtGRzwt
-VBvZDMt8xLyZCFTBJu/XiiuZsFx4rQ==
-=CQTL
------END PGP SIGNATURE-----
-
---rgiNE/44NynmqA6X--
