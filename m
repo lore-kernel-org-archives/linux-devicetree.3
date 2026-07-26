@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89CD438AC85;
-	Sun, 26 Jul 2026 11:27:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 790D8389E07;
+	Sun, 26 Jul 2026 11:28:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785065278; cv=none; b=bKLPeUT7x9TDuigIEGk4St1D0AYgpy0x1Ar8sTYkWXmTfgEQITWOq0YA9HQh4ne5oC+a383ZbliahvITO/12sKHDagROZY1kOD6NZBkRCAMppzXrNNvPBkd7pJ+B375Dm7bi6R7RIYW70eWGRE9PUQHvYSDJsDiqPpzDnB4t1t8=
+	t=1785065306; cv=none; b=t9wdLIqhYC5XSqyow0cMcCf8UCWtuwo8OiTAbykaZwaeXkqv3jh0sKVPyaOmMOR9AGY0q7qlkkHvfvyDEqj/lUS67AcM3V5+d9EMLQSJHJxBjL7KZf7dShoVd2+zcSFp1p5Ujz6KGQyHxbU2RxBrSOo7nOWG/Y9vcyvzfsIoAec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785065278; c=relaxed/simple;
-	bh=gDhYyL3yAtpzPwhf0Fs/zMtR8lzG9b38bS0nSRcn2gk=;
+	s=arc-20240116; t=1785065306; c=relaxed/simple;
+	bh=3klxKVt7lIDxS7MNuIpdR367hCaWLHDKYYB936nr3qM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=reR1tc3QRzOqF6fgO4uYueijdUW8CVUqF/EvvViWXTEJmutvOyGmu56rEKMTo9iz1lFCz7hC+84pprQybM1+9vbzzhU2xCWn4dmYoTKBLQoGX802KBozhEqa6JfjnVTHtaPYw2v8LkItdbfPRSnq8149OnXnQHqvIrVlvL97gkg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BA9zwtrW; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=q5Rq+ibbE23U7ijNdtFXYT+jd45bS2MMIL80p4/6oLpu1VuEVmcu9y/0nEIrgnT2PqkkqdgKV4aL5QhQo1VKXqlUMzyahA+iZD7jA72wjSm7xRzrz2PvRgtEas6DxBs1SAfNXRX0wf3UCJAJGwBh9TJFVWfl1F6tPiI8b2wdGAQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=onjxruKK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BA9zwtrW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA7CF1F00A3A;
-	Sun, 26 Jul 2026 11:27:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="onjxruKK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B15791F000E9;
+	Sun, 26 Jul 2026 11:28:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785065274;
-	bh=4IypVN+hHBZd36rTTjBD8QVGY+7mSezMWrGpkFbJZgM=;
+	s=k20260515; t=1785065301;
+	bh=02oTvQxJHyCBY/K1DJxUpUMbUBKPseOdjqQn6HWC8Bo=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=BA9zwtrW5Kv9UMGR9B+AffnWM6PzeGg0pbGtsH8I8S0w4vLVjaAAAgi0CfJzebtQh
-	 41PwLChlbQYpdD4Yyz2PtF5VaHMAhZfdqR+qLuLlCnkqWi+jwcOde8hy26uwkLf0QN
-	 SJS0bI+hJVVtN5V1dxCjzS46/+ytSWDd5689cPcIsxcZK0/CaPzS7VC/Oa74mIFi4C
-	 i5rDJFJ7f6A4eRkQlSt/Oc2YcOqETzpfSHo1kvkIP+mYlxJw/2+CwlkBXpC5CXZYCo
-	 Elg9uvBWEAZpkio97Z3vsNwwEt88GvvsqItIUPTJQL0daz5ErFSRlCs9bMN6wgkSZn
-	 EDKeNyxqPAM7Q==
-Message-ID: <31fb6e34-5d12-4984-a874-e683374eca53@kernel.org>
-Date: Sun, 26 Jul 2026 13:27:40 +0200
+	b=onjxruKK+TtLCEm3KmZv1g0M095cfQwA55rRvV5q9+b9D5+4/OTzw0xpnPN2S7Sm1
+	 gVcqRyrdU8YD0LZJYh0akx6j8SbufloOkPloinUKIWX7KAzuAQ6WTesi00iw2Byk43
+	 PN5dzZZlurYh5QzH12QcH1+SJnJ36qTCVPiEuH+aERR9fnMPIUcXOFha2CKUccEgD3
+	 hY8zqJzKH9DlpQfToO08YSCEIf/D5aeznzWiAs0abcY0JrQfwZsrXNU04dt6qnRhs3
+	 xn99DBDeH2IdJLoGaAlanJ2ElFWXjt5H29raOnModZCaPXPkGsh5jstPfx7P/zjvaj
+	 B6oa7/BYVGg7w==
+Message-ID: <01a34500-3cce-4934-93ed-59598718aa5e@kernel.org>
+Date: Sun, 26 Jul 2026 13:28:14 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,14 +35,16 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: dma: ti-edma: fix 'tansfer' spelling
-To: "shaikh.kamal" <shaikhkamal2012@gmail.com>,
- Vignesh Raghavendra <vigneshr@ti.com>, Vinod Koul <vkoul@kernel.org>,
- Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>,
+Subject: Re: [PATCH] dt-bindings: iio: dac: adi,ad5791: fix 'referance'
+ spelling
+To: "shaikh.kamal" <shaikhkamal2012@gmail.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
+Cc: linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
-References: <20260726060634.18908-1-shaikhkamal2012@gmail.com>
+References: <20260726055609.18326-1-shaikhkamal2012@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -88,20 +90,19 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260726060634.18908-1-shaikhkamal2012@gmail.com>
+In-Reply-To: <20260726055609.18326-1-shaikhkamal2012@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26/07/2026 08:06, shaikh.kamal wrote:
-> Fix spelling error reported by codespell: tansfer -> transfer.
+On 26/07/2026 07:56, shaikh.kamal wrote:
+> Fix spelling error reported by codespell: referance -> reference.
 > No functional change.
 > 
 > Signed-off-by: shaikh.kamal <shaikhkamal2012@gmail.com>
 > ---
->  Documentation/devicetree/bindings/dma/ti-edma.txt | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  Documentation/devicetree/bindings/iio/dac/adi,ad5791.yaml | 4 ++--
 
-Slow down. Same comments.
+Slow down, same comments.
 
 Best regards,
 Krzysztof
