@@ -1,173 +1,118 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40E3624DD17
-	for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 15:54:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8917F3B810D
+	for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 15:56:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785081294; cv=none; b=DWizZWp8w3QYHyFJBtF7tbsJ4TQFTBGqoMI18zWwFHgEHAWekPbMriQLcuNF2FB4iWA9iiROmj6Rgk997ACX/QPcg3JNUvQUbIIr1VbwgDqkBgYUqszvkSgvq2p271LBl0kJom190za81c0eVARYOJfydB/TZZuainrYkthHe3Y=
+	t=1785081407; cv=none; b=KXgf6PJRolh/0MkMLGchbvuskeQToudZiNT7Yw1I3gtTRD8GCgKdQnNPIxMputUAKRHHHK13LDhmu838fWV1C0eErTJ8VTwvCMGiXqs66F9lo3zI2e9MxAQaqiNAoLK/Vn/M/H7MpFB3DFKtJ5F7CvrhEKbYaCnZ6AlDEoVAjiQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785081294; c=relaxed/simple;
-	bh=f8NWiWzNtd0IWNRK06gIqtw0fiYEMKk1ZDxW9gbcvzI=;
+	s=arc-20240116; t=1785081407; c=relaxed/simple;
+	bh=efir9Fkrk79QEr0/Hc9xIIfl0qqVRn4OriSKscaP/20=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tauA36WUYUvkTTm6m99Xj7UrdBJ4WRximhC3Ws87+nIyI+TMFCiinUfzgI3gH+Hn+2cOb1ke8sArXR0Pn0KwI9D1GI4RydE1jkxESU7VEC9QJuCdooZxoGpT/G880ROx8xOkZttTX0lzTo9DmGoFR54dQ9jU6ZKgNpKKBUIKlzc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hOiEOOGa; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=jD0beH1JaV6H4JWnyTy9EgajNVupXkAD9XlpF2OFPLMOLkTX2wkOeuw/17jb+yg1ywXZ9togczK2KdyQBJ4oFRWGLhqdUXmT6Bwp6YzdO8dM634Zo/yTlR7FZlqD2tyDVDBlW1qu7MR3J/fNwUIrCyh/l8/uVVwAn1728Shy7eo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HwoI9/8g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hOiEOOGa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BC6A1F000E9;
-	Sun, 26 Jul 2026 15:54:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HwoI9/8g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81CEF1F00A3A;
+	Sun, 26 Jul 2026 15:56:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785081292;
-	bh=bUEFWM2jI3+SkMgl9WcYoJPsrT0lDvWDsT1HGJDNTbU=;
+	s=k20260515; t=1785081406;
+	bh=WWorr3BhupwD7wbgN3AHUlzUX0npoKpHGfI3tdc4nXY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hOiEOOGakY5F4J4+5CDK7qDkepEzaLNj1Ivki0c6ARn0ob/mOpbRQDzndUa+DdJAa
-	 YcjU6sDVhQc8RobJIPMUH6AUp1+my0C4GCwxnvoVVoW52aX4Fp7EdvouYeIXG3MpIT
-	 QoS+BaIf9dYTFbCc5pqhBsJwv19hf07hcGON8gPGSRIKI9wSRD7rvX8X2/8lmb0Jxw
-	 NUStzvo70EhANS24hkwmrQHnnTXt0pdrxazAkTiqU2B2J3wtZAaqcoN86Hc1Xv0w/8
-	 scYgnCu/u+bn4Nod5gE5akqEcJhDxmDDdXUiteRtg4AJcN0tp/kZJ0nd1MDHp7smO+
-	 AwMMJ2VhfEfgg==
+	b=HwoI9/8gLF9sm2HoDEHE58flL4IKnt4j+4HJ6IkijrEkjIx1nS3/BcQfG8Fg/+g4r
+	 OXRLm0nw7L7kLg/GQAgS8FJB4QnSVIWAgSYNPgS3UqnsVgfYs3Q36gkoJ3OvKzKpi4
+	 H7VgacD6DjZh0JYuhMVOzkBlppz7t89uuGabISwkxFYcASW+dJrOndCrgwNOqCCwGT
+	 0kVrRYyFKRt7m1+UBmC7KIlr3LecsD0CPW7aRmYsuYgNV+7o3BkZPq6mJ0W6omnGjv
+	 uzVhxjkPnrnhkjdf1KorVkQPDsmab5xDC++WL0qZrCM5/1jVXvILP2MS5JGoZTYH1Z
+	 JIhJZR/wYgFsA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 8/9] dtc: dt-check-style: Introduce 'stricter' mode
+Subject: Re: [PATCH 6/9] dtc: dt-check-style: Fix alignment of values in
+ continued property lines
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260726-n-dts-style-checker-continued-v1-8-b05b8f897670@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260726-n-dts-style-checker-continued-v1-6-b05b8f897670@oss.qualcomm.com>
 References: <20260726-n-dts-style-checker-continued-v1-0-b05b8f897670@oss.qualcomm.com>
- <20260726-n-dts-style-checker-continued-v1-8-b05b8f897670@oss.qualcomm.com>
+ <20260726-n-dts-style-checker-continued-v1-6-b05b8f897670@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 26 Jul 2026 15:54:51 +0000
-Message-Id: <20260726155452.5BC6A1F000E9@smtp.kernel.org>
+Date: Sun, 26 Jul 2026 15:56:44 +0000
+Message-Id: <20260726155645.81CEF1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] Missing trailing commas in `applies_to` arguments cause them to =
-be evaluated as strings instead of tuples, breaking the `--list-rules` outp=
-ut formatting.
-- [Low] Misleading documentation for `Rule.mode` claims dictionary support,=
- which would crash the script.
-- [Low] Copy-paste error in the header comment of the `dts-line-length.dts`=
- test fixture.
+- [Medium] The new alignment rule incorrectly forces a standalone closing b=
+racket (e.g., '>;') to align with inner values instead of the opening brack=
+et.
+- [Low] The hardcoded error message is misleading when target_offset =3D=3D=
+ 1, as it claims the expected column is 'under < or "'.
 --
 
---- Patch [8]: [PATCH 8/9] dtc: dt-check-style: Introduce 'stricter' mode -=
---
-commit 2b6676a210ee00e188dac94bab5f81848b3977f1
+--- Patch [6]: [PATCH 6/9] dtc: dt-check-style: Fix alignment of values in =
+continued property lines ---
+commit 3d17d86c35121d71a779318164c4a25fa384d8c1
 Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-dtc: dt-check-style: Introduce 'stricter' mode
-   =20
-Two rules, which are enabled in 'strict' mode make little sense for DTS:
+dtc: dt-check-style: Fix alignment of values in continued property lines
 
-1. line-length, limiting length of line to 80 characters: DTS often has
-   a bit longer lines, especially for interconnects or heavily nested
-   opp-level.  Checkpatch already does not warn for exceeding 80
-   characters.
-
-2. unused-labels, discouraging unused labels in DTS or YAML (not DTSI or
-   DTSO): while not harming this leads to many false positives, e.g.
-   unused PMIC regulators in DTS.
-
-Introduce another 'mode' of running beside existing relaxed and strict:
-a 'stricter' one where these two rules are moved for DTS.  Intention is
-to have in-tree DTS passing 'strict' mode.
+This commit updates the dt-check-style script to enforce that continued
+property lines aligning to inner values are indented one space past the
+opening '<' or '"'. It also includes tests to verify this behavior.
 
 > diff --git a/scripts/dtc/dt-check-style b/scripts/dtc/dt-check-style
-> index 8c049c04b865c..7e1d80ceab780 100755
+> index 4d90fbec0e391..171a5e12fcbd8 100755
 > --- a/scripts/dtc/dt-check-style
 > +++ b/scripts/dtc/dt-check-style
 
 [ ... ]
 
-> @@ -332,7 +334,8 @@ class Rule:
->      def __init__(self, name, mode, description, check,
->                   applies_to=3D('yaml', 'dts', 'dtsi', 'dtso')):
->          self.name =3D name
-> -        self.mode =3D mode               # 'relaxed' or 'strict'
-> +        # 'relaxed', 'strict', 'stricter' ordictionary mapping file_type=
- to mode
-> +        self.mode =3D mode
-
-[Severity: Low]
-This isn't a bug, but is there a typo ("ordictionary") in this comment?=20
-
-Also, if a dictionary were actually passed for mode based on this comment,=
-=20
-wouldn't it cause a crash in select_rules() with a TypeError? The rank=20
-dictionary expects r.mode to be a hashable type rather than a dict.
-
-[ ... ]
-
-> @@ -1042,20 +1045,27 @@ RULES =3D [
->           check_node_close_alone),
->      Rule('line-length', 'strict',
->           'lines must not exceed 80 columns',
-> -         check_line_length),
-> +         check_line_length, applies_to=3D('yaml')),
+> @@ -928,15 +929,18 @@ def check_continuation_alignment(ctx):
+>              continue
+>          # First '<' or '"' after '=3D'
+>          rest =3D dl.raw[eq + 1:]
+> -        m =3D re.search(r'[<"]', rest)
+> +        m =3D re.search(r'\s*([<"])', rest)
+>          if not m:
+>              continue
+> -        target_col =3D _display_col(dl.raw[:eq + 1 + m.start()])
+> +        target_col =3D _display_col(dl.raw[:eq + 1 + m.start(1)])
+>          for cont in dl.continuations:
+> -            if _display_col(cont.indent_str) !=3D target_col:
+> +            target_offset =3D 0
+> +            if not re.match(r'[<"]', cont.stripped):
+> +                target_offset =3D 1
 
 [Severity: Medium]
-Will python evaluate applies_to=3D('yaml') as a string rather than a=20
-single-element tuple because it lacks a trailing comma?
+Will this new alignment rule incorrectly flag standalone closing brackets?
 
-It looks like this causes the --list-rules output to iterate over the=20
-characters of the string instead, resulting in [y,a,m,l] when applies_to=20
-is consumed by ','.join(r.applies_to) in main().=20
+If a continuation line is just a closing bracket like ">;", the script
+evaluates re.match(r'[<"]', cont.stripped) as false, which sets
+target_offset =3D 1. This forces developers to indent the closing bracket
+one space to the right of the opening bracket instead of aligning them.
 
-Could a trailing comma be added like ('yaml',) to ensure it is treated=20
-as a tuple? This same issue seems to apply to the other single-element tupl=
-es=20
-added below for applies_to=3D('yaml') and applies_to=3D('dts').
-
-> +    Rule('line-length-dts', 'stricter',
-> +         'lines must not exceed 80 columns',
-> +         check_line_length, applies_to=3D('dts', 'dtsi', 'dtso')),
->      Rule('continuation-alignment', 'strict',
->           'multi-line property continuations align under "<" or "\\""',
->           check_continuation_alignment),
->      Rule('unused-labels', 'strict',
->           'every label must be &-referenced in the same example/file '
->           '(skipped for .dtsi/.dtso since labels there are exported)',
-> -         check_unused_labels, applies_to=3D('yaml', 'dts')),
-> +         check_unused_labels, applies_to=3D('yaml')),
-> +    Rule('unused-labels-dts', 'stricter',
-> +         'every label must be &-referenced in the same example/file '
-> +         '(skipped for .dtsi/.dtso since labels there are exported)',
-> +         check_unused_labels, applies_to=3D('dts')),
->  ]
-
-[ ... ]
-
-> diff --git a/scripts/dtc/dt-style-selftest/bad/dts-line-length.dts b/scri=
-pts/dtc/dt-style-selftest/bad/dts-line-length.dts
-> new file mode 100644
-> index 0000000000000..d1dacc5c76fbf
-> --- /dev/null
-> +++ b/scripts/dtc/dt-style-selftest/bad/dts-line-length.dts
-> @@ -0,0 +1,21 @@
-> +// SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +/*
-> + * Test fixture: Unused label in DTS
-> + */
+> +            if _display_col(cont.indent_str) !=3D target_col + target_of=
+fset:
+>                  yield (cont.lineno,
+>                         'continuation should align to column %d '
+> -                       '(under < or ")' % (target_col + 1))
+> +                       '(under < or ")' % (target_col + target_offset + =
+1))
 
 [Severity: Low]
-This isn't a bug, but does this comment accurately describe the test fixtur=
-e?=20
-It appears it might have been copy-pasted from the unused-label test, since=
-=20
-this file is testing line lengths.
+Is this error message accurate when target_offset is 1?
 
-> +
-> +/dts-v1/;
-> +
-> +/ {
-> +	soc@0 {
-> +		compatible =3D "simple-bus";
+When the script expects alignment to the inner value (target_offset =3D=3D =
+1),
+the error message still tells developers to align "(under < or ")". This
+could be confusing since the target column provided is actually one space
+to the right of the bracket or quote.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260726-n-dts-styl=
-e-checker-continued-v1-0-b05b8f897670@oss.qualcomm.com?part=3D8
+e-checker-continued-v1-0-b05b8f897670@oss.qualcomm.com?part=3D6
