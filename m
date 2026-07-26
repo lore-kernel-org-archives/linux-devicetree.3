@@ -1,141 +1,103 @@
-Received: from MTA-15-3.privateemail.com (mta-15-3.privateemail.com [198.54.122.111])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E8AE3DBD43;
-	Sun, 26 Jul 2026 22:26:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.122.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9407437A48A;
+	Sun, 26 Jul 2026 22:28:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785104785; cv=none; b=e3A1/QgLdIFwpiydGkBMe+p2TLSF0bfgdDBWqlRAQuvCWZYCsBZDtLnPtlYumJg8sUlK32Y78dWQiWeUwRzqSTPCV18ujAw4UX4CL0szAWQmMjIC8DWSH3BRAOydCj29L9d85wh8xnP+iUeH2TmW1qXbOj8l7UsE5sWW4mf2N7U=
+	t=1785104921; cv=none; b=gjfDinenJucEw3KrZ7NtNwDcD0n4boP6PHWVq8WAKyVIDLlXwuPnY73XRfXzOJ8/ual/Yg3S8Hh5N5tG8wTlURk0G+ajek4tXstRIbZ6+bNEIRHfQTZKTOuXDcGJO+W8Fi8Ukf36N6osGqFM5Gkhk/w141zMhEInlHGb3U+8VZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785104785; c=relaxed/simple;
-	bh=NLMy/p3KLSGReDGVnDs2Fffcwg+aJk4Wv1VskdBNtIM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FgiyBTH/X7+In3cKaDVHecFsSLF5osTS0g5OGLxrM+WrarAz/xcH6d8CJ39FAc0CcXSIvIsxnu3Lr3hVArAYMx8t4dBnUbCftN8ISmm8xLyoCBsutg0+LMozqD1pNhbVykhKn3TVSPcbyGaRJbA8U1w1fe/AQzDOStXYlx0JUk8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net; spf=pass smtp.mailfrom=catcrafts.net; arc=none smtp.client-ip=198.54.122.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catcrafts.net
-Received: from mail.privateemail.com (K8S-PROD-WORKER-10 [87.215.145.39])
-	by mta-15.privateemail.com (Postfix) with ESMTPA id 4h7bsk04grz3hhTF;
-	Sun, 26 Jul 2026 18:26:00 -0400 (EDT)
-From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-To: David Heidelberg <david@ixit.cz>,
-	Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Luca Weiss <luca.weiss@fairphone.com>,
-	oe-linux-nfc@lists.linux.dev,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 5/5] arm64: dts: qcom: milos-fairphone-fp6: Add NFC
-Date: Mon, 27 Jul 2026 00:24:05 +0200
-Message-ID: <20260726222405.153008-6-jorijnvdgraaf@catcrafts.net>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260726222405.153008-1-jorijnvdgraaf@catcrafts.net>
-References: <20260726222405.153008-1-jorijnvdgraaf@catcrafts.net>
+	s=arc-20240116; t=1785104921; c=relaxed/simple;
+	bh=2r0weuECXaeS2pHAAfZLICmOvKd9Jo+mcrRosKr2Ggg=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=umln6VlM+zOc0i13ZtI9cjg3QlJzXpQkkkrGmGHDBUMt9dzBh5GFWTCVTZ2IbLIs+BAwiFijjE+g/nxu/jWnA/vcHDx/67gnKnUXn2pMswlO6l4HgBqB8d88lXpiQ1CDUMUmaoJAeniOIUs7+oacfeZu3Fw7AJ6gXfhkrDxrfXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L+hT7vnj; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L+hT7vnj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09F211F042D2;
+	Sun, 26 Jul 2026 22:28:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785104920;
+	bh=agXXKbagGkgLFxXBmfBRGqsRctliVMF3Wid4vsSYwfg=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=L+hT7vnjMpSg8IyDiQRtu37ye8mQR7cmeUddE+sRl2tWpH1wEbj2YBqYgLAZTtYDI
+	 Xxm97BbE8/7DBhI0b6sk7ljh4ECuZOCVA5cDGBhqIj4GBP4+3Qknc0ZHo5PC2edve9
+	 6EIYxWlWijDmxLYYP0g4trr8jh95NIWj39u+m19EZwjnR6h2F3T2PK3Dh96nzsc74W
+	 k2t5cLzd7UD7Lrhmwth6u/Z1c1ndeki7DYzDO1NlwkZTX4xhNMn+YhnIvU10FNSgV+
+	 uwkylE6BGW3Q2xicL9ng85LjvGtEjKmUsQfWBSOVOnkstlAiEQw9+6fTdZILxyLgjO
+	 5bre7HAqGm1Tg==
+Date: Sun, 26 Jul 2026 17:28:39 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Hauke Mehrtens <hauke@hauke-mehrtens.de>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <rafal@milecki.pl>, 
+ Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org
+To: Rosen Penev <rosenp@gmail.com>
+In-Reply-To: <20260726205518.6698-1-rosenp@gmail.com>
+References: <20260726205518.6698-1-rosenp@gmail.com>
+Message-Id: <178510491939.3431692.9862516903607892948.robh@kernel.org>
+Subject: Re: [PATCH] dt-bindings: bus: brcm,bus-axi: Convert binding to
+ YAML
 
-Add the Samsung S3NRN4V NCI NFC controller on i2c1. Its XI clock is
-provided by the RF_CLK2 PMIC buffer and gated through the controller's
-CLK_REQ line on tlmm GPIO6. PVDD is fed from PM7550 LDO20, the rail the
-downstream driver switches for this chip.
 
-The enable line is routed to the chip's power-down input, which is
-asserted high to turn the chip off (the downstream driver treats VEN as
-active-low on this design) -- hence GPIO_ACTIVE_HIGH, unlike the
-exynos5433-tm2 wiring of the same driver. The pin is pulled up so the
-chip stays off while the line is not driven.
+On Sun, 26 Jul 2026 13:55:14 -0700, Rosen Penev wrote:
+> Convert the Broadcom AXI bus (bcma) binding from legacy .txt format
+> to dt-schema YAML format. This resolves dtbs_check schema validation
+> warnings for the brcm,bus-axi compatible string across all BCM47xx
+> and BCM53xx ARM SoC board DTBs.
+> 
+> The schema documents the AXI bus node with its required compatible
+> and reg properties, address/size/interrupt cell configurations, and
+> interrupt-map for assigning IRQ numbers on BCM47xx/BCM53xx platforms
+> where automatic detection is not available.
+> 
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>  .../devicetree/bindings/bus/brcm,bus-axi.txt  | 53 -------------
+>  .../devicetree/bindings/bus/brcm,bus-axi.yaml | 77 +++++++++++++++++++
+>  2 files changed, 77 insertions(+), 53 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/bus/brcm,bus-axi.txt
+>  create mode 100644 Documentation/devicetree/bindings/bus/brcm,bus-axi.yaml
+> 
 
-Assisted-by: Claude:claude-opus-4-8
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
----
- .../boot/dts/qcom/milos-fairphone-fp6.dts     | 49 ++++++++++++++++++-
- 1 file changed, 47 insertions(+), 2 deletions(-)
+My bot found errors running 'make dt_binding_check' on your patch:
 
-diff --git a/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts b/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
-index ebdca0e2d2f3..a1b86e4092fe 100644
---- a/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
-+++ b/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
-@@ -601,9 +601,29 @@ &gcc {
- };
- 
- &i2c1 {
--	/* Samsung NFC @ 0x27 */
--
- 	status = "okay";
-+
-+	/*
-+	 * Samsung S3NRN4V NFC controller. XI is driven by the RF_CLK2 PMIC
-+	 * buffer; the chip has no oscillator of its own and gates the clock
-+	 * via its CLK_REQ line, so the clock must be voted on in response
-+	 * to it.
-+	 */
-+	nfc@27 {
-+		compatible = "samsung,s3nrn4v";
-+		reg = <0x27>;
-+
-+		clk-req-gpios = <&tlmm 6 GPIO_ACTIVE_HIGH>;
-+		clocks = <&rpmhcc RPMH_RF_CLK2>;
-+		en-gpios = <&tlmm 56 GPIO_ACTIVE_HIGH>;
-+		interrupt-parent = <&tlmm>;
-+		interrupts = <31 IRQ_TYPE_EDGE_RISING>;
-+		pinctrl-0 = <&nfc_clk_req_default>, <&nfc_irq_default>,
-+			    <&nfc_pd_default>;
-+		pinctrl-names = "default";
-+		pvdd-supply = <&vreg_l20b>;
-+		wake-gpios = <&tlmm 7 GPIO_ACTIVE_HIGH>;
-+	};
- };
- 
- &i2c3 {
-@@ -825,6 +845,31 @@ &tlmm {
- 			       <13 1>, /* NC */
- 			       <63 2>; /* WLAN UART */
- 
-+	nfc_clk_req_default: nfc-clk-req-default-state {
-+		pins = "gpio6";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	nfc_irq_default: nfc-irq-default-state {
-+		pins = "gpio31";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	/*
-+	 * Pulled up so the NFC chip stays powered down while the line is
-+	 * not driven (it is the chip's active-high power-down input).
-+	 */
-+	nfc_pd_default: nfc-pd-default-state {
-+		pins = "gpio56";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-pull-up;
-+	};
-+
- 	sdc2_card_det_n: sdc2-card-det-state {
- 		pins = "gpio65";
- 		function = "gpio";
--- 
-2.55.0
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+Lexical error: Documentation/devicetree/bindings/bus/brcm,bus-axi.example.dts:28.36-43 Unexpected 'GIC_SPI'
+Lexical error: Documentation/devicetree/bindings/bus/brcm,bus-axi.example.dts:28.48-67 Unexpected 'IRQ_TYPE_LEVEL_HIGH'
+Lexical error: Documentation/devicetree/bindings/bus/brcm,bus-axi.example.dts:30.36-43 Unexpected 'GIC_SPI'
+Lexical error: Documentation/devicetree/bindings/bus/brcm,bus-axi.example.dts:30.48-67 Unexpected 'IRQ_TYPE_LEVEL_HIGH'
+FATAL ERROR: Syntax error parsing input tree
+make[2]: *** [scripts/Makefile.dtbs:140: Documentation/devicetree/bindings/bus/brcm,bus-axi.example.dtb] Error 1
+make[2]: *** Waiting for unfinished jobs....
+make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1705: dt_binding_check] Error 2
+make: *** [Makefile:248: __sub-make] Error 2
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260726205518.6698-1-rosenp@gmail.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
