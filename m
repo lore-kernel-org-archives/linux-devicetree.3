@@ -1,157 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39A0F2BDC1C
-	for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 06:01:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C087E2DECC2
+	for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 06:01:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785045684; cv=none; b=lP+ZCx/ogxwsLSHFTzIk/6t8YYlhhxWjoBu5zVOyu02JCzgVvxQRT6Hn2YipeUuFuyOHI676XApxuiPOs+HcrqN3umnOh92AHNSRDc6kfIupYLyGZ3ykZchP0PcvXzlM3lmT3e8f4ZrVfB3MwTBv2Oh9092ciYBzIr1xZkTCemY=
+	t=1785045691; cv=none; b=IILpkvujGEeqqk8Mck3zoeT6QUZ5tRwlQG+m93mOCC/ARx5J/43z3WKT529YE8Ek7B3CUeftJARYKxPdmfKg8196Cw5J+c/pihAYKBTOdE46X91C7roT/9btVm3BAZLVxeSb7UgtvPddVYKND6XmIEXVYoq4NHLeeUb5gXOXwWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785045684; c=relaxed/simple;
-	bh=3Xw0EA857kqZbq6XSyHm0eDpU9KGbB5ZZf3kxlasyYA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=aILL7ivo/hEmWbk9q7DY2Y5PAZwcblumAgpQO2hqqvnYr5ljRzVlHSUwozXftsydmWqZxaFI1LFwYLwl+blWVxj5kPSmRhiZbRoDQd+Zb3Kv4EnP5sgclAFKf62GzuOcc6+7T8mFZ9fI9ysptCpDhDN+GtcvQBldIiMq5hSuR4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VxIJZN7D; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785045691; c=relaxed/simple;
+	bh=wpoHJNDsJrOy9u6MzafP3779iN2w4wLzlIqwywGmC5g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KOhkm/2ulg93x3GId47+gI/m8yinCbvbxrWHNmQ55WLNEwqi4VQvDq6n+F8fW2tSnVAKBtmaBHVtQpChyY6ErHc557e9PCYdengu3KskOTcNlbdrbi3sB0rGPctLpy1IzOOyfo8aSpCSv4UNZf3eS/odvBC3EtIcsZ/qqsmEjzY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iPHNt/R0; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VxIJZN7D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 706271F000E9;
-	Sun, 26 Jul 2026 06:01:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785045682;
-	bh=r+BkEnApjezC4qtP0NZorUH0thc+H2H5lNj3lIZcCU0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VxIJZN7DEued8o+XBdi5T4elLMjuIVQ/VNGp52IRx+B4D7LlPoU+LvgJTY5tvUtko
-	 9pW3pFb5JyoDZojTO41dA/m8U4S59/tnO9O5RBmhuGgv+tfmRS9Xjq85uPieoPipVk
-	 gCZn5UwQsVOX9B1evl6oYIS+gymCZ+T37mQMpt4jcceZdnNKGepwtHWRzEyuBFI8Ce
-	 MctNniJhmPRG/lX1srPrQ3zW9QDxFRm4L7UD4CJWL9UhWxcR6+Gsz3vVS9ddHPdJ2Q
-	 /HrD1nfvtkp28jacUpX7/WZhlitB8T+qwzeqzDqSyf26xTf6AUJrHISeOBOx4NdVSZ
-	 /ndgr/OevIrFA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 02/14] media: iris: Add hooks to initialize and tear
- down context banks
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vishnu Reddy" <busanna.reddy@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20260726-glymur-v10-2-de451559e88b@oss.qualcomm.com>
-References: <20260726-glymur-v10-0-de451559e88b@oss.qualcomm.com>
- <20260726-glymur-v10-2-de451559e88b@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 26 Jul 2026 06:01:22 +0000
-Message-Id: <20260726060122.706271F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iPHNt/R0"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-381c51fde6bso1830433a91.2
+        for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 23:01:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785045689; x=1785650489; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pRQwbuO/f3HmDYUx7xPRQ1/PI6AspXYS3UhriY9vqQw=;
+        b=iPHNt/R0sJ539DSE9jpYBzfMySjpS8eEY6TDHShnqbvcoy5oiH/sn5IcSMxGWeQFbu
+         /3wtcuFmUI0noFrNn9wPF5a4utjtzpR8PuXb32ZKrWYbX9AOlkfi/vV+kuf3YhEYO2IP
+         ejAC3oivG+Jupa27XsgUplLqBMKvpydvCIb3PB5/NanwLzGfLoUElpHlYKuiRrvkFRP7
+         q6JeLDDNPjbHbVyLV4gYsfHoxuxRkA73AIZtw6TEnOENPkn1wOwQT/zeJBJ8eJBzBb9M
+         5uNhy9qyHb6j2lGboSH18srdseLiR3T6hpC+UK7GNyvkgWMA76w2uXpu+7wfUKcMkPXO
+         h8LQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785045689; x=1785650489;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pRQwbuO/f3HmDYUx7xPRQ1/PI6AspXYS3UhriY9vqQw=;
+        b=VqjpgLJ3HLbNLQSU3XV+e0c22eH4yf1NQxWxIE39BDr5FIsf/EzQKMD2YIfIuV/zuw
+         Huv2+n9fhjo/3+dYC5nzolgO/IioE+I7RCjoQuptQ3nDZgGjpzKf07WWOcF4EREM3dWO
+         bmdZNnI2MrzbRAV44mW4PxjPMVmZx/OYOtrmjL+3OAIeeieTmLybEa/pg3RWyCiBRrZC
+         Ah2bUjXhmsSPaw7Cay3PHBL3ig2MS6YPY8/3oW6cFsC2rWqS3ayZNRhc0LGwhI8b3z65
+         NLble769DGpXHn9mJwhzoYi6sf8+Fg8icG3OGzNsYgoDSoEjUs816cGsNuwo7Dv4+kPr
+         avdQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqIh67Csy9o++zzIPo6DJgU6ioM0NhfvNdrTNgxWpuKkxw7FsWgFZA1s5nIBTAr1P3qAK/elp0N+OYc@vger.kernel.org
+X-Gm-Message-State: AOJu0YwZo7TN02D9GQgSEsbqGVCT0lJr/WuNowgdSW9rYgr3vQO6NCbT
+	fNfFe1ZwK7SSOikF2pZ4patUGj9bpDAXwL1tZuzRcefETTCtmVPaMQgF
+X-Gm-Gg: AR+sD10Yp+Sudp5koez8j3rIn7WjG3W3AvlbAGghSqNco7K6fQfpFo3nnD4tkLmHOW4
+	7ChulMCJIQZwc7Rhn8ZZIYHGUhIRVvKKJ9OykjwJYTy6Om4Ge+OY7nGLspcQiKDuv4fN7mZSwY4
+	8GHf9UKDYkHK97oPBVp14Pozm7MAoPl4sFVwwbxZ8rXbvCGlB3701t/9LXu4/f7wvcfDkGWJtm/
+	koU+5hagYqpBc0NN6ZllGEc86Gb0K7ocEk4+1AJ73TJMb3nVcLRI+lBU7bWJmhGMsQIylEwdXYI
+	WJEWi06n1Rtx+kPXApFq06Lz4MiWjXeReUVRQZsfgZseNNkC9jRd79Lg+YeWIbDK+cdJTUr4fiM
+	Y4sJVFIqrbJvfUk1DC+UjqzxmZdYCKoUj4nhUOasVeGhiNgF+mz111Mi+90jl4QfCD5sVt8hpSu
+	ouEGzOpMUW6w+Z31TZ5hrqoZchIeh7KgQ=
+X-Received: by 2002:a17:90b:2ccf:b0:387:df8f:1409 with SMTP id 98e67ed59e1d1-38f2988462emr3683443a91.42.1785045688954;
+        Sat, 25 Jul 2026 23:01:28 -0700 (PDT)
+Received: from acer-nitro-anv15-41.entro.com ([118.34.230.2])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f05805fb2sm2305002a91.1.2026.07.25.23.01.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 25 Jul 2026 23:01:28 -0700 (PDT)
+From: "shaikh.kamal" <shaikhkamal2012@gmail.com>
+To: Corey Minyard <corey@minyard.net>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ninad Palsule <ninad@linux.ibm.com>
+Cc: openipmi-developer@lists.sourceforge.net,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] dt-bindings: ipmi: ipmb-dev: fix 'provices' spelling
+Date: Sun, 26 Jul 2026 11:31:18 +0530
+Message-ID: <20260726060118.18611-1-shaikhkamal2012@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+Fix spelling error reported by codespell: provices -> provides.
+No functional change.
 
-Pre-existing issues:
-- [High] The delayed work `sys_error_handler` is not canceled during device=
- unbind or probe failure, leading to a potential use-after-free.
-- [High] The `core` structure is freed via devres on unbind before all V4L2=
- file handles are closed, causing a use-after-free on open file descriptors.
-- [High] video_register_device() is called before video_set_drvdata(), crea=
-ting a race window where userspace can trigger a NULL pointer dereference.
---
+Signed-off-by: shaikh.kamal <shaikhkamal2012@gmail.com>
+---
+ Documentation/devicetree/bindings/ipmi/ipmb-dev.yaml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---- Patch [2]: [PATCH v10 02/14] media: iris: Add hooks to initialize and t=
-ear down context banks ---
-commit f6349f3a455a3158cecfabf25954add23f0a63fb
-Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+diff --git a/Documentation/devicetree/bindings/ipmi/ipmb-dev.yaml b/Documentation/devicetree/bindings/ipmi/ipmb-dev.yaml
+index 8b0d71901195..bbef878a7429 100644
+--- a/Documentation/devicetree/bindings/ipmi/ipmb-dev.yaml
++++ b/Documentation/devicetree/bindings/ipmi/ipmb-dev.yaml
+@@ -12,7 +12,7 @@ description: |
+   requests to intelligent controllers like Satellite Management Controller(MC)
+   devices via IPMB and the device sends responses back to the BMC.
+   This device uses an I2C slave device to send and receive IPMB messages,
+-  either on a BMC or other MC. A miscellaneous device provices a user space
++  either on a BMC or other MC. A miscellaneous device provides a user space
+   program to communicate with the kernel and the backend device. Some IPMB
+   devices only support the I2C protocol and not the SMB protocol.
+ 
+-- 
+2.43.0
 
-media: iris: Add hooks to initialize and tear down context banks
-
-Add platform hooks to set up and tear down context bank devices.
-Different iris platforms may require different context bank setup, so
-let platform data provide the required operations via vpu_ops.
-
-> diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/medi=
-a/platform/qcom/iris/iris_probe.c
-> index c2dcb50a27824..2594f5a67378a 100644
-> --- a/drivers/media/platform/qcom/iris/iris_probe.c
-> +++ b/drivers/media/platform/qcom/iris/iris_probe.c
-[ ... ]
-> @@ -150,6 +151,20 @@ static int iris_init_resources(struct iris_core *cor=
-e)
->  	return iris_init_resets(core);
->  }
-> =20
-> +static int iris_init_cb_devs(struct iris_core *core)
-> +{
-> +	if (core->iris_platform_data->vpu_ops->init_cb_devs)
-> +		return core->iris_platform_data->vpu_ops->init_cb_devs(core);
-> +
-> +	return 0;
-> +}
-> +
-> +static void iris_deinit_cb_devs(struct iris_core *core)
-> +{
-> +	if (core->iris_platform_data->vpu_ops->deinit_cb_devs)
-> +		core->iris_platform_data->vpu_ops->deinit_cb_devs(core);
-> +}
-> +
->  static int iris_register_video_device(struct iris_core *core, enum domai=
-n_type type)
->  {
->  	struct video_device *vdev;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but looking at
-iris_register_video_device(), video_register_device() is called before
-video_set_drvdata():
-
-drivers/media/platform/qcom/iris/iris_probe.c:iris_register_video_device() {
-    ...
-	ret =3D video_register_device(vdev, VFL_TYPE_VIDEO, -1);
-	if (ret)
-		goto err_vdev_release;
-
-	video_set_drvdata(vdev, core);
-    ...
-}
-
-Does this create a race window where userspace can open the video node befo=
-re
-drvdata is set?
-
-If so, iris_open() could retrieve a NULL core pointer via video_drvdata() a=
-nd
-dereference it during pm_runtime_resume_and_get().
-
-[ ... ]
-> @@ -207,6 +222,8 @@ static void iris_remove(struct platform_device *pdev)
-> =20
->  	v4l2_device_unregister(&core->v4l2_dev);
-
-[Severity: High]
-This is a pre-existing issue, but could removing the device without waiting=
- for
-all file handles to be closed lead to a use-after-free?
-
-Because core is allocated with devm_kzalloc(), it will be freed automatical=
-ly
-by devres when iris_remove() finishes.
-
-If a userspace application keeps the video node open, wouldn't a subsequent
-file close call into iris_close() and access the already freed inst->core?
-
-> =20
-> +	iris_deinit_cb_devs(core);
-> +
->  	mutex_destroy(&core->lock);
->  }
-
-[Severity: High]
-This is also a pre-existing issue, but shouldn't iris_remove() cancel the
-sys_error_handler delayed work?
-
-If the delayed work is scheduled and iris_remove() completes, core will be
-freed by devres. When the workqueue later executes iris_sys_error_handler(),
-it will access the freed core memory.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260726-glymur-v10=
--0-de451559e88b@oss.qualcomm.com?part=3D2
