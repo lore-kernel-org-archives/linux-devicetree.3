@@ -1,94 +1,103 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59035258EF9;
-	Sun, 26 Jul 2026 15:01:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F0D523BD06
+	for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 15:02:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785078077; cv=none; b=FGLEerzTsvt0KqlaZIQEb4Ws1dOE8d1yDHjCkIbRmYe7Ci7HxrNNCq3c5OeoWLVxevooEJK29EtN36EJM217S7CXXE69UxBh0ZsQkZt+Wt1svsNn+AUAkcSMrBH7mp5jwfGjT1S4SDtqvEbhQLYzSBlxV2IdGctTvVSuAeBIBPU=
+	t=1785078172; cv=none; b=QXtGoCfm3tj2puXFdFDDtG6XXR6HME5ujr/YhCbNJwam08Bay05m7Kwd7Sq+wM/z8UywdIMMrRSolXgtkCl4IFeD/I7Z/HEuxHLPh4G2eONn7p/5aglt2sVR6I4KD1FZqAG3NmLlLak/O/dvnNJthUo68O938jA/LFMs/+HGqY8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785078077; c=relaxed/simple;
-	bh=Co/haKjVOYZQ+2iJ7vMmnKszHHqfkBsokaFLudtYZ1c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=sfcaFlctnDGSEjg5Epbv/CRGkbIRDSZgGm+9ubv6V1znsejNoXHCB1vdypt8kVoXKJUbJE7BP0ME1qyPBdHHLseNy1ZFD6Ku1PIyoEUNWvA7SDhkgOH/h1ir37Fo4C1EqPzNKpikKsHGwZEgPzP5usfl7cF5BsDvGsUwOhR7JMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k8ADJwIM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785078172; c=relaxed/simple;
+	bh=DJH89T++flQRDwgtjXBiuShW5y9LSXGkqJRiY/Eu+2A=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=OQaLpBCxgiToV20913M0/+cqaRoRHvMO/LT8ugOjFR0nxH6aE5cWV5JP5h+KgzDwj0cup3DI45oUFV80JR2vDhEYD1egoNhILu90bjT/WkR0RnltWiowo1F4apmerm3u2MeVInKeMT+SyokJpU85lVw8TwPz+QI1QThNaCXTLPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gPIUkq6z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k8ADJwIM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B267C1F00A3D;
-	Sun, 26 Jul 2026 15:01:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gPIUkq6z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8157C1F000E9;
+	Sun, 26 Jul 2026 15:02:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785078076;
-	bh=KF3WLDnzhawv1E63jb1eZQJNVi9jAWSGddOpTswPwi8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=k8ADJwIM/9K4aDbthIc6E0Kkyy/oEv6J9w5YEtQwANBLNeCvAdtfmcvcKBClC7kgS
-	 Vu4oxdUR9yQ9vPt0xvaXnpDtb/pLbjmJ39fp9kFIozkvK45h8UiK7QV0Gwfck02YMQ
-	 3s88yuKoxxEgdEoY2v6/gk2rt2+mORJE8CcVZwhObDIWMsdIxJBvZqvjW9MITAl+q+
-	 2Zje31YvYIGq+fQqg00uLmyEqb95ZlKqG93iprGDDNSCeqqJQaLAUiYDkMdyUQE2Fh
-	 ql+wTAFv5Udl1ZNbbrbSTUno603bDlMWXmeWUjbEkUnEK13zCEjloPgCr9R7+Mz5nX
-	 mz0TuyBRixPNg==
-From: Will Deacon <will@kernel.org>
-To: tomeu@tomeuvizoso.net,
-	heiko@sntech.de,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	joro@8bytes.org,
-	robin.murphy@arm.com,
-	ulfh@kernel.org,
-	p.zabel@pengutronix.de,
-	ogabbay@kernel.org,
-	Jiaxing Hu <gahing@gahingwoo.com>
-Cc: catalin.marinas@arm.com,
-	kernel-team@android.com,
-	Will Deacon <will@kernel.org>,
-	chaoyi.chen@rock-chips.com,
-	dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	iommu@lists.linux.dev,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v2 0/8] accel/rocket: RK3576 NPU (RKNN) enablement
-Date: Sun, 26 Jul 2026 16:00:53 +0100
-Message-ID: <178507139795.2055528.4355657426833307310.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260718031146.3368811-1-gahing@gahingwoo.com>
-References: <20260718031146.3368811-1-gahing@gahingwoo.com>
+	s=k20260515; t=1785078171;
+	bh=Z3DACBE56ZwFLMgfYQH7UyWpQ+If3ko8mfpG2U6ex9s=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=gPIUkq6z5EHLn3RqbfKo4Zo90FebBQ/Zka1MrKi287fel32OZK89e8n4UEqsHPFh+
+	 rTh4MC0H42m1IhuReaOvRbUHTx58FEZ8z8YucKjg0kIgy2WCfH9mq6MTZ/ioUDyhr1
+	 88mmu1rIk82JiwjrLHJFZsYuNIoP9DkyDcXtBJRNQCeuAtHB24exWSHcJQUadWziPD
+	 Oy1Z2S1wUn9Nww7udDALqV3ZH9GauBf+lFQFrzAkueBObIXwKi3O5OoR6OWz/OvYBY
+	 NDLwVlIAMds7Oqe20awakMR20/nmWCKf+cqTSeOB4nfrHO211rIG5RKsqPu1jvtSCF
+	 jt/rJpgqMkELA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/4] dt-bindings: phy: rockchip,rk3588-mipi-dcphy:
+ support per-direction phys
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jason Yang" <jason98166@gmail.com>
+Cc: neil.armstrong@linaro.org, devicetree@vger.kernel.org, olteanv@gmail.com, robh@kernel.org, linux-phy@lists.infradead.org, conor+dt@kernel.org, vkoul@kernel.org
+In-Reply-To: <20260726-dcphy-rx-v1-v2-1-cf9cc34a412a@gmail.com>
+References: <20260726-dcphy-rx-v1-v2-0-cf9cc34a412a@gmail.com>
+ <20260726-dcphy-rx-v1-v2-1-cf9cc34a412a@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 26 Jul 2026 15:02:50 +0000
+Message-Id: <20260726150250.8157C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
 
-On Sat, 18 Jul 2026 15:11:38 +1200, Jiaxing Hu wrote:
-> This adds RK3576 NPU support to accel/rocket.  RFC: the NPU brings up and
-> runs, but full inference is not correct yet, and I would rather get
-> feedback now than sit on it.
-> 
-> Tested on a Radxa ROCK 4D.  The NPU probes, powers on, brings up its
-> IOMMUs, and runs jobs to completion (rocket + Mesa Teflon).  Getting there
-> took a few fixes outside the driver too: a power-domain settle delay and
-> reset cycling (else a cold power-on throws an async SError), the full
-> clock set on the MMU nodes, clearing a stale firmware page fault, and both
-> NPU power domains on the core.
-> 
-> [...]
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The dt-binding allows `#phy-cells =3D 2` to represent PHY direct=
+ion, but the corresponding driver `phy-rockchip-samsung-dcphy.c` was not up=
+dated to support this.
+--
 
-Applied driver changes to iommu (rockchip), thanks!
+--- Patch [1]: [PATCH v2 1/4] dt-bindings: phy: rockchip,rk3588-mipi-dcphy:=
+ support per-direction phys ---
+commit 421d266fa3318c44780c09224a034b0edeca9db3
+Author: Jason Yang <jason98166@gmail.com>
+Subject: dt-bindings: phy: rockchip,rk3588-mipi-dcphy: support per-directio=
+n phys
 
-[4/8] iommu/rockchip: take all DT clocks
-      https://git.kernel.org/iommu/c/841363ebb508
-[5/8] iommu/rockchip: clear stale page faults before enabling stall
-      https://git.kernel.org/iommu/c/b10d5920cafa
+This commit updates the Rockchip RK3588 MIPI D-/C-PHY device tree binding
+to support per-direction configuration. It changes the #phy-cells property
+to allow either 1 or 2 cells, where the optional second cell specifies the
+PHY direction (TX or RX).
 
-Cheers,
--- 
-Will
+> diff --git a/Documentation/devicetree/bindings/phy/rockchip,rk3588-mipi-d=
+cphy.yaml b/Documentation/devicetree/bindings/phy/rockchip,rk3588-mipi-dcph=
+y.yaml
+> index c8ff5ba22a86b..68a43db9c6690 100644
+> --- a/Documentation/devicetree/bindings/phy/rockchip,rk3588-mipi-dcphy.ya=
+ml
+> +++ b/Documentation/devicetree/bindings/phy/rockchip,rk3588-mipi-dcphy.ya=
+ml
+> @@ -20,12 +20,22 @@ properties:
+>      maxItems: 1
+> =20
+>    "#phy-cells":
+> -    const: 1
+> +    enum: [1, 2]
 
-https://fixes.arm64.dev
-https://next.arm64.dev
-https://will.arm64.dev
+[Severity: Medium]
+Will this new 2-cell configuration work with the current PHY driver?
+
+Looking at samsung_mipi_dcphy_xlate() in
+drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c, the driver explicitly
+rejects anything other than 1 cell:
+
+	if (args->args_count !=3D 1) {
+		dev_err(dev, "invalid number of arguments\n");
+		return ERR_PTR(-EINVAL);
+	}
+
+If a device tree is updated to use the newly allowed 2-cell configuration
+to specify TX/RX direction, won't phy_get() fail and return -EINVAL? Should
+the driver be updated alongside the binding so consumers can successfully
+acquire the PHY?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260726-dcphy-rx-v=
+1-v2-0-cf9cc34a412a@gmail.com?part=3D1
