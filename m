@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1994A2931CD
-	for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 06:08:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAEB912FF69
+	for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 06:11:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785046126; cv=none; b=ZMz9ETIB78nnWs4QDy/VOr/PtZRGiidLUNbPWSgMxb1aa1cEfsBNGgiMFSEGilPPszkQgXyFtYS03U0elfQMpEfgTTnIm/RysFGWdOJCysr7m5WUZJKMPuTczwuz1zMGv9xCVlZ0YyITAzVnIMWo4Xb8pHWS8me3K9PBxxy8cgg=
+	t=1785046317; cv=none; b=VeXZpH7jbu9U8+ICUwjgkfeHQvlqkwjCrd1E8ppbCYmvFllw0cPX6A9R/gHX2b3dIIBNx6KbiUZxkz4WTm5zB8QwFmD6Tlzhc++hCpdpKPKNgYE9d31F32k5CPCaJtvdcYzipsBz8FBsiwz5KgPElSIs1t7Rc3U61b3vHBxjcrs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785046126; c=relaxed/simple;
-	bh=WfxMVRmcA+0ACYodQY5Umk6BLjIMFJr1em3TFkK+dbk=;
+	s=arc-20240116; t=1785046317; c=relaxed/simple;
+	bh=/+lA5aAoTz3J3simotZRzM87RDYgd/zCg2WSTamgs4c=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jyCJX/T7D8umIyEaQKoyR3mZRhH0Kxvtq+nom/A2bUHtKgwxJeJV1Q+UYaNFwS8F/pIS+dskhBQLjMScRMp/PMSLbz9/OuEZ946/A5gM6HbRYrdNPqv2U27p3yV4Te1umNTRk5Mut2yd2tZ7cK8DJ2/KlNHnnpazrLLdgTDASwg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gqksEnb1; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=TBBQ/kuUK5b8bigUugzIK33nr3Lrqi0RM0+FoDr08tQPQkmqt4ib9eu6AJIb+QuwYbASeVv2HTNR2BHwbgekfSPRimu3sujs7CVY+qJXQ/Y2C4mL4aEnbAJZoSXlx+IhadkJl3VlyxvzZcyZHczLA5bX1w4Pg4M9MvKg2Pk60VA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FjAm/kzR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gqksEnb1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53A711F000E9;
-	Sun, 26 Jul 2026 06:08:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FjAm/kzR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 109A51F000E9;
+	Sun, 26 Jul 2026 06:11:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785046124;
-	bh=iWkEZZc3G+8NrtWli7DHXiiCpZB9r91KyquHDr/KTuQ=;
+	s=k20260515; t=1785046316;
+	bh=VD1fRx9FnE8LTQg+b/6E2jDr0GH0OQAuomb3uhVJGGg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gqksEnb13ikijxgPxGSkECfauZPkRR4j6PQcbOykX9vfBAiE4xcXBTrviwxxRNB5J
-	 kzo4RqL+o35RqB7l8MFNFBTN2jl4Zwbw9QheTtHqwg/KId0ON8WGSY5KrhD0CLYSPY
-	 hmA4Uhq939oFs0g59enkDt/ZtmWtBm3+XaTmx10W7Ni7ueyMX/eCz/fh8Xes9C0PH+
-	 MDioV/PjN6pXs6p2R71q1PBGlJ42Tuao4/DDrHm7UMfSesy3NmsKlwzdlzEvTMLKe7
-	 LFKkSHOPk/ZTkaCo61I5b0NWmcm9IxXoEqJDTtYDtBkapDgkjhuHkDtkf9lIOd3rO9
-	 GGuNwZhLX9LFQ==
+	b=FjAm/kzR0iYzNMm4LCNKb9c30xsarOW1wHKT4orbhB2Fs/5arjKKZqsL1Y586Iok1
+	 3fIML8uQ+igEYljDfN0Nv+M9VcWOjWQ8WDoIcDnRmftYO7trRZw6AAeAjGUozLcNH4
+	 x9fhl5+hFznK/FkAUW714e13SMJNK7wN/H7b4E4tcNrKdhY64LMm/UP0cAi6cmVH0I
+	 19CCBcT4mqUjeUT8kmb/4IWqivTK7lY599pxAdZKiFzokjSL+DtZ+tDlx7DX3s9TPv
+	 bAPzFGZcuj63SHqYtRKg/B/8mHHnMt94/LsbFGatvmZy8644s06hNGqGSokLUYozna
+	 lGbggJBacBzfw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 06/14] media: iris: Enable Secure PAS support with
- IOMMU managed by Linux
+Subject: Re: [PATCH v10 04/14] media: iris: Add helper to select relevant
+ context bank device
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Vishnu Reddy" <busanna.reddy@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20260726-glymur-v10-6-de451559e88b@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org, robh@kernel.org
+In-Reply-To: <20260726-glymur-v10-4-de451559e88b@oss.qualcomm.com>
 References: <20260726-glymur-v10-0-de451559e88b@oss.qualcomm.com>
- <20260726-glymur-v10-6-de451559e88b@oss.qualcomm.com>
+ <20260726-glymur-v10-4-de451559e88b@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 26 Jul 2026 06:08:43 +0000
-Message-Id: <20260726060844.53A711F000E9@smtp.kernel.org>
+Date: Sun, 26 Jul 2026 06:11:55 +0000
+Message-Id: <20260726061156.109A51F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,106 +47,98 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Incomplete Implementation / Dead Code: `core->fw_dev` is never ass=
-igned, rendering the direct IOMMU mapping feature entirely dead code.
-- [Medium] Potential NULL pointer dereference of `core->pas_ctx` in `iris_f=
-w_iommu_unmap` during asynchronous error cleanup.
+
+Pre-existing issues:
+- [Critical] Severe Use-After-Free in firmware response handler because `v4=
+l2_m2m_ctx_release` frees the context before the firmware session is closed.
+- [High] Unprotected list iteration on V4L2 ready queues causes data races =
+and list corruption.
 --
 
---- Patch [6]: [PATCH v10 06/14] media: iris: Enable Secure PAS support wit=
-h IOMMU managed by Linux ---
-commit 4079c73feb157bb490aaa33ca1d6e4970df1c4f7
-Author: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+--- Patch [4]: [PATCH v10 04/14] media: iris: Add helper to select relevant=
+ context bank device ---
+commit 694c94b16bf3fad4b4fbf3ea9de787f2ecf1a955
+Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Subject: media: iris: Add helper to select relevant context bank device
 
-media: iris: Enable Secure PAS support with IOMMU managed by Linux
+This commit introduces a helper to associate context bank devices with
+respective buffers in the iris driver. It also adds a fallback to the
+core device when the platform describes the IOMMU on the parent node.
 
-On platforms without a hypervisor, Linux handles the SMC mapping and brings=
- up
-the co-processor directly. This patch adds support to the Iris driver to
-manage the firmware context device and IOMMU mapping directly when the
-firmware device SID is present.
-
-Link: https://lore.kernel.org/lkml/20260105-kvmrprocv10-v10-0-022e96815380@=
-oss.qualcomm.com/
-
-> diff --git a/drivers/media/platform/qcom/iris/iris_core.h b/drivers/media=
-/platform/qcom/iris/iris_core.h
-> --- a/drivers/media/platform/qcom/iris/iris_core.h
-> +++ b/drivers/media/platform/qcom/iris/iris_core.h
-> @@ -85,6 +87,8 @@ struct iris_core {
->  	struct device				*dev;
->  	struct device				*np_dev;
->  	struct device				*p_dev;
-> +	struct device				*fw_dev;
-> +	struct qcom_pas_context			*pas_ctx;
->  	void __iomem				*reg_base;
-
+> diff --git a/drivers/media/platform/qcom/iris/iris_vidc.c b/drivers/media=
+/platform/qcom/iris/iris_vidc.c
+> index 14d63dc76c9ba..26df872fb4fa1 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vidc.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vidc.c
 [ ... ]
-
-> diff --git a/drivers/media/platform/qcom/iris/iris_firmware.c b/drivers/m=
-edia/platform/qcom/iris/iris_firmware.c
-> --- a/drivers/media/platform/qcom/iris/iris_firmware.c
-> +++ b/drivers/media/platform/qcom/iris/iris_firmware.c
-
-[ ... ]
-
-> @@ -53,9 +65,23 @@ static int iris_load_fw_to_memory(struct iris_core *co=
-re, const char *fw_name)
->  		goto err_release_fw;
->  	}
+> @@ -121,7 +121,7 @@ iris_m2m_queue_init(void *priv, struct vb2_queue *src=
+_vq, struct vb2_queue *dst_
+>  	dst_vq->drv_priv =3D inst;
+>  	dst_vq->buf_struct_size =3D sizeof(struct iris_buffer);
+>  	dst_vq->min_reqbufs_allocation =3D MIN_BUFFERS;
+> -	dst_vq->dev =3D inst->core->dev;
+> +	dst_vq->dev =3D iris_get_cb_dev(inst, BUF_OUTPUT);
+>  	dst_vq->lock =3D &inst->ctx_q_lock;
 > =20
-> -	ret =3D qcom_mdt_load(dev, firmware, fw_name,
-> -			    IRIS_PAS_ID, mem_virt, mem_phys, res_size, NULL);
-> +	core->pas_ctx->use_tzmem =3D !!core->fw_dev;
+>  	return vb2_queue_init(dst_vq);
+
+[Severity: Critical]
+This isn't a bug introduced by this patch, but is there a use-after-free
+regression during device closure in iris_close()?
+
+When a userspace application closes the device FD, iris_close() invokes
+v4l2_m2m_ctx_release() which immediately frees the memory-to-memory context:
+
+drivers/media/platform/qcom/iris/iris_vidc.c:iris_close() {
+    ...
+    v4l2_m2m_ctx_release(inst->m2m_ctx);
+    ...
+}
+
+However, this happens before the firmware session is closed and before the
+instance is removed from the global core->instances list. If the firmware
+asynchronously sends a response (e.g., HFI_CMD_BUFFER) during this window,
+can the IRQ handler in iris_hfi_gen2_handle_output_buffer() look up the
+instance and dereference the freed inst->m2m_ctx?
+
+drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c:iris_hfi_gen2_han=
+dle_output_buffer() {
+    ...
+    struct v4l2_m2m_ctx *m2m_ctx =3D inst->m2m_ctx;
+    ...
+    v4l2_m2m_for_each_dst_buf_safe(m2m_ctx, m2m_buffer, n) {
+    ...
+}
 
 [Severity: High]
-Is core->fw_dev ever assigned a value in the driver?
+This isn't a bug introduced by this patch, but could this list iteration ca=
+use
+a data race resulting in corruption of the V4L2 ready queues?
 
-It appears to be declared in struct iris_core, which is zero-initialized,
-but I don't see any logic populating it anywhere in the codebase. Because it
-remains NULL, !!core->fw_dev will always be false. Does this unintentionally
-make the subsequent direct IOMMU mapping logic unreachable dead code?
+In driver functions like iris_hfi_gen2_handle_dequeue_buffers(), the ready
+queue is iterated without holding the queue-specific rdy_spinlock:
 
-> +	ret =3D qcom_mdt_pas_load(core->pas_ctx, firmware, fw_name, mem_virt, N=
-ULL);
-> +	if (ret)
-> +		goto err_mem_unmap;
-> +
-> +	if (core->pas_ctx->use_tzmem) {
-> +		domain =3D iommu_get_domain_for_dev(fw_dev);
+drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c:iris_hfi_gen2_han=
+dle_dequeue_buffers() {
+    ...
+    v4l2_m2m_for_each_src_buf_safe(m2m_ctx, buffer, n) {
+    ...
+}
 
-[ ... ]
+Concurrently, userspace operations like VIDIOC_QBUF can call
+v4l2_m2m_buf_queue(), which modifies the list under rdy_spinlock:
 
-> +static void iris_fw_iommu_unmap(struct iris_core *core)
-> +{
-> +	struct iommu_domain *domain;
-> +
-> +	if (!core->fw_dev)
-> +		return;
-> +
-> +	domain =3D iommu_get_domain_for_dev(core->fw_dev);
-> +	if (domain)
-> +		iommu_unmap(domain, IRIS_FW_START_ADDR, core->pas_ctx->mem_size);
+drivers/media/v4l2-core/v4l2-mem2mem.c:v4l2_m2m_buf_queue() {
+    ...
+    spin_lock_irqsave(&q_ctx->rdy_spinlock, flags);
+    list_add_tail(&b->list, &q_ctx->rdy_queue);
+    ...
+}
 
-[Severity: Medium]
-Could this lead to a NULL pointer dereference on core->pas_ctx if
-core->fw_dev is properly initialized in the future?
-
-If an early failure occurs during iris_load_fw_to_memory (for instance, if
-of_reserved_mem_region_to_resource fails), core->pas_ctx is never allocated.
-If a hardware watchdog or spurious interrupt fires concurrently,
-iris_hfi_isr_handler could overwrite the state to IRIS_CORE_ERROR and
-schedule iris_sys_error_handler. The error handler calls iris_core_deinit()
-followed by iris_fw_unload(), which invokes this function.
-
-Should there be a check to ensure core->pas_ctx is non-NULL before
-accessing core->pas_ctx->mem_size?
-
-> +}
-> +
->  int iris_fw_load(struct iris_core *core)
->  {
+Since the driver's lockless list iteration races directly with list
+modifications from the V4L2 core, might this lead to corrupted list pointers
+when QBUF or STREAMOFF execute concurrently with firmware responses?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260726-glymur-v10=
--0-de451559e88b@oss.qualcomm.com?part=3D6
+-0-de451559e88b@oss.qualcomm.com?part=3D4
