@@ -1,165 +1,94 @@
-Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com [209.85.167.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9F983C1400
-	for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 15:37:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 034C91C28E;
+	Sun, 26 Jul 2026 15:43:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785080280; cv=none; b=VXxErUBi3oHE9tt8ksEhvCQM+6a6wSjnw77KlZUlta47tGbmf1hWMMwfHqQBKl1BvlKmhFNCYjBNul7Xh9fEjJbim4gkdu/Xsfox2rKGAHM204qn/xVGUkwk8PqNqSRAKSis2G+dtckDyhYg+nwfpyrIDlllhqvZJJgGxZVXzuA=
+	t=1785080623; cv=none; b=LNhD2/EemGjGfGF7laLneaEBVHe58Sh75gqn3QPf4zpoFaDdu2mqMEmaKeocUNYgmAlBbKuKQ0tmbF6jvZ5BO7zP6tMYTTc/f/vP0hF8xwlUiJOlREz6OhXjSu60nmQUGD62uRNf7PaMcLERLpetNrnvQG6DB0Y5+jZ6ZCAHguU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785080280; c=relaxed/simple;
-	bh=2WZER4o6v0Hx8PfdeNj46jlYkr2QO/bQWZIQs/AAsUM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=V3wZvcpzFJMWqXB+omMvHjAKu4KzZxKlRaUBvATOtSbuYfte4ywTONpoNnrnHkOPnlLD3SxJMs+7m3zvFWmu+rKr2hLA9807BCgaY7KVRQPCBHw5pNJ1xGabanGZB1bsf4eQ9lbuRQrBiAYKMwnFSQFbGFZEk18WxE2BFi81aqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=cJI9l0pA; arc=none smtp.client-ip=209.85.167.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1785080623; c=relaxed/simple;
+	bh=HfWouBJ45JcKoonkm5wKscCyFgUtTG9uLeejihJLY/k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=q7vXYM9geG1xX4B0wyBk0qY8JneVp1lT5SM8kjNkWmf5D8MIhha6FLLM3GBm96Wog6clzAWmRFIbLwenvpKhpdD7hCZi8NRoeJDk+h4SchQzq3igLtk7O//7KJu0GqzLqTl1zhUTZlv04J60oGTSLa88YcrXl2oi6UcjU8Vlz6I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gXXyZMiv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="cJI9l0pA"
-Received: by mail-oi1-f174.google.com with SMTP id 5614622812f47-4ab8cb2a6e4so47325b6e.0
-        for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 08:37:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1785080273; x=1785685073; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+iZf44bRNZi4EavQ0T3yVwCCro6xvtHUrPxwZYFjPgs=;
-        b=cJI9l0pATcynKd0FnHdTvt58QaGanpa7zhfpT9JbR/3PyFqq/n+dgpoC44CP3RRfuv
-         4dm/u81lTsBSi9d/S/sg3BmYgO1siDok2r5u3U8cVPwiWFu12AyGugqmfT8cEiLQRDvy
-         Kx6jv8x4joKoyEQi9WViAxMuBRiIrQ9hWiNQq0ZU5Cm5M5+x7OH5RkZJ6746DjzlbX9B
-         KFItqqjGO992904srSXcZYISB1Dwsk8Vq0Z8cPngACVR+/qy5L0ZQsYtjskxMr4tYiyK
-         ANe8e597li4UGuQNlwjFkLybFT92XLWbAVvMu5++SNjtyEbmk1meZBP/qi3bomLgQS2L
-         PvDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785080273; x=1785685073;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+iZf44bRNZi4EavQ0T3yVwCCro6xvtHUrPxwZYFjPgs=;
-        b=isnkecKd6fHaYoGrwOZ4bgkTUXdsUj9jqltlzPlvJ2VFVxOY67XeqCd59Fj6Sm7J+4
-         caRjzuKuC9XQoSqjetOXbY0Ps9Ljp+RewH5clqHgPOjoGPNg2ckSGJ0WHBKA8lHU8xeE
-         1VelVs8ikjyyKCBl9D8L+AjOGb/ESwTPetrc129VL/zJSLAhazKyjuwjtcz74KPMqcmp
-         XFa8PYsTvXwuVPBT0jZT37Ajgi1ivMC6c2jaYVngX4Q/eKtoKrZhUXZs3XzwOwPjh5pG
-         U2DAnMafnty78QEYHpZfn3LmDltX0l21gl3TFFZkqLSPE0sn4c5sDkSpSjwa6Scr8rnc
-         66lg==
-X-Forwarded-Encrypted: i=1; AHgh+Rp93ft55w4eD9S0iEeVwwqGi73f4CD6JiMIDXeudEFZatdBoxdIYVT6g/C95R/WIqAXlYVvIFOrEDrx@vger.kernel.org
-X-Gm-Message-State: AOJu0YyICCqpvKzZmJiA1eRHEeui5gHbhqbly7Dc76TWxtWrXaECcPH9
-	MdpkspA6LihtuIyF8KjxEMLHB7KVFp4bKt+7m0Vhzn/zpLZJgtjieVeji57uVJ5Sxpk=
-X-Gm-Gg: AR+sD10s3z9UO8CmSSjjBDz+n/RouBqPXxauX2LtRAWa+PmkAKsYKDwjolvoJ5xrz1+
-	v6hH0DTBUSJLeW9d7q9BoQBzCGDg1Spjqe30SU9dh59/ewz01biTkjzmEPSHY/JeIYOIuhGKkCF
-	4FMTjjet5S3U31SYjtsTLJbXaECRHx7o9d0soRC7JtdkXKmo5oEzKRsllk2JU9arYoulzQdyJdj
-	JcUm2iy8PHapWM0UdsKVnMv5IPHDhKsfQJdKwBcrdDVf+OY34VNOGIgvfa9bJHJJHXPM4GkT48S
-	e61Gx40/LPZhGen+VfGn+HkSp+mHCu6IejJ85pSuo4AQ79ANYBXROul2vZ2O67T9rMdkt2CdTfM
-	dOmMMDVlkxXu6cF0OpKITMFEH5kO8NFa3BbslMbkwIGnVcAEzv0ZHsv98DzhDR87/yGDM50mckf
-	ZbkdtHBOTzCdOTrfZdyWAKgEUbbKOeOPlfukPeOHzCDcjZo+bPdNTD7zwTcw==
-X-Received: by 2002:a05:6808:3190:b0:4a2:ca6b:4214 with SMTP id 5614622812f47-4ab6a298532mr4860974b6e.29.1785080272888;
-        Sun, 26 Jul 2026 08:37:52 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:105e:29ca:45cc:c7? ([2600:8803:e7e4:500:105e:29ca:45cc:c7])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4ab3505ac2bsm7308907b6e.10.2026.07.26.08.37.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 26 Jul 2026 08:37:51 -0700 (PDT)
-Message-ID: <39bac146-227f-4155-a80a-78b84a89ef20@baylibre.com>
-Date: Sun, 26 Jul 2026 10:37:49 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gXXyZMiv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C11151F000E9;
+	Sun, 26 Jul 2026 15:43:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785080621;
+	bh=sUGyuvkqlkCeQ2rdEHqB67jDU1QL7EaM+9mVgGsuwU4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gXXyZMivBRBXbL5BMd6fV6TgXKUkF1o+9DknaYH0lmKcNEK+Ny1S+scazmDG7wiPT
+	 lYc6EQnzDos5H0uQ90tKSpk+HZL5XPB/S7VT3jmE9aLY2Bz0aSAqEnQ8/qFxoxnVwx
+	 Wz/FFX5KEwrRUwjbJfN7HrMnuHOVzr2HEM0pUYkDFrTrzc6pLmP4E0rlAePyIGar/H
+	 sYpv11m3rWOkZ1Qlh7fo65pFxBSfyS83OIff1yaR8sXyvgf6S78Vy4JZVhIMmnaLS1
+	 UW/YNdddoDUxvP89qDSVnXVZ3wz1dXQqS5E8bsDaYRHiOmQJ6WUY1nNjo61hh+Yr9O
+	 q9GK4fzyxJ3+w==
+Date: Sun, 26 Jul 2026 16:43:35 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	"open list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..." <linux-sound@vger.kernel.org>,
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>, imx@lists.linux.dev
+Subject: Re: [PATCH v4 1/1] ASoC: dt-bindings: Convert eukrea-tlv320.txt to
+ yaml
+Message-ID: <0cc181a1-de0b-47cc-a46d-1219c273a14b@sirena.org.uk>
+References: <20260515145205.1696584-1-Frank.Li@oss.nxp.com>
+ <amPA3hHmTQm42PP9@lizhi-Precision-Tower-5810>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/2] dt-bindings: iio: adc: add maxim,max40080
-To: Stefan Popa <stefan.popa@analog.com>, linux-iio@vger.kernel.org
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, jic23@kernel.org, andy@kernel.org,
- nuno.sa@analog.com, linux@roeck-us.net, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, ciprian.hegbeli@analog.com, siratul.islam@linux.dev,
- u.kleine-koenig@baylibre.com
-References: <20260723065036.2683075-1-stefan.popa@analog.com>
- <20260723065036.2683075-2-stefan.popa@analog.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260723065036.2683075-2-stefan.popa@analog.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="JVqT6bc2U12RTO70"
+Content-Disposition: inline
+In-Reply-To: <amPA3hHmTQm42PP9@lizhi-Precision-Tower-5810>
+X-Cookie: Necessity is a mother.
 
-On 7/23/26 1:50 AM, Stefan Popa wrote:
-> Add device tree bindings for the Maxim MAX40080 bidirectional
-> current-sense amplifier with a 12-bit ADC and an I2C/SMBus interface.
-> 
-> Signed-off-by: Stefan Popa <stefan.popa@analog.com>
-> ---
->  .../bindings/iio/adc/maxim,max40080.yaml      | 56 +++++++++++++++++++
->  1 file changed, 56 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/iio/adc/maxim,max40080.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/maxim,max40080.yaml b/Documentation/devicetree/bindings/iio/adc/maxim,max40080.yaml
-> new file mode 100644
-> index 0000000000000..170bf4eff8706
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/maxim,max40080.yaml
-> @@ -0,0 +1,56 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/adc/maxim,max40080.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Maxim MAX40080 bidirectional current-sense amplifier
-> +
-> +maintainers:
-> +  - Ciprian Hegbeli <ciprian.hegbeli@analog.com>
-> +  - Stefan Popa <stefan.popa@analog.com>
-> +
-> +description: |
-> +  The MAX40080 is a high-precision, bidirectional current-sense amplifier with
-> +  an integrated 12-bit ADC and an I2C/SMBus interface. It measures the voltage
-> +  across an external shunt resistor and the input bus voltage, and stores the
-> +  results in an internal FIFO.
-> +
-> +  Datasheet:
-> +    https://www.analog.com/en/products/max40080.html
-> +
-> +properties:
-> +  compatible:
-> +    const: maxim,max40080
 
-adi, (the part is owned by ADI now)
+--JVqT6bc2U12RTO70
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  "#io-channel-cells":
-> +    const: 1
-> +
-> +  shunt-resistor-micro-ohms:
-> +    description:
-> +      Value of the current-sense shunt resistor connected between the IN+ and
-> +      IN- inputs. Used to scale the reported current.
-> +
+On Fri, Jul 24, 2026 at 03:45:34PM -0400, Frank Li wrote:
 
-Missing vdd-supply for power and interrupts for ALERT_ output.
+> 	Can you help to pick up this one?, Rob already acked.
 
-> +required:
-> +  - compatible
-> +  - reg
-> +  - shunt-resistor-micro-ohms
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    i2c {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        adc@20 {
-> +            compatible = "maxim,max40080";
-> +            reg = <0x20>;
-> +            #io-channel-cells = <1>;
-> +            shunt-resistor-micro-ohms = <100000>;
-> +        };
-> +    };
 
+Please don't send content free pings and please allow a reasonable time
+for review.  People get busy, go on holiday, attend conferences and so=20
+on so unless there is some reason for urgency (like critical bug fixes)
+please allow at least a couple of weeks for review.  If there have been
+review comments then people may be waiting for those to be addressed.
+
+Sending content free pings adds to the mail volume (if they are seen at
+all) which is often the problem and since they can't be reviewed
+directly if something has gone wrong you'll have to resend the patches
+anyway, so sending again is generally a better approach though there are
+some other maintainers who like them - if in doubt look at how patches
+for the subsystem are normally handled.
+
+--JVqT6bc2U12RTO70
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpmKyYACgkQJNaLcl1U
+h9BoEQf9EjChwXEjc0OcuLtfDE4HzeMOTZMpJw9a9BlWVDFXcJKmn1v8dYQQ0ufm
+6d5Y6cS9VSp6M9QuFXHUEPwBBt+IdWFORIaogzOYTdSnEkvy2AJ6XMh6E1ua44ep
+XNvnjfWpYO9UAC/E8wH+EKSTWQkOi9ttJ067+/etSD/F9pYP6VCeHKAPw0QX4O/r
+22IQ3sYdNynJ/NdZiXIwQIbem+H2I9+kaAj3UlcdPP8n5c4G0Dnk83OEtvAc1fDA
+/MeVoDNjmyG0KPluar+MlOa4FyUuthLny+ewvn6kwKzOuALiXeXG3ldZNyQfmgQh
+mI1Rwv0MnvXnmlJgx572RSmrzmZXJA==
+=eE9L
+-----END PGP SIGNATURE-----
+
+--JVqT6bc2U12RTO70--
