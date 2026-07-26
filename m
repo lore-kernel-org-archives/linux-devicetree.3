@@ -1,380 +1,204 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44F502931F5;
-	Sat, 25 Jul 2026 23:58:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785023914; cv=none; b=LdROiMIeKkSMloVS6fao+KHhieR7xXDouxGyzdrxihOrQ9jGpP3Bx916ycJL/niUZhJS0BKagQv4K4D6vU05hMlrj89OeIII79iWRMma1mVF8iStWR7jYe2qlFioDerggZkiuoiBZpVoNG9wRy9XyOnoyrpxM+qD+I6HKUqHFZA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785023914; c=relaxed/simple;
-	bh=V4Sy9SUH4V/DVoc4yHGyYukFWXOtq2gZCA2CWpSrVFg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=sY/Gma0WHyXt3xuyhS42sp5LtFwscRBy0rtNplmXWzeqWP6Ap+Al7zlfnX3se2xUmq8kftmXeNquHJ1DD9L0BokFwyxN4Ml0mSd41HMYQOBt6gcMABtmBQqgl2knuQdF5X/eXWi4yxw7n2Ux+uSAxszvh3EyqUWXAaYXBrZt+Bg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YsIhtjBq; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBEECCA4E
+	for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 00:02:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785024149; cv=pass; b=K5ySjpKo8jZ2Tjy2tEycChgW/gWZ5RTGT3Ee1zVGmrwwgV/79Jle9YDD1tJolp5o/EkxlveT2D2OUneIg0is5b7HKW+J/5CrmVWIlHRR6jeSycGlrFDZk4wIn2eaezmQKsfpG2++4fFg0PVkE9absF64F6e1WgI7YwyT24IIPVw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785024149; c=relaxed/simple;
+	bh=hGMDwQQLThygxY83szVLHDeO1j19/dPpyXJ0IV8ZMk4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BWC7uYV2nJ33H0JTcIc6c0PLhzddrEYnvNxYF74wC+nSJkN3j/yGhklF4suPCv60GaH4/281ZKX+VQ1uFXHMghROZZgAX5xYbxDJ6AjPw4hNYJ91OG/AXjacDxXIY3Z4NOH+m+44EIosM0AnuNQjlePnZYJXJUVv/gB20h8Ur5c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Eeuxola6; arc=pass smtp.client-ip=209.85.208.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YsIhtjBq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74C261F000E9;
-	Sat, 25 Jul 2026 23:58:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785023912;
-	bh=eojsk60CIcocl2x7KJ/oS9iux+Ybj19ZGjlkT1bruPE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=YsIhtjBqoNJgJ7rnMUNBufobLiozz0XePfm8V8dgtwPg6SMkgPIYEngSJFh78niFz
-	 5UkVJa3ShGTJnrYNWp2PtaPyzjqPVmLGn0XmR7tBSy2nIcyGTz/yNYbq3uQ0AORr3V
-	 zeiOoXri9T1ystwrWFuhavpw7LD7XYGPQg5lSaT+4infl1Bp9rrQ37w0NV1BTFV//l
-	 HXnYnU0+bMVqi0asDsCP74W+wzL5hNr2nd7TWSDZQwAClb3p6/12kh5PkGNamKxLN7
-	 KdFw8pkO60DU+RhGxR6nLNO+SrvFfNp30DlKBu180GLudkGg6txr5eftO5+KwgzofO
-	 XWNPcFIk3dMeQ==
-Date: Sun, 26 Jul 2026 00:58:27 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Stefan Popa <stefan.popa@analog.com>
-Cc: <linux-iio@vger.kernel.org>, <linux-hwmon@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <andy@kernel.org>, <nuno.sa@analog.com>, <linux@roeck-us.net>,
- <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
- <dlechner@baylibre.com>, <ciprian.hegbeli@analog.com>,
- <siratul.islam@linux.dev>, <u.kleine-koenig@baylibre.com>
-Subject: Re: [PATCH v5 2/2] iio: adc: add MAX40080 current-sense amplifier
- driver
-Message-ID: <20260726005827.31aec2b0@jic23-huawei>
-In-Reply-To: <20260723065036.2683075-3-stefan.popa@analog.com>
-References: <20260723065036.2683075-1-stefan.popa@analog.com>
-	<20260723065036.2683075-3-stefan.popa@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Eeuxola6"
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-69e8ea2783aso2038022a12.3
+        for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 17:02:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785024146; cv=none;
+        d=google.com; s=arc-20260327;
+        b=M9bCP4mkg/lz/Xq8aS45kO56FgNCHFBeI2IYXsqtpvdQbyMF5RbwgM/OFJMmpOUp40
+         PgedRZCG6aayBvwgQic2DrYciQoCmZd2nYWP/UmrNaPr73ArOgObeqnneSMwQMAnWcXV
+         Y15+JxqYENwgoW+fJshnikhFZUUaF4WRTM3i2l8b2OZKHMElO9oBqusozstfLsHzfaUL
+         c0xABtn61yOcfh6WrhA4fsLFzRZedSsF3Rn4bjgSAQE74Ts7CIa4XtsOP8Dcnum6N4Eo
+         RlRO5NTB2RwXNJbo7EKu3g/12H2ziGmVA1O7Rg8G1B6hso1qxgQQuUlxhnaIpxvxpCLe
+         vbkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=1OFM/TCyOucQ/FV/J6qU4TAWprxb53QsM1x2T+kKVBU=;
+        fh=naJ8y7usUjGH9+S9LhjmCAtSVZg0h0NZGFnf5j+KKsk=;
+        b=lHFFwIr7sjqrL6djCu83JSoUTRP5GNgkyTIej9MmPNDCJYMxtD+pg7sOvRvK2No6xC
+         zU6OWGKsligrx03yvG6OCEDPh6NJv/9ELZFBgsEyVjS3HYUyodIQqr5evJqhbXA0/LcU
+         UEqg0wq/NdE4NacsmfO3xBjuHdz1b9x5IWUD+AfP6llIc1QOjIgfvT6vLiUZdxetBGS6
+         hQO+qiDlxJwpN2nPXQ6xO7bw7TdtR6gJU6pIB2tlCo4iSn95uM09Jd/splGo5EOJWokQ
+         EgY2OiYEoTMLveUi8pTD4C0CII4lz+HqWrFD+kjAdLlt+hFeNT8lSnLiEINoGc0/NHnt
+         jIiQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785024146; x=1785628946; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1OFM/TCyOucQ/FV/J6qU4TAWprxb53QsM1x2T+kKVBU=;
+        b=Eeuxola6zRmfHnrwXdaRnPtMaGU+oZF7JceO1mSfIoo9qsQVk1O15JGoqJVMkyWVuD
+         OvE3p5wJb3BOV03CVvGK5ivbW+k1eA+UNHcFyOaxbKCTf0bNh5Zh1sG1ChpnrndXCUNT
+         /tN2L6IJUsmi8TuTvqXFY/DfOVNQv93yYDKzhUBA1hDG7Fbp9lsGgo3AhKgXgzwdHYgz
+         u8QfYVweCKVHq/j4w6kdaQ52/JpUMLrz2q1k5qBPa01vBcRNJcXCOoXTaveZxyFIgKSA
+         +2MJ9JGsAmUpkyBIjJmNempb7YOk5vl73GA6ydsf0Qw36V3c51UNa4m0Bs057Bk3+APv
+         OvHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785024146; x=1785628946;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1OFM/TCyOucQ/FV/J6qU4TAWprxb53QsM1x2T+kKVBU=;
+        b=dReXeL/x/6Pwj4hQ+69SyMknPDe6wIORfZUNg6jHjabM5niCT/e6qrR+PaKIovnyZ8
+         qWGNtrP12WiZEkQE52QHc56ZJ7ePNiULTePa2O+FAS8tcg1xjxORXe7B5NF//ia6PsLo
+         2majTDoK3mLDkrqRX6hHRmsWjVCbigfr4rJLInWmfOp2asMPW+VtUnmAYAgB9FDioDXk
+         cmI/0RAwblqVwSCa3nOF2wCWimtlOhwWibDhbwzLHRyDLIVFKddqYjEZjCiO86vD4gVi
+         WlFTmEI0oa1g9BPxTmJJeN6mEDqxkPyGOXyUgt8+8+y39+GYiILgk69IpSnK3fvgrteb
+         5XhQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrLg6kx1DHo1zkxUld+KatRz3d4uBCflXRpUgztmIeqlVP2CyXknY9AwqBPjx1TbPAZOtIYWAmMBnND@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzv4DDWnRTJ+aoHasoIhgJRINCQCKVQ7082Gm068BL1fNrYL2cm
+	QZc1llpFJyloHPG+kA4VYRqcM6cPXqPYCW6/yq+jzeF8RaKQqv/3s0ysQOnZ4RL9G2yiu4ek70/
+	wPartwkWeozo1Rfhqz0pFmk79RtK42avS1g==
+X-Gm-Gg: AR+sD11C6OZt83+kYTO62B5+gKcTJmFLuA2HH2AQGO+wp7l5IMTQQrAgrYbX4FxmFmK
+	OCh0GE4XHD08UD/LTuHlb+OaqMwnpXOIXnbX6mhvlE3A9DRc2tQ9mWKhNlUnref4Tb0srfl60l7
+	KeIgPH4A2IEEk6iReISHOpYWba7QG6CDPWJGKm36hTOiOC/dcJLdk/vIfq0rnIPIJReD3YYNLO3
+	9tVkDKjJTm0nOoeph+JQVjOU/PeTYbQ5VRXDyIPpSG65jnWXS6cDIGXsTWl98DNALgd6XA/blGQ
+	nX1dUx9oVueTGqXxrbg9DnFcBoDyIupt0Za8N1yEo7w9LrwhGQ510dl4IpsRiyDp5nklg2Qa9QE
+	y3eCGHppfdcfLo1Z4RaymshsNbrnM4926QVRUC5F9RaccybfSNvvkiJQhY2uRx1SuQvl50/u5
+X-Received: by 2002:a05:6402:2693:b0:698:3b7c:7e52 with SMTP id
+ 4fb4d7f45d1cf-69fc118cd72mr1268009a12.40.1785024145825; Sat, 25 Jul 2026
+ 17:02:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260628231049.1248899-1-rosenp@gmail.com> <20260628232120.0511A1F000E9@smtp.kernel.org>
+In-Reply-To: <20260628232120.0511A1F000E9@smtp.kernel.org>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Sat, 25 Jul 2026 17:02:13 -0700
+X-Gm-Features: AUfX_mzkRY6Z8kZjUsSyDR6zqqIZ31wwydK7R2vmJU3Bx1SrmlOEVAvbSgYCMTQ
+Message-ID: <CAKxU2N9EvtEGzaowAr4J0+0F9iFsd5j8jmL7JTAqBWDPfanoaw@mail.gmail.com>
+Subject: Re: [PATCH] ARM: dts: BCM5301X: EA9200: fix nvram size
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 23 Jul 2026 09:50:36 +0300
-Stefan Popa <stefan.popa@analog.com> wrote:
-
-> The MAX40080 is a bidirectional current-sense amplifier with an
-> integrated 12-bit ADC and an I2C/SMBus interface. It measures the
-> voltage across an external shunt resistor and the input bus voltage,
-> storing the results in an internal FIFO.
-> 
-> Add a direct-mode IIO driver exposing the current and voltage channels
-> with raw, scale and hardware-gain attributes, a configurable
-> oversampling (digital averaging) ratio, and PEC-protected register
-> access. The current scale is derived from the shunt resistor value
-> described in the device tree.
-> 
-> Signed-off-by: Ciprian Hegbeli <ciprian.hegbeli@analog.com>
-> Signed-off-by: Stefan Popa <stefan.popa@analog.com>
-Hi Stefan
-
-I've tried to avoid duplicating the stuff Siratul already called out.
-Various things inline.
-
-Jonathan
-
-> diff --git a/drivers/iio/adc/max40080.c b/drivers/iio/adc/max40080.c
-> new file mode 100644
-> index 0000000000000..cdf626dccb24f
-> --- /dev/null
-> +++ b/drivers/iio/adc/max40080.c
-> @@ -0,0 +1,586 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +/*
-> + * MAX40080 Digital Current-Sense Amplifier driver
-> + *
-> + * Copyright 2026 Analog Devices, Inc.
-> + */
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/bitops.h>
-> +#include <linux/cleanup.h>
-> +#include <linux/i2c.h>
-> +#include <linux/iopoll.h>
-> +#include <linux/math64.h>
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/property.h>
-> +#include <linux/unaligned.h>
-> +#include <linux/units.h>
-> +
-> +#include <linux/iio/iio.h>
-> +
-> +#define MAX40080_REG_CFG		0x00
-> +#define  MAX40080_MODE_MSK		GENMASK(2, 0)
-I'd prefer these to include CFG so it is obvious which register
-they are in. Same for other registers.
-> +#define  MAX40080_PEC_EN_MSK		BIT(5)
-> +#define  MAX40080_RANGE_MSK		BIT(6)
-
-For the two values that go in here, add some defines.  They will
-come in handy below.
-#define     MAX40080_CFG_RANGE_50MV		0
-#define     MAX40080_CFG_RANGE_10MV		1
-
-> +#define  MAX40080_FILTER_MSK		GENMASK(14, 12)
-> +
-> +#define MAX40080_REG_FIFO_CFG		0x0A
-> +#define  MAX40080_STORE_IV_MSK		GENMASK(1, 0)
-> +
-> +#define MAX40080_REG_IV			0x10
-> +/* Current is a 13-bit two's-complement value (magnitude + sign bit). */
-> +#define  MAX40080_IV_I_MSK		GENMASK(12, 0)
-> +#define  MAX40080_IV_I_SIGN_BIT		12
-> +#define  MAX40080_IV_V_MAG_MSK		GENMASK(27, 16)
-> +#define  MAX40080_IV_VALID_MSK		BIT(31)
-> +
-> +/* CFG.mode field */
-> +#define MAX40080_STDBY_MODE		0x00
-> +#define MAX40080_SINGLE_MODE		0x02	/* one conversion per Quick Command */
-> +
-> +/* FIFO_CFG.store_iv field */
-> +#define MAX40080_STORE_I_V		0x02
-> +
-> +#define MAX40080_ADC_RES		4096
-
-I'd express resolution in bits.  Then use (1 << RES) or similar where this comes up.
-
-> +#define MAX40080_INTER_VREF_MV		1250
-This one is used in a few places, so fine to have a define
-> +#define MAX40080_V_BUFF_GAIN		30
-As is this.
-
-
-> +#define MAX40080_CSA_50MV_GAIN		25
-> +#define MAX40080_CSA_10MV_GAIN		125
-
-These last two at least bring less value than the numbers have if used
-to assign to something where the naming describes what it is.
-
-> +
-> +/*
-> + * The RANGE field (CFG bit 6) selects one of two current-sense full-scale
-Do as below and this bit is obvious
-> + * ranges (the MAX40080 supports exactly two: +/-50 mV and +/-10 mV). Ordered
-> + * so that the array index equals the RANGE field value: index 0 = 50 mV range
-> + * (gain 25 V/V), index 1 = 10 mV range (gain 125 V/V).
-
-Make all that explicit as below and this is obvious as well. Hence
-the comment is replaced by clear code.
-
-> + */
-> +static const int max40080_csa_gain[] = {
-> +	MAX40080_CSA_50MV_GAIN, MAX40080_CSA_10MV_GAIN,
-	[MAX40080_CFG_RANGE_50MV] = 25,
-	[MAX40080_CFG_RANGE_10MV] = 125,
-
-> +};
-
-...
-
-> +static int max40080_update_bits(struct max40080_state *st, u8 reg,
-> +				u16 mask, u16 val)
-> +{
-> +	int ret;
-> +	int tmp;
-> +
-> +	guard(mutex)(&st->lock);
-> +
-> +	tmp = i2c_smbus_read_word_data(st->client, reg);
-> +	if (tmp < 0)
-> +		return tmp;
-> +
-> +	tmp &= ~mask;
-> +	tmp |= val & mask;
-> +
-> +	ret = i2c_smbus_write_word_data(st->client, reg, tmp);
-
-return i2c_smbus..
-
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	return 0;
-> +}
-
-...
-
-> +
-> +static int max40080_get_voltage(struct max40080_state *st, int *val)
-> +{
-> +	u32 iv = 0;
-
-I'd kind of hope that the compiler could figure out that we don't
-use iv unless it is set.  If not fine to keep these assignments.
-
-> +	int ret;
-> +
-> +	ret = max40080_read_iv(st, &iv);
-> +	if (ret)
-> +		return ret;
-> +
-> +	*val = FIELD_GET(MAX40080_IV_V_MAG_MSK, iv);
-> +
-> +	return 0;
-> +}
-> +
-> +static int max40080_set_oversampling_ratio(struct max40080_state *st, int val)
-> +{
-> +	int ret, filter = max40080_oversampling_to_filter(val);
-> +
-> +	if (filter < 0)
-> +		return filter;
-> +
-> +	ret = max40080_update_bits(st, MAX40080_REG_CFG, MAX40080_FILTER_MSK,
-> +				   FIELD_PREP(MAX40080_FILTER_MSK, filter));
-> +	if (ret)
-> +		return ret;
-> +
-> +	st->oversampling_ratio = val;
-
-Sashiko calls out that you have a lock but don't hold it over the combined
-write plus cached value update. Check if sysfs file locking is enough for
-that to not be a problem. 
-https://sashiko.dev/#/patchset/20260723065036.2683075-1-stefan.popa%40analog.com
-
-> +
-> +	return 0;
-> +}
-> +
-> +static int max40080_read_raw(struct iio_dev *indio_dev,
-> +			     struct iio_chan_spec const *chan,
-> +			     int *val,
-> +			     int *val2,
-> +			     long mask)
-> +{
-> +	struct max40080_state *st = iio_priv(indio_dev);
-> +	int ret;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		if (chan->type == IIO_CURRENT) {
-> +			ret = max40080_get_current(st, val);
-> +			if (ret)
-> +				return ret;
-> +		} else if (chan->type == IIO_VOLTAGE) {
-> +			ret = max40080_get_voltage(st, val);
-> +			if (ret)
-> +				return ret;
-> +		}
-> +
-> +		return IIO_VAL_INT;
-> +	case IIO_CHAN_INFO_SCALE:
-> +		if (chan->type == IIO_CURRENT) {
-> +			/*
-> +			 * The selectable current-sense range is exposed through
-> +			 * scale: each RANGE setting has its own precomputed
-> +			 * mA-per-code value. Userspace picks the range by writing
-> +			 * the matching scale.
-> +			 */
-> +			*val = st->current_scale[st->range][0];
-> +			*val2 = st->current_scale[st->range][1];
-> +			return IIO_VAL_INT_PLUS_NANO;
-> +		}
-> +		/* voltage[mV] = raw * Vref[mV] * buffer_gain / ADC_RES */
-> +		*val = MAX40080_INTER_VREF_MV * MAX40080_V_BUFF_GAIN;
-> +		*val2 = MAX40080_ADC_RES;
-> +		return IIO_VAL_FRACTIONAL;
-
-FRACTIONAL_LOG2 exists for this sort of case but does require use of
-of a resolution expressed as number of bits.
-
-> +	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
-> +		ret = max40080_get_oversampling_ratio(st, val);
-> +		if (ret)
-> +			return ret;
-> +		return IIO_VAL_INT;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-
-...
-
-> +/*
-> + * Configure the device from the cached state. The device powers up in standby
-> + * with PEC enabled (CFG POR = 0x0060), so PEC is kept enabled throughout.
-> + */
-> +static int max40080_init(struct max40080_state *st)
-> +{
-
-...
-> +	/*
-> +	 * Use single-measurement mode: the device stays idle and converts once
-> +	 * per SMBus Quick Command (see max40080_trigger_measurement()), so each
-> +	 * read returns a fresh sample rather than a queued FIFO entry.
-> +	 */
-> +	cfg = FIELD_PREP(MAX40080_MODE_MSK, MAX40080_SINGLE_MODE) |
-> +	      FIELD_PREP(MAX40080_PEC_EN_MSK, 1) |
-> +	      FIELD_PREP(MAX40080_RANGE_MSK, st->range) |
-> +	      FIELD_PREP(MAX40080_FILTER_MSK, filter);
-> +
-> +	ret = i2c_smbus_write_word_data(st->client, MAX40080_REG_CFG, cfg);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return 0;
-return i2c_smbus_write_word_data()
-Note you are a bit inconsistent on return values checks for i2dc_smbus_write_word_data()
-Assume 0 or < 0 only are possible (as documented). 
-
-> +}
-> +
-> +static int max40080_probe(struct i2c_client *client)
-> +{
-> +	const char *propname = "shunt-resistor-micro-ohms";
-> +	struct device *dev = &client->dev;
-> +	struct iio_dev *indio_dev;
-> +	struct max40080_state *st;
-> +	int ret;
-> +
-> +	/*
-> +	 * The device powers up with PEC enabled (CFG POR = 0x0060) and rejects
-> +	 * unprotected transactions, so PEC support is mandatory, along with word
-> +	 * access, the I2C block read used for the current/voltage pair, and the
-> +	 * Quick Command used to trigger a conversion.
-> +	 */
-> +	if (!i2c_check_functionality(client->adapter,
-> +				     I2C_FUNC_SMBUS_WORD_DATA |
-> +				     I2C_FUNC_SMBUS_I2C_BLOCK |
-> +				     I2C_FUNC_SMBUS_QUICK |
-> +				     I2C_FUNC_SMBUS_PEC))
-> +		return -EOPNOTSUPP;
-> +
-> +	client->flags |= I2C_CLIENT_PEC;
-> +
-> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*st));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-> +
-> +	i2c_set_clientdata(client, indio_dev);
-
-Not seeing this used.
-
-> +
-> +	st = iio_priv(indio_dev);
-> +	st->client = client;
-> +
-> +	ret = devm_mutex_init(dev, &st->lock);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = device_property_read_u32(dev, propname, &st->shunt_resistor_uohm);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "can't read %s\n", propname);
-> +	if (!st->shunt_resistor_uohm)
-> +		return dev_err_probe(dev, -EINVAL, "%s must be non-zero\n",
-> +				     propname);
-> +
-> +	max40080_calc_current_scale(st);
-> +
-> +	/* Defaults: 50 mV range (index 0), no averaging. */
-> +	st->range = 0;
-
-Use the define I suggest above. Then it becomes self documenting and the
-comment isn't needed.  
-
-> +	st->oversampling_ratio = 1;
-
-
+On Sun, Jun 28, 2026 at 4:21=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
+>
+> Thank you for your contribution! Sashiko AI review found 2 potential issu=
+e(s) to consider:
+>
+> Pre-existing issues:
+> - [Critical] Heap out-of-bounds read and write in `brcm_nvram_add_cells` =
+due to mismatched logical length validation.
+> - [High] Fatal page fault due to `ZERO_SIZE_PTR` dereference if the NVRAM=
+ partition contains only padding bytes.
+These issues were fixed separately.
+> --
+>
+> commit f8d0bb1af13fdcf08114311cb9160479fcd6bdb5
+> Author: Rosen Penev <rosenp@gmail.com>
+>
+> ARM: dts: BCM5301X: EA9200: fix nvram size
+>
+> Fixes:
+>
+> [ 0.182121] WARNING: CPU: 0 PID: 1 at drivers/nvmem/brcm_nvram.c:85 brcm_=
+nvram_probe+0x400/0x480
+> [ 0.182159] Unexpected (big) NVRAM size: 1056112 B
+>
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+>
+> > diff --git a/arch/arm/boot/dts/broadcom/bcm4709-linksys-ea9200.dts b/ar=
+ch/arm/boot/dts/broadcom/bcm4709-linksys-ea9200.dts
+> > index 5bbc2ba0f9598..87569408bb695 100644
+> > --- a/arch/arm/boot/dts/broadcom/bcm4709-linksys-ea9200.dts
+> > +++ b/arch/arm/boot/dts/broadcom/bcm4709-linksys-ea9200.dts
+> > @@ -26,7 +26,7 @@ memory@0 {
+> >
+> >       nvram@1c080000 {
+> >               compatible =3D "brcm,nvram";
+> > -             reg =3D <0x1c080000 0x180000>;
+> > +             reg =3D <0x1c080000 0x100000>;
+>
+> [Severity: Critical]
+> This is a pre-existing issue, but I noticed a potential out-of-bounds hea=
+p
+> read and write in drivers/nvmem/brcm_nvram.c when parsing NVRAM partition=
+s.
+>
+> In brcm_nvram_parse(), the length check validates the logical length defi=
+ned
+> in the header against the total partition size rather than the allocated =
+data
+> length:
+>
+> drivers/nvmem/brcm_nvram.c:brcm_nvram_parse() {
+>     ...
+>     if (len > priv->nvmem_size) {
+>     ...
+> }
+>
+> If the flash data defines a header->len larger than the non-padding data
+> size but smaller than the total partition size (priv->nvmem_size), the dr=
+iver
+> calls brcm_nvram_add_cells() with a len larger than the allocation:
+>
+> drivers/nvmem/brcm_nvram.c:brcm_nvram_add_cells() {
+>     ...
+>     tmp =3D priv->data[len - 1];
+>     priv->data[len - 1] =3D '\0';
+>     ...
+> }
+>
+> Can this lead to memory corruption if reading from a malformed flash
+> partition?
+>
+> [Severity: High]
+> This is a pre-existing issue, but I also noticed a potential page fault
+> if the NVRAM partition is completely empty.
+>
+> In drivers/nvmem/brcm_nvram.c:brcm_nvram_copy_data(), if the partition on=
+ly
+> contains padding bytes, priv->data_len becomes 0. devm_kzalloc() will ret=
+urn
+> the ZERO_SIZE_PTR token (0x10) which bypasses the NULL check:
+>
+> drivers/nvmem/brcm_nvram.c:brcm_nvram_copy_data() {
+>     ...
+>     priv->data =3D devm_kzalloc(priv->dev, priv->data_len, GFP_KERNEL);
+>     if (!priv->data)
+>         return -ENOMEM;
+>     ...
+> }
+>
+> The ZERO_SIZE_PTR is then cast and dereferenced in brcm_nvram_parse():
+>
+> drivers/nvmem/brcm_nvram.c:brcm_nvram_parse() {
+>     ...
+>     if (memcmp(header->magic, NVRAM_MAGIC, 4)) {
+>     ...
+> }
+>
+> Could this cause a kernel panic due to dereferencing address 0x10 when
+> probing an erased flash partition?
+>
+> >
+> >               et2macaddr: et2macaddr {
+> >                       #nvmem-cell-cells =3D <1>;
+>
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260628231049.12=
+48899-1-rosenp@gmail.com?part=3D1
