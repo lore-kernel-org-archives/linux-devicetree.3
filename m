@@ -1,226 +1,153 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A6A11F09A5
-	for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 10:06:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87555318EE2
+	for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 11:00:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785060379; cv=none; b=Zb1J9eqYc8r6VPvnQV7/muFabdWrQPBocx8wC4W5LioS7xgt3NlacZTLvKoNUSKRNjk8t4G3AJNpzSMyHJLOTrDF20b0a3RDqqAKuyw+7+HKStQ5I6xCq8dNP5fCHq7Ab8Uie6viJLtpjNhzWOFrAKaXd9jHmr8WB4Suzth+O5Q=
+	t=1785063617; cv=none; b=Jh7vnd2tEwXoPtmiZv7nulYRP9u0MqEm+9feDl2L+6BadNUAl5U6G9V7DueIK13xE6/OZk9pQvVCK5kjwE9GGhOBALq7WQJJ5Sckws/UcJG6CJtDBkvHk9czZEGqUeqr7qLDvcX5bBMStl0xd06rlgH9hUBSfPa9Vg29QUbws8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785060379; c=relaxed/simple;
-	bh=iw//1nYvybdqqkGeIY69HOmAu1w0wu7f8YOrUClhZxg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qiqGYuJhODlrJ8bpeHGfrTxdDR49cv6k1dOfWOuAGIvC56KjLwWEkimWanciGkL4LoeOilv4P8oLlNu6e1jnqq5qumPIbUkIitQY/XukCyGtmEYvr2d6Kcn71r8FODcOTGzjulo53nQj1QaZDREzH4y8nvLPb5bKvBF0Mf21LBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M93R8TdM; arc=none smtp.client-ip=209.85.221.48
+	s=arc-20240116; t=1785063617; c=relaxed/simple;
+	bh=byvuZJYZYd2MSiuhVWfo6h4n7bx3BOovOl/DMV0oaKE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=X8OxkfvGwhsrRxORTlre3OUD5BuRNJbWuBeLOyjHim92X5cMrdGrvJ9tFJG+N8tkJR144MAx3iAviE07wTFDcVtLkZrNsgvwtrwnYn+oMREp9G6r4PGNzknk3iKA5IGhHDZ8B/Vm8/uv3EB1/679UjGRTgEyaZuercgLHp5qDH0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rCGr6Y4U; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M93R8TdM"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-47de008b020so971250f8f.1
-        for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 03:06:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rCGr6Y4U"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4955aa106b1so19273415e9.0
+        for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 04:00:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785060376; x=1785665176; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ql3lhaTIByhx1TYQR2BuqY3y5NYUIlkWuZWwh0ZdmCA=;
-        b=M93R8TdMRlkXGobrs5rNvQdDPpXSsOeQc1PGcy2B17CMGLDpf8SgKkP7g7VDVpBU0w
-         xAIjP1LIjPJ1at+Sp0EpdklQ26HrGP0LaPaFRsBku5qfsc4DliCRlYaaxxPmwusmpEIJ
-         mOv8OSqDlpxSrcadzyJRk5HRJgRA0QfHvsrR8aHXajotOOPsmWlH8sTHGVQJ8GZdYW6L
-         EklSsIxzlrgFPNVpt2V1rmgMAzAmEmYE3rYRUoo2E94hKreZvrbJqNf6MdryxgQ5QIpn
-         IQdek3YqA32pXC2wJYEhZ3iKvrSE3v2Cal8XGPn5/JKiF5Gpvxu/WMI7repXy6qO2Atv
-         jKGg==
+        d=gmail.com; s=20251104; t=1785063614; x=1785668414; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GUYubJZOlyk7ZUcTegsKcSoPhTLrbF/NRujnb44b+Dg=;
+        b=rCGr6Y4UG+COIj/r0LxXFvd4seBVaJpB2QAidIeeG1M5q0gjyDRYR2uRWywZyCusXH
+         uzHxt/j0Ov6RADBdoYJMD+wPOXyxnnHh6Uu+8xXJ/SLV0ahrhe04DR0NrDc0KhKcXTbU
+         eMkdqJBJwgHp1P547cQA9uzuQ0pKI13pJ20ghmNmN/LWgSkv/V2d6gJRU4bCBamD468l
+         GGDsnlDawzjTg2aGbatkBvNG7LF58NflJUfF9XFOUJLpKGfY3fm6SMPgDOsgkQjDezR7
+         8E+2ELVkZgYerPnXncqxPAS+RU4rixklFmzW59UvZqPZWf/SFIg6L7DaQ7CKGNhf/rlV
+         vHOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785060376; x=1785665176;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Ql3lhaTIByhx1TYQR2BuqY3y5NYUIlkWuZWwh0ZdmCA=;
-        b=cwrqhjdajooWYn2z8IciGTNQ0WpatpDdYQneH9ndPfi+yCogS85/AfU6duBJG8PeaW
-         gOamVnI7rVcqHtBL/sGFgiA5qYti+877duImnW3AnP8k8Cm2ruEUc3kuWVZMUmTz81gE
-         CZR/Cs0+UXggDW+14TGVaA6daY4oz625GFTR65K3sK2opo62e/oMWQ4Put6hGq/yzhg5
-         eHO5TGJIGyyhD8UWUlwVlwhQ86iTUZpXr2d9eBwxbVA2m523pqj+AB6EGxcRqz9wAOJB
-         GzKksw1EDx3dk89srEeTjCt2eimMaGn10YGzeeL/m61Zf5gYaqznb+thM0srlq/lbRFS
-         TjqA==
-X-Forwarded-Encrypted: i=1; AHgh+RojIhnHRx3Ug1qDjWrL/4sH6ajncDcSEiOSa+iyWfSGjVRVGV/51kxWrKzoztOIvednZSoVLIPCPh1u@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz+zJdvcjznOlf7Q6z7+MQuIFxHa0jsUy5TOkv07OdjyDCwzwWi
-	fCGcXAmmHngXKIie//rUjC3uCrKcGaD7RMcC2OPYt8HbvWjf6+Waz001
-X-Gm-Gg: AR+sD126qBMBMwL4ybaK8YAAxL7MSKwQFJzwtDU3ylc9BVwC7Dil6EBUpKl66cIp9ao
-	D7c8fJHxQjMSU1fZQat8mCb+9rJ8v9A8G4tIryDfK+U8YVrzZDA0fNJxw26e9+pyVKdr7FKa1ND
-	V2O453tpLhwAiFhYTpEsyB0oH3UUYkpJo2PlTy1TxpPNI410/stAVA0VzqEqwiytl2P3vBj1lfx
-	rmtLB7ew28uYfKCAXM/Cpwkv5MlSkmnxuSnXFb07hCmZi/zFDklj+t5yv4LDyjP8o7sc+icobtI
-	FmMxrrnE8M5ZKxElCDjbh2O8PMjgNf2LoSKP/ujvRen/ARKAQpE0UnCe7Tf2V1tW3OreAUxn5bX
-	O3TwMEBfe/nu+0pfhKU65c302p7VzYaxm6r7MgdY8yciBD9wuxNmPZJfK/dYkfV1nTkw5Xzk2hz
-	bf2kl0J7iYXrQ7x9Ff
-X-Received: by 2002:a05:6000:40cf:b0:47f:962a:9f44 with SMTP id ffacd0b85a97d-47f9feb3481mr7445983f8f.20.1785060375545;
-        Sun, 26 Jul 2026 03:06:15 -0700 (PDT)
-Received: from antoniarch ([78.211.132.199])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f939c1465sm24469108f8f.26.2026.07.26.03.06.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 26 Jul 2026 03:06:15 -0700 (PDT)
-Date: Sun, 26 Jul 2026 12:04:48 +0200
-From: Antoni Pokusinski <apokusinski01@gmail.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, conor+dt@kernel.org, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, linux-rtc@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 5/8] rtc: abx80x: use regmap instead of I2C specific
- API
-Message-ID: <amXTyINVJ2at6_Bz@antoniarch>
-References: <20260725145718.14733-1-apokusinski01@gmail.com>
- <20260725145718.14733-6-apokusinski01@gmail.com>
- <20260725151314.0DA151F000E9@smtp.kernel.org>
+        d=1e100.net; s=20251104; t=1785063614; x=1785668414;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GUYubJZOlyk7ZUcTegsKcSoPhTLrbF/NRujnb44b+Dg=;
+        b=Gpl4S6WW2YrPe5tI5gDMhvv2kth9ThGIGYVjEGU7xBqLQI3eRWuDFhsA1FNz9Yhkar
+         N9JIlvecwcyYgKJA5BFW8RhjGg0oz3om2V8xOA9jS6ZUEL+pNV7SrroD04n1Ar2hRUGf
+         2QU9zjvINgRBNFd3lAK1tm32Ff6IixEv6+PFxLMy9d6XR7+rLCgsNxBlILDrlT6FxxQ7
+         LraGRDW+jCkAFNGhJ2EU3u6/eqBh5z/K1ms/zPisx1jZVAfabMPhNr4CFbYWx3vBq+OV
+         F+QS+zero0lp8i+koy+SHcDMdlwaBC83CX/4n7oRsvmrHEPUY9PZ/GGEegRYqKel/Aaf
+         Z7EA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp4sAL3sdoSXtkJCuIsHvkWTmgXkiBuJrsLImSK12zaBq+6K6+kpW1A4Vfz/3zRdMt3bGfYdkY0YH7+@vger.kernel.org
+X-Gm-Message-State: AOJu0YycoHGeaD/i8r4XhqvrrmWci9V7EJtPBoCBaMYN3O6hy8+Fm592
+	3uIN66+YthurM7iPljcplTMj2Eys4dGqbUxXk4I1i3Np2gOp/rP0YY3n
+X-Gm-Gg: AR+sD11PGXBprcMSsqXT/mLLGsVuGiuWL+CJ1RyXrmyxxQfIvmKqlJA0Geta6eRUze0
+	m99RQ8Q1pT2GFYCwt5F1WhRdTQLgY1yJ5AMbVp0QgnmeddvfZaXGVTAZmQKtm2MmQIrDL6pHNxP
+	DZalEKNZAzdGwDoVAfeOMaYAVu5gIq/Ofl1dYl0GisseH4IHDTbb1EvaUQrhujGZBKhJIxVL7GT
+	Ugr6JXWWHcCuUtm/XFqubmH/ht1uiDC2HiZZXgZHBPSTMbp/DZ6dt4Z9L5+3d0HGwqC1GMzoG8G
+	uT2GgUI3nQYPP4BDwLvd+lSouuSi4VwZ1qhV0FfB679Nxo+kqLrgBA0epSKrx0IoVFfkN44PiTW
+	NbDMDu4Vo4ZLCD/YIus3e1s7ksp3AlSrhXAlcM3YpU4fDrTqaDB6jnhQBrFb3Cf88EXUbirPl/R
+	V5Vpvn1wVyzgY9mouB0EAS
+X-Received: by 2002:a05:600c:350c:b0:493:f639:9b2f with SMTP id 5b1f17b1804b1-496b5ddd7dfmr62118035e9.39.1785063613640;
+        Sun, 26 Jul 2026 04:00:13 -0700 (PDT)
+Received: from [192.168.1.110] ([223.122.38.120])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496b4ee0e91sm132606545e9.4.2026.07.26.04.00.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 26 Jul 2026 04:00:13 -0700 (PDT)
+Message-ID: <2b553c1a-a2d3-44d8-8e98-976835e3d436@gmail.com>
+Date: Sun, 26 Jul 2026 19:00:06 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6/7] spmi: apple: use IRQ for RX FIFO if possible
+Content-Language: en-MW
+To: Sasha Finkelstein <k@chaosmail.tech>, Sven Peter <sven@kernel.org>,
+ Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ Alba Mendez <me@alba.sh>
+References: <20260725-t603x-spmi-v1-0-e1a29fcd2d38@chaosmail.tech>
+ <20260725-t603x-spmi-v1-6-e1a29fcd2d38@chaosmail.tech>
+From: Nick Chan <towinchenmi@gmail.com>
+In-Reply-To: <20260725-t603x-spmi-v1-6-e1a29fcd2d38@chaosmail.tech>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260725151314.0DA151F000E9@smtp.kernel.org>
 
-On Sat, Jul 25, 2026 at 03:13:13PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
-> 
-> New issues:
-> - [Medium] The true error code from devm_regmap_init_i2c is discarded and masked as a hardcoded -EIO.
-> 
-> Pre-existing issues:
-> - [Critical] Missing synchronization in NVMem transfer function leads to SRAM address page corruption.
-> - [High] Unprotected read-modify-write sequences on the RTC status register (ABX8XX_REG_STATUS) between process context and the threaded IRQ handler.
-> --
-> 
-> --- Patch [5]: [PATCH v2 5/8] rtc: abx80x: use regmap instead of I2C specific API ---
-> commit 5491aafa92a95d35d02d312fb0fd904216ed5a97
-> Author: Antoni Pokusinski <apokusinski01@gmail.com>
-> 
-> rtc: abx80x: use regmap instead of I2C specific API
->     
-> Rework the driver so that it uses regmap_* functions for communication
-> with the device instead of the i2c_smbus_* API. This way the support for
-> ABX81X RTCs which use SPI can be added later.
-> 
-> > diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
-> > index b83c789e213d6..3c5ab0ffbea84 100644
-> > --- a/drivers/rtc/rtc-abx80x.c
-> > +++ b/drivers/rtc/rtc-abx80x.c
-> [ ... ]
-> > @@ -279,36 +283,35 @@ static irqreturn_t abx80x_handle_irq(int irq, void *dev_id)
-> >  	 * reset kicks in.
-> >  	 */
-> >  	if (status & ABX8XX_STATUS_WDT) {
-> > -		dev_alert(&client->dev, "watchdog timeout interrupt.\n");
-> > +		dev_alert(dev, "watchdog timeout interrupt.\n");
-> >  		handled = IRQ_HANDLED;
-> >  	}
-> >  
-> >  	if (handled == IRQ_HANDLED)
-> > -		i2c_smbus_write_byte_data(client, ABX8XX_REG_STATUS,
-> > -					  status & ~(ABX8XX_STATUS_AF | ABX8XX_STATUS_WDT));
-> > +		regmap_write(priv->regmap, ABX8XX_REG_STATUS,
-> > +			     status & ~(ABX8XX_STATUS_AF | ABX8XX_STATUS_WDT));
-> 
-> [Severity: High]
-> This is a pre-existing issue, but can concurrent read-modify-write sequences
-> on the ABX8XX_REG_STATUS register overwrite each other's changes?
-> 
-> The threaded IRQ handler abx80x_handle_irq() acknowledges interrupts with an
-> unlocked read-modify-write. At the same time, abx80x_ioctl() does an unlocked
-> read-modify-write to clear the BLF bit:
-> 
-> abx80x_ioctl()
->     case RTC_VL_CLR:
->         err = regmap_read(priv->regmap, ABX8XX_REG_STATUS, &status);
->         status &= ~ABX8XX_STATUS_BLF;
->         err = regmap_write(priv->regmap, ABX8XX_REG_STATUS, status);
-> 
-> If the ioctl races with the threaded IRQ handler, could this lead to lost
-> interrupt acknowledgments or lost battery low flags?
-> 
-> [ ... ]
-> > @@ -702,31 +704,27 @@ static int abx80x_nvmem_xfer(struct abx80x_priv *priv, unsigned int offset,
-> >  	int ret;
-> >  
-> >  	while (bytes) {
-> > -		u8 extram, reg, len, lower, upper;
-> > +		u8 reg, len, lower, upper;
-> >  
-> >  		lower = FIELD_GET(NVMEM_ADDR_LOWER, offset);
-> >  		upper = FIELD_GET(NVMEM_ADDR_UPPER, offset);
-> > -		extram = FIELD_PREP(ABX8XX_EXTRAM_XADS, upper);
-> >  		reg = ABX8XX_SRAM_BASE + lower;
-> >  		len = min(lower + bytes, (size_t)ABX8XX_SRAM_WIN_SIZE) - lower;
-> >  		len = min_t(u8, len, I2C_SMBUS_BLOCK_MAX);
-> >  
-> > -		ret = i2c_smbus_write_byte_data(priv->client, ABX8XX_REG_EXTRAM,
-> > -						extram);
-> > +		ret = regmap_update_bits(priv->regmap, ABX8XX_REG_EXTRAM,
-> > +					 ABX8XX_EXTRAM_XADS, upper);
-> >  		if (ret)
-> >  			return ret;
-> >  
-> >  		if (write) {
-> > -			ret = i2c_smbus_write_i2c_block_data(priv->client, reg,
-> > -							     len, val);
-> > +			ret = regmap_bulk_write(priv->regmap, reg, val, len);
-> 
-> [Severity: Critical]
-> This is a pre-existing issue, but does this missing synchronization lead to
-> SRAM address page corruption?
-> 
-> The NVMem core does not serialize device callbacks, which means two threads
-> could access NVMem concurrently. If Thread A updates ABX8XX_REG_EXTRAM to
-> select the address page, could Thread B preempt and update the same register
-> to a different page before Thread A performs its bulk write?
-> 
-> Would Thread A then write data to the wrong SRAM page?
 
-Ok so according to the review this driver is missing locking altogether. Most of
-the comments from sashiko in this v2 regard some race conditions that
-exist here. To sum up, the problems are:
-* concurrent accesses to the NVMEM xfer function
-* lack of synchronization for any "write_config_key + reg_write" operation 
-* concurrent accesses to REG_STATUS
 
-I think that adding a single mutex and proper lock guards all
-over the driver code would be sufficient, will do that in v3
-in a separate patch.
-Perhaps some finer-grained locking would be possible but this 
-would complicate things too much in my opinion. 
+Sasha Finkelstein 於 2026/7/25 晚上9:48 寫道:
+> From: Alba Mendez <me@alba.sh>
+> 
+> The IRQ fires as soon as the reply is available, which is usually takes
+> a few us instead of the 10ms sleep interval for polling
+> 
+> Signed-off-by: Alba Mendez <me@alba.sh>
+> Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
+> ---
+>  drivers/spmi/spmi-apple-controller.c | 97 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+>  1 file changed, 96 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/spmi/spmi-apple-controller.c b/drivers/spmi/spmi-apple-controller.c
+> index d8509f027df6..d627187b3ac0 100644
+> --- a/drivers/spmi/spmi-apple-controller.c
+> +++ b/drivers/spmi/spmi-apple-controller.c
 
+[...]
+
+> @@ -195,6 +277,7 @@ static int apple_spmi_probe(struct platform_device *pdev)
+>  
+>  	spmi = spmi_controller_get_drvdata(ctrl);
+>  	mutex_init(&spmi->fifo_lock);
+> +	init_completion(&spmi->fifo_rx);
+>  
+>  	spmi->regs = devm_platform_ioremap_resource(pdev, 0);
+>  	if (IS_ERR(spmi->regs))
+> @@ -206,11 +289,23 @@ static int apple_spmi_probe(struct platform_device *pdev)
+>  	ctrl->write_cmd = spmi_write_cmd;
+>  	ctrl->cmd = spmi_cmd;
+>  
+> +	irq = platform_get_irq_optional(pdev, 0);
+> +	if (irq < 0 && irq != -ENXIO)
+> +		return irq;
+> +	if (irq >= 0) {
+> +		ret = apple_spmi_init_irq(pdev, spmi, irq);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+>  	ret = devm_spmi_controller_add(&pdev->dev, ctrl);
+>  	if (ret)
+>  		return dev_err_probe(&pdev->dev, ret,
+>  				     "spmi_controller_add failed\n");
+>  
+> +	dev_dbg(&pdev->dev, irq >= 0 ? "Initialized with IRQ" :
+> +			"Initialized without IRQ, falling back to polling");
+> +
+This does not compile with clang:
+
+drivers/spmi/spmi-apple-controller.c:453:22: error: initializer element is not a compile-time constant
+  453 |         dev_dbg(&pdev->dev, irq >= 0 ? "Initialized with IRQ" :
+      |                             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  454 |                         "Initialized without IRQ, falling back to polling");
+      |                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+>  	return 0;
+>  }
+>  
 > 
-> [ ... ]
-> > @@ -779,6 +809,7 @@ MODULE_DEVICE_TABLE(i2c, abx80x_id);
-> >  
-> >  static int abx80x_probe(struct i2c_client *client)
-> >  {
-> > +	struct regmap *regmap;
-> >  	struct device_node *np = client->dev.of_node;
-> >  	struct abx80x_priv *priv;
-> >  	int i, data, err, trickle_cfg = -EINVAL;
-> > @@ -793,8 +824,27 @@ static int abx80x_probe(struct i2c_client *client)
-> >  	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
-> >  		return -ENODEV;
-> >  
-> > -	err = i2c_smbus_read_i2c_block_data(client, ABX8XX_REG_ID0,
-> > -					    sizeof(buf), buf);
-> > +	regmap = devm_regmap_init_i2c(client, &abx80x_regmap_config_i2c);
-> > +	if (IS_ERR(regmap)) {
-> > +		dev_err(&client->dev, "Unable to allocate regmap\n");
-> > +		return -EIO;
-> > +	}
-> 
-> [Severity: Medium]
-> Should this code return the actual error code from devm_regmap_init_i2c() 
-> (such as -ENOMEM or -ENODEV) via PTR_ERR(regmap) instead of discarding it 
-> for a hardcoded -EIO?
-> 
-> Masking the original error code could make debugging initialization failures 
-> more difficult.
-Yes, there should be PTR_ERR() in here, same situation as with the devm_regmap_init_spi()
-in PATCH 8.
-> 
-> -- 
-> Sashiko AI review � https://sashiko.dev/#/patchset/20260725145718.14733-1-apokusinski01@gmail.com?part=5
+
+Best Regards,
+Nick Chan
+
