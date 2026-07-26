@@ -1,158 +1,230 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BFC91F942
-	for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 06:05:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 298C42DB79F
+	for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 06:05:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785045938; cv=none; b=iP0rua+3xH6d0vzs+OhZJTBLnCs8dtF3vIm+CU/dfIwwP+vpEmycwVvW13IUHQ6ZhWD5jddx47RUTKknKmQymzn0CNlWxHrgF384+i7GcMCpDB3jCH+88bQcRCIjFsVCvY3PKxz8V3pt51DBVvweIbsnIE5WEVHNLWLh2TPY7OM=
+	t=1785045944; cv=none; b=AHFhJLPBqAIur5X6A4k/ISahWJpHpVUumxt+IreIN0b+DQ6t20AmSiM9dFvLLZRQVlK/Ke0EIkRSvLUy7VsA1bPE9eM0qUVsylp+aRRxMnfLcMV1azjvvDp1pit0Y0GLP/DpRrkReSLSK42ZTX3xlVArS2zPe7YKq8tknFZDsnA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785045938; c=relaxed/simple;
-	bh=40zpfViN+7Q0xCKBBKX3Alj90YxzKrmDjc1wuxneNi0=;
+	s=arc-20240116; t=1785045944; c=relaxed/simple;
+	bh=/IkxRPrG2WwFv0UPs539QpG61ersp19e49AXKclvR8M=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=WuKUVCRzU9NasSBMtLSrmZvl9YudfhnaqtKrPDm/PzxxiUaoM4yKNNwKM5sQQZX2z8oVlBvf/25J68aCbbB1oLHJ2txRoQ1kea9mzF4F3utpvczDwPOYmt/FAePKltBuQUwI4A/338FOX5PSZTrJj5gO1j3rk8JzY1PrPZQbFNE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BWAUFIvS; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=A4qSBc4c9ORL8FtoPHpZRIYsUc8+dcYdApZQoAday7BL2to6mFD7STPomMLtkGrw0OrW8B/x+47rNgSXAL3822YK3xvES43l5/eH7GzLJjyqsHrEZ1R3RkczaamSlsw5JDWZWL6hixkrGpqaefMskM8fzdb/ZUrCCgTNBq7zGPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WgGFcu0j; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BWAUFIvS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A27031F000E9;
-	Sun, 26 Jul 2026 06:05:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WgGFcu0j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 712191F000E9;
+	Sun, 26 Jul 2026 06:05:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785045936;
-	bh=AHEs0YPHzrGTC91zFRBuFUM7pC5SvtEC9O2JXVX0ONo=;
+	s=k20260515; t=1785045942;
+	bh=qNxDKs4IyoVOCwnQ67UAtAvYZoEcxe7+LeCLj0ZkDy8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BWAUFIvSxk/4Tp/9cgYiHJgxngqE+7GgymYMHHHKvYZxdDi8/rYRRQ3JUV4QTz4cS
-	 Cumo2PofYlA1uB316mzlGE6UgRatLcilWeT+CKrzrhQERVXE4pCfysNPRzAKl180z+
-	 np8u7khHfbHQv32epEBOs1IyOr7yU20DufukdJK2nk39GPQnnv6291HIK8eiwCcDf8
-	 PcfCmGjeO+XoJjsUoaXP9HOdrCV5SYNfDc9tOkCkPelQaIUQasdouTtH+EfB1rDV33
-	 wFpiLWw90cwxLg36jVGDZsK3fPMkV65aN5cgtnlTIwN4gJ/bn8lW3SzcKC/6qERK6I
-	 Y9hdtrdimEZ8g==
+	b=WgGFcu0jjMafY91GGeIDcnhNZW4lmu/1y7UYV7Qtwigw+nCvD1k08VILKoJ+6iNtE
+	 TPblpSlfeledJmvWEF0Z6V/y0V8SySGCEW7+mzy35fniW8kqTisiI2pbDbakz+FIPg
+	 C1yVOKrQX3BMG8C8yxBoINaBd5p4pciRCQQ9JoBTQfk7owg1kajTgcO1fTkvVI4PMd
+	 f1g+6wzVchzeLLtZu1cTgbd7zp/yeD5iP8loKnz7ajmUn5wl4r/EaM4pK3ihdBJqwH
+	 3w5+gRNzaJ4XuPMVnXV69HbPsbbAfX8BgR8nueTZmsg77bPrSSwKWbrGaXxe0jcjru
+	 O7FlEMMsriovQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 08/14] media: iris: Add power sequence for glymur
+Subject: Re: [PATCH v10 05/14] media: iris: Skip DMA mask setting to core
+ device when IOMMU is not mapped
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Vishnu Reddy" <busanna.reddy@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20260726-glymur-v10-8-de451559e88b@oss.qualcomm.com>
+Cc: media-ci@linuxtv.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260726-glymur-v10-5-de451559e88b@oss.qualcomm.com>
 References: <20260726-glymur-v10-0-de451559e88b@oss.qualcomm.com>
- <20260726-glymur-v10-8-de451559e88b@oss.qualcomm.com>
+ <20260726-glymur-v10-5-de451559e88b@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 26 Jul 2026 06:05:36 +0000
-Message-Id: <20260726060536.A27031F000E9@smtp.kernel.org>
+Date: Sun, 26 Jul 2026 06:05:42 +0000
+Message-Id: <20260726060542.712191F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] Missing required NOC LPI DONE polling before hardware reset in iri=
-s_vpu36_power_off_vcodec causes a race condition.
-- [High] Iteratively dropping the shared device OPP rate to 0 before all co=
-res are powered off will cause a synchronous external abort.
+
+New issues:
+- [High] Incorrect DMA mask configuration on legacy platforms when IOMMU is=
+ missing or disabled, leading to DMA allocations outside hardware limits.
+
+Pre-existing issues:
+- [High] Use-After-Free in delayed work `sys_error_handler` due to missing =
+cancellation during device removal.
+- [High] Use-After-Free and locking freed memory in V4L2 file operations du=
+e to `core` context being tied to `devres` instead of being reference-count=
+ed.
+- [High] Race condition exposing video device nodes before drvdata and crit=
+ical setup are complete, leading to NULL pointer dereferences or Use-After-=
+Free.
 --
 
---- Patch [8]: [PATCH v10 08/14] media: iris: Add power sequence for glymur=
- ---
-commit d2cd6a91322f190f5a10ce98b74613cfdf850a61
-Author: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+--- Patch [5]: [PATCH v10 05/14] media: iris: Skip DMA mask setting to core=
+ device when IOMMU is not mapped ---
+commit 618ea537a61c437b82cec491d04d1126e0ba8f26
+Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Subject: media: iris: Skip DMA mask setting to core device when IOMMU is no=
+t mapped
 
-media: iris: Add power sequence for glymur
+This patch modifies the probe function to only set the DMA mask on the core
+device if an IOMMU is mapped. It aims to avoid unnecessary DMA mask setup w=
+hen
+IOMMU streams are handled by subnodes rather than the parent device.
 
-This commit adds power sequencing for the glymur platform's video codec. It
-introduces support for handling multiple codec cores (vcodec0 and vcodec1) =
-that
-share a common clock source and power rails.
-
-> diff --git a/drivers/media/platform/qcom/iris/iris_vpu3x.c b/drivers/medi=
-a/platform/qcom/iris/iris_vpu3x.c
-> index 7cda946015558..1b08461ee4d70 100644
-> --- a/drivers/media/platform/qcom/iris/iris_vpu3x.c
-> +++ b/drivers/media/platform/qcom/iris/iris_vpu3x.c
-[ ... ]
-> @@ -221,6 +221,113 @@ static void iris_vpu35_power_off_hw(struct iris_cor=
-e *core)
-[ ... ]
-> +static void iris_vpu36_power_off_vcodec(struct iris_core *core, u32 core=
-_id)
-> +{
-[ ... ]
-> +	do {
-> +		writel(power_down_prep[core_id], core->reg_base + AON_WRAPPER_MVP_NOC_=
-LPI_CONTROL);
-> +		usleep_range(15, 20);
-> +		value =3D readl(core->reg_base + AON_WRAPPER_MVP_NOC_LPI_STATUS);
-> +
-> +		handshake_done =3D value & lpi_status_done[core_id];
-> +		handshake_busy =3D value & (lpi_status_deny[core_id] | lpi_status_acti=
-ve[core_id]);
-> +
-> +		if (handshake_done || !handshake_busy)
-> +			break;
+> diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/medi=
+a/platform/qcom/iris/iris_probe.c
+> index 2594f5a67378a..c40c4ec44e83e 100644
+> --- a/drivers/media/platform/qcom/iris/iris_probe.c
+> +++ b/drivers/media/platform/qcom/iris/iris_probe.c
+> @@ -310,9 +310,11 @@ static int iris_probe(struct platform_device *pdev)
+> =20
+>  	dma_mask =3D core->iris_platform_data->dma_mask;
+> =20
+> -	ret =3D dma_set_mask_and_coherent(dev, dma_mask);
+> -	if (ret)
+> -		goto err_vdev_unreg_enc;
+> +	if (device_iommu_mapped(dev)) {
+> +		ret =3D dma_set_mask_and_coherent(dev, dma_mask);
+> +		if (ret)
+> +			goto err_vdev_unreg_enc;
+> +	}
 
 [Severity: High]
-Can this loop exit prematurely if the NOC hasn't yet transitioned to busy?
+Does this skip the DMA mask configuration on legacy platforms if the IOMMU =
+is
+simply disabled or missing (e.g., via the iommu=3Doff kernel parameter)?
 
-If `handshake_busy` is initially 0 after writing to `power_down_prep`, the =
-loop
-will break before the NOC LPI DONE status is asserted.
+If device_iommu_mapped() is false, the required hardware DMA mask is skippe=
+d.
+However, on legacy platforms, core->np_dev is NULL, so core->dev is still
+used as a fallback for DMA allocations:
 
-> +
-> +		writel(0, core->reg_base + AON_WRAPPER_MVP_NOC_LPI_CONTROL);
-> +		usleep_range(15, 20);
-> +	} while (++count < 1000);
-> +
-> +	if (!handshake_done && handshake_busy)
-> +		goto disable_power;
-> +
-> +	writel(0, core->reg_base + AON_WRAPPER_MVP_NOC_LPI_CONTROL);
-> +
-> +	writel(bridge_sw_reset[core_id] | bridge_hw_reset[core_id],
-> +	       core->reg_base + CPU_CS_AHB_BRIDGE_SYNC_RESET);
+drivers/media/platform/qcom/iris/iris_hfi_queue.c:iris_hfi_queues_init() {
+    ...
+	struct device *dev =3D core->np_dev ? core->np_dev : core->dev;
+	...
+	core->iface_q_table_vaddr =3D dma_alloc_attrs(dev, queue_size,
+    ...
+}
 
-[Severity: High]
-Without an additional poll for the DONE status (as seen in
-`iris_vpu33_power_off_hardware`), couldn't asserting a bridge reset here wh=
-ile
-the NOC is still active or transitioning cause a hardware bus hang?
+Without the mask being set, dma_alloc_attrs() will use the platform's defau=
+lt
+32-bit mask. Can this allow allocations in physical memory regions the
+hardware cannot address, leading to DMA corruption or hardware faults?
 
-> +	writel(bridge_hw_reset[core_id], core->reg_base + CPU_CS_AHB_BRIDGE_SYN=
-C_RESET);
-> +	writel(0x0, core->reg_base + CPU_CS_AHB_BRIDGE_SYNC_RESET);
-> +
-> +disable_power:
-> +	iris_genpd_set_hwmode(&core->vcodec[core_id], false);
-> +	iris_disable_power_domain_and_clocks(core, &core->vcodec[core_id]);
-> +}
-> +
-> +static void iris_vpu36_power_off_hw(struct iris_core *core)
-> +{
-> +	u32 num_cores =3D core->iris_platform_data->num_cores;
-> +	int i;
-> +
-> +	for (i =3D 0; i < num_cores; i++)
-> +		iris_vpu36_power_off_vcodec(core, i);
+> =20
+>  	dma_set_max_seg_size(&pdev->dev, DMA_BIT_MASK(32));
+>  	dma_set_seg_boundary(&pdev->dev, DMA_BIT_MASK(32));
 
 [Severity: High]
-Could this loop cause a synchronous external abort when shutting down multi=
-ple
-cores?
+This isn't a bug introduced by this patch, but does iris_remove() fail to=20
+cancel the sys_error_handler delayed work?
 
-When `iris_vpu36_power_off_vcodec()` powers off the first core, it reaches
-the `disable_power` label and calls `iris_disable_power_domain_and_clocks()=
-`,
-which executes:
+drivers/media/platform/qcom/iris/iris_probe.c:iris_remove() {
+	...
+	iris_core_deinit(core);
 
-    iris_opp_set_rate(core->dev, 0);
+	video_unregister_device(core->vdev_dec);
+	video_unregister_device(core->vdev_enc);
 
-When the loop then iterates to the next core, `iris_vpu36_power_off_vcodec(=
-)`
-will read hardware registers such as `WRAPPER_CORE_POWER_STATUS` and
-`WRAPPER_CORE_CLOCK_CONFIG`. Is it safe to read these registers when the
-shared device voltage vote (OPP rate) has already been dropped to 0?
+	v4l2_device_unregister(&core->v4l2_dev);
 
-> +}
+	iris_deinit_cb_devs(core);
+
+	mutex_destroy(&core->lock);
+}
+
+The driver initializes a delayed work sys_error_handler which can be schedu=
+led
+dynamically. During device unbind, iris_remove() is called but does not
+explicitly cancel this work.
+
+Because the iris_core structure is allocated with devm_kzalloc(), it is
+automatically freed by devres when iris_remove() returns.
+
+If the delayed work fires after the device is unbound, it accesses the freed
+core structure:
+
+drivers/media/platform/qcom/iris/iris_probe.c:iris_sys_error_handler() {
+	struct iris_core *core =3D
+			container_of(work, struct iris_core, sys_error_handler.work);
+
+	iris_core_deinit(core);
+	...
+}
+
+Can this lead to a Use-After-Free if hardware errors race with unbind event=
+s?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but is the driver context
+vulnerable to a Use-After-Free during V4L2 file release?
+
+Because core is allocated via devm_kzalloc() in probe, its lifetime is tied
+to the device bind cycle. If a userspace process holds the file descriptor
+open and the driver is unbound, iris_remove() returns and devres frees the
+core structure.
+
+When the user later closes the file, the VFS calls iris_close():
+
+drivers/media/platform/qcom/iris/iris_vidc.c:iris_close() {
+    ...
+	iris_remove_session(inst);
+    ...
+}
+
+Which in turn accesses the lock inside the freed core structure:
+
+drivers/media/platform/qcom/iris/iris_vidc.c:iris_remove_session() {
+	struct iris_core *core =3D inst->core;
+	...
+	mutex_lock(&core->lock);
+	...
+}
+
+Should the core structure be reference-counted rather than tied to devres to
+prevent this from being triggered by unprivileged userspace holding an open
+file descriptor?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does
+iris_register_video_device() expose the video device node to userspace befo=
+re
+drvdata is fully initialized?
+
+drivers/media/platform/qcom/iris/iris_probe.c:iris_register_video_device() {
+    ...
+	ret =3D video_register_device(vdev, VFL_TYPE_VIDEO, -1);
+	if (ret)
+		goto err_vdev_release;
+
+	video_set_drvdata(vdev, core);
+    ...
+}
+
+video_register_device() immediately exposes the /dev/videoX node to userspa=
+ce.
+If a concurrent open() wins the race, it will read a NULL core:
+
+drivers/media/platform/qcom/iris/iris_vidc.c:iris_open() {
+	struct iris_core *core =3D video_drvdata(filp);
+    ...
+	ret =3D pm_runtime_resume_and_get(core->dev);
+    ...
+}
+
+Can this lead to a NULL pointer dereference?
+
+Additionally, since iris_probe() continues with fallible setup operations
+(like setting the DMA mask) after registering the video device, if probe fa=
+ils
+later, a successful concurrent open() will retain a reference to the freed
+core, leading to a Use-After-Free.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260726-glymur-v10=
--0-de451559e88b@oss.qualcomm.com?part=3D8
+-0-de451559e88b@oss.qualcomm.com?part=3D5
