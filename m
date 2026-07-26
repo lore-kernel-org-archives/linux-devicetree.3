@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 065493890E7;
-	Sun, 26 Jul 2026 11:27:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EC5838911F;
+	Sun, 26 Jul 2026 11:27:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785065262; cv=none; b=BDw6WKIiflyceSlkUJLZtc6TlvL9Cuqg8+qsOdQYayLUZvnfgLSw23oj7ShpF6TfQy8KLze2p+ESYeq6DiFDcaL5dMHsffnJIiyluvUwp7DGI51BVNyMoVQenOE/DlItKMQAa77nE65gcVlmrdQGcSft1hkKqh5CEbPXhinJC0s=
+	t=1785065267; cv=none; b=mBEVk2D5063YIzsUj5t9Yhoik/GBLuOdM1EcPGH3UnIKVN0FEOEiEJAVosxdwtghaw5IEWasJTIf4DPdSt8hJaaecruU9FuTcIAKfYnbcJI4lIJj6SRRY5OBQbsCd77H93PAc/xuySaKUeBAnjbYcHeHbcrs3J+6d9iAnvA7kLw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785065262; c=relaxed/simple;
-	bh=0lIXeA/HukukbtwvcNzNyaonF0xu/24jaxHb9GjA9gM=;
+	s=arc-20240116; t=1785065267; c=relaxed/simple;
+	bh=/OHTI7GFA6QoxK+znTnzwjEtMxIkMe7DcVIiisq61Q8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iW3e+97nsbmjY1/BLEGxs0wn8LRFOgBJFuLaO0CioQ5h93B/7MF2nDJ3ks1ScZwa6rdFyKRB1fmsUIQSAk77W22kqE1UmZDwpXqzgnoiTuXKqBbkcsPFhAP3k4EZL7PFuS3RKAxtEQlsqPAKEUs67o1Y90qP7LbKraflxbr/tL0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JhaPEe43; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=J2Gfx3XIDQaMBt4qnegqxuz4IpKvQKFwU9+t9JkrZ/T3J0VDE/9g1zTlrBLr6x8Q52XG95Gfl27FBxkDtAN5v6CCQarsnlgB9XQTbrv/AAYkzCAqMmyBJCUUZL0YnUoS7eR2GZPtw2SCurwFLVwbQP+yJv2PaljNC45EuwcafYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bFwthwBB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JhaPEe43"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D95F1F000E9;
-	Sun, 26 Jul 2026 11:27:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bFwthwBB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA52F1F00A3A;
+	Sun, 26 Jul 2026 11:27:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785065253;
-	bh=SAGuHYLzec3TiXchYLxlBSFHawNmAE0FcVZoRl9MzV0=;
+	s=k20260515; t=1785065260;
+	bh=BD67O4VxjpIvpQkBY4qU/I0nnLqaoQK18bmEHcUuNU4=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=JhaPEe43r2Y9whJmEZzUG34GQC0C6KtVfXPNa219FRRpMOmJSPvn+z5KDoM7JMSks
-	 GJxCFVPR8KJ35fQoHbf3oZCbfJ/aFi2d++HzhK6BhkS8wYX46ZBLfPwI4D8MMDVYc7
-	 fT01nGVH4c8bGtADv9GBcJpvhfaz9aU4YxUAioQVYof/eRhyd0EYwIXmoWf95/ZFGW
-	 /BlYPwdjFVXziYWwIZgON9K6Ggpy33Cl9IYobondTexqbJLb2MWolqufz4FyUjRS0B
-	 g9CVnGEOeF8XIGGpd8t7lehqnBqYK3LlX2rwFtuVoPdOydLrap+utQC2eVTLUTlgZ4
-	 qWVPZJa/2VFpQ==
-Message-ID: <3f4397e4-fdf0-4c79-ad91-42c6b6f200d6@kernel.org>
-Date: Sun, 26 Jul 2026 13:27:19 +0200
+	b=bFwthwBB+8VzKDqeSOeJBOabb7INmugR1qe4ekQkgIJOA/+Ppa2tP4rRvPj2QgNCi
+	 Oo3Dsk0hRS1W4QcIPaMj0J6naWVbWJdmyH2zzIvAeHT+Vm5v8+6ot2zwblI0R/9goJ
+	 LNp25GZYNPNOYMbyL/ftVh7onSraKfduBqZ0EkOEf8Srms6yIormtf1CqD6WVQPe1G
+	 dd4GoGG8VwQdbAkcXrYbx0ZWilTg9+5QHP/mRIJ9jUX48EosfJ+LIno6k7GrarbCgH
+	 iF5Waw6r8v/p1YVvAqEMjPN9TRJu1TQ0xdXnaMJBLWUx4Ugn9YH/A+m+aZwefLUo7j
+	 Nm/IWK1BHeIiQ==
+Message-ID: <6a6bfe58-2b9b-46f2-9f16-d0abebf6337a@kernel.org>
+Date: Sun, 26 Jul 2026 13:27:23 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,26 +35,19 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next] dt-bindings: net: fix spelling errors
-To: "shaikh.kamal" <shaikhkamal2012@gmail.com>,
- Frank <Frank.Sae@motor-comm.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Clark Wang <xiaoning.wang@nxp.com>, Shawn Guo <shawnguo@kernel.org>,
- Linux Team <linux-imx@nxp.com>,
- Christophe Roullier <christophe.roullier@foss.st.com>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-References: <20260726052429.16807-1-shaikhkamal2012@gmail.com>
+Subject: Re: [PATCH wireless-next] dt-bindings: net: wireless: mediatek,mt76:
+ fix 'spacial' spelling
+To: "shaikh.kamal" <shaikhkamal2012@gmail.com>, Felix Fietkau <nbd@nbd.name>,
+ Lorenzo Bianconi <lorenzo@kernel.org>, Ryder Lee <ryder.lee@mediatek.com>,
+ Shayne Chen <shayne.chen@mediatek.com>, Sean Wang <sean.wang@mediatek.com>,
+ Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org
+References: <20260726053817.17409-1-shaikhkamal2012@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -100,22 +93,19 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260726052429.16807-1-shaikhkamal2012@gmail.com>
+In-Reply-To: <20260726053817.17409-1-shaikhkamal2012@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26/07/2026 07:24, shaikh.kamal wrote:
-> Fix spelling errors reported by codespell:
-> 
->   encompases -> encompasses (stm32-dwmac, sti-dwmac, nxp,dwmac-imx)
->   curren     -> current     (motorcomm,yt8xxx)
-> 
-> No functional change.
+On 26/07/2026 07:38, shaikh.kamal wrote:
+> Fix spelling error reported by codespell: spacial -> spatial
+> (spatial reuse). No functional change.
 > 
 > Signed-off-by: shaikh.kamal <shaikhkamal2012@gmail.com>
 > ---
->  Documentation/devicetree/bindings/net/motorcomm,yt8xxx.yaml | 4 ++--
-
+>  .../bindings/net/wireless/mediatek,mt76.yaml           | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
+> 
 
 Slow down. Same comments.
 
