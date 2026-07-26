@@ -1,104 +1,130 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out-178.mta1.migadu.com (out-178.mta1.migadu.com [95.215.58.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C189724A05D
-	for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 09:06:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7E691E1DE5
+	for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 09:59:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785056770; cv=none; b=Me4xDARdRHGxM0zqahAaW9yJyhC1boWtcpfsvPfLVBooPoePGKKw47aK4hiLRsGq6P1tQs02Bvhe8dBbvUQVPik1xu3WQJ8QpqLCJoNiGhOWbhYOGtHQZHNKY3LjXyqWXe+O/qmqyGG9zPSwh6FerXKVsQW5LemmSCXKzweFvQs=
+	t=1785059978; cv=none; b=abBA2r9zMusB0uQmRv+jayrL7GGTQOdzsIXbsDAm+1hFP7tD/ZppyW5rQiUN0gDy4juH3LQN496aSt/RJ6JDxb6aMPoeJZ9yEyGmayw/tmygwoyPgSHMahHkX79pCcfYqrhBzwEsvbPRscPJq3+G/ImWcKUbDNLWdBqPB2PW0ds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785056770; c=relaxed/simple;
-	bh=V78hChhCrscCnvnv5/pHiVVnsud/AwwRRDowG7jh4Ls=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KN8IIDbpI/wsfk6ZFg2v1SWEGoZUdlVGwSHFOUpZdCjeeq2wMIkB2TK10UTRTAAXwcIjHL0qAx7BJ7xYg5SqoZbG8/sSUoj7Gvy0R7TEHDbm2vwtUTT42WI4YZMJQqflk6UkW3lfiyrE+gw6MJcaIRWNkWzILmqEGRU6nDLBnJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZmRWezpn; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785059978; c=relaxed/simple;
+	bh=tvcKytaHRkT6941rbzRwqc1wJE8yqzbnu0SBrJTW1Ko=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=XMBWp3Tgehap/xpFWENQ6MxFmdF9NJ4tH5Z9BR6aoFHuzwV26/G9PZRiooDna56g58jw3StJlifL/uVXX57+XJL195HnqS3spjnoqKpoUjnA4MnV/vWLhWgAS1YI9vngSBA0AagcoFwXKzZhvJxd7WqglJzeNlaPbwAj7tRary8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=A+V6Eltj; arc=none smtp.client-ip=95.215.58.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZmRWezpn"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-47de0093c42so1337726f8f.3
-        for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 02:06:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785056767; x=1785661567; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mzYmvsHWYiBx5JQL06JjS0oT2r4n8LrZRrz3cjBVBr0=;
-        b=ZmRWezpnkuKdy0E27CEHE/Wkw10wKkwes8px2lc/uAzWAdW696l1BNZUGxi1jGlr+u
-         wF56wI6gwyUsmSdvV/1mYn3h/PO9stNiPekvkYrgl/RV45kGEcJAQQKKkGPa1wuDyITr
-         OhctRJKUlLH436evIFq9HnV6QImGRbKn4cleXRS9yfBK2fKOSrJh5FJvSD48YoWuH/Tt
-         VgA9o8mtqO9ZHB3mN/pCGMdTp9mApnErrwh0wqi/cGlEImiRpjWJE9IKANisOu0dE7Tt
-         LEHUMofwijnSn9OqUnnJriTfIbVqQN3UfO4diFzQDCJoQM4NGBDu7EnN1IkUzIUIJT8y
-         ZKxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785056767; x=1785661567;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mzYmvsHWYiBx5JQL06JjS0oT2r4n8LrZRrz3cjBVBr0=;
-        b=K55PE2VOd78ACvtUDiLnrc++/qFpNrK9tZtjm4eu+5SAfN/oEr6ALRfO2yfC6GRRKd
-         4WBiHtyiUsIxz5tc6/n4z9EVA5tiDneiZ7pltDaP7JRRgb7fDJ40T822UBLsyWhnrnAJ
-         fZnzLaioE1m6vbJYW8CpFr95ncf5oMe8z6cNmlxIX6lK/ft8Y53Q+8/yh6bjsuXo3SRx
-         EPw22N4YN/1fY1owd7gBRJze2B3ca+NGKq2oTHiY8v4v5xcCt6SYU99O3mP6bOakT9Fo
-         36arhkMMq7RoD5PY9SouT/L8mP315Pcb1Fl8LYwY1yTYGfnrewYMb6i5UAQCr20x6sJe
-         Q0BQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpPTaThAHGZ/bXCW8V0w3ZFhZPSLGgUxwK8BDKhvf11P+rt9M2Vimldc8WEyHhHTeD6BnqS1xujAviE@vger.kernel.org
-X-Gm-Message-State: AOJu0YxDhiUPOkhCTBCBizAajnHHsVwT8uHrg5UgWjieooKbTJpDIclN
-	CXbxvF977bY9+IAKe6veHusHN6y+BixxzW1C0YZGOALfvef0GpnBlRqH
-X-Gm-Gg: AR+sD10YcT1KEgRQ39S5kXSX1plDofC1uZaWqpBj3fqKIWM3u+BxniIbtolyWLCal4F
-	cvSBGoRLSrawHGJVOU2sWS/U0UnOgAFACb9xKSQ322Ab+2d4L2sLTVlPk4Xe1gjnqwnjJH8P608
-	lwsi2T8TqbxGOwoe2UEpFyszCmXtcoUZ4ugt9jd+vBYfUdVv3HJPaKAOpggCHjRhMBH39fJGzXC
-	yMCxyp/c7UpALIPGgJ6as8jDHowZxSo92XlWwx9APuNqJMKDZnfEN44d5g8iMdkWJBU7nMX4ICb
-	QuxuORwgrT5+wyGUbhUjPq30RwP0kI0JrtdblJd7FKcax1GdV+51DFwL2aVdpLnRs9TA/MIs5Ev
-	jP+G8oCZVwu9PBYJSyA0D/fct6wFl528q+a6jPYDUVv1w5naIkLO7Iy8c1cYuT89V7LTibjqWE4
-	aNCMny5y5BWvx7BLoZI1snvEsoXWPxL2DZpoPacAyc6gvvFjNCSrlIJl8O12SKcanltIb1oEJdk
-	Elj70pE6uegxKpx2TY4I0lBxjJFgYI9Im8NQHriInLkGy+n+ivL6CMtzgqQHxunBRgzUQmjfU0s
-	bWhAffsGPONGGp0Qswej8p8a76gChtH/2IEEm3topzMHrcQRVImvHdvJaEGn8a5cmauYJPhKmLj
-	8xnbdVq34rbE=
-X-Received: by 2002:a05:6000:25e7:b0:47f:9176:da23 with SMTP id ffacd0b85a97d-47f9fa68b26mr5532266f8f.0.1785056766844;
-        Sun, 26 Jul 2026 02:06:06 -0700 (PDT)
-Received: from systembl0wer (ip-86-49-244-181.bb.vodafone.cz. [86.49.244.181])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f864305f5sm37570794f8f.17.2026.07.26.02.06.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 26 Jul 2026 02:06:06 -0700 (PDT)
-Date: Sun, 26 Jul 2026 11:06:04 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: "shaikh.kamal" <shaikhkamal2012@gmail.com>
-Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Michael Hennerich
- <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, David
- Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, linux@analog.com, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: iio: dac: adi,ad5791: fix 'referance'
- spelling
-Message-ID: <20260726110604.30622c6a@systembl0wer>
-In-Reply-To: <20260726055609.18326-1-shaikhkamal2012@gmail.com>
-References: <20260726055609.18326-1-shaikhkamal2012@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="A+V6Eltj"
+Message-ID: <196a781d5ff487fb890abc8c3ed2ae07f8614b38.camel@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1785059964;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tvcKytaHRkT6941rbzRwqc1wJE8yqzbnu0SBrJTW1Ko=;
+	b=A+V6Eltj9T2DU0S7tdXl/SLh6KWvh2o0KMHm2G1VfJvy/IOciOw8K3yxR2SECGNHLk51Wu
+	C6RNgRdfTLyKJjhigPGGToPbtX0xURTvIWm1d/ldLB4EdDpFpqjLGcgpN9X/JhpLQMIgyN
+	MtqztQ1ydGkhcMvGG6VShFJlSlbUyCU=
+Subject: Re: [PATCH v5 1/2] dt-bindings: iio: adc: add maxim,max40080
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Siratul Islam <siratul.islam@linux.dev>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Stefan Popa <stefan.popa@analog.com>, linux-iio@vger.kernel.org, 
+	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, andy@kernel.org, nuno.sa@analog.com, 
+	linux@roeck-us.net, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, 	dlechner@baylibre.com, ciprian.hegbeli@analog.com,
+ u.kleine-koenig@baylibre.com
+Date: Sun, 26 Jul 2026 15:59:09 +0600
+In-Reply-To: <20260726003152.1d9f36d5@jic23-huawei>
+References: <20260723065036.2683075-1-stefan.popa@analog.com>
+		<20260723065036.2683075-2-stefan.popa@analog.com>
+		<a79b2fd8d08d4594bbb472b005534d7c91d86e49.camel@linux.dev>
+	 <20260726003152.1d9f36d5@jic23-huawei>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 
-On Sun, 26 Jul 2026 11:26:09 +0530
-"shaikh.kamal" <shaikhkamal2012@gmail.com> wrote:
+On Sun, 2026-07-26 at 00:31 +0100, Jonathan Cameron wrote:
+> On Thu, 23 Jul 2026 22:23:39 +0600
+> Siratul Islam <siratul.islam@linux.dev> wrote:
+>=20
+> > On Thu, 2026-07-23 at 09:50 +0300, Stefan Popa wrote:
+> > > Add device tree bindings for the Maxim MAX40080 bidirectional
+> > > current-sense amplifier with a 12-bit ADC and an I2C/SMBus interface.
+> > >=20
+> > > Signed-off-by: Stefan Popa <stefan.popa@analog.com>
+> > > ---
+> > > =C2=A0=20
+> > ...
+> > > +
+> > > +title: Maxim MAX40080 bidirectional current-sense amplifier
+> > > +
+> > > +maintainers:
+> > > +=C2=A0 - Ciprian Hegbeli <ciprian.hegbeli@analog.com>
+> > > +=C2=A0 - Stefan Popa <stefan.popa@analog.com>
+> > > +
+> > > +description: |
+> > > +=C2=A0 The MAX40080 is a high-precision, bidirectional current-sense=
+ amplifier with
+> > > +=C2=A0 an integrated 12-bit ADC and an I2C/SMBus interface. It measu=
+res the voltage
+> > > +=C2=A0 across an external shunt resistor and the input bus voltage, =
+and stores the
+> > > +=C2=A0 results in an internal FIFO.
+> > > +
+> > > +=C2=A0 Datasheet:
+> > > +=C2=A0=C2=A0=C2=A0 https://www.analog.com/en/products/max40080.html=
+=C2=A0=20
+> > This URL links to a product page rather than a datasheet as the tag sug=
+gests.
+> > Would be difficult to fetch using CLI tools.
+> > Were you supposed to use something like
+> > "https://www.analog.com/media/en/technical-documentation/data-sheets/MA=
+X40080.pdf"?
+>=20
+> I think the argument for using product pages is that they are stable and =
+datasheet
+> paths sometimes change.
+>=20
+> For ADI there is a neater form as well that is supposed to be stable (and
+> has been for last few years at least)
+> https://www.analog.com/max40080
+> Works for any product and takes you to the equilvalent product page to th=
+e
+> link above.
+>=20
+> So whilst you make a good point I think we will have to let Analog decide
+> on a standard way to link to their product info / datasheets.=C2=A0 That =
+is
+> on the perhaps optimistic basis they have more insight into stable choice=
+s
+> than we do!
+>=20
+I was just nitpicking because it said "Datasheet" to point to a link which =
+was not a=20
+datasheet.
 
-> Fix spelling error reported by codespell: referance -> reference.
-> No functional change.
-> 
-> Signed-off-by: shaikh.kamal <shaikhkamal2012@gmail.com>
-> ---
-
-Makes sense.
-
-Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
-
--- 
-Kind regards,
-Joshua Crofts
+But yes, a standard way to link all their products (like https://www.analog=
+.com/max40080)
+makes more=C2=A0sense. I just checked and currently some adi devices use pr=
+oduct page links,
+some use PDF links and some don't include any links at all.
+> >=20
+> > > +
+> > > =C2=A0=20
+> > ...
+...
+> > >=20
+> >=20
+--
+Best regards,
+Sirat
