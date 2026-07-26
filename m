@@ -1,119 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DA261F942
-	for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 06:06:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD0DC247280
+	for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 06:06:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785045985; cv=none; b=e7tgSM4iBg+mJr4gAHKqryvFVAKTYHcnBlR8+oTwjWg/6Qfo1iNemxIAir94UacINbXqnZl0mHaN4rLLLRUINm9WBH6LTweAc8KykvS9pNHGKBNkxeR+9YcALhS5qaGpVl9WQPKkuw2H8Qh7MQYmzzVT7vwdgLHvHOsdksJz0cc=
+	t=1785046007; cv=none; b=G37WNDr4T0k6BKX6kSq7OT4OV+wSLR4GTHHL3ZZeq1aZw27j1w81iKvsTmQkjhN9KPFNbBlE4oYI9ai272VpswZlZDhVlN3c9T13+zo5jM5HsGYtkxgS1YhuQRtR4l8bfeM+ZO1FYVkGnnwtpWFJbTD1JlBtlCTLKA6RO2rFW4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785045985; c=relaxed/simple;
-	bh=edp5fSGR/yT8HdT71RB/q+xaUEI/7vpu6v7SRFqFwFQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=c5lPmQO5NlFyRPAjEqrwfzqjAkMJ4cqT1pSO3dnGaNvvpxQsmFNPe4OWOdTPUOnyvHeXVrb9Oe7dhaDFZtWuW+IbBJUaX4jU3BWQkBKCDNTqrZhO0B2xEeNGpSxhysuGVwTWxGpmPskYx0U5UD0EVhXim+2llk/xzMBgeMq+N3E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oykqYRcw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785046007; c=relaxed/simple;
+	bh=kGdQSujpsiiifHsaVUlkBEHoyFe6PWGCLejtsszHFqQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=E01b6Yh1oj3pGFDh6VSjJ5VPETwxsYMMeYBVBhMjth4htIGUkOOTeV5vs2nRnIzc95PgAkUZKO/Ty86XBTlH2yD/+I0VcarGgTsrApfmfhlOETd3q1EaozA04npBq0K5+SNPNX/DFYZ0G3GvUzE20RaFn0uqZruMDBG02v66Nd8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DEBpDJ72; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oykqYRcw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5805C1F000E9;
-	Sun, 26 Jul 2026 06:06:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785045983;
-	bh=6HzldNd7UyPIuo0hICH8tA3Axj2wcB7EZRP26bGrFos=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oykqYRcwzVWrjm7FZAJkgCCW4XFfYK5VQXFV3+8jtBAP4ky7lYdyX4rSY9sL1OrCf
-	 X+c/Nf6qIlVWhaZeIxcXnVheKu6dib+bCKmS0Oh/xeME30MKdUIwyQTD62VVtp+LrM
-	 KvkYYbigy8cYPFqM7rxlWIJ3UU5dcwZzMF7xcwFakHmyTzxrN+fl0a7UxcIscOFrw9
-	 +rqKIigqs4Tz32TXR6XgZ7AhpvqRaprR73hNtKSuZbf9a39uGuB5P+ZFDqzaspUwKC
-	 c0EHYKPz4mrrSmMmnsAGgZNZzlrlQTwVxFdgzOvfbFAIOeIBDsdauYLQo8RY2GWebA
-	 qeYLBD2D8D6OA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 07/14] media: iris: Replace enum-indexed clock and
- power domain tables with per-block structures
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vishnu Reddy" <busanna.reddy@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org, robh@kernel.org
-In-Reply-To: <20260726-glymur-v10-7-de451559e88b@oss.qualcomm.com>
-References: <20260726-glymur-v10-0-de451559e88b@oss.qualcomm.com>
- <20260726-glymur-v10-7-de451559e88b@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 26 Jul 2026 06:06:22 +0000
-Message-Id: <20260726060623.5805C1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DEBpDJ72"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2cc7ef7ec27so21513815ad.1
+        for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 23:06:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785046006; x=1785650806; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ag23eXBLMTCliH7FTzPeD+zjIZTX/IBTKJOhk5SVu5k=;
+        b=DEBpDJ72hWzo/wKR4uLVX5Qx6Ix3UVDJXGjAskIDl/uxlY10oltV2n33pb5l0OlXSC
+         50rAHK+a3N+pPQQdIMC4j5tQOAbb22cMIL5dfdQUblAmoJeJW/jXMDZYJiIiwpsLonw0
+         jYFpTUB3mogJ9gNQkmXdGKOdXLYnjbHUa9aP1Ay4pvDPFqNFQLEnpFC3Uql7mgJEGYlN
+         FNB3XTHvKHa3x8pcJk2wglcCSI6WRF1ysg64ym70Z7mlHkm3NN5ZKdQZ1VHPHOJcXW++
+         3vD0BDU3D/zMaYg/rAQqKKgVDzZKH3lG5ZmbrGkpLDB9HUaEfixD2K/hoJvXBX8bUKul
+         8Plw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785046006; x=1785650806;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ag23eXBLMTCliH7FTzPeD+zjIZTX/IBTKJOhk5SVu5k=;
+        b=Rnuw4yPnH90Tzk+Mi4+zXTfJZQtd+FbLJA2/Qyknkrz9vPugSnh7gtyjp4Wg8I+l/3
+         Jm5Fg/cCjqEblX/jTMLUgdXJf2iGL+V2nn04aRzTJXITLeiDuepmaRMl/pkwvyD0KGug
+         O2x8kPMj/A9nukYU3F/qEVaViuLvVuBo/jJH4kfGoY65p7IQYaZOv8s4lAJhsYhhLF8j
+         JC93if+5pnyIi+WogsgLDegF4WDutRaTW7T6opSqYHbT89/nN3GuPl5ilDyuaKVkiVqj
+         DHoRGvEp+RjmmLaapwvnJfj3nLcBkmyCPb8LjwVefwELyV/shm+D79BuUxtvauWU8Cpf
+         PIdA==
+X-Forwarded-Encrypted: i=1; AHgh+Rr1QRKB+4bc8G1QSBNejeNcPn08c+cn5cSAiicdj4M/6+7ASbCmqYg1tDMK+MKIlIxUAH6WR+PXG1U3@vger.kernel.org
+X-Gm-Message-State: AOJu0YzH1CjxPCbPJW+kG5tfcCBb+EPtAYuhwUxkqdrxasKYCb3hviIA
+	ODPGpPTNlxxovqt5hX8aDCZhY2+4pa1jKNDc6jMr89V/A0yL/c9hROZH
+X-Gm-Gg: AR+sD11weFlFb8fIeYXPPcM4c+Xu6y8284Fpd60+L9hyRxy2FbLfXQ3Tel9mvTsdTp6
+	TQXrw3qSM9dIwn+G020d88Ed1PLt9IJHsJZSjU58FhFncpt1dUp1TuYjVdDKHYBwmMzbUSZGnaf
+	f2S3j2m4mZ9voAF7gJJzv1ga1W5FxA/xmKN0uVKZ+ou7nxfAl+vi2MGUtLdvRbtH6hrJYtlCABg
+	+H+zqjTE39hEa3mlGXeuiWi/PJmTrVs2MTGM5CsWPlftZqAvaDO/ZE8F1JxePaO/EC1WJIXDH5Y
+	qypjvuQs+uNbHbuqFemK9FG7gc5NHKcDtQv/Ue8gqY828zKP++TVaVt25FESFbtSmlAljkelDd1
+	1+VeBYDyj2READA3K28URo1mk0h1YbXO31ubkQ2wrXffOkIYyQDOVxlG2if/AbwCDceEXgki70W
+	JekjOTsLlsTJyjqbDmN6/SfqfKpSkRROs=
+X-Received: by 2002:a17:903:944:b0:2ce:d5e4:2fcf with SMTP id d9443c01a7336-2cfde8a2236mr40642175ad.42.1785046005911;
+        Sat, 25 Jul 2026 23:06:45 -0700 (PDT)
+Received: from acer-nitro-anv15-41.entro.com ([118.34.230.2])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cfde59b5b6sm16901225ad.14.2026.07.25.23.06.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 25 Jul 2026 23:06:44 -0700 (PDT)
+From: "shaikh.kamal" <shaikhkamal2012@gmail.com>
+To: Vignesh Raghavendra <vigneshr@ti.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: dmaengine@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] dt-bindings: dma: ti-edma: fix 'tansfer' spelling
+Date: Sun, 26 Jul 2026 11:36:34 +0530
+Message-ID: <20260726060634.18908-1-shaikhkamal2012@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+Fix spelling error reported by codespell: tansfer -> transfer.
+No functional change.
 
-Pre-existing issues:
-- [High] Unchecked dereference of optional `iris_power_domain` pointers (`p=
-d`) in resource helpers (`iris_enable_power_domain_and_clocks`, etc.) leads=
- to kernel oops.
---
+Signed-off-by: shaikh.kamal <shaikhkamal2012@gmail.com>
+---
+ Documentation/devicetree/bindings/dma/ti-edma.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---- Patch [7]: [PATCH v10 07/14] media: iris: Replace enum-indexed clock an=
-d power domain tables with per-block structures ---
-commit a990e7238dd52b7ecf138859cc143e38431554ef
-Author: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+diff --git a/Documentation/devicetree/bindings/dma/ti-edma.txt b/Documentation/devicetree/bindings/dma/ti-edma.txt
+index f719e1612b0a..d69264110e3a 100644
+--- a/Documentation/devicetree/bindings/dma/ti-edma.txt
++++ b/Documentation/devicetree/bindings/dma/ti-edma.txt
+@@ -3,7 +3,7 @@ Texas Instruments eDMA
+ The eDMA3 consists of two components: Channel controller (CC) and Transfer
+ Controller(s) (TC). The CC is the main entry for DMA users since it is
+ responsible for the DMA channel handling, while the TCs are responsible to
+-execute the actual DMA tansfer.
++execute the actual DMA transfer.
+ 
+ ------------------------------------------------------------------------------
+ eDMA3 Channel Controller
+-- 
+2.43.0
 
-media: iris: Replace enum-indexed clock and power domain tables with per-bl=
-ock structures
-
-This commit replaces the flat tables and enum-based lookups for clocks
-and power domains with per-hardware-block structures. It introduces the
-iris_power_domain structure to bundle devices and clocks without runtime
-index lookups.
-
-> diff --git a/drivers/media/platform/qcom/iris/iris_vpu4x.c b/drivers/medi=
-a/platform/qcom/iris/iris_vpu4x.c
-> --- a/drivers/media/platform/qcom/iris/iris_vpu4x.c
-> +++ b/drivers/media/platform/qcom/iris/iris_vpu4x.c
-
-[ ... ]
-
->  static int iris_vpu4x_power_on_hardware(struct iris_core *core)
->  {
->  	u32 efuse_value =3D readl(core->reg_base + WRAPPER_EFUSE_MONITOR);
->  	int ret;
-> =20
-> -	ret =3D iris_enable_power_domains(core, core->pmdomain_tbl->pd_devs[IRI=
-S_HW_POWER_DOMAIN]);
-> +	ret =3D iris_enable_power_domain_and_clocks(core, core->vcodec);
->  	if (ret)
->  		return ret;
-> =20
->  	if (!(efuse_value & DISABLE_VIDEO_VPP0_BIT)) {
-> -		ret =3D iris_enable_power_domains(core, core->pmdomain_tbl->pd_devs
-> -						[IRIS_VPP0_HW_POWER_DOMAIN]);
-> +		ret =3D iris_enable_power_domain_and_clocks(core, core->vcodec_vpp0);
-
-[Severity: High]
-This is a pre-existing issue, but can this lead to a NULL pointer=20
-dereference if the platform data doesn't provide configuration for this=20
-block?
-
-If the hardware efuse indicates VPP0 is present, but the software=20
-platform data omitted the VPP0 configuration, core->vcodec_vpp0 will be=20
-NULL. It is then passed to iris_enable_power_domain_and_clocks(), which=20
-dereferences it immediately:
-
-iris_enable_power_domain_and_clocks(core, pd)
-    for (i =3D 0; i < pd->pd_cnt; i++) {
-        ...
-    }
-
-The same pattern appears in iris_disable_power_domain_and_clocks() and=20
-iris_genpd_set_hwmode() for the core->vcodec_vpp1 and core->apv pointers.=20
-Should there be a NULL check for these pointers in the resource helpers,=20
-or should the efuse check be combined with a software configuration check?
-
->  		if (ret)
->  			goto disable_hw_power_domain;
->  	}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260726-glymur-v10=
--0-de451559e88b@oss.qualcomm.com?part=3D7
