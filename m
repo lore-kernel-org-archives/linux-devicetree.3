@@ -1,142 +1,144 @@
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2743B36654C
-	for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 14:53:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785077630; cv=pass; b=pJNHACpR8oFC0bqy9kT2FoDjdkTcW/zt+eNfsgy6I4Ue+4q2p9JOFwzp0qf4ROU4Q/RSZkPx4L162hqN7+dL7qRYlpBO1cZtcd8DWajYBWPBwqWEXStP+fMypejL178uQCstw7l+N3I/SxadkIhNQ1XadPpK7Yj7AkYygA21RA0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785077630; c=relaxed/simple;
-	bh=mod1J03m0o/n/6SY4TapYr5aOfwXXYQmlrmD3GioYac=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=T7CFtGKZ5ADBZoNoHGlPf5gwI9jHgEDQdGk5xlRYiGiVJKCl5yzM9WyooLZdjZ6crOmrmX4Lk4SJ5R652aFYKKWBKsTxR5OEh4pGE8hHibt4bVjLyaP8N8GezbfTuBMu+Is/J4gGFI+R/vVirE0JPEjVIOaNBlBAgxleffbQaqs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FSmpO59j; arc=pass smtp.client-ip=209.85.208.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BD302931D5;
+	Sun, 26 Jul 2026 14:55:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785077746; cv=none; b=dGAjYn2UC6M5Jfcg/wcHM4AvpJiIS4D+HP69K9YQbotPxwpAtIfgKVdydkS8D+aHwW/wWoN1S35Yr5S+WLLz7koya47JK/S6eA+BYBwfbEPCc6M8EKXDFc3HHqMQ84vDzEtpVheLb90p5hUdGqVWiDaFECd1FvrUuDbRHQDWBnA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785077746; c=relaxed/simple;
+	bh=AhRTLnCcwo6Mxg5rxROPb+PhKIVmCT4avAH9ngSVIfg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=FRy3xe72b8P3bQL4IURAVQnuwk5vPvcfqOkPCmZ0C1IvxDNUgLHwa5oeVC3AViim5WkFmiNV2Izt4+lUlY+gka7Bb6EJ81EKFZmvYtgFHqGU8xfhArYQCY12vmaPvyauptn3QsPwWDsvglzc+hcU11NxWMTA6hg+iPZWYXQYBeA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OKHYPPtq; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FSmpO59j"
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-69f4acf7047so273320a12.3
-        for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 07:53:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785077627; cv=none;
-        d=google.com; s=arc-20260327;
-        b=B4EaNQLoNzKBNQUDIuKtJ3lES9dG/aOePkECfLbrvS6qmzk1ZSwiDKe4rmJd7cHQ0D
-         Uh9zdt6I2xtc8y8noEWMEiKwMEJLKgcIZxCmc/usoaqLccleXaFxSrzWaRmRit38qsvA
-         IdDI3WaJ6WRKADlT/V4AfovAGvG2T/wEe8xRlyRjGWthFmX7PeeAcOB5E2V4lu3s62My
-         iUPaxnOkcMLlzblx7ctiAMOyQVtkh8KUJ4LU2z0wn+iZj9JLXIptpuiTUOBJ4j7IJpIO
-         DEP5unYr4UJb9ao4lKukgNdbJAMI0ssWRq5UuHQ51O5ZLII5XlSFq65GZX15BRGZ87Ph
-         BIjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Xy1dPJ6HKi7tYjJxDc2Ha4OJQEIkMNVF9gLqcXcYzos=;
-        fh=unUPw/wwivsJOJHV724go//LjogTpmd1UtoJD8W51/0=;
-        b=eghVBOu73kGqrj3Gt4JHS6tCjkvmsHSttmGOzAwJLX8/t0RZmvRlEH8OmdXHVdP8TE
-         fQi2UZq9rvT2rgT+TZaAdhQy5lF5mDKPF+oYyHpaIdNFKSr7XiMQQy4Ejuy34UVwW5hZ
-         lMqx3b8jovIgAqVsYOQd3GtZZfZaUU12OzA1DGjEiJMcTcbBoYpD2AwhQyi+js8mLYTU
-         d+k/8A04OX5zw3TVBmzoL8lpu4LudWH/465zZtgccGcoH9DEgQrAh97nY5GuEFBEuxZ2
-         A42lmP9ReC8Prum3F1Cco+IGJ8MvwS8EquwnoyUF3qWQr7eiiT5fcp2qXtulNc96Xh2g
-         sR7w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785077627; x=1785682427; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Xy1dPJ6HKi7tYjJxDc2Ha4OJQEIkMNVF9gLqcXcYzos=;
-        b=FSmpO59j/mqTz01bHk3KRzERhPq7j9FJ+PslFKvpTOFq+nAdclL2iqJ6leFQT0mnH+
-         p1RgDp36Hdw4wLDcEnxZo4DKx/zye+X1YRkuo3nLK8LDUaoPOG8iAIa6k+y4pK9k+OGB
-         ZujqhKs+0wOvtcezZ6IEeOmvTmxeEgNtzurPXNiNinw+9joUMqHHAZHZInzrzb1qo1aY
-         CuU4ipWi4q4UDIR+qQxesYkEjluHVTTNrSN+pBZie9NcdaDP0sA6TnC3ykFHg6g5BnZk
-         IQ//cHOIATpvd+cwkPvwT+W1zf6xXegmeND0bW4d1o+k+bCTJgEjAPRreBAJQ6c+9orU
-         bc2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785077627; x=1785682427;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Xy1dPJ6HKi7tYjJxDc2Ha4OJQEIkMNVF9gLqcXcYzos=;
-        b=CNaJvaamaPNWU9ewS/OC+vCNVOjLlM+gwKDMrAFV7VhXAoc8Qgyv87iPdkZaBLv3Ks
-         KtDotleFXGbjF8GM7BgGCD6OsbVNrhMtsAKaUjQY6OviohYrDwenHElxOW2ROIiP5ow7
-         treXJKb4SpdztnL2IDVR3qYg5tqKRtOh2b5jn/3jLJtNvxqECSgpUW4ryV6ZZDzSl/OT
-         Y/1Guh35Z3XPbM47j/DDEfKNWOtGaNLGOVBIUk7YdcGUfcb6fk9RXMhvSSFDe9EjtxU+
-         wbAFgsXByo/xrV2xvXH8d4IztibLocV57jKE4vBZuyT0TEvxTX/8xd32NNkTnzZ+6/cv
-         d+tA==
-X-Forwarded-Encrypted: i=1; AHgh+RpUzG1iYV+cOnG/gD7Ilm0JK7MD6P84wSMAmMzkUz2F6xxqZqJjOUkPn4flbvi89Dr/i/aOnnQ84887@vger.kernel.org
-X-Gm-Message-State: AOJu0YwiCjnrOv9lEZ4JWy83SxXjZNyyhP+v44zUK34YgOSQ4u+Z6b9J
-	K9FMP/NvbDpBuqCUlx/2yUZxHBLEs4YfUYIa6A379cfDGp6RMOpyTQSVmmXmWHPtUHUeetZbrf7
-	GQ4heFPDDgY6/H3y3vcZ6OKk3pBXVuzg=
-X-Gm-Gg: AR+sD12iVEeyAFRRD0m3aixx7BbmLrGTM7XJWUdGq8os3EMDRGYrTYdtHIzDVq/fWbl
-	ZIkDk1wTwGVzwmGYIqKxE17165uqX4u073ilYvknJmt7mXynaoVhomvAeMQjjuNeK920ENr34tP
-	MdOSnpb/0eqCLj2CeLP4Yd4YU246vVTDdqEx9KA1oE5TS5bUrVKNvuZVx07HOHnvPz9pG1KXziY
-	F29mfGcA43lQycijhwGwLTuYS+3rUQn8Xt5VsaA+pY29GZkzHiI31H5zy4LKg==
-X-Received: by 2002:a05:6402:450e:b0:69e:1246:a86a with SMTP id
- 4fb4d7f45d1cf-69fc0f3e1bfmr2140114a12.0.1785077626864; Sun, 26 Jul 2026
- 07:53:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OKHYPPtq"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2F33AC2BCF6;
+	Sun, 26 Jul 2026 14:55:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1785077746;
+	bh=AhRTLnCcwo6Mxg5rxROPb+PhKIVmCT4avAH9ngSVIfg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=OKHYPPtqw8C+Eoebl5eQLaq/mx7M70v9x1xoRHbH690G6zRCla9eTihVrl+8KW7aX
+	 DbFworl7mT9Wh16GVcElaC00xS9JKPxoyPx/AftwEMEzIElZpahEbAUtweLQ4uRt0s
+	 1jC20zNj6Uj4roMzjFvnqy6jsqaPPUJQjoSJPV+K3xtA8Ks0ITkqacpGp2X9rb8/yC
+	 fP06y+7hh3wB9OpSmueb8Rgnp2VY7FF/8L6RD180GtDJGCsoeMRrpdWu4C53UOOZDv
+	 22BtVrYFNOXjTrDwCfHDDYKA8jPGkAWyeVSdLN4aCpIfkjyt+EcGpEMAP//5jvMW3Y
+	 zxW3Zd1dWNfWQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0FAE0C53200;
+	Sun, 26 Jul 2026 14:55:46 +0000 (UTC)
+From: Jason Yang via B4 Relay <devnull+jason98166.gmail.com@kernel.org>
+Date: Sun, 26 Jul 2026 22:55:45 +0800
+Subject: [PATCH v2 2/4] phy: rockchip-samsung-dcphy: factor MIPI D-PHY
+ power on/off into helpers
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260721-dcphy-rx-v1-v1-0-4fc83c0ccac9@gmail.com>
- <20260721-dcphy-rx-v1-v1-1-4fc83c0ccac9@gmail.com> <20260724-incredible-colorful-trogon-9df033@quoll>
-In-Reply-To: <20260724-incredible-colorful-trogon-9df033@quoll>
-From: =?UTF-8?B?5qWK5pm65oiQ?= <jason98166@gmail.com>
-Date: Sun, 26 Jul 2026 22:54:21 +0800
-X-Gm-Features: AUfX_myy7YsobI1pf_jlBSXk7SDYrWERjtETFkIdeKdn3VY9LKRwt38o3X4kakY
-Message-ID: <CAPwA33JUWPoWokeTFmP9RR5AzBqy2v7cEA8NUNr1-eUKyaaKYA@mail.gmail.com>
-Subject: Re: [PATCH 1/4] dt-bindings: phy: rockchip,rk3588-mipi-dcphy: support
- per-direction phys
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Guochun Huang <hero.huang@rock-chips.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-phy@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260726-dcphy-rx-v1-v2-2-cf9cc34a412a@gmail.com>
+References: <20260726-dcphy-rx-v1-v2-0-cf9cc34a412a@gmail.com>
+In-Reply-To: <20260726-dcphy-rx-v1-v2-0-cf9cc34a412a@gmail.com>
+To: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Guochun Huang <hero.huang@rock-chips.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Jason Yang <jason98166@gmail.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785077744; l=2365;
+ i=jason98166@gmail.com; s=20260721; h=from:subject:message-id;
+ bh=4GcNX0JppuDhi+PdI+Mfy3wrN0LmkfCuqWcPPnXARtM=;
+ b=7RTRyehFkYV6XDnAq1vZCWfliIir2dDF6JR+64MZh8F5RlFqylgM2AClZEZ2AlJz2rgtvDzBx
+ goTqpE8OBPPDIQ5x3sT/qO9Tq5A5vaCthFli7QwdKlKoKFcfUhTZkdQ
+X-Developer-Key: i=jason98166@gmail.com; a=ed25519;
+ pk=xQmD001Q/ooHl39PxyQtusbUQmgbOsSfpFryRVWZ/k4=
+X-Endpoint-Received: by B4 Relay for jason98166@gmail.com/20260721 with
+ auth_id=887
+X-Original-From: Jason Yang <jason98166@gmail.com>
+Reply-To: jason98166@gmail.com
 
-Hi Krzysztof,
+From: Jason Yang <jason98166@gmail.com>
 
-Thanks for the review.
+To prepare for adding a receiver (CSI) direction next to the existing
+transmitter (DSI) one, rename the transmitter power-on helper to
+samsung_mipi_dphy_tx_power_on() and gather its teardown into a new
+samsung_mipi_dphy_tx_power_off(), so both directions can later be
+powered on and off through symmetric helpers.
 
-> Filename must follow compatible or binding filename, so this is
-> rockchip,rk3588-mipi-dcphy.h for example.
+No functional change intended.
 
-Will rename it to rockchip,rk3588-mipi-dcphy.h in v2.
+Signed-off-by: Jason Yang <jason98166@gmail.com>
+Assisted-by: Claude:claude-opus-4-8
+---
+ drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c | 19 +++++++++++--------
+ 1 file changed, 11 insertions(+), 8 deletions(-)
 
-Thanks,
-Jason
+diff --git a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
+index cbd780556da8..d0d77421bd4b 100644
+--- a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
++++ b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
+@@ -1332,7 +1332,7 @@ samsung_mipi_dphy_data_lane_timing_init(struct samsung_mipi_dcphy *samsung)
+ 	regmap_write(samsung->regmap, DPHY_MD3_TIME_CON4, 0x1f4);
+ }
+ 
+-static int samsung_mipi_dphy_power_on(struct samsung_mipi_dcphy *samsung)
++static int samsung_mipi_dphy_tx_power_on(struct samsung_mipi_dcphy *samsung)
+ {
+ 	int ret;
+ 
+@@ -1358,6 +1358,14 @@ static int samsung_mipi_dphy_power_on(struct samsung_mipi_dcphy *samsung)
+ 	return 0;
+ }
+ 
++static int samsung_mipi_dphy_tx_power_off(struct samsung_mipi_dcphy *samsung)
++{
++	samsung_mipi_dphy_lane_disable(samsung);
++	samsung_mipi_dcphy_pll_disable(samsung);
++
++	return 0;
++}
++
+ static int samsung_mipi_dcphy_power_on(struct phy *phy)
+ {
+ 	struct samsung_mipi_dcphy *samsung = phy_get_drvdata(phy);
+@@ -1368,7 +1376,7 @@ static int samsung_mipi_dcphy_power_on(struct phy *phy)
+ 
+ 	switch (samsung->type) {
+ 	case PHY_TYPE_DPHY:
+-		return samsung_mipi_dphy_power_on(samsung);
++		return samsung_mipi_dphy_tx_power_on(samsung);
+ 	default:
+ 		/* CPHY part to be implemented later */
+ 		return -EOPNOTSUPP;
+@@ -1383,16 +1391,11 @@ static int samsung_mipi_dcphy_power_off(struct phy *phy)
+ 
+ 	switch (samsung->type) {
+ 	case PHY_TYPE_DPHY:
+-		samsung_mipi_dphy_lane_disable(samsung);
+-		break;
++		return samsung_mipi_dphy_tx_power_off(samsung);
+ 	default:
+ 		/* CPHY part to be implemented later */
+ 		return -EOPNOTSUPP;
+ 	}
+-
+-	samsung_mipi_dcphy_pll_disable(samsung);
+-
+-	return 0;
+ }
+ 
+ static int
 
-Krzysztof Kozlowski <krzk@kernel.org> =E6=96=BC 2026=E5=B9=B47=E6=9C=8824=
-=E6=97=A5=E9=80=B1=E4=BA=94 =E4=B8=8B=E5=8D=885:45=E5=AF=AB=E9=81=93=EF=BC=
-=9A
->
-> On Tue, Jul 21, 2026 at 06:35:19PM +0800, Jason Yang wrote:
-> >    clocks:
-> >      maxItems: 2
-> > @@ -82,6 +92,6 @@ examples:
-> >                   <&cru SRST_S_MIPI_DCPHY0>;
-> >          reset-names =3D "m_phy", "apb", "grf", "s_phy";
-> >          rockchip,grf =3D <&mipidcphy0_grf>;
-> > -        #phy-cells =3D <1>;
-> > +        #phy-cells =3D <2>;
-> >        };
-> >      };
-> > diff --git a/include/dt-bindings/phy/phy-rockchip-samsung-dcphy.h b/inc=
-lude/dt-bindings/phy/phy-rockchip-samsung-dcphy.h
-> > new file mode 100644
-> > index 000000000000..60f6630f58b3
-> > --- /dev/null
-> > +++ b/include/dt-bindings/phy/phy-rockchip-samsung-dcphy.h
->
-> Filename must follow compatible or binding filename, so this is
-> rockchip,rk3588-mipi-dcphy.h for example.
->
-> Best regards,
-> Krzysztof
->
+-- 
+2.43.0
+
+
