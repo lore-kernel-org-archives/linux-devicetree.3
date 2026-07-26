@@ -1,187 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2FA8F9C0
-	for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 06:03:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7204433B6F4
+	for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 06:04:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785045826; cv=none; b=g/W8RiU2spIzkE7qdiSvheXdM0cX4hAZ8DXPmcKZHQVGn/mfdjjaTBZMdBKDpi4LmXMUFnqhNno9L9ofNrBZ952RVK0Ind6fSO2sIGHpc1e5OVSrNqJWdUbFmaX2A7NS8MAPv7eyIx5RXINpN8kErEBKerCkns0RFv+EjNjhur0=
+	t=1785045846; cv=none; b=EddT08sgQnL2By5bGh78Am/i1SDrP/iQ7NcIs6OHgX92XIvK7iyaiMWI571WNoEJuhNjFbiy+mQRyQK3Kt3zbpgvrXc3GLbY/lX+6qzi3bxOw0MkdJtc8NTJGN3e8VdmyYC77hRSZCXf0KRF8TUEo7PCtQWwf9r8UFnj9nSn4xQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785045826; c=relaxed/simple;
-	bh=DLA32xmIQzRz04IFPqW6ETGiuEqTcUAF8sS1+4IYIK0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=d22U3pY775kCudAA1SwAKG2HgxyUop/TNDnpxOE/H8x1Fi4/yLdAEiJxmwWyahbxFpAzXa3JdeMINvpp14U5/ayIb254Hh9Dw6Ck5zZ0G4GFgLEZ2GABs9l02jAmSbiGmRy6puPRVYHG5oZcETGmDINsHyvcT9pCnTYxrZno/qE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jggnqCiw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785045846; c=relaxed/simple;
+	bh=i0axAIOdnWy7kaUM9xsqDJz10jxvLmhCHlXNFaMbGjk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=S28Oy/cLALNZOZMn8nm29aMKT0XSsMADo4aJfIvTGs7yZB7UDkinXHbUL7U3EIriYFK3YyoYkBQU1lWPM3orNBL22PkFMinwqU9aZP4AC4F5es3+9eTlq42a7ZFLjJbO8gA3su2F1OWQ7zl6GomzKLqfr9o3VkeX5mkbVETiypY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vq8p/IeR; arc=none smtp.client-ip=209.85.215.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jggnqCiw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01C021F000E9;
-	Sun, 26 Jul 2026 06:03:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785045825;
-	bh=qbgBxH/FARMP2IozCAl4n7DsrJXbbXhUFgv4nO7J1hY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jggnqCiw/faeTNZLVXhklAvMkrk19jRp3M4Hpx38lfAXpzCPoGGfr+EtYKitLSfgZ
-	 sw7RZXfkA4j7s6obHjFVfhfriQPIapoXKQs1fhVT9YoQKJJXkSUspCKWVLh9F6Cijc
-	 Be7x5RHNMJD3dOgl+LkPEVsLmLBQomPX0MoXGzjrSOZ4iB48IMqfEVMa0FJvp00cXA
-	 4j9PKN4raI9hqxphUYlDQiG4I3w4kT0UWk3A0eO3FmC0TVVYrhzLDVTfdYHg4SqGSj
-	 tfGvjXeeJ7oPXNN22uWrlkt6aIQT7hoAalPWf0rBCYfhqKZC0/DZ+zLoD1WPPM/e0C
-	 QGLUQqw1QXJuA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 11/14] media: iris: Add hooks for pixel and
- non-pixel context banks
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vishnu Reddy" <busanna.reddy@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, devicetree@vger.kernel.org
-In-Reply-To: <20260726-glymur-v10-11-de451559e88b@oss.qualcomm.com>
-References: <20260726-glymur-v10-0-de451559e88b@oss.qualcomm.com>
- <20260726-glymur-v10-11-de451559e88b@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 26 Jul 2026 06:03:44 +0000
-Message-Id: <20260726060345.01C021F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vq8p/IeR"
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-c96b08cdd1cso1246399a12.0
+        for <devicetree@vger.kernel.org>; Sat, 25 Jul 2026 23:04:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785045845; x=1785650645; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=V+26Pgn5yyytqUfGY957+3+8j+6xWmgyw5AfMu8lBmw=;
+        b=Vq8p/IeRcF3YlRTYzHkc+iEPb5GZgdcn4rURupRQ9uQYdIZOy0N7inxAnnGNf/Ip0a
+         zB9AvypCD+lhV0Pj9nAW2E2LDFV3Tri/1Y5BTIAnrdEUaSjbEJudLrBWB7YxWa/xw6tb
+         U02HlzdWPF7lsnkygpU8uEdBP4ibMaX2bZyFL5OPdBvXYswTAx3Z1GD0ubgGdCtSwlSq
+         TIhvK/HTw9kwFQlimPFvJQ0SJCd87xKGjaHDjrqyRNhHjH+ZNnHFOz7qioKuHCKgDw35
+         ZnmJ3AXRdzcsTRqzdiwKg1IGp7kwwT5uxjelXsa5/Gmq/dqbr0D27RCnYrCeHaeJcHJp
+         hJyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785045845; x=1785650645;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=V+26Pgn5yyytqUfGY957+3+8j+6xWmgyw5AfMu8lBmw=;
+        b=RN5P3nF85qqRF595ReleDf2BNSYnZf4AN2l8r2NUNG/lzy5dmR0ziY7pa0hyX6rY5Z
+         imCzZ98a5Azx5wjy2S30a+8H6bNk8SddA3kJwKqXjP+zu+IAY39s006HEzp/DxsRgbYN
+         KSZ0+chDtnPxwZJ40EsRJgJl5JefRJZ9WROoZ4u7CIWTYTkRCC6BNtzxpOhJm1Khg8JL
+         8gHqHLMi5uOJU6AdOStHJKny8uoVjKfP8YJxFZCtBKJeZIDs6jXQZIuuy80zzyZ/p6aG
+         NcgeidbWeAlFdeM5CV+k84xD32KOOumajBsLdbV4P4u0a7aMygesqT8UdVshf5LbkKGJ
+         OVyg==
+X-Forwarded-Encrypted: i=1; AHgh+RqrNAEaExmdzrCO4Q0eQm6vvd07NbiDBUBdTqhdv90vqHRIqDbmiVHajaR2DgdxpugrUglvzP85UWzF@vger.kernel.org
+X-Gm-Message-State: AOJu0YwkfcXc6Vghm9J2b1GLfsDLX35YV4nA2/iU6MtK5SCe5jFZjgMT
+	R3ijNACwdduLJagu6T+v7AX0nVrSNutIAu1VQyhsJoCrxo3ABsV8J/IQ
+X-Gm-Gg: AR+sD10JrZbp+6InLhXJ16wSKWjJX071CtTCQHvftmY/8+u7xev+NSawE2IEy/B+6Yh
+	7AAgDEkY4nxkMAN+/QZjzcr7s4PZOzNzVYZuHiuLW0bvZY5A5BZVozVou2mdMuQxYfkz2h0d8QR
+	on8wagI03t4tmmLQ0hMvCGOW3krB0PkgwIrMfKgCkdVOJun3PY6B/DWab+V++J1kEAUM3eUJXHZ
+	/pMyy8y515IjO7Ja3LdRqWV9uN3iRpGeaLBK3heiguybh5e8BijgHio7MNtRodCQIphp7b03Nl2
+	4jXGdUvKiUgO9c8rhQCm6zJ9aR5D6hLaGmrml1zZHlYQzYzKxARVagcGQ92M5zzRjcVABwNvYvH
+	/XgahT3zGfNUGUv9egmoENynKGK88AzxFTM2CXd8ZYH03nTY4gRpnvGL0MEKI8zk8VbyskveVwz
+	GTs0k7/mpiPmtAWV6rDqMmaI4BuIIV7j4j+ZOiFsbCZ4BZz9nUo88AryERSDCuYwfUpOUBVL0vJ
+	ShzvLNSa4RpG43xqA==
+X-Received: by 2002:a05:6a20:9186:b0:3c0:9c19:65ad with SMTP id adf61e73a8af0-3c67e16413bmr4106101637.69.1785045844721;
+        Sat, 25 Jul 2026 23:04:04 -0700 (PDT)
+Received: from acer-nitro-anv15-41.entro.com ([118.34.230.2])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbbb6623294sm1781164a12.10.2026.07.25.23.04.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 25 Jul 2026 23:04:04 -0700 (PDT)
+From: "shaikh.kamal" <shaikhkamal2012@gmail.com>
+To: Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Avi Fishman <avifishman70@gmail.com>,
+	Tomer Maimon <tmaimon77@gmail.com>,
+	Tali Perry <tali.perry1@gmail.com>,
+	Patrick Venture <venture@google.com>,
+	Nancy Yuen <yuenn@google.com>,
+	Benjamin Fair <benjaminfair@google.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: openbmc@lists.ozlabs.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] dt-bindings: clock: nuvoton,npcm750-clk: fix 'suppling' spelling
+Date: Sun, 26 Jul 2026 11:33:54 +0530
+Message-ID: <20260726060354.18755-1-shaikhkamal2012@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Fix spelling error reported by codespell: suppling -> supplying.
+No functional change.
 
-New issues:
-- [High] Dangling pointer in `vb2_queue->dev` due to synchronous unregistra=
-tion of context-bank platform devices.
+Signed-off-by: shaikh.kamal <shaikhkamal2012@gmail.com>
+---
+ .../devicetree/bindings/clock/nuvoton,npcm750-clk.yaml          | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Pre-existing issues:
-- [High] Missing cancel_delayed_work_sync() for sys_error_handler in iris_r=
-emove() leads to use-after-free.
---
+diff --git a/Documentation/devicetree/bindings/clock/nuvoton,npcm750-clk.yaml b/Documentation/devicetree/bindings/clock/nuvoton,npcm750-clk.yaml
+index 694dac68619c..b46b4ffb3501 100644
+--- a/Documentation/devicetree/bindings/clock/nuvoton,npcm750-clk.yaml
++++ b/Documentation/devicetree/bindings/clock/nuvoton,npcm750-clk.yaml
+@@ -18,7 +18,7 @@ description: >
+   There are six fixed clocks that are generated outside the BMC. All clocks are of
+   a known fixed value that cannot be changed. clk_refclk, clk_mcbypck and
+   clk_sysbypck are inputs to the clock controller.
+-  clk_rg1refck, clk_rg2refck and clk_xin are external clocks suppling the
++  clk_rg1refck, clk_rg2refck and clk_xin are external clocks supplying the
+   network. They are set on the device tree, but not used by the clock module. The
+   network devices use them directly.
+ 
+-- 
+2.43.0
 
---- Patch [11]: [PATCH v10 11/14] media: iris: Add hooks for pixel and non-=
-pixel context banks ---
-commit 1f1fdc377aea1a90f259a986e4bc14be351b3bc0
-Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-
-media: iris: Add hooks for pixel and non-pixel context banks
-   =20
-Iris platforms use separate context-bank devices for the pixel, non-pixel
-firmware domains. Add platform hooks to create and destroy those
-subdevices, providing a interface for their lifecycle management across
-platforms.
-   =20
-> diff --git a/drivers/media/platform/qcom/iris/iris_vpu3x.c b/drivers/medi=
-a/platform/qcom/iris/iris_vpu3x.c
-> index ec35ad4f86102..bc95be22ed96d 100644
-> --- a/drivers/media/platform/qcom/iris/iris_vpu3x.c
-> +++ b/drivers/media/platform/qcom/iris/iris_vpu3x.c
-> @@ -397,6 +397,52 @@ static u64 iris_vpu36_get_required_freq(struct iris_=
-inst *inst)
->  	return max(vcodec0_freq, vcodec1_freq);
->  }
-> =20
-> +static int iris_vpu3x_init_cb_devs(struct iris_core *core)
-> +{
-> +	struct device *dev;
-> +
-> +	dev =3D iris_create_cb_dev(core, "non-pixel");
-> +	if (IS_ERR(dev))
-> +		return PTR_ERR(dev);
-> +
-> +	core->np_dev =3D dev;
-> +
-> +	dev =3D iris_create_cb_dev(core, "pixel");
-> +	if (IS_ERR(dev))
-> +		goto unreg_np_dev;
-> +
-> +	core->p_dev =3D dev;
-> +
-> +	dev =3D iris_create_cb_dev(core, "video-firmware");
-> +	if (IS_ERR(dev))
-> +		goto unreg_p_dev;
-> +
-> +	core->fw_dev =3D dev;
-> +
-> +	return 0;
-> +
-> +unreg_p_dev:
-> +	if (core->p_dev)
-> +		platform_device_unregister(to_platform_device(core->p_dev));
-> +	core->p_dev =3D NULL;
-> +unreg_np_dev:
-> +	if (core->np_dev)
-> +		platform_device_unregister(to_platform_device(core->np_dev));
-> +	core->np_dev =3D NULL;
-> +
-> +	return PTR_ERR(dev);
-> +}
-> +
-> +static void iris_vpu3x_deinit_cb_devs(struct iris_core *core)
-> +{
-> +	if (core->fw_dev)
-> +		platform_device_unregister(to_platform_device(core->fw_dev));
-> +	if (core->p_dev)
-> +		platform_device_unregister(to_platform_device(core->p_dev));
-> +	if (core->np_dev)
-> +		platform_device_unregister(to_platform_device(core->np_dev));
-> +}
-
-[Severity: High]
-Does this code synchronously free the context-bank platform devices without
-waiting for userspace V4L2 file descriptors to close?
-
-If a userspace application holds a video device file descriptor open during
-driver unbind, this function will unregister and free the context-bank
-platform devices.
-
-However, in iris_m2m_queue_init(), the context-bank devices are assigned to
-vb2_queue->dev:
-
-drivers/media/platform/qcom/iris/iris_vidc.c:iris_m2m_queue_init() {
-    ...
-	src_vq->dev =3D iris_get_cb_dev(inst, BUF_INPUT);
-    ...
-	dst_vq->dev =3D iris_get_cb_dev(inst, BUF_OUTPUT);
-    ...
-}
-
-Because the V4L2 core does not hold a reference to q->dev during videobuf2
-queue initialization, won't this result in a use-after-free when userspace
-finally closes the file descriptor and v4l2_m2m_ctx_release() triggers
-vb2_queue_release() to unmap DMA buffers?
-
-[Severity: High]
-This is a pre-existing issue, but does iris_remove() fail to cancel the
-sys_error_handler delayed work before returning?
-
-drivers/media/platform/qcom/iris/iris_probe.c:iris_remove() {
-    ...
-	iris_core_deinit(core);
-
-	video_unregister_device(core->vdev_dec);
-	video_unregister_device(core->vdev_enc);
-
-	v4l2_device_unregister(&core->v4l2_dev);
-
-	iris_deinit_cb_devs(core);
-
-	mutex_destroy(&core->lock);
-}
-
-If a system fatal error triggers an interrupt just before or during module
-removal, the sys_error_handler delayed work could be scheduled.
-
-Since iris_remove() doesn't explicitly cancel this work before returning,
-could the handler execute after the devm_kzalloc-managed core structure is
-freed?
-
-drivers/media/platform/qcom/iris/iris_probe.c:iris_sys_error_handler() {
-	struct iris_core *core =3D
-			container_of(work, struct iris_core, sys_error_handler.work);
-
-	iris_core_deinit(core);
-	iris_core_init(core);
-}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260726-glymur-v10=
--0-de451559e88b@oss.qualcomm.com?part=3D11
