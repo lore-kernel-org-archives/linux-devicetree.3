@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB7E1386566;
-	Sun, 26 Jul 2026 11:26:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 065493890E7;
+	Sun, 26 Jul 2026 11:27:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785065218; cv=none; b=YN7/6B7RBxbBjtGNLZW/AbHoUpxSB9hb1qTwOWYkzXz2gFtgIl+XF2oRQglQgiVsFwuA3B9+4Zt2nLWSFe5Rjq4bJlXy1yRdyDyqexFBnSl8KggzZfVX0qMI8L07dMJjhFveml3oJZVcVgUD2m9yLtjNdXRwghErocbMBFq2l/s=
+	t=1785065262; cv=none; b=BDw6WKIiflyceSlkUJLZtc6TlvL9Cuqg8+qsOdQYayLUZvnfgLSw23oj7ShpF6TfQy8KLze2p+ESYeq6DiFDcaL5dMHsffnJIiyluvUwp7DGI51BVNyMoVQenOE/DlItKMQAa77nE65gcVlmrdQGcSft1hkKqh5CEbPXhinJC0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785065218; c=relaxed/simple;
-	bh=VuSDVTxqdnFKfkW1N+HePclL5b4OG/v+sQr7bjIwTeY=;
+	s=arc-20240116; t=1785065262; c=relaxed/simple;
+	bh=0lIXeA/HukukbtwvcNzNyaonF0xu/24jaxHb9GjA9gM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CsR1M5ISJamYqSX52A8VJlGiDR/+ZWjtyDHGwUIvC+mz/Br5yX23HQ7Uw3U96NHzfXCcv0RnxqwQ/0MfzVecS3oMTB8Gr1tEUc4xmQfyPS48bIqA98jUTt8qlJ98MnLA4mY8gFW8hB8NFAhkcom6lAvFZjMh8/9Zst2aJYd/mx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KhsXGrZV; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=iW3e+97nsbmjY1/BLEGxs0wn8LRFOgBJFuLaO0CioQ5h93B/7MF2nDJ3ks1ScZwa6rdFyKRB1fmsUIQSAk77W22kqE1UmZDwpXqzgnoiTuXKqBbkcsPFhAP3k4EZL7PFuS3RKAxtEQlsqPAKEUs67o1Y90qP7LbKraflxbr/tL0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JhaPEe43; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KhsXGrZV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2253D1F000E9;
-	Sun, 26 Jul 2026 11:26:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JhaPEe43"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D95F1F000E9;
+	Sun, 26 Jul 2026 11:27:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785065217;
-	bh=Km20yiFfwBk8OT3FRu+radUhWpYVUqZ0Qcgy9Rjwx3w=;
+	s=k20260515; t=1785065253;
+	bh=SAGuHYLzec3TiXchYLxlBSFHawNmAE0FcVZoRl9MzV0=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=KhsXGrZVicYgvtK4ynYVmLL4usSpy9ZuEwXqtVIsZ/q0k3XQkybiB3xMpCmcLOs31
-	 KqGGB3qKd7ZV/tw/XqPJeiNhUcWiNJAALLM7bwAs65Jz+qOwbUBGQKPtQeffva6mET
-	 x+RZXo066TZqeYiotN95jKZgE1DSbZGb71wM5UA7skqY4pK0w6wi44AOtWzZqEV9eI
-	 Wvzjphkdb/P4F60cbv2ArWJJHhz5Wl94W+TivEEpISExkXrvgA/JY0gu4JdH6LNQwO
-	 byRPTogmjmGN5reAxxnVvFXNoCyKGBy6ZkwDKuKSoGWLeKKL7VQb0+YTLlwtkbB6IX
-	 MN0V3hyIf9xAQ==
-Message-ID: <8de9061a-dea3-4bdf-8dff-ad8ed4acc200@kernel.org>
-Date: Sun, 26 Jul 2026 13:26:49 +0200
+	b=JhaPEe43r2Y9whJmEZzUG34GQC0C6KtVfXPNa219FRRpMOmJSPvn+z5KDoM7JMSks
+	 GJxCFVPR8KJ35fQoHbf3oZCbfJ/aFi2d++HzhK6BhkS8wYX46ZBLfPwI4D8MMDVYc7
+	 fT01nGVH4c8bGtADv9GBcJpvhfaz9aU4YxUAioQVYof/eRhyd0EYwIXmoWf95/ZFGW
+	 /BlYPwdjFVXziYWwIZgON9K6Ggpy33Cl9IYobondTexqbJLb2MWolqufz4FyUjRS0B
+	 g9CVnGEOeF8XIGGpd8t7lehqnBqYK3LlX2rwFtuVoPdOydLrap+utQC2eVTLUTlgZ4
+	 qWVPZJa/2VFpQ==
+Message-ID: <3f4397e4-fdf0-4c79-ad91-42c6b6f200d6@kernel.org>
+Date: Sun, 26 Jul 2026 13:27:19 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,20 +35,26 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: clock: nuvoton,npcm750-clk: fix 'suppling'
- spelling
+Subject: Re: [PATCH net-next] dt-bindings: net: fix spelling errors
 To: "shaikh.kamal" <shaikhkamal2012@gmail.com>,
- Andrew Jeffery <andrew@codeconstruct.com.au>,
- Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>,
- Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>,
- Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+ Frank <Frank.Sae@motor-comm.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: openbmc@lists.ozlabs.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260726060354.18755-1-shaikhkamal2012@gmail.com>
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Clark Wang <xiaoning.wang@nxp.com>, Shawn Guo <shawnguo@kernel.org>,
+ Linux Team <linux-imx@nxp.com>,
+ Christophe Roullier <christophe.roullier@foss.st.com>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+References: <20260726052429.16807-1-shaikhkamal2012@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -94,26 +100,24 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260726060354.18755-1-shaikhkamal2012@gmail.com>
+In-Reply-To: <20260726052429.16807-1-shaikhkamal2012@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26/07/2026 08:03, shaikh.kamal wrote:
-> Fix spelling error reported by codespell: suppling -> supplying.
+On 26/07/2026 07:24, shaikh.kamal wrote:
+> Fix spelling errors reported by codespell:
+> 
+>   encompases -> encompasses (stm32-dwmac, sti-dwmac, nxp,dwmac-imx)
+>   curren     -> current     (motorcomm,yt8xxx)
+> 
 > No functional change.
 > 
 > Signed-off-by: shaikh.kamal <shaikhkamal2012@gmail.com>
 > ---
->  .../devicetree/bindings/clock/nuvoton,npcm750-clk.yaml          | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
+>  Documentation/devicetree/bindings/net/motorcomm,yt8xxx.yaml | 4 ++--
 
-One patch for all bindings for such trivialities. This is just churn.
 
-And wait for review to learn from feedback and do not repeat the same
-mistakes.
-
-Name in SoB and From feels incomplete or as login...
+Slow down. Same comments.
 
 Best regards,
 Krzysztof
