@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BE4D33B6E8;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CAD53612F6;
 	Sun, 26 Jul 2026 14:55:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785077746; cv=none; b=qVZny/ZHlghVkW6f2vUVXxhsCeZ1BLdj5069x/Ifv4wn5D1nz4eNLX2UJZOXRZFBZO3JsLmH2QtJ6vTag9MRUf7UzWaNVVtgDEtJwSm0kE4I6bb7vVCrUMTgEt1qly/hCo3hsLV7WxEKKoKU/k/loyjyCnYi+5xDI5Ph9Odwwmc=
+	t=1785077746; cv=none; b=FXRgVPkhvjYP2cbSmzrTrv3zyw3SOJ0T8cxQ5Mt+mxOBIJh2x3G4lNhBzdh4/eIrv7XJbBLCm7Tv0akhAzEu9bTPReSTFkBeh/CiaWsZqpaxkvFB/sd1c2raj3J9v3nGCpVfAHQkCNszQ4mEpwnKirgR/ra+MWrbrKvSQBJK5WM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785077746; c=relaxed/simple;
-	bh=iQfA2icI1O6BXv/U+rtOfhtJil4OcTLRU4Xf3j2Mtv8=;
+	bh=YHOvKiBFSDhFQ6J2iNluwDWe9h6pblPJ2R4Sxx+5oAc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cBi0KpHR1eAm8nWlrCExLW6OKgbfKR2L1F0nGsbzE4QDLHTPqAOUuS3Mm2DlnEy9BAcuu8CmaAh1Aw7eztGUFJ89yU0mRcLpHJbOuvFzL1ZCfRfO9m/N1QRUQAiKWhB7qAW96j8ULl8bPVmrpCAcyVkqhXUlBhq3YTTi++HMcqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oIFxm4nk; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=kJFosSqk7j8ZogJcrTcaeQ8+ngUybwioEPJlUHFH0XaycAe2vWzrcucZAxP1bjcghW5G/O7/VB1Hh+JsZfgfEaEFSQrdl9h2WPXERrsDEYCu7XnXRwXgvfseyPquhdepKEuDpoZU5g1erunGFZu8r/sMwGxUR8CooMUVKGYvGb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PclY6kJu; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oIFxm4nk"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 20FC3C2BCFA;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PclY6kJu"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 3B9C7C2BD00;
 	Sun, 26 Jul 2026 14:55:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1785077746;
-	bh=iQfA2icI1O6BXv/U+rtOfhtJil4OcTLRU4Xf3j2Mtv8=;
+	bh=YHOvKiBFSDhFQ6J2iNluwDWe9h6pblPJ2R4Sxx+5oAc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=oIFxm4nkFajHdR3e3oc7KwrBNqU7nV1XyLzr/0PjExwOruGnU9jdv31Vp8KPVVlOk
-	 HAFJdSnUab3mW2temzkg0UKXB0qHckM3Ohx/yGRflBO0Cw3mumeN1sZmkuMNaNLI0g
-	 +iMQHs6jZ8u38IPi0uKwxtTAjpAwrDWzu4W0Fr/R4cuNhpjIsrShFgQzZCIsw/tLHk
-	 0dWPzoAWXit3ujDT9vjS/QmiM3RmUU2q+0juO8nCLeNTKqOxttFA880utfa+dFFvbZ
-	 4Ui3GxQnx5CW/YKE0gmiyPkT/AToedFzhGcC3Fktf6pPix2J5e43xfYhrU/AGIVKkf
-	 wgugpM+r0ZJ7g==
+	b=PclY6kJuCn9rv4eocnYwnx2iOiu86QPga4JkO2i71K9lXSUHahbpTgV09PQsTIPJa
+	 JNG9e7Rs3CIrNOKdaD9OWpn84o0OQLLpnUYGU2IvnemJJWfN+7OliL4Icdyj+hGStq
+	 H8DvTo8EzhJ8r0yGKgTopqMtYKJphkL7xMaksxKdOdaDDiG+rO2g87JkBM6dLtHjU1
+	 Qm7ppbd4uL5L4485NbG/jwCtHpqYmJOXFdVG+fgRtas2Y1Kbkwv8dPpStjVanqfvW3
+	 yxfpzeMg0P/qtDHM8UV/bhG26gk2via11sb3Cf2a6doJ6ZaTmHsQXPUcl5B7WehVGG
+	 JyVYIcrp0cYhA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 00B43C531C9;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 21906C5321C;
 	Sun, 26 Jul 2026 14:55:46 +0000 (UTC)
 From: Jason Yang via B4 Relay <devnull+jason98166.gmail.com@kernel.org>
-Date: Sun, 26 Jul 2026 22:55:44 +0800
-Subject: [PATCH v2 1/4] dt-bindings: phy: rockchip,rk3588-mipi-dcphy:
- support per-direction phys
+Date: Sun, 26 Jul 2026 22:55:46 +0800
+Subject: [PATCH v2 3/4] phy: rockchip-samsung-dcphy: model TX and RX as
+ separate PHYs
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260726-dcphy-rx-v1-v2-1-cf9cc34a412a@gmail.com>
+Message-Id: <20260726-dcphy-rx-v1-v2-3-cf9cc34a412a@gmail.com>
 References: <20260726-dcphy-rx-v1-v2-0-cf9cc34a412a@gmail.com>
 In-Reply-To: <20260726-dcphy-rx-v1-v2-0-cf9cc34a412a@gmail.com>
 To: Vinod Koul <vkoul@kernel.org>, 
@@ -54,11 +54,11 @@ Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  linux-kernel@vger.kernel.org, Jason Yang <jason98166@gmail.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785077744; l=3309;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785077744; l=10427;
  i=jason98166@gmail.com; s=20260721; h=from:subject:message-id;
- bh=/8pxm6N6mn/e4jHHtvTPJ658FO8+xd4pvisBdnA5CR4=;
- b=Cdtn9owk4gWGJGZLq0wuLQN6uXqC9XF5beS38OR6BJCSWMqUpVLl/Ll9O5hcROYZsGEm+7CHL
- 2al2shtaJYeAni07PUWXgh23amReZcUsv9+wDLWoYLk9guNsUzL11rs
+ bh=enHd/hypPBz3ePteijtVibB3GtTKn9jBTPBLK9hsNYs=;
+ b=+aFveRRf2z/bYaV6jwLPnb0SNRF0PUDEmuCKbFzcMsM9TSNgWoYJWbWMyqWXd390iFy/ACwrU
+ ebOJyLTPS/cCyQ8dwVn4MKze3ArDP2UXThPKacXDHgoPrS6oFgOKaPl
 X-Developer-Key: i=jason98166@gmail.com; a=ed25519;
  pk=xQmD001Q/ooHl39PxyQtusbUQmgbOsSfpFryRVWZ/k4=
 X-Endpoint-Received: by B4 Relay for jason98166@gmail.com/20260721 with
@@ -68,86 +68,307 @@ Reply-To: jason98166@gmail.com
 
 From: Jason Yang <jason98166@gmail.com>
 
-The Samsung MIPI D-/C-PHY block on RK3588 drives a MIPI DSI transmitter
-and, on the same PHY, can receive a MIPI CSI camera. Describing both as
-independent consumers of one PHY requires the direction to be expressed
-in the devicetree.
+The DC-PHY drives a MIPI DSI transmitter and a MIPI CSI receiver, and on
+RK3588 both can be wired to the same PHY as independent consumers. The
+PHY core reference-counts power_on() per struct phy, so a single struct
+phy cannot bring the two directions up independently.
 
-Allow "#phy-cells" to be 1 or 2. The existing single-cell form still
-selects the PHY type and refers to the transmitter, so shipped DSI
-device trees stay valid; bumping the cell count unconditionally would
-invalidate them. A second cell adds the direction, letting a DSI (TX)
-and a CSI (RX) reference the same PHY node as separate consumers.
+Register one struct phy per direction and move the per-direction state
+(direction, PHY type, lane count and powered flag) into its own driver
+data. of_xlate() accepts the legacy single cell as the transmitter and
+an optional second cell that selects the direction, so existing
+single-cell DSI device trees keep resolving to the transmitter.
+configure() rejects the not yet supported receiver before touching any
+state, and each direction keeps its own lane count.
 
-Add include/dt-bindings/phy/rockchip,rk3588-mipi-dcphy.h for the
-RK_DCPHY_DIR_TX and RK_DCPHY_DIR_RX direction constants.
+The PHY's common block contains a single BIAS block shared by both
+directions (RK3588 TRM section 22.2), so it must be programmed only
+once. Whichever direction powers on first enables it; each direction
+records its powered state under the per-provider mutex so that powering
+one direction on does not disturb an already running one. The APB reset
+is issued on the transmitter bring-up path.
+The receiver bring-up itself is added in a later change.
 
 Signed-off-by: Jason Yang <jason98166@gmail.com>
 Assisted-by: Claude:claude-opus-4-8
 ---
- .../bindings/phy/rockchip,rk3588-mipi-dcphy.yaml   | 22 ++++++++++++++++------
- .../dt-bindings/phy/rockchip,rk3588-mipi-dcphy.h   | 13 +++++++++++++
- 2 files changed, 29 insertions(+), 6 deletions(-)
+ drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c | 143 +++++++++++++++-------
+ 1 file changed, 102 insertions(+), 41 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/phy/rockchip,rk3588-mipi-dcphy.yaml b/Documentation/devicetree/bindings/phy/rockchip,rk3588-mipi-dcphy.yaml
-index c8ff5ba22a86..68a43db9c669 100644
---- a/Documentation/devicetree/bindings/phy/rockchip,rk3588-mipi-dcphy.yaml
-+++ b/Documentation/devicetree/bindings/phy/rockchip,rk3588-mipi-dcphy.yaml
-@@ -20,12 +20,22 @@ properties:
-     maxItems: 1
+diff --git a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
+index d0d77421bd4b..95eb1200cab4 100644
+--- a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
++++ b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
+@@ -5,6 +5,7 @@
+  *      Guochun Huang <hero.huang@rock-chips.com>
+  */
  
-   "#phy-cells":
--    const: 1
-+    enum: [1, 2]
-     description: |
--      Argument is mode to operate in. Supported modes are:
--        - PHY_TYPE_DPHY
--        - PHY_TYPE_CPHY
--      See include/dt-bindings/phy/phy.h for constants.
-+      A single cell selects the PHY type and always refers to the
-+      transmitter (DSI) direction. It is kept for backwards compatibility
-+      with existing device trees:
-+        - <PHY_TYPE_DPHY>
-+        - <PHY_TYPE_CPHY>
-+
-+      Two cells select the PHY type and the direction, so that the
-+      transmitter (DSI) and the receiver (CSI) can be described as
-+      independent consumers of the same PHY:
-+        - <PHY_TYPE_DPHY RK_DCPHY_DIR_TX>
-+        - <PHY_TYPE_DPHY RK_DCPHY_DIR_RX>
-+
-+      See include/dt-bindings/phy/phy.h and
-+      include/dt-bindings/phy/rockchip,rk3588-mipi-dcphy.h for constants.
++#include <dt-bindings/phy/rockchip,rk3588-mipi-dcphy.h>
+ #include <dt-bindings/phy/phy.h>
+ #include <linux/bitfield.h>
+ #include <linux/clk.h>
+@@ -13,6 +14,7 @@
+ #include <linux/kernel.h>
+ #include <linux/mfd/syscon.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/of.h>
+ #include <linux/phy/phy.h>
+ #include <linux/platform_device.h>
+@@ -280,6 +282,19 @@ struct samsung_mipi_dcphy_plat_data {
+ 	u32 dphy_tx_max_lane_kbps;
+ };
  
-   clocks:
-     maxItems: 2
-@@ -82,6 +92,6 @@ examples:
-                  <&cru SRST_S_MIPI_DCPHY0>;
-         reset-names = "m_phy", "apb", "grf", "s_phy";
-         rockchip,grf = <&mipidcphy0_grf>;
--        #phy-cells = <1>;
-+        #phy-cells = <2>;
-       };
-     };
-diff --git a/include/dt-bindings/phy/rockchip,rk3588-mipi-dcphy.h b/include/dt-bindings/phy/rockchip,rk3588-mipi-dcphy.h
-new file mode 100644
-index 000000000000..5029838fa275
---- /dev/null
-+++ b/include/dt-bindings/phy/rockchip,rk3588-mipi-dcphy.h
-@@ -0,0 +1,13 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-+/*
-+ * Copyright (c) 2026 Jason Yang <jason98166@gmail.com>
-+ */
++struct samsung_mipi_dcphy;
 +
-+#ifndef _DT_BINDINGS_PHY_ROCKCHIP_RK3588_MIPI_DCPHY_H
-+#define _DT_BINDINGS_PHY_ROCKCHIP_RK3588_MIPI_DCPHY_H
++/* One PHY per direction: transmitter (DSI) and receiver (CSI). */
++struct samsung_mipi_dcphy_dir {
++	struct phy *phy;
++	struct samsung_mipi_dcphy *parent;
++	u8 dir;
++	u8 type;
++	unsigned int lanes;
++	/* Written under the parent's lock. */
++	bool powered;
++};
 +
-+/* Direction of a Rockchip Samsung MIPI D-/C-PHY combo block */
-+#define RK_DCPHY_DIR_TX		0
-+#define RK_DCPHY_DIR_RX		1
+ struct samsung_mipi_dcphy {
+ 	struct device *dev;
+ 	struct clk *ref_clk;
+@@ -290,9 +305,9 @@ struct samsung_mipi_dcphy {
+ 	struct reset_control *s_phy_rst;
+ 	struct reset_control *apb_rst;
+ 	struct reset_control *grf_apb_rst;
+-	unsigned int lanes;
+-	struct phy *phy;
+-	u8 type;
++	struct samsung_mipi_dcphy_dir phys[2];
++	/* Serialises the two directions' access to the shared PHY state. */
++	struct mutex lock;
+ 
+ 	const struct samsung_mipi_dcphy_plat_data *pdata;
+ 	struct {
+@@ -995,7 +1010,7 @@ static void samsung_mipi_dphy_lane_enable(struct samsung_mipi_dcphy *samsung)
+ 	regmap_update_bits(samsung->regmap, DPHY_MC_GNR_CON0,
+ 			   PHY_ENABLE, PHY_ENABLE);
+ 
+-	switch (samsung->lanes) {
++	switch (samsung->phys[RK_DCPHY_DIR_TX].lanes) {
+ 	case 4:
+ 		regmap_write(samsung->regmap, DPHY_MD3_GNR_CON1,
+ 			     T_PHY_READY(0x2000));
+@@ -1026,7 +1041,7 @@ static void samsung_mipi_dphy_lane_enable(struct samsung_mipi_dcphy *samsung)
+ 
+ static void samsung_mipi_dphy_lane_disable(struct samsung_mipi_dcphy *samsung)
+ {
+-	switch (samsung->lanes) {
++	switch (samsung->phys[RK_DCPHY_DIR_TX].lanes) {
+ 	case 4:
+ 		regmap_update_bits(samsung->regmap, DPHY_MD3_GNR_CON0,
+ 				   PHY_ENABLE, 0);
+@@ -1334,11 +1349,23 @@ samsung_mipi_dphy_data_lane_timing_init(struct samsung_mipi_dcphy *samsung)
+ 
+ static int samsung_mipi_dphy_tx_power_on(struct samsung_mipi_dcphy *samsung)
+ {
++	bool first = !samsung->phys[RK_DCPHY_DIR_RX].powered;
+ 	int ret;
+ 
++	/*
++	 * The shared BIAS block is brought up by whichever direction powers
++	 * on first, leaving an already active peer undisturbed.
++	 */
++	if (first) {
++		reset_control_assert(samsung->apb_rst);
++		udelay(1);
++		reset_control_deassert(samsung->apb_rst);
++	}
 +
-+#endif /* _DT_BINDINGS_PHY_ROCKCHIP_RK3588_MIPI_DCPHY_H */
+ 	reset_control_assert(samsung->m_phy_rst);
+ 
+-	samsung_mipi_dcphy_bias_block_enable(samsung);
++	if (first)
++		samsung_mipi_dcphy_bias_block_enable(samsung);
+ 	samsung_mipi_dcphy_pll_configure(samsung);
+ 	samsung_mipi_dphy_clk_lane_timing_init(samsung);
+ 	samsung_mipi_dphy_data_lane_timing_init(samsung);
+@@ -1368,34 +1395,44 @@ static int samsung_mipi_dphy_tx_power_off(struct samsung_mipi_dcphy *samsung)
+ 
+ static int samsung_mipi_dcphy_power_on(struct phy *phy)
+ {
+-	struct samsung_mipi_dcphy *samsung = phy_get_drvdata(phy);
+-
+-	reset_control_assert(samsung->apb_rst);
+-	udelay(1);
+-	reset_control_deassert(samsung->apb_rst);
++	struct samsung_mipi_dcphy_dir *pd = phy_get_drvdata(phy);
++	struct samsung_mipi_dcphy *samsung = pd->parent;
++	int ret;
+ 
+-	switch (samsung->type) {
+-	case PHY_TYPE_DPHY:
+-		return samsung_mipi_dphy_tx_power_on(samsung);
+-	default:
+-		/* CPHY part to be implemented later */
++	if (pd->type != PHY_TYPE_DPHY)
+ 		return -EOPNOTSUPP;
+-	}
+ 
+-	return 0;
++	mutex_lock(&samsung->lock);
++	if (pd->dir == RK_DCPHY_DIR_RX)
++		ret = -EOPNOTSUPP;
++	else
++		ret = samsung_mipi_dphy_tx_power_on(samsung);
++	if (!ret)
++		pd->powered = true;
++	mutex_unlock(&samsung->lock);
++
++	return ret;
+ }
+ 
+ static int samsung_mipi_dcphy_power_off(struct phy *phy)
+ {
+-	struct samsung_mipi_dcphy *samsung = phy_get_drvdata(phy);
++	struct samsung_mipi_dcphy_dir *pd = phy_get_drvdata(phy);
++	struct samsung_mipi_dcphy *samsung = pd->parent;
++	int ret;
+ 
+-	switch (samsung->type) {
+-	case PHY_TYPE_DPHY:
+-		return samsung_mipi_dphy_tx_power_off(samsung);
+-	default:
+-		/* CPHY part to be implemented later */
++	if (pd->type != PHY_TYPE_DPHY)
+ 		return -EOPNOTSUPP;
+-	}
++
++	if (pd->dir == RK_DCPHY_DIR_RX)
++		return -EOPNOTSUPP;
++
++	mutex_lock(&samsung->lock);
++	ret = samsung_mipi_dphy_tx_power_off(samsung);
++	if (!ret)
++		pd->powered = false;
++	mutex_unlock(&samsung->lock);
++
++	return ret;
+ }
+ 
+ static int
+@@ -1488,10 +1525,14 @@ samsung_mipi_dcphy_pll_calc_rate(struct samsung_mipi_dcphy *samsung,
+ static int samsung_mipi_dcphy_configure(struct phy *phy,
+ 					union phy_configure_opts *opts)
+ {
+-	struct samsung_mipi_dcphy *samsung = phy_get_drvdata(phy);
++	struct samsung_mipi_dcphy_dir *pd = phy_get_drvdata(phy);
++	struct samsung_mipi_dcphy *samsung = pd->parent;
+ 	unsigned long long target_rate = opts->mipi_dphy.hs_clk_rate;
+ 
+-	samsung->lanes = opts->mipi_dphy.lanes > 4 ? 4 : opts->mipi_dphy.lanes;
++	if (pd->dir == RK_DCPHY_DIR_RX)
++		return -EOPNOTSUPP;
++
++	pd->lanes = opts->mipi_dphy.lanes > 4 ? 4 : opts->mipi_dphy.lanes;
+ 
+ 	samsung_mipi_dcphy_pll_calc_rate(samsung, target_rate);
+ 	opts->mipi_dphy.hs_clk_rate = samsung->pll.rate;
+@@ -1501,16 +1542,16 @@ static int samsung_mipi_dcphy_configure(struct phy *phy,
+ 
+ static int samsung_mipi_dcphy_init(struct phy *phy)
+ {
+-	struct samsung_mipi_dcphy *samsung = phy_get_drvdata(phy);
++	struct samsung_mipi_dcphy_dir *pd = phy_get_drvdata(phy);
+ 
+-	return pm_runtime_resume_and_get(samsung->dev);
++	return pm_runtime_resume_and_get(pd->parent->dev);
+ }
+ 
+ static int samsung_mipi_dcphy_exit(struct phy *phy)
+ {
+-	struct samsung_mipi_dcphy *samsung = phy_get_drvdata(phy);
++	struct samsung_mipi_dcphy_dir *pd = phy_get_drvdata(phy);
+ 
+-	pm_runtime_put(samsung->dev);
++	pm_runtime_put(pd->parent->dev);
+ 
+ 	return 0;
+ }
+@@ -1536,19 +1577,29 @@ static struct phy *samsung_mipi_dcphy_xlate(struct device *dev,
+ 					    const struct of_phandle_args *args)
+ {
+ 	struct samsung_mipi_dcphy *samsung = dev_get_drvdata(dev);
++	struct samsung_mipi_dcphy_dir *pd;
++	u8 dir = RK_DCPHY_DIR_TX;
+ 
+-	if (args->args_count != 1) {
++	if (args->args_count < 1 || args->args_count > 2) {
+ 		dev_err(dev, "invalid number of arguments\n");
+ 		return ERR_PTR(-EINVAL);
+ 	}
+ 
+-	if (samsung->type != PHY_NONE && samsung->type != args->args[0])
+-		dev_warn(dev, "phy type select %d overwriting type %d\n",
+-			 args->args[0], samsung->type);
++	if (args->args_count == 2) {
++		if (args->args[1] > RK_DCPHY_DIR_RX) {
++			dev_err(dev, "invalid direction %u\n", args->args[1]);
++			return ERR_PTR(-EINVAL);
++		}
++		dir = args->args[1];
++	}
+ 
+-	samsung->type = args->args[0];
++	pd = &samsung->phys[dir];
++	if (pd->type != PHY_NONE && pd->type != args->args[0])
++		dev_warn(dev, "phy type select %u overwriting type %u\n",
++			 args->args[0], pd->type);
++	pd->type = args->args[0];
+ 
+-	return samsung->phy;
++	return pd->phy;
+ }
+ 
+ static int samsung_mipi_dcphy_probe(struct platform_device *pdev)
+@@ -1559,6 +1610,7 @@ static int samsung_mipi_dcphy_probe(struct platform_device *pdev)
+ 	struct phy_provider *phy_provider;
+ 	struct resource *res;
+ 	void __iomem *regs;
++	unsigned int i;
+ 	int ret;
+ 
+ 	samsung = devm_kzalloc(dev, sizeof(*samsung), GFP_KERNEL);
+@@ -1568,6 +1620,7 @@ static int samsung_mipi_dcphy_probe(struct platform_device *pdev)
+ 	samsung->dev = dev;
+ 	samsung->pdata = device_get_match_data(dev);
+ 	platform_set_drvdata(pdev, samsung);
++	mutex_init(&samsung->lock);
+ 
+ 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+ 	regs = devm_ioremap_resource(dev, res);
+@@ -1613,11 +1666,19 @@ static int samsung_mipi_dcphy_probe(struct platform_device *pdev)
+ 		return dev_err_probe(dev, PTR_ERR(samsung->grf_apb_rst),
+ 				     "Failed to get system grf_apb_rst control\n");
+ 
+-	samsung->phy = devm_phy_create(dev, NULL, &samsung_mipi_dcphy_ops);
+-	if (IS_ERR(samsung->phy))
+-		return dev_err_probe(dev, PTR_ERR(samsung->phy), "Failed to create MIPI DC-PHY\n");
++	for (i = 0; i < ARRAY_SIZE(samsung->phys); i++) {
++		struct phy *phy = devm_phy_create(dev, NULL,
++						  &samsung_mipi_dcphy_ops);
+ 
+-	phy_set_drvdata(samsung->phy, samsung);
++		if (IS_ERR(phy))
++			return dev_err_probe(dev, PTR_ERR(phy),
++					     "Failed to create MIPI DC-PHY\n");
++
++		samsung->phys[i].phy = phy;
++		samsung->phys[i].parent = samsung;
++		samsung->phys[i].dir = i;
++		phy_set_drvdata(phy, &samsung->phys[i]);
++	}
+ 
+ 	ret = devm_pm_runtime_enable(dev);
+ 	if (ret)
 
 -- 
 2.43.0
