@@ -1,1312 +1,382 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AC332931D5
-	for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 14:32:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B95422931D5
+	for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 14:33:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785076376; cv=none; b=XdKP8ueBqIs+2Co+FYNdrg3PFA/TW8+Tx4dF4h4/XaPLTYJhLgHqMyFgZC7P32jUiqPTXyw2BwI//EDkGu0zfcS452UgiZzFOYoxxkT1L7lOyE2DpmdhOoiZbgGOTqcpcVEJklC6P2zm3hn8jlnLszeWskufYxopFo3WDO/rXF4=
+	t=1785076418; cv=none; b=IPcsZacV3sXjdpENJGPe/l4a8opulQOFn3E7syhx01Q6bE5MOZYsIRChWFuYQCMLdbV9eEucgCNRXmzilFNyKHy4Q1NsINPYDDxB1Yg26s7EImbItAkAqzwHPOP9KhvMvkgACHyz0myOyVi1vg9A/gScSWhtwK6MghSLQVzEDo4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785076376; c=relaxed/simple;
-	bh=FUW/joDbCZDx6rfKL5Az/ImCTn9NdXPEs2esXybqVsI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ebtPijG5OCcLi4BfoLYthgTVgH2n60ucmmSQPLayBhBcguTK25+OpfriS2SkLV7qHDRyh3ODqYc71MgTntgWkOeFJYLDtzRgv3C7qv9l0JO8PJDN4TmqSIEim4arlW3qIFFoMK2TdK12mXhYaj0UBfGI9ka/ThKwka+mpCVNr04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pbf7ZZsN; arc=none smtp.client-ip=209.85.214.171
+	s=arc-20240116; t=1785076418; c=relaxed/simple;
+	bh=JJDFfhsd/GTM+KIZs2Xzv41T1UmgO+KFHtsTYBpYdzk=;
+	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MJWX+8jZYwLlxqOvyR/O+MobyND7vfOmpPb4Nn6AXEHOBNLiONkwkTWNhXtwSN+KAMtihW8XdKzUQsOCKcMpYwfd6CFGkHS/sET23u1Y3Ok+roy012nlkt5f4330lZfLDniXEe6LiGm44/jogA3/PZW7KHoJKpuVzlWbHulqaDw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pkaS6+k8; arc=none smtp.client-ip=209.85.128.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pbf7ZZsN"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2ce98cb8165so21430865ad.1
-        for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 07:32:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pkaS6+k8"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4954a9e8490so14806665e9.1
+        for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 07:33:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785076373; x=1785681173; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8R/GGjvQw32Ta1zSDferYP2xkZ8i2ieoONEUHfkzNY0=;
-        b=Pbf7ZZsNBK0gfV3xnhtg8oPLb5L6x+6QhjjW7/LhEuaF8t1orHygcBS+EA9Vatnt3q
-         IyplEpp+DhufovHydDMdYJZ2jhHWz+UmWRQvsABXr3bJKtTKU0vGkSJfEOpDUWYW8sm8
-         R9m9bMbmvXXiWr+yVGSxeQ6pSkjKywkvmufoterlumVk/VVbu19fbQ7LxK+BYQDBqgcY
-         KPqSi958ta2qtntjlbNz+t93qC0zpw8CTTqounumPNoFzADvz9o8bRFF00E2kmoWUJLp
-         JdedlLh1LiVqtWhqm/M6D7XPHhtqpUFJplNJzgWrhBaknW4Loi8n2ljCsji3v/dd1B3a
-         8D+Q==
+        d=gmail.com; s=20251104; t=1785076415; x=1785681215; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:subject:cc:to:from:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dx/36lpu5YKnUlGy6gnSnCmKuHwVnomYG6DKntygu6o=;
+        b=pkaS6+k8KRZ9yEOXii3os6s/qIP4QRYPJ37vrGuLvKP5zofwE1+VF/xLypY2Ln9iQ6
+         VEBbIrocXTlRydmwk6ntiN+W45k9MKk9u8czJBRpHnOkTU+EIrL0x+evtGgWkfpiGzZo
+         D2O4wMI3ZeFZYtCkOulgx7JaNSken3Pz6SDH0rmnxTTKgCrZu7iXEc+i3n1C88f0C3b9
+         E56OVYvVROtNSJ1026EJyyyz3Z2j4Oi5y7hszC/5Tm8rElbAvUUUy6ZUQ4quINNMIhAq
+         rstxACF3aDqp+52/ivVfKAdGa40M1Hu+5Lh4f5hl0vqCUcc6wt+QjzxCi7sRKGmVZ4EG
+         HRQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785076373; x=1785681173;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8R/GGjvQw32Ta1zSDferYP2xkZ8i2ieoONEUHfkzNY0=;
-        b=Af08cj2qoWw7UHbeoNuBaOFsrVWQVDE2WOBbVmOXrj4hQyxiS1Xwixcq6cmhc7H/Pj
-         0QbcwCyPDPI+LEwGenOymR1zf79RJpD4cy91bCGlOdRbx/yR+/QQMoFXTBy+SZ18LKcg
-         lXQhvtLP4OQFiyshxeNNp7BxHe2eZKsbosozAhAWFrdSkRNuTvLOCT0wGQ40SJOgygKC
-         yyPZLfJWm+E1oLqG3gyjSHjLfM9A+QBvMjtRalcKzqIHvUo7Of+7FV9T2CXNnSmNc5AY
-         vnpZAubcJkdZi6f9LySJ4RtmKLA3MUwjkTEMu2vtr5DkFeh/mll6qKpZzMbUnnWVN7hp
-         4pPg==
-X-Forwarded-Encrypted: i=1; AHgh+RpvMHwAq8evJIBsGDrw7hkvrlfbRp3sA0Qvx3hvanTRbriNM15XyySbB+vIJtkF9SyUEvtZC6R7uVUG@vger.kernel.org
-X-Gm-Message-State: AOJu0YzkUH3rcmtmBdosf85yfgYR//Kj7IjQotQTyMpo2fwJhNQJRMhD
-	pEHmIUAESEVm2yQFmWTuGxf9GHLV+72Oo6Z++EgJ8gvev9N6tBxMT140
-X-Gm-Gg: AR+sD12zMJf88iZ2T8ET3CJ5PuYKP2s+V2Sq7p8njP/RFY73JlOD4Z9BNmjt0cQD8BB
-	3mLaMuEGTTBu2qUwFsEFZbDiQdqOgPtlVo3fx7pBiLK1PilI6kfNFVvJjjLyT+8n3Z285gBLsPm
-	sxSkNBNM1asdxGokSPSQULv9BoD7jbVI2Amlokqn0RrBbga/Q/oiYXVmBrGR0FMtYV9kAF3KZC5
-	LwpPUURaTei49BCK7ht6g5oxCeDTTB4UW3QllOuXJiiyX6ON86AFxRE5skOHFnFY+Qkg5/ppKU0
-	/0MPho2vD+yZk5a1ikT1lsretU94jRhCzTcJxJtkhVn9OlBOvL7xGeD1DSk6eLXJIDH0ZJexH0M
-	Yk+BL52ylVfEwfJqebn0EDfLzdZws3tmGjz85xYOhzxPFj7VH0OepLtD0CPkMluQ1MuoxG+tBgw
-	UgHSf9grGweIR+yMnJuEoKgBjeNiF6tuqQjfCS9Svge1ST
-X-Received: by 2002:a17:903:230c:b0:2ce:a6a4:451b with SMTP id d9443c01a7336-2cfd70ef9e1mr68191925ad.11.1785076373193;
-        Sun, 26 Jul 2026 07:32:53 -0700 (PDT)
-Received: from nuvole ([2408:8456:3213:88d5:c960:d4eb:e951:e287])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cfde7f8e73sm20552015ad.72.2026.07.26.07.32.44
+        d=1e100.net; s=20251104; t=1785076415; x=1785681215;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:subject:cc:to:from:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dx/36lpu5YKnUlGy6gnSnCmKuHwVnomYG6DKntygu6o=;
+        b=QnQg4y/fIqkJPyo4GhEgN+B4XXBHfixNgtglBWUNwgnqp9HeE3zsIMefFSe+5daTV3
+         MqMc+mogRn6MKeSfMuq3XfZwAJa7YjC/NW+tyv3Dq1p6Bpw8xbzemJr5/NYboqwUSINo
+         GJ5PNFUSvciDG+8UNUZUgW7DCGA3HvhoeAlfGpfesfNjXhSoeE+njbnoII/lrkroYcWg
+         5okh5OkwLwpKrXYrra7MMZUVF/e0p1RbaCqI3B8vGpl/vKBWatQtvdP9Qx54M0Mf6BM/
+         UgUOmG1z5MTgQ8dF3XAaTNDhiToJEzkH0ey4SqvP7wOutsRTvZK/8UNxyQXjOQyArPyW
+         dUBA==
+X-Forwarded-Encrypted: i=1; AHgh+Rpkf6mmu/7F19vgFvzyR6IplqVsnx31nAMTm3RB4NyRDZMj3NPjSg8qVfGfI2nHCfoit/NzGLraPr2G@vger.kernel.org
+X-Gm-Message-State: AOJu0YzYDsjxFG5BV5/GjCIOj8tvfCFjsATtoacdq/MllDAQ/gjuNZHg
+	gkRuwOtuKDzYXOpiaSppJv/ZZ36y9BNGDWvRsEFfu6pcdmFY2hUxl9EV
+X-Gm-Gg: AR+sD11Nc86W08JD0nBd1b/Z4OXF58rjZg8sT8aPB8zibg/xfxiuv0f4HxCwJb61qXK
+	RIOaviYb/84dI7qVl1tmnPCENm7y6qKbDgKxOb1oCIZCLLp8GvgtngnATcouk8nQ8lqs/B3YYSy
+	OE+4k8brvKuC5/ty2fkp9PFddEzWq9oUArJm2iM11Fd1Oht85TIYHLJaBDy+7GjjWAuXkKxxSPp
+	lLWZnZ1TQ6Xfl0TGf1ZMv3GwApHsCMHDiCi1hZfztU4eQzQbMlU13aiMrpspbl0wudw08k+jzEG
+	KyzCPJM4zpyVeTmjeVdPBgE1oDMAsgeFRPMfrTsNTkWeVuTMaXltdpsAxr6z+A5qXPSyFnsecvN
+	rvtc9YidD3jyYVEP3kWcUOWRt2WR+z7KsIOWFXO7CSQGlpAw6gdN5j1YsnE3Iww2/O4XgnR6i8R
+	JUPsVdolqRlw2cCI0ZtW1Hw0QM6WLoe1HMrzhiAUSEGe7R
+X-Received: by 2002:a05:600c:4704:b0:495:6022:5a23 with SMTP id 5b1f17b1804b1-496b5c92ebfmr64411455e9.19.1785076414619;
+        Sun, 26 Jul 2026 07:33:34 -0700 (PDT)
+Received: from Ansuel-XPS. (host-87-0-193-91.retail.telecomitalia.it. [87.0.193.91])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496b4ed5f93sm234143555e9.1.2026.07.26.07.33.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 26 Jul 2026 07:32:52 -0700 (PDT)
-From: Pengyu Luo <mitltlatltl@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
+        Sun, 26 Jul 2026 07:33:33 -0700 (PDT)
+Message-ID: <6a661abd.47e43f48.2d554a.cce9@mx.google.com>
+X-Google-Original-Message-ID: <amYauZfp7GWNQK0E@Ansuel-XPS.>
+Date: Sun, 26 Jul 2026 16:33:29 +0200
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Pengyu Luo <mitltlatltl@gmail.com>
-Subject: [PATCH v2 2/2] arm64: dts: qcom: sm8750: Add Lenovo Legion Y700 Gen4
-Date: Sun, 26 Jul 2026 22:30:48 +0800
-Message-ID: <20260726143048.130116-3-mitltlatltl@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260726143048.130116-1-mitltlatltl@gmail.com>
-References: <20260726143048.130116-1-mitltlatltl@gmail.com>
+	Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH net-next v9 06/12] net: Document PCS subsystem
+References: <20260717065448.1498335-1-ansuelsmth@gmail.com>
+ <20260717065448.1498335-7-ansuelsmth@gmail.com>
+ <d9ffe027-c3de-4b96-949b-8e9dd4e53dd1@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d9ffe027-c3de-4b96-949b-8e9dd4e53dd1@bootlin.com>
 
-Add an initial devicetree for the Lenovo Legion Y700 Gen4, which is
-based on sm8750-qrd.
+On Tue, Jul 21, 2026 at 02:11:46PM +0200, Maxime Chevallier wrote:
+> 
+> 
+> On 7/17/26 08:54, Christian Marangi wrote:
+> > Add extensive documentation of the new PCS subsystem and the fwnode
+> > implementation with producer/consumer API.
+> > 
+> > Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> > ---
+> >  Documentation/networking/index.rst |   1 +
+> >  Documentation/networking/pcs.rst   | 229 +++++++++++++++++++++++++++++
+> >  2 files changed, 230 insertions(+)
+> >  create mode 100644 Documentation/networking/pcs.rst
+> > 
+> > diff --git a/Documentation/networking/index.rst b/Documentation/networking/index.rst
+> > index 44a422ad3b05..3fce8f6ac089 100644
+> > --- a/Documentation/networking/index.rst
+> > +++ b/Documentation/networking/index.rst
+> > @@ -28,6 +28,7 @@ Contents:
+> >     net_failover
+> >     page_pool
+> >     phy
+> > +   pcs
+> >     sfp-phylink
+> >     alias
+> >     bridge
+> > diff --git a/Documentation/networking/pcs.rst b/Documentation/networking/pcs.rst
+> > new file mode 100644
+> > index 000000000000..98592cdee3ef
+> > --- /dev/null
+> > +++ b/Documentation/networking/pcs.rst
+> > @@ -0,0 +1,229 @@
+> > +.. SPDX-License-Identifier: GPL-2.0
+> > +
+> > +=============
+> > +PCS Subsystem
+> > +=============
+> > +
+> > +The PCS (Physical Coding Sublayer) subsystem handles the registration and lookup
+> > +of PCS devices. These devices contain the upper sublayers of the Ethernet
+> > +physical layer, generally handling framing, scrambling, and encoding tasks. PCS
+> > +devices may also include PMA (Physical Medium Attachment) components. PCS
+> > +devices transfer data between the Link-layer MAC device, and the rest of the
+> > +physical layer, typically via a serdes. The output of the serdes may be
+> > +connected more-or-less directly to the medium when using fiber-optic or
+> > +backplane connections (1000BASE-SX, 1000BASE-KX, etc). It may also communicate
+> > +with a separate PHY (such as over SGMII) which handles the connection to the
+> > +medium (such as 1000BASE-T).
+> > +
+> > +Remark on usage of .mac_select_pcs and fw_node PCS
+> > +--------------------------------------------------
+> > +
+> > +There are generally two ways to look up a PCS device.
+> > +
+> > +1. MAC OP struct .mac_select_pcs (considered legacy)
+> > +2. firmware node (fwnode) PCS entirely handled by phylink
+> > +
+> > +Implementation 1 leaves the entire handling of the PCS to the MAC
+> > +driver with the selection of the PCS driven by .mac_select_pcs.
+> > +Custom implementations are required if the PCS is external to the MAC
+> > +and needs to be handled by a separate driver.
+> > +
+> > +This implementation is considered legacy and it's suggested to
+> > +switch to the new fwnode PCS.
+> 
+> The .mac_select_pcs can be deprecated, with the .fill_available_pcs()
+> mecanism available, we can keep PCS implems inside the MAC driver when
+> it makes sense, no ?
 
-Supported features:
-- Altmode
-- Backlight
-- Battery & Charge (Full speed)
-- Buttons
-- Framebuffer (Require mdss and dispcc to be disabled)
-- USB (Two ports)
+Yes that is the idea but it might take a while to deprecate it.
 
-Downstream supported features:
-- Display (8/10 bits) (Nowadays DPU driver is broken for dual dsi panel)
-- GPU
-- Touchscreen
+> 
+> If PCSs aren't described in firmware (i.e. DT), we have to use .fill_available_pcs()
+> without using the fwnode API if I get your code right.
 
-Unsupported features:
-- BT & WIFI
-- Cameras & Flash
-- Microphones & Speakers (Downstream available, pending test [1])
-- Sensors (Downstream available, pending test [2])
-- Vibrators (Downstream available, pending test [1])
+Yes everything should be described that way. 
 
-[1]: https://github.com/GUF296/linux/commits/codex/tb321fu-full-remediation-20260715
-[2]: https://github.com/linux-msm/hexagonrpc
+> 
+> The 'legacy' part is the only remark I have, the rest is all good :)
+> 
 
-Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
----
-Changes in v2:
-- Add the dsi panel node, since the panel driver is upstreamed.
-- Use consistent name for fixed regulators. (Krzysztof)
----
- arch/arm64/boot/dts/qcom/Makefile             |    1 +
- .../boot/dts/qcom/sm8750-lenovo-elden.dts     | 1170 +++++++++++++++++
- 2 files changed, 1171 insertions(+)
- create mode 100644 arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts
+Any hint on the wording? I remember you already said something about this.
+I will check previous review.
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index e05414290d8e..cb93708e0415 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -405,6 +405,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-hdk-rear-camera-card.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-hdk.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-mtp.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-qrd.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-lenovo-elden.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-mtp.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-qrd.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk.dtb
-diff --git a/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts b/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts
-new file mode 100644
-index 000000000000..c64a1d8c65c1
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts
-@@ -0,0 +1,1170 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
-+ * Copyright (c) 2025-2026 Pengyu Luo <mitltlatltl@gmail.com>
-+ */
-+
-+/dts-v1/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/phy/phy.h>
-+#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-+#include "sm8750.dtsi"
-+#include "pm8550.dtsi"
-+#define PMK8550VE_SID 8
-+#include "pm8550ve.dtsi"
-+#include "pmih0108.dtsi"
-+#include "pmk8550.dtsi"
-+#include "sm8750-pmics.dtsi"
-+
-+/ {
-+	model = "Lenovo Legion Y700 Gen4";
-+	compatible = "lenovo,elden", "qcom,sm8750";
-+	chassis-type = "tablet";
-+
-+	aliases {
-+		i2c5 = &i2c5;
-+		i2c6 = &i2c6;
-+		i2c9 = &i2c9;
-+		i2c10 = &i2c10;
-+		serial1 = &uart14;
-+	};
-+
-+	/* mandatory, ABL requires the chosen node (not the fb) to boot */
-+	chosen {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		framebuffer: framebuffer@fc800000 {
-+			compatible = "simple-framebuffer";
-+			reg = <0x0 0xfc800000 0x0 0x2b00000>;
-+			width = <1904>;
-+			height = <3040>;
-+			stride = <(1904 * 4)>;
-+			format = "a8r8g8b8";
-+		};
-+	};
-+
-+	clocks {
-+		xo_board: xo-board {
-+			compatible = "fixed-clock";
-+			clock-frequency = <76800000>;
-+			#clock-cells = <0>;
-+		};
-+
-+		sleep_clk: sleep-clk {
-+			compatible = "fixed-clock";
-+			clock-frequency = <32000>;
-+			#clock-cells = <0>;
-+		};
-+
-+		bi_tcxo_div2: bi-tcxo-div2-clk {
-+			compatible = "fixed-factor-clock";
-+			#clock-cells = <0>;
-+
-+			clocks = <&rpmhcc RPMH_CXO_CLK>;
-+			clock-mult = <1>;
-+			clock-div = <2>;
-+		};
-+
-+		bi_tcxo_ao_div2: bi-tcxo-ao-div2-clk {
-+			compatible = "fixed-factor-clock";
-+			#clock-cells = <0>;
-+
-+			clocks = <&rpmhcc RPMH_CXO_CLK_A>;
-+			clock-mult = <1>;
-+			clock-div = <2>;
-+		};
-+	};
-+
-+	gpio-keys {
-+		compatible = "gpio-keys";
-+
-+		pinctrl-0 = <&volume_up_n>;
-+		pinctrl-names = "default";
-+
-+		key-volume-up {
-+			label = "Volume Up";
-+			linux,code = <KEY_VOLUMEUP>;
-+			gpios = <&pm8550_gpios 6 GPIO_ACTIVE_LOW>;
-+			debounce-interval = <15>;
-+			linux,can-disable;
-+			wakeup-source;
-+		};
-+	};
-+
-+	pmic-glink {
-+		compatible = "qcom,sm8750-pmic-glink",
-+			     "qcom,sm8550-pmic-glink",
-+			     "qcom,pmic-glink";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		orientation-gpios = <&tlmm 61 GPIO_ACTIVE_HIGH>;
-+
-+		/* Long edge */
-+		connector@0 {
-+			compatible = "usb-c-connector";
-+			reg = <0>;
-+
-+			power-role = "dual";
-+			data-role = "dual";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					pmic_glink_hs_in: endpoint {
-+						remote-endpoint = <&usb_dwc3_hs>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					pmic_glink_ss_in: endpoint {
-+						remote-endpoint = <&usb_dp_qmpphy_out>;
-+					};
-+				};
-+
-+				port@2 {
-+					reg = <2>;
-+
-+					pmic_glink_sbu: endpoint {
-+						remote-endpoint = <&fsa4480_sbu_mux>;
-+					};
-+				};
-+			};
-+		};
-+
-+		/* Short edge */
-+		connector@1 {
-+			compatible = "usb-c-connector";
-+			reg = <1>;
-+
-+			power-role = "dual";
-+			data-role = "dual";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					pmic_glink_hs_c2_in: endpoint {
-+						remote-endpoint = <&usb_dwc3_hs2>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					pmic_glink_hs_sbu: endpoint {
-+						remote-endpoint = <&fsa4480_hs_sbu_mux>;
-+					};
-+				};
-+			};
-+		};
-+	};
-+
-+	reserved-memory {
-+		/*
-+		 * Use this to tell the BL to initialize the display related
-+		 * resources, so we can use efifb. Please 's/-/_/'
-+		 */
-+		splash-region@fc800000 {
-+			reg = <0 0xfc800000 0 0x2b00000>;
-+			no-map;
-+		};
-+	};
-+
-+	vph_pwr: regulator-vph-pwr {
-+		compatible = "regulator-fixed";
-+
-+		regulator-name = "vph_pwr";
-+		regulator-min-microvolt = <3700000>;
-+		regulator-max-microvolt = <3700000>;
-+
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
-+	vreg_1v8_vddio: regulator-1v8-vddio {
-+		compatible = "regulator-fixed";
-+
-+		regulator-name = "vreg_1v8_vddio";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+
-+		gpio = <&tlmm 161 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		pinctrl-0 = <&vddio_reg_en>;
-+		pinctrl-names = "default";
-+
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
-+	vreg_6v1_vsp: regulator-6v1-vsp {
-+		compatible = "regulator-fixed";
-+
-+		regulator-name = "vreg_6v1_vsp";
-+		regulator-min-microvolt = <6100000>;
-+		regulator-max-microvolt = <6100000>;
-+
-+		gpio = <&tlmm 72 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		pinctrl-0 = <&vsp_reg_en>;
-+		pinctrl-names = "default";
-+
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
-+	vreg_5v8_vsn: regulator-5v8-vsn {
-+		compatible = "regulator-fixed";
-+
-+		regulator-name = "vreg_5v8_vsn";
-+		regulator-min-microvolt = <5800000>;
-+		regulator-max-microvolt = <5800000>;
-+
-+		gpio = <&tlmm 73 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		pinctrl-0 = <&vsn_reg_en>;
-+		pinctrl-names = "default";
-+
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+};
-+
-+&apps_rsc {
-+	regulators-0 {
-+		compatible = "qcom,pm8550-rpmh-regulators";
-+
-+		vdd-bob1-supply = <&vph_pwr>;
-+		vdd-bob2-supply = <&vph_pwr>;
-+		vdd-l1-l4-l10-supply = <&vreg_s3g_1p8>;
-+		vdd-l2-l13-l14-supply = <&vreg_bob1>;
-+		vdd-l3-supply = <&vreg_s7i_1p2>;
-+		vdd-l5-l16-supply = <&vreg_bob1>;
-+		vdd-l6-l7-supply = <&vreg_bob1>;
-+		vdd-l8-l9-supply = <&vreg_bob1>;
-+		vdd-l11-supply = <&vreg_s7i_1p2>;
-+		vdd-l12-supply = <&vreg_s3g_1p8>;
-+		vdd-l15-supply = <&vreg_s3g_1p8>;
-+		vdd-l17-supply = <&vreg_bob2>;
-+
-+		qcom,pmic-id = "b";
-+
-+		vreg_bob1: bob1 {
-+			regulator-name = "vreg_bob1";
-+			regulator-min-microvolt = <3008000>;
-+			regulator-max-microvolt = <4000000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_bob2: bob2 {
-+			regulator-name = "vreg_bob2";
-+			regulator-min-microvolt = <2704000>;
-+			regulator-max-microvolt = <3008000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l1b_1p8: ldo1 {
-+			regulator-name = "vreg_l1b_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l2b_3p0: ldo2 {
-+			regulator-name = "vreg_l2b_3p0";
-+			regulator-min-microvolt = <3008000>;
-+			regulator-max-microvolt = <3048000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l4b_1p8: ldo4 {
-+			regulator-name = "vreg_l4b_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l5b_3p1: ldo5 {
-+			regulator-name = "vreg_l5b_3p1";
-+			regulator-min-microvolt = <3100000>;
-+			regulator-max-microvolt = <3148000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l6b_1p8: ldo6 {
-+			regulator-name = "vreg_l6b_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <3008000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l7b_1p8: ldo7 {
-+			regulator-name = "vreg_l7b_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <3008000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l8b_1p8: ldo8 {
-+			regulator-name = "vreg_l8b_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <3008000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l9b_2p9: ldo9 {
-+			regulator-name = "vreg_l9b_2p9";
-+			regulator-min-microvolt = <2960000>;
-+			regulator-max-microvolt = <3008000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l10b_1p8: ldo10 {
-+			regulator-name = "vreg_l10b_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l14b_3p2: ldo14 {
-+			regulator-name = "vreg_l14b_3p2";
-+			regulator-min-microvolt = <3200000>;
-+			regulator-max-microvolt = <3200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l15b_1p8: ldo15 {
-+			regulator-name = "vreg_l15b_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l16b_2p8: ldo16 {
-+			regulator-name = "vreg_l16b_2p8";
-+			regulator-min-microvolt = <2800000>;
-+			regulator-max-microvolt = <2800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l17b_2p5: ldo17 {
-+			regulator-name = "vreg_l17b_2p5";
-+			regulator-min-microvolt = <2504000>;
-+			regulator-max-microvolt = <2504000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+	};
-+
-+	regulators-1 {
-+		compatible = "qcom,pm8550ve-rpmh-regulators";
-+
-+		vdd-l1-supply = <&vreg_s7i_1p2>;
-+		vdd-l2-supply = <&vreg_s1d_0p97>;
-+		vdd-l3-supply = <&vreg_s1d_0p97>;
-+		vdd-s1-supply = <&vph_pwr>;
-+		vdd-s3-supply = <&vph_pwr>;
-+		vdd-s4-supply = <&vph_pwr>;
-+
-+		qcom,pmic-id = "d";
-+
-+		vreg_s1d_0p97: smps1 {
-+			regulator-name = "vreg_s1d_0p97";
-+			regulator-min-microvolt = <880000>;
-+			regulator-max-microvolt = <1100000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_s3d_1p2: smps3 {
-+			regulator-name = "vreg_s3d_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1300000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_s4d_0p85: smps4 {
-+			regulator-name = "vreg_s4d_0p85";
-+			regulator-min-microvolt = <500000>;
-+			regulator-max-microvolt = <1036000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l1d_1p2: ldo1 {
-+			regulator-name = "vreg_l1d_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l2d_0p88: ldo2 {
-+			regulator-name = "vreg_l2d_0p88";
-+			regulator-min-microvolt = <880000>;
-+			regulator-max-microvolt = <912000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l3d_0p88: ldo3 {
-+			regulator-name = "vreg_l3d_0p88";
-+			regulator-min-microvolt = <880000>;
-+			regulator-max-microvolt = <920000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+	};
-+
-+	regulators-2 {
-+		compatible = "qcom,pm8550ve-rpmh-regulators";
-+
-+		vdd-l1-supply = <&vreg_s1d_0p97>;
-+		vdd-l2-supply = <&vreg_s7i_1p2>;
-+		vdd-l3-supply = <&vreg_s3g_1p8>;
-+		vdd-s5-supply = <&vph_pwr>;
-+
-+		qcom,pmic-id = "f";
-+
-+		vreg_s5f_0p5: smps5 {
-+			regulator-name = "vreg_s5f_0p5";
-+			regulator-min-microvolt = <500000>;
-+			regulator-max-microvolt = <1000000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l1f_0p88: ldo1 {
-+			regulator-name = "vreg_l1f_0p88";
-+			regulator-min-microvolt = <880000>;
-+			regulator-max-microvolt = <920000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l2f_1p2: ldo2 {
-+			regulator-name = "vreg_l2f_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l3f_1p8: ldo3 {
-+			regulator-name = "vreg_l3f_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+	};
-+
-+	regulators-3 {
-+		compatible = "qcom,pm8550ve-rpmh-regulators";
-+
-+		vdd-l1-supply = <&vreg_s1d_0p97>;
-+		vdd-l2-supply = <&vreg_s3g_1p8>;
-+		vdd-l3-supply = <&vreg_s7i_1p2>;
-+		vdd-s1-supply = <&vph_pwr>;
-+		vdd-s3-supply = <&vph_pwr>;
-+
-+		qcom,pmic-id = "g";
-+
-+		vreg_s1g_0p5: smps1 {
-+			regulator-name = "vreg_s1g_0p5";
-+			regulator-min-microvolt = <300000>;
-+			regulator-max-microvolt = <700000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_s3g_1p8: smps3 {
-+			regulator-name = "vreg_s3g_1p8";
-+			regulator-min-microvolt = <1856000>;
-+			regulator-max-microvolt = <2000000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_s4g_0p75: smps4 {
-+			regulator-name = "vreg_s4g_0p75";
-+			regulator-min-microvolt = <300000>;
-+			regulator-max-microvolt = <900000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l1g_0p91: ldo1 {
-+			regulator-name = "vreg_l1g_0p91";
-+			regulator-min-microvolt = <912000>;
-+			regulator-max-microvolt = <936000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l2g_1p8: ldo2 {
-+			regulator-name = "vreg_l2g_1p8";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1860000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l3g_1p2: ldo3 {
-+			regulator-name = "vreg_l3g_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1256000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+	};
-+
-+	regulators-4 {
-+		compatible = "qcom,pm8550ve-rpmh-regulators";
-+
-+		vdd-l1-supply = <&vreg_s7i_1p2>;
-+		vdd-l2-supply = <&vreg_s7i_1p2>;
-+		vdd-l3-supply = <&vreg_s1d_0p97>;
-+		vdd-s7-supply = <&vph_pwr>;
-+		vdd-s8-supply = <&vph_pwr>;
-+
-+		qcom,pmic-id = "i";
-+
-+		vreg_s7i_1p2: smps7 {
-+			regulator-name = "vreg_s7i_1p2";
-+			regulator-min-microvolt = <1224000>;
-+			regulator-max-microvolt = <1340000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_s8i_0p9: smps8 {
-+			regulator-name = "vreg_s8i_0p9";
-+			regulator-min-microvolt = <900000>;
-+			regulator-max-microvolt = <972000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l1i_1p2: ldo1 {
-+			regulator-name = "vreg_l1i_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l2i_1p2: ldo2 {
-+			regulator-name = "vreg_l2i_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l3i_0p88: ldo3 {
-+			regulator-name = "vreg_l3i_0p88";
-+			regulator-min-microvolt = <880000>;
-+			regulator-max-microvolt = <912000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+	};
-+
-+	regulators-5 {
-+		compatible = "qcom,pm8550vs-rpmh-regulators";
-+
-+		vdd-l1-supply = <&vreg_s1d_0p97>;
-+		vdd-l2-supply = <&vreg_s7i_1p2>;
-+		vdd-s2-supply = <&vph_pwr>;
-+		vdd-s3-supply = <&vph_pwr>;
-+
-+		qcom,pmic-id = "j";
-+
-+		vreg_s2j_1p1: smps2 {
-+			regulator-name = "vreg_s2j_1p1";
-+			regulator-min-microvolt = <1000000>;
-+			regulator-max-microvolt = <1100000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_s3j_1p1: smps3 {
-+			regulator-name = "vreg_s3j_1p1";
-+			regulator-min-microvolt = <1000000>;
-+			regulator-max-microvolt = <1100000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l1j_0p91: ldo1 {
-+			regulator-name = "vreg_l1j_0p91";
-+			regulator-min-microvolt = <880000>;
-+			regulator-max-microvolt = <920000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l2j_1p2: ldo2 {
-+			regulator-name = "vreg_l2j_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+	};
-+};
-+
-+&gpi_dma1 {
-+	status = "okay";
-+};
-+
-+&gpi_dma2 {
-+	status = "okay";
-+};
-+
-+&i2c5 {
-+	status = "okay";
-+
-+	typec-mux@42 {
-+		compatible = "fcs,fsa4480";
-+		reg = <0x42>;
-+
-+		vcc-supply = <&vreg_bob1>;
-+
-+		mode-switch;
-+		orientation-switch;
-+
-+		port {
-+			fsa4480_hs_sbu_mux: endpoint {
-+				remote-endpoint = <&pmic_glink_hs_sbu>;
-+			};
-+		};
-+	};
-+
-+	typec-mux@43 {
-+		compatible = "fcs,fsa4480";
-+		reg = <0x43>;
-+
-+		vcc-supply = <&vreg_bob1>;
-+
-+		mode-switch;
-+		orientation-switch;
-+
-+		port {
-+			fsa4480_sbu_mux: endpoint {
-+				remote-endpoint = <&pmic_glink_sbu>;
-+			};
-+		};
-+	};
-+
-+	eusb_repeater: redriver@4f {
-+		compatible = "nxp,ptn3222"; /* PTN3222DUK */
-+		reg = <0x4f>;
-+		#phy-cells = <0>;
-+
-+		vdd3v3-supply = <&vreg_l5b_3p1>;
-+		vdd1v8-supply = <&vreg_l15b_1p8>;
-+
-+		reset-gpios = <&pm8550ve_gpios 6 GPIO_ACTIVE_LOW>;
-+
-+		pinctrl-0 = <&eusb_reset_n>, <&eusb_mux_default>;
-+		pinctrl-names = "default";
-+	};
-+};
-+
-+&i2c6 {
-+	status = "okay";
-+
-+	/* haptic_hv_l@5a haptic_hv_r@5b */
-+};
-+
-+&i2c9 {
-+	status = "okay";
-+
-+	/* aw882xx_smartpa@34 @37 */
-+};
-+
-+&i2c10 {
-+	status = "okay";
-+
-+	/* i2c_wl2868c@2F */
-+
-+	/*
-+	 * bias@3e, as9702 or aw37504
-+	 *
-+	 * gpio72/gpio73: enable pin for OUTP/OUTN
-+	 * In practical, register programming is not required for as9702
-+	 *
-+	 * as9702: (REG02H[7:0]=0xf1)
-+	 * reg: 0x00 0x01 0x03
-+	 * val: 0x15 0x12 0x73
-+	 *
-+	 * aw37504: (REG04H[1:0]=0x01)
-+	 * reg: 0x00 0x01 0x03 0x04
-+	 * val: 0x15 0x12 0x43 0x09
-+	 */
-+
-+	backlight: backlight@76 {
-+		compatible = "awinic,aw99706";
-+		reg = <0x76>;
-+
-+		enable-gpio = <&tlmm 88 GPIO_ACTIVE_HIGH>;
-+
-+		pinctrl-0 = <&aw99706_bl_active>;
-+		pinctrl-names = "default";
-+
-+		default-brightness = <511>;
-+		max-brightness = <4095>;
-+
-+		awinic,dim-mode = <1>;
-+		awinic,sw-freq-hz = <750000>;
-+		awinic,sw-ilmt-microamp = <3000000>;
-+		awinic,uvlo-thres-microvolt = <2200000>;
-+		awinic,iled-max-microamp = <30000>;
-+		awinic,ramp-ctl = <3>;
-+	};
-+};
-+
-+&mdss {
-+	status = "okay";
-+};
-+
-+&mdss_dp0 {
-+	status = "okay";
-+};
-+
-+&mdss_dp0_out {
-+	remote-endpoint = <&usb_dp_qmpphy_dp_in>;
-+};
-+
-+&mdss_dsi0 {
-+	vdda-supply = <&vreg_l3g_1p2>;
-+
-+	qcom,dual-dsi-mode;
-+	qcom,sync-dual-dsi;
-+	qcom,master-dsi;
-+
-+	status = "okay";
-+
-+	panel@0 {
-+		compatible = "csot,pp8807hb1-1", "novatek,nt36536";
-+		reg = <0>;
-+
-+		reset-gpios = <&tlmm 98 GPIO_ACTIVE_LOW>;
-+
-+		vddio-supply = <&vreg_1v8_vddio>;
-+		vsp-supply = <&vreg_6v1_vsp>;
-+		vsn-supply = <&vreg_5v8_vsn>;
-+
-+		pinctrl-0 = <&disp0_reset_n_active>, <&mdp_vsync_active>;
-+		pinctrl-1 = <&disp0_reset_n_suspend>, <&mdp_vsync_suspend>;
-+		pinctrl-names = "default", "sleep";
-+
-+		backlight = <&backlight>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+
-+				panel_in_0: endpoint {
-+					remote-endpoint = <&mdss_dsi0_out>;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+
-+				panel_in_1: endpoint {
-+					remote-endpoint = <&mdss_dsi1_out>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&mdss_dsi0_out {
-+	remote-endpoint = <&panel_in_0>;
-+	data-lanes = <0 1 2 3>;
-+};
-+
-+&mdss_dsi0_phy {
-+	vdds-supply = <&vreg_l3i_0p88>;
-+	phy-type = <PHY_TYPE_CPHY>;
-+
-+	status = "okay";
-+};
-+
-+&mdss_dsi1 {
-+	/* Bonded DSI, source to dsi0_phy PLL */
-+	clocks = <&dispcc DISP_CC_MDSS_BYTE1_CLK>,
-+		 <&dispcc DISP_CC_MDSS_BYTE1_INTF_CLK>,
-+		 <&dispcc DISP_CC_MDSS_PCLK1_CLK>,
-+		 <&dispcc DISP_CC_MDSS_ESC1_CLK>,
-+		 <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+		 <&gcc GCC_DISP_HF_AXI_CLK>,
-+		 <&mdss_dsi0_phy DSI_PIXEL_PLL_CLK>,
-+		 <&mdss_dsi0_phy DSI_BYTE_PLL_CLK>,
-+		 <&dispcc DISP_CC_ESYNC1_CLK>,
-+		 <&dispcc DISP_CC_OSC_CLK>,
-+		 <&dispcc DISP_CC_MDSS_BYTE1_CLK_SRC>,
-+		 <&dispcc DISP_CC_MDSS_PCLK1_CLK_SRC>;
-+
-+	vdda-supply = <&vreg_l3g_1p2>;
-+
-+	qcom,dual-dsi-mode;
-+	qcom,sync-dual-dsi;
-+
-+	status = "okay";
-+};
-+
-+&mdss_dsi1_out {
-+	remote-endpoint = <&panel_in_1>;
-+	data-lanes = <0 1 2 3>;
-+};
-+
-+&mdss_dsi1_phy {
-+	vdds-supply = <&vreg_l3i_0p88>;
-+	phy-type = <PHY_TYPE_CPHY>;
-+
-+	status = "okay";
-+};
-+
-+&pcie0 {
-+	vdda-supply = <&vreg_l1f_0p88>;
-+	vddpe-3v3-supply = <&vreg_l3g_1p2>;
-+
-+	pinctrl-0 = <&pcie0_default_state>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+};
-+
-+&pcie0_phy {
-+	vdda-phy-supply = <&vreg_l1f_0p88>;
-+	vdda-pll-supply = <&vreg_l3g_1p2>;
-+
-+	status = "okay";
-+};
-+
-+&pcieport0 {
-+	wake-gpios = <&tlmm 104 GPIO_ACTIVE_HIGH>;
-+	reset-gpios = <&tlmm 102 GPIO_ACTIVE_LOW>;
-+
-+	/* WCN7861, id: pci17cb,110e */
-+};
-+
-+&pm8550_gpios {
-+	volume_up_n: volume-up-n-state {
-+		pins = "gpio6";
-+		function = "normal";
-+		bias-pull-up;
-+		input-enable;
-+		power-source = <1>;
-+	};
-+};
-+
-+&pm8550ve_gpios {
-+	eusb_reset_n: eusb-reset-n-state {
-+		pins = "gpio6";
-+		function = "normal";
-+		bias-disable;
-+		power-source = <1>;
-+		qcom,drive-strength = <2>;
-+	};
-+};
-+
-+&pmih0108_eusb2_repeater {
-+	vdd18-supply = <&vreg_l15b_1p8>;
-+	vdd3-supply = <&vreg_l5b_3p1>;
-+};
-+
-+&pon_pwrkey {
-+	status = "okay";
-+};
-+
-+&pon_resin {
-+	linux,code = <KEY_VOLUMEDOWN>;
-+
-+	status = "okay";
-+};
-+
-+&qupv3_1 {
-+	status = "okay";
-+};
-+
-+&qupv3_2 {
-+	status = "okay";
-+};
-+
-+&remoteproc_adsp {
-+	firmware-name = "qcom/sm8750/LENOVO/elden/adsp.mbn",
-+			"qcom/sm8750/LENOVO/elden/adsp_dtb.mbn";
-+
-+	status = "okay";
-+};
-+
-+&remoteproc_cdsp {
-+	firmware-name = "qcom/sm8750/LENOVO/elden/cdsp.mbn",
-+			"qcom/sm8750/LENOVO/elden/cdsp_dtb.mbn";
-+
-+	status = "okay";
-+};
-+
-+&spi4 {
-+	status = "okay";
-+
-+	/* novatek@0 */
-+};
-+
-+&sdhc_2 {
-+	cd-gpios = <&tlmm 55 GPIO_ACTIVE_HIGH>;
-+
-+	vmmc-supply = <&vreg_l9b_2p9>;
-+	vqmmc-supply = <&vreg_l8b_1p8>;
-+
-+	no-sdio;
-+	no-mmc;
-+
-+	pinctrl-0 = <&sdc2_default &sdc2_card_det_n>;
-+	pinctrl-1 = <&sdc2_sleep &sdc2_card_det_n>;
-+	pinctrl-names = "default", "sleep";
-+
-+	status = "okay";
-+};
-+
-+&tlmm {
-+	/* For CDT: <32 3> <37 2> <77 1>; */
-+	/* reserved for secure world */
-+	gpio-reserved-ranges = <39 1>, <74 1>;
-+
-+	aw99706_bl_active: aw99706-bl-active-state {
-+		pins = "gpio88";
-+		function = "gpio";
-+		drive-strength = <8>;
-+		bias-disable;
-+	};
-+
-+	disp0_reset_n_active: disp0-reset-n-active-state {
-+		pins = "gpio98";
-+		function = "gpio";
-+		drive-strength = <8>;
-+		bias-disable;
-+	};
-+
-+	disp0_reset_n_suspend: disp0-reset-n-suspend-state {
-+		pins = "gpio98";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-pull-down;
-+	};
-+
-+	eusb_mux_default: eusb-mux-default-state {
-+		pins = "gpio29";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		output-high; /* Unconditionally enable */
-+		bias-pull-down;
-+	};
-+
-+	vddio_reg_en: vddio-reg-en-state {
-+		pins = "gpio161";
-+		function = "gpio";
-+		drive-strength = <8>;
-+		bias-pull-up;
-+	};
-+
-+	mdp_vsync_active: mdp-vsync-active-state {
-+		pins = "gpio86";
-+		function = "mdp_vsync";
-+		drive-strength = <2>;
-+		bias-pull-down;
-+	};
-+
-+	mdp_vsync_suspend: mdp-vsync-suspend-state {
-+		pins = "gpio86";
-+		function = "mdp_vsync";
-+		drive-strength = <2>;
-+		bias-pull-down;
-+	};
-+
-+	sdc2_card_det_n: sd-card-det-n-state {
-+		pins = "gpio55";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-pull-up;
-+	};
-+
-+	vsp_reg_en: vsp-reg-en-state {
-+		pins = "gpio72";
-+		function = "gpio";
-+		drive-strength = <16>;
-+		bias-pull-up;
-+	};
-+
-+	vsn_reg_en: vsn-reg-en-state {
-+		pins = "gpio73";
-+		function = "gpio";
-+		drive-strength = <16>;
-+		bias-pull-up;
-+	};
-+};
-+
-+&uart14 {
-+	status = "okay";
-+
-+	/* WCN7861-BT */
-+};
-+
-+&ufs_mem_phy {
-+	vdda-phy-supply = <&vreg_l1j_0p91>;
-+	vdda-pll-supply = <&vreg_l3g_1p2>;
-+
-+	status = "okay";
-+};
-+
-+&ufs_mem_hc {
-+	reset-gpios = <&tlmm 215 GPIO_ACTIVE_LOW>;
-+
-+	vcc-supply = <&vreg_l17b_2p5>;
-+	vcc-max-microamp = <1300000>;
-+	vccq-supply = <&vreg_l1d_1p2>;
-+	vccq-max-microamp = <1200000>;
-+
-+	status = "okay";
-+};
-+
-+&usb {
-+	dr_mode = "otg";
-+	maximum-speed = "super-speed-plus-gen2x1";
-+
-+	status = "okay";
-+
-+	ports {
-+		/*
-+		 * USB2.0 is shared for two ports, set pinctrl eusb_mux_default
-+		 * to select the repeter. Plugging out one of them will reset
-+		 * the DWC3, which causes both of them to be disconnected.
-+		 */
-+		port@0 {
-+			reg = <0>;
-+
-+			usb_dwc3_hs: endpoint {
-+				remote-endpoint = <&pmic_glink_hs_in>;
-+			};
-+		};
-+
-+		port@2 {
-+			reg = <2>;
-+
-+			usb_dwc3_hs2: endpoint {
-+				remote-endpoint = <&pmic_glink_hs_c2_in>;
-+			};
-+		};
-+	};
-+};
-+
-+&usb_dp_qmpphy {
-+	vdda-phy-supply = <&vreg_l3g_1p2>;
-+	vdda-pll-supply = <&vreg_l2d_0p88>;
-+
-+	mode-switch;
-+	orientation-switch;
-+
-+	status = "okay";
-+};
-+
-+&usb_dp_qmpphy_dp_in {
-+	remote-endpoint = <&mdss_dp0_out>;
-+};
-+
-+&usb_dp_qmpphy_out {
-+	remote-endpoint = <&pmic_glink_ss_in>;
-+};
-+
-+&usb_hsphy {
-+	vdd-supply = <&vreg_l2d_0p88>;
-+	vdda12-supply = <&vreg_l3g_1p2>;
-+
-+	phys = <&eusb_repeater>;
-+
-+	status = "okay";
-+};
+> > +
+> > +Looking up PCS Devices (fwnode implementation)
+> > +-----------------------------------------------
+> > +
+> > +The lookup of a PCS device follows the common producer/consumer implementation
+> > +used by similar subsystems with a ``#pcs-cells`` on the producer and a
+> > +``pcs-handle`` property on the consumer::
+> > +
+> > +    pcs: pcs {
+> > +        // ...
+> > +        #pcs-cells = <0>;
+> > +    };
+> > +
+> > +    ethernet-controller {
+> > +        // ...
+> > +        pcs-handle = <&pcs>;
+> > +    };
+> > +
+> > +On :c:func:`phylink_create`, phylink will use the ``num_possible_pcs``
+> > +value and ``fill_available_pcs`` helper function in
+> > +:c:struct:`phylink_config` to compose the list of available PCS that can be
+> > +used for the phylink instance.
+> > +
+> > +Phylink will then internally handle the selection of the correct PCS for
+> > +the requested interface mode based on the interface modes configured in
+> > +``pcs_interfaces`` in :c:struct:`phylink_config` struct and
+> > +``supported_interfaces`` in :c:struct:`phylink_pcs` struct.
+> > +
+> > +A PCS is considered eligible when the requested interface mode is present
+> > +in both ``pcs_interfaces`` in :c:struct:`phylink_config` struct and
+> > +``supported_interfaces`` in :c:struct:`phylink_pcs` struct.
+> > +
+> > +``supported_interfaces`` describes all interface modes supported by the MAC,
+> > +whereas ``pcs_interfaces`` identifies the subset that require PCS selection.
+> > +
+> > +For the special implementation where the PCS is internal or part of the MAC
+> > +and a dedicated driver is not needed, it's possible to leave the implementation
+> > +of the PCS to the MAC driver and just implement the ``num_possible_pcs``
+> > +value and ``fill_available_pcs`` helper  function in
+> > +:c:struct:`phylink_config` referencing the local :c:struct:`phylink_pcs`
+> > +struct allocated from the MAC driver.
+> > +
+> > +Using PCS Devices
+> > +-----------------
+> > +
+> > +It's mandatory to either implement the ``mac_select_pcs`` callback
+> > +of :c:struct:`phylink_mac_ops` or ``num_possible_pcs`` and ``fill_available_pcs``
+> > +of :c:struct:`phylink_config` to use a PCS for a MAC.
+> > +
+> > +The fwnode implementation exposes simple helpers to parse the PCS from
+> > +the fwnode :c:func:`fwnode_phylink_pcs_count` and
+> > +:c:func:`fwnode_phylink_pcs_parse`. The :c:func:`fwnode_phylink_pcs_count` helper
+> > +takes the fwnode where the ``pcs-handle`` should be parsed and return the
+> > +number of PCS entries described in the fwnode.
+> > +The :c:func:`fwnode_phylink_pcs_parse` helper takes three arguments,
+> > +the fwnode where the ``pcs-handle`` should be parsed, an allocated array
+> > +of :c:struct:`phylink_pcs` pointer where to put the parsed PCS from the fwnode
+> > +and the maximum number of PCS to parse.
+> > +Contrary to :c:func:`fwnode_phylink_pcs_count`, :c:func:`fwnode_phylink_pcs_parse`
+> > +helper fills the allocated array with ONLY the available PCS and return the
+> > +number of available PCS found. PCS that returns -ENODEV will be skipped and
+> > +won't be inserted in the allocated array.
+> > +
+> > +A phylink instance may use multiple PCS devices. The maximum number is reported
+> > +through ``num_possible_pcs``.
+> > +
+> > +It's mandatory to specify for what interface a PCS is needed. This can be done
+> > +by filling the ``pcs_interfaces`` in :c:struct:`phylink_config` struct.
+> > +If the requested interface mode is not present in this bitmask, phylink does
+> > +not search for a PCS for  that specific mode. (example MAC doesn't need a PCS
+> > +for SGMII but require one for USXGMII)
+> > +
+> > +With the use of the :c:func:`fwnode_phylink_pcs_parse` a common implementation
+> > +is the following::
+> > +
+> > +   static int mac_fill_available_pcs(struct phylink_config *config,
+> > +   				                      struct phylink_pcs **available_pcs,
+> > +					                      unsigned int num_possible_pcs)
+> > +   {
+> > +   	struct device *dev = config->dev;
+> > +
+> > +   	return fwnode_phylink_pcs_parse(dev_fwnode(dev), available_pcs,
+> > +						                    num_possible_pcs);
+> > +   }
+> > +
+> > +   static int mac_setup_phylink(struct net_device *netdev)
+> > +   {
+> > +      struct phylink_config *config;
+> > +
+> > +      // ...
+> > +
+> > +      config->dev = &netdev->dev;
+> > +
+> > +      // ...
+> > +
+> > +      // Parse possible PCS and fill num_possible_pcs.
+> > +      config->num_possible_pcs = fwnode_phylink_pcs_count(dev_fwnode(&netdev->dev));
+> > +      config->fill_available_pcs = mac_fill_available_pcs;
+> > +
+> > +      __set_bit(PHY_INTERFACE_MODE_INTERNAL, config->supported_interfaces);
+> > +      __set_bit(PHY_INTERFACE_MODE_SGMII, config->supported_interfaces);
+> > +      __set_bit(PHY_INTERFACE_MODE_1000BASEX, config->supported_interfaces);
+> > +      __set_bit(PHY_INTERFACE_MODE_USXGMII, config->supported_interfaces);
+> > +
+> > +      // PCS required only for USXGMII
+> > +      __set_bit(PHY_INTERFACE_MODE_USXGMII, config->pcs_interfaces);
+> > +
+> > +      phylink = phylink_create(config, //...
+> > +
+> > +It's worth to mention that it's phylink code that takes care of allocating
+> > +the array of :c:struct:`phylink_pcs` pointer for ``fill_available_pcs``
+> > +callback based on the value set in ``num_possible_pcs`` for
+> > +:c:struct:`phylink_config` struct.
+> > +
+> > +The ``fill_available_pcs`` callback must not write more than
+> > +``num_possible_pcs`` entries. The third argument may be used to validate
+> > +that there is enough space to fill all the available PCS in the passed array
+> > +of :c:struct:`phylink_pcs` pointer.
+> > +
+> > +The ``fill_available_pcs`` callback is called only on :c:func:`phylink_create`
+> > +and is used only to compose the initial available PCS list. Ownership of PCS
+> > +is held by phylink and :c:func:`phylink_release_pcs` should be used to release
+> > +them.
+> > +
+> > +Writing PCS Drivers
+> > +-------------------
+> > +
+> > +To write a PCS driver, first implement :c:struct:`phylink_pcs_ops`. Then,
+> > +register your PCS in your probe function using :c:func:`fwnode_pcs_add_provider`.
+> > +The :c:func:`fwnode_pcs_add_provider` takes three arguments, the fwnode where
+> > +the PCS provider should be registered to, a get function to return the requested
+> > +PCS based on ``#pcs-cells`` and a pointer to reference private data for the get
+> > +function.
+> > +
+> > +The PCS will then be registered to a global list of PCS provider that the
+> > +PCS fwnode implementation will use to parse it.
+> > +
+> > +For the simple case where the PCS driver expose a single PCS,
+> > +:c:func:`fwnode_pcs_simple_get` can be used as the get function.
+> > +
+> > +You must call :c:func:`fwnode_pcs_del_provider` from your remove function and
+> > +release the PCS from any phylink instance under RTNL lock with
+> > +:c:func:`phylink_release_pcs`::
+> > +
+> > +   fwnode_pcs_del_provider(dev_fwnode(&pdev->dev));
+> > +
+> > +	rtnl_lock();
+> > +
+> > +	for (i = 0; i < data->num_port; i++) {
+> > +		struct pcs_port *port = &priv->ports[i];
+> > +
+> > +		phylink_release_pcs(&port->pcs);
+> > +	}
+> > +
+> > +	rtnl_unlock();
+> > +
+> > +Late PCS registration handling
+> > +------------------------------
+> > +
+> > +It's possible that a PCS becomes available after the MAC finished probing.
+> > +Contrary to the usual producer/consumer implementation, when a PCS is not
+> > +registered and can't be found, the fwnode parser helper returns ``-ENODEV``
+> > +instead of ``-EPROBE_DEFER``.
+> > +
+> > +This is to prevent race condition with particular devices that register
+> > +MAC and PCS with USB or PCIe and require the MAC to be registered before
+> > +the PCS.
+> > +
+> > +The phylink logic correctly handle this special case and keep the phylink
+> > +instance in a fail condition.
+> > +
+> > +The PCS fwnode implementation provides a notifier to which each phylink
+> > +instance with a non-empty ``pcs_interfaces`` in :c:type:`phylink_config`
+> > +registers. When a new PCS provider is registered, the notifier is called
+> > +triggering the :c:func:`pcs_provider_notify` function.
+> > +
+> > +Function :c:func:`pcs_provider_notify` will check if the just added PCS
+> > +should be used by the phylink instance. If it should be used then,
+> > +it's added to the internal list of available PCS and a phylink major
+> > +config is forced.
+> > +
+> > +If a phylink instance was in a failure state, with the just added PCS
+> > +now part of the available PCS internal phylink list, provided all other
+> > +conditions are satisfied, the configuration is retried and the failure
+> > +condition is cleared.
+> > +
+> > +API Reference
+> > +-------------
+> > +
+> > +.. kernel-doc:: include/linux/phylink.h
+> > +   :identifiers: phylink_pcs
+> > +
+> > +.. kernel-doc:: include/linux/pcs/pcs.h
+> > +   :internal:
+> > +
+> > +.. kernel-doc:: include/linux/pcs/pcs-provider.h
+> > +   :internal:
+> 
+
 -- 
-2.54.0
-
+	Ansuel
