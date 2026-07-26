@@ -1,279 +1,292 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6B7F376BD5;
-	Sun, 26 Jul 2026 07:18:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54E9B1A6820
+	for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 07:22:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785050319; cv=none; b=EWYWw1kZu4BZbl304E5LkOnuhS+MOriAApRatovrdud3WgPe0je/0W6HbxlgipO1aod2ebIelCOI+6YYAZZTjZmELQG/3Mt2WUi/xVQ5s1rM3P7QPg15gtrygEp2CmW0SC7maFp4+7C9XbbL2Ia6dKCYW6SmB2N+EC9gX+S9PDI=
+	t=1785050521; cv=none; b=qTvqcb4LbUhSPgIR/WRELcwXUKXlraNkvmY6uSxbAzQxnfY4H6CNHIBhjKNLcHEf3mhfcUEkMo/4AxjkZj5UXVtlte1hlaNs+pNpUuBtFkJx62jh+feJEDbn2u0wNw2Oh/2zUtVKIUkrNXS4GbOTQNi/tcHSyG+GEQgDzVqMjxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785050319; c=relaxed/simple;
-	bh=L5YC/sZ2QpVeNEpeZ2BRKP5JntgdZBdt2QyL+ubYj4I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ARHfQyWL2jpW2crinPYYKzg4lvCdYPurFApU/UAKcCeJI/7pTgaLNSG+vSF+SZs2HGDA9B6/8toMwb+Gob23T9b8Rhxf+Vv2BKvaqdmcIt1hGoHFHGLWg0JDN3pYo6vMCx+7Yul+rS2sy0efBOV7m/ahRBreG7iGLHMvRvDC4M4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b=bZILfLO0; arc=none smtp.client-ip=212.227.15.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	s=arc-20240116; t=1785050521; c=relaxed/simple;
+	bh=JnhirhMNTfdZqoNrR1NhWS5OMYN+WPr8Yi3PrmfgVUA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lhf+Dq03iw+bC0lPn8a7Ve7C7Z7bnHakIhiq0iog/uTdLMzZNhJXvuf/xD8uSL/1xVNshNXvMctsekZT6/D5drv//D/v2/neFCSLDVbRr2hqutaK4j5XL0pIuO72EKHL4monEtfKrVQQfzidMwLgjpxoi74N6fVCUNYYBe+Wckg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Vgte/whd; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FX3cBn1O; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b="bZILfLO0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1785050288; x=1785655088;
-	i=markus.stockhausen@gmx.de;
-	bh=wfHwXvl0asFCK8Kz3AHpUBZFPj2n+hqqODivkrTs9Wk=;
-	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=bZILfLO010CyfPUCyRbCd1KW+SonI0+EV4AsOWO5gSF3IpcStxRiLt94xuKdHSfI
-	 UQjqNW5UOrLMKO5suaiS8cuprVeXS1kwTH2tIn0S2GJm7h1VIx29smynUDW8ru5yD
-	 O9LoKeYP3rkZ+rlKLTlNUnlsSB7TryGqe+uFl0YDLxkTDriSER9uynpTBN8vBxUnM
-	 uJH04JSXMrEIpTia9sbADvuhah0dtE1A5BdEnp/PMr7O9aKY92GaGLGwvU3VG7BEa
-	 ts+9uROB4yulc31hVjQdEu2i41K6HSvBgpq/P3RnZVtJmxYU9+v1QBZZy3TViOBZC
-	 5tj2i3g22uiBp3kagg==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MmDEg-1xE77Y0kvQ-00f96c; Sun, 26
- Jul 2026 09:18:08 +0200
-From: Markus Stockhausen <markus.stockhausen@gmx.de>
-To: andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
-	chris.packham@alliedtelesis.co.nz,
-	daniel@makrotopia.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org
-Cc: Markus Stockhausen <markus.stockhausen@gmx.de>
-Subject: [PATCH net-next v7 2/8] net: mdio: realtek-rtl9300: Add polling documentation
-Date: Sun, 26 Jul 2026 09:17:45 +0200
-Message-ID: <20260726071751.1359156-3-markus.stockhausen@gmx.de>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260726071751.1359156-1-markus.stockhausen@gmx.de>
-References: <20260726071751.1359156-1-markus.stockhausen@gmx.de>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Vgte/whd";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FX3cBn1O"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66Q5RjeO925336
+	for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 07:21:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	jNhauAAXd0auROo3IlhDzGkuJ52W6BL0YDItQQ/e5KM=; b=Vgte/whd23a5SA6s
+	lVkKq+9ZGNW24cTW9TA/i+74FQG0EdhSWRvQxFM4BwjIMPhiRmPh+Vn+8GPNDyTf
+	x2hL6mG2wKg+CCgCmH48LUJcTDnFskLKxoVWeh3mJ4DcfUKMpwMcdVyUIH81t5zH
+	xg3LYQuZSjFWgfph/x7BJn/QXG4JbRPN321JAf6j+53HFuWxUf4JlpHRWiLwgMR3
+	L7GFwhEZLtNpVOxgjE+YzA5t18BVjvVSNrLI37jFcdoz2V2Gz+hf6wZ9yz6Lq++L
+	ULMvJrM7kg9kPjv+zHDJZdVCaK0pLSRUKi4S1NJ8b2b/Tw1aakRPnkl7+oLmEl7R
+	eFFT3Q==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fmjuftq19-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 07:21:59 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cb11535e6a1so1315322a12.0
+        for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 00:21:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785050518; x=1785655318; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jNhauAAXd0auROo3IlhDzGkuJ52W6BL0YDItQQ/e5KM=;
+        b=FX3cBn1Op9+sqGli+sXZFbJB2bKJdYk6BV/4VtNq6P15/Pf+qehqPYCg6OAvekE2ZN
+         s9z6deRgerUrmVTi9KFstkpDDklumB6rh/7JUjzEMI5XFYdzqJ7g+LtNJGyseK0gHrmc
+         6iqMKpwgyIuwILkSwbMfcsW0nbD9JnyJvyY4MRAaPkyuY4gegkwsrjbKgpE2ePO/TKR+
+         1qPUOMoCXtYUj99FUE776QSUk717Hic9PzQHlpvEBW9Y++yaIo5q3UdHxMuY3VllWeUB
+         O0zFdCowo4dqajpv1K405hjVL2r7wCobeNvobQIb+hYw5vOLGbEeOtei4YmoAVehYJDb
+         L8FA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785050518; x=1785655318;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jNhauAAXd0auROo3IlhDzGkuJ52W6BL0YDItQQ/e5KM=;
+        b=f9evsGXqiqGbL34XYV+geqq+ii9IyNpNihb0aLA4WVM7f89cmj71CJEnwmBziE332U
+         7vgkrEQH+vIuoPlPokXmnkD/Rc3LWaCHViV41/L7cO42Dx7cyponl3nR/+fHu2XoNTGG
+         4eKpWLrFDlzzMSFLUx45a1jF0uYJSjYaBq2WSPMOn09iOyk6rdSRiB5WxnN+kbHO4Ttn
+         yojav/2INDR8gXAXXOPfPH1B7Q05nwLoL+pfMGcezG5WAHZzgzqd+UuSmO8wPRjBrKc0
+         jiFN52NVjUhBOEUQhnKwxdZY9N6TkVsLDH+jrsenFqqGMHBvimNzbV6mJJ/Me0TrOTUc
+         G/dw==
+X-Forwarded-Encrypted: i=1; AHgh+Rqrd4jWez9Bwowgi82MAP4Q8b/gI3uuLOvBSOLQF+3qgMyb51NCC5JKZ3RAxtR+GlX56chkr499YYIp@vger.kernel.org
+X-Gm-Message-State: AOJu0YxZeGhX1Ms96/J3j4jZVcVwb0qFFQNdyOwE/rX5yBBejR7D+xko
+	xbyxYdIArjuobVIqtXgmJfU0IWNyLzAjTVj5A6FNOaCcbU7hrIvfYsMF0IWrbRp2icqRHA8hfwQ
+	IngOHaIKNACjr+D8T1wLcao4kbnpUcZjnpOTj4eVie2Gdq1Tvh9ndN4qIck4yHBnU
+X-Gm-Gg: AR+sD12IELBJwlFuViG92NT5IH3Mar2vgp9hDENGiloviAB4qPAo68lYgHlT1vrhldB
+	MFSx2yOBImx1BzxyHwWZCnr0IwtK3TyOcWC88zAN6WR5R4n3YtubF8BGXejFNChF17Hyw17Gv52
+	C8nk9gJKRn97veNjPhMXOxcFaX/ERvRc1OqyPuUs0ImVLku5MMIACe8CuPBh3iTC9fvM0w2M0R5
+	/XwyJa7peZIhDgo0Wm/plCb4S/eA5ykEm/xfoTwSLB/5CImB8GJymLi2k6+vyNvmJ5yEPiHaUou
+	n9j4hLVtIHntQA4WBlO3LEc4h8IvJi2isrTB+zCzKXGNHwLX8ju2i1KzeGAb7+9KLsnZueFiqVs
+	/UpFFR3tDXBnnMCurdlWcAmydsLN51kY=
+X-Received: by 2002:a05:6a21:9991:b0:3c0:9c19:65a0 with SMTP id adf61e73a8af0-3c67e01ee1bmr4195217637.72.1785050518330;
+        Sun, 26 Jul 2026 00:21:58 -0700 (PDT)
+X-Received: by 2002:a05:6a21:9991:b0:3c0:9c19:65a0 with SMTP id adf61e73a8af0-3c67e01ee1bmr4195195637.72.1785050517734;
+        Sun, 26 Jul 2026 00:21:57 -0700 (PDT)
+Received: from [192.168.29.179] ([49.37.131.167])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-314bc57ae17sm15700072eec.22.2026.07.26.00.21.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 26 Jul 2026 00:21:56 -0700 (PDT)
+Message-ID: <406cba64-f426-487c-a1b9-4c50d05a8042@oss.qualcomm.com>
+Date: Sun, 26 Jul 2026 12:51:47 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:7UrOweIvfQPxSw909jEC5CfGeFVhlkW91G8oHOY3H+pAyO/d1Py
- Qdg5P9qh/XZs76tksT+7T3NtxkT6lzyQbmN2Bt67lFWW0gOuJ7/i7jovKzB6dAgZ07vfMqu
- NMjq5SnHObeAo2iBv0Vmy1foFcvDyK7iejAGIwdyQu5fdEvLqlO97c06BnTv8wHP+tKYUu8
- p+ZjJQDG9mThPIolzn9Cg==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:AtT6f0Bt+E8=;wRHHFlhihRM8fzOe3bmKgI/oDz3
- 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
- cI4QX2gBFvk2wLsEb6rmw
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/3] arm64: dts: qcom: purwa: Drop the Hamoa workaround
+ for PDC
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20260715-purwa-pdc-v3-0-be08934dc916@oss.qualcomm.com>
+ <20260715-purwa-pdc-v3-2-be08934dc916@oss.qualcomm.com>
+ <20260716-starling-of-heavenly-symmetry-09a73a@quoll>
+ <almDHnEcruBl-I3l@baldur>
+ <64bf3979-51cc-42ed-b66b-c7af04536481@oss.qualcomm.com>
+ <amJcXDcI0QYqtOnK@baldur>
+Content-Language: en-US
+From: "Maulik Shah (mkshah)" <maulik.shah@oss.qualcomm.com>
+In-Reply-To: <amJcXDcI0QYqtOnK@baldur>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: 4vZblKkdxKth34xtaM00TAxDic2Wk4ma
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI2MDA3MCBTYWx0ZWRfX3+rZlVGk+ToC
+ P3lcgCfjNYVRRQYFqLgVH/xPZsXv++YsVJFR1WqooyiTm0QZUnhK9y3hUOzV/7ITSuc52Ywm/Gf
+ RLT9WsMwfjkyF/T0f052e5sx4JNj154=
+X-Proofpoint-GUID: 4vZblKkdxKth34xtaM00TAxDic2Wk4ma
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI2MDA3MCBTYWx0ZWRfXz2Ko4PlxRZLp
+ 7WGcHyX6cIdsoEyB0wozypYHj+RNV/MfNkVmWAJkYcj6NBkxJ3PWlprlHXj6HbDURG175EKpGZr
+ 4/4QDsOYa0+w9BMvudecbC2Lb6pHxXTaBXRGh1o5dTMlBNodUqyepA0s768oJ9wynXqWu+fk2Je
+ pEkeucItdEszd+gcB2YsyQ4/rJm1SeVmY0DdEMgfLAD7s1bEtLHUQ4jbxS+Igd97JOzl9iSiMDr
+ 4n4QIOG1j41SCdZUObuFpr01kfOX6oEyeac1ehibRztbJzK3daqlW13br/mCHQDHgbmjyKt/3AE
+ Ih1nLt6/G9WLIu2OugQCgi2vJlMCzJyxNTokgk5y9RtAW3Dwbca8dFndg9IDqq/IAw9YhJxT088
+ NlvvJq4TMVBWY93kr0C6ddno55A3ZU+CJX46OcB2lo4Oy/sQgQ4nOrAVRkaOGYUb2TIhnDk7tIh
+ bhlpPSQmn99avlYu2Bw==
+X-Authority-Analysis: v=2.4 cv=F5ZnsKhN c=1 sm=1 tr=0 ts=6a65b597 cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=SQcxhaUyy38hUVr1c2lJ/Q==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=_4R1KaovSme5d24hyL4A:9
+ a=QEXdDO2ut3YA:10 a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-26_01,2026-07-24_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 lowpriorityscore=0 priorityscore=1501 phishscore=0 bulkscore=0
+ spamscore=0 malwarescore=0 suspectscore=0 clxscore=1015 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607260070
 
-Add a detailed explanation how the hardware polling unit in the
-Realtek Otto switches works. This simplifies developing future
-patches and reviewing them.
 
-Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
-=2D--
- drivers/net/mdio/mdio-realtek-rtl9300.c | 75 +++++++++++++++++++++++++
- 1 file changed, 75 insertions(+)
 
-diff --git a/drivers/net/mdio/mdio-realtek-rtl9300.c b/drivers/net/mdio/md=
-io-realtek-rtl9300.c
-index afd52a1cd7f8..3dee5bff4134 100644
-=2D-- a/drivers/net/mdio/mdio-realtek-rtl9300.c
-+++ b/drivers/net/mdio/mdio-realtek-rtl9300.c
-@@ -35,6 +35,81 @@
-  *
-  * The driver works out the mapping based on the MDIO bus described in de=
-vice tree and phandles on
-  * the ethernet-ports property.
-+ *
-+ * The devices have a hardware polling unit that runs in the background w=
-ithout any CPU load. It
-+ * constantly scans the MDIO bus and the attached PHYs and updates the MA=
-C status registers.
-+ *
-+ * How does the polling work?
-+ *
-+ * Each device has a SMI_POLL_CTRL register. A per-port bitmask decides i=
-f the hardware polling of
-+ * the associated bus/address is active or not. The hardware runs a tight=
- loop over this and for
-+ * each set polling bit it issues a status check for the PHY. Attaching a=
- logic analyzer to the
-+ * MDIO bus of an RTL8380 and RTL8393 gives the following commands (in ke=
-rnel notation):
-+ *
-+ *	RTL8380				RTL8393
-+ *	---------------------------	---------------------------
-+ *	phy_write(phy, 31, 0x0);	phy_read(phy, 0);
-+ *	phy_write(phy, 13, 0x7);	phy_read(phy, 1);
-+ *	phy_write(phy, 14, 0x3c);	phy_read(phy, 4);
-+ *	phy_write(phy, 13, 0x8007);	phy_read(phy, 5);
-+ *	phy_read(phy, 14);		phy_read(phy, 6);
-+ *	phy_write(phy, 13, 0x7);	phy_read(phy, 9);
-+ *	phy_write(phy, 14, 0x3d);	phy_read(phy, 10);
-+ *	phy_write(phy, 13, 0x8007);	phy_read(phy, 15);
-+ *	phy_read(phy, 14);		phy_write(phy, 13, 0x7);
-+ *	phy_read(phy, 9);		phy_write(phy, 14, 0x3c);
-+ *	phy_read(phy, 10);		phy_write(phy, 13, 0x4007);
-+ *	phy_read(phy, 15);		phy_read(phy, 14);
-+ *	phy_read(phy, 0);		phy_write(phy, 13, 0x7);
-+ *	phy_read(phy, 1);		phy_write(phy, 14, 0x3d);
-+ *	phy_read(phy, 4);		phy_write(phy, 13, 0x4007);
-+ *	phy_read(phy, 5);		phy_read(phy, 14);
-+ *	phy_read(phy, 6);
-+ *
-+ * After one PHY status is read, the polling engine goes over to the next=
- PHY. If one bus is fully
-+ * scanned it switches over to the next bus. Basically the polling system=
- is always busy and the
-+ * MAC state is updated in real-time.
-+ *
-+ * This is a glimpse look at the complexity of the polling and leaves out=
- the C45 case and the MAC
-+ * register update logic afterwards. Important to note:
-+ *
-+ * - 100 MBit downshifts (broken cables) are identified and propagated to=
- the MAC correctly
-+ * - Access to MDIO_AN_EEE_ADV and MDIO_AN_EEE_LPABLE works via C45 over =
-C22.
-+ * - It is unclear if these sequences change for different PHYs.
-+ * - Access to Realtek reserved register 26 (link speed) has not yet been=
- seen.
-+ *
-+ * How does MDIO access from kernel work?
-+ *
-+ * When issuing MDIO accesses via an MMIO based interface the final write=
- to the command register
-+ * sets a "run command now" bit. Between two polling sequences for differ=
-ent PHYs the hardware
-+ * checks if a user command needs to run and sends it onto the bus. After=
-wards it simply continues
-+ * its polling work. Inspecting the command sequence for a paged read on =
-the logic analyzer gives:
-+ *
-+ *	RTL8380				RTL8393
-+ *	---------------------------	---------------------------
-+ *	phy_write(phy, 31, page);	phy_write(phy, 31, page);
-+ *	phy_write(phy, reg, value);	phy_write(phy, reg, value);
-+ *					phy_write(phy, 31, 0);
-+ *
-+ * What does this mean?
-+ *
-+ * There are slight differences in polling and PHY access between the mod=
-els but the challenge
-+ * stays the same. On the one hand that greatly simplifies the MAC layer,=
- on the other hand it
-+ * has some implications for the kernel PHY subsystem.
-+ *
-+ * - Without the polling and a proper MAC status, some of the link handli=
-ng features do not work.
-+ *   Especially an unpopulated MAC_LINK_STS register cancels operations t=
-o other MAC registers.
-+ * - The Realtek page register 31 is magically modified in the background=
- so that polling will
-+ *   read the right data. On the RTL838x polling simply resets it to zero=
-. Other devices seem
-+ *   to track the page access "magically" in the background.
-+ * - A C45 over C22 kernel access sequence is most likely to fail because=
- chances are high that
-+ *   the polling engine overwrites registers 13/14 in between.
-+ * - PHY firmware loading can have issues. Especially if a PHY is designe=
-d to expect a clean
-+ *   sequence of registers and values without deviation.
-+ * - An access to one PHY will need to wait for the next free slot of the=
- polling engine.
-+ *
-+ * Conclusion: The Realtek MDIO bus driver PHY access must know and handl=
-e any interference that
-+ * arises from the above described hardware polling.
-  */
-=20
- #include <linux/bitfield.h>
-=2D-=20
-2.55.0
+On 7/24/2026 12:02 AM, Bjorn Andersson wrote:
+> On Fri, Jul 17, 2026 at 09:11:28AM +0530, Maulik Shah (mkshah) wrote:
+>>
+>>
+>> On 7/17/2026 7:38 AM, Bjorn Andersson wrote:
+>>> On Thu, Jul 16, 2026 at 09:59:44AM +0200, Krzysztof Kozlowski wrote:
+>>>> On Wed, Jul 15, 2026 at 06:52:01PM +0530, Maulik Shah wrote:
+>>>>> X1P42100 (Purwa) shares the X1E80100 (Hamoa) PDC device, but the hardware
+>>>>> register bug addressed in commit e9a48ea4d90b ("irqchip/qcom-pdc:
+>>>>> Workaround hardware register bug on X1E80100") is already fixed in
+>>>>> X1P42100 silicon.
+>>>>>
+>>>>> X1E80100 compatible forces the software workaround. Use the X1P42100
+>>>>> specific compatible string for the PDC node to remove the workaround.
+>>>>>
+>>>>> Fixes: f08edb529916 ("arm64: dts: qcom: Add X1P42100 SoC and CRD")
+>>>>> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>>>>> Signed-off-by: Maulik Shah <maulik.shah@oss.qualcomm.com>
+>>>>> ---
+>>>>>  arch/arm64/boot/dts/qcom/purwa.dtsi | 5 +++++
+>>>>>  1 file changed, 5 insertions(+)
+>>>>
+>>>> Why does the DT change appear in the middle of the patchset? Please read
+>>>> submitting patches documents - both of them - and maintainer-soc
+>>>> profile.
+>>>>
+>>>
+>>> I thought I had figured it out, but I'm not sure anymore.
+>>>
+>>> The claim from the cover letter is that patch 1 and 2 are completely
+>>> independent, but patch 3 depends on Bartosz's thank you letter [2] that
+>>> arrived a week before this series was sent out.
+>>>
+>>> We're not merging the three changes through the same tree and there's no
+>>> expressed dependency between patch 2 and 3 (only implicitly by the order
+>>> in the series). But as Konrad points out, in-between patch 2 and 3 we
+>>> would not enable the secondary GPIO in the PDC driver, so Purwa would
+>>> have broken GPIOs for a while (not ok). I think merging them in the
+>>> opposite order would be what we want (i.e. 1, 3, then 2)
+>>
+>> purwa-iot-evk.dts where firmware sets pass through mode, so current order of the patch seems to be ok.
+>> (patch 3 as such is no impact for iot evk)
+> 
+> But to reiterate the critical point, this is going to be merged by two
+> different maintainers into two different trees, taking two different
+> paths to mainline etc.
+> 
+> So, to preserve this order, it either need to be extremely clear that
+> this order is required and from that maintainers can figure out if it's
+> possible to jump through hoops to maintain it.
+
+Sure. Let me update the cover letter with order to be picked up.
+
+> 
+>>
+>> x1p42100-crd.dts where firmware sets secondary mode, applying in 1, 2, and then 3 may leave crd boards
+>> in broken GPIOs for a while after [2],  so yes order 1, 3, and then 2 makes more sense.
+>>
+>> patch 1/2 - fixes the purwa to operate on correct registers.
+>> patch 3 - Allow crd boards to re-set the mode to pass through
+>>
+> 
+> If 1, 3, and then 2 is a valid order then send the patches in that
+> order, if 2 must come last, then we need to ensure that the dependencies
+> are making it to mainline first - which you can do by resubmitting the
+> two parts separately.
+Sure, by resubmitting two parts separately, shall i send (patch 1 and patch 3) as first part and
+patch-2 as second part? or only changing the order to patch 1-3-2 with updated cover letter mentioning
+dependency? 
+
+> 
+>>>
+>>>
+>>> But this series implies that Purwa has been broken from the start - that
+>>> the PDC driver has always operated on the wrong registers.
+>>
+>> yes, purwa always operated on the wrong registers.
+>>
+> 
+> But by accident it we never touched those registers. So, is purwa
+> completely broken now that you have gotten the pinctrl wired up?
+
+purwa touched those PDC registers as direct SPIs were already wired up via
+respective device nodes in devicetree. 
+
+Change [2] additionally wired up pinctrl/GPIO used as wakeup interrupts too.
+
+> 
+>>>
+>>> Perhaps the impact of this was limited as there's not that many direct
+>>> &pdc references in the DT, but the patch that Bartosz's thank-you email
+>>> was sent for got merged as 77fbc756d9cb ("Revert "pinctrl: qcom:
+>>> x1e80100: Bypass PDC wakeup parent for now""), and that would make a lot
+>>> more use of the PDC.
+>>>
+>>> So while nothing in this series states it, it sounds like Purwa might be
+>>> completely broken right now and this series aims to fix it?
+>>>
+>>>
+>>> It's not clear to me why the driver change doesn't have a Fixes tag, it
+>>> seems like the patch that introduced x1e_quirk was broken and should be
+>>> marked as Fixes.
+>>
+>> x1e_quirk in the driver via commit e9a48ea4d90b ("irqchip/qcom-pdc:
+>> Workaround hardware register bug on X1E80100") says only about x1e/
+>> hamoa specific bug, it seemed it never wanted to enable the quirk for
+>> x1p / purwa. the quirk rather got anyway enabled for purwa due to both
+>> hamoa/purwa sharing the same compatible.
+>>
+> 
+> This patch series is the first piece of information telling me that
+> Purwa did not inherit this hardware bug.
+> 
+>> Patch 1/2 of the series aims to fix this (and patch-2 carries the
+>> fixes: tag).
+> 
+> So patch 2 should be backported to LTS kernels, but 1 and 3 shouldn't?
+
+LTS kernel do not have pintctrl/GPIOs wired up via PDC so patch 3 is not required to be backported.
+
+patch 2 should be backported to LTS kernel, so purwa operates on the correct registers for
+direct SPIs which were already wired up via PDC on LTS kernels.
+
+When 2 is backported (new compatible) its documentation patch 1 would also be required to follow.
+however fixes tag is only kept in patch-2 and not in patch-1 as per discussion in [3]).
+
+[3] https://lore.kernel.org/linux-arm-msm/655b8897-b3f6-4a49-95df-fc07c520c5c6@kernel.org/
+
+Thanks,
+Maulik
+
+> 
+> Regards,
+> Bjorn
+> 
+>>
+>> Thanks,
+>> Maulik
+>>
+>>>
+>>> [2] https://lore.kernel.org/linux-arm-msm/CAMRc=MeU0QuRozMscv02M59+a66S05Jm18CyvNE-qSYrY=S7hQ@mail.gmail.com/
+>>>
+>>> Regards,
+>>> Bjorn
+>>>
+>>>> Best regards,
+>>>> Krzysztof
+>>>>
+>>
 
