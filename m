@@ -1,182 +1,126 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A3B2308F0A
-	for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 15:57:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CFC163B9
+	for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 16:00:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785081424; cv=none; b=EO+FIMhEcuaKWFDf+5MvmMY0EosXGsEoKWUGVDX+Ag0XeFtIR9pumj8qx1vbaPqtdXLXFZQvJRKe/JKVSAWlIdrtVNw4Vzuyiktljpl8AAwOiGGDmbsUBKPa5qBWNnositQe7QC2M/fm7TobwbFgLHsxdjQJ/7fNU2o5KZo8PyI=
+	t=1785081660; cv=none; b=HhoJFdSBpWa9lGa3aB5VMBGQrM2RlXIrOHSFqjmW4lqzgxiPHJcBj8mMF+b37uEnsf+oOX9nGFZLeQX36/I3C8Vc3gD5fLYZfsO+4AmAg8txDahCpSD7by9crqq7CPZ9CFoiXwR9Qe3pzNlgfvhfokBoIVbmPAjKV9Ic7f5uZqY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785081424; c=relaxed/simple;
-	bh=2RHhcvgGnomFV1BBbgn5mU98Aew1ZPUhKAIGJrAbzg4=;
+	s=arc-20240116; t=1785081660; c=relaxed/simple;
+	bh=jg+poG/50hyHrWHQn2BaymzIcLeaCOcsQFkFAMsUA7A=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=I3ifMP4Dw71qw4JMKVzBBYhshArDnPCQIiT3CZOWJo3cQWt0dO7OpPAAFteZDQm6UDrsm1vmLL1qG5LoYfZmtjWOlMtu6vpkU9w5ztf2AKwB8L+7uW0MyklpL/CVLkrn/qJFlbxwed2IlM4y3jTfye/1zL09NjiHrnH8af1/Y/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LUaLstcV; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=NVvKn1gBoMa9eMJ2FWrtw2erJR3kZN4iRWs111p/hsJ8EdZMeTv7VDmGztGM4bZTslPuRxR4E2psHZjKa5OJ+pg1r+ktwjWh85OJUzszZahjSylOp1Pvc88xO8R6A/kWhTiq5nMPDf+5CJNjNTbrN+S05GNrT0gQLsOIJtRUycQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d+cNs737; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LUaLstcV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA55C1F000E9;
-	Sun, 26 Jul 2026 15:57:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d+cNs737"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 229B71F000E9;
+	Sun, 26 Jul 2026 16:00:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785081423;
-	bh=lT22Q0gS2mkuJik8FMarS67j9phgk3KTVUc/9xHFRbI=;
+	s=k20260515; t=1785081658;
+	bh=9acSfg5IcRoKFWyx/SPEqufRcNIlbCe7TVjQCH7L9hU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LUaLstcVnyih4NkLgu5fgeCu3UMl0ePn5cr0yVo1tgYA/mtmwCjXF1ZWoc4+OjVk+
-	 S7Bsfkliw3/I/jiHu5GPGZTA2q0ra5IjGNxVdEz/FT3KQRlsW6h79VrflisgqxeiKN
-	 b34BjEofaQqXRoTrydDSaGrC/cwSn3JD4163LZaycqFIff6HYTaGZuaw0oeaomNAZz
-	 Pqp3MUZ5ubiqY2PM4/3PMr7/9Vt6HVSWgO8RxJ1PvkfXeoqiMEGBWmQGfLjcGzwt+m
-	 79luRAVSTmJxdA/9fVZsfwG7ut4zVwKS8N4G8uBTnpcP3HwlHi9znoR3MzzWzVO99Q
-	 s3uSZPJhR9egw==
+	b=d+cNs737Ge/uK8JTAAMdw99sEPXngu7SKROXf25JED0iGQp1wFt/jEXOdCXg40zRX
+	 D7v57RScb6MswQjgCXgrhcyDYqD3iyL0KGkVVW4xCPmb6pzTHElmUcNbR4qkcKRCHY
+	 ENQuh+s2K+DmbLt+PMbIyOsw0ZE/eYXHClQGKc6gOSMo/hLFs6YODfwrPslpDNDC7s
+	 FtjbGuV2toLqd0Pm6Qko1XsgvczXy+q0Ve6MsGWtWsQxN8KepL0nh61eBbJnXEDhAf
+	 ebGg0YHi7mPW54sQBPQijglHmwZ8hOtHbyxLC9PULksoBY2LfJhX5RwJWGWSVIO6RP
+	 MDp9nos8vA0cQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/9] dtc: dt-check-style: Handle sorting of top-level
- nodes and properties
+Subject: Re: [PATCH 3/9] dtc: dt-check-style: Handle root node in overlays
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260726-n-dts-style-checker-continued-v1-4-b05b8f897670@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260726-n-dts-style-checker-continued-v1-3-b05b8f897670@oss.qualcomm.com>
 References: <20260726-n-dts-style-checker-continued-v1-0-b05b8f897670@oss.qualcomm.com>
- <20260726-n-dts-style-checker-continued-v1-4-b05b8f897670@oss.qualcomm.com>
+ <20260726-n-dts-style-checker-continued-v1-3-b05b8f897670@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 26 Jul 2026 15:57:01 +0000
-Message-Id: <20260726155702.DA55C1F000E9@smtp.kernel.org>
+Date: Sun, 26 Jul 2026 16:00:57 +0000
+Message-Id: <20260726160058.229B71F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] Tree hierarchy tracking in `_walk_bodies()` is broken, incorrect=
-ly assigning closed sibling nodes as parents to subsequent siblings.
-- [Medium] `_property_bucket_root()` collapses standard and vendor properti=
-es into a single bucket, breaking canonical property ordering at the root n=
-ode.
-- [Medium] Top-level addressed nodes are exempted from address sorting but =
-are never subjected to the node name sorting claimed in the commit message.
+- [Medium] The patch introduces a regression for valid root nodes (e.g., la=
+beled or with extra spacing) and fails to change behavior for overlay root =
+nodes, rendering the intended fix ineffective and actively harmful.
+- [Medium] The patch claims to fix "property order" false positives but exc=
+lusively modifies "child name order" logic, leaving property order checking=
+ unchanged.
 --
 
---- Patch [4]: [PATCH 4/9] dtc: dt-check-style: Handle sorting of top-level=
- nodes and properties ---
-commit d752014f34dc3d4a2a9f9617748ec741da0cb1c5
+--- Patch [3]: [PATCH 3/9] dtc: dt-check-style: Handle root node in overlay=
+s ---
+commit 3ffd10d90b05e9e479a121a83377b237c94b4b24
 Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-dtc: dt-check-style: Handle sorting of top-level nodes and properties
+dtc: dt-check-style: Handle root node in overlays
 
-This commit updates the DTS styling rules for top-level nodes and propertie=
-s.
-It skips unit-address sorting for root nodes since they mix unit and non-un=
-it
-addresses. It also adds a special case for the 'model' property to sort bef=
-ore
-'compatible' at the root node.
+This patch modifies the device tree style checker to detect root nodes in
+overlays by matching specific node open strings. It stores this state in an
+is_root attribute and uses it when checking child name order.
+
+> This fixes false positives for property order for root nodes in overlays.
+
+[Severity: Medium]
+The commit message states this patch fixes "property order" false
+positives, but the code exclusively modifies the child name order logic in
+check_child_name_order(). Is check_property_order() supposed to use the new
+is_root flag as well?
 
 > diff --git a/scripts/dtc/dt-check-style b/scripts/dtc/dt-check-style
-> index 1937c6feb57ec..db4451e30dfbc 100755
 > --- a/scripts/dtc/dt-check-style
 > +++ b/scripts/dtc/dt-check-style
 
 [ ... ]
 
-> @@ -496,15 +497,21 @@ def _walk_bodies(lines):
->      in the input. Skips ref-nodes (&label) since those don't have an
->      intrinsic ordering."""
->      body_stack =3D [[]]
-> +    node_stack =3D [[]]
-> +    parent_dl =3D None
->      for dl in lines:
->          if dl.linetype =3D=3D LineType.NODE_OPEN:
-> +            dl.parent =3D parent_dl
-> +            node_stack.append(dl)
->              body_stack[-1].append(dl)
->              body_stack.append([])
-> +            parent_dl =3D dl
+> @@ -228,7 +229,10 @@ def classify_lines(text):
 >              continue
->          if dl.linetype =3D=3D LineType.NODE_CLOSE:
->              if len(body_stack) <=3D 1:
->                  # Unbalanced; ignore to avoid crashing on malformed input
->                  continue
-> +            parent_dl =3D node_stack.pop()
+> =20
+>          if code.endswith('{'):
+> -            dl =3D DtsLine(i, raw, LineType.NODE_OPEN, depth, indent_str=
+, code)
+> +            is_root =3D False
+> +            if code =3D=3D '&{/} {' or code =3D=3D '/ {':
 
 [Severity: Medium]
-Does this pop the node that just closed instead of the actual parent?
+Will this exact string match handle valid alternative spacings or labels?
+For example, if the code contains a label like "label: / {" or extra
+whitespace like "/  {", it seems this would fail to set is_root to True.
 
-When node_stack.pop() is called here, it returns the node that just closed
-because that was the last one appended. Does this cause subsequent siblings
-to incorrectly inherit their preceding closed sibling as their parent inste=
-ad
-of the actual parent, corrupting the tree state for checks?
+> +                is_root =3D True
+> +            dl =3D DtsLine(i, raw, LineType.NODE_OPEN, depth, indent_str=
+, code, is_root=3Dis_root)
+>              parse_node_header(dl)
+>              out.append(dl)
+>              depth +=3D 1
 
 [ ... ]
 
-> @@ -525,12 +532,18 @@ def _natural_sort_key(s):
-> =20
->  def check_child_address_order(ctx):
->      """Addressed siblings (foo@N) must appear in ascending address
-> -    order within their parent node body."""
-> +    order within their parent node body.
-> +    Exception: Top-level in DTS follows name order, regardless of unit a=
-ddress
-> +    in memory@N and soc@N nodes
-> +    """
->      for children in _walk_bodies(ctx.lines):
->          addressed =3D []
+> @@ -550,7 +554,9 @@ def check_child_name_order(ctx):
 >          for c in children:
->              if c.node_addr is None:
+>              if c.node_addr is not None:
 >                  continue
-> +            if c.parent and c.parent.is_root:
-> +                # Top-level does not use unit address sorting usually
+> -            if c.node_name in (None, '/'):
+> +            if c.node_name is None:
 > +                continue
+> +            if c.is_root:
 
 [Severity: Medium]
-The commit message mentions that the top-level part usually chooses sorting
-by node name, not the unit address. However, looking at
-check_child_name_order() elsewhere in the file, it unconditionally skips
-nodes with a unit address:
+Since this replaces the previous check for c.node_name in (None, '/'), could
+it cause valid root nodes that were missed by the exact string match in
+classify_lines() to incorrectly bypass this skip logic and trigger false
+positives?
 
-    if c.node_addr is not None:
-        continue
-
-By skipping addressed nodes here in check_child_address_order() and not
-updating check_child_name_order() to handle them, are top-level addressed
-nodes now completely excluded from any ordering enforcement?
-
-[ ... ]
-
-> @@ -597,6 +610,22 @@ def _property_bucket(name):
->      return (5 if ',' in stripped else 4, None)
-> =20
-> =20
-> +def _property_bucket_root(name):
-> +    """Return the canonical bucket index for a property:
-> +       0 model (for root nodes only)
-> +       1 compatible
-> +    Plus a sub-key inside the bucket for fixed slots (device_type, compa=
-tible,
-> +    reg, reg-names, ranges, status). 'standard' and 'vendor' return None=
- for
-> +    the sub-key, signalling that the within-bucket key is computed by
-> +    the pairing rules."""
-> +    stripped =3D name.lstrip('#')
-> +    if name =3D=3D 'model':
-> +        return (0, 0)
-> +    if name =3D=3D 'compatible':
-> +        return (1, 0)
-> +    return (2, None)
-
-[Severity: Medium]
-Does returning (2, None) here for all unhandled properties override the
-standard bucketing rules for the root node?
-
-The original _property_bucket() sorts properties into buckets (like 4 for
-standard and 5 for vendor). Because this hardcodes (2, None) for everything
-else, standard and vendor properties at the root node might now be grouped
-together and sorted alphabetically against each other, overriding the stand=
-ard
-before vendor rule.
-
-Is this the intended behavior?
+>                  continue
+>              if c.ref_name is not None:
+>                  continue
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260726-n-dts-styl=
-e-checker-continued-v1-0-b05b8f897670@oss.qualcomm.com?part=3D4
+e-checker-continued-v1-0-b05b8f897670@oss.qualcomm.com?part=3D3
