@@ -1,64 +1,64 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-wm2-f4.google.com (mail-wm2-f4.google.com [74.125.225.132])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22B813E3C4D
-	for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 18:22:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6F5B3E2767
+	for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 18:22:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.132
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785090131; cv=none; b=eXUNWJnNF/0tbw1f6ZKeNDocIHTsC28vZ/R+xgxEqeuYSNJH/CtZOwCMvsZWypjsr0DI3rGfIj+vxMQger8z5gTM9HXog4JMJcRxQGHXo2Q5Q2SdTBUoUtoM8Y73J0XddBIDZeiHv/3VJCE+Bf/f3H4n7vxqAxtSGlRQWTypXS4=
+	t=1785090133; cv=none; b=KjXvgwtDAklGNX/ZI8MFBMflkoLBEcwEJhSBFPOvZlgQEG8V1kQ19+l53vRhI8IegG0abrpxPJg4qeM2yZcVt02cCooJVIP5S7eixXTSZTobFKU42aLvPrOEtNyXS+ZFKD/WEf/ESibDAjXJYF1mT+6/k96MgyfJbwxlD+M7am8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785090131; c=relaxed/simple;
-	bh=jWByeww0ioS0EROsIt8b89RS3YluucAHA8QwppJdOa0=;
+	s=arc-20240116; t=1785090133; c=relaxed/simple;
+	bh=TtVUDOQQkYR8/OWJxLSBRc7kHWdoidQAQDGzJTFFDKY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PBz21Otymlcgdjd2bWBUzePAdT1BqOf0Qu1n+dxTbeCk5z2HaqYR75T7hXXDFE8NqEphPguIfVt0dYnLVkijcVI1Kil0V+Up4DfVIneISwSY41nW42AaI3K+irA3yAyuo8dwPJyodBI7vLnJgUcze3zYgFnXiwA9qb6wKYpPaSI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hefbk7XS; arc=none smtp.client-ip=209.85.128.52
+	 MIME-Version; b=O6m39WM9KdDuSSafipvcp1mKyL5mFZq/obBzF++SxfedZGsT1iDYg3hfX/MoKUlErjRbbGevvf/RB8B35m+SokLa6CoOS53+J7w63XRE6wQqlkmimf6E+sdTJLu6tiW830HxQlHRWOF6uXhbPAt8DKdv61eCdSMuTi0uMKnErUQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tcpugs50; arc=none smtp.client-ip=74.125.225.132
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hefbk7XS"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so13135665e9.1
-        for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 11:22:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tcpugs50"
+Received: by mail-wm2-f4.google.com with SMTP id 5b1f17b1804b1-4955f00e593so5942155e9.0
+        for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 11:22:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785090127; x=1785694927; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785090128; x=1785694928; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:reply-to:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=3SlIwUm5bt7YVM6EyfiZIEgRZEN3wUHTuCE/oWFfY7s=;
-        b=Hefbk7XS4qj48G9TCtndMnUQqaqPyT9aBTsymv8gr71Y+OconxrbGI8K8MlN4kwwD3
-         HWudr9brnqSstIk31FcP/3DQcsngSQ/irFsArf7qebJ28+Alq3nywfrc+KceR7sWrYT/
-         TjbGu0flFut8BFJQXNz/TfR1TX3CKNK41N+H2ztih3wP88op/BN+7HUCwTrdDxr2FIyK
-         1gbzrFYLjnlS8UZLFfT4H529OU9svOl7fmd1z02hMoxNnnqPi7wfonv77Pcq8XzeqqoW
-         tUEbaJRhmWqnWR1Cvr2XVEuE4OgbHBH0O75fNVf1/u53hKwBjnEH47Njpe+gW6dQItxK
-         m8nQ==
+        bh=yup5bOkWn7IqJaUF5fjRsCEs3zex/YIAg6y/8ySFCqE=;
+        b=Tcpugs50Yu7RNJNgt+8VZkFQvcAsMK9jsI196HGDWYJZUN0uC2P1bKe3lYx5Rf+PlP
+         YVgTdQJRSfX01TNvt6JRBD4Abuksy42BJFWusCzYBxMLIDKCrdja2QDQKF4ZUpclUSPU
+         A7z0PniLuFjCRpl9nyjxEknR1MOTcBwQ6vRbsKu+beWSbmi9PTm/8DQyWu8AOkasobqP
+         LG4lUew7r0S/uHa9bNZJH9uBx2Qsr92uKxz7u7XMt1DNizaZv1khAcJf9YXBpZxWfysY
+         D/OhYsLpTyvSAV15DFHDFjXb532k+kScjpNGCu0xZsKpG/MDEnv260tH31wJKMKvLzQv
+         8MDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785090127; x=1785694927;
+        d=1e100.net; s=20251104; t=1785090128; x=1785694928;
         h=content-transfer-encoding:mime-version:reply-to:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3SlIwUm5bt7YVM6EyfiZIEgRZEN3wUHTuCE/oWFfY7s=;
-        b=e2x750YAY39SGNETPm2zpIiaBOW2LzXneuNdTnBj22EQmKNWNhNRUuSQ/9zAcwQX4c
-         pQdAoYzo0G/yj8o+5gNUz6nBYEm4lhYKeZwUXCYYNItadgTO8BvC+P7zdU8FxvZdHlVo
-         xyPsvW3EYfdmV/bab/5MZIsbaieM3x1cEHHoCQPTabiqfwaKjyHRi3c29Ei7irGhkQol
-         yjLwekWUuXuZW7UTPiCP1VQxyPoG/VuSHEYBDBryVdg5SW8TGQhgPCQg+2MIaNuVhfWr
-         D3JbkOiwTuVtEuRQcWQFAQRibU2gTHpvY0YP6xZK1oDbnZ2yf7BDKVwHCvQJEoxFo4by
-         RSpA==
-X-Forwarded-Encrypted: i=1; AHgh+RryJBsxjXzTiBy9kBrTGYYdHSsZJrsJXPZzEMzb9HQgDNwtcHF1kDEtjF1gEcaY8vn4fetbxd+0UHpq@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz9Q2h1UKxQ2eXdnGjg+fHE5ADrRqd7zjZ2jJsXQLBYudqqmI05
-	wwpE2x5YH8ujZKlBaPaMAHqzpkcxIEZbaY4ZVnaqPksvC5lteIAt/d4u
-X-Gm-Gg: AR+sD10zn0k23S30QSw69cX4I8Arf2PBAkT69j7nr6dobqJvq2D3eW3ZZHzhQrklSt+
-	zdPrhu06BspcImcKn1jqBD+2S29fCi2AzvNE/n/CeDdpu5l0wYClkPEDV9zHLoVrchiRCL4JwWw
-	PafbmFHbOKvaW/3wfX3eNPfCpePn5md7rH66ByTaujKo7aicrDp1aH9eYEYmNmHsq6zpAaCXVvv
-	4L8B++mDQtODWxpmVdOFntPv+/Hj7q9shGVpaTs89z43LocGuT/D1HAFne+GNOvrW06XH2rlQLi
-	RCbk3/MwSicrkZ70aPImgo+v8LY54EF3aKboTBNe7WBUxfZ3m0D8XVYZHdkUY7jKtr4TjRmSaxp
-	BG57h7FCFg/lJu0BXCJfPaBZHV13oOAdDxbbyJ5zarc0h6Jcf9I/M4jeyz2R6Bm5lgkR6plo5O9
-	zb+JYRhu5QJnFAzOvMQmUJrqaT5YXVLLOozUcnJA==
-X-Received: by 2002:a05:600c:a102:b0:493:c77c:108a with SMTP id 5b1f17b1804b1-496b575ded2mr58213725e9.36.1785090126740;
-        Sun, 26 Jul 2026 11:22:06 -0700 (PDT)
+        bh=yup5bOkWn7IqJaUF5fjRsCEs3zex/YIAg6y/8ySFCqE=;
+        b=QHtTaMk44P0qRHaSsMSU/u17aQdph789Dr/YmDONqVSYS/PhYYVO+7qdWn1IVCdn67
+         dX6vKgC89eXB2pha7OWX1ILjGEhYopuNFwzvMNVuy7N54FwAnRsBdASyBsFvlv07NPKN
+         6wwGFlFhM05wbzlLhpCEQo/ZuzWancsbBxI5GoiFsO8nclGAytvyZOFAsHWB0oMO9HfR
+         +dtyzRPsUUQX8UpTcWRxDoffLr2MTwF/KzdXEv56Nkw+rIo0DiHEIntHPb6gmfDkibIk
+         8BXdQ64Po50hH7+7n9pbo0n9/hiJXxwW+4MsQ2LEHw/Ul6dxVZb23wf1fmpmy/58n75v
+         zAUA==
+X-Forwarded-Encrypted: i=1; AHgh+RotN/v1iZdUSXZ7pzCyq/j0jddOeUEXfqVd4e4gFYv8jjktdKyHNgTN4/NJbT+vU1PKhD2+60D1puj9@vger.kernel.org
+X-Gm-Message-State: AOJu0YzlfTvMKJXdxTx9SF+9kVeTyshpxdIt2ipoZ1dpx2iiJHqEaHz3
+	CXqCOTXp1qrX+ogJ4sLCEwmoapnXwvXuHnQyr4FDSK/APR3WQhiouGF7EO2h4cOO
+X-Gm-Gg: AR+sD10CpSeaeRKyjEAiKCIYm4hwwqEBIzJPFUt/i5lbKucUMOywqiTrdPYp+PbDs86
+	2AkNaVzHOIXI+45EcfWRLYi+ruJxRsN7oGLm6ccXebq95R9SBj7reZZTZ6pUX8IP7BUgPa7AMyT
+	G+DDEUUV2fWMbcUtUYfFDw+YHQ55cEzDMPxxebN9oaWRlqcwlb4Kgp4eRe1E0T/7yW91WImden2
+	b0+3j4H3uoSH9+y1O1tSAtibtw3kQGZi22DHzRX/ouBQSaLH1EN1Bg1KpTPegxm8XOSCfgHyHqm
+	BuIr39zXUMZYAnfQCyOWHgKtS8sVVMMs7P7vwbndAFBp1mcbrqTNXzxHlIy+q8uL2mcJujp5CaU
+	xTGOkD2Iy9Wluhv30QVGWNA/JOHOezsGj0CuqhrxzgMIG2M4ybJQoSiVZHK0omaHh2aW/daYTzS
+	wfF8C1z/K0uhqGxlR8Q9YCY6EWviNcolZaCG6UDA==
+X-Received: by 2002:a05:600c:45d5:b0:495:52a5:8829 with SMTP id 5b1f17b1804b1-496b56c5ac6mr70333955e9.11.1785090127909;
+        Sun, 26 Jul 2026 11:22:07 -0700 (PDT)
 Received: from slackboot (93-34-145-231.ip50.fastwebnet.it. [93.34.145.231])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496b52eec24sm150748045e9.3.2026.07.26.11.22.05
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496b52eec24sm150748045e9.3.2026.07.26.11.22.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 26 Jul 2026 11:22:06 -0700 (PDT)
+        Sun, 26 Jul 2026 11:22:07 -0700 (PDT)
 From: Alberto Robazza <robazzalberto@gmail.com>
 To: robh@kernel.org,
 	krzk+dt@kernel.org,
@@ -72,9 +72,9 @@ Cc: robazza.alberto@proton.me,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-amlogic@lists.infradead.org
-Subject: [PATCH 1/3] dt-bindings: vendor-prefixes: add Orbbec
-Date: Sun, 26 Jul 2026 20:21:56 +0200
-Message-ID: <20260726182158.249449-2-robazzalberto@gmail.com>
+Subject: [PATCH 2/3] dt-bindings: arm: amlogic: document Orbbec Zora P1 board compatible
+Date: Sun, 26 Jul 2026 20:21:57 +0200
+Message-ID: <20260726182158.249449-3-robazzalberto@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260726182158.249449-1-robazzalberto@gmail.com>
 References: <20260726182158.249449-1-robazzalberto@gmail.com>
@@ -89,30 +89,30 @@ Content-Transfer-Encoding: 8bit
 
 From: Alberto Robazza <robazza.alberto@proton.me>
 
-Add the "orbbec" vendor prefix for Orbbec Inc., a manufacturer of
-3D depth cameras and embedded vision boards. The prefix is needed by
-an upcoming board compatible string ("orbbec,zora-p1") introduced by
-this series.
+Document the "orbbec,zora-p1" compatible for the Orbbec Zora P1 board,
+which is based on the Amlogic A311D (Meson G12B) SoC. The corresponding
+device tree is added in the follow-up patch.
 
-Link: https://www.orbbec.com/
+The "orbbec" vendor prefix used here is added in the first patch of this
+series
+
 Signed-off-by: Alberto Robazza <robazza.alberto@proton.me>
 ---
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ Documentation/devicetree/bindings/arm/amlogic.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index 396044f36..f205df64a 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -1213,6 +1213,8 @@ patternProperties:
-     description: Orient Chip Technology Co., Ltd.
-   "^oct,.*":
-     description: Octavo Systems LLC
-+  "^orbbec,.*":
-+    description: Orbbec Inc.
-   "^okaya,.*":
-     description: Okaya Electric America, Inc.
-   "^oki,.*":
+diff --git a/Documentation/devicetree/bindings/arm/amlogic.yaml b/Documentation/devicetree/bindings/arm/amlogic.yaml
+index 9f73a0054..2d6ecdada 100644
+--- a/Documentation/devicetree/bindings/arm/amlogic.yaml
++++ b/Documentation/devicetree/bindings/arm/amlogic.yaml
+@@ -167,6 +167,7 @@ properties:
+               - bananapi,bpi-m2s
+               - khadas,vim3
+               - libretech,aml-a311d-cc
++              - orbbec,zora-p1
+               - radxa,zero2
+           - const: amlogic,a311d
+           - const: amlogic,g12b
 -- 
 2.55.0
 
