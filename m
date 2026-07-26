@@ -1,62 +1,64 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA60E3E317C
-	for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 18:22:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22B813E3C4D
+	for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 18:22:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785090128; cv=none; b=NDBvVgTFH6pjHDJ23EwRQcrFvhQi5pHoD+DG2vG34AmoG7xPMt/KXa4BHHaTtDu1ITaoi4PUrFHUgU1cmeBIujCCufOeUnWP5miQIDrt99wU+vUMfHTLmufJUG1icpIvA0k911pK3QcC1PVyKu0ULVeoX68L+kqKWbwcn1HlpA8=
+	t=1785090131; cv=none; b=eXUNWJnNF/0tbw1f6ZKeNDocIHTsC28vZ/R+xgxEqeuYSNJH/CtZOwCMvsZWypjsr0DI3rGfIj+vxMQger8z5gTM9HXog4JMJcRxQGHXo2Q5Q2SdTBUoUtoM8Y73J0XddBIDZeiHv/3VJCE+Bf/f3H4n7vxqAxtSGlRQWTypXS4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785090128; c=relaxed/simple;
-	bh=e+sPd82/VOehP7llSGZWs7q2sdYUWqswQwnffhXGxyk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bx6ehBXSgAto43WlLbK0bAoOBngUzBLqzZEF2JWRL8Jlb4mEKq1qRECIll5KcCEWXiXBAnm5PCmIoDPVqsnU29xD9a9wjD4pG8LismbUWypVfyS1mc5ixyPLpgX64YH2+S0jACjvZAUhBn4LE5BTv5pEiES0eTXKnbg8lQ98kws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hZNqtKqJ; arc=none smtp.client-ip=209.85.128.51
+	s=arc-20240116; t=1785090131; c=relaxed/simple;
+	bh=jWByeww0ioS0EROsIt8b89RS3YluucAHA8QwppJdOa0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PBz21Otymlcgdjd2bWBUzePAdT1BqOf0Qu1n+dxTbeCk5z2HaqYR75T7hXXDFE8NqEphPguIfVt0dYnLVkijcVI1Kil0V+Up4DfVIneISwSY41nW42AaI3K+irA3yAyuo8dwPJyodBI7vLnJgUcze3zYgFnXiwA9qb6wKYpPaSI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hefbk7XS; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hZNqtKqJ"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4954d29264cso10018365e9.2
-        for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 11:22:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hefbk7XS"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so13135665e9.1
+        for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 11:22:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785090122; x=1785694922; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:reply-to:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wRAQur8L/fejABMUOGfnExKTMwqijNNgWK29zDYECjE=;
-        b=hZNqtKqJpS+vz7OF//CKpcr5URjiZRmKrMVpP7V5z9ig69ZYYvNrS8Pq7qFs1SKAE8
-         6bqRop1fI56KtoMRBTXFjt78JRM4GleOeEU7W5CwIhHyQeNAPmNQhihiXunDvf8JLLSs
-         YsSHisdIV4iCd+emtC0+xiP38JQ9sKZayzksPvUtgsrzxLUbDZHct2Ocw5bDesja7fty
-         MzSgFT7wCr7MYtzjeu7X4wp3Q/UmWymqAXXWTsvoFvgYv3w4YbWfhkP1RhX/onhU9v/p
-         3AnjOJ0eC5bOzj09IQ0kFf6F7iyQi4813neKv+VneW32SGNieZq2Qo3XqW7Wq58196X/
-         t9pw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785090122; x=1785694922;
-        h=content-transfer-encoding:mime-version:reply-to:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1785090127; x=1785694927; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:reply-to:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=wRAQur8L/fejABMUOGfnExKTMwqijNNgWK29zDYECjE=;
-        b=iFHlxWvS4G5uqcSfpqt7RQ7VGq0Av96MpTJHVt//eQf4ZghVJV25iFaflGIOHyEyrm
-         E+QJx5NzmicGozMSHz5kanxijW1mzrcaMc9ixw78zBCz3716wnTXkYCp75hOoTCYdd0b
-         rut5hCqPLuc6pxVvVf3HttyZjDFX9cMkKg4mTq5jhZe5T/zkejwb2Bwm0rkxUGMxMhue
-         CfZR+bJ72/7kx3W8OBJxrYRn8gi/jz/ywCQysfgnCr/jKn9e7hZp4xMQCShFAZjK1NZk
-         LihSjRdUc49b8Pu3r1JaeshOTPB6G7S9/3SveBkviqjTazpwrvyfupT+pGHLsmnZRo8l
-         afBQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpNBTql2IkrRIFKNQ3kFdXeaZQbWbmMBTim3R1iiZwxcqD+0xL2Imm/16UCWBdJVoYnBsSXN+0ksLUp@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw96LBe6Dog7cY6M+XS2/b/8aWjDkzEEUA1xig/cPsMDCOkrVBa
-	hMT0WcRs8r48qTw6rjJ61ARz4yFbYSsHfu279FSvPnLcPrjMbB/2O5LI
-X-Gm-Gg: AR+sD11CfQkwBy602or7NUfx7pVNqBsLub5SniTKEeZhVqkNQqWlx5y7DlrpSLIWb2G
-	+j8njKqSkzUJ0Iw6HMxGYhGiXvt9/D5vmBIr2iWk8g2+MJUHm5gCNfM1XrlTfy+HAQTnsgZCdVG
-	0lzuCplMcbSuGLYr9Gjt6vuUFOlyfupI52WFecQCBN6jcBlRu8OJnc70DG/QFmoMistOgK6zx/F
-	AGbsDvVUddgcQIaOFkCQLVreAjD4lqKQfH+hcpfmaHNoet6OKAWV6SLrRL7Du1ix4pBkLj2J7uc
-	GPwBaG1vW/+FY23EO/9klkrDTSqerM72KH9HIK87EOPqbEvui5+3mDVNbHkOXbpIiB+AUwzJE4c
-	NAJW8tF4FMEbgGv8RUkzYjUuOA5CJvQuiNwybtU4OVDtqr4NRxqXA+HmsP+e31VP5Dr8Xlt2lD4
-	gM0SutgH3pmkiZGn8SUsZ87LX2bIHkXl2XsU6yVg==
-X-Received: by 2002:a05:600c:8b75:b0:495:4d00:2fda with SMTP id 5b1f17b1804b1-496b56e6efemr88359835e9.2.1785090121922;
-        Sun, 26 Jul 2026 11:22:01 -0700 (PDT)
+        bh=3SlIwUm5bt7YVM6EyfiZIEgRZEN3wUHTuCE/oWFfY7s=;
+        b=Hefbk7XS4qj48G9TCtndMnUQqaqPyT9aBTsymv8gr71Y+OconxrbGI8K8MlN4kwwD3
+         HWudr9brnqSstIk31FcP/3DQcsngSQ/irFsArf7qebJ28+Alq3nywfrc+KceR7sWrYT/
+         TjbGu0flFut8BFJQXNz/TfR1TX3CKNK41N+H2ztih3wP88op/BN+7HUCwTrdDxr2FIyK
+         1gbzrFYLjnlS8UZLFfT4H529OU9svOl7fmd1z02hMoxNnnqPi7wfonv77Pcq8XzeqqoW
+         tUEbaJRhmWqnWR1Cvr2XVEuE4OgbHBH0O75fNVf1/u53hKwBjnEH47Njpe+gW6dQItxK
+         m8nQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785090127; x=1785694927;
+        h=content-transfer-encoding:mime-version:reply-to:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3SlIwUm5bt7YVM6EyfiZIEgRZEN3wUHTuCE/oWFfY7s=;
+        b=e2x750YAY39SGNETPm2zpIiaBOW2LzXneuNdTnBj22EQmKNWNhNRUuSQ/9zAcwQX4c
+         pQdAoYzo0G/yj8o+5gNUz6nBYEm4lhYKeZwUXCYYNItadgTO8BvC+P7zdU8FxvZdHlVo
+         xyPsvW3EYfdmV/bab/5MZIsbaieM3x1cEHHoCQPTabiqfwaKjyHRi3c29Ei7irGhkQol
+         yjLwekWUuXuZW7UTPiCP1VQxyPoG/VuSHEYBDBryVdg5SW8TGQhgPCQg+2MIaNuVhfWr
+         D3JbkOiwTuVtEuRQcWQFAQRibU2gTHpvY0YP6xZK1oDbnZ2yf7BDKVwHCvQJEoxFo4by
+         RSpA==
+X-Forwarded-Encrypted: i=1; AHgh+RryJBsxjXzTiBy9kBrTGYYdHSsZJrsJXPZzEMzb9HQgDNwtcHF1kDEtjF1gEcaY8vn4fetbxd+0UHpq@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz9Q2h1UKxQ2eXdnGjg+fHE5ADrRqd7zjZ2jJsXQLBYudqqmI05
+	wwpE2x5YH8ujZKlBaPaMAHqzpkcxIEZbaY4ZVnaqPksvC5lteIAt/d4u
+X-Gm-Gg: AR+sD10zn0k23S30QSw69cX4I8Arf2PBAkT69j7nr6dobqJvq2D3eW3ZZHzhQrklSt+
+	zdPrhu06BspcImcKn1jqBD+2S29fCi2AzvNE/n/CeDdpu5l0wYClkPEDV9zHLoVrchiRCL4JwWw
+	PafbmFHbOKvaW/3wfX3eNPfCpePn5md7rH66ByTaujKo7aicrDp1aH9eYEYmNmHsq6zpAaCXVvv
+	4L8B++mDQtODWxpmVdOFntPv+/Hj7q9shGVpaTs89z43LocGuT/D1HAFne+GNOvrW06XH2rlQLi
+	RCbk3/MwSicrkZ70aPImgo+v8LY54EF3aKboTBNe7WBUxfZ3m0D8XVYZHdkUY7jKtr4TjRmSaxp
+	BG57h7FCFg/lJu0BXCJfPaBZHV13oOAdDxbbyJ5zarc0h6Jcf9I/M4jeyz2R6Bm5lgkR6plo5O9
+	zb+JYRhu5QJnFAzOvMQmUJrqaT5YXVLLOozUcnJA==
+X-Received: by 2002:a05:600c:a102:b0:493:c77c:108a with SMTP id 5b1f17b1804b1-496b575ded2mr58213725e9.36.1785090126740;
+        Sun, 26 Jul 2026 11:22:06 -0700 (PDT)
 Received: from slackboot (93-34-145-231.ip50.fastwebnet.it. [93.34.145.231])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496b52eec24sm150748045e9.3.2026.07.26.11.22.00
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496b52eec24sm150748045e9.3.2026.07.26.11.22.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 26 Jul 2026 11:22:01 -0700 (PDT)
+        Sun, 26 Jul 2026 11:22:06 -0700 (PDT)
 From: Alberto Robazza <robazzalberto@gmail.com>
 To: robh@kernel.org,
 	krzk+dt@kernel.org,
@@ -70,10 +72,12 @@ Cc: robazza.alberto@proton.me,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-amlogic@lists.infradead.org
-Subject: [PATCH 0/3] arm64: dts: amlogic: add support for Orbbec Zora P1
-Date: Sun, 26 Jul 2026 20:21:55 +0200
-Message-ID: <20260726182158.249449-1-robazzalberto@gmail.com>
+Subject: [PATCH 1/3] dt-bindings: vendor-prefixes: add Orbbec
+Date: Sun, 26 Jul 2026 20:21:56 +0200
+Message-ID: <20260726182158.249449-2-robazzalberto@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260726182158.249449-1-robazzalberto@gmail.com>
+References: <20260726182158.249449-1-robazzalberto@gmail.com>
 Reply-To: robazza.alberto@proton.me
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -85,39 +89,30 @@ Content-Transfer-Encoding: 8bit
 
 From: Alberto Robazza <robazza.alberto@proton.me>
 
-The Orbbec Zora P1 is a vision development board based on the Amlogic
-A311D (Meson G12B) SoC, with 2/4 GiB LPDDR4, an Ampak AP6256 combo
-module (Broadcom BCM43456 Wi-Fi over SDIO and BCM4345C5 Bluetooth over
-UART_A), HDMI output and Gigabit Ethernet.
+Add the "orbbec" vendor prefix for Orbbec Inc., a manufacturer of
+3D depth cameras and embedded vision boards. The prefix is needed by
+an upcoming board compatible string ("orbbec,zora-p1") introduced by
+this series.
 
-According to specifications and how it advertise itself in the original
-dts configuration, the board is a revised version of the ODROID-N2 with
-WiFi/BT and Amlogic A311D instead of the original S922X, so the device
-tree builds on meson-g12b-a311d.dtsi and meson-g12b-odroid-n2.dtsi
-(mirroring meson-g12b-odroid-n2-plus.dts), extended with the
-board-specific GPIO wiring for the AP6256 managing, the status led is
-green instead of the original blue of the N2 and polarity is inverted.
+Link: https://www.orbbec.com/
+Signed-off-by: Alberto Robazza <robazza.alberto@proton.me>
+---
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-This series consists of:
-  Patch 1: add the "orbbec" vendor prefix.
-  Patch 2: document the "orbbec,zora-p1" board compatible.
-  Patch 3: add the meson-g12b-zora-p1.dts board file and Makefile entry.
-
-The DTW was built, validated against the amlogic.yaml binding
-(DT_SCHEMA_FILES), and the resulting DTB was boot-tested on the board.
-
-Alberto Robazza (3):
-  dt-bindings: vendor-prefixes: add Orbbec
-  dt-bindings: arm: amlogic: document Orbbec Zora P1 board compatible
-  arm64: dts: amlogic: add support for Orbbec Zora P1
-
- .../devicetree/bindings/arm/amlogic.yaml      |   1 +
- .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
- arch/arm64/boot/dts/amlogic/Makefile          |   1 +
- .../boot/dts/amlogic/meson-g12b-zora-p1.dts   | 103 ++++++++++++++++++
- 4 files changed, 107 insertions(+)
- create mode 100644 arch/arm64/boot/dts/amlogic/meson-g12b-zora-p1.dts
-
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index 396044f36..f205df64a 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -1213,6 +1213,8 @@ patternProperties:
+     description: Orient Chip Technology Co., Ltd.
+   "^oct,.*":
+     description: Octavo Systems LLC
++  "^orbbec,.*":
++    description: Orbbec Inc.
+   "^okaya,.*":
+     description: Okaya Electric America, Inc.
+   "^oki,.*":
 -- 
 2.55.0
 
