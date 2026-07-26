@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A0533CB55D;
-	Mon, 27 Jul 2026 22:55:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2044242D77D;
+	Mon, 27 Jul 2026 22:56:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785192914; cv=none; b=mnupteYkmbVTNa26a7QXpzjvWjzhz4VsXIPJ4UsZv+wZj2K1Qb6k42yDyNkSInu4arxAmdjnJGOrj+ZIe1VbNATq5s7jKWCrA3j6CLY/2k8HSDO19s+BAXe4frNZmIRFTHD+J+FArklbqPeSEZBeeVaSlP/im/hjHbBJuUvabBk=
+	t=1785192970; cv=none; b=WlTa2KuGcBk7hAlLNIPg8/T6v/L5eAagmHR9ITyaBwL74JY55GacCtku5yVvIJOkfJSlKARMwuIWl4a09sBIgyxAnG+GmVMCsakoZifmR6IhqNfVKnCUIMZ3eyi1PYdpavKwfHcU2QyCIBrmZNjVt25PWGgX4TjsR4xEmzNt2ME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785192914; c=relaxed/simple;
-	bh=FZ9hE8FtC0j3PoZXjQfRP8zgLbvU40x+/vguTrjjLIQ=;
+	s=arc-20240116; t=1785192970; c=relaxed/simple;
+	bh=DcPQTw13tQK3ryzKdiVRyyK7hVhT4+YGcsOmVocKA5w=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=GdHb4VSf8LD6N6sb88tZYFTQ21Z7yKkCY5n6gJRnvurBUCyMtKZdVG+IPkWqUPkl2iVtMOXS/5lUJjKAqlRK2DLm07BstwVcKeWfzsv2HToNKv9k1KnUSq5ychIBQ3bcwWPh5RObhhED5BVp8Dr2zLBy06/9fgymIKii63YqCSY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MLBROwFc; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=ThNbWqTDvPrcm7WdlpQDJVlu9qqYdAhQWX8SgZnD9+SU+pycLIoXdKPrstL7BCXWDVlTOkRoFgm+RjaZh06cQCKkJedMM/xgplHZuTjGfVkE3bpByiFJcqRmkW02yUyM7ChvJ9zNhzMhbcXsrGg3yyLibYPeyOdTKrsLb831nCw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W4Ex//7h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MLBROwFc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 442ED1F00A3A;
-	Mon, 27 Jul 2026 22:55:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W4Ex//7h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1C521F00A3D;
+	Mon, 27 Jul 2026 22:56:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785192912;
-	bh=swHBgptXNCT4nfNAZr2Kj/5tNU5tfCl6vLTLoHQLVk0=;
+	s=k20260515; t=1785192968;
+	bh=0qK6hd9wSWkwKvlj6HzXKj262cJHJ+hOZynNz6AuAdw=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=MLBROwFcSCdd94pmQvV7yPRs9/1TIdH5tK8Op5ucjCVE541pFkSlcgZCwhZVz0QA5
-	 4pyYtSSvtxpBAUGH3/0rUjdk9TtjakGZP1CLNzXlVaiBb/Ga2wAQE9zSuLiUt1lylC
-	 DKHaVrgtPgsail5m6+6LADB0QV9Dq+xpg5Vm+VImeFMe5P1amDjFFIWSPtOIiaIP+/
-	 TgHAgozTkPAH9QkVJn+HG5t28pofPj8AlUWtJwj3fjhiVQtl7hnScruDP5RLvxm7R3
-	 0UGr+w0ZzL02dFthkbE/xybKDWw3kWpYcBWhfigkFA4ckckhCLtZHZ7lprKh28iH32
-	 nCd+NKAwKifGw==
+	b=W4Ex//7hdLxqHaOPijGNSgOhWOwnvn0SCUSQw+t9PZrIHpecwkgjUlXjNSRSgDZsi
+	 9wjlrUGA5LKCgXU89foAVPXCi9b+PSlc9ZeMIn0ns9ZLzy4ayhh0CARiPAH/iEWMsT
+	 s6FpzL+dD+yjvUoIlkKddEUfuMP18f8S0mSzSq3TbAz2sE71ORHKYkIb732GKGPaFs
+	 4whKBxj6Ojh8J+N9s+UWvib3lp0rj7BPAhS+yybiwyZ808BQzcDr3it+FeYzubu79C
+	 2Z+UQ0A9roLQ2DowVaU4yGjmxWxgq/bSTBvW2xLCHi5Sy4+7yd6OnUmeb8XMSZy2ic
+	 NkCSHmU+OnafQ==
 From: Mark Brown <broonie@kernel.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Praveen Talari <praveen.talari@oss.qualcomm.com>, linux-spi@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+To: Jerome Brunet <jbrunet@baylibre.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jack Yu <jack.yu@realtek.com>, 
+ "shaikh.kamal" <shaikhkamal2012@gmail.com>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org
-In-Reply-To: <20260714120226.1788391-1-shengchao.guo@oss.qualcomm.com>
-References: <20260714120226.1788391-1-shengchao.guo@oss.qualcomm.com>
-Subject: Re: [PATCH] spi: dt-bindings: qcom,sa8255p-geni-spi: Add
- compatible for Nord SA8797P
-Message-Id: <178517287171.50339.14273544886035165596.b4-ty@b4>
-Date: Mon, 27 Jul 2026 18:21:11 +0100
+In-Reply-To: <20260726055227.18123-1-shaikhkamal2012@gmail.com>
+References: <20260726055227.18123-1-shaikhkamal2012@gmail.com>
+Subject: Re: [PATCH] ASoC: dt-bindings: fix spelling errors
+Message-Id: <178508422325.10630.3401967100989878890.b4-ty@b4>
+Date: Sun, 26 Jul 2026 17:43:43 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,29 +48,29 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1155; i=broonie@kernel.org;
- h=from:subject:message-id; bh=FZ9hE8FtC0j3PoZXjQfRP8zgLbvU40x+/vguTrjjLIQ=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqZ+HOAHSmEl1HMZybbYwY7OoYAGCoyCfsXaMj4
- B0FOsgGom+JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCamfhzgAKCRAk1otyXVSH
- 0GxMB/sFi303lTbquEyoAVnEFZyptCSMykkNG8kNku/laV/ncDdQ1sHmo7CSJhCeQ57eCRD8pPN
- iUrNWuCNojOKpNPk1/df9+217g6m9UCkwkJ/6fWMjcSD1FL4cfQfOOF79aIDLXzJQcaVOOnTcBq
- R37tS/Eh+e78eUQkLM+WANuMXgL1q+kx6oR2SueAdvraGVDdiHV1bsd+yAKcYNiAKoEZR36iLi0
- fk1M1j0wKpQBxM3Tp6cFbB2pNpReu5np/ekcAO2TypSwDHR5SNdc9R0MHqCeAQiq7QX/NTDfU/Z
- Vokfy1QmO/4sdofVTwOFbB3h+4hpPJ+bWvAWqURlttuLqHcg
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1094; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=DcPQTw13tQK3ryzKdiVRyyK7hVhT4+YGcsOmVocKA5w=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqZ+IFGeNDPfR+IfnWCVE3tu5jjRoOYjUhNyQc+
+ jP8xXmt6viJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCamfiBQAKCRAk1otyXVSH
+ 0KQsB/92hXJSSVmC8O0DhdZC9f58FPe0bLxlXGXY+VKjiJ8RoF+CmT1864HFeQV1okiJy7E62KX
+ p/onddRikyUhPCasCSVERv834D0ixES2vh9rXdtYEHQw6UnDsn1ro298p5EIedU+ZmDH/Txi06d
+ ZwFmPrhQc4YG3XHmWbERW4v6oK9twSYUQoRpI54ra6ns+Z7bR7PgM4xDiQt/aU9aOPFAwI7xFoN
+ kPq4EWmCP6fhVj31W9YtuBcrbO2WPFWASClifIh/Fj7aa/cJdFJi1sXzkO6vj10ST1oUsBgphDt
+ 8jQ9eLVoAhZ5kKM1Et3JyeIbK7PabvSQdDgmwkuaMpUwQg1P
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Tue, 14 Jul 2026 20:02:26 +0800, Shawn Guo wrote:
-> spi: dt-bindings: qcom,sa8255p-geni-spi: Add compatible for Nord SA8797P
+On Sun, 26 Jul 2026 11:22:27 +0530, shaikh.kamal wrote:
+> ASoC: dt-bindings: fix spelling errors
 
 Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.3
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.3
 
 Thanks!
 
-[1/1] spi: dt-bindings: qcom,sa8255p-geni-spi: Add compatible for Nord SA8797P
-      https://git.kernel.org/broonie/spi/c/a44a020465e3
+[1/1] ASoC: dt-bindings: fix spelling errors
+      https://git.kernel.org/broonie/sound/c/7a047311de7f
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
