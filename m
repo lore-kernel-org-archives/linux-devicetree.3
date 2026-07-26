@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 355E9389DE3;
-	Sun, 26 Jul 2026 11:27:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89CD438AC85;
+	Sun, 26 Jul 2026 11:27:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785065276; cv=none; b=s2RzUPADYBp6/7cBjR7KObSqwReoe+GEFkLaaWrAFb3iFTKHwFKZVy60eK0TyUXLpBbdtBSwwTG5J8R9i1cuizcqVu+26UBVkAUx+yl7F6r1wTrpWK1kLf8QNqp6esyov2uneHh2g5z+fYCWh1Xlc3F19VDj5Ub+xN+JMSeaMFI=
+	t=1785065278; cv=none; b=bKLPeUT7x9TDuigIEGk4St1D0AYgpy0x1Ar8sTYkWXmTfgEQITWOq0YA9HQh4ne5oC+a383ZbliahvITO/12sKHDagROZY1kOD6NZBkRCAMppzXrNNvPBkd7pJ+B375Dm7bi6R7RIYW70eWGRE9PUQHvYSDJsDiqPpzDnB4t1t8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785065276; c=relaxed/simple;
-	bh=jaHNKK9FSc+/+TcckyoC2rB10RAILs/DFm7PXrvT5mg=;
+	s=arc-20240116; t=1785065278; c=relaxed/simple;
+	bh=gDhYyL3yAtpzPwhf0Fs/zMtR8lzG9b38bS0nSRcn2gk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LwPTFIe0OZTqS3RaBl7QXFtfEppEITUj5hTN6ee9MMTBh42PqSE3FXPiPQ38Rb4Zjcbuibv0PykxfUkz5W/f+qlOjSyJdT+GK1ziGmoQmyX87RKbsv5pSLjvigZfG3xTiAAaGyC+zNxaGOKFuWQve1l1DQXZwDXGSPvVazgtix4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=niEq7AYV; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=reR1tc3QRzOqF6fgO4uYueijdUW8CVUqF/EvvViWXTEJmutvOyGmu56rEKMTo9iz1lFCz7hC+84pprQybM1+9vbzzhU2xCWn4dmYoTKBLQoGX802KBozhEqa6JfjnVTHtaPYw2v8LkItdbfPRSnq8149OnXnQHqvIrVlvL97gkg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BA9zwtrW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="niEq7AYV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64C1A1F00A3E;
-	Sun, 26 Jul 2026 11:27:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BA9zwtrW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA7CF1F00A3A;
+	Sun, 26 Jul 2026 11:27:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785065267;
-	bh=1Ak0olVKErvQmihBm29GT3ct6ovZqncBs8TSvo4e62k=;
+	s=k20260515; t=1785065274;
+	bh=4IypVN+hHBZd36rTTjBD8QVGY+7mSezMWrGpkFbJZgM=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=niEq7AYViaumq7D1gIuz7YYPUJmW2yU7jBX44E1mfkUNq4efagYAb0suCCCw3iHY5
-	 IzZdcuM8v8ExkyK4ir/wECkDrBw2kHhyZawouPZ2qSXE73eZbR13nLT+f+fb2Eh4SP
-	 BN1W6JEPj6EkT89hevRSC7GqDgs5zSRF/jwj1KtZhLDcsFqIet1W72WSu5VqEFtLvm
-	 DN7eJVsCXmWoYEmPVkg6H1KR6pYxyP1dDDHT8S6KktoO/P58nxRZ92I/6JLSpuO32I
-	 JWck+PRHlLDkqySzY9+SUiqV6e0ryZC3M0Ez7hqpYK5iwsspxqjNZ97wu2OKaQZvMa
-	 vXSuUnoVmwhBQ==
-Message-ID: <433f07d6-95e2-4bd6-860f-094e7d18e3de@kernel.org>
-Date: Sun, 26 Jul 2026 13:27:31 +0200
+	b=BA9zwtrW5Kv9UMGR9B+AffnWM6PzeGg0pbGtsH8I8S0w4vLVjaAAAgi0CfJzebtQh
+	 41PwLChlbQYpdD4Yyz2PtF5VaHMAhZfdqR+qLuLlCnkqWi+jwcOde8hy26uwkLf0QN
+	 SJS0bI+hJVVtN5V1dxCjzS46/+ytSWDd5689cPcIsxcZK0/CaPzS7VC/Oa74mIFi4C
+	 i5rDJFJ7f6A4eRkQlSt/Oc2YcOqETzpfSHo1kvkIP+mYlxJw/2+CwlkBXpC5CXZYCo
+	 Elg9uvBWEAZpkio97Z3vsNwwEt88GvvsqItIUPTJQL0daz5ErFSRlCs9bMN6wgkSZn
+	 EDKeNyxqPAM7Q==
+Message-ID: <31fb6e34-5d12-4984-a874-e683374eca53@kernel.org>
+Date: Sun, 26 Jul 2026 13:27:40 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,15 +35,14 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ASoC: dt-bindings: fix spelling errors
+Subject: Re: [PATCH] dt-bindings: dma: ti-edma: fix 'tansfer' spelling
 To: "shaikh.kamal" <shaikhkamal2012@gmail.com>,
- Jerome Brunet <jbrunet@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jack Yu <jack.yu@realtek.com>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+ Vignesh Raghavendra <vigneshr@ti.com>, Vinod Koul <vkoul@kernel.org>,
+ Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
-References: <20260726055227.18123-1-shaikhkamal2012@gmail.com>
+References: <20260726060634.18908-1-shaikhkamal2012@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -89,21 +88,18 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260726055227.18123-1-shaikhkamal2012@gmail.com>
+In-Reply-To: <20260726060634.18908-1-shaikhkamal2012@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26/07/2026 07:52, shaikh.kamal wrote:
-> Fix spelling errors reported by codespell:
-> 
->   susbsytem -> subsystem (amlogic,axg-sound-card, amlogic,gx-sound-card)
->   vlaue     -> value     (realtek,rt1015)
->   spped     -> speed     (st,sta32x)
-> 
+On 26/07/2026 08:06, shaikh.kamal wrote:
+> Fix spelling error reported by codespell: tansfer -> transfer.
 > No functional change.
 > 
 > Signed-off-by: shaikh.kamal <shaikhkamal2012@gmail.com>
 > ---
+>  Documentation/devicetree/bindings/dma/ti-edma.txt | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 
 Slow down. Same comments.
 
