@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EC5838911F;
-	Sun, 26 Jul 2026 11:27:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D5333876CC;
+	Sun, 26 Jul 2026 11:27:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785065267; cv=none; b=mBEVk2D5063YIzsUj5t9Yhoik/GBLuOdM1EcPGH3UnIKVN0FEOEiEJAVosxdwtghaw5IEWasJTIf4DPdSt8hJaaecruU9FuTcIAKfYnbcJI4lIJj6SRRY5OBQbsCd77H93PAc/xuySaKUeBAnjbYcHeHbcrs3J+6d9iAnvA7kLw=
+	t=1785065269; cv=none; b=Su3uuTcbYb4azK7LP0QNMfsBgWGOuM3TgvrGiyhJl0HWo1VctX+mBdDOL66obW+UxzO786YtAUYhjG7MKkBpMZET/yXCDBcNcmWPov+aVqdcl2/LRoPcGeLlicWgjh+lYc7D6GbdnpgZpHhT+ZGx/P15TPkyP8Qwy2FjQbMIXhs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785065267; c=relaxed/simple;
-	bh=/OHTI7GFA6QoxK+znTnzwjEtMxIkMe7DcVIiisq61Q8=;
+	s=arc-20240116; t=1785065269; c=relaxed/simple;
+	bh=wz+8NcmaRr/+FjZLNGAP6I720CMo+sk//5lqyLArUTs=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=J2Gfx3XIDQaMBt4qnegqxuz4IpKvQKFwU9+t9JkrZ/T3J0VDE/9g1zTlrBLr6x8Q52XG95Gfl27FBxkDtAN5v6CCQarsnlgB9XQTbrv/AAYkzCAqMmyBJCUUZL0YnUoS7eR2GZPtw2SCurwFLVwbQP+yJv2PaljNC45EuwcafYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bFwthwBB; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=PxPHH222m3LEqpMe1Iof6BdwZI6pUoROkq5k6MJP24Vb8hkyYYfa1DTmAN4RyPCWvy55FuAKWRI9JITFxjTMbLI1YFWS4uhHYtDkmx0dwPZll0zwOuhGAp7lR/2QPkvgjfbkdWvmpGRt4du7/z52L0bXnYQNNDELj0UomMo32C8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=knBxXckw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bFwthwBB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA52F1F00A3A;
-	Sun, 26 Jul 2026 11:27:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="knBxXckw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 087B81F00A3D;
+	Sun, 26 Jul 2026 11:27:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785065260;
-	bh=BD67O4VxjpIvpQkBY4qU/I0nnLqaoQK18bmEHcUuNU4=;
+	s=k20260515; t=1785065263;
+	bh=sfKMVn9171l0Qjkq4ipk/ajO7811L4PUAUm8FcyVIuU=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=bFwthwBB+8VzKDqeSOeJBOabb7INmugR1qe4ekQkgIJOA/+Ppa2tP4rRvPj2QgNCi
-	 Oo3Dsk0hRS1W4QcIPaMj0J6naWVbWJdmyH2zzIvAeHT+Vm5v8+6ot2zwblI0R/9goJ
-	 LNp25GZYNPNOYMbyL/ftVh7onSraKfduBqZ0EkOEf8Srms6yIormtf1CqD6WVQPe1G
-	 dd4GoGG8VwQdbAkcXrYbx0ZWilTg9+5QHP/mRIJ9jUX48EosfJ+LIno6k7GrarbCgH
-	 iF5Waw6r8v/p1YVvAqEMjPN9TRJu1TQ0xdXnaMJBLWUx4Ugn9YH/A+m+aZwefLUo7j
-	 Nm/IWK1BHeIiQ==
-Message-ID: <6a6bfe58-2b9b-46f2-9f16-d0abebf6337a@kernel.org>
-Date: Sun, 26 Jul 2026 13:27:23 +0200
+	b=knBxXckwTQrolUq5GbIVSW+zQ8Qkm61BaSiNXB5sZhUsnwMij/IYkoFMfhm6btgQ9
+	 sD+0vEz6f4u//A4GfIhvlUjBacRtZs+imctvarsxLtSogbqz5uCmZmH68RzNZg0IgU
+	 XTSNAefzjtflCJZy1VzfHkovBtjGuMz5AVkt2zL7wCwbogU0bbEhs4Nd/kUhevcewY
+	 9Qpz84w89hHQIHOhuUgpzaZMF10/Mwa9OnQ6X/OKSQLy1ETSUTKWvOoOKDQ2cSd8HU
+	 htZNrJu9ZupviWdWfnmdYogvrXd0GBfbeHZ1eF3KnVGWUQSgbI1qy6qADtUqbuk8tv
+	 ig9NPNrmrZmGQ==
+Message-ID: <462674b8-67e5-4802-98e1-751a6d5b18e6@kernel.org>
+Date: Sun, 26 Jul 2026 13:27:27 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,19 +35,15 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH wireless-next] dt-bindings: net: wireless: mediatek,mt76:
- fix 'spacial' spelling
-To: "shaikh.kamal" <shaikhkamal2012@gmail.com>, Felix Fietkau <nbd@nbd.name>,
- Lorenzo Bianconi <lorenzo@kernel.org>, Ryder Lee <ryder.lee@mediatek.com>,
- Shayne Chen <shayne.chen@mediatek.com>, Sean Wang <sean.wang@mediatek.com>,
- Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org
-References: <20260726053817.17409-1-shaikhkamal2012@gmail.com>
+Subject: Re: [PATCH] dt-bindings: usb: maxim,max3420-udc: fix 'provices'
+ spelling
+To: "shaikh.kamal" <shaikhkamal2012@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jassi Brar <jaswinder.singh@linaro.org>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260726055846.18444-1-shaikhkamal2012@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -93,18 +89,18 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260726053817.17409-1-shaikhkamal2012@gmail.com>
+In-Reply-To: <20260726055846.18444-1-shaikhkamal2012@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26/07/2026 07:38, shaikh.kamal wrote:
-> Fix spelling error reported by codespell: spacial -> spatial
-> (spatial reuse). No functional change.
+On 26/07/2026 07:58, shaikh.kamal wrote:
+> Fix spelling error reported by codespell: provices -> provides.
+> No functional change.
 > 
 > Signed-off-by: shaikh.kamal <shaikhkamal2012@gmail.com>
 > ---
->  .../bindings/net/wireless/mediatek,mt76.yaml           | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
+>  Documentation/devicetree/bindings/usb/maxim,max3420-udc.yaml | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
 
 Slow down. Same comments.
