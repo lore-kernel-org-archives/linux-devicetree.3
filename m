@@ -1,97 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-178.mta1.migadu.com (out-178.mta1.migadu.com [95.215.58.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF9903CB574
-	for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 16:26:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E94025B0BD
+	for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 17:02:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785083202; cv=none; b=eqqULL9sbeTnEmerDE14hM+XNHPVsp2tBttpP+4f8auY1iOarHnvogVn1EDiF5qV9ZHBpeISc9VzN8n+PLad4z66gjSnT/5NYjd6eIkxzdDbCVGrOHYVnH1oK4Apm3FwMzorXIBpqnRFR+C8LeaZiHkIwsfTxw6m7bRqDIKF3Vk=
+	t=1785085331; cv=none; b=AwNqzrGcLSeBnAqIFp8fACM9QpaCLRTiyLe7h5Bze/v0TIDjwRvMtFBA1FR8FRrt3pgHGmehM8NqvTN0mN/i34/JezWcz4BYMhNcvTpAq6uERw7GrNwYFO1ZOyZe8dpzTk+X9tuXfDiA0KuGJBAafCcdkLlV0E4mJAhdCvNGYkw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785083202; c=relaxed/simple;
-	bh=8TX68IzQ7Q1ETHelj5qfCyCMz9RtUl2Izi4HhEA39uw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DjLqcvLAse754rV7Wm6NDnShQ/qIynl1R9YiWxcfLEuvsCwAVo16BEZmELzYomPgP7OYFW3g8gIbM7W0dDV2ayrO0k61cf5fPOJuG1D31wqHZGEPElsO4wXDmRRKaS4LUn9O6huFK0Bo0WWdzmgg+bk3Kxh0qruDHEvkmNkCDOo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YHh1ztFV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785085331; c=relaxed/simple;
+	bh=ziYas+ROfEygSIAY0fcmd767VnpHhnG30/U6D8UWZ30=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=C2dLMpHw5ft9V5rc4KOFw7WuWLIQslcF+oAcRQ3g+ATosmyDbjkgySOjUH4dZlbz1Dc56rRdPlZJKtXZLnxVG/1PvQ1RL5GflmGwr3N2HVxSFnutRfO+0ybI95W0Hwr+C0CWkW3bVuIEyIQKD8pxqH20vv/rWT/FuelyqEEa3QI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=O/VYhach; arc=none smtp.client-ip=95.215.58.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YHh1ztFV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6442E1F000E9;
-	Sun, 26 Jul 2026 16:26:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785083200;
-	bh=xoPHRmyz3pkVRKAU3ZtvZtwwa1bQeGqe/5XVIVSh6yM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YHh1ztFVEBgheY6trjEeuf16WsiHp8TI9uMJbXLfSQ+IsCwTq80YF7F8dgswVC20m
-	 6GNfCq04tbxIDjt10rgjz/hT5B8Q7AqA8Y57S+WB4HFnHqmBrtQy5tPR5y8BLv2cYg
-	 Gvf3lrmH3Zw+Gdybx0mx1j7SuItJG0FcDPnPBRNDMOAl81O4BzdfYzbQNC+7ToKJ+2
-	 wcEysGlROLl5UQBPPP1Y/bnPoHpMtAHZ2HYCuZeTjTFRMD5Dm0ng8msBqeXIyaXWPs
-	 TascGmZ84y5XpiW+Y+o8uA1xW8eB4Mtvjpt7ezGSz1cdOKQwiY7jKcDRQiHYg/ho37
-	 s8a3LeOM5NqHg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND 7/9] ARM: dts: stm32: add STM32H7R7 SoC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Liu Changjie" <liucj1228@outlook.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <MN0PR19MB609159EC2888184313D616F8ACCD2@MN0PR19MB6091.namprd19.prod.outlook.com>
-References: <MN0PR19MB60912FA1E75E4E55B2E27D34ACCD2@MN0PR19MB6091.namprd19.prod.outlook.com>
- <MN0PR19MB609159EC2888184313D616F8ACCD2@MN0PR19MB6091.namprd19.prod.outlook.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 26 Jul 2026 16:26:39 +0000
-Message-Id: <20260726162640.6442E1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="O/VYhach"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1785085317;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+rPOSbC7krROGCJWQ/tEAsHlzXAU8juhi74M+ai8d9U=;
+	b=O/VYhach9RFo7G90RoTgxhxm91nzKvH+a5nbUjtM94zb190DoDFzN+fiqDzAxGs4f8LX7A
+	6CJQK5EmL+JDbqiBm7w2AkvCWWhkZw3CT8dpHHFFBwSJUrzKhDFI8+Qs1GwPPPd/vAgzOv
+	OesIijJzK+tpwPCTuw9cmsVFl1yKZpA=
+Date: Sun, 26 Jul 2026 17:01:51 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: "Siratul Islam" <siratul.islam@linux.dev>
+Message-ID: <6b3f1b6188afbb8ebf9576274894b5ed292eca92@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH v2 2/2] iio: dac: dac8163: Add driver for DAC8163
+To: "Lukas" <lukas.metz@gmx.net>
+Cc: "Jonathan Cameron" <jic23@kernel.org>, "David Lechner"
+ <dlechner@baylibre.com>, "=?utf-8?B?TnVubyBTw6E=?=" <nuno.sa@analog.com>,
+ "Andy Shevchenko" <andy@kernel.org>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <amYVZtbxu4fjhBkx@berta-MS-7693>
+References: <20260708-dac8163-work-v2-0-3acd1bf20182@gmx.net>
+ <20260708-dac8163-work-v2-2-3acd1bf20182@gmx.net>
+ <e84c4e047e104cca9b88dda791997ceecba1204c.camel@linux.dev>
+ <amYVZtbxu4fjhBkx@berta-MS-7693>
+X-Migadu-Flow: FLOW_OUT
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Mismatch between unit-address and `reg` property in GPIO bank nodes=
- within the `pinctrl` block.
+July 26, 2026 at 8:10 PM, "Lukas" <lukas.metz@gmx.net mailto:lukas.metz@g=
+mx.net?to=3D%22Lukas%22%20%3Clukas.metz%40gmx.net%3E > wrote:
+
+
+>=20
+>=20On Wed, Jul 08, 2026 at 09:58:13PM +0600, Siratul Islam wrote:
+>=20
+>=20>=20
+>=20> +
+> >  + const struct reg_default reg_defaults[] =3D {
+> >  + {
+> >  + .reg =3D CMD_SET(CMD_WRITE_UPDATE, 0),
+> >  + .def =3D info->default_output_reg,
+> >  + },
+> >  + {
+> >  + .reg =3D CMD_SET(CMD_WRITE_UPDATE, 1),
+> >  + .def =3D info->default_output_reg,
+> >  + },
+> >  + };
+> >  +
+> >  + const struct regmap_config regmap_config =3D {
+> >  + .reg_bits =3D 8,
+> >  + .val_bits =3D 16,
+> >  +
+> >  + .max_register =3D CMD_REF << 3,
+> >  + .cache_type =3D REGCACHE_MAPLE,
+> >  +
+> >  + .volatile_reg =3D dac8163_reg_false,
+> >  +
+> >  + .reg_defaults =3D reg_defaults,
+> >  + .num_reg_defaults =3D ARRAY_SIZE(reg_defaults),
+> >  + };
+> >  Why are these defined inside probe? Should be defined outside the fu=
+nction.
+> >=20
+>=20The default values after reset are different for the compatible devic=
+es
+> (0 for the dacxxx2 devices and mid-scale for the dacxxx3 devices).
+> So these are runtime dependent. The alternative would be to have two
+> regmap_configs for the two device types and add these to the chip_info.
+> Or do you have another suggestion?
+You don't need two regmap_configs. The way I would do it is, move the "re=
+gmap_config" out of probe and name it something=20
+like=20"dac8563_regmap_config". And in chip info struct, replace "default=
+_output_reg" with "reg_defaults[]".=20
+Then=20for each "dacxxxx_chip_info" define the appropriate "reg_defaults"=
+ configuration.
+
+This way you can do
+
+struct regmap_config regmap_config =3D dac8563_regmap_config;
+...
+regmap_config.reg_defaults =3D info->reg_defaults;
+regmap_config.num_reg_defaults =3D ARRAY_SIZE(info->reg_defaults);
+
+A bit of work, but it would ensure most of the work is done at compile ti=
+me,
+and we avoid reconstructing these sructs everytime probe runs.
+
+>=20
+>=20Best regards
+>=20
+>=20Lukas
+>
 --
-
---- Patch [7]: [PATCH RESEND 7/9] ARM: dts: stm32: add STM32H7R7 SoC ---
-commit e7124a5b13abf93e1321e7a33e469a82c2e13c42
-Author: Liu Changjie <liucj1228@outlook.com>
-
-ARM: dts: stm32: add STM32H7R7 SoC
-
-This commit adds the device tree include file for the STM32H7R7 SoC. It
-describes the CPU, clocks, timers, UART, SDMMC, and various GPIO banks with=
-in
-the pinctrl block.
-
-> diff --git a/arch/arm/boot/dts/st/stm32h7r7.dtsi b/arch/arm/boot/dts/st/s=
-tm32h7r7.dtsi
-> new file mode 100644
-> index 0000000000000..ad25dddbe6ed8
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/st/stm32h7r7.dtsi
-
-[ ... ]
-
-> +		pinctrl: pinctrl@58020000 {
-> +			compatible =3D "st,stm32h7rs-pinctrl";
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <1>;
-> +			ranges =3D <0 0x58020000 0x4000>;
-> +			interrupt-parent =3D <&exti>;
-> +			st,syscfg =3D <&syscfg 0x130>;
-> +
-> +			gpioa: gpio@58020000 {
-> +				reg =3D <0x0 0x400>;
-
-[Severity: Low]
-Should the unit-address match the first address specified in the reg
-property? Because the parent pinctrl node sets ranges =3D <0 0x58020000 0x4=
-000>,
-the child nodes' reg properties are relative to 0. Would it be better to use
-gpio@0 instead of gpio@58020000 to avoid dtc -Wunit_address_vs_reg warnings?
-
-This pattern appears to repeat for the subsequent GPIO banks as well, such =
-as
-gpiob: gpio@58020400 having reg =3D <0x400 0x400>.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/MN0PR19MB60912FA1E7=
-5E4E55B2E27D34ACCD2@MN0PR19MB6091.namprd19.prod.outlook.com?part=3D7
+Best regards,
+Sirat
