@@ -1,58 +1,60 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55D613793BB
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 09:16:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8B123EC6A8
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 09:16:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785143789; cv=none; b=e6qMPI9BTG3MCoZpqI5o9873s5VWtlrx4OVbwXzOKR2c7UlB+SSNNTpmtIjf5N7rIVKqiIaD6hJg6Ygjdf7IMz5brAZbI8CYBfXC1KBZRvXk7T/iHjALP56ONc/tun+2+ENx1L4FMm41iyPyqYW6FmF4n9wU1xrrX+7T1LcHL+M=
+	t=1785143792; cv=none; b=Zbv6c0s1TOtbveT1jPM2fcrfU5WIybB1llH2s1FzJQxndEsXd6qbi1hV5jCe5ui/m9ohEba3JxTEc/i5DUMrRyCnos2A30eGf9ee6qHW6Z2N9I15OGHr9SiBOlmLYHwPwspuVoGC+o9nLOxz9G7fiSKH2RBumJsNzDX04CoH/M8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785143789; c=relaxed/simple;
-	bh=mIKw7TlqgzZYAMXbesAtGbPoHY6vE12XtCAZu7o+ORc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LapGPFsJTCJtaGGG5fjO19ve5ZAkGiUDrmjr1v4I2tJwhFaB7G9QDCwdtaCr+yRxjtkB8f0iHk46VovtC6jtNj67r2Fb6dHlN+Am8KjxPR6nj2EIN/ixtUYIe8gk2HH/p8HtWvoRsXW7Z+pGadK4N7Dvuf6VPbKMn0x1pKxghRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=cBr6ijoV; arc=none smtp.client-ip=209.85.216.54
+	s=arc-20240116; t=1785143792; c=relaxed/simple;
+	bh=Vln5pVRWGcKJ94GRT0+RUkj+Q2YrC+MhJ0jq5oTVKyE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fu+Gjg5qy6hWyC3jhvNuQPZ9pcQDhsGFUWTs7yhrgZU5kpZ6khCs/eHawK0/pSPsRu2w474TGTiK46v0CsQGeVbSJ6thcaY/ppVx+J0+Dc3lUHqilO/PiY+eBMauc7pBUnKv/tXj1JbdJbM02WUO+uHDOFoeCPqVIu6TsaKc6xQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=gG2jUrr8; arc=none smtp.client-ip=209.85.215.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="cBr6ijoV"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso1684354a91.1
-        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 02:16:26 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="gG2jUrr8"
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-c9c26a5fb98so1691826a12.0
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 02:16:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1785143786; x=1785748586; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wN/kx/SBk8bE5KK0ql4+gLcojF8uiq2QeEJ40jwABjk=;
-        b=cBr6ijoVG17VY8VXpdoJA3vVfrnWdGbEaxSrmHkju0lQ5epA124g/qLBb5y6fxcsUe
-         5tMHU5/MOh4Lh3vIQo3I4mNTE+aO+zFZdqB/F6pghWEZ47ERmQIQxo6NTqrHujZwG+HE
-         BCzylK2Rsu2vh5rAXcRb1br3zNxz1F400oQxE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785143786; x=1785748586;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=chromium.org; s=google; t=1785143790; x=1785748590; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=wN/kx/SBk8bE5KK0ql4+gLcojF8uiq2QeEJ40jwABjk=;
-        b=hN2+boifZIZc2KfdcfWlnGMQ4Mhs5RHwkrBNx2GIo5vhvvMfJ2i52PQ/XS9pXO3Mnd
-         /LeiWPMb3NyPCOFMvAwOK3oPcJNF1w+mO6OCwj5ykykIyjUi3UC+ui8y2i1z6u99vhKY
-         2y0F9eJaxKJ5L9adeemNzxYchFuzkvmWPulITLBpmLoEkG3lsJnRhfSa515g/w1G0NHY
-         KyuzRVUN7wb2oYIe98zk7aiVvMrqEHE2h9DZs6BjaSQQ6kXbzuNZW7ZULX0kpIylY3d+
-         VF1ouZRnaMq7v5ZO+VG6hprMAuyh6wCg0YFgelcYfg6WUIiyZFjrxoGW7Q2o44lh98Yg
-         7J/A==
-X-Forwarded-Encrypted: i=1; AHgh+RqH0I4ePvg7G5N1qDkymeErMplu49RuUY1wqrF68rS380LzECDf/5thHpGDQ8U6VwT7pXrTC6tzlnwu@vger.kernel.org
-X-Gm-Message-State: AOJu0YwWhS24ezZaDuqFvGPR4lTZQE4PQ00FfBPTPsd6m/cPsXhjNH8+
-	QsayeWnGUlVUXdIrLDV7wwRnL10eVCkkn4VDB2r9czPU6aX6SZElT7tB7Pj0Px2eUw==
-X-Gm-Gg: AR+sD12k7g0nlgLXwceq1R/cjfTkvPtmm0ODifUtstS8/1XPEYaMhcMs5agZ+UTbH44
-	diVjxZXBuFKM9ydmYnl+c+jbldhBUH32QhqkYrXQ3TKjCMT5NcuDiVcKhqcwKR4hMLQIjNS/gX2
-	ixq1vZNMaP+42hSbnatYxpeX1sC0PkR7rImPz7pZsbcw002IbDNyQKUi58fX7/rl05JrYhqjmQ5
-	68egAaIaORcmY1SFxIzAUqIe4IzSDrhknIpSJOx4qdbF7+AVo1EqznWVnYoTf5sRFMaisQkOfr1
-	WasDOAdsU8oM8lmUjeWU3iFjEiPN6Kl5ju8KdGdkd5mkxbQApdwg+UX7eikE6+EuEImqKyJVeM2
-	ef/4MdYz+HPmcPzd0neg6BT4ev6hz3rYqJWMpABG7j8x7lQh2Pm3O8tMBKljOZ/A+NmHsdYWkKI
-	qbqBZEfGG03TASdfkFZAbM8gUodq/YnzWa4k397nygyy5wRnDzsTUinEUH8g==
-X-Received: by 2002:a05:6a20:6a09:b0:3c3:b5db:cd93 with SMTP id adf61e73a8af0-3c67d9b3da3mr7135247637.13.1785143785620;
-        Mon, 27 Jul 2026 02:16:25 -0700 (PDT)
+        bh=eiS2cO5E4x0Awi3aXHlbjiWygQvLxKx4fGNRAdhWDNQ=;
+        b=gG2jUrr8K4/PnwBHTa5/aKr4n6nf7l6HKbbIDeflKQX5rbU4TXQbPHEXfpYzQP3pEl
+         7ASY0A07+6cirrr9SM9A0kcG94K1ujfPGGfq1+6h46Vb+6ImhMvAp8ckqMAkI7cexxbe
+         /oFrida8mpt+022+eJB8Ans+hVhp8Uon1rO58=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785143790; x=1785748590;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=eiS2cO5E4x0Awi3aXHlbjiWygQvLxKx4fGNRAdhWDNQ=;
+        b=U9+WEc9xXYsOlrxRY3qnaGap3I1QbcUCjnSOkfwLhsm6KC7ou9zCgWU9esd3ZVyHyb
+         7N2GJQctDcZ0yB8HnPusZxwMYw+HcAh/X/G3Lg4a6asyZpCYxD6EXTo7CHZp4PaQ+vvQ
+         iGRrXPAPuvswAuhVw7FTYxPwrsuGXTRMtOgj2iBr/8g4Yicfw6QonRfi++IA1KYvtAEP
+         D8XAIwwOWUT6W3vS/j2vB96kCrIRsmlPFz7iyS4rahw6Pn9k4xeuW8fEWhFI5YySm2om
+         AI72fq9kHfC6HmnH95vosRdelp8bXk/HXuU9LIDD0MQpDidtozjHnDyLlRB7mtYSGU1Q
+         bQeQ==
+X-Forwarded-Encrypted: i=1; AHgh+RooahKhDrPPOUiBSXPJMwgbKRSEkKTbfopkC668CKRc4dk2uLlWIetI9rUn2aBibvKyd7a9LFj4nDXC@vger.kernel.org
+X-Gm-Message-State: AOJu0YwwQci8gDXWZ/TN0zNGTyjQpezCKl3rn9eggFZze8gn9bf80SN6
+	Ko+mEKxlHjmJV/2dZPUweW2kVIBGBqptdYTE8jXHBKAyYMTKK7+W/Hlw9oeplAD+mA==
+X-Gm-Gg: AR+sD11gzIq1LDuF/Is8pOxdUtmPrqxFFcAhgIiLYqUPiu3m0xRSf2II5O9pv8wNdX6
+	4OaF3L7rfYkZeqWCDh6XRPhtSAHfz8Lk/vdVZQ4DFB5ACvOamZPK6lIrJC2rjSflNRbOrrnd1zv
+	ynhHeYHTJc4zD6mlLed1H46NO5u8ORmF+TVmO31kewkeLMDjUzJGYIwdgYOz+vRLq7i9I24SxIp
+	QS4ApZNnG/Hp642lI+2JljzdxISJATgsEw12nW2XFNWdQJjbj5Luu1AVbrZM7yqN95mvC3n8hjn
+	/irFGW7TlwvPzqOPyErl5u+vp0DVQfg/WW2qZ3oiyTE8uNx1rDsE3jPG4r3jbWgSL7k/w+WFzTz
+	KjYyHKW5kTGIXIte6bbpojoPZqhojFaCFJKBXFeUpNkKggjaxuIQnZYJHKIMRCs89XsXmSKktN3
+	Ik5pAIMITtgF9S9c9rCzZ+8DLqA4z7gPZvmbP9U2NGI+bU6/eyCeGxe9Uydg==
+X-Received: by 2002:a05:6a21:1644:b0:3bf:8de9:c64e with SMTP id adf61e73a8af0-3c67eecb1fbmr6693314637.2.1785143790405;
+        Mon, 27 Jul 2026 02:16:30 -0700 (PDT)
 Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:440:c713:a2b0:6f14])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbbb662329fsm2870049a12.9.2026.07.27.02.16.21
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbbb662329fsm2870049a12.9.2026.07.27.02.16.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jul 2026 02:16:25 -0700 (PDT)
+        Mon, 27 Jul 2026 02:16:29 -0700 (PDT)
 From: Chen-Yu Tsai <wenst@chromium.org>
 To: Stephen Boyd <sboyd@kernel.org>,
 	Brian Masney <bmasney@redhat.com>,
@@ -75,11 +77,14 @@ Cc: Dan Carpenter <dan.carpenter@linaro.org>,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	Icenowy Zheng <zhengxingda@iscas.ac.cn>,
-	YoungJoon Lee <getfeus@gmail.com>
-Subject: [PATCH v3 0/5] powervr: MT8173 GPU support
-Date: Mon, 27 Jul 2026 17:15:49 +0800
-Message-ID: <20260727091555.1023910-1-wenst@chromium.org>
+	YoungJoon Lee <getfeus@gmail.com>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v3 1/5] dt-bindings: clock: mediatek: Add mt8173 mfgtop
+Date: Mon, 27 Jul 2026 17:15:50 +0800
+Message-ID: <20260727091555.1023910-2-wenst@chromium.org>
 X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
+In-Reply-To: <20260727091555.1023910-1-wenst@chromium.org>
+References: <20260727091555.1023910-1-wenst@chromium.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,142 +93,116 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi everyone,
+The MFG (GPU) block on the MT8173 has a small glue layer, named MFG_TOP
+in the datasheet, that contains clock gates, some power sequence signal
+delays, and other unknown registers that get toggled when the GPU is
+powered on.
 
-This is v3 of my MT8173 PowerVR GPU support series.
+The clock gates are exposed as clocks provided by a clock controller,
+while the power sequencing bits are exposed as one singular power domain.
 
-I got another inquiry on the status of this patch series, so I thought
-I'd dig it out, fix all the issues and send another version.
-
-This time around Mesa was ready for basic testing, using both vulkanmark
-and glmark2-es2-drm (with Zink). Details below.
-
-Changes since v2 (all in the clk driver patch):
-- Made COMMON_CLK_MT8173_MFGTOP depend on PM
-  - Needed since the driver implements PM domains using the generic PM
-    domain library, which also depends on PM
-  - Fixes build breakage (kernel test robot)
-- Fixed "RST_DELAY_CNT" name (Brian)
-- Dropped unused mfg_desc (Brian)
-- Added check of clk_prepare_enable()'s return value in
-  clk_mt8173_mfgtop_power_on() (Brian)
-- Saved error value for return in IS_ERR(data->clk_26m) branch
-  (Dan Carpenter / kernel test robot w/ smatch)
-
-Changes since v1:
-- Adapted to changed DT bindings
-- Dropped driver change
-- Use same power domain for "a" and "b" GPU power domains
-
-
-This series enables the PowerVR GPU found in the MT8173 SoC, found in
-some Chromebooks.
-
-This version is different from the initial powervr driver submission [1]
-in that it splits out the GPU glue layer support out of the powervr
-driver and into a separate clock and power domain driver. The glue code
-is otherwise the same, and also the same as found in the ChromeOS
-kernels, with some extra comments and macro names added where possible.
-
-Patch 1 adds a binding for the glue layer, called mfgtop. The glue layer
-contains clock and power controls for the GPU.
-
-Patch 2 adds a driver for the glue layer, implemented as a clock driver
-that also provides power domains.
-
-Patch 3 adds an entry for the MT8173 GPU and 6XT series to the PowerVR
-binding.
-
-Patch 4 corrects the clock for the GPU (called MFG) power domain.
-
-Patch 5 adds device nodes for the GPU and glue layer to the MT8173 dtsi
-file.
-
-The kernel driver successfully probes the hardware and loads the
-"rogue_4.40.2.51_v1.fw" firmware provided by Imagination Technologies [2].
-The "exp_hw_support" module parameter needs to be set for the driver to
-probe successfully.
-
-This was tested with Mesa 26.1.5 from Debian Forky. With this version
-vkmark and glmark2-es2 (over Zink) both run fine. Mesa spits out a bunch
-of warnings since the GX6250 core is not officially supported.
-
-    # PVR_I_WANT_A_BROKEN_VULKAN_DRIVER=1 vkmark
-    WARNING: powervr is not a conformant Vulkan implementation, testing use only.
-    WARNING: powervr is not a conformant Vulkan implementation, testing use only.
-    MESA: warning: ../src/imagination/vulkan/pvr_arch_job_context.c:73: FINISHME: Missing reset support for brn51764
-    MESA: warning: ../src/imagination/vulkan/pvr_arch_job_context.c:76: FINISHME: Missing reset support for brn58839
-    MESA: warning: ../src/imagination/vulkan/pvr_arch_job_context.c:523: FINISHME: Missing support for brn62269
-    MESA: warning: ../src/imagination/vulkan/pvr_arch_border.c:244: FINISHME: Devices without tpu_border_colour_enhanced require entries for compressed formats to be stored in the table pre-compressed.
-    WARNING: powervr is not a conformant Vulkan implementation, testing use only.
-    =======================================================
-	vkmark 2025.01
-    =======================================================
-	Vendor ID:      0x1010
-	Device ID:      0x6250
-	Device Name:    PowerVR Rogue GX6250
-	Driver Version: 109056005
-	Device UUID:    d04cd6f3a25fd4900f89c151bccfdfcf
-    =======================================================
-    [vertex] device-local=true: FPS: 251 FrameTime: 3.984 ms
-    [vertex] device-local=false: FPS: 220 FrameTime: 4.545 ms
-    [texture] anisotropy=0:^C FPS: 223 FrameTime: 4.484 ms
-    =======================================================
-				       vkmark Score: 231
-    =======================================================
-
-    # PVR_I_WANT_A_BROKEN_VULKAN_DRIVER=1 glmark2-es2-drm
-    WARNING: powervr is not a conformant Vulkan implementation, testing use only.
-    MESA: warning: ../src/imagination/vulkan/pvr_arch_job_context.c:73: FINISHME: Missing reset support for brn51764
-    MESA: warning: ../src/imagination/vulkan/pvr_arch_job_context.c:76: FINISHME: Missing reset support for brn58839
-    MESA: warning: ../src/imagination/vulkan/pvr_arch_job_context.c:523: FINISHME: Missing support for brn62269
-    MESA: warning: ../src/imagination/vulkan/pvr_arch_border.c:244: FINISHME: Devices without tpu_border_colour_enhanced require entries for compressed formats to be stored in the table pre-compressed.
-    Warning: DRM_CAP_ASYNC_PAGE_FLIP not supported, falling back to 'mailbox' mode for SwapInterval(0).
-    =======================================================
-	glmark2 2023.01
-    =======================================================
-	OpenGL Information
-	GL_VENDOR:      Mesa
-	GL_RENDERER:    zink Vulkan 1.2(PowerVR Rogue GX6250 (IMAGINATION_OPEN_SOURCE_MESA))
-	GL_VERSION:     OpenGL ES 2.0 Mesa 26.1.5-1
-	Surface Config: buf=32 r=8 g=8 b=8 a=8 depth=24 stencil=0 samples=0
-	Surface Size:   1366x768 fullscreen
-    =======================================================
-    [build] use-vbo=false: FPS: 49 FrameTime: 20.473 ms
-    [build] use-vbo=true: FPS: 45 FrameTime: 22.660 ms
-    [texture] texture-filter=nearest: FPS: 45 FrameTime: 22.642 ms
-    [texture] texture-filter=linear:^C FPS: 50 FrameTime: 20.172 ms
-    =======================================================
-				      glmark2 Score: 46
-    =======================================================
-
-
-Please have a look.
-
-Thanks
-ChenYu
-
-[1] https://lore.kernel.org/dri-devel/20220815165156.118212-2-sarah.walker@imgtec.com/
-[2] https://gitlab.freedesktop.org/imagination/linux-firmware/-/tree/powervr
-
-Chen-Yu Tsai (5):
-  dt-bindings: clock: mediatek: Add mt8173 mfgtop
-  clk: mediatek: Add mt8173-mfgtop driver
-  dt-bindings: gpu: powervr-rogue: Add MediaTek MT8173 GPU
-  arm64: dts: mediatek: mt8173: Fix MFG_ASYNC power domain clock
-  arm64: dts: mediatek: mt8173: Add GPU device nodes
-
- .../clock/mediatek,mt8173-mfgtop.yaml         |  70 +++++
- .../bindings/gpu/img,powervr-rogue.yaml       |   1 +
- arch/arm64/boot/dts/mediatek/mt8173.dtsi      |  33 ++-
- drivers/clk/mediatek/Kconfig                  |  10 +
- drivers/clk/mediatek/Makefile                 |   1 +
- drivers/clk/mediatek/clk-mt8173-mfgtop.c      | 241 ++++++++++++++++++
- include/dt-bindings/clock/mt8173-clk.h        |   7 +
- 7 files changed, 362 insertions(+), 1 deletion(-)
+Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+---
+ .../clock/mediatek,mt8173-mfgtop.yaml         | 70 +++++++++++++++++++
+ include/dt-bindings/clock/mt8173-clk.h        |  7 ++
+ 2 files changed, 77 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/clock/mediatek,mt8173-mfgtop.yaml
- create mode 100644 drivers/clk/mediatek/clk-mt8173-mfgtop.c
 
+diff --git a/Documentation/devicetree/bindings/clock/mediatek,mt8173-mfgtop.yaml b/Documentation/devicetree/bindings/clock/mediatek,mt8173-mfgtop.yaml
+new file mode 100644
+index 000000000000..03db1ee9e594
+--- /dev/null
++++ b/Documentation/devicetree/bindings/clock/mediatek,mt8173-mfgtop.yaml
+@@ -0,0 +1,70 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++
++$id: http://devicetree.org/schemas/clock/mediatek,mt8173-mfgtop.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: MediaTek MT8173 MFG TOP controller
++
++maintainers:
++  - AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
++
++description:
++  The MFG TOP glue layer controls various signals going to the MFG (GPU)
++  block on the MT8173.
++
++properties:
++  compatible:
++    const: mediatek,mt8173-mfgtop
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 4
++
++  clock-names:
++    items:
++      - const: sys
++      - const: mem
++      - const: core
++      - const: clk26m
++
++  power-domains:
++    maxItems: 1
++
++  '#clock-cells':
++    const: 1
++
++  '#power-domain-cells':
++    const: 0
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - power-domains
++  - '#clock-cells'
++  - '#power-domain-cells'
++
++additionalProperties: false
++
++examples:
++  - |
++        #include <dt-bindings/clock/mt8173-clk.h>
++        #include <dt-bindings/power/mt8173-power.h>
++
++        clock-controller@13fff000 {
++            compatible = "mediatek,mt8173-mfgtop";
++            reg = <0x13fff000 0x1000>;
++            clocks = <&topckgen CLK_TOP_AXI_MFG_IN_SEL>,
++                     <&topckgen CLK_TOP_MEM_MFG_IN_SEL>,
++                     <&topckgen CLK_TOP_MFG_SEL>,
++                     <&clk26m>;
++            clock-names = "sys", "mem", "core", "clk26m";
++            power-domains = <&spm MT8173_POWER_DOMAIN_MFG>;
++            #clock-cells = <1>;
++            #power-domain-cells = <0>;
++        };
+diff --git a/include/dt-bindings/clock/mt8173-clk.h b/include/dt-bindings/clock/mt8173-clk.h
+index 3d00c98b9654..89e982f771db 100644
+--- a/include/dt-bindings/clock/mt8173-clk.h
++++ b/include/dt-bindings/clock/mt8173-clk.h
+@@ -243,6 +243,13 @@
+ #define CLK_IMG_FD			7
+ #define CLK_IMG_NR_CLK			8
+ 
++/* MFG_SYS */
++
++#define CLK_MFG_AXI			0
++#define CLK_MFG_MEM			1
++#define CLK_MFG_G3D			2
++#define CLK_MFG_26M			3
++
+ /* MM_SYS */
+ 
+ #define CLK_MM_SMI_COMMON		1
 -- 
 2.55.0.229.g6434b31f56-goog
 
