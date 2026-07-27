@@ -1,261 +1,263 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013037.outbound.protection.outlook.com [40.107.159.37])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC2283F7884;
-	Mon, 27 Jul 2026 16:16:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785169016; cv=fail; b=S9ynkyBr4LNqnDaDPKk3UcRde82sLUDEmY2MuvKfGfrrcd+P74LPI3AJyfuEOv4feFQQ7Uh3U52Yt+tKWLTXqiB+dalMdyhd3q7GFJ8K0cQStK3kVT3FMMvtCdnoil3kdbLECj+WWs/9qAvLTtwRgMcwpLBpERM+hWuXrPjUHmA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785169016; c=relaxed/simple;
-	bh=huFtCgqjYuphB98Vc586Vzk0wfZ9H5XjMObP7lZVlzY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=fgr5bGmLCdvl9k1FNpZdk/2HM0wUVdnZhlva1e7P2i4DZVVxk3AdhPKnwKZcZMMTkL43hgTC0qoDTUQ4Tumw1DdeYCCMBInXEAXWZZCNQP08tc04VO9qIphMbzcdSK29uCWaTCIBhSZPhE9HXuwz9Yi1B3xuExxyvF4Rttvf2Cc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=JNR7mtOd; arc=fail smtp.client-ip=40.107.159.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E07B741D629
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 16:17:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785169026; cv=none; b=rlVl6VCBTCv7x3W7/9yeqEUqQiMJZMYhbh9bjrPyPzn+Z8Sxc1pB87f+qDglVT8uuZNEQcIG1ha2W3vRmHiM2Ko5jKbn2V5JyH7Y10fv/QWhd1H6kaGGU+8QSOxgcojkbGs8BoW6ZxOtYLWxVQ3mnZavMgQOhPoBvJ+0GxTJqxU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785169026; c=relaxed/simple;
+	bh=tlBbX7IaY3LZJP0Qn7twE6c8nAF7/HTq/drK110qv9Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Fqz4jDW5DmR/HAQ2622r1ffjGyjd4biYUwymnDh2tBeyLTcJnSz8xxW55XtikGltuihgRFv8DIHKnJdSuB2rGCgYQensqIs/oQ++Brf5m4HjLIKI4IISE6OUJhnJFn/tMUUBLSM3xHl0YIjwd88vETnYQJF5WzLeZc8KIqvJfwE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=jM/Lxbjw; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=a8YA2RRe; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="JNR7mtOd"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=p+MlUITD1Ux+89BoMJooqwFI+hnQ8NfnHoBzvlKambqCsDM3NnO3YrLJRTy2nwDapW7EshYVqEpNtogRXrccj4O0WQlzVX6lBkmoS9ays1Bq3N8cJvpConTVihTPxDFURq2TGCWXUnOFHoHoVRr6965X1DyeMgn4gfPrtbKDGiES7DKXFLWtnokUth80Mmb6Lp/FL/BOk5xPj/TWARljuCgelv36iTDilk1yCWjuiZ8RzUPy9SLX5fX93XK/fu+UHpmCZoaXM41Gp4H24q1E24vXlPSU136LNXpeYuIr5T61QZfvvFnVqCmAiyB9IcS8WYIYthw6IJhsDOZzzVfxzg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fHRhSpzn6F/jLmAhZjj/PqCYJNweFpGycSDsBJh5y2A=;
- b=ofYYsseo2WmIJUD8wl5DyRB8lxW+/iHE0nTP7Y9Uw/pL/Ufiz3Jh/fOTmgrnv/hUgAN5f5jGTj/D3+5TfxTQ4nMCBOqAN8niOjAaiZQWKbIxq0lua1joiieLmBZ4Zx+cyB51T3liaEdf3acTN1uy2cCOp+3MA3HFD/833/aJ+0vNhIUSUFRVqKaLrYXhjanwMtmK1V2IlcYAc7HoB0DfayoCUZ6ohLMOItnr94wdIkuQF3/uhoXhGl5jDNIXLTJ6YIwe/4ZClQCkt7MFjdv9Ked5IQ5yIXDt0JaFWGlEWrJW/GCY3X5jCzkuRHiyfVJO7w7zvOh71JTVoPRb/+mqzw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fHRhSpzn6F/jLmAhZjj/PqCYJNweFpGycSDsBJh5y2A=;
- b=JNR7mtOdKyDriTnFZxqKcTISEy3LTOrG4XYHGZMpQaF6l06I2UKLWpngJ1KzeDlO1yJSWp281RabBfBvshKXbN1FSmipVqGvP2uuaWp96z32SkplyTCWZ86pfN+0HYofSYZwqIU4kjVKfmPk52UnpuhalFkohcb9cKTiw/KCDXH6DySc7//dE5tEDNzcsGscfWdnuxipuBcK9byY91EQjlgsfD3czOWvRdZzhPlFG23u4UI3kpIwANBxfZ7NTsvfox4QEn4Vgb38H9C8qlZ06Pue9ivxnhCmOqlP81JjcRL2elh39n4b0xL6Y3Bvd2PtgapAXteCctw9VcWSX2rDlQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by VI2PR04MB10265.eurprd04.prod.outlook.com (2603:10a6:800:221::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Mon, 27 Jul
- 2026 16:16:51 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0245.012; Mon, 27 Jul 2026
- 16:16:51 +0000
-Date: Mon, 27 Jul 2026 12:16:43 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Akhil R <akhilrajeev@nvidia.com>
-Cc: sashiko-bot@kernel.org, Frank.Li@kernel.org,
-	alexandre.belloni@bootlin.com, conor+dt@kernel.org,
-	devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
-	linux-i3c@lists.infradead.org, robh@kernel.org,
-	sashiko-reviews@lists.linux.dev
-Subject: Re: [PATCH v6 06/12] i3c: master: match I3C device through DT and
- ACPI
-Message-ID: <ameEa97uD_lgN0iZ@lizhi-Precision-Tower-5810>
-References: <20260721042558.925AA1F000E9@smtp.kernel.org>
- <20260727143928.177022-1-akhilrajeev@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260727143928.177022-1-akhilrajeev@nvidia.com>
-X-ClientProxiedBy: PH8PR02CA0006.namprd02.prod.outlook.com
- (2603:10b6:510:2d0::23) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="jM/Lxbjw";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="a8YA2RRe"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1785169024;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QW8PobFLl9VuSJ+iyJKGdmgP3JvFIctsAQhl5gtsCFo=;
+	b=jM/Lxbjwu/Ee54X3cGlE7hStQEnDmOrh5cjGlV2ZHnQw1s8VhY/WKer9bBL/pJRQ+Lttff
+	RIk3N3zLXeoNROFXdiTT4wfegim2RjxdYw9YmlhLaBRMN79ryezbKJNF4qnukSgRn7xz9B
+	f4MZn90ufHsSvEHP+UV+s/z7HXmPl9E=
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-659-l87a5RduNdSuxSXdEpZOoQ-1; Mon, 27 Jul 2026 12:17:02 -0400
+X-MC-Unique: l87a5RduNdSuxSXdEpZOoQ-1
+X-Mimecast-MFC-AGG-ID: l87a5RduNdSuxSXdEpZOoQ_1785169022
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92e5fc4c7e9so287229285a.3
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 09:17:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1785169021; x=1785773821; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=QW8PobFLl9VuSJ+iyJKGdmgP3JvFIctsAQhl5gtsCFo=;
+        b=a8YA2RReNg7KdnWSWLB9QPR40Lh4g2ajxbkNL1RvbM9MNBHOVefkB8nTFcpdYMuHVF
+         rv6hrE7SaQdVEA5sezjBUil8VnIk75k/yDtNpyMNr9b737grw3ORuE0XMcUq97oHtT1m
+         /M9VDMIVm2dDE+o4HzR2ffRfn/fRiSE4uhT+ueXGUz1/CnfBG7QdT2Weq/d0Tk5XmWcy
+         b2oHg+XQx1qmfiKtsMGDtyn1BjxIM7KKfDAIGfjRqqtjX0+v0jXPJl3wqOo2rrWZPX+l
+         xPkZWBB+/zTqxgU5bJjSYBVOwX8Twn93l9+ge10Gf7k6/83munm3rjPshy9TKtGnGuhJ
+         3yiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785169021; x=1785773821;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QW8PobFLl9VuSJ+iyJKGdmgP3JvFIctsAQhl5gtsCFo=;
+        b=fIGdaw6hmTiv0UTVL95xJSLFvNAyoy3u3xPkodQKGVnfDHgLJbzLiTPoJWZ7/yaxE4
+         L7QsHN3jRSglW0V6/ZIvEdNwpD7oucbYClvqBgWoPnPJ+YXOtKHdQl+ywmHBKLxmP2Nu
+         BPEkzOND97aYR1Indvm4jY9o8pwCkyMRfxmbYcJCmMPequhR9GHerDe22SVelnSds4Ew
+         64wtWz70bmpyYUjP7Rx01ek+9JM2hAltajsLmkc2BRkVX70R/AKzrQXL4T7HkrtpqzGy
+         p4jdHjEzwDG92J/sN0S+eccwm1GDmQXl2hgcjGFsvHLBSbPfqHMDkSBj7yK+s8TkUqjQ
+         sHkg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr55Lu4txclcZ9sVxHHu+sGSPWHDj8ReD//tIaWt8pYZWEFZP7ooarwLnWXuoyaxgghqwTGYqDV1Hbs@vger.kernel.org
+X-Gm-Message-State: AOJu0YzFJqXSC9/t9KJtDvWda649pYfSatPDHreifuOIVwZd5rHGjzRH
+	XbyMGoenLvv7ISHG7YNRJRcILaWeqPxln9PFVUzIIho4Sja1HsmL/uic68xvkNMToBvZuAhYL+o
+	tXu4D6dYrkxEsG2pH49FDdZTYQmvYLy1OFlTY7KYe84vORHYfI5WW1EUV36YHqLk=
+X-Gm-Gg: AR+sD13TvrKBFsZYkp0t0iAKSZb+wa8bRB6ab+02+PpUmXZwn4SV+8nOPupb0pFmhUn
+	qjwxvMONgMMs+OOUD1SKT4kdA96J7m+aXFTWkCp7u6YBrLO2ipAX+iusbQVkT2N8A5bzGzEDLhF
+	eszKsqbpmxXoAD9Yz1Tvm/7fA0PYFi/Ak6Dw8Q7+3Z4C7pHDxaXfYz3pemNp4BTst48zqVGKDFC
+	xa5sItfdOocUTDT7MvtfgmJiBDVavJNLDABtbvhtjICPCCFN8g7lTx6TvNaG1u48MucVZ552CyE
+	uU9/ttRnXgC6M1Zgj3jYSV9Nw78oJzybk9jTuUbcBaFoGfe6q2buCuveZdHVeJc6drUfUSeuodQ
+	LjxvbOUN54orGNWmJKffc2I2zYZbuJR2K7p4=
+X-Received: by 2002:a05:620a:2691:b0:915:83fa:b3e0 with SMTP id af79cd13be357-932df627547mr956642385a.5.1785169020652;
+        Mon, 27 Jul 2026 09:17:00 -0700 (PDT)
+X-Received: by 2002:a05:620a:2691:b0:915:83fa:b3e0 with SMTP id af79cd13be357-932df627547mr956637785a.5.1785169020166;
+        Mon, 27 Jul 2026 09:17:00 -0700 (PDT)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-932de6724a4sm641575585a.43.2026.07.27.09.16.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Jul 2026 09:16:58 -0700 (PDT)
+Date: Mon, 27 Jul 2026 12:16:55 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Stephen Boyd <sboyd@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Alessio Belle <alessio.belle@imgtec.com>,
+	Luigi Santivetti <luigi.santivetti@imgtec.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Dan Carpenter <dan.carpenter@linaro.org>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+	YoungJoon Lee <getfeus@gmail.com>
+Subject: Re: [PATCH v3 2/5] clk: mediatek: Add mt8173-mfgtop driver
+Message-ID: <ameEd76Flq7_eUMy@redhat.com>
+References: <20260727091555.1023910-1-wenst@chromium.org>
+ <20260727091555.1023910-3-wenst@chromium.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI2PR04MB10265:EE_
-X-MS-Office365-Filtering-Correlation-Id: 067c4ee2-62d8-4095-9502-08deebfa7770
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|19092799006|1800799024|366016|6133799003|3023799007|56012099006|10067099003|11063799006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	V3UtGKOkq4bvq8xPDuY+WefRbw9bDUSlueyU8TLCzFNmqYWOimIxOT8kehgtyRPmTQbvZ+rFWNgUaNSfOTEkQs7nnSAHlDsnYow6VhHmhrSIAwR0MSZt5LWu0UA/lATD7GFPll09H/jSkoaI78zuNTjYkb5exeif7RRO994dC8Ef47HnNaNRYKCQqZh+yhmv9id++/jxgB/g9Uc6WAGxhbPFHf5FIyKvg3X4m99JpoDkTvYyBZZFgLbJqh3gfQ3ueFcrw7dliIRLI7x9GSVP/qsFGzS3cdXPC2WqQvyHmXWuTD2xm47M8DzDUHrYTMfUHAjpaH5R/NKHOUzP2sO64defYawfk18PO+1OfyHjfZ/CrDFoj0+2E+8hMrl1fE07k4gYLiGa76Ph+g6Nk1/p1d4aTHxqU0GwCTSyD/YZvrGOdgPAV+qk55lD9PLagBhSB2DKFrrlGWoBh1vyR+resSC0NmzhIVjiNx5hQQF4gXMBWPFoUrQPYwUp3PAt4t+jXwC3ZsoH2ZMuZkfzbdVEDz+5CrSqNBKX5+r5OJtMf3SSHD2V3lXXhdJYz648r9H8T4zFfDcOIAuIKAUfUdNsc+FxdKx1PRRnEIeaLre+ngzCI4Q6fSiAeO1VBlQqNDRaYRp1eVCG5nDcZ80FD7l5XgYrfjPkHflHTD/cD9uZH/8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(19092799006)(1800799024)(366016)(6133799003)(3023799007)(56012099006)(10067099003)(11063799006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?M6B7xixbGu5xGbcMQ4ig2GcuiEi1xbfZXPsxPY78ilGztPhlCdPVR9VG4orT?=
- =?us-ascii?Q?eIVxZwrBA7fzbvbg7hMEKpDhemIiCAoPrwuOxGW4LNUgfgn8Anq3ILeG9PF/?=
- =?us-ascii?Q?aodRUWX3XnoQu4qm01iR+f52+HuEClCQrxWGtj2sqjadTHybm40bjybyPaWV?=
- =?us-ascii?Q?odcvbrwLt8UXa0r45NTsfWitljZPj0IklOl5Pny1i3XTNsZRU8kreJ6EQbzB?=
- =?us-ascii?Q?lWvPWWBadU/EvnoS/A3scMBNpu/piqJFDzV29yTezdEsmS+sbZRWYeh76iRN?=
- =?us-ascii?Q?Tt9LP7RVJqcP7FStEJBADI4gFgKW8rN/gBWbDWlUPhhuho8qDhdrYImc+zDp?=
- =?us-ascii?Q?q7vaKQQOqM+Lv+fxypbm0v7H13S4XuablRbuCWLM7DyqBFZygt3vJpQ6sWhN?=
- =?us-ascii?Q?y0baI5A7SFwNnPzcRQIsswlzpRcGYI/dmYDLCzr0rk5Xuz6pJFQZVgW5wiRu?=
- =?us-ascii?Q?hdTOI5rmcj3fwsdAp/KWHBgPKax5yPcomhEqqrEybIhgfh9LSvuPnVugEUtg?=
- =?us-ascii?Q?w5jAult6Xj9Bo+a1+m0PegDcgVFP/n2D6UwNBi7GUnOib0Ui6FByJjwlYtn3?=
- =?us-ascii?Q?oYIAli4/uNS0xi15KyCWM8nyErQgDhR9jYyIsIs45JnjUPicrfx7QPmHvIlc?=
- =?us-ascii?Q?PuCtSPu9MKIGe4s8VdZaMNIwpPWXFpiQeXHyc4fRxieJBKJG5OxPHRqP4tzR?=
- =?us-ascii?Q?N3IJdtgsIbsBt/l6nri/Wqn9sD0jRe1ma6b4VwE5+nMfD6g38opOoBFY5obs?=
- =?us-ascii?Q?gcq9VcBJABkx5/KG5aDLpyYCqzF4BcmPKfTMENk7V8d7BDa4vj1Vr4Ve9Orz?=
- =?us-ascii?Q?R2AuAFjZOj4T45GoU3X7kaTLBwvQUplEnxIPmSk17YRET8ApvP2ytxYUm5q/?=
- =?us-ascii?Q?KRHX5v1tK2cG09sRhGYC6WQLl9izAYLgA6eoQMcZJ8Ef23m8WvrS9bM+iVl5?=
- =?us-ascii?Q?20107JmkHSuUiv8q8JTd6s2mcMtZMijE6yUbyEDIGpf/ezRiOZCp41fERKG9?=
- =?us-ascii?Q?p9FJHSK2dTGALKcLtOEDRW/Adt7+4G/CTWUL65s3fq08/wKPtkT/mXIyGX3q?=
- =?us-ascii?Q?EK25xtox3NsaBjCgj8bMn+oxe67iyd+GHviSg9K6hUameFho28EylestkF/3?=
- =?us-ascii?Q?UZ/vuui8eprvBuz2kuSFHv3sthsREI9VXpM1yBmpdCtz+i3QnyTd8xPEfJ3O?=
- =?us-ascii?Q?lgyUHB1Toq/sOc8aNAmqEZ4XlRKRfVKeh8cNu5ceIvcdsiDt1BEKN4XH2zme?=
- =?us-ascii?Q?YnnKpeQGqc4FHYbNskvVfNu9NeGOmWK3iKPweHq+ICSE3UVrR/hB+vRCLVyf?=
- =?us-ascii?Q?7AjvpFmUQAF6PUKWWsEaqu218GcPzWm6lEb6CopKZdqZXfYujzo/Y5viedBm?=
- =?us-ascii?Q?S97PPQfJg0UkTiLp1qdIVGjkRJgtcagJShzDn3gR5T6VvRupxUXEoTfTaTKT?=
- =?us-ascii?Q?JA0kd9HG1p0aq86Y3naatXuY6SB+skeYPdjDzbQDBXKMS7IrTcDjfrxF5/S8?=
- =?us-ascii?Q?7QVrjf2Df9yFa7ird1cT/Kj9PR5ze75CIHrlNgSTlaRuaiSsrIMrZGqPHqlS?=
- =?us-ascii?Q?1SMZFy1Rcops1tN4xKa70iSykFR5sNrcvQ1jL15dGfMG2K0ceSCGm3LLCK31?=
- =?us-ascii?Q?q/LY6qh6ZOy2qksDP3BdZfK/B5jItFGtnGOBcHDorC2+1Ne8EapO/FAchHjJ?=
- =?us-ascii?Q?7ZNGl0m94CkWV+EpIcAPo/TLWlL93/VzoNNRFY6WxHgqeswg4akbHBrmv0SV?=
- =?us-ascii?Q?64owubdStCKaSJ3Gk29Th9sW6kLywplc5Z4PAUAcv3lQMobXYLkR?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 067c4ee2-62d8-4095-9502-08deebfa7770
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2026 16:16:51.3247
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EzBdujpiwg7WkqfAWN4XbcUqnl8O7xq9H+bv9+wt5Z9Mtztiy1XtOT+KAVe0gdijNyKJlOnXrbw5oyYM8NTC44GLY1G6FNvgqUqEjsoRzlSoQmgu06tup2CFORjbkoY/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10265
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260727091555.1023910-3-wenst@chromium.org>
+User-Agent: Mutt/2.4.0 (2026-06-19)
 
-On Mon, Jul 27, 2026 at 02:39:28PM +0000, Akhil R wrote:
-> On Tue, 21 Jul 2026 04:25:58 +0000, Sashiko AI review <sashiko-bot@kernel.org> wrote:
-> > commit 7db2eb24719ceb614bd3ec6e5efb369d3b92fe6e
-> > Author: Akhil R <akhilrajeev@nvidia.com>
-> >
-> > i3c: master: match I3C device through DT and ACPI
-> >
-> > SETAASA-based devices cannot always be identified by PID or DCR; the
-> > standard I3C id_table matching may not be applicable. Allow such devices to
-> > match through Device Tree or ACPI.
-> >
-> > > diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-> > > index 7b2f819bf4437..43bf530bc6619 100644
-> > > --- a/drivers/i3c/master.c
-> > > +++ b/drivers/i3c/master.c
-> >
-> > [ ... ]
-> >
-> > > @@ -345,15 +346,32 @@ static int i3c_device_match(struct device *dev, const struct device_driver *drv)
-> > >  {
-> > >  	struct i3c_device *i3cdev;
-> > >  	const struct i3c_driver *i3cdrv;
-> > > +	u8 static_addr_method = 0;
-> > >
-> > >  	if (dev->type != &i3c_device_type)
-> > >  		return 0;
-> > >
-> > >  	i3cdev = dev_to_i3cdev(dev);
-> > >  	i3cdrv = drv_to_i3cdrv(drv);
-> > > -	if (i3c_device_match_id(i3cdev, i3cdrv->id_table))
-> > > +
-> > > +	if (i3cdev->desc && i3cdev->desc->boardinfo)
-> > > +		static_addr_method = i3cdev->desc->boardinfo->static_addr_method;
-> >
-> > [Severity: High]
-> > Can i3cdev->desc be modified concurrently here?
-> >
-> > Looking at i3c_master_unregister_i3c_devs(), it locklessly sets
-> > i3cdev->dev->desc = NULL during device unregistration.
-> >
-> > Since the check in i3c_device_match() is done without locks or READ_ONCE(),
-> > could the compiler emit multiple loads for i3cdev->desc, leading to a NULL
-> > pointer dereference when subsequently accessing boardinfo?
->
-> i3c_device_match() already dereferences i3cdev->desc without a lock (e.g.
-> via the existing i3c_device_match_id() path); this patch adds the DT/ACPI
-> branch in the same context. Serializing desc against concurrent DAA /
-> hot-join spans the whole function and its pre-existing callers, so this
-> will have to be fixed separately.
+Hi Chen-Yu,
 
-Okay, we can fix later.
+On Mon, Jul 27, 2026 at 05:15:51PM +0800, Chen-Yu Tsai wrote:
+> The MFG (GPU) block on the MT8173 has a small glue layer, named MFG_TOP
+> in the datasheet, that contains clock gates, some power sequence signal
+> delays, and other unknown registers that get toggled when the GPU is
+> powered on.
+> 
+> The clock gates are exposed as clocks provided by a clock controller,
+> while the power sequencing bits are exposed as one singular power domain.
+> 
+> Tested-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+> ---
+> Changes since v2:
+> - Made COMMON_CLK_MT8173_MFGTOP depend on PM
+>   - Needed since the driver implements PM domains using the generic PM
+>     domain library, which also depends on PM
+>   - Fixes build breakage (kernel test robot)
+> - Fixed "RST_DELAY_CNT" name (Brian)
+> - Dropped unused mfg_desc (Brian)
+> - Added check of clk_prepare_enable()'s return value in
+>   clk_mt8173_mfgtop_power_on() (Brian)
+> - Saved error value for return in IS_ERR(data->clk_26m) branch
+>   (Dan Carpenter / kernel test robot w/ smatch)
+> ---
 
-Frank
->
-> > > +
-> > > +	if (i3cdrv->id_table && i3c_device_match_id(i3cdev, i3cdrv->id_table))
-> > >  		return 1;
-> > >
-> > > +	if (static_addr_method & I3C_ADDR_METHOD_SETAASA) {
-> > > +		if (of_driver_match_device(dev, drv))
-> > > +			return 1;
-> > > +		if (acpi_driver_match_device(dev, drv))
-> > > +			return 1;
-> > > +	}
-> >
-> > [Severity: Medium]
-> > Will this fallback matching break the assumptions in existing driver probe
-> > functions?
-> >
-> > Currently, drivers typically call i3c_device_match_id() in their probe
-> > routine and unconditionally dereference the returned pointer.
-> >
-> > When an I3C device binds via DT or ACPI through this new path,
-> > i3c_device_match_id() will return NULL. If developers add an of_match_table
-> > to existing drivers to support SETAASA devices, won't this cause an immediate
-> > NULL pointer dereference during probe?
->
-> The i3c_driver probe callback does not receive an i3c_device_id, so a
-> driver that looks one up must handle its absence for firmware-matched
-> devices. The spd5118 driver added in this series matches via
-> of_match_table and does not rely on a class-table ID.
->
-> > [Severity: High]
-> > How does this change affect module autoloading for newly supported devices?
-> >
-> > While the patch allows devices to match via DT or ACPI, it appears the bus
-> > uevent callback, i3c_device_uevent(), was not updated and only emits the
-> > generic I3C modalias.
-> >
-> > Since of_device_uevent_modalias() or acpi_device_uevent_modalias() are not
-> > called, won't the uevent lack the required of:N... string, preventing udev
-> > from matching the device against the driver's MODULE_DEVICE_TABLE(of, ...)?
->
-> This is a deliberate trade-off. Emitting the OF/ACPI modalias from the I3C
-> uevent suppressed the native I3C modalias for standard devices (the
-> regression raised on v5), so this patch keeps the native I3C modalias.
-> Firmware-described devices are still matched via their firmware node
-> (of_/acpi_driver_match_device), and probe/bind was verified on the target
-> ACPI platform (SPD5118). If OF-modalias-based autoload also needs to be
-> restored for such devices, it can be added without clobbering the native
-> I3C modalias as a follow-up.
->
-> > [Severity: High]
-> > This is a pre-existing issue, but can the removal of an I3C device leak
-> > uninitialized kernel stack memory to user-space?
-> >
-> > When an I3C device is removed, i3c_master_unregister_i3c_devs() sets
-> > i3cdev->dev->desc = NULL before calling device_unregister(), which
-> > triggers a KOBJ_REMOVE uevent.
-> >
-> > In i3c_device_uevent():
-> >
-> > 	struct i3c_device_info devinfo;
-> >
-> > 	if (i3cdev->desc)
-> > 		devinfo = i3cdev->desc->info;
-> >
-> > Since i3cdev->desc is unconditionally NULL during removal, devinfo is left
-> > uninitialized. The function then proceeds to construct the MODALIAS string
-> > using devinfo:
-> >
-> > 	return add_uevent_var(env,
-> > 			      "MODALIAS=i3c:dcr%02Xmanuf%04Xpart%04Xext%04X",
-> > 			      devinfo.dcr, manuf, part, ext);
-> >
-> > Doesn't this deterministically embed uninitialized kernel stack data into the
-> > uevent environment variables, exposing it to user-space programs like udev?
->
-> Pre-existing (the desc == NULL case in i3c_device_uevent()); not introduced
-> here. Better fixed separately.
->
-> > > +
-> > >  	return 0;
-> > >  }
->
-> Best Regards,
-> Akhil
+[snip]
+
+> +static int clk_mt8173_mfgtop_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct device_node *node = dev->of_node;
+> +	struct mt8173_mfgtop_data *data;
+> +	int ret;
+> +
+> +	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
+> +	if (!data)
+> +		return -ENOMEM;
+> +
+> +	platform_set_drvdata(pdev, data);
+> +
+> +	data->clk_data = mtk_devm_alloc_clk_data(dev, ARRAY_SIZE(mfg_clks));
+> +	if (!data->clk_data)
+> +		return -ENOMEM;
+> +
+> +	/* MTK clock gates also uses regmap */
+> +	data->regmap = device_node_to_regmap(node);
+> +	if (IS_ERR(data->regmap))
+> +		return dev_err_probe(dev, PTR_ERR(data->regmap), "Failed to get regmap\n");
+> +
+> +	data->child_pd.np = node;
+> +	data->child_pd.args_count = 0;
+> +	ret = of_parse_phandle_with_args(node, "power-domains", "#power-domain-cells", 0,
+> +					 &data->parent_pd);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to parse power domain\n");
+> +
+> +	devm_pm_runtime_enable(dev);
+> +	/*
+> +	 * Do a pm_runtime_resume_and_get() to workaround a possible
+> +	 * deadlock between clk_register() and the genpd framework.
+> +	 */
+> +	ret = pm_runtime_resume_and_get(dev);
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "Failed to runtime resume device\n");
+> +		goto put_of_node;
+> +	}
+> +
+> +	ret = mtk_clk_register_gates(dev, node, mfg_clks, ARRAY_SIZE(mfg_clks),
+> +				     data->clk_data);
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "Failed to register clock gates\n");
+> +		goto put_pm_runtime;
+> +	}
+> +
+> +	data->clk_26m = clk_hw_get_clk(data->clk_data->hws[CLK_MFG_26M], "26m");
+> +	if (IS_ERR(data->clk_26m)) {
+> +		ret = dev_err_probe(dev, PTR_ERR(data->clk_26m), "Failed to get 26 MHz clock\n");
+> +		goto unregister_clks;
+> +	}
+> +
+> +	ret = of_clk_add_hw_provider(node, of_clk_hw_onecell_get, data->clk_data);
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "Failed to add clk OF provider\n");
+> +		goto put_26m_clk;
+> +	}
+> +
+> +	data->genpd.name = "mfg-top";
+> +	data->genpd.power_on = clk_mt8173_mfgtop_power_on;
+> +	data->genpd.power_off = clk_mt8173_mfgtop_power_off;
+> +	ret = pm_genpd_init(&data->genpd, NULL, true);
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "Failed to add power domain\n");
+> +		goto del_clk_provider;
+> +	}
+> +
+> +	ret = of_genpd_add_provider_simple(node, &data->genpd);
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "Failed to add power domain OF provider\n");
+> +		goto remove_pd;
+> +	}
+> +
+> +	ret = of_genpd_add_subdomain(&data->parent_pd, &data->child_pd);
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "Failed to link PM domains\n");
+> +		goto del_pd_provider;
+> +	}
+> +
+> +	pm_runtime_put(dev);
+> +	return 0;
+> +
+> +del_pd_provider:
+> +	of_genpd_del_provider(node);
+> +remove_pd:
+> +	pm_genpd_remove(&data->genpd);
+> +del_clk_provider:
+> +	of_clk_del_provider(node);
+> +put_26m_clk:
+> +	clk_put(data->clk_26m);
+> +unregister_clks:
+> +	mtk_clk_unregister_gates(mfg_clks, ARRAY_SIZE(mfg_clks), data->clk_data);
+> +put_pm_runtime:
+> +	pm_runtime_put(dev);
+> +put_of_node:
+> +	of_node_put(data->parent_pd.np);
+> +	return ret;
+> +}
+> +
+> +static void clk_mt8173_mfgtop_remove(struct platform_device *pdev)
+> +{
+> +	struct mt8173_mfgtop_data *data = platform_get_drvdata(pdev);
+> +	struct device_node *node = pdev->dev.of_node;
+> +
+> +	of_genpd_remove_subdomain(&data->parent_pd, &data->child_pd);
+> +	of_genpd_del_provider(node);
+> +	pm_genpd_remove(&data->genpd);
+> +	of_clk_del_provider(node);
+> +	clk_put(data->clk_26m);
+> +	mtk_clk_unregister_gates(mfg_clks, ARRAY_SIZE(mfg_clks), data->clk_data);
+
+Looking at the error labels in the probe, does the remove also need:
+
+    of_node_put(data->parent_pd.np);
+
+Otherwise this looks good. With that fixed:
+
+Reviewed-by: Brian Masney <bmasney@redhat.com>
+
