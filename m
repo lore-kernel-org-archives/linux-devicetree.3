@@ -1,179 +1,70 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DECB63E9C1A
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 09:05:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85CD531E820;
+	Mon, 27 Jul 2026 09:07:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785143142; cv=none; b=DAyDt8VLlzNfqJ/PzrEqztgYwNI983/6WegiIf6wbDyRBHM6sT0KGyi76bnpculBvC44mapNSFZEttaazoSz6t2aQejoZpR5mF1ievST5HVUBga4ab2z2hF7fnopxLPm9Ckct8+1TogCi2JLUGPGPRpQFr2p8e5iUjwGbnozzvs=
+	t=1785143232; cv=none; b=eJ1plY2sgz4ZmT7k3aI/RiFTcCyONlQkRvTdcTNa8S3FYq/YgMAP3J2FkWfxeteMW5NSOkV9SCmcFFihGaNqcAuQt5+sPkSNwI5w+rdj1Wn6BTRYwPRNlukMwYIwFEuTnU83ii0cYzLc7/NMxjWDg2XuneGdViwlG6llu5LrHUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785143142; c=relaxed/simple;
-	bh=Zy/C1kSICIxQV8qJ5+qR9sxTNqRgcuri1YslBruhkZs=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FbiHjNItb6tAQEQuchfnkJAfXfVGyiWrkciP9aNVaXIQrePkT6Y3DIJcOFyX7V0FLxjnCCOr5OjpmVwReFTycvmTYkhxttwqaQBeTYBl40xMLSu/FlBOxcIMKIa9ISdSZiQtV+njfGU6S5sS2FG8o4vbrixh0Mm9CKooPsoCur8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Fgq+tAO/; arc=none smtp.client-ip=209.85.208.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785143232; c=relaxed/simple;
+	bh=oOzv9STeYiNA+al6m1DSB2JFlQOMavURRDoBppDc5Ro=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dXQY1/WANF3P0PswjDYGomsjZ9Em6RXaU97wIr05240/bcfzYwkfIPt9afN2kbWgR8W9Um37br/CHgnIB+P0iXiVEk2EoUbEYgUFAYb+xecNRMH63IXavrWzxRR3AOHE20CCeozt3XUxPW3z+Tu1WnMVdT3vaZgY2obaEZvCl04=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IAfqTkrZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fgq+tAO/"
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-69c7ab350e9so3464417a12.0
-        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 02:05:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785143139; x=1785747939; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Xa6du2hskAfuvL5DvwnynjBiYF7AzqZLEYEbhlKLATU=;
-        b=Fgq+tAO/Nx2D1/ADm4l3n9UXb289PWRcfGa4EHeijKE8zQEKPt+vP1LwZBOxpWYY8E
-         CK4C6VuCip+p2dElRiSIARS6bs2gx+TPDtbGIw8rTLz2mqQwHs1UXuDDyYoBQ6R3V4N/
-         RCiPuFmG2RRSJrndOpz4kW7KFQ74GuylVngfmHPC34VMxUFMy7nZ+zxv6C2M3p4C6+7p
-         AFQHu4crtbR1Nutk6BjS0up3u/a5OEtNVMYeBfaoqdspD5/9IxkMmjMAUcNubrbOaBN7
-         xFlvUAJDdqDU7rXGWZABbdCsaV/c68H2q/b3ap1P5v6QxamsFBYW4mUE9L5Ink5MI15W
-         QbYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785143139; x=1785747939;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Xa6du2hskAfuvL5DvwnynjBiYF7AzqZLEYEbhlKLATU=;
-        b=dzDqdy9YXMH8702PY+bdmbg0DoOJqac88P98iOs1xTcPcDz2N4qiwOD8mmqghyCDQ0
-         hMOatMfoScxPtm67p7ggGpu+4h6XNBxoke7ar78+sRc/KhKsbZWEHMA2ZkcCSzxvPlMa
-         wqhosAW7nFeN60srDDT7e4Et0caW6potR491rlUv+Y2u/cPnVYEhEnDeQaYB3+HwG7LU
-         dNYQsHdc4nFANAbvO1rjanNueM4IZBSmBD94HindSB9sjhfJjiTElnpkq4e99FwRzXlN
-         hm1GnKhwisYu5A2NwEXcZJraddaMdQpeW3cns4LdcRGVyeytjSmNyaGps2B6ahIj29pC
-         Cqaw==
-X-Forwarded-Encrypted: i=1; AHgh+Rp7oASRio/frFBw94anAXbXSOXvSDpaBVf/mTHFwWVWqGCm3NFJ4WT4g3OtoJKCFeaDUfcIrgGi/lzu@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy0D9i0VXN+Yg5gGshz/PfAPsFU3eCROT3JSSuoX8G67BIgNLq3
-	T63LWu5ejM/wac5pRmHsDy0imPTcjiu97ufF/doeOXMiyeF8YFORqb7I
-X-Gm-Gg: AR+sD12Ao7s6I/6YG4kYTzUMbhzO62IeUOP0BnULuijXi1ZpANVLmQrqddrXZ89fspo
-	LhJ6TYIaLJAFKqWIXpNwkyw1KLO27Mjw14xCTDekSIVQ3N8vSd/HMTCrdeezT8FNdxETQTBT/XU
-	BE4JgF42Z4WQpQoBFrxJOgBUJK1FV+mXFMBOGfV7CeWoG3CfJBliHKUpVgWvex65HtdVVZgyKlD
-	12nisToxbh8DxNdOWG/ZnBRU/ztcAFRJcZvw2uocwF0r90Ln7Tl++fedqQC/3qzY9bET0/9RY0g
-	9JT8IUoV4NR07l97FRp2evMmd8gE2JwU5oZmub3kDFAAYSQWi5ChmG75J7SpyuiYniONaZ1AQFM
-	IwGG4fSJyosBvn4VjIs5qbXjaALE+2NKhE1zAl2RdDoR7d87RbTrLwA0pgSLJ2Zl/XBjasPsPZc
-	qvRB9IDp8jD1Fon93oC+fojQTQIJyf1W5Dy/qajD+Cfkn+9oBi23Tp7d62yTp0f9peoedxxSIqp
-	q0Ycw==
-X-Received: by 2002:a05:6402:5383:b0:698:9251:2f87 with SMTP id 4fb4d7f45d1cf-69fc11a2e10mr2408351a12.39.1785143138950;
-        Mon, 27 Jul 2026 02:05:38 -0700 (PDT)
-Received: from RDEALENC-L01.ad.analog.com (24.206.116.131.netskope-rdns.com. [24.206.116.131])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69fb5543ab7sm2278741a12.17.2026.07.27.02.05.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jul 2026 02:05:37 -0700 (PDT)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-Date: Mon, 27 Jul 2026 10:05:32 +0100
-To: Jonathan Cameron <jic23@kernel.org>, 
-	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
-	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH v9 15/17] iio: frequency: ad9910: show channel priority
- in debugfs
-Message-ID: <wdxe6pwcgwlunpjpx6veymajt4tqxkakr2tg3k7wwqpxq3rqnl@klrmhb5qe263>
-References: <20260722-ad9910-iio-driver-v9-0-459d1df5ac56@analog.com>
- <20260722-ad9910-iio-driver-v9-15-459d1df5ac56@analog.com>
- <20260725235621.6dd73e71@jic23-huawei>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IAfqTkrZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 633F01F000E9;
+	Mon, 27 Jul 2026 09:07:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785143231;
+	bh=47OcSGHqYNsZ+zLEFQ0Nx9/aS1Vdcnvn7RHzq7+qcM8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IAfqTkrZKstX75hF+WJdqBDJYaj3tO4iiynYcY+36mAXWDw6eAO5kDsFQES/Zba30
+	 HybI5Nu5EgfVAS5OxyCp90M4142EfAxN1iP/V6xIb/c4tcYo/Duq1LBloFAyEnuo5C
+	 CqsWyEXjeqmpJ1XKSG1jUsjoDdPg1R0pCSdHu+pe15mvvLuSYS9Zuz/+xGmnIBFoxF
+	 sKMaqfsyf3mDdL/eOJsY6Nsj0L8Nu80hJIYdJnneJycj25nowvnimOc6PbDU9Vrv4z
+	 rpGi/xLNkwqA5Fs3SBxjPHv0rUfbf4VjGzIdGksOoo2Uw+0a7U74xCFqrI7wwbKjVx
+	 2khAmHll/c65g==
+Date: Mon, 27 Jul 2026 11:07:07 +0200
+From: "krzk@kernel.org" <krzk@kernel.org>
+To: "Pradhan, Sanman" <sanman.pradhan@hpe.com>
+Cc: "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>, 
+	"linux@roeck-us.net" <linux@roeck-us.net>, "robh@kernel.org" <robh@kernel.org>, 
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>, 
+	"corbet@lwn.net" <corbet@lwn.net>, "skhan@linuxfoundation.org" <skhan@linuxfoundation.org>, 
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Sanman Pradhan <psanman@juniper.net>, 
+	Debjit Ghosh <dghosh@juniper.net>, Jawahar Balaji Thirumalaisamy <jawaharb@juniper.net>, 
+	Santhanakrishnan Balraj <sbalraj@juniper.net>, Brian Mak <makb@juniper.net>
+Subject: Re: [PATCH v4 1/2] dt-bindings: hwmon: pmbus: Add Analog Devices
+ MAX16545/MAX16550 and Volterra VT7505
+Message-ID: <20260727-stoic-marble-gazelle-732aa6@quoll>
+References: <20260725211945.288415-1-sanman.pradhan@hpe.com>
+ <20260725211945.288415-2-sanman.pradhan@hpe.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260725235621.6dd73e71@jic23-huawei>
+In-Reply-To: <20260725211945.288415-2-sanman.pradhan@hpe.com>
 
-On 25/07/26 23:56, Jonathan Cameron wrote:
-> On Wed, 22 Jul 2026 16:50:24 +0100
-> Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+On Sat, Jul 25, 2026 at 09:20:06PM +0000, Pradhan, Sanman wrote:
+> From: Sanman Pradhan <psanman@juniper.net>
 > 
-> > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> > 
-> > Expose frequency_source, phase_source and amplitude_source attributes in
-> > debugfs. Those indicate from which channel the specific DDS parameter is
-> > being sourced by returning its label. The implementation follows the
-> > priority table found in the datasheet.
-> > 
-> For this one sashiko raised some questions and made me wonder how this
-> actually works given it is using active_scan_masks and so far we don't
-> have any buffered support in the driver.  My guess is you backported
-> this from on top of some other code that you haven't posted yet.
+> Add device tree binding documentation for the Analog Devices MAX16545 and
+> MAX16550, and the Volterra VT7505 PMBus controllers.
 > 
-> Please have another check that this all works with just the series
-> posted.
-> 
-> Note that you will need to claim buffer mode successfully to mess
-> around with that in paths that aren't inherently only used in buffered
-> mode.
+> Signed-off-by: Sanman Pradhan <psanman@juniper.net>
+> ---
+> Changes in v4:
+> - Add an upper bound (maximum) to adi,rload-ohms.
 
-Yes, I will drop that part for now.
- 
-> 
-> 
-> > @@ -2078,6 +2092,171 @@ static int ad9910_setup(struct device *dev, struct ad9910_state *st,
-> >  	return ad9910_io_update(st);
-> >  }
-> >  
-> > +static inline const char *ad9910_frequency_source_get(struct iio_dev *indio_dev)
-> > +{
-> > +	struct ad9910_state *st = iio_priv(indio_dev);
-> > +	bool ram_en, mode_en;
-> > +
-> > +	guard(mutex)(&st->lock);
-> > +
-> > +	/* RAM enabled and data destination is frequency */
-> > +	ram_en = AD9910_RAM_ENABLED(st);
-> > +	if (ram_en && AD9910_DEST_FREQUENCY ==
-> > +		      FIELD_GET(AD9910_CFR1_RAM_PLAYBACK_DEST_MSK,
-> > +				st->reg[AD9910_REG_CFR1].val32))
-> > +		return ad9910_channel_str[AD9910_CHAN_IDX_RAM];
-> > +
-> > +	/* DRG enabled and data destination is frequency */
-> > +	mode_en = FIELD_GET(AD9910_CFR2_DRG_ENABLE_MSK,
-> > +			    st->reg[AD9910_REG_CFR2].val32);
-> > +	if (mode_en && AD9910_DEST_FREQUENCY ==
-> > +		       FIELD_GET(AD9910_CFR2_DRG_DEST_MSK,
-> > +				 st->reg[AD9910_REG_CFR2].val32))
-> > +		return ad9910_channel_str[AD9910_CHAN_IDX_DRG_FREQ];
-> > +
-> > +	/* Parallel data port enabled and data destination is frequency */
-> > +	mode_en = FIELD_GET(AD9910_CFR2_PARALLEL_DATA_PORT_EN_MSK,
-> > +			    st->reg[AD9910_REG_CFR2].val32);
-> > +	if (mode_en && indio_dev->active_scan_mask &&
-> 
-> active_scan_mask is only set on a call to iio_enable_buffers.
-> So what is this checking?  I guess today it will always fail as
-> active_scan_mask is NULL.  Once that is in use, it will be racy
-> however, so you'll need to claim buffered mode (or fail in which
-> case the null check isn't needed).  That claim will hold it
-> in a particular state - under the hood it is taking mlock
-> which is what sashiko suggests - that is just meant to be opaque
-> to drivers so do it with an explicit attempt to claim buffered mode.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-I will have buffer ops implemented, so I better cache the current
-scan mask in a state variable and have that protected with the local lock.
+Best regards,
+Krzysztof
 
-I will drop those checks for now.
-
-> 
-> > +	    test_bit(AD9910_SCAN_IDX_FREQ, indio_dev->active_scan_mask))
-> > +		return ad9910_channel_str[AD9910_CHAN_IDX_PARALLEL_FREQ];
-> > +
-> > +	/* FTW: RAM enabled and data destination is phase, amplitude, or polar */
-> > +	if (ram_en)
-> > +		return ad9910_channel_str[AD9910_CHAN_IDX_RAM];
-> > +
-> > +	/* single tone profiles */
-> > +	return ad9910_channel_str[AD9910_CHAN_IDX_PROFILE_0 + st->profile];
-> > +}
-
--- 
-Kind regards,
-
-Rodrigo Alencar
