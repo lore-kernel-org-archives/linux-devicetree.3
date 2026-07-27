@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1F803DDAE4
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 08:18:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 767513D79E2
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 08:19:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785140323; cv=none; b=bNBLsxhOE+th84GZ9Zi8qdYsmbr8RoJWg40nZmSgXbxB4yPEUsiD0FFZa02dxzf2/FAIvRLemuOFYfGmlJIifvaKZnxJ4MMkAwMJwP8JCr8i7QDz7jsB/2TNpthNNwCY/XApsdfO303EUizrGeswzo9y6to/g2Y9ACMtMn91v8k=
+	t=1785140349; cv=none; b=nqJeI5kYIXpi8n7NdAmYIPuDdc2tM6D0h9mC2RwD+qzrea5aq6ESt6b1OZ6NfD33s3zlmh4iGCVUqyzVOnZI4/Fv6+XOmW5lTOP6zHNY4MozFF8B8doaE7QYZW4LHpxtSiB2oKktr5pFnKDGkCnQZfLXEJyiLeFBg01Nq6CQoWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785140323; c=relaxed/simple;
-	bh=2hO7dBXaBfkMXYO8aWqhMOkaeMqdmzdKQfS0+dHB7cI=;
+	s=arc-20240116; t=1785140349; c=relaxed/simple;
+	bh=fCWkicevH4l27bVA3C25HGSCdwjszECBgZA6KxOZVU4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=UoxXcMqcw7kKynfyzTGt1blXbbD7fRaSsaA6vt8y428q0gEnj260kRw8UwYuIiF84QTMfrMDqDFZlIzNXNGWFwyze3nsZ+o4LbuvcbOFYQvLpyuF6gL8hL9ZyteMbvkfAhTYHoZZhXXQreIfBg9ciG5bpbRGiNa7v3rGts/dayE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eAkvpn9b; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=mNWOgUeW4OxMz5GJ3FqvDN65x27ZhFB1ETwJoTgbk2W1SDCUx3OLxTVFkOo1qYqF8T4uVmVFPkaCJNCVMYrGBKs13zg0mMocvQVQy6rQafFDcbbwU3CWFmq+fOeZJaIZfYJrggTxUp7Yvr4O2uEH8nxuZDRVl8vbhXokkhz+4W0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JykRo0fk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eAkvpn9b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDCD41F000E9;
-	Mon, 27 Jul 2026 08:18:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JykRo0fk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D082F1F000E9;
+	Mon, 27 Jul 2026 08:19:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785140322;
-	bh=bkQSbPt9312gHYWmyJ0zT1xXoYlTCdz+ud8gm9c7+Bo=;
+	s=k20260515; t=1785140348;
+	bh=Tcy784Toe5Z5+U/TKrCOU3etF4Z2ddluLhrv437WYTg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eAkvpn9b//b5a3btL3F3JxaIUW81GT0p1R6TfT7x8iiDWdPJz7th7FnCMyyZfyp4s
-	 7YdyH482hyeSaPC3LUBN4JHF8FJf3OZUUO+ObuNKG1NTIn8XN8Y4ygsC7VYPw4Ik15
-	 sKhvptoisEeUtBSWLwNEk3Mdeb+zcZWXlCs+y7U5CJu1iZN2oFD5EnRHWYpvEKUJHi
-	 H1NtrgPVq7vSrSPG/5gNdokD6ZBb4CiKraO49n1Pcr1BBVDy4AZqZ6S17fKJyY/VeO
-	 2UhU6UZ4WZQeoKhitwLRa+8arj55vFWREAexdjcHXCrmwljaX6IBGSw3b8vAych9dZ
-	 ynkBKJuTheZvw==
+	b=JykRo0fkUT1kxypWXMPyd5wb/5VhBvhBifJENbuhBwSKIOz+Te/GFsv/xTTukh822
+	 H++vdf5A8TN6Zjf8INGFhVn6ZcaehRNCYWyorm4wHJBa1oF0A0GJcpgLKgbBwy5EYN
+	 1VNfo9wR5MqCfNhAGJbKvXxpNpkYYzfc0mS7CnS0vnxS2jQEN67NU9ig03MN+SXzrH
+	 9PIbsUgji8jDMFCZEjYHYuUK507l5S8bo2Tu8YUfGZVisFGJ6SGSBPoFGkRAVsQqNd
+	 YmTtCHRhVWQK64XOu3epKHQKg6oM0XksohC3fJHbit2yqMKdHYGOdLSV6CRP/1+Qeu
+	 9j6EJVFW9R66A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 5/6] dt-bindings: display: Add Synaptics R63455 panel
- support
+Subject: Re: [PATCH v7 20/34] pinctrl: airoha: split driver on shared code
+ and SoC specific drivers
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jun Nie" <jun.nie@linaro.org>
-Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260727-sm8650-7-1-bonded-dsi-v5-5-c042266b9eeb@linaro.org>
-References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
- <20260727-sm8650-7-1-bonded-dsi-v5-5-c042266b9eeb@linaro.org>
+To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260727074234.3761170-21-mikhail.kshevetskiy@iopsys.eu>
+References: <20260727074234.3761170-1-mikhail.kshevetskiy@iopsys.eu>
+ <20260727074234.3761170-21-mikhail.kshevetskiy@iopsys.eu>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 27 Jul 2026 08:18:41 +0000
-Message-Id: <20260727081841.EDCD41F000E9@smtp.kernel.org>
+Date: Mon, 27 Jul 2026 08:19:07 +0000
+Message-Id: <20260727081907.D082F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,103 +47,105 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Low] Missing #address-cells, #size-cells, and reg in the example's paren=
-t DSI node
-- [Low] Missing schema reference for the ports node
-- [Low] The 'reg' property is not marked as required
+
+New issues:
+- [High] The trailing explicit status clear after executing `generic_handle=
+_domain_irq()` double-ACKs edge-triggered interrupts, silencing subsequent =
+pending edge events.
+- [Medium] The driver dynamically copies an immutable `irq_chip` structure =
+into per-instance memory, defeating the purpose of the `IRQCHIP_IMMUTABLE` =
+flag.
+
+Pre-existing issues:
+- [High] Incorrect devres teardown ordering causes a Use-After-Free of `gir=
+q->domain` on driver unbind and a race condition during probe.
 --
 
---- Patch [5]: [PATCH v5 5/6] dt-bindings: display: Add Synaptics R63455 pa=
-nel support ---
-commit 55e4e84f35f079171a4dea5e2741a34a7fac11e9
-Author: Jun Nie <jun.nie@linaro.org>
+--- Patch [20]: [PATCH v7 20/34] pinctrl: airoha: split driver on shared co=
+de and SoC specific drivers ---
+commit cead269156cfbd3a10c51e662e4e2740e945e387
+Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
 
-dt-bindings: display: Add Synaptics R63455 panel support
+pinctrl: airoha: split driver on shared code and SoC specific drivers
    =20
-Add support for the dual-panel system found in the virtual reality device.
-This system consists of two physical 2160x2160 panels, each connected via
-a MIPI DSI interface. The backlight is managed through DSI link.
+Split combined an7581/an7583 source file on a
+ * shared pinctrl code (pinctrl-airoha.c)
+ * an7581 specific pinctrl driver (pinctrl-an7581.c)
+ * an7583 specific pinctrl driver (pinctrl-an7583.c)
 
-> diff --git a/Documentation/devicetree/bindings/display/panel/synaptics,r6=
-3455.yaml b/Documentation/devicetree/bindings/display/panel/synaptics,r6345=
-5.yaml
-> new file mode 100644
-> index 0000000000000..c3bc8df981df7
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/panel/synaptics,r63455.ya=
-ml
+Ininialization code was adapted a bit to work properly for shared
+and SoC specific cases.
 
-[ ... ]
-
-> +  vdda-supply:
-> +    description: core 1.8V supply for panels
-> +
-> +  ports:
-
-[Severity: Low]
-Should this ports node include a $ref to /schemas/graph.yaml#/properties/po=
-rts?
-Without it, standard Open Firmware (OF) graph structural checks might be
-bypassed, allowing invalid port configurations to silently pass schema
-validation.
-
-> +    properties:
-> +      port@0:
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: DSI input port for primary DSI link
-> +
-> +      port@1:
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: DSI input port for secondary DSI link
-> +
-> +    required:
-> +      - port@0
-> +      - port@1
-> +
-> +required:
-> +  - compatible
-> +  - reset-gpios
-
-[Severity: Low]
-Does 'reg' need to be added to this required list? Since MIPI DSI panels
-must specify a virtual channel using the reg property, omitting it here mig=
-ht
-allow incomplete device trees to pass validation.
-
-> +  - left-pos-supply
-> +  - left-neg-supply
-> +  - right-pos-supply
-> +  - right-neg-supply
-> +  - left-backlight-supply
-> +  - right-backlight-supply
-> +  - vdda-supply
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    dsi@ae94000 {
-
-[Severity: Low]
-Will this trigger a DTC warning during dt_binding_check? The parent node has
-a unit address (dsi@ae94000) but lacks a reg property, and it also lacks
-#address-cells and #size-cells which are needed since the child node
-panel@0 has a reg property.
-
-> +        vdda-supply =3D <&vreg_l3i_1p2>;
-> +        status =3D "okay";
-> +
-> +        qcom,dual-dsi-mode;
-> +        qcom,master-dsi;
-> +
-> +        panel: panel@0 {
-> +            compatible =3D "sharp,ls026b3sa06", "synaptics,r63455";
-> +            reg =3D <0>;
+> diff --git a/drivers/pinctrl/airoha/airoha-common.h b/drivers/pinctrl/air=
+oha/airoha-common.h
+> --- a/drivers/pinctrl/airoha/airoha-common.h
+> +++ b/drivers/pinctrl/airoha/airoha-common.h
+> @@ -148,9 +148,12 @@ struct airoha_pinctrl {
+>  	struct regmap *regmap;
+> =20
+>  	struct airoha_pinctrl_gpiochip gpiochip;
+> +	struct irq_chip gpio_irq_chip;
+>  };
 
 [ ... ]
+
+> diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/ai=
+roha/pinctrl-airoha.c
+> --- a/drivers/pinctrl/airoha/pinctrl-airoha.c
+> +++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
+> @@ -2630,9 +343,11 @@ static int airoha_pinctrl_add_gpiochip(struct airoh=
+a_pinctrl *pinctrl,
+>  	gc->base =3D -1;
+>  	gc->ngpio =3D AIROHA_NUM_PINS;
+> =20
+> +	memcpy(irq_chip, &airoha_gpio_irq_chip, sizeof(struct irq_chip));
+> +
+>  	girq->default_type =3D IRQ_TYPE_NONE;
+>  	girq->handler =3D handle_bad_irq;
+> -	gpio_irq_chip_set_chip(girq, &airoha_gpio_irq_chip);
+> +	gpio_irq_chip_set_chip(girq, irq_chip);
+
+[Severity: Medium]
+Does copying the immutable airoha_gpio_irq_chip into per-instance memory
+bypass the protections of the IRQCHIP_IMMUTABLE flag?
+
+The core kernel contract expects a static const irq_chip to be passed to
+gpio_irq_chip_set_chip(). Here, the driver dynamically copies it into the
+mutable pinctrl->gpio_irq_chip and registers that instead.
+
+[Severity: High]
+This is a pre-existing issue, but can the devres teardown order here cause
+a use-after-free of the IRQ domain?
+
+In airoha_pinctrl_add_gpiochip(), devm_request_irq() is called before
+devm_gpiochip_add_data():
+
+    err =3D devm_request_irq(dev, irq, airoha_irq_handler, IRQF_SHARED,
+                           dev_name(dev), pinctrl);
+
+On driver unbind, devres will execute gpiochip_remove() first (which
+destroys girq->domain), and only then call free_irq(). If the shared parent
+IRQ fires during this window, airoha_irq_handler() will dereference the
+freed girq->domain when calling generic_handle_domain_irq().
+
+It could also fire during probe before the domain is fully initialized.
+
+[Severity: High]
+Can the trailing status clear in airoha_irq_handler() lead to lost
+edge-triggered interrupts?
+
+Looking at airoha_irq_handler() in drivers/pinctrl/airoha/pinctrl-airoha.c:
+
+    generic_handle_domain_irq(girq->domain, offset);
+    regmap_write(pinctrl->regmap, pinctrl->gpiochip.status[i], BIT(irq));
+       =20
+This patch series updates edge-triggered interrupts to use handle_edge_irq,
+which already ACKs the interrupt upfront via the .irq_ack callback. This
+allows the hardware to latch new edge events while the handler runs.
+However, the explicit regmap_write() after generic_handle_domain_irq()
+double-ACKs the interrupt, potentially clearing any new edge events that
+arrived during processing.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727-sm8650-7-1=
--bonded-dsi-v5-0-c042266b9eeb@linaro.org?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727074234.3761=
+170-1-mikhail.kshevetskiy@iopsys.eu?part=3D20
