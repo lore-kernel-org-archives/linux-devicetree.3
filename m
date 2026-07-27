@@ -1,246 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46BDE3E2AB0
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 08:20:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785140421; cv=none; b=GXFBOK/Du5+PNc9egzsEOoIGIcPZbSxptt/KgKaQ9lF89MEk1aJkH1n5LT8M/KDBUCwGFE6FcqTbvp1jCuxhk/Z9bNHjvRT3zE/7g1JI+J5xOzDS0YZ1u8G6bFR/Ak4iDou7X5I/3eSlrO5adUfI6jdn6R4E1o9kX4O1gvs5Ky4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785140421; c=relaxed/simple;
-	bh=ExpwzbkVSmGOkBK5OxiLIB5tRyrzExWzgWb+iZHUVTU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=qEzeConHML/JK+IZ9srxZJC4DSAJMXmh8WoluWlq+GZt2c+qWZJsC4Cqr9U6VTQ/rCjgnAywzeEor16ttNcHtyFRH/Z9rU8p3yj5YdUf65knY0+b2AK3dsRfKs7IeA51TPCDIa/y0vypbIf9IGmSDQ9mNXi97PvFGH45IkaSbQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V51A253W; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83CBE3E1CE4
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 08:22:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785140558; cv=pass; b=jmOUdna8shIgq/XFwu+8s2HHwJIYjZOWPd9Xl929aFQAHafS6RsThDUUWyQY55SYJo6WU8yYMR3kGAygdqpMeiAcFdjvfeZl/+RRxrbgPnX46QUevGCFIjs51pbjKXTEAvP2z9jfe3XoV2cREQ5D7T6uX/uXILmQ0J8MwGQiZo8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785140558; c=relaxed/simple;
+	bh=mw92Hf/dQnuOO4mzXGCnNoSoSNZ4XLCDu5vbV5GvF2c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ugpKP0s572zWezfrqjGojQuPgyLAQXPJqareufOdRMdlLHjTbqGaL+MkYypyBVjRrO2lTuuxPGrJVps9Ucxym8rct4AY3GMGbbhwKTS0dvO7IfOc4E66CZw6m2upg0CTIadNSraZ8cLoAh9rXsqCqbrD0UD4nu5p4lfH22eDIes=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WACiFu7z; arc=pass smtp.client-ip=209.85.215.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V51A253W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E7221F000E9;
-	Mon, 27 Jul 2026 08:20:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785140418;
-	bh=Am3yW1HNNXNMQvNLmR3Zzt8yNP6CAfl+560RxZ2c2cA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=V51A253WtrL63OgI6tMc6HtAPZKhUr/ULz76D+AOLy1VYwOI3DhAoQymq88th/m72
-	 fyVv3aE7MqPUkI32GE5PIAOKDIHvGO6rHyC3hQ13ORiBx+iWEaPZxJ31tC74tiIwqZ
-	 A1oINwNn9Kho9heNZQBp4G/tHr/D8rZDViSITJibdWPvr6PCjNJW2daO7cIkfYiDKs
-	 fmDmOdHyffjnmD/KILWwLFIZwzvN1zmXPgMcz+wp3KeSDgK2kQjIS3Do285zazzDqa
-	 2NC/PHJUhcw861Zpgfy+qrEsivd1dDcSE03SoJalptLY50901hpDeI9arEEv38zQp6
-	 pdThMuc6ZnPaw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 6/6] drm/panel: Add driver for Synaptics R63455 DSI
- panel
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jun Nie" <jun.nie@linaro.org>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org
-In-Reply-To: <20260727-sm8650-7-1-bonded-dsi-v5-6-c042266b9eeb@linaro.org>
-References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
- <20260727-sm8650-7-1-bonded-dsi-v5-6-c042266b9eeb@linaro.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 27 Jul 2026 08:20:17 +0000
-Message-Id: <20260727082018.2E7221F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WACiFu7z"
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-c9b373d5af0so1747291a12.2
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 01:22:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785140556; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Xf7E90aXCx0xAPbRhbq6j2bDT9c3I5m3xW4TnYpS1BwkGRGlXuN1u/nlmn4mauurf9
+         STIr47ewLpjGs6UZnH8mkhabNUAoJzVhd4k1lXoAVlXS95H5WaLViHYRpnOPhIG/3eG3
+         4pSr1B+J98YzKoSdx0nc4LOo6lBlo19+AbDODW928hbjBqmn4EbPoGFU1O8e/OSw5oRJ
+         49+JsPcSa4AU0RAAXeyFSqUI94pkDGLwMNTougvM3mrbo9NZm1cmVM47U/7S7l3810Vb
+         SY+LjofeargnnvsZ4l+0uDsrr5LiT4GbwDHVgaLONMuy99Aia7pQ12RG0pbE+k1VXomy
+         t0Ag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=jiiyofhSvlGJbOk+zjioYY1U+uBRekjwWzmE0lyF8KY=;
+        fh=s7apbVcc4nuuR8Sq1GUTHdT1o9ldz6CPpky0cAdjfH8=;
+        b=QayZ7baUYGGCyugpevy2CjE/1hkRFmPuv9RZt0xy63CZdk+bzejcAlt5TFYRCapQPt
+         ZuC+ZIWmHywrz+tJqKfG4wpjAoSX/E7xKVuOvjLr/wV+PdyN8U5kxJUwJ0iRBU5kclof
+         zEa4pSPW3TKrcCvtQTIfQRA8vsbNvCw4+IBtAXh1tUY6S62B++V4CptIOKbFKNJg7iHW
+         0pibqSOiX5uMAVBb7ReBFGL5a9txKmWqQX78dwA+u3z6b0n4LwR6h3GlghtztJxAk0rP
+         6p/4hGPKj8F1OObGfBv/1n2Td+bQ8wBsTQVa/ELpyMflKNun08SsZMD4Kn8T+ZOJjnLO
+         fDXQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785140556; x=1785745356; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jiiyofhSvlGJbOk+zjioYY1U+uBRekjwWzmE0lyF8KY=;
+        b=WACiFu7zKLA7BiL2tpISJ0tGgW8Q7+/skiRVtyUHYBi1b43cDK4VZyHLREaMb22n+C
+         qCJwpIvJFwIzFatu6RchWr++GLOFdvA6og0DgwtoCQ7TbK00pC/o9wlQRLf2vAHipe9L
+         x5NQTLcPenfEXWOVPE/CXXmATcyuxKKLpBrwSlDMnQBZvr+MiSxbN7EFGsowUyn02eUz
+         8fAenl2u1hS88bHRfmejE7cVjj58XkT6yLs/xSilKEvTVrbBkK1AUqdX+WPUpsg9+CDF
+         WgNWQeMvk8GC7lsJbMiZdXV+KZUEIuTk8Zhfdom+YA44W2fT3A9ip4Y0hTlzBT8IeR5v
+         IewQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785140556; x=1785745356;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jiiyofhSvlGJbOk+zjioYY1U+uBRekjwWzmE0lyF8KY=;
+        b=jiCOppIBNYJGCluAZ94fBIkAoqSj2QzKVhHxNgo123ABqIygXU/6z3ZCtRN/oQszTv
+         FN0a6qw0LCWjAqcGMOkoQ/UDxw/j8D3ycmZPjt2JwGEWp/QPFDZ++Dfq+9HjKIoAMEzW
+         yQ3qrpSg5jYXcm/LOCVOOmYaDHGRjIcxBeXtfingXM20RG5cTWJNSOoQl62S7tFpLV5k
+         /SZkb9Tvorcr0oXUzL+JP9TBFAnQMFad1rT4l0pyRZWsFovy+5usc5BkuEyXynetIc3W
+         jIz64ofjhg/aaEq9HhGQDsjZ+YNZuYDTcjq6xnR4z2heG8Ec1RBz81bdcKM1odpWDG5H
+         qb2Q==
+X-Forwarded-Encrypted: i=1; AHgh+RoxFI2sNKwlq7qbJn5hJ7Jyi9bOQnq9pJWU2by9hOMgKB3DlHugCDg7xVtCrctNnPUJdWAPO+Qqx2GI@vger.kernel.org
+X-Gm-Message-State: AOJu0YxTenFIJFO11YDrEVxHADPfuyPIzwYwmb5FC4xV9fdsPvM/54rA
+	HISAasdsjVtz9x3x0Lcw8/OazVOKV5HI9d9kcjwj2gBLpiyPyZGixV6zQUTJsEZW6n4jZWr9GcC
+	Xt/Le4p4ZzfEouuChjCrMW/BGFUkwlyI=
+X-Gm-Gg: AR+sD12naYksfXSUv1hoSlUEIMiKP64o6t/wpd057Vvk6HPGAsDAgjBWYGSDVgjcdEy
+	jaLjq5IhgEpu9iAIYXQW1L22oh0gfXy5h1hcfmHBe/YjYF8gvLFOS4Gx9tn5kielLKAyRYJxzvB
+	2UCastEFV/hAacg6xBVX4zJKewpQV3ELBApUDc5oDnOp7yw1I4uXk7+o6t+TohwwXVVPEXzOq6H
+	Z1UN5UUE0cRTqfFc2iycEaH4vCIk7pgKrEQwQjbabK7w3dURSltrFJ12Kyo2rMfF0ZMvhT8bDFQ
+	ms67Y/Dpk4m0/24jy4k=
+X-Received: by 2002:a05:6a20:7291:b0:3c3:a9ad:a747 with SMTP id
+ adf61e73a8af0-3c67da6cbabmr7867709637.26.1785140555737; Mon, 27 Jul 2026
+ 01:22:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260617080031.99156-1-clamor95@gmail.com> <20260617080031.99156-7-clamor95@gmail.com>
+ <20260722022519.3b1e4fd3@jic23-huawei>
+In-Reply-To: <20260722022519.3b1e4fd3@jic23-huawei>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Mon, 27 Jul 2026 11:22:22 +0300
+X-Gm-Features: AUfX_myZ-uH2FsBg2M-NpEbqqEjSB6AkjRrQi_JMKQ0vOPgoMTtIwPKkN8lpkdE
+Message-ID: <CAPVz0n2JBNRW3EP+b8Nk1C2MbJnszLiC3hSwEsV7r1ga8obX3g@mail.gmail.com>
+Subject: Re: [PATCH v5 06/14] mfd: lm3533-core: Remove redundant pdata helpers
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>, Johan Hovold <johan@kernel.org>, 
+	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
-s) to consider:
-- [High] A copy-paste error in the BOE panel initialization sequence duplic=
-ates command bytes, corrupting the DSI payload.
-- [High] Concurrent non-atomic read-modify-write operations on DSI `mode_fl=
-ags` can corrupt the transmission mode state.
-- [High] Missing IS_ERR() check on the return value of devm_drm_panel_alloc=
-() leads to an immediate dereference of an error pointer.
-- [High] The backlight sysfs interface is exposed to userspace before the D=
-SI device is fully configured and attached.
-- [Medium] The macros LE16_BYTE0/1 and BE16_BYTE0/1 use endianness conversi=
-on functions before bitwise masking, causing incorrect byte order on Big En=
-dian architectures.
-- [Medium] Returning PTR_ERR() on a valid pointer when the GPIO array size =
-is incorrect leaks a kernel heap address and produces a positive error code.
-- [Medium] The backlight update_status callback blindly sends DCS commands =
-without checking the panel's power state.
-- [Low] An early return in the panel disable path on DSI command failure sk=
-ips disabling the backlight.
---
-
---- Patch [6]: [PATCH v5 6/6] drm/panel: Add driver for Synaptics R63455 DS=
-I panel ---
-commit 89f5e4df3241a9188e302ee5028a24a7b0bc9542
-Author: Jun Nie <jun.nie@linaro.org>
-Subject: drm/panel: Add driver for Synaptics R63455 DSI panel
-
-This commit adds support for the Synaptics R63455 DSI panel used in virtual
-reality devices. It exposes a dual-panel configuration as a single logical
-panel to the DRM framework.
-
-> --- a/drivers/gpu/drm/panel/panel-synaptics-r63455.c
-> +++ b/drivers/gpu/drm/panel/panel-synaptics-r63455.c
-[ ... ]
-> +/*
-> + * Extract the low byte and high byte of the 16bit number converted
-> + * to the cpu endianness.
-> + */
-> +#define LE16_BYTE0(val) (le16_to_cpu(val) & 0xff)
-> +#define LE16_BYTE1(val) ((le16_to_cpu(val) >> 8) & 0xff)
-> +#define BE16_BYTE0(val) (be16_to_cpu(val) & 0xff)
-> +#define BE16_BYTE1(val) ((be16_to_cpu(val) >> 8) & 0xff)
-
-[Severity: Medium]
-Will this generate the correct byte order on Big Endian architectures?
-
-Since be16_to_cpu is a no-op on Big Endian systems, applying the bitwise
-shift and mask afterward will extract the bytes in Little Endian order
-rather than Big Endian. This will cause the panel initialization sequence to
-receive payload bytes in reversed order.
-
-Could we directly shift and mask without the endian conversion macros to
-safely serialize CPU-native integers across all architectures?
-
-[ ... ]
-> +static int r63455_panel_on_boe_vs026c4m_n52_26000(struct drm_panel *pane=
-l)
-> +{
-[ ... ]
-> +	r63455_dsi_write_seq(ctx, dsi_ctx, R63455_GEN_OUTPIN_SET,
-> +			     0xf, 0xe4, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-> +			     0xf, 0xb2,
-> +			     0xf, 0xb2, 0x00, 0x64);
-
-[Severity: High]
-Does this sequence intentionally send the 0xf, 0xb2 bytes twice for the BOE
-panel initialization?
-
-This looks like it could be a copy-paste error that sends 14 bytes instead
-of the expected 12 bytes. Could this transmit malformed configuration data
-to the display controller and cause initialization failures?
-
-[ ... ]
-> +static int r63455_set_brightness(struct r63455_ctx *ctx, u16 brightness,
-> +				  u16 pulse_offset_rows)
-> +{
-[ ... ]
-> +	ctx->dsi[0]->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
-> +	ctx->dsi[1]->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
-
-[Severity: High]
-Are these bitwise operations on mode_flags safe from race conditions?
-
-Since r63455_set_brightness executes under the backlight sysfs lock, it can
-run concurrently with DRM atomic commit handlers like r63455_enable or
-r63455_disable which use independent locks.
-
-Could a concurrent read-modify-write here corrupt the transmission mode sta=
-te,
-such as unintentionally dropping the MIPI_DSI_MODE_VIDEO flag?
-
-[ ... ]
-> +static int r63455_disable(struct drm_panel *panel)
-> +{
-[ ... ]
-> +	r63455_dsi_write_seq(ctx, dsi_ctx, MIPI_DCS_ENTER_SLEEP_MODE);
-> +
-> +	mipi_dsi_msleep(&dsi_ctx, 200);
-> +
-> +	if (dsi_ctx.accum_err)
-> +		return dsi_ctx.accum_err;
-> +
-> +	/* required by hardware to be after MIPI_DCS_ENTER_SLEEP_MODE */
-> +	return backlight_disable(ctx->backlight);
-
-[Severity: Low]
-Does returning early here leave the backlight subsystem in an active state?
-
-If the DSI ENTER_SLEEP_MODE sequence fails, the driver skips calling
-backlight_disable. While the physical regulators are disabled later in
-r63455_unprepare, could this leave the backlight framework out of sync?
-
-[ ... ]
-> +static int r63455_bl_update_status(struct backlight_device *bl)
-> +{
-> +	struct mipi_dsi_device *dsi =3D bl_get_data(bl);
-> +	struct r63455_ctx *r63455_ctx =3D mipi_dsi_get_drvdata(dsi);
-> +
-> +	return r63455_set_brightness(r63455_ctx, bl->props.brightness,
-> +				     bl->props.pulse_offset_rows);
-> +}
-
-[Severity: Medium]
-Does this function need to verify the panel power state before sending DCS
-commands?
-
-Userspace can modify the brightness via sysfs while the DRM display is
-disabled. If this occurs, it might trigger MIPI DSI transmissions to a
-powered-off panel or unclocked DSI host.
-
-Could this lead to hardware lockups or DSI timeouts?
-
-[ ... ]
-> +static int r63455_panel_add(struct r63455_ctx *ctx)
-> +{
-[ ... ]
-> +	ctx->reset_gpios =3D devm_gpiod_get_array(dev, "reset", GPIOD_OUT_LOW);
-> +	if (IS_ERR(ctx->reset_gpios) || ctx->reset_gpios->ndescs !=3D 2)
-> +		return PTR_ERR(ctx->reset_gpios);
-
-[Severity: Medium]
-If the GPIO array has a count other than 2, will this return a positive val=
-ue
-derived from a valid heap pointer?
-
-When devm_gpiod_get_array succeeds but returns an unexpected number of
-descriptors, ctx->reset_gpios is a valid pointer rather than an error point=
-er.
-
-Could we return an explicit error code like -EINVAL here instead of leaking
-the pointer address through PTR_ERR?
-
-[ ... ]
-> +static int r63455_probe(struct mipi_dsi_device *dsi)
-> +{
-[ ... ]
-> +	ctx =3D devm_drm_panel_alloc(&dsi->dev, __typeof(*ctx), panel,
-> +				   &r63455_drm_funcs, DRM_MODE_CONNECTOR_DSI);
-> +
-> +	ctx->dsi_init_seq =3D of_device_get_match_data(dev);
-
-[Severity: High]
-Should we check the return value of devm_drm_panel_alloc for an error point=
-er?
-
-If memory allocation fails during driver probe, devm_drm_panel_alloc returns
-ERR_PTR(-ENOMEM). Dereferencing ctx on the very next line to assign
-dsi_init_seq will result in a kernel panic.
-
-[ ... ]
-> +	ret =3D r63455_panel_add(ctx);
-> +	if (ret) {
-> +		DRM_DEV_ERROR(dev, "failed to add panel %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	for (i =3D 0; i < 2; i++) {
-> +		dsi_dev =3D ctx->dsi[i];
-> +		dsi_dev->lanes =3D 3;
-> +		dsi_dev->format =3D MIPI_DSI_FMT_RGB888;
-> +		dsi_dev->mode_flags =3D MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_LPM |
-> +			MIPI_DSI_CLOCK_NON_CONTINUOUS;
-> +		ret =3D devm_mipi_dsi_attach(dev, dsi_dev);
-
-[Severity: High]
-Is it safe to register the backlight device before the DSI host is configur=
+=D1=81=D1=80, 22 =D0=BB=D0=B8=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 04:25 Jona=
+than Cameron <jic23@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Wed, 17 Jun 2026 11:00:23 +0300
+> Svyatoslav Ryhel <clamor95@gmail.com> wrote:
+>
+> > The lm3533_set_boost_freq() and lm3533_set_boost_ovp() functions are us=
 ed
-and attached?
+> > only in lm3533_device_setup(), which in turn is only called by
+> > lm3533_device_init(). Incorporate their code directly into
+> > lm3533_device_init() to simplify driver readability.
+> >
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+>
+> >  static int lm3533_device_init(struct lm3533 *lm3533)
+> >  {
+> >       struct lm3533_platform_data *pdata =3D dev_get_platdata(lm3533->d=
+ev);
+> > @@ -437,9 +396,21 @@ static int lm3533_device_init(struct lm3533 *lm353=
+3)
+> >
+> >       lm3533_enable(lm3533);
+> >
+> > -     ret =3D lm3533_device_setup(lm3533, pdata);
+> > -     if (ret)
+> > +     ret =3D regmap_update_bits(lm3533->regmap, LM3533_REG_BOOST_PWM,
+> > +                              LM3533_BOOST_FREQ_MASK,
+> > +                              pdata->boost_freq << LM3533_BOOST_FREQ_S=
+HIFT);
+>
+> As you are touching this maybe get rid of the shifts and have one source
+> of info on where the field lies in the register.
+>
+>                                  FIELD_PREP(LM3533_BOOST_FREQ_MASK, pdata=
+->boost_freq));
+>
 
-Calling r63455_panel_add exposes the backlight sysfs interface to userspace.
-However, the lanes, format, mode_flags, and devm_mipi_dsi_attach are not
-set up until the loop that follows.
+Very decent suggestion, thanks!
 
-If a udev rule writes to the brightness node during this window, could it
-trigger DSI transmissions on an unattached device and lock up the host?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727-sm8650-7-1=
--bonded-dsi-v5-0-c042266b9eeb@linaro.org?part=3D6
+> > +     if (ret) {
+> > +             dev_err(lm3533->dev, "failed to set boost frequency\n");
+> >               goto err_disable;
+> > +     }
+> > +
+> > +     ret =3D regmap_update_bits(lm3533->regmap, LM3533_REG_BOOST_PWM,
+> > +                              LM3533_BOOST_OVP_MASK,
+> > +                              pdata->boost_ovp << LM3533_BOOST_OVP_SHI=
+FT);
+> > +     if (ret) {
+> > +             dev_err(lm3533->dev, "failed to set boost ovp\n");
+> > +             goto err_disable;
+> > +     }
+> >
+> >       lm3533_device_als_init(lm3533);
+> >       lm3533_device_bl_init(lm3533);
+>
