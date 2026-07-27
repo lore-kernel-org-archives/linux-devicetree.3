@@ -1,164 +1,173 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011048.outbound.protection.outlook.com [40.93.194.48])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 285773F1ADB;
-	Mon, 27 Jul 2026 09:50:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785145854; cv=fail; b=qHB5L7VvZFh4W9vrQT2mEo4f/KqEDrrUgXo+vHUg+7yL09l/W0eV3RNYqz7lw9zYorRcsaQAFj4oaafltFPeTkYrPRNZrnjWDInzlYudDXmkO52/2M8XI0nETVGVHmzIVxmE/Ze7otBCmV84QKIbA/JIdP8YFzAIYpaAlrzIx2M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785145854; c=relaxed/simple;
-	bh=eV7a8R3bA4BFzEsN1hDsL4yYX/tBkrRM39ehWrrOsTE=;
-	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=lIhpwSk68sirZN2z/11OOhCSRSNa7ewGhfck9N+6k8TEldxRNSXu4y4UtJKWrJm3k6JR73Pdvi01crsUXYJzgeJRmwj+lItjJaYvsO0H2H0QBS02l/wZv+GLf5Be/bA8eKHURoa8SwBikaVnJGTl96bK+dh6DbsrdnCDzPXv35I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=naXVSwXC; arc=fail smtp.client-ip=40.93.194.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F8913EEADF;
+	Mon, 27 Jul 2026 09:51:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785145923; cv=none; b=Wo+DwsatrWwIMFgO9MDDKIBWQr5bDmMJDgol2kiVgnl3gGzzW6ZMPLjVkRHniB17t9kk6MFbDiYifQ7eAlc4rlC7aspIPqUEBjGRqSJ9MPo22FObMGEFyRcI6+8iOHOv/LplwXHqHadvNhdqyole39JCECHmOXvpSbbwKDG3s7g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785145923; c=relaxed/simple;
+	bh=P0pdx3+QnPgDE00cgggUXPtRwUqSX9CsRXGmJR/786A=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=lqIriCc+bNGc5Abzkt6W6aPzzOocq4HGFswdNslvjaNqxmYrLKGIhtKFGkgOQrsB2bvA8eHPX6Bps9JZNkAw2HMXOpoIQPLKaW+2lm9lS4ziBK8dse6ZaGtwFLORI3mN1X2rwjSKcc1DlarS8Bjb/XH2hC50NYAD11eScOmJMjM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EnvHWntS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="naXVSwXC"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=o/eOwuDMRgdB6om4NnjloT9badweh/cjQprTphQMHGub1uOrcPtAfSNP1+S1o3MFzKXFaLx4BQ65OXENkaE7IBLL8kaGGdrnM8VUq73UIO1Hph843CEDh04w/tzzNOVrIqnfcAOdb9MfHwi6CBBLq3vuHe0R3BDlkEOm197qFCIxHWGMtd03cZpjN/blBLlciw6mFAG1Yegx7bCBECsiK+RlmhhGPcmxt+KjkDy+gr21ba/HCVYHqy0DJSTP+1Bn6h6YxzqWgyUnTUTk0NbJTg4hXUDomf4HdGyoLbqUezJj7J3fTWTLUpDeAf0xc0GcKN/pV4z7TXOjT+utKfb9Gw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WWypBh/YZ0l1i58bXe9RbSgpLjw9ENU7NCgZTadkKUo=;
- b=f7w2U7kQt5yIrmRKBGX8IAjVb0kGDe9ZVcw/ofrEGvDbAnSNb1IXL/ltcoA1sc9rucsrchLlDGoPSKFphQTa4W4vGXSqP2eVd1gaubveQ2rQL8ILKinF2y9sg07thqx3sjBUGLgVFqyI0HgJv/XZIb94X9ukLOsQUjvlmoRPJk1ngqCsug/hTGUVcSZxUoICj9CZd5Hac1qJLyFBD/Qc+H/5fUT0yk5xc0PQaRzlHcd6xkdP3tRp3nzDYaLuozNSp4ixjpR7zrue3sb3vP99+hCA5q84SJPqQAOMQ2lQ2b+dfRf+KJ9UA5uWPNWgvTg0evPHuQ0mMJAoTil3qjZq7w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WWypBh/YZ0l1i58bXe9RbSgpLjw9ENU7NCgZTadkKUo=;
- b=naXVSwXCdt6uU5U8dbF/Zg9LjwyPcPoPQy0gODXGJKubQrgJN8T7R7A2+DHYDAZAigZUhuz89DrLEtaP4dE7uEC83HbZVw3oXTUTCUa913T3PMM2alxcyie8oFXCB86wmhyChM8tgk8qP7SNgZJlljr1e//EqbqHJ7EKlPL+qmxP4YrrgqJcU8pXkt3AFCmklKIFGtly4joV2H9cy+6UE8GG+/zGbD8wGbOWFWGNmzLCWp9XaUbzJc1YIzlqOcAOIcALh6ZI9JHL/s//nChL5ioNa4AKSBJZa+oAsTZSoRwhEsC8DGIJi7IzYl/tXT5+INq3ckBZuA/kURNR8Qp8hw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from LV8PR03MB7398.namprd03.prod.outlook.com (2603:10b6:408:18f::13)
- by PH0PR03MB5751.namprd03.prod.outlook.com (2603:10b6:510:37::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Mon, 27 Jul
- 2026 09:50:34 +0000
-Received: from LV8PR03MB7398.namprd03.prod.outlook.com
- ([fe80::9d6:b5c1:7f72:e982]) by LV8PR03MB7398.namprd03.prod.outlook.com
- ([fe80::9d6:b5c1:7f72:e982%4]) with mapi id 15.21.0245.012; Mon, 27 Jul 2026
- 09:50:34 +0000
-From: genevieve.chan@altera.com
-To: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dinh Nguyen <dinguyen@kernel.org>,
-	linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: linux driver reviews <linux-drivers-review@altera.com>
-Subject: [PATCH] dt-bindings: clock: agilex: mark mpu_l2ram_clk deprecated
-Date: Mon, 27 Jul 2026 17:49:26 +0800
-Message-Id: <20260727094926.1124-1-genevieve.chan@altera.com>
-X-Mailer: git-send-email 2.32.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI2PR06CA0006.apcprd06.prod.outlook.com
- (2603:1096:4:186::19) To LV8PR03MB7398.namprd03.prod.outlook.com
- (2603:10b6:408:18f::13)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EnvHWntS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E62FC1F000E9;
+	Mon, 27 Jul 2026 09:51:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785145912;
+	bh=NqVuJQAx6YWADlxG/ItZoc/VH1kWlfd49zWvhNevbWU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EnvHWntSZSmq1p/E3j20gIcPWUfC8clolEoh47pf/e/pSsQH3XpwVRUegvkeHL3Ki
+	 6e72eT91nIMZdq/z4WG0U4SzcFZA3OWovVY/eI2lHP/ykMUdUyiYWuNc2cLH77dHHQ
+	 tpJx/Z4V3LAfDJvLylKpzT3afZvAa26nrVB4u50U7oG/KIxx49jPiwG/elwR3gD4ON
+	 MoNNOc/yf5hGYpk4bAlHBmZ/YsVjzwVQcSuJvD2Kzd9jUkAcvqTdwunJHA4nSV77Ie
+	 hsardkuNwNY8OghRa3Awboq53YeZKeVB31uOBXl63XjJqwGLSN1GbYZ43r7sgODANg
+	 MQtSZH+6uPuug==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 3/5] arm64: dts: imx8mp-skov-revc: convert to
+ overlays
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Steffen Trumtrar" <s.trumtrar@pengutronix.de>
+Cc: conor+dt@kernel.org, Frank.Li@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260727-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v5-3-67faa5ee0bf6@pengutronix.de>
+References: <20260727-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v5-0-67faa5ee0bf6@pengutronix.de>
+ <20260727-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v5-3-67faa5ee0bf6@pengutronix.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 27 Jul 2026 09:51:49 +0000
+Message-Id: <20260727095150.E62FC1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PR03MB7398:EE_|PH0PR03MB5751:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6ea54bfd-7e15-4217-b9d7-08deebc480d5
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|23010399003|376014|1800799024|366016|18002099003|10067099003|56012099006|55112099003|11063799006|921020;
-X-Microsoft-Antispam-Message-Info:
-	AgG8h5zGq8a1MWHbvJ7WDAH/CJFJpiKEGFSGBRqdYjpc4QavykVfj5nmdIM+HWEgPP2yFgIwNig/dJuLkRtjD9OAzfK+O5nj1f4tiH1BWTkr6n7W4gCxir091mEHuHVt8tAfHhdJsX5h383VAykHyZd5pxXaX6H0tQOeBhudjcNVnWe0/wVit9IAHCMYF4el0UV259gwLOziotb108wo7yzyCxcYIwZYA+Gp+9o6+U14N6v6yPOup9jgKML+TnwzspPA1CqoKbWxsakt+PAI/97FHFmZ3T/ffsdoshvoxLN0FFnUEZ9VNik10mcYoMczeH5LpSR6czeN4SHVpXZLDy7bq86KzBzFSsrzbSV1aaG0JdrCTgMbr0f2YKypF9B4teb3ollYNomvFJ2T65S8q3SWb0HMxbMrqLeHirYb+UgxeHZS44aSZZ4RaqgsO8UWXLDWQ3/hOxBBLhjUBi/yKCC0UyVdRBIIF84jeIj2hNziWahCOPCSpC6L4tuw28xZNvrPdLgWhpvDA8W8eVoZDtwugX5jh72suoWwlIqJ1jvvj+dBs19ccheNgwZX04i8c0v5KMJb9rjrHwaS3wPlA3uwsdrYnsAVHrnuiWrdoH4UDAN8n+BDXEhmodXq24XtlRojOdn0ivKpNE4JhFX2XJebLZqkimw0xVqCsQ+qRw9VNzyPAv9/PnZPDOmDZFGXRjnuBQBiYQjSODZpWxphaA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR03MB7398.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(1800799024)(366016)(18002099003)(10067099003)(56012099006)(55112099003)(11063799006)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?UhrCNkgPo1vg2Vabw8douQrOYpAiK3AltaagT5s8qw8d0A1b2XCF3DyxKVCD?=
- =?us-ascii?Q?CKrAyzG1ZE1ZLtSEiDmDLsK657dwBjwasP9/+moDtsgaGR4e8vudgWGg/k8c?=
- =?us-ascii?Q?UAIoY1XvNh7p3U77vTdqsHY6MYKxn47kY6GTO/1jcKL85/8SYL4BranBFwyG?=
- =?us-ascii?Q?IqBjAOMyq6SpNfCKWWV/Pptpyrd1ogh+8wOcjcdkFmRRp06sqj87oWzXto2q?=
- =?us-ascii?Q?8ymDR6yi51lSOlc81+qWztra146SIpVskMg/MOyMF2TOw8iCe4lX60IhjVx9?=
- =?us-ascii?Q?rxgeWQWqQW2sgmETkOxI/8i1Ee2ZR0++rqx7ENvB8/DPJEMrff3KR92J/2Uo?=
- =?us-ascii?Q?8RGAK/iETbqkzbHZ78zvUxHvAlwsJQYL3F3xxBzYyhZmsNISk0Z24SQxcC+U?=
- =?us-ascii?Q?z+Q6WQDJYuAVfa4cQlY+8UK8a8uliLUgUs4LIy0k1SBBjdDI5A2MpLrV5969?=
- =?us-ascii?Q?5j5+q3UC37gkWAkgVt3xC3AJwCPWTA/un+hKEJntV2Pq4DJnmpR59gPozAZI?=
- =?us-ascii?Q?MGZt87Kd4Lzzj7d9tM8heEMi65zxkZo5c4Wo25fFRwgu5HBYU75QOOVl79lP?=
- =?us-ascii?Q?BNL6KeYxKO2vK1UF+4C/jrrwReO2V3dAwGDltgiYqjFihUE7+YsVF71WxBQr?=
- =?us-ascii?Q?ioCRYdRlKCca9Zt6tROJS+3JQGld68JYv4KFGiH4+dAxKZhuJuQDqrmu/L6l?=
- =?us-ascii?Q?OwuiBf8vyiE4Trv+jbM5cmy3TX2haaBYBxBRlzzCkFsb+XyFeha2iDhDCyOE?=
- =?us-ascii?Q?NuEcestr+d5mXyHu0GOaEY8o8vKXJwy3mOEy7LmUljq9Vug9tViOj+SOVHHs?=
- =?us-ascii?Q?hkvBOUkv3nH6NQ18PlwVIS7UpprYf4gBiI6chzEG1UWLX2nT3RbKJPboNJ1V?=
- =?us-ascii?Q?Aji5Cw1J+jliWyJYSLhtsUIWdOnZMMyAdmO9i8XTmbdPHnOnZrYawjdCjV3p?=
- =?us-ascii?Q?Q44b50dcb9OHjZdZPrQIk2V3mDyQMuDz+LHtDkX2ETXrrIXGOolW2yW9529J?=
- =?us-ascii?Q?EtH3iR2PwBLUEz4ElcsaRsbhnBNefGSKfwuCGmCuvWxJ9Y9CLfeqwzwDvWEu?=
- =?us-ascii?Q?EMf5Hl9HzVFsfsAgnmyhvyS7WAIh3GqKLw68Sve8mg2fo4IVckFIu6zaODT0?=
- =?us-ascii?Q?c3xNAJMqLgMkDb54yJTe0EhtVV4MOPo+spYbQzO+eWXGet07NbTC0L7Qk8n7?=
- =?us-ascii?Q?y0+fsNIhw3TJyBqeyqLEWpyiDviDqTPN1ud8uAw+ZOMx0vHk1Me0eMByBlLz?=
- =?us-ascii?Q?6CHx8JXR65ObDMHcGlzFWyXfpTz7m0zC1djJ++kjpSFwFOCD6nKG7Yvvo6zW?=
- =?us-ascii?Q?doWlWm66oM46y8I0jKEtMNp/9/T8LeYcD5meuJAdiSUhmKhf3IFg5LmI/LH5?=
- =?us-ascii?Q?VvQYXqfoMRflqJyVpu0OGKZe1CWPHK5xEP9jmioHnkIqc3Ycic6O8IjBBPDv?=
- =?us-ascii?Q?SwyLX2EhFzqsvpX0H9HJy4ZE2ZpkxgCv+xKeQo/Gjbk3cbLSbP9i1oAM5ixU?=
- =?us-ascii?Q?YdzxeXCIVLWdRizGRhg0FH5TY/ufnw1DslUqzvZvwpmX7cAfEiXotPRjrK5z?=
- =?us-ascii?Q?K1JZMGeAuVSk2FJ/GAT2vTgwNRS+av+sg1RkLL/Ac/nmcwfsVxoBn1UymCKi?=
- =?us-ascii?Q?LXwu7ayPWPJrgxYdtHFfn6d+KDDj8QiJigE+iRM38UteOP9ervtbT3zJjcl9?=
- =?us-ascii?Q?km/TWnbTZwn33hIIg6xTRNkViE85CQO5cPZCEBJr8m63vg0gOCY+hU4VqdQi?=
- =?us-ascii?Q?CuvWKmiq1QQdTdXqpqqg1Ldl4lz+Z1Y=3D?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6ea54bfd-7e15-4217-b9d7-08deebc480d5
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR03MB7398.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2026 09:50:34.3435
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kxStOmh8+REeKm8ZHYlTGGsSlN5WvRPtsWLEH1THo7D0JOrOabgk5ZmqG7ZANhYnCaC9FkD4mK66qNynAk8ivGSB4ewQ3r3/z74z/8A340w=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR03MB5751
 
-From: Genevieve Chan <genevieve.chan@altera.com>
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] The TIAN variant overlay incorrectly uses `/ {` instead of `&{/} {=
+`, meaning its root properties will not be applied to the base device tree.
+- [High] The `&lcdif2` display controller node was accidentally deleted fro=
+m the jutouch variant and not added to the common base DT, which will break=
+ the display.
+- [Medium] In the TIAN overlay, `#address-cells` and `#size-cells` were mis=
+takenly added to `&lcdif2` instead of `&lvds_bridge/ports`, leaving `port@1=
+` without a `reg` property.
+--
 
-Preliminary documentation referred to mpu_l2ram_clk, but that clock is
-now mpu_ccu_clk and is already represented by AGILEX_MPU_CCU_CLK.
-Keep AGILEX_MPU_L2RAM_CLK as a legacy ABI-preserved ID (do not use in
-new DTs) and mark clock ID 42 as reserved/unused so it is not reused,
-keeping all existing clock IDs stable for DT ABI compatibility.
+--- Patch [3]: [PATCH v5 3/5] arm64: dts: imx8mp-skov-revc: convert to over=
+lays ---
+commit 3f7282529fd194eae3895a434d1dbbf37a64e617
+Author: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 
-Fixes: 6b3c59780ed3 ("dt-bindings: documentation: add clock bindings information for Agilex")
-Cc: stable@vger.kernel.org # 5.8+
-Signed-off-by: Genevieve Chan <genevieve.chan@altera.com>
----
- include/dt-bindings/clock/agilex-clock.h | 2 ++
- 1 file changed, 2 insertions(+)
+arm64: dts: imx8mp-skov-revc: convert to overlays
 
-diff --git a/include/dt-bindings/clock/agilex-clock.h b/include/dt-bindings/clock/agilex-clock.h
-index 06feca07e08e..de7a58a06651 100644
---- a/include/dt-bindings/clock/agilex-clock.h
-+++ b/include/dt-bindings/clock/agilex-clock.h
-@@ -44,6 +44,7 @@
- 
- /* Gate clocks */
- #define AGILEX_MPU_CLK			30
-+/* Legacy ABI ID; do not use in new DTs, use AGILEX_MPU_CCU_CLK */
- #define AGILEX_MPU_L2RAM_CLK		31
- #define AGILEX_MPU_PERIPH_CLK		32
- #define AGILEX_L4_MAIN_CLK		33
-@@ -55,6 +56,7 @@
- #define AGILEX_CS_TIMER_CLK		39
- #define AGILEX_S2F_USER0_CLK		40
- #define AGILEX_EMAC0_CLK		41
-+/* 42 - reserved/unused */
- #define AGILEX_EMAC1_CLK		43
- #define AGILEX_EMAC2_CLK		44
- #define AGILEX_EMAC_PTP_CLK		45
--- 
-2.43.7
+The i.MX8MP Skov RevC jutouch 10" and Tian 7" variants are similar.
+This commit moves the common bindings to imx8mp-skov-revc-touch.dts and
+converts both variants to use overlays.
 
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt101=
+tm023.dtso b/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt101tm=
+023.dtso
+> index 3e320d6dea3a2..b50960879e82d 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt101tm023.d=
+ts
+> +++ b/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt101tm023.d=
+tso
+[ ... ]
+> @@ -42,38 +40,20 @@ touchscreen@2a {
+>  	};
+>  };
+> =20
+> -&lcdif2 {
+> -	status =3D "okay";
+> -};
+> -
+
+[Severity: High]
+Does removing the &lcdif2 node here leave the display controller disabled?
+Because this node was not moved to the common imx8mp-skov-revc-touch.dts
+base tree, it appears the controller might remain disabled as defined in
+the SoC base imx8mp.dtsi, which could break display output for this variant.
+
+>  &lvds_bridge {
+> -	assigned-clocks =3D <&clk IMX8MP_CLK_MEDIA_LDB>,
+> -				 <&clk IMX8MP_VIDEO_PLL1>;
+> -	assigned-clock-parents =3D <&clk IMX8MP_VIDEO_PLL1_OUT>;
+>  	/* IMX8MP_VIDEO_PLL1 =3D IMX8MP_CLK_MEDIA_DISP2_PIX * 7 */
+>  	assigned-clock-rates =3D <0>, <506800000>;
+> -	status =3D "okay";
+> =20
+>  	ports {
+[ ... ]
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-tian-g07017.d=
+tso b/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-tian-g07017.dtso
+> index 9a562c011f2c2..4f37723dbe8a1 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-tian-g07017.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-tian-g07017.dtso
+> @@ -1,8 +1,10 @@
+>  // SPDX-License-Identifier: (GPL-2.0 OR MIT)
+> =20
+>  /dts-v1/;
+> +/plugin/;
+> =20
+> -#include "imx8mp-skov-reva.dtsi"
+> +#include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/interrupt-controller/irq.h>
+> =20
+>  / {
+>  	model =3D "SKOV IMX8MP CPU revC - TIAN G07017";
+
+[Severity: High]
+Does this correctly target the base tree's root? In an overlay, using
+/ { ... } defines the root node of the overlay DTB itself rather than
+creating a fragment targeting the base tree. Should this use &{/} {
+like the jutouch variant so properties like the model and the panel node
+are properly merged into the base device tree?
+
+> @@ -21,13 +23,9 @@ in_lvds0: endpoint {
+>  	};
+>  };
+> =20
+[ ... ]
+> @@ -45,16 +43,14 @@ touchscreen@38 {
+>  };
+> =20
+>  &lcdif2 {
+> +	#address-cells =3D <1>;
+> +	#size-cells =3D <0>;
+
+[Severity: Medium]
+Were these properties intended for the &lvds_bridge/ports node instead?
+Adding them to &lcdif2 when there are no unit-addressed children seems
+incorrect.
+
+>  	status =3D "okay";
+>  };
+> =20
+>  &lvds_bridge {
+> -	assigned-clocks =3D <&clk IMX8MP_CLK_MEDIA_LDB>,
+> -				 <&clk IMX8MP_VIDEO_PLL1>;
+> -	assigned-clock-parents =3D <&clk IMX8MP_VIDEO_PLL1_OUT>;
+>  	/* IMX8MP_VIDEO_PLL1 =3D IMX8MP_CLK_MEDIA_DISP2_PIX * 2 * 7 */
+>  	assigned-clock-rates =3D <0>, <358400000>;
+> -	status =3D "okay";
+> =20
+>  	ports {
+>  		port@1 {
+
+[Severity: Medium]
+Does port@1 need a reg =3D <1> property? Without the #address-cells and
+#size-cells on the ports node and the reg property here, this can cause
+dtc warnings and might fail parsing by the display drivers.
+
+> @@ -64,18 +60,3 @@ ldb_lvds_ch0: endpoint {
+>  		};
+>  	};
+>  };
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727-v7-0-topic=
+-imx8mp-skov-dts-jutouch-7inch-v5-0-67faa5ee0bf6@pengutronix.de?part=3D3
