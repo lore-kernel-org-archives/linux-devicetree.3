@@ -1,88 +1,86 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DDAF3D331E;
-	Mon, 27 Jul 2026 20:42:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8009042B728;
+	Mon, 27 Jul 2026 20:42:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785184962; cv=none; b=dDN8AeLXvzEG63myx2WinASwZ3vpgwGeNXAzDwmGMA8/Zo3VirafHUtQBkr/VMOpLnlw0yLwQhsbSLOnP0vgholnCHq895igcoeGP8LPGaLWa1rDBLdEi0HIIStScjNAlcORRhpLdtxzDh3SjitQtUyV1HWKBtdMaQrCl8MiXfY=
+	t=1785184973; cv=none; b=mD28x9sY57POnE9z7kZsfWl16PMM0fAVhIN0QhEF3y5iTL5BfSBr/eR4MD1Yq7HmbYD8tGl7eAF2Yt7IM1N11HzC37iFUg7mLIPvystNLECU/27jRr1FI7hUEDMNG6qYL9uTDNWp8cnWI5S7irDv7zkTG+dU1G6vbk4VWtvLaSY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785184962; c=relaxed/simple;
-	bh=YG74S2z//JuAeofKpAxMQxJEGDj9w72H+xDHPpUE44E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ghSpcFZWQEZY1Z90CdAlcFJs/Muq9Atj1K2b78khDZnzgHx463rZJJy0QVppyzoF00q3Q9rfX2PfyKblMoDICpS3kd+QmZ5Ol5d7CypEkk71P8oyyVpmhEll/60NB/b+oDkRldjFbc24zeKuihYDRxiQ2Gp28qJEG/5uO1Rr57E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ReHLQb+t; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ReHLQb+t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 311BE1F000E9;
-	Mon, 27 Jul 2026 20:42:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785184961;
-	bh=IxZYhRoqemN3/PXznozCuAsbksxqgixe/3D8d9pTlaQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ReHLQb+tPn5sxscrJNPGhOb74GZKP5C/ZxC5RiFy7i5TDUPwqCfGZlgKiGd27TJYC
-	 lSCezZYLcNhnDsylGnf6QBo2WjpOJ2nQvpdXMrdC16zAdQaQMZ5+CnhL8eekWvg1Om
-	 Y/cYN8YL3/EuTGsvldLfbK/WUoEmPUiNAXTAutUz6I5iLwLPWA/ICJVg0hoXWdw/by
-	 HO7lh3xCpZp0oEcygADTXVehJb+DMtduTuIZbT0EfR7bjrTBk5kYfsWCBvwjucijJC
-	 G4OaCZM+hh2b1HX23cLsQ5fz7nyJZlPdjCaA9YaHENsb4ABuy00QnQipZD8rJikXUZ
-	 VjMgNmZJSRZVA==
-Date: Mon, 27 Jul 2026 22:42:36 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Jun Nie <jun.nie@linaro.org>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
-	Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Simona Vetter <simona@ffwll.ch>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	David Airlie <airlied@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Conor Dooley <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	linux-kernel@vger.kernel.org, Dmitry Baryshkov <lumag@kernel.org>, 
-	Maxime Ripard <mripard@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	Marijn Suijten <marijn.suijten@somainline.org>, Rob Clark <robin.clark@oss.qualcomm.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>
-Subject: Re: [PATCH v5 5/6] dt-bindings: display: Add Synaptics R63455 panel
- support
-Message-ID: <20260727-married-nifty-dalmatian-dfbe04@quoll>
-References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
- <20260727-sm8650-7-1-bonded-dsi-v5-5-c042266b9eeb@linaro.org>
- <178514563985.1199273.4525119457881224571.robh@kernel.org>
+	s=arc-20240116; t=1785184973; c=relaxed/simple;
+	bh=CnZw60aN40UE7gn1aCrL/l/UUpPdhORKebRsWJFJq7I=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=k/J58dK4+ukVGv8tIMy7WaEHaG7etQFdtf5qNLtFOZVlziGUs+YLaLKr5R0WS0mYnCN1eDgTvDcdLs7HCGojERMeozcvy4hf4f2ig/lj3QkZk3CUhhVAJUK5il4UwPsUyOvxI79lW1Tc+1wPOOS93vbMi0h4OGwJjmLIJjHbVas=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4BC61F000E9;
+	Mon, 27 Jul 2026 20:42:51 +0000 (UTC)
+Received: by venus (Postfix, from userid 1000)
+	id AEFDC18090B; Mon, 27 Jul 2026 22:42:49 +0200 (CEST)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Sebastian Reichel <sre@kernel.org>, 
+ Vincent Cloutier <vincent.cloutier@icloud.com>
+Cc: Hans de Goede <hansg@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>, 
+ Purism Kernel Team <kernel@puri.sm>, Rob Herring <robh@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, linux-pm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Vincent Cloutier <vincent@cloutier.co>
+In-Reply-To: <20260727011319.621794-1-vincent.cloutier@icloud.com>
+References: <20260727011319.621794-1-vincent.cloutier@icloud.com>
+Subject: Re: [PATCH v4 00/11] power: supply: initialize MAX17055 from
+ battery info
+Message-Id: <178518496968.34440.14212828403765826609.b4-ty@collabora.com>
+Date: Mon, 27 Jul 2026 22:42:49 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <178514563985.1199273.4525119457881224571.robh@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
 
-On Mon, Jul 27, 2026 at 04:47:19AM -0500, Rob Herring (Arm) wrote:
-> 
-> On Mon, 27 Jul 2026 16:08:44 +0800, Jun Nie wrote:
-> > Add support for the dual-panel system found in the virtual reality device.
-> > This system consists of two physical 2160x2160 panels, each connected via
-> > a MIPI DSI interface. The backlight is managed through DSI link.
-> > 
-> > Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> > ---
-> >  .../bindings/display/panel/synaptics,r63455.yaml   | 133 +++++++++++++++++++++
-> >  1 file changed, 133 insertions(+)
-> > 
-> 
-> My bot found errors running 'make dt_binding_check' on your patch:
-> 
-> yamllint warnings/errors:
-> ./Documentation/devicetree/bindings/display/panel/synaptics,r63455.yaml:26:9: [warning] wrong indentation: expected 10 but found 8 (indentation)
-> 
-> dtschema/dtc warnings/errors:
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/panel/synaptics,r63455.yaml: properties:ports: 'anyOf' conditional failed, one must be fixed:
-> 	'type' is a required property
-> 	'$ref' is a required property
-> 	hint: node schemas must have a type or $ref
-> 	from schema $id: http://devicetree.org/meta-schemas/core.yaml
 
-Seems nothing here was build-tested :/
+On Sun, 26 Jul 2026 21:12:58 -0400, Vincent Cloutier wrote:
+> From: Vincent Cloutier <vincent@cloutier.co>
+> 
+> Hi,
+> 
+> This is the remaining unmerged tail of the MAX17042/MAX17055 v1 series.
+> Six v1 patches are upstream, and the v1 cleanup patch is covered by
+> 699f0f71ac98. This revision retains the requested registration callback
+> architecture and splits the MAX17055 driver work into smaller steps.
+> 
+> [...]
+
+Applied, thanks!
+
+[01/11] power: supply: Add registration init callback
+        commit: c1eb5905fdce35a66173658a93819641e5220c18
+[02/11] power: supply: max17042_battery: Separate MAX17055 initialization
+        commit: f05e30fd2ffd962e6f30dc0abd528b4182ecdf4b
+[03/11] power: supply: max17042_battery: Use bool for init_complete
+        commit: e8e7cdd9ce46a763e5428e2673e90c6a5f91f6d8
+[04/11] power: supply: max17042_battery: Convert initialization to delayed work
+        commit: 01da1f4a6373f8d6a5a2d5d5adc256431087ccc4
+[05/11] power: supply: max17042_battery: Propagate status register errors
+        commit: 98d02b5128833c3d812e62a2616f33f1524c8394
+[06/11] power: supply: max17042_battery: Retry failed MAX17055 initialization
+        commit: fc9ff915b1fb6f6f826953d1bef3087d7a489d65
+[07/11] power: supply: max17042_battery: Program MAX17055 EZ Config values
+        commit: 6f384023851d67bd242bf40e5a91328eb92edb5d
+[08/11] power: supply: max17042_battery: Follow MAX17055 POR sequence
+        commit: 111a2d606a493c3b2f03864ea34a29df3a9e7c06
+[09/11] power: supply: max17042_battery: Initialize MAX17055 from battery info
+        commit: ed2b9b4b9694239f9a39f3e5087d879f5e37e315
+[10/11] power: supply: max17042_battery: Honor MAX17055 charge voltage
+        commit: 6a376b843d937d2330b0111404b62589236620c1
+[11/11] dt-bindings: power: supply: max17042: Allow generic power-supply properties
+        commit: c84ccde22d9d3070a9ee144e825270a7a784c570
 
 Best regards,
-Krzysztof
+-- 
+Sebastian Reichel <sebastian.reichel@collabora.com>
 
