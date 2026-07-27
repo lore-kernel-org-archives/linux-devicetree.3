@@ -1,61 +1,63 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA54B3E1713
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 08:20:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62C1E3D79E2
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 08:20:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785140405; cv=none; b=WBFMYzpJjMEBH/ROha7ymMWW8tfOWzjd2bphQhiWG/ErkMt56zHZk3X2VGE8dx9R2XMpQ9H9xO0rUhJXeQgGl+6WtNYP7Z1Hc7rYgiflD9qHuXVgFJa6mPTNad5L7EF8JQlkPLvYIvftFJ7TQoF42MxN/tfp7WOE0gmCabS5beE=
+	t=1785140407; cv=none; b=paYO1qzCBYvpiF/y0UTGtnLxdr5fKU3/3hjSYsW8xLi2Css4o8HyO5un46705FviAEW/5l6FIXAs2BqZDV0a0+/M79MNPHAu1nqTVs6MhA+kjQrbB6QnP5EJEPh/yan01My+OHZYaGSF/N3a6sY+sG4zRHd+I2SKYSQLBq2Z8ko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785140405; c=relaxed/simple;
-	bh=NeWTLH60XPDWK5+mw5xbUbJfajTDDxDNPLX2UcUzbVs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=P9eHcNX2krVW7rHA8V+3E/QYWBi+UkW5vUCt1IHY2TThK2NHpc4wzFrhamJQrX3ENDdi1We3xWvhR/aT3PaCg+QnRvKRb5I2JzsXGF7g3FeMwrRMkVnJhpqIpzFzSOAqcyUbTJUODWK6uf+sZN3uYxXkkBMftvBbyjeCcp8ua4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I4TpMLot; arc=none smtp.client-ip=209.85.214.172
+	s=arc-20240116; t=1785140407; c=relaxed/simple;
+	bh=O8MDKZM6orbok+3kIkwxaUSh/e4nFOYJeY8hZUI/E60=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=lMvu3VkA5uQI5Bf40zecjLgrrw0p0eMSQKzPAM7fs3y1eCHOWUiJpmkezaxe7os/fZc94+0jp47NFxOF8u4kdHkIzaBiFY81+L6TNtzLvJ7VFBjxLIixIarFpo8bCcGnwuc6BsViwVBRlHVcEbzoQTLJjSdcYnjmFLkp3chdAlI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jf80d+3x; arc=none smtp.client-ip=209.85.216.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I4TpMLot"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2cc891373e0so24007295ad.2
-        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 01:20:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jf80d+3x"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-38dc69c74b8so2009993a91.0
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 01:20:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785140403; x=1785745203; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qPnz/v80LXwYp0PVxXjwmAK2BJ3kZ1bk+zxjufazDlY=;
-        b=I4TpMLotyMJuWXlbKpE7UMQwdk2ppN2R86fTlwJwF5cVlgCqpSS1WM189d8VgLVXTK
-         KP8G3pIJhpVIlOgxiciPJxN6i6DTKXhs81WpAuO6RQyNcLAU8kSU6891N0O4xoZcxJ4Y
-         sngWrnYEnsfgfZJyy8dZkmPO3sq5x0IETi/+8sQlDrI2o1Qw85oGvC3bMfPt85ik9D9p
-         2VwicxqJIUoC0pzlmW6zs5G1NHi6Ff23DgYPZo22oEsl9s9ReuTB5Ro8h1PFe2iVmU75
-         ss5gVBtqsIlstIcRMmfMIf68DdHmGe6UxnTVczGMGrFJFT6/5wLM3aDAP9klSPTr8R57
-         D6iQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785140403; x=1785745203;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1785140406; x=1785745206; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qPnz/v80LXwYp0PVxXjwmAK2BJ3kZ1bk+zxjufazDlY=;
-        b=rwFl/DiMGZxywlbPr9e8OkbLKykKQNEFjIjmgYAXdSjIbF5w1x4i2gqBurZVQKO6FK
-         ONgWcJ4o0d04+CRCBUEpWxOD+YZDM3kOgIbbTOxYjFjFleTMtKM6X58uoL4KLz3dNBbc
-         8cPVK53nC2joYplHUOxXhVdV5ShDQ5n6G6BOeLx4pw99azrL7wC9BEPjXpalRfey2mLs
-         WXf3UhnPvCA4KXHuHPbJJ2jtsskVbcLWKCHqw/5yQB00nDX+Zcvqg9LWHgEjpA8ziGoz
-         uzfX68uFGbXDjWvADoD68WURvF5kT9FVy3veNdiiG3JSaiSM6/F0UXfqpHZkwNP2GmmM
-         KWmA==
-X-Forwarded-Encrypted: i=1; AHgh+RpKHE4scNClZ04yS5Gw2vJWaliPwksJ5iEPLklw9HdtvjAJtn1HG+mH1q70uq5OUOB//5IfCCBYBTI8@vger.kernel.org
-X-Gm-Message-State: AOJu0YxgHuauRnL2mBi9llmEdpmdYFtIGamEAUxTBOl2RPW0KyGNpVhE
-	/TvXcHzGQJ/3Wz+WIwnVR2p5uAlM6W/JaaZEXjzGgSJNU25xervoSd2j
-X-Gm-Gg: AR+sD11Hn6kS30wW9XBSjoYF3XmZnMkqkHjd1R0U91t8759c+wTGcI1X8AR5caqjqfb
-	ItSFqzMEbxEiz93zm3yi7KmNhc6gPvnKTHMMitc1yr6stdv0sZDko49bC3ACn9UzfZKvhV+jx5Z
-	gjpI2Bb5Vy7fr3NH7s8uP3NwiNDTK+MtXkHc8rymImtKACzJ3h8jRN2t8rCWzCMv0nzRecWt1NS
-	HQBe555XZtN9Em/HLy3iYIRO0nSUVjH/A1VOUxCXMWbeGu6/YYo6huVBW6ThiWc3GYKX5rpWhFx
-	ikUzdKM0VJiCHnaE+lYh65zbW6WmSNC4jKYUCxFoPhPIiBAzZpRJSi6xKe0m4bZAV9V64wtdnE/
-	M0IIf1ZD4t1aLCX14qSlEFVhY/0IZBjhveQeK+6Gep91zUFsvOfeP+i+x5O2pMOr8U7njefCmKw
-	9zK6gLeCSBa0VzaosGf4qo8BIiV5KZBwpiAy5geWl+V1PDBw7rKDQb3sv166Qr
-X-Received: by 2002:a17:90b:268b:b0:38d:eaec:4396 with SMTP id 98e67ed59e1d1-38f293caf01mr7455177a91.11.1785140402768;
-        Mon, 27 Jul 2026 01:20:02 -0700 (PDT)
+        bh=W2FqaMzaGINgzjJOw7zufrrcqxjVM6pp3g9UOy5lEX8=;
+        b=jf80d+3x2edMcu1gqTiRf+D8mFjsPH16yL7qnVs429bWAuVpNuMqKRBw3vKSDru1Ur
+         7BH6SwYatW9qjOvo3nIQBZ/ZFIIIhAF1gJNFk12uITdivuCbyB2Fb7eIfhWDwp/VDWwt
+         4ub13CJo+4ul40L254hDw48/2rgNQNXoRWdyxREAqeAyqeJA5ABZeKBqWLScTuucybAw
+         f+Rr05ENAQ5KZRuorf6h9MLj3SJ6Srw0Ht7tv+XZ33vcQGs19Z10owMXc2X/iJfuTpem
+         N/822fO6bQSGEU9gKu8smMbxCaU1+qjy8UXyT4WOfuDQwHWsoc5IRX9AeGjH9ly/G+tx
+         Lzjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785140406; x=1785745206;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=W2FqaMzaGINgzjJOw7zufrrcqxjVM6pp3g9UOy5lEX8=;
+        b=N8+5Dp6eB5M1zmzLVXoADCUsrVR+vly0DX8PS+Q3VipHIU0mS0y0PRywnw77z7+ieX
+         UdW8BpTXY5Ze5xPdNQN8uSVKzPVwFcIL2l4f+Qt4wBjaK4VrC+ZfrvaonMcR4iIHXXJX
+         0nbjs2+dHBsu4Z1vFnv0aBKB3cPoN/sT709j2ecGmW3tGcM91hB/L6c8v76QUUO8Bccx
+         TWXkyUJyxhr4voaOsLu0CCe8kKNpfXjwqpnlrXoWh+LcCxx7fYb2zVpnKjcmm034WyyN
+         hSBlQMUSBMwZpkiscd6/LrK0spWBhqDM4nNmbO6AoJ8bIcFVjgC3fhcgCeDwZLEJd+tv
+         BU6A==
+X-Forwarded-Encrypted: i=1; AHgh+RpX+98xiwKAymOPR22JiXksRR55+EVm1cn8brPBpeaMeFNoWxISsw66fsv5+BG3fhxgLyjOIpc7osG3@vger.kernel.org
+X-Gm-Message-State: AOJu0YzhqvBlf+iqjxEtizoYwxtHEv5ariNgegZL9OyYI0DSox8YyyC5
+	WKZcyhVZ0weE5JEMRmMDFdmdyW2EORaWakpqk7n7eG0UGd151ojLYSI1
+X-Gm-Gg: AR+sD12MXuIAXOd+QZ01siR0dtX0hMnazh28A6jKbI7f9zj0M1q6PqC8KuSr1P32Bvo
+	NygBbk1ZV9rLJ0oA6ibP+u8qgajNtO/XYfpU7x7Jm5FuCrxUF2ACI3TzCSJbYf/C/dRo/9s5LCX
+	I1CaRmjJjHspFN+pXSVH7t++e3Ch4DsElYwn4vGld56BbZlrDRmFMlb+r+E1SL6buV1k3KDCrhW
+	4H7SZPyYiG1asS5WkfWB0IrHccqN5mQB3VL9jIvNz3N/fnLe/8nf6CoX94sYHE49L3p+C/ucZZi
+	UpEWjX+rp6RXEXWdt/xp9of27/RvNXuz/ZVnW0Bwf48+0hqejN+gSC8vvmjlTSeW2WIfXyXwl85
+	x5sLQrgmckwITKRmBSwced8/IxBF6gLGMDH0NevzsrhxuBFwWLLE372QIbKdwasZcxmvfVO3jy+
+	FCgUs8eXCy1crtn2hDhs0Z2Y7BkkPaddpS+YI/uayZ0W2HbCML+1/XDfO6zEnd
+X-Received: by 2002:a17:90b:5586:b0:38e:e9b:ffa7 with SMTP id 98e67ed59e1d1-38f295bd716mr7559866a91.28.1785140405661;
+        Mon, 27 Jul 2026 01:20:05 -0700 (PDT)
 Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f292aed12sm2629156a91.4.2026.07.27.01.20.00
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f292aed12sm2629156a91.4.2026.07.27.01.20.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jul 2026 01:20:02 -0700 (PDT)
+        Mon, 27 Jul 2026 01:20:05 -0700 (PDT)
 From: Zi-Yu Chen <zychennvt@gmail.com>
 To: Andi Shyti <andi.shyti@kernel.org>,
 	linux-i2c@vger.kernel.org,
@@ -68,11 +70,14 @@ Cc: Jacky Huang <ychuang3@nuvoton.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Philipp Zabel <p.zabel@pengutronix.de>,
-	Zi-Yu Chen <zychennvt@gmail.com>
-Subject: [PATCH v7 0/3] i2c: ma35d1: Add support for MA35D1 I2C controller
-Date: Mon, 27 Jul 2026 16:18:56 +0800
-Message-Id: <20260727081859.1737223-1-zychennvt@gmail.com>
+	Zi-Yu Chen <zychennvt@gmail.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v7 1/3] dt-bindings: i2c: nuvoton,ma35d1-i2c: Add MA35D1 I2C controller
+Date: Mon, 27 Jul 2026 16:18:57 +0800
+Message-Id: <20260727081859.1737223-2-zychennvt@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260727081859.1737223-1-zychennvt@gmail.com>
+References: <20260727081859.1737223-1-zychennvt@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -81,99 +86,85 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series adds support for the I2C controller found in the Nuvoton
-MA35D1 SoC. The driver supports controller and optional target mode
-and runtime power management.
+Add device tree binding documentation for the I2C controller
+found in the Nuvoton MA35D1 SoC.
 
-The implementation has been tested on the Nuvoton MA35D1 SOM board.
-
-Changes in v7:
-	- Disable IRQ before clearing i2c->msg.
-	- Support	CONFIG_PM=n, and simplify runtime PM setup accordingly.
-	- Remove redundant register access in runtime suspend/resume callbacks.
-	- Defer clearing i2c->target until after pm_runtime_put_sync() in ma35d1_unreg_target().
-	- Enable interrupts alongside I2C enable in ma35d1_i2c_reset().
-  v6: https://lore.kernel.org/r/20260720030616.1067660-1-zychennvt@gmail.com/
-Changes in v6:
-  - Patch 2 (driver):
-		- Removed dynamic IRQ toggling helpers for simpler interrupt management.
-		Address review feedback:
-		- Added zero-length read quirk.
-		- Set i2c->msg to NULL on timeout to avoid use-after-free.
-		- Cleared hardware registers on target unregistration to release the bus.
-		- Protected suspend-path register writes with a spinlock.
-		- Validated clock-frequency to prevent division-by-zero.
-		- Removed incorrect I2C_M_IGNORE_NAK handling.
-		- Corrected a comment typo in the receive data path.		
-  - Patch 3 (dts):
-    - use a generic functional name audio-codec@1a
-  v5: https://lore.kernel.org/r/20260630012106.3616821-1-zychennvt@gmail.com/
-
-Changes in v5:
-  - Patch 2 (driver):
-    - Add spinlock protection for MA35_CTL0 register access.
-    - Add NULL pointer check for i2c->msg in the ISR.
-    - Use devres-managed cleanup (devm_add_action_or_reset) for runtime PM.
-    - Use pm_runtime_force_suspend/resume() for Controller mode 
-      system sleep.
-    - Control I2CEN bit enabling/disabling via runtime PM.
-    - Refactor arbitration lost handling in state machines.
-    - Remove unsupported I2C_FUNC_PROTOCOL_MANGLING flag.
-    - Clean up readl_poll_timeout() parameters, retry loop, and
-      unused macros.
-  v4: https://lore.kernel.org/r/20260610030208.2020275-1-zychennvt@gmail.com/
-
-Changes in v4:
-  - Patch 1 (dt-bindings):
-    - Update example interrupt number.
-  - Patch 2 (driver):
-    - Remove redundant spinlocks and fix 'irq' type to signed.
-    - Fix target address recovery in ma35d1_i2c_reset().
-    - Refactor IRQ handler for multi-msg reads and NACK/IGNORE_NAK.
-    - Fix timeout UAF via explicit IRQ disabling during recovery.
-    - Drop IRQF_SHARED and fix PM paths in probe/unregistration.
-    - Limit suspend/resume wakeup logic to target mode only.
-  - Patch 3 (dts):
-    - Add missing i2c0 node to dtsi.
-    - Switch SoM configuration from i2c1 to i2c2 with updated pinctrl.
-    - Add nau8822 audio codec node under i2c2 on the SoM board.
-    - Drop redundant i2c0 alias and clean up dtsi property ordering.
-  v3: https://lore.kernel.org/r/20260512073953.564323-1-zychennvt@gmail.com/
-
-Changes in v3:
-  - Fix minor DTS formatting issues (whitespace, missing newline)  
-  v2: https://lore.kernel.org/r/20260316063726.41048-1-zychennvt@gmail.com
-
-Changes in v2:
-  - Overall:
-    - Rebase on linux-i2c/i2c-next
-    - Switched terminology from "master/slave" to "controller/target".  
-  - Patch 1 (dt-bindings):
-    - Simplified description and fixed 'reg' size in example.
-  - Patch 2 (driver):
-    - Modernized using devm_*, generic device properties, and FIELD_PREP/GENMASK.
-    - Optimized power management by moving clock control to runtime PM.
-    - Simplified code by removing redundant .remove(), .owner, and inlines.
-    - Added dev_err_probe() and default bus frequency handling.
-  - Patch 3 (dts):
-    - Moved i2c aliases to board dts and reordered nodes alphabetically.
-  v1: https://lore.kernel.org/r/20260302020822.13936-1-zychennvt@gmail.com
-
-Zi-Yu Chen (3):
-  dt-bindings: i2c: nuvoton,ma35d1-i2c: Add MA35D1 I2C controller
-  i2c: ma35d1: Add Nuvoton MA35D1 I2C driver support
-  arm64: dts: nuvoton: Add I2C nodes for MA35D1 SoC
-
- .../bindings/i2c/nuvoton,ma35d1-i2c.yaml      |  63 ++
- .../boot/dts/nuvoton/ma35d1-som-256m.dts      |  20 +
- arch/arm64/boot/dts/nuvoton/ma35d1.dtsi       |  72 ++
- drivers/i2c/busses/Kconfig                    |  13 +
- drivers/i2c/busses/Makefile                   |   1 +
- drivers/i2c/busses/i2c-ma35d1.c               | 759 ++++++++++++++++++
- 6 files changed, 928 insertions(+)
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Zi-Yu Chen <zychennvt@gmail.com>
+---
+ .../bindings/i2c/nuvoton,ma35d1-i2c.yaml      | 63 +++++++++++++++++++
+ 1 file changed, 63 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/i2c/nuvoton,ma35d1-i2c.yaml
- create mode 100644 drivers/i2c/busses/i2c-ma35d1.c
 
+diff --git a/Documentation/devicetree/bindings/i2c/nuvoton,ma35d1-i2c.yaml b/Documentation/devicetree/bindings/i2c/nuvoton,ma35d1-i2c.yaml
+new file mode 100644
+index 000000000000..0713e1c1ecb8
+--- /dev/null
++++ b/Documentation/devicetree/bindings/i2c/nuvoton,ma35d1-i2c.yaml
+@@ -0,0 +1,63 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/i2c/nuvoton,ma35d1-i2c.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Nuvoton MA35D1 I2C Controller
++
++maintainers:
++  - Zi-Yu Chen <zychennvt@gmail.com>
++
++description:
++  The Nuvoton MA35D1 I2C controller supports controller and optional target mode.
++
++allOf:
++  - $ref: /schemas/i2c/i2c-controller.yaml#
++
++properties:
++  compatible:
++    const: nuvoton,ma35d1-i2c
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  clock-frequency:
++    description:
++      Desired I2C bus clock frequency in Hz. The absence of this property
++      indicates the default frequency 100 kHz.
++
++  resets:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - resets
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
++    #include <dt-bindings/reset/nuvoton,ma35d1-reset.h>
++
++    i2c0: i2c@40800000 {
++      compatible = "nuvoton,ma35d1-i2c";
++      reg = <0x40800000 0x1000>;
++      interrupts = <GIC_SPI 13 IRQ_TYPE_LEVEL_HIGH>;
++      clocks = <&clk I2C0_GATE>;
++      clock-frequency = <100000>;
++      resets = <&sys MA35D1_RESET_I2C0>;
++      #address-cells = <1>;
++      #size-cells = <0>;
++    };
 -- 
 2.34.1
 
