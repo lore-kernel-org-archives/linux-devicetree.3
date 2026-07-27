@@ -1,179 +1,145 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 604CC356765
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 15:19:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCE4E3815E8;
+	Mon, 27 Jul 2026 15:24:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.154.119.183
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785165562; cv=none; b=lq2atKqujAh5yg5+89luVieg7vgUzmHaxe1fyuupqw9bhlXIxcOPWkVZ+3lxvQTw1cf934Mm+j5npeNHJWMqLxADOzBJT2lOHBtIsEKFNS0B1jQ3bKPVkQJknvS/yBol45571yrQu9HCLS2JWDupmJSftONGkdRs21AKFPm8poI=
+	t=1785165893; cv=none; b=RN5PLACqZdVbtQaKlRE4PvOxzZ9gUH9U01POcGLcZljUav6ACLei3W9cGFKFVnFj5QHJMP1+9sakqrXNxPquShzOr/Ey9/2gn4bkUfbVf9+2vi203hUNMon8XS/IffLRmaxqc4cdMNBzZ/tzn7nX9Wc6e2j6rKH8HCGaCKg02Mg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785165562; c=relaxed/simple;
-	bh=osMTHnsGznPzOgq2+7JWanAZThHaeW5dVV+gMpQPPZo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tBQuVmdVm/kQLJaqdoSCLn/IVVPIbY1cRfQUvsLi2JE954CH6mV5XCuYj3UNmnBNWUfgpWEgrCZEEwYwTXjLn3NgCZSL0z6/8JUjX2YWDSZipmnvM8o8SEcqd8kH8BP/qd/dtee1vmd47itbP1ordD+MXC+b26YesR7SRUThYeo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lQJqCtDf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=J3T5ZOOy; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785165893; c=relaxed/simple;
+	bh=FJpOlBy2S/XoBZDiGh6c9vnD4PM+zA7zeXI+r4BVUPQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Oc/renG/CgiPfj0Px/cuqOTFxMxi9ApIO/PalNd3q123dVibNVfjsg5N61LHUfgbUrr3O0+DVqJOnHwYLwOV/5ajzUC/n92vHv+OiQfaOh5BwAbHgEyx7MJd3FDbkoWug7M4phtS9n0M2gZGFqw18c4nk94HK2FOgrPOHpEC7Bw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net; spf=pass smtp.mailfrom=aurel32.net; dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b=ddq2pVYQ; arc=none smtp.client-ip=195.154.119.183
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lQJqCtDf";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="J3T5ZOOy"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66RDlocU4061373
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 15:19:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	5/Vl312DYfGSYqw8ngN0+bZHTiDTUX1IHF60jNSBHv4=; b=lQJqCtDfjuuRIyX2
-	VpgPFvxqytfvdwDrvWe1EvCGXqfNsxrDxkY8CZugU21HFzNYlNcjWdy5bjkn7y3v
-	2gFPOf03dECQcn5QWvcKsqfgev8tw4SyZaWu6hYE1BlYackOlQEXINvh4uM9calP
-	lB1PneLByRW1oqsbObgdR0pYepoYXZ1PcwHCLasO9NFZ5MmgUyDt3Bs7hRVTl0ph
-	lp6mMXWL0rxdnE/84UDijUeS69JhOEbIvw75KrjaQtPgygRvyDrEHY6uAN3+FyA3
-	NKBWL3Q+Nbhqx1midMrZi0MI+F67FPMs+9+1hPGw6PR8lHmAY2CyVjzQE13NfT4i
-	oSPiRA==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fp4mq1du5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 15:19:19 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-8e934385db1so44542656d6.0
-        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 08:19:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785165559; x=1785770359; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5/Vl312DYfGSYqw8ngN0+bZHTiDTUX1IHF60jNSBHv4=;
-        b=J3T5ZOOySOHUOxNMx//9PPB/u6CSfqNYA3ETKYE/srcuEbF+LCV1YEhxgU51Ujelo7
-         JMfQqBGP5PEmEIF0sfy7vrzzi9CEL+pzmLnrdmDLgSbKsnGYO+CTPCQtA7JujVBhDP+P
-         Ys4lnOSAv+rwtwOHajorCt6QeIKhSYRjKYlrpoVcwmJS+IByzsOz5KGGfJFKt4A1oWU5
-         9OQZ01AOV8omRaH1auGVGHEQD/xjSfS22hSW24dVOgDru8IKEEYeTdMLDcPoR6Od9yGM
-         BFb/HP8NZcmFfgDGCuuEaam9BTKLz9sPmuu8neSMi5DSrNS893VBb8/cHK1rG0RIAjLo
-         FYBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785165559; x=1785770359;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5/Vl312DYfGSYqw8ngN0+bZHTiDTUX1IHF60jNSBHv4=;
-        b=j4ErcEgtUiWGtbGF+bW7/hkwxUROzvnBpjLZ+vlxd+ceSYhHTSP/58evoU2FNunjPj
-         /vf1nGtyWfj3OTkL1CWFfNM6/4uaMsqYYOmd2ri+BeivsZqC0z9iVFd4AqDosk/2iEqN
-         Xh+miJuFyDZmKDxUFrpwPIyPuUtVdJA0K5NGTrqab2Gdnm548+NR2JixFBLw0Z7jbL1U
-         WsVwMUPsCzIucQnr869HqVDN8OeH6QFC3qDlW8jLjldgU+WPTs75QX0oHJrJQhV7TEO4
-         A41saGOaSwNFQdHTKQgwRXSwzJPOsgU67pT6NeXo1H+4BnSMGlTm2n6/rk1zkC23vPeS
-         giKw==
-X-Forwarded-Encrypted: i=1; AHgh+RqDoGH7ny3o6s/Ajg5ZUG3eGtUIUrnlNlMmts9wMhQMGKAXDAOf/Y7NM9O+p9tmzyvFbzZqLkBhu1Qy@vger.kernel.org
-X-Gm-Message-State: AOJu0YysI40ojn4k5jWsaS8/F/YxocYB34aeb+MZDNeDAvIl54KVyRFQ
-	AU+JGkH9LkxBDYCZJqDdHi52p9tA6vWIVklsmO+wxB3Ujv7ywa0jXEtjqjMKq13PcMwQD5ezgtZ
-	qmYAD5seIdbU//SWGPm1Uh1pIbXB/zGockuZ5NvMFyascaPn8RaF35Ejm33SXTpMF
-X-Gm-Gg: AR+sD10zi/ntHrlfu8sPMl+8xAZIh8s/ZVhh2I42EIz4yCJ3DDlzAxA0O2uGVBKUPSN
-	xdbqwUKeyYvutB4ckFR1Q2nosbe3eEBwKj2tQTsxdegKZ6W+8HDBArbzoxm+jIw6cNodshujdsV
-	naX/n10nkaWWVCzdt0Iml5sOYDuMd6dyW6Wt1OQhMEIzJMs7Cj7zL001/dVrCCSDm5KVcMXUyf7
-	M/cyNYGqlSyH0eF4JIIIFTkUwvQPCGoB3qFABuUSt5cj3Y9k+jndMMRiSUK4eF8VBziuZlP4266
-	YkzK2hA7mZp43hzECqvSKhljhdix4gerO3VjNk+RQh1JdYm27/Ry/12qp0TB+JARuCQdiytTeH2
-	y6fhP9MAF4PfbMJjDAXsp0Xlq+YLYCCWvdjntGNmhBSpG7Q==
-X-Received: by 2002:a05:622a:349:b0:51c:7b13:62f8 with SMTP id d75a77b69052e-529cd07102cmr12547601cf.78.1785165559359;
-        Mon, 27 Jul 2026 08:19:19 -0700 (PDT)
-X-Received: by 2002:a05:622a:349:b0:51c:7b13:62f8 with SMTP id d75a77b69052e-529cd07102cmr12547221cf.78.1785165558959;
-        Mon, 27 Jul 2026 08:19:18 -0700 (PDT)
-Received: from [192.168.2.1] (146725694.box.freepro.com. [130.180.211.218])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85bb5127sm46610113f8f.10.2026.07.27.08.19.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 27 Jul 2026 08:19:18 -0700 (PDT)
-Message-ID: <02cd566a-bf10-4d78-bb56-420db140dfc7@oss.qualcomm.com>
-Date: Mon, 27 Jul 2026 17:19:05 +0200
+	dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b="ddq2pVYQ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
+	; s=202004.hall; h=In-Reply-To:Content-Type:MIME-Version:References:
+	Message-ID:Subject:Cc:To:From:Date:Content-Transfer-Encoding:From:Reply-To:
+	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
+	bh=93gQyKs/Loc50T0J0Ycz+Bfql8No0r2Sptp8WTz9pkU=; b=ddq2pVYQC9FeOWffCFBQ5sGKJX
+	T5kZnOZDOP04yCpIfBjoYeGAV1f9C6QYWwdonbdvcds1Q6ADdHgABKrbJ+S+trTG8Tp+vhkTo1ErT
+	TPLx9Gn95sBGPJYc5z5rxeE8W7CkAo1VMt56BH3/kBqkvWthkdnHW6kJI5QmiaZgnsS6cLsnP4eAO
+	UcU3GLz1GxaC1WlxaJxdrnx0IedePVJIXr2qxbcF5QZP77rYwIGB7Vn7Ybdi2FWpEdTR/erJ5ADhd
+	Xh+RyDt1lTpCqZK5Q/vmFLlxUoTMilOvNoeTNYHrpgtu+w+12/RyCa8rUiOFb/TV+Ui1XyWcWHsgP
+	9flGjf0Q==;
+Received: from authenticated user
+	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <aurelien@aurel32.net>)
+	id 1woMpm-0000000HTK4-3XKG;
+	Mon, 27 Jul 2026 17:01:38 +0200
+Date: Mon, 27 Jul 2026 17:01:34 +0200
+From: Aurelien Jarno <aurelien@aurel32.net>
+To: Yixun Lan <dlan@kernel.org>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>,
+	Avri Altman <avri.altman@sandisk.com>,
+	Bart Van Assche <bvanassche@acm.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	Jennifer Berringer <jberring@redhat.com>,
+	linux-scsi@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/3] Add UFS Host driver support for SpacemiT K3 SoC
+Message-ID: <amdyzkFplQqJvMl1@aurel32.net>
+Mail-Followup-To: Yixun Lan <dlan@kernel.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Avri Altman <avri.altman@sandisk.com>,
+	Bart Van Assche <bvanassche@acm.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	Jennifer Berringer <jberring@redhat.com>,
+	linux-scsi@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+References: <20260725-08-k3-ufs-support-v2-0-45036a2a2418@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/2] thermal: qcom: Add Qualcomm SPMI MBG thermal
- monitor support
-To: Sachin Gupta <sachin.gupta@oss.qualcomm.com>, Lee Jones <lee@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        Stephen Boyd <sboyd@kernel.org>, Amit Kucheria <amitk@kernel.org>,
-        Thara Gopinath <thara.gopinath@gmail.com>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, mfd@lists.linux.dev,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-pm@vger.kernel.org,
-        Satya Priya Kakitapalli <quic_skakitap@quicinc.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20260722-spmi-mbg-driver-v3-0-ef73064f2789@oss.qualcomm.com>
-Content-Language: en-US
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-In-Reply-To: <20260722-spmi-mbg-driver-v3-0-ef73064f2789@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI3MDE0NCBTYWx0ZWRfXw+k7Y+7RRBek
- ypGrcAgTGwHRhCXTXewZWAkpY62SzcYUPfex7HBk3WAqHoV69NlwVdX6BJY3FeGwkA75EARXp2T
- 0XVx0BTihKgYH06FY4xXR10G9D3Zf4s=
-X-Proofpoint-ORIG-GUID: C0fY9QuqmNAXjfD3wUi3Unt9CV5Ex_37
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI3MDE0NCBTYWx0ZWRfX18dr5W3TIHfa
- f3mifnEz6SC5f2ufrbqsvAXw+rd3Ich4XFF6cRpOs0WvkHesVYj86FQ1h9L3dW9RoRTuTiDCARv
- a6zvKa/dcoKhsMFD7VBIEjBqlgr0OO6rPV9lrU8ajn6gfVBBz4S98gRIRwqjf7JrNU/ofvrzCrn
- mOmkW/k7edRpDILkSGMja+X2tsNB1gMoGReDI2lTW5UqrxEiTgOmJcocDwRNpRAWbChYjWlTR0n
- ud/v6lGz1k2QbLoNF7MeJNh0Q3IqgT5xz1NVY2kclxZXMrH+qoY8PunKZgJsOj01uiM2XJDc4OM
- VcWCmV7FtUScwavza4z/6beofHO9+ZpAkQ/TNmbwNZfnsiW+ZWQv1WK+7cciZmKHc+okSXSS77y
- F+VYY525ziy5lfTcZ/5eObtHyzGZ9CoT7C/lGNqMG5l8NQXaeM6HR6wCERxCAYjez2rclu21AQA
- bXBT3NDKGANlgC5v9TQ==
-X-Proofpoint-GUID: C0fY9QuqmNAXjfD3wUi3Unt9CV5Ex_37
-X-Authority-Analysis: v=2.4 cv=TemmcxQh c=1 sm=1 tr=0 ts=6a6776f7 cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=uw/3876vWhRnNVL35W6mqQ==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=VwQbUJbxAAAA:8 a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=COk6AnOGAAAA:8
- a=U97uXkcDBxVafT4DzxoA:9 a=QEXdDO2ut3YA:10 a=OIgjcC2v60KrkQgK7BGD:22
- a=FO4_E8m0qiDe52t0p3_H:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-27_04,2026-07-24_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 clxscore=1015 impostorscore=0 adultscore=0 suspectscore=0
- lowpriorityscore=0 malwarescore=0 phishscore=0 spamscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607270144
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260725-08-k3-ufs-support-v2-0-45036a2a2418@kernel.org>
+User-Agent: Mutt/2.2.13 (2024-03-09)
 
-On 7/22/26 12:44, Sachin Gupta wrote:
-> This series adds support for Qualcomm MBG thermal monitoring.
+On 2026-07-25 10:37, Yixun Lan wrote:
+> This series try to add UFS support for SpacemiT K3 SoC, the controller
+> components consists of System Bus Interface Unit, UFS Host Controller
+> Interface, UFS Transport Protocol Layer, UFS Host Registers, Device
+> Management Entity (DME), Transport Layer, Network Layer, Data Link
+> Layer, PHY Adapter Layer, and M-PHY Interface. A more detail functional
+> block diagram can be found in SpacemiT website, chapter 9.7.3 [1]
 > 
-> Adding support for:
-> - DT bindings for the MBG thermal monitor peripheral on PM8775
-> - A new Qualcomm SPMI MBG thermal monitor driver under `drivers/thermal/qcom/`
->   
-> The driver monitors die temperature alarms, handles the MBG interrupt on
-> upper-threshold violation, reads the fault status, and reports events to the
-> thermal framework.
->   
-> RFC patch:
-> https://lore.kernel.org/all/qq3cggafexwpdrv46eqijxfmrdbqusl2vpbuswqmcvshqueaiw@r4mrmap4nwkt/
+> Please note, in order to test this driver, the UFS clock driver[2] here
+> should be applied first as a prerequisite patch.
 > 
-> Signed-off-by: Satya Priya Kakitapalli <quic_skakitap@quicinc.com>
-> Signed-off-by: Sachin Gupta <sachin.gupta@oss.qualcomm.com>
+> One known issue is that the device will occasionally raise BKOPS interrupt
+> when doing some high load test, log from dmesg shows
+> 
+> [  806.710763] ufshcd-spacemit c0e00000.ufshc: ufshcd_bkops_exception_event_handler: device raised urgent BKOPS exception for bkops status 1
+> 
+> Link: https://spacemit.com/community/document/info?nodepath=hardware/key_stone/k3/k3_docs/k3_usermanual/09_memory_storage.md&lang=en [1]
+> Link: https://lore.kernel.org/all/20260630-06-clk-ufs-support-v1-0-cf7521d1d0fe@kernel.org/ [2]
+> Signed-off-by: Yixun Lan <dlan@kernel.org>
 > ---
-> Changes in v3:
-> - Fix Kconfig description and update commit message. [Daniel]
-> - Link to v2: https://patch.msgid.link/20260706-spmi-mbg-driver-v2-0-f883ff1d8719@oss.qualcomm.com
-> 
 > Changes in v2:
-> - Fix locking, -ERANGE, enum check, and flag race. [Sashiko AI]
-> - Rewrap commit text, rename binding file to match compatible. [Krzysztof]
-> - Drop redundant comment, return -ERANGE, fix ISR locking. [Konrad]
-> - Link to v1: https://patch.msgid.link/20260601-spmi-mbg-driver-v1-0-b4892b55a17f@oss.qualcomm.com
+> - fix missing interrupts property
+> - move ufs node to k3-com260.dtsi
+> - convert freq-table-hz to operating-points-v2
+> - rework reset_control, fix header and drop global variable
+> - drop dump_host_regs() debug interface
+> - converge and refactor dme_set() operations
+> - massive reduce of busy delay() loops
+> - drop vendor specific hce_enable_notify(), fallback to default
+> - drop unused member from struct ufs_spacemit_host
+> - add COMPILE_TEST support to Kconfig
+> - comment style fix
+> - Link to v1: https://patch.msgid.link/20260702-08-k3-ufs-support-v1-0-1a64a3ab128f@kernel.org
 > 
 > ---
+> Yixun Lan (3):
+>       scsi: ufs: spacemit: dt-bindings: Add UFS controller for K3 SoC
+>       scsi: ufs: spacemit: k3: Add UFS Host Controller driver
+>       riscv: dts: spacemit: k3: Add UFS support
+> 
+>  .../devicetree/bindings/ufs/spacemit,k3-ufshc.yaml |  56 ++
+>  arch/riscv/boot/dts/spacemit/k3-com260.dtsi        |   4 +
+>  arch/riscv/boot/dts/spacemit/k3-pico-itx.dts       |   4 +
+>  arch/riscv/boot/dts/spacemit/k3.dtsi               |  27 +
+>  drivers/ufs/host/Kconfig                           |  12 +
+>  drivers/ufs/host/Makefile                          |   1 +
+>  drivers/ufs/host/ufs-spacemit.c                    | 686 +++++++++++++++++++++
+>  drivers/ufs/host/ufs-spacemit.h                    |  79 +++
+>  8 files changed, 869 insertions(+)
+> ---
+> base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+> change-id: 20260605-08-k3-ufs-support-c8b308e415e2
 
-Applied, thanks
+Thanks for this new version. Patches 2 and 3 are:
+
+Tested-by: Aurelien Jarno <aurelien@aurel32.net>
+
+Regards
+Aurelien 
+
+-- 
+Aurelien Jarno                          GPG: 4096R/1DDD8C9B
+aurelien@aurel32.net                     http://aurel32.net
