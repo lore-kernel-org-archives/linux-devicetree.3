@@ -1,110 +1,233 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 236693DDDC1
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 08:25:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 877873DF008;
+	Mon, 27 Jul 2026 08:26:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785140753; cv=none; b=heR+bQh3YwAVi4LXNeQHrDF0gsjblLpxzAJXS/Uk5ovXQPGmIp9gy1Z87m/KVr72WqkvGKLHEyKWgWUkPE8uNMkzV6OFdT+6UnPLhTY1CMdoN4d7W/qFSlZOxTFzjpNpnZ8uY73ATTGRL3DubGB4sBC2IkVuzXJ7S0p7j9/nmnw=
+	t=1785140803; cv=none; b=LTYQYyV0hgjWEHicx63rLOVNg47WtjOYzpnJEUu+YnmT8CGYiQiqZDiQAclJsE68j0q/GZ9YtByEG9ugzy+JgupimDB+k2REm4vD1bXSCb8VBS+y/Axe+Wzm84DiAUK2I0KnKjjrnMBawJlrRPH1rzTBfceZewhnTSrhrkE7hCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785140753; c=relaxed/simple;
-	bh=doOxW3+33T9343MNIAI7HAgk3b1ei2NNBAKayq5L1Qc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=dVaaPhJEfS+gUQ99cN9xT5BP2hQmw4zK8wyXixOCALUMgOhau2T5BRiK911mmImiFb5MPNB+1f2jNNdmWbP5ORUHxEfWBA1qTHaIiPm0AIpIfcj1abMID5mBFbvd4qMIiJvqke4tlpjm1b7h+3y/Ek4vYzzygy2Yjni3nIuIajs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JjUMdcal; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785140803; c=relaxed/simple;
+	bh=xDkqMegQDZBau84vfu7URo8g+G2La5zNgZMtKdqfXBU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=iKBiROvl+8+4oZkOCsmjfSbh/n1Rw/yPO7HFAtbWVj5k5feCcJ/raf0HbbuauGuqcYoLwTXRCPK79IrLTGbHyzyYIPIxboz7akXcVAaTheLC/FaBhsYMF7LGCM6nj7cymXSA2eSFw1HQX5FZYs/olxyfF+zfnBH5Zk09U248OLQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=GbDWYJZf; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JjUMdcal"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C1761F00A3F;
-	Mon, 27 Jul 2026 08:25:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785140751;
-	bh=QaqHFytc/fZtx3ZeHQ1s5roWEcIVp5K9z4haQ38THJI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JjUMdcalv9+KI4juNCrj34bvL6ePL2cuwrRrOugup0+KQ6LoNS61+9jwM3vlT94bc
-	 otbAPDAk72Xf0PzIZmmOS6WepQPzGORtVI8AfOeJt6vi1C4Va6yXNR1lrYoj982y8g
-	 ZPVhqlwPLAP0/2tl/89LCovRLmFZQM/8iaCneTlQHEHZmx3C+gFTaTGEOrYVvrBbCn
-	 NXMwgSF7qxkAlKl5CWwMjcKYvYa5zV6p3VElNhOok/X/KEvN9SEIyYsK2rXRA5o3X+
-	 MgkNNkQbOmZEaSbs4kpucGX46488i0LH322cVOKZZ3LRlFZUf5WjkRhKkXiJyuPcrA
-	 16mD3Hd406itw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 4/6] drm/msm/dsi: Support dual panel use case with
- single CRTC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jun Nie" <jun.nie@linaro.org>
-Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260727-sm8650-7-1-bonded-dsi-v5-4-c042266b9eeb@linaro.org>
-References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
- <20260727-sm8650-7-1-bonded-dsi-v5-4-c042266b9eeb@linaro.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 27 Jul 2026 08:25:50 +0000
-Message-Id: <20260727082551.6C1761F00A3F@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="GbDWYJZf"
+Received: from [192.168.1.102] (mob-5-90-50-102.net.vodafone.it [5.90.50.102])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7F885A09;
+	Mon, 27 Jul 2026 10:25:35 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1785140736;
+	bh=xDkqMegQDZBau84vfu7URo8g+G2La5zNgZMtKdqfXBU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=GbDWYJZfLlWz4IxyRafyq59gYq0qbCFEGCdZ2NgUZ7ZAAY+1btqxnlJ8TzU+YkQm+
+	 ZzR+ghR3SHgkbyRvhzXRywIl51BoeMOoub4nAnMuOj1ljYsi3FPMlyShrFkV9yg5Vg
+	 7XWBizD1TL6dvhJGlP9naapi5QbSyMFD51Go7jPc=
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Date: Mon, 27 Jul 2026 10:26:28 +0200
+Subject: [PATCH v9 1/2] dt-bindings: media: i2c: Add mira220 image sensor
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260727-mira220-v9-1-e869e7ec2040@ideasonboard.com>
+References: <20260727-mira220-v9-0-e869e7ec2040@ideasonboard.com>
+In-Reply-To: <20260727-mira220-v9-0-e869e7ec2040@ideasonboard.com>
+To: Philippe Baetens <philippebaetens@gmail.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ Jai Luthra <jai.luthra@ideasonboard.com>, linux-media@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4373;
+ i=jacopo.mondi@ideasonboard.com; h=from:subject:message-id;
+ bh=48fHvd/p2nHDDBg9t3PFew0xNa3S1MhNtsEXKgTSvRA=;
+ b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBqZxY969ZCI+cksltYo1qT1a0sYGUfFdII/son8
+ M3yBFFreu2JAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCamcWPQAKCRByNAaPFqFW
+ PEjpEACj9kdWbTeax6YwZlKhCtWlx83e0teQxwCy91HB7qNV/0G4nOh561W+RIzVPzWLVqAfua/
+ 3xxtDNZuKEKEC8lVWkh44FXm7TWGrrzQDM95EVGihaelPVEnfKdwakmKYmkDBpCL95akpbXW7iW
+ LFpFNiVlpIrnYNJTWTGO5s6q0DyKaoCOeXOeKhyFMonUkpDf9wLZ8X10pXT77WqvDsdCqnplUgj
+ d7o2PBbGy7QjjOHbr4mv8ebDnWe46waTfUoYS/oOXopeKsHZ2rUPVwgy3Dy9Af6nNIQA4pxd6h1
+ FAtix5pme0BtqhFcb45JJLqlU2TjWetu9gS8VQEsC2t8q4RBIgxVwIQFonUX6Ltg9VXk5UryLYC
+ D2XbXof/zsT6cvedm+56OF316YLKPNACFSLlip2C0DyNFqqN0+o7nqwWT74/Sk5RM19uF9/G76F
+ /uPqMgsFOgVPMmd7dof7xATdeqZFhVbdYVq40FKt6Zi3FDhjPMHy2aqUx4c0iR+pTNDnBqyuk69
+ UR5ugMpGepUnD+tE3trmwm6tycQZp4flIBt91TdjVVh07+q4XSLdODKxiAVXgiumDCFn/3CUxA/
+ faC3tT3fRE2EcrSQZLmNL99JOeW9eNEGvjxmRjoVYExOE2h3MDd0kAPM+Adydq6EMX3W/LZ4F8n
+ 5EXDERUgnI2m5gg==
+X-Developer-Key: i=jacopo.mondi@ideasonboard.com; a=openpgp;
+ fpr=72392EDC88144A65C701EA9BA5826A2587AD026B
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Mutating the shared `dsc->pic_width` field in the DSI host driver =
-corrupts the upstream DPU DSC configuration for dual-panel displays.
---
+From: Philippe Baetens <philippebaetens@gmail.com>
 
---- Patch [4]: [PATCH v5 4/6] drm/msm/dsi: Support dual panel use case with=
- single CRTC ---
-commit ab7fbd44233bae5d942988068bde384adcd14200
-Author: Jun Nie <jun.nie@linaro.org>
+Add bindings for the AMSOSRAM Mira220 image sensor.
 
-drm/msm/dsi: Support dual panel use case with single CRTC
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Philippe Baetens <philippebaetens@gmail.com>
+Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 
-Support a hardware configuration where two independent DSI panels are
-driven by a single, synchronous CRTC. This configuration uses a bonded
-DSI link to provide a unified vblank for both displays.
+---
+v8->v9:
+- Make link-frequencies required
 
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi=
-/dsi_host.c
-> index ca9862848a6ab..badddb534b01a 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -1024,7 +1025,10 @@ static void dsi_timing_setup(struct msm_dsi_host *=
-msm_host, bool is_bonded_dsi)
->  			return;
->  		}
-> =20
-> -		dsc->pic_width =3D mode->hdisplay;
-> +		if (msm_host->is_dual_panel)
-> +			dsc->pic_width =3D hdisplay;
-> +		else
-> +			dsc->pic_width =3D mode->hdisplay;
+v7->v8:
+- Add Conor's tag
 
-[Severity: High]
-Does mutating the shared dsc->pic_width here corrupt the upstream DPU DSC
-configuration for dual-panel displays?
+v5->v6:
+- sashiko: use 'unevaluatedProperties: false' at the top level to allow
+  properties from video-interface-devices.yaml
 
-In a dual-panel setup, dsi_timing_setup() overwrites the shared
-dsc->pic_width with hdisplay (which is already halved for bonded DSI).
+v4->v5:
+- reflow description to 80 cols and drop |-
+- remove 'reg' description
+- remove 'anyOf' from data-lanes
+- remove 'link-frequencies' from required properties
+- remove 'clock-continuous: true' as we already allow all properties
+  from 'video-interfaces.yaml'
+- remove tabs from the example
+---
+ .../devicetree/bindings/media/i2c/ams,mira220.yaml | 102 +++++++++++++++++++++
+ MAINTAINERS                                        |   7 ++
+ 2 files changed, 109 insertions(+)
 
-Later in the atomic commit sequence, dpu_encoder_prep_dsc() reads this
-mutated value:
+diff --git a/Documentation/devicetree/bindings/media/i2c/ams,mira220.yaml b/Documentation/devicetree/bindings/media/i2c/ams,mira220.yaml
+new file mode 100644
+index 000000000000..fa6fec0072ef
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/ams,mira220.yaml
+@@ -0,0 +1,102 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/ams,mira220.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: AMS 2.2 MP NIR enhanced global shutter image sensor
++
++maintainers:
++  - Philippe Baetens <philippebaetens@gmail.com>
++
++description:
++  2.2 MP NIR enhanced global shutter image sensor designed for 2D and 3D
++  consumer and industrial machine vision applications. Due to its small size,
++  configurability and high sensitivity both in visual as well as NIR, the
++  Mira220 is well suited for 2D and 3D applications, which include Active Stereo
++  Vision, Structured Light Vision for Robotics and AR/VR.
++
++allOf:
++  - $ref: /schemas/media/video-interface-devices.yaml#
++
++properties:
++  compatible:
++    const: ams,mira220
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  vdig-supply:
++    description:
++      Digital I/O voltage supply, 1.35 volts
++
++  vana-supply:
++    description:
++      Analog1 voltage supply, 2.8 volts
++
++  vddl-supply:
++    description:
++      Digital core voltage supply, 1.8 volts
++
++  reset-gpios:
++    description: Sensor reset (XCLR) GPIO
++    maxItems: 1
++
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    additionalProperties: false
++    description:
++      Video output port
++
++    properties:
++      endpoint:
++        $ref: /schemas/media/video-interfaces.yaml#
++        unevaluatedProperties: false
++
++        properties:
++          data-lanes:
++            items:
++              - const: 1
++              - const: 2
++
++        required:
++          - data-lanes
++          - link-frequencies
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - vdig-supply
++  - vana-supply
++  - vddl-supply
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        mira220: camera-sensor@54 {
++            compatible = "ams,mira220";
++            reg = <0x54>;
++            clocks = <&cam1_clk>;
++            vana-supply = <&cam1_reg>;
++            vdig-supply = <&cam_dummy_reg>;
++            vddl-supply = <&cam_dummy_reg>;
++            port {
++                mira220_ep: endpoint {
++                    clock-lanes = <0>;
++                    data-lanes = <1 2>;
++                    link-frequencies = /bits/ 64 <750000000>;
++                };
++            };
++        };
++    };
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index febe918d6316..55ac4ec433a6 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -1430,6 +1430,13 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/iio/light/ams,as73211.yaml
+ F:	drivers/iio/light/as73211.c
+ 
++AMS MIRA220 DRIVER
++M:	Philippe Baetens <philippebaetens@gmail.com>
++M:	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
++L:	linux-media@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/media/i2c/ams,mira220.yaml
++
+ AMT (Automatic Multicast Tunneling)
+ M:	Taehee Yoo <ap420073@gmail.com>
+ L:	netdev@vger.kernel.org
 
-drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c:dpu_encoder_prep_dsc() {
-    ...
-    pic_width =3D dsc->pic_width;
-    ...
-    enc_ip_w =3D intf_ip_w / num_dsc;
-    ...
-}
+-- 
+2.54.0
 
-Because dsc->pic_width is already halved here, dividing it again by num_dsc
-(2) results in each DSC encoder being incorrectly configured to process a
-quarter of the screen width instead of half.
-
-Could this misconfigure the DPU pipeline and lead to display corruption?
-
->  		dsc->pic_height =3D mode->vdisplay;
->  		DBG("Mode %dx%d\n", dsc->pic_width, dsc->pic_height);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727-sm8650-7-1=
--bonded-dsi-v5-0-c042266b9eeb@linaro.org?part=3D4
