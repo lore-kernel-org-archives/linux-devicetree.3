@@ -1,108 +1,191 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FE2441DDF3
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 14:43:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 665463BE17B
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 14:43:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785163440; cv=none; b=oRNXG/JbA2V1oa+WO83BAKpZbDqfDf9ZXN/WRTKmo+GUKdCKdep30c4UhJCd8BGfBaIQEOCaMK20ELbVFfhJ802d2dh1UbbP5k4PeuPijBnnA4ex4ZwCiDiPCDtyoLAz/7ZaKhVYY4G4d1cFY2KPJaWF6rhRKsPSOvmI9mAr8M8=
+	t=1785163444; cv=none; b=QDpGMKXB4GgcWJo9Ci0XAALdzlCW8OOeJDgFv+iO4VyxYwIAq3Rkb2p9CAtqwR7pOTTefEgqwY25ObxlE1uWcKHl+JMVRpKpIGisz80fkbm7hzM9K6Q4DEYcOPPA0207V/lNdZHGeM1LHfWV4cHSjtISarOAR5fW+YVPjYJx5Yk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785163440; c=relaxed/simple;
-	bh=FV+/YCwfRcSeJLpQbyCqO2LsqLecdOQ2BHs0QhtxJL8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UshF6a2L4agZsaKnE4qGn7T8QdAUHVtDuFoqL6rjfmsUdE24hDoBfjEbxUhiJBzgeIw0+G02tb1ahlmC4MFng4jsZM75SM0lmDbX8PShSl2Hs83d4f/tDFYO/5sHxOQTajpSwqBGKpz/MMLMb54mHLjhsUgN4mPpeSvryDbeTiU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DDdJf4Wk; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785163444; c=relaxed/simple;
+	bh=aysaIBfhsfH/53/b3b5L2k7CtH6Ze/FgJC2p7U7a0O0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iTVug9Ur69KH0D8qsVa5pIv+4ifxjuW/pXwh1drTjjUNXUmF77cLXRNeZ3fpncaJRncRi3jfv+2ivuIWFdAdyyWOGw7UKnLVyCkKi+CRoxBcMNfZF1yReXo1Hn/seqkgG6h3RPcf1bd9D+EN92BrnRWyc4eIlXcRQ6KhSk5L40w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fauat5ty; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=G1m1y+Me; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DDdJf4Wk"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-383b4a3755fso2539511a91.3
-        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 07:43:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fauat5ty";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="G1m1y+Me"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66RDlnYl856033
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 14:43:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	CXI1s8fy/K0Uud6u565tgUvsO9ZUQxqQPBr68g+t1Q8=; b=fauat5tyOcAR0brF
+	kMCC4GO0f4t5e4lChXbKo/YKSt155kdALNb2z8VU8XFyJX/xj53KPyyLimyPuOMC
+	e6v/EtZT10V1s/xhReZ2iGZ5BiWO4ms5Fj1erbY3sAnkp0ul/T5uYEFjPnRYVL00
+	ov3aDh1O0geb7pulSesPcntV3AiSBSklmwzdbpjp79P48oRPPpn7+zh7TW2NrfEh
+	7BuCzsc9mAmOVDrw1aNOQ6wnMX913CWbJEfk66XLX2ZJshA2muOnuDEkyfIh2aBg
+	Iu/mnwKs1U6a0I8AdaRReSxiw8uTxd925Di5g9jYeFzkF4dd9DHcX2I53ksNfCl0
+	HnFClw==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fny9wjf52-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 14:43:54 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51c27616421so6943341cf.2
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 07:43:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785163432; x=1785768232; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=r/gU8ov/fQyOvJUuHODvlkU8XPQBpDuOkD6xU2q1pEg=;
-        b=DDdJf4Wk1YcEtz20RXvXgPQhxaXWLz5dVCSgiaj0k0w+lJgYLn0HVLDawX3OsOaxeb
-         z5earDSw/QsIFGNl20UBtopa/8NGJXU30bxTCHxfR8+FxB0FMrao7pZ3T/VRM9VDU1b8
-         UowadDkKwI5B4On7XjKMHuseGsZXJ2jcuIZ2d6nolJsFmjAIhhEEghNkjzQhPxmux+a+
-         S+gHMMl4ZWhFZ2CYX6ASgOhy6tEgfwhAsT2ixcMuiPrfWRODFzwl6hrUytPCXluTaWdg
-         /19+N/eOEKqNIRi6GWCGvqZSjBgkBh0As9OMnwveOgKN9JAW/+Dd6XIvW50TdTFY4UZW
-         mYjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785163432; x=1785768232;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1785163434; x=1785768234; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=r/gU8ov/fQyOvJUuHODvlkU8XPQBpDuOkD6xU2q1pEg=;
-        b=bf+g9sbyAWmLaK7nz/PELriPzaeSGEwHlkXPP6xnQCfuummkFDiCVJFX2kA/lVzEVr
-         HAtLr1sYr8Kt7fEkO1wAN2WEEkQNdbFols1Zwh5UG2N2pXhvRj0hKOvexrITOVEMHnjE
-         pEoD0th7gVr9RCCeP9W7GIMoV0GUTSNLI874M784VM5rhESnVfLF0PBtNoD8JJV5jW+L
-         TRz11uD0ZynFMG8UFBjQuutnjkA18naCb+eTfIEcXJBtlAzx1xnNg4L/ChkC3Vvz/LUS
-         kwQm5ygXmPG+0JdKUsMLmc4h+7X78h4XlW8Q3vshJyV+fmUZ7Rv/8kUAxtuuZfiAypDh
-         4pIw==
-X-Forwarded-Encrypted: i=1; AHgh+RqP+Jhoy+jW6f5N2gG5VibM8QCTWf/R9PsFQ9ktciJQ2rvfhLT497bSV/3gPxo/2B0KN4KuxOYT0fDs@vger.kernel.org
-X-Gm-Message-State: AOJu0YwFfrsS990O/UBHvjM467uBFcPw2Wlb2gr9QQf0i9CGWKXsbiyt
-	/5L4yiUBgU1yw+pQMSQpJGLsdhqgLJbEqTQ1EhiVn/WlNTlVHhytujSJ
-X-Gm-Gg: AR+sD10LLIGUkkkofYdIMeWlKCThLmAkqpH1FLPUtjMdUhuDw9j8y+vVzKQ8+BBCe7Q
-	cB3+iNA6cXnbDCSKd00imI8xU0WVrDLFvRjYdQVx/mA36rkWdjPS7lK/sTfp4qMiwhVZWkFrxdP
-	4YlMBWN/dYFoadSPh5Fd1SwkFcnLrSkC/wibyPcYpwt3OPCoibisTGSSzbG34F923ZEy4T/O3oU
-	8+KMljNvicRH5tKftUzLyTXAPV1wLkJQxkOg5Ff5lC7laBaVIg+Pn2aKnqPVPvtui2Tp0MvJAx1
-	be9+W8akPLAUGM3+dlRyxDXzCvnOpvXnErboQxCCs0K/kvej6Du4pyYvzqdjckgnMWnCt2YuOyJ
-	A2afWPQ0l3oyQQMJ+gnlhCrZYsTtizuvSl48UnVPNbGPLLljclfVUEfYM67IYdm6w7Zyroekzuw
-	PsWgHG7JJUTuNe16U=
-X-Received: by 2002:a17:90b:3904:b0:38e:6f90:eabd with SMTP id 98e67ed59e1d1-38f293cf251mr8242794a91.5.1785163431273;
-        Mon, 27 Jul 2026 07:43:51 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-314bc3e127asm54034061eec.2.2026.07.27.07.43.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jul 2026 07:43:50 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Mon, 27 Jul 2026 07:43:50 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: "Pradhan, Sanman" <sanman.pradhan@hpe.com>
-Cc: "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
-	"robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"krzk@kernel.org" <krzk@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"corbet@lwn.net" <corbet@lwn.net>,
-	"skhan@linuxfoundation.org" <skhan@linuxfoundation.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Sanman Pradhan <psanman@juniper.net>,
-	Debjit Ghosh <dghosh@juniper.net>,
-	Jawahar Balaji Thirumalaisamy <jawaharb@juniper.net>,
-	Santhanakrishnan Balraj <sbalraj@juniper.net>,
-	Brian Mak <makb@juniper.net>
-Subject: Re: [PATCH v4 1/2] dt-bindings: hwmon: pmbus: Add Analog Devices
- MAX16545/MAX16550 and Volterra VT7505
-Message-ID: <e11f1d3a-c283-424d-a40c-2284caf904fa@roeck-us.net>
-References: <20260725211945.288415-1-sanman.pradhan@hpe.com>
- <20260725211945.288415-2-sanman.pradhan@hpe.com>
+        bh=CXI1s8fy/K0Uud6u565tgUvsO9ZUQxqQPBr68g+t1Q8=;
+        b=G1m1y+MeLEZ0bO026yAmmxjIEDLh7MMK1wKknNb/7+jDZChhKJv1H2/f4M1Z0s+DhQ
+         zeL3p2FJ/RTOJ0pXRfa3mH2rNm27CzDqewHv3fKgnCS0AQVDdos85N3SnXe2ut6W4rvX
+         sRy65aMzvX1olyARJhk4DPZol+BkpnD5iS1lM+wbw5gr1FA183JJooOjW3mesO2g1ZF0
+         YVCk2DpRmIw5lvMYLvgXrfSNKgb2ecGjbFkpyWebCEPARpGzwbvEJAR9D0WtW0seB5s2
+         fwkL1cKx2RTrPgIM/eTFnjTuGX5cI/7zfN9Rgod701fHXE+cb4p7JCIhIi9IzcLXnxbs
+         +o1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785163434; x=1785768234;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CXI1s8fy/K0Uud6u565tgUvsO9ZUQxqQPBr68g+t1Q8=;
+        b=VKi1L4eNmba+r7HkWnhR71gF/5fVk57+lwkeR2Tt6K1dVQoYzDmPSoLQXAQdBoSjCs
+         +fX+2k+XZei/QIR0K6qiZ3ejeB3ZviQdAYjb9YOjjFT2Rv81qJH9y4aw+KOTDYiYZSrs
+         M0pyZkoi4abTHnTXnuQzhkd8rvn4mHhUbwyV2m16ItC6SIFvnObx2kYObwizjWrw6pEx
+         XAaU4gRiykPRJzs0P6qFZ8BvBissvyeZzKy12PRfWHt/k/6cD8LwnDY6JSH4TIc1TAWz
+         cHQDfHxZXVX8ZzyX0usRcRbiTDS9Y06NW9pF+y+peRzbm2d4sjGpxvI+P80rpB8dszab
+         l0xQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpAm/oN1N0z4HbFJZmBptMLc/Xo+83kmh725rKRowleUEer9TcSYMjn/vF7sB6qMHA1Z3suBEx0xXvD@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywy14evlKEw9/sfa4gjj4Q5KgS7IgAdiVAwI3xeKOvsj/GXnRnN
+	br/UlHlRqlZ/szutI40v+WY9COP1WDGPW4P5WlCHIST6PHFqhNOU8fdsiBznGlVVWbZSwty9kcs
+	EGgE0Tt73/Ab1b9LXBFAO1Sf9vSJBgRV3jPbipfq+q8Wg5x9BKEsx1ICPCXOu35tw
+X-Gm-Gg: AR+sD11kfG3rRm1+WHMOSffR8/4+gg4wCtTBlBdbxTejXVIPgKKo0XvXCOQq6u5HrP+
+	utQBIQDbM7TOjCgaPd6TlOuK1QWlzjJ91Bsn/AkOdCQhHYdnfz9XVaqW/5ioE2i1/38/fANe55C
+	1CQ6aq4ZdYMRmR8VA1ll2yZNPpCZPu/HZODzfXJj67/Mda7ZHcue2Kb9ZIxJNbzXvq5gFLsMwNd
+	tqMnmbT+7zWX6lnfCCtcEuQi0bH/xJRJQh73thdcyVIhPvHuWARyMJhq0A9078sXJA8tcFHHzcF
+	Q70GzfBs5UISI3Z1rQKTEYdVx9O7KzvLCoOAfNx44Eza2RISnPeTJPJ+PUhEADtU1kxxo/+aTSG
+	0jN+eH+MvXwosfg7cnrtR/BzI
+X-Received: by 2002:ac8:5d91:0:b0:51b:8543:cbbd with SMTP id d75a77b69052e-529cfcfc48bmr4054791cf.1.1785163433661;
+        Mon, 27 Jul 2026 07:43:53 -0700 (PDT)
+X-Received: by 2002:ac8:5d91:0:b0:51b:8543:cbbd with SMTP id d75a77b69052e-529cfcfc48bmr4054431cf.1.1785163433108;
+        Mon, 27 Jul 2026 07:43:53 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2be1f85a1sm1505560e87.71.2026.07.27.07.43.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 27 Jul 2026 07:43:52 -0700 (PDT)
+Message-ID: <274b0878-3b12-459a-8b0f-350d51347ac0@oss.qualcomm.com>
+Date: Mon, 27 Jul 2026 16:43:50 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260725211945.288415-2-sanman.pradhan@hpe.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: monaco-evk: Describe the PCIe M.2
+ Key E connector
+To: Wei Deng <wei.deng@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: quic_chezhou@quicinc.com, cheng.jiang@oss.qualcomm.com,
+        shuai.zhang@oss.qualcomm.com, jinwang.li@oss.qualcomm.com,
+        xiuzhuo.shang@oss.qualcomm.com, mengshi.wu@oss.qualcomm.com,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260727-b4-monaco-evk-m2-v1-v1-0-5429cce68599@oss.qualcomm.com>
+ <20260727-b4-monaco-evk-m2-v1-v1-2-5429cce68599@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260727-b4-monaco-evk-m2-v1-v1-2-5429cce68599@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI3MDEzOSBTYWx0ZWRfX6IetFU3CK8Ph
+ cgIyWKMH1IISaqzh4w4C2LtOzOGZNgWRjT78RA3hL3s2it5wHXvlYJXjJHImbbZit1gWRhT/Rw8
+ ZNjIQOmMrAo1msOUoTB76/YzJ8Bq2OMaXb5PblYcndPRQJW5zX4Oo06oLw0HZ4MG1pHWl+jGXUo
+ lfYT5hCADb5tas/E//xY9VIuDE46/PQU/68vbAPaG0iGyidywOC1uzkveyiyOTfNbzpPc4mifAK
+ e/zYrNRmrUCI1CgYOvEtjIh4kA5Tiz8cEAka+IvHv+eQiN8RItY/TGsvGyXobJP+7e//LO7qdXp
+ UxDDu5yGnCbJztgshTTBosMwQKlRFFhX54FpO91+i/peZO5WKXTRCJs+xdOVDJOU7J/spV4A5tN
+ HjfiM3gB375AiQ9hCmi0HK+uPt1cGh/j1YAMeStgF7MzVw9VSG248Cp174H60Kgbuk+5DWX5CHs
+ wu8PePI4co9RY+GHaLg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI3MDEzOSBTYWx0ZWRfXyTl8sCcWt6kP
+ f+KjXft9hDPg2jf2tbHQKda50jKQWrOzCtLLxZnBNsW9FE9WulPQaCkJ3MeZRUmA46zdAppKDDy
+ fG+6X56xEzoFD3wCVTiYSl035YimHpU=
+X-Proofpoint-ORIG-GUID: -htApJjin1Io3Tajs83V9UEAJea4d43B
+X-Authority-Analysis: v=2.4 cv=E4b9Y6dl c=1 sm=1 tr=0 ts=6a676eaa cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=PEHb05Std4Rk9fo0wakA:9 a=QEXdDO2ut3YA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-GUID: -htApJjin1Io3Tajs83V9UEAJea4d43B
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-27_04,2026-07-24_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 priorityscore=1501 impostorscore=0 bulkscore=0
+ lowpriorityscore=0 adultscore=0 suspectscore=0 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607270139
 
-On Sat, Jul 25, 2026 at 09:20:06PM +0000, Pradhan, Sanman wrote:
-> From: Sanman Pradhan <psanman@juniper.net>
+On 7/27/26 4:16 PM, Wei Deng wrote:
+> The monaco EVK has a PCIe M.2 Mechanical Key E connector to connect
+> wireless connectivity cards over PCIe and UART interfaces. Hence,
+> describe the connector node and link it with the PCIe 0 Root Port and
+> UART2 nodes through graph port/endpoint.
 > 
-> Add device tree binding documentation for the Analog Devices MAX16545 and
-> MAX16550, and the Volterra VT7505 PMBus controllers.
+> The M.2 Key E connector is powered by a 3.3V fixed regulator
+> (vreg_wcn_3p3) which is sourced from the board's 12V DC input rail
+> (vreg_dcin_12v). Both regulators are always-on and are required by the
+> pcie-m2-e-connector binding.
 > 
-> Signed-off-by: Sanman Pradhan <psanman@juniper.net>
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Also add the serial1 = &uart2 alias, which is required for the
+> Bluetooth serdev device to be enumerated on the UART2 interface.
+> 
+> Signed-off-by: Wei Deng <wei.deng@oss.qualcomm.com>
+> ---
 
-Applied.
+[...]
 
-Thanks,
-Guenter
+> @@ -644,6 +701,12 @@ &pcie1_phy {
+>  &pcieport0 {
+>  	reset-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
+>  	wake-gpios = <&tlmm 0 GPIO_ACTIVE_HIGH>;
+> +
+> +	port {
+> +		pcieport0_ep: endpoint {
+> +			remote-endpoint = <&m2_e_pcie_ep>;
+> +		};
+> +	};
+
+This should be defined in the SoC DTSI.
+
+>  };
+>  
+>  &pcieport1 {
+> @@ -923,3 +986,13 @@ &usb_2_hsphy {
+>  
+>  	status = "okay";
+>  };
+> +
+> +&uart2 {
+> +	status = "okay";
+> +
+> +	port {
+> +		uart2_ep: endpoint {
+> +			remote-endpoint = <&m2_e_uart_ep>;
+> +		};
+> +	};
+
+On a second thought, it would be logical to move this over there
+as well
+
+Konrad
