@@ -1,181 +1,190 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADE213DB65A;
-	Mon, 27 Jul 2026 07:47:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D52783A1DB;
+	Mon, 27 Jul 2026 07:50:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785138473; cv=none; b=cakTjlMz1tHYuURPoSomPPUrd5TgEnzewk7moodraSwuhQw0MWckemDO+T0GQClxy2Q5LqZeybJomaSSzIMsdRQhNrzsw9Xay/01hiRQgXT/sJcojmhwsEtai21bofjvWVRDFpIPB6dQfXyUQ74eP9aLPmHwA4dqf6RvO3sFbQI=
+	t=1785138604; cv=none; b=iRvdBcQ/FKnjKfrBcFWl0S4oGOaXdnBQJcZS4qICPMtJNYyKwd+M2qMx2amBRzyvm69nkxNMdko8icYqiNrsjOUWw7etaQA5p5k6Nlss8Ifve0c2OEWhncS8/EM2+5paGfwvAm0hrd/6nFitnLwpZYG+tjKQ/MffQaM0KLuc3lU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785138473; c=relaxed/simple;
-	bh=IXpGypVWOstFZiejZvLlxlFm+N9EHX3/vkdqgGEC5rI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d3ax0Jn/3vXo1KHeT2/CJu669/TzcqZAF84IJ4ryK0k6iULdfjnzlUW6nFEsjGF3SIA9wymu43a8t6iWAXHFAH9wGDSQBp+0cPbpCSRjaS5STUMqJWtm6v4aDrByDOQouZ7FvLqRa+4i2sJPDf/9VEv89SRe5nJQHw9JQHue7sA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Gnm2gBdB; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Gnm2gBdB"
-Received: from ideasonboard.com (mob-5-90-50-102.net.vodafone.it [5.90.50.102])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 581DC3A4;
-	Mon, 27 Jul 2026 09:46:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1785138406;
-	bh=IXpGypVWOstFZiejZvLlxlFm+N9EHX3/vkdqgGEC5rI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Gnm2gBdBl9k7LHKiIkKzM3NEMsWN9UbgCtKYMnqnYMi98ke5dCnd/EkVUmxiFi+/o
-	 GE5ciotuo2wergpmFfK/wb3wc4vvhrd75TVMOASSXVCOIAXcQfx4OIfHjHaTuGNDoD
-	 H1BQol9QS/AWyfGEtL3uCoSHrx8y3peqxajxzvrs=
-Date: Mon, 27 Jul 2026 09:47:46 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Philippe Baetens <philippebaetens@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Kieran Bingham <kieran.bingham@ideasonboard.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 2/2] media: i2c: Add driver for AMS-OSRAM Mira220
-Message-ID: <amcMe7kKaR8jqfNS@zed>
-References: <20260724-mira220-v8-0-d1899ab64709@ideasonboard.com>
- <20260724-mira220-v8-2-d1899ab64709@ideasonboard.com>
- <178491944579.3026322.17711300671190246368@freya>
- <amb9dOkox3zqr85t@zed>
- <178513820492.506511.7934025901057482473@freya>
+	s=arc-20240116; t=1785138604; c=relaxed/simple;
+	bh=rF7ylGka2420CCUp/GAdxsqz1RmUyL1R/XclBfC+WnM=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=W8ql/i65W2ja2qL6h4TLw/rV9N7ZXcBPxv4YjKY069/CNqZazmIpKeQvVag59Yvendbh9rbYxw/FYXVMVUSQBTobpHobg7qg0M+40CG+ZGvuQLs6GDs4KFwYuyeQ8oxMQ14WVWQBqjoAxV0J89h4hmrUnGDM9fVfoSylUdiHDOE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id E93CF20203C;
+	Mon, 27 Jul 2026 09:49:58 +0200 (CEST)
+Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1woG62-001VNt-2h;
+	Mon, 27 Jul 2026 09:49:58 +0200
+Received: from pza by lupine with local (Exim 4.98.2)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1woG62-000000007Mr-32Va;
+	Mon, 27 Jul 2026 09:49:58 +0200
+Message-ID: <5537a40f12e80b89e330f37032016de6f3b9f4c7.camel@pengutronix.de>
+Subject: Re: [PATCH RESEND 12/17] drm/spacemit: add Innosilicon DP/eDP
+ controller bridge driver
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: codykang.hk@gmail.com, David Airlie <airlied@gmail.com>, Simona Vetter	
+ <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski	
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Yixun Lan	
+ <dlan@kernel.org>, Vinod Koul <vkoul@kernel.org>, Neil Armstrong	
+ <neil.armstrong@linaro.org>, Haylen Chu <heylenay@4d2.org>, Michael
+ Turquette	 <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney	 <bmasney@redhat.com>, Paul Walmsley <pjw@kernel.org>, Palmer
+ Dabbelt	 <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre
+ Ghiti	 <alex@ghiti.fr>
+Cc: dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org, 
+	devicetree@vger.kernel.org, spacemit@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-clk@vger.kernel.org
+Date: Mon, 27 Jul 2026 09:49:58 +0200
+In-Reply-To: <20260725-k3-display-v1-12-6de34d80e86c@gmail.com>
+References: <20260725-k3-display-v1-0-6de34d80e86c@gmail.com>
+	 <20260725-k3-display-v1-12-6de34d80e86c@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <178513820492.506511.7934025901057482473@freya>
 
-Hi Jai
+On Sa, 2026-07-25 at 00:51 -0400, Cody Kang via B4 Relay wrote:
+> From: Cody Kang <codykang.hk@gmail.com>
+>=20
+> Add the DP/eDP controller that sits downstream of the Saturn DPU. Two
+> identical instances share one compatible; the eDP-vs-DP role is board
+> wiring, so it is taken from the devicetree: an eDP panel always sits
+> under an aux-bus child node, an external DP connector never does.
+>=20
+> The link is driven through the generic PHY framework, so the controller
+> never touches a PLL register. The controller's HPD interrupt is gated by
+> the DP pixel clock, which can be off exactly when a plug has to be
+> caught, so the connector is also polled and the interrupt path re-reads
+> the live level when it does fire.
+>=20
+> Signed-off-by: Cody Kang <codykang.hk@gmail.com>
+> ---
+>  drivers/gpu/drm/spacemit/Kconfig            |   19 +
+>  drivers/gpu/drm/spacemit/Makefile           |    3 +
+>  drivers/gpu/drm/spacemit/spacemit_inno_dp.c | 2443 +++++++++++++++++++++=
+++++++
+>  drivers/gpu/drm/spacemit/spacemit_inno_dp.h |  328 ++++
+>  4 files changed, 2793 insertions(+)
+>=20
+[...]
+> diff --git a/drivers/gpu/drm/spacemit/spacemit_inno_dp.c b/drivers/gpu/dr=
+m/spacemit/spacemit_inno_dp.c
+> new file mode 100644
+> index 000000000000..e88731d9b18b
+> --- /dev/null
+> +++ b/drivers/gpu/drm/spacemit/spacemit_inno_dp.c
+> @@ -0,0 +1,2443 @@
+[...]
+> +static int inno_dp_probe(struct platform_device *pdev)
+> +{
+[...]
+> +	dp->reset =3D devm_reset_control_get_optional_exclusive(&pdev->dev, NUL=
+L);
 
-On Mon, Jul 27, 2026 at 01:13:24PM +0530, Jai Luthra wrote:
-> Hi Jacopo,
->
-> Quoting Jacopo Mondi (2026-07-27 12:16:53)
-> > Hi Jai
-> >
-> > On Sat, Jul 25, 2026 at 12:27:25AM +0530, Jai Luthra wrote:
-> > > Hi Jacopo,
-> > >
-> > > Thank you for the fixes!
-> > >
-> > > Quoting Jacopo Mondi (2026-07-24 21:07:01)
-> > > > From: Philippe Baetens <philippebaetens@gmail.com>
-> > > >
-> > > > Add a V4L2 subdev driver for driver for the AMS-OSRAM Mira220 image
-> > > > sensor.
-> > > >
-> > > > Mira220 is a global shutter image sensor with a resolution of 1600x1400
-> > > > pixels.
-> > > >
-> > > > The driver implements support for mono and RGB 12, 10 and 8 bits
-> > > > formats. The output data-rate per lane is 1500Mbit/s, with a maximum
-> > > > frame rate up to 90 fps.
-> > > >
-> > > > Signed-off-by: Philippe Baetens <philippebaetens@gmail.com>
-> > > > Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> > > >
-> > >
-> > > [...]
-> > >
-> > > > +static int mira220_parse_endpoint(struct device *dev, struct mira220 *mira220)
-> > > > +{
-> > > > +       struct fwnode_handle *endpoint;
-> > > > +       struct v4l2_fwnode_endpoint ep_cfg = {
-> > > > +               .bus_type = V4L2_MBUS_CSI2_DPHY
-> > > > +       };
-> > > > +       int ret = 0;
-> > > > +
-> > > > +       endpoint = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0, 0);
-> > > > +       if (!endpoint) {
-> > > > +               dev_err(dev, "Endpoint node not found\n");
-> > > > +               return -EINVAL;
-> > > > +       }
-> > > > +
-> > > > +       if (v4l2_fwnode_endpoint_alloc_parse(endpoint, &ep_cfg)) {
-> > > > +               ret = -EINVAL;
-> > > > +               dev_err(dev, "Failed to parse endpoint\n");
-> > > > +               goto error_out;
-> > > > +       }
-> > > > +
-> > > > +       /* Non-continuous mode not implemented. */
-> > > > +       if (ep_cfg.bus.mipi_csi2.flags & V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK) {
-> > > > +               dev_warn(dev, "clock non-continuous mode not supported\n");
-> > > > +               ret = -EINVAL;
-> > > > +               goto error_out;
-> > > > +       }
-> > > > +
-> > > > +       if (ep_cfg.nr_of_link_frequencies > ARRAY_SIZE(mira220_link_freqs)) {
-> > > > +               ret = -EINVAL;
-> > > > +               dev_err(dev, "Unsupported number of link_frequencies: %u\n",
-> > > > +                       ep_cfg.nr_of_link_frequencies);
-> > > > +               goto error_out;
-> > > > +       }
-> > > > +
-> > > > +       if (ep_cfg.link_frequencies[0] != MIRA220_LINK_FREQ_750M) {
-> > >
-> > > The LLM-bot says link_frequencies[0] might be invalid if DT omitted the
-> > > link-frequencies property, and I think that's a valid concern.
-> >
-> > Yeah the bot is right, my bad
-> >
-> > I thought the property was required by fw, but it's not.
-> >
-> > >
-> > > Any particular reason for not using the v4l2_link_freq_to_bitmap() helper I
-> >
-> > I think I missed it from your previous comment, sorry :)
-> >
-> > Now that I look at it, the function wants link_frequencies from fw
-> >
-> > drivers/media/v4l2-core/v4l2-common.c-  if (!num_of_fw_link_freqs) {
-> > drivers/media/v4l2-core/v4l2-common.c-          dev_err(dev, "no link frequencies in firmware\n");
-> > drivers/media/v4l2-core/v4l2-common.c-          return -ENODATA;
-> > drivers/media/v4l2-core/v4l2-common.c-  }
-> >
->
-> Ah thanks for checking, I missed that requirement for using the helper.
->
-> > Should I:
-> >
-> > - make link_frequencies required in bindings (something that doesn't
-> >   seem that useful considering a single freq is supported)
-> >
->
-> I have a slight preference towards this option.
->
-> Many receiver drivers use v4l2_get_link_freq() to configure the PHY, so
-> even a single freq in the endpoint is useful. Plus it would keep the driver
-> logic simple too.
+Since this is only asserted in probe and deasserted in remove, you
+could use devm_reset_control_get_optional_exclusive_deasserted() [1].
 
-Note that the driver registers V4L2_CID_LINK_FREQUENCY regardless of
-the presence of the dts property.
+[1] https://docs.kernel.org/driver-api/reset.html#c.devm_reset_control_get_=
+optional_exclusive_deasserted
 
-I can make it required if it's simpler.
+> +	if (IS_ERR(dp->reset)) {
+> +		ret =3D dev_err_probe(dev, PTR_ERR(dp->reset),
+> +				    "failed to get reset\n");
+> +		return ret;
+> +	}
+> +
+> +	dp->pxclk =3D devm_clk_get(dev, "pxclk");
+> +	if (IS_ERR(dp->pxclk)) {
+> +		ret =3D dev_err_probe(dev, PTR_ERR(dp->pxclk),
+> +				    "failed to get pxclk\n");
+> +		return ret;
+> +	}
+> +
+> +	if (dp->edp_mode) {
+> +		dp->bridge.type =3D DRM_MODE_CONNECTOR_eDP;
+> +		/*
+> +		 * OP_DETECT is required: without it
+> +		 * drm_bridge_connector_detect() hard-codes CONNECTED for any
+> +		 * eDP connector and fbdev wedges at bind.
+> +		 */
+> +		dp->bridge.ops =3D DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID |
+> +				 DRM_BRIDGE_OP_HPD;
+> +	} else {
+> +		dp->bridge.type =3D DRM_MODE_CONNECTOR_DisplayPort;
+> +		/*
+> +		 * No OP_HPD: the HPD interrupt is gated by the DP pixel clock.
+> +		 * Leaving it out marks the connector POLL_CONNECT |
+> +		 * POLL_DISCONNECT instead.
+> +		 */
+> +		dp->bridge.ops =3D DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID |
+> +				 DRM_BRIDGE_OP_MODES;
+> +	}
+> +
+> +	if (dp->reset) {
 
->
-> Thanks,
->     Jai
->
-> > - only call v4l2_link_freq_to_bitmap() if the property is specified ?
-> >
-> > ?
-> >
-> > > had suggested? It can handles all of these cases and error msgs too.
-> > >
-> > > With the edge case fixed (with or without the helper):
-> > >
-> > > Reviewed-by: Jai Luthra <jai.luthra@ideasonboard.com>
-> >
-> > Thanks
-> >   j
-> >
-> > >
-> > > Thanks,
-> > >     Jai
+This check is not necessary, reset_control_deassert() handles NULL
+pointers.
+
+> +		ret =3D reset_control_deassert(dp->reset);
+
+If the _deasserted() variant is used above, this can be removed and the
+reset control doesn't need to be stored in dp.
+
+> +		if (ret) {
+> +			dev_err(dev, "failed to deassert reset: %d\n", ret);
+> +			return ret;
+> +		}
+> +	}
+> +
+[...]
+> +	return 0;
+> +
+> +err_clk:
+> +	clk_disable_unprepare(dp->pxclk);
+> +err_reset:
+> +	if (dp->reset)
+> +		reset_control_assert(dp->reset);
+
+Same as above. Remove the unnecessary check or manual assertion
+entirely.
+
+> +
+> +	return ret;
+> +}
+> +
+> +static void inno_dp_remove(struct platform_device *pdev)
+> +{
+> +	struct spacemit_dp_dev *dp =3D platform_get_drvdata(pdev);
+> +
+> +	component_del(&pdev->dev, &spacemit_dp_ops);
+> +
+> +	if (dp) {
+> +		clk_disable_unprepare(dp->pxclk);
+> +		if (dp->reset)
+> +			reset_control_assert(dp->reset);
+
+Same as above.
+
+> +	}
+> +}
+
+regards
+Philipp
