@@ -1,144 +1,99 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D36487BE;
-	Mon, 27 Jul 2026 00:33:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45CED1A6822;
+	Mon, 27 Jul 2026 00:52:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785112393; cv=none; b=NWZVOYGL7CqsKDlB3+prEIfftj9RVM9fzWKG1ezAsfmmkZQhfghdx5lz+kJ+yErdM1vhxWdo9pqklcN0M77RXdEIkn5EC5WXrF1sxQ4LZo/C/sjDY6fIHV6uVYf4gPR3emtm86YN+4oKbdc7cq1fAPb7TpkYcMdljePBpriVFs0=
+	t=1785113550; cv=none; b=qsKn/709sShCLaGw/OJi+3OcLsVNHKM6lh7p5NYXLATSoL+SVsNYhJF48TdV90ojRwZehVji7+hffo7Wqi405u0M8zNGYtcR0CY3mIcIB4xDnmGk358jw9BT85wU/xcYrkB+B17zypNkdzUdX83apZDVxPjm0LYBgPEsDJ43YEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785112393; c=relaxed/simple;
-	bh=UY3efD0vkIgCls6go9OLhLVM9zyOHMV4VoR8ZEwJ2IY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qfVZe9feiby/wxElTNUsAV4o+W3m4fdCbLVwlgvsvDkai7+qyEINwEMdEPne5czVTamWhxzjRICYTrWcgTF/2608VvtImvCqAoKsJd1B50TftIndRgvm9EInGI/nzsJFgeXZX/sF22lf1lvxvyHqhnGA9aBw3z/TvtPc55dQbus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=SE48nxfk; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	s=arc-20240116; t=1785113550; c=relaxed/simple;
+	bh=A51KEZuvb3X0JeoHjI1ToaXcWR4tDaIsa4K3tghPvnA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=sn4dsvLzPu3wSgE4hpXENjWJqicgsb2fSf/uUx+Ge7SpylEkxbU/Wfvs26tJewbmw8nQu5JI6akBNYaB+OypdEJROu0ksVhVCk4f8ykDVS8X8nqliPm6+p0lY+oMTDX13d6mo1OSCcYy6u624eiW3LLNzT7enaJTWlDSxLydnao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=APGD99wi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="SE48nxfk"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=71cCBAS8A2hoPA6O2oKeS13s7oPVP5QW2HLk5bUeTeE=; 
-	b=SE48nxfkjA5poAhFHR1/I/OkTgWQB9Z49t37XkjzVEpR13Bj1smE+YZslraCkehB8IgCxhLjgJM
-	5vlfGpDJNG/OYtLjwHHD6/zpZpWGcNYTUFJ95VBuF+ewFdWVW967gxlJiE3ryh6gn/8LyuAtm2rnR
-	jT8DGEZI/7RLNA74REgg3ta3f+0hVZBkwyWYoJ+bK31EdmpBPpAlCotJ5MJtgaxSR3j2sgDeTTCq7
-	FQuBskVr22eJRAaErnQ9NaocEAVv6dlXfsjtB7Y3HMSArfJr0Atm3jkFXY17R+UktYw3lndgINRYK
-	TuH9PHfnlT73S5WB+mbgln1uepF27Z3pamyA==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1wo9HH-0000000GywW-1o2q;
-	Mon, 27 Jul 2026 08:33:08 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Mon, 27 Jul 2026 10:33:07 +1000
-Date: Mon, 27 Jul 2026 10:33:07 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-Cc: "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Harshal Dev <harshal.dev@oss.qualcomm.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>, Andy Gross <agross@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	dmaengine@vger.kernel.org,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v4 0/6] Shikra: Add DT support for ICE, RNG and QCE
-Message-ID: <amanQ72mRGN2tiVd@gondor.apana.org.au>
-References: <20260714-b4-shikra_crypto_changse-v4-0-06a4ea97c209@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="APGD99wi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F386F1F000E9;
+	Mon, 27 Jul 2026 00:52:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785113548;
+	bh=m8Fgs7nD3L3OEGwH+pO1pq4WPtbVz8J49EoQInWXpII=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=APGD99wi4NR67bnMGn0TRg58B50xvd0lt2/ESAeNJt9KkHLlOOdm2ixRimNoN2UE8
+	 M1vs0EO8qymmrn33r65AqGmVhdcJywGsFiSaK37WppvH96IL6KJL/HOZu4yxY/vdfJ
+	 N/L/AtyjGuz/FJiXK/YFx5LVethMw5ZG7QLvPyg5cL0gXYettSpifrdIY6v+su8SZx
+	 jxw08Cezbab62kjmJH6J7TuPPF/Dl7rbMmJmunFNzgDqk9D8GGTAw96jKKvFhC81XL
+	 VEdb09rQQwQAyMfP5ixsc8bMioa2nlF9DXxw6TOpjXmymyv2yzR6uOoesAG3x3oRSG
+	 aqcqo5LykSOxw==
+Date: Mon, 27 Jul 2026 01:52:25 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Siratul Islam <siratul.islam@linux.dev>
+Cc: Lukas <lukas.metz@gmx.net>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] iio: dac: dac8163: Add driver for DAC8163
+Message-ID: <20260727015225.53e116c8@jic23-huawei>
+In-Reply-To: <1E57F5BA-1864-4644-932D-3612AE7B1AB5@linux.dev>
+References: <20260708-dac8163-work-v2-0-3acd1bf20182@gmx.net>
+	<20260708-dac8163-work-v2-2-3acd1bf20182@gmx.net>
+	<e84c4e047e104cca9b88dda791997ceecba1204c.camel@linux.dev>
+	<amYVZtbxu4fjhBkx@berta-MS-7693>
+	<6b3f1b6188afbb8ebf9576274894b5ed292eca92@linux.dev>
+	<20260726191833.67dcfac2@jic23-huawei>
+	<amZV_2_dsNZmp7Bb@berta-MS-7693>
+	<1E57F5BA-1864-4644-932D-3612AE7B1AB5@linux.dev>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260714-b4-shikra_crypto_changse-v4-0-06a4ea97c209@oss.qualcomm.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, Jul 14, 2026 at 03:35:11PM +0530, Kuldeep Singh wrote:
-> This patch series enables SDHC ICE, RNG and QCE support on Shikra,
-> aligned with how similar support is modeled on other Qualcomm platforms.
-> 
-> These DT and dt-bindings updates were previously posted as three
-> separate series. Based on review feedback, they are grouped here as one
-> crypto-focused series.
-> Previous threads:
-> QCE: https://lore.kernel.org/lkml/20260515-shikra_qcrypto-v1-0-80f07b345c29@oss.qualcomm.com/
-> RNG: https://lore.kernel.org/lkml/20260514-shikra_rng-v1-0-4ea721a1429a@oss.qualcomm.com/
-> ICE: https://lore.kernel.org/lkml/20260515-shikra_ice_ufs-v2-0-2724a54339db@oss.qualcomm.com/
-> 
-> Prequisite patchsets are already merged so no longer tracking.
-> 
-> Validation:
-> - ICE: driver probe at boot
-> - QCE: kcapi tests and driver probe
-> - RNG: validated using rngutils
-> - DT: validated shikra-cqs-evk.dtb with dt_binding_check and CHECK_DTBS=y
-> 
-> Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-> ---
-> Changes in v4:
-> - Update Patch 1/6 commit message to accustom hawi special case.
-> - Collects tags(Krzysztof)
-> - Link to v3: https://patch.msgid.link/20260706-b4-shikra_crypto_changse-v3-0-23b4c2054227@oss.qualcomm.com
-> 
-> Changes in v3:
-> - Fix commit messages.
-> - Collect Ack and Reviewed-by tags.
-> - Link to v2: https://patch.msgid.link/20260702-b4-shikra_crypto_changse-v2-0-66173f2f28b3@qti.qualcomm.com
-> 
-> Changes in v2:
-> - Add fix in ice bindings to specify 2 clocks defauly for non-legacy Soc
->   compatibles.
-> - Update commit messages.
-> - Link to v1: https://patch.msgid.link/20260521-shikra_crypto_changse-v1-0-0154cc9cc0de@oss.qualcomm.com/
-> 
-> To: Herbert Xu <herbert@gondor.apana.org.au>
-> To: "David S. Miller" <davem@davemloft.net>
-> To: Rob Herring <robh@kernel.org>
-> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> To: Conor Dooley <conor+dt@kernel.org>
-> To: Bjorn Andersson <andersson@kernel.org>
-> To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-> To: Harshal Dev <harshal.dev@oss.qualcomm.com>
-> To: Vinod Koul <vkoul@kernel.org>
-> To: Bartosz Golaszewski <brgl@kernel.org>
-> To: Konrad Dybcio <konradybcio@kernel.org>
-> To: Frank Li <Frank.Li@kernel.org>
-> To: Andy Gross <agross@kernel.org>
-> Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Cc: linux-arm-msm@vger.kernel.org
-> Cc: linux-crypto@vger.kernel.org
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: dmaengine@vger.kernel.org
-> 
-> ---
-> Kuldeep Singh (6):
->       dt-bindings: crypto: qcom,inline-crypto-engine: Fix legacy/new SoC strictness split
->       dt-bindings: crypto: qcom,inline-crypto-engine: Document Shikra ICE
->       dt-bindings: crypto: qcom,prng: Document Shikra TRNG
->       dt-bindings: crypto: qcom-qce: Document the Shikra crypto engine
->       dt-bindings: dma: qcom,bam-dma: Increase iommus maxItems to 7
->       arm64: dts: qcom: shikra: Add ICE, TRNG and QCE nodes
-> 
->  .../bindings/crypto/qcom,inline-crypto-engine.yaml | 27 +++++++----
->  .../devicetree/bindings/crypto/qcom,prng.yaml      |  1 +
->  .../devicetree/bindings/crypto/qcom-qce.yaml       |  1 +
->  .../devicetree/bindings/dma/qcom,bam-dma.yaml      |  2 +-
->  arch/arm64/boot/dts/qcom/shikra.dtsi               | 52 ++++++++++++++++++++++
->  5 files changed, 73 insertions(+), 10 deletions(-)
-> ---
-> base-commit: 49362394dad7df66c274c867a271394c10ca2bb8
-> change-id: 20260701-b4-shikra_crypto_changse-f2d6d5bf04b5
+On Mon, 27 Jul 2026 00:52:23 +0600
+Siratul Islam <siratul.islam@linux.dev> wrote:
 
-Patches 1-4 applied.  Thanks.
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+> On July 27, 2026 12:46:23 AM GMT+06:00, Lukas <lukas.metz@gmx.net> wrote:
+> >On Sun, Jul 26, 2026 at 07:18:33PM +0100, Jonathan Cameron wrote:  
+> >> 
+> >> As this has come up, I'd favour just having two static const regmap_config structures
+> >> and picking between them.  Obviously I haven't checked but I'd guess that any
+> >> overhead of extra text data for those is not that different to the extra code of the current
+> >> approach.  Generally if you can make this sort of thing data rather than code it
+> >> is a net gain.
+> >> 
+> >> Jonathan  
+> >
+> >I actually misspoke before. Since all dacxxx3 devices have different
+> >default values (mid-scale varies for different resolutions), 4
+> >different reg_defaults are needed to cover all the devices. I could
+> >define 4 static const regmap_configs and pick between them or go with
+> >Siratul Islams approach.
+> >
+> >Best regards
+> >
+> >Lukas  
+> 
+> If you need 4 of them then it's a bit too much I think. I don't know if it would be acceptable duplication at that point.
+
+It's still not massive. They are sub 400 bytes each.  At this level I'll leave
+decision to the author on what is reasonable.
+
+If it were me I'd still go for picking between static const structure instances
+when there are 4. Gets more dubious when there are 20+!
+
+Jonathan
+
+
+> 
+> --
+> Best regards,
+> Sirat
+> 
+> 
+
