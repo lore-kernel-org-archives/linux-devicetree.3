@@ -1,200 +1,154 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7097241A791
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 13:54:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785160446; cv=pass; b=cxtqo6lS2DbpcBAGmlKej0nIZWepz7x8V6H6awTGp0uCXK75aqFnXDuLSCyGP2YxlQa6s3kGPVSfbsDDufEp6daz90dBC6/YSrW0iGroMU4FB8B/LvANadRdmVpIS4X+EMCyyAzB+THDE1CEeC0Nb2IPnnNtrOz9sgLswpg4lrw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785160446; c=relaxed/simple;
-	bh=fQJyxDv643pqDMxn0ByaDWbHqZIiq7Rg1W4GA2fAA2Y=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uda1la21B5SLMBQbYcSyfoR20A9Ge08cJ/RhjlhjR3/tCkdHAU90lTElDKA6U78gGHjbJ1gVXBNOVQduyEL/59pxVNkiY6PQOAsq+JzmLfoT9cnIidcvqFLx1zFOIhRDUmoDV+QKJwGGiyvACFQcba6tClO3YWdsmr55VkdsFDA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault-org.20251104.gappssmtp.com header.i=@brainfault-org.20251104.gappssmtp.com header.b=CPP6ZbNg; arc=pass smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 717E741A4EC
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 13:55:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785160554; cv=none; b=MfCxrWVP0Avp7wY20GqvWD0g+4MEDgqZTELH1Ru8QiwKCQ+lSKcvpq41tvgja4eusZvI4YbFzxY9s2e9eqTaNIiXe2h6rp9e3nsf/j0dEeDfqtlsGKDQQzrJ+mIfIYLJiJHIJcUONfugyoqPVOuzsKG2BZa71sRs2nIsH1hNDpY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785160554; c=relaxed/simple;
+	bh=tgmjNeM4RX3moHUqbuO/yW7mmJhG09+PPGsCcilaAs0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GpNZtVIa/gPQ5H7w3ABlQt6ux5q8tHSm2NNaV/DoCTdsSvJUQxIAkEGgdC7C9cWKZRImowiL4Q/W0oucvves8X5CxZWSTlJCnSt5HT5dEJssYFzIMVOxF9FttOvIhtsLsM33lRkLaXv0D+wS168DLRKQW2es9YO+cmh7uLrZAMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lIWEDlJM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fpofVy0j; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=brainfault-org.20251104.gappssmtp.com header.i=@brainfault-org.20251104.gappssmtp.com header.b="CPP6ZbNg"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4956869750eso20432655e9.2
-        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 06:54:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785160443; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lHNhPIGyzI4YXW7qYLH4AwTmF4pRl1S9k/Q6GkmkozAkdXmd9ciqsHCpM+7/PRvaos
-         NSiOxobCT/vBl/Lbug4AYxZTRKywvLrmKnr0P5B8eHv/1+tEOFSGjlKOQywuwTHIN9WV
-         7nDuFwt2GcL5WTZGk1dJb9mT6s+ls6yV3qwgirinsIweaz9D44MGwps93FbAGdNFZRJ6
-         0CE/sukFkoUn2AlCgTnJsruThnoGZtzUrOtalEttJ9TjT/JoFUlgEPjCIJXNZ3v4C+KI
-         cRkqwjU7CblgPS4Y9GwdcmTC3IOTrjFimCQzsZ8htTtXKXKZ+8wn76ESa/ueXdqrt+rW
-         I0GQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=LkTARaNCDvTrxIcriRua7Id7ovFdqPl8CcOFZ930Vas=;
-        fh=QW64oKRIftlFqgrpIJSSKBnkm0cIzGGuh9Tiwjy00c0=;
-        b=Dtq1ErAR2wjx88BRXncPgSab/KAbQglYFZk+5VT8DwtR6/+r5JPkj72/hXpe8dSSEb
-         8t9KyhIV+aviEeJ7jzan6FYXxEIwlHSB27NK6ACR/qpxXRefb7DjUkg8Ee+7NdSXCNlh
-         6B71EmEkll9zVnxpsiBdRQyZUz85RwwHPQKDjoYBQjFcz1/z9RWWzN1DNNToM9uv7fat
-         5bxoy7q6ENesWRyrpYyDGoN9STECqL/WCMZUpiffyaVUnjXsARHvK6HR21WZmYs4xaoy
-         qQb8pXwTCJ+n55Tq2R3Jk4so0oywCBjbZDk7lHyPr962DssNqUgDk0hynuzJEET1Rkki
-         oXDQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lIWEDlJM";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fpofVy0j"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66RDluH33414506
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 13:55:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=pkdWnQuMpd+iBrUuzN6qCMfq
+	8QBHq95joAhH8/IHLoI=; b=lIWEDlJMUMOGG9hTGlYBziKueCiRCG3/k+Fnr2t3
+	TH7vCltg7/HmslvNngNA4lSAcdMOKlAO28IjJksPtRhpal3guLTRL/udcaL9UKfP
+	psEz7NWY28VEVuhO5lPvl3s9OT+euqIYjSNn17kLdKIGd8ht81mUmoRESC+dUAT/
+	MhE5U1MmEYTleS2j+UGUaVP8VKuyd41fKx/Jp0zFma1ta/mFTpyTpOPhmGZJ0+80
+	Xf2/ZcIZlagtStdxbQ1vHTlkVZ7Rxp/vtUhd+1AlYqdantfKSWkI06AuMfkvj949
+	uO8eBJsOp3qZph/17JEJeBuEV2O73L2cdb5vA1orkGC7Rg==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fp4v68x9w-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 13:55:52 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-5174a236220so31040001cf.3
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 06:55:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brainfault-org.20251104.gappssmtp.com; s=20251104; t=1785160443; x=1785765243; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=oss.qualcomm.com; s=google; t=1785160552; x=1785765352; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=LkTARaNCDvTrxIcriRua7Id7ovFdqPl8CcOFZ930Vas=;
-        b=CPP6ZbNg6HDlf1OkpPivvEKY+RXI7VgWumYaxtrQrajy5k9EvuixeX9E91Ay7RsOAt
-         ewpJq5nGCpUp1oCpEtMI7UDS3+g/zILvyeui24WHpxW1Z3q/x4POy/Kmu4glTINbMzBx
-         n0eQbmP9cPrVH2xzKXRlYSC+6R517ZLZQqQ9ZCLjyB6IlWEDq5TKaXC4SNLOT6KIJbo2
-         g3erZ7a06GX24K2zEFeLv9z6lpKacD6wx4GgE2XcgJlk7NTPAEftLJ0y3/zgSQtUni6U
-         4hLK5iLqB1N/4JrDJOZNglLVmdsW9Ks66Qa/cgnAyNjGbq0nySjDSMQal4rD+XFCY8Lz
-         nR+w==
+        bh=pkdWnQuMpd+iBrUuzN6qCMfq8QBHq95joAhH8/IHLoI=;
+        b=fpofVy0jPEIisZru1E8gzGe1TRJHxnRwim5Xr71dZMlZH5liZF2+JaDR7zbig1ateC
+         UKsKWbVMZhUS+7AMsJLGUnQYNjo34/d8rv7pAxdRUnEkQ8fW9aCwV/rNxd+aHouzGdM+
+         en1a/ytv30ZIyFsG0CqK9MTR/4yQYQeC+S74hsdeaP1z0F6Qt84IueFBiEjUR/A4WowL
+         cGS6bO3VOonaZepn+jWtgbZlTzjTcSacCt1206mynzHoOHnBaZDGegmm34tdgzj3RDsm
+         O5/2qrgT9dmgQ7jgC1OPv17VnjeGbjykSS6xEybLJtDzctNYoC6E3F1fQXmVCd1ddlTs
+         nGFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785160443; x=1785765243;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1785160552; x=1785765352;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=LkTARaNCDvTrxIcriRua7Id7ovFdqPl8CcOFZ930Vas=;
-        b=kc8vM4DbjL8zNB+HiJ5hHsa3JMICRnrJr+IFjP5EUuDQCLSDcj3b/G8aBjSOOfuQVO
-         8/HMk4XgvXY9VPzxqJVjzSGdkLAr3dv3N60DK2O1Ejtxuy0ETNUWLGzVE7rFSBSrdC+2
-         GSsKzAEznNwyLdb25iPrhZKhnMC/tb8j/wS6OjchnaYozqfAg8jVKAIzw/RuoyXiMDjo
-         kY4oJh70IZnNzXn7lVxKBkmcDcAtkZSOP4dvabQrCtQxauG1sTltjaOopn2I22g3uC1G
-         xoX6191Io05mTLvXgUWvgUdLHyyWgC0XuVSlWQVv/46uSO6++cExnmWx4ssrSyK/eofu
-         ggOg==
-X-Forwarded-Encrypted: i=1; AHgh+RqvlCfpd/0Px5JzaOJnIoZUX0JPij+aV766YHsASpKpUNkOz0AMYKGscRKY1Rx9DR9JShZHkZeAh9Ed@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz69UyP6wNM/yeZvjMVubJurB1eO+WsKIBJ/iznAI2NPXTjiBqo
-	wTyzuShhwaS6dsbdFjAXz1wRJqSZE+iiw6T92ITbr2aMg+h4V8Hlo4IpQXM0PEAvG/jVGvASh3b
-	kkcYYxkDylTOQO5oAYes0BME7XjoqQmEoGJwzTZx1lP2JKTNvXpHHWIgqXg==
-X-Gm-Gg: AR+sD132ql9wc+mv8P0ar3lkDiw8mg6GSFUb7BtHXjChS1KmZaradd+Xk3Ev3i99kyF
-	Q2PzordEFHYX7z4mBrp0//6zDdOpgPVEF+WIKXqiwA+jVr7yNA9oFs8WdWIsq8+4gVMwV1Orkcj
-	U39HmHvR2NAWM8JXpXOvh5FJ7ZXpXYY8UHOLOKQ3vyQUOS3oTaujkweACP1fbxhjLX4LgGP7cGp
-	ySdUj/EjNSjQpgvECqlKYqJAfkr9D5LtGqfEeIybh+yM1cOTC2JDSKu5o7quPXKQFBndg3DPpnC
-	aKxec8myU8z3FZQBtZ1PWnwSVQlVNzvRsngdk65PtYn2+hTHgfqhoEnd8V9NbgS2AdsRWzBrldM
-	LghiM
-X-Received: by 2002:a05:600c:a12:b0:493:eccb:8cb2 with SMTP id
- 5b1f17b1804b1-496b57297b8mr114877045e9.30.1785160442437; Mon, 27 Jul 2026
- 06:54:02 -0700 (PDT)
+        bh=pkdWnQuMpd+iBrUuzN6qCMfq8QBHq95joAhH8/IHLoI=;
+        b=d2V7lHE4akjPB7RaYDRM2yGI4gw3hPRJETkcuYiy3Ro/HmGCz4ce8yAemTdRNrF08+
+         PdH2lMFh7gGmQ1wUyzb8bjhsR95Slr892z9CcBOruieF/Qhe++2WY6Ig7giXY0hfdgEN
+         PGgAL/K+U9Lryfg6QtZUavqmKaYg2yod0rK4N82/16UKpgJIzpZ/A8D/Tkjn4H3U3z1l
+         c8bWYaGPYvNVWiUbiufM9apTcTiLglw6UpDsTLKjUzxEsA2BfXaK1I6yuOngDmvF1MPi
+         yBLLwRJhDTPkLQ2Znj9IxwzNLS55FQRtFkFX/QhKuqzXS0H///f8HquOgNh6Z+5b9RHV
+         EsTg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr4KGGihCttLJ4K5zAe/1tjEQLL4ZYwVeazx1KtTxa4xh8UXjQftL9mPlraOHuZUFuou7JlKk6Y91Js@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw6iZg9ZurShWWOpqzcMhMaIs+/ufiTOSlMwNfC4wAAGVfqzj8z
+	58aoHAOH0AwZVR0BFD4EC2amWTn4ab+wacB4EntjF3JdjUWnUnXJAayqlCyIpSP7no0y9Nh88MO
+	UFT0gwpLKaQRNttCojgkqTZBWxMfYejyfixLSOxJkenm50mHUJhfX7qW/xrEfpMEb
+X-Gm-Gg: AR+sD12OMknl/EdjPu5lGiLa+MCt3gmAXKID6zbavP5nxuXjmzM+ojCHLWHZ/zYlT6/
+	CJF6T+UzjaVH544b3Mqpa5EyZ/6T5uSnwdIXKq90pmb+F8dNYMIawIAduHGSg/A3E61gQjoDKzr
+	EuvDeGFyolehW2z86ZZ+L3GEGHcYF0zh3ebbtkRnbX3GmPp+KGoiuLHpSqxNKm5FAOXHHOCCY4P
+	MvcVzQvlbd1c6Xm5Q2yws69b07Ql2Pj9RVBJvpSAG/x3Q4P6txp+AVSWS/J+IQ5pOqE2RxUkG2T
+	uITAieeVAiA9CodzRsn+3pGPZfxSUWKtT8RIMnHmDJnkI+3IxyA4ohah5YrDhE6NBZlxZaHPpQh
+	ccQfpoZ5E44Y6/O4=
+X-Received: by 2002:a05:622a:5889:b0:517:78c7:d93a with SMTP id d75a77b69052e-529ccb0d75dmr10018041cf.16.1785160551724;
+        Mon, 27 Jul 2026 06:55:51 -0700 (PDT)
+X-Received: by 2002:a05:622a:5889:b0:517:78c7:d93a with SMTP id d75a77b69052e-529ccb0d75dmr10017541cf.16.1785160551242;
+        Mon, 27 Jul 2026 06:55:51 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.163.114])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85c67339sm51706327f8f.31.2026.07.27.06.55.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Jul 2026 06:55:50 -0700 (PDT)
+Date: Mon, 27 Jul 2026 16:55:47 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Taniya Das <taniya.das@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Luca Weiss <luca.weiss@fairphone.com>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+        Alexandre Torgue <alexandre.torgue@foss.st.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-stm32@st-md-mailman.stormreply.com,
+        linux-arm-kernel@lists.infradead.org,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v8 10/10] arm64: dts: qcom: eliza: Add support for MM
+ clock controllers
+Message-ID: <raojtphmpetjitaiaf7e77qvs5zhv24ga4wix5klndbkcy5t2i@tcyrm2xzoape>
+References: <20260717-b4-eliza_mm_cc_v6-v8-0-5cca1bef2e48@oss.qualcomm.com>
+ <20260717-b4-eliza_mm_cc_v6-v8-10-5cca1bef2e48@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260727084003.1951324-1-anup.patel@oss.qualcomm.com> <71fd5b46-4388-4106-aee9-b4510069975f@arm.com>
-In-Reply-To: <71fd5b46-4388-4106-aee9-b4510069975f@arm.com>
-From: Anup Patel <anup@brainfault.org>
-Date: Mon, 27 Jul 2026 19:23:50 +0530
-X-Gm-Features: AUfX_my4QjrER3hRFjzxXael861bKnyaiQylY-XLFhSCxIc_XNnqTG1sq5MogY4
-Message-ID: <CAAhSdy2cDHO2w8VX34WV1kBxHQ6N0H0Ra_r6aDKK86250nWFSA@mail.gmail.com>
-Subject: Re: [PATCH v2] driver core: platform: Setup device MSI domain just
- before driver probe
-To: Robin Murphy <robin.murphy@arm.com>
-Cc: Anup Patel <anup.patel@oss.qualcomm.com>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Paul Walmsley <pjw@kernel.org>, Alexandre Ghiti <alex@ghiti.fr>, Thomas Gleixner <tglx@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Danilo Krummrich <dakr@kernel.org>, 
-	Tomasz Jeznach <tomasz.jeznach@linux.dev>, Joerg Roedel <joro@8bytes.org>, 
-	Will Deacon <will@kernel.org>, Jassi Brar <jassisinghbrar@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	"Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Saket Dumbre <saket.dumbre@intel.com>, Rahul Pathak <rahul@summations.net>, 
-	Atish Patra <atish.patra@linux.dev>, Andrew Jones <andrew.jones@oss.qualcomm.com>, 
-	linux-acpi@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	driver-core@lists.linux.dev, iommu@lists.linux.dev, 
-	acpica-devel@lists.linux.dev, Sunil V L <sunilvl@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260717-b4-eliza_mm_cc_v6-v8-10-5cca1bef2e48@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI3MDEzMSBTYWx0ZWRfX/tX7Th4KL+JW
+ PhgvV62X3gGUScm7nKQ09jPRPhaTU4B0aVEl0AOsujoR1z3vm7td02cwW/gFToXUUTs6UCb1kjM
+ U35RHDc/gcwbMVzBzNcmh0/8hZRNuiU=
+X-Proofpoint-GUID: dy9qvf_bv6PRQbMmpd0xURekSO9PeA4D
+X-Authority-Analysis: v=2.4 cv=ev3vCIpX c=1 sm=1 tr=0 ts=6a676368 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=6dw9+iwJWV8PcCi9M4lOBg==:17
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=XF3s6JUOJAP1l5vmAHgA:9 a=CjuIK1q_8ugA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-ORIG-GUID: dy9qvf_bv6PRQbMmpd0xURekSO9PeA4D
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI3MDEzMSBTYWx0ZWRfX/dqmHkTkx31S
+ RuClhZkfHarkvjm06x4QKA5cP++YEg83jpBcw5qKOhYkb2CFmQOo8c+87SV0429FEvhscWe/7KN
+ ZAaeYpsFlpRGeM4rf2tOI4X/IZGnhAMCn19/10gKrxN1KpEnaQ0gC16o5ng3UDY01DuEDaaSyyj
+ TAbeztCAkb9ko54fm3xYzqOc/JYJx/Pbn0nrZR82rVfDEJe0uvafTkPBxuFuPZdfbkUFxcTRf3H
+ RY0XAuiq7Vtcg4xgsF1fbgGv81pBcv9uM4Lh2eeoetHTQFwR17RnoqGHCLnPxb+vegbRHDZk5VL
+ UtVYjFRmHZ4CSSVoN8Su1UmRPkAu3phbj6fVGelanO7U0AobO59j+IkBLXdBDqJCXcAT645++Fk
+ 6YhwCu3sUy9YpK7NrJQyNGu4NUPSB4CyqRnHXADGLodrwH6+BydtfjUqRPhcX16aD3aUu7yroY5
+ FP2FxG02Cd2Vr8D899g==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-27_04,2026-07-24_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 phishscore=0 lowpriorityscore=0 priorityscore=1501
+ suspectscore=0 clxscore=1015 impostorscore=0 bulkscore=0 malwarescore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607270131
 
-On Mon, Jul 27, 2026 at 5:46=E2=80=AFPM Robin Murphy <robin.murphy@arm.com>=
- wrote:
->
-> On 27/07/2026 9:40 am, Anup Patel wrote:
-> > On RISC-V, the MSI controller (aka RISC-V IMSIC) is probed as a regular
-> > platform device and MSI client drivers are always probed after the MSI
-> > controller driver using fw_devlink. Unfortunately, this is not sufficie=
-nt
-> > to ensure device MSI domain is set for MSI client devices before driver
-> > probe because OF framework sets device MSI domain at the time of platfo=
-rm
-> > device creation whereas ACPI framework expects arch specific code to se=
-t
-> > the device MSI domain at the time of platform device creation.
-> >
-> > Currently, to address the problem of device MSI domain being not set
-> > correctly, various RISC-V MSI client drivers explicitly set device
-> > MSI domain in the driver probe function using below code pattern:
-> >
-> >       /*
-> >        * The device MSI domain for platform devices on RISC-V architect=
-ure
-> >        * is only available after the MSI controller driver is probed so=
-,
-> >        * explicitly configure here.
-> >        */
-> >       if (!dev_get_msi_domain(dev)) {
-> >               /*
-> >                * The device MSI domain for OF devices is only set at th=
-e
-> >                * time of populating/creating OF device. If the device M=
-SI
-> >                * domain is discovered later after the OF device is crea=
-ted
-> >                * then we need to set it explicitly before using any pla=
-tform
-> >                * MSI functions.
-> >                */
-> >               if (is_of_node(fwnode)) {
-> >                       of_msi_configure(dev, dev_of_node(dev));
-> >               } else if (is_acpi_device_node(fwnode)) {
-> >                       struct irq_domain *msi_domain;
-> >                       msi_domain =3D irq_find_matching_fwnode(imsic_acp=
-i_get_fwnode(dev),
-> >                                                             DOMAIN_BUS_=
-PLATFORM_MSI);
-> >                       dev_set_msi_domain(dev, msi_domain);
-> >               }
-> >
-> >               if (!dev_get_msi_domain(dev))
-> >                       return -EPROBE_DEFER;
->
-> I stand by my previous comment that relying on ACPI initcall order and
-> assuming fw_devlink is enabled doesn't really seem robust enough to
-> justify dropping proper handling of this case, especially if pretending
-> it's a generic interface.
+On 26-07-17 13:01:54, Taniya Das wrote:
+> Add the device nodes for the multimedia clock controllers (cambistmclkcc,
+> camcc, videocc, gpucc) for Qualcomm Eliza SoC.
+> 
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
 
-I think you still fail to understand the root-cause of the msi_domain not
-being set correctly in the struct device. There is no issue with the probe
-order (or probe deferral) rather the issue is msi_domain being set very
-early by OF / ACPI framework at the time of device creation when there
-is no MSI domain registered.
-
-Let's take the case of OF based platform devices with RISC-V:
-
-1) The OF framework set the msi_domain at the time of platform
-    device creation but unfortunately the RISC-V MSI controller
-    driver is also a platform device (aka RISC-V IMSIC driver) which
-    is probed much latter hence the msi_domain for all OF platform
-    devices is set to NULL.
-    (Refer call path,  of_platform_device_create_pdata() ->
-of_msi_configure() -> dev_set_msi_domain()
-
-2) The fw_devlink based probe ordering in the Linux DD framework
-    ensures that RISC-V MSI controller driver is probed before the
-    MSI client drivers (such as RISC-V APLIC MSI driver, RISC-V
-    system MSI driver, etc) but still when these MSI client drivers
-    are probed the msi_domain remains NULL for the platform device
-    of MSI client.
-
-3) Due to #1 and #2 above, the MSI client driver have to explicitlly
-    call of_msi_configure() on RISC-V because no one updates the
-    msi_domain of all platform devices after RISC-V MSI controller
-    registers a MSI irqdomain.
-
-This patch eliminates the #3 above by calling of_msi_configure()
-right before probing the OF platform device.
-
-Regards,
-Anup
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
