@@ -1,156 +1,186 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E24863D3486;
-	Mon, 27 Jul 2026 07:35:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F67D42A82
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 07:40:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785137743; cv=none; b=kgk9Qkj8A7HWHlYjLKTVdZhKSa5NK6pmjxI9Il3Ory1f3O2FEFBiBWEOu06WZnJGPZX4ud4e5Z2iTExq6xCUyXYooaICKT3eJdCgch4so7OG7g5Ne3rmhuTqsg7woOMOig0fiouVX6m1+0TZoybUExUHBufrDHJDhAEmVxeJAcA=
+	t=1785138004; cv=none; b=PktAPrle7wsHShofQ1z2A3pdJHK1dg5fvyhrqrUh93CwZLSd1RbJE2jv6yG9dbM0siTGsYldDn63DXES546FEEvUVdArJI8fzWngyUbxpq7LL5nhN5pjkOVREBen+EScgLYA+L3y0PYJXwWfoOyfGpQ66qxhEDM5WrRJxLHY/4I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785137743; c=relaxed/simple;
-	bh=24VEV6QOH6SHtA+zoAPjnOtQJdLtst7s6tNZS8wCggY=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=jU5n1Q0vgCexlVQVKIwslgmexlBB74Jlhehlp8Tq4i0QaXJXkB5s6fLsL4fDLDXecy2dSkcNbOL/BedJloGcVxi7lsc6zzYQpEw+IjoECv7PxSvWTCSxm2+ZsM2cMbEeQpSCyPmMx/HvcQwTCL/iseJ/tKs5mUjsHlEdylex/nc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 1D66B202054;
-	Mon, 27 Jul 2026 09:35:39 +0200 (CEST)
-Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1woFsB-001VMX-07;
-	Mon, 27 Jul 2026 09:35:39 +0200
-Received: from pza by lupine with local (Exim 4.98.2)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1woFsA-000000006t9-3uCi;
-	Mon, 27 Jul 2026 09:35:38 +0200
-Message-ID: <084a860a77f18aaafcda4b223eec4fdcd96e75c9.camel@pengutronix.de>
-Subject: Re: [PATCH RESEND 10/17] drm/spacemit: add Saturn DPU KMS pipeline
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: codykang.hk@gmail.com, David Airlie <airlied@gmail.com>, Simona Vetter	
- <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann
- <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski	
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Yixun Lan	
- <dlan@kernel.org>, Vinod Koul <vkoul@kernel.org>, Neil Armstrong	
- <neil.armstrong@linaro.org>, Haylen Chu <heylenay@4d2.org>, Michael
- Turquette	 <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney	 <bmasney@redhat.com>, Paul Walmsley <pjw@kernel.org>, Palmer
- Dabbelt	 <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre
- Ghiti	 <alex@ghiti.fr>
-Cc: dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org, 
-	devicetree@vger.kernel.org, spacemit@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
-	linux-clk@vger.kernel.org
-Date: Mon, 27 Jul 2026 09:35:38 +0200
-In-Reply-To: <20260725-k3-display-v1-10-6de34d80e86c@gmail.com>
-References: <20260725-k3-display-v1-0-6de34d80e86c@gmail.com>
-	 <20260725-k3-display-v1-10-6de34d80e86c@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+	s=arc-20240116; t=1785138004; c=relaxed/simple;
+	bh=/lMOUo+06JQSvgZZSsDMRGuGP+HIziJxpjzG8G4oEhk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=hzv+W8d6jGFYbJzP/CBDwlOdo6BNy3XKqT9oEkomdk0218FMNm+mAm9q1G4f0lGBev8ZZmbX7twSvrxy3vEEFIVUAHB70UO6kD9teFBCXTgu1KGEKjTcQ5mHIubrNLCk2WetENaGhhUPAN/0CIxP5cYBd/cSpwFk67jIUJ0mqNM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FOr3cFL6; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FOr3cFL6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D09631F000E9;
+	Mon, 27 Jul 2026 07:40:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785138003;
+	bh=E0Z7ZJdSKrVWoG5sM9NlG/FezkMuWZ4+jkTARh4Ugcs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=FOr3cFL6zVmhFeoUhoJobEaZulglmg/lPVS5Knq2j/lGbAUPcNVHx95BXzZ4+HJut
+	 mb8+sytqIcJ3Xfsol9ZDWcRAVDt/e7bsdVC0kMJ95jN/1WBXvpLPqrb6y8rSE0nepm
+	 m2+WcDlIn+D6HtJcXcOQ+ece7+n5OKxSp0E7x9a8Q7KbvSyb47cdXfb012VOTcV0vJ
+	 Mm2KZvJovrWV3w88+IMNTNm8ChEy6D1aHVlgwtKLBIkMsjl6BqLfClUpJ/FNaCcHRN
+	 c3m4wID7MRV6+soe6x6X8EDab9/A3nVj1+Rc4GZGjIvOiKGqYfKYLiaKCT4TJZthNg
+	 HWCD+UG2h1ILQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/2] ipmi: kcs_bmc_aspeed: g6: Add KCS Channel 4 over
+ PCIe
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?R3LDqWdvaXJlIExheWV0?= <gregoire.layet@9elements.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <45f36ea6a3a2df18b51c5b83200c7596dbafe133.1785135437.git.gregoire.layet@9elements.com>
+References: <cover.1785135437.git.gregoire.layet@9elements.com>
+ <45f36ea6a3a2df18b51c5b83200c7596dbafe133.1785135437.git.gregoire.layet@9elements.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+Date: Mon, 27 Jul 2026 07:40:02 +0000
+Message-Id: <20260727074002.D09631F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
-On Sa, 2026-07-25 at 00:51 -0400, Cody Kang via B4 Relay wrote:
-> From: Cody Kang <codykang.hk@gmail.com>
->=20
-> Add the atomic KMS implementation on top of the hardware backend: one
-> CRTC and one primary plane per DPU instance. atomic_check validates
-> the plane rectangle 1:1 against the mode and sizes the per-channel FBC
-> line buffer; atomic commit builds the cmdlist batches, maps the
-> framebuffer through the DMMU and arms the cfg-ready handshake, with
-> vblank events driven from the DPU interrupt.
->=20
-> Signed-off-by: Cody Kang <codykang.hk@gmail.com>
-> ---
->  drivers/gpu/drm/spacemit/spacemit_crtc.c   | 815 +++++++++++++++++++++++=
-++++++
->  drivers/gpu/drm/spacemit/spacemit_planes.c | 376 +++++++++++++
->  2 files changed, 1191 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/spacemit/spacemit_crtc.c b/drivers/gpu/drm/s=
-pacemit/spacemit_crtc.c
-> new file mode 100644
-> index 000000000000..b75ff6320501
-> --- /dev/null
-> +++ b/drivers/gpu/drm/spacemit/spacemit_crtc.c
-> @@ -0,0 +1,815 @@
-[...]
-> +/*
-> + * The assert and deassert orders are not mirror images: the hardware wa=
-nts
-> + * these.
-> + */
-> +static void dpu_reset_assert(struct device *dev, const char *name,
-> +			     struct reset_control *rstc)
-> +{
-> +	int ret =3D reset_control_assert(rstc);
-> +
-> +	if (ret)
-> +		dev_warn(dev, "failed to assert %s reset: %d\n", name, ret);
-> +}
-> +
-> +static void dpu_reset_deassert(struct device *dev, const char *name,
-> +			       struct reset_control *rstc)
-> +{
-> +	int ret =3D reset_control_deassert(rstc);
-> +
-> +	if (ret)
-> +		dev_warn(dev, "failed to deassert %s reset: %d\n", name, ret);
-> +}
-> +
-> +static int dpu_pm_suspend(struct device *dev)
-> +{
-> +	struct spacemit_drm_private *priv =3D dev_get_drvdata(dev);
-> +	struct spacemit_crtc *a_crtc =3D priv->a_crtc;
-> +
-> +	/*
-> +	 * Assert before gating: a reset asserted into an already-gated block
-> +	 * has no clock edges to propagate on and leaves the register file
-> +	 * untouched.
-> +	 */
-> +	dpu_reset_assert(dev, "lcd", a_crtc->lcd_reset);
-> +	dpu_reset_assert(dev, "esc", a_crtc->esc_reset);
-> +	dpu_reset_assert(dev, "mclk", a_crtc->mclk_reset);
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-It looks like these three are mirrored, and could be handled by
-reset_control_bulk_assert/deassert().
+Pre-existing issues:
+- [High] Uninitialized spinlock access in interrupt handler.
+- [High] Hardware channel remains enabled when `kcs_bmc_add_device()` fails.
+- [Medium] OBE timer race condition allows infinite background polling.
+- [Medium] Unchecked dereference of `pdev->dev.of_node`.
+--
 
-> +	dpu_reset_assert(dev, "aclk", a_crtc->aclk_reset);
-> +	dpu_reset_assert(dev, "dsc", a_crtc->dsc_reset);
-> +	usleep_range(10000, 20000);
-> +
-> +	if (a_crtc->core && a_crtc->core->disable_clk)
-> +		a_crtc->core->disable_clk(a_crtc);
-> +
-> +	return 0;
-> +}
-> +
-> +static int dpu_pm_resume(struct device *dev)
-> +{
-> +	struct spacemit_drm_private *priv =3D dev_get_drvdata(dev);
-> +	struct spacemit_crtc *a_crtc =3D priv->a_crtc;
-> +
-> +	dpu_reset_deassert(dev, "mclk", a_crtc->mclk_reset);
-> +	dpu_reset_deassert(dev, "esc", a_crtc->esc_reset);
-> +	dpu_reset_deassert(dev, "lcd", a_crtc->lcd_reset);
-> +	dpu_reset_deassert(dev, "aclk", a_crtc->aclk_reset);
-> +	dpu_reset_deassert(dev, "dsc", a_crtc->dsc_reset);
-> +
-> +	if (a_crtc->core && a_crtc->core->enable_clk)
-> +		a_crtc->core->enable_clk(a_crtc);
-> +
-> +	return 0;
-> +}
+--- Patch [1]: [PATCH v3 1/2] ipmi: kcs_bmc_aspeed: g6: Add KCS Channel 4 o=
+ver PCIe ---
+commit 99fe5c8c1ecb27a7e6072d1058a4963ff797b165
+Author: Gr=C3=A9goire Layet <gregoire.layet@9elements.com>
+ipmi: kcs_bmc_aspeed: g6: Add KCS Channel 4 over PCIe
 
-regards
-Philipp
+This commit adds a 5th KCS channel for the ASPEED AST2600 to support
+KCS 4 over PCIe. It configures the appropriate registers and restricts
+usage of this 5th channel to compatible AST2600 controllers.
+
+> diff --git a/drivers/char/ipmi/kcs_bmc_aspeed.c b/drivers/char/ipmi/kcs_b=
+mc_aspeed.c
+> index a13a3470c17a4..97daa2b3d6a04 100644
+> --- a/drivers/char/ipmi/kcs_bmc_aspeed.c
+> +++ b/drivers/char/ipmi/kcs_bmc_aspeed.c
+
+[ ... ]
+
+> @@ -452,6 +479,10 @@ static void aspeed_kcs_irq_mask_update(struct kcs_bm=
+c_device *kcs_bmc, u8 mask,
+>  			regmap_update_bits(priv->map, LPC_HICRB, LPC_HICRB_IBFIE4,
+>  					   enable * LPC_HICRB_IBFIE4);
+>  			return;
+> +		case 5:
+> +			regmap_update_bits(priv->map, PCIE_LPC_HICRB, LPC_HICRB_IBFIE4,
+> +					   enable * LPC_HICRB_IBFIE4);
+> +			return;
+>  		default:
+>  			pr_warn("%s: Unsupported channel: %d", __func__, kcs_bmc->channel);
+>  			return;
+
+[Severity: Medium]
+This is a pre-existing issue, but since we are updating channel 5 here, I
+wanted to ask about the OBE timer logic earlier in this function.
+
+When disabling the OBE event, aspeed_kcs_irq_mask_update() calls
+timer_delete(&priv->obe.timer). Because timer_delete() is asynchronous, if a
+concurrent timer handler (aspeed_kcs_check_obe) is executing on another CPU,
+it might observe the hardware OBF status is still set and call mod_timer().
+
+Could this result in the timer endlessly re-arming itself and polling the
+hardware indefinitely in the background? Might timer_delete_sync() or a sha=
+red
+shutdown flag be needed here to prevent that?
+
+[ ... ]
+
+> @@ -575,11 +607,16 @@ static int aspeed_kcs_probe(struct platform_device =
+*pdev)
+>  	if (channel < 0)
+>  		return channel;
+> =20
+> +	np =3D pdev->dev.of_node;
+> +	if (channel =3D=3D 5 && !of_device_is_compatible(np, "aspeed,ast2600-kc=
+s-bmc")) {
+> +		dev_err(&pdev->dev, "LPC over PCIE KCS4 only supported on ast2600\n");
+> +		return -ENODEV;
+> +	}
+> +
+>  	nr_addrs =3D aspeed_kcs_of_get_io_address(pdev, addrs);
+>  	if (nr_addrs < 0)
+>  		return nr_addrs;
+> =20
+> -	np =3D pdev->dev.of_node;
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but I noticed pdev->dev.of_node =
+is
+used here in aspeed_kcs_probe().
+
+Earlier in aspeed_kcs_probe(), we have this assignment:
+
+aspeed_kcs_probe() {
+    ...
+    np =3D pdev->dev.of_node->parent;
+    ...
+
+Is there a scenario where this driver could be manually bound via sysfs by a
+root user without a valid Device Tree node? If that happens, would
+dereferencing pdev->dev.of_node->parent cause a kernel panic?
+
+[Severity: High]
+This is a pre-existing issue, but I have a question about the probe error
+path further down in aspeed_kcs_probe().
+
+During probe, the driver enables the hardware channel and then registers the
+device:
+
+aspeed_kcs_probe() {
+    ...
+    aspeed_kcs_enable_channel(kcs_bmc, true);
+
+    rc =3D kcs_bmc_add_device(&priv->kcs_bmc);
+    if (rc) {
+        dev_warn(&pdev->dev, "Failed to register channel ...\n");
+        return rc;
+    }
+    ...
+}
+
+If kcs_bmc_add_device() fails, the hardware remains active on the host bus.
+If the device asserts an interrupt in this state, could it result in an
+unhandled interrupt storm since the channel is never explicitly disabled on
+this error path?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but looking at the sequence above
+in aspeed_kcs_probe(), there appears to be a window where the hardware is
+fully enabled to assert IRQs before kcs_bmc_add_device() is called.
+
+If an interrupt fires immediately after aspeed_kcs_enable_channel(), the
+registered handler aspeed_kcs_irq() will trigger and call
+kcs_bmc_handle_event(), which attempts to take kcs_bmc->lock.
+
+However, kcs_bmc->lock is initialized inside kcs_bmc_add_device():
+
+kcs_bmc_add_device() {
+    ...
+    spin_lock_init(&kcs_bmc->lock);
+    ...
+}
+
+Does this mean the interrupt handler could operate on an uninitialized
+spinlock if the hardware asserts an IRQ before kcs_bmc_add_device() finishe=
+s?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1785135437.gi=
+t.gregoire.layet@9elements.com?part=3D1
