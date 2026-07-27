@@ -1,146 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2B5B3FCB13
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 17:53:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD6833F65EA
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 17:55:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785174793; cv=none; b=XrGTl5Ve8ktxVFft65Exf0MjqthXknewIpetggDEruuIbbstYT0n87PHM4+Pcotw5gq9OkyFmMPnHxarp4C9dobD9qAELJuv9z6zMsx09XWe6gzEh4NvnC7gtqycl8z5kb+n1J9gSNDYzyxk1r0hK4rVY/o7viZ90Ej9O28SEJY=
+	t=1785174914; cv=none; b=ckevY3l8ciPrTttJRONO37hTHWHAtzUFQd6q7LU0TqHvELsb94mItMmXi962MAeBrQvGqVjhy++zSkIVx8tYE3eVYzROT41e5QQgu4Bo4+pA9Z3N2G64XCIIRSVHwrp2paGuYw7fpm+Z0lY0vBQIU92iNjk1OUx2jEqJfghp1Yc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785174793; c=relaxed/simple;
-	bh=w85PC1EkUqEUQTQ54oPXa5J3W308akXAgvGWArwFSjQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IzW5O6NUgdNEkJze55iD+/aJBwoI2lZU0b/CWGbf5HIHA4ZmibRjcaML7WR577lmdQiZSfiy4CPU1LsLJgi0U4nC7krvbeiM4dM42DkPt4BUs3P1ASW/KbyOYYAHu83T53rGQOarymTQxllYaahCSgb3hsalzWV//oNcGx9Olq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M0sRHiN8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785174914; c=relaxed/simple;
+	bh=REZwqB8VviTuZqvVXVncQX5MzSgxhwXFRh+sP+als6Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DMAg+dklX141EONQSLrhMtpcd8NxeS4t/+nJzIOKVvYfgv5LIVFSs+5i1D1zLsFoUmCFhsRoSHkjqmTPKc9D7eqy7EVo+MP8xc+897Hr0U2ZxFw6dEEI8rvR/YtXLIRLegHq+uS25oSl2VXhepcFreYMNrbchqMWoRmQeTBDOkE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AjeJ+/ks; arc=none smtp.client-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M0sRHiN8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FB221F000E9;
-	Mon, 27 Jul 2026 17:53:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785174784;
-	bh=d+88j4Ml7SAUWQm54F20v71UdRpzP+Qd8s8k16YixDo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=M0sRHiN8wPM4BbpylkoqxPBTCTw9mzr/F1S5LZDom8g6XfFe+dYnp4SzFbIgmXLic
-	 94Ay/JFiDxQO3gzVoCxyj+pVZa45XgVOpFDZusidaFjtGyb5ZaAueciIL3Jqetbm1G
-	 zRiyYtPjNnIwO/7WY05NJ0cdt/VXSrZDPU4BfGitNknwxHthVhCCZGnUZ+Ns4ULJsD
-	 DHS3kKfNiLjFkS+dawTJUoPQHG15ElcJL2qw25x5kjViEgHaSi8o/erRQzaBQuHPnd
-	 S+qRru64OMdM2j9FXSBEEGMyWpGpBkERz3W0hQuCi8zbnbG+hDr/TMuLk6FP0k0DR+
-	 mg/3CRYuSC7Mg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 02/35] dt-bindings: pinctrl: airoha: en7581: fix pwm
- pin-groups
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260727174141.664933-3-mikhail.kshevetskiy@iopsys.eu>
-References: <20260727174141.664933-1-mikhail.kshevetskiy@iopsys.eu>
- <20260727174141.664933-3-mikhail.kshevetskiy@iopsys.eu>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 27 Jul 2026 17:53:04 +0000
-Message-Id: <20260727175304.9FB221F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AjeJ+/ks"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2cfff5f88dbso11049985ad.3
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 10:55:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785174908; x=1785779708; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ldpUG3RjUj8mnzv+gkE4vA9SakuHuQZI5B3d0F4kgdI=;
+        b=AjeJ+/ksB9Sle3EI/Gd+nZnOW9ieGQPWCfcSCuZVU+8sEU2HY2BSeCfx3J141mDPhl
+         Ym0kHMlYLU+8e+IWwU5rYPUeUN19TwgFRr/W2PcQ+q5rXEoTGJ9kXhtl3PlRtO2pRBrQ
+         M3vpPVQMmFAHIbEETHQWMSmUu5ZRcaAf48ZLuYbj2aBL4+kGw6ocuyVSIcF8wpo+V4VD
+         aAVrhVQkryjXWUiGzB+/81zjQ4YQKlc+hakt18hqVad0kDTHOnehFOaaGqR7klwNomSw
+         g/9wLdHtHEgcGa60Hbpqu6rpL8miucf7P+uRZYfpy/KqR+hnPhzEKBHz4YX/jHvp1jX3
+         c+4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785174908; x=1785779708;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ldpUG3RjUj8mnzv+gkE4vA9SakuHuQZI5B3d0F4kgdI=;
+        b=sTYMiFLwa+UQqFrHINK1rtXWTm7tzvZpEF4PaF63REMGvwTXcjWW0yXaTFXht5/orL
+         Md4eZnopDzrdR18/02Bv9dOUfNL+2LMIbMP5ak2Es23datIIut3nHeWEJGQPXWwMoQk8
+         cQ83ni+x4RuMoN9t4cuqya/cECjVsPKjbtyrI16Nv3OsnAwqcb7unQnREVBRzHDHhlOh
+         RbZC3FME5kGoEqt/QxjVSaTuP83oy+fFGu1eAEjOnK2H/04WMTwc1vjlXtbbzmWMM06c
+         ngfuK7CcFMl2Xnf5hv0kOyFeqgGpREANvjsFqwL6RP+wP84SPgfSZQCPWCiqLMKws1sn
+         DIng==
+X-Forwarded-Encrypted: i=1; AHgh+Rp2dLf/mi2lkvFr00+SYssaQwisKw4fPRNK0l2bga33GyoP/0QsiTsBT7DWo1UN+wS5fL/WIDeY50d8@vger.kernel.org
+X-Gm-Message-State: AOJu0YxDZpOmCkG+QeUJgd69qCaDD3eHSd+pc88W4enkmvzXOELvJfxy
+	eBCAG9QqjhtD1tyPg1sBtDronwnF2+mOGOLqqQycSgR/sUrPPSPyu81f
+X-Gm-Gg: AR+sD12CGaBb/qSErhaYtax9yJs8Geel1WPHAzkrU/5qZ2gjg5XPr0JzLmJpTz4jiOM
+	d+25u/Za+6rfHaN8/lkNdiwPI5eDEK8YQ+5sr5yP31cNlXeCZ1mk0rEqJcqEM+0ne9H8Y3mOiCx
+	vjTWIwdymM3VLigfhy/zd0XL6i4uNQSag31tmJ4WaJ+juO50pYkFlV9BKMQOvqYotnVkXS0ay9z
+	BzwOcvtYJBxgljzWPLiq4qK4hxyjgQN0jorDi//v6aqt+fuo4WsYiPP4KyRatyO/ArvXE0bfCfC
+	QmaUpPwQY6xAa7nUuCACXaH1M3rRsZFu5DgBq3TqvmwoawUVhEuGCzQWGzH/GSefWdazR9CMOZB
+	xqb5LS9vLLdiln/Hzl9lHwdBXIW81MeuQ8Ggk51tEQuuL8YNWJlGEd2HEMIAsoxRqmaRQVzvICA
+	rXdhVHO1L9ed++ZxqPY3XAvIVeAXAa6t4CaxrLzHLQOvjNyCdC8aE=
+X-Received: by 2002:a05:6a20:7288:b0:3bf:9fe1:c27 with SMTP id adf61e73a8af0-3c6c7d8a1b4mr557496637.40.1785174908362;
+        Mon, 27 Jul 2026 10:55:08 -0700 (PDT)
+Received: from fabio-X870-EAGLE-WIFI7.. ([2804:1b3:a801:60b4:21e4:da15:d321:6b72])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-314bc59434fsm34566612eec.24.2026.07.27.10.55.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Jul 2026 10:55:07 -0700 (PDT)
+From: Fabio Estevam <festevam@gmail.com>
+To: heiko@sntech.de
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	Fabio Estevam <festevam@gmail.com>
+Subject: [PATCH] arm64: dts: rockchip: Drop data-mapping from Engicam PX30 Core
+Date: Mon, 27 Jul 2026 14:55:02 -0300
+Message-ID: <20260727175502.2585290-1-festevam@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+The panel-simple schema only allows data-mapping overrides for panels
+whose mapping is not fixed by their compatible. Consequently, the property
+on the Ampire AM-1280800N3TZQW-T00H panel fails validation:
 
-Pre-existing issues:
-- [High] The sister binding `airoha,an7583-pinctrl.yaml` is out of sync wit=
-h the hardware capabilities, missing `gpio47` and `gpio48`.
-- [High] Conflicting conditional constraints for the `i2c` function make th=
-e AN7583 schema unsatisfiable.
---
+(ampire,am-1280800n3tzqw-t00h): False schema does not allow ['vesa-24']
 
---- Patch [2]: [PATCH v8 02/35] dt-bindings: pinctrl: airoha: en7581: fix p=
-wm pin-groups ---
-commit 69fe8d84177a9cae3d1defe966ff7b51f98c8706
-Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+The panel descriptor already selects 8 bits per color and
+MEDIA_BUS_FMT_RGB888_1X7X4_SPWG. The DRM OF helpers translate
+"vesa-24" to that exact bus format, and panel-simple falls back to the
+descriptor's format when the property is absent. Removing the property
+therefore has no functional effect.
 
-dt-bindings: pinctrl: airoha: en7581: fix pwm pin-groups
+Drop the redundant property to satisfy the binding.
 
-According to commit 08a5af468e613b ("pinctrl: airoha: fix pwm pin function
-for an7581 and an7583") there is no gpio47 pin-group, so device schema must
-be fixed.
+Signed-off-by: Fabio Estevam <festevam@gmail.com>
+---
+ .../boot/dts/rockchip/px30-engicam-px30-core-ctouch2-of10.dts    | 1 -
+ 1 file changed, 1 deletion(-)
 
-> diff --git a/Documentation/devicetree/bindings/pinctrl/airoha,en7581-pinc=
-trl.yaml b/Documentation/devicetree/bindings/pinctrl/airoha,en7581-pinctrl.=
-yaml
-> index 0c5a7eb6d563e..12dd85b5b4105 100644
-> --- a/Documentation/devicetree/bindings/pinctrl/airoha,en7581-pinctrl.yaml
-> +++ b/Documentation/devicetree/bindings/pinctrl/airoha,en7581-pinctrl.yaml
-> @@ -208,7 +208,7 @@ patternProperties:
->                           gpio20, gpio21, gpio22, gpio23, gpio24, gpio25,
->                           gpio26, gpio27, gpio28, gpio29, gpio30, gpio31,
->                           gpio36, gpio37, gpio38, gpio39, gpio40, gpio41,
-> -                         gpio42, gpio43, gpio44, gpio45, gpio46, gpio47]
-> +                         gpio42, gpio43, gpio44, gpio45, gpio46]
+diff --git a/arch/arm64/boot/dts/rockchip/px30-engicam-px30-core-ctouch2-of10.dts b/arch/arm64/boot/dts/rockchip/px30-engicam-px30-core-ctouch2-of10.dts
+index 47aa30505a42..aa636ce45e3a 100644
+--- a/arch/arm64/boot/dts/rockchip/px30-engicam-px30-core-ctouch2-of10.dts
++++ b/arch/arm64/boot/dts/rockchip/px30-engicam-px30-core-ctouch2-of10.dts
+@@ -28,7 +28,6 @@ panel {
+ 		compatible = "ampire,am-1280800n3tzqw-t00h";
+ 		backlight = <&backlight>;
+ 		power-supply = <&vcc3v3_lcd>;
+-		data-mapping = "vesa-24";
+ 
+ 		port {
+ 			panel_in_lvds: endpoint {
+-- 
+2.43.0
 
-[Severity: High]
-This isn't a bug introduced by this patch, but while you are fixing en7581,
-the sister binding Documentation/devicetree/bindings/pinctrl/airoha,an7583-=
-pinctrl.yaml
-is out of sync with the hardware capabilities.
-
-The enum list for pwm groups is missing gpio48:
-
-Documentation/devicetree/bindings/pinctrl/airoha,an7583-pinctrl.yaml:
-    ...
-                         gpio42, gpio43, gpio44, gpio45, gpio46, gpio47]
-    ...
-
-Additionally, the enum list for pins is missing gpio47 and gpio48, and
-maxItems is incorrectly constrained to 58 instead of 60:
-
-Documentation/devicetree/bindings/pinctrl/airoha,an7583-pinctrl.yaml:
-    ...
-                     gpio41, gpio42, gpio43, gpio44, gpio45, gpio46,
-                     pcie_reset0, pcie_reset1, pcie_reset2]
-            minItems: 1
-            maxItems: 58
-    ...
-
-Running dtbs_check on an an7583 device tree that configures gpio47 or gpio48
-will fail validation. Could these constraints be updated so valid an7583
-device trees can pass validation?
-
-
-[Severity: High]
-This is a pre-existing issue, but there are conflicting conditional constra=
-ints
-for the i2c function making the an7583 schema unsatisfiable.
-
-The allOf if properties function block checks for function: const: i2c but
-expects groups: enum: [i2s]:
-
-Documentation/devicetree/bindings/pinctrl/airoha,an7583-pinctrl.yaml:
-    ...
-          - if:
-              properties:
-                function:
-                  const: i2c
-            then:
-              properties:
-                groups:
-                  enum: [i2s]
-    ...
-
-Because there is another if block that correctly requires groups to be [i2c=
-1]
-for function: const: i2c, the schema requires all matching conditions to be
-satisfied simultaneously. This makes i2c impossible to satisfy and leaves i=
-2s
-unconstrained.
-
-Should this typo be corrected to function: const: i2s to match the group?
-
->            - if:
->                properties:
->                  function:
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727174141.6649=
-33-1-mikhail.kshevetskiy@iopsys.eu?part=3D2
