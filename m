@@ -1,384 +1,285 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED2893E7BBF;
-	Mon, 27 Jul 2026 08:51:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB3773988FA;
+	Mon, 27 Jul 2026 08:57:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785142281; cv=none; b=Itl9WsD0JIzzwzXxfGjuxJfFpEul7wpHBQtGcQOhTq8ObNz3k2l33XsWZ/jDj12jVPvrhvvq2H7oYdZEOjQAJVCHMlE0vxGrv7WDAk/ePTOvHpOwF+KX8OoZ5OCZqj6fLlVDrQDDCo0b1JFROWHuk4k0xhHQYlak9DOhv7uqTf8=
+	t=1785142634; cv=none; b=MYX/G6RQL1pqenmB2aXzgk9g0JGLgbcWIOceyehL77umm+LvN+c4kpbZuerNV9gljWEFeeQ9AnzFT56gdiECw1WnEawHSDQGo4tOVTn9taAOm1aLPC06K8OmpTKrlrLm3/8epASnh+IU9PCQ1ymjZp/21bHOnbPcWmYekG1ULrQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785142281; c=relaxed/simple;
-	bh=9b7uugP4w9jpqm5V73sYAbmSgZ8DzMVjAZ386oiW0xc=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=p+7GhNygjb+b6XQ3bli48p75bB8ANT8XS4L/BxDgc0UIQhNR7uBQQEIKvVH+w5a3tdUxhYEZViSHs55fG6f7OUY3Yjidmyu9d/ZUjNOmJqaWnqPAH2+lxBNxZEGOtatA5SjMimNKezVBC+rmZjvallyu8SN6yNe5AXjRoenxbtg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=G70m8AY6; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1785142634; c=relaxed/simple;
+	bh=lDmA404RfjQb0/IZZjvmmVifbaHm++AfUG5oqP9jlR8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=UnP4CVfLf5C8sWu3aXT2NO2MG4ZiUJTkPpJLl5VKj5ddtBzw5qEtHymZVuAhwJ/+iKCIJFA9CX3HIuV/sEMixfAgx+Ehz3eQF8ZKngCLgRlzF+eO4KI5gzZuxskjS10neTHcFu5ocApV0+n302t6hEERyi9Q1dmyFjwlA8KeH+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=IDHIm5hI; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="G70m8AY6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785142278; x=1816678278;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=9b7uugP4w9jpqm5V73sYAbmSgZ8DzMVjAZ386oiW0xc=;
-  b=G70m8AY6mATbcK+1F+X2ycb38yzSGW0x9uqiOTfCqbdDV8go6KI2HmZq
-   EOFJdXk3AioqHdkrYCDF4A//SNzal//w7+h3lBOx3xpu/byvKdVb02grG
-   cmAd7kNAGdG0kUOCzKag5XxyuV+BGKMuj0fA4WEHbMdDziyxgzHuyBCw+
-   VkRc+iAkYqm8eZLS+obNZNs9pN+kv8aG1lLYSsQqujvlKEZVOe6MeOFVA
-   XVLLtzouLSo4a3uXJRHFy1VI1PHFwp6yJ43M1VU1zO1Yv2ww+B3cvq7NF
-   Sthdb3rZnWiuskp6PLOr8nlpu12ibLsJbb/WwQ5fZZgFZUtmxnP4sl8d3
-   Q==;
-X-CSE-ConnectionGUID: dH0KMZhFRI+8oYV0g8qgPQ==
-X-CSE-MsgGUID: 9pOvFY1HTkqFKBo6Im4FCA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11857"; a="89598709"
-X-IronPort-AV: E=Sophos;i="6.25,188,1779174000"; 
-   d="scan'208";a="89598709"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Jul 2026 01:51:15 -0700
-X-CSE-ConnectionGUID: OKdZnSZ0S6+fCM7MKyh1iw==
-X-CSE-MsgGUID: 1iHU9vvQQau9t4DKLJ1jfA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,188,1779174000"; 
-   d="scan'208";a="264350112"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.226])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Jul 2026 01:51:05 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Mon, 27 Jul 2026 11:51:01 +0300 (EEST)
-To: Christian Marangi <ansuelsmth@gmail.com>
-cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
-    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-    Conor Dooley <conor+dt@kernel.org>, 
-    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    Benjamin Larsson <benjamin.larsson@genexis.eu>, 
-    John Ogness <john.ogness@linutronix.de>, 
-    Peng Zhang <zhangpeng.00@bytedance.com>, Jacques Nilo <jnilo@free.fr>, 
-    Rong Zhang <rongrong@oss.cipunited.com>, Gerhard Engleder <eg@keba.com>, 
-    Jiaxun Yang <jiaxun.yang@flygoat.com>, 
-    Randy Dunlap <rdunlap@infradead.org>, Binbin Zhou <zhoubinbin@loongson.cn>, 
-    Lubomir Rintel <lkundrak@v3.sk>, devicetree@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>, 
-    linux-serial <linux-serial@vger.kernel.org>
-Subject: Re: [PATCH v2 2/2] serial: 8250: Add Airoha SoC UART and HSUART
- support
-In-Reply-To: <20260724183007.188172-3-ansuelsmth@gmail.com>
-Message-ID: <6ade8574-1ba6-3a9a-e1ab-4f0ce9c1d8ab@linux.intel.com>
-References: <20260724183007.188172-1-ansuelsmth@gmail.com> <20260724183007.188172-3-ansuelsmth@gmail.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="IDHIm5hI"
+Received: from [192.168.1.102] (mob-5-90-50-102.net.vodafone.it [5.90.50.102])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 66303492;
+	Mon, 27 Jul 2026 10:56:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1785142567;
+	bh=lDmA404RfjQb0/IZZjvmmVifbaHm++AfUG5oqP9jlR8=;
+	h=From:Subject:Date:To:Cc:From;
+	b=IDHIm5hICn26Lt9D4ALoN/MF1S7iPIavpI6fMZsKCjs78i75U5CqDELy1P7J7SnCV
+	 vEqCOHtwy6gGEXDKUaU9PjTN4X9/vjZujMzce0KZ90gAYjEYMlGlyFMjKXnPmDD8t3
+	 +XOPi2jjHH4+1mXKCoX9OIybEsbboesK2JjZVOG8=
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Subject: [PATCH v10 0/2] media: i2c: Add driver for Mira220
+Date: Mon, 27 Jul 2026 10:56:29 +0200
+Message-Id: <20260727-mira220-v10-0-8825794e6095@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAD0dZ2oC/3XMTU7EMAyG4auMsibIcZo/VtwDsUhjl8liGpSgC
+ jTq3Uln00rQpT/5ee+icc3cxMvlLiovueUy90PB00Wka5w/WGbqg0BACw6VvOUaEUGCBgdROT2
+ 5JPr3Z+Upfz9Sb+/9vub2VerPo7yYbf3bWIwEabQeIZICa/g1E8dW5rHESs+p3MSWWuyR485t5
+ wiaNSYTLJ1xd8Jd50RmUsTBJxpOuD/yYed+48qHEEc7OAgnPBy523nonL0N7DghDPAPX9f1F9p
+ WKzeiAQAA
+X-Change-ID: 20260721-mira220-03070a173f7c
+To: Philippe Baetens <philippebaetens@gmail.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ Jai Luthra <jai.luthra@ideasonboard.com>, linux-media@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8633;
+ i=jacopo.mondi@ideasonboard.com; h=from:subject:message-id;
+ bh=lDmA404RfjQb0/IZZjvmmVifbaHm++AfUG5oqP9jlR8=;
+ b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBqZx1l+cB9SQMiiFy2ahsOaxabIOgSWKOSBegdE
+ k+GIxwY7QqJAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCamcdZQAKCRByNAaPFqFW
+ PP2wD/9hnn+ooIrfJ9LCOkSngZebqEqUMmdqtUlkQBs16KGtbzufZTK7Dvsaz4oDuLex209xYxF
+ /8sC9V88nJrKS+8OyEv949cYfbvxzYgrZjFFbmBcPCV9v+gMqfqsxwwhx6OcvL0ZUMjVFMV9Ja4
+ wVDHCmIxQkctM0GxRsCO6FK81qKhllgwVG90hTm+k7OIwlerGfsLHhfA5oKVw3yFz8d4vLDYEcO
+ sCkDgRurMPSCT/S6d7iJNjBXol92ZHH4/MveIZQGkbAJVnaorkD9hEwurMg3Uu7dI3YrCKr1azp
+ T4bOhlI78nJUq635QpyCcWpUX88/V6wPb7wmua1MXGrdkMcKfnQ+dRcfSsD6KZWioMmpeHsQdkz
+ RS71BfsMW7oXl86mBzr+z8Ewr8UUEu8Tn5VXZVziX/tHpQodZq1advSE+yYM2M4Ae/3Ilemx/Lb
+ 4h9vvLcSyhaSako09PEm5zfEkNYDSi/+6fRl/HaRQjoloj9pgsDBTF0XAFnv4nt9Xmbra7nHqPV
+ BF7KqJEg9AJwk0Q76BERA9dcE6EPrYgDy4nKDhXxpiWXQ0jeCxJ95/Qsj3CB3Iqvfu7QXVvsjHr
+ N9LR8uCNVn55ST6VSM8ONrgdiTyBGowL2Qme0D04yDUg9CcZiJnRjBS+j2XsKp/c3lKfttfMfgy
+ kz+NbUO32/zT4AQ==
+X-Developer-Key: i=jacopo.mondi@ideasonboard.com; a=openpgp;
+ fpr=72392EDC88144A65C701EA9BA5826A2587AD026B
 
-On Fri, 24 Jul 2026, Christian Marangi wrote:
+Resume the work done by Philippe on Mira 220, available at
+https://patchwork.linuxtv.org/project/linux-media/list/?series=18460
 
-> Add support for Airoha AN7523 UART and AN7581 HSUART.
-> 
-> These implement a standard 16550 UART with only some custom logic
-> for baud rate handling.
-> 
-> Co-developed-by: Benjamin Larsson <benjamin.larsson@genexis.eu>
-> Signed-off-by: Benjamin Larsson <benjamin.larsson@genexis.eu>
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-> ---
->  drivers/tty/serial/8250/8250.h        |   6 +
->  drivers/tty/serial/8250/8250_airoha.c | 190 ++++++++++++++++++++++++++
->  drivers/tty/serial/8250/8250_port.c   |  16 +++
->  drivers/tty/serial/8250/Kconfig       |  11 ++
->  drivers/tty/serial/8250/Makefile      |   1 +
->  5 files changed, 224 insertions(+)
->  create mode 100644 drivers/tty/serial/8250/8250_airoha.c
-> 
-> diff --git a/drivers/tty/serial/8250/8250.h b/drivers/tty/serial/8250/8250.h
-> index 77fe0588fd6b..e6b2b9431229 100644
-> --- a/drivers/tty/serial/8250/8250.h
-> +++ b/drivers/tty/serial/8250/8250.h
-> @@ -73,6 +73,12 @@ struct serial8250_config {
->  	unsigned int	flags;
->  };
->  
-> +enum uart_port_type {
-> +	/* Internal 8250 only */
-> +	UART_PORT_AIROHA		= 124,
-> +	UART_PORT_AIROHA_HS		= 125,
-> +};
-> +
->  #define UART_CAP_FIFO	BIT(8)	/* UART has FIFO */
->  #define UART_CAP_EFR	BIT(9)	/* UART has EFR */
->  #define UART_CAP_SLEEP	BIT(10)	/* UART has IER sleep */
-> diff --git a/drivers/tty/serial/8250/8250_airoha.c b/drivers/tty/serial/8250/8250_airoha.c
-> new file mode 100644
-> index 000000000000..5d6d998bebd6
-> --- /dev/null
-> +++ b/drivers/tty/serial/8250/8250_airoha.c
-> @@ -0,0 +1,190 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +/*
-> + * Airoha UART driver
-> + *
-> + * Copyright (c) 2025 Genexis Sweden AB
-> + * Author: Benjamin Larsson <benjamin.larsson@genexis.eu>
-> + *	   Christian Marangi <ansuelsmth@gmail.com>
-> + */
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/math64.h>
-> +#include <linux/property.h>
-> +#include <linux/serial_reg.h>
-> +#include <linux/serial_8250.h>
-> +
-> +#include "8250.h"
-> +
-> +#define UART_AIROHA_BRDL	0
-> +#define UART_AIROHA_BRDH	1
-> +#define UART_AIROHA_XINCLKDR	10
-> +#define UART_AIROHA_XYD		11
-> +#define   UART_AIROHA_XYD_X	GENMASK(31, 16)
-> +#define   UART_AIROHA_XYD_Y	GENMASK(15, 0)
+The detailed changelog is available on the single patches.
 
-Please add linux/bits.h include.
+On the current set of supported features: mira220 doesn't support
+binning/skipping but only cropping the full sensor array. It also
+supports embedded data. It would be an ideal candidate for the new
+RAW sensor model.
 
-> +
-> +struct airoha_8250_priv {
-> +	int line;
-> +};
-> +
-> +struct airoha_8250_clk_div_info {
-> +	unsigned int div;
-> +	u32 mask;
-> +};
-> +
-> +#define UART_BRDL_20M		0x01
-> +#define UART_BRDH_20M		0x00
-> +
-> +#define XINDIV_CLOCK		20000000
-> +#define XYD_Y			65000
-> +
-> +static const struct airoha_8250_clk_div_info airoha_clk_div_info[] = {
-> +	{ .div = 10, .mask = BIT(2) },
-> +	{ .div = 4, .mask = BIT(1) },
-> +	{ .div = 2, .mask = BIT(0) },
-> +};
-> +
-> +static unsigned int airoha_get_divisor(struct uart_port *port,
-> +				       unsigned int baud,
-> +				       unsigned int *frac)
-> +{
-> +	/* Hardware always uses BRDIV = 1. */
-> +	*frac = 0;
-> +
-> +	return 1;
-> +}
-> +
-> +/*
-> + * Airoha UART baud rate calculation logic
-> + *
-> + * crystal_clock = 20 MHz (fixed frequency)
-> + * xindiv_clock = crystal_clock / clock_div
-> + * (x/y) = XYD, 32 bit register with 16 bits of x and then 16 bits of y
-> + * clock_div = XINCLK_DIVCNT (default set to 10 (0x4)),
-> + *           - 3 bit register [ 1, 2, 4, 8, 10, 12, 16, 20 ]
-> + *
-> + * baud_rate = ((xindiv_clock) * (x/y)) / ([BRDH,BRDL] * 16)
-> + *
-> + * Selecting divider needs to fulfill
-> + * 1.8432 MHz <= xindiv_clk <= APB clock / 2
-> + * The clocks are unknown but a divider of value 1 did not result in a valid
-> + * waveform.
-> + *
-> + * XYD_y seems to need to be larger then XYD_x for proper waveform generation.
-> + * Setting [BRDH,BRDL] to [0,1] and XYD_y to 65000 gives even values
-> + * for usual baud rates.
-> + */
-> +static void airoha_set_divisor(struct uart_port *port, unsigned int baud,
-> +			       unsigned int quot, unsigned int quot_frac)
-> +{
-> +	const struct airoha_8250_clk_div_info *clk_div_info;
-> +	struct uart_8250_port *up = up_to_u8250p(port);
-> +	u32 xindiv_clk;
-> +	u64 xyd_x, nom;
-> +	int i;
-> +
-> +	/* Set DLAB to access the baud rate divider registers (BRDH, BRDL) */
-> +	serial_port_out(port, UART_LCR, up->lcr | UART_LCR_DLAB);
-> +
-> +	/* Set baud rate calculation defaults (BRDIV ([BRDH,BRDL]) to 1) */
-> +	serial_port_out(port, UART_AIROHA_BRDL, UART_BRDL_20M);
-> +	serial_port_out(port, UART_AIROHA_BRDH, UART_BRDH_20M);
-> +
-> +	/*
-> +	 * Calculate XYD_x and XINCLKDR register by searching
-> +	 * through a table of crystal_clock divisors.
-> +	 */
-> +	nom = baud * XYD_Y;
-> +	for (i = 0 ; i < ARRAY_SIZE(airoha_clk_div_info) ; i++) {
+As the model is not available yet in mainline, this first version
+doesn't support set_selection() and doesn't support embedded data.
 
-Please add include for ARRAY_SIZE()
+These features will be implemented on top of the new RAW sensor model
+once available.
 
-> +		clk_div_info = &airoha_clk_div_info[i];
-> +
-> +		xindiv_clk = XINDIV_CLOCK / clk_div_info->div;
-> +		xyd_x = div_u64(nom, xindiv_clk) * 16;
-> +
-> +		/* For the HSUART xyd_x needs to be scaled by a factor of 2 */
-> +		if (port->type == UART_PORT_AIROHA_HS)
-> +			xyd_x /= 2;
-> +
-> +		if (xyd_x < XYD_Y)
-> +			break;
-> +	}
-> +
-> +	serial_port_out(port, UART_AIROHA_XINCLKDR, clk_div_info->mask);
-> +	serial_port_out(port, UART_AIROHA_XYD,
-> +			FIELD_PREP(UART_AIROHA_XYD_X, xyd_x) |
-> +			FIELD_PREP(UART_AIROHA_XYD_Y, XYD_Y));
-> +
-> +	/* Restore normal register access. */
-> +	serial_port_out(port, UART_LCR, up->lcr);
-> +}
-> +
-> +static int airoha_8250_probe(struct platform_device *pdev)
+Thanks
+   j
 
-You need to add include for platform_device as you'll be dereferencing it 
-below.
+Changes in v10:
+- Remove 'fmt' leftover in driver structure
+- Link to v9: https://lore.kernel.org/r/20260727-mira220-v9-0-e869e7ec2040@ideasonboard.com
 
-> +{
-> +	struct uart_8250_port uart = { };
-> +	struct device *dev = &pdev->dev;
-> +	struct airoha_8250_priv *priv;
-> +	struct resource *res;
-> +	int ret;
-> +
-> +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> +	if (!res)
-> +		return dev_err_probe(dev, -EINVAL, "invalid address\n");
-> +
-> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-> +	if (!priv)
-> +		return -ENOMEM;
-> +
-> +	uart.port.dev = dev;
-> +	if (device_is_compatible(dev, "airoha,an7581-hsuart"))
-> +		uart.port.type = UART_PORT_AIROHA_HS;
-> +	else
-> +		uart.port.type = UART_PORT_AIROHA;
-> +	uart.port.flags = UPF_BOOT_AUTOCONF | UPF_FIXED_PORT |
-> +			  UPF_FIXED_TYPE | UPF_IOREMAP;
-> +	uart.port.set_divisor = airoha_set_divisor;
-> +	uart.port.get_divisor = airoha_get_divisor;
-> +	uart.port.mapbase = res->start;
-> +	uart.port.mapsize = resource_size(res);
-> +
-> +	ret = uart_read_and_validate_port_properties(&uart.port);
+Changes in v9:
+- Make 'link-frequencies' mandatory in bindings
+- Use v4l2_link_freq_to_bitmap()
+- Link to v8: https://lore.kernel.org/r/20260724-mira220-v8-0-d1899ab64709@ideasonboard.com
 
-Add include for this.
+Changes in v8:
+- Address Jai's review comments; changelog is per-patch
+- Link to v7: https://lore.kernel.org/r/20260722-mira220-v7-0-dd5f1de98cd4@ideasonboard.com
 
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = serial8250_register_8250_port(&uart);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	priv->line = ret;
-> +	platform_set_drvdata(pdev, priv);
-> +
-> +	return 0;
-> +}
-> +
-> +static void airoha_8250_remove(struct platform_device *ofdev)
-> +{
-> +	struct airoha_8250_priv *priv = platform_get_drvdata(ofdev);
-> +
-> +	serial8250_unregister_port(priv->line);
-> +}
-> +
-> +static const struct of_device_id airoha_8250_dt_ids[] = {
+Changes in v7:
+- Address Sashiko review comments; changelog is per-patch
+- Link to v6: https://lore.kernel.org/r/20260722-mira220-v6-0-203e32c596de@ideasonboard.com
 
-Add include for of_device_id.
+Changes in v6:
+- Address Sashiko review comments; changelog is per-patch
+- Link to v5: https://lore.kernel.org/r/20260721-mira220-v5-0-533b0ad1065e@ideasonboard.com
 
-I think linux/of.h is the one you want here, as it will be including the 
-new linux/device-id/of.h.
+Just a note on hblank: prompted by sashiko review I reworked the hblank
+calculation procedure to use the full line length (which will make it
+easier to use the new Raw Sensor Model) and I've scaled the line lenght
+according tot the number of data lanes, to match the row_length
+settings, and I tested frame rate for 1 and 2 data lane operations.
 
-> +	{ .compatible = "airoha,en7523-uart" },
-> +	{ .compatible = "airoha,an7581-hsuart" },
-> +	{ },
-> +};
-> +MODULE_DEVICE_TABLE(of, airoha_8250_dt_ids);
+I'll report the results here
 
-+ linux/module.h
+1 data lane: hblank = 4480
 
-> +
-> +static struct platform_driver airoha_8250_driver = {
-> +	.driver = {
-> +		.name = "8250_airoha",
-> +		.of_match_table = airoha_8250_dt_ids,
-> +	},
-> +	.probe = airoha_8250_probe,
-> +	.remove = airoha_8250_remove,
-> +};
-> +
-> +module_platform_driver(airoha_8250_driver);
-> +
-> +MODULE_LICENSE("GPL");
-> +MODULE_DESCRIPTION("Airoha UART driver");
-> +MODULE_AUTHOR("Benjamin Larsson <benjamin.larsson@genexis.eu>");
-> +MODULE_AUTHOR("Christian Marangi <ansuelsmth@gmail.com>");
+    10fps -> vblank = 4915
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=4915
+    2633.788743 (10.00 fps) cam0-stream0 seq: 000210 bytesused: 1920000
+    2633.888732 (10.00 fps) cam0-stream0 seq: 000211 bytesused: 1920000
+    2633.988712 (10.00 fps) cam0-stream0 seq: 000212 bytesused: 1920000
+    2634.088696 (10.00 fps) cam0-stream0 seq: 000213 bytesused: 1920000
 
-These too would need include but it will be the same module.h as earlier.
+    15fps -> vblank = 2810
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=2810
+    2690.081596 (15.00 fps) cam0-stream0 seq: 000833 bytesused: 1920000
+    2690.148251 (15.00 fps) cam0-stream0 seq: 000834 bytesused: 1920000
 
-It seems you've not really paid attention to includes so far, so you 
-should do a pass through you code and check you're directly including this 
-you use (defines, macros, functions, structs you're dereferencing). I 
-might have missed some.
+    30fps -> blank = 705
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=705
+    2732.142696 (29.98 fps) cam0-stream0 seq: 001736 bytesused: 1920000
+    2732.176004 (30.02 fps) cam0-stream0 seq: 001737 bytesused: 1920000
+    2732.209315 (30.02 fps) cam0-stream0 seq: 001738 bytesused: 1920000
 
-Do not rely on indirect includes as they're fragile and hamper (potential) 
-header refactoring efforts by introducing build landmines. Only when the 
-include path is "guaranteed" such as linux/of.h -> linux/device-id/of.h or 
-linux/xx.h -> asm/xx.h you can rely on the linux/ one.
+    min_vblank = 14
+    2823.028261 (46.07 fps) cam0-stream0 seq: 005180 bytesused: 1920000
+    2823.051318 (43.37 fps) cam0-stream0 seq: 005181 bytesused: 1920000
+    2823.073032 (46.05 fps) cam0-stream0 seq: 005182 bytesused: 1920000
+    2823.096081 (43.39 fps) cam0-stream0 seq: 005183 bytesused: 1920000
 
-> diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/8250/8250_port.c
-> index 630deb7dd344..22dd114256b3 100644
-> --- a/drivers/tty/serial/8250/8250_port.c
-> +++ b/drivers/tty/serial/8250/8250_port.c
-> @@ -311,6 +311,22 @@ static const struct serial8250_config uart_config[] = {
->  		.rxtrig_bytes	= {1, 8, 16, 30},
->  		.flags		= UART_CAP_FIFO | UART_CAP_AFE,
->  	},
-> +	[UART_PORT_AIROHA] = {
-> +		.name		= "Airoha UART",
-> +		.fifo_size	= 8,
-> +		.tx_loadsz	= 1,
-> +		.fcr		= UART_FCR_ENABLE_FIFO | UART_FCR_R_TRIG_01 | UART_FCR_CLEAR_RCVR,
-> +		.rxtrig_bytes	= {1, 4},
-> +		.flags		= UART_CAP_FIFO,
-> +	},
-> +	[UART_PORT_AIROHA_HS] = {
-> +		.name		= "Airoha HSUART",
-> +		.fifo_size	= 128,
-> +		.tx_loadsz	= 128,
-> +		.fcr		= UART_FCR_ENABLE_FIFO | UART_FCR_R_TRIG_01 | UART_FCR_CLEAR_RCVR,
-> +		.rxtrig_bytes	= {1, 4},
-> +		.flags		= UART_CAP_FIFO,
-> +	},
+2 data lanes: hblank = 1440
 
-Not exactly a problem in your patch but I really which this whole 
-uart_config[] thing would be deprecated properly.
+    10fps -> vblank = 11231
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=11231
+    163.127449 (10.00 fps) cam0-stream0 seq: 000106 bytesused: 1920000
+    163.227446 (10.00 fps) cam0-stream0 seq: 000107 bytesused: 1920000
+    163.327425 (10.00 fps) cam0-stream0 seq: 000108 bytesused: 1920000
 
-We already have fifosize and fcr in uart_port, that should already cover 
-most of the variations but I guess a bit of supporting code would be 
-needed. serial8250_config_port() assigns fcr from uart_config[] and I'm 
-not entire sure if it would be enough to just do like
+    15fps -> vblank = 7021
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=7021
+    206.325595 (15.00 fps) cam0-stream0 seq: 000551 bytesused: 1920000
+    206.392256 (15.00 fps) cam0-stream0 seq: 000552 bytesused: 1920000
+    206.458943 (15.00 fps) cam0-stream0 seq: 000553 bytesused: 192000
 
-	if (up->fcr)
-		up->fcr = uart_config[up->port.type].fcr;
+    30fps -> vblank = 2810
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=2810
+    244.891759 (30.00 fps) cam0-stream0 seq: 001153 bytesused: 1920000
+    244.925094 (30.00 fps) cam0-stream0 seq: 001154 bytesused: 1920000
+    244.958439 (29.99 fps) cam0-stream0 seq: 001155 bytesused: 1920000
+    244.991746 (30.02 fps) cam0-stream0 seq: 001156 bytesused: 1920000
 
-(That is, is this also used to reset configuration? I dunno for sure.)
+    60fps -> vblank = 733
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=733
+    67.273857 (57.04 fps) cam0-stream0 seq: 007285 bytesused: 1920000
+    367.290091 (61.60 fps) cam0-stream0 seq: 007286 bytesused: 1920000
+    367.307637 (56.99 fps) cam0-stream0 seq: 007287 bytesused: 1920000
+    367.323866 (61.62 fps) cam0-stream0 seq: 007288 bytesused: 1920000
 
+    90 fps -> vblank = 22
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=22
+    326.909808 (83.83 fps) cam0-stream0 seq: 003739 bytesused: 1920000
+    326.920403 (94.38 fps) cam0-stream0 seq: 003740 bytesused: 1920000
+    326.931644 (88.96 fps) cam0-stream0 seq: 003741 bytesused: 1920000
 
+-------------------------------------------------------------------------------
+v4l2-compliance 1.33.0-5491, 64 bits, 64-bit time_t
+v4l2-compliance SHA: b32589c51481 2026-07-16 08:51:38
+
+Compliance test for device /dev/v4l-subdev6:
+
+Driver Info:
+	Driver version   : 6.18.37
+	Capabilities     : 0x00000000
+	Client Capabilities: 0x0000000000000002
+interval-uses-which
+Required ioctls:
+	test VIDIOC_SUDBEV_QUERYCAP: OK
+	test invalid ioctls: OK
+
+Allow for multiple opens:
+	test second /dev/v4l-subdev6 open: OK
+	test VIDIOC_SUBDEV_QUERYCAP: OK
+	test for unlimited opens: OK
+
+Debug ioctls:
+	test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls:
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+	test VIDIOC_QUERYCTRL: OK
+	test VIDIOC_G/S_CTRL: OK
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 14 Private Controls: 0
+
+Format ioctls:
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
+	test VIDIOC_G/S_PARM: OK (Not Supported)
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK (Not Supported)
+	test VIDIOC_TRY_FMT: OK (Not Supported)
+	test VIDIOC_S_FMT: OK (Not Supported)
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
+
+Codec ioctls:
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls:
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK (Not Supported)
+	test Requests: OK (Not Supported)
+	test blocking wait: OK (Not Supported)
+
+Total for device /dev/v4l-subdev6: 46, Succeeded: 46, Failed: 0, Warnings: 0
+-------------------------------------------------------------------------------
+
+Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+---
+Philippe Baetens (2):
+      dt-bindings: media: i2c: Add mira220 image sensor
+      media: i2c: Add driver for AMS-OSRAM Mira220
+
+ .../devicetree/bindings/media/i2c/ams,mira220.yaml |  102 +
+ MAINTAINERS                                        |    8 +
+ drivers/media/i2c/Kconfig                          |   12 +
+ drivers/media/i2c/Makefile                         |    1 +
+ drivers/media/i2c/mira220.c                        | 2077 ++++++++++++++++++++
+ 5 files changed, 2200 insertions(+)
+---
+base-commit: a52e6f7923c17a672135b485ffd96fbd72f46267
+change-id: 20260721-mira220-03070a173f7c
+
+Best regards,
 -- 
- i.
+Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 
