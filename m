@@ -1,68 +1,68 @@
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE4C83AC0C5
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 08:09:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C43F3DA7E3
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 08:09:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785139780; cv=none; b=f/jjwoqhwtlLZLAVCIa/E5Nq22tLdmjzzsG8LgmMfEMw/aaeUdRy5XjYkUxVv9tICEDh6G2SIjCtvUNpf24a+1yIwI+fTWGFijkQyPMyXfao/nFULN/XLlcTzw0kXOIQ+mzlu3BCd5c5z6EBPDw/FaEvZcswuF3A1HjJIT52Gxo=
+	t=1785139787; cv=none; b=aO9HUqt7BW94jRwygguEugAT5Bm7muwbCaK22nzSe2Y9ZHToEwiVnzzgAO70Ra2UEqKT7nejw6bkcEODLT+JBoVUnEIxxBJcmpHA6GBQZDCDXIi1lV6AFi7F4UkBYiOKQc8gmtR9X5KIU0PuXGvNjJ/zY1XClNDrrAiVuQG9t6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785139780; c=relaxed/simple;
-	bh=FY+WdSUHGPRbRnMDhtWaq/iF/3Apl57IiEpz0463pdQ=;
+	s=arc-20240116; t=1785139787; c=relaxed/simple;
+	bh=KecbpZ9jhqW0PqpT8ret5wpzs/ELT+axOn8WnjIaPp8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=HJ5T6WT1/SmnKZJMpqb1bv3Myfl1DCbLyuPrIQc/fK3rgRFrnoboLwOKj8YjjvpZ51kM506HRsYmXBvu4Ol8EwbP0CMnGHviIIu29zwU50QmtgiucYiDfAoIiuRD8u66ZGZg0/VJ+Yfr9fd6ZA9PqMsRpHrKg6lfaBYobJG1obU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=tYxeejqt; arc=none smtp.client-ip=209.85.210.175
+	 In-Reply-To:To:Cc; b=g1oSG68Il8SRONCSbXUsLuN7qUbgSivQwJTzhP64tIlwuYnfbxkBH/FpmNOx66dI/zPTJ70Xlpa5lCXcoUsgdbpjRZ0LdPVVUFa/HIvzTxPj0I/F8SUGDoAV2d9E+tUyfNJuh93YQgrn7T5fDPCQvTQY1s3naEfP9U8fgNGYI24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=l0sTI5NB; arc=none smtp.client-ip=209.85.210.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="tYxeejqt"
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-84830c774a0so2350529b3a.1
-        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 01:09:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="l0sTI5NB"
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-84a4d8fd6ecso2373370b3a.1
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 01:09:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1785139778; x=1785744578; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1785139785; x=1785744585; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=IrYihn4Im98kREdEKJWRKQu4TGYm0GuReA+hxDMV7Gg=;
-        b=tYxeejqtH0r6uVC5hk+AMlRNJ3vmdWoH9CG0CdOD/KBY1UBigb5cPDmIhkUoXTJjz7
-         PM6MLyxc94ajaqKS9RshikKE7Su1YYmnRqHF3AE5iXe0PiBGK2JG3CdD25TdQWqWt3iH
-         uKJXVfx++z/kVuYlufKRHalVMIUN3E5zlWcX9wklBC2bN4Rg9gyzO7Rh1ApHRkNAERak
-         nVSY0IzoUxDEHXE/0qtMCXN9rJHYhIvtdBhH48262gZJV6+TjeZVYN7Yp7oELYsUgymx
-         iIv0eqFcG9Z4n6444o0jAQN64N7ZLKruvie2O5HU1uEx3AtF01sV2pkoQcfX9QOcWz9V
-         3F1Q==
+        bh=ZxedjhstpCr2+RRiK56diEei3PRjxk7sr6zgyadAKZ4=;
+        b=l0sTI5NB1X6Eb8aMnoPh7EftXZPJVsEqSGgtQwpZ2QJ4h5bRRwivsBnGoT/zKT7HSu
+         R+L1A4Rz55bq4lnJhIhMd4l2cas8sMB0ky4oH0mzfy26iXCzmoZm9x4bvLsoUM7bvYgd
+         fDGlRaz2OcfoYX2J3UWWNIIlVVJGFtaj40KFYnx8cnSRxGoQ/16kEbXqyzukjABYjRsj
+         5XDn3plXTl2RLi64x0VxIVkg4EUUNbqGHbX3xeB+VA1Xu9r0uCQj+i34d8GVt+y9lbP5
+         ATkxxGejltqBImj9X4Fd4zQJPKsGu3el1EgRbxwfPOqo40oJK53mHPeePLiXGY42v7QN
+         2Lsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785139778; x=1785744578;
+        d=1e100.net; s=20251104; t=1785139785; x=1785744585;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=IrYihn4Im98kREdEKJWRKQu4TGYm0GuReA+hxDMV7Gg=;
-        b=hlHDSpQGDbt/WwfEmkfoUyxXXii0AvbmqtNDE739O/Jt2uOGYmwnuBDIsSc1lyDq2n
-         OWfvKQQGcUrQ4EKhZeplyqy1Z+X74bg2QPmnLtH2RikufPetRgqrIe+LOclU7X/omAgF
-         uUoxRRuJ1oK/Mn3d27EsL/ucHp20oncwmbHDujF5oUDJeqT6PUppl6i5kvr+kE7veP64
-         SYMIaRNYIZhfgkkz00sfvVPi4MrT6milhAkFF85lRmM4mQT5o0fQZNwXkgSgQv0j7Q2t
-         sdMg0WgYe/gSathBgv7dFS0f2+OKPzIz7RAIcX4MH22l0XLfzr58K8bPf9l658mOcAsX
-         u+MA==
-X-Forwarded-Encrypted: i=1; AHgh+Rpw/qe3PMbLkc038ZABS5agN/LhjizQzEVK3SBmTTCHkOhijGiedfmdNYPrO6+MpsaJwPuwFTseqZCW@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw3E+NBy/XIO2RBfBxOZwiBpHd3xTaJmsOd2gqyqoAddsZh/yI2
-	FJuazaWucx+gBujdkke2TIO1kvjhDAb3mQJG7pOw+hoop6tn+hXGe2+DiXcAD049JZA=
-X-Gm-Gg: AR+sD10iesDW57/6Wfa1wm/repUI9hK3TkdErJZbsoDTPIAoXXjQ/s0hLjnEz6JAfgI
-	qC6gnOIdNxo8CHb66ui1R0ayyd24BNtLTFyUAbqSWd6xxj8ttZaP16V64ca1H/gwtxZ0upIpJX1
-	IoRu8599wEuA9Wzjd3cbDvsQsbeghnpkiJJxGsPSZJtoXbSAke4g1uoEF1SSdR1P6zdmv5B/XNF
-	lnKjpeJpf2OgOK8v40aNQmoP40ureYBd8329zyw2tTRPOniRb6mgqCBSNE4deYkxrj3yGe2Eayj
-	iXOpzRI2KCznfsRX9/Xvq8WTUqqIq5ZDqzKYTFNAddQ18pTQ/POYSChamGvgS7UatPdovuyCdzS
-	oqPKh9iMLccRcgA8G2fL2pJ3awESAPFgNS39IU6eibUX6cBvW6D+CRdwS/ubRyqZrWdBjE58kAE
-	cgEw==
-X-Received: by 2002:a05:6a00:1f0b:b0:845:e8b5:8c49 with SMTP id d2e1a72fcca58-84e59401ce9mr5117677b3a.10.1785139778271;
-        Mon, 27 Jul 2026 01:09:38 -0700 (PDT)
+        bh=ZxedjhstpCr2+RRiK56diEei3PRjxk7sr6zgyadAKZ4=;
+        b=QANzXM7sv5G1PxopBbaq10w6Jtap9/ac0UTQpse1Q4MX2LGqJexPNMKorwVe69cLmw
+         tSRRyg448VK5KKLo09rCKGWEdipsLWJ1xKv/6Mo2dLNPuRzyz4gVlSh1Sa+ghp94Alts
+         DqvRiMJaYBy2e7dd3GE6dH02Q8nyTSbWfgkEDnGB1zgtkZlX/L3deeiQKgpUieu/CNe0
+         A0rBKga4x9GNAuIgOs4GeW8o5BTL7zE0kuIBLWbZrxdGGp1CT7/9BQdVQd00lZ20WEOk
+         /U4ZWVK/HvKap3A3s3bxewVaRiyqU5sVYw0OSorcaeD4Ywb2ofI8FSfFnxsQcNrVzuVC
+         GR+g==
+X-Forwarded-Encrypted: i=1; AHgh+RrEoiwkWzRlf4B/omJxobsFJAmz6l71WkDp11PKVLfSNEhkp8bdjwS72f2DFEAxAhXTKAjrNRt4wWVe@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy99s0O66mP059ApucTmkSrU7pbr2HcQe4toI7sF0olmueKfDQ8
+	45Lq8JR1eURdC6lz8SFpK0pddE9XaWcoXeqc6N6tbPuSUS5tOp8XDazMRVHE2slKPBM=
+X-Gm-Gg: AR+sD11+O2gFJH5D1JUtp245Yxd0QQD2JEv3PGUlNS2xngfrVn+n2r8BUJzVX0f9Xe6
+	SDJugAui5/1D2we+4OPde0pWzNYPfRECp2SEZ3SAVs2cs5HOdjJcYkekkkWyP5+huyEkHsBER7X
+	3gY3rqWwLH+g3VMPb3EYvHlJTM2m6+yHJ4z8n6X2J1wJvHZd5JLuJhOw/pRI5QKhNwWZdXNQbnu
+	DO3IuLLaeSPjR1rwmsK2L8Uk7eAcxjCpm4gplz9dmvABS4+vD/EC+SaPgYEnAmzlXfzxAVh99ek
+	7T8fYrDLA5zrxa6of9P9Fq/Htok/rNkhSZ+n3b81eftH8u2uamtPu2VfKqaKo15Zc270Gdtu01I
+	6nkHoKFFMgcDyq/Zd0Q0FJ+ihb9RR8Lsdjp8Jlw0SYgo8Y2C5X71Uhcp0MoehgnUAAzVZzZeIGa
+	THjQ==
+X-Received: by 2002:a05:6a00:3409:b0:848:2f84:f433 with SMTP id d2e1a72fcca58-84e595ca5bamr5936517b3a.76.1785139785170;
+        Mon, 27 Jul 2026 01:09:45 -0700 (PDT)
 Received: from [127.0.1.1] ([116.237.168.131])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e5344e577sm2630658b3a.58.2026.07.27.01.09.30
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e5344e577sm2630658b3a.58.2026.07.27.01.09.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jul 2026 01:09:37 -0700 (PDT)
+        Mon, 27 Jul 2026 01:09:44 -0700 (PDT)
 From: Jun Nie <jun.nie@linaro.org>
-Date: Mon, 27 Jul 2026 16:08:43 +0800
-Subject: [PATCH v5 4/6] drm/msm/dsi: Support dual panel use case with
- single CRTC
+Date: Mon, 27 Jul 2026 16:08:44 +0800
+Subject: [PATCH v5 5/6] dt-bindings: display: Add Synaptics R63455 panel
+ support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260727-sm8650-7-1-bonded-dsi-v5-4-c042266b9eeb@linaro.org>
+Message-Id: <20260727-sm8650-7-1-bonded-dsi-v5-5-c042266b9eeb@linaro.org>
 References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
 In-Reply-To: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, 
@@ -90,104 +90,162 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  devicetree@vger.kernel.org, Jun Nie <jun.nie@linaro.org>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785139738; l=3658;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785139738; l=4379;
  i=jun.nie@linaro.org; s=20240403; h=from:subject:message-id;
- bh=FY+WdSUHGPRbRnMDhtWaq/iF/3Apl57IiEpz0463pdQ=;
- b=cwvcKUA13xkpOMW5V9zqO5BFssVSkKaJBxCMHREMn32+D640hqLdaqisAHFUW/Nbt8CzAu6rM
- xiRjc/OPRR4C3+xCpSqQIMFdc23sI6Jd0wfXtw3kAg9KEm0fuvG3k8s
+ bh=KecbpZ9jhqW0PqpT8ret5wpzs/ELT+axOn8WnjIaPp8=;
+ b=tIw+J7j7txm0DxxqyHkWllN7IA4ndj2ys/kFYWuGcwGRr7BJTM0x7HiXod8SAVkCgk3DCrLb2
+ I8NF3x3ojydAJDkBUTI4eYkDF5FmpOmoxXbAMb5o7W1Zocwp73bblbC
 X-Developer-Key: i=jun.nie@linaro.org; a=ed25519;
  pk=MNiBt/faLPvo+iJoP1hodyY2x6ozVXL8QMptmsKg3cc=
 
-Support a hardware configuration where two independent DSI panels are
-driven by a single, synchronous CRTC. This configuration uses a bonded
-DSI link to provide a unified vblank for both displays.
-
-This allows application software to treat the two displays as a single,
-wide framebuffer with a synchronized refresh cycle, simplifying rendering
-logic for side-by-side panel arrangements.
-
-At the DSI host level, the frame width for each link must be that of an
-individual panel. The driver therefore halves the CRTC's horizontal
-resolution before configuring the DSI host and any DSC encoders, ensuring
-each panel receives the correct half of the framebuffer.
-
-The pic_width is used to calculated DSC parameter for DPU DSC controller
- together with panel's parameter. While panel driver that support dual
-panel shall provide slice_width parameter of single panel. This patch
-only impact DSC configuration, so crtc is not aware of it and not impacted
-by it.
-
-While the DSI panel driver should manage two panels togehter.
-1. During probe, the driver finds the sibling dsi host via device tree
-phandle and register the 2nd panel to get another mipi_dsi_device.
-2. Set dual_panel flag on both mipi_dsi_device.
-3. Prepare DSC data per requirement from single panel.
-4. All DSI commands should be send on every DSI link.
-5. Handle power supply for 2 panels in one shot, the same is true to
-   brightness.
-6. From the CRTC's perspective, the two panels appear as one wide display.
-   The driver exposes a DRM mode where the horizontal timings (hdisplay,
-   hsync_start, etc.) are doubled, while the vertical timings remain those
-   of a single panel. Because 2 panels are expected to be mounted in
-   left/right position.
-
-To maintain synchronization, both DSI links are configured to share a
-single clock source, with the DSI1 controller using the clock provided
-to DSI0 as below.
-
-&mdss_dsi1 {
-   assigned-clocks = <&dispcc DISP_CC_MDSS_BYTE1_CLK_SRC>,
-		     <&dispcc DISP_CC_MDSS_PCLK1_CLK_SRC>;
-   assigned-clock-parents = <&mdss_dsi0_phy 0>, <&mdss_dsi0_phy 1>;
-}
+Add support for the dual-panel system found in the virtual reality device.
+This system consists of two physical 2160x2160 panels, each connected via
+a MIPI DSI interface. The backlight is managed through DSI link.
 
 Signed-off-by: Jun Nie <jun.nie@linaro.org>
 ---
- drivers/gpu/drm/msm/dsi/dsi_host.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ .../bindings/display/panel/synaptics,r63455.yaml   | 133 +++++++++++++++++++++
+ 1 file changed, 133 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index e39938fb0f502..a3c56c3dc7904 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -186,6 +186,7 @@ struct msm_dsi_host {
- 	bool registered;
- 	bool power_on;
- 	bool enabled;
-+	bool is_dual_panel;
- 	int irq;
- };
- 
-@@ -1024,7 +1025,10 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
- 			return;
- 		}
- 
--		dsc->pic_width = mode->hdisplay;
-+		if (msm_host->is_dual_panel)
-+			dsc->pic_width = hdisplay;
-+		else
-+			dsc->pic_width = mode->hdisplay;
- 		dsc->pic_height = mode->vdisplay;
- 		DBG("Mode %dx%d\n", dsc->pic_width, dsc->pic_height);
- 
-@@ -1705,6 +1709,7 @@ static int dsi_host_attach(struct mipi_dsi_host *host,
- 	if (dsi->lanes > msm_host->num_data_lanes)
- 		return -EINVAL;
- 
-+	msm_host->is_dual_panel = dsi->dual_panel;
- 	msm_host->channel = dsi->channel;
- 	msm_host->lanes = dsi->lanes;
- 	msm_host->format = dsi->format;
-@@ -2600,6 +2605,9 @@ enum drm_mode_status msm_dsi_host_check_dsc(struct mipi_dsi_host *host,
- 	if (!msm_host->dsc)
- 		return MODE_OK;
- 
-+	if (msm_host->is_dual_panel)
-+		pic_width = mode->hdisplay / 2;
+diff --git a/Documentation/devicetree/bindings/display/panel/synaptics,r63455.yaml b/Documentation/devicetree/bindings/display/panel/synaptics,r63455.yaml
+new file mode 100644
+index 0000000000000..c3bc8df981df7
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/synaptics,r63455.yaml
+@@ -0,0 +1,133 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/synaptics,r63455.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- 	if (pic_width % dsc->slice_width) {
- 		pr_err("DSI: pic_width %d has to be multiple of slice %d\n",
- 		       pic_width, dsc->slice_width);
++title: Synaptics R63455 based dual 2160x2160 MIPI-DSI Panel
++
++maintainers:
++  - Jun Nie <jun.nie@linaro.org>
++
++description:
++  Synaptics R63455 is a Virtual Reality Display Driver and VR Bridge, used in
++  pair in Headset devices. The Virtual Reality Display complex is composed of
++  two strictly identical display panels, each driven by its own DSI interface
++  but forms a single virtual display for the human eye perception and thus
++  requires a strict synchronization of the two display panel content update.
++
++allOf:
++  - $ref: panel-common.yaml#
++
++properties:
++  compatible:
++    items:
++      - enum:
++        - sharp,ls026b3sa06
++        - boe,vs026c4m-n52-6000
++      - const: synaptics,r63455
++
++  reg:
++    maxItems: 1
++    description: DSI virtual channel
++
++  reset-gpios:
++    maxItems: 2
++    description: 2 reset pins for 2 physical panels
++
++  left-pos-supply:
++    description: Positive 5.7V supply for left panel
++
++  right-pos-supply:
++    description: Positive 5.7V supply for right panel
++
++  left-neg-supply:
++    description: Negative 5.7V supply for left panel
++
++  right-neg-supply:
++    description: Negative 5.7V supply for right panel
++
++  left-backlight-supply:
++    description: Backlight 21V supply for left panel
++
++  right-backlight-supply:
++    description: Backlight 21V supply for right panel
++
++  vdda-supply:
++    description: core 1.8V supply for panels
++
++  ports:
++    properties:
++      port@0:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: DSI input port for primary DSI link
++
++      port@1:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: DSI input port for secondary DSI link
++
++    required:
++      - port@0
++      - port@1
++
++required:
++  - compatible
++  - reset-gpios
++  - left-pos-supply
++  - left-neg-supply
++  - right-pos-supply
++  - right-neg-supply
++  - left-backlight-supply
++  - right-backlight-supply
++  - vdda-supply
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    dsi@ae94000 {
++        vdda-supply = <&vreg_l3i_1p2>;
++        status = "okay";
++
++        qcom,dual-dsi-mode;
++        qcom,master-dsi;
++
++        panel: panel@0 {
++            compatible = "sharp,ls026b3sa06", "synaptics,r63455";
++            reg = <0>;
++
++            reset-gpios = <&pm8550_gpios 3 GPIO_ACTIVE_HIGH>,
++                          <&pm8550_gpios 11 GPIO_ACTIVE_HIGH>;
++
++            left-pos-supply = <&vpos_left>;
++            left-neg-supply = <&vneg_left>;
++            right-pos-supply = <&vpos_right>;
++            right-neg-supply = <&vneg_right>;
++            left-backlight-supply = <&backlight_left>;
++            right-backlight-supply = <&backlight_right>;
++
++            vdda-supply = <&vreg_l12b_1p8>;
++
++            ports {
++                #address-cells = <1>;
++                #size-cells = <0>;
++                port@0 {
++                    reg = <0>;
++                    panel0_in: endpoint {
++                        remote-endpoint = <&dsi0_out>;
++                    };
++                };
++
++                port@1 {
++                    reg = <1>;
++                    panel1_in: endpoint {
++                        remote-endpoint = <&dsi1_out>;
++                    };
++                };
++            };
++        };
++    };
++
++...
 
 -- 
 2.43.0
