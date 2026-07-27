@@ -1,99 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.fris.de (mail.fris.de [116.203.77.234])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B60135677E
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 12:59:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 361473FB077;
+	Mon, 27 Jul 2026 13:01:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.203.77.234
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785157158; cv=none; b=jvWLeOEExYex0/FllPvCcoKODmg3rZFt325xLnvr+goLC3VKFG68PXnm/jM+2RD0qboXnHkTmf6PIvtFqfppNRZyynDoZBV5jyvkj2BaJx0Jzbnltmw3esn2Mow5u61TOK+UdEj9UzffFAJfiHvJY/bW8rE4qcjSPA8KSH5ll5Q=
+	t=1785157308; cv=none; b=dBBACdTSD03+Kfy7ztp7FeBrxMmxu4jQL7h9tqCtBNfwnJXfuM10P2ihEgyVXx9joFbvsL9Z9hCgneesTW3HPXLOBonlsCCmKZuIRj8U8ER6qgQdCwMzulvHxcqgOhoPKKP6M4liElXEQgJlhMhJhaaq3iEw84gnB56QtFmgKlg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785157158; c=relaxed/simple;
-	bh=9CnHA2sjBCTp76IxgvwKoj3ChzdBokNRJi+YhPrJFy0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=g0qGh8YE8hpy/wdmE7PnbrxuZDn0+GUxh/h2PuiiWK81nA8ZgdS6cBmzsM+cRvQF7A7caPZVFSdnDTqiCTE3z5KIyoLZjlWIEuDpkFMdyoZv7SHjx+32By+ALOkmQziloEl/sSZeZJ7+kVLTODZ7VGDtBXg0cLkmSxMmQ45fYIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FvzLDrcl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785157308; c=relaxed/simple;
+	bh=UZnOInwEGoVgpNBqq3Tztf3mf2B9K8wVmmfkFh/0KSY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=qhQHwJmJ2/GTwu8ptXBOVWMnlLIwdn0ixXhSUBqxtTs2jc4aP4XaqwRqT104ZQgocOIAWpneO/Jp4ILi13ku7dXJCH9DcQwR14Il+S94QFhK1D4FfrWENf876t3/uZ1JFObKBueVlZMGhKvdb9H4jEm9ZNRKmFnBArANF1b8RH8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=JU2gCUAy; arc=none smtp.client-ip=116.203.77.234
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FvzLDrcl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF1BF1F000E9;
-	Mon, 27 Jul 2026 12:59:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785157157;
-	bh=0P499mUk9Ts1ZKFQWX4Zw/qRibwVddbCdjqa1NEPzFc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FvzLDrclQvjltLQJNUhw3bMFLi1ZRisxHrdUJrVjqd6Pig8o2mwDR3D/bQT5S5fAB
-	 gpNyjQM5+20jXZiQ4dYeC4zUa9CPyhi4n98XCf+Eu9WgY6e6gg2MKJCx0NFHtP+h5R
-	 F35DsSLEkgzzibVZko6o6FvpWRKvGdvQVtvxu/bO53eBhFL7J2wxdL8LLZUuLbF5ai
-	 igMbC+l75ezvN0KQg8OBukAq99T/HLXS7uddfymZ1VAX8GkK+kJBEfSRXG654B93aT
-	 59EA26cMP2AoJxG/zJvYbDjECQ5PgvkaAY17+nHyEwdbmlEqv3B2xl9IHEN07XUimj
-	 dUd24gqVo1ObA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/5] arm64: dts: qcom: Add Kalambo CRD
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Gopikrishna Garmidi" <gopikrishna.garmidi@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260727-b4-kalambo-crd-v3-3-25280faceece@oss.qualcomm.com>
-References: <20260727-b4-kalambo-crd-v3-0-25280faceece@oss.qualcomm.com>
- <20260727-b4-kalambo-crd-v3-3-25280faceece@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 27 Jul 2026 12:59:16 +0000
-Message-Id: <20260727125916.AF1BF1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="JU2gCUAy"
+From: Frieder Schrempf <frieder@fris.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fris.de; s=mail;
+	t=1785157297;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TXqjLQdB/CoMuRR1aOwLEfFv4t1NiYQCsuxpxSLoiQc=;
+	b=JU2gCUAyZLswPkZjz3z6MojL4NXqMm2iSbAanFi6YhGdJXc99QB2SkJIT0odHpw34phy6j
+	cI/gLUHmdCDp5aS4VvbNCrGnaC5X32GQc8NC1o6L3eRV+mrSsf9FSSVR3Tj8sKbfUVcTFx
+	IHTGxu33yJHPUj7Z39Xqb3hQrubkRZAqxqDVcb41f6HomaTV2p+2guWMwBudyvbFrTZY+F
+	y1IawElwjDCFOjAiZioJdU0AYtVstA/PVzP5iTjKKMaw7EmCaBzevySjjv+ooCLZAeIWoK
+	BUp7AtPxYUwoIHw1Kqtb+VXMHevd0xN67TFaJG+wgyw5GfiBvd9JoO5pu2Yy4A==
+Date: Mon, 27 Jul 2026 15:00:45 +0200
+Subject: [PATCH v4 02/11] firmware: imx: ele: Fix indentation in
+ ele_base_msg.h
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260727-upstreaming-next-20260609-imx-ocotp-ele-v4-2-1a515de33093@kontron.de>
+References: <20260727-upstreaming-next-20260609-imx-ocotp-ele-v4-0-1a515de33093@kontron.de>
+In-Reply-To: <20260727-upstreaming-next-20260609-imx-ocotp-ele-v4-0-1a515de33093@kontron.de>
+To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>, 
+ Pankaj Gupta <pankaj.gupta@nxp.com>, 
+ "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux@ew.tq-group.com, Frieder Schrempf <frieder.schrempf@kontron.de>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1571;
+ i=frieder.schrempf@kontron.de; h=from:subject:message-id;
+ bh=DGqUdZlhyphs8hR0tjgBUY5tl6ldZ12TestuLL1xzXU=;
+ b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JISs9bJVn/JfNyV+msTx7fPDk3+w/L99MkTy2eXbPItXbj
+ NXyPYL6HaUsDGJcDLJiiixS/Bavbc1ifeSPVUfBzGFlAhnCwMUpABMxUGf4X+ufNVMyIHbeq+13
+ eKZP6Js6y+rIrszwPwmyXK9qSo2z6xj+yhRkrXzuM3fRhbhz9bxGL5eX2v9P9Y/x2ylstcaT83c
+ GLwA=
+X-Developer-Key: i=frieder.schrempf@kontron.de; a=openpgp;
+ fpr=1A0F38EB3D365D4C1FC67B5A69761B25107C8216
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The patch leaves an orphaned PMIC endpoint and thermal zone by f=
-ailing to delete the `spmi_bus1` node for PMIC D (`pmcx0102_d_e1`) and its =
-associated thermal zone (`pmcx0102-d1-thermal`).
---
+From: Frieder Schrempf <frieder.schrempf@kontron.de>
 
---- Patch [3]: [PATCH v3 3/5] arm64: dts: qcom: Add Kalambo CRD ---
-commit 827c0ef9079fd542521c1496e341a245697bd21d
-Author: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+The file uses mixed indentation characters. Use tabs everywhere.
 
-arm64: dts: qcom: Add Kalambo CRD
-   =20
-Introduce support for the CRD based on the Qualcomm Kalambo SoC, which is
-pin-to-pin compatible with the Glymur CRD. The board description reuses the
-common CRD layout and drops PMIC nodes that are not present on this design.
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
+---
+ drivers/firmware/imx/ele_base_msg.h | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-> diff --git a/arch/arm64/boot/dts/qcom/kalambo-crd.dts b/arch/arm64/boot/d=
-ts/qcom/kalambo-crd.dts
-> new file mode 100644
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/kalambo-crd.dts
+diff --git a/drivers/firmware/imx/ele_base_msg.h b/drivers/firmware/imx/ele_base_msg.h
+index 475074580dd7..5c128bf56e88 100644
+--- a/drivers/firmware/imx/ele_base_msg.h
++++ b/drivers/firmware/imx/ele_base_msg.h
+@@ -28,19 +28,19 @@
+ #define ELE_GEN_KEY_BLOB_REQ		0xaf
+ #define ELE_GET_FW_STATUS_REQ		0xc5
+ #define ELE_XIP_DECRYPT_REQ		0xc6
+-#define ELE_WRITE_FUSE                  0xd6
+-#define ELE_DEV_ATTEST_REQ              0xdb
+-#define ELE_WRITE_SHADOW_FUSE_REQ       0xf2
+-#define ELE_READ_SHADOW_FUSE_REQ        0xf3
++#define ELE_WRITE_FUSE			0xd6
++#define ELE_DEV_ATTEST_REQ		0xdb
++#define ELE_WRITE_SHADOW_FUSE_REQ	0xf2
++#define ELE_READ_SHADOW_FUSE_REQ	0xf3
+ 
+ #define ELE_GET_INFO_REQ		0xda
+ #define ELE_GET_INFO_REQ_MSG_SZ		0x10
+ #define ELE_GET_INFO_RSP_MSG_SZ		0x08
+ 
+-#define MAX_UID_SIZE                     (16)
+-#define DEV_GETINFO_ROM_PATCH_SHA_SZ     (32)
+-#define DEV_GETINFO_FW_SHA_SZ            (32)
+-#define DEV_GETINFO_OEM_SRKH_SZ          (64)
++#define MAX_UID_SIZE			(16)
++#define DEV_GETINFO_ROM_PATCH_SHA_SZ	(32)
++#define DEV_GETINFO_FW_SHA_SZ		(32)
++#define DEV_GETINFO_OEM_SRKH_SZ		(64)
+ #define DEV_GETINFO_MIN_VER_MASK	0xff
+ #define DEV_GETINFO_MAJ_VER_MASK	0xff00
+ #define ELE_DEV_INFO_EXTRA_SZ		0x60
 
-[ ... ]
+-- 
+2.55.0
 
-> +/delete-node/ &pmcx0102_d_e0;
-> +/delete-node/ &pmcx0102_d0_thermal;
-
-[Severity: Medium]
-Should this also delete the e1 endpoint and d1 thermal zone for PMIC D?
-
-The commit message notes that absent PMIC nodes are dropped, and PMIC D
-is absent here. Since PMIC D spans both spmi_bus0 (e0) and spmi_bus1 (e1),
-deleting only the e0 endpoint leaves the e1 endpoint active.
-
-Will the SPMI driver attempt to probe the non-existent pmcx0102_d_e1 node
-and generate bus timeouts or errors during boot? It appears that the
-associated pmcx0102-d1-thermal zone may also need to be deleted (perhaps by
-its full path if it lacks a label) to fully remove PMIC D from the tree.
-
-> +/delete-node/ &pmh0104_i_e0;
-> +/delete-node/ &pmh0104_i0_thermal;
-> +/delete-node/ &pmh0104_j_e0;
-> +/delete-node/ &pmh0104_j0_thermal;
-> +
-> +/ {
-> +	model =3D "Qualcomm Technologies, Inc. Kalambo CRD";
-> +	compatible =3D "qcom,kalambo-crd", "qcom,kalambo";
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727-b4-kalambo=
--crd-v3-0-25280faceece@oss.qualcomm.com?part=3D3
