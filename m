@@ -1,298 +1,193 @@
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8630F3F1AD7
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 09:42:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D4A83F1AA2;
+	Mon, 27 Jul 2026 09:46:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785145377; cv=none; b=eOgeR0FlrKtrebm1txZLWgBkllHe+aabVoG/fNR55qcC3GIc9r1yPu3sKVUbrkLCROU5ZG3aSR3YuamXPW/C0p1Ho+L4/reyfXFk0eT1+xTGnQsa43JOzuLef8PcWmsYZiFmM8u3b2TfRUphTuJ1k5g1S7nd4hFzP5vwwdLKCQ8=
+	t=1785145581; cv=none; b=gVW1b+cQhx6rxIHaI96eGWKggNaAi934GtGGnqjDfPpb6S8G7OF0mhU2N4Z2/oC0j9o0gGBBQg84VYckQ+wR8L8HOi8fokDCmpafwO61/sqGJTAUQoPknHprBnaBafcf62L6dcEGi3FVaob027BwJ29MygglFc6y35gSjekb1xA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785145377; c=relaxed/simple;
-	bh=pvB4zZcEUALSaOKN9RLacMLokyxRN2JRtA3hcxvTIRQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=NWcHb6tf4w/v2HLAV4LK07vMg6PoDrUmYpCpvFNyggBmMyt28+buDqoAoACjpCPIaxfJPtzq2MIoNw+UAYjm6wEYszFk57UHxMNEj+hBFbMijAxxSM5FK3FYgYV6zRnmIjlwT16KWRBvBfGPMz9R6/skUIZ+MhXsGtOp13ysim4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=ratatoskr.trumtrar.info)
-	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
-	(envelope-from <s.trumtrar@pengutronix.de>)
-	id 1woHqw-00009N-Pq; Mon, 27 Jul 2026 11:42:30 +0200
-From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Date: Mon, 27 Jul 2026 11:42:15 +0200
-Subject: [PATCH v5 3/5] arm64: dts: imx8mp-skov-revc: convert to overlays
+	s=arc-20240116; t=1785145581; c=relaxed/simple;
+	bh=6v/nZ9DR+Ovr5AEe71xmbm4VFYDIYJDwbTkYkOQj+qg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GNYzDLLc6H8wJhKxpMzF5UcWvidfCgkAsob8Rr+c232pXM/hglnCgUoLqzi51eRkgU3rvoy6o1ZqDJsOSzTJgBXee50q6xiaCvwkpKwsmV6scz2FO/MVbEQa9T5LwM4SWauF1CnNhfVnfQkhkDUx5yVWy/cM0pzHbunlTpCj+ts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ReBOT0iK; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ReBOT0iK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BA451F000E9;
+	Mon, 27 Jul 2026 09:46:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785145580;
+	bh=FuTMUQfncog6oEeL4sOUF4Q0/WDrg0FJmGmDU/fm5Kw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ReBOT0iK2nmQy71R6UmWb4fA7Q3xLwLpGCZ6QkA3OvPi1yglJY62O4LF6Oe+D/mRU
+	 pmV32El8fXRB/fTdZPXIuFGRAgfagVvxK6ruOQ7a4mF6E4XTKNZx9Lg55qCRKtVO8u
+	 Qgoytaize+B0mTHQZROUsf8rIljZqNKxUGDMnSESz5eJvMcJ90ZNwUDLBUcpTvCgV6
+	 yn+pjWHNOJj84TNBcMpPt3vQh+3HVBJq3gld0XG7jEI4PbYpReXQ30nva+jtGr/KiF
+	 luuot6CadMmn0VtRnxyo8Y0V5KQXyaCJ/dpBdJai5EN2eZpPcgRa56LhKYtUk5Wut3
+	 Dpsg8KMHV5l8Q==
+Date: Mon, 27 Jul 2026 11:46:17 +0200
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+To: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	Benjamin Larsson <benjamin.larsson@genexis.eu>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+	Markus Gothe <markus.gothe@genexis.eu>,
+	Matheus Sampaio Queiroga <srherobrine20@gmail.com>
+Subject: Re: [PATCH v7 12/34] pinctrl: airoha: add missed get_direction()
+ function for gpio_chip
+Message-ID: <amco6Tz_pBEUXAvN@lore-desk>
+References: <20260727074234.3761170-1-mikhail.kshevetskiy@iopsys.eu>
+ <20260727074234.3761170-13-mikhail.kshevetskiy@iopsys.eu>
+ <amcRI3c0-1iWWX5M@lore-desk>
+ <179fbc45-a43e-499f-bb54-58fee8c66df3@iopsys.eu>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260727-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v5-3-67faa5ee0bf6@pengutronix.de>
-References: <20260727-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v5-0-67faa5ee0bf6@pengutronix.de>
-In-Reply-To: <20260727-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v5-0-67faa5ee0bf6@pengutronix.de>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: Steffen Trumtrar <s.trumtrar@pengutronix.de>, 
- =?utf-8?q?S=C3=B8ren_Andersen?= <san@skov.dk>, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6513;
- i=s.trumtrar@pengutronix.de; h=from:subject:message-id;
- bh=pvB4zZcEUALSaOKN9RLacMLokyxRN2JRtA3hcxvTIRQ=;
- b=owGbwMvMwCUmtVehiCsuTInxtFoSQ1a6BssUwYMGNws9JWJDIxdxbFgjbD2Lo+jqjrXKc7x+l
- k3vtbnRUcrCIMbFICumyKKysIJP1OODZ+Q0ES6YOaxMIEMYuDgF4CJrGf7Hui3tMOS7V6lwJmj7
- 1V8JhXdvLF7tZqxiFHk0YXWkSJoZI0MHb8nvjX/k07YVTp5xy+XW810bAieYdZ48lfg6IW0izzJ
- WAA==
-X-Developer-Key: i=s.trumtrar@pengutronix.de; a=openpgp;
- fpr=24A1780E1548F0495996140A1ABD20720A5E5622
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
-X-SA-Exim-Mail-From: s.trumtrar@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: devicetree@vger.kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="riew4lijXiwXJkHL"
+Content-Disposition: inline
+In-Reply-To: <179fbc45-a43e-499f-bb54-58fee8c66df3@iopsys.eu>
 
-The i.MX8MP Skov RevC jutouch 10" and Tian 7" variants are pretty
-similar, apart from the Display and touch controller.
+--riew4lijXiwXJkHL
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Move the common bindings to imx8mp-skov-revc-touch.dts and convert both
-variants to use overlays applied on this base version.
+On Jul 27, Mikhail Kshevetskiy wrote:
+> On 7/27/26 11:04, Lorenzo Bianconi wrote:
+> >> This patch adds missed get_direction() function for gpio_chip.
+> >> Also it reimplements pinconf's get_direction() function using
+> >> newly defined function.
+> >>
+> >> Fixes: 1c8ace2d0725 ("pinctrl: airoha: Add support for EN7581 SoC")
+> >> Signed-off-by: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+> >> ---
+> >>  drivers/pinctrl/airoha/pinctrl-airoha.c | 41 ++++++++++++++++++-------
+> >>  1 file changed, 30 insertions(+), 11 deletions(-)
+> >>
+> >> diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl=
+/airoha/pinctrl-airoha.c
+> >> index 820b7b0443851..b52eb39c55ff3 100644
+> >> --- a/drivers/pinctrl/airoha/pinctrl-airoha.c
+> >> +++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
+> >> @@ -2502,6 +2502,27 @@ static int airoha_gpio_get(struct gpio_chip *ch=
+ip, unsigned int gpio)
+> >>  	return err ? err : !!(val & BIT(pin));
+> >>  }
+> >> =20
+> >> +static int airoha_gpio_get_direction(struct gpio_chip *chip, unsigned=
+ int gpio)
+> >> +{
+> >> +	struct airoha_pinctrl *pinctrl =3D gpiochip_get_data(chip);
+> >> +	u32 mask, index, val;
+> >> +	int err, field_shift;
+> >> +
+> >> +	field_shift =3D 2 * (gpio % AIROHA_REG_GPIOCTRL_NUM_PIN);
+> >> +	mask =3D GENMASK(field_shift + 1, field_shift);
+> > before we where checking just BIT(field_shift) as mask, while now we are
+> > checking two bits.=A0
+> As I know upper bits treated as reserved. I think we should not use gpio
+> operations if upper bit is not zero.
+> What is your opinion?
 
-Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
----
- arch/arm64/boot/dts/freescale/Makefile             |  6 +++
- ...ts => imx8mp-skov-revc-jutouch-jt101tm023.dtso} | 44 ++++++----------------
- ...07017.dts => imx8mp-skov-revc-tian-g07017.dtso} | 33 ++++------------
- .../boot/dts/freescale/imx8mp-skov-revc-touch.dts  | 41 ++++++++++++++++++++
- 4 files changed, 66 insertions(+), 58 deletions(-)
+I guess it is better to use a mask of just one bit here.
 
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index b46f452f4b988..2caac104bec6e 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -434,8 +434,14 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revb-lt6.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revb-mi1010ait-1cp1.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-bd500.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-hdmi.dtb
-+
-+imx8mp-skov-revc-jutouch-jt101tm023-dtbs += imx8mp-skov-revc-touch.dtb \
-+	imx8mp-skov-revc-jutouch-jt101tm023.dtbo
-+imx8mp-skov-revc-tian-g07017-dtbs += imx8mp-skov-revc-touch.dtb \
-+	imx8mp-skov-revc-tian-g07017.dtbo
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-jutouch-jt101tm023.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-tian-g07017.dtb
-+
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-dev.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-tqma8mpql-mba8mpxl.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-tqma8mpql-mba8mp-ras314.dtb
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt101tm023.dts b/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt101tm023.dtso
-similarity index 65%
-rename from arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt101tm023.dts
-rename to arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt101tm023.dtso
-index 3e320d6dea3a2..b50960879e82d 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt101tm023.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt101tm023.dtso
-@@ -1,10 +1,12 @@
- // SPDX-License-Identifier: (GPL-2.0 OR MIT)
- 
- /dts-v1/;
-+/plugin/;
- 
--#include "imx8mp-skov-reva.dtsi"
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
- 
--/ {
-+&{/} {
- 	model = "SKOV IMX8MP CPU revC - JuTouch JT101TM023";
- 	compatible = "skov,imx8mp-skov-revc-jutouch-jt101tm023", "fsl,imx8mp";
- 
-@@ -21,13 +23,9 @@ in_lvds0: endpoint {
- 	};
- };
- 
--&backlight {
--	status = "okay";
--};
--
- &i2c2 {
--	clock-frequency = <100000>;
--	status = "okay";
-+	#address-cells = <1>;
-+	#size-cells = <0>;
- 
- 	touchscreen@2a {
- 		compatible = "eeti,exc81w32", "eeti,exc80h84";
-@@ -42,38 +40,20 @@ touchscreen@2a {
- 	};
- };
- 
--&lcdif2 {
--	status = "okay";
--};
--
- &lvds_bridge {
--	assigned-clocks = <&clk IMX8MP_CLK_MEDIA_LDB>,
--				 <&clk IMX8MP_VIDEO_PLL1>;
--	assigned-clock-parents = <&clk IMX8MP_VIDEO_PLL1_OUT>;
- 	/* IMX8MP_VIDEO_PLL1 = IMX8MP_CLK_MEDIA_DISP2_PIX * 7 */
- 	assigned-clock-rates = <0>, <506800000>;
--	status = "okay";
- 
- 	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
- 		port@1 {
-+			reg = <1>;
-+
- 			ldb_lvds_ch0: endpoint {
- 				remote-endpoint = <&in_lvds0>;
- 			};
- 		};
--	};
--};
--
--&pwm4 {
--	status = "okay";
--};
--
--&pwm1 {
--	status = "okay";
--};
--
--&reg_tft_vcom {
--	regulator-min-microvolt = <3160000>;
--	regulator-max-microvolt = <3160000>;
--	voltage-table = <3160000 73>;
--	status = "okay";
-+        };
- };
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-tian-g07017.dts b/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-tian-g07017.dtso
-similarity index 68%
-rename from arch/arm64/boot/dts/freescale/imx8mp-skov-revc-tian-g07017.dts
-rename to arch/arm64/boot/dts/freescale/imx8mp-skov-revc-tian-g07017.dtso
-index 9a562c011f2c2..4f37723dbe8a1 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-tian-g07017.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-tian-g07017.dtso
-@@ -1,8 +1,10 @@
- // SPDX-License-Identifier: (GPL-2.0 OR MIT)
- 
- /dts-v1/;
-+/plugin/;
- 
--#include "imx8mp-skov-reva.dtsi"
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
- 
- / {
- 	model = "SKOV IMX8MP CPU revC - TIAN G07017";
-@@ -21,13 +23,9 @@ in_lvds0: endpoint {
- 	};
- };
- 
--&backlight {
--	status = "okay";
--};
--
- &i2c2 {
--	clock-frequency = <100000>;
--	status = "okay";
-+	#address-cells = <1>;
-+	#size-cells = <0>;
- 
- 	touchscreen@38 {
- 		compatible = "edt,edt-ft5506";
-@@ -45,16 +43,14 @@ touchscreen@38 {
- };
- 
- &lcdif2 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
- 	status = "okay";
- };
- 
- &lvds_bridge {
--	assigned-clocks = <&clk IMX8MP_CLK_MEDIA_LDB>,
--				 <&clk IMX8MP_VIDEO_PLL1>;
--	assigned-clock-parents = <&clk IMX8MP_VIDEO_PLL1_OUT>;
- 	/* IMX8MP_VIDEO_PLL1 = IMX8MP_CLK_MEDIA_DISP2_PIX * 2 * 7 */
- 	assigned-clock-rates = <0>, <358400000>;
--	status = "okay";
- 
- 	ports {
- 		port@1 {
-@@ -64,18 +60,3 @@ ldb_lvds_ch0: endpoint {
- 		};
- 	};
- };
--
--&pwm4 {
--	status = "okay";
--};
--
--&pwm1 {
--	status = "okay";
--};
--
--&reg_tft_vcom {
--	regulator-min-microvolt = <3160000>;
--	regulator-max-microvolt = <3160000>;
--	voltage-table = <3160000 73>;
--	status = "okay";
--};
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-touch.dts b/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-touch.dts
-new file mode 100644
-index 0000000000000..f2206060bc7ce
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-touch.dts
-@@ -0,0 +1,41 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-+
-+/dts-v1/;
-+
-+#include "imx8mp-skov-reva.dtsi"
-+
-+/ {
-+	model = "SKOV IMX8MP CPU revC";
-+	compatible = "skov,imx8mp-skov-revc", "fsl,imx8mp";
-+};
-+
-+&backlight {
-+	status = "okay";
-+};
-+
-+&i2c2 {
-+	clock-frequency = <100000>;
-+	status = "okay";
-+};
-+
-+&lvds_bridge {
-+	assigned-clocks = <&clk IMX8MP_CLK_MEDIA_LDB>,
-+			  <&clk IMX8MP_VIDEO_PLL1>;
-+	assigned-clock-parents = <&clk IMX8MP_VIDEO_PLL1_OUT>;
-+	status = "okay";
-+};
-+
-+&pwm4 {
-+	status = "okay";
-+};
-+
-+&pwm1 {
-+	status = "okay";
-+};
-+
-+&reg_tft_vcom {
-+	regulator-min-microvolt = <3160000>;
-+	regulator-max-microvolt = <3160000>;
-+	voltage-table = <3160000 73>;
-+	status = "okay";
-+};
+Regards,
+Lorenzo
 
--- 
-2.51.0
+> > =A0
+> >
+> >> +	index =3D gpio / AIROHA_REG_GPIOCTRL_NUM_PIN;
+> >> +
+> >> +	err =3D regmap_read(pinctrl->regmap,
+> >> +			  pinctrl->gpiochip.dir[index], &val);
+> >> +	if (err)
+> >> +		return err;
+> >> +
+> >> +	if ((val & mask) > BIT(field_shift))
+> >> +		return -EINVAL;
+> >> +
+> >> +	return (val & mask) ? GPIO_LINE_DIRECTION_OUT : GPIO_LINE_DIRECTION_=
+IN;
+> > nit: unnecessary brackets.
+> >
+> >> +}
+> >> +
+> >>  static int airoha_gpio_direction_output(struct gpio_chip *chip,
+> >>  					unsigned int gpio, int value)
+> >>  {
+> >> @@ -2648,6 +2669,7 @@ static int airoha_pinctrl_add_gpiochip(struct ai=
+roha_pinctrl *pinctrl,
+> >>  	gc->free =3D gpiochip_generic_free;
+> >>  	gc->direction_input =3D pinctrl_gpio_direction_input;
+> >>  	gc->direction_output =3D airoha_gpio_direction_output;
+> >> +	gc->get_direction =3D airoha_gpio_get_direction;
+> >>  	gc->set =3D airoha_gpio_set;
+> >>  	gc->get =3D airoha_gpio_get;
+> >>  	gc->base =3D -1;
+> >> @@ -2855,21 +2877,18 @@ static int airoha_pinctrl_set_conf(struct airo=
+ha_pinctrl *pinctrl,
+> >>  static int airoha_pinconf_get_direction(struct pinctrl_dev *pctrl_dev=
+, u32 p)
+> >>  {
+> >>  	struct airoha_pinctrl *pinctrl =3D pinctrl_dev_get_drvdata(pctrl_dev=
+);
+> >> -	u32 val, mask;
+> >> -	int err, pin;
+> >> -	u8 index;
+> >> +	int err, gpio;
+> >> =20
+> >> -	pin =3D airoha_convert_pin_to_reg_offset(pctrl_dev, NULL, p);
+> >> -	if (pin < 0)
+> >> -		return pin;
+> >> +	gpio =3D airoha_convert_pin_to_reg_offset(pctrl_dev, NULL, p);
+> > if you do not rename pin in gpio here the patch will be simpler.
+> >
+> > Regards,
+> > Lorenzo
+> >
+> >> +	if (gpio < 0)
+> >> +		return gpio;
+> >> =20
+> >> -	index =3D pin / AIROHA_REG_GPIOCTRL_NUM_PIN;
+> >> -	err =3D regmap_read(pinctrl->regmap, pinctrl->gpiochip.dir[index], &=
+val);
+> >> -	if (err)
+> >> +	err =3D airoha_gpio_get_direction(&pinctrl->gpiochip.chip, gpio);
+> >> +	if (err < 0)
+> >>  		return err;
+> >> =20
+> >> -	mask =3D BIT(2 * (pin % AIROHA_REG_GPIOCTRL_NUM_PIN));
+> >> -	return val & mask ? PIN_CONFIG_OUTPUT_ENABLE : PIN_CONFIG_INPUT_ENAB=
+LE;
+> >> +	return err =3D=3D GPIO_LINE_DIRECTION_OUT ?
+> >> +	       PIN_CONFIG_OUTPUT_ENABLE : PIN_CONFIG_INPUT_ENABLE;
+> >>  }
+> >> =20
+> >>  static int airoha_pinconf_get(struct pinctrl_dev *pctrl_dev,
+> >> --=20
+> >> 2.53.0
+> >>
 
+--riew4lijXiwXJkHL
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCamco6QAKCRA6cBh0uS2t
+rPNsAPoCaxEq+cONCBlBmmzNPjirzkrL5V/UGCkZSCpeh6ibhgEAoAw4yQBOmS3T
+maQG7rrwfujQnLsjxTl8VA/gFk4PEAc=
+=Bvvv
+-----END PGP SIGNATURE-----
+
+--riew4lijXiwXJkHL--
