@@ -1,337 +1,487 @@
-Received: from mail-m1973180.qiye.163.com (mail-m1973180.qiye.163.com [220.197.31.80])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA4E8F9C0;
-	Mon, 27 Jul 2026 12:54:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AC643AC0F5;
+	Mon, 27 Jul 2026 12:56:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785156850; cv=none; b=bvGlwnP59ee5r2jBwjq1AxZenvzasPfg8HcC4cKjEWLFIwabgXDlb9PeB1ZCm+3guplyCSvpVtjURcETdk/4FoDHJp0ZH8jaqRvUsNXdU3B+cdjNxr7GEUOnjrYiwEWAyd+RUz49fjfQmQiLH1rdFEL19Mbe3v3AU2OZNtkefik=
+	t=1785157016; cv=none; b=GnIiRhWskRfUdAqV4y5YFEavoQ/n95i3qA0f7BI63inRTSOop8Ey79MldxbKe8S4klvuD7LeouKd7u5NNv+ejnJlxMvAoU/UPLVeuwFPpthzd9VbjDWdn2C9EgTM4E72w5xki3opgYIVpL1Ie9B41omOX0iiGQPkt8tyxB4p/f0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785156850; c=relaxed/simple;
-	bh=1Pr5nBPbaTy9E9T84ft8RXu2khOALdoCAZ9khRPvBck=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=k7TkI2Url87VOT5plFlZfIEBJBXaxAJujJhC7XBstkCz3NfxtO04kR8L1TG6FlzA7ANOGZwXNWQnIT905ho119d4Gop3d9nRmnyDd3Ar/QtaYihbSlWwGZwTK8VIQzo6HHXqvevAUmiJv4+F68D1WlcCR0vrA571ZrS+z5Tj4VY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=UGPjU0mZ; arc=none smtp.client-ip=220.197.31.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1785157016; c=relaxed/simple;
+	bh=GYVuKkTLiXnGHBgh8bC5iv2cV5n6Wk3H6hfC832STfM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ViWkDr6RFIFuga3bJszMWoVd2KzrNVrXatDSNOO+4XbF82C4byLIlgndQcf+5jxfeSSynJpKoR9AshLCHzHBi7Pb4UJSrKCob+1NS2sZi8I9IPXxqkflI2HhUdTfZrCqZt61fJ/kce9fE5x0bA7z2D6/1xdBUE1TOzbKqhK8MTk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eny4et4r; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="UGPjU0mZ"
-Received: from [172.16.12.90] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 47ade751f;
-	Mon, 27 Jul 2026 15:10:53 +0800 (GMT+08:00)
-Message-ID: <1335c136-bcde-4579-8fa2-6979cc2498b5@rock-chips.com>
-Date: Mon, 27 Jul 2026 15:10:51 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eny4et4r"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1785157014; x=1816693014;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=GYVuKkTLiXnGHBgh8bC5iv2cV5n6Wk3H6hfC832STfM=;
+  b=eny4et4rQ6/YPodR+ojzumZiTp2B1JdYyUl1es1wpQq8fj4RgVPtPntD
+   c2sUr03t+OnfPeL9uQO39Wx4RMGRY22KAFeg6+xnsTx4Gycet/fPaq6E8
+   4TZz2KoHeWObfZqniZEabDbr/7o7XhG6sg0CgWeE+mZIG1wRVvrncN8mj
+   JzRWRT+Ffmg7yxUmRclLaoOkemw1CRvNQgPDGanLTUPMZrZSOIi12NOIW
+   zxI8A/k6XKmPG8ntzdhuYQoHaT7AcHUG04ZFmioQH5HJwIV4beJ2/XOcj
+   urmM4EbIBuihCIPumno3rYAoPg6O6QNnkWfITHLbwqr7hR6jlfX3+tXdM
+   w==;
+X-CSE-ConnectionGUID: O08grYO+T7yt0JFmzS4Z6g==
+X-CSE-MsgGUID: X+c9ARsqRz26GaSw8kP6Aw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11858"; a="108518147"
+X-IronPort-AV: E=Sophos;i="6.25,188,1779174000"; 
+   d="scan'208";a="108518147"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Jul 2026 05:56:53 -0700
+X-CSE-ConnectionGUID: LNirte2LRwWZFvzv4Hh5BQ==
+X-CSE-MsgGUID: 4qbEDkg9QKuNMvBUMtg3hQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,188,1779174000"; 
+   d="scan'208";a="256041753"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa007.fm.intel.com with ESMTP; 27 Jul 2026 05:56:50 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 1FA8C99; Mon, 27 Jul 2026 14:56:49 +0200 (CEST)
+Date: Mon, 27 Jul 2026 14:56:49 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Sasha Finkelstein <k@chaosmail.tech>
+Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+	Neal Gompa <neal@gompa.dev>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, asahi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Alyssa Milburn <amilburn@zall.org>
+Subject: Re: [PATCH 2/3] usb: typec: tipd: Factor out i2c specifics
+Message-ID: <amdVkYEiv_tOZuwG@black.igk.intel.com>
+References: <20260725-tipd-ace3-v1-0-73202d36138a@chaosmail.tech>
+ <20260725-tipd-ace3-v1-2-73202d36138a@chaosmail.tech>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] drm/rockchip: lvds: add RK3568 support
-To: Rok Markovic <rok@kanardia.eu>
-Cc: Heiko Stuebner <heiko@sntech.de>, Sandy Huang <hjc@rock-chips.com>,
- Andy Yan <andy.yan@rock-chips.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- Alibek Omarov <a1ba.omarov@gmail.com>
-References: <20260724080824.115260-1-rok@kanardia.eu>
- <20260724080824.115260-4-rok@kanardia.eu>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <20260724080824.115260-4-rok@kanardia.eu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0a9fa269892b03a7kunmea15989b23663d
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCH05DVh9IQk5OT08eGBkaGlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=UGPjU0mZLwQmWtEeNDT4RhEkykdrjrvZY6r5dUhEAFYb5QcCPYVL28oKtlmGILTWwVk0qk8hqodCoX6kbxgwTD6Gp5nmKbET7LeXfTDJLMgFztGJlzy+5YskAiGninN0yo38TlILrHQahnPykchuOH0t0iYCOU7PLA4PxRQJKvs=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=/3z8MnPosRttYFJu2KNr+MMSKCxn2GoCqgHGcPTcAk0=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260725-tipd-ace3-v1-2-73202d36138a@chaosmail.tech>
 
-On 7/24/2026 4:08 PM, Rok Markovic wrote:
-> The RK3568 LVDS transmitter has no register block of its own. It is
-> driven entirely through the GRF and re-uses the MIPI DSI0 D-PHY in
-> PHY_MODE_LVDS, which phy-rockchip-inno-dsidphy already supports.
+Hi,
+
+On Sat, Jul 25, 2026 at 06:20:57PM +0200, Sasha Finkelstein wrote:
+> From: Alyssa Milburn <amilburn@zall.org>
 > 
-> Based on Alibek Omarov's earlier posting [1], with the changes below.
+> Make the core driver more bus-agnostic to prepare for SPMI variants of
+> the tipd chip
 > 
-> Power the D-PHY from the encoder enable path rather than from probe.
-> phy_power_on() runs the phy driver's whole LVDS bring-up: PLL and
-> bandgap power-on, a settle, PLL mode select, then a reset pulse of the
-> serializer and the lane enables. None of that is safe at probe time -
-> the GRF has not yet switched the block to LVDS mode (LVDS0_MODE_EN is
-> set from rk3568_lvds_poweron(), i.e. the enable path) and the VOP is
-> not driving dclk. The serializer is clocked from dclk and latches its
-> state coming out of that reset, so it comes up dead and stays dead.
-> The failure is silent: every register in the phy, the GRF and the VOP
-> reads back exactly as on a working system while the lanes sit at
-> common mode and never toggle.
-> 
-> Program RK3568_LVDS0_DCLK_INV_SEL from the CRTC state's bus_flags so
-> the panel's declared pixelclk-active is honoured on the LVDS block as
-> well as on the VOP pin polarity. Both have to agree with the edge the
-> panel samples on.
-> 
-> Re-assert RK3568_LVDS0_P2S_EN in rk3568_lvds_poweron().
-> rk3568_lvds_poweroff() clears MODE_EN and P2S_EN together, so setting
-> P2S_EN once at probe would leave the parallel-to-serial converter off
-> after the first disable/enable cycle.
-> 
-> Use regmap_write() rather than regmap_update_bits() for the GRF. These
-> registers are write-masked - the upper 16 bits select which of the
-> lower 16 a write may change - so there is nothing to preserve and no
-> reason to read first. Passing a FIELD_PREP_WM16() value as both the
-> mask and the value of an update_bits() applies the masking twice and
-> only works by accident.
-> 
-> Take no clock. The block exposes no MMIO of its own, so there is
-> nothing for the DSI controller's APB clock to reach; the vendor BSP
-> scans out LVDS with PCLK_DSITX_0's gate off, and so does this driver.
-> 
-> Between the above, nothing needs programming at probe at all: the GRF
-> is written entirely from the enable path, so px30_lvds_probe() is left
-> alone rather than being refactored into a shared phy helper.
-> 
-> Track the enabled state so that a .enable() that bails out unwinds
-> itself and the .disable() that the atomic helpers still call afterwards
-> becomes a no-op, rather than underflowing the phy power count and the
-> runtime-PM count of an encoder that never came up.
-> 
-> [1] https://lore.kernel.org/all/20230119184807.171132-1-a1ba.omarov@gmail.com/
-> 
-> Co-developed-by: Alibek Omarov <a1ba.omarov@gmail.com>
-> Signed-off-by: Alibek Omarov <a1ba.omarov@gmail.com>
-> Signed-off-by: Rok Markovic <rok@kanardia.eu>
-> Assisted-by: Claude:claude-opus-4-8
+> Signed-off-by: Alyssa Milburn <amilburn@zall.org>
+> Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
 > ---
-> Changes in v2:
->   - Drop the clock. rk3568_lvds_poweron() no longer enables a pclk;
->     the block has no MMIO for the DSI APB clock to reach, and the
->     vendor BSP scans out with PCLK_DSITX_0 gated off.
->   - Merge rk3568_lvds_grf_config() into rk3568_lvds_poweron(): a
->     single masked write to VO_CON2 instead of two, and check the
->     output type before resuming runtime PM.
->   - Balance the enable/disable teardown so a .enable() that fails
->     partway does not underflow the phy power and runtime-PM counts
->     when the atomic helpers then call .disable().
->   - Use pm_runtime_resume_and_get(), matching the rk3288/px30 paths.
->   - Drop the in-code comments restating phy_set_mode() internals and
->     the write-masked GRF convention; the ordering rationale is in the
->     commit message.
+>  drivers/usb/typec/tipd/Makefile           |   2 +-
+>  drivers/usb/typec/tipd/{core.c => core.h} | 109 ++++++++++++++++++++++++++++---------------------------------------------------------------------------------
+
+That has to be a mistake, right? You don't move code into a header
+like that.
+
+>  drivers/usb/typec/tipd/i2c.c              |  86 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 115 insertions(+), 82 deletions(-)
 > 
->  drivers/gpu/drm/rockchip/rockchip_lvds.c | 124 +++++++++++++++++++++++
->  drivers/gpu/drm/rockchip/rockchip_lvds.h |  10 ++
->  2 files changed, 134 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_lvds.c b/drivers/gpu/drm/rockchip/rockchip_lvds.c
-> index 95fa0a9..9af21fc 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_lvds.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_lvds.c
-> @@ -51,6 +51,7 @@ struct rockchip_lvds {
->  	struct regmap *grf;
->  	struct clk *pclk;
->  	struct phy *dphy;
-> +	bool enabled;
->  	const struct rockchip_lvds_soc_data *soc_data;
->  	int output; /* rgb lvds or dual lvds output */
->  	int format; /* vesa or jeida format */
-> @@ -435,6 +436,100 @@ static void px30_lvds_encoder_disable(struct drm_encoder *encoder)
->  	drm_panel_unprepare(lvds->panel);
+> diff --git a/drivers/usb/typec/tipd/Makefile b/drivers/usb/typec/tipd/Makefile
+> index aa439f80a889..ba38daee9e72 100644
+> --- a/drivers/usb/typec/tipd/Makefile
+> +++ b/drivers/usb/typec/tipd/Makefile
+> @@ -2,5 +2,5 @@
+>  CFLAGS_trace.o			:= -I$(src)
+>  
+>  obj-$(CONFIG_TYPEC_TPS6598X)	+= tps6598x.o
+> -tps6598x-y			:= core.o
+> +tps6598x-y			:= i2c.o
+
+Now I'm worried. Are you really planning on putting the code into the
+header?
+
+You should keep the core independent of the glue drivers, even if core
+is just a library. I'm expecting to see something like this here:
+
+obj-$(CONFIG_TYPEC_TPS6598X)	+= tps6598x.o
+tps6598x-y			:= core.o
++tps6598x-$(CONFIG_I2C)		+= i2c.o
+
+>  tps6598x-$(CONFIG_TRACING)	+= trace.o
+> diff --git a/drivers/usb/typec/tipd/core.c b/drivers/usb/typec/tipd/core.h
+> similarity index 95%
+> rename from drivers/usb/typec/tipd/core.c
+> rename to drivers/usb/typec/tipd/core.h
+> index d5ee0af9058b..1ba29e439e01 100644
+> --- a/drivers/usb/typec/tipd/core.c
+> +++ b/drivers/usb/typec/tipd/core.h
+> @@ -9,7 +9,6 @@
+>  #include <linux/i2c.h>
+>  #include <linux/acpi.h>
+>  #include <linux/gpio/consumer.h>
+> -#include <linux/module.h>
+>  #include <linux/of.h>
+>  #include <linux/power_supply.h>
+>  #include <linux/regmap.h>
+> @@ -167,6 +166,7 @@ struct tps6598x {
+>  	struct device *dev;
+>  	struct regmap *regmap;
+>  	struct mutex lock; /* device lock */
+> +	int irq;
+>  	u8 i2c_protocol:1;
+>  
+>  	struct gpio_desc *reset;
+> @@ -231,6 +231,13 @@ static const char *tps6598x_psy_name_prefix = "tps6598x-source-psy-";
+>   */
+>  #define TPS_MAX_LEN	64
+>  
+> +static struct tps6598x *tps6598x_from_device(struct device *dev)
+> +{
+> +	struct i2c_client *client = i2c_verify_client(dev);
+> +	struct tps6598x *tps = i2c_get_clientdata(client);
+> +	return tps;
+> +}
+
+You should not need anything like that.
+
+>  static int
+>  tps6598x_block_read(struct tps6598x *tps, u8 reg, void *val, size_t len)
+>  {
+> @@ -1738,27 +1745,13 @@ static void cd321x_remove(struct tps6598x *tps)
+>  	cancel_delayed_work_sync(&cd321x->update_work);
 >  }
 >  
-> +static int rk3568_lvds_poweron(struct drm_encoder *encoder)
+> -static int tps6598x_probe(struct i2c_client *client)
+> +static int tps6598x_probe(struct tps6598x *tps)
+
+So you really were planning on putting this into a header :(
+
+The header will have only the definitions and prototypes that the
+glue drivers such as that i2c.c need. The implementation of this
+functions stays in core.c. It just not static anymore.
+You should have something like this in core.c:
+
+-static int tps6598x_probe(struct i2c_client *client)
++int tipd_init(struct tps6598x *tps)
+{
+        ...
+}
++EXPORT_SYMBOL_GPL(tipd_init);
+
+>  {
+> -	const struct tipd_data *data;
+> -	struct tps6598x *tps;
+>  	struct fwnode_handle *fwnode;
+>  	u32 status;
+>  	u32 vid;
+>  	int ret;
+>  
+> -	data = i2c_get_match_data(client);
+> -	if (!data)
+> -		return -EINVAL;
+> -
+> -	tps = devm_kzalloc(&client->dev, data->tps_struct_size, GFP_KERNEL);
+> -	if (!tps)
+> -		return -ENOMEM;
+> -
+> -	mutex_init(&tps->lock);
+> -	tps->dev = &client->dev;
+> -	tps->data = data;
+> -
+>  	tps->reset = devm_gpiod_get_optional(tps->dev, "reset", GPIOD_OUT_LOW);
+>  	if (IS_ERR(tps->reset))
+>  		return dev_err_probe(tps->dev, PTR_ERR(tps->reset),
+> @@ -1766,23 +1759,12 @@ static int tps6598x_probe(struct i2c_client *client)
+>  	if (tps->reset)
+>  		msleep(TPS_SETUP_MS);
+>  
+> -	tps->regmap = devm_regmap_init_i2c(client, &tps6598x_regmap_config);
+> -	if (IS_ERR(tps->regmap))
+> -		return PTR_ERR(tps->regmap);
+> -
+>  	if (!device_is_compatible(tps->dev, "ti,tps25750")) {
+>  		ret = tps6598x_read32(tps, TPS_REG_VID, &vid);
+>  		if (ret < 0 || !vid)
+>  			return -ENODEV;
+>  	}
+>  
+> -	/*
+> -	 * Checking can the adapter handle SMBus protocol. If it can not, the
+> -	 * driver needs to take care of block reads separately.
+> -	 */
+> -	if (i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
+> -		tps->i2c_protocol = true;
+> -
+>  	if (tps->data->switch_power_state) {
+>  		ret = tps->data->switch_power_state(tps, TPS_SYSTEM_POWER_STATE_S0);
+>  		if (ret)
+> @@ -1816,7 +1798,7 @@ static int tps6598x_probe(struct i2c_client *client)
+>  	 * with existing DT files, we work around this by deleting any
+>  	 * fwnode_links to/from this fwnode.
+>  	 */
+> -	fwnode = device_get_named_child_node(&client->dev, "connector");
+> +	fwnode = device_get_named_child_node(tps->dev, "connector");
+>  	if (fwnode)
+>  		fw_devlink_purge_absent_suppliers(fwnode);
+>  
+> @@ -1842,14 +1824,14 @@ static int tps6598x_probe(struct i2c_client *client)
+>  			goto err_unregister_port;
+>  		ret = tps->data->connect(tps, status);
+>  		if (ret)
+> -			dev_err(&client->dev, "failed to register partner\n");
+> +			dev_err(tps->dev, "failed to register partner\n");
+>  	}
+>  
+> -	if (client->irq) {
+> -		ret = devm_request_threaded_irq(&client->dev, client->irq, NULL,
+> +	if (tps->irq) {
+> +		ret = devm_request_threaded_irq(tps->dev, tps->irq, NULL,
+>  						tps->data->irq_handler,
+>  						IRQF_SHARED | IRQF_ONESHOT,
+> -						dev_name(&client->dev), tps);
+> +						dev_name(tps->dev), tps);
+>  	} else {
+>  		dev_warn(tps->dev, "Unable to find the interrupt, switching to polling\n");
+>  		INIT_DELAYED_WORK(&tps->wq_poll, tps6598x_poll_work);
+> @@ -1860,13 +1842,12 @@ static int tps6598x_probe(struct i2c_client *client)
+>  	if (ret)
+>  		goto err_disconnect;
+>  
+> -	i2c_set_clientdata(client, tps);
+>  	fwnode_handle_put(fwnode);
+>  
+>  	tps->wakeup = device_property_read_bool(tps->dev, "wakeup-source");
+> -	if (tps->wakeup && client->irq) {
+> -		devm_device_init_wakeup(&client->dev);
+> -		enable_irq_wake(client->irq);
+> +	if (tps->wakeup && tps->irq) {
+> +		devm_device_init_wakeup(tps->dev);
+> +		enable_irq_wake(tps->irq);
+>  	}
+>  
+>  	return 0;
+> @@ -1888,14 +1869,12 @@ static int tps6598x_probe(struct i2c_client *client)
+>  	return ret;
+>  }
+>  
+> -static void tps6598x_remove(struct i2c_client *client)
+> +static void tps6598x_remove(struct tps6598x *tps)
+>  {
+> -	struct tps6598x *tps = i2c_get_clientdata(client);
+> -
+> -	if (!client->irq)
+> +	if (!tps->irq)
+>  		cancel_delayed_work_sync(&tps->wq_poll);
+>  	else
+> -		devm_free_irq(tps->dev, client->irq, tps);
+> +		devm_free_irq(tps->dev, tps->irq, tps);
+>  
+>  	if (tps->data->remove)
+>  		tps->data->remove(tps);
+> @@ -1913,17 +1892,16 @@ static void tps6598x_remove(struct i2c_client *client)
+>  
+>  static int __maybe_unused tps6598x_suspend(struct device *dev)
+>  {
+> -	struct i2c_client *client = to_i2c_client(dev);
+> -	struct tps6598x *tps = i2c_get_clientdata(client);
+> +	struct tps6598x *tps = tps6598x_from_device(dev);
+>  
+>  	if (tps->wakeup) {
+> -		disable_irq(client->irq);
+> -		enable_irq_wake(client->irq);
+> +		disable_irq(tps->irq);
+> +		enable_irq_wake(tps->irq);
+>  	} else if (tps->reset) {
+>  		gpiod_set_value_cansleep(tps->reset, 1);
+>  	}
+>  
+> -	if (!client->irq)
+> +	if (!tps->irq)
+>  		cancel_delayed_work_sync(&tps->wq_poll);
+>  
+>  	return 0;
+> @@ -1931,8 +1909,7 @@ static int __maybe_unused tps6598x_suspend(struct device *dev)
+>  
+>  static int __maybe_unused tps6598x_resume(struct device *dev)
+>  {
+> -	struct i2c_client *client = to_i2c_client(dev);
+> -	struct tps6598x *tps = i2c_get_clientdata(client);
+> +	struct tps6598x *tps = tps6598x_from_device(dev);
+>  	int ret;
+>  
+>  	ret = tps6598x_check_mode(tps);
+> @@ -1946,14 +1923,14 @@ static int __maybe_unused tps6598x_resume(struct device *dev)
+>  	}
+>  
+>  	if (tps->wakeup) {
+> -		disable_irq_wake(client->irq);
+> -		enable_irq(client->irq);
+> +		disable_irq_wake(tps->irq);
+> +		enable_irq(tps->irq);
+>  	} else if (tps->reset) {
+>  		gpiod_set_value_cansleep(tps->reset, 0);
+>  		msleep(TPS_SETUP_MS);
+>  	}
+>  
+> -	if (!client->irq)
+> +	if (!tps->irq)
+>  		queue_delayed_work(system_power_efficient_wq, &tps->wq_poll,
+>  				   msecs_to_jiffies(POLL_INTERVAL));
+
+The PM callbacks should be in the glue drivers. You can provide
+separate suspend and resume functions here that the glue drivers can
+call from their PM callbacks:
+
+int tipd_suspend(struct tps6598x *tps)
+{
+        ...
+}
+EXPORT_SYMBOL_GPL(tipd_suspend);
+
+int tipd_resume(struct tps6598x *tps)
+{
+        ...
+}
+EXPORT_SYMBOL_GPL(tipd_suspend);
+
+> @@ -2018,33 +1995,3 @@ static const struct tipd_data tps25750_data = {
+>  	.reset = tps25750_reset,
+>  	.connect = tps6598x_connect,
+>  };
+> -
+> -static const struct of_device_id tps6598x_of_match[] = {
+> -	{ .compatible = "ti,tps6598x", &tps6598x_data},
+> -	{ .compatible = "apple,cd321x", &cd321x_data},
+> -	{ .compatible = "ti,tps25750", &tps25750_data},
+> -	{}
+> -};
+> -MODULE_DEVICE_TABLE(of, tps6598x_of_match);
+> -
+> -static const struct i2c_device_id tps6598x_id[] = {
+> -	{ .name = "tps6598x", .driver_data = (kernel_ulong_t)&tps6598x_data },
+> -	{ }
+> -};
+> -MODULE_DEVICE_TABLE(i2c, tps6598x_id);
+> -
+> -static struct i2c_driver tps6598x_i2c_driver = {
+> -	.driver = {
+> -		.name = "tps6598x",
+> -		.pm = &tps6598x_pm_ops,
+> -		.of_match_table = tps6598x_of_match,
+> -	},
+> -	.probe = tps6598x_probe,
+> -	.remove = tps6598x_remove,
+> -	.id_table = tps6598x_id,
+> -};
+> -module_i2c_driver(tps6598x_i2c_driver);
+> -
+> -MODULE_AUTHOR("Heikki Krogerus <heikki.krogerus@linux.intel.com>");
+> -MODULE_LICENSE("GPL v2");
+> -MODULE_DESCRIPTION("TI TPS6598x USB Power Delivery Controller Driver");
+> diff --git a/drivers/usb/typec/tipd/i2c.c b/drivers/usb/typec/tipd/i2c.c
+> new file mode 100644
+> index 000000000000..0233e19290ea
+> --- /dev/null
+> +++ b/drivers/usb/typec/tipd/i2c.c
+> @@ -0,0 +1,86 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Driver for TI TPS6598x USB Power Delivery controller family
+> + *
+> + * Copyright (C) 2017, Intel Corporation
+> + * Author: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+> + */
+
+This driver is not coming from me.
+
+> +#include <linux/module.h>
+> +
+> +#include "core.h"
+> +
+> +static int tps6598x_probe_i2c(struct i2c_client *client)
 > +{
-> +	struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
-> +	struct rockchip_crtc_state *s =
-> +		to_rockchip_crtc_state(encoder->crtc->state);
-> +	bool negedge = !!(s->bus_flags & DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE);
+> +	const struct tipd_data *data;
+> +	struct tps6598x *tps;
 > +	int ret;
 > +
-> +	if (lvds->output != DISPLAY_OUTPUT_LVDS) {
-> +		DRM_DEV_ERROR(lvds->dev, "Unsupported display output %d\n",
-> +			      lvds->output);
+> +	data = i2c_get_match_data(client);
+> +	if (!data)
 > +		return -EINVAL;
-> +	}
 > +
-> +	ret = pm_runtime_resume_and_get(lvds->dev);
-> +	if (ret < 0) {
-> +		DRM_DEV_ERROR(lvds->dev, "failed to get pm runtime: %d\n", ret);
-> +		return ret;
-> +	}
+> +	tps = devm_kzalloc(&client->dev, data->tps_struct_size, GFP_KERNEL);
+> +	if (!tps)
+> +		return -ENOMEM;
 > +
-> +	regmap_write(lvds->grf, RK3568_GRF_VO_CON2,
-> +		     RK3568_LVDS0_MODE_EN(1) | RK3568_LVDS0_P2S_EN(1) |
-> +		     RK3568_LVDS0_DCLK_INV_SEL(negedge));
-> +	regmap_write(lvds->grf, RK3568_GRF_VO_CON0,
-> +		     RK3568_LVDS0_SELECT(lvds->format) |
-> +		     RK3568_LVDS0_MSBSEL(1));
+> +	mutex_init(&tps->lock);
+> +	tps->dev = &client->dev;
+> +	tps->data = data;
+> +	tps->irq = client->irq;
 > +
-> +	return 0;
-> +}
-> +
-> +static void rk3568_lvds_poweroff(struct rockchip_lvds *lvds)
-> +{
-> +	regmap_write(lvds->grf, RK3568_GRF_VO_CON2,
-> +		     RK3568_LVDS0_MODE_EN(0) | RK3568_LVDS0_P2S_EN(0));
-> +
-> +	pm_runtime_put(lvds->dev);
-> +}
-> +
-> +static void rk3568_lvds_encoder_enable(struct drm_encoder *encoder)
-> +{
-> +	struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
-> +	int ret;
-> +
-> +	drm_panel_prepare(lvds->panel);
-> +
-> +	ret = rk3568_lvds_poweron(encoder);
-> +	if (ret) {
-> +		DRM_DEV_ERROR(lvds->dev, "failed to power on LVDS: %d\n", ret);
-> +		goto err_unprepare;
-> +	}
-> +
-> +	/* The GRF must be in LVDS mode with dclk running before the phy. */
-> +	ret = phy_set_mode(lvds->dphy, PHY_MODE_LVDS);
-> +	if (ret) {
-> +		DRM_DEV_ERROR(lvds->dev, "failed to set phy mode: %d\n", ret);
-> +		goto err_poweroff;
-> +	}
-> +
-> +	ret = phy_power_on(lvds->dphy);
-> +	if (ret) {
-> +		DRM_DEV_ERROR(lvds->dev, "failed to power on phy: %d\n", ret);
-> +		goto err_poweroff;
-> +	}
-> +
-> +	lvds->enabled = true;
-> +	drm_panel_enable(lvds->panel);
-> +	return;
-> +
-> +err_poweroff:
-> +	rk3568_lvds_poweroff(lvds);
-> +err_unprepare:
-> +	drm_panel_unprepare(lvds->panel);
-> +}
-> +
-> +static void rk3568_lvds_encoder_disable(struct drm_encoder *encoder)
-> +{
-> +	struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
+> +	tps->regmap = devm_regmap_init_i2c(client, &tps6598x_regmap_config);
+> +	if (IS_ERR(tps->regmap))
+> +		return PTR_ERR(tps->regmap);
 > +
 > +	/*
-> +	 * .enable() cannot report failure, so the atomic helpers call this even
-> +	 * when it bailed out and already unwound itself. Tear down only what an
-> +	 * enable that ran to completion left behind, or the phy power count and
-> +	 * the runtime-PM count of a half-enabled encoder underflow.
+> +	 * Checking can the adapter handle SMBus protocol. If it can not, the
+> +	 * driver needs to take care of block reads separately.
 > +	 */
-> +	if (!lvds->enabled)
-> +		return;
+> +	if (i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
+> +		tps->i2c_protocol = true;
 > +
-> +	drm_panel_disable(lvds->panel);
-> +	phy_power_off(lvds->dphy);
-> +	rk3568_lvds_poweroff(lvds);
-> +	drm_panel_unprepare(lvds->panel);
-> +	lvds->enabled = false;
+> +	ret = tps6598x_probe(tps);
+> +
+> +	if (ret == 0)
+> +		i2c_set_clientdata(client, tps);
+> +
+> +	return ret;
 > +}
 > +
->  static const
->  struct drm_encoder_helper_funcs rk3288_lvds_encoder_helper_funcs = {
->  	.enable = rk3288_lvds_encoder_enable,
-> @@ -449,6 +544,13 @@ struct drm_encoder_helper_funcs px30_lvds_encoder_helper_funcs = {
->  	.atomic_check = rockchip_lvds_encoder_atomic_check,
->  };
->  
-> +static const
-> +struct drm_encoder_helper_funcs rk3568_lvds_encoder_helper_funcs = {
-> +	.enable = rk3568_lvds_encoder_enable,
-> +	.disable = rk3568_lvds_encoder_disable,
-> +	.atomic_check = rockchip_lvds_encoder_atomic_check,
-> +};
-> +
->  static int rk3288_lvds_probe(struct platform_device *pdev,
->  			     struct rockchip_lvds *lvds)
->  {
-> @@ -512,6 +614,17 @@ static int px30_lvds_probe(struct platform_device *pdev,
->  	return phy_power_on(lvds->dphy);
->  }
->  
-> +static int rk3568_lvds_probe(struct platform_device *pdev,
-> +			     struct rockchip_lvds *lvds)
+> +static void tps6598x_remove_i2c(struct i2c_client *client)
 > +{
-> +	/* The phy is powered on from the encoder enable path, not here. */
-> +	lvds->dphy = devm_phy_get(&pdev->dev, "dphy");
-> +	if (IS_ERR(lvds->dphy))
-> +		return PTR_ERR(lvds->dphy);
+> +	struct tps6598x *tps = i2c_get_clientdata(client);
 > +
-> +	return phy_init(lvds->dphy);
+> +	tps6598x_remove(tps);
 > +}
 > +
->  static const struct rockchip_lvds_soc_data rk3288_lvds_data = {
->  	.probe = rk3288_lvds_probe,
->  	.helper_funcs = &rk3288_lvds_encoder_helper_funcs,
-> @@ -522,6 +635,11 @@ static const struct rockchip_lvds_soc_data px30_lvds_data = {
->  	.helper_funcs = &px30_lvds_encoder_helper_funcs,
->  };
->  
-> +static const struct rockchip_lvds_soc_data rk3568_lvds_data = {
-> +	.probe = rk3568_lvds_probe,
-> +	.helper_funcs = &rk3568_lvds_encoder_helper_funcs,
+> +static const struct of_device_id tps6598x_of_match[] = {
+> +	{ .compatible = "ti,tps6598x", &tps6598x_data},
+> +	{ .compatible = "apple,cd321x", &cd321x_data},
+> +	{ .compatible = "ti,tps25750", &tps25750_data},
+> +	{}
 > +};
+> +MODULE_DEVICE_TABLE(of, tps6598x_of_match);
 > +
->  static const struct of_device_id rockchip_lvds_dt_ids[] = {
->  	{
->  		.compatible = "rockchip,rk3288-lvds",
-> @@ -531,6 +649,10 @@ static const struct of_device_id rockchip_lvds_dt_ids[] = {
->  		.compatible = "rockchip,px30-lvds",
->  		.data = &px30_lvds_data
->  	},
-> +	{
-> +		.compatible = "rockchip,rk3568-lvds",
-> +		.data = &rk3568_lvds_data
+> +static const struct i2c_device_id tps6598x_id[] = {
+> +	{ .name = "tps6598x", .driver_data = (kernel_ulong_t)&tps6598x_data },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(i2c, tps6598x_id);
+> +
+> +static struct i2c_driver tps6598x_i2c_driver = {
+> +	.driver = {
+> +		.name = "tps6598x",
+> +		.pm = &tps6598x_pm_ops,
+> +		.of_match_table = tps6598x_of_match,
 > +	},
->  	{}
->  };
->  MODULE_DEVICE_TABLE(of, rockchip_lvds_dt_ids);
-> @@ -601,6 +723,8 @@ static int rockchip_lvds_bind(struct device *dev, struct device *master,
->  	encoder = &lvds->encoder.encoder;
->  	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm_dev,
->  							     dev->of_node);
-> +	rockchip_drm_encoder_set_crtc_endpoint_id(&lvds->encoder,
-> +						  dev->of_node, 0, 0);
->  
->  	ret = drm_simple_encoder_init(drm_dev, encoder, DRM_MODE_ENCODER_LVDS);
->  	if (ret < 0) {
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_lvds.h b/drivers/gpu/drm/rockchip/rockchip_lvds.h
-> index 2d92447..93d3415 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_lvds.h
-> +++ b/drivers/gpu/drm/rockchip/rockchip_lvds.h
-> @@ -121,4 +121,14 @@
->  #define   PX30_LVDS_P2S_EN(val)			FIELD_PREP_WM16(BIT(6), (val))
->  #define   PX30_LVDS_VOP_SEL(val)		FIELD_PREP_WM16(BIT(1), (val))
->  
-> +#define RK3568_GRF_VO_CON0			0x0360
-> +#define   RK3568_LVDS0_SELECT(val)		FIELD_PREP_WM16(GENMASK(5, 4), (val))
-> +#define   RK3568_LVDS0_MSBSEL(val)		FIELD_PREP_WM16(BIT(3), (val))
+> +	.probe = tps6598x_probe_i2c,
+> +	.remove = tps6598x_remove_i2c,
+> +	.id_table = tps6598x_id,
+> +};
+> +module_i2c_driver(tps6598x_i2c_driver);
 > +
-> +#define RK3568_GRF_VO_CON2			0x0368
-> +#define   RK3568_LVDS0_DCLK_INV_SEL(val)	FIELD_PREP_WM16(BIT(9), (val))
-> +#define   RK3568_LVDS0_DCLK_DIV2_SEL(val)	FIELD_PREP_WM16(BIT(8), (val))
-> +#define   RK3568_LVDS0_MODE_EN(val)		FIELD_PREP_WM16(BIT(1), (val))
-> +#define   RK3568_LVDS0_P2S_EN(val)		FIELD_PREP_WM16(BIT(0), (val))
-> +
->  #endif /* _ROCKCHIP_LVDS_ */
+> +MODULE_AUTHOR("Heikki Krogerus <heikki.krogerus@linux.intel.com>");
+> +MODULE_LICENSE("GPL");
+> +MODULE_DESCRIPTION("TI TPS6598x USB Power Delivery Controller Driver");
 
-Reviewed-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+You need to change that too. The glue drivers will be separate
+modules and the core will stay as its own module.
+
+Thanks,
 
 -- 
-Best, 
-Chaoyi
+heikki
