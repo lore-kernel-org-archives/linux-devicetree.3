@@ -1,271 +1,252 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 757B1145FE0
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 04:46:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785127598; cv=none; b=cKh7odnzcIHCQaKC8odCw2EGrauKX9a1JXZA8ZN0RCjY87/BfTDFdY36ZwoSdj05JQR2neeiRpSbJ7e85/IAo0yFkpHCmzW7UCKn06+2q6R3QRT1oKKTZYqy8yRcPFrsfPoBy3mndbNJ10E4/9obT5cUABR8PGUzmG28/bSS3Hk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785127598; c=relaxed/simple;
-	bh=JaF/YXIAzejQKRXQjr+CL68SEZiMX62BCOhQjG3bHSA=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=buBweT33QJBrKrOnr6yS5OJVbXZgU0BcjpuUHUiEwAUQb/b0KbEup8VZ1PawAmpPZAhledW50nOjxQUIYfYwi3wYi97v7cPR/XfPz7lN2gnUSDAAbYji9VWhswqsr13766M3RwFx0nSxSYascWLDnkI4D9doRC348BToN9TP+r0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fzGzcvpV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Rg+Qju51; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33802175A7F;
+	Mon, 27 Jul 2026 05:30:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785130216; cv=fail; b=q3aZDWWlM5PcHcIU3NiJ+uhRP4Zs95yxkxTgYfOAUeQ7Lsmg1XCgzEWUkd0qdOhGQe0EEpDTYiKfZTkgTroBOgxBFFnUmoTEKeNt79mogaZLQqNhbEgurdC5GO2Z/bdPrkywPoGi9+fmWaCAuPwWyrVkPjnS49iGvpvPUYjfifo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785130216; c=relaxed/simple;
+	bh=xGYiGpnx3cmq8yo18hbfBYEMJKpk3JDcmv/MfYZZ3+A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=RpehZS/IGDQPyBwfksaJ0kdq1rRrnItaDTk/p6cGQfsw3Sn0JIy39OnV+e3ao6ggBxam/0qiO/31UTsPolnmFAjvPY2UwyIO/oq5PO7vZCQmBZuzoJoTEo10v+W6zYLTP+9I8tFDVu7ggBsbpkrH6S/I+zQLWM5N6QQfeaXFUTs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=MnrFi00P; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=JZypQVwr; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fzGzcvpV";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Rg+Qju51"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66R1ftFm2137932
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 04:46:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	C3lY/jyvs336vWLAbR75IPEPMdm0ZegC/konam6GC2M=; b=fzGzcvpVmQVg/n2M
-	4YrXzBUdzFTpKlBtfigt9fZjKO1KPOw+5AI8SbEkl4yAKphy6iBD6IJMqPwKP9Dm
-	HMuWceSJV9cMBkl8fYdogd1JVq+cFi8NTVvt4s9bxsbaF+8Yv5YC5uCUnVDpJbf2
-	WP7oj1GEF6hGlvkYeroqljOqPep7U2ZJszfGkl6bpf/mhOEaVN2zN4UDwyFuNY01
-	ExQegxi+du6IDht2JPqmJGflr6JOCKuwnNtNf3NjduYxZ9A/dXHXvu8oi5OtmoQ4
-	AZEGyGIMHckwQtkaYARFjlRoHWH9JWJZ1mx9jk6DDHh2w8T8aTYMGO9hYRWG5tcr
-	AcAkuQ==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fmnh7vg1v-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 04:46:36 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3811279d51aso4464029a91.1
-        for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 21:46:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785127595; x=1785732395; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C3lY/jyvs336vWLAbR75IPEPMdm0ZegC/konam6GC2M=;
-        b=Rg+Qju51x3WV+BNCMfGGCCXgU93wyDhDQvPsbxG7DuuPyWM+hqNHr54DK8MD+jdIIc
-         mZ3eh1EOSLufpUhps8x7UBcEZPMT34GF/vCinS6wXvwGJuPEJqU5O+Z+Lrz64xorzV4z
-         +LnjP5lhDJ+u4xgq7zZWzm1qY7cOSbTqrbQPodLuwhDyWKFAlzTBd6goxiVMbWmeCxBo
-         TvQLnn7nDhgxeSfL76mIWg1yLMvdJPNZDlJdcZIa8VozELBjE5DbV1gKIcPM0eOidnly
-         pwGHqzmFRf2VAEll3lt/H9gfUJDs5ngsHM9sGGhDzjaFN5idG9Kc9gokIugXPgGvH4jO
-         +0rA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785127595; x=1785732395;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=C3lY/jyvs336vWLAbR75IPEPMdm0ZegC/konam6GC2M=;
-        b=deHN2Mps8EbR5+H+DlL3rVB6wmbD13iQiEfhmjg2sr0d8c3Bi6qQ+ssABNRyGlbWYY
-         JWt0/q5b9IIlskuJUSeN5kSzqRbP/StuUfpKDay2x0lF6zO75aYlw1XwOAGRwY2p1Xph
-         cgtjuUyKV4Qkl/qqXF09TCGzM2gURtrJKGzJNCeP0XHyoR266cQz0btwq/QSCbw+KOro
-         KZ4fJmepNhEMjbYUsPeVVozAJD9jrFwJ/Y8g3CSZGCAruY5hmCgfY7phnnaurzMig8+P
-         Gt2QA8Y9BWpEpk9tghHtrnN2PUW//G6XDa9Sdy+pFHa99/ms2RRC4AIlSTXpbOobnQOX
-         7kwA==
-X-Forwarded-Encrypted: i=1; AHgh+Rrx04y0iAejyDd3iRjY67xYf2URrmH1iWiQ8UEhEZ/+2UD27NQ5ivY4PSfpmkDL2LZ7/JDIgqoIBJo4@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw87HCaGzAvn/mE/C9k+ZV4kGzzWsSnghd/nooPD/feDIYyAe8b
-	FXBbYVOSdZWcT7o0Iuskjn5VCPIx7cpTbw2Zw45qL1J5IflgTcs3I9isSrsxIt8ScNFJ1N+4vwg
-	E7Lbz28T6Q7BxGRQ5R/Cn2e8TIHT+IJw8Q0o2Chk9Lkdr150MJ6fMAWiof41ulu4z
-X-Gm-Gg: AR+sD12Rantq28gX1jfsSKKT68h9ND9s/rKJ4jlFAIaVBbhJOcZvg/ml60bPfSSCcps
-	qfubUucRHxJRKqC7lntel4MaZPIiZqPCwHjoju3NlJRJ3Hrhf1rSiebxPiDQLf00aW/Rvn1oaVM
-	qYneVVswaeyri4sGG9Qt2TzwTtzJnaXkRx6P+vJKUiW0099dYfj2feybWk4J33ohjiXFy/35P0s
-	xoIuxbhqNLOhqvkmuGMg4gf7UEmduHzfG9hVyg4wZQNwKY4MxQqakVUgfFkTPZLa4lYj8j9FIfJ
-	7opa68Bd24HUT0+S8J7hjFdNzSh6p0iZrDtBPrn2ppcdjVCrb44uVo/N2Sv+36hbql/31pl668e
-	/r6AIhJ6OPtCp1/KQN33NukZvK5Z1QIkw
-X-Received: by 2002:a17:903:1b06:b0:2cf:84bb:1ebc with SMTP id d9443c01a7336-2cfde7b086amr67795945ad.15.1785127595132;
-        Sun, 26 Jul 2026 21:46:35 -0700 (PDT)
-X-Received: by 2002:a17:903:1b06:b0:2cf:84bb:1ebc with SMTP id d9443c01a7336-2cfde7b086amr67795785ad.15.1785127594713;
-        Sun, 26 Jul 2026 21:46:34 -0700 (PDT)
-Received: from [10.206.101.140] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-314bc3e261fsm29774567eec.6.2026.07.26.21.46.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 26 Jul 2026 21:46:34 -0700 (PDT)
-Message-ID: <c37f55fc-731d-30da-b7d0-141e7ddefbba@oss.qualcomm.com>
-Date: Mon, 27 Jul 2026 10:16:30 +0530
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="MnrFi00P";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="JZypQVwr"
+Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
+	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 66R1iSTB3757592;
+	Mon, 27 Jul 2026 00:29:48 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=L/ntJXRRr4OjhqHMMsGyMYGgYHo0I2TwRLv/2jgZo
+	yw=; b=MnrFi00PHkUiY8OmJXKOAISQ2zyNGCwNYSGtZ028QpwRU5tYC0ocA+fCJ
+	Km+Bf+Gk6Ty/N7XqRw7jQ8VOCJVOvL/Ymmybjwx40981wbZZFkbrotGsVFgar6eB
+	BLRVaFlW7Flzj6uLFii5/4X+2oAzHYDr26p2cgj+AyQA8XNj18Vg4VSXinwftbUp
+	o6Vx69Z9bRAq2gnzeGPxUo0n9z27pjlCS3GABDtf/fpuS5eovxY0Lj8CCyFcLaZo
+	vdwi8b7sW0IWs4PhkIllQSAoLSoS5hFvs+vWLObcA+dPhOdUkUZAwqzaykvKP6UH
+	WU7QCHQL6duMkCbuepi0VrRFHRhOQ==
+Received: from byapr05cu005.outbound.protection.outlook.com (mail-westusazon11010062.outbound.protection.outlook.com [52.101.85.62])
+	by m0380145.ppops.net (PPS) with ESMTPS id 4fne5kuxxu-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 27 Jul 2026 00:29:48 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mVgk9cozfgBJTohEIH//ncXQaMCyhWBkQ7Atx87dU2vMacKkUhOxnbMBY9LjcjY3iMrxJUaA18qcK4+U0jK2FtmIGnrEqQr07d6dF1aglBQMbAxjdwVSH5UJA8iO0TTYWOFe0Err9CZCbPOHcR/au1anz+Wn/6g0lWsqj0x8HArvZwfvXIl4iXbg4cj+SFDOY/73YKaQQY1m6NqdUezVLzs3CU4jSHvX/RpvVGL3qX0cYz6yMZ0lDoUKKi5R/3/iEKL7ZcT3+gI/yvQqHX9RwnW7/N2GbtZ4JrzmbSZS/GY97rSSjivGKAqosomL1x0nBAsMRLC2HcQVmoKv/pC+1g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=L/ntJXRRr4OjhqHMMsGyMYGgYHo0I2TwRLv/2jgZoyw=;
+ b=hvNF83j0I9mJg89t5NRfa0G52KMA68ARnjtyH301V5QZGkWSS8f3J/mT2iBG7MQ+bRddIAjWh/5FdB6Jgl/n1u9J3nJnYxofp+1gA8BsWSYpobUwFge8aaDB9KoIyVvtDWM+OkHMnt9Q48O6S46RiNtiW923ozGl3jO6lF0gvHWwD6mUyDw7pW0yX/ji65hRRc3s9nC8TRzDK16kDH0k4Xte/jB7eUAx9mRfok3Ypexr7A37bEKBQ0g/C9SIqao9ohaJD7T/UDKgmR5lceAK9HTm3f3ZyhrqGFWv3/FL2x0IhJe5i0SYiKGcRl1h3l/pvFWwzZxCPpJpsMe3CMNzZw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.195) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=L/ntJXRRr4OjhqHMMsGyMYGgYHo0I2TwRLv/2jgZoyw=;
+ b=JZypQVwrybraKT+XG31efozNUn0UT1E5p/WMxO/9HlssbnXK3gSFrBlrDq4uPqUP/QnNT9zw/ISKRcq1eIw5DSxlEN6Y7owzIUtON62c9B/PsDFob2jqvg2uMLnsWtxgld+i96o9pHWiaOi34rmaX8T/pf2L4k4lWfQrZtsLC6E=
+Received: from CY5PR13CA0052.namprd13.prod.outlook.com (2603:10b6:930:11::34)
+ by CY8PR10MB7368.namprd10.prod.outlook.com (2603:10b6:930:7f::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Mon, 27 Jul
+ 2026 05:29:45 +0000
+Received: from CY4PEPF0000EE31.namprd05.prod.outlook.com
+ (2603:10b6:930:11:cafe::22) by CY5PR13CA0052.outlook.office365.com
+ (2603:10b6:930:11::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.12 via Frontend Transport; Mon,
+ 27 Jul 2026 05:29:45 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ CY4PEPF0000EE31.mail.protection.outlook.com (10.167.242.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.270.5 via Frontend Transport; Mon, 27 Jul 2026 05:29:44 +0000
+Received: from DFLE215.ent.ti.com (10.64.6.73) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 27 Jul
+ 2026 00:29:44 -0500
+Received: from DFLE202.ent.ti.com (10.64.6.60) by DFLE215.ent.ti.com
+ (10.64.6.73) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 27 Jul
+ 2026 00:29:44 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE202.ent.ti.com
+ (10.64.6.60) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Mon, 27 Jul 2026 00:29:44 -0500
+Received: from [172.24.17.28] (lt5cg60819vj.dhcp.ti.com [172.24.17.28])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 66R5TaXf4042529;
+	Mon, 27 Jul 2026 00:29:37 -0500
+Message-ID: <107e93d2-cf73-4d57-8b8b-7892ab964dbf@ti.com>
+Date: Mon, 27 Jul 2026 10:59:36 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Subject: Re: [PATCH v10 11/14] media: iris: Add hooks for pixel and non-pixel
- context banks
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org,
-        devicetree@vger.kernel.org
-References: <20260726-glymur-v10-0-de451559e88b@oss.qualcomm.com>
- <20260726-glymur-v10-11-de451559e88b@oss.qualcomm.com>
- <20260726060345.01C021F000E9@smtp.kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 07/18] arm64: dts: ti: k3-j721e: Add overlay for fusion
+ application daughter board
+To: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>, <nm@ti.com>,
+        <vigneshr@ti.com>, <kristo@kernel.org>, <robh@kernel.org>,
+        <krzk+dt@kernel.org>, <conor+dt@kernel.org>
+CC: <Frank.Li@nxp.com>, <s.hauer@pengutronix.de>, <kernel@pengutronix.de>,
+        <festevam@gmail.com>, <andersson@kernel.org>, <geert@linux-m68k.org>,
+        <dmitry.baryshkov@oss.qualcomm.com>, <arnd@arndb.de>,
+        <ebiggers@kernel.org>, <luca.weiss@fairphone.com>,
+        <michal.simek@amd.com>, <sven@kernel.org>,
+        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <imx@lists.linux.dev>,
+        <r-donadkar@ti.com>, <devarsht@ti.com>
+References: <20260713113423.2310443-1-y-abhilashchandra@ti.com>
+ <20260713113423.2310443-8-y-abhilashchandra@ti.com>
 Content-Language: en-US
-In-Reply-To: <20260726060345.01C021F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8
+From: "Kumar, Udit" <u-kumar1@ti.com>
+In-Reply-To: <20260713113423.2310443-8-y-abhilashchandra@ti.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: yGciy-ALbSLRrvC85BJy8MIAWEA68aWX
-X-Proofpoint-GUID: yGciy-ALbSLRrvC85BJy8MIAWEA68aWX
-X-Authority-Analysis: v=2.4 cv=f/54wuyM c=1 sm=1 tr=0 ts=6a66e2ac cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=uuqggVgKC9gQnuY2d9IA:9
- a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI3MDA0MiBTYWx0ZWRfXyWclwW/hU+yi
- ffpXT6ayJMqX/yxdChOvU2UjIyCiRiwPh8/GslFlRFRoi8sguF4H8g0gtNFahaNmi48Hke7lU4W
- g7rVcHNwLSQjzlSdqtGtGhJ0JWLyaoyR8boIG67i1Kx98JTpRzoxaDiXAgkitPwarcY13iz6zRP
- EqdSCl8jE0xkfF30q3zKFjIeBBCqV28olyLN5nukZjvl/xzW+OJaK0YuPHIfTvmg/PCh2AjGc8m
- 9EeJRuQf32ISBB3Chx4qhWiOeMVLCMM3dqHHTs6YUvvlJ3lDQ7t8MAyVWIpwPWey41rLK9r14Pb
- ypGBG+9wNKKgradIhYlTw8VphzGTZHuYwIcGVt6cWxg+effhFl1fRUldYkMMzcfi1l3Rpl4jO8D
- bkpnwj+tIO0tekVACxCDTxHP/e6UODCPxUbQLx1TOm+nPgo8U8eA0tmZ8ujqXWdpaIp3iYsRKDT
- BDT2Q3lRkw5ROAyMDEA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI3MDA0MiBTYWx0ZWRfX7mP4Af08dR2W
- ibWngFnIEw0arUnyIW+dQ7P4w8LvoI4ft2cVsxum3nxSU0XrhTz+kJvmXBGR/McFgnqspUFk3Vh
- W1nOC+U8QuiqxPOM9ssYmZIUUwlhvPw=
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE31:EE_|CY8PR10MB7368:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5936329e-f5bb-4908-65d3-08deeba01103
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|36860700016|82310400026|18002099003|10067099003|22082099003|56012099006|4143699003|3023799007|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	3uEyRKnoFAYS6jvJsSTMX3ABOOfBFUat9l1Fr/bx+nf1rSziCTBebcSL368NYophH6Bddk+Eq5Hfg2ioe+nTbDTk4MtlE1UqyKiBVoYRukL/Ry8sTOrdjcuwvrGBprF/72O7e+aczotET+4j0IB4JzoDdzZN0kyPRsd85ntE/TTk6pwExhNpou2HVBpOv3feeMfSabj/3qzRpAFyzkN/oTRrVSqe+ZEpONSYza0pVmrCAtH0r/4KJF1wJmueQyNbe8dnLQCW0Q0X5NbVM670rndk+3ThpDo/7rGbCX0tYO/+WN5cC+jq6KS/OJR4aylDTreKgPda4pgbR4ZRp5LQ0u7EcxIHOIQPZ2IrA/5fKFFuybtpoWg5R84PsUKj53bbDfkIkgv7WpdZIu5mKHmOD6Sv3fL/1CEDTIdopjZwuesP9SZojrK+GMZyDlEces1XRKQ3mLTBdrBCcGXqGxlyoYBqtPoEK0w1mDvNzYCAW60AQ/GHbzznWwGOK/yHdWLM4aihhg5HS7XsKpQXp17lwtCn+QnELywRkiLaXv9ZggtMVwpmLn/+Zt5JIAtPNOkVZL9E7r2yOKskrneNKjPtRi4i17kDkxnMQ3obONOKDaf1MRtPsbYfhnV2kh/wngNFA18PEla4gLbRbMcj73tI7A==
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(36860700016)(82310400026)(18002099003)(10067099003)(22082099003)(56012099006)(4143699003)(3023799007)(13003099007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	4q1L+oVWuxKK6ol18A0ZLogRxNJvUDJ8bTksi4ZzZh6mbx9eMb0xIePdFRHAfcizbiSCZ7joVpPpq1sHiwTMTlYF6X3ys2zxrEFSjV7Jtf+6jRLoGCE2pO02bgeL65cjvlbWp3m6DX3Carz5HIvsgjXcudlidW3xaMeClNx/os3TpLw0toyWsmB/4x9bS/eNHl5KucuP9Jhu6tfuBqXTEDG4dzF64EEJpX5r1IRY9kyp5uIF9BG1dP+yGKh/1zEPzGF/txtP+6Ky+XRBpuM1EhzTa+3pivZNm8u4cqoVr/CGxXoPr5YvmB5ZsMarKLRfyDw+9oxGVHoXhWn/L7VblcbaqxnmW/5LRrj3QGt3mni13DEHVEJbKK+8gv/77AjH4b/MmNNepaYBE0bMAVQhXmxY2hzQgHvekP0mbjmA8VbleYzOe6qlC2pTjZ5K1HJY
+X-Exchange-RoutingPolicyChecked:
+	UEeF9SeI8r9RvtCrTQG2mOPT2vGMXMfuHebU54q2Z1QXLeS/kySNyQUxgD1HIg0Viqs6Eb8KCgVPVHoQzM9WxwxySK/9OMdafzVHIqRzwSO4fAGBo/OpRtDmwmMP1nfisYB6avUoiHlWFc94U5aE9giczSraI5vziLUHQ7fK8f2mKgqYrpyiewN/XjbqSMrYPekGqFKHNDhp6jgR2g/dSMlCIoDVKDb9J2j0E/1NB5wMT164yehT+vEwoys4DwOAwjQdhhQTzLTOsFMmuQaewNlWzV44jfrHcpbVv6OnfqVBl/w5d956YKSVUuV/Xe29x2rqBuHZJLM5jZjFo615Sw==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2026 05:29:44.5105
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5936329e-f5bb-4908-65d3-08deeba01103
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000EE31.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR10MB7368
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI3MDA1MiBTYWx0ZWRfX0sQs4QOUa0AJ
+ iCGOOc/ZYay3BX+p4Ilo7wUa0gqqWr1kP+lS+vipDkibJf4je2u04iDAEb6lFAxMr1ZBNzWIpV/
+ WSOmXCPVZL8jEBllVDQERmvuaE08XNQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI3MDA1MiBTYWx0ZWRfX+6CUUcEONkLb
+ e5ppHas6imTgoX9BIDjq/vPyEPkotJr84AT55aY0S+z+zZOhJwkMyxp9jRJUr1tS4h28qwm5vI7
+ h4J7dga0v36ySz9SHUF7c0i4tAGqtft/DwrXHZubzX2Y3uPf8rpYoYb1KrKWkKADPNqml+3EELl
+ h7AVcqnqdSlreRBmRk505LVO2YuXovfeYzf66dFwNR+Zx8+Owmb0fCzNCQ2Yrx+qIlqcIHHSw0N
+ pY21yLBHsGl4ocs6P9GuvyIBzG9E5Gc3sTlwRybq0WVLTD5v8vCR8AZopEORElEpS6I1laxBOLq
+ bSkbyT2c2ChCZwupYrk8uyzzkia20kmAZ8AorQfp4+YnjQsWzazz8bsSfIDrxSCvwSicgsge6CA
+ ZRbputSDjRvJD/JL8tL4h3F5o3uo3qa9iTYPr+2iJpHt3mK+5MPy1SQ87Pv+uKMC6EqBfKxUWr3
+ 555eE8OlifCfrZ7QEHA==
+X-Authority-Analysis: v=2.4 cv=X/ti7mTe c=1 sm=1 tr=0 ts=6a66eccc cx=c_pps
+ a=TAA+lrqbVY7ItQ3T6C2wEw==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=gO1vWkAQAl3rybz1DQOp:22 a=iY-8cndAAAAA:8 a=sozttTNsAAAA:8
+ a=TavsJCUsWUQ5puhj2-EA:9 a=QEXdDO2ut3YA:10 a=spcmYsBHvreeK_59bKkA:22
+X-Proofpoint-ORIG-GUID: wHfIidp2joux_k5cwvikr-1IXP3TLnJM
+X-Proofpoint-GUID: wHfIidp2joux_k5cwvikr-1IXP3TLnJM
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-27_01,2026-07-24_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0 impostorscore=0 priorityscore=1501 suspectscore=0
- lowpriorityscore=0 bulkscore=0 clxscore=1015 malwarescore=0 phishscore=0
+ clxscore=1015 phishscore=0 priorityscore=1501 adultscore=0 malwarescore=0
+ spamscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607270042
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607270052
+
+Thanks for patch
+
+On 7/13/2026 5:04 PM, Yemike Abhilash Chandra wrote:
+> From: Vaishnav Achath <vaishnav.a@ti.com>
+> 
+> Fusion application daughter board [1] can be used to connect multiple
+> FPDLink-III based sensors to TI EVMs. The board has two DS90UB960
+> deserializers, each of which aggregates input from up to 4x FPDLink-III
+> sensors. Up to 8x sensors can simultaneously stream over the two CSI RX
+> ports on J721E.
+J721E to same of board, please
+
+> 
+> [1]: https://svtronics.com/product/fusion-application-daughter-board-evm577pfusion-v1-0/?srsltid=AfmBOooMsRAd5ibFOGJaKbjsC3j9-loTPK2wWqsqPq2Adj55g1nPluxX
+> 
+> Signed-off-by: Vaishnav Achath <vaishnav.a@ti.com>
+> Signed-off-by: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
+> ---
+> Changelog:
+> Changes in v2:
+> - Add missing bus-type property in csi2_phy0 endpoint for cdns_csi2rx0 (sashiko)
+> - Fix minor DTS styling and whitespace inconsistencies in port definitions (sashiko)
+> - Remove unused gpio.h header (sashiko)
+> 
+>  arch/arm64/boot/dts/ti/Makefile               |   4 +
+> [..]
+> +		deserializer_0_ports: ports {
+> +			#address-cells = <1>;
+> +			#size-cells = <0>;
+> +
+> +			port@0 {
+> +				reg = <0>;
+> +				status = "disabled";
+> +			};
+> +
+> +			port@1 {
+> +				reg = <1>;
+> +				status = "disabled";
+> +			};
+> +
+> +			port@2 {
+> +				reg = <2>;
+> +				status = "disabled";
+> +			};
+> +
+> +			port@3 {
+> +				reg = <3>;
+> +				status = "disabled";
+> +			};
+> +
+> +			/* CSI-2 TX */
+> +			port@4 {
+> +				reg = <4>;
+> +				ds90ub960_0_csi_out: endpoint {
+> +					data-lanes = <1 2 3 4>;
+> +					clock-lanes = <0>;
+> +					link-frequencies = /bits/ 64 <800000000>;
+> +					remote-endpoint = <&csi2_phy0>;
+> +				};
+> +			};
+> +
+> +			port@5 {
+> +				reg = <5>;
+> +				status = "disabled";
+> +			};
+
+Little confused here on port number,
+I am wondering, why 5 ports are defined.
+
+as per DS90UB960, one single part can have 4 input (from sensors)
+and 2 port output (towards SOC) page 5 from [0].
 
 
-On 7/26/2026 11:33 AM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
->
-> New issues:
-> - [High] Dangling pointer in `vb2_queue->dev` due to synchronous unregistration of context-bank platform devices.
->
-> Pre-existing issues:
-> - [High] Missing cancel_delayed_work_sync() for sys_error_handler in iris_remove() leads to use-after-free.
-> --
->
-> --- Patch [11]: [PATCH v10 11/14] media: iris: Add hooks for pixel and non-pixel context banks ---
-> commit 1f1fdc377aea1a90f259a986e4bc14be351b3bc0
-> Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
->
-> media: iris: Add hooks for pixel and non-pixel context banks
->     
-> Iris platforms use separate context-bank devices for the pixel, non-pixel
-> firmware domains. Add platform hooks to create and destroy those
-> subdevices, providing a interface for their lifecycle management across
-> platforms.
->     
->> diff --git a/drivers/media/platform/qcom/iris/iris_vpu3x.c b/drivers/media/platform/qcom/iris/iris_vpu3x.c
->> index ec35ad4f86102..bc95be22ed96d 100644
->> --- a/drivers/media/platform/qcom/iris/iris_vpu3x.c
->> +++ b/drivers/media/platform/qcom/iris/iris_vpu3x.c
->> @@ -397,6 +397,52 @@ static u64 iris_vpu36_get_required_freq(struct iris_inst *inst)
->>  	return max(vcodec0_freq, vcodec1_freq);
->>  }
->>  
->> +static int iris_vpu3x_init_cb_devs(struct iris_core *core)
->> +{
->> +	struct device *dev;
->> +
->> +	dev = iris_create_cb_dev(core, "non-pixel");
->> +	if (IS_ERR(dev))
->> +		return PTR_ERR(dev);
->> +
->> +	core->np_dev = dev;
->> +
->> +	dev = iris_create_cb_dev(core, "pixel");
->> +	if (IS_ERR(dev))
->> +		goto unreg_np_dev;
->> +
->> +	core->p_dev = dev;
->> +
->> +	dev = iris_create_cb_dev(core, "video-firmware");
->> +	if (IS_ERR(dev))
->> +		goto unreg_p_dev;
->> +
->> +	core->fw_dev = dev;
->> +
->> +	return 0;
->> +
->> +unreg_p_dev:
->> +	if (core->p_dev)
->> +		platform_device_unregister(to_platform_device(core->p_dev));
->> +	core->p_dev = NULL;
->> +unreg_np_dev:
->> +	if (core->np_dev)
->> +		platform_device_unregister(to_platform_device(core->np_dev));
->> +	core->np_dev = NULL;
->> +
->> +	return PTR_ERR(dev);
->> +}
->> +
->> +static void iris_vpu3x_deinit_cb_devs(struct iris_core *core)
->> +{
->> +	if (core->fw_dev)
->> +		platform_device_unregister(to_platform_device(core->fw_dev));
->> +	if (core->p_dev)
->> +		platform_device_unregister(to_platform_device(core->p_dev));
->> +	if (core->np_dev)
->> +		platform_device_unregister(to_platform_device(core->np_dev));
->> +}
-> [Severity: High]
-> Does this code synchronously free the context-bank platform devices without
-> waiting for userspace V4L2 file descriptors to close?
->
-> If a userspace application holds a video device file descriptor open during
-> driver unbind, this function will unregister and free the context-bank
-> platform devices.
 
-Remove callback cannot execute if driver module->refcnt, ref-counted
-during open, and not decremented with corresponding close call.
+https://www.ti.com/lit/ds/symlink/ds90ub960-q1.pdf
 
-> However, in iris_m2m_queue_init(), the context-bank devices are assigned to
-> vb2_queue->dev:
->
-> drivers/media/platform/qcom/iris/iris_vidc.c:iris_m2m_queue_init() {
->     ...
-> 	src_vq->dev = iris_get_cb_dev(inst, BUF_INPUT);
->     ...
-> 	dst_vq->dev = iris_get_cb_dev(inst, BUF_OUTPUT);
->     ...
-> }
->
-> Because the V4L2 core does not hold a reference to q->dev during videobuf2
-> queue initialization, won't this result in a use-after-free when userspace
-> finally closes the file descriptor and v4l2_m2m_ctx_release() triggers
-> vb2_queue_release() to unmap DMA buffers?
->
-> [Severity: High]
-> This is a pre-existing issue, but does iris_remove() fail to cancel the
-> sys_error_handler delayed work before returning?
 
-This is addressed here
-
-https://lore.kernel.org/all/20260604054708.42426-1-dennylin0707@gmail.com
-
-> drivers/media/platform/qcom/iris/iris_probe.c:iris_remove() {
->     ...
-> 	iris_core_deinit(core);
->
-> 	video_unregister_device(core->vdev_dec);
-> 	video_unregister_device(core->vdev_enc);
->
-> 	v4l2_device_unregister(&core->v4l2_dev);
->
-> 	iris_deinit_cb_devs(core);
->
-> 	mutex_destroy(&core->lock);
-> }
->
-> If a system fatal error triggers an interrupt just before or during module
-> removal, the sys_error_handler delayed work could be scheduled.
->
-> Since iris_remove() doesn't explicitly cancel this work before returning,
-> could the handler execute after the devm_kzalloc-managed core structure is
-> freed?
->
-> drivers/media/platform/qcom/iris/iris_probe.c:iris_sys_error_handler() {
-> 	struct iris_core *core =
-> 			container_of(work, struct iris_core, sys_error_handler.work);
->
-> 	iris_core_deinit(core);
-> 	iris_core_init(core);
-> }
->
+> +		};
+> +
+> [..]
