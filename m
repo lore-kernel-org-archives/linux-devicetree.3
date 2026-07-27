@@ -1,206 +1,193 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47FCA36DA14
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 08:30:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EDAE379EF0;
+	Mon, 27 Jul 2026 08:31:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785141032; cv=none; b=RlJzERcm9LwJ3GD77NzL46hmA8KcsngsjgZseV/QnwA7u/t0dgsH8+gZEnBuEG/2nYVbZ4Vpwh0o9XYJxPNMhOzh/pVXD2KKzRRWNrb/W/5IiuE0R1gQ/k/wTsgm2povrgJbhvyDt4KU9MUAni0vwjM4Y0RxIpp0aUSaGXouBC4=
+	t=1785141069; cv=none; b=UhdQH1BP5kqQXwYW1/PogFsjF5MA4d52bNTispsS5j7n8ZFEowZpNCnfEhNBNE8Z7EfFe8fw6lzw0H9RQWvlPyy67BFzCZqkzCFZaYK+h0bpcKvQto0IPIh4EI19g6r0+gubmOxCEefESY38EInc4JsHF4bKJf7ahildlrxlOEA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785141032; c=relaxed/simple;
-	bh=tWbjQxGKB4HjbEflqNOhaNrg1IutW5Xb+ltLBLa533o=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nQJ9hkY5TAaMbmhpB2iGWcPu2HPYaCdwJ4bDMuEvVtw11l3pcWdJXY2mte1wP2qazK+OLP8Gjt3UPPHFNlNIPwLYU3UIxhjyy6vds6/a5dNaAK+XId9mETLjrd/x4WO/58r4lPdDYIWNQp9kB43RvHMXaHq06pqGZQ+G1u1k64Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RBBNWw8o; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785141069; c=relaxed/simple;
+	bh=3nDvMWIjdAVIAdJmNFyQ9DZqwnLKdury4igkP7Cybwg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mdMmwgQ/OZddBPwgx69WziYueY1m4mAVVtvjABTwoHCv7LXeIaZPLqDMtTcq5j0oJuB3sVUzlKdwRnM+ppmUfo00jzHgn30/qMrEL/ZaTiIvRIvZwpTamIXYfhUTwiL6nsE3RLz4LGk+5GAHlfwEYEfTlnh7yNeWiwzE0WzRQCI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DLmBl6Yq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RBBNWw8o"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 895F31F000E9;
-	Mon, 27 Jul 2026 08:30:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DLmBl6Yq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 752251F000E9;
+	Mon, 27 Jul 2026 08:31:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785141030;
-	bh=pL4PNOe2c4AwJa+hN0nVWbgkG4iHmDWaDVYa4nqDsJw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RBBNWw8ouienDaz0mBKV9zDUIJVAHVc0K2NcLu32dTRl8Nt3GXjNalZ8tXo3H+cME
-	 TFBzZa9dO7qK8LVtvUrNugTmE8jd+dNfGob5dlVqBiC91j+UNl9j/7VjHVv2la1a82
-	 D/ZPhLPI8HtTOWaV6vK+l/zkh9YmoLQG3ILMnM9KdRSeA91MXstpUGCbE0iGO8mZ7c
-	 5jy6o822ve2cy3wTOCY3USY9ZvG8zIp6cKcH3dMqvqRkMkvZqzZw3vO2PVXX+2d7yZ
-	 y7QPCGTtDO3WZSx1nQiAPkPtltiY07Zp5MEmrUXZQ94BzOG05llZddkx7LK9/U+Lcy
-	 oAPitRG87QkYg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 2/3] i2c: ma35d1: Add Nuvoton MA35D1 I2C driver
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Zi-Yu Chen" <zychennvt@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260727081859.1737223-3-zychennvt@gmail.com>
-References: <20260727081859.1737223-1-zychennvt@gmail.com>
- <20260727081859.1737223-3-zychennvt@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 27 Jul 2026 08:30:30 +0000
-Message-Id: <20260727083030.895F31F000E9@smtp.kernel.org>
+	s=k20260515; t=1785141068;
+	bh=eVg/uNJQsxF6h7YI8btP6po5t0wmQcAYffBBfRoy1Y0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DLmBl6Yq19mcpqVYviyuM/vYGjGwqY761oW6rfnxLsG65toy5Nnw6tnNtM5tWoafE
+	 L6Ye/hV0yAWGbJ/cVDnRt6HL95FUTEAg6Njw2cPdk2rb/0QZg2EmjMf5/6kWoeOAME
+	 6WYoGiQ2TpjI15kBrfLqK09IGK++0uo8fokEqB0Xzw7Ik2/831C2bCeH2KUVc7q3RM
+	 KwhABP8d1Qd1WEHpKmvIwyuTmXQ2iBTmJwd9Fq/T2xxo3ZRJyWINApqVkYFPQKtASA
+	 Vd0GyYm6C1BDPg4Tk1wMU2RP/Bfv8bE3ExOsXmmq+HpUC2kLUwOzUj1AW6UFNxEw0K
+	 /QmCcFgZTM3PA==
+Date: Mon, 27 Jul 2026 10:31:05 +0200
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+To: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	Benjamin Larsson <benjamin.larsson@genexis.eu>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+	Markus Gothe <markus.gothe@genexis.eu>,
+	Matheus Sampaio Queiroga <srherobrine20@gmail.com>
+Subject: Re: [PATCH v7 14/34] pinctrl: airoha: fix potential kenel panic in
+ IRQ handling code
+Message-ID: <amcXSQ4pfRCJjihI@lore-desk>
+References: <20260727074234.3761170-1-mikhail.kshevetskiy@iopsys.eu>
+ <20260727074234.3761170-15-mikhail.kshevetskiy@iopsys.eu>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="qQr/HXH9SxXcZv6z"
+Content-Disposition: inline
+In-Reply-To: <20260727074234.3761170-15-mikhail.kshevetskiy@iopsys.eu>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Double pm_runtime_disable() due to mixing devres and manual goto c=
-leanup on probe error paths.
-- [High] Missing NULL checks and synchronization for `i2c->target` leads to=
- a kernel panic in the target ISR.
-- [High] Data race on transfer state fields (`i2c->msg`, `i2c->msg_num`) le=
-ading to spurious interrupts and transfer timeouts.
-- [Medium] Handling bus errors or spurious interrupts while the controller =
-is idle permanently disables target mode.
---
+--qQr/HXH9SxXcZv6z
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
---- Patch [2]: [PATCH v7 2/3] i2c: ma35d1: Add Nuvoton MA35D1 I2C driver su=
-pport ---
-commit 035b6bb91f9d1b731210ec6e2aa45306a8f7f5f8
-Author: Zi-Yu Chen <zychennvt@gmail.com>
+> airoha_irq_unmask(), airoha_irq_mask(), airoha_irq_type() functions
+> gets invalid pointers when initialize gpiochip and pinctrl variables.
+> Generally this should lead to kernel panic.
+>=20
+> Details:
+>=20
+>     gpiochip =3D irq_data_get_irq_chip_data(data);
+>=20
+> will initialize gpiochip variable with data->chip_data value. This value
+> initialized inside gpiochip_irq_map() function
+>=20
+>     static int gpiochip_irq_map(struct irq_domain *d, unsigned int irq,
+> 			        irq_hw_number_t hwirq)
+>     {
+> 	struct gpio_chip *gc =3D d->host_data;
+>         ...
+> 	irq_set_chip_data(irq, gc);
+> 	...
+>     }
+>=20
+> Thus gpiochip variable of 'struct airoha_pinctrl_gpiochip *' type will be
+> initialized with a pointer to unrelated variable of 'struct gpio_chip'
+> type.
+>=20
+> pinctrl pointer derived from the gpiochip variable
+>=20
+>     pinctrl =3D container_of(gpiochip, struct airoha_pinctrl, gpiochip);
+>=20
+> thus it will get wrong value as well.
+>=20
+> So any access to the data pointed by gpiochip and pinctrl variables is
+> extremelly dangerous.
+>=20
+> This patch implements correct logic of getting gpiochip and pinctrl
+> pointers.
+>=20
+> Fixes: 1c8ace2d0725 ("pinctrl: airoha: Add support for EN7581 SoC")
+> Signed-off-by: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+> ---
+>  drivers/pinctrl/airoha/pinctrl-airoha.c | 20 +++++++++-----------
+>  1 file changed, 9 insertions(+), 11 deletions(-)
+>=20
+> diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/ai=
+roha/pinctrl-airoha.c
+> index faad5d3ada31c..6cf4ed5976fb0 100644
+> --- a/drivers/pinctrl/airoha/pinctrl-airoha.c
+> +++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
+> @@ -2569,18 +2569,17 @@ static int airoha_gpio_direction_output(struct gp=
+io_chip *chip,
+>  /* irq callbacks */
+>  static void airoha_irq_unmask(struct irq_data *data)
+>  {
+> +	struct gpio_chip *gc =3D irq_data_get_irq_chip_data(data);
+> +	struct airoha_pinctrl *pinctrl =3D gpiochip_get_data(gc);
+> +	struct airoha_pinctrl_gpiochip *gpiochip =3D &pinctrl->gpiochip;
+>  	u8 offset =3D data->hwirq % AIROHA_REG_GPIOCTRL_NUM_PIN;
+>  	u8 index =3D data->hwirq / AIROHA_REG_GPIOCTRL_NUM_PIN;
+>  	u32 mask =3D GENMASK(2 * offset + 1, 2 * offset);
+> -	struct airoha_pinctrl_gpiochip *gpiochip;
+> -	struct airoha_pinctrl *pinctrl;
+>  	u32 val =3D BIT(2 * offset);
+> =20
+> -	gpiochip =3D irq_data_get_irq_chip_data(data);
 
-i2c: ma35d1: Add Nuvoton MA35D1 I2C driver support
+I agree the proposed approach is more standard and I am fine with it, but c=
+an
+you please provide more details about how it can panic?
 
-Add I2C support for Nuvoton MA35D1 SoC. The controller supports standard,
-fast and fast-plus modes, and provides controller/target functionality.
+gpio_chip is the first element of airoha_pinctrl_gpiochip so it is fine to =
+cast
+irq_data_get_irq_chip_data() return value to airoha_pinctrl_gpiochip, right?
 
-> diff --git a/drivers/i2c/busses/i2c-ma35d1.c b/drivers/i2c/busses/i2c-ma3=
-5d1.c
-> new file mode 100644
-> index 0000000000000..858cfc2a873fb
-> --- /dev/null
-> +++ b/drivers/i2c/busses/i2c-ma35d1.c
+Regards,
+Lorenzo
 
-[ ... ]
+>  	if (WARN_ON_ONCE(data->hwirq >=3D ARRAY_SIZE(gpiochip->irq_type)))
+>  		return;
+> =20
+> -	pinctrl =3D container_of(gpiochip, struct airoha_pinctrl, gpiochip);
+>  	switch (gpiochip->irq_type[data->hwirq]) {
+>  	case IRQ_TYPE_LEVEL_LOW:
+>  		val =3D val << 1;
+> @@ -2606,14 +2605,12 @@ static void airoha_irq_unmask(struct irq_data *da=
+ta)
+> =20
+>  static void airoha_irq_mask(struct irq_data *data)
+>  {
+> +	struct gpio_chip *gc =3D irq_data_get_irq_chip_data(data);
+> +	struct airoha_pinctrl *pinctrl =3D gpiochip_get_data(gc);
+> +	struct airoha_pinctrl_gpiochip *gpiochip =3D &pinctrl->gpiochip;
+>  	u8 offset =3D data->hwirq % AIROHA_REG_GPIOCTRL_NUM_PIN;
+>  	u8 index =3D data->hwirq / AIROHA_REG_GPIOCTRL_NUM_PIN;
+>  	u32 mask =3D GENMASK(2 * offset + 1, 2 * offset);
+> -	struct airoha_pinctrl_gpiochip *gpiochip;
+> -	struct airoha_pinctrl *pinctrl;
+> -
+> -	gpiochip =3D irq_data_get_irq_chip_data(data);
+> -	pinctrl =3D container_of(gpiochip, struct airoha_pinctrl, gpiochip);
+> =20
+>  	regmap_clear_bits(pinctrl->regmap, gpiochip->level[index], mask);
+>  	regmap_clear_bits(pinctrl->regmap, gpiochip->edge[index], mask);
+> @@ -2621,9 +2618,10 @@ static void airoha_irq_mask(struct irq_data *data)
+> =20
+>  static int airoha_irq_type(struct irq_data *data, unsigned int type)
+>  {
+> -	struct airoha_pinctrl_gpiochip *gpiochip;
+> +	struct gpio_chip *gc =3D irq_data_get_irq_chip_data(data);
+> +	struct airoha_pinctrl *pinctrl =3D gpiochip_get_data(gc);
+> +	struct airoha_pinctrl_gpiochip *gpiochip =3D &pinctrl->gpiochip;
+> =20
+> -	gpiochip =3D irq_data_get_irq_chip_data(data);
+>  	if (data->hwirq >=3D ARRAY_SIZE(gpiochip->irq_type))
+>  		return -EINVAL;
+> =20
+> --=20
+> 2.53.0
+>=20
 
-> +static void ma35d1_i2c_stop(struct ma35d1_i2c *i2c, int ret)
-> +{
-> +	ma35d1_i2c_write_ctl(i2c, MA35_CTL_STO_SI);
+--qQr/HXH9SxXcZv6z
+Content-Type: application/pgp-signature; name=signature.asc
 
-[Severity: Medium]
-Does handling bus errors or spurious interrupts permanently disable target
-mode?
+-----BEGIN PGP SIGNATURE-----
 
-ma35d1_i2c_write_ctl() clears the MA35_CTL_STA_SI_AA bits before applying t=
-he
-new control mask. Passing only MA35_CTL_STO_SI (or MA35_CTL_SI in the
-spurious interrupt handler) leaves the MA35_CTL_AA bit cleared.
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCamcXSQAKCRA6cBh0uS2t
+rEwWAQD8cGSZk5/1aiOE+u0M8M5puuqsxZZlYElphkINBPmXQAEA1B/nj4I1WqTL
+VLynXQafTFU6141XSGtT8s4S4sZmzAE=
+=Wwkr
+-----END PGP SIGNATURE-----
 
-Will this prevent the I2C controller from acknowledging its own slave addre=
-ss
-until the next controller transfer is initiated?
-
-[ ... ]
-
-> +static void ma35d1_i2c_irq_target_trx(struct ma35d1_i2c *i2c,
-> +				      unsigned long i2c_status)
-> +{
-> +	unsigned char byte;
-> +
-> +	switch (i2c_status) {
-> +	case MA35_S_RECE_ARB_LOST:
-> +		/*
-> +		 * Arbitration lost during SLA+R/W (Address) phase.
-> +		 * The hardware automatically switches to Target mode as our
-> +		 * own slave address was detected.
-> +		 */
-> +		i2c->err =3D -EAGAIN;
-> +		ma35d1_i2c_controller_complete(i2c);
-> +		i2c_slave_event(i2c->target, I2C_SLAVE_WRITE_REQUESTED, &byte);
-
-[Severity: High]
-Is it possible for this to dereference a NULL pointer?
-
-If an interrupt fires before a target is registered, or if
-ma35d1_unreg_target() clears i2c->target concurrently without a
-synchronize_irq() barrier, i2c_slave_event() could attempt to use a NULL
-i2c->target.
-
-[ ... ]
-
-> +static void ma35d1_i2c_irq_controller_trx(struct ma35d1_i2c *i2c,
-> +					  unsigned long i2c_status)
-> +{
-> +	unsigned char byte;
-> +
-> +	/* Ensuring messages are absolutely valid in Controller mode. */
-> +	if (unlikely(!i2c->msg)) {
-> +		dev_err(i2c->dev, "Spurious controller interrupt (status: 0x%02lx)\n",=
- i2c_status);
-> +		ma35d1_i2c_write_ctl(i2c, MA35_CTL_SI);
-
-[Severity: Medium]
-As mentioned above, applying MA35_CTL_SI without MA35_CTL_AA strips the
-assert acknowledge bit, which could silently break target mode.
-
-[ ... ]
-
-> +static int ma35d1_i2c_doxfer(struct ma35d1_i2c *i2c, struct i2c_msg *msg=
-s,
-> +			     int num)
-> +{
-> +	unsigned long timeout;
-> +	unsigned int val;
-> +	int ret, err;
-> +
-> +	i2c->msg =3D msgs;
-> +	i2c->msg_num =3D num;
-> +	i2c->msg_ptr =3D 0;
-> +	i2c->msg_idx =3D 0;
-> +	i2c->err =3D 0;
-
-[Severity: High]
-Are these transfer state variables safe from concurrent modification?
-
-If an interrupt fires (such as target arbitration lost) while
-ma35d1_i2c_doxfer() is setting up the transfer, the controller complete path
-could execute:
-
-ma35d1_i2c_controller_complete()
-    i2c->msg =3D NULL;
-    i2c->msg_num =3D 0;
-
-This could unconditionally clear the state variables, leading to a
-corrupted state and transfer timeouts. Should this setup be protected by
-i2c->lock or have local interrupts disabled?
-
-[ ... ]
-
-> +static void ma35d1_i2c_pm_cleanup(void *data)
-> +{
-> +	struct device *dev =3D data;
-> +
-> +	pm_runtime_get_sync(dev);
-> +	pm_runtime_disable(dev);
-> +	pm_runtime_put_noidle(dev);
-> +}
-
-[ ... ]
-
-> +static int ma35d1_i2c_probe(struct platform_device *pdev)
-> +{
-
-[ ... ]
-
-> +rpm_put:
-> +	pm_runtime_disable(dev);
-> +	pm_runtime_set_suspended(dev);
-> +	return ret;
-> +}
-
-[Severity: High]
-Does this execute pm_runtime_disable() twice on error paths?
-
-Since devm_add_action_or_reset() registers ma35d1_i2c_pm_cleanup() to run
-automatically on probe failure, explicitly jumping to the rpm_put label will
-call pm_runtime_disable() a second time.
-
-Could this leave the device's disable_depth counter permanently incremented
-if the driver undergoes probe deferral?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727081859.1737=
-223-1-zychennvt@gmail.com?part=3D2
+--qQr/HXH9SxXcZv6z--
