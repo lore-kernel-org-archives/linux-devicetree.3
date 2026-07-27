@@ -1,47 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85CD531E820;
-	Mon, 27 Jul 2026 09:07:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F09263E9C18;
+	Mon, 27 Jul 2026 09:09:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785143232; cv=none; b=eJ1plY2sgz4ZmT7k3aI/RiFTcCyONlQkRvTdcTNa8S3FYq/YgMAP3J2FkWfxeteMW5NSOkV9SCmcFFihGaNqcAuQt5+sPkSNwI5w+rdj1Wn6BTRYwPRNlukMwYIwFEuTnU83ii0cYzLc7/NMxjWDg2XuneGdViwlG6llu5LrHUM=
+	t=1785143342; cv=none; b=p7nLkH4xXPIXydnhTpJtIPuVzH8jkeMwhFVGXu1eBz6aUIYHJkGGBU4CpWrNbkg34wmWDKTbHmiWUsTzaVWWz0o7VAlEdCdCm+X93zBwPj9+ZC6risjmb2jGNFhdom3eFZWt7dnOlyuvq/WTdGHsBDTHebmm72Ti3duoB547TFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785143232; c=relaxed/simple;
-	bh=oOzv9STeYiNA+al6m1DSB2JFlQOMavURRDoBppDc5Ro=;
+	s=arc-20240116; t=1785143342; c=relaxed/simple;
+	bh=oGGXI+yf0LCIgjrQNUJ7sJDyYn7axLJcJpqdn7cXFQ8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dXQY1/WANF3P0PswjDYGomsjZ9Em6RXaU97wIr05240/bcfzYwkfIPt9afN2kbWgR8W9Um37br/CHgnIB+P0iXiVEk2EoUbEYgUFAYb+xecNRMH63IXavrWzxRR3AOHE20CCeozt3XUxPW3z+Tu1WnMVdT3vaZgY2obaEZvCl04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IAfqTkrZ; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=McG3wHLvovC+Jxc2gKQvHnwcgiqpGkTtAEyRcYg3OntdGklCotj2G6C47wtf8967BtKzRxnkZWoj5R0/7LxKHFz14qXIP3kwOQKrCiHN7i9YxJPbCM9VQfzW0Nw+Saojv74XOpnX+QsG4KVditj8sOKbFsRFJPRhp/iKMGvjwSU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YhH4OEjz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IAfqTkrZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 633F01F000E9;
-	Mon, 27 Jul 2026 09:07:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YhH4OEjz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 914E21F000E9;
+	Mon, 27 Jul 2026 09:08:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785143231;
-	bh=47OcSGHqYNsZ+zLEFQ0Nx9/aS1Vdcnvn7RHzq7+qcM8=;
+	s=k20260515; t=1785143340;
+	bh=+y6eIxEpfj3dtsfjW16U63V+ur01YoLmzilHlphGybc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IAfqTkrZKstX75hF+WJdqBDJYaj3tO4iiynYcY+36mAXWDw6eAO5kDsFQES/Zba30
-	 HybI5Nu5EgfVAS5OxyCp90M4142EfAxN1iP/V6xIb/c4tcYo/Duq1LBloFAyEnuo5C
-	 CqsWyEXjeqmpJ1XKSG1jUsjoDdPg1R0pCSdHu+pe15mvvLuSYS9Zuz/+xGmnIBFoxF
-	 sKMaqfsyf3mDdL/eOJsY6Nsj0L8Nu80hJIYdJnneJycj25nowvnimOc6PbDU9Vrv4z
-	 rpGi/xLNkwqA5Fs3SBxjPHv0rUfbf4VjGzIdGksOoo2Uw+0a7U74xCFqrI7wwbKjVx
-	 2khAmHll/c65g==
-Date: Mon, 27 Jul 2026 11:07:07 +0200
-From: "krzk@kernel.org" <krzk@kernel.org>
-To: "Pradhan, Sanman" <sanman.pradhan@hpe.com>
-Cc: "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>, 
-	"linux@roeck-us.net" <linux@roeck-us.net>, "robh@kernel.org" <robh@kernel.org>, 
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>, 
-	"corbet@lwn.net" <corbet@lwn.net>, "skhan@linuxfoundation.org" <skhan@linuxfoundation.org>, 
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Sanman Pradhan <psanman@juniper.net>, 
-	Debjit Ghosh <dghosh@juniper.net>, Jawahar Balaji Thirumalaisamy <jawaharb@juniper.net>, 
-	Santhanakrishnan Balraj <sbalraj@juniper.net>, Brian Mak <makb@juniper.net>
-Subject: Re: [PATCH v4 1/2] dt-bindings: hwmon: pmbus: Add Analog Devices
- MAX16545/MAX16550 and Volterra VT7505
-Message-ID: <20260727-stoic-marble-gazelle-732aa6@quoll>
-References: <20260725211945.288415-1-sanman.pradhan@hpe.com>
- <20260725211945.288415-2-sanman.pradhan@hpe.com>
+	b=YhH4OEjzlGqcAzM6TGmp2nNXnN21+VqL+Ix2bYkPBgeMeleIZWmM4GTUOF9aPBcKL
+	 YawwRzthp2kKTB3GTtb2SRhm6bXtm5WWnLEOwUhP1m2K2Zhs4HKLbV2ZeTz+EjR35z
+	 4hQ3wfQg3IlnE8wdBaADXi0d5MSzg4dvuREmtoZWMpqE7oWmlfW4e3XUObBBUHcxzy
+	 jY4bzWxk7u3D8NVuZ3o0fwAOe8RZQuUzqS7HcitEEYV+GS1nYBtnHfIuNqOzM4WxjJ
+	 K6e+gyw324kVySOOkNMa0c+Ha/tBl0BOs1XOW/TOwGiabQLSsI8KsIAJ9V+OdWLMAk
+	 3btPXO3bpZUqQ==
+Date: Mon, 27 Jul 2026 11:08:56 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Vincent Cloutier <vincent.cloutier@icloud.com>
+Cc: Sebastian Reichel <sre@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+	Marek Szyprowski <m.szyprowski@samsung.com>, Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>, 
+	Purism Kernel Team <kernel@puri.sm>, Rob Herring <robh@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Vincent Cloutier <vincent@cloutier.co>
+Subject: Re: [PATCH v4 11/11] dt-bindings: power: supply: max17042: Allow
+ generic power-supply properties
+Message-ID: <20260727-precise-therapeutic-bandicoot-b07fe6@quoll>
+References: <20260727011319.621794-1-vincent.cloutier@icloud.com>
+ <20260727011319.621794-12-vincent.cloutier@icloud.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,18 +47,25 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260725211945.288415-2-sanman.pradhan@hpe.com>
+In-Reply-To: <20260727011319.621794-12-vincent.cloutier@icloud.com>
 
-On Sat, Jul 25, 2026 at 09:20:06PM +0000, Pradhan, Sanman wrote:
-> From: Sanman Pradhan <psanman@juniper.net>
+On Sun, Jul 26, 2026 at 09:13:09PM -0400, Vincent Cloutier wrote:
+> From: Vincent Cloutier <vincent@cloutier.co>
 > 
-> Add device tree binding documentation for the Analog Devices MAX16545 and
-> MAX16550, and the Volterra VT7505 PMBus controllers.
+> The MAX17042 family binding references the generic power-supply schema,
+> but additionalProperties only recognizes properties declared directly by
+> this schema.
 > 
-> Signed-off-by: Sanman Pradhan <psanman@juniper.net>
+> Use unevaluatedProperties so generic properties such as monitored-battery
+> are accepted while unknown properties remain rejected. Remove the local
+> power-supplies declaration because it is already inherited from
+> power-supply.yaml.
+> 
+> Assisted-by: OpenCode:gpt-5.6-sol
+> Signed-off-by: Vincent Cloutier <vincent@cloutier.co>
 > ---
-> Changes in v4:
-> - Add an upper bound (maximum) to adi,rload-ohms.
+>  .../devicetree/bindings/power/supply/maxim,max17042.yaml      | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
