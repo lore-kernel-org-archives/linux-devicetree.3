@@ -1,68 +1,68 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 962523C4171
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 08:09:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B98AC3DA7E3
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 08:09:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785139757; cv=none; b=TrJA3kVaqY3zHwADoSJYGuKWdreN16u2q4PJ8LYLKxERAKac+7pEXRkAuXKXZk/TUt/sIHAIUuzFGRsUeYdX8hlLzVlOtBJN3QSn2pJqtneVWQLRQk3W4bkJU5tvbhhwaMdzTOBdzE1TLn97kRlRsOPDATwSLqgEONvd/f/AaXQ=
+	t=1785139765; cv=none; b=AeDuuOSijb57Wcihr5awl2WKYYF9/ILJ4GDTNK5nuHJae2SzXj4mH6X9277bfvaJeYpOxlnfvPrz8KEnk8q6J4dzgLmym0AJ/hMdkgmIMYbNwWeGiJ1Ack2qpm64iykdmpT7yJAyctDUVz1OdFgxAameecBNaaT2oMTTaY6lBdY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785139757; c=relaxed/simple;
-	bh=xr62UmcjeHLfyrB3cS5s/ysVodNVlBim8/Z1TtzMcI8=;
+	s=arc-20240116; t=1785139765; c=relaxed/simple;
+	bh=gqoC4/a/9djR/9hM1Xie6jaz0hcb2IWh16QULE0/41Y=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=NkdVCt97BrDkpF/5+neCL8vag7pxXZvkc4u7ievnMiO7c8uh2ZLu5u1RouVUrpH1XKKx/5BPnFV3716jZVit2ezPjkAFgaz+HabsgRgGc01e7Eczd22XTHQjX1/9VB2LAZCwxKtRhyaquCA7OEbpg6zqXgHjwGYbZlOP+BWnSWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=L7YAUyHt; arc=none smtp.client-ip=209.85.210.177
+	 In-Reply-To:To:Cc; b=EidPUz7Rz9yhiT1/cJLv1fQoJx62EirNyr12VJ/lRLbWlkggIwOqXnqcxDezGVCxHie48OHqdrPvsXNm+k9krQ5Buc9AFfK6gxAVQw+FbtKmShsI7uH8H+cPkcqdysGcwtPRTbLJ+RwnBzFjTh2d91aexO5dnwHBeoReGSb23C0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Nci0tM3Y; arc=none smtp.client-ip=209.85.210.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="L7YAUyHt"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8486ac3f347so3100719b3a.1
-        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 01:09:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Nci0tM3Y"
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-848479c9bd5so1696510b3a.3
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 01:09:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1785139755; x=1785744555; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1785139763; x=1785744563; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/DpStR4NIgPrHPfcxkdDONcrTukgNCZBwr9N0y4XnLE=;
-        b=L7YAUyHtj+tBMrze38qRm20+RO1VQ2ospCymZgUexBBRpjckic+3888MqYN5/PWrMM
-         zvLFb3gJIOgrTAfl3QKfuXqHl93TTRjksTQ7THifTb54D7chawn12Bvjf4er+xqm613F
-         ewZNwPrsoP9cXkBugcb9erwntnWYdMTnLtWi0OU/qZVZtgxMJRkdFV8Ay2hXpY/X5eJy
-         YXtIquJnZbJcHXjlfmbkspzS5259lHFjK3hz8Kv62/FCbvouzv/rgDAPXf8QHazSBmw1
-         ZeFzHP/hE5cn+eWVdIA89/ux450Y3CziiETBfoEorAvpvHdcNSMHE+jK6EHbqMUd5+Jl
-         48Yw==
+        bh=jm6+6kOZspXgkLHgH1OO+Xsz7RPUgCUNKzexSNmpQT8=;
+        b=Nci0tM3Yb0gF7IvmbiOdZbsVJTdUlmnyd3YBQlJyovUzVVYYW4oCr1EKYS1jzLRu2z
+         u2/h2LOfufP4pPrX+x3ORwnJqZ3E62ATui8RtQE4Vn6/k1WsSJJbwSrxmAO/lNfzHe58
+         L8TphC2oHCziqqtSe+gSMmWJGBezZSSEJGGNga/yFXOJmwSer3C+Dhot8ARF85E9gpk5
+         W8G0Q0h6nSjSWkzBYjhSMB+1+4YBBdJ/A/atppB854sRepguaTcuCs2QIE2hhTp6l5UN
+         x5NCvdZrybx1fLSmpIPTpnbEGdWZvxgeLuN2XZMhQrCRSDtfU+41z7LctT8WFEODU+DR
+         qoJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785139755; x=1785744555;
+        d=1e100.net; s=20251104; t=1785139763; x=1785744563;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/DpStR4NIgPrHPfcxkdDONcrTukgNCZBwr9N0y4XnLE=;
-        b=PWLB1S1ftO/lfRopewDWsUZsdLUGVBuz6y9rNHCVfNcSS+3X6uB+mRu4RP51JH7jhS
-         ja9pkGdZwP/x3g2aEX9c3QM73AWqLTmm7xfLMygYv5yPnswimlDro9ksuVJiJP6HJOnm
-         TyVEzuyy/+hCtr+GfkRmH1P/wXfkDRzYroBp4MyN6BELFkjpsHdpaRt5aGFg5bUzZYQu
-         ++1ZqkG8kqIkVLP6f2G/9kLID9vRhOBRGNpjGHe6RQIujkFt5r8vX1H54IYhqRYBx7p0
-         53qE05ncbwPudF16TXyVmXnxQ7IaLgshUo0VTKsy07yuMFXvf55yKVKB8atsSb+L0jeH
-         4uQw==
-X-Forwarded-Encrypted: i=1; AHgh+RoRNwuW3EVTLtfjlD66brEDfmIWGb0kOWcchSW7x/BAJq9nYT3iL7RQAML6iVRtbGsMrtHCM54PrF//@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxcr5l37UsX3br3JFOkbUhTHZrwGZHoWUxj2T5OsCdGoToyQWT9
-	PSkD4R1H3t8FwTToz2NPEnUBlwrGJaVP4ZmGmqdQwe3bANwuUAQnUtd31lX7ZpABy28=
-X-Gm-Gg: AR+sD11hTOmSUTC/s2+jVngcpqCU3QKs6osv1tt3trHFHlmqidWO4TUfSQLsFRGxi8/
-	V/+z6B1bAWUF2wBUIi6PM6o/EXNCjKKEOY+oLmx5bvQ7joLCnzidL3hlQlgAMeVY+md0G+AUyZd
-	qUQHx8HPuDimp3bO75iEw69RtDzokLCSxn/9bCSy2ue2clSkUabktA5toGGN96EFzlTGRxYRcQF
-	BRznimB5vo0QW+v0cJ+9mV6XoCE7C43vp8FMqvGCUhGutoN6cXU7yoSiRmlSfe1VsYeHq/MVwd4
-	rLWMB5KJgSMYiuS+S9pWICECrIS01tue0/wXBe0Z6fqmeUKpnwdoXKlVB4lTvpmiV6oVyepKsCg
-	l7xrSLXoWPgfgTkBkkD0FGS9h7HvG4EiIOW/jkRKvOnNYWvK+Ik239vr06BqaWdAN+hRjfQVHk8
-	kk7A==
-X-Received: by 2002:a05:6a00:1953:b0:845:dcc8:9da with SMTP id d2e1a72fcca58-84e4e3a7840mr7482610b3a.22.1785139754938;
-        Mon, 27 Jul 2026 01:09:14 -0700 (PDT)
+        bh=jm6+6kOZspXgkLHgH1OO+Xsz7RPUgCUNKzexSNmpQT8=;
+        b=gm62eaVLe31eVpaJ3O/88yYWIg4+DCzt2gXyZLHp3ACUcY6ZjqSf9iGtSm/CzK7mim
+         Wd2mo4J8OGQqwDY5LZzCXFwFnGOA7emYPADKrTWQ8aB6baaafHw5byKtPZ0nQVpBVa4n
+         ZwxlWj6ZExah1eryfAopFzEsoV8eTQ/uJjMhsHx6UeiXALuRO4BmDduGMwBdZnbRHgGn
+         tZLtnwwxhVOYof6LHGkR5e07zbTMPg8JOuP1OO3NGCFOGqHev8mHqQLnwJ5E5t0t7KZJ
+         RJUxR7cOwwTtUMvE06h1CO0l1/rj2ltGhdQMSWVRq8j8Yj7j9Q8qFu9ezKwYauq2dz85
+         jbzg==
+X-Forwarded-Encrypted: i=1; AHgh+RqZPHu/Vl/Zm9kv6AbHiXR1oNGbxzl0HD23EARSd9BcfXhuYOpYLrVU/AIiblPWILKcvqvj7egRDYdl@vger.kernel.org
+X-Gm-Message-State: AOJu0YytOFWw+aZ23nrH+l+y1mmMlGsj3jD2yEwl0aCn8OMx8ae30cW9
+	1dHDj4y2P+/Tqs5X/LqMT0sDme7vIr6foY+/aNcTXw10kX/jG3zq9X6BiLqVU4XujZY=
+X-Gm-Gg: AR+sD13D/hCDAre7mhFDq30TiYsMmxoO5ShSTmGKdNwgE31E2QEsuJ2j1Ttk8137dqe
+	+gDiaL3hxlP00pBrqbIcUpXhnHa2vbmkibScTCEG49G07Oj85Db4VjPh0bSUAlLrIBsIJ3pHv/G
+	MofmYuuaTE0HtUeVLN48vFbUUy5YXXgl0FmGDyiFsMxU2Po7ovVN6jKG/RmFt2VQwKjuEhBd8SU
+	JS/oVDMg43ZDY5oqpSOAj5p7r27qXdUFseQKYywinSQ+YcPH4oXrxKdfQbfhOG2Qz3+rN3rBv+l
+	fSZ0tWwZVa1faUa1uEa7ShwIq6udJVoNT9gQNepaJNxP1K3dfZvDTZoyx3fV3wpXzZJ5XPX/CNv
+	zp49aCFr/mOAnJ6SNhHbmKXtwjpTzbGvVCn7raezFoWph4Mq6/U91E8K2QkIiLJ6slU5LIT+P/M
+	TgVg==
+X-Received: by 2002:a05:6a00:1894:b0:848:2f74:d8d9 with SMTP id d2e1a72fcca58-84e595d8873mr5504761b3a.74.1785139763066;
+        Mon, 27 Jul 2026 01:09:23 -0700 (PDT)
 Received: from [127.0.1.1] ([116.237.168.131])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e5344e577sm2630658b3a.58.2026.07.27.01.09.06
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e5344e577sm2630658b3a.58.2026.07.27.01.09.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jul 2026 01:09:14 -0700 (PDT)
+        Mon, 27 Jul 2026 01:09:22 -0700 (PDT)
 From: Jun Nie <jun.nie@linaro.org>
-Date: Mon, 27 Jul 2026 16:08:40 +0800
-Subject: [PATCH v5 1/6] dt-bindings: display: panel: Modify reset gpio
- number constrain
+Date: Mon, 27 Jul 2026 16:08:41 +0800
+Subject: [PATCH v5 2/6] drm/msm/dsi: support DSC configurations with
+ slice_per_pkt > 1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260727-sm8650-7-1-bonded-dsi-v5-1-c042266b9eeb@linaro.org>
+Message-Id: <20260727-sm8650-7-1-bonded-dsi-v5-2-c042266b9eeb@linaro.org>
 References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
 In-Reply-To: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, 
@@ -88,37 +88,118 @@ To: Rob Clark <robin.clark@oss.qualcomm.com>,
  Conor Dooley <conor+dt@kernel.org>
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Jun Nie <jun.nie@linaro.org>
+ devicetree@vger.kernel.org, Jun Nie <jun.nie@linaro.org>, 
+ Jonathan Marek <jonathan@marek.ca>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785139738; l=964;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785139738; l=3893;
  i=jun.nie@linaro.org; s=20240403; h=from:subject:message-id;
- bh=xr62UmcjeHLfyrB3cS5s/ysVodNVlBim8/Z1TtzMcI8=;
- b=qdiR1dk/x/gNxQz/wuB676QNdHdjXdPt/f7TMePVCIKOoycTx5EUwjPWFsPseO6eVg/BejHPB
- 2Vphxco4M1FDg1qbFU1Q4RW9iKW3A38vjm+YulWXRGkUeDvLlt1BGY9
+ bh=gqoC4/a/9djR/9hM1Xie6jaz0hcb2IWh16QULE0/41Y=;
+ b=BBIDJekvK5rWDal0nDAL8OyIRwINl/SgaWld9WqlwQieSSwqKk+nbbgfK0giIzEGdSZ85VFgC
+ deoOSCszP8cCXNCeX5F298Wpfr1z4TPfpVxIM/R596NI/0Q5JTsMooh
 X-Developer-Key: i=jun.nie@linaro.org; a=ed25519;
  pk=MNiBt/faLPvo+iJoP1hodyY2x6ozVXL8QMptmsKg3cc=
 
-Some panel support 2 reset gpio, such as Synaptics R63455. So modify the
-number constrain of gpio to 1 to avoid check failure.
+Some panels require multiple slice to be sent in a single DSC packet. And
+this feature is a must for specific panels, such as Sharp ls026b3sa06. Add
+a dsc_slice_per_pkt member into struct drm_dsc_config and support the
+feature in msm mdss driver.
 
+Co-developed-by: Jonathan Marek <jonathan@marek.ca>
+Signed-off-by: Jonathan Marek <jonathan@marek.ca>
 Signed-off-by: Jun Nie <jun.nie@linaro.org>
 ---
- Documentation/devicetree/bindings/display/panel/panel-common.yaml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 27 ++++++++++++---------------
+ include/drm/display/drm_dsc.h      |  7 +++++++
+ 2 files changed, 19 insertions(+), 15 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/panel/panel-common.yaml b/Documentation/devicetree/bindings/display/panel/panel-common.yaml
-index 087415753d606..7c450d2799808 100644
---- a/Documentation/devicetree/bindings/display/panel/panel-common.yaml
-+++ b/Documentation/devicetree/bindings/display/panel/panel-common.yaml
-@@ -119,7 +119,7 @@ properties:
-       confused with a backlight enable signal.
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index 53ff23f4f68ab..e39938fb0f502 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -166,6 +166,7 @@ struct msm_dsi_host {
  
-   reset-gpios:
--    maxItems: 1
-+    minItems: 1
-     description:
-       Specifier for a GPIO connected to the panel reset control signal.
-       The reset signal is active low and resets the panel internal logic
+ 	struct drm_display_mode *mode;
+ 	struct drm_dsc_config *dsc;
++	unsigned int dsc_slice_per_pkt;
+ 
+ 	/* connected device info */
+ 	unsigned int channel;
+@@ -938,17 +939,10 @@ static void dsi_update_dsc_timing(struct msm_dsi_host *msm_host, bool is_cmd_mod
+ 	slice_per_intf = dsc->slice_count;
+ 
+ 	total_bytes_per_intf = dsc->slice_chunk_size * slice_per_intf;
+-	bytes_per_pkt = dsc->slice_chunk_size; /* * slice_per_pkt; */
++	bytes_per_pkt = dsc->slice_chunk_size * msm_host->dsc_slice_per_pkt;
+ 
+ 	eol_byte_num = total_bytes_per_intf % 3;
+-
+-	/*
+-	 * Typically, pkt_per_line = slice_per_intf * slice_per_pkt.
+-	 *
+-	 * Since the current driver only supports slice_per_pkt = 1,
+-	 * pkt_per_line will be equal to slice per intf for now.
+-	 */
+-	pkt_per_line = slice_per_intf;
++	pkt_per_line = slice_per_intf / msm_host->dsc_slice_per_pkt;
+ 
+ 	if (is_cmd_mode) /* packet data type */
+ 		reg = DSI_COMMAND_COMPRESSION_MODE_CTRL_STREAM0_DATATYPE(MIPI_DSI_DCS_LONG_WRITE);
+@@ -1104,12 +1098,8 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+ 		else
+ 			/*
+ 			 * When DSC is enabled, WC = slice_chunk_size * slice_per_pkt + 1.
+-			 * Currently, the driver only supports default value of slice_per_pkt = 1
+-			 *
+-			 * TODO: Expand mipi_dsi_device struct to hold slice_per_pkt info
+-			 *       and adjust DSC math to account for slice_per_pkt.
+ 			 */
+-			wc = msm_host->dsc->slice_chunk_size + 1;
++			wc = msm_host->dsc->slice_chunk_size * msm_host->dsc_slice_per_pkt + 1;
+ 
+ 		dsi_write(msm_host, REG_DSI_CMD_MDP_STREAM0_CTRL,
+ 			DSI_CMD_MDP_STREAM0_CTRL_WORD_COUNT(wc) |
+@@ -1719,8 +1709,14 @@ static int dsi_host_attach(struct mipi_dsi_host *host,
+ 	msm_host->lanes = dsi->lanes;
+ 	msm_host->format = dsi->format;
+ 	msm_host->mode_flags = dsi->mode_flags;
+-	if (dsi->dsc)
++	if (dsi->dsc) {
+ 		msm_host->dsc = dsi->dsc;
++		/* for backwards compatibility, assume 1 if not set */
++		msm_host->dsc_slice_per_pkt = dsi->dsc->dsc_slice_per_pkt ?: 1;
++	} else {
++		msm_host->dsc = NULL;
++		msm_host->dsc_slice_per_pkt = 0;
++	}
+ 
+ 	if (msm_host->format == MIPI_DSI_FMT_RGB101010) {
+ 		if (!msm_dsi_host_version_geq(msm_host, MSM_DSI_VER_MAJOR_6G,
+@@ -1757,6 +1753,7 @@ static int dsi_host_detach(struct mipi_dsi_host *host,
+ 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+ 
+ 	dsi_dev_detach(msm_host->pdev);
++	msm_host->dsc = NULL;
+ 
+ 	DBG("id=%d", msm_host->id);
+ 
+diff --git a/include/drm/display/drm_dsc.h b/include/drm/display/drm_dsc.h
+index bbbe7438473d3..c522ab3d71853 100644
+--- a/include/drm/display/drm_dsc.h
++++ b/include/drm/display/drm_dsc.h
+@@ -267,6 +267,13 @@ struct drm_dsc_config {
+ 	 * Offset adjustment for second line in Native 4:2:0 mode
+ 	 */
+ 	u16 second_line_offset_adj;
++
++	/**
++	 * @dsc_slice_per_pkt:
++	 * Number of DSC slices to be sent in a single packet. This is not
++	 * part of DSC standard, and only used in some DSI panels so far.
++	 */
++	unsigned int dsc_slice_per_pkt;
+ };
+ 
+ /**
 
 -- 
 2.43.0
