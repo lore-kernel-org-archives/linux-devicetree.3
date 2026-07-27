@@ -1,40 +1,40 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77E313F4DF8;
-	Mon, 27 Jul 2026 11:26:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95A201F1513;
+	Mon, 27 Jul 2026 11:30:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785151604; cv=none; b=ENR1yEgF0g9C9qbtfN4QDLS8RrmIP48zBXY0rRQJDV9pmNuW46+RW7MdsiNbDo8U79KfpEcshDi5xhdlHQcMJgRLuvBdq/3RiSpVEZUVdEMCfrVJciMSem68ZS+cspeb4/s4mxj4jhuY72DwdYiEU5+4CIqLRUiuT/BOB7hLZ/A=
+	t=1785151822; cv=none; b=c6+vV+wHKhmAmWpvVl0WRL5dyqWf1Lq1ykiYnsSaY7ABE9uRdVaQ3lB/TBfmFEfVqpYG/VxJ9Dmb3oO3TebF3MLBtJrRbrIK332oUiIQSEiwBPBI/DORsi1JZODMEMGDY6nFOLJJAkFz6QKEe0qk6CZ4qGAgTqmwe8soGBB3YCU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785151604; c=relaxed/simple;
-	bh=VudUmPApW/6BvsASJRAn2l9GazNPQVjwVnEN7CPOftk=;
+	s=arc-20240116; t=1785151822; c=relaxed/simple;
+	bh=ZFIAFTwas2rhk3bEM2JyYbhvmHOR7sbABrYjwUVNLQM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DbwzTz3WIi2mVfk7l5zLH7F9HrSqAMGp+WADfJAzXv8One/7CbA3TxVylxHKA97LprtsrgLfA0cvrrNGq1/UcYufMNOdVxmP9wlrBpHSVpHVCVyaAlIQZGMOBm11OGEsb5+OEZRLzDVzvX961bsvekg2WkZo3dzD331X548/TR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=cx65eFm0; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:Content-Type; b=PjzWnwiMOWxlrh7VDNwCVSdg4tOnitjq1UtEoxJOEB4JE6tpsPmdEoaGHZrOTs0+Z0cH2EM22YOMwHyekyZ3stIwFYX16x6m8wXFdYkodkXRvuYrAuyDRHFIeMHyoGv8Yir9a8pfP2Tsqm+9LSaN0W+ZOKvh1JUCjJ7DJSFBT3c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=eluZNqzo; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="cx65eFm0"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="eluZNqzo"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1785151600;
-	bh=VudUmPApW/6BvsASJRAn2l9GazNPQVjwVnEN7CPOftk=;
+	s=mail; t=1785151819;
+	bh=ZFIAFTwas2rhk3bEM2JyYbhvmHOR7sbABrYjwUVNLQM=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=cx65eFm0WM++0oMh/QxN4GR3DLdeSsiDf9NEHkLeYcjzhh84UFgH9aV2k6APGtgip
-	 60YJWQDaXtpyjZn4ygUN9hn+a30uGV6Mgblx6n+HN6WNN85TVsaP2G0rfZDtL/SvTV
-	 ZHxyCYXmzvsm+K+bclQF0w96Ny2jFxX3w+4Xt1O2c6ryv58VQqEDLqRv7N7I/ZiE9l
-	 9FUJFZS3ZxVTGdlqOM82G/aptq/agSpjvEuaeAjubXkyP12zTZrr0yUKtBeaUuPnEk
-	 zFZZ1zpsLYtkzXn6Stgw7rhgCe8XTshGeGC/asygXNoV2gt+P3yDQUXiYthVK+ehC+
-	 uso9C8wYachzA==
+	b=eluZNqzoifWatVLkxPgK7atnz3bqNuwlLsmhWgAt8gmaEw3yCwnr9qqvhW72bM3F1
+	 dEyCinGMU87TJAOYrWSecCipByGtNnu50ZUum9ecK1LFatVvoNMyICbnzYPWBGPXtL
+	 4tGvf/aNUyrSLd3RjFdSuPI7sye3GgjBl0VWX7BG8iiOjrUDveduub/xgLyftAa4Dz
+	 ZPTnb6wSz0nWLuknBGtjxbcIlIAZpe2fuHGeYe0QMkXF8jyf8FI7w2AIkLuuRJlg0R
+	 sudvXZUvXCgNWYKya2/4uVUATkq/7XrzQyWGxaaAw06YN2+1YIhRQegt6dtUR924IK
+	 Gx71BeqleSFiw==
 Received: from [100.64.1.21] (unknown [100.64.1.21])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id A905B17E0682;
-	Mon, 27 Jul 2026 13:26:39 +0200 (CEST)
-Message-ID: <3c17cdf1-7e75-4002-9ce2-08d4dc56198d@collabora.com>
-Date: Mon, 27 Jul 2026 13:26:39 +0200
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 1741017E0213;
+	Mon, 27 Jul 2026 13:30:19 +0200 (CEST)
+Message-ID: <a3298120-f5be-4a8a-bb71-1d6923a28d6c@collabora.com>
+Date: Mon, 27 Jul 2026 13:30:18 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -42,51 +42,74 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/5] clk: mediatek: Add mt8173-mfgtop driver
-To: Chen-Yu Tsai <wenst@chromium.org>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney@redhat.com>, Matthias Brugger
- <matthias.bgg@gmail.com>, Alessio Belle <alessio.belle@imgtec.com>,
- Luigi Santivetti <luigi.santivetti@imgtec.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Dan Carpenter <dan.carpenter@linaro.org>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- YoungJoon Lee <getfeus@gmail.com>
-References: <20260727091555.1023910-1-wenst@chromium.org>
- <20260727091555.1023910-3-wenst@chromium.org>
+Subject: Re: [PATCH v2 1/2] arm64: dts: mediatek: alias all enabled serial
+ ports
+To: Carlo Caione <ccaione@baylibre.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ linux-serial@vger.kernel.org, dlechner@baylibre.com, jstephan@baylibre.com
+References: <20260727-ccaione-genio-serial-aliases-v2-0-0f2ae41a8e89@baylibre.com>
+ <20260727-ccaione-genio-serial-aliases-v2-1-0f2ae41a8e89@baylibre.com>
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Content-Language: en-US
-In-Reply-To: <20260727091555.1023910-3-wenst@chromium.org>
+In-Reply-To: <20260727-ccaione-genio-serial-aliases-v2-1-0f2ae41a8e89@baylibre.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 7/27/26 11:15, Chen-Yu Tsai wrote:
-> The MFG (GPU) block on the MT8173 has a small glue layer, named MFG_TOP
-> in the datasheet, that contains clock gates, some power sequence signal
-> delays, and other unknown registers that get toggled when the GPU is
-> powered on.
+On 7/27/26 09:38, Carlo Caione wrote:
+> On most MediaTek boards only serial0 is aliased, so the remaining
+> enabled uarts get first-free ttyS line numbers from the 8250 core in
+> probe order. When the console uart defers on its clocks another uart can
+> win line 0: console=ttyS0 then ends up on the wrong port and the boot
+> looks like a hang on the serial console, depending on probe order.
 > 
-> The clock gates are exposed as clocks provided by a clock controller,
-> while the power sequencing bits are exposed as one singular power domain.
-> 
-> Tested-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
-
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-
+> Signed-off-by: Carlo Caione <ccaione@baylibre.com>
 > ---
-> Changes since v2:
-> - Made COMMON_CLK_MT8173_MFGTOP depend on PM
->    - Needed since the driver implements PM domains using the generic PM
->      domain library, which also depends on PM
->    - Fixes build breakage (kernel test robot)
-> - Fixed "RST_DELAY_CNT" name (Brian)
-> - Dropped unused mfg_desc (Brian)
-> - Added check of clk_prepare_enable()'s return value in
->    clk_mt8173_mfgtop_power_on() (Brian)
-> - Saved error value for return in IS_ERR(data->clk_26m) branch
->    (Dan Carpenter / kernel test robot w/ smatch)
+>   arch/arm64/boot/dts/mediatek/mt6795-sony-xperia-m5.dts    | 1 +
+>   arch/arm64/boot/dts/mediatek/mt7622-rfb1.dts              | 1 +
+>   arch/arm64/boot/dts/mediatek/mt7986a-bananapi-bpi-r3.dts  | 2 ++
+>   arch/arm64/boot/dts/mediatek/mt7986a-rfb.dts              | 2 ++
+>   arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi            | 1 +
+>   arch/arm64/boot/dts/mediatek/mt8192-asurada-hayato-r1.dts | 4 ++++
+>   arch/arm64/boot/dts/mediatek/mt8195-demo.dts              | 1 +
+>   arch/arm64/boot/dts/mediatek/mt8365-evk.dts               | 2 ++
+>   arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi     | 2 ++
+>   arch/arm64/boot/dts/mediatek/mt8390-grinn-genio-sbc.dtsi  | 2 ++
+>   arch/arm64/boot/dts/mediatek/mt8390-tungsten-smarc.dtsi   | 2 ++
+>   arch/arm64/boot/dts/mediatek/mt8395-genio-common.dtsi     | 1 +
+>   12 files changed, 21 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/mediatek/mt6795-sony-xperia-m5.dts b/arch/arm64/boot/dts/mediatek/mt6795-sony-xperia-m5.dts
+> index 0e086dd487d9..63659e240b1d 100644
+> --- a/arch/arm64/boot/dts/mediatek/mt6795-sony-xperia-m5.dts
+> +++ b/arch/arm64/boot/dts/mediatek/mt6795-sony-xperia-m5.dts
+> @@ -20,6 +20,7 @@ aliases {
+>   		mmc2 = &mmc2;
+>   		serial0 = &uart0;
+>   		serial1 = &uart1;
+> +		serial2 = &uart2;
+>   	};
+>   
+>   	backlight_lcd0: backlight {
+> diff --git a/arch/arm64/boot/dts/mediatek/mt7622-rfb1.dts b/arch/arm64/boot/dts/mediatek/mt7622-rfb1.dts
+> index 8c3e2e2578bc..7bccad118d24 100644
+> --- a/arch/arm64/boot/dts/mediatek/mt7622-rfb1.dts
+> +++ b/arch/arm64/boot/dts/mediatek/mt7622-rfb1.dts
+> @@ -20,6 +20,7 @@ / {
+>   
+>   	aliases {
+>   		serial0 = &uart0;
+> +		serial2 = &uart2;
+
+Why is that serial2 and not serial1 = &uart2?
+
+Cheers,
+Angelo
+
+>   	};
+>   
+>   	chosen {
