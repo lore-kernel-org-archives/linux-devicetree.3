@@ -1,89 +1,76 @@
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99DE03EC6BF
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 09:16:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDA833EB108
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 09:20:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785143811; cv=none; b=AS2G1GHF9TdXyOHhs4FVOffw6PmMgzE3vNAxcOuvVzAFy+srYgkMuS/IcVQd4tvWlinCc4fs7Nq36rjNRgmuumpPCx8SKrgK/2tZXE1w+Ei7pP7pyuXixgYl1VIWsrHsg1q3F/GcKGrD7iv9dcNVX204PJvPDrkmjlIIB0vZ1MA=
+	t=1785144010; cv=none; b=UlPGpVH9gyaSVmJSqCs0y+mq1u+rnrrsLYt+dyZ9l2vmCjKk0pZaHpJ+3prAwtLl+DQq8/p//0n73aZ2a2pIwmpdScw/HmET1zlwvhlVi+Qdg3s1691WJxnJkdN49mAktsIDXIgqHCKmG55CTnzgVb8VqCz+THA5iIVUlDNbPzA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785143811; c=relaxed/simple;
-	bh=9Pf42jTYd4BOZWSzwEb2fi7Fbo1AsB7wRyp4TwTJs3s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pE/EEKAhAz8MeqQi8ZdYmFXgCLopt8HqB2uKMR3JhmKIMNZEUBkljLzI8ecD+ygb74IAtbaax7q6a4pO8B1LlS2APnT/DBW3gKyndtpnsOkFHzezGGdsHarHYw0uN+dXvkLwl0oH0q4nxF4YrFlvXrsKwDrMVYV3oC7Jbrc7xtk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=M5biXNmu; arc=none smtp.client-ip=209.85.215.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1785144010; c=relaxed/simple;
+	bh=wfpwvK/QqsszrIXUTMQx1BlD7GDxkr/nIpVx7/VF8MQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=lYxCEJpi5QJIC8mrGLdCnR+OUFeemQsR/Yw0Gd5RwQYH3K4OJ2QrDMjpTJad8q1mL4w1dUZZQ7HfEWf4P8UtJWRiYJ1OMy8+uQStevg7r8ebRRPS6jcevVPTaCvXf3ZUqGCzrXX2jmmy0IBLHxvzF1p1LRa1U3x0UtMzf5Iz9Pk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i6kG3mXT; arc=none smtp.client-ip=209.85.210.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="M5biXNmu"
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cbb8b54fcf8so2395991a12.0
-        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 02:16:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i6kG3mXT"
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-84861fc51f5so1779571b3a.1
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 02:20:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1785143809; x=1785748609; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AETGy+ANMs/4mEVJOXJB8nyO+6HDkmoHxo4KA1OMiIw=;
-        b=M5biXNmu2s++HrtzjMCm9mvwZtBU8t9NVRDDcJio9vSsltp87wBU3oB8y9icut2hra
-         uuskVKoXUUI9YaCPNn3B8TvKPoUIRTJ30NMiMm0uiep+58Q+CklzvN/vhb9kExVYxY+q
-         7l6Dn0OenS4AYEAJeiLeM/OwxoRkBMvxicq94=
+        d=gmail.com; s=20251104; t=1785144008; x=1785748808; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=R6lF8RNa+JcYURNQxf37EbYWdyUKC9TqlnjfVT8UzK0=;
+        b=i6kG3mXTVMIWeqYRBFXQb8TGBUlZzFVxIdt+c7zTSp6wKd3XVRo+nrc5rLp2dJxgbX
+         xQsTdfDXbFa6wgjWOyN768c3SMOrN0mTyPUHgEMIhtDjuIBd4/6Ynz2IxgNlcBnUTVym
+         h6nb3+TjjifiD32aoBYxCTcST+p6njHejC5l3LRr5nmSmuy0OaywsvPxff01XX+hjX+B
+         TcNTrPhDWj9SfNOL7TghpSC3Dtd46Y2/h/nftIbdj02aXV3dnpt7S/X3Iarcys2cpH53
+         dVFKcs0DPCTZqj5GZzvjpiDzQHIV23qUKyKj6O4SA7kzf9nbQ1sAIWaB5xvryyD2Iuvk
+         GBmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785143809; x=1785748609;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AETGy+ANMs/4mEVJOXJB8nyO+6HDkmoHxo4KA1OMiIw=;
-        b=lFoj/DKnp1PdxCyxNsgpU6IHRYxl2lwh41wGwU8zKaTAOFBHDMPJj5SCRkLLMopUdd
-         stZLTb5REVN6wgJ7EOZTz9IHFdDXIasGdK/FTloq+Qr0ZrBG+AVSYUM7f0jfll6/bk9u
-         llhlyFfjqud0wdwFvvyQIyX+E0r33H0Bo517woPWRYuARQVb5fH+GFsX16cRjyX8uHd8
-         zTiUWE6+091twC70DyuEMcRH1xBJMiZ6r9nHpqJgatyiG1NgE51AfjIQcw/3xWym1Ek3
-         qN/6HBaWqPSg1gWRxG8+zLXv2orQBWezsOOpsgpF8G0TAi8DfJfv/J+m7pNqwxcNXhjM
-         Q4QA==
-X-Forwarded-Encrypted: i=1; AHgh+RowVq8AaEj/jvNsD7o0zJuBVxr5m3aDpegpLXa7uH+KlU/q+6B0XNDkmJqRbBSvEq64+MDlwryFuMWT@vger.kernel.org
-X-Gm-Message-State: AOJu0YwK2NS5PS03Dyu/YDmLIHiI3yb+OEjr1JVzDJMzL7/ZjbOOS5Z0
-	PPwjMoVo4nggNUYq5saCJ+uMwh6n1CvYH8Ina7do24j+6rwbKxDLDFKQaXkpjyUaxg==
-X-Gm-Gg: AR+sD13IsKGovYmNVrhGWUeGtkz2K6o/HzUuZYJ/5/T3DqCSR0wnCjlDSI/bgh36aEM
-	mA+oeOCuMuYwFXUn+5Bl0SEnCNoFbXcEQFoiJj6b8GPN6MdlHJ717Wnd/Yvqt0/Y5u6423i///d
-	gD3blx7ry8yOIeJJClCHDPX5GfqeYgWzyBJIwK9/Pc8RYGfuuqyrUwDcw28WNzJ1uQ1wW8WDSIP
-	fEVsNPSrzExBMowLO7RGe+gKXk++IwtVTL6dLdZjnawP9OeUdavoF7u5zgRTIkOCXYuTsCMR0j9
-	a5AwMSETLNZRSrEAjI+7urlA7vuVjgwn+xJUNsnrbxS1YwvjDcHxzMzo20WK8ErY2S+nKGLo02I
-	jlFUcKE2AHnNFKfc+DftyUb/fGTwiyLwpEoPYBAyiLRhR3LT23JOFSx2bL40DHvcJUcCvtsDWQc
-	NcuXctFzDLRfs3+aK//jBZun+NLiYt5V9fFw60H+v0SKH6+Zn7gJrc3OxHtYwV/VzlnJ9j
-X-Received: by 2002:a05:6a21:6f8b:b0:3c3:7cfe:b32a with SMTP id adf61e73a8af0-3c67dd65e16mr7098317637.27.1785143808982;
-        Mon, 27 Jul 2026 02:16:48 -0700 (PDT)
-Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:440:c713:a2b0:6f14])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbbb662329fsm2870049a12.9.2026.07.27.02.16.44
+        d=1e100.net; s=20251104; t=1785144008; x=1785748808;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=R6lF8RNa+JcYURNQxf37EbYWdyUKC9TqlnjfVT8UzK0=;
+        b=nRZAK7Zrhk4ne++JuGjiKTdze9Yz8GLhyDkNv9xDo0p7PlXWYHrmVlFjvSHXTztFZX
+         X/6utMGxmk4XDNRCkvk/XvvDUQoxSszWkzzoEwAnTQ4ylZhJWpCMhfotU6t99SOjqdZQ
+         kQw7+Tw8hvPxSFkO4YEgqd98U4kV5eLN3BdytF0pQ92aqMiQWc9xoLmJLK62yAl9eF3X
+         4dd+yU0ZF477BZprhtnFTxchd0pQyU+JfE+tMMLmY8jbB4/7RlLrBetqwSyNfQzfLzy/
+         LzdzOYUb4c7orqdx6kTDQE3C996IDjFfASGivlivUoCDXLDpC18B0lTEGIClq3XHtudT
+         zx3g==
+X-Forwarded-Encrypted: i=1; AHgh+RoBfNWMVzlrkaE6Wujhv7pGf3SqZIro9F8vhj4EL+o2la3GttwgEsuZJQgZ0leA4B4dO0Nk1IlA8ndB@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxtt2Oif9/PKxUVzuNkLIQlF7Q+G6MaFGcVcpZu+UVlepTF2SDh
+	0mZuFGCoMQAcyHXH2r3NUL9RWQI1L+4U866q4ub4llP924U2ZL3fWg8H
+X-Gm-Gg: AR+sD11WEQNQYLsPitXdh7grQaW0wIt+kzGmbogTVYZKjzycByKpu8wD4a5iprg7czk
+	m3NBg8ar3y9NNa0xBpyjQ8K0NeQ/yAbo9l2JQlKVeg3r3g6TlAP81/xGmERwqfmOXhoSgBRCUg3
+	JcBh4P9C16qogvePhKLb/Wes3sU2CFp2cOTL8oOo/Cj9rQACXBStyQnEkBWQxWU0KExNOSESqnb
+	CEl9zkgEkkwxz0PV72O4FqrAufqXHpIlHIuYzm3GY0x+FvfU9Lw3LtybwbffyPkdHTWVHz7kYUt
+	QUjEqoYf4RcgS0XbEBRvXrq92sUFTEaAOpoLVon0x86LQKQ/FGKtYZZXM+NPWUR25tx8ccfC7Bz
+	zd2I6RzRuHZijbtZAuyob2UZACEJ0XMz5LouEd0sIFPhwYOAbPzvYGTXCYAcX/rk39f7ESDMOvJ
+	uCslKH8/fLuAjzM4JbLtdl7D8haPFlLf1J/tqqU+j+ibDwsF/GMZ5iE1MSK16z7TGD
+X-Received: by 2002:a05:6a00:1783:b0:845:d286:1fb4 with SMTP id d2e1a72fcca58-84e5955a6d1mr5974845b3a.50.1785144008034;
+        Mon, 27 Jul 2026 02:20:08 -0700 (PDT)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e53253b65sm2802645b3a.8.2026.07.27.02.20.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jul 2026 02:16:48 -0700 (PDT)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney@redhat.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Alessio Belle <alessio.belle@imgtec.com>,
-	Luigi Santivetti <luigi.santivetti@imgtec.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Dan Carpenter <dan.carpenter@linaro.org>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	linux-clk@vger.kernel.org,
+        Mon, 27 Jul 2026 02:20:06 -0700 (PDT)
+From: Chi-Wen Weng <cwweng.linux@gmail.com>
+To: broonie@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-spi@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	imagination@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	Icenowy Zheng <zhengxingda@iscas.ac.cn>,
-	YoungJoon Lee <getfeus@gmail.com>
-Subject: [PATCH v3 5/5] arm64: dts: mediatek: mt8173: Add GPU device nodes
-Date: Mon, 27 Jul 2026 17:15:54 +0800
-Message-ID: <20260727091555.1023910-6-wenst@chromium.org>
-X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
-In-Reply-To: <20260727091555.1023910-1-wenst@chromium.org>
-References: <20260727091555.1023910-1-wenst@chromium.org>
+	cwweng@nuvoton.com,
+	cwweng.linux@gmail.com
+Subject: [PATCH v4 0/2] spi: ma35d1-qspi: Add Nuvoton MA35D1 QSPI controller
+Date: Mon, 27 Jul 2026 17:18:31 +0800
+Message-Id: <20260727091833.750051-1-cwweng.linux@gmail.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -92,65 +79,85 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The MediaTek MT8173 comes with a PowerVR Rogue GX6250, which is part
-of the Series6XT, another variation of the Rogue family of GPUs.
+From: Chi-Wen Weng <cwweng@nuvoton.com>
 
-On top of the GPU is a glue layer that handles some clock and power
-signals.
+Add devicetree binding and SPI controller driver support for the Quad SPI
+controller found in Nuvoton MA35D1 SoCs.
 
-Add device nodes for both. While there is supposed to be two different
-power domains to the GPU, MediaTek does not have any information on how
-this is integrated internally. Assign the same GPU power domain to both.
+The controller provides two native chip selects and supports standard SPI
+and spi-mem operations using single, dual and quad bus widths.
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Tested-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
----
- arch/arm64/boot/dts/mediatek/mt8173.dtsi | 31 ++++++++++++++++++++++++
- 1 file changed, 31 insertions(+)
+This initial implementation uses 8-bit PIO transfers and supports
+per-operation clock configuration, clock and reset handling, and direct
+execution of SPI memory operations. DMA and active-high chip select support
+are intentionally left out of the initial driver.
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8173.dtsi b/arch/arm64/boot/dts/mediatek/mt8173.dtsi
-index 556e806b7787..169ba4fd183e 100644
---- a/arch/arm64/boot/dts/mediatek/mt8173.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8173.dtsi
-@@ -1002,6 +1002,37 @@ u2port1: usb-phy@11291000 {
- 			};
- 		};
- 
-+		gpu: gpu@13000000 {
-+			compatible = "mediatek,mt8173-gpu", "img,img-gx6250",
-+				     "img,img-rogue";
-+			reg = <0 0x13000000 0 0x10000>;
-+			interrupts = <GIC_SPI 217 IRQ_TYPE_LEVEL_LOW>;
-+			clocks = <&mfgtop CLK_MFG_G3D>,
-+				 <&mfgtop CLK_MFG_MEM>,
-+				 <&mfgtop CLK_MFG_AXI>;
-+			clock-names = "core", "mem", "sys";
-+			/*
-+			 * Binding and GPU core HW have two power domain
-+			 * inputs, but MediaTek does not have information
-+			 * on how this is done internally.
-+			 */
-+			power-domains = <&mfgtop>, <&mfgtop>;
-+			power-domain-names = "a", "b";
-+		};
-+
-+		mfgtop: clock-controller@13fff000 {
-+			compatible = "mediatek,mt8173-mfgtop";
-+			reg = <0 0x13fff000 0 0x1000>;
-+			clocks = <&topckgen CLK_TOP_AXI_MFG_IN_SEL>,
-+				 <&topckgen CLK_TOP_MEM_MFG_IN_SEL>,
-+				 <&topckgen CLK_TOP_MFG_SEL>,
-+				 <&clk26m>;
-+			clock-names = "sys", "mem", "core", "clk26m";
-+			power-domains = <&spm MT8173_POWER_DOMAIN_MFG>;
-+			#clock-cells = <1>;
-+			#power-domain-cells = <0>;
-+		};
-+
- 		mmsys: syscon@14000000 {
- 			compatible = "mediatek,mt8173-mmsys", "syscon";
- 			reg = <0 0x14000000 0 0x1000>;
+Changes in v4:
+
+* Added minimum 1 and default 2 constraints for num-cs in the devicetree
+  binding.
+* Made the driver read num-cs and fall back to two chip selects when the
+  property is absent.
+* Dropped SPI_CS_HIGH support from the initial driver.
+* Kept separate chip-select helpers for the SPI core and direct spi-mem
+  paths because their boolean arguments have different semantics.
+* Protected SSCTL register read-modify-write operations with a spinlock.
+* Limited spi-mem operations and individual SPI transfers to 4 KiB.
+* Limited complete SPI messages to 8 KiB.
+* Restricted the initial driver to 8-bit words.
+* Added defensive transfer-size validation to keep the PIO polling path
+  bounded.
+* Kept bidirectional data pins in input mode during dual and quad dummy
+  transfers in the generic spi-mem fallback path.
+* Treated zero tx_nbits and rx_nbits values as single-lane transfers in
+  the generic SPI path.
+
+Changes in v3:
+
+* Fixed the DCO mismatch by using a consistent author and Signed-off-by
+  address.
+* Added spi_controller_mem_caps and enabled per-operation frequency
+  handling for spi-mem operations.
+* Added a short delay after requesting FIFO reset before polling reset
+  completion.
+* Documented that the controller generates one RX FIFO entry for each TX
+  word in single, dual-output and quad-output modes.
+* Added the missing linux/delay.h include.
+* Removed unused register bit definitions.
+
+Changes in v2:
+
+* Updated patch subject lines to follow SPI subsystem style.
+* Added a commit message to the devicetree binding patch.
+* Added ARCH_MA35 || COMPILE_TEST dependency to Kconfig.
+* Expanded the Kconfig help text.
+* Converted the driver file header to C++-style comments.
+* Added reset control handling.
+* Added the resets property to the binding.
+* Added a num-cs constraint to the binding.
+* Removed the flash child node from the binding example.
+* Used op->max_freq for spi-mem operations.
+* Split low-level chip-select register handling from the SPI core callback.
+* Limited spi-mem command opcode length to one byte.
+* Forced spi-mem operations to use 8-bit words.
+* Avoided driving bidirectional data pins during dummy cycles.
+* Drained RX FIFO entries during transmit-only transfers.
+* Rejected invalid chip-select numbers.
+* Rejected unsupported dual and quad full-duplex generic SPI transfers.
+* Fixed checkpatch style issues.
+
+Chi-Wen Weng (2):
+  dt-bindings: spi: nuvoton,ma35d1-qspi: Add Nuvoton MA35D1 QSPI
+  spi: ma35d1-qspi: Add Nuvoton MA35D1 QSPI controller support
+
+ .../bindings/spi/nuvoton,ma35d1-qspi.yaml     |  63 ++
+ drivers/spi/Kconfig                           |  10 +
+ drivers/spi/Makefile                          |   1 +
+ drivers/spi/spi-ma35d1-qspi.c                 | 658 ++++++++++++++++++
+ 4 files changed, 732 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml
+ create mode 100644 drivers/spi/spi-ma35d1-qspi.c
+
 -- 
-2.55.0.229.g6434b31f56-goog
+2.25.1
 
