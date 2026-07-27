@@ -1,182 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B62F41B8CC
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 14:40:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DE9341B8F9
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 14:40:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785163208; cv=none; b=kgawsCXODNK8VPZ2iqMcwXe+iFQcZKP6l5H4ph0QjgccMCFqjZuDUEOJdl3mtKgoQ9g5LfVcgJn25Wss9iUWcRQlnSR3tmCuwtBvUQhWcBwwUs9BefSSoA8LHBYusw33GwfQk8zmRQDkKfzvwz+om+M/VO+xHpHx0v1QSZPIvfg=
+	t=1785163231; cv=none; b=ge2LkUu3JKmw9VvwqJIqHf12Zd7W3tFE4YuQVM9rtV9wfkGZDPgGz+nPWkxEHHEihYQHuJs0531cKHIb5rkLdJ6m+Lv4PuVe4XkY2h+HY/fqyg6mHyflJeSjCSo0E6UoKcSExna5VZGeWZRXm1pZmXIxHgNK1s8WFXLtgk+Yt7I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785163208; c=relaxed/simple;
-	bh=Mb/OywHRRxJFzoPVYpcYCJ6nlcjVRaXVXR4wMKAXY1E=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=TpRu8JvOE2/73X50YiBugNp6CXrV5rk1JA2G645uyCdkL7F4MgTjAiPScnFOfb1OhgfS1FxaAhoSLkEZAOfXFsT8WFw4iXis1EL8fSxqD9pe8om/8G6lsaPzPVYFn9nBTOsb6YHiEX4K+1jxnU6MeBASpXTIC7tg5Kk+4MR0wiw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C9Bf7PcN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785163231; c=relaxed/simple;
+	bh=GkGLWRBVPs/nmA3hEmanxLkmBU7gAjvtEPfAEMBLiQg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aPUYkunqI+1GSARKYYlzawIn7Sp/HxBjUhodRJ0QNT5tcrJBMzrm5Ztcz871VRsLMKvltApcdP3/hJOVTT27R+fvYtrG2FOLGeFVgL3Q0WuQrH0ktbWVZo8dpEvFiKtHm9FWoCwYUkok8xXXLkfQEP/vsWb3c1W+yuDppUtY+DM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d69dyCDv; arc=none smtp.client-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C9Bf7PcN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F28421F000E9;
-	Mon, 27 Jul 2026 14:40:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785163206;
-	bh=T8po+dRBArq3fCWJzo7VUTplD4n19YbbuKLOOj2GM+U=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=C9Bf7PcNUNaXO3tADSzhQNGJxcBSkbR82LFIJbF4q9Q3M/tN2hShMOLswHNgjK86L
-	 8JxFuP5r2jsz/cFG0bA5AhQG37CJ1lq33hCNKSlSVMsM7SV9l0ASPHltlcfVtyRcog
-	 XGWWBv6QxcKK9pIS+aDLXJ9FPM0M3eddq7u8rkiia0pXuETxZ67DySjQpM9RVqI8Ux
-	 1kzlLPp6NcAvKseUuzKyws/L4jv5y4LWP4UpkI86mzAwKZRLdI8G5HTjMNv0c1PA+1
-	 Ly1zWcW5GwgmzI4wtGcm+1vOxI2yGTQ0navfBvk95J18X2xg7KVarAjP8KF6xMfstP
-	 PnPgmFICbXB5Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/9] soc: qcom: Add QMI TMD support for remote
- thermal mitigation
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Gaurav Kohli" <gaurav.kohli@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260727-b4-qmi-tmd-v6-2-973cd3a226af@oss.qualcomm.com>
-References: <20260727-b4-qmi-tmd-v6-0-973cd3a226af@oss.qualcomm.com>
- <20260727-b4-qmi-tmd-v6-2-973cd3a226af@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 27 Jul 2026 14:40:05 +0000
-Message-Id: <20260727144005.F28421F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d69dyCDv"
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-ca957432c7fso2008343a12.1
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 07:40:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785163226; x=1785768026; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Y7GYu6iHHA83MEJE5lfFciA6n+k6vBppJrk9mCjfmqk=;
+        b=d69dyCDvoPYBpcDdffOzicZIx9W0PFkQ/thfF/v1KosfF6/FoYt1oW8cX3/FLaHN76
+         aIRaWl9l/y4qheTUZWQVI+trlrEiqn30+thsQAsD+1ca2BE7AuWHc15LjYk+U3kKG/he
+         og47HS4eVufjcu1wl4ohKMTbJp6M9qKpharYbahpHAUTsFABzDgx7f1ZxFOda2yRk5gA
+         VBnUmS+nfGoTInd/F39i/mRwJC+1BaQcQbvvn7cQTPcF3mIlyug6pF2hH5Wtu33Otdi8
+         fD+jGmiKq34cRZhTLdfNPRnRpAUvWzF7fhI6xFClcK+XQf3dYGmPkugD40fdMTkbjqe7
+         t8zw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785163226; x=1785768026;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Y7GYu6iHHA83MEJE5lfFciA6n+k6vBppJrk9mCjfmqk=;
+        b=n/15/f6wB14snj7L2/f3J3mqidjmkAO8J9IN2MrE7X6D5aK2h12P4b7xu/DJ9KELnv
+         pQutVH0/lHCoVBwEDbt7+kzS7ej4A235dCNbstO/felkXnQX5bbjW84rORaJXlnIkC7N
+         LlU4j7mxIiX1xHu0kCrTy7Wjzn1sGhMeF+wW7Hi3IER4PVdmECvrVcJnmP6q9eXwuZO+
+         PH3l7LI8spbl2i5DMxdfWG3v59KL1lIuVg0MNHPiESBUHSPGmosezDRqmzOZAPNSKNiG
+         c3Jz9TJGy+N4tbNuzQpMOq4Vn7W4fg3kokopFZcei6ru4QaRPpfc/BwvzBqys3NUoCX0
+         jV/g==
+X-Forwarded-Encrypted: i=1; AHgh+RrposaWf3v3zqZN6paWAKcBkh2NHt8H95iFlNgYFv5b99gCS17z4aW6YVaR/XxuePQgMYe1ypjnXMJF@vger.kernel.org
+X-Gm-Message-State: AOJu0YzeKa3BTJCB50pG9weCN3OoSg8QQC/oNB0uobhNsF3hqZqHoU8I
+	q48vevt7OqnzL6vbJFKRRPjo4TpUVxp1cdrZcV0fGs1oYYJQRCVaZ+I9
+X-Gm-Gg: AR+sD10LARGxQ17yNZQFBn9dzE0Ozn9LTqdiP5kI9raK8rC5owPBRE2pR4oHtAPMh08
+	PKBf0areYTV5l1e04Y1rrni+Mem5Wn7pnE7JktkrD5Y8uEaR68hn7uo4h07XwLYYXfdwEoBwpLM
+	q8tLM5qLHRIlG2iVTqyKEv2w1lsv6m4Z08pffAEbnKznGbTGvg7sBhh9QgvqTnFT+7axn8cj15G
+	mEdn9xAsz+iK9R/5DsHNmgTdfTTqX7aCUJfb4C1/eN9RX+55KhD0OoVYrJjI0j69HandT91LMOH
+	adfQGSOBigbvpMeic1tfE2xr/RTXl3m0MAm3tLaehg+h4rltMWiTBVQLBmr6f2qpPlYYZGKrm0p
+	MKrIphfCRRnJ+UDK9l1MDqNDoGiEvV/2KJBJ8VUgUvCpOZ+20+P8oGXpJk1G9BlrCkxZsdFmZd3
+	rhYsuOJif+P6TERRM=
+X-Received: by 2002:a05:6a20:c98d:b0:3bf:6f30:1ccd with SMTP id adf61e73a8af0-3c67e071b78mr8053339637.42.1785163226131;
+        Mon, 27 Jul 2026 07:40:26 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-314bc59cfb4sm32413945eec.26.2026.07.27.07.40.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Jul 2026 07:40:25 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Mon, 27 Jul 2026 07:40:24 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Andy Chung <Andy.Chung@amd.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v5 1/4] dt-bindings: Add vendor prefix for Kandou
+Message-ID: <39ede8d1-751b-442b-bdec-b62368e79784@roeck-us.net>
+References: <20260724-kb9002-upstream-v5-0-9523c3ffe83a@amd.com>
+ <20260724-kb9002-upstream-v5-1-9523c3ffe83a@amd.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260724-kb9002-upstream-v5-1-9523c3ffe83a@amd.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Unprotected read of `tmd->cur_state` during QMI reconnect can caus=
-e the remote mitigation state to permanently desynchronize from the thermal=
- core.
-- [Medium] Data race on `tmd->max_state` between the QMI worker and thermal=
- core callbacks.
---
+On Fri, Jul 24, 2026 at 12:47:37PM +0800, Andy Chung wrote:
+> From: Andy Chung <Andy.Chung@amd.com>
+> 
+> Kandou AI is the vendor of the KB9002 PCIe retimer.
+> 
+> Signed-off-by: Andy Chung <Andy.Chung@amd.com>
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
---- Patch [2]: [PATCH v6 2/9] soc: qcom: Add QMI TMD support for remote the=
-rmal mitigation ---
-commit 8a125ac63b99f7508e9f1e7c025b0c0da679cac6
-Author: Casey Connolly <casey.connolly@linaro.org>
+Applied.
 
-soc: qcom: Add QMI TMD support for remote thermal mitigation
-
-Add support for Qualcomm Messaging Interface (QMI) based Thermal Mitigation
-Device (TMD) cooling devices provided by remote subsystems.
-
-> diff --git a/drivers/soc/qcom/qmi_tmd.c b/drivers/soc/qcom/qmi_tmd.c
-> new file mode 100644
-> index 0000000000000..555f2aff1ac0f
-> --- /dev/null
-> +++ b/drivers/soc/qcom/qmi_tmd.c
-
-[ ... ]
-
-> +static int qmi_tmd_set_cur_state(struct thermal_cooling_device *cdev,
-> +				 unsigned long state)
-> +{
-> +	struct qmi_tmd *tmd =3D cdev->devdata;
-> +	int ret;
-> +
-> +	if (state > tmd->max_state)
-> +		return -EINVAL;
-> +
-> +	/* cur_state is protected by thermal core's cdev->lock */
-> +	if (tmd->cur_state =3D=3D state)
-> +		return 0;
-> +
-> +	ret =3D qmi_tmd_send_state_request(tmd, state);
-> +	if (!ret)
-> +		tmd->cur_state =3D state;
-
-[Severity: High]
-Can the remote mitigation state permanently desynchronize from the thermal
-core here?
-
-If a remote QMI subsystem restarts, it triggers qmi_tmd_svc_arrive() and
-qmi_tmd_register(). Concurrently, the thermal core might update the cooling
-state via qmi_tmd_set_cur_state().
-
-In qmi_tmd_set_cur_state(), the request is sent first, and tmd->cur_state is
-updated afterwards without holding qmi_tmd_cli->mutex. This creates a window
-where the state has been updated on the remote device, but tmd->cur_state
-does not yet reflect the new state.
-
-Could the following sequence occur?
-
-CPU A (thermal core)
-qmi_tmd_set_cur_state()
-    qmi_tmd_send_state_request()
-        // acquires and releases mutex, sends new state
-    <preempted before updating tmd->cur_state>
-
-CPU B (reconnect work)
-qmi_tmd_register()
-    reads tmd->cur_state (which is still the old state)
-    qmi_tmd_send_state_request()
-        // acquires mutex, sends old state
-
-CPU A (resumes)
-    tmd->cur_state =3D state;
-
-If this happens, the remote device would be left running with the old state,
-while the local thermal core tracks the new state. Should tmd->cur_state be
-read and updated under the protection of a lock?
-
-> +
-> +	return ret;
-> +}
-
-[ ... ]
-
-> +static int qmi_tmd_register(struct qmi_tmd_client *qmi_tmd_cli,
-> +			    const char *label, u8 max_state)
-> +{
-> +	struct device *dev =3D qmi_tmd_cli->dev;
-> +	struct qmi_tmd *tmd;
-> +	int index;
-> +
-> +	for (index =3D 0; index < qmi_tmd_cli->num_tmds; index++) {
-> +		tmd =3D &qmi_tmd_cli->tmds[index];
-> +
-> +		if (!strncasecmp(tmd->name, label,
-> +				 QMI_TMD_DEV_ID_LEN_MAX + 1))
-> +			goto found;
-> +	}
-> +
-> +	dev_dbg(qmi_tmd_cli->dev,
-> +		"TMD '%s' available in firmware but not specified in DT\n",
-> +		label);
-> +	return 0;
-> +
-> +found:
-> +	tmd->max_state =3D max_state;
-
-[Severity: Medium]
-Could this write to tmd->max_state cause a data race?
-
-This assignment in qmi_tmd_register() is executed from a workqueue when
-the QMI service arrives, but it does not hold a lock. Concurrently, the
-thermal core can invoke qmi_tmd_get_max_state() or qmi_tmd_set_cur_state(),
-which both read tmd->max_state without holding shared locks.
-
-While tearing might be unlikely on most architectures, could this
-unsynchronized read and write trigger KCSAN warnings or lead to undefined
-behavior?
-
-> +
-> +	/*
-> +	 * If the cooling device already exists then the QMI service went away =
-and
-> +	 * came back. So just make sure the current cooling device state is
-> +	 * reflected on the remote side and then return.
-> +	 */
-> +	if (tmd->cdev)
-> +		return qmi_tmd_send_state_request(tmd, tmd->cur_state);
-> +
-> +	tmd->cdev =3D thermal_of_cooling_device_register(dev->of_node, index,
-> +						       label, tmd, &qmi_tmd_cooling_ops);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727-b4-qmi-tmd=
--v6-0-973cd3a226af@oss.qualcomm.com?part=3D2
+Thanks,
+Guenter
