@@ -1,192 +1,250 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 670B03EC6B5
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 10:05:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C8B93F65EA
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 10:07:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785146703; cv=none; b=osA1vhqPsjpNW0Ut00rFLeyHiOpaoAA1alR4uXRoVGhb0FjpjjWgC4uoqS5cS6wu8sjWe3vX1sIT5ITF4jSgOKXBb5KHNtrh9zF5EvfquYNXBM/VJtqpLOof++ZvbBJ9aRszxAjE0da/Kt1yEqMV+KcUSYY864/ZasMg2/c8Z04=
+	t=1785146852; cv=none; b=iRXmaoVHVMOx3DW5fYI8cQ0T/C44sN65dd/kjkjL/MlxuE8U6X6pG/ftOS5F9YIxcZ+pEZ0oYJs+5eHuhHQaFwkqNeYx7Pr9T8/+KJOcgTh9i7cBFwSvN6CkFbAn2blhpwzUvwpR23xKrh2W00034ismM4IaVCuZp/Yg+1br+D8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785146703; c=relaxed/simple;
-	bh=gzY8Akr0dKM9rpDCBTxjqyvNGVIaIqOJiVO8xNiZPcY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pU/KxfTqywUbBTDmnkRlYYWSo5Fl2b6DtFk8h6j2CzKvoGYfkj4UGt228C4T/QFayNzRNbxLsxzaBNMHZlkMRnNx8EWfqGbEHTwZZduRJbBOKctxjPcRwFvzo3wVVQ5H2j9qcYoY2u9350c/vkWQJA7Rgvv3ozMp7K8RyF7ztIw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jt616MWO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785146852; c=relaxed/simple;
+	bh=E15XfPG0XLJ/CQ6hsaGL76B/E+9/n45ilK578TAed5E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Hww/EZzqbIdL2kZWSPeYjHRDK22yyB5rk8fTgyZ6kyjC3QbZpwKnRHgf1lZXWzii5Nq6oEhaCTZ676TEBESW1GQoSWUPbBWUxIbCgqiePaGaJWhLTVT9HLUp2hVPZJ8lp3Qjmy5pNk2LnyutIxDxAmCP81yG0XU5xBU4wf10ulc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=phq/sV4b; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Y0vcZT7E; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jt616MWO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36D731F000E9;
-	Mon, 27 Jul 2026 10:04:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785146699;
-	bh=aRzd3jz/bDaiK05/fg3Gqlphw4OUNqs34yo1ELPYIIA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jt616MWOCotUIIoMWHmXv2+0J3T6n7uFff60jq/Nq2UOubmARzQ5UYPyynokzBHQd
-	 yhsRWvc+pjgQB4n8xVBxc8p+frF9ZMC57XPf1tLUD3wOxNtZl0m1bSiqJiyI/H4Hj1
-	 a+stmtRSpkFlb2wCDxloSPVcpYPT/3drEdtWZqB0HOeYdPjz1T2U8f1bYN+1SoFBPp
-	 eNNaxzOEl7PmA6yOAyS8Be77y7AXm7nV6MjgUPXkeJbCmc/rM/A6ni9xdmq2zaOeb8
-	 BsbsgWg/Un8rh9YV1ygSlgScOv1U0E4xzQFfbwgpq0nBtiPmG3SGXHhS30tISD1r3H
-	 TzBFURjQLZhJw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] riscv: dts: spacemit: k3: add USB controller and
- USB phy support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Inochi Amaoto" <inochiama@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260727094726.890179-2-inochiama@gmail.com>
-References: <20260727094726.890179-1-inochiama@gmail.com>
- <20260727094726.890179-2-inochiama@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 27 Jul 2026 10:04:58 +0000
-Message-Id: <20260727100459.36D731F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="phq/sV4b";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Y0vcZT7E"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66R9bUQO3545730
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 10:07:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	S1N2mWIMe9XAYKGa9HXnaqIztknAlWljoYw1v6FDc68=; b=phq/sV4blnifXumr
+	8eBPUZfxbQqSY8HaTuCiy+ruRUfE5p306L0K/W7JZe/+3TBS+jTpDDDGOtHgHQ83
+	y7qk/FqNvdhNrWUV2Vm2OmEJYYhYa3CWP/Akp3hKLD2cqzww75wg3OWrjA+6r4dN
+	n70NxaqUCLTxLUV14KwjOrBAHTinl7P6v+n9UiJRDJVhe9QvmmnUhJZgReh52mfV
+	K2nh3N9UyZawn5al6zx0oOWMpCroUV2jw4suvjVofsxtcG5ls1pPORzm9ZnX814O
+	w8Pl3d82HHchd/i9dUoWi2DGuiRKqv9/uAywnDJAljGtJVicl1A66olwVpBxdUO1
+	ekupzg==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fp4mrr5ug-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 10:07:28 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51e9d892f0dso8336161cf.2
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 03:07:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785146848; x=1785751648; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=S1N2mWIMe9XAYKGa9HXnaqIztknAlWljoYw1v6FDc68=;
+        b=Y0vcZT7EC8lwdWwK6SES/IPvVGNTL/IKD8Ee+8xRr03HBeDmnocfvl/M0LCsdM/Tcm
+         W3Ad65xjDAME4LWdezO09u/exX+hHgb25Lxpu4XNbNoaTDj7xsf/a9eAuehgOEQkoxwM
+         Y6C2lY33X02GUG8PDtW3+cQTFT4gTt2U8BTfjvTlU6WIOGE/Jq3ywmbpYVVA8ZA1M+e5
+         e0tXq7wwxyh4Vi04DokJWIYIkvosMaEgPmOBpIf8PjdioeBo1G767Aj6cxbLRkUvZSQa
+         KTnG3p8JGUNBJa2/JKXEhivj9AnejeuvPUmrXdBA0Gd5AYHb84lW9WdCgjlJibuF0P7M
+         v6iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785146848; x=1785751648;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=S1N2mWIMe9XAYKGa9HXnaqIztknAlWljoYw1v6FDc68=;
+        b=pYwFGLQ1Kzj4Lsk/L9bwe6UUuFWAteVLbTrBw17bTO9+iwoL6SR50PQNO97+oSYIMR
+         33pwKe83krljLydBZiVpHWHwQiC/i+Wj3a28WtWDGM6O1y3ijMWpJJh7AL2GEPmoCZyv
+         zFGhI2/yDeuNuE8Rpa0lwEhfb9BWpzLLTONGiJcJRplTZP/5EPINy5QBkmh+uzg84Al9
+         gh4SJTXEAX69/zxACCZLu2iu7xmuwvWH0a3rN0TCEm0mM4kQ3AdAmHYNlvmmLrI6sGQp
+         0irvZ1uvRFnQSTtEJnB2NedrEFceR2VTqC0+n0NW66Zs5YJ8OmFX73XPyPfL3PhC0gBS
+         R1Gg==
+X-Forwarded-Encrypted: i=1; AHgh+RqOdD5FMZGfj2vHyK8DBQbfslzCDLah8VAUHjJhHjI3dmPIBJxJTBOeDv0B8oatZQrZ3mul8620q8Up@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw3oFtvRqZplxZOQ3B7Tkjhfh5xd7zc/t8qutPsvNPLLdo/7JJ3
+	d4vDQH5fmvb9L9Azsbv5qJKFqTaAc50IN8GKhkAUI8XyyRb/UszPiTpeUY7SmPRgt42yVxbScLg
+	vRRlN53bo7Tmx1v+cB6AuQtwmdPZderNYgHGzVHh9qrBnNhEjsUAuDBQvl7bRFfMi
+X-Gm-Gg: AR+sD13T6jcjnwCpEWbBPsK3QI7T5J2YVpSSz/YRyhyfotoc3CNdR9PXVl2dDdGhF3d
+	b54Cmm50stNPOU/h+2MZVvDlWYSCLQ/pb35fhjaHB7KraXrJJJBG5BzV0R6rM+tfOKDBFAuNgSI
+	jt0b8aeCuNM2FvURP/zbXfrfAOQs5HFYtG4KDDndArryTX5ykLcmnHlx+rpl7gARzIYBVYVHVRK
+	0rAEHCbyf3HEHqToO+4HyYkJEtjUr3zylhQgAdzCIw9ZLyrWFCY5kQuz7t1GSv1Q1/OMYHvvnBL
+	9LdT4MMWpLsMlk1ti6z3fA743CdpxVFaYSNBeTW1kRHI4bGR6nCnD/z8+O7YAD4U7+LOtrLEs3r
+	r7FTjIYNhMniJG997AcbeuYUQ
+X-Received: by 2002:a05:620a:2728:b0:930:aff2:b1e8 with SMTP id af79cd13be357-932df77da40mr625325785a.8.1785146847631;
+        Mon, 27 Jul 2026 03:07:27 -0700 (PDT)
+X-Received: by 2002:a05:620a:2728:b0:930:aff2:b1e8 with SMTP id af79cd13be357-932df77da40mr625322285a.8.1785146847138;
+        Mon, 27 Jul 2026 03:07:27 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69fb5746e08sm2376666a12.23.2026.07.27.03.07.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 27 Jul 2026 03:07:26 -0700 (PDT)
+Message-ID: <7ab0655a-52ac-4b15-9223-753c146a9469@oss.qualcomm.com>
+Date: Mon, 27 Jul 2026 12:07:22 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 5/5] arm64: dts: qcom: milos-fairphone-fp6: Add NFC
+To: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
+        David Heidelberg <david@ixit.cz>,
+        Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller"
+ <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Luca Weiss
+ <luca.weiss@fairphone.com>, oe-linux-nfc@lists.linux.dev,
+        netdev@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260726222405.153008-1-jorijnvdgraaf@catcrafts.net>
+ <20260726222405.153008-6-jorijnvdgraaf@catcrafts.net>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260726222405.153008-6-jorijnvdgraaf@catcrafts.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI3MDA5OCBTYWx0ZWRfX/Dwdvir4jHC0
+ Bk22l5udVFRRQH5ompzOhYnnEQcTpreYLR4G5Ae+BeWnYbIfUIc900sir7rU3+znGV5Wodgr/LD
+ NrY7OHNx2jYPui4lN8QeG2NjyZuH9GA=
+X-Authority-Analysis: v=2.4 cv=UYBhjqSN c=1 sm=1 tr=0 ts=6a672de0 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=GYSh3LzNAAAA:8 a=yBwHqnpkDyRxZW_GFQcA:9 a=QEXdDO2ut3YA:10
+ a=kacYvNCVWA4VmyqE58fU:22 a=lWcdFasyL5yHfcDTNXXo:22
+X-Proofpoint-GUID: 0uUBI2Y9it4RF6KDJYc4VobisOI_V-0M
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI3MDA5OCBTYWx0ZWRfX+Fo1C7gkA/tT
+ GZnOqdo6DzkYrhKn/B+uHf3REpJMnkOJPI6WQtt1v/Nks8HSNG0XC5UVL3DmzwKT20tlfH93p6Z
+ fT9rlUYjPPPjN5bMqluOqolNYqW/qSHa/zOZo+R9FwNAPKD9J4zvs/9+dSyGOFYTVR62v8rtplk
+ /5vGNlzvEYk+12DZ1jmEsCJKCJaSusV+HtTl25ySBVViusD3ElTmv62zqCxKudEu7muDrUR1r0/
+ nDlUzOGMT+IOJWmu/e6LkhjHepMff+P6D2H4j5hLawLT+FtXuF0ixvP0Sq/q04eyWJTWjvEWD/f
+ oI/ysn3emnqg90atAa63CoJvsmlnm5/KAm8MF3TUVHf/0RAzQuWXUD/0qVmoG+t5wy40K8if9US
+ ktlE30UXaa8ovl6T/AS7eSvXf3TgsM6pZCzN6gFVEGwdPrTfYEl8cNGtkx78TPKlqLhcaTY4yZj
+ +OFAWEfCU1lmKJnK3dw==
+X-Proofpoint-ORIG-GUID: 0uUBI2Y9it4RF6KDJYc4VobisOI_V-0M
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-27_02,2026-07-24_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 suspectscore=0 bulkscore=0 clxscore=1015
+ priorityscore=1501 phishscore=0 adultscore=0 impostorscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607270098
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-
-New issues:
-- [High] The `spacemit,k3-combo-phy` compatible string is undocumented and =
-lacks a driver, causing the `usb3d` controller to endlessly defer probing.
-- [Medium] The `phy_type` property is ignored by the DWC3 controller driver=
-; the standard `snps,hsphy_interface` should be used instead.
-- [Medium] The `combophy` node violates devicetree layering by defining int=
-ernal SoC routing at the board level, relies on undocumented properties, an=
-d omits hardware dependencies.
-
-Pre-existing issues:
-- [High] DWC3 hardware resets are toggled before clocks are enabled, violat=
-ing synchronous reset constraints.
---
-
---- Patch [1]: [PATCH v2 1/2] riscv: dts: spacemit: k3: add USB controller =
-and USB phy support ---
-commit fc8b62c47a78ea5ec792c1be2a1f162dc04c118a
-Author: Inochi Amaoto <inochiama@gmail.com>
-
-riscv: dts: spacemit: k3: add USB controller and USB phy support
-
-This commit adds USB device nodes to the Spacemit K3 SoC devicetree. It
-introduces configurations for the DWC3 controller, USB2 PHY, and a combo
-PHY, enabling them for the K3 Pico-ITX board.
-
-> diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/bo=
-ot/dts/spacemit/k3-pico-itx.dts
-> --- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-> +++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-
-[ ... ]
-
-> @@ -182,6 +182,11 @@ dldo7: dldo7 {
->  	};
+On 7/27/26 12:24 AM, Jorijn van der Graaf wrote:
+> Add the Samsung S3NRN4V NCI NFC controller on i2c1. Its XI clock is
+> provided by the RF_CLK2 PMIC buffer and gated through the controller's
+> CLK_REQ line on tlmm GPIO6. PVDD is fed from PM7550 LDO20, the rail the
+> downstream driver switches for this chip.
+> 
+> The enable line is routed to the chip's power-down input, which is
+> asserted high to turn the chip off (the downstream driver treats VEN as
+> active-low on this design) -- hence GPIO_ACTIVE_HIGH, unlike the
+> exynos5433-tm2 wiring of the same driver. The pin is pulled up so the
+> chip stays off while the line is not driven.
+> 
+> Assisted-by: Claude:claude-opus-4-8
+> Assisted-by: Claude:claude-fable-5
+> Signed-off-by: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+> ---
+>  .../boot/dts/qcom/milos-fairphone-fp6.dts     | 49 ++++++++++++++++++-
+>  1 file changed, 47 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts b/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
+> index ebdca0e2d2f3..a1b86e4092fe 100644
+> --- a/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
+> +++ b/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
+> @@ -601,9 +601,29 @@ &gcc {
 >  };
-> =20
-> +&combophy {
-> +	spacemit,apmu =3D <&syscon_apmu 0x11>;
-
-[Severity: Medium]
-Since spacemit,apmu defines an internal SoC connection between the PHY and
-the APMU, should this property be placed in k3.dtsi rather than the
-board-level file to avoid duplicating internal topology across boards?
-
-> +	status =3D "okay";
-> +};
+>  
+>  &i2c1 {
+> -	/* Samsung NFC @ 0x27 */
+> -
+>  	status = "okay";
 > +
+> +	/*
+> +	 * Samsung S3NRN4V NFC controller. XI is driven by the RF_CLK2 PMIC
+> +	 * buffer; the chip has no oscillator of its own and gates the clock
+> +	 * via its CLK_REQ line, so the clock must be voted on in response
+> +	 * to it.
+> +	 */
 
-[ ... ]
+This seems like something that's more fitting of the commit message
+and/or dt-bindings (either description: or in a YAML comment)
+> +	nfc@27 {
+> +		compatible = "samsung,s3nrn4v";
+> +		reg = <0x27>;
+> +
+> +		clk-req-gpios = <&tlmm 6 GPIO_ACTIVE_HIGH>;
+> +		clocks = <&rpmhcc RPMH_RF_CLK2>;
+> +		en-gpios = <&tlmm 56 GPIO_ACTIVE_HIGH>;
+> +		interrupt-parent = <&tlmm>;
+> +		interrupts = <31 IRQ_TYPE_EDGE_RISING>;
 
-> diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/s=
-pacemit/k3.dtsi
-> --- a/arch/riscv/boot/dts/spacemit/k3.dtsi
-> +++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
+interrupts-extended = <&tlmm 31 IRQ..>
 
-[ ... ]
+> +		pinctrl-0 = <&nfc_clk_req_default>, <&nfc_irq_default>,
+> +			    <&nfc_pd_default>;
 
-> @@ -438,6 +439,47 @@ soc: soc {
->  		dma-noncoherent;
->  		ranges;
-> =20
-> +		usb3d: usb@81a00000 {
+You can create a group of pins (see below
 
-[Severity: High]
-This is a pre-existing issue, but it directly affects the initialization of
-the newly added usb3d controller here.
+> +		pinctrl-names = "default";
+> +		pvdd-supply = <&vreg_l20b>;
+> +		wake-gpios = <&tlmm 7 GPIO_ACTIVE_HIGH>;
 
-The core hardware sequencing in dwc3_generic_probe() asserts and deasserts
-hardware resets before enabling clocks:
+Please group the -gpios properties together
 
-drivers/usb/dwc3/dwc3-generic-plat.c:dwc3_generic_probe() {
-    ...
-    ret =3D reset_control_assert(dwc3g->resets);
-    ...
-    ret =3D reset_control_deassert(dwc3g->resets);
-    ...
-    ret =3D devm_clk_bulk_get_all_enabled(dwc3g->dev, &dwc3g->clks);
-    ...
-}
+> +	};
+>  };
+>  
+>  &i2c3 {
+> @@ -825,6 +845,31 @@ &tlmm {
+>  			       <13 1>, /* NC */
+>  			       <63 2>; /* WLAN UART */
+>  
+> +	nfc_clk_req_default: nfc-clk-req-default-state {
+> +		pins = "gpio6";
+> +		function = "gpio";
+> +		drive-strength = <2>;
+> +		bias-disable;
+> +	};
+> +
+> +	nfc_irq_default: nfc-irq-default-state {
+> +		pins = "gpio31";
+> +		function = "gpio";
+> +		drive-strength = <2>;
+> +		bias-disable;
+> +	};
+> +
+> +	/*
+> +	 * Pulled up so the NFC chip stays powered down while the line is
+> +	 * not driven (it is the chip's active-high power-down input).
+> +	 */
+> +	nfc_pd_default: nfc-pd-default-state {
+> +		pins = "gpio56";
+> +		function = "gpio";
+> +		drive-strength = <2>;
+> +		bias-pull-up;
+> +	};
 
-For synchronous bus architectures (AHB/AXI), does the clock need to be
-actively toggling for the reset signal to propagate through internal
-flip-flops? Toggling a synchronous reset while the IP's clocks are gated
-might mean the hardware ignores the reset, leading to a synchronous bus
-hang or initialization failure.
+You can group them into something like:
 
-> +			compatible =3D "spacemit,k3-dwc3";
-> +			reg =3D <0x0 0x81a00000 0x0 0x10000>;
-> +			interrupts =3D <149 IRQ_TYPE_LEVEL_HIGH>;
-> +			interrupt-parent =3D <&saplic>;
-> +			clocks =3D <&syscon_apmu CLK_APMU_USB3_PORTD_BUS>;
-> +			clock-names =3D "usbdrd30";
-> +			resets =3D <&syscon_apmu RESET_APMU_USB3_D_AHB>,
-> +				 <&syscon_apmu RESET_APMU_USB3_D_VCC>,
-> +				 <&syscon_apmu RESET_APMU_USB3_D_PHY>;
-> +			reset-names =3D "ahb", "vcc", "phy";
-> +			phys =3D <&usb3d_u2phy>,
-> +			       <&combophy 4 PHY_TYPE_USB3>;
+nfc_default_state: nfc-default-state {
+	nfc-clk-req-default-pins {
+		gpios = ""
+		...
+	};
 
-[Severity: High]
-The spacemit,k3-combo-phy driver does not appear to exist in the tree.
-Because the dwc3 controller explicitly depends on this PHY via the phys
-property, will devm_phy_get() indefinitely return -EPROBE_DEFER and
-prevent the USB controller from ever initializing?
+	...
+};
 
-> +			phy-names =3D "usb2-phy", "usb3-phy";
-> +			phy_type =3D "utmi";
-
-[Severity: Medium]
-The Synopsys DesignWare Core (DWC3) driver does not read the phy_type
-property. It strictly relies on the vendor-specific snps,hsphy_interface
-property.
-
-Could this cause the controller to silently fall back to suboptimal
-hardware defaults instead of the intended UTMI configuration?
-
-> +			snps,dis_enblslpm_quirk;
-
-[ ... ]
-
-> +		combophy: phy@81d00000 {
-> +			compatible =3D "spacemit,k3-combo-phy";
-> +			reg =3D <0x0 0x81d00000 0x0 0x600000>;
-> +			#phy-cells =3D <2>;
-> +			spacemit,apb-spare =3D <&pll>;
-
-[Severity: Medium]
-The spacemit,apb-spare property appears to be undocumented and points to
-a clock controller instead of a syscon.
-
-Additionally, this node maps 6MB of register space but omits the clocks
-and resets properties. Are these properties required to safely access the
-memory-mapped IP block?
-
-> +			status =3D "disabled";
-> +		};
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727094726.8901=
-79-1-inochiama@gmail.com?part=3D1
+Konrad
