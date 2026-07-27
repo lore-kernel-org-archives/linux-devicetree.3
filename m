@@ -1,99 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45CED1A6822;
-	Mon, 27 Jul 2026 00:52:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A69B3134CCF;
+	Mon, 27 Jul 2026 00:59:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785113550; cv=none; b=qsKn/709sShCLaGw/OJi+3OcLsVNHKM6lh7p5NYXLATSoL+SVsNYhJF48TdV90ojRwZehVji7+hffo7Wqi405u0M8zNGYtcR0CY3mIcIB4xDnmGk358jw9BT85wU/xcYrkB+B17zypNkdzUdX83apZDVxPjm0LYBgPEsDJ43YEY=
+	t=1785113986; cv=none; b=Co0dKz+hQ+eI1Q0FTafl1j/AmhMprLpQvFX89phjkhja5+7rIbzurpgLZheDXLx5AIy1rLELqc5TlBmVykTRSeRPGsBf92cO3/BSs61CSvDOQ8mjWziTf34iqyZuL1CmcDWe9Px53p2LQKxztSqhDX4CiGFcw6+3MAmCevQ3oYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785113550; c=relaxed/simple;
-	bh=A51KEZuvb3X0JeoHjI1ToaXcWR4tDaIsa4K3tghPvnA=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=sn4dsvLzPu3wSgE4hpXENjWJqicgsb2fSf/uUx+Ge7SpylEkxbU/Wfvs26tJewbmw8nQu5JI6akBNYaB+OypdEJROu0ksVhVCk4f8ykDVS8X8nqliPm6+p0lY+oMTDX13d6mo1OSCcYy6u624eiW3LLNzT7enaJTWlDSxLydnao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=APGD99wi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785113986; c=relaxed/simple;
+	bh=Wem6sNRnY30doJw+U7poipVgShNMLZwf2O/edq87Z4c=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=N1s8aI/yMqPy3C7ZfbJILd5QufQ0VhHUtCOPgRO90Lh0/Qy1iuugauqmtfQjMs9YS3evFXm3NkuD+FIkcORwPNld5+Iytx0HetFK9oPBGgtFg4oSS4r0MecYU2GiVt+gL4qJi7LKSheexaJ98D02r2Albyh5BNYyjthOdtGvRWU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=YAF55WGK; arc=none smtp.client-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="APGD99wi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F386F1F000E9;
-	Mon, 27 Jul 2026 00:52:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785113548;
-	bh=m8Fgs7nD3L3OEGwH+pO1pq4WPtbVz8J49EoQInWXpII=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=APGD99wi4NR67bnMGn0TRg58B50xvd0lt2/ESAeNJt9KkHLlOOdm2ixRimNoN2UE8
-	 M1vs0EO8qymmrn33r65AqGmVhdcJywGsFiSaK37WppvH96IL6KJL/HOZu4yxY/vdfJ
-	 N/L/AtyjGuz/FJiXK/YFx5LVethMw5ZG7QLvPyg5cL0gXYettSpifrdIY6v+su8SZx
-	 jxw08Cezbab62kjmJH6J7TuPPF/Dl7rbMmJmunFNzgDqk9D8GGTAw96jKKvFhC81XL
-	 VEdb09rQQwQAyMfP5ixsc8bMioa2nlF9DXxw6TOpjXmymyv2yzR6uOoesAG3x3oRSG
-	 aqcqo5LykSOxw==
-Date: Mon, 27 Jul 2026 01:52:25 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Siratul Islam <siratul.islam@linux.dev>
-Cc: Lukas <lukas.metz@gmx.net>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] iio: dac: dac8163: Add driver for DAC8163
-Message-ID: <20260727015225.53e116c8@jic23-huawei>
-In-Reply-To: <1E57F5BA-1864-4644-932D-3612AE7B1AB5@linux.dev>
-References: <20260708-dac8163-work-v2-0-3acd1bf20182@gmx.net>
-	<20260708-dac8163-work-v2-2-3acd1bf20182@gmx.net>
-	<e84c4e047e104cca9b88dda791997ceecba1204c.camel@linux.dev>
-	<amYVZtbxu4fjhBkx@berta-MS-7693>
-	<6b3f1b6188afbb8ebf9576274894b5ed292eca92@linux.dev>
-	<20260726191833.67dcfac2@jic23-huawei>
-	<amZV_2_dsNZmp7Bb@berta-MS-7693>
-	<1E57F5BA-1864-4644-932D-3612AE7B1AB5@linux.dev>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="YAF55WGK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1785113974;
+	bh=Wem6sNRnY30doJw+U7poipVgShNMLZwf2O/edq87Z4c=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=YAF55WGKe7CUjz1wzdmUr4eKEYEB/bTanhieEjBYhte6/JxqrMNyHj4DHHrQJO6Mb
+	 uhRXTx0SRTtXm2QRG7uNzmWwz8rs6J/6icb7XJ13zvNDka+DxeBb6XNAmb5C0pHkkw
+	 1OEx9jTmZY+Z2x4pOyEqUDW/v+y7aDH+Lytxj9bVqjyVKhU4aLMVy9vBsgYZYIa+jV
+	 lQOTiXwT3JYda5B9Gpflk6ncUO3n3votu1DGyCJeDVPATB31ahaZPNB13BXldO1ZqJ
+	 HHgL+A3/f3gZBMebZgTwtIK9Wz74lPrvo13awshfc6LuP1owwpVdqyeO7eNlLO3lTk
+	 ldqBNxkAOD+Xw==
+Received: from [192.168.68.117] (unknown [180.150.113.112])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 2D322608E3;
+	Mon, 27 Jul 2026 08:59:32 +0800 (AWST)
+Message-ID: <3a997fc11b172a5b93cb04307a6ad2bdfd5845cf.camel@codeconstruct.com.au>
+Subject: Re: [PATCH v8 2/2] ARM: dts: aspeed: ventura2: Add Meta ventura2 BMC
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: Kyle Hsieh <kylehsieh1995@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
+ devicetree@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
+ linux-aspeed@lists.ozlabs.org, 	linux-kernel@vger.kernel.org
+Date: Mon, 27 Jul 2026 10:29:31 +0930
+In-Reply-To: <CAF7HswMG1HWxELQxTSaEWVeWi2Mjk8HpuM18AAVLCV5j_r467Q@mail.gmail.com>
+References: <20260615-ventura2_initial_dts-v8-0-c89f92c80447@gmail.com>
+	 <20260615-ventura2_initial_dts-v8-2-c89f92c80447@gmail.com>
+	 <de6f82c5601a4481e418270171e803340368bd2a.camel@codeconstruct.com.au>
+	 <CAF7HswMG1HWxELQxTSaEWVeWi2Mjk8HpuM18AAVLCV5j_r467Q@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Mon, 27 Jul 2026 00:52:23 +0600
-Siratul Islam <siratul.islam@linux.dev> wrote:
+On Thu, 2026-07-23 at 16:40 +0800, Kyle Hsieh wrote:
+> Hi Andrew,
+>=20
+> Thanks for taking the time to review this.
+> On Wed, Jul 22, 2026 at 7:46=E2=80=AFPM Andrew Jeffery
+> <andrew@codeconstruct.com.au> wrote:
+> >=20
+> > On Mon, 2026-06-15 at 10:46 +0800, Kyle Hsieh wrote:
+> > > Ventura2 is a Rack Management Controller. It is a modular
+> > > device designed to manage liquid cooling systems and monitor hardware
+> > > states within an IT rack. The system uses an AST2600 BMC for manageme=
+nt.
+> > >=20
+> > > RMCv2 serves several critical roles:
+> > > - Detects liquid leakage at both tray and rack levels.
+> > > - Communicates with and controls liquid cooling equipment.
+> > > - Manages leakage events and executes system recovery protocols.
+> > >=20
+> > > Key hardware features include:
+> > > - An extensive I2C and IO expander topology to support comprehensive
+> > > =C2=A0 sensor monitoring and backward compatibility with legacy trays=
+.
+> > > - MCTP over I2C support for asynchronous device communications.
+> > > - A dual-flash design for BMC firmware redundancy.
+> > >=20
+> > > Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
+> > > ---
+> > > =C2=A0arch/arm/boot/dts/aspeed/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=
+=C2=A0=C2=A0=C2=A0 1 +
+> > > =C2=A0.../dts/aspeed/aspeed-bmc-facebook-ventura2.dts=C2=A0=C2=A0=C2=
+=A0 | 2903 ++++++++++++++++++++
+> > > =C2=A02 files changed, 2904 insertions(+)
+> >=20
+> > We now have scripts/dtc/dt-check-style. Running it over the dts with '-
+> > -mode relaxed' yields 49 instances of 'mixed-indent-chars' - these must
+> > be fixed. Further, can you please look at the output with '--mode
+> > strict', address all the warnings that are reasonable, and then discuss
+> > what's left?
+> I have fixed all 49 instances of the 'mixed-indent-chars' formatting issu=
+es.
+> I also ran it with '--mode strict' and addressed the formatting
+> warnings accordingly.
 
-> On July 27, 2026 12:46:23 AM GMT+06:00, Lukas <lukas.metz@gmx.net> wrote:
-> >On Sun, Jul 26, 2026 at 07:18:33PM +0100, Jonathan Cameron wrote:  
-> >> 
-> >> As this has come up, I'd favour just having two static const regmap_config structures
-> >> and picking between them.  Obviously I haven't checked but I'd guess that any
-> >> overhead of extra text data for those is not that different to the extra code of the current
-> >> approach.  Generally if you can make this sort of thing data rather than code it
-> >> is a net gain.
-> >> 
-> >> Jonathan  
-> >
-> >I actually misspoke before. Since all dacxxx3 devices have different
-> >default values (mid-scale varies for different resolutions), 4
-> >different reg_defaults are needed to cover all the devices. I could
-> >define 4 static const regmap_configs and pick between them or go with
-> >Siratul Islams approach.
-> >
-> >Best regards
-> >
-> >Lukas  
-> 
-> If you need 4 of them then it's a bit too much I think. I don't know if it would be acceptable duplication at that point.
+Thanks.
 
-It's still not massive. They are sub 400 bytes each.  At this level I'll leave
-decision to the author on what is reasonable.
+> >=20
+> > Otherwise, there are still some concerns reported against the bindings:
+> >=20
+> > =C2=A0=C2=A0 $ make CHECK_DTBS=3Dy aspeed/aspeed-bmc-facebook-ventura2.=
+dtb W=3D1
+> > =C2=A0=C2=A0 ...
+> > =C2=A0=C2=A0=C2=A0=C2=A0 DTC [C] arch/arm/boot/dts/aspeed/aspeed-bmc-fa=
+cebook-ventura2.dtb
+> > =C2=A0=C2=A0 arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dtb:=
+ /ahb/apb/lpc@1e789000/lhc@a0: failed to match any schema with compatible: =
+['aspeed,ast2600-lhc']
+> > =C2=A0=C2=A0 /home/andrew/src/kernel.org/linux/origin/build.arm.aspeed_=
+g5/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dtb: fan-controlle=
+r@20 (maxim,max31790): 'channel@2', 'channel@5' do not match any of the reg=
+exes: '^fan@[0-9]+$', '^pinctrl-[0-9]+$'
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 from schem=
+a $id: http://devicetree.org/schemas/hwmon/maxim,max31790.yaml
+> > =C2=A0=C2=A0 /home/andrew/src/kernel.org/linux/origin/build.arm.aspeed_=
+g5/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dtb: i2c@400 (aspe=
+ed,ast2600-i2c-bus): Unevaluated properties are not allowed ('aspeed,hw-tim=
+eout-ms' was unexpected)
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 from schem=
+a $id: http://devicetree.org/schemas/i2c/aspeed,i2c.yaml
+> > =C2=A0=C2=A0 /home/andrew/src/kernel.org/linux/origin/build.arm.aspeed_=
+g5/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dtb: adc@48 (ti,ad=
+s1015): '#address-cells' is a required property
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 from schem=
+a $id: http://devicetree.org/schemas/iio/adc/ti,ads1015.yaml
+> > =C2=A0=C2=A0 /home/andrew/src/kernel.org/linux/origin/build.arm.aspeed_=
+g5/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dtb: adc@48 (ti,ad=
+s1015): '#size-cells' is a required property
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 from schem=
+a $id: http://devicetree.org/schemas/iio/adc/ti,ads1015.yaml
+> > =C2=A0=C2=A0 arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dtb:=
+ /ahb/apb/bus@1e78a000/i2c@580/power-monitor@69: failed to match any schema=
+ with compatible: ['pmbus']
+> > =C2=A0=C2=A0 arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura2.dtb:=
+ /ahb/apb/bus@1e7a0000/syscon@0: failed to match any schema with compatible=
+: ['aspeed,ast2600-i3c-global', 'syscon']
+> >=20
+> > Can you please tidy these up?
+> The board-specific bindings have been fixed:
+> - Removed the invalid `channel@X` subnodes from the `maxim,max31790`
+> fan controller.
+> - Dropped the deprecated `aspeed,hw-timeout-ms` property from the I2C bus=
+.
+> - Removed the incomplete `ti,ads1015` ADC and generic `pmbus` power
+> monitor nodes to fully comply with upstream schemas.
 
-If it were me I'd still go for picking between static const structure instances
-when there are 4. Gets more dubious when there are 20+!
+Thanks.
 
-Jonathan
+>=20
+> However, the warnings for `aspeed,ast2600-lhc` and
+> `aspeed,ast2600-i3c-global` still remain.
+> Since these nodes are inherited directly from the SoC level
+> (`aspeed-g6.dtsi`), it seems their YAML bindings are not yet merged
+> upstream.
 
+Yes, it is fine to disregard these for now.
 
-> 
-> --
-> Best regards,
-> Sirat
-> 
-> 
-
+Andrew
