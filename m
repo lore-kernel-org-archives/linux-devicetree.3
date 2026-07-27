@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBA3C41DE18
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 18:09:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75E2F15E5BB
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 18:10:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785175778; cv=none; b=BXSw0BMfq0Vjr+Xt6al9QYf2L38f4XGCxlX1S8aUxx5V1GzovjsLhWbYhMh8olno4LrsH2gFvO/y4VN0MqT8J351hAMNejfGZbdAD8vhdswgIbQA6fJkpFf3Kz+Zul4/vGSEbljMG00j/b/vfcxVZWiPT3X5WfngDefct/NZnQM=
+	t=1785175805; cv=none; b=FYjgqSreke6dBinBZ8ShCXGVLpziyvW3rP0vI7v4dvxvs3QngBaCAOBLMmUp8GqeRo28ok5H5yscAir1QeerRI2UBwZ4si4U5C0CYp3Aq7BmeNNcWvbW2fsoH5isdgm0RsiDEXqYJZsv9ehf38bXzv9yBrpcR4NrOWiYzT0/OtU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785175778; c=relaxed/simple;
-	bh=bkIcs0i+QORQgtDywO+X8RFcbLaeWyjEND953STREf0=;
+	s=arc-20240116; t=1785175805; c=relaxed/simple;
+	bh=KYhDW7cytOTbOYZLx/wBNR97EQhj9mpbfERcmDrSSqs=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bJ9gZVW26rro9Xv/VTAb+jtSTY5VyXjKsTxvrZB4x4+a0M46HPtvHMYdVSQXLR8F36f/3NrkUiFq/piHsV62wF9RKWqM54mVw+xJ0YcxNRhIKTMKFZZy7zK2Y62IWhhtd+qNzjhh8n5wcJ7Sw5vOvuJRXg3faJm65VUUIhf5Qx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UHaSjkGQ; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Y2Q+S2PSp87IQF6ScDgP3sDZoKXsflsJTfuwYGGgX0uHhfKXn/uuK1DFs33dGvzrDQcs/MeP5/nB9NFyVehylTFF11k2IN7pYedIWIl50Taig8JDYcmvGrVVZ1Cfe6zxSyYymryHrqVdPCR8rbeGSY5iGcmvAfGjhUwHF9x5CX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SnaSMUrA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UHaSjkGQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 212DB1F000E9;
-	Mon, 27 Jul 2026 18:09:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SnaSMUrA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C954E1F000E9;
+	Mon, 27 Jul 2026 18:10:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785175777;
-	bh=hlhEa6/8Rh5A8cqGZKS5mpe5bTtIuV/5gRHYMXU9lMc=;
+	s=k20260515; t=1785175804;
+	bh=dCXjCjDL47lHXCXkpGErvgw5LxJiDpBsOM3DVHI2rAQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UHaSjkGQbxn2KpT/X7Zh41vJD3GHMZkCcreXwIG5PNht5+AMyCmSVVKEqoUynSxel
-	 bKeXEhkLHYV9EsXtlTGHmG4s4UrhE8upbH0xVM6ngpMgBNrzROAbdD9d0Vmgh8a1WR
-	 xXfiholLXI/N3AQs5paN24MsLvB/Gdb3RI/q80/5/NXV1P45VrRHFEVhzBU1GuWt0A
-	 T2lbEl96scUDbQKhAskyEFYIPB4xuZOsVMRC2X34OzSTykB4pWy19oYigOYDWnXew2
-	 A3UEt8yUdJdZrnvVBKsJJkYMHZPsi8He5ClMIIsAD3nG1msDXhQXqy+W+PwxfOcCxU
-	 bBY8HJhSX7Hgw==
+	b=SnaSMUrAI46pwF7msWl+ulNQXCaI0x/7qo0N7zvalYjuV4ZbiKUey2F8+cSvV81qZ
+	 tLMVp6R6lhK42qTIxWfE2fC/jp5o597OG9v2oGM55wR8AJ3bkEAomeW0iOpCfJrWGj
+	 ClZ1dRzw5jY7BCDDOvZs4OXfHwuRe9GpcEU1+FyR0TxEzhG4TOKhpe80bUuEz7eOoR
+	 wPWupsGO0jX+gZs0+8TjCMu2F1G+T5jhzVvKHJ517QsbBM561y0FqWFjT+6xPzjzWP
+	 +RMGWcY18TlRKT7icNeshVQ8Kl8H2GPjR16FJQG2M2yNlxZsS6+Vuj2BnTZQ9baqwE
+	 s4GLo2xO0Lzsw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 14/35] pinctrl: airoha: add set_direction() helper
- for gpio_chip
+Subject: Re: [PATCH v8 17/35] pinctrl: airoha: add missed IRQ resource
+ helpers
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260727174141.664933-15-mikhail.kshevetskiy@iopsys.eu>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260727174141.664933-18-mikhail.kshevetskiy@iopsys.eu>
 References: <20260727174141.664933-1-mikhail.kshevetskiy@iopsys.eu>
- <20260727174141.664933-15-mikhail.kshevetskiy@iopsys.eu>
+ <20260727174141.664933-18-mikhail.kshevetskiy@iopsys.eu>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 27 Jul 2026 18:09:36 +0000
-Message-Id: <20260727180937.212DB1F000E9@smtp.kernel.org>
+Date: Mon, 27 Jul 2026 18:10:03 +0000
+Message-Id: <20260727181003.C954E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,75 +48,96 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
-New issues:
-- [High] Calling `gpiochip_get_data(chip)` in `airoha_gpio_set_direction()`=
- before the gpiochip is registered will cause a NULL pointer dereference.
-
 Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but there is a race =
-condition in `airoha_irq_handler()` causing dropped edge interrupts.
+- [High] Edge-triggered interrupts can be permanently lost because the pare=
+nt IRQ handler acknowledges (clears) the interrupt status after the device =
+handler finishes execution, compounded by the static assignment of `handle_=
+simple_irq`.
+- [High] Level-triggered interrupts will cause an unmitigated IRQ storm bec=
+ause they are unconditionally processed using `handle_simple_irq` instead o=
+f `handle_level_irq`.
 --
 
---- Patch [14]: [PATCH v8 14/35] pinctrl: airoha: add set_direction() helpe=
-r for gpio_chip ---
-commit eb63a4efb412071440e4fba2d54338fd8926dfaa
+--- Patch [17]: [PATCH v8 17/35] pinctrl: airoha: add missed IRQ resource h=
+elpers ---
+commit d8f541ef887ee539be72e7927e8fefea2a72a17e
 Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
 
-pinctrl: airoha: add set_direction() helper for gpio_chip
+pinctrl: airoha: add missed IRQ resource helpers
 
-The patch creates a set_direction() helper for the gpio_chip abstraction.
-It implements and reimplements some functions using the newly defined helper
-to group gpio_chip specific code together.
+This commit hooks up .irq_request_resources by adding
+GPIOCHIP_IRQ_RESOURCE_HELPERS, which allows gpiolib to properly set
+GPIOD_FLAG_USED_AS_IRQ. This prevents userspace or other drivers from
+reconfiguring active IRQ pins as outputs.
 
 > diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/ai=
 roha/pinctrl-airoha.c
-> index 40b1e4b110c2e..67ee205e2b5b4 100644
+> index 6561f288dbf05..f11ec77f6e338 100644
 > --- a/drivers/pinctrl/airoha/pinctrl-airoha.c
 > +++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
-> @@ -2519,12 +2519,42 @@ static int airoha_gpio_get_direction(struct gpio_=
-chip *chip, unsigned int gpio)
->  	return val & mask ? GPIO_LINE_DIRECTION_OUT : GPIO_LINE_DIRECTION_IN;
->  }
+> @@ -2671,6 +2671,7 @@ static const struct irq_chip airoha_gpio_irq_chip =
+=3D {
+>  	.irq_mask_ack =3D airoha_irq_mask,
+>  	.irq_set_type =3D airoha_irq_type,
+>  	.flags =3D IRQCHIP_SET_TYPE_MASKED | IRQCHIP_IMMUTABLE,
+> +	GPIOCHIP_IRQ_RESOURCE_HELPERS,
+>  };
 > =20
-> +static int airoha_gpio_set_direction(struct gpio_chip *chip, unsigned in=
-t gpio,
-> +				     bool input)
-> +{
-> +	struct airoha_pinctrl *pinctrl =3D gpiochip_get_data(chip);
+>  static int airoha_pinctrl_add_gpiochip(struct airoha_pinctrl *pinctrl,
 
 [Severity: High]
-Can this cause a NULL pointer dereference during device probe?
+This is a pre-existing issue, but since we are fixing IRQ handling here, can
+edge-triggered interrupts be permanently lost with the current handler setu=
+p?
 
-If a pinctrl hog sets an input or output direction, airoha_pinctrl_probe()
-calls pinctrl_enable() to apply it. This invokes airoha_pinmux_set_directio=
-n()
-which now delegates to this airoha_gpio_set_direction() helper.
-
-However, pinctrl_enable() executes before airoha_pinctrl_add_gpiochip() adds
-the gpio_chip via devm_gpiochip_add_data(). As a result, gpiochip_get_data()
-will attempt to dereference chip->gpiodev which is still NULL.
-
-[ ... ]
-
-[Severity: High]
-This is a pre-existing issue, but is there a race condition in
-airoha_irq_handler() that can cause dropped edge interrupts?
+Looking at airoha_irq_handler(), the status bit is cleared after the handler
+runs:
 
 drivers/pinctrl/airoha/pinctrl-airoha.c:airoha_irq_handler() {
-...
-			generic_handle_irq(irq_find_mapping(girq->domain,
-							    offset));
-			regmap_write(pinctrl->regmap,
-				     pinctrl->gpiochip.status[i], BIT(irq));
-...
+    ...
+    generic_handle_irq(irq_find_mapping(girq->domain, offset));
+    regmap_write(pinctrl->regmap, pinctrl->gpiochip.status[i], BIT(irq));
+    ...
 }
 
-The status clearing write (W1C) occurs after handling the interrupt. For
-edge-triggered interrupts, if a new edge event arrives on the same pin while
-generic_handle_irq() is executing, the status register will latch the new
-event. The subsequent W1C operation clears the newly latched interrupt along
-with the old one, causing the new edge event to be permanently lost.
+Because airoha_pinctrl_add_gpiochip() statically assigns handle_simple_irq,
+it lacks the .irq_ack flow control necessary for edge interrupts. If a new =
+edge
+interrupt occurs while generic_handle_irq() is executing, the unconditional
+write-1-to-clear in regmap_write() will wipe out the new event after the
+handler returns.
+
+[Severity: High]
+This is also a pre-existing issue, but does this driver risk an unmitigated=
+ IRQ
+storm for level-triggered interrupts?
+
+In airoha_irq_type(), the callback records the trigger type but fails to
+dynamically assign the appropriate flow handler via irq_set_handler_locked(=
+).=20
+
+Because girq->handler is statically initialized to handle_simple_irq in
+airoha_pinctrl_add_gpiochip():
+
+drivers/pinctrl/airoha/pinctrl-airoha.c:airoha_pinctrl_add_gpiochip() {
+    ...
+    girq->handler =3D handle_simple_irq;
+    ...
+}
+
+If a peripheral uses a threaded IRQ handler for a level-triggered interrupt,
+handle_simple_irq wakes the thread and returns immediately without masking =
+the
+interrupt line. Since the peripheral hasn't cleared the condition yet, the =
+line
+remains asserted, which could cause airoha_irq_handler() to fire continuous=
+ly
+and lock up the CPU before the thread can execute.
+
+Should airoha_irq_type() call irq_set_handler_locked() to set handle_edge_i=
+rq
+or handle_level_irq based on the requested type?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727174141.6649=
-33-1-mikhail.kshevetskiy@iopsys.eu?part=3D14
+33-1-mikhail.kshevetskiy@iopsys.eu?part=3D17
