@@ -1,111 +1,179 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75FC637A48A
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 12:29:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785155377; cv=none; b=HjzU8KikDt2lPoWDbk0JHCItPTmMOIzi0JoWTNJyEPOkSW8dGLVj27zH+pg3+X8EhAL46hGtVQJWJYavBY3pR+Dwoa52ZwWhPpDTs+HdVCuc3F/xaAxIvg//SRzj02Tpak3BNzOV5ghH2va64rGZNsBlt/Hcglb6JU/CekUEl1g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785155377; c=relaxed/simple;
-	bh=WG1OFdWFEEIeRyE9yk3DFzyvSlgxVbfq155VhoMWf/g=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XGdioD05AxZ6Cll1FNAuK2+HvK5bD6xZTIC4j8mOW/KP4kgji4zpTPxrQCIuOH0vWBT1bFJZDdqE0E0ttlgtv+eAX6bmSyR3zeRZSAPO0Eke9HP5pKzoW+GVZma+YRt3LTLnk7BysXLw2M+HzpVCk6yfSjNDEh8hehQt3ld63S8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VoN+wAuj; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52E99401A07;
+	Mon, 27 Jul 2026 12:31:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785155503; cv=pass; b=sKP/rfjxGx013PQEshPJJYDCMLDNX5jx+eHq7L21WGgsp+97yz1/bSHO6YJ47ltG7mcC556QqQqCIYPep8nnuuOY2ZUV+fBYajAJ4SDpsmH3/WCo/jeKIE8OX01p62qiDApofzhyW3TgHEwv7WxcWogbBR4EezZMldHekVUvJtU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785155503; c=relaxed/simple;
+	bh=D4P2wKzY6sHspo+sVgkF93Ag6fQBCdh19kn8MnbfQ/k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ahBi18o/7KCos4m/EVxI+Hz/ECh9aOFnoafYG4HTAMbo9tkN+eaOXmfajrI/w8EeuYQHuNebl+P0BpRwhqM3GK14TVCPWeLdsZ5SvKv6nf10m/YvBSrtN7fqRJkkUa0o/JPP+wGILe/kdeFVuo40vx5LDWK//u6wLvf9aFqdrWc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc; spf=pass smtp.mailfrom=ziyao.cc; dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b=jAXBgzvo; arc=pass smtp.client-ip=136.143.188.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziyao.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VoN+wAuj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4DCB1F000E9;
-	Mon, 27 Jul 2026 12:29:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785155376;
-	bh=XIGDzX9wHyRZ/psu1489Oj4U0BgYi4gXxe1JasBbZco=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VoN+wAujSgDmyh0uq7esc3NC5ZE0Grfok+XBgkpQc7yjcuI1UdKKYKwiTIHrvP6ON
-	 39ZMw37uhBcOS8Nja8LS3YXOPD+wKu7zOJbRBxjEdqvqly7k4BSzWU9NaEF1oT7FHR
-	 8tKLOMH5cY9ZzPjDp0kG1vWVNST40bnbqaPjXptrZ8bPt8VE9Ck5Yt1yB2OhZRhCWB
-	 xOOaV5B1Jz4pu+752aJfitJHHMmRkNn3xGqVVkoJ66+8IZpsWjRViRprmuMdaCrpL7
-	 XGM0/7Wm7FaNm8K36Ytk2WaiRh06AAM5wk+/sys7MXSvZ8JmX6oBY4YFuCA39JiJrD
-	 FwSQmUjdZfpUA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: versal-net: Add retention state for cpu idle
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jay Buddhabhatti" <jay.buddhabhatti@amd.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260727121842.3410495-1-jay.buddhabhatti@amd.com>
-References: <20260727121842.3410495-1-jay.buddhabhatti@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 27 Jul 2026 12:29:35 +0000
-Message-Id: <20260727122935.D4DCB1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b="jAXBgzvo"
+ARC-Seal: i=1; a=rsa-sha256; t=1785155401; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=kiSORZqGzRgPZiGsYQ3k34+qAmA2+ohQ9ieV0/nCrHQBSFb7Zkwli0ibhrlZP5pO4cOwBhBXzVzr6PXbPejR8bQmRoye97O+R2qFzh3ZVLLs4JtEh5COmhAUGIes0IVCWx4s0QJdKqtTtTAu8njVcrYOGjoUYVpgNn6APdeDwHA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1785155401; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=lzUtZjHaCNtOvDUH6TlXLFDO4ardciovEJAHYjHQUHE=; 
+	b=jJJ3KFfiXlqK9M+ZjyKjV/+R1xZh3I9fvccqIsI1eKv8BsyigICQBlFKH3ejLvcoFEcpaSdCvswTIO5cJgmmJl1g2ODOc5XH3XnaktRW3hwN1THE6Q2toTVjVXFoiiXixKK32i3cgM6saBuFvLK5r5vkok0Xjo+zieAjvXb22ho=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=ziyao.cc;
+	spf=pass  smtp.mailfrom=me@ziyao.cc;
+	dmarc=pass header.from=<me@ziyao.cc>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785155401;
+	s=zmail; d=ziyao.cc; i=me@ziyao.cc;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=lzUtZjHaCNtOvDUH6TlXLFDO4ardciovEJAHYjHQUHE=;
+	b=jAXBgzvoP/KRL/kzNykKMvSVgmywY7QNg1wFwP2hPYt4rF72DlOu6U0y1o4BWw1E
+	BQ7rvWs3Ls7IuOeSsseXOlLFbNxXI0DD2v2fKG1oxkXduWlwDmeJVaFav1DW8svk5Kz
+	W3u7RmE5qxxdIh3kIuPQUAj7BQihuwFJQVH8PANw=
+Received: by mx.zohomail.com with SMTPS id 1785155397890121.03202805715694;
+	Mon, 27 Jul 2026 05:29:57 -0700 (PDT)
+Date: Mon, 27 Jul 2026 12:29:48 +0000
+From: Yao Zi <me@ziyao.cc>
+To: codykang.hk@gmail.com, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Haylen Chu <heylenay@4d2.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org, spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+	linux-clk@vger.kernel.org, Yao Zi <me@ziyao.cc>
+Subject: Re: [PATCH RESEND 12/17] drm/spacemit: add Innosilicon DP/eDP
+ controller bridge driver
+Message-ID: <amdPPBOH-Dk4oU7y@pie>
+References: <20260725-k3-display-v1-0-6de34d80e86c@gmail.com>
+ <20260725-k3-display-v1-12-6de34d80e86c@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260725-k3-display-v1-12-6de34d80e86c@gmail.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/285.144.37
+X-ZohoMailClient: External
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The CPU_RETENTION_0 state duplicates the built-in WFI state and =
-fails to avoid firmware dependency, contradicting the patch's stated goal.
---
+On Sat, Jul 25, 2026 at 12:51:21AM -0400, Cody Kang via B4 Relay wrote:
+> From: Cody Kang <codykang.hk@gmail.com>
+> 
+> Add the DP/eDP controller that sits downstream of the Saturn DPU. Two
+> identical instances share one compatible; the eDP-vs-DP role is board
+> wiring, so it is taken from the devicetree: an eDP panel always sits
+> under an aux-bus child node, an external DP connector never does.
+> 
+> The link is driven through the generic PHY framework, so the controller
+> never touches a PLL register. The controller's HPD interrupt is gated by
+> the DP pixel clock, which can be off exactly when a plug has to be
+> caught, so the connector is also polled and the interrupt path re-reads
+> the live level when it does fire.
+> 
+> Signed-off-by: Cody Kang <codykang.hk@gmail.com>
+> ---
+>  drivers/gpu/drm/spacemit/Kconfig            |   19 +
+>  drivers/gpu/drm/spacemit/Makefile           |    3 +
+>  drivers/gpu/drm/spacemit/spacemit_inno_dp.c | 2443 +++++++++++++++++++++++++++
+>  drivers/gpu/drm/spacemit/spacemit_inno_dp.h |  328 ++++
+>  4 files changed, 2793 insertions(+)
 
---- Patch [1]: [PATCH] arm64: versal-net: Add retention state for cpu idle =
----
-commit 945569ec7efab4f9ca915d207005b24c2747571f
-Author: Jay Buddhabhatti <jay.buddhabhatti@amd.com>
+...
 
-arm64: versal-net: Add retention state for cpu idle
+> +static int inno_dp_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct device_node *aux_bus_np;
+> +	struct spacemit_dp_dev *dp;
+> +	struct resource *res;
+> +	int ret;
 
-This commit replaces the sleep state with a retention state for CPU idle in
-the versal-net device tree. The stated goal is to avoid firmware dependenci=
-es
-by using a PSCI suspend parameter of 0, intending for the core to simply
-execute WFI without powering off.
+...
 
-> diff --git a/arch/arm64/boot/dts/xilinx/versal-net.dtsi b/arch/arm64/boot=
-/dts/xilinx/versal-net.dtsi
-> --- a/arch/arm64/boot/dts/xilinx/versal-net.dtsi
-> +++ b/arch/arm64/boot/dts/xilinx/versal-net.dtsi
-[ ... ]
-> @@ -636,13 +636,12 @@ llc: l4-cache { /* LLC inside CMN */
->  		idle-states {
->  			entry-method =3D "psci";
-> =20
-> -			CPU_SLEEP_0: cpu-sleep-0 {
-> +			CPU_RETENTION_0: cpu-retention-0 {
->  				compatible =3D "arm,idle-state";
-> -				arm,psci-suspend-param =3D <0x40000000>;
-> -				local-timer-stop;
-> -				entry-latency-us =3D <300>;
-> -				exit-latency-us =3D <600>;
-> -				min-residency-us =3D <10000>;
-> +				arm,psci-suspend-param =3D <0>;
-> +				entry-latency-us =3D <1>;
-> +				exit-latency-us =3D <1>;
-> +				min-residency-us =3D <1>;
->  			};
+> +	dp->pxclk = devm_clk_get(dev, "pxclk");
+> +	if (IS_ERR(dp->pxclk)) {
+> +		ret = dev_err_probe(dev, PTR_ERR(dp->pxclk),
+> +				    "failed to get pxclk\n");
+> +		return ret;
+> +	}
 
-[Severity: Medium]
-The commit message states that this state avoids dependencies on firmware
-because the core simply executes WFI. However, does defining this PSCI idle
-state still trigger an SMC call to EL3?
+It seems pxclk is only enabled in probe() and disabled in remove(),
+please consider using devm_clk_get_optional_enabled().
 
-Looking at the cpuidle-psci driver, any registered PSCI idle state invokes
-psci_cpu_suspend_enter(), which issues a CPU_SUSPEND SMC call. This implies
-the firmware would still be involved on every idle entry, conflicting with
-the stated goal.
+...
 
-Additionally, the cpuidle-psci driver already unconditionally creates a
-default WFI state at index 0. Does adding CPU_RETENTION_0 with
-arm,psci-suspend-param =3D <0> create a duplicate, functionally identical
-idle state in the cpuidle governor?
+> +	if (dp->pxclk) {
+> +		ret = clk_prepare_enable(dp->pxclk);
+> +		if (ret) {
+> +			dev_err(dev, "failed to enable pxclk: %d\n", ret);
+> +			goto err_reset;
+> +		}
+> +	}
 
-If the genuine goal is to execute a native hardware WFI without trapping
-to firmware, should the cpu-idle-states property be omitted from the CPU
-nodes entirely? This would cause the cpuidle-psci driver to fail to probe,
-allowing the kernel to natively fall back to arch_cpu_idle() which invokes
-the wfi instruction directly from EL1.
+So this check could be dropped.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727121842.3410=
-495-1-jay.buddhabhatti@amd.com?part=3D1
+...
+
+> +	/*
+> +	 * The PHY exposes its PLL as the APMU pixel-clock mux's external
+> +	 * parent.
+> +	 */
+> +	dp->pll_clk = devm_clk_get(dev, "pll");
+> +	if (IS_ERR(dp->pll_clk)) {
+> +		ret = dev_err_probe(dev, PTR_ERR(dp->pll_clk),
+> +				    "failed to get PHY pixel clock\n");
+> +		goto err_clk;
+> +	}
+
+Same for the "pll" clock.
+
+> +	if (dp->pxclk) {
+> +		ret = clk_set_parent(dp->pxclk, dp->pll_clk);
+> +		if (ret) {
+> +			dev_err(dev, "failed to route eDP pixel mux to PHY PLL: %d\n", ret);
+> +			goto err_clk;
+> +		}
+> +	}
+> +	 */
+> +	ret = devm_request_threaded_irq(dev, dp->irq, spacemit_dp_irq_handler,
+> +					spacemit_dp_hotplug_event_handler,
+> +					IRQF_NO_AUTOEN, dev_name(dev), dp);
+> +	if (ret) {
+> +		dev_err(dev, "failed to request irq %d: %d\n", dp->irq, ret);
+> +		goto err_clk;
+> +	}
+
+Since 55b48e23f5c4 ("genirq/devres: Add error handling in
+devm_request_*_irq()") devm_request_threaded_irq() automatically throws
+an error message when it fails, so this error message is redundant.
+
+...
+
+> +err_clk:
+> +	clk_disable_unprepare(dp->pxclk);
+
+With devm_clk_get_optional_enabled(), you could remove this and
+simplify some error handling paths.
+
+Regards,
+Yao Zi
