@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAE39376BD0
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 14:24:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 693AF373BF2
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 14:24:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785162288; cv=none; b=PFk0JSr96R3mljnMYZXzYvcx9H4/eOj+VvBvdPgshjfbHQOfJV2cSC1Wpk4Lx0w0IikRz7jUedRLODdp1t3GSzITavEAKmPT4N9SzSWStWExNHhjxxqXjbjJaqcp7R5SAcvAnw2rwr6h2E4lXsesrMyZ0oBzgur4FASi/AP+iPc=
+	t=1785162294; cv=none; b=M5daMJDd9WFVS7S7OsGlrhFRWwox5Of9RzdC/VFLteKzFAVm5LBhL0lDrhfFBqZ4SlNboPY+TqEjge88Az2thl3z++ioPm0DCVx+6q6mEfSLRZGRc+4hHvkgnmarnsKieOQTeMhuLEnkRty877Ifd4okWiaS2uEq5ZTE5OIk938=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785162288; c=relaxed/simple;
-	bh=kuWb0Mqad9hHP4LM+2dMuABz01m1l7JEq/GTc2/jvBA=;
+	s=arc-20240116; t=1785162294; c=relaxed/simple;
+	bh=+HCUnzkmUFDEKdFx9tRzr7ez2sjim8l8L4zdUFNKrdw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=L+KL9vTv1O+4z/HTMNQsoRrcRlNBXqsfLvlqrm+hx77CbNQ1LzhEsc0k4AAd2pANOiPB0oGHmRZ4ImmG8RH/wFPXHds8vYmv1zGy8FnyxRTDI5fUELxxaNbxehf/Xc8pJA5WA4nmKkPdBZwFaOu1wa+hGYMWVC+2KBPCTjcMF34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ghzqeg6+; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=RZJSgVO2FMppxD0gVbMWBeo2Pb7xjSrEvqSwbsAQmsf11Q6ec1uegHV04kmO/zjI7gLCY50SfdNHqzO7Y0+nvB/X/KImdoOebdrFkdOjexLUSIgE0tITkkZr0UKIrmj8FaTU+hfn4bUsww4XxECtGGql9+ER8acA8Kja4ivMHnU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TKGhRGgi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ghzqeg6+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 979011F00A3D;
-	Mon, 27 Jul 2026 14:24:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TKGhRGgi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7ABA1F000E9;
+	Mon, 27 Jul 2026 14:24:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785162286;
-	bh=TmPlx2vBNr4e5UkIgBXzFpsNxpCiwlMDQbVA6kjfHzI=;
+	s=k20260515; t=1785162293;
+	bh=7pb0Ch1SOw+EENHhlreRR+j3WqsT1y+15h40voJ5AzQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ghzqeg6+X9rKPEg51Qnj+rDb60Vp3RjXfPdy79YUZeZBdDJEWiqEyCS02Qi0Y0QqG
-	 l5dDhASwTK6g2TQNTyg46wmEoFRhOa6Qg/cc4jRK9e5jMYt57IM//vWcXqfnEuHH2B
-	 rZcZLCl86dxbDStUYszilytVYQIK5CzJ5+vn74VvG0+C06pYhuwV660yHaocts4GHx
-	 aX2MjKwReEybwskIAMD8Q9Ds1lwzM1YpPrwcQhPrKkZTGjI47xUY0PzVB7XOCJi7DO
-	 3WdzVUg/htzXz+dTPJSlZDs5oBgEB6YSoBwM5DxG3CoVegbj0NoIavlvnq5f0dAF4c
-	 OhPS4v8XvEGxg==
+	b=TKGhRGgihTI0Lmfl4D1ALGX5EUl0yAzcIVdHC8kcy0NBEj+Nh2nwOm0CU0cGHkNfL
+	 Xba7yeeMOYTzGHwnRkNAF6NGmotnNyT66HML7WNHhE7eJedIdwMO6/qycGGTiWb6pp
+	 wO7g/INNm/NhAl84nGACbv95zt83Xsyb8bJkbdoOx6PCNM5ddq4QsMXHq5HEwpFTR3
+	 TLDcfpysogiulsL/4CU2AXkrSx2BXxRlZjIWqyomZv6ED3PrulybDWyH2Zah/kvg9a
+	 vgvxIlyh1c41DMkTgjErxGK1BfyKKT33lgWW1or9GfWdtLgXQ/39t4I6wlGhv6HqI9
+	 +Da5XOW+iM6kA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] arm64: dts: qcom: monaco: Add compatible to the
- PCIe Root Port
+Subject: Re: [PATCH] dt-bindings: remoteproc: qcom,shikra-pas: Allow
+ bam-dmux subnode
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wei Deng" <wei.deng@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260727-b4-monaco-evk-m2-v1-v1-1-5429cce68599@oss.qualcomm.com>
-References: <20260727-b4-monaco-evk-m2-v1-v1-0-5429cce68599@oss.qualcomm.com>
- <20260727-b4-monaco-evk-m2-v1-v1-1-5429cce68599@oss.qualcomm.com>
+To: "Vishnu Santhosh" <vishnu.santhosh@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260727-shikra-pas-bam-dmux-binding-v1-1-c0159c7c3ed4@oss.qualcomm.com>
+References: <20260727-shikra-pas-bam-dmux-binding-v1-1-c0159c7c3ed4@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 27 Jul 2026 14:24:46 +0000
-Message-Id: <20260727142446.979011F00A3D@smtp.kernel.org>
+Date: Mon, 27 Jul 2026 14:24:52 +0000
+Message-Id: <20260727142452.A7ABA1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,58 +46,66 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] The patch adds `compatible =3D "pciclass,0604"` to `pcieport0` but=
- fails to add the same required property to `pcieport1`.
+- [Medium] The newly added `bam-dmux` child node property is globally permi=
+tted for all devices in `qcom,shikra-pas.yaml` instead of being strictly re=
+stricted to the modem (`mpss`) variant.
 --
 
---- Patch [1]: [PATCH 1/2] arm64: dts: qcom: monaco: Add compatible to the =
-PCIe Root Port ---
-commit 0ca797402b7e421fe911e89c620b4ebd792ff4af
-Author: Wei Deng <wei.deng@oss.qualcomm.com>
+--- Patch [1]: [PATCH] dt-bindings: remoteproc: qcom,shikra-pas: Allow bam-=
+dmux subnode ---
+commit 89fb4e8f474d6e08262116fc71b1347a3aaf92fa
+Author: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+Subject: dt-bindings: remoteproc: qcom,shikra-pas: Allow bam-dmux subnode
 
-arm64: dts: qcom: monaco: Add compatible to the PCIe Root Port
+The BAM-DMUX node lives as a direct child of the modem PAS remoteproc
+node, but qcom,shikra-pas.yaml has unevaluatedProperties: false and
+does not list bam-dmux, so any DT adding this subnode fails schema
+validation. This patch adds an optional bam-dmux property referencing
+qcom,bam-dmux.yaml to fix this.
 
-This commit adds the "pciclass,0604" compatible string to the pcieport0
-node in monaco.dtsi. This enables the PCI subsystem to associate the
-device tree node with the PCI-to-PCI bridge device, allowing downstream
-endpoints to be correctly matched.
-
-> diff --git a/arch/arm64/boot/dts/qcom/monaco.dtsi b/arch/arm64/boot/dts/q=
-com/monaco.dtsi
-> index 64fc0d592282c..438ccf6eba64d 100644
-> --- a/arch/arm64/boot/dts/qcom/monaco.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/monaco.dtsi
-> @@ -2393,6 +2393,7 @@ opp-32000000 {
->  			};
+> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas=
+.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
+> index 253b14eb2b598..17461d92165b2 100644
+> --- a/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
+> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
+> @@ -44,6 +44,11 @@ properties:
+>        - description: Firmware name of the Hexagon core
+>        - description: Firmware name of the Hexagon Devicetree
 > =20
->  			pcieport0: pcie@0 {
-> +				compatible =3D "pciclass,0604";
->  				device_type =3D "pci";
->  				reg =3D <0x0 0x0 0x0 0x0 0x0>;
->  				bus-range =3D <0x01 0xff>;
+> +  bam-dmux:
+> +    $ref: /schemas/net/qcom,bam-dmux.yaml#
+> +    description:
+> +      Qualcomm BAM Data Multiplexer (provides network interface to the m=
+odem)
+> +
 
-[Severity: High]
-This is a pre-existing issue, but should the same compatible property be
-added to the pcieport1 node in this file?
+[Severity: Medium]
+Since this property is added to the top-level properties block, does it
+allow the bam-dmux subnode for all compatible variants in this schema?
 
-Looking further down in arch/arm64/boot/dts/qcom/monaco.dtsi, the pcieport1
-node is missing this property:
+The commit message specifically states that BAM-DMUX lives as a direct child
+of the modem PAS remoteproc node. However, this schema is shared with other
+variants:
 
-			pcieport1: pcie@0 {
-				device_type =3D "pci";
-				reg =3D <0x0 0x0 0x0 0x0 0x0>;
-				bus-range =3D <0x01 0xff>;
-				...
+properties:
+  compatible:
+    enum:
+      - qcom,shikra-cdsp-pas
+      - qcom,shikra-lpaicp-pas
+      - qcom,shikra-mpss-pas
 
-Without the compatible property, the device tree node for pcieport1 will not
-spawn a platform device, which prevents power control drivers like
-pci-pwrctrl-slot from binding.=20
+Could this permit device trees to mistakenly include bam-dmux under the
+cdsp or lpaicp nodes and still silently pass validation?
 
-Will this cause downstream nodes (such as M.2 endpoints) connected to the
-second PCIe controller (pcie1) to fail to match or correctly power on?
+Should bam-dmux: false be added to the allOf conditional blocks for the
+non-modem variants to explicitly reject it?
+
+>    glink-edge:
+>      $ref: /schemas/remoteproc/qcom,glink-edge.yaml#
+>      description:
+>        Qualcomm G-Link subnode which represents communication edge, chann=
+els
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727-b4-monaco-=
-evk-m2-v1-v1-0-5429cce68599@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727-shikra-pas=
+-bam-dmux-binding-v1-1-c0159c7c3ed4@oss.qualcomm.com?part=3D1
