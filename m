@@ -1,93 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2044242D77D;
-	Mon, 27 Jul 2026 22:56:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87B6F3CB55D
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 22:59:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785192970; cv=none; b=WlTa2KuGcBk7hAlLNIPg8/T6v/L5eAagmHR9ITyaBwL74JY55GacCtku5yVvIJOkfJSlKARMwuIWl4a09sBIgyxAnG+GmVMCsakoZifmR6IhqNfVKnCUIMZ3eyi1PYdpavKwfHcU2QyCIBrmZNjVt25PWGgX4TjsR4xEmzNt2ME=
+	t=1785193200; cv=none; b=GweByMSVVGSdm8faSHeSIZGQ9gafKaKeJ1b2LD1gnmqKeUgJ1PNvym7EmnNzn+4xp3oEJBLONLIEh8b3zZiY+iq6fP6DOwme+T73RfCIZEe10AN1NRVP4MOT73ErTpMae4GI+E23oIjJUFgJ+bhbmyLIRauJzTvCKDf1e9PmRRY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785192970; c=relaxed/simple;
-	bh=DcPQTw13tQK3ryzKdiVRyyK7hVhT4+YGcsOmVocKA5w=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=ThNbWqTDvPrcm7WdlpQDJVlu9qqYdAhQWX8SgZnD9+SU+pycLIoXdKPrstL7BCXWDVlTOkRoFgm+RjaZh06cQCKkJedMM/xgplHZuTjGfVkE3bpByiFJcqRmkW02yUyM7ChvJ9zNhzMhbcXsrGg3yyLibYPeyOdTKrsLb831nCw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W4Ex//7h; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785193200; c=relaxed/simple;
+	bh=lDxt54NzDpQopsiwC+On5VgDANE85sgZaDgOCed8Kk8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=na2vROQqjL8J6Sdtzh9rfGMBvvxlTcnYTsaCYyH/wDuoUsUW9TDYMRai0EYqBdUMkVilaUZCc3x7zoHpu0Cl4BUyqDwd5fDN7s8i0O2NuCtbfupzCKDca9u6meJrA7AF9z870OY69HBWZXBUO3QLmdk+gX1XnJMLMs/VkAZ52aw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oVJKz2J+; arc=none smtp.client-ip=209.85.222.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W4Ex//7h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1C521F00A3D;
-	Mon, 27 Jul 2026 22:56:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785192968;
-	bh=0qK6hd9wSWkwKvlj6HzXKj262cJHJ+hOZynNz6AuAdw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=W4Ex//7hdLxqHaOPijGNSgOhWOwnvn0SCUSQw+t9PZrIHpecwkgjUlXjNSRSgDZsi
-	 9wjlrUGA5LKCgXU89foAVPXCi9b+PSlc9ZeMIn0ns9ZLzy4ayhh0CARiPAH/iEWMsT
-	 s6FpzL+dD+yjvUoIlkKddEUfuMP18f8S0mSzSq3TbAz2sE71ORHKYkIb732GKGPaFs
-	 4whKBxj6Ojh8J+N9s+UWvib3lp0rj7BPAhS+yybiwyZ808BQzcDr3it+FeYzubu79C
-	 2Z+UQ0A9roLQ2DowVaU4yGjmxWxgq/bSTBvW2xLCHi5Sy4+7yd6OnUmeb8XMSZy2ic
-	 NkCSHmU+OnafQ==
-From: Mark Brown <broonie@kernel.org>
-To: Jerome Brunet <jbrunet@baylibre.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jack Yu <jack.yu@realtek.com>, 
- "shaikh.kamal" <shaikhkamal2012@gmail.com>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260726055227.18123-1-shaikhkamal2012@gmail.com>
-References: <20260726055227.18123-1-shaikhkamal2012@gmail.com>
-Subject: Re: [PATCH] ASoC: dt-bindings: fix spelling errors
-Message-Id: <178508422325.10630.3401967100989878890.b4-ty@b4>
-Date: Sun, 26 Jul 2026 17:43:43 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oVJKz2J+"
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-92e5d6f35c1so267836485a.0
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 15:59:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785193198; x=1785797998; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HAXeyuUpUBJGi5ANL/++tSq9bwO41CdynEC3Uob6++w=;
+        b=oVJKz2J+iMu/PCfOHFEWjqmmshl/FW4Jr9dU3u6x88YKCaPl3WSxpnFmKhFptG6fbO
+         1RgNqk1n5ufRGt2h7K3+DqlZyfNwotLsb0EL0jv1wFM5D3QxL5co7tJWI4mj1UL5tke0
+         fxXTxUW9gH/myF2ei/D1yWW0t4nTRwA4xULiM7wGx1sZ87+oKb9uTeBBbVqftDXPj7sd
+         f8qUaIPBv3h7sX2Xba2eaMOe7zFtTku/CwRxN8ejX6DtI/BwxrUAMZkeXY6wRry/1NO2
+         zCgE9dG9+w9s4oxV9Vr2mXOos7yhLUfGFGQ8XCfj0k8qP2fTyX95FBa8FOJ2lTQ9isLt
+         SPDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785193198; x=1785797998;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HAXeyuUpUBJGi5ANL/++tSq9bwO41CdynEC3Uob6++w=;
+        b=ZvW9L8f3ENB7m1k5B/lDmkh6k/U0LSYaP3icCRq7slcbyCpa906HYUq6eTnEbN4zVE
+         JjFehHWPb244MWWH/qfP5GnkGl0Cb43duSXbjIHcmA3mq1nwQliNDv56aVq04dlt0Azw
+         kOu+cZNhOHMSJgcVYqca6FoEBraaYi9FopSAtD5sEZyAwAtTGTpOQJBB0IutQXzRfsLa
+         B6i8QZYhW8U+UmFvjFbMfPTdZ9dJaTkaVic38HAlTusXZYTDiRufHr5E/gc516+PqbM2
+         31i08qbtoANxi4yUYSKiWxGCyiWlL0zTUonM6EsmvKXstusFK74XzRlP+ddqaoEXBQ3K
+         +nXQ==
+X-Gm-Message-State: AOJu0Yxjc6RbvIPSnz/EP6DulOO1+W+O6CxpxRX5h5sJWlTnWLcz9ZGc
+	B3Gj00HT7b9ZtE41yBV1/9f3Qmxd/2seNJJmZpp1EIS6x8yMldkaysGqtteeSfvQ
+X-Gm-Gg: AR+sD118KgftyTNYJfBcdn9tnipGNwFtbZuQcqAIKSHQrT2RB2qPVyvR2D26HRe1Vn3
+	vP4v3YArqpPwtlVD8zjaFOomHHaVvTCgUT5w7YvaFQAicstiCIHh4IbLtYeyj0JDnRJ6LH7qCBa
+	TcLr41Ywt+IbFue79xC/JyCI9bhIO+phvU0MYwkG89fZaVY6KyYqDL8/XPElPIt0hx5OD0LXDvk
+	xKohDv3ei95HKxJ5aO8t6ZObAn8I4f/JYa3c5YLlC4iDp+LXMMHBz4MyPl6so91mxxDEx2kvkCv
+	tEmh+XF1XzUZeC3hViX8z+8W+X0q9emIKI6L8/suSEby6V1TXD6YUtTiqpK5CsdkQr2jnDA3CNt
+	04a/rL3YTkQKUwnmAQY3Z9b8pXYqwRwRB9be7jfVbDF+CFogG0TYzk8HB7LQdo0dUj4JOiKGf22
+	S0eUWKmvtclvqc9zxAxy0RaTLAjdhgEKW1BHNNL9sp4W5kNRu5sGiq/2NCV2lQfUdAYVQuExqfK
+	Da0BrU5Nku9/FKpHM5sfVhpV5nix9uNZz+a3sfBcPm+75r1VmUiJI68RLJpr/mhaw==
+X-Received: by 2002:a05:620a:4109:b0:922:d336:1990 with SMTP id af79cd13be357-93301f45ab0mr2372685a.18.1785193198479;
+        Mon, 27 Jul 2026 15:59:58 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-932de54b3f6sm711220885a.18.2026.07.27.15.59.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Jul 2026 15:59:57 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: devicetree@vger.kernel.org
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+	Hauke Mehrtens <hauke@hauke-m.de>,
+	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org (moderated list:BROADCOM BCM5301X ARM ARCHITECTURE),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] ARM: dts: BCM5301X: panamera: add phy-mode to switch
+Date: Mon, 27 Jul 2026 15:59:54 -0700
+Message-ID: <20260727225954.268155-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1094; i=broonie@kernel.org;
- h=from:subject:message-id; bh=DcPQTw13tQK3ryzKdiVRyyK7hVhT4+YGcsOmVocKA5w=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqZ+IFGeNDPfR+IfnWCVE3tu5jjRoOYjUhNyQc+
- jP8xXmt6viJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCamfiBQAKCRAk1otyXVSH
- 0KQsB/92hXJSSVmC8O0DhdZC9f58FPe0bLxlXGXY+VKjiJ8RoF+CmT1864HFeQV1okiJy7E62KX
- p/onddRikyUhPCasCSVERv834D0ixES2vh9rXdtYEHQw6UnDsn1ro298p5EIedU+ZmDH/Txi06d
- ZwFmPrhQc4YG3XHmWbERW4v6oK9twSYUQoRpI54ra6ns+Z7bR7PgM4xDiQt/aU9aOPFAwI7xFoN
- kPq4EWmCP6fhVj31W9YtuBcrbO2WPFWASClifIh/Fj7aa/cJdFJi1sXzkO6vj10ST1oUsBgphDt
- 8jQ9eLVoAhZ5kKM1Et3JyeIbK7PabvSQdDgmwkuaMpUwQg1P
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
 
-On Sun, 26 Jul 2026 11:22:27 +0530, shaikh.kamal wrote:
-> ASoC: dt-bindings: fix spelling errors
+phy-mode is needed for CPU ports based on the documentation.
 
-Applied to
+Fixes dtbs_checks warning:
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.3
+switch@0 (brcm,bcm53125): ports:port@8: 'phy-mode' is a required property
+from schema $id: http://devicetree.org/schemas/net/dsa/brcm,b53.yaml
 
-Thanks!
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ arch/arm/boot/dts/broadcom/bcm47094-linksys-panamera.dts | 1 +
+ 1 file changed, 1 insertion(+)
 
-[1/1] ASoC: dt-bindings: fix spelling errors
-      https://git.kernel.org/broonie/sound/c/7a047311de7f
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+diff --git a/arch/arm/boot/dts/broadcom/bcm47094-linksys-panamera.dts b/arch/arm/boot/dts/broadcom/bcm47094-linksys-panamera.dts
+index e02a7a902f72..372601f0d56d 100644
+--- a/arch/arm/boot/dts/broadcom/bcm47094-linksys-panamera.dts
++++ b/arch/arm/boot/dts/broadcom/bcm47094-linksys-panamera.dts
+@@ -183,6 +183,7 @@ port@4 {
+ 					sw1_p8: port@8 {
+ 						reg = <8>;
+ 						ethernet = <&sw0_p0>;
++						phy-mode = "internal";
+ 						label = "cpu";
+ 
+ 						fixed-link {
+-- 
+2.55.0
 
