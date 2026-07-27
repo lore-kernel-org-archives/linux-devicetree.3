@@ -1,125 +1,84 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EE8742F70C;
-	Mon, 27 Jul 2026 17:40:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61D56246774;
+	Mon, 27 Jul 2026 17:41:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785174029; cv=none; b=fmW8ZND6HIRCN3S1Si/XPzXvQFASNZ4dElg/qcsXb20SzwslyOeM3kyhFnwLnCPeeIFBF8Y2ed4YTmH5ZTlcV/+TjW9rz3knduvjbuisIM2tq7GJuS1orcxEDGfMiK33Z0YdzT04IBOMGg8w4TFVvahyUPOk0CnlpUwSTXbjnvk=
+	t=1785174102; cv=none; b=pC3GZUlDSs5QVbxfMy4s88U9IvGVmLHgXHneSlaxT5M6tlP5oW2kPO6UN7Nw8CmZiHeFZCfPu5JoTEC4Ev7C0ouv18QBWGCpsPktbjXM91X4hGKzry42BuR9s9cZXsZjPnpTwAUKTy7roL0aLu6wk3McJzjT/0IybQsf8QtSuRU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785174029; c=relaxed/simple;
-	bh=OfyA6PZVaQWAshfczWuLPB1WUaO/OnIoRetDQClVbgQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=LeLQJLNOv5/CNJNinvjtZE3R2CLAkhQCFVOS+u3NfNUsKPvc2a4B3Q0zinmdYa2G2IytmuaIrAMfdMNrg4L8mGiZ72EYuIwzJtkP2AR81CrQ5H4KOUq6C+WpcYdd+W/AeAEkIe8QQTRXCu0ygHtA5YbDwNoYhbjtD0CDB2dh1EY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jz+lcM3A; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785174102; c=relaxed/simple;
+	bh=WfzX6QfseqCwDrqrIp/vR1R7pKu20TjlmkhiZLGtaOo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EWawEtoBsZMYwd0uNdZ+F6TC6zpdbDGcoH1Qoc1OghFRsyWBNfsPF01OCINepyWRDmuTajlBik1vSqTaUgCUflhyME8O7EumT3e/WgW7hB/amuaM20xUpICz4EOtncLsB8edAvg4WCjbVgbW8vXdl+cm1hrVwX6G7cQE21J4zmM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VWZ6hJYk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jz+lcM3A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEA331F000E9;
-	Mon, 27 Jul 2026 17:40:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VWZ6hJYk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEC651F000E9;
+	Mon, 27 Jul 2026 17:41:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785174026;
-	bh=78g5g4GERQh1+fhJYRmrrE602dK4GP7Gh5jXNWY4E3c=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Jz+lcM3A7pCJxPC0h6sa7M7w+luB/PLuKF9n0tTGjbbxkDiHZCrqNZmu1rRRxD1ZV
-	 xuvPWjKrj5R8Cor4kdE8bjQBGZdWXzG2DmLR51APZli0oQq7Ul0azWdhJKY8zhUqNA
-	 MpopU1poA1krUCTG1KguD4s2ZS0DIBozR0Yxfnm0PvPan+ImU+mX43/LRPZFYpsNNl
-	 rWIlXpcoLPDmR9YpcINJ3pzi953old6HKWKTKaZi0HWfFHT8P5F7ODOleH0N9an/Pc
-	 ZYY5DlYhsQyONmE3pu9QjEpeDcisE6r+4KgpN8LR9YK6HZNs4bJMDS5sTiCD67sQsw
-	 T2tH28BlvWBuw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 5/5] arm64: dts: imx8mp-skov: support new 7inch panel
- board
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Steffen Trumtrar" <s.trumtrar@pengutronix.de>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, imx@lists.linux.dev, Frank.Li@kernel.org
-In-Reply-To: <20260727-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v7-5-ca8a0446166a@pengutronix.de>
-References: <20260727-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v7-0-ca8a0446166a@pengutronix.de>
- <20260727-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v7-5-ca8a0446166a@pengutronix.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 27 Jul 2026 17:40:25 +0000
-Message-Id: <20260727174025.EEA331F000E9@smtp.kernel.org>
+	s=k20260515; t=1785174101;
+	bh=WfzX6QfseqCwDrqrIp/vR1R7pKu20TjlmkhiZLGtaOo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VWZ6hJYk6OD5Ah678t64vkvSOeCUq58a4B3nROSRaQJHHmESeSA4RgIKR5DdO7azB
+	 FpmsxOHbJsrdbqwxbIJw/j0ByzX7jX5txpT0vgSzLEZIBQ4ijoDI6eU86x+qRiUUKw
+	 +Y3tW5oMyH95e5w7GiGZTmpFDRdX3QYsBJSF2IltcC5Yj7zupkdsV7xMp99aUMB4L+
+	 pL9EcbTHk+As+Gd2CuVZJJPP5Y/E1d1CQ12xGX/UHshEHETwKDHQ50Xrt+PaKItppu
+	 VmQkd+N8eUKSVNrnzARAc81/zb9WQahlCWFabVLDFkkTDBtb1jY6Yx+u1XZJOKdiRr
+	 NVeC/LAGXHceA==
+Date: Mon, 27 Jul 2026 18:41:36 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>, linux-sound@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 0/3] ASoC: qcom: qdsp6: Add MI2S clock control
+Message-ID: <cbd35d4e-a135-4224-8e33-543a7fdb986a@sirena.org.uk>
+References: <20260727151230.408122-1-mohammad.rafi.shaik@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="T9V6qvMbmLv02Nr6"
+Content-Disposition: inline
+In-Reply-To: <20260727151230.408122-1-mohammad.rafi.shaik@oss.qualcomm.com>
+X-Cookie: It's OKAY -- I'm an INTELLECTUAL, too.
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Missing device tree binding includes causes build failure.
-- [High] Incorrect touchscreen resolution properties (copy-paste logic erro=
-r).
-- [Medium] Missing #address-cells and #size-cells in &i2c2 node causes comp=
-ilation warnings.
---
 
---- Patch [5]: [PATCH v7 5/5] arm64: dts: imx8mp-skov: support new 7inch pa=
-nel board ---
-commit 5301893644854d4544c31ab94b72a17eda53338e
-Author: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+--T9V6qvMbmLv02Nr6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-arm64: dts: imx8mp-skov: support new 7inch panel board
-   =20
-This board is similar to the already upstream
-imx8mp-skov-revc-tian-g07017 and imx8mp-skov-revc-jt101tm023 but uses a
-different 7" panel with a different touch controller.
+On Mon, Jul 27, 2026 at 08:42:27PM +0530, Mohammad Rafi Shaik wrote:
+> Add support for MI2S clock control within q6apm-lpass DAIs, including
+> handling of MCLK, BCLK via the DAI .set_sysclk callback. Each MI2S port
+> now retrieves its clock handles from the device tree, allowing per-port
+> clock configuration and proper enable/disable during startup and shutdown.
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt070=
-tm041.dtso b/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt070tm=
-041.dtso
-> new file mode 100644
-> index 0000000000000..f3f43e60a0aa7
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt070tm041.d=
-tso
-> @@ -0,0 +1,53 @@
-> +// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-> +
-> +/dts-v1/;
-> +/plugin/;
+I have already got v7 in CI, please send incremental changes for
+anything new here.
 
-[Severity: High]
-Does this overlay need dt-bindings includes? The C preprocessor won't expand
-IRQ_TYPE_LEVEL_LOW and GPIO_ACTIVE_LOW without
-<dt-bindings/interrupt-controller/irq.h> and <dt-bindings/gpio/gpio.h>,
-which will cause a syntax error during device tree compilation.
+--T9V6qvMbmLv02Nr6
+Content-Type: application/pgp-signature; name="signature.asc"
 
-[ ... ]
+-----BEGIN PGP SIGNATURE-----
 
-> +&i2c2 {
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpnmE8ACgkQJNaLcl1U
+h9Cn/Af+LpYmxYvbs7lwW5DOZ1i3E77ji4uhHBvRiV1zPKGOAf0xlEPJegSQxqH2
+mAztdhRy5VsB6ZvFrK2tJ802NFu9AfxD0hlSSsPNF9FBYy4zmYLcll9q8ReeznFA
+sjSGkKAaNhXlY28lwhvK9KFIYivt5qfFmipmo+ukLsGiHnmXIGu2Iv6q5JdGl+8x
+Ex9OZojFzMe+i5FAeYriud3h4AIbMJngxRFIXVVXMtH+XDa6un1gFLHquAS5PKlP
+w97yv2K09jgqGcejiUPslLs6Lb254s5WJLCyuo+ilpalmmEk0uFsgaSq1z9o0HQL
+113bfNF9aBYqn32Uoj43Iw+7Hiip6Q==
+=L/Fo
+-----END PGP SIGNATURE-----
 
-[Severity: Medium]
-Will this parent node cause dtc warnings during overlay compilation? Since
-overlays are compiled in isolation, dtc will fall back to default
-#address-cells and #size-cells values, which conflict with the 1-cell reg
-property of the child node. Should it explicitly define #address-cells =3D =
-<1>;
-and #size-cells =3D <0>;?
-
-> +	touchscreen@2a {
-> +		compatible =3D "eeti,exc81w32", "eeti,exc80h84";
-> +		reg =3D <0x2a>;
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&pinctrl_touchscreen>;
-> +		interrupts-extended =3D <&gpio4 28 IRQ_TYPE_LEVEL_LOW>;
-> +		reset-gpios =3D <&gpio4 29 GPIO_ACTIVE_LOW>;
-> +		touchscreen-size-x =3D <1280>;
-> +		touchscreen-size-y =3D <800>;
-
-[Severity: High]
-Are these resolution properties correct for this panel? The jutouch,jt070tm=
-041
-7" panel has a native resolution of 1024x600. Setting the maximums to 1280x=
-800
-will cause miscalibration in userspace, where the touch pointer won't be ab=
-le
-to reach the edges of the screen.
-
-> +		vdd-supply =3D <&reg_vdd_3v3>;
-> +	};
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727-v7-0-topic=
--imx8mp-skov-dts-jutouch-7inch-v7-0-ca8a0446166a@pengutronix.de?part=3D5
+--T9V6qvMbmLv02Nr6--
