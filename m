@@ -1,203 +1,398 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11020125.outbound.protection.outlook.com [52.101.69.125])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66B443BB4A;
-	Mon, 27 Jul 2026 11:51:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.125
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785153100; cv=fail; b=nq/HxLHAG9Lo+wYxGvYVP3CTiMIJrdLWvfVyBZNBNWpB4/TtGxQtPVUZUcDf2WXaX/D64cVOeUgqYjhtGuEEomJC+aLlEaRqHiVUTcfKB3oys7oVExyMMpFrEM6J4FbDcVNHDbumR02SWcTkXZe9T7ZjUPRq65z7QxM/DwLzmeE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785153100; c=relaxed/simple;
-	bh=9YyV0sKY4hxDMXedxyRYLKSm5o5Q8/ZbM9sTwbV6skM=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=SmoZL5TETEkmjRpVnL6e4ehGuHoqUku3YHQaCqpwXWhe9ElwBxjYiLChWmYSNrDW+NqqaCqtfb3+TFoKDWRtqtDf60aCwKiUZyGltv5/CLVQj1D97Gs8ZxTtrStwYTtXFuyLYd4YDWMZd4+eiKRvkCcYMvYDTZe83mKx8lr+H64=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kontron.de; spf=pass smtp.mailfrom=kontron.de; dkim=pass (2048-bit key) header.d=kontron.de header.i=@kontron.de header.b=MhBCfdMG; arc=fail smtp.client-ip=52.101.69.125
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kontron.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kontron.de
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D93D8377EA2;
+	Mon, 27 Jul 2026 12:16:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785154601; cv=none; b=G8PZ55Vj0OCLBZM4kSeNlKrI34jLZsSn9B23FIXnNeSHVeWbj9YXd5gccsGTjsv+MAtpef1ppnb0nFKzv1R3ljvmeMhR7nkdFQR/3nQEGHj/iyeYIqpqCpnG0PYaVAyMtRMNNabEZfC6MSNlFWapyBRbaGu0uhMi3tBWbaBdMxo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785154601; c=relaxed/simple;
+	bh=u/HkEzRSxdAuIWmGLmZolqvndE/5M56vYFrl7/onTrA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CzNyVqtYzHhK03+WU2iljuXb9QDW83Sq694futB2VcHG7MI0A5ToQ7xXEw9C4h8wZQsaauiInNvP1jhYuF4bpzFficBVbwtJCd6KEKCJBe3RciXo3tKJ/kt3C5ofBT4odKxMTb1sPPgRLasHc4DlGQSGmDdPhClJDLbQvyF6kCM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=jRPBSX85; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kontron.de header.i=@kontron.de header.b="MhBCfdMG"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wzrx0JUAe0JP8uOKQ8EpstUc4pPFvZuVPK7bcf2ED47C1H4Uy/vRMy75z8/euqdqruV07qH7bv1iTiRN9i9w3yeVUbN6Eshsn6da6ArOumnzWWZ61urhCb30Z+sBnrK0M+LDP+64iLXu2frid+WRuMCKeJ99YQ1ho8E0sSLCRRGgscjtaws+E+6Ur6pGx/yQt0jiATztVoGbfdyn4eusoLPDZiSaOk1qGHIQW4t1HQGzcdtVAy1bhJuitzV7YYQy8fhgJaaHYnU2ucIQhEDolG176vGiVr1VX9OKlUTQj5tXjGWLHQBqUhBC7TVr8vWbL2bPaGLoCzf7u1FN4qytQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yq0lxpdGrjX9AWCJahC0iERrTVH9tVPMpyME/8OvAvc=;
- b=D/heg601EBGruOichZSwZbEn7MbIWEkbZ6oNNrekB+u6F5sLgZrWasHO+Krt3rx8fvm/sYYk5coztbVQwaUwBziCiEVXDIM4t9jIB6ql9XpWK+pfRQge7nPaKSUNZWlVYKPiIR51EziXon3tGU7ul2MwjthICujRgwJNHAqKUU0VSW77k5x2XADuXsQ8WODTYR1/8iMHwlzzY6zRneiihDUEqRYsK2UcnK8jK0+8MsdmV2oO5tRQHkpqzbckHi2AxDnexZovnt10kdZpZuej6+Rnirtp+n6TD3IQnowzBlcIqdKLmD9qqKhW1sCVHclBUMdN5UO3tGPUmF/x648JGg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=kontron.de; dmarc=pass action=none header.from=kontron.de;
- dkim=pass header.d=kontron.de; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kontron.de;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yq0lxpdGrjX9AWCJahC0iERrTVH9tVPMpyME/8OvAvc=;
- b=MhBCfdMGbvs8aV53ktb5DvzkLmN5z8o8Oxv4ww87onBX4uAm5X2/yHnZhsDAvwgka3LBb5pqriIKivn0uiNYC8chj4XmMmGHiOLSNvNh3frh06dkwi4iXgzQ1Y9DB+Ri/l1BpBfrSYq1ogh3vUQegtlOgXAAr1KZxaKLDBMEpYIwGHLUvHQDDAQCcaHcnHVq7Y4h5tlILJRmqiUyonxU3RzEDPG2INI962jpTLnV77AYTHedlU+lXH3n6xGyW9sSewXB1DA01LA6eyiD9BYYyU52vDaFrtppX4bAewlrgzucWcRwbvZcyXOcR+m1Pi41YfrFTlW2MHREKYkcZnMFRg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=kontron.de;
-Received: from AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:1fb::23)
- by AS8PR10MB7730.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:63c::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Mon, 27 Jul
- 2026 11:51:28 +0000
-Received: from AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::a276:4ad7:962:da22]) by AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::a276:4ad7:962:da22%6]) with mapi id 15.21.0245.012; Mon, 27 Jul 2026
- 11:51:28 +0000
-Message-ID: <37e17ae8-c71e-4679-8597-3d04bd981c54@kontron.de>
-Date: Mon, 27 Jul 2026 13:51:25 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 06/11] nvmem: imx-ocotp-ele: Use __free(kfree) in
- imx_ocotp_reg_read()
-To: Frank Li <Frank.li@oss.nxp.com>, Frieder Schrempf <frieder@fris.de>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- Pankaj Gupta <pankaj.gupta@nxp.com>, "Peng Fan (OSS)"
- <peng.fan@oss.nxp.com>, devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux@ew.tq-group.com
-References: <20260723-upstreaming-next-20260609-imx-ocotp-ele-v3-0-e26930345b4c@kontron.de>
- <20260723-upstreaming-next-20260609-imx-ocotp-ele-v3-6-e26930345b4c@kontron.de>
- <amJglJGsfw3rjNPL@SMW015318>
-Content-Language: en-US, de-DE
-From: Frieder Schrempf <frieder.schrempf@kontron.de>
-In-Reply-To: <amJglJGsfw3rjNPL@SMW015318>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0114.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:bb::15) To AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:20b:1fb::23)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="jRPBSX85"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 073C6143D;
+	Mon, 27 Jul 2026 05:16:33 -0700 (PDT)
+Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5D9F63F86F;
+	Mon, 27 Jul 2026 05:16:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1785154597; bh=u/HkEzRSxdAuIWmGLmZolqvndE/5M56vYFrl7/onTrA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=jRPBSX8523HYzuq9mEZ4tBpDcCEIOuY8nGIZLll2N/iyTDSTON14lutYhB2kSPrXl
+	 Pp+npgjIBlaeq7jkEgRFs6VLB2dVFa9ItA/rlJWG6BmZp2fjyzTz4qesaWKGQrI2c8
+	 btq1HjVgpM3Y5wm0Wa+l+l314JxumS9qxwUB39jY=
+Message-ID: <71fd5b46-4388-4106-aee9-b4510069975f@arm.com>
+Date: Mon, 27 Jul 2026 13:16:29 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM9PR10MB4277:EE_|AS8PR10MB7730:EE_
-X-MS-Office365-Filtering-Correlation-Id: f6f7ddab-8a27-4848-4f47-08deebd564b2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|56012099006|11063799006|10067099003|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	qfTXZae+gAmkTfJu20/lcNv0qTakEarnRFjB2Dr20F31HqcEvdVOJKJNMKDk0Fmlchzdty6wowaYX4DvF69w93PbC8qFJEV4KSMx12lSi6vXlxJRJF6ZP3hMnxoqF0ZsFYH/A3ta3oB18rf5TAvwQogvBIUaZdDJsPtpdE4q1Lq1g45DwaT/mjZNYaJTkVA/jvTouzxY7j4UQvcI7MMR3DpnsQSVrJSxr5Ym/dvCaAM4NBeEIizkqqzBmoiK//2hSHfHWWp+eXhmucy0jX6omiifX1GDjnUCCtaRhLpjBhi7wxH4VXOsYcHGWeCFhI35c4UFMkOqCaIZ1Pw6nPRaWl6mKFaVcC4B5Jy5nnyHLFx2t7sCdkH+B32l3/lJ0PvKepjxBMJzM621BxQbrFM7c4sA1yA3LFH7SQf1i7hoeMCz2miNT1o8oTAmIt0q8pLNC8LzFyEFUQYF8IaDyFB8xrXhM6ZBQgyQtc4iKY7LRGmB0zzE87VJrqlcvpB9WnOm6iPKiqzhDjDtIP0I1NISEYaLdwOLIo+JyOZLme5qCX5c5hnUP6DPe92nP0E0/z//TXCjNAwVckJ1y17jGrru4ML9Vp4g+bDxVCLXY/wN3cH3K3PHRx4yR2q88K30aEpnvSziPC9H3QHjr1ACwJYOu7ahxtnnMisrf4JO04e/hho=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(56012099006)(11063799006)(10067099003)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QWlXMVUrMHFrQUZnaEhvSTRaQ2tDb1hRTG1sTkhOTWErUXo3a2E2Vys5VUdz?=
- =?utf-8?B?Yk5mWUU3d2l0cHczUFQrWkFoWDZiSkt5NmZWOVgxRWZLTDkyWWpPaG16aklX?=
- =?utf-8?B?K2hqNTNYWVc3YzdHVWhRNjNONm1YQWpoRC9LMEQxMzJkaUZxOUV1T2JBUG9o?=
- =?utf-8?B?Sms5bVRYYW9mVzVhWVM5SzVrSzFRUTk4STdWS3pjQkJzZURDQURVaSsrUkdy?=
- =?utf-8?B?K0VKQlM4T00rME9CL01HaU9uZ24rdURIS1A0OW1RQ2hPenZGZUVWQ3E1ZnZP?=
- =?utf-8?B?RlhEQUN1aThSQ2tjZFhnY21RTG9Qb1hMSUhjaGg4NlgydVN0VkQ3eDgwVU1E?=
- =?utf-8?B?cWZKMEJUbTVxM3ZwUGdaMmV1cVVYOUNPZ1g2ZFpTREUxaFVqUmVzMDZhd1hW?=
- =?utf-8?B?djNaK1NPY3BmUVIxRGtpNnFhWGFJUFVYZERqc3dyRkFKSHlmemJtS2g0UGdM?=
- =?utf-8?B?VEZsN3I5QVdjdm1nd0pIVno4UmRRNHhEUTFEZ1QrZWNrZ2UySkJQa25FeHBB?=
- =?utf-8?B?VXFwbnl2bHJWYjNqM0JkcDFrbzk0WGdUL3JJaHhuTFBhZWYwVGgyTmJDSGQ2?=
- =?utf-8?B?T2x3U2dFMHllUnY2Q2VlTkZucG5ldU83UFhUSWZRcmpUYlZYOG1lN0NQRURF?=
- =?utf-8?B?M3RRV2ovL29rSlFMYTIrZDI5QmZRL0hoTlFTd1BIcDlyL3FIdGpqOWRRR2Na?=
- =?utf-8?B?eW8rdjRCdUhyb21NOFd5QWF3aXJTQjh3Q09paHRSV0JZSXN4ZW9zWjNoNnJv?=
- =?utf-8?B?S2FRUnpPQS80ZkJDcWFvUW53eUY3LzhsZ3dib3ZYNEhaMlBYUVJiaDUzZEVw?=
- =?utf-8?B?czlzenJDN05ZZ3FUNTNuYW1aSEFSdWFXUWtTMnBXVUlMOVZhN3UrRkVRamFW?=
- =?utf-8?B?bXNjT1Z1TnNEY0lLNWZBRVFHRmQrMVliL2lTL3laeUNOZlN2THFXeWJLQit1?=
- =?utf-8?B?TGhDdGU0YVpjT2lBUGpkZU9oTks3NTFTT1NvYkNiblJScm1iR2VFckNDRFNS?=
- =?utf-8?B?bzl1RXFxb2cyazN3N1YzcisrRGo1RDhKTmswajh6QVY0MXJNY3R0VGtsUGt2?=
- =?utf-8?B?WlFWdEJ2a3dWcVBTV3lZS05mOXNDUVhReFdXNWJsRTBtWWFkYTVsVVQ3UjE1?=
- =?utf-8?B?ZU12MWpyYWtDMW45THg1aURXZFhuMU5MTUJWeEZZREdCZHdsT0hHR2F6cUdG?=
- =?utf-8?B?Y0dDRWhBMDVqUXdFaEtQUUZjZ0o4ZlltYVJ5ZFFsU0pSSnFHaC9JNVNGaG1G?=
- =?utf-8?B?M3NkZWNaZTFteHhxdnp1WnZGNCtPOEx1M3ZCRjhuVFVoTUxvdjY0QjJTVFpD?=
- =?utf-8?B?bHlwbE4yUXRLNHpramVmRDBvNWNNOGNiRDdaSHFuT0dOTUcvU0ZJS2RSdjBG?=
- =?utf-8?B?Q2tEd3JWQWVDNG90Qnh4VFdpUUhVMGRpM2RKVkFRQ2FWUkFIMzlxc1RXZWZG?=
- =?utf-8?B?RkUxZWtZZ3cwNGthM29kcTJscmk5YVRmUm0zb2E2bEhvbjFxdCtvQk1YbTVL?=
- =?utf-8?B?ZlMwaHEyRGp0TDdodC9CZzRTaTVnTkJhZWdGQk1KOGJnYkxuWDZSRXd4bkcv?=
- =?utf-8?B?NHd0YzBZWDZvWGZwTk1kSW52SHN0QTFYSmpqZWs0WjZ4ZTNvc1M0dmROOVZT?=
- =?utf-8?B?Z0NpMUt5blVRRStpakpKYU52bWZkRzNZK0lGUXREWG9Cd1oxKzBpNnVkcmJE?=
- =?utf-8?B?ZGU5QmdUL3lCVU92Ri9HdFdycEJPWVMzSFovQVJGVm9vNlNDSDVXRzJzYmJv?=
- =?utf-8?B?ZWwzcjBnNUUyc2JVVW5rNUJ4OHJZK2lxNGlkUDRqcFgyOGdvZFRxQVViQ2pN?=
- =?utf-8?B?YitpR0pncG03YzFqWWh4dlNZUEFhNnhnMUx3U3ZKSnc2b1lidEhlTU5oNVVn?=
- =?utf-8?B?UTdTSThJUW1zSGRJK0xFaHQ2K3RsOTMxOWhmUk9QeEp4V0pjNkM4QTZPNG0y?=
- =?utf-8?B?WmtienZWM3B1UkZCQzJJdkFSUTJnbk9xaGhPWWhzVWNFdVIxb2w1bitrbU1p?=
- =?utf-8?B?VjdsRm9icWd0SVBibWhhalZ4UHBkOFpvdm1ZUGc4RG9FM3l4aHhYYjFvYWRk?=
- =?utf-8?B?TTR0TWIybUlhY1pCNjYrQ1JZWHZ6ZERCcGJsbGo4WmZOTUVaUktad2hQS3J4?=
- =?utf-8?B?eHBoMUJPb1h1R21WUUFwdm4wendwM0haSVhZdFc3ZTM3dXpQNVk4ZDZsTXJQ?=
- =?utf-8?B?N1dVZ1lxU1NsRUwyVk9BalpDSjRhS25RcGZOdEJBc2RkZlZMcEpnTTdWVzYw?=
- =?utf-8?B?R0RVaWFibGVXcUVBUG5qYWthQU1oV0pTanpYcTF2S1poSTNxd2VvZ005REpZ?=
- =?utf-8?B?SEV4M0dXUWJ6WkI4dHY3MXM5d1d3ODZMSHQvd0daN1ZoZnVLcGFIY3dRZFNC?=
- =?utf-8?Q?PVLn01zSBvl48jog=3D?=
-X-OriginatorOrg: kontron.de
-X-MS-Exchange-CrossTenant-Network-Message-Id: f6f7ddab-8a27-4848-4f47-08deebd564b2
-X-MS-Exchange-CrossTenant-AuthSource: AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2026 11:51:28.4342
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 8c9d3c97-3fd9-41c8-a2b1-646f3942daf1
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: T2cu+RmNsm5Gud41dxg87sE6G9UbynaBpUovKJqaN7DpQJ4QaEiq7Z5QLATVo5enBMocx6RhuZEMteGpHJrNW+Wfe2C9nwfCI6IAc+uXwzw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR10MB7730
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] driver core: platform: Setup device MSI domain just
+ before driver probe
+To: Anup Patel <anup.patel@oss.qualcomm.com>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
+ Alexandre Ghiti <alex@ghiti.fr>, Thomas Gleixner <tglx@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Danilo Krummrich <dakr@kernel.org>, Tomasz Jeznach
+ <tomasz.jeznach@linux.dev>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Jassi Brar <jassisinghbrar@gmail.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>
+Cc: Saket Dumbre <saket.dumbre@intel.com>, Rahul Pathak
+ <rahul@summations.net>, Atish Patra <atish.patra@linux.dev>,
+ Anup Patel <anup@brainfault.org>,
+ Andrew Jones <andrew.jones@oss.qualcomm.com>, linux-acpi@vger.kernel.org,
+ linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, driver-core@lists.linux.dev,
+ iommu@lists.linux.dev, acpica-devel@lists.linux.dev,
+ Sunil V L <sunilvl@oss.qualcomm.com>
+References: <20260727084003.1951324-1-anup.patel@oss.qualcomm.com>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260727084003.1951324-1-anup.patel@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 23.07.26 20:42, Frank Li wrote:
-> On Thu, Jul 23, 2026 at 09:27:28AM +0200, Frieder Schrempf wrote:
->> From: Frieder Schrempf <frieder.schrempf@kontron.de>
->>
->> This is useful to make sure the buffer is always freed when
->> its scope ends and makes the code slightly easier to read.
->>
->> Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
->> ---
->>  drivers/nvmem/imx-ocotp-ele.c | 5 ++---
->>  1 file changed, 2 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/nvmem/imx-ocotp-ele.c b/drivers/nvmem/imx-ocotp-ele.c
->> index 9d3f94e35508..47ee6bd176a3 100644
->> --- a/drivers/nvmem/imx-ocotp-ele.c
->> +++ b/drivers/nvmem/imx-ocotp-ele.c
->> @@ -5,6 +5,7 @@
->>   * Copyright 2023 NXP
->>   */
->>
->> +#include <linux/cleanup.h>
->>  #include <linux/device.h>
->>  #include <linux/io.h>
->>  #include <linux/module.h>
->> @@ -68,10 +69,10 @@ static int imx_ocotp_reg_read(void *context, unsigned int offset, void *val, siz
->>  {
->>  	struct imx_ocotp_priv *priv = context;
->>  	void __iomem *reg = priv->base + priv->data->reg_off;
->> +	void *p __free(kfree) = NULL;
+On 27/07/2026 9:40 am, Anup Patel wrote:
+> On RISC-V, the MSI controller (aka RISC-V IMSIC) is probed as a regular
+> platform device and MSI client drivers are always probed after the MSI
+> controller driver using fw_devlink. Unfortunately, this is not sufficient
+> to ensure device MSI domain is set for MSI client devices before driver
+> probe because OF framework sets device MSI domain at the time of platform
+> device creation whereas ACPI framework expects arch specific code to set
+> the device MSI domain at the time of platform device creation.
 > 
-> according to cleanup.h, it should declare at where assign
+> Currently, to address the problem of device MSI domain being not set
+> correctly, various RISC-V MSI client drivers explicitly set device
+> MSI domain in the driver probe function using below code pattern:
 > 
-> void *p __free(free) =  kzalloc(num_bytes, GFP_KERNEL);
+> 	/*
+> 	 * The device MSI domain for platform devices on RISC-V architecture
+> 	 * is only available after the MSI controller driver is probed so,
+> 	 * explicitly configure here.
+> 	 */
+> 	if (!dev_get_msi_domain(dev)) {
+> 		/*
+> 		 * The device MSI domain for OF devices is only set at the
+> 		 * time of populating/creating OF device. If the device MSI
+> 		 * domain is discovered later after the OF device is created
+> 		 * then we need to set it explicitly before using any platform
+> 		 * MSI functions.
+> 		 */
+> 		if (is_of_node(fwnode)) {
+> 			of_msi_configure(dev, dev_of_node(dev));
+> 		} else if (is_acpi_device_node(fwnode)) {
+> 			struct irq_domain *msi_domain;
+> 			msi_domain = irq_find_matching_fwnode(imsic_acpi_get_fwnode(dev),
+> 							      DOMAIN_BUS_PLATFORM_MSI);
+> 			dev_set_msi_domain(dev, msi_domain);
+> 		}
 > 
+> 		if (!dev_get_msi_domain(dev))
+> 			return -EPROBE_DEFER;
 
-As far as I can see, NULL should be perfectly fine as an initializer, as
-we need to calculate num_bytes first.
+I stand by my previous comment that relying on ACPI initcall order and 
+assuming fw_devlink is enabled doesn't really seem robust enough to 
+justify dropping proper handling of this case, especially if pretending 
+it's a generic interface.
 
+Thanks,
+Robin.
+
+> 	}
 > 
->>  	u32 count, index, num_bytes;
->>  	enum fuse_type type;
->>  	u32 *buf;
->> -	void *p;
->>  	int i;
->>  	u8 skipbytes;
->>
->> @@ -108,8 +109,6 @@ static int imx_ocotp_reg_read(void *context, unsigned int offset, void *val, siz
->>
->>  	mutex_unlock(&priv->lock);
->>
->> -	kfree(p);
->> -
->>  	return 0;
->>  };
->>
->>
->> --
->> 2.55.0
->>
->>
+> Instead of the above approach, extend the platform_dma_configure() to set
+> device MSI domain for both OF and ACPI based platform devices before driver
+> probe and remove the duplicate code pattern from RISC-V MSI client drivers.
+> 
+> Co-developed-by: Sunil V L <sunilvl@oss.qualcomm.com>
+> Signed-off-by: Sunil V L <sunilvl@oss.qualcomm.com>
+> Signed-off-by: Anup Patel <anup.patel@oss.qualcomm.com>
+> ---
+> Changes since v1:
+>   - Rebased on Linux-7.2-rc5
+>   - Minor improvement to commit description
+> ---
+>   drivers/acpi/riscv/irq.c                | 13 +++++++++++
+>   drivers/acpi/scan.c                     | 10 +++++++++
+>   drivers/base/platform.c                 |  4 ++++
+>   drivers/iommu/riscv/iommu-platform.c    |  9 --------
+>   drivers/irqchip/irq-riscv-aplic-msi.c   | 27 -----------------------
+>   drivers/irqchip/irq-riscv-rpmi-sysmsi.c | 29 -------------------------
+>   drivers/mailbox/riscv-sbi-mpxy-mbox.c   | 29 -------------------------
+>   include/acpi/acpi_bus.h                 |  1 +
+>   include/linux/acpi.h                    | 10 +++++++++
+>   9 files changed, 38 insertions(+), 94 deletions(-)
+> 
+> diff --git a/drivers/acpi/riscv/irq.c b/drivers/acpi/riscv/irq.c
+> index 9b88d0993e88..17fa5dcdd2c0 100644
+> --- a/drivers/acpi/riscv/irq.c
+> +++ b/drivers/acpi/riscv/irq.c
+> @@ -5,8 +5,11 @@
+>    */
+>   
+>   #include <linux/acpi.h>
+> +#include <linux/device.h>
+>   #include <linux/sort.h>
+>   #include <linux/irq.h>
+> +#include <linux/irqdomain.h>
+> +#include <linux/irqchip/riscv-imsic.h>
+>   
+>   #include "init.h"
+>   
+> @@ -397,6 +400,16 @@ static u32 riscv_acpi_add_irq_dep(acpi_handle handle)
+>   	return count;
+>   }
+>   
+> +void acpi_arch_msi_configure(struct device *dev)
+> +{
+> +	struct irq_domain *msi_domain;
+> +
+> +	msi_domain = irq_find_matching_fwnode(imsic_acpi_get_fwnode(dev),
+> +					      DOMAIN_BUS_PLATFORM_MSI);
+> +	if (msi_domain)
+> +		dev_set_msi_domain(dev, msi_domain);
+> +}
+> +
+>   u32 arch_acpi_add_auto_dep(acpi_handle handle)
+>   {
+>   	if (acpi_has_method(handle, "_PRT"))
+> diff --git a/drivers/acpi/scan.c b/drivers/acpi/scan.c
+> index 9a7ac2eb9ce0..75c52f6bbbe8 100644
+> --- a/drivers/acpi/scan.c
+> +++ b/drivers/acpi/scan.c
+> @@ -1650,6 +1650,16 @@ static int acpi_iommu_configure_id(struct device *dev, const u32 *id_in)
+>   
+>   #endif /* !CONFIG_IOMMU_API */
+>   
+> +/**
+> + * acpi_msi_configure - Set-up MSI domain for the device.
+> + * @dev: The pointer to the device
+> + */
+> +void acpi_msi_configure(struct device *dev)
+> +{
+> +	acpi_arch_msi_configure(dev);
+> +}
+> +EXPORT_SYMBOL_GPL(acpi_msi_configure);
+> +
+>   /**
+>    * acpi_dma_configure_id - Set-up DMA configuration for the device.
+>    * @dev: The pointer to the device
+> diff --git a/drivers/base/platform.c b/drivers/base/platform.c
+> index fb9120b0bcfe..965ed6ae5bb5 100644
+> --- a/drivers/base/platform.c
+> +++ b/drivers/base/platform.c
+> @@ -1477,8 +1477,12 @@ static int platform_dma_configure(struct device *dev)
+>   	int ret = 0;
+>   
+>   	if (is_of_node(fwnode)) {
+> +		if (!dev_get_msi_domain(dev))
+> +			of_msi_configure(dev, dev->of_node);
+>   		ret = of_dma_configure(dev, to_of_node(fwnode), true);
+>   	} else if (is_acpi_device_node(fwnode)) {
+> +		if (!dev_get_msi_domain(dev))
+> +			acpi_msi_configure(dev);
+>   		attr = acpi_get_dma_attr(to_acpi_device_node(fwnode));
+>   		ret = acpi_dma_configure(dev, attr);
+>   	}
+> diff --git a/drivers/iommu/riscv/iommu-platform.c b/drivers/iommu/riscv/iommu-platform.c
+> index 399ba8fe1b3e..ddc6370b96b0 100644
+> --- a/drivers/iommu/riscv/iommu-platform.c
+> +++ b/drivers/iommu/riscv/iommu-platform.c
+> @@ -48,7 +48,6 @@ static int riscv_iommu_platform_probe(struct platform_device *pdev)
+>   	enum riscv_iommu_igs_settings igs;
+>   	struct device *dev = &pdev->dev;
+>   	struct riscv_iommu_device *iommu = NULL;
+> -	struct irq_domain *msi_domain;
+>   	struct resource *res = NULL;
+>   	int vec, ret;
+>   
+> @@ -74,14 +73,6 @@ static int riscv_iommu_platform_probe(struct platform_device *pdev)
+>   	switch (igs) {
+>   	case RISCV_IOMMU_CAPABILITIES_IGS_BOTH:
+>   	case RISCV_IOMMU_CAPABILITIES_IGS_MSI:
+> -		if (is_of_node(dev_fwnode(dev))) {
+> -			of_msi_configure(dev, to_of_node(dev->fwnode));
+> -		} else {
+> -			msi_domain = irq_find_matching_fwnode(imsic_acpi_get_fwnode(dev),
+> -							      DOMAIN_BUS_PLATFORM_MSI);
+> -			dev_set_msi_domain(dev, msi_domain);
+> -		}
+> -
+>   		if (!dev_get_msi_domain(dev)) {
+>   			dev_warn(dev, "failed to find an MSI domain\n");
+>   			goto msi_fail;
+> diff --git a/drivers/irqchip/irq-riscv-aplic-msi.c b/drivers/irqchip/irq-riscv-aplic-msi.c
+> index fb8d1838609f..2cf5d42cd66a 100644
+> --- a/drivers/irqchip/irq-riscv-aplic-msi.c
+> +++ b/drivers/irqchip/irq-riscv-aplic-msi.c
+> @@ -175,7 +175,6 @@ static const struct msi_domain_template aplic_msi_template = {
+>   int aplic_msi_setup(struct device *dev, void __iomem *regs)
+>   {
+>   	const struct imsic_global_config *imsic_global;
+> -	struct irq_domain *msi_domain;
+>   	struct aplic_priv *priv;
+>   	struct aplic_msicfg *mc;
+>   	phys_addr_t pa;
+> @@ -245,32 +244,6 @@ int aplic_msi_setup(struct device *dev, void __iomem *regs)
+>   	/* Setup global config and interrupt delivery */
+>   	aplic_init_hw_global(priv, true);
+>   
+> -	/* Set the APLIC device MSI domain if not available */
+> -	if (!dev_get_msi_domain(dev)) {
+> -		/*
+> -		 * The device MSI domain for OF devices is only set at the
+> -		 * time of populating/creating OF device. If the device MSI
+> -		 * domain is discovered later after the OF device is created
+> -		 * then we need to set it explicitly before using any platform
+> -		 * MSI functions.
+> -		 *
+> -		 * In case of APLIC device, the parent MSI domain is always
+> -		 * IMSIC and the IMSIC MSI domains are created later through
+> -		 * the platform driver probing so we set it explicitly here.
+> -		 */
+> -		if (is_of_node(dev->fwnode)) {
+> -			of_msi_configure(dev, to_of_node(dev->fwnode));
+> -		} else {
+> -			msi_domain = irq_find_matching_fwnode(imsic_acpi_get_fwnode(dev),
+> -							      DOMAIN_BUS_PLATFORM_MSI);
+> -			if (msi_domain)
+> -				dev_set_msi_domain(dev, msi_domain);
+> -		}
+> -
+> -		if (!dev_get_msi_domain(dev))
+> -			return -EPROBE_DEFER;
+> -	}
+> -
+>   	if (!msi_create_device_irq_domain(dev, MSI_DEFAULT_DOMAIN, &aplic_msi_template,
+>   					  priv->nr_irqs + 1, priv, priv)) {
+>   		dev_err(dev, "failed to create MSI irq domain\n");
+> diff --git a/drivers/irqchip/irq-riscv-rpmi-sysmsi.c b/drivers/irqchip/irq-riscv-rpmi-sysmsi.c
+> index 612f3972f7af..e6cdb4b635a6 100644
+> --- a/drivers/irqchip/irq-riscv-rpmi-sysmsi.c
+> +++ b/drivers/irqchip/irq-riscv-rpmi-sysmsi.c
+> @@ -260,35 +260,6 @@ static int rpmi_sysmsi_probe(struct platform_device *pdev)
+>   			riscv_acpi_update_gsi_range(priv->gsi_base, priv->nr_irqs);
+>   	}
+>   
+> -	/*
+> -	 * The device MSI domain for platform devices on RISC-V architecture
+> -	 * is only available after the MSI controller driver is probed so,
+> -	 * explicitly configure here.
+> -	 */
+> -	if (!dev_get_msi_domain(dev)) {
+> -		/*
+> -		 * The device MSI domain for OF devices is only set at the
+> -		 * time of populating/creating OF device. If the device MSI
+> -		 * domain is discovered later after the OF device is created
+> -		 * then we need to set it explicitly before using any platform
+> -		 * MSI functions.
+> -		 */
+> -		if (is_of_node(fwnode)) {
+> -			of_msi_configure(dev, dev_of_node(dev));
+> -		} else if (is_acpi_device_node(fwnode)) {
+> -			struct irq_domain *msi_domain;
+> -
+> -			msi_domain = irq_find_matching_fwnode(imsic_acpi_get_fwnode(dev),
+> -							      DOMAIN_BUS_PLATFORM_MSI);
+> -			dev_set_msi_domain(dev, msi_domain);
+> -		}
+> -
+> -		if (!dev_get_msi_domain(dev)) {
+> -			mbox_free_channel(priv->chan);
+> -			return -EPROBE_DEFER;
+> -		}
+> -	}
+> -
+>   	if (!msi_create_device_irq_domain(dev, MSI_DEFAULT_DOMAIN,
+>   					  &rpmi_sysmsi_template,
+>   					  priv->nr_irqs, priv, priv)) {
+> diff --git a/drivers/mailbox/riscv-sbi-mpxy-mbox.c b/drivers/mailbox/riscv-sbi-mpxy-mbox.c
+> index 7c9c006b7244..759512aba19f 100644
+> --- a/drivers/mailbox/riscv-sbi-mpxy-mbox.c
+> +++ b/drivers/mailbox/riscv-sbi-mpxy-mbox.c
+> @@ -902,35 +902,6 @@ static int mpxy_mbox_probe(struct platform_device *pdev)
+>   
+>   	/* Setup MSIs for mailbox (if required) */
+>   	if (mbox->msi_count) {
+> -		/*
+> -		 * The device MSI domain for platform devices on RISC-V architecture
+> -		 * is only available after the MSI controller driver is probed so,
+> -		 * explicitly configure here.
+> -		 */
+> -		if (!dev_get_msi_domain(dev)) {
+> -			struct fwnode_handle *fwnode = dev_fwnode(dev);
+> -
+> -			/*
+> -			 * The device MSI domain for OF devices is only set at the
+> -			 * time of populating/creating OF device. If the device MSI
+> -			 * domain is discovered later after the OF device is created
+> -			 * then we need to set it explicitly before using any platform
+> -			 * MSI functions.
+> -			 */
+> -			if (is_of_node(fwnode)) {
+> -				of_msi_configure(dev, dev_of_node(dev));
+> -			} else if (is_acpi_device_node(fwnode)) {
+> -				struct irq_domain *msi_domain;
+> -
+> -				msi_domain = irq_find_matching_fwnode(imsic_acpi_get_fwnode(dev),
+> -								      DOMAIN_BUS_PLATFORM_MSI);
+> -				dev_set_msi_domain(dev, msi_domain);
+> -			}
+> -
+> -			if (!dev_get_msi_domain(dev))
+> -				return -EPROBE_DEFER;
+> -		}
+> -
+>   		mbox->msi_index_to_channel = devm_kcalloc(dev, mbox->msi_count,
+>   							  sizeof(*mbox->msi_index_to_channel),
+>   							  GFP_KERNEL);
+> diff --git a/include/acpi/acpi_bus.h b/include/acpi/acpi_bus.h
+> index 714d111d8053..d971d6bc14d7 100644
+> --- a/include/acpi/acpi_bus.h
+> +++ b/include/acpi/acpi_bus.h
+> @@ -750,6 +750,7 @@ bool acpi_dma_supported(const struct acpi_device *adev);
+>   enum dev_dma_attr acpi_get_dma_attr(struct acpi_device *adev);
+>   int acpi_iommu_fwspec_init(struct device *dev, u32 id,
+>   			   struct fwnode_handle *fwnode);
+> +void acpi_msi_configure(struct device *dev);
+>   int acpi_dma_get_range(struct device *dev, const struct bus_dma_region **map);
+>   int acpi_dma_configure_id(struct device *dev, enum dev_dma_attr attr,
+>   			   const u32 *input_id);
+> diff --git a/include/linux/acpi.h b/include/linux/acpi.h
+> index 60ab50cb8930..5e2e377c48b4 100644
+> --- a/include/linux/acpi.h
+> +++ b/include/linux/acpi.h
+> @@ -260,6 +260,12 @@ acpi_numa_processor_affinity_init(struct acpi_srat_cpu_affinity *pa) { }
+>   
+>   void acpi_numa_x2apic_affinity_init(struct acpi_srat_x2apic_cpu_affinity *pa);
+>   
+> +#if defined(CONFIG_RISCV)
+> +void acpi_arch_msi_configure(struct device *dev);
+> +#else
+> +static inline void acpi_arch_msi_configure(struct device *dev) { }
+> +#endif
+> +
+>   #if defined(CONFIG_ARM64) || defined(CONFIG_LOONGARCH)
+>   void acpi_arch_dma_setup(struct device *dev);
+>   #else
+> @@ -1060,6 +1066,10 @@ static inline int acpi_dma_get_range(struct device *dev, const struct bus_dma_re
+>   	return -ENODEV;
+>   }
+>   
+> +static inline void acpi_msi_configure(struct device *dev)
+> +{
+> +}
+> +
+>   static inline int acpi_dma_configure(struct device *dev,
+>   				     enum dev_dma_attr attr)
+>   {
 
