@@ -1,135 +1,104 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 016F331ED7D
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 22:17:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B116A245020
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 22:26:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785190654; cv=none; b=cDVGW3wED1HEBit++5uH7wc3WETsqILSqbdaVZgWoWT5vp0K4irh89qtMWvOrQVFJkoJMjELwltYVGXqqAi/tjS6VjfELC6kF2u3kwXaxVKoAAyQ1LYf04W7sY/CP/tTF24Kj0x1TS7t4eUgpzafDWVp8zqj/+C8aGgGg1zSQ94=
+	t=1785191193; cv=none; b=m4zY9yYocI3m4ptA9YqtqoBsxq7xX9PDU4OSRYNrAC+qh9gWYSiNRm65g8zKaB6syDpSWoqZX8BzVyx/za0IdcAYyDxdDD2q7XkakyNoE6UPJ2UuQB7ljnn5EzWswXu/mkUb9fBXILPKoLay3i463uhWLlKQRiAjNzO0Nd1dIQ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785190654; c=relaxed/simple;
-	bh=C2wVsnzMrlaFNpjiWg2lF/x15d3RO92rxlUSPYdvo3E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LyYgfaA08203TKkilKAFkT7pgJHTEAqFAfP1PQ+OlzitMnc39bOvzUdCFGggjAg5oYjVj7mmtVSrRlYUyYmjanBv8otaftijq8JT1S/Kuqpq32FNacA4gG+Xmo+H/nCOES9Jao70L0a2f2/B6JnCTMQI50R5PM62C6d8m/E0avc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fI0BPO3p; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785191193; c=relaxed/simple;
+	bh=Aeq/QejWSP0b0XJBVn2q1Aov1tSV3yNnPStPMQ2BeYc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Ag8rQ8GchOybFAkLs/d0TPXDYdBYhKB144khXYNjmfqKoz9oFLYTK8uHLjy/ewpFsZfws1tdD7qJvpBibFLBsUkEl6anBh+Q2ZH7FUfnn9WOaQPYCQzMVxGN/5peYT9a++aHniGsgZ1epq2qcAA8IZP7XLRRBchucHatC3eYdF8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gYslBs5J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fI0BPO3p"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2cf41bab353so46034855ad.0
-        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 15:17:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785190651; x=1785795451; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9SUe3YgVQms8Mfqwt9m0ylQTCLjUd6H2eV8tKFqZQjg=;
-        b=fI0BPO3p1cWqEkIvUDVqTmxUc0SLX0UwuKH7+cYBDEGcgQDX7dQ9QGZLzT5TK9iIWM
-         O7nPhsoW+oTmxN0Dg+8LBqxU919derY8qqQ8qMVuC29UBFoAhF4KY3vE/JiIdXourFUA
-         ghavMZdVzaR4c9bSN7xUED1IpsXfEdtP6xNY5ITgdCdlYQ1mT089U0TRPvWUH8RDBzM2
-         IFwW9D2Wa01M6dm8KPAji+RncmWINQDchcMHm+Z066nlWTlsLcF7eTQpyinnU/s1C/xf
-         NGjEPRCnjr7U0pqZr7GgqcQozNFViB5ArVSgD3G/Zl+iGlplwy8PwUS1w6RUOu8fbx4J
-         P16w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785190651; x=1785795451;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9SUe3YgVQms8Mfqwt9m0ylQTCLjUd6H2eV8tKFqZQjg=;
-        b=BNVLCCjVHwuTo+FwImEG03n80C6AGUyTejWNPW/qrJAQjYOvHD/i2jM9g67s5l8Xcb
-         gSTPjn7UipSBX8jzNK7K2140yZgscohVZh4zg8rkMeAV2EUMRZSKfd4R5c/VyjWCwRvy
-         VhKyKOrsE0bNsvSGEIS6C1qScnee5UTA6IK5fD3omLpJOEX75n0INclm+kkqyUNhbM5W
-         09MgqN2qUzStzsARNxSYi+tnzbXLjQMNPv3VThqtG7FZ2arMCqL+uTfcLD/HMTWbfA6O
-         7DC9VzLCtIvBEojaF1Ob3Ztczkdsxes3nEi9eE/e0NqMFKjZsLI9vtLF/7BAffwaeoqf
-         Ytuw==
-X-Gm-Message-State: AOJu0YxldotQE9jHvNjRgAHgUWmXxsaIbMrFP1EUguWK47Qyp1BxJxLH
-	fBGJ40DbcEelV531AAVUhoakiy9kvK4ixG05Zl6fcfi36FDYAK0keHSjU4LW9C7Z
-X-Gm-Gg: AR+sD13FMFSbYV0cMFpQpKq+hsOLXLjoR9Ku4rbSMS8YbBFqNT5gloS5H7uvzqLMsXZ
-	Gx4+vMPNsoEBElcVLwHFPQnE2tmtlv0Hoszvwiz+fC+GBgDMewtT0/tVqLkNHxkUjqs97+oCZDy
-	yvqoZNQx66tE22BEvxGKsR4zmxQdG2+2aqC6HyjM31h4X0VTrvz/x3/X9dV8VjEzVZ66vIECzxp
-	fIEcKntd2U1PWytoQIQ1soMOrVd/ZjL6ixL8dNHkcZdWAUK59Y9sjMfkAMqr10ErS6ItRQAXclE
-	jA9vnMrGSKmfTyW7vQkw/sRU4fNXve3wUMFy/I1d5d6R3YY2+qZ/qvSajJFIuX5bOeeT9reqG2Q
-	YYaDJ5VIcPunOA0aCS0XkfSM01Q2onwrDHb52IR0jh5Z0rq2zbZ80GuTMNr/4giA1StXuhus78N
-	RtzQeUDf8KzQDKTHlPWGyJfcYDvEGC4WaYEr2dlInKusP+tbbSPmoTqIyAIdFlSeTuOQiFBayQi
-	4xBGI+kvrTioOcGTDuoXB5Uw6vebWaShJiXln0D2q/0TrzIA+x7Wug=
-X-Received: by 2002:a17:902:da4d:b0:2cc:6817:d9b1 with SMTP id d9443c01a7336-2cfde8a52a7mr95829175ad.41.1785190651008;
-        Mon, 27 Jul 2026 15:17:31 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e34])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cfde5e2881sm41155645ad.25.2026.07.27.15.17.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jul 2026 15:17:30 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: devicetree@vger.kernel.org
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
-	Hauke Mehrtens <hauke@hauke-m.de>,
-	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-kernel@lists.infradead.org (moderated list:BROADCOM BCM5301X ARM ARCHITECTURE),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] ARM: dts: BCM5301X: Add missing phy-mode and fixed-link to DSA switch ports
-Date: Mon, 27 Jul 2026 15:17:28 -0700
-Message-ID: <20260727221728.40811-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gYslBs5J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 010DD1F00A3A;
+	Mon, 27 Jul 2026 22:26:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785191192;
+	bh=p1PXSLPuGs8IaERTsalXBWewQR4+xcnzVTeQI4sX4/0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=gYslBs5JGu5c5krEFjeoDUHpRSOmLFEFnPWxfdKz//CDJGdiozbWirRVhrEe2IKW/
+	 jYgrljV4iuP8CakT+T2RjU4OTL6cAuTmlE3teo0Zre5DO/1RQ78JOt2OMdn7kYo3PL
+	 utK238KROIfA22E51Dwx+s0VSbJvwEt+AWTS5cz259m4IAKnp2avLopBolNRoELqOR
+	 KIkunqJ06V4IUtcUr3eNB6Zg3S4acxbxkV6sKXxvUWRxM1KN2oQsSwBqiRwGzSRrbO
+	 kiJd0QAowroEI0n94PVjKb3YWBNzTdv1hHTnU4yoXkJQr+0iykzrQUugvzVWGSfYCU
+	 AxhPUiUrO5+Gg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 5/5] arm64: dts: qcom: milos-fairphone-fp6: Add NFC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jorijn van der Graaf" <jorijnvdgraaf@catcrafts.net>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260726222405.153008-6-jorijnvdgraaf@catcrafts.net>
+References: <20260726222405.153008-1-jorijnvdgraaf@catcrafts.net>
+ <20260726222405.153008-6-jorijnvdgraaf@catcrafts.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 27 Jul 2026 22:26:31 +0000
+Message-Id: <20260727222632.010DD1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Ports 5, 7 and 8 in the BCM5301x SRAB switch node carry an 'ethernet'
-property linking them to GMACs, but lack the required 'phy-mode' and
-'fixed-link' properties. The DSA port schema (dsa-port.yaml) mandates
-that any port with an 'ethernet' property must also have 'phy-mode'
-and one of 'fixed-link', 'phy-handle', or 'managed'.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The NFC controller will remain unpowered because the `s3fwrn5` dri=
+ver lacks regulator support, so the `pvdd-supply` specified in the device t=
+ree will never be enabled.
+--
 
-Add phy-mode = "internal" and a fixed-link subnode to ports 5, 7
-and 8, matching the properties already present on their respective
-GMAC nodes (gmac0, gmac1, gmac2). This resolves dtbs_check schema
-validation warnings for all BCM5301x-based board DTBs.
+--- Patch [5]: [PATCH v3 5/5] arm64: dts: qcom: milos-fairphone-fp6: Add NF=
+C ---
+commit a37bde53492f31e7077b36b4e030e872e07827b0
+Author: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
 
-Assisted-by: Opencode:Big-Pickle
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- arch/arm/boot/dts/broadcom/bcm-ns.dtsi | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+arm64: dts: qcom: milos-fairphone-fp6: Add NFC
 
-diff --git a/arch/arm/boot/dts/broadcom/bcm-ns.dtsi b/arch/arm/boot/dts/broadcom/bcm-ns.dtsi
-index 27a97c8122de..609f56ab936c 100644
---- a/arch/arm/boot/dts/broadcom/bcm-ns.dtsi
-+++ b/arch/arm/boot/dts/broadcom/bcm-ns.dtsi
-@@ -439,16 +439,29 @@ port@4 {
- 			port@5 {
- 				reg = <5>;
- 				ethernet = <&gmac0>;
-+				phy-mode = "internal";
-+
-+				fixed-link {
-+					speed = <1000>;
-+					full-duplex;
-+				};
- 			};
- 
- 			port@7 {
- 				reg = <7>;
- 				ethernet = <&gmac1>;
-+				phy-mode = "internal";
-+
-+				fixed-link {
-+					speed = <1000>;
-+					full-duplex;
-+				};
- 			};
- 
- 			port@8 {
- 				reg = <8>;
- 				ethernet = <&gmac2>;
-+				phy-mode = "internal";
- 
- 				fixed-link {
- 					speed = <1000>;
--- 
-2.55.0
+This commit adds the Samsung S3NRN4V NCI NFC controller on i2c1 to the
+device tree. It configures the necessary clocks, interrupts, and assigns
+the PVDD supply to the PM7550 LDO20 regulator.
 
+> diff --git a/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts b/arch/arm6=
+4/boot/dts/qcom/milos-fairphone-fp6.dts
+> index ebdca0e2d2f3a..a1b86e4092fe2 100644
+> --- a/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
+> +++ b/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
+> @@ -601,9 +601,29 @@ &gcc {
+[ ... ]
+> +	nfc@27 {
+> +		compatible =3D "samsung,s3nrn4v";
+> +		reg =3D <0x27>;
+> +
+> +		clk-req-gpios =3D <&tlmm 6 GPIO_ACTIVE_HIGH>;
+> +		clocks =3D <&rpmhcc RPMH_RF_CLK2>;
+> +		en-gpios =3D <&tlmm 56 GPIO_ACTIVE_HIGH>;
+> +		interrupt-parent =3D <&tlmm>;
+> +		interrupts =3D <31 IRQ_TYPE_EDGE_RISING>;
+> +		pinctrl-0 =3D <&nfc_clk_req_default>, <&nfc_irq_default>,
+> +			    <&nfc_pd_default>;
+> +		pinctrl-names =3D "default";
+> +		pvdd-supply =3D <&vreg_l20b>;
+
+[Severity: High]
+Will the NFC controller remain unpowered here?
+
+Looking at the upstream driver in drivers/nfc/s3fwrn5/i2c.c in
+s3fwrn5_i2c_probe(), it parses and initializes GPIOs and clocks:
+
+    phy->common.gpio_en =3D devm_gpiod_get(&client->dev, "en", GPIOD_OUT_HI=
+GH);
+
+However, it appears to omit requesting or enabling any regulators like
+pvdd-supply. Since vreg_l20b is not marked as always-on, won't the regulator
+core leave it disabled, preventing the chip from functioning?
+
+> +		wake-gpios =3D <&tlmm 7 GPIO_ACTIVE_HIGH>;
+> +	};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260726222405.1530=
+08-1-jorijnvdgraaf@catcrafts.net?part=3D5
