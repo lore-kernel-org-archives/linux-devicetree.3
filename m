@@ -1,83 +1,214 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEB3B423768
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 16:43:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8A3A282F0A
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 16:47:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785170610; cv=none; b=BxDnGTozLlbrJ8QpxJhLhb9Dw+kClK1I8DPpw5nmEhKtxCoQsCZj+UshDNaVkrGzQj+ECZQfA33/+TIsSqOilAuByEJk3aH1dVPL5KMn9S0Ul3/bvB5yyiwtmW0sG6PfcaioyCZp/d47sYsqqLrheXjSqG2ayUxy2hsTFsu3h8c=
+	t=1785170870; cv=none; b=aDYFatff7n03RgZ/AOe5nbgO6nVpq/toJpAK6nqqpPRY9rRx5cXmyzfocvhajU+0bXVyIPu3tLeKS9LFTItxiGtG+FPe8s7nmvMPUVAMEY2gM81aYZgwPCwSAjWfNWyC8b2DNc8q8/UmhxZWGTwekNzler0gwt/3qBt1NYls5Vc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785170610; c=relaxed/simple;
-	bh=Hn3J8VhUzYUZT/0+Un7gBK5rZStubHt+5BqBXqPXQRg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NUtahV6gHyHgE3zC8QEYI2Fn0bu/qU/WqwkI1O2GqeYuOhtyGHm8rPQb6LMKVcshbs7m/8HPXS711afC/9TaEEQf+c8hI3ywjdTxj0BMyP3Pzi0RfHnWkfflai9YkOGJsklmpLFhwoWNchNm9hqB6Cm9sHuYQjpVvm8USmdhm9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OdbuoNRT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785170870; c=relaxed/simple;
+	bh=6osKRbk0uKsTETOujWjOr11uRimT0wpIsULkIpTqtc8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OBOooOBujg0jnHl+NNHe7XAPLfrD3iO3/vM52f8DwExQ+WltUQRSMJXAvWa2kTsAmtSn604HUnexNsBBcN2Qbu6C4dKZzi0ABw0h9dRTN5tPJiCdjFEMc31FIzDyq8FBAzXSRfokecfbkayQyrT57ZFRzRfx2We+Tq7X9m8HZ/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PrekofF6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=evxCjg+v; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OdbuoNRT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A8EB1F00A3D
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 16:43:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785170609;
-	bh=Hn3J8VhUzYUZT/0+Un7gBK5rZStubHt+5BqBXqPXQRg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=OdbuoNRTdDhf28FdpGEPhYMHXr3jqg8ysbIX0o5M5QKU/fK3kdATctQUm0E8cWlOL
-	 h4l1gounJ1xyfBeVyooG2NmwFY4M4xLGj5nlRdru0XYkGIlHP22oSfBiN9AX074NE4
-	 K8YZw0Q8wUtBv2DphdSgaIm2hgogc88RdqhSeIrwpScba+W/XdSiawH5A9SRU4263G
-	 Ij50zR/QxgusL4wYR6pr5FvcPdb9/SiWc4bJ4co6BIDSiaLfOx6rBoRCQ8ui7IgXJB
-	 t/I2LDTDkTNv2nB//Tz8JIDgjDvWKRiE8OvbN9DbaHFRmFzV1Y/WDJetZIgqaMS7a0
-	 HSq7ZQeFjRzvA==
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c15b1da6b82so355889766b.1
-        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 09:43:29 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RrEToS14yq/FYRSVHXo50zoPrAyNuUyMb9c/OJM/29gK8Em+XIjWPSgml18bbr/DG10aDhzQZuiVnV+@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxxa9EXQhkdQ2DmvvGMHw/8EXOvXaZ6n3QT7WxY1xEU8nGI2U63
-	488igl4IjD4lkemYwQ6NVJIgTENazQy1H9UDrgomllXy96LB7xQSJ2dXbjutsqG7J3UxbUcjdN6
-	KF6N9xZ6LeXO2hpaJQz6FJJK3w+0Fsg==
-X-Received: by 2002:a17:907:934a:b0:c15:f4bb:e663 with SMTP id
- a640c23a62f3a-c1f1ea074a9mr436415166b.10.1785170608067; Mon, 27 Jul 2026
- 09:43:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PrekofF6";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="evxCjg+v"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66RDliG54061167
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 16:47:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	KUEgTvaKONdG8ocE/B3l4rVpV7LguUz/D1duATSW5RI=; b=PrekofF66EujB+DO
+	sMUbS77Y5iVX7muLi5svnPNCeFMdSyDx3kDoSKU/INZ8w4nl45VNwQxVYeQoq39C
+	l3LdtH+GxQP1kyNM9DVkjtiPG9U3VacLmOPFYlLpa7507CLhQEeZG3wGEFcTP4rh
+	f0tDNJw0mBroZwoNiDsOTvudwmyw5k6G/Zsl4NqOohZUk5CHVppV605t6DY+OZOL
+	8w2RU2Rg1CoQ0A2ZB3vKxp/ZikXbZdp8cDX02M4Y5RnMRlJJ6EBws2kmskK64sjk
+	lx/5FdeAcwdOsFQcbWqZzkaX/p3gkH8oDk1F7w21gQhIBBv0lI1OSn415fkQJB2o
+	ukynBw==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fp4mq1u1d-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 16:47:43 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-848860def2cso3294228b3a.2
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 09:47:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785170862; x=1785775662; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KUEgTvaKONdG8ocE/B3l4rVpV7LguUz/D1duATSW5RI=;
+        b=evxCjg+v/co3wJKCyHM2bBrxbc1KGJdpDkwjhPSoJi8Jp+xBcTbjQXSn7yy7qGaVa1
+         2h8omU7mtNt4IEg83VDyzq5u5w6v1pemraCK4OS1ZOFaF4RvxlKcLLTkN2I5Mk22cspj
+         vw0XcAfBsjE0D5IZBlkN1YcgMpQZBuFboR0AyPwqoyl167N8/Owa9yuzQ0UkgGnDHjf7
+         grcKdnZvxMMvB+fH8gLYhTiL3EbLn+4D/05nQQ6HgFAJfpbE+6+0SuTkkGQVqk7+TW/D
+         L+NmGoMsbkPrAWdvUMGGLvJr/I93NWX3q3blFdOg+RcEp6pg510fxL2Cdet12Nvhwpsj
+         Wesw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785170862; x=1785775662;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KUEgTvaKONdG8ocE/B3l4rVpV7LguUz/D1duATSW5RI=;
+        b=sXjSDBmKW8biYrNu3M/rvervP/8jEztXpB4pziFF9dn9K8KDOyA+8aa7r0WGkQW++l
+         Lr4tXURhuqKCnqAvL/qNZcSut2Sm7cc92c9DQ/OjMzGnKbAsppMCSGwDY/uxXqRD091E
+         uYAX5iea88jFIWdmI0NZEdJDyga29UF85HDKTlIaRRsRq8XnrK/QB/yXxTG5RBDhTiN5
+         gSP0M4QVA3z3BmRFkDSipPg7MXY6zdlATyul1PZEyNOgO2cgKttCA1PLpE1rv3PfS/7U
+         KBdXeZTQzYuzczvETlrDrwH3KuGqkb7CZ0BiiQpewPvqP8BC11ANwKe1xO5d0LqEbS8j
+         fjLw==
+X-Forwarded-Encrypted: i=1; AHgh+Rp5ITbHjEgfuK0yKXnDvmVSl77NPvW5REHQJrSX8ITL4r/g6XMJ+vgZF62qCYVXufgnU96i4ba2HLmh@vger.kernel.org
+X-Gm-Message-State: AOJu0YykPrLAc9SUSwxFMUu+PqNRj4YCEHhuk0RRrwpnaVh8TEL4m/Ih
+	Jjo35Nns8vvyn2r3BscOQqM0fc7VCzMOi6PduADb1KFZyk0X17817xPK8Vs+QXdrCAKOC14GY+I
+	tXkQTealvvymdHlqYOrnR65AOw8VIb9SrqfzMJdgPLKEAOKvJAR4zdFdUJV0zsjIb
+X-Gm-Gg: AR+sD11uLchFpMr1God2NTaEQHo63DjS5rEzgJxVPacyv+vck3GK3wDJDDMaVf+QtWn
+	au9pkGodu1yu5nBi2kkF33CSg8/QqdDV6bP4QCEeXdAsEkEW8w6H6JUXVWWMW55/XN0XWvKgHEc
+	AjzkgzvYkhHWiH9LNL0uCpKBbMEKO0+v04HST1kJnrcvq6hXktku+IyKJbrLXrveROti2MHlJpM
+	4y5u2JqJbe5i6zYWqCIU2+YQX+r1b36EkEQaFFnnX9B2j9WmKRrH0kkzvNC2fWUXCazX5aZXZKW
+	umUvHRbrjlPBKRNKO/rto5YxsrWBmX9SneQTfuW+CK3slSY/G8MVPPo0N0ZcS3Tb85ZODmx1E4t
+	cnZqaUckFdzF0KpIfyIpd1oKxa0EHog==
+X-Received: by 2002:a05:6a00:1488:b0:848:3dae:66e2 with SMTP id d2e1a72fcca58-84e8d094ccemr184026b3a.26.1785170862509;
+        Mon, 27 Jul 2026 09:47:42 -0700 (PDT)
+X-Received: by 2002:a05:6a00:1488:b0:848:3dae:66e2 with SMTP id d2e1a72fcca58-84e8d094ccemr183986b3a.26.1785170862021;
+        Mon, 27 Jul 2026 09:47:42 -0700 (PDT)
+Received: from [192.168.1.3] ([106.212.244.189])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e5344e577sm3301603b3a.58.2026.07.27.09.47.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 27 Jul 2026 09:47:41 -0700 (PDT)
+Message-ID: <8fcea280-02c1-4511-a51b-438254e0b8e8@oss.qualcomm.com>
+Date: Mon, 27 Jul 2026 22:17:34 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260727-of-range-parser-null-bus-v3-1-be01b708a4ce@baylibre.com>
- <20260727084613.6905B1F000E9@smtp.kernel.org> <DK981PFQXYCO.29SKQ2BT5EOPQ@baylibre.com>
-In-Reply-To: <DK981PFQXYCO.29SKQ2BT5EOPQ@baylibre.com>
-From: Rob Herring <robh@kernel.org>
-Date: Mon, 27 Jul 2026 11:43:16 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqJ2rqLzH3=vV8jzmTKorKvuVc-zqv-8+-T7K229ND8mow@mail.gmail.com>
-X-Gm-Features: AUfX_myvZNKCOOtmp9ugSjWzr8E4nCAvkOxDTKoXLKIDapdLJi5EtYMk5pBb3zY
-Message-ID: <CAL_JsqJ2rqLzH3=vV8jzmTKorKvuVc-zqv-8+-T7K229ND8mow@mail.gmail.com>
-Subject: Re: [PATCH v3] of/address: Fix NULL bus dereference in of_pci_range_parser_one()
-To: Carlo Caione <ccaione@baylibre.com>
-Cc: sashiko-reviews@lists.linux.dev, conor+dt@kernel.org, 
-	devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 0/3] ASoC: qcom: qdsp6: Add MI2S clock control
+To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-sound@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260727151230.408122-1-mohammad.rafi.shaik@oss.qualcomm.com>
+Content-Language: en-US
+From: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+In-Reply-To: <20260727151230.408122-1-mohammad.rafi.shaik@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI3MDE1NSBTYWx0ZWRfX5/9YmC2XM/Ge
+ 6CaRzTKQVyn3FIJvXRyBn0EwsC1vDlZcaBzSyVHyviasoUpU1PsFCSJPA8wSZxoV4sUpmNQX1J7
+ VW93R+05rs/kkSkvPEI0P4sgTw1K3Ks=
+X-Proofpoint-ORIG-GUID: VT6C61DUl4zMOj_9IDKmbGlHJ9Vk1S5p
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI3MDE1NSBTYWx0ZWRfX/xjHrPZePSmB
+ pd621mPpeTwesmhNErOElNRlLogbF8aVLBIL4bdh935ldgslRfowZDYmzPM/nrWw/6SM2xuvyaQ
+ mX3zsUgUNvORdL+X8Fd84nDrqWtGkq9FhjqrceAMqFizQAPPwHkk7nl8chMZqWSTEBhMDxz6lyE
+ j6WTZNj8t+qZ8PfcpSawezEQSc/YfQc1NMlbqr2AXjC1AexS5VhMnlO0fMk4JDlYAnQ5bgiSWKt
+ FNclXb7GT4Mh8OxnAzUUEBDziMBuMCcmXKEkbGAFllQ8v2Ye495G67KcQe2GJsnnzGeryv5p2Pe
+ w6dde0IRc/S7JPFZhC6ieBAZlPEjG3oLKRS1gxQdA91py/Viz9Fz1hTQuEcSIq1fPDWiQM9jEHU
+ a0pw+8A+rxUIJzlnTtRURPA03XoFKAG6TdMn+NbsQ/cGP0EHRzmyyNwKjvTHy1IoDgQCBH6sAb5
+ dS/cPmBbcssG0Ncsbpg==
+X-Proofpoint-GUID: VT6C61DUl4zMOj_9IDKmbGlHJ9Vk1S5p
+X-Authority-Analysis: v=2.4 cv=TemmcxQh c=1 sm=1 tr=0 ts=6a678baf cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=yelsqLKVWbcqNe5dfEYUXw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=goF0mpTvZGH6B-jPVEoA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-27_04,2026-07-24_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 clxscore=1015 impostorscore=0 adultscore=0 suspectscore=0
+ lowpriorityscore=0 malwarescore=0 phishscore=0 spamscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607270155
 
-On Mon, Jul 27, 2026 at 3:47=E2=80=AFAM Carlo Caione <ccaione@baylibre.com>=
- wrote:
->
-> On Mon Jul 27, 2026 at 10:46 AM CEST, sashiko-bot wrote:
-> > Thank you for your contribution! Sashiko AI review found 1 potential is=
-sue(s) to consider:
-> >
-> > Pre-existing issues:
-> > - [High] An integer overflow in the calculation of `np` (`np =3D parser=
-->pna + na + ns`) can be triggered by a maliciously crafted Device Tree wit=
-h a large positive `#size-cells` value (e.g., `0x7FFFFFFE`). This results i=
-n a negative `np` which bypasses the bounds check `parser->range + np > par=
-ser->end`.
->
-> [...]
-> > [Severity: High]
-> > This isn't a bug introduced by this patch, but can this integer calcula=
-tion
-> > overflow?
->
-> Not going to endless-ly fix pre-existing issues.
 
-Agreed. I'm not sure this one is worth "fixing".
 
-Rob
+On 7/27/2026 8:42 PM, Mohammad Rafi Shaik wrote:
+> Add support for MI2S clock control within q6apm-lpass DAIs, including
+> handling of MCLK, BCLK via the DAI .set_sysclk callback. Each MI2S port
+> now retrieves its clock handles from the device tree, allowing per-port
+> clock configuration and proper enable/disable during startup and shutdown.
+> 
+> On platforms such as Monaco and Lemans, third-party codecs are
+> hardware-wired to the SoC and do not always have an in-tree codec
+> driver to manage their clocks. For these designs, clock line
+> enablement must be driven from the platform side, and this
+> series provides the necessary support for that.
+> 
+> On QAIF-based platforms such as Shikra and Hawi, responsibility
+> for voting I2S MCLK and bit-clock has moved from the DSP to the
+> kernel. This series introduces the required device tree binding
+> support to represent and vote for these clocks from the kernel.
+> 
+> Enhances the sc8280xp machine driver to set the boards spacific
+> configurations.
+> 
+> ---
+> Changes in v8:
+> - Fixed indentation, reported by Krzysztof.
+> - Resolved all sashiko comments.
+> - Link to v7: https://lore.kernel.org/all/20260724182446.1484894-1-mohammad.rafi.shaik@oss.qualcomm.com/
+> 
+> Changes in v7:
+> - Addressed review comments, reported by Krzysztof.
+> - Drop ECLK handling, which is not required.
+> - Link to v6: https://lore.kernel.org/all/20260720160226.1026440-1-mohammad.rafi.shaik@oss.qualcomm.com/
+> 
+> Changes in v6:
+> - Addressed review comments, reported by Krzysztof.
+> - Resolved all sashiko comments.
+> - Link to v5: https://lore.kernel.org/all/20260714145250.2473461-1-mohammad.rafi.shaik@oss.qualcomm.com/
+> 
+> Changes in v5:
+> - Addressed review comments, reported by Krzysztof.
+> - Resolved all sashiko comments.
+> - Link to v4: https://lore.kernel.org/all/20260711125740.3083236-1-mohammad.rafi.shaik@oss.qualcomm.com/
+> 
+> Changes in v4:
+> - Addressed review comments from Mark Brown.
+> - Resolved all sashiko comments.
+> - Link to v3: https://lore.kernel.org/all/20260706132009.1496321-1-mohammad.rafi.shaik@oss.qualcomm.com/
+> 
+> Changes in v3:
+> - Addressed all review comments from Mark Brown.
+> - Fixed OF node reference handling, clock configuration, and sample-rate
+>    handling issues as suggested by Mark Brown.
+> - Added proper error checking for DAI configuration APIs as suggested by Mark Brown.
+> - Added SENARY DAI support alongside MI2S DAIs as suggested by Val Packett.
+> - Link to v2: https://lore.kernel.org/all/20260608023011.942228-1-mohammad.rafi.shaik@oss.qualcomm.com/
+> 
+> Changes in v2:
+> - Added a detailed commit description to clearly explain the need for this change.
+> - Improved the machine driver based on Neil’s feedback.
+> - Link to v1: https://lore.kernel.org/all/20260309111300.2484262-1-mohammad.rafi.shaik@oss.qualcomm.com/
+> ---
+> Mohammad Rafi Shaik (3):
+>    ASoC: dt-bindings: qcom,q6apm-lpass-dais: Document DAI subnode
+>    ASoC: qcom: q6apm-lpass-dais: Add MI2S clock control
+>    ASoC: qcom: sc8280xp: enhance machine driver for board-specific config
+> 
+>   .../bindings/sound/qcom,q6apm-lpass-dais.yaml |  50 ++++
+>   sound/soc/qcom/qdsp6/q6apm-lpass-dais.c       | 181 ++++++++++++-
+>   sound/soc/qcom/qdsp6/q6prm.h                  |   3 +
+>   sound/soc/qcom/sc8280xp.c                     | 240 ++++++++++++++++--
+>   4 files changed, 452 insertions(+), 22 deletions(-)
+> 
+> 
+> base-commit: c5e32e86ca02b003f86e095d379b38148999293d
+
+Tested-by: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com> #SHIKRA-IQS
+
