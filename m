@@ -1,45 +1,53 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50F023A7D9E;
-	Mon, 27 Jul 2026 06:47:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 456D5317170;
+	Mon, 27 Jul 2026 06:49:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785134828; cv=none; b=E93MAOsHhA2S1hID2JRXpRO++Ay2YuUZns1Dv0iRz1+0C1tS3y3REb0ivaBFPyYe25CzZxeU6glU8K8YbiJ4CRRvW8Sdyp0LpbNuFkuO6J1SMjUw+/eVR6gyNaOSCU1SeNTVw8i5jX4N478l7MplCJZ6Tox2Ft9jiVE8N9gLkxQ=
+	t=1785134998; cv=none; b=VjlpC/U6GkWGEe0FCXXlthaxrW3ANtkoGueTWYHsSbApbMI38CBAI/KQ5hcpFB2uVu+a+IaL9lAIzmgaK2V8s/qw9VX9GYwNIbd+onBeYWOuS4fU6IHymisQQlmC34xdLx2juJ/pOrYkZW/4sOi7ChxkR5HgIb2LiDLV4MsNLXI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785134828; c=relaxed/simple;
-	bh=egrSHVv2XT0Y3bP773mgGT1ZLPKQAaidLxR+6y+JTqI=;
+	s=arc-20240116; t=1785134998; c=relaxed/simple;
+	bh=Wl8JI0Pe382+T8bM38PzhDFuGYu7rJiytwfyN/SLDvI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VwNfw3uTEg4FAjNIgsq1VL1cThMaeGrTy8LCH4IJVEfhQwjgDsdG497j6xkrlZIFOQK0E6ogCSANMvdpKHVobDwheHmKpWALofcGhEOb7mdmu1gkLSY/abG8XZ52/4k+oJmQbS0YHL36zx+g5jDUttXUnMwOR9T6cdXnjIYxYl4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=K4cSDxQL; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=p7p08Crxu6juBqxEONm8WCN6EH7iGx7DhJxn0uiRHVTvt68A6xVxKAvgjAEFs2BTV2j+5QE+HvLb/obPkQktcw9Do6WYj6iY4Yo9iyRYEByw8R/0rdp5UPHLoVrD5S01F9gJEIXIwbnZm4xVWJbdAMj1J0NGp8jxXG9mrlQBsTY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ifF85JeN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="K4cSDxQL"
-Received: from ideasonboard.com (mob-5-90-50-102.net.vodafone.it [5.90.50.102])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 58F7F19C;
-	Mon, 27 Jul 2026 08:45:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1785134753;
-	bh=egrSHVv2XT0Y3bP773mgGT1ZLPKQAaidLxR+6y+JTqI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=K4cSDxQLNkF2DmRZskgOq+Bnlv618kkgoyxQQw3k98c7sk2KxXWF/d9Xj1lT3FWba
-	 90oGR8geq//UrDF6AnBNC7PM42LQL4B8Bl2gF3FaV0RjkyzwP6b0LxQpbesBn3KWDl
-	 Y3esKB6mTsvdd2DL05+OKHNwpl0nTogB+ue18BbQ=
-Date: Mon, 27 Jul 2026 08:46:53 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Conor Dooley <conor+dt@kernel.org>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Philippe Baetens <philippebaetens@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Kieran Bingham <kieran.bingham@ideasonboard.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 2/2] media: i2c: Add driver for AMS-OSRAM Mira220
-Message-ID: <amb9dOkox3zqr85t@zed>
-References: <20260724-mira220-v8-0-d1899ab64709@ideasonboard.com>
- <20260724-mira220-v8-2-d1899ab64709@ideasonboard.com>
- <178491944579.3026322.17711300671190246368@freya>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ifF85JeN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3ABB1F00A3D;
+	Mon, 27 Jul 2026 06:49:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785134996;
+	bh=MlGR9ItXAmQGjETy7LCxdY/92Agqr1/MA8xAziWH4oM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ifF85JeNmACewPI+iNuluPZO5mVGRTaEer/Y6uWO5HBXFrqpCtQifAhhqiMtaaSpA
+	 QcXtnb9yWpCBmc85kkw7GDKHyboDWsaJ0ZJxWlNLZUrJg1FQW+G5ZPCY2/WORFwh+Q
+	 rmiDATKJIIEVJj8Tv+9LM5M0PMZ+5okjD9upyypI0CRYjSoYMb9ilB2hQB5Mfk9knb
+	 I6VTf+OMShJbpDXQfqemSWe+IPSukSQCZwE2fnMlNwAILS40gSTHiCvbdAJ/0UocKj
+	 Utm/tQdv3VHtxfLFJhbIpAqPHQhrblAvzyenhhUrlwapgTwtrbHBqsOCTsu077EY5+
+	 zHu/dwYhgkC9g==
+Date: Mon, 27 Jul 2026 08:49:52 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Sandy Huang <hjc@rock-chips.com>, 
+	Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, Damon Ding <damon.ding@rock-chips.com>, 
+	Dmitry Baryshkov <lumag@kernel.org>, Alexey Charkov <alchark@flipper.net>, 
+	dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, kernel@collabora.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v6 15/16] dt-bindings: display: rockchip: dw-dp: Fix
+ sound DAI cells
+Message-ID: <20260727-luminous-spiritual-grebe-72de7b@quoll>
+References: <20260724-synopsys-dw-dp-improvements-v6-0-041d99a19c4e@collabora.com>
+ <20260724-synopsys-dw-dp-improvements-v6-15-041d99a19c4e@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,132 +56,21 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <178491944579.3026322.17711300671190246368@freya>
+In-Reply-To: <20260724-synopsys-dw-dp-improvements-v6-15-041d99a19c4e@collabora.com>
 
-Hi Jai
+On Fri, Jul 24, 2026 at 08:03:37PM +0200, Sebastian Reichel wrote:
+> The RK3588 and RK3576 DesignWare DisplayPort controllers both have two
+> possible DAI interfaces: I2S and S/PDIF. Thus an argument is needed to
+> to select the right interface.
+> 
+> In addition to that the RK3576 DisplayPort controller is configured
+> with Multi Stream Transport (MST) enabled for up to 3 displays and
+> thus has a total of 6 DAI interfaces (I2S and S/PDIF for each possible
+> stream). Meanwhile the RK3588 does not support MST and thus has only 2
+> DAI interfaces.
 
-On Sat, Jul 25, 2026 at 12:27:25AM +0530, Jai Luthra wrote:
-> Hi Jacopo,
->
-> Thank you for the fixes!
->
-> Quoting Jacopo Mondi (2026-07-24 21:07:01)
-> > From: Philippe Baetens <philippebaetens@gmail.com>
-> >
-> > Add a V4L2 subdev driver for driver for the AMS-OSRAM Mira220 image
-> > sensor.
-> >
-> > Mira220 is a global shutter image sensor with a resolution of 1600x1400
-> > pixels.
-> >
-> > The driver implements support for mono and RGB 12, 10 and 8 bits
-> > formats. The output data-rate per lane is 1500Mbit/s, with a maximum
-> > frame rate up to 90 fps.
-> >
-> > Signed-off-by: Philippe Baetens <philippebaetens@gmail.com>
-> > Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> >
->
-> [...]
->
-> > +static int mira220_parse_endpoint(struct device *dev, struct mira220 *mira220)
-> > +{
-> > +       struct fwnode_handle *endpoint;
-> > +       struct v4l2_fwnode_endpoint ep_cfg = {
-> > +               .bus_type = V4L2_MBUS_CSI2_DPHY
-> > +       };
-> > +       int ret = 0;
-> > +
-> > +       endpoint = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0, 0);
-> > +       if (!endpoint) {
-> > +               dev_err(dev, "Endpoint node not found\n");
-> > +               return -EINVAL;
-> > +       }
-> > +
-> > +       if (v4l2_fwnode_endpoint_alloc_parse(endpoint, &ep_cfg)) {
-> > +               ret = -EINVAL;
-> > +               dev_err(dev, "Failed to parse endpoint\n");
-> > +               goto error_out;
-> > +       }
-> > +
-> > +       /* Non-continuous mode not implemented. */
-> > +       if (ep_cfg.bus.mipi_csi2.flags & V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK) {
-> > +               dev_warn(dev, "clock non-continuous mode not supported\n");
-> > +               ret = -EINVAL;
-> > +               goto error_out;
-> > +       }
-> > +
-> > +       if (ep_cfg.nr_of_link_frequencies > ARRAY_SIZE(mira220_link_freqs)) {
-> > +               ret = -EINVAL;
-> > +               dev_err(dev, "Unsupported number of link_frequencies: %u\n",
-> > +                       ep_cfg.nr_of_link_frequencies);
-> > +               goto error_out;
-> > +       }
-> > +
-> > +       if (ep_cfg.link_frequencies[0] != MIRA220_LINK_FREQ_750M) {
->
-> The LLM-bot says link_frequencies[0] might be invalid if DT omitted the
-> link-frequencies property, and I think that's a valid concern.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Yeah the bot is right, my bad
+Best regards,
+Krzysztof
 
-I thought the property was required by fw, but it's not.
-
->
-> Any particular reason for not using the v4l2_link_freq_to_bitmap() helper I
-
-I think I missed it from your previous comment, sorry :)
-
-Now that I look at it, the function wants link_frequencies from fw
-
-drivers/media/v4l2-core/v4l2-common.c-  if (!num_of_fw_link_freqs) {
-drivers/media/v4l2-core/v4l2-common.c-          dev_err(dev, "no link frequencies in firmware\n");
-drivers/media/v4l2-core/v4l2-common.c-          return -ENODATA;
-drivers/media/v4l2-core/v4l2-common.c-  }
-
-Should I:
-
-- make link_frequencies required in bindings (something that doesn't
-  seem that useful considering a single freq is supported)
-
-- only call v4l2_link_freq_to_bitmap() if the property is specified ?
-
-?
-
-> had suggested? It can handles all of these cases and error msgs too.
->
-> With the edge case fixed (with or without the helper):
->
-> Reviewed-by: Jai Luthra <jai.luthra@ideasonboard.com>
-
-Thanks
-  j
-
->
-> Thanks,
->     Jai
-> > +               ret = -EINVAL;
-> > +               dev_err(dev, "Unsupported link_frequency: %llu\n",
-> > +                       ep_cfg.link_frequencies[0]);
-> > +               goto error_out;
-> > +       }
-> > +
-> > +       /* Check the number of MIPI CSI2 data lanes */
-> > +       if (ep_cfg.bus.mipi_csi2.num_data_lanes != 1 &&
-> > +           ep_cfg.bus.mipi_csi2.num_data_lanes != 2) {
-> > +               ret = -EINVAL;
-> > +               dev_err(dev, "%u data lanes are not supported\n",
-> > +                       ep_cfg.bus.mipi_csi2.num_data_lanes);
-> > +               goto error_out;
-> > +       }
-> > +
-> > +       mira220->lanes = ep_cfg.bus.mipi_csi2.num_data_lanes;
-> > +       mira220->row_length = MIRA220_ROW_LENGTH_MIN * (2 / mira220->lanes);
-> > +
-> > +error_out:
-> > +       v4l2_fwnode_endpoint_free(&ep_cfg);
-> > +       fwnode_handle_put(endpoint);
-> > +
-> > +       return ret;
-> > +}
-> > +
