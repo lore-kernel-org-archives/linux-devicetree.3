@@ -1,423 +1,321 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27BA53CF05E
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 19:16:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 974E53CF201;
+	Mon, 27 Jul 2026 19:16:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785179793; cv=none; b=ZU0wsrIiHzh1vQb4iceXjXtGWfWkkx8qWtWXZphe0F6sDC46G89QKUkLIwb3M0wW7QsqC7hrVLHWCXj5fcaeFHfrP9ySEgNS2nN0nQICfsyj9repegJksRbCXd6Wl4z9R3Bu8jDH/zP7cpjHNnj0F9W4jdjpKqgwxPZvzMn0NJs=
+	t=1785179793; cv=none; b=KM/ai36/04/eL8zkOh2mu0HcPlFPcVNgFUh7BuPhncgQQSuaEqdtFvZh7AzWBkS49gPapbGqkRmDHerCDfefSVhQvPsBKDwTYNMJChu2pDkr7zV3ULKn6MwOqoSoiiJIek83lC5nafOT5DMwdbt8yqLuCRhVYmEg8ZqRwjd4rXQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785179793; c=relaxed/simple;
-	bh=giBDmFVqATrjvpE7BG6dIxbzfu6nIokh4qB5bAL82w8=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=FDIkh6qGgWm9dqhUGH4LEDlo+9GhtHl18I77ksBn6laxzu7l8c85SLsU5vdpy9QvASeqVmec0MmS0Lf63YsLro8thEKyrDHR9EocRgbcx5VAd6dIeg9Tz1Cs3UHaiQgUzHbRH9vHljNAObxl6jkhZKGf6BLbC3BRY+bOEnvT80w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=wpsbL6v/; arc=none smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	bh=ARNCJZpYzyyZkTh/FraYVBDI5wogl84Ep6/xDvK/1vs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KgzqrqXLuycMcocTjrVJ0+Wdd2KGDkDmlHCcGcSaJdzmNQ81GuiT27A2EBUsQ1XQ612UBH6XuZsBFupCM/L9bP0gNsH1wxRPz5dZH3cMJZ21fvddVhZFIxnwZnTqu7R+c5bsztDprfswvkvUCGiQUtszVUsOHybflVeo9SwqJVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b=NGrXToIT; arc=none smtp.client-ip=212.227.15.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="wpsbL6v/"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-47de008b020so167622f8f.1
-        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 12:16:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1785179789; x=1785784589; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=rae8Hxw+NldJbXk7fpGgBudeRxwtOnwcbow0r8sBhyA=;
-        b=wpsbL6v/oR2gqnIcIR7Cc/+QtpFeZeLfCDhkcLoMXU/UrLq8zGMtjZX+bu3lgXUQ0K
-         IYQl9ZmbBeQ1WB2G6MmUYz140f5cis5an4eoBOamw+cDro5lTxixP4GmW+9yKOrbi7NC
-         DIpjKgGQk+K8Mr3xUxcJ1FFIRKV4kEPbUOHQ+yf8K73iw+c+pmJAJH3CNkfm1pP9Jymt
-         lUWqpkwjhoNsMGNzTFKoXxNJsrK3yu0bfqNkUEnyxhgw3ZjrVeICYZv8vl1hDNEszP46
-         mA8QK4KuplhLdur8PSst30j2cmzN6/eZIN+PejCP9wx4WBA7Gek7AeADJOvBhK6psiJr
-         xXMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785179789; x=1785784589;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=rae8Hxw+NldJbXk7fpGgBudeRxwtOnwcbow0r8sBhyA=;
-        b=SNElj5b7Ymnjte3yvCM9yqXeuWHywQViw7lDafQp5EPogOdEmIPI87npFujKyt0Wsc
-         OUxpdNn8gRSUvVjisemcFTEGVHjw/bu9wmttcPHp5uPkPIZmM0vuYZXlT1a3B6kcgvqS
-         Cx2Uw821Huc7VSBGpN+gpKkdsj1dt7vFiMJZGgyWk6gevGg5nJ5eKFzJEDKFd+MNmtot
-         9xrao22k4GlG1ClBA7KS10Fnejb7Y/BkHXa3DmdRzRqY6+x72v717w2WW21XZwQswaMe
-         8IJm8oPoUZnwgaOyfmJymhUz8oxYaIB+bFPpQmMRtBoHXEvdhz2dsb0Md4WIyJqbAyob
-         KlRg==
-X-Forwarded-Encrypted: i=1; AHgh+RrusSgHc6STSckd7A0qlNhL176ubLq12+L95p8pSPKUkmxCMiaa+uVx9vlhIWIBuCiyYDlRKQ8kTeSj@vger.kernel.org
-X-Gm-Message-State: AOJu0YzreL4e1xsFHv2b3ahIq9myjmlAjwHu4qQPIl6KsVgDBz8X0mxV
-	8xOe7Q4NDCdLRB6guVGXK7HLKsjGaEaOfHOABkB+XLxiCrAOcNbtrxPSTE/MxVlGMec=
-X-Gm-Gg: AR+sD12n5yw0pruyo4gTlks2WggkhRk3Ct7E1pHHbowI/nid+oxkzrXxunI7OVjLxip
-	kttQNn4SUIZOoBvOOYx9wT5E0mfHVWhGlCXZvbzq++MAMqyoQXhB0BdTCNXsMWzAC+NquWBpXti
-	EyQ0VgsqCw280rBwEleN6GKfDUaIgPwU+rDhXAfz401/z3mVBM8yuH1jdaCXAH/ozrR51i309Ue
-	Ex2oulUyL8oKRHdvd8a6Fqw1Cmm666cG9F/SjW96sco6xXNqLPfQOptCzrv2edwE/gYaIB7y62i
-	7srmXHMK9d6tIBAxjxX6yXkO3opYKaLeg3Q3PJ/aMxdtU8BIT3Bw0v9xTxp/pOfuS4CHyW1nT/j
-	r6GLL+lf8BEQFDND+kTNiEL0HPwoz7opKNoMS3H1GbnVxkWFTWyB6Ec7MjBPHjYTCDLh67LyJEc
-	+owfeYXWJTsOD+l1PqsLErLnVA
-X-Received: by 2002:a5d:64e9:0:b0:47f:6fa4:58e6 with SMTP id ffacd0b85a97d-47fb03593c0mr9890f8f.28.1785179789057;
-        Mon, 27 Jul 2026 12:16:29 -0700 (PDT)
-Received: from [192.168.0.35] ([109.77.105.162])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85b9a6d7sm50749607f8f.2.2026.07.27.12.16.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jul 2026 12:16:28 -0700 (PDT)
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Subject: [PATCH v14 0/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
-Date: Mon, 27 Jul 2026 20:16:22 +0100
-Message-Id: <20260727-x1e-csi2-phy-v14-0-27d1bf477593@linaro.org>
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b="NGrXToIT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1785179775; x=1785784575;
+	i=markus.stockhausen@gmx.de;
+	bh=Vr37C98lvE3tsuRLA5GoFP1k84ysEf9rQsqJUnZym8g=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=NGrXToITtzibnb9J3OVgUdm0OYuadvtkqVFjh3Y4+qpZmT43fcwiJimOHWjz7qpq
+	 q+Z4MZdh+NPd3nPtP7nuLdNmFbASCDGxr4IqWfnaGDtc00g5UieH+cSsbc4UznxWu
+	 4JfndVKMLfGnYbPbsvh9k4/Gx1TozQ4u3KwfiOlkCI1FeJdHZ1xqSBHSwNJMVEVdA
+	 ftptzabrfKY4ylEveRF5RH79oCtdXvewkQPSBt3ypvSo+B9MbSulVTC966DuseH7C
+	 YEZXW5EvEFa79wZ5goD9CFbAmYgpi4bxP8VjGKmAklgVXTXjzszcAa0fOwjmJGc4v
+	 xy1qi35l8rYWJWI2Fg==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MXXuH-1wSkF60Bkl-00K9jk; Mon, 27
+ Jul 2026 21:16:15 +0200
+From: Markus Stockhausen <markus.stockhausen@gmx.de>
+To: andrew@lunn.ch,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	netdev@vger.kernel.org,
+	chris.packham@alliedtelesis.co.nz,
+	daniel@makrotopia.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org
+Cc: Markus Stockhausen <markus.stockhausen@gmx.de>
+Subject: [PATCH net-next v8 9/9] net: mdio: realtek-rtl9300: Add support for RTL839x
+Date: Mon, 27 Jul 2026 21:15:59 +0200
+Message-ID: <20260727191559.19617-10-markus.stockhausen@gmx.de>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260727191559.19617-1-markus.stockhausen@gmx.de>
+References: <20260727191559.19617-1-markus.stockhausen@gmx.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33SzWrDMAwA4FcpOc9Dkv932nuMHfyX1jDakozQU
- vruswOjmb3taMEnyZJuw5ymnObhZXcbprTkOZ+O5YHiaTeEgzvuE8uxBAYCkqAR2AUTC3Mmdj5
- c2agEF15JjNwNhZynNObLmu/tvbwPef48Tdc1/YI1+keiBRkwLVzwXnpU5F8/8tFNp+fTtB9qp
- oW+tQIi2WiqWkuVolc6OdtpvtWq0bxoxKTAaGkFQqfFQ3Nsa4uiLQSwBNwYEzstN7qrLYsueAx
- 6lAGw/7d6aEnYaFVrR82j9VFH6jvXW02N1nVqNngkA6OLqtNmq3mjTdHOSKWMkLa01mn70BpMo
- 239NyH4OjoRxk4jbDi2vNwPMKkJnC4zt5L3Hrfeth7XyYHDFEFx6reG9K+vFxeC5ohlp/GXveH
- m5EqfrV9vTkHgaKUx6mf/9/v9C5xZDryaAwAA
-X-Change-ID: 20250710-x1e-csi2-phy-f6434b651d3a
-To: Vinod Koul <vkoul@kernel.org>, 
- Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Bryan O'Donoghue <bod@kernel.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
- linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=14970;
- i=bryan.odonoghue@linaro.org; h=from:subject:message-id;
- bh=giBDmFVqATrjvpE7BG6dIxbzfu6nIokh4qB5bAL82w8=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqZ66JvegRxs//1B5njvSrhTrsEDAlz66gn41NX
- K77xnn0RmOJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCameuiQAKCRAicTuzoY3I
- OjbND/957y+aVN/vC6C7JzN+zatTa4rNbdRSDHbw4nyLOSO9jm5RxY5eCIkuaouJ2XzlmM4xgx4
- UmV9UePq5RtgHvScfLDggTRzv+NmLuVAHL7bOnjB3MsT8KyF/xfWTDQqR7X+SoPjtwdL5wmL9fx
- ZYeKsw0YbrDlfgqg4lTXGacCjoFQp1dz29EQIYCMvxF12pnKfaWunxga2+2oGtLo7hLR+ka2drI
- 8ZMhhnS1NeRgcYb4ATl5g8cEwyi2TeISN954lMU+q4OinUaR7l44IPpOb7nMrFei/KRtsnQAeRI
- qxt7UJD6HOEjH3wU7rNSK2JpdBEIOGgWi8gGDMfUllCVy9THHaVBwi9pGOCJYJWuRvSK7Irz0X9
- yLLTafyRM4NuSiQxCqbbkuV7pGQ8CcDCtSTw+lpBoEmwPqfjXOyKtwVhjtv5l5Xz0AmQc+lpKf7
- Nk3rHokVXrSnnumN7BraAUlANb4NiMw/wFIj9mObwG9FBwRp0L7r/79Cj2n4Y7Cfdjz12Nsdv/X
- 65CLjsAKPqbbKf6TJK4VzK/jWXIgRE6lo23H/zhanHbUSez2zXGAJ2fZWzp8Rt1AckdbmbeBF1I
- MA5hyUmmO5SQdKUxL6ifdIM4quiIJ0b3B7wnhJwuX/aKOnXd6BESGGdKJKT3vaV6aPcKs3LTMWi
- oAw2+n99WyGaJvw==
-X-Developer-Key: i=bryan.odonoghue@linaro.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:bOQLi39CAqyLVbIbtq/JLC/hW5Rd5CkmwS7xRFs2G+HXjBnfiqJ
+ +8AOKhD4gjXOXMDONEG+EItYSMZYPQgW29qaFSOMhPwtcrycvg0lnm0Ok4FVPkb4el4JcM2
+ cnlPAUrFwJPc49B1XySVUeGylF643uTqN+1n2BRZgTxzDd9sYbKJzgdylhGikMXCMdxv4V3
+ ivlGx97EiHfLw4+cNoIKA==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:BSmZtPrbYfU=;1ISjWDuHdut/G7UFwVnrnU1wLfV
+ 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
+ =
 
-This driver is very critical to several SoCs being merged and CPHY being
-added to Qualcomm SoCs.
+The MDIO driver has been prepared for multiple device support. Add all
+required bits for the RTL839x (aka cypress) series. This is straightforwar=
+d
+but some things are worth mentioning.
 
-It would be very beneficial therefore to get this merged in this cycle. A
-lot of other enablement code depends on it.
+- The device has a lot in common with the RTL931x series. It has 8192
+  (Realtek) pages and 7 MMIO registers.
+- There are two SMI buses for 1G PHYs. Neither the bus nor address map
+  registers exist.
+- The hardware has not much to configure. So the setup_controller()
+  function is not needed.
+- c22 read/write functions must be called with PARK_PAGE =3D 0. Keep code
+  clean and avoid setting it to zero, matching the behavior of the RTL9310
+  logic.
 
-Vinod, Kishon is it possible to still merge this in 7.2 ?
+Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+=2D--
+ drivers/net/mdio/mdio-realtek-rtl9300.c | 102 ++++++++++++++++++++++++
+ 1 file changed, 102 insertions(+)
 
-Changes in v14:
-
-Discussed outstanding review comment resolution with Neil and Vlad.
-Use media-graph not phys = <> to find nodes in dt. Small impact on this
-series a new helper added where it is used in camss series.
-
-- Drops phy-cells.
-- bus-type used to derive mode instead.
-- Includes relevant video-interfaces.h where necessary
-- set_mode - used to validate csiphy and camss agree on bus-mode.
-- Reverting to of_phy_simple_xlate instead of custom xlate.
-- Minor schema change - dropped Krzysztof's RB.
-
-- Link to v13: https://patch.msgid.link/20260720-x1e-csi2-phy-v13-0-160c31958863@linaro.org
-
-Changes in v13:
-- Fixed two sashiko "high" flagged items. Hopefully for the last time.
-- Added PM_OPP to depends - Sashiko
-- Link to v12: https://patch.msgid.link/20260719-x1e-csi2-phy-v12-0-cc7311326d1b@linaro.org
-
-Changes in v12:
-- Fixes indexing for data-lanes = <0 1 2 4> which is out of range - Sashiko
-- The rest of Sashiko's review rebutted on list - bod
-- Link to v11: https://patch.msgid.link/20260719-x1e-csi2-phy-v11-0-9d0a1ed0632d@linaro.org
-
-Changes in v11:
-- Adds RB - Krzysztof
-- Fixes div_u64 to div64_u64 - Sashiko
-- Fixes pos * 2 reg offset - Sashiko
-- Fixes devm_pm_runtime_enable. Missed in v10 - Frank
-
-- Link to v10: https://patch.msgid.link/20260718-x1e-csi2-phy-v10-0-5720a7888953@linaro.org
-
-Changes in v10:
-- Rewords commit log of yaml schema to read more organically - Krzysztof
-- title: Qualcomm X1E80100 SoC CSI2 PHY - Krzysztof
-- opp-table: object - Krzysztof
-- Example opp-table in PHY node - Krzysztof
-- port@1 uses stock graph.yaml - Krzysztof
-- Dropped redundant remote-endpoint declaration - Krzysztof
-- vdda-0p9 - SoC pins are vdda-0p9 rail is l2c_0p8. Named as with pin - Vlad, Konrad
-- Retaining #phy-cells = 1.
-  Rob gave a steer to have the consumer configure this via DT. Not the way
-  Vlad suggests but I'm sticking to Rob's guidance for now - Rob/Vlad.
-- data-lanes - retained as per CAMSS existing.
-  Nihal suggested, I agreed and Loic added his assent too. Vlad disagrees
-  with this. I accept Nihal's suggestion though we should remain
-  consistent. - Nihal, Loic, Vlad.
-
-- pd_data = {} - Sashiko, Wengmeng
-- lanes_enable() failure unwinds - Sashiko
-- power_off and error paths drop OPP rate before performance state - Sashiko
-- probe returns -ENODEV when pd_list is NULL with ret == 0 - Sashiko
-- Move to devm_clk_bulk_get_all(), timer clock taken from the bulk,
-  clk_names indirection removed from soc_cfg - Frank
-- Drop static CSI_COMMON_CTRL5 (0x1014) table row - Nihal
-
-- Link to v9: https://patch.msgid.link/20260708-x1e-csi2-phy-v9-0-0210b90c04cf@linaro.org
-
-Changes in v9:
-
-Key advantages of implementing this logic as drivers/phy:
-
-  a) Per-PHY power rails become declarable and enforceable on a per-PHY
-     basis.
-  b) With future adaptations of CAMSS routing the PHY output to something
-     other than the CSI Decoders becomes possible.
-  c) Standard framework contract. phy_configure(mipi_dphy opts) / power_on / of_xlate.
-  d) Introduction of CPHY in this driver will elaborate CPHY for Linux in
-     general as there is currently no mipi_cphy_opts structure.
-
-- TITAN_TOP_GDSC retained. Further elaboration in below link. - Vlad
-  Link: https://lore.kernel.org/all/d5407ab1-1af7-4678-ae67-5cf30ce8fa4b@kernel.org/
-- Consumer selects PHY mode - Rob Herring
-  Link: https://lore.kernel.org/linux-media/20250710230846.GA44483-robh@kernel.org/
-- Incorporates two comments by Krzysztof I missed previously - krzk
-- Changes 0p9 rail name to 0p8 - Konrad, Sashiko
-- Uses port@0 and port@1 to denote input/output - Vladimir
-- Label phy@ instead of csiphy@ in example - Sashiko
-- Drops additional entries in example opp one is enough - bod
-- return 0 on timer_period_ps < 6. - Sashiko
-- Use power-domain names and a "scaled" bool to flag if
-  a power-domain needs to be scaled or not. Allowing the code to
-  attached to all PDs, GDSC and RPMPD alike but only scale the
-  RPMPD. - Sashiko
-- Fixes error cleanup flagged by Sashiko.
-- Checks args->args_count. Sashiko
-- Performs checks on pd_list == NULL. Sashiko
-- Makes opp-table required. Sashiko
-- Uses const "core" and "timer" when getting clocks. - Loic
-- Adds AHB clock - Vijay
-- Revert v7 lane-enable change, BIT(pos * 2) is correct: data-lanes
-  are logical indices, CSI_COMMON_CTRL5 is a physical bitmap - Nihal
-- Adds a comment to explain clock-lane - Nihal
-- Link to v8: https://patch.msgid.link/20260523-x1e-csi2-phy-v8-0-a85668459521@linaro.org
-
-Changes in v8:
-- Fixes two dt verification splats I missed by passing the wrong yaml file
-  to my checking script :( - Rob's bot
-- Fixes the polarity offset error - thanks Sashiko.
-- CONFIG_PM implies CONFIG_GENERIC_PM_DOMAINS no change - Sashiko, Bryan
-- Implemented suggested unwinding by Sashiko
-- Leaving the flagged settle_cnt alone. Requires invalid DT settings and in
-  addition the result is just a long settle count. Not real bug - Sashiko
-- Link to v7: https://patch.msgid.link/20260522-x1e-csi2-phy-v7-0-79cb1280fad6@linaro.org
-
-Changes in v7:
-- Made CONFIG_PM a dependency. Sashiko commented on the pd_list being NULL
-  and suggested I check the pointer but, we need to ramp the rails when
-  switching clock rate so we need CONFIG_PM full stop. - Sashiko.ai, Bryan
-- Added unwind operation for performance state error path - Sashiko
-- Made clock-lanes genuinely optional for the supported use-case. - Sashiko
-- Fixed the enable of lanes. Thus far we have had forever it seems
-  val |= BIT(lane.pos * 2) which I've never looked at much because it
-  has always worked. But looking at how to switch on polarities I realised
-  the relevant register is a linear bitmask without gaps so the correct
-  method is `val |= BIT(lane.pos)`.
-  This needs an update in the legacy PHY too in another series - Bryan
-- I opted not to do any of the "but if DT send junk into your driver" fixes
-  from Sashiko since TBH I think the code would be Spaghetti afterwards.
-  We trust DT and if DT is wrong we fix it, we don't try to graph its
-  relative (in)sanity.
-- Fixed my example in the yaml. Sashiko
-- Link to v6: https://patch.msgid.link/20260521-x1e-csi2-phy-v6-0-9d73d9bd7d20@linaro.org
-
-Changes in v6:
-- Taking feedback from lively debate added ports and
-  endpoints to the PHY - Neil, Vlad
-- Detection of split mode by way of which ports are declared.
-  port@0 is always a sensor input.
-  port@1 is optional and if present implies split-mode
-  port@2 is always the output. - Dmitry, Neil, Vlad.
-- Split mode is left as -ENOTSUPP unless/until someone with the appropriate
-  hardware can take on responsibility to drive to completion.
-- Extending phy_config_opts dropped.
-  I think this is a worthwhile extension but this series no longer depends
-  on it so dropped. - Bryan
-- MX/MXC.
-  Two OPP tables one for CSIPHY0/1/2 scaling MXC one for CSIPHY4 keeping
-  MXA at LOWSVS_D1 - to be implemented in DT not here. Taniya, Konrad, Bryan
-- Changed MAINTAINERS from Supported to Maintained.
-  Hobby time for me right now. - Bryan
-- Link to v5: https://lore.kernel.org/r/20260326-x1e-csi2-phy-v5-0-0c0fc7f5c01b@linaro.org
-
-v5:
-- Adds support to apply passed parameters for clock/data position/polarity - Neil
-- Drops GEN1/GEN2 differentiation this can be reconstituted if GEN1 ever
-  gets supported in this driver - Dmitry
-- Drops camnoc_axi, cpas_ahb - Konrad
-- Renames csiphy->core csiphy_timer->timer - Konrad
-- Renames rail from 0p8 to 0p9 schematics say  VDD_A_CSI_n_0P9 - Konrad
-- TITAN_TOP_GDSC dropped - Konrad
-- Passes PHY_QCOM_CSI2_MODE_{DPHY|CPHY|SPLIT_DPHY} with the controller
-  selecting the mode. Only DPHY mode is supported but the method to pass
-  CPHY or split-mode DPHY configuration is there.
-  Since split-mode is a Qualcomm specific mode the PHY modes are defined in
-  our binding instead of adding a new type to include/linux/phy/phy.h - bod
-- Depends-on: https://lore.kernel.org/r/20260325-dphy-params-extension-v1-0-c6df5599284a@linaro.org
-- Link to v4: https://lore.kernel.org/r/20260315-x1e-csi2-phy-v4-0-90c09203888d@linaro.org
-
-v4:
-- MMCX, MCX and MX/MXA power-domains added - Dmitry, Vijay, Konrad
-- power-domain-names added as required - bod
-- opp-tables amended to capture RPMHPD deps - Dmitry, Vijay
-- Switched to dev_pm_opp_set_rate, dev_pm_domain_attach_by_name etc
-  dropped inherited CAMSS code - Dmitry
-- Amended parameters structure to specify power-domain name list - bod
-- Removed dead defines - Dmitry
-- Noted in CSIPHY commit log intention to rework patterns of
-  PHY lane configs into loops/defines/bit-fields later - Dmitry, bod
-- Lowercase hex throughout - Dmitry
-- The yaml and code in this driver doesn't care if the node is a
-  sibling or a sub-node of CAMSS confirmed to work both ways - Dmitry, bod
-- Link to v3: https://lore.kernel.org/r/20260226-x1e-csi2-phy-v3-0-11e608759410@linaro.org
-
-v3:
-
-- Resending this to make clear this submission is additive to x1e/Hamoa
-  The existing bindings and code will continue to work 
-  Bindings are added only, nothing is subtracted from existing ABI.
-- Link to v2: https://lore.kernel.org/r/20260225-x1e-csi2-phy-v2-0-7756edb67ea9@linaro.org
-
-v2:
-
-In this updated version
-
-- Added operating-point support
-  The csiphy clock sets the OPP prior to setting the rate
-  for csiphy and csiphy_timer - Konrad
-
-- Combo mode
-  Combo mode in CAMSS yaml has been added. Right now
-  no code has been changed in the PHY driver to support it as
-  I don't have hardware to test. In principle though it can
-  be supported. - Vladimir
-
-- CSIPHY init sequences
-  I left these as their "magic number formats". With my diminished
-  status as a non-qcom VPN person - I can no longer see what the bits
-  map to. Moreover this is the situation any non-VPN community member
-  will be in when submitting CSIPHY sequences derived from downstream.
-
-  I think it is perfectly reasonable to take public CSIPHY init sequences
-  as magic numbers. If someone with bit-level access wants to enumerate
-  the bits that's fine but, it shouldn't gate in the interim. - Konrad/bod
-
-- Sensor endpoints
-  I've stuck to the format used by every other CSIPHY in upstream.
-  Sensor endpoints hit the CAMSS/CSID endpoint not a endpoint in the PHY.
-  Given the proposed changes to CAMSS though to support "combo mode" I
-  think this should achieve the same outcome - multiple sensors on the one
-  PHY without introducing endpoints into the PHY that no other CSIPHY in
-  upstream currently has.
-
-- Bitmask of enabled lanes
-  Work needs to be done in the v4l2 layer to really support this.
-  I propose making a separate series dedicated to non-linear bit
-  interpretation after merging this so as to contain the scope of the
-  series to something more bite (byte haha) sized. - Konrad/bod
-
-- Link to v1: https://lore.kernel.org/r/20250710-x1e-csi2-phy-v1-0-74acbb5b162b@linaro.org
-
-v1:
-This short series adds a CSI2 MIPI PHY driver, initially supporting D-PHY
-mode. The core logic and init sequences come directly from CAMSS and are
-working on at least five separate x1e devices.
-
-The rationale to instantiate CSI2 PHYs as standalone devices instead of as
-sub-nodes of CAMSS is as follows.
-
-1. Precedence
-   CAMSS has a dedicated I2C bus called CCI Camera Control Interface.
-   We model this controller as its own separate device in devicetree.
-   This makes sense and CCI/I2C is a well defined bus type already modelled
-   in Linux.
-
-   MIPI CSI2 PHY devices similarly fit into a well defined separate
-   bus/device structure.
-
-   Contrast to another CAMSS component such as VFE, CSID or TPG these
-   components only interact with other CAMSS inputs/outputs unlike CSIPHY
-   which interacts with non-SoC components.
-
-2. Hardware pinouts and rails
-   The CSI2 PHY has its own data/clock lanes out from the SoC and indeed
-   has its own incoming power-rails.
-
-3. Other devicetree schemas
-   There are several examples throughout the kernel of CSI PHYs modeled as
-   standalone devices which one assumes follows the same reasoning as given
-   above.
-
-I've been working on this on-and-off since the end of April:
-Link: https://lore.kernel.org/linux-media/c5cf0155-f839-4db9-b865-d39b56bb1e0a@linaro.org
-
-There is another proposal to have the PHYs be subdevices of CAMSS but, I
-believe we should go with a "full fat" PHY to match best practices in
-drivers/phy/qualcomm/*.
-
-Using the standard PHY API and the parameter passing that goes with it
-allows us to move away from custom interfaces in CAMSS and to conform more
-clearly to established PHY paradigms such as the QMP combo PHY.
-
-Looking at existing compat strings I settled on
-"qcom,x1e80100-mipi-csi2-combo-phy" deliberately omitting reference to the
-fact the PHY is built on a four nano-meter process node, which seems to
-match recent submissions to QMP PHY.
-
-My first pass at this driver included support for the old two phase
-devices:
-
-Link: https://git.codelinaro.org/bryan.odonoghue/kernel/-/commit/a504c28d109296c93470340cfe7281231f573bcb#b6e59ed7db94c9da22e492bb03fcda6a4300983c
-
-I realised that the device tree schema changes required to support a
-comprehensive conversion of all CAMSS to this driver would be an
-almost certainly be unacceptable ABI break or at the very least an enormous
-amount of work and verification so I instead aimed to support just one new
-SoC in the submission.
-
-I've retained the callback indirections give us scope to add in another type of
-future PHY including potentially adding in the 2PH later on.
-
-This driver is tested and working on x1e/Hamoa and has been tested as not
-breaking sc8280xp/Makena and sm8250/Kona.
-
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
----
-Bryan O'Donoghue (2):
-      dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
-      phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
-
- .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 198 +++++++++
- MAINTAINERS                                        |  10 +
- drivers/phy/qualcomm/Kconfig                       |  15 +
- drivers/phy/qualcomm/Makefile                      |   5 +
- drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c | 385 +++++++++++++++++
- drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c     | 460 +++++++++++++++++++++
- drivers/phy/qualcomm/phy-qcom-mipi-csi2.h          |  97 +++++
- 7 files changed, 1170 insertions(+)
----
-base-commit: 8dac27bfa2f994ecb11f01a63641527d17d48fc1
-change-id: 20250710-x1e-csi2-phy-f6434b651d3a
-
-Best regards,
---  
-Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+diff --git a/drivers/net/mdio/mdio-realtek-rtl9300.c b/drivers/net/mdio/md=
+io-realtek-rtl9300.c
+index 9f76698a84c5..7df1f6df499b 100644
+=2D-- a/drivers/net/mdio/mdio-realtek-rtl9300.c
++++ b/drivers/net/mdio/mdio-realtek-rtl9300.c
+@@ -148,6 +148,28 @@
+ #define RTL8380_SMI_POLL_CTRL			0xa17c
+ #define RTL8380_SMI_PORT0_5_ADDR_CTRL		0xa1c8
+=20
++#define RTL8390_NUM_BUSES			2
++#define RTL8390_NUM_PAGES			8192
++#define RTL8390_NUM_PORTS			52
++#define RTL8390_BCAST_PHYID_CTRL		0x03ec
++#define RTL8390_PHYREG_ACCESS_CTRL		0x03dc
++#define   RTL8390_PHY_CTRL_REG_ADDR		GENMASK(9, 5)
++#define   RTL8390_PHY_CTRL_MAIN_PAGE		GENMASK(22, 10)
++#define   RTL8390_PHY_CTRL_FAIL			BIT(1)
++#define   RTL8390_PHY_CTRL_WRITE		BIT(3)
++#define   RTL8390_PHY_CTRL_READ			0
++#define   RTL8390_PHY_CTRL_TYPE_C45		BIT(2)
++#define   RTL8390_PHY_CTRL_TYPE_C22		0
++#define RTL8390_PHYREG_CTRL			0x03e0
++#define   RTL8390_PHY_CTRL_EXT_PAGE		GENMASK(8, 0)
++#define RTL8390_PHYREG_DATA_CTRL		0x03f0
++#define   RTL8390_PHY_CTRL_INDATA		GENMASK(31, 16)
++#define   RTL8390_PHY_CTRL_DATA			GENMASK(15, 0)
++#define RTL8390_PHYREG_MMD_CTRL			0x03f4
++#define RTL8390_PHYREG_PORT_CTRL_LOW		0x03e4
++#define RTL8390_PHYREG_PORT_CTRL_HIGH		0x03e8
++#define RTL8390_SMI_PORT_POLLING_CTRL		0x03fc
++
+ #define RTL9300_NUM_BUSES			4
+ #define RTL9300_NUM_PAGES			4096
+ #define RTL9300_NUM_PORTS			28
+@@ -428,6 +450,62 @@ static int otto_emdio_8380_write_c45(struct mii_bus *=
+bus, int port,
+ 	return otto_emdio_write_cmd(bus, RTL8380_PHY_CTRL_TYPE_C45, &cmd_data);
+ }
+=20
++static int otto_emdio_8390_read_c22(struct mii_bus *bus, int port, int re=
+gnum, u32 *value)
++{
++	struct otto_emdio_priv *priv =3D otto_emdio_bus_to_priv(bus);
++	struct otto_emdio_cmd_regs cmd_data =3D {
++		.c22_data	=3D FIELD_PREP(RTL8390_PHY_CTRL_REG_ADDR, regnum) |
++				  FIELD_PREP(RTL8390_PHY_CTRL_MAIN_PAGE, priv->page[port]),
++		.ext_page	=3D FIELD_PREP(RTL8390_PHY_CTRL_EXT_PAGE, 0x1ff),
++		.io_data	=3D FIELD_PREP(RTL8390_PHY_CTRL_INDATA, port),
++	};
++
++	return otto_emdio_read_cmd(bus, RTL8390_PHY_CTRL_TYPE_C22, &cmd_data,
++				   RTL8390_PHY_CTRL_DATA, value);
++}
++
++static int otto_emdio_8390_write_c22(struct mii_bus *bus, int port, int r=
+egnum, u16 value)
++{
++	struct otto_emdio_priv *priv =3D otto_emdio_bus_to_priv(bus);
++	struct otto_emdio_cmd_regs cmd_data =3D {
++		.c22_data	=3D FIELD_PREP(RTL8390_PHY_CTRL_REG_ADDR, regnum) |
++				  FIELD_PREP(RTL8390_PHY_CTRL_MAIN_PAGE, priv->page[port]),
++		.ext_page	=3D FIELD_PREP(RTL8390_PHY_CTRL_EXT_PAGE, 0x1ff),
++		.io_data	=3D FIELD_PREP(RTL8390_PHY_CTRL_INDATA, value),
++		.port_mask_high	=3D (u32)(BIT_ULL(port) >> 32),
++		.port_mask_low	=3D (u32)(BIT_ULL(port)),
++	};
++
++	return otto_emdio_write_cmd(bus, RTL8390_PHY_CTRL_TYPE_C22, &cmd_data);
++}
++
++static int otto_emdio_8390_read_c45(struct mii_bus *bus, int port,
++				    int dev_addr, int regnum, u32 *value)
++{
++	struct otto_emdio_cmd_regs cmd_data =3D {
++		.c45_data	=3D FIELD_PREP(PHY_CTRL_MMD_DEVAD, dev_addr) |
++				  FIELD_PREP(PHY_CTRL_MMD_REG, regnum),
++		.io_data	=3D FIELD_PREP(RTL8390_PHY_CTRL_INDATA, port),
++	};
++
++	return otto_emdio_read_cmd(bus, RTL8390_PHY_CTRL_TYPE_C45, &cmd_data,
++				   RTL8390_PHY_CTRL_DATA, value);
++}
++
++static int otto_emdio_8390_write_c45(struct mii_bus *bus, int port,
++				     int dev_addr, int regnum, u16 value)
++{
++	struct otto_emdio_cmd_regs cmd_data =3D {
++		.c45_data	=3D FIELD_PREP(PHY_CTRL_MMD_DEVAD, dev_addr) |
++				  FIELD_PREP(PHY_CTRL_MMD_REG, regnum),
++		.io_data	=3D FIELD_PREP(RTL8390_PHY_CTRL_INDATA, value),
++		.port_mask_high	=3D (u32)(BIT_ULL(port) >> 32),
++		.port_mask_low	=3D (u32)(BIT_ULL(port)),
++	};
++
++	return otto_emdio_write_cmd(bus, RTL8390_PHY_CTRL_TYPE_C45, &cmd_data);
++}
++
+ static int otto_emdio_9300_read_c22(struct mii_bus *bus, int port, int re=
+gnum, u32 *value)
+ {
+ 	struct otto_emdio_priv *priv =3D otto_emdio_bus_to_priv(bus);
+@@ -987,6 +1065,29 @@ static const struct otto_emdio_info otto_emdio_8380_=
+info =3D {
+ 	.write_c45 =3D otto_emdio_8380_write_c45,
+ };
+=20
++static const struct otto_emdio_info otto_emdio_8390_info =3D {
++	.cmd_fail =3D RTL8390_PHY_CTRL_FAIL,
++	.cmd_read =3D RTL8390_PHY_CTRL_READ,
++	.cmd_write =3D RTL8390_PHY_CTRL_WRITE,
++	.cmd_regs =3D {
++		.broadcast =3D RTL8390_BCAST_PHYID_CTRL,
++		.c22_data =3D RTL8390_PHYREG_ACCESS_CTRL,
++		.c45_data =3D RTL8390_PHYREG_MMD_CTRL,
++		.ext_page =3D RTL8390_PHYREG_CTRL,
++		.io_data =3D RTL8390_PHYREG_DATA_CTRL,
++		.port_mask_low =3D RTL8390_PHYREG_PORT_CTRL_LOW,
++		.port_mask_high =3D RTL8390_PHYREG_PORT_CTRL_HIGH,
++	},
++	.num_buses =3D RTL8390_NUM_BUSES,
++	.num_pages =3D RTL8390_NUM_PAGES,
++	.num_ports =3D RTL8390_NUM_PORTS,
++	.poll_ctrl =3D RTL8390_SMI_PORT_POLLING_CTRL,
++	.read_c22 =3D otto_emdio_8390_read_c22,
++	.read_c45 =3D otto_emdio_8390_read_c45,
++	.write_c22 =3D otto_emdio_8390_write_c22,
++	.write_c45 =3D otto_emdio_8390_write_c45,
++};
++
+ static const struct otto_emdio_info otto_emdio_9300_info =3D {
+ 	.addr_map_base =3D RTL9300_SMI_PORT0_5_ADDR_CTRL,
+ 	.bus_map_base =3D RTL9300_SMI_PORT0_15_POLLING_SEL,
+@@ -1038,6 +1139,7 @@ static const struct otto_emdio_info otto_emdio_9310_=
+info =3D {
+=20
+ static const struct of_device_id otto_emdio_ids[] =3D {
+ 	{ .compatible =3D "realtek,rtl8380-mdio", .data =3D &otto_emdio_8380_inf=
+o },
++	{ .compatible =3D "realtek,rtl8391-mdio", .data =3D &otto_emdio_8390_inf=
+o },
+ 	{ .compatible =3D "realtek,rtl9301-mdio", .data =3D &otto_emdio_9300_inf=
+o },
+ 	{ .compatible =3D "realtek,rtl9311-mdio", .data =3D &otto_emdio_9310_inf=
+o },
+ 	{}
+=2D-=20
+2.55.0
 
