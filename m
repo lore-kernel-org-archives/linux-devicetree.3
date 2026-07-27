@@ -1,99 +1,163 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013043.outbound.protection.outlook.com [40.107.162.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A96442BC34
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 18:42:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785177748; cv=none; b=OtxrGmwqkb11yv8gGt5/Fe0fRgO8oKME/GzAzRb6b1y33HJFE8Ku8nz7PW092Wval49+t5L8F1gFHxFzLzQ9RtKxxutoSajXsalQsvXoBTBwN7g6IrkEa1V4AxL1l+xR/3QqPhrqUpMAfOuhGTxzmxP1jsvQjP3NKaUV9EONcMs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785177748; c=relaxed/simple;
-	bh=BGTM5j27wZFyEH9taNO1scVHbqWOZdICUTBiLjcpBuA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pGhk8Mq6m23RGu73QQJ87Ab+iPEfhCVNf83MsTG1MWN1W0cjojtoFyK6lyyUcPVww421GPIQsBToLWIYN5PSBksgpjdYphsbqqGS+90f7bA4twhdweppToAF2rk/TO2VFLVvIT0JSGy3kqikZ6JKwQ7ZyuU/zmAQjgg+7TJ7zkQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mU5WE+tJ; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80B6E31D367;
+	Mon, 27 Jul 2026 18:51:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785178264; cv=fail; b=pFKh+qfTZrzNAzMb334YWn8vs54HP+LSrgbeirQ8479rzVA/3K/LavjQu9vSZUZCqYKchzqnsFUWNr2BvmAABgsFSx08uQEhBaqqVkWjsDUuPrPyg8LVhsOztbAYUlWnzjSl03k6b0dOerndJukEwivUtJmtOc1U3j+fWc5DfcE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785178264; c=relaxed/simple;
+	bh=oTn3Tu37s9EBSuO+LTKGKoCpLv5oo4yjOx4x2HyAyKc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ffKXEdWmFpd/rXOnMAYPTy9lJicUDqOt4CDqpmTDjyONAgLuTUTHLu+Eh/WJA6Zngcl4nwdllXJU6w+dxVyHcIFzCPusxGc/U1iQxtFcxRUUT+LsmbgrfxWpwVsuAIni2+o20vPZ6BgGtg8d0SSi0lAN+tc4/K9N7AMgLIdYbrU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=lLicz0d+; arc=fail smtp.client-ip=40.107.162.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mU5WE+tJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFC1E1F000E9;
-	Mon, 27 Jul 2026 18:42:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785177747;
-	bh=UxK4xORRV06HhpkqE7U4RIeU4bLaGTxyisGk4ChVrAY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mU5WE+tJiKcv6Tpr36bImn5Rxhmq0H1+Mw7YteTicqeUFnzP+N1MiEJNSxlyfWV2J
-	 riCe8XwdeWdi9daSD96kpXb2vXNacY4RsZD9idDHkJhUR2Wofch1RAvDMvN4k4ZBIz
-	 C8RnScZQSjdt3IdsA2laqeAVeSleIrbPsOGDzuQD9uBvKCKR3+1MeIn94s7QUS0Qft
-	 uVh57kxUUOVrfdBIK/ukXXKe/NH2Uua4wMHJGgYD+SVh4DF8CHEdAL8r6zVO4i5pq0
-	 ebkLnejslPHZ8qYqnHzMwERvOlFuOcHn/+Vc9lIhmHdp6ueyJuQJVK5itRbYDuDcQ1
-	 K2g7Uz0MdsnqQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] iio: dac: mcp47a1: add support for new device
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Joshua Crofts" <joshua.crofts1@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260727-mcp47a1-add-support-v2-2-d4591a2ce69e@gmail.com>
-References: <20260727-mcp47a1-add-support-v2-0-d4591a2ce69e@gmail.com>
- <20260727-mcp47a1-add-support-v2-2-d4591a2ce69e@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 27 Jul 2026 18:42:26 +0000
-Message-Id: <20260727184226.DFC1E1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="lLicz0d+"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kWN2rFLzMgs93RSuO4bvV35qEG2iARf081H1z7wO9BDz6vKyt489PIfNMQrntGipzAP7+WykonvOvlveNCMmFwsfa4EGMh7yWPMsow18LXep2s36ch2/pmN8E2mPzYyOD5YmDcYDLyaX/gvxCt1kq1xEFTRcHpp0Yj1Er0FeYJHcbJKVcNBOVh05+xSK6mrIaF0Xyxv2sE1QSwVysxppWhrjrcECg5Czda2nFSGi3aMyQQTMtBjDFXxHaZltKnLI5iiB9MPoXVPxqe4FK8etq/QFeYNZ9Kd4ejedIw7xO5lLPTyEhZukvGl2T7tpHr5xF8tRiU0ugKpOqLdMS7Jx0Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1wt5Rmy0uVOqRi7rmJd9t/jB7p3lVqpF9NnQVrBaYYw=;
+ b=NqvtULycxlBQQWwIMYOCuXGuTrXFODW1ibN0Uyk5HHLLzwkMJxgGRRhX/mrkVPgYNdj+9D0+QJX6mZqug6DhfvRmHVruijKDZU4ygSIgqlDMZsGC/AmAru7eyJHHGUQvtJR77SGtpnet3klgmuZ7f49odKkwzzenq2p6FvZdBOtCUxSWwsshzVUyIa+HKND6Bc9dliBkjw66+lPS1wU0M5f6vtJCMXAQ2d0MIukemWaqa0iwKV9TbXiilzBlnFEZRh81WXAUnnLAIBvUIn8zEFFaC+0Z24JLGnzoGBylObRgz9NuzoOM77a866HQdUknslj+Q3HnzD1nxtG5Peq7OQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1wt5Rmy0uVOqRi7rmJd9t/jB7p3lVqpF9NnQVrBaYYw=;
+ b=lLicz0d+LHsHSRlo0wULR6eh4/SP2Qzx7Dcgjgzn/ByFaWm09MqBc8IB/gCQtQ1hW9hHEcrsKdTp4O+mVjdOT7Tsxflo+j1zewuyhxlf/w9+h0U6Ul9lheikaVgwsz8CzQ2WEeDEwgPZVUNXzZ4zTohA89N1gKtx32/ajrPKny1++a1M/3fL6EiapaWrELa0vRKHcTkFIab4Tw+fdDepW47RbXZOeIYwHKbZsTNhif9fGvZtbIVX002es4C3gJfCyHU/p28KrQ4FHF5LqPveBp0vJ6B1QCBZA1PCdfWDj2N4G3kiXmn7fRcEAVruoZd8hggp2JlCWLsSgbfP6eCQ5Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AM0PR04MB6979.eurprd04.prod.outlook.com (2603:10a6:208:18b::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Mon, 27 Jul
+ 2026 18:50:59 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0245.012; Mon, 27 Jul 2026
+ 18:50:59 +0000
+From: Frank.Li@oss.nxp.com
+To: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	Stefano Radaelli <stefano.radaelli21@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Subject: Re: [PATCH v2 1/1] arm64: dts: imx95-var-dart-sonata: enable in-band status for SFP
+Date: Mon, 27 Jul 2026 14:50:49 -0400
+Message-ID: <178517824021.2617539.7703161586818075681.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260724193004.51978-1-stefano.r@variscite.com>
+References: <20260724193004.51978-1-stefano.r@variscite.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SA9P221CA0011.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:806:25::16) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM0PR04MB6979:EE_
+X-MS-Office365-Filtering-Correlation-Id: b128c8fa-e14d-47c7-6965-08deec0fff7c
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|376014|7416014|366016|23010399003|19092799006|1800799024|18002099003|22082099003|56012099006|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+ qoXqpbBXbW4qv/0HhpnDyB3yh+JS1+tR1PQIr7qE0AxNOm+GwGKojiEaCljkgBOzUVDaky7kFYqIgvd9Q32CL5QzsOjpY8H0/nGuMEVxN23qnG1okFZlbOqDqTcUQJrNG9tCJERO0rmZ6smWqRDWskBwA9jGgbwYKFhygAXOneGagJZ1+hovM7AKyhCjllVL+94cwPAsiqlAmK2bSp+xO4XWxyDGdpALCHOnW8i66VeiCNqe5hHYEOLkran+IhmXWZX6ECBdthgLIA2hos69abY0/Zywn6Q8u4RcsURn3v3ANAkMokwsmzGUyAz+nqD1+w35OWeaGldu3TvLdc7i0Oo9UQ4N/F0Gv/l0kZMsNroflcNvVgSZV8EJOmgdVpTbUwbRQu28PA1kPEM64WuPXMa1g7Wg/Kj7l3Aq3wg6t5sObtOMpb0wAqd4L8KinpFpQ6plnQU8NgYsQxCzlhUFFw7Qxaoshyi8fCIQIdimsaT0gyqOpiykRkFJ85ifMns9CHMBUjqvHJfCmM8K1vGZeSBlOcBz8jgtiMzOdkdH1YMvIKzKDsnBRKpEsmjPh+jRCndMtKF187rwufMTAC18vzTCIhuerYRxGXwdn4Hez2zKWSqEfsmQdU4HvVrP9tqRnXl6IuQ6kdJaxDwnxWYbZfnJUhrQSuSfHQyIxyCpM2c=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(19092799006)(1800799024)(18002099003)(22082099003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?utf-8?B?MVZSZEgzYkxudUkwbFRrM2h0VkpxcTllc0wxTWNFS2ZrK0JPaGE2enN4R2tw?=
+ =?utf-8?B?bW5CSVVmYlBxRHV5OEloSkx4M2QvcDdJU2hiMFBnSzFVN0Z4MElGeURHMWxI?=
+ =?utf-8?B?OWZiZ0VDNXBhTlkrd1RQMDFNMDcyTzJLcHFxaHNLKzNlOHQvNEl5NUJvaE5x?=
+ =?utf-8?B?QjllM0czTVdpVnptbWZ1RkhRd1liU0FtTkN3MEliV1BUTzRyUlZQa1BQVDY3?=
+ =?utf-8?B?NnE0Nkg3QW9VUkhhak41YzhJeWxKZlBKeWVWdjNVejMySjFSYm1zVGVmVURQ?=
+ =?utf-8?B?bStqY210T2JxbENFVVRBRW1jRDdOR2dXcFdCenZ6emR5NkphMGF3RFhnT3hI?=
+ =?utf-8?B?aXNwOGN4SmFIN00wQzR2WnpKYVVTT3ByZWJQOG5sYmpKejB4UWRPVHFDY3VO?=
+ =?utf-8?B?cXZTM2p6MEZjKzVBM0ZRZ2M4emtBN3pjNGlsOU5jbWFVektQZ1JEamxwMVk5?=
+ =?utf-8?B?V0hlK3RKN1RCVS9CK3JoakF3WHdzRjFRM1hySkZiWXc5WnlJaExhQmZXM3hr?=
+ =?utf-8?B?Vk9yeHV4UFpCcEJxcVZYVGlJbFlSWTBGQlBkOWcweDR5T0JsV2xIYXkzVFJh?=
+ =?utf-8?B?bWNFL1R0OUpCWG9ReTNSVG1zR1AwZEJDc29jQVkxQzdHbTdKNk1uRTg0Q1N3?=
+ =?utf-8?B?Z2p3Uzg5RVQ1dndJRGxSL0I0U1JWWHhoU3p2TjEwZEFzWGxpVVBFcFhsZjZG?=
+ =?utf-8?B?VW5GdEd2RjRsZXRndldxY3FKN2ZMTDBzVEVMOEppV0xzQ2NDQ3U4dFlLVk5J?=
+ =?utf-8?B?U2VVM3lTVlhKSHF2M0VXZGROWEtPSTZqc1VTdnNTWlZuc2Iwc1grWU9qemhL?=
+ =?utf-8?B?and4ZjY2QjAzRFNVTEd4ampsSUVqaUNhR1V2RGxIZXJ2Y0t3WVVPQTdPa0hS?=
+ =?utf-8?B?VEJZRFBSQXlRRW8wSkpZUHRKRWdGblVrU0l3cVZaQnRmNmYrSmwxZ3B0aVdm?=
+ =?utf-8?B?TDZrMVlSTzFSdW1lUFE3N3VNVmhhU2lBRkdhMityalBHQVFNeXpXNS9sdjNl?=
+ =?utf-8?B?WVY2RFA1MkdNSXc2ZzlDWjRwR29XWkQvVkdGZVVBejg2cUl3TEpuelVRdExW?=
+ =?utf-8?B?V3FpZEJ1ZjVRemd3S1h2bE1PWHh4dXNUMDltUWR5ODhwUW1JczkzeVlYYlBq?=
+ =?utf-8?B?Y2xDUmExUnNjLzcrM0R4RjlLUmJBSnF2cFd2Rk0wSjU3ZmpxNm85YTVkZHg1?=
+ =?utf-8?B?U0g5TUJKVDFaOXdMTHg5Q2VtSVpwWXFyZWxDd0VvNnVLVFl5aUd5ZE9vdHhr?=
+ =?utf-8?B?cnZiSkprYjZqWGo1c09LRlR0Sko0SWlJVHdJVXRtT1cxMm1yak14cnpNRHEr?=
+ =?utf-8?B?bHQyMU5OTU1FOTZ1Vmozak5pRTZjMldwcGxzNnhwVHdMOU1kNGNyeDlVZDRi?=
+ =?utf-8?B?WElUQUptZzMwNU5GZzltU0pCaGxDeHBJcTdjOGcyUEhFTllzZFpLYlBSMjhW?=
+ =?utf-8?B?VVREaWVkdE9sRVJpRXZoRzhRR1M3MzFrMktwWm1uMjlRaWgxbzlweThRc0R0?=
+ =?utf-8?B?VjkrK0NSQnlkempWQ21nNnp0M3poN3BvTVVyZWduTVpQQktpb21VUFFRUmdn?=
+ =?utf-8?B?WGNNei9nMWJZd2VycENBZ0ZLVXdhYXE4MWplWlZUdThjZk5LUU0zWFNDc29u?=
+ =?utf-8?B?eFFzK1JNUC9XbjVBeVlkaFhIS0tadnl5bm53ZTlZMTYrdGF4dHQ4ZHBpSHlI?=
+ =?utf-8?B?K0E1YVBBd2lEVXVJUHJqelRRNjhNdUtyN2U3c0oxN3lDZFpxTDZUWjl5NHdR?=
+ =?utf-8?B?QWR4R01WZ1RoWEExYjZOU1JDUEZjb0JwZDhZK3BkUDgxYjQzUDhlMDVEWGRK?=
+ =?utf-8?B?Q0d3elJIU211SlpXdi9nUjRnWk9GRXpIUWdLS1V2SXMxUCtGWnRrYzhacWZV?=
+ =?utf-8?B?bU5GNnpya0RVSGE3cDdWTFF5encvUkh3MFQrWW5VNDAzQ3hVUFpJWkI2U2JV?=
+ =?utf-8?B?N1hkV3Nzci9BTUNHRi83ODQ5aDQ4ejlyY3dwdzBDRnpHL0k2eWllOEhIckJQ?=
+ =?utf-8?B?alZzeW9wTG5XZzJNbGt6ZUlDc3J1ODd3UkFTZ0hiVXhJOEVQejRYNThrajZk?=
+ =?utf-8?B?V1M5dEo0aXdYUFZHM0tuTEI3dy9VYXJINXIxY0NiaFBQOTZXZ0hySEhvdmRC?=
+ =?utf-8?B?d29QYkEvOWJvSFdsMTNvTURVdTR4ak5wcUZodUVzc0d3V3BIYk5WbEw4aitO?=
+ =?utf-8?B?dVZmWjF0a01WbDdRNGNScGUzWXZGOUxadFlSYWwrNEpsM0N2aW5OKzdTWTFs?=
+ =?utf-8?B?RHpoaVFhbU5OcEVQR2FVUzNYMmJhTGF2VUVPMHlCNlVCck8zejhaOXBJMTZh?=
+ =?utf-8?B?T3FyWEQwZFY1bFhtbzV4SXRxRjlmWUtxZ3dmRC9KejVtVExMMzBlay9SdmNS?=
+ =?utf-8?Q?aYpinq26P5MIVzV7xj8z2wSY5LYlF4toTDjP7?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b128c8fa-e14d-47c7-6965-08deec0fff7c
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2026 18:50:59.0517
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Yx/Dt9hWllXo+2h1D7T4mhJyZAzVwzag9ikRDkF+XIL16gTy866RQ8mKPpAD8psihCzsi4ns35M8P1Qdr3E0GvHX4SuImn3XxxPhtYHR9Nm1DGQAmzj8gQGvds8Ebant
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB6979
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Potential off-by-one in DAC scale calculation denominator.
---
+From: Frank Li <Frank.Li@nxp.com>
 
---- Patch [2]: [PATCH v2 2/2] iio: dac: mcp47a1: add support for new device=
- ---
-commit 38bec2fbb020c3f749c52a26e5cc3e78e72eeaf5
-Author: Joshua Crofts <joshua.crofts1@gmail.com>
 
-iio: dac: mcp47a1: add support for new device
+On Fri, 24 Jul 2026 21:30:04 +0200, Stefano Radaelli wrote:
+> The 10GBASE-R port is connected to an SFP cage and requires in-band
+> status handling for link state reporting.
+> 
+> Set managed to "in-band-status" so phylink can manage the SFP link
+> through the PCS.
+> 
+> 
+> [...]
 
-The Microchip MCP47A1 is a 6-bit volatile Digital-to-Analog converter
-which communicates via I2C.
+Applied, thanks!
 
-> diff --git a/drivers/iio/dac/mcp47a1.c b/drivers/iio/dac/mcp47a1.c
-> new file mode 100644
-> index 0000000000000..140e93ff2ba01
-> --- /dev/null
-> +++ b/drivers/iio/dac/mcp47a1.c
-[ ... ]
-> +static int mcp47a1_read(struct iio_dev *indio_dev,
-> +			struct iio_chan_spec const *chan,
-> +			int *val, int *val2, long mask)
-> +{
-> +	struct mcp47a1_data *data =3D iio_priv(indio_dev);
-> +	int ret;
-> +
-> +	switch (mask) {
-[ ... ]
-> +	case IIO_CHAN_INFO_SCALE:
-> +		*val =3D data->vref_mV;
-> +		*val2 =3D MCP47A1_MAX_STEP;
+[1/1] arm64: dts: imx95-var-dart-sonata: enable in-band status for SFP
+      commit: 95870e5eb88c6efa252de89bd8dd360f1150b388
 
-[Severity: Medium]
-Does this code use the correct denominator for the scale calculation?
-
-Since this is a 6-bit DAC, shouldn't the scale denominator be 64 (2^6)
-instead of the maximum step value of 63? Using MCP47A1_MAX_STEP (63) here
-introduces an off-by-one error that could cause userspace to calculate
-output voltages with a ~1.5% LSB scaling error when reading the sysfs
-attribute.
-
-> +
-> +		return IIO_VAL_FRACTIONAL;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727-mcp47a1-ad=
-d-support-v2-0-d4591a2ce69e@gmail.com?part=3D2
+Best regards,
+-- 
+Frank Li <Frank.Li@nxp.com>
