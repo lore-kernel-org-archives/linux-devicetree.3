@@ -1,110 +1,179 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B155E3AE197
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 08:04:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E75E3BBFD8;
+	Mon, 27 Jul 2026 08:04:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785139468; cv=none; b=NOEPsZ/riupe822zWPLe3DAL7RYOEIgBJRotE5PJSbIpLuDe4NJMxINtXbx6fNpCfCn5TciKziFXssVuuHyB09uO39NKSNHOMqTZ2JkiRwUvTO1dN2npHrjtzo1Lu+srRRmXx6arB9tXHbg8YNIjeP6bRZ9lDcNBQT6T1FoZjwY=
+	t=1785139495; cv=none; b=qvC8CvH6Irpc2Da75eYZ9tlvs83Cut94JUeFh1Y6iLBvXccfalm6TyNM4JmxY63+gj1yRnDHEBNS2CG4UiV7C19ByJb2pKr6wGf8bpCDPFWueSeJRhGUGy9S7R5j5OiyFIPi8LaHu1M6D9q47UIgFmLWlO4QLqZwEjO+oHphGqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785139468; c=relaxed/simple;
-	bh=BbCFN9X3tVFmL9714apIwjxHJmOBA2GOaZvupJhdb+0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=fP8R+ie2tXq260tnuRn6iFgxwrGXAF7wo0qayG1yUaD01HfC+tSAPSfcx3P7FJW/MGGGZhVhpYPqYAmJvohuSGCJyF/E7H5dW9eyf5HaiO7Yb9lfHj/xb21zqVsz0RC8jftdtWOkD+BvnNWsTd8VxEtaxFyIhPVV5ReVrRrMlnA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AlozX66v; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785139495; c=relaxed/simple;
+	bh=sC6B84vcluxlG/AW+2iL0xg2+CX2wozIuSD9iq5nbJU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uExOXoUJJKTQIafxDTbgMyqky6iDx5t97N2g4K3Z7u8KqE8WspQDHEOkOa+USVRAnNzw3vXYVwuk9z6e3Ii032cgjEUZsbE2lamdYtf+9bKZ++joxtAHFcEeqSTPDOAxGsupN93jpsxIY4Qg3dVgeJCBXtWq2KiEw4fYqJGZNlk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gMbZzfhz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AlozX66v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0459C1F000E9;
-	Mon, 27 Jul 2026 08:04:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gMbZzfhz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4C891F00A3A;
+	Mon, 27 Jul 2026 08:04:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785139467;
-	bh=PWF73KX/iHyYFyMelBtdHrEheoarQWpcRddXVu5ppe0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AlozX66vXsykWQ2BKU8jtx8YPCfsb1U3ONj21gLNhc/1PhSQMyZpS5EYGQSVvexad
-	 NCjf3U+/6zr63CZaj5Hnvfbn5wMJ4tWNdBEVnnIXtJvHNpr4SVl2G70z260xLOC6Hh
-	 62CKveku3pBEbqR8t+pg55rXduGVdVgUrfNIdRIka5C9nc6zxDW6WEPtOdsAKgz+pv
-	 pv68LIux5F0RguPf4cwlMDkCyhTE7OYNEpVz4wsCkSJYnhP7lM8t3E9Du58/1fz7zW
-	 MpaSuITDGKzeOvFIC6pBv4R3TSV6gWZfFTyrVJV3/bSBNqcE3Pka0wvAK5cAI6CvSr
-	 Nqv07An7+UoTQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 19/34] pinctrl: airoha: move common definitions to
- the separate header
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260727074234.3761170-20-mikhail.kshevetskiy@iopsys.eu>
+	s=k20260515; t=1785139494;
+	bh=JK6hcDea904zCAzfOvHH+R87EzL8G+f8U4g5JCbElmE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gMbZzfhzqqKrI8a4N/3DQKK14ELe3f3F4eTw9FPTBuBArbUoYGylXrxEive+RR6RH
+	 GlYSU9K8DsvzHDJP8/xAtx+5H2HOPVoyea/c/nVukkEueBKPeGyDeABbf3bM888M5c
+	 u3K6nGqXfl/AlxYU/7RD6GoDoIDDdBNXa4Okjyb7vsYev9FrLySXgvC3ha4B/CCT2g
+	 iuDlvR7iDiJpNWH2MnkbXQNY5rcQ8kGn2y2QngfKkJsswpALxmxo4FcsPjcgcr2ci0
+	 mfQHRw98XVjgI6HO3PLvwXD5+0Zfzcg1e4PJFLjrqV6i7Njsoucgn97ec33Ar5A4Jx
+	 mfiNlfk98yQeg==
+Date: Mon, 27 Jul 2026 10:04:51 +0200
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+To: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	Benjamin Larsson <benjamin.larsson@genexis.eu>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+	Markus Gothe <markus.gothe@genexis.eu>,
+	Matheus Sampaio Queiroga <srherobrine20@gmail.com>
+Subject: Re: [PATCH v7 12/34] pinctrl: airoha: add missed get_direction()
+ function for gpio_chip
+Message-ID: <amcRI3c0-1iWWX5M@lore-desk>
 References: <20260727074234.3761170-1-mikhail.kshevetskiy@iopsys.eu>
- <20260727074234.3761170-20-mikhail.kshevetskiy@iopsys.eu>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 27 Jul 2026 08:04:26 +0000
-Message-Id: <20260727080427.0459C1F000E9@smtp.kernel.org>
+ <20260727074234.3761170-13-mikhail.kshevetskiy@iopsys.eu>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="8iQlrEnRGnlj5Pyn"
+Content-Disposition: inline
+In-Reply-To: <20260727074234.3761170-13-mikhail.kshevetskiy@iopsys.eu>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The commit states its intent to move GPIO related register addresse=
-s to `airoha-common.h`, but it only copied them, failing to delete the orig=
-inal macro definitions from `pinctrl-airoha.c`.
---
+--8iQlrEnRGnlj5Pyn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
---- Patch [19]: [PATCH v7 19/34] pinctrl: airoha: move common definitions t=
-o the separate header ---
-commit e0116c883a65c06680c853edf3abcd0498eff60d
-Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
-
-pinctrl: airoha: move common definitions to the separate header
-
-Let's move the SoC independent definitions and declarations of structures
-required for Airoha SoC-specific pinctrl drivers to a common header. Later
-we'll have several SoC-specific drivers, so this step is necessary.
-
-Also move GPIO related register addresses. It's not changed across en7523/
-an7581/an7583 chips and will be used by common gpio code.
-
-> diff --git a/drivers/pinctrl/airoha/airoha-common.h b/drivers/pinctrl/air=
-oha/airoha-common.h
-> new file mode 100644
-> index 0000000000000..40d7e515c09eb
-> --- /dev/null
-> +++ b/drivers/pinctrl/airoha/airoha-common.h
-[ ... ]
-> +/* GPIOs */
-> +#define REG_GPIO_CTRL				0x0000
-> +#define REG_GPIO_DATA				0x0004
-> +#define REG_GPIO_INT				0x0008
-> +#define REG_GPIO_INT_EDGE			0x000c
-> +#define REG_GPIO_INT_LEVEL			0x0010
-> +#define REG_GPIO_OE				0x0014
-> +#define REG_GPIO_CTRL1				0x0020
-> +#define REG_GPIO_CTRL2				0x0060
-> +#define REG_GPIO_CTRL3				0x0064
-
-[ ... ]
-
+> This patch adds missed get_direction() function for gpio_chip.
+> Also it reimplements pinconf's get_direction() function using
+> newly defined function.
+>=20
+> Fixes: 1c8ace2d0725 ("pinctrl: airoha: Add support for EN7581 SoC")
+> Signed-off-by: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+> ---
+>  drivers/pinctrl/airoha/pinctrl-airoha.c | 41 ++++++++++++++++++-------
+>  1 file changed, 30 insertions(+), 11 deletions(-)
+>=20
 > diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/ai=
 roha/pinctrl-airoha.c
-> index 6d4b282c21eaf..7cbedb370c977 100644
+> index 820b7b0443851..b52eb39c55ff3 100644
 > --- a/drivers/pinctrl/airoha/pinctrl-airoha.c
 > +++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
-[ ... ]
-> @@ -230,6 +190,8 @@
->  #define REG_GPIO_INT_LEVEL			0x0010
->  #define REG_GPIO_OE				0x0014
->  #define REG_GPIO_CTRL1				0x0020
-> +#define REG_GPIO_CTRL2				0x0060
-> +#define REG_GPIO_CTRL3				0x0064
+> @@ -2502,6 +2502,27 @@ static int airoha_gpio_get(struct gpio_chip *chip,=
+ unsigned int gpio)
+>  	return err ? err : !!(val & BIT(pin));
+>  }
+> =20
+> +static int airoha_gpio_get_direction(struct gpio_chip *chip, unsigned in=
+t gpio)
+> +{
+> +	struct airoha_pinctrl *pinctrl =3D gpiochip_get_data(chip);
+> +	u32 mask, index, val;
+> +	int err, field_shift;
+> +
+> +	field_shift =3D 2 * (gpio % AIROHA_REG_GPIOCTRL_NUM_PIN);
+> +	mask =3D GENMASK(field_shift + 1, field_shift);
 
-[Severity: Low]
-The commit message mentions moving the GPIO related register addresses to
-airoha-common.h, but the original definitions were left in pinctrl-airoha.c.
-Could these duplicate definitions be removed from pinctrl-airoha.c to
-complete the move as stated in the commit message?
+before we where checking just BIT(field_shift) as mask, while now we are
+checking two bits.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727074234.3761=
-170-1-mikhail.kshevetskiy@iopsys.eu?part=3D19
+> +	index =3D gpio / AIROHA_REG_GPIOCTRL_NUM_PIN;
+> +
+> +	err =3D regmap_read(pinctrl->regmap,
+> +			  pinctrl->gpiochip.dir[index], &val);
+> +	if (err)
+> +		return err;
+> +
+> +	if ((val & mask) > BIT(field_shift))
+> +		return -EINVAL;
+> +
+> +	return (val & mask) ? GPIO_LINE_DIRECTION_OUT : GPIO_LINE_DIRECTION_IN;
+
+nit: unnecessary brackets.
+
+> +}
+> +
+>  static int airoha_gpio_direction_output(struct gpio_chip *chip,
+>  					unsigned int gpio, int value)
+>  {
+> @@ -2648,6 +2669,7 @@ static int airoha_pinctrl_add_gpiochip(struct airoh=
+a_pinctrl *pinctrl,
+>  	gc->free =3D gpiochip_generic_free;
+>  	gc->direction_input =3D pinctrl_gpio_direction_input;
+>  	gc->direction_output =3D airoha_gpio_direction_output;
+> +	gc->get_direction =3D airoha_gpio_get_direction;
+>  	gc->set =3D airoha_gpio_set;
+>  	gc->get =3D airoha_gpio_get;
+>  	gc->base =3D -1;
+> @@ -2855,21 +2877,18 @@ static int airoha_pinctrl_set_conf(struct airoha_=
+pinctrl *pinctrl,
+>  static int airoha_pinconf_get_direction(struct pinctrl_dev *pctrl_dev, u=
+32 p)
+>  {
+>  	struct airoha_pinctrl *pinctrl =3D pinctrl_dev_get_drvdata(pctrl_dev);
+> -	u32 val, mask;
+> -	int err, pin;
+> -	u8 index;
+> +	int err, gpio;
+> =20
+> -	pin =3D airoha_convert_pin_to_reg_offset(pctrl_dev, NULL, p);
+> -	if (pin < 0)
+> -		return pin;
+> +	gpio =3D airoha_convert_pin_to_reg_offset(pctrl_dev, NULL, p);
+
+if you do not rename pin in gpio here the patch will be simpler.
+
+Regards,
+Lorenzo
+
+> +	if (gpio < 0)
+> +		return gpio;
+> =20
+> -	index =3D pin / AIROHA_REG_GPIOCTRL_NUM_PIN;
+> -	err =3D regmap_read(pinctrl->regmap, pinctrl->gpiochip.dir[index], &val=
+);
+> -	if (err)
+> +	err =3D airoha_gpio_get_direction(&pinctrl->gpiochip.chip, gpio);
+> +	if (err < 0)
+>  		return err;
+> =20
+> -	mask =3D BIT(2 * (pin % AIROHA_REG_GPIOCTRL_NUM_PIN));
+> -	return val & mask ? PIN_CONFIG_OUTPUT_ENABLE : PIN_CONFIG_INPUT_ENABLE;
+> +	return err =3D=3D GPIO_LINE_DIRECTION_OUT ?
+> +	       PIN_CONFIG_OUTPUT_ENABLE : PIN_CONFIG_INPUT_ENABLE;
+>  }
+> =20
+>  static int airoha_pinconf_get(struct pinctrl_dev *pctrl_dev,
+> --=20
+> 2.53.0
+>=20
+
+--8iQlrEnRGnlj5Pyn
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCamcRIwAKCRA6cBh0uS2t
+rIvRAP46t3ynpmSaQbfS9FRiJxVVb8IPe3lJTpXHNUdJ6JKXKwEAitJivdnbmcKb
+13q9RT2W9cpPRTQIRuoQiYljaIyMjw4=
+=wRoE
+-----END PGP SIGNATURE-----
+
+--8iQlrEnRGnlj5Pyn--
