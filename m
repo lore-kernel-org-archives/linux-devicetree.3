@@ -1,100 +1,226 @@
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010007.outbound.protection.outlook.com [40.93.198.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0030400970
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 14:41:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785163307; cv=none; b=Uv6Mm7zFmc34Aw4UYtuB5lr73JURd6hEP+9esBjaH6w8VWm/6b5oXtusbvMgQDPuZvGdrE94fBL0iuUFWE0NTn7ZcqPxQtQ1dPkS7M1u9xaNaj4Oe9NdzzA/PdxauDa5DySA6bsDT/pw4FiS/EM9XZ2GjqeFchINuIY8gO0T/pY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785163307; c=relaxed/simple;
-	bh=t6w1Im2DkuyzdMCE+ASzKdfVWcpCqbCUNEi+RElOGho=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=vGgQ0D0bi1WulkzklfVeOS89s2/drO6s6jweES5WCwbDVyFpXUYmQmgsbA84RN4x07/v1alCiSw0CPJ2HQzoWGRnqM1dfpy+Nad1tZF5vtRy88IMYJqGwoGHo2N66slu1t4FryaaqpakNX3tgAbqhByqf/mD6/h8Isi4BiKcX9E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q5F2L6/A; arc=none smtp.client-ip=209.85.210.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B2A6412C05;
+	Mon, 27 Jul 2026 14:41:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785163311; cv=fail; b=GdIIHqyATFnlYWUJnHBQj0Kf/YuCN/BLt8/cmbT5As8IAl5j9lWUUns1RXBuDDpzi/AZ0LTt+PHPs/OxNvNfRQc1uuvlWjVRd6kMaolVBuj6RQQ9BgG+5Zo+u2++WTLANd8RIYqzj/VDURb9EnBp9mtaL5rypr4An+7rS6yvKak=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785163311; c=relaxed/simple;
+	bh=zHhGU/XYlUYozCNfXptvnBdZ+ihxGxSwz1W2hmd0F1Q=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pdcezvRmm/PHckJnREyx98Brnfc1Hoaz6mqQosF4S/fMMupRP8TcVbRM/vF5JnBdBI1i6CppVGoTD4k0pvGO92B2/JLu1pihmqOf7VmPsjXH75jTIed3lKqajJd0Hj09SiQF3bDpEoYNdpjC9Iir53+HEaeza17YUPkWgq046Ag=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=WKZASIFx; arc=fail smtp.client-ip=40.93.198.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q5F2L6/A"
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8486ac3f347so3442876b3a.1
-        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 07:41:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785163298; x=1785768098; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Ho62qmc8k6xuRrfZ2CNtaVu4pSIvsJ17TU2OHfivqGo=;
-        b=q5F2L6/AJpLZgEfyFsdtxAZMGyzP8on10GYdDW8kFSoMtiwZuKZLeP9pHNBpdMU2Qa
-         SCqDQcmfu+CspaUIrdvFzEobHwIuDDuMxy8Y4/9KUQUWSJvw+FnB3T3S7uoe1lvCYcVE
-         Eyr508+82v8myGS33jvkxwvDDz3fiB+mtAlZ+iO2nkEIzVoBXN9ysbOtc2IhkqrcHet0
-         OfgXQyNTLdLS3W6zDBP86iMavCHwAi5fbQexHnnNdaMi37eN9QX2Bm5HRQ6Bpq/OEwdI
-         VfLkR3omfhKhXae+6f/KH/Ec8eRKLT5+7gZe9r7z/I3G7nDV6eCdC4hvkdYu6Oq7++vS
-         dJVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785163298; x=1785768098;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ho62qmc8k6xuRrfZ2CNtaVu4pSIvsJ17TU2OHfivqGo=;
-        b=NK7rjUfTVIR0JwCSxl7ide3TyD77kcQi6++gvtfSDOGeocaXsg+2Ko0xYfW+NWdgRP
-         lNnNcBc5O2T8CGEIbcrO/6YaDGyRaibrURx1c6g5oxPz1beuwB7y3FTC+Mxm2iBVzjo9
-         b9K9TFDEMax4VqiWpO5KM0BZri13vQU4AVTTGJPw0agX7mnWzjUvhg0uSV5d66dr6qi6
-         Ea6yzRTSl65fqgoNt8MxSd/qxLGodI9fZH+uFiakFfERaWcNCFtTlYzD6NprCpys8kaR
-         1egVgq6JPfEaerOkaCnkc6V0HC3fgWI/pDzNFpkSGsSivaJOFAkBmbNSJXvy/BQrPfct
-         d4Kw==
-X-Forwarded-Encrypted: i=1; AHgh+Rr+lBSbTFbt8SnSqZFukYMmTTEjQDScn3Kumemz8hAZcDntxzBYlavk92EsioWIyWzbhXa0sjIYFPkm@vger.kernel.org
-X-Gm-Message-State: AOJu0YxDCJrXECm1PKJ7MBlioY5MjWU0W+PueK2OR8N9ATXCDkl/IIMx
-	TuJSUF3p5FDdqTuzYkI6flQGbCDbxj+Z3UYR9lqbIcvkXxfg9WHDX+j7
-X-Gm-Gg: AR+sD12+FB05Tr1Cq6iywjTQT6ggfIHuPbq9JTKVrgDehCsxpamLBCuxgd9CqnFH0Al
-	Rpdy9mEtRXRd3NoMXorA5LwbsHx6CUz0ZGMDq8VcjllB7sXwVcBImdPp3iEJztQ4fcTzkassrEx
-	6nT65SyN6jfZJB6CdSh3Cb0G4ccJ42C//ub+oo2bCK7AyXqTBUNl6Upe68XFgXFa2DLEoBac787
-	U+mNB1xw/2c1z3OwSGLuvpzEQt+SPHKNcCYxRHrQ4UQgeotteW8uBMwraA6BLQRHieeSTdUqrl+
-	1RLEUDtdi9Kk9I0GP9X7DR8OXa/QPwXYy12c7FFX/ETBkHw4g3BY1DStiraSq95i87Z0/kW41wP
-	3mlQsTnMCg4zuv45n0deTMsxB25nparQ2wWX5kKg2QXPmCqiKYOBhcAl1PFzxQroFwkou3P9pDX
-	kPH7P6NpXpyP+U/+U=
-X-Received: by 2002:a05:6a21:4e01:b0:3b4:6af4:bdd5 with SMTP id adf61e73a8af0-3c67240d4c1mr10310593637.15.1785163298516;
-        Mon, 27 Jul 2026 07:41:38 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-314bc288a79sm32928271eec.0.2026.07.27.07.41.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jul 2026 07:41:37 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Mon, 27 Jul 2026 07:41:37 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Andy Chung <Andy.Chung@amd.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v5 3/4] hwmon: (kb9002) Add driver for Kandou KB9002
- retimer
-Message-ID: <9151a4d1-a23e-4247-8583-03a1e8976a1c@roeck-us.net>
-References: <20260724-kb9002-upstream-v5-0-9523c3ffe83a@amd.com>
- <20260724-kb9002-upstream-v5-3-9523c3ffe83a@amd.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="WKZASIFx"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=X6kRh+afXNuDGiGwbLMgspLBYm8GrodY4kIsOIiJZwMkYi1f2U1by7GNNiBIDWykxCUGfTm6/6LWuIyxxJ7/Pca4iSxq7gOCgG718MI/A+T3uizg4bFIAXfi/zKJcsYJjDUBIQfWsgM2F63mFBO7KHXiiYAGenD5QWAaRo5KTrsH0SHQh4GTdOrJ01vju2p8yk08Ct3gi1Gg1PIsugCwfD8U5lTaN4EPq+UcAkim7Xn4Lsq+P/dFKBk1qkR67hn09qAZPXPm9hb6yWl+Ro4yuiPrEyTo5qW0fuNvNhOD7wDpTisoyFHnjUS4PLv7P4U4IemoCeYLuJgmGhnXSAarVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5F2vRrvZm/D0zX8pni3O7I/DEeJA1ipvbGF0lGByCG4=;
+ b=CRDz+wBKw0L0Q1P41ouuUZ2iVQYcEVxZ4LDYybkGAoqZVZkniWp/iShPTBXVnq3abWHCVagweb2ih32V56Q6oVoQWpvGxV7xRTy7OzsM1s35VYchtRoporT7mkdTAep9jd/XwS5FVGjuicDGPujVUWn8j9knwlQM4usVEKOx06GPxgHMqaGlsDSwphK5627RhX6VCyvliz26ceb6TcEPnAiTyRwUPxVonXtKp5fWogU78PNvVHltDTqRNMMuhXtzDxSeXKTfU2mD21+y8brqCYWXzG/JyEhHGwhzdoHBwKGi0hSs1woQD5GGuearTOrOimC/La7VbUD6tdfvjLLBnw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5F2vRrvZm/D0zX8pni3O7I/DEeJA1ipvbGF0lGByCG4=;
+ b=WKZASIFxzSqkv34ZLsi9Zp2MQP2S8HUWNLzZuDIplYuANI9lx7xt+2zSIBaAolZmgVeY6RZnccRXtcT7deh+R8zhM97WmwVQF5HLH9eHwlDiSqA0YpUSlODuNBQ0SrW8N8ARX6bp24oeAthjB/7T+mnSp/OA0YT4s3bys8lvKtJahBQ/TkSi03/JaU/6De30x7Pt8Ngd1k8uTwgOQp3X8khdWZhNDkD9JU3rIDJlFspt/+MzJ7B+5R8nynjK95i/iqF280B8HkXtxywpK/lV5ukflOnWWcr/ok9GNJnAbHeuwdlwFVYF6yTOzgWua9OJXxsLHPqhYKplJSmRtcVgFg==
+Received: from DS7PR06CA0006.namprd06.prod.outlook.com (2603:10b6:8:2a::7) by
+ DS7PR12MB5837.namprd12.prod.outlook.com (2603:10b6:8:78::6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.245.13; Mon, 27 Jul 2026 14:41:41 +0000
+Received: from DS2PEPF000061C1.namprd02.prod.outlook.com
+ (2603:10b6:8:2a:cafe::73) by DS7PR06CA0006.outlook.office365.com
+ (2603:10b6:8:2a::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.13 via Frontend Transport; Mon,
+ 27 Jul 2026 14:41:40 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ DS2PEPF000061C1.mail.protection.outlook.com (10.167.23.68) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.270.5 via Frontend Transport; Mon, 27 Jul 2026 14:41:40 +0000
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Mon, 27 Jul
+ 2026 07:41:17 -0700
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by rnnvmail203.nvidia.com
+ (10.129.68.9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Mon, 27 Jul
+ 2026 07:41:16 -0700
+Received: from build-akhilrajeev-noble-20260602.internal (10.127.8.11) by
+ mail.nvidia.com (10.129.68.10) with Microsoft SMTP Server id 15.2.2562.20 via
+ Frontend Transport; Mon, 27 Jul 2026 07:41:13 -0700
+From: Akhil R <akhilrajeev@nvidia.com>
+To: <sashiko-bot@kernel.org>
+CC: <Frank.Li@kernel.org>, <akhilrajeev@nvidia.com>,
+	<alexandre.belloni@bootlin.com>, <conor+dt@kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-hwmon@vger.kernel.org>,
+	<linux-i3c@lists.infradead.org>, <robh@kernel.org>,
+	<sashiko-reviews@lists.linux.dev>
+Subject: Re: [PATCH v6 08/12] i3c: dw-i3c-master: Add ACPI core clock frequency quirk
+Date: Mon, 27 Jul 2026 14:41:12 +0000
+Message-ID: <20260727144112.177391-1-akhilrajeev@nvidia.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260721042615.E38721F000E9@smtp.kernel.org>
+References: <20260721042615.E38721F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260724-kb9002-upstream-v5-3-9523c3ffe83a@amd.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF000061C1:EE_|DS7PR12MB5837:EE_
+X-MS-Office365-Filtering-Correlation-Id: efb03446-76a4-4367-6845-08deebed2ba2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|376014|1800799024|30052699003|36860700016|23010399003|6133799003|11063799006|56012099006|10067099003|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	gN6WoJd7iewpDZA+CFiji2UqgFku8CS0rddmrvIaQSdWRzpdLeQyvibRgu3Q1bfvqVCqTQfcJ7/UostsrQe3V+xYkCsTjMRNmIP9IcAITgTe982HvNXsS3pvoCIB7AqvtjK6T4ZRXJzcbu9RwW/jBzcXvJJJDlbNdEFjaks9pybmkYtHJVlKJxReZjMNK1JyDqiAz4RQu2kxaLZJZQKbvva1JznplhNqNF+EguAr72tnOwPh9e5PCMemsyVKEVCA1ashYSu/C/vkX0F5uXBBG90BEA7nTtRprHGzUIKt6ah72+R3XyqD4v7yflVpnH9FCwZUSPqzTeZPc/PSuLYDs2uaKdtxp7H42FjMLMnLlh9wEHETLgDLY4VGy3SSexX7FuDuT/nix2FthaL4tfTJ5n0jJCczOUdLOwBcJcDVEjiSBTfGkhoBtFRRKAC9zQJKwORryDNaygR9HKNihWYQx95rHmLsg+Po+KfsO1IJsKOaIpCGiGnG9PyGbX50GZ6fM3dxykdV0thiRcIEHhlSRd6CqTtshwjLfd83LmScEQvI1HC26RwFFnJc63b0hK2Ev2+q4U1lEcPNGLkl6R+iiFfff0tslW1QRcRNlHPGxQoMdmarVufDTZhJQoeHlbI0XTjQhPw4lbIjGCYwPjdaLzNyaUHFYw+2XSlZP4STVKiNlUQclQ6T0k1jxXrwgZcqsMbs4EaY/8+0LhMFNR4FnQ==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(376014)(1800799024)(30052699003)(36860700016)(23010399003)(6133799003)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	AUtwfdqjh8rmkTLwWzqrjLjSXKXmCrU2TCnM2EZPBR7T6NJVH1VtfbVVDkGnn+istTwbo3ydGLiLhS1pIydX9OYvIiqGg1qKdOn2Ucxt8plQeR39U3IOLOdEVfXppi2v979K92/3It0ujYuzTbszOeAcvtnCAUow0tq0ljo5W1fOYIDIKt3wAiYTklvI+o2x8eOVDs+zNGD+k4Hc+Nub1UB1fv9Vr03IbHJzPl7YTGwycm/NsaNW96vwwiqNP9Zh2jjgPEMQFYCd7puXHRS2NKxajic09nRNC5kucCjV1Ha1fv5PbpsMTgJPeRVfsr7s28NU39/7xhFNv4k8W3gw1kIg2qKVP1jbhvWgDHEp9UUFdnk3/XRnAkJZ/ll4Kws35wsaljx+y2g/dCYw/CWdrmBHN2/mzbwdaKIc4HkxXvU7jeCF39KeQQTunsbppxQT
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2026 14:41:40.3292
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: efb03446-76a4-4367-6845-08deebed2ba2
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS2PEPF000061C1.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5837
 
-On Fri, Jul 24, 2026 at 12:47:39PM +0800, Andy Chung wrote:
-> From: Andy Chung <Andy.Chung@amd.com>
-> 
-> The Kandou KB9002 is an 8-lane PCIe 5.0 retimer that exposes an SMBus
-> target with mandatory PEC. Add a hwmon driver reporting the firmware
-> aggregated maximum die temperature as temp1_input, with the firmware
-> version and boot status under debugfs.
-> 
-> Signed-off-by: Andy Chung <Andy.Chung@amd.com>
+On Tue, 21 Jul 2026 04:26:15 +0000, Sashiko AI review <sashiko-bot@kernel.org> wrote:
+> commit f3333de342eb1c266eb94909516ea27afe8378d5
+> Author: Akhil R <akhilrajeev@nvidia.com>
+>
+> i3c: dw-i3c-master: Add ACPI core clock frequency quirk
+>
+> Some ACPI-enumerated devices like Tegra410 do not expose the controller
+> core clock through the clk framework. Unlike device tree, ACPI on Arm does
+> not model clock providers. The hardware is expected to have its clocks
+> enabled by firmware before the OS takes over.
+>
+> > diff --git a/drivers/i3c/master/dw-i3c-master.c b/drivers/i3c/master/dw-i3c-master.c
+> > index 29030fd9594aa..3ec3ab1c13b4c 100644
+> > --- a/drivers/i3c/master/dw-i3c-master.c
+> > +++ b/drivers/i3c/master/dw-i3c-master.c
+>
+> [ ... ]
+>
+> > @@ -556,13 +557,33 @@ static void dw_i3c_master_set_intr_regs(struct dw_i3c_master *master)
+> > +static unsigned long dw_i3c_master_get_core_rate(struct dw_i3c_master *master)
+> > +{
+> > +	unsigned int core_rate_prop;
+> > +
+> > +	if (master->core_clk)
+> > +		return clk_get_rate(master->core_clk);
+> > +
+> > +	if (!(master->quirks & DW_I3C_ACPI_SKIP_CLK_RST)) {
+> > +		dev_err(master->dev, "missing core clock\n");
+> > +		return 0;
+> > +	}
+>
+> [Severity: Low]
+> Is this check reachable?
+>
+> During initialization in dw_i3c_common_probe(), if the core clock is missing
+> and DW_I3C_ACPI_SKIP_CLK_RST is not set, probe immediately aborts with -EINVAL.
+>
+> By the time dw_i3c_master_get_core_rate() is executed, it seems guaranteed
+> that if core_clk is missing, the DW_I3C_ACPI_SKIP_CLK_RST quirk is already
+> set, making this fallback check dead code.
 
-Applied.
+The check is defensive and is harmless. I believe it adds to readability,
+but can be cleaned up if preferred.
 
-Thanks,
-Guenter
+> > +
+> > +	if (device_property_read_u32(master->dev, "clock-frequency", &core_rate_prop)) {
+> > +		dev_err(master->dev, "missing clock-frequency property\n");
+> > +		return 0;
+> > +	}
+> > +
+> > +	return core_rate_prop;
+> > +}
+>
+> [ ... ]
+>
+> > @@ -1573,14 +1594,28 @@ int dw_i3c_common_probe(struct dw_i3c_master *master,
+> > +	if (has_acpi_companion(&pdev->dev)) {
+> > +		quirks = (unsigned long)device_get_match_data(&pdev->dev);
+> > +	} else if (pdev->dev.of_node) {
+>
+> [Severity: High]
+> This isn't a bug introduced by this patch, but since this block was
+> relocated, I noticed a potential issue for devices using ACPI PRP0001.
+>
+> If the device is instantiated via ACPI using the PRP0001 HID,
+> device_get_match_data() correctly falls back to the OF match table and
+> returns a pointer to struct dw_i3c_drvdata.
+>
+> Does casting this pointer to an unsigned long and assigning it to
+> master->quirks cause random kernel pointers to be used as a quirk bitmask?
+> Depending on the kernel layout, this might cause erratic driver behavior such
+> as missing PM operations.
+
+> > +		drvdata = device_get_match_data(&pdev->dev);
+> > +		if (drvdata)
+> > +			quirks = drvdata->flags;
+> > +	}
+> > +	master->quirks = quirks;
+>
+> [ ... ]
+>
+> > @@ -1636,15 +1671,6 @@ int dw_i3c_common_probe(struct dw_i3c_master *master,
+> > -	if (has_acpi_companion(&pdev->dev)) {
+> > -		quirks = (unsigned long)device_get_match_data(&pdev->dev);
+> > -	} else if (pdev->dev.of_node) {
+> > -		drvdata = device_get_match_data(&pdev->dev);
+> > -		if (drvdata)
+> > -			quirks = drvdata->flags;
+> > -	}
+> > -	master->quirks = quirks;
+> > -
+>
+> [Severity: High]
+> This is a pre-existing issue, but I noticed a potential problem in the device
+> removal path regarding runtime PM state.
+>
+> When the driver is unbound, dw_i3c_common_remove() calls
+> i3c_master_unregister(), which internally calls dw_i3c_master_bus_cleanup().
+> The dw_i3c_master_bus_cleanup() function accesses the DEVICE_CTRL MMIO
+> register. Because the driver does not wake the device via
+> pm_runtime_get_sync() before unregistration, the device may be in a
+> runtime-suspended state with its core clocks disabled.
+>
+> Could this cause a fatal bus fault on platforms like ARM due to unclocked MMIO
+> accesses? Additionally, if the device remains suspended, will the subsequent
+> devres cleanup attempt to disable the already-disabled clocks, causing a clock
+> enable counter underflow warning?
+
+These are existing issues in the driver. It would be better to address them
+separately.
+
+Best Regards,
+Akhil
