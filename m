@@ -1,181 +1,131 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72CFD3BE17B
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 07:54:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9F3B339872
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 07:54:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785138849; cv=none; b=YhXEKtcmKs4CRVEO0iSLWaWPdkdGpDUacEznK1AG7dM/Zcuntt3NeXEGgfyBcaaNeiwYz5dhoKQaqjxRqBlr1L38WThOrww2xO9uZOP/kyjqfXS4CNXMp01dPq+N2XJWC+xbqLIWAFySrK6AgC94DWbgNaL/fCRGjzkVYJYUmY8=
+	t=1785138862; cv=none; b=CZabMicPpyikDNncFV74WPJR7JapfEsg4HYdMzMpmwV3HphF6rVRhfJNRp6gV7Xye+dtAgkflCi50RF4gy/SW16IVUoRQfLvoWuUU6epMjCw5KBIPp91s/PlTRxngR7Kfh2GyVM6rWJQvZrTzKYS7lFU4fPzWkp+iZzMd1zMBeo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785138849; c=relaxed/simple;
-	bh=0/7aJcorxjkjYh2WxXLTjtcNxe/C8FiLZXKBu+DN6bs=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=OH8V60dtdJwHPaXhhunHxStB3uAGiV+MA5JlbkoviYQ9Hl/5acx5LJR3Vuhwy7OP9SPGIkcSi5h/9ktJ3ga0T7xJ/pb/toY56mWXCI1EjNIizh6ARHjaCcrV32PkRBncu5+LvyGIcosSShq6/DxcO+35KfN49dgmvCeSuBPAYoE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=RZNNMniM; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1785138862; c=relaxed/simple;
+	bh=JDwagsaqx+9n6PmQFqF7mt5wqdmE2uTg98ih6bXLHlg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=VXmc9EKfPUoIqo3aHFpqrG1oZ7yUtXvD01xp0/CPi77tU47HZstQaMtoGqiSp1Y8616A27EwcVlkPpDnuFjuK+8PeAI9ybRkSXHpLkapbqyp0L03wU/E7uSNFdtGaZMJimjxz8OQQmPBcnd9X//kTLjvbiQZ8vSllTWZX+h6DHI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K8FkkpK1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="RZNNMniM"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4956242332dso21185465e9.2
-        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 00:54:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1785138846; x=1785743646; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MqNjK/rioA4iOLl1ZVnlKqLU3LaxNT3QS1tkdq44BUA=;
-        b=RZNNMniMMn9sMiDYGAtpDot+LBL6AXKZBWAJRHzas6dGIOt+Ut2ZEbV626zodvtWHb
-         Zohfv2UkGYDH2otIFEWqOSlzwKP58BI9uScid4e8Xolp5uOM6BgL7Vz/lpFlFpG9Syyd
-         2rrCpDVhaC90R6GjcDlr+oa09E6UlkrnrmIkLwfxGYa5ZtY+G2SFiVSvLqDUYhKOILqL
-         /fit5oxDDN+JFxOrXkPceF+rTDAqNCg8swaO3B9fahrSTgyrOor4c8pxLfo869NmlstT
-         TxcaU5TRG4PQh6yJeAOMe0wr2silxMEGUWOCMuRUmTPQyMhGg/RbX79HuP73/zXHZ0h/
-         LJTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785138846; x=1785743646;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MqNjK/rioA4iOLl1ZVnlKqLU3LaxNT3QS1tkdq44BUA=;
-        b=sT3v5eMeXORI+ICSSPRABeTHfy9BrtmDk3oZYdYfCT169HxmtPk5UR1mGy3W/s6VLa
-         U07BB+fYuPW64pZBXnr1G0PARBlXDxyYypeQDbdSN/tWGAmwUIuP1TY75MVKpDxoaFQT
-         7l+eNDRbp2/f8AYfIxw53V5eU3FF7mqMPvcug/crALNZ7DjPHnUu9H1aEUTGaI5mOUhq
-         xxwo43ib0k+jquBgUvh5kogSBr0zfmOagifBAflvY0amhjJCkh2abYhpVH7FEOKT+Lpu
-         szkLN7fxA6QtTjYRhKevDIINT2XOBfx4fAy+vfouSoKDMEHJBr8Lxi2yphObbIQgqDjN
-         zLjw==
-X-Forwarded-Encrypted: i=1; AHgh+Rp2IkuS/TO3/8lwLzbv160NdYa3Oqwk63Kq4DBCkAYh5RI++pTvtInkrd2VUuLEKYWiHMw+BCN6ZsXO@vger.kernel.org
-X-Gm-Message-State: AOJu0YxKa74kRJcqhfUWNxm5/pBVYdDkUSWHrio40cgZAekdlh+kenbw
-	eiFINPyGwK9TJNn9BzXqudYImilwhs4jY8FcqPiBYfqdIFXIYXuaqr/4zTtkeuknMaM=
-X-Gm-Gg: AR+sD11oJ5UKK+kEzrVr9QOmcjjhfJ6KzXo/ncjFpE+zlfyhSkv6CSbq10AZByV/Fzc
-	9QtbPm2w1VaXJHwVo/bHf3Nlgyan8PcE34L2ookuU2Obs9KebD0ZDVR1ezwE+7u9XU41dsxG9lp
-	4/dbeShkkQjjy9JW00HZ6PFGIDKlvXPuSwAIi4TilgWKJhdubQQuPPK3YFnyX2LF+YL5LR3sfzO
-	FbzAN2Fa9b+d3PkgHMXj9JCJEBxyBLIcCx02DIX45XSlw16qQnN/G6g79Vw32Zl+i9if9sNB5EN
-	sxeTqfxsMzxt82nZtmZBFRrLrB8Ug4ruTmOLZqWktY7R7twihjmHMgvtwQbJPeRVdvpBpT2Bd4m
-	LLi/TpApJLz/v0Vbuz/vB3DjDrJzcwv+jjsuyUqqs2woAR/Z46Kq8wRP3cTY3Oe6zD04D7XGfU2
-	YksT0Mw7MxyPmnFFOlbs0sc1tMpAHUhwMlnGELJLG+IUeSw5Ux0B7e0RU7SA==
-X-Received: by 2002:a05:600c:a00b:b0:495:4589:cea6 with SMTP id 5b1f17b1804b1-496b5709d44mr98553935e9.34.1785138845564;
-        Mon, 27 Jul 2026 00:54:05 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:9be5:334f:bd8a:8041? ([2a01:e0a:106d:1080:9be5:334f:bd8a:8041])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4957f9ae5c3sm297543085e9.3.2026.07.27.00.54.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 27 Jul 2026 00:54:05 -0700 (PDT)
-Message-ID: <7b32e0ef-eac8-470d-8eb3-28c20c91f1e3@linaro.org>
-Date: Mon, 27 Jul 2026 09:54:03 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K8FkkpK1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 133601F000E9;
+	Mon, 27 Jul 2026 07:54:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785138861;
+	bh=BQRYHDZGM7Acn3Zfn05t2fYVYa6uNAbjbMhmKf3p9eM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=K8FkkpK1xdX4ve/l0NvYwWhmOyq/r9XXBqswf5eVm4vnH+W6KzImEX7Is/YQEPUaj
+	 XDqe9OQnDRoJjLEsDGVgHWEW/nQtGOpQZUP+t35lotQQXTqAPJxtVpUCLig/D9FeQg
+	 iDB1RjrWnaNwtB7QDlCr3MiHOGvcFAvr+DEK//FGkevFzsVtaRXaCheEUcxjT0JmzY
+	 E/Um57ubJmu4ougOraK9asek6yL0VNZu8hRkcpXuFuBXrrBd7S42IiErqTB/NWbGgS
+	 jano8GA3hHOleQZ+/6jYGvxJBlh2mc96dcc7biH/iTozdnVdwbXbU8/zU/AY5I0tOQ
+	 G6+QzPK8QkEWw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 05/34] pinctrl: airoha: an7583: fix I2C0_SDA_PD
+ register bit order
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260727074234.3761170-6-mikhail.kshevetskiy@iopsys.eu>
+References: <20260727074234.3761170-1-mikhail.kshevetskiy@iopsys.eu>
+ <20260727074234.3761170-6-mikhail.kshevetskiy@iopsys.eu>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 27 Jul 2026 07:54:20 +0000
+Message-Id: <20260727075421.133601F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 2/2] drm/panel: simple: Add Ampire AM-800480N3TZQW-00H
-To: Paul Louvel <paul.louvel@bootlin.com>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Thierry Reding
- <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-References: <20260723-support-am-800480n3tzqw-00h-v1-0-6a4ae0575a19@bootlin.com>
- <20260723-support-am-800480n3tzqw-00h-v1-2-6a4ae0575a19@bootlin.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260723-support-am-800480n3tzqw-00h-v1-2-6a4ae0575a19@bootlin.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 7/23/26 18:31, Paul Louvel wrote:
-> Add support for the Ampire AM-800480N3TZQW-00H 5" WVGA TFT LCD panel.
-> 
-> Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
-> ---
->   drivers/gpu/drm/panel/panel-simple.c | 33 +++++++++++++++++++++++++++++++++
->   1 file changed, 33 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-> index c09bf3db5e78..fb60d8e7f47c 100644
-> --- a/drivers/gpu/drm/panel/panel-simple.c
-> +++ b/drivers/gpu/drm/panel/panel-simple.c
-> @@ -912,6 +912,36 @@ static const struct panel_desc ampire_am_800480l1tmqw_t00h = {
->   	.connector_type = DRM_MODE_CONNECTOR_DPI,
->   };
->   
-> +static const struct display_timing ampire_am_800480n3tzqw_00h_timing = {
-> +	.pixelclock = {23000000, 25000000, 27000000},
-> +	.hactive = { 800, 800, 800 },
-> +	.hfront_porch = { 4, 8, 48 },
-> +	.hback_porch = { 4, 8, 48 },
-> +	.hsync_len = { 2, 8, 8 },
-> +	.vactive = { 480, 480, 480 },
-> +	.vfront_porch = { 4, 8, 12 },
-> +	.vback_porch = { 4, 8, 12 },
-> +	.vsync_len = { 2, 4, 8 },
-> +	.flags = DISPLAY_FLAGS_HSYNC_LOW | DISPLAY_FLAGS_VSYNC_LOW |
-> +		 DISPLAY_FLAGS_DE_HIGH | DISPLAY_FLAGS_PIXDATA_POSEDGE |
-> +		 DISPLAY_FLAGS_SYNC_POSEDGE,
-> +};
-> +
-> +static const struct panel_desc ampire_am_800480n3tzqw_00h = {
-> +	.timings = &ampire_am_800480n3tzqw_00h_timing,
-> +	.num_timings = 1,
-> +	.bpc = 8,
-> +	.size = {
-> +		.width = 108,
-> +		.height = 65,
-> +	},
-> +	.bus_format = MEDIA_BUS_FMT_RGB888_1X24,
-> +	.bus_flags = DRM_BUS_FLAG_DE_HIGH |
-> +		     DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE |
-> +		     DRM_BUS_FLAG_SYNC_SAMPLE_NEGEDGE,
-> +	.connector_type = DRM_MODE_CONNECTOR_DPI,
-> +};
-> +
->   static const struct panel_desc ampire_am800480r3tmqwa1h = {
->   	.modes = &ampire_am800480r3tmqwa1h_mode,
->   	.num_modes = 1,
-> @@ -5648,6 +5678,9 @@ static const struct of_device_id platform_of_match[] = {
->   	}, {
->   		.compatible = "ampire,am-800480l1tmqw-t00h",
->   		.data = &ampire_am_800480l1tmqw_t00h,
-> +	}, {
-> +		.compatible = "ampire,am-800480n3tzqw-00h",
-> +		.data = &ampire_am_800480n3tzqw_00h,
->   	}, {
->   		.compatible = "ampire,am800480r3tmqwa1h",
->   		.data = &ampire_am800480r3tmqwa1h,
-> 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Pre-existing issues:
+- [High] The driver hardcodes handle_simple_irq and clears the interrupt st=
+atus after handling, leading to lost edge-triggered interrupts.
+- [High] The EN7581 I2C0 pins have their configuration masks swapped compar=
+ed to their pin definitions.
+--
 
-Thanks,
-Neil
+--- Patch [5]: [PATCH v7 05/34] pinctrl: airoha: an7583: fix I2C0_SDA_PD re=
+gister bit order ---
+commit 71ba4b6ac3f1b7dcaded906468f0a3ce96cffdb2
+Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+
+pinctrl: airoha: an7583: fix I2C0_SDA_PD register bit order
+   =20
+I2C1_SCL_PD and RG_I2C1_SDA_PD bits are swapped, fix it.
+
+> diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/ai=
+roha/pinctrl-airoha.c
+> index 63c82268aa823..4076bd0261d17 100644
+> --- a/drivers/pinctrl/airoha/pinctrl-airoha.c
+> +++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
+> @@ -184,8 +184,8 @@
+>  #define I2C_SDA_PU_MASK				BIT(0)
+> =20
+>  #define REG_I2C_SDA_PD				0x0048
+> -#define AN7583_I2C1_SDA_PD_MASK			BIT(16)
+> -#define AN7583_I2C1_SCL_PD_MASK			BIT(15)
+> +#define AN7583_I2C1_SCL_PD_MASK			BIT(16)
+> +#define AN7583_I2C1_SDA_PD_MASK			BIT(15)
+
+[Severity: High]
+This isn't a bug introduced by this patch, but while you are fixing
+swapped pins here, I noticed that the EN7581 I2C0 pins also appear to have
+their configuration masks swapped.
+
+For example, in en7581_pinctrl_pullup_conf:
+
+drivers/pinctrl/airoha/pinctrl-airoha.c:en7581_pinctrl_pullup_conf[]
+	PINCTRL_CONF_DESC(2, REG_I2C_SDA_PU, I2C_SDA_PU_MASK),
+	PINCTRL_CONF_DESC(3, REG_I2C_SDA_PU, I2C_SCL_PU_MASK),
+
+Is it possible that pin 2 (i2c_scl) incorrectly gets the SDA pull-up mask,
+and pin 3 (i2c_sda) gets the SCL pull-up mask?
+
+This same swap appears in en7581_pinctrl_pulldown_conf,
+en7581_pinctrl_drive_e2_conf, and en7581_pinctrl_drive_e4_conf. Could
+applying these settings via device tree modify the wrong hardware lines and
+prevent I2C communication?
+
+[Severity: High]
+This is a pre-existing issue, but I also noticed a potential problem in
+how edge-triggered interrupts are handled.
+
+drivers/pinctrl/airoha/pinctrl-airoha.c:airoha_pinctrl_add_gpiochip()
+	girq->default_type =3D IRQ_TYPE_NONE;
+	girq->handler =3D handle_simple_irq;
+
+By unconditionally hardcoding handle_simple_irq, doesn't this bypass the
+core IRQ edge flow logic (handle_edge_irq) required for correct acknowledge
+ordering?
+
+In airoha_irq_handler():
+
+drivers/pinctrl/airoha/pinctrl-airoha.c:airoha_irq_handler()
+			generic_handle_irq(irq_find_mapping(girq->domain,
+							    offset));
+			regmap_write(pinctrl->regmap,
+				     pinctrl->gpiochip.status[i], BIT(irq));
+
+If an edge-triggered interrupt occurs while a previous interrupt for the
+same pin is actively being handled by generic_handle_irq(), and then the
+status bit is manually cleared by regmap_write(), does this permanently
+erase the hardware record of the second edge and drop the interrupt?
+
+>  #define SPI_MISO_PD_MASK			BIT(14)
+>  #define SPI_MOSI_PD_MASK			BIT(13)
+>  #define SPI_CLK_PD_MASK				BIT(12)
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727074234.3761=
+170-1-mikhail.kshevetskiy@iopsys.eu?part=3D5
