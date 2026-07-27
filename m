@@ -1,99 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96A61433033
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 17:31:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEC5642D75B;
+	Mon, 27 Jul 2026 17:31:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785173490; cv=none; b=dnRqZ6TTlGYf2lSZ3cB5hqbtrS5+U5aB7N1lPxeBLBeJHuriXv2F1PVEFfbGJDXqyAj+3DI9IfCJr5xcvdScA55Pbwf5tjEs4m540xtbOnp/eHzkKx8hvq+usyI32BmSY8lvAYxV6yqM8xJOw6c78NA7ckV46fEPb1JDvN0wkrM=
+	t=1785173489; cv=none; b=Vtz4ZwT0+t4DW/9/EgZRpbbPAl91TeUWilLV3ADEZp5K4Y+zzMA7a6aSPd8k0qei/GpSF5+5fFmx3RZoYBzcntBwy5yiMDpuH+yg96gR/Tqwh+oeh1G5VYAYShpqyioyr8NkJLUALZIt8WSdYR0rCEK0aYxFI/RyAEBA6mrIiJY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785173490; c=relaxed/simple;
-	bh=wNtB+xmEWCtYzwkTlHorlHLBEe90kjTbz2sZqnCNPWg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=fU2Lmir+JaATwD3/ve5CdCbYC7QBWveV+ncA5fWjbN3625WfwkuDvJIuwXkQono4iiTk106m+JuZYnsNwpJYvhcvwEPBNMg3tHxYxYSE/yz0PGLlbA6+PtdUSOilcP8+ynZrn1eOG5HCX9nqH4gcPuaAwDtDJ7lZ1z/+ujCnrV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H4XpD+4H; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H4XpD+4H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1B4C1F000E9;
-	Mon, 27 Jul 2026 17:31:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785173483;
-	bh=fHFmZmuU5wfyKx6AJFbv/eHaF8ufiY7n0V0Nx9gcsaY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=H4XpD+4Hs4bQL8//1od9nlPWAGvKp1b0u+DVxxOVPVLktUm9zZPDVXR+2NIDtC4By
-	 N6921a3X0Za+3jsvHCwyGwA71fgln6E13jJsYBEFi9hhZ8NynkxhOb5zUbHIYtNTz1
-	 H/2qT0WAoqnYJgeV6DFmGK2SoTSeMdyZtzYyCSxV4kjehtc22D/PNgOrCn1wRFt9Ah
-	 cWv3XMLePObjTJGJr+v3Ma2UumEav/LIOTc49jf5AqMPE7VNPo2txzrNFAZUyCFfDE
-	 0RGziHdNNdMeZsNgey3/7ZLQQz0+yJzx2YCegfqRI9QPme3V8TPYCE7JltxDd+wv1E
-	 t1bPkaZ4nhuBw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/4] arm64: dts: qcom: hamoa-pmics: Add ADC support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jishnu Prakash" <jishnu.prakash@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260727-adc5_gen3_dt-v3-4-bc00223648f3@oss.qualcomm.com>
-References: <20260727-adc5_gen3_dt-v3-0-bc00223648f3@oss.qualcomm.com>
- <20260727-adc5_gen3_dt-v3-4-bc00223648f3@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 27 Jul 2026 17:31:23 +0000
-Message-Id: <20260727173123.A1B4C1F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1785173489; c=relaxed/simple;
+	bh=/5sZ4Ww5VGpOH267RgapxoUvEnHhzIosvBJBtTMkAlA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=loDp1hmWRVAOwsKrqXKkNYRsahwsaXVjLX7SHDzQj/YOzMozyewQ/1L5TiZ1+DLp3hcJa9yZ263/zfJIOJn1IiWcyt1WOQK5/Znf1vjNrnnYu+t+ZcqT56T0CHjM3E3rHOXpvGfJEa11ev4RzV9vOkOd1vNENLv8GOYJ9xy5bXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 482CB2028EE;
+	Mon, 27 Jul 2026 19:31:11 +0200 (CEST)
+Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=ratatoskr.trumtrar.info)
+	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
+	(envelope-from <s.trumtrar@pengutronix.de>)
+	id 1woPAV-001aZh-0S;
+	Mon, 27 Jul 2026 19:31:11 +0200
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Date: Mon, 27 Jul 2026 19:31:08 +0200
+Subject: [PATCH v7 5/5] arm64: dts: imx8mp-skov: support new 7inch panel
+ board
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260727-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v7-5-ca8a0446166a@pengutronix.de>
+References: <20260727-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v7-0-ca8a0446166a@pengutronix.de>
+In-Reply-To: <20260727-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v7-0-ca8a0446166a@pengutronix.de>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: Steffen Trumtrar <s.trumtrar@pengutronix.de>, 
+ =?utf-8?q?S=C3=B8ren_Andersen?= <san@skov.dk>, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2878;
+ i=s.trumtrar@pengutronix.de; h=from:subject:message-id;
+ bh=/5sZ4Ww5VGpOH267RgapxoUvEnHhzIosvBJBtTMkAlA=;
+ b=owGbwMvMwCUmtVehiCsuTInxtFoSQ1b61Due5xvvPJl1Ldt7amHtc4OiuL7/vlXqJx0urrP8e
+ kg2OLCho5SFQYyLQVZMkUVlYQWfqMcHz8hpIlwwc1iZQIYwcHEKwETWxjIyrNu/wLRk3c/9WTXp
+ a+cwJf5J2Oq9I1thqmeTvtn1ffPdNzL8dxG4+mz9xwN/ZTfvcLvc9+PZiV9x1yurysMPluj8itb
+ 6zw0A
+X-Developer-Key: i=s.trumtrar@pengutronix.de; a=openpgp;
+ fpr=24A1780E1548F0495996140A1ABD20720A5E5622
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The patch adds the `pmc8380_6_die_temp` ADC channel to `hamoa-pm=
-ics.dtsi`, but fails to delete it in several Purwa-based device trees that =
-lack the PMC8380_6 PMIC.
---
+This board is similar to the already upstream
+imx8mp-skov-revc-tian-g07017 and imx8mp-skov-revc-jt101tm023 but uses a
+different 7" panel with a different touch controller.
 
---- Patch [4]: [PATCH v3 4/4] arm64: dts: qcom: hamoa-pmics: Add ADC suppor=
-t ---
-commit 506a2efbee2639e175314a25d3b48970c6278e83
-Author: Ayyagari Ushasreevalli <aushasre@qti.qualcomm.com>
+Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+---
+ arch/arm64/boot/dts/freescale/Makefile             |  3 ++
+ .../imx8mp-skov-revc-jutouch-jt070tm041.dtso       | 53 ++++++++++++++++++++++
+ 2 files changed, 56 insertions(+)
 
-arm64: dts: qcom: hamoa-pmics: Add ADC support
+diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
+index 2caac104bec6e..92559e0dd8396 100644
+--- a/arch/arm64/boot/dts/freescale/Makefile
++++ b/arch/arm64/boot/dts/freescale/Makefile
+@@ -435,10 +435,13 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revb-mi1010ait-1cp1.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-bd500.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-hdmi.dtb
+ 
++imx8mp-skov-revc-jutouch-jt070tm041-dtbs += imx8mp-skov-revc-touch.dtb \
++	imx8mp-skov-revc-jutouch-jt070tm041.dtbo
+ imx8mp-skov-revc-jutouch-jt101tm023-dtbs += imx8mp-skov-revc-touch.dtb \
+ 	imx8mp-skov-revc-jutouch-jt101tm023.dtbo
+ imx8mp-skov-revc-tian-g07017-dtbs += imx8mp-skov-revc-touch.dtb \
+ 	imx8mp-skov-revc-tian-g07017.dtbo
++dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-jutouch-jt070tm041.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-jutouch-jt101tm023.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-tian-g07017.dtb
+ 
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt070tm041.dtso b/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt070tm041.dtso
+new file mode 100644
+index 0000000000000..f3f43e60a0aa7
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt070tm041.dtso
+@@ -0,0 +1,53 @@
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
++
++/dts-v1/;
++/plugin/;
++
++&{/} {
++	model = "SKOV IMX8MP CPU revC - JuTouch JT070TM041";
++	compatible = "skov,imx8mp-skov-revc-jutouch-jt070tm041", "fsl,imx8mp";
++
++	panel {
++		compatible = "jutouch,jt070tm041";
++		backlight = <&backlight>;
++		power-supply = <&reg_tft_vcom>;
++
++		port {
++			in_lvds0: endpoint {
++				remote-endpoint = <&ldb_lvds_ch0>;
++			};
++		};
++	};
++};
++
++&i2c2 {
++	touchscreen@2a {
++		compatible = "eeti,exc81w32", "eeti,exc80h84";
++		reg = <0x2a>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_touchscreen>;
++		interrupts-extended = <&gpio4 28 IRQ_TYPE_LEVEL_LOW>;
++		reset-gpios = <&gpio4 29 GPIO_ACTIVE_LOW>;
++		touchscreen-size-x = <1280>;
++		touchscreen-size-y = <800>;
++		vdd-supply = <&reg_vdd_3v3>;
++	};
++};
++
++&lvds_bridge {
++	/* IMX8MP_VIDEO_PLL1 = IMX8MP_CLK_MEDIA_DISP2_PIX * 7 */
++	assigned-clock-rates = <0>, <358400000>;
++
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		port@1 {
++			reg = <1>;
++
++			ldb_lvds_ch0: endpoint {
++				remote-endpoint = <&in_lvds0>;
++			};
++		};
++	};
++};
 
-Add ADC node and define channels for:
-- Die temperature for PMK8550, PM8550VE* and PMC8380* PMICs.
-- PM8550: Die temperature, VPH power, and system thermistors.
+-- 
+2.51.0
 
-[ ... ]
-
-> diff --git a/arch/arm64/boot/dts/qcom/purwa-iot-som.dtsi b/arch/arm64/boo=
-t/dts/qcom/purwa-iot-som.dtsi
-> index 394e65518ac50..661dca4fbee34 100644
-> --- a/arch/arm64/boot/dts/qcom/purwa-iot-som.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/purwa-iot-som.dtsi
-> @@ -10,6 +10,7 @@
-> =20
->  /delete-node/ &pmc8380_6;
->  /delete-node/ &pmc8380_6_thermal;
-> +/delete-node/ &pmc8380_6_die_temp;
-
-[Severity: Medium]
-Should &pmc8380_6_die_temp also be deleted for the other device trees that
-currently delete &pmc8380_6?
-
-For example, these files also delete &pmc8380_6 and &pmc8380_6_thermal, but
-are missing the deletion for the newly added &pmc8380_6_die_temp channel:
-
-- arch/arm64/boot/dts/qcom/x1p42100-asus-vivobook-s15.dts
-- arch/arm64/boot/dts/qcom/x1p42100-asus-zenbook-a14.dtsi
-- arch/arm64/boot/dts/qcom/x1p42100-crd.dts
-- arch/arm64/boot/dts/qcom/x1p42100-hp-omnibook-x14.dts
-- arch/arm64/boot/dts/qcom/x1p42100-lenovo-thinkbook-16.dts
-
-Without deleting the die temp channel, the channel is registered with the A=
-DC
-driver on these boards despite the PMC8380_6 PMIC not being present. Could
-this cause a timeout or bus error if userspace tries to read the dead IIO
-channel via sysfs?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727-adc5_gen3_=
-dt-v3-0-bc00223648f3@oss.qualcomm.com?part=3D4
