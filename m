@@ -1,198 +1,182 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 889583DB65A;
-	Mon, 27 Jul 2026 08:06:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 267263E2AB0
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 08:06:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785139617; cv=none; b=PhVIWt/2QlsJWkLjbxlmX1BDCCcmrOSAAAuAPliF17YiSE7AAvGVBTWHRpO2d8yOp+hkiA82dblATKR5SxmGk+H35rrhWxro6Cyft4TOO3dydNKBbvgImjbzEszHwf679L2LCeOcd81KBOlSnrjf4OvdW6geC3LUAUeaxdG1geE=
+	t=1785139621; cv=none; b=ASKlCwtjPwVi501xLx5t9RZigExB7CR7zLDSZWprHIGZFnGqPAzzCZk7tBv9MRsrTsy/uKogk3PhaNrfG9Leh2OR2OIOAobIZLnIlUdZgMIy1o1NA3jzYSzgDvQAtTeof3LwITVGSRXZFYxHmDZuJNEVDxzB9gP+6kFY0ii7VZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785139617; c=relaxed/simple;
-	bh=t50+HRKSJcTC/Xl525coT/pWrsQEGspwgzKt6qN+dhs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=krbO7w3MDyUy5V8XpvJwmYEaTI8qXbVm39xkKANa8tZxwr5pyiglWjwr0Jg4ivHFmapmNob02Di9rYA2gPIEctsVNT0DpGeFlPWf2sXUwVp1LkBqvn6cvVmw7lT0QL3A9AwdQa4pOcbyKTNTCeYQ3Zh0bxOPAj0K9SBlW9aawvI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QOFRCfAD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785139621; c=relaxed/simple;
+	bh=rG8PocnY2nMfp/k3fXR5dT3voNlO7QxmJLbJW4h19Ic=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=pLYTS/7RpOVn3TJhVRXsLv7wHs5P7GNQoRrYxSSzFaTrFla6y6NoxhTl+y7G5jNjqHlHJoHP8u/4kJCdNQFhxIYGhjNi1qQrGSbrIalHzfy324bO5KlKEWsvk00Cdm6fxEE8IdThhnG4GcwNDgsWLDbvUJwFKl/jC6L0TGE7B4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bAvZ7dMv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QOFRCfAD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1E771F000E9;
-	Mon, 27 Jul 2026 08:06:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bAvZ7dMv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 946C01F000E9;
+	Mon, 27 Jul 2026 08:06:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785139616;
-	bh=GPD9iXBq/Me9KYkjcOGxgVPjlp2Me+zbMwegGTYossI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QOFRCfADGhxgLOUijANCqlOkjkitt/u9FZzycDWUUJk6NlJ9cSS1dCSzxrI96W9DR
-	 qXAgcyj34YDAYnayreQ2Q/ItbUGifihhnQsDiGbPdi+PC+tC1dx79UXuEJssy579+j
-	 rsPRWJGTBLDc615veH4F8TYh4lz6TLclawAr/vwywyRWWJMDSBrEpZ4ukp0we/yw0c
-	 NBntsN+0XWSeeOqthFIuym9is4OxnhwG41ybqgqO3bRROy4XXr4I/wRAe0zW88gnI8
-	 kreNRi9FL6HrkY0HtPlq3Io6kad8sggRc6gVpHJTcAdLShykEz39jm7Z+3cUWTq5jP
-	 wcOx44q+TDHxQ==
-Date: Mon, 27 Jul 2026 10:06:53 +0200
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
-Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Benjamin Larsson <benjamin.larsson@genexis.eu>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
-	Markus Gothe <markus.gothe@genexis.eu>,
-	Matheus Sampaio Queiroga <srherobrine20@gmail.com>
-Subject: Re: [PATCH v7 13/34] pinctrl: airoha: add set_direction() helper for
- gpio_chip
-Message-ID: <amcRnbBXxOrp8kTh@lore-desk>
+	s=k20260515; t=1785139619;
+	bh=00Q/7yZ8rlYy8vleopGVN6t1dhjtYjE2da+fxe6d7o8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=bAvZ7dMvTVukvxiI+Ariud++v7xXFn/Fsl9kyjkTEssGzWKIDC5P4pjvJFBhzt4qu
+	 o+LnMNB92qNoBL4UJWQQk1L+ZR2LwSBKt6gfWLWNNj4boz4kciZH0fhofG6VfAp8ot
+	 2X3Dcvi/0tHKL3oLA/Y/TDcV7R8aiKm2CtE3sAlPWZhBomBSwrFzF9c9QKSjYSLGEb
+	 pvvMXt4eBmtcMefampBsczLi8nZjvHnCHjiaX9KJctcsZXCOD9sME7svNJlaax47hk
+	 i/AoXaOAZNr8/aCt9eB9KrPpTPVO+bQtr1odbLur93KAy8TMMJ33Al8Db3hnk0WmOC
+	 o4+Wn9WmUwHFA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 32/34] dt-bindings: pinctrl: airoha: add support of
+ en7523 pin controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260727074234.3761170-33-mikhail.kshevetskiy@iopsys.eu>
 References: <20260727074234.3761170-1-mikhail.kshevetskiy@iopsys.eu>
- <20260727074234.3761170-14-mikhail.kshevetskiy@iopsys.eu>
+ <20260727074234.3761170-33-mikhail.kshevetskiy@iopsys.eu>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 27 Jul 2026 08:06:59 +0000
+Message-Id: <20260727080659.946C01F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="FKh4CvICy88s2Pjr"
-Content-Disposition: inline
-In-Reply-To: <20260727074234.3761170-14-mikhail.kshevetskiy@iopsys.eu>
 
---FKh4CvICy88s2Pjr
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [Medium] The binding schema is missing the 'airoha,chip-scu' phandle prop=
+erty, which is explicitly parsed by the pinctrl driver.
+- [Medium] The dt-binding example misleadingly presents the pinctrl node as=
+ a standalone top-level device, which will cause probe failure due to a mis=
+sing parent regmap.
+- [Medium] The 'groups' property constraints in the 'allOf' conditionals in=
+correctly use 'enum' instead of 'items: enum' for single-item arrays, which=
+ will cause valid device trees to fail dt-schema validation.
+- [Medium] The top-level schema incorrectly uses 'additionalProperties: fal=
+se' instead of 'unevaluatedProperties: false' when including a reference to=
+ 'pinctrl.yaml#'.
+- [Low] The example node incorrectly assigns an integer value to the boolea=
+n property 'drive-open-drain'.
+--
 
-> The patch creates set_direction() helper for gpio_chip abstraction.
-> It also implements/reimplements some function using newly defined
-> helper.
->=20
-> This is cosmetic patch used to place gpio_chip specific code together.
-> No functional changes.
->=20
-> Signed-off-by: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
-> ---
->  drivers/pinctrl/airoha/pinctrl-airoha.c | 59 ++++++++++++++++---------
->  1 file changed, 38 insertions(+), 21 deletions(-)
->=20
-> diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/ai=
-roha/pinctrl-airoha.c
-> index b52eb39c55ff3..faad5d3ada31c 100644
-> --- a/drivers/pinctrl/airoha/pinctrl-airoha.c
-> +++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
-> @@ -2523,12 +2523,43 @@ static int airoha_gpio_get_direction(struct gpio_=
-chip *chip, unsigned int gpio)
->  	return (val & mask) ? GPIO_LINE_DIRECTION_OUT : GPIO_LINE_DIRECTION_IN;
->  }
-> =20
-> +static int airoha_gpio_set_direction(struct gpio_chip *chip, unsigned in=
-t gpio,
-> +				     bool input)
-> +{
-> +	struct airoha_pinctrl *pinctrl =3D gpiochip_get_data(chip);
-> +	u32 mask, index;
-> +	int err, field_shift;
+--- Patch [32]: [PATCH v7 32/34] dt-bindings: pinctrl: airoha: add support =
+of en7523 pin controller ---
+commit 995063565828879967b4a8fd673a347a158aa81e
+Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+
+dt-bindings: pinctrl: airoha: add support of en7523 pin controller
+
+This patch adds device tree binding schema for Airoha EN7523 SoC pin
+controller.
+
+> diff --git a/Documentation/devicetree/bindings/pinctrl/airoha,en7523-pinc=
+trl.yaml b/Documentation/devicetree/bindings/pinctrl/airoha,en7523-pinctrl.=
+yaml
+> new file mode 100644
+> index 0000000000000..db8e39af1a152
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/pinctrl/airoha,en7523-pinctrl.yaml
+> @@ -0,0 +1,375 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/pinctrl/airoha,en7523-pinctrl.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +	/* set output enable */
-> +	mask =3D BIT(gpio % AIROHA_PIN_BANK_SIZE);
-> +	index =3D gpio / AIROHA_PIN_BANK_SIZE;
-> +	err =3D regmap_update_bits(pinctrl->regmap, pinctrl->gpiochip.out[index=
-],
-> +				 mask, !input ? mask : 0);
-> +	if (err)
-> +		return err;
+> +title: Airoha EN7523 Pin Controller
 > +
-> +	/* set direction */
-> +	field_shift =3D 2 * (gpio % AIROHA_REG_GPIOCTRL_NUM_PIN);
-> +	mask =3D GENMASK(field_shift + 1, field_shift);
-
-same here, why using 2 bits as mask?
-
-> +	index =3D gpio / AIROHA_REG_GPIOCTRL_NUM_PIN;
+> +maintainers:
+> +  - Lorenzo Bianconi <lorenzo@kernel.org>
 > +
-> +	return regmap_update_bits(pinctrl->regmap,
-> +				  pinctrl->gpiochip.dir[index],
-> +				  mask, !input ? BIT(field_shift) : 0);
-> +}
+> +description:
+> +  The Airoha's EN7523 Pin controller is used to control SoC pins.
 > +
-> +static int airoha_gpio_direction_input(struct gpio_chip *chip,
-> +				       unsigned int gpio)
-> +{
-> +	return airoha_gpio_set_direction(chip, gpio, true);
-> +}
+> +properties:
+> +  compatible:
+> +    const: airoha,en7523-pinctrl
+
+[Severity: Medium]
+Should the airoha,chip-scu property be documented here as well?
+
+If a device tree includes the airoha,chip-scu phandle, which the driver
+specifically looks for via syscon_regmap_lookup_by_phandle(), it will fail
+validation because the property is completely undocumented in this schema.
+
+[ ... ]
+
+> +          - if:
+> +              properties:
+> +                function:
+> +                  const: pwm
+> +            then:
+> +              properties:
+> +                groups:
+> +                  enum: [gpio0, gpio1, gpio2, gpio3, gpio4, gpio5, gpio6,
+> +                         gpio7, gpio8, gpio9, gpio10, gpio11, gpio12, gp=
+io13,
+
+[Severity: Medium]
+Could this cause validation failures for valid device trees?
+
+It looks like groups is constrained using enum instead of items: enum for
+single-item arrays. Because device tree string-arrays are evaluated as arra=
+ys,
+using enum for a scalar string expectation might cause dt_binding_check to
+reject legitimate configurations like pwm or pon functions. Is this same
+pattern present in the other conditionals?
+
+[ ... ]
+
+> +    additionalProperties: false
 > +
->  static int airoha_gpio_direction_output(struct gpio_chip *chip,
->  					unsigned int gpio, int value)
->  {
->  	int err;
-> =20
-> -	err =3D pinctrl_gpio_direction_output(chip, gpio);
-> +	err =3D airoha_gpio_set_direction(chip, gpio, false);
->  	if (err)
->  		return err;
-> =20
-> @@ -2667,7 +2698,7 @@ static int airoha_pinctrl_add_gpiochip(struct airoh=
-a_pinctrl *pinctrl,
->  	gc->label =3D dev_name(dev);
->  	gc->request =3D gpiochip_generic_request;
->  	gc->free =3D gpiochip_generic_free;
-> -	gc->direction_input =3D pinctrl_gpio_direction_input;
-> +	gc->direction_input =3D airoha_gpio_direction_input;
->  	gc->direction_output =3D airoha_gpio_direction_output;
->  	gc->get_direction =3D airoha_gpio_get_direction;
->  	gc->set =3D airoha_gpio_set;
-> @@ -2750,27 +2781,13 @@ static int airoha_pinmux_set_direction(struct pin=
-ctrl_dev *pctrl_dev,
->  					unsigned int p, bool input)
->  {
->  	struct airoha_pinctrl *pinctrl =3D pinctrl_dev_get_drvdata(pctrl_dev);
-> -	u32 mask, index;
-> -	int err, pin;
-> +	int gpio;
-> =20
-> -	pin =3D airoha_convert_pin_to_reg_offset(pctrl_dev, range, p);
-> -	if (pin < 0)
-> -		return pin;
-> -
-> -	/* set output enable */
-> -	mask =3D BIT(pin % AIROHA_PIN_BANK_SIZE);
-> -	index =3D pin / AIROHA_PIN_BANK_SIZE;
-> -	err =3D regmap_update_bits(pinctrl->regmap, pinctrl->gpiochip.out[index=
-],
-> -				 mask, !input ? mask : 0);
-> -	if (err)
-> -		return err;
-> +	gpio =3D airoha_convert_pin_to_reg_offset(pctrl_dev, range, p);
+> +additionalProperties: false
 
-same here, if you do not rename pin in gpio the patch will be simpler.
+[Severity: Medium]
+Will this top-level directive reject standard pinctrl properties?
 
-Regards,
-Lorenzo
+Since the schema includes a reference to pinctrl.yaml# in its allOf block,
+using additionalProperties: false instead of unevaluatedProperties: false
+might cause the schema to reject standard properties like pinctrl-0 or
+pinctrl-names on the provider node.
 
-> +	if (gpio < 0)
-> +		return gpio;
-> =20
-> -	/* set direction */
-> -	mask =3D BIT(2 * (pin % AIROHA_REG_GPIOCTRL_NUM_PIN));
-> -	index =3D pin / AIROHA_REG_GPIOCTRL_NUM_PIN;
-> -	return regmap_update_bits(pinctrl->regmap,
-> -				  pinctrl->gpiochip.dir[index], mask,
-> -				  !input ? mask : 0);
-> +	return airoha_gpio_set_direction(&pinctrl->gpiochip.chip, gpio, input);
->  }
-> =20
->  static const struct pinmux_ops airoha_pmxops =3D {
-> --=20
-> 2.53.0
->=20
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +
+> +    pinctrl {
+> +      compatible =3D "airoha,en7523-pinctrl";
 
---FKh4CvICy88s2Pjr
-Content-Type: application/pgp-signature; name=signature.asc
+[Severity: Medium]
+Would placing the pinctrl node at the top level without a parent syscon cau=
+se
+probe failures?
 
------BEGIN PGP SIGNATURE-----
+The driver relies on device_node_to_regmap(dev->parent->of_node) during pro=
+be.
+If users copy this example and place the pinctrl node directly under the ro=
+ot
+bus, it appears the driver will fail to find the parent regmap.
 
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCamcRnQAKCRA6cBh0uS2t
-rF5EAQCijmE11DKyslLdDBJrY8oIQDp7OEcBmnfVIjuVQlFYAgD9FhlzFrcckkdm
-sUsRhgXVF50epcJxDIoqObxTuHFOywU=
-=160x
------END PGP SIGNATURE-----
+[ ... ]
 
---FKh4CvICy88s2Pjr--
+> +      pcie1-rst-pins {
+> +        conf {
+> +          pins =3D "pcie_reset1";
+> +          drive-open-drain =3D <1>;
+
+[Severity: Low]
+Does assigning an integer value to drive-open-drain violate the core schema?
+
+The core pincfg-node.yaml schema expects boolean properties to be present
+without an assigned value, but the <1> assignment creates an integer array.
+
+> +        };
+> +      };
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727074234.3761=
+170-1-mikhail.kshevetskiy@iopsys.eu?part=3D32
