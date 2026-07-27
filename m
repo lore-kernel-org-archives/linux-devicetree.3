@@ -1,143 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75E2F15E5BB
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 18:10:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A12073F6C30
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 18:10:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785175805; cv=none; b=FYjgqSreke6dBinBZ8ShCXGVLpziyvW3rP0vI7v4dvxvs3QngBaCAOBLMmUp8GqeRo28ok5H5yscAir1QeerRI2UBwZ4si4U5C0CYp3Aq7BmeNNcWvbW2fsoH5isdgm0RsiDEXqYJZsv9ehf38bXzv9yBrpcR4NrOWiYzT0/OtU=
+	t=1785175816; cv=none; b=Cg5gj8Rm2N7AFIL1FYwVjXWyKU5lpSDDWS6pi+xRNNM/BXeqSrwRVHECXpdjYCkmcQ6YMO+R+wGfXANuaS2fb5X2JTXaqx60u2dU+OPwR4/bn4E3RZbNubCtj08CcAziek4WaM5FqgEqGV4oEvKKWLuMcMDN8tw5fVuUCqGjUo8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785175805; c=relaxed/simple;
-	bh=KYhDW7cytOTbOYZLx/wBNR97EQhj9mpbfERcmDrSSqs=;
+	s=arc-20240116; t=1785175816; c=relaxed/simple;
+	bh=0XmQ6+BWeKu3fLMHE+l330i9JS/9LmzjTJbM+pXzBaE=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Y2Q+S2PSp87IQF6ScDgP3sDZoKXsflsJTfuwYGGgX0uHhfKXn/uuK1DFs33dGvzrDQcs/MeP5/nB9NFyVehylTFF11k2IN7pYedIWIl50Taig8JDYcmvGrVVZ1Cfe6zxSyYymryHrqVdPCR8rbeGSY5iGcmvAfGjhUwHF9x5CX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SnaSMUrA; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=DTTbyU759Kf9HuPuh1YU6Tj1W2LYgUc3oLmW76+lsvSyZhdvnyUPWNA1kcmPJYwwUDcyA5mZBWPkw1JT44iPjpqgP8ySpefQPXYsUUCSDTHCckqLhAZCHtR1uhbWN0vaoHiZHR5cL7HPyzEAse9noNk+WJxJCG4IK3WLkrhy0xg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JEGPfH6e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SnaSMUrA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C954E1F000E9;
-	Mon, 27 Jul 2026 18:10:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JEGPfH6e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12E4A1F000E9;
+	Mon, 27 Jul 2026 18:10:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785175804;
-	bh=dCXjCjDL47lHXCXkpGErvgw5LxJiDpBsOM3DVHI2rAQ=;
+	s=k20260515; t=1785175815;
+	bh=lwalr3e6YNvYBsf84YNxzgWsKw7F7YlToDyHQEaayD0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SnaSMUrAI46pwF7msWl+ulNQXCaI0x/7qo0N7zvalYjuV4ZbiKUey2F8+cSvV81qZ
-	 tLMVp6R6lhK42qTIxWfE2fC/jp5o597OG9v2oGM55wR8AJ3bkEAomeW0iOpCfJrWGj
-	 ClZ1dRzw5jY7BCDDOvZs4OXfHwuRe9GpcEU1+FyR0TxEzhG4TOKhpe80bUuEz7eOoR
-	 wPWupsGO0jX+gZs0+8TjCMu2F1G+T5jhzVvKHJ517QsbBM561y0FqWFjT+6xPzjzWP
-	 +RMGWcY18TlRKT7icNeshVQ8Kl8H2GPjR16FJQG2M2yNlxZsS6+Vuj2BnTZQ9baqwE
-	 s4GLo2xO0Lzsw==
+	b=JEGPfH6eO0xhuJiWbWl1VTRJn7BhxqYoiyXPA8FoUtJ/WhO0ySNuCz4Qg6VzaVWWn
+	 mlFGX6qoH5M07BmoBtsKDgpns7BpE2+TIptNtCCHGD4VSLxkFF/gWR8DEbl3GrmdvJ
+	 ziKz1g7WJ6aVdedAfu33NscC2Qz3RDvcBPh5gQnJZ92IqeSIte+cV89aPdSu2EwvI2
+	 6Mo9aahS8FO8FiYZgBGpPDwKrrAN/TAKKdlV8yDBGi2UdyZ1FtefDCPv13hBSbWWW6
+	 r/Fcj2aAom9rtvAQ1cKG6QRRE6zn10TZ7dLeCcFR9ktZg5KXky7RUbHx4iylj1WsNz
+	 H4h40pCp70csA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 17/35] pinctrl: airoha: add missed IRQ resource
- helpers
+Subject: Re: [PATCH v8 27/35] pinctrl: airoha: an7583: add support for
+ pon_alt pinmux
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260727174141.664933-18-mikhail.kshevetskiy@iopsys.eu>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260727174141.664933-28-mikhail.kshevetskiy@iopsys.eu>
 References: <20260727174141.664933-1-mikhail.kshevetskiy@iopsys.eu>
- <20260727174141.664933-18-mikhail.kshevetskiy@iopsys.eu>
+ <20260727174141.664933-28-mikhail.kshevetskiy@iopsys.eu>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 27 Jul 2026 18:10:03 +0000
-Message-Id: <20260727181003.C954E1F000E9@smtp.kernel.org>
+Date: Mon, 27 Jul 2026 18:10:14 +0000
+Message-Id: <20260727181015.12E4A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Edge-triggered interrupts can be permanently lost because the pare=
-nt IRQ handler acknowledges (clears) the interrupt status after the device =
-handler finishes execution, compounded by the static assignment of `handle_=
-simple_irq`.
-- [High] Level-triggered interrupts will cause an unmitigated IRQ storm bec=
-ause they are unconditionally processed using `handle_simple_irq` instead o=
-f `handle_level_irq`.
+- [Medium] Missing Device Tree binding schema update for the new `pon_alt` =
+pin group.
 --
 
---- Patch [17]: [PATCH v8 17/35] pinctrl: airoha: add missed IRQ resource h=
-elpers ---
-commit d8f541ef887ee539be72e7927e8fefea2a72a17e
+--- Patch [27]: [PATCH v8 27/35] pinctrl: airoha: an7583: add support for p=
+on_alt pinmux ---
+commit 6152a6dd487be0b56d85b79797eb3d4c570fb786
 Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
 
-pinctrl: airoha: add missed IRQ resource helpers
+pinctrl: airoha: an7583: add support for pon_alt pinmux
 
-This commit hooks up .irq_request_resources by adding
-GPIOCHIP_IRQ_RESOURCE_HELPERS, which allows gpiolib to properly set
-GPIOD_FLAG_USED_AS_IRQ. This prevents userspace or other drivers from
-reconfiguring active IRQ pins as outputs.
+Add support for pon pin function for pon_alt pin group.
 
-> diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/ai=
-roha/pinctrl-airoha.c
-> index 6561f288dbf05..f11ec77f6e338 100644
-> --- a/drivers/pinctrl/airoha/pinctrl-airoha.c
-> +++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
-> @@ -2671,6 +2671,7 @@ static const struct irq_chip airoha_gpio_irq_chip =
-=3D {
->  	.irq_mask_ack =3D airoha_irq_mask,
->  	.irq_set_type =3D airoha_irq_type,
->  	.flags =3D IRQCHIP_SET_TYPE_MASKED | IRQCHIP_IMMUTABLE,
-> +	GPIOCHIP_IRQ_RESOURCE_HELPERS,
+> diff --git a/drivers/pinctrl/airoha/pinctrl-an7583.c b/drivers/pinctrl/ai=
+roha/pinctrl-an7583.c
+> index 9b5c7ea5e5472..7e94dcb3b61a5 100644
+> --- a/drivers/pinctrl/airoha/pinctrl-an7583.c
+> +++ b/drivers/pinctrl/airoha/pinctrl-an7583.c
+[ ... ]
+> @@ -562,7 +565,7 @@ static const struct pingroup pinctrl_groups[] =3D {
+>  	PINCTRL_PIN_GROUP("pcie_reset1", pcie_reset1),
 >  };
 > =20
->  static int airoha_pinctrl_add_gpiochip(struct airoha_pinctrl *pinctrl,
+> -static const char *const pon_groups[] =3D { "pon" };
+> +static const char *const pon_groups[] =3D { "pon", "pon_alt" };
 
-[Severity: High]
-This is a pre-existing issue, but since we are fixing IRQ handling here, can
-edge-triggered interrupts be permanently lost with the current handler setu=
-p?
+[Severity: Medium]
+Will this cause a dt_binding_check failure when using the new pin group?
 
-Looking at airoha_irq_handler(), the status bit is cleared after the handler
-runs:
+Looking at Documentation/devicetree/bindings/pinctrl/airoha,an7583-pinctrl.=
+yaml,
+the binding schema strictly enforces the group for the pon function:
 
-drivers/pinctrl/airoha/pinctrl-airoha.c:airoha_irq_handler() {
-    ...
-    generic_handle_irq(irq_find_mapping(girq->domain, offset));
-    regmap_write(pinctrl->regmap, pinctrl->gpiochip.status[i], BIT(irq));
-    ...
-}
+          - if:
+              properties:
+                function:
+                  const: pon
+            then:
+              properties:
+                groups:
+                  enum: [pon]
 
-Because airoha_pinctrl_add_gpiochip() statically assigns handle_simple_irq,
-it lacks the .irq_ack flow control necessary for edge interrupts. If a new =
-edge
-interrupt occurs while generic_handle_irq() is executing, the unconditional
-write-1-to-clear in regmap_write() will wipe out the new event after the
-handler returns.
-
-[Severity: High]
-This is also a pre-existing issue, but does this driver risk an unmitigated=
- IRQ
-storm for level-triggered interrupts?
-
-In airoha_irq_type(), the callback records the trigger type but fails to
-dynamically assign the appropriate flow handler via irq_set_handler_locked(=
-).=20
-
-Because girq->handler is statically initialized to handle_simple_irq in
-airoha_pinctrl_add_gpiochip():
-
-drivers/pinctrl/airoha/pinctrl-airoha.c:airoha_pinctrl_add_gpiochip() {
-    ...
-    girq->handler =3D handle_simple_irq;
-    ...
-}
-
-If a peripheral uses a threaded IRQ handler for a level-triggered interrupt,
-handle_simple_irq wakes the thread and returns immediately without masking =
-the
-interrupt line. Since the peripheral hasn't cleared the condition yet, the =
-line
-remains asserted, which could cause airoha_irq_handler() to fire continuous=
-ly
-and lock up the CPU before the thread can execute.
-
-Should airoha_irq_type() call irq_set_handler_locked() to set handle_edge_i=
-rq
-or handle_level_irq based on the requested type?
+Should the devicetree binding schema be updated alongside this driver change
+to include pon_alt in the enum list?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727174141.6649=
-33-1-mikhail.kshevetskiy@iopsys.eu?part=3D17
+33-1-mikhail.kshevetskiy@iopsys.eu?part=3D27
