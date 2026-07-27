@@ -1,398 +1,295 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D93D8377EA2;
-	Mon, 27 Jul 2026 12:16:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785154601; cv=none; b=G8PZ55Vj0OCLBZM4kSeNlKrI34jLZsSn9B23FIXnNeSHVeWbj9YXd5gccsGTjsv+MAtpef1ppnb0nFKzv1R3ljvmeMhR7nkdFQR/3nQEGHj/iyeYIqpqCpnG0PYaVAyMtRMNNabEZfC6MSNlFWapyBRbaGu0uhMi3tBWbaBdMxo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785154601; c=relaxed/simple;
-	bh=u/HkEzRSxdAuIWmGLmZolqvndE/5M56vYFrl7/onTrA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CzNyVqtYzHhK03+WU2iljuXb9QDW83Sq694futB2VcHG7MI0A5ToQ7xXEw9C4h8wZQsaauiInNvP1jhYuF4bpzFficBVbwtJCd6KEKCJBe3RciXo3tKJ/kt3C5ofBT4odKxMTb1sPPgRLasHc4DlGQSGmDdPhClJDLbQvyF6kCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=jRPBSX85; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013043.outbound.protection.outlook.com [40.93.201.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 688143BB4A;
+	Mon, 27 Jul 2026 12:19:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785154771; cv=fail; b=IZMlhw0rz/MokJj95fqL78/+9C4gynEri17285Yt8ciZ/QPQvY//fCV5oKXs+sTFR+y/Npd7JPPs7qprSAspAIbbrPpQy8qdABWSGz/CzOVplFniqbgv2cudPBszQXYoM+X6DG7EwxhFjjiyUnBxnRR8TBb4PiHIaTNZbGYWUmk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785154771; c=relaxed/simple;
+	bh=yMIfEC2bumSwx9F57TqSxlJcAPrhcH70bmPUmBdI/fk=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=dmnaN5pFgz63VUBqhqspIeKDCQrmwdi6EZ1Jd2o/sqG9q+EGDqdQ+zoXroIUMiFgQ6fOUAN668JqUAuvPeBCSiZKh/cJ8B0qPx5ChLUYkyQQ1XZrWYpaFPOXqTuFNOiJZ1kZV0oyZE/fU3K93OAphdAPAHDha48KkCFrWpo/TW0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=CdWKYNlB; arc=fail smtp.client-ip=40.93.201.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="jRPBSX85"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 073C6143D;
-	Mon, 27 Jul 2026 05:16:33 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5D9F63F86F;
-	Mon, 27 Jul 2026 05:16:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1785154597; bh=u/HkEzRSxdAuIWmGLmZolqvndE/5M56vYFrl7/onTrA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=jRPBSX8523HYzuq9mEZ4tBpDcCEIOuY8nGIZLll2N/iyTDSTON14lutYhB2kSPrXl
-	 Pp+npgjIBlaeq7jkEgRFs6VLB2dVFa9ItA/rlJWG6BmZp2fjyzTz4qesaWKGQrI2c8
-	 btq1HjVgpM3Y5wm0Wa+l+l314JxumS9qxwUB39jY=
-Message-ID: <71fd5b46-4388-4106-aee9-b4510069975f@arm.com>
-Date: Mon, 27 Jul 2026 13:16:29 +0100
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="CdWKYNlB"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pcBx1i6ulJMvZm12Eokbhh+Ut2Bc+sJTFcKcco7jHeiTjDZOiJQTfEeDYDVeBhvASykd5FMHegyA5ui2ziMzFASK3+7MKGtiIMFuvSbr+HwzGN7lghLjnhXPk5ju6Jc8qZMHQkunseay5AugdTYrnkNVrbpBre6ADwtLQKajJ8IFPmu6DHBA21lH+l//0HiAiDLMKBZT6sukIllW51vurbRkJxI7wWtDbfRtDBVKTkgeq3B4cmcv+o+x6YyyRmcLjAdfX/hZpTeydYZ7CLTiwPDKwDFDObV33pzXwKyfIzdO/Zuxkp+YaKcLCmHASuQkkSvyEDKuX410awURCU980w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Qrf+cQHv5Vv+z0/Mz71+VHG/Bq7CHBbW0NMXtSbt1xc=;
+ b=zVYBY5hmFl/lZdC5jhIZeZIkl6IVnneYTKGZ5yq/X6nwpoMdeCAKEAffHiE8zdlKn267ztIDqJ/4GxA1W3AQTmWo4Le8fwwZuc6wB06czj9oDDOgJOtFd/CJQzIoHyjr2LxwBylI9FiBdodtg/3tU778zf58DIhHrn30y3+sGi9GqAaA9u96WwzOqeqk6PzVlIKlg561Skq/sqbEfbY77CdZ7bC/tFJ3m0RfSJg0gabS/Ni5dq5n6GD3B83C2QIut7u2cpT6vUNMtkUngv77dewxg3bOlJB23OvUtzifRaQjndaVicevkOfkehRB2J8rftM4pjCBxEb8y/mo3N8yAQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Qrf+cQHv5Vv+z0/Mz71+VHG/Bq7CHBbW0NMXtSbt1xc=;
+ b=CdWKYNlBbDFNqVOhJ2a4ClU3YHxt5Q/Gid8G2mJSZbRvlj3EfGooZ2UC6YcVxyqblL1NLeQ0UPDUMUObtQaEJYrmGnNPQnGLHlqPB/TBXkwyF+mgoxNs9k4rKjyrSHkRE4JznBfcmrEojI47JZ0fvcNKlqkj8zStrGt8jYb27vU=
+Received: from SJ0PR05CA0055.namprd05.prod.outlook.com (2603:10b6:a03:33f::30)
+ by CH2PR12MB4199.namprd12.prod.outlook.com (2603:10b6:610:a7::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Mon, 27 Jul
+ 2026 12:19:23 +0000
+Received: from SJ1PEPF000023D1.namprd02.prod.outlook.com
+ (2603:10b6:a03:33f:cafe::3c) by SJ0PR05CA0055.outlook.office365.com
+ (2603:10b6:a03:33f::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.9 via Frontend Transport; Mon, 27
+ Jul 2026 12:19:23 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF000023D1.mail.protection.outlook.com (10.167.244.7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.270.5 via Frontend Transport; Mon, 27 Jul 2026 12:19:23 +0000
+Received: from xsjarunbala50.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 27 Jul
+ 2026 07:19:20 -0500
+From: Jay Buddhabhatti <jay.buddhabhatti@amd.com>
+To: <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+	<michal.simek@amd.com>
+CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <git@amd.com>, Jay Buddhabhatti
+	<jay.buddhabhatti@amd.com>
+Subject: [PATCH] arm64: versal-net: Add retention state for cpu idle
+Date: Mon, 27 Jul 2026 05:18:42 -0700
+Message-ID: <20260727121842.3410495-1-jay.buddhabhatti@amd.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] driver core: platform: Setup device MSI domain just
- before driver probe
-To: Anup Patel <anup.patel@oss.qualcomm.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
- Alexandre Ghiti <alex@ghiti.fr>, Thomas Gleixner <tglx@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Danilo Krummrich <dakr@kernel.org>, Tomasz Jeznach
- <tomasz.jeznach@linux.dev>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Jassi Brar <jassisinghbrar@gmail.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>
-Cc: Saket Dumbre <saket.dumbre@intel.com>, Rahul Pathak
- <rahul@summations.net>, Atish Patra <atish.patra@linux.dev>,
- Anup Patel <anup@brainfault.org>,
- Andrew Jones <andrew.jones@oss.qualcomm.com>, linux-acpi@vger.kernel.org,
- linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, driver-core@lists.linux.dev,
- iommu@lists.linux.dev, acpica-devel@lists.linux.dev,
- Sunil V L <sunilvl@oss.qualcomm.com>
-References: <20260727084003.1951324-1-anup.patel@oss.qualcomm.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260727084003.1951324-1-anup.patel@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D1:EE_|CH2PR12MB4199:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2a0f96c7-6e68-495b-4b73-08deebd94aff
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|376014|36860700016|23010399003|1800799024|6133799003|18002099003|56012099006|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	28Sr+1Y/r8jQto9m8VOJy37fRoDa+U2WNPdlmzTAhC2u0spxTsWvPf4xpBnddiRZGc0EwckWeTx3x6+gvc0/alu3yfxsCO71tz5ujnRKBveO6KFOL5gz+GPHD27JJde0k16SfHV9gTB/kvwAmyxVz0BdDPqFNf9DwlfVcV+mY7GVWA07qm8Jy9ixP4kCxQ8/HmGfH1dcxigAIWAE46dlna+CdSsVFUlyb8ESzSRxGu2ZiM8lC7H2/Rmyzn14GFzl/OtgHixSVC2Jgm3FOEhnWRk3mB7UWgIlcyadlOG/vAyf4hGMwDf4ckrIHxQpw4JRt6Oh7LVqYuU+c1O/NJS5hcH+WY+/owWM04FHKN4ZrJrwZ+NwyW8JbEqNjymMcHiYDbraBBdxaLkroFEZ4/M7FMEg9YNb4NqY1ZNmlKaLHVND/FfDSLzW57Mf1ZSGfkm6Iq9FeAj3ZBPmS8jBEYD/XeZfg603WZCEi8Zpjid2UaHg+UVmqaZZAlYBEjn2IqVLlQhaTvvcDqZr7tbHWVLSRhuzC6ZceRfxrrSY1fJJB+49O8mV5hf5Z/YmoJFFrN9uEpf8HS91BYfjkWAHyIBbHyiOyiJu8Zn86Arm1m5EaOTwPXTt37n6vLF050NoQQgpbtajtz9cmHWGVS0S0wkuwoOYuowep69u+x5VrFeGQZoak8kCd7xa8FkE54ZAab8sxfIjJMZjcuSCUHCH+rAxzA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(36860700016)(23010399003)(1800799024)(6133799003)(18002099003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	p5f/mhxLWjKeBl9iNbAPkzKoRqT8r+ImgssIfsZ9P+7zl1qRVkk0Imsp0734CVuvloeeeMz7o6g/Pq+9jdL2GPTeegWxIU7rzyJrmTa0sWq9vbJmQJUIaummoHdyG4fh8URNWpLtQFMhqvVEzX6kqMeaA40xltcb4Y2v5eO+qYL5102rlYtBrH8faGc5rLaGV/XKjtb3yQ0/CjzDpt695IdJ/UtocYr9dtNmYvW8dj6oULVSAG+EOrpRm5CChQ8uk35n4WIW8wt2tJJBtqIvEh0Ppvf1ccsFh5SBl94k6GxYsQkGtEOOkc6V/Zh7X0cq9XJuvzRbXK02hx5TNWQOQFXXVYvuqycqXQLziWywUHHS0JE2tETCOKRL6Svc//0MorrJGejeQpy6H93Ssfwlvb4UnZbTTbUxMfYeG3WFUzY4dXSRzxtbNtB2C3+1rA6X
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2026 12:19:23.0507
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a0f96c7-6e68-495b-4b73-08deebd94aff
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF000023D1.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4199
 
-On 27/07/2026 9:40 am, Anup Patel wrote:
-> On RISC-V, the MSI controller (aka RISC-V IMSIC) is probed as a regular
-> platform device and MSI client drivers are always probed after the MSI
-> controller driver using fw_devlink. Unfortunately, this is not sufficient
-> to ensure device MSI domain is set for MSI client devices before driver
-> probe because OF framework sets device MSI domain at the time of platform
-> device creation whereas ACPI framework expects arch specific code to set
-> the device MSI domain at the time of platform device creation.
-> 
-> Currently, to address the problem of device MSI domain being not set
-> correctly, various RISC-V MSI client drivers explicitly set device
-> MSI domain in the driver probe function using below code pattern:
-> 
-> 	/*
-> 	 * The device MSI domain for platform devices on RISC-V architecture
-> 	 * is only available after the MSI controller driver is probed so,
-> 	 * explicitly configure here.
-> 	 */
-> 	if (!dev_get_msi_domain(dev)) {
-> 		/*
-> 		 * The device MSI domain for OF devices is only set at the
-> 		 * time of populating/creating OF device. If the device MSI
-> 		 * domain is discovered later after the OF device is created
-> 		 * then we need to set it explicitly before using any platform
-> 		 * MSI functions.
-> 		 */
-> 		if (is_of_node(fwnode)) {
-> 			of_msi_configure(dev, dev_of_node(dev));
-> 		} else if (is_acpi_device_node(fwnode)) {
-> 			struct irq_domain *msi_domain;
-> 			msi_domain = irq_find_matching_fwnode(imsic_acpi_get_fwnode(dev),
-> 							      DOMAIN_BUS_PLATFORM_MSI);
-> 			dev_set_msi_domain(dev, msi_domain);
-> 		}
-> 
-> 		if (!dev_get_msi_domain(dev))
-> 			return -EPROBE_DEFER;
+Remove the sleep state and replace it with a retention state for CPU idle.
+The sleep state powers down the CPU core, and the wake-up time cannot be
+guaranteed because the firmware may be busy handling other tasks at the time
+of the wake-up request. This leads to unpredictable and potentially high
+wake-up latency during CPU idle.
 
-I stand by my previous comment that relying on ACPI initcall order and 
-assuming fw_devlink is enabled doesn't really seem robust enough to 
-justify dropping proper handling of this case, especially if pretending 
-it's a generic interface.
+Replace the sleep state with a retention state to avoid this dependency on
+firmware. The retention state uses a PSCI suspend parameter of 0: the
+core simply executes WFI and retains its context without being powered off.
+Since wake-up from WFI is handled entirely in hardware, it is effectively
+immediate (a few cycles) and does not depend on firmware availability.
 
-Thanks,
-Robin.
+As the core is not powered down, the local timer is retained and
+"local-timer-stop" is dropped. The entry/exit latency and min-residency
+are set to the nominal minimum (1 us), allowing the cpuidle governor to
+select the state even for very short idle windows.
 
-> 	}
-> 
-> Instead of the above approach, extend the platform_dma_configure() to set
-> device MSI domain for both OF and ACPI based platform devices before driver
-> probe and remove the duplicate code pattern from RISC-V MSI client drivers.
-> 
-> Co-developed-by: Sunil V L <sunilvl@oss.qualcomm.com>
-> Signed-off-by: Sunil V L <sunilvl@oss.qualcomm.com>
-> Signed-off-by: Anup Patel <anup.patel@oss.qualcomm.com>
-> ---
-> Changes since v1:
->   - Rebased on Linux-7.2-rc5
->   - Minor improvement to commit description
-> ---
->   drivers/acpi/riscv/irq.c                | 13 +++++++++++
->   drivers/acpi/scan.c                     | 10 +++++++++
->   drivers/base/platform.c                 |  4 ++++
->   drivers/iommu/riscv/iommu-platform.c    |  9 --------
->   drivers/irqchip/irq-riscv-aplic-msi.c   | 27 -----------------------
->   drivers/irqchip/irq-riscv-rpmi-sysmsi.c | 29 -------------------------
->   drivers/mailbox/riscv-sbi-mpxy-mbox.c   | 29 -------------------------
->   include/acpi/acpi_bus.h                 |  1 +
->   include/linux/acpi.h                    | 10 +++++++++
->   9 files changed, 38 insertions(+), 94 deletions(-)
-> 
-> diff --git a/drivers/acpi/riscv/irq.c b/drivers/acpi/riscv/irq.c
-> index 9b88d0993e88..17fa5dcdd2c0 100644
-> --- a/drivers/acpi/riscv/irq.c
-> +++ b/drivers/acpi/riscv/irq.c
-> @@ -5,8 +5,11 @@
->    */
->   
->   #include <linux/acpi.h>
-> +#include <linux/device.h>
->   #include <linux/sort.h>
->   #include <linux/irq.h>
-> +#include <linux/irqdomain.h>
-> +#include <linux/irqchip/riscv-imsic.h>
->   
->   #include "init.h"
->   
-> @@ -397,6 +400,16 @@ static u32 riscv_acpi_add_irq_dep(acpi_handle handle)
->   	return count;
->   }
->   
-> +void acpi_arch_msi_configure(struct device *dev)
-> +{
-> +	struct irq_domain *msi_domain;
-> +
-> +	msi_domain = irq_find_matching_fwnode(imsic_acpi_get_fwnode(dev),
-> +					      DOMAIN_BUS_PLATFORM_MSI);
-> +	if (msi_domain)
-> +		dev_set_msi_domain(dev, msi_domain);
-> +}
-> +
->   u32 arch_acpi_add_auto_dep(acpi_handle handle)
->   {
->   	if (acpi_has_method(handle, "_PRT"))
-> diff --git a/drivers/acpi/scan.c b/drivers/acpi/scan.c
-> index 9a7ac2eb9ce0..75c52f6bbbe8 100644
-> --- a/drivers/acpi/scan.c
-> +++ b/drivers/acpi/scan.c
-> @@ -1650,6 +1650,16 @@ static int acpi_iommu_configure_id(struct device *dev, const u32 *id_in)
->   
->   #endif /* !CONFIG_IOMMU_API */
->   
-> +/**
-> + * acpi_msi_configure - Set-up MSI domain for the device.
-> + * @dev: The pointer to the device
-> + */
-> +void acpi_msi_configure(struct device *dev)
-> +{
-> +	acpi_arch_msi_configure(dev);
-> +}
-> +EXPORT_SYMBOL_GPL(acpi_msi_configure);
-> +
->   /**
->    * acpi_dma_configure_id - Set-up DMA configuration for the device.
->    * @dev: The pointer to the device
-> diff --git a/drivers/base/platform.c b/drivers/base/platform.c
-> index fb9120b0bcfe..965ed6ae5bb5 100644
-> --- a/drivers/base/platform.c
-> +++ b/drivers/base/platform.c
-> @@ -1477,8 +1477,12 @@ static int platform_dma_configure(struct device *dev)
->   	int ret = 0;
->   
->   	if (is_of_node(fwnode)) {
-> +		if (!dev_get_msi_domain(dev))
-> +			of_msi_configure(dev, dev->of_node);
->   		ret = of_dma_configure(dev, to_of_node(fwnode), true);
->   	} else if (is_acpi_device_node(fwnode)) {
-> +		if (!dev_get_msi_domain(dev))
-> +			acpi_msi_configure(dev);
->   		attr = acpi_get_dma_attr(to_acpi_device_node(fwnode));
->   		ret = acpi_dma_configure(dev, attr);
->   	}
-> diff --git a/drivers/iommu/riscv/iommu-platform.c b/drivers/iommu/riscv/iommu-platform.c
-> index 399ba8fe1b3e..ddc6370b96b0 100644
-> --- a/drivers/iommu/riscv/iommu-platform.c
-> +++ b/drivers/iommu/riscv/iommu-platform.c
-> @@ -48,7 +48,6 @@ static int riscv_iommu_platform_probe(struct platform_device *pdev)
->   	enum riscv_iommu_igs_settings igs;
->   	struct device *dev = &pdev->dev;
->   	struct riscv_iommu_device *iommu = NULL;
-> -	struct irq_domain *msi_domain;
->   	struct resource *res = NULL;
->   	int vec, ret;
->   
-> @@ -74,14 +73,6 @@ static int riscv_iommu_platform_probe(struct platform_device *pdev)
->   	switch (igs) {
->   	case RISCV_IOMMU_CAPABILITIES_IGS_BOTH:
->   	case RISCV_IOMMU_CAPABILITIES_IGS_MSI:
-> -		if (is_of_node(dev_fwnode(dev))) {
-> -			of_msi_configure(dev, to_of_node(dev->fwnode));
-> -		} else {
-> -			msi_domain = irq_find_matching_fwnode(imsic_acpi_get_fwnode(dev),
-> -							      DOMAIN_BUS_PLATFORM_MSI);
-> -			dev_set_msi_domain(dev, msi_domain);
-> -		}
-> -
->   		if (!dev_get_msi_domain(dev)) {
->   			dev_warn(dev, "failed to find an MSI domain\n");
->   			goto msi_fail;
-> diff --git a/drivers/irqchip/irq-riscv-aplic-msi.c b/drivers/irqchip/irq-riscv-aplic-msi.c
-> index fb8d1838609f..2cf5d42cd66a 100644
-> --- a/drivers/irqchip/irq-riscv-aplic-msi.c
-> +++ b/drivers/irqchip/irq-riscv-aplic-msi.c
-> @@ -175,7 +175,6 @@ static const struct msi_domain_template aplic_msi_template = {
->   int aplic_msi_setup(struct device *dev, void __iomem *regs)
->   {
->   	const struct imsic_global_config *imsic_global;
-> -	struct irq_domain *msi_domain;
->   	struct aplic_priv *priv;
->   	struct aplic_msicfg *mc;
->   	phys_addr_t pa;
-> @@ -245,32 +244,6 @@ int aplic_msi_setup(struct device *dev, void __iomem *regs)
->   	/* Setup global config and interrupt delivery */
->   	aplic_init_hw_global(priv, true);
->   
-> -	/* Set the APLIC device MSI domain if not available */
-> -	if (!dev_get_msi_domain(dev)) {
-> -		/*
-> -		 * The device MSI domain for OF devices is only set at the
-> -		 * time of populating/creating OF device. If the device MSI
-> -		 * domain is discovered later after the OF device is created
-> -		 * then we need to set it explicitly before using any platform
-> -		 * MSI functions.
-> -		 *
-> -		 * In case of APLIC device, the parent MSI domain is always
-> -		 * IMSIC and the IMSIC MSI domains are created later through
-> -		 * the platform driver probing so we set it explicitly here.
-> -		 */
-> -		if (is_of_node(dev->fwnode)) {
-> -			of_msi_configure(dev, to_of_node(dev->fwnode));
-> -		} else {
-> -			msi_domain = irq_find_matching_fwnode(imsic_acpi_get_fwnode(dev),
-> -							      DOMAIN_BUS_PLATFORM_MSI);
-> -			if (msi_domain)
-> -				dev_set_msi_domain(dev, msi_domain);
-> -		}
-> -
-> -		if (!dev_get_msi_domain(dev))
-> -			return -EPROBE_DEFER;
-> -	}
-> -
->   	if (!msi_create_device_irq_domain(dev, MSI_DEFAULT_DOMAIN, &aplic_msi_template,
->   					  priv->nr_irqs + 1, priv, priv)) {
->   		dev_err(dev, "failed to create MSI irq domain\n");
-> diff --git a/drivers/irqchip/irq-riscv-rpmi-sysmsi.c b/drivers/irqchip/irq-riscv-rpmi-sysmsi.c
-> index 612f3972f7af..e6cdb4b635a6 100644
-> --- a/drivers/irqchip/irq-riscv-rpmi-sysmsi.c
-> +++ b/drivers/irqchip/irq-riscv-rpmi-sysmsi.c
-> @@ -260,35 +260,6 @@ static int rpmi_sysmsi_probe(struct platform_device *pdev)
->   			riscv_acpi_update_gsi_range(priv->gsi_base, priv->nr_irqs);
->   	}
->   
-> -	/*
-> -	 * The device MSI domain for platform devices on RISC-V architecture
-> -	 * is only available after the MSI controller driver is probed so,
-> -	 * explicitly configure here.
-> -	 */
-> -	if (!dev_get_msi_domain(dev)) {
-> -		/*
-> -		 * The device MSI domain for OF devices is only set at the
-> -		 * time of populating/creating OF device. If the device MSI
-> -		 * domain is discovered later after the OF device is created
-> -		 * then we need to set it explicitly before using any platform
-> -		 * MSI functions.
-> -		 */
-> -		if (is_of_node(fwnode)) {
-> -			of_msi_configure(dev, dev_of_node(dev));
-> -		} else if (is_acpi_device_node(fwnode)) {
-> -			struct irq_domain *msi_domain;
-> -
-> -			msi_domain = irq_find_matching_fwnode(imsic_acpi_get_fwnode(dev),
-> -							      DOMAIN_BUS_PLATFORM_MSI);
-> -			dev_set_msi_domain(dev, msi_domain);
-> -		}
-> -
-> -		if (!dev_get_msi_domain(dev)) {
-> -			mbox_free_channel(priv->chan);
-> -			return -EPROBE_DEFER;
-> -		}
-> -	}
-> -
->   	if (!msi_create_device_irq_domain(dev, MSI_DEFAULT_DOMAIN,
->   					  &rpmi_sysmsi_template,
->   					  priv->nr_irqs, priv, priv)) {
-> diff --git a/drivers/mailbox/riscv-sbi-mpxy-mbox.c b/drivers/mailbox/riscv-sbi-mpxy-mbox.c
-> index 7c9c006b7244..759512aba19f 100644
-> --- a/drivers/mailbox/riscv-sbi-mpxy-mbox.c
-> +++ b/drivers/mailbox/riscv-sbi-mpxy-mbox.c
-> @@ -902,35 +902,6 @@ static int mpxy_mbox_probe(struct platform_device *pdev)
->   
->   	/* Setup MSIs for mailbox (if required) */
->   	if (mbox->msi_count) {
-> -		/*
-> -		 * The device MSI domain for platform devices on RISC-V architecture
-> -		 * is only available after the MSI controller driver is probed so,
-> -		 * explicitly configure here.
-> -		 */
-> -		if (!dev_get_msi_domain(dev)) {
-> -			struct fwnode_handle *fwnode = dev_fwnode(dev);
-> -
-> -			/*
-> -			 * The device MSI domain for OF devices is only set at the
-> -			 * time of populating/creating OF device. If the device MSI
-> -			 * domain is discovered later after the OF device is created
-> -			 * then we need to set it explicitly before using any platform
-> -			 * MSI functions.
-> -			 */
-> -			if (is_of_node(fwnode)) {
-> -				of_msi_configure(dev, dev_of_node(dev));
-> -			} else if (is_acpi_device_node(fwnode)) {
-> -				struct irq_domain *msi_domain;
-> -
-> -				msi_domain = irq_find_matching_fwnode(imsic_acpi_get_fwnode(dev),
-> -								      DOMAIN_BUS_PLATFORM_MSI);
-> -				dev_set_msi_domain(dev, msi_domain);
-> -			}
-> -
-> -			if (!dev_get_msi_domain(dev))
-> -				return -EPROBE_DEFER;
-> -		}
-> -
->   		mbox->msi_index_to_channel = devm_kcalloc(dev, mbox->msi_count,
->   							  sizeof(*mbox->msi_index_to_channel),
->   							  GFP_KERNEL);
-> diff --git a/include/acpi/acpi_bus.h b/include/acpi/acpi_bus.h
-> index 714d111d8053..d971d6bc14d7 100644
-> --- a/include/acpi/acpi_bus.h
-> +++ b/include/acpi/acpi_bus.h
-> @@ -750,6 +750,7 @@ bool acpi_dma_supported(const struct acpi_device *adev);
->   enum dev_dma_attr acpi_get_dma_attr(struct acpi_device *adev);
->   int acpi_iommu_fwspec_init(struct device *dev, u32 id,
->   			   struct fwnode_handle *fwnode);
-> +void acpi_msi_configure(struct device *dev);
->   int acpi_dma_get_range(struct device *dev, const struct bus_dma_region **map);
->   int acpi_dma_configure_id(struct device *dev, enum dev_dma_attr attr,
->   			   const u32 *input_id);
-> diff --git a/include/linux/acpi.h b/include/linux/acpi.h
-> index 60ab50cb8930..5e2e377c48b4 100644
-> --- a/include/linux/acpi.h
-> +++ b/include/linux/acpi.h
-> @@ -260,6 +260,12 @@ acpi_numa_processor_affinity_init(struct acpi_srat_cpu_affinity *pa) { }
->   
->   void acpi_numa_x2apic_affinity_init(struct acpi_srat_x2apic_cpu_affinity *pa);
->   
-> +#if defined(CONFIG_RISCV)
-> +void acpi_arch_msi_configure(struct device *dev);
-> +#else
-> +static inline void acpi_arch_msi_configure(struct device *dev) { }
-> +#endif
-> +
->   #if defined(CONFIG_ARM64) || defined(CONFIG_LOONGARCH)
->   void acpi_arch_dma_setup(struct device *dev);
->   #else
-> @@ -1060,6 +1066,10 @@ static inline int acpi_dma_get_range(struct device *dev, const struct bus_dma_re
->   	return -ENODEV;
->   }
->   
-> +static inline void acpi_msi_configure(struct device *dev)
-> +{
-> +}
-> +
->   static inline int acpi_dma_configure(struct device *dev,
->   				     enum dev_dma_attr attr)
->   {
+Signed-off-by: Jay Buddhabhatti <jay.buddhabhatti@amd.com>
+---
+ arch/arm64/boot/dts/xilinx/versal-net.dtsi | 43 +++++++++++-----------
+ 1 file changed, 21 insertions(+), 22 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/xilinx/versal-net.dtsi b/arch/arm64/boot/dts/xilinx/versal-net.dtsi
+index 15f767608e67..792bed588ae1 100644
+--- a/arch/arm64/boot/dts/xilinx/versal-net.dtsi
++++ b/arch/arm64/boot/dts/xilinx/versal-net.dtsi
+@@ -103,7 +103,7 @@ cpu0: cpu@0 {
+ 			enable-method = "psci";
+ 			reg = <0>;
+ 			operating-points-v2 = <&cpu_opp_table>;
+-			cpu-idle-states = <&CPU_SLEEP_0>;
++			cpu-idle-states = <&CPU_RETENTION_0>;
+ 			d-cache-size = <0x10000>; /* 64kB */
+ 			d-cache-line-size = <64>;
+ 			/* 4 ways set associativity */
+@@ -133,7 +133,7 @@ cpu100: cpu@100 {
+ 			enable-method = "psci";
+ 			reg = <0x100>;
+ 			operating-points-v2 = <&cpu_opp_table>;
+-			cpu-idle-states = <&CPU_SLEEP_0>;
++			cpu-idle-states = <&CPU_RETENTION_0>;
+ 			d-cache-size = <0x10000>; /* 64kB */
+ 			d-cache-line-size = <64>;
+ 			/* 4 ways set associativity */
+@@ -163,7 +163,7 @@ cpu200: cpu@200 {
+ 			enable-method = "psci";
+ 			reg = <0x200>;
+ 			operating-points-v2 = <&cpu_opp_table>;
+-			cpu-idle-states = <&CPU_SLEEP_0>;
++			cpu-idle-states = <&CPU_RETENTION_0>;
+ 			d-cache-size = <0x10000>; /* 64kB */
+ 			d-cache-line-size = <64>;
+ 			/* 4 ways set associativity */
+@@ -193,7 +193,7 @@ cpu300: cpu@300 {
+ 			enable-method = "psci";
+ 			reg = <0x300>;
+ 			operating-points-v2 = <&cpu_opp_table>;
+-			cpu-idle-states = <&CPU_SLEEP_0>;
++			cpu-idle-states = <&CPU_RETENTION_0>;
+ 			d-cache-size = <0x10000>; /* 64kB */
+ 			d-cache-line-size = <64>;
+ 			/* 4 ways set associativity */
+@@ -223,7 +223,7 @@ cpu10000: cpu@10000 {
+ 			enable-method = "psci";
+ 			reg = <0x10000>;
+ 			operating-points-v2 = <&cpu_opp_table>;
+-			cpu-idle-states = <&CPU_SLEEP_0>;
++			cpu-idle-states = <&CPU_RETENTION_0>;
+ 			d-cache-size = <0x10000>; /* 64kB */
+ 			d-cache-line-size = <64>;
+ 			/* 4 ways set associativity */
+@@ -253,7 +253,7 @@ cpu10100: cpu@10100 {
+ 			enable-method = "psci";
+ 			reg = <0x10100>;
+ 			operating-points-v2 = <&cpu_opp_table>;
+-			cpu-idle-states = <&CPU_SLEEP_0>;
++			cpu-idle-states = <&CPU_RETENTION_0>;
+ 			d-cache-size = <0x10000>; /* 64kB */
+ 			d-cache-line-size = <64>;
+ 			/* 4 ways set associativity */
+@@ -283,7 +283,7 @@ cpu10200: cpu@10200 {
+ 			enable-method = "psci";
+ 			reg = <0x10200>;
+ 			operating-points-v2 = <&cpu_opp_table>;
+-			cpu-idle-states = <&CPU_SLEEP_0>;
++			cpu-idle-states = <&CPU_RETENTION_0>;
+ 			d-cache-size = <0x10000>; /* 64kB */
+ 			d-cache-line-size = <64>;
+ 			/* 4 ways set associativity */
+@@ -313,7 +313,7 @@ cpu10300: cpu@10300 {
+ 			enable-method = "psci";
+ 			reg = <0x10300>;
+ 			operating-points-v2 = <&cpu_opp_table>;
+-			cpu-idle-states = <&CPU_SLEEP_0>;
++			cpu-idle-states = <&CPU_RETENTION_0>;
+ 			d-cache-size = <0x10000>; /* 64kB */
+ 			d-cache-line-size = <64>;
+ 			/* 4 ways set associativity */
+@@ -343,7 +343,7 @@ cpu20000: cpu@20000 {
+ 			enable-method = "psci";
+ 			reg = <0x20000>;
+ 			operating-points-v2 = <&cpu_opp_table>;
+-			cpu-idle-states = <&CPU_SLEEP_0>;
++			cpu-idle-states = <&CPU_RETENTION_0>;
+ 			d-cache-size = <0x10000>; /* 64kB */
+ 			d-cache-line-size = <64>;
+ 			/* 4 ways set associativity */
+@@ -373,7 +373,7 @@ cpu20100: cpu@20100 {
+ 			enable-method = "psci";
+ 			reg = <0x20100>;
+ 			operating-points-v2 = <&cpu_opp_table>;
+-			cpu-idle-states = <&CPU_SLEEP_0>;
++			cpu-idle-states = <&CPU_RETENTION_0>;
+ 			d-cache-size = <0x10000>; /* 64kB */
+ 			d-cache-line-size = <64>;
+ 			/* 4 ways set associativity */
+@@ -403,7 +403,7 @@ cpu20200: cpu@20200 {
+ 			enable-method = "psci";
+ 			reg = <0x20200>;
+ 			operating-points-v2 = <&cpu_opp_table>;
+-			cpu-idle-states = <&CPU_SLEEP_0>;
++			cpu-idle-states = <&CPU_RETENTION_0>;
+ 			d-cache-size = <0x10000>; /* 64kB */
+ 			d-cache-line-size = <64>;
+ 			/* 4 ways set associativity */
+@@ -433,7 +433,7 @@ cpu20300: cpu@20300 {
+ 			enable-method = "psci";
+ 			reg = <0x20300>;
+ 			operating-points-v2 = <&cpu_opp_table>;
+-			cpu-idle-states = <&CPU_SLEEP_0>;
++			cpu-idle-states = <&CPU_RETENTION_0>;
+ 			d-cache-size = <0x10000>; /* 64kB */
+ 			d-cache-line-size = <64>;
+ 			/* 4 ways set associativity */
+@@ -463,7 +463,7 @@ cpu30000: cpu@30000 {
+ 			enable-method = "psci";
+ 			reg = <0x30000>;
+ 			operating-points-v2 = <&cpu_opp_table>;
+-			cpu-idle-states = <&CPU_SLEEP_0>;
++			cpu-idle-states = <&CPU_RETENTION_0>;
+ 			d-cache-size = <0x10000>; /* 64kB */
+ 			d-cache-line-size = <64>;
+ 			/* 4 ways set associativity */
+@@ -493,7 +493,7 @@ cpu30100: cpu@30100 {
+ 			enable-method = "psci";
+ 			reg = <0x30100>;
+ 			operating-points-v2 = <&cpu_opp_table>;
+-			cpu-idle-states = <&CPU_SLEEP_0>;
++			cpu-idle-states = <&CPU_RETENTION_0>;
+ 			d-cache-size = <0x10000>; /* 64kB */
+ 			d-cache-line-size = <64>;
+ 			/* 4 ways set associativity */
+@@ -523,7 +523,7 @@ cpu30200: cpu@30200 {
+ 			enable-method = "psci";
+ 			reg = <0x30200>;
+ 			operating-points-v2 = <&cpu_opp_table>;
+-			cpu-idle-states = <&CPU_SLEEP_0>;
++			cpu-idle-states = <&CPU_RETENTION_0>;
+ 			d-cache-size = <0x10000>; /* 64kB */
+ 			d-cache-line-size = <64>;
+ 			/* 4 ways set associativity */
+@@ -553,7 +553,7 @@ cpu30300: cpu@30300 {
+ 			enable-method = "psci";
+ 			reg = <0x30300>;
+ 			operating-points-v2 = <&cpu_opp_table>;
+-			cpu-idle-states = <&CPU_SLEEP_0>;
++			cpu-idle-states = <&CPU_RETENTION_0>;
+ 			d-cache-size = <0x10000>; /* 64kB */
+ 			d-cache-line-size = <64>;
+ 			/* 4 ways set associativity */
+@@ -636,13 +636,12 @@ llc: l4-cache { /* LLC inside CMN */
+ 		idle-states {
+ 			entry-method = "psci";
+ 
+-			CPU_SLEEP_0: cpu-sleep-0 {
++			CPU_RETENTION_0: cpu-retention-0 {
+ 				compatible = "arm,idle-state";
+-				arm,psci-suspend-param = <0x40000000>;
+-				local-timer-stop;
+-				entry-latency-us = <300>;
+-				exit-latency-us = <600>;
+-				min-residency-us = <10000>;
++				arm,psci-suspend-param = <0>;
++				entry-latency-us = <1>;
++				exit-latency-us = <1>;
++				min-residency-us = <1>;
+ 			};
+ 		};
+ 	};
+-- 
+2.34.1
 
