@@ -1,175 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAD373DE45C
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 08:02:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D35D36606A;
+	Mon, 27 Jul 2026 08:02:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785139337; cv=none; b=t/knxTTKLSlw5E8EAogYMqzsPKusBx32KnDoV/nMSYyNncra3uzcC/McsmLUSyuXLebDyfL/0o4bQnZxT1uKQf4c+bfxB3H8g67yzvvjeB7mEG2dJJpPnc8s78mGYMiAbs7zdBT/q5fXIuNx1MNAdVElMaYGHf7YC6E09HGVxtY=
+	t=1785139366; cv=none; b=nBcSNg2HSTKthKfAe9Me/VFOjGth0Z/Xv/v/weSQ8fe3Flnr3ADKvcieqWkLXiYVsEwe8zdbSdu/F6aoE33SXcrCLh0LraR2MBLSwK+nOrUM8Xx5CiCZlP8rezajiV9Lp0VQ/tq0mJBqLCkvc5szHus+vDSymPuvPZRBabyItkA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785139337; c=relaxed/simple;
-	bh=nNvzcDrntUwRalJgovjqv0a3CjJ84TuMhrVLTzqU0vM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=hpJydst6nzhOR+rWwifLN5PR0FImXgeZimf3L1x+qpoFuyR+qUeG6Xd6DRDp5pJvs9O62izcxxI2h2l6OfFgd4SUEpo78Xj/mVrKHcjNH8vh+XZ5kmb5qk6x/Tv/EQFRW/203TS00nj3LCIe++Eu5CgUVAV341XxXmGatMeCX38=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C8FFayRO; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C8FFayRO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B63F1F000E9;
-	Mon, 27 Jul 2026 08:02:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785139336;
-	bh=RcFIP+NkFzW74uK2b629luFn4E9MdP8V0M0hvRJtxjY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=C8FFayROd7+iImufqO0exv05o5YM7d74Oju5R/CUFhXv7jYNUP1YjToCJz08kSUYb
-	 /jzX0+SK50ShKsOhVjsaN9v6jl6QnHTqa9lBRNlBX+ydBthJs8Ydv90zArzmULfdhv
-	 MMj6UqG9SxUwmj+VlYjg1UU7hvVWxWyo4li17/djA+UShDz2uGxVRsahiJeMvJCpmP
-	 VGc2RsxMAEKcyEngMIEHI2vXGek91kYOz622rXUIZ8pHh23nZ2Cw8eOfyUrVlBBQNE
-	 cmthBCT/quIZfg9veeL7JWwwF4N8ShzmcBV8U7oiyFI0cigjS3WzASkw5ZneRgy87K
-	 OZEfu/BCGutrw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 16/34] pinctrl: airoha: add missed IRQ resource
- helpers
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260727074234.3761170-17-mikhail.kshevetskiy@iopsys.eu>
-References: <20260727074234.3761170-1-mikhail.kshevetskiy@iopsys.eu>
- <20260727074234.3761170-17-mikhail.kshevetskiy@iopsys.eu>
-Content-Type: text/plain; charset=utf-8
+	s=arc-20240116; t=1785139366; c=relaxed/simple;
+	bh=aCqveZO/uwV475G3YTUcfnz1omPwXA4O42AmfQZEfnY=;
+	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=JFzeI3KFGRLOxlSLXrh8nGXh5p9j533eKRW8hcG2cEQ/Vg8aUkW2pTrXd9RWjg1tjVZAECtL4Qv/V7m+OFrvZGmRefCI4q/wnhFuK+t38h2E0l8vbTevJQD6ODQEwdz4/u6lgO/VziXuedWtMjJJNDyyoEsnizkswyL6iQFHR6w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 88EAF202055;
+	Mon, 27 Jul 2026 10:02:42 +0200 (CEST)
+Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1woGIM-001VP2-1U;
+	Mon, 27 Jul 2026 10:02:42 +0200
+Received: from pza by lupine with local (Exim 4.98.2)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1woGIM-000000007n2-1U0y;
+	Mon, 27 Jul 2026 10:02:42 +0200
+Message-ID: <d19b673bba6cfb5c9634510ba742021a7135f6c0.camel@pengutronix.de>
+Subject: Re: [PATCH net-next v9 11/12] net: pcs: airoha: add PCS driver for
+ Airoha AN7581 SoC
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Christian Marangi <ansuelsmth@gmail.com>, Andrew Lunn	
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet	 <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
+ Abeni	 <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Simon
+ Horman	 <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan	
+ <skhan@linuxfoundation.org>, Lorenzo Bianconi <lorenzo@kernel.org>, Heiner
+ Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>,
+ Saravana Kannan	 <saravanak@kernel.org>, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, 	linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org,  Maxime Chevallier
+ <maxime.chevallier@bootlin.com>
+Date: Mon, 27 Jul 2026 10:02:42 +0200
+In-Reply-To: <20260717065448.1498335-12-ansuelsmth@gmail.com>
+References: <20260717065448.1498335-1-ansuelsmth@gmail.com>
+	 <20260717065448.1498335-12-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 27 Jul 2026 08:02:15 +0000
-Message-Id: <20260727080216.1B63F1F000E9@smtp.kernel.org>
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On Fr, 2026-07-17 at 08:54 +0200, Christian Marangi wrote:
+> Add PCS driver for Airoha AN7581 SoC for Ethernet/PON/PCIe/USB SERDES
+> and permit usage of external PHY or connected SFP cage. Supported modes
+> are USXGMII, 10G-BASER, 2500BASE-X, 1000BASE-X and SGMII.
+>=20
+> The driver probe and register the various needed registers and register a=
+s
+> a PCS provider for fwnode usage.
+>=20
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> ---
+>  drivers/net/pcs/Kconfig                    |    2 +
+>  drivers/net/pcs/Makefile                   |    2 +
+>  drivers/net/pcs/airoha/Kconfig             |   12 +
+>  drivers/net/pcs/airoha/Makefile            |    7 +
+>  drivers/net/pcs/airoha/pcs-airoha-common.c | 1324 +++++++++++++
+>  drivers/net/pcs/airoha/pcs-airoha.h        | 1311 ++++++++++++
+>  drivers/net/pcs/airoha/pcs-an7581.c        | 2093 ++++++++++++++++++++
+>  7 files changed, 4751 insertions(+)
+>  create mode 100644 drivers/net/pcs/airoha/Kconfig
+>  create mode 100644 drivers/net/pcs/airoha/Makefile
+>  create mode 100644 drivers/net/pcs/airoha/pcs-airoha-common.c
+>  create mode 100644 drivers/net/pcs/airoha/pcs-airoha.h
+>  create mode 100644 drivers/net/pcs/airoha/pcs-an7581.c
+>=20
+[...]
+> diff --git a/drivers/net/pcs/airoha/pcs-airoha-common.c b/drivers/net/pcs=
+/airoha/pcs-airoha-common.c
+> new file mode 100644
+> index 000000000000..781f89adf3ab
+> --- /dev/null
+> +++ b/drivers/net/pcs/airoha/pcs-airoha-common.c
+> @@ -0,0 +1,1324 @@
+[...]
+> +static int airoha_pcs_setup_scu(struct airoha_pcs_priv *priv,
+> +				int index, phy_interface_t interface)
+> +{
+> +	const struct airoha_pcs_match_data *data =3D priv->data;
+> +	int ret;
+> +
+> +	switch (data->port_type) {
+> +	case AIROHA_PCS_ETH:
+> +		airoha_pcs_setup_scu_eth(priv, interface);
+> +		break;
+> +	case AIROHA_PCS_PON:
+> +		airoha_pcs_setup_scu_pon(priv, interface);
+> +		break;
+> +	case AIROHA_PCS_PCIE:
+> +		airoha_pcs_setup_scu_pcie(priv, index, interface);
+> +		break;
+> +	case AIROHA_PCS_USB:
+> +		break;
+> +	}
+> +
+> +	/* TODO better handle reset from MAC */
 
-Pre-existing issues:
-- [High] Raw Spinlock Nesting Violation: `airoha_irq_mask` and `airoha_irq_=
-unmask` acquire a `spinlock_t` while holding a `raw_spinlock_t`.
-- [High] Lost edge-triggered interrupts due to clearing the hardware status=
- register after executing the IRQ handler.
-- [High] Unsafe IRQ mapping and early shared IRQ registration can result in=
- executing an invalid IRQ 0.
---
+What does this mean? There's a "mac" and a "phy" control in rsts.
+Should the "mac" reset be handled differently? Or is there a separate
+reset line that is controlled by the MAC itself?
 
---- Patch [16]: [PATCH v7 16/34] pinctrl: airoha: add missed IRQ resource h=
-elpers ---
-commit ca6b3b2f26911552b2347a6203653d8c640120dd
-Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+> +	ret =3D reset_control_bulk_assert(ARRAY_SIZE(priv->rsts),
+> +					priv->rsts);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D reset_control_bulk_deassert(ARRAY_SIZE(priv->rsts),
+> +					  priv->rsts);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return 0;
+> +}
 
-pinctrl: airoha: add missed IRQ resource helpers
-
-Without hooking .irq_request_resources, gpiolib cannot set
-GPIOD_FLAG_USED_AS_IRQ. This breaks pin direction locking and can allow
-userspace or another driver to reconfigure an active IRQ pin as an output.
-
-> diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/ai=
-roha/pinctrl-airoha.c
-> index 2dc97e0711003..c886ecc2c39e9 100644
-> --- a/drivers/pinctrl/airoha/pinctrl-airoha.c
-> +++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
-> @@ -2676,6 +2676,7 @@ static const struct irq_chip airoha_gpio_irq_chip =
-=3D {
->  	.irq_mask_ack =3D airoha_irq_mask,
-
-[Severity: High]
-This isn't a bug introduced by this patch, but can this cause a lock nesting
-violation?
-
-The IRQ core calls .irq_mask and .irq_unmask with the IRQ descriptor's
-raw_spinlock_t held. Inside airoha_irq_mask(), the driver calls
-regmap_clear_bits():
-
-drivers/pinctrl/airoha/pinctrl-airoha.c:airoha_irq_mask() {
-	...
-	regmap_clear_bits(pinctrl->regmap, gpiochip->level[index], mask);
-	regmap_clear_bits(pinctrl->regmap, gpiochip->edge[index], mask);
-	...
-}
-
-And inside airoha_irq_unmask(), it calls regmap_update_bits():
-
-drivers/pinctrl/airoha/pinctrl-airoha.c:airoha_irq_unmask() {
-	...
-	regmap_update_bits(pinctrl->regmap, gpiochip->level[index],
-			   mask, val);
-	...
-}
-
-Since pinctrl->regmap defaults to using a standard sleepable spinlock_t,
-acquiring it inside a raw_spinlock_t critical section is a wait-type lock
-nesting violation. This will cause a "sleeping in atomic context" kernel pa=
-nic
-on PREEMPT_RT kernels, or lockdep splats with CONFIG_PROVE_RAW_LOCK_NESTING=
-=3Dy.
-
->  	.irq_set_type =3D airoha_irq_type,
->  	.flags =3D IRQCHIP_SET_TYPE_MASKED | IRQCHIP_IMMUTABLE,
-> +	GPIOCHIP_IRQ_RESOURCE_HELPERS,
->  };
-> =20
->  static int airoha_pinctrl_add_gpiochip(struct airoha_pinctrl *pinctrl,
-
-[Severity: High]
-This is a pre-existing issue, but could this cause lost edge-triggered
-interrupts?
-
-In airoha_irq_handler(), the hardware status bit is read, generic_handle_ir=
-q()
-is dispatched, and only after it returns is the status cleared via
-regmap_write():
-
-drivers/pinctrl/airoha/pinctrl-airoha.c:airoha_irq_handler() {
-	...
-	generic_handle_irq(irq_find_mapping(girq->domain, offset));
-	regmap_write(pinctrl->regmap, pinctrl->gpiochip.status[i], BIT(irq));
-	...
-}
-
-If a new edge-triggered interrupt arrives while the child IRQ handler is
-executing, the hardware status bit will be set again. The unconditional cle=
-ar
-after the handler returns will discard this new interrupt edge, leading to =
-lost
-interrupts.
-
-Does the hardware status need to be acknowledged before invoking the handler
-for edge-triggered interrupts?
-
-
-[Severity: High]
-This is also a pre-existing issue, but could this early shared IRQ registra=
-tion
-lead to executing an invalid IRQ?
-
-In airoha_pinctrl_add_gpiochip(), devm_request_irq() is called with IRQF_SH=
-ARED
-before devm_gpiochip_add_data() initializes the irqdomain:
-
-drivers/pinctrl/airoha/pinctrl-airoha.c:airoha_pinctrl_add_gpiochip() {
-	...
-	err =3D devm_request_irq(dev, irq, airoha_irq_handler, IRQF_SHARED,
-				dev_name(dev), pinctrl);
-	...
-	return devm_gpiochip_add_data(dev, gc, pinctrl);
-}
-
-If the shared interrupt triggers immediately from another device on the same
-line, airoha_irq_handler() runs while the domain is still NULL. This causes
-irq_find_mapping(NULL, offset) to return 0.
-
-Passing 0 to generic_handle_irq() will execute IRQ 0 (often a system timer =
-or
-invalid IRQ), leading to system instability or an invalid IRQ trap.
-
-Should the IRQ be requested after the domain is created, and use
-generic_handle_domain_irq() to handle unmapped IRQs safely?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727074234.3761=
-170-1-mikhail.kshevetskiy@iopsys.eu?part=3D16
+regards
+Philipp
