@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED64C3DE457
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 08:00:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE75C3DE45C
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 08:01:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785139231; cv=none; b=cw/PmYeaMQwOp5aLtxxQLloqgJLqp+ql+0w5yc4sdnhR/VG6X5YYWMdHIvpVSujoWg76cbi3Mqk0+c9QvTgbJ7os82HfwLXjtwMq/TuD+wOIxFosVqydV4uG1ZoZeNd7qWisssM/hiDGtcjtJNufFl39apIvUh2nas07LD/4qus=
+	t=1785139292; cv=none; b=OgJBtpkZbt5UIadnnDpeekZQ60aHtyB+aKUcdZ0ehE9YI3ErKuGqHHI2bq/a4nt0QB6+Ip6PYzqFVcuD7AU+83UXxCmkiEpMPPYcTNFy6UV9OuI9wZ6TC8PQs9aH2mZuSwg3+qhIQyy/96HQW6aZNOUAGg4CZoxX+JSgtAOVOcE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785139231; c=relaxed/simple;
-	bh=jlnvhWzm4dqH3hSxTKGbLuxcpPY+A1EBSwkDQZUiwBU=;
+	s=arc-20240116; t=1785139292; c=relaxed/simple;
+	bh=3dvI6MnzcQhq6aJhxy7EGaX6B2Uxw9p1ppSMgvJY/lg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=vBV1kYuh2O+SPa17pr/0ali1in5DZhlyxYyVfftUaNtJJSt53fwExDVv9czKsr0eUZGlGWXTM6BzTT+f0LZJuYErF9WrMwlQt4/AfsYU1q6PQkkl+STHh3ttCEDyp/K+uZup+Yllc+e4r/aiqtGSNY7r2ALh8CMBWAGr03ucgwA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f3KucxOj; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ecAFJKao8zR/qyp/NNjMGigo+0M4E3e1/1CApYERd7C1C8iYGhQYu24BAyrrcW8Gl0r1zvwWKqHttMggpxqegLHYQFcLnW6uX6M09Z0c5Xfddn1wpb4FcqAm8OUf9u4tDWZBj6DOQMBLqKxC9dEq/yZMBQiOG3LaIy0FRN75ZK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T1PI6AUw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f3KucxOj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6316C1F00A3D;
-	Mon, 27 Jul 2026 08:00:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T1PI6AUw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DC391F000E9;
+	Mon, 27 Jul 2026 08:01:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785139229;
-	bh=CnroOdmpIsh47iWUcFvT5hItSvBeD7ls8I6Tz7G+OeY=;
+	s=k20260515; t=1785139290;
+	bh=Jl92wtT7o/wocod/RLXbUIbe48nPdiNkp1BLqUpXwi4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=f3KucxOjQD6RW3j2CFcZVgwDOi1rOjmkoYGLblhIWTNizuh6go7fAMWMVLGg2rJVt
-	 rv3QwzYhU58oLDOuDb+bId4gUIe8MOUNHuHUws3QwI2v5i/w3drMMAsTX2g9hbkjxM
-	 ixZN9q0VFupH5D68IS+Ndv9RViPHhGgMD922LFiL8kUJcpiVyjLX/D0GsHeL9NEwNm
-	 qfOkFFk+O2+X0nlpphhlu/PrgQ3Paf2RXI9ZHELjMze6xsmb+Yxrg1wMRKGnLpIGaH
-	 WFnIxuyzeWhpUSCJvFeY8+9ufSpbknTKk8O4s2fowoB+vV06tFfDqgbbuY/RD8pnH+
-	 S0aD37NI7Om7g==
+	b=T1PI6AUwdhW6KL747CuJBcPHd8r+yw1qaGyk1LQdk0WKtNpvVJpoF5A7Ti0wnnVm0
+	 DLIS8LM1mbVjVPS9pI039P8MqFU1Dhz//uvidgP0PWJC46AIk5di7Ez0qy0m051gxL
+	 LHTrOkT9TCVlGlOuQlXfTkGAVHTBYDdt9MfD6dapgzZo9vxVpQiMik+/APwWJj0/Rm
+	 /Kz1qj0UyOW4SK+US1F0ZiNCBtfARL9ygKnifuQv45Le7jrWxCp1dqIKPlqQhtgxXo
+	 xZ423ng51wuL+b0jN+zHb6D1DIIY5GC9eUCCThMKsCer7JvKpT0AsA7Zh76pVZeH5U
+	 qAU4E35Y0nHIw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 18/34] pinctrl: airoha: remove not needed irq_type[]
- array
+Subject: Re: [PATCH v7 24/34] pinctrl: airoha: an7583: add support for
+ npu_uart pinmux
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
 Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260727074234.3761170-19-mikhail.kshevetskiy@iopsys.eu>
+In-Reply-To: <20260727074234.3761170-25-mikhail.kshevetskiy@iopsys.eu>
 References: <20260727074234.3761170-1-mikhail.kshevetskiy@iopsys.eu>
- <20260727074234.3761170-19-mikhail.kshevetskiy@iopsys.eu>
+ <20260727074234.3761170-25-mikhail.kshevetskiy@iopsys.eu>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 27 Jul 2026 08:00:29 +0000
-Message-Id: <20260727080029.6316C1F00A3D@smtp.kernel.org>
+Date: Mon, 27 Jul 2026 08:01:29 +0000
+Message-Id: <20260727080130.3DC391F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,62 +47,60 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] The irq_chip callbacks (mask, unmask, ack) call regmap functions o=
-n a regmap that uses a sleepable spinlock, leading to a sleeping in atomic =
-bug on PREEMPT_RT.
+- [Low] The commit adds support for the 'npu_uart' pin group in the pinctrl=
+ driver for the 'uart' function but fails to update the corresponding devic=
+e tree bindings.
 --
 
---- Patch [18]: [PATCH v7 18/34] pinctrl: airoha: remove not needed irq_typ=
-e[] array ---
-commit 36bbed24ea5a5464c148e69474b3311bae84ccc0
+--- Patch [24]: [PATCH v7 24/34] pinctrl: airoha: an7583: add support for n=
+pu_uart pinmux ---
+commit e389a2bc465838a0c68580627d10aa31667842fb
 Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
 
-pinctrl: airoha: remove not needed irq_type[] array
+pinctrl: airoha: an7583: add support for npu_uart pinmux
 
-irq_type[] array inside airoha_pinctrl_gpiochip structure is not
-actually necessary. Use trigger type from 'struct irq_data' instead.
+This commit adds support for the npu_uart pin function and group to the=20
+AN7583 pinctrl driver.
 
-> diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/ai=
-roha/pinctrl-airoha.c
-> index 0a865cf0c2728..6d4b282c21eaf 100644
-> --- a/drivers/pinctrl/airoha/pinctrl-airoha.c
-> +++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
-
+> diff --git a/drivers/pinctrl/airoha/pinctrl-an7583.c b/drivers/pinctrl/ai=
+roha/pinctrl-an7583.c
+> index b0b1dbbb4d768..9b5c7ea5e5472 100644
+> --- a/drivers/pinctrl/airoha/pinctrl-an7583.c
+> +++ b/drivers/pinctrl/airoha/pinctrl-an7583.c
 [ ... ]
+> @@ -569,7 +570,7 @@ static const char *const sipo_groups[] =3D { "sipo", =
+"sipo_rclk" };
+>  static const char *const mdio_groups[] =3D { "mdio" };
+>  static const char *const uart_groups[] =3D {
+>  	"uart2", "uart2_cts_rts", "hsuart", "hsuart_cts_rts",
+> -	"uart4", "uart5"
+> +	"uart4", "uart5", "npu_uart"
 
-> @@ -2613,7 +2611,7 @@ static void airoha_irq_mask(struct irq_data *data)
->  	u8 index =3D data->hwirq / AIROHA_REG_GPIOCTRL_NUM_PIN;
->  	u32 mask =3D GENMASK(2 * offset + 1, 2 * offset);
-> =20
-> -	if (data->hwirq >=3D ARRAY_SIZE(gpiochip->irq_type))
-> +	if (data->hwirq >=3D AIROHA_NUM_PINS)
->  		return;
-> =20
->  	regmap_clear_bits(pinctrl->regmap, gpiochip->level[index], mask);
+[Severity: Low]
+Should npu_uart also be added to the device tree bindings in
+Documentation/devicetree/bindings/pinctrl/airoha,an7583-pinctrl.yaml?
 
-[Severity: High]
-This is a pre-existing issue and was not introduced by the patch under revi=
-ew,
-but could these regmap operations trigger a sleeping in atomic bug on preem=
-pt-rt
-kernels?
+If a device tree uses this new group, it appears it will fail make dtbs_che=
+ck
+validation because npu_uart is not listed in the allowed groups for the uart
+function:
 
-The genirq core calls irq_chip callbacks such as airoha_irq_mask(),
-airoha_irq_unmask(), and airoha_irq_ack() while holding the irq descriptor =
-lock.
-This lock is a raw_spinlock_t which disables interrupts and preemption.
+Documentation/devicetree/bindings/pinctrl/airoha,an7583-pinctrl.yaml:
+          - if:
+              properties:
+                function:
+                  const: uart
+            then:
+              properties:
+                groups:
+                  items:
+                    enum: [uart2, uart2_cts_rts, hsuart, hsuart_cts_rts,
+                           uart4, uart5]
 
-Because pinctrl->regmap is instantiated from a syscon without setting
-use_raw_spinlock =3D true, its internal lock defaults to a standard spinloc=
-k_t.
-
-On preempt-rt kernels, a standard spinlock_t is an rt_mutex and can sleep.
-Attempting to acquire it during regmap operations like regmap_clear_bits(),
-regmap_set_bits(), and regmap_write() while holding a raw_spinlock_t will
-cause a kernel panic.
+>  };
+>  static const char *const jtag_groups[] =3D { "jtag_udi", "jtag_dfd" };
+>  static const char *const pcm_groups[] =3D { "pcm1", "pcm2" };
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727074234.3761=
-170-1-mikhail.kshevetskiy@iopsys.eu?part=3D18
+170-1-mikhail.kshevetskiy@iopsys.eu?part=3D24
