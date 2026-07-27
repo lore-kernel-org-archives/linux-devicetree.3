@@ -1,253 +1,156 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DC8D25F984
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 14:00:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EBE728851F
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 14:03:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785160824; cv=none; b=d3lW4I8r2dSM2UdrGh1qKsrNmjmyYDdHBTGUioepSq2GghQeNv0PM4J5NX4+yA6SFpPyDHeaNRc2y1ALZg1NsNZGewsGCK9ShUoTmy8e17avwPmurljBWDsPm3pGUo91GgFUTzTMxtXhAY7HTTh22Lhus+mztQjKX5bz6M3vgxs=
+	t=1785161004; cv=none; b=W8TnHwKM9F2JIOfcHxGyZsDyo0HRx5sfTqyG1+2+ose2iGGKKXAPjofBg9vbx7XrkteqyT06MxZhw4Za3bYG45qq+9I/ramKpATdWehM/xeCNo4tZOQe1xSdPxjcYUVheYWkMI7hFgcrUdgmluMvfwDE+ybHL+vlc19yz2/72Gg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785160824; c=relaxed/simple;
-	bh=35i0h8c7Jiad5xGsHBJyqb2gG5DbCy2CFgaGwgMnvho=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dkF/Iko7EfqW0ZWkqR7K+LgG6xm5CkbOcVOBA0rzehlEt12ulmNqS1TzEkPlhBpyLCFnHGtw6MowGP4U7RPoCg9UCmQtmSzWp5qVqrPqW7jgGdfd/bPYQmeCZJt2KvUdenNa3pu5ieSaQW3RV6BVhNraZiffY8jDIRsorBXmPV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J/KtbnFe; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785161004; c=relaxed/simple;
+	bh=adrwAsfhAIkGUS3z3Afs6AsxowVpaLDbkFhCskgManY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=C7X0fnxyz46N1zw72foRn8PkrX/c3+Prj+GKdO84hQ04xOiGC/XyteGW5sLdQUBDUS9Mjw5pH0qpLmjXhBBri4f3S6kHHKzzru0qYmEDHkw88M/OQ8UhyBLr7m5DyaHVJHKCf33j90oW3PWlWT5vHavOUQkxghpynXmje6eA24Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RqXKs65t; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HvwCL1HU; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J/KtbnFe"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-472326ca506so1827707f8f.2
-        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 07:00:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RqXKs65t";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HvwCL1HU"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66RDli4K4061151
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 14:03:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	N3R/LOwcFbmCVfeXnS28YoPT5GraPotTYYR1n8ulF+s=; b=RqXKs65tKoedSsuO
+	qRLKyLIUh5stufSeT5VKC1Eukq2TrjB7dIj10lTWSLWT/xKXJ+zGzeJajrbD4lvK
+	r8/sWGiERpdyUF8kLuIpb6G4PDNbBAh2x7RoM5/9hzwVNkQUOARXmTDjJQ9DnUEV
+	iF5HxGfcBuvz7p9Jt22DOvhwwuilHvhXsT/C+InRETTHaMaPn0EPAZqZ6uqLBsoc
+	CXKSw9+rRqKjyNqrNXHTBwKn4OZhFjW2o4LQvVhIe5vNiG4UtwWzxMsM6yZUkitT
+	NGg1SsWuaA3OwFo+d/o3AaegX5qJUJ71hurH8Ot5qBX6sQkzeA5HaiXusjfEbXat
+	x2pw5A==
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fp4mq121v-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 14:03:22 +0000 (GMT)
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-7e6027a5761so1353062a34.3
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 07:03:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785160820; x=1785765620; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fWwbMjSZz9WnJ1CjrPuhixo0ML/od46qhmZPvL+D6Jw=;
-        b=J/KtbnFeS+m8RbOlLxxI3NHNHE+MXVJzMf9hPhPkL6NfliJHizJd8H25cVRwongFmg
-         4f79KcrJmvEcvsmMr95Hdkl6HnFhedunUgvOejzguVJs2Ot4RIl+tDOOOr1NVSfYbSrI
-         FxmM0CmzNBDOc2u2u4805iQQO/Bw9CBTBux7OtRmz3lj/zKgPt8OQ62jaV/KT6+IAeGG
-         8MURW8ElwNGffhv7s9J8W1DrWQH2sP3Tk+7I/D2xShalImWrYNtnM8IKFNMhik2gkXmd
-         wTBnXUSht3sNjcGOsaW1MD39nZPWjtAFNiaJ5fRXwm8A21ssk2Uy/R5Axb78ciowRiAb
-         Ka4g==
+        d=oss.qualcomm.com; s=google; t=1785161002; x=1785765802; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=N3R/LOwcFbmCVfeXnS28YoPT5GraPotTYYR1n8ulF+s=;
+        b=HvwCL1HUqeRnJvxX0NUvSXsL/HEX+DxOAUp6v56G6H6BdErIE5uG/FIX2DiCfId3E4
+         iBp1B6WNGtLSWE7qb3htbJh8pcYDd8ew+0GIxMzr4yzf0Okq+1oOI6dOYsHjsez++mLk
+         7YQa8ouo/niaqEoabBM6NTLWGS2B1TlnQ2CljeD6kMIWOak6oO+QBgu99TFGmLAr71aE
+         2CKDfN8wcpDiEc8rPMJUtAS3PedwtkHW5lv70HdBFQWwpTVTME/8hI17Uodrcy5FxXAp
+         gjd11X4Wtp/oXPh3mRnaGyOb4Z2Td8+4aFCvmG2NdCDnlXKwkkgDq9ItyGmgQIb311nn
+         kTBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785160820; x=1785765620;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=fWwbMjSZz9WnJ1CjrPuhixo0ML/od46qhmZPvL+D6Jw=;
-        b=S0cOVh4wHF3zObxqCkgdyJnk4OBvXBlpnQLSLAV611MYy997XQloS0XM1wfNrAOUBE
-         2faTDL9bOhUk5hOCwJWlfFt1ewI5veN44eKNC+Oj+ZbhCglww2YmBSCCahd/IBlkQHmp
-         F6D9e7jkx+kG+sXb0J/7XNFNA0Wy51qYw8ayvlTg45jVJVspD2wRUVov8ttSz8CXUdSr
-         VJYFBtZoZ0eAsrldukaLj6qG8pitQFxPdcQWn0P6dWmKusDQk4P+3B+6SgqPnx06u5PP
-         CliRPoHerm5SPnpJ8h0VlmgRY7GTNKAU3oJhTNoXSSB4/rTyR9yymMM9ylqvHrUUDgJP
-         0i8g==
-X-Forwarded-Encrypted: i=1; AHgh+RoBda6EU6RDJQXph3NDX7tluPqpxAh0rsy0cSHXHoprFbdEkP3wi2O3OagJH/dLwMSV13xFDw600H8u@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx9vRY5kE5DtVLDr+fhu/NSIOhx8usyAK1vOm32lVcSjhXny6sR
-	i9YQ6Or59rr4gu11CG+EwCpmMMQDnXqXJw9P+oB5eKJ5u0epVlYzmzSp
-X-Gm-Gg: AR+sD12Ed7NCrK9wYNj5DZBYZRSO51p7iRhv5koeXrv5NQX2bT4k9mnx8S3MWJGPRve
-	xTN+Ki5Pb/EgDt4QFOZclk7DHeMKupuCrxP5oOO/jURTdzkgVBv8SPZADEiwsp3eE/mj+ZayPTr
-	ykLUGxjcGqMvQe/N1IRWWmqpbGCibAhMHYiNhAkellpPXooD6cVgl72jTqk2eCuAgRTly1nWw1P
-	2D7YNXnW6paPI4YlcEAbr7DAAtS80cEVxWvKCWAQWFh3to92BmQ4FLqSPGezk8Vmp4nzLYArzUD
-	hRHVwYd0PBAZwYv86G0EMwwUdvKdDssN77MBqnbg61kb1/kq3fq9Esc+CX3hcDGXvFte2P8M7C0
-	sS1nhOPag4/5Z50xI/PqWrDw78Af1Fmtaz17s/n40Us9RI5CUaUX2OCojGHGPnvqY0TGoECMApR
-	VQrOy0
-X-Received: by 2002:a05:6000:2905:b0:47f:93fc:2d20 with SMTP id ffacd0b85a97d-47fae7a741amr1079389f8f.40.1785160819907;
-        Mon, 27 Jul 2026 07:00:19 -0700 (PDT)
-Received: from nsa ([148.63.225.166])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85b9a5c4sm49375208f8f.8.2026.07.27.07.00.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jul 2026 07:00:19 -0700 (PDT)
-Date: Mon, 27 Jul 2026 15:01:28 +0100
-From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Janani Sunil <jananisunil.dev@gmail.com>, 
-	David Lechner <dlechner@baylibre.com>, Janani Sunil <janani.sunil@analog.com>, 
-	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Olivier Moysan <olivier.moysan@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, linux@analog.com, 
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH 1/6] dt-bindings: iio: adc: Add AD7768
-Message-ID: <amdko3OV-7FXftRJ@nsa>
-References: <20260709-ad7768-driver-v1-0-44e1194fd96a@analog.com>
- <20260709-ad7768-driver-v1-1-44e1194fd96a@analog.com>
- <36df7c4f-82ea-4ed5-a4f9-3a29c75dc99a@baylibre.com>
- <9dd16bb5-7a30-4024-88a7-4a4bf47c35e8@gmail.com>
- <e791f4f9-63dd-40f5-aec4-5b540bcee5ff@baylibre.com>
- <d159cae0-b11e-49e9-a546-023ed61b900e@gmail.com>
- <20260722025853.6ca3961d@jic23-huawei>
- <amHLZK46lxqSZIC8@nsa>
- <20260723234855.10f6cc9e@jic23-huawei>
+        d=1e100.net; s=20251104; t=1785161002; x=1785765802;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=N3R/LOwcFbmCVfeXnS28YoPT5GraPotTYYR1n8ulF+s=;
+        b=hn5EADrtD7xSdG88nM9xKYVRbg2gszEGSmp2czrLcWdhfJAZIqORB39ydNt9s8qRvG
+         RtHuuzo4VOuTIsAtT/eUvSoH0mKLSagMq81miV70GactnXSOYV6wRstm2mK3nd2HvL4P
+         9cFfjISS8OItnlOcJxoW+v/kEQ+5Nd+7Pujwrb8WwHr1TADKxJlK8tYetY4KS8KFvxQb
+         y9ls6OT1mpXUhGGL6HXlHKtaLK9EW97qwRECCA1bdnSJlbhtvUugLg7UIYsZEtLba1Bc
+         XV7t6/+eghg0BIe4vTe97mT/7oIWRauNkwgeLXwfHlg8hl9litFJOvi9YGftYYQ02f61
+         rzbA==
+X-Forwarded-Encrypted: i=1; AHgh+Rov3eb4aDrQK4o75AXJyDMRFwEQH62VuO1ibSpKG8Xfw12LqWZtyelI+DQ5Xwaa5/LwlUoigQ2ZuamC@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz57Af1RSeIeaNph3f7sHeJvoRUKngHB2Rnq76hlA1GEVB1ivyo
+	tjqf3p6txH0F5/qVaBIeGi9kTT6m9aGsOZMj6ix54qOX+qOmcyfUmWkT5dThk8MU4p+MPRWwm0m
+	BoWmh7gUZ3i5aHRZSuN/RM8uZ9BiZT65pPs2pJ94l6z533JQTeK62vMF0NRJvsq03+2zxUeJ2
+X-Gm-Gg: AR+sD12+EttCRclj4eno9BcV61QsWKvqvI3EUMZQeMYGHHu3j2QozpQbXff4VPNjOu/
+	JqcerEaT3uy9NniCJYeuS/5VOE9nDcun2YNxpq96c3+Pb5JylbcwZo9T1Ods5+B5sdumJs9Af5W
+	xk3pbi+42HohT/9p6IopkZKBPzswVWEq3kVggZ3el2+rjy5B+q6rUHsU7P/1tUh/xma/pF0KKCk
+	Y/pVy//baDCvzYu0T84qomwqtzphsahnAfTinQ7bqLFj7XgGeDRPDpmhmJ3sgRt5ZVLnZOJmxxA
+	VaYzNPTv8gJB3nO9IPMaLgk5X+XffewirK7/SLdUc7YXb2Wky0Qq0rbxCf0mpeDxo1DTXW3XKu+
+	gFwIdee53V5iFbjiU+qxKHIPB
+X-Received: by 2002:a05:6808:124d:b0:497:e695:3423 with SMTP id 5614622812f47-4ad528d7697mr142154b6e.0.1785161001693;
+        Mon, 27 Jul 2026 07:03:21 -0700 (PDT)
+X-Received: by 2002:a05:6808:124d:b0:497:e695:3423 with SMTP id 5614622812f47-4ad528d7697mr142119b6e.0.1785161001130;
+        Mon, 27 Jul 2026 07:03:21 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1c32f1127fsm651110766b.55.2026.07.27.07.03.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 27 Jul 2026 07:03:20 -0700 (PDT)
+Message-ID: <cbbb007a-fe6b-41ef-9930-fec17f40c946@oss.qualcomm.com>
+Date: Mon, 27 Jul 2026 16:03:17 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260723234855.10f6cc9e@jic23-huawei>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 3/6] arm64: dts: qcom: glymur: Add PCIe3 PHY and PCIe3a
+ controller nodes
+To: Qiang Yu <qiang.yu@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+        Philipp Zabel <p.zabel@pengutronix.de>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260724-glymur_linkmode_0724-v7-0-65c8469c6b65@oss.qualcomm.com>
+ <20260724-glymur_linkmode_0724-v7-3-65c8469c6b65@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260724-glymur_linkmode_0724-v7-3-65c8469c6b65@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI3MDEzNCBTYWx0ZWRfX7DZiMMfQJ2MR
+ 5s1Rx9QEZBG+YzM+H002aZwbdg6pk2skq9kQMa0uWhksm/t434n5SuX6wn366sAal+237XqeL9N
+ QYlHmCPoL25dT8iywRLJ1bBX6+l5fN4=
+X-Proofpoint-ORIG-GUID: 0ayzpVAj-pfpV3Ga1qaJrb9P1jEtsgBg
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI3MDEzNCBTYWx0ZWRfXx8gGsvDFnQ15
+ 4wgDqM9SgYferKxgHehqEbpErfR5yOwpeEP/gRYYegoMENJYdqSIBpNMxH3XnhqKvAV+Uh9on5X
+ 1bol1LN8LTmzS1gIhK2GuN1CLnXnz3VqDuSOHXYlNot+dhl9H126TfbaOU3tvqxvd+5V9Qf22Ds
+ Xm8n2MeoN0z2FfSDz43XSKf1F7SKADQ/okaZzkNVKqO9U1udyi82Pz1OflheijtKR13bM2F6aFx
+ aAvbB4XjNN7G9gjrO66lpKe9kSL2QKcAMYonp7g/+WOW6GZ8fzTrtOJ3tCfsrdjWXJ0lQqE8I37
+ eVo0CdKiPZll8JjYybAzjyqdorkg9G0RpfroZYUQ4FITlcUlgSoA9iM7oJ7shuWy2F0dSmWXyLq
+ bkb8i2gFL/B2mAUmsfvJLXk7pJ/QCaNbFz3NAXQ44E0/D4poNNd6UsZfwUbJPtpG1Q6timkqJ23
+ 9s0jNmWGQBopO66Zo8A==
+X-Proofpoint-GUID: 0ayzpVAj-pfpV3Ga1qaJrb9P1jEtsgBg
+X-Authority-Analysis: v=2.4 cv=TemmcxQh c=1 sm=1 tr=0 ts=6a67652a cx=c_pps
+ a=+3WqYijBVYhDct2f5Fivkw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=kF0Kh6n4e_L3U_yLb1EA:9 a=QEXdDO2ut3YA:10
+ a=eYe2g0i6gJ5uXG_o6N4q:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-27_04,2026-07-24_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 clxscore=1015 impostorscore=0 adultscore=0 suspectscore=0
+ lowpriorityscore=0 malwarescore=0 phishscore=0 spamscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607270134
 
-On Thu, Jul 23, 2026 at 11:48:55PM +0100, Jonathan Cameron wrote:
-> On Thu, 23 Jul 2026 09:15:08 +0100
-> Nuno Sá <noname.nuno@gmail.com> wrote:
+On 7/24/26 12:01 PM, Qiang Yu wrote:
+> Add the PCIe3 PHY and the PCIe3a controller nodes. PCIe3a and PCIe3b share
+> a single Gen5x8 QMP PHY that can be configured either as one x8 link or as
+> two independent x4 links (bifurcated).
 > 
-> > On Wed, Jul 22, 2026 at 02:58:53AM +0100, Jonathan Cameron wrote:
-> > > On Tue, 21 Jul 2026 10:03:26 +0200
-> > > Janani Sunil <jananisunil.dev@gmail.com> wrote:
-> > >   
-> > > > On 7/21/26 03:39, David Lechner wrote:  
-> > > > > On 7/20/26 9:00 AM, Janani Sunil wrote:    
-> > > > >> On 7/9/26 17:43, David Lechner wrote:    
-> > > > >>> On 7/9/26 3:50 AM, Janani Sunil wrote:    
-> > > > >>>> Devicetree Bindings for AD7768-4 (4 channel) and AD7768 (8
-> > > > >>>> channel) simultaneous sampling ADC
-> > > > >>>>
-> > > > >>>> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
-> > > > >>>> ---
-> > > > >>>>   
-> > > > >>>> +
-> > > > >>>> +  adi,power-mode:
-> > > > >>>> +    $ref: /schemas/types.yaml#/definitions/string
-> > > > >>>> +    enum:
-> > > > >>>> +      - low
-> > > > >>>> +      - median
-> > > > >>>> +      - fast
-> > > > >>>> +    description:
-> > > > >>>> +      Power mode selection.    
-> > > > >>> Unless there are pins that control this, it seems like it should
-> > > > >>> be left up to the driver to decide how to set this.
-> > > > >>>
-> > > > >>> In this case, it looks like the power mode also influences sample
-> > > > >>> rate which is normally something controlled at runtime.    
-> > > > > Looking at this again, there is also an MCLK divider that influences
-> > > > > sample rate, so sampling_frequency to power mode is not
-> > > > > straight-forward anyway.
-> > > > >    
-> > > > >> Hi David,
-> > > > >>
-> > > > >> The reason we'd like to retain power mode control is that certain
-> > > > >> ODRs are supported across all three power modes (low/median/fast),
-> > > > >> and the RMS noise and power consumption differ significantly
-> > > > >> between them at the same ODR.
-> > > > >>
-> > > > >> The higher the power mode, the better the noise performance, but
-> > > > >> power consumption nearly doubles for every ~3 dB improvement in
-> > > > >> dynamic range. Silently selecting one power mode in the driver
-> > > > >> would remove a meaningful hardware tradeoff from the user.
-> > > > >>
-> > > > >> We'd like to propose the following instead:
-> > > > >> - Remove adi,power-mode from the DT as suggested.
-> > > > >> - Expose power mode as a per-device sysfs attribute.
-> > > > >> - in_voltage<N>_sampling_frequency_available dynamically reflects
-> > > > >> only the ODRs valid for the currently selected power mode.
-> > > > >>
-> > > > >> This keeps the DT clean while still giving the user explicit
-> > > > >> control over the noise versus power trade off. Would this approach
-> > > > >> be acceptable?
-> > > > >>
-> > > > >> Thanks,
-> > > > >> Jan
-> > > > >>
-> > > > >>    
-> > > > > Jonathan usually pushes back against userspace power controls. We
-> > > > > do have this for accelerometers, but not ADCs currently.
-> > > > >
-> > > > > If we can't think of anything better, maybe we could use this. It
-> > > > > only has low_noise and low_power options though, so the driver
-> > > > > would still need to chose the best power mode of the 3 based on the
-> > > > > other requested parameters. E.g. always make all sampling_frequency
-> > > > > available  and just pick the highest power or lowest power mode
-> > > > > that can provide that rate based on the power_mode attribute.
-> > > > >
-> > > > > I wanted to suggest maybe adding some kind of noise attribute
-> > > > > instead, but I'm not sure how we could do that in a way using SI
-> > > > > units since the value would depend on so many things (at least
-> > > > > V_REF voltage, filter type, temperature and even the physical
-> > > > > input).    
-> > > > 
-> > > > We considered the low_power/balanced/low_noise approach, but the
-> > > > customers typically use the datasheet alongside the driver and the
-> > > > datasheet explicitly uses the terms "low power", "median" and "fast"
-> > > > for the three modes. Abstracting them with different names in the
-> > > > sysfs attribute would create a confusion- the users would have to
-> > > > mentally translate between the two naming conventions. The noise
-> > > > attribute would not actually configure anything on a register level-
-> > > > it would purely be informational. Furthermore, noise performance is
-> > > > not solely determined by the power mode. There are other parameters
-> > > > (eg. filter mode) that has a significant impact. A power_mode
-> > > > attribute directly configures the hardware register and has a
-> > > > deterministic effect on the device.
-> > > > 
-> > > > Jonathan, could we keep the power_mode as an attribute in this case?  
-> > > 
-> > > My really strong resistance to 'mode' type controls is they are
-> > > meaningless to general purpose software.  It has no idea how to
-> > > set them correctly. The purpose of IIO is to provide general abstractions
-> > > and power modes are never that.
-> > >   
-> > 
-> > Unfortunately lot's of apps engineers for these parts just like to
-> > control it all and don't care about generic interfaces (given typically
-> > these the devices are the only ones they care). So we also have some pain
-> > trying to explain all of the advantages :).
+> The shared PHY is modelled as a single pcie3_phy provider; each controller
+> selects its sub-PHY through &pcie3_phy (index 0 for PCIe3a, index 1 for
+> PCIe3b). Update the GCC pipe clock parent array to reference the new PHY's
+> clock outputs instead of the placeholders.
 > 
-> Good thing they have to play by our rules if they want to have it
-> upstream and not ship the driver to very possible customer ;)
-> 
-> > 
-> > > Hence we put a lot of effort into mapping them to controls or measures
-> > > that have precise meaning.
-> > > 
-> > > I can't remember how I got talked into allowing the accelerometer
-> > > ones either :(  It was way back in 2013 and we have only one user.
-> > > I should shift that ABI doc to a driver specific one so as not tempt
-> > > more users.
-> > > 
-> > > To give a firmer opinion I guess I'll go read the datasheet at somepoint
-> > > but it's not a small one so that may take a little while.  I do see
-> > > that there is a recommendation for each power setting to only cover
-> > > one range of f_mod.  Maybe that gives us a route to a control that
-> > > it at least numerically meaningful (For those who know what effect
-> > > the modulator frequency has in a sigma delta modulator! Which
-> > > doesn't include me ;()
-> > > 
-> > > Any chance we can kick this into the future and get a useful base
-> > > driver ready for upstream?  
-> 
-> However we go with this I'd like to keep it separate from initial driver
-> merge.  Then we can have a focused discussion around a follow up patch.
-> 
-> >It is a lot easier to have these discussions
-> > > when they are the only topic related to a thread.  One path to move
-> > > on would be to decide to default (only option for now) to the
-> > > best noise option.  Later we can add controls that result in that
-> > > initial default changing,  
-> > 
-> > Yeah, those were my internal 2 cents. Not sure if this is exactly what
-> > you're proposing but what also came to my mind was to have a RMS lookup
-> > table (same as in DS) and for the overlapping frequencies, just go with
-> > the one with better RMS figure. My assumptions is that most users will
-> > prefer that. If not else better comes, we can have a driver argument to
-> > override the prefered mode (same way we do for some ADIS IMU devices).
-> > And yes, I know module arguments are not very encouraged...
-> 
-> Yeah, for other cases a bit like this we've always assumed they want
-> minimum noise for a given set of parameters but that isn't quite always
-> the case when power consumption matters on the platform. 
-> 
-> The IMU low rate allow thing (I guess that is what you mean) is perhaps
-> a little similar as you suggest.  It is an intentional override of
-> datasheet recommendations.  I'm not against doing that here, but definitely
-> as a follow up patch where the reasons are laid out clearly.
+> Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
+> ---
 
-Agreed!
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-- Nuno Sá
-
+Konrad
