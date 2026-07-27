@@ -1,114 +1,111 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.237.72.81])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 52B893ED10F;
-	Mon, 27 Jul 2026 09:26:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.237.72.81
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B68683EC6B3
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 09:26:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785144384; cv=none; b=EfZFJQK7vkoy+wkYUNcBMJEGwQvTcTqtBhsOJCR75pnLWIYrysG6c/l1STddIaqJwgkRuGGSIgSDfltZgF+v8gaaJR845KKUuLpwKdA1nayX9dxrOabyDECG2wC3ZQQ1LVWlVZavF7RZP+mc0RlpQpseK4D/lZihJalCZcV9N84=
+	t=1785144405; cv=none; b=U9ZT4OYkpOu5rM7k/9oZfH2NJ8sgPDX0W2gxwGg16xtsnU0BnorL3MrZF/bWqse6wu2YMCTiEVYxd7fKXlNgBJrZaUY9XN6kzI1GMqUo+pXnnbPlurDCqvmQiJe+ZXdijuHiv8UWHzTJG7qQAAfDV5nGOulFMFqtQFO0kuSji84=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785144384; c=relaxed/simple;
-	bh=K3H9i3v3qKHqCVWFlcNGioD06Vdy3HkhKL3Y9NS4ENo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=balWOLXpHPB/9wNOjB1Qkffr+NqRQYv3EBQeu4WJVA2R/wJZv2VInrjYSnUFgV2+bHvHo7P8O0tj8vCOPPJcCJyFb6/oz1NnlUVo8QCIWjBWjRos+tTcI/xgE5kiEiZE0D5eaZlHyOAJgA9SVcKuFoFmI8Zxo6ke100jSWKYJtY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=52.237.72.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from dongxuyang$eswincomputing.com ( [10.12.96.41] ) by
- ajax-webmail-app2 (Coremail) ; Mon, 27 Jul 2026 17:26:14 +0800 (GMT+08:00)
-Date: Mon, 27 Jul 2026 17:26:14 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: "Xuyang Dong" <dongxuyang@eswincomputing.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: ukleinek@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, ben-linux@fluff.org, ben.dooks@codethink.co.uk,
-	linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, p.zabel@pengutronix.de,
-	daniel.lezcano@kernel.org, tglx@kernel.org,
-	ningyu@eswincomputing.com, linmin@eswincomputing.com,
-	xuxiang@eswincomputing.com, wangguosheng@eswincomputing.com,
-	pinkesh.vaghela@einfochips.com
-Subject: Re: Re: [PATCH v13 5/5] clocksource: dw_apb_timer: Use reset array
- API to handle all resets
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
- 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
- mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
-In-Reply-To: <20260724085527.D31BC1F000E9@smtp.kernel.org>
-References: <20260724084153.1473-1-dongxuyang@eswincomputing.com>
- <20260724084437.1850-1-dongxuyang@eswincomputing.com>
- <20260724085527.D31BC1F000E9@smtp.kernel.org>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	s=arc-20240116; t=1785144405; c=relaxed/simple;
+	bh=NVboAeBfYYNH2HYC66pmYsyC/WtiPTA68tMG5rpkGVE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=WOh0lyhEd4blNVYMmu1oQ0/bx8ZT1ZiDXBvYUSX3defz7GExOKAH3a7VVIG/hGRV9AzeqKY7DhOXequvDvvEx/9cibja7/kryy1RdjM2no/jbkhPgdf3rFrKNCqpkUo0uOLtHLEgFi3LwLjummHGAICBCUUpEfeaKCeqqjLM9a4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FnF9ZH1/; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FnF9ZH1/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC90B1F000E9;
+	Mon, 27 Jul 2026 09:26:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785144404;
+	bh=iy5A7YySgMBBsj/og8FMmgL/5FD+Npq2Pa2Qsf/zEPU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=FnF9ZH1/GgM4Si8s6T1K3jfPWRp+ccZtgL9TKA5YOgaa6EXxxOhumqof2yjBpAHjx
+	 DwalA11rNgNLxtoOZ2qnDpjbeWo+F2naJ+cb6AA8tU7lmAGbAsHZGG2v1NS2gPGaIx
+	 YyeiuLlp21etaCCbld/Qpdb+6b/U6zkqnuVEIfT8EI4b5izp9GCiiSccKFvMBPani/
+	 yu2eVUga6YlIR/BOiKFHSX0bYesvyE6zexiQJewtRiDQ5Xxetq9+IswbDD9hwa/jjB
+	 8dP8z8rE3SBoiWDywzQJRklz/YkPveGzntrkP1qNatJZtvMw/LR/FjIpIlm8xzsD2/
+	 MFmkYAZcSEf4A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 3/5] dt-bindings: gpu: powervr-rogue: Add MediaTek
+ MT8173 GPU
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Chen-Yu Tsai" <wenst@chromium.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260727091555.1023910-4-wenst@chromium.org>
+References: <20260727091555.1023910-1-wenst@chromium.org>
+ <20260727091555.1023910-4-wenst@chromium.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 27 Jul 2026 09:26:43 +0000
+Message-Id: <20260727092643.DC90B1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Message-ID: <63b2ba86.8bcf.19fa2e572f4.Coremail.dongxuyang@eswincomputing.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:TQJkCgAnPJ82JGdqb0w3AA--.8032W
-X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/1tbiAgEBAmpmNx0dI
-	wAAsY
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
 
-PiAKPiBUaGFuayB5b3UgZm9yIHlvdXIgY29udHJpYnV0aW9uISBTYXNoaWtvIEFJIHJldmlldyBm
-b3VuZCAxIHBvdGVudGlhbCBpc3N1ZShzKSB0byBjb25zaWRlcjoKPiAtIFtIaWdoXSBUaGUgcGF0
-Y2ggZHluYW1pY2FsbHkgYWxsb2NhdGVzIGFuIGV4Y2x1c2l2ZSByZXNldCBjb250cm9sIGFycmF5
-IHVzaW5nIHRoZSB1bm1hbmFnZWQgYG9mX2AgQVBJIGJ1dCBmYWlscyB0byBmcmVlIGl0LCBwZXJt
-YW5lbnRseSBsb2NraW5nIHNoYXJlZCBBUEIgcmVzZXRzIGFuZCBkZWFkbG9ja2luZyBvdGhlciBk
-ZXZpY2VzLgo+IC0tCj4gCj4gLS0tIFBhdGNoIFs1XTogW1BBVENIIHYxMyA1LzVdIGNsb2Nrc291
-cmNlOiBkd19hcGJfdGltZXI6IFVzZSByZXNldCBhcnJheSBBUEkgdG8gaGFuZGxlIGFsbCByZXNl
-dHMgLS0tCj4gY29tbWl0IDAxNTQxOGQ3MjJiNjZhNDU0MDAwZmQ3YTljMjYwNmJlYTNmN2UxOGIK
-PiBBdXRob3I6IFh1eWFuZyBEb25nIDxkb25neHV5YW5nQGVzd2luY29tcHV0aW5nLmNvbT4KPiAK
-PiBjbG9ja3NvdXJjZTogZHdfYXBiX3RpbWVyOiBVc2UgcmVzZXQgYXJyYXkgQVBJIHRvIGhhbmRs
-ZSBhbGwgcmVzZXRzCj4gCj4gVGhpcyBwYXRjaCB1cGRhdGVzIHRoZSB0aW1lciBpbml0aWFsaXph
-dGlvbiB0byBmZXRjaCBhbmQgcHVsc2UgYWxsIHJlc2V0IGxpbmVzCj4gc3BlY2lmaWVkIGluIHRo
-ZSBkZXZpY2UgdHJlZSBieSBzd2l0Y2hpbmcgdG8gdGhlIHJlc2V0IGFycmF5IEFQSS4KPiAKPiA+
-IFJlcGxhY2UgaXQgd2l0aCBkZXZtX3Jlc2V0X2NvbnRyb2xfYXJyYXlfZ2V0X29wdGlvbmFsX2V4
-Y2x1c2l2ZSgpIHRvCj4gPiBmZXRjaCBhbmQgY29udHJvbCBhbGwgcmVzZXQgbGluZXMgbGlzdGVk
-IGluIHRoZSBkZXZpY2UgdHJlZSwgZW5zdXJpbmcKPiA+IGV2ZXJ5IGxpbmUgaXMgcHJvcGVybHkg
-YXNzZXJ0ZWQgYW5kIGRlYXNzZXJ0ZWQgcmF0aGVyIHRoYW4gb25seSB0aGUgZmlyc3QuCj4gCj4g
-W1NldmVyaXR5OiBMb3ddCj4gVGhpcyBpc24ndCBhIGJ1ZywgYnV0IHRoZSBjb21taXQgbWVzc2Fn
-ZSBtZW50aW9ucyB1c2luZyB0aGUgbWFuYWdlZAo+IGRldm1fcmVzZXRfY29udHJvbF9hcnJheV9n
-ZXRfb3B0aW9uYWxfZXhjbHVzaXZlIGZ1bmN0aW9uLCB3aGlsZSB0aGUgY29kZQo+IGJlbG93IGFj
-dHVhbGx5IHVzZXMgdGhlIHVubWFuYWdlZCBvZl9yZXNldF9jb250cm9sX2FycmF5X2dldF9vcHRp
-b25hbF9leGNsdXNpdmUKPiBmdW5jdGlvbi4KPiAKPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2Ns
-b2Nrc291cmNlL2R3X2FwYl90aW1lcl9vZi5jIGIvZHJpdmVycy9jbG9ja3NvdXJjZS9kd19hcGJf
-dGltZXJfb2YuYwo+ID4gLS0tIGEvZHJpdmVycy9jbG9ja3NvdXJjZS9kd19hcGJfdGltZXJfb2Yu
-Ywo+ID4gKysrIGIvZHJpdmVycy9jbG9ja3NvdXJjZS9kd19hcGJfdGltZXJfb2YuYwo+IFsgLi4u
-IF0KPiA+IEBAIC0yOSw5ICsyOSwxMSBAQCBzdGF0aWMgaW50IF9faW5pdCB0aW1lcl9nZXRfYmFz
-ZV9hbmRfcmF0ZShzdHJ1Y3QgZGV2aWNlX25vZGUgKm5wLAo+ID4gIAkvKgo+ID4gIAkgKiBSZXNl
-dCB0aGUgdGltZXIgaWYgdGhlIHJlc2V0IGNvbnRyb2wgaXMgYXZhaWxhYmxlLCB3aXBpbmcKPiA+
-IC0JICogb3V0IHRoZSBzdGF0ZSB0aGUgZmlybXdhcmUgbWF5IGhhdmUgbGVmdCBpdAo+ID4gKwkg
-KiBvdXQgdGhlIHN0YXRlIHRoZSBmaXJtd2FyZSBtYXkgaGF2ZSBsZWZ0IGl0Lgo+ID4gKwkgKiBV
-c2UgYXJyYXkgdmFyaWFudCB0byBoYW5kbGUgbXVsdGlwbGUgcmVzZXRzIChlLmcuLCB0aW1lcgo+
-ID4gKwkgKiBhbmQgQVBCIGludGVyZmFjZSByZXNldHMpIGlmIHNwZWNpZmllZCBpbiB0aGUgZGV2
-aWNlIHRyZWUuCj4gPiAgCSAqLwo+ID4gLQlyc3RjID0gb2ZfcmVzZXRfY29udHJvbF9nZXQobnAs
-IE5VTEwpOwo+ID4gKwlyc3RjID0gb2ZfcmVzZXRfY29udHJvbF9hcnJheV9nZXRfb3B0aW9uYWxf
-ZXhjbHVzaXZlKG5wKTsKPiA+ICAJaWYgKCFJU19FUlIocnN0YykpIHsKPiA+ICAJCXJlc2V0X2Nv
-bnRyb2xfYXNzZXJ0KHJzdGMpOwo+ID4gIAkJcmVzZXRfY29udHJvbF9kZWFzc2VydChyc3RjKTsK
-PiA+ICAJfQo+IAo+IFtTZXZlcml0eTogSGlnaF0KPiBEb2VzIHRoaXMgY29kZSBsZWFrIHRoZSBl
-eGNsdXNpdmUgcmVzZXQgY29udHJvbCBhcnJheT8KPiAKPiBTaW5jZSBvZl9yZXNldF9jb250cm9s
-X2FycmF5X2dldF9vcHRpb25hbF9leGNsdXNpdmUgaXMgdXNlZCBpbnN0ZWFkIG9mIHRoZQo+IG1h
-bmFnZWQgZGV2bSB2YXJpYW50LCB0aGUgcmV0dXJuZWQgcnN0YyBuZWVkcyB0byBiZSBtYW51YWxs
-eSBmcmVlZC4KPiAKPiBCZWNhdXNlIHRoaXMgQVBJIGFjcXVpcmVzIGV4Y2x1c2l2ZSByZWZlcmVu
-Y2VzIHRvIHRoZSByZXNldHMgKHdoaWNoIHRoZQo+IGNvbW1lbnQgbm90ZXMgbWlnaHQgaW5jbHVk
-ZSBzaGFyZWQgQVBCIGludGVyZmFjZSByZXNldHMpLCBleGl0aW5nCj4gdGltZXJfZ2V0X2Jhc2Vf
-YW5kX3JhdGUgd2l0aG91dCBjYWxsaW5nIHJlc2V0X2NvbnRyb2xfcHV0KHJzdGMpIGxlYXZlcwo+
-IHRoZXNlIHJlc2V0cyBwZXJtYW5lbnRseSBsb2NrZWQuCj4gCj4gQ291bGQgdGhpcyBwcmV2ZW50
-IG90aGVyIGRldmljZXMgb24gdGhlIGJ1cyBmcm9tIGFjcXVpcmluZyB0aGVpciBzaGFyZWQKPiBy
-ZXNldHMgZHVyaW5nIHByb2JlIGJ5IHJldHVybmluZyAtRUJVU1k/CgpIaSBTYXNoaWtvLAoKV2ls
-bCBjaGFuZ2UgZGV2bV9yZXNldF9jb250cm9sX2FycmF5X2dldF9vcHRpb25hbF9leGNsdXNpdmUo
-KSB0bwpvZl9yZXNldF9jb250cm9sX2FycmF5X2dldF9vcHRpb25hbF9leGNsdXNpdmUoKSBpbiBj
-b21taXQgbWVzc2FnZS4KCkFkZCByZXNldF9jb250cm9sX3B1dChyc3RjKSBhZnRlciBkZWFzc2Vy
-dC4gVGhlIG5leHQgdmVyc2lvbiB3aWxsIGJlwqAKdXBkYXRlZCB3aXRoIHRoZSBmb2xsb3dpbmcg
-Y2hhbmdlcy7CoAoKLQlyc3RjID0gb2ZfcmVzZXRfY29udHJvbF9nZXQobnAsIE5VTEwpOworCXJz
-dGMgPSBvZl9yZXNldF9jb250cm9sX2FycmF5X2dldF9vcHRpb25hbF9leGNsdXNpdmUobnApOwog
-CWlmICghSVNfRVJSKHJzdGMpKSB7CiAJCXJlc2V0X2NvbnRyb2xfYXNzZXJ0KHJzdGMpOwogCQly
-ZXNldF9jb250cm9sX2RlYXNzZXJ0KHJzdGMpOworCQlyZXNldF9jb250cm9sX3B1dChyc3RjKTsK
-KwkJcnN0YyA9IE5VTEw7CiAJfQoKRG8geW91IHRoaW5rIHRoaXMgY2hhbmdlIGlzIGNvcnJlY3Q/
-CgpCZXN0IHJlZ2FyZHMsClh1eWFuZyBEb25nCgo+IAo+IC0tIAo+IFNhc2hpa28gQUkgcmV2aWV3
-IMK3IGh0dHBzOi8vc2FzaGlrby5kZXYvIy9wYXRjaHNldC8yMDI2MDcyNDA4NDE1My4xNDczLTEt
-ZG9uZ3h1eWFuZ0Blc3dpbmNvbXB1dGluZy5jb20/cGFydD01Cg==
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Schema validation failure for MT8173 GPU due to inherited power-=
+domain constraints
+--
+
+--- Patch [3]: [PATCH v3 3/5] dt-bindings: gpu: powervr-rogue: Add MediaTek=
+ MT8173 GPU ---
+commit 560e4cee0c5fbc6b0c5d09c24c260e205ca79e47
+Author: Chen-Yu Tsai <wenst@chromium.org>
+
+dt-bindings: gpu: powervr-rogue: Add MediaTek MT8173 GPU
+
+The MediaTek MT8173 comes with a PowerVR Rogue GX6250, which is one
+of the Series6XT GPUs, another sub-family of the Rogue family.
+
+[1] https://lore.kernel.org/dri-devel/6eeccb26e09aad67fb30ffcd523c793a43c79=
+c2a.camel@imgtec.com/
+
+> diff --git a/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml=
+ b/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml
+> index a1f54dbae3f31..53131cd4cc2a3 100644
+> --- a/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml
+> +++ b/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml
+> @@ -15,6 +15,7 @@ properties:
+>      oneOf:
+>        - items:
+>            - enum:
+> +              - mediatek,mt8173-gpu
+
+[Severity: Medium]
+Will this cause schema validation failures for the MT8173 GPU node?
+
+By using img,img-gx6250 as the fallback compatible string here, it seems th=
+is
+will trigger the allOf conditional block lower in the file:
+
+  - if:
+      properties:
+        compatible:
+          contains:
+            enum:
+              - img,img-bxs-4-64
+              - img,img-ge7800
+              - img,img-gx6250
+    then:
+      properties:
+        power-domains:
+          minItems: 2
+        power-domain-names:
+          minItems: 2
+
+Since mediatek,mt8173-mfgtop only provides a single power domain, wouldn't
+forcing minItems: 2 cause valid device trees to fail dt_binding_check? Shou=
+ld
+the conditional block be updated to exclude mediatek,mt8173-gpu?
+
+>                - renesas,r8a7796-gpu
+>                - renesas,r8a77961-gpu
+>            - const: img,img-gx6250
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727091555.1023=
+910-1-wenst@chromium.org?part=3D3
