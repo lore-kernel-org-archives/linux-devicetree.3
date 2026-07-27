@@ -1,277 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B21E731714F
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 22:08:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 016F331ED7D
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 22:17:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785190104; cv=none; b=dpNsrnoG0iYRd+TVN0Cg25H2EiSxMqu3VXpAMDELGX5QzBs5XUBFMS8ZC5Jj3L+5vDnmhyrVgoZkmxgKLqFmiYLlL+jyuLMY4PkawgQDtrUMTliDVBq56JPHbFdNw20D3B5hr9s8L1fG6AyDUhobVfT0xnmOoy1cobhhXsOiv/M=
+	t=1785190654; cv=none; b=cDVGW3wED1HEBit++5uH7wc3WETsqILSqbdaVZgWoWT5vp0K4irh89qtMWvOrQVFJkoJMjELwltYVGXqqAi/tjS6VjfELC6kF2u3kwXaxVKoAAyQ1LYf04W7sY/CP/tTF24Kj0x1TS7t4eUgpzafDWVp8zqj/+C8aGgGg1zSQ94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785190104; c=relaxed/simple;
-	bh=V/vVVN2kulSk3WLKWDXxUZfuzxuFd8fLRCR06SjF35E=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FLpm8DMQGmB5JhMYaasT3YASbQ66wXNP9y8CFb32VNbGbnsjvBc/XNizTG0QWd8E1A4+eLXQlOhnIS09xJaHjQaCbzV+oCI5jCSitoTMRFODaZ7reEe1IdDKAWmAjHIFLRl9pHaKG5IC8BqM1TIOaL3tcllA95sjW+COW+AJ9GE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BWpcOA0d; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785190654; c=relaxed/simple;
+	bh=C2wVsnzMrlaFNpjiWg2lF/x15d3RO92rxlUSPYdvo3E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LyYgfaA08203TKkilKAFkT7pgJHTEAqFAfP1PQ+OlzitMnc39bOvzUdCFGggjAg5oYjVj7mmtVSrRlYUyYmjanBv8otaftijq8JT1S/Kuqpq32FNacA4gG+Xmo+H/nCOES9Jao70L0a2f2/B6JnCTMQI50R5PM62C6d8m/E0avc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fI0BPO3p; arc=none smtp.client-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BWpcOA0d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1136D1F000E9;
-	Mon, 27 Jul 2026 22:08:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785190102;
-	bh=dTf7efpo3FblNLAmKELD1qJO7n2U3Oq+MhF+XgsIcAA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BWpcOA0dh4a2M0d1FnHFxS2wbRiV9e9sZLWFeDanC5pSZ+Hn/TQokTiTelv02jGwg
-	 jNakJM5vrgO0t5B6wqw9ffq0k9ecJQ0HaVsen6b/y4vOSoqxD7SiIkMn9xEwMpJm3T
-	 glqoQJRMHz3kF8kJdNsq1g+uAyl1olBxbq5ij5yUNXU32YhHoQbwtoQq7De1Nec1PU
-	 MnN4ELDIbZmEAepd7mOYJzUjinV4rlkqKCfjOXrkQShSNeeqJrI0hTDG47z2gmxKFc
-	 zzWn64Bpcyl2tdKQ1O/OMXnGoGhl1oheKYEPb599ArDdHSHiPPOSpKXy1KKoXT74vL
-	 iDVpIEHHpBpOw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/5] iommu: Add Broadcom BCM2712 IOMMU driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Daniel Drake" <dan@reactivated.net>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260727-bcm2712-iommu-submit-v2-4-0247b5c03de8@reactivated.net>
-References: <20260727-bcm2712-iommu-submit-v2-0-0247b5c03de8@reactivated.net>
- <20260727-bcm2712-iommu-submit-v2-4-0247b5c03de8@reactivated.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 27 Jul 2026 22:08:21 +0000
-Message-Id: <20260727220822.1136D1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fI0BPO3p"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2cf41bab353so46034855ad.0
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 15:17:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785190651; x=1785795451; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9SUe3YgVQms8Mfqwt9m0ylQTCLjUd6H2eV8tKFqZQjg=;
+        b=fI0BPO3p1cWqEkIvUDVqTmxUc0SLX0UwuKH7+cYBDEGcgQDX7dQ9QGZLzT5TK9iIWM
+         O7nPhsoW+oTmxN0Dg+8LBqxU919derY8qqQ8qMVuC29UBFoAhF4KY3vE/JiIdXourFUA
+         ghavMZdVzaR4c9bSN7xUED1IpsXfEdtP6xNY5ITgdCdlYQ1mT089U0TRPvWUH8RDBzM2
+         IFwW9D2Wa01M6dm8KPAji+RncmWINQDchcMHm+Z066nlWTlsLcF7eTQpyinnU/s1C/xf
+         NGjEPRCnjr7U0pqZr7GgqcQozNFViB5ArVSgD3G/Zl+iGlplwy8PwUS1w6RUOu8fbx4J
+         P16w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785190651; x=1785795451;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9SUe3YgVQms8Mfqwt9m0ylQTCLjUd6H2eV8tKFqZQjg=;
+        b=BNVLCCjVHwuTo+FwImEG03n80C6AGUyTejWNPW/qrJAQjYOvHD/i2jM9g67s5l8Xcb
+         gSTPjn7UipSBX8jzNK7K2140yZgscohVZh4zg8rkMeAV2EUMRZSKfd4R5c/VyjWCwRvy
+         VhKyKOrsE0bNsvSGEIS6C1qScnee5UTA6IK5fD3omLpJOEX75n0INclm+kkqyUNhbM5W
+         09MgqN2qUzStzsARNxSYi+tnzbXLjQMNPv3VThqtG7FZ2arMCqL+uTfcLD/HMTWbfA6O
+         7DC9VzLCtIvBEojaF1Ob3Ztczkdsxes3nEi9eE/e0NqMFKjZsLI9vtLF/7BAffwaeoqf
+         Ytuw==
+X-Gm-Message-State: AOJu0YxldotQE9jHvNjRgAHgUWmXxsaIbMrFP1EUguWK47Qyp1BxJxLH
+	fBGJ40DbcEelV531AAVUhoakiy9kvK4ixG05Zl6fcfi36FDYAK0keHSjU4LW9C7Z
+X-Gm-Gg: AR+sD13FMFSbYV0cMFpQpKq+hsOLXLjoR9Ku4rbSMS8YbBFqNT5gloS5H7uvzqLMsXZ
+	Gx4+vMPNsoEBElcVLwHFPQnE2tmtlv0Hoszvwiz+fC+GBgDMewtT0/tVqLkNHxkUjqs97+oCZDy
+	yvqoZNQx66tE22BEvxGKsR4zmxQdG2+2aqC6HyjM31h4X0VTrvz/x3/X9dV8VjEzVZ66vIECzxp
+	fIEcKntd2U1PWytoQIQ1soMOrVd/ZjL6ixL8dNHkcZdWAUK59Y9sjMfkAMqr10ErS6ItRQAXclE
+	jA9vnMrGSKmfTyW7vQkw/sRU4fNXve3wUMFy/I1d5d6R3YY2+qZ/qvSajJFIuX5bOeeT9reqG2Q
+	YYaDJ5VIcPunOA0aCS0XkfSM01Q2onwrDHb52IR0jh5Z0rq2zbZ80GuTMNr/4giA1StXuhus78N
+	RtzQeUDf8KzQDKTHlPWGyJfcYDvEGC4WaYEr2dlInKusP+tbbSPmoTqIyAIdFlSeTuOQiFBayQi
+	4xBGI+kvrTioOcGTDuoXB5Uw6vebWaShJiXln0D2q/0TrzIA+x7Wug=
+X-Received: by 2002:a17:902:da4d:b0:2cc:6817:d9b1 with SMTP id d9443c01a7336-2cfde8a52a7mr95829175ad.41.1785190651008;
+        Mon, 27 Jul 2026 15:17:31 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cfde5e2881sm41155645ad.25.2026.07.27.15.17.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Jul 2026 15:17:30 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: devicetree@vger.kernel.org
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+	Hauke Mehrtens <hauke@hauke-m.de>,
+	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org (moderated list:BROADCOM BCM5301X ARM ARCHITECTURE),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] ARM: dts: BCM5301X: Add missing phy-mode and fixed-link to DSA switch ports
+Date: Mon, 27 Jul 2026 15:17:28 -0700
+Message-ID: <20260727221728.40811-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
-s) to consider:
-- [High] Race condition in cache initialization exposes uninitialized memor=
-y to IOMMU devices.
-- [High] TLB synchronization only flushes the original MMU when a domain is=
- shared across multiple MMUs.
-- [High] Generic page table is misconfigured with a 32-bit VASZ for 36-bit =
-IOVAs.
-- [High] Missing device links for devres-managed dependencies leading to Us=
-e-After-Free.
-- [High] Missing MMU local TLB flush when attaching a domain.
-- [High] TLB synchronization corrupts live hardware state for unattached do=
-mains.
-- [Medium] Format string vulnerability via dynamic device name in `iommu_de=
-vice_sysfs_add`.
-- [Low] COMPILE_TEST allows 32-bit builds, causing 64-bit IOVA constants to=
- truncate.
---
+Ports 5, 7 and 8 in the BCM5301x SRAB switch node carry an 'ethernet'
+property linking them to GMACs, but lack the required 'phy-mode' and
+'fixed-link' properties. The DSA port schema (dsa-port.yaml) mandates
+that any port with an 'ethernet' property must also have 'phy-mode'
+and one of 'fixed-link', 'phy-handle', or 'managed'.
 
---- Patch [4]: [PATCH v2 4/5] iommu: Add Broadcom BCM2712 IOMMU driver ---
-commit cf5d6742acaca9334ddee5d5953d5aba3f7cdcb7
-Author: Daniel Drake <dan@reactivated.net>
+Add phy-mode = "internal" and a fixed-link subnode to ports 5, 7
+and 8, matching the properties already present on their respective
+GMAC nodes (gmac0, gmac1, gmac2). This resolves dtbs_check schema
+validation warnings for all BCM5301x-based board DTBs.
 
-iommu: Add Broadcom BCM2712 IOMMU driver
+Assisted-by: Opencode:Big-Pickle
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ arch/arm/boot/dts/broadcom/bcm-ns.dtsi | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-This commit introduces the Broadcom BCM2712 IOMMU driver used on Raspberry =
-Pi
-5, enabling memory translation for the VC6 display pipeline and multimedia
-devices. It supports a 4GB translation aperture at a high memory address and
-includes a shared IOMMU cache.
+diff --git a/arch/arm/boot/dts/broadcom/bcm-ns.dtsi b/arch/arm/boot/dts/broadcom/bcm-ns.dtsi
+index 27a97c8122de..609f56ab936c 100644
+--- a/arch/arm/boot/dts/broadcom/bcm-ns.dtsi
++++ b/arch/arm/boot/dts/broadcom/bcm-ns.dtsi
+@@ -439,16 +439,29 @@ port@4 {
+ 			port@5 {
+ 				reg = <5>;
+ 				ethernet = <&gmac0>;
++				phy-mode = "internal";
++
++				fixed-link {
++					speed = <1000>;
++					full-duplex;
++				};
+ 			};
+ 
+ 			port@7 {
+ 				reg = <7>;
+ 				ethernet = <&gmac1>;
++				phy-mode = "internal";
++
++				fixed-link {
++					speed = <1000>;
++					full-duplex;
++				};
+ 			};
+ 
+ 			port@8 {
+ 				reg = <8>;
+ 				ethernet = <&gmac2>;
++				phy-mode = "internal";
+ 
+ 				fixed-link {
+ 					speed = <1000>;
+-- 
+2.55.0
 
-> diff --git a/drivers/iommu/bcm2712-iommu-cache.c b/drivers/iommu/bcm2712-=
-iommu-cache.c
-> new file mode 100644
-> index 0000000000000..d97a8cda448ee
-> --- /dev/null
-> +++ b/drivers/iommu/bcm2712-iommu-cache.c
-[ ... ]
-> +static int bcm2712_iommu_cache_probe(struct platform_device *pdev)
-> +{
-> +	struct bcm2712_iommu_cache *cache;
-> +
-> +	cache =3D devm_kzalloc(&pdev->dev, sizeof(*cache), GFP_KERNEL);
-> +	if (!cache)
-> +		return -ENOMEM;
-> +
-> +	platform_set_drvdata(pdev, cache);
-> +	spin_lock_init(&cache->hw_lock);
-> +
-> +	cache->reg_base =3D devm_platform_ioremap_resource(pdev, 0);
-
-[Severity: High]
-Is there a race condition here during parallel device probing? By
-publishing the cache driver data globally before the IO memory is mapped,
-a concurrent probe of the IOMMU driver could retrieve the cache device and
-call bcm2712_iommu_cache_flush() on an uninitialized cache->reg_base. If
-the IO remap fails, could this also leave the IOMMU driver with a dangling
-pointer?
-
-> diff --git a/drivers/iommu/bcm2712-iommu.c b/drivers/iommu/bcm2712-iommu.c
-> new file mode 100644
-> index 0000000000000..55678009f9c45
-> --- /dev/null
-> +++ b/drivers/iommu/bcm2712-iommu.c
-[ ... ]
-> +static int bcm2712_iommu_attach_dev(struct iommu_domain *domain,
-> +				    struct device *dev,
-> +				    struct iommu_domain *old)
-> +{
-[ ... ]
-> +	/* Flush (and enable) the shared TLB cache; enable this MMU. */
-> +	bcm2712_iommu_cache_flush(mmu->cache);
-> +	MMU_WR(MMMU_CTRL_OFFSET, MMMU_CTRL_OPERATING_FLAGS);
-
-[Severity: High]
-Does this miss flushing the local TLB on the MMU when attaching a domain?
-The hardware is configured with MMMU_CTRL_OPERATING_FLAGS but omits the
-MMMU_CTRL_TLB_CLEAR bit. If the device was previously attached to a
-different domain or identity mode, will the local TLB retain stale
-translation entries?
-
-> +unlock:
-> +	spin_unlock_irqrestore(&mmu->hw_lock, flags);
-> +	return 0;
-> +}
-[ ... ]
-> +static int bcm2712_iommu_sync_range(struct iommu_domain *domain,
-> +				    unsigned long iova, size_t size)
-> +{
-> +	struct bcm2712_iommu *mmu =3D domain_to_mmu(domain);
-
-[Severity: High]
-If a domain is shared across multiple IOMMU hardware instances, will this
-only retrieve and flush the original MMU it was allocated with? The IOMMU
-framework can attach a single domain to multiple devices. Since
-bcm2712_iommu_domain_alloc() hardcodes domain->mmu to the first MMU, will
-all other attached MMU instances retain stale TLB entries?
-
-> +	unsigned long flags;
-> +	u32 val;
-> +
-> +	spin_lock_irqsave(&mmu->hw_lock, flags);
-> +	bcm2712_iommu_cache_flush(mmu->cache);
-> +
-> +	/* If invalidating more than 16MB, just do a full TLB clear */
-> +	if (size >=3D SZ_16M) {
-> +		MMU_WR(MMMU_CTRL_OFFSET,
-> +		       MMMU_CTRL_OPERATING_FLAGS | MMMU_CTRL_TLB_CLEAR);
-
-[Severity: High]
-Could this corrupt live hardware state for unattached domains?
-The IOMMU API allows mapping memory into a domain before it is attached to
-a device. When iommu_map() calls bcm2712_iommu_sync_map(), will this
-unconditionally overwrite the active hardware state of an MMU that might
-currently be operating in identity mode or disabled?
-
-[ ... ]
-> +static struct iommu_domain *bcm2712_iommu_domain_alloc(struct device *de=
-v)
-> +{
-[ ... ]
-> +	/* 2-level format: 10-bit L1 + 10-bit L2 + 12-bit page offset */
-> +	cfg.common.hw_max_vasz_lg2 =3D
-> +		(2 * PTES_PER_IOPG_SHIFT) + IOMMU_PAGE_SHIFT;
-> +
-> +	/* PTEs encode a 28-bit output address PFN */
-> +	cfg.common.hw_max_oasz_lg2 =3D 28 + IOMMU_PAGE_SHIFT;
-> +
-> +	ret =3D pt_iommu_bcm2712_init(&domain->pt, &cfg, GFP_KERNEL);
-> +	if (ret)
-> +		goto err;
-> +
-> +	/* Set up a default (error) page used to catch illegal reads/writes */
-> +	domain->default_page =3D iommu_alloc_pages_sz(GFP_KERNEL, PAGE_SIZE);
-> +	if (!domain->default_page)
-> +		goto err;
-> +
-> +	domain->base.geometry.aperture_start =3D BCM2712_APERTURE_BASE;
-
-[Severity: High]
-Does this misconfigure the generic page table for 36-bit IOVAs?
-The driver sets cfg.common.hw_max_vasz_lg2 to 32 (4GB capacity), but the
-aperture is placed at 40GB (BCM2712_APERTURE_BASE), which requires 36
-bits.
-
-Since the generic PT operations are wired up directly via
-IOMMU_PT_DOMAIN_OPS(bcm2712) without masking the 40GB base offset from the
-incoming IOVAs, will the generic PT allocator process 36-bit IOVAs against
-a 32-bit configured capacity and cause out-of-bounds indexing or map
-rejections?
-
-[Severity: Low]
-Can this cause 64-bit IOVA constants to truncate on 32-bit architectures?
-The driver assigns BCM2712_APERTURE_BASE to
-domain->base.geometry.aperture_start. Since COMPILE_TEST in Kconfig allows
-building without 64BIT guarantees, dma_addr_t might be 32-bit. Will this
-assignment overflow and break compile testing correctness?
-
-> +	domain->base.geometry.aperture_end =3D BCM2712_APERTURE_END - 1;
-> +	domain->base.geometry.force_aperture =3D true;
-> +	domain->base.ops =3D &bcm2712_paging_domain_ops;
-> +	return &domain->base;
-> +
-> +err:
-> +	bcm2712_iommu_domain_free(&domain->base);
-> +	return NULL;
-> +}
-> +
-> +static struct bcm2712_iommu *
-> +bcm2712_iommu_get_by_fwnode(struct fwnode_handle *fwnode)
-> +{
-> +	struct device *dev =3D
-> +		bus_find_device_by_fwnode(&platform_bus_type, fwnode);
-> +	struct bcm2712_iommu *mmu;
-> +
-> +	if (!dev)
-> +		return NULL;
-> +
-> +	mmu =3D dev_get_drvdata(dev);
-> +	put_device(dev);
-> +	return mmu;
-> +}
-
-[Severity: High]
-Does dropping the device reference here without a device link risk a
-use-after-free? The driver returns a pointer to devres-managed private
-data. If the underlying device is unbound via sysfs, devres will free the
-object, leaving a dangling pointer.
-
-[ ... ]
-> +static int bcm2712_iommu_init_cache(struct bcm2712_iommu *mmu,
-> +				    struct platform_device *pdev)
-> +{
-[ ... ]
-> +	mmu->cache =3D platform_get_drvdata(cache_pdev);
-> +	if (!mmu->cache) {
-> +		put_device(&cache_pdev->dev);
-> +		return -EPROBE_DEFER;
-> +	}
-> +
-> +	put_device(&cache_pdev->dev);
-
-[Severity: High]
-Similarly, does dropping the cache device reference here require
-establishing a device link? If the cache device is unbound, devres will
-immediately free the cache object. Any subsequent DMA unmap operation on
-the IOMMU side will attempt to flush the cache and dereference the
-dangling mmu->cache pointer.
-
-> +	return 0;
-> +}
-> +
-> +static int bcm2712_iommu_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	ret =3D iommu_device_sysfs_add(&mmu->iommu, dev, NULL, dev_name(dev));
-
-[Severity: Medium]
-Is it safe to pass a dynamic string directly as the format string
-parameter to iommu_device_sysfs_add()? If the device tree node name
-happens to contain format specifiers, kobject_set_name_vargs() will
-misinterpret them. Could this be updated to pass "%s", dev_name(dev)?
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D iommu_device_register(&mmu->iommu, &bcm2712_iommu_ops, dev);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727-bcm2712-io=
-mmu-submit-v2-0-0247b5c03de8@reactivated.net?part=3D4
