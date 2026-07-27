@@ -1,145 +1,188 @@
-Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCE4E3815E8;
-	Mon, 27 Jul 2026 15:24:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.154.119.183
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C2A738F926
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 15:26:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785165893; cv=none; b=RN5PLACqZdVbtQaKlRE4PvOxzZ9gUH9U01POcGLcZljUav6ACLei3W9cGFKFVnFj5QHJMP1+9sakqrXNxPquShzOr/Ey9/2gn4bkUfbVf9+2vi203hUNMon8XS/IffLRmaxqc4cdMNBzZ/tzn7nX9Wc6e2j6rKH8HCGaCKg02Mg=
+	t=1785165972; cv=none; b=SXUjF+IIX/7CckSbP/bJpxzEU6w3gLjv8YZ9qSggOPDFywWzuA27vfiDxvWa1LUT/lomg9S+egiBpoyvx2Nu14t2hRanZWHXgdKuMteS9CVV6MYt3ki00+CEjr6sajI/2i8Bcr6VpyOCPawvinMrDNM8F6l8QtlkmzoutYSqSlk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785165893; c=relaxed/simple;
-	bh=FJpOlBy2S/XoBZDiGh6c9vnD4PM+zA7zeXI+r4BVUPQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Oc/renG/CgiPfj0Px/cuqOTFxMxi9ApIO/PalNd3q123dVibNVfjsg5N61LHUfgbUrr3O0+DVqJOnHwYLwOV/5ajzUC/n92vHv+OiQfaOh5BwAbHgEyx7MJd3FDbkoWug7M4phtS9n0M2gZGFqw18c4nk94HK2FOgrPOHpEC7Bw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net; spf=pass smtp.mailfrom=aurel32.net; dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b=ddq2pVYQ; arc=none smtp.client-ip=195.154.119.183
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
+	s=arc-20240116; t=1785165972; c=relaxed/simple;
+	bh=jCX/t1yiKMFXFR/9W9FCANO4cwyalQDT1rIgMKro8pg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bU+WG8niKGYjLX6cozdXRYBTbpNQfS6PW9wipkoTGRaH/SjlqIGmXZr2c3be2tDs8eqob4IV+q/56fpDb4ot4j4f6Wz71APN5jdAxXmlzMfLWud4yWLEKflW0efrmTETO4LrBuCFkvcqXsJyMRNq+gZ8/puDgT8tgGRdXduMzq0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ywu5svRP; arc=none smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b="ddq2pVYQ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
-	; s=202004.hall; h=In-Reply-To:Content-Type:MIME-Version:References:
-	Message-ID:Subject:Cc:To:From:Date:Content-Transfer-Encoding:From:Reply-To:
-	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
-	bh=93gQyKs/Loc50T0J0Ycz+Bfql8No0r2Sptp8WTz9pkU=; b=ddq2pVYQC9FeOWffCFBQ5sGKJX
-	T5kZnOZDOP04yCpIfBjoYeGAV1f9C6QYWwdonbdvcds1Q6ADdHgABKrbJ+S+trTG8Tp+vhkTo1ErT
-	TPLx9Gn95sBGPJYc5z5rxeE8W7CkAo1VMt56BH3/kBqkvWthkdnHW6kJI5QmiaZgnsS6cLsnP4eAO
-	UcU3GLz1GxaC1WlxaJxdrnx0IedePVJIXr2qxbcF5QZP77rYwIGB7Vn7Ybdi2FWpEdTR/erJ5ADhd
-	Xh+RyDt1lTpCqZK5Q/vmFLlxUoTMilOvNoeTNYHrpgtu+w+12/RyCa8rUiOFb/TV+Ui1XyWcWHsgP
-	9flGjf0Q==;
-Received: from authenticated user
-	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <aurelien@aurel32.net>)
-	id 1woMpm-0000000HTK4-3XKG;
-	Mon, 27 Jul 2026 17:01:38 +0200
-Date: Mon, 27 Jul 2026 17:01:34 +0200
-From: Aurelien Jarno <aurelien@aurel32.net>
-To: Yixun Lan <dlan@kernel.org>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>,
-	Avri Altman <avri.altman@sandisk.com>,
-	Bart Van Assche <bvanassche@acm.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
-	Jennifer Berringer <jberring@redhat.com>,
-	linux-scsi@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] Add UFS Host driver support for SpacemiT K3 SoC
-Message-ID: <amdyzkFplQqJvMl1@aurel32.net>
-Mail-Followup-To: Yixun Lan <dlan@kernel.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Avri Altman <avri.altman@sandisk.com>,
-	Bart Van Assche <bvanassche@acm.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
-	Jennifer Berringer <jberring@redhat.com>,
-	linux-scsi@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-References: <20260725-08-k3-ufs-support-v2-0-45036a2a2418@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ywu5svRP"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2cca0c5799eso26761895ad.0
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 08:26:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785165970; x=1785770770; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MV+Z3ZWLjWlSqzF9OwMp08V406kpWl/9yom+vwodzic=;
+        b=Ywu5svRPNRsof1smHdTeV6HK28GpZnH5OE9lsoVRJnnMQDAU2LT+2OOgLwG+M2Od/U
+         1Z8J0Z1WDC8rJ0UwrvtO24jS/SrGoWOTeeGbLgIu/dxuNAlbY38VjPQqt1a1831A0Byz
+         YjUhsxaqszJRj8h/BeZRfa23hfKEptSqYj1QHzq4IoQyGcIiICAAXD/R3o1ZUFRZtO9x
+         X4ss84XwiG+jMLeuwDauGa4ox7vLGpLWrVLHRvAtfJ16VLU/n34ARpwtLv8kpxn2oC1H
+         pI0WCdyEavl1wnVoFmmaVqVc9tXi1peTrN8ppkABbtyYUb8jWtjnHmqxhN4GC1o4rQQO
+         NZLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785165970; x=1785770770;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=MV+Z3ZWLjWlSqzF9OwMp08V406kpWl/9yom+vwodzic=;
+        b=dhNoLJs0DbYuKxJTdAYzJwUBujzMp8LBykWrGOh6NASmiHlwfzq2cW8wY6r4viWhfj
+         hN2wi5ZE0EPB7YM7SDMP3aHSjYlRcyqWAc2WUag6AG2gh6tgDdZi1J8+4f9LuCMKCo2n
+         cFY1+kK+DmZDAyVHJmKWp6JX/N9kVs0wWLg7HB/R/yCNDLA0RV1ua6bogOF9aPkXr6yR
+         k7TMpVAK7TeaNa1uiID6gPWQ9nSh61caRKmD9SCZGdGFA4Mxq+SUQKpVPDqZhpii1NOP
+         ZBZXTCZujMpZ3FZ+JMGE9+dUVnrfA2wRTuDGgXm3IQIxIsoq9Qm0yjNDqPca4yMZH3UP
+         DlIA==
+X-Forwarded-Encrypted: i=1; AHgh+RpjZEkFLZ664v9T1Or7bM9k6StgENGvgMotWPtzfamLvoe7XURHs2P3z31b4t8pNZFcujGwyRzD7fgD@vger.kernel.org
+X-Gm-Message-State: AOJu0YwCeshIc4L5lYLEBL6/+Z4h2z8jK3TDMSViq+3Xw86m4lTLBKoO
+	TiDUSyhOz2YCnDRAbO0vhCxKmTe2T+rbod/uWxhIGz0/qNjmTmA7CSss
+X-Gm-Gg: AR+sD12ATaKxLXTg3qPnVyfbjnrcTHiYYBhngr0NnSoDN8GREBXhZFfIRm6KHdkqFlv
+	yrhhvu+xnskSwWgDPcAPoMF/9Omj5OQ36AvwyXuGFv0Tv5nW1RGXqdJKyjAN/1rFTn5uz5vzlE+
+	jMf6KGlivMRpEtHq7VoNs44WyGMz+ufNbBrDy/TgFpPAqb3PGkMLeXxAsuNAWC/qJCJC9v22t3S
+	r3swIU2opLVCPSckAEqonATwpgJq99jjzCEACMX5hkkFLbUbYqxNR6OkP+I+IdTb+OhWmSkh2qU
+	S7qw6VuH0WQkVs9nw57NXcUM9md0ugviicr4BeZ0mMJVKAGxQcPZWdl2gaGFlUf2ed+PyzbvH2G
+	FL/xCvk4UGJqgVM8NIN0f4fbP56oyEOUZIf5qu6Ktp79oUa9fo7j5u1rQlx3PjBjAwDvsIgDtcx
+	9lvHTYwjO4+5wdBbqkMaKL4j0haZ6YdiynkwbbODNQVFTOJThK3wY=
+X-Received: by 2002:a17:903:b90:b0:2ce:e747:c5d4 with SMTP id d9443c01a7336-2cfde885dd2mr80256105ad.46.1785165970563;
+        Mon, 27 Jul 2026 08:26:10 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cfde5e3a55sm38046635ad.28.2026.07.27.08.26.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 27 Jul 2026 08:26:09 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <9ceefa73-fa96-4cb6-ba96-191364c9b8b1@roeck-us.net>
+Date: Mon, 27 Jul 2026 08:26:08 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260725-08-k3-ufs-support-v2-0-45036a2a2418@kernel.org>
-User-Agent: Mutt/2.2.13 (2024-03-09)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/3] hwmon: (emc1403) Convert to use OF bindings
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ Jean Delvare <jdelvare@suse.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260721095935.439174-1-clamor95@gmail.com>
+ <20260721095935.439174-3-clamor95@gmail.com> <amGz2YZogakb5XAv@monoceros>
+ <CAPVz0n3WKw74zg0HmBBOo8Z7JV_pku-DjsgKF_74B8EdD5cXgA@mail.gmail.com>
+ <1d7b6ff4-4ea6-41c4-b59c-25e14fdd8b53@roeck-us.net>
+ <CAPVz0n1dwo13swmV8HCFfKEujT0HT5cktS_uqznK86eK3ZUGGg@mail.gmail.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <CAPVz0n1dwo13swmV8HCFfKEujT0HT5cktS_uqznK86eK3ZUGGg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 2026-07-25 10:37, Yixun Lan wrote:
-> This series try to add UFS support for SpacemiT K3 SoC, the controller
-> components consists of System Bus Interface Unit, UFS Host Controller
-> Interface, UFS Transport Protocol Layer, UFS Host Registers, Device
-> Management Entity (DME), Transport Layer, Network Layer, Data Link
-> Layer, PHY Adapter Layer, and M-PHY Interface. A more detail functional
-> block diagram can be found in SpacemiT website, chapter 9.7.3 [1]
+On 7/27/26 01:14, Svyatoslav Ryhel wrote:
+> сб, 25 лип. 2026 р. о 17:23 Guenter Roeck <linux@roeck-us.net> пише:
+>>
+>> On 7/25/26 06:24, Svyatoslav Ryhel wrote:
+>>> чт, 23 лип. 2026 р. о 09:28 Uwe Kleine-König
+>>> <u.kleine-koenig@baylibre.com> пише:
+>>>>
+>>>> Hello,
+>>>>
+>>>> On Tue, Jul 21, 2026 at 12:59:34PM +0300, Svyatoslav Ryhel wrote:
+>>>>> From: Jonas Schwöbel <jonasschwoebel@yahoo.de>
+>>>>>
+>>>>> Add OF match compatible table to be able to use this driver with Device
+>>>>> Trees.
+>>>>>
+>>>>> Signed-off-by: Jonas Schwöbel <jonasschwoebel@yahoo.de>
+>>>>> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+>>>>> Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+>>>>
+>>>> Please put your S-o-b line last.
+>>>>
+>>>
+>>> If S-o-b's should be chronological, then this order is correct.
+>>> Guenter added his reviewed-by after I have added my signed-off-by.
+>>>
+>>
+>> That refers to S-o-B, not to Reviewed-by: trailers.
+>>
+>> Do we really have to argue about something like this ?
 > 
-> Please note, in order to test this driver, the UFS clock driver[2] here
-> should be applied first as a prerequisite patch.
+> I am not arguing, looking for answers.
 > 
-> One known issue is that the device will occasionally raise BKOPS interrupt
-> when doing some high load test, log from dmesg shows
+>> Do I have to mandate the order of non-SoB trailers for this subsystem ?
+>>
 > 
-> [  806.710763] ufshcd-spacemit c0e00000.ufshc: ufshcd_bkops_exception_event_handler: device raised urgent BKOPS exception for bkops status 1
+> That actually may be a decent idea. In you have this stated strictly
+> for subsystem or have a consensus on kernel level then you can just
+> point a link to a documentation. Might simplify your maintainer work
+> ;)
 > 
-> Link: https://spacemit.com/community/document/info?nodepath=hardware/key_stone/k3/k3_docs/k3_usermanual/09_memory_storage.md&lang=en [1]
-> Link: https://lore.kernel.org/all/20260630-06-clk-ufs-support-v1-0-cf7521d1d0fe@kernel.org/ [2]
-> Signed-off-by: Yixun Lan <dlan@kernel.org>
-> ---
-> Changes in v2:
-> - fix missing interrupts property
-> - move ufs node to k3-com260.dtsi
-> - convert freq-table-hz to operating-points-v2
-> - rework reset_control, fix header and drop global variable
-> - drop dump_host_regs() debug interface
-> - converge and refactor dme_set() operations
-> - massive reduce of busy delay() loops
-> - drop vendor specific hce_enable_notify(), fallback to default
-> - drop unused member from struct ufs_spacemit_host
-> - add COMPILE_TEST support to Kconfig
-> - comment style fix
-> - Link to v1: https://patch.msgid.link/20260702-08-k3-ufs-support-v1-0-1a64a3ab128f@kernel.org
-> 
-> ---
-> Yixun Lan (3):
->       scsi: ufs: spacemit: dt-bindings: Add UFS controller for K3 SoC
->       scsi: ufs: spacemit: k3: Add UFS Host Controller driver
->       riscv: dts: spacemit: k3: Add UFS support
-> 
->  .../devicetree/bindings/ufs/spacemit,k3-ufshc.yaml |  56 ++
->  arch/riscv/boot/dts/spacemit/k3-com260.dtsi        |   4 +
->  arch/riscv/boot/dts/spacemit/k3-pico-itx.dts       |   4 +
->  arch/riscv/boot/dts/spacemit/k3.dtsi               |  27 +
->  drivers/ufs/host/Kconfig                           |  12 +
->  drivers/ufs/host/Makefile                          |   1 +
->  drivers/ufs/host/ufs-spacemit.c                    | 686 +++++++++++++++++++++
->  drivers/ufs/host/ufs-spacemit.h                    |  79 +++
->  8 files changed, 869 insertions(+)
-> ---
-> base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
-> change-id: 20260605-08-k3-ufs-support-c8b308e415e2
 
-Thanks for this new version. Patches 2 and 3 are:
+Up to now there used to be a common consensus, and it didn't seem necessary
+to specifically mandate anything but the Signed-off-by: order. Unfortunately,
+we live in a time where everyone deems it necessary to question everything.
+That doesn't just include the order of trailers. I even get buggy patches
+where the authors argue that "but this other driver has the same bug, so it
+should be ok to introduce it here as well".
 
-Tested-by: Aurelien Jarno <aurelien@aurel32.net>
+No, I am not going to explicitly mandate the order of trailers. If I'd do
+that, people would just find something else to argue about. I'll keep doing
+what I have always been doing: The more pointless arguments, the lower my
+review priority.
 
-Regards
-Aurelien 
+Guenter
 
--- 
-Aurelien Jarno                          GPG: 4096R/1DDD8C9B
-aurelien@aurel32.net                     http://aurel32.net
