@@ -1,192 +1,343 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 637B0351C2F
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 02:11:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CA81346E7D;
+	Mon, 27 Jul 2026 02:28:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785118287; cv=none; b=HtGHEw+lhR9Vlrnuo2Nn1SF3L/165KCjelZsFHxKq5QUsOGmJyQ8q2wt60mr8XdxOThAYrESfdF9R3lonnvp+zr7w9NMG+gL4WVzx3fcdcPEzZzqc0Fcl3Pv3EiZld9Xblq3KKVpjhdF1ARvdM2cNrXpzb9lKmgRHT0RGzxonMQ=
+	t=1785119324; cv=none; b=mYxeGFiOwFrnwozxqzFUxN4OKhjyv/KE7CoeZcbfY0y1S1caT1oH9kd0V9MVh6Mb9GPjo1ltCED7JSkw8DTnQ3YkrPCYBFJi3I8ENLcr9DsqwdR7eBiVID0ooK21IQ411kQn1JlfCp/DAhmlQ9T2FvSA31lF3Fobvb7LiFMpq2M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785118287; c=relaxed/simple;
-	bh=ulcn1ONX1LKOvS48LR+Zlazfgeceskv/+G7RTNzpweE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KLukkETfMbF7dHbuQ1+rPcdfX5K+aMVEGp/Kp0PWcd6gATeCj2s3cIdrX3MuQGiomVDiAPvk/pfxVbouWySAdGD4cO5WgJ9SmCX1uC6cj4oA4B+YLe7VNNK8xjz8W0AnrCcyKgapq08r9r6frht3KfuuDooOFkpHcTFsv2/Xx90=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m5qVb9CS; arc=none smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785119324; c=relaxed/simple;
+	bh=zWSb7OAwFXTRMLFltb79aslPO4i/zCUoD/lk4NGGr4w=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=AfpVWgP+NPwvzewvm4Gbs0yDNwCp0Z7kTR2lXjDJskNC1jEo8bXUUyIJNZXx9sAzsZAOcbrsLxhgNEpLZPNO8NCG4A70cAbFs7OiIePyduntESmM8GWHgVHkqYB042L9BWm1y5Yfdq+VaH3pTWuxTAs4qHv+l2ANyHpUTj2Myk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RmeAT6OB; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m5qVb9CS"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-381b831d535so2711731a91.0
-        for <devicetree@vger.kernel.org>; Sun, 26 Jul 2026 19:11:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785118286; x=1785723086; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dPr6vbLu8PqQb1lWRy/QmQ4lRtcpmb3vtoKOeXxnr9U=;
-        b=m5qVb9CSXLqkGb+r586ipZ4RfoX2a6yv1o+y+AcS0hKlGmjTRD5XTKy6GARfB+dsAt
-         PoOX8B7re2fc8F3Pw5U/HoLy+LtGvOW1cB9VqSrAlrdXC5f79F0+RmnQlY3KVZcuA+UW
-         OABYqTJEWLXMaRJNBkgUCYDO7A51pMRcuW3h7rxJ//6ev7dI3o/TK5VZk+8hTQVMm9gN
-         mdQPRvacvw3pNjlSl44GIH6gmQMa5zB2zwQne1K4p+KYyjOKgyI0yjsfn73t4YnfDumK
-         E/Kf0iABfkFQa+a9ivfquIeuaTUM6Nh+qoRfMSamzB60giNxePt6xi4aQ2dXYjmY7eUY
-         1Wnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785118286; x=1785723086;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dPr6vbLu8PqQb1lWRy/QmQ4lRtcpmb3vtoKOeXxnr9U=;
-        b=kQUQNFXRNN4JHaZf5N3oF1B6ZK8FZ1Bn1N5IyQuqUTuQsCvEIiHsXiIx+90oUa6l5Q
-         wPYGDvHCHNKIr48yHIYkMxdPYvSdmzdlv1szhUrv0/N/VMVZ7gImrQYiNu/hU6SkybR6
-         8T/trd62xDikYUp9iLHgjhinCFYtKTY234jKYPInL7syYjFtcj91OCbVu8P+oo1VXUNj
-         LWYNywZ/IeRcRAqsOKpDMwLllHF/MDbaT7zX+nPeTbNyt7GHZ7hhl3/kqzkSzoMi9pC+
-         zyhiOIsvRWhofTo0UECwL+LjCywogfWYTBVu7bhplUGhYMoxZqusu0pO9k0D7SJ2LOTk
-         mVJQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rq2ILZLbcGm1Xj1s8Rveb8VxRQekKScuw6gGhH1I9uZXTuhvNXJYEs+GyXS9M6E5nUVKjh9HFZVdiuf@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz2+9WzlCNOnQLzdHULnaZUyDm87swSMxq7MSqLHwlX7h4TDckC
-	vfDtmt8M60bhNZlhrytWsmW4/FG/vQEjxszoqu3ewRxx2VG96uhBNUva
-X-Gm-Gg: AR+sD11N3EUyvLtJNAaUtvqDy1WY90vOydKBlgAEZ3zzNSWsOwMx8uA6Ev/9jM0sEWG
-	W5HnZm0HwyRnWISEL1vN/CuCb2wkkbM8fKW7a8AT2LL7SVhQbadAyLPP+qfc1RlNvtBRVLiIpob
-	Jk3K9v3BhFFElwGuW+uprlZO7GAAuBuG8BHH9cO8wXlJ1pkw5wChmZLcAzBSmwrbFqlLsWsvAgR
-	zefbyPBZvVF8BW9eRKPt8oU3PWAESfj2ENYrWUzoOF78CepYG+xMmwk/Bocjh70CsaaHlWkDoXG
-	4FCHU5RW6tIKTjVvdMXu72i5AibMIImi2YeGTTsz+vFfPA5NZBln/K+24VfwdCL+AiEEnndT17S
-	oNxLSXi/r1SndmExTunfC8UG4lZ9rDNxgMXTv6+VXy2XxgyKnfEbCWKqzhi/X8OXHW68rrVzivq
-	wSW2E3TiMY8wLYLQtMQo6F24s=
-X-Received: by 2002:a17:90b:584f:b0:38e:79f:76c6 with SMTP id 98e67ed59e1d1-38f29641ae1mr5689783a91.24.1785118285724;
-        Sun, 26 Jul 2026 19:11:25 -0700 (PDT)
-Received: from attina.synaptics-inc.local ([199.33.119.15])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13e53094d65sm19162200c88.13.2026.07.26.19.11.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 26 Jul 2026 19:11:25 -0700 (PDT)
-From: Gavin Gao <attinagaoxu@gmail.com>
-To: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	heiko@sntech.de
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com,
-	richardcochran@gmail.com,
-	nicolas.frattaroli@collabora.com,
-	sebastian.reichel@collabora.com,
-	sashal@kernel.org,
-	alchark@gmail.com,
-	chaoyi.chen@rock-chips.com,
-	attinagaoxu@gmail.com,
-	amadeus@jmu.edu.cn,
-	rmk+kernel@armlinux.org.uk,
-	horms@kernel.org,
-	alok.a.tiwari@oracle.com,
-	david.wu@rock-chips.com,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: [PATCH net-next 3/3] net: stmmac: dwmac-rk: Enable RGMII 25M refout clock
-Date: Mon, 27 Jul 2026 10:10:47 +0800
-Message-ID: <20260727021048.3375444-4-attinagaoxu@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260727021048.3375444-1-attinagaoxu@gmail.com>
-References: <20260727021048.3375444-1-attinagaoxu@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RmeAT6OB"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id DE298C2BCFA;
+	Mon, 27 Jul 2026 02:28:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1785119324;
+	bh=zWSb7OAwFXTRMLFltb79aslPO4i/zCUoD/lk4NGGr4w=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=RmeAT6OBPgCcThJ0CgS2E46UoUvPurxv4ircxfQbPI0HwukHkRy4J9Y3jexkE2Qj5
+	 A/nuYy+d/fMwrcIHgUDKybAX532JRxL/XXi8thzDPxHredC1IFRPMkDFitCporMcxO
+	 5DrV931ca/WWIcUUbOT9UR169qWECvyG6HRIPrp+90lSe2ge22vWPO19NCnazPd8rB
+	 +EWfuDJHd53Xf3cWVMN7FC3NgEqbojMnIy06d2a2cqBuHi228f/o9QS98QUO6H2GYU
+	 6IDevYxX87ByRWlDfdLEf25hOu+nqrknuwS+//tIy38UiIv+DIQCJXS4qKq21nhV6I
+	 KLV2A4qhHVX2A==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BF33EC53200;
+	Mon, 27 Jul 2026 02:28:43 +0000 (UTC)
+From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
+Date: Mon, 27 Jul 2026 10:28:41 +0800
+Subject: [PATCH v8 1/2] dt-bindings: media: add ITE IT6625/IT6626 HDMI
+ bridge
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260727-upstream-it6625-it6626-v8-1-2c3b0f9524fc@ite.com.tw>
+References: <20260727-upstream-it6625-it6626-v8-0-2c3b0f9524fc@ite.com.tw>
+In-Reply-To: <20260727-upstream-it6625-it6626-v8-0-2c3b0f9524fc@ite.com.tw>
+To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785119322; l=9578;
+ i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
+ bh=eG3t1ua3drRCp/Li5DkEjcZbrgqP/vxd1y8WQj3Ba1o=;
+ b=rV6XiE+ozzvoIadW2d+7my5ASnf0ER7fdlngILDlIksTlAGH20bLVgqW9Dd6pP3sOnuOKYG60
+ yb+LEScQAFeBgUM4jfTs09Jwel01IpTdsG/8dqTZbFGnrSXtN6hz1Uq
+X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
+ pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
+X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
+ auth_id=310
+X-Original-From: Hermes Wu <Hermes.wu@ite.com.tw>
+Reply-To: Hermes.wu@ite.com.tw
 
-Boards can set clock_in_out = "output" to request a MAC-provided clock,
-but dwmac-rk currently does not enable the optional 25 MHz RGMII
-reference output clock. The common clock framework may therefore disable
-the clock as unused.
+From: Hermes Wu <Hermes.wu@ite.com.tw>
 
-Request the optional clk_mac_25m_refout clock in RGMII output mode, set
-it to 25 MHz, and keep it enabled while the MAC clocks are enabled.
+Document the devicetree binding for the ITE IT6625/IT6626 HDMI to
+MIPI CSI-2 bridge. The device exposes two graph ports: port@0
+(MIPI0) and port@1 (MIPI1), the two selectable CSI-2 D-PHY/C-PHY
+outputs. Only port@0 is required, since a board only needs to wire up
+as many of the bridge's outputs as it actually uses.
 
-Signed-off-by: Gavin Gao <attinagaoxu@gmail.com>
+Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
 ---
- .../net/ethernet/stmicro/stmmac/dwmac-rk.c    | 33 ++++++++++++++++++-
- 1 file changed, 32 insertions(+), 1 deletion(-)
+Changes in v8:
+- Drop the redundant trailing "binding" from the subject -- the
+  "dt-bindings:" prefix already says so.
+- Use a bare "description:" (no block-scalar indicator) instead of
+  "description: |-", matching the dominant in-tree style and
+  adi,adv748x.yaml's own multi-line description.
+- Drop the bare "clock-noncontinuous: true" / "link-frequencies: true"
+  entries under port@0/port@1 endpoints: they add no constraint beyond
+  what video-interfaces.yaml already allows via $ref.
+- Add the missing blank line between the ports.required block and the
+  top-level required list.
+- Drop the allOf branch forcing port@0/port@1 endpoint
+  bus-type = const 4 for "ite,it6625": that value is already implied
+  by compatible, so asserting it again in the schema added nothing.
+  The "ite,it6626" branch requiring bus-type is unaffected.
+- Document interrupts (optional) and the vcc10-supply/vdd33-supply/
+  ovdd-supply power rails (required), and extend the example with
+  all three plus the previously-missing port@2 node.
+All found by Krzysztof Kozlowski's on-list review of v7.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-index 643578266dfc..5e7e5e8f8d62 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-@@ -81,6 +81,7 @@ struct rk_priv_data {
- 	struct clk_bulk_data *clks;
- 	int num_clks;
- 	struct clk *clk_phy;
-+	struct clk *clk_mac_25m_refout;
- 
- 	struct reset_control *phy_reset;
- 
-@@ -1419,6 +1420,24 @@ static int rk_gmac_clk_init(struct plat_stmmacenet_data *plat)
- 		clk_set_rate(bsp_priv->clk_phy, 50000000);
- 	}
- 
-+	if (!bsp_priv->clock_input && phy_interface_mode_is_rgmii(phy_iface)) {
-+		bsp_priv->clk_mac_25m_refout =
-+			devm_clk_get_optional(dev, "clk_mac_25m_refout");
-+		if (IS_ERR(bsp_priv->clk_mac_25m_refout)) {
-+			ret = PTR_ERR(bsp_priv->clk_mac_25m_refout);
-+			return dev_err_probe(dev, ret,
-+					     "Cannot get 25M refout clock\n");
-+		}
+Changes in v7:
+- Add back port@2 for the HDMI input port, reversing the v4 decision
+  to drop it. The v6 automated review re-raised the same concern with
+  stronger footing than v3's: devicetree describes the physical
+  hardware independent of what a given driver consumes, and the chip
+  has a physical HDMI input regardless of whether it6625.c wires
+  anything to it. Checked against adi,adv7604.yaml, an
+  actively-maintained upstream binding for a comparable HDMI-receiver
+  chip, which documents its input port(s) the same way via
+  graph.yaml's generic port pattern -- concrete precedent that an
+  input port unused by the driver still belongs in the schema.
+  Verified port@2 stays optional and the schema still validates with
+  dt-doc-validate/dt-validate both with and without it present.
+
+Changes in v6:
+- Unchanged. The v5 automated review flagged that the it6626
+  conditional's `required: [bus-type]` constraint, expressed under
+  `properties: { endpoint: {...} }`, doesn't match an `endpoint@N`
+  unit-addressed node and could in principle be bypassed. Checked
+  against mipi-ccs.yaml, an actively-maintained upstream binding that
+  requires bus-type (among other properties) via the exact same
+  `properties.endpoint.required` idiom with no patternProperties --
+  direct evidence this is accepted convention, not a defect, so no
+  fix was made.
+
+Changes in v4:
+- Drop port@2 (the HDMI connector input graph port) entirely: it
+  added no constraints beyond graph.yaml's generic endpoint-base, and
+  the driver doesn't use this graph port for anything schema-relevant,
+  so there was nothing for a consumer devicetree to usefully validate
+  against it. Found by the automated review of v3, which suggested
+  adding it to `required` instead -- dropping it entirely was judged
+  the better fix since the port carried no real constraints to begin
+  with.
+- Require bus-type on port@0/port@1 endpoints when compatible contains
+  "ite,it6626": the driver defaults to D-PHY when bus-type is omitted,
+  which is always correct for it6625 (D-PHY only) but would silently
+  misconfigure an it6626 board actually wired for C-PHY. Also found by
+  the automated review of v3.
+
+One other v3 review finding was checked and is not being acted on:
+- The plain `properties: { endpoint: {...} }` override used for each
+  port technically doesn't reach graph.yaml's separate
+  `patternProperties` matcher, so an `endpoint@0`-style node could in
+  principle bypass the local data-lanes/bus-type constraints. This is
+  the same convention already used by other single-endpoint-per-port
+  bindings in-tree (e.g. thine,thp7312.yaml), not a defect unique to
+  this binding.
+
+Changes in v2:
+- Restrict port@0/port@1 endpoint bus-type to D-PHY (4) only when
+  compatible is "ite,it6625", via an allOf/if/then constraint. IT6625
+  only supports MIPI CSI-2 D-PHY output; the schema previously allowed
+  both C-PHY (1) and D-PHY (4) unconditionally, so a devicetree
+  claiming "ite,it6625" with bus-type = C-PHY passed schema validation
+  despite being invalid on that hardware. IT6626, which supports both
+  PHY types, is unaffected. Found by the sashiko.dev automated review
+  of v1.
+---
+ .../devicetree/bindings/media/i2c/ite,it6625.yaml  | 175 +++++++++++++++++++++
+ 1 file changed, 175 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
+new file mode 100644
+index 0000000000000000000000000000000000000000..756fe655f534f85b23b7741d06710c956f9694d8
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
+@@ -0,0 +1,175 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/ite,it6625.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+		if (bsp_priv->clk_mac_25m_refout) {
-+			ret = clk_set_rate(bsp_priv->clk_mac_25m_refout,
-+					   25000000);
-+			if (ret)
-+				return dev_err_probe(dev, ret,
-+						     "Cannot set 25M refout clock rate\n");
-+		}
-+	}
++title: ITE IT6625/IT6626 HDMI to dual MIPI CSI-2 bridge
 +
- 	return 0;
- }
- 
-@@ -1433,9 +1452,13 @@ static int gmac_clk_enable(struct rk_priv_data *bsp_priv, bool enable)
- 			if (ret)
- 				return ret;
- 
-+			ret = clk_prepare_enable(bsp_priv->clk_mac_25m_refout);
-+			if (ret)
-+				goto err_disable_clks;
++maintainers:
++  - Hermes Wu <Hermes.wu@ite.com.tw>
 +
- 			ret = clk_prepare_enable(bsp_priv->clk_phy);
- 			if (ret)
--				return ret;
-+				goto err_disable_25m_refout;
- 
- 			if (bsp_priv->ops && bsp_priv->ops->set_clock_selection)
- 				bsp_priv->ops->set_clock_selection(bsp_priv,
-@@ -1454,12 +1477,20 @@ static int gmac_clk_enable(struct rk_priv_data *bsp_priv, bool enable)
- 			clk_bulk_disable_unprepare(bsp_priv->num_clks,
- 						   bsp_priv->clks);
- 			clk_disable_unprepare(bsp_priv->clk_phy);
-+			clk_disable_unprepare(bsp_priv->clk_mac_25m_refout);
- 
- 			bsp_priv->clk_enabled = false;
- 		}
- 	}
- 
- 	return 0;
++description:
++  The ITE IT6625 and IT6626 are HDMI to MIPI CSI-2 bridge devices.
++  IT6625 supports an HDMI 2.0 input and converts it to one or two D-PHY CSI
++  outputs, while IT6626 supports an HDMI 2.1 input and converts it to one or
++  two C/D-PHY CSI outputs. The bridges are programmable through I2C and
++  expose two selectable CSI-2 output ports and an HDMI input port. The
++  bridge can operate in split mode or clone mode.
 +
-+err_disable_25m_refout:
-+	clk_disable_unprepare(bsp_priv->clk_mac_25m_refout);
-+err_disable_clks:
-+	clk_bulk_disable_unprepare(bsp_priv->num_clks, bsp_priv->clks);
++properties:
++  compatible:
++    enum:
++      - ite,it6625
++      - ite,it6626
 +
-+	return ret;
- }
- 
- static int phy_power_on(struct rk_priv_data *bsp_priv, bool enable)
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  reset-gpios:
++    description:
++      GPIO connected to the active-low reset line.
++    maxItems: 1
++
++  vcc10-supply:
++    description: 1.0V core supply
++
++  vdd33-supply:
++    description: 3.3V supply
++
++  ovdd-supply:
++    description: I/O supply voltage
++
++  ports:
++    $ref: /schemas/graph.yaml#/properties/ports
++    properties:
++      port@0:
++        $ref: /schemas/graph.yaml#/$defs/port-base
++        unevaluatedProperties: false
++        description: CSI-2 output port MIPI0
++
++        properties:
++          endpoint:
++            $ref: /schemas/media/video-interfaces.yaml#
++            unevaluatedProperties: false
++
++            properties:
++              data-lanes:
++                minItems: 1
++                maxItems: 4
++
++              bus-type:
++                enum:
++                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
++            required:
++              - data-lanes
++
++      port@1:
++        $ref: /schemas/graph.yaml#/$defs/port-base
++        unevaluatedProperties: false
++        description: CSI-2 output port MIPI1
++
++        properties:
++          endpoint:
++            $ref: /schemas/media/video-interfaces.yaml#
++            unevaluatedProperties: false
++
++            properties:
++              data-lanes:
++                minItems: 1
++                maxItems: 4
++
++              bus-type:
++                enum:
++                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
++                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++
++            required:
++              - data-lanes
++
++      port@2:
++        $ref: /schemas/graph.yaml#/$defs/port-base
++        unevaluatedProperties: false
++        description: HDMI input port
++
++    required:
++      - port@0
++
++required:
++  - compatible
++  - reg
++  - ports
++  - vcc10-supply
++  - vdd33-supply
++  - ovdd-supply
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: ite,it6626
++    then:
++      properties:
++        ports:
++          properties:
++            port@0:
++              properties:
++                endpoint:
++                  required:
++                    - bus-type
++            port@1:
++              properties:
++                endpoint:
++                  required:
++                    - bus-type
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c {
++      #address-cells = <1>;
++      #size-cells = <0>;
++
++      hdmi-bridge@4c {
++        compatible = "ite,it6625";
++        reg = <0x4c>;
++        interrupts = <3 IRQ_TYPE_LEVEL_LOW>;
++
++        reset-gpios = <&gpio 2 GPIO_ACTIVE_LOW>;
++
++        vcc10-supply = <&vcc10_reg>;
++        vdd33-supply = <&vdd33_reg>;
++        ovdd-supply = <&ovdd_reg>;
++
++        ports {
++          #address-cells = <1>;
++          #size-cells = <0>;
++
++          port@0 {
++            reg = <0>;
++            csi_out0: endpoint {
++              remote-endpoint = <&csi2_rx0>;
++              bus-type = <4>; /* MEDIA_BUS_TYPE_CSI2_DPHY */
++              data-lanes = <1 2 3 4>;
++            };
++          };
++
++          port@2 {
++            reg = <2>;
++            endpoint {
++              remote-endpoint = <&hdmi_con>;
++            };
++          };
++        };
++      };
++    };
+
 -- 
-2.55.0
+2.34.1
+
+
