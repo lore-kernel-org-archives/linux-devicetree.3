@@ -1,137 +1,225 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FF0F423EB1
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 20:28:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D366D38657E;
+	Mon, 27 Jul 2026 20:29:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785184101; cv=none; b=g0ElP2V0IUoLhMSqjxl/1PikwMI7HPdcXvf///7IoPLqEbn6MvyYWtz2Wt49zvArEsLgN1z1EdJoNHiIXwJGje6zcmFR+E/cmu0V7iqC8S1ZCEiWR3wcETyMM97xWjFz0yOWhYFUPKiT48lGh66+5NNpjXZAi55Tx1MH7HHl460=
+	t=1785184177; cv=none; b=BMZNhTn2lzn6QxOsRSQtwoLiieKIFWQAU42J49qqDnkF8YdDYpxVjAU97OFuMw8hQ7ZyIZrzgPVH7dMfNI9BZAT69qDMudSFHgTENinzlRAgz4MN7hEwkhH6WBFGS3uxIbTkQhzWP1FNHQq2TAccjjhrsyDXuiEiU4LPpEhugS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785184101; c=relaxed/simple;
-	bh=o+YQVo/tgf43wCSxZo2cgaLX3t2oAo0oUNQNuLMAWtA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MsFAhYf7SPqvSVjdZ4Gx3S9hlgVsTAi4pfdLoFYU2ZpMXMKChcwr4TLBHgrJKzMNyYGZ/mb6P8yzgUOkDKgGQ8/Vy7AzYBu4r0QpGDQj3+xwU3sUhkulpJWm2k2KiPgvWqKP6nf/v+bX4HkQUSk50zmU0H6wcW6DxjxUDhzv434=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JzkS5tHJ; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785184177; c=relaxed/simple;
+	bh=Kdjg1rajS8cAG0WAE+1RmS+9GaYG6ZKuLeGP9a00ncY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=caqxPWhrpIio1dqUedHTpvjObXt2uxc2l38aYoX5PGlu4eF019TtiviavFoJsbkQzGtGxGaY913Z9/dZHCx+UMd6AhauANKq7NCgEjRTVednJkIgtayByVRKm7JZ7c/iQuzJb1Gx8y7an3tlQEbVnLw7gBwhHy7Ew2jq1sK2nVE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VOccvNly; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JzkS5tHJ"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-383cb94f742so2733968a91.3
-        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 13:28:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785184100; x=1785788900; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wCGKHXxtGl6+x0K8ImCCepzCmvd/Lbkwu0KaZnoo6vI=;
-        b=JzkS5tHJmXOK3Thd6br+Hlt8TRo/ACu3+ABuYxS63d0HLl3QgqFih6H+Ti8A8BPGKd
-         2H+T/Rx+Jypbnf5ubiL2jSVXoEyZFkIwXkzuraVfWoSCEbEJCK+b5Nh+X5OaSoqv05Bt
-         nQTRkyi9MQLdpJ7Dw9zZUUPnzyt/EKsF5exg4kjxkYlxMBFXg1xqbbAB/wkzuX13/50I
-         8VdolIJdCbvbAcLdE9NhCWnTygq1YrGfYjEqxuGfHshYucHb/LzEMPnnaHv9QXjJtzY9
-         cxQS5nG20o+S5JPSkJdlr5IZV89KnO6nym0rDfqxHIX6Ff3++zdO7avA4SlcC4jfpLze
-         JHeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785184100; x=1785788900;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wCGKHXxtGl6+x0K8ImCCepzCmvd/Lbkwu0KaZnoo6vI=;
-        b=ND5awQOBpnpaS2A7nqrIMMZ3xAekwpfGLBZa4MC1Utka8ZUw9vgKuw2uP41ub7e7yY
-         PIe2QqyDjzmpIDaakNjInox0I2s59jzD5D8SUmkMUZzynwloYMhgy75v9EoradmNvDYl
-         mwDCwCs2h7tcNaPkpVPDaAi7NL1fWldkEXR35XMJ4zgqWi97uiN8TbyqMcdjZVkRJF6E
-         a+ubmvp6PKeU+Yf2ei8BMnmfBbFkJsnS5UeYui7mMtcoIgTkPJebOiw1Se9cPZWaDoCv
-         Q4/329lSjMYTnmXMxaoaISK2OCN3gnpODM4D4XeWL2GcHcyUEM6GIxffZr+Gv9MHq5Fm
-         fSiA==
-X-Gm-Message-State: AOJu0Yz2MCYg/7MjQNxRcXS2v8UWs32MhgkUuSijGLHv3VArIB6mfqGa
-	e0wxR42cMplcQFxxoWe0adTUJ54n1DEv7vRfrWEIipPtLFaH6Dn0EFtHG9jnjcyO
-X-Gm-Gg: AR+sD13qCZSmb8lwx92O6jzCdyRC03p8tqZx3ueIt1RbVm0riyHM2qDE9Ku+8nYy/Yu
-	qwcAEiGSTfUK61p0z5TDBuok2/tOIoolNt41N8dANnnbuKKiC8JYol70SywWb2FNwo/88X2SNxb
-	7Td14FJcDLcJ/OhBmMshEQbGLPAlqTjLes6HblKIVbpU1YIZmo3+Rh2oi2tck9bWsbKizY5Ig+b
-	ED4G9cnvD0Pr2HgC7GNxGJuBxHQXlZeLlIjITdW43ETzaMiJoEqyJ9dkhTRCdg2GVwEF4P47MkV
-	7LLcTRV3mcvB/4HD/8IfhwXCyiZ6vxEtIIBVmJ67ZtxmpkAAxGyKqFvdBNsLfbt4ke4rj5rs3sY
-	eVBtWxcqd0VoJ58A5no6QDRuRiPFADZJKC2bv/wK5rvuePVRmhLrfwnCRMHLHjha66CWNeKiOuA
-	bXfF9Q/VKXM1S4X0LS6kXwj6Xn9Hik0BH1p5ter4Mn0ilaZUattQM2ec4uRK/KIe0ckINlNaSvg
-	0iAA5bQAk/kT5JTkrzXx0JYoDAn8KGFVLLqriJi+6p9J8YP55t6EQN8VhjbhqNWxg==
-X-Received: by 2002:a17:90b:524e:b0:381:26f:8f05 with SMTP id 98e67ed59e1d1-38f64938266mr765946a91.3.1785184099513;
-        Mon, 27 Jul 2026 13:28:19 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e34])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-314bc3e1290sm35391534eec.1.2026.07.27.13.28.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jul 2026 13:28:18 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: devicetree@vger.kernel.org
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
-	Hauke Mehrtens <hauke@hauke-m.de>,
-	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-kernel@lists.infradead.org (moderated list:BROADCOM BCM5301X ARM ARCHITECTURE),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] ARM: dts: BCM5301X: SR400AC: set WAN MAC from nvram
-Date: Mon, 27 Jul 2026 13:28:17 -0700
-Message-ID: <20260727202817.22085-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VOccvNly"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F07A81F000E9;
+	Mon, 27 Jul 2026 20:29:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785184175;
+	bh=hma6c/O+4dubSDjB1fhfl/X7eMkAj80EhqTMeqQfkeg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VOccvNlyG487f3FXDFLQ+/ir23zrzc10+Fjvvnzas4sykIwsEHeuNU+vqaGx2DfsK
+	 mvq64BQKNGexQ0UDKrRO6W/6vKivWPz29429jBm3jpkawTdG1FQ+LrIYb7ux+EzqbM
+	 1/32w0U1EDq1W0H6hi1t9bx+bSqRmNTWlmkP0At6OTneAvubLe7jrQ506heaxVaUbq
+	 9MP0og7ev98B+3pmIr1nQ4vMUy0nvvGPRXD8KG671/9EMgqWDCxyhXrgoC2viF+TKy
+	 7aMHe+25qJcNh4DlhAiymQ/OT4CfgCYYcvtlB5qglJ0jCABg9MsGqX20tLlMCliklw
+	 TCbW3jKMcjpWw==
+Date: Mon, 27 Jul 2026 22:29:31 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Jun Nie <jun.nie@linaro.org>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
+	Dmitry Baryshkov <lumag@kernel.org>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v5 5/6] dt-bindings: display: Add Synaptics R63455 panel
+ support
+Message-ID: <20260727-spotted-winged-mantis-7aa1ce@quoll>
+References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
+ <20260727-sm8650-7-1-bonded-dsi-v5-5-c042266b9eeb@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260727-sm8650-7-1-bonded-dsi-v5-5-c042266b9eeb@linaro.org>
 
-The WAN MAC is offset by 1. Set in dts to avoid having to handle this in
-userspace.
+On Mon, Jul 27, 2026 at 04:08:44PM +0800, Jun Nie wrote:
+> Add support for the dual-panel system found in the virtual reality device.
+> This system consists of two physical 2160x2160 panels, each connected via
+> a MIPI DSI interface. The backlight is managed through DSI link.
+> 
+> Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> ---
+>  .../bindings/display/panel/synaptics,r63455.yaml   | 133 +++++++++++++++++++++
+>  1 file changed, 133 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/panel/synaptics,r63455.yaml b/Documentation/devicetree/bindings/display/panel/synaptics,r63455.yaml
+> new file mode 100644
+> index 0000000000000..c3bc8df981df7
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/panel/synaptics,r63455.yaml
+> @@ -0,0 +1,133 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/panel/synaptics,r63455.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Synaptics R63455 based dual 2160x2160 MIPI-DSI Panel
+> +
+> +maintainers:
+> +  - Jun Nie <jun.nie@linaro.org>
+> +
+> +description:
+> +  Synaptics R63455 is a Virtual Reality Display Driver and VR Bridge, used in
+> +  pair in Headset devices. The Virtual Reality Display complex is composed of
+> +  two strictly identical display panels, each driven by its own DSI interface
+> +  but forms a single virtual display for the human eye perception and thus
+> +  requires a strict synchronization of the two display panel content update.
+> +
+> +allOf:
+> +  - $ref: panel-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - enum:
+> +        - sharp,ls026b3sa06
+> +        - boe,vs026c4m-n52-6000
 
-nvram size found from a random bootlog online.
+Not build checked. Please use tools, not humans for trivial things.
 
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> +      - const: synaptics,r63455
+> +
+> +  reg:
+> +    maxItems: 1
+> +    description: DSI virtual channel
+> +
+> +  reset-gpios:
+> +    maxItems: 2
+> +    description: 2 reset pins for 2 physical panels
+
+Won't work. gpio-consumer-common expects only one reset line. You need
+two separate properties.
+
+> +
+> +  left-pos-supply:
+> +    description: Positive 5.7V supply for left panel
+> +
+> +  right-pos-supply:
+> +    description: Positive 5.7V supply for right panel
+> +
+> +  left-neg-supply:
+> +    description: Negative 5.7V supply for left panel
+> +
+> +  right-neg-supply:
+> +    description: Negative 5.7V supply for right panel
+> +
+> +  left-backlight-supply:
+> +    description: Backlight 21V supply for left panel
+> +
+> +  right-backlight-supply:
+> +    description: Backlight 21V supply for right panel
+> +
+> +  vdda-supply:
+> +    description: core 1.8V supply for panels
+> +
+> +  ports:
+> +    properties:
+> +      port@0:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: DSI input port for primary DSI link
+> +
+> +      port@1:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: DSI input port for secondary DSI link
+> +
+> +    required:
+> +      - port@0
+> +      - port@1
+> +
+> +required:
+> +  - compatible
+> +  - reset-gpios
+> +  - left-pos-supply
+> +  - left-neg-supply
+> +  - right-pos-supply
+> +  - right-neg-supply
+> +  - left-backlight-supply
+> +  - right-backlight-supply
+> +  - vdda-supply
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+
 ---
- .../dts/broadcom/bcm4708-smartrg-sr400ac.dts   | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
 
-diff --git a/arch/arm/boot/dts/broadcom/bcm4708-smartrg-sr400ac.dts b/arch/arm/boot/dts/broadcom/bcm4708-smartrg-sr400ac.dts
-index b226bef3369c..03f4a6d37a67 100644
---- a/arch/arm/boot/dts/broadcom/bcm4708-smartrg-sr400ac.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm4708-smartrg-sr400ac.dts
-@@ -25,6 +25,16 @@ memory@0 {
- 		      <0x88000000 0x08000000>;
- 	};
- 
-+	nvram@1eff0000 {
-+		compatible = "brcm,nvram";
-+		reg = <0x1eff0000 0x10000>;
-+
-+		et0macaddr: et0macaddr {
-+			#nvmem-cell-cells = <1>;
-+		};
-+	};
-+
-+
- 	leds {
- 		compatible = "gpio-leds";
- 
-@@ -118,6 +128,11 @@ &spi_nor {
- 	status = "okay";
- };
- 
-+&gmac0 {
-+	nvmem-cells = <&et0macaddr 0>;
-+	nvmem-cell-names = "mac-address";
-+};
-+
- &srab {
- 	status = "okay";
- 
-@@ -140,6 +155,9 @@ port@3 {
- 
- 		port@4 {
- 			label = "wan";
-+
-+			nvmem-cells = <&et0macaddr 1>;
-+			nvmem-cell-names = "mac-address";
- 		};
- 
- 		port@5 {
--- 
-2.55.0
+> +    dsi@ae94000 {
+> +        vdda-supply = <&vreg_l3i_1p2>;
+> +        status = "okay";
+> +
+> +        qcom,dual-dsi-mode;
+> +        qcom,master-dsi;
 
+None of above is relevant. Drop
+
+> +
+> +        panel: panel@0 {
+
+Unused label.
+
+> +            compatible = "sharp,ls026b3sa06", "synaptics,r63455";
+> +            reg = <0>;
+> +
+> +            reset-gpios = <&pm8550_gpios 3 GPIO_ACTIVE_HIGH>,
+> +                          <&pm8550_gpios 11 GPIO_ACTIVE_HIGH>;
+> +
+> +            left-pos-supply = <&vpos_left>;
+> +            left-neg-supply = <&vneg_left>;
+> +            right-pos-supply = <&vpos_right>;
+> +            right-neg-supply = <&vneg_right>;
+> +            left-backlight-supply = <&backlight_left>;
+> +            right-backlight-supply = <&backlight_right>;
+> +
+> +            vdda-supply = <&vreg_l12b_1p8>;
+> +
+> +            ports {
+> +                #address-cells = <1>;
+> +                #size-cells = <0>;
+> +                port@0 {
+> +                    reg = <0>;
+> +                    panel0_in: endpoint {
+> +                        remote-endpoint = <&dsi0_out>;
+> +                    };
+> +                };
+> +
+> +                port@1 {
+> +                    reg = <1>;
+> +                    panel1_in: endpoint {
+> +                        remote-endpoint = <&dsi1_out>;
+> +                    };
+> +                };
+> +            };
+> +        };
+> +    };
+> +
+> +...
+> 
+> -- 
+> 2.43.0
+> 
