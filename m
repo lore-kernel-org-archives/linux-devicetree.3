@@ -1,108 +1,179 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78535427A1A
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 20:06:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFC0B22126D;
+	Mon, 27 Jul 2026 20:07:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785182821; cv=none; b=A7DUjEHKJEPMilFs11HTTV8ouUVWY/DvzmDBBeJmVynMqHRE1dLTFYpI991S6sG1RmrgFpubGh6oaHMUZ/rouiVhPFBZImkyi4kflpqqoXPDGhY59sTuaoJnpBz+aLmby20jw+bRfmOiaGh50bVCqkQl0LnmnLgbr+J7IM35ff8=
+	t=1785182837; cv=none; b=F40ev4bv4bUvx7L9hYRG743fJgQ7hRZwVNifE8m8NXua71snG+TFhO0K3q16eIVGasIB/NhbXsHWfGrgXQk6LhxC0xW03xQ23KNWS/FG94tAJxeplS63NgWPPcMDS0oAc5g0Mb3pzPZ2ROlsll3yo2o20VA2qOG131+0Hw3g46o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785182821; c=relaxed/simple;
-	bh=h0sPLnTlsUQxhlB/c/4nYrnOp2ouV3eIdQwx3lmCH+0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LhAPhLj2AupCwYmpUjEhAI39APNFXDrQQq0rAd5fAV2avaGWx8DTodEkPq5mzB4r7Lk11aYXzRTmYdWUC7Yzw5Z5JMqm01oK0GxBDfNl2VqLEfj798VShgfQBu1NfJ975B/tMSdK5DK/BGwpCIISzzt3f8LVmV22iEydejmbtgI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=IP4RtJF3; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1785182837; c=relaxed/simple;
+	bh=Qnz8SMPUZ6MdQlPCqt9WXaRawu+zOqenWJO2E38hn74=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=kKiz8t1c5A/Gcn+XBuDEWaIhJWay/PT64SCtCfaRupYPwoCPpa8es65f3t2gXMsyHGTDDTuhMIz8yvO00feafmenfMO/5sgKBIH1m00DK6iBIiDPTchdDrQfWvD1ArbBM/un1G5mToQkBfxAs3gU/jHJXNrFiUeyQoXmKA32/Vw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kwr0hquf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="IP4RtJF3"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4955aa106b1so30613905e9.0
-        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 13:06:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1785182816; x=1785787616; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Wetn3gRf3r576PuDu2lS5jC7fWv6xVZ19kQlvaEDCdk=;
-        b=IP4RtJF3rSzydt089Nj0JkW4zbUgHECZ8tgZ/5gKOOV+m+WF+KG8UOxDb9A9nRpfxt
-         VybnBUgBcp8k7zTGRn7Rw+HMYlOK/k82LbtoM6tPjz/gNGzoZ9q5sSm7Ze8n2T3Cezbw
-         JT5VXt+cH0RBkIhpzn0s40iG7uVnp06eAYRoS5d11cEtL4BPe1ueWY82v6sGQ9pbPwUp
-         5CVMk03d4m23SRjeaiuB9pq9/miaScpikW1Pjwd/udTsXwU+yBcx8dxNWJF0Gb1tQiqH
-         wb8F2EC4hErmTi9DaH26kIgy3Kw9R6uGiLogZ8EonUjyz+6zewolhDnglIPR8SpRhmmi
-         Ne9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785182816; x=1785787616;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Wetn3gRf3r576PuDu2lS5jC7fWv6xVZ19kQlvaEDCdk=;
-        b=DFyp9ECKFkuT07m+hzDhT5RA0908jihNkI/Lnz7nvLIrAlagUpxjy146H58ad9Srpa
-         R+UexsGHfPhY/KwSRgotB0kaNdywkRIENnu7xQvXMMaLWJ22YQ/uMP6+caXrxIPDocA9
-         tLHiaxV+unDgk/ZR9Vkeol1cX+YgDc8+ZLEDDkGfEbeaGvPyZbKWq9SHHmVGdjU+DXPC
-         uVgM7XGFNHPvPMzaT92QCQNIewPEOVSeUByWQ4j+mUVMP2meX6tWxvPVT8SPzks5EweM
-         T1HZ9q3RXWa1r2IOX8O7h2jjEuQ3kZij52jR2Otfe/v2BkPp5rp3bZzkJrq2YkXJseyD
-         87Mw==
-X-Forwarded-Encrypted: i=1; AHgh+RpGSmHgy9psUVSV/WWDNgqT6T1vomoROyVj62fNE9QogtW54b4m5BwX54I0Ckwy90NZXGJaXsU4RpOB@vger.kernel.org
-X-Gm-Message-State: AOJu0YwhjojDNaQt/w/Ya7ffzDhbqqVIGNy9aU2WOzUcLN7OwwxaywWo
-	XQIIg+WMYALEZntUO44U4rlzgugBjQ7+RDaiNep602bxNhUP9cYyp8XOHEDZrJyrhM0=
-X-Gm-Gg: AR+sD10V6G/Pa0CzXjKX7+IGD23JHsyLv5N9Vxl/MJ9Ug6/le7Eu7xmpMLUmzyGN7YF
-	YHzt9ESz7MF0Jg/YeZNZK1wfz8EIcTucfGRzUasr/m3JrwUthpX8djFe2WehHuUgGc4CwtIOPhN
-	v1BNh0r0gVjrhqBNI9nQp2c4L0/rdNuXPexvy8DcpsV1UKMOcrQL6TC+zxVfpqk5/x9u80Wp7W0
-	mS2eB142f2TCRZzw926K7vFm7DgvWv58hwtn3C5XECD7BYlCxjnJ0peCnWICFS2V6MlL9KZ2FiU
-	jrKVnOPVDldAQykESKBsCCctvKHHgYG0r7YtTcqtMkurZBQT/8bWlybbR9q/ZOY+N+Dho/B362v
-	WWwv5SboGsn41lDeDX4w+D/6/iE4DOHXhzrWFsCkCuE3kpxra0EtoIfpxUVXCx9it/nmaVyGdvo
-	1zW/svB0KVKdofGBoOVHd1g3i2
-X-Received: by 2002:a05:600c:4248:b0:492:437a:a653 with SMTP id 5b1f17b1804b1-496b5700246mr67328175e9.26.1785182816614;
-        Mon, 27 Jul 2026 13:06:56 -0700 (PDT)
-Received: from [192.168.0.35] ([109.77.105.162])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496c46240c4sm17482495e9.12.2026.07.27.13.06.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 27 Jul 2026 13:06:55 -0700 (PDT)
-Message-ID: <e9cbff02-fd47-453d-8743-8816560f0f6b@linaro.org>
-Date: Mon, 27 Jul 2026 21:06:17 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kwr0hquf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A0031F000E9;
+	Mon, 27 Jul 2026 20:07:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785182836;
+	bh=0IhF6oSBGuyMTgVn5pKmn0D6Y7FfurywlD8KlgQm9Hw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=kwr0hqufev4qIcQS2TpVrwT1lXdhJGr/S8GUR9sAgqOc6DblIs+STo2gWR9FLm8H9
+	 szANISWy3t7qQZnzqYmrExRTsfVzd3LM76nRDveYamr3PWG4kFSSbcdjkwuWp0w4Uy
+	 GkyaBAff4bEFE5ZPNTihKTh9s/HiZWXzrgh9f/wzhUivmHC01ncjQcltBmlroEL5zp
+	 IktepxEGp7DLBoy2lqLRqx/zwMzZXRQHtqnkXKlRMPKbXRaOd9JcwzfS1UIhmAzBfp
+	 Z3NPjlbI4vMo9bPW65mLku7NL3Pp/w6KXR+i+QEDpCl2XH2SfRfcP9AbB0kOF3ktdK
+	 di0zclQSOhvNA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 2/7] arm64: dts: imx8mm: imx8mp: Add LVDS DTOs for
+ Data Modul i.MX8M Mini and Plus eDM SBC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Marek Vasut" <marex@nabladev.com>
+Cc: imx@lists.linux.dev, devicetree@vger.kernel.org, Frank.Li@kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260727195244.78199-2-marex@nabladev.com>
+References: <20260727195244.78199-1-marex@nabladev.com>
+ <20260727195244.78199-2-marex@nabladev.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 27 Jul 2026 20:07:15 +0000
+Message-Id: <20260727200716.0A0031F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v14 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY
- schema
-To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Bryan O'Donoghue <bod@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260727-x1e-csi2-phy-v14-0-27d1bf477593@linaro.org>
- <20260727-x1e-csi2-phy-v14-1-27d1bf477593@linaro.org>
- <1e1bc17a-4c7a-4c08-b0c8-2a2ff31fe870@linaro.org>
-Content-Language: en-US
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-In-Reply-To: <1e1bc17a-4c7a-4c08-b0c8-2a2ff31fe870@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-On 27/07/2026 21:03, Vladimir Zapolskiy wrote:
->> +                description:
->> +                  Logical lane indices 0-3, not physical pad positions.
-> 
-> In hardware description it's physical data lane indexes, the same is 
-> said in
-> video-interfaces.yaml documentation, the numeration starting from zero is
-> selected to follow even bits in CSI_COMMON_CTRL5 register (D-PHY mode):
-> 
-> * https://lore.kernel.org/ 
-> all/59331aa7-8430-4754-861c-4ba6a4810ccd@oss.qualcomm.com/
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Hardcoded backlight `enable-gpios` in the shared panel overlay bre=
+aks native LVDS backlight control on i.MX8MP for the G215HVN011 display.
+- [Low] Orphaned `enable-active-high` property left in `reg_panel_vcc`.
+- [Low] Mathematically inaccurate comment regarding the LVDS clock derivati=
+on.
+--
 
-I'm not sure what you're asking for here - this exact text ?
+--- Patch [2]: [PATCH v6 2/7] arm64: dts: imx8mm: imx8mp: Add LVDS DTOs for=
+ Data Modul i.MX8M Mini and Plus eDM SBC ---
+commit 261fc4aa3222bc2beb75e81148227597b2b74f39
+Author: Marek Vasut <marex@nabladev.com>
+Subject: arm64: dts: imx8mm: imx8mp: Add LVDS DTOs for Data Modul i.MX8M Mi=
+ni and Plus eDM SBC
 
-ACK the rest.
+This commit adds device tree overlays for the DSI-to-LVDS adapter populated
+with a Lontium LT9211 bridge, supporting multiple panels on the eDM SBC. It
+establishes base board DTS updates and panel-specific definitions.
 
----
-bod
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc-over=
+lay-lvds-g215hvn011.dtsi b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-=
+edm-sbc-overlay-lvds-g215hvn011.dtsi
+> new file mode 100644
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc-overlay-lvd=
+s-g215hvn011.dtsi
+
+[ ... ]
+
+> +&backlight {
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&pinctrl_panel_backlight>;
+> +	enable-gpios =3D <&gpio3 0 GPIO_ACTIVE_HIGH>;
+> +	/* 6.5 POWER ON/OFF SEQUENCE, T6 >=3D 10 ms */
+> +	post-pwm-on-delay-ms =3D <10>;
+> +	/* 6.5 POWER ON/OFF SEQUENCE, T7 >=3D 0 ms */
+> +	pwm-off-delay-ms =3D <10>;
+> +	/* 5.2 BACKLIGHT UNIT 200Hz..20kHz, value below in ns */
+> +	pwms =3D <&pwm1 0 66666 0>;	/* 15 kHz =3D 66666ns */
+> +	status =3D "okay";
+> +};
+
+[ ... ]
+
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-over=
+lay-edm-sbc-imx8mp-lvds-g215hvn011.dtso b/arch/arm64/boot/dts/freescale/imx=
+8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-g215hvn011.dtso
+> new file mode 100644
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-overlay-edm=
+-sbc-imx8mp-lvds-g215hvn011.dtso
+
+[ ... ]
+
+> +&backlight {
+> +	power-supply =3D <&reg_panel_bl_supply>;
+> +};
+
+[Severity: High]
+Will the display stay dark on the i.MX8MP native LVDS interface?
+
+The shared panel definition imx8mm-data-modul-edm-sbc-overlay-lvds-g215hvn0=
+11.dtsi
+above hardcodes enable-gpios to &gpio3 0 and sets its associated pinctrl.
+
+While that is the correct pin for the i.MX8MM DSI-to-LVDS adapter, the nati=
+ve
+LVDS interface on i.MX8MP uses &gpiowifi 0 instead. The i.MX8MP-specific
+overlay sets power-supply here but fails to override the enable-gpios and
+pinctrl-0 properties inherited from the shared dtsi.
+
+Because the backlight driver will request the wrong GPIO, the backlight ena=
+ble
+pin will not be asserted correctly.
+
+[ ... ]
+
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc.dts =
+b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc.dts
+> --- a/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc.dts
+
+[ ... ]
+
+> @@ -63,7 +63,6 @@ reg_panel_vcc: regulator-panel-vcc {
+>  		regulator-name =3D "PANEL_VCC";
+>  		regulator-min-microvolt =3D <5000000>;
+>  		regulator-max-microvolt =3D <5000000>;
+> -		gpio =3D <&gpio3 6 0>;
+>  		enable-active-high;
+>  		/* Disabled by default, unless display board plugged in. */
+>  		status =3D "disabled";
+
+[Severity: Low]
+Does this leave an orphaned enable-active-high property?
+
+The gpio assignment was removed, but enable-active-high remains.
+It looks like this was cleaned up completely in the i.MX8MP baseboard dts.
+
+[ ... ]
+
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-over=
+lay-edm-sbc-imx8mp-lvds-g156hce-l01.dtso b/arch/arm64/boot/dts/freescale/im=
+x8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-g156hce-l01.dtso
+> new file mode 100644
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-overlay-edm=
+-sbc-imx8mp-lvds-g156hce-l01.dtso
+
+[ ... ]
+
+> +&media_blk_ctrl {
+> +	/*
+> +	 * The G156HCE-L01 panel requires 141.86 MHz LVDS clock.
+> +	 * Set IMX8MP_VIDEO_PLL1 to 993.2 MHz , since 993.2 MHz / 7 =3D 141.86 =
+MHz .
+> +	 */
+
+[Severity: Low]
+This is a minor typo, but should 993.2 MHz be 993.02 MHz here?
+
+993.2 / 7 does not equal 141.86, and the code below correctly configures
+it to 993020000 (993.02 MHz).
+
+> +	assigned-clock-rates =3D <500000000>, <200000000>,
+> +			       <0>, <0>, <500000000>, <993020000>;
+> +};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727195244.7819=
+9-1-marex@nabladev.com?part=3D2
