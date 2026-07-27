@@ -1,151 +1,115 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEC5642D75B;
-	Mon, 27 Jul 2026 17:31:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3BEC422542
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 17:38:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785173489; cv=none; b=Vtz4ZwT0+t4DW/9/EgZRpbbPAl91TeUWilLV3ADEZp5K4Y+zzMA7a6aSPd8k0qei/GpSF5+5fFmx3RZoYBzcntBwy5yiMDpuH+yg96gR/Tqwh+oeh1G5VYAYShpqyioyr8NkJLUALZIt8WSdYR0rCEK0aYxFI/RyAEBA6mrIiJY=
+	t=1785173924; cv=none; b=sXvjUU7SSMotLisoCFYr/AKsg7rXKMO0j+M6JTsmC3wsspQVxUtQGenA9IhTamCBjdObdQfAx5a2C4X7Fkaxt4U+WaVvBCy7LGM2lRSrfgE+1P1fCDQLsPHkOf+7P05vmrjoBQAnxs4LJ91/lb17qYLOpv1LjKy+uNXr/HP39Io=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785173489; c=relaxed/simple;
-	bh=/5sZ4Ww5VGpOH267RgapxoUvEnHhzIosvBJBtTMkAlA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=loDp1hmWRVAOwsKrqXKkNYRsahwsaXVjLX7SHDzQj/YOzMozyewQ/1L5TiZ1+DLp3hcJa9yZ263/zfJIOJn1IiWcyt1WOQK5/Znf1vjNrnnYu+t+ZcqT56T0CHjM3E3rHOXpvGfJEa11ev4RzV9vOkOd1vNENLv8GOYJ9xy5bXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 482CB2028EE;
-	Mon, 27 Jul 2026 19:31:11 +0200 (CEST)
-Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=ratatoskr.trumtrar.info)
-	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
-	(envelope-from <s.trumtrar@pengutronix.de>)
-	id 1woPAV-001aZh-0S;
-	Mon, 27 Jul 2026 19:31:11 +0200
-From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Date: Mon, 27 Jul 2026 19:31:08 +0200
-Subject: [PATCH v7 5/5] arm64: dts: imx8mp-skov: support new 7inch panel
- board
+	s=arc-20240116; t=1785173924; c=relaxed/simple;
+	bh=vXM27qT0ibFF0OiK2Uq4qUK7ftTuK/F9hCiZAjfh95U=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=tf5zk8sn4bwdDBtNVUWJ3+pgXXmAAGLx7cbLM0queINDBuXrN2QpUCYt/eKik88sjNGUe0L4F+eolj98f1Z41YGx2s7PLEln/3t8ooXVcCv/3ZfnghwzoFkLFq8OKqbw5ESVv/ul2wCLnw2TUq8hrZHO+B7gckNK1JK+GuLURxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iJ1OXNAJ; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iJ1OXNAJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D68E1F000E9;
+	Mon, 27 Jul 2026 17:38:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785173922;
+	bh=ZBFlMXcgYI074KUq+3tAXXsyEoywz0bPwixckezs4tU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=iJ1OXNAJhXqnMV65grYFEeqw7zGiEn4gsXyJNvjxbfzpW2rKo8NKFsdcQfnqcWl8N
+	 eFoTZ4yBSOdiq5VstH1Zoj0tzU5o7PimC7hM1H8gjTngXidCBLxdx6uCZENYbLkvpI
+	 0TBgxLvimvdW8hQpr0G158YsGgsxkdLRbKflmdu81dhNrPQi+JxIk1B4dtVptP+TCF
+	 ONdH0VsSkqnwBOpiBWARQARuv/piiwC5wM4yKSicEA5XsMZtidiNWa3gJcGaJCUmzn
+	 gOCEq34Fo25VTxMi6a7H8kfR03eO6k4uKlKLV5oezy8zjg8HFqfWWiwwyrMN6AXeTd
+	 M3TKKrZLtOVKA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/4] arm64: dts: qcom: Add header file for ADC5 Gen3
+ channel macros
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jishnu Prakash" <jishnu.prakash@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260727-adc5_gen3_dt-v3-1-bc00223648f3@oss.qualcomm.com>
+References: <20260727-adc5_gen3_dt-v3-0-bc00223648f3@oss.qualcomm.com>
+ <20260727-adc5_gen3_dt-v3-1-bc00223648f3@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 27 Jul 2026 17:38:42 +0000
+Message-Id: <20260727173842.9D68E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260727-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v7-5-ca8a0446166a@pengutronix.de>
-References: <20260727-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v7-0-ca8a0446166a@pengutronix.de>
-In-Reply-To: <20260727-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v7-0-ca8a0446166a@pengutronix.de>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: Steffen Trumtrar <s.trumtrar@pengutronix.de>, 
- =?utf-8?q?S=C3=B8ren_Andersen?= <san@skov.dk>, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2878;
- i=s.trumtrar@pengutronix.de; h=from:subject:message-id;
- bh=/5sZ4Ww5VGpOH267RgapxoUvEnHhzIosvBJBtTMkAlA=;
- b=owGbwMvMwCUmtVehiCsuTInxtFoSQ1b61Due5xvvPJl1Ldt7amHtc4OiuL7/vlXqJx0urrP8e
- kg2OLCho5SFQYyLQVZMkUVlYQWfqMcHz8hpIlwwc1iZQIYwcHEKwETWxjIyrNu/wLRk3c/9WTXp
- a+cwJf5J2Oq9I1thqmeTvtn1ffPdNzL8dxG4+mz9xwN/ZTfvcLvc9+PZiV9x1yurysMPluj8itb
- 6zw0A
-X-Developer-Key: i=s.trumtrar@pengutronix.de; a=openpgp;
- fpr=24A1780E1548F0495996140A1ABD20720A5E5622
 
-This board is similar to the already upstream
-imx8mp-skov-revc-tian-g07017 and imx8mp-skov-revc-jt101tm023 but uses a
-different 7" panel with a different touch controller.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The device tree binding header for ADC5 Gen3 channels is incorre=
+ctly placed in `arch/arm64/boot/dts/qcom/` instead of `include/dt-bindings/=
+iio/adc/`. This violates the standard architecture of DT bindings, prevents=
+ `dt-schema` validators and external projects from accessing the macro defi=
+nitions, and masks a C namespace collision with the driver's internal macro=
+s.
+--
 
-Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
----
- arch/arm64/boot/dts/freescale/Makefile             |  3 ++
- .../imx8mp-skov-revc-jutouch-jt070tm041.dtso       | 53 ++++++++++++++++++++++
- 2 files changed, 56 insertions(+)
+--- Patch [1]: [PATCH v3 1/4] arm64: dts: qcom: Add header file for ADC5 Ge=
+n3 channel macros ---
+commit 5bbbdaf340939452a160698c40a85377bcafb036
+Author: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
 
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index 2caac104bec6e..92559e0dd8396 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -435,10 +435,13 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revb-mi1010ait-1cp1.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-bd500.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-hdmi.dtb
- 
-+imx8mp-skov-revc-jutouch-jt070tm041-dtbs += imx8mp-skov-revc-touch.dtb \
-+	imx8mp-skov-revc-jutouch-jt070tm041.dtbo
- imx8mp-skov-revc-jutouch-jt101tm023-dtbs += imx8mp-skov-revc-touch.dtb \
- 	imx8mp-skov-revc-jutouch-jt101tm023.dtbo
- imx8mp-skov-revc-tian-g07017-dtbs += imx8mp-skov-revc-touch.dtb \
- 	imx8mp-skov-revc-tian-g07017.dtbo
-+dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-jutouch-jt070tm041.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-jutouch-jt101tm023.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-tian-g07017.dtb
- 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt070tm041.dtso b/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt070tm041.dtso
-new file mode 100644
-index 0000000000000..f3f43e60a0aa7
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt070tm041.dtso
-@@ -0,0 +1,53 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-+
-+/dts-v1/;
-+/plugin/;
-+
-+&{/} {
-+	model = "SKOV IMX8MP CPU revC - JuTouch JT070TM041";
-+	compatible = "skov,imx8mp-skov-revc-jutouch-jt070tm041", "fsl,imx8mp";
-+
-+	panel {
-+		compatible = "jutouch,jt070tm041";
-+		backlight = <&backlight>;
-+		power-supply = <&reg_tft_vcom>;
-+
-+		port {
-+			in_lvds0: endpoint {
-+				remote-endpoint = <&ldb_lvds_ch0>;
-+			};
-+		};
-+	};
-+};
-+
-+&i2c2 {
-+	touchscreen@2a {
-+		compatible = "eeti,exc81w32", "eeti,exc80h84";
-+		reg = <0x2a>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_touchscreen>;
-+		interrupts-extended = <&gpio4 28 IRQ_TYPE_LEVEL_LOW>;
-+		reset-gpios = <&gpio4 29 GPIO_ACTIVE_LOW>;
-+		touchscreen-size-x = <1280>;
-+		touchscreen-size-y = <800>;
-+		vdd-supply = <&reg_vdd_3v3>;
-+	};
-+};
-+
-+&lvds_bridge {
-+	/* IMX8MP_VIDEO_PLL1 = IMX8MP_CLK_MEDIA_DISP2_PIX * 7 */
-+	assigned-clock-rates = <0>, <358400000>;
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@1 {
-+			reg = <1>;
-+
-+			ldb_lvds_ch0: endpoint {
-+				remote-endpoint = <&in_lvds0>;
-+			};
-+		};
-+	};
-+};
+arm64: dts: qcom: Add header file for ADC5 Gen3 channel macros
 
--- 
-2.51.0
+This commit adds macro definitions for virtual channels used by the ADC5
+GEN3 device. It introduces the header file in the architecture-specific
+devicetree directory.
 
+> diff --git a/arch/arm64/boot/dts/qcom/qcom-adc5-gen3.h b/arch/arm64/boot/=
+dts/qcom/qcom-adc5-gen3.h
+> new file mode 100644
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/qcom-adc5-gen3.h
+> @@ -0,0 +1,88 @@
+> +/* SPDX-License-Identifier: GPL-2.0 OR BSD-2-Clause */
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#ifndef __DTS_ARM64_QCOM_ADC5_GEN3_H__
+> +#define __DTS_ARM64_QCOM_ADC5_GEN3_H__
+> +
+> +/* ADC channels for PMIC5 Gen3 */
+> +
+> +#define VIRT_CHAN(sid, chan)			((sid) << 8 | (chan))
+> +
+> +#define ADC5_GEN3_REF_GND(sid)			VIRT_CHAN(sid, 0x00)
+> +#define ADC5_GEN3_1P25VREF(sid)			VIRT_CHAN(sid, 0x01)
+> +#define ADC5_GEN3_VREF_VADC(sid)		VIRT_CHAN(sid, 0x02)
+> +#define ADC5_GEN3_DIE_TEMP(sid)			VIRT_CHAN(sid, 0x03)
+
+[Severity: Medium]
+Should this header be placed in include/dt-bindings/iio/adc/ instead of the
+architecture-specific dts directory?
+
+Placing device tree binding headers in arch/arm64/boot/dts/qcom/ prevents
+dt-schema validators and external projects from accessing the macro
+definitions. It also forces the driver to duplicate these channel constants
+internally.
+
+For example, because the header is isolated, the driver is forced to
+duplicate this as an object-like macro in
+include/linux/iio/adc/qcom-adc5-gen3-common.h:
+
+#define ADC5_GEN3_DIE_TEMP                      0x03
+
+Would it be better to move this file to include/dt-bindings/ so it can be
+shared between the devicetree YAML bindings, the driver, and the dts files,
+while also avoiding the C namespace collision?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727-adc5_gen3_=
+dt-v3-0-bc00223648f3@oss.qualcomm.com?part=3D1
