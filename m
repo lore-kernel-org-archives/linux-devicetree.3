@@ -1,115 +1,87 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95A201F1513;
-	Mon, 27 Jul 2026 11:30:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E3B53ABD83
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 11:35:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785151822; cv=none; b=c6+vV+wHKhmAmWpvVl0WRL5dyqWf1Lq1ykiYnsSaY7ABE9uRdVaQ3lB/TBfmFEfVqpYG/VxJ9Dmb3oO3TebF3MLBtJrRbrIK332oUiIQSEiwBPBI/DORsi1JZODMEMGDY6nFOLJJAkFz6QKEe0qk6CZ4qGAgTqmwe8soGBB3YCU=
+	t=1785152111; cv=none; b=P2p5MfV9SUVG0m/+ErdducN6jGs+PkGNUGyW4bOIYX3LTsOdpvvtKmblzwskjkxADZPSMPrN6JLMNS36fWi2a3j0CJEavukboL2DdkBoY9adCwHrTHF+yeT0psBravQdBPSDxkVtPyq6zgKhlcSA+LMgVQHZ3HE5P2US3P8dSiA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785151822; c=relaxed/simple;
-	bh=ZFIAFTwas2rhk3bEM2JyYbhvmHOR7sbABrYjwUVNLQM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PjzWnwiMOWxlrh7VDNwCVSdg4tOnitjq1UtEoxJOEB4JE6tpsPmdEoaGHZrOTs0+Z0cH2EM22YOMwHyekyZ3stIwFYX16x6m8wXFdYkodkXRvuYrAuyDRHFIeMHyoGv8Yir9a8pfP2Tsqm+9LSaN0W+ZOKvh1JUCjJ7DJSFBT3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=eluZNqzo; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1785152111; c=relaxed/simple;
+	bh=TzINDbs+VbgzH2YheSF3cDlUZ7+ZuUFX1umEZ5dY+kc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=s/EEV97rE/s+I7WY34lhSucJpTsipaLAZlrY5IipwPLKYZwgJn9i/fcBnZq69/mLo6Cdo8CDo9u4iwFa0LOVlwEdpdBK+zmVowN492G9aETynA7+qcN2bD2HNZeLmT3VC/Pt8Ln/3hh1WzvEnsHks4nNNMBOf654EAX54df/HKM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=IJ0bCOHG; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="eluZNqzo"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1785151819;
-	bh=ZFIAFTwas2rhk3bEM2JyYbhvmHOR7sbABrYjwUVNLQM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=eluZNqzoifWatVLkxPgK7atnz3bqNuwlLsmhWgAt8gmaEw3yCwnr9qqvhW72bM3F1
-	 dEyCinGMU87TJAOYrWSecCipByGtNnu50ZUum9ecK1LFatVvoNMyICbnzYPWBGPXtL
-	 4tGvf/aNUyrSLd3RjFdSuPI7sye3GgjBl0VWX7BG8iiOjrUDveduub/xgLyftAa4Dz
-	 ZPTnb6wSz0nWLuknBGtjxbcIlIAZpe2fuHGeYe0QMkXF8jyf8FI7w2AIkLuuRJlg0R
-	 sudvXZUvXCgNWYKya2/4uVUATkq/7XrzQyWGxaaAw06YN2+1YIhRQegt6dtUR924IK
-	 Gx71BeqleSFiw==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 1741017E0213;
-	Mon, 27 Jul 2026 13:30:19 +0200 (CEST)
-Message-ID: <a3298120-f5be-4a8a-bb71-1d6923a28d6c@collabora.com>
-Date: Mon, 27 Jul 2026 13:30:18 +0200
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="IJ0bCOHG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=from:to:cc:subject:date:message-id
+	:in-reply-to:references:mime-version:content-transfer-encoding;
+	 s=k1; bh=IhASfEUPTeqfb8JyVjNSBH9Y4Frmem9Jz52g3v5FJKY=; b=IJ0bCO
+	HGgAXsDn7ehwFEzx62QNV+rb/7ZLlbzB3Ax1esufL1ncIV+Fdyuhowm+36b43Msz
+	FL74unL88HsyedZj6d2b2sygn1Vo6QiVsIYZkVgPzmXN6UttLIx6OOYI1UHgNrvP
+	c5NonqNjuHw/85HCoO24cnaeUpqYMcG1KNMz5BF70urD0/vgxwL+7Qc4rKEVxCop
+	c2nuqK+HZmnS/tNV70yvaEAyQzO+Zkr5QkV+suRi+dXo50ctZ/JnirCQ6U87/iKD
+	cHeQRi3q9LWz5/HUsSPza0ajOPO0Pu1++Glp7oYbHNQNaUEZH5HDzoNuSHHgUeN6
+	ga5bIXGvJa9fkklQ==
+Received: (qmail 589300 invoked from network); 27 Jul 2026 13:35:04 +0200
+Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 27 Jul 2026 13:35:04 +0200
+X-UD-Smtp-Session: l3s3148p1@cOISHZZXOs8ujnuy
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: linux-renesas-soc@vger.kernel.org
+Cc: Minh Le <minh.le.aj@renesas.com>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH 1/2] dt-bindings: i2c: rcar-i2c: Document R-Car X5H support
+Date: Mon, 27 Jul 2026 13:34:42 +0200
+Message-ID: <20260727113441.11193-5-wsa+renesas@sang-engineering.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260727113441.11193-4-wsa+renesas@sang-engineering.com>
+References: <20260727113441.11193-4-wsa+renesas@sang-engineering.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] arm64: dts: mediatek: alias all enabled serial
- ports
-To: Carlo Caione <ccaione@baylibre.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- linux-serial@vger.kernel.org, dlechner@baylibre.com, jstephan@baylibre.com
-References: <20260727-ccaione-genio-serial-aliases-v2-0-0f2ae41a8e89@baylibre.com>
- <20260727-ccaione-genio-serial-aliases-v2-1-0f2ae41a8e89@baylibre.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20260727-ccaione-genio-serial-aliases-v2-1-0f2ae41a8e89@baylibre.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 7/27/26 09:38, Carlo Caione wrote:
-> On most MediaTek boards only serial0 is aliased, so the remaining
-> enabled uarts get first-free ttyS line numbers from the 8250 core in
-> probe order. When the console uart defers on its clocks another uart can
-> win line 0: console=ttyS0 then ends up on the wrong port and the boot
-> looks like a hang on the serial console, depending on probe order.
-> 
-> Signed-off-by: Carlo Caione <ccaione@baylibre.com>
-> ---
->   arch/arm64/boot/dts/mediatek/mt6795-sony-xperia-m5.dts    | 1 +
->   arch/arm64/boot/dts/mediatek/mt7622-rfb1.dts              | 1 +
->   arch/arm64/boot/dts/mediatek/mt7986a-bananapi-bpi-r3.dts  | 2 ++
->   arch/arm64/boot/dts/mediatek/mt7986a-rfb.dts              | 2 ++
->   arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi            | 1 +
->   arch/arm64/boot/dts/mediatek/mt8192-asurada-hayato-r1.dts | 4 ++++
->   arch/arm64/boot/dts/mediatek/mt8195-demo.dts              | 1 +
->   arch/arm64/boot/dts/mediatek/mt8365-evk.dts               | 2 ++
->   arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi     | 2 ++
->   arch/arm64/boot/dts/mediatek/mt8390-grinn-genio-sbc.dtsi  | 2 ++
->   arch/arm64/boot/dts/mediatek/mt8390-tungsten-smarc.dtsi   | 2 ++
->   arch/arm64/boot/dts/mediatek/mt8395-genio-common.dtsi     | 1 +
->   12 files changed, 21 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/mediatek/mt6795-sony-xperia-m5.dts b/arch/arm64/boot/dts/mediatek/mt6795-sony-xperia-m5.dts
-> index 0e086dd487d9..63659e240b1d 100644
-> --- a/arch/arm64/boot/dts/mediatek/mt6795-sony-xperia-m5.dts
-> +++ b/arch/arm64/boot/dts/mediatek/mt6795-sony-xperia-m5.dts
-> @@ -20,6 +20,7 @@ aliases {
->   		mmc2 = &mmc2;
->   		serial0 = &uart0;
->   		serial1 = &uart1;
-> +		serial2 = &uart2;
->   	};
->   
->   	backlight_lcd0: backlight {
-> diff --git a/arch/arm64/boot/dts/mediatek/mt7622-rfb1.dts b/arch/arm64/boot/dts/mediatek/mt7622-rfb1.dts
-> index 8c3e2e2578bc..7bccad118d24 100644
-> --- a/arch/arm64/boot/dts/mediatek/mt7622-rfb1.dts
-> +++ b/arch/arm64/boot/dts/mediatek/mt7622-rfb1.dts
-> @@ -20,6 +20,7 @@ / {
->   
->   	aliases {
->   		serial0 = &uart0;
-> +		serial2 = &uart2;
+From: Minh Le <minh.le.aj@renesas.com>
 
-Why is that serial2 and not serial1 = &uart2?
+Document support for rcar-i2c on R8A78000 (X5H) SoCs.
 
-Cheers,
-Angelo
+Signed-off-by: Minh Le <minh.le.aj@renesas.com>
+[wsa: fixed white space issues]
+Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+---
+ Documentation/devicetree/bindings/i2c/renesas,rcar-i2c.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
->   	};
->   
->   	chosen {
+diff --git a/Documentation/devicetree/bindings/i2c/renesas,rcar-i2c.yaml b/Documentation/devicetree/bindings/i2c/renesas,rcar-i2c.yaml
+index 6cc60c3f61cd..46b4bd16c593 100644
+--- a/Documentation/devicetree/bindings/i2c/renesas,rcar-i2c.yaml
++++ b/Documentation/devicetree/bindings/i2c/renesas,rcar-i2c.yaml
+@@ -56,6 +56,11 @@ properties:
+               - renesas,i2c-r8a779h0     # R-Car V4M
+           - const: renesas,rcar-gen4-i2c # R-Car Gen4
+ 
++      - items:
++          - enum:
++              - renesas,i2c-r8a78000     # R-Car X5H
++          - const: renesas,rcar-gen5-i2c # R-Car Gen5
++
+   reg:
+     maxItems: 1
+ 
+-- 
+2.47.3
+
