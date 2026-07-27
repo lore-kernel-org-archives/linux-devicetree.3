@@ -1,240 +1,126 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C56841DE18
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 16:23:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9B3A420E89;
+	Mon, 27 Jul 2026 16:24:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785169421; cv=none; b=N9diS714Tg4FZ4dMz07hVicKlDINq8frwf3MdI7NYFNbOhscYRvyxkTjjSMbfmNdkKg7GkDVKVW+KJUq9alo8Wdz83gJHBI2Nj9L7r90+vQsuhY7UqxZ1NQn3shBxsTt0rFd4+a9Xqm/6YJsRpcmCuW9GT1bzy5EMSqX5jPI52c=
+	t=1785169449; cv=none; b=XdilAFB+XsToltd9+J0YEbN7qaxgro+gViI+xxN6e49Ce33m7zpCgRKUtV2fk8TwE3nasUDmYXd8wKY42KgCg5z5mm73QMnqtV/ikriwSFvO33tdxsvhpFT3WU0VPYhDqnfROqKwhmer2L94SYQETwdtjKGabvpQbLVsb88LzxY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785169421; c=relaxed/simple;
-	bh=sLHywt/SJf0UrMnLNVCvrp1fphK/KzzPZ9ZA9IBaIVU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jE6z0tL9Qj8nXLcLCuNKKvqwMk/P+4i0eelopW82NDoSSnWtiScRcyHvynFToiU2ctbmnVhoOuvLXwfp/w1RAXr9uolXuPGQ26KAdKkqb2Pqk4zRZIJUPgGAK1cejc2fVxT/paP7TqhpY7v5c937anhyr9DWKarEGWhi+3ki4/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TIsusyu3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785169449; c=relaxed/simple;
+	bh=hnlLaHHGgdJk9dJXwr/8Bp+o2gpo+EYxsAgavievH4c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QtAnJtvKynWd3ebzjPND5cs1aFD/hAmee7oQ1iG4BYIWHzg3Sy2DNm1hogVuzkE/dDrERoEqyt6XgQD6I7s3zIsMgxVNxGbrxTp0eUrUzIGOu3dz9IpN9/BqQsNdN2NIcd5r94LO/UJv1/gifLUcHXUCuMSDWwqrfJOD+iUDhCo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EB2oJyT3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TIsusyu3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7C0D1F000E9;
-	Mon, 27 Jul 2026 16:23:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EB2oJyT3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3E6D1F000E9;
+	Mon, 27 Jul 2026 16:24:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785169418;
-	bh=T/ft31bRF/6tZgrB6e+2cWY1c+NQk7U+eV90peZLa9Y=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TIsusyu3ZHQz3MPvkMUeZk8v/LUuLYlk9dtbCurxawDU3MAxBk4kIFnIgGBLhRZVo
-	 Hnyq+lhJWTejhCJJ8hF6xhOFDRvrJb0Bs/Hbphr8FASJhpQfy3iyF2q2YiEeh2p6Ae
-	 yWBE1wnvR5iyDOXRZv2YVranUncIpto5hjB4obO1bGDBOj5D16sS6gr1Ua4MnXXrq3
-	 k71r41lj3La++xopJlEUMIFvm6IKx8Xl4l6sw2M5t5ASWhKJwfMv1M55hU01cRunMK
-	 FCl5DMGy22DI4GY0RXoabv3YS6xCXBxPVLodEezlmFeczDoL4DoqJfMGMsi9Ypm6Hj
-	 kfZCKYv6UC18A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] usb: typec: tipd: Factor out i2c specifics
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sasha Finkelstein" <k@chaosmail.tech>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260727-tipd-ace3-v2-2-1345957bd635@chaosmail.tech>
-References: <20260727-tipd-ace3-v2-0-1345957bd635@chaosmail.tech>
- <20260727-tipd-ace3-v2-2-1345957bd635@chaosmail.tech>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 27 Jul 2026 16:23:37 +0000
-Message-Id: <20260727162337.E7C0D1F000E9@smtp.kernel.org>
+	s=k20260515; t=1785169447;
+	bh=RBXpZSTaERLmZOoaiMiejoT9Ba+oDRYLMpaF9aCISp0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EB2oJyT3LVT0a8ODTVmDTPnMgaNxyeAPbteSR00cUoroP9S9lnpuqGO5aj9m8WaA4
+	 9Bzjy6kuandWtV+tQDQBiy2NpUKkk+hHS5uv7HjhrXc0+hBXGfjQ9puvlY/6icN885
+	 xOlGBkoiOpwj73y11STRzyng+kXVFL8R4Xu7Yn0YBlb+QdaLocXyQbAEF8c2ypNDBc
+	 In6oxsckV7osHBnhuV6EMpmLoQjdSf3QgVE401Cv/3QdXNggF04s/vhlyE/8TFP1Pm
+	 PraX/zqhBWeqhKt38Re0oVJL7izWdMDyE/uiVUlxXIubUyk2P3eAxPwsLopAjRzi9d
+	 9ShDf5BWG0dXg==
+Date: Mon, 27 Jul 2026 18:24:04 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Hao-Qun Huang <alvinhuang0603@gmail.com>, 
+	Rob Herring <robh@kernel.org>
+Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Sowjanya Komatineni <skomatineni@nvidia.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Dmitry Osipenko <digetx@gmail.com>, linux-media@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH] staging: media: tegra-video: fix of_node_put() on VIP
+ parse errors
+Message-ID: <ameBr5oM8pp4PpiQ@orome>
+References: <20260707150326.554689-1-alvinhuang0603@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="b7pg45i72k7ky7mj"
+Content-Disposition: inline
+In-Reply-To: <20260707150326.554689-1-alvinhuang0603@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
 
-New issues:
-- [High] I2C-specific code remains in the bus-agnostic core, causing memory=
- corruption on non-I2C buses.
-- [Low] `tps6598x_pm_ops` is missing the `static` modifier.
+--b7pg45i72k7ky7mj
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] staging: media: tegra-video: fix of_node_put() on VIP
+ parse errors
+MIME-Version: 1.0
 
-Pre-existing issues:
-- [High] Probe error path fails to cancel queued delayed works, leading to =
-a Use-After-Free.
-- [High] Suspend/resume functions blindly operate on IRQ 0 if `wakeup-sourc=
-e` is present but no interrupt is supplied.
-- [High] The polling delayed work re-arms itself unconditionally, leading t=
-o a Use-After-Free when the driver is unbound.
---
+On Tue, Jul 07, 2026 at 11:03:26PM +0800, Hao-Qun Huang wrote:
+> tegra_vip_channel_of_parse() initializes np from dev->of_node without
+> taking a reference, but its error paths drop one through the
+> err_node_put label. This underflows the refcount of the VIP device's
+> OF node when endpoint parsing fails on a malformed device tree.
+>=20
+> The only reference the function takes on np is the success-path
+> of_node_get() stored in vip->chan.of_node, and that one is already
+> released by the tegra_vip_init() error path and by tegra_vip_exit().
+>=20
+> Return errors directly instead of jumping to the bogus cleanup label.
+>=20
+> Fixes: e740d199cf0f ("staging: media: tegra-video: add support for Tegra2=
+0 parallel input")
+> Assisted-by: Claude:claude-fable-5
+> Signed-off-by: Hao-Qun Huang <alvinhuang0603@gmail.com>
 
---- Patch [2]: [PATCH v2 2/3] usb: typec: tipd: Factor out i2c specifics ---
-commit 882592426a7c1d39d01dd47ae8a3f79d6c0d8efd
-Author: Alyssa Milburn <amilburn@zall.org>
-Subject: usb: typec: tipd: Factor out i2c specifics
+I suppose this is a common pattern, but isn't this technically broken?
+If we were really pedantic I think we'd need to grab a reference to the
+node very early in the function, like so:
 
-Make the core driver more bus-agnostic to prepare for SPMI variants of
-the tipd chip.
+	struct device_node *np =3D of_node_get(dev->of_node);
 
-> Make the core driver more bus-agnostic to prepare for SPMI variants of
-> the tipd chip
+And then make sure to release it on error (and hold on to it on success
+and release it on remove). For kobject/kref, unless you hold a reference
+to them they can disappear at any time.
 
-[Severity: High]
-Does the core driver still contain I2C-specific code?
+That said, of_node_get() doesn't fully support this, it seems. It would
+need to do kobject_get_unless_zero() to be fully sure we get a valid OF
+node.
 
-Looking at tps25750_write_firmware() in core.c, it still uses
-to_i2c_client(tps->dev):
+Rob, I have seen these kinds of reference leak fixes a number of times
+now but they just don't seem to be fully correct. I know that OF_DYNAMIC
+probably isn't a very common configuration and so we might not run into
+most of these issues. However, I wonder if there generally is a problem,
+or if I just don't understand this correctly and there's some other
+mechanism that makes sure these references stay around while the code
+uses them without their own reference. I guess maybe as long as we run
+code as part of probe we can rely on the struct device hanging on to its
+reference?
 
-	struct i2c_client *client =3D to_i2c_client(tps->dev);
-...
-	slave_addr =3D client->addr;
-	timeout =3D client->adapter->timeout;
+Thierry
 
-	client->adapter->timeout =3D msecs_to_jiffies(5000);
-	client->addr =3D bpms_addr;
+--b7pg45i72k7ky7mj
+Content-Type: application/pgp-signature; name="signature.asc"
 
-If this core code is used with SPMI variants, won't to_i2c_client() perform=
- an
-invalid container_of() cast on the device pointer, resulting in memory
-corruption when modifying the non-existent i2c_client struct?
+-----BEGIN PGP SIGNATURE-----
 
-> diff --git a/drivers/usb/typec/tipd/core.c b/drivers/usb/typec/tipd/core.c
-> index d5ee0af9058b9..aadadfdc6ed12 100644
-> --- a/drivers/usb/typec/tipd/core.c
-> +++ b/drivers/usb/typec/tipd/core.c
-[ ... ]
-> @@ -1842,14 +1717,14 @@ static int tps6598x_probe(struct i2c_client *clie=
-nt)
->  			goto err_unregister_port;
->  		ret =3D tps->data->connect(tps, status);
->  		if (ret)
-> -			dev_err(&client->dev, "failed to register partner\n");
-> +			dev_err(tps->dev, "failed to register partner\n");
->  	}
-> =20
-> -	if (client->irq) {
-> -		ret =3D devm_request_threaded_irq(&client->dev, client->irq, NULL,
-> +	if (tps->irq) {
-> +		ret =3D devm_request_threaded_irq(tps->dev, tps->irq, NULL,
->  						tps->data->irq_handler,
->  						IRQF_SHARED | IRQF_ONESHOT,
-> -						dev_name(&client->dev), tps);
-> +						dev_name(tps->dev), tps);
->  	} else {
->  		dev_warn(tps->dev, "Unable to find the interrupt, switching to polling=
-\n");
->  		INIT_DELAYED_WORK(&tps->wq_poll, tps6598x_poll_work);
-> @@ -1860,13 +1735,12 @@ static int tps6598x_probe(struct i2c_client *clie=
-nt)
->  	if (ret)
->  		goto err_disconnect;
-> =20
-> -	i2c_set_clientdata(client, tps);
->  	fwnode_handle_put(fwnode);
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmpnhiEACgkQ3SOs138+
+s6ED7A//ay6tQPT9ljBJEqYAPmHVdyXLy3wsaIcFw5eev0a8Iz/xC4hJrWNZp0ix
+2mmjA5Hek4YrPXUrNLDoH6lgkCj4SWISC+FZbh5vHaVIiv4tgGIaFiMuFCyPtkNR
+urrYV74O1Sckk8+AXFVdlZIiIX60qpKtibX/n8ufny71vqsd+0n+85/LPeGuEJsJ
+bNgBW8mYAziiKAPOm3/mJV9MRGX0E6qbf5oW+AGdDFkdI6yi+DEjbaQH9KZRDGr3
++d8vtA+jn9wt21lo2j5NwrLaclCiOyeZQe5QzoeCgIB2d2AlMykt1qbhtw7VXhRH
+3KXzioJtA6S+Nywz7PLiIB7OjGgo8/3vwJuRV9mrLOW+LfWb2t7N7yTM6G9fTf2Q
+4RKi8VTGZsg4IOsjJazOa2h0/Woqt/5XyovarYMwPK5Tgna0bQLoCuLraKjEpxOv
+B6hOyFN++pS176nwTFtAwT3Srq78e3Hw46gvDIUnTgQOwpg0MFWPrFSCaULTC6cM
+yyZTnQ4fd4L95jem2h2A2PGxjlkJVL2UnIN4JpZnYNGy7OzWsDVcE+eQNEN/uXBG
+fvZxd3+SN+JUZktmZRyGg5GVQCxqcohHZ2iA3to4sCeTNWrsmzxqWLIh/sR/E87R
+CZCCFRYo0rpS6WJqq8BcLLaUINXz3qEb76B5xlwoCt6ze/KrXhs=
+=Z5zv
+-----END PGP SIGNATURE-----
 
-[Severity: High]
-This is a pre-existing issue, but if we take the goto err_disconnect path
-here, are we leaking queued works?
-
-If tps->data->connect() fails earlier, tps->wq_poll is already queued.
-If cd321x_connect() queued cd321x->update_work, that is also queued.
-
-When jumping to err_disconnect, the delayed works are never canceled before
-the function returns and the devres-allocated tps object is freed. Could th=
-is
-cause a use-after-free when the works later execute on freed memory?
-
-[ ... ]
-> @@ -1887,15 +1761,14 @@ static int tps6598x_probe(struct i2c_client *clie=
-nt)
-> =20
->  	return ret;
->  }
-> +EXPORT_SYMBOL_GPL(tipd_init);
-> =20
-> -static void tps6598x_remove(struct i2c_client *client)
-> +void tipd_remove(struct tps6598x *tps)
->  {
-> -	struct tps6598x *tps =3D i2c_get_clientdata(client);
-> -
-> -	if (!client->irq)
-> +	if (!tps->irq)
->  		cancel_delayed_work_sync(&tps->wq_poll);
->  	else
-> -		devm_free_irq(tps->dev, client->irq, tps);
-> +		devm_free_irq(tps->dev, tps->irq, tps);
-
-[Severity: High]
-This is a pre-existing issue, but doesn't tps6598x_poll_work() unconditiona=
-lly
-re-arm itself?
-
-Looking at tps6598x_poll_work():
-
-	queue_delayed_work(system_power_efficient_wq, &tps->wq_poll,
-			   msecs_to_jiffies(POLL_INTERVAL));
-
-Because the re-arming is unconditional, won't cancel_delayed_work_sync() he=
-re
-allow the work to just queue itself again immediately, resulting in a
-use-after-free after the device is unbound?
-
-[ ... ]
-> -static int __maybe_unused tps6598x_suspend(struct device *dev)
-> +int tipd_suspend(struct tps6598x *tps)
->  {
-> -	struct i2c_client *client =3D to_i2c_client(dev);
-> -	struct tps6598x *tps =3D i2c_get_clientdata(client);
-> -
->  	if (tps->wakeup) {
-> -		disable_irq(client->irq);
-> -		enable_irq_wake(client->irq);
-> +		disable_irq(tps->irq);
-> +		enable_irq_wake(tps->irq);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but if the device tree specifies
-a wakeup-source but no interrupt is provided, tps->irq is 0 and tps->wakeup
-is true.
-
-Won't this call disable_irq(0) and enable_irq_wake(0), mistakenly manipulat=
-ing
-the wrong interrupt (such as the system timer)?
-
-[ ... ]
-> -static int __maybe_unused tps6598x_resume(struct device *dev)
-> +int tipd_resume(struct tps6598x *tps)
->  {
-> -	struct i2c_client *client =3D to_i2c_client(dev);
-> -	struct tps6598x *tps =3D i2c_get_clientdata(client);
->  	int ret;
-[ ... ]
->  	if (tps->wakeup) {
-> -		disable_irq_wake(client->irq);
-> -		enable_irq(client->irq);
-> +		disable_irq_wake(tps->irq);
-> +		enable_irq(tps->irq);
-
-[Severity: High]
-This is a pre-existing issue, but similar to suspend, if tps->irq is 0, won=
-'t
-this resume path call enable_irq(0) and disable_irq_wake(0)?
-
-> diff --git a/drivers/usb/typec/tipd/i2c.c b/drivers/usb/typec/tipd/i2c.c
-> new file mode 100644
-> index 0000000000000..1ea6ee59c8226
-> --- /dev/null
-> +++ b/drivers/usb/typec/tipd/i2c.c
-[ ... ]
-> +static int __maybe_unused tps6598x_resume(struct device *dev)
-> +{
-> +	struct tps6598x *tps =3D dev_get_drvdata(dev);
-> +
-> +	return tipd_resume(tps);
-> +}
-> +
-> +const struct dev_pm_ops tps6598x_pm_ops =3D {
-> +	SET_SYSTEM_SLEEP_PM_OPS(tps6598x_suspend, tps6598x_resume)
-> +};
-
-[Severity: Low]
-Should this dev_pm_ops struct be declared static to avoid namespace polluti=
-on
-and missing-prototype warnings?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727-tipd-ace3-=
-v2-0-1345957bd635@chaosmail.tech?part=3D2
+--b7pg45i72k7ky7mj--
