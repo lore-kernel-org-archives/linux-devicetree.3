@@ -1,133 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FDF2273803;
-	Mon, 27 Jul 2026 07:50:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 009421FF7C5
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 07:50:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785138609; cv=none; b=FpK+7TJItQTpgRUMx3H8AzMXj3sT4s/N0i1AaRYFJg/I7kMETfmyHIgu5302b0NmomQA5T68BpRc+t0YjPlPfmtmk8tc3ddqJ9mQLK2qE7VlJBXF8jh+fyHImBINunwiUzK5k789k3f3cGTLps/TqTrOIEt3ziPf14PoMtY5ki0=
+	t=1785138644; cv=none; b=MzbsaMTCZhCAym65yEYJ1t4qVHNTLabHNSuTLKbtg1XexB70i3JbNEypmoMiNnf0q53wTxh5GKP/ewdYz+GN/+hBTxuQlOa1aBZRFXL1BJKoJ8HHITFXoruReertvrR/g2QwphCCAO1hNnx3qsUe8J26x71T5f4IrViPudkJL44=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785138609; c=relaxed/simple;
-	bh=6WKZ9RwAp3CkxMQK9FDtrLiBYFYnpS/vzdx4auWzQ/o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kOl/5FHMSFfFHGqIZxIuuL8xGWULZ8Nw79L8avFHPCzGDuD6YZGa+u/xeMnSnq4jyCJNPmeEfQg9+a/d04nWKs3A66rBu0PiceNJuFFuepXn+M9sQ/jfol+ZBnmGJdK1M44+DB/XXKjoWzi10Xfv0/cPQnEp2pQbsJUtX2VtqGA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MpCEi2V9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785138644; c=relaxed/simple;
+	bh=6jtwOs5aixlr0CJYSfXsHM/vj34A/mRriPezlivLfoo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=U/s5nOFbddWV6tNBIOWORoFG8WT47LhhzXN5t4G291uipG5YOstnYe8A9/293bJ0/bCGZ6f8funi1Jur0HWktBk7EDVtEOZjYV1iKnIqWgiY4STY5xavuO7kCRhm9KCQlJKtbJdWCuTOH3sRb9cfv7IVVHSv+cWw7Cni0XvWyIs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fH4R2Ork; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MpCEi2V9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2BC11F000E9;
-	Mon, 27 Jul 2026 07:50:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fH4R2Ork"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55F741F000E9;
+	Mon, 27 Jul 2026 07:50:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785138608;
-	bh=AMjqfnoPcf75IQ0mcpIkSvvJOXEWmCyEkKL3C5tZLHo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MpCEi2V9bcWUzi4aGR9FZlqTmkAd+LRbJz+STOVqTCpZ4DRt/IPVpTQW8cEv2lWQ5
-	 D/2FTtg/71Y8EKsAl9ZYVz+VzhIxR6eep0NawkexAf3LpwnP/Go8Kko0GR4XbEkWNJ
-	 qnj/OAG9UuwaC1r6iFkIY1Mon8lqQO8gxgI3dmqxLtzMsc9e14NNgriWg43LivqsU3
-	 9Th9KspphKz6eWXMuOFv1/Cv1uS5gEgXTlHrzJSb43W3ZqxXMkFi1AD6RpzMVWTKNT
-	 39pALpQJpZbezOs/PKa/mE0K4Yo37SYJOe3I9OL13bwcAE0k4SocdrXPOg+bBD8dVo
-	 Tk34uanyxrdVg==
-Date: Mon, 27 Jul 2026 09:50:05 +0200
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
-Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Benjamin Larsson <benjamin.larsson@genexis.eu>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
-	Markus Gothe <markus.gothe@genexis.eu>,
-	Matheus Sampaio Queiroga <srherobrine20@gmail.com>
-Subject: Re: [PATCH v7 04/34] pinctrl: airoha: an7581: fix misprint in
- bitfield name
-Message-ID: <amcNrSeVi2oiOQUp@lore-desk>
+	s=k20260515; t=1785138642;
+	bh=zREkPUCyLw95i8iVsU3gMrIVY4tNdtW7Fjg51ui3gAU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=fH4R2Orks6QBiDTobcdMx1vTp1F8WFCLqeisvzUuTUL9cTTjdK7YyJCc8DQkOYgkA
+	 nd7ee68KQNFmQTfQ/PjOtu7tDLeoWEdaVIWCtr8SamghZxEYoZq8lBRJL0vVWo8gL4
+	 /LmkaC2hDI6mJNzZfXxkhu2FuoN0c7jMTE9ELbVtnRYJdGvn9Ke6EV4M/CJAmWej5a
+	 z5eKZmrcyoOydTSvle1OEqpdOSvrn1Yqq1Sl4RkMX3KLZpguMg/k4RWlIDAQMM2O1D
+	 DDRElQrjQm6fkLov8hnE5hAqVvVxzVGlVyXfvcfEULBHYzqM30Wdfn23yDk19+IqTZ
+	 6dTXyTh8b3oVw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 01/34] dt-bindings: pinctrl: airoha: en7581: fix
+ misprint in i2s function name
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260727074234.3761170-2-mikhail.kshevetskiy@iopsys.eu>
 References: <20260727074234.3761170-1-mikhail.kshevetskiy@iopsys.eu>
- <20260727074234.3761170-5-mikhail.kshevetskiy@iopsys.eu>
+ <20260727074234.3761170-2-mikhail.kshevetskiy@iopsys.eu>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 27 Jul 2026 07:50:41 +0000
+Message-Id: <20260727075042.55F741F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Xni9vt5h7PN3iW9a"
-Content-Disposition: inline
-In-Reply-To: <20260727074234.3761170-5-mikhail.kshevetskiy@iopsys.eu>
 
---Xni9vt5h7PN3iW9a
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-> Fix misprint in bitfield name of GPIO_2ND_I2C_MODE register
->=20
-> Fixes: 1c8ace2d0725 ("pinctrl: airoha: Add support for EN7581 SoC")
-> Signed-off-by: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+Pre-existing issues:
+- [Low] Incomplete fix: identical copy-paste misprint for 'i2s' function wa=
+s missed in the sibling binding 'airoha,an7583-pinctrl.yaml'.
+--
 
-Acked-by: Lorenzo Bianconi <lorenzo@kernel.org>
+--- Patch [1]: [PATCH v7 01/34] dt-bindings: pinctrl: airoha: en7581: fix m=
+isprint in i2s function name ---
+commit 0749f859891dd657945c83f8003df4b6494d5a24
+Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
 
-I guess you can fix GPIO_I2C_MASTER_MODE_MODE too.
+dt-bindings: pinctrl: airoha: en7581: fix misprint in i2s function name
 
-Regards,
-Lorenzo
+This patch fixes a misprint in the EN7581 pinctrl binding where the "i2c"
+pin function was defined twice, hiding the "i2s" pin function. The correcti=
+on
+aligns the binding with the actual pinctrl driver.
 
-> ---
->  drivers/pinctrl/airoha/pinctrl-airoha.c | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
->=20
-> diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/ai=
-roha/pinctrl-airoha.c
-> index abfb018f207e5..a3cfee6ace778 100644
-> --- a/drivers/pinctrl/airoha/pinctrl-airoha.c
-> +++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
-> @@ -49,7 +49,7 @@
-> =20
->  /* MUX */
->  #define REG_GPIO_2ND_I2C_MODE			0x0214
-> -#define GPIO_MDC_IO_MASTER_MODE_MODE		BIT(14)
-> +#define GPIO_MDC_IO_MASTER_MODE_MASK		BIT(14)
->  #define GPIO_I2C_MASTER_MODE_MODE		BIT(13)
->  #define GPIO_I2S_MODE_MASK			BIT(12)
->  #define GPIO_I2C_SLAVE_MODE_MODE		BIT(11)
-> @@ -1026,8 +1026,8 @@ static const struct airoha_pinctrl_func_group mdio_=
-func_group[] =3D {
->  		.regmap[0] =3D {
->  			AIROHA_FUNC_MUX,
->  			REG_GPIO_2ND_I2C_MODE,
-> -			GPIO_MDC_IO_MASTER_MODE_MODE,
-> -			GPIO_MDC_IO_MASTER_MODE_MODE
-> +			GPIO_MDC_IO_MASTER_MODE_MASK,
-> +			GPIO_MDC_IO_MASTER_MODE_MASK
->  		},
->  		.regmap[1] =3D {
->  			AIROHA_FUNC_MUX,
-> @@ -1051,8 +1051,8 @@ static const struct airoha_pinctrl_func_group an758=
-3_mdio_func_group[] =3D {
->  		.regmap[1] =3D {
->  			AIROHA_FUNC_MUX,
->  			REG_GPIO_SPI_CS1_MODE,
-> -			GPIO_MDC_IO_MASTER_MODE_MODE,
-> -			GPIO_MDC_IO_MASTER_MODE_MODE
-> +			GPIO_MDC_IO_MASTER_MODE_MASK,
-> +			GPIO_MDC_IO_MASTER_MODE_MASK
->  		},
->  		.regmap_size =3D 2,
->  	},
-> --=20
-> 2.53.0
->=20
+> diff --git a/Documentation/devicetree/bindings/pinctrl/airoha,en7581-pinc=
+trl.yaml b/Documentation/devicetree/bindings/pinctrl/airoha,en7581-pinctrl.=
+yaml
+> --- a/Documentation/devicetree/bindings/pinctrl/airoha,en7581-pinctrl.yaml
+> +++ b/Documentation/devicetree/bindings/pinctrl/airoha,en7581-pinctrl.yaml
+> @@ -166,7 +166,7 @@ patternProperties:
+>            - if:
+>                properties:
+>                  function:
+> -                  const: i2c
+> +                  const: i2s
 
---Xni9vt5h7PN3iW9a
-Content-Type: application/pgp-signature; name=signature.asc
+[Severity: Low]
+This isn't a bug introduced by this patch, but does the same misprint exist
+in the sibling binding for the AN7583?
 
------BEGIN PGP SIGNATURE-----
+Looking at Documentation/devicetree/bindings/pinctrl/airoha,an7583-pinctrl.=
+yaml
+in the patternProperties:^mux(-|$):allOf block:
 
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCamcNrQAKCRA6cBh0uS2t
-rBUpAP9NVeQoqX1obrWad58aOK2MAb6Ni7VTWYq6c5L9azHCMAEAztx97agV+lsZ
-iEI1NU5G8HzeXnVSthu3pVqrNS36Eg0=
-=A+h4
------END PGP SIGNATURE-----
+          - if:
+              properties:
+                function:
+                  const: i2c
+            then:
+              properties:
+                groups:
+                  enum: [i2s]
 
---Xni9vt5h7PN3iW9a--
+Should this file also be updated alongside the EN7581 changes to prevent
+schema validation from improperly failing when checking the i2c or i2s pin
+functions on the AN7583 SoC?
+
+>              then:
+>                properties:
+>                  groups:
+>                    enum: [i2s]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727074234.3761=
+170-1-mikhail.kshevetskiy@iopsys.eu?part=3D1
