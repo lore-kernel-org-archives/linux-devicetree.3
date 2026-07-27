@@ -1,176 +1,170 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC5C83E0230
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 08:07:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CFD73DA7E3
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 08:09:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785139652; cv=none; b=GXWNr0U0oR+UiC9BH+mHOkKtJh8nWg806wS/jdlLCh1ziw0g3YMOR0fjgGflv2qKa14v+45lHEuz6wKiseTN9b0RBgCD1omXNzmBpQVx+On7/vCSaCk5OkGmdC87ylNhqxS8nH7op/N8F4rV2NgvHj8kx31rj8l7TTu6LfhIZsI=
+	t=1785139748; cv=none; b=mbdm79FtKbMbR4at48jlqOx2KogcnTQOmnZW3DA1wRpRqGYqOSU6D0TI+x+s5tGsKFI4AloYIS8VU5yEwRsSTHTDR3PZgD1h69J651E448Cnvs27W1+wz7C+6zKDI2o+1bL5UY+z7ewBXY3tOmjmQebub1Iz7Wrs2RvbjVZftbQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785139652; c=relaxed/simple;
-	bh=wkQkhKy1WoH3F9zWE8DgnlHZ6QseN8FYhhjcz4eNczs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=lDsMnaLyNkvpISa5T8nAmdkBmc9PyE11Cg3g4V2r/SOV8KeCu+4TOQ2SndCyEzgflpi4KuyecAaJMejhkxP4YcnkjGgX+afkbMZpVQVSK6fJp4ic2NVqBy7e++kFQ2gubhUiwhSaKyPFNtm+F8xOCxa7CTP/lZjnobRmK3wUKlA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cy2EJrNu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785139748; c=relaxed/simple;
+	bh=o+0VBZGZpUXbU+6zVjhJ8wUMQVpyFOeluaJKjWJ7TDQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=tT9Pfxf5EFq7iuRdi0VHar65j+TwrPY6Wk84c46ps1UQRzJ2PoRMy7wwpMq4aHT0xu5RmHUyOPgpAVz0NN2//PuuTm70zcLd6t8aZfrziRL96DCmaKY7GjuMEozEU/NM+g26kj/AZjOgRtujkp0ov4bOySi7c9zMbVnnCKfh96Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=oQBzvxjJ; arc=none smtp.client-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cy2EJrNu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59F6C1F000E9;
-	Mon, 27 Jul 2026 08:07:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785139651;
-	bh=drMZEKvjyeKJtok9+DmTvbc54SaMl85p3Sxfffuv6m8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=cy2EJrNuLtICIzv26UBq4HJ4cuP2a8n5DXlLU2G5ZEJdHtVxl4mGhRvj80JKZ01pI
-	 8XcMlgpd+pk1bOOysgScA7ySYDqSKpbU/qS0nohVDD5VGP5l3av0UssMod0DfpDGOp
-	 DmjDj7ycooGkKzjjiNLziFwD2bwW/UmisAXTazrGOopBK2cHSfUgrhCh4oujS0K+9k
-	 uy6zP69e82lzkzXL5EduR4TlyXOhc5vVfRWlLbyg7QKAO1j0ytXcPhj8n5s6gbiKWs
-	 FvG4vmxnY/vTVN31JGXV51uubyfn65fzF5RUv5jMTKOSZjePYZh6j0EbAJq16UsPGy
-	 StT5kjo5mJcQg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 33/34] pinctrl: airoha: add support of an7563 SoC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260727074234.3761170-34-mikhail.kshevetskiy@iopsys.eu>
-References: <20260727074234.3761170-1-mikhail.kshevetskiy@iopsys.eu>
- <20260727074234.3761170-34-mikhail.kshevetskiy@iopsys.eu>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 27 Jul 2026 08:07:30 +0000
-Message-Id: <20260727080731.59F6C1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="oQBzvxjJ"
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-84e0688b859so1354454b3a.0
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 01:09:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1785139746; x=1785744546; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=5lOIBQB+cpFjp6D6aOc1DsVhI/qzX8t4m07LpbMLmU0=;
+        b=oQBzvxjJmADkc7FMbDcpU0dFTxJYDRCo+FcQoW5VrrGlP3gi3EVYSz/CAJtyg3xvyt
+         kZjCZZ/mjIHM1lIrfItspbwVmBlIz1hAy7egprSE+PNnq8RF2zNqh+2K7uWBHK5CoswW
+         QqDxVHHABiZ7F8avkjwpWXwqbfDCo+wVcQvvXip8VFwJjGoWyEy0MPwmeqD1km03o7hS
+         4i2Bh/nKua0+iqG1J6ELbVl+Kj21j763OA+vYdaoDigw+AZ6JEW5mbABEPlXrhuue/Y1
+         MqLWJPg5kJCUP7xXAtct2vYhT+qwTuD3+KAgc18Mj7M/y0fS/m4HXtyhSj26opg7OIn/
+         KqoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785139746; x=1785744546;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=5lOIBQB+cpFjp6D6aOc1DsVhI/qzX8t4m07LpbMLmU0=;
+        b=pXtMeEAWApmQKIYpcIEEzO1FVwA+BDp1gkXO/qJe0+Uq9PwWewb/TWZ7L0hNsFdGh2
+         JdhARAo+jvc1VJDvzCs6IsGbe67Bfez8bVWYoi0tMi8Aopm2VDixraZQRvt9+KQD9AfR
+         L3p5+D86RRpWcnHYJIhHr3nJ9XixVjJbideCX2Ane+YOy1KjKrprztg9+eLDSof4uQfi
+         uzviXotN2+VqnjRfT6a09vxlNWw3vJzmEUL5IPvtVnNvus5Q78fYebvp802AmLTPP2ZQ
+         vl3rkkm2ebyDdIrA8pemqm9xNuPGX/UiB2kQSv9aNaRnFwo8jscaACncKrBxu1YEBdYw
+         52/Q==
+X-Forwarded-Encrypted: i=1; AHgh+Rrr3XL6fcQGxpjcDbgRpSi0G97a5tw6qKJ4cE+4AVIEjltpw+hsT32wz3b0L64Bc6prmBUNPns+rKsB@vger.kernel.org
+X-Gm-Message-State: AOJu0YxA2uiFtX2DbgTAOZaHDYYsZ6pT1SJM8qj4CyMRmaNic8eTgB/T
+	R0uB8hCJKPSnFIKYGU57ol242h5hurXTfo1JBcKnB8ajPuurhv+5E31RKYP5WCMEFR4=
+X-Gm-Gg: AR+sD12fO4QEp7YzDXXaD0JVvqt+0nj03x0D3XOJe3fTaBRwq2blRRK+qh/RlOivUOw
+	WeIbkS78+jRtoIGxhQRuSdG6y8Fc75Skn6Sz00K0bCW3URcrhae1sWNpT9+YCyXyUhjR/7k7ZIG
+	dYb5hWBXqLewFzkl2J2AzjivLNMErR/LgWLdSGJT62qxM2EW+tlQSRpvBd+nfgEi4CdPIhxUbj0
+	X1yy//RJmVe6TBbx/7uWOyeZwtbrGopET5FM8jfATZDDimojLPBsVoBMszZ/veBlXMFStjhm92l
+	YXpky+oguBctTbRjKguN0gYtkU/BQg+c7xU+fm2lH+15Q87o5oNqRRBbtvvulyLiawJ4eWnb2Cr
+	b5OKVjDcpH69OZ1IpWboXoKM93N9VICYsUqL7kBOdPLXEPGsSYXQXtkNeOljmSKsYXhlw3knUam
+	8rJw==
+X-Received: by 2002:a05:6a00:a889:b0:848:3dae:66e2 with SMTP id d2e1a72fcca58-84e594483a9mr5962215b3a.26.1785139746420;
+        Mon, 27 Jul 2026 01:09:06 -0700 (PDT)
+Received: from [127.0.1.1] ([116.237.168.131])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e5344e577sm2630658b3a.58.2026.07.27.01.08.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Jul 2026 01:09:06 -0700 (PDT)
+From: Jun Nie <jun.nie@linaro.org>
+Subject: [PATCH v5 0/6] Add support to 2 panels in bonded-DSI mode
+Date: Mon, 27 Jul 2026 16:08:39 +0800
+Message-Id: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAcSZ2oC/4WNQQ6CMBBFr0Jm7ZiBUEpceQ/CojgDTKKtaQ3Rk
+ N7dygVcvpf893dIElUSXKodomyaNPgC5lTBbXV+EVQuDA01HZmmxvToO0NoscYpeBZGTorWWTa
+ TpbnrLZTtM8qs76M7jIVXTa8QP8fN1v7sv+LWIqFrmY1Qb2iur3f1LoZziAuMOecvMKQuZrsAA
+ AA=
+To: Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Jun Nie <jun.nie@linaro.org>, 
+ Jonathan Marek <jonathan@marek.ca>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785139738; l=3282;
+ i=jun.nie@linaro.org; s=20240403; h=from:subject:message-id;
+ bh=o+0VBZGZpUXbU+6zVjhJ8wUMQVpyFOeluaJKjWJ7TDQ=;
+ b=sIrxg75P//yvScd7tBPPu7ciNJByr6dNug1y7gdFARHoomw3+5tOcT2zAuODE7BR9r4tP/p/C
+ cbr/QMz6Af1B/NGuDzPbSRwSigk0kO38yF4+9rETSgn7DgX2bguVlx3
+X-Developer-Key: i=jun.nie@linaro.org; a=ed25519;
+ pk=MNiBt/faLPvo+iJoP1hodyY2x6ozVXL8QMptmsKg3cc=
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] Missing pinmux functions to restore default pad behaviors (I2C, =
-SPI, UART) and failure to clear GPIO mode override bits when selecting alte=
-rnate functions (MDIO, PNAND).
-- [Medium] The `hsuart_cts_rts` pin group alters the mux state of the base =
-HSUART pins without claiming them, causing potential pin conflicts and DT a=
-pplication order races.
---
+The 2 DSI interfaces may be connected to 2 independent panels in bonded-DSI
+mode. Horizontal timing and DSC configuration are adjusted per individual
+panel in DSI host side. Support to multiple slice per packet is added for
+the device setup to test the usage case. A panel driver is included as an
+use case example.
 
---- Patch [33]: [PATCH v7 33/34] pinctrl: airoha: add support of an7563 SoC=
- ---
-commit fc95ee9a88a14501536fae31cd14f1346c7074c0
-Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+Changes vs v4:
+- Add git commit message to clarify dual_panel member of mipi_dsi_device does
+  not force panel to handle panel topology if panel driver does not intend to
+   support dual panels.
+- Add git commit message to clarify dsc->pic_width does not impact crtc
+  configuration.
+- Clear dsc parameter of dsi host to handle non-DSC case.
+- Fix device tree document and pass "make dt_binding_check"
+- Remove unrelated platform dts nodes in panel device tree document.
+- Fix regulator resource release sequence and device leak on failure.
+- Fix possible unalignment of DSC pps buffer usage.
+- Link to v4: https://lore.kernel.org/r/20260521-sm8650-7-1-bonded-dsi-v4-0-a4dd5e0850f1@linaro.org
 
-pinctrl: airoha: add support of an7563 SoC
+Changes vs v3:
+- A panel driver is added as an use case example.
+- Move dsc_slice_per_pkt to struct drm_dsc_config.
+- Polish commit messages.
+- Link to v3: https://lore.kernel.org/all/20250924-dsi-dual-panel-upstream-v3-0-6927284f1098@linaro.org
 
-This patch adds support of Airoha an7563 SoC pin controller.
+Changes vs v2:
+- Polish commit message to describe usage case and requirements to
+  panel driver.
+- Remove changes in device tree and add dual_panel flag in mipi_dsi_device
+  to pass information from panel to dsi host.
+- Drop the register programming to DSI_VBIF_CTRL, as no issue is seen
+  in latest test.
+- Link to v2: https://lore.kernel.org/r/20250220-dual-dsi-v2-0-6c0038d5a2ef@linaro.org
 
-> diff --git a/drivers/pinctrl/airoha/pinctrl-an7563.c b/drivers/pinctrl/ai=
-roha/pinctrl-an7563.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/pinctrl/airoha/pinctrl-an7563.c
+Change vs v1:
+- Add device tree binding for dual panel case in handling frame width for
+  DSC to avoid breaking existing dual-DSI case.
+- Leverage Marijn's patch to configure proper slice per interface in
+  dsi_update_dsc_timing().
+- Polish commit comments.
+- Link to v1: https://lore.kernel.org/all/20240829-sm8650-v6-11-hmd-pocf-mdss-quad-upstream-8-v1-0-bdb05b4b5a2e@linaro.org/
 
-[ ... ]
+Signed-off-by: Jun Nie <jun.nie@linaro.org>
+---
+---
+Jun Nie (6):
+      dt-bindings: display: panel: Modify reset gpio number constrain
+      drm/msm/dsi: support DSC configurations with slice_per_pkt > 1
+      drm/mipi-dsi: Add flag to support dual-panel configurations
+      drm/msm/dsi: Support dual panel use case with single CRTC
+      dt-bindings: display: Add Synaptics R63455 panel support
+      drm/panel: Add driver for Synaptics R63455 DSI panel
 
-> +static const struct airoha_pinctrl_func_group mdio_func_group[] =3D {
-> +	{
-> +		.name =3D "mdio",
-> +		.regmap[0] =3D {
-> +			AIROHA_FUNC_MUX,
-> +			REG_GPIO_PON_MODE,
-> +			GPIO_SGMII_MDIO_MODE_MASK,
-> +			GPIO_SGMII_MDIO_MODE_MASK
-> +		},
-> +		.regmap_size =3D 1,
-> +	},
-> +};
+ .../bindings/display/panel/panel-common.yaml       |   2 +-
+ .../bindings/display/panel/synaptics,r63455.yaml   | 133 +++++
+ drivers/gpu/drm/msm/dsi/dsi_host.c                 |  37 +-
+ drivers/gpu/drm/panel/Kconfig                      |  11 +
+ drivers/gpu/drm/panel/Makefile                     |   1 +
+ drivers/gpu/drm/panel/panel-synaptics-r63455.c     | 644 +++++++++++++++++++++
+ include/drm/display/drm_dsc.h                      |   7 +
+ include/drm/drm_mipi_dsi.h                         |   2 +
+ 8 files changed, 820 insertions(+), 17 deletions(-)
+---
+base-commit: 6654f8f33aa6229a90d4401519a62a2bf96cb851
+change-id: 20260521-sm8650-7-1-bonded-dsi-7a7d5b70f687
 
-[Severity: Medium]
-Does this configuration properly clear the GPIO mode override bits if the
-bootloader left these pads in GPIO mode?
+Best regards,
+-- 
+Jun Nie <jun.nie@linaro.org>
 
-Looking at mdio_func_group, it only sets GPIO_SGMII_MDIO_MODE_MASK.
-However, MDIO shares the I2C_SCL and I2C_SDA pads. If the bootloader
-previously set I2C_SCL_GPIO_MODE_MASK and I2C_SDA_GPIO_MODE_MASK, they
-would not be cleared here, potentially leaving the pads in GPIO mode
-instead of routing them to MDIO.
-
-> +static const struct airoha_pinctrl_func_group uart_func_group[] =3D {
-> +	{
-> +		.name =3D "hsuart",
-> +		.regmap[0] =3D {
-> +			AIROHA_FUNC_MUX,
-> +			REG_GPIO_PON_MODE,
-> +			GPIO_HSUART_MODE_MASK | GPIO_HSUART_CTS_RTS_MODE_MASK,
-> +			GPIO_HSUART_MODE_MASK
-> +		},
-> +		.regmap_size =3D 1,
-> +	},
-> +	{
-> +		.name =3D "hsuart_cts_rts",
-> +		.regmap[0] =3D {
-> +			AIROHA_FUNC_MUX,
-> +			REG_GPIO_PON_MODE,
-> +			GPIO_HSUART_MODE_MASK | GPIO_HSUART_CTS_RTS_MODE_MASK,
-> +			GPIO_HSUART_MODE_MASK | GPIO_HSUART_CTS_RTS_MODE_MASK
-> +		},
-> +		.regmap_size =3D 1,
-> +	},
-> +};
-
-[Severity: Medium]
-Will applying the hsuart group silently disable CTS/RTS if it happens to be
-evaluated after hsuart_cts_rts? The hsuart function clears the
-GPIO_HSUART_CTS_RTS_MODE_MASK bit.
-
-Additionally, hsuart_cts_rts modifies GPIO_HSUART_MODE_MASK (which routes
-pins 16 and 17) despite those pins not being claimed by the group in
-hsuart_cts_rts_pins. Could this allow the pinctrl core to mistakenly grant
-pins 16 and 17 to another driver as GPIOs, creating a silent hardware
-conflict?
-
-[ ... ]
-
-> +static const struct airoha_pinctrl_func_group pnand_func_group[] =3D {
-> +	{
-> +		.name =3D "pnand",
-> +		.regmap[0] =3D {
-> +			AIROHA_FUNC_MUX,
-> +			REG_GPIO_PON_MODE,
-> +			GPIO_PARALLEL_NAND_MODE_MASK,
-> +			GPIO_PARALLEL_NAND_MODE_MASK
-> +		},
-> +		.regmap_size =3D 1,
-> +	},
-> +};
-
-[Severity: Medium]
-Is this missing the clearing of SPI GPIO mode override bits? Similar to the
-MDIO function above, if the bootloader leaves the shared SPI pads in GPIO
-mode, setting only GPIO_PARALLEL_NAND_MODE_MASK might not be enough to route
-them to the PNAND controller.
-
-[ ... ]
-
-> +static const struct airoha_pinctrl_func pinctrl_funcs[] =3D {
-> +	PINCTRL_FUNC_DESC("pon", pon),
-> +	PINCTRL_FUNC_DESC("sipo", sipo),
-> +	PINCTRL_FUNC_DESC("mdio", mdio),
-> +	PINCTRL_FUNC_DESC("uart", uart),
-> +	PINCTRL_FUNC_DESC("jtag", jtag),
-> +	PINCTRL_FUNC_DESC("pcm", pcm),
-> +	PINCTRL_FUNC_DESC("spi", spi),
-> +	PINCTRL_FUNC_DESC("pnand", pnand),
-> +	PINCTRL_FUNC_DESC("gpio", gpio),
-
-[Severity: Medium]
-Are we missing function descriptors to restore the default I2C and base
-SPI/UART pad functions? Since there are no i2c, spi (base), or uart
-functions registered here, it appears there is no way for Linux to clear the
-GPIO override bits if the bootloader initialized them as GPIOs, which could
-leave those hardware blocks unusable.
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727074234.3761=
-170-1-mikhail.kshevetskiy@iopsys.eu?part=3D33
