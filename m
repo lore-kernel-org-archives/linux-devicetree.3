@@ -1,157 +1,136 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 029F03D76
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 18:04:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 427EA3B14C1
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 18:06:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785175481; cv=none; b=i03VRwrYxDcj2clSBS02jMptFjikFo1uKFr+tGUhi1+L21uTp7FaKGyk071i9RCP03XBWiS5sVMbaoFxJunsZeen8ku1+NVaMsHgdWWyf+H5W+yTE6v2NKLxduP8sk+QIq3JU5rAUzSUubD2u7fEFZhbj6BAqkBoY6MK4G3LOgI=
+	t=1785175588; cv=none; b=uhPNMEUsUeRgW9lwsLhQ+ygTfRZCgWCFD+oFLwjkBYfqjsuGHZRZbBwdLhEHrjBc5hG8bXXPZyOJLrrJ47WGs65uBZAvQqeHh2cTNafI0lsWDROTgqCqJm5oVi8Rvwzds73HK+/Nir+6jLkfVG02UmvzhmR8V5JW+woHfpRkDyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785175481; c=relaxed/simple;
-	bh=i52t9OZ2YALWWpliEELTMApZI4aNmE2NX1cd3Uhtd2U=;
+	s=arc-20240116; t=1785175588; c=relaxed/simple;
+	bh=wiAVf0NVLG7dsdB/WMhXJB0oROSxgfasGpw6Q/Nf0rc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=i5nmUMTg48sjjTx9P205mXGUxWiee9ylWlC2H/RxbTgT1c1WDFQwx+LiDKFMO1YsyUADHgE2NhuyyGMs7k9c73nftdgXnnlZyXo/DAy5QZQJBo3m7cElsODZQUVYKjvngG2p3a+D4lNelQRKU68V3MFDgvgoTMbamEVcgV89GzI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QIkrhaV8; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=E/ad7HVdydJ4M4MjCuAEsWeaI5MsVKbsCdVaTJGhDFC11JuoJtDBXRWvsCJawmF2lzJqfBNb1VaAKNMekk16xZ8lTtJz4p/akO8gtrEpLmVhN7ycqMNyIaDtMfbeXMqF9DtwYg77e3eipPJJDU7qOwjmamDUqiXOb8tGZL30jDE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DsOXq6ln; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QIkrhaV8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CEAE1F000E9;
-	Mon, 27 Jul 2026 18:04:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DsOXq6ln"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F1C81F000E9;
+	Mon, 27 Jul 2026 18:06:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785175479;
-	bh=wCUfN18AajrnxG40ecpI3F6/ZKEL381lIGKiXvVWxcM=;
+	s=k20260515; t=1785175586;
+	bh=2vnikrI3oGEF7f8Kn9hsDQOmcJmRIKljLsP+SnFzpkQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QIkrhaV8BUM/VAvt02Nr8Xf1fEni/OErjDViPvT+wtW5A/crosSMH3Xo5KZG4tJKT
-	 dgAH+rh6e/6WfFGRUh+caoWLWVJL/EORJ07vt/jmzHFsIKnTffQg9VZQWDUtr59kK+
-	 tXT/+uSuHqLFANPQshGEx4YuFK8wi7kntWhubFsvtO9xF6l4amlQG+mJKHENk+Vxjq
-	 mLzB4qU9iaB1qLDZlP2XhAATaD6gad/PG+rSac5VseqQvPMgFVAc55i9bWogXSlmVO
-	 C1Oz+vRNNUAsYDLT6gV51Kxc3nI+3AkmdNVAGwwzAf1nW0yYVGGhMER/6z5+paCm5a
-	 C18uJrEy6oRSg==
+	b=DsOXq6lnAU8PnJJx5kuEzxSETI3KumqqcUOrU4/eQ6Tmh+jbIXB8v8yE7IldNcTQf
+	 piCkyVoP4yaBMMZIOL5k0Pgq+SbwGnv8sDvxr9Z/tKx5R8NSaFU3almqcQayqSsOAH
+	 pidgdYe7vF+KVnAsoHwur8hkvKrpYNQ6ClFsjJph0UoPTixVG6enYr4mMmoCoiFWfe
+	 xKEQ+F6zWA/VNR7YSgMrsesUkkxa7rCkY1kYPsB8w5FN4/0pyGM6g8XncpU4H/j9HI
+	 MA4i6h+r3/GTe1uTxQ/c35Tc/g2vQAzlSq4++yo3ytB3yB0tQw/bGA32NFSI72/aHc
+	 953WiU55zI3hw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 13/35] pinctrl: airoha: add missed get_direction()
- function for gpio_chip
+Subject: Re: [PATCH] arm64: dts: rockchip: Drop data-mapping from Engicam
+ PX30 Core
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260727174141.664933-14-mikhail.kshevetskiy@iopsys.eu>
-References: <20260727174141.664933-1-mikhail.kshevetskiy@iopsys.eu>
- <20260727174141.664933-14-mikhail.kshevetskiy@iopsys.eu>
+To: "Fabio Estevam" <festevam@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260727175502.2585290-1-festevam@gmail.com>
+References: <20260727175502.2585290-1-festevam@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 27 Jul 2026 18:04:38 +0000
-Message-Id: <20260727180439.5CEAE1F000E9@smtp.kernel.org>
+Date: Mon, 27 Jul 2026 18:06:26 +0000
+Message-Id: <20260727180626.9F1C81F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Using `gpiochip_get_data(chip)` in `airoha_gpio_get_direction` cau=
-ses a NULL pointer dereference if `pin_config_get` is called before the GPI=
-O chip is fully registered.
+
+New issues:
+- [High] Removing the `data-mapping` property causes a regression in the Ro=
+ckchip LVDS controller, silently defaulting the PHY format to 18-bit VESA i=
+nstead of 24-bit VESA.
+
+Pre-existing issues:
+- [High] The `px30_lvds_grf_config` function incorrectly passes a dynamic v=
+alue as the mask to `regmap_update_bits`, preventing it from clearing forma=
+t configuration bits.
 --
 
---- Patch [13]: [PATCH v8 13/35] pinctrl: airoha: add missed get_direction(=
-) function for gpio_chip ---
-commit 59145c1b1a08d456d92de5071ceaad70dfc29dea
-Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+--- Patch [1]: [PATCH] arm64: dts: rockchip: Drop data-mapping from Engicam=
+ PX30 Core ---
+commit 9e01384e585886fe7dfe0bda8fec7f830eade509
+Author: Fabio Estevam <festevam@gmail.com>
 
-pinctrl: airoha: add missed get_direction() function for gpio_chip
+arm64: dts: rockchip: Drop data-mapping from Engicam PX30 Core
 
-This patch adds missed get_direction() function for gpio_chip.
-Also it reimplements pinconf's get_direction() function using
-newly defined function.
+The commit removes the data-mapping property from the panel node to satisfy
+the panel-simple DT schema. The commit message states this has no functional
+effect because the DRM OF helpers translate the bus format, falling back to
+the descriptor's format when the property is absent.
 
-> diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/ai=
-roha/pinctrl-airoha.c
-> index b7a234ce77558..40b1e4b110c2e 100644
-> --- a/drivers/pinctrl/airoha/pinctrl-airoha.c
-> +++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
-> @@ -2503,6 +2503,22 @@ static int airoha_gpio_get(struct gpio_chip *chip,=
- unsigned int gpio)
->  	return err ? err : !!(val & BIT(pin));
->  }
-> =20
-> +static int airoha_gpio_get_direction(struct gpio_chip *chip, unsigned in=
-t gpio)
-> +{
-> +	struct airoha_pinctrl *pinctrl =3D gpiochip_get_data(chip);
-> +	u32 val, mask;
-> +	u8 index;
-> +	int err;
-> +
-> +	index =3D gpio / AIROHA_REG_GPIOCTRL_NUM_PIN;
-> +	err =3D regmap_read(pinctrl->regmap, pinctrl->gpiochip.dir[index], &val=
-);
-> +	if (err)
-> +		return err;
-> +
-> +	mask =3D BIT(2 * (gpio % AIROHA_REG_GPIOCTRL_NUM_PIN));
-> +	return val & mask ? GPIO_LINE_DIRECTION_OUT : GPIO_LINE_DIRECTION_IN;
-> +}
-> +
->  static int airoha_gpio_direction_output(struct gpio_chip *chip,
->  					unsigned int gpio, int value)
->  {
-
-[ ... ]
-
-> @@ -2858,21 +2875,18 @@ static int airoha_pinctrl_set_conf(struct airoha_=
-pinctrl *pinctrl,
->  static int airoha_pinconf_get_direction(struct pinctrl_dev *pctrl_dev, u=
-32 p)
->  {
->  	struct airoha_pinctrl *pinctrl =3D pinctrl_dev_get_drvdata(pctrl_dev);
-> -	u32 val, mask;
-> -	int err, pin;
-> -	u8 index;
-> +	int ret, pin;
-> =20
->  	pin =3D airoha_convert_pin_to_reg_offset(pctrl_dev, NULL, p);
->  	if (pin < 0)
->  		return pin;
-> =20
-> -	index =3D pin / AIROHA_REG_GPIOCTRL_NUM_PIN;
-> -	err =3D regmap_read(pinctrl->regmap, pinctrl->gpiochip.dir[index], &val=
-);
-> -	if (err)
-> -		return err;
-> +	ret =3D airoha_gpio_get_direction(&pinctrl->gpiochip.chip, pin);
+> diff --git a/arch/arm64/boot/dts/rockchip/px30-engicam-px30-core-ctouch2-=
+of10.dts b/arch/arm64/boot/dts/rockchip/px30-engicam-px30-core-ctouch2-of10=
+.dts
+> index 47aa30505a42e..aa636ce45e3a9 100644
+> --- a/arch/arm64/boot/dts/rockchip/px30-engicam-px30-core-ctouch2-of10.dts
+> +++ b/arch/arm64/boot/dts/rockchip/px30-engicam-px30-core-ctouch2-of10.dts
+> @@ -28,7 +28,6 @@ panel {
+>  		compatible =3D "ampire,am-1280800n3tzqw-t00h";
+>  		backlight =3D <&backlight>;
+>  		power-supply =3D <&vcc3v3_lcd>;
+> -		data-mapping =3D "vesa-24";
 
 [Severity: High]
-Can delegating to the GPIO chip callback here cause a NULL pointer derefere=
-nce?
+Does removing this property inadvertently break the host LVDS controller
+configuration?
 
-During airoha_pinctrl_probe(), pinctrl_enable() is called before the
-gpio_chip is registered via airoha_pinctrl_add_gpiochip(). This means
-pinctrl debugfs entries are created and accessible while the gpio_chip
-is still unregistered.
+The commit message assumes only the panel-simple driver uses this property,
+but the rockchip LVDS host controller driver bypasses the framework and
+reads it directly from the remote panel device tree node:
 
-If a user reads /sys/kernel/debug/pinctrl/*/pinconf-pins during this window,
-pinconf_generic_dump_one() will eventually call
-airoha_pinconf_get_direction().
+drivers/gpu/drm/rockchip/rockchip_lvds.c:rockchip_lvds_bind() {
+    ...
+    if (of_property_read_string(remote, "data-mapping", &name))
+        /* default set it as format vesa 18 */
+        lvds->format =3D LVDS_VESA_18;
+    ...
+}
 
-By calling airoha_gpio_get_direction() here, the code executes:
+By removing the property, will this fallback to LVDS_VESA_18 be triggered,
+causing a mismatch with the 24-bit VESA panel and corrupting the display
+output?
 
-    struct airoha_pinctrl *pinctrl =3D gpiochip_get_data(chip);
+[Severity: High]
+This isn't a bug introduced by this patch, but while reviewing the rockchip
+LVDS driver's format configuration, I noticed a potential issue with how
+the register bits are cleared:
 
-gpiochip_get_data() accesses chip->gpiodev->data. Since the gpio_chip isn't
-registered yet, chip->gpiodev is NULL, resulting in an immediate crash.
-The previous implementation safely obtained the context via
-pinctrl_dev_get_drvdata().
+drivers/gpu/drm/rockchip/rockchip_lvds.c:px30_lvds_grf_config() {
+    ...
+    return regmap_update_bits(lvds->grf, PX30_LVDS_GRF_PD_VO_CON1,
+                              PX30_LVDS_FORMAT(lvds->format),
+                              PX30_LVDS_FORMAT(lvds->format));
+}
 
-> +	if (ret < 0)
-> +		return ret;
+Does this incorrectly pass the dynamic value PX30_LVDS_FORMAT(lvds->format)
+as both the mask and the value?
+
+Because regmap_update_bits() uses the mask argument to determine which
+bits to clear in the lower 16 bits, passing the value as the mask means any
+0-bits in the format will be 0 in the mask and ignored instead of cleared.=
+=20
+
+If the bootloader left the format in a different state (e.g., LVDS_JEIDA_18=
+),
+will the kernel fail to clear the necessary bits to switch it to LVDS_VESA_=
+24?
+
 > =20
-> -	mask =3D BIT(2 * (pin % AIROHA_REG_GPIOCTRL_NUM_PIN));
-> -	return val & mask ? PIN_CONFIG_OUTPUT_ENABLE : PIN_CONFIG_INPUT_ENABLE;
-> +	return ret =3D=3D GPIO_LINE_DIRECTION_OUT ?
-> +	       PIN_CONFIG_OUTPUT_ENABLE : PIN_CONFIG_INPUT_ENABLE;
->  }
-> =20
->  static int airoha_pinconf_get(struct pinctrl_dev *pctrl_dev,
+>  		port {
+>  			panel_in_lvds: endpoint {
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727174141.6649=
-33-1-mikhail.kshevetskiy@iopsys.eu?part=3D13
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727175502.2585=
+290-1-festevam@gmail.com?part=3D1
