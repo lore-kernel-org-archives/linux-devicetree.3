@@ -1,67 +1,67 @@
 Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 333423CEBA9
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 15:59:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D56D41A54B
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 15:59:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785167946; cv=none; b=hZWyBvqE3ATeiCGAdkrsF41oeL1+f0/boYIscc9oL5qzgYwXjKBz1FZRf76d1DsBsiYYBUTw9zzEGCDnF94xEq+t7uj6nieFEec9HBHY8EiGO6Jb0NzdRhL44O6Y7odd3A/4OvUlUdhEQzF7w/undOKVbsXJazNCV4bVtatAzs4=
+	t=1785167948; cv=none; b=hiZLkQnfHqiPAPkEx0ShxQSiPnSZqpLdJ9QfCt3/WxJDDR3l6Js8B6AcKxjY9MffC8L0bWCCzQSlLm2qxLPYirOoU6/awBNhfo3nDqd+IfPj3gYLA+2amLLQHgEAd+FUp00mAb6jZrgUDL5LkGIeKynistL0ShKtjVkHz2+Q1IA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785167946; c=relaxed/simple;
-	bh=JNwWtAAhO7ZJyfVunLJ+BIlzHK70a/jomuBilwewcRA=;
+	s=arc-20240116; t=1785167948; c=relaxed/simple;
+	bh=mEI4glK6xfztzEP9lF9Q8WPdR2CInQcy6A0Y0PatwdM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Hy8293bZ56TC0F7B+BlJBQpaMnXC5PHEo5ePG/s3qtfj8bgZVrRmsEiCdinrOu0YhR2osNB7YQ3GSELD/dyY2Ot10WR7LdjapieLx0hV7+G4+Pwjfr6FylbWTtObnTzGZCDYIGED+uo+P5oQ1KwFU1+giczDkKmWibAaTy7q87M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=PHzN0WAm; arc=none smtp.client-ip=209.85.160.177
+	 In-Reply-To:Content-Type; b=qHjr8sITluktThXYTA0OcidiTM2yAYXFw+yX4exIIiJHGYwiCnf9QVPXpd+BlzGSDJAP4QNtDFKCUpBddKkArNjYVIbd2krqno8f37Lj+Ct0+hUH9tFtx6U2R9XwQwEBvC+jLfO0/kQN+GZQG5bH0qYirNr/VMKeMxXueQHZp6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=gcCyrHGo; arc=none smtp.client-ip=209.85.160.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="PHzN0WAm"
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-51c0006ea8eso21083621cf.1
-        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 08:59:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="gcCyrHGo"
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-51c0cea8883so318451cf.1
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 08:59:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1785167944; x=1785772744; darn=vger.kernel.org;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1785167946; x=1785772746; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=mWElXlJw5cE5TIZC5LPg5qcPYX2T0RVaHVwfG55E9MA=;
-        b=PHzN0WAmsKnnvJA3sQY2Mlbk348JgVfInI6m9hhDA8dTO6KlLFwtmc5nMi0AysgOr9
-         4ZBwGRu7zikEakmTYvfEWL3iyziUzk+t8fNmwi9wJocFCgusgk2Z9XgvLcpxCwxZqpN5
-         CGosrnBgi/bPSVwlnSkKJfj5yNMjsb2hiHEySRsvsIDsrULt4yxj9cYZTjEzK4HeBTxK
-         vwSf+JB1KF8Nb6hALZ1yADRKy0fXcyTRVvYluNXFvrMpTU8GXlD+BYyFP6XUv44872G7
-         b3sSJRM/DCvOK3YgtHcVAnU5fO9FkD+WeS4aIoaM1DuVurpD6VNrTCX6R3rQFOGKLcgI
-         FtrQ==
+        bh=EDKu6WnYtMuNqoe75mX3em2F4s5qQBDG9OSG0ciyep4=;
+        b=gcCyrHGoo0Uld1Lz4WpMiJBf9VealsIm/TKOXTEAgCVuZlc9dHH4ucQPXYUVM3iaim
+         fgaABGU3EPcupx57gNPvU5/ybEkpcyVsgwvwaeuT/ZhdEQaiM+XvpPzv2yLUZImYJcPJ
+         boOhmHlBVmVJH5GXDplpBj7300+oXbYFlfSuxE1+mpXTsVVdjhlgO1kR/u9JKhXq/elT
+         VIJMr5oaIbBqzD04fhAYkMh9K7rWLhh+4Z8lCnELg98XqTaoIb3zD01eWqUXK7OB6H4b
+         2Y1q6NwMFjBGe6gq3gL4n90IWivuUMwIlm3FXHGP40Ro1ixs+azwOqwYZJmQdsGFtXdG
+         vVBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785167944; x=1785772744;
+        d=1e100.net; s=20251104; t=1785167946; x=1785772746;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mWElXlJw5cE5TIZC5LPg5qcPYX2T0RVaHVwfG55E9MA=;
-        b=YSs3jAUSeJk7KxF1sn0t6YQxTvxmmv9leUlu0Sjpf8v5J+ljmOfOPCesGdV8gOwxGQ
-         lpa1fI17B9C0k2qFnzHMw4nWg3Z7x4wJS/d+VHKrFslLi9omGXmQjbqdmQWBizA7s46N
-         iPQLq+KsCGNrDj6ps247LHpW1jVUDVCSdhSGqDIt3anGic0UJ+Tc87pd/yHpQuuPayNW
-         YKJGjeFLIHlXlZsOXD70cCtLX+yCQsiumYeYF9Pdg9iqMOEtg+e3T1HTEicVzZrFzQo5
-         tbUyuufYw3+KrE2yDy9yEjEoZd3ptgS5LfZ26y3nEqsAn/JRaDD4xivmQNZ+lRm42zSk
-         mPcA==
-X-Forwarded-Encrypted: i=1; AHgh+RqrIU5FsJPDtYaR450NqrJjjxsSacxwlvycfPex6ej4DtPDe/G8kzD459s4Rsv5SoHai4oa9QKrXd+2@vger.kernel.org
-X-Gm-Message-State: AOJu0YzNXb4Wj1jsAG7Ax3C/dwUcTumm8tGTtVv3FBsNcYDaOCwipOy+
-	U5jJoCHStS2S03WGIhkMuAqWEkWFO35mvd/JVSSCU5J9IJQ/RUzx03NVcw8tbHvKJyA=
-X-Gm-Gg: AR+sD1179ju0dhg0TWOCbJVTcLS7/WQ4YWuEsS32eBnF8SEbT8TfPQCyUlBbkhp7z+F
-	N8U6rVBYw7zOK7YSC5CBWFTF3vXT37kdYo1LIRNgsGf3zB/Ky+bNlSv4A6wAJOHW/yN/d3ZLQNN
-	IAzRxNa3Vl3s7nvPbTF5utsZmswmZZ57RnLan2spnaqrdztSfr2vYIJ3OVlE+AEpQ2udkT22W9+
-	yHkWn1+zJVDqWCTHv7Rsk3WfNuccbjApT/JW4v/IKXO644hqLgTPMjeeawY6mswTNbRGeUxvVNI
-	CPMNNsWzG7t8B5pZgA1U3eBSpC9KoN6WM7cs88Jb6wFdeOuioILGjgUNngvS2hVzGFeHAjslUTK
-	lzjMK8DhZsBvmc8A4WdsNVKYTD3pmfA0WDqL/+kNSOV6BtmVZfWE7UqVq8cRkXFOW2kbQ6eqR5k
-	Va7Q==
-X-Received: by 2002:a05:622a:4e8e:b0:527:2b06:2bcd with SMTP id d75a77b69052e-529d1c5c9dcmr577301cf.79.1785167944070;
-        Mon, 27 Jul 2026 08:59:04 -0700 (PDT)
+        bh=EDKu6WnYtMuNqoe75mX3em2F4s5qQBDG9OSG0ciyep4=;
+        b=SNY/BltrkML031hRf5PVYctZWuRxVcjeRQnOu3/xOgVZeZ2iAXpq37onJ1GwqSaX8D
+         kwNeahZbANOfAKq9/EB2amV4h3gkTAxVn0VlNK2z05kxhcvoqBrBWuh1RrFkTo/ZPDKy
+         4ONdWPm6XQPJ7F7W3jKkLaJXVekUixqHKSkvr7MR8tgZI941uqQN+XT3rNl2mDTEC/Ew
+         doURJFGD/FhWs6rh6wUFAIVt9tMwCye6KHnFonYV44bziZf3/IWrlhOMMDFzZXnqEyBU
+         aj+oeYKBeZ8VPE+gzzRrgsIqnAN0Vs6ktpfDLIWy2xlq0q29Pl9/2lk5pUj0bG0JHFvc
+         TLnQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rr5HsuYMB81/Mx5GwfDZb+LfNvJ/JB/xRSZgwhLO2083RDAH4D/71LqxRklLeQlnXcNKZbHQXNa9tga@vger.kernel.org
+X-Gm-Message-State: AOJu0YxoVdTEbmDWFsCKSfG+MjFRurUzZHMEhZyWFlsmY+uWNwZ6XbSH
+	R9ngqA0iiheR7m8OgcRQriOF1HxET+Y2UYXa4D4TTy61cTSek+Kn8Wy57sjNBjiOJVg=
+X-Gm-Gg: AR+sD10sSZz/uFtWVkKI1dKxX6vH7OQ36Hu/4pwuRBxP7DWbnezNdUKRexa0onLrtJe
+	yFKJKKCgVC3h61YB9eapAPL1qgfAzSG6HNLu4VsK0bi0PyXteOecR58ZXkC8gLHDoRPsbOTPUms
+	j97PlILnzlUJIj6XdjZaeQK1T5UUl0krrCEOzZANFTVLyh3BNpP5nzwIyfilt/mvx2IwdVmxYFo
+	IWyERzRbCYGlXQJxnSuGSnfeGULnfxQI/PpY1bSk0B6jM5eQRSMdalmpt9bV8lRwBFhg7o0L3Qz
+	49eNjvG3V+xD6JLGbH+W4TAqhmdqeM1jAGmzCFe7W6PgXd4aUZvcbqoi+fOL3KvOp3glqh8QosN
+	GbXFXQz85EUWriEsbFsU65ytKrOR1iiU2cfHSiduQzdNVqwMADT6uAWOQhwAyDDg6MR9X+bxZrM
+	KwSACiIjdT5O+Qz3KKbaLLiyZAqw9X0+OimOZquh9qbx8zUw8HKyGY1hduDEtK
+X-Received: by 2002:a05:622a:4c8c:b0:517:87a9:6a89 with SMTP id d75a77b69052e-529d1d66c2dmr216011cf.6.1785167946403;
+        Mon, 27 Jul 2026 08:59:06 -0700 (PDT)
 Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-529a262fa9dsm56944561cf.0.2026.07.27.08.59.02
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-529a262fa9dsm56944561cf.0.2026.07.27.08.59.05
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 27 Jul 2026 08:59:03 -0700 (PDT)
-Message-ID: <5ed98bb8-566a-4054-83a5-f7dc64c8600d@riscstar.com>
-Date: Mon, 27 Jul 2026 10:59:02 -0500
+        Mon, 27 Jul 2026 08:59:05 -0700 (PDT)
+Message-ID: <5348ff47-910b-4614-a935-6e99ad3b066d@riscstar.com>
+Date: Mon, 27 Jul 2026 10:59:05 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,8 +69,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] dt-bindings: PCI: toshiba,tc9563: Restrict Tx
- Amplitude, DFE and N_FTS to USP, DSP1 and DSP2
+Subject: Re: [PATCH 2/6] PCI/pwrctrl: tc9563: Fix parsing the integrated
+ Ethernet MAC Endpoint node
 To: manivannan.sadhasivam@oss.qualcomm.com,
  Bjorn Helgaas <bhelgaas@google.com>,
  Lorenzo Pieralisi <lpieralisi@kernel.org>,
@@ -83,104 +83,81 @@ To: manivannan.sadhasivam@oss.qualcomm.com,
 Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
 References: <20260725-tc9563-fix-v1-0-ec4286e31331@oss.qualcomm.com>
- <20260725-tc9563-fix-v1-1-ec4286e31331@oss.qualcomm.com>
+ <20260725-tc9563-fix-v1-2-ec4286e31331@oss.qualcomm.com>
 Content-Language: en-US
 From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <20260725-tc9563-fix-v1-1-ec4286e31331@oss.qualcomm.com>
+In-Reply-To: <20260725-tc9563-fix-v1-2-ec4286e31331@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 7/25/26 3:59 AM, Manivannan Sadhasivam via B4 Relay wrote:
 > From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 > 
-> TC9563 switch allows configuring Tx Amplitude, DFE and N_FTS settings only
-> to USP, DSP1 and DSP2 ports. These settings don't apply to DSP3 and also
-> the integrated Ethernet MAC Endpoint.
+> DSP3 has an integrated Ethernet MAC Endpoint which has its own set of
+> config registers for configuring settings such as ASPM. The Endpoint
+> device has 2 physical functions and those 2 functions share the same
+> settings.
 
-s/and also the/nor its/
+This was not clear from the code.  So this explanation alone
+represents an improvement.
 
-Also I don't know if there is only one Ethernet MAC here, but
-the TC9564 has two, so maybe make "MAC Endpoint" plural.
+> Hence, parse the Endpoint node under DSP3 instead of parsing both the
+> functions. The existing parsing logic also has one OOB issue as parsing
+> both functions will result in accessing past the tc9563_pwrctrl->cfg array.
+
+The issue you mention is that the array has exactly one entry
+available for the Ethernet MAC endpoints, so parsing more than
+one (if defined in devicetree) references a non-existent entry.
+Right?
+
+But this constraint only applies to power control.  There can be
+multiple MAC nodes (for their PCI functions) defined.  And it
+seems the pwrctl settings (if any) *must* be specified for
+function 0 and if specified for any others, they are quietly
+ignored.
+
+Is that accurate?
+
+If so I think the DT binding could explain and possibly enforce
+that, but I won't insist on that...
+
+Reviewed-by: Alex Elder <elder@riscstar.com>
 
 > 
-> So restrict these properties and also move the
-> 'toshiba,tx-amplitude-microvolt' property to DSP2 in the example to conform
-> to the binding.
-> 
-> Fixes: 26f3ac884835 ("dt-bindings: PCI: Add binding for Toshiba TC9563 PCIe switch")
+> Fixes: 4c9c7be47310 ("PCI: pwrctrl: Add power control driver for TC9563")
 > Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-
-I have some other questions with implied suggestions below, but
-this looks good to me.
-
-Acked-by: Alex Elder <elder@riscstar.com>
-
 > ---
->   .../devicetree/bindings/pci/toshiba,tc9563.yaml     | 21 ++++++++++++++++++---
->   1 file changed, 18 insertions(+), 3 deletions(-)
+>   drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c | 13 +++++++++----
+>   1 file changed, 9 insertions(+), 4 deletions(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/pci/toshiba,tc9563.yaml b/Documentation/devicetree/bindings/pci/toshiba,tc9563.yaml
-> index b3ad05d90201..f084830c6d0c 100644
-> --- a/Documentation/devicetree/bindings/pci/toshiba,tc9563.yaml
-> +++ b/Documentation/devicetree/bindings/pci/toshiba,tc9563.yaml
-> @@ -54,7 +54,7 @@ properties:
->             - description: I2C slave address
->   
->   patternProperties:
-> -  "^pcie@[1-3],0$":
-> +  "^pcie@[1-2],0$":
->       description:
->         child nodes describing the internal downstream ports of
->         the tc9563 switch.
-
-Can you offer any explanation about why the settings apply to these
-two downstream ports but not the third?  (I think it's because the
-third has a different type of link to the endpoint.)
-
-> @@ -64,6 +64,21 @@ patternProperties:
->         - $ref: /schemas/pci/pci-pci-bridge.yaml#
->       unevaluatedProperties: false
->   
-> +  "^pcie@[3],0$":
-
-Can this just be "^pcie@3,0$"?
-
-Is there any need to define "^pcie@3,1" for the second PCI function?
-
-> +    description:
-> +      child node describing the internal downstream port connected to the
-> +      integrated Ethernet MAC endpoint of the tc9563 switch.
-> +    type: object
-> +    $ref: /schemas/pci/pci-pci-bridge.yaml#
-> +    properties:
-> +      n-fts: false
-> +    patternProperties:
-> +      "^ethernet@0,[0-1]$":
-> +        type: object
-> +        properties:
-> +          n-fts: false
-> +    unevaluatedProperties: false
+> diff --git a/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c b/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
+> index 488e1ec34a7f..482e82e433dd 100644
+> --- a/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
+> +++ b/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
+> @@ -596,12 +596,17 @@ static int tc9563_pwrctrl_probe(struct platform_device *pdev)
+>   		ret = tc9563_pwrctrl_parse_device_dt(tc9563, child, port);
+>   		if (ret)
+>   			break;
+> -		/* Embedded ethernet device are under DSP3 */
 > +
->   $defs:
->     tc9563-node:
->       type: object
-> @@ -154,6 +169,8 @@ examples:
->                       device_type = "pci";
->                       ranges;
->                       bus-range = <0x04 0xff>;
-> +
-> +                    toshiba,tx-amplitude-microvolt = <10>;
->                   };
->   
->                   pcie@3,0 {
-> @@ -165,8 +182,6 @@ examples:
->                       ranges;
->                       bus-range = <0x05 0xff>;
->   
-> -                    toshiba,tx-amplitude-microvolt = <10>;
-> -
->                       ethernet@0,0 {
->                           reg = <0x50000 0x0 0x0 0x0 0x0>;
->                       };
+> +		/*
+> +		 * The integrated Ethernet MAC Endpoint under DSP3 is a single
+> +		 * device whose functions share the same config registers.
+> +		 */
+>   		if (port == TC9563_DSP3) {
+> -			for_each_child_of_node_scoped(child, child1) {
+> -				port++;
+> +			struct device_node *eth __free(device_node) =
+> +					of_get_next_available_child(child, NULL);
+
+I'd add a blank line here.
+
+> +			if (eth) {
+>   				ret = tc9563_pwrctrl_parse_device_dt(tc9563,
+> -								child1, port);
+> +								eth, TC9563_ETHERNET);
+>   				if (ret)
+>   					break;
+>   			}
 > 
 
