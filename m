@@ -1,79 +1,106 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BBFF3FC5BD
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 11:35:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C73A936F8F1
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 11:40:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785152112; cv=none; b=K7x55Eh+spwnB6MU7lBPiibLDnX+uoAQV5n5idAO6bwxJyZE2SfroUhAiAD4x3sOu4rDc63ZHbhn+mAQxHxJ7cS8n1M5mCuuoNqVy+4x0iLgdxCiyeLxfgLlN8462UVW3b6RKSWa6Kin+QtijmvFSr4JRWHF6b+o/9Bw6fbmWdY=
+	t=1785152442; cv=none; b=NlI1Ow7YLR2b+Et2i2m6ks9RtkdUtp9JX8dFjQ/iQUEjurOHi9frM3ozPgImP09drAMKRJzmjKTc77qWQjf81NHrIBYIdTwg5orYPmxwEobt9hhb0y5ESNa6mbUfB1Ot30IQD8+EJrmjYsPanUkBwpOvfHQT794av2yT4WiRSQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785152112; c=relaxed/simple;
-	bh=X7BOrbOKgVYBaWBjnm17gHA/GSUobwLU4YlTZtFnIS0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QgrFbK97CrnPuB2yZXwmXrFmc1nJPkJv7JYNUl0Y7Ad68clsN8l3k5CQwB3qjXlPLbyq2KtnR5QUXXRyRytdNxxkLmATN9ZD8D9zwm/aUknPTn23gJLLlBqXuVXhThF9QR2AgqWPWPITDLcIv2t1gtAaeeVIXeSb46kz7vtKmm4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=bRhQ1bOl; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	s=arc-20240116; t=1785152442; c=relaxed/simple;
+	bh=kOOwfego1m6iw+lI/qdnqzBar7T0aqeKgyxF7CizpXU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=sRXkSsAWTTA2y2aewf6tMyWbCHDe3rptKB5BQqTYyY3Xt90Tb3eHEFViPxK283hyl3q4nRfV53Qfs2uuqZw6lARlSEOxyJSkEpFwXiWR1OsFx+VrU0dK/EfdPMfC2NbXJKxa2AkijCuI7ug+44MCXlBq0yyvJCnzQmVnPbEmct4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fjj2tlpm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="bRhQ1bOl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=from:to:cc:subject:date:message-id
-	:mime-version:content-transfer-encoding; s=k1; bh=b1qPyzRIxoinFY
-	2OA75dNXzOPaDtWK1gRGmwyQZb+38=; b=bRhQ1bOlUxNtS15Y3IdvM+BgyY4Mpb
-	rU9payV2iwC7Du7c7/8JeKcMG+N5mb8k/qnjpQWJcJLYMWvvAmw9jOt8F6w46Gtv
-	LcGf57c5mXNweoRCt1ViSiotUkng5GXsBpoQQSxRSBGaUEfL+k3UOlYNhTi5N0iH
-	MkYTzPAOrYNvZDxSu8io+apXK2zksqhj5ojuB4u1jdkd2/PT8LwrxmUM1LieEWC8
-	nrB779/rttjkFvaZ4mdYeAlyu9YBQC+bqe97mj5BYpK8fkIspUrnCWq6uCBXKoz4
-	uUQ4MaeG8G6bi9uY8FaHYMBoCldylZucjizvzsbm1dL7aNvan6lJ38FA==
-Received: (qmail 589247 invoked from network); 27 Jul 2026 13:35:04 +0200
-Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 27 Jul 2026 13:35:04 +0200
-X-UD-Smtp-Session: l3s3148p1@M5YIHZZXMs8ujnuy
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: linux-renesas-soc@vger.kernel.org
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-i2c@vger.kernel.org,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Rob Herring <robh@kernel.org>
-Subject: [PATCH 0/2] i2c: rcar: add Gen5 support
-Date: Mon, 27 Jul 2026 13:34:41 +0200
-Message-ID: <20260727113441.11193-4-wsa+renesas@sang-engineering.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fjj2tlpm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 303811F000E9;
+	Mon, 27 Jul 2026 11:40:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785152441;
+	bh=zK/D/TYGway1fjEy4iU3jbMO05toVybUBqwajAX7OiY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=fjj2tlpmB7dSrJvJ+JRJENM9i1g/5caKUpHPt6Zfi0QhrnhP7UhOzjiI87JNl02SD
+	 qZEBdYvPK6z8GfhZ0ZNxgNUQu+iDVSfdtn7MgU4JELQLatXLbClHXz7u1q+3iKXDrR
+	 IeIZcaHS8CrBP1iOPuWg2Jt66vhJj1QCtz2fuHvV0AePdlHyXMiG9aHriRxd1CFIRa
+	 2HjXrRxKiMhlatgRFeXubkFse5mFB/CxtE6czGiIx5CvP8AxPDP4xSUc9mHOqdFFGi
+	 CXbgvqQtq0+zVNfOTVIW1EOCHm6cqG92tYZ+2lBnSKWs+/Uq3BuxlYxp5J2BtdUJod
+	 GWo1/mRpGeIAA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: i2c: rcar-i2c: Document R-Car X5H
+ support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Wolfram Sang" <wsa+renesas@sang-engineering.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20260727113441.11193-5-wsa+renesas@sang-engineering.com>
+References: <20260727113441.11193-4-wsa+renesas@sang-engineering.com>
+ <20260727113441.11193-5-wsa+renesas@sang-engineering.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 27 Jul 2026 11:40:40 +0000
+Message-Id: <20260727114041.303811F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-This small series adds support for the Renesas R-Car X5H SoC to the
-i2c-rcar driver. Not much changes needed, only skip polling for reset.
-And add some compatibles.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The new `renesas,rcar-gen5-i2c` compatible string is missing fro=
+m the `allOf` conditional block that requires the `resets` property, result=
+ing in a Device Tree schema validation bypass.
+--
 
-Tested with a Renesas R-Car Gen5 Ironhide board. Branch is here:
+--- Patch [1]: [PATCH 1/2] dt-bindings: i2c: rcar-i2c: Document R-Car X5H s=
+upport ---
+commit e3abab1fc2392666638c3324ed628bfe91397742
+Author: Minh Le <minh.le.aj@renesas.com>
 
-git://git.kernel.org/pub/scm/linux/kernel/git/wsa/linux.git renesas/x5h/i2c-experimental
+dt-bindings: i2c: rcar-i2c: Document R-Car X5H support
 
-'dt_binding_check' also passed.
+This commit adds documentation for the rcar-i2c on R8A78000 (X5H) SoCs.
+It introduces the new Gen5 compatible strings.
 
-Happy hacking!
+> diff --git a/Documentation/devicetree/bindings/i2c/renesas,rcar-i2c.yaml =
+b/Documentation/devicetree/bindings/i2c/renesas,rcar-i2c.yaml
+> index 6cc60c3f61cd6..46b4bd16c5937 100644
+> --- a/Documentation/devicetree/bindings/i2c/renesas,rcar-i2c.yaml
+> +++ b/Documentation/devicetree/bindings/i2c/renesas,rcar-i2c.yaml
+> @@ -56,6 +56,11 @@ properties:
+>                - renesas,i2c-r8a779h0     # R-Car V4M
+>            - const: renesas,rcar-gen4-i2c # R-Car Gen4
+> =20
+> +      - items:
+> +          - enum:
+> +              - renesas,i2c-r8a78000     # R-Car X5H
+> +          - const: renesas,rcar-gen5-i2c # R-Car Gen5
 
+[Severity: Medium]
+Will this schema fully validate the new hardware configurations?=20
 
-Minh Le (1):
-  dt-bindings: i2c: rcar-i2c: Document R-Car X5H support
+The new renesas,rcar-gen5-i2c string is defined here, but the allOf
+conditional block for the resets property lower in the file only matches
+Gen2, Gen3, and Gen4:
 
-Wolfram Sang (1):
-  i2c: rcar: add R-Car Gen5 support
+  - if:
+      properties:
+        compatible:
+          contains:
+            enum:
+              - renesas,rcar-gen2-i2c
+              - renesas,rcar-gen3-i2c
+              - renesas,rcar-gen4-i2c
+    then:
+      required:
+        - resets
 
- .../bindings/i2c/renesas,rcar-i2c.yaml        |  5 +++++
- drivers/i2c/busses/i2c-rcar.c                 | 22 ++++++++++++++-----
- 2 files changed, 22 insertions(+), 5 deletions(-)
+Should renesas,rcar-gen5-i2c be added to this enum list so that missing res=
+et
+configurations are still caught by dt_binding_check?
 
--- 
-2.47.3
+[ ... ]
 
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727113441.1119=
+3-4-wsa+renesas@sang-engineering.com?part=3D1
