@@ -1,108 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 009421FF7C5
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 07:50:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31C251FF7C5;
+	Mon, 27 Jul 2026 07:51:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785138644; cv=none; b=MzbsaMTCZhCAym65yEYJ1t4qVHNTLabHNSuTLKbtg1XexB70i3JbNEypmoMiNnf0q53wTxh5GKP/ewdYz+GN/+hBTxuQlOa1aBZRFXL1BJKoJ8HHITFXoruReertvrR/g2QwphCCAO1hNnx3qsUe8J26x71T5f4IrViPudkJL44=
+	t=1785138712; cv=none; b=FkQ1s0FA1CjNyHwRBE4YD7Zux3toy8LrWggTc4gLhttXx4Cu9dU5lf011WcOcVekaeQusfJ3+JdXS8v+yELJFr2FfWQlkh8GwHpenoup6F9EuAyG/iFEGIBZ07RT20rV6xLgeyd9yI5iCDjWJ4p2BX091mGsadJR3/EWsChHriE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785138644; c=relaxed/simple;
-	bh=6jtwOs5aixlr0CJYSfXsHM/vj34A/mRriPezlivLfoo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=U/s5nOFbddWV6tNBIOWORoFG8WT47LhhzXN5t4G291uipG5YOstnYe8A9/293bJ0/bCGZ6f8funi1Jur0HWktBk7EDVtEOZjYV1iKnIqWgiY4STY5xavuO7kCRhm9KCQlJKtbJdWCuTOH3sRb9cfv7IVVHSv+cWw7Cni0XvWyIs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fH4R2Ork; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785138712; c=relaxed/simple;
+	bh=qRjkuGCy8dbLNrtuBAOQRAWIOMcRFgCtfnRwSgilL14=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=l4s94x4dqGwWrnfd8eGZH+f4AtMj1/fVeFj54YvQ6YV37VkdaEUTSRAb9fsUWXgyqJerR8FoPEnNVIDRhbueKz/vv8HTPJgTG9MhtyVWSPTeYjSp8EqohsXUaeNSb8sx9ExYxRJGI2PF3qps576tsQ2LDyS5tk89h7xi9X1o2bI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JeXGQOnd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fH4R2Ork"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55F741F000E9;
-	Mon, 27 Jul 2026 07:50:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JeXGQOnd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 371541F000E9;
+	Mon, 27 Jul 2026 07:51:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785138642;
-	bh=zREkPUCyLw95i8iVsU3gMrIVY4tNdtW7Fjg51ui3gAU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fH4R2Orks6QBiDTobcdMx1vTp1F8WFCLqeisvzUuTUL9cTTjdK7YyJCc8DQkOYgkA
-	 nd7ee68KQNFmQTfQ/PjOtu7tDLeoWEdaVIWCtr8SamghZxEYoZq8lBRJL0vVWo8gL4
-	 /LmkaC2hDI6mJNzZfXxkhu2FuoN0c7jMTE9ELbVtnRYJdGvn9Ke6EV4M/CJAmWej5a
-	 z5eKZmrcyoOydTSvle1OEqpdOSvrn1Yqq1Sl4RkMX3KLZpguMg/k4RWlIDAQMM2O1D
-	 DDRElQrjQm6fkLov8hnE5hAqVvVxzVGlVyXfvcfEULBHYzqM30Wdfn23yDk19+IqTZ
-	 6dTXyTh8b3oVw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 01/34] dt-bindings: pinctrl: airoha: en7581: fix
- misprint in i2s function name
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260727074234.3761170-2-mikhail.kshevetskiy@iopsys.eu>
+	s=k20260515; t=1785138710;
+	bh=+IxRovoq9XtBcShXWzQQeNdxeVmm7PUQrI7CzJo6AvI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JeXGQOndaGtZtfRsO98QQAdmabnizC20VUXNi/trbR3OmAiplUt34RJWHamm24VsZ
+	 5c310sgJUKTqBOwac57TBBAYzccEcfAivtEEvouOJwCCQqeViGlvGouGWUwQ4vGGGn
+	 AWUdq82T+P85BI7hWE+8KmesJmWSKGuLWSTX617c0+F49oCMHS/m34M49oXaczGj0H
+	 C/r8yMRnjz2CYl8tht2zLUcXn3TfG5N7/jQ4w8PY3bgHEqHfLb5YdGGdup7k0iAmUq
+	 BNFgvDk6tSbYiOv4IfrTYxr6g6a1nmGk7zC6hp+BTEoioUt7A27NkIan1HnMXaI3mq
+	 muSUrXC8wDVjg==
+Date: Mon, 27 Jul 2026 09:51:48 +0200
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+To: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	Benjamin Larsson <benjamin.larsson@genexis.eu>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+	Markus Gothe <markus.gothe@genexis.eu>,
+	Matheus Sampaio Queiroga <srherobrine20@gmail.com>
+Subject: Re: [PATCH v7 07/34] dt-bindings: pinctrl: airoha: an7583: remove
+ i2c pin function
+Message-ID: <amcOFF1SC7ZLsfTu@lore-desk>
 References: <20260727074234.3761170-1-mikhail.kshevetskiy@iopsys.eu>
- <20260727074234.3761170-2-mikhail.kshevetskiy@iopsys.eu>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 27 Jul 2026 07:50:41 +0000
-Message-Id: <20260727075042.55F741F000E9@smtp.kernel.org>
+ <20260727074234.3761170-8-mikhail.kshevetskiy@iopsys.eu>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="07ipRKdS5zCt5UWQ"
+Content-Disposition: inline
+In-Reply-To: <20260727074234.3761170-8-mikhail.kshevetskiy@iopsys.eu>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+--07ipRKdS5zCt5UWQ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Pre-existing issues:
-- [Low] Incomplete fix: identical copy-paste misprint for 'i2s' function wa=
-s missed in the sibling binding 'airoha,an7583-pinctrl.yaml'.
---
+> In the AN7583 case there are no mux bits to enable i2c buses, so remove i=
+2c
+> pin function from device tree binding schema.
 
---- Patch [1]: [PATCH v7 01/34] dt-bindings: pinctrl: airoha: en7581: fix m=
-isprint in i2s function name ---
-commit 0749f859891dd657945c83f8003df4b6494d5a24
-Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+missing Fixes tag.
 
-dt-bindings: pinctrl: airoha: en7581: fix misprint in i2s function name
+Regards,
+Lorenzo
 
-This patch fixes a misprint in the EN7581 pinctrl binding where the "i2c"
-pin function was defined twice, hiding the "i2s" pin function. The correcti=
-on
-aligns the binding with the actual pinctrl driver.
-
-> diff --git a/Documentation/devicetree/bindings/pinctrl/airoha,en7581-pinc=
-trl.yaml b/Documentation/devicetree/bindings/pinctrl/airoha,en7581-pinctrl.=
+>=20
+> Signed-off-by: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+> ---
+>  .../bindings/pinctrl/airoha,an7583-pinctrl.yaml        | 10 +---------
+>  1 file changed, 1 insertion(+), 9 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/pinctrl/airoha,an7583-pinc=
+trl.yaml b/Documentation/devicetree/bindings/pinctrl/airoha,an7583-pinctrl.=
 yaml
-> --- a/Documentation/devicetree/bindings/pinctrl/airoha,en7581-pinctrl.yaml
-> +++ b/Documentation/devicetree/bindings/pinctrl/airoha,en7581-pinctrl.yaml
-> @@ -166,7 +166,7 @@ patternProperties:
+> index f52802a3ad79d..8d8ec6adb97d1 100644
+> --- a/Documentation/devicetree/bindings/pinctrl/airoha,an7583-pinctrl.yaml
+> +++ b/Documentation/devicetree/bindings/pinctrl/airoha,an7583-pinctrl.yaml
+> @@ -60,7 +60,7 @@ patternProperties:
+>            function:
+>              description:
+>                A string containing the name of the function to mux to the=
+ group.
+> -            enum: [pon, tod_1pps, sipo, mdio, uart, i2c, jtag, pcm, spi,
+> +            enum: [pon, tod_1pps, sipo, mdio, uart, jtag, pcm, spi,
+>                     pcm_spi, emmc, pnand, pcie_reset, pwm, phy1_led0,
+>                     phy2_led0, phy3_led0, phy4_led0, phy1_led1, phy2_led1,
+>                     phy3_led1, phy4_led1]
+> @@ -117,14 +117,6 @@ patternProperties:
+>                      enum: [uart2, uart2_cts_rts, hsuart, hsuart_cts_rts,
+>                             uart4, uart5]
+>                    maxItems: 2
+> -          - if:
+> -              properties:
+> -                function:
+> -                  const: i2c
+> -            then:
+> -              properties:
+> -                groups:
+> -                  enum: [i2c1]
 >            - if:
 >                properties:
 >                  function:
-> -                  const: i2c
-> +                  const: i2s
+> --=20
+> 2.53.0
+>=20
 
-[Severity: Low]
-This isn't a bug introduced by this patch, but does the same misprint exist
-in the sibling binding for the AN7583?
+--07ipRKdS5zCt5UWQ
+Content-Type: application/pgp-signature; name=signature.asc
 
-Looking at Documentation/devicetree/bindings/pinctrl/airoha,an7583-pinctrl.=
-yaml
-in the patternProperties:^mux(-|$):allOf block:
+-----BEGIN PGP SIGNATURE-----
 
-          - if:
-              properties:
-                function:
-                  const: i2c
-            then:
-              properties:
-                groups:
-                  enum: [i2s]
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCamcOFAAKCRA6cBh0uS2t
+rBj/AQC/aEM3dF5r71ZSTacRwitCCucAqnr9FQPMRIw1iXwS9QD/RKdIaGDpezBF
+xfWzoz8y+EXxL4L/vG7+5EJdx8jiEA8=
+=+2wr
+-----END PGP SIGNATURE-----
 
-Should this file also be updated alongside the EN7581 changes to prevent
-schema validation from improperly failing when checking the i2c or i2s pin
-functions on the AN7583 SoC?
-
->              then:
->                properties:
->                  groups:
->                    enum: [i2s]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727074234.3761=
-170-1-mikhail.kshevetskiy@iopsys.eu?part=3D1
+--07ipRKdS5zCt5UWQ--
