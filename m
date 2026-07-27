@@ -1,244 +1,180 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013013.outbound.protection.outlook.com [40.107.159.13])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5CCF42048A;
-	Mon, 27 Jul 2026 16:19:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785169191; cv=fail; b=ti6jioEnZH0MU9hPrlroFVlRemFmgOo95sAIA03td3Bw97EJ2xhe759LQOJCxVCzD9agaMmnKOiEjkLFx4fTk8rpzX+DcO3Me74gDtoAgHdp0MF5MfsaT3F+UxFbn8ffUYo+my6UttSJ0Fj8N0sCOqqgbfYHwh5e2nO+y4Fafwg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785169191; c=relaxed/simple;
-	bh=FoD2CmegNn8NC2ezWESYUIe/OMg3XjOb2hgxGBtpbHU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=AIw9ekiLuGSwtPuFZBnOnwfavLONVsU8PSq4gccST0GKi7b8LRc+umpFlyRemi5WHzG3kukDYdjZYu5vLHkmdI3/oE6VOAhveNbFwvh3JMF1Y29vA77gZrLpVd29lJW+7MHrttTu325TdbCOLSefzvDY14FIk5dbXS2zaZADFZs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=gprQ0ez/; arc=fail smtp.client-ip=40.107.159.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69F23416864
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 16:21:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785169263; cv=none; b=Kqpz5HMumc+BXB7rBD4fv5WFs9Wdhz1DY/ptAfgg0tKzpYU1phNBu62h/Rham0OVd8lZr05jciy1bmUFsYOums1WzjlO732jfhddeSVBd7w3Ukgh34C0rYd4bzk4fAaYn6KfpxeRbWJeTMdLutfo/c4aKRHVjm3II1Q9wFtp62c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785169263; c=relaxed/simple;
+	bh=VSoZ/Yvflf9njUDjolCvrlg1UsMLdJVo0IyB+F5fpBA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=APR8JD50pq8C7oMFDUdhu2Dj4mZo2+Lw1dHzs/QxaFhTXMg7e3JqRr0387KH88uVfSXjIoSD6Mvkd3AOK5Gx2vHiicWD5QbAak0hcrNG3xBvIXU2dfQi4I6byV5GEYdxpnqsxItmSiy11iKNV8w7eY2AM6iPsa7I5n/IulKWNEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Il2U4CBw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eYJX+YIT; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="gprQ0ez/"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Gzf5NWpHdAwImebPdbUwb5l2xNG/Ks7YQ/VyVqNvcpt8HUBTXl7Vfa2QZO2FmKAORl3iRIiDiimXPEgXo4WWoQCB/8IHv8hMBIUS9QK5WRlkV2AVn0IWGmGT0S9w6YuZHpn71+dvXRNID1PLxo02Y3UcP5MuCSsjU6yq+SfAM73fJs8KNuJHRURLcfZrHcigKR4U2R69z9tDL0k5IV5QFZX8zM+pcFWiaeZK4mzhtoG13mb3hlNteP3j3J7Gi478UElXYsV/v3vEyn3K6PV8hDkS5LLVo/jk/ZJgBlDXK1MHJWLNxo7i4zvf4HjKvtL0Ef5sWNK9c9YFj1rAeZPl+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2Z8hrKngAAWTivmddQUo14zPhH33D+vYUc0GJxZqsWw=;
- b=nqyascdRkhrSr4cVoUpth0jLBXZWKnjj85SdJGXZf4VBYnNriBvBSZXt0em6dXYPH1iq79S/SOvVkFuAHOQTexGg+BB2ZM6sU4LWij6Yz5Li72rDJTA8IRk2GrDVkTp6ERSGjOp19R/0ZvIjtA3bwOhi4+UKhaHLwtUuFI5WWARd/3bdmWxMC5/toH4GNLCHBjbDShvxQCNG5DMQ32wd9J98fYft0Fee7lkoNfzav4L6YaBB6nMQAXknXYgMil5nv1SStabFRfKZVQ6r4ZbAk8JArSoM4cA+dAVTkLsZhYJ3Rj3N2m8irk4J5EjUdIIVNVYFhPO8O5g4Cr0nm0tAAQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2Z8hrKngAAWTivmddQUo14zPhH33D+vYUc0GJxZqsWw=;
- b=gprQ0ez/4OSZyukXplhIO+fhwHzNobMG+B082sNrQMMQP7/tegQ1plu6RBw9Ed9GHybeI4/7F8av75m7L+0n85hKPCO//RnAo6Vtg8DF1z+symI0UOXO3nOOrWEFr0Cdv7o4nciFpjbpi8qD4uGyINu6LT+jhxq+nP1wfCVkdurBlakgiaekHC4h+kVvioTRta1NFR+8+ig1tT2Q00dSZNkeuceprES5UT7/qQjuBr5xJ2Xux33hkrpRNfm2ZILW+22EmhYyta3VHpfRhe2B/mc+J2sEUjuFLv4Wz+2yYL1j6m8kg4RwzL74UTByYfshsIGvG4+BTf6zu/zTzXzcmQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by GV1PR04MB10194.eurprd04.prod.outlook.com (2603:10a6:150:1ac::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Mon, 27 Jul
- 2026 16:19:44 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0245.012; Mon, 27 Jul 2026
- 16:19:44 +0000
-Date: Mon, 27 Jul 2026 12:19:36 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Akhil R <akhilrajeev@nvidia.com>
-Cc: sashiko-bot@kernel.org, Frank.Li@kernel.org,
-	alexandre.belloni@bootlin.com, conor+dt@kernel.org,
-	devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
-	linux-i3c@lists.infradead.org, robh@kernel.org,
-	sashiko-reviews@lists.linux.dev
-Subject: Re: [PATCH v6 08/12] i3c: dw-i3c-master: Add ACPI core clock
- frequency quirk
-Message-ID: <ameFGMYt7oEWbVIV@lizhi-Precision-Tower-5810>
-References: <20260721042615.E38721F000E9@smtp.kernel.org>
- <20260727144112.177391-1-akhilrajeev@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260727144112.177391-1-akhilrajeev@nvidia.com>
-X-ClientProxiedBy: PH7PR13CA0001.namprd13.prod.outlook.com
- (2603:10b6:510:174::7) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Il2U4CBw";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eYJX+YIT"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66RDlZTB4115070
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 16:21:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=TJC1Kk4z0znuYuI85iMSAY+a
+	YCrRRnb9JLjoaulIkSw=; b=Il2U4CBwJh4Khum0EV76v3dE8/qPWLka3e+nThm8
+	Q6NU4mESW0cnXRQuf0fsvVFgvioIA6eharIUaE3Q8FqWd3HiIEMHTR6uIUmMYZKE
+	cZakg+L2qW5bCtm8uWzSjcDjX1bLMceaDM8ibjD4KS23A2YaOdV4CPSALfx/BEaX
+	/WfYX8eOkn13MPH8obMMxa1g8RzT3/ioAqKCtAb4RCclbTnfbaSq2VFesHddCZvC
+	Y6VaVvHh7MifSBmOddgSAjKKhQdTR6eE/DQgscxPAAx5NWVq2fUF7x3Q3UIUIdFb
+	hcKTiq8nNHVthyt13Niiz/KYzAqqpZGcJiM2tXycbeENoA==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fp4mrsqbu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 16:21:01 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38f0fe57470so59848a91.0
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 09:21:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785169260; x=1785774060; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TJC1Kk4z0znuYuI85iMSAY+aYCrRRnb9JLjoaulIkSw=;
+        b=eYJX+YITrWF9oHrb6oqd0RilNZKqmuMKQr/KoA75KPx/bLY2lTr4kAzozRAbUtLglw
+         7bQZh2uyAIlHzfYsS/w+JFzYxp0Js3sIvfXLAYqH3yn6WBUHr2+3zi8tCMdr7NJIjJU1
+         015lBp88yR6TBSPTBvtSxS0UDvJ+mzn92FO8y8Basg47HGtzHvqSZPs3phT3Ys0YkZLD
+         DhJHP5JOhfN+Aj5a5gfBAlKPUcjhT/4DEhXodHu/BsUwefbHW77uf5n3ULZFYFSg1SBE
+         +pg1TdFRAJJ/S0P//qn4dDspjkUFxMCRacnNEGEy/QlIQVDiIsNu6KdjnAfPVLPZbdbQ
+         7xaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785169260; x=1785774060;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TJC1Kk4z0znuYuI85iMSAY+aYCrRRnb9JLjoaulIkSw=;
+        b=qoCYKTR0rsAYNs/srqQxPpNKawd1n0yb3AhPNiaauAJldK34Exs0hMoSdfbt0wo70p
+         c7wYN3x4QCcZydzbK1OPyh2zP860Wj64UPfLjgPS/+SzmO2+L+s1W2yLbuzhCIsWN267
+         zyKkE7B1PMAemAtYqundI8/YFTkuxMIJhBxJkw/bALpFmGTyWgbmuNMT69wIqGnkpwnz
+         jQmNO5y07ZlMlTnBBDuS2VZWgPb1086DxT98YmKTR9JmHhYQB0WiBMdt+1DIAE/Me9/W
+         I+TjCQYhi21UVYsaXxyQMjwYUSJpFy2Vf2x252NwlfbiNbs/2t0UeOI0zNjkG9CNEx1I
+         0ZAQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rqn3Tcyn6HuuL5i76M5F0s9Kn3rw6BYJ+QBme+h/oZSl7jWmZJOGIAfUEKKNsi8OXBoKDVEhB1T8SJf@vger.kernel.org
+X-Gm-Message-State: AOJu0YytezjHmVT3L7js7cp2hxslrtT6xahvaIIp9nj36xppOVIN1//8
+	+TrbvNFNARF4G51OCtyed/VeRLjY79arYb0o7hOVKPB6X+iRG0KW3wzAIxHMliktMTuSkvoUSlb
+	q25rbndVax9kbc2+0e2Hkik5ssF6gii2ulw0JGjziMWtKWSqXdSpeLLWXdZe8YdGV
+X-Gm-Gg: AR+sD13rTOro13eFEQSnd8L3rIhGvyLsCFUVMLxdqlVFU7nbx0CqacYgCuPcMe+ABcG
+	p/RcArLf1X/zCujsZXmCqA71jSPJ6Y75iq3M6tuS4jODHbDPlBC4Sft+qqvUPQ+GZUbpNb8lQKf
+	ApyyZKLE8pC2e3SgB38+0uGnwaUGTu3pMw8+vwQr3HRAAuwfFUndIyLpeGzswu530TLTOvWqwcj
+	m8V0N45rF8d4ermUio6kJoMfzl0151evTzRG2MyHXw63o2cX2ishdd76GN/9aAzB7a/e6G5eXy+
+	p+xNbQHPPpRODhsEPUcgIcnPL8IhDtHbeb4lCExZFQonJD87rQjjm7qvhOp+jIMLU1ISpXZOZbM
+	mxEzL5zE8EKEswdZ950UCnCOMc5E=
+X-Received: by 2002:a17:90b:3e82:b0:387:d9cc:7dc3 with SMTP id 98e67ed59e1d1-38f644f8722mr82519a91.21.1785169259960;
+        Mon, 27 Jul 2026 09:20:59 -0700 (PDT)
+X-Received: by 2002:a17:90b:3e82:b0:387:d9cc:7dc3 with SMTP id 98e67ed59e1d1-38f644f8722mr82502a91.21.1785169259365;
+        Mon, 27 Jul 2026 09:20:59 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13d130f55c6sm89142555c88.15.2026.07.27.09.20.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Jul 2026 09:20:58 -0700 (PDT)
+Date: Mon, 27 Jul 2026 21:50:52 +0530
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v11 3/3] arm64: dts: qcom: ipq5424: add support to get
+ watchdog bootstatus from IMEM
+Message-ID: <20260727162052.eyvmubroov4fex64@hu-mojha-hyd.qualcomm.com>
+References: <20260727-wdt_reset_reason-v11-0-eeedb22beefe@oss.qualcomm.com>
+ <20260727-wdt_reset_reason-v11-3-eeedb22beefe@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GV1PR04MB10194:EE_
-X-MS-Office365-Filtering-Correlation-Id: ef6df572-8d9c-4b67-b5f0-08deebfade8a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|366016|23010399003|19092799006|1800799024|6133799003|18002099003|22082099003|3023799007|56012099006|4143699003|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	wui95OKALIl4PiQVl0EKXzfgV0X+j13b2t1mGH0gNOPF8UY1j/9LDVadfqqAb8hQewYbc1lqQQChK41vgAT6nxPJryHUUMSviVIZYpK+PVLEsgXyWggsxxxgxk3iqO+5QanpT+enycGZbwNd+j3fZZp4AATGnQ3P8hHjUGYcF8IRHWQ7arw3eB/96HH0qZmRB3jbt04iA9dGIchTR3yEIxq3BYVGyWfCer6iEZ4IISlSG9jhIPFbYnqDyM14KNHwacjvqzn36d5AxbMN8/jbFMcHFYbp02gAvCZtheZWdbRqkPBLbmMOZfQj/P4PxvC10n6y3AZSen9+ffpxL5uTcr/qJSFbN7PbBa4ysdCmDA8VwPwoBadYZAWKV3eEC1sJBD1g9Jv2w8ExOW4jEoTDNY2qc1YrUUrxRpexS85nAVg49RrABMw6xr3/AE/TuQ6ltSj6sTqMyK0vIPg1OpQrfi1tDhtHN2iM8uyXH0IbKXrNKNEfm5Yi+n7Zt2prYYs/QlYeCz5FtwS5OFOcsJzlRYsTW683UZn/rpZvOFjWBHOc8BM5x7wFDusWRAXJ5i/osNMbw3Drs41eO4cSjtUCDbppTFL0zdnZRqnU06tafXKs050/A9ujxat+E/IcCDdkFWHFL5slw4JH6U9X/suGumIpzw2TOu/79Fzn2RM00ak=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(19092799006)(1800799024)(6133799003)(18002099003)(22082099003)(3023799007)(56012099006)(4143699003)(11063799006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?6KvsrNxv7B9bcVrRm2hZ0GWgwbAT47hq5u2HM7lczqFjbDmy0Q6M7Gq6oj2s?=
- =?us-ascii?Q?dMkt6X435DjW/Ybh9caRG9p+5MAPxMfFC59ZzpUppAe9xcqVpll7g3JSdo+y?=
- =?us-ascii?Q?HlSE07HXScjLl6Q35ff1jF5Bg0HV1OYyaZgxmDZJkARrdVyTzI0DWIzkH5A7?=
- =?us-ascii?Q?VGPhKJNo7KhafFA5sDrNY3UrVp337qQa7AwvfC4DxQ5tHSHMdbq++M2q2835?=
- =?us-ascii?Q?6p8jIlapoknsAB9o1iIqLRWsz7IvRAZkTj2kI61JbzAtO3aFPURV3rsIkpkA?=
- =?us-ascii?Q?Up1wVOqJoVeSDVs4OCt/rKyjqjMJMUAnmEsykgU72ZRXS1ovh+yEOLM3VoNH?=
- =?us-ascii?Q?/tkYHw1YUCn/ktqdYg7DtrUX36z/ibscyWp3g9+AtcazEke3spDzIFeX4uu+?=
- =?us-ascii?Q?+W/OVh0vhwVwr+CXYHqgGfBa6+eGvmOhI9WqRslwtZZVY+MSWBqMoqc44B+7?=
- =?us-ascii?Q?sRP4DucIzy5Z3ESKLe8Qc1C+XDf5KmAKqpL4DvJKz6nw+a9auFowjXt20GsJ?=
- =?us-ascii?Q?c03FJJS18e9PY5TybYUCCNw9m7bPT7pOPmXPHMeEvIegWUAIh0uqGspG+/Wo?=
- =?us-ascii?Q?5F2SmhmTOno/drnvjYam3CC7MpSH32ev+XUnTW40p5A7NiigoyDaBDvd58mm?=
- =?us-ascii?Q?mIl/XFsTxIH1H9D95k2HagsqkFw4+GCj4c6H0A5mm1CIgT0FZqiUH5tzzPSR?=
- =?us-ascii?Q?Lw1MPuag/LrJW+namd27zrUJrmcoJPxXlE2ptKJThXBOZbWBWRi2pdr1Ymy8?=
- =?us-ascii?Q?Z9m6Yow7yFzQFmb+aIwNcC7oXYhJpKxT4Bc0CS83oAXdA/+M/eLprfieZSmU?=
- =?us-ascii?Q?7DG06u4rkWTElRSomMeMABtf9aDY7oD36QbTQmDTMv7CgmmiQsWqXlpwOQKg?=
- =?us-ascii?Q?eIW8tHuA74GQrfY+A7iF8jzIzxW8tHpyY524LAQ75LlD9HFjD+TXz50+FUyn?=
- =?us-ascii?Q?thco5OlynpRBH+WAuusq6JPI/ROaRzuXRrvBAFi8cY0vG+lGScKk+xRrawPR?=
- =?us-ascii?Q?i5gJw047uLI6Ha/dX1xCIjyXXaFEAz3Ky3hKmk39/sAjecu17tjEWbFpvQgc?=
- =?us-ascii?Q?82S7/8QvI7X3wFM6vymXFb0xXm5aph2dGRpCKKPEkZOXt5YTj+i/r5dbyCm1?=
- =?us-ascii?Q?grPXalfTqEnLwCewrgDiQL1lu9090UEBvHZxcgakFJLBUt9RswZQStPKu/X5?=
- =?us-ascii?Q?qKUdr785ob/eq2S0IagJq4beIfc1GeC80poy/D+gEKhyD8pZ8ADfxjdnkCaH?=
- =?us-ascii?Q?dWzB/mKXXhO0b4BFp4Ji5krqTbDRXQjpobeer1MxWjAksAVjjt4VFtyAh3kC?=
- =?us-ascii?Q?SoC2QzjloBRbBJ0XGCuArIysSNzZ+l35mJnQo18D/lMimQnDd4MZnFndaCz3?=
- =?us-ascii?Q?rrT/MNLvRfSKOzFsbISnc/81BVwBkobSdV6Xxuf2MFkNOJ3CeVI47mZcDKjA?=
- =?us-ascii?Q?aIzcq6DxKpGYcUY8duBu9EU5C5KFXauhrwS0EIHqihq9JI8Duyd4liB2UGgS?=
- =?us-ascii?Q?YHzUe+AFJwDI2QqWJiDK74yslZ7mHDoROg6zWxARxNwIfjYiBj6OgDSky8BG?=
- =?us-ascii?Q?mtqBvZP5cwy+Jc9ZsXCO1mbou6dOn2jSSegrzk9QU9e/DgvKdl5HdH/t+xk7?=
- =?us-ascii?Q?HkZFVxmDx9PwYliemZM2a+DEuAIifdyaOYrVfwm2+RAgXlbpI8nLJNOpDhqp?=
- =?us-ascii?Q?VBDyqkiGqCiuqK3TpS9cJgOEnlPqi1H0jyXRtr8c8Xc7EqmBkl5qPy0tyTXW?=
- =?us-ascii?Q?CO0TO0RFYLAGxsIn/SX1j+tjvvXMNC+iORvCcIn1SKISg1y3gDn5?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef6df572-8d9c-4b67-b5f0-08deebfade8a
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2026 16:19:44.3148
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7wY3yFe/vTbp7xtu9wzKHbGOBABjhuQZ4diOV5TPDOOiFQU6TrluU0XE4OQFZYb38TNZceSQeo9NbLukkoy26YNSD5zYNm8ZtzW5z/8M8+kiEaMJ8NpBSuqv6I2DoUUr
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10194
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260727-wdt_reset_reason-v11-3-eeedb22beefe@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI3MDE1MSBTYWx0ZWRfXwxa3gtHJki6+
+ aHHcLXE0J0GISY6fs0/aAwCORerxACDQlTjqq4RASI0ACPmZDtbyAUpfReKz3rHFozK4Fv9Qg9E
+ P92ndDWxK21SACpkgia+Wq8hXwybNVU=
+X-Authority-Analysis: v=2.4 cv=UYBhjqSN c=1 sm=1 tr=0 ts=6a67856d cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=sTVwHD2wD88z-ZP_hjEA:9 a=CjuIK1q_8ugA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-GUID: meXwAGzW8AA0zs9asnYyb0vx8SU8i3dv
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI3MDE1MSBTYWx0ZWRfX7ZDGKvlyvFag
+ FkXNTxJRn73XaxEr/UMe4vOg0hp8n5uVggmoTPl6EGa2xr2OzO+4Do4EHAI+Elc2m8Vn4rQSxSw
+ O0Y4WnkZS7q/E+TAcAH/VXfQRG7HBk0FsGjfurIUD3vMEgQi5dch9d455hCsvtxAnXzUJntF28i
+ YN8caVIatTxeiwM8qP2Kaq5OrL9IUhHoK67hWzIeT7LYZ0bMOURgf8ZeupFqtMHPVonYBD5VLct
+ vhaIx/AjLyeAJ8aqupZyLoUdV/QkwV6BdM+mN3iu6xNliZU9hFY8otyMN1kzQBoq7ZVHIalgYwb
+ 6uC2+SE86m0drkKaXDJnoCpoqFxJLryVQXbJ5khEVz/VSThJu7G3szUKM7b0jKBZrBjJ2akxNrQ
+ LPO/zvHtH2k4DeSsdi98W+Plzt1xobdVVnyB5PZ0LfyvmBkby1SMrcXGW1qohlwd8CuF7wUR3c+
+ egLEm5tAh512Y/ZT6jg==
+X-Proofpoint-ORIG-GUID: meXwAGzW8AA0zs9asnYyb0vx8SU8i3dv
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-27_04,2026-07-24_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 suspectscore=0 bulkscore=0 clxscore=1015
+ priorityscore=1501 phishscore=0 adultscore=0 impostorscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607270151
 
-On Mon, Jul 27, 2026 at 02:41:12PM +0000, Akhil R wrote:
-> On Tue, 21 Jul 2026 04:26:15 +0000, Sashiko AI review <sashiko-bot@kernel.org> wrote:
-> > commit f3333de342eb1c266eb94909516ea27afe8378d5
-> > Author: Akhil R <akhilrajeev@nvidia.com>
-> >
-> > i3c: dw-i3c-master: Add ACPI core clock frequency quirk
-> >
-> > Some ACPI-enumerated devices like Tegra410 do not expose the controller
-> > core clock through the clk framework. Unlike device tree, ACPI on Arm does
-> > not model clock providers. The hardware is expected to have its clocks
-> > enabled by firmware before the OS takes over.
-> >
-> > > diff --git a/drivers/i3c/master/dw-i3c-master.c b/drivers/i3c/master/dw-i3c-master.c
-> > > index 29030fd9594aa..3ec3ab1c13b4c 100644
-> > > --- a/drivers/i3c/master/dw-i3c-master.c
-> > > +++ b/drivers/i3c/master/dw-i3c-master.c
-> >
-> > [ ... ]
-> >
-> > > @@ -556,13 +557,33 @@ static void dw_i3c_master_set_intr_regs(struct dw_i3c_master *master)
-> > > +static unsigned long dw_i3c_master_get_core_rate(struct dw_i3c_master *master)
-> > > +{
-> > > +	unsigned int core_rate_prop;
-> > > +
-> > > +	if (master->core_clk)
-> > > +		return clk_get_rate(master->core_clk);
-> > > +
-> > > +	if (!(master->quirks & DW_I3C_ACPI_SKIP_CLK_RST)) {
-> > > +		dev_err(master->dev, "missing core clock\n");
-> > > +		return 0;
-> > > +	}
-> >
-> > [Severity: Low]
-> > Is this check reachable?
-> >
-> > During initialization in dw_i3c_common_probe(), if the core clock is missing
-> > and DW_I3C_ACPI_SKIP_CLK_RST is not set, probe immediately aborts with -EINVAL.
-> >
-> > By the time dw_i3c_master_get_core_rate() is executed, it seems guaranteed
-> > that if core_clk is missing, the DW_I3C_ACPI_SKIP_CLK_RST quirk is already
-> > set, making this fallback check dead code.
->
-> The check is defensive and is harmless. I believe it adds to readability,
-> but can be cleaned up if preferred.
+On Mon, Jul 27, 2026 at 09:17:37PM +0530, Kathiravan Thirumoorthy wrote:
+> Add the "sram" property to the watchdog device node to enable
+> retrieval of the system restart reason from IMEM, populated by XBL.
 
-Yes, needn't double check if probe already checked.
+Just checking if it's XBL and not TZ? who writes into IMEM.
 
+As when unsure, mentioning boot firmware is a better choice.
 
-Frank
+> Parse this information in the watchdog driver and update the bootstatus
+> sysFS if the restart was triggered by a watchdog timeout.
+> 
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/ipq5424.dtsi | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/ipq5424.dtsi b/arch/arm64/boot/dts/qcom/ipq5424.dtsi
+> index ed61db0749f8..23f851e9241f 100644
+> --- a/arch/arm64/boot/dts/qcom/ipq5424.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/ipq5424.dtsi
+> @@ -624,6 +624,7 @@ watchdog@f410000 {
+>  			reg = <0 0x0f410000 0 0x1000>;
+>  			interrupts = <GIC_SPI 0 IRQ_TYPE_EDGE_RISING>;
+>  			clocks = <&sleep_clk>;
+> +			sram = <&restart_reason>;
+>  		};
+>  
+>  		qusb_phy_1: phy@71000 {
+> @@ -739,6 +740,10 @@ sram@8600000 {
+>  
+>  			#address-cells = <1>;
+>  			#size-cells = <1>;
+> +
+> +			restart_reason: restartreason-sram@7b0 {
+> +				reg = <0x7b0 0x4>;
+> +			};
+>  		};
+>  
+>  		usb3: usb3@8af8800 {
+> 
+> -- 
+> 2.34.1
+> 
 
->
-> > > +
-> > > +	if (device_property_read_u32(master->dev, "clock-frequency", &core_rate_prop)) {
-> > > +		dev_err(master->dev, "missing clock-frequency property\n");
-> > > +		return 0;
-> > > +	}
-> > > +
-> > > +	return core_rate_prop;
-> > > +}
-> >
-> > [ ... ]
-> >
-> > > @@ -1573,14 +1594,28 @@ int dw_i3c_common_probe(struct dw_i3c_master *master,
-> > > +	if (has_acpi_companion(&pdev->dev)) {
-> > > +		quirks = (unsigned long)device_get_match_data(&pdev->dev);
-> > > +	} else if (pdev->dev.of_node) {
-> >
-> > [Severity: High]
-> > This isn't a bug introduced by this patch, but since this block was
-> > relocated, I noticed a potential issue for devices using ACPI PRP0001.
-> >
-> > If the device is instantiated via ACPI using the PRP0001 HID,
-> > device_get_match_data() correctly falls back to the OF match table and
-> > returns a pointer to struct dw_i3c_drvdata.
-> >
-> > Does casting this pointer to an unsigned long and assigning it to
-> > master->quirks cause random kernel pointers to be used as a quirk bitmask?
-> > Depending on the kernel layout, this might cause erratic driver behavior such
-> > as missing PM operations.
->
-> > > +		drvdata = device_get_match_data(&pdev->dev);
-> > > +		if (drvdata)
-> > > +			quirks = drvdata->flags;
-> > > +	}
-> > > +	master->quirks = quirks;
-> >
-> > [ ... ]
-> >
-> > > @@ -1636,15 +1671,6 @@ int dw_i3c_common_probe(struct dw_i3c_master *master,
-> > > -	if (has_acpi_companion(&pdev->dev)) {
-> > > -		quirks = (unsigned long)device_get_match_data(&pdev->dev);
-> > > -	} else if (pdev->dev.of_node) {
-> > > -		drvdata = device_get_match_data(&pdev->dev);
-> > > -		if (drvdata)
-> > > -			quirks = drvdata->flags;
-> > > -	}
-> > > -	master->quirks = quirks;
-> > > -
-> >
-> > [Severity: High]
-> > This is a pre-existing issue, but I noticed a potential problem in the device
-> > removal path regarding runtime PM state.
-> >
-> > When the driver is unbound, dw_i3c_common_remove() calls
-> > i3c_master_unregister(), which internally calls dw_i3c_master_bus_cleanup().
-> > The dw_i3c_master_bus_cleanup() function accesses the DEVICE_CTRL MMIO
-> > register. Because the driver does not wake the device via
-> > pm_runtime_get_sync() before unregistration, the device may be in a
-> > runtime-suspended state with its core clocks disabled.
-> >
-> > Could this cause a fatal bus fault on platforms like ARM due to unclocked MMIO
-> > accesses? Additionally, if the device remains suspended, will the subsequent
-> > devres cleanup attempt to disable the already-disabled clocks, causing a clock
-> > enable counter underflow warning?
->
-> These are existing issues in the driver. It would be better to address them
-> separately.
->
-> Best Regards,
-> Akhil
+-- 
+-Mukesh Ojha
