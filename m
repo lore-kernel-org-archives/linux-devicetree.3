@@ -1,46 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5620338657E;
-	Mon, 27 Jul 2026 20:15:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A4882566D3;
+	Mon, 27 Jul 2026 20:17:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785183361; cv=none; b=jpgH/tcEmLjfL2n54ez3Zy5XS6MTXOLw+UvxmOklMqAhGwT9Glb0daNyzkWjqUBdkviO3LWyp5UgioMUSiqiMsKeEd9j+E0zfHGjlwKNc2pqHfKv79lq72qY4B9mw1JbfoZ55kdkF3iqvqP7Y0pvs3YSafXkHcXHtUiQtpelr1A=
+	t=1785183438; cv=none; b=qEKX5R34XeuxAoyhu+zDSZGRdIKYBCE+q6HX9dl9BMr6MSJPY+e8TOx+XryIxKZkd98i6ifbTEd23biu5NGrn3LegnGuMhQ9Y/q8qJOL7x2SKpENK4n8EyokXZH3L3VQMMPQ6jJAfTZv0eXFZnuCuxQBflafuIVjS9R4H/c74ss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785183361; c=relaxed/simple;
-	bh=nj5obe6BkemZLvDDXQRZ4IKGMg5Z33SG+E0KG0oeOeo=;
+	s=arc-20240116; t=1785183438; c=relaxed/simple;
+	bh=HRTJfd9zZkQyG3G1nivM7uEr/3WXRcqlU6N5OA/wf/s=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Xoc7SwpE3dfbWN8GhW6PvTbW0jCauG5Mo9e7o8kylF3UwHfi+XjSd5BswldBCJDZskrH13y7tSAEJTnIt/R2W8q8HIJQdta2yqjQ+46VDZRmL5s/h8jxQidPRIMAXfWZnNnrQPv2d90DR5UwwqZeghhvu5ohKXjfITHeNW92npo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V9jkYlex; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Kfw1m5FTXraco3aXmlZcG0nJwzx1UK4exqrdplXVknsb4EVmQsydkwkQnO3unz96ykm400CIY8rDfhguhQ27BmZDdpxcXw0lQ6rBWc4XJYo9Hj5PCSknAkMkcayMUCKRbYwl5L+fc0ZMqIWMfdK4fOWFeKiUdox5VZE2O+PMGoo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QA3vodlO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V9jkYlex"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F9821F000E9;
-	Mon, 27 Jul 2026 20:15:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QA3vodlO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 716ED1F000E9;
+	Mon, 27 Jul 2026 20:17:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785183359;
-	bh=+iWa0jM1thFE79YYtWc9/4bTh879bQM9UWNB7ryvFuE=;
+	s=k20260515; t=1785183437;
+	bh=HRTJfd9zZkQyG3G1nivM7uEr/3WXRcqlU6N5OA/wf/s=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=V9jkYlexzlpVhamy6AuvCd51nDszhZ5Wle27n2ix1kbiK+6l2qFdaDGfe0c/6kaFH
-	 +Ny00CYQxjrIicMi/AClpWItr9gv04z3FB6JnRRS9EN7N8MBLTdhpzyAZX5xNi8QFM
-	 gFaMSZZ/+z4zkI76WhpAu4ltbZsRLnpgutWR7Vqe29TT2DuPMQ5WIadAryveXoQGeF
-	 V4z7SXW3cWI/tbg+xtxW8sT4y1fiZrnh6wtMsjo6Fb4iKyT1SDR/8H94VGwp5iRHTA
-	 VFRjCikSMi+HG14Bwxw3E0UqwpIqiZsx8438CX+9Mq8Xyz+GxZbeu1Y/o3djo/YMyA
-	 H0cvpjqnwHt5Q==
-Date: Mon, 27 Jul 2026 22:15:55 +0200
+	b=QA3vodlOd74UrFO0SXkn1wkDyme+d2yn1KGHFgZgFNrpeWhdXv/zaDadmtWsvhl9R
+	 Kld2SWNWghIFXbQRPjPRbOrq+vXQYHXgbMfY9Itero/OFg0LQjybGUIwtw5m6/U6+q
+	 RoL+9Dr+iCBnSK1e5CPmPJk8lxJ+0fhzR0FQnmJ6IaREo8aNa30sgZoWmNQHqhu7WD
+	 aLLGN79JFBrk8ErzQoeAZhk/TV9aYmuSX7KLh+elL+qbxN8gqI7VQEMn3PmBbNxvQD
+	 Wt57GetEKRXtYzsiOaey/zgYfrCvm4X0Slzz2YBsQ/4m5MumY3zx0ohPuo/BC6CbSF
+	 fehLsUpVON8MA==
+Date: Mon, 27 Jul 2026 22:17:13 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
-Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Lorenzo Bianconi <lorenzo@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Christian Marangi <ansuelsmth@gmail.com>, Benjamin Larsson <benjamin.larsson@genexis.eu>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org, 
-	Markus Gothe <markus.gothe@genexis.eu>, Matheus Sampaio Queiroga <srherobrine20@gmail.com>
-Subject: Re: [PATCH v8 30/35] dt-bindings: pinctrl: airoha: an7583: add olt
- function/group
-Message-ID: <20260727-chivalrous-legendary-goat-b9ab93@quoll>
-References: <20260727174141.664933-1-mikhail.kshevetskiy@iopsys.eu>
- <20260727174141.664933-31-mikhail.kshevetskiy@iopsys.eu>
+To: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, =?utf-8?B?U8O4cmVu?= Andersen <san@skov.dk>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v7 2/5] dt-bindings: arm: fsl: add base compatible for
+ Skov i.MX8MP revC
+Message-ID: <20260727-onyx-copperhead-from-venus-8824ca@quoll>
+References: <20260727-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v7-0-ca8a0446166a@pengutronix.de>
+ <20260727-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v7-2-ca8a0446166a@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,31 +48,12 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260727174141.664933-31-mikhail.kshevetskiy@iopsys.eu>
+In-Reply-To: <20260727-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v7-2-ca8a0446166a@pengutronix.de>
 
-On Mon, Jul 27, 2026 at 08:41:36PM +0300, Mikhail Kshevetskiy wrote:
-> Add support for olt pin function for olt pin group.
-> 
-> Signed-off-by: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
-> ---
->  .../bindings/pinctrl/airoha,an7583-pinctrl.yaml        | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/pinctrl/airoha,an7583-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/airoha,an7583-pinctrl.yaml
-> index 7deb48db52c3a..f016e0da65a57 100644
-> --- a/Documentation/devicetree/bindings/pinctrl/airoha,an7583-pinctrl.yaml
-> +++ b/Documentation/devicetree/bindings/pinctrl/airoha,an7583-pinctrl.yaml
-> @@ -60,7 +60,7 @@ patternProperties:
->            function:
->              description:
->                A string containing the name of the function to mux to the group.
-> -            enum: [pon, tod_1pps, sipo, mdio, uart, jtag, pcm, spi,
-> +            enum: [pon, olt, tod_1pps, sipo, mdio, uart, jtag, pcm, spi,
+On Mon, Jul 27, 2026 at 07:31:05PM +0200, Steffen Trumtrar wrote:
+> Add a generic compatible for revC-based Skov boards.
 
-You just changed this line in previous patch, no?
-
-Why binding patches are spread all over instead of properly grouped?
-This makes it difficult to review. Please read submitting patches (both documents).
+We do not take generic compatibles.
 
 Best regards,
 Krzysztof
