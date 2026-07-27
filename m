@@ -1,49 +1,51 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D366D38657E;
-	Mon, 27 Jul 2026 20:29:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DDAF3D331E;
+	Mon, 27 Jul 2026 20:42:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785184177; cv=none; b=BMZNhTn2lzn6QxOsRSQtwoLiieKIFWQAU42J49qqDnkF8YdDYpxVjAU97OFuMw8hQ7ZyIZrzgPVH7dMfNI9BZAT69qDMudSFHgTENinzlRAgz4MN7hEwkhH6WBFGS3uxIbTkQhzWP1FNHQq2TAccjjhrsyDXuiEiU4LPpEhugS8=
+	t=1785184962; cv=none; b=dDN8AeLXvzEG63myx2WinASwZ3vpgwGeNXAzDwmGMA8/Zo3VirafHUtQBkr/VMOpLnlw0yLwQhsbSLOnP0vgholnCHq895igcoeGP8LPGaLWa1rDBLdEi0HIIStScjNAlcORRhpLdtxzDh3SjitQtUyV1HWKBtdMaQrCl8MiXfY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785184177; c=relaxed/simple;
-	bh=Kdjg1rajS8cAG0WAE+1RmS+9GaYG6ZKuLeGP9a00ncY=;
+	s=arc-20240116; t=1785184962; c=relaxed/simple;
+	bh=YG74S2z//JuAeofKpAxMQxJEGDj9w72H+xDHPpUE44E=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=caqxPWhrpIio1dqUedHTpvjObXt2uxc2l38aYoX5PGlu4eF019TtiviavFoJsbkQzGtGxGaY913Z9/dZHCx+UMd6AhauANKq7NCgEjRTVednJkIgtayByVRKm7JZ7c/iQuzJb1Gx8y7an3tlQEbVnLw7gBwhHy7Ew2jq1sK2nVE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VOccvNly; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ghSpcFZWQEZY1Z90CdAlcFJs/Muq9Atj1K2b78khDZnzgHx463rZJJy0QVppyzoF00q3Q9rfX2PfyKblMoDICpS3kd+QmZ5Ol5d7CypEkk71P8oyyVpmhEll/60NB/b+oDkRldjFbc24zeKuihYDRxiQ2Gp28qJEG/5uO1Rr57E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ReHLQb+t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VOccvNly"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F07A81F000E9;
-	Mon, 27 Jul 2026 20:29:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ReHLQb+t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 311BE1F000E9;
+	Mon, 27 Jul 2026 20:42:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785184175;
-	bh=hma6c/O+4dubSDjB1fhfl/X7eMkAj80EhqTMeqQfkeg=;
+	s=k20260515; t=1785184961;
+	bh=IxZYhRoqemN3/PXznozCuAsbksxqgixe/3D8d9pTlaQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VOccvNlyG487f3FXDFLQ+/ir23zrzc10+Fjvvnzas4sykIwsEHeuNU+vqaGx2DfsK
-	 mvq64BQKNGexQ0UDKrRO6W/6vKivWPz29429jBm3jpkawTdG1FQ+LrIYb7ux+EzqbM
-	 1/32w0U1EDq1W0H6hi1t9bx+bSqRmNTWlmkP0At6OTneAvubLe7jrQ506heaxVaUbq
-	 9MP0og7ev98B+3pmIr1nQ4vMUy0nvvGPRXD8KG671/9EMgqWDCxyhXrgoC2viF+TKy
-	 7aMHe+25qJcNh4DlhAiymQ/OT4CfgCYYcvtlB5qglJ0jCABg9MsGqX20tLlMCliklw
-	 TCbW3jKMcjpWw==
-Date: Mon, 27 Jul 2026 22:29:31 +0200
+	b=ReHLQb+tPn5sxscrJNPGhOb74GZKP5C/ZxC5RiFy7i5TDUPwqCfGZlgKiGd27TJYC
+	 lSCezZYLcNhnDsylGnf6QBo2WjpOJ2nQvpdXMrdC16zAdQaQMZ5+CnhL8eekWvg1Om
+	 Y/cYN8YL3/EuTGsvldLfbK/WUoEmPUiNAXTAutUz6I5iLwLPWA/ICJVg0hoXWdw/by
+	 HO7lh3xCpZp0oEcygADTXVehJb+DMtduTuIZbT0EfR7bjrTBk5kYfsWCBvwjucijJC
+	 G4OaCZM+hh2b1HX23cLsQ5fz7nyJZlPdjCaA9YaHENsb4ABuy00QnQipZD8rJikXUZ
+	 VjMgNmZJSRZVA==
+Date: Mon, 27 Jul 2026 22:42:36 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jun Nie <jun.nie@linaro.org>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
-	Dmitry Baryshkov <lumag@kernel.org>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Jun Nie <jun.nie@linaro.org>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+	Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Simona Vetter <simona@ffwll.ch>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	David Airlie <airlied@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Conor Dooley <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	linux-kernel@vger.kernel.org, Dmitry Baryshkov <lumag@kernel.org>, 
+	Maxime Ripard <mripard@kernel.org>, linux-arm-msm@vger.kernel.org, 
+	Marijn Suijten <marijn.suijten@somainline.org>, Rob Clark <robin.clark@oss.qualcomm.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>
 Subject: Re: [PATCH v5 5/6] dt-bindings: display: Add Synaptics R63455 panel
  support
-Message-ID: <20260727-spotted-winged-mantis-7aa1ce@quoll>
+Message-ID: <20260727-married-nifty-dalmatian-dfbe04@quoll>
 References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
  <20260727-sm8650-7-1-bonded-dsi-v5-5-c042266b9eeb@linaro.org>
+ <178514563985.1199273.4525119457881224571.robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,174 +54,35 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260727-sm8650-7-1-bonded-dsi-v5-5-c042266b9eeb@linaro.org>
+In-Reply-To: <178514563985.1199273.4525119457881224571.robh@kernel.org>
 
-On Mon, Jul 27, 2026 at 04:08:44PM +0800, Jun Nie wrote:
-> Add support for the dual-panel system found in the virtual reality device.
-> This system consists of two physical 2160x2160 panels, each connected via
-> a MIPI DSI interface. The backlight is managed through DSI link.
+On Mon, Jul 27, 2026 at 04:47:19AM -0500, Rob Herring (Arm) wrote:
 > 
-> Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> ---
->  .../bindings/display/panel/synaptics,r63455.yaml   | 133 +++++++++++++++++++++
->  1 file changed, 133 insertions(+)
+> On Mon, 27 Jul 2026 16:08:44 +0800, Jun Nie wrote:
+> > Add support for the dual-panel system found in the virtual reality device.
+> > This system consists of two physical 2160x2160 panels, each connected via
+> > a MIPI DSI interface. The backlight is managed through DSI link.
+> > 
+> > Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> > ---
+> >  .../bindings/display/panel/synaptics,r63455.yaml   | 133 +++++++++++++++++++++
+> >  1 file changed, 133 insertions(+)
+> > 
 > 
-> diff --git a/Documentation/devicetree/bindings/display/panel/synaptics,r63455.yaml b/Documentation/devicetree/bindings/display/panel/synaptics,r63455.yaml
-> new file mode 100644
-> index 0000000000000..c3bc8df981df7
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/panel/synaptics,r63455.yaml
-> @@ -0,0 +1,133 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/panel/synaptics,r63455.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Synaptics R63455 based dual 2160x2160 MIPI-DSI Panel
-> +
-> +maintainers:
-> +  - Jun Nie <jun.nie@linaro.org>
-> +
-> +description:
-> +  Synaptics R63455 is a Virtual Reality Display Driver and VR Bridge, used in
-> +  pair in Headset devices. The Virtual Reality Display complex is composed of
-> +  two strictly identical display panels, each driven by its own DSI interface
-> +  but forms a single virtual display for the human eye perception and thus
-> +  requires a strict synchronization of the two display panel content update.
-> +
-> +allOf:
-> +  - $ref: panel-common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - enum:
-> +        - sharp,ls026b3sa06
-> +        - boe,vs026c4m-n52-6000
-
-Not build checked. Please use tools, not humans for trivial things.
-
-> +      - const: synaptics,r63455
-> +
-> +  reg:
-> +    maxItems: 1
-> +    description: DSI virtual channel
-> +
-> +  reset-gpios:
-> +    maxItems: 2
-> +    description: 2 reset pins for 2 physical panels
-
-Won't work. gpio-consumer-common expects only one reset line. You need
-two separate properties.
-
-> +
-> +  left-pos-supply:
-> +    description: Positive 5.7V supply for left panel
-> +
-> +  right-pos-supply:
-> +    description: Positive 5.7V supply for right panel
-> +
-> +  left-neg-supply:
-> +    description: Negative 5.7V supply for left panel
-> +
-> +  right-neg-supply:
-> +    description: Negative 5.7V supply for right panel
-> +
-> +  left-backlight-supply:
-> +    description: Backlight 21V supply for left panel
-> +
-> +  right-backlight-supply:
-> +    description: Backlight 21V supply for right panel
-> +
-> +  vdda-supply:
-> +    description: core 1.8V supply for panels
-> +
-> +  ports:
-> +    properties:
-> +      port@0:
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: DSI input port for primary DSI link
-> +
-> +      port@1:
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: DSI input port for secondary DSI link
-> +
-> +    required:
-> +      - port@0
-> +      - port@1
-> +
-> +required:
-> +  - compatible
-> +  - reset-gpios
-> +  - left-pos-supply
-> +  - left-neg-supply
-> +  - right-pos-supply
-> +  - right-neg-supply
-> +  - left-backlight-supply
-> +  - right-backlight-supply
-> +  - vdda-supply
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-
----
-
-> +    dsi@ae94000 {
-> +        vdda-supply = <&vreg_l3i_1p2>;
-> +        status = "okay";
-> +
-> +        qcom,dual-dsi-mode;
-> +        qcom,master-dsi;
-
-None of above is relevant. Drop
-
-> +
-> +        panel: panel@0 {
-
-Unused label.
-
-> +            compatible = "sharp,ls026b3sa06", "synaptics,r63455";
-> +            reg = <0>;
-> +
-> +            reset-gpios = <&pm8550_gpios 3 GPIO_ACTIVE_HIGH>,
-> +                          <&pm8550_gpios 11 GPIO_ACTIVE_HIGH>;
-> +
-> +            left-pos-supply = <&vpos_left>;
-> +            left-neg-supply = <&vneg_left>;
-> +            right-pos-supply = <&vpos_right>;
-> +            right-neg-supply = <&vneg_right>;
-> +            left-backlight-supply = <&backlight_left>;
-> +            right-backlight-supply = <&backlight_right>;
-> +
-> +            vdda-supply = <&vreg_l12b_1p8>;
-> +
-> +            ports {
-> +                #address-cells = <1>;
-> +                #size-cells = <0>;
-> +                port@0 {
-> +                    reg = <0>;
-> +                    panel0_in: endpoint {
-> +                        remote-endpoint = <&dsi0_out>;
-> +                    };
-> +                };
-> +
-> +                port@1 {
-> +                    reg = <1>;
-> +                    panel1_in: endpoint {
-> +                        remote-endpoint = <&dsi1_out>;
-> +                    };
-> +                };
-> +            };
-> +        };
-> +    };
-> +
-> +...
+> My bot found errors running 'make dt_binding_check' on your patch:
 > 
-> -- 
-> 2.43.0
+> yamllint warnings/errors:
+> ./Documentation/devicetree/bindings/display/panel/synaptics,r63455.yaml:26:9: [warning] wrong indentation: expected 10 but found 8 (indentation)
 > 
+> dtschema/dtc warnings/errors:
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/panel/synaptics,r63455.yaml: properties:ports: 'anyOf' conditional failed, one must be fixed:
+> 	'type' is a required property
+> 	'$ref' is a required property
+> 	hint: node schemas must have a type or $ref
+> 	from schema $id: http://devicetree.org/meta-schemas/core.yaml
+
+Seems nothing here was build-tested :/
+
+Best regards,
+Krzysztof
+
