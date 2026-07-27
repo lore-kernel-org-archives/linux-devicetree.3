@@ -1,85 +1,76 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FA4C3DE451
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 08:38:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5A5A2F39B5;
+	Mon, 27 Jul 2026 08:40:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785141529; cv=none; b=mM0xAYlY6rz2FfjrJxxxn+6bPjACqcbxt4HU+xOd+Hd1yz1lVq4oMj1NXyMleLiY1DO6LwxYDvPZLZlII9gLLGepeupHg9/DhmIt6ShMfdl3ld1Ld4bX63TIS/7JvddXNg5lQsdG8V0pN8TU/eqfOTc728E6fxRqEDb33qlaK5U=
+	t=1785141618; cv=none; b=Nq1jG2SsYQ7LdMNu4mSA3arnyrFALvze+XSRe1DM2/jDMzOP9d4+n3Lj5wQ24GyKTeXQdBRbENdYOQNSoUdmSt+dM2eRojhIAbIIlpGzu4Q8C1ajV0OriDCBxxtRXSLNdxcwvwfVFpcE5MD/FDked0NkOUVM7Dyv3Nu6QuKO5AE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785141529; c=relaxed/simple;
-	bh=jB5M4bYhsocIGAuDvT9EqOw8R2zyITHy1nknUJ1z0HE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=H72eDhSm4RjExoVw2Ia2T7oLomSOzj69BTk0Kh0kOOBJpw5/SjJf0Vdvny5f4r91rvInARCBf+o5C93ys4Y1kHufJwKUFoK8XonLnHoHrepG1c1erUvwlOzfeBzfAsSFJeF0F3djZG1XPxkKUygxKUOet5mLgVf5oioKKTI4m2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=khfLSRUU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785141618; c=relaxed/simple;
+	bh=1vq5tElCqjgq78TxKZDpO8iJmdtYJwEC9y7NY/io2yQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qwMivUcXT3ZNhqTWbG5svmtXXVTA0R0LULqEH7hU1KWDVd1EJx0EnnDAZbrNRS8IAvruwpFHCh+rSr0C8FXTsLru6R+cH2bna4XydWke/BHpIbWcSRAjaM4PguCirIcPtqKe4csEsEQhfuHYYcJv6DXmaZut5XP3RgEYfPxZtl4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KR1QwAc2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="khfLSRUU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A25DE1F000E9;
-	Mon, 27 Jul 2026 08:38:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KR1QwAc2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FC011F000E9;
+	Mon, 27 Jul 2026 08:40:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785141527;
-	bh=dr0lLmfx4OmJUgJ2ouISQQufmv2rJBn0T1rZA/rMD1M=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=khfLSRUUwvohVqj0Tq937oVqBAi6FvePAvdXyFy15hUlrcIYvaZjD0ovSMzvC2lSp
-	 iI1yqof5M/DLv8ONPz+qw5ly50D+U7IXItjsyMMt9jRTgyiNlmJkwgZ/fuY4+0eCPH
-	 CkQAkdoFDxTxWT7pYlHp9ZWWrk20nS+0zi5pga/KM3sjFDx40nhTNfVKdgH5HkVd6W
-	 Dz+0zH5/BY8qpC4Eg+uTqfp5kuxKN7CPWydNMegVZ9MrUaTk+IC4q/FhN76hI2r5U2
-	 2LJr/hgmQIRb2NR5gkTnd8SYyCpJs5TzStdK5UrHtsooINGvteLTDNacO8Ra0z7gRY
-	 wAMb+AcyaaAbQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 2/2] media: i2c: Add driver for AMS-OSRAM Mira220
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jacopo Mondi" <jacopo.mondi@ideasonboard.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org, robh@kernel.org
-In-Reply-To: <20260727-mira220-v9-2-e869e7ec2040@ideasonboard.com>
-References: <20260727-mira220-v9-0-e869e7ec2040@ideasonboard.com>
- <20260727-mira220-v9-2-e869e7ec2040@ideasonboard.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 27 Jul 2026 08:38:47 +0000
-Message-Id: <20260727083847.A25DE1F000E9@smtp.kernel.org>
+	s=k20260515; t=1785141616;
+	bh=ZP4KdcXkeXYuZa2glRkDOsikFgVQzKiGkb82a7T8evI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KR1QwAc2mmPmcZl0j7etDSDuKcYJ2fJqB2WtvCD1McOS7StM8onZzGxrIXdBCqsCG
+	 mdy4F3jFL5wRNldL1oU1+6Fh0haoFlmZQ8vuIN5OuifWbJbzcsPUBuRI6zQu+HCIT5
+	 DZiaMXg4tWiiYK6ebudVIJolXaVu+WCMsSqFY5blKHpHwjHcedw/vwHQnR0nmjoXCk
+	 fM8fZWFMdsAyYkvL8znRDIjgRMHCuDUktFVh78rEWB9rVElYHeo4bKYGuhJLYGix8X
+	 /23bSg2uVe1FLZvvwgAdvDO6iHNHnUwUmylU8zWZm4qUPDbI/lEM9zgGYGLnVooGFe
+	 Gh33i3RWpXKiA==
+Date: Mon, 27 Jul 2026 10:40:11 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Amber Kao <amber.kao@ite.com.tw>
+Cc: Jeson Yang <jeson.yang@ite.com.tw>, Yaode Fang <Yaode.Fang@ite.com.tw>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Bling Chiang <Bling.Chiang@ite.com.tw>, 
+	Eric Su <Eric.Su@ite.com.tw>, Doreen Lin <doreen.lin@ite.com.tw>
+Subject: Re: [PATCH v5 1/2] dt-bindings: usb: Add ITE IT8851/IT8853 Type-C PD
+ controllers
+Message-ID: <20260727-scrupulous-impartial-ferret-cffce7@quoll>
+References: <20260724-ucsi-itepd-v5-0-d1a83e5c9c77@ite.com.tw>
+ <20260724-ucsi-itepd-v5-1-d1a83e5c9c77@ite.com.tw>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260724-ucsi-itepd-v5-1-d1a83e5c9c77@ite.com.tw>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Unused `fmt` field in `struct mira220`.
---
+On Fri, Jul 24, 2026 at 06:09:19PM +0800, Amber Kao wrote:
+> Add device tree binding for the ITE IT8851 and IT8853 I2C-based USB
+> Type-C Power Delivery controllers.
+> The IT8851 supports one Type-C port; the IT8853 is the two-port variant
+> sharing the same interface.
+> 
+> Add a MAINTAINERS entry for the binding.
+> 
+> Cc: Yaode Fang <Yaode.Fang@ite.com.tw>
+> Cc: Jeson Yang <jeson.yang@ite.com.tw>
+> Cc: Bling Chiang <Bling.Chiang@ite.com.tw>
+> Cc: Eric Su <Eric.Su@ite.com.tw>
+> Cc: Doreen Lin <doreen.lin@ite.com.tw>
+> Signed-off-by: Amber Kao <amber.kao@ite.com.tw>
+> ---
+>  .../devicetree/bindings/usb/ite,it8851.yaml        | 151 +++++++++++++++++++++
+>  MAINTAINERS                                        |   8 ++
+>  2 files changed, 159 insertions(+)
 
---- Patch [2]: [PATCH v9 2/2] media: i2c: Add driver for AMS-OSRAM Mira220 =
----
-commit 1a645456404fc78085c443f892a4b50ad94cb5ab
-Author: Philippe Baetens <philippebaetens@gmail.com>
-Subject: media: i2c: Add driver for AMS-OSRAM Mira220
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-This commit adds a V4L2 subdev driver for the AMS-OSRAM Mira220 image senso=
-r.
-The sensor is a global shutter imager supporting monochrome and RGB formats.
-It implements MIPI CSI-2 output with data rates up to 1500Mbit/s per lane.
+Best regards,
+Krzysztof
 
-> diff --git a/drivers/media/i2c/mira220.c b/drivers/media/i2c/mira220.c
-> new file mode 100644
-> index 0000000000000..f977bc5988261
-> --- /dev/null
-> +++ b/drivers/media/i2c/mira220.c
-[ ... ]
-> +struct mira220 {
-> +	struct v4l2_subdev sd;
-> +	struct media_pad pad;
-> +
-> +	enum mira220_variants variant;
-> +
-> +	struct v4l2_mbus_framefmt fmt;
-
-[Severity: Medium]
-The commit log mentions "remove format from driver structure" under the v4-=
->v5
-changes, but it appears fmt is still present in struct mira220 and unused
-throughout the driver. Is this a leftover that can be removed?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727-mira220-v9=
--0-e869e7ec2040@ideasonboard.com?part=3D2
