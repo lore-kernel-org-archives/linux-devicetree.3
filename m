@@ -1,235 +1,261 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66EB4380FD4
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 18:20:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 161743F482A
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 18:25:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785176426; cv=none; b=j+Xqhk6wg/HdCnXQQ5OkNzK1ST2wZybGR1G1ZAzyg9D2hyQdRk7wow8ZQF8Qticmwf/Myhd3kBEi8inV6sMsiZM6+4F2wejpyIAYb/nPZ/OvIZM6I30m7KcSBBQGig5cJJMF41TBWlUpvSxnxQhQMUGoBvQce9mYgdNKCr28Y3A=
+	t=1785176708; cv=none; b=MkGpQtiJqhGTp5YxlX/bzXlBIv3YcxbfXTCbvDYYxHqrCOATvsNzsc9o9b17jJFHbqe58R53yO07NvAXT6vxOAQaudhf/Ja3f/IeQEzXy2W9bEpUPzetO/j4Er3gx6UFOuCAHu5w3WYNb4IMFnzAG6z0ZWz8Ol4rJnXf3RJXZeQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785176426; c=relaxed/simple;
-	bh=HCj+zF4G/91sFC18a4wy+ufZ2tUq30AdNVR8AmC+2SQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bVQkXoQCP2+RHSQh8tUJ0V6iFGpSLA0yd3HK6990RVc7WmOcdf7+bcH4iNK40FNPyH+6CoZn6EXRh5vnmVptc0dLJCaEn2wa9UATNnWUEAD2adHqxEzgcuDpo9YcT50keo3Cd+0MBAQahv+k2NgxYKWvHLDj1tu0wBCPNlPST8E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lt7DXQBU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785176708; c=relaxed/simple;
+	bh=a1igq8mkMk4mreJV1Z3wj7gnO0ZvVuZ7sQZARfSkGlk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=eBqh7PLBQ8/Uf0DF+vjwMSEnDGa9xeMVOZpZdTtiJQpCvxmW2Vmqh5mNYlo40YU9ONjA587saGHyInQHXC1D1i8gJVqIAKs3kahUc3BOCVtkiYqJokMQjyNsaTVhXGb3zhON9W1JD1adJtpeBk3Vafch3+IJel9+20J8s9SWGBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MXLC5zlS; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lt7DXQBU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C566C1F000E9;
-	Mon, 27 Jul 2026 18:20:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785176425;
-	bh=AyfcrHPQZNPcbwctAJ4wga2aYXMXrg9gtSKxMNBSSTc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Lt7DXQBUlSKPLct0UFVcQ3tAxDVvUqYGP8rsL5eCYLhFtvCZJbAb+R5iQbjWOZHc2
-	 lPegAb5QzKRbsxIvfc4Pae0446H2veh9heKV5x/kmsnV1oPyAATbYisajU2r49f1KA
-	 mq6OoAoZQDBtNDlwNpXsCX9DxgiOTmRP0XkcHXG5WY1jlio5qD0GizTQHW+GfK689/
-	 jHNwXz2Yr2DH5lHEeB3FkzCkQFXfrbaS2zThEiYunY5CQU6jKX3LISiICCmzGgssKx
-	 5qf4kTXQv+kB8TSowmydWGGeQGppU4X1AF0pbpE+HkZh4uAzUW9zf8TNlUHkaTDt2N
-	 8Hn2E4eWCgosQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 33/35] dt-bindings: pinctrl: airoha: add support of
- en7523 pin controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260727174141.664933-34-mikhail.kshevetskiy@iopsys.eu>
-References: <20260727174141.664933-1-mikhail.kshevetskiy@iopsys.eu>
- <20260727174141.664933-34-mikhail.kshevetskiy@iopsys.eu>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 27 Jul 2026 18:20:24 +0000
-Message-Id: <20260727182024.C566C1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MXLC5zlS"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4921eed3fa2so21063985e9.0
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 11:25:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785176705; x=1785781505; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=bUauX33l50Q6x8k+dgRME3aKqn6GO64E5e73rlsiEhA=;
+        b=MXLC5zlSNKGuQB8w6gVMZl7R3Pd//MpcDe3cwVPGwT37N4vGU0r3xB5jdp8nNILP8f
+         IaODjDGx3EbpaGD9S28Fxg6pkC8/6bziLfplaMF2GTXlMu3XdxdntF9DPCgZuoo/N/mm
+         8enl5AmMnrnfvtbxERjTy88npEq4FB02Hzgx492tzAAlCIaU+HD6Mccyxg/0NYuSdM56
+         xtpTo1i92lMagu4lyr3IkadfjgdWsA9kIEXUOfWa5MJpkXvoyWCL7IVCOCJZ3608vPIp
+         prurZTbq82GFhdhodysJ24mIazVzZaXAtJZiEOG3N8/iSeEowV/Gj1GYPKsFd1vnOxY7
+         xSjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785176705; x=1785781505;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=bUauX33l50Q6x8k+dgRME3aKqn6GO64E5e73rlsiEhA=;
+        b=pS2Thcg1KU0rXAWnU1ZEPkFMiJhAWS4CJurbBWF4aa4hmaFbvmZOqQqw3qorBIRbj/
+         lkPwklRx3WRmzWD+hEJCe+fkRo2lbKZtvUVa23ibwmIL2ii4wbaGzHZfLP74rPkbpOSN
+         b6H8sLFXYnIPwWwVMspjhc56sFpR+qX+eZzGUCEE7Z+hFzzax1UGrzXeztSlkD/kSAvr
+         UgFAIG6cP9LNsRNFDPKIyu40ON9gzyPg8cJ7mf2kTs8LT9/xFyRCnyD3tVAynOAumOAl
+         yM30FnBA+0fCreC+NUdFfGA6uWk4Z0Tq4HCJu70+8lq6b3K1CUT4r4RgiDz0Sdglijh+
+         VJOw==
+X-Forwarded-Encrypted: i=1; AHgh+Ro9azdCvX5m74XrGejN/+5MW9P2dQyBaT9eQ9p8ZIkKx7I+4bv3T/Ai+UB0uNX/+i+Y018m00HeP3+U@vger.kernel.org
+X-Gm-Message-State: AOJu0YxbloZX+u4f0WvNvIGI6Wn22PTfHKRs09qb6ACxkukz7WOwe7lv
+	HdlF52Zfe3TNh4hz9Qy1gPhhmMw6dST2YUwweWOa+tAFlgReBwfxWBJ+
+X-Gm-Gg: AR+sD11H1p5cz1FeIJpHIaFazyEXXhTGum72ZaphMsPybe9VTh2UdreK2tqrL2obhG3
+	GvbRNzk/4/XtUclOU+Q8P0pICH1yfCXGxNDgq8cWLXFYPYmCSWwPjEUE3fgohrMV/9MDhCR0ugi
+	o1oPVj0f1oFnh1gVHAAKt8SuHMqAnAnoyMibn/SAnAfhGXN7BrAfSPwx5nnQY3wngVpqANJI0LT
+	5KUiyqedSkv9I2z+vcHxDfN3m2outlHyIE9EEZFScjHxNWZQ6Oyqs4mXx5n2W/QEYhFByp+pW9N
+	IJtWhN3SF4MMgwRM/gbWwv098p53Q4riJOeXAgmnTOCvcmuZfbDN7UIMaflsVO6b/CRWzpw/040
+	YhainmAPdX8Yhf1NvIq3W9zqCj6N58ya/X9vHLskPF9E0yCi442phOAg/+Sm0cTsunX/a+SY1ma
+	P2gHwvdMZnq364
+X-Received: by 2002:a05:600c:138a:b0:495:4b24:1b64 with SMTP id 5b1f17b1804b1-496c4c3a159mr3057045e9.0.1785176705107;
+        Mon, 27 Jul 2026 11:25:05 -0700 (PDT)
+Received: from [192.168.0.2] ([197.250.51.166])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85c53052sm50689288f8f.18.2026.07.27.11.24.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Jul 2026 11:25:04 -0700 (PDT)
+From: =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
+Subject: [PATCH v8 00/12] ZTE zx297520v3 clock bindings and driver
+Date: Mon, 27 Jul 2026 21:24:15 +0300
+Message-Id: <20260727-zx29clk-v8-0-7a107b00f1dd@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2XOTU7DMBAF4KtUXhNkj8d/XXEPxMJ2ZloL2kJSo
+ kLVu+OmC0dh+Ub+nt9VjDQUGsV2cxUDTWUsp2MN/mkj8j4ed9SVvmYBEqw0Sna/Fwj5470Dwl4
+ H0gp8FvX150BcLnPT69sjD/T1XQvPj6NIcaQunw6Hct5uEpGzujesUaUQMqODyJSM9D0G79lCt
+ Dkqce/al/F8Gn7mkZOay/7tmVQnO1IpZmamYN3L7hDLx3P9cO6YYOlUc1AdBJbUZy0lm7XTCwe
+ hOV1ddkwGKeo6eO2wOatsc3h3MQRMPQCFfu3MwoFvzlTnArNEJFQB1s425yQ0Z6vTziUnkb3Mu
+ HZu4ZRrzlWH0qNSmTNru3S32+0P0zjxGToCAAA=
+X-Change-ID: 20260510-zx29clk-2e4d39e3128c
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Brian Masney <bmasney@redhat.com>, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Russell King <linux@armlinux.org.uk>, Lee Jones <lee@kernel.org>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-phy@lists.infradead.org, mfd@lists.linux.dev, 
+ =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6874;
+ i=stefandoesinger@gmail.com; h=from:subject:message-id;
+ bh=a1igq8mkMk4mreJV1Z3wj7gnO0ZvVuZ7sQZARfSkGlk=;
+ b=owEBiQJ2/ZANAwAIAT0TvMhUTxoiAcsmYgBqZ6J6kHnsK+WZKdFSj4Ev1eCoGKGsOoeTXMlKp
+ UpaSn3oSruJAk8EAAEIADkWIQRDFvS2qgVbJ5UyXWw9E7zIVE8aIgUCameiehsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQPRO8yFRPGiL/Eg//ZXQbi7BjhpgWatKITNTB9qm+Vhxnzmz
+ leaih5NJuQ8FXB0AGOBJqZKrWmSXXeOBKuObZGhrqKg/7iJ5fL9JcFlIYGNS4I31hTJkBsj0A55
+ dr4mCzv/NLqkTV/wnDD6BSQujFYeFZPZssxxWuvC8kjWLlZqKPEaoaA2TfM371VQYqWx2ZTwifv
+ L143HKRtnlYdWfrRol4RCHT6POj1icwi72KklpDVr+RJJn3XYxl6oQU/z0z4uieXToBG/JJvR1r
+ G7J5tq7xo/8MjhzfP4O9/wXOoKLA6tqP7qWWfJ0IeC1SV43d24N0cFx9FRhKstx/aaus2CiHaZC
+ zTyLkwK8L4YnGAEk12AA33OJ+Lp/NwsH5KL0lyOJXx0kSuUrn8c1zGfDOHqRBBL9n/VDyVwHYbD
+ bhaOgd040pGBAprx+ppclfVGIR6RkjyYJqFWPasSHuoCSuqzaEDLi462nis3K20BlrRq3Kjfu9m
+ 7enqHtYOa/TP+pxq9XTPWZrpnNiHC5qQOUr+9FsHBjnsiqv+Dc44TzRTmoHdhQP1vTe2KQLfqQl
+ Xmfu3zjzUJT29Q9YQ8z+sR2098jjHDOEsR0tMl4klepo8Er6M8MNxqbR0kdt0H3nu9Z/9CS1S4C
+ ZfCgqDWagALz37SbJWq6Xli3ZWtmIR3us+WB1xwCm5ndLKXxpB6k=
+X-Developer-Key: i=stefandoesinger@gmail.com; a=openpgp;
+ fpr=4F9C2C8728019633893EBBB98CB81F9A72BBA155
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] The `gpio-ranges` property is functionally required by the driver =
-but is missing from the `required` list in the binding schema.
-- [Medium] The `groups` property incorrectly uses `enum` instead of `items:=
- { enum: ... }` for multi-pin functions like `pwm`, `pon`, `mdio`, and `phy=
-*_led*`.
-- [Medium] The `airoha,chip-scu` phandle property is utilized by the driver=
- code but is not documented in the schema.
-- [Medium] The schema uses `additionalProperties: false` while also importi=
-ng standard definitions via `$ref: pinctrl.yaml#`.
-- [Low] The 'drive-strength' description erroneously uses Xilinx 'MIO' term=
-inology.
-- [Low] The example uses a deprecated integer syntax for the 'drive-open-dr=
-ain' boolean property.
---
+Hi,
 
---- Patch [33]: [PATCH v8 33/35] dt-bindings: pinctrl: airoha: add support =
-of en7523 pin controller ---
-commit 4bab62ab4565097d36cb334e8d39b5c03b4424c9
-Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+I am sending version 8 of my zx297520v3 clock patch. The main change vs 
+v6 is the reverse engineering of the PLL input and forward gates in 
+top+0x140 and according reduction of the input clocks in the matrix 
+binding.
 
-dt-bindings: pinctrl: airoha: add support of en7523 pin controller
+I think the list of clocks in my driver is fairly complete; It is 
+certainly a lot better than what the downstream ZTE drivers have. I 
+deduced a lot of it by trial and error. I am sure there are some clocks 
+missing that will need to be added to the binding later. Afaiu adding 
+clocks is not an issue, but removing or reordering them is an ABI break.
 
-This patch adds device tree binding schema for Airoha EN7523 SoC pin
+Merge dependencies: The binding patches (1, 2, 3) and DT patch (12) in 
+order. The MFD parent (4) is independent, although changing the ordering 
+likely needs trivial adjustments in MAINTAINERS. The clock driver 
+patches depend on the headers added by 1-3 and apply in order 
+(5-10). Reset needs headers (1-3), but it is independent of clock.
+
+Though in practice mfd, clock and reset drivers are dead code until 
+patch 12 adds the DT nodes. Clock and reset drivers won't be 
+instantiated without the MFD parent.
+
+Signed-off-by: Stefan Dösinger <stefandoesinger@gmail.com>
+---
+Changes in v8:
+*) Put #phy-cells into topcrm. The mfd child will have to assign itself 
+the MFD parent's of_node to satisfy the check in phy-core.c's
+__of_phy_provider_register().
+
+*) Added another register to matrixclk that controls in-controller 
+distribution gates. No functional change, but it nicely confirms the 
+top->matrix interface
+
+*) Changed clock indices to start at 0, adjusted driver to not use 0 as 
+"do not export" marker.
+
+*) Rename DT fixed clock nodes from osc26m -> clock-26m and osc32k -> 
+clock-32k
+
+*) Fixed more issues pointed out by Sashiko
+
+- Link to v7: https://lore.kernel.org/r/20260717-zx29clk-v7-0-408411cfcf36@gmail.com
+
+Changes in v7:
+
+*) Moved DT bindings back to clock/ (Krzysztof)
+*) Added a usb-phy child node to top to expose the USB status register
+*) Add clock gates that control input of PLL clocks into topcrm and 
+forward to matrixcrm. Strip down matrixcrm inputs in the bindings to the 
+known clocks in this register
+*) Add DDR clocks and resets, arm arch timer clock. They are marked 
+critical and tell CCF not to gate off the aforementioned input/forward 
+gates
+*) Remove syscon from matrixcrm (Krzysztof). The DDR mailbox system is 
+on a different controller (soc_sys at 0x140000). ZTE's code merely 
+controlled clocks in matrixcrm, which doesn't require syscon on this 
 controller.
+*) Consistently use double quotes in bindings and full include paths 
+(Krzysztof)
 
-> diff --git a/Documentation/devicetree/bindings/pinctrl/airoha,en7523-pinc=
-trl.yaml b/Documentation/devicetree/bindings/pinctrl/airoha,en7523-pinctrl.=
-yaml
-> new file mode 100644
-> index 0000000000000..db8e39af1a152
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/pinctrl/airoha,en7523-pinctrl.yaml
-> @@ -0,0 +1,375 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/pinctrl/airoha,en7523-pinctrl.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Airoha EN7523 Pin Controller
-> +
-> +maintainers:
-> +  - Lorenzo Bianconi <lorenzo@kernel.org>
-> +
-> +description:
-> +  The Airoha's EN7523 Pin controller is used to control SoC pins.
-> +
-> +properties:
-> +  compatible:
-> +    const: airoha,en7523-pinctrl
-> +
-> +  interrupts:
-> +    maxItems: 1
+The individual patches call out changes in more detail.
 
-[Severity: Medium]
-Should the airoha,chip-scu phandle property be documented in this schema?
+- Link to v6: https://lore.kernel.org/r/20260702-zx29clk-v6-0-377b704f80c4@gmail.com
 
-The driver code in airoha_pinctrl_probe() appears to resolve a system
-controller regmap using syscon_regmap_lookup_by_phandle() with this propert=
-y.
-Since additionalProperties is set to false, would users who provide this
-optional phandle encounter a schema validation error?
+Changes in v6:
+*) Use MFD for all 3 controllers - I hope both Conor and Philipp will 
+agree. I kept top and matrix bindings in soc/zte and lsp in clock/ 
+though.
 
-[ ... ]
+*) Clean up issues found by Sashiko. I pointed them out in the individual 
+patches. They are localized fixes and don't affect the overall design
 
-> +allOf:
-> +  - $ref: pinctrl.yaml#
-> +
-> +required:
-> +  - compatible
-> +  - interrupts
-> +  - gpio-controller
-> +  - "#gpio-cells"
-> +  - interrupt-controller
-> +  - "#interrupt-cells"
+*) Small code consistency: Changed "zx297520v3_lsp" to use "-" , "rst" 
+in driver names to "reset"
 
-[Severity: High]
-Does this list need to require the gpio-ranges property?
+Changes in v5:
+*) Use MFD instead of aux bus for top and matrix clocks
+*) Move top and matrix bindings to soc/zte
+*) Give USB PHY its own resets
+*) Other localized changes are noted in the individual patches
+- Link to v4: https://lore.kernel.org/r/20260616-zx29clk-v4-0-ca994bd22e9d@gmail.com
 
-The driver's airoha_convert_pin_to_reg_offset() relies on
-pinctrl_find_gpio_range_from_pin_nolock(). If gpio-ranges is omitted in the
-device tree, wouldn't this cause internal callbacks like
-airoha_pinmux_set_direction() to fail unconditionally with -EINVAL, even
-though the schema validation would pass?
+Changes in v4:
+*) Use syscon and regmap instead of raw IO
+*) Move reset to its own driver on the aux bus, but keep reset and clk 
+in the same binding as it matches the way the hardware works
+*) Go back to having matrixclk in its own device because syscon deals 
+poorly with multi io reg devices. List all PLL outputs from topclk as 
+inputs to matrixclk
+*) Some more hardware research: Figure out the parents of the 4 possible
+GPIO clock outputs and declare them in the driver. They are unused on 
+the hardware I have, but they show that all PLLs can be used.
 
-[ ... ]
+- Link to v3: https://lore.kernel.org/r/20260529-zx29clk-v3-0-c7fe54ea388f@gmail.com
 
-> +        allOf:
-> +          - if:
-> +              properties:
-> +                function:
-> +                  const: pon
-> +            then:
-> +              properties:
-> +                groups:
-> +                  enum: [pon]
+Changes in v3:
+Model top and matrix clocks as one device
+Add PLL driver
+Fixed a few issues found by Sashiko: register lock, some missing devm_, 
+error handling
 
-[ ... ]
+v2: Fix build issues introduced by checkpatch.pl fixes that I didn't 
+spot earlier.
 
-> +          - if:
-> +              properties:
-> +                function:
-> +                  const: pwm
-> +            then:
-> +              properties:
-> +                groups:
-> +                  enum: [gpio0, gpio1, gpio2, gpio3, gpio4, gpio5, gpio6,
-> +                         gpio7, gpio8, gpio9, gpio10, gpio11, gpio12, gp=
-io13,
-> +                         gpio14, gpio15, gpio16, gpio17, gpio18, gpio19,
-> +                         gpio20, gpio21, gpio22, gpio23, gpio24, gpio25,
-> +                         gpio26, gpio27, gpio28, gpio29]
+---
+Stefan Dösinger (12):
+      dt-bindings: clk: zte: Add zx297520v3 top clock and reset controller
+      dt-bindings: clk: zte: Add zx297520v3 matrix clock and reset controller
+      dt-bindings: clk: zte: Add zx297520v3 LSP clock and reset controller
+      mfd: zx297520v3: Add a clock and reset MFD driver
+      clk: zte: Add Clock registration infrastructure
+      clk: zte: Add regmap-based clocks
+      clk: zte: Add zx PLL support infrastructure
+      clk: zte: Introduce a driver for zx297520v3 top clocks
+      clk: zte: Introduce a driver for zx297520v3 matrix clocks
+      clk: zte: Introduce a driver for zx297520v3 LSP clocks
+      reset: zte: Add a zx297520v3 reset driver
+      ARM: dts: zte: Declare zx297520v3 CRM device nodes
 
-[Severity: Medium]
-Should the groups constraints for pon, pwm, mdio, and phy*_led* functions
-be defined using items: { enum: [...] } instead of directly using enum?
+ .../bindings/clock/zte,zx297520v3-lspcrm.yaml      |  101 ++
+ .../bindings/clock/zte,zx297520v3-matrixcrm.yaml   |   96 ++
+ .../bindings/clock/zte,zx297520v3-topcrm.yaml      |  136 +++
+ MAINTAINERS                                        |    9 +
+ arch/arm/boot/dts/zte/zx297520v3.dtsi              |   84 +-
+ drivers/clk/Kconfig                                |    1 +
+ drivers/clk/Makefile                               |    1 +
+ drivers/clk/zte/Kconfig                            |   27 +
+ drivers/clk/zte/Makefile                           |    6 +
+ drivers/clk/zte/clk-regmap.c                       |  246 +++++
+ drivers/clk/zte/clk-zx.c                           |  155 +++
+ drivers/clk/zte/clk-zx.h                           |   91 ++
+ drivers/clk/zte/clk-zx297520v3.c                   | 1103 ++++++++++++++++++++
+ drivers/clk/zte/pll-zx.c                           |  560 ++++++++++
+ drivers/mfd/Kconfig                                |   11 +
+ drivers/mfd/Makefile                               |    2 +
+ drivers/mfd/zte-zx297520v3-crm.c                   |   98 ++
+ drivers/reset/Kconfig                              |   12 +
+ drivers/reset/Makefile                             |    1 +
+ drivers/reset/reset-zte-zx297520v3.c               |  237 +++++
+ include/dt-bindings/clock/zte,zx297520v3-clk.h     |  144 +++
+ include/dt-bindings/phy/zte,zx297520v3-topcrm.h    |   12 +
+ include/dt-bindings/reset/zte,zx297520v3-reset.h   |   63 ++
+ 23 files changed, 3188 insertions(+), 8 deletions(-)
+---
+base-commit: bee763d5f341b99cf472afeb508d4988f62a6ca1
+change-id: 20260510-zx29clk-2e4d39e3128c
 
-The groups property implicitly inherits string-array from pinmux-node.yaml.
-Applying enum directly to an array requires the entire array instance to
-equal one of the literal string values, which will always evaluate to false.
+Best regards,
+-- 
+Stefan Dösinger <stefandoesinger@gmail.com>
 
-Using items: { enum: [...] } (as is done for uart and spi) would correctly
-validate the elements of the array and allow valid device trees to multiplex
-multiple pin groups in a single node.
-
-[ ... ]
-
-> +          drive-strength:
-> +            description:
-> +              Selects the drive strength for MIO pins, in mA.
-> +            enum: [2, 4, 6, 8]
-
-[Severity: Low]
-Is the reference to "MIO pins" accurate for this SoC?
-
-This terminology is typically associated with Xilinx ZynqMP bindings, while
-the Airoha EN7523 uses standard GPIO pins.
-
-[ ... ]
-
-> +    additionalProperties: false
-> +
-> +additionalProperties: false
-> +
-> +examples:
-
-[Severity: Medium]
-Should this use unevaluatedProperties: false instead?
-
-Since this schema imports standard properties via allOf: - $ref: pinctrl.ya=
-ml#,
-using additionalProperties: false will improperly reject standard properties
-like pinctrl-0 or pinctrl-names if they are used on this device node.
-
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +
-> +    pinctrl {
-> +      compatible =3D "airoha,en7523-pinctrl";
-> +
-> +      interrupt-parent =3D <&gic>;
-> +      interrupts =3D <GIC_SPI 26 IRQ_TYPE_LEVEL_HIGH>;
-> +
-> +      gpio-controller;
-> +      #gpio-cells =3D <2>;
-> +
-> +      interrupt-controller;
-> +      #interrupt-cells =3D <2>;
-> +
-> +      pcie1-rst-pins {
-> +        conf {
-> +          pins =3D "pcie_reset1";
-> +          drive-open-drain =3D <1>;
-> +        };
-> +      };
-
-[Severity: Low]
-Is it possible to use the modern boolean syntax for drive-open-drain here?
-
-The core pincfg-node.yaml schema marks the integer assignment form as
-deprecated, preferring just the boolean property form (drive-open-drain;) to
-avoid dt_binding_check validation warnings.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727174141.6649=
-33-1-mikhail.kshevetskiy@iopsys.eu?part=3D33
