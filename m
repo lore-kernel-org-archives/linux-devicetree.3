@@ -1,179 +1,133 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E75E3BBFD8;
-	Mon, 27 Jul 2026 08:04:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30ED123393B
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 08:05:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785139495; cv=none; b=qvC8CvH6Irpc2Da75eYZ9tlvs83Cut94JUeFh1Y6iLBvXccfalm6TyNM4JmxY63+gj1yRnDHEBNS2CG4UiV7C19ByJb2pKr6wGf8bpCDPFWueSeJRhGUGy9S7R5j5OiyFIPi8LaHu1M6D9q47UIgFmLWlO4QLqZwEjO+oHphGqw=
+	t=1785139535; cv=none; b=l32OPNiCsJSEsBTiiACG+Sh/u3zUuRlKDseMWg4+zWEP9XXcK1lxmLqVvrgOZ6NNJcBQVYd4eIrF/Eehl+c3BgYO4BqWqgX0itKQwCOkP4CXqfFAU70M11IK9wyzTguQQCqjvR27KuodPoKy+zf0Tdi090tCeowvcDiOzrNOLgE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785139495; c=relaxed/simple;
-	bh=sC6B84vcluxlG/AW+2iL0xg2+CX2wozIuSD9iq5nbJU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uExOXoUJJKTQIafxDTbgMyqky6iDx5t97N2g4K3Z7u8KqE8WspQDHEOkOa+USVRAnNzw3vXYVwuk9z6e3Ii032cgjEUZsbE2lamdYtf+9bKZ++joxtAHFcEeqSTPDOAxGsupN93jpsxIY4Qg3dVgeJCBXtWq2KiEw4fYqJGZNlk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gMbZzfhz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785139535; c=relaxed/simple;
+	bh=RE5L3mjkYv3SK1cScHTbEC3pCa6lDLdvNMXZcVDVRCs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=gc8bDkYzG34xGcXe8NL8ylZfvmkvmhCFvRcz6LcvSw7L60F1BEt3Ih5ymIJjgVxQxIh3NyclWgBq7uTidOO5v11FyRq7LJHdsqTnvddkvpMCMNLQQHNrIIoLG9fy+YF/m8Y1DEu0pfVF84TcCPbhZDHTaYTIblsVJzrTQShEDAY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PEdal9rh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gMbZzfhz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4C891F00A3A;
-	Mon, 27 Jul 2026 08:04:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PEdal9rh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 936501F000E9;
+	Mon, 27 Jul 2026 08:05:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785139494;
-	bh=JK6hcDea904zCAzfOvHH+R87EzL8G+f8U4g5JCbElmE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gMbZzfhzqqKrI8a4N/3DQKK14ELe3f3F4eTw9FPTBuBArbUoYGylXrxEive+RR6RH
-	 GlYSU9K8DsvzHDJP8/xAtx+5H2HOPVoyea/c/nVukkEueBKPeGyDeABbf3bM888M5c
-	 u3K6nGqXfl/AlxYU/7RD6GoDoIDDdBNXa4Okjyb7vsYev9FrLySXgvC3ha4B/CCT2g
-	 iuDlvR7iDiJpNWH2MnkbXQNY5rcQ8kGn2y2QngfKkJsswpALxmxo4FcsPjcgcr2ci0
-	 mfQHRw98XVjgI6HO3PLvwXD5+0Zfzcg1e4PJFLjrqV6i7Njsoucgn97ec33Ar5A4Jx
-	 mfiNlfk98yQeg==
-Date: Mon, 27 Jul 2026 10:04:51 +0200
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
-Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Benjamin Larsson <benjamin.larsson@genexis.eu>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
-	Markus Gothe <markus.gothe@genexis.eu>,
-	Matheus Sampaio Queiroga <srherobrine20@gmail.com>
-Subject: Re: [PATCH v7 12/34] pinctrl: airoha: add missed get_direction()
- function for gpio_chip
-Message-ID: <amcRI3c0-1iWWX5M@lore-desk>
+	s=k20260515; t=1785139533;
+	bh=S5XvHeuVqjUArI7UHXv21CO6eJVBYHnLYqlVb88bBUE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=PEdal9rh3YA4j3G6yoEz/UHwsyFfYs5zWc4Xxfd4gTFly9DF2/N5gKQyMaIjBVJXV
+	 fb+BbetPM+yI3E25SRgMsUmViIhlpB6bZ+jZKa8EkBYZrvnaR9qFiJMyvJ4MVS2lnG
+	 SjY33GJsY4JlnwMWYcz4oZCfRV0fzEch3zibsQFRwsWTNYPJaQVN3NgiVV6U4IofIi
+	 RcF15vXV4sc7+1TEqC4pi3H4lCTm2tnC1310r8NEYeT2BTqoy2vgIRk/CtGvSiWMal
+	 ud5Mtx+FaKhPC0mWyk3jOimoHqWP9J5qNkJyLntidt+DWg5nTSp2RDrHygjYfcc+sa
+	 iVUQ9Zc0f7Xrw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 26/34] pinctrl: airoha: an7583: add support for
+ pon_alt pinmux
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260727074234.3761170-27-mikhail.kshevetskiy@iopsys.eu>
 References: <20260727074234.3761170-1-mikhail.kshevetskiy@iopsys.eu>
- <20260727074234.3761170-13-mikhail.kshevetskiy@iopsys.eu>
+ <20260727074234.3761170-27-mikhail.kshevetskiy@iopsys.eu>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 27 Jul 2026 08:05:33 +0000
+Message-Id: <20260727080533.936501F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="8iQlrEnRGnlj5Pyn"
-Content-Disposition: inline
-In-Reply-To: <20260727074234.3761170-13-mikhail.kshevetskiy@iopsys.eu>
 
---8iQlrEnRGnlj5Pyn
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The introduction of the `pon_alt` pinmux introduces a new mux bit =
+for pins 36-40 (gpio34-gpio38) but fails to update the GPIO and PWM functio=
+ns to clear this bit, rendering these pins permanently stuck in `pon_alt` m=
+ode if left enabled by a bootloader or dynamically switched by Linux.
+--
 
-> This patch adds missed get_direction() function for gpio_chip.
-> Also it reimplements pinconf's get_direction() function using
-> newly defined function.
->=20
-> Fixes: 1c8ace2d0725 ("pinctrl: airoha: Add support for EN7581 SoC")
-> Signed-off-by: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
-> ---
->  drivers/pinctrl/airoha/pinctrl-airoha.c | 41 ++++++++++++++++++-------
->  1 file changed, 30 insertions(+), 11 deletions(-)
->=20
-> diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/ai=
-roha/pinctrl-airoha.c
-> index 820b7b0443851..b52eb39c55ff3 100644
-> --- a/drivers/pinctrl/airoha/pinctrl-airoha.c
-> +++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
-> @@ -2502,6 +2502,27 @@ static int airoha_gpio_get(struct gpio_chip *chip,=
- unsigned int gpio)
->  	return err ? err : !!(val & BIT(pin));
->  }
-> =20
-> +static int airoha_gpio_get_direction(struct gpio_chip *chip, unsigned in=
-t gpio)
-> +{
-> +	struct airoha_pinctrl *pinctrl =3D gpiochip_get_data(chip);
-> +	u32 mask, index, val;
-> +	int err, field_shift;
-> +
-> +	field_shift =3D 2 * (gpio % AIROHA_REG_GPIOCTRL_NUM_PIN);
-> +	mask =3D GENMASK(field_shift + 1, field_shift);
+--- Patch [26]: [PATCH v7 26/34] pinctrl: airoha: an7583: add support for p=
+on_alt pinmux ---
+commit b1dabfb03ae8c035084ec1f24b413e2c3334d17a
+Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+Subject: pinctrl: airoha: an7583: add support for pon_alt pinmux
 
-before we where checking just BIT(field_shift) as mask, while now we are
-checking two bits.
+This commit adds support for the pon pin function using the pon_alt pin gro=
+up.
 
-> +	index =3D gpio / AIROHA_REG_GPIOCTRL_NUM_PIN;
-> +
-> +	err =3D regmap_read(pinctrl->regmap,
-> +			  pinctrl->gpiochip.dir[index], &val);
-> +	if (err)
-> +		return err;
-> +
-> +	if ((val & mask) > BIT(field_shift))
-> +		return -EINVAL;
-> +
-> +	return (val & mask) ? GPIO_LINE_DIRECTION_OUT : GPIO_LINE_DIRECTION_IN;
+> diff --git a/drivers/pinctrl/airoha/pinctrl-an7583.c b/drivers/pinctrl/ai=
+roha/pinctrl-an7583.c
+> index 9b5c7ea5e5472..7e94dcb3b61a5 100644
+> --- a/drivers/pinctrl/airoha/pinctrl-an7583.c
+> +++ b/drivers/pinctrl/airoha/pinctrl-an7583.c
 
-nit: unnecessary brackets.
+[ ... ]
 
-> +}
-> +
->  static int airoha_gpio_direction_output(struct gpio_chip *chip,
->  					unsigned int gpio, int value)
->  {
-> @@ -2648,6 +2669,7 @@ static int airoha_pinctrl_add_gpiochip(struct airoh=
-a_pinctrl *pinctrl,
->  	gc->free =3D gpiochip_generic_free;
->  	gc->direction_input =3D pinctrl_gpio_direction_input;
->  	gc->direction_output =3D airoha_gpio_direction_output;
-> +	gc->get_direction =3D airoha_gpio_get_direction;
->  	gc->set =3D airoha_gpio_set;
->  	gc->get =3D airoha_gpio_get;
->  	gc->base =3D -1;
-> @@ -2855,21 +2877,18 @@ static int airoha_pinctrl_set_conf(struct airoha_=
-pinctrl *pinctrl,
->  static int airoha_pinconf_get_direction(struct pinctrl_dev *pctrl_dev, u=
-32 p)
->  {
->  	struct airoha_pinctrl *pinctrl =3D pinctrl_dev_get_drvdata(pctrl_dev);
-> -	u32 val, mask;
-> -	int err, pin;
-> -	u8 index;
-> +	int err, gpio;
-> =20
-> -	pin =3D airoha_convert_pin_to_reg_offset(pctrl_dev, NULL, p);
-> -	if (pin < 0)
-> -		return pin;
-> +	gpio =3D airoha_convert_pin_to_reg_offset(pctrl_dev, NULL, p);
+> @@ -629,10 +632,19 @@ static const struct airoha_pinctrl_func_group pon_f=
+unc_group[] =3D {
+>  		.regmap[0] =3D {
+>  			AIROHA_FUNC_MUX,
+>  			REG_GPIO_PON_MODE,
+> -			GPIO_PON_MODE_MASK,
+> +			GPIO_PON_MODE_MASK | GPIO_PON_ALT_MODE_MASK,
+>  			GPIO_PON_MODE_MASK
+>  		},
+>  		.regmap_size =3D 1,
+> +	}, {
+> +		.name =3D "pon_alt",
+> +		.regmap[0] =3D {
+> +			AIROHA_FUNC_MUX,
+> +			REG_GPIO_PON_MODE,
+> +			GPIO_PON_MODE_MASK | GPIO_PON_ALT_MODE_MASK,
+> +			GPIO_PON_ALT_MODE_MASK
+> +		},
+> +		.regmap_size =3D 1,
+>  	},
+>  };
 
-if you do not rename pin in gpio here the patch will be simpler.
+[Severity: High]
+Since pon_alt uses pins 36-40 (gpio34-gpio38) and sets GPIO_PON_ALT_MODE_MA=
+SK
+in REG_GPIO_PON_MODE, do we also need to add these pins to gpio_groups[]?
 
-Regards,
-Lorenzo
+Currently, gpio34 through gpio38 appear to be missing from gpio_groups[]:
 
-> +	if (gpio < 0)
-> +		return gpio;
-> =20
-> -	index =3D pin / AIROHA_REG_GPIOCTRL_NUM_PIN;
-> -	err =3D regmap_read(pinctrl->regmap, pinctrl->gpiochip.dir[index], &val=
-);
-> -	if (err)
-> +	err =3D airoha_gpio_get_direction(&pinctrl->gpiochip.chip, gpio);
-> +	if (err < 0)
->  		return err;
-> =20
-> -	mask =3D BIT(2 * (pin % AIROHA_REG_GPIOCTRL_NUM_PIN));
-> -	return val & mask ? PIN_CONFIG_OUTPUT_ENABLE : PIN_CONFIG_INPUT_ENABLE;
-> +	return err =3D=3D GPIO_LINE_DIRECTION_OUT ?
-> +	       PIN_CONFIG_OUTPUT_ENABLE : PIN_CONFIG_INPUT_ENABLE;
->  }
-> =20
->  static int airoha_pinconf_get(struct pinctrl_dev *pctrl_dev,
-> --=20
-> 2.53.0
->=20
+drivers/pinctrl/airoha/pinctrl-an7583.c:gpio_groups[] {
+    ...
+    static const char *const gpio_groups[] =3D {
+    	"gpio39", "gpio40", "gpio41", "gpio42", "gpio43",
+    ...
+}
 
---8iQlrEnRGnlj5Pyn
-Content-Type: application/pgp-signature; name=signature.asc
+Without being in gpio_groups[], it seems impossible to select the "gpio"=20
+function in the device tree to clear the pon_alt mux bit.
 
------BEGIN PGP SIGNATURE-----
+Additionally, will these pins get stuck in pon_alt mode if requested as PWM?
 
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCamcRIwAKCRA6cBh0uS2t
-rIvRAP46t3ynpmSaQbfS9FRiJxVVb8IPe3lJTpXHNUdJ6JKXKwEAitJivdnbmcKb
-13q9RT2W9cpPRTQIRuoQiYljaIyMjw4=
-=wRoE
------END PGP SIGNATURE-----
+The PWM mapping for pins 36-38 uses AIROHA_PINCTRL_PWM_EXT:
 
---8iQlrEnRGnlj5Pyn--
+drivers/pinctrl/airoha/pinctrl-an7583.c:pwm_func_group[] {
+    ...
+	AIROHA_PINCTRL_PWM_EXT("gpio36", GPIO36_FLASH_MODE_CFG),
+	AIROHA_PINCTRL_PWM_EXT("gpio37", GPIO37_FLASH_MODE_CFG),
+	AIROHA_PINCTRL_PWM_EXT("gpio38", GPIO38_FLASH_MODE_CFG),
+    ...
+}
+
+This macro only seems to modify REG_GPIO_FLASH_MODE_CFG_EXT and does not cl=
+ear
+the GPIO_PON_ALT_MODE_MASK bit in REG_GPIO_PON_MODE. If a bootloader leaves
+these pins in pon_alt mode, or if they are dynamically switched, won't the =
+PWM
+output fail silently because the pins remain multiplexed to pon_alt?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727074234.3761=
+170-1-mikhail.kshevetskiy@iopsys.eu?part=3D26
