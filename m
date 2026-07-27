@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46E8132E72F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA40E1F91D6
 	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 07:18:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785136726; cv=none; b=qGcykRAnUrQIfP77+RVWnaoL+BoE/RtSaw2zftFEX1k/9743GyoTh5R6gBty2BMLfsgunTJRiN3kU0GsBoyRvqtiH2rF6F0mMxXPqTMk5HB/2ZGRDdI9QoLEykjgymr1K1bb/bbswUWmpHv5cVfj7omD8D3+7+WhW7anQwPFUmE=
+	t=1785136726; cv=none; b=puoCmyXupolt457tERl6j9/DdZj3bunjkkrnO0suytxS4iWEkVjSq8NvFUqLeSBTN3GFloNtj8B9M2hQi6aspK88+dNLyUEUOYn/FSLbaRibT4QENPljC+LD/ffa2KfBKjGwSRy0UBc62RaMpDt5cva7XZ1fW22+8LkNouS/tek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785136726; c=relaxed/simple;
-	bh=7KJ1Jlmk683DyXjZf47LLPbzoxNsSKpbgcyc2RZBADA=;
+	bh=sm/S6xrmqYEKzjbhgv62vwIbPj3Y6C4wuih8eSB1gHc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=d8C621rIpveDrU7vSMy15sItiTRX5OCr2+Ag4Di0F7Jy80dHBJqTqIYjhdZACeAk7lIQfeE35J/ER9c/fwJlf0pdttuXZNln6APhewfwyxaqt90lBByRYAviqXfaX5RxhLAfEELKnpbV8JozS/UaxqxTqU09CTAaLgm6YL2KMsg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lc4FWtdx; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=YlDb5xYXSAn/J5I3ouVOApGS8xzJ6R2F4mDiO64RybzO//enh6BqMusSxRKa2EBOCxyiy3n4u+Iy48a5qXgqiO4sszsnuf8xEQEKoIxISNM8tcWuPXy6zqDj8TqUixFF/Z8rAqWAycr6Isw9Hc7t0WOQPKKZ1yKhTqpBhBUy6L8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VtFvmfRg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lc4FWtdx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DB181F000E9;
-	Mon, 27 Jul 2026 07:18:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VtFvmfRg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C2741F00A3A;
+	Mon, 27 Jul 2026 07:18:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785136724;
-	bh=kaB2rmRs8nQCDOjmOzUEviJBqRwudvoMZEbvMy3RfIs=;
+	s=k20260515; t=1785136725;
+	bh=IADPRscmIPPLEx6gyXOQVBBEruo2VIylSC7NI3unhlQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Lc4FWtdxaEyPqDW8H1ppQ2G82uBALk5U7jiQJsJw7xdphzSoZzmHHKtGV5bWMri8b
-	 hGm+y08ipBn3iA58M8E0+N4NBFs7ZUN2Fg0815U/QiDnT1o6kNCX7u+kV7eyCqDrIj
-	 z5NT0jPb0hhISIr/OjdZ0arxEkQLRI0wR1bQ87QC/HleKlMJ1PwQxykQH4Q6CBRAVI
-	 u2vwjMBfdNVzLWlDD1paEC/rG66xlXmU5LO5G/G4qJVgjDSZTh9Yx1IuP9TDRL9qxL
-	 G+UoTlAHu9PPkZA4k5GF0ffHtCl49mV2qHuIcxvGKyijd2OC4nnmiUrH6r1DyXGo04
-	 7m0k+3UkU9kEA==
+	b=VtFvmfRg0kgyvbOqbSHVhMnTDG3QEuUk+v66vWRcYjdWB77B5kvZoH/q89tjoD4lu
+	 WjulPHt+lXyORNlmf484G0BIImtWpnQXeATWgwflIRwQSTQhLyVVAIeewnvCN+jmid
+	 6NCdQtX9SuS48KBCKiLmZpVtAlWJWC6uZxb/fK4kkkbOWcMbxiDvKA5T2L4VYg2DZH
+	 Q4ZgoOtxsL2sbPq5mKYwjjmHcEgDz3heJbzFlTIv8RSgfEmvXYrfxvxv81qH2ST057
+	 ANTZZt2omeJl3yYWEBF/kLJE3I3DNvYSZTWr9pT50+Fuw0GpQuPcP+iScWhrv3jSsA
+	 zeYVa2vrBx6QQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v7 4/8] net: mdio: realtek-rtl9300: Configure
- hardware polling during probing
+Subject: Re: [PATCH net-next v7 3/8] net: phy: add
+ (*notify_phy_attach/detach)() hooks to struct mii_bus
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Markus Stockhausen" <markus.stockhausen@gmx.de>
 Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260726071751.1359156-5-markus.stockhausen@gmx.de>
+In-Reply-To: <20260726071751.1359156-4-markus.stockhausen@gmx.de>
 References: <20260726071751.1359156-1-markus.stockhausen@gmx.de>
- <20260726071751.1359156-5-markus.stockhausen@gmx.de>
+ <20260726071751.1359156-4-markus.stockhausen@gmx.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 27 Jul 2026 07:18:44 +0000
-Message-Id: <20260727071844.9DB181F000E9@smtp.kernel.org>
+Date: Mon, 27 Jul 2026 07:18:45 +0000
+Message-Id: <20260727071845.6C2741F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,76 +47,83 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Use-After-Free in `otto_emdio_notify_phy_detach` due to devm lifet=
-ime mismatch.
+
+Pre-existing issues:
+- [High] Calling `phy_attach_direct()` on an already-attached PHY destructi=
+vely tears down the existing attachment and corrupts module refcounts.
 --
 
---- Patch [4]: [PATCH net-next v7 4/8] net: mdio: realtek-rtl9300: Configur=
-e hardware polling during probing ---
-commit 66c265d23ecd919426f5681d91b6f6d07bc6bd53
-Author: Markus Stockhausen <markus.stockhausen@gmx.de>
+--- Patch [3]: [PATCH net-next v7 3/8] net: phy: add (*notify_phy_attach/de=
+tach)() hooks to struct mii_bus ---
+commit f981bcd4f5183a24448425da1f5f3cc2787f456b
+Author: Daniel Golle <daniel@makrotopia.org>
+Subject: net: phy: add (*notify_phy_attach/detach)() hooks to struct mii_bus
 
-net: mdio: realtek-rtl9300: Configure hardware polling during probing
+This commit adds notify_phy_attach() and notify_phy_detach() hooks to
+struct mii_bus. This allows MDIO bus drivers to be informed when a PHY
+is attached or detached. The teardown logic from phy_detach() is moved
+into a new __phy_detach() helper to handle the notification conditionally.
 
-This patch configures hardware polling for Realtek Otto switches to prevent
-interference during PHY probing and firmware loading. It disables polling
-when the MDIO driver starts, reenables it after a PHY is attached, and
-disables it before a PHY is detached.
+Link: https://github.com/openwrt/openwrt/pull/21515#discussion_r2714069716
+Link: https://lore.kernel.org/netdev/cover.1769053496.git.daniel@makrotopia=
+.org/
 
-> diff --git a/drivers/net/mdio/mdio-realtek-rtl9300.c b/drivers/net/mdio/m=
-dio-realtek-rtl9300.c
-> index 3dee5bff41349..c607dad9f0a31 100644
-> --- a/drivers/net/mdio/mdio-realtek-rtl9300.c
-> +++ b/drivers/net/mdio/mdio-realtek-rtl9300.c
+> diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
+> index 94b2e85e00a37..233622e9ba61f 100644
+> --- a/drivers/net/phy/phy_device.c
+> +++ b/drivers/net/phy/phy_device.c
 
 [ ... ]
 
-> @@ -582,6 +591,32 @@ static int otto_emdio_9310_setup_controller(struct o=
-tto_emdio_priv *priv)
->  	return 0;
->  }
+> @@ -1890,8 +1986,8 @@ int phy_attach_direct(struct net_device *dev, struc=
+t phy_device *phydev,
+>  	return err;
 > =20
-> +static int otto_emdio_notify_phy_attach(struct phy_device *phydev)
-> +{
-
-[ ... ]
-
-> +}
-> +
-> +static void otto_emdio_notify_phy_detach(struct phy_device *phydev)
-> +{
-> +	struct otto_emdio_priv *priv =3D otto_emdio_bus_to_priv(phydev->mdio.bu=
-s);
-> +	int port =3D otto_emdio_phy_to_port(phydev->mdio.bus, phydev->mdio.addr=
-);
-> +	struct mii_bus *bus =3D phydev->mdio.bus;
-> +	int ret;
-> +
-> +	if (port < 0)
-> +		return;
-> +
-> +	ret =3D otto_emdio_set_port_polling(priv, port, false);
+>  error:
+> -	/* phy_detach() does all of the cleanup below */
+> -	phy_detach(phydev);
+> +	/* cleanup without bus notification */
+> +	__phy_detach(phydev, false);
 
 [Severity: High]
-Could this lead to a use-after-free if the MDIO driver is unbound?
+This is a pre-existing issue, but is it safe to call __phy_detach() here
+if we reached this error path because the PHY was already attached?
 
-The priv structure is allocated with devm_kzalloc() during probe, which
-ties its lifetime to the platform device. However, the MDIO bus is allocated
-with devm_mdiobus_alloc_size(), which is reference counted.
+Earlier in phy_attach_direct(), if the PHY is already attached, it jumps
+to the error path:
 
-If the MDIO driver is unbound via sysfs, devres will free priv immediately.
-If a MAC driver still holds a reference to a PHY device on the bus, the
-mii_bus will remain alive.
+	if (phydev->attached_dev) {
+		dev_err(&dev->dev, "PHY already attached\n");
+		err =3D -EBUSY;
+		goto error;
+	}
 
-When the MAC driver later detaches the PHY, for example when the network
-interface is brought down, phy_detach() will call bus->notify_phy_detach().
-This executes otto_emdio_notify_phy_detach(), which will dereference the
-freed priv pointer inside otto_emdio_set_port_polling().
+By calling __phy_detach(), it destructively tears down the existing attachm=
+ent.
+It nullifies phydev->attached_dev and removes links:
 
-> +	if (ret)
-> +		dev_err(bus->parent, "failed to disable polling for port %d\n", port);
-> +}
+drivers/net/phy/phy_device.c:__phy_detach() {
+	...
+	phydev->attached_dev->phydev =3D NULL;
+	phydev->attached_dev =3D NULL;
+	phy_link_topo_del_phy(dev, phydev);
+	...
+}
+
+Could this lead to unexpected device detachment and potential use-after-free
+or null-pointer dereferences in the original owner's driver?
+
+Does this also corrupt the module refcount for bus->owner? The module_get()
+in phy_attach_direct() is conditional on the new device's owner, while
+the module_put() in __phy_detach() relies on the old device's owner.
+
+Would it be better to add a separate error label that skips __phy_detach()
+for cases where the attachment hasn't been established yet?
+
+>  	return err;
+> =20
+>  error_module_put:
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260726071751.1359=
-156-1-markus.stockhausen@gmx.de?part=3D4
+156-1-markus.stockhausen@gmx.de?part=3D3
