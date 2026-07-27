@@ -1,115 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0E713F5BFA;
-	Mon, 27 Jul 2026 09:47:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D941F3F5BED
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 09:47:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785145653; cv=none; b=k0aMC9m/d/Q4w+wl5OKrgKwhYjXOQwJd2rzGo8PGMfkGwGlyv0EeFGYxggGKqalvy8I6wZ9paAslKGJnR532zFRuUqKfDKx6VGmBhWaFGS5LZ/8IprbryIhJjHhASYMj5FnnSjfrksszfEbBKi/TFrxmjYj+0taZJbmw+aMTe2s=
+	t=1785145663; cv=none; b=lRWmcMD1lyMypAs6YrP8gugVbaeA6tzVEsTNMe9N9ZEZLOw27N0wwRorUvITaknCC+rLWQdQ9zhwOp0fTVBqZAIzHhFjX6F6E7N8tdZHLQ7xzU6o7DS0huFqhGa3YGOGp/QncYvkMd7VpW+Xo/CkyT+lfuo8uRHSIoqWeLduSVg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785145653; c=relaxed/simple;
-	bh=2N+DnBX9N+Jq79DorTK/tI6Ge8iQYy9BCamdi6yp8/E=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=HQ/pIUcfIGlcXaNf9SeC2jOtzevjBMtUE6r/dqh9ggEMSD6P+JNVWAM2fc4LJuOmgDp7s7+YkZY1sMVMEfD8v2KjaAhpB8bAbIh+wf33IU5eNZSTd2oxsUOWEbFmyxD2489JbHB6BC3bMEeq5/RqCN/7wjsvUXt7+KR+fKz+1vw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=atOtEwx3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785145663; c=relaxed/simple;
+	bh=QD3t63uWxKq2du3y4d4m9Juyuvd2MQBM+dVhxe550ao=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VEfisCOv+wxLy2Uoz+3bm/KgJIrHJf7H4kny+C77wtG906/+92Ed/T+G3MwzhjsgmR+x96ZMNY9ZlgSWLlrkI93/Lpzx/kn/Q9TXFTSHh/ROUHJcC43tAS27A07x1G900JE+YLm3UNNbjjAZ37g/mIF1bkRp64YbUAlM4l1BLQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CgPsQoMw; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="atOtEwx3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67B271F000E9;
-	Mon, 27 Jul 2026 09:47:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785145641;
-	bh=W3PX3VpCuie7A6qdzLftyVv0cWpmyIszAcx/LuYWB+U=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=atOtEwx3xo/etP/37iEyByhk5Q9HnDd8N7cXldc8KqrENRz66mqJC61Rfz19EBe8/
-	 TfTZr9jbfYnFbZEMBwXYt7n3d807cNQfmQQru6Ry8Tb373Vv/e47UOCRNQpbUSFk55
-	 SAhMYwadDkDabEgluQtiVFv0R/5wpGDxGDMiQFEalc6FEL5m1dbGN/+ZvFGqvqbV9N
-	 k3BcWGnxUXLjmCOgvZZEKw+ksV4BtTyf0lIzABnHPZ9zj5NpZfpWTQ+yyy0mGlriBY
-	 3kXtGJrwJp0t4T4cLO9qrrnpgBGAQBwvo3bAN4104i2oMmR+n05fGwqRoXnUz9FjLG
-	 ux3diYmQO+5qA==
-Date: Mon, 27 Jul 2026 04:47:19 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CgPsQoMw"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-38e88b60121so1934295a91.3
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 02:47:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785145659; x=1785750459; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jLPhM0E6IPzEl+l07UYYijZDLOCaVV9s+4+FtNKHwms=;
+        b=CgPsQoMwbc82G+pjH1SF517qBznLi5ZmdlJPidwLBVOKZ1HDUPHX2craq7s91Ceb7V
+         BPqiJayVj/KwCpzZG59UvJ/mDSlkSrr7FuSMfhWIa6LcCDbjeS3TCF53R5fcSzTwO4zt
+         XKkdehkBCb8Xb6iOSn3mJ+0JHHOH68JPBJ0lnDgz2Sz/mZdsR0bpfb7zONRyMR0/gOc8
+         7+S43VD6tEKlSTyQHThqVAqrNF3gPcvZwjLFgybSjTz8zAKT/RMMee4WAWB+6ePQVRDm
+         yi5Bfj2J0ur1YY9Vq2dQaNToEk9C9mIwY5c8wCrlaEwM4IfVaMyxSNQMHAP9CI2Lhxbi
+         7eeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785145659; x=1785750459;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jLPhM0E6IPzEl+l07UYYijZDLOCaVV9s+4+FtNKHwms=;
+        b=FF8WJC6yi0y/1ZnGClGllSexnX1bySrQkJrVHlqqpRQvFh9Mjq2pMpEF9rVGWJ8RP5
+         uubcyzTgUDgL4VlEu/bRFI9kJULRRQoqOx9uR8yWjbk8ZIeUP5RiiMASZwbAEyWz3Wd6
+         N/h8NKGS11t4P9mOjrNfSIHjDZfPep8aiI3Fm0l73FolmHXxhmTrgVua8vKADKp0aqDs
+         cTmREiAASkGELyT6kPx3jlJ+vyx/FuUkf/7/+5bxz0VS918UiFDbNW+UKokj3JBXWlQb
+         VRPkqDv0MLxFCf6c/f8xWw6ScBAStmY3EqXZOd6MZM+lkcE2peD5zzZM4llOAZ6rI6uE
+         rWoQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoWJ1ttXdfDBeul6sNigPMo7QbhJYdxnDJDSOPVUeVbT8xbPzqhN1t+A7PDMX/xa62B+KY+QjAz4CNn@vger.kernel.org
+X-Gm-Message-State: AOJu0Yze29Uc2cOnZASAOFaLq1ZEwAyNWPlzfSbp3IaLnJ/zbPGIxdwn
+	/Bbfgv7aS0HYA/bjSbfbFQeZeKoHH8Y+auSsQpTPQ841nAolqVPoeODT
+X-Gm-Gg: AR+sD101cP6nBukEof+Wr3AbkbdtJUK1B88nlVdqQvq9FnRg8Vd+WVdZFGMck1/ovor
+	yw3pK02JzPVvJg8gUO9LANIXiBB61nb5/vF9zY5N8+VCt/WoVYy9GOAwe86PfP+G/E31HMBnA+9
+	l/h7/xShXoQKeNsmcWIOvjPiOYN2njxbK9vLJTYfrv6sudTKeourSWDOjyND2WjeJzdFPRVnaK5
+	27FzdsREI7HwoU0bZK55L1IPod7e8O6QsGlS24zCHKur9chkXD2Au+ATKny/d4bCEGao1q5x295
+	M3BUpqMRnB/gozc/RzWLzP/gWahACF1CUAuyan2fZ3g9OEiGS1PEFbi2FFXHyCR8iyevp6mBERA
+	V+/hiDRjVaDsGJvBHUX4W+9ldpcdrfsPawyylyMjMznxLP5JIn+J5ThNbi897V/RIbhU/WJ7eLt
+	EH
+X-Received: by 2002:a17:90b:58ac:b0:38f:57f3:4dc6 with SMTP id 98e67ed59e1d1-38f57f34fd4mr1073921a91.21.1785145658748;
+        Mon, 27 Jul 2026 02:47:38 -0700 (PDT)
+Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f03b0eaa8sm4893167a91.8.2026.07.27.02.47.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Jul 2026 02:47:38 -0700 (PDT)
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Yixun Lan <dlan@kernel.org>
+Cc: Inochi Amaoto <inochiama@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Yixun Lan <dlan@gentoo.org>,
+	Longbin Li <looong.bin@gmail.com>
+Subject: [PATCH v2 0/2] riscv: dts: spacemit: k3: Add USB/PCIe devices
+Date: Mon, 27 Jul 2026 17:47:22 +0800
+Message-ID: <20260727094726.890179-1-inochiama@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- devicetree@vger.kernel.org, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Simona Vetter <simona@ffwll.ch>, Jessica Zhang <jesszhan0024@gmail.com>, 
- David Airlie <airlied@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, linux-kernel@vger.kernel.org, 
- Dmitry Baryshkov <lumag@kernel.org>, Maxime Ripard <mripard@kernel.org>, 
- linux-arm-msm@vger.kernel.org, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Jun Nie <jun.nie@linaro.org>
-In-Reply-To: <20260727-sm8650-7-1-bonded-dsi-v5-5-c042266b9eeb@linaro.org>
-References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
- <20260727-sm8650-7-1-bonded-dsi-v5-5-c042266b9eeb@linaro.org>
-Message-Id: <178514563985.1199273.4525119457881224571.robh@kernel.org>
-Subject: Re: [PATCH v5 5/6] dt-bindings: display: Add Synaptics R63455
- panel support
+Content-Transfer-Encoding: 8bit
 
+DTS for series:
+https://lore.kernel.org/linux-pci/20260709040027.958400-1-inochiama@gmail.com
+https://lore.kernel.org/linux-phy/20260703021024.495433-1-inochiama@gmail.com
 
-On Mon, 27 Jul 2026 16:08:44 +0800, Jun Nie wrote:
-> Add support for the dual-panel system found in the virtual reality device.
-> This system consists of two physical 2160x2160 panels, each connected via
-> a MIPI DSI interface. The backlight is managed through DSI link.
-> 
-> Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> ---
->  .../bindings/display/panel/synaptics,r63455.yaml   | 133 +++++++++++++++++++++
->  1 file changed, 133 insertions(+)
-> 
+Changed from v1:
+1. Fix clock of usb3d_u2phy.
 
-My bot found errors running 'make dt_binding_check' on your patch:
+Inochi Amaoto (2):
+  riscv: dts: spacemit: k3: add USB controller and USB phy support
+  riscv: dts: spacemit: k3: Add PCIe device node
 
-yamllint warnings/errors:
-./Documentation/devicetree/bindings/display/panel/synaptics,r63455.yaml:26:9: [warning] wrong indentation: expected 10 but found 8 (indentation)
+ arch/riscv/boot/dts/spacemit/k3-pico-itx.dts |  51 ++++
+ arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi |  33 +++
+ arch/riscv/boot/dts/spacemit/k3.dtsi         | 237 +++++++++++++++++++
+ 3 files changed, 321 insertions(+)
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/panel/synaptics,r63455.yaml: properties:ports: 'anyOf' conditional failed, one must be fixed:
-	'type' is a required property
-	'$ref' is a required property
-	hint: node schemas must have a type or $ref
-	from schema $id: http://devicetree.org/meta-schemas/core.yaml
-Documentation/devicetree/bindings/display/panel/synaptics,r63455.example.dts:29.17-27: Warning (reg_format): /example-0/dsi@ae94000/panel@0:reg: property has invalid length (4 bytes) (#address-cells == 2, #size-cells == 1)
-Documentation/devicetree/bindings/display/panel/synaptics,r63455.example.dts:20.21-61.11: Warning (unit_address_vs_reg): /example-0/dsi@ae94000: node has a unit name, but no reg or ranges property
-Documentation/devicetree/bindings/display/panel/synaptics,r63455.example.dtb: Warning (pci_device_reg): Failed prerequisite 'reg_format'
-Documentation/devicetree/bindings/display/panel/synaptics,r63455.example.dtb: Warning (pci_device_bus_num): Failed prerequisite 'reg_format'
-Documentation/devicetree/bindings/display/panel/synaptics,r63455.example.dtb: Warning (simple_bus_reg): Failed prerequisite 'reg_format'
-Documentation/devicetree/bindings/display/panel/synaptics,r63455.example.dtb: Warning (i2c_bus_reg): Failed prerequisite 'reg_format'
-Documentation/devicetree/bindings/display/panel/synaptics,r63455.example.dtb: Warning (spi_bus_reg): Failed prerequisite 'reg_format'
-Documentation/devicetree/bindings/display/panel/synaptics,r63455.example.dts:27.28-60.15: Warning (avoid_default_addr_size): /example-0/dsi@ae94000/panel@0: Relying on default #address-cells value
-Documentation/devicetree/bindings/display/panel/synaptics,r63455.example.dts:27.28-60.15: Warning (avoid_default_addr_size): /example-0/dsi@ae94000/panel@0: Relying on default #size-cells value
-Documentation/devicetree/bindings/display/panel/synaptics,r63455.example.dtb: Warning (unique_unit_address_if_enabled): Failed prerequisite 'avoid_default_addr_size'
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/panel/synaptics,r63455.example.dtb: panel@0 (sharp,ls026b3sa06): reset-gpios: [[4294967295, 3, 0], [4294967295, 11, 0]] is too long
-	from schema $id: http://devicetree.org/schemas/display/panel/synaptics,r63455.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/panel/synaptics,r63455.example.dtb: panel@0 (sharp,ls026b3sa06): reset-gpios: [[4294967295, 3, 0], [4294967295, 11, 0]] is too long
-	from schema $id: http://devicetree.org/schemas/gpio/gpio-consumer-common.yaml
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20260727-sm8650-7-1-bonded-dsi-v5-5-c042266b9eeb@linaro.org
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+--
+2.55.0
 
