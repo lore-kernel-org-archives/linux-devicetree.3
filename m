@@ -1,108 +1,149 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF51F3CFF46
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 08:18:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1F803DDAE4
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 08:18:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785140297; cv=none; b=i0+sZwlTOcycotI66pT+NRYFlvl5Zx/gtjBcTYq6kNhJekhDiI6YieksSF3SMMN4KIaHpHwpFxDeWehZZHPqE3AkzWAFi6O0plhCI12k62+iv+rmOXemRFzjY3+IxBWY2cfcqnwz2ncP/jhFXxuMHx/9FbfcmCYu6KMf5p441d0=
+	t=1785140323; cv=none; b=bNBLsxhOE+th84GZ9Zi8qdYsmbr8RoJWg40nZmSgXbxB4yPEUsiD0FFZa02dxzf2/FAIvRLemuOFYfGmlJIifvaKZnxJ4MMkAwMJwP8JCr8i7QDz7jsB/2TNpthNNwCY/XApsdfO303EUizrGeswzo9y6to/g2Y9ACMtMn91v8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785140297; c=relaxed/simple;
-	bh=y2Jsu8fXXdK2nPux9ZL4eEE1TFfPO3b1KEuPBD6UDLw=;
+	s=arc-20240116; t=1785140323; c=relaxed/simple;
+	bh=2hO7dBXaBfkMXYO8aWqhMOkaeMqdmzdKQfS0+dHB7cI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CuYsgJzmrSH8kPKnii49VpUOKsYA1vEsDLr+lB9DqKATtO3479IlNix6CNyAn7z0jV4g9oRoKVEe9R71lmdtLESe/I4sV7q3cfRKNxv2mv4s+dPKxjliuhoFyhLQn5cC4Lz6SnhrDIoeFGsPCdwGwE1M/tYSh/pSfND4b5Xy0Jw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UEYayM4x; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=UoxXcMqcw7kKynfyzTGt1blXbbD7fRaSsaA6vt8y428q0gEnj260kRw8UwYuIiF84QTMfrMDqDFZlIzNXNGWFwyze3nsZ+o4LbuvcbOFYQvLpyuF6gL8hL9ZyteMbvkfAhTYHoZZhXXQreIfBg9ciG5bpbRGiNa7v3rGts/dayE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eAkvpn9b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UEYayM4x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 099501F000E9;
-	Mon, 27 Jul 2026 08:18:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eAkvpn9b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDCD41F000E9;
+	Mon, 27 Jul 2026 08:18:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785140296;
-	bh=jX8uGb6g78yUXdaGPWIY2g3Aa4+opdNsQNLbaJRXx8M=;
+	s=k20260515; t=1785140322;
+	bh=bkQSbPt9312gHYWmyJ0zT1xXoYlTCdz+ud8gm9c7+Bo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UEYayM4xLXhpq9IfBQuxXI15LJKd0lNKU9NiP58TzmZZX3G42ib+BoWc+QN9Cqnr2
-	 YlgpHsdg45qay0VVpy8ULCCGgayPdE5hdyok/YV3nps2I+x18SLS4aegqxPs97nxEI
-	 mD0d00Wo19X8YWE5BfOdtnsucBzQhxBJkzCO8YcFFopi0aSMQ8mkCrLkRJMI74jUF1
-	 gIlVo/UguaZexwwrhtmILR5ckT9Hkxso8Uj5KDUjFhbpsCsSaBrmn+2LlHb8Kd8WdH
-	 Y9UsmROh63oXIu6lwgP7x2YhcHMC1W6Fr/ZQF7q8nfFgSqZ8Ke3Ak3CCIEwYTKEn6+
-	 X2cECnWf93FEg==
+	b=eAkvpn9b//b5a3btL3F3JxaIUW81GT0p1R6TfT7x8iiDWdPJz7th7FnCMyyZfyp4s
+	 7YdyH482hyeSaPC3LUBN4JHF8FJf3OZUUO+ObuNKG1NTIn8XN8Y4ygsC7VYPw4Ik15
+	 sKhvptoisEeUtBSWLwNEk3Mdeb+zcZWXlCs+y7U5CJu1iZN2oFD5EnRHWYpvEKUJHi
+	 H1NtrgPVq7vSrSPG/5gNdokD6ZBb4CiKraO49n1Pcr1BBVDy4AZqZ6S17fKJyY/VeO
+	 2UhU6UZ4WZQeoKhitwLRa+8arj55vFWREAexdjcHXCrmwljaX6IBGSw3b8vAych9dZ
+	 ynkBKJuTheZvw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/6] dt-bindings: display: panel: Modify reset gpio
- number constrain
+Subject: Re: [PATCH v5 5/6] dt-bindings: display: Add Synaptics R63455 panel
+ support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Jun Nie" <jun.nie@linaro.org>
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260727-sm8650-7-1-bonded-dsi-v5-1-c042266b9eeb@linaro.org>
+Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260727-sm8650-7-1-bonded-dsi-v5-5-c042266b9eeb@linaro.org>
 References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
- <20260727-sm8650-7-1-bonded-dsi-v5-1-c042266b9eeb@linaro.org>
+ <20260727-sm8650-7-1-bonded-dsi-v5-5-c042266b9eeb@linaro.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 27 Jul 2026 08:18:15 +0000
-Message-Id: <20260727081816.099501F000E9@smtp.kernel.org>
+Date: Mon, 27 Jul 2026 08:18:41 +0000
+Message-Id: <20260727081841.EDCD41F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] The patch relaxes the `reset-gpios` constraint in `panel-common.=
-yaml` to allow multiple GPIOs, but fails to update the global `gpio-consume=
-r-common.yaml` schema, which strictly enforces a maximum of 1 item.
-- [Medium] Replacing `maxItems: 1` with `minItems: 1` entirely removes the =
-upper bound from the `reset-gpios` property, violating the dt-schema meta-s=
-chema requirements for phandle arrays.
+- [Low] Missing #address-cells, #size-cells, and reg in the example's paren=
+t DSI node
+- [Low] Missing schema reference for the ports node
+- [Low] The 'reg' property is not marked as required
 --
 
---- Patch [1]: [PATCH v5 1/6] dt-bindings: display: panel: Modify reset gpi=
-o number constrain ---
-commit bef64e9dd2f24e3eff4806992787382fb7261e4b
+--- Patch [5]: [PATCH v5 5/6] dt-bindings: display: Add Synaptics R63455 pa=
+nel support ---
+commit 55e4e84f35f079171a4dea5e2741a34a7fac11e9
 Author: Jun Nie <jun.nie@linaro.org>
 
-dt-bindings: display: panel: Modify reset gpio number constrain
+dt-bindings: display: Add Synaptics R63455 panel support
+   =20
+Add support for the dual-panel system found in the virtual reality device.
+This system consists of two physical 2160x2160 panels, each connected via
+a MIPI DSI interface. The backlight is managed through DSI link.
 
-This patch modifies the constraints for reset-gpios in the display panel
-bindings to support panels that require two reset lines, such as the
-Synaptics R63455. It replaces the maximum item constraint with a minimum
-item constraint.
+> diff --git a/Documentation/devicetree/bindings/display/panel/synaptics,r6=
+3455.yaml b/Documentation/devicetree/bindings/display/panel/synaptics,r6345=
+5.yaml
+> new file mode 100644
+> index 0000000000000..c3bc8df981df7
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/panel/synaptics,r63455.ya=
+ml
 
-> diff --git a/Documentation/devicetree/bindings/display/panel/panel-common=
-.yaml b/Documentation/devicetree/bindings/display/panel/panel-common.yaml
-> --- a/Documentation/devicetree/bindings/display/panel/panel-common.yaml
-> +++ b/Documentation/devicetree/bindings/display/panel/panel-common.yaml
 [ ... ]
->    reset-gpios:
-> -    maxItems: 1
-> +    minItems: 1
 
-[Severity: Medium]
-Does removing the maxItems constraint violate the dt-schema meta-schema rul=
-es?
-Array properties ending in -gpios generally require maxItems or items to be
-defined to provide a strict upper bound. Leaving this unbounded could cause
-the binding to trigger errors when validated against the core meta-schema.
+> +  vdda-supply:
+> +    description: core 1.8V supply for panels
+> +
+> +  ports:
 
-[Severity: Medium]
-Even with this local change, won't panels specifying two reset gpios still
-fail schema validation due to the global gpio schema?
+[Severity: Low]
+Should this ports node include a $ref to /schemas/graph.yaml#/properties/po=
+rts?
+Without it, standard Open Firmware (OF) graph structural checks might be
+bypassed, allowing invalid port configurations to silently pass schema
+validation.
 
-The global schema restricts reset-gpios:
+> +    properties:
+> +      port@0:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: DSI input port for primary DSI link
+> +
+> +      port@1:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: DSI input port for secondary DSI link
+> +
+> +    required:
+> +      - port@0
+> +      - port@1
+> +
+> +required:
+> +  - compatible
+> +  - reset-gpios
 
-Documentation/devicetree/bindings/gpio/gpio-consumer-common.yaml:allOf()
-    else:
-      properties:
-        reset-gpios:
-          maxItems: 1
+[Severity: Low]
+Does 'reg' need to be added to this required list? Since MIPI DSI panels
+must specify a virtual channel using the reg property, omitting it here mig=
+ht
+allow incomplete device trees to pass validation.
 
-This implicitly overrides the relaxed constraint in the panel schema. Does
-gpio-consumer-common.yaml also need an update to allow for multiple
-reset-gpios in panel nodes?
+> +  - left-pos-supply
+> +  - left-neg-supply
+> +  - right-pos-supply
+> +  - right-neg-supply
+> +  - left-backlight-supply
+> +  - right-backlight-supply
+> +  - vdda-supply
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    dsi@ae94000 {
 
->      description:
->        Specifier for a GPIO connected to the panel reset control signal.
->        The reset signal is active low and resets the panel internal logic
+[Severity: Low]
+Will this trigger a DTC warning during dt_binding_check? The parent node has
+a unit address (dsi@ae94000) but lacks a reg property, and it also lacks
+#address-cells and #size-cells which are needed since the child node
+panel@0 has a reg property.
+
+> +        vdda-supply =3D <&vreg_l3i_1p2>;
+> +        status =3D "okay";
+> +
+> +        qcom,dual-dsi-mode;
+> +        qcom,master-dsi;
+> +
+> +        panel: panel@0 {
+> +            compatible =3D "sharp,ls026b3sa06", "synaptics,r63455";
+> +            reg =3D <0>;
+
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727-sm8650-7-1=
--bonded-dsi-v5-0-c042266b9eeb@linaro.org?part=3D1
+-bonded-dsi-v5-0-c042266b9eeb@linaro.org?part=3D5
