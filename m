@@ -1,240 +1,153 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11021110.outbound.protection.outlook.com [52.101.70.110])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAC822F7F00;
-	Mon, 27 Jul 2026 09:40:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.110
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785145239; cv=fail; b=MZlo5Cl8B+tBRWgPHM0c8Ln9Z4Ubf5oyxHaZVbS4dHlNFHVyz4vhsw7yVKDB3rKd7y9SRhHjHLoBbPS73KjfAeSCSeBuvoj5j6wXfYY9uxcnX0jUR8R2ikQcts7CsONJLKF4M9jVsshgk3B1JUvlcLSprRkaeHK0gIF4UXAFBBQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785145239; c=relaxed/simple;
-	bh=lRO/eVLG6CCowW7t9JIDm4X08ssmYKoVW9Abw0Fxe5A=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=ivevUQUdRq64Ws7vrt1x+2291sFtIzdT+TRTWAKzKSQKBUeJDt6NF6m9Upsx3g8jUUvMIFEnzButoBHZsn1hBhJ97B7Gro8zH3mZLElZDGWdCX5IiXKTMgDHd2//gnxR/89PGhXfnDMtJDbCFC13jAv5wz4fH0Z0qRyoizmXbd0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iopsys.eu; spf=pass smtp.mailfrom=genexis.eu; dkim=pass (2048-bit key) header.d=iopsys.eu header.i=@iopsys.eu header.b=RGf5EBS6; arc=fail smtp.client-ip=52.101.70.110
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iopsys.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=genexis.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3EA63EEADE
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 09:41:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785145272; cv=none; b=ANbgYLxnYwlt6DkxlxKvMrsXw6d08xtjyDUazZOTvozwd6L/4idQcHww9Adk+QIoUkIj1Hymli0H+tvVlcubs/n2dT1M1dqvUCehL9Y5KCnQSMDtzB4yh74xf/14iuwCnd6qzXsUhenYJAj4yMegzvJ00+8DmS2/mhym1BnJoPM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785145272; c=relaxed/simple;
+	bh=6dgUYUuzfhsDSIYKKAB+5XI3CWqUbj017l5cX3HrvDY=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=i/alrMT1bhO0N45KAuYM8I7aMvpO86QBBdg7cHK0ubUO1BS7saETSwcWJeW2I6Sr3ezmY1jRWlmiUh+MaSZK0VGqU3TwXx5j5+N5Z+DwThFFckViJthRzx18YuPEdtbEbevE/yhU/SLPxEuo115cSrY8ZfKlTMjbZvMn4n7gx5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rf2j480R; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iopsys.eu header.i=@iopsys.eu header.b="RGf5EBS6"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QN1CDycZkUqjXu9zar0jAyKYeBhJ9P5Ei+hEwoK85P8glPQJHmRrQH+GtLI+LSPcl0dpf1gObwyefPPjI+lefUluHspfrB9egXGJth3GTgkb/Jzgq1zNBRwMIqav8cfZEs8Y08t33A4wIsFQgmGrWI+wvHLqznSLgJG4Ti9Zx9xfqvoSrJKXfvZchF3cbZy0KpMVkC4+uJDwpqwXTF3Um3kbWZIoAf+nddMbBGUi8Zea1IkqdJacOLiP54/k/Fo9oDitf7cba4BJSzVLnAPTklnqSUruFt3WrhDlxJEGr3h6VuYqm1absTkLCKX+GYrpubj+NnVYo6X9ytK+Q6HKdg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yNF1xkmYBL+LNm3Ad3YriXnX+gwU5+RrayJcvlKnSIg=;
- b=D24utN6lVb2lGGPzfzT4slSQD4b7Z6aqhnfT1ijWUx/8/OS5M8McgZabJpxX4WV7riUuvSuX9y33A1GZdkX9Z1c4aJ8QDvvc80KqrFu61vlln+hSWrg4Y7VjrqFVoEkoYdqS0lt5eh1EMlIaQP5SF3rjRk2KaB9ZhN66zJADLAMJxvAvYHALkfqfuoxLXwsoLN1RLMyUaWyKJ8oBCc3VCP6BNic2TAL+RTcmlzy3QZTd1bmXxtUBjXCc7F3CPKmdndGk23ir3/wPH6xh/pm6e3wPTlIEZuRfQny6BJoRQ2iDpqiXtwSI3lyCk52XxeqE/narUaw3cYY6JwMl0Qz9Nw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=genexis.eu; dmarc=pass action=none header.from=iopsys.eu;
- dkim=pass header.d=iopsys.eu; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iopsys.eu;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yNF1xkmYBL+LNm3Ad3YriXnX+gwU5+RrayJcvlKnSIg=;
- b=RGf5EBS6hIClAtOZ+FYvHXSGaTcz4N65h3Bb8DJ94N17a/iIaa4qhImG6JuDMK3ikWaG4D6ccWHhj/AnLDjstL8BN3LZlYyGo2iFGLdumoCWZHWNx0YC17Tom8byp/5A6O2RH2ZuSqKfsPP0tBvmTwFyhOzOHPM66YM41wzD/vfjBF76UdZ2GBQl0/YkBhZWHBovFmedl7zoNRSa7mpnVR5sVoBsTil9iHwNyLM2/g6ZSB1zPAY086IFsJg3FodTZEclXV80Qr31zfMTN6nckBeH841ip7bYskkKO15PlgPmi4muMfxRdqOE6E745iIjBCLC4heKJOJrj8AoYU7YoQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=iopsys.eu;
-Received: from DU2PR08MB10037.eurprd08.prod.outlook.com (2603:10a6:10:49a::20)
- by GV2PR08MB8097.eurprd08.prod.outlook.com (2603:10a6:150:75::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Mon, 27 Jul
- 2026 09:40:30 +0000
-Received: from DU2PR08MB10037.eurprd08.prod.outlook.com
- ([fe80::3c7:6d2e:8afe:e4dc]) by DU2PR08MB10037.eurprd08.prod.outlook.com
- ([fe80::3c7:6d2e:8afe:e4dc%5]) with mapi id 15.21.0245.012; Mon, 27 Jul 2026
- 09:40:30 +0000
-Message-ID: <179fbc45-a43e-499f-bb54-58fee8c66df3@iopsys.eu>
-Date: Mon, 27 Jul 2026 12:40:28 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 12/34] pinctrl: airoha: add missed get_direction()
- function for gpio_chip
-To: Lorenzo Bianconi <lorenzo@kernel.org>
-Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Christian Marangi <ansuelsmth@gmail.com>,
- Benjamin Larsson <benjamin.larsson@genexis.eu>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
- Markus Gothe <markus.gothe@genexis.eu>,
- Matheus Sampaio Queiroga <srherobrine20@gmail.com>
-References: <20260727074234.3761170-1-mikhail.kshevetskiy@iopsys.eu>
- <20260727074234.3761170-13-mikhail.kshevetskiy@iopsys.eu>
- <amcRI3c0-1iWWX5M@lore-desk>
-From: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
-Content-Language: en-US, ru-RU
-In-Reply-To: <amcRI3c0-1iWWX5M@lore-desk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: GVX0EPF0005F6DC.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:158:400::1fb) To DU2PR08MB10037.eurprd08.prod.outlook.com
- (2603:10a6:10:49a::20)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rf2j480R"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2cee9b74ee1so19108325ad.3
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 02:41:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785145270; x=1785750070; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DxypF0mqvE1RlhZs44JfIUVBgafKcdOhHfFx2Mq1iJY=;
+        b=Rf2j480Rze2GkGrKykZ6rmQk7DordpPXHwZvWA89zZpdbBo1e/Kiqee+YIT52xvaIk
+         g98Fimf51txajcGPPqvoP79ChhOppRsmRmUKhYrtkoWvejB9HyXuU8bmWFEmjSdNuuA7
+         yT/vfGh8DM0QPtS+3bbhek3oDLmqifScB0l9sIMxR/3jzLd2nowP2FyTJ3xVHtGkS3oI
+         s2Ti7eB1midP1ep7RJb8q/+C9C885KTABBC8V8OfNf0BkBQ8EuIT0C5LpFIrVu58QLl0
+         LqHbQZshEI6YCiUrOyeJ0lhm0AhjoOJqvkcHF/TsuhjjhHw8UjnVFJMZmvX9mnN+F1ZJ
+         qh3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785145270; x=1785750070;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DxypF0mqvE1RlhZs44JfIUVBgafKcdOhHfFx2Mq1iJY=;
+        b=NV+WhigUgF+zETycvoE3xpw6NKDwqFJLUyzY+zkNu3OWPCeisOMhdjNwoX/DBK40GK
+         MG3hImXAiYGNZJUw+Csg7rW6LCKjEb82/2OhqYz5fw/uHPAyCp6sRcrWzPtwvL+MWAs/
+         7c3NvRXaWjlXXV6TEro+uy5REH4Qu5HbMJWDpHxxR1iGcHug3ih8Ly477oAzx2mumG3T
+         AyRi/tyj/fh9g10KInDkqlOvfrVBYcPdOLJgAol4nSTgZUPHvAmXAOim+mknwH5pTaQ8
+         5N+NnSQvKZUXChtoQ66tjgt9VbQgW/BiLp3IbHzv3XqRmJCd/Wxr+B7roSlF+xIFQLkZ
+         yvrg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr0tLIuzSjvuuWNaoZRbx4he9kJ7/kU7D9W2MwELupVLVQNS5wA7OVk1cujyTqHDzdb8zXHUnfNjFqn@vger.kernel.org
+X-Gm-Message-State: AOJu0YzdwWADHAvW6uEpQO0CdekKGA6D6YzQl/HZ5bcnAXW9Pp8tAU2n
+	ClrkmM0HSxNWTmooqY6nhZaft+JpzrkGuTqH+n+PZrg7CJ1uEE0WTxD2
+X-Gm-Gg: AR+sD13MYwLbGn+5CHiDTp2kW21HVgcp4vqDyyP/pxg2joVLUSx1YpmxUeVVWhhb6jj
+	gCijj8MZqw7NTFuA9At+NpHXDOIcgo+19MKwjBN62RTdaXHubKEVPbrq+WH9bgu6E+9Q12FkrnE
+	P8T2ZmnComCsJAHQPu63TFQS+Ol2xLXMwoH9n8bv+AZyRBK3YRvRNhHw1jG7pNs+4jJu3x6R4fW
+	/WEwfw88AhgcZpEwdHw9TxvtH+qbedXi4VrUkCl4A9sNwvMVGjngEYRKZnaL7/OxEEtwypxNHh0
+	mJaEtS57yvaVq1p7vDe5DF7HPhjueN27RGuDNo01CAafeGoZMod6OYcntqVd1IK6xQ5ED6K0ufI
+	72y6r+SWoJmHtqwL0AcviN4Y4B6jvxdbCNadXSvDsuCtaoFeqSIre3DBvap83X0yR2fyv2DdztI
+	0fXzUbMqifeTkSHJWHjTqlS8rlQ24iavuQOm6zIeetz2uJTPKUyBvmoBjeJnYwuC0yInoeHEOGm
+	n/4Bzt4qjfiQI37
+X-Received: by 2002:a17:903:244a:b0:2cf:9f0b:b560 with SMTP id d9443c01a7336-2cfde866990mr74953715ad.29.1785145270129;
+        Mon, 27 Jul 2026 02:41:10 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (24.206.116.131.netskope-rdns.com. [24.206.116.131])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cfde7ee3b1sm31369645ad.62.2026.07.27.02.40.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Jul 2026 02:41:09 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Date: Mon, 27 Jul 2026 10:40:55 +0100
+To: Jonathan Cameron <jic23@kernel.org>, 
+	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
+	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH v9 08/17] iio: core: add hierarchical channel
+ relationships
+Message-ID: <6tdoluaxt24zpkb4rrfe56lcb7ohphkbvi2klqplw7zibxy6xs@yi6m7bydrqaq>
+References: <20260722-ad9910-iio-driver-v9-0-459d1df5ac56@analog.com>
+ <20260722-ad9910-iio-driver-v9-8-459d1df5ac56@analog.com>
+ <20260725232432.7a0d4292@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR08MB10037:EE_|GV2PR08MB8097:EE_
-X-MS-Office365-Filtering-Correlation-Id: 33230421-e5b6-44b8-1b7b-08deebc318ff
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|4143699003|56012099006|11063799006|10067099003|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	5SoNAG1OLJVsyeraTT5ylDzmjjaGkC5GRDJ7jIoUeFhnVXNKswN0S5vIzdpFtb5ES45FAf2aTptFvITclqthChTtofHFp9RGjhYWhcSz/e8JE8RNBZlxnQYvBlHz6KQIT90MR6/Pn3n4kn7owLh0AINf/BrdqJhGGDUNhaq0O3MeUpWFuocVig/HvtyOIB5vTQCewQJtoveSkH9e0G91JO/6BcaY1k3als2zrmQqY13PXzdNJRqeSGAPycEfYe+l+zD8YidHOa/q+iyULRDxUGM31vj4Lk6g/0j1aR0zpaHE+Jqs94pJbiQPgNINlyqVfLeJm42QpBpO491RwqR4Oy2bGBxcErZBGtUgCzKFgUvZahMYscSaW6zLN7vuIvQoDCCo7Ua24ndG+bXnyfs93cFXs7mv1b0LothY3OxAFCgSl1iB41Tjn20FiCfoswu6murer9rYL7hQ35AxsQr6j0fuH/Lwmd0dZrdtYkFn6mBoqT9mecbWnW8nGNxp3npuxuhhXUGQ8W+Q72QICnHAUaWWWwIZ0jZSuhODnHeg4827iPn4h9HQJBEaqGG/gzyJGFlqTwNKT47eciNHvo6BphojIPsb+tggWMOKWopfgnzqIXlTv0wcTaLNW96uze7g7ojKLGs2lZRShjo2sgGvwoNfg5wfoDljnD9nB1Gq3SU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR08MB10037.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(4143699003)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SkhOblRORXlSTjYySWlXaS9SSktQUXE2MFN5dHROZjVyQWdmSzhJZ01PUmZQ?=
- =?utf-8?B?eGtnR3g4NDIxbXcvbHVtdWlPWkEzVysvZHVLWDE5SURWajRGcncyMWp4Zjl6?=
- =?utf-8?B?WWp6SnhhMnV6N0o3YzQ2WGl3QlhiR0o3MVdJWTJOd1lVWCtHeWxlWEdsWE84?=
- =?utf-8?B?cWNLMCtOMDdpQ1dqVjdtWWV1ck1TcDVmM0ZWeUtpb2loeGNNQ1FlcEVHMW5x?=
- =?utf-8?B?SnhzM2V6T0ZCWnF3NHF4aXB6MlNPcCsrYXh1VWxQSnVJdjZkOTg4bTlCSm50?=
- =?utf-8?B?d3FGcVNGWm8xWXFQd3ZZSVZuVWN3NExsNWR2ci9QTFNEY2xUanBqWFFmckxJ?=
- =?utf-8?B?bllTUEpNUHlsSnR4eXE0L3dOSjd5OEcrZExDY2I0aVpBWTJuTURzc1NCTHdW?=
- =?utf-8?B?TStpQkE1UTdRbitEZ0RoQmEyVVU1eGZhaDhSNHZQWjhFbUlMS1BGV0Vaa2NM?=
- =?utf-8?B?Mk9ob2tDdFVvZUxQUzBjbjlOYUYrVUZVV3hlYzMxNXRYVE9IbW9lMU5IZmNB?=
- =?utf-8?B?aE41VVA5V29IaGZWUkZ3NmtoQmZwclZQU3NkbzFxMUxYSm80VENoQzZadjYx?=
- =?utf-8?B?Vk5QU2o4dHF6dzdMb01oMXVxbDNBSXBQOUpHSktRTmllSzFWMFEwaENsZ1V3?=
- =?utf-8?B?WVcvT1FlNXpiYkhMV0VJbGZMdXdKaDRaM1B5dU9vTVZJM3B6bURhZ1lBRWtr?=
- =?utf-8?B?U2thc1ByYkNhYy91VTNrSklTVEU3SDVHOFpyck9nb015Q0FRYmFsN05wVHpr?=
- =?utf-8?B?RE5qbzFyeDdlUzNPS2RQS0VSRkNHZmJ0bUpKSFh2YmtOZGZZMWhMSjR6RXc2?=
- =?utf-8?B?aFpWQkJEdU5PbnRjM1g0K1JTM0hURFhEY20zTjhTQlpHR3pzdE5nQWVvTzg3?=
- =?utf-8?B?dStXV0lPc1dvK1RNakVlRjU1QkQ4RHIzdXUwWVZlRzRYWkN2TEdIVlpOOVVC?=
- =?utf-8?B?eVcwSk5hOEIvL2c1aTNJeG0yTk5EMGtZUEc3M1hQYlVLcFlIM2xKRVBldm44?=
- =?utf-8?B?Tll1RDI3R3dKZm84UXNudGllM1lkY3I0ay9WYWlMVGdKSk50d2xBcmpVWHM3?=
- =?utf-8?B?ZFN1aktYV2FPc3VOYWdTL0xObm9jRDBROE4vM0twYVJreWtyb0lPdVN3eUdj?=
- =?utf-8?B?Ym9Nb2F1RHpSN2NoY3ViTXJxNWtpRmZ2cjJTT2MyakJHK0NtUEx5cFpXMjg2?=
- =?utf-8?B?OXUzdTlhcURncDVyRktQbE1OSkdLRm5WTkZ2UEl1RGYxVURPaHlCTGZuUTNK?=
- =?utf-8?B?ZWdLZG9Pa1AweVQ0WEY5NkRreURrYXJiZnd1UG1mKytyeHNuM3RRdDkyNGlQ?=
- =?utf-8?B?VEVjaFB1YnNZS0QzMStNZ01kbk5Md3RnOC9kcXdLWnZiWVpwSTFLazNIWXlT?=
- =?utf-8?B?QlVWWlJrcGk5UEo0WEdOTGl6dFlNdHBJQ09zVzNkUng2ZFNqVDFSVHFxWEVU?=
- =?utf-8?B?OWMwM2toZTRTeTZlWkE3bDFBN25FdXdrWG9Wb3ZrdlNQNXdPcWNpMTRNTEJK?=
- =?utf-8?B?K1VqTVhmY24rSEtRVTVaWm82NUJ3aVJwak5JSk9SUkV0NkFLSUVIUjdUY0Fj?=
- =?utf-8?B?b1FVN2dGeHZ1RGNpblRBMnV5Tkc5M1J3RVNhV2N4c282akVVY1FlbHVXakZh?=
- =?utf-8?B?SXE0RTYyVjVYZjVHOE9oOW9YcUFhSjYyVjc4L3JLYTAyUjVoVjhnZ2w4NWpv?=
- =?utf-8?B?emZaQWtndUJsSDZEYms3TzMzSHZNUk1LUVlWU2VTWkg0aEdFaG5KZWxZRDJQ?=
- =?utf-8?B?UzI3MEc0dWkrUXZINUhQZlVxemUxejJoUlVlWUEyTjJGUGxVcXNBTkRmeXFP?=
- =?utf-8?B?UTQva1E3MmpZdWhIRTFTVUhPZ0U4ZGxQMFMwR0kydWlYaXFzQkJBYnVYTTNi?=
- =?utf-8?B?aHFZa2U2aEpuZmtPL3dIVU43VWJLdnBZWHNta3ZFZ2puKzJ4WEpLcTVQSlMr?=
- =?utf-8?B?b0o0eUJpanZZYmE3S3kydE5PbHh1NWc2UHlycFd1U2pXTHZrRXRTbHF1OG9W?=
- =?utf-8?B?Qy9iNnlnUlF1TUdDaTB6UnFPemgwSURaRklMcitCNW9YRkUvZjBFc3BTUFQ5?=
- =?utf-8?B?d281RHNOUjBpdVZsSFB5SmVpTUx0cjZZYXNJTGdtam81TDNCaWRieTYwa3ox?=
- =?utf-8?B?bGdMTnM2TjdiaDJHQ2dhbWRHK3hHcENuU0ZKSkZLQXZwamwzVmhaL1JreDhm?=
- =?utf-8?B?TXd2VmZJNjhNckNGSUtKd2N6dXJFODFUaCt2UGhVWkphakFEWlNLL1R3ZGVP?=
- =?utf-8?B?b2RSTHRXajFnZHpMNGJsUXNGdk52Q3NPMXdNc1FYUFhiakhLb1N5QW4zNEpW?=
- =?utf-8?B?RktYanJEN0ZvZFo2cXBIaUpScEQyNUpiTlNiSThrRlJzR2UzWDdza2lCWHpa?=
- =?utf-8?Q?x1ryot8TkJyZbwF0=3D?=
-X-OriginatorOrg: iopsys.eu
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33230421-e5b6-44b8-1b7b-08deebc318ff
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR08MB10037.eurprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2026 09:40:30.5534
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 8d891be1-7bce-4216-9a99-bee9de02ba58
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9tZb6CBmmH8tSTwozj0M6AgfvSo/qLQGobt9B4JfchVd6s473SJRMyKtVNIDnD1OxyXY51lslzI57b8w94AwF1gi+zow6BFEDotc9mxqI8I=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR08MB8097
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260725232432.7a0d4292@jic23-huawei>
 
-On 7/27/26 11:04, Lorenzo Bianconi wrote:
->> This patch adds missed get_direction() function for gpio_chip.
->> Also it reimplements pinconf's get_direction() function using
->> newly defined function.
->>
->> Fixes: 1c8ace2d0725 ("pinctrl: airoha: Add support for EN7581 SoC")
->> Signed-off-by: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
->> ---
->>  drivers/pinctrl/airoha/pinctrl-airoha.c | 41 ++++++++++++++++++-------
->>  1 file changed, 30 insertions(+), 11 deletions(-)
->>
->> diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/airoha/pinctrl-airoha.c
->> index 820b7b0443851..b52eb39c55ff3 100644
->> --- a/drivers/pinctrl/airoha/pinctrl-airoha.c
->> +++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
->> @@ -2502,6 +2502,27 @@ static int airoha_gpio_get(struct gpio_chip *chip, unsigned int gpio)
->>  	return err ? err : !!(val & BIT(pin));
->>  }
->>  
->> +static int airoha_gpio_get_direction(struct gpio_chip *chip, unsigned int gpio)
->> +{
->> +	struct airoha_pinctrl *pinctrl = gpiochip_get_data(chip);
->> +	u32 mask, index, val;
->> +	int err, field_shift;
->> +
->> +	field_shift = 2 * (gpio % AIROHA_REG_GPIOCTRL_NUM_PIN);
->> +	mask = GENMASK(field_shift + 1, field_shift);
-> before we where checking just BIT(field_shift) as mask, while now we are
-> checking two bits. 
-As I know upper bits treated as reserved. I think we should not use gpio
-operations if upper bit is not zero.
-What is your opinion?
->  
->
->> +	index = gpio / AIROHA_REG_GPIOCTRL_NUM_PIN;
->> +
->> +	err = regmap_read(pinctrl->regmap,
->> +			  pinctrl->gpiochip.dir[index], &val);
->> +	if (err)
->> +		return err;
->> +
->> +	if ((val & mask) > BIT(field_shift))
->> +		return -EINVAL;
->> +
->> +	return (val & mask) ? GPIO_LINE_DIRECTION_OUT : GPIO_LINE_DIRECTION_IN;
-> nit: unnecessary brackets.
->
->> +}
->> +
->>  static int airoha_gpio_direction_output(struct gpio_chip *chip,
->>  					unsigned int gpio, int value)
->>  {
->> @@ -2648,6 +2669,7 @@ static int airoha_pinctrl_add_gpiochip(struct airoha_pinctrl *pinctrl,
->>  	gc->free = gpiochip_generic_free;
->>  	gc->direction_input = pinctrl_gpio_direction_input;
->>  	gc->direction_output = airoha_gpio_direction_output;
->> +	gc->get_direction = airoha_gpio_get_direction;
->>  	gc->set = airoha_gpio_set;
->>  	gc->get = airoha_gpio_get;
->>  	gc->base = -1;
->> @@ -2855,21 +2877,18 @@ static int airoha_pinctrl_set_conf(struct airoha_pinctrl *pinctrl,
->>  static int airoha_pinconf_get_direction(struct pinctrl_dev *pctrl_dev, u32 p)
->>  {
->>  	struct airoha_pinctrl *pinctrl = pinctrl_dev_get_drvdata(pctrl_dev);
->> -	u32 val, mask;
->> -	int err, pin;
->> -	u8 index;
->> +	int err, gpio;
->>  
->> -	pin = airoha_convert_pin_to_reg_offset(pctrl_dev, NULL, p);
->> -	if (pin < 0)
->> -		return pin;
->> +	gpio = airoha_convert_pin_to_reg_offset(pctrl_dev, NULL, p);
-> if you do not rename pin in gpio here the patch will be simpler.
->
-> Regards,
-> Lorenzo
->
->> +	if (gpio < 0)
->> +		return gpio;
->>  
->> -	index = pin / AIROHA_REG_GPIOCTRL_NUM_PIN;
->> -	err = regmap_read(pinctrl->regmap, pinctrl->gpiochip.dir[index], &val);
->> -	if (err)
->> +	err = airoha_gpio_get_direction(&pinctrl->gpiochip.chip, gpio);
->> +	if (err < 0)
->>  		return err;
->>  
->> -	mask = BIT(2 * (pin % AIROHA_REG_GPIOCTRL_NUM_PIN));
->> -	return val & mask ? PIN_CONFIG_OUTPUT_ENABLE : PIN_CONFIG_INPUT_ENABLE;
->> +	return err == GPIO_LINE_DIRECTION_OUT ?
->> +	       PIN_CONFIG_OUTPUT_ENABLE : PIN_CONFIG_INPUT_ENABLE;
->>  }
->>  
->>  static int airoha_pinconf_get(struct pinctrl_dev *pctrl_dev,
->> -- 
->> 2.53.0
->>
+On 25/07/26 23:24, Jonathan Cameron wrote:
+> On Wed, 22 Jul 2026 16:50:17 +0100
+> Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+> 
+> > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > 
+> > Add parent-child relationship between iio channels by creating a parent
+> > pointer field in iio_chan_spec struct and exposing a sysfs attribute that
+> > returns the parent channel prefix.
+> > 
+> > Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> Hi Rodrigo.
+> 
+> One small thing below
+> 
+> Jonathan
+> 
+> > ---
+> >  drivers/iio/industrialio-core.c | 40 ++++++++++++++++++++++++++++++++++++++++
+> >  include/linux/iio/iio.h         |  5 +++++
+> >  2 files changed, 45 insertions(+)
+> > 
+> > diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-core.c
+> > index aa9d6474edd9..f7e3048354b9 100644
+> > --- a/drivers/iio/industrialio-core.c
+> > +++ b/drivers/iio/industrialio-core.c
+> > @@ -856,6 +856,22 @@ static ssize_t iio_read_channel_label(struct device *dev,
+> >  					 to_iio_dev_attr(attr)->c, buf);
+> >  }
+> >  
+> > +static ssize_t iio_read_channel_parent(struct device *dev,
+> > +				       struct device_attribute *attr,
+> > +				       char *buf)
+> > +{
+> > +	const struct iio_chan_spec *chan = to_iio_dev_attr(attr)->c->parent;
+> > +	ssize_t len;
+> > +
+> > +	len = __iio_chan_prefix_emit(dev, chan, IIO_SEPARATE, buf, PAGE_SIZE);
+> > +	if (len < 0)
+> > +		return len;
+> > +
+> > +	buf[len++] = '\n';
+> 
+> Use sysfs_emit_at() for this rather than a direct write. I'd rather not have
+> to think about what happens if __iio_chan_prefix_emit() returns exactly
+> PAGE_SIZE().
+
+We can have __iio_chan_prefix_emit() called with PAGE_SIZE - 1?
+
+Filenames should be capped at 255.. so that NAME_MAX << PAGE_SIZE 
+
+As you suggest, we need a local buffer. Not sure we need to do an extra copy...
+ 
+> > +
+> > +	return len;
+> > +}
+> > +
+
+-- 
+Kind regards,
+
+Rodrigo Alencar
