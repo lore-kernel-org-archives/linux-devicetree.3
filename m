@@ -1,152 +1,135 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DBFB1F8755
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 12:39:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52B561F8755
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 12:40:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785155990; cv=none; b=YCba1f/4sDQIInYQ/aliBeyB5KVgBgbbwXWOTzYQSuVVm8C1mxvP01fowwY9YwlFNOMkPQ3eOqPJ4KoXXyDUVEHD6rafiWrhhmf51Gbhga+U3JP1tmanLZibR0g7d0rkVupptWRnV9CadkFBzz1tr/Ob2m6ilFRvJ5HdTsobxBg=
+	t=1785156002; cv=none; b=rBiDpRpRDPC6gbupLiZNzAbCZJsNH005kzOjBpBqFU+lFoYq41ZJ+S+M2lxf9zw5giUgYODTjXg/kkyhzVPWYeIvPOz+y9v1vD1m7IPVGcQyZTlnyWfP7t4SMtSASTng6nkbCUfI+BhrYcGCCLHYwDs413Vr8b2vOqO/NZy8LR8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785155990; c=relaxed/simple;
-	bh=SPL82aTBEpE4FWboFVnBOBka5nvH9TuR5//Q1kE/fII=;
+	s=arc-20240116; t=1785156002; c=relaxed/simple;
+	bh=2Gty4GRlHbZaSKMKypOfkEqTEjnFTlkEwDop952KOOM=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GiyUUGtXaxZpFRn5AurrX1EAVeiobyp3HV2jowGa8KlUQLOeZ3d57Dj3JY0Wn6C3136CDWVPC6HMaT4+pxwl+eC4IJcZ7k4UrSS82wja8rnXXpQQcvVkTl7HiC/3eCq0+XnpykvkCidtv20jXpNcE7bKuz+vN7wJ/ZhSbL4jOxg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LmJkqEWQ; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=uEh4+8OaaduhY00ix4OFb+sA9HsZCW/3nQcOqP0ncxS/vtw9txZld/WLxIABGIIey7k/jPl0mVVuwEsheEy0j3kOTYuh+pCkua+z1/A9fn7gYVvNLTwALH1bMOsIQG5zZjYRlED0ZeuECPzxuaTMM9tXUhUwG/CmZQfChxLG2RM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zb7T+K5G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LmJkqEWQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8EAB1F000E9;
-	Mon, 27 Jul 2026 12:39:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zb7T+K5G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 909C91F000E9;
+	Mon, 27 Jul 2026 12:40:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785155989;
-	bh=G5BhX/BCMKYNJd9YF9yUHwLkaOmnRZGyNlZyGUjJHDk=;
+	s=k20260515; t=1785156000;
+	bh=u4dHzf2JsPKNM0gFDhPWrpJkBm55lmN3Jk188VNTFf8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LmJkqEWQnwNcGqHY4y7GQ6HqKEZGv04Kk0inGU4EabQgAlG7QyRezkjO89eJl3Aco
-	 jQPUTyNWwxNXkbCER6D3tLiwfgFhGiEDYY4exhDnn1noiKJHaiOrBERwRrI2MYluVy
-	 GiKZtekGx4LKRJialIIllOYrS7PzIb12nKQDLClabAzW36JQHh9an+fsyDYJuA8NH+
-	 sE6Eq5R6uSPZGZPE7wcpK4p3eT7Mn4DckXoVK/NQ9HF3I6q7Q6hGBUA5IXZzKWxZLK
-	 MoAsTNtC2x5xCVVBLIco3YPcnkX7c/0I0dEciswz74HCxPQebwMnOnUYPEhkDuZrMP
-	 BFG0RYOzXiUMA==
+	b=Zb7T+K5GRA6eV9l+QOfGkLk+uNE2pUSSJqJjIxDaOjI1Cyggfur7Ft9f3/IDP1eLu
+	 FON1HGeoOZzUth/bTzwC6lPL14Y0VecooVCMIy1exd+Bw57m6rv2rThKl/Gmh3HD9B
+	 0I8HEwVgP2TgWj9737cCnGC5Tng0iTtoC0GRSEda+WwGzBGdp8R7jwnRHWKEAo13Zl
+	 xIGo+X2wSAD5/nSkHCPX/8wn25s7/vaxxXWNLrrZ7CHvaueUnA0nTCDQQjhkbHBm4K
+	 BAcnRA57hinVekmzb25w78qXsaCrVr5RziZPzEAKFcbdRZh13uEIgNnPJkJRcKj9zg
+	 3n2dl6PJNvdvw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 09/16] nvmem: microchip-otpc: nvmem: add emulation
- mode and OTP access validation
+Subject: Re: [PATCH v4 03/16] iio: adc: at91-sama5d2_adc: rework temp
+ calibration layout handling
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Varshini Rajendran" <varshini.rajendran@microchip.com>
 Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260727122633.117435-10-varshini.rajendran@microchip.com>
+In-Reply-To: <20260727122633.117435-4-varshini.rajendran@microchip.com>
 References: <20260727122633.117435-1-varshini.rajendran@microchip.com>
- <20260727122633.117435-10-varshini.rajendran@microchip.com>
+ <20260727122633.117435-4-varshini.rajendran@microchip.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 27 Jul 2026 12:39:48 +0000
-Message-Id: <20260727123948.E8EAB1F000E9@smtp.kernel.org>
+Date: Mon, 27 Jul 2026 12:39:59 +0000
+Message-Id: <20260727124000.909C91F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] The arguments for `sleep_us` and `timeout_us` in `read_poll_timeou=
-t` are swapped, causing the poll to sleep excessively and fail prematurely.
-- [High] There is a mismatch between the calculated NVMEM device size and t=
-he number of bytes read per packet, leading to truncated reads and corrupte=
-d payload data in the buffer.
-- [Medium] The OTP payload stream is read from the `MCHP_OTPC_DR` data regi=
-ster using `readl_relaxed()` in a loop, which causes unintended byte-swappi=
-ng on big-endian architectures.
+- [High] The `DEFINE_FREE` wrapper for `nvmem_cell_put` incorrectly handles=
+ error pointers, leading to a kernel crash when `nvmem_cell_get()` fails.
+- [Medium] The introduced temperature calibration tag index and expected ta=
+g macro are never used to validate the NVMEM packet.
 --
 
---- Patch [9]: [PATCH v4 09/16] nvmem: microchip-otpc: nvmem: add emulation=
- mode and OTP access validation ---
-commit b464c23d34790bae23b36f89796febe703de8718
+--- Patch [3]: [PATCH v4 03/16] iio: adc: at91-sama5d2_adc: rework temp cal=
+ibration layout handling ---
+commit 859125ad776a3a3f2a744e65f324ef58a384982e
 Author: Varshini Rajendran <varshini.rajendran@microchip.com>
 
-nvmem: microchip-otpc: nvmem: add emulation mode and OTP access validation
+    iio: adc: at91-sama5d2_adc: rework temp calibration layout handling
+   =20
+    Extend support to handle different temperature calibration layouts.
+   =20
+    Add a temperature calibration data layout structure to describe indexes
+    of the factors P1, P4, P6, tag, minimum length of the packet and the
+    scaling factors for P1 (p1_scale) which are SoC-specific instead of the
+    older non scalable id structure. This helps handle the differences in t=
+he
+    same function flow and prepare the calibration data to be applied.
 
-This commit adds validation of OTP memory accessibility and emulation mode
-status during probe. When the boot packet is not configured, emulation mode
-allows access to the other packets.
-
-> diff --git a/drivers/nvmem/microchip-otpc.c b/drivers/nvmem/microchip-otp=
-c.c
-> index a17f82afdc37d..6b0184423463e 100644
-> --- a/drivers/nvmem/microchip-otpc.c
-> +++ b/drivers/nvmem/microchip-otpc.c
-> @@ -343,7 +344,8 @@ static int mchp_otpc_probe(struct platform_device *pd=
-ev)
->  {
+> diff --git a/drivers/iio/adc/at91-sama5d2_adc.c b/drivers/iio/adc/at91-sa=
+ma5d2_adc.c
+> index 4a4a25f3c715a..798e4d60bf697 100644
+> --- a/drivers/iio/adc/at91-sama5d2_adc.c
+> +++ b/drivers/iio/adc/at91-sama5d2_adc.c
 [ ... ]
->  	ret =3D mchp_otpc_init_packets_list(otpc, &size);
->  	if (ret)
->  		return ret;
+> @@ -2251,11 +2271,18 @@ static int at91_adc_temp_sensor_init(struct at91_=
+adc_state *st,
+>  				     struct device *dev)
+>  {
+>  	struct at91_adc_temp_sensor_clb *clb =3D &st->soc_info.temp_sensor_clb;
+> +	const struct at91_adc_temp_calib_layout *layout;
+>  	size_t len;
 > =20
-> +	if (!size) {
-> +		dev_warn(otpc->dev, "Cannot access OTP memory\n");
-> +		if (!emul_enable)
-> +			dev_info(otpc->dev, "Boot packet not programmed and emulation mode di=
-sabled\n");
-> +	}
+>  	if (!st->soc_info.platform->temp_sensor)
+>  		return 0;
+> =20
+> +	layout =3D st->soc_info.platform->temp_calib_layout;
+> +	if (!layout)
+> +		return -ENODEV;
+> +	if (!layout->p1_scale.denominator)
+> +		return -EINVAL;
 > +
->  	mchp_nvmem_config.dev =3D otpc->dev;
->  	mchp_nvmem_config.add_legacy_fixed_of_cells =3D true;
+>  	/* Get the calibration data from NVMEM. */
+>  	struct nvmem_cell *temp_calib __free(nvmem_cell_put) =3D
+>  		nvmem_cell_get(dev, "temperature_calib");
 
-While reviewing this patch, I noticed a few pre-existing issues in the same
-file that you might want to address:
+[Severity: High]
+Does the DEFINE_FREE() wrapper for nvmem_cell_put() properly handle error
+pointers?
 
-drivers/nvmem/microchip-otpc.c:mchp_otpc_read()
->        *buf++ =3D readl_relaxed(otpc->base + MCHP_OTPC_DR);
+If nvmem_cell_get() returns an ERR_PTR (e.g. if the NVMEM cell is missing
+or defers probe), the error pointer will be truthy. If the custom
+DEFINE_FREE(nvmem_cell_put) wrapper only checks "if (_T)" instead of
+using IS_ERR_OR_NULL(), the truthy ERR_PTR can bypass the guard and be
+passed to nvmem_cell_put(). This would unconditionally dereference the
+error pointer and cause a kernel panic.
+
+[ ... ]
+> @@ -2270,20 +2297,23 @@ static int at91_adc_temp_sensor_init(struct at91_=
+adc_state *st,
+>  		return dev_err_probe(dev, PTR_ERR(buf),
+>  				     "Failed to read calibration data!\n");
+> =20
+> -	if (len < AT91_ADC_TS_CLB_IDX_MAX * sizeof(*buf)) {
+> +	if (len < layout->min_len * sizeof(*buf)) {
+>  		dev_err(dev, "Invalid calibration data!\n");
+>  		return -EINVAL;
+>  	}
 
 [Severity: Medium]
-This is a pre-existing issue, but does this read sequential FIFO payload da=
-ta
-using a byteswapping scalar accessor rather than a stream accessor (e.g.
-readsl())?
+Are we missing the expected packet tag validation here?
 
-Using readl_relaxed() here might cause unintended byte-swapping on big-endi=
-an
-architectures when reading the underlying raw byte stream.
+The commit introduces the AT91_TEMP_CALIB_TAG_ACST macro and the tag_idx fi=
+eld
+specifically to validate the NVMEM cell content, but the actual validation
+check seems omitted.
 
-
-drivers/nvmem/microchip-otpc.c:mchp_otpc_prepare_read()
->    return read_poll_timeout(readl_relaxed, tmp, !(tmp & MCHP_OTPC_SR_READ=
-),
->                             10000, 2000, false, otpc->base + MCHP_OTPC_SR=
-);
-
-[Severity: High]
-This is a pre-existing issue, but are the sleep_us and timeout_us arguments
-swapped here?
-
-The sleep_us parameter is set to 10000 (10ms) while timeout_us is set to
-2000 (2ms), which would cause the timeout to expire before the first sleep
-completes.
-
-
-drivers/nvmem/microchip-otpc.c:mchp_otpc_init_packets_list()
->    *size +=3D 4 * (payload_size + 1);
-
-drivers/nvmem/microchip-otpc.c:mchp_otpc_read()
->    } while (payload_size >=3D 0 && len < bytes);
-
-[Severity: High]
-This is a pre-existing issue, but is there a mismatch between the calculated
-NVMEM device size and the number of bytes read per packet?
-
-In mchp_otpc_init_packets_list(), the total size is incremented by exactly
-payload_size + 1 words (header + payload).
-
-However, in mchp_otpc_read(), the loop condition payload_size >=3D 0 causes
-it to iterate payload_size + 1 times for the payload alone, meaning a total
-of payload_size + 2 words (including header) are fetched and written to the
-buffer per packet.
-
-Could this write a padding or gap word into the user buffer, shifting
-subsequent packets and causing final packets to be truncated because the
-len < bytes limit is reached prematurely?
+This might allow the driver to accept corrupted or invalid NVMEM calibration
+data as long as it meets the minimum length requirement.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727122633.1174=
-35-1-varshini.rajendran@microchip.com?part=3D9
+35-1-varshini.rajendran@microchip.com?part=3D3
