@@ -1,103 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9407437A48A;
-	Sun, 26 Jul 2026 22:28:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D36487BE;
+	Mon, 27 Jul 2026 00:33:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785104921; cv=none; b=gjfDinenJucEw3KrZ7NtNwDcD0n4boP6PHWVq8WAKyVIDLlXwuPnY73XRfXzOJ8/ual/Yg3S8Hh5N5tG8wTlURk0G+ajek4tXstRIbZ6+bNEIRHfQTZKTOuXDcGJO+W8Fi8Ukf36N6osGqFM5Gkhk/w141zMhEInlHGb3U+8VZc=
+	t=1785112393; cv=none; b=NWZVOYGL7CqsKDlB3+prEIfftj9RVM9fzWKG1ezAsfmmkZQhfghdx5lz+kJ+yErdM1vhxWdo9pqklcN0M77RXdEIkn5EC5WXrF1sxQ4LZo/C/sjDY6fIHV6uVYf4gPR3emtm86YN+4oKbdc7cq1fAPb7TpkYcMdljePBpriVFs0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785104921; c=relaxed/simple;
-	bh=2r0weuECXaeS2pHAAfZLICmOvKd9Jo+mcrRosKr2Ggg=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=umln6VlM+zOc0i13ZtI9cjg3QlJzXpQkkkrGmGHDBUMt9dzBh5GFWTCVTZ2IbLIs+BAwiFijjE+g/nxu/jWnA/vcHDx/67gnKnUXn2pMswlO6l4HgBqB8d88lXpiQ1CDUMUmaoJAeniOIUs7+oacfeZu3Fw7AJ6gXfhkrDxrfXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L+hT7vnj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785112393; c=relaxed/simple;
+	bh=UY3efD0vkIgCls6go9OLhLVM9zyOHMV4VoR8ZEwJ2IY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qfVZe9feiby/wxElTNUsAV4o+W3m4fdCbLVwlgvsvDkai7+qyEINwEMdEPne5czVTamWhxzjRICYTrWcgTF/2608VvtImvCqAoKsJd1B50TftIndRgvm9EInGI/nzsJFgeXZX/sF22lf1lvxvyHqhnGA9aBw3z/TvtPc55dQbus=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=SE48nxfk; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L+hT7vnj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09F211F042D2;
-	Sun, 26 Jul 2026 22:28:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785104920;
-	bh=agXXKbagGkgLFxXBmfBRGqsRctliVMF3Wid4vsSYwfg=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=L+hT7vnjMpSg8IyDiQRtu37ye8mQR7cmeUddE+sRl2tWpH1wEbj2YBqYgLAZTtYDI
-	 Xxm97BbE8/7DBhI0b6sk7ljh4ECuZOCVA5cDGBhqIj4GBP4+3Qknc0ZHo5PC2edve9
-	 6EIYxWlWijDmxLYYP0g4trr8jh95NIWj39u+m19EZwjnR6h2F3T2PK3Dh96nzsc74W
-	 k2t5cLzd7UD7Lrhmwth6u/Z1c1ndeki7DYzDO1NlwkZTX4xhNMn+YhnIvU10FNSgV+
-	 uwkylE6BGW3Q2xicL9ng85LjvGtEjKmUsQfWBSOVOnkstlAiEQw9+6fTdZILxyLgjO
-	 5bre7HAqGm1Tg==
-Date: Sun, 26 Jul 2026 17:28:39 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="SE48nxfk"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=71cCBAS8A2hoPA6O2oKeS13s7oPVP5QW2HLk5bUeTeE=; 
+	b=SE48nxfkjA5poAhFHR1/I/OkTgWQB9Z49t37XkjzVEpR13Bj1smE+YZslraCkehB8IgCxhLjgJM
+	5vlfGpDJNG/OYtLjwHHD6/zpZpWGcNYTUFJ95VBuF+ewFdWVW967gxlJiE3ryh6gn/8LyuAtm2rnR
+	jT8DGEZI/7RLNA74REgg3ta3f+0hVZBkwyWYoJ+bK31EdmpBPpAlCotJ5MJtgaxSR3j2sgDeTTCq7
+	FQuBskVr22eJRAaErnQ9NaocEAVv6dlXfsjtB7Y3HMSArfJr0Atm3jkFXY17R+UktYw3lndgINRYK
+	TuH9PHfnlT73S5WB+mbgln1uepF27Z3pamyA==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1wo9HH-0000000GywW-1o2q;
+	Mon, 27 Jul 2026 08:33:08 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Mon, 27 Jul 2026 10:33:07 +1000
+Date: Mon, 27 Jul 2026 10:33:07 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+Cc: "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Harshal Dev <harshal.dev@oss.qualcomm.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>, Andy Gross <agross@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dmaengine@vger.kernel.org,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v4 0/6] Shikra: Add DT support for ICE, RNG and QCE
+Message-ID: <amanQ72mRGN2tiVd@gondor.apana.org.au>
+References: <20260714-b4-shikra_crypto_changse-v4-0-06a4ea97c209@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Hauke Mehrtens <hauke@hauke-mehrtens.de>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <rafal@milecki.pl>, 
- Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org
-To: Rosen Penev <rosenp@gmail.com>
-In-Reply-To: <20260726205518.6698-1-rosenp@gmail.com>
-References: <20260726205518.6698-1-rosenp@gmail.com>
-Message-Id: <178510491939.3431692.9862516903607892948.robh@kernel.org>
-Subject: Re: [PATCH] dt-bindings: bus: brcm,bus-axi: Convert binding to
- YAML
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260714-b4-shikra_crypto_changse-v4-0-06a4ea97c209@oss.qualcomm.com>
 
-
-On Sun, 26 Jul 2026 13:55:14 -0700, Rosen Penev wrote:
-> Convert the Broadcom AXI bus (bcma) binding from legacy .txt format
-> to dt-schema YAML format. This resolves dtbs_check schema validation
-> warnings for the brcm,bus-axi compatible string across all BCM47xx
-> and BCM53xx ARM SoC board DTBs.
+On Tue, Jul 14, 2026 at 03:35:11PM +0530, Kuldeep Singh wrote:
+> This patch series enables SDHC ICE, RNG and QCE support on Shikra,
+> aligned with how similar support is modeled on other Qualcomm platforms.
 > 
-> The schema documents the AXI bus node with its required compatible
-> and reg properties, address/size/interrupt cell configurations, and
-> interrupt-map for assigning IRQ numbers on BCM47xx/BCM53xx platforms
-> where automatic detection is not available.
+> These DT and dt-bindings updates were previously posted as three
+> separate series. Based on review feedback, they are grouped here as one
+> crypto-focused series.
+> Previous threads:
+> QCE: https://lore.kernel.org/lkml/20260515-shikra_qcrypto-v1-0-80f07b345c29@oss.qualcomm.com/
+> RNG: https://lore.kernel.org/lkml/20260514-shikra_rng-v1-0-4ea721a1429a@oss.qualcomm.com/
+> ICE: https://lore.kernel.org/lkml/20260515-shikra_ice_ufs-v2-0-2724a54339db@oss.qualcomm.com/
 > 
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> Prequisite patchsets are already merged so no longer tracking.
+> 
+> Validation:
+> - ICE: driver probe at boot
+> - QCE: kcapi tests and driver probe
+> - RNG: validated using rngutils
+> - DT: validated shikra-cqs-evk.dtb with dt_binding_check and CHECK_DTBS=y
+> 
+> Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
 > ---
->  .../devicetree/bindings/bus/brcm,bus-axi.txt  | 53 -------------
->  .../devicetree/bindings/bus/brcm,bus-axi.yaml | 77 +++++++++++++++++++
->  2 files changed, 77 insertions(+), 53 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/bus/brcm,bus-axi.txt
->  create mode 100644 Documentation/devicetree/bindings/bus/brcm,bus-axi.yaml
+> Changes in v4:
+> - Update Patch 1/6 commit message to accustom hawi special case.
+> - Collects tags(Krzysztof)
+> - Link to v3: https://patch.msgid.link/20260706-b4-shikra_crypto_changse-v3-0-23b4c2054227@oss.qualcomm.com
 > 
+> Changes in v3:
+> - Fix commit messages.
+> - Collect Ack and Reviewed-by tags.
+> - Link to v2: https://patch.msgid.link/20260702-b4-shikra_crypto_changse-v2-0-66173f2f28b3@qti.qualcomm.com
+> 
+> Changes in v2:
+> - Add fix in ice bindings to specify 2 clocks defauly for non-legacy Soc
+>   compatibles.
+> - Update commit messages.
+> - Link to v1: https://patch.msgid.link/20260521-shikra_crypto_changse-v1-0-0154cc9cc0de@oss.qualcomm.com/
+> 
+> To: Herbert Xu <herbert@gondor.apana.org.au>
+> To: "David S. Miller" <davem@davemloft.net>
+> To: Rob Herring <robh@kernel.org>
+> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> To: Conor Dooley <conor+dt@kernel.org>
+> To: Bjorn Andersson <andersson@kernel.org>
+> To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+> To: Harshal Dev <harshal.dev@oss.qualcomm.com>
+> To: Vinod Koul <vkoul@kernel.org>
+> To: Bartosz Golaszewski <brgl@kernel.org>
+> To: Konrad Dybcio <konradybcio@kernel.org>
+> To: Frank Li <Frank.Li@kernel.org>
+> To: Andy Gross <agross@kernel.org>
+> Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: linux-crypto@vger.kernel.org
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: dmaengine@vger.kernel.org
+> 
+> ---
+> Kuldeep Singh (6):
+>       dt-bindings: crypto: qcom,inline-crypto-engine: Fix legacy/new SoC strictness split
+>       dt-bindings: crypto: qcom,inline-crypto-engine: Document Shikra ICE
+>       dt-bindings: crypto: qcom,prng: Document Shikra TRNG
+>       dt-bindings: crypto: qcom-qce: Document the Shikra crypto engine
+>       dt-bindings: dma: qcom,bam-dma: Increase iommus maxItems to 7
+>       arm64: dts: qcom: shikra: Add ICE, TRNG and QCE nodes
+> 
+>  .../bindings/crypto/qcom,inline-crypto-engine.yaml | 27 +++++++----
+>  .../devicetree/bindings/crypto/qcom,prng.yaml      |  1 +
+>  .../devicetree/bindings/crypto/qcom-qce.yaml       |  1 +
+>  .../devicetree/bindings/dma/qcom,bam-dma.yaml      |  2 +-
+>  arch/arm64/boot/dts/qcom/shikra.dtsi               | 52 ++++++++++++++++++++++
+>  5 files changed, 73 insertions(+), 10 deletions(-)
+> ---
+> base-commit: 49362394dad7df66c274c867a271394c10ca2bb8
+> change-id: 20260701-b4-shikra_crypto_changse-f2d6d5bf04b5
 
-My bot found errors running 'make dt_binding_check' on your patch:
-
-yamllint warnings/errors:
-
-dtschema/dtc warnings/errors:
-Lexical error: Documentation/devicetree/bindings/bus/brcm,bus-axi.example.dts:28.36-43 Unexpected 'GIC_SPI'
-Lexical error: Documentation/devicetree/bindings/bus/brcm,bus-axi.example.dts:28.48-67 Unexpected 'IRQ_TYPE_LEVEL_HIGH'
-Lexical error: Documentation/devicetree/bindings/bus/brcm,bus-axi.example.dts:30.36-43 Unexpected 'GIC_SPI'
-Lexical error: Documentation/devicetree/bindings/bus/brcm,bus-axi.example.dts:30.48-67 Unexpected 'IRQ_TYPE_LEVEL_HIGH'
-FATAL ERROR: Syntax error parsing input tree
-make[2]: *** [scripts/Makefile.dtbs:140: Documentation/devicetree/bindings/bus/brcm,bus-axi.example.dtb] Error 1
-make[2]: *** Waiting for unfinished jobs....
-make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1705: dt_binding_check] Error 2
-make: *** [Makefile:248: __sub-make] Error 2
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20260726205518.6698-1-rosenp@gmail.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+Patches 1-4 applied.  Thanks.
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
