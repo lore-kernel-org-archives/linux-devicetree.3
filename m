@@ -1,180 +1,246 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011046.outbound.protection.outlook.com [40.107.208.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1DBE400987
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 14:39:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785163178; cv=none; b=JO/Sya0NBD6xArlSq8mH58/uxGs7pQlNEz8AeNT0cgi/1BZbx+EpA8t62c8mJUfyPZN05KnJ1o13vNhXlBgjlqjTmegVBNIIPZh8mOmU/R9ZDZhwZhAIIo/h5yFByLTf7C7B9HgYgcW9Rs4GvJbNytbvqPyhadcJc8z4wrQc2wk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785163178; c=relaxed/simple;
-	bh=xH9UYE3tKui+PpJ+oJjv266cFUJrFsy6ZjDBpLen2Es=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YPFoPDaDShNfKrN4B4A1ko6i/zgbi/QCgSsl8urjZumA/snbCHfPfIzYBxckQsYhJz6N0akmQ4NTnvj1iX/WDKRK2YUzOTowdFU7buEcS1B0av6fQjJGzj13l4Vg352g7taUBCqflx71P4DJesvhCd+WBlbHgwkFNBvPwIQjyJY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WVYMFvJ8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VyTGsell; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4372B41B352;
+	Mon, 27 Jul 2026 14:39:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785163197; cv=fail; b=mpFk/KbOR3RRzkRcsnCwODl4t+e2HT3fWnFcBrY9McdbRUHepQhApQHeTQtbDnaDGXr1trzQgTpQp+NbJgsS1iZMO5iJKmEOPOkiqSViVooR0fawIjsJfQgSflAajjiePStAsojwC/21qaZ2lQCkseI39uKagwcjUCRRrNSqffI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785163197; c=relaxed/simple;
+	bh=RQ6drRcsNxg2b8M6ErAngx9KJpDJr7y+Iok2ZY09I/4=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pYlef8kCkXMLSqZb+1A1CNwgLWNlotYob2BxOhWYVEb06C+mKuaALzWtywB8RxLGGBQits9zBhjS6Lrx/zINfXO3I55M3b76EGRyxk6W9uVkmq3hvixT/TP/5s5B/f1u6NIfORVbhneKerhEkgeQcNcpcyJmD8Fo+io4q7O9p9o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=U0kl/rmo; arc=fail smtp.client-ip=40.107.208.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WVYMFvJ8";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VyTGsell"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66RDlhjx4061123
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 14:39:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	xWqul+dcRPvRCnkua2Q9yspTH/JRLTFe01JsmLOFB8Q=; b=WVYMFvJ8/C5SEbO0
-	7oNFheF1T4F4m3e1pi8x9EJy5l2jhDquUqOSDJOuLvEnCywyGL8NkdMtQaXaJpZp
-	9C9MVFNDQ6UKUGqrHX+zaimpQOZpNXakACySLZ5C7EaVcaaPGf75crBR/WZMvkbi
-	SNf1XP8ssFejOFC+0LxwN2/lbs14wtP8Mt///bTteUUxhgzl4/m0TpqI6jt66O2u
-	ZhdtfiJaqM1G3jFwYaE1lg2smE4hXVkmKdkkWgR/+P6sjXtXtdwqtSPQgE/D7gSQ
-	eHKWAJF/M2XdDNr7rpHIUQYY2iJdZVTzniNjIzUMt+tbyv4nW+mvryUaRhpRsfEs
-	+erByQ==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fp4mq173k-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 14:39:35 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51bfe75b7dbso5453931cf.3
-        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 07:39:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785163175; x=1785767975; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xWqul+dcRPvRCnkua2Q9yspTH/JRLTFe01JsmLOFB8Q=;
-        b=VyTGsellARHfNvfSCUzopaUhoTFiZ53hMs6fh/wKtj3A6JLEZ+JnZDjGu4aoxxqDtS
-         TohbvWMr//mRzrrkQyqBOLdXZ8XQalSZcHaaeanef09MI8RQOym3ER7W+SZMuIM3viK4
-         BZXM4wHqz9ZQAR6riCijmZec/WCmjC5/PxBzwEq1oEZM+NcdRhC5rL6Tqcb4ZIP+y8lH
-         vO63z4JLjQYpkqWo29fHiSVJzWj90ojwtiGZSoqt80bZN9OE2fUQvIlgVZ8SHwoRj4Mh
-         mDte4UKLC6PMDZduWVYVEUN+zDPXODUYtRtIyIcvZjWgbbI9I4xcqA6ajSW1C4b/VpXu
-         yIdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785163175; x=1785767975;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xWqul+dcRPvRCnkua2Q9yspTH/JRLTFe01JsmLOFB8Q=;
-        b=WNDbkqUn8idaBKSygfLzrO1oyZ4Sg3Co3m7puPlD2Nd9BGCdsazSiZSeqiqNb9Rq72
-         44mDpIk3HVEAHxy4UFO/8pv65hbr5QfUrdjnvPtMkkEuF6WUVcMiIl77zyZHbppVvh7j
-         KYSk8qIgcRJcY4XAmrc+yjh02vhcYUTSBUvYhNdGA4CxIZ1/qwvs3WZkJOzNiiK5BMqN
-         9rf7LYl5SDQhlIjnufegmj1ENkyzMuwvt56dDRcsjRoy0bFwF4t1XIz3SXUJ1rmlMqJZ
-         SIjIASugrBs9/B2Ghg5AeK/Lz+nUw/hTe8evyC+bQ5LLrFcNmc3tbzDpwcn3Ke729iLW
-         vufw==
-X-Forwarded-Encrypted: i=1; AHgh+RpXkYx2TWiupEjQqdRzpJe99JniAjoT7PJeF8NJvMic6Vl82N9/9iidurVhhZlYZd0C74wXXn3v6F92@vger.kernel.org
-X-Gm-Message-State: AOJu0YyMwQkmSp0/awRBREwYPi0iwq5QxQUjl8Rgc+De5Kn0X2Mxegpj
-	M8ZjTgiA7zURZRHbPneWN5mJoc2hgKhxACAdMU6hIPO5n89lD0Pcwszq1/c6ZVBDc/P+FszzMfu
-	ZZdiqGfzzewmnOPv6keSwhx2QSFIz+xcxhe4UYcUxBT04YaKg9Ub9E3EUQMe30iwd
-X-Gm-Gg: AR+sD12R9ovlGAzo5VMHzPSwSpFiw2hwqvyTe7qiZ+VxdX61KvOI/lMLHSVR/AWhUjh
-	YPfdMlNRFw6gn3dc239EnU5HX4XQVYnJTMpIYXooIZ4PdIOtnPTtA8ZP/+tZe3ARqW56wX/8Dnr
-	sU3lEFSxPpevTaMJBLRTZWUpH899ietYpQeO8h27GUDj03QPJogrtbsv7olx4EhkCQfvHruCwkk
-	vzf6cICVOpcS60+ue8+rjFbIDKeNk5u5Qrh3cjpKhvNb8v3Q0qU1jaNhPP1fkkrFGbN24EmgWru
-	5a+rzNfLVYesbEMK8RzbRXaTr+hk3G1GFqnSdYyqywO0W2tIl/pPEHu/NmxJU9EzxinAyGdFV8D
-	dqh2Ei3UOLeUSe0QvEkTbKjtk
-X-Received: by 2002:a05:622a:1b8d:b0:51b:e991:92bd with SMTP id d75a77b69052e-529cfe17679mr3478851cf.7.1785163175091;
-        Mon, 27 Jul 2026 07:39:35 -0700 (PDT)
-X-Received: by 2002:a05:622a:1b8d:b0:51b:e991:92bd with SMTP id d75a77b69052e-529cfe17679mr3478451cf.7.1785163174501;
-        Mon, 27 Jul 2026 07:39:34 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39f2224cadbsm14056031fa.28.2026.07.27.07.39.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 27 Jul 2026 07:39:33 -0700 (PDT)
-Message-ID: <1dbdd44d-070b-4abc-a79f-3cde09de7d74@oss.qualcomm.com>
-Date: Mon, 27 Jul 2026 16:39:31 +0200
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="U0kl/rmo"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XZ5A+whiToehZnBDv1HIEyyjw6C49MrJIH2kUt14a4Eq7lI6X01X2I3tkpaMpIQatqedR8TCA73sQ1WIfc+TWde75G0HPR7PfDi9uxPM/zWPMbB2cJ4XCcKW382r2lmTss8Sp+kRnUMu5hnqOkBvGSiLJxIyPCyJLPI4wejE390GI4hqpQFtNBHbG1Jo+JENrsAZpLXMbAplFGw2OUQU8DOVas+owNw+Qh1/gpF30oyMpAuo6T8GS8OjN8DDbpWGS6OVUxTFcWSaQnCCKyvIcxNYnHhXHu4dMjip+X6Nx9t88QAfiEVIP3S8+YAV1abKxLEbgLoctlx+0UcFMN3/9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AS2r/ogP8W8CL9TEICJECqIAIRcOekbgxLvfJOZC220=;
+ b=XmPnWhWD0z/d+9ikUplOL37KJB0e609KtAAT20jLPKFygB3P8i1oJjJlYS4/ERn9Z0Hq1X8qw/EInw7RjXruFfb9EfvUBy5AwYQwdsWG9kvsegGrAVrCb8SnkUtWgzVzcizl90rprSsW5a3WM1eChbDGmNM1IYWDJh6quHnhy1y+kDuloU7E82O66+D57U/JPvVAqSTQqRRmC09iEHNnRDMqOI3gMZZTBPVhsV5+dkCmT6oPC+H8myv54aSfg7LLNZGHfh+sremSpQ/qKawiADlRIldraBleSCRyzbv0Y8/3kGgVEw3dtbqENsBtnzWBO1YvJcIaojuZqZkCUnnUkA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AS2r/ogP8W8CL9TEICJECqIAIRcOekbgxLvfJOZC220=;
+ b=U0kl/rmoaYHt9TAXjhKhDSzVGrIKDMfDkeKAzny8Hb152SFyNtjw/tJKDspoyylOkLxTqYgnTZfD6JUMscfbM2EcAqsZsoGFHBm5KpUQeNzcZ0j4p5RSO6burT7yHECumGVkhqkfv1nZAfLN8izQntq0A9pWjEBd+T4PjA8Gciq550JxvlvXjGm266WbThuKPnHa+PW30qeUYkcrMj59Sa5AC9JOGSGgJOFadvQMM/L+K9TYqyl9++wzYkK0FXFETbnfiuog7kd9tsUUV+4s83BcPYoXwIzEVEi/R6iPWjX5M35QKzp39ARQ/FQw3v0O0TjB3kKnY3nr9LY6VyAAvw==
+Received: from CH0PR03CA0100.namprd03.prod.outlook.com (2603:10b6:610:cd::15)
+ by MW4PR12MB7465.namprd12.prod.outlook.com (2603:10b6:303:212::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Mon, 27 Jul
+ 2026 14:39:51 +0000
+Received: from DS3PEPF0000C380.namprd04.prod.outlook.com
+ (2603:10b6:610:cd:cafe::56) by CH0PR03CA0100.outlook.office365.com
+ (2603:10b6:610:cd::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13 via Frontend
+ Transport; Mon, 27 Jul 2026 14:39:51 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ DS3PEPF0000C380.mail.protection.outlook.com (10.167.23.10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.270.5 via Frontend Transport; Mon, 27 Jul 2026 14:39:50 +0000
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 27 Jul
+ 2026 07:39:33 -0700
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by rnnvmail205.nvidia.com
+ (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Mon, 27 Jul
+ 2026 07:39:32 -0700
+Received: from build-akhilrajeev-noble-20260602.internal (10.127.8.11) by
+ mail.nvidia.com (10.129.68.8) with Microsoft SMTP Server id 15.2.2562.20 via
+ Frontend Transport; Mon, 27 Jul 2026 07:39:29 -0700
+From: Akhil R <akhilrajeev@nvidia.com>
+To: <sashiko-bot@kernel.org>
+CC: <Frank.Li@kernel.org>, <akhilrajeev@nvidia.com>,
+	<alexandre.belloni@bootlin.com>, <conor+dt@kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-hwmon@vger.kernel.org>,
+	<linux-i3c@lists.infradead.org>, <robh@kernel.org>,
+	<sashiko-reviews@lists.linux.dev>
+Subject: Re: [PATCH v6 06/12] i3c: master: match I3C device through DT and ACPI
+Date: Mon, 27 Jul 2026 14:39:28 +0000
+Message-ID: <20260727143928.177022-1-akhilrajeev@nvidia.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260721042558.925AA1F000E9@smtp.kernel.org>
+References: <20260721042558.925AA1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/4] arm64: dts: qcom: Enable USB controllers on Shikra
- CQS platform
-To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260723-usb-shikra-dt-v4-v5-0-5b69d9eb0888@oss.qualcomm.com>
- <20260723-usb-shikra-dt-v4-v5-2-5b69d9eb0888@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260723-usb-shikra-dt-v4-v5-2-5b69d9eb0888@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI3MDEzOCBTYWx0ZWRfXwvQUwWMFhhDm
- OVWZZLVxcq8zy6/74FsULFJAZqiAOnDl77ZbYGDJmCHjJa+HOkbiU5+Ihcya4HU6bWNo2aaY27z
- GoaoJ9JFgTf+j+krALGHqSppnGByIS4=
-X-Proofpoint-ORIG-GUID: GCDUbLZnDrjd9M-9MR4u69F3ICuue3od
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI3MDEzOCBTYWx0ZWRfXyTTDNZ/3wSHd
- zY/Y+QLN+4YyoBlESLvhoVTiC1bruRKqHmgrsH7zcHFGXep/L5zSv2DOPvt2+Vi9saO52bAUdCc
- cukQIHyUD2ofQSvrtCEnxQ1A83jidN0itIsw4vY3yM263phHnhT/sDU+NRAoEk2qufhdnQWgbCp
- DZ1Y7xxm+kNZeGmsw7Y2WpIhwHEek813HXWKKf8KaLdOYmvfgqjBO+Ey3gpUhl8iaGce3fAftGY
- mE2N1PWKqSoiz0nYEHYBDJMg+l4gjiP7SqzewawpZ4M/aWir/tyvO6xlLUJSswcXS2kecx/CMwb
- XotdE1rerz/WVnWPkktNaWK5QXqtIzIOSGogE3erP6dEBIGXUj2MWWMYqVv3eBgq1S0WXw9K1ji
- H549hXpTnoFAQZdKjmyURpzqMTZ1EacDkk0H3WOkflyRV67c5CKlyyAfxPMD34ztgG4lEdxSmE2
- Sn/OE4gyMCK27qQ7z8A==
-X-Proofpoint-GUID: GCDUbLZnDrjd9M-9MR4u69F3ICuue3od
-X-Authority-Analysis: v=2.4 cv=TemmcxQh c=1 sm=1 tr=0 ts=6a676da7 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=h09ikyFUrcXnkDd3N-sA:9 a=QEXdDO2ut3YA:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-27_04,2026-07-24_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 clxscore=1015 impostorscore=0 adultscore=0 suspectscore=0
- lowpriorityscore=0 malwarescore=0 phishscore=0 spamscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607270138
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PEPF0000C380:EE_|MW4PR12MB7465:EE_
+X-MS-Office365-Filtering-Correlation-Id: b011299f-be33-432e-0810-08deebecea52
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|376014|82310400026|1800799024|23010399003|6133799003|11063799006|56012099006|10067099003|3023799007|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	6PcZuelbuOTjRh9pDeWfOCAh8iG21g/cY8jcVF7s5CC7VlWE9nk/B6B94kG4lOwMk2uPeec2wKtJdsWiTyJLNLz8WXGUwWyVC9soGa4crcXRHCJK4YMj0DVDxN2YRoIPmmi30WYba92Hhm7kqTNtixmneQNjJcvwzAkg6TiBELoE9rLOUTPMQE0FfJ3nSX+kRIE+Bszx8WYanZ+7QHCcUF1Rr4WT1KmNl6g0aj+VcsCX/CTSPl2fR9kMF+06pcHdPalWicXvTVqiVHtPSSZ/b2t9j7DNRneYkNmnZrjJrzoNaVXQArcr2XJUyrjosq4qqPHq4gQuJRTedL4l9mFnZzBD1GncmVJc3OOQYMDuy7t/ljq7Fn5jSZ0SnVnXhYm/iPvXm3C1nOT+ltzTyj/9TCfir4NlGSgR1PflHLsossfXKSu1rHidp5zEEsRCZ+/HVr95nTfEi+25kGYOzPKHICs/5B6y4zQI7XCgifGyazn9RIom8ejfU5YGkr40ePvNT28ydMZUrpmZ3w9mZRNp65o8BwkprBxpEeHp5obRtij/0HihX1ecF7RgrsnWGJhjpuMVTF/JXcV9gx8fcpOlNW7j6bam9m0rf4k+ylLbOh5BYg03kQwzUSjBBeUEdFcS1lzvyHGehRj6rksH0/zrIlI253Jkyy9d08TeWAZOo7BdwnVM2rpxIRu9fAbu3jugBYbRSGD/Avs9igm5yM4Pug==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(376014)(82310400026)(1800799024)(23010399003)(6133799003)(11063799006)(56012099006)(10067099003)(3023799007)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	LCWKCFKWUUnOTPqsSB+fHBYookDr5/4lCnqJSK4xsrMuYBuyy8d6Naob62bYWJi22dRuYIQKAWWvQOVl/L6IPOmUT54VUZeR8NiqqKrYOzmOO+zM3EKBSw+zp+1WwDQpsr6JBAzrj8LfSlBqf849X2sobj3z6SAqjWQlSlIJiLq+1kJGOPaPYd2TK5QBgJAZ/K0bGghakNffRjb59EV5Mr/lK588+7hMIKhG/wLJa5JN6vRlRCh7STrTFlhvXjUCjjCX/3vrPaNA4IHM6lH8Km4SDr+CadfPmfnxBetaRXy5nncQQW1m4grZST02mSM6D+cY2elOctbC5F9DtXKSK2jaqfIDJS5dhnYpPw62uHMxYyS7U2niXd8xc10/n7JHU6Os6He673yOWCsZTJPtVC97QyuZgagpP47XfWsEKQJtN4HeyZAqATAlz7tez+hw
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2026 14:39:50.7877
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b011299f-be33-432e-0810-08deebecea52
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS3PEPF0000C380.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7465
 
-On 7/23/26 12:33 PM, Krishna Kurapati wrote:
-> On Shikra CQS platform, usb-role-switch is handled by PM4125 on primary
-> Type-C port and Cypress PD controller CYPD6129 on second Type-C port.
-> 
-> Since those changes are not yet present, enabling both USB controllers
-> in device mode.
-> 
-> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts | 35 +++++++++++++++++++++++++++++
->  1 file changed, 35 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts b/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
-> index b3f19a64d7ae..006e24a62f5c 100644
-> --- a/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
-> +++ b/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
-> @@ -38,3 +38,38 @@ &sdhc_1 {
->  
->  	status = "okay";
->  };
-> +
-> +&usb_1 {
-> +	dr_mode = "peripheral";
-> +
-> +	status = "okay";
-> +};
+On Tue, 21 Jul 2026 04:25:58 +0000, Sashiko AI review <sashiko-bot@kernel.org> wrote:
+> commit 7db2eb24719ceb614bd3ec6e5efb369d3b92fe6e
+> Author: Akhil R <akhilrajeev@nvidia.com>
+>
+> i3c: master: match I3C device through DT and ACPI
+>
+> SETAASA-based devices cannot always be identified by PID or DCR; the
+> standard I3C id_table matching may not be applicable. Allow such devices to
+> match through Device Tree or ACPI.
+>
+> > diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
+> > index 7b2f819bf4437..43bf530bc6619 100644
+> > --- a/drivers/i3c/master.c
+> > +++ b/drivers/i3c/master.c
+>
+> [ ... ]
+>
+> > @@ -345,15 +346,32 @@ static int i3c_device_match(struct device *dev, const struct device_driver *drv)
+> >  {
+> >  	struct i3c_device *i3cdev;
+> >  	const struct i3c_driver *i3cdrv;
+> > +	u8 static_addr_method = 0;
+> >  
+> >  	if (dev->type != &i3c_device_type)
+> >  		return 0;
+> >  
+> >  	i3cdev = dev_to_i3cdev(dev);
+> >  	i3cdrv = drv_to_i3cdrv(drv);
+> > -	if (i3c_device_match_id(i3cdev, i3cdrv->id_table))
+> > +
+> > +	if (i3cdev->desc && i3cdev->desc->boardinfo)
+> > +		static_addr_method = i3cdev->desc->boardinfo->static_addr_method;
+>
+> [Severity: High]
+> Can i3cdev->desc be modified concurrently here?
+>
+> Looking at i3c_master_unregister_i3c_devs(), it locklessly sets
+> i3cdev->dev->desc = NULL during device unregistration.
+>
+> Since the check in i3c_device_match() is done without locks or READ_ONCE(),
+> could the compiler emit multiple loads for i3cdev->desc, leading to a NULL
+> pointer dereference when subsequently accessing boardinfo?
 
-$ rg shikra-evk.dtsi arch
-arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
-9:#include "shikra-evk.dtsi"
+i3c_device_match() already dereferences i3cdev->desc without a lock (e.g.
+via the existing i3c_device_match_id() path); this patch adds the DT/ACPI
+branch in the same context. Serializing desc against concurrent DAA /
+hot-join spans the whole function and its pre-existing callers, so this
+will have to be fixed separately.
 
-arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
-9:#include "shikra-evk.dtsi"
+> > +
+> > +	if (i3cdrv->id_table && i3c_device_match_id(i3cdev, i3cdrv->id_table))
+> >  		return 1;
+> >  
+> > +	if (static_addr_method & I3C_ADDR_METHOD_SETAASA) {
+> > +		if (of_driver_match_device(dev, drv))
+> > +			return 1;
+> > +		if (acpi_driver_match_device(dev, drv))
+> > +			return 1;
+> > +	}
+>
+> [Severity: Medium]
+> Will this fallback matching break the assumptions in existing driver probe
+> functions?
+>
+> Currently, drivers typically call i3c_device_match_id() in their probe
+> routine and unconditionally dereference the returned pointer.
+>
+> When an I3C device binds via DT or ACPI through this new path,
+> i3c_device_match_id() will return NULL. If developers add an of_match_table
+> to existing drivers to support SETAASA devices, won't this cause an immediate
+> NULL pointer dereference during probe?
 
-arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
-9:#include "shikra-evk.dtsi"
+The i3c_driver probe callback does not receive an i3c_device_id, so a
+driver that looks one up must handle its absence for firmware-matched
+devices. The spd5118 driver added in this series matches via
+of_match_table and does not rely on a class-table ID.
 
-I think I asked either in private or in public, don't remember at this
-point, just enable these controller once. They are all the same board
-with the chip and PMICs swapped. Override just the supplies in the final
-DTS files.
+> [Severity: High]
+> How does this change affect module autoloading for newly supported devices?
+>
+> While the patch allows devices to match via DT or ACPI, it appears the bus
+> uevent callback, i3c_device_uevent(), was not updated and only emits the
+> generic I3C modalias.
+>
+> Since of_device_uevent_modalias() or acpi_device_uevent_modalias() are not
+> called, won't the uevent lack the required of:N... string, preventing udev
+> from matching the device against the driver's MODULE_DEVICE_TABLE(of, ...)?
 
-Konrad
+This is a deliberate trade-off. Emitting the OF/ACPI modalias from the I3C
+uevent suppressed the native I3C modalias for standard devices (the
+regression raised on v5), so this patch keeps the native I3C modalias.
+Firmware-described devices are still matched via their firmware node
+(of_/acpi_driver_match_device), and probe/bind was verified on the target
+ACPI platform (SPD5118). If OF-modalias-based autoload also needs to be
+restored for such devices, it can be added without clobbering the native
+I3C modalias as a follow-up.
+
+> [Severity: High]
+> This is a pre-existing issue, but can the removal of an I3C device leak
+> uninitialized kernel stack memory to user-space?
+>
+> When an I3C device is removed, i3c_master_unregister_i3c_devs() sets
+> i3cdev->dev->desc = NULL before calling device_unregister(), which
+> triggers a KOBJ_REMOVE uevent.
+>
+> In i3c_device_uevent():
+>
+> 	struct i3c_device_info devinfo;
+>
+> 	if (i3cdev->desc)
+> 		devinfo = i3cdev->desc->info;
+>
+> Since i3cdev->desc is unconditionally NULL during removal, devinfo is left
+> uninitialized. The function then proceeds to construct the MODALIAS string
+> using devinfo:
+>
+> 	return add_uevent_var(env,
+> 			      "MODALIAS=i3c:dcr%02Xmanuf%04Xpart%04Xext%04X",
+> 			      devinfo.dcr, manuf, part, ext);
+>
+> Doesn't this deterministically embed uninitialized kernel stack data into the
+> uevent environment variables, exposing it to user-space programs like udev?
+
+Pre-existing (the desc == NULL case in i3c_device_uevent()); not introduced
+here. Better fixed separately.
+
+> > +
+> >  	return 0;
+> >  }
+
+Best Regards,
+Akhil
