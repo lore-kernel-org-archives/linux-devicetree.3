@@ -1,325 +1,279 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 660CC3CFF6A
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 19:16:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C26F3CF203;
+	Mon, 27 Jul 2026 19:16:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785179797; cv=none; b=vAiToZeiIeLWu0yNTnF1qno0TfM5TAi4ZcR+tKJSo0Gjx4Z+QxA7PB2nPdedkoz4g4qz9tBCiSIARxTH0RGUpPT7eytfgmUq3GcmDwqJGbykvxm9/xdsynKjdMd++Prm5dgmnGDJY9BJojnb9+C9pXAEh48WuaXie/7A9c+gzB4=
+	t=1785179800; cv=none; b=Vp+KtrFDgBzp8Ut7O1yrZzqHYuFxpzKvAS2FzcglQmVAMLh3T9hh7GYDq3d5GPOr8mgjAWW4lhzMMR42mH/CqO1bzQIyQyf+tAJF17zKQ9Q7Am8sNT/hFYU2NYEunQzno8IF+tGgFXem+48ZChSo8w7da9p28p4tyWtEx1GC9Y8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785179797; c=relaxed/simple;
-	bh=a79mpsBGOjBG04lPkNMqGEl+g+V/3IKRDyM8eJWkROU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mG8sMZ5p8+cXd5HdZQu7w+JHkaMDe3hWzGO3jx/saAwozRH7q/YrTeGVmLrGWypG7+wSk46Uz4SAzwpJZbAGXunyYk5ZRUUyCmhwP+8N8TzdG5rzpJCMfXuH5ojOt0lIAsMmzPNBwyxYaXfCPK8TJ9fS/xXfvd0m3X5AOfbOzWU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=HjWFCGzx; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1785179800; c=relaxed/simple;
+	bh=L5YC/sZ2QpVeNEpeZ2BRKP5JntgdZBdt2QyL+ubYj4I=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cYzyisE07f7xQo0Hste0XcOyWwAui0kJfc1wQ9njSOvj1qMPTU6AqmywborDZd0jlPqYPPaj6LajVWlk6CAPUkwiYmIWbiRHIPkA5n68AZfih2jTe0PC+eiis4YdxG7v8H1cRfJnKr9PMteCCpuzLhNRI3s1JKPIA3HABtsEf24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b=UjPiRFCe; arc=none smtp.client-ip=212.227.15.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="HjWFCGzx"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-471eeac43bfso2677880f8f.3
-        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 12:16:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1785179794; x=1785784594; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hUnEXYHfE21rZw1q9AJTuUDahJJZ6wDRNt2yCVGSXAY=;
-        b=HjWFCGzxEWUi1ot0o7PPhm4ZzanA/Lgy3SJel1kqjDQYt0Tm95IlL0jiziC5gE9ECM
-         CKvP53x1NSAM1yGIs/L86l/Cu+lNv3koCBcEryf6RmWdOQk8o0JK4ymEkJfHY2OERAtn
-         gzJSJYugmQZ+dJJch08/7XUyf0rS4FuzEz2GUDai3CL37Ywo2pRU3KJCVzIjP4ly6tR9
-         L+fiIjQmQz1r8o/YFaRTLlPFNlO79L/CbQ7lJIqO9PQLIxLeyhV6JdicQw5jR9s7gvJB
-         yJP/lFDM825Ac3wiuaJhWxyPQRlGJWFI3mR/TzKUqBAVaQTyWyHZjJE0BUFuo9tmovH1
-         UUTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785179794; x=1785784594;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hUnEXYHfE21rZw1q9AJTuUDahJJZ6wDRNt2yCVGSXAY=;
-        b=ay30VEC7ca8M3I80LCSU1IGxZi8yeepbYyhr3O7kiQIUNV6wfIcqw9T5kB72jBU//5
-         i1+2kcz7S7ccVY666SAWxeuhYiHOIY+F5gdgTM+OszpvRayxLqD/9h5qPVgvCxGKHjrr
-         ygM8YDSBtxR0gMLQ2BW8C/Jeu3VVgVvHwk+li29eRbqOkSFCLaC9ob0tCKOHJ/+vJwl7
-         yYHJZibzcVFo8/RM3tZy0aBF/7A/wZFtvVwtlYPXhcRAgNC0lPYAMc/ICVTMJfoj+otF
-         rqHWQQE/kYvYVhFO08cm1cZW8Zufy5ZDlPAwvPE9AGaYRSwY1bapHkN4BokXw2umTAL3
-         37bQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqhfOtcDDyreE2OSZLyyHkcn62mdAF4tNzx1OAIb62RXZjx5RqNJGCRr+lAT8Gyiljt0oOTFPkhvruR@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy1ZUfdO8FDdvXbRJYeYDO4lv43WS2ihPI6z/wQ3dbtYvsjhBOF
-	MWICGiHa5AhyT5uWdD9uQxGHWJ6llVfGWIGXo/VdwBNE3HUHOaxvOGFFx1zPCowO4XA=
-X-Gm-Gg: AR+sD121rNJtU+PEcAxB6Dd0gIAbw8HLrjofeRYdIuWi1hL+pjvwoa6hc1/ePCx86ML
-	ohzAcwFmC3lLvdRjSDNZCEAjeWsFwfXJ/6ECx1MwOQg61annnxaB9PcCTdrBdb+zfMzXS6r94Y1
-	vQ5ZSBuO0bLbnCrznRscvSXHTRPWA/ESa2i8QjxWmd2IqIQr8/ZKi7uINLictXnz/rvGI8mxr/S
-	pAkjv+9aZr5F/xip19E81Z7jzwExTx/3AvXUFFMB5672xEt25SQTzVbq3CElOkhD/kEsaKxwx81
-	eCXA42lQn4Tw8n3mZCWg+aDGQRISYJdgoYSh+U12qnahnqiiKs7ZF6T/SoaUv+DTeYZPEAvIm8P
-	Qzxe8Pz9qggd/K+D69ZvmPVqMGKCjAdHb/vHbYRJZpu7tDiQ1xv92VHcU6QtQ5PJQWg2JRdRQGI
-	qQucW/YpW8TCcgS65zHeoeVua0sLbJRulddCk=
-X-Received: by 2002:a05:6000:603:b0:47f:8f8f:e494 with SMTP id ffacd0b85a97d-47f9fc8c3f2mr12091014f8f.2.1785179793590;
-        Mon, 27 Jul 2026 12:16:33 -0700 (PDT)
-Received: from [192.168.0.35] ([109.77.105.162])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85b9a6d7sm50749607f8f.2.2026.07.27.12.16.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jul 2026 12:16:32 -0700 (PDT)
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Date: Mon, 27 Jul 2026 20:16:23 +0100
-Subject: [PATCH v14 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b="UjPiRFCe"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1785179772; x=1785784572;
+	i=markus.stockhausen@gmx.de;
+	bh=wfHwXvl0asFCK8Kz3AHpUBZFPj2n+hqqODivkrTs9Wk=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=UjPiRFCes4swGu98SSHyKhBvp0Jh5lIHIyIHg807Quk679d/FVs4uZAtSvWXKGpD
+	 rEk0zyXi/unSpJFKxEhAsu5bnWpcXJaUBr/feUIDP88FIRG7CYohIdHvcAPfRx5si
+	 jyTGS11xuz1/B0iChKRor9si4T/4MdVidoZioKBEXibQHrWREDCvmhHlN/3IPQQRb
+	 5He4mOobntQgvX6HZCwWStF8uqmVtiqLwxnzoYyNnqA7rid0hlid2lgx5S4LIYFls
+	 /UvUeW1Wqbs2+z80lUZRQQvE6skdtfZrPYgJ+Db9M61/nZwNjUJzBqzJRWnTuv4TA
+	 AdukWQfXS3VZRXC5VQ==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1N79yQ-1x2dE031bQ-00tlbX; Mon, 27
+ Jul 2026 21:16:12 +0200
+From: Markus Stockhausen <markus.stockhausen@gmx.de>
+To: andrew@lunn.ch,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	netdev@vger.kernel.org,
+	chris.packham@alliedtelesis.co.nz,
+	daniel@makrotopia.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org
+Cc: Markus Stockhausen <markus.stockhausen@gmx.de>
+Subject: [PATCH net-next v8 2/9] net: mdio: realtek-rtl9300: Add polling documentation
+Date: Mon, 27 Jul 2026 21:15:52 +0200
+Message-ID: <20260727191559.19617-3-markus.stockhausen@gmx.de>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260727191559.19617-1-markus.stockhausen@gmx.de>
+References: <20260727191559.19617-1-markus.stockhausen@gmx.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260727-x1e-csi2-phy-v14-1-27d1bf477593@linaro.org>
-References: <20260727-x1e-csi2-phy-v14-0-27d1bf477593@linaro.org>
-In-Reply-To: <20260727-x1e-csi2-phy-v14-0-27d1bf477593@linaro.org>
-To: Vinod Koul <vkoul@kernel.org>, 
- Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Bryan O'Donoghue <bod@kernel.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
- linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6404;
- i=bryan.odonoghue@linaro.org; h=from:subject:message-id;
- bh=a79mpsBGOjBG04lPkNMqGEl+g+V/3IKRDyM8eJWkROU=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqZ66Jn5OlDyo6vhpgCBin+L7h0YqWxbGjstZVP
- C66uQ4oTc+JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCameuiQAKCRAicTuzoY3I
- OjgLD/9B+NyWa4Vrj9hwA4hOIP4+MnDvWvT4lU0FeJStXf+PS5UL/DJDI9kn+zRvpVNH4UiFm5K
- nD3FfNcC4yGiMPheIeSS7C3lgRgGW9FRt04CTiSkkYQ1OooIFY7IObhF0Mny/t5JmPSCDdU/9cy
- XmW5csB1WjHEIfGLGGYZae+ubqazIjj83VD4e07U5nH6U/UIMZajAeE3C+FH2q4btUUOz/5Pty3
- 9iE21Tzbnm+GfdP+kvgBRRzZWLtfSfRj6jmfXA/pWi/Ygb8S25/rtG0N1oivKts3hLqA8vVE/hv
- qgke0/e/lH5i096Mm0DfYHoAPLjrviJ3nh+ILOwdEFO5zd3w+qPVtGfZ45cl+10TKUAE8lrxONh
- fy290+FWYkjv0oY5cTcgs8z4gSDENtX+cwZQjai/7HzCs7W/DkTEkAeOPXeekpjoBjXmJy9EmKG
- EmFKAo1Kpf870hWcbFtvCT4B8XSakoo3VArwVZTYnA0ERccDyPHhE5iIS4JVDpe1SepJWdiE/IB
- 1G+J0EEC0T3w2aGfFi5LIObt9oRaEKaclxMf/h5r+OR4s8LTH+s+sTF2VTAaBoB4m4oFd4DbxTb
- Oab+Gi2Ry7gJ9qeiPe89bLwfEmtY/NLF8Wg6E6NIHItI/xjO2INo3soJ0ZONnJFtKae9n9J/Fyi
- ZgtEtc2KRY2obKg==
-X-Developer-Key: i=bryan.odonoghue@linaro.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:v4W2kI9K24zaKJlhDjj5xeqzl3GJHl7zrK0HcyHLtyFfDI5DPmT
+ RfHxa3RU+wJu9qlUfZo1GhvGnDd6iWlMbwYdi/ojsvELOP3Rf2jpRq8hjWqQ5XGirjMqoIw
+ J4tIyyas+Al8QTlNoq2BD2tPmEww00mp/TlP3E46AYnv2NUK+WfIAuWNVhoKF+QRaQbc31b
+ 6vhskvT6svBM2bLlZOOEg==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:vTLjPdiGfFs=;OEGBE4OFR68RPkJqE9tAXXmjC8N
+ 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
+ gCkQ/M/VNZJ1wBV+NBLCL
 
-Add a base schema for the MIPI CSI2 PHYs on Qualcomm SoCs. This PHY
-supports both DPHY and CPHY operation. A special mode of DPHY operation -
-called variously split-mode or combo-mode also allows for two sensors to be
-connected to one PHY.
+Add a detailed explanation how the hardware polling unit in the
+Realtek Otto switches works. This simplifies developing future
+patches and reviewing them.
 
-The submitted binding here describes the DPHY modes of operation only. CPHY
-is left to future work.
+Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+=2D--
+ drivers/net/mdio/mdio-realtek-rtl9300.c | 75 +++++++++++++++++++++++++
+ 1 file changed, 75 insertions(+)
 
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
----
- .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 198 +++++++++++++++++++++
- 1 file changed, 198 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-new file mode 100644
-index 0000000000000..7d0363812aa89
---- /dev/null
-+++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-@@ -0,0 +1,198 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/phy/qcom,x1e80100-csi2-phy.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Qualcomm X1E80100 SoC CSI2 PHY
-+
-+maintainers:
-+  - Bryan O'Donoghue <bod@kernel.org>
-+
-+description:
-+  Qualcomm MIPI CSI2 C-PHY/D-PHY combination PHY. Connects MIPI CSI2 sensors
-+  to Qualcomm's Camera CSI Decoder. The PHY supports both C-PHY and D-PHY
-+  modes.
-+
-+properties:
-+  compatible:
-+    const: qcom,x1e80100-csi2-phy
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 3
-+
-+  clock-names:
-+    items:
-+      - const: core
-+      - const: timer
-+      - const: ahb
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  operating-points-v2: true
-+
-+  opp-table:
-+    type: object
-+
-+  power-domains:
-+    items:
-+      - description: Titan Top GDSC - Titan ISP Block, Global Distributed Switch Controller.
-+      - description: MMCX voltage rail
-+      - description: MXC or MXA voltage rail
-+
-+  power-domain-names:
-+    items:
-+      - const: top
-+      - const: mmcx
-+      - const: mx
-+
-+  vdda-0p9-supply:
-+    description: Phandle to a 0.9V regulator supply to a PHY.
-+
-+  vdda-1p2-supply:
-+    description: Phandle to 1.2V regulator supply to a PHY.
-+
-+  ports:
-+    $ref: /schemas/graph.yaml#/properties/ports
-+
-+    properties:
-+      port@0:
-+        $ref: /schemas/graph.yaml#/$defs/port-base
-+        description:
-+          Sensor input. Always present. A single sensor is described by a
-+          single endpoint with one to four data lanes. DPHY split mode,
-+          where two independent sensors share the same PHY, is described
-+          by two endpoints; endpoint@0 with exactly two data-lanes and
-+          endpoint@1 with exactly one data-lane.
-+        unevaluatedProperties: false
-+
-+        patternProperties:
-+          "^endpoint(@[0-9a-f]+)?$":
-+            $ref: /schemas/media/video-interfaces.yaml#
-+            unevaluatedProperties: false
-+            properties:
-+              bus-type:
-+                enum:
-+                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
-+                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
-+
-+              data-lanes:
-+                minItems: 1
-+                maxItems: 4
-+                description:
-+                  Logical lane indices 0-3, not physical pad positions.
-+
-+            required:
-+              - bus-type
-+              - data-lanes
-+              - remote-endpoint
-+
-+        allOf:
-+          - if:
-+              required:
-+                - endpoint@1
-+            then:
-+              properties:
-+                endpoint@0:
-+                  properties:
-+                    data-lanes:
-+                      minItems: 2
-+                      maxItems: 2
-+                endpoint@1:
-+                  properties:
-+                    data-lanes:
-+                      maxItems: 1
-+              required:
-+                - endpoint@0
-+
-+      port@1:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: Output to the CAMSS CSID controller.
-+
-+    required:
-+      - port@0
-+      - port@1
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - clock-names
-+  - interrupts
-+  - operating-points-v2
-+  - power-domains
-+  - power-domain-names
-+  - vdda-0p9-supply
-+  - vdda-1p2-supply
-+  - ports
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/qcom,x1e80100-camcc.h>
-+    #include <dt-bindings/clock/qcom,x1e80100-gcc.h>
-+    #include <dt-bindings/media/video-interfaces.h>
-+    #include <dt-bindings/power/qcom,rpmhpd.h>
-+
-+    phy@ace4000 {
-+        compatible = "qcom,x1e80100-csi2-phy";
-+        reg = <0x0ace4000 0x2000>;
-+
-+        clocks = <&camcc CAM_CC_CSIPHY0_CLK>,
-+                 <&camcc CAM_CC_CSI0PHYTIMER_CLK>,
-+                 <&camcc CAM_CC_CORE_AHB_CLK>;
-+        clock-names = "core",
-+                      "timer",
-+                      "ahb";
-+
-+        interrupts = <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>;
-+
-+        operating-points-v2 = <&csiphy_opp_table>;
-+
-+        power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>,
-+                        <&rpmhpd RPMHPD_MMCX>,
-+                        <&rpmhpd RPMHPD_MX>;
-+        power-domain-names = "top",
-+                             "mmcx",
-+                             "mx";
-+
-+        vdda-0p9-supply = <&vreg_l2c_0p9>;
-+        vdda-1p2-supply = <&vreg_l1c_1p2>;
-+
-+        ports {
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            port@0 {
-+                reg = <0>;
-+                csiphy0_in: endpoint {
-+                    bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
-+                    data-lanes = <0 1 2 3>;
-+                    remote-endpoint = <&sensor_out>;
-+                };
-+            };
-+
-+            port@1 {
-+                reg = <1>;
-+                csiphy0_out: endpoint {
-+                    remote-endpoint = <&csid_in>;
-+                };
-+            };
-+        };
-+
-+        csiphy_opp_table: opp-table {
-+            compatible = "operating-points-v2";
-+
-+            opp-300000000 {
-+                opp-hz = /bits/ 64 <300000000>;
-+                required-opps = <&rpmhpd_opp_low_svs_d1>,
-+                                <&rpmhpd_opp_low_svs_d1>;
-+            };
-+        };
-+    };
-
--- 
-2.54.0
+diff --git a/drivers/net/mdio/mdio-realtek-rtl9300.c b/drivers/net/mdio/md=
+io-realtek-rtl9300.c
+index afd52a1cd7f8..3dee5bff4134 100644
+=2D-- a/drivers/net/mdio/mdio-realtek-rtl9300.c
++++ b/drivers/net/mdio/mdio-realtek-rtl9300.c
+@@ -35,6 +35,81 @@
+  *
+  * The driver works out the mapping based on the MDIO bus described in de=
+vice tree and phandles on
+  * the ethernet-ports property.
++ *
++ * The devices have a hardware polling unit that runs in the background w=
+ithout any CPU load. It
++ * constantly scans the MDIO bus and the attached PHYs and updates the MA=
+C status registers.
++ *
++ * How does the polling work?
++ *
++ * Each device has a SMI_POLL_CTRL register. A per-port bitmask decides i=
+f the hardware polling of
++ * the associated bus/address is active or not. The hardware runs a tight=
+ loop over this and for
++ * each set polling bit it issues a status check for the PHY. Attaching a=
+ logic analyzer to the
++ * MDIO bus of an RTL8380 and RTL8393 gives the following commands (in ke=
+rnel notation):
++ *
++ *	RTL8380				RTL8393
++ *	---------------------------	---------------------------
++ *	phy_write(phy, 31, 0x0);	phy_read(phy, 0);
++ *	phy_write(phy, 13, 0x7);	phy_read(phy, 1);
++ *	phy_write(phy, 14, 0x3c);	phy_read(phy, 4);
++ *	phy_write(phy, 13, 0x8007);	phy_read(phy, 5);
++ *	phy_read(phy, 14);		phy_read(phy, 6);
++ *	phy_write(phy, 13, 0x7);	phy_read(phy, 9);
++ *	phy_write(phy, 14, 0x3d);	phy_read(phy, 10);
++ *	phy_write(phy, 13, 0x8007);	phy_read(phy, 15);
++ *	phy_read(phy, 14);		phy_write(phy, 13, 0x7);
++ *	phy_read(phy, 9);		phy_write(phy, 14, 0x3c);
++ *	phy_read(phy, 10);		phy_write(phy, 13, 0x4007);
++ *	phy_read(phy, 15);		phy_read(phy, 14);
++ *	phy_read(phy, 0);		phy_write(phy, 13, 0x7);
++ *	phy_read(phy, 1);		phy_write(phy, 14, 0x3d);
++ *	phy_read(phy, 4);		phy_write(phy, 13, 0x4007);
++ *	phy_read(phy, 5);		phy_read(phy, 14);
++ *	phy_read(phy, 6);
++ *
++ * After one PHY status is read, the polling engine goes over to the next=
+ PHY. If one bus is fully
++ * scanned it switches over to the next bus. Basically the polling system=
+ is always busy and the
++ * MAC state is updated in real-time.
++ *
++ * This is a glimpse look at the complexity of the polling and leaves out=
+ the C45 case and the MAC
++ * register update logic afterwards. Important to note:
++ *
++ * - 100 MBit downshifts (broken cables) are identified and propagated to=
+ the MAC correctly
++ * - Access to MDIO_AN_EEE_ADV and MDIO_AN_EEE_LPABLE works via C45 over =
+C22.
++ * - It is unclear if these sequences change for different PHYs.
++ * - Access to Realtek reserved register 26 (link speed) has not yet been=
+ seen.
++ *
++ * How does MDIO access from kernel work?
++ *
++ * When issuing MDIO accesses via an MMIO based interface the final write=
+ to the command register
++ * sets a "run command now" bit. Between two polling sequences for differ=
+ent PHYs the hardware
++ * checks if a user command needs to run and sends it onto the bus. After=
+wards it simply continues
++ * its polling work. Inspecting the command sequence for a paged read on =
+the logic analyzer gives:
++ *
++ *	RTL8380				RTL8393
++ *	---------------------------	---------------------------
++ *	phy_write(phy, 31, page);	phy_write(phy, 31, page);
++ *	phy_write(phy, reg, value);	phy_write(phy, reg, value);
++ *					phy_write(phy, 31, 0);
++ *
++ * What does this mean?
++ *
++ * There are slight differences in polling and PHY access between the mod=
+els but the challenge
++ * stays the same. On the one hand that greatly simplifies the MAC layer,=
+ on the other hand it
++ * has some implications for the kernel PHY subsystem.
++ *
++ * - Without the polling and a proper MAC status, some of the link handli=
+ng features do not work.
++ *   Especially an unpopulated MAC_LINK_STS register cancels operations t=
+o other MAC registers.
++ * - The Realtek page register 31 is magically modified in the background=
+ so that polling will
++ *   read the right data. On the RTL838x polling simply resets it to zero=
+. Other devices seem
++ *   to track the page access "magically" in the background.
++ * - A C45 over C22 kernel access sequence is most likely to fail because=
+ chances are high that
++ *   the polling engine overwrites registers 13/14 in between.
++ * - PHY firmware loading can have issues. Especially if a PHY is designe=
+d to expect a clean
++ *   sequence of registers and values without deviation.
++ * - An access to one PHY will need to wait for the next free slot of the=
+ polling engine.
++ *
++ * Conclusion: The Realtek MDIO bus driver PHY access must know and handl=
+e any interference that
++ * arises from the above described hardware polling.
+  */
+=20
+ #include <linux/bitfield.h>
+=2D-=20
+2.55.0
 
