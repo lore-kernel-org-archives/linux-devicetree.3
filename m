@@ -1,65 +1,65 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C97A33DD87A
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 07:30:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E0003DDAF1
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 07:30:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785137408; cv=none; b=NSHO2KNl3cILxukG0V3JbEmaIS7D9288mrEC9BU6FVkuMeTQnC7YHK7Ba9QxSLgC6ABiH8VH6J5WPxVG0aEAuD4edFnYmqgXAd9gijoAb/CidgjsLreERz65dr+4yjx7Q0SLQNpc+d+e6gWWDL2+gckoTTJXIP9zX/4blD2EjSE=
+	t=1785137411; cv=none; b=LebyeIududSSlh6qL4NwiERQhffWHCpL1FiYsxWpILLeOAu8izwNgL+jBlG3A31hwB+2/8J6yHGbcdLAil73Zp66RDYuYOsNT32iuN6DeHOP3M837NUJ+Egvi6KYTYfUqF4AgpHrx5dNyyWupdPu/4VlKlVq1l5tR0PeRHLWFuc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785137408; c=relaxed/simple;
-	bh=8D2xL3tTsN51pzCX0A+8Dvq6aPMRQVp05YS8gk/w39k=;
+	s=arc-20240116; t=1785137411; c=relaxed/simple;
+	bh=nGk9jrc3MYLq2bbjnn6VNP5rcorFJ1J4amam5ohGl2Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=IMai5X49yXcLORw1CUQ+BPaFMUgiBmsP1wFtPS0MhmiHqhNwIbyYtBh/A+jThvOzejoRXpttqlLDI/Ch3AMaDdbjPigg8GZig+sXi/e1NWUz8e/uFyMoX9T1al2mIPb9cRqRq4rUiJODFWAPwzWVJ5RI2z5+GVVACu5w+YC9ozc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=DiAcoWyn; arc=none smtp.client-ip=209.85.221.42
+	 MIME-Version:Content-Type; b=HDKkEvXBPEtTsTGjcSWOdeVKEEs+F+W/kNScU4sm3046XZUrS0f5p34VLjjOsKd7JM/OG3zFJ5EKzCBZivmOz3FBnCNcuGBpHtfUYszmBt6m4qSiaa+MalQ5tH4zLLOBj6bOxSGbL7aceMlj1IaNXlA7zHP16VYeHkZwTgmpRx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=E8wLxGLs; arc=none smtp.client-ip=209.85.128.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=9elements.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="DiAcoWyn"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-47f92e3c14bso2217676f8f.0
-        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 00:30:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="E8wLxGLs"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-495757ccbc1so21844855e9.2
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 00:30:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=9elements.com; s=google; t=1785137404; x=1785742204; darn=vger.kernel.org;
+        d=9elements.com; s=google; t=1785137407; x=1785742207; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=7MzOsUeybMS9dXaNgD2Ggm/YXuUKfNu/EThsAs7XLtY=;
-        b=DiAcoWynGeoS3yVS3sSj5W3Dk28Pf5A7io2rw9qw0XoWznFSLNxD1vnCh21ZlkLAMv
-         y5T12Z5d3z9+X4gcXjhclcz+GanSQTc7jE3bEPS72hW++TnEZ6JzGulQJiXAU3EFBvui
-         /Wgu7oqkDoMRGhKSO33KNa3LGj9A90O3Z2H5bb2v6wTHGoRW3IV3x91ITwgWBURtNBgx
-         mZ42Dat7PinmbPc7I5pFEVmGzdxCG3H8ev1b26lCrcsOxX/PtXfaVwmZ+3niqUaxGLPd
-         2XaFy5Ta5D5v+6uzE/wu1Pb3VlCgg/Mqc3++v1jlDigMhfzu36j+BIo6EJ7ehKU+FudZ
-         i2+A==
+        bh=7Ly3YHLnm48uwYiEmyCIsl4iQ3O9RMhr22ExICtid7I=;
+        b=E8wLxGLsy9d/sgXD50V5gBUnxa++Pt1MbEVFgoG0KnjiC5bXWsaS6z1ziMd+V4x7ey
+         uX06N0tVeZ7KuSlBG2JD+mzWfOEXgZTEsTRVJUMDiJMPDDZpDT8aecdHhWIvRFXE0N9B
+         oCFvdYpAQfGTpadDtH9hQedVx/Oj4CJm1rp6ztgpdh4FlcXq8ddKoqpcOvO6iYw+jyJi
+         dmnmvMA4mLOF3LXbOQEsgtVNalGjtzWw5a622YKYVbJ4g/RwPaZ9UVw4TkCUPNffiP1K
+         VVMUraAGIurF8R0qm+Jyy1CtUy7Qd1og2Tz34KJ/6iNnnTBxogu2RD1Fpn0gNPY4MjmD
+         Ck6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785137404; x=1785742204;
+        d=1e100.net; s=20251104; t=1785137407; x=1785742207;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=7MzOsUeybMS9dXaNgD2Ggm/YXuUKfNu/EThsAs7XLtY=;
-        b=K9NpeGHd/qqNq4MEmfDMO4JLskj4A3YNm96JdFhu1t+VQFDudlfwQS3zbaGDXTdKp6
-         L7KjGZ2zd/btfs6lTnaJDZ0fGjBXsKHxN2MEB2gmWmiUakEd5PrRIwqTlQwvSoNn0qTL
-         Ivb9ayQGlsHx+InpKgBOYWOzO6Z+N+PM2mgEJBVnsN7ERwDNydeILVXrWbDqLH7HCH5G
-         uKNCsDuHzmhIaVd6JQEKobMz3j1gRhmZbhvTW0GMX9CGMRtuTH/+QElfuWW+Ezh2aDEG
-         320ogmJ/bh5tJnPCiK7ISeTEl7xJEunBpWf0yvlsNJC7uD9RsA4Av47kXnyNPK3z06qD
-         ctRw==
-X-Forwarded-Encrypted: i=1; AHgh+RpdsJ62nW3PbhkXlkwzwqCfF+BIj5Vn+az3ypoSQrSAQT+o0cqI6JwOIRfi+xtkWvFsZOie3U2Gs+pF@vger.kernel.org
-X-Gm-Message-State: AOJu0Yye6pkp63B0W5vmtwD8An9qIf/JlUEBCrTTWoSa4bdDjH4+UE+y
-	3EfvKLCotxr+WYL2n1fDxBKUF1FVwhwcj1NLHPw+D62es/o1v5igENgaQbIBPbN9bbY=
-X-Gm-Gg: AR+sD12BkNhxmKbW8jqA8nSkwtfEbVE7fCdzIN/+EEM9BEugf5nCCBkFheTfvt0PeXy
-	qS+GBFhkxRUpLMhYmBSFxxYv1XYaCkinaERVNsNkO74/T3mP5mJR3p7Q30i8gw+Bm5ht1kduSK4
-	IRUFoZQqoJKC8Z2T+ouJ31/uitiCK5tdJp3wzlf1dZjpPdBNiUepgVMooHpLN1QvKjEvaD1NpSG
-	o6di9h7NdtXl1fZ/1z4kO/WYeZOowFtghYNUMpYUTfFBLRawBHCwOcIcog/JxDe/7yZRhKfs1pK
-	CrP1Mzg5EKPo+sZn3fu2UGZ7pQvPYA3UHJsI6/JhBCFSMJT2Q/JYmGbekGfjrFFQUIL7jzPVt6l
-	mHbcrku+jY/5FmdZOfSi6Nay8w+Mc9LsiV6wYPmsRzdbKpXcrW4MdV6unLpTsaueDUBoVBxcjlr
-	BbCQ7RB9DcoqCTs3fR/xQ28JxQM/cTaTlx61ol9bV4XJmU1gCFPlX6Xb4px+dcRSDrdss7tzXrO
-	XE3PBfAuaveDdOdDQ==
-X-Received: by 2002:a05:600c:310d:b0:495:7b1b:f387 with SMTP id 5b1f17b1804b1-496b56f141dmr93289595e9.24.1785137404083;
-        Mon, 27 Jul 2026 00:30:04 -0700 (PDT)
+        bh=7Ly3YHLnm48uwYiEmyCIsl4iQ3O9RMhr22ExICtid7I=;
+        b=c+kq0LH7X6wLwDsA1NCkMjCc1Xl7y5eKUssj+8EB8MOOzW6MNQYVJFGCvxaEo0wkcR
+         9JKssIkOV5YFcKfy3NzsD4fxxIRIAGLilTPuT2K9cl2x2nSV3qEDS1mf3FEQ4HUvTfhg
+         cNgCAV6BJlC5FfZQF8WeNQRSOEGoeP3CrKq7Ban7lnTsRSnL/TuFz4gvnQjGOd/HDfns
+         Syhxzjnl/zsvyH/E6RcA4d/lgASe5eLsWUVKUCuFi5B0e7cZ8SnDUuP/ChGZiOgPjpE9
+         vwvNEy1dAsYUJfUp7evf8hvKRm3a8GwGonCHXT/YWgs94ZRV1l3zsPBn2Vgd6LEVCc2Q
+         GBuw==
+X-Forwarded-Encrypted: i=1; AHgh+RrJsq7R+dEJawIYXuu+x6Mk30Ym8ARW5DGhIlPQFd0alBfl+s9YDhMYojavH26EHhKt5VZvShkItpjc@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxf2s3jHiH3kFUed30WZH+UnpX32lUI6f+QBYS35zYBPtOfN3Np
+	ohXGErnR+WnkoUIlNROQ+Tzj7mbbEBZsipVKxdEfjAB313poFV51kSW2fP57fxlHODs=
+X-Gm-Gg: AR+sD134EcPretrh1KfwWYuARSK0Dw4ME0o+ja1ImlbZ34DP+2A+96JPO2JrhbMug5v
+	oV09OILcNguObxBL/JcpU8dFFkltwzknSvHFq6kbXVPmlockJqTsuVNHlvRhPJyZKe4HlPynOmz
+	shnWPNecmfmnFoeL74YpI4kCsyWzySMfLXU7a9VKaBRkzfh5hR/VUurItnrdbTxHDQZKOgb+p9F
+	S9mwIxUf85hopSNvpbB0WdMvhS09JPQTqkjyR2obXp/PgHtTE/qcQdQ/nhKe3LNX4C/OQ2QrRuN
+	q6SyrzpqqGoTlSdnFdQrDCe0PX0bTP7wOccguzQJ1AvGGsKK8wPM1hkkaiX+gek3fojl2pNn9BR
+	e93M8JSzDIWISmr1UA2wfrbADTjq0jkc8Wcm3Hw++6nDS/L7YidshKC5WMs9h538y9g/3l6tFop
+	3r38hzOIjzlwnHnMj1/KBtVcq0refDP+ZD6PQ13WKIQGjLgQxY1kN85/bu5zaywOHXD3XemxuOo
+	gZwkmM/CwwFYLnjmw==
+X-Received: by 2002:a05:600c:35d0:b0:493:e79e:da63 with SMTP id 5b1f17b1804b1-496b5708bacmr90013815e9.34.1785137406643;
+        Mon, 27 Jul 2026 00:30:06 -0700 (PDT)
 Received: from gregwork.sec.9e.network ([188.111.3.154])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496b4ee4504sm201823685e9.6.2026.07.27.00.30.02
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496b4ee4504sm201823685e9.6.2026.07.27.00.30.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jul 2026 00:30:03 -0700 (PDT)
+        Mon, 27 Jul 2026 00:30:06 -0700 (PDT)
 From: =?UTF-8?q?Gr=C3=A9goire=20Layet?= <gregoire.layet@9elements.com>
 To: joel@jms.id.au,
 	andrew@codeconstruct.com.au,
@@ -75,9 +75,9 @@ Cc: jammy_huang@aspeedtech.com,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	=?UTF-8?q?Gr=C3=A9goire=20Layet?= <gregoire.layet@9elements.com>
-Subject: [PATCH v3 1/2] ipmi: kcs_bmc_aspeed: g6: Add KCS Channel 4 over PCIe
-Date: Mon, 27 Jul 2026 09:27:40 +0200
-Message-ID: <45f36ea6a3a2df18b51c5b83200c7596dbafe133.1785135437.git.gregoire.layet@9elements.com>
+Subject: [PATCH v3 2/2] ARM: dts: aspeed-g6: add pcie-kcs4
+Date: Mon, 27 Jul 2026 09:27:41 +0200
+Message-ID: <1dac6b9ae1565a2265e87537141e46c988d16de3.1785135437.git.gregoire.layet@9elements.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1785135437.git.gregoire.layet@9elements.com>
 References: <cover.1785135437.git.gregoire.layet@9elements.com>
@@ -90,140 +90,50 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Created a 5th KCS channel to match against the KCS 4 over PCIe addresses.
+Add pcie_kcs4 node to the LPC bus in the ast2600 g6 common dtsi.
 
 The ASPEED AST2600 has a PCIe to LPC controller. It includes a KCS
 interface on channel 4. This is a fully KCS-compatible interface
 that is exposed over PCIe.
 
-The 5th channel created is only valid on the AST2600.
-This cannot be used for AST2400 and AST2500 chips, as they don't have LPC
-over PCIE.
+This can be used by the host for IPMI when the PCIe BMC Device is
+activated.
+
+While the PCIe to LPC Controller provides KCS channels 1, 2,
+3 and 4 over PCI, this patch only adds channel 4.
+This needs little adjustment to the driver and provides PCIe BMC Devices,
+like the Asus IPMI Expansion Card, the IPMI over PCIe feature.
+
+The pcie_kcs4 uses existing "aspeed,ast2600-kcs-bmc" compatible as it's a
+standard KCS interface.
+
+Node placed according to the ascending address ordering.
+'dt-check-style --mode strict' reports no issues on added lines, except
+'line-length' issues.
 
 Signed-off-by: Grégoire Layet <gregoire.layet@9elements.com>
 ---
- drivers/char/ipmi/kcs_bmc_aspeed.c | 41 ++++++++++++++++++++++++++++--
- 1 file changed, 39 insertions(+), 2 deletions(-)
+ arch/arm/boot/dts/aspeed/aspeed-g6.dtsi | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/char/ipmi/kcs_bmc_aspeed.c b/drivers/char/ipmi/kcs_bmc_aspeed.c
-index a13a3470c17a..97daa2b3d6a0 100644
---- a/drivers/char/ipmi/kcs_bmc_aspeed.c
-+++ b/drivers/char/ipmi/kcs_bmc_aspeed.c
-@@ -26,7 +26,7 @@
- 
- #define DEVICE_NAME     "ast-kcs-bmc"
- 
--#define KCS_CHANNEL_MAX     4
-+#define KCS_CHANNEL_MAX     5
- 
- /*
-  * Field class descriptions
-@@ -102,6 +102,12 @@
- #define     LPC_LSADR12_LSADR2_SHIFT 16
- #define     LPC_LSADR12_LSADR1_MASK  GENMASK(15, 0)
- #define     LPC_LSADR12_LSADR1_SHIFT 0
-+#define PCIE_LPC_HICRB       0x900
-+#define PCIE_LPC_HICRC       0x904
-+#define PCIE_LPC_LADR4       0x910
-+#define PCIE_LPC_IDR4        0x914
-+#define PCIE_LPC_ODR4        0x918
-+#define PCIE_LPC_STR4        0x91C
- 
- #define OBE_POLL_PERIOD	     (HZ / 2)
- 
-@@ -159,6 +165,7 @@ static void aspeed_kcs_outb(struct kcs_bmc_device *kcs_bmc, u32 reg, u8 data)
- 	case LPC_ODR2:
- 	case LPC_ODR3:
- 	case LPC_ODR4:
-+	case PCIE_LPC_ODR4:
- 		break;
- 	default:
- 		return;
-@@ -191,6 +198,9 @@ static void aspeed_kcs_outb(struct kcs_bmc_device *kcs_bmc, u32 reg, u8 data)
- 	case 4:
- 		regmap_update_bits(priv->map, LPC_HICRC, LPC_HICRC_IRQXE4, LPC_HICRC_IRQXE4);
- 		break;
-+	case 5:
-+		regmap_update_bits(priv->map, PCIE_LPC_HICRC, LPC_HICRC_IRQXE4, LPC_HICRC_IRQXE4);
-+		break;
- 	default:
- 		break;
- 	}
-@@ -278,6 +288,14 @@ static int aspeed_kcs_set_address(struct kcs_bmc_device *kcs_bmc, u32 addrs[2],
- 
- 		break;
- 
-+	case 5:
-+		if (nr_addrs == 1)
-+			regmap_write(priv->map, PCIE_LPC_LADR4, ((addrs[0] + 1) << 16) | addrs[0]);
-+		else
-+			regmap_write(priv->map, PCIE_LPC_LADR4, (addrs[1] << 16) | addrs[0]);
+diff --git a/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi b/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
+index 56bb3b0444f7..c9d94c25d1ad 100644
+--- a/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
++++ b/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
+@@ -656,6 +656,14 @@ ibt: ibt@140 {
+ 					clocks = <&syscon ASPEED_CLK_GATE_LCLK>;
+ 					status = "disabled";
+ 				};
 +
-+		break;
++				pcie_kcs4: kcs@914 {
++					compatible = "aspeed,ast2600-kcs-bmc";
++					reg = <0x914 0x1>, <0x918 0x1>, <0x91c 0x1>;
++					interrupts = <GIC_SPI 177 IRQ_TYPE_LEVEL_HIGH>;
 +
- 	default:
- 		return -EINVAL;
- 	}
-@@ -344,6 +362,11 @@ static int aspeed_kcs_config_upstream_irq(struct aspeed_kcs_bmc *priv, u32 id, u
- 		val = (id << LPC_HICRC_ID4IRQX_SHIFT) | (hw_type << LPC_HICRC_TY4IRQX_SHIFT);
- 		regmap_update_bits(priv->map, LPC_HICRC, mask, val);
- 		break;
-+	case 5:
-+		mask = LPC_HICRC_ID4IRQX_MASK | LPC_HICRC_TY4IRQX_MASK | LPC_HICRC_OBF4_AUTO_CLR;
-+		val = (id << LPC_HICRC_ID4IRQX_SHIFT) | (hw_type << LPC_HICRC_TY4IRQX_SHIFT);
-+		regmap_update_bits(priv->map, PCIE_LPC_HICRC, mask, val);
-+		break;
- 	default:
- 		dev_warn(priv->kcs_bmc.dev,
- 			 "SerIRQ configuration not supported on KCS channel %d\n",
-@@ -373,6 +396,10 @@ static void aspeed_kcs_enable_channel(struct kcs_bmc_device *kcs_bmc, bool enabl
- 	case 4:
- 		regmap_update_bits(priv->map, LPC_HICRB, LPC_HICRB_LPC4E, enable * LPC_HICRB_LPC4E);
- 		return;
-+	case 5:
-+		regmap_update_bits(priv->map, PCIE_LPC_HICRB, LPC_HICRB_LPC4E,
-+				   enable * LPC_HICRB_LPC4E);
-+		return;
- 	default:
- 		pr_warn("%s: Unsupported channel: %d", __func__, kcs_bmc->channel);
- 		return;
-@@ -452,6 +479,10 @@ static void aspeed_kcs_irq_mask_update(struct kcs_bmc_device *kcs_bmc, u8 mask,
- 			regmap_update_bits(priv->map, LPC_HICRB, LPC_HICRB_IBFIE4,
- 					   enable * LPC_HICRB_IBFIE4);
- 			return;
-+		case 5:
-+			regmap_update_bits(priv->map, PCIE_LPC_HICRB, LPC_HICRB_IBFIE4,
-+					   enable * LPC_HICRB_IBFIE4);
-+			return;
- 		default:
- 			pr_warn("%s: Unsupported channel: %d", __func__, kcs_bmc->channel);
- 			return;
-@@ -492,6 +523,7 @@ static const struct kcs_ioreg ast_kcs_bmc_ioregs[KCS_CHANNEL_MAX] = {
- 	{ .idr = LPC_IDR2, .odr = LPC_ODR2, .str = LPC_STR2 },
- 	{ .idr = LPC_IDR3, .odr = LPC_ODR3, .str = LPC_STR3 },
- 	{ .idr = LPC_IDR4, .odr = LPC_ODR4, .str = LPC_STR4 },
-+	{ .idr = PCIE_LPC_IDR4, .odr = PCIE_LPC_ODR4, .str = PCIE_LPC_STR4 },
- };
- 
- static int aspeed_kcs_of_get_channel(struct platform_device *pdev)
-@@ -575,11 +607,16 @@ static int aspeed_kcs_probe(struct platform_device *pdev)
- 	if (channel < 0)
- 		return channel;
- 
-+	np = pdev->dev.of_node;
-+	if (channel == 5 && !of_device_is_compatible(np, "aspeed,ast2600-kcs-bmc")) {
-+		dev_err(&pdev->dev, "LPC over PCIE KCS4 only supported on ast2600\n");
-+		return -ENODEV;
-+	}
-+
- 	nr_addrs = aspeed_kcs_of_get_io_address(pdev, addrs);
- 	if (nr_addrs < 0)
- 		return nr_addrs;
- 
--	np = pdev->dev.of_node;
- 	rc = of_property_read_u32_array(np, "aspeed,lpc-interrupts", upstream_irq, 2);
- 	if (rc && rc != -EINVAL)
- 		return -EINVAL;
--- 
++					status = "disabled";
++				};
+ 			};
+
+ 			sdc: sdc@1e740000 {
+--
 2.54.0
-
