@@ -1,67 +1,67 @@
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E53513F6600
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 11:03:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F9353F6600
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 11:06:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785150236; cv=none; b=jLeb/0vahZ0TwPJvtPnyUvWrq19RY6/2fSmwHY7cepeDJxrN3kULgou60plY0rxTxBgaUI01c72YAyn9RgGo5F8HjhwUD52PMWIm4OCm99A8fWx4orEmto9LteQRaXlnhYgGR7HLZTWBbLziL252vzhi3C8EaROFv9If0toVZ+E=
+	t=1785150388; cv=none; b=bmtoykRntVlyZNq50mDNgyqj3oTNYAbbv52J8h0CbQik/0VPn0AB6bSkOanNcvZCu/PqNJ0KBkw8Zx8S5JSKzmzKy4Oog8HIUm64WCj3yaS/5mv+acjNWTf0Q4EZwj/+0lQJf65gFIhiXhKMXAEWKMtfe7Gng1+SXwCG/Mp0y00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785150236; c=relaxed/simple;
-	bh=A40gJm3ekO82idnf30xDmSrw698dEBPTF6CCNVxUp2Y=;
+	s=arc-20240116; t=1785150388; c=relaxed/simple;
+	bh=v+pIXqI4Yn7FIR8fGNeli3S1YAjHULa95SiXJrMUGHo=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=pcl9ukhI5P4c9bJwfTLRycONi0Fdy5lDUodV8gGwPbVcafe4i/F6qiDPopT3bUO5nh6j+L4sWmgLGirHJC263Kv1JBTk9QP4og8n9KuyDTVIaRgv1wIZR8GtD76xff0+skpVHrqbK3Pk2c2/MsnYLUnLLBpdQo+CZRMwfnPhSD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=tca2zV6j; arc=none smtp.client-ip=209.85.218.47
+	 Content-Type:MIME-Version; b=DPGBaZhmKJ114MRoyIm1bpIAYIA8OtMjRDrs70uhBNqvtrcmO1yIguR9A8u+XL2KYaWV8iCUaasOUhEzkawtmRbu+eWn53TZMf+yTYchmleEN33cidjcPgy9hJ4zEJMx2U+eHfeSS3Wwh6GjlJzw2BfeoLSWpFaUNdaMbMjGjiA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=NdgIsk8X; arc=none smtp.client-ip=209.85.208.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="tca2zV6j"
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c1c4db7ca93so340565266b.2
-        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 04:03:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="NdgIsk8X"
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-69fec980a30so1090626a12.3
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 04:06:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1785150233; x=1785755033; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1785150384; x=1785755184; darn=vger.kernel.org;
         h=mime-version:user-agent:content-transfer-encoding:content-type
          :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=ia0G9LEkGdE7OHYonYczpOBgN2i+djSgDVIwUI3fTYI=;
-        b=tca2zV6jyFryLgAnWaSDAg/d8rXdQ5Lag+z7wyLd5eksf8N4t1CLO2aca2d3KzKeAi
-         NrekyJoKcOq/FlQNBqTmeesCZX1hFvGCuuzLLnT/+LjZm1lK6ufnvJCvLkY8wvMJcb6Z
-         LZQNvg/vbg16aXSUHf98vOcOd8zg42wVb7yXKmZRP3sh6qKe7q2tN0zseAym4N4GrZom
-         PgCToJ+9VK9dRStoNn3w82td/i2dKYGIqIa+IBOCn8ATHs8SJQ0Bx+S7L3sjkB0paG2e
-         RMyui6Uo6vEupyH6SYzX8R+aS36bEFJaG8IK6xyUeypIe+GNTuC7nbFN237iaVWB3oxK
-         lR2Q==
+        bh=v+pIXqI4Yn7FIR8fGNeli3S1YAjHULa95SiXJrMUGHo=;
+        b=NdgIsk8XCg3LLIhLHMixB9MG8CZxscoycsRQ7vWldblSaT46VykeBq/lUJLRo46CpC
+         JoH3bRqVF3p1xeAlVQQHVLuIGWesxKy5lm3VXTSkHUa+b2JRFHF8Sl5L3of2K7YXikuK
+         Xk0HUYS1e7ChaThWGGU7c0tO67Zu47XeRrMYYPvtvjB5VA/aR0NEba7f01aMe4/qMPFx
+         PaLiE5gj+RuGH6ukUBOgD2vHPUkA8dCxl9OoWKxueOxlrLxwyrW1OUKAw62WRJE2dRHW
+         NAfNmkS8g+SbMZGxrGtGeNMuE/bdsC6Q01gZuc9mhIbClzoLW+2LjPprWuuAYFrmUASq
+         xMkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785150233; x=1785755033;
+        d=1e100.net; s=20251104; t=1785150384; x=1785755184;
         h=mime-version:user-agent:content-transfer-encoding:content-type
          :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ia0G9LEkGdE7OHYonYczpOBgN2i+djSgDVIwUI3fTYI=;
-        b=X9VFxxA27v2W7GkKZdRm/7r+X77k5qVV8XJ6jnyRad21PHCBm1XQUpQQ5+93mTsivv
-         AAaufn11vAuX9Fsq5cKRrRG9a/qnUZx2uOpfzv6tjrHr484jaMkvjfYrK4orF1eOjgVE
-         5c6bxYRbVhWma1c7LK9DlMozV0KT09swetZ5w/D4D5p3NR4VVWstExKez9vzHaUHcl2p
-         0iGmAFfmSJjoa2OQsXfwHuaZGGvq7Vc1ofjro/JOzU2RER6acy3MS8NJUJVal/TcamCg
-         uZLzopZYVKvwcGWtaeQ/tSuOV3ompgyiAtSSTxM2/2rB1rwb9nTGSj12pVIfP6wSnPMn
-         lYUQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpETh4jWc/AbBAo8k9RKhJoGuL5IcIiXZNOTbc4wSH5/fVzACZ+7ZCAaiOkgYlGDFRxSLTNhgqwkzYU@vger.kernel.org
-X-Gm-Message-State: AOJu0YxiU/vK8vowoOjRlMeBl/ODQulgQaSY4f0H7v5327iDCsu9CFNa
-	2CaknyjJE2er9hbhhc0zIML5j7QPRPTMT2b/i0y0Iluw+0IwV5lr4JUJZ01s2PrAiS0=
-X-Gm-Gg: AR+sD13jASRV+TD4L2F03JGopigfElUx3JkqxrbxdCe7DazKG3cAjCVfo7Q4fsuQOqq
-	7KPoargnEdYlPJZ80Ijq+MoeAf+V7abpbqmYfXjQI+UincRFf1Si7rv97bTQSbJx4uF1X68GsgQ
-	waP4v+LaFhdsq/4mOlwo2CsPV70/Z8GjK68xd8dXwzAWxoKSbQHQ8lVZxElBPV+w2HG2I0qxZ9V
-	EsnulJK8oSuPdqXPe7T5MOplPbBbG/b7Y44SSopnlTtc10wVzIKRpd42DyVi+9LazGvi+JZylN0
-	HQTahk5jW0OegIZwYypBGbvqQfJY5i3cEQK/eCS07L3H/OIYd2+W+bphn9MjeGEiF5AnoO34g6X
-	2hmQ+8iqBZh6xKLo75zevWSYiMUDeI4OupMAa33C/2iHjmRDQu0jc+B7dHY6QnUVnlFYuXsd9cS
-	EPHlx87/gtcVg17+Vy
-X-Received: by 2002:a17:907:9994:b0:c1c:22d4:3a9b with SMTP id a640c23a62f3a-c1f1f153e8emr313513666b.43.1785150233167;
-        Mon, 27 Jul 2026 04:03:53 -0700 (PDT)
+        bh=v+pIXqI4Yn7FIR8fGNeli3S1YAjHULa95SiXJrMUGHo=;
+        b=jtzdbKt8dhtNiScaD9B0eSXYgJudxEtjMtg38l3TvvKWBgOpg/RrYFOnJBFyI6sAPK
+         d7CmdN+tnt8nixWj1I6v5fAMNVHKyhhHPaUqgqEwp+wTiNk6Ic++vGwNYiqf9WUaFgi8
+         l/9QUwWJRS8TC/BrDpgU/LErW36lKnLEA6gqHYeN+UINJwBwifHECwEg0g54/lofA3Jf
+         a7nH71eJDPGq98BG0bEHUk558l6SWGZ1FFf0pRXAaJ1msHzlr08RTGNaNQSsU5kZyO9X
+         e3ytPmrPRsz2c7/obdvk3rh1bKk52vaIEFVcrkqNOW04VAysPlRQ1XCJZNVk4xeg5NOF
+         Bb0A==
+X-Forwarded-Encrypted: i=1; AHgh+RqWk3evDzVT9WDk9X/SSoB+QM9v0d74p+D8Sufd7AMuePgG8Y/fjuGbxlKSBhptFo7EoAMY9GD81RfJ@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywr/UdF9ifdjMEiiD496Zwcr/N/N9733xujdT37H8pjmahs/Tr6
+	OAoTWN/cuPmQm5J677uuFS+mTzSs2CvtilZ8SgIC8Pd0EvTbDUrlkPehVa6YZHyLIk0=
+X-Gm-Gg: AR+sD1325rHWxEasfKa4g8jS1WrVLqn27rMPdgAuoOgIx+lzCUwCD+eNnTysGiuvOeq
+	SOop9czQrUU2pCk5f4guEhJFb7Wgmxx4cQpCShlhUtOA7pWE9MBzQ4m0Zcd/w2t1ratoRsQ9vRN
+	cZ7YcNm/8RLulfik98IO8efkZtW2b9XjYzpfFiHg38DAz77uojHj4ZWkJjt05OGTHybj0+bl2Lv
+	qlM9y0zmfFzDgdqkgvqTn5AfN8URHXaiREx4rzjEQbZtCqkGfBqw8EyvbswSjHyygeVsJLR6/AU
+	H5DB4r+jt8hTMlkyIzt1HdbOZfIY/5UDoQPNW+28NzLY3gpFpQgpzF8IuOPLII3kAoTKkcYIGB5
+	0q+PNlzw4vxc4JlHqXAQlfjWuswIKn578czOgM/tXoFFE6STr6uQNMH5VqR95cs73UTOgWb0cdX
+	YXb9xPAw==
+X-Received: by 2002:a05:6402:28c9:b0:699:e496:870e with SMTP id 4fb4d7f45d1cf-69fc1159931mr2804954a12.20.1785150384355;
+        Mon, 27 Jul 2026 04:06:24 -0700 (PDT)
 Received: from [10.1.1.59] ([109.255.181.4])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1c32ac8c4bsm635352466b.18.2026.07.27.04.03.52
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69fb55439absm2454955a12.19.2026.07.27.04.06.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jul 2026 04:03:52 -0700 (PDT)
-Message-ID: <81160ceaf02ad31c4b86c00dd4bcdcf1fe624788.camel@linaro.org>
-Subject: Re: [PATCH 1/8] arm64: dts: exynos: Move 'status' to the end to
- match coding style
+        Mon, 27 Jul 2026 04:06:23 -0700 (PDT)
+Message-ID: <32582351575d8cbc06fc68ab3d12d598bd317ab5.camel@linaro.org>
+Subject: Re: [PATCH 3/8] arm64: dts: exynos5433: Override thermal zones by
+ phandle
 From: =?ISO-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Ivaylo
  Ivanov	 <ivo.ivanov.ivanov1@gmail.com>, Rob Herring <robh@kernel.org>,
@@ -72,11 +72,11 @@ To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Ivaylo
  Krzysztof Kozlowski	 <krzk@kernel.org>, linux-fsd@tesla.com
 Cc: linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
  	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 27 Jul 2026 12:04:11 +0100
-In-Reply-To: <20260726-b4-dts-coding-style-strict-v1-1-e9e3e9879d05@oss.qualcomm.com>
+Date: Mon, 27 Jul 2026 12:06:41 +0100
+In-Reply-To: <20260726-b4-dts-coding-style-strict-v1-3-e9e3e9879d05@oss.qualcomm.com>
 References: 
 	<20260726-b4-dts-coding-style-strict-v1-0-e9e3e9879d05@oss.qualcomm.com>
-	 <20260726-b4-dts-coding-style-strict-v1-1-e9e3e9879d05@oss.qualcomm.com>
+	 <20260726-b4-dts-coding-style-strict-v1-3-e9e3e9879d05@oss.qualcomm.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.56.2-8+build1 
@@ -87,33 +87,15 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Hi Krzysztof,
-
 On Sun, 2026-07-26 at 19:43 +0200, Krzysztof Kozlowski wrote:
-> diff --git a/arch/arm64/boot/dts/exynos/exynos5433.dtsi b/arch/arm64/boot=
-/dts/exynos/exynos5433.dtsi
-> index fa2029e280a5..17b13a586973 100644
-> --- a/arch/arm64/boot/dts/exynos/exynos5433.dtsi
-> +++ b/arch/arm64/boot/dts/exynos/exynos5433.dtsi
-> @@ -755,6 +755,7 @@ tmu_atlas0: tmu@10060000 {
-> =C2=A0				<&cmu_peris CLK_SCLK_TMU0>;
-> =C2=A0			clock-names =3D "tmu_apbif", "tmu_sclk";
-> =C2=A0			#thermal-sensor-cells =3D <0>;
-> +
-> =C2=A0			status =3D "disabled";
-> =C2=A0		};
-> =C2=A0
-> @@ -766,7 +767,9 @@ tmu_atlas1: tmu@10068000 {
-> =C2=A0				<&cmu_peris CLK_SCLK_TMU0>;
-> =C2=A0			clock-names =3D "tmu_apbif", "tmu_sclk";
-> =C2=A0			#thermal-sensor-cells =3D <0>;
-> +
-> =C2=A0			status =3D "disabled";
-> +
-> =C2=A0		};
+> Fix indentation of DTSI file with thermal zones (two opening { brackets,
+> but only one indent) by using a safer choice of phandle/label override.
+>=20
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
+> =C2=A0arch/arm64/boot/dts/exynos/exynos5433-tmu.dtsi | 4 +---
+> =C2=A0arch/arm64/boot/dts/exynos/exynos5433.dtsi=C2=A0=C2=A0=C2=A0=C2=A0 =
+| 3 +++
+> =C2=A02 files changed, 4 insertions(+), 3 deletions(-)
 
-This adds an extra empty line.
-
-
-Cheers,
-A.
+Reviewed-by: Andr=C3=A9 Draszik <andre.draszik@linaro.org>
