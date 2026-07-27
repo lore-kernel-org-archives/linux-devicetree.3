@@ -1,27 +1,26 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAF213EEADE
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 09:42:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A9103F0A94
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 09:42:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785145374; cv=none; b=kPi2j0Lh2/sLHiTxABY/Z48U/HhZ2g/J/KHFJMEx2FTYhuE0q5SYPawxdmp+SDtrflOdveRajHhKdICNpvkB8Lq7NrNJqxX/9rEQA5rPjdrpsXXEvGs0ThK63fL0gP4WKL3Kt5FUMtScEw6H/Hd2Z3C0Wq+A+1QmSsGEywO6kMk=
+	t=1785145375; cv=none; b=oVJ55TQ+4mG98WvFP64LXwbHjdHyXiRJRjcauFpJONbJKS69LgzvmNM4eNET6z2c0XkW7OyYjZDcTSpUUPn70Kdsa8qg8H0pTTlcZuo+ldZj4TSYougw2LERqbUyw1b8nC7+V+B0BYsPdEyQ85lpNUtAtEH5aioWexeT+Ul21xk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785145374; c=relaxed/simple;
-	bh=xHdkr4TXvzlRmv77uCiU60TwMusuTd/LSXCkcJLQxdc=;
+	s=arc-20240116; t=1785145375; c=relaxed/simple;
+	bh=wQKESMrFfIsdJApQUUQVBX9ydRXn0z+ypmdY0HIYG6E=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=XCw5g/lhXn7ukOmPT+jVdlJ5cpGl9GuZrLvBW4n7/f9VbayZId9IKuuy1wofo1CSwG1Bf9iyoEELqcJjKuxGYL2NIprMfP/rv032UwPiYdpJcpmmxPxPA+asP1RNZeY0t+0ISsEXat5ZEStqoLZYjsiiaRLyye3mLsVp34ShZsQ=
+	 In-Reply-To:To:Cc; b=LcKEJzROwZHsA5xllLIegxhN1I620UK41NT8ZXDvwot1ZslRyvySWWsOk7JoEx++fSUK9oglgbAEKmYs413J4wUV9iS6WxqJathmZcl/3DqopohlWSjgDybtGdiW1HyjIOod4VDgJ4jGi/FqS7Klm9SrMgz/ry2Du3Z1ClvNlHc=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=ratatoskr.trumtrar.info)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.trumtrar@pengutronix.de>)
-	id 1woHqx-00009N-HK; Mon, 27 Jul 2026 11:42:31 +0200
+	id 1woHqw-00009N-3O; Mon, 27 Jul 2026 11:42:30 +0200
 From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Date: Mon, 27 Jul 2026 11:42:17 +0200
-Subject: [PATCH v5 5/5] arm64: dts: imx8mp-skov: support new 7inch panel
- board
+Date: Mon, 27 Jul 2026 11:42:13 +0200
+Subject: [PATCH v5 1/5] arm64: dts: freescale: imx8mp: fix sort order
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -30,7 +29,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260727-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v5-5-67faa5ee0bf6@pengutronix.de>
+Message-Id: <20260727-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v5-1-67faa5ee0bf6@pengutronix.de>
 References: <20260727-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v5-0-67faa5ee0bf6@pengutronix.de>
 In-Reply-To: <20260727-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v5-0-67faa5ee0bf6@pengutronix.de>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -43,13 +42,13 @@ Cc: Steffen Trumtrar <s.trumtrar@pengutronix.de>,
  linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
  linux-arm-kernel@lists.infradead.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2446;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1163;
  i=s.trumtrar@pengutronix.de; h=from:subject:message-id;
- bh=xHdkr4TXvzlRmv77uCiU60TwMusuTd/LSXCkcJLQxdc=;
- b=owGbwMvMwCUmtVehiCsuTInxtFoSQ1a6Bsucu+JbLa6rd+REG+d9UFBScfqdtzp/2809am8j9
- BtnfTvXUcrCIMbFICumyKKysIJP1OODZ+Q0ES6YOaxMIEMYuDgFYCKi4Qz/NNMX8T1vFZ22ZdG8
- x8UbZLWY9078Ffhlq/TExT83/g+b18zwh4MvXGJu45eiD0ICaX2Guw7pZupH+Uh2xEjOlEkXdWB
- jBAA=
+ bh=wQKESMrFfIsdJApQUUQVBX9ydRXn0z+ypmdY0HIYG6E=;
+ b=owGbwMvMwCUmtVehiCsuTInxtFoSQ1a6BkukU+OJgq7GKUFLn3wPa56wxPnw03+hDWfFuPXLf
+ 7dHPtrdUcrCIMbFICumyKKysIJP1OODZ+Q0ES6YOaxMIEMYuDgFYCIyagy/2aZcNao0DXw4uzRP
+ Z93WA3Ux1e92X+MKbvpbeGbjhuX7TjEy9IR3MdoukKlcsyXH63tnZUGA1fGFfYUuLZrB+xvFuN8
+ zAAA=
 X-Developer-Key: i=s.trumtrar@pengutronix.de; a=openpgp;
  fpr=24A1780E1548F0495996140A1ABD20720A5E5622
 X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
@@ -57,76 +56,30 @@ X-SA-Exim-Mail-From: s.trumtrar@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-This board is similar to the already upstream
-imx8mp-skov-revc-tian-g07017 and imx8mp-skov-revc-jt101tm023 but uses a
-different 7" panel with a different touch controller.
+The imx8mp-skov-revc-jutouch should be alphabetically before the
+imx8mp-skov-revc-tian variant.
+
+Sort the entries in the correct order.
 
 Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 ---
- arch/arm64/boot/dts/freescale/Makefile             |  3 ++
- .../imx8mp-skov-revc-jutouch-jt070tm041.dtso       | 36 ++++++++++++++++++++++
- 2 files changed, 39 insertions(+)
+ arch/arm64/boot/dts/freescale/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index 2caac104bec6e..92559e0dd8396 100644
+index 8ddaab127ab9c..b46f452f4b988 100644
 --- a/arch/arm64/boot/dts/freescale/Makefile
 +++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -435,10 +435,13 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revb-mi1010ait-1cp1.dtb
+@@ -434,8 +434,8 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revb-lt6.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revb-mi1010ait-1cp1.dtb
  dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-bd500.dtb
  dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-hdmi.dtb
- 
-+imx8mp-skov-revc-jutouch-jt070tm041-dtbs += imx8mp-skov-revc-touch.dtb \
-+	imx8mp-skov-revc-jutouch-jt070tm041.dtbo
- imx8mp-skov-revc-jutouch-jt101tm023-dtbs += imx8mp-skov-revc-touch.dtb \
- 	imx8mp-skov-revc-jutouch-jt101tm023.dtbo
- imx8mp-skov-revc-tian-g07017-dtbs += imx8mp-skov-revc-touch.dtb \
- 	imx8mp-skov-revc-tian-g07017.dtbo
-+dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-jutouch-jt070tm041.dtb
+-dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-tian-g07017.dtb
  dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-jutouch-jt101tm023.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-tian-g07017.dtb
- 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt070tm041.dtso b/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt070tm041.dtso
-new file mode 100644
-index 0000000000000..2433b57aeed40
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt070tm041.dtso
-@@ -0,0 +1,36 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-+
-+/dts-v1/;
-+/plugin/;
-+
-+&{/} {
-+	model = "SKOV IMX8MP CPU revC - JuTouch JT070TM041";
-+	compatible = "skov,imx8mp-skov-revc-jutouch-jt070tm041", "fsl,imx8mp";
-+
-+	panel {
-+		compatible = "jutouch,jt070tm041";
-+		backlight = <&backlight>;
-+		power-supply = <&reg_tft_vcom>;
-+
-+		port {
-+			in_lvds0: endpoint {
-+				remote-endpoint = <&ldb_lvds_ch0>;
-+			};
-+		};
-+	};
-+};
-+
-+&lvds_bridge {
-+	/* IMX8MP_VIDEO_PLL1 = IMX8MP_CLK_MEDIA_DISP2_PIX * 7 */
-+	assigned-clock-rates = <0>, <358400000>;
-+
-+	ports {
-+		port@1 {
-+			reg = <1>;
-+
-+			ldb_lvds_ch0: endpoint {
-+				remote-endpoint = <&in_lvds0>;
-+			};
-+		};
-+        };
-+};
++dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-tian-g07017.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-dev.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-tqma8mpql-mba8mpxl.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-tqma8mpql-mba8mp-ras314.dtb
 
 -- 
 2.51.0
