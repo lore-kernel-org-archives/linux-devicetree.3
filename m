@@ -1,170 +1,337 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mail-m1973180.qiye.163.com (mail-m1973180.qiye.163.com [220.197.31.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37840400998
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 12:51:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA4E8F9C0;
+	Mon, 27 Jul 2026 12:54:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785156716; cv=none; b=VwyXbHGxbyIjzElRZQC9Auea6t3JOmGHeKZHZCHIx0gSUZ5BXGnrNFxVId6kzeDQ0dG5CSYtqp2xdmy//VDFNX4KTI8RXnxb54V6GTjobpBPzFvNYBnIhBiQ+1EGLazBIu9IP+rzoL7picYBG9u1EZ8rLUOybFH30KxXcxkJqfc=
+	t=1785156850; cv=none; b=bvGlwnP59ee5r2jBwjq1AxZenvzasPfg8HcC4cKjEWLFIwabgXDlb9PeB1ZCm+3guplyCSvpVtjURcETdk/4FoDHJp0ZH8jaqRvUsNXdU3B+cdjNxr7GEUOnjrYiwEWAyd+RUz49fjfQmQiLH1rdFEL19Mbe3v3AU2OZNtkefik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785156716; c=relaxed/simple;
-	bh=xKkW8JkAQ1Vhl3TZIzNa8+ozFoj7WCUtudLFKvNQfj0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GFNG3gTT8YHLgYc06nDmiEtJdhenmsJ1f/jHRWm/XKUVYbN0N/uC8yJrkW9Hgi+wr8wlnvVR5m5FwkrP/EXeP9arEqvnsAoI4iXJbHbg2z+FXYchkLILXg7rIj5me8ok+socOkLDpoHr3K7cTaBAHuPmN1ITdkNIjI+ls98FoB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=h+88sDt0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WvNG6o6v; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785156850; c=relaxed/simple;
+	bh=1Pr5nBPbaTy9E9T84ft8RXu2khOALdoCAZ9khRPvBck=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=k7TkI2Url87VOT5plFlZfIEBJBXaxAJujJhC7XBstkCz3NfxtO04kR8L1TG6FlzA7ANOGZwXNWQnIT905ho119d4Gop3d9nRmnyDd3Ar/QtaYihbSlWwGZwTK8VIQzo6HHXqvevAUmiJv4+F68D1WlcCR0vrA571ZrS+z5Tj4VY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=UGPjU0mZ; arc=none smtp.client-ip=220.197.31.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="h+88sDt0";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WvNG6o6v"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66RAME1M3604316
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 12:51:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ht5fvyfbePHEIlm/98arjAMGkHBafuoSDc2M14Bf44I=; b=h+88sDt0aquIG0eM
-	yMvveWmrKbg6SKiyLfDu/fRzlJSaWAoIgGrCqmOuxHh12vogi088v83Exj4uNM0J
-	13CS/bCpCHnF2UZwjgdqGkTl0Bae+9+o2lYNatHQRilMJQLJDXSAeeP/DEAUNSmk
-	orNcxhE0jAsaRqgSevXJ7obZIh8A9kEOQSm0eNg2Clkpk1oT/oPu6QDJEWfrRHgG
-	Qx2YQMqpgxugMF2N/VsVGZ9Z+7Uq1t7Rx87p04fxQHjkUEIkXs99uJyIUzgCQgiS
-	MhQ8B9O9NKn4fN0AFuXx1Jzd+zgX9yOOXQLXgQ4iq6GbPAk3KGLSuTZBkb3I5R1X
-	RdZLog==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fngysugx3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 12:51:54 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38e63de75aaso4585370a91.3
-        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 05:51:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785156714; x=1785761514; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ht5fvyfbePHEIlm/98arjAMGkHBafuoSDc2M14Bf44I=;
-        b=WvNG6o6vv26WCWX1xjDaLoiAgmBnyu0rQDDBipNYu9S7XeRwk98jxVGfESA2Exr/5i
-         pG2HvNANx/As7R97wq/8h9d7EzZqvTjM17uqPMdwUIodN4KXHIwl9UNBEyX1fTC+fsWa
-         vym+VCktKijJleSjhPf/2PMZlZaOy1uKsQF4zI2vYCvHYDgcynzHofHLFqesF8ejqG7T
-         krisNg6mADmnGvYFLkywQGJ0Kt5W4QDZEg6es1OPS34scsuMWJyDHFZEe+1liMD4Uo3h
-         BX0DfJRM76TbhlFiMwlz+I7PBHVI6Bu8gDCk9xQzUSUTcIrUzN2wIiPPvZtVBdQUMByH
-         I1Dg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785156714; x=1785761514;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ht5fvyfbePHEIlm/98arjAMGkHBafuoSDc2M14Bf44I=;
-        b=NbUOTlpzhniZKXjChIDCQNiGhV1IzP6s/tjg9X2ORVoy2zUMWM0hbGaWNozoJygZn4
-         8Vsceh/uL7+K15B4wfpy90REM8CG/P+1KR5ARDpxlbS2uabbONPH21UbuJSwT42CUv7e
-         yLhWurvye1sq660vphhegytCSfgAtbZjh8JI7Pj3+BT5FBlsidl1QDx/yK9d2GLxi8rB
-         mnv/hUrsAUckgPR64TbRejSTB9MgAR3y3PVp992lco/Sv1EPT8mjZyon7ia+1+biuD0L
-         nu0KxYu8mUFztp5xHIVvxnGkpsXgxU7jnMPG7npXbkG3jpQhemVKEvFGWC6EIoap8RTM
-         YlVw==
-X-Forwarded-Encrypted: i=1; AHgh+RpQJV3pgGryvrJM/yYSo1n9y9xxcpLpu/qAEjh1lY4i9DwEvQxDxR5ymF/n3aaxxihi5jGb8rJk4yWG@vger.kernel.org
-X-Gm-Message-State: AOJu0Yymxy5ajVVU4T4AsfcW68thefp/WKOiFO1ymCDQrL7mSOTxxYXA
-	BmBhsnlh2ZB1VOi++hrLCqxZ9h1RGQfAa8ED0OmhKz2bBTmGJTiSXyaZdQWb194BURa8XtqUnWy
-	MFwGGcUY6J06EhtHgX9vzflEnvUwjoVRw6tB8B8XMsYy3mm6NNxpwLfcIvTFPNDWT
-X-Gm-Gg: AR+sD10EuUt6rGV64HmZAObKOE0W+ZwCUW6gYe2fYfsB2GN8MWJ23y85awjQ4OGhdpk
-	EWpB5kQUVMqRwevGCeIpQk+LsGey2ElsMwn4iMHDk2IoIEY2NiQN4dvTRivZmZs4KNfFbPvmy8S
-	tn2OLFgREk0yFTjWcLsq5EpCjspmmtzqeSwnP6Wb5uSwaKZ8V+LZ3TI0PqQFHAdjrpVR13jAJhK
-	UvASfyUlajSYhgW+kCW/UBgQws7gtl6ibzSfkSoZYAMD/x5F9fxrJE/LcjO4AKjDGJCWQbysd6N
-	aIVWFcOXQjPUB/3icQx5GZqpB/iVELQodOBuPGn4XIoo2Yaw4wRm/mxXuBXwm8pVTwoknhSHn8d
-	577SjkplMVwIpvXlnEVCEpOhSVrxdIT4LotkaIihqJ8lGTEQj4X2M8rr1WyhuL2b4
-X-Received: by 2002:a17:90b:3d4d:b0:38d:f710:63f0 with SMTP id 98e67ed59e1d1-38f298a4c6amr7268506a91.43.1785156713893;
-        Mon, 27 Jul 2026 05:51:53 -0700 (PDT)
-X-Received: by 2002:a17:90b:3d4d:b0:38d:f710:63f0 with SMTP id 98e67ed59e1d1-38f298a4c6amr7268470a91.43.1785156713468;
-        Mon, 27 Jul 2026 05:51:53 -0700 (PDT)
-Received: from hu-ggarmidi-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-314bc3e878esm32263425eec.3.2026.07.27.05.51.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jul 2026 05:51:53 -0700 (PDT)
-From: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-Date: Mon, 27 Jul 2026 05:51:42 -0700
-Subject: [PATCH v3 5/5] soc: qcom: ubwc: Add Kalambo UBWC config
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="UGPjU0mZ"
+Received: from [172.16.12.90] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 47ade751f;
+	Mon, 27 Jul 2026 15:10:53 +0800 (GMT+08:00)
+Message-ID: <1335c136-bcde-4579-8fa2-6979cc2498b5@rock-chips.com>
+Date: Mon, 27 Jul 2026 15:10:51 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/4] drm/rockchip: lvds: add RK3568 support
+To: Rok Markovic <rok@kanardia.eu>
+Cc: Heiko Stuebner <heiko@sntech.de>, Sandy Huang <hjc@rock-chips.com>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Alibek Omarov <a1ba.omarov@gmail.com>
+References: <20260724080824.115260-1-rok@kanardia.eu>
+ <20260724080824.115260-4-rok@kanardia.eu>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <20260724080824.115260-4-rok@kanardia.eu>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260727-b4-kalambo-crd-v3-5-25280faceece@oss.qualcomm.com>
-References: <20260727-b4-kalambo-crd-v3-0-25280faceece@oss.qualcomm.com>
-In-Reply-To: <20260727-b4-kalambo-crd-v3-0-25280faceece@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-        Pankaj Patil <pankaj.patil@oss.qualcomm.com>
-Cc: Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785156707; l=1205;
- i=gopikrishna.garmidi@oss.qualcomm.com; s=20260102;
- h=from:subject:message-id; bh=xKkW8JkAQ1Vhl3TZIzNa8+ozFoj7WCUtudLFKvNQfj0=;
- b=dD589cveu5MMfr6VCcV6+v8cFQ4j/zyZWsE/fClsyNuObjtpPQOEKIlnJbX7gnHiBzLsDMp6k
- y9NmyeWwfZVDzvzllKlaoGvq8WGqL9VYq1PEhTrKKGprFf7cUwDlMdF
-X-Developer-Key: i=gopikrishna.garmidi@oss.qualcomm.com; a=ed25519;
- pk=TkSjNEhrfsj90i3wkABTZtAjLNr2cfYsujaTvyOIDsE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI3MDEyNSBTYWx0ZWRfXyCFBaePsHsSK
- rusdinZREcBo1X884q9IwdcQbRFCsPOMwuMwZaGsZnYd/mXVrULffl0Vf4l/xtE+FhTLbbljRq9
- zrxxEfogqzTmS+EA9mhAokKe/BVJyXL5rqWkHsGEnEuFdfS9br9ed6phIo1vYsvg2DThY6RpTmM
- S7kOeaRhDzCE9ajpvV8RsZhrvqywtsi9zMY+ML4t7uZO0Z9p/4hWjanl6vvxVqX/LMhDoq3wcJP
- Dq85TStRWOjzq/r5rgidskU98axrVGaaa7IeFTRglSbJlaZSe9AVOV1+A6MWSCktEsRO4Csmisf
- Fte1r7blgVP5whpbchYWMEocWLTYMTE1uxwYBehUmzVR+Fwr+tIh+n8RG3C0Z3g7Uf20Ik4LQTV
- awhpYr0QppYqvryjGoR5bOUzZfohe9ifakYyw/Zz98PkaPl8FjNPDiA4RQSqiw9vGsvyOQ+NZhD
- /XRDpVGZoruxfWppNvg==
-X-Proofpoint-GUID: tVue0EOmHSeKZWBQJu-MNEVTYVTw-G2Y
-X-Authority-Analysis: v=2.4 cv=DNG/JSNb c=1 sm=1 tr=0 ts=6a67546a cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=vwhQhcXuLYmSI6hVBhoA:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI3MDEyNSBTYWx0ZWRfX3PlSIn435lPP
- Pn9pk24doCBkAMPCGzh/dRMFLJfLQebqlJ7aSdcT6RA6RKSNODBjOHMfYzz2+Tj5117QkCcybcx
- SJr5Lm//LZlwHpKhmw+1ICF7sM1XvMY=
-X-Proofpoint-ORIG-GUID: tVue0EOmHSeKZWBQJu-MNEVTYVTw-G2Y
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-27_03,2026-07-24_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 clxscore=1015 malwarescore=0 bulkscore=0 adultscore=0
- suspectscore=0 impostorscore=0 lowpriorityscore=0 phishscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607270125
+X-HM-Tid: 0a9fa269892b03a7kunmea15989b23663d
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCH05DVh9IQk5OT08eGBkaGlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=UGPjU0mZLwQmWtEeNDT4RhEkykdrjrvZY6r5dUhEAFYb5QcCPYVL28oKtlmGILTWwVk0qk8hqodCoX6kbxgwTD6Gp5nmKbET7LeXfTDJLMgFztGJlzy+5YskAiGninN0yo38TlILrHQahnPykchuOH0t0iYCOU7PLA4PxRQJKvs=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=/3z8MnPosRttYFJu2KNr+MMSKCxn2GoCqgHGcPTcAk0=;
+	h=date:mime-version:subject:message-id:from;
 
-Qualcomm Kalambo is a derivative of the Mahua SoC and shares the same
-Universal Bandwidth Compression (UBWC) configuration. Add the Kalambo
-compatible to the UBWC configuration table to enable support.
+On 7/24/2026 4:08 PM, Rok Markovic wrote:
+> The RK3568 LVDS transmitter has no register block of its own. It is
+> driven entirely through the GRF and re-uses the MIPI DSI0 D-PHY in
+> PHY_MODE_LVDS, which phy-rockchip-inno-dsidphy already supports.
+> 
+> Based on Alibek Omarov's earlier posting [1], with the changes below.
+> 
+> Power the D-PHY from the encoder enable path rather than from probe.
+> phy_power_on() runs the phy driver's whole LVDS bring-up: PLL and
+> bandgap power-on, a settle, PLL mode select, then a reset pulse of the
+> serializer and the lane enables. None of that is safe at probe time -
+> the GRF has not yet switched the block to LVDS mode (LVDS0_MODE_EN is
+> set from rk3568_lvds_poweron(), i.e. the enable path) and the VOP is
+> not driving dclk. The serializer is clocked from dclk and latches its
+> state coming out of that reset, so it comes up dead and stays dead.
+> The failure is silent: every register in the phy, the GRF and the VOP
+> reads back exactly as on a working system while the lanes sit at
+> common mode and never toggle.
+> 
+> Program RK3568_LVDS0_DCLK_INV_SEL from the CRTC state's bus_flags so
+> the panel's declared pixelclk-active is honoured on the LVDS block as
+> well as on the VOP pin polarity. Both have to agree with the edge the
+> panel samples on.
+> 
+> Re-assert RK3568_LVDS0_P2S_EN in rk3568_lvds_poweron().
+> rk3568_lvds_poweroff() clears MODE_EN and P2S_EN together, so setting
+> P2S_EN once at probe would leave the parallel-to-serial converter off
+> after the first disable/enable cycle.
+> 
+> Use regmap_write() rather than regmap_update_bits() for the GRF. These
+> registers are write-masked - the upper 16 bits select which of the
+> lower 16 a write may change - so there is nothing to preserve and no
+> reason to read first. Passing a FIELD_PREP_WM16() value as both the
+> mask and the value of an update_bits() applies the masking twice and
+> only works by accident.
+> 
+> Take no clock. The block exposes no MMIO of its own, so there is
+> nothing for the DSI controller's APB clock to reach; the vendor BSP
+> scans out LVDS with PCLK_DSITX_0's gate off, and so does this driver.
+> 
+> Between the above, nothing needs programming at probe at all: the GRF
+> is written entirely from the enable path, so px30_lvds_probe() is left
+> alone rather than being refactored into a shared phy helper.
+> 
+> Track the enabled state so that a .enable() that bails out unwinds
+> itself and the .disable() that the atomic helpers still call afterwards
+> becomes a no-op, rather than underflowing the phy power count and the
+> runtime-PM count of an encoder that never came up.
+> 
+> [1] https://lore.kernel.org/all/20230119184807.171132-1-a1ba.omarov@gmail.com/
+> 
+> Co-developed-by: Alibek Omarov <a1ba.omarov@gmail.com>
+> Signed-off-by: Alibek Omarov <a1ba.omarov@gmail.com>
+> Signed-off-by: Rok Markovic <rok@kanardia.eu>
+> Assisted-by: Claude:claude-opus-4-8
+> ---
+> Changes in v2:
+>   - Drop the clock. rk3568_lvds_poweron() no longer enables a pclk;
+>     the block has no MMIO for the DSI APB clock to reach, and the
+>     vendor BSP scans out with PCLK_DSITX_0 gated off.
+>   - Merge rk3568_lvds_grf_config() into rk3568_lvds_poweron(): a
+>     single masked write to VO_CON2 instead of two, and check the
+>     output type before resuming runtime PM.
+>   - Balance the enable/disable teardown so a .enable() that fails
+>     partway does not underflow the phy power and runtime-PM counts
+>     when the atomic helpers then call .disable().
+>   - Use pm_runtime_resume_and_get(), matching the rk3288/px30 paths.
+>   - Drop the in-code comments restating phy_set_mode() internals and
+>     the write-masked GRF convention; the ordering rationale is in the
+>     commit message.
+> 
+>  drivers/gpu/drm/rockchip/rockchip_lvds.c | 124 +++++++++++++++++++++++
+>  drivers/gpu/drm/rockchip/rockchip_lvds.h |  10 ++
+>  2 files changed, 134 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/rockchip/rockchip_lvds.c b/drivers/gpu/drm/rockchip/rockchip_lvds.c
+> index 95fa0a9..9af21fc 100644
+> --- a/drivers/gpu/drm/rockchip/rockchip_lvds.c
+> +++ b/drivers/gpu/drm/rockchip/rockchip_lvds.c
+> @@ -51,6 +51,7 @@ struct rockchip_lvds {
+>  	struct regmap *grf;
+>  	struct clk *pclk;
+>  	struct phy *dphy;
+> +	bool enabled;
+>  	const struct rockchip_lvds_soc_data *soc_data;
+>  	int output; /* rgb lvds or dual lvds output */
+>  	int format; /* vesa or jeida format */
+> @@ -435,6 +436,100 @@ static void px30_lvds_encoder_disable(struct drm_encoder *encoder)
+>  	drm_panel_unprepare(lvds->panel);
+>  }
+>  
+> +static int rk3568_lvds_poweron(struct drm_encoder *encoder)
+> +{
+> +	struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
+> +	struct rockchip_crtc_state *s =
+> +		to_rockchip_crtc_state(encoder->crtc->state);
+> +	bool negedge = !!(s->bus_flags & DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE);
+> +	int ret;
+> +
+> +	if (lvds->output != DISPLAY_OUTPUT_LVDS) {
+> +		DRM_DEV_ERROR(lvds->dev, "Unsupported display output %d\n",
+> +			      lvds->output);
+> +		return -EINVAL;
+> +	}
+> +
+> +	ret = pm_runtime_resume_and_get(lvds->dev);
+> +	if (ret < 0) {
+> +		DRM_DEV_ERROR(lvds->dev, "failed to get pm runtime: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	regmap_write(lvds->grf, RK3568_GRF_VO_CON2,
+> +		     RK3568_LVDS0_MODE_EN(1) | RK3568_LVDS0_P2S_EN(1) |
+> +		     RK3568_LVDS0_DCLK_INV_SEL(negedge));
+> +	regmap_write(lvds->grf, RK3568_GRF_VO_CON0,
+> +		     RK3568_LVDS0_SELECT(lvds->format) |
+> +		     RK3568_LVDS0_MSBSEL(1));
+> +
+> +	return 0;
+> +}
+> +
+> +static void rk3568_lvds_poweroff(struct rockchip_lvds *lvds)
+> +{
+> +	regmap_write(lvds->grf, RK3568_GRF_VO_CON2,
+> +		     RK3568_LVDS0_MODE_EN(0) | RK3568_LVDS0_P2S_EN(0));
+> +
+> +	pm_runtime_put(lvds->dev);
+> +}
+> +
+> +static void rk3568_lvds_encoder_enable(struct drm_encoder *encoder)
+> +{
+> +	struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
+> +	int ret;
+> +
+> +	drm_panel_prepare(lvds->panel);
+> +
+> +	ret = rk3568_lvds_poweron(encoder);
+> +	if (ret) {
+> +		DRM_DEV_ERROR(lvds->dev, "failed to power on LVDS: %d\n", ret);
+> +		goto err_unprepare;
+> +	}
+> +
+> +	/* The GRF must be in LVDS mode with dclk running before the phy. */
+> +	ret = phy_set_mode(lvds->dphy, PHY_MODE_LVDS);
+> +	if (ret) {
+> +		DRM_DEV_ERROR(lvds->dev, "failed to set phy mode: %d\n", ret);
+> +		goto err_poweroff;
+> +	}
+> +
+> +	ret = phy_power_on(lvds->dphy);
+> +	if (ret) {
+> +		DRM_DEV_ERROR(lvds->dev, "failed to power on phy: %d\n", ret);
+> +		goto err_poweroff;
+> +	}
+> +
+> +	lvds->enabled = true;
+> +	drm_panel_enable(lvds->panel);
+> +	return;
+> +
+> +err_poweroff:
+> +	rk3568_lvds_poweroff(lvds);
+> +err_unprepare:
+> +	drm_panel_unprepare(lvds->panel);
+> +}
+> +
+> +static void rk3568_lvds_encoder_disable(struct drm_encoder *encoder)
+> +{
+> +	struct rockchip_lvds *lvds = encoder_to_lvds(encoder);
+> +
+> +	/*
+> +	 * .enable() cannot report failure, so the atomic helpers call this even
+> +	 * when it bailed out and already unwound itself. Tear down only what an
+> +	 * enable that ran to completion left behind, or the phy power count and
+> +	 * the runtime-PM count of a half-enabled encoder underflow.
+> +	 */
+> +	if (!lvds->enabled)
+> +		return;
+> +
+> +	drm_panel_disable(lvds->panel);
+> +	phy_power_off(lvds->dphy);
+> +	rk3568_lvds_poweroff(lvds);
+> +	drm_panel_unprepare(lvds->panel);
+> +	lvds->enabled = false;
+> +}
+> +
+>  static const
+>  struct drm_encoder_helper_funcs rk3288_lvds_encoder_helper_funcs = {
+>  	.enable = rk3288_lvds_encoder_enable,
+> @@ -449,6 +544,13 @@ struct drm_encoder_helper_funcs px30_lvds_encoder_helper_funcs = {
+>  	.atomic_check = rockchip_lvds_encoder_atomic_check,
+>  };
+>  
+> +static const
+> +struct drm_encoder_helper_funcs rk3568_lvds_encoder_helper_funcs = {
+> +	.enable = rk3568_lvds_encoder_enable,
+> +	.disable = rk3568_lvds_encoder_disable,
+> +	.atomic_check = rockchip_lvds_encoder_atomic_check,
+> +};
+> +
+>  static int rk3288_lvds_probe(struct platform_device *pdev,
+>  			     struct rockchip_lvds *lvds)
+>  {
+> @@ -512,6 +614,17 @@ static int px30_lvds_probe(struct platform_device *pdev,
+>  	return phy_power_on(lvds->dphy);
+>  }
+>  
+> +static int rk3568_lvds_probe(struct platform_device *pdev,
+> +			     struct rockchip_lvds *lvds)
+> +{
+> +	/* The phy is powered on from the encoder enable path, not here. */
+> +	lvds->dphy = devm_phy_get(&pdev->dev, "dphy");
+> +	if (IS_ERR(lvds->dphy))
+> +		return PTR_ERR(lvds->dphy);
+> +
+> +	return phy_init(lvds->dphy);
+> +}
+> +
+>  static const struct rockchip_lvds_soc_data rk3288_lvds_data = {
+>  	.probe = rk3288_lvds_probe,
+>  	.helper_funcs = &rk3288_lvds_encoder_helper_funcs,
+> @@ -522,6 +635,11 @@ static const struct rockchip_lvds_soc_data px30_lvds_data = {
+>  	.helper_funcs = &px30_lvds_encoder_helper_funcs,
+>  };
+>  
+> +static const struct rockchip_lvds_soc_data rk3568_lvds_data = {
+> +	.probe = rk3568_lvds_probe,
+> +	.helper_funcs = &rk3568_lvds_encoder_helper_funcs,
+> +};
+> +
+>  static const struct of_device_id rockchip_lvds_dt_ids[] = {
+>  	{
+>  		.compatible = "rockchip,rk3288-lvds",
+> @@ -531,6 +649,10 @@ static const struct of_device_id rockchip_lvds_dt_ids[] = {
+>  		.compatible = "rockchip,px30-lvds",
+>  		.data = &px30_lvds_data
+>  	},
+> +	{
+> +		.compatible = "rockchip,rk3568-lvds",
+> +		.data = &rk3568_lvds_data
+> +	},
+>  	{}
+>  };
+>  MODULE_DEVICE_TABLE(of, rockchip_lvds_dt_ids);
+> @@ -601,6 +723,8 @@ static int rockchip_lvds_bind(struct device *dev, struct device *master,
+>  	encoder = &lvds->encoder.encoder;
+>  	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm_dev,
+>  							     dev->of_node);
+> +	rockchip_drm_encoder_set_crtc_endpoint_id(&lvds->encoder,
+> +						  dev->of_node, 0, 0);
+>  
+>  	ret = drm_simple_encoder_init(drm_dev, encoder, DRM_MODE_ENCODER_LVDS);
+>  	if (ret < 0) {
+> diff --git a/drivers/gpu/drm/rockchip/rockchip_lvds.h b/drivers/gpu/drm/rockchip/rockchip_lvds.h
+> index 2d92447..93d3415 100644
+> --- a/drivers/gpu/drm/rockchip/rockchip_lvds.h
+> +++ b/drivers/gpu/drm/rockchip/rockchip_lvds.h
+> @@ -121,4 +121,14 @@
+>  #define   PX30_LVDS_P2S_EN(val)			FIELD_PREP_WM16(BIT(6), (val))
+>  #define   PX30_LVDS_VOP_SEL(val)		FIELD_PREP_WM16(BIT(1), (val))
+>  
+> +#define RK3568_GRF_VO_CON0			0x0360
+> +#define   RK3568_LVDS0_SELECT(val)		FIELD_PREP_WM16(GENMASK(5, 4), (val))
+> +#define   RK3568_LVDS0_MSBSEL(val)		FIELD_PREP_WM16(BIT(3), (val))
+> +
+> +#define RK3568_GRF_VO_CON2			0x0368
+> +#define   RK3568_LVDS0_DCLK_INV_SEL(val)	FIELD_PREP_WM16(BIT(9), (val))
+> +#define   RK3568_LVDS0_DCLK_DIV2_SEL(val)	FIELD_PREP_WM16(BIT(8), (val))
+> +#define   RK3568_LVDS0_MODE_EN(val)		FIELD_PREP_WM16(BIT(1), (val))
+> +#define   RK3568_LVDS0_P2S_EN(val)		FIELD_PREP_WM16(BIT(0), (val))
+> +
+>  #endif /* _ROCKCHIP_LVDS_ */
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
----
- drivers/soc/qcom/ubwc_config.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/soc/qcom/ubwc_config.c b/drivers/soc/qcom/ubwc_config.c
-index 0209a02c390f..c5f79210ad52 100644
---- a/drivers/soc/qcom/ubwc_config.c
-+++ b/drivers/soc/qcom/ubwc_config.c
-@@ -112,6 +112,7 @@ static const struct of_device_id qcom_ubwc_configs[] __maybe_unused = {
- 	{ .compatible = "qcom,eliza", .data = &ubwc_5_0_hbb15 },
- 	{ .compatible = "qcom,glymur", .data = &glymur_data},
- 	{ .compatible = "qcom,kaanapali", .data = &ubwc_6_0_hbb16 },
-+	{ .compatible = "qcom,kalambo", .data = &glymur_data },
- 	{ .compatible = "qcom,mahua", .data = &glymur_data },
- 	{ .compatible = "qcom,milos", .data = &milos_data },
- 	{ .compatible = "qcom,msm8226", .data = &no_ubwc_data },
+Reviewed-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 
 -- 
-2.34.1
-
+Best, 
+Chaoyi
