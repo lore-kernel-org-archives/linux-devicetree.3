@@ -1,67 +1,67 @@
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F9353F6600
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 11:06:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA2673F3281
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 11:08:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785150388; cv=none; b=bmtoykRntVlyZNq50mDNgyqj3oTNYAbbv52J8h0CbQik/0VPn0AB6bSkOanNcvZCu/PqNJ0KBkw8Zx8S5JSKzmzKy4Oog8HIUm64WCj3yaS/5mv+acjNWTf0Q4EZwj/+0lQJf65gFIhiXhKMXAEWKMtfe7Gng1+SXwCG/Mp0y00=
+	t=1785150516; cv=none; b=JrMEOTk8AN68+HEg06HYXzqSxHhbeP0zSUI2CdarTo3MASCrv7YRBsd7OvCBvjAWpKz4DWl8kCb2/GpzNV0j9yWf7aAptbLnA6S5MinY0tEO8z+81ANjWFrx00nqhEhwxCrTXuRd3S03JbjytAN2M0oGUDZqghuPd1TUiISDKwc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785150388; c=relaxed/simple;
-	bh=v+pIXqI4Yn7FIR8fGNeli3S1YAjHULa95SiXJrMUGHo=;
+	s=arc-20240116; t=1785150516; c=relaxed/simple;
+	bh=ZpoUI0pXe24xXjZcPALea9gBO3auN5oFlq0lj4D/PZc=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=DPGBaZhmKJ114MRoyIm1bpIAYIA8OtMjRDrs70uhBNqvtrcmO1yIguR9A8u+XL2KYaWV8iCUaasOUhEzkawtmRbu+eWn53TZMf+yTYchmleEN33cidjcPgy9hJ4zEJMx2U+eHfeSS3Wwh6GjlJzw2BfeoLSWpFaUNdaMbMjGjiA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=NdgIsk8X; arc=none smtp.client-ip=209.85.208.53
+	 Content-Type:MIME-Version; b=mb0P+h93YGnCRIRRlyFCquacejCPJfsgpYFV+onK2Au0KHeko0RdN1k+ueNNdB/6DXFJv0uuM78G8XPGXq00XTaLW4tL2dddUKQKS4542mDkuWSBnK2jnsSvIixOm5436opKwGhunzJE9zcKRNsIzs3DYm8ktK3xiCTe9SbyWS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=vFdqFs12; arc=none smtp.client-ip=209.85.218.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="NdgIsk8X"
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-69fec980a30so1090626a12.3
-        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 04:06:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="vFdqFs12"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c169ae1cb26so606155666b.1
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 04:08:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1785150384; x=1785755184; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1785150513; x=1785755313; darn=vger.kernel.org;
         h=mime-version:user-agent:content-transfer-encoding:content-type
          :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=v+pIXqI4Yn7FIR8fGNeli3S1YAjHULa95SiXJrMUGHo=;
-        b=NdgIsk8XCg3LLIhLHMixB9MG8CZxscoycsRQ7vWldblSaT46VykeBq/lUJLRo46CpC
-         JoH3bRqVF3p1xeAlVQQHVLuIGWesxKy5lm3VXTSkHUa+b2JRFHF8Sl5L3of2K7YXikuK
-         Xk0HUYS1e7ChaThWGGU7c0tO67Zu47XeRrMYYPvtvjB5VA/aR0NEba7f01aMe4/qMPFx
-         PaLiE5gj+RuGH6ukUBOgD2vHPUkA8dCxl9OoWKxueOxlrLxwyrW1OUKAw62WRJE2dRHW
-         NAfNmkS8g+SbMZGxrGtGeNMuE/bdsC6Q01gZuc9mhIbClzoLW+2LjPprWuuAYFrmUASq
-         xMkQ==
+        bh=ZpoUI0pXe24xXjZcPALea9gBO3auN5oFlq0lj4D/PZc=;
+        b=vFdqFs12OkNuvrwRhpYuprOPOfl6ECuY2A08j72aXYaibifCMXYpuLKSjr5gxrpuca
+         ruC2nRnLhfP0Hje/ZiW/RF6As0PbzobbrL0AdsjizVSwKzzlRDTE/NjqsFWKdp5Rl07B
+         5FZrQMfm3lL8EWn6ET0VTkiThN/v9f7Gm3+rIl7ip5LHRQpF/mw5qzlwWnIqbx5QvLuP
+         CMJZgZLzOX/drlAA8q3S5G5rKY6/+J1wXkBqDwfWfMvE09L4h8ZHnkfAq9DzUBOqgZbM
+         FAYnuice6x40VBDs4zCvM0QAWpdMBZWPAIyFJkusFyHAQoPLsAJWby0Z5NwTukik+Ahr
+         gSSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785150384; x=1785755184;
+        d=1e100.net; s=20251104; t=1785150513; x=1785755313;
         h=mime-version:user-agent:content-transfer-encoding:content-type
          :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=v+pIXqI4Yn7FIR8fGNeli3S1YAjHULa95SiXJrMUGHo=;
-        b=jtzdbKt8dhtNiScaD9B0eSXYgJudxEtjMtg38l3TvvKWBgOpg/RrYFOnJBFyI6sAPK
-         d7CmdN+tnt8nixWj1I6v5fAMNVHKyhhHPaUqgqEwp+wTiNk6Ic++vGwNYiqf9WUaFgi8
-         l/9QUwWJRS8TC/BrDpgU/LErW36lKnLEA6gqHYeN+UINJwBwifHECwEg0g54/lofA3Jf
-         a7nH71eJDPGq98BG0bEHUk558l6SWGZ1FFf0pRXAaJ1msHzlr08RTGNaNQSsU5kZyO9X
-         e3ytPmrPRsz2c7/obdvk3rh1bKk52vaIEFVcrkqNOW04VAysPlRQ1XCJZNVk4xeg5NOF
-         Bb0A==
-X-Forwarded-Encrypted: i=1; AHgh+RqWk3evDzVT9WDk9X/SSoB+QM9v0d74p+D8Sufd7AMuePgG8Y/fjuGbxlKSBhptFo7EoAMY9GD81RfJ@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywr/UdF9ifdjMEiiD496Zwcr/N/N9733xujdT37H8pjmahs/Tr6
-	OAoTWN/cuPmQm5J677uuFS+mTzSs2CvtilZ8SgIC8Pd0EvTbDUrlkPehVa6YZHyLIk0=
-X-Gm-Gg: AR+sD1325rHWxEasfKa4g8jS1WrVLqn27rMPdgAuoOgIx+lzCUwCD+eNnTysGiuvOeq
-	SOop9czQrUU2pCk5f4guEhJFb7Wgmxx4cQpCShlhUtOA7pWE9MBzQ4m0Zcd/w2t1ratoRsQ9vRN
-	cZ7YcNm/8RLulfik98IO8efkZtW2b9XjYzpfFiHg38DAz77uojHj4ZWkJjt05OGTHybj0+bl2Lv
-	qlM9y0zmfFzDgdqkgvqTn5AfN8URHXaiREx4rzjEQbZtCqkGfBqw8EyvbswSjHyygeVsJLR6/AU
-	H5DB4r+jt8hTMlkyIzt1HdbOZfIY/5UDoQPNW+28NzLY3gpFpQgpzF8IuOPLII3kAoTKkcYIGB5
-	0q+PNlzw4vxc4JlHqXAQlfjWuswIKn578czOgM/tXoFFE6STr6uQNMH5VqR95cs73UTOgWb0cdX
-	YXb9xPAw==
-X-Received: by 2002:a05:6402:28c9:b0:699:e496:870e with SMTP id 4fb4d7f45d1cf-69fc1159931mr2804954a12.20.1785150384355;
-        Mon, 27 Jul 2026 04:06:24 -0700 (PDT)
+        bh=ZpoUI0pXe24xXjZcPALea9gBO3auN5oFlq0lj4D/PZc=;
+        b=dcpfUNB0npcCwghkNQDjF8ZZf2qa6tCdq/trX04Am/SEoGuF42WOthE3HEP16ji0kx
+         O8saiMDiLQQ5z9RZ4kKdo83HnGCiFE9vX7SWXCamx+9MUFYftn6ATL7qQgOgqocP0XVr
+         ECkb22X12aai1Yki6gy5NCLut6TRZ0c71KahFzLk6sWlP8xeOZ5v73/2aBdDzlWUDfHw
+         26Na/g7mOBiOuOQPAVlr5t+DFXsuKXo3iPamMOwJ2LdxtYwmNpA2iao8wldSoNh8NOqN
+         GyQDqGL+FyPUSISStx0DIHQ/ak5xcB25DK+WORl730MOmEwVlKBDMl+TQ2CxmQezIiS8
+         ecPQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoDu5h+j2D30veSxKeD6hC8/yWBGwYNh1zHm8Hbs3jk1hOp2BSAPGXeLg9Bn0Yp6/cA2ktqIL+RPTot@vger.kernel.org
+X-Gm-Message-State: AOJu0YzQN04EvzztFmSoyP4S5AUv+cVBnu9bgYyE/6Fp/J6ENrExaX0x
+	OzqTaeiuR8YeivJo983M6PSUTEX6nD/062KqfHPtOy0EHm1PDz3AKsNq6Fi7hQFF9pE=
+X-Gm-Gg: AR+sD12S3iznm2nfipxepGqzvZGRPtaS3rj/3HActeC0ysC9KD8pna+BWkvZTlEptZC
+	sSS0qvYhMp+9K4I8qz69MZlxv7HwUAXqwqRlfCXGr0GwVk64vIAl8Qn+yMuSs5Q3rp8LlLW/C5q
+	kRwNBMYOXd1j/rkg2NokGJW7vZYT9+Pop3Adypa9AvG/UpZvV2myY6qKh9/A1OsG1MCac7hX6pf
+	ga/qBElHYIWRl5wjO78y5N6FkO3EYM+ixMadU2FcxD5iUlrgrbUGC7AdsHgrQ8t2U9qvhRHy6RJ
+	btG58GzidLCXCCe+Lbarc+MmKTbn7IKY38zorOsF7QGcNcPL1D3B94RO1JN+RjAGG/iwP8fOSW6
+	l8lUvyByoPUtmKWOkliQEuI/gJuASfTTQ2Ed+dtx0AZOQy0eFQS68LkIHCqFv2R7nJcTJHJ0tte
+	3BVOijskt3RshllS9N
+X-Received: by 2002:a17:907:72c5:b0:c16:6be0:77d4 with SMTP id a640c23a62f3a-c1f1fcaf96amr403599466b.14.1785150512826;
+        Mon, 27 Jul 2026 04:08:32 -0700 (PDT)
 Received: from [10.1.1.59] ([109.255.181.4])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69fb55439absm2454955a12.19.2026.07.27.04.06.22
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1c32f13cb4sm634351066b.61.2026.07.27.04.08.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jul 2026 04:06:23 -0700 (PDT)
-Message-ID: <32582351575d8cbc06fc68ab3d12d598bd317ab5.camel@linaro.org>
-Subject: Re: [PATCH 3/8] arm64: dts: exynos5433: Override thermal zones by
- phandle
+        Mon, 27 Jul 2026 04:08:32 -0700 (PDT)
+Message-ID: <c66d9d55d0c00e7ae43b9c075dc046fec2397a9b.camel@linaro.org>
+Subject: Re: [PATCH 5/8] arm64: dts: google: Move 'status' to the end to
+ match coding style
 From: =?ISO-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Ivaylo
  Ivanov	 <ivo.ivanov.ivanov1@gmail.com>, Rob Herring <robh@kernel.org>,
@@ -72,11 +72,11 @@ To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Ivaylo
  Krzysztof Kozlowski	 <krzk@kernel.org>, linux-fsd@tesla.com
 Cc: linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
  	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 27 Jul 2026 12:06:41 +0100
-In-Reply-To: <20260726-b4-dts-coding-style-strict-v1-3-e9e3e9879d05@oss.qualcomm.com>
+Date: Mon, 27 Jul 2026 12:08:40 +0100
+In-Reply-To: <20260726-b4-dts-coding-style-strict-v1-5-e9e3e9879d05@oss.qualcomm.com>
 References: 
 	<20260726-b4-dts-coding-style-strict-v1-0-e9e3e9879d05@oss.qualcomm.com>
-	 <20260726-b4-dts-coding-style-strict-v1-3-e9e3e9879d05@oss.qualcomm.com>
+	 <20260726-b4-dts-coding-style-strict-v1-5-e9e3e9879d05@oss.qualcomm.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.56.2-8+build1 
@@ -88,14 +88,21 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
 On Sun, 2026-07-26 at 19:43 +0200, Krzysztof Kozlowski wrote:
-> Fix indentation of DTSI file with thermal zones (two opening { brackets,
-> but only one indent) by using a safer choice of phandle/label override.
+> 'status' property is special, thus DTS coding style expects it to be
+> always the last property preceded with a blank line, as reported by
+> dt-check-style:
+>=20
+> =C2=A0 [required-blank-lines] "status" must be preceded by a blank line
+> =C2=A0 [property-order] property 'vcc-supply' out of canonical order (sho=
+uld sort before 'status')
 >=20
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 > ---
-> =C2=A0arch/arm64/boot/dts/exynos/exynos5433-tmu.dtsi | 4 +---
-> =C2=A0arch/arm64/boot/dts/exynos/exynos5433.dtsi=C2=A0=C2=A0=C2=A0=C2=A0 =
-| 3 +++
-> =C2=A02 files changed, 4 insertions(+), 3 deletions(-)
+> =C2=A0arch/arm64/boot/dts/exynos/google/gs101-oriole.dts |=C2=A0 2 +
+> =C2=A0.../boot/dts/exynos/google/gs101-pixel-common.dtsi | 12 +++-
+> =C2=A0arch/arm64/boot/dts/exynos/google/gs101-raven.dts=C2=A0 |=C2=A0 2 +
+> =C2=A0arch/arm64/boot/dts/exynos/google/gs101.dtsi=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 | 70 ++++++++++++++++++++++
+> =C2=A04 files changed, 85 insertions(+), 1 deletion(-)
 
-Reviewed-by: Andr=C3=A9 Draszik <andre.draszik@linaro.org>
+Reviewed-by: Andr=C3=A9 Draszik <andre.draszik@linaro.org>,
