@@ -1,151 +1,179 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 767513D79E2
-	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 08:19:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA54B3E1713
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 08:20:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785140349; cv=none; b=nqJeI5kYIXpi8n7NdAmYIPuDdc2tM6D0h9mC2RwD+qzrea5aq6ESt6b1OZ6NfD33s3zlmh4iGCVUqyzVOnZI4/Fv6+XOmW5lTOP6zHNY4MozFF8B8doaE7QYZW4LHpxtSiB2oKktr5pFnKDGkCnQZfLXEJyiLeFBg01Nq6CQoWk=
+	t=1785140405; cv=none; b=WBFMYzpJjMEBH/ROha7ymMWW8tfOWzjd2bphQhiWG/ErkMt56zHZk3X2VGE8dx9R2XMpQ9H9xO0rUhJXeQgGl+6WtNYP7Z1Hc7rYgiflD9qHuXVgFJa6mPTNad5L7EF8JQlkPLvYIvftFJ7TQoF42MxN/tfp7WOE0gmCabS5beE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785140349; c=relaxed/simple;
-	bh=fCWkicevH4l27bVA3C25HGSCdwjszECBgZA6KxOZVU4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=mNWOgUeW4OxMz5GJ3FqvDN65x27ZhFB1ETwJoTgbk2W1SDCUx3OLxTVFkOo1qYqF8T4uVmVFPkaCJNCVMYrGBKs13zg0mMocvQVQy6rQafFDcbbwU3CWFmq+fOeZJaIZfYJrggTxUp7Yvr4O2uEH8nxuZDRVl8vbhXokkhz+4W0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JykRo0fk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785140405; c=relaxed/simple;
+	bh=NeWTLH60XPDWK5+mw5xbUbJfajTDDxDNPLX2UcUzbVs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=P9eHcNX2krVW7rHA8V+3E/QYWBi+UkW5vUCt1IHY2TThK2NHpc4wzFrhamJQrX3ENDdi1We3xWvhR/aT3PaCg+QnRvKRb5I2JzsXGF7g3FeMwrRMkVnJhpqIpzFzSOAqcyUbTJUODWK6uf+sZN3uYxXkkBMftvBbyjeCcp8ua4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I4TpMLot; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JykRo0fk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D082F1F000E9;
-	Mon, 27 Jul 2026 08:19:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785140348;
-	bh=Tcy784Toe5Z5+U/TKrCOU3etF4Z2ddluLhrv437WYTg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JykRo0fkUT1kxypWXMPyd5wb/5VhBvhBifJENbuhBwSKIOz+Te/GFsv/xTTukh822
-	 H++vdf5A8TN6Zjf8INGFhVn6ZcaehRNCYWyorm4wHJBa1oF0A0GJcpgLKgbBwy5EYN
-	 1VNfo9wR5MqCfNhAGJbKvXxpNpkYYzfc0mS7CnS0vnxS2jQEN67NU9ig03MN+SXzrH
-	 9PIbsUgji8jDMFCZEjYHYuUK507l5S8bo2Tu8YUfGZVisFGJ6SGSBPoFGkRAVsQqNd
-	 YmTtCHRhVWQK64XOu3epKHQKg6oM0XksohC3fJHbit2yqMKdHYGOdLSV6CRP/1+Qeu
-	 9j6EJVFW9R66A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 20/34] pinctrl: airoha: split driver on shared code
- and SoC specific drivers
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260727074234.3761170-21-mikhail.kshevetskiy@iopsys.eu>
-References: <20260727074234.3761170-1-mikhail.kshevetskiy@iopsys.eu>
- <20260727074234.3761170-21-mikhail.kshevetskiy@iopsys.eu>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 27 Jul 2026 08:19:07 +0000
-Message-Id: <20260727081907.D082F1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I4TpMLot"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2cc891373e0so24007295ad.2
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 01:20:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785140403; x=1785745203; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qPnz/v80LXwYp0PVxXjwmAK2BJ3kZ1bk+zxjufazDlY=;
+        b=I4TpMLotyMJuWXlbKpE7UMQwdk2ppN2R86fTlwJwF5cVlgCqpSS1WM189d8VgLVXTK
+         KP8G3pIJhpVIlOgxiciPJxN6i6DTKXhs81WpAuO6RQyNcLAU8kSU6891N0O4xoZcxJ4Y
+         sngWrnYEnsfgfZJyy8dZkmPO3sq5x0IETi/+8sQlDrI2o1Qw85oGvC3bMfPt85ik9D9p
+         2VwicxqJIUoC0pzlmW6zs5G1NHi6Ff23DgYPZo22oEsl9s9ReuTB5Ro8h1PFe2iVmU75
+         ss5gVBtqsIlstIcRMmfMIf68DdHmGe6UxnTVczGMGrFJFT6/5wLM3aDAP9klSPTr8R57
+         D6iQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785140403; x=1785745203;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qPnz/v80LXwYp0PVxXjwmAK2BJ3kZ1bk+zxjufazDlY=;
+        b=rwFl/DiMGZxywlbPr9e8OkbLKykKQNEFjIjmgYAXdSjIbF5w1x4i2gqBurZVQKO6FK
+         ONgWcJ4o0d04+CRCBUEpWxOD+YZDM3kOgIbbTOxYjFjFleTMtKM6X58uoL4KLz3dNBbc
+         8cPVK53nC2joYplHUOxXhVdV5ShDQ5n6G6BOeLx4pw99azrL7wC9BEPjXpalRfey2mLs
+         WXf3UhnPvCA4KXHuHPbJJ2jtsskVbcLWKCHqw/5yQB00nDX+Zcvqg9LWHgEjpA8ziGoz
+         uzfX68uFGbXDjWvADoD68WURvF5kT9FVy3veNdiiG3JSaiSM6/F0UXfqpHZkwNP2GmmM
+         KWmA==
+X-Forwarded-Encrypted: i=1; AHgh+RpKHE4scNClZ04yS5Gw2vJWaliPwksJ5iEPLklw9HdtvjAJtn1HG+mH1q70uq5OUOB//5IfCCBYBTI8@vger.kernel.org
+X-Gm-Message-State: AOJu0YxgHuauRnL2mBi9llmEdpmdYFtIGamEAUxTBOl2RPW0KyGNpVhE
+	/TvXcHzGQJ/3Wz+WIwnVR2p5uAlM6W/JaaZEXjzGgSJNU25xervoSd2j
+X-Gm-Gg: AR+sD11Hn6kS30wW9XBSjoYF3XmZnMkqkHjd1R0U91t8759c+wTGcI1X8AR5caqjqfb
+	ItSFqzMEbxEiz93zm3yi7KmNhc6gPvnKTHMMitc1yr6stdv0sZDko49bC3ACn9UzfZKvhV+jx5Z
+	gjpI2Bb5Vy7fr3NH7s8uP3NwiNDTK+MtXkHc8rymImtKACzJ3h8jRN2t8rCWzCMv0nzRecWt1NS
+	HQBe555XZtN9Em/HLy3iYIRO0nSUVjH/A1VOUxCXMWbeGu6/YYo6huVBW6ThiWc3GYKX5rpWhFx
+	ikUzdKM0VJiCHnaE+lYh65zbW6WmSNC4jKYUCxFoPhPIiBAzZpRJSi6xKe0m4bZAV9V64wtdnE/
+	M0IIf1ZD4t1aLCX14qSlEFVhY/0IZBjhveQeK+6Gep91zUFsvOfeP+i+x5O2pMOr8U7njefCmKw
+	9zK6gLeCSBa0VzaosGf4qo8BIiV5KZBwpiAy5geWl+V1PDBw7rKDQb3sv166Qr
+X-Received: by 2002:a17:90b:268b:b0:38d:eaec:4396 with SMTP id 98e67ed59e1d1-38f293caf01mr7455177a91.11.1785140402768;
+        Mon, 27 Jul 2026 01:20:02 -0700 (PDT)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f292aed12sm2629156a91.4.2026.07.27.01.20.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Jul 2026 01:20:02 -0700 (PDT)
+From: Zi-Yu Chen <zychennvt@gmail.com>
+To: Andi Shyti <andi.shyti@kernel.org>,
+	linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: Jacky Huang <ychuang3@nuvoton.com>,
+	Shan-Chun Hung <schung@nuvoton.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Zi-Yu Chen <zychennvt@gmail.com>
+Subject: [PATCH v7 0/3] i2c: ma35d1: Add support for MA35D1 I2C controller
+Date: Mon, 27 Jul 2026 16:18:56 +0800
+Message-Id: <20260727081859.1737223-1-zychennvt@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+This series adds support for the I2C controller found in the Nuvoton
+MA35D1 SoC. The driver supports controller and optional target mode
+and runtime power management.
 
-New issues:
-- [High] The trailing explicit status clear after executing `generic_handle=
-_domain_irq()` double-ACKs edge-triggered interrupts, silencing subsequent =
-pending edge events.
-- [Medium] The driver dynamically copies an immutable `irq_chip` structure =
-into per-instance memory, defeating the purpose of the `IRQCHIP_IMMUTABLE` =
-flag.
+The implementation has been tested on the Nuvoton MA35D1 SOM board.
 
-Pre-existing issues:
-- [High] Incorrect devres teardown ordering causes a Use-After-Free of `gir=
-q->domain` on driver unbind and a race condition during probe.
---
+Changes in v7:
+	- Disable IRQ before clearing i2c->msg.
+	- Support	CONFIG_PM=n, and simplify runtime PM setup accordingly.
+	- Remove redundant register access in runtime suspend/resume callbacks.
+	- Defer clearing i2c->target until after pm_runtime_put_sync() in ma35d1_unreg_target().
+	- Enable interrupts alongside I2C enable in ma35d1_i2c_reset().
+  v6: https://lore.kernel.org/r/20260720030616.1067660-1-zychennvt@gmail.com/
+Changes in v6:
+  - Patch 2 (driver):
+		- Removed dynamic IRQ toggling helpers for simpler interrupt management.
+		Address review feedback:
+		- Added zero-length read quirk.
+		- Set i2c->msg to NULL on timeout to avoid use-after-free.
+		- Cleared hardware registers on target unregistration to release the bus.
+		- Protected suspend-path register writes with a spinlock.
+		- Validated clock-frequency to prevent division-by-zero.
+		- Removed incorrect I2C_M_IGNORE_NAK handling.
+		- Corrected a comment typo in the receive data path.		
+  - Patch 3 (dts):
+    - use a generic functional name audio-codec@1a
+  v5: https://lore.kernel.org/r/20260630012106.3616821-1-zychennvt@gmail.com/
 
---- Patch [20]: [PATCH v7 20/34] pinctrl: airoha: split driver on shared co=
-de and SoC specific drivers ---
-commit cead269156cfbd3a10c51e662e4e2740e945e387
-Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+Changes in v5:
+  - Patch 2 (driver):
+    - Add spinlock protection for MA35_CTL0 register access.
+    - Add NULL pointer check for i2c->msg in the ISR.
+    - Use devres-managed cleanup (devm_add_action_or_reset) for runtime PM.
+    - Use pm_runtime_force_suspend/resume() for Controller mode 
+      system sleep.
+    - Control I2CEN bit enabling/disabling via runtime PM.
+    - Refactor arbitration lost handling in state machines.
+    - Remove unsupported I2C_FUNC_PROTOCOL_MANGLING flag.
+    - Clean up readl_poll_timeout() parameters, retry loop, and
+      unused macros.
+  v4: https://lore.kernel.org/r/20260610030208.2020275-1-zychennvt@gmail.com/
 
-pinctrl: airoha: split driver on shared code and SoC specific drivers
-   =20
-Split combined an7581/an7583 source file on a
- * shared pinctrl code (pinctrl-airoha.c)
- * an7581 specific pinctrl driver (pinctrl-an7581.c)
- * an7583 specific pinctrl driver (pinctrl-an7583.c)
+Changes in v4:
+  - Patch 1 (dt-bindings):
+    - Update example interrupt number.
+  - Patch 2 (driver):
+    - Remove redundant spinlocks and fix 'irq' type to signed.
+    - Fix target address recovery in ma35d1_i2c_reset().
+    - Refactor IRQ handler for multi-msg reads and NACK/IGNORE_NAK.
+    - Fix timeout UAF via explicit IRQ disabling during recovery.
+    - Drop IRQF_SHARED and fix PM paths in probe/unregistration.
+    - Limit suspend/resume wakeup logic to target mode only.
+  - Patch 3 (dts):
+    - Add missing i2c0 node to dtsi.
+    - Switch SoM configuration from i2c1 to i2c2 with updated pinctrl.
+    - Add nau8822 audio codec node under i2c2 on the SoM board.
+    - Drop redundant i2c0 alias and clean up dtsi property ordering.
+  v3: https://lore.kernel.org/r/20260512073953.564323-1-zychennvt@gmail.com/
 
-Ininialization code was adapted a bit to work properly for shared
-and SoC specific cases.
+Changes in v3:
+  - Fix minor DTS formatting issues (whitespace, missing newline)  
+  v2: https://lore.kernel.org/r/20260316063726.41048-1-zychennvt@gmail.com
 
-> diff --git a/drivers/pinctrl/airoha/airoha-common.h b/drivers/pinctrl/air=
-oha/airoha-common.h
-> --- a/drivers/pinctrl/airoha/airoha-common.h
-> +++ b/drivers/pinctrl/airoha/airoha-common.h
-> @@ -148,9 +148,12 @@ struct airoha_pinctrl {
->  	struct regmap *regmap;
-> =20
->  	struct airoha_pinctrl_gpiochip gpiochip;
-> +	struct irq_chip gpio_irq_chip;
->  };
+Changes in v2:
+  - Overall:
+    - Rebase on linux-i2c/i2c-next
+    - Switched terminology from "master/slave" to "controller/target".  
+  - Patch 1 (dt-bindings):
+    - Simplified description and fixed 'reg' size in example.
+  - Patch 2 (driver):
+    - Modernized using devm_*, generic device properties, and FIELD_PREP/GENMASK.
+    - Optimized power management by moving clock control to runtime PM.
+    - Simplified code by removing redundant .remove(), .owner, and inlines.
+    - Added dev_err_probe() and default bus frequency handling.
+  - Patch 3 (dts):
+    - Moved i2c aliases to board dts and reordered nodes alphabetically.
+  v1: https://lore.kernel.org/r/20260302020822.13936-1-zychennvt@gmail.com
 
-[ ... ]
+Zi-Yu Chen (3):
+  dt-bindings: i2c: nuvoton,ma35d1-i2c: Add MA35D1 I2C controller
+  i2c: ma35d1: Add Nuvoton MA35D1 I2C driver support
+  arm64: dts: nuvoton: Add I2C nodes for MA35D1 SoC
 
-> diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/ai=
-roha/pinctrl-airoha.c
-> --- a/drivers/pinctrl/airoha/pinctrl-airoha.c
-> +++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
-> @@ -2630,9 +343,11 @@ static int airoha_pinctrl_add_gpiochip(struct airoh=
-a_pinctrl *pinctrl,
->  	gc->base =3D -1;
->  	gc->ngpio =3D AIROHA_NUM_PINS;
-> =20
-> +	memcpy(irq_chip, &airoha_gpio_irq_chip, sizeof(struct irq_chip));
-> +
->  	girq->default_type =3D IRQ_TYPE_NONE;
->  	girq->handler =3D handle_bad_irq;
-> -	gpio_irq_chip_set_chip(girq, &airoha_gpio_irq_chip);
-> +	gpio_irq_chip_set_chip(girq, irq_chip);
+ .../bindings/i2c/nuvoton,ma35d1-i2c.yaml      |  63 ++
+ .../boot/dts/nuvoton/ma35d1-som-256m.dts      |  20 +
+ arch/arm64/boot/dts/nuvoton/ma35d1.dtsi       |  72 ++
+ drivers/i2c/busses/Kconfig                    |  13 +
+ drivers/i2c/busses/Makefile                   |   1 +
+ drivers/i2c/busses/i2c-ma35d1.c               | 759 ++++++++++++++++++
+ 6 files changed, 928 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/i2c/nuvoton,ma35d1-i2c.yaml
+ create mode 100644 drivers/i2c/busses/i2c-ma35d1.c
 
-[Severity: Medium]
-Does copying the immutable airoha_gpio_irq_chip into per-instance memory
-bypass the protections of the IRQCHIP_IMMUTABLE flag?
+-- 
+2.34.1
 
-The core kernel contract expects a static const irq_chip to be passed to
-gpio_irq_chip_set_chip(). Here, the driver dynamically copies it into the
-mutable pinctrl->gpio_irq_chip and registers that instead.
-
-[Severity: High]
-This is a pre-existing issue, but can the devres teardown order here cause
-a use-after-free of the IRQ domain?
-
-In airoha_pinctrl_add_gpiochip(), devm_request_irq() is called before
-devm_gpiochip_add_data():
-
-    err =3D devm_request_irq(dev, irq, airoha_irq_handler, IRQF_SHARED,
-                           dev_name(dev), pinctrl);
-
-On driver unbind, devres will execute gpiochip_remove() first (which
-destroys girq->domain), and only then call free_irq(). If the shared parent
-IRQ fires during this window, airoha_irq_handler() will dereference the
-freed girq->domain when calling generic_handle_domain_irq().
-
-It could also fire during probe before the domain is fully initialized.
-
-[Severity: High]
-Can the trailing status clear in airoha_irq_handler() lead to lost
-edge-triggered interrupts?
-
-Looking at airoha_irq_handler() in drivers/pinctrl/airoha/pinctrl-airoha.c:
-
-    generic_handle_domain_irq(girq->domain, offset);
-    regmap_write(pinctrl->regmap, pinctrl->gpiochip.status[i], BIT(irq));
-       =20
-This patch series updates edge-triggered interrupts to use handle_edge_irq,
-which already ACKs the interrupt upfront via the .irq_ack callback. This
-allows the hardware to latch new edge events while the handler runs.
-However, the explicit regmap_write() after generic_handle_domain_irq()
-double-ACKs the interrupt, potentially clearing any new edge events that
-arrived during processing.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727074234.3761=
-170-1-mikhail.kshevetskiy@iopsys.eu?part=3D20
