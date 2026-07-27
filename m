@@ -1,170 +1,179 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7F7D3E7173;
-	Mon, 27 Jul 2026 09:03:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DECB63E9C1A
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 09:05:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785143010; cv=none; b=QiomJxX+ZEyENfIJBXdPjdsjudAYlaS+iidbJNmE+ZZmPZaYxiU6InNe3cbQM5TWYTwg//YKT4JlYCG+wZR4Rr6uqKcxtyjfS11bwIsIe43qZ8DQFTAMdtMIjiGHDJeStwQP3wY/bSPD6xBcYO+RXUWBU9uhMBltJJ5X/cWvF4Q=
+	t=1785143142; cv=none; b=DAyDt8VLlzNfqJ/PzrEqztgYwNI983/6WegiIf6wbDyRBHM6sT0KGyi76bnpculBvC44mapNSFZEttaazoSz6t2aQejoZpR5mF1ievST5HVUBga4ab2z2hF7fnopxLPm9Ckct8+1TogCi2JLUGPGPRpQFr2p8e5iUjwGbnozzvs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785143010; c=relaxed/simple;
-	bh=KiiC29yC6q9D42acoWr7J9G1qWo1IGLm2NFc+IQpEfI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Q7AsbTT9dz2NQ3wzNO9JsPyB8Zf/ZEgUepGw4RvviFozoaZESOstZNokWEEsjVT7mu4/1ER34MRELYjisaksCCH3/DApaUOIgQNU6K5syvh4/OV9jnlHFQ/WuQLunn4Xf21W1PIfgkSHkqbzgrrcMsDQtOmM6zJB1PG1odbAr9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QKrxVyYC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785143142; c=relaxed/simple;
+	bh=Zy/C1kSICIxQV8qJ5+qR9sxTNqRgcuri1YslBruhkZs=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FbiHjNItb6tAQEQuchfnkJAfXfVGyiWrkciP9aNVaXIQrePkT6Y3DIJcOFyX7V0FLxjnCCOr5OjpmVwReFTycvmTYkhxttwqaQBeTYBl40xMLSu/FlBOxcIMKIa9ISdSZiQtV+njfGU6S5sS2FG8o4vbrixh0Mm9CKooPsoCur8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Fgq+tAO/; arc=none smtp.client-ip=209.85.208.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QKrxVyYC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA0D61F000E9;
-	Mon, 27 Jul 2026 09:03:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785142997;
-	bh=Lt+D3jOponHMxc+QxjPF+MS0ElxubCEeMFryJ+h28PU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QKrxVyYCcqMPn+/sdpSnvw3uaupXNzT4aR5c9GBbsOEktJpmfEpZ7JgZYA7zy2BgW
-	 +kak4u1N73VijUMwueFJe29gCR0aKyYjPbuTlc/OKUFPB14aVJr8svGoaNZ//mgHM3
-	 giYsx3J3NAYBfc/UXAQPDN1KQVepoWQkVdk9sj7hXAMue3d1x1myckXtvRGHcOQCFX
-	 Qyeaku4s3HRm+MvwkdQfAJRgV+O7u+7ULZucD3nHz2FOJ6tKImlKvrVGo9sWwjvD7K
-	 DdK7t0S6hkxDGlTr5iUA3TGKd1vxU18FXBNpR/ugTIKsYw1q9ff5tmFz7KkCG505i9
-	 5oGtmDh8GUUpA==
-Date: Mon, 27 Jul 2026 11:03:15 +0200
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
-Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Benjamin Larsson <benjamin.larsson@genexis.eu>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
-	Markus Gothe <markus.gothe@genexis.eu>,
-	Matheus Sampaio Queiroga <srherobrine20@gmail.com>
-Subject: Re: [PATCH v7 18/34] pinctrl: airoha: remove not needed irq_type[]
- array
-Message-ID: <amce04npPwd9NnIZ@lore-desk>
-References: <20260727074234.3761170-1-mikhail.kshevetskiy@iopsys.eu>
- <20260727074234.3761170-19-mikhail.kshevetskiy@iopsys.eu>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fgq+tAO/"
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-69c7ab350e9so3464417a12.0
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 02:05:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785143139; x=1785747939; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Xa6du2hskAfuvL5DvwnynjBiYF7AzqZLEYEbhlKLATU=;
+        b=Fgq+tAO/Nx2D1/ADm4l3n9UXb289PWRcfGa4EHeijKE8zQEKPt+vP1LwZBOxpWYY8E
+         CK4C6VuCip+p2dElRiSIARS6bs2gx+TPDtbGIw8rTLz2mqQwHs1UXuDDyYoBQ6R3V4N/
+         RCiPuFmG2RRSJrndOpz4kW7KFQ74GuylVngfmHPC34VMxUFMy7nZ+zxv6C2M3p4C6+7p
+         AFQHu4crtbR1Nutk6BjS0up3u/a5OEtNVMYeBfaoqdspD5/9IxkMmjMAUcNubrbOaBN7
+         xFlvUAJDdqDU7rXGWZABbdCsaV/c68H2q/b3ap1P5v6QxamsFBYW4mUE9L5Ink5MI15W
+         QbYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785143139; x=1785747939;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Xa6du2hskAfuvL5DvwnynjBiYF7AzqZLEYEbhlKLATU=;
+        b=dzDqdy9YXMH8702PY+bdmbg0DoOJqac88P98iOs1xTcPcDz2N4qiwOD8mmqghyCDQ0
+         hMOatMfoScxPtm67p7ggGpu+4h6XNBxoke7ar78+sRc/KhKsbZWEHMA2ZkcCSzxvPlMa
+         wqhosAW7nFeN60srDDT7e4Et0caW6potR491rlUv+Y2u/cPnVYEhEnDeQaYB3+HwG7LU
+         dNYQsHdc4nFANAbvO1rjanNueM4IZBSmBD94HindSB9sjhfJjiTElnpkq4e99FwRzXlN
+         hm1GnKhwisYu5A2NwEXcZJraddaMdQpeW3cns4LdcRGVyeytjSmNyaGps2B6ahIj29pC
+         Cqaw==
+X-Forwarded-Encrypted: i=1; AHgh+Rp7oASRio/frFBw94anAXbXSOXvSDpaBVf/mTHFwWVWqGCm3NFJ4WT4g3OtoJKCFeaDUfcIrgGi/lzu@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy0D9i0VXN+Yg5gGshz/PfAPsFU3eCROT3JSSuoX8G67BIgNLq3
+	T63LWu5ejM/wac5pRmHsDy0imPTcjiu97ufF/doeOXMiyeF8YFORqb7I
+X-Gm-Gg: AR+sD12Ao7s6I/6YG4kYTzUMbhzO62IeUOP0BnULuijXi1ZpANVLmQrqddrXZ89fspo
+	LhJ6TYIaLJAFKqWIXpNwkyw1KLO27Mjw14xCTDekSIVQ3N8vSd/HMTCrdeezT8FNdxETQTBT/XU
+	BE4JgF42Z4WQpQoBFrxJOgBUJK1FV+mXFMBOGfV7CeWoG3CfJBliHKUpVgWvex65HtdVVZgyKlD
+	12nisToxbh8DxNdOWG/ZnBRU/ztcAFRJcZvw2uocwF0r90Ln7Tl++fedqQC/3qzY9bET0/9RY0g
+	9JT8IUoV4NR07l97FRp2evMmd8gE2JwU5oZmub3kDFAAYSQWi5ChmG75J7SpyuiYniONaZ1AQFM
+	IwGG4fSJyosBvn4VjIs5qbXjaALE+2NKhE1zAl2RdDoR7d87RbTrLwA0pgSLJ2Zl/XBjasPsPZc
+	qvRB9IDp8jD1Fon93oC+fojQTQIJyf1W5Dy/qajD+Cfkn+9oBi23Tp7d62yTp0f9peoedxxSIqp
+	q0Ycw==
+X-Received: by 2002:a05:6402:5383:b0:698:9251:2f87 with SMTP id 4fb4d7f45d1cf-69fc11a2e10mr2408351a12.39.1785143138950;
+        Mon, 27 Jul 2026 02:05:38 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (24.206.116.131.netskope-rdns.com. [24.206.116.131])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69fb5543ab7sm2278741a12.17.2026.07.27.02.05.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Jul 2026 02:05:37 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Date: Mon, 27 Jul 2026 10:05:32 +0100
+To: Jonathan Cameron <jic23@kernel.org>, 
+	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
+	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH v9 15/17] iio: frequency: ad9910: show channel priority
+ in debugfs
+Message-ID: <wdxe6pwcgwlunpjpx6veymajt4tqxkakr2tg3k7wwqpxq3rqnl@klrmhb5qe263>
+References: <20260722-ad9910-iio-driver-v9-0-459d1df5ac56@analog.com>
+ <20260722-ad9910-iio-driver-v9-15-459d1df5ac56@analog.com>
+ <20260725235621.6dd73e71@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="mCMKngf9XLb2rGIH"
-Content-Disposition: inline
-In-Reply-To: <20260727074234.3761170-19-mikhail.kshevetskiy@iopsys.eu>
-
---mCMKngf9XLb2rGIH
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260725235621.6dd73e71@jic23-huawei>
 
-> irq_type[] array inside airoha_pinctrl_gpiochip structure is not
-> actually necessary. Use trigger type from 'struct irq_data' instead.
->=20
-> Signed-off-by: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+On 25/07/26 23:56, Jonathan Cameron wrote:
+> On Wed, 22 Jul 2026 16:50:24 +0100
+> Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+> 
+> > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > 
+> > Expose frequency_source, phase_source and amplitude_source attributes in
+> > debugfs. Those indicate from which channel the specific DDS parameter is
+> > being sourced by returning its label. The implementation follows the
+> > priority table found in the datasheet.
+> > 
+> For this one sashiko raised some questions and made me wonder how this
+> actually works given it is using active_scan_masks and so far we don't
+> have any buffered support in the driver.  My guess is you backported
+> this from on top of some other code that you haven't posted yet.
+> 
+> Please have another check that this all works with just the series
+> posted.
+> 
+> Note that you will need to claim buffer mode successfully to mess
+> around with that in paths that aren't inherently only used in buffered
+> mode.
 
-Acked-by: Lorenzo Bianconi <lorenzo@kernel.org>
+Yes, I will drop that part for now.
+ 
+> 
+> 
+> > @@ -2078,6 +2092,171 @@ static int ad9910_setup(struct device *dev, struct ad9910_state *st,
+> >  	return ad9910_io_update(st);
+> >  }
+> >  
+> > +static inline const char *ad9910_frequency_source_get(struct iio_dev *indio_dev)
+> > +{
+> > +	struct ad9910_state *st = iio_priv(indio_dev);
+> > +	bool ram_en, mode_en;
+> > +
+> > +	guard(mutex)(&st->lock);
+> > +
+> > +	/* RAM enabled and data destination is frequency */
+> > +	ram_en = AD9910_RAM_ENABLED(st);
+> > +	if (ram_en && AD9910_DEST_FREQUENCY ==
+> > +		      FIELD_GET(AD9910_CFR1_RAM_PLAYBACK_DEST_MSK,
+> > +				st->reg[AD9910_REG_CFR1].val32))
+> > +		return ad9910_channel_str[AD9910_CHAN_IDX_RAM];
+> > +
+> > +	/* DRG enabled and data destination is frequency */
+> > +	mode_en = FIELD_GET(AD9910_CFR2_DRG_ENABLE_MSK,
+> > +			    st->reg[AD9910_REG_CFR2].val32);
+> > +	if (mode_en && AD9910_DEST_FREQUENCY ==
+> > +		       FIELD_GET(AD9910_CFR2_DRG_DEST_MSK,
+> > +				 st->reg[AD9910_REG_CFR2].val32))
+> > +		return ad9910_channel_str[AD9910_CHAN_IDX_DRG_FREQ];
+> > +
+> > +	/* Parallel data port enabled and data destination is frequency */
+> > +	mode_en = FIELD_GET(AD9910_CFR2_PARALLEL_DATA_PORT_EN_MSK,
+> > +			    st->reg[AD9910_REG_CFR2].val32);
+> > +	if (mode_en && indio_dev->active_scan_mask &&
+> 
+> active_scan_mask is only set on a call to iio_enable_buffers.
+> So what is this checking?  I guess today it will always fail as
+> active_scan_mask is NULL.  Once that is in use, it will be racy
+> however, so you'll need to claim buffered mode (or fail in which
+> case the null check isn't needed).  That claim will hold it
+> in a particular state - under the hood it is taking mlock
+> which is what sashiko suggests - that is just meant to be opaque
+> to drivers so do it with an explicit attempt to claim buffered mode.
 
-> ---
->  drivers/pinctrl/airoha/pinctrl-airoha.c | 22 ++++++++--------------
->  1 file changed, 8 insertions(+), 14 deletions(-)
->=20
-> diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/ai=
-roha/pinctrl-airoha.c
-> index df3a1d7c7b571..65447d7e5965a 100644
-> --- a/drivers/pinctrl/airoha/pinctrl-airoha.c
-> +++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
-> @@ -382,8 +382,6 @@ struct airoha_pinctrl_gpiochip {
->  	const u32 *status;
->  	const u32 *level;
->  	const u32 *edge;
-> -
-> -	u32 irq_type[AIROHA_NUM_PINS];
->  };
-> =20
->  struct airoha_pinctrl_confs_info {
-> @@ -2577,11 +2575,11 @@ static void airoha_irq_unmask(struct irq_data *da=
-ta)
->  	u32 mask =3D GENMASK(2 * offset + 1, 2 * offset);
->  	u32 val =3D BIT(2 * offset);
-> =20
-> -	if (WARN_ON_ONCE(data->hwirq >=3D ARRAY_SIZE(gpiochip->irq_type)))
-> +	if (WARN_ON_ONCE(data->hwirq >=3D AIROHA_NUM_PINS))
->  		return;
-> =20
->  	gpiochip_enable_irq(gc, irqd_to_hwirq(data));
-> -	switch (gpiochip->irq_type[data->hwirq]) {
-> +	switch (irqd_get_trigger_type(data)) {
->  	case IRQ_TYPE_LEVEL_LOW:
->  		val =3D val << 1;
->  		fallthrough;
-> @@ -2613,7 +2611,7 @@ static void airoha_irq_mask(struct irq_data *data)
->  	u8 index =3D data->hwirq / AIROHA_REG_GPIOCTRL_NUM_PIN;
->  	u32 mask =3D GENMASK(2 * offset + 1, 2 * offset);
-> =20
-> -	if (data->hwirq >=3D ARRAY_SIZE(gpiochip->irq_type))
-> +	if (data->hwirq >=3D AIROHA_NUM_PINS)
->  		return;
-> =20
->  	regmap_clear_bits(pinctrl->regmap, gpiochip->level[index], mask);
-> @@ -2629,7 +2627,7 @@ static void airoha_irq_ack(struct irq_data *data)
->  	u8 offset =3D data->hwirq % AIROHA_PIN_BANK_SIZE;
->  	u8 index =3D data->hwirq / AIROHA_PIN_BANK_SIZE;
-> =20
-> -	if (data->hwirq >=3D ARRAY_SIZE(gpiochip->irq_type))
-> +	if (data->hwirq >=3D AIROHA_NUM_PINS)
->  		return;
-> =20
->  	regmap_write(pinctrl->regmap, gpiochip->status[index], BIT(offset));
-> @@ -2637,28 +2635,24 @@ static void airoha_irq_ack(struct irq_data *data)
-> =20
->  static int airoha_irq_type(struct irq_data *data, unsigned int type)
->  {
-> -	struct gpio_chip *gc =3D irq_data_get_irq_chip_data(data);
-> -	struct airoha_pinctrl *pinctrl =3D gpiochip_get_data(gc);
-> -	struct airoha_pinctrl_gpiochip *gpiochip =3D &pinctrl->gpiochip;
-> -
-> -	if (data->hwirq >=3D ARRAY_SIZE(gpiochip->irq_type))
-> +	if (data->hwirq >=3D AIROHA_NUM_PINS)
->  		return -EINVAL;
-> =20
->  	if (type =3D=3D IRQ_TYPE_NONE) {
-> -		gpiochip->irq_type[data->hwirq] =3D IRQ_TYPE_NONE;
-> +		irqd_set_trigger_type(data, type);
->  		irq_set_handler_locked(data, handle_bad_irq);
-> =20
->  		return 0;
->  	}
-> =20
->  	if (type =3D=3D IRQ_TYPE_PROBE) {
-> -		if (gpiochip->irq_type[data->hwirq])
-> +		if (irqd_get_trigger_type(data))
->  			return 0;
-> =20
->  		type =3D IRQ_TYPE_EDGE_BOTH;
->  	}
-> =20
-> -	gpiochip->irq_type[data->hwirq] =3D type & IRQ_TYPE_SENSE_MASK;
-> +	irqd_set_trigger_type(data, type);
->  	if (type & IRQ_TYPE_EDGE_BOTH)
->  		irq_set_handler_locked(data, handle_edge_irq);
->  	else
-> --=20
-> 2.53.0
->=20
+I will have buffer ops implemented, so I better cache the current
+scan mask in a state variable and have that protected with the local lock.
 
---mCMKngf9XLb2rGIH
-Content-Type: application/pgp-signature; name=signature.asc
+I will drop those checks for now.
 
------BEGIN PGP SIGNATURE-----
+> 
+> > +	    test_bit(AD9910_SCAN_IDX_FREQ, indio_dev->active_scan_mask))
+> > +		return ad9910_channel_str[AD9910_CHAN_IDX_PARALLEL_FREQ];
+> > +
+> > +	/* FTW: RAM enabled and data destination is phase, amplitude, or polar */
+> > +	if (ram_en)
+> > +		return ad9910_channel_str[AD9910_CHAN_IDX_RAM];
+> > +
+> > +	/* single tone profiles */
+> > +	return ad9910_channel_str[AD9910_CHAN_IDX_PROFILE_0 + st->profile];
+> > +}
 
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCamce0wAKCRA6cBh0uS2t
-rHi8AQDuWJL6OKqaU8zGTbHq1aGEBgqHQG/038T+Yt27PNWRGwD/Z8ntJnHdGjMn
-eDYpRqHRrOqrzeAWzsTqsJS6S31Q9Aw=
-=GUUI
------END PGP SIGNATURE-----
+-- 
+Kind regards,
 
---mCMKngf9XLb2rGIH--
+Rodrigo Alencar
