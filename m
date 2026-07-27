@@ -1,449 +1,423 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B72A13C4B68;
-	Mon, 27 Jul 2026 19:16:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27BA53CF05E
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 19:16:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785179790; cv=none; b=HFOoehAVBeSFfx120UlrxkJxyxt+JKqp7HfIgp+1Ghb0gwAEvAdES161lLpjznkPE7s0UOKVo3JKe3xbwRUlcNylwVHZjUnVoooMSwhO3aJbeffBZcbmeoLmrdl5Uy4YVSBy5XeYegXzTU6aY6VtoUsxnCoiJKOYsxOnP7qrJV8=
+	t=1785179793; cv=none; b=ZU0wsrIiHzh1vQb4iceXjXtGWfWkkx8qWtWXZphe0F6sDC46G89QKUkLIwb3M0wW7QsqC7hrVLHWCXj5fcaeFHfrP9ySEgNS2nN0nQICfsyj9repegJksRbCXd6Wl4z9R3Bu8jDH/zP7cpjHNnj0F9W4jdjpKqgwxPZvzMn0NJs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785179790; c=relaxed/simple;
-	bh=OYjl+hBb8YBf7OJwpPXz3L7vcRYDIP9+BH5voLpjG9c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JqTCrq91bklwhHLuPsl593FIgH41DBgTNx4ibvaRPeY6PQWJCv1N61x9P6N1hqG3pwgaf0bhbsWUbFFsbvZqfdkdmJOUoy7tGoNgx/8/YFVkJhvgAP7uuFUN22Sat8Gi1EHUt5sOOj+iNgUuRTo4zmYFl3FUXPMK/RCbIIw63GY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b=eIjjDph/; arc=none smtp.client-ip=212.227.15.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	s=arc-20240116; t=1785179793; c=relaxed/simple;
+	bh=giBDmFVqATrjvpE7BG6dIxbzfu6nIokh4qB5bAL82w8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=FDIkh6qGgWm9dqhUGH4LEDlo+9GhtHl18I77ksBn6laxzu7l8c85SLsU5vdpy9QvASeqVmec0MmS0Lf63YsLro8thEKyrDHR9EocRgbcx5VAd6dIeg9Tz1Cs3UHaiQgUzHbRH9vHljNAObxl6jkhZKGf6BLbC3BRY+bOEnvT80w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=wpsbL6v/; arc=none smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b="eIjjDph/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1785179773; x=1785784573;
-	i=markus.stockhausen@gmx.de;
-	bh=eEvkSkfsAmKcie4IwQhUor4c+KrLVJxhnMNxehEcHB4=;
-	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=eIjjDph/kbVNKhRb+HjSb39bh+dzZy00P5k5tN8mPTq1TmEEWmUGeuObsAvkz4ao
-	 GghJiyLM7HfofvEg/iOfEgWo5jLMc1DHN1+We1ccLsSIUwB1SSpbHvLMILSBarknw
-	 s9Mk5pxUWM79np0k9Dmm16UH4DscfbiK+s6QrCXmUq01S8FlKQAUKtZKh9Vg/JCyM
-	 16LKUkXkx8ZGhfGE9lpc9n0BWeAOWTgk9skxdbsihRwQlikaSaThKqbVaHlm7fOKo
-	 pWhs/ovqX2sUHXc3dxgNHo8VZL6mnbaC8VGJQGxSOZMnydpZ5zo/Hvrvg9RLV8wYi
-	 D5yATyWnr/bnA4RoUg==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1N1OXZ-1wyUdC0K6d-00z0GK; Mon, 27
- Jul 2026 21:16:13 +0200
-From: Markus Stockhausen <markus.stockhausen@gmx.de>
-To: andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
-	chris.packham@alliedtelesis.co.nz,
-	daniel@makrotopia.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org
-Cc: Markus Stockhausen <markus.stockhausen@gmx.de>
-Subject: [PATCH net-next v8 3/9] net: phy: add (*notify_phy_attach/detach)() hooks to struct mii_bus
-Date: Mon, 27 Jul 2026 21:15:53 +0200
-Message-ID: <20260727191559.19617-4-markus.stockhausen@gmx.de>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260727191559.19617-1-markus.stockhausen@gmx.de>
-References: <20260727191559.19617-1-markus.stockhausen@gmx.de>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="wpsbL6v/"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-47de008b020so167622f8f.1
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 12:16:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1785179789; x=1785784589; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=rae8Hxw+NldJbXk7fpGgBudeRxwtOnwcbow0r8sBhyA=;
+        b=wpsbL6v/oR2gqnIcIR7Cc/+QtpFeZeLfCDhkcLoMXU/UrLq8zGMtjZX+bu3lgXUQ0K
+         IYQl9ZmbBeQ1WB2G6MmUYz140f5cis5an4eoBOamw+cDro5lTxixP4GmW+9yKOrbi7NC
+         DIpjKgGQk+K8Mr3xUxcJ1FFIRKV4kEPbUOHQ+yf8K73iw+c+pmJAJH3CNkfm1pP9Jymt
+         lUWqpkwjhoNsMGNzTFKoXxNJsrK3yu0bfqNkUEnyxhgw3ZjrVeICYZv8vl1hDNEszP46
+         mA8QK4KuplhLdur8PSst30j2cmzN6/eZIN+PejCP9wx4WBA7Gek7AeADJOvBhK6psiJr
+         xXMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785179789; x=1785784589;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=rae8Hxw+NldJbXk7fpGgBudeRxwtOnwcbow0r8sBhyA=;
+        b=SNElj5b7Ymnjte3yvCM9yqXeuWHywQViw7lDafQp5EPogOdEmIPI87npFujKyt0Wsc
+         OUxpdNn8gRSUvVjisemcFTEGVHjw/bu9wmttcPHp5uPkPIZmM0vuYZXlT1a3B6kcgvqS
+         Cx2Uw821Huc7VSBGpN+gpKkdsj1dt7vFiMJZGgyWk6gevGg5nJ5eKFzJEDKFd+MNmtot
+         9xrao22k4GlG1ClBA7KS10Fnejb7Y/BkHXa3DmdRzRqY6+x72v717w2WW21XZwQswaMe
+         8IJm8oPoUZnwgaOyfmJymhUz8oxYaIB+bFPpQmMRtBoHXEvdhz2dsb0Md4WIyJqbAyob
+         KlRg==
+X-Forwarded-Encrypted: i=1; AHgh+RrusSgHc6STSckd7A0qlNhL176ubLq12+L95p8pSPKUkmxCMiaa+uVx9vlhIWIBuCiyYDlRKQ8kTeSj@vger.kernel.org
+X-Gm-Message-State: AOJu0YzreL4e1xsFHv2b3ahIq9myjmlAjwHu4qQPIl6KsVgDBz8X0mxV
+	8xOe7Q4NDCdLRB6guVGXK7HLKsjGaEaOfHOABkB+XLxiCrAOcNbtrxPSTE/MxVlGMec=
+X-Gm-Gg: AR+sD12n5yw0pruyo4gTlks2WggkhRk3Ct7E1pHHbowI/nid+oxkzrXxunI7OVjLxip
+	kttQNn4SUIZOoBvOOYx9wT5E0mfHVWhGlCXZvbzq++MAMqyoQXhB0BdTCNXsMWzAC+NquWBpXti
+	EyQ0VgsqCw280rBwEleN6GKfDUaIgPwU+rDhXAfz401/z3mVBM8yuH1jdaCXAH/ozrR51i309Ue
+	Ex2oulUyL8oKRHdvd8a6Fqw1Cmm666cG9F/SjW96sco6xXNqLPfQOptCzrv2edwE/gYaIB7y62i
+	7srmXHMK9d6tIBAxjxX6yXkO3opYKaLeg3Q3PJ/aMxdtU8BIT3Bw0v9xTxp/pOfuS4CHyW1nT/j
+	r6GLL+lf8BEQFDND+kTNiEL0HPwoz7opKNoMS3H1GbnVxkWFTWyB6Ec7MjBPHjYTCDLh67LyJEc
+	+owfeYXWJTsOD+l1PqsLErLnVA
+X-Received: by 2002:a5d:64e9:0:b0:47f:6fa4:58e6 with SMTP id ffacd0b85a97d-47fb03593c0mr9890f8f.28.1785179789057;
+        Mon, 27 Jul 2026 12:16:29 -0700 (PDT)
+Received: from [192.168.0.35] ([109.77.105.162])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85b9a6d7sm50749607f8f.2.2026.07.27.12.16.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Jul 2026 12:16:28 -0700 (PDT)
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Subject: [PATCH v14 0/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
+Date: Mon, 27 Jul 2026 20:16:22 +0100
+Message-Id: <20260727-x1e-csi2-phy-v14-0-27d1bf477593@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:Y+uvDWTLiNuWIFn89KJV42Bl2B7bY/oXAQvkS5Kry+Y8AYTeCzJ
- tlapnAfX0mG1adxq/mrQcO8PTci+3yL/FRhiUfM9P4hAR8EpywnaY+w/eHgtXRDMqtvWyeb
- eyTdJav0j7IsOBhtVBWlql2ll3HAiDbXJeW/ooHjQfcLrnKisSrhyWV746DvmGSnPTSZfcr
- HhEleHqoVHyOAIKB6WRfw==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:kQbcjdzoM6s=;pZyqTj42E5NCdT925WUulKwVwmj
- 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
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33SzWrDMAwA4FcpOc9Dkv932nuMHfyX1jDakozQU
+ vruswOjmb3taMEnyZJuw5ymnObhZXcbprTkOZ+O5YHiaTeEgzvuE8uxBAYCkqAR2AUTC3Mmdj5
+ c2agEF15JjNwNhZynNObLmu/tvbwPef48Tdc1/YI1+keiBRkwLVzwXnpU5F8/8tFNp+fTtB9qp
+ oW+tQIi2WiqWkuVolc6OdtpvtWq0bxoxKTAaGkFQqfFQ3Nsa4uiLQSwBNwYEzstN7qrLYsueAx
+ 6lAGw/7d6aEnYaFVrR82j9VFH6jvXW02N1nVqNngkA6OLqtNmq3mjTdHOSKWMkLa01mn70BpMo
+ 239NyH4OjoRxk4jbDi2vNwPMKkJnC4zt5L3Hrfeth7XyYHDFEFx6reG9K+vFxeC5ohlp/GXveH
+ m5EqfrV9vTkHgaKUx6mf/9/v9C5xZDryaAwAA
+X-Change-ID: 20250710-x1e-csi2-phy-f6434b651d3a
+To: Vinod Koul <vkoul@kernel.org>, 
+ Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Bryan O'Donoghue <bod@kernel.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=14970;
+ i=bryan.odonoghue@linaro.org; h=from:subject:message-id;
+ bh=giBDmFVqATrjvpE7BG6dIxbzfu6nIokh4qB5bAL82w8=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqZ66JvegRxs//1B5njvSrhTrsEDAlz66gn41NX
+ K77xnn0RmOJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCameuiQAKCRAicTuzoY3I
+ OjbND/957y+aVN/vC6C7JzN+zatTa4rNbdRSDHbw4nyLOSO9jm5RxY5eCIkuaouJ2XzlmM4xgx4
+ UmV9UePq5RtgHvScfLDggTRzv+NmLuVAHL7bOnjB3MsT8KyF/xfWTDQqR7X+SoPjtwdL5wmL9fx
+ ZYeKsw0YbrDlfgqg4lTXGacCjoFQp1dz29EQIYCMvxF12pnKfaWunxga2+2oGtLo7hLR+ka2drI
+ 8ZMhhnS1NeRgcYb4ATl5g8cEwyi2TeISN954lMU+q4OinUaR7l44IPpOb7nMrFei/KRtsnQAeRI
+ qxt7UJD6HOEjH3wU7rNSK2JpdBEIOGgWi8gGDMfUllCVy9THHaVBwi9pGOCJYJWuRvSK7Irz0X9
+ yLLTafyRM4NuSiQxCqbbkuV7pGQ8CcDCtSTw+lpBoEmwPqfjXOyKtwVhjtv5l5Xz0AmQc+lpKf7
+ Nk3rHokVXrSnnumN7BraAUlANb4NiMw/wFIj9mObwG9FBwRp0L7r/79Cj2n4Y7Cfdjz12Nsdv/X
+ 65CLjsAKPqbbKf6TJK4VzK/jWXIgRE6lo23H/zhanHbUSez2zXGAJ2fZWzp8Rt1AckdbmbeBF1I
+ MA5hyUmmO5SQdKUxL6ifdIM4quiIJ0b3B7wnhJwuX/aKOnXd6BESGGdKJKT3vaV6aPcKs3LTMWi
+ oAw2+n99WyGaJvw==
+X-Developer-Key: i=bryan.odonoghue@linaro.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-From: Daniel Golle <daniel@makrotopia.org>
+This driver is very critical to several SoCs being merged and CPHY being
+added to Qualcomm SoCs.
 
-Some MDIO buses require programiming PHY polling registers depending
-on the PHY type. RealTek switch SoCs are the most prominent example
-of a DSA switch which doesn't allow to program MAC speed, duplex and
-flow-control settings without using PHY polling to do so [1].
+It would be very beneficial therefore to get this merged in this cycle. A
+lot of other enablement code depends on it.
 
-Avoid a half-baked solution in the MDIO bus driver because
+Vinod, Kishon is it possible to still merge this in 7.2 ?
 
-- it must reinvent the bus scanning to determine the PHYs and
-- it must anticipate the right point in time (e.g. deferred PHYs).
+Changes in v14:
 
-Hence there is a need to inform the MDIO bus driver that a PHY is
-being attached or detached. Provide two hooks in struct mii_bus
+Discussed outstanding review comment resolution with Neil and Vlad.
+Use media-graph not phys = <> to find nodes in dt. Small impact on this
+series a new helper added where it is used in camss series.
 
-- notify_phy_attach(): called in phy_attach_direct() after PHY
-  hardware has been initialized and just before PHY is resumed.
-- notify_phy_detach(): called in phy_detach() right after PHY
-  has been suspended.
+- Drops phy-cells.
+- bus-type used to derive mode instead.
+- Includes relevant video-interfaces.h where necessary
+- set_mode - used to validate csiphy and camss agree on bus-mode.
+- Reverting to of_phy_simple_xlate instead of custom xlate.
+- Minor schema change - dropped Krzysztof's RB.
 
-Worth to notice: As of now phy_detach() is not 100% LIFO symmetric
-to phy_attach_direct(). E.g. sysfs links are teared down before
-suspend while being created before resume. Without reordering of the
-detach function the above mentioned notifier placement is the best
-possible symmetric implementation. For this
+- Link to v13: https://patch.msgid.link/20260720-x1e-csi2-phy-v13-0-160c31958863@linaro.org
 
-- Relocate code from phy_detach() into a new helper __phy_detach()
-- The helper takes an additional parameter notify_bus that decides
-  if the bus notification should be sent or not.
-- Call the helper with notification from slimmed down version of
-  phy_detach() and without notification from phy_attach_direct()
-  error path.
+Changes in v13:
+- Fixed two sashiko "high" flagged items. Hopefully for the last time.
+- Added PM_OPP to depends - Sashiko
+- Link to v12: https://patch.msgid.link/20260719-x1e-csi2-phy-v12-0-cc7311326d1b@linaro.org
 
-Remark! A slightly different version of this patch was part of a
-former series [2]. The discussion already showed that an initialization
-hook should be placed somewhere late during the whole setup. This
-commit implants it right after phy_init_hw() as suggested. On top of
-this it adds the detach hook.
+Changes in v12:
+- Fixes indexing for data-lanes = <0 1 2 4> which is out of range - Sashiko
+- The rest of Sashiko's review rebutted on list - bod
+- Link to v11: https://patch.msgid.link/20260719-x1e-csi2-phy-v11-0-9d0a1ed0632d@linaro.org
 
-[1] https://github.com/openwrt/openwrt/pull/21515#discussion_r2714069716
-[2] https://lore.kernel.org/netdev/cover.1769053496.git.daniel@makrotopia.=
-org/
+Changes in v11:
+- Adds RB - Krzysztof
+- Fixes div_u64 to div64_u64 - Sashiko
+- Fixes pos * 2 reg offset - Sashiko
+- Fixes devm_pm_runtime_enable. Missed in v10 - Frank
 
-Signed-off-by: Daniel Golle <daniel@makrotopia.org>
-Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
-=2D--
- drivers/net/phy/phy_device.c | 180 +++++++++++++++++++----------------
- include/linux/phy.h          |  14 +++
- 2 files changed, 112 insertions(+), 82 deletions(-)
+- Link to v10: https://patch.msgid.link/20260718-x1e-csi2-phy-v10-0-5720a7888953@linaro.org
 
-diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-index 94b2e85e00a3..233622e9ba61 100644
-=2D-- a/drivers/net/phy/phy_device.c
-+++ b/drivers/net/phy/phy_device.c
-@@ -1734,6 +1734,96 @@ static bool phy_drv_supports_irq(const struct phy_d=
-river *phydrv)
- 	return phydrv->config_intr && phydrv->handle_interrupt;
- }
-=20
-+static void __phy_detach(struct phy_device *phydev, bool notify_bus)
-+{
-+	struct net_device *dev =3D phydev->attached_dev;
-+	struct module *ndev_owner =3D NULL;
-+	struct mii_bus *bus;
-+
-+	if (phydev->devlink) {
-+		device_link_del(phydev->devlink);
-+		phydev->devlink =3D NULL;
-+	}
-+
-+	if (phydev->sysfs_links) {
-+		if (dev)
-+			sysfs_remove_link(&dev->dev.kobj, "phydev");
-+		sysfs_remove_link(&phydev->mdio.dev.kobj, "attached_dev");
-+	}
-+
-+	if (!phydev->attached_dev)
-+		sysfs_remove_file(&phydev->mdio.dev.kobj,
-+				  &dev_attr_phy_standalone.attr);
-+
-+	phy_suspend(phydev);
-+
-+	if (notify_bus && phydev->mdio.bus->notify_phy_detach)
-+		phydev->mdio.bus->notify_phy_detach(phydev);
-+
-+	if (dev) {
-+		struct hwtstamp_provider *hwprov;
-+
-+		/* hwprov may technically be protected by ops lock but
-+		 * not for devices with a phydev, see phy_link_topo_add_phy()
-+		 */
-+		hwprov =3D rtnl_dereference(dev->hwprov);
-+		/* Disable timestamp if it is the one selected */
-+		if (hwprov && hwprov->phydev =3D=3D phydev) {
-+			rcu_assign_pointer(dev->hwprov, NULL);
-+			kfree_rcu(hwprov, rcu_head);
-+		}
-+
-+		phydev->attached_dev->phydev =3D NULL;
-+		phydev->attached_dev =3D NULL;
-+		phy_link_topo_del_phy(dev, phydev);
-+	}
-+
-+	phydev->phy_link_change =3D NULL;
-+	phydev->phylink =3D NULL;
-+
-+	if (phydev->mdio.dev.driver)
-+		module_put(phydev->mdio.dev.driver->owner);
-+
-+	/* If the device had no specific driver before (i.e. - it
-+	 * was using the generic driver), we unbind the device
-+	 * from the generic driver so that there's a chance a
-+	 * real driver could be loaded
-+	 */
-+	if (phydev->is_genphy_driven) {
-+		device_release_driver(&phydev->mdio.dev);
-+		phydev->is_genphy_driven =3D 0;
-+	}
-+
-+	/* Assert the reset signal */
-+	phy_device_reset(phydev, 1);
-+
-+	/*
-+	 * The phydev might go away on the put_device() below, so avoid
-+	 * a use-after-free bug by reading the underlying bus first.
-+	 */
-+	bus =3D phydev->mdio.bus;
-+
-+	put_device(&phydev->mdio.dev);
-+	if (dev)
-+		ndev_owner =3D dev->dev.parent->driver->owner;
-+	if (ndev_owner !=3D bus->owner)
-+		module_put(bus->owner);
-+}
-+
-+/**
-+ * phy_detach - detach a PHY device from its network device
-+ * @phydev: target phy_device struct
-+ *
-+ * This detaches the phy device from its network device and the phy
-+ * driver, and drops the reference count taken in phy_attach_direct().
-+ */
-+void phy_detach(struct phy_device *phydev)
-+{
-+	/* cleanup including bus notification */
-+	__phy_detach(phydev, true);
-+}
-+EXPORT_SYMBOL(phy_detach);
-+
- /**
-  * phy_attach_direct - attach a network device to a given PHY device poin=
-ter
-  * @dev: network device to attach
-@@ -1876,6 +1966,12 @@ int phy_attach_direct(struct net_device *dev, struc=
-t phy_device *phydev,
- 	if (err)
- 		goto error;
-=20
-+	if (phydev->mdio.bus->notify_phy_attach) {
-+		err =3D phydev->mdio.bus->notify_phy_attach(phydev);
-+		if (err)
-+			goto error;
-+	}
-+
- 	phy_resume(phydev);
-=20
- 	/**
-@@ -1890,8 +1986,8 @@ int phy_attach_direct(struct net_device *dev, struct=
- phy_device *phydev,
- 	return err;
-=20
- error:
--	/* phy_detach() does all of the cleanup below */
--	phy_detach(phydev);
-+	/* cleanup without bus notification */
-+	__phy_detach(phydev, false);
- 	return err;
-=20
- error_module_put:
-@@ -1906,86 +2002,6 @@ int phy_attach_direct(struct net_device *dev, struc=
-t phy_device *phydev,
- }
- EXPORT_SYMBOL(phy_attach_direct);
-=20
--/**
-- * phy_detach - detach a PHY device from its network device
-- * @phydev: target phy_device struct
-- *
-- * This detaches the phy device from its network device and the phy
-- * driver, and drops the reference count taken in phy_attach_direct().
-- */
--void phy_detach(struct phy_device *phydev)
--{
--	struct net_device *dev =3D phydev->attached_dev;
--	struct module *ndev_owner =3D NULL;
--	struct mii_bus *bus;
--
--	if (phydev->devlink) {
--		device_link_del(phydev->devlink);
--		phydev->devlink =3D NULL;
--	}
--
--	if (phydev->sysfs_links) {
--		if (dev)
--			sysfs_remove_link(&dev->dev.kobj, "phydev");
--		sysfs_remove_link(&phydev->mdio.dev.kobj, "attached_dev");
--	}
--
--	if (!phydev->attached_dev)
--		sysfs_remove_file(&phydev->mdio.dev.kobj,
--				  &dev_attr_phy_standalone.attr);
--
--	phy_suspend(phydev);
--	if (dev) {
--		struct hwtstamp_provider *hwprov;
--
--		/* hwprov may technically be protected by ops lock but
--		 * not for devices with a phydev, see phy_link_topo_add_phy()
--		 */
--		hwprov =3D rtnl_dereference(dev->hwprov);
--		/* Disable timestamp if it is the one selected */
--		if (hwprov && hwprov->phydev =3D=3D phydev) {
--			rcu_assign_pointer(dev->hwprov, NULL);
--			kfree_rcu(hwprov, rcu_head);
--		}
--
--		phydev->attached_dev->phydev =3D NULL;
--		phydev->attached_dev =3D NULL;
--		phy_link_topo_del_phy(dev, phydev);
--	}
--
--	phydev->phy_link_change =3D NULL;
--	phydev->phylink =3D NULL;
--
--	if (phydev->mdio.dev.driver)
--		module_put(phydev->mdio.dev.driver->owner);
--
--	/* If the device had no specific driver before (i.e. - it
--	 * was using the generic driver), we unbind the device
--	 * from the generic driver so that there's a chance a
--	 * real driver could be loaded
--	 */
--	if (phydev->is_genphy_driven) {
--		device_release_driver(&phydev->mdio.dev);
--		phydev->is_genphy_driven =3D 0;
--	}
--
--	/* Assert the reset signal */
--	phy_device_reset(phydev, 1);
--
--	/*
--	 * The phydev might go away on the put_device() below, so avoid
--	 * a use-after-free bug by reading the underlying bus first.
--	 */
--	bus =3D phydev->mdio.bus;
--
--	put_device(&phydev->mdio.dev);
--	if (dev)
--		ndev_owner =3D dev->dev.parent->driver->owner;
--	if (ndev_owner !=3D bus->owner)
--		module_put(bus->owner);
--}
--EXPORT_SYMBOL(phy_detach);
--
- int phy_suspend(struct phy_device *phydev)
- {
- 	struct net_device *netdev =3D phydev->attached_dev;
-diff --git a/include/linux/phy.h b/include/linux/phy.h
-index 11092c3175b3..71405283bc6e 100644
-=2D-- a/include/linux/phy.h
-+++ b/include/linux/phy.h
-@@ -376,6 +376,20 @@ struct mii_bus {
- 			 int regnum, u16 val);
- 	/** @reset: Perform a reset of the bus */
- 	int (*reset)(struct mii_bus *bus);
-+	/**
-+	 * @notify_phy_attach: Perform post-attach handling for MDIO bus
-+	 *   drivers. Called in phy_attach_direct() right before phy_resume().
-+	 *   Runs in process context and may sleep. Return 0 on success or a
-+	 *   negative errno on failure (which aborts the attach sequence).
-+	 */
-+	int (*notify_phy_attach)(struct phy_device *phydev);
-+	/**
-+	 * @notify_phy_detach: Perform pre-detach handling for MDIO bus
-+	 *   drivers. Called in phy_detach() right after phy_suspend().
-+	 *   Runs in process context and may sleep. Only invoked if
-+	 *   @notify_phy_attach was previously called and succeeded.
-+	 */
-+	void (*notify_phy_detach)(struct phy_device *phydev);
-=20
- 	/** @stats: Statistic counters per device on the bus */
- 	struct mdio_bus_stats stats[PHY_MAX_ADDR];
-=2D-=20
-2.55.0
+Changes in v10:
+- Rewords commit log of yaml schema to read more organically - Krzysztof
+- title: Qualcomm X1E80100 SoC CSI2 PHY - Krzysztof
+- opp-table: object - Krzysztof
+- Example opp-table in PHY node - Krzysztof
+- port@1 uses stock graph.yaml - Krzysztof
+- Dropped redundant remote-endpoint declaration - Krzysztof
+- vdda-0p9 - SoC pins are vdda-0p9 rail is l2c_0p8. Named as with pin - Vlad, Konrad
+- Retaining #phy-cells = 1.
+  Rob gave a steer to have the consumer configure this via DT. Not the way
+  Vlad suggests but I'm sticking to Rob's guidance for now - Rob/Vlad.
+- data-lanes - retained as per CAMSS existing.
+  Nihal suggested, I agreed and Loic added his assent too. Vlad disagrees
+  with this. I accept Nihal's suggestion though we should remain
+  consistent. - Nihal, Loic, Vlad.
+
+- pd_data = {} - Sashiko, Wengmeng
+- lanes_enable() failure unwinds - Sashiko
+- power_off and error paths drop OPP rate before performance state - Sashiko
+- probe returns -ENODEV when pd_list is NULL with ret == 0 - Sashiko
+- Move to devm_clk_bulk_get_all(), timer clock taken from the bulk,
+  clk_names indirection removed from soc_cfg - Frank
+- Drop static CSI_COMMON_CTRL5 (0x1014) table row - Nihal
+
+- Link to v9: https://patch.msgid.link/20260708-x1e-csi2-phy-v9-0-0210b90c04cf@linaro.org
+
+Changes in v9:
+
+Key advantages of implementing this logic as drivers/phy:
+
+  a) Per-PHY power rails become declarable and enforceable on a per-PHY
+     basis.
+  b) With future adaptations of CAMSS routing the PHY output to something
+     other than the CSI Decoders becomes possible.
+  c) Standard framework contract. phy_configure(mipi_dphy opts) / power_on / of_xlate.
+  d) Introduction of CPHY in this driver will elaborate CPHY for Linux in
+     general as there is currently no mipi_cphy_opts structure.
+
+- TITAN_TOP_GDSC retained. Further elaboration in below link. - Vlad
+  Link: https://lore.kernel.org/all/d5407ab1-1af7-4678-ae67-5cf30ce8fa4b@kernel.org/
+- Consumer selects PHY mode - Rob Herring
+  Link: https://lore.kernel.org/linux-media/20250710230846.GA44483-robh@kernel.org/
+- Incorporates two comments by Krzysztof I missed previously - krzk
+- Changes 0p9 rail name to 0p8 - Konrad, Sashiko
+- Uses port@0 and port@1 to denote input/output - Vladimir
+- Label phy@ instead of csiphy@ in example - Sashiko
+- Drops additional entries in example opp one is enough - bod
+- return 0 on timer_period_ps < 6. - Sashiko
+- Use power-domain names and a "scaled" bool to flag if
+  a power-domain needs to be scaled or not. Allowing the code to
+  attached to all PDs, GDSC and RPMPD alike but only scale the
+  RPMPD. - Sashiko
+- Fixes error cleanup flagged by Sashiko.
+- Checks args->args_count. Sashiko
+- Performs checks on pd_list == NULL. Sashiko
+- Makes opp-table required. Sashiko
+- Uses const "core" and "timer" when getting clocks. - Loic
+- Adds AHB clock - Vijay
+- Revert v7 lane-enable change, BIT(pos * 2) is correct: data-lanes
+  are logical indices, CSI_COMMON_CTRL5 is a physical bitmap - Nihal
+- Adds a comment to explain clock-lane - Nihal
+- Link to v8: https://patch.msgid.link/20260523-x1e-csi2-phy-v8-0-a85668459521@linaro.org
+
+Changes in v8:
+- Fixes two dt verification splats I missed by passing the wrong yaml file
+  to my checking script :( - Rob's bot
+- Fixes the polarity offset error - thanks Sashiko.
+- CONFIG_PM implies CONFIG_GENERIC_PM_DOMAINS no change - Sashiko, Bryan
+- Implemented suggested unwinding by Sashiko
+- Leaving the flagged settle_cnt alone. Requires invalid DT settings and in
+  addition the result is just a long settle count. Not real bug - Sashiko
+- Link to v7: https://patch.msgid.link/20260522-x1e-csi2-phy-v7-0-79cb1280fad6@linaro.org
+
+Changes in v7:
+- Made CONFIG_PM a dependency. Sashiko commented on the pd_list being NULL
+  and suggested I check the pointer but, we need to ramp the rails when
+  switching clock rate so we need CONFIG_PM full stop. - Sashiko.ai, Bryan
+- Added unwind operation for performance state error path - Sashiko
+- Made clock-lanes genuinely optional for the supported use-case. - Sashiko
+- Fixed the enable of lanes. Thus far we have had forever it seems
+  val |= BIT(lane.pos * 2) which I've never looked at much because it
+  has always worked. But looking at how to switch on polarities I realised
+  the relevant register is a linear bitmask without gaps so the correct
+  method is `val |= BIT(lane.pos)`.
+  This needs an update in the legacy PHY too in another series - Bryan
+- I opted not to do any of the "but if DT send junk into your driver" fixes
+  from Sashiko since TBH I think the code would be Spaghetti afterwards.
+  We trust DT and if DT is wrong we fix it, we don't try to graph its
+  relative (in)sanity.
+- Fixed my example in the yaml. Sashiko
+- Link to v6: https://patch.msgid.link/20260521-x1e-csi2-phy-v6-0-9d73d9bd7d20@linaro.org
+
+Changes in v6:
+- Taking feedback from lively debate added ports and
+  endpoints to the PHY - Neil, Vlad
+- Detection of split mode by way of which ports are declared.
+  port@0 is always a sensor input.
+  port@1 is optional and if present implies split-mode
+  port@2 is always the output. - Dmitry, Neil, Vlad.
+- Split mode is left as -ENOTSUPP unless/until someone with the appropriate
+  hardware can take on responsibility to drive to completion.
+- Extending phy_config_opts dropped.
+  I think this is a worthwhile extension but this series no longer depends
+  on it so dropped. - Bryan
+- MX/MXC.
+  Two OPP tables one for CSIPHY0/1/2 scaling MXC one for CSIPHY4 keeping
+  MXA at LOWSVS_D1 - to be implemented in DT not here. Taniya, Konrad, Bryan
+- Changed MAINTAINERS from Supported to Maintained.
+  Hobby time for me right now. - Bryan
+- Link to v5: https://lore.kernel.org/r/20260326-x1e-csi2-phy-v5-0-0c0fc7f5c01b@linaro.org
+
+v5:
+- Adds support to apply passed parameters for clock/data position/polarity - Neil
+- Drops GEN1/GEN2 differentiation this can be reconstituted if GEN1 ever
+  gets supported in this driver - Dmitry
+- Drops camnoc_axi, cpas_ahb - Konrad
+- Renames csiphy->core csiphy_timer->timer - Konrad
+- Renames rail from 0p8 to 0p9 schematics say  VDD_A_CSI_n_0P9 - Konrad
+- TITAN_TOP_GDSC dropped - Konrad
+- Passes PHY_QCOM_CSI2_MODE_{DPHY|CPHY|SPLIT_DPHY} with the controller
+  selecting the mode. Only DPHY mode is supported but the method to pass
+  CPHY or split-mode DPHY configuration is there.
+  Since split-mode is a Qualcomm specific mode the PHY modes are defined in
+  our binding instead of adding a new type to include/linux/phy/phy.h - bod
+- Depends-on: https://lore.kernel.org/r/20260325-dphy-params-extension-v1-0-c6df5599284a@linaro.org
+- Link to v4: https://lore.kernel.org/r/20260315-x1e-csi2-phy-v4-0-90c09203888d@linaro.org
+
+v4:
+- MMCX, MCX and MX/MXA power-domains added - Dmitry, Vijay, Konrad
+- power-domain-names added as required - bod
+- opp-tables amended to capture RPMHPD deps - Dmitry, Vijay
+- Switched to dev_pm_opp_set_rate, dev_pm_domain_attach_by_name etc
+  dropped inherited CAMSS code - Dmitry
+- Amended parameters structure to specify power-domain name list - bod
+- Removed dead defines - Dmitry
+- Noted in CSIPHY commit log intention to rework patterns of
+  PHY lane configs into loops/defines/bit-fields later - Dmitry, bod
+- Lowercase hex throughout - Dmitry
+- The yaml and code in this driver doesn't care if the node is a
+  sibling or a sub-node of CAMSS confirmed to work both ways - Dmitry, bod
+- Link to v3: https://lore.kernel.org/r/20260226-x1e-csi2-phy-v3-0-11e608759410@linaro.org
+
+v3:
+
+- Resending this to make clear this submission is additive to x1e/Hamoa
+  The existing bindings and code will continue to work 
+  Bindings are added only, nothing is subtracted from existing ABI.
+- Link to v2: https://lore.kernel.org/r/20260225-x1e-csi2-phy-v2-0-7756edb67ea9@linaro.org
+
+v2:
+
+In this updated version
+
+- Added operating-point support
+  The csiphy clock sets the OPP prior to setting the rate
+  for csiphy and csiphy_timer - Konrad
+
+- Combo mode
+  Combo mode in CAMSS yaml has been added. Right now
+  no code has been changed in the PHY driver to support it as
+  I don't have hardware to test. In principle though it can
+  be supported. - Vladimir
+
+- CSIPHY init sequences
+  I left these as their "magic number formats". With my diminished
+  status as a non-qcom VPN person - I can no longer see what the bits
+  map to. Moreover this is the situation any non-VPN community member
+  will be in when submitting CSIPHY sequences derived from downstream.
+
+  I think it is perfectly reasonable to take public CSIPHY init sequences
+  as magic numbers. If someone with bit-level access wants to enumerate
+  the bits that's fine but, it shouldn't gate in the interim. - Konrad/bod
+
+- Sensor endpoints
+  I've stuck to the format used by every other CSIPHY in upstream.
+  Sensor endpoints hit the CAMSS/CSID endpoint not a endpoint in the PHY.
+  Given the proposed changes to CAMSS though to support "combo mode" I
+  think this should achieve the same outcome - multiple sensors on the one
+  PHY without introducing endpoints into the PHY that no other CSIPHY in
+  upstream currently has.
+
+- Bitmask of enabled lanes
+  Work needs to be done in the v4l2 layer to really support this.
+  I propose making a separate series dedicated to non-linear bit
+  interpretation after merging this so as to contain the scope of the
+  series to something more bite (byte haha) sized. - Konrad/bod
+
+- Link to v1: https://lore.kernel.org/r/20250710-x1e-csi2-phy-v1-0-74acbb5b162b@linaro.org
+
+v1:
+This short series adds a CSI2 MIPI PHY driver, initially supporting D-PHY
+mode. The core logic and init sequences come directly from CAMSS and are
+working on at least five separate x1e devices.
+
+The rationale to instantiate CSI2 PHYs as standalone devices instead of as
+sub-nodes of CAMSS is as follows.
+
+1. Precedence
+   CAMSS has a dedicated I2C bus called CCI Camera Control Interface.
+   We model this controller as its own separate device in devicetree.
+   This makes sense and CCI/I2C is a well defined bus type already modelled
+   in Linux.
+
+   MIPI CSI2 PHY devices similarly fit into a well defined separate
+   bus/device structure.
+
+   Contrast to another CAMSS component such as VFE, CSID or TPG these
+   components only interact with other CAMSS inputs/outputs unlike CSIPHY
+   which interacts with non-SoC components.
+
+2. Hardware pinouts and rails
+   The CSI2 PHY has its own data/clock lanes out from the SoC and indeed
+   has its own incoming power-rails.
+
+3. Other devicetree schemas
+   There are several examples throughout the kernel of CSI PHYs modeled as
+   standalone devices which one assumes follows the same reasoning as given
+   above.
+
+I've been working on this on-and-off since the end of April:
+Link: https://lore.kernel.org/linux-media/c5cf0155-f839-4db9-b865-d39b56bb1e0a@linaro.org
+
+There is another proposal to have the PHYs be subdevices of CAMSS but, I
+believe we should go with a "full fat" PHY to match best practices in
+drivers/phy/qualcomm/*.
+
+Using the standard PHY API and the parameter passing that goes with it
+allows us to move away from custom interfaces in CAMSS and to conform more
+clearly to established PHY paradigms such as the QMP combo PHY.
+
+Looking at existing compat strings I settled on
+"qcom,x1e80100-mipi-csi2-combo-phy" deliberately omitting reference to the
+fact the PHY is built on a four nano-meter process node, which seems to
+match recent submissions to QMP PHY.
+
+My first pass at this driver included support for the old two phase
+devices:
+
+Link: https://git.codelinaro.org/bryan.odonoghue/kernel/-/commit/a504c28d109296c93470340cfe7281231f573bcb#b6e59ed7db94c9da22e492bb03fcda6a4300983c
+
+I realised that the device tree schema changes required to support a
+comprehensive conversion of all CAMSS to this driver would be an
+almost certainly be unacceptable ABI break or at the very least an enormous
+amount of work and verification so I instead aimed to support just one new
+SoC in the submission.
+
+I've retained the callback indirections give us scope to add in another type of
+future PHY including potentially adding in the 2PH later on.
+
+This driver is tested and working on x1e/Hamoa and has been tested as not
+breaking sc8280xp/Makena and sm8250/Kona.
+
+Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+---
+Bryan O'Donoghue (2):
+      dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
+      phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
+
+ .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 198 +++++++++
+ MAINTAINERS                                        |  10 +
+ drivers/phy/qualcomm/Kconfig                       |  15 +
+ drivers/phy/qualcomm/Makefile                      |   5 +
+ drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c | 385 +++++++++++++++++
+ drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c     | 460 +++++++++++++++++++++
+ drivers/phy/qualcomm/phy-qcom-mipi-csi2.h          |  97 +++++
+ 7 files changed, 1170 insertions(+)
+---
+base-commit: 8dac27bfa2f994ecb11f01a63641527d17d48fc1
+change-id: 20250710-x1e-csi2-phy-f6434b651d3a
+
+Best regards,
+--  
+Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
