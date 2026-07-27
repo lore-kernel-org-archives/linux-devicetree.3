@@ -1,143 +1,122 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 936D04156CE;
-	Mon, 27 Jul 2026 13:23:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AB4D414DEE
+	for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 13:23:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785158621; cv=none; b=mZDoXnThdDKvecCqvv61iO0uMn7UO5JGjxn26f7ooCi+MGYfxQrz/VrclQLmXvSn3hOAFU8TT0FHlAtHnbktjWZvOg4o+Fys0gOD65vIGUp5F1gH1yo7GVmg+m2cx3vcu9aYzF5zkd2Ao6bFfsDBe6CcT4ERn87jgR6WFL75Vq4=
+	t=1785158628; cv=none; b=AGCP/TcFGRL+uYksDhpSU1XhIbu4Dy1WSMRKJsq5PmoGNGHWmch/o6knlFJPZqICiGci4ibwMYJw/lqz3H6tNqC6fwvWLFb/Hwke6L39mHsYA4KXm8DgWnp+pOJ0ITp6vUKQ470PzBP8oNb4rxiNppIE2Iq5VSJikLpkc8PaFWE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785158621; c=relaxed/simple;
-	bh=9pcL3Ujn9dRR9maqYrHBCcnkr1bH2U7cX7wpTCk3sCU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GPf51XtRE9tz7Sw7MSev5w3BKHe4qnzgZaqftlM5nj0W4KfJa+I7uiO2BVvz78Avrggu6a1+o15RvWHMTd/ALudkSi0st6JjP5UKOX/RO6WjD29OY9dJFXPZ9Xb8t/W/MKHI0yDclil96Xs2TpWYkwibyj/6ZmRp+Kg+2AvVa9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VCFNLybH; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1785158628; c=relaxed/simple;
+	bh=safVrVPbQKLrg2veq/edFMGfd2XqNn19RiZeXHcKIrg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=l6lJ/yTQDXMvkFy2a7CiCs1DPo+nkCpGUGJ0bZ6xXpHrDjGteKP7dTmeFgXaR/ZlbmYraT1mYcM5JajzGz5IJHQ16BJxuFC+m0hrTcPdV4Jdj7csBjsl0qzNV/l59KEN/gJ9xRrHs7fso6aBcCKJc2760Sgm6CTIN8FgDswGjgw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=tBcsItL+; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VCFNLybH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785158612; x=1816694612;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=9pcL3Ujn9dRR9maqYrHBCcnkr1bH2U7cX7wpTCk3sCU=;
-  b=VCFNLybHOf+FJ80eXr2zUeYeTYstAxM6xc7jbedBPM7UttBW9s5Svcy/
-   ZpRN8RyjSmT7bRaT+N/a6ei4FDjxWUl0kmeyAPBPQ9RsXZqo3dKskenpN
-   ZZYRx3ezPxOGKDI6btnGsTKpm0wNuLGAymfP8ildkGlwqKvY9pq8Q5tpc
-   rGT1a0iLOL59bmOHfs/+hY/5F54mbWlo/3AbSMK64gTXq5fsN1ckieK8v
-   riCJgfv+V0fiwRiZfCYVNxTXebgtszOawrYvj5ayfhxLGvbH5dG3LhzuS
-   qGBapip7Tyia419jucAQa/XbQvf39ujO86Diz/vuzbUuYXlpEhuBqQno0
-   A==;
-X-CSE-ConnectionGUID: LRlNU4GvTDO2bBWQysOXCA==
-X-CSE-MsgGUID: Gytyhx/iTiicDbyF/lfSVg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11858"; a="108520756"
-X-IronPort-AV: E=Sophos;i="6.25,188,1779174000"; 
-   d="scan'208";a="108520756"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Jul 2026 06:23:27 -0700
-X-CSE-ConnectionGUID: rFuhpQTTT7SO9zph0JLhXw==
-X-CSE-MsgGUID: MlxXu+csT3egRYyxci+Lkw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,188,1779174000"; 
-   d="scan'208";a="297641534"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa001.jf.intel.com with ESMTP; 27 Jul 2026 06:23:25 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 888BF99; Mon, 27 Jul 2026 15:23:23 +0200 (CEST)
-Date: Mon, 27 Jul 2026 15:23:23 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Sasha Finkelstein <k@chaosmail.tech>
-Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
-	Neal Gompa <neal@gompa.dev>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, asahi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Alyssa Milburn <amilburn@zall.org>
-Subject: Re: [PATCH 2/3] usb: typec: tipd: Factor out i2c specifics
-Message-ID: <amdby6x3xQ0Z3-1G@black.igk.intel.com>
-References: <20260725-tipd-ace3-v1-0-73202d36138a@chaosmail.tech>
- <20260725-tipd-ace3-v1-2-73202d36138a@chaosmail.tech>
- <amdVkYEiv_tOZuwG@black.igk.intel.com>
- <2D85C0F7-4223-4DA3-89E8-EEC96DB4FBC6@chaosmail.tech>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="tBcsItL+"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4956869750eso20129045e9.2
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 06:23:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1785158624; x=1785763424; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KbIu2gZIapFLsXF2JAM5/C4wzKnu+IiYoG89ZkGUQTk=;
+        b=tBcsItL+yQp9qt6xpOgUHL21xKjts7UiGTmnNeAEffp7nrIZ+xgAZfPU2Bjq+pExC7
+         ZlFQSRtdJK4Cl1/ZxDLdLR5OQ4DGqXod2Bxb0tv4n0TQIUuPINGBwn2eRuDpUFsptXgM
+         Iw73/seMIVxe+BB0bNipjm65cH1m/lR6jb/hliC7T31+8WxduEmqgh8BGuIaRK783F09
+         0l3AMojt7xgH9v6PWcsTURVWzSd1h6DicWFo8lYU9GCrx7MrKr2T1axPZHUZHbCh+fZR
+         F+tMdXZCD6L/bxtFqONm3t3ZFBBOEjxZO+oCufzPVAQBedcs7oacva1D2jcmdIHhQXVf
+         757A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785158624; x=1785763424;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KbIu2gZIapFLsXF2JAM5/C4wzKnu+IiYoG89ZkGUQTk=;
+        b=p9tEtvjcA+GqecEIbgIebHBfjvYbK+qmTQ9uVS3NnfYpKfXMDGCc0ih3p1dISEznJx
+         9yj6eXW5tHGyMsHAbdQ62eDIA/X21/AGNFeSW+1XhyV9fquAHUwe9rQegzWT8CCy8H8n
+         aGPi5Sj2ojmV56wkgWr73SzRWH34eL3ddEjhAdiGpwdCh2cWFb3+BQ88tZ9vgO3fCmgd
+         1DfYdZ1dCtWQBGGxRERqm25+TNUPOgzP3edsRxy1jUrt2B6xepNPEEWfxraqjSSf6mAp
+         Oga3DgajMtuCXMq0RKhWpb/LD0OtOzsW8mYXOLlBXS0OQ+d6Xs6Yal61kVin3El1v5JO
+         CfQQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rqh7EzpOwiof4DX1lskn6GSWgq8kyg0qCbGlv/oct9M3GnsblVFFj6AOHarDy1P2Q3lFxLLFRzFo5ME@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx+5MYhZ0WIqb5da7wuKkJj0HRGZbehU+XZ0EJG/7y7QWDdwnZa
+	jPmjNPuAEinSebOPlCSny+rOjIBkQEyHji20IOQMBNWS0FOExRYcIjcS0JOIqKUIqdw=
+X-Gm-Gg: AR+sD12Jaajw9MhELkPuIfdiE4a/LpfTpOD2g63T8iahSFIwk5Q8OfBzT4eq5BlFlQ1
+	ilmA5vRRaLq0Ucpg4xTdqcWaf31RkL6O5X8GPoD4Mg4qkAmJHQbDEl1RlbC1rn0YUYWJwsmralS
+	/u4qb8wtB4O1yu/0XEDA8aOKqrwsG8iJrN7NCUqmk0Z31ZdT+eVPATozG4vKkwoAdGwkylsEDxv
+	j4/SOIn354Db9d6g9hdz5p4gZ9TACf3Ewxy46AWOvQrb0MhssX3EAAJAdBQqRvw+GwxZPZUJYwQ
+	4d3hWkgUZCABDOs69x0n8JB1RpLhkB6kP+igIO8qGGkYcnBvSRzHp/6XZ2jr1W0ygconAj+yfsK
+	ihQmDfNcBZjGb79CJjKARRE9WkKWTtuIRFUTuaqf9yTVG/VBHo9oYN83lKgDABwP6mScRdh1yXk
+	Wg128SDEurs57RCRTLUFzM8BRS24ZbR85HGmm3fTrwJmQqg1p7lx1b+azJw4xTq9cUsQ==
+X-Received: by 2002:a05:600c:4ed0:b0:493:f6f0:d66b with SMTP id 5b1f17b1804b1-496b56e6f19mr106760005e9.1.1785158624502;
+        Mon, 27 Jul 2026 06:23:44 -0700 (PDT)
+Received: from [127.0.1.1] ([2.122.8.179])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496b4ee4504sm224730055e9.6.2026.07.27.06.23.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Jul 2026 06:23:44 -0700 (PDT)
+From: Alexey Klimov <alexey.klimov@linaro.org>
+Date: Mon, 27 Jul 2026 14:23:26 +0100
+Subject: [PATCH v3 1/2] dt-bindings: sram: Document
+ samsung,exynos850-acpm-sram
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2D85C0F7-4223-4DA3-89E8-EEC96DB4FBC6@chaosmail.tech>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260727-exynos850_sram-v3-1-8627a49188ec@linaro.org>
+References: <20260727-exynos850_sram-v3-0-8627a49188ec@linaro.org>
+In-Reply-To: <20260727-exynos850_sram-v3-0-8627a49188ec@linaro.org>
+To: Sam Protsenko <semen.protsenko@linaro.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+ Peter Griffin <peter.griffin@linaro.org>
+Cc: Tudor Ambarus <tudor.ambarus@linaro.org>, 
+ linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
 
-On Mon, Jul 27, 2026 at 03:05:35PM +0200, Sasha Finkelstein wrote:
-> On Jul 27, 2026, at 14:56, Heikki Krogerus <heikki.krogerus@linux.intel.com> wrote:
-> > 
-> > Hi,
-> > 
-> > On Sat, Jul 25, 2026 at 06:20:57PM +0200, Sasha Finkelstein wrote:
-> >> From: Alyssa Milburn <amilburn@zall.org>
-> >> 
-> >> Make the core driver more bus-agnostic to prepare for SPMI variants of
-> >> the tipd chip
-> >> 
-> >> Signed-off-by: Alyssa Milburn <amilburn@zall.org>
-> >> Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
-> >> ---
-> >> drivers/usb/typec/tipd/Makefile           |   2 +-
-> >> drivers/usb/typec/tipd/{core.c => core.h} | 109 ++++++++++++++++++++++++++++---------------------------------------------------------------------------------
-> > 
-> > That has to be a mistake, right? You don't move code into a header
-> > like that.
-> 
-> Yes, it was a bad idea, already fixed in a v2 that will be sent in the
-> near future.
-> 
-> >> +static struct tps6598x *tps6598x_from_device(struct device *dev)
-> >> +{
-> >> + struct i2c_client *client = i2c_verify_client(dev);
-> >> + struct tps6598x *tps = i2c_get_clientdata(client);
-> >> + return tps;
-> >> +}
-> > 
-> > You should not need anything like that.
-> 
-> This should make more sense together with the following patch, as it
-> can get the tps6598x from either the i2c or spmi backend.
+Document "samsung,exynos850-acpm-sram" which represents an SRAM region used
+for ACPM communication on Samsung-based SoCs.
 
-You would only need this in the PM callbacks, and those you need to
-keep in the glue drivers for i2c and spmi. The core.c can export
-common functions for suspend and resume like I told you.
+The SRAM is consumed as a whole, is not split up using child nodes and
+properties related to this are not required.
 
-> >> --- /dev/null
-> >> +++ b/drivers/usb/typec/tipd/i2c.c
-> >> @@ -0,0 +1,86 @@
-> >> +// SPDX-License-Identifier: GPL-2.0
-> >> +/*
-> >> + * Driver for TI TPS6598x USB Power Delivery controller family
-> >> + *
-> >> + * Copyright (C) 2017, Intel Corporation
-> >> + * Author: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-> >> + */
-> > 
-> > This driver is not coming from me.
-> 
-> I kept the attribution as both core and i2c are your driver, but split
-> into two. Should I have done something else?
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+---
+ Documentation/devicetree/bindings/sram/sram.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-This will not be the same module as the core. You will have separate
-modules for the core and for both glue driver.
-
-Note. You can also refactor the core a little so that by default it
-works with i2c, but it also exports the init/probe function so that it
-can be used as a library with spmi. In that way you don't need to add
-the i2c.c at all. But the you will depend on i2c also when you use the
-spmi.
-
-Thanks,
+diff --git a/Documentation/devicetree/bindings/sram/sram.yaml b/Documentation/devicetree/bindings/sram/sram.yaml
+index b83fc6831947..b9c4d4f3199b 100644
+--- a/Documentation/devicetree/bindings/sram/sram.yaml
++++ b/Documentation/devicetree/bindings/sram/sram.yaml
+@@ -43,6 +43,7 @@ properties:
+         - qcom,rpm-msg-ram
+         - qcom,shikra-imem
+         - rockchip,rk3288-pmu-sram
++        - samsung,exynos850-acpm-sram
+ 
+   reg:
+     maxItems: 1
+@@ -159,6 +160,7 @@ if:
+           enum:
+             - qcom,rpm-msg-ram
+             - rockchip,rk3288-pmu-sram
++            - samsung,exynos850-acpm-sram
+ then:
+   required:
+     - "#address-cells"
 
 -- 
-heikki
+2.51.0
+
