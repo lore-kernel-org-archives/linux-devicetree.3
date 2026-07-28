@@ -1,40 +1,33 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 764E644A72C;
-	Tue, 28 Jul 2026 14:33:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 749BF3446C5;
+	Tue, 28 Jul 2026 14:34:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785249206; cv=none; b=FaQIXebvJ1mDe5NMvQL9gID4uMXfQqw0cjmR9ROOQ+uzrXkC5VviRdUCA4mIY4JqpJwDlpLh4zU8agFTsUQMlZXCCyO8w6LFtH2F45wRaX8u18pFXwedvU2g+d7fLFRBByQJjj2BKyEHHaczh9wGvg0QjlPOF8NOsnXq6ukbbiU=
+	t=1785249244; cv=none; b=tp8+qwtKN/FGCmi+NVDYhgG2xvkOeoYA+5U0Nf59LzUzWLFTP7K5vD+aumw9EViRJNyus5hq9vzOpE9E0+yGLYFH7yQcwiKgea3V9YCAx0fSGcGJw266sNccwHStArsOjELtM01nHbz4RsF4zzoRwQSNI/ktrUh3Q/8dZHHCb2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785249206; c=relaxed/simple;
-	bh=4gKRc3lsPC3rb1kRaCZgNakY0yCL33pRhb9WZBRIPM8=;
+	s=arc-20240116; t=1785249244; c=relaxed/simple;
+	bh=3LW9mPIzGWHeO7ZFVky3G7SbwHoE8CKY/hj7ekw39VE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EbWw6GdJEk+2C0LPewigtrGnZ5fZ381lNLgESHEPgESx5Dj1mdYSivvhm7MlWxCPgz95knwpjF6/C9yVdfQ4TtjcrbVoDbDqt6697BqYVgha46iIMl4CiOdcCJQcKjDUQUlh+KyBsdfBsoLtX6ZvPI8aIJM/2Vhbl/s8XVJIENA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=ngSbIkhO; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	 In-Reply-To:Content-Type; b=Wa/3JUhhBnLJYcQViUCRDmHLRwI04VMdyGu6CgXio2PCLa3W8+YYzTPpA/lkA0JaboyGElXLaUSwBhs0NOXyPGbA1hdjDY1kR9vJWMB0HsSoGNYdvImy0zM8W+Zx7DbtaRu6g/g05B5kIgVbrFGlLtxSQIheVEGcN2jrhqkK5jM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=oEfmbj4l; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="ngSbIkhO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1785249202;
-	bh=4gKRc3lsPC3rb1kRaCZgNakY0yCL33pRhb9WZBRIPM8=;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="oEfmbj4l"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5B07A169C;
+	Tue, 28 Jul 2026 07:33:57 -0700 (PDT)
+Received: from [10.42.52.198] (e131404.arm.com [10.42.52.198])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C75B73F66F;
+	Tue, 28 Jul 2026 07:34:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1785249241; bh=3LW9mPIzGWHeO7ZFVky3G7SbwHoE8CKY/hj7ekw39VE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ngSbIkhOyFiMhpkd3SX1Hg9cxgLQorJEE6BB1iTxRXJFWMfk/nBgyreb8ZnLWxO2+
-	 kn+ZqtiP03ykjWbV20aiFjaAOwAinSr28bBrLHTSiNnJXNlCd+OE7nemylGwVkQIBF
-	 srRcf20J7cmkgJFt+yhX12gVEm/1GkIpkpLEdAMH0a+ubUi+DFl5a/ezjYDTBSzhO/
-	 FvhQkhWtBa3hMgHHQZeN2eIGUgaBPo39DAv0gkGfgbhvmrHiZfiMKJRyCOoj9VzY44
-	 q5DPSdNRcZ7kA3OM8jtNFqssBVaSMPUlTJwgRQ2wXheQJ2Ux3jaraEUagJlyHtTYkD
-	 Ao81oWyuEJB6A==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 89A0D17E0114;
-	Tue, 28 Jul 2026 16:33:21 +0200 (CEST)
-Message-ID: <c1048eae-72c5-4e2e-ac49-25e2c4297018@collabora.com>
-Date: Tue, 28 Jul 2026 16:33:21 +0200
+	b=oEfmbj4lY68qwPEoFkxetMt/hz+6+yqKZ7sOMQKhw7eb7Jl8djJ719JZOYy0KjySY
+	 UupdUisSI73dHUcExJiU/g9pOTwweOWxKHsQXRR36FgBBemJSAa0dkGCGbdjfmYNhO
+	 609CWy9yxDm797n6l9rbs5Wl5Na1XAjGikXK9RC0=
+Message-ID: <d61cf184-20a4-4e8f-8da0-c0ac39e200a8@arm.com>
+Date: Tue, 28 Jul 2026 16:33:59 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -42,82 +35,98 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/5] powervr: MT8173 GPU support
-To: wens@kernel.org, Brian Masney <bmasney@redhat.com>
-Cc: Chen-Yu Tsai <wenst@chromium.org>, Stephen Boyd <sboyd@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Alessio Belle <alessio.belle@imgtec.com>,
- Luigi Santivetti <luigi.santivetti@imgtec.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- YoungJoon Lee <getfeus@gmail.com>
-References: <20260728091804.382753-1-wenst@chromium.org>
- <amiqKRkFItYwD6oL@redhat.com>
- <CAGb2v64zUO-azpTuei6LCypad2noGFbg+EmaBC1iidoZ2stQzw@mail.gmail.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: Re: #thermal-sensor-cells under protocol@15
 Content-Language: en-US
-In-Reply-To: <CAGb2v64zUO-azpTuei6LCypad2noGFbg+EmaBC1iidoZ2stQzw@mail.gmail.com>
+To: Sudeep Holla <sudeep.holla@kernel.org>
+Cc: Cristian Marussi <cristian.marussi@arm.com>, arm-scmi@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <32d8c83d-7e70-4b1c-8d6d-12920f6c67ce@arm.com>
+ <20260728-natural-successful-pudu-fcb71d@sudeepholla>
+From: Laszlo Ersek <laszlo.ersek@arm.com>
+In-Reply-To: <20260728-natural-successful-pudu-fcb71d@sudeepholla>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 7/28/26 15:13, Chen-Yu Tsai wrote:
-> On Tue, Jul 28, 2026 at 9:10 PM Brian Masney <bmasney@redhat.com> wrote:
+On 7/28/26 12:23, Sudeep Holla wrote:
+> On Tue, Jul 28, 2026 at 11:53:41AM +0200, Laszlo Ersek wrote:
+
+>> And so describing protocol@15 in the Device Tree, without a
+>> #thermal-sensor-cells property, looks like a valid use case.
 >>
->> Hi Chen-Yu,
+>
+> No, unless you go back in time and find a replacement for
+> #thermal-sensor-cells and replace it w/o breaking any compatibility.
+>
+>> Am I wrong?
 >>
->> On Tue, Jul 28, 2026 at 05:17:58PM +0800, Chen-Yu Tsai wrote:
->>> Hi everyone,
->>>
->>> This is v4 of my MT8173 PowerVR GPU support series.
->>>
->>> This time around Mesa was ready for basic testing, using both vulkanmark
->>> and glmark2-es2-drm (with Zink). Details below.
->>>
->>> Changes since v3 (all in the clk driver patch):
->>> - Changed pm_runtime_put() to pm_runtime_put_sync()
->>> - Added missing of_node_put() in remove function
->>>
->>> Changes since v2 (all in the clk driver patch):
->>> - Made COMMON_CLK_MT8173_MFGTOP depend on PM
->>>    - Needed since the driver implements PM domains using the generic PM
->>>      domain library, which also depends on PM
->>>    - Fixes build breakage (kernel test robot)
->>> - Fixed "RST_DELAY_CNT" name (Brian)
->>> - Dropped unused mfg_desc (Brian)
->>> - Added check of clk_prepare_enable()'s return value in
->>>    clk_mt8173_mfgtop_power_on() (Brian)
->>> - Saved error value for return in IS_ERR(data->clk_26m) branch
->>>    (Dan Carpenter / kernel test robot w/ smatch)
->>>
->>> Changes since v1:
->>> - Adapted to changed DT bindings
->>> - Dropped driver change
->>> - Use same power domain for "a" and "b" GPU power domains
->>>
->>>
->>> This series enables the PowerVR GPU found in the MT8173 SoC, found in
->>> some Chromebooks.
->>
->> I'm making a pull for Stephen for the clk changes. Should patches 1,2,4
->> go through the clk tree? Patches 3,5 go through the DRM tree?
-> 
-> Only patches 1 and 2 should go through the clock tree.
-> 
-> Patch 3, 4, 5 can all go through the soc tree if Angelo wants to pick up
-> DT binding patches. Otherwise I can push patch 3 through drm-misc.
-> 
+>
+> We need some property cell to be set to 1 to read the SCMI IDs. For
+> backward compatibility reasons, it will remain #thermal-sensor-cells.
 
-Not sure if I can really take the DRM bindings patch through soc.
+(1) Are you saying that the property "#thermal-sensor-cells", under
+protocol@15, is actually a *misnomer* today, and it is in fact a
+*generic* specification of the Sensor ID width -- regardless of any
+referring stanzas elsewhere in the Device Tree (of which there may be
+none, or some may be thermal-UNrelated)?
 
-I will take the devicetree ones exactly right now, even though it's going to
-give warnings.
+(2) If so, would you accept a patch for
+"Documentation/devicetree/bindings/firmware/arm,scmi.yaml" that points
+out the above fact in a "description" yaml key?
 
-I trust that you'll make the binding get into linux-next before it's too late.
+| diff --git a/Documentation/devicetree/bindings/firmware/arm,scmi.yaml b/Documentation/devicetree/bindings/firmware/arm,scmi.yaml
+| index d06cca9273c4..78cc26ce0458 100644
+| --- a/Documentation/devicetree/bindings/firmware/arm,scmi.yaml
+| +++ b/Documentation/devicetree/bindings/firmware/arm,scmi.yaml
+| @@ -223,20 +223,25 @@ properties:
+|    protocol@15:
+|      $ref: '#/$defs/protocol-node'
+|      unevaluatedProperties: false
+|
+|      properties:
+|        reg:
+|          const: 0x15
+|
+|        '#thermal-sensor-cells':
+|          const: 1
+| +        description:
+| +          The width of SCMI Sensor IDs, expressed as a number of 32-bit cells.
+| +          (The property name is an historical artifact, and counts nowadays as
+| +          a misnomer. The property is no longer specific to anything
+| +          "thermal".)
+|
+|      required:
+|        - '#thermal-sensor-cells'
+|
+|    protocol@16:
+|      $ref: '#/$defs/protocol-node'
+|      unevaluatedProperties: false
+|
+|      properties:
+|        reg:
 
-Cheers,
-Angelo
+(3) Where exactly does the kernel consume "#thermal-sensor-cells" in the
+proposed (general) sense?
+
+I can only find matches for the property name in
+"drivers/thermal/thermal_of.c" and
+"drivers/thermal/ti-soc-thermal/ti-thermal-common.c", but those appear
+like thermal drivers, not general SCMI stuff. AIUI,
+of_thermal_zone_find() in the former consults "#thermal-sensor-cells" in
+the "provider" (such as SCMI protocol@15) to figure out the expected
+argument cell count in the "thermal-sensors" list.
+
+But that implies that, if there ever was another (non-thermal) driver
+that wanted to reference SCMI sensor identifiers similarly, it would
+also have to consult "#thermal-sensor-cells", for the argument cell
+count. Which seems to support the idea that "#thermal-sensor-cells"
+counts as a misnomer today. Is that right?
+
+>> IMPORTANT NOTICE: [...]
+>
+> Deleted now, please fix it for next time.
+
+My bad, should be fixed now. (I've tested it with another external
+addressee.)
+
+Thank you,
+Laszlo
