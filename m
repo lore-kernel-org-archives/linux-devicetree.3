@@ -1,71 +1,103 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA031466AE5
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 19:16:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A3D83E3D98
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 19:16:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785266209; cv=none; b=mNh7qkwR22hgGQpXVdp0w78M9F4Zf2iaB2ofChP9+y7HbkNxS+tNqz+aB0wBUK2ZJIgEXQBZU7ZYMuwQBECtXbTtngBPJde6fnOSkRMIUupMXY1DAOFWJ8gb0MMciFTTDAmH5rXIXXis7Aqlwp4zFKX3Z2skNYMDv9xS5BRNV1w=
+	t=1785266210; cv=none; b=OEGqRtNTz7W8rox4ip/1I0zQC/iBHobkyOTFVsZy0Bh/hMyQtcjBx2pu676hvaFtblZ+WKkB07P0zVF4p18j2h1GpGhw+oniHFDA+unJ0RGRwAmLNJeRe4gZO+K3daK0Cyn5XGjPjsAzVv8PMmVZO3dyrnOUGx4CH+c1SCSps8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785266209; c=relaxed/simple;
-	bh=eJUb7zRWB2X+9XnkIfibxnARcfxCo0Wwe67OI6Gfu5g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ECws9RWgVKA6GTYFgtUcYAA+dY3h9ws1R6vhLJ0vACcvgCOXn/sUNGx7Ca7LKJdgM8fuyPBcHBQ+Kv9Y5Y+xVi2wSyoPdjpy8HBtHNnFfIc6Vl+e1SaklIWCWSTDrrgvRFtPR4rKMY6GM1hfLHMme5OxGpTB/Vas16j1Mlysqug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=qDP/caSj; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1785266210; c=relaxed/simple;
+	bh=L4BdWppUxFsZHM8doAOmepsJHOJDbVQ6kSsqZ8qElRI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=n5ygzu94Ny0oo1Rq+NDAdhn0emvpHh3apGU8VD2Nz1YcC5SpLk32Z1MfqERGpG6g/rWIXOTaMkIBmrwbN1BVvNVRWaQsSCnet6C+wiTu7BC4QWboDGFCE4gwxngEjMcjCXjuiEnKLyb7dVEki5Cd7stJ0irpRMKWV6YU0Wo/8iw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z0z5Cc2E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="qDP/caSj"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=huxwkT+YIY5j8ccI/eBKthSOzoDq1eAsTS/gveNwfvY=; b=qDP/caSjc4232sZbnKAOButDeu
-	LlLhjJ7dANEywkTzJ8DLnSuaz6AFXKvjbALFh/Jt/oWpXlcFXJr9Q1uMm180waQWIaezdOgr/qZ7c
-	QcZCC7ezvmjVmxaxXpam/c4Pv30qdVKUaFJ/sfpwAjM9ZulX92BMEAz3zr4VjK9iEg87nXKURZ4tr
-	Y/noKsHYTLAx31lNOAObAQcdchFnZRC+JFfli+9zsXNMMGFLWRImHsk5jeFtvDF7eYWY2qkMAN4nY
-	G1mgErzIVIeX5WHBs2Ln3pZ4rB9fxwxwRFhK/ZUkcZ7L5BsFT7L43Oxy4Iiz4n1cK1WDqJNJKhhPi
-	G8No+aiQ==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Fabio Estevam <festevam@gmail.com>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	ivan8215145640@gmail.com
-Subject: Re: [PATCH v2] arm64: dts: rockchip: Fix rk3566-bigtreetech-cb2 touchscreen property
-Date: Tue, 28 Jul 2026 21:16:30 +0200
-Message-ID: <178526609460.300371.6870449079631609036.b4-ty@sntech.de>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260721135450.45286-1-festevam@gmail.com>
-References: <20260721135450.45286-1-festevam@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z0z5Cc2E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 956721F00A3E;
+	Tue, 28 Jul 2026 19:16:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785266203;
+	bh=cB1TZyDNRIugpz+STBldDvNY19ncVExGEdHbEhveJTg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Z0z5Cc2EPJNja1x6055b2N4FuH2x9IiMierOwH0imbUzpBILBBMFmylVJHvWguI1P
+	 EzfqPQVEXvHtvt5pgcm+nVtRXky8rPU0en9hhY8A8IGfvVZSh0wKo3ipc7UX/uSENU
+	 oftPF1mxi3hv9cA225/PaRm+JTGF1ZAKmTk6KXF3NAfYt1ySgZ1FQJ/dwx/oKAQfP1
+	 bKPX1tZkXM+jEhvQB0LeyXth1YlbmjrnjC5obnW1NrPWnK2T7EpyrcEx48o1GoUPBq
+	 z7rOoIF9yzyECCyofvhjdr0RZrHM38S3wM5c1HzFqy7DxSKX2Toa7nfHzryEHx3y/Y
+	 lC26M/LAb/W0A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v8 4/9] net: mdio: realtek-rtl9300: extend
+ controller structure lifetime
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Markus Stockhausen" <markus.stockhausen@gmx.de>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260727191559.19617-5-markus.stockhausen@gmx.de>
+References: <20260727191559.19617-1-markus.stockhausen@gmx.de>
+ <20260727191559.19617-5-markus.stockhausen@gmx.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 28 Jul 2026 19:16:43 +0000
+Message-Id: <20260728191643.956721F00A3E@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-On Tue, 21 Jul 2026 10:54:50 -0300, Fabio Estevam wrote:
-> The TSC2007 driver uses the ti,max-rt property to specify the maximum
-> touch resistance, but the rk3566-bigtreetech-cb2 device tree uses the
-> undocumented ti,rt-thr property instead.
-> 
-> As a result, the configured value is ignored and the driver falls back
-> to its default maximum resistance value of 4095.
-> 
-> [...]
+Pre-existing issues:
+- [High] Ineffective Fix / Unresolved Use-After-Free
+--
 
-Applied, thanks!
+--- Patch [4]: [PATCH net-next v8 4/9] net: mdio: realtek-rtl9300: extend c=
+ontroller structure lifetime ---
+commit b6df87c0a19bdf7cb3946cca13544583a9dac7fd
+Author: Markus Stockhausen <markus.stockhausen@gmx.de>
 
-[1/1] arm64: dts: rockchip: Fix rk3566-bigtreetech-cb2 touchscreen property
-      commit: 7707e4555cf1d52689621e3206df8ad2debaa0dd
+net: mdio: realtek-rtl9300: extend controller structure lifetime
 
-Best regards,
--- 
-Heiko Stuebner <heiko@sntech.de>
+This commit attempts to use a kref counter for the controller private data
+to decouple its lifetime from the platform device and tie it to the MDIO
+buses, aiming to prevent a use-after-free during teardown.
+
+> diff --git a/drivers/net/mdio/mdio-realtek-rtl9300.c b/drivers/net/mdio/m=
+dio-realtek-rtl9300.c
+> index 3dee5bff41349..9529f877248ba 100644
+> --- a/drivers/net/mdio/mdio-realtek-rtl9300.c
+> +++ b/drivers/net/mdio/mdio-realtek-rtl9300.c
+
+[ ... ]
+
+> @@ -617,6 +634,11 @@ static int otto_emdio_probe_one(struct device *dev, =
+struct otto_emdio_priv *priv
+> =20
+>  	snprintf(bus->id, MII_BUS_ID_SIZE, "%s-%d", dev_name(dev), mdio_bus);
+> =20
+> +	kref_get(&priv->kref);
+> +	err =3D devm_add_action_or_reset(dev, otto_emdio_cleanup_bus, priv);
+> +	if (err)
+> +		return dev_err_probe(dev, err, "cannot register cleanup action\n");
+> +
+
+[Severity: High]
+This is a pre-existing issue, but does this approach actually decouple the
+lifetime from the platform device?
+
+In otto_emdio_probe_one(), registering the cleanup action against the
+platform device (dev) via devm_add_action_or_reset() means
+devres_release_all() will still execute otto_emdio_cleanup_bus()
+synchronously during the platform device unbind phase.
+
+Won't this drop the kref to 0 and free the priv structure at the exact same
+time as the old devm_kzalloc() teardown would have, regardless of whether
+the mii_bus objects are kept alive by external references?
+
+If the mii_bus objects outlive the platform device unbind, could accessing
+bus operations still dereference the freed priv pointer?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727191559.1961=
+7-1-markus.stockhausen@gmx.de?part=3D4
