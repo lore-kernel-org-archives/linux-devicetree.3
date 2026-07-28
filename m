@@ -1,106 +1,119 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A53D23B8BDA
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 19:36:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71AE13BF689
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 19:41:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785267376; cv=none; b=WmQAOe9c35+5qYMkOnmOth0QPBUIT2VP9sOz1m/VhPa5DD2O3ZbJSkwmZ8W+0KwYfYQUhqNer4HsRPa+o+8eyvuXf4yVQtWcgjuD97wMtnHZtgwvNTfFAFp1VhVkkCzamzaIpymJsYW3g4Fs49qs0E2l1MROoxpssJSVaeI0yGU=
+	t=1785267692; cv=none; b=QtSxliQSSTjdl3icMJGO1Gv8rxkAzsXSpPj8+kcdtwoihY/Uj3HmqKxVho86NZMTySKsXq21kB8qLvTczXtdeDrdd5JtQlwrWmpUxy7gs61A8eCi5ekJ9luB515DnP1pdWFDEl9J+eXSlG4l1iE9bQfPAr7lhlphojt+M4HMnPU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785267376; c=relaxed/simple;
-	bh=GZ3CDx7InDtszJT7FBxF33rwRxfCvVgboxCsOELiDko=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=k7HFfJJm2lL9c0is1oPw+Yw1WTB1ZeaiIv6RpanbELtwv/naDav7HHENPJb3kOSyyBW7KvDsMuhUKaThcshmJN9EjeEWYqLX/5ul5bL6qYE1xfyTvU0F0RensT+lJzXTWuxg5dsBgeYfoHIZHKpbNLOR3luXuNPNldBcgbXKiOs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=pass smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=K9wbzP+T; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
+	s=arc-20240116; t=1785267692; c=relaxed/simple;
+	bh=8298hEAJonQ7sgmW3rGPIQK3BDAt3pSHNDGC2mXBlqM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=jAjhYC1smQNEnByqPzuHBI2+RI6EUt9iF6sNmWHCQW8RlUK1d88Tx8s2YWxTowh+NnvHU/5br0OKcFrnJ/M1kaCwBZL9M9EIaUgZbFOwvtA7lc1XvFYvp7YWP/GNrnKAkXzwVNcsDay97xrSdNjwUXGiYhhggGMGn3dxWqFRh7E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hqp3xcVD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="K9wbzP+T"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5EC3489303;
-	Tue, 28 Jul 2026 21:36:09 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1785267371; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=txmlt/gC1Lo/xKfFND5RbT2FJMpoytjBZlqHQ1p4H6I=;
-	b=K9wbzP+TOgQWgo6a206cF1/b0TAr3sIChiWLi29H7crx5VTTFlWYa6YUitbfAf/SFyPAgV
-	1bysiWm2DhvztD2pV7guMeI7YpTE7SWMNAjG6/oia8s2Ck9yXzeSpyzSlL+gsIV9alG9VM
-	UX+irtirJQjNe6FMbZ8wBg6gfqevsJj2PxhUvf7H6i+o+AmyCHXPDiPpZ6gRQ1Fzbxbzln
-	vwBWQAUOsZUpQX+KZcwBBkN3YPy77oE534VQNy0DXfAyC8OEcJsjssySqLPjbhUC1EgShn
-	63diVlabhXLLe24UXZhebGie27tGviVaYKfLyFVzGc2zxGq2wnPAhQ7vqEL15Q==
-Message-ID: <ad369df5-3ef4-4b4f-8596-26a6667b8e46@cjdns.fr>
-Date: Tue, 28 Jul 2026 21:36:09 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hqp3xcVD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCBB41F000E9;
+	Tue, 28 Jul 2026 19:41:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785267691;
+	bh=HjR5pw5/gfOy+jhyu25quQeDLamlpk27FN6+f+2Qb98=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Hqp3xcVDDOWVvMEollem4sHf8bgYjz5Mimt4yqh4cwgVYD9EdFQT66W8O3zTzRl1D
+	 bFVtf8yQyqJssqQweAaJxuaAVkWPI7HQiL8XpdfhwJFkzefMzMnlc6YdA+qp02Q88W
+	 Y7Fiv/YWDxsX+hI6jb5xF0hNir8HJJfa8JNpVkDkTxXw6oCiavNWHsQZxDZPIlH1+f
+	 hRxTf7Q0VazFJIBLmgsxTK0RrFXnk9qerzslVf4MrGSY+dQ424Q43Wwzh05NG5K3h3
+	 DjSgXmOrs3kC25LLRDwOnnZq612aklr653oMeV8Iu2dVGLU4FLBIDYg0xyzQKtpCuc
+	 ToownFZDkBiOA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 11/18] drm/rockchip: dw_dp: Implement out-of-band HPD
+ handling
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
+In-Reply-To: <20260728-synopsys-dw-dp-improvements-v7-11-b7640fa8cf48@collabora.com>
+References: <20260728-synopsys-dw-dp-improvements-v7-0-b7640fa8cf48@collabora.com>
+ <20260728-synopsys-dw-dp-improvements-v7-11-b7640fa8cf48@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 28 Jul 2026 19:41:30 +0000
+Message-Id: <20260728194130.CCBB41F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH 1/2] mips: econet: add multi-vpe capability to EN751221
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-References: <20260728184959.102441-1-cjd@cjdns.fr>
- <20260728184959.102441-2-cjd@cjdns.fr>
- <20260728190621.CCD601F000E9@smtp.kernel.org>
-Content-Language: en-US
-From: Caleb James DeLisle <cjd@cjdns.fr>
-In-Reply-To: <20260728190621.CCD601F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Missing runtime PM acquisition in out-of-band HPD callbacks lead=
+s to SError crashes once runtime PM is enabled.
+--
 
-On 28/07/2026 21:06, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] Unconditionally masking hardware interrupts in en751221_init_secondary breaks the secondary CPU's timer if the system boots with VEIC disabled.
+--- Patch [11]: [PATCH v7 11/18] drm/rockchip: dw_dp: Implement out-of-band=
+ HPD handling ---
+commit 38a0d76cc721376e1ac94e73ba9bcc954b4597fd
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-I didn't mention it in the commit message because SMP_MT implies _EI and 
-_VI, enabling VEIC. But lines 6 and 7 are in fact unconditionally dead 
-on the EN751221, the classical MIPS timer is not present.
+drm/rockchip: dw_dp: Implement out-of-band HPD handling
 
-Thanks,
+This patch implements out-of-band hotplug handling to receive external hotp=
+lug
+information from the USB-C state machine. This moves the logic from the USB=
+DP
+PHY driver to avoid SError crashes once runtime PM is enabled.
 
-Caleb
+> diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/=
+rockchip/dw_dp-rockchip.c
+> index 005938dc66c9f..b2e817044c942 100644
+> --- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
 
-> --
->
-> --- Patch [1]: [PATCH 1/2] mips: econet: add multi-vpe capability to EN751221 ---
-> commit 29d4bfd90711d72516d1c7a3132dda2ae50742fc
-> Author: Caleb James DeLisle <cjd@cjdns.fr>
->
-> mips: econet: add multi-vpe capability to EN751221
->
-> This commit registers SMP_MT on startup and overrides init_secondary with
-> CPU interrupt unmasking required by the EN751221 VEIC intc hardware.
->
->> diff --git a/arch/mips/econet/init.c b/arch/mips/econet/init.c
->> --- a/arch/mips/econet/init.c
->> +++ b/arch/mips/econet/init.c
-> [ ... ]
->> +static void en751221_init_secondary(void)
->> +{
->> +	write_c0_status((read_c0_status() & ~ST0_IM) |
->> +		(STATUSF_IP0 | STATUSF_IP1));
->> +}
->> +
->> +static int __init en751221_register_vsmp_smp_ops(void)
->> +{
->> +	if (!cpu_has_mipsmt)
->> +		return -ENODEV;
-> [Severity: High]
-> If the system boots with VEIC disabled (e.g., falling back to cascading mode),
-> will this break the secondary CPU's timer?
->
-> By registering these VEIC-specific SMP operations here without checking
-> cpu_has_veic, en751221_init_secondary() will execute on the secondary CPU.
->
-> Since en751221_init_secondary() clears ST0_IM unconditionally, it masks
-> hardware interrupts including the timer interrupt. Could this lead to
-> boot stalls or RCU hangs on non-VEIC setups?
->
->> +
->> +	en75_smp_ops = vsmp_smp_ops;
->> +	en75_smp_ops.init_secondary = en751221_init_secondary;
->> +	register_smp_ops(&en75_smp_ops);
->> +	return 0;
->> +}
+[ ... ]
+
+> +static void dw_dp_rockchip_hpd_sw_sel(void *data, bool force_hpd_from_sw)
+> +{
+> +	struct rockchip_dw_dp *dp =3D data;
+> +	u32 hpd_reg =3D dp->pdata->hpd_reg[dp->id];
+> +
+> +	dp->hpd_sel =3D force_hpd_from_sw;
+> +
+> +	regmap_write(dp->vo_grf, hpd_reg,
+> +		     FIELD_PREP_WM16(ROCKCHIP_VO_GRF_DP_SINK_HPD_SEL, dp->hpd_sel));
+
+[Severity: Medium]
+Will this regmap_write() trigger an SError if the USB-C state machine
+triggers an out-of-band hotplug event while the DP controller is runtime
+suspended?
+
+The commit message notes this patch is intended to prevent SError problems
+once runtime PM is enabled. Since the register access requires the DP
+controller's power domain, should there be a runtime PM acquisition before
+writing to the vo_grf regmap?
+
+> +}
+> +
+> +static void dw_dp_rockchip_hpd_sw_cfg(void *data, bool hpd)
+> +{
+> +	struct rockchip_dw_dp *dp =3D data;
+> +	u32 hpd_reg =3D dp->pdata->hpd_reg[dp->id];
+> +
+> +	dev_dbg(dp->dev, "Force HPD connected=3D%s\n", str_yes_no(hpd));
+> +
+> +	dp->hpd_cfg =3D hpd;
+> +
+> +	regmap_write(dp->vo_grf, hpd_reg,
+> +		     FIELD_PREP_WM16(ROCKCHIP_VO_GRF_DP_SINK_HPD_CFG, dp->hpd_cfg));
+
+[Severity: Medium]
+Similarly, could this asynchronous write cause an SError crash if it fires
+without first ensuring the DP controller's power domain is active via runti=
+me
+PM?
+
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-synopsys-d=
+w-dp-improvements-v7-0-b7640fa8cf48@collabora.com?part=3D11
