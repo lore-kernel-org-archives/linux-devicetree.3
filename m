@@ -1,270 +1,345 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4944B413794
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 08:40:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE49027AC31
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 08:43:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785228055; cv=none; b=afGQVvGZngTRUyXSWMlmdMZGZJhAVe4SYujMysFpk5cTQIcpl76n4yHZYjqd6YvsiD1bgpjlfGF3aTxY8TTbBW+8kyojSJnzdEbNX+tIkE8R1qS7q9k5yQKD+ypLK4LrA9zw0KBGMCUWJfSQW3dZl0TilZfDrbWJupLOIc1C1us=
+	t=1785228208; cv=none; b=QiVuC8DnTuSzW7AwCDT3Lr2tfR7ILu+IRnqHkMfdMVzYqv6CXNnJp54Ny2s/DMj2vs7yMjjpboMBgpNxwiD9j9BzHG64KN+3hJkOXJogIyXnnEm/vBpKFAOidVWO1pMSHXWWVBwX4Xa45r+M9nsIOoLFjbmJFX6UAVlyNRMGtLQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785228055; c=relaxed/simple;
-	bh=yh7omN7QmSLIDUhxylRwnAYQoNTHBYgtT5w9QjEIgBc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=peqOyS62MCvalGDAfSKDVSirsX0bQIZeZSUyzcZ0EyWg+LEe4uXoYLOWLHmlEqeSRppMhi/d76wo2Ipn/MO6csW8i7rCPJo14Rg/VnE9eUXaeEyq7bLhAcdoL9jR9vnBvGIPSHwZHX5F7nVfmOTSGpklnCgqt7/8cAs0Pliql6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=K710jn2m; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Jfe8zaOu; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785228208; c=relaxed/simple;
+	bh=Rqs2Ng0C3vJCPUON6AR2KbTIIceO/XD+W1qiQqHoo88=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=OJN3o5rw5A7Vk2uXJki9eiT/Sfo13GltWvyumNwjkTGtEb6VLpez490ZQocQxScrAIXPF12vTEjy701YcPJXXX3Ak1kVzQNGcupS8JQ0eWgOrzLpadyMOr9vGg7D/ukdewcfCdijyTLzPD+qZaMwHyT3WMnXZICMvq4oJcblyFw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CniWMoUS; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="K710jn2m";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Jfe8zaOu"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66S82WJC2129569
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 08:40:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=OA7ufRK8NeF
-	pheonCHj36Io4/bhZQD6wPfpD77Fh0JA=; b=K710jn2mHfI3xU++zIhYU8hPAa0
-	clM+mePOMySUcM+CBxot2m3BEg5Bb4JsSU23UBapUVn7OFOBdVNg2KJpgyZTVilK
-	VceYmrK16vlBEENvBL9ToWFJ9+GWV1gjsuT1QvFM09OnvrKiS/twhNCAr1yZ2NNx
-	71gW2Uytk3ioODadp4no2EI/XavLFirxJCldF5GQoxpCABJHs2YFW98yCCExCUlW
-	3wYaVgW0dfj/dK8e77iZYCGRzhWxDP6kAxmfJSYOdnsYvdShoeJoXUons4aSFFLi
-	DacG1PikxT4p6XN7maRkpn5KFGUEzBYpOgCHjX0d7kY7RwkLZJ48XGOrE3w==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fpbn8b913-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 08:40:53 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2cf7dd9fd91so36778925ad.1
-        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 01:40:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CniWMoUS"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-496bb7cdf51so20192955e9.2
+        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 01:43:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785228052; x=1785832852; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OA7ufRK8NeFpheonCHj36Io4/bhZQD6wPfpD77Fh0JA=;
-        b=Jfe8zaOuh+6yO/IFdkzvJWp6XFiYF77xoShc2nRwptc52GACSNFj5BEyCKiVvsdhoB
-         x7CaNecZcGwYaGbzLrChtrxE2RdAZXvFrpFxtwM+MHVwDU2Va9UE5h2HUtZEl3csrutu
-         9uO/bme0PuL2aNI/JArKPxiJlVSpCpsyaZEvLLU2WYCzb9c2zHoVfco0cQQvxx9o/tm3
-         W8R+BgCod6/ChVH3k6QJ+oNkeDt909kzGSkNvhXeu/TpLXXLzr89Aw81b1YYgLWaDxk7
-         1fDcbPCoK0zM/gRWt5Pit1KFOJVJR8HrxuoZ9gGmwGRiEnbPvn4dOzw1k6GL/dhH771h
-         XFww==
+        d=gmail.com; s=20251104; t=1785228205; x=1785833005; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YZrmeHnUsmaHWeuqwQJraQn03YaBA2ryv2IzzzN9LRU=;
+        b=CniWMoUSHioZTKO5/D7ZZl09KaW0RsB9z+O98ZtLwjhYsRod8uLn/Q7VaXKYUlISu0
+         LvK/RyRok68yQA5+ALi0DrWOL293m2/It6K9DXunPpx047xNJ6yaQD8gmlLo9GtaX3Ks
+         XguWXpQyUSH78urtmApCk5nKIytF2b0NLXsiyURUA0ezlumwXr5QZMM4/gL9It72jYWZ
+         ybv6WNg+e/B4CJNZmqGWThZQ9wWRmTepKLqvBiLaDaC5rsYyCgqHbkMNpQGHttPDh/6P
+         vvhMAAXzIjyfjqVo84uiDYY5NOttojL6Ss2TkN6ym32tCxBV44yCESEr8wV7Qy0QyZiV
+         3tKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785228052; x=1785832852;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OA7ufRK8NeFpheonCHj36Io4/bhZQD6wPfpD77Fh0JA=;
-        b=ktZk1YHdzN5fbR7AucsRRWqQddsnauZUERbsvF6wOOF8TXyCJnnvukMJyfXIXkscBJ
-         cOMypjQn+ovB4NYsSfbsExesTQKO1Y2SsJU6XZOm04EGqLwYHfY+vKr+q39djlIr265l
-         Q82QF2RLu5zA1k1PFu15vexKh1L9YB+wyQdo37JN4rMte7XDxwmR8Bx0xGw4uu2Y3A3g
-         40PKJV1aLo9F5clj+9YgAIXVm1H4ztxr9PUVcx8DLrelBgPfVk+vhpTzhvosGltImK33
-         d+gNwpWnKynTAzOVJ4kTSbTqVBICz3+rn7Jwy64lJRr7HNNiuSapywAwrigTtjdIKEzC
-         FlDw==
-X-Forwarded-Encrypted: i=1; AHgh+Rr+85xgyRzmchd7WQEn4LmmBRQkBKB3RwcBZpZ65qACew/ALLsLujTHY00KfpM2rxMG3Kb5+64T5KQ1@vger.kernel.org
-X-Gm-Message-State: AOJu0YzmbpeFyT6S17HBRo5N0KFfdsJUJ1b7EqZTTdS8Rkdmvbrkexv+
-	yDZhJ96h/PQa9X5LeLvsO9dVt11A/nw+kRYs5uQt+6g0XpM3jWqXzedPTgicpjZRHZa4pwWmyos
-	AsQx/OUHnIMi08Ry7zPq/bT68nDH7RfRHSBCXBGEKKl6vXOBuM5TjvT2fATPEyc6M
-X-Gm-Gg: AR+sD110kDfKR/QLSLHx8CivbRXS42qt10LljcLdRGbCWoSkkKuclwF0opb/NHvLf60
-	VVEq/PY+uloKATOhFhEYC3JgotpRpibUq1uEuGMHSzrbOl5O5LP7wxJYpOE4Gf0vQvwjBIP/egd
-	kKOUHiHfsIvjJM/IFCcZXsuLzzppf3mFfc+Hdj4lBV9yjwoWYBQsaJHbxQ1NvRY7d+ARa0d5OnL
-	6btgOfyu8eBOrKbvEU9dOoAIPXbxW53kdkkIdDd/Ydvg1PLbFVKFDSS6qgT2KdAsltI3f0c0Rv3
-	DgKi/eb5fADD6u53IKNna/wOLaQAlaeNzba0S19GyKHVdJdvj5TFhcnqd7OOFmIjOEvHzad8ASu
-	jM4o5LJ1rf9/owk9hq7WyR2pxxhNPaxXXtP/6lVG40zxAwG3NmUYf5CTAq1cf
-X-Received: by 2002:a17:90b:3b8c:b0:383:f52b:d616 with SMTP id 98e67ed59e1d1-38f6a471784mr1605444a91.10.1785228052021;
-        Tue, 28 Jul 2026 01:40:52 -0700 (PDT)
-X-Received: by 2002:a17:90b:3b8c:b0:383:f52b:d616 with SMTP id 98e67ed59e1d1-38f6a471784mr1605419a91.10.1785228051605;
-        Tue, 28 Jul 2026 01:40:51 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f642bfc66sm916277a91.10.2026.07.28.01.40.47
+        d=1e100.net; s=20251104; t=1785228205; x=1785833005;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YZrmeHnUsmaHWeuqwQJraQn03YaBA2ryv2IzzzN9LRU=;
+        b=H2mVbv6z/98t3SmG7ksjnIR+dYqmw0M4VetetD7Zn72WQ4wFaKIuLNabP52DEIEw7N
+         ik+msUmUiWQhS2S/6/RRg+LQkMRK4bil9lLrBJHrJNBsz7HGZIfstBqwndgAiqRwxkQb
+         bFpqbihZpO/Ns+NLbwNpN+cUlQPtzSsqY6sON5CE6Y/RUVHwLAKTeGjsocvMyWPYND4O
+         I+ZxDD6nc7DOaCeRvymm6z0uqgvPHOwo9oHqovCb4tLZO0gm2hm1znUCKTCWyhBity5Y
+         Rm0U/iKiyjBCfvf02nb3WSzjagHviShqeecrsMI7j2WJ2qeIAusi0yl2zX7pV8dYZnzS
+         w4xg==
+X-Forwarded-Encrypted: i=1; AHgh+RqVz79VCRlqJRLfMSLzx8+jeCWYmBuNCoy9YBRkWIyB/L0/pYFZksuVTqbZQH+v6ejlmhOkMMyayHKK@vger.kernel.org
+X-Gm-Message-State: AOJu0YzWFiT6k0gWVMCeqwD1EXdl5uIjAMXv/UDBlioCsuxvmj08Odn7
+	2EqQfS5ujVb4WCoPAqe0zU7NkckEl9Vuy9HpWbiHgzXuEO04fole0EfV
+X-Gm-Gg: AR+sD13728AWIbO44jf8JGHwalWOvRdyQkGd/zJHk687aZ6jfCfiep+98HU2VJw5FiJ
+	exxamTcUuTTkH2Y4pz3Bj/L9uFNi6UdPkFsvtb7yA8XnHb+iNCN5iZMzUAG8mOB/nHPYRKQQy0r
+	xljKv0MrNgk706wLxD98CAVWMhnnzDKYadxhtf4X7CJVEos8mkQfLk+P5kGojYRwcy2sSNCvb7u
+	MvJtCyruCjQiFMCbW8OvDDQyOn3niiWbC5rFNMekC9mLTvzAPZWzcjyOZCy+tHoVAQPhkAuZaDq
+	YO+3MGBl+fWF05q0B4J1MWsRGYXVimXE70mD9VYsDc0/5BnktSG3Rijip0DaMedpBYhH1dsd8jE
+	2+OQ0xErIT9QkjggcVLhtipUL5t8F2Eo9+BlPeMs9sdaQjrUnH0kpqbKukePKEXEID2imevFkyV
+	m17pY2
+X-Received: by 2002:a05:600c:4eca:b0:495:64c6:84e9 with SMTP id 5b1f17b1804b1-496c60bce8cmr15359875e9.0.1785228204146;
+        Tue, 28 Jul 2026 01:43:24 -0700 (PDT)
+Received: from builder ([2001:9e8:f139:f416:be24:11ff:fe30:5d85])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496c444304esm57730845e9.0.2026.07.28.01.43.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Jul 2026 01:40:51 -0700 (PDT)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH v4 3/3] remoteproc: qcom: pas: Add Nord ADSP and CDSP support
-Date: Tue, 28 Jul 2026 16:40:12 +0800
-Message-ID: <20260728084012.685036-4-shengchao.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260728084012.685036-1-shengchao.guo@oss.qualcomm.com>
-References: <20260728084012.685036-1-shengchao.guo@oss.qualcomm.com>
+        Tue, 28 Jul 2026 01:43:23 -0700 (PDT)
+From: Jonas Jelonek <jelonek.jonas@gmail.com>
+To: Oleksij Rempel <o.rempel@pengutronix.de>,
+	Kory Maincent <kory.maincent@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Daniel Golle <daniel@makrotopia.org>,
+	=?UTF-8?q?Bj=C3=B8rn=20Mork?= <bjorn@mork.no>,
+	Jonas Jelonek <jelonek.jonas@gmail.com>
+Subject: [PATCH net-next v10 0/4] net: pse-pd: add Realtek PSE MCU support
+Date: Tue, 28 Jul 2026 08:43:02 +0000
+Message-ID: <20260728084307.2129515-1-jelonek.jonas@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI4MDA3NCBTYWx0ZWRfXwIoBXL9V46gF
- apuPFNy+a2pILZ3gdoY+fT5lQweLwsO3FNkRmnQp+G/nGSUhm9wPuZg1hxlcqd2hdEg3RtbCiko
- And4N5AXuAVZkbptKITD1SHw7lC2mU//u0OqKj5XsYobSmM5e7mGRuXTw3loVctKKu5HJFpF83r
- wpxY2n8mXT32X8fEGKae67mTKzmn/6TRIKllViDKHGDK5gLGGrojFIL2POlw0pWa2hTaChb9Pom
- 2HH1lkN6dOQH6yxSNCxySkiuTge0sjIICGbioPbR+E18wiUxtoBLExDMvDwz4oQf6Go73N6m3Sn
- d9updbG9Zp6oxfskhLZg3kl0s3Ez/3sqaepkqt6NNzNQIzJpft0tLowY0u+X508A0TbRYOc3aPW
- JiwjYYQAUzZAepGAb1SaTPAmWRsLQASmZyMjGdHKh6kQiLLndDt29zwGTEZuaxzEyGUy5fYJEmD
- gzNnUx8N6u29jSBBJGQ==
-X-Authority-Analysis: v=2.4 cv=RO+D2Yi+ c=1 sm=1 tr=0 ts=6a686b15 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
- a=wKDsrv0q4RgBVPAhY5MA:9 a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-ORIG-GUID: AwjLpmpDRKDp9ThrnNvKiD3EVWQY0GRb
-X-Proofpoint-GUID: AwjLpmpDRKDp9ThrnNvKiD3EVWQY0GRb
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI4MDA3NCBTYWx0ZWRfX4jm0bJcjcZie
- rM/MxlDyvUEjFo6QTvK4V3H1G1d9JGw3do3xYuXuIdgPcLGDGL8NqBOT+iNlQK5D6OOJwgyuWLX
- T+9masIZIDtA6W7xyerzEKM1XwPxVt8=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-28_02,2026-07-27_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 phishscore=0 priorityscore=1501 spamscore=0
- lowpriorityscore=0 adultscore=0 clxscore=1015 malwarescore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607280074
 
-Add support for ADSP (HPASS DSP) and 4 CDSPs found on Nord SoC. The ADSP
-is pre-booted by XBL before Linux starts, so set early_boot flag for
-attach path rather than a cold boot sequence.
+This series adds a PSE-PD driver for the microcontroller (MCU) that
+fronts the PSE silicon on a range of managed switches, together with its
+DT binding.
 
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Hardware model
+==============
+
+These boards do not expose the PSE chips to the host directly. A small
+microcontroller sits on an I2C/SMBus or UART bus and manages one or more
+PSE chips behind it; the host CPU only ever talks to that MCU, using a
+fixed 12-byte request/response protocol with a trailing checksum. The
+PSE silicon never appears on the bus.
+
+Two generations of the protocol exist, both Realtek's: an older one on
+boards with Broadcom PSE silicon (BCM59111, BCM59121) and a newer one
+used with Realtek's own PSE silicon (RTL8238B, RTL8239, RTL8239C). They
+diverge in opcode numbering and a few response layouts; the driver
+abstracts that behind a per-dialect opcode table and parser hooks,
+selected by the compatible. The specific PSE chip behind the MCU is
+detected at runtime and only influences per-chip constants (power scaling
+and the per-port cap).
+
+The compatibles
+===============
+
+The protocol compatibles name two generations of the Realtek protocol,
+with the I2C framing folded in:
+
+  realtek,pse-mcu-gen1        gen1, UART
+  realtek,pse-mcu-gen1-smbus  gen1, I2C/SMBus
+  realtek,pse-mcu-gen2        gen2, UART
+  realtek,pse-mcu-gen2-smbus  gen2, I2C/SMBus
+  realtek,pse-mcu-gen2-i2c    gen2, raw I2C
+
+and each board carries a device-specific compatible that falls back to one
+of these, e.g.
+
+  compatible = "zyxel,xs1930-12hp-pse", "realtek,pse-mcu-gen2-smbus";
+
+The naming is the part most likely to raise questions, so the reasoning up
+front (the binding documents it too):
+
+  - The node describes the MCU together with its Realtek firmware, not a
+    PSE chip and not the microcontroller silicon. The PSE chips sit behind
+    the MCU, never appear on the bus, and are reported by the MCU and
+    detected at runtime; the microcontroller itself is a general-purpose
+    part (GigaDevice, Nuvoton, ...) that varies across boards. What is
+    fixed and Realtek's is the firmware and its host protocol - hence the
+    'realtek' prefix.
+
+  - gen1 and gen2 are two generations of that protocol, both Realtek's:
+    gen1 on older boards fronting Broadcom PSE silicon, gen2 the altered
+    protocol used once Realtek shipped their own PSE silicon. The
+    generation is fixed per board and is all the driver needs at DT-parse
+    time, so the compatible encodes it.
+
+  - On I2C the MCU firmware expects one of two framings - SMBus or raw
+    I2C - which is a genuine programming-model difference, so it is part
+    of the compatible ('-smbus' / '-i2c'). A UART attachment carries no
+    framing suffix; the transport is given structurally by the parent
+    'serial' node.
+
+  - Each board additionally carries a device-specific compatible that
+    falls back to the protocol one. The driver only ever binds on the
+    protocol compatible; the device-specific string keeps the binding
+    specific and reserves a place for a future per-board quirk without
+    having to retrofit device trees already deployed in the field.
+
+Testing
+=======
+
+ - Linksys LGS328MPCv2     (RTL8238B, I2C)
+ - Zyxel GS1900-10HP A1    (BCM59121, UART)
+ - Zyxel GS1900-10HP B1    (RTL8238B, UART)
+ - Zyxel GS1920-24HPv2     (BCM59121, SMBus)
+ - Zyxel XMG1915-10EP      (RTL8239C, UART)
+ - Zyxel XS1930-12HP       (RTL8239, SMBus)
+
 ---
- drivers/remoteproc/qcom_q6v5_pas.c | 110 +++++++++++++++++++++++++++++
- 1 file changed, 110 insertions(+)
+v9 -> v10:
+ - patch 2: fixed ordering in MAINTAINERS
+ - core: dropped unused fields, can be re-added later when actually
+   needed (Sashiko)
+ - core: harden frame desync for I2C by including seq_num in _is_final
+   helper (Sashiko)
+ - core: return constant voltage when MCU reports zero, in case the
+   port is not delivering. This avoids "Voltage null" errors in case a
+   power limit is set while port is not delivering (Sashiko)
+ - core: set_pw_limit: round up to avoid setting 0 in case the requested
+   limit is below 1 LSB (Sashiko)
+ - core: de-assert global port disable after MCU was discovered
+   successfully (Sashiko)
+ - core: fix and make more precise several comments (Sashiko)
+v9: https://lore.kernel.org/all/20260726112223.1286074-1-jelonek.jonas@gmail.com/
+Sashiko review: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260726112223.1286074-1-jelonek.jonas%40gmail.com
 
-diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
-index 25599d728208..63a26c6ced8c 100644
---- a/drivers/remoteproc/qcom_q6v5_pas.c
-+++ b/drivers/remoteproc/qcom_q6v5_pas.c
-@@ -1434,6 +1434,111 @@ static const struct qcom_pas_data milos_cdsp_resource = {
- 	.smem_host_id = 5,
- };
- 
-+static const struct qcom_pas_data nord_adsp_resource = {
-+	.crash_reason_smem = 423,
-+	.firmware_name = "adsp.mdt",
-+	.dtb_firmware_name = "adsp_dtb.mbn",
-+	.pas_id = 1,
-+	.dtb_pas_id = 36,
-+	.minidump_id = 5,
-+	.auto_boot = true,
-+	.early_boot = true,
-+	.proxy_pd_names = (char*[]){
-+		"cx",
-+		"mx",
-+		NULL
-+	},
-+	.load_state = "adsp",
-+	.ssr_name = "lpass",
-+	.sysmon_name = "adsp",
-+	.ssctl_id = 0x14,
-+	.smem_host_id = 2,
-+};
-+
-+static const struct qcom_pas_data nord_cdsp0_resource = {
-+	.crash_reason_smem = 601,
-+	.firmware_name = "cdsp.mdt",
-+	.dtb_firmware_name = "cdsp_dtb.mbn",
-+	.pas_id = 18,
-+	.dtb_pas_id = 37,
-+	.minidump_id = 7,
-+	.auto_boot = true,
-+	.proxy_pd_names = (char*[]){
-+		"cx",
-+		"mx",
-+		"nsp",
-+		NULL
-+	},
-+	.load_state = "cdsp",
-+	.ssr_name = "cdsp0",
-+	.sysmon_name = "cdsp0",
-+	.ssctl_id = 0x17,
-+	.smem_host_id = 5,
-+};
-+
-+static const struct qcom_pas_data nord_cdsp1_resource = {
-+	.crash_reason_smem = 633,
-+	.firmware_name = "cdsp1.mdt",
-+	.dtb_firmware_name = "cdsp1_dtb.mbn",
-+	.pas_id = 30,
-+	.dtb_pas_id = 59,
-+	.minidump_id = 20,
-+	.auto_boot = true,
-+	.proxy_pd_names = (char*[]){
-+		"cx",
-+		"mx",
-+		"nsp",
-+		NULL
-+	},
-+	.load_state = "cdsp1",
-+	.ssr_name = "cdsp1",
-+	.sysmon_name = "cdsp1",
-+	.ssctl_id = 0x20,
-+	.smem_host_id = 69,
-+};
-+
-+static const struct qcom_pas_data nord_cdsp2_resource = {
-+	.crash_reason_smem = 665,
-+	.firmware_name = "cdsp2.mdt",
-+	.dtb_firmware_name = "cdsp2_dtb.mbn",
-+	.pas_id = 57,
-+	.dtb_pas_id = 60,
-+	.minidump_id = 29,
-+	.auto_boot = true,
-+	.proxy_pd_names = (char*[]){
-+		"cx",
-+		"mx",
-+		"nsp",
-+		NULL
-+	},
-+	.load_state = "cdsp2",
-+	.ssr_name = "cdsp2",
-+	.sysmon_name = "cdsp2",
-+	.ssctl_id = 0x1f,
-+	.smem_host_id = 133,
-+};
-+
-+static const struct qcom_pas_data nord_cdsp3_resource = {
-+	.crash_reason_smem = 666,
-+	.firmware_name = "cdsp3.mdt",
-+	.dtb_firmware_name = "cdsp3_dtb.mbn",
-+	.pas_id = 58,
-+	.dtb_pas_id = 61,
-+	.minidump_id = 30,
-+	.auto_boot = true,
-+	.proxy_pd_names = (char*[]){
-+		"cx",
-+		"mx",
-+		"nsp",
-+		NULL
-+	},
-+	.load_state = "cdsp3",
-+	.ssr_name = "cdsp3",
-+	.sysmon_name = "cdsp3",
-+	.ssctl_id = 0x1a,
-+	.smem_host_id = 197,
-+};
-+
- static const struct qcom_pas_data sm8450_mpss_resource = {
- 	.crash_reason_smem = 421,
- 	.firmware_name = "modem.mdt",
-@@ -1702,6 +1807,11 @@ static const struct of_device_id qcom_pas_of_match[] = {
- 	{ .compatible = "qcom,msm8996-slpi-pil", .data = &msm8996_slpi_resource_init },
- 	{ .compatible = "qcom,msm8998-adsp-pas", .data = &msm8996_adsp_resource },
- 	{ .compatible = "qcom,msm8998-slpi-pas", .data = &msm8996_slpi_resource_init },
-+	{ .compatible = "qcom,nord-adsp-pas", .data = &nord_adsp_resource },
-+	{ .compatible = "qcom,nord-cdsp0-pas", .data = &nord_cdsp0_resource },
-+	{ .compatible = "qcom,nord-cdsp1-pas", .data = &nord_cdsp1_resource },
-+	{ .compatible = "qcom,nord-cdsp2-pas", .data = &nord_cdsp2_resource },
-+	{ .compatible = "qcom,nord-cdsp3-pas", .data = &nord_cdsp3_resource },
- 	{ .compatible = "qcom,qcs404-adsp-pas", .data = &adsp_resource_init },
- 	{ .compatible = "qcom,qcs404-cdsp-pas", .data = &cdsp_resource_init },
- 	{ .compatible = "qcom,qcs404-wcss-pas", .data = &wcss_resource_init },
+v8 -> v9:
+ - dt-bindings: renamed enable-gpios -> reset-gpios, verified on boards
+   that the GPIO which is used with this is connected to the MCU's
+   nRESET.
+ - dt-bindings: added disable-ports-gpios for GPIO that gates all ports
+   (previously incorrectly assumed to be a rail gate, thus being wired
+   via 'power-supply')
+ - dt-bindings: dropped 'power-supply', not used anymore and confusing,
+   easy to confuse with PI's vpwr-supply (Sander)
+ - core: adjusted to match bindings, handling reset/disable-ports-gpio
+   correctly and dropping 'power-supply' regulator stuff
+ - patch 1,2: dropped Reviewed-by/Acked-by tags due to changes.
+ - patch 3,4: added Reviewed-by from Kory
+v8: https://lore.kernel.org/all/20260715075530.2491534-1-jelonek.jonas@gmail.com/
+
+v7 -> v8:
+ - dt-bindings: added Reviewed-by of Oleksij
+ - uart: check and warn-on-error for serdev_* operations (Oleksij)
+ - core, i2c, uart: added Acked-by of Oleksij
+v7: https://lore.kernel.org/netdev/20260712192251.1413279-1-jelonek.jonas@gmail.com/
+
+v6 -> v7:
+ - dt-bindings: rename file to 'realtek,pse-mcu-gen1.yml', using
+   specific compatible as file name (Conor)
+ - dt-bindings: added Conor's Reviewed-by
+ - core: replaced some leftover 'BCM/RTK' dialect framing in comments
+ - core: use rolling sequence number instead of always hardcoded 0xff,
+   adressing the issue that stale data might be accepted for new
+   requests (Sashiko)
+ - core: reordered MODULE_ calls to keep consistent across all driver
+   parts
+ - i2c: replaced some leftover 'BCM/RTK' dialect framing in comments
+ - slight commit message adjustments
+v6: https://lore.kernel.org/netdev/20260709194125.2784507-1-jelonek.jonas@gmail.com/
+
+v5 -> v6:
+ - dt-bindings: reworked the compatibles per DT-maintainer feedback
+    - name the two protocol generations -gen1 / -gen2 (both Realtek's)
+      instead of the -rtk / -brcm dialect suffix (Conor)
+    - encode the I2C framing in the compatible (-smbus / raw -i2c) and
+      drop the realtek,i2c-protocol property (Rob)
+    - add device-specific (switch) compatibles that fall back to the
+      protocol compatibles, with the board↔protocol pairing enforced in
+      the schema (Conor)
+    - rewrite the description accordingly
+ - driver: track the binding rework
+    - match on realtek,pse-mcu-gen{1,2}[-smbus|-i2c]; the I2C transport
+      selects SMBus-vs-raw framing from a native_i2c match-data flag
+      instead of reading the property (drops rtpse_mcu_needs_i2c_proto)
+    - rename the internal dialect and parser symbols rtk/brcm → gen1/gen2
+      (chip identifiers like RTL8238B/BCM59121 kept)
+ - i2c: DMA-safe raw-I2C path — bounce each frame through a heap buffer,
+   since i2c_master_send()/i2c_master_recv() may DMA and the core's
+   frame buffers are on the stack (SMBus and UART paths unaffected)
+   (sashiko-nipa)
+ - includes: drop unused linux/mod_devicetable.h (core) (Uwe)
+ - includes: drop unused linux/delay.h (uart); add
+   linux/regulator/consumer.h (core) and linux/slab.h + linux/string.h
+   (i2c)
+ - commit messages — update the binding, core, and I2C messages to
+   match (generations, framing-in-compatible, DMA note)
+v5: https://lore.kernel.org/netdev/20260706112425.3149226-1-jelonek.jonas@gmail.com/
+
+v4 -> v5:
+ - split the single driver patch into three — core / I2C transport / UART
+   transport. Binding stays patch 1, unchanged in shape. (Paolo)
+   Please give guidance on how to if I should split more.
+ - core: set_pw_limit: guard divide-by-zero on pw_set_lsb_mW; cap the
+   programmed value with U8_MAX instead of a bare 0xff; prg_val is now u8.
+   (Oleksij, Sashiko)
+ - core: discover: also retry transient boot-time frames (-EBADMSG / -EBADE)
+   within the bounded window, not just silence/NAK/not-ready (Sashiko).
+ - core: pw_status: report Broadcom 0x3 → TEST and 0x5 → OTHERFAULT
+   (new STS_TEST/STS_OTHER_FAULT); pw_class comment corrected (0x3/0x5
+   aren't "other fault" on RTL; class-0-vs-fault note). (Sashiko)
+ - core: dropped unused decoded fields — function_mode, cls_type,
+   disconnect_type, pair_type, inrush_mode, limit_type, chip_addr,
+   channel. (Oleksij)
+ - core: removed forward declarations by moving the response structs above
+   the dialect struct. (Oleksij)
+ - core: get_pw_limit_ranges: reverse-Christmas-tree local ordering.
+   (Oleksij)
+ - core: dialect comment clarified (only divergent responses are hooked);
+   commit message "parser hooks" tightened to "…for the responses that
+   differ." (Sashiko)
+ - core: made parse_system_info hook void, both implementations return
+   hardcoded 0. (Paolo)
+ - core: dropped GFP_KERNEL from kzalloc_obj. (Paolo)
+ - core: dropped unneeded u32 cast
+ - kept probe dev_info() for now deliberately, due to different opinions
+   on whether a probe might print or not
+ - NOT included Acked-by from Oleksij, due to several changes
+v4: https://lore.kernel.org/netdev/20260630105651.756058-1-jelonek.jonas@gmail.com/
+
+v3 -> v4:
+ - move owner setting from core to transport, mitigating possible
+   use-after-free (Sashiko)
+ - resend because net-next was still closed
+v3: https://lore.kernel.org/netdev/20260628222705.4052815-1-jelonek.jonas@gmail.com/
+
+v2 -> v3:
+ - dt-bindings: using brcm instead of bcm for Broadcom
+ - rename the driver files and Kconfig symbols to realtek-pse-mcu-* /
+   PSE_REALTEK_MCU* for consistency with the realtek,pse-mcu-* compatibles
+ - rename driver-internal prefix from 'rtpse_' to 'rtpse_mcu' to
+   emphasize this targets the MCU-centric setup (and leaves room open
+   for eventual directly addressable PSE chips)
+ - rework the vendor-prefix rationale (binding + commit message): the
+   prefix names the protocol/firmware owner (Realtek documents the protocol
+   and supplies the firmware), and -rtk/-brcm select the Realtek or Broadcom
+   protocol dialect
+ - core: reject zeroed/echo-mismatched responses via the echoed seq_num
+   (a BCM PORT_ENABLE on port 0 was otherwise accepted from an all-zero
+   frame)
+ - core: enable the PoE supply before global-enabling the MCU, and roll
+   back the global enable on probe failure or driver removal
+ - core: drop inline from helpers (flagged by automated check)
+ - uart: update the completion under rx_lock too, so a late frame can no
+   longer make the next transaction fail spuriously with -EIO
+v2: https://lore.kernel.org/netdev/20260612132944.460646-1-jelonek.jonas@gmail.com/
+
+v1 -> v2:
+ - all points flagged by Sashiko addressed:
+ - uart: drop frame overflow (return count, not the stored length) so
+   serdev retains no leftover bytes that would misalign the next response
+ - uart: guard rx_buf/rx_len with a spinlock to close a data race between
+   the async receive_buf callback and send/recv
+ - i2c: return terminal MCU error opcodes (0xfd/0xfe) to the core
+   immediately instead of polling to the 1 s timeout
+ - core: cap BCM59121 at 30 W (802.3at) — the basic 8-bit set command
+   can't program the advertised 60 W (it silently clamped to 51 W)
+v1: https://lore.kernel.org/netdev/20260608205758.1830521-1-jelonek.jonas@gmail.com/
+
+---
+Jonas Jelonek (4):
+  dt-bindings: net: pse-pd: add bindings for Realtek PSE MCU
+  net: pse-pd: add Realtek PSE MCU core
+  net: pse-pd: realtek-pse-mcu: add I2C transport
+  net: pse-pd: realtek-pse-mcu: add UART transport
+
+ .../net/pse-pd/realtek,pse-mcu-gen1.yaml      | 180 ++++
+ MAINTAINERS                                   |   7 +
+ drivers/net/pse-pd/Kconfig                    |  28 +
+ drivers/net/pse-pd/Makefile                   |   3 +
+ drivers/net/pse-pd/realtek-pse-mcu-core.c     | 988 ++++++++++++++++++
+ drivers/net/pse-pd/realtek-pse-mcu-i2c.c      | 170 +++
+ drivers/net/pse-pd/realtek-pse-mcu-uart.c     | 164 +++
+ drivers/net/pse-pd/realtek-pse-mcu.h          |  93 ++
+ 8 files changed, 1633 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/pse-pd/realtek,pse-mcu-gen1.yaml
+ create mode 100644 drivers/net/pse-pd/realtek-pse-mcu-core.c
+ create mode 100644 drivers/net/pse-pd/realtek-pse-mcu-i2c.c
+ create mode 100644 drivers/net/pse-pd/realtek-pse-mcu-uart.c
+ create mode 100644 drivers/net/pse-pd/realtek-pse-mcu.h
+
+
+base-commit: a50eba1e778ad4da5b6f9ddbbf57dabbea59bc05
 -- 
-2.43.0
+2.53.0
 
