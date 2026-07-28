@@ -1,133 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3276540F8D0
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 09:10:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 155DB41D202
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 09:12:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785229814; cv=none; b=e/WV579Vc6j3rwrH7gy6AWvZjqvlrdoaPXUzcQVKlo87exYPwMxr5zTLy3M0RwWgHHK1PLi6HbzUuQkul8ordXJL/enHl5oa8THgfQfUe6576gM534GgotFVYQ6kqEF0PEK3y8ptBWXqC2QE1aaJLwX+juGeyq9VmFLqMKJ/MoM=
+	t=1785229928; cv=none; b=nrMsXZq/330ohUxa4kg7EMHxP7T28ATcdxc6mSmM9ASP2veNY7xNKpceVuvGtKusSJH8yM32ayUXY7wLtLJ5M9PesghUyf0YT/pwIoKjkkgyJMvQqGmo7SLvOigIZbmfKt4lU9j4XbXma1mv7t5V0Qg5zHjYuvnFxXioxr9xDE0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785229814; c=relaxed/simple;
-	bh=+2XvbNdVHY1cCpzyYNDeoNAvF2SCQckOVnPPf+RPfD0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=sZBjy108ZhbgHqOLYNqYIC5lDu5XmkcTTd67TrtpkbzVGeDb5ITncB5ynKS03IyrvirHXaLNizZ/Vy51qSWBL2cMlVtuuZqtO4F77h/5eQ/Rsy7ZsXS7x+cvLgzpmrkNZB7ynZdsPZyrUDzaFtRbi8+8c545x6YHADM7aNViqt0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VhXKs408; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785229928; c=relaxed/simple;
+	bh=kgErTsufV9ATBvVYA8GXFM3ncLv44xFl+o0icwsDL4c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=USAjueLeH8iON6IYEr4DHSlw+xSL77hwDonPkMnUjIxlrwLHR8476itVEG3HFkJdP/vewCIz/TB5yNvYQdHOoka3QNWgiNTgPEepRWF8lppVG36KkxjxU6uUbS82+y6jiws/DtVo13VYHyzoziZW5vX4pZh7+H8DGDvIwq8/f3c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=SNiSA9ok; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VhXKs408"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 419DA1F000E9;
-	Tue, 28 Jul 2026 09:10:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785229812;
-	bh=GXqVPt1Jz4oeRQ1XX6kj/jFvLj8In13Xpe4b7vSoiIU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VhXKs408M3oxVyRzvTCNtorVEm4kbP7eNe0ANNN/BGpcj1C+T5KkDe4PSnaQBfLfk
-	 MhVJAYi27yXzZ3nQHmUW3FPrnKb0Ykmgb/GvG5eId62T7BTw8D5Ag6HK3VGdGZOQ1U
-	 CPAhoO37OCRnLjlSULXRTchYnozLJLdiMomrAkxIAZY+rSdgWCg0ZzrvjdT71XAK1E
-	 jJhCRXfdoeUBWeMXpuJbzGG2BEvxf+0LHbffZLvODelBaR9eWaQ5BpMsKXauTSVNJP
-	 7A0WKilTweR9PRR9rwhZWiPoE77gTJMwm2rWoCh3ZdrEtww8dmanLcHeDrbu4DIrw3
-	 K/n7TLBFKyTdw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/4] arm64: dts: qcom: sm8450-hdk: Enable I2S for HDMI
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Neil Armstrong" <neil.armstrong@linaro.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260728-topic-sm8x50-next-hdk-i2s-v1-2-2393a0fe4aa9@linaro.org>
-References: <20260728-topic-sm8x50-next-hdk-i2s-v1-0-2393a0fe4aa9@linaro.org>
- <20260728-topic-sm8x50-next-hdk-i2s-v1-2-2393a0fe4aa9@linaro.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 28 Jul 2026 09:10:11 +0000
-Message-Id: <20260728091012.419DA1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="SNiSA9ok"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-47df43bfb07so709861f8f.1
+        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 02:12:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1785229925; x=1785834725; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=acK9/eCNX6tWAojgJUr92sgI64va36twFoTe50cAbqs=;
+        b=SNiSA9ok6B9SVibXBAeCg6/xdj5UK65PEVhfUcwOefBRkWp9/APPau/+x/eEOFB5HH
+         iLpSLe9aL6NVAA+tODClnu+/8xjK/+IVdjnTRhV1SOs3UFTEHwsk795ymeuA9KYLhDXi
+         3xya/t4/AofW5iraZur8l+phEG+O2RsY/EkNDlPrfCOWWxpdzLc4Z/oVOrBIjC3MuRUd
+         gqfNVod8DndBxn0aVtpsDoG4qPz0J8Nkd/a8sKcbCYiJOf3ihq3ddwgR4cS70pTjnDid
+         N0yCEt0l7IeFwEfWWGUrFvc64gidd5WGQgyf3WDfdYCF6fsp11W64FewQMgh32l31jIb
+         Tfjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785229925; x=1785834725;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=acK9/eCNX6tWAojgJUr92sgI64va36twFoTe50cAbqs=;
+        b=g6c/ZOv8bShJ57o8MkhtxEWqhpOgnTlYl7c80c8yjqjfUJCDeT7nrkyjumiIIevqUr
+         gBfqEL4d1izTU+YMjeBSC5jQ7HpEb2foLgMwZWUsL4suu2rgabLUJI8+mMUHvmA2h7cI
+         RjcTt2V/cn7RqxKOl8jkb335iBHPttZLTmJVFpPurALun18V7kfM8FSs2zCjVDqK8q0F
+         fzvtLC3gLfBFQEgJfHTmLGDNBOdJ7J3Yc++yEZNsJX9vX1rcBuRuhjD/fGTGPg4AkBFS
+         v7TWry11sur19UHPTKv0tIk0bCRJ1PNblwXmlp4S3eCQtaOGcnkShfspVvh+LUUucJty
+         secA==
+X-Forwarded-Encrypted: i=1; AHgh+Rrfa2ffs/vIxVrY28/ramDaCngbyl3YGzq2xPJUgtCPbzQi/yCGW23BLidwA8nX5iUSJUaX4Hx0CHgC@vger.kernel.org
+X-Gm-Message-State: AOJu0YzbUdKiJlNPywgEBUFlLWJbR+X8rNJsIJxIZ97RjyDX4X1Aug9h
+	MVAibsOsVuYlqJIsDXnu8rJnPfntTovBROeS/lGfZ9hlWws6hWdBkdYHVC+g+LKEylA=
+X-Gm-Gg: AR+sD13l+sBN0lvAOeTXqA4KipStS6Pv/rVz4TvET5hbGeJXEd7Re477ufoCllt5sHD
+	QsR4zHWeYY3C5iAAdgaKyToW0SsaJzVFty0CB+Am2Va7FKpnfhlP3dCYAozP4qW0bJW5LaJf/C3
+	L7p7oSW3czQBa2fbrc1hS8NcaNB0y2jrtmeJfwW0qD6SgAZgFvaGbQNcpUfXB16BvbvWNoh5mGk
+	pgAxR58dQj3rhRpoe3vhZkodRpoKluBBXOeS8mZmkE0WWta2poE4qMzUzqWp9JY0hxcfZywnWHq
+	fgn5tQhQ4JE8MSqiO/kQPyMghuz0klK6JYh0gn3RXy5q5jTYbH3TpdFIg0dA4kE8VYGljyAB8xk
+	gdbb2Xou4+DqTVDlMj9hdO5IJDhvymzO2rJos8FsFDLqzsZrwiaQC3MoUzazYHTBgX+WrTcy5iz
+	XHv3kFIHxvAPST2iJWyZeXoQ4D
+X-Received: by 2002:a5d:5f83:0:b0:47f:9022:8531 with SMTP id ffacd0b85a97d-47fb1edb552mr1578570f8f.22.1785229925096;
+        Tue, 28 Jul 2026 02:12:05 -0700 (PDT)
+Received: from [192.168.0.101] ([109.77.204.94])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85c67339sm59809618f8f.31.2026.07.28.02.12.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 28 Jul 2026 02:12:04 -0700 (PDT)
+Message-ID: <9ac3c44f-2227-44fd-abad-fc85ee57ea13@linaro.org>
+Date: Tue, 28 Jul 2026 10:12:00 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/3] dt-bindings: media: qcom: Add JPEG encoder binding
+To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+ linux-media@vger.kernel.org
+Cc: mchehab@kernel.org, vladimir.zapolskiy@linaro.org,
+ loic.poulain@oss.qualcomm.com, dmitry.baryshkov@oss.qualcomm.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ andersson@kernel.org, konradybcio@kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260728082548.2511694-1-atanas.filipov@oss.qualcomm.com>
+ <20260728082548.2511694-2-atanas.filipov@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20260728082548.2511694-2-atanas.filipov@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] Device Tree Misconfiguration - Pinctrl for SoC I2S interface is =
-incorrectly assigned to the external HDMI bridge node.
-- [Low] DT Schema Violation - Invalid clock-names order for dai@16.
---
-
---- Patch [2]: [PATCH 2/4] arm64: dts: qcom: sm8450-hdk: Enable I2S for HDM=
-I ---
-commit bf4f513e744f0c756ca7054358cd98929fb84150
-Author: Neil Armstrong <neil.armstrong@linaro.org>
-
-arm64: dts: qcom: sm8450-hdk: Enable I2S for HDMI
-
-This commit adds the necessary device tree nodes and configurations to enab=
-le
-the I2S interface for HDMI audio output on the SM8450-HDK board. It configu=
-res
-the pinctrl for I2S, sets up the q6apmbedai DAI, and adds the primary MI2S =
-DAI
-link.
-
-> diff --git a/arch/arm64/boot/dts/qcom/sm8450-hdk.dts b/arch/arm64/boot/dt=
-s/qcom/sm8450-hdk.dts
-> index b37998cd9a2c3..6a6d8346046bd 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8450-hdk.dts
-> +++ b/arch/arm64/boot/dts/qcom/sm8450-hdk.dts
-> @@ -665,7 +665,12 @@ lt9611_codec: hdmi-bridge@2b {
->  		vcc-supply =3D <&lt9611_3v3>;
-> =20
->  		pinctrl-names =3D "default";
-> -		pinctrl-0 =3D <&lt9611_irq_pin &lt9611_rst_pin>;
-> +		pinctrl-0 =3D <&lt9611_irq_pin>,
-> +			    <&lt9611_rst_pin>,
-> +			    <&i2s0_default_state>,
-> +			    <&audio_mclk0_default_state>;
-
-[Severity: Medium]
-Should the SoC I2S and MCLK pin states be assigned to the sound node or CPU
-DAI instead of the external HDMI bridge node?
-
-By assigning these to the lt9611_codec node, the SoC's audio pin multiplexi=
-ng
-is tied to the lifecycle of the external display bridge. If the HDMI bridge
-driver defers or unloads, the SoC I2S pins will revert to their unconfigured
-state, which breaks the hardware description paradigm and might cause runti=
-me
-audio issues.
-
+On 28/07/2026 09:25, Atanas Filipov wrote:
 > +
-> +		#sound-dai-cells =3D <1>;
-> =20
->  		ports {
->  			#address-cells =3D <1>;
-
-[ ... ]
-
-> @@ -947,6 +952,19 @@ channel@44b {
->  	};
->  };
-> =20
-> +&q6apmbedai {
-> +	#address-cells =3D <1>;
-> +	#size-cells =3D <0>;
-> +
-> +	dai@16 {
-> +		reg =3D <PRIMARY_MI2S_RX>;
-> +		clocks =3D <&q6prmcc LPASS_CLK_ID_MCLK_1 LPASS_CLK_ATTRIBUTE_COUPLE_NO=
->,
-> +			 <&q6prmcc LPASS_CLK_ID_PRI_MI2S_IBIT LPASS_CLK_ATTRIBUTE_COUPLE_NO>;
-> +		clock-names =3D "mclk",
-> +			      "bclk";
-
-[Severity: Low]
-Is this clock-names order correct according to the schema?
-
-The qcom,q6apm-lpass-dais.yaml schema requires that if two clocks are
-provided, they must be ordered such that index 1 is mclk. Here, bclk is at
-index 1, which will cause make dtbs_check validation to fail.
-
-> +	};
-> +};
+> +        power-domains = <&camcc TITAN_TOP_GDSC>;
 > +
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-topic-sm8x=
-50-next-hdk-i2s-v1-0-2393a0fe4aa9@linaro.org?part=3D2
+I'd expect to see MMCX and MXC in this list.
+
+---
+bod
