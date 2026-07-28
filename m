@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58A624746A5
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 20:26:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B1E43CC9E8;
+	Tue, 28 Jul 2026 20:26:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785270386; cv=none; b=CWqotefKNMfttwyUEiFjVN0ZqhjvR07/bUGoptXfYhFoU28w/ky+ZRu6BdMGNt5tanTyTy0YxHOxfFV8n3jJYosNNvO97AIVDbsOaKon4P6cPwEiNQAcFM51Vc3Q0N0AedB+zHPnA8EofyVGZhiVyQaplze0iBBYYsm5CH/ntyY=
+	t=1785270417; cv=none; b=Nk3+Qz5k93IyDA/k45MTUjBKYTP19yvnXP0uGazEjAi1VY5ZPw8W7tSUlK2AjliNVtFFjtBtSg531Rzsln1iKmpO3lleJB9B6T7XlLwZIVmPLoZIhXb/1256NFiXwLqWVpAwcf/e6467KUsUkWYny0t0LpkzEeZY9N/E3xVJnao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785270386; c=relaxed/simple;
-	bh=cS221YnXroVv0jZ3/1YLHo3WMgLuvzzAtYgCsvHZLfE=;
+	s=arc-20240116; t=1785270417; c=relaxed/simple;
+	bh=qsqoBn2nwjt9x9g54GPhpDjB/5J22iOpJ9hzNSeQ15U=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=lsj5WuFVqM4XN2EdvvX5NLymK0TLR/NNAk1sClEWS4EPOLA7vCLM0vk16vYw9VG3MpQzk2JYoknMYUy5GShpgQlVBoI+yKMq8I1S0jjTzwrcvzhCsKN6lBA4b627kG/GrhUjZGsl03vWGLhlYXn05W4DN0a5VFess8wihskMSmU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UKtKg6Qn; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=gwyUvwHeLcW7d93Ck5UB7eUz77Rt/iHhmIjV3NHbr3lrLSyXFHOWKMLDJltbhZXOnP86p753h+aDnI6NNS9oAfNMl2SZRXjf5I+DqKPEXKIPnwpnasZHF4bWnywGK9SE/2lAINu0fiicGHIxxvPFIM1LcguMZde8qaJsKr4a+ys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Eps4exCU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UKtKg6Qn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA5D81F000E9;
-	Tue, 28 Jul 2026 20:26:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Eps4exCU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B64101F000E9;
+	Tue, 28 Jul 2026 20:26:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785270385;
-	bh=GFXZAp1RLSILYA656ZQzJ0SeYZtnC7dm20ACjngJabw=;
+	s=k20260515; t=1785270416;
+	bh=CIlLTY69fyJ2pUp9AGTkIl9DwFXmJCbb3s+nYrMYgrM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UKtKg6Qnzi5k3kBRW8TYeTcT/gJyxZaBszoU66KJ9do7f/HSDIX9seYe6zJk1hGyt
-	 SYmdES31YdHga9nRRLhR3ldHRqFlS09DtypZiCL/LZxKt0EkwAN6y5t5h3on5+RP21
-	 GgqhNTRS0LbfEn4vQ+MrUq0V2P7L6qCWSFBKmmlfoWTI3+rIizgNX9BUwRNBbrpzK6
-	 3qvC4mR5U1Lo0F/q7LfQjgh6ggxFHACKx0GMRW6i4g6DuOYaGa/rGj1wlb3g4DXh6i
-	 nt1SC9bnj0cLf7F76iKGcQdwx6Z3qSn+lrSxT9fL47BwgWBRD6K6lZOsy2eU5LImbV
-	 WzeyCAzG4izMQ==
+	b=Eps4exCU2TrdVZ13o2eMkUmPN0Fwf5lcVA7BYB5zX29f05INSLWDyxYXWKGHyEAwz
+	 CaRiHYOn7MEHj/Rptpg1Z2t/rhS3qv/UYkHgpleI2lWca+XlMqJYnSSWcGeK2Zlh/I
+	 FOypHY0DfNu+mP/acQ7+ZwCkSAdP2kA909zhsFa4SMJVswwR4VbhjLhIcISEHpZ3SG
+	 piKyvPxt+Q8LhRRcEVlAuFmvRJKA/SshcAlMIJN9btqUdvGIB6V9jxeDYKU3ZFLDl2
+	 GBzklVXCO2ragtS/4kc7SntzJURLFd0vxILOX+QTmrj1r+qosxox0VJIU6whrAWbxk
+	 dyCWnw4bn5X5w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 14/18] drm/bridge: synopsys: dw-dp: Protect
- sdp_reg_bank from concurrent access
+Subject: Re: [PATCH v2 1/2] dt-bindings: pci: Add CPM6 support to AMD MDB
+ PCIe binding
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260728-synopsys-dw-dp-improvements-v7-14-b7640fa8cf48@collabora.com>
-References: <20260728-synopsys-dw-dp-improvements-v7-0-b7640fa8cf48@collabora.com>
- <20260728-synopsys-dw-dp-improvements-v7-14-b7640fa8cf48@collabora.com>
+To: "Sai Krishna Musham" <sai.krishna.musham@amd.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-pci@vger.kernel.org
+In-Reply-To: <20260728202044.1785986-2-sai.krishna.musham@amd.com>
+References: <20260728202044.1785986-1-sai.krishna.musham@amd.com>
+ <20260728202044.1785986-2-sai.krishna.musham@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 28 Jul 2026 20:26:23 +0000
-Message-Id: <20260728202624.AA5D81F000E9@smtp.kernel.org>
+Date: Tue, 28 Jul 2026 20:26:55 +0000
+Message-Id: <20260728202655.B64101F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,71 +47,97 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] The atomic_disable path indiscriminately wipes the entire shared S=
-DP bitmap, breaking the concurrent access model this patch aims to introduc=
-e.
+- [Medium] The conditional blocks for 'amd,versal2-mdb-host' and 'amd,versa=
+l2-cpm6-host' fail to enforce the strict number of register regions, allowi=
+ng incomplete or invalid device trees to silently pass schema validation.
 --
 
---- Patch [14]: [PATCH v7 14/18] drm/bridge: synopsys: dw-dp: Protect sdp_r=
-eg_bank from concurrent access ---
-commit 20478fb4c1990e713fd92f6e28d07f388653d106
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+--- Patch [1]: [PATCH v2 1/2] dt-bindings: pci: Add CPM6 support to AMD MDB=
+ PCIe binding ---
+commit b6d71a08cf4101b94f4ec914fe86d18c5cd2b7fa
+Author: Sai Krishna Musham <sai.krishna.musham@amd.com>
 
-drm/bridge: synopsys: dw-dp: Protect sdp_reg_bank from concurrent access
+dt-bindings: pci: Add CPM6 support to AMD MDB PCIe binding
 
-This patch introduces a mutex to protect sdp_reg_bank from concurrent acces=
-s,
-preparing the driver for additional SDP users like audio support.
+The AMD CPM6 PCIe controller is based on the Synopsys DesignWare PCIe IP.
+This adds "intr" to the vendor-specific reg-names for the per-controller
+interrupt register region and updates the amd,versal2-mdb-host.yaml with
+separate register definitions for MDB5 and CPM6.
 
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
-idge/synopsys/dw-dp.c
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+Link: https://lore.kernel.org/all/20260402180006.486229-2-sai.krishna.musha=
+m@amd.com/
+
+> diff --git a/Documentation/devicetree/bindings/pci/amd,versal2-mdb-host.y=
+aml b/Documentation/devicetree/bindings/pci/amd,versal2-mdb-host.yaml
+> index 406c15e1dee1b..d22de24b41cae 100644
+> --- a/Documentation/devicetree/bindings/pci/amd,versal2-mdb-host.yaml
+> +++ b/Documentation/devicetree/bindings/pci/amd,versal2-mdb-host.yaml
 [ ... ]
-> @@ -1691,7 +1695,8 @@ static void dw_dp_bridge_atomic_enable(struct drm_b=
-ridge *bridge,
->  		return;
->  	}
-> =20
-> -	set_bit(0, dp->sdp_reg_bank);
-> +	scoped_guard(mutex, &dp->sdp_lock)
-> +		set_bit(0, dp->sdp_reg_bank);
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: amd,versal2-mdb-host
+> +    then:
+> +      properties:
+> +        reg:
+> +          items:
+> +            - description: MDB System Level Control and Status Register =
+(SLCR) Base
+> +            - description: configuration region
+> +            - description: data bus interface
+> +            - description: address translation unit register
+> +        reg-names:
+> +          items:
+> +            - const: slcr
+> +            - const: config
+> +            - const: dbi
+> +            - const: atu
 
-[Severity: High]
-This isn't a bug introduced by this patch, but since the goal is to support
-concurrent users, is it safe to unconditionally claim bit 0 here?
+[Severity: Medium]
+Since the global maxItems for reg and reg-names is increased to 5 in this
+patch, does this conditional block for amd,versal2-mdb-host need to explici=
+tly
+specify maxItems: 4?
 
-If video is disabled and a concurrent user like audio allocates an SDP, it
-might be assigned bit 0. When video re-enables, unconditionally setting bit=
- 0
-could overwrite the other subsystem's reservation.
+Without it, could a device tree with an invalid 5th region silently pass
+schema validation for MDB5?
 
-[ ... ]
-> @@ -1735,7 +1740,8 @@ static void dw_dp_bridge_atomic_disable(struct drm_=
-bridge *bridge,
-> =20
->  	dw_dp_video_disable(dp);
->  	dw_dp_link_disable(dp);
-> -	bitmap_zero(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
-> +	scoped_guard(mutex, &dp->sdp_lock)
-> +		bitmap_zero(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - amd,versal2-cpm6-host
+> +              - amd,versal2-cpm6-host1
+> +    then:
+> +      properties:
+> +        reg:
+> +          minItems: 4
+> +          items:
+> +            - description: MDB System Level Control and Status Register =
+(SLCR) Base
+> +            - description: configuration region
+> +            - description: data bus interface
+> +            - description: address translation unit register
+> +            - description: CPM6 PCIe error and event interrupt registers
+> +        reg-names:
+> +          minItems: 4
+> +          items:
+> +            - const: slcr
+> +            - const: config
+> +            - const: dbi
+> +            - const: atu
+> +            - const: intr
 
-[Severity: High]
-This is also a pre-existing issue, but will clearing the entire bitmap here
-break the concurrent access model this patch aims to protect?
+[Severity: Medium]
+Does setting minItems: 4 here inadvertently make the 5th CPM6-specific regi=
+on
+(intr) optional?
 
-If audio or another subsystem holds an SDP reservation when video is disabl=
-ed,
-bitmap_zero() will incorrectly mark their bits as free. If a new user then
-requests an SDP, it could be allocated the same bit, causing multiple
-subsystems to write to the same hardware register bank concurrently.
-
-Should dw_dp_bridge_atomic_disable() only clear the specific bits reserved =
-by
-the video path rather than zeroing out the entire shared state?
+If CPM6 always requires all 5 regions, should minItems: 4 be removed so that
+validation enforces the full array length?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-synopsys-d=
-w-dp-improvements-v7-0-b7640fa8cf48@collabora.com?part=3D14
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728202044.1785=
+986-1-sai.krishna.musham@amd.com?part=3D1
