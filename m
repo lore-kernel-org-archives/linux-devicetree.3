@@ -1,92 +1,62 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B5AC37AA9A
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 16:21:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AC75338593;
+	Tue, 28 Jul 2026 16:22:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785255697; cv=none; b=UCmxKNMqH5ZwoDtN9cLkkabZCRFLm+sB8VCvycCvu89EtjnL+EPu0UtO0xm3iNd4Bv07JdQwnsfo+8NNpuoBbP1+jjeIokN50wGyyrpai9XacNTuWAWEdJ3At61wiakL9xtkcVJF5ku2IhecAJefQf4hJ4uJyyRCIPS3ayM5jPU=
+	t=1785255756; cv=none; b=D3FoZpeLpZm28HSd9EvFiD2Ls53BEKoy2+Zgmg0LCC2oj5nXBkq9INp+XPsl2OZRRASRR+bUTfafQe+INAgCpY+IMkSWC40XHOXeLKwp0FJUO0XWJm1Woi3XIU9fs+FbZMynul61s9VoRekHeuQgicxZxMW+xv8RNy2DCjgwpSA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785255697; c=relaxed/simple;
-	bh=YW2yzQB5QhrUglQBQ4IjJw5d29SB0JPu6VmMiPT/QYE=;
+	s=arc-20240116; t=1785255756; c=relaxed/simple;
+	bh=ZMbUX/s4RV13PfrtoB29C0w4goDoVqTw1InpakiVsBY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=p0C9xqo3kA8L9j6mEKjgYx5RzpiVny74LeDgLiZYAaJkH34R1rINWb4+LOi6nJO+ZKyTbC+vGoYb1UWZ1SRsMSrHMuaD1FzMcm6JxREmU332DtIiYspQrvRiGLlzfyrJH0GEnXqeeMxTULMqQ7M8dsKpcQe1U+xyNe0r88ZM380=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aW8J9dY2; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=qF0ttTfEn5PJIRQQJYCtY8RW1jD7WeXpTzw0ipNVNSxbjkG81m7vPcVio9YMn9SCvgugQURhOzIY2vkORlrX7Zmv45SCbD3611cZL94CK1R+AJq6X7o/p+LhWZ//sm7wtkGGYu5oo+GQFaXGPZ1bs2zl7GCYbKqs6HWyK+b5r8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=asJPGdUV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aW8J9dY2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81E541F00A3D;
-	Tue, 28 Jul 2026 16:21:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="asJPGdUV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD9771F00A3A;
+	Tue, 28 Jul 2026 16:22:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785255695;
-	bh=JjsLQleRsZIah8KJB30KbQyxCNbsNPfu9t4XI+vZXKM=;
+	s=k20260515; t=1785255754;
+	bh=ZMbUX/s4RV13PfrtoB29C0w4goDoVqTw1InpakiVsBY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=aW8J9dY23HPTty5OpNSkr2uB4aKGordA6OdKBJ3N89ONc11eRCNlnqSEXBBdFwVBl
-	 fVaYGcHq1B51DhFzXd5foRf7zL4H726fGivP4TUq7IZam37N6aoQ/brKrk1u8nIMjv
-	 nDGXgXUyh3NQMG4Oqz+JIZ5y6hQWa/KdpXyqZXwCYT+rUBvSIrPBsQ78+Gboy9jTIZ
-	 BFVlmBVaoot+JXz/l/uH4Ox3H+nWd1mWGgAQCaFkzzOHEvR8yYZC7ctUUj/dSBzhtD
-	 //lxSmM+UJvVCJzMIyDylE7JVDp5S6gz5Homd6hX5d7JickiAnj9F5LuAiAWJuEZM7
-	 EtDTJ3H5vRn/A==
+	b=asJPGdUVpFBZYrfLeKC9HzdjgCc4lpVIgMm9CtTAvITQFsPWgOm1AE7Vrru/Qyh9D
+	 5rTpW8m3N7UzhhXLZ2M0KZGYZDJJQLRX0+S/egYgjtRJYjqEgywKBTQtcBYyE+GxTf
+	 CeZNC3yHKL6JzLJhHIWvYUorxRolnLvOiA1sNqJnt2K9wXZnIVCIwliSe/vcesI+qQ
+	 enqGMYA4RNKRnAHwuwDQcZgiLP9PRm8XrZzYdIF3t3Nz/mmpPvG9BMWfAdD3UnEF4c
+	 56Qvb25p3WfR8uZicd8XktUTVjChUZ0fDc8XgD6n4EOZRWENrDqXHj+yWVzHExugJ+
+	 JjnDkfyQYCDzA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: tegra: Add EL2 virtual timer interrupt for
- Tegra194
+Subject: Re: [PATCH 1/5] hwmon: (pmbus/core) fix regulator enable/disable
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jon Hunter" <jonathanh@nvidia.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260728155059.200363-1-jonathanh@nvidia.com>
-References: <20260728155059.200363-1-jonathanh@nvidia.com>
+To: =?utf-8?b?TnVubyBTw6E=?= <nuno.sa@analog.com>
+Cc: robh@kernel.org, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260728-hwmon-max20826-support-v1-1-224766e0acd1@analog.com>
+References: <20260728-hwmon-max20826-support-v1-0-224766e0acd1@analog.com>
+ <20260728-hwmon-max20826-support-v1-1-224766e0acd1@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 28 Jul 2026 16:21:35 +0000
-Message-Id: <20260728162135.81E541F00A3D@smtp.kernel.org>
+Date: Tue, 28 Jul 2026 16:22:33 +0000
+Message-Id: <20260728162233.AD9771F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The newly added EL2 virtual timer interrupt specifies GIC_PPI 15, =
-but the ARM architectural standard for the EL2 virtual timer is GIC_PPI 12.=
- If the Carmel CPU hardware actually triggers PPI 12, the interrupt will be=
- misrouted, leading to timer stalls when running in VHE mode.
---
+> From: Nuno S=C3=A1 <nuno.sa@analog.com>
+>=20
+> pmbus_update_byte_data() can return the value of PMBUS_OPERATION which
+> can be different than 0 and that can mess with the regulator core
+> given _regulator_disable() explicitly checks for ret =3D=3D 0 in order to
+> call _regulator_handle_consumer_disable().
+>=20
+> Fixes: ddbb4db4ced1 ("hwmon: (pmbus) Add regulator support")
+> Signed-off-by: Nuno S=C3=A1 <nuno.sa@analog.com>
 
---- Patch [1]: [PATCH] arm64: tegra: Add EL2 virtual timer interrupt for Te=
-gra194 ---
-commit c19a2a2ae7a6be54be1db9d69e5e65ad5a1e8682
-Author: Jon Hunter <jonathanh@nvidia.com>
-arm64: tegra: Add EL2 virtual timer interrupt for Tegra194
-
-This commit adds the EL2 virtual timer interrupt to the Tegra194 device tree
-to resolve a warning generated when running on VHE-capable CPUs. It updates
-the timer node by appending a new GIC_PPI definition for the virtual timer.
-
-> diff --git a/arch/arm64/boot/dts/nvidia/tegra194.dtsi b/arch/arm64/boot/d=
-ts/nvidia/tegra194.dtsi
-> --- a/arch/arm64/boot/dts/nvidia/tegra194.dtsi
-> +++ b/arch/arm64/boot/dts/nvidia/tegra194.dtsi
-> @@ -3176,6 +3176,8 @@ timer {
->  			     <GIC_PPI 11
->  				(GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
->  			     <GIC_PPI 10
-> +				(GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
-> +			     <GIC_PPI 15
-
-[Severity: High]
-Is this the correct interrupt number for the EL2 virtual timer on this
-platform? The standard ARM architecture definition for the EL2 virtual timer
-is GIC_PPI 12, whereas this specifies GIC_PPI 15.
-
-If the Carmel CPU hardware actually triggers PPI 12, could specifying 15 ca=
-use
-the interrupt to be misrouted and lead to timer stalls when running in VHE
-mode?
-
->  				(GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>;
->  		interrupt-parent =3D <&gic>;
->  		always-on;
+Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728155059.2003=
-63-1-jonathanh@nvidia.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-hwmon-max2=
+0826-support-v1-0-224766e0acd1@analog.com?part=3D1
+
