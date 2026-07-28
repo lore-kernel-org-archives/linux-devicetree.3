@@ -1,166 +1,216 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013036.outbound.protection.outlook.com [52.101.83.36])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEA1F3BB674;
-	Tue, 28 Jul 2026 20:59:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.36
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785272367; cv=fail; b=iL8qcnbDpvM6h9/QKK2xpYA4bkrfmigMP4HTORWeEOzN1rheqkms/I/EvWkVlvTaRaocQx/WsC/hcrbHspZwfyR2H5qZ8jPTOoO+nUEG7qiCEMpkQE0xsDupFsKp4jj270wPNq3CpGy9yLoKhAM7zkJrbzUIscUCb6mzXkGphak=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785272367; c=relaxed/simple;
-	bh=e8f7thwWEXX/FYb/yPpjL+tPXjeHWNahJFG+gVBJ7CI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=KTbHdkWiIwVCWn59RRXPqcIfuBY9vblYu/Ykf9NpSvsOP0RtLcUE/VGxPFZHMr0Z1E7bV3hcFSLl35tcMG+xFXniRTGZeS69V3EM+fp3656R2gWhKmMKoQmEmIZjVeyPS73DbL6+YcCBk9dkcsrYz2wyDygeQVeUf0cXPR8gy3Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=W4Qkilev; arc=fail smtp.client-ip=52.101.83.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C83FB346AC5
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 21:05:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785272704; cv=none; b=a+7ua+O2ThF8t7ecw4cYUB246QUF0tPfZMWet4mjIPP7kWYv/7uaZXuBSEEz2zlAJMhfmoNmjluIrlY2d46lpy65bZypxQ/8jaX6DsaGnyPbEim6RAZgGRZkaLPiRxDddcfNjKswRo11XNcwDsnM9rlTCj6tKYwcPd67oP0K1HI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785272704; c=relaxed/simple;
+	bh=718Ya0vqAmbq8Fz2USoyNSvWLxkScwPL/3/y/cELB5Q=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Eru9jX4HA7VF7S6b8H3jlYMHTz5S17Icz8xp9ap72vkZ1+iz8REbdC7CR46ySKAzinc76dU8xFDG8BEuAEyncdpDN1j1bu2TPyFID6S6O+DrolJDQhF7kTZEgJsDyrwIf59hHWtiGywKVQSC4Dz4dQ6ZvMUm0weqUhSto3B0Zwc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IUSKAcvA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="W4Qkilev"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vkghfEnLdnXuuaXY6Vd77lsZ4ZQqQAQSR1lS9vCWC8cq/Tr1Yu746veSpPWTTJZRan3kpVhhcrn17aMx6Pmw5gLo6Xa8EvNDe7t1R7w2zmXx4cHHaS1jErJ6Jvuw1uu44GFuLuqE2NEAAYCRzRNs8nD6hRJrXGnUwexOJnbGw8tSfRloQKD3nAnsb/qeACZzgwzT86E/JFEdA/gEMj+a+cr32URHbfni2DdiIrR6Dc1k38HXZQW2DpErNTM/ZH545jgdApSmwEV1ogXsmzSaE6onzThBG1OB44rZt2Fq2/zwmE/lyltFoAYeNujXB9VmT/FOsROVmPS4RTPv4VNXDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=K3Rgt50jufQHkIdikfAfRmwdJsomeBgYWdnFDST1fkQ=;
- b=PSBISpGFyNGj7Tbn5nry0nvx81QGoBY2/h1sqfUKMUjuix/V6iXmmWcqzXhXMoFN8JTF6w8seGWJbgAB0TeS0Ojieov5tevUNJnbwaV1tUjUMeoWApXZb0N2zdI+YkjQsPNoM8S1ggrKKJZFQLrGsVa7um6Ez267KNwAwcTpvI9AlDMmraME6iqK3LKyAA3L/IxxsprKxYEtTTL1TtFrYCg58C9U+z6e4q3nIaf2BzdE9xc1QbYnmPLNsUl4A5hOWn2My1kp2y2E/CAFVhihls1jNHTb3fmqEGUtu6rXwM40EGR4TJ4DaCUQYClmJCQO/p1R+uihTTR4cVV9zBuFTA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K3Rgt50jufQHkIdikfAfRmwdJsomeBgYWdnFDST1fkQ=;
- b=W4QkilevZBHxbwVJO9LNDhSyeKe4GbJyUiVzMdzOqoyE7lqiTE9H/M20PMHZy6SFa94637EAfntZA/oRUxCD9+b68Y+scBlOVXWSaI/ttGCzby+zwV/dkh+c3vRgeH5GlPChLfH/Gm7n5pACktqx/QBIaCa2pQi2a4hLIBPtNBAOkBdX2XwVGYgkDnK4ARCGN41mhwaX+OYNoYwr08wEEQLlQ24n0Jog0/8if1jZNNP3bY7272HrOVPgLVigpVABl5kQZIT1vCnm5NnqSewMBlMLRs+wVRFUDOJDfbjBEEUtRfDu9NNjAqvdduUm5f+0abGNevS4bKL+7/9ez5dsZQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by GVXPR04MB10181.eurprd04.prod.outlook.com (2603:10a6:150:1b7::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12; Tue, 28 Jul
- 2026 20:59:21 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0270.009; Tue, 28 Jul 2026
- 20:59:21 +0000
-From: Frank.Li@oss.nxp.com
-To: linux-arm-kernel@lists.infradead.org,
-	Marek Vasut <marex@nabladev.com>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Fabio Estevam <festevam@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Rob Herring <robh@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 1/7] arm64: dts: imx8mp: Add DT label to SPBA5 bus
-Date: Tue, 28 Jul 2026 16:56:42 -0400
-Message-ID: <178526691528.3668106.10748099183405791163.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260727195244.78199-1-marex@nabladev.com>
-References: <20260727195244.78199-1-marex@nabladev.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SA9PR13CA0114.namprd13.prod.outlook.com
- (2603:10b6:806:24::29) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IUSKAcvA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D86DF1F000E9;
+	Tue, 28 Jul 2026 21:05:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785272702;
+	bh=uSJvW2aSZaQQcpZ5Wgx/kgiX7MWXoK21J3zNsJ/g27w=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=IUSKAcvAFnQBBdYTmPce10MMR5kcY+XGTHsAlm3Wexv/AxS25RL6o/83NCvxLYx0p
+	 lYUxc7YuC15JfE1r4OZPUFh8mums6DSoLWES7N5uPOp7XQrpMgbia8dGoXp21E2MLF
+	 fzBDy8+JJpPqk4Q4WWKPLBwTobtUzhajqG8LQ14It056tQCSy1/csBESSeIQc/5GPq
+	 PlyqnAnaQ2TB3t4p23wIk/6bXdPoTK+AnfRG8XytQPzU1Iu9u/lMkxRx870dM09SCy
+	 ATAzOJR9BwszNnhIV3l5/3kA36q63MWzUjVeGoX2pNZtR2tHbNNQb9jKiFS1DWoi61
+	 V8FzlnI4ZJBNA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 18/18] drm/bridge: synopsys: dw-dp: Add audio support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260728-synopsys-dw-dp-improvements-v7-18-b7640fa8cf48@collabora.com>
+References: <20260728-synopsys-dw-dp-improvements-v7-0-b7640fa8cf48@collabora.com>
+ <20260728-synopsys-dw-dp-improvements-v7-18-b7640fa8cf48@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 28 Jul 2026 21:05:01 +0000
+Message-Id: <20260728210501.D86DF1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GVXPR04MB10181:EE_
-X-MS-Office365-Filtering-Correlation-Id: cce2fdc3-d8f4-49eb-6d90-08deeceb18e7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|19092799006|7416014|56012099006|11063799006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	qRNuMa3GbdNzRBidARJmeIXXL4juEiBzFwMavVzt4fgDl18XxQm7BeEiiNV9+5472q0SgvGf/VTgEPmzOZqact3vEzUqBTU7Fc3Djc9XE5uJJPSjwqnvD7jAYDonsVZdsRKa+VAoym63iCc5ncCzxnZ0DobHJT7PsOxziyERhEa1plY5As/9n0OR6+eUkYBsKI9JKacnhVihz8eCeZsK+HdWqW15Ijw/p1gWuWwnMu0bft8TRBjyGLIJatRejLsvK6jlDzpfjJbJCmDb2mqHdw8+tMH4pyhwVjxta7EzWwvur0f4XWNYHJc9izres327O42WSP8JRSDyCCAWGqRYZ3vOVfiRLGOBQnvIuECaJIOxjXrL/TCPE38Z0bdACr3S+bsXbdNSZcRBex7n2y6WgswZGnDEhQ3pDMVl8myugY/Qvpf/BCJ5HOLugLXn7lDzyAagHEx6tqXzaalB1LYuFgaRzcpP+dGcvU2eUWHQZ7qvlPTVdv+CLH3+j4g0U9OPkwwnqi7cXbcSNPHKo2JyQfWFXLvZPMbXSx879sCActsr/I7FYKFKdQBFEckNifIanoAnUH6XJIEPugh2Ktlz+HlGqBgj2Uklo0AMWdaV92mk7/WSuvW+HJj4tKB4CEViDIBdW30c7KGhHSP3q3s1A8KuM63yuEfc4A13x0+d4uo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(19092799006)(7416014)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aXdNT29OWlRKcjlvcmdkZ1pGaGhWR0JoM2xNQkdNd1YwSXpGc2hFYTdCVjE0?=
- =?utf-8?B?RHhHQ3IxazZacXVCTVhjT1hIdlkzSElDSEVDZjFhRUVCV2V0TVl6ZENOZ3Vi?=
- =?utf-8?B?S1d5eFAzaFFjeDRCa21ib2FvaVo3Y1h2NVV5b0hZbEw2Mml6QTVOVGZsaXJF?=
- =?utf-8?B?bU9nZ2xCLzI3THhSZ0lmZDZIWWNQL0c1eE5SRkcxOUhRTFdVaWRDbFJRUWdX?=
- =?utf-8?B?clBnMTEwVDRCK0VkS05VQlJwdVkzSHVMMFhGSmpoVWJtalgyYnVDQUVOdzhS?=
- =?utf-8?B?TkpuY1loMjhTV3dpMENGck9jWDNFd3hNOTBGM2VGRFBieVlHL3d4RFVJNm1h?=
- =?utf-8?B?Nk9LTHJseENXSnV3djBXWlIyS3Z4ZlZwbmJmdklwR2F2SWtoRzhEbUdLZnA1?=
- =?utf-8?B?dXNzaFczNG5HcVNMQlpkMUl1ZDlCRW9tb2tBdFJFa1Z3dTFISGhGTnJmNFc1?=
- =?utf-8?B?TlpYNHFLOFQ1Ukh3c1V6Y2pPejcvM0czWitES0N1NXdmbndtVklFQ3hnWUpG?=
- =?utf-8?B?aTZRSy9tN1dqQks0amQ5UnZOZE50TEorRUNET3BENlozU3hBV1Yyb2NVbmQ4?=
- =?utf-8?B?OGhFOWFLdFd6dUwyQ0llQXZCRGhqNUU4d0RxM1ljSkh1aURRN1lmT3JUbVN5?=
- =?utf-8?B?ZVBPaTJKRW1mMDBFNlBQcG5DREVpNWVXWlJPSDIrbXE2aktKOHJnaGllOVJM?=
- =?utf-8?B?T3VJR3JTNkRKcE9jUXpLRkdOY0UrUlE5MHE1T0lNZXBBeHNyMDUvVXd5ZGFr?=
- =?utf-8?B?ZnBSb0dZVGVVNDdsVFgrbVVDdTFrTisrLy9zb3ZrZk9WSzZheEIzbTJUNkt6?=
- =?utf-8?B?SWxRZnRLT0NXNGZHc3BFL1lxS2NDejA0QTdzeGs3Ri85VnBGaDVnL2hWSm1r?=
- =?utf-8?B?YlJTTnBjTFM0Wkp0SnN4RDdHTE9WTURkOHI1OWxaMWlZSTFwNVNRelR1SmZr?=
- =?utf-8?B?OHpSdENzUnN3YzJRQ1Z4N1NwVkhTeDh4cGI3ZDM1WDc4b00wMlJjbzM1N1h3?=
- =?utf-8?B?cVZpZC8yc3NjajVqY20yclpCcnNVeEZFZFhKaGdHL1F1UjJFTTgwSVZvMnRX?=
- =?utf-8?B?U1NxNzkrQU9lOHQrR1NOL0NsS09sVzRmMXhZZmNFYnk5NjA4Sy9Ic3ZVZ2lT?=
- =?utf-8?B?QkxhV3NpNG16S1FYY0dYSUFZclphQmFtUG9ySHNmb1FpV2RqU2xZQkViZFY1?=
- =?utf-8?B?VlFVZ0xvL1FHcDRNZEhRUk9sdnJJQnBybUdyVlNzeU9XVSs2T2gvdW9DWnRF?=
- =?utf-8?B?Y3dUVGdoQjJOcEw0Si9JemFjTEtlSm83STZmbytka0h2Z1FmVmp4bmlHREk4?=
- =?utf-8?B?MkdKWXhrTCtNSkxhYndSWnEzQ0JCQ3kxRUloUWVqNHk5T0QxOW05SE9lYjNO?=
- =?utf-8?B?Q3Z3ZSthOXlkQk9yR3k4SGhCMnpJaWxuSzh2bXZVWUpmZzdyb0VLMFdaZHVv?=
- =?utf-8?B?RUltSWRaem9LSnhnT2lPeXFCMUg2VCtIdVZLZ2tYSmVQc1BzZkszZTBWUDZn?=
- =?utf-8?B?UkZSRnlnL0Z5eVhWSksxYit4dnc5R1Q2aHJPYVo2V3lEU2ZYc0xYczRLWlBY?=
- =?utf-8?B?eFFkM3Q0TjJFcy9CVy9TZG1mQ3V0aUo5QjJWWWtIYjM4cE9XQ012V2xIdi9J?=
- =?utf-8?B?SmV1S2JXblRLT1YzYUJSV2w1OTU1b3c2THhNeXlodEsza2cySVI1MTlVb2U1?=
- =?utf-8?B?aVFTdnRCbXlzVFg3eVd5Y2JWNGtpNlFRTk5uam5VaGlGSitENzJIdXpVYzRx?=
- =?utf-8?B?MmppTmxZd1pOZ0dqSmozYi9PZ2xtSnMrUjdUajFqSnNkT25INGhTU2E4N011?=
- =?utf-8?B?NHFDWk1odDhPNFNvQW04dC81bE5UY00zSFNmTDRGZlpPeHpHNDg5S1NCNDJS?=
- =?utf-8?B?NWlLd2FPMndlUEdDTndsS2pGZzhsUkxwZlZ4U3JyU2xVZlRUbm94alZSK0wz?=
- =?utf-8?B?RktrT0syblU5bkVqejhzSDM5R0FsUkl1QmJFQzZBeHR1b0JNelhmb2lad2pu?=
- =?utf-8?B?VVhRNWR4Vm9OQlFubWtXSzdtMjN6SjNBcFZOV3p0Rjc5eHJGU1RlRXd1MkYr?=
- =?utf-8?B?TXo2SWtQNjVuQ2R2bzdqbElCWWhRa1g4dmR1UjdYaEhXMkw0djFhVDdVZEgw?=
- =?utf-8?B?RzhWcFE1amo0Tk1GTXZKOHlVOGQxNjBsbGJiQ09mR1lnZldCcmI0eHJYYlNG?=
- =?utf-8?B?eTR3bHF1RkhXVkt1aFA3UnN1Zkt6YVdiVmd2b3pRVURwM25DRHJIZWk0Zmpw?=
- =?utf-8?B?ZHlnLzBCTTlTZUREeGdwWGVLVjJTTmFORlNuM1E5OFNKWjEyK2VETEpDbTZC?=
- =?utf-8?B?b0RPdmNwc1B1MGZiVjFEV3I5K2hVRVJrOFpNNDRKSmw3ZHVWNk1sTktDWkt1?=
- =?utf-8?Q?PvjdeHTPAGStvXWj1hl2UUaotA0dP2TU+ehM2?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cce2fdc3-d8f4-49eb-6d90-08deeceb18e7
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2026 20:59:21.4278
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: h/P/fW14MyITyrjSxIzqDlKbOuj9RLXaW3MpXJZhfQda9b0eACvVhXzSrRefCB5mHKreU9ainXYGev5MkTEM0ufTmL00d8NjdCH089Lc6sLiM5tiRe2aHZYMNHWUsWzK
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10181
 
-From: Frank Li <Frank.Li@nxp.com>
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] Multichannel audio channel allocation is hardcoded to 0 (stereo), =
+breaking surround sound routing.
+- [High] Audio InfoFrame can steal SDP slot 0, which is hardcoded for Video=
+ Stream Configuration (VSC), corrupting the VSC packet if ALSA prepares aud=
+io before the display is enabled.
+- [Medium] Unconditional attempt to enable both I2S and SPDIF clocks causes=
+ valid audio configurations to fail if the unused clock cannot be enabled.
+- [Medium] The audio mute state (AUDIO_MUTE) is lost across DisplayPort con=
+troller resets during atomic_disable/atomic_enable cycles.
+--
 
+--- Patch [18]: [PATCH v7 18/18] drm/bridge: synopsys: dw-dp: Add audio sup=
+port ---
+commit 5e1e4e31e16d403e05ea9b2201464ef6e1a35fc1
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-On Mon, 27 Jul 2026 21:52:16 +0200, Marek Vasut wrote:
-> Add DT label to SPBA5 bus for usage in board DTs.
-> No functional change.
+drm/bridge: synopsys: dw-dp: Add audio support
 
-Applied, thanks!
+Implement audio support for the Synopsys DesignWare DisplayPort controller.
 
-[1/7] arm64: dts: imx8mp: Add DT label to SPBA5 bus
-      commit: 697f6889aa50996de067a8d170323535570052ad
-[2/7] arm64: dts: imx8mm: imx8mp: Add LVDS DTOs for Data Modul i.MX8M Mini and Plus eDM SBC
-      commit: 3eacea24d258ff5169d84a419b07cb5828e91718
-[3/7] arm64: dts: imx8mm: imx8mp: Add legacy board DTOs for Data Modul i.MX8M Mini and Plus eDM SBC
-      commit: 81a2094bb922290e4b52a1467037f8d2ac07ad87
-[4/7] arm64: dts: imx8mm: imx8mp: Add HDMI DTOs for Data Modul i.MX8M Mini and Plus eDM SBC
-      commit: cfdee13eba802665ecd8751fefa754a759f414c4
-[5/7] arm64: dts: imx8mm: imx8mp: Add CM DTOs for Data Modul i.MX8M Mini and Plus eDM SBC
-      commit: b26192de5d0f4635d73ad2aea43e3e83a9ef5f77
-[6/7] arm64: dts: imx8mm: imx8mp: Add FIO1 DTOs for Data Modul i.MX8M Mini and Plus eDM SBC
-      commit: dca8d10e97bd121494106f54f4577291a9bb0f13
-[7/7] arm64: dts: imx8mm: imx8mp: Add FIO1-Audio DTOs for Data Modul i.MX8M Mini and Plus eDM SBC
-      commit: 8ea2fa3fdc65f2750718aebdcf912cccde5913b8
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
+idge/synopsys/dw-dp.c
+> index c0026bd4c7b53..3b73e822478d7 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 
-Best regards,
--- 
-Frank Li <Frank.Li@nxp.com>
+[ ... ]
+
+> @@ -1679,6 +1708,247 @@ static int dw_dp_link_enable(struct dw_dp *dp)
+>  	return ret;
+>  }
+> =20
+> +static int dw_dp_audio_infoframe_send(struct dw_dp *dp)
+> +{
+> +	struct hdmi_audio_infoframe frame;
+> +	struct dw_dp_sdp sdp;
+> +	int ret;
+> +
+> +	ret =3D hdmi_audio_infoframe_init(&frame);
+
+[Severity: High]
+The hdmi_audio_infoframe_init() function initializes the frame to zero, whi=
+ch
+implicitly sets the channel allocation to 0 (stereo).
+
+Since dw_dp_audio_prepare() receives the channel allocation in
+params->cea.channel_allocation but does not save it, will multi-channel aud=
+io
+(like 5.1 or 7.1) be transmitted incorrectly as stereo, potentially causing
+the AV receiver to drop or improperly route channels?
+
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	frame.coding_type =3D HDMI_AUDIO_CODING_TYPE_STREAM;
+> +	frame.sample_frequency =3D HDMI_AUDIO_SAMPLE_FREQUENCY_STREAM;
+> +	frame.sample_size =3D HDMI_AUDIO_SAMPLE_SIZE_STREAM;
+> +	frame.channels =3D dp->audio_channels;
+
+[ ... ]
+
+> +static int __dw_dp_audio_enable(struct dw_dp *dp)
+> +{
+> +	u8 audio_data_in_en;
+> +
+> +	switch (dp->audio_channels) {
+
+[ ... ]
+
+> +	}
+> +
+> +	regmap_update_bits(dp->regmap, DW_DP_AUD_CONFIG1,
+> +			   AUDIO_DATA_IN_EN | NUM_CHANNELS | AUDIO_DATA_WIDTH |
+> +			   AUDIO_INF_SELECT | HBR_MODE_ENABLE,
+
+[Severity: Medium]
+The dw_dp_audio_mute_stream() function sets the AUDIO_MUTE bit in hardware,
+but it does not save this state in the software context.
+
+If the display is disabled and re-enabled (causing a hardware reset),
+__dw_dp_audio_enable() restores DW_DP_AUD_CONFIG1 here but does not include
+AUDIO_MUTE in its update mask.
+
+Will an intentionally muted audio stream suddenly become unmuted after a
+display power cycle?
+
+> +			   FIELD_PREP(AUDIO_DATA_IN_EN, audio_data_in_en) |
+> +			   FIELD_PREP(NUM_CHANNELS, dp->audio_channels - 1) |
+
+[ ... ]
+
+> +static int dw_dp_audio_prepare(struct drm_bridge *bridge,
+> +			       struct drm_connector *connector,
+> +			       struct hdmi_codec_daifmt *daifmt,
+> +			       struct hdmi_codec_params *params)
+> +{
+
+[ ... ]
+
+> +	regmap_read(dp->regmap, DW_DP_CONFIG_REG1, &cfg1);
+> +	supported_audio_interfaces =3D FIELD_GET(AUDIO_SELECT, cfg1);
+> +
+> +	if (supported_audio_interfaces !=3D DW_DP_AUDIO_I2S_AND_SPDIF &&
+> +	    supported_audio_interfaces !=3D audio_interface) {
+> +		dev_err(dp->dev, "unsupported DAI %d\n", daifmt->fmt);
+> +		return -EINVAL;
+> +	}
+> +
+> +	ret =3D clk_prepare_enable(dp->spdif_clk);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D clk_prepare_enable(dp->i2s_clk);
+> +	if (ret) {
+> +		clk_disable_unprepare(dp->spdif_clk);
+> +		return ret;
+> +	}
+
+[Severity: Medium]
+This code attempts to enable both the spdif_clk and i2s_clk unconditionally,
+returning an error if either fails.
+
+If a platform has one of these clocks defined in the device tree but it
+temporarily or permanently fails to enable, will this cause the entire audio
+preparation to fail even if the user only requested the other (working) aud=
+io
+interface?
+
+> +
+> +	if (audio_interface =3D=3D DW_DP_AUDIO_I2S)
+> +		clk_disable_unprepare(dp->spdif_clk);
+
+[ ... ]
+
+> @@ -1720,6 +1990,14 @@ static void dw_dp_bridge_atomic_enable(struct drm_=
+bridge *bridge,
+>  		dev_err(dp->dev, "failed to enable video: %d\n", ret);
+>  		return;
+>  	}
+> +
+> +	scoped_guard(mutex, &dp->audio_lock) {
+> +		if (dp->audio_interface !=3D DW_DP_AUDIO_UNUSED) {
+> +			ret =3D __dw_dp_audio_enable(dp);
+
+[Severity: High]
+If userspace prepares audio while the display is disabled, dw_dp_send_sdp()
+might allocate the first free slot (slot 0) for the Audio InfoFrame.
+
+Earlier in this function, dw_dp_bridge_atomic_enable() hardcodes a reservat=
+ion
+for slot 0 for the Video Stream Configuration (VSC) packet:
+
+	scoped_guard(mutex, &dp->sdp_lock)
+		set_bit(0, dp->sdp_reg_bank);
+
+Does calling __dw_dp_audio_enable() here then clear slot 0 (wiping out the =
+VSC
+packet) and reallocate it to audio since audio previously held slot 0?
+
+> +			if (ret < 0)
+> +				dev_err(dp->dev, "failed to restore audio: %d\n", ret);
+> +		}
+> +	}
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-synopsys-d=
+w-dp-improvements-v7-0-b7640fa8cf48@collabora.com?part=3D18
