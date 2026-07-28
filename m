@@ -1,68 +1,87 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73882331209
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 05:42:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B39B3A7D63
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 05:44:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785217373; cv=none; b=Q9isDaHbc2QpBxIeStvFb8YDckk+Rgdl2tCeNZ/FtqU0/EyclnDlVFbRx9+8uc4YeKTvUw9v1RUwuW1eWuH7Ddd6Ph6Fpri2WPoKVBl+2YHtkFMtO1nvGC4/+SodIeWWIB/VDi5o9tuNB1PHPe06KFF0PQZuomhLZeLPpXnoxp4=
+	t=1785217467; cv=none; b=i3wZLCVvflSAK1uDJaEBBUcvqNRHmbh/SM7v8jhs4mNdYUusJQvVKAW4H1Oo+dcOaRYcimMzoXw5fW32c62hoMOwpSz/gtjPYFLyQ7Xl538PRZhogHvaSYq2nepGJjeSc1343N5VWXtKLd+HY58DOUf1t9LB4xzfPFEL8utbLa4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785217373; c=relaxed/simple;
-	bh=wCT8q/0nlgscrLNTp0KwDXUgOzsFprRxVJaZo37zu0Q=;
+	s=arc-20240116; t=1785217467; c=relaxed/simple;
+	bh=3T029fq6aSJBubP6CIrM4eSqadT1jYbcXWfMHerM0y0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bgKyE40vwpl3dyffDRnKK7O6xmA3T0MgL3wgI0agiQzjKSe5rJtar/I8Kn5Xzs1tOHoXWZQ0pX8XXQpOXDd+COIsdVP5mTKKnASIeA2fbf5RZGg8AC9zTxT+viAJ36j9zfITehBU6ZWFaJZiTLL4xaf19Is86Fp/5J0f0mJk5GA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XL/Tdnhd; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=snFfO0QacJFa78OH1U0Eimq+wF1ln+X7Tv1eITdfJstNWmd40q6gvoxN+HzYczDwvHUgWP2ObLUPD6LIr4pLtx4N9YSbtc6onE7wlSfruGVVyVN0NmH3jdMXApy8ePVu7ervHE5p1yQnte9mjViXGd5b+42aJZ3ImWMNjw/wa54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=p6jCQA+S; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DLODu78q; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XL/Tdnhd"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2cace91f112so39012545ad.0
-        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 22:42:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="p6jCQA+S";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DLODu78q"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66S3tqdP1919996
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 05:44:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	5XJ9dZhmjMEIXeBV0EiJuypbB36kB0h9MJwpLrHOSwY=; b=p6jCQA+SpGzWL0sE
+	sUuBDiXsJIafaqM3mUX1pqjXSi0OMCdtEy/lbvqCJEuxWHKDzuMa9hjX+SkFCMbw
+	2mVLWR7AV8Y/qFKqimQBI1tNRlAcv+Qis0WAkxwrgpNzDHtAcZfcQPvOumv+Nxrd
+	IkWizQy6kdVVxAJkx8RALvNh9MtFZ16ANQMRUW/rOc9IbTrv5LZCHn/Lf6JLiyG5
+	PfKvdFY+ZeCOkzWr+dSjj9QaBTE6hwJ7DVt3Zx3vIz5DCTtEoVpPXNj+qCG/5u2X
+	wfq8HvlzRzD9EeGYBTouJ3H7n4be0urAM+EvQsaBYyyzFZHTUHd9K0G0n4F/HsMm
+	8q/mhA==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fpmy10ak7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 05:44:24 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-388b404eaa4so1080179a91.0
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 22:44:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785217371; x=1785822171; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+        d=oss.qualcomm.com; s=google; t=1785217464; x=1785822264; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=yq1p0CDP6hyxUWCWe/TuoZ+uG5M6P/R77gWBoKBA72A=;
-        b=XL/TdnhdLDw8VVGzOCLkbRUbfwhX3YhKLVLTn/5k7iFUvWOnWvrKHFdawbz5b9X2u+
-         zbSZvnQriTqTPRQr2oOVAiSuoKmZ63+K/jBjELsNEy01u6ayuPUOnqHkXIIpx2wWI3fL
-         i3HN7rcin6+xLc8I+4zvtfCUtRFmNcc6MNcs/a4gr0F8/kcKyGSgrEzR4NDuVFLFRefP
-         6V+ehKHo+6O+n/5vjbQkO5I7oUgO8YryOzfwwwBK5QNSoIE0yz8C25cXoB4ZsH878+p1
-         FwEGYzEzmF3xplDDVpwDJQ6yCvDh1ZrUMxyQmp0DDU9IkQWAG+Y2tI/tlokoXkkMRJ3Q
-         nqnQ==
+        bh=5XJ9dZhmjMEIXeBV0EiJuypbB36kB0h9MJwpLrHOSwY=;
+        b=DLODu78qNWwuKaZ54q6M3GRCDtyMro89K8sk9+VASqeS9NJCll0Jbbeswtq7LXbxAI
+         4w2rCiXGDQEOXokTja5tBeDsdVYsqNgHJ73KENiGILa3Qw/Rjo6Me50MERZLMY1fJGYL
+         Gs/W1+DNEv9cCOkHdKZGSPciv29iG1QBY1+9YjgtoPqnUo+WLbd9MPajgW7tAaoEBgj6
+         Ax5q2GR29jcgks/8dZnh8i5MaSUEIfeVKfg5/Fre25EUW+w9FXkLEzpHXBL+HTa15zP4
+         RybrAJiY3W3LJ6g2WXOV4P0mPcl6H7aIUuyME1ziCB1Bdq2tfy+SHA/+AUbS2dhQx7i8
+         Bk1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785217371; x=1785822171;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+        d=1e100.net; s=20251104; t=1785217464; x=1785822264;
+        h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=yq1p0CDP6hyxUWCWe/TuoZ+uG5M6P/R77gWBoKBA72A=;
-        b=eUKrHrlfyJeeHbP0e/Uij+Gs+ilUGsRNluhL8eEfR3/AhJwqtGQ9I+zZaYnfpt/wg3
-         QL4SDXgG6EH+3i/IQEEPUOuAaBANQJAyH8A3kK9ozJvCRBKBPK1TX+pVd3O3AUkFGvlx
-         v8fr7KmpmfPK2ONK/8+i/ujMbAN0jgjA3Y9ZnRLNz5BSeqFUCtc8kS+aBC5AkCUiVExq
-         I5pXo3EBl4zg3DLIZ8tTcapH25+0pzlNiBP8Do3KV9jIecpddvDfJyz9itZflpz1LKr8
-         mCsRhQEY4ugSvbjyWUYbdM3ec3X8JsmDOGhrV3SC2NxexIVwCnnHPjo8UTqMMIbdCYop
-         vdtQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rq7b6nD2XrfTf8g375nSkg7IqE957rQQ0M0AuKxw6+mT57i46DvFVjS2aWzVIf/ZBmG8MAHgq65Khci@vger.kernel.org
-X-Gm-Message-State: AOJu0YzkhYk/82qJLuUVTy2RUF7a1db8IlBXd8hppI/G2G3oaF7MteIu
-	a++2R+aPbN/v8JVGU+jiTkvNxrncWsQKnx/5FMDMCDKZ/zHkwc53VoXg
-X-Gm-Gg: AR+sD13q8xRN4TmD1BIk89wM776rMILxrplhnyecPIAiAZVXWdeNt7s191P6JjkaybD
-	dcHlXfX/lmR8tUUa9o15AxyUo1CX1GXXcD34JgR1mkeymo9vd6gi6hFwBEBDqAmnV6/yH0exXYI
-	5zotFAm2s86H++UslbpFjyneRox71jzM0YTp6mVKeQ91RZu0zLE0a6N1lgGFIFL+unvsXqUM3Hi
-	Ho9A0K9npD04rYsKlqIpDj1PqcTLt3Bs1cLc3PQO0P8DPODFYpOdKVZFS+oSWnVSDZR0IASlCCU
-	Glx6dNfql12aIG5JB5B41xVMN7fj5Fod43B7fZvlDEG0/LOv4SP4BI1WnseL0C8/RzTEb9etqcK
-	jCLNCEMaG8HuvjaOSj+39jTxYp5yVh0bN0vQjsPfWHpN6Mkn0nAYDnahXYREEzG9d8SALnVzOHI
-	hDS+YooQbwboGMptWeyqRknf34oSKrF9UlrQ4sWSUScPcnFxw90DjeGbak16WXXA==
-X-Received: by 2002:a17:902:d4cf:b0:2c9:97a7:b1eb with SMTP id d9443c01a7336-2d015db933amr11620165ad.42.1785217370832;
-        Mon, 27 Jul 2026 22:42:50 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cfde7bbe01sm46119615ad.48.2026.07.27.22.42.49
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5XJ9dZhmjMEIXeBV0EiJuypbB36kB0h9MJwpLrHOSwY=;
+        b=LsWaLiqJbMjA41XhoYw2uaUk/cF3xv32c3xvfrny+IHDskizeRsB7Gmo4825a8sRH/
+         yCN6xtP5Ywr3uY687LJtltTJFW7d5SeL6MqyLsPD/k8KbCt0vZP942JNaU85lyVc/OrZ
+         XVvStvi+YTY92Ul3E2A37wSSsetv3EKPtxgsGQ32Yl7TkGdsViwz8hEDXxuToccD6Z7+
+         vVMtpSddIKfWVqQMuE2J4s8b//u6cSWrQEP6dSG8GsfAA0xftU/qaH9vqAC/E3N09uuS
+         +85eoiVgM+K+618KDMjgq6LuClwW6Qvc6u8SW2790OH0ZKbgxhiR0Ow6eFZmP9/Pygbu
+         N9nw==
+X-Forwarded-Encrypted: i=1; AHgh+RqJvh3arCKn7gDZfPdEXEjkNeeuVDBBUOybj21Z5CjEwbVmelOa98KN+PbweuFe+l4no7kTGp5PtQuR@vger.kernel.org
+X-Gm-Message-State: AOJu0YzXlJGvQF4SAQvPPOw2lnE9j69+39n2YwrkSnmhNADemo5W3Q1n
+	igSZHgzDYD97yhYYYIYhHHJtRV7UKYPxFFq4bjPP45OQsSWHyDknwvYeSx1debC/q5lDfHd2bnJ
+	q3q1JwiAEJOE7eL/wl6px0ks7LwJ8oUaRA33SD51zKRoNJL9sVl3QYC2Ox/gwOC/9
+X-Gm-Gg: AR+sD13J6Z7QwUy5ei3EcaAwEW21BhRfAO9hzwyWgMZ/h5Zh9QY+gaBQZphwBIXvvva
+	VGJsLnKnahdYWUgm6C/ong2YzSckVSRHbJ5B6jEzScQyiC8prFsQcANdZqBSFoZUwFMkIMnwuVX
+	qFilm5KkJ2Pzqe2xJkIqv+ci6MUV+WXZXYnAO2yx4+clIQxWFNuwUgFJxE9O2wEH42sz83Bw6JE
+	aQituDS057aWf2ILLWBn5mU2ntiKUd7nACiKJSEa3dhTU7OOfiAOIxnfTEgfyEWcxBL9QGc1sTv
+	XrEeuQnnQU5wo1OYbFIuJTbTQ4CNyBWueK34WCUPYn2QVD+/Aax/VfUBILW/vVJI7IV5UDFgQEz
+	JIJWOBStb3/aJfZcKjjv8bMUlk10Gag==
+X-Received: by 2002:a17:90b:2e0c:b0:381:3b5d:30f4 with SMTP id 98e67ed59e1d1-38f6a40fbf0mr1010516a91.1.1785217463883;
+        Mon, 27 Jul 2026 22:44:23 -0700 (PDT)
+X-Received: by 2002:a17:90b:2e0c:b0:381:3b5d:30f4 with SMTP id 98e67ed59e1d1-38f6a40fbf0mr1010482a91.1.1785217463379;
+        Mon, 27 Jul 2026 22:44:23 -0700 (PDT)
+Received: from [10.206.100.243] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f6412a118sm709542a91.8.2026.07.27.22.44.19
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 27 Jul 2026 22:42:50 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <9559d319-4b44-45c2-ae13-f92099de4c89@roeck-us.net>
-Date: Mon, 27 Jul 2026 22:42:48 -0700
+        Mon, 27 Jul 2026 22:44:22 -0700 (PDT)
+Message-ID: <29ca6303-4368-4aeb-b82f-039aa252780a@oss.qualcomm.com>
+Date: Tue, 28 Jul 2026 11:14:17 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,246 +89,246 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 4/4] hwmon: (pmbus/max20830): add support for max20830c
- and max20840c
-To: "Torreno, Alexis Czezar" <AlexisCzezar.Torreno@analog.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>
-Cc: "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
-References: <20260728-dev-max20830c-v4-0-cec034298535@analog.com>
- <20260728-dev-max20830c-v4-4-cec034298535@analog.com>
- <336bd264-52ec-473a-b74f-5661f06286ed@roeck-us.net>
- <PH0PR03MB6351D7369AB790714DF416BDF1CB2@PH0PR03MB6351.namprd03.prod.outlook.com>
+Subject: Re: [PATCH v2 2/4] arm64: dts: qcom: shikra-cqm-evk: Enable display
+ and add ili7807s panel
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Nabige Aala <nabige.aala@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260706-shikra-dt-changes-v2-2-56fcd1659ea4@oss.qualcomm.com>
+ <8a3cc857-0b1c-4bd5-a5ce-a564823ca614@oss.qualcomm.com>
+ <ec5017a5-8af7-433c-a011-9ad7c6cd33b7@oss.qualcomm.com>
+ <6f8d8cf5-1e35-4d45-b2c1-6f36ac51ad4a@oss.qualcomm.com>
+ <h37rmadj4yallpbm3n4vehm2rcflocwen65jacg7kd3zmpo6hu@ohjpgawid6jf>
+ <4efaa8d7-56c8-4581-a161-51abb319bdcf@oss.qualcomm.com>
+ <fa5bf9e0-66ec-4506-a2fa-bf1d95adf9a6@oss.qualcomm.com>
+ <6c89ef9d-3551-4b92-904c-316dbcffcfbd@oss.qualcomm.com>
+ <rq4echpblosddelpjmcms4ezynohrzfbr6axfjtonhd7ptn5mj@gj6ecmqv4ows>
+ <15957c47-f8bc-4d92-a6b4-88c9a546d807@oss.qualcomm.com>
+ <vfj4efaef46cldwve4bk2rat27atpqtfyliewkbragm5wyrchj@ke5vcubecfui>
 Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <PH0PR03MB6351D7369AB790714DF416BDF1CB2@PH0PR03MB6351.namprd03.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Arpit Saini <arpit.saini@oss.qualcomm.com>
+In-Reply-To: <vfj4efaef46cldwve4bk2rat27atpqtfyliewkbragm5wyrchj@ke5vcubecfui>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: aNhWv9d9pxhywIT8OOzE7kRJYrjo43vs
+X-Proofpoint-ORIG-GUID: aNhWv9d9pxhywIT8OOzE7kRJYrjo43vs
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI4MDA1MCBTYWx0ZWRfXxODpJfElNVpl
+ Q1t77CTYXtRilI6AKtQBNd35dilmsaQ9QQ17QXZ6hsVuQjBbpzgw02uvOtrsXk5Kwfxq0uS9Wa9
+ ZuXKi1ub523ketsSt/fGN/Wlku50+lpIEUqE92vWbzop1tmFJMEbj09NXQ75z1+ennbcME2+M74
+ Gkl1czIe3kzEFWY9M0b/kTVDy2NwZi/7/H2LP8DwmHHDywXlzYXAh1COnobkzAm+c9gKwmuf259
+ 9UF78MF4VaFVper0lX6sEH0qToBbmluAT5B+FpfpoGV98Z5Gjo5cCEAAQyx8hyrITMd1YQqcFjy
+ qKfNuIcWzZVyw70vCIhrMk9pzldfmqOWBwFmt/gcqjziifennooSQtmU3WE41s8CUHFPyIp2aPR
+ aLTdpoqUCb9nmtwnAReKS91v8NiT8z5asgy3xOi3arWwWAsJHmOzEXHRCjNEoL5pDZuwOFcalJl
+ idAUZ4hZjW+Y8fDJezw==
+X-Authority-Analysis: v=2.4 cv=PJo/P/qC c=1 sm=1 tr=0 ts=6a6841b8 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=ULO9zmJhv1W09lwQwGwA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI4MDA1MCBTYWx0ZWRfX1KO3hJ8YMD7L
+ cLlpynJXbEi0L56PeTvDeIZnLVxi6+RquKr4wmaHzSkhFJnt91+sTsmzahPxzkjoWqIqC3aEToy
+ DBtsWI+yVMbRVVI9Y5jM1XXYBbPbxP4=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-28_01,2026-07-27_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
+ priorityscore=1501 malwarescore=0 adultscore=0 suspectscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607280050
 
-On 7/27/26 22:05, Torreno, Alexis Czezar wrote:
+Hi Dmitry,
+
+On 7/22/2026 3:57 AM, Dmitry Baryshkov wrote:
+> On Tue, Jul 21, 2026 at 02:35:42PM +0530, Arpit Saini wrote:
+>> Hi Dmitry,
 >>
->> [External]
->>
->> On 7/27/26 20:32, Alexis Czezar Torreno wrote:
->>> Add support for MAX20830C and MAX20840 step-down DC-DC switching
->>> regulator with PMBus interface. MAX20830C is a different packaging for
->>> MAX20830, and MAX20840C supports 40A regulation compared to
->>> MAX20830 that is only 30A.
+>> On 7/20/2026 6:35 PM, Dmitry Baryshkov wrote:
+>>> On Mon, Jul 20, 2026 at 05:37:25PM +0530, Arpit Saini wrote:
+>>>> Hi Konrad,
+>>>>
+>>>> On 7/16/2026 11:21 PM, Konrad Dybcio wrote:
+>>>>> On 7/14/26 9:21 AM, Arpit Saini wrote:
+>>>>>> Hi Dmitry,Konrad
+>>>>>>
+>>>>>> On 7/10/2026 6:09 PM, Dmitry Baryshkov wrote:
+>>>>>>> On Fri, Jul 10, 2026 at 05:28:04PM +0530, Arpit Saini wrote:
+>>>>>>>> Hi Konrad,
+>>>>>>>>
+>>>>>>>> On 7/10/2026 2:31 PM, Arpit Saini wrote:
+>>>>>
+>>>>> [...]
+>>>>>
+>>>>>>>> Normally the backlight EN pin is controlled by a backlight driver.
+>>>>>>>>
+>>>>>>>> However, this panel uses MIPI DCS based backlight control with no
+>>>>>>>>
+>>>>>>>> separate backlight driver. Since there is no driver to assert gpio91,
+>>>>>>>>
+>>>>>>>> we control it via the panel's pinctrl default state..
+>>>>>>>>
+>>>>>>>> So this is platform specific pin , we need this to enable/disable
+>>>>>>>>
+>>>>>>>> the backlight.
+>>>>>>>
+>>>>>>> Handle it from the panel driver. Also please fix your editor to prevent
+>>>>>>> it from inserting extra empty lines.
+>>>>>>>
+>>>>>>
+>>>>>> Earlier I handled it through panel driver, but this GPIO is specific to our
+>>>>>> Qualcomm Daughter Card, it is not going to the panel connector.
+>>>>>
+>>>>> So is it an enable pin of a voltage regulator maybe? I'm having trouble
+>>>>> understanding how this is all tied together, given the panel driver
+>>>>> uses DCS commands to control the backlight status
+>>>>>
+>>>>> Konrad
+>>>>
+>>>> No, it is not a voltage regulator enable.
+>>>> GPIO91 (WLED_P1_EN) is the enable pin of the WLED driver IC on the Qualcomm daughter card.
+>>>> The WLED driver is a boost LED driver that powers the backlight LEDs.
+>>>> The backlight control works in two parts:
+>>>
+>>> _that powers the backlight LEDs_.
+>>>
+>>> So it is a power supply.
+>>>
+>>>>
+>>>> 1. GPIO91 must be asserted to enable the WLED driver IC itself.
+>>>> 2. The panel's CABC output (a PWM signal) is connected to the WLED driver's PWM input
+>>>> and controls the actual brightness.
+>>>> This CABC output is driven by the DCS set_display_brightness command sent from the panel driver.
+>>>>
+>>>> So the DCS commands control brightness via the panel's PWM/CABC output,
+>>>> but the WLED driver IC needs to be enabled first via GPIO91.
+>>>>
+>>>> Since GPIO91 is on the Qualcomm daughter card and not on the panel connector.
+>>>>
+>>>> Dmitry suggested , it is not appropriate to model it in the panel binding.
+>>>> The current approach of asserting it via pinctrl default state in the board DTS keeps it board-specific.
+>>>>
+>>>> If you have a better suggestion for modelling this, I'm happy to follow your guidance.
+>>>>
+>>>> SoC (ITP Baseband Card)
+>>>>  ├── GPIO91 (WLED_P1_EN) ─────────────────────────────────────┐
+>>>>  │                                                            │
+>>>>  └── DSI ──────────────────────────────────────────────────┐  │
+>>>>                                                            │  │
+>>>> ┌──────────────────────────────────────────────────────────┼──┼──────────────────────────────────┐
+>>>> │ Qualcomm Display Daughter Card                           │  │                                  │
+>>>> │                                                          │  │                                  │
+>>>> │  ┌─────────────────────────────────┐                     │  │   ┌──────────────────────┐       │
+>>>> │  │  DLC DLC0697 Panel (ILI7807S)   │◄────────────────────┘  │   │  WLED Driver IC      │       │
+>>>> │  │                                 │                        |   │                      │       │
+>>>> │  │  DCS set_display_brightness()   │                        └──►│  EN                  │       │
+>>>> │  │        │                        │                            │                      │       │
+>>>> │  │        ▼                        │                            │                      │       │
+>>>> │  │  CABC output ───────────────────┼───────────────────────────►│  PWM                 │       │
+>>>> │  │                                 │                            │                      │       │
+>>>> │  │                                 │                            │  LED outputs ────────┼──► Backlight LEDs
+>>>> │  └─────────────────────────────────┘                            └──────────────────────┘       │
+>>>> │                                                                                                │
+>>>> └────────────────────────────────────────────────────────────────────────────────────────────────┘
+>>>
+>>> This is a nice diagram, but it shows backlight LEDs as something
+>>> completely separate. Usually they are a part of the panel. Are they not
+>>> in this case?
+>>>
+>>> I'd be more interested in a different representation of the information.
+>>> What are the _actual_ panel inputs? Decribe those (and only those) in
+>>> the panel bindings.
 >>>
 >>
->> Are those chips still not published ? I find MAX20840T, but no "C" variants.
->> And MAX20840T presumably has an I2C device ID of "MAX20840", not
->> "MAX20840C".
+>> No , Backlight LEDs are part of the panel, I will correct the diagram for that,
+>> and regards panel bindings, I modeled only the actual panel inputs.
 >>
->> I also noticed that MAX20810 and MAX20815 seem to be register compatible.
+>> Hopefully, this diagram will clear this.
 >>
+>> ┌─────────────────┐         ┌───────────────────────────────────────────────────────────────────────────────────────────┐
+>> │    SOC Card     │         │                                  Display DC                                               │
+>> │                 │         │                                                        ┌──────────────────────────────┐   │
+>> │  DSI0           │         │                                                        │      DLC Display CONN        │   │
+>> │  ├─ DSICLK_P/M ─┼─────────┼────────────────────────────────────────────────────────┼──► DSICLK_P/M                │   │
+>> │  ├─ DSILN0_P/M ─┼─────────┼────────────────────────────────────────────────────────┼──► DSILN0_P/M                │   │
+>> │  ├─ DSILN1_P/M ─┼─────────┼────────────────────────────────────────────────────────┼──► DSILN1_P/M                │   │
+>> │  ├─ DSILN2_P/M ─┼─────────┼────────────────────────────────────────────────────────┼──► DSILN2_P/M                │   │
+>> │  └─ DSILN3_P/M ─┼─────────┼────────────────────────────────────────────────────────┼──► DSILN3_P/M                │   │
+>> │                 │         │                                                        │                              │   │
+>> │  1.8V ──────────┼─────────┼──────────────────────────────────── vddi ──────────────┼──► vddi                      │   │
+>> │                 │         │                                                        │                              │   │
+>> │  VSYS_PWR ──────┼─────────┼──────┐                                                 │                              │   │
+>> │                 │         │      │                                                 │                              │   │
+>> │  LCD_BIAS_EN ───┼─────────┼──────┼──► ┌──────────────────┐                         │                              │   │
+>> │                 │         │      ├───►│  LCD BIAS DRIVER  ├──── VREG_DISP_P (+5.5V)┼──► VREG_DISP_P (+5.5V)       │   │
+>> │                 │         │      │    └──────────────────┘──── VREG_DISP_N (-5.5V)─┼──► VREG_DISP_N (-5.5V)       │   │
+>> │                 │         │      │                                                 │                              │   │
+>> │  LCD_BKLT_EN ───┼─────────┼──────┼──► ┌──────────────────┐                         │                              │   │
+>> │                 |         |      |    │   WLED DRIVER    ├──── VREG_WLED ──────────┼──► VREG_WLED                 │   │
+>> │                 │         │      └───►│                   ├──── WLED_SIN1 ─────────┼──► WLED_SIN1                 │   │
+>> │                 │         │           │                   ├──── WLED_SIN2 ─────────┼──► WLED_SIN2                 │   │
+>> │                 │         │           │             ◄─PWM─┤◄───────────────────────┼◄── CABC                      │   │
+>> │                 │         │           └──────────────────┘                         │                              │   │
 > 
-> I believe so yes, they aren't yet.
+> Perfect. So this is LED device, it provides backlight to the panel.
+> Describe it correctly in the DT.
 > 
-
-I just hope they are really compatible, and that the device ID strings really
-include the "C". The "T" variants seem to have no T in the device ID string,
-making it a bit odd that it was (or will be) added for the C variants.
-
-> Actually MAX20810/815 and a few more are next in line after this. A different
-> person is handling it, but they're waiting on how this patches go.
+> Think of somebody using PM8150's WLED with the panel.
 > 
-
-You are making yourself more work than necessary. Knowing that there are more
-chips coming, the sequence of strcmp() is not really that desirable anymore.
-It might make sense to create an array with all chips supported by the driver
-instead of adding up strcmp sequences. That would make it much easier to add
-support for new variants.
-
-There also seems to be a MAX20830T. Does it actually make sense to list the
-variants (C/T) in the first place ?
-
->>> Signed-off-by: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
->>> ---
->>>    Documentation/hwmon/max20830.rst | 27 ++++++++++++++++++++++-----
->>>    drivers/hwmon/pmbus/max20830.c   | 27 ++++++++++++++-------------
->>>    2 files changed, 36 insertions(+), 18 deletions(-)
->>>
->>> diff --git a/Documentation/hwmon/max20830.rst
->>> b/Documentation/hwmon/max20830.rst
->>> index
->>>
->> 936e409dcc5c0898dde27d782308d4a7e1357e73..b850f3b6e40d1f1d0cec944be
->> 40a
->>> f02265aced59 100644
->>> --- a/Documentation/hwmon/max20830.rst
->>> +++ b/Documentation/hwmon/max20830.rst
->>> @@ -13,6 +13,22 @@ Supported chips:
->>>
->>>        Datasheet:
->>> https://www.analog.com/media/en/technical-documentation/data-sheets/ma
->>> x20830.pdf
->>>
->>> +  * Analog Devices MAX20830C
->>> +
->>> +    Prefix: 'max20830c'
->>> +
->>> +    Addresses scanned: -
->>> +
->>> +    Datasheet:
->>> +
->>> +  * Analog Devices MAX20840C
->>> +
->>> +    Prefix: 'max20840c'
->>> +
->>> +    Addresses scanned: -
->>> +
->>> +    Datasheet:
->>> +
->>>    Author:
->>>
->>>      - Alexis Czezar Torreno <alexisczezar.torreno@analog.com> @@
->>> -21,12 +37,13 @@ Author:
->>>    Description
->>>    -----------
->>>
->>> -This driver supports hardware monitoring for Analog Devices MAX20830
->>> -Step-Down Switching Regulator with PMBus Interface.
->>> +This driver supports hardware monitoring for Analog Devices MAX20830,
->>> +MAX20830C and MAX20840C. These are Step-Down Switching Regulator
->> with PMBus Interface.
->>>
->>> -The MAX20830 is a 2.7V to 16V, 30A fully integrated step-down DC-DC
->>> switching -regulator. Through the PMBus interface, the device can
->>> monitor input/output -voltages, output current and temperature.
->>> +MAX20830, and MAX20830C are 2.7V to 16V, 30A fully integrated
->>> +step-down DC-DC switching regulators. MAX20840C is similar but can
->>> +reach 40A. Through the PMBus interface, these devices can monitor
->>> +input/output voltages, output current and temperature.
->>>
->>>    The driver is a client driver to the core PMBus driver. Please see
->>>    Documentation/hwmon/pmbus.rst for details on PMBus client drivers.
->>> diff --git a/drivers/hwmon/pmbus/max20830.c
->>> b/drivers/hwmon/pmbus/max20830.c index
->>>
->> 7c1e94c43ac4e5d1b4f69dc77b02e424a674e908..029733a377123ae6a861841d
->> b4a4
->>> 0dd540f1149e 100644
->>> --- a/drivers/hwmon/pmbus/max20830.c
->>> +++ b/drivers/hwmon/pmbus/max20830.c
->>> @@ -99,13 +99,12 @@ static int max20830_probe(struct i2c_client *client)
->>>    	 * which do not support SMBus block reads.
->>>    	 */
->>>    	if (i2c_check_functionality(client->adapter,
->> I2C_FUNC_SMBUS_READ_BLOCK_DATA)) {
->>> -		/* Reads 9 Data bytes from MAX20830 */
->>>    		ret = i2c_smbus_read_block_data(client,
->> PMBUS_IC_DEVICE_ID, buf);
->>>    		if (ret < 0)
->>>    			return dev_err_probe(&client->dev, ret,
->>>    					     "Failed to read IC_DEVICE_ID\n");
->>>    	} else {
->>> -		/* Reads 1 length byte + 9 Data bytes from MAX20830 */
->>> +		/* Reads 1 length byte + data bytes */
->>>    		ret = i2c_smbus_read_i2c_block_data(client,
->> PMBUS_IC_DEVICE_ID,
->>>
->> MAX20830_IC_DEVICE_ID_LENGTH + 1,
->>>    						    buf);
->>> @@ -121,26 +120,28 @@ static int max20830_probe(struct i2c_client
->> *client)
->>>    		ret = ret - 1;
->>>    	}
->>>
->>> -	/*
->>> -	 * MAX20830 IC_DEVICE_ID sends string data "MAX20830\0".
->>> -	 * Return value should at least be 9 bytes of data.
->>> -	 */
->>> +	/* Verify we read the expected number of bytes */
->>>    	if (ret < MAX20830_IC_DEVICE_ID_LENGTH)
->>>    		return dev_err_probe(&client->dev, -ENODEV,
->>> -				     "IC_DEVICE_ID too short: expected at least
->> 9 bytes, got %d\n",
->>> -				     ret);
->>> +				     "IC_DEVICE_ID too short: expected %d
->> bytes, got %d\n",
->>> +				     MAX20830_IC_DEVICE_ID_LENGTH, ret);
->>> +
->>> +	/* Null-terminate the string */
->>> +	buf[ret] = '\0';
->>>
->>> -	/* 9 bytes of data, buf[0]-buf[7] = "MAX20830", buf[8] = '\0' */
->>> -	buf[MAX20830_IC_DEVICE_ID_LENGTH - 1] = '\0';
->>> -	if (strncmp(buf, "MAX20830", MAX20830_IC_DEVICE_ID_LENGTH - 1))
->>> +	/* Verify the device ID matches what we expect */
->>> +	if ((strcmp(buf, "MAX20830") && strcmp(buf, "MAX20830C") &&
->>> +	    strcmp(buf, "MAX20840C")))
->>>    		return dev_err_probe(&client->dev, -ENODEV,
->>> -				     "Unsupported device: '%s'\n", buf);
->>> +				     "Unsupported device: '%*pE'\n", ret, buf);
->>>
->>>    	return pmbus_do_probe(client, &data->info);
->>>    }
->>>
->>>    static const struct i2c_device_id max20830_id[] = {
->>> -	{"max20830"},
->>> +	{ "max20830" },
->>> +	{ "max20830c" },
->>> +	{ "max20840c" },
->>
->> I don't think that is needed or warranted, given that there is no matching
->> devicetree node.
->>
+> For the panel bindings use only actual panel inputs. Think of it being
+> used on a completely different platform, without the DC card.
 > 
-> I see, will remove.
+The panel driver already handles this generically. In ili7807s_probe():
+	ret = drm_panel_of_backlight(&ctx->panel);
+	if (ret)
+		return ret;
 
-Same for the prefix string in the documentation. You might want to mention the
-supported chips, though, in both the configuration and Kconfig. In Kconfig,
-that could be a generic such as "MAX20830 and compatible chips", or list the
-base variants, such as "MAX20830, MAX20840 and variants".
+	if (!ctx->panel.backlight) {
+		ctx->panel.backlight = ili7807s_create_backlight(dsi);
+		if (IS_ERR(ctx->panel.backlight))
+			return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
+					     "failed to create backlight\n");
+	}
+
+If a platform provides a `backlight` phandle in the panel DT node 
+(e.g., PM8150 WLED or any other backlight device), drm_panel_of_backlight()
+will use that external backlight device.
+
+The DCS fallback is not created in that case.
+
+For our Qualcomm display daughter card, the DCS fallback backlight is used.
+
+So the panel driver is already platform-agnostic:
+
+- On a platform with PM8150 WLED → provide backlight = <&pm8150_wled>
+in the panel DT node, and the panel driver uses it directly.
+
+- On our daughter card → no backlight phandle, panel driver
+creates DCS backlight, GPIO91 is handled via board-level pinctrl.
+
+Please let me know if there is another way to do this,
+or if I have misunderstood your comment.
 
 Thanks,
-Guenter
+Arpit
+
+
+> 
+>> │  MDP_VSYNC_P ───┼─────────┼────────────────────────────────────────────────────────┼──► MDP_VSYNC_P               │   │
+>> │                 │         │                                                        │                              │   │
+>> │  DISP_RST ──────┼─────────┼────────────────────────────────────────────────────────┼──► DISP_RST                  │   │
+>> │                 │         │                                                        │                              │   │
+>> │  Touch ─//──────┼─────────┼────────────────────────────────────────────────────────┼──► Touch signals             │   │
+>> │  signals        │         │                                                        └──────────────────────────────┘   │
+>> └─────────────────┘         └───────────────────────────────────────────────────────────────────────────────────────────┘
+>>
+>> Thanks,
+>> Arpit
+> 
 
