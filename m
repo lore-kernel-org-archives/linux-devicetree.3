@@ -1,113 +1,113 @@
-Received: from out28-147.mail.aliyun.com (out28-147.mail.aliyun.com [115.124.28.147])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A9CA41DE00
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 10:05:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78EAA41DED3
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 10:06:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785233144; cv=none; b=ZBpmO/cJz9PTjJINRNOmfAVBIc1DVl8b3cBZvDT5jaPkb4nYVv0SQrCLktlZFzQsGRg/YarEVewaxi49bOpJPyzCja0neNeRh7lwqGU9dVtSangIffTXi9zmYRl5kiAqwlSCCpV8OLNhQaHPiqbcpOuZs8x9AIsG8xXIw9ZPrcY=
+	t=1785233166; cv=none; b=rde9f/MKEQTlXr75T8N95YqQSW1zTQ11luqP1+uXdJQN6aYhAE5FmLHzbDs5eOM622maeY/2M9YLX06WH6Wj5cvjvhYhVREDtX2CpJzVegMY/6FmKJ9OH3fiTvEayJmkfqvfjkXVyAaP+beb6HirKJYUc4Mh+3FOfFMyGUMaJAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785233144; c=relaxed/simple;
-	bh=fT68u8sSrv8oS3L+4o0Lmx18m+dMySIhxsU32rr41Xs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sPds8/G3bB65BGOx4Zpo5RWADSr0QC8MD4PtB/iwGDY+thawLRkha8jyfa8i0p0EHjvYCpvke57EDpZoXJgPTu2HhrNMUkOE18Y8pBQFgXKbEoOcz6GNtYyJGIfIj3pX4hoiGNt990WJ1owJxrN82DR6D5w8uB60tfzu8dIy7sk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com; spf=pass smtp.mailfrom=lontium.com; dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b=NsoQhH14; arc=none smtp.client-ip=115.124.28.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lontium.com
+	s=arc-20240116; t=1785233166; c=relaxed/simple;
+	bh=Rp6+uTMCabzqwWh7spwIBUTlBYjHvNxnWsIheA7Ukxo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bmezek1uAJ9m2JBzB0xJkozhGm8Ir6vbA/thEdFWK+phyjLCSF/YhGpm4ko3dGod5Uqv0RfAxEHGZpz9/U8DOjh0w3F8G0bl1amQCW+yEuby/02SlZy0AkhTfI3qjjX8U1HaWumc6kTbsrUM0HIxGaUoWR8adApy9ixTVE8+Tz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=RGgKQhgS; arc=none smtp.client-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b="NsoQhH14"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=lontium.com; s=default;
-	t=1785233134; h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type;
-	bh=bBH0cL6G6qap42QvvVNvtCdPPQMC/xd8/rQDEJIsUyo=;
-	b=NsoQhH14xoC4t8FDP+Jq3Dbsqi/mNoF/xVN60HkOXXwpPIkhceURvPnrAAax47j9C9UTxx27CwkoCv1W8Wq2Ze/T/Im0HT4U3ZNJfOm5xIkoiw6jod6eYe3UhUc8szhtr284dO9NvE4cPgF2b3U50rktOrTlNfGFOr7ZJdQ7IZG+c3TYOSebOHfcV3qQOwB78liJNnYDJ0Oa1fhsRrlMk6OIquEI/N3WrcqQlcfFp2jQ9MFCa1CkWYCpywD0yUPoAb/vZ6CbredtkISofgVjDbkVAmyt3FbBu9V4T9leITVbHnGCzesvEZvgSBb6N5tXqMJ8MU+JKgMmZEuIEb7UZg==
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.09451956|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0493304-0.000723678-0.949946;FP=3202147417340437341|5|1|6|0|-1|-1|-1;HT=maildocker-contentspam033037017159;MF=syyang@lontium.com;NM=1;PH=DS;RN=1;RT=1;SR=0;TI=SMTPD_---.iXKP8OB_1785233131;
-Received: from mail-oi1-f174.google.com(mailfrom:syyang@lontium.com fp:SMTPD_---.iXKP8OB_1785233131 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Tue, 28 Jul 2026 18:05:32 +0800
-Received: by mail-oi1-f174.google.com with SMTP id 5614622812f47-4a483a552efso1561122b6e.1
-        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 03:05:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rqu1j9x+GWn+P6zWJjF8bHKrNutcGOBdgXAGkNp/oQXPnSDZiihHoad6ZPuJ8TrQBfFApxi8N8UlY82@vger.kernel.org
-X-Gm-Message-State: AOJu0YyZn2x6Lgb/1JKjxt4zwJ+Xc+KbWgUhqq8KmbgyaPO0Vzq/zk5s
-	8NgbS3KW/iLo3o0LAde/GsTwF0uNOTpQk51W5F1byhw/U4zVLdkBpvEL1pGucIe6LeFxvWFpq9K
-	Itq73lRL3aUmUfgz50zsq/DSqnyaWls0=
-X-Received: by 2002:a05:6808:2211:b0:4a4:2424:eb23 with SMTP id
- 5614622812f47-4ad5bb23138mr1059928b6e.27.1785233130334; Tue, 28 Jul 2026
- 03:05:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="RGgKQhgS"
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c15e592da74so400068166b.1
+        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 03:06:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1785233163; x=1785837963; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9YUhY2kLHKMkStru04ihqtiLZEbioAB+gFNR7L1P5RY=;
+        b=RGgKQhgSy5hbCKjGqFFIemOkOM5dQmn9Mgp+OPsN2AksZZU2QX5o0PCJjJg6ImnNx1
+         s1nQKXFm/a5sJi4xvVEHgOgKtuIvAtZjMks0hVpW2tDPss6c/u5SRpMrPuz9gTBhFHs8
+         0GB7hi9gu2UhZ7KAAke6KuGnfo/fuMe5h/Ty+H0ubN944+mHXLxupmIyeBTSQgnDDMK9
+         4+SawC2sTjDzOTCoB3Y6ViCpZXhu4WNsDl5kp1x53MTml8ATmCPyoViUYwGy5gsUGIeF
+         yawckni0U0EJ/W6X3cLba0ykyh9LNDA8pHaCTynZIEXY5v+1v55iYgeedgLek1hxl7t8
+         NU/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785233163; x=1785837963;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9YUhY2kLHKMkStru04ihqtiLZEbioAB+gFNR7L1P5RY=;
+        b=sjpWYZIo+oSLoQ78CNDpfk72sd8uzjKgKq+ZNPzjh8/sVcb+M+ud00c8g/wlDfWfh3
+         yTABrHpASqWLHmifAp4W7GmawKYLOpw0Whf5FC2NKFwokL/YcOKswDbgl/j7urIbgtRQ
+         QM+H79o5TaAGqOrlZkc4nevB5ySq7KfPuOb18kR1HQLeEja1LJf0VGXmOGULAIvAzMqZ
+         QQBRDUWnKsHc2nOdpwu2nb7BpXeV+ga2U/zn19kExoHFwwLM9VGIZk6Il7l0/43FDoAm
+         6xD3KoZLylWevTbPaGK4AiYFDF/ukzT7t/MoAO4CibyKnTE/Jybxrinkq+zxH1YpFXJD
+         1p6A==
+X-Forwarded-Encrypted: i=1; AHgh+Rqxum7pQi3Y08uf2snQN3HPNjImxiSE4aNLAr5PGXO9SE1wTCCSYHmNBlpzA/OCOmnrPIeJuZF5h2p9@vger.kernel.org
+X-Gm-Message-State: AOJu0YwwuqaIIFn1vzr/ijyAcgCGBuoRe/BCQSR4XwnKS0iCplC8kuAS
+	+5EaWlBl02mfXah5cjkXXzjax4PvVwFkoNVl3ACq+DlVqFVgZG4Qv8SfFYqeGWh5puU=
+X-Gm-Gg: AR+sD11wSJHY+/s+wj+FA4ZulJivU/CBOzPeYdvc20ZH972Ic86S/s/krS6UKgI5PgI
+	mJFKePtS3YTGw35Tbjrr9jVv8M30gs6hrdmAFs0tWsZnXluQ78rs/7aNGMlo/PK03PuEIWN0fDs
+	/UpruAQwc43G/5RAEm5d0gJpeHBgB8Od/RkqxkucatYBGQMe6uzvWBUsrWOUnnX6+OyFa0q4ukT
+	woRHIxbJno/OYnupu+MPNvpNN5qmaj6ijGoH3vbaRWwursr1ihCED5M5UnfgtqzHFxqh8LKQbf7
+	NpoVFHN5te+fQuBNfpBhU/Bvwhq7bS/1WFpSgxVyNzhBwaW844VxJwVyb888xerjQ9KFqczLzsW
+	5DghfgK9fW2Zk7WCNH8TRduZIlwFxKbvgGeD92r8Gw/Q0199MdcBi4r2AvvBAqK5JFpqbr9w1/R
+	hGg6u7uVU8boCkyQ==
+X-Received: by 2002:a17:906:fe4e:b0:c16:677b:4d1f with SMTP id a640c23a62f3a-c1f72489d85mr86000166b.54.1785233162679;
+        Tue, 28 Jul 2026 03:06:02 -0700 (PDT)
+Received: from [192.168.0.101] ([109.77.204.94])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1c32ac9d79sm725854666b.21.2026.07.28.03.06.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 28 Jul 2026 03:06:02 -0700 (PDT)
+Message-ID: <a9eb7475-2682-4b9a-b401-6178282d34aa@linaro.org>
+Date: Tue, 28 Jul 2026 11:06:01 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260715015438.2770155-1-syyang@lontium.com> <tfkg2cjn4uznzy57rpkqwan26sduqzptnb7uwsucfboz37wz7k@rukuu36mozif>
- <CAFQXuNazLnXOr+qRug4De8W3U932aG9LVRVWgkHAE=ALSQ+ZGA@mail.gmail.com> <waw7uhdebjavtcdgcgvrdhos3vcervc3b6ggooj2zgkd6yq47v@kkzdagga6hoj>
-In-Reply-To: <waw7uhdebjavtcdgcgvrdhos3vcervc3b6ggooj2zgkd6yq47v@kkzdagga6hoj>
-From: Sunyun Yang <syyang@lontium.com>
-Date: Tue, 28 Jul 2026 18:05:18 +0800
-X-Gmail-Original-Message-ID: <CAFQXuNZGLkdcWe-nFhzV_1D83he26sxSGpW06aa=4wOD1vqufg@mail.gmail.com>
-X-Gm-Features: AUfX_mywJFi7PauVGw8ltpx0PR28MU_m9SRfrVypOLPLzksh8-UysZnr9i1qcw8
-Message-ID: <CAFQXuNZGLkdcWe-nFhzV_1D83he26sxSGpW06aa=4wOD1vqufg@mail.gmail.com>
-Subject: Re: [PATCH v17 0/2] Add Lontium LT7911EXC eDP to MIPI DSI bridge
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	andrzej.hajda@intel.com, neil.armstrong@linaro.org, 
-	maarten.lankhorst@linux.intel.com, rfoss@kernel.org, mripard@kernel.org, 
-	Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, jonas@kwiboo.se, 
-	jernej.skrabec@gmail.com, devicetree@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	xmzhu@lontium.corp-partner.google.com, xmzhu@lontium.com, rlyu@lontium.com, 
-	xbpeng@lontium.com, qdchen@lontium.com, llzhang@lontium.com, 
-	hfxia@lontium.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v13 5/5] dt-bindings: media: qcom,x1e80100-camss: Make
+ vdd-csiphy supplies optional
+To: sashiko-reviews@lists.linux.dev
+Cc: media-ci@linuxtv.org, neil.armstrong@linaro.org, robh@kernel.org,
+ devicetree@vger.kernel.org, olteanv@gmail.com, vkoul@kernel.org,
+ conor+dt@kernel.org, linux-phy@lists.infradead.org
+References: <20260728-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v13-0-ae811e2f0799@linaro.org>
+ <20260728-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v13-5-ae811e2f0799@linaro.org>
+ <20260728094212.0F6511F000E9@smtp.kernel.org>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20260728094212.0F6511F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=B9=B4=
-7=E6=9C=8828=E6=97=A5=E5=91=A8=E4=BA=8C 17:46=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Tue, Jul 28, 2026 at 09:56:11AM +0800, Sunyun Yang wrote:
-> > Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=
-=B9=B47=E6=9C=8828=E6=97=A5=E5=91=A8=E4=BA=8C 09:22=E5=86=99=E9=81=93=EF=BC=
-=9A
-> > >
-> > > On Wed, Jul 15, 2026 at 09:54:36AM +0800, syyang@lontium.com wrote:
-> > > > From: Sunyun Yang <syyang@lontium.com>
-> > > >
-> > > > The LT7911EXC is an I2C-controlled bridge that receives eDP1.4
-> > > > and output mipi dsi. This series introduces:
-> > > >
-> > > > - A device tree binding YAML file describing the hardware
-> > > > - A new DRM bridge driver implementing the basic functionality
-> > > >
-> > > > Signed-off-by: Sunyun Yang<syyang@lontium.com>
-> > > > ---
-> > > > Change in v17:
-> > > > - dt-binding:
-> > > > - drm/bridge:
-> > > >  1. [High] devm leak and list corruption on panel rebind           =
-                                       [sashiko-bot]
-> > > >            False positive. The -EBUSY guard at the top of host_atta=
-ch() (line 527) rejects re-attach
-> > > >            when output_bridge is already set, so neither devm_drm_o=
-f_get_bridge() nor drm_bridge_add()
-> > > >            is reached on panel rebind.
-> > >
-> > > This is not a changelog. Don't mix replies, with the changes in the
-> > > patches.
-> > >
-> > In the driver code, when I reply to the issues raised by the AI bot,
-> > the AI bot does not respond to me.
-> > In subsequent submissions, can I simply not reply to the AI bot's
-> > questions and only modify the issues that are useful for the driver?
->
-> AI is a _bot_. Talk to people. You should reply to the bot directly as
-> that's what the reviewers will see and consider.
->
+On 28/07/2026 10:42, sashiko-bot@kernel.org wrote:
+> [Severity: Medium]
+> Since the CSIPHY nodes are being moved out to peer nodes, do other properties
+> in this schema also need to be updated to prevent validation regressions?
+> 
+> For example, the reg-names, clock-names, and interrupt-names in this schema
+> are currently defined as strict, fixed-order arrays that expect csiphy elements
+> at specific indices. If those elements are removed from the CAMSS node to avoid
+> resource conflicts, won't the remaining elements shift and cause
+> dt_binding_check to fail?
+> 
+> Additionally, the ports schema mandates data-lanes on the CAMSS endpoints.
+> Is this requirement still correct for internal links between the CAMSS core
+> and a peer PHY, rather than physical lanes to the sensor?
 
-Thank you for the guidance, Dmitry. I will follow this rule in future
-submissions and describe the change log.
+A good guess but, no - illustrative of how LLMs "understand" stuff but 
+actually don't understand stuff.
 
->
-> --
-> With best wishes
-> Dmitry
+If the graph lookup and probe succeeds then the legacy regs/clocks are 
+never mapped by camss - if that lookup _fails_ then you absolutely need 
+the legacy stuff.
+
+"Dr Chandra will I dream" ?
+
+"I don't know"
+
+---
+bod
