@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 414AE37A846
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 04:00:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81FD1378823
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 04:00:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785211204; cv=none; b=E0AqTMRMwYg+vK3AWU2cSj8adjmG8l9ACJ9TnCTzA8afLW2wmO7cx02CBj6NbG11U9NjXYYIhKIZo4zQSaDI8lN5LUa5Bo7MUVTuHHA3EL7vTIGUVxIqRqiTEUYLk0zekcrhGitIwPvNy/6Dl1edLn3bTqmfnQOOlJEaGGpFce0=
+	t=1785211205; cv=none; b=ZDO+7Mi+s+3/1zfkY3YcaJHfWijOudby7lm/DC1E6S69f1uaijfOgJjowOU4HOjl7xSiA+zRBSZ3n8dqYXRWMOhL+KvhKAbxOFVlLvAwveYrXyAdJv2LQpcD8BmnGm/qPSGEgDP2aytYs1X5PA221QCatuPuInAkyQBZVgJCZcg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785211204; c=relaxed/simple;
-	bh=NEoCtTxSW83pbWYRWECwXWswxCExHSd9Jdcj5PDlVUU=;
+	s=arc-20240116; t=1785211205; c=relaxed/simple;
+	bh=4rYyVkWrLewnatl+OgNqafohfRUU3haCwwyXtLQJcTk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=c6prn5S6F8DawEwxl+4pIjHMNjbUeie7/ZaSwxsZu9J1kZa0hBTXMMtpWVYhnNSLkjTiKEZ+weJ9eUjPJam+V0gffAKAXhWew17B7tYN+JXO8LiXnpiGQgb87UY575LOl4jzMSh57LU4S67Oz7JEVdcTfIUFEJnRbV8PwFQ87eU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J4eV+pup; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=dzV4RLWErh79JLMIAN4OUu8fajO/SJSreW6IeJAyDc8KYSfTHqABxJulv4HXTK/WqZAIyhMFiPhbgZsZ4rM7kcZrZanmmQc+RguqWgEPe0cRh86iv7Sc6ME8MeinMxouon/Y5ZighhUoZGfq0G+NMp0DivSkOkGuJcRHxeoq07w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E9XCLLXy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J4eV+pup"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED0E01F00A3D;
-	Tue, 28 Jul 2026 03:59:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E9XCLLXy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D87D21F00A3E;
+	Tue, 28 Jul 2026 04:00:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785211200;
-	bh=PzIrvu31h+s27PQtyJV21nuWWjpQK69K2L8gNk2b9jI=;
+	s=k20260515; t=1785211202;
+	bh=tILFeDezqyENo65c7pybCsnCY38O+9uF30LCpwZj/Vc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=J4eV+pupi9hG3VU7FUX6Z8xzT2twA/wfUtxapA+Dh4NSPdNU8UNnjeLvCNq1vVN+k
-	 HiG0qTHnGXT89fbT1ble1Alf/lyp5ZRBK6PfDPCtqfYhhYLD8hikAz0rQTTODLmxdf
-	 Kz7q/ggiot1SwRiyXkzHCwelWjLCTOx9bNtXxZUpiUrsKHDUTxmsCU4oAGI6gMQAym
-	 yQavIrsKCXQk5qpPVqOgLdS5+iZXjwtrXxxdb/RupOsWJsB1Z24O5gYMsDTnkMxws5
-	 mEvAGc19KdrGHA25gAd/qNSl7JXYHsgH8muhPMIXCqHTAgISH5yGfjb/4hWeMqY2b6
-	 /4rpCOiJ8tq4w==
+	b=E9XCLLXySMgKTo1+6lfDXpZxWFDtq4O7r5XGJUBQ55shBkCaZ7E+W5Iunb8Cib24E
+	 KgnbNVy2g+l1iKqy+ZpZZlHarlSthiwt41cmL++mKp03wjY+Cy/Rv0f8G5WakPPCaK
+	 UpCffVPs/y9KLdjE75dvI8VIoP1wzrq19JB1bmY23ZamKK8gXWgD95UH7O6qJe+3jP
+	 pQ6kDr6aONCZQVEneDUWDdktM5whOc802iBlwh6pk/Q7IZ9ZT9wjfif+p38mCo3OPE
+	 7MP/8U/YVLyYp7UAzcODl/1Jqdrm7g0u/jUStYWhB5Y/Nt/Kc5w3yrVpj3VOnOudUo
+	 kpa9U6E0IjJIw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v4 2/5] net: dsa: mv88e6xxx: use ARRIVAL1
- counter for all peer delay messages
+Subject: Re: [PATCH net-next v4 3/5] net: dsa: mv88e6xxx: decouple the PTP
+ timecounter from the register lock
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Luke Howard" <lukeh@padl.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260727-mv88e6xxx-ptp-fixes-v4-2-10b4020155fc@padl.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260727-mv88e6xxx-ptp-fixes-v4-3-10b4020155fc@padl.com>
 References: <20260727-mv88e6xxx-ptp-fixes-v4-0-10b4020155fc@padl.com>
- <20260727-mv88e6xxx-ptp-fixes-v4-2-10b4020155fc@padl.com>
+ <20260727-mv88e6xxx-ptp-fixes-v4-3-10b4020155fc@padl.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 28 Jul 2026 03:59:59 +0000
-Message-Id: <20260728035959.ED0E01F00A3D@smtp.kernel.org>
+Date: Tue, 28 Jul 2026 04:00:00 +0000
+Message-Id: <20260728040001.D87D21F00A3E@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,64 +49,72 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Missing SKB Linearization for PTP Header Access
+- [High] Calling cancel_delayed_work_sync() while holding a mutex that the =
+work callback also acquires leads to an AB-BA deadlock.
 --
 
---- Patch [2]: [PATCH net-next v4 2/5] net: dsa: mv88e6xxx: use ARRIVAL1 co=
-unter for all peer delay messages ---
-commit 4e21fb1f9ef35cdb7536e32b19f9424e5f8c90e2
+--- Patch [3]: [PATCH net-next v4 3/5] net: dsa: mv88e6xxx: decouple the PT=
+P timecounter from the register lock ---
+commit 23ddfde2f70b36ac19aedfb1142d819436fc0957
 Author: Luke Howard <lukeh@padl.com>
 
-net: dsa: mv88e6xxx: use ARRIVAL1 counter for all peer delay messages
+net: dsa: mv88e6xxx: decouple the PTP timecounter from the register lock
 
-This commit updates the mv88e6xxx driver to use the second arrival counter
-(ARRIVAL1) for PDelayReq messages as well as PDelayResp messages. This allo=
-ws
-capturing timestamps for both when they arrive simultaneously from a peer.
+Use a dedicated spinlock, rather than the chip register mutex, to
+protect read access to the hardware timestamp cycle counter.
 
-> diff --git a/drivers/net/dsa/mv88e6xxx/hwtstamp.c b/drivers/net/dsa/mv88e=
-6xxx/hwtstamp.c
-> --- a/drivers/net/dsa/mv88e6xxx/hwtstamp.c
-> +++ b/drivers/net/dsa/mv88e6xxx/hwtstamp.c
-> @@ -323,9 +323,16 @@ static void mv88e6xxx_rxtstamp_work(struct mv88e6xxx=
-_chip *chip,
->  				   &ps->rx_queue2);
->  }
+> diff --git a/drivers/net/dsa/mv88e6xxx/ptp.c b/drivers/net/dsa/mv88e6xxx/=
+ptp.c
+> index f7603573d3a98..2a7f97625e375 100644
+> --- a/drivers/net/dsa/mv88e6xxx/ptp.c
+> +++ b/drivers/net/dsa/mv88e6xxx/ptp.c
+> @@ -231,15 +231,37 @@ static void mv88e6352_tai_event_work(struct work_st=
+ruct *ugly)
 > =20
-> -static int is_pdelay_resp(const struct ptp_header *hdr)
-> +static bool is_pdelay_msg(const struct ptp_header *hdr)
->  {
-> -	return (hdr->tsmt & 0xf) =3D=3D 3;
-> +	switch (ptp_get_msgtype(hdr, PTP_CLASS_V2)) {
+>  	/* We only have one timestamping channel. */
+>  	ev.index =3D 0;
+> -	mv88e6xxx_reg_lock(chip);
+> -	ev.timestamp =3D timecounter_cyc2time(&chip->tstamp_tc, raw_ts);
+> -	mv88e6xxx_reg_unlock(chip);
+> +	ev.timestamp =3D mv88e6xxx_timecounter_cyc2time(chip, raw_ts);
+> =20
+>  	ptp_clock_event(chip->ptp_clock, &ev);
+>  out:
+>  	schedule_delayed_work(&chip->tai_event_work, TAI_EVENT_WORK_INTERVAL);
+>  }
 
 [Severity: High]
-This is a pre-existing issue, but can this dereference of the header cause =
-an
-out-of-bounds read if the PTP packet is fragmented?
+This isn't a bug introduced by this patch, but while reviewing this worker I
+noticed a potential deadlock.
 
-Looking at ptp_parse_header() which provides the hdr pointer, it ensures the
-header is within the total length of the SKB, but it does not seem to check=
- if
-it is within the linear data buffer:
+If a userspace process calls the PTP_EXTTS_REQUEST ioctl to disable external
+timestamps (on=3D0), it reaches mv88e6352_ptp_enable_extts() which takes the
+reg_lock mutex:
 
-net/core/ptp_classifier.c:ptp_parse_header() {
-    ...
-	/* Ensure that the entire header is present in this packet. */
-	if (ptr + sizeof(struct ptp_header) > skb->data + skb->len)
-		return NULL;
-
-	return (struct ptp_header *)ptr;
+drivers/net/dsa/mv88e6xxx/ptp.c:mv88e6352_ptp_enable_extts() {
+...
+	mv88e6xxx_reg_lock(chip);
+...
+	} else {
+...
+		cancel_delayed_work_sync(&chip->tai_event_work);
+	}
+...
 }
 
-If a maliciously crafted or fragmented PTP packet pushes the header into the
-non-linear paged fragments, could this direct pointer access read past the
-linear boundary when ptp_get_msgtype() accesses hdr->tsmt?
+Concurrently, the delayed worker tai_event_work can fire, and it attempts
+to take reg_lock via mv88e6xxx_reg_lock() earlier in the function:
 
-The same concern seems to apply to the read of hdr->sequence_id in
-mv88e6xxx_port_txtstamp() on the TX path.
+drivers/net/dsa/mv88e6xxx/ptp.c:mv88e6352_tai_event_work() {
+...
+	mv88e6xxx_reg_lock(chip);
+	err =3D mv88e6xxx_tai_read(...);
+...
+}
 
-[ ... ]
+Because cancel_delayed_work_sync() is waiting for the worker to finish while
+holding the mutex the worker needs, can this lead to an AB-BA deadlock?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727-mv88e6xxx-=
-ptp-fixes-v4-0-10b4020155fc@padl.com?part=3D2
+ptp-fixes-v4-0-10b4020155fc@padl.com?part=3D3
