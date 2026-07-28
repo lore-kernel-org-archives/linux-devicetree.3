@@ -1,44 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A579A36A340;
-	Tue, 28 Jul 2026 11:47:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E55642BEB9;
+	Tue, 28 Jul 2026 11:47:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785239231; cv=none; b=uhaZXFzHmNDvRvw1bBIVudAHIbh3VvvHQn1d034QRfuHt+48ZjaoSMKQiI8VmPLbg8328vMBwzmP9hngdrmcrAI9gNv8CDrH6M2oOh3THePfRI20vnU6PDRk+A2TRJ9GvgFbmZtKZ7ejWWDN57QRMZQDg1FtHGo6cP9cU2fzvYw=
+	t=1785239265; cv=none; b=EYkIc7tdEkizjZHnPRLHuVE4bdkP5clioNrG7ZOOwjrzOqRT9z0mxmdUHOLV6y6ruzpWjVn7zFndBCY5A+tZews3p3xsfMbRecoPWm0W3wPY210lp6RK3rogAqzs9YfUVw3peGPVSelclA279dS+fmWQG8DRhAmfoTMvdnhq5so=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785239231; c=relaxed/simple;
-	bh=rK+2Kdy1HzPnYODLZSpSfWRswH4Sy6H+7CzGfzv0Gqg=;
+	s=arc-20240116; t=1785239265; c=relaxed/simple;
+	bh=b/ihtlr15K8JVnOlUyfmiUPDlP+8E/XJpgR0li8qucg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cKPzptWuOg9ELisMz3XcV0b1PhZf9DMhMNgjIKPRNOAltr0WfZ+yeKlNe8EjXhhXu1IWasQlEOWZzDs9rb6QKqPO27vM2nVTUNcsFLYn7+7GAsoldklM9XZxXMHJ35EdCM5LwM0N52L2zxxBraXegiMOzAQVpBdp4bj2JSWy4mM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gdT9UaTr; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=dIR7SDr8e4M6vmPLFmzQqqVnpHa+0L0BRQo8f03HYBHv3PST5KWC6+kV86vAZw82iUb097m3SKlr0havt3n+fjzC4uhgVu8gGWAiLBR+j0P1HMe/7mMWhb0GLaI4S8aCWn0CotWRTmJRrsC3KkOdf0CXFAMOXGGw1Tkt7yYF0TE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=etQeWE0Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gdT9UaTr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 967631F000E9;
-	Tue, 28 Jul 2026 11:47:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="etQeWE0Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B77761F000E9;
+	Tue, 28 Jul 2026 11:47:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785239230;
-	bh=kz328Jkxf+8X1DF5jn9LNfWNLIBNgP8sOglDIke6D+s=;
+	s=k20260515; t=1785239263;
+	bh=d1kX/2BkcFPx00SzT9s8BBrA//d/t9d2pxkdmPH02XM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gdT9UaTr8H9qzj59Gqk9lm2OTK9NYQ7TkumIo/tEBM+oUeD3WB+7GCYmeEtKp8V28
-	 Hq0O15kGjthYdOtdzGYvdNps1hvHT9bt0vSpvH5Xr9BYGVaoA+vJOj3dOfe3YB0TL0
-	 nGktxq4Rul/JXef/5Pb8jBxEiIXDptRm3ozLkjFcM5liyTelQ8hsdFvhB5pFc/t2Te
-	 1rKMBq78YDkm+Yzb4HfAaBrHnhiOy9crELqopiiAK22Dd+2RzHQz34qL1BWRD5vjUn
-	 f91lNwaRsVYIwBQamJNMSMretqVs+YOv7rtZHicL3bqlaeatWg3WgOTmuzu8gULsxH
-	 jzDZm+b4D6QAg==
-Date: Tue, 28 Jul 2026 13:47:06 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Zi-Yu Chen <zychennvt@gmail.com>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>, 
-	Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
-	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: watchdog: Add MA35D1 Watchdog binding
-Message-ID: <20260728-poetic-outstanding-salmon-6fabb3@quoll>
-References: <20260724091427.1689980-1-zychennvt@gmail.com>
- <20260724091427.1689980-2-zychennvt@gmail.com>
+	b=etQeWE0ZOjyJqTVlDWQbq5PZbsEw/jGbJ7o2iN1SX7Zhy7Mw8DMzIKD21YRPN2+rX
+	 CPKcV5T306U77NWVVkYX0UGW9TZY854Ob9JfRUKw7iXsqnOTI7TMcU9g3hlbIlPc16
+	 3vPDw8C2G7usSz4BQ0R1/HDJW1UJe/DdgxPhF2SHX66DijysZcsVeJlULzXVKEcjQk
+	 Q/r/gMf0FlR1A+o5y5loJQCisFASow3ORcjosHXV8pw14gfL2OWtbDPcc9beRDjEVa
+	 W19rBW41tBBVGXXTun5OUKXBKEzkRph0lHTKUbCVh2UMCWC5RtN0Yc0Nu0qU9lqjzx
+	 EPtrqPNcP1ehQ==
+Date: Tue, 28 Jul 2026 11:47:39 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-clk@vger.kernel.org,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 0/3] clk: spacemit: k3: fix i2s clock topology and
+ divider rates
+Message-ID: <20260728114739-GKD76518@kernel.org>
+References: <20260717-k3-clk-fix-i2s-v1-0-e95001a692ee@linux.spacemit.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,21 +50,54 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260724091427.1689980-2-zychennvt@gmail.com>
+In-Reply-To: <20260717-k3-clk-fix-i2s-v1-0-e95001a692ee@linux.spacemit.com>
 
-On Fri, Jul 24, 2026 at 05:14:25PM +0800, Zi-Yu Chen wrote:
-> Add device tree binding documentation for the watchdog timer (WDT)
-> controller found on Nuvoton MA35D1 SoC.
+On 00:26 Fri 17 Jul     , Troy Mitchell wrote:
+> The K3 i2s clock tree was modelled on the K1 layout but does not match
+> the actual K3 hardware topology, leading to incorrect clock rates being
+> reported and programmed.
 > 
-> Signed-off-by: Zi-Yu Chen <zychennvt@gmail.com>
+> Three fixes are provided in dependency order:
+> 
+> First, the MPMU_ISCCR syscon register is renamed to MPMU_ISCCR1 to
+> match the hardware register name, and MPMU_ISCCR0 (offset 0x0040) is
+> added. This prepares the header for the clock topology corrections that
+> follow.
+> 
+> Second, the clock topology is reworked to reflect the real hardware:
+> the common i2s_sysclk DDN at MPMU_ISCCR1 is renamed from "i2s1_sysclk",
+> an implicit 1/2 factor (i2s_bclk_factor) is introduced before i2s_bclk,
+> and the dedicated i2s1 clock path (i2s1_sysclk_src MUX + i2s1_sysclk
+> DDN backed by MPMU_ISCCR0) is added. CLK_MPMU_I2S1_SYSCLK keeps its
+> existing ID but now refers to the real per-instance i2s1 clock; no
+> in-tree user references this ID so the semantic change is contained.
+> 
+> Third, the per-instance i2s sysclk DDNs (i2s{0,2,3,4,5}_sysclk_div)
+> are corrected to account for the hardware-internal 1/2 factor by setting
+> pre_div to 2 instead of 1, so clk_get_rate() and clk_set_rate() report
+> and program the real hardware rate.
+> 
+For the series, looks good
+Reviewed-by: Yixun Lan <dlan@kernel.org>
 
-A nit, subject: drop second/last, redundant "binding". The
-"dt-bindings" prefix is already stating that these are bindings.
-See also:
-https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
+> ---
+> Troy Mitchell (3):
+>       dt-bindings: soc: spacemit: k3: add i2s_sysclk, i2s_bclk_factor and i2s1_sysclk_src IDs
+>       clk: spacemit: k3: fix i2s clock topology
+>       clk: spacemit: k3: fix missing /2 factor in i2s sysclk dividers
+> 
+>  drivers/clk/spacemit/ccu-k3.c                  | 31 +++++++++++++++++---------
+>  include/dt-bindings/clock/spacemit,k3-clocks.h |  3 +++
+>  include/soc/spacemit/k3-syscon.h               |  3 ++-
+>  3 files changed, 26 insertions(+), 11 deletions(-)
+> ---
+> base-commit: c425609d6ac4012c8bbf01ec2e10e801b1923a7b
+> change-id: 20260615-k3-clk-fix-i2s-5e278a472061
+> 
+> Best regards,
+> --  
+> Troy Mitchell <troy.mitchell@linux.spacemit.com>
+> 
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Best regards,
-Krzysztof
-
+-- 
+Yixun Lan (dlan)
