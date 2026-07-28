@@ -1,105 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-4327.protonmail.ch (mail-4327.protonmail.ch [185.70.43.27])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07F0F33F588;
-	Tue, 28 Jul 2026 16:04:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24D0D363C5E
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 16:07:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.27
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785254700; cv=none; b=S8t2+b2PXuXAKe/H5JtRsozPql7MeM162kQ67bObV03wzZ1Sd2f9Xqi/8DMxAgOH7oC9s64YLPHoBnVFrAz4EZ5sPatHW8JcSJIU4MiOfII0orlskl2jYlpOXyOVng+Gzf/uDuqzp5acJZwcEmeenjhmtjdnyo2b80rMl19jVBg=
+	t=1785254847; cv=none; b=bPmRW7YvaG88ojhZ7Jf/fpWrc5w1ccsnPICzgf0sEjOj5vXcD+LNmkDgAvXSkVzMvAKUReS01yK3tffJ9i6Qa5DmcT03/oNivoC4sC7b3qdM4lS0td14lDEch2Rbry+DCCrntte9hzsvJIt5TRQiqBLAtfFATyK6t11DJzPYnMo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785254700; c=relaxed/simple;
-	bh=CMWvIrclDQSsdA+6BYLRb6Lt3zv1XS3lSNZBvnXLdUs=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=JPzklW/jI4W9sJ9OnjvuTjOYGpCGego5zR7VNzh7vERSgMyZB2XdDppjCW4twzKwZlE7NaH0kbArbb1ZenRbO+iYamkKHfG3A60KHzlNgtLzXTqgkjQVH5vEbPmUBojbmsPKTsHCYupxQYT7RggYrxmtgIG8c8Rty7FdR3f1bVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dZ/YjqvG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785254847; c=relaxed/simple;
+	bh=O9u5qLEzN513Om7tTBxbIoKa911cL3ZjjhICsAk3Ta0=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=F7Sa0RsXnf15JcDfJXSk39/YfE/Y7yrkDkdoycdfvTRvW6sp73x0vjaV7tjOR4fgBMcJsaLKoo6Dt/3IxcQMhIpe4+w6wJEnOZzbnYyLhlMu92gaVEIDbC3SvZAcyjVYaylS14IrPelCj4cmV+As6xx6uj7eH7EPyV8JB/6EGAk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=CFcuX9hD; arc=none smtp.client-ip=185.70.43.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dZ/YjqvG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 702CF1F00A3E;
-	Tue, 28 Jul 2026 16:04:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785254698;
-	bh=DjqNI1wU5JMKwBFt8yKOLhjjaeWTrzshQutENKjjkro=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=dZ/YjqvGGD/guacJDNhFJtlAMXq/qWqaQpysACSIHNNTkX93Rtb/e/xlmRcRRaKWN
-	 ABAHU7GSJaAs7OFYnmGMDiiRX+TCG8kCdZCd7XRQT9pekGpOC5yIs2394+tVJZKA8J
-	 y36+ZpkdRMY/Jp6lrceP1NTmiDjJSE+yr5KPCm/8BwLWIumdKkJLfhNJxXQdxh5f58
-	 fmMh9mitKzYwxxpyZgVJzvCW7+U6XVp+1zvXGCKn/KfucuAKPrztT3Qo/M/7sTnUSL
-	 5WQrNG3XoO/ZV6NF3qcIUd1RU3XYWF2LdziBz5D4kG83H0TMN+ut+T6VyTT8cc3INw
-	 ocu2tPnNcOgVA==
-Date: Tue, 28 Jul 2026 11:04:57 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Alex Elder <elder@riscstar.com>, manivannan.sadhasivam@oss.qualcomm.com,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>, linux-pci@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/6] PCI/pwrctrl: tc9563: Skip Tx amplitude and DFE
- tuning for DSP3
-Message-ID: <20260728160457.GA1316307@bhelgaas>
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="CFcuX9hD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1785254440; x=1785513640;
+	bh=O9u5qLEzN513Om7tTBxbIoKa911cL3ZjjhICsAk3Ta0=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=CFcuX9hDoRFEIdPhuObcBEVaVxjQWI2FiWrhf8l+pqg+uxDmxwZcVN1gyXFsJij51
+	 r1E4kexzupQ07ZmDLD6ODjXQjzzLbInQSPMi2B1hq+NsboyUlKWMU2/aeEKXaleY+K
+	 hvUy7AQCleteYc2evkNi7wtqAv0Jdb7lVN0fROaelqzVGbV/wNww8iBURfsUIagmk6
+	 052/kag9A760pV1ocsaHUnvEkh1JbVADPuW/d1DyqTdBU6eKrMnenC5W63V+yqO835
+	 WWZrH0J1M99h/djzSXClecv5MRdxuLpTF/aDVjf4x6BdXbz3kfNIujdhMXRwmvhUWs
+	 Wt+lTrSkvxYdg==
+Date: Tue, 28 Jul 2026 16:00:31 +0000
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+From: Roman Vivchar <rva333@protonmail.com>
+Cc: Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, Houlong Wei <houlong.wei@mediatek.com>, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH 2/3] soc: mediatek: cmdq-helper: add legacy GCE ISA support
+Message-ID: <4DqPgMQaTb-zCbBTf04csJMoranOuYdtkQxgWLAAMyshzMog89Cp2d2k8v5j2g3Jx04-pj5eij-a9VdmPqLDLE641ZyKuyciNUIC2lZ_sNc=@protonmail.com>
+In-Reply-To: <79379dbb-5e15-4e30-ab1d-136a40e77af0@collabora.com>
+References: <20260728-6572-gce-v1-0-750bba32689e@protonmail.com> <20260728-6572-gce-v1-2-750bba32689e@protonmail.com> <ebf419fc-24a8-472f-8996-a134ece69f21@collabora.com> <W3cNtJeiPe6gmMpfpNJOxa6NQtOyatXIFz6FyCh7pC8jkE90WX_1g3AgQwXadoba0BdHE3com-6cCkym5VCN5d-3sobraI8O4-TGwkqnWBA=@protonmail.com> <79379dbb-5e15-4e30-ab1d-136a40e77af0@collabora.com>
+Feedback-ID: 173184497:user:proton
+X-Pm-Message-ID: 779905ee24277d9a19628456e16ec17556306f92
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <oefxm7olagbd3dby2npgly7ausiz3g6cvls5igaxdzvlbr3wrv@rjlfebi2p36j>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jul 28, 2026 at 03:25:29PM +0200, Manivannan Sadhasivam wrote:
-> On Mon, Jul 27, 2026 at 10:59:11AM -0500, Alex Elder wrote:
-> > On 7/25/26 3:59 AM, Manivannan Sadhasivam via B4 Relay wrote:
-> > > From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> > > 
-> > > DSP3 doesn't support tuning Tx amplitude and DFE settings. So just skip
-> > > the setting if DT has passed the tuning properties. There is no need to
-> > > error out the whole driver because of it.
-> > > 
-> > > Fixes: 4c9c7be47310 ("PCI: pwrctrl: Add power control driver for TC9563")
-> > > Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> > 
-> > So to keep things simple, tc9563_pwrctrl_parse_device_dt() is called
-> > for all downstream ports but you ignore the setting (with a warning)
-> > for those that do not apply to DSP3.
-> > 
-> > What about tc9563_pwrctrl_set_nfts()?
-> 
-> Good catch! I missed adding the check for N_FTS as well:
-> 
-> ```
-> diff --git a/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c b/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
-> index 9d869483b6b3..978907aa0ce5 100644
-> --- a/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
-> +++ b/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
-> @@ -410,11 +410,17 @@ static int tc9563_pwrctrl_set_nfts(struct tc9563_pwrctrl *tc9563,
->                 {TC9563_NFTS_2_5_GT, nfts[0]},
->                 {TC9563_NFTS_5_GT, nfts[1]},
->         };
-> +       struct device *dev = tc9563->pwrctrl.dev;
->         int ret;
-> 
->         if (!nfts[0])
->                 return 0;
-> 
-> +       if (port == TC9563_VDSP) {
-> +               dev_dbg(dev, "N_FTS tuning not supported for VDSP\n");
-> +               return 0;
-> +       }
-> +
->         ret =  tc9563_pwrctrl_i2c_write(tc9563->client, TC9563_PORT_SELECT,
->                                         BIT(port));
->         if (ret)
-> ```
-> 
-> @Bjorn: Could you please amend the above diff with this commit?
+On Tuesday, July 28th, 2026 at 6:52 PM, AngeloGioacchino Del Regno <angelog=
+ioacchino.delregno@collabora.com> wrote:
 
-It didn't apply cleanly (maybe whitespace damage?), but I applied it
-by hand:
-https://git.kernel.org/cgit/linux/kernel/git/pci/pci.git/commit/?id=b859b9366b44
+> On 7/28/26 17:47, Roman Vivchar wrote:
+> > Hi Angelo,
+> >
+> > On Tuesday, July 28th, 2026 at 6:08 PM, AngeloGioacchino Del Regno <ang=
+elogioacchino.delregno@collabora.com> wrote:
+> >
+> >> On 7/28/26 11:42, Roman Vivchar via B4 Relay wrote:
+> >>> From: Roman Vivchar <rva333@protonmail.com>
+> >>>
+> >>> Some SoCs, such as mt6572, have different WRITE and POLL instruction
+> >>> encoding. Instead of 16-bit offset and 8-bit subsystem ID, old GCEs h=
+ave
+> >>> 22-bit offset and 2-bit subsystem ID.
+> >>
+> >> What about poll_addr, mask, write_s, write_s_mask and others?
+> >
+> > These don't seem to exist in all 65xx except 6595. TL;DR - old GCEs are
+> > essentially dumb compared to newer ones. They have only basics like MAS=
+K (0x2),
+> > WRITE (0x4), POLL (0x8), JUMP (0x10), WFE (0x20) and EOC (0x40). All lo=
+gical
+> > operations as well as GPR/SPR don't seem to exist.
+> >
+> > cmdq_pkt_poll_addr, write_s, write_s_mask are not used by the DRM subsy=
+stem.
+> > mask is the same across all GCEs because it takes only u32 mask without
+> > address.
+> >
+> >> Not sure that this will actually work reliably (though I'm sure you're=
+ not
+> >> creating any regression).
+> >
+> > I have tested this change (on top of out-of-tree mt6572 DRM) with some
+> > dd if=3D/dev/urandom of=3D/dev/null spam + modetest, as well as igt. Se=
+ems to
+> > work without issues...
+> >
+> > Best regards,
+> > Roman
+>=20
+> Alright then - look, I'd really want to pick this one up, but it's a bit =
+late
+> in the cycle and I don't really have much time left for testing.
+>=20
+> I'm sure that this is fine, but please understand me - I can't take this =
+now,
+> also because I'm going on holiday very soon and can't be here to take car=
+e of
+> sudden breakages.
+>=20
+> I wonder if you could resend it in the next cycle, preferrably at the beg=
+inning?
+
+Sure, no problem :)
+
+>=20
+> Meanwhile, I'll get this series on the Collabora trees so that it gets cy=
+cled by
+> the CI a bit (though, it's not enough, because that needs to be tested ma=
+nually).
+
+I don't know if this one can be tested with the upstream tree (if you mean
+legacy ISA)... Most likely you need some 65xx (besides 6577 and 6595) or
+81xx, but I don't know about 81xx GCE. There's some effort for 6582 and
+6589, but none has DRM (and so GCE) so far.
+
+Best regards,
+Roman
