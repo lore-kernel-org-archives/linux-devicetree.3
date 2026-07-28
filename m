@@ -1,294 +1,274 @@
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D94912874FB;
-	Tue, 28 Jul 2026 01:17:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77E32282F1B;
+	Tue, 28 Jul 2026 01:20:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785201438; cv=none; b=EdwZ2Bnv1KvIsnTJbq01yTrS5SEtVzOnwGuEhnn8csLt6dZiNMRyZcvVpqFq9YXxz2Mi8OVtl9cVwwHHGLnW1MCeSr3y8Lt78vnhF80a59cSUexWlMiRYFUDb+zOYseYzdeAGO5JWNheNrPEDoqnoSxgg+oM+Xck8ch1R2kY3K4=
+	t=1785201608; cv=none; b=HWTAxEXm9KD50Zokjzz62ZZM3YEzaTBYCVwclI96b3xoIA+whcaafkiuHzeTwNsi0gTDddA5OLTXb2D52CVxE3uaEAw0ETD80HGEswq9DU/BNCY9cj2Dtx2aa54HoBjLYOtUtP6ydmWtMzbHjzZoFUqPtyJCKbCvxNc/wjnyGoc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785201438; c=relaxed/simple;
-	bh=4kk3DIi3hSeJaKg4+WCxopCMwm57xBawPHQg2dH8qeM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mP8DukQwdfPx9bECTfl3dGiJEwRizlC+lnbVRGsVihLCNMAyB5yi4CILYfXqhlZ5DVX7OeCfuySwe9NfSwxG5oJyMmw3X+KdZJpXz+40kvP8NEL0BbBEUha5AKhgTyP556ylUJun+fEoFzOoyfgvkm+h8dxWsusXIJoyBKxp8+c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=wYwybWiP; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=OBGMvRel; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1785201608; c=relaxed/simple;
+	bh=V5Mj8+KXokuuedqJV0YZXgawcmpOl3xxL72RlJ0hmsk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=sXVIfyqn0Bd4P0B6gesxq3XaQsb7owZdBJadQUHdzSzm3U+AL3mtV41ItvrG5kEswMABep4VE5P7svjHAnRF2QEcLSCKVlEG8oWUVoeJfRv4gjgb2d5zcaryHXB7HsLvwzhQYUZM9JPsh5gCFDxYbZPKqbCr3edRBAxHbJbV1qI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SlM5RqTi; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="wYwybWiP";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="OBGMvRel"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4h8Hch0NnLzMlSl;
-	Tue, 28 Jul 2026 03:17:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1785201428;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5CLFfspPnUGdZYl6Z1z8fzTCeZlqO+IczWtXHc5c3eM=;
-	b=wYwybWiPXKnXvG7Q0vz4meL03FYrm2Hihcl+iMG1GXEYrVsGFrWc2NOR/JAx08XoIBWccA
-	RHrMPtNE9Go4OGVm0qCeZ9jkT9UjrIufwc4UzBXtltzgkhyrlOIm2oSZZ/5T+Ol108qatB
-	WX+8cS+10IJ4oR+sqcs2OjT7bwToEbylJOdIvB1h8zjbBMsk+1aJI23PKEEATAje/0Iasu
-	S0I2azGLK0lm7HOVNeKiObYbvXI+nobVeJwWwG2OXaGGmdEdXi6VNvwZH84mB2f1vCAsUD
-	T+WoTj/McBcVIeB2RT6CE7btjQXD2WPHDXVUejuiI4jxq0st5j3qaWfLCX/LMg==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=OBGMvRel;
-	spf=pass (outgoing_mbo_mout: domain of marek.vasut+renesas@mailbox.org designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=marek.vasut+renesas@mailbox.org
-From: Marek Vasut <marek.vasut+renesas@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1785201426;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5CLFfspPnUGdZYl6Z1z8fzTCeZlqO+IczWtXHc5c3eM=;
-	b=OBGMvRelaGWJnHitRDk+1ek9TsXEvD0YhQXO8M0gvefRHvxQ+jLRTSQBfIX8Y7/+CPjHPX
-	7Gy3XgPHYfhK4NQ2fiET5m1W8LzfCEftKXfYWUsN+mUjZGn8P+OHWzokpAzMxZ1oj3oz+w
-	IVaIAwOSCW7WBawKkjCalfBDqsuT4DruDt79hVJ8y1I4Qlo/ZjnRa2l++xogqfGxqtQnxU
-	TB/dE67gZMZ6nFJqa8WP3t1MVYur4kV949Qh139j/RJoA5epj2bzrsfoAYJiZI1OIFohBw
-	9v48MuYDL8HDF3W4LeQ3tE5ojyN/BQ3pMC3ViFYqs6EIgL0Sxuq0+Rn4zy9usg==
-To: linux-usb@vger.kernel.org
-Cc: Thanh Quan <thanh.quan.xn@renesas.com>,
-	Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: [PATCH v1 2/2] usb: dwc3: Add Renesas R-Car Gen5 DWC3 xHCI USB controller glue
-Date: Tue, 28 Jul 2026 03:14:59 +0200
-Message-ID: <20260728011656.465040-2-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260728011656.465040-1-marek.vasut+renesas@mailbox.org>
-References: <20260728011656.465040-1-marek.vasut+renesas@mailbox.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SlM5RqTi"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2440AC2BCF7;
+	Tue, 28 Jul 2026 01:20:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1785201608;
+	bh=V5Mj8+KXokuuedqJV0YZXgawcmpOl3xxL72RlJ0hmsk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=SlM5RqTiErJpwFR0i4TXPD0h/8228k7Rfd+2r5zoG1/VOGC7YDTjzoI1tlpy7wUvy
+	 ldASWMumEYvz5cOXxW4hQhJTV9XPD116BnWE1Se2hKeoUXZBnYFcfI1/3r4rP1LqQc
+	 yxTWNH10hHaHS1xzEsaE2I255kbKRB8oaK8vtoQoHl3/ByQBMcxs6sNB3cvBR+99Px
+	 QfaoBchTjW0Yj0cp6KcYHFiDD1yvA9CvCJpUDVfqyNpoYvwOyg2OlI9kadDJxx+5Bg
+	 soMQHmyI6nUohUjGfGYcm9w8u2KZ7ppvlKykkIrO9npnIMlvrPCyzLjxyEAG6mO5OX
+	 2HGFe9mKQB7rg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F04B9C531D0;
+	Tue, 28 Jul 2026 01:20:07 +0000 (UTC)
+From: Esteban Urrutia via B4 Relay <devnull+esteuwu.proton.me@kernel.org>
+Date: Mon, 27 Jul 2026 21:19:34 -0400
+Subject: [PATCH 1/2] dt-bindings: usb: Add Parade PS5169 redriver bindings
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: w6s96og8o5wye9q3xpjma6gwcijxdpff
-X-MBO-RS-ID: cb3a2a15fd7947fff26
-X-Rspamd-Queue-Id: 4h8Hch0NnLzMlSl
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260727-ps5169-bup-v1-1-c76a8ef3b239@proton.me>
+References: <20260727-ps5169-bup-v1-0-c76a8ef3b239@proton.me>
+In-Reply-To: <20260727-ps5169-bup-v1-0-c76a8ef3b239@proton.me>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
+ Esteban Urrutia <esteuwu@proton.me>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785201606; l=5782;
+ i=esteuwu@proton.me; s=20260622; h=from:subject:message-id;
+ bh=XrA62lSi9Hct6BU2/Wdu52E9fNAtqyvkYTG62kpPHKI=;
+ b=8bz18Ihb1Qg5UqyBDz0eoMxkYcAU6/IakynLwaYmoG+feEFhtBR8cpCi1X6t5TF0uJYWzt1XK
+ gV1gTymgeVADdWxMtROq/NKUSJBeS9MhjXBoMTePXOp7S0dKzKxzb69
+X-Developer-Key: i=esteuwu@proton.me; a=ed25519;
+ pk=wToFt4mOAWkzbqb15Ye1hrhevI13vK9BcMUFiQ/me1M=
+X-Endpoint-Received: by B4 Relay for esteuwu@proton.me/20260622 with
+ auth_id=835
+X-Original-From: Esteban Urrutia <esteuwu@proton.me>
+Reply-To: esteuwu@proton.me
 
-From: Thanh Quan <thanh.quan.xn@renesas.com>
+From: Esteban Urrutia <esteuwu@proton.me>
 
-The Renesas R-Car Gen5 SoC contains multiple instances of DWC3 USB
-controller with glue logic wrapper around them. Add driver for the
-glue logic around the DWC3 USB controller core.
+Add bindings for the Parade PS5169 and PS5170 USB Type-C linear redrivers.
+The difference between PS5169 and PS5170 is that PS5170 features an
+embedded AUX switch, while PS5169 does not.
+Future-proof the binding by adding PS5170 as well.
 
-Signed-off-by: Thanh Quan <thanh.quan.xn@renesas.com>
-Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
 ---
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-renesas-soc@vger.kernel.org
-Cc: linux-usb@vger.kernel.org
----
- drivers/usb/dwc3/Kconfig          |  10 ++
- drivers/usb/dwc3/Makefile         |   1 +
- drivers/usb/dwc3/dwc3-rcar-gen5.c | 150 ++++++++++++++++++++++++++++++
- 3 files changed, 161 insertions(+)
- create mode 100644 drivers/usb/dwc3/dwc3-rcar-gen5.c
+ .../devicetree/bindings/usb/parade,ps5169.yaml     | 186 +++++++++++++++++++++
+ 1 file changed, 186 insertions(+)
 
-diff --git a/drivers/usb/dwc3/Kconfig b/drivers/usb/dwc3/Kconfig
-index 18169727a413e..7d8ee192b1241 100644
---- a/drivers/usb/dwc3/Kconfig
-+++ b/drivers/usb/dwc3/Kconfig
-@@ -234,4 +234,14 @@ config USB_DWC3_GOOGLE
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called dwc3-google.ko.
- 
-+config USB_DWC3_RCAR_GEN5
-+	tristate "Renesas R-Car Gen5 DWC3 Platform Driver"
-+	depends on ARCH_RENESAS || COMPILE_TEST
-+	default USB_DWC3
-+	help
-+	  Support the DesignWare Core USB3 IP found on Renesas R-Car Gen5
-+	  SoC. This driver provides the glue layer for the USB controller
-+	  on Renesas R-Car Gen5 platform.
-+	  Say 'Y' or 'M' if you have such device.
-+
- endif
-diff --git a/drivers/usb/dwc3/Makefile b/drivers/usb/dwc3/Makefile
-index f37971197203e..99bbd147f0b5f 100644
---- a/drivers/usb/dwc3/Makefile
-+++ b/drivers/usb/dwc3/Makefile
-@@ -61,3 +61,4 @@ obj-$(CONFIG_USB_DWC3_OCTEON)		+= dwc3-octeon.o
- obj-$(CONFIG_USB_DWC3_RTK)		+= dwc3-rtk.o
- obj-$(CONFIG_USB_DWC3_GENERIC_PLAT)	+= dwc3-generic-plat.o
- obj-$(CONFIG_USB_DWC3_GOOGLE)		+= dwc3-google.o
-+obj-$(CONFIG_USB_DWC3_RCAR_GEN5)	+= dwc3-rcar-gen5.o
-diff --git a/drivers/usb/dwc3/dwc3-rcar-gen5.c b/drivers/usb/dwc3/dwc3-rcar-gen5.c
+diff --git a/Documentation/devicetree/bindings/usb/parade,ps5169.yaml b/Documentation/devicetree/bindings/usb/parade,ps5169.yaml
 new file mode 100644
-index 0000000000000..344d0851559f5
+index 000000000000..23ca8e6c0491
 --- /dev/null
-+++ b/drivers/usb/dwc3/dwc3-rcar-gen5.c
-@@ -0,0 +1,150 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Renesas USB device driver with DWC3 integration
-+ *
-+ * Copyright (C) 2025-2026 Renesas Electronics Corporation
-+ */
++++ b/Documentation/devicetree/bindings/usb/parade,ps5169.yaml
+@@ -0,0 +1,186 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/usb/parade,ps5169.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+#include <linux/clk.h>
-+#include <linux/delay.h>
-+#include <linux/err.h>
-+#include <linux/io.h>
-+#include <linux/module.h>
-+#include <linux/of_platform.h>
-+#include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/reset.h>
++title: Parade PS5169 USB Type-C linear redriver
 +
-+struct dwc3_rcar_gen5_priv {
-+	void __iomem		*base;
-+	struct clk		*clk;
-+	bool			use_usb3_flow;
-+};
++maintainers:
++  - Esteban Urrutia <esteuwu@proton.me>
 +
-+static int dwc3_rcar_gen5_init(struct dwc3_rcar_gen5_priv *priv)
-+{
-+	/*
-+	 * The datasheet describes initialization procedure without full
-+	 * information about the registers. Therefore, the source code is
-+	 * based on the bare metal code shared by the board team.
-+	 */
-+	writew(0x211, priv->base + 0x26);
++properties:
++  compatible:
++    oneOf:
++      - items:
++          - const: parade,ps5170
++          - const: parade,ps5169
++      - const: parade,ps5169
 +
-+	/* USB3 does not need additional register programming. */
-+	if (priv->use_usb3_flow)
-+		return 0;
++  reg:
++    maxItems: 1
 +
-+	writew(0x11, priv->base + 0x81c);
-+	writew(0x0, priv->base + 0x81a);
-+	writew(0x1, priv->base + 0x802);
++  vcc-supply:
++    description: 1.8V power supply
 +
-+	usleep_range(10000, 20000);
++  reset-gpios:
++    maxItems: 1
 +
-+	writew(0x0, priv->base + 0x802);
-+	writew(0x1, priv->base + 0x2a);
-+	writew(0x1, priv->base + 0x81a);
++  orientation-switch: true
++  retimer-switch: true
 +
-+	usleep_range(10000, 20000);
++  parade,dp-eq-level:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      Equalization level for DisplayPort channels which is mapped to decibels.
++    # 0: 2    dB
++    # 1: 5.5  dB
++    # 2: 6.5  dB
++    # 3: 7.5  dB
++    # 4: 8    dB
++    # 5: 8.5  dB
++    # 6: 9.5  dB
++    # 7: 10   dB
++    enum: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
 +
-+	return 0;
-+}
++  parade,usb-rx-eq-level:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      Equalization level for USB receive channels which is mapped to decibels.
++    # 0: 5.2  dB
++    # 1: 6    dB
++    # 2: 7    dB
++    # 3: 8    dB
++    # 4: 8.8  dB
++    # 5: 9.6  dB
++    # 6: 10.4 dB
++    # 7: 11.2 dB
++    enum: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
 +
-+static int dwc3_rcar_gen5_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct device_node *subnode;
-+	struct reset_control *reset;
-+	const char *maximum_speed;
-+	struct dwc3_rcar_gen5_priv *priv;
-+	int ret;
++  parade,usb-tx-eq-level:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      Equalization level for USB transmit channels which is mapped to decibels.
++    # 0: 2    dB
++    # 1: 5.5  dB
++    # 2: 6.5  dB
++    # 3: 7.5  dB
++    # 4: 8    dB
++    # 5: 8.5  dB
++    # 6: 9.5  dB
++    # 7: 10   dB
++    enum: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
 +
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
++  parade,aux-rx-data-reverse:
++    type: boolean
++    description:
++      Please check the driver before specifying this property.
++      Usage of this property is design-specific.
 +
-+	platform_set_drvdata(pdev, priv);
++  parade,fine-tune-lfps-swing:
++    type: boolean
++    description:
++      If this property is specified a 50 ohm termination will be set on the USB receive channels.
++      Usage of this property is design-specific.
 +
-+	priv->base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(priv->base))
-+		return dev_err_probe(dev, PTR_ERR(priv->base), "Failed to map registers\n");
++  parade,dp-set-gain:
++    type: boolean
++    description:
++      If this property is specified a gain of -0.9 dB will be applied on the DisplayPort channels.
 +
-+	reset = devm_reset_control_get(dev, NULL);
-+	if (IS_ERR(reset))
-+		return dev_err_probe(dev, PTR_ERR(reset), "Failed to get reset control\n");
++  parade,usb-rx-set-gain:
++    type: boolean
++    description:
++      If this property is specified a gain of -0.9 dB will be applied on the USB receive channels.
 +
-+	priv->clk = devm_clk_get(dev, NULL);
-+	if (IS_ERR(priv->clk))
-+		return dev_err_probe(dev, PTR_ERR(priv->clk), "Failed to get clock control\n");
++  parade,usb-tx-set-gain:
++    type: boolean
++    description:
++      If this property is specified a gain of -0.9 dB will be applied on the USB transmit channels.
 +
-+	subnode = of_get_compatible_child(dev->of_node, "synopsys,dwc3");
-+	if (!subnode)
-+		return dev_err_probe(dev, -ENODEV, "Failed to find DWC3 subnode node\n");
++  ports:
++    $ref: /schemas/graph.yaml#/properties/ports
++    properties:
++      port@0:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: Super Speed (SS) Output endpoint to the Type-C connector
 +
-+	ret = of_property_read_string(subnode, "maximum-speed", &maximum_speed);
-+	of_node_put(subnode);
-+	if (ret)
-+		return dev_err_probe(dev, -ENODEV, "Failed to determine maximum speed\n");
++      port@1:
++        $ref: /schemas/graph.yaml#/$defs/port-base
++        description: Super Speed (SS) Input endpoint from the Super-Speed PHY
++        unevaluatedProperties: false
 +
-+	priv->use_usb3_flow = !strcmp(maximum_speed, "super-speed-plus") ||
-+			      !strcmp(maximum_speed, "super-speed");
++required:
++  - compatible
++  - reg
++  - vcc-supply
++  - reset-gpios
++  - orientation-switch
++  - retimer-switch
 +
-+	ret = devm_pm_runtime_enable(dev);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to enable runtime PM\n");
++allOf:
++  - $ref: usb-switch.yaml#
++  - $ref: usb-switch-ports.yaml#
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: parade,ps5170
++    then:
++      properties:
++        ports:
++          properties:
++            port@2:
++              $ref: /schemas/graph.yaml#/properties/port
++              description:
++                Sideband Use (SBU) AUX lines endpoint to the Type-C connector for the purpose of
++                handling altmode muxing and orientation switching.
 +
-+	ret = pm_runtime_resume_and_get(dev);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to resume runtime PM\n");
++additionalProperties: false
 +
-+	return devm_of_platform_populate(dev);
-+}
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
 +
-+static int __maybe_unused dwc3_rcar_gen5_suspend(struct device *dev)
-+{
-+	struct dwc3_rcar_gen5_priv *priv = dev_get_drvdata(dev);
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
 +
-+	clk_disable_unprepare(priv->clk);
++        typec-retimer@30 {
++            compatible = "parade,ps5169";
++            reg = <0x30>;
 +
-+	return 0;
-+}
++            vcc-supply = <&vreg_s10b_1p8>;
++            reset-gpios = <&tlmm 54 GPIO_ACTIVE_LOW>;
 +
-+static int __maybe_unused dwc3_rcar_gen5_resume(struct device *dev)
-+{
-+	struct dwc3_rcar_gen5_priv *priv = dev_get_drvdata(dev);
-+	int ret;
++            orientation-switch;
++            retimer-switch;
 +
-+	ret = clk_prepare_enable(priv->clk);
-+	if (ret) {
-+		dev_err(dev, "Failed to enable clock on resume: %d\n", ret);
-+		return ret;
-+	}
++            parade,dp-eq-level = <0>;     /* 2   dB */
++            parade,usb-rx-eq-level = <0>; /* 5.2 dB */
++            parade,usb-tx-eq-level = <0>; /* 2   dB */
 +
-+	usleep_range(10000, 20000);
++            parade,aux-rx-data-reverse;
++            parade,fine-tune-lfps-swing;
 +
-+	return dwc3_rcar_gen5_init(priv);
-+}
++            ports {
++                #address-cells = <1>;
++                #size-cells = <0>;
 +
-+static DEFINE_RUNTIME_DEV_PM_OPS(dwc3_rcar_gen5_pm_ops,
-+				 dwc3_rcar_gen5_suspend,
-+				 dwc3_rcar_gen5_resume, NULL);
++                port@0 {
++                    reg = <0>;
++                    usb_con_ss: endpoint {
++                        remote-endpoint = <&typec_con_ss>;
++                    };
++                };
 +
-+static const struct of_device_id dwc3_rcar_gen5_of_match[] = {
-+	{ .compatible = "renesas,rcar-gen5-usb" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, dwc3_rcar_gen5_of_match);
-+
-+static struct platform_driver dwc3_rcar_gen5_driver = {
-+	.probe		= dwc3_rcar_gen5_probe,
-+	.driver		= {
-+		.name	= "renesas-rcar-gen5-usb",
-+		.of_match_table = dwc3_rcar_gen5_of_match,
-+		.pm	= &dwc3_rcar_gen5_pm_ops,
-+	},
-+};
-+
-+module_platform_driver(dwc3_rcar_gen5_driver);
-+
-+MODULE_AUTHOR("Thanh Quan");
-+MODULE_DESCRIPTION("Renesas R-Car X5H USB Glue Layer Driver");
-+MODULE_LICENSE("GPL");
++                port@1 {
++                    reg = <1>;
++                    phy_con_ss: endpoint {
++                        remote-endpoint = <&usb_phy_ss>;
++                    };
++                };
++            };
++        };
++    };
++...
+
 -- 
-2.53.0
+2.55.0
+
 
