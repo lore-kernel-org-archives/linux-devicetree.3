@@ -1,65 +1,64 @@
-Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com [209.85.160.54])
+Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com [209.85.160.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47B7B477998
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C4D54749E7
 	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 22:58:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785279496; cv=none; b=bXYCOtecdE7BbvQ1qUyYpblZy/85FgHQPmt6tFYjJKXduUAWfgyqqDHX6exWLV58G9NQ9bJPEYgezoS+faBft6ZB7uHbXOgvxYRQZ3YdP0sKNuHQkYP6TAdE70Lvk+n5Awai4734NJKp0tRQO5RP0Qj+0V6yIOdIKdqOxXtMogE=
+	t=1785279496; cv=none; b=g6gE+JJDVNCgor65coY1A4flDVJ+28nHArW3r0ZE4K1PIZegaK4k0KlApjYunnsDDkWoX0eQ+L5DstE3LQspk9PIvtYcnhIUeLVobABI6ODhJwRQyosAmGLp1MY/htp3RBx3sp5ejTmKGGaLf2tTT25MuGiuDNLpOiNpIOMtohQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785279496; c=relaxed/simple;
-	bh=D6sJHlEYiwJlYgjs8rVMwlNjixgsqo8hneitLOi2kwM=;
+	bh=gZAVNAenNNe8ShNpW+y1uL8RlMk/a2pYRFQS9VthVm8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dDl6+uTF2muYCalwmeqvKw4euDApLgPggSxggQVCp+pyydy9+NaAo+ye8ko/at0DIG53UA4NrNcuMngyKJ15NQctpgDZNAHFHiqHM2sLaM6KOXN4Ot+hHb8zVIh1I4Aq4gHbhUTvQxcReijC02YFa1KZ1bGzcVbcmLvI1IDua58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TKBcg8pE; arc=none smtp.client-ip=209.85.160.54
+	 MIME-Version; b=Ft81adjnGCTKrOE1gj8f93IcSQNzTUrfcLXgHOsWPWlAdMMfUMhSO09dUb9gw4kJ5xW1kyVKN7uJaQpis2YxtbrJGck8H5uxaI5Otk5GHnlslGwxGorUx13hKSdlnTeYWmCfT6WMO3l8uOUPOPxgyFYfRxk60vhnwYkxrwBiUao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NxZ5D+xR; arc=none smtp.client-ip=209.85.160.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TKBcg8pE"
-Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-44cd237446cso171517fac.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NxZ5D+xR"
+Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-43b7e186a0cso100227fac.0
         for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 15:58:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785279493; x=1785884293; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=50F5mRgpqPvmKKjCLRrhJ9L7gJbpklm0K6az4nkvCb8=;
-        b=TKBcg8pE2nBFxKT0GjnOmftJsTOpkKohKgn5x86zJFEue6nYzFZ276nj37vnamx7fI
-         OQdBrU03W1itnimDznSwPM4Nrcxy9820z5bPKRfVi0WouPdA5aGLpyzkFYaCqSkEJrFG
-         6CtTmr9OzIXNlAc2GlyouC1qQb34O/08+xlkL32NKGxgdjJ/3c7UL4KHdlUM9h32reuG
-         Q/wB8CKiYyuA0uNwfuUlLuQT0rP8VTe/+/satVB7ouGXNMLzSmd9z7GBT4rCeYulV7bs
-         UlyjVMdeuR/obGmKWRrdscsvxTqhTIUKYnk6BmVXQp9Rs0j9qqE2dVadIY8BXygXeVUY
-         qOAw==
+        d=gmail.com; s=20251104; t=1785279494; x=1785884294; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=a0mdfiM3qjdIeg57ItkPiqiLUsLGffK5s/s59dcT3jw=;
+        b=NxZ5D+xR9vFeQeN7GGppFvCkY5CyIJ2DFLe7Aql5KixIayPMpEJQOtwDs4O3OMPThz
+         NefCRduJGkGeHNHiC0eEKZ8LTY6ctzJhyhsVHjwfU+fTAiF9XpOObKi5thdl+Xwa5XT2
+         PLqVHuIe63KF9Fcb+Uywvu5z/lIz6keSl0dikIsdYsx4QIg21J/l5Ee1rztx4AfQ6r+o
+         EYrkwOZVc09ATuqrYPbBjge55ut+BcKg9GB/RuakLyLvvY5ABI+MZ9Fk46cRf7PswrCa
+         HjW48L9jaT67TuY8nmCK3fCiMT+d/jALLtOjdZkNZZ5OX6UmFIFU8ev8SHA6pBZnIKUj
+         YlFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785279493; x=1785884293;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=50F5mRgpqPvmKKjCLRrhJ9L7gJbpklm0K6az4nkvCb8=;
-        b=d5pFrd2tJbhIkpPK0hVeI3m9vDXA3Qm5qk5dHlV4qMB8T4CLAdfGsYtz3UxDxAMC1O
-         4sAQybWjB40FZGo0EVT06wQRGdcEwn+3C0AC3YPbTpeuj2OxxquvNR1BcOfq25mhewnz
-         WGxCBKRrS+ej/6qEb0pSptLuGx1YDkkvVKheOc4XjUCtTIcYdFU/4DhQYOiyHvr3i6A2
-         C6eNpidmYwAr4Akdkt8X9xYm0Fia7GDo0si2LrjWx/c9yvfT+3hUBwOMpDRXaUpCUoxq
-         NpoA4FFIyrKNKqL/hdlmRUpddx5P9QJRAMcqgTliWLiZOkGQ3X/mlDMVPoeHI7SazY08
-         BBZw==
-X-Forwarded-Encrypted: i=1; AHgh+RptqlVhSJ5WWD7cewv9WG2vVvjTJHyvQclETTLX44f6Q1vsIcNgWKxl4vd1sQrE44xwr2uDeLmqpjEY@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx8lAWPhsue/6zHrJB38fjwtnZqWIbbJHn3dp7Tdrv/6yJpFmUI
-	JBhdaWLDehktyP1SgvrZlQ5/Ixt54M92MCu8z3uSuaAPR+8kXZm97W0a
-X-Gm-Gg: AR+sD13aAy9exdht3ooyyA6jYa1TwTyN2GF4X9uN2rHlUsfSS7p0SGuokv4PTD66WKK
-	va2bCHWhlpe9Bzw6J2RAWFFV/K+um6p4Zk8pBqQKcspaSiHOtgbJ/++CJNd4BXLxaY3hKe0VoS6
-	Fflp5MlGtd32XjMUJd00YTIMeqFC64DxM/xfGx5KgnOONOPYfF/RFlSdU85J1bqW/0VWS+MIR+Q
-	2LVF0XSLJ5CSZgk3axQnGYaEeYV/XcxaRKidsBIJ9A3Z8Z6RLbraSyQj3EnDWOOHPd92H0hr1mq
-	hKEAUY3ibr/qYFOk8OQyxnSKSLJMerRW8ONjjBnJHRx5stJrCh9jSzkSfdg7cq2686efXHvRhOd
-	tJLnEAUUeGZduvkLs4gope1QqhMbub2pMu9/RFC8MkOrXDOiMKtWSPEJimO5lbrc/1uye53Nv15
-	7BCCNekCZWVbRnbqaEQIr1xmH9J30Ut9M//evroUqAsCSkz3eX88BzjPU7L2CQpGvLmkurElA0w
-	aVMbhKf
-X-Received: by 2002:a05:6870:f107:b0:456:4c93:a7f8 with SMTP id 586e51a60fabf-4586cc3051cmr2315297fac.6.1785279492907;
-        Tue, 28 Jul 2026 15:58:12 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1785279494; x=1785884294;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=a0mdfiM3qjdIeg57ItkPiqiLUsLGffK5s/s59dcT3jw=;
+        b=MU9WTrGUavvvn1Rc9EgE+uM8Z3FVpRwQDxVns8qWktb//gkqbCza5Ql5wZuGFnvrP1
+         7vNQBq2v4749q1yWM+HaQ/d0K4AizBCpvCxab4Jmw1+T8sYXMEdZaTgWNj0IXRUJiTII
+         B254JoDFFqNb7z86z2JGkP8HGVfBkFJsS3GQeJ1EsuG5uYye9zj/U0w7Uy9sNck8p/gy
+         7vl64/rz8sSc55JaJNVFenE24KC8VNhPeMiwy2nFOqfaG88E+QjfsC30X3CQ1sGvVeLp
+         svwsaxFjqb8XOfiyZtaZ+mZpHRTPzNO7zloUk2zypHgMyNBIp9CEQ5U9aaZBoKYaJrpW
+         rpOQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrEqBoflLSNF6wZYjwdDNy7P+NntF5jp23Y5gj8ULd3S+1HP+aqzIGX5v6wqXp3qV13nk2LoupUj+iX@vger.kernel.org
+X-Gm-Message-State: AOJu0YzaltTfWbK+tv/bcoeQ77sPw4Y3q5jCAXxgmZ6BL/gggl0iRZxa
+	SHyh6YWUwH4smHo8vt4gOhBEPZptZn7ivjS4WRvZbM5M3/gbPSR2e9oQ
+X-Gm-Gg: AR+sD13tMk3kkA9Umkh+YfmPS90DF6UephS8hz99c6eC5TLLqQQY7o/gRydnnCUbLlX
+	imNTARef5tXnq/wgPFl9wh55cMx7YRXoDFnja3fByrk6FAnh0QN9hwJmNb3lk3MVu18+nfcl38O
+	MnOOv0DHbqTlA5vKXPCnMp1gxxERwlmut5AlnqsZPfLdj884tyU4SF7tsm973Zzidhj9oTQhXKm
+	FedpD2MUjKYgqYnL8Jm4OC/IccuuO/RljVnxebypmBXZtD33N/DQ35XqxpbLLa3LkNm2BAu/kVC
+	V+C9WU1B0s7GJKMazTOaRDythzuE5dHBCn6L5bOjhYBw6E45I3Cx8GLN50OjBWOEOUaj4HLv+21
+	LaoG7VncyrZo19Xu/3YdtrVzFZogCfYwUD/V2jpPkGr878m1ivyNy9/I/6ld72HYL5gcdIHd1ba
+	CdQo7x6x0WINFnJgacIoEEcUjUn2nOflx6MXoLh0rbp3Y4ng+2k+nr1ogegntWCE76Dfpbs4uva
+	i8YLZZnAeSFH240TW4=
+X-Received: by 2002:a05:6870:5b95:b0:447:9dcd:ad3 with SMTP id 586e51a60fabf-4586cb510a9mr2652330fac.18.1785279493899;
+        Tue, 28 Jul 2026 15:58:13 -0700 (PDT)
 Received: from localhost.localdomain ([2600:1700:fb0:1bc0:9162:e42b:cb94:2d55])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4588646ade0sm990277fac.5.2026.07.28.15.58.12
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4588646ade0sm990277fac.5.2026.07.28.15.58.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Jul 2026 15:58:12 -0700 (PDT)
+        Tue, 28 Jul 2026 15:58:13 -0700 (PDT)
 From: Chris Morgan <macroalpha82@gmail.com>
 To: linux-iio@vger.kernel.org
 Cc: andy@kernel.org,
@@ -75,9 +74,9 @@ Cc: andy@kernel.org,
 	robh@kernel.org,
 	andriy.shevchenko@intel.com,
 	Chris Morgan <macromorgan@hotmail.com>
-Subject: [PATCH V21 8/9] iio: imu: inv_icm42607: Add Temp Support in icm42607
-Date: Tue, 28 Jul 2026 17:55:39 -0500
-Message-ID: <20260728225542.174825-9-macroalpha82@gmail.com>
+Subject: [PATCH V21 9/9] arm64: dts: rockchip: Add icm42607p IMU for RG-DS
+Date: Tue, 28 Jul 2026 17:55:40 -0500
+Message-ID: <20260728225542.174825-10-macroalpha82@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260728225542.174825-1-macroalpha82@gmail.com>
 References: <20260728225542.174825-1-macroalpha82@gmail.com>
@@ -87,265 +86,37 @@ List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 From: Chris Morgan <macromorgan@hotmail.com>
 
-Add functions for reading temperature sensor data.
+Add the Invensense ICM42607P IMU for the Anbernic RG-DS. Mount-matrix
+was tested with iio-sensor-proxy and reports correct orientation.
 
 Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
 ---
- drivers/iio/imu/inv_icm42607/Makefile         |  1 +
- .../iio/imu/inv_icm42607/inv_icm42607_accel.c |  8 ++
- .../iio/imu/inv_icm42607/inv_icm42607_gyro.c  |  8 ++
- .../iio/imu/inv_icm42607/inv_icm42607_temp.c  | 99 +++++++++++++++++++
- .../iio/imu/inv_icm42607/inv_icm42607_temp.h  | 38 +++++++
- 5 files changed, 154 insertions(+)
- create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_temp.c
- create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_temp.h
+ arch/arm64/boot/dts/rockchip/rk3568-anbernic-rg-ds.dts | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/iio/imu/inv_icm42607/Makefile b/drivers/iio/imu/inv_icm42607/Makefile
-index 8e73385c8f4b..7b907e019601 100644
---- a/drivers/iio/imu/inv_icm42607/Makefile
-+++ b/drivers/iio/imu/inv_icm42607/Makefile
-@@ -4,6 +4,7 @@ obj-$(CONFIG_INV_ICM42607) += inv-icm42607.o
- inv-icm42607-y += inv_icm42607_core.o
- inv-icm42607-y += inv_icm42607_gyro.o
- inv-icm42607-y += inv_icm42607_accel.o
-+inv-icm42607-y += inv_icm42607_temp.o
+diff --git a/arch/arm64/boot/dts/rockchip/rk3568-anbernic-rg-ds.dts b/arch/arm64/boot/dts/rockchip/rk3568-anbernic-rg-ds.dts
+index 8d906ab02c5f..b770bfd5268d 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3568-anbernic-rg-ds.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3568-anbernic-rg-ds.dts
+@@ -871,7 +871,13 @@ aw87391_pa_r: audio-codec@5b {
+ 		sound-name-prefix = "Right Amp";
+ 	};
  
- obj-$(CONFIG_INV_ICM42607_I2C) += inv-icm42607-i2c.o
- inv-icm42607-i2c-y += inv_icm42607_i2c.o
-diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
-index f563c7708420..0b3f035c2da0 100644
---- a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
-+++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
-@@ -15,6 +15,7 @@
- #include <linux/types.h>
- 
- #include "inv_icm42607.h"
-+#include "inv_icm42607_temp.h"
- 
- #define INV_ICM42607_ACCEL_CHAN(_modifier, _index, _ext_info)			\
- {										\
-@@ -40,6 +41,7 @@ enum inv_icm42607_accel_scan {
- 	INV_ICM42607_ACCEL_SCAN_X,
- 	INV_ICM42607_ACCEL_SCAN_Y,
- 	INV_ICM42607_ACCEL_SCAN_Z,
-+	INV_ICM42607_ACCEL_SCAN_TEMP,
+-	/* invensense,icm42607p at 0x68 */
++	icm42607p: imu@68 {
++		compatible = "invensense,icm42607p";
++		reg = <0x68>;
++		mount-matrix = "-1", "0", "0",
++			       "0", "1", "0",
++			       "0", "0", "-1";
++	};
  };
  
- static const struct iio_chan_spec_ext_info inv_icm42607_accel_ext_infos[] = {
-@@ -54,6 +56,7 @@ static const struct iio_chan_spec inv_icm42607_accel_channels[] = {
- 				inv_icm42607_accel_ext_infos),
- 	INV_ICM42607_ACCEL_CHAN(IIO_MOD_Z, INV_ICM42607_ACCEL_SCAN_Z,
- 				inv_icm42607_accel_ext_infos),
-+	INV_ICM42607_TEMP_CHAN(INV_ICM42607_ACCEL_SCAN_TEMP),
- };
- 
- static const int inv_icm42607_accel_scale_nano[][2] = {
-@@ -187,6 +190,11 @@ static int inv_icm42607_accel_read_raw(struct iio_dev *indio_dev,
- 	switch (chan->type) {
- 	case IIO_ACCEL:
- 		break;
-+	case IIO_TEMP:
-+		if (mask != IIO_CHAN_INFO_SAMP_FREQ)
-+			return inv_icm42607_temp_read_raw(indio_dev, chan,
-+							  val, val2, mask);
-+		break;
- 	default:
- 		return -EINVAL;
- 	}
-diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
-index b68d4d6f5c3f..5b4683c2dd1e 100644
---- a/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
-+++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
-@@ -15,6 +15,7 @@
- #include <linux/types.h>
- 
- #include "inv_icm42607.h"
-+#include "inv_icm42607_temp.h"
- 
- #define INV_ICM42607_GYRO_CHAN(_modifier, _index, _ext_info)			\
- {										\
-@@ -40,6 +41,7 @@ enum inv_icm42607_gyro_scan {
- 	INV_ICM42607_GYRO_SCAN_X,
- 	INV_ICM42607_GYRO_SCAN_Y,
- 	INV_ICM42607_GYRO_SCAN_Z,
-+	INV_ICM42607_GYRO_SCAN_TEMP,
- };
- 
- static const struct iio_chan_spec_ext_info inv_icm42607_gyro_ext_infos[] = {
-@@ -54,6 +56,7 @@ static const struct iio_chan_spec inv_icm42607_gyro_channels[] = {
- 			       inv_icm42607_gyro_ext_infos),
- 	INV_ICM42607_GYRO_CHAN(IIO_MOD_Z, INV_ICM42607_GYRO_SCAN_Z,
- 			       inv_icm42607_gyro_ext_infos),
-+	INV_ICM42607_TEMP_CHAN(INV_ICM42607_GYRO_SCAN_TEMP),
- };
- 
- static const int inv_icm42607_gyro_scale_nano[][2] = {
-@@ -184,6 +187,11 @@ static int inv_icm42607_gyro_read_raw(struct iio_dev *indio_dev,
- 	switch (chan->type) {
- 	case IIO_ANGL_VEL:
- 		break;
-+	case IIO_TEMP:
-+		if (mask != IIO_CHAN_INFO_SAMP_FREQ)
-+			return inv_icm42607_temp_read_raw(indio_dev, chan,
-+							  val, val2, mask);
-+		break;
- 	default:
- 		return -EINVAL;
- 	}
-diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_temp.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_temp.c
-new file mode 100644
-index 000000000000..53f0484c0845
---- /dev/null
-+++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_temp.c
-@@ -0,0 +1,99 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (C) 2026 InvenSense, Inc.
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/cleanup.h>
-+#include <linux/device.h>
-+#include <linux/err.h>
-+#include <linux/iio/iio.h>
-+#include <linux/mutex.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regmap.h>
-+#include <linux/types.h>
-+#include <linux/unaligned.h>
-+
-+#include "inv_icm42607.h"
-+#include "inv_icm42607_temp.h"
-+
-+static int inv_icm42607_temp_read(struct inv_icm42607_state *st, s16 *temp)
-+{
-+	struct inv_icm42607_sensor_conf conf = INV_ICM42607_SENSOR_CONF_INIT;
-+	struct device *dev = regmap_get_device(st->map);
-+	int ret, gyro_mode, accel_mode;
-+	unsigned int val;
-+	u8 raw[2];
-+
-+	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
-+	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-+	if (ret)
-+		return ret;
-+
-+	guard(mutex)(&st->lock);
-+
-+	/*
-+	 * Check if both the gyro and accel are off and if so, enable one
-+	 * of them. The temp sensor cannot be read if both the gyro and
-+	 * accel sensor are off. Prefer to enable the accel over the gyro
-+	 * as the datasheet says the gyro uses 5x more power and it has
-+	 * a minimum run time of 45ms.
-+	 */
-+	ret = regmap_read(st->map, INV_ICM42607_REG_PWR_MGMT0, &val);
-+	if (ret)
-+		return ret;
-+
-+	accel_mode = FIELD_GET(INV_ICM42607_PWR_MGMT0_ACCEL_MODE_MASK, val);
-+	gyro_mode = FIELD_GET(INV_ICM42607_PWR_MGMT0_GYRO_MODE_MASK, val);
-+	if (!gyro_mode && !accel_mode) {
-+		/* enable accel sensor */
-+		conf.mode = INV_ICM42607_SENSOR_MODE_LOW_NOISE;
-+		ret = inv_icm42607_set_sensor_conf(st, &conf, IIO_ACCEL);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	ret = regmap_bulk_read(st->map, INV_ICM42607_REG_TEMP_DATA1,
-+			       raw, sizeof(raw));
-+	if (ret)
-+		return ret;
-+
-+	*temp = get_unaligned_be16(raw);
-+	if (*temp == INV_ICM42607_DATA_INVALID)
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
-+int inv_icm42607_temp_read_raw(struct iio_dev *indio_dev,
-+				struct iio_chan_spec const *chan,
-+				int *val, int *val2, long mask)
-+{
-+	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
-+	s16 temp;
-+	int ret;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_RAW:
-+		ret = inv_icm42607_temp_read(st, &temp);
-+		if (ret)
-+			return ret;
-+		*val = temp;
-+		return IIO_VAL_INT;
-+	/*
-+	 * T°C = (temp / 128) + 25
-+	 * Tm°C = 1000 * ((temp * 100 / 12800) + 25)
-+	 * scale: 100000 / 12800 ~= 7.8125
-+	 * offset: 3200
-+	 */
-+	case IIO_CHAN_INFO_SCALE:
-+		*val = 7;
-+		*val2 = 812500000;
-+		return IIO_VAL_INT_PLUS_NANO;
-+	case IIO_CHAN_INFO_OFFSET:
-+		*val = 3200;
-+		return IIO_VAL_INT;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_temp.h b/drivers/iio/imu/inv_icm42607/inv_icm42607_temp.h
-new file mode 100644
-index 000000000000..18499b4d0b94
---- /dev/null
-+++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_temp.h
-@@ -0,0 +1,38 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+/*
-+ * Copyright (C) 2026 InvenSense, Inc.
-+ */
-+
-+#ifndef INV_ICM42607_TEMP_H_
-+#define INV_ICM42607_TEMP_H_
-+
-+#include <linux/bitops.h>
-+
-+struct iio_dev;
-+struct iio_chan_spec;
-+
-+#define INV_ICM42607_TEMP_CHAN(_index)				\
-+{								\
-+	.type = IIO_TEMP,					\
-+	.info_mask_separate =					\
-+		BIT(IIO_CHAN_INFO_RAW) |			\
-+		BIT(IIO_CHAN_INFO_OFFSET) |			\
-+		BIT(IIO_CHAN_INFO_SCALE),			\
-+	.info_mask_shared_by_all =				\
-+		BIT(IIO_CHAN_INFO_SAMP_FREQ),			\
-+	.info_mask_shared_by_all_available =			\
-+		BIT(IIO_CHAN_INFO_SAMP_FREQ),			\
-+	.scan_index = _index,					\
-+	.scan_type = {						\
-+		.sign = 's',					\
-+		.realbits = 16,					\
-+		.storagebits = 16,				\
-+		.endianness = IIO_BE,				\
-+	},							\
-+}
-+
-+int inv_icm42607_temp_read_raw(struct iio_dev *indio_dev,
-+			       struct iio_chan_spec const *chan,
-+			       int *val, int *val2, long mask);
-+
-+#endif
+ &i2c3 {
 -- 
 2.43.0
 
