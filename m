@@ -1,212 +1,160 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E5D74734C2
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 19:58:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD6A459AF8;
+	Tue, 28 Jul 2026 20:10:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785268734; cv=none; b=CdDVPVP3vONJR5jXhb9KD4KrXtp9PKke2ZCr9ixmnWwfpEnKOTymbtwC3XFQUXGLPpH8wxWzGIrMGYG23ht3zpcqYkj/AvzpOPq8bcGz9R5Riry6u6N8Qu3fSpbWqq/Ch/WPORGgAvc6q0KAKOIXQTEIlciNal+VZDzSwOuKYHY=
+	t=1785269419; cv=none; b=q8dt3EPcW+ZXGeVoe4IzjQh4P9LnjoTrQQ6jndVx2IqLjtUyE4XJ9sf5I3Iys3y9pcH21IAXFuRLxMLmfp2OvNn5R5CF669+9xnRLx8Bs0YwWPjfaozqlyc4d5aevE71KaONGnVxHXvAd7U5u3OUyBW389mgfdsGBsj/kryekzc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785268734; c=relaxed/simple;
-	bh=kjFZhfNCIZJllmTaPC4Z/UjMx0C3kevmnaBtfmER7b8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EKgszTmrWY87tq78jBphYkkpvCXJTMsefS/Kwhzo1ljr5l2/m0qZuekLe0pLaE701f/AVpS/Q7XyGzc06PLLEOduiQhQ57OYlEN0G3VZXkStig1aGvb+Jk+l2br+1ByZiuIdUjfZWsi22sSIkl3tRP2aj6XusCGygDFO+Ep5IfA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a17YPGc2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785269419; c=relaxed/simple;
+	bh=+hzYN6U/DDjWP1t/fkxNIiI9tI1fdbqQeWWI1VhFLUY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OQvv/vQk23XeZE/fkA7j8sI1kvinN2WbRtauZvpF3XT+3uWijMIf3VYRJIDbqJjuRmftLMq8gDOdw487GLcIOiQ2R8rvvUIuc4QigtLKVIOdwNc+ijo7Aw2MwREl/wIv4hifK4OBdTs9Ipd6vVkgZ8HZNPWcI6qGGxmnpiMoSVU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tgn+9zWO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a17YPGc2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E9431F000E9;
-	Tue, 28 Jul 2026 19:58:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tgn+9zWO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76A741F000E9;
+	Tue, 28 Jul 2026 20:10:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785268732;
-	bh=vXe274rOutSkaybKnxWKfkpNu58tVP13XdupURSxxQA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=a17YPGc2KhmVOtBWXdilEG9G0iPu2DUx3aZv4l3sR3XcHajfefi/XuKZ8Ig5zT//5
-	 JTOy10jaUur8v8FTeeLqpyI7/SQPUt7anHfQhvr07zfvfiom2Qx47BLpLnJVr+8h4o
-	 JkuAKbKIWxNZrhwGX4PIYB0K5BY/oj6m7HpWce8tOrWYsrQygimu7p3sH4iePMFai4
-	 5tFMISWIZYseDjqQ8thEsOkkLwY/Rz/5PUJzYaFOul8gQEpK3LiuFQMkgs4PFhyjxn
-	 Tq4z14Ed1zhzWasYS7sAcSydDB4VD3hnWMq2Vzr3XcCr7bnVcrYWJz40+d4ErVuD8A
-	 2JBmAeWwR4plw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 12/18] drm/bridge: synopsys: dw-dp: Add Runtime PM
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org
-In-Reply-To: <20260728-synopsys-dw-dp-improvements-v7-12-b7640fa8cf48@collabora.com>
-References: <20260728-synopsys-dw-dp-improvements-v7-0-b7640fa8cf48@collabora.com>
- <20260728-synopsys-dw-dp-improvements-v7-12-b7640fa8cf48@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 28 Jul 2026 19:58:52 +0000
-Message-Id: <20260728195852.7E9431F000E9@smtp.kernel.org>
+	s=k20260515; t=1785269418;
+	bh=2xHhYo5KKHxXcnzN39OsgiinB99Luf2W9ev0p+2tF5E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Tgn+9zWOLBKKS03qpqJXgs0aGDwGXCZkdCaoet9xDP04z848WMzL3Lyst0Sj+VHG0
+	 A+sAr4h6RC74ln764acUsKV+2mGOC8s0ilFdIUZ/efAgWqw8HDv0pIibkrN4l5ZxtM
+	 9N4zMo26j1Ed7A6iTzrlBzBSvJiBvzj0dmBmI9kN55gRAmBmMR692IsRPj3uv7OlHv
+	 eMi6YNcXEWY1lvr3Z/oevF4QsrxciEs8d7vG9pEH+OS2GJOYuuKcqJyZHmbaxqqmhb
+	 n/LZDsHt1UjlG+VQSY+fsIFqwTKhOmbN02vLjVOfmfNbVIgxpTTGL5CHhuFTKDLJ3D
+	 jjy9EMBcYNrkQ==
+Date: Tue, 28 Jul 2026 21:10:13 +0100
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Laszlo Ersek <laszlo.ersek@arm.com>
+Cc: Cristian Marussi <cristian.marussi@arm.com>, arm-scmi@vger.kernel.org,
+	Sudeep Holla <sudeep.holla@kernel.org>, devicetree@vger.kernel.org
+Subject: Re: #thermal-sensor-cells under protocol@15
+Message-ID: <20260728-venomous-saffron-capuchin-23d4cc@sudeepholla>
+References: <32d8c83d-7e70-4b1c-8d6d-12920f6c67ce@arm.com>
+ <20260728-natural-successful-pudu-fcb71d@sudeepholla>
+ <d61cf184-20a4-4e8f-8da0-c0ac39e200a8@arm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d61cf184-20a4-4e8f-8da0-c0ac39e200a8@arm.com>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On Tue, Jul 28, 2026 at 04:33:59PM +0200, Laszlo Ersek wrote:
+> On 7/28/26 12:23, Sudeep Holla wrote:
+> > On Tue, Jul 28, 2026 at 11:53:41AM +0200, Laszlo Ersek wrote:
+> 
+> > > And so describing protocol@15 in the Device Tree, without a
+> > > #thermal-sensor-cells property, looks like a valid use case.
+> > > 
+> > 
+> > No, unless you go back in time and find a replacement for
+> > #thermal-sensor-cells and replace it w/o breaking any compatibility.
+> > 
+> > > Am I wrong?
+> > > 
+> > 
+> > We need some property cell to be set to 1 to read the SCMI IDs. For
+> > backward compatibility reasons, it will remain #thermal-sensor-cells.
 
-New issues:
-- [Critical] Incorrect teardown order in dw_dp_unbind() allows AUX transfer=
-s to cause a kernel panic or hang.
-- [High] Calling a sleeping function (msleep) from a runtime PM resume call=
-back that is reachable from an atomic commit path.
+My bad, I didn't remember all the context correct earlier today. The
+cells property is not for the SCMI sensor itself, it is for the
+consumer of this node which currently is only thermal subsystem.
 
-Pre-existing issues:
-- [High] Unbalanced phy_power_off() in dw_dp_bridge_atomic_disable() corrup=
-ts the PHY power count when atomic_enable() fails early.
---
+> 
+> (1) Are you saying that the property "#thermal-sensor-cells", under
+> protocol@15, is actually a *misnomer* today, and it is in fact a
+> *generic* specification of the Sensor ID width -- regardless of any
+> referring stanzas elsewhere in the Device Tree (of which there may be
+> none, or some may be thermal-UNrelated)?
+> 
 
---- Patch [12]: [PATCH v7 12/18] drm/bridge: synopsys: dw-dp: Add Runtime P=
-M support ---
-commit 6fa63f17bf7f03d90ce981c3f9cd86d3e8761c32
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+Not really, see my update above.
 
-drm/bridge: synopsys: dw-dp: Add Runtime PM support
+> (2) If so, would you accept a patch for
+> "Documentation/devicetree/bindings/firmware/arm,scmi.yaml" that points
+> out the above fact in a "description" yaml key?
+> 
 
-This commit adds runtime PM support to the Synopsys DesignWare DisplayPort
-bridge driver. The support is not enabled automatically and must be hooked
-up in the vendor specific glue code.
+Not required for above mentioned reason.
 
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
-idge/synopsys/dw-dp.c
-> index d4f75b7f85d0a..8b650f904575d 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> | diff --git a/Documentation/devicetree/bindings/firmware/arm,scmi.yaml b/Documentation/devicetree/bindings/firmware/arm,scmi.yaml
+> | index d06cca9273c4..78cc26ce0458 100644
+> | --- a/Documentation/devicetree/bindings/firmware/arm,scmi.yaml
+> | +++ b/Documentation/devicetree/bindings/firmware/arm,scmi.yaml
+> | @@ -223,20 +223,25 @@ properties:
+> |    protocol@15:
+> |      $ref: '#/$defs/protocol-node'
+> |      unevaluatedProperties: false
+> |
+> |      properties:
+> |        reg:
+> |          const: 0x15
+> |
+> |        '#thermal-sensor-cells':
+> |          const: 1
+> | +        description:
+> | +          The width of SCMI Sensor IDs, expressed as a number of 32-bit cells.
+> | +          (The property name is an historical artifact, and counts nowadays as
+> | +          a misnomer. The property is no longer specific to anything
+> | +          "thermal".)
+> |
+> |      required:
+> |        - '#thermal-sensor-cells'
+> |
+> |    protocol@16:
+> |      $ref: '#/$defs/protocol-node'
+> |      unevaluatedProperties: false
+> |
+> |      properties:
+> |        reg:
+> 
+> (3) Where exactly does the kernel consume "#thermal-sensor-cells" in the
+> proposed (general) sense?
+> 
 
-[ ... ]
+No where, I got confused earlier as mentioned above. It is not needed
+unless you have use case. Please present if you have one.
 
-> @@ -1664,6 +1672,13 @@ static void dw_dp_bridge_atomic_enable(struct drm_=
-bridge *bridge,
->  	struct drm_connector_state *conn_state;
->  	int ret;
-> =20
-> +	ret =3D pm_runtime_get_active(dp->dev, RPM_TRANSPARENT);
-> +	if (ret) {
-> +		dev_err(dp->dev, "runtime PM failure\n");
-> +		return;
-> +	}
-> +	dp->pm_active =3D true;
-> +
->  	connector =3D drm_atomic_get_new_connector_for_encoder(state, bridge->e=
-ncoder);
->  	if (!connector) {
->  		dev_err(dp->dev, "failed to get connector\n");
->  		return;
->  	}
+> I can only find matches for the property name in
+> "drivers/thermal/thermal_of.c" and
+> "drivers/thermal/ti-soc-thermal/ti-thermal-common.c", but those appear
+> like thermal drivers, not general SCMI stuff. AIUI,
+> of_thermal_zone_find() in the former consults "#thermal-sensor-cells" in
+> the "provider" (such as SCMI protocol@15) to figure out the expected
+> argument cell count in the "thermal-sensors" list.
+> 
 
-[Severity: High]
-This is a pre-existing issue, but does this early return cause an unbalanced
-phy_power_off() later?
+Indeed, this made me recall all the details. Sorry I hadn't looked at
+or touch this code in ages.
 
-If dw_dp_bridge_atomic_enable() returns early here, it skips a successful
-phy_power_on(). However, the subsequent dw_dp_bridge_atomic_disable()
-unconditionally calls dw_dp_link_disable(), which executes phy_power_off().
+> But that implies that, if there ever was another (non-thermal) driver
+> that wanted to reference SCMI sensor identifiers similarly, it would
+> also have to consult "#thermal-sensor-cells", for the argument cell
+> count. Which seems to support the idea that "#thermal-sensor-cells"
+> counts as a misnomer today. Is that right?
+> 
 
-Would calling phy_power_off() without a preceding successful phy_power_on()
-decrease the PHY power count below 0 and permanently prevent the PHY from
-being powered on again?
+We could add new property if needed though we can specify it would be
+mutually exclusive on systems that use #thermal-sensor-cells as it is
+simply useless duplication of same information as it has to be 1.
 
-[ ... ]
+> > > IMPORTANT NOTICE: [...]
+> > 
+> > Deleted now, please fix it for next time.
+> 
+> My bad, should be fixed now. (I've tested it with another external
+> addressee.)
+> 
 
-> @@ -2090,9 +2146,22 @@ EXPORT_SYMBOL_GPL(dw_dp_bind);
-> =20
->  void dw_dp_unbind(struct dw_dp *dp)
->  {
-> +	if (dp->usbc_mode)
-> +		pm_runtime_get_sync(dp->dev);
-> +
-> +	dp->drm_bound =3D false;
->  	disable_irq(dp->irq);
-> +
->  	cancel_work_sync(&dp->hpd_work);
->  	phy_exit(dp->phy);
-> +
-> +	/* Last PM runtime suspend must be done with drm_bound =3D false */
-> +	pm_runtime_put_sync(dp->dev);
-> +
-> +	/* suspend once if runtime PM is disabled */
-> +	if (!pm_runtime_enabled(dp->dev))
-> +		dw_dp_runtime_suspend(dp);
-> +
->  	drm_bridge_put(dp->next_bridge);
->  	drm_dp_aux_unregister(&dp->aux);
->  }
+Thanks.
 
-[Severity: Critical]
-Does this teardown order in dw_dp_unbind() introduce a race condition with
-concurrent AUX transfers?
-
-Because drm_dp_aux_unregister() is called at the very end, the AUX interface
-remains active while the underlying hardware is shut down.
-
-If a concurrent dw_dp_aux_transfer() occurs from userspace while runtime PM
-is disabled, dw_dp_unbind() will manually call dw_dp_runtime_suspend()
-disabling the APB clock. The AUX transfer will succeed its PM guard and
-its subsequent regmap_write() will access unclocked hardware, triggering a
-synchronous bus abort.
-
-[ ... ]
-
-> @@ -2202,6 +2271,47 @@ struct dw_dp *dw_dp_probe(struct platform_device *=
-pdev, const struct dw_dp_plat_
->  }
->  EXPORT_SYMBOL_GPL(dw_dp_probe);
-> =20
-> +int dw_dp_runtime_suspend(struct dw_dp *dp)
-> +{
-> +	if (dp->drm_bound)
-> +		disable_irq(dp->irq);
-> +
-> +	clk_disable_unprepare(dp->aux_clk);
-> +	clk_disable_unprepare(dp->apb_clk);
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_GPL(dw_dp_runtime_suspend);
-> +
-> +int dw_dp_runtime_resume(struct dw_dp *dp)
-> +{
-> +	int ret;
-> +
-> +	ret =3D clk_prepare_enable(dp->apb_clk);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D clk_prepare_enable(dp->aux_clk);
-> +	if (ret) {
-> +		clk_disable_unprepare(dp->apb_clk);
-> +		return ret;
-> +	}
-> +
-> +	dw_dp_init_hw(dp);
-> +
-> +	/*
-> +	 * HPD_HOT_PLUG bit is asserted only after the sink holds HPD
-> +	 * high for at least 100ms.
-> +	 */
-> +	msleep(110);
-> +
-> +	if (dp->drm_bound)
-> +		enable_irq(dp->irq);
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_GPL(dw_dp_runtime_resume);
-
-[Severity: High]
-Does this introduce a sleeping delay in an atomic commit path?
-
-The drm_atomic_helper_commit_tail() path is an atomic context in DRM display
-drivers. During a commit, it calls dw_dp_bridge_atomic_enable(), which now
-makes a synchronous pm_runtime_get_active() call.
-
-That will invoke this dw_dp_runtime_resume() callback which executes
-msleep(110). Calling a sleeping function from an atomic commit path violates
-DRM subsystem requirements and can cause system instability and warnings.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-synopsys-d=
-w-dp-improvements-v7-0-b7640fa8cf48@collabora.com?part=3D12
+-- 
+Regards,
+Sudeep
