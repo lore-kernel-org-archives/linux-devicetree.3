@@ -1,190 +1,373 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11022143.outbound.protection.outlook.com [40.107.200.143])
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B5533C0625;
-	Tue, 28 Jul 2026 06:58:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.143
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56F523BE636;
+	Tue, 28 Jul 2026 06:59:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.135.77
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785221904; cv=fail; b=Mw8NnvUm396OCGSmVwoNJOQE5DI80U1a7VqgipgHSfEVosDlCaRvvNxA4a8xhzmn/MTKSlTYwhQ2lzmQX+1+fA1cqdjtUdd8KJx9MG8cfY4xth8wol/KA+xs64lGeegcytujA3MlE5QOuib/mJL51HflEsLMYfdCe3ftGjoy360=
+	t=1785221946; cv=fail; b=eSfVGG7VVYJal3LD1rK0jaAcGsGu8i1tGUjGV34FeSWB6UCLL1X/fQlQ8i5clSUjZynsOh2SP8Ael3hHPfEmJAenNtbY8Q7YjIZTgCL6aHK2ZEz3UCEwgmQhxG7EnbsBPmgwAiNcyOppJ1dweNKlJJv4XFcz61yK2Od47F249IE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785221904; c=relaxed/simple;
-	bh=ZbEXitsu4qxXDk97Aa+qd4F6ZMmfIT17MT876Raf/CE=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=EPEdQD10upmdcsuvZS01AxgWDa4RGjdH1VkYPWhHkancCEifFtVvOX4E7yB7Xz7soUDaIOBSL/Ni0Dhtk68GThY0dNTIYymT8XCDB1Ay6hovXwuSbX1adkpTHHHHWI5YSKkYMxFbA72Fo8XyoYCQWllzs4ol/XY2rGpsFQIGqyo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com; spf=pass smtp.mailfrom=axiado.com; dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b=w6/Y+tGv; arc=fail smtp.client-ip=40.107.200.143
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axiado.com
+	s=arc-20240116; t=1785221946; c=relaxed/simple;
+	bh=BJACJXBrtEsKp+6/FCq5amSt50QksHVKkIhx5AcpjX0=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=oxYtS+SIhNXZFyPDIroZmb/UDDTvpKLpAVyTBMiVMvNOm3ocztJhv877a5pXiSKmTsKfnjWUOsgPnLBgCtEFZkSrHEWQLqiV3pFFfvvhFtQ/+Q/vBl6I0XFS0BxcL9U28GtanvXip4jgTWAeE4gEZXCeEtSKrIiVrMSGeMCT7h8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=oW6c/02P; arc=fail smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b="w6/Y+tGv"
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="oW6c/02P"
+Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66S3acWb2421692;
+	Tue, 28 Jul 2026 02:58:48 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=gzn4E
+	TWF3DTCm+QrTMpowNkag3vtbfxsdfSr1vC5dqA=; b=oW6c/02PXQ+dRzSI4Opyu
+	8JXQZKBHbnlMxtqbNPMeiYhtoyLGBjQJ3xtCvOgq6BWsreULzcy897BzVqFJD3Ux
+	cWOhqiaOVZD8AiP/R8M/DcJsnAe3exX+776ac1Sua4nCQde2yj99YNcKiPd1AkxJ
+	j0P9eB5sgqguxhRRgkCBjRwmTTw3BPultfYMslLNkW7f6bPXFn1ngrJJw1C/Jt9Q
+	MAkpSxKXkfi4+Gr5FtvNEFQGgTbGfYeJamgsoV+0mN6vgrmOQgYSrgI6Fu3rDO1y
+	jwSbWfj+5ZpNutCW1kQyUKmzDzOjcB439zn+76ew9cmtG4MjTgCyyld8eTaPecJt
+	w==
+Received: from sn4pr0501cu005.outbound.protection.outlook.com (mail-southcentralusazon11011010.outbound.protection.outlook.com [40.93.194.10])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4fmq03mccc-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 28 Jul 2026 02:58:48 -0400 (EDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pP6Gcj+z1lIGDaUNQPpxmGJmDhTymPn1citaG8nVYcXsO7bJaV85k48XUbE0rYtGlUpKIlBodsyMUrYrahY0CE3G4ksbHLEGmSe9ZvGCrOiSJsnBe5xyF+D/FKSqQWz8jHgjMt1oW6rjkvcg+APMo1MZ2OeLj6FZvznn9Csq7PM/bvSlrIX6mHN8NsQumSJTvGOcz9Xa0WQxL983yGsu5S8qb2VjsKcoNGSMqFnduJMl3GR7AMOHuR1ufMzFKRp0d6o0e9L1FjjKjHPGQ2jv28Cqxvk2RXS1NEoG0Q7KR+yqbWfNcmRbafaio1pz3jngQ4lfrs338+8iGp/nwEJNKA==
+ b=YxI6PyDvFRasx6SiHFo/JJlKg80shCU5Eg0RJUGzwmQ3098pS96jgHpIF8EQ5v1gN0bsmEQ5utWh9zNfI8edPjEvGW8zUJIrGra/emZut9Sl9JQg/bB2iOrWvZIu0lnJlB83P5BeLoC9yiaIqj7azEAZnBDyo/REuR8iK5JRcqsFreG/n5c400PZY2am6g8fcDe+zIbJDJB6Pxu/YrTelFum1AZ5q6qcuwIHoVtNkSNW9GQt6rfMhEFAaFI47apnrZQXrj7c86plU7JJgXPoxjRJk9333AYsuM/XFK0Yd/3huKaMyGzktN3bRRHVTsERw9gIz8cT8odKKYnKIItMYA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=30ejPXOUVHwPKjjpM5gDpczCuwJoIND9DzGalLxukRw=;
- b=cymlRXnKD9PuUQGSIaKkC+mZz3ACxt90D8wUGVxPCgBozl6/6ixHWul4YZEiKO+EvqBbOMODAHLVdUkawqQyP7hqIY3uAuZQL821KZXvaU8KBrVVJdQJBrTSh5JQRvrYYXfsqTSoJAjbLD0eL0EYhPpRh8I7z37SIMQrXVGrq9AP4x49Wq5ZFni4eTdGc9H0WetlXVhGeg8UolkW/Vpq80Tn3eEh2U5gKHQxtjtZVRyaOpjQcHayEEsGU3uP9kMJ1Hj1GasXLRcFokPHcR0MdI1s5dx/L/yLvHwoCxypKAckhhGeoOYy5U4oT/+FjVPJI0xtG+qes+xwZYvQ/as0ew==
+ bh=gzn4ETWF3DTCm+QrTMpowNkag3vtbfxsdfSr1vC5dqA=;
+ b=g8K+hySyCXOATHVF/g2sjd4gnNfzPcDgRI7/rb6zMaBjKQ1sAczeDDE45wceQEzsU5oc7rniHwJHVhY+ZXWHHmil39Qb7IBTvShIjC8dTqVWykpIhBQSddVUkL33yddIX1E0eiR7kC4Yp+Uhq+a574TfNJM3MPC4Vw1b0Va0EZuPG7h3i1RIfDJPw5V8wJTayePpPr9AEGxmAaHU7AwwVALXAUht/m4lQATEevkOGlZtG1VHaIZhyy4Nj7gZO2FTTjRoOshXyRLE/SrIvf//9i0pCNKWfY614x+0P+xSZW0VcVoUrejxTqUrJ6gcEt/ddRvq7YmhwxtimerZEHIszA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=axiado.com; dmarc=pass action=none header.from=axiado.com;
- dkim=pass header.d=axiado.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=30ejPXOUVHwPKjjpM5gDpczCuwJoIND9DzGalLxukRw=;
- b=w6/Y+tGvHT6EoWPWj8wi8npc0YuIWa6mO/IZ6mF0aMIV5NP4ZTGAyinWATIxt7+10QzR18pSqkwXr933fJ8u2Ktf48JTh5ea7HT+0bJnDzliiFVA/8evu/TYSiDWp0tSNjhDHOB3eerxjG0hmzipmpG1v+Fj+RmK3tz1+i7ajYRU72Fxy22xp+IfUUihbkoZ89Ify6iCHtpL4VdSCPa19XGG5hlD6DiBWd5NXfhDIx4yZqdt6njgL4A3WmvR1p1WQxNzvxlxBCTcMTkBi+CbVCHRMLqqi3YJgOpJWdxfv3EAhJVTT4dzryJ3+Unjpu21q+U47IsWp4VBZ293PfBl9w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=axiado.com;
-Received: from DM4PR18MB4144.namprd18.prod.outlook.com (2603:10b6:5:38b::8) by
- MN0PR18MB5943.namprd18.prod.outlook.com (2603:10b6:208:4a7::17) with
+ smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
+ dkim=pass header.d=analog.com; arc=none
+Received: from PH0PR03MB6351.namprd03.prod.outlook.com (2603:10b6:510:ab::18)
+ by DS4PR03MB8471.namprd03.prod.outlook.com (2603:10b6:8:323::5) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12; Tue, 28 Jul
- 2026 06:58:17 +0000
-Received: from DM4PR18MB4144.namprd18.prod.outlook.com
- ([fe80::cb97:ca8a:e55a:b11]) by DM4PR18MB4144.namprd18.prod.outlook.com
- ([fe80::cb97:ca8a:e55a:b11%6]) with mapi id 15.21.0245.012; Tue, 28 Jul 2026
- 06:58:16 +0000
-Message-ID: <de947dc3-6d02-43de-a9e5-7f1e950231b9@axiado.com>
-Date: Tue, 28 Jul 2026 08:58:10 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] iio: adc: add Axiado SARADC driver
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Akhila Kavi <akavi@axiado.com>, Prasad Bolisetty <pbolisetty@axiado.com>,
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260716-axiado-ax3000-ax3005-saradc-v4-0-810527a9d27f@axiado.com>
- <20260716-axiado-ax3000-ax3005-saradc-v4-2-810527a9d27f@axiado.com>
- <alnpMFK6_ZkdWlLi@ashevche-desk.local>
-Content-Language: en-GB
-From: Petar Stepanovic <pstepanovic@axiado.com>
-In-Reply-To: <alnpMFK6_ZkdWlLi@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS4P195CA0018.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:20b:5d6::15) To DM4PR18MB4144.namprd18.prod.outlook.com
- (2603:10b6:5:38b::8)
+ 2026 06:58:46 +0000
+Received: from PH0PR03MB6351.namprd03.prod.outlook.com
+ ([fe80::1578:4572:29b5:2442]) by PH0PR03MB6351.namprd03.prod.outlook.com
+ ([fe80::1578:4572:29b5:2442%4]) with mapi id 15.21.0245.012; Tue, 28 Jul 2026
+ 06:58:46 +0000
+From: "Torreno, Alexis Czezar" <AlexisCzezar.Torreno@analog.com>
+To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>
+CC: "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
+        "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
+Subject: RE: [PATCH v4 4/4] hwmon: (pmbus/max20830): add support for max20830c
+ and max20840c
+Thread-Topic: [PATCH v4 4/4] hwmon: (pmbus/max20830): add support for
+ max20830c and max20840c
+Thread-Index: AQHdHkHk/3XB76thsE6nF0Lg9EJuILaCV3qAgAAFY1CAAA53AIAABuQw
+Date: Tue, 28 Jul 2026 06:58:45 +0000
+Message-ID:
+ <PH0PR03MB63510057D496CBE8EBFAE246F1CB2@PH0PR03MB6351.namprd03.prod.outlook.com>
+References: <20260728-dev-max20830c-v4-0-cec034298535@analog.com>
+ <20260728-dev-max20830c-v4-4-cec034298535@analog.com>
+ <336bd264-52ec-473a-b74f-5661f06286ed@roeck-us.net>
+ <PH0PR03MB6351D7369AB790714DF416BDF1CB2@PH0PR03MB6351.namprd03.prod.outlook.com>
+ <9559d319-4b44-45c2-ae13-f92099de4c89@roeck-us.net>
+In-Reply-To: <9559d319-4b44-45c2-ae13-f92099de4c89@roeck-us.net>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR03MB6351:EE_|DS4PR03MB8471:EE_
+x-ms-office365-filtering-correlation-id: a4095280-814a-491c-32d9-08deec75ab2b
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|23010399003|376014|7416014|1800799024|38070700021|6133799003|56012099006|11063799006|4143699003|10067099003|22082099003|18002099003|3023799007;
+x-microsoft-antispam-message-info:
+ ahIkXhEpX598Bq/63dGNf8h7aTccb4JTMbPpcX8w2DeCA6NFvmDH92Wt4+rd22n3kAIMrPFs3CF5OAHFRwogsJSFzWGjHFJbMf8KWVno/Wfp7vP2n9uSVGN8yi+/jKQN1gycaZ3bxkrlSsYeRQHnMMoDbaxIyHMKwW0dPLAuvsGM9Ncc9L3Q40jhWOtXt8tA1KGQPUQuPll9WZ6Q6LL5GKbs0ehaKBI+CoaPEet34AmJZhNTG51Wzl7jwb9tbZmU7Op5lgPzKaHjSuku3JQk5CfVOEvuzbx304gwhkUR/R0BuyViFcrPeYPhRX4mkhCY3YQ1sIkcrh/Lv4KkqBc9Pbvy8CDL6gLQjb12e02NmUm9MdPVWBZBDMVfeXP2EahphnMx7FxBu4DvRs5dCBTGxN1So9VEniO76dEkV25WTG5dcR1c1o0d781xsU21xN5yWhpzXISGc0hNrriAUrp0QUGu1H4FT857OCGUqW1cMIZxBi85jiWD0Tnz+MaL178AHSo312iWK2YUUEbtMowTr5ATqJi+qSO/BBgZXa1aFGTC/OO2kkKVM9r4ZQfniA+YFhf/opg2UKDXV3Fcegy4sysUatwLbwm2JqzGG8jTQLEE9zI1e93/V24nfoJOCGZUPMe+sIV3IcCop7cAYqf2raSKd4j12klOnqOsysITlp07NzKJ3t2X5/drKbljSLtRv2bDn0cTcBXHFQ/Pj79jCDbzpBEMuKqSwgZ7QHmQlok=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR03MB6351.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(38070700021)(6133799003)(56012099006)(11063799006)(4143699003)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?p6gZbfXDPINnPqBqobkf18CjUcFbc4wEyWRQi2gOutmYBTCE4xoaTJEqzqUt?=
+ =?us-ascii?Q?+tn+N/hrFMjC3BdrXpUTOdN2m9D+37LN0VYpZCKr3A6mu5JdFCW4ovYCoBNa?=
+ =?us-ascii?Q?mVqOyYC2bA8ZuQzfM1i4wobkMQFJYVcBlHGYEwVoOX9AOFTUJmGyuiRiA2ta?=
+ =?us-ascii?Q?u0BUHye8hqAD3qJ0PrKtaad32/N3yy517Jj/6hNaQxYpcOmtQGXifZn1F+I8?=
+ =?us-ascii?Q?uz13DrBBI8E02GIoZ+aItrjFRWVlHEDw9G8E8XZySAEFxgxJ4kROCCsY/Jj/?=
+ =?us-ascii?Q?eog7mSlNmd+pVeabLXxGSIwpdPo45d2yPHyJPG1RD0CWaDfPO4kH69NLALOw?=
+ =?us-ascii?Q?dmT/N4zCITbN7QDp4/qwADsJEh2Q47JBI7HPn9uV1jX6ffoyj5FR1hxhGsgE?=
+ =?us-ascii?Q?ACzNMBkpbFosmrqqTzUGCP1C7hxUES/59fcGAmDyLTaQhqJZwYD3JkYFnqWd?=
+ =?us-ascii?Q?DFNJT072SAOyXOeatO5fmEi2q6dsRgqQ8YwvWU7AGyBefCdfESkGtddHQ0lx?=
+ =?us-ascii?Q?gvXjJ342PwrH3AZXHu4b7KCFzEG/qnpOfuzK0BXHMV8GxRfm0C8WmnhFf8Xz?=
+ =?us-ascii?Q?aO6F7L7A7XL0HWonTE5r67Z+3P3YkubM/HTunopunvBy0TwcBqpjMbhD0lOr?=
+ =?us-ascii?Q?ei8Ko9Hu2ViuXqT0U4AVyc9P507k6sFcETf3T2JEfI36CKaZPir1Otv8eh1c?=
+ =?us-ascii?Q?/F0HGL1LCTXIRUauFUJp//TMD7tLwgQ8H9X1nvAK6EVY9gASae+/3zEwg0D+?=
+ =?us-ascii?Q?3CTNBrxXiungoe27lflDTHxfH9DCvw+t0M4Q/TDWPbFkdBzxLKMrmDDKLl+v?=
+ =?us-ascii?Q?nEKUk45zXOpV/9X5+lIh3vjs48O0/GtA7Pw88ZzULnphtXsA3qHAe3hSy6oz?=
+ =?us-ascii?Q?TeW7cQTYUKFBSq4TLlbxeTsBR6fvbcE5VmUPrKZkeb1fBVWRF5tuX2RUSgd8?=
+ =?us-ascii?Q?wWdknAHUjbQ9wpF/7gpAnPaDQxpKaDz2iuqZI6cS2ax09KTC0Lwe9SRQv85o?=
+ =?us-ascii?Q?5Lk4KgVyLobdztMCavoEqBeBc4JpiNfaATjtuntNWJi5ICBKk0fcTwOCU9Yf?=
+ =?us-ascii?Q?n7WMO20i+WEj38eXLKtvZzw5/JGuGPq+gt0uIRyFQwKz3EY0Fjk6mw7ziJ8F?=
+ =?us-ascii?Q?XqPotfGquMdXp6mftYsIAxQNRmXr5b3Klm8/D1u9g87Vpi/9oUpgwyRhwOFh?=
+ =?us-ascii?Q?mZhmuRk2vsFjLlCnjDzd5gF2Fl4zNqI6YN3sPlpeJCrKmLjEtJbzE3Or2kfx?=
+ =?us-ascii?Q?yIN31Gvre3LFWl+nAGnPeMn/poUpvkDKV7NbUYCBrEpK25hkIudh2KsQL0dC?=
+ =?us-ascii?Q?NOrWg8MQ5w/9cdrqdVAA/shUPPm3fjJzIWOBeBYVy1Z9rNEMrlFKvxvpfNQm?=
+ =?us-ascii?Q?kkFU0wtrsBwLObI7i76hg1Ic1PH+t8aCr9pIw7N2pgcJyA+SLNBiouAxLedZ?=
+ =?us-ascii?Q?evU3RsH0MHRxm2unpu9rfIalaqgeSaWzMt2zOgrCPJbE9LGgGShlh+iflTq3?=
+ =?us-ascii?Q?8i9Pxd1N6T09bFKF2tsdan7BWZ18jeLA6u5yzHwAuLi2CPPA3/YHgU5D7+xW?=
+ =?us-ascii?Q?Nr+PlUg6AwteCMuNxqxe/sDk1WK5wWi5jFIfczJlhpmRkX4js5TnkfNKoAiZ?=
+ =?us-ascii?Q?72jZvm865/ab85lZBdR8iD/IARfw4q/k9w10N6uGW31ZcBFUMxPmoPAxrGP5?=
+ =?us-ascii?Q?pb07Ez5Tr/gOQIDmEf/Q16YshEydZF8vM1G7vmIOTIPz7sbczwtvxdxWdSdp?=
+ =?us-ascii?Q?rB62CbB8o+Nj7wi3IbfZu5qWrbHozEU=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR18MB4144:EE_|MN0PR18MB5943:EE_
-X-MS-Office365-Filtering-Correlation-Id: 34910efa-dc9a-40e7-6e99-08deec759945
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|4143699003|10067099003|6133799003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	hWR3ChUI+hb68kYPkrF0FW2DfLd+htedB0uDg+2Frfj2SiiAsUURm5/+YXHsWXevkUznd4cQFK2GNKGFRvWxlaPyfCzKmoN8UMsqqqHlOqI1rZdOsVQgF4UOqrburSuhnSYI7LtY0amUqpPpcvAxiHSjVUa3MSRX9r8AF9paqKYkBxP1r0fVlgn3V5ETdRZnlVbGs1PLS/miYLdkd1Vz+0NjhxZFOjUY1AibKwW5RW/oplqGg43XUGDzPiNAg+fP9iNKUxaPejF+GQjOV8UcxDioBt2p9H84o76hOGaGzYmiDjVyMPUulB9jUx6RjNJ5BqgLt0V/eyYv+HWYvFbwD/InAfvSkEefoHmACC67+OxnnYC4MBdNspajtWp500dRkUDyoxtSTSwnh9YQTchH8tEvbcG+3Trg/ADN5W4+1Sfx7m78RZTlPf5J7t1eBfDoTwrOqtd5R8NQ191+F/sLwC/0O9vpyd1KsNDau5FMAhgqmf8ykwaIiiBABmhxv+tmPOqDsEcPuQK9cdK3z7OQCdUAOL2fV87WFBQNOYhY6h4gHI4mg68WEcHek86P7Wlg4/IsYL8pVslrxTPqovXvTHUXQE73nYRdFisDKUhkzF7WYCpio08qazD7RV0RyKs+/NW2m6IQ6vutU9TWIaEw6QHZL01tN5ZkrNYDzrXib2U=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR18MB4144.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(4143699003)(10067099003)(6133799003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QUZ2dWZCaW1SeXc0SlFhVnhSK2ZUWmZmeUEycnVpZnNKK2V1YWVPQXBFN1cw?=
- =?utf-8?B?L3B1QVdmUk0waGZKeEE4bWVjWjVRdFlOVC9wbTczMUNudWZBbFJ6Mmx3cDdo?=
- =?utf-8?B?Qi9aZktRQWd2dHN1NmxHRmxUL25UZEFiNXRxcDM4QXpHNlRmZnNGT3YzR2J2?=
- =?utf-8?B?K0dqMnlwUFQwdUhTbmplY1FpRzlWelU1MkJUUi9OVU1uZE1ONkZEN0dBdm1w?=
- =?utf-8?B?cUNqSjFZdnF4RFhPOC93SEJ2RkhHQklLZjdHa01oeXNKMENIRG5FMlhVY3VZ?=
- =?utf-8?B?a3hBQkpFUyt5U3ZFRFQyS2JQc2xpRHUxb1pWcDZyTitDcUt6UEFUeGFKeFNs?=
- =?utf-8?B?MnRCd3N1bHNUTlAwb0NvOXo4cjYrNHVHbXJ1dlJMYm8yVWY0VVEwYnI2Smx0?=
- =?utf-8?B?S0ZlbVBkSGp5aUNpTjNFMU9wVk1YOFVnRzgwOFNRMzR6L2I0Mmo3TkxjNUpT?=
- =?utf-8?B?cjcyaVhFZDFOeXc5dTdSNVVVZUJMcGd0SlRscTAxYWpwaXI0VkdMTlBSdEpi?=
- =?utf-8?B?cTNwclFORGNGSXJTeklMbVhDREt0OUtvZnpTRVFWVlZILzZHSTVVeHRENFlZ?=
- =?utf-8?B?TEtEUTdUcStTblVFdkRoRERVMlpNVUpEMHIvb1JtTzNYMENZd0RCUEdaVEZz?=
- =?utf-8?B?cXN2VXNKcFlDU3NDQ1pCNXI4Q2lON1ZWVXl1d0ZDVjNydGFuTE9JNUVVL1NW?=
- =?utf-8?B?VnBENlBkRVd0eFlvSUkySDN4dVFVNU5OWitEdmNFeFhwVkFZd3RnWnpMZFEx?=
- =?utf-8?B?dGk2alVxdGhlNGVaYjhrMjRrYm5jZWZlN25ZS2RZRU13Z1dBVGttWUlmRnY0?=
- =?utf-8?B?QVdKSXl6cUYyTU8xNlhub3dyWk13UzJYeHJZWWs2TzBmc09oNlBjdmJFSVBJ?=
- =?utf-8?B?UEo3SXNLcHppNzVMQVREV2JvQWdSSnRhbkpSc0p3d0hLaHV1TFA5SFNadjFI?=
- =?utf-8?B?Wml5Ymd6Z2JwbXhqMUU5Z2FJUHpBajFScmxDbzljVzZMcmkzR0Nac1BoMS96?=
- =?utf-8?B?TzhjNlBNMWl1cVRDL1JmSHc2WElmVWsrUXp2TFk1VzI2azBHN3Yva0tYSlZp?=
- =?utf-8?B?bmwxVERLVjZwYUx2NWpXSWd2YmFvVGdKcDE1eExIVmFtaUh3aStWb295b055?=
- =?utf-8?B?WVVGZTJJVDFZNHpjWkZ1cmQ0T2pmQ1N3ZW9DWWYvZXp2Wkl4SUVBbXVJKzlj?=
- =?utf-8?B?TXNFMmNpTGYzdVdncThZWG5hZEE4UUtjQmZRUHlLbTRNTzZ4ZjcyN0gzVVZ5?=
- =?utf-8?B?NVFUYUFnOGdjOUE3OHJlTGRlT2dJaDV2Y1RnRkUySDZ0a1M0RTBrdFhlRzFn?=
- =?utf-8?B?OWNxZnVIVEpJZTlsL2ZKeUE1WXdoQWNKUHdLd1RqV2ZzU1plbmdhRlJDMW00?=
- =?utf-8?B?T1VYWkpiODdXUmEzTzJNMWRyR3k0aHFibHFXZlozWXpaek1HdWZJcnNZdVor?=
- =?utf-8?B?T2dkeXZqTmtCdzlkNXBVRTA3WmtZRXhJQWFqVVFOMGp3amc0bHo2dVU0eVQz?=
- =?utf-8?B?OVBiYmgwd09GSWh5aEowWTNuMnA1a1MxdTBWL0tIbnNKRzNxZnVNZnJhSDkz?=
- =?utf-8?B?ZXNaMXF6dFN6b1RWUFZDMTNUbWM5SGxJM2FRdVJ4SDVobWZ5Skh3SFREK2Nq?=
- =?utf-8?B?T3dTL0xSSVFvMXU2WHl1ZHJCLzZIOWRoQkdPVDRkYkJKMmVSZDNJSVQ5NlNv?=
- =?utf-8?B?eG1KY3RZQ2hKSWVISXZnTjJDcS9YajV6cHdmci9NNHl6dzFBWG5EczFPSlll?=
- =?utf-8?B?TlVQWXFwdWw4NEFER05rSmNGTTRhRE9uWHRBMzcxbUhjVmV6TXdhSml1RFBV?=
- =?utf-8?B?U0F0Rm1NdVI0T2JFUEdZNzdrK0hVMzIxRGZjVThMTWpWYkF4VzYya2dXMG8y?=
- =?utf-8?B?ckVOOERyUE1DRVd0eTJRR3pZb0dXV0ZDTUNMRUZjZExuMG1pc1lCWnUybjhS?=
- =?utf-8?B?clcwRlB5Q0tram9oWFNMVXVyeW1McjFZT0VLMW5YZy9QSm9CVXVEbFBORHI2?=
- =?utf-8?B?dzZFN2xMQXF6R3VxVTVkemxvenJlbEhsMFBLZEdSa1AwUmI5dlpUcE53U1pL?=
- =?utf-8?B?Z2pNZHNCS2p4TGRjWjJYSkZoYTRwWnQ0RmxoWjEvQVZ6ekYzZWRoWEJEM2Y2?=
- =?utf-8?B?MVMycnNZNFp3cjNUcTNDbmVxeFZ4UGIxNGI2STJQWFYySXQ3bmdqR1pHVnhS?=
- =?utf-8?B?WG9xODdnV2lYaHViMTdRd1psdXl4a09xamJRNDF3ZXhWTWNNMW52WVM4eHRu?=
- =?utf-8?B?MS95VWh2cWdQUXpaSWR5blpCRzhHQjd2VGQvaE92UWtGcFdVQ0twcUpEMjRW?=
- =?utf-8?B?WlE0WGdaR0hvbHFsRHVJOXhJOFU3S0plaHVxVHdjeW9KZmtQQS8wdz09?=
-X-OriginatorOrg: axiado.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 34910efa-dc9a-40e7-6e99-08deec759945
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR18MB4144.namprd18.prod.outlook.com
+X-Exchange-RoutingPolicyChecked:
+	mNWMCb3dDQX+zIood+oqjtBU82U8+UDHDkkOf0IX7euo/5PjlsY6SW9S7xdBY8nDntu4JZBbISFW2amLjLAbXSKjQ0bI6Tydwl5uMaT33hrEbGBWcPrYOpr4q1aE1L83I9GXGSKc3C9XO3egCMiXdG6YhFXXklrjY4Vnz9PJAcnrNLoJs5QaQPYDYK1n/OwtTTiTUkDHoEvzKoaqdRv/ojfeiaXfRYaaEoXo7QnsJWsXqa3oNoOvPQnjzGTlAY/GFBl5vOPqmalqnEtYpsZNXInSRlVfzgItb8sd+6HA9dKjuc89Opl56LqdmBOVSXZ+aMEtJNNKe9H5dCA1C72u4A==
+X-OriginatorOrg: analog.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2026 06:58:16.5146
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR03MB6351.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a4095280-814a-491c-32d9-08deec75ab2b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Jul 2026 06:58:46.0009
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JJB0MDxF6QvnEPYxYsGHAhFpq2dCJhtMSPKnWpHua1QvR57DjMg289EUttAERcc/qDb5ZGwUz0htRniVEUW2BA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR18MB5943
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: /U4GeqNRteTq9rH3cJGoN0gK5mqTjZDVnEsDzIhQfY0lRFHHZ5XGcfDxbBeDjgKxbhNQKkqRRrZspqsYnmHvJqwHqfc1z1+cgEC6fmWDuBo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR03MB8471
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI4MDA2MCBTYWx0ZWRfX5bIYL929Ht0G
+ Z2jM8+zKM20rmfZMyffzr7+0p8wdj83GRfskIDWNpWNyD95YYGB3YpvlrjIlD+ZNOotYHlytu5p
+ v7ZNgNthYlvjLmISnhw1R4IH8g9vMVhy9ShjUgbyWrqC8OupsYEw
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI4MDA2MCBTYWx0ZWRfX5A6k0h0ZZ4Uc
+ w4H5hEcW09ZlJrNfAfVstPS7ZJkixKgIAiqeT5932goZmoedg9yzcNF0Di2cQweUZl8il5biFW/
+ D/1X2ZYBczKv6UTLuUQOq6/GvpHQjkjLQK/SkaINDKzOfUqDF+nZZTkHv0IuWTaRdjY65U3k0Du
+ L7YDNmfFsIE+UUsOVPDSoUVv/fOCGYrA7T6103CSp+JhdBk9RIIaLk3TYMuQJn0LpaOcPheqj95
+ BCBBxexFNVUyB3c0y17aEVulguy5QhU77jZlyGcX///Sr19GnsnUA2bVm6qQb1SOZL0LedTmgq6
+ DmUGCGik2Wnj/F5aCLLkpeQXr27n/zpFJSo6NWrhVDbloxMzCRgPdU43cqCzvdUT91KMGjohy7F
+ dFO7PR3gnpm/6gFAsIWEAHYxAG69Ah9BNDiiT07Yds+Y1NYsH6OCvbhYBVUVFsRRvHKtrlH7s7f
+ sSfYqg6xAAAXgUA/rDA==
+X-Proofpoint-ORIG-GUID: z-NZTgdqaKX-CvwKmgIVuqd3TNKU0W9-
+X-Authority-Analysis: v=2.4 cv=T8y8ifKQ c=1 sm=1 tr=0 ts=6a685328 cx=c_pps
+ a=PJn3dW4q50A9PoMJtOr6Ng==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=uXIjobp8t2wMuQ0fPvqm:22 a=gAnH3GRIAAAA:8 a=yRhnxOh0HhkFvnTlQv4A:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-GUID: z-NZTgdqaKX-CvwKmgIVuqd3TNKU0W9-
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-28_01,2026-07-27_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 adultscore=0 impostorscore=0 spamscore=0 bulkscore=0
+ phishscore=0 lowpriorityscore=0 malwarescore=0 clxscore=1015 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607280060
 
+>=20
+> >>
+> >> Are those chips still not published ? I find MAX20840T, but no "C" var=
+iants.
+> >> And MAX20840T presumably has an I2C device ID of "MAX20840", not
+> >> "MAX20840C".
+> >>
+> >> I also noticed that MAX20810 and MAX20815 seem to be register
+> compatible.
+> >>
+> >
+> > I believe so yes, they aren't yet.
+> >
+>=20
+> I just hope they are really compatible, and that the device ID strings re=
+ally
+> include the "C". The "T" variants seem to have no T in the device ID stri=
+ng,
+> making it a bit odd that it was (or will be) added for the C variants.
+>=20
 
-On 7/17/2026 10:34 AM, Andy Shevchenko wrote:
-> ...
->
->> +struct axiado_saradc {
->> +     struct regmap *regmap;
->> +     struct clk *clk;
-> Makes no sense to keep it here, your code takes the rate and uses that,
-> I do not see how clk is being used right now. Perhaps you have plans
-> for power management? But then add it when it's needed and being used.
+Yeah the T is weird, but I did test the C variants and they do reply the 'c=
+' char.
 
-Hi Andy, thanks for review.
-Agreed. The clock is only used during probe to obtain its rate and calculate the conversion delay, so there is no need to keep it in the device structure. I will make it a local probe variable and remove `clk` from `struct axiado_saradc`.
+> > Actually MAX20810/815 and a few more are next in line after this. A
+> > different person is handling it, but they're waiting on how this patche=
+s go.
+> >
+>=20
+> You are making yourself more work than necessary. Knowing that there are
+> more chips coming, the sequence of strcmp() is not really that desirable
+> anymore.
+> It might make sense to create an array with all chips supported by the dr=
+iver
+> instead of adding up strcmp sequences. That would make it much easier to =
+add
+> support for new variants.
+>=20
+> There also seems to be a MAX20830T. Does it actually make sense to list t=
+he
+> variants (C/T) in the first place ?
+>=20
 
->> +     struct mutex lock; /* Serializes ADC conversions. */
->> +     unsigned long clk_rate;
->> +     int vref_uV;
->> +};
->> +
->> +static const struct regmap_config axiado_saradc_regmap_config = {
->> +     .reg_bits = 32,
->> +     .val_bits = 32,
->> +     .reg_stride = 4,
->> +     .max_register = AX_SARADC_DOUT_REG,
-> No cache?
+Will think about how to make to scale the code when adding newer variants.
 
-No cache is intentional. The registers represent transient control, status, and conversion data, so accesses should always go directly to the hardware. Since REGCACHE_NONE is the default, it is not specified explicitly.
+I may not know enough how important variants are when supporting them, the
+C variant seems to be a package difference and the ID string.
 
-> ...
->
->> +     ret = regmap_read(info->regmap, AX_SARADC_DOUT_REG, &regval);
->> +
->> +     /* Stop manual conversion */
->> +     stop_ret = regmap_write(info->regmap, AX_SARADC_MANUAL_CTRL_REG, 0);
->> +
->> +     if (ret)
->> +             return ret;
->> +     if (stop_ret)
->> +             return stop_ret;
-> Why do we care about stop error? Isn't it the best effort we can do?
+> >>> Signed-off-by: Alexis Czezar Torreno
+> >>> <alexisczezar.torreno@analog.com>
+> >>> ---
+> >>>    Documentation/hwmon/max20830.rst | 27 ++++++++++++++++++++++----
+> -
+> >>>    drivers/hwmon/pmbus/max20830.c   | 27 ++++++++++++++-------------
+> >>>    2 files changed, 36 insertions(+), 18 deletions(-)
+> >>>
+> >>> diff --git a/Documentation/hwmon/max20830.rst
+> >>> b/Documentation/hwmon/max20830.rst
+> >>> index
+> >>>
+> >>
+> 936e409dcc5c0898dde27d782308d4a7e1357e73..b850f3b6e40d1f1d0cec944be
+> >> 40a
+> >>> f02265aced59 100644
+> >>> --- a/Documentation/hwmon/max20830.rst
+> >>> +++ b/Documentation/hwmon/max20830.rst
+> >>> @@ -13,6 +13,22 @@ Supported chips:
+> >>>
+> >>>        Datasheet:
+> >>> https://www.analog.com/media/en/technical-documentation/data-sheets/
+> >>> ma
+> >>> x20830.pdf
+> >>>
+> >>> +  * Analog Devices MAX20830C
+> >>> +
+> >>> +    Prefix: 'max20830c'
+> >>> +
+> >>> +    Addresses scanned: -
+> >>> +
+> >>> +    Datasheet:
+> >>> +
+> >>> +  * Analog Devices MAX20840C
+> >>> +
+> >>> +    Prefix: 'max20840c'
+> >>> +
+> >>> +    Addresses scanned: -
+> >>> +
+> >>> +    Datasheet:
+> >>> +
+> >>>    Author:
+> >>>
+> >>>      - Alexis Czezar Torreno <alexisczezar.torreno@analog.com> @@
+> >>> -21,12 +37,13 @@ Author:
+> >>>    Description
+> >>>    -----------
+> >>>
+> >>> -This driver supports hardware monitoring for Analog Devices
+> >>> MAX20830 -Step-Down Switching Regulator with PMBus Interface.
+> >>> +This driver supports hardware monitoring for Analog Devices
+> >>> +MAX20830, MAX20830C and MAX20840C. These are Step-Down Switching
+> >>> +Regulator
+> >> with PMBus Interface.
+> >>>
+> >>> -The MAX20830 is a 2.7V to 16V, 30A fully integrated step-down DC-DC
+> >>> switching -regulator. Through the PMBus interface, the device can
+> >>> monitor input/output -voltages, output current and temperature.
+> >>> +MAX20830, and MAX20830C are 2.7V to 16V, 30A fully integrated
+> >>> +step-down DC-DC switching regulators. MAX20840C is similar but can
+> >>> +reach 40A. Through the PMBus interface, these devices can monitor
+> >>> +input/output voltages, output current and temperature.
+> >>>
+> >>>    The driver is a client driver to the core PMBus driver. Please see
+> >>>    Documentation/hwmon/pmbus.rst for details on PMBus client drivers.
+> >>> diff --git a/drivers/hwmon/pmbus/max20830.c
+> >>> b/drivers/hwmon/pmbus/max20830.c index
+> >>>
+> >>
+> 7c1e94c43ac4e5d1b4f69dc77b02e424a674e908..029733a377123ae6a861841d
+> >> b4a4
+> >>> 0dd540f1149e 100644
+> >>> --- a/drivers/hwmon/pmbus/max20830.c
+> >>> +++ b/drivers/hwmon/pmbus/max20830.c
+> >>> @@ -99,13 +99,12 @@ static int max20830_probe(struct i2c_client
+> *client)
+> >>>    	 * which do not support SMBus block reads.
+> >>>    	 */
+> >>>    	if (i2c_check_functionality(client->adapter,
+> >> I2C_FUNC_SMBUS_READ_BLOCK_DATA)) {
+> >>> -		/* Reads 9 Data bytes from MAX20830 */
+> >>>    		ret =3D i2c_smbus_read_block_data(client,
+> >> PMBUS_IC_DEVICE_ID, buf);
+> >>>    		if (ret < 0)
+> >>>    			return dev_err_probe(&client->dev, ret,
+> >>>    					     "Failed to read IC_DEVICE_ID\n");
+> >>>    	} else {
+> >>> -		/* Reads 1 length byte + 9 Data bytes from MAX20830 */
+> >>> +		/* Reads 1 length byte + data bytes */
+> >>>    		ret =3D i2c_smbus_read_i2c_block_data(client,
+> >> PMBUS_IC_DEVICE_ID,
+> >>>
+> >> MAX20830_IC_DEVICE_ID_LENGTH + 1,
+> >>>    						    buf);
+> >>> @@ -121,26 +120,28 @@ static int max20830_probe(struct i2c_client
+> >> *client)
+> >>>    		ret =3D ret - 1;
+> >>>    	}
+> >>>
+> >>> -	/*
+> >>> -	 * MAX20830 IC_DEVICE_ID sends string data "MAX20830\0".
+> >>> -	 * Return value should at least be 9 bytes of data.
+> >>> -	 */
+> >>> +	/* Verify we read the expected number of bytes */
+> >>>    	if (ret < MAX20830_IC_DEVICE_ID_LENGTH)
+> >>>    		return dev_err_probe(&client->dev, -ENODEV,
+> >>> -				     "IC_DEVICE_ID too short: expected at least
+> >> 9 bytes, got %d\n",
+> >>> -				     ret);
+> >>> +				     "IC_DEVICE_ID too short: expected %d
+> >> bytes, got %d\n",
+> >>> +				     MAX20830_IC_DEVICE_ID_LENGTH, ret);
+> >>> +
+> >>> +	/* Null-terminate the string */
+> >>> +	buf[ret] =3D '\0';
+> >>>
+> >>> -	/* 9 bytes of data, buf[0]-buf[7] =3D "MAX20830", buf[8] =3D '\0' *=
+/
+> >>> -	buf[MAX20830_IC_DEVICE_ID_LENGTH - 1] =3D '\0';
+> >>> -	if (strncmp(buf, "MAX20830", MAX20830_IC_DEVICE_ID_LENGTH - 1))
+> >>> +	/* Verify the device ID matches what we expect */
+> >>> +	if ((strcmp(buf, "MAX20830") && strcmp(buf, "MAX20830C") &&
+> >>> +	    strcmp(buf, "MAX20840C")))
+> >>>    		return dev_err_probe(&client->dev, -ENODEV,
+> >>> -				     "Unsupported device: '%s'\n", buf);
+> >>> +				     "Unsupported device: '%*pE'\n", ret, buf);
+> >>>
+> >>>    	return pmbus_do_probe(client, &data->info);
+> >>>    }
+> >>>
+> >>>    static const struct i2c_device_id max20830_id[] =3D {
+> >>> -	{"max20830"},
+> >>> +	{ "max20830" },
+> >>> +	{ "max20830c" },
+> >>> +	{ "max20840c" },
+> >>
+> >> I don't think that is needed or warranted, given that there is no
+> >> matching devicetree node.
+> >>
+> >
+> > I see, will remove.
+>=20
+> Same for the prefix string in the documentation. You might want to mentio=
+n the
+> supported chips, though, in both the configuration and Kconfig. In Kconfi=
+g, that
+> could be a generic such as "MAX20830 and compatible chips", or list the b=
+ase
+> variants, such as "MAX20830, MAX20840 and variants".
+>=20
 
-Agreed. Stopping the manual conversion is a best-effort cleanup operation, and there is no useful recovery action if it fails. I will drop |stop_ret| and preserve only the result of regmap_read().
-
->
->> +     *val = regval & GENMASK(AX_RESOLUTION_BITS - 1, 0);
-> Is device responding always in native endianess?
-
-The SARADC registers are little-endian. `regmap_read()` returns the register value in CPU endianness, so applying the mask directly is correct. I will explicitly set `.val_format_endian = REGMAP_ENDIAN_LITTLE` in the regmap configuration to document the hardware endianness.
-
-Best regards,
-Petar
-
+Ok will double check this.
