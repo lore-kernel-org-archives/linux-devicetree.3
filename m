@@ -1,192 +1,362 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63B4640F74E
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 09:34:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 731E02F8EBC
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 09:35:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785231258; cv=none; b=RD+u/Tr6XaJrs/Qn1o2hRokQuxriJWClFsbsP32KoT14jJhbhUu43qqzQJeasV3m7Rslo5fJ+O0iJkKGnCk9aa+QiETfHTiQyp/bAjdhFPHmcLsFDleqJuYT+EpcxuQbIQZ8j0HedIegzeSnHHVDsV9Oftr6RqUfm2ObXjNXK/0=
+	t=1785231347; cv=none; b=sGWcQdaiA7EnYXtvr7H6M6ii8/nPm9OdOueP+j6RKhhEJ+DTKFwUPNbi69ZaHTGgk142bqt4ftDhNKNFUTON2eaJ6Kd96a5JKvwju9WyaVKj3NQEJA38z59U8M+rLFu6kQPVQGLT3s1sIzmsP4VOWBSzjl4GUD6MnbKHo6sPcXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785231258; c=relaxed/simple;
-	bh=tZ4Yg1HegaN2pq+z0IhzGrN7w3n/Zd/VQkqqVw3Pjxc=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=IfDzPFyjvd13fefPJjlHZdL3ZGkgDrR3kd6l5xqm9xTxx+7N4N4Li3RntN+fUswpsyqUd68orxYFTxZ71SsdYGjWzBacSOlTeSNoT9qh924NfKOTknmMjWmDGzP0vkVtjjizddBP9+OlyYId0GY+nogMVycw6BAV93lojqV5oi4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Rfq2s3XW; arc=none smtp.client-ip=209.85.221.44
+	s=arc-20240116; t=1785231347; c=relaxed/simple;
+	bh=F9vymxcryROz8SVMskMdzKymSRftNqn8oIvKzgRlXdY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=oj1t0jLDCgttQJrr6HHPPicIyWOXP4Vxq/idStRf/IBUbKHydiG0m/RgdbcBQ7pU1OF6JhoD4jgUHOgf5K34APFgvnQS1U+OEb0UXS2RS9xVZ6glBLJkMFy6jk+VdwTWJRAkk5wk/4C1mIddSKgiuOIePE0b12uawL+3CWO4dqA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=E5upqIv1; arc=none smtp.client-ip=209.85.128.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Rfq2s3XW"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-47f71156e1aso1671322f8f.3
-        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 02:34:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="E5upqIv1"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4954a32cf1eso18757845e9.3
+        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 02:35:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1785231256; x=1785836056; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ffVq5ZMWzgMfNyQ+b9r3wPaLIUviL+QwJh6c6WWDLzk=;
-        b=Rfq2s3XWPUUoTDOIlmmQqY36k0g0z/S74e00dTUr3VMyrWr+WbMZy2ds934Sj9ZRy1
-         NAAk7QMM9JfrqyuWmLOBfinQeSgk/GMyuXA69CQCVIcOwQYLokfqYFgWhORpU/Fz/xj8
-         bvLFN/6+tS3kArDeTxqzCpH5L0qpUN3/XkIj2UJzAvDp96vh/zQwmMIyf2/Sm3xINYwN
-         P84OhCL5CPmbCiIH+fttWDNxIznmS5xcQO+WOEAxBcGMfLJaw5Bs8hpUHTEngnU6CZ4x
-         nVE+1i914fUiRUj14iMkj4bQe+T3n9hzjMY2SGO65LKlg+hILYK7MAuCJOYIpLh9RSWh
-         yMkg==
+        d=linaro.org; s=google; t=1785231344; x=1785836144; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=lAxexal1xpj4D14u2sp6F4A99A2I2+flgOoPERJ05vs=;
+        b=E5upqIv1V4IjsrSyOYIaCjOr7Yu8ZoMB42jAXywnM92ugcIN1EGT4d2O94QFKqaEjl
+         71gX/ST9j4HUQkqc9x/ZCG4ErJwbMha76Bl5lZt0tpaOLB1n+zzBnKAkTP25bmzZ4By+
+         UzKzsImH0z1mWEIslPQ36mFBzANSzP0XXxl7tGczk11/zkbeBL5cW/3UZER9yNL8ZVlU
+         fQj9N2LlVh+QVtkN2Cdcup6ADenfnIm7VkGhggANKlkpWmgP5zLd/VbaRiH9XuzMddQR
+         7Ndp+HHnw6IbaD3LAV0gVCorsb0founV+6CTLqFCAybiPaJGIE8awbeSo1srkETay1Ui
+         xc2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785231256; x=1785836056;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ffVq5ZMWzgMfNyQ+b9r3wPaLIUviL+QwJh6c6WWDLzk=;
-        b=eNOC4lHW8QwxE+g27ef70GVGfTh1nIumhr33UVGa0RquFcrCDjnZ7egIeoaG8dAFhi
-         e4WRMD1damY/KF1r6JxmrVcK91DWF4Wg3Sc/G9J+wDudisVnG77ywyJrZnFIoMq+xrdg
-         OqndU4aAlx09OQSPw+aiTGFYanKgm96TE+966O3P8EdX/9ebpUaBcIiJj4KkA9ZbeJVk
-         L+Ee5WQf7rfuieijZ6TAkIEmiwRp/8xQ8s8ZPrHtyzWKn72NGbN8jjc/j8piDT14SMke
-         FTt4gJSfyqyAhp54gt6/XTIrdoqOrc5bACCQmaNzw4KrgUvqmLvU18EDeIzLbv+fUg8L
-         bIPg==
-X-Forwarded-Encrypted: i=1; AHgh+RofUC9tavARwkCLDXgqvuRNHkzyO5TsAq7o0+ci6Oq9UXDUb0Rb7lErd+LL87Gulz4oeONUPnekUnP/@vger.kernel.org
-X-Gm-Message-State: AOJu0YzCN3nPgwdxFZVVTb50cQ7G9NpaqSKzg6Y6wVBHSd+19eZQAvMr
-	4WgFfNjzKOQcAYNgG7LpWE14r+LT3c7kW2GePmHAwORuRYMUwz/g8TgWIjCmhZtpFFM+A47UHOx
-	MFl68
-X-Gm-Gg: AR+sD13L41A9riTRIBFU/c4qRZkTl1wodXPESwE5mBUEZFOmvG1xLzM7nbaAxaqILn9
-	6sMV3fPH2iausMerPMVYWDUlOTTZ4rXzQUDlWcnThwCtJRHl50+DKZVbQ3filRM7QZlqEzOiCv+
-	ST4N9Irkn9FFryM1c4kvhTZmNLWGfsgK2UvF/ikVenvdxwayAN4i/TAT3krXImvZf7IDlsHLaor
-	IfOXemL1vug6QQYH56pOoYxJsj98JeooT+cVe2oHr/WaHPEqAR3DdLFehBusmdQzKGJdowBiewD
-	u0EZ0UFG/1wOEDQiW/hx8dlfMxpv32xZCNa740w0E/eTm1UNhGVVqn4RlKuQWMIQPC2v6y2wa3W
-	TdFDMZVb37zKLRpxuoxdogAVCY11Epij9I2rn/pnclaHLbBBl3PEVoP3dtqMn1sayBZ4QXqoydZ
-	eYt+snwofVSs3gyHHdPLX4HmDy/FQv0DtsAKezpqkA9Bl2wkrTxmKQEYtorA==
-X-Received: by 2002:a5d:5847:0:b0:47f:81af:1a3b with SMTP id ffacd0b85a97d-47fb1e926b2mr1898134f8f.22.1785231255438;
-        Tue, 28 Jul 2026 02:34:15 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:5788:c4e1:cf35:7211? ([2a01:e0a:106d:1080:5788:c4e1:cf35:7211])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85c52fa9sm58636338f8f.20.2026.07.28.02.34.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 28 Jul 2026 02:34:15 -0700 (PDT)
-Message-ID: <c548b640-9ed0-4c18-a217-54905fa62022@linaro.org>
-Date: Tue, 28 Jul 2026 11:34:14 +0200
+        d=1e100.net; s=20251104; t=1785231344; x=1785836144;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=lAxexal1xpj4D14u2sp6F4A99A2I2+flgOoPERJ05vs=;
+        b=nC0PBHQaHLjzHCjGSJowAglZ0/UyOLRgpVva/eHezQzUj+dWmpa/9odY4KdYfnULY8
+         HRZYyFodDHgLyiyHxlB7PVvjLpPL3bWpjo0hXgK+Pq5ABfcoCWabGXey8YZKlhFZ8YHI
+         t0P0ujTaimZ8YVxrPC5r9yFBrU5tqEPpr7tAh9N87BMl7fT6hLKk1SlfHVxEIAm5vazU
+         nyEyNSqNLR6ScOxknxnHZfWz47nlzKYAuiCha3ctM2z/JnqvAfqTLa89X9mjyaK4tqGT
+         j+dco0s7hOT/8GQ60AkgRnlB+VL0Y80HSPHRrcZNshdswiGWKwi4pbQmGUz6BoH9ofC5
+         DSEQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoIZ0ZAJs7dgKcklIN0dcZ3gctjJIpeAkKIMF0rD3OUr+NOHPq6UvZrBvh5AqbA7tcwhzDt8cfgBHWb@vger.kernel.org
+X-Gm-Message-State: AOJu0YwEBkP8kqUnt/pXgPRpKO05qSIktaelqdM1RZBiS/hYtiCU1UZ5
+	7XgwRHfGubBBv7JzQPxFunsBTpc6v/qNoS3Oozm8CLPpxjMblBtvUSdxANcQj8B/Z/c=
+X-Gm-Gg: AR+sD108wvi6RKds4fzqbZbS4eNdBJyoL9gsyzstu0+pjM0H3y0HRwgSa1eu+gTvo+C
+	3RVlrt3nuZN5iJ2QB7LBjUxJ9nPP4vW2Ig+d4lbKvH3ykssRdTwDuo7KqEehFaiA35fLgLiw1wA
+	EbKwWG8120cHdsdcT2/csiV4gRg+w5BWCZ1GF5SyM0Wwf2I0jfSIxFb4Su5gK1PI79ygPK+aKYg
+	EuBBgOpLu6SjCDWxtURhxDkBzsOO7qbj9vCPhBhp4F/RtytuEPLM0AdGF4El/E1yVOepi5WLmEO
+	85pfK9nU3xfYD86ijp8NaUKajrjvlUQ7oNkx5AfzBRwzwjVCVCqGRMtvd4VIH6O603gXOvNcnRk
+	nAFENtnBNc5K4HHaVdOnDpQQpOllhgsx9+hJUl5C1O2+1S4+BFozeuFP8WNvxd8f1bTTnBn9wD8
+	iUOkQJlJxkNBut
+X-Received: by 2002:a05:600c:4583:b0:495:44f3:4576 with SMTP id 5b1f17b1804b1-496c64130a6mr15605995e9.7.1785231343525;
+        Tue, 28 Jul 2026 02:35:43 -0700 (PDT)
+Received: from [192.168.0.35] ([109.77.204.94])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496c4632263sm68190825e9.15.2026.07.28.02.35.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 28 Jul 2026 02:35:43 -0700 (PDT)
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Subject: [PATCH v13 0/5] Add dt-bindings and PHY updates for CAMSS on
+ x1e80100 silicon
+Date: Tue, 28 Jul 2026 10:35:31 +0100
+Message-Id: <20260728-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v13-0-ae811e2f0799@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 2/4] arm64: dts: qcom: sm8450-hdk: Enable I2S for HDMI
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-References: <20260728-topic-sm8x50-next-hdk-i2s-v1-0-2393a0fe4aa9@linaro.org>
- <20260728-topic-sm8x50-next-hdk-i2s-v1-2-2393a0fe4aa9@linaro.org>
- <20260728091012.419DA1F000E9@smtp.kernel.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260728091012.419DA1F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/53RS2oDMQwG4KsEr+si+TV2V71H6cLPxNDOhHE6T
+ Am5e5VAScqs3I1BMv5+YZ1Zy3PNjb3szmzOS211GqlA+bRj8eDHfeY1UYMJEBokSh4U/6jj18r
+ HvJ640Bwkp3Y6tcpXzBYQgEf/2RpHDaYMKoQkPSPwOOdS11va2zvVh9pO0/x9C1/0tfuvmIUuu
+ VUmOm+Uk96+0ks/T8/TvGfXnMU82qrLNmTnFIOIJUoUYmMPd3tA7LIHsiFEnbwVRQuzse2vbUA
+ Q1WNbsp3WOEgnA42/sd2jbbpsR7bXLsoCckgQNjbCHZfYhyP9CS+pZGcVHQq3Oj7onaPThoDr4
+ KRCHbJJaauLuz6A7dPFdXarrU1eYcG/G71cLj8ltiSMcAMAAA==
+X-Change-ID: 20250313-b4-linux-next-25-03-13-dtsi-x1e80100-camss-1506f74bbd3a
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>, 
+ Todor Tomov <todor.too@gmail.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Bryan O'Donoghue <bod@kernel.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, linux-phy@lists.infradead.org, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Krzysztof Kozlowski <krzk@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=11470;
+ i=bryan.odonoghue@linaro.org; h=from:subject:message-id;
+ bh=F9vymxcryROz8SVMskMdzKymSRftNqn8oIvKzgRlXdY=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqaHfr44L6AJ8Tr/5JHHVj4BOifW9Kk+ydI/TGZ
+ hbjixObkyKJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCamh36wAKCRAicTuzoY3I
+ OnclD/9s+iCIqJLTkQ2xL5SBlkp9RAuIxiyK7lBkYeEKokSXrLPsDc9ZadB/3PtjrrMDXVAsZp6
+ GuJzLdhHX4WPIB3Jkg2Y+8WKTxSRXCM+cw3a/knDCGSuTV8al9efDWg/XLng/2KOUHLUykACtzT
+ 49izxqUTlYz74hy/0/xKr9+4mDciaSb0nw8IEw6IgpmfIad1vVLDk05MENjISzybaTGAq7/x/LU
+ I6GOYJ6YQfaawnIum8qNgXGtCed7ihOSI0S9b938eu1nVx8MdnYuesgDbcdupMcMduYidSwkn3d
+ nHajaEVJPq8pVgFweoFlCP7o8ga5YVFX+dkKCaVBsKn/kqcCnOs3G5c9k6arGX9dObqkpQIEIRO
+ jqNlC0bHIXbm882xj0lNneh2IHAP7kLNq/a+SePJwnXVvGz07Lc10E9dJUMnlfR5zkxaFG9Zy+4
+ CdRiWKJ+EgnjRjKKRUC5fwLtt4HZefcPMdRAIpPGYkfByOUt7BCVnS4Jim7tCoEs09vstnm5eBa
+ ZajdEvxPISqMwabzTCyTg2GH0GQgD5XSOkACj/R0mP67LNYvY2GxcSJ9YYLwB9uh6aSfkwgCqpW
+ CZpWGxM3TaivzNR2y3sfFXFH3asgNRVI297xSuxe+0CF55PEAZbVZMLFhN7V0ncjMz22EyZ6rB9
+ UAiJiL9OeMhtN6Q==
+X-Developer-Key: i=bryan.odonoghue@linaro.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-On 7/28/26 11:10, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [Medium] Device Tree Misconfiguration - Pinctrl for SoC I2S interface is incorrectly assigned to the external HDMI bridge node.
-> - [Low] DT Schema Violation - Invalid clock-names order for dai@16.
-> --
-> 
-> --- Patch [2]: [PATCH 2/4] arm64: dts: qcom: sm8450-hdk: Enable I2S for HDMI ---
-> commit bf4f513e744f0c756ca7054358cd98929fb84150
-> Author: Neil Armstrong <neil.armstrong@linaro.org>
-> 
-> arm64: dts: qcom: sm8450-hdk: Enable I2S for HDMI
-> 
-> This commit adds the necessary device tree nodes and configurations to enable
-> the I2S interface for HDMI audio output on the SM8450-HDK board. It configures
-> the pinctrl for I2S, sets up the q6apmbedai DAI, and adds the primary MI2S DAI
-> link.
-> 
->> diff --git a/arch/arm64/boot/dts/qcom/sm8450-hdk.dts b/arch/arm64/boot/dts/qcom/sm8450-hdk.dts
->> index b37998cd9a2c3..6a6d8346046bd 100644
->> --- a/arch/arm64/boot/dts/qcom/sm8450-hdk.dts
->> +++ b/arch/arm64/boot/dts/qcom/sm8450-hdk.dts
->> @@ -665,7 +665,12 @@ lt9611_codec: hdmi-bridge@2b {
->>   		vcc-supply = <&lt9611_3v3>;
->>   
->>   		pinctrl-names = "default";
->> -		pinctrl-0 = <&lt9611_irq_pin &lt9611_rst_pin>;
->> +		pinctrl-0 = <&lt9611_irq_pin>,
->> +			    <&lt9611_rst_pin>,
->> +			    <&i2s0_default_state>,
->> +			    <&audio_mclk0_default_state>;
-> 
-> [Severity: Medium]
-> Should the SoC I2S and MCLK pin states be assigned to the sound node or CPU
-> DAI instead of the external HDMI bridge node?
-> 
-> By assigning these to the lt9611_codec node, the SoC's audio pin multiplexing
-> is tied to the lifecycle of the external display bridge. If the HDMI bridge
-> driver defers or unloads, the SoC I2S pins will revert to their unconfigured
-> state, which breaks the hardware description paradigm and might cause runtime
-> audio issues.
+Changes in v13:
+- Introduces struct device_node phy helper lookup.
+  This allows for finding a phy from a device_node entry.
+- Uses media-graph exclusively to reference phys. - Neil, Vlad, Vinod
+- Performs runtime check for legacy v non-legacy phys - Krzysztof
+- Link to v12: https://patch.msgid.link/20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-0-f8588da41f16@linaro.org
 
-No since the HDMI bridge is the effective user of the pins.
+Changes in v12:
+- Updates camss sensor find method to find the sensor in the CSIPHY port. -
+  Neil, Vlad, Bryan
+- Drops dependency on passing polarities and positions. Moved into CSIPHY
+  port as agreed. Neil, Vlad, Bryan
+- Omitted mux to CSID as discussed this will be done when splitting CSID
+  out as its own individual node. Neil, Bryan
+- Updated Reviewed-by: - Loic
+- Link to v11: https://lore.kernel.org/r/20260326-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v11-0-5b93415be6dd@linaro.org
 
-> 
->> +
->> +		#sound-dai-cells = <1>;
->>   
->>   		ports {
->>   			#address-cells = <1>;
-> 
-> [ ... ]
-> 
->> @@ -947,6 +952,19 @@ channel@44b {
->>   	};
->>   };
->>   
->> +&q6apmbedai {
->> +	#address-cells = <1>;
->> +	#size-cells = <0>;
->> +
->> +	dai@16 {
->> +		reg = <PRIMARY_MI2S_RX>;
->> +		clocks = <&q6prmcc LPASS_CLK_ID_MCLK_1 LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
->> +			 <&q6prmcc LPASS_CLK_ID_PRI_MI2S_IBIT LPASS_CLK_ATTRIBUTE_COUPLE_NO>;
->> +		clock-names = "mclk",
->> +			      "bclk";
-> 
-> [Severity: Low]
-> Is this clock-names order correct according to the schema?
-> 
-> The qcom,q6apm-lpass-dais.yaml schema requires that if two clocks are
-> provided, they must be ordered such that index 1 is mclk. Here, bclk is at
-> index 1, which will cause make dtbs_check validation to fail.
+Changes in v11:
+- Dropped simple-mfd in dts for devm_of_platform_populate() - Krzysztof
+- Pass polarity and position for data and clock lanes - bod
+- Remove check for PHY_TYPE_DPHY - PHY driver validates its own mode - bod
+- Depends-on: https://lore.kernel.org/r/20260325-dphy-params-extension-v1-0-c6df5599284a@linaro.org
+- Depends-on: https://lore.kernel.org/r/20260326-x1e-csi2-phy-v5-0-0c0fc7f5c01b@linaro.org
+- Link to v10: https://lore.kernel.org/r/20260316-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v10-0-fdfe984fe941@linaro.org
 
-Good point, I'll fix this
+Changes in v10:
+- compat simple-mfd added to CAMSS allows probing sub-nodes.
+  The other way to do this would be simple-bus however, CAMSS
+  is really a collection of devices in a block as opposed to a
+  discoverable bus.
+- csiphy nodes are sub-nodes of CAMSS.
+  Sub-nodes as pointed out by Dmitry will allow us to show some love to
+  older platforms.
+- Depends-on: https://lore.kernel.org/r/20260315-x1e-csi2-phy-v4-0-90c09203888d@linaro.org
+- Link to v9: https://lore.kernel.org/r/20260226-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v9-0-a59c3f037d0b@linaro.org
 
-> 
->> +	};
->> +};
->> +
-> 
+v9:
+- Adds phy handles as optional nodes
+- Adds minItems: 5 for iommu entries
+  I believe this should be acceptable as maxItems: 8 continues
+  to be valid
+- Makes CAMSS-level rails optional for x1e
+  Similarly I think this should be OK as the legacy binding
+  is still valid it is simply optional instead of mandatory now
+- Supports CSIPHY nodes adjacent to CAMSS while leaving
+  csiphy regs intact.
+- Pushes dtsi drop to another series everything in this series
+  can go through linux-media
+- Depends-on: https://lore.kernel.org/r/20260226-x1e-csi2-phy-v3-0-11e608759410@linaro.org
+- Link to v8: https://lore.kernel.org/r/20260225-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v8-0-95517393bcb2@linaro.org
+
+v8:
+
+- This version rebases on latest media-committers/next - bod
+- Adds support for "combo-mode" PHYs in the YAML.
+  It will be possible to build out the code to support this later - Vlad
+- Maintains the upstream model of connecting sensors to CSI decoders.
+  Every other upstream implementation does it this way so
+  CAMSS will do it this way too.
+- Reduces the number of IOMMU entires in CAMSS to those required for
+  CSID, VFE/RDI/PIX respectively.
+  Including all of the IOMMUs implies we will also "stuff" CAMSS
+  with ever increasing lists of registers but a better approach
+  is to have individual nodes for functional blocks.
+  For example this series supports CSIPHy as a separate block
+  CCI is already a separate block - and we will add ICP, BPS, IPE
+  etc as additional standalone nodes.
+  camss@someaddr {
+        //existing bindings vfe, csid, csiphy go here
+        iommus = <just what's needed for this>;
+  };
+  bps@some_other_address {
+        iommus = <bps specific iommus>;
+  }
+  In particular this model will save us from going down the same
+  path as the vpu which has ended up tripping over the total size
+  an iommu entry may span.
+
+  Nobody really likes the legacy binding much so instead of
+  continuing to bludgeon more entries into it, I've conciously
+  not included BPS, IPE, ICP etc.
+
+Depends-on: https://lore.kernel.org/r/20260225-x1e-csi2-phy-v2-0-7756edb67ea9@linaro.org
+Link to v7: https://lore.kernel.org/r/20250711-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v7-0-0bc5da82f526@linaro.org
+Working tree: https://gitlab.com/Linaro/arm64-laptops/linux/-/tree/qcom-laptops-v6.19-rc8-camss?ref_type=heads
+
+v7:
+
+- Reimagine the PHYs as individual nodes.
+  A v1 of the schmea and driver for the CSI PHY has been published with
+  some review feedback from Rob Herring and Konrad Dybcio
+
+  https://lore.kernel.org/r/20250710-x1e-csi2-phy-v1-0-74acbb5b162b@linaro.org
+
+  Both the clock name changes from Rob and OPP changes suggested by Konrad
+  are _not_ yet present in this submission however stipulating to those
+  changes, I think publishing this v7 of the CAMSS/DT changes is warranted.
+
+  Its important to publish a whole view of changes for reviewers without
+  necessarily munging everything together in one sprawling series.
+
+  TL;DR I moved the PHY driver to its own series review comments there
+  are not reflected here yet but "shouldn't" have a big impact here.
+
+- Having separate nodes in the DT for the PHYS allows for switching on PHYs
+  as we do for just about every other PHYs.
+  &csiphyX {
+      status = "okay";
+  };
+
+  We just list phys = <> in the core dtsi and enable the PHYs we want in
+  the platform dts.
+
+- The level of code change in CAMSS itself turns out to be quite small.
+  Adding the PHY structure to the CSIPHY device
+  Differentiating the existing camss.c -> camss-csiphy.c init functions
+  A few new function pointers to facilitate parallel support of legacy
+  and new PHY interfaces.
+
+- A key goal of this updated series is both to introduce a new PHY method
+  to CAMSS but to do it _only_ for a new SoC while taking care to ensure
+  that legacy CAMSS-PHY and legacy DT ABI continues to work.
+
+  This is a key point coming from the DT people which I've slowly imbibed
+  and hopefully succeeded in implementing.
+
+- In addition to the CRD both T14s and Slim7x are supported.
+  I have the Inspirion14 working and the XPS but since we haven't landed
+  the Inspirion upstream yet, I've chosen to hold off on the XPS too.
+
+- There is another proposal on the list to make PHY devices as sub-devices
+
+  I believe having those separate like most of our other PHYs
+  is the more appropriate way to go.
+
+  Similarly there is less code change to the CAMSS driver with this change.
+
+  Finally I believe we should contine to have endpoints go from the sensor
+  to CAMSS not the PHY as CAMSS' CSI decoder is the consumer of the data
+  not the PHY.
+
+- Working tree: https://git.codelinaro.org/bryan.odonoghue/kernel/-/tree/x1e80100-6.16-rcX-dell-inspiron14-camss-ov02c10-ov02e10-audio-iris-phy-v3
+- Link to v6: https://lore.kernel.org/r/20250314-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v6-0-edcb2cfc3122@linaro.org
+
+v6:
+- Removes 'A phandle to an OPP node describing' per Krzysztof's comment
+  on patch #1
+- Drops Fixes: from patch #1 - Krzysztof
+- The ordering of opp description MXC and MMXC is kept as it matches the
+  power-domain ordering - Krzysztof/bod
+- Link to v5: https://lore.kernel.org/r/20250313-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v5-0-846c9a6493a8@linaro.org
+
+v5:
+- Picks up a Fixes: that is a valid precursor for this series - Vlad
+- Applies RB from Vlad
+- Drops "cam" prefix in interconnect names - Krzysztof/Vlad
+- Amends sorting of regs, clocks consistent with recent 8550 - Depeng/Vlad
+- Link to v4: https://lore.kernel.org/r/20250119-b4-linux-next-24-11-18-dtsi-x1e80100-camss-v4-0-c2964504131c@linaro.org
+
+v4:
+- Applies RB from Konrad
+- Adds the second CCI I2C bus to CCI commit log description.
+  I previously considered leaving out the always on pins but, decided
+  to include them in the end and forgot to align the commit log.
+- Alphabetises the camcc.h included in the dtsi. - Vlad
+- Link to v3: https://lore.kernel.org/r/20250102-b4-linux-next-24-11-18-dtsi-x1e80100-camss-v3-0-cb66d55d20cc@linaro.org
+
+v3:
+- Fixes ordering of headers in dtsi - Vlad
+- Changes camcc to always on - Vlad
+- Applies RB as indicated - Krzysztof, Konrad
+- Link to v2: https://lore.kernel.org/r/20241227-b4-linux-next-24-11-18-dtsi-x1e80100-camss-v2-0-06fdd5a7d5bb@linaro.org
+
+v2:
+
+I've gone through each comment and implemented each suggestion since IMO
+they were all good/correct comments.
+
+Detail:
+
+- Moves x1e80100 camcc to its own yaml - Krzysztof
+- csid_wrapper comes first because it is the most relevant
+  register set - configuring all CSID blocks subordinate to it - bod, Krzysztof
+- Fixes missing commit log - Krz
+- Updates to latest format established @ sc7280 - bod
+- Includes CSID lite which I forgot to add @ v1 - Konrad, bod
+- Replaces static ICC parameters with defines - Konrad
+- Drops newlines between x and x-name - Konrad
+- Drops redundant iommu extents - Konrad
+- Leaves CAMERA_AHB_CLK as-is - Kronrad, Dmitry
+  Link: https://lore.kernel.org/r/3f1a960f-062e-4c29-ae7d-126192f35a8b@oss.qualcomm.com
+- Interrupt EDGE_RISING - Vladimir
+- Implements suggested regulator names pending refactor to PHY API - Vladimir
+- Drop slow_ahb_src clock - Vladimir
+
+Link to v1:
+https://lore.kernel.org/r/20241119-b4-linux-next-24-11-18-dtsi-x1e80100-camss-v1-0-54075d75f654@linaro.org
+
+Working tree:
+https://git.codelinaro.org/bryan.odonoghue/kernel/-/tree/arm-laptop/wip/x1e80100-6.13-rc3
+
+v1:
+
+This series adds dt-bindings and dtsi for CAMSS on x1e80100.
+
+The primary difference between x1e80100 and other platforms is a new VFE
+and CSID pair at version 680.
+
+Some minor driver churn will be required to support outside of the new VFE
+and CSID blocks but nothing too major.
+
+The CAMCC in this silicon requires two, not one power-domain requiring
+either this fix I've proposed here or something similar:
+
+https://lore.kernel.org/linux-arm-msm/bad60452-41b3-42fb-acba-5b7226226d2d@linaro.org/T/#t
+
+That doesn't gate adoption of the binding description though.
+
+A working tree in progress can be found here:
+https://git.codelinaro.org/bryan.odonoghue/kernel/-/tree/x1e80100-6.12-rc7+camss?ref_type=heads
+
+Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+---
+Bryan O'Donoghue (5):
+      phy: core: Add phy_get_by_of_node()
+      phy: core: Add devm_phy_get_by_of_node()
+      media: qcom: camss: Add support for PHY API devices
+      dt-bindings: media: qcom,x1e80100-camss: Describe iommu entries
+      dt-bindings: media: qcom,x1e80100-camss: Make vdd-csiphy supplies optional
+
+ .../bindings/media/qcom,x1e80100-camss.yaml        |  28 ++--
+ drivers/media/platform/qcom/camss/Kconfig          |   1 +
+ drivers/media/platform/qcom/camss/camss-csiphy.c   | 177 +++++++++++++++++++--
+ drivers/media/platform/qcom/camss/camss-csiphy.h   |  11 +-
+ drivers/media/platform/qcom/camss/camss.c          | 104 ++++++++++--
+ drivers/media/platform/qcom/camss/camss.h          |   1 +
+ drivers/phy/phy-core.c                             | 129 ++++++++++++---
+ include/linux/phy/phy.h                            |  13 ++
+ 8 files changed, 398 insertions(+), 66 deletions(-)
+---
+base-commit: 2e41fb778334db3d260c52c6be4c4d44fbed87ac
+change-id: 20250313-b4-linux-next-25-03-13-dtsi-x1e80100-camss-1506f74bbd3a
+
+Best regards,
+--  
+Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
