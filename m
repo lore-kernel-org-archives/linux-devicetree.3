@@ -1,150 +1,121 @@
-Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ADA5441600
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 13:34:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E484943A7F5;
+	Tue, 28 Jul 2026 13:37:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785245683; cv=none; b=aFR/Wv6YvHcZDEJ24h83WTPzg3Jp74VRdFqvAdflInhVsoBP1/LP8kpX7VGHOQw/grwjJPgjQ9TMxIUwQqjEu83bQH3gTynUmmju3OhEPcYUGxKOWRGCzvOwS5Ho+TINJ5NEkVoymioriRYPvy/ps54Fef/TAOM6LI2dnd1PX/I=
+	t=1785245862; cv=none; b=EJEzCK5xMqq6dEpxnEqoTL6j68UxTUMUFCKOwxRi41lxxsIbNApBf21Q5f9nG7+XT5JQXgtzBuwy5yPGN7oCdyAbLH0X41QkO0N77JMZv5naTTQVl6BWeed5VMxG1mTeJxynKJAjN1YYDdVtWRlITNMUli5L0f3T6ZcsYCJA62o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785245683; c=relaxed/simple;
-	bh=GNFioT5Go4+A2iCqPdYE4MF6fqEa92pWZK+ljRe2ivk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QjmoalP8vXlvAicoN6rFWkdG+fgpZvrWzGvi6bYaaYQN1jSxMWJ8GTzWKik9oGRxtKm/jEbkCqcmSQzuoCmm+H5FbT8U21BDRlg4eGxlsZeq/GP3SuEYy3ugAKWk1pmTmZrlSVLkH4LNxb4Qs5fYjAwv2i3oQDPbsC88w8qZ5Hw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=iyIwyQOP; arc=none smtp.client-ip=209.85.219.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1785245862; c=relaxed/simple;
+	bh=sgTsdDlDtly0xWZbITV5hfRbMCJc89OxwyuGM3l6jKU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nxgST2iS9XdigFvqjnNZmsda572JdczmYhI4n4/g0R0JBRULMv5mcFFADLik0Og2IMiNNrjq6G62KaKiBLAqXilgQAFuWVg+bNispNxMDPBJIZ/wnkQ7UIsroBpOUch3Z7BFlWDpAScv0lq1FGnxvMbERg1Zs4Uf3p+LEx8z++0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=Ose2vTHb; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=UF3GcCme; arc=none smtp.client-ip=103.168.172.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="iyIwyQOP"
-Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-9063b380982so38122966d6.0
-        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 06:34:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1785245677; x=1785850477; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XzGCbFXxJEuGYSs3c0juxd6AOVKDvi6DBrR61H9y/ak=;
-        b=iyIwyQOPfrkNqOivvOHtBOKA+b9LKLNLCUukLsmgvodu++4vXsXc/Zq4XEs3AwZNIJ
-         oq2FwusW0svmmsgRIHQz0YJpFbjuStd1lnKMlWne/RmpNuHb19zuKC28xd3kWpX6gG+y
-         Q/iSXQ4iXbZ1PBu7OjCHOmIHAYBquRB3mk4tvUcIg9KGVeWJdajKvxzO6trwCLxMKAW1
-         VMp1uRhkjBiuawpJw0q+iSjkZ0yWr4EmnYsZk56AP9kaMRgrKflpAJ37tJD3At8PzYnH
-         jDAm9sroIS7XxwyJ/Ajn+kj/YXEmFfkEbr1ESZlRatEz7YnhIywDrrJb+JF9q5xwhLsM
-         HDRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785245677; x=1785850477;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XzGCbFXxJEuGYSs3c0juxd6AOVKDvi6DBrR61H9y/ak=;
-        b=HHI5QaJs1h/bvhuaNEWSKsNAPC0yUGkjhuNeLv8UTgWJ+Ddv6NEomVTQ7GBB56AzKg
-         s3WRsgAklYTB0S1MOSLqTkn8pR3xdeYi8bnRRuVM4399uN5ecvEMrEX0S6aQQ+SvcbZo
-         Esb8Wu39yKvsRHIht07aAfzseYY7aqaCxy/Dh/Rt6BfxyIraQYXkf6ByZkbNbj3gFrx+
-         zVL+kNGa7aPTeDo16FIAGuCjOtnhMJZWvgjX9y94Ic7ZOrX2Pe5LY95pvWXO20JGQdkE
-         Oi5VASRjJqdrq5yiQD3c5z2ElpCKT8xAjGFobUUiibZGjDaphtGlW2SdLiFfn3zLI5LM
-         WIow==
-X-Forwarded-Encrypted: i=1; AHgh+RpD65MUO04eDiX/idEDsYMpufGirV2AFwc2osrGXXghbNnc2yO63nvvEGcyzg2DhNYQMi25vltT7hb8@vger.kernel.org
-X-Gm-Message-State: AOJu0YzbO8tH8vxRt05O1nAQJS5zfpvWScnQ8rJYE7nlit75fNaeP+lA
-	a0vBDCHUsyfcBYum6RnTQjNtyKUWAPVIj6X+TZxGxlZc03V/DsJXd1BnLp7+YRwGTaM=
-X-Gm-Gg: AR+sD1368jhCIWdg8IJSHLi9TpVU1gK2jTex1jGnegQQE7HFRtugIf5ytMCEy0/kJbd
-	I9P2+ttR9i2/FbbvySTUM06k63yg/KVkDT+uzu/jpV6C1BGtwHZYBpXagrm+lDJjMEnahTnydXF
-	UQ+ycAxcF84PD9Tiy6v6ZNlEfclJWcXOc3U4n8QaIO+FTugMdwNj0SKNWSnulqSyIZdrxnPTY0t
-	joAcHNnNMRIlWLTPK+iozGRvEmxlhWevHW0nfxeq9jCiVvkEgzE41bbY1qzY3XivcUbTV+6/Fs/
-	yPfZpY5frOB6N/weO4PAudgKnY7eY2Mpi9RnlzSKKds/TDu6cRw4IONHtqOQa/4UnrnBXU0t0WR
-	UkCHISYednkyYeWYO2AmxgU5h82CWD5SC1E1jmTAqr3iuO0hkPOBht1CQ1/B+j7e2j4OIwj1w4l
-	dW8dkdw/QCotp3Hh+dkoR2XqVYRoadK0Jirx9apbpkb1qAPlsHmufYak+mwJ6L
-X-Received: by 2002:a05:620a:4693:b0:92e:e2fc:26d3 with SMTP id af79cd13be357-9330272f6b0mr228855185a.46.1785245677388;
-        Tue, 28 Jul 2026 06:34:37 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-932de6523c4sm844235885a.34.2026.07.28.06.34.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 28 Jul 2026 06:34:36 -0700 (PDT)
-Message-ID: <9b7cc38c-83d0-48fb-9282-b8c8efd2ae21@riscstar.com>
-Date: Tue, 28 Jul 2026 08:34:34 -0500
+	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="Ose2vTHb";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="UF3GcCme"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id D7F2C1400120;
+	Tue, 28 Jul 2026 09:37:35 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Tue, 28 Jul 2026 09:37:35 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1785245855;
+	 x=1785332255; bh=z3f2OgbFkTa0yiSQNdRvT4FZULvSq630d80q9uArK0M=; b=
+	Ose2vTHbM8TLg/Gj1loNczvnocumSA1kx1n247d4DElL/fuHf8Yd5e3GZEwUQ5sN
+	r27vKROpoCSerOxCO0AnsWvCvsp+l1NDcdwipGOtWRJhFFzjUtQ28PvWd8aCEWnZ
+	J7wrwWgcWXPs4xFbyuuvLfqJVIcIZz00SNTdhpuXe4W9Joz/6dol4h5F2tkuF8E6
+	bK85tuLuPavGpup8Y1cvU5c0zH8QNxyWC2an1CMQ++FDeUXzJmTn7n96XUNSabrT
+	sd92/l/ufThls6Do7uTXUBhh2qoy3JCb0WNTc3jZgwzuK7o79qPL/ZWpqo19DFXD
+	L3kYP9mvUmkAs3DjlO+ZQA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1785245855; x=
+	1785332255; bh=z3f2OgbFkTa0yiSQNdRvT4FZULvSq630d80q9uArK0M=; b=U
+	F3GcCmeeAraaSMGdpVUnB0xyCMkywHgJsk9oWk7i01nH3gkCqn00a81uLTEYlAHo
+	cyhQB+hADUn6zgLcogrFMfFjGN0cS2s08hITbZEe3catB5TkqTdxAhXQ8ocy2MA9
+	YnlAjYypC+31H4BtxIWmcA13Mvn86MaX2k68PcPHkoGGvpjC2wu1WB+74aAri6+a
+	HPHRB5DVCAYUZVFKZOl5DMC7cUj0FrdIGNkgcCPhV4kxtr/PHzjMsXgL6KU/z2z2
+	01tG/PcGBiDOVspM1MYgDi9IsBcx3c+V7VuIV3pDgLC8hLoocpH7OqjmSq7HZ9t3
+	tzv+KOew4OAehdTI4lATA==
+X-ME-Sender: <xms:n7BoaqHbG5GgC2n4u91xxqdahXIh2UrPX_7ErzdpsVzJcsjPxwi19A>
+    <xme:n7Boap1nIcblkuRlSr6_mfe3A9aeAIJvwhbYUrubbJaQ42OfMWGYVQjl_Yv8iBnQ0
+    oz6hn5MNRwYLS1AbtOyb3TyTRed5m0dRjUfUrjWipnOz4LLdLyIUDMM>
+X-ME-Received: <xmr:n7Boaq9HCIBtu2tC-mPXQzlHHVw-fpKduFvDc7IUIasn9l5CS7p6kr0Viz4afyuX3SfXADPUj-DtepQhrneIN0kD9L6KERw>
+X-ME-Proxy-Cause: dmFkZTEBljVdT5JYx+4e7s2/xtHk4InHzmN6oAJ7bZDMZDH9QSGzEF5FdkyK9S7wHN+95u
+    ERnlPpE5MLjq5y0HPjFD8+WkObZUdbjsHndhQGgpMVpyBJ/5v8jR3LOoApedAqQG06UBL6
+    Y+53H+fDGSyy1kJ9Nkw1s1IH2H8LFgfoz09CI4aM7p95q6y8MGGXjEB/v5TueW/yQl8+zj
+    k+VCI9zPSCOh/v9QncVFBIL5YY0AkvzAPpbT1pdraNmeQzo1+xY60rvtk1eWOJwmyMCVmC
+    5DIX5aCOYsC3XA/TRSnTaaKxLAjNp1axUTOpfg/PODao+7Xw1nJ/D/HWk3F+19AXsT/YZk
+    rFGp1AdGof1S3HnG2yHcGxLYVKyXrUtOe+36eDa7y7EjcRSVSX4nV43oiJ6yVDnzrzJqoH
+    o3kYKNMQwtj69tVp19JOP9Ixc7X2eCgGImz2mKkkRf6/uoiCZCwJFRIaFW/Lyq1kmfxFVT
+    Dj5rZ4julxPisNcSrr7a1FB69nXARKFMzEoYOVtdVRygW0ygKMKqaGf6Ii44+XPjd1Wtbv
+    h7YK2PaNBnjz+38pG9GAhHkcEapgTN90HCMd9cSPKiyZAJPOnDrMiGF6a46Hh4TVrCuHdF
+    y/V1T5KBu0nUPfUsOvOjWJImCna0D5tPL7nFx2kIpoKDkGoMP1DFgxajg7mQ
+X-ME-Proxy: <xmx:n7BoakELqJzeWCpz6R3FdPOJkJfjpd-MYUvDW5g-qfUNU6ahXYBsRw>
+    <xmx:n7BoaohulDt9hqcXQp33BoFWK3G4rqCFQUVPO2wlnAZggfQmGz7nIw>
+    <xmx:n7Boah--GcvUslkgivT0bKT_OV50iJLLtUa_-kSYcLFXbpJa8uqW_Q>
+    <xmx:n7BoagbTBqDpvrWbSv1nVVbG05_xjfgJlCBVyS7-Md_7p-ZUkESzUg>
+    <xmx:n7BoargKTOMvz9_2RKaoEH_EBK1_ZOysRv109MFGfet0lwNs9SZs4E2m>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 28 Jul 2026 09:37:34 -0400 (EDT)
+Date: Tue, 28 Jul 2026 15:37:32 +0200
+From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"DavidS. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+Subject: Re: [PATCH net-next v5 3/3] arm64: dts: renesas: r8a779g0: Add gPTP
+ node
+Message-ID: <20260728133732.GA2187218@ragnatech.se>
+References: <20260721132936.1331318-1-niklas.soderlund+renesas@ragnatech.se>
+ <20260721132936.1331318-4-niklas.soderlund+renesas@ragnatech.se>
+ <1f22ab9b-7951-478e-9271-3d659e991ea5@redhat.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/6] PCI/pwrctrl: tc9563: Skip Tx amplitude and DFE tuning
- for DSP3
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: manivannan.sadhasivam@oss.qualcomm.com,
- Bjorn Helgaas <bhelgaas@google.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
- Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson
- <andersson@kernel.org>, linux-pci@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260725-tc9563-fix-v1-0-ec4286e31331@oss.qualcomm.com>
- <20260725-tc9563-fix-v1-4-ec4286e31331@oss.qualcomm.com>
- <f9937e7b-746c-486b-b94f-fb3b34a2b0d0@riscstar.com>
- <oefxm7olagbd3dby2npgly7ausiz3g6cvls5igaxdzvlbr3wrv@rjlfebi2p36j>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <oefxm7olagbd3dby2npgly7ausiz3g6cvls5igaxdzvlbr3wrv@rjlfebi2p36j>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <1f22ab9b-7951-478e-9271-3d659e991ea5@redhat.com>
 
-On 7/28/26 8:25 AM, Manivannan Sadhasivam wrote:
-> On Mon, Jul 27, 2026 at 10:59:11AM -0500, Alex Elder wrote:
->> On 7/25/26 3:59 AM, Manivannan Sadhasivam via B4 Relay wrote:
->>> From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
->>>
->>> DSP3 doesn't support tuning Tx amplitude and DFE settings. So just skip
->>> the setting if DT has passed the tuning properties. There is no need to
->>> error out the whole driver because of it.
->>>
->>> Fixes: 4c9c7be47310 ("PCI: pwrctrl: Add power control driver for TC9563")
->>> Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
->>
->> So to keep things simple, tc9563_pwrctrl_parse_device_dt() is called
->> for all downstream ports but you ignore the setting (with a warning)
->> for those that do not apply to DSP3.
->>
->> What about tc9563_pwrctrl_set_nfts()?
->>
-> 
-> Good catch! I missed adding the check for N_FTS as well:
+Hi Paolo,
 
-In case you need it:
+On 2026-07-28 13:12:53 +0200, Paolo Abeni wrote:
+> On 7/21/26 3:29 PM, Niklas Söderlund wrote:
+> > The gPTP module is shared between the RAVB and RTSN Ethernet devices on
+> > the SoC.
+> > 
+> > Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+> This deserves an explicit ack from Geert, I think.
 
-Reviewed-by: Alex Elder <elder@riscstar.com>
+Yes, this patch needs an ack from Geert.
 
 > 
-> ```
-> diff --git a/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c b/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
-> index 9d869483b6b3..978907aa0ce5 100644
-> --- a/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
-> +++ b/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
-> @@ -410,11 +410,17 @@ static int tc9563_pwrctrl_set_nfts(struct tc9563_pwrctrl *tc9563,
->                  {TC9563_NFTS_2_5_GT, nfts[0]},
->                  {TC9563_NFTS_5_GT, nfts[1]},
->          };
-> +       struct device *dev = tc9563->pwrctrl.dev;
->          int ret;
-> 
->          if (!nfts[0])
->                  return 0;
-> 
-> +       if (port == TC9563_VDSP) {
-> +               dev_dbg(dev, "N_FTS tuning not supported for VDSP\n");
-> +               return 0;
-> +       }
-> +
->          ret =  tc9563_pwrctrl_i2c_write(tc9563->client, TC9563_PORT_SELECT,
->                                          BIT(port));
->          if (ret)
-> ```
-> 
-> @Bjorn: Could you please amend the above diff with this commit?
-> 
-> - Mani
+> /P
 > 
 
+-- 
+Kind Regards,
+Niklas Söderlund
