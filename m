@@ -1,61 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E4F03F4854;
-	Tue, 28 Jul 2026 08:38:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF7813C585C
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 08:39:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785227932; cv=none; b=TbILfZvrGUEKSSzIfZGTIUqNugNtZ8LZnyu/HFlNT5PxX+QQtAP7vlNFp2byMVbYeC19UqWdfEnqbh3xpVu8V+t0fjotB+GXvZUi5WRiiq5PHaplHz+RI7yJZR6obaYTDRDyKHLnTiYtu53ZXbV/CEgK+Im0BUVY8CBQRectWxU=
+	t=1785227966; cv=none; b=TZNHbQOlO0pZUfCzggbHEHZXpngjdMhFU6bMhFkj+oVO8oRTnjJC/mwgEBB1uZ0HyNBGw5LH8Wg5afFdmb27EbBHagUPKFYOKctx2wmECH/F6gsFZFl2ukup2EzA/xagvl0hNOVkzNva2r0O3k5BkWKSHNNhjJsDcrecSxZ1X8U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785227932; c=relaxed/simple;
-	bh=/+3WW/263h2+7sfo7G3yXBjL2PrSIaFOs3LMhgKDWNc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Dp5C/buFD5mkTOoEWaKqX3p9UPX98SnVVwmznWnrAggTKPAcdNp+FH32uY29DsqPSzWvxk7GXksvh7xEoX4A0o9prH/CY5VCAipLl8hi+qCvc9PwbE3E24Jm2a5Xzv/RUMjjFWXSE9udqKX7GnguDYKBIT6PrP/B/qY3eSyAzRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=khNceyOE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785227966; c=relaxed/simple;
+	bh=Gy9E59E6a5WXeykg4cDOxRzrDdWqBRyfN8EJUL97rgU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=SH6rKzWLzEDLgYMzA1Ou7I2XrHPoLi09onfsdfnJHaZWGMK+tLnQHeHtaqAvoh6Ml+Ggnq3seChuVLkHENyYjWaJAtI1GfM9W545nudK9h4EQNc8FTnEzajF8TUlzcuhRh3luSgo7VLB6DKonqwBrdR6jFDwnb3JyU78avvbcD4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E8EEMWmO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="khNceyOE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E93D21F000E9;
-	Tue, 28 Jul 2026 08:38:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E8EEMWmO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B01971F000E9;
+	Tue, 28 Jul 2026 08:39:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785227930;
-	bh=JIKbj3Lai/hOj6cxZ+umv6T98HNivsqn1aYwSt+Qz/M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=khNceyOEPKHd55JXXtl21Yu/g6XmudTclb7rFSLn5/EW9DiTkshdPli5JWXmR7R/V
-	 R8ZjpI0/H64hz/nL4dXrKjSh2PiME2DP13xME6pswEUaaDu6k7HKqUf8ssCyxI0Gmz
-	 dei3EyYmcKHC5qhpGQ/B9FMAldLEf1JwLlJa00LMpK/6lbsuwpsqJkBwD9jSPEJq8L
-	 PL2xAz7LLQ6vFjCgz6bBQCqyKzpC6OQ2FfMKodn2b72WDfyb30x26xktsojQWkY0Pg
-	 C5FCc4nNjCmgEcj1El007cHQ/bg5CBF0sQ9pAUv8jBki0FCcyPMdU5UNDHq1C5/aH+
-	 BpJ9hOlWNT7xQ==
-Date: Tue, 28 Jul 2026 10:38:47 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Praveen Talari <praveen.talari@oss.qualcomm.com>, linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: i2c: qcom,sa8255p-geni-i2c: Add compatible
- for Nord SA8797P
-Message-ID: <amhqA_av-HNk99Ql@zenone.zhora.eu>
-References: <20260707095708.3801043-1-shengchao.guo@oss.qualcomm.com>
+	s=k20260515; t=1785227965;
+	bh=IIj5iwju7kEksBT0DEyho7vdToPuJwzd5sYO6x/weto=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=E8EEMWmOJwNaf2h40XwQflzp9lekdnj3Qv75LGBhFEpZwb+iXX67Xw+RhV7lw975K
+	 IvZz2Ll+RAvPAJxbQoLAKAsN0791ZJV7n2mBPN1JPXa4L643QwLGKxqWkV/vqgeT5p
+	 GGkOrQClkHkq+9AA9iJvyogZq1Ci6t1N8VIHRBaVpQ8EokddjdP4QuYkgzo+z1fS7P
+	 vZ9j3uQdbclEOqpsylU0/3erfrcXkuGAUrTdyg1YgQPn94UNtm57AxrMuxj4ga485b
+	 /6UfXzmyOL622Eq3XImxKT6RYlMz571FYYnOynghCC53EjLFm62MVVcxOjuTxUEEop
+	 ueK45d2nzks7w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 3/3] arm64: dts: qcom: sm8250: Add JPEG encoder node
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Atanas Filipov" <atanas.filipov@oss.qualcomm.com>
+Cc: media-ci@linuxtv.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260728082548.2511694-4-atanas.filipov@oss.qualcomm.com>
+References: <20260728082548.2511694-1-atanas.filipov@oss.qualcomm.com>
+ <20260728082548.2511694-4-atanas.filipov@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 28 Jul 2026 08:39:24 +0000
+Message-Id: <20260728083924.B01971F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260707095708.3801043-1-shengchao.guo@oss.qualcomm.com>
 
-Hi Shawn,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Race condition in stream teardown can disable interrupts for activ=
+e streams and cause hardware deadlocks.
+--
 
-On Tue, Jul 07, 2026 at 05:57:08PM +0800, Shawn Guo wrote:
-> Add compatible for Nord SA8797P QUP GENI I2C controller, which is
-> compatible with SA8255P controller.
-> 
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+--- Patch [3]: [PATCH v5 3/3] arm64: dts: qcom: sm8250: Add JPEG encoder no=
+de ---
+commit 37f9191db4e80eea5cca3dd9978def555946b6b5
+Author: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 
-merged to i2c/i2c.
+arm64: dts: qcom: sm8250: Add JPEG encoder node
 
-Thanks,
-Andi
+Add the JPEG encoder hardware node to the SM8250 device tree so the
+qcom-jpeg V4L2 encoder driver can bind and operate on this platform.
+
+> diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/q=
+com/sm8250.dtsi
+> index 7076720413ab2..98935f3fcd05a 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+[ ... ]
+> @@ -4469,6 +4470,79 @@ cci1_i2c1: i2c-bus@1 {
+>  			};
+>  		};
+> =20
+> +		jpeg-encoder@ac53000 {
+
+[Severity: High]
+Does enabling this device expose a race condition in the driver's stream
+teardown sequence?
+
+Looking at bop_jpeg_vb2_stop_streaming() in
+drivers/media/platform/qcom/jpeg/qcom_jenc_v4l2.c, the lock is dropped
+before calling hw_release():
+
+	mutex_unlock(&jenc->dev_mutex);
+
+	/*
+	 * hw_release() calls jpeg_deinit() which issues HW_STOP and waits for
+	 * the STOP_ACK interrupt completion.  It must be called outside
+	 * dev_mutex to avoid a deadlock: the threaded IRQ handler acquires
+	 * dev_mutex before signalling the completion.
+	 */
+	if (do_release)
+		hw->hw_release(ectx, q);
+
+Since dev_mutex is explicitly dropped here, could a concurrent stream
+acquisition via start_streaming() acquire dev_mutex and see the lockless
+ref_count transition from 0 to 1, thus initializing the hardware and
+enabling the IRQ?
+
+If the preempted stop_streaming() path then resumes and executes
+op_jpeg_release() in drivers/media/platform/qcom/jpeg/qcom_jenc_ops.c:
+
+	ref =3D atomic_dec_if_positive(&jenc->ref_count);
+	if (ref < 0) {
+		WARN_ON_ONCE(1);
+		return 0;
+	}
+
+	if (!ref) {
+		rc =3D jpeg_deinit(jenc);
+		// ...
+		disable_irq(jenc->irq);
+
+could this destroy the hardware state and disable interrupts for the newly
+active stream, potentially leading to deadlocks or panics from unclocked
+register access?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728082548.2511=
+694-1-atanas.filipov@oss.qualcomm.com?part=3D3
