@@ -1,185 +1,237 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1AB93B3C12
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 18:10:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65B633C9EEC
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 18:13:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785262230; cv=none; b=bhGViXTrmbztRkOxnh57YphM6zBMzk+yWOC5gKdUJx07WG4/C3nC8wy9z+YVBY3fcbFoxgJmQAA/dtnWJ52ijO6yZCFBw3F0mKuFrY7HMwHz3oliB8ndq9sT2ga458urmmdKSnNDQZqm2Oa4XTe8hs0lBLX/DxUUoVLWYZ965CA=
+	t=1785262411; cv=none; b=SQ6XQ68b3GDC33ac2Yj1KdFrCB1ipM+WxJc0JbU0ols2qjw1I8z4oPHUhSjA8q1Co4q+Za/5wNbgft6FcYFm96JaIHU7CNDn2E+Ilq2Rx1kiq/7aaWt96wem7/EoUBXkDmajmngldnxT+YVE0wmLQlJ1U8J8t7bxCLnqkuMUY40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785262230; c=relaxed/simple;
-	bh=SoZTNrUCUMJsjQyOeEB+XQ25B/C7AybQKj1Imbqx0xE=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=hds8zhuOJwDtYS9Y3IERAjjlX/Xz/gdYGQBiEqklKCO88aog8OUtHLZUyLTxkZg0mSh8qfhU4TzqcpRsd/Ha3YECwsd7SnvJkzdZyLB2M+1B2B+OQ/P0t59tAdlkUyhGiacqOFfQnkrn8pjMBvEUD3BHf2gyU9K2zwr0OTjMhfs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lwlUSi5U; arc=none smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1785262411; c=relaxed/simple;
+	bh=jY6dnqvHqg10KwmO68TrPmov0yHK8C6hEToNCKrRsr4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=V6oFpnP01hRewCt9DH83qLDXWBVHi1W38++z31oEXGf3MiuVQkwziQT1OZuWqQJDDjq0jKKSSD877dEN7IlZ6uOg8UCnqlKae44Pj55BCgFKPyyQ4kzk0vHNm4DJ2zGkEHsndZPsVTb6yB+kiDtrXJuc3xBdQcQ2uMZIg4qhp+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UuME5CsZ; arc=none smtp.client-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lwlUSi5U"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-47de0093c42so135266f8f.3
-        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 11:10:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UuME5CsZ"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-381216921aaso120388a91.1
+        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 11:13:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785262227; x=1785867027; darn=vger.kernel.org;
-        h=to:references:message-id:cc:date:in-reply-to:from:subject
-         :mime-version:content-type:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=zRqEh40r0PnAAxBC6Ehpg1QR1kIM64rXG8fPCVXya6U=;
-        b=lwlUSi5UUvG2gtmeDtRzPIRKVFKNoBgBTraMvh+hC8WGSc1TRFd6SoMY8ufb/Q1cmw
-         eSaohJOjURiM7LMbtKT97E1P8bHC7anrRFIZmjgab7YCPWrKHmov/h6afL4RgZ3mqzE2
-         w7bQCmGjQb5qa5fqBaBrQnQ7UvBClBzO2dMc8D9RCvIx40M664NtVIb1HTLH/GgGm6oY
-         i0/zbzrp1fd7k3+A+bDtq/BiLlEXqqNxre1PpOlg1MPjaVnRB9htbmG1lEX5U3YUBcCT
-         TEJZpMA4GEgiOyVP7jG6LFaPp8SQVkhIxXU/UeDkYrZrosxGACcH5f3ie9C6HzKjOAmy
-         BtGw==
+        d=gmail.com; s=20251104; t=1785262409; x=1785867209; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YMSPpx6yGKTGt83Sgz1eRa+q8wGQ4JN++szdtt2dYyA=;
+        b=UuME5CsZQjqyb2mrQUATIO4vZ6+C0hSQdhuMNCT3jWqVdCo+gGA6L1gidOn7INn8e8
+         JD5Z5HFpaRRZKWBNf8D7JN6xTgSWqu8kag02bZ93t4Zv2DCSRl+DgH4v6bSmX9DgC8gr
+         h5xdOhnjVUrk/RDHquYuwH/qLwnqACfMVvyyqLsVUPagF+SoDevAXpvt2cysVGJv01/e
+         svfmMcJ5yD+eD+urMqaBc6vECa0+FKWsNkCZS7Q6WxwNUgtuVek/Yr46iJuhjxIWlQy0
+         Ix1mPrtWCI9yszseN2PsfBt6HNPn+P85b5m96pAj5wrMqe6CjkBe9GntTILe8ms4p298
+         uR4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785262227; x=1785867027;
-        h=to:references:message-id:cc:date:in-reply-to:from:subject
-         :mime-version:content-type:x-gm-gg:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20251104; t=1785262409; x=1785867209;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=zRqEh40r0PnAAxBC6Ehpg1QR1kIM64rXG8fPCVXya6U=;
-        b=lOSZ03zdleWExgXkQto12f3Lr9LceaUefy3sEm6Qw5q4YpRhN45JHPpMDDuhpN/9oT
-         WewGjpRp7LbcNaMw8xihsNdhG/4CkuQzamZImIV5UcXyQ/DEpVVD75pTAP35dxMd62cw
-         dPRliWmE414gkKqFym5s8PX+o72ZHiGCcLn0AdGbForHFU89yyz7lUsuW3tegzs7gXEk
-         e+wt8rp+MU4Cf9KrLUxqOo+dy+cSZ77MJVZB7ylYf8hy05YdZRcLC7HwopesnrSJ3nqm
-         aIjkUKxwM8Zl9xe8wwGOl31XmePJvCRaD5blXLGtCKZT+yEAj87nTpLb2lWSwR/LW45Q
-         B+2w==
-X-Forwarded-Encrypted: i=1; AHgh+RovJMXVcRizjj2kDiNz/HovyjfcWuYSINKs0Pzf2RwsYPivmUlP+mwqr6l/9pXLFyQUWPg7VBdr2Q44@vger.kernel.org
-X-Gm-Message-State: AOJu0YzBklspkk+93s3kkFEFSJJWWLoAdJaUz50e2jUERKu+RX7NVWlS
-	JnbhNsVXVqsvrlHZ8JtOkiJuPBEfUx1oeGRbiihm7SCi+aUfio30Q2zx
-X-Gm-Gg: AR+sD11ZI4RlNmXjxbS12VsZCIXuNS7NqdZ2mkNVqDfTLDxYSVtVqrZ9RQrf/fu0U0/
-	eW6cfsn+1ySMWEE6zGaFskwMr3++hcLhjivFQSbOOZ81qo94CiQc1Zhoqb/FP6XC5YagHwRGYtK
-	RK//bZazPZEI388vwTNyWcwj7VH8VDlodbdcBdLz45zbBOTwu4i7VhML6twnbKuAcw15amS9LIe
-	J7IEyHHMNMmf/CKqAI560mEzwr+IRq97L468opO0drcaJZmhH4NQa9etDBavtYwrFDhhzVru3YG
-	8MOG98LQPXJoFas+GtZOzNt7tPQ3GyOZHAUtco3WgS5EdXhS6mvS9FC6Q2NDdLzbzeYBPyoSXFQ
-	aZ8b65r62B423VAmK0J27l8eP6jUV0CrCRujqX+l5RlXB7X34/5EqkNiYjm6ERyu4ITHQfhMUXF
-	rCPP0UwSyyIrkK51T2Rm/xJtZaQb/SqJo=
-X-Received: by 2002:a05:6000:230e:b0:47f:9720:4740 with SMTP id ffacd0b85a97d-47fb1e9f82amr4362694f8f.37.1785262226606;
-        Tue, 28 Jul 2026 11:10:26 -0700 (PDT)
-Received: from smtpclient.apple ([197.250.51.166])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fb6abd0a6sm800035f8f.10.2026.07.28.11.10.19
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 28 Jul 2026 11:10:25 -0700 (PDT)
-Content-Type: multipart/signed;
-	boundary="Apple-Mail=_74B8EE53-C8E5-442D-8CD5-A08FCBF83C61";
-	protocol="application/pgp-signature";
-	micalg=pgp-sha256
+        bh=YMSPpx6yGKTGt83Sgz1eRa+q8wGQ4JN++szdtt2dYyA=;
+        b=aE6Kb9KFkm4BLyqQddPkt6xbUMb1PbrEQvK9nnbeSQLeJEr9apF4be19dLhpKr4rH1
+         riTwE4CXyC4Ls70bKP3EY3oPKCmfljiAHbAtWBbpN9g6PhWvq6M6UyjX5OMopgZmbN4M
+         bMVcHaXzl304iG+4he/mYXxA6w9RakZWDsosh1+BFC2u2bxBpJWYR4Yf60TKsja64oQD
+         8minSvNkC6suXUQXTnqk+aI6Vt23J50wWsBLajoQIGpgHXOx5sCmHLEC9ARGv49HxZTm
+         nwjFPEtm0/SI+Q1+tiqs9wotCEmXjfRG+d5pICo2Lhf2LbNkU/wmdE6QQ2Mq94ZYLMYI
+         et1A==
+X-Forwarded-Encrypted: i=1; AHgh+Ro88e0idJrzpoubUjDCCNofsRMAA7552Q1qCYTNeEk7ofP+bk720Z3ultbZ56PtXxH3EAwS/CiwOxQ9@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx+8X9znMPs4yB5dXyhZfrwuMjPRbTZA7ludd6h844JaHEZuKiO
+	Ke8FMdYuO2N9B50TjX/nGQjLNkpfdc0wF5p3HHlIHrHeZqnyPlgaw3wT
+X-Gm-Gg: AR+sD10/AgNggFO5kjIprZzTSUsV/kAJrQg+Ek5tgQtouXw1hfs1CFVmEb6dIWAe1gx
+	u2dFtoh8K87egHMzXzX04IAgI5J0/fUxNJ+UDn/RQlHjpjRtXKQBQmCDj2UeWZaAecqaCE1Bue7
+	Jfo+YEt5iZBKrKL+ZnUividyqfvK3eabXDLCK51PiABOpb9d3nfQqgmNjuvCcsDSQ4mFj7BE+5T
+	QKH7vZBigc+YWeANEI5ZdZ7oOhWW+vMwpt9zFlFuQxqc9qp472N/X7BzF2TtovNZSOP82gwWJZs
+	KiidEhk6ik5P/n3/pitqrakPE2540y8BMm0yvXOvgI/Dfp2R5+0ZhR3Q96vNkSCIY+bTdb1O2sw
+	RVlvnglreOWwE91ZJizQgca4YSBER/n1wvzB3+cWK4M0loj8Lwl+chpdbN7i1FbAgL3ZGb8YvpL
+	1EM11mv8G38bucEYQxJ5tGuvOaacMInMdFTXrJDQxCrNZqsPmjeiQ=
+X-Received: by 2002:a17:90a:d888:b0:38d:e658:595a with SMTP id 98e67ed59e1d1-38f6a30d87emr3634504a91.2.1785262408610;
+        Tue, 28 Jul 2026 11:13:28 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31504d373c3sm915235eec.23.2026.07.28.11.13.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 28 Jul 2026 11:13:28 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <e8ba1c8a-cf68-421e-9974-f31f31e90e59@roeck-us.net>
+Date: Tue, 28 Jul 2026 11:13:26 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
-Subject: Re: [PATCH v8 01/12] dt-bindings: clk: zte: Add zx297520v3 top clock
- and reset controller
-From: =?utf-8?Q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
-In-Reply-To: <20260728-proficient-boobook-of-will-2cc94a@quoll>
-Date: Tue, 28 Jul 2026 21:10:03 +0300
-Cc: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Brian Masney <bmasney@redhat.com>,
- Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Russell King <linux@armlinux.org.uk>,
- Lee Jones <lee@kernel.org>,
- linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- linux-phy@lists.infradead.org,
- mfd@lists.linux.dev
-Message-Id: <3A3A0D17-7A80-40FE-AB89-DDE8E9A7F72B@gmail.com>
-References: <20260727-zx29clk-v8-0-7a107b00f1dd@gmail.com>
- <20260727-zx29clk-v8-1-7a107b00f1dd@gmail.com>
- <20260728-proficient-boobook-of-will-2cc94a@quoll>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-X-Mailer: Apple Mail (2.3864.600.51.1.1)
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/5] hwmon: (pmbus/core) Add mapping function to
+ pmbus_read_block_data()
+To: sashiko-reviews@lists.linux.dev, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>
+Cc: conor+dt@kernel.org, linux-hwmon@vger.kernel.org,
+ devicetree@vger.kernel.org, robh@kernel.org
+References: <20260728-hwmon-max20826-support-v1-0-224766e0acd1@analog.com>
+ <20260728-hwmon-max20826-support-v1-3-224766e0acd1@analog.com>
+ <20260728162749.A42051F000E9@smtp.kernel.org>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260728162749.A42051F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
+On 7/28/26 09:27, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> 
+> New issues:
+> - [High] Stack buffer overflow in `pmbus_debugfs_block_read` due to unbounded return value from custom `read_block_data` callback.
+> 
+> Pre-existing issues:
+> - [High] TOCTOU data race on PMBus hardware page selection during probe.
+> --
+> 
+> --- Patch [3]: [PATCH 3/5] hwmon: (pmbus/core) Add mapping function to pmbus_read_block_data() ---
+> commit c4bd4d03203a9fd14a7a2bcff69ec842b441fa68
+> Author: Nuno Sá <nuno.sa@analog.com>
+> 
+> hwmon: (pmbus/core) Add mapping function to pmbus_read_block_data()
+> 
+> This commit introduces a mapping function to pmbus_read_block_data() in
+> preparation for adding support to a device which needs to use its own
+> read_block implementation.
+> 
+>> diff --git a/drivers/hwmon/pmbus/pmbus.h b/drivers/hwmon/pmbus/pmbus.h
+>> index 3d5586c67f840..d697939ec8921 100644
+>> --- a/drivers/hwmon/pmbus/pmbus.h
+>> +++ b/drivers/hwmon/pmbus/pmbus.h
+>> @@ -459,6 +459,9 @@ struct pmbus_driver_info {
+>>   	int (*read_byte_data)(struct i2c_client *client, int page, int reg);
+>>   	int (*read_word_data)(struct i2c_client *client, int page, int phase,
+>>   			      int reg);
+>> +	/* size of data_buf is I2C_SMBUS_BLOCK_MAX + 2 */
+>> +	int (*read_block_data)(struct i2c_client *client, int page, u8 reg,
+>> +			       char *data_buf);
+> 
+> [Severity: High]
+> Does this API need a size limit parameter? The comment specifies the buffer
+> size is 34, without providing a limit parameter to the callback, which might
+> encourage callbacks to return values up to 34.
+> 
 
---Apple-Mail=_74B8EE53-C8E5-442D-8CD5-A08FCBF83C61
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=us-ascii
+The maximum amount of data returned must be 32 bytes, not 34. Callers define
+a larger buffer size to be able to append, for example, '\n\0'. The function
+itself, however, must not return more than 32 bytes of data, plus the data
+length in the first byte.
 
-Hi Krzysztof,
+Guenter
+> [ ... ]
+> 
+>> diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus_core.c
+>> index 7b58f71985741..ff4572c473b70 100644
+>> --- a/drivers/hwmon/pmbus/pmbus_core.c
+>> +++ b/drivers/hwmon/pmbus/pmbus_core.c
+> [ ... ]
+>> @@ -678,7 +698,7 @@ static bool __maybe_unused pmbus_check_block_register(struct i2c_client *client,
+>>   	struct pmbus_data *data = i2c_get_clientdata(client);
+>>   	char data_buf[I2C_SMBUS_BLOCK_MAX + 2];
+>>   
+>> -	rv = pmbus_read_block_data(client, page, reg, data_buf);
+>> +	rv = _pmbus_read_block_data(client, page, reg, data_buf);
+> 
+> [Severity: High]
+> This is a pre-existing issue, but can this lead to a race condition with
+> sysfs accesses during probe?
+> 
+> Looking at pmbus_init_debugfs(), it traverses pages and reads registers
+> without taking the pmbus_lock. This indirectly invokes pmbus_set_page()
+> through pmbus_check_block_register():
+> 
+> pmbus_init_debugfs()
+>    pmbus_check_block_register()
+>      _pmbus_read_block_data()
+>        pmbus_read_block_data()
+>          pmbus_set_page()
+> 
+> If userspace reads or writes to a sysfs attribute concurrently, it acquires
+> the lock and sets the hardware page. Could the lockless call from
+> pmbus_init_debugfs() interleave between the sysfs thread's pmbus_set_page()
+> and its subsequent I2C operation, causing the sysfs thread to hit the wrong
+> PMBus page?
+> 
+>>   	if (rv >= 0 && !(data->flags & PMBUS_SKIP_STATUS_CHECK))
+>>   		rv = pmbus_check_status_cml(client);
+> [ ... ]
+>> @@ -3564,7 +3584,7 @@ static ssize_t pmbus_debugfs_block_read(struct file *file, char __user *buf,
+>>   	char data[I2C_SMBUS_BLOCK_MAX + 2] = { 0 };
+>>   
+>>   	scoped_guard(pmbus_lock, client) {
+>> -		rc = pmbus_read_block_data(client, entry->page, entry->reg, data);
+>> +		rc = _pmbus_read_block_data(client, entry->page, entry->reg, data);
+>>   		if (rc < 0)
+>>   			return rc;
+>>   	}
+> 
+> [Severity: High]
+> Can the new callback return a value large enough to cause an out-of-bounds
+> write here?
+> 
+> If _pmbus_read_block_data() delegates to the new read_block_data callback,
+> and that callback returns a size of 34 (I2C_SMBUS_BLOCK_MAX + 2) or greater,
+> would it cause a buffer overflow?
+> 
+> Just below this hunk in pmbus_debugfs_block_read(), the code does:
+> 
+>      data[rc] = '\n';
+> 
+> Since the size of the data array is 34, an rc of 34 would write past the end
+> of the array. Is a bounds check needed on rc before using it as an index?
+> 
 
-Thanks for the prompt review!
-
-> Am 28.07.2026 um 09:27 schrieb Krzysztof Kozlowski <krzk@kernel.org>:
->=20
->>=20
->> +  resets:
->> +    items:
->> +      - description: USB phy reset
->> +      - description: HSIC phy reset
->> +
->> +  reset-names:
->> +    items:
->> +      - const: usb
->> +      - const: hsic
->=20
-> You do not need these two. It's one device and DT does not represent
-> internal device wirings because they are redundant (deducible from the
-> compatible).
-
-Just to make sure I understand the implications: Remove the PHY resets =
-from the reset header (and driver) and have the PHY driver control them =
-directly via regmap instead of going through its reset sibling? That way =
-no self-consumption is necessary. At least that's the idea Sashiko put =
-into my head with "Could the driver interact with its own registers =
-directly?".
-
-The PHY driver would take exclusive ownership of the resets anyhow, so I =
-don't see anything in the way of just making it own the respective bits =
-in the 0x80 register through the shared regmap.
-
->> +required:
->> +  - compatible
->> +  - reg
->> +  - clocks
->> +  - clock-names
->> +  - interrupts
->> +  - interrupt-names
->> +  - resets
->> +  - reset-names
->> +  - syscon-reboot
->> +  - "#clock-cells"
->> +  - "#phy-cells"
->> +  - "#reset-cells"
->> +
->> +unevaluatedProperties: false
->=20
-> This was different last time and previous code was correct.
-
-Ok, I'll keep #phy-cells and ints optional and also make it possible to =
-provide only USB or HSIC ints.
-
-
---Apple-Mail=_74B8EE53-C8E5-442D-8CD5-A08FCBF83C61
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
-	filename=signature.asc
-Content-Type: application/pgp-signature;
-	name=signature.asc
-Content-Description: Message signed with OpenPGP
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmpo8HsACgkQPRO8yFRP
-GiLPTA//VT+BJ+4K6QWEatqxIi67Rfy+A3mhALsMoPStAPoN8KELPVr+JoqLoFD8
-lz9s0uj1PXWN1CmBArx6Hzm1N35owUoP46VLnwqrIAR0gaor+PQPHJ9In5L6E6Lm
-SdUs0QfxWMV75E2IM1tTRf8MKa6SnCvEp72OAYdMgRzEd7f0vp9fV9716yb0Ej7q
-ZXG85U4f/1++S5XHoPxqFxrxunsJoX4GgVEmKyeB9N3spWjS7KykKo2UYFZEctFg
-RUiai7lO1I2X9DuFGkuVZcouCIcpB1eJHx7r3UOTwIG6kbTKHBjWoq32L2tjUY4B
-nSkU7vMfwUA387n/zdeisN6smcf0C8uH3g8PSozuzaojYQzAr5MjbmgDue2R1LQi
-wVfHBdREUJL1WHt25UgiE5EcBcrQhwxccqDuWbkXH9toxP0HUEpTn9gdB8yNdGQx
-HSLsQCaqOew5/9nPEnwn0X7q7FnnBSOYv6AQ5g96xPeuNDNQ2n8f80X8iBmy3qup
-tWM+cCViEhEkoLl0x+/XTO6vfljHztZCpv2Xey9PGs7HDtyJbBMTkcHdcCTFV9yo
-RKzQMdJgqmIfycOlUGL+eHCI1X9SGEZc7hcENPBn666TnnWf3XrsCKZNHFBCU85e
-HUylGFuzN2pdc1MzYxgwFIJhKLtsVV8pLrnR3WfCD/2F6XYb36g=
-=Oh+I
------END PGP SIGNATURE-----
-
---Apple-Mail=_74B8EE53-C8E5-442D-8CD5-A08FCBF83C61--
