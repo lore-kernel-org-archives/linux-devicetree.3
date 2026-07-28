@@ -1,93 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 138EE471CF5
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 21:23:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B321413788
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 21:25:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785273827; cv=none; b=Et1sfjJ0bVQSlW0yy+spKLnhCHwu090JvwM/q/o8N2/pYDHhvGoCRNZzwBHGC4rQCqmyt70w2nhqnlELGVXmJQLrW/s98YqLXF5Mi6Y9wB1fb+zfG1egMnEyu05pHbIPMsdsqHP7XqttlAv6yK0aI/K+vGByZNpO2sJmDR/fwEg=
+	t=1785273950; cv=none; b=ABW+EXQlCeXNRwq3bfbtKct1t97OMA9N/Q2OVtUGO9CsCdrwq6Rg/s915lQVA9Uhc7Fb4FghVjkwJv8E/R1VBFFwcFDUkjQu94JqwmzSTgwUgJ0K4dsmticRibvkVx4ByApi/F+lCSUS0NkGGTWvMXQ3XUFUhS4G2lP0xHVHBn0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785273827; c=relaxed/simple;
-	bh=b8oJJ3oJi5FvCudewvdx7HBuEjOvvqUR3q65BZ+qfVw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KjSAu0rtcX3EbYe0Xv9sI4iqJYaQtpYszqCUK/DWFPJ8aLWdW1z7271ARlS++ixWFhJ19pN3jYM+QwwnY1qvxiGfa6vdquDvTC1p+LMZ3hX6rAOnT9VpWv/dvGZazK1fLku41OhXibdVUTkuMX9cugJHLICUmU25YlfQpSPl1TY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K6NyyXll; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785273950; c=relaxed/simple;
+	bh=APWk0uOj8/6LVjgqEtJk1b6uSGlDci9M7cPzBIGfdF8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=c18S4rNYd28qPdgtiArhq9YZnU5adIA/PIS9FPlhr8ND+1uoaL7JTERa11UINzlMqX8/BAPphgV+rGICqnHKYmwHYYW5MSQEj3SZnxBpX11joIt7JegwiYjz9/HZH+wYxhlG/lSbY0etv670VIseepyTfjvXbOHTer28B9tnvUA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=arhJvCiW; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K6NyyXll"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0CFE1F000E9;
-	Tue, 28 Jul 2026 21:23:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785273825;
-	bh=cBNzvHvrhUzWguWPt1fv8eiFakAldAWqLeL+gPKOerg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=K6NyyXllXitkID2y7q7twwOAglsJim6TyupJ67mJHhBTjTlXwpdDTgk7eo3xpxSE5
-	 MvFdCjDTP/61L9LfEzPe8n50pGUw+st+QoBN09m3w0pCYHEk0PmVko/WVownJqpJgi
-	 imePpaMpQ9eUZF32OsXlW8VbwGTMeMyegG9lJ3hkg8KEO0b6sovg1meg3SOjDs1vwx
-	 AB2qyg5njihXq8FxemIHL221aMnJoW1GKBe4/R7J5oXT9jz5XBYs1Oz1RDekXf8hFD
-	 GcaK77q6rDcCFQWXndrTlzrj7xOzfnfVxNoOLSpsVg8BdFmGygPq0989d7AW7iBTB4
-	 dRNfjqK7txFBw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] riscv: dts: spacemit: Add a common board dtsi for
- Milk-V Jupiter boards
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Aurelien Jarno" <aurelien@aurel32.net>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260728211020.1248676-3-aurelien@aurel32.net>
-References: <20260728211020.1248676-1-aurelien@aurel32.net>
- <20260728211020.1248676-3-aurelien@aurel32.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 28 Jul 2026 21:23:45 +0000
-Message-Id: <20260728212345.A0CFE1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="arhJvCiW"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-493b966dd74so1653235e9.3
+        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 14:25:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785273947; x=1785878747; darn=vger.kernel.org;
+        h=content-type:mime-version:references:in-reply-to:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1dUKZYq5xkF+c+j8L2UCzb9nPYl48cxNMgRgY7fYgmE=;
+        b=arhJvCiWsnMDShQuKi1qEpuiBNzclxRrA8COReiRG7NMiZgP02HqV4F5qmeeLr+Ivm
+         STSv0UwU1RrxnHzaheLqxL0OR1C35VXJ2TqtmoDxjXls0jj6SXwFj0jyWzHPe1t99kKj
+         WVYizW/FAREUzRqBgixpM5w1P9sK6TwjxEDFRMKDvbj2AKCrNmhU6gtpnLUmSr9N6ugV
+         caRWujc6G4+6C//2ZTPtny8liIRtUtMEKxrGuIUfAJl+2jEstOvhD5yClHdqG25+9CLW
+         aODyveF0zAqsvwzHi01LHUukSin1FbG8R8EHOZlPxhxmTQpiT5+rFEILKUJEPg7wGWGF
+         sB3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785273947; x=1785878747;
+        h=content-type:mime-version:references:in-reply-to:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1dUKZYq5xkF+c+j8L2UCzb9nPYl48cxNMgRgY7fYgmE=;
+        b=GvWVt1SiaBna5dk1L9pciyB8S/HuFwfNb349Fv4FWk9+Cfrk5x0DTSXOB9doswv3FJ
+         CeJCEL1gi4epJ16TBQKGgnxpianoDPD7BcUX/DIHoWdmwGz3EdpkbIkZJmXA41QJ2Vni
+         9gIFIomBtnnGvnmw1WunFfQVO2+EWlmpn2LthdPsBG8otyYttxHkSSIBDEsbfajzdHvw
+         uHGrykkp4mwI6jKxGuU74ms6lTIf/FXGrmaxHRq69fEyDYyAc37sRY2ijCCQ/XqeUk3B
+         RarT3+2xLxkZclo1gfFgyEJRHQ+wBrNVEi6WMzHPy7Htye8PQE6M0+ugi8Cf8oChOAO1
+         ispA==
+X-Forwarded-Encrypted: i=1; AHgh+RrqxeJXqMWMXjmRjUM+ggRixjoCJLl8p5JIMLixktXgyl3JA2fty7JLZ5AqvxqBpJtJmZZI+LYzfbD+@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywg0imv9sNwgKTqOWOqnmKyRDnRdACoTz4tl0rA72X2xp+WB/cn
+	ZtsWBWAw4Guu41Wst+5UE8ef9n/Xg60hjEi6sZzpe4MPfDw7iH7NWLL3
+X-Gm-Gg: AR+sD12GcNxX7a2ROFmmuMfSBQLdWK0+NftRPWuuiRjsqkuw9oji5Df6eOhUfyVr5i1
+	T1RkvGQK9qgirJbR66EdYVgkbCAdSDwegPSrIwvrJIG7sezvl1M+1ioRAuY9LS+P5ohIXiITpfu
+	ndrwd3EB8KXMLsQavQZNKu8gLSWvI+8eJkO+cM6t1n5vKA2DS8Lxwzc+Bzu7I7TIvyp2eVzuaA/
+	8NwVKoqJFDyHYXCN7OQILt4aQwEJEUZZP2pN3xeulUVEezy1fc0x6q9vw/GFsajqBc7BttE6oca
+	A3b5fiwoPOTh4DmfeV7DVqV8t3i0XhT3C5RuU5iCTtaP5M0O7SRXWC68XbPObowBbaEhZsrrFra
+	ULFMlETrV+HyMUxYIe8uOTYhoET8wGJ9kfbT42ZkYrepSZP3TtrgOdVaoY2X0z+vg0gI3Jldri8
+	tbf4vKdGGbeQ64JGPB19XYz7TkiL0b+ZWeV8Jufa2qgPCegPhpqXthriBuctmO+/NplfzM5xc=
+X-Received: by 2002:a05:600d:844e:20b0:495:5375:2510 with SMTP id 5b1f17b1804b1-496c6568a37mr33118015e9.24.1785273946598;
+        Tue, 28 Jul 2026 14:25:46 -0700 (PDT)
+Received: from grey.localnet ([197.250.51.166])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496c45c297dsm103054375e9.7.2026.07.28.14.25.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 28 Jul 2026 14:25:45 -0700 (PDT)
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+To: Brian Masney <bmasney@redhat.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Russell King <linux@armlinux.org.uk>, Lee Jones <lee@kernel.org>,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-phy@lists.infradead.org, mfd@lists.linux.dev
+Subject: Re: [PATCH v8 05/12] clk: zte: Add Clock registration infrastructure
+Date: Wed, 29 Jul 2026 00:25:34 +0300
+Message-ID: <MwDLqBgXR7G6dGkTtCaRrQ@gmail.com>
+In-Reply-To: <ami0TaY84IslWZyo@redhat.com>
+References:
+ <20260727-zx29clk-v8-0-7a107b00f1dd@gmail.com> <amiw7mfPfSPjLHLH@redhat.com>
+ <ami0TaY84IslWZyo@redhat.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; boundary="nextPartYxrm5NhARqO7C27MMFWz9g";
+ micalg="pgp-sha256"; protocol="application/pgp-signature"
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The patch incorrectly removes the original authors' copyright heade=
-rs from k1-milkv-jupiter.dts and replaces them with a single copyright clai=
-m by the patch author.
---
+--nextPartYxrm5NhARqO7C27MMFWz9g
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+To: Brian Masney <bmasney@redhat.com>
+Subject: Re: [PATCH v8 05/12] clk: zte: Add Clock registration infrastructure
+Date: Wed, 29 Jul 2026 00:25:34 +0300
+Message-ID: <MwDLqBgXR7G6dGkTtCaRrQ@gmail.com>
+In-Reply-To: <ami0TaY84IslWZyo@redhat.com>
+MIME-Version: 1.0
 
---- Patch [2]: [PATCH 2/3] riscv: dts: spacemit: Add a common board dtsi fo=
-r Milk-V Jupiter boards ---
-commit 97e4c73a96036da2bf4f3762abb7b076f18d6748
-Author: Aurelien Jarno <aurelien@aurel32.net>
+Hi Brian,
 
-riscv: dts: spacemit: Add a common board dtsi for Milk-V Jupiter boards
-   =20
-This commit adds a common board dtsi file for the Milk-V Jupiter board
-variants. It factors out common configurations into the new dtsi while
-excluding CPU operating points, which are left for the specific board files.
+Thanks for the review!
 
-[ ... ]
-> diff --git a/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts b/arch/ris=
-cv/boot/dts/spacemit/k1-milkv-jupiter.dts
-> index 3c16d0c20050e..9c4aa4f8a533c 100644
-> --- a/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts
-> +++ b/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts
-> @@ -1,471 +1,11 @@
->  // SPDX-License-Identifier: GPL-2.0 OR MIT
->  /*
-> - * Copyright (C) 2024 Yangyu Chen <cyy@cyyself.name>
-> - * Copyright (C) 2025 Javier Martinez Canillas <javierm@redhat.com>
-> + * Copyright (C) 2026 Aurelien Jarno <aurelien@aurel32.net>
->   */
+Am Dienstag, 28. Juli 2026, 16:53:17 Ostafrikanische Zeit schrieben Sie:
+> Looking into the other patches. There's more mixing of the clk provider
+> calling the clk consumer APIs here. It looks like this just takes a
+> reference and holds them. Would moving to parent_data address this?
 
-[Severity: Low]
-This isn't a bug, but should the original authors' copyright headers be
-retained here?
+I think so. parent_data::fw_name is indeed something I have been looking for 
+and didn't stumble across myself. And I suspect when you say "use 
+parent_data", you don't mean "use parent_data.name everywhere".
 
-While the original copyright headers were correctly preserved in the newly
-created k1-milkv-jupiter-common.dtsi file where the bulk of the code was
-moved, standard practice is to retain the original attribution in the
-existing file as well, alongside any new copyright claims.
+But it raises the question of how to handle internal clocks, e.g. foo_gate-
+>foo_div->foo_mux->clock-26m. Only "clock-26m" is passed through the DT and 
+found via fw_name, and only foo_gate is exported.
 
-[ ... ]
+For the other clocks I currently rely on the string matching to resolve the 
+parent named in the static init data to an actual registered clk_hw. The 
+alternative I see is storing the struct clk_hw * in a table by index and pass 
+it in parent_data.hw, but that'd require managing the extra indices. Or build 
+a clock-local name->clk_hw lookup, but then I am just reinventing the old name 
+matching.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728211020.1248=
-676-1-aurelien@aurel32.net?part=3D2
+Am I missing something obvious? Is there a canonical implementation somewhere 
+that implements modern best practices? I learned that looking at existing 
+drivers isn't always a reliable guide.
+
+Cheers,
+Stefan
+--nextPartYxrm5NhARqO7C27MMFWz9g
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmppHk4bFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJED0TvMhUTxoirHYQAJP3CdwusoH3pkXKfPo4
+IsHXR5HpSkcfs8UCWKbXUiLjzTOXi23M6YRSjmwFG3d1x7/tF3zuRiRB7UoTbPxi
+Dpcjy4P38mBhhj5ViTMPZEDb1+yGlH/55A3Q13yyGUZAYrWBvjlF1+CeyejwGj3i
+MVs7cQGfnjS5eKxnSlMeu6YES3/GMT1FEr87RSiK1tIR7l5Ly+ZlVUeFL6j/QR5c
+0fRWrLVaRuf40Z+Br0mTqVYameqPi3Y2txNe/WB5/6G3h+Pwgr8fa18n7kss1CR4
+PLy4xOCkdwBhFr3V1XAwmLR903mrts0OzyiU2WEgelU4aIvO0g+IY/QpVCb4Tc28
+sIFnx1o9RB82nrHOGyZ+tE3Td9Z8jdagf7NCcynDF9OBNO8d2p2VHrytuTO05BU0
+6WTcRZf3HNTRavdGicG0D+UZLTrVSeATG7Gn84xOtEcqnNQgqGw+7FFrbYL3uvnB
+zJpQ0g3TxhaSjw9l5WYghaypuxgBUI3vsXsNBCFUi9/LHutvv7c2UFoB9pGMO+0F
+agh+s3+qnrEIuyCa6gMNO0ARQMjjfVWPCMn+QO0W6LDHLm9V862PI8/fSAHIJtBw
+8YniFVm03EcJNgSelHRlZO20sDNBbjjcJdMzKez23UwFsD+debYrdpQOo4Z1MVqr
+o4X7ofieFY9lg1CnhuLk+OK+
+=e+iT
+-----END PGP SIGNATURE-----
+
+--nextPartYxrm5NhARqO7C27MMFWz9g--
+
+
+
