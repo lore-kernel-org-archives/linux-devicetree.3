@@ -1,160 +1,131 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD6A459AF8;
-	Tue, 28 Jul 2026 20:10:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A5823A7F40
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 20:14:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785269419; cv=none; b=q8dt3EPcW+ZXGeVoe4IzjQh4P9LnjoTrQQ6jndVx2IqLjtUyE4XJ9sf5I3Iys3y9pcH21IAXFuRLxMLmfp2OvNn5R5CF669+9xnRLx8Bs0YwWPjfaozqlyc4d5aevE71KaONGnVxHXvAd7U5u3OUyBW389mgfdsGBsj/kryekzc=
+	t=1785269677; cv=none; b=pICYtSd+rbxrZ6/hWzfog+51HdpAxOZf/hYfEcy6irxi2TwEa2OvWnENkQDgBxPbzvNDkqBapnnXl9eroIQxfvuhZynWGDe4gL7RC/CUZCaqDlTKIvLzOyCiZr7EX1ZWu25cH/uhhfB/ZLfFcSzq+UNgkcWqqIKdgALzHeYXMA0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785269419; c=relaxed/simple;
-	bh=+hzYN6U/DDjWP1t/fkxNIiI9tI1fdbqQeWWI1VhFLUY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OQvv/vQk23XeZE/fkA7j8sI1kvinN2WbRtauZvpF3XT+3uWijMIf3VYRJIDbqJjuRmftLMq8gDOdw487GLcIOiQ2R8rvvUIuc4QigtLKVIOdwNc+ijo7Aw2MwREl/wIv4hifK4OBdTs9Ipd6vVkgZ8HZNPWcI6qGGxmnpiMoSVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tgn+9zWO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785269677; c=relaxed/simple;
+	bh=xPxpUHGIH4ukTRYUC83d0n1BXDbeEdRzvMjfS9AXvhM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=dCcZqlq/jAibbnQcI+bcZV8fKGE7dj07+jdutMrwg4KtAKiduZ7IIMNRFFgLxoVhOa3xrYzgANO7L+741PheMZHRMO7R9cW11jcyCvGtVEuj7LfnhXeIJ+sd+iWI3bBQA9lK5wyv6ERQyM2s/uu5MdldCXfPyZ4tB5KOwPGCrUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h7LMQcS+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tgn+9zWO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76A741F000E9;
-	Tue, 28 Jul 2026 20:10:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h7LMQcS+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7AD71F000E9;
+	Tue, 28 Jul 2026 20:14:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785269418;
-	bh=2xHhYo5KKHxXcnzN39OsgiinB99Luf2W9ev0p+2tF5E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Tgn+9zWOLBKKS03qpqJXgs0aGDwGXCZkdCaoet9xDP04z848WMzL3Lyst0Sj+VHG0
-	 A+sAr4h6RC74ln764acUsKV+2mGOC8s0ilFdIUZ/efAgWqw8HDv0pIibkrN4l5ZxtM
-	 9N4zMo26j1Ed7A6iTzrlBzBSvJiBvzj0dmBmI9kN55gRAmBmMR692IsRPj3uv7OlHv
-	 eMi6YNcXEWY1lvr3Z/oevF4QsrxciEs8d7vG9pEH+OS2GJOYuuKcqJyZHmbaxqqmhb
-	 n/LZDsHt1UjlG+VQSY+fsIFqwTKhOmbN02vLjVOfmfNbVIgxpTTGL5CHhuFTKDLJ3D
-	 jjy9EMBcYNrkQ==
-Date: Tue, 28 Jul 2026 21:10:13 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Laszlo Ersek <laszlo.ersek@arm.com>
-Cc: Cristian Marussi <cristian.marussi@arm.com>, arm-scmi@vger.kernel.org,
-	Sudeep Holla <sudeep.holla@kernel.org>, devicetree@vger.kernel.org
-Subject: Re: #thermal-sensor-cells under protocol@15
-Message-ID: <20260728-venomous-saffron-capuchin-23d4cc@sudeepholla>
-References: <32d8c83d-7e70-4b1c-8d6d-12920f6c67ce@arm.com>
- <20260728-natural-successful-pudu-fcb71d@sudeepholla>
- <d61cf184-20a4-4e8f-8da0-c0ac39e200a8@arm.com>
+	s=k20260515; t=1785269676;
+	bh=w3E+2fLn21qNNZLc5r92yrlAt1YbI2ZDUIoLBqHXaoU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=h7LMQcS+F7WKyJC2rFSIavZAvyUtzbWZmEDNYfkeAwMrDE4H/+dYBGq00Ks9CMDE4
+	 mSYt7KlT+HwO6dRMrCKz9ooEAWCCugvWUwdGmii1UXbtBnmUcqRIlEArOsHStx3SoH
+	 yJdbHdp1on0zrJtxKUGfQ+oKcK/Ie7gDsJwAEBS4T0Fn5DrTubvR3dOFlF/1Yv76Ij
+	 jj10dQlLXuWP8CrUMkJyDGqqQoG9ohoPn7TsyYq42H9qt5lC+ivXz7U1abAL0/RqeX
+	 Ew1KvrBJaWTHbhK93cB5yHGI9wLjS3d5Kr15ijY5LMXJ3Th0Dg4SLphrYTocMC4+tc
+	 VjBc544j7cLAQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 13/18] drm/rockchip: dw_dp: Add runtime PM support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260728-synopsys-dw-dp-improvements-v7-13-b7640fa8cf48@collabora.com>
+References: <20260728-synopsys-dw-dp-improvements-v7-0-b7640fa8cf48@collabora.com>
+ <20260728-synopsys-dw-dp-improvements-v7-13-b7640fa8cf48@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 28 Jul 2026 20:14:35 +0000
+Message-Id: <20260728201435.A7AD71F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d61cf184-20a4-4e8f-8da0-c0ac39e200a8@arm.com>
 
-On Tue, Jul 28, 2026 at 04:33:59PM +0200, Laszlo Ersek wrote:
-> On 7/28/26 12:23, Sudeep Holla wrote:
-> > On Tue, Jul 28, 2026 at 11:53:41AM +0200, Laszlo Ersek wrote:
-> 
-> > > And so describing protocol@15 in the Device Tree, without a
-> > > #thermal-sensor-cells property, looks like a valid use case.
-> > > 
-> > 
-> > No, unless you go back in time and find a replacement for
-> > #thermal-sensor-cells and replace it w/o breaking any compatibility.
-> > 
-> > > Am I wrong?
-> > > 
-> > 
-> > We need some property cell to be set to 1 to read the SCMI IDs. For
-> > backward compatibility reasons, it will remain #thermal-sensor-cells.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Incorrect ordering of GRF (Video Output General Register File) res=
+toration in `dw_dp_rockchip_runtime_resume` delays HPD signal visibility to=
+ the DP hardware, breaking link training.
+- [Medium] Missing system sleep callbacks prevent the device and its power =
+domain from suspending during system sleep for native DP configurations.
+--
 
-My bad, I didn't remember all the context correct earlier today. The
-cells property is not for the SCMI sensor itself, it is for the
-consumer of this node which currently is only thermal subsystem.
+--- Patch [13]: [PATCH v7 13/18] drm/rockchip: dw_dp: Add runtime PM suppor=
+t ---
+commit ea12bfaf9ea353b204570fe194d520aa064c1270
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-> 
-> (1) Are you saying that the property "#thermal-sensor-cells", under
-> protocol@15, is actually a *misnomer* today, and it is in fact a
-> *generic* specification of the Sensor ID width -- regardless of any
-> referring stanzas elsewhere in the Device Tree (of which there may be
-> none, or some may be thermal-UNrelated)?
-> 
+drm/rockchip: dw_dp: Add runtime PM support
 
-Not really, see my update above.
+Add support for runtime PM to the Rockchip RK3576/3588 Synopsys
+DesignWare DisplayPort driver.
 
-> (2) If so, would you accept a patch for
-> "Documentation/devicetree/bindings/firmware/arm,scmi.yaml" that points
-> out the above fact in a "description" yaml key?
-> 
+> diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/=
+rockchip/dw_dp-rockchip.c
+> index b2e817044c942..01915f7b24d59 100644
+> --- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+[ ... ]
+> @@ -255,6 +274,34 @@ static void dw_dp_rockchip_remove(struct platform_de=
+vice *pdev)
+[ ... ]
+> +static int dw_dp_rockchip_runtime_resume(struct device *dev)
+> +{
+> +	struct rockchip_dw_dp *dp =3D dev_get_drvdata(dev);
+> +	u32 hpd_reg =3D dp->pdata->hpd_reg[dp->id];
+> +	int ret;
+> +
+> +	ret =3D dw_dp_runtime_resume(dp->base);
+> +	if (ret)
+> +		return ret;
+> +
+> +	regmap_write(dp->vo_grf, hpd_reg,
+> +		     FIELD_PREP_WM16(ROCKCHIP_VO_GRF_DP_SINK_HPD_SEL, dp->hpd_sel) |
+> +		     FIELD_PREP_WM16(ROCKCHIP_VO_GRF_DP_SINK_HPD_CFG, dp->hpd_cfg));
 
-Not required for above mentioned reason.
+[Severity: High]
+Does restoring the GRF state after dw_dp_runtime_resume() break link traini=
+ng?
 
-> | diff --git a/Documentation/devicetree/bindings/firmware/arm,scmi.yaml b/Documentation/devicetree/bindings/firmware/arm,scmi.yaml
-> | index d06cca9273c4..78cc26ce0458 100644
-> | --- a/Documentation/devicetree/bindings/firmware/arm,scmi.yaml
-> | +++ b/Documentation/devicetree/bindings/firmware/arm,scmi.yaml
-> | @@ -223,20 +223,25 @@ properties:
-> |    protocol@15:
-> |      $ref: '#/$defs/protocol-node'
-> |      unevaluatedProperties: false
-> |
-> |      properties:
-> |        reg:
-> |          const: 0x15
-> |
-> |        '#thermal-sensor-cells':
-> |          const: 1
-> | +        description:
-> | +          The width of SCMI Sensor IDs, expressed as a number of 32-bit cells.
-> | +          (The property name is an historical artifact, and counts nowadays as
-> | +          a misnomer. The property is no longer specific to anything
-> | +          "thermal".)
-> |
-> |      required:
-> |        - '#thermal-sensor-cells'
-> |
-> |    protocol@16:
-> |      $ref: '#/$defs/protocol-node'
-> |      unevaluatedProperties: false
-> |
-> |      properties:
-> |        reg:
-> 
-> (3) Where exactly does the kernel consume "#thermal-sensor-cells" in the
-> proposed (general) sense?
-> 
+Looking at dw_dp_runtime_resume(), it initializes the hardware and sleeps
+for 110ms to debounce the HPD signal. Because the power domain was off, the
+VO GRF is in its reset state, so during this 110ms wait, the DP controller
+will see HPD as LOW.
 
-No where, I got confused earlier as mentioned above. It is not needed
-unless you have use case. Please present if you have one.
+Once the GRF is finally written here, the controller sees HPD go HIGH and
+starts a new hardware debounce. Any immediate attempt to access the sink
+by the display core might fail because the DP controller still believes
+HPD is disconnected.
 
-> I can only find matches for the property name in
-> "drivers/thermal/thermal_of.c" and
-> "drivers/thermal/ti-soc-thermal/ti-thermal-common.c", but those appear
-> like thermal drivers, not general SCMI stuff. AIUI,
-> of_thermal_zone_find() in the former consults "#thermal-sensor-cells" in
-> the "provider" (such as SCMI protocol@15) to figure out the expected
-> argument cell count in the "thermal-sensors" list.
-> 
+Should the GRF state be restored before calling dw_dp_runtime_resume() so
+the hardware debounce sees the correct HPD signal?
 
-Indeed, this made me recall all the details. Sorry I hadn't looked at
-or touch this code in ages.
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct dev_pm_ops dw_dp_pm_ops =3D {
+> +	RUNTIME_PM_OPS(dw_dp_rockchip_runtime_suspend, dw_dp_rockchip_runtime_r=
+esume, NULL)
+> +};
 
-> But that implies that, if there ever was another (non-thermal) driver
-> that wanted to reference SCMI sensor identifiers similarly, it would
-> also have to consult "#thermal-sensor-cells", for the argument cell
-> count. Which seems to support the idea that "#thermal-sensor-cells"
-> counts as a misnomer today. Is that right?
-> 
+[Severity: Medium]
+Will this prevent the system from entering deeper sleep states during system
+suspend?
 
-We could add new property if needed though we can specify it would be
-mutually exclusive on systems that use #thermal-sensor-cells as it is
-simply useless duplication of same information as it has to be 1.
+For native DP configurations, the core dw_dp driver acquires a runtime PM
+reference in dw_dp_bind() and holds it indefinitely for Hot-Plug Detect
+purposes. During system suspend (S3), since dw_dp_pm_ops is defined using
+only RUNTIME_PM_OPS without system sleep callbacks, the PM core won't force
+the device into a suspended state.
 
-> > > IMPORTANT NOTICE: [...]
-> > 
-> > Deleted now, please fix it for next time.
-> 
-> My bad, should be fixed now. (I've tested it with another external
-> addressee.)
-> 
+This means the generic PM domain might see the device as active and refuse
+to power off the domain. Should system sleep callbacks be added to handle
+this?
 
-Thanks.
-
--- 
-Regards,
-Sudeep
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-synopsys-d=
+w-dp-improvements-v7-0-b7640fa8cf48@collabora.com?part=3D13
