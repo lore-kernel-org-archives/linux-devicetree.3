@@ -1,257 +1,408 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out28-219.mail.aliyun.com (out28-219.mail.aliyun.com [115.124.28.219])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CCF528688C
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 01:36:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 511EF2D0C82
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 01:56:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.219
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785202603; cv=none; b=eIHomhj3Myj/RAy2j1O+5q9WrnV4b/xt4WBMYTSULJmNaRhSjrG9j0ncSFJVSPCYbRhn1rKT3d0Pud5psnjMsh12VDUBTBPUesrvI4JrAoO2ebjIK8o4XigebrEo5Vnd4mbogrSHHoOwz/Lg2xBP4BcVJUIv+DoSl69xh4rhB54=
+	t=1785203798; cv=none; b=G/T043c+LHEEHvsHWw5M+/bbLNkvIPzy4ZvsVqo85uzKDUiJF46PZQxRy8eq1++jv8SDk9oQlGLJ2NjcdR2uH/4ZnQaxtOEhrRP29mc8cQpvO55YQ0wJ3tzC+JNZOO3eib+j+0pX0RvMIcRBZn3/jlkUck6Y8tAfqgC7DaJXk0U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785202603; c=relaxed/simple;
-	bh=c4o636Q7p6e2qj0wvKdcxgPec5fA+0uwTxqcpIGNN3A=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ESoXoxvNSOt3VpYrlOkEzSaGZsVqm9d9QKHeLralBd+D68r9i1pUM8aSHHOn4HsOH2LGbuX2sfpv2Pp9gBGgIaYFEeZAqGH4/bHyHyektTwy7JlTv5drY+6lomqTVzNxpVQT1xMDzKRR2XE3eDg0QduG5k85YNdk0eWjs+w6nQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=blDjW+O5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785203798; c=relaxed/simple;
+	bh=mGKTSYrSUolb+zCgPUOZaGSf7urMzlRwNGlgz5PEbmA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IUPXwsz1xMw8RI4Lfxk8ZERaTxsb8XiOjd6pfaD5W9+hZy6+xEViD2spVzH9EI4fMFIXjaXM5t5CgvbV1dx2443MS9Pw5JwMOGH4rh7SZaXTDtAdzmtul4rquNVQKSk4i/tJEPL3+cxRBsNRCQgtjKr99unXjEqW2uzpGARb0CE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com; spf=pass smtp.mailfrom=lontium.com; dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b=oIazvP6v; arc=none smtp.client-ip=115.124.28.219
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lontium.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="blDjW+O5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2CF61F000E9;
-	Tue, 28 Jul 2026 01:36:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785202602;
-	bh=mZKe8UOorDRfEusmNIfeTyJlal8bP68AZ9ED7UlGEiY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=blDjW+O5b+lfserx9lygL5dSm7iBtAaiDEevSm9l7f5iuLeZxZekHmMGjrMwvIGd/
-	 IZJXePCbJOQZH9ofcVpsmOd9dFb1Kt4pLnfAi4fefRXoPjUbTVA0/HJgApH2aPe63c
-	 Vzcep0CVR8bEIyohQlwiBv/GGKz+LIe5CyR06W7+Xr7x+7QQZE1AukXidAQyJuWb9w
-	 gIwtUHlfy9w4NaHSoZdhCHZKQ0hiAqV61A1ff2BRnKzzs+AjHjP7T3kMMQ7o99rjxB
-	 9X4r3/zch5+b1tknOUSZ68l4dpPGm5v46ns/6rT9dRy2aIzRjWbSNRtnfC2JTHBr1L
-	 13ONzDjxIs9Hg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] usb: typec: Add support for Parade PS5169 USB
- Type-C redriver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Esteban Urrutia" <esteuwu@proton.me>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260727-ps5169-bup-v1-2-c76a8ef3b239@proton.me>
-References: <20260727-ps5169-bup-v1-0-c76a8ef3b239@proton.me>
- <20260727-ps5169-bup-v1-2-c76a8ef3b239@proton.me>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 28 Jul 2026 01:36:41 +0000
-Message-Id: <20260728013641.C2CF61F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b="oIazvP6v"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=lontium.com; s=default;
+	t=1785203787; h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type;
+	bh=btoJiOPsUVfo47Moa2+oUkXjgzA7cBay9j867/GfjAM=;
+	b=oIazvP6vrdWjbOcvZQyVCAD2ODU9SaafIocNOtgigECP977UrOjoEScj9L9iG8dDDAQWTL1wATM8xpag4jvWrs2FWJgS7hWOjOxyJmTzWMc+vm8My3kZg/eL/55qpKFPC17EDJfvn5BBKstKtLEnRr8qCZkDC/2i18e9bnIthcIa1Sohb8uDiTGqJmFCbi+Nu3e6qfO/XWMUU8uETb6AlG1oEUNpLPzmM8lErJHh/jL3O4FeRKu4MTcKCry6oliFu3R9RipmzyA9EycF1MfFLMvRtsJWahVBSnxviOVFyuQK41kdJd11TWfxAwuIwhpVCpNbYqMYMzhIOXd4zBK4dQ==
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436259|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00519428-0.000164768-0.994641;FP=7600231310795989564|1|1|2|0|-1|-1|-1;HT=maildocker-contentspam033037017159;MF=syyang@lontium.com;NM=1;PH=DS;RN=1;RT=1;SR=0;TI=SMTPD_---.iWxIOfW_1785203785;
+Received: from mail-oa1-f42.google.com(mailfrom:syyang@lontium.com fp:SMTPD_---.iWxIOfW_1785203785 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 28 Jul 2026 09:56:26 +0800
+Received: by mail-oa1-f42.google.com with SMTP id 586e51a60fabf-44ae14b4fd6so1190613fac.2
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 18:56:25 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RocTt9JG/9CWW4VA8rNJGM0T0uCS3+gm7tYrgPHtZcqTawe+szzk9brPLo0l7xbUj/gZdbhUFLQ9TYp@vger.kernel.org
+X-Gm-Message-State: AOJu0YwTeT40GG3Mm1qX3ZOCtgeydnuceAIAlUQcIUvkcdITqxdRoOQL
+	oDe+9Mfq/hAR0VSXOZzMCjTvZLxsUERxCMrY1r5HEoxpCSXpB5Qk1IEXh7AAVV3YT0Y3udG5Whl
+	3wmCxyTSjZSPdj65I7XJsDwh0hwQ8gew=
+X-Received: by 2002:a05:6808:bc7:b0:4a4:c608:508e with SMTP id
+ 5614622812f47-4ad5bb7e10amr310540b6e.33.1785203783225; Mon, 27 Jul 2026
+ 18:56:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260715015438.2770155-1-syyang@lontium.com> <tfkg2cjn4uznzy57rpkqwan26sduqzptnb7uwsucfboz37wz7k@rukuu36mozif>
+In-Reply-To: <tfkg2cjn4uznzy57rpkqwan26sduqzptnb7uwsucfboz37wz7k@rukuu36mozif>
+From: Sunyun Yang <syyang@lontium.com>
+Date: Tue, 28 Jul 2026 09:56:11 +0800
+X-Gmail-Original-Message-ID: <CAFQXuNazLnXOr+qRug4De8W3U932aG9LVRVWgkHAE=ALSQ+ZGA@mail.gmail.com>
+X-Gm-Features: AUfX_mwXF6Wl4DcHRu_-nHExxGI0ohrKy6ryHOen7Lny0Cvjy6-McAcxCqeEqfY
+Message-ID: <CAFQXuNazLnXOr+qRug4De8W3U932aG9LVRVWgkHAE=ALSQ+ZGA@mail.gmail.com>
+Subject: Re: [PATCH v17 0/2] Add Lontium LT7911EXC eDP to MIPI DSI bridge
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	andrzej.hajda@intel.com, neil.armstrong@linaro.org, 
+	maarten.lankhorst@linux.intel.com, rfoss@kernel.org, mripard@kernel.org, 
+	Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, jonas@kwiboo.se, 
+	jernej.skrabec@gmail.com, devicetree@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	xmzhu@lontium.corp-partner.google.com, xmzhu@lontium.com, rlyu@lontium.com, 
+	xbpeng@lontium.com, qdchen@lontium.com, llzhang@lontium.com, 
+	hfxia@lontium.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] Race condition due to early device registration before hardware an=
-d mutex initialization.
-- [High] Type-C retimer device is leaked in the `ps5169_probe` error paths,=
- leading to Use-After-Free.
-- [High] Probe returns 0 (success) on invalid chip ID, causing double-frees=
- during removal.
-- [Medium] Software state cache is updated before hardware programming and =
-validation, leading to state desynchronization.
-- [Medium] Reading raw I2C bytes into a native `u16` using `regmap_raw_read=
-` causes endianness mismatches on big-endian architectures.
-- [Medium] The driver is missing `MODULE_DEVICE_TABLE` for device tree matc=
-hing, preventing auto-loading.
---
+Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=B9=B4=
+7=E6=9C=8828=E6=97=A5=E5=91=A8=E4=BA=8C 09:22=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Wed, Jul 15, 2026 at 09:54:36AM +0800, syyang@lontium.com wrote:
+> > From: Sunyun Yang <syyang@lontium.com>
+> >
+> > The LT7911EXC is an I2C-controlled bridge that receives eDP1.4
+> > and output mipi dsi. This series introduces:
+> >
+> > - A device tree binding YAML file describing the hardware
+> > - A new DRM bridge driver implementing the basic functionality
+> >
+> > Signed-off-by: Sunyun Yang<syyang@lontium.com>
+> > ---
+> > Change in v17:
+> > - dt-binding:
+> > - drm/bridge:
+> >  1. [High] devm leak and list corruption on panel rebind               =
+                                   [sashiko-bot]
+> >            False positive. The -EBUSY guard at the top of host_attach()=
+ (line 527) rejects re-attach
+> >            when output_bridge is already set, so neither devm_drm_of_ge=
+t_bridge() nor drm_bridge_add()
+> >            is reached on panel rebind.
+>
+> This is not a changelog. Don't mix replies, with the changes in the
+> patches.
+>
+In the driver code, when I reply to the issues raised by the AI bot,
+the AI bot does not respond to me.
+In subsequent submissions, can I simply not reply to the AI bot's
+questions and only modify the issues that are useful for the driver?
 
---- Patch [2]: [PATCH 2/2] usb: typec: Add support for Parade PS5169 USB Ty=
-pe-C redriver ---
-commit 09d82f46ea2293b7e9f9ce40ffd1668b1a047cd2
-Author: Esteban Urrutia <esteuwu@proton.me>
-
-usb: typec: Add support for Parade PS5169 USB Type-C redriver
-
-Add driver for the Parade PS5169, an USB Type-C redriver capable of
-handling 10Gb/s USB signals and 8.1Gb/s DisplayPort signals.
-
-> diff --git a/drivers/usb/typec/mux/ps5169.c b/drivers/usb/typec/mux/ps516=
-9.c
-> index 0000000000000..3ee04843fa2dc
-> --- /dev/null
-> +++ b/drivers/usb/typec/mux/ps5169.c
-[ ... ]
-> @@ -242,28 +242,21 @@ static int ps5169_retimer_set(struct typec_retimer =
-*retimer, struct typec_retimer_state *state)
->  	struct redriver *ps5169 =3D typec_retimer_get_drvdata(retimer);
->  	struct typec_mux_state mux_state;
->  	int ret =3D 0;
-> =20
->  	mutex_lock(&ps5169->lock);
-> =20
->  	if (ps5169->mode !=3D state->mode) {
->  		ps5169->mode =3D state->mode;
-> =20
->  		if (state->alt)
->  			ps5169->svid =3D state->alt->svid;
->  		else
->  			ps5169->svid =3D 0; // No SVID
-> =20
->  		ret =3D ps5169_set(ps5169);
->  	}
-
-[Severity: Medium]
-Does this risk desynchronizing the software state from the hardware?
-
-If ps5169_set() fails and returns an error, the internal state (ps5169->mod=
-e)
-remains updated. If the caller subsequently requests the exact same mode
-again, the equality check evaluates to false.
-
-This causes the driver to bypass validation and falsely report success while
-leaving the hardware unconfigured. Should the state update be rolled back on
-error, or deferred until after a successful hardware update?
-
->  	mutex_unlock(&ps5169->lock);
-[ ... ]
-> @@ -361,54 +354,47 @@ static int ps5169_probe(struct i2c_client *client)
->  	ret =3D regulator_enable(ps5169->vcc);
->  	if (ret) {
->  		dev_err(dev, "Failed to enable vcc-supply\n");
->  		goto mux_put;
->  	}
-> =20
->  	/* Reset the retimer */
->  	gpiod_set_value(ps5169->reset_gpio, 1);
->  	usleep_range(1000, 1500);
->  	gpiod_set_value(ps5169->reset_gpio, 0);
->  	usleep_range(10000, 11000);
-> =20
->  	ret =3D regmap_raw_read(ps5169->regmap, PS5169_CHIP_ID_REG, &chip_id, s=
-izeof(chip_id));
-
-[Severity: Medium]
-Does reading raw I2C bytes directly into a native u16 variable cause endian=
-ness
-mismatches on big-endian architectures?
-
-regmap_raw_read() performs a raw byte copy, so reading a 2-byte register
-directly into chip_id produces a byte order mismatch on big-endian systems.
-Could a standard regmap read or explicit endianness handling be used here?
-
->  	if (ret) {
->  		dev_err(dev, "Failed to read chip ID\n");
->  		goto vcc_disable;
->  	}
-> =20
->  	/* Compare chip IDs */
->  	if (chip_id !=3D PS5169_CHIP_ID) {
->  		dev_err(dev, "Unexpected chip ID 0x%04x\n", chip_id);
->  		goto vcc_disable;
->  	}
-
-[Severity: High]
-Is it intended to return success when the chip ID is invalid?
-
-The code jumps to vcc_disable without updating the ret variable. Since the
-preceding regmap_raw_read() just succeeded, ret equals 0. The probe function
-falsely returns success to the driver core while releasing resources, leavi=
-ng
-a crippled device object that might be double-freed on removal.
-
-Should ret be set to -ENODEV before the goto?
-
->  	/* Read chip revision */
->  	ret =3D regmap_raw_read(ps5169->regmap, PS5169_CHIP_REVISION_REG, &chip=
-_revision,
-[ ... ]
-> @@ -395,21 +381,14 @@ static int ps5169_probe(struct i2c_client *client)
-> =20
->  	/* orientation-switch */
->  	switch_desc.drvdata =3D ps5169;
->  	switch_desc.fwnode =3D dev_fwnode(dev);
->  	switch_desc.set =3D ps5169_switch_set;
-> =20
->  	ps5169->sw =3D typec_switch_register(dev, &switch_desc);
->  	if (IS_ERR(ps5169->sw)) {
->  		ret =3D dev_err_probe(dev, PTR_ERR(ps5169->sw), "Failed to register sw=
-itch\n");
->  		goto vcc_disable;
->  	}
-> =20
->  	/* retimer-switch */
->  	retimer_desc.drvdata =3D ps5169;
->  	retimer_desc.fwnode =3D dev_fwnode(dev);
->  	retimer_desc.set =3D ps5169_retimer_set;
-> =20
->  	ps5169->retimer =3D typec_retimer_register(dev, &retimer_desc);
->  	if (IS_ERR(ps5169->retimer)) {
->  		ret =3D dev_err_probe(dev, PTR_ERR(ps5169->retimer), "Failed to regist=
-er retimer\n");
->  		goto switch_unregister;
->  	}
-[ ... ]
->  	ps5169_init(ps5169);
-> =20
->  	mutex_init(&ps5169->lock);
-> =20
->  	i2c_set_clientdata(client, ps5169);
-> =20
->  	return 0;
-
-[Severity: High]
-Does registering the typec_switch and typec_retimer before initializing the
-hardware and mutex expose a race window?
-
-The subsystem can immediately invoke the .set callbacks (ps5169_switch_set,
-ps5169_retimer_set) before probe() finishes, causing the callbacks to attem=
-pt
-to lock an uninitialized mutex and write to unconfigured hardware.
-
-Should ps5169_init() and mutex_init() happen before device registration?
-
->  switch_unregister:
->  	typec_switch_unregister(ps5169->sw);
-> =20
->  vcc_disable:
->  	regulator_disable(ps5169->vcc);
-
-[Severity: High]
-Does this error path leak the retimer device?
-
-If property parsing (like parade,dp-eq-level) fails after
-typec_retimer_register() succeeds, the function jumps to the switch_unregis=
-ter
-label. The cleanup path unregisters the switch but omits calling
-typec_retimer_unregister().
-
-The retimer device object remains registered with the Type-C framework while
-the parent memory block is freed, leading to a potential use-after-free.
-
->  mux_put:
->  	typec_mux_put(ps5169->typec_mux);
-[ ... ]
-> @@ -518,17 +490,10 @@ static void ps5169_remove(struct i2c_client *client)
->  	typec_mux_put(ps5169->typec_mux);
->  	typec_switch_put(ps5169->typec_switch);
->  }
-> =20
->  static const struct of_device_id ps5169_of_match_table[] =3D {
->  	{ .compatible =3D "parade,ps5169" },
->  	{ },
->  };
-
-[Severity: Medium]
-Is the driver missing MODULE_DEVICE_TABLE for device tree matching?
-
-The kernel build system will not extract the device tree match information =
-into
-the module aliases without it, which might prevent user-space tools like ud=
-ev
-from auto-loading this driver when the hardware is discovered.
-
->  static struct i2c_driver ps5169_driver =3D {
->  	.driver =3D {
->  		.name =3D "ps5169",
->  		.of_match_table =3D ps5169_of_match_table,
->  	},
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727-ps5169-bup=
--v1-0-c76a8ef3b239@proton.me?part=3D2
+> >  2. [High] Dangling bridge.dev pointer                                 =
+                                    [sashiko-bot]
+> >            DRM bridge framework limitation. drm_bridge_remove() does no=
+t clear bridge.dev. All bridge
+> >            drivers using drm_kms_helper_hotplug_event() share this risk=
+. Requires framework-level fix.
+> >            Triggering needs root sysfs access plus DRM driver unload si=
+multaneously.
+> >  3. [Medium] output_bridge not cleared prevents re-attach              =
+                                     [sashiko-bot]
+> >            Intentional. Same as cdns-dsi-core.c cdns_dsi_detach(). Clea=
+ring would
+> >            cause devm_drm_of_get_bridge() to leak on re-attach. DRM bri=
+dge framework does not support
+> >            dynamic chain reconfiguration. Panel rebind requires host dr=
+iver reload.
+> >  4. [Low] Mutating downstream bridge's pre_enable_prev_first           =
+                                     [sashiko-bot]
+> >           Hardware constraint. DSI stream (0xe0b0) must be enabled afte=
+r panel power-on. Safe because
+> >           transfer() is a stub =E2=80=94 DCS commands are discarded, pa=
+nel init is done by chip firmware.
+> >           Comment documents the rationale.
+> >  5. [Low] Unsynchronized removed read                                  =
+                                  [sashiko-bot]
+> >           Fixed. Now protected by ocm_lock (lines 372-375).
+> > - Link to v16: https://lore.kernel.org/all/20260714105828.2763677-1-syy=
+ang@lontium.com/
+> >
+> > Change in v16:
+> > - dt-binding:
+> >  1. [Low] Use standard generic DT node name
+> >           Renamed mipi-bridge@41 to bridge@41 per Devicetree spec for s=
+tandard generic names.                 [sashiko-bot]
+> > - drm/bridge:
+> >  1. [High] Prevent devm_drm_of_get_bridge() devres leak in host_attach
+> >            Added -EBUSY guard to reject re-attach, preventing devm memo=
+ry leak and use-after-free on          [sashiko-bot]
+> >            panel unbind/rebind.
+> >  2. [High] Fix double drm_bridge_remove() in lt7911exc_remove()        =
+                                       [sashiko-bot]
+> >            Removed the flawed list_empty() check that caused a second d=
+rm_bridge_remove() call,
+> >            leading to double mutex_destroy() and use-after-free.
+> >  3. [High] Clear upgrade flag before hotplug event                     =
+                                       [sashiko-bot]
+> >            Reordered to clear upgrade =3D false before drm_kms_helper_h=
+otplug_event(), preventing modesets from
+> >            silently skipping hardware enable (0xe0b0) and causing black=
+ screen.
+> >  4. [Medium] Document pre_enable_prev_first override                   =
+                                        [sashiko-bot]
+> >              Added comment explaining the hardware constraint: DSI stre=
+am must be enabled after panel power-on.
+> >              The override is safe because transfer() is a stub =E2=80=
+=94 DCS commands are discarded and panel init is
+> >              handled by chip firmware.
+> >  5. [Medium] Guard hotplug with removed flag                           =
+                                         [sashiko-bot]
+> >              Added !lt7911exc->removed check to prevent hotplug events =
+during device removal.
+> >  6. [High] Use local variable for error handling                       =
+                                         [sashiko-bot]
+> >            Introduced local bridge variable for IS_ERR()/PTR_ERR() chec=
+ks, ensuring output_bridge stays NULL on
+> >            failure so -EPROBE_DEFER retries are not blocked by the -EBU=
+SY guard.
+> > - Link to v15: https://lore.kernel.org/all/20260714064822.2753289-1-syy=
+ang@lontium.com/
+> >
+> > Change in v15:
+> > - dt-binding:
+> > - drm/bridge:
+> >  1. Remove the Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qual=
+comm.com> tag.
+> >  2. Adjust the design architecture of the chip's MIPI host and bridge.
+> >  3. remove devm_drm_panel_bridge_add_typed and drm_of_find_panel_or_bri=
+dge
+> >  4. Use REGCACHE_NONE to avoid cache inconsistency due to internal MCU =
+modifying registers asynchronously
+> > - Link to v14: https://lore.kernel.org/all/20260529112928.873766-1-syya=
+ng@lontium.com/
+> >
+> > Change in v14:
+> > - dt-binding:
+> > - drm/bridge:
+> >  1. [High] AB-BA / self-deadlock between the bridge's ocm_lock and DRM =
+modeset                             [sashiko-bot]
+> >     locks during hotplug notification. - fixed
+> >  2. [High] Freeing the panel bridge in lt7911exc_dsi_host_detach while =
+it is still
+> >     attached to the DRM bridge chain causes a Use-After-Free. - fixed
+> > - Link to v13: https://lore.kernel.org/lkml/20260529094547.869919-1-syy=
+ang@lontium.com/
+> >
+> > Change in v13:
+> > - dt-binding:
+> > - drm/bridge:
+> >  1. [High] Dangling pointer created during MIPI DSI host detach if the =
+downstream                           [sashiko-bot]
+> >            device is a bridge rather than a panel. - fixed
+> >  2. [High] Firmware upgrade CRC mismatch due to unpadded partial page w=
+rites.
+> >            - hardware erases the entire flash area into a default state=
+ of 0xff. When doing
+> >              a partial page short write=EF=BC=8Cthe total unwritten res=
+idual bytes on the physical
+> >              flash sector inherently retain their 0xff state. Therefore=
+, no modification is required.
+> >  3. [High] Firmware upgrade workqueue accesses `bridge.dev` without ens=
+uring the DRM device is alive,
+> >            leading to a Use-After-Free. - fixed
+> >  4. [High] Regmap page selector cache desynchronization after device re=
+set causes firmware upgrade
+> >            commands to be routed to the wrong register page. - fixed
+> > - Link to v12: https://lore.kernel.org/lkml/20260525010545.9470-1-syyan=
+g@lontium.com/
+> >
+> > Change in v12:
+> > - dt-binding:
+> > - drm/bridge:
+> >  1. Move the cleanup work of drm_panel_bridge_remove() forward into lt7=
+911exc_dsi_host_detach().                        [sashiko-bot]
+> >  2. Do not hold any lock during lt7911exc_reset().
+> > - Link to v11: https://lore.kernel.org/lkml/20260522015735.2833-1-syyan=
+g@lontium.com/
+> >
+> > Change in v11:
+> > - dt-binding:
+> > - drm/bridge:
+> >  1. Removed Reviewed-by, we would appreciate it if the maintainer could=
+ help review this.
+> >  2. Use devm_gpiod_get(,, GPIOD_OUT_HIGH) to fix the reset GPIO backpow=
+ering issue.                                       [sashiko-bot]
+> >  3. Fixed Use-After-Free vulnerability due to dynamic DRM bridge remova=
+l in DSI detach callback.
+> >  4. Fixed Use-After-Free of regmap during DRM teardown because firmware=
+ upgrade worker defeats removal safeguard.
+> >  5. Fixed firmware upgrade performs a hardware reset, causing silent lo=
+ss of DRM state and a blank screen.
+> >  6. Use of kmalloc for a 64KB software buffer is susceptible to memory =
+fragmentation failures - Fix by using kvmalloc
+> >  7. Use the 'lt7911exc->ocm_lock' mutex and the 'lt7911exc->upgrade' fl=
+ag to resolve the race condition between
+> >     DRM atomic modeset and firmware upgrade.
+> >  8. Use the 'lt7911exc->upgrade_lock' mutex to prevent redundant upgrad=
+es.
+> >  9. Use the 'lt7911exc->removed' flag to prevent the driver from being =
+triggered to upgrade during the unload process.
+> > - Link to v10: https://lore.kernel.org/lkml/20260519135816.26996-1-syya=
+ng@lontium.com/
+> >
+> > Change in v10:
+> > - dt-binding:
+> > - drm/bridge:
+> >  1. Fixed the firmware upgrade error paths to always clear the upgrade
+> >     flag before returning, including firmware size validation failures
+> >     and allocation failures.                                           =
+                     [sashiko-bot]
+> >  2. Added proper locking in lt7911exc_atomic_pre_enable() and
+> >     lt7911exc_atomic_post_disable() to serialize register accesses with=
+ the
+> >     firmware upgrade flow and avoid concurrent I2C transactions.
+> >  3. Added an exclusivity check in lt7911exc_dsi_host_attach() to reject=
+ multiple
+> >     downstream attachments and prevent repeated drm_bridge_add() calls =
+and panel bridge leaks.
+> >  4. Reworked lt7911exc_firmware_store() to use mutex_trylock() so concu=
+rrent sysfs writers
+> >     immediately return -EBUSY instead of blocking behind an active firm=
+ware upgrade.
+> >  5. Updated the remove path to prevent new firmware upgrade work from b=
+eing queued after
+> >     device removal by setting the upgrade state before cancelling the w=
+orker.
+> > - Link to v9: https://lore.kernel.org/lkml/20260519105019.22622-1-syyan=
+g@lontium.com/
+> >
+> > Change in v9:
+> > - dt-binding:
+> > - drm/bridge:
+> >  1. DSI transfer callback returns success for reads without populating =
+                       [sashiko-bot]
+> >     the receive buffer, leaking uninitialized memory. - fixed it by
+> >     implementing  a strict whitelist mechanism.
+> >  2. DSI transfer callback polls for eDP video readiness before the
+> >     upstream encoder is enabled, guaranteeing a timeout. - removed
+> >  3. The driver attempts I2C transfers while the hardware is held in
+> >     physical reset. - fixed
+> >  4. Missing DRM_MIPI_DSI Kconfig dependency causes linker errors. - fix=
+ed
+> >  5. request_firmware is called while holding the hardware lock and
+> >     halting the MCU, risking a system pipeline stall. - fixed
+> >  6. Sleeping functions are called from atomic context in the DRM bridge=
+ callbacks. - fixed
+> >  7. lt7911exc_dsi_host_transfer bypasses the required MCU hardware halt=
+ sequence. - fixed by
+> >     internal firmware controls the panel initialization sequence and ha=
+ndles all MIPI
+> >     DSI command transmission.
+> > - Link to v8: https://lore.kernel.org/lkml/20260515080934.9870-1-syyang=
+@lontium.com/
+> >
+> > Change in v8:
+> > - dt-binding:
+> > - drm/bridge:
+> >  1. Protect firmware upgrade and DRM bridge callback paths with ocm_loc=
+k.          [sashiko-bot]
+> >  2. Remove the hardware reset from the remove callback, and ensure that
+> >     all hardware reset operations are protected by ocm_lock.
+> >  3. crc reconstruction explicitly casts each byte to u32 before shiftin=
+g
+> >  4. The display configuration is handled by the firmware, and the MIPI
+> >     DSI host registration issue has been fixed.
+> >  5. The batch register read/write operations have already been updated
+> >     to include return value checking.
+> >  6. The dev_err_probe() used outside of probe context has been fixed.
+> > - Link to v7: https://lore.kernel.org/lkml/20260512064013.40066-1-syyan=
+g@lontium.com/
+> >
+> > Change in v7:
+> > - dt-binding:
+> >  1. fix commit message typos(Receiver=E3=80=81signal)                  =
+          [sashiko-bot]
+> >  2. remove the ambiguity caused by "signal/dual".
+> > - drm/bridge:
+> >  1. using devm_regulator_get_enable avoids power leaks.                =
+   [sashiko-bot]
+> >  2. set reset gpio is low after cutting off power in lt7911exc_remove f=
+unction, avoid backpowering.
+> >  3. synchronous request_firmware() call cause a permanent probe failure=
+ if the driver is built-in,
+> >     probe executes before the root filesystem is mounted, which would c=
+ause this to fail with -ENOENT,
+> >     we have removed this functionality. Use trigger to upgrade.
+> >  4. add `depends on I2C` and `select REGMAP_I2C` in Kconfig.
+> >  5. add return value of `devm_drm_bridge_add()` in `probe()`.
+> >  6. add directly header files (linux/slab.h, linux/delay.h, linux/regul=
+ator/consumer.h)
+> > - Link to v6: https://lore.kernel.org/lkml/20260508134702.4713-1-syyang=
+@lontium.com/
+> >
+> > Change in v6:
+> > - dt-binding:
+> > - drm/bridge:
+> >  1. use #define FW_FILE  "Lontium/lt7911exc_fw.bin" to match linux-firm=
+ware
+> > - Link to v5: https://lore.kernel.org/lkml/20260506013153.2240-1-syyang=
+@lontium.com/
+> >
+> > Change in v5:
+> > - dt-binding:
+> > - drm/bridge:
+> >  1. Change "mipi" to "mipi dsi" in the commit message.     [Dmitry]
+> >  2. Change "eDP/MIPI" to "eDP/MIPI DSI" in Kconfig.
+> > - Link to v4: https://lore.kernel.org/lkml/20260430094612.3408174-1-syy=
+ang@lontium.com/
+> >
+> > Change in v4:
+> > - dt-binding:
+> >  1. Fix the missing spaces on the "subject".             [Krzysztof]
+> >  2. Fix the error descriptions for port@0 and port@1.
+> > - drm/bridge:
+> > - Link to v3: https://lore.kernel.org/lkml/20260429040541.3404116-1-syy=
+ang@lontium.com/
+> >
+> > Change in v3:
+> > - dt-binding:
+> > - drm/bridge:
+> >  1. already submit lt7911exc_fw.bin to linux-firmware.  [Dmitry]
+> >  2. remove lt7911exc_remove function.
+> >  3. drop  the "lontium, "  in lt7911exc_i2c_table.
+> > - Link to v2: https://lore.kernel.org/lkml/20260428063224.3316655-1-syy=
+ang@lontium.com/
+> >
+> > Change in v2:
+> > - dt-binding:
+> >  1. reset pins use active low.                        [Dmitry]
+> > - drm/bridge:
+> >  1. use atomic_* callbacks.                           [Quentin]
+> >  2. fix the incorrect formatting and spaces.
+> >  3. add the required header files.                    [Dmitry]
+> >  4. remove "enabled" flag.
+> >  5. remove *fw from the lt7911exc struct.
+> >  6. .max_register and .range_max use actual range.
+> >  7. regulator use bulk interface.
+> >  8. use dev_err_probe, devm_mutex_init and devm_drm_bridge_add.
+> >  9. Replace GPL v2 with GPL.
+> > - Link to v1: https://lore.kernel.org/lkml/20260420023354.1192642-1-syy=
+ang@lontium.com/
+> >
+> > ---
+> > Sunyun Yang (2):
+> >   dt-bindings: bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
+> >   drm/bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
+> >
+> >  .../display/bridge/lontium,lt7911exc.yaml     |  89 ++
+> >  drivers/gpu/drm/bridge/Kconfig                |  17 +
+> >  drivers/gpu/drm/bridge/Makefile               |   1 +
+> >  drivers/gpu/drm/bridge/lontium-lt7911exc.c    | 787 ++++++++++++++++++
+> >  4 files changed, 894 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/display/bridge/lo=
+ntium,lt7911exc.yaml
+> >  create mode 100644 drivers/gpu/drm/bridge/lontium-lt7911exc.c
+> >
+> > --
+> > 2.34.1
+> >
+>
+> --
+> With best wishes
+> Dmitry
