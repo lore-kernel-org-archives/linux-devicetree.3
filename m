@@ -1,148 +1,159 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EA063914EB
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 16:58:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D715D39A800
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 17:02:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785257896; cv=none; b=SsaY6Zd1cvMmvbwBGo6cuFBYk5t15J8SfPWtESZQ7w9XaOgrLJ++VMSd4UmJ5NOle3sACWDkJLwd0b7c3/npfsQnH0xdKjy2c6vh+I9LDSg47L8imLN8yqLgBVqNUA9ASoQqWl77K6IBfQL/S7gcXYZn6VPlp+eBtJmCXFvHgbA=
+	t=1785258152; cv=none; b=SOBWAb8gyWB4g/+6+bL9q1ExG4MQx/SPDfHGjMBXE9H7XaYCmihwRL3Kidpy7qjoPnYNiw+dbi0iJgr2CbTVhk1tGy7s/t7RZmkyCDQ8Yk3jV3IFTAIVMIJsqU4YB2kS0eH0XCLd9h8Zr6MXIVphV+GRwmxD+Xb7NoG6CzEoSmo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785257896; c=relaxed/simple;
-	bh=vJCIAgCUnA8gtIAB3h4MukXcUJaZitbAJxAQaP0cFtU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lZlAb/dI9ydix8lu/Mz0/8oCrGR7htedfdD5bE5caATAqfGj9jfLiske6KEpjK7kXsIQxZEa7nkNETWuqZwvdvL0tQYl7tr0FOtL0kYfSwshTTcc4UPMSYYXWYvuxJ61ixJXZAwfSptpKuovQTrp074XQdfk3xywmDWnserq/t8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k6zraJe6; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785258152; c=relaxed/simple;
+	bh=bxFyUwwzs7IjS6nJSP45CpJDbZptu7ycVzrkumfnro4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BdrifaKh6P8rW0RtZr70+F1V8dbyV2JiXSI2oNm531pOjrj/3jGKKNdVCZGJJYeHc5rMc1QgF75dguVt9+E24lZ0pHv4e04hnhmf4eWtZ15+Mc3bvNFyFjyXILsp9S0f3JvbyWWXQelgGjK1hrvya4m50zVfU63gGO+NPSR7xjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b82WnSCr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k6zraJe6"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso50556a91.1
-        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 09:58:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785257894; x=1785862694; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Fa/LYPA7/Xkoo++dRTwytqE1SJTv+ovanIbkQn9jNIg=;
-        b=k6zraJe605F29C657cScOWXqO5D2tU5DWIwbGGIFy7SHE5RVtzMyDFBWkHqH+P0r9K
-         0/DKkgalICToLuc3JbN/kFnq1fOmEwS4STISebqH6kNJFs/adv7L+lhgmZAAy3VbkxCj
-         zXRNALT+r6JmcfS5flU2aajHNiqobNRYnN+vT9qm5YpKGHJjJpbxBUGtz9GzaXO1CyfT
-         19fZqd+hZriIgVZpBp2jk9zlvu6rOHHESu1Rh+9+0zRhd+SO88/TPPcSLec5Kk29Ypvm
-         mESat1+Z1FusUxQgnNMtscprTMS7qo3715AqpXgY8EHDdc7EgS4nY/wiz34tUvYzRHAQ
-         ZTYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785257894; x=1785862694;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Fa/LYPA7/Xkoo++dRTwytqE1SJTv+ovanIbkQn9jNIg=;
-        b=gRwR5M9RkTFpS4e3f9sLIDtfQ7kTho1IsnmTIRSxKJpnJcMYiYufQfIu2qJvMJVAi0
-         QFYilUmMV6946t6MMABbqohGHAp0RmW/yzcg3QrnqkX/xER+FHZOD2Oi1P1t3yycAmfh
-         P3FjxRW66UJQWM29VS39qeeoJBpIxCSGHXG7GJePW3axvFsoao+7NaWLdccR5l76cxQ/
-         /hvZriXRYntNWb0+XlKsFeCPbwdOA2/IZnS3Iio5wvScg8cPfpcFggybgcft0G5OcghG
-         jdD8tS6g8euz7xyAn6lGPyoIWqjRu5Kk8Q9aYwd8233Qr22iMXmycOXHt4cZRDdNxPaE
-         dGWA==
-X-Forwarded-Encrypted: i=1; AHgh+Rq6R12o2OEBzd3eNpgVbVUd057/W7MC3pLGzcsytpiyCWJNSUu8+rCE2O5CkcCkS9NiZpJ85TK99m4p@vger.kernel.org
-X-Gm-Message-State: AOJu0YyKd+lqle0JcKuXgEETq2dceLQtRXW6q89sKWPZczW33O4o70fJ
-	nG0AV0fqbWHMvGr+/TOwwDBtMQvHSsPkt5xagVeXWthKDJJaWsAsRGFh
-X-Gm-Gg: AR+sD13Qiu9R0Mq/h04C0DEILzFDutC9eR5K8OLtcJw1r64QpwZVl4FZt5yQL/ghu0B
-	tup87oeprYmY39kfJ4HcLl9ZJTDQjJuUplkNylMVezqXUoVLTCHoyanJzN6faCzAsYmdnNnpYxi
-	ULciDtsfzpV2TslQ99LVM2Ee5f5GVxTsKYjNsbUiStarlY3DGU98fwkCGuY98ZAL2y7CuNx0FYn
-	Ej8kN5f+rpGa7LDk+xxXBmAQj9nsrIxm65dx25zXNPtxOaK0lI6k0I8IYnoCv1/w1/8Tucq7ijO
-	XGHprCzareEd6o9hwulvnSQ5O3dIB1Q5uU6GyeeROSVS2B351ifKE1gwSf3QYcC1sFMeh1uvWA4
-	PEnb6dDlrb6ZWk+2lV+Y52BsoxDnEd8Kiy6o83Q/FgwDPB17zpXZn2vO0WziX4kCJGiIzRX25Yb
-	xaDgGJSF1YHKXxZAMroLj+Oa0QUIGRxxU0GVL2RNvn1iNKW4ZRU+YkCsRu+0DKb8qHpqPzqH9rE
-	sMv2siT6QJ+Xph+PGvzakSEptYrIha2Nm4w8A==
-X-Received: by 2002:a17:90b:258e:b0:387:e0db:bc2c with SMTP id 98e67ed59e1d1-38f6a422e25mr3827094a91.34.1785257894487;
-        Tue, 28 Jul 2026 09:58:14 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f642fbf74sm1640475a91.17.2026.07.28.09.58.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 28 Jul 2026 09:58:14 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <a39191ba-2ebc-425c-9435-f0465d1cfbeb@roeck-us.net>
-Date: Tue, 28 Jul 2026 09:58:12 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b82WnSCr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1C951F00A3A
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 17:02:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785258150;
+	bh=9oe9UV20xRbrU+lzvVnG9jZANXjcjtMpLhecIgsxtCo=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=b82WnSCrWCjiiRXWQJ4BHNCDM9WM11Q5bzIpvuitixDRsOOf1B7FPKsDBcU0VdAd5
+	 TNiFDU/KSlDAXVW6gvISaXu3kH0Vx5NECZHXyxUxarrtY6UNnIQI6Q4sgEsq3JSywu
+	 ZsD+Ll1k5N52fgTMdiPOZIKAZzdI//FDAYmNvZWByV9jEUWq7GlPkW7gK3MucckXme
+	 3VY4SI8yceU6m9fkMhogBCeEz91BxJZAy7g7SCzBjw7WxbAzxqrsClkUEjrBq/f/DV
+	 T1/tIwLr3SfGEEooRAODTmQnVy6kLkBnxXW8PnMNsUxXHnDUNa59TWAIWoM40VW1H5
+	 mhH4NRgl56wKw==
+Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-39c83acb86eso35989701fa.1
+        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 10:02:30 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rre9+lrnWWRXMkuOVEtGNahvBYutNq1qWY4l5xJuVy/AEZ1sW3O5AqaStWWDxr2Fg1LDoKDdS2YRdHe@vger.kernel.org
+X-Gm-Message-State: AOJu0YzEndNroVY2750DJtPrFXxcMpKnC/GqYvtUxdgNQltkE2DIB3uI
+	kqHqiVB9mhFxOBrc6ao+XrTf2jDF0H+UYhtm4734xcW0pTkTEAabuan/XN3WBaSnnV1v1KKkkQR
+	DXm32ZNwFOkeVi4PXFq/DaQlgx7a+xJM=
+X-Received: by 2002:a05:651c:b09:b0:39e:e995:1685 with SMTP id
+ 38308e7fff4ca-39f51e523a5mr6555341fa.38.1785258149154; Tue, 28 Jul 2026
+ 10:02:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] hwmon: (pmbus/core) fix regulator enable/disable
-To: nuno.sa@analog.com, linux-hwmon@vger.kernel.org,
- devicetree@vger.kernel.org, linux-doc@vger.kernel.org
-Cc: Mark Brown <broonie@kernel.org>, Alan Tull <atull@opensource.altera.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20260728-hwmon-max20826-support-v1-0-224766e0acd1@analog.com>
- <20260728-hwmon-max20826-support-v1-1-224766e0acd1@analog.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260728-hwmon-max20826-support-v1-1-224766e0acd1@analog.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260719211319.982285-1-juanmanuellopezcarrillo@gmail.com> <20260719211319.982285-5-juanmanuellopezcarrillo@gmail.com>
+In-Reply-To: <20260719211319.982285-5-juanmanuellopezcarrillo@gmail.com>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Wed, 29 Jul 2026 01:02:16 +0800
+X-Gmail-Original-Message-ID: <CAGb2v65gfLhY3qipJrcuE51CJ2WV=oNSbFDu7QP-6VFKF3v_WA@mail.gmail.com>
+X-Gm-Features: AUfX_mxwEoOQfPBDHt1Bhhdm8fNwHOj6ohky5Q9xhsCCChtpmB1_uNVjxEEhUG4
+Message-ID: <CAGb2v65gfLhY3qipJrcuE51CJ2WV=oNSbFDu7QP-6VFKF3v_WA@mail.gmail.com>
+Subject: Re: [PATCH v1 4/4] arm64: dts: allwinner: t527-orangepi-4a: add GPU
+ OPP table
+To: =?UTF-8?Q?Juan_Manuel_L=C3=B3pez_Carrillo?= <juanmanuellopezcarrillo@gmail.com>
+Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	Brian Masney <bmasney@redhat.com>, Andre Przywara <andre.przywara@arm.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-clk@vger.kernel.org, linux-sunxi@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 7/28/26 09:03, Nuno Sá via B4 Relay wrote:
-> From: Nuno Sá <nuno.sa@analog.com>
-> 
-> pmbus_update_byte_data() can return the value of PMBUS_OPERATION which
-> can be different than 0 and that can mess with the regulator core
-> given _regulator_disable() explicitly checks for ret == 0 in order to
-> call _regulator_handle_consumer_disable().
-> 
-> Fixes: ddbb4db4ced1 ("hwmon: (pmbus) Add regulator support")
-> Signed-off-by: Nuno Sá <nuno.sa@analog.com>
+On Mon, Jul 20, 2026 at 5:13=E2=80=AFAM Juan Manuel L=C3=B3pez Carrillo
+<juanmanuellopezcarrillo@gmail.com> wrote:
+>
+> Add the Mali-G57 operating points from the vendor BSP universal table
+> (150/200/300/400/600 MHz) so panfrost devfreq can scale the GPU
+> instead of running at the boot clock.
+>
+> All operating points use 920 mV: the BSP table specifies 900 mV for
+> every universal OPP, but on this board the GPU rail (AXP717 DCDC2,
+> vdd-gpu-sys) is a fixed 920 mV supply, so the OPP voltage states the
+> actual rail value and voltage transitions are no-ops.  The higher
+> speed-bin points of the BSP (648-792 MHz) are not included: they are
+> gated by a SID efuse bin and need pll-gpu as a live parent.
+>
+> Depends on the sun55i-a523 GPU clock divider fix (the OPP rates are
+> only produced correctly with the cycle-masking divider model);
+> validated on hardware with the Mali cycle counter: 149/199/300/399/597
+> MHz measured under load, thermal-emulation throttling included.
+>
+> Signed-off-by: Juan Manuel L=C3=B3pez Carrillo <juanmanuellopezcarrillo@g=
+mail.com>
+> ---
+>  .../dts/allwinner/sun55i-t527-orangepi-4a.dts | 30 +++++++++++++++++++
+>  1 file changed, 30 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/allwinner/sun55i-t527-orangepi-4a.dts b/=
+arch/arm64/boot/dts/allwinner/sun55i-t527-orangepi-4a.dts
+> index 055be86e5..0fd73a1bb 100644
+> --- a/arch/arm64/boot/dts/allwinner/sun55i-t527-orangepi-4a.dts
+> +++ b/arch/arm64/boot/dts/allwinner/sun55i-t527-orangepi-4a.dts
+> @@ -30,6 +30,35 @@ ext_osc32k: ext-osc32k-clk {
+>                 clock-output-names =3D "ext_osc32k";
+>         };
+>
+> +       gpu_opp_table: opp-table-gpu {
 
-The real problem is that pmbus_update_byte_data() should only return 0
-or an error code. The fix is in the "hwmon" branch and should be upstream
-by the end of the week.
+The table should be in the .dtsi file. The OPP table reflects the
+requirements of the SoC, not the board. Any board specific adjustments
+are done later.
 
-Guenter
+> +               compatible =3D "operating-points-v2";
+> +
+> +               opp-150000000 {
+> +                       opp-hz =3D /bits/ 64 <150000000>;
+> +                       opp-microvolt =3D <920000>;
 
+Please use the <min nominal max> variant to specify a voltage range.
+The minimum and nominal voltages should be the one from the BSP table.
+You can set the maximum arbitrarily, but 920 mV should be fine to cover
+this board.
+
+> +               };
+> +
+> +               opp-200000000 {
+> +                       opp-hz =3D /bits/ 64 <200000000>;
+> +                       opp-microvolt =3D <920000>;
+> +               };
+> +
+> +               opp-300000000 {
+> +                       opp-hz =3D /bits/ 64 <300000000>;
+> +                       opp-microvolt =3D <920000>;
+> +               };
+> +
+> +               opp-400000000 {
+> +                       opp-hz =3D /bits/ 64 <400000000>;
+> +                       opp-microvolt =3D <920000>;
+> +               };
+> +
+> +               opp-600000000 {
+> +                       opp-hz =3D /bits/ 64 <600000000>;
+> +                       opp-microvolt =3D <920000>;
+> +               };
+> +       };
+> +
+>         leds {
+>                 compatible =3D "gpio-leds";
+>
+> @@ -116,6 +145,7 @@ &gmac1 {
+>
+>  &gpu {
+>         mali-supply =3D <&reg_dcdc2>;
+> +       operating-points-v2 =3D <&gpu_opp_table>;
+
+Same here. This should be in the .dtsi file. It should be fine to add it
+right now since all boards have the supply added.
+
+
+ChenYu
+
+>         status =3D "okay";
+>  };
+>
+> --
+> 2.47.3
+>
