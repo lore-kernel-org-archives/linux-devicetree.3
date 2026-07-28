@@ -1,166 +1,153 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97FEF42DFEC
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 12:02:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EED2C42DA53;
+	Tue, 28 Jul 2026 12:03:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785240180; cv=none; b=Lq6VW4fYHv7r4WDsgqDVQdlvi8R9y7Sb1Cdg/Qk4tHhK1GMM3aFcBoTxOTzxE2Gt2f39+9WIC+A+yFH4nHGlKjDky0ydN+3DVfvwqnvQOg+lk9Z5CePNlsp2gT/mgnJxNcAzy+zdGLp3WLkm2qAfb0HkwT8GRcDSQBDea6ETR/M=
+	t=1785240239; cv=none; b=YfFd2DkGCdGLVd15XSzX5EC+MWnhyqAbFLjddLcDonMQIo6o1Depsc/RUTXwOz/f8LEk687xEodJciUEnUlhc51tEf1/5V1hHYcpk/o6EJEsikwskf6SrQL9g6/zN9zxGV/Oren2RcXJNE1LqRSbqkHo4kTVu2UV5TfIsSTMHtw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785240180; c=relaxed/simple;
-	bh=nUyz00awLRGhrVunRlQ29wlNX6AGiLgybArIIn6clCY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Z11hO9zw/DaJB3XXyJ1v4CAUhIjE5C+3Xz/eHu3FsM8pXqhugTiM+CI4+KARhJmBQ52NuqtRaIvAQtN/oKSMcpMazg6b6g6mMIXHaVLe/IQp9SYLp9HHSsXk+Q3PYrqVWoooLaPQdZXtvJRN/GpdaeI/zOTS0SrF3BACrnL/OR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HHEUrjFx; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KXwgt6x2; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785240239; c=relaxed/simple;
+	bh=J6/vi0BO6AwiRBLuYh6atEief8RHfl/MgzFgI62Gk9o=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=taEQYQVu5wTsCpRCoJGomHxxzWrz/9S70gnQsbdzKRYgG/6IKPkVayDL12FKBkf6yN6hlgfUKX02L3/JXD3LWrnCydw8SSpWUt3zswAUDrzI1h4KJLzwlfxW1Ex/jsX7o5nphXi8jrvWSl/U6eXpDHrV3EwDyORD9iTe0Toy0iQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=TrFYn1Zm; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HHEUrjFx";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KXwgt6x2"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66SBHF8Y2940221
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 12:02:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	bBmtCwPzeopBDjzlubUcQYKBGcpC+oOoizUjQr1Zgjo=; b=HHEUrjFxJQUSajza
-	isCApsQWvwlHnXqtzcEl/VGL0fzf8p9h8p/kj9vNEO2orl5DrytzzWHbLgeVTin+
-	vT/xIzT/lIEedjL4DwTeDYgyKpMgNrU17XZ7euAKJ5C2WhDP6lxmcRtmpTHtZ03q
-	MmMDliHZNJngvUd2ZSS+YAmKZve+fpkrfoeDvamtWlliNl8Z+6jV4qVjR/hW05Gr
-	YY7z/dlSDdZSfzDNGFvjYsZCXfGE/idfv6BYviMdcgYvnTw2EpxUDl7K0q0k/vbP
-	adg8hCXXfuNk3SgaSrG5wFjZc3er7C9z1as1akEpCGNng26IyW4cPpGluPb9urgo
-	YjcIhA==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fpmy11v2b-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 12:02:58 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2d001671a54so34881375ad.2
-        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 05:02:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785240178; x=1785844978; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bBmtCwPzeopBDjzlubUcQYKBGcpC+oOoizUjQr1Zgjo=;
-        b=KXwgt6x2v0v1AYm1QX+B6FzcsL73DuJxkytE7EBmbeXmdgFgAdPF+y/0Hr4q1XacrQ
-         HGXEkfUIeFXEiZ869H0D66t6D3Wdp4FiYRmZYoSNdgRM2BDOgIjEX+hiQVSvaxWUwjoz
-         M+3IbzJ0GjOezLmVipXQ/xDmRWvhKl71XlAyMpSx5RkluJwcbVJAnddpK3IiVT0wyB4V
-         com9DhU3644FgktetIQrM1ZOeBeMp2n1KSNA4t2wB1EgyMVRzwUNGP4Wzc8pPTHkEFZ3
-         dgr8imGHWNYGmCcBFW/neID7NoXFLijLU7aVwf175viZzHAe0idZ1mofONp3Je9U4hIS
-         hrRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785240178; x=1785844978;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bBmtCwPzeopBDjzlubUcQYKBGcpC+oOoizUjQr1Zgjo=;
-        b=Wf1Oni+mRpSdEaokpS9F8FtLpP76sst9hBqk2LHQvb3QbaOBvkel6zOWL+uqGDqPOw
-         BKgOhTyAk8BMcbCFFmSbnG9+1faMIaHDRxjAIjW867eVHQPhCUwX4T91JK7ltAAQ50xU
-         U5dGn1pW2BKO6tshp/ttTJkSJoGKmZtOb8fRWqdYGSOm2Bx4FJFNPKmLf9Nr+rnHf3Na
-         WBBtTsDUPUbs8v9cQvbTSaa3pkzdZN1sjs6t6Zdk8wLImBNJIGCSZVQYH2HYiR25O1Hg
-         /Svb0TXYoiSy7Iwhjt0ROPY8D6ZKULCEbJP9/eEK2obVQNJUUf37o6vy2Jqr1H+/093L
-         Faug==
-X-Forwarded-Encrypted: i=1; AHgh+RpM/EjyaH5Pyo1Fe07cScYy2e4GagLcz0PfAFkE8JCJA03oGzzCqJcCtjeaLt6GYI4SdlK9UswAlAN8@vger.kernel.org
-X-Gm-Message-State: AOJu0YymU6iHYLm0dOwT8XB7SHBNakI75/zkWgihQ9FnU0IgkE9V4kXX
-	we8/oDBDHo6ipfs703wxcV6h3/6rEOcWubEFNcMNU+fWVLtlbdpSDFD+t7Lq1J2eqNxZKBfqie9
-	GbFSRsxi3xTfmI8v/OqpL9/y71j3WuY6Q+0S4IxuduQq4F9OKcJTfG3eNKP+lf+x3
-X-Gm-Gg: AR+sD11v/jbbHviP6Zl2LrM7TaQ+ROexhAiP+7KbBP6GfTy+gZVwT3OHOgbre+XBUuH
-	VuxFwf4M8tYOodbEjlKB1CvInI8dpkB4yM/WO043jQf5kDZkcB/nAQBqzxlMTrZlDTLaI0tZErt
-	g01/nIW3VE8ZaFG8SSmYgyGFy/QLL7AJEdowFPtCZX+3xoMWQ1tpKT61q/IPZNoUHGOP76Ymomm
-	DO/Y5XGK5efNRjE7zf+r9DO/lTtEUiT+TUu7IXOaUwoIP1naWuohvRJvffEz0q9PFqN/W0Qux/A
-	EbEVOvsTfcy7i4/VSaoUW5yhK6VoEbv6jgCCF9PN2u+YiRCSr0jRRmIZWoFP1LJ0buMximRg2O8
-	TwU//W8c3MDjoq0NwLCedFKmoQ4lv9Eea
-X-Received: by 2002:a17:902:ce8f:b0:2cc:84e7:73bc with SMTP id d9443c01a7336-2d015d83dc9mr27172445ad.32.1785240178049;
-        Tue, 28 Jul 2026 05:02:58 -0700 (PDT)
-X-Received: by 2002:a17:902:ce8f:b0:2cc:84e7:73bc with SMTP id d9443c01a7336-2d015d83dc9mr27167625ad.32.1785240172747;
-        Tue, 28 Jul 2026 05:02:52 -0700 (PDT)
-Received: from [10.217.217.72] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cfde5eecf5sm51384495ad.36.2026.07.28.05.02.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 28 Jul 2026 05:02:52 -0700 (PDT)
-Message-ID: <c99f89c1-fcae-41df-8426-9bdb3e8e9b5e@oss.qualcomm.com>
-Date: Tue, 28 Jul 2026 17:32:47 +0530
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="TrFYn1Zm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1785240238; x=1816776238;
+  h=from:subject:date:message-id:mime-version:
+   content-transfer-encoding:to:cc;
+  bh=J6/vi0BO6AwiRBLuYh6atEief8RHfl/MgzFgI62Gk9o=;
+  b=TrFYn1Zmgp0h+xw2g43tDKkfKP2H+uKbwAwzxMbMsFFdPz3qVSEXhxAg
+   0k2VXxiyTLEhDtBu6PJ2NXaHH4GaGBoPD7c2y4QcF1ANs76FAhDZaguB4
+   0zcnZyREhnq6NkO5eBqUP6LcnnDAxGZJQ/tg7TKwLNzGxuq/UV6QLvQKV
+   UIE8oRqX+5bKhtRzJjDLgy/E1kBJ45AQO7PvT5ZHAUDKeQqf8rvml5kaK
+   pYa3GrW1GvLzCbs7MbdHGh5uTSq+DzbAXchaZDz0coIxqp0O1JZ2m+zxJ
+   HBttvHh7HMiVG8y0RA6lW5RLfMvJyCt1K0cLxHUqvj9QDJvN4jh4KwZOz
+   Q==;
+X-CSE-ConnectionGUID: DAKaVPZmQq6CpIhWxNTncQ==
+X-CSE-MsgGUID: vxvfIJf1SsqPQIZ41z5noA==
+X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; 
+   d="scan'208";a="292649048"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jul 2026 05:03:57 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
+ chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.43; Tue, 28 Jul 2026 05:03:56 -0700
+Received: from [127.0.1.1] (10.10.85.11) by chn-vm-ex02.mchp-main.com
+ (10.10.85.144) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Tue, 28 Jul 2026 05:03:53 -0700
+From: Ariana Lazar <ariana.lazar@microchip.com>
+Subject: [PATCH v2 0/2] add support for Microchip PAC1711 Power Monitor
+Date: Tue, 28 Jul 2026 15:03:47 +0300
+Message-ID: <20260728-pac1711-v2-0-609bc026093c@microchip.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V4 2/4] dt-bindings: mmc: sdhci-msm: Document the Glymur
- compatible
-To: Rob Herring <robh@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Nitin Rawat <nitin.rawat@oss.qualcomm.com>,
-        Pradeep Pragallapati <pradeep.pragallapati@oss.qualcomm.com>,
-        Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
-        Sachin Rathore <sachin.rathore@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260722142342.990384-1-mchunara@oss.qualcomm.com>
- <20260722142342.990384-3-mchunara@oss.qualcomm.com>
- <20260723195417.GA2688724-robh@kernel.org>
-Content-Language: en-US
-From: Monish Chunara <monish.chunara@oss.qualcomm.com>
-In-Reply-To: <20260723195417.GA2688724-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: LQfhDU9KSKFhjhde0c3fsVwK8o8MgodY
-X-Proofpoint-ORIG-GUID: LQfhDU9KSKFhjhde0c3fsVwK8o8MgodY
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI4MDEwNiBTYWx0ZWRfX+8bmE4JQ7Ymn
- Smxndmlm2aiImLL9X5Fo6m6Ca3O17T1qIGYqkuyQSAFNqpRwPlFe1QHY+tweRblWKx5IYgqjIX3
- iMX/vLrgeHaW28pHd84CsRISDiOF2TcNLvVZAHKqLKGAvlAHtC7WzWHXjIkpYsCxzozd5tWgDad
- r28VkfXbVweH8dfEgcYODnl3ZnsYQpm7mVDKcV6a245GoqXKlShZYOiLASpH6kdLFtaKmmWzYmn
- b+S174vsZhX1yM9XRia+okhxaJRaSHNF05j0fJRBixmVibSBTOT+yZkxW7Vk4tOgdhPlTMLlNYi
- 5Enh7yO1oqtFtU17WMjbfQm8o8XhU0mvnN0GH+b/NZtNBQuATOrhZPUE5bXQ+emqCVZqIqz4YZG
- d70PS4Evm3g4jjr14aJmF0EEBEEncV0WrQJR2hNOOcE8c7SJbuvDKICxVIPjT1GVuMY9qOC36i7
- cn9wyZ/onrYz1XKJQAQ==
-X-Authority-Analysis: v=2.4 cv=PJo/P/qC c=1 sm=1 tr=0 ts=6a689a72 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=RJy-eKN6XEuLipikQ6kA:9 a=QEXdDO2ut3YA:10
- a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI4MDEwNiBTYWx0ZWRfX+adsxcHrGLa0
- iksGTEMIxzL+YJNtEpaYMzIgCgOlQwTCbWGuE/YeM0SbvnO0ALEblRhq6C/PevRhpiWwgeA8oqY
- 0KjfWH/tbD9wjYKI+Ml74Kyh288JYqA=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-28_03,2026-07-28_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
- priorityscore=1501 malwarescore=0 adultscore=0 suspectscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607280106
+X-B4-Tracking: v=1; b=H4sIAKOaaGoC/z3Myw7CIBCF4VdpZi1mpjeCq76H6QKB2lm0EDBE0
+ /TdRRYu/5OT74DkIrsEt+aA6DIn9nuJ9tKAWfX+dIJtaWixHVAhiaANSSJhu4c2VveIi4XyDtE
+ t/K7SfS69cnr5+Klwpt9aDUIa/kYmgULJUfXKdWM3ymljE71ZOVyN32A+z/MLEH6MU6IAAAA=
+X-Change-ID: 20250901-pac1711-d3bacda400fd
+To: Jonathan Cameron <jic23@kernel.org>, David Lechner
+	<dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
+ Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+CC: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Ariana Lazar <ariana.lazar@microchip.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785240233; l=3452;
+ i=ariana.lazar@microchip.com; s=20250825; h=from:subject:message-id;
+ bh=J6/vi0BO6AwiRBLuYh6atEief8RHfl/MgzFgI62Gk9o=;
+ b=fuU4UnNtlrtsckczJuz/cadAv5FgOTx34KsDYRWDZPGSQ6D4ojXTE1zpYEUicescyU1GsBmlp
+ N+H21NNWpYZC3+5WF/H0QUYXvXvdhrdnIPFtStyiv5FF3HK8vf8aTHU
+X-Developer-Key: i=ariana.lazar@microchip.com; a=ed25519;
+ pk=jmvf1fSxcnzZmXfITM3L94IwutM+wqA1POQHiYyD6Dk=
 
+The PAC1711, PAC1721, PAC1811 and PAC1821 products are single-channel power
+monitors with accumulator. The PAC1711 and PAC1721 devices use 12-bit
+resolution for voltage and current measurements and 24 bits for power
+calculations, while PAC1811 and PAC1821 have 16-bit resolution and use 32
+bits for power calculations. The 56-bit accumulator register accumulates
+power (energy) or current (Coulomb counter).
 
+PAC1711 and PAC1811 measure up to 42V Full-Scale Range, respectively 9V for
+PAC1721 and PAC1821.
 
-On 7/24/2026 1:24 AM, Rob Herring wrote:
-> On Wed, Jul 22, 2026 at 07:53:40PM +0530, Monish Chunara wrote:
->> From: Monish Chunara <monish.chunara@oss.qualcomm.com>
->>
->> Document the SDHCI controller on Qualcomm Glymur SoC, fully compatible
->> with existing MSM SDHCI v5.
->>
->> Signed-off-by: Monish Chunara <monish.chunara@oss.qualcomm.com>
-> 
-> Missing krzk's ack.
-> 
-> Rob
+Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
+---
+Changes in v2:
+- fix review comments device tree binding:
+    add PAC1721, PAC1811 and PAC1821 part numbers
+    add Vbus/Vsense input ranges in attribute definition
+    change accumulation-mode from int to string type
+    remove size and address cells
+    correct interrupts definition and add attributes for the two
+      alerts, microchip,gpio0-mode and microchip,gpio1-mode
+    remove microchip,gpio attribute
+    remove "vbus" accumulation mode 
 
-I wasn't sure whether to carry over the Acked-by tag since the commit 
-message changed, so I left it out and queried on the previous series.
+- fix review comments driver:
+    add PAC1721, PAC1811 and PAC1821 part numbers
+    run pahole on reg_data and pac1711_chip_info structs
+    remove average registers - VBUS_AVG and VSENSE_AVG
+    add PAC1721, PAC1811, PAC1821 to features/compatible
+    add missing headers
+    remove rarely used defines like PAC1711_POWER_24B_RES and use the
+      numerical value inline instead
+    use ARRAY_SIZE() instead of define for the number of accumulator
+      related attributes
+    add explanation for bytes length defines
+    use spacing convention space after { and before }
+    remove pac1711_shift_map_tbl in order to use just
+      pac1711_samp_rate_map_tbl and an index saved in struct
+    use read_avail() for sampling_rate
+    change mutex comment in reg_data
+    use fsleep instead of usleep
+    use a local __be16 variable in endianess transformations
+    add missing error returns after dev_err
+    add info_mask_shared_by_all for sampling_frequency 
+    use dev_info instead of dev_err_probe in chip_identify
+    generalize input setup functions into one
+    remove device_property_present
+    rename pac1711_single_channel into pac1711_chan_spec
+    rename pac1711_of_parse_channel_config into pac1711_parse_fw
+    remove unneccessary comments in probe
+    define in_shunt_resistor as ext_info instead of custom attribute
+    use calculations only with 16-bit resolution instead of multiple
+     shifting (12-bit registers are left shifted)
+    add scale computations based on new voltage of 9V for PAC1721/PAC1821
 
-I'll make sure to retain it appropriately in future patches.
+v1:
+- first version committed to review
+- Link to v1: https://lore.kernel.org/r/20251015-pac1711-v1-0-976949e36367@microchip.com
 
-@Rob, does this need to be respun to restore the Acked-by tag?
+---
+Ariana Lazar (2):
+      dt-bindings: iio: adc: add support for PAC1711
+      iio: adc: add support for PAC1711
 
-Regards,
-Monish
+ .../ABI/testing/sysfs-bus-iio-adc-pac1711          |   24 +
+ .../bindings/iio/adc/microchip,pac1711.yaml        |  209 ++++
+ MAINTAINERS                                        |    8 +
+ drivers/iio/adc/Kconfig                            |   11 +
+ drivers/iio/adc/Makefile                           |    1 +
+ drivers/iio/adc/pac1711.c                          | 1274 ++++++++++++++++++++
+ 6 files changed, 1527 insertions(+)
+---
+base-commit: 19272b37aa4f83ca52bdf9c16d5d81bdd1354494
+change-id: 20250901-pac1711-d3bacda400fd
+
+Best regards,
+-- 
+Ariana Lazar <ariana.lazar@microchip.com>
+
