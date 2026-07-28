@@ -1,328 +1,215 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA56840DB53
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 08:43:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACA8640D58B
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 08:46:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785228212; cv=none; b=WE2k2adNKJoplQ/9P60+eBIUTTrUHtdjePoBp9d4T0M+KXtbg0cSw6esm+p+JQrI+xRUzzhhtc5IzWmi/C4n5BAaHndmOIu2AwdwI+qJkQuzODWNrAUwIaqAefxz/7uFu+5bSLHazgo3n3+15a6640//Hf+HtS5FeytrGA6q2yQ=
+	t=1785228414; cv=none; b=Hx2yg4AKABtviT/GONgLWyblfs0tEyGzMEZ7CHhokNHC+6CSkVo/a8HmE3QiR8fnAT8FMQShDHfG1Zh4R3iiI09HS2Iuuq/1LP5IjEd9SENvC7Qcn+apEtgtQ3xIT12AXMWKB+AOi0MfEzJ07JUMKgHFBjXRMiRuZ4JSeANg6DY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785228212; c=relaxed/simple;
-	bh=05FD9Q8MiGxbmhMqb3xelmGLNDiAwBg44gqAs0Q5qYc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=g/dYXXapUgdYXTDe60OX5szmYRJ6VP2mCHYu8qajkXQJu1YEjbXmCe+g9jib9QannHkzcRxWpQ/hCXhetVZAtPvO+RiDoRyUHKBkrJkVt+ILeWR6AHADWPMqqiooAJLVj3qMG1OCQ8/F+bjxLW2oNJj8uinrQMB2fSf4LA7iLMU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eVluSiTS; arc=none smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785228414; c=relaxed/simple;
+	bh=sHs5xySGuDN2Xqec2Tl41jmiL1sPHuObMTPhDLc0Mrs=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=dkcyJZbkvj0gcjZvtYoS7x6u4Jmqy/iO8zZhKZunTdWhEA33y2cCixVLtN1533uQmkSlqmiPVbRy0xOntMDcN+KDln7Iw0uCkX5RPR1GstB687XsVslzZVvyRu+ZFrj5R8WNvq7jNvIbdU4TWjiGJ7a1wjkf5P77uoDT4cGfaBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=qYnW18jU; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eVluSiTS"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-47f703a9d05so2347379f8f.0
-        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 01:43:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="qYnW18jU"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-495590dde14so39767115e9.0
+        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 01:46:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785228207; x=1785833007; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mVaU5aBNCpHteSlHa9KIXjavIsGZ1Ok+bRtNiOCJLQ4=;
-        b=eVluSiTShVd+MD9XV1S57uam+K7ghagzGi1Szl4kkEtmV1BXKVNGzCAfUTMB2o0trS
-         dCtB+P+F1bcvv6cVdmOE5KrRqgKXeIsY/F8mHbGInHNl7gbsyL+tZpN0sTnczBa0pTOV
-         umOtSeHazegr9d0jMxfZsgrvTh0s4Tu64InFVlcBCqde9TpeIMbj4fL4ZF0O/EQ5VaXl
-         P9VjNKvNzN37yiOtA8NWXyCAJ0KHWhmxjVsvdVWaKdWThgWonXvPVsFELvwSjajtTsiV
-         hYXenccgfKnUaXk/MmZQ28GqFx5TUcUusXrJ2VCplNf8LXRQWCepUXIx7B57lfgE3BIa
-         nKlw==
+        d=linaro.org; s=google; t=1785228411; x=1785833211; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=WbYgWOqEqy1rmlqrA90GT53N9i1YD4wuNMRoa3lJxZw=;
+        b=qYnW18jU0cTFxPJEaSLx1ns0iwCDgzVMMwVFywOKO2XRnURmhHdQKWIQJnyUau4EJ5
+         jBeeR9vaG2CHxJJ8BR0yVrr884QZjXpG1lluteSxXay4rpA8ZaGrebxTx/VvF85RejQU
+         4QwF+5zbX2xEC7NBiBnjMODO8m9E3gSM93WPe/BOk3sdhFGtHM7hQ6fKIjgtghHLe+Vl
+         hDp2XbCGmvEtFRkKTU8b8q5/EALXiewc24IszOChsmX2m4NfnAmOO8rz8bzhq2Wu5V7o
+         F0POT7mKG0LtSOEqdZEgxh/4BSoKrb+U0tygaAlr5HYTx7Kp9I2CHMJ5/Pis/q+GizL7
+         qgNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785228207; x=1785833007;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mVaU5aBNCpHteSlHa9KIXjavIsGZ1Ok+bRtNiOCJLQ4=;
-        b=CewiuDU8UMG9/RqEej2aHQbHG7e+RRMP2JLnV8y2KCHjd+00MBNlQRSLiY+J/cOh4f
-         VTlhvJDyjSmzastqqZgpNA6/11QmPSu+zt5HuYR084zRPxhzovb177yg2JdB9y93ymT+
-         ugNgvtUWnkrzESaATDMl3+Ittw4WiRZSxFJAM4wtGG1JBondrwc8lVgO9kXmCTJNvTJF
-         6frWMkPDWQXfEsYmnXkkVckj2PySxyZ/6m9J8lhmJzqtDyX5CiBHXlMuS3PMx3PQcFND
-         fnKhWIJESiTkaEaA2xyzcNJmh7uelGZGhQCZKmPTX0YlNINHbx88Z2RXkF/4TsZRISsF
-         zIuQ==
-X-Forwarded-Encrypted: i=1; AHgh+Ron6vSq+LrPRD1pR1ePWGY4KWYFci1znkQYHViz3Km2Mt5QiQeKVW8eGpSrFI6q1f9BVyOPb3o6t9MV@vger.kernel.org
-X-Gm-Message-State: AOJu0YzcIsPckVe3KoqCHLy8r86QYJ4WHrflvb+qA+isO3dInyz2jSop
-	C96/wA/N7O0EEUJWN/REsE11WliJ861Q4CfNh4yIPNnFM+jn8Cv3R1wR
-X-Gm-Gg: AR+sD10o61gJ0Zd797m4BUztFuMsVdHlwNxdgQ+Ku4SdpJ7bBHoO6ELUfiyluXhx2Fr
-	6pY0is2Vyq37pHj2jLe2yIFQdKrQ8DphbqdNZssfzpSebbpurj2QZzOX0CHENAjSNnkxiDNgdiQ
-	8xCLIuLmsJCmj5r594qNUW7swbjmiozWwv6yNuf2srI52WeQFPILct2FYdW1Crv+Sv2WgdJLZHB
-	IRTkYmO3N3vcOb5aTxwrPIRjqf/+WEkXm0XJ9muBp4v6Hpd7oh4L25UAnHTL4j0mfxe824DGybu
-	GBVTsPf7Gs+RcH1F+Be3tzwzl+lkOsyWOEWqF59V7HTNmBLTBsGaPMIqmPdrT9zBMOYF0j4ZYAW
-	wQSnTfEUpEB1KvCfuf0FT2zARtRFdOXVpT50Mi1xglRd7E79lVrdqbnXg52v+A+Q2SAwcy/A+qC
-	Sxk/Fu
-X-Received: by 2002:a05:600c:45c3:b0:495:7990:a1d0 with SMTP id 5b1f17b1804b1-496c658dffdmr15337525e9.19.1785228207046;
-        Tue, 28 Jul 2026 01:43:27 -0700 (PDT)
-Received: from builder ([2001:9e8:f139:f416:be24:11ff:fe30:5d85])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496c444304esm57730845e9.0.2026.07.28.01.43.26
+        d=1e100.net; s=20251104; t=1785228411; x=1785833211;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=WbYgWOqEqy1rmlqrA90GT53N9i1YD4wuNMRoa3lJxZw=;
+        b=Nt0cfz+ymyea5L0LcAaBmA2C4VjHSzujReAITls01aNhZuvHJWAieEmKuwUc58bwK8
+         38sfmfXPfCiVM4VJ9gdZMBCvmcr/PHRQiYWyedx05oM5e9kLCiN9WhRVhawM5EQshvlA
+         RFJtEbsfpAmb9w3VQkCiBsIzzEc4G0Iece+uNctUKejNlA/8gB5s/WFSF973mqFUC79H
+         UripEyKJkOtR0hAhcL/dynXxow2AlYQMrG1mRYIdMn1P808qJ+7iKnck0IFerGLbfpaT
+         B47mbS2AYaLMni/OGMRBUEhOTr9itYGqddFrXR7qSYjazT1YArU9oJM9/AXLV3SQBeDc
+         jt+w==
+X-Forwarded-Encrypted: i=1; AHgh+RrWgVqgpUfhJSodWHmt+gf/5VxHxdKJuaSv4wRPePfhvWcJZ1f2u5Bayy81oQIHTo7heF2OoTU0M/tC@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyhl9WrX2ARdsWS0w/oZK1Gc5jYlxEvlWZuuMQNhXPpaZvVECeb
+	z4TJTuPAUysTjBJU/mI3vuWEdQs8Ao8pmHjP16g9RM5yDnx1cE8neKlAf7/gHQZ3PKE=
+X-Gm-Gg: AR+sD12dexr4kHqaK3/DzAHVJZlFMbvpez4I/+MO0TfpSIoM+1WYcFbDWinSOUjya1F
+	EzpecVPjUHHV0v2OhljPMeFnpPl+0KHmugXNdG7uBAKwbsD7Ym7DdKGEJCX17gEY80XUwABfBxK
+	mXbSCfhkZ6bQESkG67XHsRUKJA2ifzJdV9hnoEMKE0WpJ2EriTLbrptzPsFXVwzAI10/c1TNHGO
+	kjS7FRy+0wxBXFqHR2hLpVUsZ42RDQRVi/blcPaNFGslW9MQpIZbccx0D1zjwpiCAdUHZjwqZ2r
+	rUfk1c2feXl94FrDtFnKbUfwMr4IEJNcWYBkIukf2W0EoLnErGcACJQHZYxGERul4p3X4o5HMVH
+	G7sYqSiAjHTfoMCHnqcwM1KFXLTzN6NgTrodaKZtOH8xS0mymDVfSqCyPUs/oqUyySgxRyVNpbs
+	BmW5NpUy2mHM6F4cXH8VA5Io8=
+X-Received: by 2002:a05:600c:154b:b0:495:4859:8f9b with SMTP id 5b1f17b1804b1-496c6420e39mr15126845e9.9.1785228410812;
+        Tue, 28 Jul 2026 01:46:50 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496c4632263sm64658175e9.15.2026.07.28.01.46.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Jul 2026 01:43:26 -0700 (PDT)
-From: Jonas Jelonek <jelonek.jonas@gmail.com>
-To: Oleksij Rempel <o.rempel@pengutronix.de>,
-	Kory Maincent <kory.maincent@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Daniel Golle <daniel@makrotopia.org>,
-	=?UTF-8?q?Bj=C3=B8rn=20Mork?= <bjorn@mork.no>,
-	Jonas Jelonek <jelonek.jonas@gmail.com>
-Subject: [PATCH net-next v10 3/4] net: pse-pd: realtek-pse-mcu: add I2C transport
-Date: Tue, 28 Jul 2026 08:43:05 +0000
-Message-ID: <20260728084307.2129515-4-jelonek.jonas@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260728084307.2129515-1-jelonek.jonas@gmail.com>
-References: <20260728084307.2129515-1-jelonek.jonas@gmail.com>
+        Tue, 28 Jul 2026 01:46:50 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: [PATCH v3 0/3] ASoC: qcom: audioreach: support WSA speakers only
+ on WSA2
+Date: Tue, 28 Jul 2026 10:46:42 +0200
+Message-Id: <20260728-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v3-0-b29f44720178@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHJsaGoC/42Qy07DMBBFf6XymkF+xE7cVf8DsbAnk9ZA4mC7g
+ arqv+M0SIhdl3d0dc7MXFmmFCiz/e7KEi0hhzjVoJ52DE9uOhKEvmYmuTTccAslzgEhj53RHNz
+ FTRRhjvhOBbKEr+wkDOEbyFuuTTsYdJpV2Jyoju+il9ct57N/IywrfW2cQi4xXe6bLGLt/UoFf
+ 1S6COAgOu+FRY1OysNHmFyKzzEd2Wpd5B+35fJhrly5NHRIvkNL+I97285J9Hmu7yvbjcy7TIB
+ xHEPZ70SDvcPWqA6VMi0q6wbJTaMN9XKQvWpJ24aLCrv9AMpURKmTAQAA
+X-Change-ID: 20260609-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-eb90567f6ca5
+To: Srinivas Kandagatla <srini@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: kancy2333@outlook.com, linux-sound@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4204;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=sHs5xySGuDN2Xqec2Tl41jmiL1sPHuObMTPhDLc0Mrs=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqaGx4H2g8Z9PDfxFXfsSyklGITDxAFBTuUTDNA/9e
+ Z5lrLO6JAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCamhseAAKCRB33NvayMhJ0QgJD/
+ 4jmw7Cued79rXnGsKLFJ4p5uNPfOqMbOrn/lxIinMiOd07Xs6zRHTNzKvPsjWKgsYAJh19GCBiAiDq
+ UtJvwuSaBQ6KkOEHly6Rz1PDaGZ2tL1YPaed7IPwTPBD9KM2MQ+vOPl2PX3HCktwvRITXc6IQjVC0/
+ XuI52Ji5d+0nyc5uPmdopTNEZzmreMKCOAyMbkSzl96TaxfDRmoK3o2/PiGvvpvW5XH8ZiharMc8wf
+ dw+V8I9jOfuCNIrz/oOMEStN2MDbqGRfPvXfj1VioO1Fbwyx8Ip3kcdyf/CI+3ni4jH0jvU/f16BjI
+ oi0KHU6SrULwm6AogHBePdjB4yvC1o7zlyck4XEPlxtMpei7GFV8o2W6eIJzkhlEVaARUgeRxWe5If
+ NnGNHUPqjvxj8JMjNIwdW++NjwuEwm/nniy8r/86RbsnT/c3R4evF+kyHvpg648gdaECEZUkNTLXrP
+ P6fTK2d9BJsQJSdDBYTuRbOLSw4osEINx6u21nVgzrOPHlD0K0nYyjgQ9WcAb1UJmYp+OZVGQmblWg
+ 4voyzIpDJZ0NrnHJwtAw3vgfqzaWCQIX3lndknNo2nKTzy4Ln1HP6e2c7sh4+fo5/njPm8rXbGgbZS
+ b3mInOz8+VOY7bHNYHGOV5uPCd8ABxV/BHe5kKIY1y65zz5Skz75tv+U8Y8A==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-Add the I2C/SMBus transport for the Realtek PSE MCU core. It registers
-the MCU on an I2C bus and provides the send/recv callbacks the core
-uses to exchange the 12-byte frames.
+The Qualcom SM8650 based Ayaneo Pocket S2 gaming device has a set
+of 2 WSA speakers connected on the WSA2 lines.
 
-The MCU firmware expects one of two framings on the I2C bus, and which one
-is part of the compatible: '-smbus' (reads carry a leading command byte
-and a repeated start) or raw '-i2c' (bare block writes and reads). The
-match data flags the raw-I2C case; SMBus is the default because that's
-what the majority of devices uses.
+But the Audioreach DSP only handles WSA2 in pair with the WSA
+interface by using the upper bits of the active_channels_mask
+for WSA2 and the lower bits for WSA:
 
-Because i2c_master_send()/i2c_master_recv() may DMA, the raw-I2C path
-bounces each frame through a heap buffer rather than the core's stack
-buffers; the SMBus path is unaffected.
+ __________________________________________________
+| Bits  |     3    |     2    |   1     |     0   |
+---------------------------------------------------
+| Line  | WSA2 Ch2 | WSA2 Ch1 | WSA Ch2 | WSA Ch1 |
+---------------------------------------------------
 
-Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
-Acked-by: Oleksij Rempel <o.rempel@pengutronix.de>
-Reviewed-by: Kory Maincent <kory.maincent@bootlin.com>
+Setting only the WSA2 upper bits is perfectly valid and
+functional but the current Audioreach code builds the bitmask
+from the channels count with:
+	active_channels_mask = (1 << num_channels) - 1;
+
+In order to enable the WSA2 bits the channel count should be 4,
+but the lower WSA bits are then also enabled and the DSP errors
+out when trying to play on the disabled WSA interface.
+
+A solution would've been to add a fake WSA2 topology element which
+would be translated into the top bits only, but it's not clean and
+add some special exceptions in the generic Audioreach code.
+
+The solution suggested by Srinivas is to use the channel mapping to
+set this bitmask.
+
+This works but makes all the other calls using the channel mapping fail
+because the DSP requires the channel_mapping table to start from index 0
+and using num_channel length in order to apply the mapping on the
+active_channels_mask bits in order.
+
+So if you have an active_channels_mask like:
+ _______________________
+| Bits  | 3 | 2 | 1 | 0 |
+-------------------------
+| Mask  | 1 | 1 | 0 | 0 |
+------------------------
+
+And the channel mapping:
+ _________________________________
+| Channel |  3 |  2 |   1  |   0  |
+-----------------------------------
+| Mapping | FR | FL | NULL | NULL |
+-----------------------------------
+
+Will need to be converted to:
+ ____________________
+| Channel |  1 |  0 |
+---------------------
+| Mapping | FR | FL |
+---------------------
+
+And the DSP will map FR on WSA2 Ch2 and FL on WSA2 Ch1 as:
+ _________________________________
+| Line    |  WSA2 Ch2 | WSA2 Ch1 |
+----------------------------------
+| Mapping |     FR    |     FL   |
+----------------------------------
+
+So we need to skip the empty channel mapping entries in all other
+users of the channel_map to build valid channel_mapping tables.
+
+This should not break any other usecases since the default channel
+mapping always start from index 0, and will add flexibilty to allow
+some special non linear mapping for other interfaces as well.
+
+Finally we add a special prepare callback for the Ayaneo PS2 sound card
+which sets the custom channel mapping for the WSA interface to make audio
+work properly on the gaming device.
+
+Depends on (applied):
+- https://lore.kernel.org/all/20260608023011.942228-1-mohammad.rafi.shaik@oss.qualcomm.com/
+
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
- drivers/net/pse-pd/Kconfig               |  11 ++
- drivers/net/pse-pd/Makefile              |   1 +
- drivers/net/pse-pd/realtek-pse-mcu-i2c.c | 170 +++++++++++++++++++++++
- 3 files changed, 182 insertions(+)
- create mode 100644 drivers/net/pse-pd/realtek-pse-mcu-i2c.c
+Changes in v3:
+- Rebased on broonie/sound.git for-7.3 with the MI2S changes applied
+- Dropped DT change to be applied separately
+- Link to v2: https://patch.msgid.link/20260702-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v2-0-1ef8ceb8c9ec@linaro.org
 
-diff --git a/drivers/net/pse-pd/Kconfig b/drivers/net/pse-pd/Kconfig
-index 3b0c245a2bc7..6d14c8832e8b 100644
---- a/drivers/net/pse-pd/Kconfig
-+++ b/drivers/net/pse-pd/Kconfig
-@@ -19,6 +19,17 @@ config PSE_REALTEK_MCU
- 	  Shared core for the Realtek PSE MCU driver. This is selected
- 	  automatically by the transport options below.
- 
-+config PSE_REALTEK_MCU_I2C
-+	tristate "Realtek PSE MCU driver (I2C transport)"
-+	depends on I2C
-+	select PSE_REALTEK_MCU
-+	help
-+	  Driver for the microcontroller (MCU) that fronts the PSE
-+	  hardware on various Realtek-based managed switches, attached
-+	  via I2C/SMBus. The MCU exposes a message-based protocol; the actual
-+	  PSE silicon is not accessed directly. To compile this driver as a
-+	  module, choose M here: the module will be called realtek-pse-mcu-i2c.
-+
- config PSE_REGULATOR
- 	tristate "Regulator based PSE controller"
- 	help
-diff --git a/drivers/net/pse-pd/Makefile b/drivers/net/pse-pd/Makefile
-index bf35e2a5b110..ef869bba5ed9 100644
---- a/drivers/net/pse-pd/Makefile
-+++ b/drivers/net/pse-pd/Makefile
-@@ -4,6 +4,7 @@
- obj-$(CONFIG_PSE_CONTROLLER) += pse_core.o
- 
- obj-$(CONFIG_PSE_REALTEK_MCU) += realtek-pse-mcu-core.o
-+obj-$(CONFIG_PSE_REALTEK_MCU_I2C) += realtek-pse-mcu-i2c.o
- obj-$(CONFIG_PSE_REGULATOR) += pse_regulator.o
- obj-$(CONFIG_PSE_PD692X0) += pd692x0.o
- obj-$(CONFIG_PSE_SI3474) += si3474.o
-diff --git a/drivers/net/pse-pd/realtek-pse-mcu-i2c.c b/drivers/net/pse-pd/realtek-pse-mcu-i2c.c
-new file mode 100644
-index 000000000000..e10f8c633b68
---- /dev/null
-+++ b/drivers/net/pse-pd/realtek-pse-mcu-i2c.c
-@@ -0,0 +1,170 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+
-+#include <linux/delay.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/pse-pd/pse.h>
-+#include <linux/slab.h>
-+#include <linux/string.h>
-+
-+#include "realtek-pse-mcu.h"
-+
-+/*
-+ * The core has already waited RTPSE_MCU_RESPONSE_MS before calling us, so
-+ * the response is normally ready on the very first read. For commands the
-+ * MCU produces more slowly, keep polling at the typical response cadence
-+ * up to the worst-case ceiling.
-+ */
-+#define RTPSE_MCU_I2C_RETRY_MS	RTPSE_MCU_RESPONSE_MS
-+#define RTPSE_MCU_I2C_MAX_TRIES	(RTPSE_MCU_RESPONSE_MAX_MS / RTPSE_MCU_I2C_RETRY_MS)
-+
-+static int rtpse_mcu_i2c_smbus_send(struct rtpse_mcu_ctrl *pse, const struct rtpse_mcu_msg *req)
-+{
-+	struct i2c_client *client = to_i2c_client(pse->dev);
-+
-+	/* Send opcode as SMBus command byte; remaining 11 bytes as block data */
-+	return i2c_smbus_write_i2c_block_data(client, req->opcode, RTPSE_MCU_MSG_SIZE - 1,
-+					      (u8 *)req + 1);
-+}
-+
-+static int rtpse_mcu_i2c_smbus_recv(struct rtpse_mcu_ctrl *pse, const struct rtpse_mcu_msg *req,
-+				    struct rtpse_mcu_msg *resp)
-+{
-+	struct i2c_client *client = to_i2c_client(pse->dev);
-+	int tries, ret;
-+
-+	for (tries = 0; tries < RTPSE_MCU_I2C_MAX_TRIES; tries++) {
-+		if (tries > 0)
-+			msleep(RTPSE_MCU_I2C_RETRY_MS);
-+
-+		/* MCU needs 0x00 as command byte for read */
-+		ret = i2c_smbus_read_i2c_block_data(client, 0x00,
-+						    RTPSE_MCU_MSG_SIZE,
-+						    (u8 *)resp);
-+		if (ret < 0)
-+			return ret;
-+		if (ret == RTPSE_MCU_MSG_SIZE && rtpse_mcu_resp_is_final(req, resp))
-+			return 0;
-+	}
-+
-+	return -ETIMEDOUT;
-+}
-+
-+static const struct rtpse_mcu_transport_ops rtpse_mcu_i2c_smbus_ops = {
-+	.send = rtpse_mcu_i2c_smbus_send,
-+	.recv = rtpse_mcu_i2c_smbus_recv,
-+};
-+
-+static int rtpse_mcu_i2c_native_send(struct rtpse_mcu_ctrl *pse, const struct rtpse_mcu_msg *req)
-+{
-+	struct i2c_client *client = to_i2c_client(pse->dev);
-+	void *buf;
-+	int ret;
-+
-+	/* i2c_master_send() may DMA, so the buffer must not be on the stack. */
-+	buf = kmemdup(req, RTPSE_MCU_MSG_SIZE, GFP_KERNEL);
-+	if (!buf)
-+		return -ENOMEM;
-+
-+	ret = i2c_master_send(client, buf, RTPSE_MCU_MSG_SIZE);
-+	kfree(buf);
-+	if (ret < 0)
-+		return ret;
-+	return ret == RTPSE_MCU_MSG_SIZE ? 0 : -EIO;
-+}
-+
-+static int rtpse_mcu_i2c_native_recv(struct rtpse_mcu_ctrl *pse, const struct rtpse_mcu_msg *req,
-+				     struct rtpse_mcu_msg *resp)
-+{
-+	struct i2c_client *client = to_i2c_client(pse->dev);
-+	int tries, ret;
-+	u8 *buf;
-+
-+	/* i2c_master_recv() may DMA, so read into an off-stack buffer. */
-+	buf = kmalloc(RTPSE_MCU_MSG_SIZE, GFP_KERNEL);
-+	if (!buf)
-+		return -ENOMEM;
-+
-+	for (tries = 0; tries < RTPSE_MCU_I2C_MAX_TRIES; tries++) {
-+		if (tries > 0)
-+			msleep(RTPSE_MCU_I2C_RETRY_MS);
-+
-+		ret = i2c_master_recv(client, buf, RTPSE_MCU_MSG_SIZE);
-+		if (ret < 0)
-+			goto out;
-+		if (ret == RTPSE_MCU_MSG_SIZE) {
-+			memcpy(resp, buf, RTPSE_MCU_MSG_SIZE);
-+			if (rtpse_mcu_resp_is_final(req, resp)) {
-+				ret = 0;
-+				goto out;
-+			}
-+		}
-+	}
-+	ret = -ETIMEDOUT;
-+out:
-+	kfree(buf);
-+	return ret;
-+}
-+
-+static const struct rtpse_mcu_transport_ops rtpse_mcu_i2c_native_ops = {
-+	.send = rtpse_mcu_i2c_native_send,
-+	.recv = rtpse_mcu_i2c_native_recv,
-+};
-+
-+static int rtpse_mcu_i2c_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	const struct rtpse_mcu_match_data *match;
-+	struct rtpse_mcu_ctrl *pse;
-+	bool use_native;
-+
-+	match = device_get_match_data(dev);
-+	if (!match)
-+		return dev_err_probe(dev, -ENODEV, "missing match data\n");
-+
-+	/* The framing (raw I2C vs SMBus) is carried by the match data. */
-+	use_native = match->native_i2c;
-+	if (use_native) {
-+		if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
-+			return dev_err_probe(dev, -EOPNOTSUPP,
-+				"plain-I2C MCU protocol requires I2C-capable adapter\n");
-+	} else {
-+		if (!i2c_check_functionality(client->adapter,
-+					     I2C_FUNC_SMBUS_WRITE_I2C_BLOCK |
-+					     I2C_FUNC_SMBUS_READ_I2C_BLOCK))
-+			return dev_err_probe(dev, -EOPNOTSUPP,
-+				"SMBus MCU protocol requires SMBus I2C-block support\n");
-+	}
-+
-+	pse = devm_kzalloc(dev, sizeof(*pse), GFP_KERNEL);
-+	if (!pse)
-+		return -ENOMEM;
-+
-+	pse->dev = dev;
-+	pse->pcdev.owner = THIS_MODULE;
-+	pse->transport = use_native ? &rtpse_mcu_i2c_native_ops : &rtpse_mcu_i2c_smbus_ops;
-+
-+	return rtpse_mcu_register(pse);
-+}
-+
-+static const struct of_device_id rtpse_mcu_i2c_of_match[] = {
-+	{ .compatible = "realtek,pse-mcu-gen1-smbus", .data = &rtpse_mcu_gen1_data },
-+	{ .compatible = "realtek,pse-mcu-gen2-smbus", .data = &rtpse_mcu_gen2_data },
-+	{ .compatible = "realtek,pse-mcu-gen2-i2c", .data = &rtpse_mcu_gen2_i2c_data },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, rtpse_mcu_i2c_of_match);
-+
-+static struct i2c_driver rtpse_mcu_i2c_driver = {
-+	.driver = {
-+		.name		= "realtek-pse-mcu-i2c",
-+		.of_match_table	= rtpse_mcu_i2c_of_match,
-+	},
-+	.probe		= rtpse_mcu_i2c_probe,
-+};
-+module_i2c_driver(rtpse_mcu_i2c_driver);
-+
-+MODULE_AUTHOR("Jonas Jelonek <jelonek.jonas@gmail.com>");
-+MODULE_DESCRIPTION("Realtek PSE MCU driver (I2C transport)");
-+MODULE_LICENSE("GPL");
--- 
-2.53.0
+Changes in v2:
+- Collected review tags
+- Reordered bindings patch before card and DT changes
+- Fixed DT patch commit message
+- Link to v1: https://patch.msgid.link/20260610-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v1-0-18bb19c5ca22@linaro.org
+
+---
+Neil Armstrong (3):
+      ASoC: qcom: audioreach: compute active channel maps from channel_map
+      ASoC: dt-bindings: qcom,sm8250: Add Ayaneo Pocket S2 sound card
+      ASoC: qcom: sc8280xp: add Ayaneo Pocket S2 card with special WSA channel mapping
+
+ .../devicetree/bindings/sound/qcom,sm8250.yaml     |  1 +
+ sound/soc/qcom/qdsp6/audioreach.c                  | 47 ++++++++++++++----
+ sound/soc/qcom/sc8280xp.c                          | 57 ++++++++++++++++++++++
+ 3 files changed, 95 insertions(+), 10 deletions(-)
+---
+base-commit: 14cdac7638c3367c39af206456ed2f2d37e59401
+change-id: 20260609-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-eb90567f6ca5
+
+Best regards,
+--  
+Neil Armstrong <neil.armstrong@linaro.org>
 
