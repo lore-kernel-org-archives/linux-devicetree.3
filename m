@@ -1,44 +1,44 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7146B3A960E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 715103C13E0;
 	Tue, 28 Jul 2026 17:40:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785260449; cv=none; b=o/bT8/ywVI95/z8Zfhp0VbZXCjZzmEKAlB9fbJGl0pICHCojP2wtvHKQ2EFCkzmXJyvgga0FwnIzmNBVnBxr7xY5X91Gzhz9v1WdLixyG1a9ha+EXW473x9r0GaYs0+D84yWURX0f1q0Yd6N5GXhgJfrtAFq4OOrW2B/hfQ526Y=
+	t=1785260450; cv=none; b=ZaBoTIjTcVqyGw+eGWfxCOkiobcnAnSHaPN2uSmHOlMJmWpSEaNpNTCz9rb/vFp0tcdIBvq9RU9lHldfhFXqJhvh0dAHbdI02JcIVYUOv+KCYLvFjv5459217c3e8OYu1B15Jz9mriy3DxUYSTnhnhIGxZyW5ieUycxhuAdnRiQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785260449; c=relaxed/simple;
-	bh=82UQvWBJ0MN1pYXoI2DXOwYx1hsGX0PBoDUqkLLhFBs=;
+	s=arc-20240116; t=1785260450; c=relaxed/simple;
+	bh=s3y9UJW5vjY/F9vnsKUWN91co8P1mxjq0gKYAdPfQJ0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=EVPooWvmLKUj0A9wAs0v24JoXjsmYEVjo8laWn1XeEdi9ihoutsEw0Rk6msEsHCQ606AEgXIgKHawnOolO8Rip833bhPfF3Ju9HtdVtwlD6W3OeA8Dsg+GStbvw6V3oGynPJvcabVCpvIJPGXR5YvEV/NlMBCHlITXuJ/Gsv3QI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=mu21yK1S; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=HNdJZEQRPee0UXNU/aPWQfoDedPuq42EaEa15eKUw8bOei7rsPNxWhOayAIryVuuRb59c6yjECo4jhywsS8M9itfEyXgXkXMgYDj7l/Tt+lKruc/saBq2LRaMCXifqnqxsdE6qxOc6IFPO6cwEarOP20inxHnWsQXGp0SS6C1D4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Nu7/gU3B; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="mu21yK1S"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Nu7/gU3B"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1785260446;
-	bh=82UQvWBJ0MN1pYXoI2DXOwYx1hsGX0PBoDUqkLLhFBs=;
+	bh=s3y9UJW5vjY/F9vnsKUWN91co8P1mxjq0gKYAdPfQJ0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=mu21yK1SEg5VeQed30/QcAKtXmRqrWBGD8M67GVg4kjJUijzfGbKE/4zD8RnK4ZeK
-	 UZw0VZ/6EcSDJE8t9GrMBuIm0luX2hdOi4l8YtanhOISP+PAYNMGzZn7RE92/opflz
-	 kQ9KGMsf7Iy5WCl+7lGKnTJAsc5VsiU10ie7WENOmsTEfPB2iMhLrgJszJQLDTb1Xz
-	 mPaerNHaxsewlnaYy+DWIGEt8XA4jba2QWBkDRm9u7nhrHWp+Mo9tYM8iz+8mo3XcH
-	 cj9SCVsUkFAVHflY0t4aVobtQbTMEm2g2fYvlW6XhJLuOApF/PN4oZxwOlNd1gNcPi
-	 uxiGCLghQPbGg==
+	b=Nu7/gU3B6qnsPCrx05Nge7eKo24p/jHZDn11WZ2dEt03mIm3iUaW1EMxeE7CPHviI
+	 M02TpPC8jhvr8xKdc3HaXf9PKGe1vtw0KU5Cy1EnphLnm1PMT8gIfJUVwRdphasvFN
+	 Gs5ZmJdGkipBiP3Ak4VvXKtl2JYyvOyk26MwHcSF6Pwlt5NAhStyNJIYQGY69hu35B
+	 bcK/O4WGTCi/+O3OdWXrmSZtiQXmDMzQQeTMDzXkUc8WVtwjC74ZY2i86yhlEcoelb
+	 G4nAADvKp6xnsCLps0HCGXfzfcyCvcdlt8xrOy5TJVHwTTm+BWNoA/CRkxK9JSX5oW
+	 h4QI8aUfobSdA==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 56B5117E02B6;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5576C17E028D;
 	Tue, 28 Jul 2026 19:40:46 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 0C6BD48002C; Tue, 28 Jul 2026 19:40:46 +0200 (CEST)
+	id 0BB6E480028; Tue, 28 Jul 2026 19:40:46 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Tue, 28 Jul 2026 19:40:38 +0200
-Subject: [PATCH v7 02/18] drm/bridge: synopsys: dw-dp: Cancel pending HPD
- work on unbind
+Date: Tue, 28 Jul 2026 19:40:37 +0200
+Subject: [PATCH v7 01/18] drm/bridge: synopsys: dw-dp: Fix incorrect
+ resource lifetimes in bind callback
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,7 +47,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260728-synopsys-dw-dp-improvements-v7-2-b7640fa8cf48@collabora.com>
+Message-Id: <20260728-synopsys-dw-dp-improvements-v7-1-b7640fa8cf48@collabora.com>
 References: <20260728-synopsys-dw-dp-improvements-v7-0-b7640fa8cf48@collabora.com>
 In-Reply-To: <20260728-synopsys-dw-dp-improvements-v7-0-b7640fa8cf48@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -73,48 +73,322 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  Sebastian Reichel <sebastian.reichel@collabora.com>, 
  Sashiko <sashiko-bot@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1017;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9419;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=82UQvWBJ0MN1pYXoI2DXOwYx1hsGX0PBoDUqkLLhFBs=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpo6Z0UJ+ZUP2t+PU7zzEBziXi8UH061gAQR
- 9CLyIeGSZMKVYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqaOmdAAoJENju1/PI
- O/qa0jYP/i7t9nQt+mTyWACAAOt27Ov5Z1PLIbaK0rreHsu1ArzqqaDwQYUCxcRZ2NFNj/RI5rV
- qaoYMdUa5bclDy6lMYdk1XFK1DavAmBYs15gwyYL5Mv5CZ6FAQ+Ast7vlhL3NADDEaTHI6q02gI
- FvKY3R4cOGXA+PDStowafta6AIEq0Y5MIe/M/rTkI0KR2F0+AppOsFQrPNCYiy7by1d8N84rP/0
- m7xsh46S8ApNlwHx19EJjMXICnOr2r3ygcFs0WNQSSydgktxTA9fkaEOPDLDwN0HeP8rXPROEPO
- lHvyZa0vL8rgNVGa3T3n3C1YfVlB0/FmVUBuRh5ZLStzjG3Z2crRwbkznZc+Ai1tI/sFIdZWqqh
- N5kFg09QG1eYWKgA/lHumMR3TBSHbCpizhgZ9FDomk0GyXALDisNdi2woimNVLbpkR+EiYWgMpA
- K5hJu3vhQtAdAzpX+xsvlrEpDdqHxmuFACtQsfmz5d6KIUvCAoJtlGwlcuh5cIZu2zVeQ61F+4Z
- xR/C/3Xm5GcSiJhf5GP4DekCKVrHNI7cU3od8aqscLt12WCgrjNmwMd2kflhezDGO3NVvumyBQU
- xKuGnpdfCk9I9HvWMiX+vO8iUtJO66np7gSe8o8euPth5m1y6EY5mwK6brCB52HjxWo4z/ybPFN
- tQfOCQJD0i0lBRlaXV8wucQ==
+ bh=s3y9UJW5vjY/F9vnsKUWN91co8P1mxjq0gKYAdPfQJ0=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpo6Z1fViPg6+W+eShivLIGFmnr1hSp10d4l
+ 2caER08FquP1YkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqaOmdAAoJENju1/PI
+ O/qaGLwP/2Xeo0Joq4I105cnfpusOv0OSZKKPup3HOEAMva9qQ/4cr7edzY7ieW4XzSlYvzvhiS
+ +Iv01uZ2dJZG77g+9nMnAbPxt/5PugZgCfkUXlk1TGeuls+pGEUKMvF9LWa1/+ZgVlgJ6lrdBPc
+ ubbKod9Q6Czr7llc6zalATCQvEl6caQ+LCaC1K+vVOcIO4zzAusBNSufbVUt8r+0sYNAKeXo85g
+ CM9AJihHr05DwoVyXj0nDl5WQo88LscWPBVOB0C+G19+CoWWAhTqZC1q2iX+jSrzDfrzsa0iRCX
+ cbLWLYy+QUGMx/ZUsCjYEuJ8l2vGlKrYSB3CmckRHL7ylnG3IhVXpJwmXHm/t20m33hVkzUOhPL
+ ky9bl4tbEFGed9SbZ4zCKN7k1PPFuPEo+TzKVqn2pzrREEGHt974NuPiJRIS+wX2XoRLAZzmwqP
+ 756nwAyygV32yOhVIQXnNdtYnXiIZF/Yp+5CCAwbx954oNcmkILCNJOvR+lcF0f/dgCQI1s2/k+
+ X8OXlvP66ixm/rrd2N3QTn2FzTYRbbzKc9UNNMb5xSCzUbCtIhYM25z87vmsFOL6juVuiB2h6pE
+ g7s6EdSYUaqG1VKa32Xpsll4WmgDAdkA7rNhN3B6cWXNoDHKrVzYI7JQl3UwDlz8IRLjUrmJgLc
+ 9+4U6Fzpq4WWRFxqs1UMx+A==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-There is a race condition during device unbind: If the HPD interrupt
-started an HPD worker exactly when the unbind happens, the worker
-thread might access invalid resources. Avoid this by stopping any
-pending work immediately after disabling the interrupt.
+Currently the Synopsys DesignWare DP controller driver's bind function
+requests lots of resources using device managed functions. These are
+free'd on driver removal instead of at unbind time. Fix this discrepancy
+by introducing a new probe helper function and moving over most of the
+early resource acquisitions.
 
 Fixes: 86eecc3a9c2e ("drm/bridge: synopsys: Add DW DPTX Controller support library")
 Reported-by: Sashiko <sashiko-bot@kernel.org>
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c   | 121 +++++++++++++++---------------
+ drivers/gpu/drm/rockchip/dw_dp-rockchip.c |  53 +++++++------
+ include/drm/bridge/dw_dp.h                |   5 +-
+ 3 files changed, 94 insertions(+), 85 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index 67d9cd0bf5fd..8393f9c9b0f0 100644
+index 3445c82e6f50..67d9cd0bf5fd 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -1996,6 +1996,7 @@ EXPORT_SYMBOL_GPL(dw_dp_bind);
- void dw_dp_unbind(struct dw_dp *dp)
+@@ -1954,20 +1954,59 @@ static const struct regmap_config dw_dp_regmap_config = {
+ 	.rd_table = &dw_dp_readable_table,
+ };
+ 
+-static void dw_dp_phy_exit(void *data)
++int dw_dp_bind(struct dw_dp *dp, struct drm_encoder *encoder)
  {
- 	disable_irq(dp->irq);
-+	cancel_work_sync(&dp->hpd_work);
+-	struct dw_dp *dp = data;
++	struct device *dev = dp->dev;
++	struct drm_bridge *bridge = &dp->bridge;
++	int ret;
++
++	dp->aux.dev = dev;
++	dp->aux.drm_dev = encoder->dev;
++	dp->aux.name = dev_name(dev);
++	dp->aux.transfer = dw_dp_aux_transfer;
++	ret = drm_dp_aux_register(&dp->aux);
++	if (ret)
++		return dev_err_probe(dev, ret, "Aux register failed\n");
++
++	ret = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
++	if (ret) {
++		dev_err_probe(dev, ret, "Failed to attach bridge\n");
++		goto unregister_aux;
++	}
++
++	dw_dp_init_hw(dp);
+ 
++	ret = phy_init(dp->phy);
++	if (ret) {
++		dev_err_probe(dev, ret, "phy init failed\n");
++		goto unregister_aux;
++	}
++
++	enable_irq(dp->irq);
++
++	return 0;
++
++unregister_aux:
++	drm_dp_aux_unregister(&dp->aux);
++
++	return ret;
++}
++EXPORT_SYMBOL_GPL(dw_dp_bind);
++
++void dw_dp_unbind(struct dw_dp *dp)
++{
++	disable_irq(dp->irq);
  	phy_exit(dp->phy);
- 	drm_dp_aux_unregister(&dp->aux);
++	drm_dp_aux_unregister(&dp->aux);
  }
++EXPORT_SYMBOL_GPL(dw_dp_unbind);
+ 
+-struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
+-			 const struct dw_dp_plat_data *plat_data)
++struct dw_dp *dw_dp_probe(struct platform_device *pdev, const struct dw_dp_plat_data *plat_data)
+ {
+-	struct platform_device *pdev = to_platform_device(dev);
+-	struct dw_dp *dp;
++	struct device *dev = &pdev->dev;
+ 	struct drm_bridge *bridge;
+ 	void __iomem *res;
++	struct dw_dp *dp;
+ 	int ret;
+ 
+ 	dp = devm_drm_bridge_alloc(dev, struct dw_dp, bridge, &dw_dp_bridge_funcs);
+@@ -1976,9 +2015,18 @@ struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
+ 
+ 	dp->dev = dev;
+ 	dp->pixel_mode = plat_data->pixel_mode;
+-
+ 	dp->plat_data.max_link_rate = plat_data->max_link_rate;
++
+ 	bridge = &dp->bridge;
++	bridge->of_node = dev->of_node;
++	bridge->ops = DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_HPD;
++	bridge->type = DRM_MODE_CONNECTOR_DisplayPort;
++	bridge->ycbcr_420_allowed = true;
++
++	ret = devm_drm_bridge_add(dev, bridge);
++	if (ret)
++		return ERR_PTR(ret);
++
+ 	mutex_init(&dp->irq_lock);
+ 	INIT_WORK(&dp->hpd_work, dw_dp_hpd_work);
+ 	init_completion(&dp->complete);
+@@ -2035,69 +2083,20 @@ struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
+ 		return ERR_CAST(dp->rstc);
+ 	}
+ 
+-	bridge->of_node = dev->of_node;
+-	bridge->ops = DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_HPD;
+-	bridge->type = DRM_MODE_CONNECTOR_DisplayPort;
+-	bridge->ycbcr_420_allowed = true;
+-
+-	ret = devm_drm_bridge_add(dev, bridge);
+-	if (ret)
+-		return ERR_PTR(ret);
+-
+-	dp->aux.dev = dev;
+-	dp->aux.drm_dev = encoder->dev;
+-	dp->aux.name = dev_name(dev);
+-	dp->aux.transfer = dw_dp_aux_transfer;
+-	ret = drm_dp_aux_register(&dp->aux);
+-	if (ret) {
+-		dev_err_probe(dev, ret, "Aux register failed\n");
+-		return ERR_PTR(ret);
+-	}
+-
+-	ret = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+-	if (ret) {
+-		dev_err_probe(dev, ret, "Failed to attach bridge\n");
+-		goto unregister_aux;
+-	}
+-
+-	dw_dp_init_hw(dp);
+-
+-	ret = phy_init(dp->phy);
+-	if (ret) {
+-		dev_err_probe(dev, ret, "phy init failed\n");
+-		goto unregister_aux;
+-	}
+-
+-	ret = devm_add_action_or_reset(dev, dw_dp_phy_exit, dp);
+-	if (ret)
+-		goto unregister_aux;
+-
+ 	dp->irq = platform_get_irq(pdev, 0);
+-	if (dp->irq < 0) {
+-		ret = dp->irq;
+-		goto unregister_aux;
+-	}
++	if (dp->irq < 0)
++		return ERR_PTR(dp->irq);
+ 
+ 	ret = devm_request_threaded_irq(dev, dp->irq, NULL, dw_dp_irq,
+-					IRQF_ONESHOT, dev_name(dev), dp);
++					IRQF_ONESHOT | IRQF_NO_AUTOEN, dev_name(dev), dp);
+ 	if (ret) {
+ 		dev_err_probe(dev, ret, "failed to request irq\n");
+-		goto unregister_aux;
++		return ERR_PTR(ret);
+ 	}
+ 
+ 	return dp;
+-
+-unregister_aux:
+-	drm_dp_aux_unregister(&dp->aux);
+-	return ERR_PTR(ret);
+-}
+-EXPORT_SYMBOL_GPL(dw_dp_bind);
+-
+-void dw_dp_unbind(struct dw_dp *dp)
+-{
+-	drm_dp_aux_unregister(&dp->aux);
+ }
+-EXPORT_SYMBOL_GPL(dw_dp_unbind);
++EXPORT_SYMBOL_GPL(dw_dp_probe);
+ 
+ MODULE_AUTHOR("Andy Yan <andyshrk@163.com>");
+ MODULE_DESCRIPTION("DW DP Core Library");
+diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+index b23efb153c9e..005938dc66c9 100644
+--- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+@@ -26,7 +26,7 @@
+ struct rockchip_dw_dp {
+ 	struct dw_dp *base;
+ 	struct device *dev;
+-	struct rockchip_encoder encoder;
++	struct rockchip_encoder *encoder;
+ };
+ 
+ static int dw_dp_encoder_atomic_check(struct drm_encoder *encoder,
+@@ -73,37 +73,28 @@ static const struct drm_encoder_helper_funcs dw_dp_encoder_helper_funcs = {
+ 
+ static int dw_dp_rockchip_bind(struct device *dev, struct device *master, void *data)
+ {
+-	struct platform_device *pdev = to_platform_device(dev);
+-	const struct dw_dp_plat_data *plat_data;
++	struct rockchip_dw_dp *dp = dev_get_drvdata(dev);
+ 	struct drm_device *drm_dev = data;
+-	struct rockchip_dw_dp *dp;
+ 	struct drm_encoder *encoder;
+ 	struct drm_connector *connector;
+ 	int ret;
+ 
+-	dp = drmm_kzalloc(drm_dev, sizeof(*dp), GFP_KERNEL);
+-	if (!dp)
++	dp->encoder = drmm_kzalloc(drm_dev, sizeof(*dp->encoder), GFP_KERNEL);
++	if (!dp->encoder)
+ 		return -ENOMEM;
+ 
+-	dp->dev = dev;
+-	platform_set_drvdata(pdev, dp);
+-
+-	plat_data = of_device_get_match_data(dev);
+-	if (!plat_data)
+-		return -ENODEV;
+-
+-	encoder = &dp->encoder.encoder;
++	encoder = &dp->encoder->encoder;
+ 	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm_dev, dev->of_node);
+-	rockchip_drm_encoder_set_crtc_endpoint_id(&dp->encoder, dev->of_node, 0, 0);
++	rockchip_drm_encoder_set_crtc_endpoint_id(dp->encoder, dev->of_node, 0, 0);
+ 
+ 	ret = drmm_encoder_init(drm_dev, encoder, NULL, DRM_MODE_ENCODER_TMDS, NULL);
+ 	if (ret)
+ 		return ret;
+ 	drm_encoder_helper_add(encoder, &dw_dp_encoder_helper_funcs);
+ 
+-	dp->base = dw_dp_bind(dev, encoder, plat_data);
+-	if (IS_ERR(dp->base))
+-		return PTR_ERR(dp->base);
++	ret = dw_dp_bind(dp->base, encoder);
++	if (ret)
++		return ret;
+ 
+ 	connector = drm_bridge_connector_init(drm_dev, encoder);
+ 	if (IS_ERR(connector)) {
+@@ -128,12 +119,30 @@ static const struct component_ops dw_dp_rockchip_component_ops = {
+ 	.unbind = dw_dp_rockchip_unbind,
+ };
+ 
+-static int dw_dp_probe(struct platform_device *pdev)
++static int dw_dp_rockchip_probe(struct platform_device *pdev)
+ {
++	const struct dw_dp_plat_data *plat_data;
++	struct device *dev = &pdev->dev;
++	struct rockchip_dw_dp *dp;
++
++	plat_data = of_device_get_match_data(dev);
++	if (!plat_data)
++		return -ENODEV;
++
++	dp = devm_kzalloc(dev, sizeof(*dp), GFP_KERNEL);
++	if (!dp)
++		return -ENOMEM;
++	platform_set_drvdata(pdev, dp);
++	dp->dev = dev;
++
++	dp->base = dw_dp_probe(pdev, plat_data);
++	if (IS_ERR(dp->base))
++		return PTR_ERR(dp->base);
++
+ 	return component_add(&pdev->dev, &dw_dp_rockchip_component_ops);
+ }
+ 
+-static void dw_dp_remove(struct platform_device *pdev)
++static void dw_dp_rockchip_remove(struct platform_device *pdev)
+ {
+ 	component_del(&pdev->dev, &dw_dp_rockchip_component_ops);
+ }
+@@ -161,8 +170,8 @@ static const struct of_device_id dw_dp_of_match[] = {
+ MODULE_DEVICE_TABLE(of, dw_dp_of_match);
+ 
+ struct platform_driver dw_dp_driver = {
+-	.probe	= dw_dp_probe,
+-	.remove = dw_dp_remove,
++	.probe	= dw_dp_rockchip_probe,
++	.remove = dw_dp_rockchip_remove,
+ 	.driver = {
+ 		.name = "dw-dp",
+ 		.of_match_table = dw_dp_of_match,
+diff --git a/include/drm/bridge/dw_dp.h b/include/drm/bridge/dw_dp.h
+index 22105c3e8e4d..a82412a9e769 100644
+--- a/include/drm/bridge/dw_dp.h
++++ b/include/drm/bridge/dw_dp.h
+@@ -22,7 +22,8 @@ struct dw_dp_plat_data {
+ 	u8 pixel_mode;
+ };
+ 
+-struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
+-			 const struct dw_dp_plat_data *plat_data);
++int dw_dp_bind(struct dw_dp *dp, struct drm_encoder *encoder);
+ void dw_dp_unbind(struct dw_dp *dp);
++
++struct dw_dp *dw_dp_probe(struct platform_device *pdev, const struct dw_dp_plat_data *plat_data);
+ #endif /* __DW_DP__ */
 
 -- 
 2.53.0
