@@ -1,491 +1,137 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD0254302F8
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 12:18:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27B84431487;
+	Tue, 28 Jul 2026 12:20:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785241105; cv=none; b=ZDidDzgJyteycOPeiesICge1kTpFYLf6Y5bd4GsvAOotPo2mUrpakaeItk5IXouPvigUotnoqMVTGsNig2WTzCZHNqw3u/FL1e+AVT/MmW86k5Jr5urV3Yn2bS3myngQg/A78CT8/k/fUc00fO1noExR01EIl2YXC7l/ZTK8qfo=
+	t=1785241235; cv=none; b=JgmWVt6Oy9mp6zCauL0pJJGs6rZ4rpiRvjBNc3R1T8f0AhtqXCEAxNBIJUJ0DtNPFVJzbTDaJvcLz6Q505b73kM0P/JKKwUUSv18NQm7AKgeb74N5yWljzStmakZzPUoHxVWEc/OQpNpXFvFEWxw5xpyGlbuBCVPxKiAR33kMs8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785241105; c=relaxed/simple;
-	bh=Sh6usUDUgE9Fx8yoNxXcjds8WLANlB3jo0TKtt2haFU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FDtRVrjZgfYSKP1p7F92kGKM7Z2tsm2PcvnPGh4ckCfU9ozBAddPyFXDRslZSUdnQ+W5tCC8mgGBG1DhVYUhRYiNg8qnnDa422/cgMI0cnxPkDEK0vfuZ378u2HFstlU1n3pvvEa2/DrVHmg6JCbcEICTXoTVPSFEbUGJ2k4yFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NNfsk2EE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785241235; c=relaxed/simple;
+	bh=94X/t/wFPt6hAJN91J1eefxIIYl70X3CYrWKhYCePEY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CCbPcED5lrVUx8Ame3EPrX9uSKPsPcQZ4Q8XAMf6Nuf5qNAhzQR4gLA+OrEmvL8MMewOvQI53jVShcMR9bi2BWfV2JQ9pZhh1QlYjRJlU/tNHm4KfMv2lnDH2DMUDH+6JzeSwsZmNW9o9rNXtev6XGnEMaFMAksHjhPYBSXpPNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PRNFkZxL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NNfsk2EE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E2BF1F000E9;
-	Tue, 28 Jul 2026 12:18:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PRNFkZxL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 102E11F00A3A;
+	Tue, 28 Jul 2026 12:20:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785241103;
-	bh=qiDT/wj8wxwNWyplMDhb0cFyst0I6CxPLTxpjubJNWo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NNfsk2EENhKBJE9u3Pl5rb01tR+EkpZrRsV/KRs4gY2Jm/NYehskCaUpxYyW7alP+
-	 B6zwEk+ol7lVEVaZdv2KCn97JKsEn9W7wbNpR2N9Odq2C/bhEOcpXB6mbqUHFs9YcZ
-	 zlER3AuWjBGjaWYJ2uBQs4AZXiXzc9JiT9mjIBCDp5Gi9Jty8Hj0bUvYbaNb98d+VT
-	 a65D00f/EuVIcx+ws7YTXWCGEQWDboF2gv+Q+Q/OTxaltp1mKr5X02AH750dJTLEGD
-	 sL0cRIaF0phEShBO/Ghg7pDE0Ovx9YugWFclWx/Bz7sRdChSSPWwQElU6C7RChielX
-	 HBb0zzGvHoeuQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] iio: adc: add support for PAC1711
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ariana Lazar" <ariana.lazar@microchip.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260728-pac1711-v2-2-609bc026093c@microchip.com>
-References: <20260728-pac1711-v2-0-609bc026093c@microchip.com>
- <20260728-pac1711-v2-2-609bc026093c@microchip.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 28 Jul 2026 12:18:22 +0000
-Message-Id: <20260728121822.9E2BF1F000E9@smtp.kernel.org>
+	s=k20260515; t=1785241233;
+	bh=LnAa5DPtaq1tSMyAWzOHvdDVwyrIwlkh7/QWPPUV+9Q=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=PRNFkZxLn8nOXQk4VvmCmnJBFECkP63/NyyZu2BcJHR66Qpeb7DQA9Lm9DOjlG3bQ
+	 B6xgT68C6D/qH8hq+v11hZ/ZqK+u9zWcumg6pPjBCsEDBr2CZy42sQmGWssBkpVXzr
+	 A4ODLe7EFIWiAN1jSngPXXago9L/Zcsn2Y9i3dvgzGr4fpzIahhQUPRbBvO/YATbv4
+	 mxnQfczuxk/O/esx3+8BKib3xCxEi+1tasIYTyjaQVLP6q+EHs4Ke7Y6F0hpx301v3
+	 aJTyMRIqjnVPTa7vo2j46JHGk71x1TJC6VxFdthWRrF2YI2W4fsSa2yiHakxi91S1w
+	 pKw1nBmVkpe2g==
+Message-ID: <e58778e3-86ae-483b-b52d-d3a0b0d5c59c@kernel.org>
+Date: Tue, 28 Jul 2026 14:20:23 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V4 2/4] dt-bindings: mmc: sdhci-msm: Document the Glymur
+ compatible
+To: Monish Chunara <monish.chunara@oss.qualcomm.com>,
+ Rob Herring <robh@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Nitin Rawat <nitin.rawat@oss.qualcomm.com>,
+ Pradeep Pragallapati <pradeep.pragallapati@oss.qualcomm.com>,
+ Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
+ Sachin Rathore <sachin.rathore@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260722142342.990384-1-mchunara@oss.qualcomm.com>
+ <20260722142342.990384-3-mchunara@oss.qualcomm.com>
+ <20260723195417.GA2688724-robh@kernel.org>
+ <c99f89c1-fcae-41df-8426-9bdb3e8e9b5e@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <c99f89c1-fcae-41df-8426-9bdb3e8e9b5e@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 15 potential issue=
-(s) to consider:
-- [High] Passing `__be16` to `i2c_smbus_write_word_data` sends bytes in the=
- wrong order on big-endian architectures.
-- [High] The power channel's scale calculation can overflow a 32-bit signed=
- integer for valid shunt resistor values, leading to a negative scale facto=
-r.
-- [High] Missing initialization of device characteristics on devicetree fal=
-lback path causes probe failure or incorrect measurements.
-- [High] Concurrent sysfs reads and periodic background refreshes cause dat=
-a races and torn reads on 64-bit cached register values.
-- [High] Concurrent accesses to `pac1711_retrieve_data` check the refresh t=
-imestamp outside of a lock, leading to multiple back-to-back hardware refre=
-shes that permanently discard fractional accumulated energy.
-- [High] Accumulator overflow persistently returns `-EINVAL` and breaks all=
- instantaneous measurement channels.
-- [Medium] Integer division truncation in wait time calculation results in =
-no delay for conversion completion at higher sample rates.
-- [Medium] Timestamp cache invalidation fails when `jiffies` has not advanc=
-ed.
-- [Medium] Missing validation of I2C block read length allows parsing unini=
-tialized data.
-- [Medium] Custom sysfs attributes are used instead of standard IIO channel=
-s for Energy and Charge.
-- [Medium] The in_energy_raw attribute outputs a fractional value, violatin=
-g the IIO ABI which requires _raw attributes to be unscaled integers.
-- [Medium] The in_coulomb_counter_scale attribute outputs a scale factor th=
-at evaluates to milliCoulombs, despite the custom ABI documenting it as Cou=
-lombs.
-- [Medium] Inconsistent read-modify-write for the sample frequency configur=
-ation writes a read-only mirror register's contents back to the main contro=
-l register.
-- [Low] Passing an s32 array to device_property_read_u32_array causes an in=
-compatible pointer type warning.
-- [Low] `info->chip_reg_data.jiffies_tstamp` is modified outside the mutex =
-lock, causing a data race.
---
+On 28/07/2026 14:02, Monish Chunara wrote:
+> 
+> 
+> On 7/24/2026 1:24 AM, Rob Herring wrote:
+>> On Wed, Jul 22, 2026 at 07:53:40PM +0530, Monish Chunara wrote:
+>>> From: Monish Chunara <monish.chunara@oss.qualcomm.com>
+>>>
+>>> Document the SDHCI controller on Qualcomm Glymur SoC, fully compatible
+>>> with existing MSM SDHCI v5.
+>>>
+>>> Signed-off-by: Monish Chunara <monish.chunara@oss.qualcomm.com>
+>>
+>> Missing krzk's ack.
+>>
+>> Rob
+> 
+> I wasn't sure whether to carry over the Acked-by tag since the commit 
+> message changed, so I left it out and queried on the previous series.
+> 
+> I'll make sure to retain it appropriately in future patches.
 
---- Patch [2]: [PATCH v2 2/2] iio: adc: add support for PAC1711 ---
-commit 3e5ab329ae21d2e946511636289fcfb6dbf555cd
-Author: Ariana Lazar <ariana.lazar@microchip.com>
-Subject: iio: adc: add support for PAC1711
+And where is it explained? Please quote me the cover letter explaining this.
 
-This is the iio driver for Microchip PAC1711, PAC1721, PAC1811 and
-PAC1821 single-channel power monitors with accumulator.
+You did not read neither kernel docs nor internal guideline.
 
-> diff --git a/drivers/iio/adc/pac1711.c b/drivers/iio/adc/pac1711.c
-> new file mode 100644
-> index 0000000000000..ee6adee31524e
-> --- /dev/null
-> +++ b/drivers/iio/adc/pac1711.c
-[ ... ]
-> +static int pac1711_reg_snapshot(struct pac1711_chip_info *info, bool do_=
-refresh,
-> +				u8 refresh_cmd, u32 wait_time)
-> +{
-[ ... ]
-> +	/* Read the data registers */
-> +	ret =3D i2c_smbus_read_i2c_block_data(client, PAC1711_ACC_COUNT_REG_ADD=
-R,
-> +					    PAC1711_MEAS_REG_SNAPSHOT_LEN,
-> +					    (u8 *)info->chip_reg_data.meas_regs);
-> +	if (ret < 0) {
+And please explain me the logic behind your thinking - you received
+comment from the reviewer and tag, you implemented the comment of
+reviewer and this means that reviewer did not ack it?
 
-[Severity: Medium]
-Could this parse uninitialized memory if the I2C block read returns fewer
-bytes than expected?
+How does this logic exactly work?
 
-i2c_smbus_read_i2c_block_data() returns the number of bytes read on success.
-Should it check if ret equals the requested length instead of just checking
-for negative error codes?
-
-> +		dev_err(dev, "%s - cannot read regs from 0x%02X\n",
-> +			__func__, PAC1711_ACC_COUNT_REG_ADDR);
-> +		return ret;
-> +	}
-[ ... ]
-> +		if (check_add_overflow(info->chip_reg_data.acc_val, inc,
-> +				       &info->chip_reg_data.acc_val)) {
-> +			if (inc < 0)
-> +				info->chip_reg_data.acc_val =3D S64_MIN;
-> +			else
-> +				info->chip_reg_data.acc_val =3D S64_MAX;
-> +
-> +			dev_err(dev, "Accumulator Overflow detected!\n");
-> +			return -EINVAL;
-> +		}
-
-[Severity: High]
-Does returning -EINVAL here permanently break all instantaneous measurement
-channels once the accumulator overflows?
-
-Because it aborts early, subsequent reads will see a positive increment,
-trigger overflow again, and return -EINVAL, permanently disabling VBUS,
-VSENSE, and VPOWER updates.
-
-[ ... ]
-> +static int pac1711_retrieve_data(struct pac1711_chip_info *info, u32 wai=
-t_time)
-> +{
-> +	int ret =3D 0;
-> +
-> +	/*
-> +	 * Check if the minimal elapsed time has passed and if so,
-> +	 * read again the chip, otherwise use the cached info.
-> +	 */
-> +	if (time_after(jiffies, info->chip_reg_data.jiffies_tstamp +
-> +			msecs_to_jiffies(PAC1711_MIN_POLLING_TIME_MS))) {
-
-[Severity: High]
-Can concurrent sysfs reads trigger multiple back-to-back hardware refreshes
-here?
-
-Since the time_after check and the jiffies_tstamp read occur without any
-locking, two threads might both enter the refresh path, causing the second
-thread to discard the fractional accumulated energy before it can accumulat=
-e.
-
-[Severity: Medium]
-If the system jiffies has not incremented since the timestamp was recorded,
-will this time_after() check evaluate to false?
-
-If the cache invalidation is triggered (e.g. by modifying the jiffies_tstamp
-when changing sample rates), it might be ignored here, causing the driver
-to return stale data.
-
-> +		ret =3D pac1711_reg_snapshot(info, true, PAC1711_REFRESH_REG_ADDR,
-> +					   wait_time);
-[ ... ]
-> +static ssize_t pac1711_in_power_acc_raw_show(struct device *dev, struct =
-device_attribute *attr,
-> +					     char *buf)
-> +{
-> +	struct iio_dev *indio_dev =3D dev_to_iio_dev(dev);
-> +	struct pac1711_chip_info *info =3D iio_priv(indio_dev);
-> +	s64 curr_energy, int_part;
-> +	int ret, rem;
-> +
-> +	ret =3D pac1711_retrieve_data(info, PAC1711_MIN_UPDATE_WAIT_TIME_US);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Expresses the 64 bit energy value as a 64 bit integer and a 32 bit n=
-ano value */
-> +	curr_energy =3D info->chip_reg_data.acc_val;
-
-[Severity: High]
-Can this result in torn reads on 32-bit architectures?=20
-
-The 64-bit acc_val variable is read here without holding info->lock, while
-a background worker might be updating it concurrently.
-
-> +	int_part =3D div_s64_rem(curr_energy, 1000000000, &rem);
-> +
-> +	if (rem < 0)
-> +		return sysfs_emit(buf, "-%lld.%09u\n", abs(int_part), -rem);
-> +	else
-> +		return sysfs_emit(buf, "%lld.%09u\n", int_part, abs(rem));
-> +}
-
-[Severity: Medium]
-Is it correct to output a formatted fractional string for a _raw attribute?
-
-The IIO ABI specifies that _raw attributes should expose unscaled integers
-from the hardware, so standard userspace parsers might fail to parse this.
-
-[ ... ]
-> +static ssize_t pac1711_in_coulomb_counter_scale_show(struct device *dev,
-> +						     struct device_attribute *attr, char *buf)
-> +{
-[ ... ]
-> +	/*
-> +	 * Increasing precision
-> +	 * (100mV * 1000000 * 1000000000) / 2^(12 or 16))
-> +	 */
-> +	tmp_u64 =3D div_u64(ref, info->shunt);
-> +	rem =3D do_div(tmp_u64, 1000000000UL);
-> +
-> +	return sysfs_emit(buf, "%lld.%09u\n", tmp_u64, rem);
-> +}
-
-[Severity: Medium]
-Does this scale factor evaluate to milliCoulombs rather than Coulombs?
-
-The custom ABI documentation specifies the output unit is Coulombs, but the
-calculated scale factor appears to represent milliCoulombs (mA * s), meaning
-the userspace charge measurement would be off by a factor of 1000.
-
-> +static IIO_DEVICE_ATTR(in_energy_raw, 0444,
-> +		       pac1711_in_power_acc_raw_show, NULL, 0);
-
-[Severity: Medium]
-Should this use the standard IIO_ENERGY and IIO_CHARGE channel types instead
-of custom sysfs attributes?
-
-Using custom attributes prevents generic IIO userspace tools (like libiio)
-from properly discovering, scaling, or buffering the energy and charge
-measurements.
-
-[ ... ]
-> +static int pac1711_read_raw(struct iio_dev *indio_dev, struct iio_chan_s=
-pec const *chan,
-> +			    int *val, int *val2, long mask)
-> +{
-[ ... ]
-> +	case IIO_CHAN_INFO_RAW:
-> +		switch (chan->type) {
-> +		case IIO_VOLTAGE:
-> +			*val =3D info->chip_reg_data.vbus;
-> +			return IIO_VAL_INT;
-> +		case IIO_CURRENT:
-> +			*val =3D info->chip_reg_data.vsense;
-> +			return IIO_VAL_INT;
-> +		case IIO_POWER:
-> +			*val =3D (u32)info->chip_reg_data.vpower;
-> +			*val2 =3D (u32)(info->chip_reg_data.vpower >> 32);
-
-[Severity: High]
-Can this result in torn reads on 32-bit architectures?=20
-
-The 64-bit vpower variable is read here in two halves without holding
-info->lock, while a background worker might be updating it concurrently.
-
-> +			return IIO_VAL_INT_64;
-[ ... ]
-> +		case PAC1711_VPOWER_REG_ADDR:
-> +			/*
-> +			 * Power - uW - it will use the combined scale
-> +			 * for current and voltage
-> +			 * current(mA) * voltage(mV) =3D power (uW)
-> +			 */
-> +			switch (info->chip_variant) {
-> +			case PAC1711_PRODUCT_ID_1711:
-> +			case PAC1711_PRODUCT_ID_1811:
-> +				tmp =3D PAC1711_PRODUCT_VOLTAGE_PV_FSR;
-> +				break;
-> +			case PAC1711_PRODUCT_ID_1721:
-> +			case PAC1711_PRODUCT_ID_1821:
-> +				tmp =3D PAC1721_PRODUCT_VOLTAGE_PV_FSR;
-> +				break;
-> +			default:
-> +				return -EINVAL;
-> +			}
-> +
-> +			do_div(tmp, info->shunt);
-> +			*val =3D (int)tmp;
-
-[Severity: High]
-Will this overflow a 32-bit signed integer when using a standard 1 mOhm
-(1000 uOhm) shunt resistor?
-
-Dividing 4,200,000,000,000 by 1000 results in 4.2 billion, which exceeds
-INT_MAX and wraps around to a negative number when cast to int, leading to
-incorrect power scale readings in userspace.
-
-[ ... ]
-> +static int pac1711_write_raw(struct iio_dev *indio_dev, struct iio_chan_=
-spec const *chan,
-> +			     int val, int val2, long mask)
-> +{
-[ ... ]
-> +	case IIO_CHAN_INFO_SAMP_FREQ:
-> +		scoped_guard(mutex, &info->lock) {
-> +			old_samp_rate =3D pac1711_samp_rate_map_tbl[info->sample_rate_idx];
-> +			new_idx =3D pac1711_get_samp_rate_idx(val);
-> +			if (new_idx < 0)
-> +				return new_idx;
-> +
-> +			ret =3D i2c_smbus_read_i2c_block_data(client, PAC1711_CTRL_ACT_REG_AD=
-DR,
-> +							    sizeof(tmp_u16), (u8 *)&tmp_be16);
-
-[Severity: Medium]
-Does this read-modify-write sequence read from the active status mirror
-register (0x17) but write back to the main control register (0x01)?
-
-This might inadvertently write back transient active status bits into the
-configuration. In initialization, the driver correctly reads from 0x01.
-
-> +			if (ret < 0) {
-> +				dev_err(&client->dev, "cannot read regs from 0x%02X\n",
-> +					PAC1711_CTRL_ACT_REG_ADDR);
-> +				return ret;
-> +			}
-> +
-> +			tmp_u16 =3D be16_to_cpu(tmp_be16);
-> +			tmp_u16 &=3D ~PAC1711_CTRL_SAMPLE_MODE_MASK;
-> +			tmp_u16 |=3D FIELD_PREP(PAC1711_CTRL_SAMPLE_MODE_MASK, new_idx);
-> +			tmp_be16 =3D cpu_to_be16(tmp_u16);
-> +
-> +			ret =3D i2c_smbus_write_word_data(client, PAC1711_CTRL_REG_ADDR, tmp_=
-be16);
-
-[Severity: High]
-Can this corrupt the device's control register on big-endian architectures?
-
-i2c_smbus_write_word_data() expects a CPU-endian u16 and handles the byte
-order for the SMBus transaction internally. Passing a __be16 will silently
-reverse the byte order on the I2C wire on big-endian platforms.
-
-> +			if (ret < 0) {
-> +				dev_err(&client->dev, "Failed to configure sampling mode\n");
-> +				return ret;
-> +			}
-> +
-> +			info->sample_rate_idx =3D new_idx;
-> +			info->chip_reg_data.ctrl_act_reg =3D tmp_u16;
-> +		}
-> +
-> +		/* Force register snapshot and timestamp update with a refresh. */
-> +		info->chip_reg_data.jiffies_tstamp -=3D msecs_to_jiffies(PAC1711_MIN_P=
-OLLING_TIME_MS);
-
-[Severity: Low]
-Is it safe to modify info->chip_reg_data.jiffies_tstamp outside the mutex
-lock? The periodic worker thread could be accessing it concurrently, creati=
-ng
-a data race.
-
-> +		ret =3D pac1711_retrieve_data(info, (1024 / old_samp_rate) * 1000);
-
-[Severity: Medium]
-When the sample rate is 4096 or 8192 SPS, does this integer division evalua=
-te
-to zero before the multiplication?
-
-This evaluates to 0 delay, potentially causing the driver to bypass the
-required hardware conversion delay. Should the multiplication happen before
-the division?
-
-[ ... ]
-> +static int pac1711_chip_identify(struct iio_dev *indio_dev, struct pac17=
-11_chip_info *info)
-> +{
-> +	struct i2c_client *client =3D info->client;
-> +	struct device *dev =3D &client->dev;
-> +	u8 chip_rev_info[3];
-> +	int ret;
-> +
-> +	ret =3D i2c_smbus_read_i2c_block_data(client, PAC1711_PID_REG_ADDR,
-> +					    sizeof(chip_rev_info), chip_rev_info);
-> +	if (ret < 0) {
-
-[Severity: Medium]
-Could this parse uninitialized memory if the I2C block read returns fewer
-bytes than expected?
-
-i2c_smbus_read_i2c_block_data() returns the number of bytes read on success.
-Should it check if ret equals the requested length instead of just checking
-for negative error codes?
-
-[ ... ]
-> +static int pac1711_init_vbus_vsense_ranges(struct pac1711_chip_info *inf=
-o, bool is_vbus)
-> +{
-> +	struct i2c_client *client =3D info->client;
-> +	struct device *dev =3D &client->dev;
-> +	const char *prop_name;
-> +	s32 vals[2];
-> +	int ret;
-> +
-> +	if (is_vbus)
-> +		prop_name =3D "microchip,vbus-input-range-microvolt";
-> +	else
-> +		prop_name =3D "microchip,vsense-input-range-microvolt";
-> +
-> +	ret =3D device_property_read_u32_array(dev, prop_name, vals, 2);
-
-[Severity: Low]
-Does passing an s32 array to device_property_read_u32_array() cause an
-incompatible pointer type warning? This might break builds compiling with
--Werror.
-
-[ ... ]
-> +static int pac1711_chip_configure(struct pac1711_chip_info *info)
-> +{
-[ ... ]
-> +	/* Configure the accumulation mode */
-> +	tmp_u16 &=3D ~PAC1711_CTRL_ACC_MODE_MASK;
-> +	tmp_u16 |=3D FIELD_PREP(PAC1711_CTRL_ACC_MODE_MASK, info->accumulation_=
-mode);
-> +
-> +	tmp_be16 =3D cpu_to_be16(tmp_u16);
-> +	ret =3D i2c_smbus_write_word_data(client, PAC1711_CTRL_REG_ADDR, tmp_be=
-16);
-
-[Severity: High]
-Can this corrupt the device's control register on big-endian architectures?
-
-i2c_smbus_write_word_data() expects a CPU-endian u16 and handles the byte
-order for the SMBus transaction internally. Passing a __be16 will silently
-reverse the byte order on the I2C wire on big-endian platforms.
-
-[ ... ]
-> +	/*
-> +	 * Get the current (in the chip) sampling speed and compute the
-> +	 * required timeout based on its value the timeout is 1/sampling_speed
-> +	 * wait the maximum amount of time to be on the safe side - the
-> +	 * maximum wait time is for 8sps
-> +	 */
-> +	wait_time =3D (1024 / pac1711_samp_rate_map_tbl[info->sample_rate_idx])=
- * 1000;
-> +	fsleep(wait_time);
-
-[Severity: Medium]
-When the sample rate is 4096 or 8192 SPS, does this integer division evalua=
-te
-to zero before the multiplication?
-
-This evaluates to 0 delay, potentially causing the driver to bypass the
-required hardware conversion delay. Should the multiplication happen before
-the division?
-
-[ ... ]
-> +static int pac1711_probe(struct i2c_client *client)
-> +{
-[ ... ]
-> +	ret =3D pac1711_chip_identify(indio_dev, info);
-> +	if (ret) {
-> +		/*
-> +		 * If it fails to identify the hardware based on internal
-> +		 * registers, use compatible from devicetree.
-> +		 */
-> +		chip =3D i2c_get_match_data(client);
-> +		if (!chip)
-> +			return -EINVAL;
-> +
-> +		info->chip_variant =3D chip->prod_id;
-> +		indio_dev->name =3D chip->name;
-> +	}
-
-[Severity: High]
-Does this fallback path leave info->voltage_range_idx and
-info->is_pac18x1_family uninitialized?
-
-If I2C identification fails, it appears these remain 0 and false, defaulting
-to PAC1711 behavior and silently corrupting sensor data for other chip
-variants like PAC1721 or PAC1821.
-
-> +	/* Always start with accumulation channels enabled. */
-> +	info->enable_acc =3D true;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-pac1711-v2=
--0-609bc026093c@microchip.com?part=3D2
+Best regards,
+Krzysztof
