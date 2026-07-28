@@ -1,249 +1,278 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C88A83AB288
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 12:55:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F6FA42BC4C
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 12:57:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785243310; cv=none; b=W//7WP3ZsiZw8whFuZlt2nHtq5xrP5h7EvuPTmLmrytHefvJgxS93wTF9R0Ui8TL5P5ylMaLHv3/Euw9m3IUcCDGZeUMI6yOHeYJqIkITQCJN1cK+x5m2QV9cSXJmdqYwHahQkoBe/EoOewOl8h0RXIvXP3Tkn3XRbe2h7pR5So=
+	t=1785243462; cv=none; b=kMIF1GyzqYiJQOUivmp7NY9ATSz1AaX0SUOS9aGjGTVFTDe6z21TD56LGVzp5sMG7Ha33xSq10yNxpI1qGRQGjXbh+qsOpYRKVx7Tk/kL7iKa5NtAEPI7pFQrViaxD6+3N1MRoGui9RrWb19n1PqQ2u8ApCTbn+Hd5T0EZ4Cqug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785243310; c=relaxed/simple;
-	bh=18M3pZECk+LvI1Wc4lbaqp566aIhOlECtWNdp/JdM30=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=L+lfkM2+Var3+h5/o7TD5gNenH8mMmVRCs9PrIT+qF9/v6zpZ2JYF4Vd2UpSJGJBK3qRXgpaGpQjRo3BrScOlFsj1RVFEl3tLnfhwt3QTs4cfyR8mKG2VyocdFt+e2Klxm4Kj6g4nX0MSkwDSA1WQFty/Z4GMCY5DPDj1za7kak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JEPUcDcz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785243462; c=relaxed/simple;
+	bh=YyzoZ6HI7QG1iTizN/6C6qREGdKLNVzEs4R6cFLLcGc=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=oReMEdCUJHCrhM0oU2MlykF9r92FdDRfRULp7XF3e4THc5wpelmSKTPopLTjrh51C5/almaMh/WSbuDrOf7Ch6nsCYXkwh4G1hHkV9FF6yopMpRdAa5g+p/CkKYZ2vMjOmW0tTVjHYqXeGMYPqO1Z+eqP8FdyyKKyfANTeriuN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ZnhMPJLx; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JEPUcDcz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E3D91F000E9;
-	Tue, 28 Jul 2026 12:55:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785243308;
-	bh=LQBNqCVGkWIzbqqryFnVGrDB6uWpwVgR0I37B9tzyY4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JEPUcDczQuCJ+wfFcfcZeXQmCjsPpRHCDLdIBRUMioc0lOeHK/+NHUAPa3gSaR9sx
-	 me8ffYDJUfY2UpiEJ8JrB3UUSLQr0D88V5td2MImtqUt/4+uK71Z5DTrmu9VTkIUGH
-	 bwv2L2GSb52hp/JR9QfuQLbDhdJHgqmSrGGpo4qnognHaZFSCc1OqKc9o7ppYO0uHF
-	 Y0nnKHVG6c7Mrfd0IvVU4YM5k6A7BOzMsrIf/2Obw9/cOgWIf3CpKf/sksQYE3dL3I
-	 NlLJ+0SLOaf2DYSiimpT9XNYz5aRgGiAyflZSc2MrRp4lJOJQVqaujNf0RlsDMGYKv
-	 cC6EpicBHLzJg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/2] drm: bridge: cdns-mhdp8546: Add no-hpd property
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yashas D" <y-d@ti.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260728124224.774785-3-y-d@ti.com>
-References: <20260728124224.774785-1-y-d@ti.com>
- <20260728124224.774785-3-y-d@ti.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 28 Jul 2026 12:55:07 +0000
-Message-Id: <20260728125508.2E3D91F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ZnhMPJLx"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-47f7854678bso1355337f8f.3
+        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 05:57:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1785243459; x=1785848259; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aHwnyYbdVqw8Gfk40ksLWUw1FSirv4HShvCRuaQuLzM=;
+        b=ZnhMPJLxC3KnEIwsnQbSME945O/3R0SlOoXP/2AoR9aRPi0V2mkMnUCA/1fEQeZyVs
+         EU8IpZj6EBkuFWmvptLxSIEJUyvgBkKkRoShk0K2DyZB6jKN+VpHfqAS6B0iwbQw9Nty
+         UT41w6I1HL+kbEAYXBvmjfj0WfjIVPa9TPraejYliAZPsDCy2EV6RW4CA/H4sL4iIi14
+         s1prVROs++Kphek+22++f5TtD7SfAHs/6ACDIiLjw+bzSb4wD4w4rolrVfDRIda453Mg
+         fbgzJgl161ZcFuJHWgpgi/MPDGGfPVcLGMXg/CRKE1OMw9C3gmmrxYmbFafli/WS/JT5
+         plLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785243459; x=1785848259;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aHwnyYbdVqw8Gfk40ksLWUw1FSirv4HShvCRuaQuLzM=;
+        b=RaGSU9zY/r9UBDfU6QxfbeclwpX4i3c81Y0DPmmowCJHDLdCddCs/TzP0iUMobgpIi
+         ZviBql8KeXmpB57GA2oy4zhMr+Csq0MR3TKWIwDBh2UjVOmIGntuoFzlBO6GJcW8DmjD
+         7m5a7VxJ7V0Q6mcsNpMpdneOtnEGsX0P9Bdw57LPQ2lv9t9WXJ9JfgqKnMWTE09/Ag/v
+         sAFvszITY3HHL3+the1N0jUhiTOvtVnTOsijpP/h68wR5DJ9udfm/e+wKY9sSm0txwVP
+         a+3OYHgXBIses3SOQH1nqWcpRE3fUaCsxJ/s5WgRSOfb37k+nKdtK54kDlGq2IWNb+eZ
+         tO7Q==
+X-Forwarded-Encrypted: i=1; AHgh+Rp8LKUmxsyyBt3ssNBhJRFcDNEolK4IGIn9Jh00X47feVZEheX7mlQJEIepXRwSNC7bOkH8QpcY0yu1@vger.kernel.org
+X-Gm-Message-State: AOJu0YyseQTJS9ik/AZ1rAV/qprfZGtO9sNjp9SBaDnqvALYzPY9wi/2
+	8Z+ZuJSHelM1zGx+FfpIzBs0DSrp+VxQWuDkB0heOTiDJA6M/iJEhcHP+RCdfBO1s0A=
+X-Gm-Gg: AR+sD12MNjLjDja94JzKJH38601wvrAaBacf5ug1AZQ7YRt2FIOnxe+gPfGUTbiXxmI
+	5t7rJxUI4tmk/Lxdo40LLu3frTBcT3YVd3NwF4OCWSoTrMFNVCLmK8s6rLzT9xZJCBxrqOLL7QH
+	AcFbxKuA5lnCGye+roSPtYVC6H/Bv3JVVF+hlu1KUK0FkkggkZ1ZqkPYGt3cICt24CAg+j2gFup
+	JXwKE40YoEHurDvtJrsvKCbob1Y7wHuUOaRitSOOU+f3SnkTQHZH1xgibKlIEtWGs8b02as98dR
+	77iRiHgG2DL7AcC8U16MsvI6qK9f3cDWLFzGsBNR8FCgMGpxOjtWfU7QevCczQtZIEEh2AZpwsW
+	k0LPJM0UOxB5/k0zNs1CnRPOgwx0Q+VCZJavBNFL0HE+7FnqMWniJ/H1K9GrVqbC7xrkwLG49/I
+	j/RhHVNo3gMhwperA/ctbCetWqg+QpLHL9FXITpG6z+3UUFJmhAdiHqf0srn8VQJn32KAj
+X-Received: by 2002:a05:6000:4387:b0:47f:89cd:b48 with SMTP id ffacd0b85a97d-47fb1ecc2acmr2978593f8f.5.1785243458685;
+        Tue, 28 Jul 2026 05:57:38 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:5788:c4e1:cf35:7211? ([2a01:e0a:106d:1080:5788:c4e1:cf35:7211])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f9c4fe4c5sm38412732f8f.12.2026.07.28.05.57.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 28 Jul 2026 05:57:38 -0700 (PDT)
+Message-ID: <13d040a7-4fe2-400b-99c8-433f19aad9bc@linaro.org>
+Date: Tue, 28 Jul 2026 14:57:37 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v16 3/3] of: Respect #{iommu,msi}-cells in maps
+To: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>,
+ Robin Murphy <robin.murphy@arm.com>, Nipun Gupta <nipun.gupta@amd.com>,
+ Nikhil Agarwal <nikhil.agarwal@amd.com>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
+ Richard Zhu <hongxing.zhu@nxp.com>, Lucas Stach <l.stach@pengutronix.de>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Bjorn Helgaas
+ <bhelgaas@google.com>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-pci@vger.kernel.org, imx@lists.linux.dev,
+ xen-devel@lists.xenproject.org,
+ Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
+References: <20260603-parse_iommu_cells-v16-0-dc509dacb19a@oss.qualcomm.com>
+ <20260603-parse_iommu_cells-v16-3-dc509dacb19a@oss.qualcomm.com>
+ <3f5c974f-425d-47a5-9fda-e05de1f39d79@linaro.org>
+ <0d0896af-a4a5-445d-8db7-fdb9eecd07a2@oss.qualcomm.com>
+ <69b1235a-832b-4a00-bcfd-f51991d23488@arm.com>
+ <569bd4d8-2d77-457e-a0fb-388180c34711@oss.qualcomm.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <569bd4d8-2d77-457e-a0fb-388180c34711@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
+On 7/28/26 12:39, Vijayanand Jitta wrote:
+> 
+> 
+> On 7/28/2026 3:34 PM, Robin Murphy wrote:
+>> On 28/07/2026 5:05 am, Vijayanand Jitta wrote:
+>>>
+>>>
+>>> On 7/23/2026 6:47 PM, Neil Armstrong wrote:
+>>>> Hi,
+>>>>
+>>>> On 6/3/26 09:13, Vijayanand Jitta wrote:
+>>>>> From: Robin Murphy <robin.murphy@arm.com>
+>>>>>
+>>>>> So far our parsing of {iommu,msi}-map properties has always blindly
+>>>>> assumed that the output specifiers will always have exactly 1 cell.
+>>>>> This typically does happen to be the case, but is not actually enforced
+>>>>> (and the PCI msi-map binding even explicitly states support for 0 or 1
+>>>>> cells) - as a result we've now ended up with dodgy DTs out in the field
+>>>>> which depend on this behaviour to map a 1-cell specifier for a 2-cell
+>>>>> provider, despite that being bogus per the bindings themselves.
+>>>>>
+>>>>> Since there is some potential use in being able to map at least single
+>>>>> input IDs to multi-cell output specifiers (and properly support 0-cell
+>>>>> outputs as well), add support for properly parsing and using the target
+>>>>> nodes' #cells values, albeit with the unfortunate complication of still
+>>>>> having to work around expectations of the old behaviour too.
+>>>>>
+>>>>> Since there are multi-cell output specifiers, the callers of of_map_id()
+>>>>> may need to get the exact cell output value for further processing.
+>>>>> Update of_map_id() to set args_count in the output to reflect the actual
+>>>>> number of output specifier cells.
+>>>>>
+>>>>> Signed-off-by: Robin Murphy <robin.murphy@arm.com>
+>>>>> Signed-off-by: Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
+>>>>> Signed-off-by: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
+>>>>> ---
+>>>>>     drivers/of/base.c  | 168 +++++++++++++++++++++++++++++++++++++++++------------
+>>>>>     include/linux/of.h |   6 +-
+>>>>>     2 files changed, 135 insertions(+), 39 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/of/base.c b/drivers/of/base.c
+>>>>> index d658c2620135..ac7961cbab94 100644
+>>>>> --- a/drivers/of/base.c
+>>>>> +++ b/drivers/of/base.c
+>>>>> @@ -2116,19 +2116,49 @@ int of_find_last_cache_level(unsigned int cpu)
+>>>>>         return cache_level;
+>>>>>     }
+>>>>>     +/*
+>>>>> + * Some DTs have an iommu-map targeting a 2-cell IOMMU node while
+>>>>> + * specifying only 1 cell. Fortunately they all consist of value '1'
+>>>>> + * as the 2nd cell entry with the same target, so check for that pattern.
+>>>>> + *
+>>>>> + * Example:
+>>>>> + *    IOMMU node:
+>>>>> + *        #iommu-cells = <2>;
+>>>>> + *
+>>>>> + *    Device node:
+>>>>> + *        iommu-map = <0x0000 &smmu 0x0000 0x1>,
+>>>>> + *                <0x0100 &smmu 0x0100 0x1>;
+>>>>
+>>>> So the sm8650 PCIe controllers has:
+>>>>
+>>>> pcie@1c08000:
+>>>>               iommu-map = <0     &apps_smmu 0x1480 0x1>,
+>>>>                       <0x100 &apps_smmu 0x1481 0x1>;
+>>>>
+>>>> and
+>>>>
+>>>> pcie@1c00000:
+>>>>
+>>>>               iommu-map = <0     &apps_smmu 0x1400 0x1>,
+>>>>                       <0x100 &apps_smmu 0x1401 0x1>;
+>>>>
+>>>> and apps_smmu has #iommu-cells = <2>, but gets flagged at wrong:
+>>>>
+>>>> [    7.538800] OF: /soc@0/pcie@1c08000: iommu-map has 1-cell entries targeting 2-cell #iommu-cells, treating as 1-cell output
+>>>>
+>>>> Returning false in of_check_bad_map() triggers:
+>>>>
+>>>> [    7.642680] OF: /soc@0/pcie@1c08000: Unsupported iommu-map - cannot handle 256-ID range with 2-cell output specifier
+>>>>
+>>>> I don't understand the issue here, we use 2 cells as expected by
+>>>> the iommu-cells, so why is it wrong ? can somebody explain in
+>>>> comprehensive words ? I'm super confused, it worked like a charm until now.
+>>>>
+>>>> Neil
+>>>>
+>>>
+>>> Hi Neil,
+>>>
+>>> iommu-map = <0     &apps_smmu 0x1480 0x1>,
+>>>               <0x100 &apps_smmu 0x1481 0x1>;
+>>>
+>>>
+>>> Entries here are not 2-cell format, Even though apps_smmu declares #iommu-cells = <2>,
+>>> this DT only supplies one output cell (0x1480/0x1481) — the trailing 0x1 is the length field,
+>>> not a second output cell. (<id-base phandle out-base length>)
+>>>
+>>> The new code detects exactly this pattern (same target phandle across all entries, length always 1)
+>>> and falls back to treating the map as 1-cell output for backward compatibility — hence the pr_warn_once.
+>>> It's harmless and expected, your RIDs still resolve to the correct SIDs (0 → 0x1480, 0x100 → 0x1481).
+>>>
+>>> The second message is a different case and shouldn't be coming from this same map — once the 1-cell
+>>> fallback triggers on the first entry, it applies to the whole map, so you shouldn't hit both warnings
+>>> together on the same node. That error only fires for a genuine 2-cell output specifier combined with
+>>> an id_len > 1, e.g.:
+>>>
+>>> iommu-map = <0x0 &apps_smmu 0x1480 0x1 0x100>;
+>>>
+>>> (<id-base, phandle, out0, out1, length=256>) — which isn't supported, since there's no way to
+>>> linearly scale a multi-cell output specifier across a range of IDs.
+>>>
+>>> Are you seeing that second error on the same pcie node, or a different one?
+>>> If it's the same node, can you share the exact iommu-map entry that triggers it?
+>>
+>> I think Neil is saying he bypassed the fallback check so that it *did* try to parse the given map with the real #iommu-cells=2 in precisely the way you've shown - so even if it could have got past that point, it would have then blown trying to parse the second "entry" of just <&apps_smmu 0x1481 0x1>, since 0x1481 almost certainly isn't a valid phandle to read an #iommu-cells value from.
+>>
+>> Cheers,
+>> Robin.
+> 
+> Right, I get it now, so when it tried to parse with iommu-cells as 2,
+> 
+> iommu-map = <0     &apps_smmu 0x1480 0x1>,
+>              <0x100 &apps_smmu 0x1481 0x1>;
+> 
+> Above tuples would look something like <0  &apps_smmu 0x1480 0x1 0x100>, where 0x100 from next tuple would be seen as length. Hence, the above error log.
+> And the next tuple <&apps_smmu 0x1481 0x1> won't be able to get parsed as you mentioned.
 
-New issues:
-- [High] Arbitrary 100ms synchronous timeout in `cdns_mhdp_attach()` for as=
-ynchronous firmware loading permanently fails DRM display initialization.
-- [High] Disabling `cdns_mhdp_bridge_hpd_enable()` in `no-hpd` mode uninten=
-tionally masks all software event interrupts, breaking HDCP.
-- [High] Returning `-ETIMEDOUT` directly on firmware load timeout in `cdns_=
-mhdp_attach()` leaks the AUX device and leaves the bridge in an invalid sta=
-te.
-- [High] Periodic `.detect()` polling continuously reprograms display hardw=
-are stream registers every 10 seconds.
-- [Medium] Polling monitor presence using the DP_LANE0_1_STATUS (0x202) reg=
-ister triggers unintended DP sink state transitions.
+Thanks for the explanation, clearer now.
 
-Pre-existing issues:
-- [Critical] Unsafe unlocked access to `bridge.base.state` inside `cdns_mhd=
-p_update_link_status()`.
-- [High] The driver never powers down the DP link on disconnect because it =
-checks the newly updated disconnected state instead of the previous state.
---
+Neil
 
---- Patch [2]: [PATCH v5 2/2] drm: bridge: cdns-mhdp8546: Add no-hpd proper=
-ty ---
-commit e7dd3a882f8493a89d4bfbcdc3952a36383bfe27
-Author: Rahul T R <r-ravikumar@ti.com>
+> 
+> 
+> Thanks,
+> Vijay
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
 
-drm: bridge: cdns-mhdp8546: Add no-hpd property
-
-Add a 'no-hpd' boolean property to support boards where the HPD line
-cannot be used for hotplug detection due to hardware limitations.
-
-> diff --git a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c b/driver=
-s/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-> index 504a3186ebb3a..73d5c718c7db5 100644
-> --- a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-> +++ b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-[ ... ]
-> @@ -698,7 +700,9 @@ static int cdns_mhdp_fw_activate(const struct firmwar=
-e *fw,
->  	 * MHDP_HW_STOPPED happens only due to driver removal when
->  	 * bridge should already be detached.
->  	 */
-> -	cdns_mhdp_bridge_hpd_enable(&mhdp->bridge);
-> +
-> +	if (!mhdp->no_hpd)
-> +		cdns_mhdp_bridge_hpd_enable(&mhdp->bridge);
-
-[Severity: High]
-Does skipping this function unintentionally disable other features like HDC=
-P?
-
-Despite the name cdns_mhdp_bridge_hpd_enable(), it unmasks the
-CDNS_APB_INT_MASK_SW_EVENT_INT interrupt. This interrupt handles all softwa=
-re
-events from the firmware, not just HPD.
-
-Without it, will operations waiting for software events, such as
-cdns_mhdp_wait_for_sw_event(), silently timeout and fail?
-
-[ ... ]
-> @@ -1523,6 +1532,26 @@ static int cdns_mhdp_attach(struct drm_bridge *bri=
-dge,
-> =20
->  	spin_unlock(&mhdp->start_lock);
-> =20
-> +	if (mhdp->no_hpd) {
-> +		/*
-> +		 * In no-hpd mode there is no interrupt to signal firmware
-> +		 * readiness. The firmware loads asynchronously after probe(),
-> +		 * so we must wait here until the uCPU is running before
-> +		 * attempting the first AUX channel poll for monitor presence.
-> +		 */
-> +		ret =3D wait_event_timeout(mhdp->fw_load_wq,
-> +					 mhdp->hw_state =3D=3D MHDP_HW_READY,
-> +					 msecs_to_jiffies(100));
-> +		if (ret =3D=3D 0) {
-> +			dev_err(mhdp->dev, "%s: Timeout waiting for fw loading\n",
-> +				__func__);
-> +			return -ETIMEDOUT;
-> +		}
-
-[Severity: High]
-Will this hard-coded 100ms timeout cause permanent probe failures?
-
-Since the firmware loads asynchronously, file system latency or user-space
-helper delays could easily exceed 100ms. Returning -ETIMEDOUT directly bypa=
-sses
-the standard -EPROBE_DEFER mechanism and permanently aborts the display
-initialization pipeline.
-
-[Severity: High]
-Could this direct error return leak resources and cause a use-after-free?
-
-Earlier in cdns_mhdp_attach(), the code registers the AUX device and sets
-mhdp->bridge_attached to true:
-    drm_dp_aux_register(&mhdp->aux);
-    ...
-    mhdp->bridge_attached =3D true;
-
-Returning -ETIMEDOUT directly bypasses the goto aux_unregister cleanup path.
-
-Additionally, it leaves mhdp->bridge_attached set to true. When the
-asynchronous firmware load eventually completes, cdns_mhdp_fw_cb() will see
-bridge_attached =3D=3D true and call drm_bridge_hpd_notify() on a bridge th=
-at
-failed to attach, which might lead to a crash.
-
-[ ... ]
-> @@ -2013,6 +2042,9 @@ cdns_mhdp_bridge_detect(struct drm_bridge *bridge, =
-struct drm_connector *connect
->  {
->  	struct cdns_mhdp_device *mhdp =3D bridge_to_mhdp(bridge);
-> =20
-> +	if (mhdp->no_hpd)
-> +		cdns_mhdp_update_link_status(mhdp);
-> +
-
-[Severity: High]
-Could calling cdns_mhdp_update_link_status() directly from the detect
-callback cause display flickering or tearing?
-
-The DRM framework polls the detect callback every 10 seconds. Inside
-cdns_mhdp_update_link_status(), if the monitor is connected and the bridge
-is enabled, it unconditionally calls cdns_mhdp_sst_enable().
-
-This reprograms the hardware stream registers (video timing, TU sizes, MSA)
-on an active stream. Will this disrupt the display periodically during
-routine polling?
-
->  	return cdns_mhdp_detect(mhdp);
->  }
-> =20
-> @@ -2100,7 +2132,16 @@ static int cdns_mhdp_update_link_status(struct cdn=
-s_mhdp_device *mhdp)
-> =20
->  	mutex_lock(&mhdp->link_mutex);
-> =20
-> -	mhdp->plugged =3D cdns_mhdp_detect_hpd(mhdp, &hpd_pulse);
-> +	if (mhdp->no_hpd) {
-> +		ret =3D drm_dp_dpcd_read_link_status(&mhdp->aux, status);
-
-[Severity: Medium]
-Is it safe to read the link status register for periodic presence detection?
-
-drm_dp_dpcd_read_link_status() reads from DP_LANE0_1_STATUS (0x202), which
-is in the link training status range.
-
-Reading these registers outside of the link training sequence can trigger
-unintended state machine transitions in DP sinks, potentially causing screen
-flickering or link training failures.
-
-> +		hpd_pulse =3D false;
-> +		if (ret < 0)
-> +			mhdp->plugged =3D false;
-> +		else
-> +			mhdp->plugged =3D true;
-> +	} else {
-> +		mhdp->plugged =3D cdns_mhdp_detect_hpd(mhdp, &hpd_pulse);
-> +	}
-> =20
->  	if (!mhdp->plugged) {
->  		cdns_mhdp_link_down(mhdp);
-
-[Severity: High]
-This is a pre-existing issue, but does cdns_mhdp_link_down() fail to power
-down the DP link when disconnected?
-
-When a monitor is disconnected, the connection state is updated:
-    mhdp->plugged =3D false;
-
-Then the code enters the disconnect path and calls cdns_mhdp_link_down():
-    if (!mhdp->plugged) {
-        cdns_mhdp_link_down(mhdp);
-
-Inside cdns_mhdp_link_down(), the power down is guarded by the plugged stat=
-e:
-    if (mhdp->plugged)
-        drm_dp_link_power_down(&mhdp->aux, mhdp->link.revision);
-
-Since mhdp->plugged was just cleared, it appears the link is never actually
-powered down.
-
-[Severity: Critical]
-This is a pre-existing issue, but is it safe to access the atomic bridge
-state without holding the necessary DRM modeset locks here?
-
-Later in cdns_mhdp_update_link_status(), the code accesses the state pointe=
-r:
-    state =3D drm_priv_to_bridge_state(mhdp->bridge.base.state);
-    ...
-    cdns_bridge_state =3D to_cdns_mhdp_bridge_state(state);
-    current_mode =3D cdns_bridge_state->current_mode;
-
-Because cdns_mhdp_update_link_status() is now called periodically from the
-unlocked .detect() callback, could an atomic commit concurrently swap and f=
-ree
-the bridge state, leading to a use-after-free?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728124224.7747=
-85-1-y-d@ti.com?part=3D2
