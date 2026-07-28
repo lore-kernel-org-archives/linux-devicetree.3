@@ -1,174 +1,218 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CF5E40F8F8
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 09:46:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6705541A51B
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 09:46:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785231993; cv=none; b=mXpehr81jFjXd8dwIjEbi+3KFtJoplMJoM3JsyVnQjGQyqY3ObQ4nPNps4tbHKjZ6BRivwAP0u5z5HJrnSSUF5hQ1rwMYcglemqYtUxbPHOHi1BFRCXSIVlKF4E6K1s1tHYtteIPGesr01YrOkudmlUl+tvwl2HpHvz7R/KkEwY=
+	t=1785232017; cv=none; b=GGo8S7xRfr6wbXJZIV8fGG3DWPsPuYd6/GcdrZLdJA3KAPCV83kkFOTJ7MA+wtY2DdXvcl/9ahRXqTotXGudZ7NWPjvD9ip1SkGgfKd/KX7lDQIiduDHOfBT/JsOFYgO19JLOGMWDWP5SimWBPWbXNRSWXv4NTjhyqzPOyYitNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785231993; c=relaxed/simple;
-	bh=6uZKgjBvBjK3cpzd0tBApliTV9pYSCq8TtHAoji1CVc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nkuIpH3yD6B2kgI68NLVX+hC4Z6iOUnD1j+jEBXmQnadDXjzDLZDUU8G2uxg7SGP2i/zHPsoWsWdNkYF8s7g7P2sfM2OBtkVxxNP06c/7qA4D7twp776otGFE5MCsaXR97EuuCPjg8QEnkOmrke7xGEdFjE+cciyl72d8oh6Tl8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CGBJ0wLC; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WLMWPtY6; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785232017; c=relaxed/simple;
+	bh=kwcjZyJIeB0p6AfBxqzzsJchLPKNWiD9kFR1gcEueoM=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=n1wgZ36wXgz6UKFKkGwEvqLUjVdp0s/+F1sUr0XpknwhkieIRy4MCofBXbc2ZbgPoG6ZzjmqUwterzwaQcPRxAOEwBMYCPKUGiQf+4N384GRDQMhtp2fJ8n9SHnXdiLaFiaDV+ZwvPonqWh46nEG6Buh72uIq7F2NbT5Xou2S+k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ZG6gvJih; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CGBJ0wLC";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WLMWPtY6"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66S82DMh2480113
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 09:46:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	su9taqsUBmJfG0aVGq0+6MjA0mnYfyHXK4TkmUilqdQ=; b=CGBJ0wLCP2LyyDQn
-	xpeVSOKMEnPLG4Tc0N26aasAunVTmVlopOCUKZtsZghn1CLBBDz9CHs40uFU3wHV
-	2UYWNe/VQwLnBp1eehmSKd6naEQ5L+k+q437jlrgjwu7IHAhhF3BuCXY1po/Er8X
-	Ba50k6UX8P5U7W7MJW+OUugB1+AFxC/K3Lv+xVey958I9s6lUsuZj+05eVI+BC5o
-	RFE/5GGV/BUvn30TTfP3FMHC5y7HeDNk7RtMbjiCamvA1V3GjO4HrDz6qlT1JHR1
-	+PjjFsRqceO2KyvcabhP/b+pjTgvB9z1A8jcTCW/244iWlg87+qDPTGMZ6hytBTP
-	q8ifCQ==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fpmy11a12-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 09:46:31 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51a8b0a08d2so33607671cf.0
-        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 02:46:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ZG6gvJih"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-49557167508so34478515e9.1
+        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 02:46:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785231990; x=1785836790; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=su9taqsUBmJfG0aVGq0+6MjA0mnYfyHXK4TkmUilqdQ=;
-        b=WLMWPtY62yK/rgKDS9ibjCj8pECLSb5x1cf/39Oq78Q8zzCTaLMiIAXvwren2y20W8
-         pM6AVETFNVgSDDaDHpSYd5ZQLid9n7VK1rjVPuIKiTiMCwBot3sdHfKNca6V2n5+WP+q
-         r7sg/aMh8CnrcRMNsNma/FfuMWP2u29rraHLz3xKkftDqAsiqS1LfOXwTH9HPjXGqaPF
-         Kvn/71T59jj/eJS3Lw1f48pU3I6SrFvsVajP+ytGbYSkexA9yPXaPUJft+iuNzvs9LWk
-         EU06dW9xEqJprrAZiSFpDfa2mhae0foH6NxY0SW+KBMxSPaCeKgtKuwXMNcfQpzt7ssr
-         gL5g==
+        d=linaro.org; s=google; t=1785232013; x=1785836813; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rKpYcUd0bLsWfXRy27XLggsB62Hy65MOJiITGQfMwYQ=;
+        b=ZG6gvJihWL/diBUEIVLSBZukgRLNwecq103farqj+68Iq1Gm8Zo1wyAgvCx5ja2vgy
+         Q7vBhzOX4zJXE6bTYlvaZ0SPjd+esJW0cdbk1dgu/EU7jPVDUCWDRA6f6ZHXu/zSnEiU
+         EleXvU4keOv1zgj+Sx78EdtbQ6hmP+1gVE+/irxwT2dR5dEsn89oiSSL+VJAnptCw6+8
+         WDdY00zcEzJcxAT6zf+AqimR4a35SziXC9RkMm5XocJihU5T3KNyNPaFFgro1XzEhFR6
+         f2fUgQmzZ1WYDJQ7ik9A4aF4z80X73xEemnV6RgM7by12vLjhSeYa5pkKd02ounwjepN
+         7WuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785231990; x=1785836790;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=su9taqsUBmJfG0aVGq0+6MjA0mnYfyHXK4TkmUilqdQ=;
-        b=KZ1nmj4rIz1GVkMEtN1R3YOeJix+c24x6ltW09Gp5dQlRfhFZsjZcdcCowPdgOpSZE
-         obflfOXTHWyZBf7TQpzLfN1EGciGrwgJxZXtmukKzwng32/HqtG3YTlYHE40jE1/QRwx
-         hfMNdQVtpXRP1g+vtGh/pJnvjCrKmL4jA3XFWAnBAFo2GKu5t4TK79Csd8jEuVz22Xdi
-         +8qUfqznelZdIGyaO0eZ2T67d+7KnUrT21mhEsWdDas5GkVybB7EYtWlPjCkaY2pL5VE
-         Q9U5LIcAjB3FKd8qGdHJYu1zxWAG3iQRZqZTf3zRGyr2hK6dJd4wFTd3HL/yTThG80uC
-         3qkA==
-X-Forwarded-Encrypted: i=1; AHgh+Rq3XY/X4pZfWyCDdjRzpuaAlS+auU12qXTW/ctRHrzyWzGgueNkz2UT+Rmjm+DGsaP9Kd53K4jOQYUU@vger.kernel.org
-X-Gm-Message-State: AOJu0YwKjE7GO7NE/QYUsSETcIGlt+jAnw7dvsTTX6K3DNoFqoYkQG9y
-	p83JdJgwkoE4fRaJcZTzqYlxuGy/PDBk1sVoUUQBQo0WT9Gd+i5SvU0ahC0KIQv9VJJOPXbl5rf
-	zW7UxoOxQn4os/WUChx/MQFLbrSPARbj11+R+yF+Wiqzsu6VpKvzrTZ0AEiqFV3iF
-X-Gm-Gg: AR+sD10wC81c8qBZf0HLKJ1AxWqXmejYcwnweN+mhcGV6/o26IxUEAaxNDGp0Exwgqs
-	SZf/5HiGjpuSuAPwwTILiKn6FZae/4una1+wCZyI8Akngc6dy3CH4CxSV1Dam0Z2dSHvNgdahTh
-	/N20ecao9Tak8GcszHzXQNmH4uV5gYb5WheS/iA+qv3U/4jIhYR/U0jV4qMv/gSVlLQRd4Dzk2x
-	vXTZvF3z/a71LFGRKRZDrQHrk2th6f+phHPNFmeyvk0wbs9phLAopfq6rKdqhBmX6iJxCa8hYBG
-	E5c8icsxKD6DX74wsLsfNAapZk44XzcKHeJhevTG0eXglGsLQBv0TNNNExQ6gQlqARqa9D6Im6L
-	CdrLp/UADMF1SNdKI80K5DRJYNNEkBTwFvSQ9YhrbIkNUg3AtVxMud3PJjPiADOX/Rlr7CnlcZI
-	vREkIkxAsSvDaD6g==
-X-Received: by 2002:ac8:7f51:0:b0:51c:ba4:d837 with SMTP id d75a77b69052e-529d6faf3eemr12028121cf.18.1785231990288;
-        Tue, 28 Jul 2026 02:46:30 -0700 (PDT)
-X-Received: by 2002:ac8:7f51:0:b0:51c:ba4:d837 with SMTP id d75a77b69052e-529d6faf3eemr12027861cf.18.1785231989834;
-        Tue, 28 Jul 2026 02:46:29 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2be1d8514sm1905891e87.42.2026.07.28.02.46.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Jul 2026 02:46:28 -0700 (PDT)
-Date: Tue, 28 Jul 2026 12:46:27 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Sunyun Yang <syyang@lontium.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        andrzej.hajda@intel.com, neil.armstrong@linaro.org,
-        maarten.lankhorst@linux.intel.com, rfoss@kernel.org,
-        mripard@kernel.org, Laurent.pinchart@ideasonboard.com,
-        tzimmermann@suse.de, jonas@kwiboo.se, jernej.skrabec@gmail.com,
-        devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org, xmzhu@lontium.corp-partner.google.com,
-        xmzhu@lontium.com, rlyu@lontium.com, xbpeng@lontium.com,
-        qdchen@lontium.com, llzhang@lontium.com, hfxia@lontium.com
-Subject: Re: [PATCH v17 0/2] Add Lontium LT7911EXC eDP to MIPI DSI bridge
-Message-ID: <waw7uhdebjavtcdgcgvrdhos3vcervc3b6ggooj2zgkd6yq47v@kkzdagga6hoj>
-References: <20260715015438.2770155-1-syyang@lontium.com>
- <tfkg2cjn4uznzy57rpkqwan26sduqzptnb7uwsucfboz37wz7k@rukuu36mozif>
- <CAFQXuNazLnXOr+qRug4De8W3U932aG9LVRVWgkHAE=ALSQ+ZGA@mail.gmail.com>
+        d=1e100.net; s=20251104; t=1785232013; x=1785836813;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rKpYcUd0bLsWfXRy27XLggsB62Hy65MOJiITGQfMwYQ=;
+        b=QTixjpDBh/SSvKEc5o+aSOnB4O3NCZHhB1kA1U+1ypYbkMd/m+jx9pOdTTKIXGvl3u
+         1MMZwjjsmzSfmeB54eC/sRl+DjNy92vVuDpN5l85FL2NzpO4VKONAQ2KJBHNCGD381nh
+         /e8Zj6wEu+P7BaXIoy4jFXzVntfS4kYdVzGON7uJk+PoHhsy1AkUkSRQg2l+pFSgHSsP
+         kVNHq99rSs9Cc6G57m8IFXN0Zeo5wnKSyba/n2r6F3Ud1rkzasfWWaGKlmUvr04Kq/wh
+         3bq6kK0YdpkNOaMoJUH1NbOqKrtAwpRLQ/DjHbgKq59Q50vjRFs7XnVJtTsxvEvO3mx4
+         LDSg==
+X-Forwarded-Encrypted: i=1; AHgh+RrU2+40Rl54TcbQZ5FzhinQPgSPrVtYy39/UdZMezo4VmXncVQe8WWSevhMnZwRUD2vCpvp7WGF1UeQ@vger.kernel.org
+X-Gm-Message-State: AOJu0YyD5Vx4VqPFwIFP5Rsw4X992a0LKc9KEF1R2zUNEqh5K+LZ1s0C
+	O/O/hGNEIkcaq3yoOR0GgWTgsxO8HR/EEsWKjN9f1wfJWuSHfSf3hPTbq3H2n+m1bZY=
+X-Gm-Gg: AR+sD12UewItQOhc9KUxYMcuszryX4sDnVOFSYttkmcn4miLtqStCpIkgtHev2lRlGI
+	Kt+Ibk9mOvi5jAZl4g9TkIHqEwMbDCq+/HF1vhS+MgtIwaW0SD4KHcp/n8CuDhWpPG7UpmNfq3A
+	Zg4aF8jTCoc5+ontNbE7iqQj8rtlMxKfSo+K8Foo4w3gHEOyif9xD8VbIp16eZFAA9tVPgAcTU4
+	47D6KJKtgKPiIlY5c2u/5z4jm6cJ00L6oN93iktl4DVvDsDbwE/dCKb8RG7t5ETJtd2s/sZiC0D
+	l1qTlnelsCVsTc5/HrLX71/pSbjopsvxlWdsaLqZnjni5VJNflb5Oj7xULw7ZiazoJIvPTX2U2C
+	Qz0nCiDiQtX5yaMyCkJ3wXKePqnLGmGGgC8rXJVcT1F6iqLw8Irbst8s75QEVC5FOUcpnCgn57Q
+	C1flZ5jvv39/5/f+iNPCK0YSOvXPPxJTgGWDC6blMkGxAiO0vOp0SJh9+ICw==
+X-Received: by 2002:a05:600c:19ca:b0:495:67b8:d97e with SMTP id 5b1f17b1804b1-496c6575b9fmr16541375e9.30.1785232013466;
+        Tue, 28 Jul 2026 02:46:53 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:5788:c4e1:cf35:7211? ([2a01:e0a:106d:1080:5788:c4e1:cf35:7211])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4957bfd1a60sm291066435e9.2.2026.07.28.02.46.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 28 Jul 2026 02:46:53 -0700 (PDT)
+Message-ID: <94110280-c818-4bce-9856-f1e7ec8da055@linaro.org>
+Date: Tue, 28 Jul 2026 11:46:52 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAFQXuNazLnXOr+qRug4De8W3U932aG9LVRVWgkHAE=ALSQ+ZGA@mail.gmail.com>
-X-Proofpoint-GUID: CJStukk4Agg0FYpttMm0T5WfYkI6X5zJ
-X-Proofpoint-ORIG-GUID: CJStukk4Agg0FYpttMm0T5WfYkI6X5zJ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI4MDA4NSBTYWx0ZWRfX5qp5CuwZiLs4
- eFpkK9gDzC/R5j5j79bhI8Bd0MSH7lbb08sQEZUajq55j5+gAfOQN5+orPfdhxOJyNGysxHGglK
- bn98pB/X+BTbP+HPuYFu7Fei+LhK3w4uTrTY1NHVGwHoNe211GXj6rroKi81itejPRrPuUbEWM5
- CWyDtyv/mJEctJk0ZeFy46yVsiLp50tzO9U8YBd2AEw5Uk8bIN7Y0vnF/58tbBDuqODuEh+COcW
- jjPb3+OA6VTdzNofkxFalQTUv2idvHwIT/oSeZIbKaknxXcs+YDqX+0qPkkwsIOOUv016jXnd83
- 4jjknYEUhzNT+DLbm+IgEmom+7/cdt7AaO+xUWoWXt4iNJGL1bbtSmPIO2YJ67UHpni+SSiBNGD
- Hjl6UrH1cc0bRgAdAu2+SeYZTwBeGZ4rMi6pblntxhwBuKhoWthXpetSfRp9rr3exd+oNAmbXnP
- JFjeMonI0vUr7v67xnQ==
-X-Authority-Analysis: v=2.4 cv=PJo/P/qC c=1 sm=1 tr=0 ts=6a687a77 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
- a=Kz8-B0t5AAAA:8 a=xH18JlJX9u6X0IBL-vEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22 a=RuZk68QooNbwfxovefhk:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI4MDA4NSBTYWx0ZWRfX+6s6USaRsFAM
- noqJiPWyicb44L9JbzjxMvDxBCifnnQNlBZItjkP1kZkuq9B/43QKmKmDFu+og9qJrcc/pvwqoV
- /JB1Kt8llYFQfHbHmJKliWCVwOMYifs=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-28_02,2026-07-27_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
- priorityscore=1501 malwarescore=0 adultscore=0 suspectscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607280085
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v3 1/3] ASoC: qcom: audioreach: compute active channel
+ maps from channel_map
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+References: <20260728-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v3-0-b29f44720178@linaro.org>
+ <20260728-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v3-1-b29f44720178@linaro.org>
+ <20260728090325.518421F000E9@smtp.kernel.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260728090325.518421F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Jul 28, 2026 at 09:56:11AM +0800, Sunyun Yang wrote:
-> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2026年7月28日周二 09:22写道：
-> >
-> > On Wed, Jul 15, 2026 at 09:54:36AM +0800, syyang@lontium.com wrote:
-> > > From: Sunyun Yang <syyang@lontium.com>
-> > >
-> > > The LT7911EXC is an I2C-controlled bridge that receives eDP1.4
-> > > and output mipi dsi. This series introduces:
-> > >
-> > > - A device tree binding YAML file describing the hardware
-> > > - A new DRM bridge driver implementing the basic functionality
-> > >
-> > > Signed-off-by: Sunyun Yang<syyang@lontium.com>
-> > > ---
-> > > Change in v17:
-> > > - dt-binding:
-> > > - drm/bridge:
-> > >  1. [High] devm leak and list corruption on panel rebind                                                  [sashiko-bot]
-> > >            False positive. The -EBUSY guard at the top of host_attach() (line 527) rejects re-attach
-> > >            when output_bridge is already set, so neither devm_drm_of_get_bridge() nor drm_bridge_add()
-> > >            is reached on panel rebind.
-> >
-> > This is not a changelog. Don't mix replies, with the changes in the
-> > patches.
-> >
-> In the driver code, when I reply to the issues raised by the AI bot,
-> the AI bot does not respond to me.
-> In subsequent submissions, can I simply not reply to the AI bot's
-> questions and only modify the issues that are useful for the driver?
+On 7/28/26 11:03, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> 
+> New issues:
+> - [High] The new `active_channels_mask` computation in `audioreach_codec_dma_set_media_format` introduces regressions by unconditionally iterating over all `AR_PCM_MAX_NUM_CHANNEL` elements.
+> 
+> Pre-existing issues:
+> - [High] Kernel stack memory is leaked to the DSP and evaluated in control logic because `cfg.channel_map` is not zero-initialized.
+> --
+> 
+> --- Patch [1]: [PATCH v3 1/3] ASoC: qcom: audioreach: compute active channel maps from channel_map ---
+> commit 893598480a0705f69c55eefe5bf4e2b969edc6d8
+> Author: Neil Armstrong <neil.armstrong@linaro.org>
+> Subject: ASoC: qcom: audioreach: compute active channel maps from channel_map
+> 
+> This patch updates the Audioreach DSP code to compute the active channel
+> mask and logical channel mappings using the physical channel mapping array
+> (channel_map) rather than a simple bitmask derived from the channel count.
+> This enables WSA2 speaker usage on specific hardware by correctly setting
+> only the upper bits of the channel mask.
+> 
+>> diff --git a/sound/soc/qcom/qdsp6/audioreach.c b/sound/soc/qcom/qdsp6/audioreach.c
+>> index e6e9eb2e85aa1..0cc840aca69dd 100644
+>> --- a/sound/soc/qcom/qdsp6/audioreach.c
+>> +++ b/sound/soc/qcom/qdsp6/audioreach.c
+>> @@ -741,7 +742,12 @@ static int audioreach_codec_dma_set_media_format(struct q6apm_graph *graph,
+>>   
+>>   	intf_cfg->cfg.lpaif_type = module->hw_interface_type;
+>>   	intf_cfg->cfg.intf_index = module->hw_interface_idx;
+>> -	intf_cfg->cfg.active_channels_mask = (1 << cfg->num_channels) - 1;
+>> +	intf_cfg->cfg.active_channels_mask = 0;
+>> +	/* Convert the physical channel mapping into a bit field */
+>> +	for (i = 0; i < AR_PCM_MAX_NUM_CHANNEL; i++)
+>> +		if (cfg->channel_map[i])
+>> +			intf_cfg->cfg.active_channels_mask |= BIT(i);
+>> +
+> 
+> [Severity: High]
+> If a stream is configured with 4 channels and later reconfigured to 2
+> channels, audioreach_set_default_channel_mapping() in q6dma_hw_params() only
+> overwrites the first 2 entries, leaving the remaining entries intact.
 
-AI is a _bot_. Talk to people. You should reply to the bot directly as
-that's what the reviewers will see and consider.
+This is a valid issue, will fix.
 
+> 
+> Since this loop iterates unconditionally up to AR_PCM_MAX_NUM_CHANNEL, could
+> it pick up those stale entries and activate unintended channels in the DSP?
+> 
+> Additionally, for channel counts greater than 4 (like 6 or 8),
+> audioreach_set_default_channel_mapping() can leave the map as all zeros. Could
+> this result in an active_channels_mask of 0 and break the DMA configuration?
 
--- 
-With best wishes
-Dmitry
+Yes, the old shift should be kept if the result mask is 0
+
+> 
+> [Severity: High]
+> This is a pre-existing issue, but struct audioreach_module_config cfg is
+> allocated on the stack in q6apm_dai_prepare() without being initialized:
+> 
+> q6apm_dai_prepare() {
+>      ...
+>      struct audioreach_module_config cfg;
+>      ...
+> }
+> 
+> When an unsupported channel count is used,
+> audioreach_set_default_channel_mapping() leaves the array untouched,
+> containing stack garbage.
+> 
+> While the previous code copied this memory blindly, the new loop here branches
+> on this uninitialized stack memory to construct the channel mask. Could this
+> result in unpredictable DSP configurations and leak stack contents in the IPC
+> payload?
+
+Yep the mapping array should be set to 0 in audioreach_set_default_channel_mapping() whatever the channel count
+
+> 
+>>   	p += ic_sz;
+>>   
+>>   	pm_cfg = p;
+> 
+> [ ... ]
+> 
+>> @@ -1113,7 +1124,12 @@ static int audioreach_pcm_set_media_format(struct q6apm_graph *graph,
+>>   	media_cfg->num_channels = mcfg->num_channels;
+>>   	media_cfg->q_factor = mcfg->bit_width - 1;
+>>   	media_cfg->bits_per_sample = mcfg->bit_width;
+>> -	memcpy(media_cfg->channel_mapping, mcfg->channel_map, mcfg->num_channels);
+>> +	/* Convert the physical mapping to a logical mapping of the channels */
+>> +	for (i = 0, j = 0; i < AR_PCM_MAX_NUM_CHANNEL && j < mcfg->num_channels; i++) {
+>> +		if (!mcfg->channel_map[i])
+>> +			continue;
+>> +		media_cfg->channel_mapping[j++] = mcfg->channel_map[i];
+>> +	}
+> 
+> [Severity: High]
+> This is a pre-existing issue, but similar to the above concern, could this
+> loop branch on uninitialized stack memory if mcfg->channel_map was left
+> uninitialized in q6apm_dai_prepare()?
+> 
+> This would cause the code to evaluate stack garbage in its control flow and
+> copy it into the DSP IPC payload.
+> 
+>>   
+>>   	return q6apm_send_cmd_sync(graph->apm, pkt, 0);
+>>   }
+> 
+
