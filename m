@@ -1,157 +1,129 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CECCC41E6CE
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 09:20:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 808BD233947
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 09:26:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785230403; cv=none; b=jef/FDanUUxhHzqYeGs2TAYnI39KIYRMXR4WZNofQMUio/oMxC2Af0C1KxK++jI4P5uilKJup1jgqypEowBMml0ucZsIn0vhNiIJ+CE7gWs5pNU8RfhCdqqP038cEvS0QeaNnaB0iZBZgSUyiGkSxoe1PG5480ZCQl/WSSUSaWc=
+	t=1785230762; cv=none; b=KVha7HdiWsKDu8z23dULwtKQnfzG8rQcAhHXsBRA5n2ncAKGY0bE4qo98MIC2Eam3xsKy4imL51bU4ELvh2VeZ7nYJv/XHm0kX964a6m0aEoXrDtyLLET2r4PUx8qk1xyxmYp8psAa+cAd8tj7iqtrj+cNN0fmUSuzBgG2CF378=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785230403; c=relaxed/simple;
-	bh=YeAz3ZiVICsPGo9HW945ctSIDY2E/S3Xka08U3kOzks=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=f/pOG4u2NogKxK9hut81GsXZ4DC51q5EGX62+GL0Is6YmvORkWxeW117Beub49VxRJJHXf++pqx6Go/X/rzY8jzbB0R+l+NTqNnxUQgOz2lzx1Qw2n8p1CE0Am0KJ/NvJOYrYsI0+cOvU+8abPu6x+bep37Cp+WQISjjLL5lXC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Y8tyKFmA; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dYNv46FB; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785230762; c=relaxed/simple;
+	bh=f2eik/o0Ih80ZunfQsMgjygmkYD81p3o9jl/SqNUrhI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=YDu3xpX+87oKBkDxDSC8U6N4yxGFcT0zXe98WqfMdNcVfKkpd0WWycdf45vQQ6/S5rNREI5bTrNPKVU4RxZzuTLbEITVfNhc2ARjJNUm93XKGnA6/qsLdt6iOATx0Cc8MLUYbmLbXRsjRPuhRMWvOKZnHI5rrMPo+Ve6Zxczoc0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I/UrYr0B; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Y8tyKFmA";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dYNv46FB"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66S82HZR2128873
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 09:20:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	VEi+hgqnlSwLcW8Ov2RLcJR0aePKOCpokuohN+ezecY=; b=Y8tyKFmA69KeOo0i
-	nyr/7QZBR195o9tkJq9836onogJpj9y/aTuOqyML6JdJteb0oUcOPGnD4dI/AT3g
-	8a7WOsCudM/w6jeDDlJ8bpXntgRAEKzUUamSI4eglpa6OfmMobVgjC1vj0rm4xvc
-	izmUedJ1LK4CrUUnHHQgpt6EnMLJWSnohUmp9ZUq5o9S+X1zGGzMK7V14jQBxgQZ
-	SKGbRewBZZH5GRaGJWSNmZJRQ/gvTHwlhyf0BdpeLY0qcYyJ1EgVDh27aU6kweEA
-	o2to/zi52QJH+DWjsOcAYbEuMAGGc85kOpO4Hw1he3J5Wd+IAL4C9IEXbbiL/lq+
-	lWd2LA==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fpbn8bebn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 09:20:00 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51c9d953b71so5023931cf.0
-        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 02:20:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785230400; x=1785835200; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VEi+hgqnlSwLcW8Ov2RLcJR0aePKOCpokuohN+ezecY=;
-        b=dYNv46FB9ZSJR3itCDs2UMZKDmI9v/O2mccMFC0bTRRSX38fpAd4y2a0wfi13U0xjh
-         m0K+rdl5LKQWchd0cYZfv2Sf9ecYm1qE69400oRQqL9ZWo4NkSSdYPmWOC5N5E13jgYC
-         dtmHeRTpwr4jaZjzKjT37onB77Vf/YMZBl9LMh3Xm6sJhJe4uC5+0CU2ZIdQWfGog4cN
-         gs9Panodxs8uz5s7CHZ57fc5Fjac3dOEhejKtXc1MA5IrmJGVMiLMvGRHBajrUc0DR6a
-         E6nHmRB35icoBgVvxDQoVUctrPo9vJ50fYhMJrSlp2nnEEKJDxCojXNUSzVJnJ0ppyD+
-         t3pA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785230400; x=1785835200;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VEi+hgqnlSwLcW8Ov2RLcJR0aePKOCpokuohN+ezecY=;
-        b=Sb7Ta396j62+ltAghLdt/0VcZr96iRgVeNwv/5Dh6KaK1P8s2YHRj6jmY2tubo7mwD
-         P4urAbQi8QQ4dpqmt3yZvhzntaJgUrjOq0vRs5qTXVRW6ETNyogEGlNGVOc91UnxaY+U
-         1EOA1Lr4kxVuO83GO46hHKUHSdQoqDqtnfGKOaI0QRz7vE4w2XTlrXq7n63gKJFPelBc
-         LACYquxT0ZE+BIXbAeFmKWdadxH5RsD2FZmNL79DZFfh7LRcR60eOUYcDW03sTyFWZ0s
-         dkdOS0jyWl0eTVpf2YVH73p98FFLes6VBaSLhjlUWKQl9AEBuiUmOtGcvyLuVm123Cf5
-         t3Tw==
-X-Forwarded-Encrypted: i=1; AHgh+RoUIkHiPq7Ye7rhyrdAk3/WI3Bjd2RqZvik8d+Fd7jVCF0jzLHLZpGR4nsVOSX7t1mPfUNKuqcFkS1K@vger.kernel.org
-X-Gm-Message-State: AOJu0YxK70BWdNebjeu5LH6P0I6QuU1XYa7AtKD9Op05p4jgeIavdKj/
-	XoSdm1mPFoK1EnXBmYfLJwNr1LnUqb/wkEsjqYwC1+x6nZtMAxPYyPYqpRValQKYAfug2/uwmes
-	5honOczgXePA2ogD3e27ijMOg2yIjbI67z79LeENSimDZW98tN5K6QOXrp850iSfDuo7VUnNp
-X-Gm-Gg: AR+sD11F5GdujGPmg7fxGl2cy1sjbxz7i4e97kYp23wdT84x/V5EZgV+EUPP/rzSxal
-	/cIpYK7nURjrXe3+XFSmUcG4qoRiyDuXhpJfTZcVtZzuzqGViCINk1XPqimn5jRUb8AGAU4B34j
-	r64ebfjFzPmYRgxKRV82H+W5saK0umrtpmz3Zwn/S5t7h+JVCvQBvoOOcaRGmAebnXMbRM/X0go
-	nPG0bre4s5fgmleMOXdAnDcP0vKwbD3i322evIe1QGzzGz2lPEyiYMwqHJyrZ35IIh5aHTkA3HT
-	5hZDhG0/78xLaq/yHVJFpBHPnH/lCmJGxKiegx6sBM7DsgJikuExi8+XDvD3G+tJ1RKrxo7cInZ
-	Y+4vjr3ukCM0n66rjq3KmIVi9
-X-Received: by 2002:a05:622a:58cc:b0:51a:d45e:638d with SMTP id d75a77b69052e-529d72160f5mr9344771cf.8.1785230400066;
-        Tue, 28 Jul 2026 02:20:00 -0700 (PDT)
-X-Received: by 2002:a05:622a:58cc:b0:51a:d45e:638d with SMTP id d75a77b69052e-529d72160f5mr9344611cf.8.1785230399590;
-        Tue, 28 Jul 2026 02:19:59 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1c32ebcc4dsm751829166b.49.2026.07.28.02.19.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 28 Jul 2026 02:19:58 -0700 (PDT)
-Message-ID: <2a66d7a8-91e6-4aa0-a650-b951fb5fafba@oss.qualcomm.com>
-Date: Tue, 28 Jul 2026 11:19:56 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I/UrYr0B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A81A11F000E9;
+	Tue, 28 Jul 2026 09:26:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785230761;
+	bh=DB6QKGnV7EqaVhusA2iMMYcGbQQZowTphNcjHkOeULE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=I/UrYr0B7Nd2Ssws5sIkencGjEZlw+Gx2bo8nhwoHdUYQAsFhUz9J8tiatRPrPKu6
+	 vlvfOSzQS/epCEn3zgd28JJhEwg27Om15tF5GM11rFEF0juYHmGr02gAZUxGSBnQr3
+	 OKDSciFZGkPuoQD1K8TBYXEMsJUaQxxyGCsXPeP+9uiTGjntiGncKsT3d2q4dwA6PR
+	 qzywvXEt7gkwpvPSQb2WSf9UZZdZG+63WT8M4NkwYU8kWXQi3SLUbLGdtS1Nedhlmq
+	 B9elzTp7y5jzFre49Nc2WM0Eh0zBZfdwtKySHseHLzb6jC14MgQyUZ+6SoP2gen2JY
+	 BlQqItZl4YRPA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5] arm64: dts: qcom: sm8650-ayaneo-pocket-s2: add
+ display nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Neil Armstrong" <neil.armstrong@linaro.org>
+Cc: wsa+renesas@sang-engineering.com, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260728-topic-sm8650-ayaneo-pocket-s2-display-dt-v5-1-892ab9bcecfe@linaro.org>
+References: <20260728-topic-sm8650-ayaneo-pocket-s2-display-dt-v5-1-892ab9bcecfe@linaro.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 28 Jul 2026 09:26:00 +0000
+Message-Id: <20260728092600.A81A11F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/3] remoteproc: qcom: pas: Add Nord ADSP and CDSP
- support
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260728084012.685036-1-shengchao.guo@oss.qualcomm.com>
- <20260728084012.685036-4-shengchao.guo@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260728084012.685036-4-shengchao.guo@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI4MDA4MCBTYWx0ZWRfXz52eKB1pbWBs
- BCpH97rKONn3boIf+wHsBaaldREla2/oZO0EoaLN9E4hM+l6ST6I76k6hNqNQLkuTCaEfMOTK3g
- mvV57Vb2N7To7GdH6f3W3M61Yp7aidH7v9nbLx0GLBsIzJIqqQphzPmM9CPy4zM2b1GefD0IDWD
- em6pJnvAHwfThrw2FrdHVv3/nJ+o3j8tyqwg/rYISERyyaAXaQ/4zLO7y7TYdsK3SwadKHuUDx/
- aXJr2FBa5dRitZynRxC4pTzLeAcgDTz4uh3XzN6rn0lkCEzfGwL5Xqx1YbpWMBl9WJ64VnYWbbE
- UQi2lQ0un69uQ3UA3iZqJ/eCGQFFigWEc+g3MPdQtgg043Ba+ZEldgIF9JFHsHvdxCFj/qLDdJ0
- wklYNPZE7+/3hJ/TBtmJlBElvMKd1ig7p62N7oyx4TDXo8KThmQdIPxtll/G8KvoV9FJdyqZfdX
- kbfPGfHIT2WBfbFe29g==
-X-Authority-Analysis: v=2.4 cv=RO+D2Yi+ c=1 sm=1 tr=0 ts=6a687440 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=3a8ZAtU5bMRv0GgPHFoA:9 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-ORIG-GUID: SVkLixVig0vKsoboO2_3UgjSQWeFSK9d
-X-Proofpoint-GUID: SVkLixVig0vKsoboO2_3UgjSQWeFSK9d
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI4MDA4MCBTYWx0ZWRfX6502xBqxImQV
- Gpb+g3MHAnaySFFE7wf3EdYFyOAgV+J4KuYRO1rPthKEfSeP4LiyVGihR83upUrgWrk9YLTL1/x
- DM+eDEJXeUy9AOYXY7rR8Gg72fYrI2A=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-28_02,2026-07-27_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 phishscore=0 priorityscore=1501 spamscore=0
- lowpriorityscore=0 adultscore=0 clxscore=1015 malwarescore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607280080
 
-On 7/28/26 10:40 AM, Shawn Guo wrote:
-> Add support for ADSP (HPASS DSP) and 4 CDSPs found on Nord SoC. The ADSP
-> is pre-booted by XBL before Linux starts, so set early_boot flag for
-> attach path rather than a cold boot sequence.
-> 
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Missing `irq-gpios` property for the `goodix,gt911` touchscreen =
+disables hardware reset and prevents power-saving during system suspend.
+--
 
-> +static const struct qcom_pas_data nord_adsp_resource = {
-> +	.crash_reason_smem = 423,
-> +	.firmware_name = "adsp.mdt",
+--- Patch [1]: [PATCH v5] arm64: dts: qcom: sm8650-ayaneo-pocket-s2: add di=
+splay nodes ---
+commit 45b53dce9edf26f8a360e6a4051f18fcd53da6f0
+Author: KancyJoe <kancy2333@outlook.com>
 
-Please use .mbn everywhere
+arm64: dts: qcom: sm8650-ayaneo-pocket-s2: add display nodes
 
-with that:
+This commit adds nodes for the dual DSI panel, regulators, backlight
+controller, touch controller, and GPU on the sm8650-ayaneo-pocket-s2 board
+to enable full display support.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> diff --git a/arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts b/arch/=
+arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts
+> index 0dc994f4e48d9..e933cb35a5155 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts
+> +++ b/arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts
 
-Konrad
+[ ... ]
+
+> @@ -1016,6 +1037,30 @@ wcd_usbss_sbu_mux: endpoint {
+>  	};
+>  };
+> =20
+> +&i2c4 {
+> +	clock-frequency =3D <400000>;
+> +
+> +	status =3D "okay";
+> +
+> +	touchscreen@5d {
+> +		compatible =3D "goodix,gt911";
+> +		reg =3D <0x5d>;
+> +
+> +		interrupt-parent =3D <&tlmm>;
+> +		interrupts =3D <162 IRQ_TYPE_EDGE_FALLING>;
+> +
+> +		reset-gpios =3D <&tlmm 161 GPIO_ACTIVE_HIGH>;
+
+[Severity: Medium]
+Does this node need an irq-gpios property to properly support hardware reset
+and power saving during suspend?
+
+Without the irq-gpios property, the Goodix driver fails to fetch it in
+goodix_get_gpio_config(), leaving ts->irq_pin_access_method as
+IRQ_PIN_ACCESS_NONE.
+
+Because the driver cannot drive the IRQ pin as an output to wake the device,
+it skips sending the sleep command during suspend:
+
+drivers/input/touchscreen/goodix.c:goodix_suspend() {
+    ...
+    if (ts->irq_pin_access_method =3D=3D IRQ_PIN_ACCESS_NONE)
+        return 0;
+    ...
+    /* sends GOODIX_CMD_SCREEN_OFF */
+}
+
+This causes the touchscreen to remain fully active during system suspend.
+
+Additionally, goodix_reset() is bypassed in goodix_ts_probe(), rendering the
+provided reset-gpios ineffective and preventing the driver from recovering a
+misconfigured device.
+
+> +		VDDIO-supply =3D <&vreg_l14b_3p2>;
+> +		AVDD28-supply =3D <&vreg_l14b_3p2>;
+> +
+> +		touchscreen-size-x =3D <1440>;
+> +		touchscreen-size-y =3D <2560>;
+> +
+> +		pinctrl-names =3D "default";
+> +		pinctrl-0 =3D <&ts_reset_default>, <&ts_irq_default>;
+> +	};
+> +};
+> +
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-topic-sm86=
+50-ayaneo-pocket-s2-display-dt-v5-1-892ab9bcecfe@linaro.org?part=3D1
