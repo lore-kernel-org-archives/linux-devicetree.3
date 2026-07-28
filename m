@@ -1,111 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A14011FC8
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 01:31:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61E2E26738D;
+	Tue, 28 Jul 2026 01:33:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785202282; cv=none; b=Jox+ze8UqD6M4WyL6ZglwpAmj4AXkAzWpiODQOd47G0uqgzOU6LJTPBN3FAEyk3NbgFckCHLUYGQ7UnN6Z+EU9FgAsDp2/e3D1EUzqPzSGtmr+9ONf9ts3TTmD7aTe1om5hHfQoJ58StrZ5MRf5MDqxTsmQnn+gyuG12Al9kzew=
+	t=1785202408; cv=none; b=RJCjQfxJriuHq0YMWhdxYjWIWM35zoV7Lk59fSxVRVS8VhuZSV8LM3m7YzBWIqnZ9xB1kBj0zGIQuGGGH0WjXxNKMEgpxKgLaNI30SYTn2lSNTzTGIO3Ge22e8F0tjslY60PM7Mqgsgo2KMhG/cT2M3QocRFWhgXu90Z5v35pI0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785202282; c=relaxed/simple;
-	bh=n39o3XRWL3tGbGGnjZJZDi0J7NDdhb5jzDt19PRefo8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=VtpD3rTlfux5CN2fMH1odFADXQHIvR+F6RPq2zTOuPebzNQaVa2IsvM4yvIGG8xU2IxwyYmyBHDI2uPUzE47rIaGipl/iUnsmL7qGP/UVWt3eUhOVqFUF051FshJcSYH2MklmSCaEgJwak6uD5n7qAqSLB/vJhDHT/fJnq2JkWo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F/A/aEI3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785202408; c=relaxed/simple;
+	bh=s5JDNfyp9kMaQlOuQ/uKyW3Dc9mZuKsJtGPniKP1Z2E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=OLUJigCCUY1Pam+VbAoW0m9uXAb9luQSSI+ZXA/eZvkYo9sfV7jdRgsH+3aW/d1sZgpt+09Cm6hjM8OVIzpj7rUtdSCYwvkjENtuZXgiE54nqJCX69If82xse/EigkvvGHe4PBE0WcQgaEkYbkHGD1G7QvIzm2aTNvllZfAYKBY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=vmnwT55i; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=LvzrB/pp; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F/A/aEI3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 063761F000E9;
-	Tue, 28 Jul 2026 01:31:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785202281;
-	bh=KnjYOjpovqJwmANwWKtQ6KuLARPrTd5brORaEbJwbug=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=F/A/aEI3cyU8jKXQwQj50ZbP1xRIocCIZ6BSfB9blLQswMDbbC9hGi/hqHRa2jqZi
-	 Tg13xf4WvqAIU+Wp6WTVtSkCSqWPHD76UEZ0heEa7BWo7rhRC4spE6EwzFOAzpu8/p
-	 oAgd/EfmPL81roDC2wf0WRDV1Qg8oHOH+C1G2TcwL14/ye4N8IckYSpE0QAK9e9+ZK
-	 eZWwicL3UxhjnOCI0fafitlIqz2XanXXqOxHP761dkIn+3KxbkuUT2QEnUkfJDk4+2
-	 P4msPZxXDNtjzO83A2l59fecjtGI3LUmw3Kb99VdKIDgROsnkfZt7z5gSGJsWrEX5M
-	 UlJImb76XFivQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 1/2] dt-bindings: usb: dwc3: Document Renesas R-Car
- Gen5 DWC3 xHCI USB controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marek Vasut" <marek.vasut+renesas@mailbox.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org
-In-Reply-To: <20260728011656.465040-1-marek.vasut+renesas@mailbox.org>
-References: <20260728011656.465040-1-marek.vasut+renesas@mailbox.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 28 Jul 2026 01:31:20 +0000
-Message-Id: <20260728013121.063761F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="vmnwT55i";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="LvzrB/pp"
+Received: from smtp102.mailbox.org (unknown [10.196.197.102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4h8HzS0YRdzMlDZ;
+	Tue, 28 Jul 2026 03:33:24 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1785202404;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=QAGBRJzxAXd/YNpm7LAmJOSIdx9xKXLFrjvM0ODM6w8=;
+	b=vmnwT55iY2I2ZSf3Ah5DH2VwkUxJiTdCCk2yZNCB8mA8SBGuPcDKfknNM+PnAwEpVBJYC0
+	h2SolJSHKv1ye0tIjKmzezNyJElLgqwbCft/YRmbIn16kxA4yMXcqr22B2mH2D+/Kl9422
+	6qA5Xs9SfqOQ9bIhBP2PvBhiuKyZyT/4gv6TUQqEnaaxv6OY/zrNObVWJ0+X4w9IMJVS+G
+	IgFJTQFB1WgMziSGFrDqiaUwylm+WMcvRo9+3B6iMBWRHJLq8XFJ3bT1VK8RFkeWRtfIcT
+	h70XDLg7I4VFTa0oIY3BCnUbqCv2G5aWTsqSQt4YaG4A2OTuE03Aluj+ur0oOA==
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1785202402;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=QAGBRJzxAXd/YNpm7LAmJOSIdx9xKXLFrjvM0ODM6w8=;
+	b=LvzrB/ppz4efZbAkqKa3f2fH9ALloDnPgeoZGlnLiTdk19+gPskedJOj6baZafEdT0asvN
+	gIuSVPOljh3ljq9MrDtzhETf7xG+rUKItlA9FcZV636P2tJIdPLO8l+61s919GdDlNJSuk
+	mADIxxJNolbm8W8y4wrfgyn33Dpz1yxjgh3p/hEXMgxHJMpiWgvJrQHht2YiNkfvtqvZ2I
+	af1tecSkL1bSavtMhnRl8Id/D0a+o8sNetdCnO7sbAwCBQap6QMnMyXoBr+mce7Mo2/Xta
+	bLQcsFAOFBXEI5q9IPRSBzswMKVO3i5iibXrVxME8Z2hQJOzSbwRLKBIL3WiqQ==
+To: linux-pci@vger.kernel.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH v3 0/6] PCI: dwc: rcar-gen4: Add support for R-Car X5H PCIe4
+Date: Tue, 28 Jul 2026 03:32:33 +0200
+Message-ID: <20260728013311.466242-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: cws3oz4firbjma7d535xwn5r6qe946fp
+X-MBO-RS-ID: 69e1614bf7576807205
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The device tree binding example uses a deprecated compatible string=
- 'synopsys,dwc3' for the child DWC3 node.
---
+Add support for R8A78000 (R-Car X5H) PCIe4.
 
---- Patch [1]: [PATCH v1 1/2] dt-bindings: usb: dwc3: Document Renesas R-Ca=
-r Gen5 DWC3 xHCI USB controller ---
-commit 716289e3efcde452eab06f93d71e6ed140cbc0c3
-Author: Marek Vasut <marek.vasut+renesas@mailbox.org>
+This driver previously supported R-Car Gen4 S4/V4H/V4M. PCIe features
+of R-Car X5H PCIe4 are almost all the same, except for different PHY
+which has its own driver, slightly different initialization code and
+the DMA is no longer eDMA but HDMA.
 
-dt-bindings: usb: dwc3: Document Renesas R-Car Gen5 DWC3 xHCI USB controller
+Endpoint mode is currently not implemented for R-Car Gen5 PCIe4.
 
-This commit adds documentation for the Renesas R-Car Gen5 DWC3 xHCI USB
-controller and its glue logic wrapper. It defines a new YAML binding schema
-that references the core snps,dwc3.yaml schema.
+DEPENDS: https://lore.kernel.org/linux-pci/20260728012548.465139-1-marek.vasut+renesas@mailbox.org/
 
-> diff --git a/Documentation/devicetree/bindings/usb/renesas,rcar-gen5-usb.=
-yaml b/Documentation/devicetree/bindings/usb/renesas,rcar-gen5-usb.yaml
-> new file mode 100644
-> index 0000000000000..a334648e2dfc4
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/usb/renesas,rcar-gen5-usb.yaml
+Marek Vasut (6):
+  dt-bindings: PCI: rcar-gen4-pci-host: Add R-Car X5H PCIe4 compatible
+  PCI: dwc: rcar-gen4: Rework rcar_gen4_pcie_drvdata
+    .additional_common_init into .init
+  PCI: dwc: rcar-gen4: Add .deinit callback
+  PCI: dwc: rcar-gen4: Split .start_link into ltssm_control and
+    speed_control
+  PCI: dwc: rcar-gen4: Handle PERST via reset subsystem
+  PCI: dwc: rcar-gen4: Add support for R-Car X5H PCIe4
 
-[ ... ]
+ .../bindings/pci/rcar-gen4-pci-host.yaml      |  74 +++--
+ drivers/pci/controller/dwc/pcie-rcar-gen4.c   | 264 +++++++++++++++---
+ 2 files changed, 277 insertions(+), 61 deletions(-)
 
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +
-> +    bus {
-> +        #address-cells =3D <2>;
-> +        #size-cells =3D <2>;
-> +
-> +        usb@c9c54000 {
-> +            compatible =3D "renesas,r8a78000-usb", "renesas,rcar-gen5-us=
-b";
+---
+Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Cc: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-pci@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
 
-[ ... ]
+-- 
+2.53.0
 
-> +            ranges =3D <0x0 0xc8800000 0x0 0xc8800000 0x0 0x100000>;
-> +
-> +            usb@c8800000 {
-> +                compatible =3D "synopsys,dwc3";
-
-[Severity: Low]
-This isn't a bug, but the example uses the deprecated compatible string
-"synopsys,dwc3" for the child DWC3 node. The base schema snps,dwc3.yaml
-explicitly marks this as deprecated in favor of "snps,dwc3".
-
-Should this be updated to avoid triggering warnings during schema validation
-and to prevent users from copying outdated patterns into new device trees?
-
-> +                reg =3D <0x0 0xc8800000 0x0 0x100000>;
-> +                interrupts =3D <GIC_SPI 795 IRQ_TYPE_LEVEL_HIGH>;
-> +                maximum-speed =3D "super-speed-plus";
-> +                phys =3D <&mp_phy 2>;
-> +                phy-names =3D "usb3-phy";
-> +            };
-> +        };
-> +    };
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728011656.4650=
-40-1-marek.vasut+renesas@mailbox.org?part=3D1
