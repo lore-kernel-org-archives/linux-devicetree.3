@@ -1,117 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 720343ACA74
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 13:14:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DB513D47D9
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 13:16:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785244444; cv=none; b=n9qHhUHPNYFcEGxk/RULREQIqfsFhtfAwImFHD7LFioIVNk1iImepTNKSLYoq/cQ5rmWv51sIrWNkZTzXp46oGREnI9+e4VxOkzwJrDVk0ZksuqmiJVKFBH1c9Do9whfjfkQuqTTob6uYsTWJIvbeSToaCSsdu34geacHwQ68Ik=
+	t=1785244565; cv=none; b=YMzARLnveqZDl85FJoYygRNXBxNzsIg3QZRhuzj42iAkltlYDbLBH+9j+kIkv9KcKg0t6fqvOWmfH1o3LE5lAsVKl/jpD9UQj7yTg9pWb8vZNVJ0rte5OOsZ54mlF3dOxtOLyrIDKwMJI+9C5HATfqsr52KEbD3UrUdH9M56uw4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785244444; c=relaxed/simple;
-	bh=hM7wgJff5d7dm1zCwMs/ze2o10lynhLmBxBK0IeNa+w=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Y/VcbNSQq9whHQDVnWo4SNqPJv2bdU6D/epRiS7OmxNrax+rsR+gduF/KZ9Ib0F/i/QpUIYP31tI4Jf2RAh0j70FmR93f8Q3Jb7S3jdYbxs62pX5Plau6OZGiTWcwU5mQKKHxjS6pqLZOsxMvqIO145Zj9frjeNvpw5zH1IXYz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cCaobtUE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785244565; c=relaxed/simple;
+	bh=cLH93zo8+5LFvseU1ydD9VGz5QwjgSRbVRGQwkX1r9U=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mXTllst1mrdZddLpJul3kNfAeC+mm6BKV933uYQX+A+LfckR/+Kw62hiToXTxu0AwuQRSYAD0kTXg/HcSXaN8g77q3bAC/7oAR49S8roy6dxqwiSVkkLHn2iHCMgqwGf+lOsS4KedqHl6rBHcPzi+imc0aNcz/YI6jYzGdg+JB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WQKjZrB7; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cCaobtUE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1960C1F00ACA
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 13:14:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785244443;
-	bh=HstpdYfbywLWh4CB6nynAIB64mnsBl07BDpNKOrgIFE=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=cCaobtUEdzz6WRAUNsTL3Z2vgY+Co9DP4VkHm+Gsb7xa6sbxVRRo0eJmjA0z5lLco
-	 AEhqign9VQ1QldpFiba9OJX6QVUyv8VKT584kgql4jr0NllmZSJN+79lHqyIy2ug76
-	 AwNOw/8sBO2jiGYABfcfoAQ1qWvEgMdVR48oD8gN5wnNzvGn1KqXUEOXgplHORXW3Q
-	 R63ziezh8499ch4nkSEg/J2YWrYrfc+ktmsMa053XWGZamjCcJb2zyf2c7cOZOi8eB
-	 WOOy/DpYkNYX1/In6ThKJH/honitiwtyjASzpa/u0XJnE+PGssiBRxQaPRUxX3M56q
-	 xEXhTcDtCa+Aw==
-Received: by mail-oi1-f174.google.com with SMTP id 5614622812f47-4a416619cb2so1984902b6e.3
-        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 06:14:03 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Roh8HVs/DR0/xx6HXSBbk5xnsdS6h97KMXDcyDucWkhOIWwfzWH0Xo/QwEJSnBi3HWWqI6CCWdQnc/K@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw1S8qZ5ir4oheogZAY6FSwWFgwg0PswnGGB5Sfa6sU7V3ZaKAV
-	nZh8fhyq0LtefLDRdz5ubAuyf2abxjN0/BUJV9zZ4No0pqiLL9dIcvn5pzru30eIExJZ8BWcx1B
-	IOcXhL7T8SceLMDur+oqR0PALN3kSO8c=
-X-Received: by 2002:a05:6808:d4b:b0:497:ce6a:c1e3 with SMTP id
- 5614622812f47-4ad5b9ee590mr1487519b6e.31.1785244442094; Tue, 28 Jul 2026
- 06:14:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WQKjZrB7"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-496b7622a83so20035235e9.2
+        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 06:16:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785244562; x=1785849362; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NJ8Sz4jZn4MiZdWgUS+toUmyc9X4AmjEUEaGs5iVrDk=;
+        b=WQKjZrB7o3S1TXPjgtNoGkBXQhXmqq/Z3QIfkPsGqHVAEzuozPtaTLqSLKumMTmixh
+         nPccRnQ4jeKaDs8lXgtCNtqCvpiHcf0WD4PTM5XsTeOcMFys4SMXFNxkmzIvTcSmR98J
+         itzJeebwYl1rPHxXST/7FzukBFxIHAQTs7W+pFCQbIfVrCVftIQnBhdlZV/1dS6Eb5Fq
+         5kYWMz1Y9y5dqNg6/y9oqxWLoF4olZS1Bo2db9s/KUrzPBatfHY/68WBT4bfgW5Zm1gU
+         IzrxZF0QXJd/kfkKIa3SPoThrAUB2LaEhn50ThjAF4n4gTEuC2s0IqybOPsGZ7SDX8yJ
+         FaYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785244562; x=1785849362;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NJ8Sz4jZn4MiZdWgUS+toUmyc9X4AmjEUEaGs5iVrDk=;
+        b=r3EUfsLWm2R23xsVQeyiaiVeeB60ye9RLKusJfuNg/8w/DKFPm17PYn34fom6gpuWj
+         s/tvbedgw51P5Pu7Vcn3Td1XIkKQlCBOik/zCXdz8qIuJ4ZKntRyfF5P2C8WMk7NKaOk
+         Tm6bKTzpPz8Agjab+q0sCZPrDXHlG/fDKHveU8N8BV19Z9U6LNE4Op7FEo0VgjwVeNNU
+         Qs6ywTdOpybwLqoNtHRdtfsnGYdk/oqfjnXUq/G66sWszF98UnG651bPeZ3zicr4bENY
+         HqVs/EbDgFBTBWmgQspr6wz/zUW3aemGmdlXxIu+UblN5is9YzTosUwr0/qjkNXuX6mk
+         qShQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoFM0EZqiz0jrdAHX4zYEf3S/XyGuvmBP6P8/oRg673bOOd/DrWhyCJ7BQtmdcR4msnPTbb8rFOFORa@vger.kernel.org
+X-Gm-Message-State: AOJu0YzfdTpx+J+XNfuJpb31rypwVvKSsRAMsbn1r+XqCiXThrU2tEUQ
+	r6T6Dc+rNiRrtez5FLk54sU6cGSkqEUAVW9w9L6OWUb71UaRUs85gCB+iF9oPg==
+X-Gm-Gg: AR+sD127PTB5yxlIYXbDPDi/m/738NYykNM93RcNF7QZy2JSDdAA6BhIMCLO6uvao3s
+	ghWVJqDvG442sqH6xvsiJGZ0u/32udxUcl44yQR+kz6cCCietKoJoxkpyqsM0sPSpA9VhSEXWBM
+	ogrEUYrGMN4TzWaPTPIQhxqkpvkRkbBVHMIt67m9t/9BJC9aG3L61jqbGeUmNcOR7qL1Ui/rKG8
+	Zzh0a61wYU9C3Jf05V7SY1/N5vXNgtLa4GoJ88XFJkVYDbBfr171Olw8EIx9COMteMecLdRqVKB
+	IjXWy/GKEerBKxKfh3baxWKDaNzrBJ505dZ+UfmrP2OEcJlfn/qxRLd37lStNI/aSkcEsdIOK0M
+	FoB1i54lNszuksnRiJL+oaqN7y32fNKWl8bVfB885Nvn7GiXkbohI8WNhX7c50cW15K1X+xJKca
+	yHa+JZ8+B9SV4Gl7Xiz7OkHOVZ/c7AvpF5+/Z7AjfuoPdNWZ0r2lSxGsDZUNp7B1YNgG9PG1nIN
+	2sI49Fkr17zmatdRSR1kbbQ2/CM5FnB9+IN+5zu3KEGCxAjWbYK4XIcKw/PdVnfJ03GsAk5gTIA
+	bJR4qfOEO74HkNNO/WS07UPtQC0oYm8ASrgeiCP+cRFwokEGMUT4YwtCYtfrfulGM65s43fNY+4
+	0OwAhYNLd/17p
+X-Received: by 2002:a05:600c:1d04:b0:495:4e12:6ae5 with SMTP id 5b1f17b1804b1-496c6571d21mr26130575e9.26.1785244562007;
+        Tue, 28 Jul 2026 06:16:02 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496c44af19bsm74777785e9.3.2026.07.28.06.16.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 28 Jul 2026 06:16:01 -0700 (PDT)
+Date: Tue, 28 Jul 2026 15:15:59 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: sashiko-bot@kernel.org
+Cc: sashiko-reviews@lists.linux.dev, devicetree@vger.kernel.org,
+ conor+dt@kernel.org, robh@kernel.org, linux-iio@vger.kernel.org,
+ jic23@kernel.org, andy@kernel.org, nuno.sa@analog.com,
+ dlechner@baylibre.com
+Subject: Re: [PATCH v2 2/2] iio: dac: mcp47a1: add support for new device
+Message-ID: <20260728151559.000067ef@gmail.com>
+In-Reply-To: <20260727184226.DFC1E1F000E9@smtp.kernel.org>
+References: <20260727-mcp47a1-add-support-v2-0-d4591a2ce69e@gmail.com>
+	<20260727-mcp47a1-add-support-v2-2-d4591a2ce69e@gmail.com>
+	<20260727184226.DFC1E1F000E9@smtp.kernel.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260728091804.382753-1-wenst@chromium.org> <amiqKRkFItYwD6oL@redhat.com>
-In-Reply-To: <amiqKRkFItYwD6oL@redhat.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Tue, 28 Jul 2026 21:13:46 +0800
-X-Gmail-Original-Message-ID: <CAGb2v64zUO-azpTuei6LCypad2noGFbg+EmaBC1iidoZ2stQzw@mail.gmail.com>
-X-Gm-Features: AUfX_myW1QhqVL6Ph24cCnrD1naOOoxnlCT_fOiXs5oLs21mzKAdeU9Y2nOIEvw
-Message-ID: <CAGb2v64zUO-azpTuei6LCypad2noGFbg+EmaBC1iidoZ2stQzw@mail.gmail.com>
-Subject: Re: [PATCH v4 0/5] powervr: MT8173 GPU support
-To: Brian Masney <bmasney@redhat.com>
-Cc: Chen-Yu Tsai <wenst@chromium.org>, Stephen Boyd <sboyd@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti <luigi.santivetti@imgtec.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, Icenowy Zheng <zhengxingda@iscas.ac.cn>, 
-	YoungJoon Lee <getfeus@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, Jul 28, 2026 at 9:10=E2=80=AFPM Brian Masney <bmasney@redhat.com> w=
-rote:
->
-> Hi Chen-Yu,
->
-> On Tue, Jul 28, 2026 at 05:17:58PM +0800, Chen-Yu Tsai wrote:
-> > Hi everyone,
-> >
-> > This is v4 of my MT8173 PowerVR GPU support series.
-> >
-> > This time around Mesa was ready for basic testing, using both vulkanmar=
-k
-> > and glmark2-es2-drm (with Zink). Details below.
-> >
-> > Changes since v3 (all in the clk driver patch):
-> > - Changed pm_runtime_put() to pm_runtime_put_sync()
-> > - Added missing of_node_put() in remove function
-> >
-> > Changes since v2 (all in the clk driver patch):
-> > - Made COMMON_CLK_MT8173_MFGTOP depend on PM
-> >   - Needed since the driver implements PM domains using the generic PM
-> >     domain library, which also depends on PM
-> >   - Fixes build breakage (kernel test robot)
-> > - Fixed "RST_DELAY_CNT" name (Brian)
-> > - Dropped unused mfg_desc (Brian)
-> > - Added check of clk_prepare_enable()'s return value in
-> >   clk_mt8173_mfgtop_power_on() (Brian)
-> > - Saved error value for return in IS_ERR(data->clk_26m) branch
-> >   (Dan Carpenter / kernel test robot w/ smatch)
-> >
-> > Changes since v1:
-> > - Adapted to changed DT bindings
-> > - Dropped driver change
-> > - Use same power domain for "a" and "b" GPU power domains
-> >
-> >
-> > This series enables the PowerVR GPU found in the MT8173 SoC, found in
-> > some Chromebooks.
->
-> I'm making a pull for Stephen for the clk changes. Should patches 1,2,4
-> go through the clk tree? Patches 3,5 go through the DRM tree?
+On Mon, 27 Jul 2026 18:42:26 +0000
+sashiko-bot@kernel.org wrote:
 
-Only patches 1 and 2 should go through the clock tree.
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] Potential off-by-one in DAC scale calculation denominator.
+> --
 
-Patch 3, 4, 5 can all go through the soc tree if Angelo wants to pick up
-DT binding patches. Otherwise I can push patch 3 through drm-misc.
+Responding to Sashiko's comment.
 
+> --- Patch [2]: [PATCH v2 2/2] iio: dac: mcp47a1: add support for new device ---
+> commit 38bec2fbb020c3f749c52a26e5cc3e78e72eeaf5
+> Author: Joshua Crofts <joshua.crofts1@gmail.com>
+> 
+> iio: dac: mcp47a1: add support for new device
+> 
+> The Microchip MCP47A1 is a 6-bit volatile Digital-to-Analog converter
+> which communicates via I2C.
+> 
+> > diff --git a/drivers/iio/dac/mcp47a1.c b/drivers/iio/dac/mcp47a1.c
+> > new file mode 100644
+> > index 0000000000000..140e93ff2ba01
+> > --- /dev/null
+> > +++ b/drivers/iio/dac/mcp47a1.c  
+> [ ... ]
+> > +static int mcp47a1_read(struct iio_dev *indio_dev,
+> > +			struct iio_chan_spec const *chan,
+> > +			int *val, int *val2, long mask)
+> > +{
+> > +	struct mcp47a1_data *data = iio_priv(indio_dev);
+> > +	int ret;
+> > +
+> > +	switch (mask) {  
+> [ ... ]
+> > +	case IIO_CHAN_INFO_SCALE:
+> > +		*val = data->vref_mV;
+> > +		*val2 = MCP47A1_MAX_STEP;  
+> 
+> [Severity: Medium]
+> Does this code use the correct denominator for the scale calculation?
+> 
+> Since this is a 6-bit DAC, shouldn't the scale denominator be 64 (2^6)
+> instead of the maximum step value of 63? Using MCP47A1_MAX_STEP (63) here
+> introduces an off-by-one error that could cause userspace to calculate
+> output voltages with a ~1.5% LSB scaling error when reading the sysfs
+> attribute.
 
-Thanks
-ChenYu
+Yes, the max amount of steps is 64, which should be passed here. I'll
+add a separate macro for this in v3.
+
+-- 
+Kind regards,
+Joshua Crofts
