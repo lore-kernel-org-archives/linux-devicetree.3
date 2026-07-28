@@ -1,237 +1,111 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65B633C9EEC
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 18:13:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64FCC3CBE71
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 18:14:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785262411; cv=none; b=SQ6XQ68b3GDC33ac2Yj1KdFrCB1ipM+WxJc0JbU0ols2qjw1I8z4oPHUhSjA8q1Co4q+Za/5wNbgft6FcYFm96JaIHU7CNDn2E+Ilq2Rx1kiq/7aaWt96wem7/EoUBXkDmajmngldnxT+YVE0wmLQlJ1U8J8t7bxCLnqkuMUY40=
+	t=1785262484; cv=none; b=nZ0phF6qQD4DpuRL2qzAnulg2JpW9e5f/UHagm1Zk+E6uubMLJlg0OdbWnN5drkIEkL7dzrkaJIZJbd2UUfynz80y5MThVr6EJZXB94f5nqiKOHXkEbEYZwK3VatfFZ7KBcNrl/xMh5obXXiT/WGEdY8S5DsAtfJoSWue39MmLU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785262411; c=relaxed/simple;
-	bh=jY6dnqvHqg10KwmO68TrPmov0yHK8C6hEToNCKrRsr4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=V6oFpnP01hRewCt9DH83qLDXWBVHi1W38++z31oEXGf3MiuVQkwziQT1OZuWqQJDDjq0jKKSSD877dEN7IlZ6uOg8UCnqlKae44Pj55BCgFKPyyQ4kzk0vHNm4DJ2zGkEHsndZPsVTb6yB+kiDtrXJuc3xBdQcQ2uMZIg4qhp+A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UuME5CsZ; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785262484; c=relaxed/simple;
+	bh=EC6aA9Q8JLdRJEwxG4yffW8F7mC9lxIy0k23Ifj2PsQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=HTpKhstJVvnV9LqFfnxRp+8jQneBb+JNeZP80cp3go5ooB8TS5cNTXEE3xMhhnbHtQK1oOI3TWJ8s/NjcHylqrGWpuwpb6tE5EBEB9UKqyk48Vj3jHZ9vV/98WE7M/HygzZmlkCqS/MqqjcUUFSo1k2rMEHPU6sgAdfyRwrCbIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PRDdvdl3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UuME5CsZ"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-381216921aaso120388a91.1
-        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 11:13:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785262409; x=1785867209; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YMSPpx6yGKTGt83Sgz1eRa+q8wGQ4JN++szdtt2dYyA=;
-        b=UuME5CsZQjqyb2mrQUATIO4vZ6+C0hSQdhuMNCT3jWqVdCo+gGA6L1gidOn7INn8e8
-         JD5Z5HFpaRRZKWBNf8D7JN6xTgSWqu8kag02bZ93t4Zv2DCSRl+DgH4v6bSmX9DgC8gr
-         h5xdOhnjVUrk/RDHquYuwH/qLwnqACfMVvyyqLsVUPagF+SoDevAXpvt2cysVGJv01/e
-         svfmMcJ5yD+eD+urMqaBc6vECa0+FKWsNkCZS7Q6WxwNUgtuVek/Yr46iJuhjxIWlQy0
-         Ix1mPrtWCI9yszseN2PsfBt6HNPn+P85b5m96pAj5wrMqe6CjkBe9GntTILe8ms4p298
-         uR4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785262409; x=1785867209;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=YMSPpx6yGKTGt83Sgz1eRa+q8wGQ4JN++szdtt2dYyA=;
-        b=aE6Kb9KFkm4BLyqQddPkt6xbUMb1PbrEQvK9nnbeSQLeJEr9apF4be19dLhpKr4rH1
-         riTwE4CXyC4Ls70bKP3EY3oPKCmfljiAHbAtWBbpN9g6PhWvq6M6UyjX5OMopgZmbN4M
-         bMVcHaXzl304iG+4he/mYXxA6w9RakZWDsosh1+BFC2u2bxBpJWYR4Yf60TKsja64oQD
-         8minSvNkC6suXUQXTnqk+aI6Vt23J50wWsBLajoQIGpgHXOx5sCmHLEC9ARGv49HxZTm
-         nwjFPEtm0/SI+Q1+tiqs9wotCEmXjfRG+d5pICo2Lhf2LbNkU/wmdE6QQ2Mq94ZYLMYI
-         et1A==
-X-Forwarded-Encrypted: i=1; AHgh+Ro88e0idJrzpoubUjDCCNofsRMAA7552Q1qCYTNeEk7ofP+bk720Z3ultbZ56PtXxH3EAwS/CiwOxQ9@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx+8X9znMPs4yB5dXyhZfrwuMjPRbTZA7ludd6h844JaHEZuKiO
-	Ke8FMdYuO2N9B50TjX/nGQjLNkpfdc0wF5p3HHlIHrHeZqnyPlgaw3wT
-X-Gm-Gg: AR+sD10/AgNggFO5kjIprZzTSUsV/kAJrQg+Ek5tgQtouXw1hfs1CFVmEb6dIWAe1gx
-	u2dFtoh8K87egHMzXzX04IAgI5J0/fUxNJ+UDn/RQlHjpjRtXKQBQmCDj2UeWZaAecqaCE1Bue7
-	Jfo+YEt5iZBKrKL+ZnUividyqfvK3eabXDLCK51PiABOpb9d3nfQqgmNjuvCcsDSQ4mFj7BE+5T
-	QKH7vZBigc+YWeANEI5ZdZ7oOhWW+vMwpt9zFlFuQxqc9qp472N/X7BzF2TtovNZSOP82gwWJZs
-	KiidEhk6ik5P/n3/pitqrakPE2540y8BMm0yvXOvgI/Dfp2R5+0ZhR3Q96vNkSCIY+bTdb1O2sw
-	RVlvnglreOWwE91ZJizQgca4YSBER/n1wvzB3+cWK4M0loj8Lwl+chpdbN7i1FbAgL3ZGb8YvpL
-	1EM11mv8G38bucEYQxJ5tGuvOaacMInMdFTXrJDQxCrNZqsPmjeiQ=
-X-Received: by 2002:a17:90a:d888:b0:38d:e658:595a with SMTP id 98e67ed59e1d1-38f6a30d87emr3634504a91.2.1785262408610;
-        Tue, 28 Jul 2026 11:13:28 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31504d373c3sm915235eec.23.2026.07.28.11.13.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 28 Jul 2026 11:13:28 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <e8ba1c8a-cf68-421e-9974-f31f31e90e59@roeck-us.net>
-Date: Tue, 28 Jul 2026 11:13:26 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PRDdvdl3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7CDC1F000E9;
+	Tue, 28 Jul 2026 18:14:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785262483;
+	bh=2qwp5LAUuaXArgTQqY4BywVwBmsQlveKZEsLbR3mFxY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=PRDdvdl3L7SqC3eZTl5R0FtLMnZor/G/K+eItQV+y1Xi5SpyL8qJaGr/WkVUQU+Ec
+	 1Cza5XKjyEiWIFXGfd/aAxUx2I/w8UmYWdOlZ6eAMpQIYlrSNuUHpw/Aj1sFnYs75H
+	 VfAYtQ7bsPVHS3XoPDtMGrFYKTPy4UXQbwiG8HnirYZbFcRpU+gYkMDy9oCuI0ARyZ
+	 HmAIKjIHVBAZc9fnBmqA3kHsH0Yg5OchkRUC81aAqZAfXqt/hxp9Z/qTNi54OtqVVS
+	 +owWLoXqzViRoVmIz5ItbbOXi2BNacfkw0jSND6eUUQOoDXlOaljChaRDNHCKp4uCt
+	 +JGEKsr+7ReyQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 5/8] platform: arm64: qcom-hamoa-ec: Verify required I2C
+ adapter functionality
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Anvesh Jain P" <anvesh.p@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260728-ec_add_more_commands-v1-5-771abd65ee1a@oss.qualcomm.com>
+References: <20260728-ec_add_more_commands-v1-0-771abd65ee1a@oss.qualcomm.com>
+ <20260728-ec_add_more_commands-v1-5-771abd65ee1a@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 28 Jul 2026 18:14:42 +0000
+Message-Id: <20260728181442.A7CDC1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] hwmon: (pmbus/core) Add mapping function to
- pmbus_read_block_data()
-To: sashiko-reviews@lists.linux.dev, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>
-Cc: conor+dt@kernel.org, linux-hwmon@vger.kernel.org,
- devicetree@vger.kernel.org, robh@kernel.org
-References: <20260728-hwmon-max20826-support-v1-0-224766e0acd1@analog.com>
- <20260728-hwmon-max20826-support-v1-3-224766e0acd1@analog.com>
- <20260728162749.A42051F000E9@smtp.kernel.org>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260728162749.A42051F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-On 7/28/26 09:27, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> 
-> New issues:
-> - [High] Stack buffer overflow in `pmbus_debugfs_block_read` due to unbounded return value from custom `read_block_data` callback.
-> 
-> Pre-existing issues:
-> - [High] TOCTOU data race on PMBus hardware page selection during probe.
-> --
-> 
-> --- Patch [3]: [PATCH 3/5] hwmon: (pmbus/core) Add mapping function to pmbus_read_block_data() ---
-> commit c4bd4d03203a9fd14a7a2bcff69ec842b441fa68
-> Author: Nuno Sá <nuno.sa@analog.com>
-> 
-> hwmon: (pmbus/core) Add mapping function to pmbus_read_block_data()
-> 
-> This commit introduces a mapping function to pmbus_read_block_data() in
-> preparation for adding support to a device which needs to use its own
-> read_block implementation.
-> 
->> diff --git a/drivers/hwmon/pmbus/pmbus.h b/drivers/hwmon/pmbus/pmbus.h
->> index 3d5586c67f840..d697939ec8921 100644
->> --- a/drivers/hwmon/pmbus/pmbus.h
->> +++ b/drivers/hwmon/pmbus/pmbus.h
->> @@ -459,6 +459,9 @@ struct pmbus_driver_info {
->>   	int (*read_byte_data)(struct i2c_client *client, int page, int reg);
->>   	int (*read_word_data)(struct i2c_client *client, int page, int phase,
->>   			      int reg);
->> +	/* size of data_buf is I2C_SMBUS_BLOCK_MAX + 2 */
->> +	int (*read_block_data)(struct i2c_client *client, int page, u8 reg,
->> +			       char *data_buf);
-> 
-> [Severity: High]
-> Does this API need a size limit parameter? The comment specifies the buffer
-> size is 34, without providing a limit parameter to the callback, which might
-> encourage callbacks to return values up to 34.
-> 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The IRQ handler is requested and SCI events are enabled before the=
+ `ec->ec_cdev` array is allocated, creating a race condition that can lead =
+to a NULL pointer dereference during `qcom_ec_probe()`.
+--
 
-The maximum amount of data returned must be 32 bytes, not 34. Callers define
-a larger buffer size to be able to append, for example, '\n\0'. The function
-itself, however, must not return more than 32 bytes of data, plus the data
-length in the first byte.
+--- Patch [5]: [PATCH 5/8] platform: arm64: qcom-hamoa-ec: Verify required =
+I2C adapter functionality ---
+commit a6f49e31946f2ee0f2b44aae1db005b085a4d77b
+Author: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
 
-Guenter
-> [ ... ]
-> 
->> diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus_core.c
->> index 7b58f71985741..ff4572c473b70 100644
->> --- a/drivers/hwmon/pmbus/pmbus_core.c
->> +++ b/drivers/hwmon/pmbus/pmbus_core.c
-> [ ... ]
->> @@ -678,7 +698,7 @@ static bool __maybe_unused pmbus_check_block_register(struct i2c_client *client,
->>   	struct pmbus_data *data = i2c_get_clientdata(client);
->>   	char data_buf[I2C_SMBUS_BLOCK_MAX + 2];
->>   
->> -	rv = pmbus_read_block_data(client, page, reg, data_buf);
->> +	rv = _pmbus_read_block_data(client, page, reg, data_buf);
-> 
-> [Severity: High]
-> This is a pre-existing issue, but can this lead to a race condition with
-> sysfs accesses during probe?
-> 
-> Looking at pmbus_init_debugfs(), it traverses pages and reads registers
-> without taking the pmbus_lock. This indirectly invokes pmbus_set_page()
-> through pmbus_check_block_register():
-> 
-> pmbus_init_debugfs()
->    pmbus_check_block_register()
->      _pmbus_read_block_data()
->        pmbus_read_block_data()
->          pmbus_set_page()
-> 
-> If userspace reads or writes to a sysfs attribute concurrently, it acquires
-> the lock and sets the hardware page. Could the lockless call from
-> pmbus_init_debugfs() interleave between the sysfs thread's pmbus_set_page()
-> and its subsequent I2C operation, causing the sysfs thread to hit the wrong
-> PMBus page?
-> 
->>   	if (rv >= 0 && !(data->flags & PMBUS_SKIP_STATUS_CHECK))
->>   		rv = pmbus_check_status_cml(client);
-> [ ... ]
->> @@ -3564,7 +3584,7 @@ static ssize_t pmbus_debugfs_block_read(struct file *file, char __user *buf,
->>   	char data[I2C_SMBUS_BLOCK_MAX + 2] = { 0 };
->>   
->>   	scoped_guard(pmbus_lock, client) {
->> -		rc = pmbus_read_block_data(client, entry->page, entry->reg, data);
->> +		rc = _pmbus_read_block_data(client, entry->page, entry->reg, data);
->>   		if (rc < 0)
->>   			return rc;
->>   	}
-> 
-> [Severity: High]
-> Can the new callback return a value large enough to cause an out-of-bounds
-> write here?
-> 
-> If _pmbus_read_block_data() delegates to the new read_block_data callback,
-> and that callback returns a size of 34 (I2C_SMBUS_BLOCK_MAX + 2) or greater,
-> would it cause a buffer overflow?
-> 
-> Just below this hunk in pmbus_debugfs_block_read(), the code does:
-> 
->      data[rc] = '\n';
-> 
-> Since the size of the data array is 34, an rc of 34 would write past the end
-> of the array. Is a bounds check needed on rc before using it as an index?
-> 
+platform: arm64: qcom-hamoa-ec: Verify required I2C adapter functionality
 
+Check the underlying I2C adapter supports both the raw I2C transfers
+used by the fan RPM/LUT commands and the SMBus byte and block-write
+transfers used by the other EC commands, and fail probe early with a
+clear error if it doesn't.
+
+> diff --git a/drivers/platform/arm64/qcom-hamoa-ec.c b/drivers/platform/ar=
+m64/qcom-hamoa-ec.c
+> index d0c45d9970eee..a420a180a1948 100644
+> --- a/drivers/platform/arm64/qcom-hamoa-ec.c
+> +++ b/drivers/platform/arm64/qcom-hamoa-ec.c
+> @@ -1195,6 +1195,11 @@ static int qcom_ec_probe(struct i2c_client *client)
+>  	unsigned int i;
+>  	int ret;
+> =20
+> +	if (!i2c_check_functionality(client->adapter,
+> +				     I2C_FUNC_I2C | I2C_FUNC_SMBUS_BYTE_DATA |
+> +				     I2C_FUNC_SMBUS_WRITE_I2C_BLOCK))
+> +		return -EOPNOTSUPP;
+> +
+>  	ec =3D devm_kzalloc(dev, sizeof(*ec), GFP_KERNEL);
+>  	if (!ec)
+>  		return -ENOMEM;
+[Severity: High]
+Could this regression result in a race condition where the interrupt handle=
+r is
+requested and sci events are enabled before the ec->ec_cdev array is
+allocated?
+
+If an interrupt fires immediately after devm_request_threaded_irq() and
+qcom_ec_sci_evt_control(dev, true) enable it, the handler could execute:
+
+drivers/platform/arm64/qcom-hamoa-ec.c:qcom_ec_irq()
+  -> qcom_ec_restore_fan_state()
+    -> queues ec->fan_calib_work
+
+The asynchronous workqueue function would then run:
+
+drivers/platform/arm64/qcom-hamoa-ec.c:qcom_ec_fan_calib_work_fn() {
+    ...
+    ret =3D qcom_ec_fan_calibrate(ec, &ec->ec_cdev[i]);
+    ...
+}
+
+If devm_kcalloc() hasn't yet allocated the ec->ec_cdev array later in
+qcom_ec_probe(), couldn't this cause a null pointer dereference when
+qcom_ec_fan_calibrate() accesses ec_cdev->parent_dev?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-ec_add_mor=
+e_commands-v1-0-771abd65ee1a@oss.qualcomm.com?part=3D5
