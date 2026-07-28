@@ -1,80 +1,66 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEFE435C180;
-	Wed, 29 Jul 2026 06:37:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61D2422F388;
+	Wed, 29 Jul 2026 06:44:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.238.236.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785307068; cv=none; b=Xyg0XsE5o6rgMaeQDs/WYcYfazP3z0u+w3TbJuX4RDvStxmmdkw08VH3XF0mjuYGqeJNImLHgcaJXf9BKET+JGrO2HgwxjbwY7sbgt1e4u1LnO4NqlN5Gv9G83B3b0b0aLZksFvcslVoNFOivXivJJ8iaCpWY4WUPtyUdTMxKis=
+	t=1785307458; cv=none; b=Fzedf8ZhPv5IX89mXTsfIhACDlQto9s+q2+swQlk8ZZzAALdYT3sxE2NghtWjYUfZW6b8y0wz2Wp2QRqxv5pcM3rGzRZNtMZ6H7QAy+xaxAQRvIbQ4Jo3xUsIxHyIj/VSfcLZO+Bx+UQcL+duhmVnk9xHsHGVYEMJ5eNMCq0d1E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785307068; c=relaxed/simple;
-	bh=GvnmN4k8ot2+BrnWb+qmwUmKhkGrA2xZxQLRY2fwcp4=;
+	s=arc-20240116; t=1785307458; c=relaxed/simple;
+	bh=sLK0Px9bN5uxk6Qn8S1A33CXOtJbPApbw/EYIsT+gjA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=D8fK6K91cJltYTFvBVpIvNHXZZaR6QEHi8cuPPxkeBu9wrRpMpIlpWRyD1v3jC1QR9s/DY95PvhGlcqxtYbJCbuBQU2ljPUNcUWIDQUA2aE53MVW/mDXkObPHpMixV9Cmy3IElhndhZkfoPPPY5PW2BN5+Q5+FlqGxPVS+kjjiY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OQsZReJi; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ezkimIxMRUgCdaqV94YUUVeuMmSkl/NpYde0uRX3szBx9oMcbPyuMHilzrTKjgLK1b1++EcYFAvS9KM4n3tI0tQGg1YpRuEn1z0e2OWRsCA6YW0MQz+gcHHXkQ6toVNSOwp/lXXYxirg+1LTrCF/qa8KJYVjRPIV2WsoP8DiP/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info; spf=pass smtp.mailfrom=kemnade.info; dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b=3EEGSwUi; arc=none smtp.client-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OQsZReJi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AE151F000E9;
-	Wed, 29 Jul 2026 06:37:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785307067;
-	bh=gFtOBaYt4v8tf/tSy1jDnMaquKAr/fwb65iurTEaIzg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OQsZReJiEfWteyX1tkyFmRzgtB9YoH1UboyulElcsk9u3te6lni5He9Wj5co5d5Ny
-	 VgsWFvGmkfEH5DPRiOgfEdwrP98R4/yrBbcZ14AD4fgRlpCEJKyy0KnzbM4gYw50YO
-	 JONbqlYgQPIkf7rZ+DSMpGYxQaBu4wU9r5YzqSE0PWTfsWjt5GsNbN2qvqeSAhPWVj
-	 foD0XSN2IQ6Z//PYT/THnSg/7yAQp1ijD60EBBq5GPWTjW9Rkj1DtOTYj7O+jgwTj7
-	 j+BP0BRmvjYSnOZ7xBCu6huuv0aWWI8lCCyVBgxwGrGHRLD6tAOCiVGRrpjs/xxC2j
-	 2B/S6FZaZyOvw==
-Date: Wed, 29 Jul 2026 08:37:42 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: mohit.dsor@oss.qualcomm.com, Sunyun Yang <syyang@lontium.com>, 
-	Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Vinod Koul <vkoul@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, venkata.valluru@oss.qualcomm.com, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Mohit Dsor <mdsor@oss.qualcomm.com>
-Subject: Re: [PATCH v8 1/2] dt-bindings: bridge: Add Lontium LT9611C(EX/UXD)
- MIPI DSI to HDMI driver
-Message-ID: <20260729-truthful-cinnamon-giraffe-f250d6@quoll>
-References: <20260728-lt9611c-v7-v8-0-bda216bfaf37@oss.qualcomm.com>
- <20260728-lt9611c-v7-v8-1-bda216bfaf37@oss.qualcomm.com>
- <114159dd-0271-4d15-b07d-20fc1e28ee6d@kernel.org>
+	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b="3EEGSwUi"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=kemnade.info; s=20220719; h=In-Reply-To:References:Subject:Cc:To:From:
+	Reply-To:Content-ID:Content-Description;
+	bh=gu+SkBzNShlqBj4mZPOnaItR1bGdPkMV50LZRMhRbkY=; t=1785307457; x=1786517057; 
+	b=3EEGSwUi/LmFuFu+9ZW7OK8JiSKHWbUBizI1Qn+GCCAjLsTaEBMNgOoCNY8Jgw3aZctVAtG0ONz
+	mkmGCiNMqB4sXMC2eiejRNPQnq6jVTwsb5Fx4vr6EJ4VAa52WsTi4rh/l2lJf1QwJCY915LU4Yzgv
+	XsY5jWb4PFU8bz8/DVnnLRW4H4ZmiQpvKoYQ8vvoFQxFtV66E8YH6m99ncfYKP7bRJpMOUcrBmCX4
+	YwjIMSFlslF7AeL/ldTbYjt7b5X4diiwDS0C2+4JXSv8xy1Rzykdss3zhTcKCR7aC64h0XR/u2tRW
+	yrgCczwA4TN52TEOHimubzKBOTrfypiE9xww==;
+Date: Tue, 28 Jul 2026 20:27:07 +0200
+From: Andreas Kemnade <andreas@kemnade.info>
+To: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	--cc=linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org,
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v5 7/7] ARM: dts: ti: cpcap-mapphone: add USB safe
+ pinctrl state
+Message-ID: <amj0ezBlWdxKysM9@akepd>
+References: <20260711204210.197144-1-ivo.g.dimitrov.75@gmail.com>
+ <20260711204210.197144-8-ivo.g.dimitrov.75@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <114159dd-0271-4d15-b07d-20fc1e28ee6d@kernel.org>
+In-Reply-To: <20260711204210.197144-8-ivo.g.dimitrov.75@gmail.com>
 
-On Wed, Jul 29, 2026 at 08:18:58AM +0200, Krzysztof Kozlowski wrote:
-> On 28/07/2026 13:09, mohit.dsor@oss.qualcomm.com wrote:
-> > From: Sunyun Yang <syyang@lontium.com>
-> > 
-> > LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual port
-> > mipi dsi and output hdmi, differences in hardware features:
-> > - LT9611C: supports 1-port mipi dsi to hdmi 1.4
-> > - LT9611EX: supports 2-port mipi dsi to hdmi 1.4
-> > - LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
-> > 
-> > Signed-off-by: Sunyun Yang <syyang@lontium.com>
-> > Signed-off-by: Mohit Dsor <mdsor@oss.qualcomm.com>
-> > ---
+On Sat, Jul 11, 2026 at 11:42:10PM +0300, Ivaylo Dimitrov wrote:
+> Add a pinctrl state that configures the USB interface pins into a safe
+> GPIO configuration. This allows the CPCAP USB PHY driver to place the
+> pins into a defined state whenever the USB interface is not active.
 > 
-> NAK. You received review. Sending the same is wasting our time.
+> Signed-off-by: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
 
-Actually you ignored TWO independent reviews, so I will not waste time
-on this patchset anymore.
-
-Best regards,
-Krzysztof
-
+Reviewed-by: Andreas Kemnade <andreas@kemnade.info>
