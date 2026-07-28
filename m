@@ -1,231 +1,158 @@
-Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 839B9412BEF;
-	Tue, 28 Jul 2026 21:10:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.154.119.183
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 707DF409635;
+	Tue, 28 Jul 2026 21:17:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785273050; cv=none; b=oezahD9gmHuILjv5RagwoLbJRGH+h2V3F5uRLmE98UjLzOc1PIuKGPV5LkFKbgP/PTg6/VmekVeIWvQYtX3A6UA7VccEK6YJEo6bB7Eyv0whgkXf2PfgIXC5/duzpS7BmykiE3a1/bZdAcEBL4mH6af0erYsbcnOAnCN7YsLf2k=
+	t=1785273446; cv=none; b=ga5bfaycRuWokyza0mn/iPK68k/E6V9/UsjbH1YNbLvMn4SCbpKJh8iGWOOgRz5EjaqW3iNY/0zie06P1TA5t47ewZL5fhB3lr3dKa9viEqqVs6p1qmWrD2V+etZy5TNstTA6Ba/xb7JQNwGtKgQjecu2hJNhGrQJ4O8pHyxBG4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785273050; c=relaxed/simple;
-	bh=hGZJdCjA/wfanvh8bwxcJrMfRHvGTgr/7KSpqPHJQ+Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ONb2Fa24SAXo6qDfBhS9Z9wf3sly5WLTheBKGpzjkOeMeyJywF71k6AiH0mLfvFFj/C0kQ3wB+igVUvpL1slhduzhdcmtWew5W+eWxmd58k6DX2wObKrXeb12GRuqkCgQ+ObK4UEB7kcMYg6Sw02NnC0/SS6GERr+ziil8RmuS0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net; spf=pass smtp.mailfrom=aurel32.net; dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b=aSEuD1EI; arc=none smtp.client-ip=195.154.119.183
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
+	s=arc-20240116; t=1785273446; c=relaxed/simple;
+	bh=72f8biyVUgH335xMxu6GsNjwxPf4qtOV1/vFiyhG41w=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=HD+T1b56C9bxe82AlRIDyanHeXNyz6UCyizvqsynI4/8WM/PZ5aBbCl2uSGBK0Z6ZNN+1OKOdcknNycGbL0oOw7ynqp0JCSSdTx/XQodnPATFxKBGGJNpCn+zcVYx7d8baDudSwwDJ3AvZ2L3ZtfP0LZBHCkRxMG5dNTqff8xj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ga2S1uTO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b="aSEuD1EI"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
-	; s=202004.hall; h=Content-Transfer-Encoding:MIME-Version:References:
-	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Content-Type:From:Reply-To:
-	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
-	bh=75T68Dc5K+ZZomhXTVbW/9LBYG260fJUSxJ+PhasIDk=; b=aSEuD1EIK7iPtJ5/MoNNM+KGJj
-	IuYOXfKcv3+ISWjtaEySmcauMleZa9zCnoTeSNl1dhpLPBM0K4XDH5ty5MPgwjBS5InuS8cGrtshh
-	Q14A1psopXNnybfkc+UXWxkCtUiDRUQjBz7SQXTPMyVtv1eEO0PCPg1dYu7Sv3PXjRKRSfuntw3Tc
-	Z+WFlz+Xp4QKx/Ymtx315HNmwiW+b9IrRykLB5f2O6gtMkDJJy7h8VvjHiA3I+dgPjm02v/STQc70
-	twKeWjyGhlB9ShflPZewXAwE4Pllgdl77IpCnNFASUT+yWMsA0KNqq0zcWz/Jw7FftQyLZENSc506
-	mXCVEqjg==;
-Received: from authenticated user
-	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <aurelien@aurel32.net>)
-	id 1wop4S-00000001a5G-1QNd;
-	Tue, 28 Jul 2026 23:10:40 +0200
-From: Aurelien Jarno <aurelien@aurel32.net>
-To: linux-kernel@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Yixun Lan <dlan@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>
-Cc: Aurelien Jarno <aurelien@aurel32.net>,
-	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
-	linux-riscv@lists.infradead.org (open list:RISC-V ARCHITECTURE),
-	spacemit@lists.linux.dev (open list:RISC-V SPACEMIT SoC Support)
-Subject: [PATCH 3/3] riscv: dts: spacemit: Add Milk-V Jupiter board (M1)
-Date: Tue, 28 Jul 2026 23:05:08 +0200
-Message-ID: <20260728211020.1248676-4-aurelien@aurel32.net>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260728211020.1248676-1-aurelien@aurel32.net>
-References: <20260728211020.1248676-1-aurelien@aurel32.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ga2S1uTO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 844401F000E9;
+	Tue, 28 Jul 2026 21:17:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785273445;
+	bh=RPYyzEACWXmL3B1yuWD9+3WsAbReeEdqc/tsPpB+Cz8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ga2S1uTOGLy3klZKkkmwDKmf82X4HWiqyRgsDOjF7WDZFcYZhh4ME6B+Ts/Yhb9J/
+	 GObH1TwC9F/3c6RLD/nCeGyaH6m0Xh4J+T5A1TomNDkk+ZHBiP8+ReNXGkNblMKXpi
+	 yMNYfuIorUmEXBt/9b9ImwbwrIeqX0ybORU2LMs1fqXU6I4j1TJILZPtAhUZffBFET
+	 C5vcZrunFh4NvOk3ROBZ91KqVRzGdmAloUdKR0LIQ4tpnIyAM6PgrTbJm64CvpEVrd
+	 sGpbzpGAzmuGMircFkRwv7JZ+mKcjNskIjfEM5UBwGSQSLPQX1kPe+Rjvr3/18OV9C
+	 /GOZKbJhaCwIg==
+Date: Tue, 28 Jul 2026 22:17:19 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Conor Dooley <conor@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>, Janani Sunil
+ <janani.sunil@analog.com>, Lars-Peter Clausen <lars@metafoo.de>, Michael
+ Hennerich <Michael.Hennerich@analog.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Jonathan
+ Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Mark Brown
+ <broonie@kernel.org>, Marius Cristea <marius.cristea@microchip.com>, Marcus
+ Folkesson <marcus.folkesson@gmail.com>, Kent Gustavsson <kent@minoris.se>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, Janani Sunil
+ <jan.sun97@gmail.com>, linux-spi@vger.kernel.org, Kent Gustavsson
+ <nedo80@gmail.com>
+Subject: Re: [PATCH v7 2/7] dt-bindings: iio: adc: microchip,mcp3564: Add
+ spi-device-addr
+Message-ID: <20260728221719.7f668a73@jic23-huawei>
+In-Reply-To: <20260728-patronize-thwarting-56fab2e11077@spud>
+References: <20260722-ad5529r-driver-v7-0-7781cd74ad75@analog.com>
+	<20260722-ad5529r-driver-v7-2-7781cd74ad75@analog.com>
+	<cb4098c1-4bad-4a11-9a6f-a833e554f197@baylibre.com>
+	<20260725230739.63ff7000@jic23-huawei>
+	<20260728-patronize-thwarting-56fab2e11077@spud>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Add support for the Milk-V Jupiter board with the M1 CPU. The M1 differs
-from the K1 only by its package, which provides improved cooling
-performance and allows it to run at up to 1.8 GHz instead of 1.6 GHz.
+On Tue, 28 Jul 2026 17:00:55 +0100
+Conor Dooley <conor@kernel.org> wrote:
 
-Add m1-opp.dtsi to define the 1.8 GHz operating point and the
-corresponding core voltage, based on the upstream kernel. Include it
-from m1-milkv-jupiter.dts.
+> On Sat, Jul 25, 2026 at 11:07:39PM +0100, Jonathan Cameron wrote:
+> > On Sat, 25 Jul 2026 15:57:07 -0500
+> > David Lechner <dlechner@baylibre.com> wrote:
+> >   
+> > > On 7/22/26 2:54 AM, Janani Sunil wrote:  
+> > > > Add the generic spi-device-addr property to the binding and deprecate
+> > > > the existing vendor specific microchip,hw-device-address property.
+> > > > 
+> > > > Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+> > > > ---
+> > > >  .../devicetree/bindings/iio/adc/microchip,mcp3564.yaml         | 10 ++++++++--
+> > > >  1 file changed, 8 insertions(+), 2 deletions(-)
+> > > > 
+> > > > diff --git a/Documentation/devicetree/bindings/iio/adc/microchip,mcp3564.yaml b/Documentation/devicetree/bindings/iio/adc/microchip,mcp3564.yaml
+> > > > index 675319276197..de1ea289e7f5 100644
+> > > > --- a/Documentation/devicetree/bindings/iio/adc/microchip,mcp3564.yaml
+> > > > +++ b/Documentation/devicetree/bindings/iio/adc/microchip,mcp3564.yaml
+> > > > @@ -80,6 +80,7 @@ properties:
+> > > >      $ref: /schemas/types.yaml#/definitions/uint32
+> > > >      minimum: 0
+> > > >      maximum: 3
+> > > > +    deprecated: true
+> > > >      description:
+> > > >        The address is set on a per-device basis by fuses in the factory,
+> > > >        configured on request. If not requested, the fuses are set for 0x1.
+> > > > @@ -91,6 +92,12 @@ properties:
+> > > >        clocking of the device address (BITS[7:6] - top two bits of COMMAND BYTE
+> > > >        which is first one on the wire).
+> > > >  
+> > > > +  spi-device-addr:
+> > > > +    maxItems: 1    
+> > > 
+> > > Does it not make sense to all for more than once device connected
+> > > to the same CS here? I would expect maxItems to be 4 to match the
+> > > number of possible addresses.
+> > >   
+> > 
+> > I think for this part their isn't a reason to aggregate.
+> > No magic accesses that touch them all at once.  So this hits
+> > exactly the point you raised about how we set the address for
+> > more than one of them.  
+> 
+> No David is actually right here, and maxitems should be 4.
+> Setting the address for multiple was already discussed I thought, with
+> the property being an array and each compatible being used to determine
+> the "stride" between entries based on the number of supported channels?
 
-Signed-off-by: Aurelien Jarno <aurelien@aurel32.net>
----
- arch/riscv/boot/dts/spacemit/Makefile         |   1 +
- .../boot/dts/spacemit/m1-milkv-jupiter.dts    |  11 ++
- arch/riscv/boot/dts/spacemit/m1-opp.dtsi      | 117 ++++++++++++++++++
- 3 files changed, 129 insertions(+)
- create mode 100644 arch/riscv/boot/dts/spacemit/m1-milkv-jupiter.dts
- create mode 100644 arch/riscv/boot/dts/spacemit/m1-opp.dtsi
+I don't think that applies for this device or at least to do so
+is a major driver rewrite, not a simple binding change.  Probably we'd
+just add a bus and hang the 4 instances off it. They are running on own
+timing etc so we can't grab data across all of them in any sort of
+synchronous way - the clocks will probably drift over time etc.
 
-diff --git a/arch/riscv/boot/dts/spacemit/Makefile b/arch/riscv/boot/dts/spacemit/Makefile
-index 851b701e5da48..c5c38c17b6ced 100644
---- a/arch/riscv/boot/dts/spacemit/Makefile
-+++ b/arch/riscv/boot/dts/spacemit/Makefile
-@@ -8,3 +8,4 @@ dtb-$(CONFIG_ARCH_SPACEMIT) += k1-orangepi-rv2.dtb
- dtb-$(CONFIG_ARCH_SPACEMIT) += k3-com260-ifx.dtb
- dtb-$(CONFIG_ARCH_SPACEMIT) += k3-deepcomputing-fml13v05.dtb
- dtb-$(CONFIG_ARCH_SPACEMIT) += k3-pico-itx.dtb
-+dtb-$(CONFIG_ARCH_SPACEMIT) += m1-milkv-jupiter.dtb
-diff --git a/arch/riscv/boot/dts/spacemit/m1-milkv-jupiter.dts b/arch/riscv/boot/dts/spacemit/m1-milkv-jupiter.dts
-new file mode 100644
-index 0000000000000..32e1468385ca0
---- /dev/null
-+++ b/arch/riscv/boot/dts/spacemit/m1-milkv-jupiter.dts
-@@ -0,0 +1,11 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
-+/*
-+ * Copyright (C) 2026 Aurelien Jarno <aurelien@aurel32.net>
-+ */
-+
-+#include "k1-milkv-jupiter-common.dtsi"
-+#include "m1-opp.dtsi"
-+
-+/ {
-+	model = "Milk-V Jupiter (M1)";
-+};
-diff --git a/arch/riscv/boot/dts/spacemit/m1-opp.dtsi b/arch/riscv/boot/dts/spacemit/m1-opp.dtsi
-new file mode 100644
-index 0000000000000..38e0ce7765a2b
---- /dev/null
-+++ b/arch/riscv/boot/dts/spacemit/m1-opp.dtsi
-@@ -0,0 +1,117 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+
-+/ {
-+	cluster0_opp_table: opp-table-cluster0 {
-+		compatible = "operating-points-v2";
-+		opp-shared;
-+
-+		opp-614400000 {
-+			opp-hz = /bits/ 64 <614400000>;
-+			opp-microvolt = <950000 950000 1160000>;
-+			clock-latency-ns = <200000>;
-+		};
-+
-+		opp-819000000 {
-+			opp-hz = /bits/ 64 <819000000>;
-+			opp-microvolt = <950000 950000 1160000>;
-+			clock-latency-ns = <200000>;
-+		};
-+
-+		opp-1000000000 {
-+			opp-hz = /bits/ 64 <1000000000>;
-+			opp-microvolt = <950000 950000 1160000>;
-+			clock-latency-ns = <200000>;
-+		};
-+
-+		opp-1228800000 {
-+			opp-hz = /bits/ 64 <1228800000>;
-+			opp-microvolt = <950000 950000 1160000>;
-+			clock-latency-ns = <200000>;
-+		};
-+
-+		opp-1600000000 {
-+			opp-hz = /bits/ 64 <1600000000>;
-+			opp-microvolt = <1050000 1050000 1160000>;
-+			clock-latency-ns = <200000>;
-+		};
-+
-+		opp-1800000000 {
-+			opp-hz = /bits/ 64 <1800000000>;
-+			opp-microvolt = <1160000 1160000 1160000>;
-+			clock-latency-ns = <200000>;
-+		};
-+	};
-+
-+	cluster1_opp_table: opp-table-cluster1 {
-+		compatible = "operating-points-v2";
-+		opp-shared;
-+
-+		opp-614400000 {
-+			opp-hz = /bits/ 64 <614400000>;
-+			opp-microvolt = <950000 950000 1160000>;
-+			clock-latency-ns = <200000>;
-+		};
-+
-+		opp-819000000 {
-+			opp-hz = /bits/ 64 <819000000>;
-+			opp-microvolt = <950000 950000 1160000>;
-+			clock-latency-ns = <200000>;
-+		};
-+
-+		opp-1000000000 {
-+			opp-hz = /bits/ 64 <1000000000>;
-+			opp-microvolt = <950000 950000 1160000>;
-+			clock-latency-ns = <200000>;
-+		};
-+
-+		opp-1228800000 {
-+			opp-hz = /bits/ 64 <1228800000>;
-+			opp-microvolt = <950000 950000 1160000>;
-+			clock-latency-ns = <200000>;
-+		};
-+
-+		opp-1600000000 {
-+			opp-hz = /bits/ 64 <1600000000>;
-+			opp-microvolt = <1050000 1050000 1160000>;
-+			clock-latency-ns = <200000>;
-+		};
-+
-+		opp-1800000000 {
-+			opp-hz = /bits/ 64 <1800000000>;
-+			opp-microvolt = <1160000 1160000 1160000>;
-+			clock-latency-ns = <200000>;
-+		};
-+	};
-+};
-+
-+&cpu_0 {
-+	operating-points-v2 = <&cluster0_opp_table>;
-+};
-+
-+&cpu_1 {
-+	operating-points-v2 = <&cluster0_opp_table>;
-+};
-+
-+&cpu_2 {
-+	operating-points-v2 = <&cluster0_opp_table>;
-+};
-+
-+&cpu_3 {
-+	operating-points-v2 = <&cluster0_opp_table>;
-+};
-+
-+&cpu_4 {
-+	operating-points-v2 = <&cluster1_opp_table>;
-+};
-+
-+&cpu_5 {
-+	operating-points-v2 = <&cluster1_opp_table>;
-+};
-+
-+&cpu_6 {
-+	operating-points-v2 = <&cluster1_opp_table>;
-+};
-+
-+&cpu_7 {
-+	operating-points-v2 = <&cluster1_opp_table>;
-+};
--- 
-2.53.0
+They are independent devices (think of them using spi-device-address
+like an i2c address) -  so why have one DT node for up to 4 of
+them?  Note this is different from the AD5529R where the design
+is intended for them to operate as one single larger device.
+
+Jonathan
+
+> 
+> > 
+> > Jonathan
+> >   
+> > > > +    items:
+> > > > +      enum: [0, 1, 2, 3]
+> > > > +    default: [1]
+> > > > +
+> > > >    "#io-channel-cells":
+> > > >      const: 1
+> > > >  
+> > > > @@ -123,7 +130,6 @@ dependencies:
+> > > >  required:
+> > > >    - compatible
+> > > >    - reg
+> > > > -  - microchip,hw-device-address
+> > > >    - spi-max-frequency
+> > > >  
+> > > >  allOf:
+> > > > @@ -159,7 +165,7 @@ examples:
+> > > >              spi-cpha;
+> > > >              spi-cpol;
+> > > >              spi-max-frequency = <10000000>;
+> > > > -            microchip,hw-device-address = <1>;
+> > > > +            spi-device-addr = <1>;
+> > > >  
+> > > >              #address-cells = <1>;
+> > > >              #size-cells = <0>;
+> > > >     
+> > >   
+> >   
 
