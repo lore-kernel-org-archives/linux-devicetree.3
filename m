@@ -1,213 +1,108 @@
-Received: from mail-43100.protonmail.ch (mail-43100.protonmail.ch [185.70.43.100])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6E2B39CCF3
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 17:46:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD27D3A3E8B
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 17:54:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785260792; cv=none; b=BboENOBxGTc1u5LP3SI6UQOwGEZEP5KMNiZbmMCEhcA/FqvjfMhzANE6mgrB/xoSyugIpikL6SRDqTG9iZYSpx22y/sJ3V0ZlgYFwaxphm0mLc569qkElxwL83a5PDD9u/ndD4AE/ExrsGAnHk0M6iQOdE9oCmc5n/nynPGp6Iw=
+	t=1785261277; cv=none; b=fCqXAB7eFG8Diy+u36Td2fQKlSKaRLELXiO40rKarQ1DyHWj08uwyzLkWOWIPbmz0v/s0CSkkKpvbPCDDxu/qX8uKo87zSvBAMF10gzbOCQiGaHIRdcfQiyP39p6lboQ1wrYD9X5gAT8mV2kdHqhj6yWA4wU1aN4p/jViwZcdpE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785260792; c=relaxed/simple;
-	bh=13IS155v7vV2qqPHv9VBumUlnOJtIKT+kjVrKASyGrE=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=Q1qHaP929cKOjMVb2tv5Qnrj4LEvqXoIURTD1SMHFv88pe8U+IdfAf1oH4FCRLcDR2NOuqJ3jV9zLboZVIA6YBq9P0swMbQKRs7i3yY2NLIE3m8Ab/gFBvHBgmS4HfnX/1tFuFwz75m8f6u79w6VQGwzorr3Iy963eQVpZt2AK0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=aHKU96SY; arc=none smtp.client-ip=185.70.43.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1785261277; c=relaxed/simple;
+	bh=0nU14XE8aT8JS74Ct0b+yYfxPhmhIPp4uqLjrlGFUx4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=RNXewP6rp+dwD7qDXqynlVMuJnUWozdyFpEufpJeQQ6RVp/0FPeGqn9C4rjO9cSqyF+5W94NvBEe6aHtBFSO2dyRtarHUU/Kx270TYECJ9cdzfL27+iqGmLSAgLrD9it/dJk1y1vDauz8GIlXhJH+ehtLDAFqdoqJrRZL1quJZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YdeiUvJ0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="aHKU96SY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1785260780; x=1785519980;
-	bh=codNecv5Ga0OZsoKh5kIJHL+xXCveIbjgEFKKqPfpe8=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=aHKU96SYX5aYfO8MimMWu+EC0RUV02MgOzfg14LusIjrJMTmglrvO/G3mpVoPBvcq
-	 AeSPPEBZduIhyg9Zk6whmPdk24GBmqRE4oPnIcW3ALPnv3mC2UjK6ZG8x1a7n/anqu
-	 N97EooEIOvyKAPgvSKo7sd+YBq+7v/kgNQMLnwgMjIORQuplcYeijqrV3zETuMM4Dq
-	 eq6Awe9wN53mW99ArTyE2LdZrLT4Yug1d5PtB1wJVWGWXb5T37ZomkccuvFAAAkAE1
-	 bNC3f79wlfTxJkRdj3F+eHEnPdz88sXMj1jOEw6iFYuNzHigthJIT4T8mY6AxCD8Nr
-	 lSlcT8yTV+y9g==
-Date: Tue, 28 Jul 2026 17:46:14 +0000
-To: Heiko Stuebner <heiko@sntech.de>, linux-rockchip@lists.infradead.org
-From: Cole Munz <Munzzyy1@proton.me>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Alexey Charkov <alchark@gmail.com>, Alexey Charkov <alchark@flipper.net>, Sebastian Reichel <sebastian.reichel@collabora.com>, Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] arm64: dts: rockchip: rk3576: add cache hierarchy information to CPU nodes
-Message-ID: <8a8f808a4c7b8325bc253add15e51b396a7d62d1.1785260742.git.Munzzyy1@proton.me>
-Feedback-ID: 209578162:user:proton
-X-Pm-Message-ID: 29d2fb200abbb3471881b4defe10ff7d7a3fe040
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YdeiUvJ0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D70901F00A3A;
+	Tue, 28 Jul 2026 17:54:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785261275;
+	bh=m32axT6/PLoQ6EmAs9bQu4Qdxwcv2GweUk5GQlCErtg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=YdeiUvJ04WJWGNcaxUDGSxmnd/FtGOR5cAMaf0iP3cgR/RmLZiqd/6N8/8vHjhrok
+	 +MdSWjsVrVUkCwVLVDMr+99LCpktnkgg3H0OsMeMzHvTvbRUaravKfuITxx7yFFHZA
+	 8nCFHh0Hu4LVJGJMwZY8EU2+XY/0YPnMPAXp8o7yTY7DKJi/HTrxiUjiBZnc8lBVDb
+	 T6Z+ryagcOg1e3+Rr5rtOiO1geBjgGOSX/4osT8BGu0ZM+IusY6boW74FoMmI0q9jB
+	 m16hIcwhHHVq7k2BM6DFKfRuC2eO8K8dp2S0dZGadW5cYplA97QjPf2IOVYsSRA1/x
+	 k/ue991Q+o6PQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/8] dt-bindings: embedded-controller:
+ qcom,hamoa-crd-ec: Add qcom,tsens
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Anvesh Jain P" <anvesh.p@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260728-ec_add_more_commands-v1-1-771abd65ee1a@oss.qualcomm.com>
+References: <20260728-ec_add_more_commands-v1-0-771abd65ee1a@oss.qualcomm.com>
+ <20260728-ec_add_more_commands-v1-1-771abd65ee1a@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 28 Jul 2026 17:54:34 +0000
+Message-Id: <20260728175434.D70901F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-The RK3576 CPU nodes carry no cache properties, so cache_setup_of_node()
-fails with -ENOENT on the first CPU. That error propagates out of
-cache_shared_cpu_map_setup(), which discards the topology arm64 had
-already derived from CLIDR, and the boot log gets
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The custom `qcom,tsens` property encodes a driver-specific softw=
+are algorithm into Devicetree and redefines standard phandle specifier sema=
+ntics to avoid standard sensor enumeration.
+--
 
-  cacheinfo: Unable to detect cache hierarchy for CPU 0
+--- Patch [1]: [PATCH 1/8] dt-bindings: embedded-controller: qcom,hamoa-crd=
+-ec: Add qcom,tsens ---
+commit d7c232898faf92bef60389e6c46fc016182bd22a
+Author: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
 
-Add L1 i/d cache size, line-size and sets to all eight CPU nodes, plus
-per-cluster unified L2 nodes wired up through next-level-cache. Sizes
-come from the RK3576 datasheet: the Cortex-A72 cluster has 48KB L1 I and
-32KB L1 D per core with 1MB of L2, the Cortex-A53 cluster has 32KB L1 I
-and 32KB L1 D per core with 512KB of L2. Line size and associativity are
-architecturally fixed per the Cortex-A53 and Cortex-A72 TRMs, so the
-*-sets values follow as size / (line-size * ways).
+dt-bindings: embedded-controller: qcom,hamoa-crd-ec: Add qcom,tsens
 
-With this applied, lscpu reports the full hierarchy instead of only the
-level, type and shared_cpu_list:
+This commit adds the qcom,tsens property to the Hamoa-based boards embedded
+controller binding. It pairs tsens provider phandles with a count of leading
+sensor IDs, whose readings are averaged to compute the SoC junction
+temperature.
 
- NAME ONE-SIZE ALL-SIZE WAYS TYPE        LEVEL SETS PHY-LINE COHERENCY-SIZE
- L1d       32K     256K    4 Data            1  128                      64
- L1i       32K     320K    2 Instruction     1  256                      64
- L2       512K     1.5M   16 Unified         2  512                      64
+> diff --git a/Documentation/devicetree/bindings/embedded-controller/qcom,h=
+amoa-crd-ec.yaml b/Documentation/devicetree/bindings/embedded-controller/qc=
+om,hamoa-crd-ec.yaml
+> --- a/Documentation/devicetree/bindings/embedded-controller/qcom,hamoa-cr=
+d-ec.yaml
+> +++ b/Documentation/devicetree/bindings/embedded-controller/qcom,hamoa-cr=
+d-ec.yaml
+[ ... ]
+> @@ -32,11 +32,40 @@ properties:
+>    interrupts:
+>      maxItems: 1
+> =20
+> +  # A generic "thermal-sensors" phandle only identifies individual sensor
+> +  # IDs, and thermal zones are a Linux-side grouping of those sensors, n=
+ot
+> +  # a devicetree concept the EC cares about. What the driver actually ne=
+eds
+> +  # is raw readings from a contiguous range of leading sensor IDs on each
+> +  # tsens provider, averaged together, so qcom,tsens pairs each provider
+> +  # phandle with a count instead of enumerating every sensor cell.
+> +  qcom,tsens:
+> +    description:
+> +      List of tsens providers and, for each, the number of leading sensor
+> +      IDs on that provider whose readings are averaged to compute the SoC
+> +      junction temperature reported to the EC for fan control. Only
+> +      applicable for Hamoa based devices.
 
-Tested-by: Alexey Charkov <alchark@flipper.net>
-Signed-off-by: Cole Munz <Munzzyy1@proton.me>
----
- arch/arm64/boot/dts/rockchip/rk3576.dtsi | 74 ++++++++++++++++++++++++
- 1 file changed, 74 insertions(+)
+[Severity: Medium]
+Does this property encode a driver-specific software algorithm into the
+device tree? Device tree is strictly designed to describe hardware topology,
+not software policies like averaging sensor readings.
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/dts=
-/rockchip/rk3576.dtsi
-index e12a2a0cfb89..656513aa999f 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-@@ -117,6 +117,13 @@ cpu_l0: cpu@0 {
- =09=09=09dynamic-power-coefficient =3D <120>;
- =09=09=09cpu-idle-states =3D <&CPU_SLEEP>;
- =09=09=09#cooling-cells =3D <2>;
-+=09=09=09i-cache-size =3D <0x8000>;
-+=09=09=09i-cache-line-size =3D <64>;
-+=09=09=09i-cache-sets =3D <256>;
-+=09=09=09d-cache-size =3D <0x8000>;
-+=09=09=09d-cache-line-size =3D <64>;
-+=09=09=09d-cache-sets =3D <128>;
-+=09=09=09next-level-cache =3D <&l2_cache_l>;
- =09=09};
-=20
- =09=09cpu_l1: cpu@1 {
-@@ -129,6 +136,13 @@ cpu_l1: cpu@1 {
- =09=09=09operating-points-v2 =3D <&cluster0_opp_table>;
- =09=09=09cpu-idle-states =3D <&CPU_SLEEP>;
- =09=09=09#cooling-cells =3D <2>;
-+=09=09=09i-cache-size =3D <0x8000>;
-+=09=09=09i-cache-line-size =3D <64>;
-+=09=09=09i-cache-sets =3D <256>;
-+=09=09=09d-cache-size =3D <0x8000>;
-+=09=09=09d-cache-line-size =3D <64>;
-+=09=09=09d-cache-sets =3D <128>;
-+=09=09=09next-level-cache =3D <&l2_cache_l>;
- =09=09};
-=20
- =09=09cpu_l2: cpu@2 {
-@@ -141,6 +155,13 @@ cpu_l2: cpu@2 {
- =09=09=09operating-points-v2 =3D <&cluster0_opp_table>;
- =09=09=09cpu-idle-states =3D <&CPU_SLEEP>;
- =09=09=09#cooling-cells =3D <2>;
-+=09=09=09i-cache-size =3D <0x8000>;
-+=09=09=09i-cache-line-size =3D <64>;
-+=09=09=09i-cache-sets =3D <256>;
-+=09=09=09d-cache-size =3D <0x8000>;
-+=09=09=09d-cache-line-size =3D <64>;
-+=09=09=09d-cache-sets =3D <128>;
-+=09=09=09next-level-cache =3D <&l2_cache_l>;
- =09=09};
-=20
- =09=09cpu_l3: cpu@3 {
-@@ -153,6 +174,13 @@ cpu_l3: cpu@3 {
- =09=09=09operating-points-v2 =3D <&cluster0_opp_table>;
- =09=09=09cpu-idle-states =3D <&CPU_SLEEP>;
- =09=09=09#cooling-cells =3D <2>;
-+=09=09=09i-cache-size =3D <0x8000>;
-+=09=09=09i-cache-line-size =3D <64>;
-+=09=09=09i-cache-sets =3D <256>;
-+=09=09=09d-cache-size =3D <0x8000>;
-+=09=09=09d-cache-line-size =3D <64>;
-+=09=09=09d-cache-sets =3D <128>;
-+=09=09=09next-level-cache =3D <&l2_cache_l>;
- =09=09};
-=20
- =09=09cpu_b0: cpu@100 {
-@@ -166,6 +194,13 @@ cpu_b0: cpu@100 {
- =09=09=09dynamic-power-coefficient =3D <320>;
- =09=09=09cpu-idle-states =3D <&CPU_SLEEP>;
- =09=09=09#cooling-cells =3D <2>;
-+=09=09=09i-cache-size =3D <0xc000>;
-+=09=09=09i-cache-line-size =3D <64>;
-+=09=09=09i-cache-sets =3D <256>;
-+=09=09=09d-cache-size =3D <0x8000>;
-+=09=09=09d-cache-line-size =3D <64>;
-+=09=09=09d-cache-sets =3D <256>;
-+=09=09=09next-level-cache =3D <&l2_cache_b>;
- =09=09};
-=20
- =09=09cpu_b1: cpu@101 {
-@@ -178,6 +213,13 @@ cpu_b1: cpu@101 {
- =09=09=09operating-points-v2 =3D <&cluster1_opp_table>;
- =09=09=09cpu-idle-states =3D <&CPU_SLEEP>;
- =09=09=09#cooling-cells =3D <2>;
-+=09=09=09i-cache-size =3D <0xc000>;
-+=09=09=09i-cache-line-size =3D <64>;
-+=09=09=09i-cache-sets =3D <256>;
-+=09=09=09d-cache-size =3D <0x8000>;
-+=09=09=09d-cache-line-size =3D <64>;
-+=09=09=09d-cache-sets =3D <256>;
-+=09=09=09next-level-cache =3D <&l2_cache_b>;
- =09=09};
-=20
- =09=09cpu_b2: cpu@102 {
-@@ -190,6 +232,13 @@ cpu_b2: cpu@102 {
- =09=09=09operating-points-v2 =3D <&cluster1_opp_table>;
- =09=09=09cpu-idle-states =3D <&CPU_SLEEP>;
- =09=09=09#cooling-cells =3D <2>;
-+=09=09=09i-cache-size =3D <0xc000>;
-+=09=09=09i-cache-line-size =3D <64>;
-+=09=09=09i-cache-sets =3D <256>;
-+=09=09=09d-cache-size =3D <0x8000>;
-+=09=09=09d-cache-line-size =3D <64>;
-+=09=09=09d-cache-sets =3D <256>;
-+=09=09=09next-level-cache =3D <&l2_cache_b>;
- =09=09};
-=20
- =09=09cpu_b3: cpu@103 {
-@@ -202,6 +251,31 @@ cpu_b3: cpu@103 {
- =09=09=09operating-points-v2 =3D <&cluster1_opp_table>;
- =09=09=09cpu-idle-states =3D <&CPU_SLEEP>;
- =09=09=09#cooling-cells =3D <2>;
-+=09=09=09i-cache-size =3D <0xc000>;
-+=09=09=09i-cache-line-size =3D <64>;
-+=09=09=09i-cache-sets =3D <256>;
-+=09=09=09d-cache-size =3D <0x8000>;
-+=09=09=09d-cache-line-size =3D <64>;
-+=09=09=09d-cache-sets =3D <256>;
-+=09=09=09next-level-cache =3D <&l2_cache_b>;
-+=09=09};
-+
-+=09=09l2_cache_l: l2-cache-cluster0 {
-+=09=09=09compatible =3D "cache";
-+=09=09=09cache-level =3D <2>;
-+=09=09=09cache-unified;
-+=09=09=09cache-size =3D <0x80000>;
-+=09=09=09cache-line-size =3D <64>;
-+=09=09=09cache-sets =3D <512>;
-+=09=09};
-+
-+=09=09l2_cache_b: l2-cache-cluster1 {
-+=09=09=09compatible =3D "cache";
-+=09=09=09cache-level =3D <2>;
-+=09=09=09cache-unified;
-+=09=09=09cache-size =3D <0x100000>;
-+=09=09=09cache-line-size =3D <64>;
-+=09=09=09cache-sets =3D <1024>;
- =09=09};
-=20
- =09=09idle-states {
+By bypassing standard properties like thermal-sensors and redefining the
+phandle specifier semantics to represent a count rather than enumerating the
+specific hardware sensor IDs, does this create an incorrectly designed ABI?
+It might be better to rely on standard hardware enumeration and leave the
+averaging policy to the software drivers.
+[ ... ]
+
 --=20
-2.55.0
-
-
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-ec_add_mor=
+e_commands-v1-0-771abd65ee1a@oss.qualcomm.com?part=3D1
