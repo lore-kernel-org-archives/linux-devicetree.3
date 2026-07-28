@@ -1,180 +1,184 @@
-Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0B8339A06D
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 17:03:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785258182; cv=pass; b=lXqpGvjc2iXxI3IkPZgczPwBqBSNuJQKLgH2DlHkHHoqVepHNzaiJX+JGdX78m807Oh7uBXsXTIBbocN3KD8gQlBkR9BSi8KbY9xNuWPK/DZjwhQ9ljup6DBaNxVzOMEb7qp42KdvqgeaNmjtnrQjyeUZPqDh6Z/bG2r1OM+aHk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785258182; c=relaxed/simple;
-	bh=groxGWngifTVT5bewG236tGfo/7tcFA7IZ4+tPcJwJ0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=D/CtRskV4+hDgIpVOcRepvHma0An09WcwEOwp5QaJGNqCWJfD9SH18UciqmNk1hR6ZGXTPvICR+910pNoDETfnf0NzQRaV1wm03NjYnqCI9xZPfwV3Dh15Vs2Fc8VrLJFKXxOipYG7myI4soIritZF3ZxHIl4ShrpUgSrxJcS2I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=MFTqj+DX; arc=pass smtp.client-ip=209.85.161.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E40539B955
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 17:05:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785258329; cv=none; b=h2gB32Xx7+PC1vQIVEuLM3Yz5k82gQHre48imaSkSOTbqOx2FBpcvr42w0xGTtrSTBC6l8ftFgBmZlPkTUY82MP3unAd394sAvREwv4jahPW8qY5A+mfGYELZQVrMZEne4pXFQPJ0S4+p+C5BxPRYk6V7RQ5NmRu/ZSIzofrzrI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785258329; c=relaxed/simple;
+	bh=n7CgoaZqr25unr4no0HsGwzLBnJCj3mA2MkjSjcOB6s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bGFLLb7YVUUhNQbsg+vEDUZIXmSeD3YDM/BKUrwurZGeIQgjQtnAludVDEWH87Ok65Nw1bWJIw9KYkbbNTFU0CrgnH7IjdAdKwc6BlxACLHoe3XfxFVn2g3kamlkHh02ZmJgoK8XbpSXANUDGo/jhDa/utkLHEOHoXAlO044IE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XiM17znt; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="MFTqj+DX"
-Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-6aae73c40c6so38436eaf.1
-        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 10:03:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785258179; cv=none;
-        d=google.com; s=arc-20260327;
-        b=VJgDaOe0Vef+VrujGNBVNULkHBGoq1RVjNGCykMTHTKmPT458orv2EhPRsn22swAuT
-         8mQvEI2ID4zA/NEcLJMiJn1BVI3TmnyZo8Fs0wake8tGb9lcJ65dVv3mCYfb5iauhL8d
-         bUvXhvhzDeOfGXBl55L/sXul06vqHwBUncOpLnjiAnG/l6tRe2uyaCWnghmF9x2R0W+8
-         B5T6PLvU26IOMzw0pv5/TuHzJBY05LV4HfRaFAfqNe5U8DhabXPwKv9WeI89Ru9T7WN2
-         R3QxyGJejK7Vo31YjiVYjWrIYgsF6SdzXgeLls+eL21WtAVthTGYJAlD0HMdhjoAEqiW
-         rEUg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=V8GPJp6TxM1kZFOBQxF7EjKvtzF1SyeUI22862FQRDc=;
-        fh=g5pS1K+cwPQsmKcf8b7QOmaMzA2GrFgDy8JdoJsXryE=;
-        b=o8RXVvDOnYa1Np6ZArr70BZhzypH2N5A1nA1jt2hkTcOqrs1jyHmtk/25+iZ9UF/9F
-         9jr7OhMs70JwY2a0wb4ENenm8YyAQaIyIb1HbQRATFlUUhCrA9aD/ByrSBmrNnlJBNbn
-         VZgSJZwGKt9sOgPdfwx28w6jMKn6CQZgEJmCEmoU1p5k7zdzNUfwe3LWksBwZ54J08Ba
-         lF7DXfbJp2STlTkqaclSRRr8DcghxiU2hzZsyGI5ozQVbWSiREhzXJFyf0fJfzWi71fL
-         KOZRtbfHUDhXn7UEMZ3C0Laelq2Mefjl4fHvu/XOVTeGHGnhJw5lFH4iRfo+q2Dk79fb
-         rlAA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XiM17znt"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-47c2b362ee2so97377f8f.1
+        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 10:05:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1785258179; x=1785862979; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=V8GPJp6TxM1kZFOBQxF7EjKvtzF1SyeUI22862FQRDc=;
-        b=MFTqj+DXdMFvdEqxVMRwmtKE9eHxYede7DnE/4YUHRTRz+apb1/BptmGsHiqjbOKjw
-         2J7jDncaIkli/DTTTHeLkhyV8h9MPWXCHGm0mR4MtK04uKdKD3pg0SKBZoj/tj4Bz1qk
-         IyDV4BhnsaItjeQILFWRSP1k3TP2YXTRcexj76zshx933+HwoQ17Bp6gkKn/ezputZ6n
-         gpor2X73lga83XSpg5defbUf7G+vpwSYafs1ggmuz5pf6lOiuy09LQT5Fvp2+sj1SaQb
-         gKTAR+BpTuySRJuhvTiiwfHQtr1FOJxVCbEtVP8jbJCQZBjlt0lZGn3uDsONW/air+A2
-         JPfw==
+        d=gmail.com; s=20251104; t=1785258325; x=1785863125; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tYZP5/3CgfmqEEWV1DMpqycEKSi9QwQIjdLpIqKHQGs=;
+        b=XiM17zntFyKPA4+ixNMomTahiTpPL5Q9c47fVBj02gphkiT2ce/IhPXe6MAjENLgFc
+         gzH9Zk11LdfcmyYMIgeiy9+oUZybXhnSX2Q4r5Owl30GchTuhY7Vu0uw/rhhT+CwTyLV
+         25duh5XVSoUefEMRyO/tzfnhHdtzxkwPib5nX+URMxJ0XYNY9JXMMwPkkln6F0/H1k5+
+         1U0Sr47V8sdWFocuMxa8RxgcOfI83zzuEHkVH9D4ZZKRYfe2MT1/9DJCNYuNfPd3J9fl
+         UzKNiRTKlWHeig2uze5ylGrtfnXahbVXuEOLwuCZ8uwnfjFK1ax4slJT40mhrnqtb+Xn
+         nwTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785258179; x=1785862979;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=V8GPJp6TxM1kZFOBQxF7EjKvtzF1SyeUI22862FQRDc=;
-        b=aCTY5xGIYWWrC2oW+entpN1rdyuF6YjJawUBmDJCoA9qHein8+gcnk6h5cev114cTB
-         9DuGE3MerBkDM0iHOXqsB66zT34WCVgbhtdxtB1jHJXRcLFN54LbXT3evvhRLV65unT4
-         +H53qmZaOVSzv7nowuJWk2MThXzinQ//A4+nRhRDtB9AF0V/EHU2aLh/ppM0nkx5ec6+
-         vOsfZ4SpCbmEsmkqg9aF9ycAnlaepD03piHMbixZvKENP9LfqSgAeA9XPloUd/WOB0Bj
-         DR30dU2MasV/swxTBcaFNZXbbNLceciiAaH3TadyuQqNWwI5SUwchsl4Ak+7zMUalNck
-         HcFg==
-X-Forwarded-Encrypted: i=1; AHgh+Rq82jakeuWd0W6b0EfEacXwpzOumuE3VZJf3SOQGDO0QixX9v2fsVPrKi7vNn+phTFvfnYWsh52d8gu@vger.kernel.org
-X-Gm-Message-State: AOJu0YwwS3lu1gRTp9PnQn5kXrGw1R2LcH6K3i2bj4gimzPGvvLHVjAL
-	eFJ7pIUEVzIZKKmp85CUX6w4wQPhf9+SwjJsTbG8rqquZiOVK/XVx9xWQ43v/tkcgVzYJY0CQL2
-	nM3cgTLxPOJBWBKiDgA0Ljx1aDhhVU7vpJl5C1SBg2A==
-X-Gm-Gg: AR+sD10LivpXoZpi3gRZDN0tXisuy2FZKZTbbpAd/c5T5fXJmiG6U927YUWHVJ9YNo1
-	ESDWbuJEbrZzmDxzJed4VgOVvtXCU0HHYT1aOFR43He/U0rJRfVQzyzlvRQVwvmSPaqTieOS2gn
-	fhIrin5IYdhPGjxz5qqng8H7GSUSSxoS3Vl6/Z4QMvglE4DiV0OebdAu1uaxlPhmV2LdSOYD4c2
-	ZY2+x9cmJRumbN8Zv5LG0qg31oWSLfhdLGLgdtYss6177IR41t3mCvWgB1NoYqFPeR++RxiMG/H
-	3ycR1cKqarAn80uZQ9+OapR1U/8LBxIdZ6w/+92LVVqTUWAF4YC+rFRQTgpPJBMHwtaBqm5Cq5o
-	BFw==
-X-Received: by 2002:a05:6820:1611:b0:6aa:da90:8bd1 with SMTP id
- 006d021491bc7-6ac96a2be31mr1559545eaf.11.1785258179388; Tue, 28 Jul 2026
- 10:02:59 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1785258325; x=1785863125;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=tYZP5/3CgfmqEEWV1DMpqycEKSi9QwQIjdLpIqKHQGs=;
+        b=YKR57rTvcaTPRuQJ5uqIN/07MsTnpdkqlZIZRHW46dKOGFeLN7NKj8uBJDDhBNeaeV
+         wyrNQb3s98YPO3oJxWwg/JnpAKIqW6zw8a5/iu9tiwUjG2wXh6wz3OlaLLGFIAzpawRG
+         aNa/BS0TgIim86SbEwRD7mQKSO9AkKy9Ca6dN2oeHWkGW9Uz41fncBPrin3OY7H81RyH
+         trlZgdPzthVTWxyA7LfaRdwiNh0tOArar8aVxiNzDpWD0pf3vUblRRYzD1xQD7qUnipx
+         4f8C5jm8dP600az/quViuIPj9Zk+uz2lywQT7jZlP3odaG+mJMax98JDr8Ki8bI4zeEM
+         QsLQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rpc9fuZzwvLta57FnrZprNxkL3LgGrIVBu8nYvZowBgVEW5PdsNLwJF0YjJoFJC1jbOtUD/ULdacSv7@vger.kernel.org
+X-Gm-Message-State: AOJu0YzVD0nIl6N9gAnAJMXFIR1e6DSFhIhk2npND7LxeZykTf9AL3OV
+	RlDGW1OYi+m0Jx4QsdfkH6lMrP+H4ES2VSxWuh5NMY1hY6rC4X8+Buih
+X-Gm-Gg: AR+sD10rlh8/HdfWQxgvzvwrtMVrgWOMB1JCU/SzsdLkZ/dGtNm5ImX6oJnEbiiXkTy
+	rbHnFdXLCOLx6cA6bs+Ze8XetX8TLy3JTA9PlDDs6vNaB+AddEleIleQRxRPv2c+6r22WdAeFuk
+	49pDGczJyKgxAdbTh7e/tUhqF4dAffEgGQHdXN+62J3u3Aib7yebSJH7t3eqYQ6XmQzzU9CHxL8
+	udVFpqm4x8XVxGcBAO+RN0U6a+FJE9M5819KhkyR3RVUV2Vyf83jzfrQfkzH6ht4OFXvw5i2ig+
+	u5iJjapoVs9Dx5fZUPAuqy1KeSUvlebL4i1MjFRN7ofl9oDAm2gMlz06m1Y/+K4oLdP2SPhMflG
+	atTmUzHHYX5lrmlQ843ifA4JE2TePn8ASw25D5W+iRLCZx+7XYA92r8vGbg0UUOQcrAYo+g==
+X-Received: by 2002:a5d:64c3:0:b0:47f:9446:95a8 with SMTP id ffacd0b85a97d-47fb1f359a2mr4033641f8f.59.1785258324657;
+        Tue, 28 Jul 2026 10:05:24 -0700 (PDT)
+Received: from nsa ([148.63.225.166])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fb6b0f039sm538560f8f.18.2026.07.28.10.05.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 28 Jul 2026 10:05:24 -0700 (PDT)
+Date: Tue, 28 Jul 2026 18:06:32 +0100
+From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Janani Sunil <janani.sunil@analog.com>, 
+	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
+	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Mark Brown <broonie@kernel.org>, 
+	Marius Cristea <marius.cristea@microchip.com>, Marcus Folkesson <marcus.folkesson@gmail.com>, 
+	Kent Gustavsson <kent@minoris.se>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, Janani Sunil <jan.sun97@gmail.com>, 
+	linux-spi@vger.kernel.org, Kent Gustavsson <nedo80@gmail.com>
+Subject: Re: [PATCH v7 1/7] spi: dt-bindings: Add spi-device-addr peripheral
+ property
+Message-ID: <amjgbH3VpssOlFzs@nsa>
+References: <20260722-ad5529r-driver-v7-0-7781cd74ad75@analog.com>
+ <20260722-ad5529r-driver-v7-1-7781cd74ad75@analog.com>
+ <e2118cfc-feef-4843-917f-844834ef4e60@baylibre.com>
+ <20260725230445.60a445a0@jic23-huawei>
+ <20260728-barrette-rickety-788b47da503c@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260715-imx708-v1-0-1f36f54e14d4@ideasonboard.com>
- <20260715-imx708-v1-1-1f36f54e14d4@ideasonboard.com> <178413842630.1426769.14095686086162764899@freya>
-In-Reply-To: <178413842630.1426769.14095686086162764899@freya>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Tue, 28 Jul 2026 18:02:43 +0100
-X-Gm-Features: AUfX_mwSdrWqYhPenfvLyVGSkh4QDNAyWTECB24t2RneV51JiZrWgV36_HGpj3U
-Message-ID: <CAPY8ntBnnFTjKiKL9AooYun7fX8DEdocs3sY_PoAXgT90nGYTA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] dt-bindings: media: i2c: Add imx708 image sensor
-To: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Naushir Patuck <naush@raspberrypi.com>, David Plowman <david.plowman@raspberrypi.com>, 
-	Kieran Bingham <kieran.bingham@ideasonboard.com>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, 
-	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, Conor Dooley <conor+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260728-barrette-rickety-788b47da503c@spud>
 
-Hi Jai
+On Tue, Jul 28, 2026 at 05:10:55PM +0100, Conor Dooley wrote:
+> On Sat, Jul 25, 2026 at 11:04:45PM +0100, Jonathan Cameron wrote:
+> > On Sat, 25 Jul 2026 15:55:01 -0500
+> > David Lechner <dlechner@baylibre.com> wrote:
+> > 
+> > > On 7/22/26 2:54 AM, Janani Sunil wrote:
+> > > > Some SPI devices support sharing a single chip select across multiple
+> > > > physical chips by encoding a device address in the SPI frame itself.
+> > > > Add the generic spi-device-addr property for describing these hardware
+> > > > addresses. The property is placed on the SPI peripheral node and may
+> > > > contain multiple addresses.
+> > > > 
+> > > > Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+> > > > ---
+> > > >  Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml | 7 +++++++
+> > > >  1 file changed, 7 insertions(+)
+> > > > 
+> > > > diff --git a/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
+> > > > index 880a9f624566..b59d047cf117 100644
+> > > > --- a/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
+> > > > +++ b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
+> > > > @@ -142,6 +142,13 @@ properties:
+> > > >      minItems: 2
+> > > >      maxItems: 4
+> > > >  
+> > > > +  spi-device-addr:
+> > > > +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> > > > +    description:
+> > > > +      Device addresses used when multiple peripherals share a single chip
+> > > > +      select. The array allows one logical peripheral to comprise multiple
+> > > > +      physical devices, with one address per device.  
+> > > 
+> > > "per physical device" for clarity.
+> > > 
+> > 
+> > We may end up relaxing that again if multichip packages start doing this.
+> > Fine to add that clarification for now. We can revisit when / if it ever
+> > needs that relaxing.
+> > 
+> > > > +
+> > > >    st,spi-midi-ns:
+> > > >      deprecated: true
+> > > >      description: |
+> > > >   
+> > > 
+> > > If there is nothing useful the SPI core code can do with this information,
+> > > I'm not entirely convinced that this needs to be a common property.
+> > 
+> > I think being common does make some sense from a standarization point of
+> > view and it isn't obvious where to put it other than under spi.
+> > 
+> > > 
+> > > And this only allows for one logical device. If we wanted to treat each
+> > > address as a logical device (all with same CS), we would need #address-cells = <2>;
+> > > instead where the DT "address" is two values, the CS and the device address.
+> > 
+> > Ah.  Good point for the adc@address or similar needing to match a combination
+> > of CS and spi-device-addr.  Conor any thoughts on how this would be done?
+> 
+> I'm sorry, I don't quite understand. Why do you want to support both of
+> these representations? Hardware wise both of these things would be
+> describing the same setup, so allowing this alternate "multiple logical
+> device" typically is not permitted. What even is the use case of it?
+> Does it matter at all if you have one or more logical devices from a
+> consumer perspective?
+> 
+> I do have an idea of how to solve the adc@address problem (you can do
+> adc@address,spi-device-address like some other devices) but as I said I
+> don't get why it would be needed.
 
-Sorry for the delay in replying.
+IIUC, I think for the current ADI device it could actually be useful to have
+the above representation given that, in theory, any of the logical
+devices can have their own supplies, pins, etc (so it would help to have
+each of them as adc@address,spi-device-address)... But we choose not to go
+down that path (in previous versions) for simplicity. So yeah, not sure
+:).
 
-On Wed, 15 Jul 2026 at 19:00, Jai Luthra <jai.luthra@ideasonboard.com> wrote:
->
-> Hi Dave,
->
-> Quoting Jai Luthra (2026-07-15 23:01:28)
-> > Sony IMX708 is an 11.9 Megapixel CMOS sensor, that can output pixels
-> > over MIPI CSI-2 bus. Add bindings for it.
-> >
-> > Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
-> > ---
-> >  .../devicetree/bindings/media/i2c/sony,imx708.yaml | 120 +++++++++++++++++++++
-> >  MAINTAINERS                                        |   7 ++
-> >  2 files changed, 127 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx708.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx708.yaml
-> > new file mode 100644
-> > index 000000000000..bc346730e1f3
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx708.yaml
-> > @@ -0,0 +1,120 @@
-> > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/media/i2c/sony,imx708.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Sony IMX708 Sensor
-> > +
-> > +maintainers:
-> > +  - Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-> > +  - Jai Luthra <jai.luthra@ideasonboard.com>
-> > +
->
-> [...]
->
-> > diff --git a/MAINTAINERS b/MAINTAINERS
-> > index febe918d6316..b0e3abfd88a9 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -25269,6 +25269,13 @@ S:     Maintained
-> >  F:     Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-> >  F:     drivers/media/i2c/imx678.c
-> >
-> > +SONY IMX708 SENSOR DRIVER
-> > +M:     Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
->
-> I've kept "kernel-list@raspberry.com" here from the downstream tree.
->
-> Given you maintain other sensors used by Raspberry Pi modules, let me know
-> in case you prefer I drop this or replace it with your email in v2.
+- Nuno Sá
 
-Including our internal list means it gets the attention of all those
-involved here. Whether that is L:, M:, or R: seems to be open to
-debate.
+> 
+> > 
+> > 
+> > Also feels like this series should update the one use of the microchip binding
+> > in tree.
+> > 
+> > arch/riscv/boot/dts/microchip/mpfs-beaglev-fire.dts
+> 
+> I never asked for this cos I maintain the platform and was gonna fix it
+> up myself, but sure!
 
-If you need an individual name then I guess it may as well be me.
 
-  Dave
-
-> Thanks,
->     Jai
->
-> > +M:     Jai Luthra <jai.luthra@ideasonboard.com>
-> > +L:     linux-media@vger.kernel.org
-> > +S:     Maintained
-> > +F:     Documentation/devicetree/bindings/media/i2c/sony,imx708.yaml
-> > +
-> >  SONY MEMORYSTICK SUBSYSTEM
-> >  M:     Maxim Levitsky <maximlevitsky@gmail.com>
-> >  M:     Alex Dubov <oakad@yahoo.com>
-> >
-> > --
-> > 2.54.0
-> >
