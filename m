@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4693A2D7DDB;
-	Tue, 28 Jul 2026 06:41:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E169E3BB694;
+	Tue, 28 Jul 2026 06:45:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785220875; cv=none; b=bleoUKdbRIF0qeU375St/uNLrqU1CemUyEXdTLMkFwnuvEdkRE3QOe+6yw1RzS7By+3hqe9kgcYlMAcVgP/q3cN7peX0ld+Zw+cDEeVMNGrDkMnUqB+qmFDZpcbt2xS9f++auScnGJnG+49eLXf/ftEqmOtp3QcQHQsVTJN5mGc=
+	t=1785221116; cv=none; b=AtCteMU1H8M5105Ftjw5ELsxSQ/8xAfCqIqcldAYNdqLxqWfu1pr5PqICdvljPWquR6G/k9HD5yBp0NsJj/kwSw6Ue5UoD5OZw8dqQx1pzK/rSNCtCPviXgrs1hULZOFqq1vl5daVXpawOVgJ+6/Msmmr9Bx+6jPrAGQis8O69g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785220875; c=relaxed/simple;
-	bh=Wgm7yJ4C81/wOmtJEvSCPgputfXRHnZqECUiRH7Cr4A=;
+	s=arc-20240116; t=1785221116; c=relaxed/simple;
+	bh=L0aEP8L353Jt+vlMwP/9OyTW0VipqjpMNopoGfX0hnM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DQOd/eCGsFw706egiLCCTNOD46FBmJdKOjnTIbgHRvwMmIALHfXYBO/Sv9IruE+pyvjok0/Q7pmI55xYexUangMQn42CR2hEnIHOng+G4sESVTB8j8kCO/CWRLm7nuT2pr7oOcDPKBFUA0MH6RoS84sB3HIma+d4RMx03GRPmtc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QXUgAB2b; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=I6rQTCNRkmkLszQawnD+MoVbVfRWUxkquRE9SpNIUV9efmhmuyeLbFffcUj/UmZSHP6u8yIcIpD1XZY8M3OvTWVp8BJEKksodJCnTcBFz/vImO7+dnj5OTeuSQ0f34ffPgkzT6sHmUZ1n4WckTWD19Cy5osomaDTPBWrByTgv2Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mS3iWNsC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QXUgAB2b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E24111F000E9;
-	Tue, 28 Jul 2026 06:41:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mS3iWNsC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13AC91F000E9;
+	Tue, 28 Jul 2026 06:45:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785220874;
-	bh=ZT8snYnUid31+/it8kT/ZoQZTmdw2Fv4Kr/sun5gJuA=;
+	s=k20260515; t=1785221115;
+	bh=MvNmUb4ZS1d9lyY41zp5YX8a28fQAoF6vPrsy6o8k9A=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QXUgAB2bDrdGWT1IOGRUXIyH7tytPfuae8bpisD7Od7PDdRi/Ad3kSp0pcoOvIYMR
-	 MxdZ109lzmfsiJ6+OTalvF+gLCE2k9JXHnI3GbgSLQEVVMJupeTsR2eccrHKfVzqSi
-	 VKXUYILI5tmwaGURj3wL7sHZGEF3G5530sgBealssermqwyr8r2ptGlUkFW/bKUdGV
-	 Fre2Nvf/cRB98w5qg5aFQ4MBKMBqJJzcNHty+RMyvuu4j5y7m9bx7kIeQ+aSruzziM
-	 cxD+PU6QkiagRLp9sV9FUkX+MA4prX8v8iy6BEgVL7qFJ9oRI02Y+GW/98lsk5LwLg
-	 MrLiec/aiTxnA==
-Date: Tue, 28 Jul 2026 08:41:09 +0200
+	b=mS3iWNsCxRFptNaGej/d4kOdk/edC/2wt6OD25drgpgWUY5v64YiFZkp8kyoHiTw4
+	 ogq9mBBNRWVpWcIXTLLt3mPbWXVYdpJSYUfPFulB3ZgB4ULvdd09prYNtTdclJRraj
+	 jrxZp4IifxPshMBKheZqnHQLD6bJh3jr0dqrXR4s4OmH+wUCKLHfEfmN0Dkw1LBoyB
+	 UzpbtZ/asPoQLvePIAltatTPjiLgaZKWOigY6YbUWfkJZbWXMkvpwUYxHRGNTCA0ew
+	 zmnCXARDFvJtzDY9pCbNKG5arkQodN5lJo2JVO4SA9Ss2u3C9EwnZgyMyI3huuJKae
+	 GwLCNaeeJXHtw==
+Date: Tue, 28 Jul 2026 08:45:10 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
-Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v4 1/4] dt-bindings: hwmon: (pmbus/max20830): add VOUT
- feedback resistor properties and complete examples
-Message-ID: <20260728-industrious-cheerful-dogfish-a1fbb8@quoll>
-References: <20260728-dev-max20830c-v4-0-cec034298535@analog.com>
- <20260728-dev-max20830c-v4-1-cec034298535@analog.com>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: chunfeng.yun@mediatek.com, vkoul@kernel.org, neil.armstrong@linaro.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	kernel@collabora.com
+Subject: Re: [PATCH v3 1/2] dt-bindings: phy: Document MT8196 MediaTek
+ PCI-Express Gen4 S-PHY
+Message-ID: <20260728-upbeat-invaluable-perch-bbb938@quoll>
+References: <20260720152654.92216-1-angelogioacchino.delregno@collabora.com>
+ <20260720152654.92216-2-angelogioacchino.delregno@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,28 +47,23 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260728-dev-max20830c-v4-1-cec034298535@analog.com>
+In-Reply-To: <20260720152654.92216-2-angelogioacchino.delregno@collabora.com>
 
-On Tue, Jul 28, 2026 at 11:32:55AM +0800, Alexis Czezar Torreno wrote:
-> Add adi,vout-rfb1-ohms and adi,vout-rfb2-ohms properties to support
-> external voltage divider configuration for VOUT sensing. When the
-> desired output voltage is higher than VREF, a resistor divider (RFB1
-> and RFB2) is required to reach the intended value.
+On Mon, Jul 20, 2026 at 05:26:53PM +0200, AngeloGioacchino Del Regno wrote:
+> This adds bindings for the PCI-Express Gen4 S-PHY found in newer
+> MediaTek SoCs, such as MT8196 and its variants.
 > 
-> The properties use a dependency constraint to ensure both resistors
-> are specified together, or neither. This prevents misconfiguration
-> where only one resistor value is provided.
+> In the current "revision 3", depending on the specific port, this
+> S-PHY supports up to two lanes of PCI-Express Gen 4 and both EP
+> and RC modes.
+> It is not clear whether revisions/versions earlier than 3 have
+> ever been shipped in any other MediaTek SoC.
 > 
-> This patch also added missing entries in the examples.
-
-"Add..."
-
-
-> 
-> Signed-off-by: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 > ---
->  .../bindings/hwmon/pmbus/adi,max20830.yaml         | 22 ++++++++++++++++++++++
->  1 file changed, 22 insertions(+)
+>  .../phy/mediatek,mt8196-pcie-sphy.yaml        | 93 +++++++++++++++++++
+>  1 file changed, 93 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/phy/mediatek,mt8196-pcie-sphy.yaml
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
