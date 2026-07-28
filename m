@@ -1,127 +1,342 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9834423E97
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 09:18:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785230317; cv=none; b=hN8gQIvw8JgdMPilGzqnuS8mJpt8r173oFGv6Zbu2CpHQeD/BA9h2KAQz+X1V+YuPZ1uylei0Qdh1n0d1Se1cERHgGbS2LvxrngCTvX92CUFJIHZvFDujD/pwQ11lchHqblpVHUDaKfBR7qqEXtVc/7Ug6dPgB2S8mVSCrv7EMc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785230317; c=relaxed/simple;
-	bh=yhY7mLjZfGOCMMgNPHfCV2Pu5mgEkzZsyZuduXNnUDk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FT4Lf5IM7BhcffT6gzZsTglP3Kgk0bqLoQBY8jhv953QrgLxUb4OneiH0zT7WLGsGPYu2CK+UW/PV7pfxjNJxdhU5b6mUO+f8+xfPV4fdI9xmxdcuQm7gVl1+j3sgTq8KqVl4VpZHycHDUH8OvoCYF+lkA5KTTgjeipM0PiY3hU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=i7v0Ew4m; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93C5424644
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 09:18:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785230321; cv=pass; b=hXyODdDlHlR4jjEbIeVZpd+5DKytRPwgeVuCJ/fToZrbZ0Ha2gfExdloc/g49mcmTnWmbO1Ur62SefArnwfKOPrMqF/nDXGpOkT/PLqYGqgREwOPWa3+w26I5CD0DAv31+QtI379nVd3e1dHWhE66wqReDtJP2lUNkq9kIL4SnE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785230321; c=relaxed/simple;
+	bh=XR1FChwM4ZOFz+4JHw+XDyagB+TIvP8IDqOk9CzMqdI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Q9YjHO+BmdY28YFtPWhh1HFUWnsLNxDJ6jTlekUVGUKIj9iBa0eOVQVm7AiFURzBboDRvzXQpJJrYTb777XIVEi7O51bnURuiIWLR4kDXH8+uwYDTsurBG/oe3tFc8Y9tUTjxC/at0IPON+Ixem/z4je1sULi2wmuTpJcX/ErD0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=e60NFy6Q; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Xf8xNHqe; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="i7v0Ew4m"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2ceae1ed204so39407305ad.0
-        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 02:18:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="e60NFy6Q";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Xf8xNHqe"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66S82KdO2144972
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 09:18:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	vLA9m/fSPfwlI/OacwG/q4Oex7qAyLSMc5Ky0H8tInM=; b=e60NFy6QGXuHb3gB
+	tvIrVrjSpMLXIKMPRKCbi3SrcuyYPeP7C8it+rCdiFe17dMRjuFSu0alLPGpBEBD
+	CUeu6o8rDBUvai/HM1sMF7gYjD8/p6iZ3iGykQjjm8uxeaVu9xa4pf3yAPY3G0VV
+	0RLP7lrtVQ1bvIf6K2HOsc2vngCBS4ekn9K2DuceftSuCv7XXyTBANOwW2A20UkV
+	LkuCOfLww+47XPx0Fb2TW6CHAIT9C+vMizWRw4hc8+Tp+gxl9rspmn6W7SIA2Kgz
+	VdTf9zBCQTJvH1UuxcRs6Y2yGU+5qLVaG1CD3Ga1lqzEcWBLisMIu7IqCh6HQ8Vl
+	hB64LA==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fpn19h6q3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 09:18:37 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-92e53b8a302so413060985a.1
+        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 02:18:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785230317; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Jo+IdhCwpQJnuvk7Osl9NEI/KNjGzjP0a6GJMwWnW0/6lUt6NktTBfqN8HbSw+Nfog
+         ajG9DTq2fsw/YvNY9emFxxOGebUMyxKal49gJ2kCkRJU7xqBfyoduOmyE7BWU48Zu3Gy
+         T91Z24VbVeNorywZi0YBDrRx+AA9MBxKP0n8HHpy/x2ff469j0NqrYhxHMvTo3Movg7O
+         o6HsI1WyeksS/zXa01pClkNx4dbUDu94GKMFAvrlQKLzljn6iT2bcdYhPnVcLEsxMLRL
+         gPmyf+TDIVWWzNWmJIh4QnMEjSfet45XDY2mU1FHYjEfuldK2TJOZ5dHMK0w+vn7Nygr
+         SqZg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vLA9m/fSPfwlI/OacwG/q4Oex7qAyLSMc5Ky0H8tInM=;
+        fh=7zX803BDONqrdRuZYpu679vZ7o3JUPSZm0V4CHMcnAU=;
+        b=N6yO+5FI7NtY3f/Qd4OxdpHpJol/RK73AA4Edb0uxoAQ2PfRUDdH6To6dJAHT3zzd6
+         eS16O5i8vDBIfMJviGeZT/wz2lXbKZzrvd5qf8FiW8Q+V0UigxSKb1RU4rDVnRChDr7c
+         uDall1rlpKWC9uDKkupHUYy9qGuXltbCDawDrxY3u0XJR0lN3tkc+0NfShzDpuQXZWTN
+         nx7nXQ5KB/7nmEzmI7kd73VkPM3vDo+MtokE4HRniIQsAToMaEGjIWWGh2uq/QcNoDOR
+         BYLzrDWeU8ovJPW9xOp/ci3QFnyO9we81AAbyiRIDSnba1pYqstseWgm+uD239uSOOUP
+         aP8w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1785230315; x=1785835115; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wxBpcLwQpOW2vKL5WhYL3BFfyuddH3BZqW5fz8lS/T8=;
-        b=i7v0Ew4meJNgNnTbQUMhdPeZp2uWzz/mQ5qdVy7NtRNnYqn5qeHGjqAnkBX/ZkoQkQ
-         VronlCISSWrZIOwCVUU4MItur+fynTB3iW5WcwG73alCnI+CbAIevvebO6DbSuorFjYo
-         2vd+DVrghuoasJ1wnuLJzqrrXpX31v5ErgItk=
+        d=oss.qualcomm.com; s=google; t=1785230317; x=1785835117; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vLA9m/fSPfwlI/OacwG/q4Oex7qAyLSMc5Ky0H8tInM=;
+        b=Xf8xNHqeozqjO0ajVWcZjdrazpFOiPw03cg289WedWZ4UkKO74gHuITMr6f7q8Ya1U
+         mu+T+uR7oOIWJafUGwsrNnke/zH64IeK0uvgZCTuBaZRJ6kCUFu5/TOaJ/41ztnML0fV
+         mX2K8kBjPuFH8T49Ve7Xsn9kKR8rv4bg9+IQf+wQo1xNcT8KIy+vqJSntG/IAIBkE+P8
+         8YewKkt5pUtudJDB5C+xGTnPobejxLc4ceamKKhJPXZZH3D9S8dvl6hTNs+pmHJG6tn/
+         BXpnvhA+vnvvDXGjNVWt/dPJZuS2e1/XXilmru6QRUgQAJOYfPB9cixS1hbBJojtZSSY
+         sUfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785230315; x=1785835115;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wxBpcLwQpOW2vKL5WhYL3BFfyuddH3BZqW5fz8lS/T8=;
-        b=TLxD63ns429gxhJbtOnpZJaKZy6HtBtSj2s7CR+duz/s+SaMClujrTThkVTzixpVjs
-         2pfnhgCZJLkUAJzuMQ1wDWQo9jiqufPlrkHRwBR+5/hUO6a8cEFL22NMDGhPrj7LiUs9
-         QLsAGmOsmKvxkaoDzdvjTO9Rfpr5Hin2zHSGfMfGV+50n/YJXwTN4FxmXbudUoushXVE
-         8Z04yTIxvi0AiUNV1xCJlI6oWZ1GF0H00aU92teLC6x/mhE8tvtYQnA2//YcCVyXfL+G
-         XFS3ZxiGE9fSfqofrFfx/X66g6sZFgerhuCXJPeFxUWy0dkv/as92J9CSfDIhSBcziaR
-         xyUg==
-X-Forwarded-Encrypted: i=1; AHgh+Rrc6HNvYAwCloSXPc6Ypj18Aabju4fDu3F/pwGyyt1VRIbjrPlb/LCsM7q5d9LJrkwtvY89sxW2GSdz@vger.kernel.org
-X-Gm-Message-State: AOJu0YxTeDoVmNRkwGdBNWo1y+2vF+x2MI1556dCTTtydjhX9RbvBrE5
-	34/9Pe5MfrcyWKiPUnuJP8WTmmJ+d9lyk4E+qifsAMcpplkZc3RWOSTQJjp9Jz/P7A==
-X-Gm-Gg: AR+sD11PfhA0zOJCaapJeHYA1XFO6m59mQDsrBDPjaUn2gPvOmJExLrR1VLTCLOZ9HK
-	3r8IPo/61FD+0sHOogwsBA/kv4808Rr7wZfQvuEGIKM4cvQgDh21kcZXXH8lLcl/xqbCV3Vlbbe
-	LbiJLmtX0iq2BZdfiKocN2y5n0vEAXzgxe5y60A28IUPxmiCjHPc6f3ReJ0C+gpHtrm+q6HbssA
-	Ce9PE1G7uafVNf1wJnfiNVLZmM2abYQ9k3N8ngMRQD2wFNm+F0NMCYpSf7XOky21536Sf3O02jF
-	37WhQ3F8JxElAYzW7qDzGfx8SNPJwQosgDWGxT78wKIcvf5z/8c7NuLaed+rokXxASCyHpgZQhG
-	UPhOWUZFR+qat8fsi2f8JFU4Ezqk+DRzOGktZw6adRkiW8oSCznwfdZyUKhtjQMxGhJIVps1nMZ
-	DgtJDptQ76vatcpdnaM9VfnwCbnjfOvSOnSy1fewkoBKftVTurtaN76WN+IAg=
-X-Received: by 2002:a17:903:8c6:b0:2cf:6f7f:55d8 with SMTP id d9443c01a7336-2d015cfb0e2mr18391495ad.37.1785230315142;
-        Tue, 28 Jul 2026 02:18:35 -0700 (PDT)
-Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:c85f:b2bb:a077:d544])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cfde81dcc1sm48616965ad.84.2026.07.28.02.18.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Jul 2026 02:18:34 -0700 (PDT)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney@redhat.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Alessio Belle <alessio.belle@imgtec.com>,
-	Luigi Santivetti <luigi.santivetti@imgtec.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Chen-Yu Tsai <wenst@chromium.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	imagination@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Icenowy Zheng <zhengxingda@iscas.ac.cn>,
-	YoungJoon Lee <getfeus@gmail.com>
-Subject: [PATCH v4 4/5] arm64: dts: mediatek: mt8173: Fix MFG_ASYNC power domain clock
-Date: Tue, 28 Jul 2026 17:18:02 +0800
-Message-ID: <20260728091804.382753-5-wenst@chromium.org>
-X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
-In-Reply-To: <20260728091804.382753-1-wenst@chromium.org>
-References: <20260728091804.382753-1-wenst@chromium.org>
+        d=1e100.net; s=20251104; t=1785230317; x=1785835117;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vLA9m/fSPfwlI/OacwG/q4Oex7qAyLSMc5Ky0H8tInM=;
+        b=gsAch7XoWMjqVO8JKsZvbikhzyk3UILGD9dTZoV79q8qlAj5RXVHPUtimg1whDDTB1
+         HgmUdDFNi8G1AFr+YVLpvUTqkBFT8L4tsLy8YQUD9DZifTvhkt7DAaOC6YlGqW0NRvqv
+         MhJ1AcDkeE+nRtOJovmlKYIUHpyWWdNPx0kOAkJ4WEs81Lfyz4xLrF/Gy7D49G5oYVNX
+         UMxvcQVWV6WV+eB5RLFFU0e337EAkaoxTnd1KB5uSVE7mmunpZQEWglzwBjWEpfGltCW
+         d4yPa8Nb+T8QFo+2K9ML8zVaXj9+69jyvdn6KDLfmZ1/TJDDLssSDXOVGzXfKAoB0wW1
+         H8gA==
+X-Forwarded-Encrypted: i=1; AHgh+Rq4Seqdku5kucMNDjExe0f5EqAHhkALpy8QT3pellOVO1cnf1XEWSbM/3IjFni23aGj0TtBMvRqQyxu@vger.kernel.org
+X-Gm-Message-State: AOJu0YyHvjKBwrFMf/oafx7HQTlLzQYHmznGu8glegoVyJtlB7er/BJi
+	5oFEd4K4wHxfnkf2Z34svUnSUh2joY4gzJQoFRWHklLLuNpqHpFcECcWC3FY4ebpyop338Ms2jk
+	6mnwaewZzplRd4gcKQPjJOMrvDo2kNFxiDRjauGGDMnhzq9X+Sjiz5JnjAJrBUVbKeVXDzPaCSi
+	7WbKhdFiQlaPg0rifjfx409hHWzJRobwYmHBrlU/Q=
+X-Gm-Gg: AR+sD11p9gsFjoacZlWB1l9TwBdWn3fPu1np5gkQU5u23wS7rnKu1yKKh+CPrT/ws79
+	w3fWJr9qyBnliqIK0Y5UgrlujeVrjcUU/MQgKOIDti4WsJ6a+KGmN8dqXQBKFb/ur8+9zcwOQO+
+	ZOTsaO4kdqMY87JYtit7H2WoQY7P71DRzMg958Qu6kbTYD20hGDUXpgQuzh8TyG6uCnDf9MfPXZ
+	TqmLZR/S2gd8PiClId/2QgKoFDzY0AW8omkSWtLL2x2zgJZoC0URefpEAgfxMK9lEr+YiWPWTLZ
+	huyNspZiHV9h3828nTtCKlWu92Es
+X-Received: by 2002:a05:620a:394b:b0:915:9125:e652 with SMTP id af79cd13be357-9330277364cmr133019485a.48.1785230316809;
+        Tue, 28 Jul 2026 02:18:36 -0700 (PDT)
+X-Received: by 2002:a05:620a:394b:b0:915:9125:e652 with SMTP id
+ af79cd13be357-9330277364cmr133017085a.48.1785230316312; Tue, 28 Jul 2026
+ 02:18:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260728082548.2511694-1-atanas.filipov@oss.qualcomm.com> <20260728082548.2511694-2-atanas.filipov@oss.qualcomm.com>
+In-Reply-To: <20260728082548.2511694-2-atanas.filipov@oss.qualcomm.com>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Tue, 28 Jul 2026 11:18:24 +0200
+X-Gm-Features: AUfX_mxVFTXpTlKt2oSdD9NtNkOzWaKQHcgbH-eTXM2rJKQmFn1y8VrplOf4xK8
+Message-ID: <CAFEp6-0mjXJhk+n29COc19zUgC-a_ZRT=9Kt9DBaexYcff1Vjg@mail.gmail.com>
+Subject: Re: [PATCH v5 1/3] dt-bindings: media: qcom: Add JPEG encoder binding
+To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+Cc: linux-media@vger.kernel.org, mchehab@kernel.org,
+        bryan.odonoghue@linaro.org, vladimir.zapolskiy@linaro.org,
+        dmitry.baryshkov@oss.qualcomm.com, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=TJV1jVla c=1 sm=1 tr=0 ts=6a6873ed cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=ZpdpYltYx_vBUK5n70dp:22 a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8
+ a=chD5afejWsUDTP9WW8EA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
+ a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI4MDA4MCBTYWx0ZWRfX3wngprt+/C56
+ fNpyK2tTK83K2Vi7cv0zmbK6Uzejbcz03oJURPuTNNgFgc/rkrM6gObpVuHK5qQ+qZaHOfP6TzE
+ uHoof/b/BKx+IOztEKa3xVvBIxwuUp2LCjlEvsjvDycRoPTb0+jSJPqJwuDbJGvjyWapzn5h4MC
+ y2N8as0YSjSsodJJ5d6ElaZIFscI0Arhgb88XVVBLdwYeoFEW3HPBQObEOnwXtzH9ABETltC/YJ
+ eM0dU0fZvsZrqNcm+4+4ISGX8b1wcUtGPhCBY/G2CX/DYqJS6J3Twv2gfuir8ZcmUuKAcf6e23j
+ gE0xOWXoKVsk0oQX+K6yz9PFxRojVX4TXgzoCVH7DOZzsEEgLytittAyHd4HvBD7HU2ol1h8DCG
+ M7C+rGaJAHJ1azwTvitS4VzWJlfB+AiSq/TtI6TbulrCSpK5SUk3TOkvYm0HAtoVrPcCBnmyDYP
+ /l/1581At/8JgKulUJg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI4MDA4MCBTYWx0ZWRfX+cg17t8MBb/K
+ wlsddFsHlnqdLcTTicTg8EK9TMksH6dquzNWk459PD8Oq2FFttnkBdHvkkdHtmw7GrfPEGTkoua
+ gUqfkpXVO6oHEbEO4p5Q97XQjwJuiyM=
+X-Proofpoint-GUID: CEyc5-7LZKb9ltHyJBLjxGZa11QbRtPr
+X-Proofpoint-ORIG-GUID: CEyc5-7LZKb9ltHyJBLjxGZa11QbRtPr
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-28_02,2026-07-27_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 priorityscore=1501 suspectscore=0 lowpriorityscore=0
+ spamscore=0 impostorscore=0 bulkscore=0 phishscore=0 clxscore=1015
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607280080
 
-The MFG_ASYNC domain, which is likely associated to the whole MFG block,
-currently specifies clk26m as its domain clock. This is bogus, since the
-clock is an external crystal with no controls. Also, the MFG block has
-a independent CLK_TOP_AXI_MFG_IN_SEL clock, which according to the block
-diagram, gates access to the hardware registers. Having this one as the
-domain clock makes much more sense. This also fixes access to the MFGTOP
-registers.
+On Tue, Jul 28, 2026 at 10:25=E2=80=AFAM Atanas Filipov
+<atanas.filipov@oss.qualcomm.com> wrote:
+>
+> Add device-tree binding for the Qualcomm JPEG encoder hardware block
+> present in SM8250 (Kona) SoCs.
+>
+> The JPEG encoder is a standalone hardware IP within the camera subsystem
+> that performs JPEG compression in memory-to-memory fashion.  It is
+> separate from the CAMSS ISP pipeline and has its own register space,
+> interrupt, clocks, power domain, IOMMU streams, and interconnect paths.
+>
+> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+> ---
+>  .../bindings/media/qcom,sm8250-jpeg-enc.yaml  | 154 ++++++++++++++++++
+>  1 file changed, 154 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/media/qcom,sm8250-j=
+peg-enc.yaml
+>
+> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8250-jpeg-enc=
+.yaml b/Documentation/devicetree/bindings/media/qcom,sm8250-jpeg-enc.yaml
+> new file mode 100644
+> index 000000000000..6aa2613bbf3b
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/qcom,sm8250-jpeg-enc.yaml
+> @@ -0,0 +1,154 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/qcom,sm8250-jpeg-enc.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm JPEG Encoder
+> +
+> +maintainers:
+> +  - Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+> +  - Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
+> +
+> +description:
+> +  Qualcomm JPEG Encoder is the JPEG encode hardware present in Qualcomm =
+SoCs.
+> +  The encoder is a standalone hardware IP within the camera subsystem th=
+at
+> +  performs JPEG compression in memory-to-memory fashion.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - qcom,sm8250-jpeg-enc
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 6
+> +
+> +  clock-names:
+> +    items:
+> +      - const: hf_axi
+> +      - const: sf_axi
+> +      - const: core_ahb
+> +      - const: cpas_ahb
+> +      - const: cnoc_axi
+> +      - const: jpeg
+> +
+> +  power-domains:
+> +    maxItems: 1
+> +
+> +  interconnects:
+> +    maxItems: 3
+> +
+> +  interconnect-names:
+> +    items:
+> +      - const: cpu-cfg
+> +      - const: hf-mnoc
+> +      - const: sf-mnoc
+> +
+> +  iommus:
+> +    description:
+> +      SMMU stream ID for the JPEG hardware. The stream ID 0x2040 is used
+> +      for the JPEG core engine on SM8250.
+> +    maxItems: 1
+> +
+> +  operating-points-v2: true
+> +
+> +  opp-table:
+> +    type: object
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - interrupts
+> +  - power-domains
+> +  - interconnects
+> +  - interconnect-names
+> +  - iommus
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/qcom,camcc-sm8250.h>
+> +    #include <dt-bindings/clock/qcom,gcc-sm8250.h>
+> +    #include <dt-bindings/interconnect/qcom,icc.h>
+> +    #include <dt-bindings/interconnect/qcom,sm8250.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/power/qcom,rpmhpd.h>
+> +
+> +    jpeg-encoder@ac53000 {
+> +        compatible =3D "qcom,sm8250-jpeg-enc";
+> +        reg =3D <0x0ac53000 0x1000>;
+> +
+> +        interrupts =3D <GIC_SPI 474 IRQ_TYPE_EDGE_RISING>;
+> +
+> +        power-domains =3D <&camcc TITAN_TOP_GDSC>;
+> +
+> +        clocks =3D <&gcc GCC_CAMERA_HF_AXI_CLK>,
+> +                 <&gcc GCC_CAMERA_SF_AXI_CLK>,
+> +                 <&camcc CAM_CC_CORE_AHB_CLK>,
+> +                 <&camcc CAM_CC_CPAS_AHB_CLK>,
+> +                 <&camcc CAM_CC_CAMNOC_AXI_CLK>,
+> +                 <&camcc CAM_CC_JPEG_CLK>;
+> +        clock-names =3D "hf_axi",
+> +                      "sf_axi",
+> +                      "core_ahb",
+> +                      "cpas_ahb",
+> +                      "cnoc_axi",
+> +                      "jpeg";
+> +
+> +        interconnects =3D <&gem_noc MASTER_AMPSS_M0 QCOM_ICC_TAG_ACTIVE_=
+ONLY
+> +                         &config_noc SLAVE_CAMERA_CFG QCOM_ICC_TAG_ACTIV=
+E_ONLY>,
+> +                        <&mmss_noc MASTER_CAMNOC_HF QCOM_ICC_TAG_ALWAYS
+> +                         &mc_virt SLAVE_EBI_CH0 QCOM_ICC_TAG_ALWAYS>,
+> +                        <&mmss_noc MASTER_CAMNOC_SF QCOM_ICC_TAG_ALWAYS
+> +                         &mc_virt SLAVE_EBI_CH0 QCOM_ICC_TAG_ALWAYS>;
 
-Change the MFG_ASYNC domain clock to CLK_TOP_AXI_MFG_IN_SEL.
+Do you really need both SF and HF? HF is usually for the real-time
+hardware macros (capture).
+ (same questions for axi clocks).
 
-Fixes: 8b6562644df9 ("arm64: dts: mediatek: Add mt8173 power domain controller")
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Tested-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
----
- arch/arm64/boot/dts/mediatek/mt8173.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8173.dtsi b/arch/arm64/boot/dts/mediatek/mt8173.dtsi
-index 78c2ccd5be13..556e806b7787 100644
---- a/arch/arm64/boot/dts/mediatek/mt8173.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8173.dtsi
-@@ -505,7 +505,7 @@ power-domain@MT8173_POWER_DOMAIN_USB {
- 				};
- 				mfg_async: power-domain@MT8173_POWER_DOMAIN_MFG_ASYNC {
- 					reg = <MT8173_POWER_DOMAIN_MFG_ASYNC>;
--					clocks = <&clk26m>;
-+					clocks = <&topckgen CLK_TOP_AXI_MFG_IN_SEL>;
- 					clock-names = "mfg";
- 					#address-cells = <1>;
- 					#size-cells = <0>;
--- 
-2.55.0.229.g6434b31f56-goog
-
+> +        interconnect-names =3D "cpu-cfg",
+> +                             "hf-mnoc",
+> +                             "sf-mnoc";
+> +
+> +        iommus =3D <&apps_smmu 0x2040 0x400>;
+> +
+> +        operating-points-v2 =3D <&jpeg_opp_table>;
+> +
+> +        jpeg_opp_table: opp-table {
+> +            compatible =3D "operating-points-v2";
+> +
+> +            opp-100000000 {
+> +                opp-hz =3D /bits/ 64 <400000000>,
+> +                         /bits/ 64 <100000000>;
+> +                required-opps =3D <&rpmhpd_opp_min_svs>;
+> +            };
+> +
+> +            opp-200000000 {
+> +                opp-hz =3D /bits/ 64 <400000000>,
+> +                         /bits/ 64 <200000000>;
+> +                required-opps =3D <&rpmhpd_opp_low_svs>;
+> +            };
+> +
+> +            opp-400000000 {
+> +                opp-hz =3D /bits/ 64 <400000000>,
+> +                         /bits/ 64 <400000000>;
+> +                required-opps =3D <&rpmhpd_opp_svs>;
+> +            };
+> +
+> +            opp-480000000 {
+> +                opp-hz =3D /bits/ 64 <400000000>,
+> +                         /bits/ 64 <480000000>;
+> +                required-opps =3D <&rpmhpd_opp_svs_l1>;
+> +            };
+> +
+> +            opp-600000000 {
+> +                opp-hz =3D /bits/ 64 <400000000>,
+> +                         /bits/ 64 <600000000>;
+> +                required-opps =3D <&rpmhpd_opp_nom>;
+> +            };
+> +        };
+> +    };
+> --
+> 2.34.1
+>
