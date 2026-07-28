@@ -1,73 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D15E72D0C63;
-	Tue, 28 Jul 2026 21:08:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 788FD40A95F;
+	Tue, 28 Jul 2026 21:10:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.154.119.183
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785272892; cv=none; b=DPOthQA09sGrsCGZbTHOydq6CxsqsnRuozpqwJ2BuytmWo33uZNzfcFmZx3SIc1riDTAV1gGBqqb1fSI4Tnib/PfFSV1ewWvMjEyNq76e1iIvmZF23828yj/eQAWL25mGuhlfmKFcunZVkoHoTyz3tOMoGNqpfp5HoZu/vgU0y4=
+	t=1785273049; cv=none; b=d3wKDei6plxVWGqzkkkwe8hFJW5yLMM/98yLoXkXIWuBDkNACoUGaTaA2JRpprXD9HldTnHgHl4IVAJNXQMPqkJAOVFKzguAbDU34jv0HsvBIkOh1Sjbx0IC7Mwq70j00PoPaVSkJ+w4PR/WiC61a3KVmmNN3Ihm9Hvt39IGTOU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785272892; c=relaxed/simple;
-	bh=RaaC+GF2A49IjCXZ12/fM4p2r1Nrmg/03XNW1S/Tsd8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nIhURb5osezgl4iUVWSceFBRjBbJCig2MdBWtk/H+T8tBmckferuW/N0fZL1xr9/MsLUrEHP/n6CqwyPl0uZDpgZ8y3Ve3BWSknQ2trG32+XtOGS+OOFSfwoT4wHxh09yk2NnzqHEro/9y2Uim0cd39uMtN+Rz4IxPQQAu8F6DI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O5kz8OV4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785273049; c=relaxed/simple;
+	bh=iGSVGdddVUHcK7dc1o3z/cWwjSDXK+CaAKhTLGvl+Zw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=CvKeRAhjOLb3XdHVtkSCDL+sH4YZypQhaHmczx77ywHAtAA+5Gfo/aB/azVH26wDGA5tU5jVCJ/7yuxfz9wtCwYtZw39DMc5WE48q55GEXfk5QMOd/W38zcmCJffbV+8pObxfx4EX6gP/Pic2zuNcqwo4Wvq/a2Ifv+TNn6e1TU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net; spf=pass smtp.mailfrom=aurel32.net; dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b=VSVaOoh+; arc=none smtp.client-ip=195.154.119.183
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O5kz8OV4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92FF81F000E9;
-	Tue, 28 Jul 2026 21:08:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785272891;
-	bh=LPD3vftpA1RxTfNr7o7PVynVjZyebX8OkuRakP1/rOI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=O5kz8OV4r3stpc1BEMsvSsrwYEyOPGYMHukc1ewdwQxh7rNgGlbIOUQG5yONDFnH7
-	 0HPnSlt6fiINOivz29iP6phXWkvTvHPYCBLQ1hoNA98JPaDWlUV3BKh6j6cK2SnhbD
-	 JEikiPLdQg/KgouyV1F9SZY8l1a/oUtTzd2T2jBd3B4GD+d2lfen474tkyFNd6Uvg3
-	 tNEzgiKy1giN6kJe9ant+M/COEm+PCdmIxUL7pTSSpdxzhBHJsUsMN5m2FcXZr+Ovk
-	 VaIj3sXitpgoNK/z7JPUndFQ9S/gd3eIuhT7iC3LbnpZQeCVzMZdNyJ+r+ZYI+qa56
-	 F1mNqQnEOLJMw==
-Date: Tue, 28 Jul 2026 14:08:10 -0700
-From: Drew Fustini <fustini@kernel.org>
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Cc: sashiko-reviews@lists.linux.dev, vkoul@kernel.org, conor+dt@kernel.org,
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-	robh@kernel.org, olteanv@gmail.com, neil.armstrong@linaro.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: phy: add binding for T-Head TH1520
- USB PHY
-Message-ID: <amkaOo9mkjJfDNsf@x1>
-References: <20260723084316.3573714-1-zhengxingda@iscas.ac.cn>
- <20260723084316.3573714-2-zhengxingda@iscas.ac.cn>
- <20260723084759.3BBF81F000E9@smtp.kernel.org>
- <8c2d675115b25107bf463cbbb6a377f80c46e592.camel@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b="VSVaOoh+"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
+	; s=202004.hall; h=Content-Transfer-Encoding:MIME-Version:References:
+	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Content-Type:From:Reply-To:
+	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
+	bh=izXEhBJnl8BPt8GBQVh1RwE3TxtiWG+xYjspBpZLhXw=; b=VSVaOoh+Gj8i0H7XCI/OObdr/N
+	BKa2feeB+JPQ2z+DUpDK+Tt3C/gA0PnHiP7gqiYYVypLK1iO2btd5lXUhOBdMYq3Rd0kBhaD/CO7n
+	WXdx1ww3Q7Nr34eCsfpcqICMoz9T2pHCEdkFPWoI8pxuCT88hJOYl+xUkwYLrbc3WCBbTr0xZQcww
+	Du2hFgQsI/KEVJl3sfpqbPCrokN3x/pt9x8k1lMlC+M4QZgjpLjxujhtymVaWNveQMYzpnjDRJ+YB
+	IOQyeerx4grbFr2fabbUz2yIwWEg0NyEtbcr3q0UZP1NVPwMs5MMxrB8OcUvskIcSqY8mG13Ea+Jz
+	CvKpmLdw==;
+Received: from authenticated user
+	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <aurelien@aurel32.net>)
+	id 1wop4P-00000001a4J-0iuY;
+	Tue, 28 Jul 2026 23:10:37 +0200
+From: Aurelien Jarno <aurelien@aurel32.net>
+To: linux-kernel@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Yixun Lan <dlan@kernel.org>
+Cc: Aurelien Jarno <aurelien@aurel32.net>,
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+	linux-riscv@lists.infradead.org (open list:RISC-V SPACEMIT SoC Support),
+	spacemit@lists.linux.dev (open list:RISC-V SPACEMIT SoC Support)
+Subject: [PATCH 1/3] riscv: dts: spacemit: Add cpu scaling for Milk-V Jupiter
+Date: Tue, 28 Jul 2026 23:05:06 +0200
+Message-ID: <20260728211020.1248676-2-aurelien@aurel32.net>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260728211020.1248676-1-aurelien@aurel32.net>
+References: <20260728211020.1248676-1-aurelien@aurel32.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <8c2d675115b25107bf463cbbb6a377f80c46e592.camel@iscas.ac.cn>
 
-On Thu, Jul 23, 2026 at 10:09:48PM +0800, Icenowy Zheng wrote:
-> 在 2026-07-23四的 08:47 +0000，sashiko-bot@kernel.org写道：
-> > Thank you for your contribution! Sashiko AI review found 2 potential
-> > issue(s) to consider:
-> > - [Medium] The 'reg' property is omitted from the 'required' list for
-> > a memory-mapped PHY.
-> > - [Medium] The 'avdd33-usb3-supply' is omitted from the 'required'
-> > list based on software limitations rather than hardware description.
-> 
-> BTW the power rail is expected to be always on at least according to
-> the schematics of multiple boards, as mentioned in the next patch.
-> 
-> Thanks,
-> Icenowy
+Enable CPU DVFS on Milk-V Jupiter by including the OPP tables and wiring the
+CPU nodes to the CPU regulator supply.
 
-That makes sense for the supply. However, I think the earlier point
-about 'reg' property is probably valid. Woudln't all users of this
-compatible need the base address?
+Signed-off-by: Aurelien Jarno <aurelien@aurel32.net>
+---
+ .../boot/dts/spacemit/k1-milkv-jupiter.dts    | 35 ++++++++++++++++++-
+ 1 file changed, 34 insertions(+), 1 deletion(-)
 
-Thanks,
-Drew
+diff --git a/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts b/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts
+index b61f5995ec771..3c16d0c20050e 100644
+--- a/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts
++++ b/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts
+@@ -5,6 +5,7 @@
+  */
+ 
+ #include "k1.dtsi"
++#include "k1-opp.dtsi"
+ #include "k1-pinctrl.dtsi"
+ 
+ / {
+@@ -107,6 +108,38 @@ &combo_phy {
+ 	status = "okay";
+ };
+ 
++&cpu_0 {
++	cpu-supply = <&buck1_0v9>;
++};
++
++&cpu_1 {
++	cpu-supply = <&buck1_0v9>;
++};
++
++&cpu_2 {
++	cpu-supply = <&buck1_0v9>;
++};
++
++&cpu_3 {
++	cpu-supply = <&buck1_0v9>;
++};
++
++&cpu_4 {
++	cpu-supply = <&buck1_0v9>;
++};
++
++&cpu_5 {
++	cpu-supply = <&buck1_0v9>;
++};
++
++&cpu_6 {
++	cpu-supply = <&buck1_0v9>;
++};
++
++&cpu_7 {
++	cpu-supply = <&buck1_0v9>;
++};
++
+ &emmc {
+ 	bus-width = <8>;
+ 	mmc-hs400-1_8v;
+@@ -209,7 +242,7 @@ pmic@41 {
+ 		dldoin2-supply = <&buck5>;
+ 
+ 		regulators {
+-			buck1 {
++			buck1_0v9: buck1 {
+ 				regulator-min-microvolt = <500000>;
+ 				regulator-max-microvolt = <3450000>;
+ 				regulator-ramp-delay = <5000>;
+-- 
+2.53.0
+
