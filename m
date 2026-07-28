@@ -1,158 +1,234 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013048.outbound.protection.outlook.com [40.93.201.48])
+Received: from PNYPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11020115.outbound.protection.outlook.com [52.101.225.115])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94BD93C3429;
-	Tue, 28 Jul 2026 07:03:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 877DA3C3C10;
+	Tue, 28 Jul 2026 07:04:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.225.115
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785222193; cv=fail; b=MciAQ+IGdo0K1N6EbjkmKxgJulrInRh+giunoNZwipFO3fkoEOlRhvHJ0FcOCMQl7THRe5MOL/rM/+7qggR6wT34myD0YiuJJ8/CVqxP1HUqKcWuaUGNGcV+3kQFSKc4fkurmFyj8lcx8xS+s8fsYEwJm9R7PhJF3wR5RDGHJzo=
+	t=1785222287; cv=fail; b=WTEVcgIfTYQF7I8PfU1e8MhRIX9zTVs+PHMbMl0TK1ZwvTFEnh7g3f4joT+gewsyN6rv54Asi+rg0J9cR9JBWeVJSGu6PpYRVel+qgGIJ013bLaFR20VdTfxdLdMlbflySclIL6sQwmtreACYtSk2Pja5mAinN8YOlZtsuqvB2g=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785222193; c=relaxed/simple;
-	bh=HTYSPKh/YJxO/T3i6O6HVNW2UdVAKRchrzYqqhRPUZk=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=T8lc0uKuChPXrPXKOxg0GK3RFhL/1iThqX5GZW5Q6KKjNO3KFoEHlWDmzJtyQdY0YcA+Csp7o0kDOXvyQkQdbQoOt2cFPZQNv1nQXQ+aht7lUnII8+ZRvUzo8Hq8PADeNnYYdqPt5CWD2ju8IaXj6q4B4quyngVHwollXI6AxdA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=JLAD596x; arc=fail smtp.client-ip=40.93.201.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1785222287; c=relaxed/simple;
+	bh=Z9kJUZ9ykAdHpu3MITCC9d7quHEpp2nB9Qy/Z1OAXJg=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=aiYoASMYn0a+Qf8JTO+pDfd26yuvUJaX5IRAE4A7dfrCB2ZMEglPSpXebT6NZ+r9WYzGJ/6ZTKpE4Yt2CdSDzlJexTWVWAUeJQXrGSn8jHokRLykoZk5un8fpBFhKfiDaaLELDGMXedSLfExsiStbRsg65M8vMsmJa6bzU+oEOY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=fail (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=JIUcH1cU reason="key not found in DNS"; arc=fail smtp.client-ip=52.101.225.115
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="JLAD596x"
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="JIUcH1cU"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZIhmPjx0VSDLm4TpJApvCOkmRzxsWZtGlnL2vNHwQturAvm6Vu+6k8pERPaHdkrSFzYRyCPUM8H1hfI/wEyg/UwcxmLMKJcH/4w+bTIhoW+SrT669RTnYx8Pxm+NeTccWYCQc+P9vF8+xV6mGMmbcm5ViAsW9k0Yv4/XL4Kl+mVPWltLa+tN3LJ6UAkF4Z0Ipwv9qQij3CPaiTm79DYs2VPB+NQ8PnU7UgAWjwiP12lyrp0xB5NNx7OoK31qgfVudiBmFwIbTfu+pwG3mS2vj0H1uU+NlfmcU3iLpHDM/IcSKUjPTRUF1FR7LCK5uRZnzD4X2vCzMG9rJZBgjhyNWg==
+ b=Zqnav+PvVXrr5Gcwl6CeIzdIe1FFrJriVsqtnpnH3XOObkDes8xT9zMGANKeP5mtIUdIsVjmwuoIdy1yw0OgpXHtNdRy1I8vFFTS2F0zL2EQs3BLKP+qxuetKxVHrxjRe6G2BZ5KiWmRKGvniv4BOsY+H5lFdyOJs2vUHIIi1zmxEdJUHeC8S5QYqFsmyNrU+IECh7nExHQTxq0Faq1L1BOxM4WKgVdiOs+7lM7E6WJmEIceIPgi2jIb33HDiQfbjS+d/e6GZixsmwvCplcjMQw8CSq/DM63MfmMkSxVkfUL1PtmK3tAWxrYLd5fGHQbmlhVOL56wqsN3hnIeoqTBA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IqPh08Oisk3mf8bmTDDy5gMxs1iAY/8KvvgWhFxFrRw=;
- b=jC9QhynVXLYJJ4O3QkMYkGrSFkamgTZvknYt/WvU2ZAFDMuo3tDs+jen18D8AoGLOsCZGJGu/6ZCQiDQekouS2J8GRc77wB3Dxop+WKX5hNT6R0CPCwrq06O4oU/HiHEgFFFlXpN/R3DVrAx97TEMceESFlA/jopKC8S6kqBVvZSVuNUW0ZbzwQ+CSqjgcObZG4PfN1hsvCIxDTJQ5PiF3W29iuuDX21AwRkxud9k8YZKNm7rcBQvmnoubGE5NzRLjIjtzuCYi4z1rGLhEZPWlY0TFjDeOGgwrwXkQg9p86JG7eZ1V9eTUsAiWAioyK4uclSaoP7d8n5B+G83CJrxw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=bootlin.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=wjnE/xB6DNMGOLkE68DKCPM0hiSLpfsZH+e0xXfA07w=;
+ b=JRYuSOy/D28OZ7Q1J2OCxO78e0zFDYueUyYPboDZQEsdwho/l6iOtW4OfrujoWUHBQzs2mTlObasz+xVk9+Qxu5943mfqTuwcLVKzAxFg9tsnnBLiW9JmJKYCdfwq8lf8ac1b41BX4bNQdiIZlWlldyAhN4n59HbeEYKFpswquUFQ4///lu8968qtHnkexMZwwRkbBoLQFOj4Crs5V48piRT3uMT7eAbCeA8IFAQVBKje3kuEOaGBFfFLbXEP30Fzh5OZpmhRCGyziXJa6Ayt33dc8EoSOphrlCLpLH+wjMTgv1VhmEOo1mxRaaHKNuqc+jjkEniLY59eE6au+h2wg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
+ header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IqPh08Oisk3mf8bmTDDy5gMxs1iAY/8KvvgWhFxFrRw=;
- b=JLAD596xRdgfeDL7KZQHEB17G2hFLzebYuOgOcHh8UOc1vrSmZ6tJLTeSvjPEy6aKrhHOCIvP3dOwvki9Ee8FngTFMisnlCZPn647AsZwj0MNMdnQ+o25doiMWDLU5DxHDiweTQeChWcskDmgtq5PLKUIy354fFFEjbBcSjAAYPIfA8ps63A+iZnGnrUn9RdTWPkAhzL5PPetgUNLpWUQhmu7eorCcTthtRR7Vm7+2b9PnXLBwbMlRE4ycuVUokQ49tNCr6MSetXD3aiI3zr2oaHMKq1+eACHqlk5zhNKKvP43xqMi76xCAMcEwD/+W/VdjjWyTIDvdKkIU1T7qfxw==
-Received: from MN0P220CA0011.NAMP220.PROD.OUTLOOK.COM (2603:10b6:208:52e::23)
- by SA1PR12MB6995.namprd12.prod.outlook.com (2603:10b6:806:24e::17) with
+ bh=wjnE/xB6DNMGOLkE68DKCPM0hiSLpfsZH+e0xXfA07w=;
+ b=JIUcH1cUYV+TE5s3VN9u69sYsfjRjxpP86LeM6BxsBQmo/P5z7SSJTlU+Mw8ACvNH65YCOOdHxFktv7LiEOC2pbbUIDfNM/Dsed3COijNoJvJJHytpGqI+XOJfJKqyICTbbuSd0m0BKBuZK19bcYpG22WTCTPsUJbXnA5CifLip/tzksDKAQE0uLBaZeSQSbzZTxMqSyYLvqjis+qS2t8EI/5QXm3Bp2Zn2teqslaoGWAl9B9bd+hx06M7CqoIuDOzH6XnRfpzQiDSig6bVJGB2v5zg79B+T1LVXLUn2FHRCScPP/L/1USDdiffMf836aioInkLOIescdd+RApAA1w==
+Received: from MA0P287MB2178.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:11e::14)
+ by PN2P287MB1229.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:1b5::12) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Tue, 28 Jul
- 2026 07:03:07 +0000
-Received: from BL6PEPF0001AB71.namprd02.prod.outlook.com
- (2603:10b6:208:52e:cafe::63) by MN0P220CA0011.outlook.office365.com
- (2603:10b6:208:52e::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.12 via Frontend Transport; Tue,
- 28 Jul 2026 07:03:06 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- BL6PEPF0001AB71.mail.protection.outlook.com (10.167.242.164) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.270.5 via Frontend Transport; Tue, 28 Jul 2026 07:03:05 +0000
-Received: from rnnvmail203.nvidia.com (10.129.68.9) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Tue, 28 Jul
- 2026 00:02:49 -0700
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by rnnvmail203.nvidia.com
- (10.129.68.9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Tue, 28 Jul
- 2026 00:02:48 -0700
-Received: from build-akhilrajeev-noble-20260602.internal (10.127.8.11) by
- mail.nvidia.com (10.129.68.8) with Microsoft SMTP Server id 15.2.2562.20 via
- Frontend Transport; Tue, 28 Jul 2026 00:02:43 -0700
-From: Akhil R <akhilrajeev@nvidia.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-CC: Frank Li <Frank.Li@nxp.com>, Frank Li <frank.li@oss.nxp.com>, "Miquel
- Raynal" <miquel.raynal@bootlin.com>, Rob Herring <robh@kernel.org>,
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, "Guenter Roeck" <linux@roeck-us.net>, Philipp Zabel
-	<p.zabel@pengutronix.de>, "Jon Hunter" <jonathanh@nvidia.com>, Thierry Reding
-	<thierry.reding@kernel.org>, <linux-i3c@lists.infradead.org>,
-	<devicetree@vger.kernel.org>, <linux-hwmon@vger.kernel.org>,
-	<linux-tegra@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Akhil R
-	<akhilrajeev@nvidia.com>
-Subject: [PATCH v7 12/12] arm64: defconfig: Enable I3C and SPD5118 hwmon
-Date: Tue, 28 Jul 2026 06:59:54 +0000
-Message-ID: <20260728065955.809445-13-akhilrajeev@nvidia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260728065955.809445-1-akhilrajeev@nvidia.com>
-References: <20260728065955.809445-1-akhilrajeev@nvidia.com>
+ 2026 07:04:41 +0000
+Received: from MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
+ ([fe80::f8da:c075:cde1:e167]) by MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
+ ([fe80::f8da:c075:cde1:e167%6]) with mapi id 15.21.0270.009; Tue, 28 Jul 2026
+ 07:04:40 +0000
+From: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
+To: "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>
+CC: Tarang Raval <tarang.raval@siliconsignals.io>, Mauro Carvalho Chehab
+	<mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Hans Verkuil
+	<hverkuil+cisco@kernel.org>, Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>, Walter Werner
+ Schneider <contact@schnwalter.eu>, Kate Hsuan <hpa@redhat.com>, Yemike
+ Abhilash Chandra <y-abhilashchandra@ti.com>, Svyatoslav Ryhel
+	<clamor95@gmail.com>, "linux-media@vger.kernel.org"
+	<linux-media@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v5 0/2] media: i2c: Add os02g10 camera sensor driver
+Thread-Topic: [PATCH v5 0/2] media: i2c: Add os02g10 camera sensor driver
+Thread-Index: AQHdDspl9ppXmum65ESzuXKgK/RNX7aCoL++
+Date: Tue, 28 Jul 2026 07:04:40 +0000
+Message-ID:
+ <MA0P287MB2178B8563D434B18699EFBD188CB2@MA0P287MB2178.INDP287.PROD.OUTLOOK.COM>
+References: <20260708110949.31313-1-elgin.perumbilly@siliconsignals.io>
+In-Reply-To: <20260708110949.31313-1-elgin.perumbilly@siliconsignals.io>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=siliconsignals.io;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MA0P287MB2178:EE_|PN2P287MB1229:EE_
+x-ms-office365-filtering-correlation-id: ccc7d136-5f30-4dbc-3805-08deec767ea3
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|7416014|366016|23010399003|1800799024|38070700021|6133799003|5023799004|56012099006|10067099003|3023799007|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ DU6TVhhQUVF9XiV/u13U80vFAdDeoebRU3u3aKtpjRyv8/EhpHztUJCshvM9CXI0oP5QyKKBLDvDPYqplmlqLhe89uy9n0siPQs0DQ2rQYPh2saQee3uirpYsIsTgL+2fF79/cFRs0g5G6plVWOnur7oqU0aNcnLEhuP/QFzRrry5akASGlWJ7lJ74D13Cm3JeU38UQs36PBkX2nekWSqzQrkHKaapDcYeiStYPh5Zhg7ugSTvnBbhgnwYaLPaWVfPiTDmcvHq4ZmAz9gFN/ZWPxOppRw3eFWpeeuUe2MwRB/5coOpjmdSNlbYPmf+J/waJPg0xIoJXuVVJQpW0lXMJFwFi1xUPcqbeBgTaXoln6UTXXdWroBhj58Uwiffa3TxskHvvtIYVRvEwCbkAPtyHlt2CwTIFrQEaI/YEg147WjJwZlgP2smiIW4sJd8wGkTa4ZK3DZx1V2WoTOkOKIY3O1yE/ZcmdtZFLmbmUgU0Mw/89dw0R/kIiBhZnX/mvD0XeZZUyQko8D7oraVLrWafvK/EC7Qn0ItNHa0Q/5p8m19ngtYdKt0A/phPlzOA6YqkQywgTeNNEIPk5jwUo9c5W44ktVhgn4HNtaDPF2nsydF6bXGCO/YTpHAJIQSM/it9sO6maoauMfZvdRtjC26yhFhG8Egycu3T2tklUMWwNXsTiNFOFBzs504Em/CH7+zt1w4KaplFw8/l/9whOuARtv2cWyutATk+Gb4xW5cc=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MA0P287MB2178.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(38070700021)(6133799003)(5023799004)(56012099006)(10067099003)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?tG04lsrMCcYwSBCtFgNp0+ksFjjRI/l9gd0YCHHz6d+y4utaGNidw96+/L?=
+ =?iso-8859-1?Q?+ovYWfLsTekpywnFcSJLUMVhWe7n4w+2PFvgZQMKeDM/BsnhJTDw5Uks8u?=
+ =?iso-8859-1?Q?rVcbnYZXeCqKX1MlU5RRL/b1sX8eGI8Gj5OI0CXe8EX8nAR+/tiM/q6p7i?=
+ =?iso-8859-1?Q?ol/LmtagWex5uBGJcnDbS9iptNQ2CDwiNaGqiITJJKfVIfMBNXCqX56ARF?=
+ =?iso-8859-1?Q?KCrzNptPDdCi5VuJL+JXseM8A5q2f5haN3uNm06Q7UcbHVHQBwUsX7MOHy?=
+ =?iso-8859-1?Q?QFf7AFswTgIaZtiIljM5s5VgRWUYp3i+2L/WeT4I/m38w53QZyhavyo7hW?=
+ =?iso-8859-1?Q?wg95A5G87pvTdI0ilwNMt55YH/6JjZWIPxa8jGSATTZiU/hByHiVYFfJY/?=
+ =?iso-8859-1?Q?yek81xBvnwKP9uvRC8gUnHggxb+/6F6G5AClsgjxhLn56tM8OI/6eJqhom?=
+ =?iso-8859-1?Q?Aq9mBPLP9sUkDo+yzFeEq1p1fRW43kgA7/9oyUCTX7mNeJhAW6DwCRpT+F?=
+ =?iso-8859-1?Q?JOon5Aj2yXnsOdP6vd9OZKS188SN9kCTYxLBVXJ2dzSyjxYsGevTAyyK0U?=
+ =?iso-8859-1?Q?B+leF+5GIq2EPajt+KmO7Kg4lRzvnsFrYFLwH4xeakcgKtam2rv7taC/tm?=
+ =?iso-8859-1?Q?UQ55cgV9WcJ1Hx3jbiV67K4o6r6Tz3gI7XPzoF/WAAMsjKKY9l7w/UwCT9?=
+ =?iso-8859-1?Q?IJlapHf7oY8qzJEPHa2USznnv0d2t7EZytrFK96NnfUBfy25rnkd2Hj6Qp?=
+ =?iso-8859-1?Q?AOxkAujmUJkeB3onc7Hb4bV3Uk+GMHdzeNyBDR0HRSEmGs1NK6lgUrRXda?=
+ =?iso-8859-1?Q?Mw4nx7KCU9KlAFD91E/YHodH7osY0NnoMBeSq8DAYUKkFzz/pBR95I3WpJ?=
+ =?iso-8859-1?Q?eZ1K+DDoBvT6tGlUsme6q+4WFQF8Bn8qZz04k8n/nxqYordtrRaLOZ2AhS?=
+ =?iso-8859-1?Q?GKUIYDUf+VjEWvtut8cTzyKBob0pAwpMZB7Hh7fGX0dQGHRBF38bzjHssU?=
+ =?iso-8859-1?Q?cgpKovL4g9ANnmYvSMq0zg65AAHen6H7sWa+iJyh/CXg5E5tzQIBmOHlrW?=
+ =?iso-8859-1?Q?p6aVckZDTwqAD7hpfOs76+RUpOYOvaJRyk30wXYaddu0kgQoyJ3Za6MyEZ?=
+ =?iso-8859-1?Q?5Kuy5ItuvwHBA9A+TPYuOL7ecg+QCBaLbj8ECLgyFfVTeD0sgOB9dhx561?=
+ =?iso-8859-1?Q?rStPhlS64TKLVjeeexWk7Jsu+xAZEjhAod07DyQc52DP4+iDDMRFqKX9+Y?=
+ =?iso-8859-1?Q?9h+TUgjj7zkykad8JPngnz56n2KRQW7r/2w2KXoB4aKhdc+txrcBvZ6lWk?=
+ =?iso-8859-1?Q?MMYxsGgv5QK4jNCY+Af7P7+gEmZrG4C30gmyH9R08zibNIdhKxQLCAXmX4?=
+ =?iso-8859-1?Q?WC/boba/6X32W/OWoywxernsD2W5cV9ONVs06hXi2dS5z4HU08Q3Wsl91j?=
+ =?iso-8859-1?Q?xJ8+LNaytPPmixz+rI2Qn4nJ2AqB+UmOO9YXMOeDklUP0xt6Qo4mDesPHf?=
+ =?iso-8859-1?Q?IG1FILtCv8cOQEH+ssUXt3mDpYxOOtisV02TuibFByR4yG9F4eeo/M+BUz?=
+ =?iso-8859-1?Q?rcr9mlNfYUeOou9lywJLyuvi1I2tYPCYdI9PB34aQ6bnkgTPdKndv71eMd?=
+ =?iso-8859-1?Q?PnQNKrt3hunZTOQV/M7SIArH6IWOZVMCXXLpFzHmZDdfOIdXs1e2t+M7+K?=
+ =?iso-8859-1?Q?1XDOsZuOpDKkcshUdrJwdkHyjzuwCNguWBP7xW+k+wegFozY0VWRXcqeWu?=
+ =?iso-8859-1?Q?8RcU4qwwSTS5q6UoiR29kNcBKqRiULM0QdDasx2koAKipJjWFyr1thi4lo?=
+ =?iso-8859-1?Q?xMIRvvXl4MQESO4WwmHAOZe5C0yimtg=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB71:EE_|SA1PR12MB6995:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5c8d78d3-02c0-4707-534f-08deec7645c6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|23010399003|7416014|376014|36860700016|18002099003|10067099003|22082099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	LLw0de5xMJFJuDUGwV3ZYqSYz9ZMy/eFA2l1Hnt7qsWAbSz3FPZxP0e3Igdutb/X+9YqlJC0bVeXHMjKkm8szgKQ5q09Frvh3qL2F1IHqQZgygWuPu0SYq/zUzlw8ew8ctnUAb859sh0a29ukS2TkoWx7RNhNR4AKzsN0TeHKji94MOtmJwJEz3KjuRHIic9kuoruqD/T1MsWkBdMoKkov+fNStg6UEvKuil7Ixbue2P4Y5+JD0dcHq+xOyAiUU20ulMqpH7xV7aMAt/b3NB8NsD2dz1aOus7JmueIPpljPfM56qp3tWBQ0cxy8GvMTDp68iEXr82gVDlNyZOKcobFdW4Co8BqqIUotCXuOsGI8Aagmw5y/Q2CbeXAp/OHm0KPv9q1Nw5VEHNgO+cuQz4a6SL9cyw1vkGs3+7tSuthdoGJAGDJfFKITo7h60HKBE1rTsSJUzUMqWZQO8te7QkhTuWheia2EJoRaNG+UKpzz06p0gwvL/7c+9TUI4tZkEohOxQnoh9bADc7v5ijhVxeBzv713uxdxDcBWcjv4R7tRMcOptVDvb9hu6cogrtKsjLtbPmLM8xvEq3BRP/qvV44kIrDza0mB2DCWjDxj/OOpf++kT8/olbMyEq9gOuozjbJl/ER3IwkUWPrpU5G/2SdUoNyCyaJWSd96DK8vHM19lr5w0Bd+3AGC1G4Q1FWCHM4p7YAsZd511Mf6ItSumA==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(23010399003)(7416014)(376014)(36860700016)(18002099003)(10067099003)(22082099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	GqQa0WLPf7PpW2tFti7JXyzwccDJNwSZdd7/HcfLpYA9E336/gyijgbUphZOF9gyrNROjxZsES6EZR8BUiMLw+REA7vp1i+KlXxgk2wyO+qoY6IjPRDrPMwRFGMpqz1SfIzRPrGtSqSsajtQZU6hvtOGWTkKA6wtKzr3L9dOFay7jKOZc7XOiwnX1Vf4icRsncyeiQRI1S8oUugOdR5CbRELtR9IFbWzoy5B7Ty+1+lLsSgoBlYjh4hBuwf11VgQ+He79D1RYR/4/y9BJImBwBXxctsAh6pprIbgNx8FAdFBoVEgjwyp5r6uruKPPuSgldUMj2jhROjm1NUPQFMHqvL61McH+8FZSrIydVldfwcdL5E+idJk9+mC3Z7K9VZ4s55AAitXmBpTVbztMFDTX/wR0PanH4SNbDqVeTFxzV+AGwcSMnEQi2T4hxWFlfs+
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2026 07:03:05.2380
+X-OriginatorOrg: siliconsignals.io
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: ccc7d136-5f30-4dbc-3805-08deec767ea3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Jul 2026 07:04:40.7499
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5c8d78d3-02c0-4707-534f-08deec7645c6
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF0001AB71.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6995
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 9B9ZVZhmtqHagDiv1YVuuy4uzl7pHD1TW4yxIyKDOoMvd2KudDrKiqA++4AX68Lh6abP592J8R9gemKcAkiijyd7e6h4zUe7UKeccCNi/KR/wjmAMjdNSM0LCxvoakW9
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN2P287MB1229
 
-Enable I3C subsystem (I3C), Synopsys DesignWare I3C master controller
-(DW_I3C_MASTER), and SPD5118 hwmon temperature sensor (SENSORS_SPD5118)
-as modules.
-
-The NVIDIA Vera CPU uses SOCAMM LPDDR5X memory module, which contains
-SPD5118 (JEDEC JESD300) compliant temperature sensor. This sensor is
-accessible over the I3C bus through the DesignWare I3C controller present
-on the SoC. Enabling these configs allows monitoring memory module
-temperatures on platforms such as Vera Rubin. Vera is an ACPI-based
-platform and does not use device tree.
-
-Signed-off-by: Akhil R <akhilrajeev@nvidia.com>
----
- arch/arm64/configs/defconfig | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-index c267f0906460..36a7cafef3a0 100644
---- a/arch/arm64/configs/defconfig
-+++ b/arch/arm64/configs/defconfig
-@@ -639,6 +639,8 @@ CONFIG_I2C_UNIPHIER_F=y
- CONFIG_I2C_XILINX=m
- CONFIG_I2C_RCAR=y
- CONFIG_I2C_CROS_EC_TUNNEL=y
-+CONFIG_I3C=m
-+CONFIG_DW_I3C_MASTER=m
- CONFIG_SPI=y
- CONFIG_SPI_APPLE=m
- CONFIG_SPI_ARMADA_3700=y
-@@ -768,6 +770,7 @@ CONFIG_SENSORS_SL28CPLD=m
- CONFIG_SENSORS_AMC6821=m
- CONFIG_SENSORS_INA2XX=m
- CONFIG_SENSORS_INA3221=m
-+CONFIG_SENSORS_SPD5118=m
- CONFIG_SENSORS_TMP102=m
- CONFIG_THERMAL_GOV_POWER_ALLOCATOR=y
- CONFIG_CPU_THERMAL=y
--- 
-2.43.0
-
+Hi Sakari,=0A=
+=0A=
+>The following features are supported:=0A=
+>- Manual exposure and gain control support.=0A=
+>- vblank/hblank control support.=0A=
+>- vflip/hflip control support=0A=
+>- Test pattern control support.=0A=
+>- mode support 1920 x 1080 @ 30 fps, SBGGR10=0A=
+>=0A=
+>The driver is tested on mainline branch v7.0-rc2 on IMX8MP Debix Model a.=
+=0A=
+>=0A=
+>v4l2-compliance 1.31.0-5387, 64 bits, 64-bit time_t=0A=
+>v4l2-compliance SHA: 5508bc4301ac 2025-08-25 08:14:22=0A=
+>=0A=
+>Compliance test for device /dev/v4l-subdev3:=0A=
+>=0A=
+>Driver Info:=0A=
+>        Driver version   : 7.0.0=0A=
+>        Capabilities     : 0x00000000=0A=
+>        Client Capabilities: 0x0000000000000002=0A=
+>interval-uses-which=0A=
+>Required ioctls:=0A=
+>        test VIDIOC_SUDBEV_QUERYCAP: OK=0A=
+>        test invalid ioctls: OK=0A=
+>=0A=
+>Allow for multiple opens:=0A=
+>        test second /dev/v4l-subdev3 open: OK=0A=
+>        test VIDIOC_SUBDEV_QUERYCAP: OK=0A=
+>        test for unlimited opens: OK=0A=
+>=0A=
+>Debug ioctls:=0A=
+>        test VIDIOC_LOG_STATUS: OK (Not Supported)=0A=
+>=0A=
+>Input ioctls:=0A=
+>        test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)=0A=
+>        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)=0A=
+>        test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)=0A=
+>        test VIDIOC_ENUMAUDIO: OK (Not Supported)=0A=
+>        test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)=0A=
+>        test VIDIOC_G/S_AUDIO: OK (Not Supported)=0A=
+>        Inputs: 0 Audio Inputs: 0 Tuners: 0=0A=
+>=0A=
+>Output ioctls:=0A=
+>        test VIDIOC_G/S_MODULATOR: OK (Not Supported)=0A=
+>        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)=0A=
+>        test VIDIOC_ENUMAUDOUT: OK (Not Supported)=0A=
+>        test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)=0A=
+>        test VIDIOC_G/S_AUDOUT: OK (Not Supported)=0A=
+>        Outputs: 0 Audio Outputs: 0 Modulators: 0=0A=
+>=0A=
+>Input/Output configuration ioctls:=0A=
+>        test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)=0A=
+>        test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)=0A=
+>        test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)=0A=
+>        test VIDIOC_G/S_EDID: OK (Not Supported)=0A=
+>=0A=
+>Control ioctls:=0A=
+>        test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK=0A=
+>        test VIDIOC_QUERYCTRL: OK=0A=
+>        test VIDIOC_G/S_CTRL: OK=0A=
+>        test VIDIOC_G/S/TRY_EXT_CTRLS: OK=0A=
+>        test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK=0A=
+>        test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)=0A=
+>        Standard Controls: 12 Private Controls: 0=0A=
+>=0A=
+>Format ioctls:=0A=
+>        test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)=
+=0A=
+>        test VIDIOC_G/S_PARM: OK (Not Supported)=0A=
+>        test VIDIOC_G_FBUF: OK (Not Supported)=0A=
+>        test VIDIOC_G_FMT: OK (Not Supported)=0A=
+>        test VIDIOC_TRY_FMT: OK (Not Supported)=0A=
+>        test VIDIOC_S_FMT: OK (Not Supported)=0A=
+>        test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)=0A=
+>        test Cropping: OK (Not Supported)=0A=
+>        test Composing: OK (Not Supported)=0A=
+>        test Scaling: OK (Not Supported)=0A=
+>=0A=
+>Codec ioctls:=0A=
+>        test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)=0A=
+>        test VIDIOC_G_ENC_INDEX: OK (Not Supported)=0A=
+>        test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)=0A=
+>=0A=
+>Buffer ioctls:=0A=
+>        test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)=0A=
+>        test CREATE_BUFS maximum buffers: OK=0A=
+>        test VIDIOC_REMOVE_BUFS: OK=0A=
+>        test VIDIOC_EXPBUF: OK (Not Supported)=0A=
+>        test Requests: OK (Not Supported)=0A=
+>        test blocking wait: OK (Not Supported)=0A=
+>=0A=
+>Total for device /dev/v4l-subdev3: 46, Succeeded: 46, Failed: 0, Warnings:=
+ 0=0A=
+=0A=
+Could you please have a look at this patch series and let me know your thou=
+ghts ?=0A=
+=0A=
+Best Regards,=0A=
+Elgin=0A=
