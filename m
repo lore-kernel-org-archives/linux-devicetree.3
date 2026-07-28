@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2597427FA3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D24C03FCB2F
 	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 12:02:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785240148; cv=none; b=Io9sIbm8Esu7aIVgwAL963vrNaQhDsRHudKwIhrs/1P1adE4zTwc2uIE3LLdOsI5dZj99TaWw8FBlwDTNFlLrrKg7G/law+Vm4os2Cl28ZXdkynzTjTpMCSPqWnMwuQ2+Yhlo453bqdt7166GV2CyBBFsipFen7k/1FDdA3Dm7Q=
+	t=1785240148; cv=none; b=s5Oa0f95fA4v2ytMc+aPVO/7qCT1IaO1iI1MUjNRUKqSEO4N6QuSCfCBXv8rwFuk1OWyPnEDaJSUyDzlY9K6NXj0IL7uHqgk93WawL5ebXha4drvujRoENAgSGJJRi58VLQ+6MQZrObHYkNnIX4fUO8lZF1CujAUbjCZeFLk5OM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785240148; c=relaxed/simple;
-	bh=Xr6T3XzdJrfzoe1Z/wTN8OxH5MsfKLNd1qz9ae299ik=;
+	bh=0StYnzO+BlIiuZfxctwX7lmcEaDWryBiXL9T1hKk/fc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=g1C+R9YwRf3nnjXk1Fsoa1HFc4mLWD9F+rJj8LLu0b3WyKoCcvrCPgLKuXFOhjp8DLMvuDmlIE2ImSmENAYYCAYuGZP7xWNY9RWHzs6Zm7J07/2upPdboZH/YEkiVzo2VelpovhkE0fglmoySe184YwO7tXxPCsUSLN9vulrC3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BF6U1eb5; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=jgWANWPhmnRp0OLGfwnQKMXpB5FlXHgSGtrP1KTQSAjmMYiqRtO75Xjt+bBmezDL1YTdgs2moVyADhu4gnB+gE643FMUB+/woDV58ejktUNmJs+jJdZgSdicUigoE0TeTfAtCUfNZu8+SbH/HeLnD/jcnl13cLEnKPkLcFv1D8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jQaxMHPK; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BF6U1eb5"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8E6D2C2BD00;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jQaxMHPK"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 81FF2C2BCFA;
 	Tue, 28 Jul 2026 12:02:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1785240148;
-	bh=Xr6T3XzdJrfzoe1Z/wTN8OxH5MsfKLNd1qz9ae299ik=;
+	bh=0StYnzO+BlIiuZfxctwX7lmcEaDWryBiXL9T1hKk/fc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=BF6U1eb5hWX9ROgKX2AFoUmDiFhL+s7VkkHVqTTu9HU/v8GCyMsjxZYCccTvCJd46
-	 uFgbkxwFBnGAbX7nfwedkW/wpwSVQS/0tjrvlBf9ZIqHTMWmFtEyJCcPCmPclU2bHZ
-	 OEa7xZ9XewFJU/AstigT02hutPH9ielM83DzVHJmVzVwwk6VgKi/NTMvcACClcHMRx
-	 cEjQhVKSYX02PgOeIvz1bigUuj4S5XZbB549E7D1PLVYVKqAwpqg2QVJz3niS/VB0e
-	 3sEnWQW2POHb7w3z12vyXSbfqvFWoqI5c061R/IE6AsrN/nktH37OvCAudRGqi7PhB
-	 RHJbACqFVl4aA==
+	b=jQaxMHPKk2uiDrApWvLTxdWtBQ3Abw2DHYML/egf6JKzfJZQLOCUj9NfHHF/yPo6h
+	 KIR9QJAINcs671RjcAGRwWcdMbmNUtcUOpYl+PfzCJe03RD2anCUhnbqgnzc1P+j1+
+	 6ZtSt42D5fGuXKuNQs2hdRLlQ+d1UmQ4XyrN3b2dFQYeFmLgec0XZ9VtNT4Ii590ZX
+	 MIL5exMZOJ2VHOHIG4A2/rdH0oM+fFnLZK6tp5PV1PilEBXAr1dZRM6oup+aVWn01n
+	 pY03Og5N+s5K5Vy1gtNqs1tqzjlUBSDDTj2mqB5QbnPuQ5OMiMsrQ7oyH/zgPFMe6A
+	 RVgb0Cc8SKJyw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 71FD3C531F9;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 61089C54F4C;
 	Tue, 28 Jul 2026 12:02:28 +0000 (UTC)
 From: Joachim Eastwood via B4 Relay <devnull+joachim.eastwood.gmail.com@kernel.org>
-Date: Tue, 28 Jul 2026 14:00:30 +0200
-Subject: [PATCH v5 03/12] arm64: dts: rockchip: rk3588s-nanopi-r6: fix
- missing pcie rst pinctrl
+Date: Tue, 28 Jul 2026 14:00:29 +0200
+Subject: [PATCH v5 02/12] arm64: dts: rockchip: rk3588s-nanopi-r6: fix
+ missing sdmmc cd pinctrl
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260728-nanopi-m6-v5-3-cbc1eb0d8d56@gmail.com>
+Message-Id: <20260728-nanopi-m6-v5-2-cbc1eb0d8d56@gmail.com>
 References: <20260728-nanopi-m6-v5-0-cbc1eb0d8d56@gmail.com>
 In-Reply-To: <20260728-nanopi-m6-v5-0-cbc1eb0d8d56@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -50,11 +50,11 @@ Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-rockchip@lists.infradead.org, diederik@cknow-tech.com, 
  jonas@kwiboo.se, Joachim Eastwood <joachim.eastwood@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785240146; l=1518;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785240146; l=1141;
  i=joachim.eastwood@gmail.com; s=20260701; h=from:subject:message-id;
- bh=3OhAdav4ndesm8E0HvAPo6lPfIjUT/KSpfYbi7hWhxY=;
- b=isiEyG/oGM0pkpEraypha+nsZwu+RFILb+f8ZSYmNCy07P09nmq4ym1LrMpCSZWYW3ILMLRah
- mv7l9jtyrR3Ag/z+VFVcMvac6T9HX0DgpMZ7kFS20aV0xkDT0dwVEIl
+ bh=kI3ZjJonY+6nqEWc8m+ryhZH4GnBusVZIougapTsu48=;
+ b=mZTwnP0ApdptokhifkjpEi4DCtTRju3VOwM9fuEKZAOdHqvMaEwP4NoeeC6rrr+HY2Uv3eMTG
+ rypRnfaoD5KDm9rT1eZASu7Ptyxlo6SZlEhUenE3AiMd+VhCmISNpXD
 X-Developer-Key: i=joachim.eastwood@gmail.com; a=ed25519;
  pk=ZN/8xWtdYaSd5oEfloYSZ1a+/ri0n0VZqjlEeHlbXFU=
 X-Endpoint-Received: by B4 Relay for joachim.eastwood@gmail.com/20260701
@@ -64,52 +64,38 @@ Reply-To: joachim.eastwood@gmail.com
 
 From: Joachim Eastwood <joachim.eastwood@gmail.com>
 
-The pins are used as reset-gpios but not reserved through pinctrl.
+The cd (card detect) pin is used, but not reserved through pinctrl.
 
-Fixes: f3c6526d6fb2 ("arm64: dts: rockchip: Convert dts files used as parents to dtsi files")
+Fixes: 95147bb42bc1 ("arm64: dts: rockchip: Fix the SD card detection on NanoPi R6C/R6S")
 Signed-off-by: Joachim Eastwood <joachim.eastwood@gmail.com>
 ---
- arch/arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ arch/arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi
-index 3ee6853b8752..5bbd5d2fc5fa 100644
+index 91b6eefd7abf..3ee6853b8752 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi
 +++ b/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi
-@@ -360,12 +360,16 @@ rgmii_phy1: ethernet-phy@1 {
- };
- 
- &pcie2x1l1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pcie20x1_1_perstn_m2>;
- 	reset-gpios = <&gpio1 RK_PA7 GPIO_ACTIVE_HIGH>;
- 	vpcie3v3-supply = <&vcc_3v3_pcie20>;
- 	status = "okay";
- };
- 
- &pcie2x1l2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pcie20x1_2_perstn_m0>;
- 	reset-gpios = <&gpio3 RK_PD1 GPIO_ACTIVE_HIGH>;
- 	vpcie3v3-supply = <&vcc_3v3_pcie20>;
- 	status = "okay";
-@@ -420,6 +424,16 @@ rtc_int: rtc-int {
- 		};
+@@ -421,6 +421,10 @@ rtc_int: rtc-int {
  	};
  
-+	pcie {
-+		pcie20x1_1_perstn_m2: pcie20x1-1-perstn-m2 {
-+			rockchip,pins = <1 RK_PA7 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+
-+		pcie20x1_2_perstn_m0: pcie20x1-2-perstn-m0 {
-+			rockchip,pins = <3 RK_PD1 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+
  	sdmmc {
- 		sdmmc_det_pin: sdmmc-det-pin {
- 			rockchip,pins = <0 RK_PA4 RK_FUNC_GPIO &pcfg_pull_up>;
++		sdmmc_det_pin: sdmmc-det-pin {
++			rockchip,pins = <0 RK_PA4 RK_FUNC_GPIO &pcfg_pull_up>;
++		};
++
+ 		sd_s0_pwr: sd-s0-pwr {
+ 			rockchip,pins = <4 RK_PB4 RK_FUNC_GPIO &pcfg_pull_up>;
+ 		};
+@@ -496,6 +500,8 @@ &sdmmc {
+ 	no-mmc;
+ 	no-sdio;
+ 	sd-uhs-sdr104;
++	pinctrl-names = "default";
++	pinctrl-0 = <&sdmmc_bus4 &sdmmc_clk &sdmmc_cmd &sdmmc_det_pin>;
+ 	vmmc-supply = <&vcc_3v3_sd_s0>;
+ 	vqmmc-supply = <&vccio_sd_s0>;
+ 	status = "okay";
 
 -- 
 2.55.0
