@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB7C4344DB9;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE9F441D4C0;
 	Tue, 28 Jul 2026 09:44:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785231867; cv=none; b=WIm8pLLvLr0g8sLwPIzkx6K3GOpfAvqO1o/9vSvGm96/6OF7ORJwTdeGPWdiNIay1Mx2T7QxgWTbTAfs+xq3aMfHuD0C2mAZepzq7zqOPmVT09QCUgh7NZtphSSxF6yLZbp67wfzMLoHtiORYZYqRrK73CrQLeUqvx61xUc3o60=
+	t=1785231867; cv=none; b=ql3Um0+5EOqXdMa+WS9jpXitlJVTdORPo4RTU6rCcusCB+MlgDTZRhZyqAbcnhyYxDb8NUopWuxBv8pvPbHXwd/lqI+BetZZg+1ORMFp8JsmCcWpZxc8m4dd9XFu7apNP5CniXJujyUrd77BWYcNMJdh7elZ8FwsZsadAYKuIJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785231867; c=relaxed/simple;
-	bh=h69R4j/rmpdgP8o8m1yEq9Zr1i/pxjtXgCv5NE7eh7U=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=QlKiAA3wlKsfbVe0KKN1DrYgcid93E2n2ucmkkXm9r9U9XrGPCLZz+RWIMueCmtdfEWcPnYBp6Fes/nTyYEV4kYYVQTbdrrmnzYUTI8KScW+0WYQeHIdm7dRM8S5azdt7hMn+xeQ4eDWxSkul2thewCP9eB8h0SLvpn5BAte6Is=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S0jrvz2X; arc=none smtp.client-ip=10.30.226.201
+	bh=erZkFTXMOMihPG3tf2Kjcg3MRSbkrk4OZSGbmy7Rtk0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=TvO6WfK9lmwQHZssZr/XoWUdymBBHLRaaK8N9v2K30+cVNG+JRb77AR1jyoPbPrWOuqZWkqNPZwerOxBjQhn8JQpBFMQDP0fVVPf/4XsPAX+o2+iBf2xrNufmJk2PeTuAPeNUZIzuXAT4IHgUGX4dGZxRgK/1fwyzuPVb3taI9E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GK4sZQWw; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S0jrvz2X"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7B385C2BCF6;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GK4sZQWw"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A9D93C2BCC6;
 	Tue, 28 Jul 2026 09:44:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1785231867;
-	bh=h69R4j/rmpdgP8o8m1yEq9Zr1i/pxjtXgCv5NE7eh7U=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=S0jrvz2XyEqa0+e4RphZWLei9168pGEJgI3ReuwPhXYi9AsvhTZloPqIWzMXCUudI
-	 tymDdDNbjmGXtytRT97k7UkUn/cdTRbgePN4emhOvN1aIs/lYVO9L7GUdyXM/fPhx+
-	 pTQvraLHu0xnKL/9fIm1SfDE/KHLgjWroJvp0TjtK8vBQ85XHHC87NtPvs+TEehu+f
-	 Wg/W9basLnRkQVlxNGvyKmOgI8jy1LWlynUHBAnoSIqSb7Pvp6Xb4ls9r4+fffAe0n
-	 LbB59sTr6fC9vBWOfT1Z1Q52VV69RTyZqMz6ujnPLYljlOBBz2Pn1FfDj3H8Zwcr2h
-	 JYlimM7G1pI0g==
+	bh=erZkFTXMOMihPG3tf2Kjcg3MRSbkrk4OZSGbmy7Rtk0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=GK4sZQWwd6EKlsXaL2KUJVaWL0WXwXyisJn7I+B3cRt5Y3tyuUFvjgaP++A6fxp86
+	 KxA8UtbjYVvyP1l5C3iCfSsrs0RWDVEqVFuT9khMC32iYLoQAvJrUj1+5FRzIni6XY
+	 7MupKd+Ac7CJaL6girxeENPQLMt3UKMSqIyYaaqy2KPvifDQUH1ckQ31luBk4zVC7F
+	 ATy59phXUaiK+ZSQRB20h77sYcrT4dryVrVP2W4BL0xy0X/C9BvZdR0l9W+6rEKel7
+	 HI74XZdSHXeCRe3Tlm4oWKR4yj46eYMV3X3MmsEshqW/lmbjIg/KkRA7lHPNkv3ht8
+	 4LWtWZ7pDylEA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 52959C531F9;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 940FEC54F54;
 	Tue, 28 Jul 2026 09:44:27 +0000 (UTC)
 From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
-Subject: [PATCH 0/3] MediaTek mt6572 GCE support
-Date: Tue, 28 Jul 2026 12:42:45 +0300
-Message-Id: <20260728-6572-gce-v1-0-750bba32689e@protonmail.com>
+Date: Tue, 28 Jul 2026 12:42:48 +0300
+Subject: [PATCH 3/3] mailbox: mtk-cmdq: add mt6572 support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,10 +40,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqAIBCF4avErBNMSqmrRAuz0aaFhVYE0t2zW
- n7wv5cgYiCM0BUJAp4UafUZVVmAmbV3yGjKBsGF5EooJhslmDPIpG5UhbbWlreQ8y2gpeu76of
- f8RgXNPu7h/t+AOT7Go1sAAAA
-X-Change-ID: 20260727-6572-gce-6a571ef4af09
+Message-Id: <20260728-6572-gce-v1-3-750bba32689e@protonmail.com>
+References: <20260728-6572-gce-v1-0-750bba32689e@protonmail.com>
+In-Reply-To: <20260728-6572-gce-v1-0-750bba32689e@protonmail.com>
 To: Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
@@ -54,11 +53,11 @@ Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
  Roman Vivchar <rva333@protonmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785231864; l=2056;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785231864; l=1755;
  i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
- bh=h69R4j/rmpdgP8o8m1yEq9Zr1i/pxjtXgCv5NE7eh7U=;
- b=EldVTVr9AKUbsyuW29i/MN4bIvptSWUJkcBtHqg7ZlMHiIH+s6/QhfjjYsy6XeKaPBX6K4Q9T
- rUbTbLADPCXCGEsPTENo+EubLfTd3etsTrGIVtb+UwCjFwOyi8JmHdV
+ bh=wlNt8w4pK42NOY4pipdycMZ5TzX4r9IY7xlPIXoIXu4=;
+ b=em8m3keAx8V+DEbFxfHYM9caC9+m2KxyazIAl9NkghlYodMVJLxPtOwvaJrzxthYwgXX8ILn6
+ O2oPz0eD9uwAJe10xMRTPsdOBs/VuAToBRcn98foH/+ksODxndUn4dX
 X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
  pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
 X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
@@ -66,52 +65,61 @@ X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
 X-Original-From: Roman Vivchar <rva333@protonmail.com>
 Reply-To: rva333@protonmail.com
 
-Yes I know this one is very different from basics like previous pwrap
-and efuse...
+From: Roman Vivchar <rva333@protonmail.com>
 
-This patch series adds support for the Global Command Engine found in
-the mt6572 SoC.
-
-Notably, the patch 2 introduces legacy ISA format, which is used on
-mt6572, 6582 and 6592 SoCs. mt6577 doesn't have the GCE at all, mt6589
-seems to have new-ish ISA, and mt6595 is much more close to 6795/8173.
-Patch 3 adds mt6572 platform data and legacy_isa forwarding to the
-instruction JIT.
-
-This format was reverse engineered from the Android HAL and uses 22-bit
-offset with 2-bit subsystem ID, unlike the newer 16-bit offset and 8-bit
-subsystem ID.
-The mt6572 HAL includes workarounds for WFE and EOC instructions, emitting
-another WFE as barrier at WFE, and JUMP +8 at EOC.
-mt6582 and 6592 HAL dropped WFE barrier, but still have JUMP +8.
-
-This sounds very much like some kind of software mitigations for hardware
-bugs, but during testing on 6572 nothing bad happened so far. These
-additional instructions are not included in the patches.
-
-Note that while GCE can be used for e.g. mt6592 UFOE (which is at
-0x14013000, so outside of the u16 range), currently the driver still uses
-u16 for the offset, because I don't have any 6592 device.
+Add legacy_isa field forwarding to the cmdq helper and a platform data
+for the mt6572 GCE.
 
 Signed-off-by: Roman Vivchar <rva333@protonmail.com>
 ---
-Roman Vivchar (3):
-      dt-bindings: mailbox: mediatek,gce-mailbox: add mt6572
-      soc: mediatek: cmdq-helper: add legacy GCE ISA support
-      mailbox: mtk-cmdq: add mt6572 support
+ drivers/mailbox/mtk-cmdq-mailbox.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
- .../bindings/mailbox/mediatek,gce-mailbox.yaml     |  1 +
- drivers/mailbox/mtk-cmdq-mailbox.c                 | 11 +++++
- drivers/soc/mediatek/mtk-cmdq-helper.c             | 55 +++++++++++++++-------
- include/dt-bindings/gce/mediatek,mt6572-gce.h      | 52 ++++++++++++++++++++
- include/linux/mailbox/mtk-cmdq-mailbox.h           |  1 +
- 5 files changed, 103 insertions(+), 17 deletions(-)
----
-base-commit: 8cd9520d35a6c38db6567e97dd93b1f11f185dc6
-change-id: 20260727-6572-gce-6a571ef4af09
+diff --git a/drivers/mailbox/mtk-cmdq-mailbox.c b/drivers/mailbox/mtk-cmdq-mailbox.c
+index e523c84b4808..5e7bc52baaa1 100644
+--- a/drivers/mailbox/mtk-cmdq-mailbox.c
++++ b/drivers/mailbox/mtk-cmdq-mailbox.c
+@@ -99,6 +99,7 @@ struct gce_plat {
+ 	bool control_by_sw;
+ 	bool sw_ddr_en;
+ 	bool gce_vm;
++	bool legacy_isa;
+ 	u32 gce_num;
+ };
+ 
+@@ -119,6 +120,7 @@ void cmdq_get_mbox_priv(struct mbox_chan *chan, struct cmdq_mbox_priv *priv)
+ 	struct cmdq *cmdq = container_of(chan->mbox, struct cmdq, mbox);
+ 
+ 	priv->shift_pa = cmdq->pdata->shift;
++	priv->legacy_isa = cmdq->pdata->legacy_isa;
+ 	priv->mminfra_offset = cmdq->pdata->mminfra_offset;
+ }
+ EXPORT_SYMBOL(cmdq_get_mbox_priv);
+@@ -787,6 +789,14 @@ static const struct dev_pm_ops cmdq_pm_ops = {
+ 			   cmdq_runtime_resume, NULL)
+ };
+ 
++static const struct gce_plat gce_plat_mt6572 = {
++	.thread_nr = 14,
++	.shift = 0,
++	.control_by_sw = false,
++	.legacy_isa = true,
++	.gce_num = 1
++};
++
+ static const struct gce_plat gce_plat_mt6779 = {
+ 	.thread_nr = 24,
+ 	.shift = 3,
+@@ -848,6 +858,7 @@ static const struct gce_plat gce_plat_mt8196 = {
+ };
+ 
+ static const struct of_device_id cmdq_of_ids[] = {
++	{.compatible = "mediatek,mt6572-gce", .data = (void *)&gce_plat_mt6572},
+ 	{.compatible = "mediatek,mt6779-gce", .data = (void *)&gce_plat_mt6779},
+ 	{.compatible = "mediatek,mt8173-gce", .data = (void *)&gce_plat_mt8173},
+ 	{.compatible = "mediatek,mt8183-gce", .data = (void *)&gce_plat_mt8183},
 
-Best regards,
---  
-Roman Vivchar <rva333@protonmail.com>
+-- 
+2.54.0
 
 
