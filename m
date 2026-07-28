@@ -1,111 +1,146 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64FCC3CBE71
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 18:14:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46117330307
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 18:15:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785262484; cv=none; b=nZ0phF6qQD4DpuRL2qzAnulg2JpW9e5f/UHagm1Zk+E6uubMLJlg0OdbWnN5drkIEkL7dzrkaJIZJbd2UUfynz80y5MThVr6EJZXB94f5nqiKOHXkEbEYZwK3VatfFZ7KBcNrl/xMh5obXXiT/WGEdY8S5DsAtfJoSWue39MmLU=
+	t=1785262545; cv=none; b=JxGWZoloALngZ+diYVnsO4CUi6303tA3rlZyk78nK/Bd+JEhkdwsdzjkAIIS1bXiwkdRA3K3BAkttWKfb6/yTDPM6QRv50+ZnDSLcQB3esuRSHRpKw1aNLJXjsKLgFxZgis0H/ufPUae87GDIbHhjlfOqSYWwtiZNWx0xK5WSVg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785262484; c=relaxed/simple;
-	bh=EC6aA9Q8JLdRJEwxG4yffW8F7mC9lxIy0k23Ifj2PsQ=;
+	s=arc-20240116; t=1785262545; c=relaxed/simple;
+	bh=V3SwTVppQwsk2D2SfyUFRIvk1SgJs4CX538TBgNFy9c=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=HTpKhstJVvnV9LqFfnxRp+8jQneBb+JNeZP80cp3go5ooB8TS5cNTXEE3xMhhnbHtQK1oOI3TWJ8s/NjcHylqrGWpuwpb6tE5EBEB9UKqyk48Vj3jHZ9vV/98WE7M/HygzZmlkCqS/MqqjcUUFSo1k2rMEHPU6sgAdfyRwrCbIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PRDdvdl3; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=kqUf8wJaQaM/b3zS2O6Dgw6elKOuoFsGrI9k/bOau2mvXzBlL5rNE0+pxRjoE6unqA1zYPjFkKGHFdfq9b9iysLiFcUVeh6CNgsponj72wfkwJmrDxBgQmNv5gb+oamf7/M8phkQ8Gf/dw71FatgoYMi07JGSLQCNnqXM0azCyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BFuawuH/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PRDdvdl3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7CDC1F000E9;
-	Tue, 28 Jul 2026 18:14:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BFuawuH/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB3131F000E9;
+	Tue, 28 Jul 2026 18:15:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785262483;
-	bh=2qwp5LAUuaXArgTQqY4BywVwBmsQlveKZEsLbR3mFxY=;
+	s=k20260515; t=1785262543;
+	bh=CC7q8fA6VsMajguSEpw7ZGIHd/c/oKYgfUSd8D6GO1U=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PRDdvdl3L7SqC3eZTl5R0FtLMnZor/G/K+eItQV+y1Xi5SpyL8qJaGr/WkVUQU+Ec
-	 1Cza5XKjyEiWIFXGfd/aAxUx2I/w8UmYWdOlZ6eAMpQIYlrSNuUHpw/Aj1sFnYs75H
-	 VfAYtQ7bsPVHS3XoPDtMGrFYKTPy4UXQbwiG8HnirYZbFcRpU+gYkMDy9oCuI0ARyZ
-	 HmAIKjIHVBAZc9fnBmqA3kHsH0Yg5OchkRUC81aAqZAfXqt/hxp9Z/qTNi54OtqVVS
-	 +owWLoXqzViRoVmIz5ItbbOXi2BNacfkw0jSND6eUUQOoDXlOaljChaRDNHCKp4uCt
-	 +JGEKsr+7ReyQ==
+	b=BFuawuH/PJHH06Gd5GreSVp3yjVaB5jLYMVZ7h2WSRid3QTcE4cBLSTBGjZlwjaPw
+	 05Au9dyTKzEsbRlWzizddDnbl9b/9yeEosSpqXL5/aIEZhPs+iEz6XyRdoEmbtHzjq
+	 jeRkzm7EWCJoZ3RD5mzShizIuAydgQDe12It3EhSrRyzKqdHlVmIAiVcSlfDcjBdQn
+	 GRFWAUvmDmw7urg1oJKvAJvPvjnZwtO54RNKsOsC3SZu22qWIt8O67QvKMStGZqpIp
+	 2SgCto5nlvty2uD2EX6Fz/SZ+uVXotf9rOCa0apFidxFsgVauOLkUFwmv7Rqup4Bsv
+	 Zt3a5dL4KyFaQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 5/8] platform: arm64: qcom-hamoa-ec: Verify required I2C
- adapter functionality
+Subject: Re: [PATCH 4/8] platform: arm64: qcom-hamoa-ec: Add fan RPM query
+ and LUT calibration
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Anvesh Jain P" <anvesh.p@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260728-ec_add_more_commands-v1-5-771abd65ee1a@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260728-ec_add_more_commands-v1-4-771abd65ee1a@oss.qualcomm.com>
 References: <20260728-ec_add_more_commands-v1-0-771abd65ee1a@oss.qualcomm.com>
- <20260728-ec_add_more_commands-v1-5-771abd65ee1a@oss.qualcomm.com>
+ <20260728-ec_add_more_commands-v1-4-771abd65ee1a@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 28 Jul 2026 18:14:42 +0000
-Message-Id: <20260728181442.A7CDC1F000E9@smtp.kernel.org>
+Date: Tue, 28 Jul 2026 18:15:43 +0000
+Message-Id: <20260728181543.AB3131F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] The IRQ handler is requested and SCI events are enabled before the=
- `ec->ec_cdev` array is allocated, creating a race condition that can lead =
-to a NULL pointer dereference during `qcom_ec_probe()`.
+- [High] Race condition between suspend/remove paths and `fan_calib_work_fn=
+` can cause a 10 to 20-second hang.
+- [High] `psy_work` can be queued and executed while the device is in suspe=
+nd, leading to I2C transfer failures.
 --
 
---- Patch [5]: [PATCH 5/8] platform: arm64: qcom-hamoa-ec: Verify required =
-I2C adapter functionality ---
-commit a6f49e31946f2ee0f2b44aae1db005b085a4d77b
+--- Patch [4]: [PATCH 4/8] platform: arm64: qcom-hamoa-ec: Add fan RPM quer=
+y and LUT calibration ---
+commit e49733d2c63b28585a159eb3f465f9613c0aec7d
 Author: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
 
-platform: arm64: qcom-hamoa-ec: Verify required I2C adapter functionality
+platform: arm64: qcom-hamoa-ec: Add fan RPM query and LUT calibration
 
-Check the underlying I2C adapter supports both the raw I2C transfers
-used by the fan RPM/LUT commands and the SMBus byte and block-write
-transfers used by the other EC commands, and fail probe early with a
-clear error if it doesn't.
+This commit adds EC command definitions and handler functions for querying
+fan RPM and programming per-fan LUTs mapping SoC temperature to target RPM.
+It implements a runtime calibration work item to determine the maximum RPM,
+and programs the LUT once calibration finishes and upon power-supply change=
+s.
 
 > diff --git a/drivers/platform/arm64/qcom-hamoa-ec.c b/drivers/platform/ar=
 m64/qcom-hamoa-ec.c
-> index d0c45d9970eee..a420a180a1948 100644
+> index f6ff77d4e8f69..d0c45d9970eee 100644
 > --- a/drivers/platform/arm64/qcom-hamoa-ec.c
 > +++ b/drivers/platform/arm64/qcom-hamoa-ec.c
-> @@ -1195,6 +1195,11 @@ static int qcom_ec_probe(struct i2c_client *client)
->  	unsigned int i;
+[ ... ]
+> @@ -665,6 +1097,49 @@ static void qcom_ec_soc_tj_work_fn(struct work_stru=
+ct *work)
+>  	queue_delayed_work(system_percpu_wq, &ec->soc_tj_work, EC_SOC_TJ_TEMP_P=
+OLL_JIFFIES);
+>  }
+> =20
+> +static void qcom_ec_fan_calib_work_fn(struct work_struct *work)
+> +{
+> +	struct qcom_ec *ec =3D container_of(work, struct qcom_ec, fan_calib_wor=
+k);
+> +	struct device *dev =3D &ec->client->dev;
+> +	int i, ret;
+> +
+> +	reinit_completion(&ec->calib_abort);
+
+[Severity: High]
+Can this race with the suspend or remove paths and cause a long delay?
+
+If qcom_ec_fan_calib_work_fn() begins executing concurrently with
+qcom_ec_suspend() or qcom_ec_remove(), the suspend/remove thread calls
+complete_all(&ec->calib_abort) to signal the worker to abort.
+
+However, if the worker executes reinit_completion() immediately after the
+suspend thread's complete_all(), the abort signal is erased. The suspend
+thread then blocks in cancel_work_sync(), waiting for the worker to finish,
+and the worker will block in wait_for_completion_interruptible_timeout()
+for the full timeout per fan (up to 10-20 seconds total).
+
+> +
+> +	mutex_lock(&ec->io_lock);
+> +	ec->calibrating =3D true;
+> +	mutex_unlock(&ec->io_lock);
+> +
+[ ... ]
+> @@ -690,7 +1169,16 @@ static int qcom_ec_suspend(struct device *dev)
+>  	struct qcom_ec *ec =3D i2c_get_clientdata(client);
 >  	int ret;
 > =20
-> +	if (!i2c_check_functionality(client->adapter,
-> +				     I2C_FUNC_I2C | I2C_FUNC_SMBUS_BYTE_DATA |
-> +				     I2C_FUNC_SMBUS_WRITE_I2C_BLOCK))
-> +		return -EOPNOTSUPP;
+> -	disable_delayed_work_sync(&ec->soc_tj_work);
+> +	if (ec->lut_cfg && ec->thermal_cap.fan_cnt) {
+> +		complete_all(&ec->calib_abort);
+> +		cancel_work_sync(&ec->fan_calib_work);
+> +	}
 > +
->  	ec =3D devm_kzalloc(dev, sizeof(*ec), GFP_KERNEL);
->  	if (!ec)
->  		return -ENOMEM;
+> +	if (ec->lut_cfg)
+> +		cancel_work_sync(&ec->psy_work);
+
 [Severity: High]
-Could this regression result in a race condition where the interrupt handle=
-r is
-requested and sci events are enabled before the ec->ec_cdev array is
-allocated?
+Does this allow psy_work to be re-queued and executed during suspend?
 
-If an interrupt fires immediately after devm_request_threaded_irq() and
-qcom_ec_sci_evt_control(dev, true) enable it, the handler could execute:
+While cancel_work_sync() stops currently pending work, the system-wide
+power supply notifier qcom_ec_psy_notifier() is not unregistered during
+suspend.=20
 
-drivers/platform/arm64/qcom-hamoa-ec.c:qcom_ec_irq()
-  -> qcom_ec_restore_fan_state()
-    -> queues ec->fan_calib_work
+If a power supply event occurs during the suspend process after
+cancel_work_sync() has run, the notifier can immediately queue psy_work
+back to the non-freezable system_long_wq.
 
-The asynchronous workqueue function would then run:
+This could cause the work to run and attempt I2C transfers while the
+I2C controller is suspended or the EC is in Modern Standby, potentially
+leading to bus lockups or suspend failures.
 
-drivers/platform/arm64/qcom-hamoa-ec.c:qcom_ec_fan_calib_work_fn() {
-    ...
-    ret =3D qcom_ec_fan_calibrate(ec, &ec->ec_cdev[i]);
-    ...
-}
-
-If devm_kcalloc() hasn't yet allocated the ec->ec_cdev array later in
-qcom_ec_probe(), couldn't this cause a null pointer dereference when
-qcom_ec_fan_calibrate() accesses ec_cdev->parent_dev?
+> +
+> +	if (ec->lut_cfg && ec->lut_cfg->send_soc_tj)
+> +		disable_delayed_work_sync(&ec->soc_tj_work);
+> =20
+>  	mutex_lock(&ec->io_lock);
+>  	ret =3D i2c_smbus_write_byte_data(client, EC_MODERN_STANDBY_CMD,
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-ec_add_mor=
-e_commands-v1-0-771abd65ee1a@oss.qualcomm.com?part=3D5
+e_commands-v1-0-771abd65ee1a@oss.qualcomm.com?part=3D4
