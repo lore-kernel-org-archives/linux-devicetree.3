@@ -1,71 +1,251 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B428B3BE652;
-	Tue, 28 Jul 2026 21:44:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6858640B109
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 21:46:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785275089; cv=none; b=QivZTYkVgb9StXflbpTqrjL/R8T7ocIDz2S/9IPcWufsipwB5IGXc58ELWI9eBLsDIlrnA3Zcex/f5VOshT/WP9rhQf1CoODMSqbdhjqFrT43hpgePhIkaOjwwLMdX4Exrf0DMKZfObXC140x+mzKWBqGHYAhOcN9x64dWJaAig=
+	t=1785275191; cv=none; b=kYhE1tP+QjbotdgSmoxPnWenVwvrISRz54HI/x+5kHQBCUhvUSRBbMSQayhXbM1RXnI3SL+7Wjlk9+XMLOHMf9+c0Ho5gH5r3BRH9yF3CLQZq8Laf5UiJvd5SGPEuDQvxb83gz8pMDaWfBPlyWWo9BtVU6HxxQuEbZPuifOg4s4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785275089; c=relaxed/simple;
-	bh=U7spWcY0H8vLDHg6cxrAcR0wDjCwQpic/rcHbeuIKrg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Pz+pvZaaiLW1EIOjZ9AC/4lHPs+BF7kGaO/9PU+O05Uesvz1FWWWi2xUCUZ/ulGvI7Ztn9T7UPxhVcFQv9R6FK/CNq/KKYg0eeqF9kOvcohXA8Yxcw96i95CCewE0ib/4PfZZLbI+bXK8KJkIaNIEugBdDU0TfSoQyeota5yIFE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LFJZswlJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785275191; c=relaxed/simple;
+	bh=S5Qgx7ajQ7+7dbJdjbe42nnJSzD4uTYyiMFeewfn+Vo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hOQ+iWJ68bDVOQ/o9B1ObNtA6HEp/FJjF4vvkjHD74sDxgiKaeMpTXhp9H5hU3oU0zi9Ncqa5AAIr7QBotNnpvU+JR2ta5tlN8BZVdZcVPGbENHfxu7FS2+vBdoDG6Hak1F+2OMAU8Fr5uTevdQvDRaAjCTZ/fGzALlch5zVT08=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=V9rKKe4X; arc=none smtp.client-ip=209.85.210.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LFJZswlJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EE3F1F000E9;
-	Tue, 28 Jul 2026 21:44:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785275088;
-	bh=ydnGs5+SvUGu/cMH0rWpcTt/UFbIzII65j9MTyYxVuc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LFJZswlJbEZ5vCLjwKbIc+cUiUQu4KuMDbtT9X0e0fVpXUZ2lwxtWE7LDD+adU5uB
-	 bQQwcJvtW510W7ZYm344cpnMROEbSEoG2xRWx8YIw3L52POaUSaVhOzzMRRNsPuhKd
-	 DfLsBSf5/qW0MCeToYHyYtYAvLjiM3x8vzOklguIcu0CQvwM+HblPMBGMIPEbtK61o
-	 jZLPz3sUXECucqlTgSslsLiGMF6XHYV3YnhzoJVI69xtcz7Cc0l+d+8JNhd5AoAciQ
-	 nG3UbgjpTs7/WPFiIp/cVZln5NCXKb7h0AoDwooGM7B66r6P2z//3nBgT0Q2pRWEnO
-	 xY4L9srP0vZwQ==
-Date: Tue, 28 Jul 2026 14:44:46 -0700
-From: Drew Fustini <fustini@kernel.org>
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Wei Fu <wefu@redhat.com>,
-	Drew Fustini <dfustini@tenstorrent.com>,
-	Jisheng Zhang <jszhang@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Han Gao <rabenda.cn@gmail.com>,
-	Yao Zi <ziyao@disroot.org>, Icenowy Zheng <uwu@icenowy.me>
-Subject: Re: [PATCH v2 2/2] phy: add a driver for T-Head TH1520 USB PHY
-Message-ID: <amkizlBd6lUUG08g@x1>
-References: <20260723084316.3573714-1-zhengxingda@iscas.ac.cn>
- <20260723084316.3573714-3-zhengxingda@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="V9rKKe4X"
+Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-7e9fc3de7ceso214414a34.1
+        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 14:46:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1785275188; x=1785879988; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7xcjeAiaFIEvJ/x7s9bhIM1GS0uJ3u5Dz39U32Qrg/Q=;
+        b=V9rKKe4X9jvs/kqM4DWfeHu1wC9ssDSgJR933RMp9amYrBs9F/Jut0NLzH3H7JiOk8
+         QuZ/9UuscBDvUWNleKM8gqRS/z9+OsmZwkZATNpsNsCvQJzUYmftMzefPpfraoTv+vxh
+         yvF6ahZP8H3EXWoPL0BfARAEVaQabQNm6IBPUqZAEFyGGEl2/22dmp+U+6pPdD3470lU
+         4gEtNKsovndYrePt7OUMiddtwCWCQ4WaKrqiMVnFW0/1hUDPpGjUi42U1SrVcmGA8yam
+         cnmdqUmEdlcLHUgmCddBFKoNPkYFbFssEVKkFaqFwKduJGiwzYQTOucYH6JbwxLQY8G0
+         8ylQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785275188; x=1785879988;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7xcjeAiaFIEvJ/x7s9bhIM1GS0uJ3u5Dz39U32Qrg/Q=;
+        b=mnmip3fSAZp5RK6R2lBEdTXBItVIaG65d5wemJtypDuBny0bUIzv9CptpIPxEGCLoD
+         olOR3sPpDOHEoVAIrvA++SUPABDgNHokyJbaNizUUOB8+TXv5YDBVc7MZlyf8+kDEmLd
+         DvK3Ear+uCkYD7psyTLH33OeZDfl7/ZRHE+mjF92f3SzgFjR6y9+/HTgZLKb9RDKsVmv
+         YczCYf9OYoqbIXPtkM1W+pbTmoJlae22Nfk4ZA5YxKspRAyUhQOWna6tBafE3h19Xuow
+         L6hkX0ecBVZbWufqlKfrix5KbVaz1HhTplYPRtPBowU2i//EYEn3mFJYC7ZrL21Wz4FO
+         YVew==
+X-Forwarded-Encrypted: i=1; AHgh+Rr+C3d0DfMmgjel6SLy+lUZhKLwrnego6v7ozMLsbJ+Vg1a+zh9JhBtrqDKspwUfOZ/zzqDpvsCIhhN@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy9nL4+wu8fKDf4vANPi0pmPiYmgvk+5KUYUEk3fcQifW+8aKW1
+	vA/kj0YrGobDGexLFrOU59gDXBehrn9J/RXNlFjLycwbP9/VFbU+QyORxMoAabNtbkE=
+X-Gm-Gg: AR+sD12eVt5QdIjzl/CTUAtKXVANc6MKB/Ni5UxRzKRFvvRtJWHvAmtvOrT7TB+0DbZ
+	FlyEGxXEYtMDWsOoXANiQjCWnrVa0oAAXneAgkUInb5duFvnfXE9glL2stVjqjvex5Wx9JfUU+K
+	pKutfrxVFq62ubZuGhshjVCCRtnfsHoqX8czfY0b9LAuC3k9RFZkv9fYzOS3EsrsFj72rVXbR4L
+	V2ImJcTJkCVhDMTC2CybKAj+ovAnlKKad1oOvVSn16D0wu/n+Oyrutz5OdyZlz0ZczRMi3gqPmc
+	hjxRWt2YPt7n9z+zCzceoMp3W7ODPwlNmVfK1SQwkvsmEm0Npi24gN2i3qCNLg8kctXBu+gsMay
+	NDDeYJUIcjh5Mjmm8h5YuKYVq5YXUgVmuW4NEOyQR3+GXRrF9AtpvEsL8sLLFUPWEQK/rO+it0R
+	VoeVpITe+KnWRZ2rjK3Y4G06YCnMTl3OQdN86p7sADlSfuXKKfWpBi8b9xfxNd4ZTcc+fKyxZCP
+	h8+oCHesnbSQFZQWKWgrW5wogOD99Ob7q1Bkig=
+X-Received: by 2002:a05:6830:6ab1:b0:7e9:d250:a731 with SMTP id 46e09a7af769-7efff247ec7mr2173612a34.20.1785275188304;
+        Tue, 28 Jul 2026 14:46:28 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:3096:ee5f:6f57:afe1? ([2600:8803:e7e4:500:3096:ee5f:6f57:afe1])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f00d595384sm747860a34.4.2026.07.28.14.46.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 28 Jul 2026 14:46:27 -0700 (PDT)
+Message-ID: <163c9872-17ef-4b01-9392-96e896c284b8@baylibre.com>
+Date: Tue, 28 Jul 2026 16:46:26 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260723084316.3573714-3-zhengxingda@iscas.ac.cn>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 1/7] spi: dt-bindings: Add spi-device-addr peripheral
+ property
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Conor Dooley <conor@kernel.org>, Janani Sunil <janani.sunil@analog.com>,
+ Lars-Peter Clausen <lars@metafoo.de>,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Mark Brown <broonie@kernel.org>,
+ Marius Cristea <marius.cristea@microchip.com>,
+ Marcus Folkesson <marcus.folkesson@gmail.com>,
+ Kent Gustavsson <kent@minoris.se>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, Janani Sunil <jan.sun97@gmail.com>,
+ linux-spi@vger.kernel.org, Kent Gustavsson <nedo80@gmail.com>
+References: <20260722-ad5529r-driver-v7-0-7781cd74ad75@analog.com>
+ <20260722-ad5529r-driver-v7-1-7781cd74ad75@analog.com>
+ <e2118cfc-feef-4843-917f-844834ef4e60@baylibre.com>
+ <20260725230445.60a445a0@jic23-huawei>
+ <20260728-barrette-rickety-788b47da503c@spud>
+ <e1f977a8-ab38-4dc6-a82b-b955545550a0@baylibre.com>
+ <20260728220544.5c65bc50@jic23-huawei>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260728220544.5c65bc50@jic23-huawei>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jul 23, 2026 at 04:43:16PM +0800, Icenowy Zheng wrote:
-> The USB PHY on T-Head TH1520 SoC is a Synopsys USB 3.0 FemtoPHY, with
-> some PHY parameters exported as another system controller along with it.
+On 7/28/26 4:05 PM, Jonathan Cameron wrote:
+> On Tue, 28 Jul 2026 13:39:20 -0500
+> David Lechner <dlechner@baylibre.com> wrote:
 > 
-> As a few PHY parameters' default value isn't ready to work, add a driver
-> configuring them before letting the PHY run, in addition to
-> clock/reset/regulator management.
+>> On 7/28/26 11:10 AM, Conor Dooley wrote:
+>>> On Sat, Jul 25, 2026 at 11:04:45PM +0100, Jonathan Cameron wrote:  
+>>>> On Sat, 25 Jul 2026 15:55:01 -0500
+>>>> David Lechner <dlechner@baylibre.com> wrote:
+>>>>  
+>>>>> On 7/22/26 2:54 AM, Janani Sunil wrote:  
+>>>>>> Some SPI devices support sharing a single chip select across multiple
+>>>>>> physical chips by encoding a device address in the SPI frame itself.
+>>>>>> Add the generic spi-device-addr property for describing these hardware
+>>>>>> addresses. The property is placed on the SPI peripheral node and may
+>>>>>> contain multiple addresses.
+>>>>>>
+>>>>>> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+>>>>>> ---
+>>>>>>  Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml | 7 +++++++
+>>>>>>  1 file changed, 7 insertions(+)
+>>>>>>
+>>>>>> diff --git a/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
+>>>>>> index 880a9f624566..b59d047cf117 100644
+>>>>>> --- a/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
+>>>>>> +++ b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
+>>>>>> @@ -142,6 +142,13 @@ properties:
+>>>>>>      minItems: 2
+>>>>>>      maxItems: 4
+>>>>>>  
+>>>>>> +  spi-device-addr:
+>>>>>> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+>>>>>> +    description:
+>>>>>> +      Device addresses used when multiple peripherals share a single chip
+>>>>>> +      select. The array allows one logical peripheral to comprise multiple
+>>>>>> +      physical devices, with one address per device.    
+>>>>>
+>>>>> "per physical device" for clarity.
+>>>>>  
+>>>>
+>>>> We may end up relaxing that again if multichip packages start doing this.
+>>>> Fine to add that clarification for now. We can revisit when / if it ever
+>>>> needs that relaxing.
+>>>>  
+>>>>>> +
+>>>>>>    st,spi-midi-ns:
+>>>>>>      deprecated: true
+>>>>>>      description: |
+>>>>>>     
+>>>>>
+>>>>> If there is nothing useful the SPI core code can do with this information,
+>>>>> I'm not entirely convinced that this needs to be a common property.  
+>>>>
+>>>> I think being common does make some sense from a standarization point of
+>>>> view and it isn't obvious where to put it other than under spi.
+>>>>  
+>>>>>
+>>>>> And this only allows for one logical device. If we wanted to treat each
+>>>>> address as a logical device (all with same CS), we would need #address-cells = <2>;
+>>>>> instead where the DT "address" is two values, the CS and the device address.  
+>>>>
+>>>> Ah.  Good point for the adc@address or similar needing to match a combination
+>>>> of CS and spi-device-addr.  Conor any thoughts on how this would be done?  
+>>>
+>>> I'm sorry, I don't quite understand. Why do you want to support both of
+>>> these representations? Hardware wise both of these things would be
+>>> describing the same setup, so allowing this alternate "multiple logical
+>>> device" typically is not permitted. What even is the use case of it?
+> 
+> The microchip parts.  They are entirely independent. The device address is
+> just a way to save pins.  That is contrasting those with the one in this
+> series where the design assumes you want to treat them as a large logical
+> device in a similar way to spi device chaining.
+> 
+> 
+>>> Does it matter at all if you have one or more logical devices from a
+>>> consumer perspective?
+>>>
+>>> I do have an idea of how to solve the adc@address problem (you can do
+>>> adc@address,spi-device-address like some other devices) but as I said I
+>>> don't get why it would be needed.  
+> 
+> I think we should often do this because there are some confusing cases
+> otherwise. See below.
+> 
+>>
+>> I would expect that if such a device was intended to be used as individual
+>> logical devices that they would just be wired up each with their own chip
+>> select rather than sharing one.
+>>
+>> The only reason I can think of actually needing adc@address,spi-device-address
+>> would be on a system that was really short on pins on the MCU.
+>>
+>> So not saying that we need it right now. Just wanted to make sure we were
+>> intentional about saying we don't need it if we don't.
+> 
+> To enumerate the cases:
+> 
+> 1. One CS has multiple spi-device-address and needs to be a combined device.
+> 	Given this ADC does some fun stuff to include messages with no
+>         spi-device-address that are meant to be received by all such
+> 	devices we pretty much have to map any that share a CS to one
+> 	logical device - we have to bind one driver.  This is kind of
+> 	similar to SPI device chaining.
+> 	address == cs.  spi-device-address property not used for that.
+> 	- This one can be normal SPI style.
+> 
+> 2. One CS has multiple spi-device-address but logically separate otherwise.
+> 	This is the microchip devices I think.  For those the device-address
+> 	is just a pin saving exercise.
+> 	address == spi-device-address. CS not needed as there is only one.
 
-The second paragragh might read better as:
+We would still need CS to tell the SPI controller which one is wired. So
+we should never have adc@spi-device-address, only adc@cs,spi-device-address.
 
-"A few PHY parameters have unusable defaults. Add a driver that programs
-them before releasing the PHY from reset. [..]"
+(There currently isn't any binding for SPI_NO_CS, so the controller would
+still need a CS line even if it isn't wired/muxed and CS on the peripheral
+is hardwired.)
 
-Thanks,
-Drew
+> 
+> 2b.  Same as 2, but there is another normal ADC with a chip select.
+> 	How do we know adc@spi-device-address vs adc@cs given they could
+> 	easily take same address value by coincidence?
+
+As above.
+
+> 
+> 2c. Basically Case as 2 but * N CS all on same SPI bus.
+> 	As David calls out this is the pin count minimization case.
+> 	E.g. I want 8 devices each of which has 2 pin straps to set the
+> 	device address.  So I have to use at least 2 CS.
+> 	For this I need both cs and device-address and Conor's suggestion works.
+> 
+> There is a case of 1 + 2 with different device types but result is same
+> as 2c.
+> 
+> Now, to me the question is whether we say that if spi-device-address is
+> present you always do adc@cs,spi-device-address or do we allow for not
+> doing so for the composite devices where nothing else is sharing the CS
+> (like this driver).
+> 
+> My inclination is standardize on always doing it for these devices.
+> 
+> Jonathan
+> 
+>>
+>>
+> 
+
