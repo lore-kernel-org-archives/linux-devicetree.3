@@ -1,46 +1,46 @@
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A7F547255B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64B2F472769;
 	Tue, 28 Jul 2026 19:16:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785266210; cv=none; b=DE7K88XKL9ah9oWox++zFrmvSix9GI06gpmZ0EmaIaUEelvFPmb2Op+frhX02o06AKBQLLLfJOOpPnFtnnwu36m0JL9ybGsc11TcXDsBO7p/zkACDhsdc7IsaGu75jw6Vsg6HAMXMt32paQYQepSNQ2KLTvXvoY96ZdyH752mbM=
+	t=1785266214; cv=none; b=E5YHjuChqVtRSr+s5cVGiTvYVkohJmctGt+107FVd0UmygEhuH+DugYcE8ZMiE2ciVxaDeau7o5dDNLbRr1AQWpJgDbBdcZvhrpV4rFe90Wql8cikoygmozrhTcqlpdVFxTePQx4wOGKzICPU+G+3Y2CQlxv2MiHb7wzr/ioRSI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785266210; c=relaxed/simple;
-	bh=2tgQ+xJatQpb69KoilSsd7iz+TLnuC/fIYZxigl7/Is=;
+	s=arc-20240116; t=1785266214; c=relaxed/simple;
+	bh=iLEMH8JV8rbOgEt2Gcn3QTRtsLzs4pLxbYp8mQsfPwE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FIck/tMYpbjhUVHdlhd5U1Ht+i3aIO4DAnWqXA7lxs1gAv31l0CODbZkjBzKpbqIcDBvslw00lXYQPTFk+jN8mfggI1p9fZTMa8mPIo84Gg0wdKOyt59OO4ZK6asSvWz7iMW88ad1QHH2qg22opqzjQRvJeOevsh929qI9GAY3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=yvf0oo6J; arc=none smtp.client-ip=185.11.138.130
+	 MIME-Version:Content-Type; b=tk7on6f61F7T7GC6G2i/eAdEEuP/07lFo1cZwvQvbGMdqLh+0W2jZb6HVvdpXuRmMG88MGzz19m1DqiwhQ+HPvEt2loXNSRIQkh9pn/TNuXTfZEdlgIgYs9lCqtK8rcRiGTeGlJEeuAyGLI2frT7WfyN+nOKsMRZcsuoTGLmjgw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=dDAIIRH2; arc=none smtp.client-ip=185.11.138.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="yvf0oo6J"
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="dDAIIRH2"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
 	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
 	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=ktVslNyishmwLJIWQZVyJyZGaF8VrnNN5PLCkW5qv1c=; b=yvf0oo6JI9hw6HVT8BbmF4Bx2Q
-	XB5AplJBXaXF8KQpdH0HOyXSi89oHtRraPaGkI+oGxC9JCqPPXKpi8aPLAQZDjmgjXVm3qgUttCTP
-	2YWyBf5fgmASVSXe1pq40vY5gDe7AtnCF2TyCXjvxJFizhgvwOPHB7BaZKLAtNtQ9fJVVZjZVFpCj
-	d6xqqdqG+eLT8WT49qGVVdVPv+oQ/WgoIC9oi/Bq8J/x4QzjLkH/3CxYvJTgG2dsdASs5ruOxLTBd
-	oLCefYR3Ou8tlCRmvygo2PXPbBWmpJxTQOG6Aw0zf6P5VIJ/ZUn9sz2yTn8bZ3YbXyPQFVgezc6Sa
-	fzZ0s2LQ==;
+	bh=EEmBmwtUxYixgDDvolM4waYljKOFYZdLR/vUhPt1oKU=; b=dDAIIRH2zMqHKkENbt8s+Nxetl
+	sUqR17+shS7adYNSlgpELENo5qYRTjmZ0O/2IMBrteZAeuLK7Q7IVwVxPesZLxwbBQLAinswt1mtr
+	q41fP+9yiBeyS1yAc8rOIAPKraP49UMzBrpWeJEWEyFfLUw13S1+5zRMNgP6BFZyjPWruazGdj4cP
+	kGCNf5YngBjZ419vjmhLiUINwnyNXSisYsgZglA6sY+yA9J5oKRNSrp3oQMK0WrkI8yZuu6OApKa7
+	bZ2hWunRaQgnbuqwAP66nupA5xksbaLKY0CyOSqpf6zLIs+pKKETvqFIsQy1VoBDWUR8HV5Vhj8Sq
+	mHzb/zJA==;
 From: Heiko Stuebner <heiko@sntech.de>
-To: linux-rockchip@lists.infradead.org,
-	Hrushiraj Gandhi <hrushirajg23@gmail.com>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	krzk+dt@kernel.org,
-	robh@kernel.org,
-	conor+dt@kernel.org,
+To: linux-kernel@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
 	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 0/2] arm64: dts: rockchip: add Vicharak Axon board support
-Date: Tue, 28 Jul 2026 21:16:33 +0200
-Message-ID: <178526609457.300371.12562771898279698820.b4-ty@sntech.de>
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Jensen Huang <jensenhuang@friendlyarm.com>,
+	Vic B <linux@vicb.net>
+Cc: Heiko Stuebner <heiko@sntech.de>
+Subject: Re: [PATCH v2] arm64: dts: rockchip: fix label of sys_led for nanopi-r4s
+Date: Tue, 28 Jul 2026 21:16:34 +0200
+Message-ID: <178526609481.300371.14540350960348344552.b4-ty@sntech.de>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260714053419.265523-1-hrushirajg23@gmail.com>
-References: <20260714053419.265523-1-hrushirajg23@gmail.com>
+In-Reply-To: <al0cKhqvPbBO_5q8@vicb.net>
+References: <al0cKhqvPbBO_5q8@vicb.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,32 +51,20 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Tue, 14 Jul 2026 11:04:17 +0530, Hrushiraj Gandhi wrote:
-> This series adds initial device tree support for the Vicharak Axon
-> single-board computer, which is based on the Rockchip RK3588 SoC.
+On Sun, 19 Jul 2026 20:49:14 +0200, Vic B wrote:
+> This commit corrects the system LED configuration for the NanoPi R4S by
+> replacing the deprecated label property with color and function.
 > 
-> The Vicharak Axon is a feature-rich SBC targeting developer and embedded
-> use cases. It ships with:
-> 
->   - Rockchip RK3588 (4x Cortex-A76 + 4x Cortex-A55)
->   - RK806 PMIC providing all SoC power domains
->   - eMMC 5.1 (on-board) and microSD slot
->   - Gigabit Ethernet via RGMII (RTL8211F)
->   - Dual HDMI 2.1 output and one HDMI 2.0 input (receiver)
->   - PCIe 3.0 x4 and two PCIe 2.0 slots
->   - SATA 3.0
->   - USB 2.0 host ports (EHCI/OHCI)
->   - NXP PCA9554 I/O expander for status LEDs
->   - Haoyu HYM8563 RTC
+> This changes the resulting label of mislabeled sys_led from red:power
+> to green:status, while the labels of the other two leds stay intact
+> (green:lan for lan_led and green:wan for wan_led).
 > 
 > [...]
 
 Applied, thanks!
 
-[1/2] dt-bindings: arm: rockchip: add Vicharak Axon board
-      commit: 58db5a28c85150411f3b6035b9a7eb3b23ca7789
-[2/2] arm64: dts: rockchip: add Vicharak Axon board
-      commit: c42f01f053a7be77f534c850911cd8d54777af19
+[1/1] arm64: dts: rockchip: fix label of sys_led for nanopi-r4s
+      commit: f4fb08d6d735ddd64ae507e0b32679df0135cd8e
 
 Best regards,
 -- 
