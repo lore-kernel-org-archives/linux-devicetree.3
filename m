@@ -1,35 +1,35 @@
 Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011049.outbound.protection.outlook.com [52.101.70.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32729431487;
-	Tue, 28 Jul 2026 12:20:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCFCB431A42;
+	Tue, 28 Jul 2026 12:20:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.49
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785241255; cv=fail; b=qJkhR/ta5b1OUYQELLkaeNpA3JdJ9pYACQFYUrCoVnzg7ScoJdJcHH26Q7O9dpCPGT4cmfIpx/WJ93qvBwM59euipgNnDqBvg5uBY/HTI8MMqzjkI/cmG2KmTeUpPm4+kiKYM+VnJTT5IoXYQ6wNXIoHVrbTsUSe/FAEwrAuD9A=
+	t=1785241258; cv=fail; b=cvZH7NzwImwv43n/aBkcR5ZF07W4/zXXy4uYnUQoPgf14uzjTaAi0N1m37EkUdOQGrsm+Kcj0BeRLguOnXW2yThIK/L/X0zG3kWxhQ4tpSkaFNuJkRYaNjARCaBKCpqpcVYxWVo4zdfjwv8BN8FM3tJT8OTx6qjfkEU//ds3bQc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785241255; c=relaxed/simple;
-	bh=mbrc2pqPQe5tsgdpFLJPUN2yFAcWenKSlPrdjaXn1gY=;
+	s=arc-20240116; t=1785241258; c=relaxed/simple;
+	bh=DJ3NJj94FRKVIg95WBsqhN2LB5pcpbrkUUyW1eP/Y14=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=hOYj8wsyAdXtGbtblrS7BG9KKQxBrsB1rz1uiVacy0lbajJS370OMz+7wdKVCZpzZPysBqm6Vsh3TWZ8Ms++Wb+wmLWVgu9ThRku2jWPM+fEDGUwssgt3E9khg0JwmRrL5ebiNaOUJgTHvOA6+q5mcYOdceAw/z3I+EzcXWUWcY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mt.com; spf=fail smtp.mailfrom=mt.com; dkim=pass (2048-bit key) header.d=mt.com header.i=@mt.com header.b=eJYPUA/l; arc=fail smtp.client-ip=52.101.70.49
+	 Content-Type:MIME-Version; b=OvEFl5R8jWEzWJPDWkoMaV0K/sMrQYKaICVBW8X1IPvxePQFQbi2ouSjLQUhccwPWHlcpSR8sOHg2xxTk26CUnvVSENR1X4+13vqdyKSJ4fgBOMbuSRAYPDE3/5kGpB7/Tmq/etPNufMG9i3lM+UomGDwiLEd8cl7TpXx3QM9I0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mt.com; spf=fail smtp.mailfrom=mt.com; dkim=pass (2048-bit key) header.d=mt.com header.i=@mt.com header.b=quQppPH6; arc=fail smtp.client-ip=52.101.70.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mt.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=mt.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mt.com header.i=@mt.com header.b="eJYPUA/l"
+	dkim=pass (2048-bit key) header.d=mt.com header.i=@mt.com header.b="quQppPH6"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hwKwhFajr9YKRq5BCOjQak42LToALCoAwmUwZCnUAsy7FSv+eY6DBBAATEcjeKH95GJBLDZRq++xxS+r5OfRK58/YYV9P9YGSVNJQZzSOBSj+gQuauYUvZDpo2hVM829S+qSiFnobFKYpHwftGPOGbrKBZGcxHVei/Zex1rev8eBq7xtF1frBZOZLptNXfY6i42kdxCXJl5ZDwo36FRjNCreYhM8M+66bqf6EKhD52NP7LR5oTj0ToPzaZL4xuty3cFSMQ02TYcHc0kAw0VJQWG+HpyOxuCPh2pXJvAOLOywkdWEDFqxNE+sCnBa8NZdW9WZ0Nhbusybl4Kapw+6tw==
+ b=ejMr78JH1JUExtd3dyX61w3xY3hpOgWGE55NRPXvwRnp9l1M9pngphDsj1S3V1Xv3JKEc0WL5lGSZnC0XtUBlysXUMXBp0d3JY1AcFPY5eQjREqalj9DlvWUjjy+OgRUzxFEkVF9MTvZEX25YUbfgWiqq1G4IM3Ab0yUOGSXa9UUr5FtWktZMrlhq88ai6NCOrGC6EW51JZkTEpx5VRH47PvuATb97pqrgLQiWZLTQx8MctyRsZ4DVMmkZwltiK+UCo0u2sJBlL36AQadQCTvSm0MOekaGYJxGXg9FXfECCjtwsdStzYAA7h34l3wB7e57THAk2iTL4C+uvjlSdrwA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2bGwy71TT0ErkKstC5Ym1MV7/PkBEOByBqIg/zMZyGk=;
- b=cpspF8EFwR/mwrRGDivsLWFT9NAbFNZhhoAM5XhdF/H5vcojdO+KIvlCqQeNUq+PJ0Mz4ySCfRp1rjMXyoAbGQDo3L2kpSxkJM8eHotYyJvdHGKTGltKZZSr0+fQOoXzqgTfuFKka7fQHl1Z7P5bNwwRlzsutn9oZRBnBSlKtW/LGZO/9A2zfhk6afZz6x0mHWHogOl4k+v+dD6WW5YoMLvn8Y+PP2H5cmeBZueNnKA/avDjjFTd5Id65mYfge1riztP/iyYQUSVMyRBnLDyJ24OheuRgJgLe+SqmOIDZtCC4VpAMN6/lhoz13uZKTog9hKyfQdhWvnoJcbpLSZUdg==
+ bh=d25AIFuqzErVn7LstllqwZuK0E5hnI3B/xiCd1j6+Tc=;
+ b=ur2OeJ8vt54tVSK0OKCsuW1dRdpQAGN1fwaeoXH698mV5vMq93/MvHGxT5cGnRRaMkJRnZ7mLUC/Ovwibx3sCoybsPc7rJ75qcWCEtj7SUVGuv9sOKNNZhQFfOxwm2Hk1vm2qHeNt6bZun/THIeJmseDJODvYHktKpiwGH77h/qFuyiKAGNscKAsXQaTsazsJeFF/p+c3GpoACqrDsiE/PraKrjop3N5G9Vs2ixqR5cBqh0K5INlsl62j9BiG6Y3iI8i6xxGu1+xLfXQfgpD4JckPT30Ga3WZ0LbHQhGa4nFEk6LDwE+1jZfBdg0wzKJDMuiqXiLbR1yzY+DCrmnQA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=mt.com; dmarc=pass action=none header.from=mt.com; dkim=pass
  header.d=mt.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mt.com; s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2bGwy71TT0ErkKstC5Ym1MV7/PkBEOByBqIg/zMZyGk=;
- b=eJYPUA/l0fbzyfbsFETVigf1XNO9iEpW7JsItAHbnNN1Cihc7wc3knnl5cLz+uZLEkgGNzJfiqN0oEkuOShCx6pxXtDJYbdNQ+NHRmLuHPUKLjpRe+DnzUO96XC+hCpZlmEh2lSTS2daxM5vo9KU3J+90PA+UxvvRbtbcW5rszkjjMmlw0oqbU44rN+5d3XtFSDC/QXZzGVOR5J1N7WZ798FLDU1VpvfLN391vzqwVt0HufDUoCH3XQSl4+XrgB4RAYaPk6ztc3Ukq9o/RrdRh1v5U0mfEmZspuaLoYUAPoIUumvh3diwhOy84AHPdjPcI1q5OucysQicidoDURMBQ==
+ bh=d25AIFuqzErVn7LstllqwZuK0E5hnI3B/xiCd1j6+Tc=;
+ b=quQppPH6EKDHLZQi9yt5zgp9ObG6XDL2XAzNxCU4iqalqZCudEpJKeUIIGO7ql/skhAOLD6XyfIyd95ap3fjv2lAeR9Z+imWwTatIwien+Y9vH0D3KAUd7guCdWJJeMlhjKzyPkJd61tjuuDlGY66WRKVp2m1fEJEgFDjxvhtQo8gjPoEPCq656kzLQOjgXM3RQsX1g5Iwab+ZKytuoax94fy0uH8GmySSBqFkViJ6OTaWFtYWn4s5SRuI/TZjyELGDgcy+Pj9vyUtDPMSAkjtMk5rOJ8Mci09tDPJyiBKQy37hW7gJR2r3ZqnRzKHzQFZjvl/sAz0zoJnCboGn4ww==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=mt.com;
 Received: from DB9PR03MB7180.eurprd03.prod.outlook.com (2603:10a6:10:22d::13)
@@ -62,9 +62,9 @@ Cc: Wojciech Dubowik <Wojciech.Dubowik@mt.com>,
 	Marek Vasut <marex@denx.de>,
 	dri-devel@lists.freedesktop.org,
 	devicetree@vger.kernel.org
-Subject: [PATCH v7 1/3] drm/bridge: ti-sn65dsi83: Simplify error condition logic
-Date: Tue, 28 Jul 2026 14:20:29 +0200
-Message-ID: <20260728122032.692482-2-wojciech.dubowik@mt.com>
+Subject: [PATCH v7 2/3] dt-bindings: display: sn65dsi83: Add output data-lanes property
+Date: Tue, 28 Jul 2026 14:20:30 +0200
+Message-ID: <20260728122032.692482-3-wojciech.dubowik@mt.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260728122032.692482-1-wojciech.dubowik@mt.com>
 References: <20260728122032.692482-1-wojciech.dubowik@mt.com>
@@ -81,156 +81,95 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DB9PR03MB7180:EE_|AM9PR03MB7993:EE_
-X-MS-Office365-Filtering-Correlation-Id: e5857434-4396-4eef-f982-08deeca2a6e1
+X-MS-Office365-Filtering-Correlation-Id: dadcd531-3215-4101-a68d-08deeca2a778
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|19092799006|23010399003|366016|376014|7416014|10067099003|56012099006|18002099003|22082099003;
+	BCL:0;ARA:13230040|1800799024|19092799006|23010399003|366016|376014|7416014|3023799007|10067099003|56012099006|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	NKX49+5LR/ZzF1dbz7A9RKHcwdb3QX0nj1sVt7IHXLkFbyuiKE722Bz18/fBqAlGOPs8v/HwgWMswys9c5UTR9M7yi7qqqb2u+b2Rgjhbryl7v6fDGHuMWEAaA2jAien/m0Gd1tzVtl0LKMJxtM8uR+jIzzLBNuxjK1hSNGRum6hTWTX7X7HreieOhlte0YfsK8cTsDxbmtzstuIcEmWLR6aPIE/B/c9yeLNZJ3h496E1cFF1PCyq32asDMTyWq2dJTYXqR6u6FTJRcXXGmXBc/SEVXeSWy5JXAmUoz3ZXA+4BIumSkzZdNfqJgfEyCMeEB+QbVK1xqMxydP7C/QhVzZIfCefhOtMVXGNMv7sI8ySV37Sg3PKMqFn7mFhBcnbzF+SPoFl1+6yY8kf9zWKa2Ok9kHrCWpp2IuHKXaGElLlbtAUNS1xpCVVVGRaPuH4bfBpo2QOAxRYBf2+PfSRokZjTA8zZQA0VqJdubZH82hXLG2yJpsa//scguo/oIeSd+EghETym+opho3PiGSzP68H2MEPNfNaFTRzW5ICpXxzPc7m/WiS08ZhWD/RqIGC/jQwMrwGty0V9I8EBLTq6klJKe2ggiXo6aJzcVT/2QsKleMQunjuRZnH1a5t1ANhJLTOZn8ibfZSDvqdm9mHG8zpwf8oPJ9973TyOQEU+Q=
+	TedyA+9PaWL7TD2bujA3+5Es+Pcr6YN35SYmlWf4nHJsramldfDMoA/qI7aYQ/WyAhGskVNesfOsDdLD31NJNg+8XtDeOYOz0XGLxuPfyEtD/BEBTXMd2aMsY/ixX2bbP29QCjI0juHjWg3C+LpLkkHqIQekZM8LCE3w1aZ6EkcoFiBoYhdvRTpl69kheRoFVhJyc9j2cPfcxrXdGqrCqfTRG4pUKJwZIX4vXONZsc3baWC5UBlLsuD7O2f6p5UhFznhfPz19HgdjA4rDmac3i7ez6ld8OSCNcrJCz/IijvPjH6DkGX320ub9peHyTKKJWU7kdJySoXaZiwE4zjrHPGUuV3/MI0+sJorYiOxtKPZ5jO7LCIRqTrQMfetkXpgnf8XMVvVubp/NfuRCjIA4yWKT/7OyetFt+nu/Pw8eH92GkixyCc5auv2JooJ74i1CcDWH173XUirZjRzAf4D2BwHNcQTLCbc/mXdqAaNOXMoWd/3LIq/T52s/vesYv4jkCQjLsGbtQJ24tlzXn19j9slb1Ui5XfXEIWzp/S9GRjkU/X/QOjpMalAL0fXqL6lvELI65ZR8D1cEoC/5isaiZSnM82BNbT3zxTuwR0hE9X3HqqXM7CLCAEGP/McUjYQtRkPfgddd9zPPYgkhokhEYmRL0/vDp/ImRGfJB8g+q0=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR03MB7180.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(23010399003)(366016)(376014)(7416014)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR03MB7180.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(23010399003)(366016)(376014)(7416014)(3023799007)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?GVOOMv46bWyB/QKb3bCwCJv02/aYay669Pym1u2A90eWcO9HboGwDTI7056e?=
- =?us-ascii?Q?sW/qS2NwnkJHCph4txjwll8322lrWQaD+lkQuOAvBEAirFh9hZ/OHyZ3iKNJ?=
- =?us-ascii?Q?iiD2TFax3ZGFZ/k5V5CqwgOJ/TmVQCBzv2ozt+CsvazprLFK1aYV+yRrS9rT?=
- =?us-ascii?Q?HJdT3eAqWpVytwJt9elhn0a5674/WfdvP/mmGVjkD28RjnenU0SxymUhj33D?=
- =?us-ascii?Q?6L21w3zwuqAvxouaB5hEL3DDcb3Ncc36rbkIH/jbtxBUseGyTsEHhcHKn4nT?=
- =?us-ascii?Q?eQaiA2Wal14SXUXfgcdxAOyO8cd7i/bgablrqrUa0NUoPvHApGhBGWE8DnmC?=
- =?us-ascii?Q?oY8c/FHLaZ9aGqw/5FCOgbolnhra4MECXKLhh2KKG/xQg/5TGeNS/JxbP+hx?=
- =?us-ascii?Q?1xve2UN/SgyPOSBKnM6wei0paMAd0SGgmO0JiGg36cbyO1n0dXKteOd80C59?=
- =?us-ascii?Q?YdunJt648rsQa6gqtemM0SdmKr5VwNQaYJ+rf/vSCXinctWCl2wiB3xTdYM0?=
- =?us-ascii?Q?KPKAB3o52S8seyfnQdSYuYMUDNuLNi/4DpgXTBcSJsCTMlKaOYB59zoVO8me?=
- =?us-ascii?Q?pmGUgqiT0uHkX2Y+xS4cXgp5QLvcm1idVygBfX6GKCWJVfNGrmGOHvUszwqM?=
- =?us-ascii?Q?TN1BCYk/gHf58cKUrt+bIhgyVG1yAcYh6TcuOE+uKt4OsoBwtAvPwOiLK4+G?=
- =?us-ascii?Q?6Zd6fcz1PaCI29rkIUNdRNbSDPo0Op2+n/MPO+A37i/MQXIpg6+lD5fUnjZS?=
- =?us-ascii?Q?ZC9Lcr/gzVXynQvqO5uuzf8MWznsH+In8JVoL8MXyhSfvm03OSu2auBgfCDm?=
- =?us-ascii?Q?HNyVwqEklcJkYEoPRk4PbJs4J0cWapgK+MRC8e4y5ehmNj164hPj3rQ6b2q/?=
- =?us-ascii?Q?CE2lQ7laVrsHAlOL68HRRGeRbPLCWtUyQgvJlbhnEhM/+oqGE9Xg6X4row+e?=
- =?us-ascii?Q?GjLGj9HWdIOpoELVv30CseO61EuUt0S2x2vTRnZVymxFiycAWUJDbxYFEVR/?=
- =?us-ascii?Q?BRQIzxoS69NOZmPUQhHyR0e+slN4XQdJJie/2gDdnx0EFGhl9ROScj9mSTAa?=
- =?us-ascii?Q?c27phb5RQUstzJRX7DhBIGHgEouC/v41iyFLKOj/Q2x1dj67/ivT3k6a8+da?=
- =?us-ascii?Q?tyN2YHP2KoAZRzAj6Hv/B3umYFrfKdGtKyOi+Rb0yZBhLvGgdSgh/khhr9EB?=
- =?us-ascii?Q?Cziq1Z2dqkCEhZIRT6UOGo5WQla32pMl5pvdh6ivp9IgJ86aBa/Rk3j3/8R3?=
- =?us-ascii?Q?gwMBMLG3A7uDaHtXL7C3/qD7AyUUtM3iEovgNhy7TlxQRrUdUoD7lGyIV60G?=
- =?us-ascii?Q?X7au5S3QEfthrxpCIaPAwp4gZ95M37K1t+Qa3gjHrcQnd06zhLzDl5l+D1J3?=
- =?us-ascii?Q?Ryakhz3zMaQPWNpvqx0uVR+LrBYugSfQtLyP8vR1MZUn0VnaD9fTRUwpiVjJ?=
- =?us-ascii?Q?WIGf/zI0WI1E6GDSay/wuNYi1uVUKMgyqo98A/2Lx1GgDlZLbvo884zhcQkb?=
- =?us-ascii?Q?B8jMG+rvTTR+wwn0hB+d8aU7wmos+xPqOhcWsUXsJuptF/L+vyBfHfOWih3U?=
- =?us-ascii?Q?IQmGwcry/Dlntvct6QgleTqYwPJNsh8wcB9lkQe9w/EVn7LKpnTnPs0Fs4uO?=
- =?us-ascii?Q?sOKY9CPFXAwkIHusEjdUds28MGtFjntP4X5LPSPHN+ghJuHiCpEX1Y9c0O1v?=
- =?us-ascii?Q?NS/kpeiub8GdCoXvgduFjFfhzs0f0QFJYExWC1zyB37VCzer45Bxwz5jYea/?=
- =?us-ascii?Q?0m7DoQo1bA=3D=3D?=
+	=?us-ascii?Q?eTFoZDbmpZnWTil7eVAk6n+0uoLgrYAeXf+IGPX54ay1iQKHqPTtXa1ognhq?=
+ =?us-ascii?Q?bRKtLjcmI9IHxk0EsO3oP7CvOjGfzbSPel5kFKCZ7KxcSLxibr/W+43T6GHg?=
+ =?us-ascii?Q?AWqm1O3/eFEQMQOunu1BsDSxLUF8iFg6GJFef0I6ooB97LZeOlBwvypQ4ouk?=
+ =?us-ascii?Q?RMDD17dgx4fSksoLIPYbZjijCqibjkGd65/JxSGvNS7DBZA7xe/l6TEg2F+H?=
+ =?us-ascii?Q?YSgcjs7hEOjn9d9kh4GaRkU+GT/RgVrhFhxJCKPv6ph1Dyo1OsKfbM3pAy7P?=
+ =?us-ascii?Q?+p8zWXRqF3Z4OssSaOT1vY2YHeF6RACdFDVnxoHkNvS7Yigk/UmKcXrRuDvd?=
+ =?us-ascii?Q?bOy6ynb3xsyUCyMEV6th4hxzuCVhXbg38WxRdMDeTP3/mHjIZARQCxLvYQCX?=
+ =?us-ascii?Q?sOYCjbijlhn1KoG+4b6SxRf8awrI4IRU1knqaNmZOW9ljm3S8nsjYC7Ffgm+?=
+ =?us-ascii?Q?Xem4Ap9j2kY/CCq6dQW5ZFizwCSEnmeBF2IDl0EQIZufZffRiHT6Lp1eLlgK?=
+ =?us-ascii?Q?vc9Jb6iCMOwA5qVwkN26ZJUagr/JL5l40z2C5DlKRYoChwW6h6ehobAYmEdK?=
+ =?us-ascii?Q?/LRmqGFUlvIRNY0GEUHkc0YXqDn10ZFieZw7MWZArCh7bL6vqWTpl29+4gup?=
+ =?us-ascii?Q?i8oG1ASab/7WmnygeODYi3EqK+avwKKc/2EmgTi5NLPj4O8ZQz/OYgRGXn/O?=
+ =?us-ascii?Q?/OAWfsn5RgPd0MX3FVyzUzBw0BIURIwfuaP8jUJ4+VemHWZVRRKlwey6yQhL?=
+ =?us-ascii?Q?h3jNJv29ml4CXDiw1Coq90v54cUd83LiBOM491BpJbsBhfLbjX2CdHAb+vdo?=
+ =?us-ascii?Q?7qN8xmUH/nBQbKcvX67mQEWlb/2HPnf+2eE3qvZwL+q/MDUptMqcLInjKHHS?=
+ =?us-ascii?Q?THFFGNVHdlTyNQDsX1va/ojYsOOhLdyqxy53B6bIoGl5fszinltancvGQu50?=
+ =?us-ascii?Q?3Pgxd1b9raoSMZRX5FFrY8NigSQrxcEYu5Ra/PTtSudGnz03Zhl5OQcBglUs?=
+ =?us-ascii?Q?4ePDKv/9AQb1xru4IE9RiwIzyv7+EkuSxNSByXcdWsQaS9+CgW3I+E5tQrzc?=
+ =?us-ascii?Q?St3f1UdhBz2O57FzcSj8U8rqhZ2Z+f89dC6GQy2+rqF6hEaK6gDUoPucyE5d?=
+ =?us-ascii?Q?O5l3aq3rHo+JHg6dL2RZYxCloRoHF7sl7Z8N+ks59Uk1jaLGRCalXPCQHaaV?=
+ =?us-ascii?Q?lseMNHY5aPqQfpxiXFrNuDxkhAWGLdZ+E8iLKNmvx+ETI3pd0hKoDBfhILKA?=
+ =?us-ascii?Q?X1h1hFeD81qPKvtyNm1ircfeaLEOXuAwzTDgbIpjLqMoeWExsFxs9ouIjMio?=
+ =?us-ascii?Q?6AhNiJfrwIETaZNbxVNgU4Hv4SLA2z2i8778WmNCKyCK8K91eeZr3qI2sSOx?=
+ =?us-ascii?Q?gk0y3vliUaJvkJmltu8dW0jWUfVTpQFq48kUvZhz4IL4mycTy8MiL9uVTcHR?=
+ =?us-ascii?Q?qO+s2ZxAsszmdupjxH2W4XZnhwbw7lEiWsWxZLnNhOLxf3eERPDRnSzzeJCa?=
+ =?us-ascii?Q?hz+iZbXQE8N0r2zRPWsbHIcpaiicDq3VSuucqiuDzm+uGU3sjuRU6NhkSedz?=
+ =?us-ascii?Q?u5zT/9JLNXKJyEZtUtMdaAUk2axoMUgQIKRaF7I98/HzH6Qz2G+9Vouy+j08?=
+ =?us-ascii?Q?5rshOQS15utD9Jlna3qxtAKxSkqFQK0w4xIYbKEZvdMeSCBpbKNOvkuOKWc0?=
+ =?us-ascii?Q?3DcvXQXi0kO2BNBei34v7RqfBigROtySMj4gDwc7Hrhk9Xwycc7QfLb/P8/A?=
+ =?us-ascii?Q?c6O5wMvjeA=3D=3D?=
 X-OriginatorOrg: mt.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e5857434-4396-4eef-f982-08deeca2a6e1
+X-MS-Exchange-CrossTenant-Network-Message-Id: dadcd531-3215-4101-a68d-08deeca2a778
 X-MS-Exchange-CrossTenant-AuthSource: DB9PR03MB7180.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2026 12:20:46.2627
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2026 12:20:47.3161
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: fb4c0aee-6cd2-482f-a1a5-717e7c02496b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iUGbgpu/Q2NPQ0PSm6Mpb9Ok6UbL9Cu3yGswYjFgwD6BJxWSH2T2qnZ+LpSFFjaHfQtTYLJ377Qoz1hOae97VA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9eSp2FS9E9ZfrkihLND75ghukg0Ox2R8YoAdammfS+Z6yEOIVEnZRXCUf+3efIIrXystrNdq9xJybC0zJ1g2Jg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR03MB7993
 
 From: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
 
-Simplify error condition logic in lvds device tree property parsing. It
-makes it easier to add extra properties without handling complex goto
-entries.
+Add an optional output lvds data lanes property with two allowed values
+for default and reversed layout.
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Tested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Signed-off-by: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
 ---
- drivers/gpu/drm/bridge/ti-sn65dsi83.c | 43 ++++++++-------------------
- 1 file changed, 13 insertions(+), 30 deletions(-)
+ .../bindings/display/bridge/ti,sn65dsi83.yaml     | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-index 42b451432bbb..f8a786953526 100644
---- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-+++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-@@ -825,48 +825,35 @@ static int sn65dsi83_select_lvds_vod_swing(struct device *dev,
- static int sn65dsi83_parse_lvds_endpoint(struct sn65dsi83 *ctx, int channel)
- {
- 	struct device *dev = ctx->dev;
--	struct device_node *endpoint;
--	int endpoint_reg;
-+	int endpoint_reg = (channel == CHANNEL_A) ? 2 : 3;
-+	struct device_node *endpoint __free(device_node) =
-+		of_graph_get_endpoint_by_regs(dev->of_node, endpoint_reg, -1);
- 	/* Set so the property can be freely selected if not defined */
- 	u32 lvds_vod_swing_data[2] = { 0, 1000000 };
- 	u32 lvds_vod_swing_clk[2] = { 0, 1000000 };
- 	/* Set default near end terminataion to 200 Ohm */
- 	u32 lvds_term = 200;
- 	int lvds_vod_swing_conf;
--	int ret = 0;
- 	int ret_data;
- 	int ret_clock;
+diff --git a/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi83.yaml b/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi83.yaml
+index e69b6343a8eb..0eb3913acc9d 100644
+--- a/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi83.yaml
++++ b/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi83.yaml
+@@ -125,6 +125,21 @@ $defs:
+               lanes in microvolts.
+             maxItems: 2
  
--	if (channel == CHANNEL_A)
--		endpoint_reg = 2;
--	else
--		endpoint_reg = 3;
--
--	endpoint = of_graph_get_endpoint_by_regs(dev->of_node, endpoint_reg, -1);
--
- 	of_property_read_u32(endpoint, "ti,lvds-termination-ohms", &lvds_term);
- 	if (lvds_term == 100)
- 		ctx->lvds_term_conf[channel] = OHM_100;
- 	else if (lvds_term == 200)
- 		ctx->lvds_term_conf[channel] = OHM_200;
--	else {
--		ret = -EINVAL;
--		goto exit;
--	}
-+	else
-+		return -EINVAL;
- 
- 	ret_data = of_property_read_u32_array(endpoint, "ti,lvds-vod-swing-data-microvolt",
- 					lvds_vod_swing_data, ARRAY_SIZE(lvds_vod_swing_data));
--	if (ret_data != 0 && ret_data != -EINVAL) {
--		ret = ret_data;
--		goto exit;
--	}
-+	if (ret_data != 0 && ret_data != -EINVAL)
-+		return ret_data;
- 
- 	ret_clock = of_property_read_u32_array(endpoint, "ti,lvds-vod-swing-clock-microvolt",
- 					lvds_vod_swing_clk, ARRAY_SIZE(lvds_vod_swing_clk));
--	if (ret_clock != 0 && ret_clock != -EINVAL) {
--		ret = ret_clock;
--		goto exit;
--	}
-+	if (ret_clock != 0 && ret_clock != -EINVAL)
-+		return ret_clock;
- 
- 	/* Use default value if both properties are NOT defined. */
- 	if (ret_data == -EINVAL && ret_clock == -EINVAL)
-@@ -876,17 +863,13 @@ static int sn65dsi83_parse_lvds_endpoint(struct sn65dsi83 *ctx, int channel)
- 	if (!ret_data || !ret_clock) {
- 		lvds_vod_swing_conf = sn65dsi83_select_lvds_vod_swing(dev, lvds_vod_swing_data,
- 						lvds_vod_swing_clk, ctx->lvds_term_conf[channel]);
--		if (lvds_vod_swing_conf < 0) {
--			ret = lvds_vod_swing_conf;
--			goto exit;
--		}
-+		if (lvds_vod_swing_conf < 0)
-+			return lvds_vod_swing_conf;
- 	}
- 
- 	ctx->lvds_vod_swing_conf[channel] = lvds_vod_swing_conf;
--	ret = 0;
--exit:
--	of_node_put(endpoint);
--	return ret;
++          data-lanes:
++            description:
++              Array of physical LVDS data lane indexes
++            oneOf:
++              - items:
++                  - const: 1
++                  - const: 2
++                  - const: 3
++                  - const: 4
++              - items:
++                  - const: 4
++                  - const: 3
++                  - const: 2
++                  - const: 1
 +
-+	return 0;
- }
- 
- static int sn65dsi83_parse_dt(struct sn65dsi83 *ctx, enum sn65dsi83_model model)
+ allOf:
+   - if:
+       properties:
 -- 
 2.47.3
 
