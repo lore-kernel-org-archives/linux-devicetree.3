@@ -1,215 +1,96 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75A9645D5E0
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 18:34:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4824042A7A1
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 18:36:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785263653; cv=none; b=dQHD8E7iolWddpOAmUC9jj85kgYuo9fHMXXI8zB6k/1sl6OfxlrrkHocWswm9XJPc1Uo1uyeI1pdMZuKSMyR9QMpmAB0Gxhdz9Fcev3D6MeX9A7L6Oip7N6SJ84UEufXDHWKZB3Kt99JfMjcy9fLQe1Op229aOgEjMD9+i5moYM=
+	t=1785263815; cv=none; b=aEd9OGXPk7ZoN3BI+3X621uminRXvp/RQlHIwxUMoVac3r4u1DW8TbmikaQk5CEXHqvpIik4gDQEFFu2wvzG2Jdx6QLm04NNck4FxJEH6G8SjHE1J8g6caFMMeqmCx8wVUlo0T8ybe7h57niVR++FHlCKZ+IHyxKfHVyh9HRiQU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785263653; c=relaxed/simple;
-	bh=1cxx3wpqvrErA6O2TE8Shjv56ZzukrReHjgUcveed5A=;
+	s=arc-20240116; t=1785263815; c=relaxed/simple;
+	bh=RrWBLB9CKU8eShPVZTVZ7hIxenIPNxCHY/CYMQjIlP8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=u8CStNPI3SNS/cdA+7RsvUmOsz4vnbxoE+KMtcye1mLK507ZzoCtCtg6TsKwSAqaBgApBIKvzyTwU3ae/h6EQ0L5RycFF1099FeiYmRa3GCXRxbKKg+ThMeMmRUd5J5/b2NRFyUzb7qZ+SbNXwKRD2Glj7E2O4WLClkUYJLIX9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WrBVrJ+T; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=HfJgs78sTrgsAYJIGQg97WuHCPa23eeiliy5RThPDsagy4MVCUKEIcumAFcEToKPvuB/A9rYD4UVAw4Drb1lryfQn0SzAmhE5BXfzmmMrOhCFwplSz5m7IMqf87UfBrpjNWSw7slC+nP6xApTXRmuoXiN4R5cB+/vO5F+9I/J+4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hKWssZm+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WrBVrJ+T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 112AB1F00A3A;
-	Tue, 28 Jul 2026 18:34:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hKWssZm+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8B671F00A3A;
+	Tue, 28 Jul 2026 18:36:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785263652;
-	bh=KUnYNM4EcT1EcztmtmOsGV/aFPsN8JQgJ+zixAcde54=;
+	s=k20260515; t=1785263813;
+	bh=KIImU5qEsa7+0zhX44U2c+cNjRGX4pbVc9QFZprRqIM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WrBVrJ+TmQED8PSIHVdqHZo7qWsmQyzWKvflOFEsd4KXlh0+t6HljlpjwnXOW/zWr
-	 iVrPQez2w4nhVkSDSpxtzqU0qi1PF3J+PIkTyNplzgNEVRtlryA/3LhBmDAGebo5cB
-	 7XIiddZ/ow8puVbxmi5etWm+dPHvzrV/PoX1JpZhPC1KRqm5C1CXluGa3Khc0ZILCK
-	 d8CtZ0Tm7QD2sc7g+3VzqIoojnhJcL+5BL9RQ73Urd+kKQ88jC61xVaSQSjyk7NYfU
-	 +EGrFmcsHHMiRNXImVXvoWYAQR1/2LYa+Vu0do3Ij5Um0sEVfJnw1NHFxJhYPOd8Zv
-	 hF5sIbuGK4ZEg==
+	b=hKWssZm+bD3FauuQthDH5Kypf5V36y7XwaOqcV64s1pYa0q/IgJVnbGhEyL6VH4JT
+	 g+LUibXymvuqRcc5DYQS1xbBpDXc0/EK2n5Vt99pb/zmhlg8mR1LbQyMoiSNHnR9F4
+	 EZ9pbrVH05VCWj8HLRWmWHKd2wmi9WP9mDyK52pR+FnPakxJA/9EmXwhhWHmljm1LI
+	 ZmjmfMDjVYnnWhnDRblg++OJL6jrZa+lPCt1fluC350SJ2NntxBdCncEzlUcXyMmm0
+	 NeGx54JLsgVLSUYVU8WjFp9yzpjzPGRDSxPZn1kK2gD6WZQhGCeU3ysdsIaiftKeAE
+	 RrrX5PHRtBtew==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 04/18] drm/bridge: synopsys: dw-dp: Add missing
- reinit_completion
+Subject: Re: [PATCH 8/8] arm64: dts: qcom: x1e80100-crd: Add qcom,tsens for
+ EC fan thermal management
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260728-synopsys-dw-dp-improvements-v7-4-b7640fa8cf48@collabora.com>
-References: <20260728-synopsys-dw-dp-improvements-v7-0-b7640fa8cf48@collabora.com>
- <20260728-synopsys-dw-dp-improvements-v7-4-b7640fa8cf48@collabora.com>
+To: "Anvesh Jain P" <anvesh.p@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260728-ec_add_more_commands-v1-8-771abd65ee1a@oss.qualcomm.com>
+References: <20260728-ec_add_more_commands-v1-0-771abd65ee1a@oss.qualcomm.com>
+ <20260728-ec_add_more_commands-v1-8-771abd65ee1a@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 28 Jul 2026 18:34:11 +0000
-Message-Id: <20260728183412.112AB1F00A3A@smtp.kernel.org>
+Date: Tue, 28 Jul 2026 18:36:53 +0000
+Message-Id: <20260728183653.A8B671F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-New issues:
-- [High] The addition of `reinit_completion()` introduces a data race on `c=
-omplete.done` and incorrectly mitigates spurious IRQs, causing a TOCTOU win=
-dow due to threaded IRQ scheduling delays.
-
-Pre-existing issues:
-- [High] Lifecycle ordering bug: the AUX I2C interface is exposed to usersp=
-ace before hardware is initialized, and unregistered after hardware is torn=
- down.
-- [High] A divide-by-zero vulnerability exists in dw_dp_video_enable when p=
-rocessing a display mode with a clock value of 1.
-- [High] I2C-over-AUX reply status (NACK/DEFER) is silently discarded, caus=
-ing deferred I2C transactions to falsely succeed and return garbage data.
-- [High] dw_dp_aux_transfer improperly rejects short AUX reads by returning=
- -EBUSY.
-- [High] dw_dp_aux_transfer accesses the AUX hardware without ensuring the =
-PHY is powered on.
+- [Medium] The newly added `embedded-controller@76` node lacks the mandator=
+y `compatible` and `reg` properties, resulting in an incomplete and non-fun=
+ctional device tree node.
 --
 
---- Patch [4]: [PATCH v7 04/18] drm/bridge: synopsys: dw-dp: Add missing re=
-init_completion ---
-commit e066df83b1559151eb45281e1a32fbe600503fc1
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+--- Patch [8]: [PATCH 8/8] arm64: dts: qcom: x1e80100-crd: Add qcom,tsens f=
+or EC fan thermal management ---
+commit 59ab25e0b30620df90dae53f1497861f1847b925
+Author: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
 
-drm/bridge: synopsys: dw-dp: Add missing reinit_completion
+arm64: dts: qcom: x1e80100-crd: Add qcom,tsens for EC fan thermal management
 
-The DP AUX transfer method uses a completion triggered by an interrupt,
-which can timeout. If the function runs into the timeout and the
-interrupt fires afterwards, the following DP aux transfer completion
-would trigger immediately without waiting for the interrupt. This in
-turn means the next one would also be broken and so on.
+This commit adds the qcom,tsens property to the embedded-controller node
+in the x1e80100-crd device tree to report average SoC junction temperature
+to the EC for fan control.
 
-Fix this potential issue by re-initializing the completion before
-sending the AUX command.
-
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
-idge/synopsys/dw-dp.c
-> index ca7ff544d243a..951f1e280e478 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> @@ -1465,6 +1465,8 @@ static ssize_t dw_dp_aux_transfer(struct drm_dp_aux=
- *aux,
->  	if (WARN_ON(msg->size > 16))
->  		return -E2BIG;
-> =20
-> +	reinit_completion(&dp->complete);
+> diff --git a/arch/arm64/boot/dts/qcom/x1e80100-crd.dts b/arch/arm64/boot/=
+dts/qcom/x1e80100-crd.dts
+> index 429deffcf3e9d..4639340e716c6 100644
+> --- a/arch/arm64/boot/dts/qcom/x1e80100-crd.dts
+> +++ b/arch/arm64/boot/dts/qcom/x1e80100-crd.dts
+> @@ -20,3 +20,9 @@ &gpu_zap_shader {
+>  &iris {
+>  	status =3D "okay";
+>  };
 > +
+> +&i2c5 {
+> +	embedded-controller@76 {
+> +		qcom,tsens =3D <&tsens2 11>, <&tsens3 15>;
+> +	};
+> +};
 
-[Severity: High]
-Does this lockless modification of the completion state race with the
-threaded interrupt handler?
+[Severity: Medium]
+Since this defines a new embedded-controller@76 node directly under &i2c5
+rather than referencing an existing phandle, does it need compatible and reg
+properties?
 
-If an AUX transfer times out, an AUX_REPLY_EVENT interrupt follows, and
-Linux schedules the threaded IRQ handler. If a new AUX transfer is initiated
-concurrently, it will call reinit_completion() and start the hardware.
+Without them, dtc will emit a unit_address_vs_reg warning because the @76
+unit address lacks a corresponding reg =3D <0x76> property.
 
-The delayed IRQ handler might then execute:
-
-dw_dp_irq() {
-    ...
-    complete(&dp->complete);
-}
-
-Could this immediately satisfy the wait for the new transfer before the
-hardware finishes, causing the new transfer to proceed with a stale or
-intermediate status? Should we drain or synchronize with the IRQ thread
-before issuing a new hardware command?
-
-[Severity: High]
-This is a pre-existing issue, but does dw_dp_aux_transfer() access the AUX
-hardware without ensuring the PHY is powered on?
-
-Later in dw_dp_aux_transfer():
-
-dw_dp_aux_transfer() {
-    ...
-    regmap_write(dp->regmap, DW_DP_AUX_CMD, value);
-    status =3D wait_for_completion_timeout(&dp->complete, timeout);
-}
-
-If userspace tools query an inactive monitor while the PHY is powered off,
-could these hardware register writes cause timeouts or bus hangs? Should
-there be a phy_power_on() block surrounding this transfer?
-
-[Severity: High]
-This is a pre-existing issue, but are we silently discarding the
-I2C-over-AUX reply status?
-
-Also in dw_dp_aux_transfer():
-
-dw_dp_aux_transfer() {
-    ...
-    msg->reply =3D FIELD_GET(AUX_STATUS, value);
-}
-
-Because AUX_STATUS masks bits 7..4 and shifts them down, the resulting
-value lacks the original bits 4 and 5. The DRM core mask
-DP_AUX_I2C_REPLY_MASK expects these bits in their original positions.
-
-Since the value will be at most 0xF, applying the 0x30 mask will extract 0
-(DP_AUX_I2C_REPLY_ACK). Does this cause deferred I2C transactions or NACKs
-to falsely succeed and return garbage data?
-
-[Severity: High]
-This is a pre-existing issue, but does dw_dp_aux_transfer() improperly
-reject short reads?
-
-dw_dp_aux_transfer() {
-    ...
-    if (count !=3D msg->size)
-        return -EBUSY;
-}
-
-If a DP sink returns fewer bytes than requested, the DRM DP helper expects
-the actual number of bytes transferred so it can adjust the offset. By
-returning -EBUSY, drm_dp_i2c_do_msg() will retry the exact same sized
-transfer instead. Could this cause a complete failure to read EDID data
-from sinks that restrict reply lengths?
-
-[Severity: High]
-This is a pre-existing issue, but does the driver expose the AUX I2C
-interface to userspace before the hardware is fully initialized?
-
-Looking at dw_dp_bind(), it registers the interface:
-
-dw_dp_bind() {
-    ...
-    ret =3D drm_dp_aux_register(&dp->aux);
-}
-
-If userspace opens the device node and issues an ioctl before phy_init() is
-called, could this lead to bus hangs or synchronous aborts when accessing
-uninitialized DP registers?
-
-Similarly, dw_dp_unbind() unregisters the AUX interface after the hardware
-is torn down:
-
-dw_dp_unbind() {
-    ...
-    phy_exit(dp->phy);
-    drm_dp_aux_unregister(&dp->aux);
-}
-
-[Severity: High]
-This is a pre-existing issue, but is there a potential divide-by-zero here?
-
-In dw_dp_video_enable(), when configuring the threshold:
-
-dw_dp_video_enable() {
-    ...
-    if (color_format =3D=3D DRM_OUTPUT_COLOR_FORMAT_YCBCR420)
-        t2 =3D (link->rate / 4) * 1000 / (mode->clock / 2);
-}
-
-If a local user configures a custom DRM mode with a clock value of 1,
-(mode->clock / 2) evaluates to 0. Since drm_mode_convert_umode() does not
-reject clock values of 1, could this trigger a kernel panic?
-
->  	switch (msg->request & ~DP_AUX_I2C_MOT) {
->  	case DP_AUX_NATIVE_WRITE:
->  	case DP_AUX_I2C_WRITE:
+Furthermore, the I2C subsystem will not instantiate the device without a
+compatible string and reg address, which would prevent the driver from
+probing and leave the thermal management non-functional.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-synopsys-d=
-w-dp-improvements-v7-0-b7640fa8cf48@collabora.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-ec_add_mor=
+e_commands-v1-0-771abd65ee1a@oss.qualcomm.com?part=3D8
