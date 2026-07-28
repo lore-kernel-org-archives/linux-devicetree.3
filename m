@@ -1,116 +1,179 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30E6042EEB3
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 12:11:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6FF734676F
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 12:12:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785240690; cv=none; b=eRtWJ1Rd4WnEOHKteKoX1kMYAaeSyXrdTZ2H+cQvN1srfeYraEN2SK9OEGeCiWXOFSBP8zuIZvxrxkIoKU8Gk3DsYFDDQyL3QW4v5k2t0B60556H8/TD3qPtxJZvp7VO2N3mP1mDhcAkFQg7J8+miY47i8LsEmz0/avrZ64zA+0=
+	t=1785240735; cv=none; b=iGLSpopER2naoM6JpeTiCapaknTAVcOQuAxJZqhOUFn+XtaL1NYL8otkl54mLT55MNHhAmxZa6LcrkaDzAtsJ1bsVXvnjWu+zARNUE1rIoApR4N+0SP+QkouMvT/4WhHMo084eUXZWsyooxdrsxZZBfX/jLj0lzkN05o1FoiFS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785240690; c=relaxed/simple;
-	bh=M+SHFvNvIJXoNCl/TLPd5mTq8xsGfcHXG2o3WORY18I=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CWztFkRhabaMY3Slt8qUeOqS9sf/wUNf+DqUy7SVZd/CrawswQFElELjt5RcrfhsbNsXtVmWFzMU0cypfJnPxwVqLej90YlCb1UmgTUjUTyPi3ADvSVNW563sjsxLitqH94Md7+n4wS/Vc2kMdKeZ+es3g/mUCf4PNMdxZ60LKE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gdIgAwpz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785240735; c=relaxed/simple;
+	bh=JSIr3kaLvf6IsrmhIXeaXtrHX9Qb1OIGUzSMn2IXRBY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sGzoNNXXBjPKLMJQ/h0/FLwA+69S5QhODbAmjDtokxP6nFpJ3Lic1JqOai01GbNFiJv4sLO55+7kvXEONZs4sMA8jWo5duiVfNtJSjjo1pJ8PUdM/hInHNj3ktwoxeCXZwazeoYwgPSCnZG3iEa4SKz4o/Cj0TQKfMEgHF7X/pw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=In17PwVI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aoMutTeL; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gdIgAwpz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 612291F00A3E;
-	Tue, 28 Jul 2026 12:11:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785240688;
-	bh=K8KFjhsauRBx0lJ6+4v6b1ttA5B/6STzvSEdEMRcEVo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gdIgAwpzvAajju+Ng3zO4DguZohB2EC36BD3QMxJ8z96P0Beo3GavfBIvK+nsyjI0
-	 Bgfee+JsA3Tl+VElzvCoG/qG8cOjxWoq285/tSW46odxPH7QTm3etrKkTNx1HYQAth
-	 RWRp4KM4XMzn0p7o0pvznpr2Ubn+njhlE6oW/USFIjaRY06IfxeBJILp0L6ZxtGaNj
-	 fWvzfcg9RAK8oZZWkCs9KYejyOX9q5h8CC7eTyTtzX7U3e9tDmaykFN3PpYZ2W826j
-	 SlRuJQYbuU5K3V7hVqnEjAJpfysPPBZFC4tW+1o0F+Rc/osCF2kepkm7XzC9Tsr2zW
-	 TP7kCqaye10Eg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 03/13] clk: samsung: exynos8855: add block top and peric
- clock support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: raghav.s <raghav.s@samsung.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260728121111.2077860-4-raghav.s@samsung.com>
-References: <20260728121111.2077860-1-raghav.s@samsung.com>
- <CGME20260728115251epcas5p19aaf5fc01e0f847bc2adcec67bebda3a@epcas5p1.samsung.com>
- <20260728121111.2077860-4-raghav.s@samsung.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 28 Jul 2026 12:11:28 +0000
-Message-Id: <20260728121128.612291F00A3E@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="In17PwVI";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aoMutTeL"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66SBI2Hn2734858
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 12:12:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	8U2vFerU3ehVWBTa4P6YN4QFzXyd4Wvv5TpYrwzvupI=; b=In17PwVIx4iAkDwX
+	AsUkNqYvPff5QYbKs7ZivSz1mMB7j/eYk26cOQUvuKU7AaHvRL/esogjGO3FAmzy
+	8VNDaMQj5uKklbzSZL5Bizo9k+BOksEc5gkrSINu1TTaNrnqgUtntlD3iCnltU+B
+	8h2Q+GxkQrR4P80Y0y1mw4zUsWX2j6/eACqj8tdbdV/vzzJQFzGBCdGjW+G7zP6T
+	UmRYZjUMhCl2Z1JEMDoguqxCRz1PiA+wVQVUSPBQK4ocTBU1OEZWb9yFk/6q/Ymu
+	lhy3LV+o9IaumW13mc1XLL91+/y0MgGuZwU6alOvVy6/wqviSH3T1AcJV1bUmtZ+
+	2Vr6XA==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fpbrsv4rx-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 12:12:12 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51e9d892f0dso12402691cf.2
+        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 05:12:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785240732; x=1785845532; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8U2vFerU3ehVWBTa4P6YN4QFzXyd4Wvv5TpYrwzvupI=;
+        b=aoMutTeLnJ/MBZRqZQ84g2eH5x68AjMYjRlOsC7Rpd/Gtfh1CKFJqH+WwRrlgwjavw
+         Ed5KKZegbKweAGV6/w/dbyHQ5gnihgtT4PuwCJTf/TwB2zl3HlYFDUtokdgL87g0v2A7
+         bL54BRhuCFO0Fama0YbY5OK3aS1CQz3IkqjwnkZdHpRQ+vKJQSqHLEot0WoPA54Ye14z
+         zy3FEwb8sPIegupQzt4WLGqFdSe10GlTrbOJ5grMPdXphk/7mjmqXXKQBvqKJf4YF5O/
+         EzrA49DsPLjcqN0hY2aH52iV2Zw4f1o8DfFTc13LLGaqgDMkYmoJCa57YYzogKHki72f
+         V+Wg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785240732; x=1785845532;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8U2vFerU3ehVWBTa4P6YN4QFzXyd4Wvv5TpYrwzvupI=;
+        b=Px+ZVbO7Vc8rmcSwa79MYgYEyKyFbUEq7GRG9VLex8ZY/ngI58dMCipVKWGJP+/PYb
+         OH3JwKpjWzIsqXXZaV2FlRTFbHVLIySSj7WI0XK/mK3gPqtbqAnQ6wnnM2IhdBX4mEdp
+         F6vuurXEEqIG078u7vQ6Hxd/5RNwBXG2g5HLsQeU6SjoamkWSMK0DkXrv5Xgn6OhdSBN
+         Av08LILb9GgYLW91WfpyxV7ICK3DXqdHJDHjXgaDjonN9qV0QZgWOxSwWD6OA60Z9Swf
+         h50l8rdBmlKprtrpHvo+vb2T1xHVBdq+OVacCkmecQGGkdBvsEQBV8xgXGUF8D7n6V4s
+         sLaw==
+X-Forwarded-Encrypted: i=1; AHgh+Rqu594f/VNbz3iuwrwFPWPfXw9BSDxD3T8/w8EDc6tOJifVGXoBzJHtcYEJChBMFAL1/C4ARWOW5IeL@vger.kernel.org
+X-Gm-Message-State: AOJu0YxnMcO0Ek48PEDzQDRweE3PeJFi3GhXAFtnzL98+1WSURL2Gmki
+	MnDUPseqeo8F+/dn2OzpTiBeyyICH2XucA42duQx6WAzMvrr/kGJUiFyfKdJpjfstV7ubiFlh6P
+	HVfwllDX54OrceCecuAO3hb6l/41BmRkTY1M0mYBr2nCO6ke3a+WaqvUEE9JJS0Ln
+X-Gm-Gg: AR+sD1273bFPGHxu7KwSqRBAh7tX4/bojU7Sytx2VIyOpk4lAdrbwzJT+eSDQIZPPM7
+	ObclMKZFoBjsWxtMBXJDvCtxiC87/c4LgYKE1sZgu1YJUtClsfyij4Hsv5qPaoTps0SaJQgcFJS
+	w9wgSxs7E5qaKZL7ovjF7DMlsPnlO0QlElB6JWF3YslWA/JdPR7h41GrjwF9ottSiO3/GgUMBok
+	DRf0WzX7wkCGwtPNf9R7Cb6w3UORXF5/ndK3UG3V+rvryMEiSbuvj5uYX+Gc/+MaIFrrg7fvnAW
+	hE9nhmGjS0DoPQ1w8EQKxLP+cKwHbRSEk917Qdl+57IvNBIasUTjRCp3lUvT82Gv45T3qaAuyNe
+	PwHTS17cLN3blMFMlR3jbSN89
+X-Received: by 2002:a05:622a:aa04:20b0:51a:8c9b:6492 with SMTP id d75a77b69052e-529d7232ed1mr10656191cf.9.1785240732230;
+        Tue, 28 Jul 2026 05:12:12 -0700 (PDT)
+X-Received: by 2002:a05:622a:aa04:20b0:51a:8c9b:6492 with SMTP id d75a77b69052e-529d7232ed1mr10656001cf.9.1785240731788;
+        Tue, 28 Jul 2026 05:12:11 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1c32c902d2sm742669366b.34.2026.07.28.05.12.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 28 Jul 2026 05:12:11 -0700 (PDT)
+Message-ID: <4f4a90d0-6ce1-4d99-9d9e-74678855a717@oss.qualcomm.com>
+Date: Tue, 28 Jul 2026 14:12:07 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] clk: qcom: Add LPASS VA CSR heartbeat pulse clock
+To: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
+        andersson@kernel.org, mturquette@baylibre.com, sboyd@kernel.org,
+        bmasney@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, lgirdwood@gmail.com, broonie@kernel.org,
+        perex@perex.cz, tiwai@suse.com, srinivas.kandagatla@oss.qualcomm.com
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-sound@vger.kernel.org
+References: <20260723110231.1586417-1-sarath.ganapathiraju@oss.qualcomm.com>
+ <20260723110231.1586417-3-sarath.ganapathiraju@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260723110231.1586417-3-sarath.ganapathiraju@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI4MDEwOCBTYWx0ZWRfXw7mQ7WuNGm2R
+ /EBb7ij/S6k2ULcEJJgvs278U3fxCHOXE7fAtW+3hG3xwFXasJ6UhBSGrndLdCGA4ATXTnIfZBF
+ iLs7rZkIhKC3VkYzg8z+epwWWQMCHxB2f4sqgEhA0r3+bKDy4e1Ok+iiP6gZ6EP07Fgi3UfIBb+
+ dLiyez+C7kwzvpSHn8ruM4CPAPpQqpIpS5Aomq3RVFP4qt75I0MkazJgUzpQZc/Zruxp8XtRS/n
+ aeZKuXGvTcpGb+1gzLlvs++nyDSfIoT1fKQtht25vIS1o63SoN8UK+x5anSZdPf7hqqC49tIDZT
+ DjoH+6BxkX2mqDqkEBJBLDPRDzFn1Mz735X6WS2soORNigAKs4ArX7WtweYrpbQGsau/LM8+GMJ
+ k3cEKvbX5S6FWlpxWxmWvY7lZiE1+hoMwMEqeT/Wf6Ia+sIGVxVzTFDRfZVV/nRtrF2w6YyDoTm
+ 4AmlNLZ3JfBbDY2NGwQ==
+X-Proofpoint-ORIG-GUID: _8XRuis098uHTkqG5XjR5Mj9lcwistRi
+X-Proofpoint-GUID: _8XRuis098uHTkqG5XjR5Mj9lcwistRi
+X-Authority-Analysis: v=2.4 cv=ALkdLnG8 c=1 sm=1 tr=0 ts=6a689c9c cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=spIkkW4NbfvDwUr-CFkA:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI4MDEwOCBTYWx0ZWRfX+SOrFViy60jJ
+ u7baJZBwsKgmSmKBhMKelWN3Xd/ZR6W+gFGhmDfWx2W2Fd5BMq9i3Nl2od0xTOWn06fXBNagcq6
+ YUMgyBplcZl9Ps0FQwvdYoz+/QayMsQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-28_03,2026-07-28_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 phishscore=0 bulkscore=0 clxscore=1015
+ priorityscore=1501 adultscore=0 suspectscore=0 malwarescore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607280108
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The UART DBG PCLK gate clock is incorrectly assigned the functiona=
-l (baud rate) clock as its parent instead of the NOC peripheral bus clock.
---
+On 7/23/26 1:02 PM, Sarath Ganapathiraju wrote:
+> The HeartBeat Pulse (also known as RateGen Pulse) synchronizes the
+> start of the DMAs and Codec Interfaces for the audio usecases and
+> can serve as a periodic wakeup source for the DSP.
+> 
+> Add the LPASS VA CSR driver that models the rate generator as a clock
+> provider so it is enabled and disabled automatically alongside the
+> other clocks during runtime PM resume and suspend.
+> 
+> Signed-off-by: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
+> ---
+>  drivers/clk/qcom/Kconfig        |  12 +++
+>  drivers/clk/qcom/Makefile       |   1 +
+>  drivers/clk/qcom/lpass-va-csr.c | 143 ++++++++++++++++++++++++++++++++
+>  sound/soc/codecs/Kconfig        |   1 +
 
---- Patch [3]: [PATCH 03/13] clk: samsung: exynos8855: add block top and pe=
-ric clock support ---
-commit 749ec1f523b7d61993f27762dded3422cad15aae
-Author: raghav.s <raghav.s@samsung.com>
+This patch spans 2 subsystems and 2 separate maintainers.. we'll need
+Mark's ack for the sound/ change
 
-clk: samsung: exynos8855: add block top and peric clock support
+>  4 files changed, 157 insertions(+)
+>  create mode 100644 drivers/clk/qcom/lpass-va-csr.c
+> 
+> diff --git a/drivers/clk/qcom/Kconfig b/drivers/clk/qcom/Kconfig
+> index 63f271aff177..6ebdccfe37e0 100644
+> --- a/drivers/clk/qcom/Kconfig
+> +++ b/drivers/clk/qcom/Kconfig
+> @@ -1998,6 +1998,18 @@ config CLK_GFM_LPASS_SM8250
+>  	  Support for the Glitch Free Mux (GFM) Low power audio
+>            subsystem (LPASS) clocks found on SM8250 SoCs.
+>  
+> +config QCOM_CLK_LPASS_VA_CSR
 
-This commit adds support for the CMU_TOP and CMU_PERIC clock domains
-on the Exynos 8855 SoC. It registers compatible strings and cmu_info
-data to provide clocks for these blocks.
+VA_CSR is the Control-and-Status-Register space of the VA Macro,
+the name of the config should deifnitely focus on the heartbeat
+pulse clock generator within it instead
 
-> diff --git a/drivers/clk/samsung/clk-exynos8855.c b/drivers/clk/samsung/c=
-lk-exynos8855.c
-> new file mode 100644
-> index 0000000000000..93528f0077a4f
-> --- /dev/null
-> +++ b/drivers/clk/samsung/clk-exynos8855.c
+Besides, that address space is huge, yet you're claiming it for
+a single simple clock. Exposing anything else from within there
+in the future will require bindings updates, which are usually a
+tough sell. Is there anything else in there that we need to cover
+from HLOS?
 
-[ ... ]
-
-> +static const struct samsung_gate_clock peric_gate_clks[] __initconst =3D=
- {
-> +	/* System will hang if this critical clock is gated */
-> +	GATE(CLK_GOUT_CMU_PERIC_IPCLKPORT_PCLK, "gout_cmu_peric_ipclkport_pclk",
-> +	     "dout_clkcmu_peric_nocp",
-> +	     CMU_PERIC_CLK_CON_GAT_BLK_PERIC_UID_CMU_PERIC_IPCLKPORT_PCLK,
-> +	     21, CLK_IS_CRITICAL, 0),
-> +	GATE(CLK_GOUT_SYSREG_PERIC_IPCLKPORT_PCLK, "gout_sysreg_peric_ipclkport=
-_pclk",
-> +	     "dout_clkcmu_peric_nocp",
-> +	     CMU_PERIC_CLK_CON_GAT_BLK_PERIC_UID_SYSREG_PERIC_IPCLKPORT_PCLK,
-> +	     21, 0, 0),
-> +	/* System will hang if this critical clock is gated */
-> +	GATE(CLK_GOUT_UART_DBG_PERIC_IPCLKPORT_PCLK, "gout_uart_dbg_peric_ipclk=
-port_pclk",
-> +	     "dout_clkcmu_peric_uart_dbg",
-> +	     CMU_PERIC_CLK_CON_GAT_BLK_PERIC_UID_UART_DBG_IPCLKPORT_PCLK,
-> +	     21, CLK_IS_CRITICAL, 0),
-
-[Severity: High]
-Is dout_clkcmu_peric_uart_dbg the correct parent clock for the UART DBG
-PCLK here?=20
-
-It looks like this assigns the functional baud rate clock to the PCLK,
-whereas other IPCLKPORTs use the dout_clkcmu_peric_nocp peripheral bus
-clock.
-
-If register accesses to the UART_DBG block are clocked by the functional
-clock rather than the NOC peripheral bus clock, could changing the UART baud
-rate improperly scale the APB bus clock for this IP? This might lead to bus
-stalls or system hangs when the kernel scales the baud rate or transitions
-states, especially since this clock is marked as CLK_IS_CRITICAL.
-
-> +	GATE(CLK_GOUT_USI_PERIC_IPCLKPORT_PCLK, "gout_usi_peric_ipclkport_pclk",
-> +	     "dout_clkcmu_peric_nocp",
-> +	     CMU_PERIC_CLK_CON_GAT_BLK_PERIC_UID_USI00_USI_IPCLKPORT_PCLK,
-> +	     21, 0, 0),
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728121111.2077=
-860-1-raghav.s@samsung.com?part=3D3
+Konrad
