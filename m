@@ -1,187 +1,171 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7FB43A3816;
-	Tue, 28 Jul 2026 09:29:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B80173DD85F
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 09:29:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785230943; cv=none; b=V28bePhuNDo39EreyoGqL8anHbOP/apV1WV1FXv2BTj38zjuWDmJgiv+d1VIhBAge/mOkOq7J/oBVGag5/m4+ZpYXJRWI9xddk0zX7wHAIgSykrj141tIN46PrGbvyk1kpLkLBg/EeEeLDEfJ0mdlsdURidyciu3X3iyK9WJ7os=
+	t=1785230995; cv=none; b=hON++a1Z0TJjh1kKZ4uqQ6wCyDQgirUCZZM9ocYEznGWXHpj+qxJ7lZHM1VP/N1NOnBuin/1Rv6eS7P56J92SgIFD2WewnHcRofZuFHKJGOKyzYQ3rQ9W4kes+fTDCCLz0JdUQKJb6i5Sj6isNxjQyYBcsPMSFpvlSQ1Q1ipUNk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785230943; c=relaxed/simple;
-	bh=XluiZRpqDLex0AekO8s7cr4bZgU5LnMUHl4vYP26PxI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aJ7IKPJuqKqm35vPvQOjStTIuFMDn5YhYHzf6tCvz/XCioADPsyutY2U9cDCaIJjLj7PiYtGb/OWggVErq66likHCt9oG6GZBDy9bLi8FwhE/+YloKPsoYiHtjzlOcHdjzdpazjXPflNoKi8b0Leh+EpP5LLgf6BXJmlcmQDxNM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=eKGmbqJ5; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1785230995; c=relaxed/simple;
+	bh=+cJ6lA0Ry4sm9jxuVqVS+Spb1104T8rj0lLFUr9YixA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AtDEDpAwrTTZnrWX5VkIuJUPBSV4x15cmK5P2C86vieqykCydyckimRqldU7MrmbieaWP1zw39n6ElOPgxcYGYRAKwYxjOd+/8Hl52evdOwcLnTh8ib8Mh/fo2hn9mWdcsN0bAzE+Fjix173+hE2WVf+sRhYIi+AWoOcIuOYOcI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bY4mFudN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UC8VbR1C; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="eKGmbqJ5"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 2FB262F8;
-	Tue, 28 Jul 2026 11:27:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1785230874;
-	bh=XluiZRpqDLex0AekO8s7cr4bZgU5LnMUHl4vYP26PxI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=eKGmbqJ5fQCEv+IrwMiW0i5PMYQmndx7/3opO/6qljuPq/PcfmAYtpG/iwpORIk7c
-	 bmMFO+wjWkv0E39f3ECWZYqua9Fqc9myguIJp0FMw/llWAxnPs1cm6/f7BgsFI1Cv5
-	 GpM2WgpO0nfTUV93m6My5kcNpKA0coO2fCsZB/dY=
-Date: Tue, 28 Jul 2026 12:28:56 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Richard Leitner <richard.leitner@linux.dev>
-Cc: Conor Dooley <conor@kernel.org>, Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Alexander Stein <alexander.stein@ew.tq-group.com>,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	driver-core@lists.linux.dev
-Subject: Re: [PATCH RFC 1/2] dt-bindings: regmap: add common schema for
- no-sequential-read
-Message-ID: <20260728092856.GB1494774@killaraus.ideasonboard.com>
-References: <20260722201622.GD648629@killaraus.ideasonboard.com>
- <amEvJBOE3Ja014Ap@bombadil>
- <525338f4-cad3-4acb-94c5-a4b71cde9c02@sirena.org.uk>
- <amHznORUaOnUFyS4@bombadil>
- <20260723154541.GA764516@killaraus.ideasonboard.com>
- <20260723-hamster-juniper-5697cacade96@spud>
- <20260723161048.GC767247@killaraus.ideasonboard.com>
- <amJiqHd6I45w_e0-@bombadil>
- <20260724092812.GD712773@killaraus.ideasonboard.com>
- <amhUDOnhoj4tk4vN@bombadil>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bY4mFudN";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UC8VbR1C"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66S82F0H2480199
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 09:29:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	GC/ZuBK1RLJ4ibzTXEvYuoddg6a2oCrBqfBM6hC1438=; b=bY4mFudNCbDLmTw7
+	nT4W1b1w1tiKDSBRPCjiDIc7tdENyfJx6yQYk0dWIFO+Inbfrm1Wt61QMkt8pZbR
+	TpQS9XdL7JGwiPPKAG+Wun1cgssUIZIbGxXtziFw/Ez00ksCRaijwzXxvBI/17Ys
+	oIn/PFinPIrulCNeNYtAnHCmCXrgt3+40qPEVgC4ElyWIBHNZ1WaSrtH6Mzx6K9g
+	VlIr2NYh0LrAqwG6YZGGrrUuWXjgZzrVdtxs4wxHRtJLmJFUI9v3nvbFSDaBt0mb
+	GGdJJTbKezNB8fHxKtnGYQK8q0ayopddOmKZeT/ioGAldiJuxBFCenp1X/dtmfwT
+	rmGvVQ==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fpmy117s6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 09:29:53 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51cab6f7517so6622181cf.0
+        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 02:29:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785230992; x=1785835792; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GC/ZuBK1RLJ4ibzTXEvYuoddg6a2oCrBqfBM6hC1438=;
+        b=UC8VbR1CK8xO2QOfA+1eSoMQ/N2hH449LJ8tvuyib/v89J2/GKhv9pe/BwcNXPeTaR
+         ve8qa7dmvBK4k/uUNgZFUdjPpxXEUmh8LTXMaYEjrpSeNBWyRZqqlUl2k4jyQqq1WVoQ
+         naXBQUrOho1PJK/hjWs9GFtGLaiya6hw/PRbZBY3e9eY9L188dgO1Lk/UyePitEvlOlL
+         gX2MotHzkHxW+9y48vi4qzWuyjX0DhYCW/0vbtHeGI0fdpeUVXgzWvAcMjnjQUfcO/cs
+         2vfV8r0IBo7SKjktZWqWbge093uTGEQjozY+eMo6Wjdz0jqr4gXDTzcF2VKVMKb1NidO
+         1cDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785230992; x=1785835792;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GC/ZuBK1RLJ4ibzTXEvYuoddg6a2oCrBqfBM6hC1438=;
+        b=mcCqFRT5c/KdAYhP4lQiZ/yYqTNpGZ9yDgcIp2SKqLJgvBXJ0T8DQmMDwQY/jEwAWV
+         0U+DdVHXfGrgaMOFWHe09SjjLpv/nhvBcIlpRCDa99NueKo/qaN+nv0tvmZE5NR1LBT/
+         ce09pLY5fSUHhzCMzVHdAm3E4hz4ngCJ/eUq5v7bJ3KLrgm03MHqlHg85lD1EGbHR2gg
+         a5pa7YouZNCXtQcEv43/sTdtDhAijlv5N8HDRkYSiXJp+uiJiBGYRKgKPpe8LnpRnra+
+         NqX7Uf1LQedHuOFb0kKC4U/67SS3mlCORRTFQ2Y3Rv0z1RErnCJc6BipAJ9Ke7JYSp7z
+         zdPg==
+X-Forwarded-Encrypted: i=1; AHgh+RqN6jWdQlc5YISghp0/dmIiFJUbuOCshQofeVzWYeD/2MhxuliwdxCFrVnIRsqSb3QDtnj343c46Mjg@vger.kernel.org
+X-Gm-Message-State: AOJu0YwRIGEHP1JQ/pfBgYWtMqO54q95Q6kTjkxenCW0YmPbSh0qh7dr
+	0YSU4sIdkCeFNl4kq9tlKotKYsGGBgHSqS4FPXnn/GH7rXpPSTCAWWIFzpl/Q0IeK8vs9bnJVPi
+	Sm4vu6lprtb6q9WPDubXqYO5Ts5/4Jc975vBeX8N4p+IpmF8xwJZtXmOC5/LG5gYg
+X-Gm-Gg: AR+sD11rE9x53s6mSB6MRqymfTDBM15Ta7BV0ZxFCxbC/Wdhyi+APKEUOOGMMmdXjtj
+	6OnrRhe5LCj56aOW2ZulebK2wrpkzNYaOY7Z5Vf4fISONU99+WG2eVcA+FnWZ1LFdZJog1DvlyE
+	0UZdlQSGoV31xW+e1XB++LgRTqS8BQG2lxTUGKHW67QnaSULPSg/XBelyzX5nMfzgdvS5sLPkJx
+	neQ2Rrk7coHT/uoVjNYDHMewihlPx6pigPbDPZuxxGT69kOwDl31xCu5lEDbtBAhKtSdQ21BD46
+	R7holojT1/i3IEWbLoPp+HnoE/l5f+ytMVngYsSsQCO11OrpI6BawXvpjNwdFdy9nJUjrsUiWLb
+	R0P1bWnBiUliynpudN2xiKeYn
+X-Received: by 2002:a05:622a:15d5:b0:51b:ff78:f229 with SMTP id d75a77b69052e-529d6feaeabmr10813681cf.5.1785230991927;
+        Tue, 28 Jul 2026 02:29:51 -0700 (PDT)
+X-Received: by 2002:a05:622a:15d5:b0:51b:ff78:f229 with SMTP id d75a77b69052e-529d6feaeabmr10813591cf.5.1785230991598;
+        Tue, 28 Jul 2026 02:29:51 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69fb5543370sm3675170a12.15.2026.07.28.02.29.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 28 Jul 2026 02:29:50 -0700 (PDT)
+Message-ID: <a907cba4-c276-4355-986c-44f6e39c310a@oss.qualcomm.com>
+Date: Tue, 28 Jul 2026 11:29:47 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <amhUDOnhoj4tk4vN@bombadil>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 04/12] clk: qcom: ipq-cmn-pll: Add NSS clock support
+To: Luo Jie <jie.luo@oss.qualcomm.com>,
+        Bjorn Andersson
+ <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        quic_kkumarcs@quicinc.com, quic_linchen@quicinc.com,
+        quic_leiwei@quicinc.com, quic_suruchia@quicinc.com
+References: <20260724-qcom_ipq5210_cmnpll-v1-0-a8b8679d215f@oss.qualcomm.com>
+ <20260724-qcom_ipq5210_cmnpll-v1-4-a8b8679d215f@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260724-qcom_ipq5210_cmnpll-v1-4-a8b8679d215f@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: -0JMQkSOCf6TIZnsghtDjhWuW39p-4Mt
+X-Proofpoint-ORIG-GUID: -0JMQkSOCf6TIZnsghtDjhWuW39p-4Mt
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI4MDA4MiBTYWx0ZWRfX6KiHhqdDunpx
+ tzUbc/FE4I8WQnokgWlwP97XUQAVAUHamUd6L/FMYnfB8YwGNzucgLu6DNCuOcMgqREuwuWJucA
+ N8Ow4l+9Ns+LKx9qiNrc96Yc+kdErZQVUOtIlIRv/2FkCQ/n8ZLTQ2ing0FAxRtHjhv86wfRWFD
+ RkUu53119I0FK1cpuSOsMuJvroAxcfJ7WWku1dQW5M+zKfNcBNdeTzTobUs4Wzto9/2gsI5aB/j
+ 7Yeid+knl9aqat7n8VgDDSH8npwy8whJxn7JOfIYVtNslLwxfY3W6bQpw7iyW1ckMuj+uiwIPSk
+ QgufceUW3In6GOtbP0nSrOIYNIr/tUjBEvxMzcVAfV1o1s6vlAz0d1HfasWADBy+hbfaWdNLUGY
+ odMCH5DQjRfUSwTL4Zmzf6999pvrYBnrtBNA967lKOZpSZ5qyF2qwZV3y/Aus8O378hBhzX3AYX
+ qbXeo/CyhVZF9EEZUYg==
+X-Authority-Analysis: v=2.4 cv=PJo/P/qC c=1 sm=1 tr=0 ts=6a687691 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=rcriG_6vuXrZ4KVOdM0A:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI4MDA4MiBTYWx0ZWRfX1eBBBAwZfHhc
+ ziTPjPEe+eYdvHV2bzEb4wxPvZ8/w2sqBZzPJLyfD2Ky+SJw7bThReORR2jk346vkAHcLq4eMyi
+ 9oIsERSg68gWdTzMwmcM7EqYqP5o9UM=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-28_02,2026-07-27_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
+ priorityscore=1501 malwarescore=0 adultscore=0 suspectscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607280082
 
-On Tue, Jul 28, 2026 at 09:13:09AM +0200, Richard Leitner wrote:
-> On Fri, Jul 24, 2026 at 12:28:12PM +0300, Laurent Pinchart wrote:
-> > On Thu, Jul 23, 2026 at 08:55:18PM +0200, Richard Leitner wrote:
-> > > On Thu, Jul 23, 2026 at 07:10:48PM +0300, Laurent Pinchart wrote:
-> > > > On Thu, Jul 23, 2026 at 05:02:42PM +0100, Conor Dooley wrote:
-> > > > > On Thu, Jul 23, 2026 at 06:45:41PM +0300, Laurent Pinchart wrote:
-> > > > > > On Thu, Jul 23, 2026 at 01:01:11PM +0200, Richard Leitner wrote:
-> > > > > > > On Wed, Jul 22, 2026 at 11:03:09PM +0100, Mark Brown wrote:
-> > > > > > > > On Wed, Jul 22, 2026 at 11:58:46PM +0200, Richard Leitner wrote:
-> > > > > > > > 
-> > > > > > > > > @Mark: I understood that if the fpga really intercepts the I2C bus, it
-> > > > > > > > > should be modelled accordingly in device tree. But what would be the
-> > > > > > > > > preferred implementation if both devices sit on the same I2C bus, but
-> > > > > > > > > one is messing up some register reads on purpose?
-> > > > > > > > 
-> > > > > > > > I think we would need to have a coherent understanding and description
-> > > > > > > > of the actual issue to know how to describe it.
-> > > > > > > 
-> > > > > > > Understood. I will try to figure out how the hardware is really wired
-> > > > > > > and come back to you.
-> > > > > > 
-> > > > > > Based on the information I have received so far, the FPGA is interposed
-> > > > > > between the host and sensor. It could therefore be modelled in DT as
-> > > > > > child of the I2C bus and a parent of the sensor.
-> > > > > > 
-> > > > > > New version of some of the Vision Components modules have fixed the
-> > > > > > multi-read bug, so we will still need a property in the FPGA DT node to
-> > > > > > indicate if the quirk should be activated.
-> > > > > 
-> > > > > Or come up with a compatible for the FPGA DT node that uniquely
-> > > > > identifies the revision of the RTL in use.
-> > > > > That's my preference for things that use some custom RTL that aren't
-> > > > > configuration parameters.
-> > > > 
-> > > > I'm afraid we won't be able to get that information. We have limited
-> > > > visibility on the ecosystem of modules and what the FPGA does in each of
-> > > > them.
-> > > 
-> > > Thanks for the clarification. Should I continue working on this topic
-> > > (i.e. modelling the FPGA as I2C controller with the sensor as a
-> > > "subdevice")? Or do you want to take over Laurent? Do you have any other
-> > > downstream work on the vc-mipi stuff, except the patches in your gitlab
-> > > repo?
-> > 
-> > I'm afraid I won't have time for the time being, as I will soon start my
-> > summer holidays. The patches in the git tree you mentioned are all I
-> > have.
+On 7/24/26 5:00 PM, Luo Jie wrote:
+> The NSS (network subsystem) clock is derived from the CMN PLL output
+> divided by 2 and then further divided by a configurable 6-bit divider
+> with a valid range of 8-63.
 > 
-> Ok. Thanks. Then I will give it a try.
-> 
-> I did some more research on that module and it features a Lattice FPGA
-> (LCMXO3LF-1300E) which to all of my measurement intercepts the I2C bus
-> as expected.
-> 
-> As it additionally manages the regulators my approach would be to
-> implement a Multi-Function Devices (MFD) driver for it.
-> 
-> The resulting DTS layout would then be something like:
-> 
-> &i2c1 {
-> 	fpga@10 {
-> 		compatible = "visioncomponents,vc-mipi-controller";
-> 		reg = <0x10>;
-> 
-> 		i2c-mux {
-> 			compatible = "visioncomponents,vc-mipi-i2c-mux";
-> 
-> 			i2c@0 {
-> 				reg = <0>;
-> 
-> 				ov9282: camera-sensor@60 {
-> 					compatible = "ovti,ov9282";
-> 					reg = <0x60>;
-> 					...
-> 				};
-> 			};
-> 		};
-> 
-> 		vc_mipi_reg: regulator {
-> 			compatible = "visioncomponents,vc-mipi-regulator";
-> 		};
-> 	};
-> };
-> 
-> Mark, Laurent, if that's incorrect or otherwise not acceptable,
-> please reach out. Thanks a lot!
+> Signed-off-by: Luo Jie <jie.luo@oss.qualcomm.com>
+> ---
 
-You could also simplify it to
+This looks very similar to clk-regmap-divider.c (or at least to
+the generic clk-divider.c implementation).
 
-&i2c1 {
-	fpga@10 {
-		compatible = "visioncomponents,vc-mipi-controller";
-		reg = <0x10>;
+[...]
 
-		i2c@0 {
-			reg = <0>;
+>  	/* Register the fixed rate output clocks. */
+>  	for (i = 0; i < num_clks; i++) {
+> -		struct clk_parent_data pdata = { .hw = cmn_pll_hw };
+> +		if (fixed_clk[i].rate) {
+> +			struct clk_parent_data pdata = { .hw = cmn_pll_hw };
+> +
+> +			hw = devm_clk_hw_register_fixed_rate_parent_data(dev,
+> +									 fixed_clk[i].name,
+> +									 &pdata, 0,
+> +									 fixed_clk[i].rate);
+> +		} else if (!strcmp(fixed_clk[i].name, "nss")) {
+> +			hw = ipq_cmn_pll_nss_register(pdev, cmn_pll->regmap,
+> +						      cmn_pll_hw);
 
-			ov9282: camera-sensor@60 {
-				compatible = "ovti,ov9282";
-				reg = <0x60>;
-				...
-			};
-		};
-	};
-};
+Huge "no", this must be a compile-time constant and not rely on
+some funky detection.
 
-and use a single driver that registers an I2C mux (and instantiate I2C
-child devices) as well as a regulator, without using the MFD framework.
-That could reduce the runtime complexity, which would be nice. If you
-prefer using the MFD framework with more complex bindings I'm not
-opposed to it though.
-
-> > > I've additionally wrote "my Vision Components contact" an email asking
-> > > for clarification of the I2C bus layout on the modules yesterday. If I
-> > > get any new information from that path I will of course take it into account.
-> > > 
-> > > Thanks a lot, Laurent!
-
--- 
-Regards,
-
-Laurent Pinchart
+Konrad
