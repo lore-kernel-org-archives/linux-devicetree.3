@@ -1,207 +1,170 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011054.outbound.protection.outlook.com [52.101.52.54])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B31D8280325;
-	Tue, 28 Jul 2026 03:55:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785210935; cv=fail; b=dU2WcGkJV5Lll0YXLHSZVc/8kqvdg4vIKMkbwrDQ6QmORS52LFkue+VXtII9QtCv6bMnteYkaQYVdjPVT8lLaIKi3FjiXdqceJeHOgV+J6bJ6NHd0KNGpoS7eiChHoSMV70q1rbtLO4UBULGKQ+oyLpoffZC+KBmHhpu4NXlvps=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785210935; c=relaxed/simple;
-	bh=XX/tHt5Bjm2ESa7NXTktjrNWGZLapRkdM+yAxiNG7+o=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=i6cOde/EwAFXrQpNCAm2EpgVLuwep/VZtDhl0178bjzPsteG2O/h+p//gVloBjanyGNlCdVdO38wFj9j3TYfgjctuIScIjdPDcWjKiMgP4HTgXQ4bx+KLkk7ojmfVa9Ri2ArWF0ccW6/aWdw+cpmCquUk08Wg4IjLS4w16IVHSw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=YtCBNbay; arc=fail smtp.client-ip=52.101.52.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 091743793DC
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 03:59:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785211201; cv=none; b=bypa1y6gS4JEo++cs5Tf33SCgZUixF3xSLQ7N9d0xH/LJjvaNGIZR2YBdPOEFz+nHwYY6CHi8NwOxt8E5HpYHNKvWhsRTJJhlVbRSfTLej5s+lF8pUfBVwegH3EtPJvpsDRUrXuIYhELe+8av9OpyYNEsG825kj6FUwgTMk/tzw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785211201; c=relaxed/simple;
+	bh=4+aMDrpPrBmdL2q9QxrdTsb+poO1PeOGmEOXr+W9DvE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=IAUbPQ8LBgdoCBnMJT6cN2p4bKVg4TlEJKfMlP8GzBWxIkx6twK1gIE6R8gOnBtE3foOsoz1sNPUjEh1iGtwNlGtRGBpxz8WMBUsBHUyDbM2FdoPYoRudpZkYiQTrrfupKrwgFLDY1VXXv8vIwC4h4KjMT+Wv5Q2Y3DcNYDwveA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gwFTdvou; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="YtCBNbay"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Bs4qLL26LUNCgoWw1w/ZhCF9BBArbqLoGNEXYeedSG+gK/ISqMG19Iw8pbgb31igocdEndLSgiKfgclWdl/g6LWw6yca8FSfFFUnszqidhJnXkklNkQrHMIHFeyJlFsb2qC/IfiqK99Vp6ebQQB4k9UtspCacmZyoSCDAANJYRmuX9c0g07gp2ZX2f/gJL/PkN8VefoDvKlOG2sLlxgIm7V7q75GHA6hxN+MckXtf3FIu1JkRH5fRGR0++Kyp6hZSpwx5+WvO3rWkawT+goF0nIgKz+kTTuPm5ufIyBIFci8u/+/AQkPLzuX9qeep4nKBn8wQIMfmAWpzCCCFbNjjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SSU9bEW0F2Zb97Cz/wUxAh2qwFGK9egi2tNlChYsXzQ=;
- b=glajJAkk31W4+CfCmk2rM2iK5d3naSDab965td731l9JF3X66X6QyxpHbo+giuDyIkO+y18F/cV2n4+g+ARReZYkUxBIRAkyHXxJjb2TunAkz1ONMU0/D63DIsD6+Ek3ZaVSXj9ILgWRR6uePKRxu2Fgj/vVg76YDZdiGsc9klewqo9zaaipby8gKO4gJ2k/wDHvVSc3nujA8oCyrNB5j6vIh7wdReOteNAUR8WFbG3mCCrRSc6G6dzblw0FX9y1+rJRCONP864tu0GhJu+CkL6Wy1GJ/gesrew/OQsYBE6uWIYBy7DdngiS+l0w2DI9K16TQ5ggDfmJK/SquCrEtw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SSU9bEW0F2Zb97Cz/wUxAh2qwFGK9egi2tNlChYsXzQ=;
- b=YtCBNbay3PQiIn81QtoU82WVyEUScHx8ogwrQOC1LKCcgvGXKPZIR4B/METe9NSJfapuy3s8G7//pnZqI+NQCO6nrkWy8qM+UYusgcizQq5REFU4BjM+OZJ4fVRfs6CiQm05QvgYvnByHLXdoqshet0Kk/UjQISX4IkPv8c+Umoi1V9arBcmerFNVEmKU/9rUYJ6qyIcSZhzupdh51WCUt5XUZETYUV8dYJVvHVlSUVKrOKN1gC62cvXlAFtI8zBDTDxVZ08nc0rWjibwYsAtd4O4aNrNlCOdYktCFM9b38IVRUtBbmQWNHdwh3Msw4VozueXvva6tnXqW8hLRMa1Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB8245.namprd12.prod.outlook.com (2603:10b6:8:f2::16) by
- MN0PR12MB6103.namprd12.prod.outlook.com (2603:10b6:208:3c9::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Tue, 28 Jul
- 2026 03:55:29 +0000
-Received: from DS0PR12MB8245.namprd12.prod.outlook.com
- ([fe80::e7c5:cfca:a597:7fa4]) by DS0PR12MB8245.namprd12.prod.outlook.com
- ([fe80::e7c5:cfca:a597:7fa4%4]) with mapi id 15.21.0245.012; Tue, 28 Jul 2026
- 03:55:29 +0000
-Message-ID: <a12ed6d2-ceca-496b-b104-aa669cace5cd@nvidia.com>
-Date: Tue, 28 Jul 2026 09:25:17 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 4/6] PCI: tegra: Add Tegra264 support
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, Thierry Reding <treding@nvidia.com>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Karthikeyan Mitran <m.karthikeyan@mobiveil.co.in>,
- Hou Zhiqiang <Zhiqiang.Hou@nxp.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, =?UTF-8?Q?Pali_Roh=C3=A1r?=
- <pali@kernel.org>, Michal Simek <michal.simek@amd.com>,
- Kevin Xie <kevin.xie@starfivetech.com>, Aksh Garg <a-garg7@ti.com>
-References: <20260716-tegra264-pcie-v8-0-23e51589229b@nvidia.com>
- <20260716-tegra264-pcie-v8-4-23e51589229b@nvidia.com>
- <063777d8-cd4d-43cc-8f65-102191848c9d@nvidia.com> <amd8FoDqTNV2z2vM@orome>
-Content-Language: en-US
-From: Manikanta Maddireddy <mmaddireddy@nvidia.com>
-X-Nvconfidentiality: public
-In-Reply-To: <amd8FoDqTNV2z2vM@orome>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN4P287CA0106.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:276::6) To DS0PR12MB8245.namprd12.prod.outlook.com
- (2603:10b6:8:f2::16)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gwFTdvou"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC9821F000E9;
+	Tue, 28 Jul 2026 03:59:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785211198;
+	bh=kcP2tTCg0rz/JgtAWrVBaG5NZx/c6rcc6ccigv5lXBU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=gwFTdvouO4HD3qbTtPJZODA2IdSFv/PURTTJwec5ySUxydNVHz7pjqmtG9by393Io
+	 Qr41a4WrC72M2NLnvRPxoSPVMLSYnRgikv/+AwZ5eCVYA/XpMZMXA0y7QGT1S3O65e
+	 klA3qql7v+24LMhZTvBnteEd5qDJ+fUMxKFnBZn3SbuVznFg1usI2mVuGGE67kW7j6
+	 p+VEJRg0kfXhjPc/omrSrI0aGbmq/sO3joAZO9PqGDkORd0U5O4ibmaZtgMGAeNofl
+	 fqDIxtIHu1M5Pdl58tTzYWDO00cpEz7+kfbgiJWDQy7b7wuUvTe9cpIfu7ua0jTgIf
+	 0qhNwFZ1+b4sQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v4 5/5] net: dsa: mv88e6xxx: embedded PTP
+ timestamp support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Luke Howard" <lukeh@padl.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260727-mv88e6xxx-ptp-fixes-v4-5-10b4020155fc@padl.com>
+References: <20260727-mv88e6xxx-ptp-fixes-v4-0-10b4020155fc@padl.com>
+ <20260727-mv88e6xxx-ptp-fixes-v4-5-10b4020155fc@padl.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 28 Jul 2026 03:59:57 +0000
+Message-Id: <20260728035957.DC9821F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB8245:EE_|MN0PR12MB6103:EE_
-X-MS-Office365-Filtering-Correlation-Id: e1844673-b062-417a-edc4-08deec5c104c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|23010399003|7416014|366016|11063799006|10067099003|56012099006|4143699003|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	0R/LGc6hlKcmiqoZOghjMePClcoUnskBuy1MtVJbexg/FvAzfu2BcXAEWuHyoDQU7LUnTjiStY+fzbL2LZShLFLN7Pq5MDVTWOhXGSvx0Ds16FRo+viNaXSWbW6bYhadPFmJ3P3WWzZVkW2BuUeLsTaVVtUTOV4cozw3EkZBMNiHXWeQtV2xi6kgGw1p3eC5Pcj89chjOJ9nUabufG0gKcIFLlwUix3btQNLDw8aDUJBWro3CqOhDPtggPHC5fBlhdT0xXShIb+c1lgCnKfLcrQtMkgXyd3Bat6v1tsWfKr0mVs+BvQYF0kaAirbjyAlGX5Jgi5P6BU6eTRsgt5P5q1rbYYEKwNC3auLsUz0US7hfv4ek0GBnWHExzNSnI52Yjqut1sg55GaFaXN3Z2g1kEFsO6txq2eX25yGL0NN7jrZYBEZkFPpCfMiRJU4Sr4YsZVzhuZoPaCub6AA1LIKSgRzXpERjy3fi6u/FesnfO+tS9sGVTcOSvKler46Bc0S4k8/IQol/ZPo9/lyrz6CqwNjLjrHA4av0WhLaAdGJHOYJNhishyvvCNYJIq97bnJy5pPTfyp4SMhnWvK+FP7wnFN3JA95cgoKJSxGCNRNki8sutbhdDEW9D90sj0MZiuLzoc8sE9yr3lX8d0G1F6JslsIn2T4RHEAau2qsZLj4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB8245.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(7416014)(366016)(11063799006)(10067099003)(56012099006)(4143699003)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aGlFMVVYVWxBNjdDZUtJR2x4WEJyZjl1NkdDK2NVZndQZlVicmhUL04wY0lJ?=
- =?utf-8?B?R09PTmRRNUVndngwZGluejh1bHkwUDBQeFB3TklEenJiQWlJcVVpTW5KNmVq?=
- =?utf-8?B?RkVNZXM5SWZDdGI1cnFqNU0yZ3ZlYzRBbENyblUxUnF2b04vc3hKQzVkTGdz?=
- =?utf-8?B?cmo1bmZMcjJ1QnlvcDBUc2FWQkh2MzFjbmVPZWl6U3pXWGtxejZjTXdzcVdp?=
- =?utf-8?B?b0hNenVwU2xuNDRvNFRrN21sQ1FPaDdWYm8xNjg5ci9yWmN3VEFHODArWnBu?=
- =?utf-8?B?aHVSdlNhWlpuRUVFVURvZjFKUnV0ckFrRDcveFVsT0UvbTM1MnQ3Q2svMFBC?=
- =?utf-8?B?dkNkSk84MXpxNFdzd1dqMlVFUHozTWY5VlNkYXAzQjVFd0Y4UWRTcFA2VUYy?=
- =?utf-8?B?dzJIcHpuQTROeERUQTF1VG92c1hOeG9hb24zKzRRdjhsdUxpWVR6NXJFY3c2?=
- =?utf-8?B?V0ZNek5QODRleG5zR29Hd2FnOHFiNWMrMzVGNExHbnMwc3FsMEFsTm9OaVpT?=
- =?utf-8?B?cUdmbkR4cDFJMjhmNG9QdjlpaEFSZ1A5eXJYTUhOU21HczdUays5aEtrZzd0?=
- =?utf-8?B?aWhyTTZqdFM3YVlKTVY2SHhyYU9SOWpNYjNkeFJZUGhIMWxqeU0weWp2REo2?=
- =?utf-8?B?bGZzY3FDNmhhM2RnWmFiZDFBRUlObkxJcEVNMDlrL0k0OENuN3l4Z3hDM2NT?=
- =?utf-8?B?am9xNHlZeHRHYTQzNUhUZUFZSzhzT2VRa3V2NURCQ2Zob2VzU3JJa1NEcVNS?=
- =?utf-8?B?UkFqbWVJVDk4T2lGeTg0TlRCeWYxUTMwZ2NvWFRNUXVJbXZINWpkeU1rZHow?=
- =?utf-8?B?a1lObWNDNnJJVkJoOXBYSGQrODZFZlU2WW5JYTV1MmQrNS9MeC9sL2RKUWxs?=
- =?utf-8?B?d0tPcW1sS1hqRVVzODdmdjU1UUlxbzF3ZFlFOGRlSkVXN2o1NmxITjVjbG02?=
- =?utf-8?B?eDJ3WlQyejQ1VDJBbEVJQVA3QkV2OHZ6eWhXZkJCODRjTmRXNnpSY0V5ZmI1?=
- =?utf-8?B?aXZ1SDRERENjSGdzL0VaRkpaSUw5cHAxZTNncEVwN05yc2xYaDc3a2xERk9s?=
- =?utf-8?B?SjFVeHFBY05Ba09sYyszQmFzMDVSMGFRemFZQzgrMUgzOWhsZnlZL3RweUVX?=
- =?utf-8?B?VFhxakM1SnhQWGZ2M1YrY1Fjbm5yZlBESXdGZlY4UXRVaHZMMWladDdtUk9o?=
- =?utf-8?B?cTRDcmMvQlFMZWJHeGF0a2RjeW14NCtFZm00Z280Z1VFdkN0Tk9tK1BGT0V1?=
- =?utf-8?B?MWxETHRZRmlScldZbmh5c2wvbm0xMW1OK3Rub3oxN0JuNUIxWjR5dVlEM0N6?=
- =?utf-8?B?ZXJGeWpXNmFDM3kwazEvZ29NV2xaZjZHalFvL0QrZldEZjJBTXltL2k2eTk4?=
- =?utf-8?B?a2hlR0FUZmpxd2I0V3p1RUdHNEZ0N3hRMFdXZXlGSHArckp0ZTgyQlMxZStV?=
- =?utf-8?B?Nlo0MUppcHcwM1QwaE01MFRWTmpBYkR4M3B4T09zMlcvUlVIUXlWWGJ5QlA2?=
- =?utf-8?B?Z3lmbThTVEJiQVZoak5VdFdzUnNnZlREbkMrT0pkd1k1SHNMMDJSa2NucXFD?=
- =?utf-8?B?MmVORnl2Z0hWZHVKRDZRa1UxeG9uQVMxT3RuZUdWbUliMklxRGhHVFJKc2ZZ?=
- =?utf-8?B?ckxtRi8xbXJlWmJyWitsc2x1bWMybG5FQVFvK1h2YVQ4ZE9KeC9WMG8zUjhC?=
- =?utf-8?B?MDlPaWtPc1g5TndoZmtiVVllTmVPVDk5bzFpMXU2V0sxTXlsZzZCRnk5K3ZP?=
- =?utf-8?B?aERUbmdvL3NhZlJvNG5aMUJCZ1dWMGpJeEZReHYvYmhyMGgxQlcySVRYdG01?=
- =?utf-8?B?aXVKcDZocVRQbmJoMG9nRWlnR2hVQkt4YTZFVUNidGMxYURsRks3M2RUenBo?=
- =?utf-8?B?ZHBucmMvR0dPU0JnSkhkQnhpUjJ1Rkp5WkdtbFlBd2VNZ1l4UXIxbU04cEZ4?=
- =?utf-8?B?UkRFajQ3SkY2MFVrdWlMQ0U3QmhkSW42SzNVYzMxNkMyUmlOVzZVT2Rpd043?=
- =?utf-8?B?S1lDeWRxNmkyNzdRM1J6eVNsR1hOTzBwUVBGaGltcjB4UU5MSmRVVzZVOHhP?=
- =?utf-8?B?QkJ4OXdaTGE4VVNCMjl1K1BZcG9rVHh6UE5JQ0JFbVVTOXlxT0IvYlQ0RGlU?=
- =?utf-8?B?R1ZVeG1NS1lxS0I3YjQzT2krMWhSQnFoNWJzMmFiUHJDVVBtenh2Z3FOSkM0?=
- =?utf-8?B?U2NXeWZKUVlMREtTS1FrK3RHRkRTQldhQ2RqS1drcDUybk52S0xNeEpqZ1RO?=
- =?utf-8?B?U2FZc3Vna1hRTnVKeDF2cVNsYUNyUE9vMFJKYW4zSDRvQXhuOVAwTWs5QnRQ?=
- =?utf-8?B?YllBL2hNWFVWU2FtL050UUo4SE5NSERGRDFZMlJDYjg5aVRRemp5Y1A3a2t0?=
- =?utf-8?Q?FTYL5wN6ZeFcOfRI=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e1844673-b062-417a-edc4-08deec5c104c
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB8245.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2026 03:55:29.1524
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +MSIC95lDmJNypCsALV74Iyn5v+km1oDyaVCZPKbGHCuov+AIGmT6FpDDfPAdsCu0QzYqJYOk06D5lDU1Inovw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6103
 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
+New issues:
+- [High] Hardware configuration failures in `mv88e6xxx_set_hwtstamp_config(=
+)` leak `chip->enable_count`, leaving the software state permanently out of=
+ sync.
+- [Low] Lockless access to `chip->tag_protocol` without `READ_ONCE()` / `WR=
+ITE_ONCE()` annotations causes a data race.
 
-On 27/07/26 9:14 pm, Thierry Reding wrote:
->>> +static int tegra264_pcie_suspend(struct device *dev)
->>> +{
->>> +	/*
->>> +	 * No need to do anything device-specific here, BPMP handles the
->>> +	 * details of taking the link into L2.
->>> +	 */
->>> +
->>> +	return pinctrl_pm_select_sleep_state(dev);
->>> +}
->>> +
->>> +static int tegra264_pcie_resume(struct device *dev)
->>> +{
->>> +	struct tegra264_pcie *pcie = dev_get_drvdata(dev);
->>> +	int err;
->>> +
->>> +	err = pinctrl_pm_select_default_state(dev);
->>> +	if (err < 0) {
->>> +		dev_err(dev, "failed to configure sideband pins: %pe\n",
->>> +			ERR_PTR(err));
->>> +		return err;
->>> +	}
->>> +
->>> +	tegra264_pcie_init(pcie);
->>> +
->>> +	return 0;
->>> +}
->>> +
->>> +static DEFINE_SIMPLE_DEV_PM_OPS(tegra264_pcie_pm_ops,
->>> +				tegra264_pcie_suspend,
->>> +				tegra264_pcie_resume);
->> PCI subsystem registered pm_noirq callbacks. So, controller should also
->> register to pm_noirq callbacks.
-> Unfortunately that causes illegal uses of msleep() in no-IRQ context.
-> Sashiko complains about it and is right. I don't observe any runtime
-> issues with switching to the _noirq variants, but it doesn't seem right
-> to stick to it.
-> 
-> Is there any reason why this needs to be _noirq, or any benefits if it
-> was?
-> 
-> Thierry
+Pre-existing issues:
+- [High] Dereferencing PTP header pointers on nonlinear SKBs without first =
+ensuring the header is within the linear data buffer causes out-of-bounds r=
+eads.
+--
 
-The PCI subsystem registers pci_pm_resume_noirq() as a noirq resume 
-callback. This function accesses PCI configuration space to transition 
-the device from D3hot to D0. Therefore, the controller driver must first 
-bring the PCIe controller out of reset and make its configuration space 
-accessible to the PCI subsystem.
+--- Patch [5]: [PATCH net-next v4 5/5] net: dsa: mv88e6xxx: embedded PTP ti=
+mestamp support ---
+commit a448ec89fabbabe65af4afa19ebc67d3c379213b
+Author: Luke Howard <lukeh@padl.com>
 
-Many other controller drivers in drivers/pci/controller/ are registering 
-noirq callback.
+net: dsa: mv88e6xxx: embedded PTP timestamp support
 
-Thanks,
-Manikanta
+mv88e6xxx switches can embed the PTP arrival timestamp directly in the
+frame, at a configurable offset from the PTP common header, typically
+the offset of the reserved2 field.
 
--- 
-nvpublic
+[ ... ]
 
+> diff --git a/drivers/net/dsa/mv88e6xxx/chip.h b/drivers/net/dsa/mv88e6xxx=
+/chip.h
+> index 7272b7dc4955c..c75a71464b20a 100644
+> --- a/drivers/net/dsa/mv88e6xxx/chip.h
+> +++ b/drivers/net/dsa/mv88e6xxx/chip.h
+[ ... ]
+> @@ -818,6 +825,14 @@ static inline bool mv88e6xxx_has_lag(struct mv88e6xx=
+x_chip *chip)
+>  	return !!chip->info->global2_addr;
+>  }
+> =20
+> +/* Whether the active tagging protocol has the switch embed arrival time=
+ stamps
+> + * in the frame instead of leaving them in the PTP arrival registers.
+> + */
+> +static inline bool mv88e6xxx_ptp_embedded_ts(struct mv88e6xxx_chip *chip)
+> +{
+> +	return chip->tag_protocol =3D=3D DSA_TAG_PROTO_EDSA_PTP_RESERVED2_TS;
+
+[Severity: Low]
+Is it possible for chip->tag_protocol to be modified concurrently by
+mv88e6xxx_change_tag_protocol() in process context?
+
+If this runs in the fast path rx softirq without READ_ONCE() and
+WRITE_ONCE() annotations, could this cause a data race?
+
+> +}
+> +
+>  static inline bool mv88e6xxx_has_tcam(struct mv88e6xxx_chip *chip)
+>  {
+>  	return !!chip->info->tcam_addr;
+[ ... ]
+> diff --git a/drivers/net/dsa/mv88e6xxx/hwtstamp.c b/drivers/net/dsa/mv88e=
+6xxx/hwtstamp.c
+> index a5b362a999e64..74eaadeeeb784 100644
+> --- a/drivers/net/dsa/mv88e6xxx/hwtstamp.c
+> +++ b/drivers/net/dsa/mv88e6xxx/hwtstamp.c
+[ ... ]
+> @@ -147,20 +149,30 @@ static int mv88e6xxx_set_hwtstamp_config(struct mv8=
+8e6xxx_chip *chip, int port,
+>  	if (tstamp_enable) {
+>  		chip->enable_count +=3D 1;
+>  		if (chip->enable_count =3D=3D 1 && ptp_ops->global_enable)
+> -			ptp_ops->global_enable(chip);
+> -		if (ptp_ops->port_enable)
+> -			ptp_ops->port_enable(chip, port);
+> +			err =3D ptp_ops->global_enable(chip);
+> +		if (!err && ptp_ops->port_enable)
+> +			err =3D ptp_ops->port_enable(chip, port);
+>  	} else {
+>  		if (ptp_ops->port_disable)
+> -			ptp_ops->port_disable(chip, port);
+> +			err =3D ptp_ops->port_disable(chip, port);
+>  		chip->enable_count -=3D 1;
+>  		if (chip->enable_count =3D=3D 0 && ptp_ops->global_disable)
+>  			ptp_ops->global_disable(chip);
+>  	}
+>  	mv88e6xxx_reg_unlock(chip);
+> =20
+> +	if (err)
+> +		return err;
+
+[Severity: High]
+If ptp_ops->global_enable() or ptp_ops->port_enable() fails and returns an
+error here, does this code leak the increment to chip->enable_count?
+
+If the count remains incremented on failure, could this leave the hardware
+state permanently out of sync and break the ability to enable or disable PT=
+P?
+
+> +
+>  	/* Once hardware has been configured, enable timestamp checks
+>  	 * in the RX/TX paths.
+[ ... ]
+> @@ -249,6 +261,52 @@ static int seq_match(struct sk_buff *skb, u16 ts_seq=
+id)
+>  	return ts_seqid =3D=3D ntohs(hdr->sequence_id);
+
+[Severity: High]
+This is a pre-existing issue, but can this dereference of hdr->sequence_id
+result in an out-of-bounds read?
+
+If an skb containing a PTP packet is received fragmented such that the PTP
+header sits in the paged data area, ptp_parse_header() returns a pointer
+extending past the linear region.
+
+Should we call pskb_may_pull() or skb_linearize() to ensure the header is in
+linear memory before dereferencing it here and in is_pdelay_msg()?
+
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727-mv88e6xxx-=
+ptp-fixes-v4-0-10b4020155fc@padl.com?part=3D5
