@@ -1,107 +1,152 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2356C3195EF;
-	Tue, 28 Jul 2026 07:21:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 199E33CCFB0;
+	Tue, 28 Jul 2026 07:21:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785223275; cv=none; b=RvC/0Nz/BQ+pOp+5ZbYeLzqkc8Kpod85rIsm7Cif0faFtAIA04wzMoqwg85e8cWbbQbejGu8D6RpzigyGVzFJCdesv/FFx2lvGEffXpY44t8Q+m84xNiBc6pOWWluTElcfi8l5GBI4lKAL6IMnqEOfgv6VUozYbI5D1vz7eBvjg=
+	t=1785223276; cv=none; b=DEegxRNkr4SJIN12d4uhIGy4ZdmK1bZPzpNJF5STCr2u4ARwJHk9a3NO4iqS40+WeJ8ge5tR8kg98C/4DtFYqwCE6ys1HVmo5nvUxK8Bah7kE/RI3bf2BNa5LemQE09b/Ogi83ct6cDMwEOqU/NWIxroLX0B91MxAm4qeqmxbp4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785223275; c=relaxed/simple;
-	bh=E2u/yZHVwohOUYZYBWNklBhTCJwZ6TH2bV2eKBupdos=;
+	s=arc-20240116; t=1785223276; c=relaxed/simple;
+	bh=XE9KkB63Bzskmyt6gocPnAHUhuBNXcx6e9sXumRM3/g=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XMhENoXnBXY/gz3/rCGqmeYIB8RzgRDSucGrYW6egvR8R0I5LG6Aw/KJfP51KUOt6SWJMi8A09kKO4az56PfgnfmiU89dKNhIi24TUh66am+UzeBDAC1bQU4MX2YU0u+DHOT6gWCRPwkm9g9VpTzi8lRym5vwkgwhWS8aM6IYBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PBl+N3oC; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=l/eryEf2B8pFWsFBCXeTDLMqxBFvmULVCiIqmQqmwQbwlI9IWIsWK1acbaPyMaSdRvHG3t4iXC4ml17kbG9x/NtJHOW/yxEZOoHliu1Ayj9iM0EwFMVywEL9iRPSYlEL2QvnIkasd2T+ETVxa8HWF/+mQYs3MdHuARef8gccnhQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HJoFPbXV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PBl+N3oC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FCBE1F000E9;
-	Tue, 28 Jul 2026 07:21:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HJoFPbXV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 681291F00A3E;
+	Tue, 28 Jul 2026 07:21:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785223273;
-	bh=uO8XeJX7VjjjUB2Zia3BKteUXm5WYluvgfemrMBeoW4=;
+	s=k20260515; t=1785223274;
+	bh=UD5FqAxnnxRG4tcCSNqXjm9MFcKqT5tXqiu7CaHZXKc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PBl+N3oCg5uaL8UsEOEcXOoRgTvEZ158oMZxgB1MkquKxl93OwLsnGdUAF2RGz1X9
-	 pu1GzuQ5uF3xsSB+BCgf3Zjgykpm8fPKoQzbrWW2EQBjWjXqCG/TDBedl9ptB3MllY
-	 Bd+n9XdHriuoAyarnXqajMM6gnKGeVZc7d3GO8wDGCzHEq15Q8eAOWNwO+0FYL3YFY
-	 ltSWF+aKBTbfDYijMcStFfoUdTHVpUPtGMckGZZwf0EdOF5cU1l15J+NFOGeOubwZi
-	 bY6Jeu0+yufAU/MwMpdv3sfHOByiJQ4vUQyM+H2HzsrvQIUrCNNDp68kfIqvE1Y5fq
-	 Y4qRFTJddGKSw==
+	b=HJoFPbXVQx3rFb0DJ0kYgdtQ6k1Nw3od+8t802qXwqBmn37nGEn/usUuoJKVgnmRc
+	 KJshjPwSSINMBuHxOp5sVCTpdbZGSuqHefsXSp/3o8tvOKBY8aRE6Qn7n/OtuZ5OoE
+	 J+Yh4DQfAR5+4xudyX/oobpBGxEYBquoyRh/daKx0sdmLj6GG3Nkgj382bFtN4NufL
+	 Sk4KyFSxNgI9khZC1stz0NuNogxleADXhY09/SBt0r77MddD8Cc+eadDbhEP5rS1To
+	 dVuY9+v4oNehTMY5hsq33XRvCmW6Fpt10FugCmwXseiy3/33QU4C8FGzFLGetNP30O
+	 Vxj7DjgmpZr2w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/3] arm64: dts: qcom: eliza: Add PCIe PHY and
- controller nodes
+Subject: Re: [PATCH v7 02/12] i3c: master: Use unified device property
+ interface
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Krishna Chaitanya Chundru" <krishna.chundru@oss.qualcomm.com>
-Cc: linux-pci@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260728-eliza_evk-v4-1-decc7fe5246e@oss.qualcomm.com>
-References: <20260728-eliza_evk-v4-0-decc7fe5246e@oss.qualcomm.com>
- <20260728-eliza_evk-v4-1-decc7fe5246e@oss.qualcomm.com>
+To: "Akhil R" <akhilrajeev@nvidia.com>
+Cc: Frank.Li@kernel.org, robh@kernel.org, linux-hwmon@vger.kernel.org, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>, conor+dt@kernel.org, linux-i3c@lists.infradead.org, devicetree@vger.kernel.org
+In-Reply-To: <20260728065955.809445-3-akhilrajeev@nvidia.com>
+References: <20260728065955.809445-1-akhilrajeev@nvidia.com>
+ <20260728065955.809445-3-akhilrajeev@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 28 Jul 2026 07:21:13 +0000
-Message-Id: <20260728072113.8FCBE1F000E9@smtp.kernel.org>
+Date: Tue, 28 Jul 2026 07:21:14 +0000
+Message-Id: <20260728072114.681291F00A3E@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Missing `msi-map` property in the PCIe host controller nodes, comp=
-letely breaking Message Signaled Interrupts (MSI/MSI-X).
+
+New issues:
+- [High] Probing of I3C master controllers fails on ACPI platforms if they =
+have child nodes.
+
+Pre-existing issues:
+- [High] Dangling pointer left in desc->dev upon device_register() failure =
+leads to Use-After-Free and Double Free on teardown.
 --
 
---- Patch [1]: [PATCH v4 1/3] arm64: dts: qcom: eliza: Add PCIe PHY and con=
-troller nodes ---
-commit 16f01d1efdef1f9640d6946e1dff4bcb10d4c047
-Author: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+--- Patch [2]: [PATCH v7 02/12] i3c: master: Use unified device property in=
+terface ---
+commit 67a3b30ddd40ca8910b28ac5cd83aad57174f7e8
+Author: Akhil R <akhilrajeev@nvidia.com>
 
-arm64: dts: qcom: eliza: Add PCIe PHY and controller nodes
+i3c: master: Use unified device property interface
 
-This commit introduces PCIe controller and PHY nodes for the Eliza platform.
-It also updates the GCC clock references to point to the newly added PHY
-nodes instead of placeholder zeros.
+Replace all OF-specific functions with unified device property functions
+as a prerequisite to support both ACPI and device tree.
 
-> diff --git a/arch/arm64/boot/dts/qcom/eliza.dtsi b/arch/arm64/boot/dts/qc=
-om/eliza.dtsi
-> index 357e8066c1768..31835a5828834 100644
-> --- a/arch/arm64/boot/dts/qcom/eliza.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/eliza.dtsi
+> diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
+> index f1be38a640ca1..4b3d9628bc39b 100644
+> --- a/drivers/i3c/master.c
+> +++ b/drivers/i3c/master.c
+
 [ ... ]
-> @@ -1784,6 +1784,369 @@ mmss_noc: interconnect@1780000 {
-[ ... ]
-> +		pcie0: pcie@1c00000 {
-> +			device_type =3D "pci";
-[ ... ]
-> +			iommu-map =3D <0 &apps_smmu 0x1480 0x1>,
-> +				    <0x100 &apps_smmu 0x1481 0x1>;
-> +
-> +			interrupt-map =3D <0 0 0 1 &intc 0 0 0 564 IRQ_TYPE_LEVEL_HIGH>,
+
+> @@ -1928,7 +1930,7 @@ i3c_master_register_new_i3c_devs(struct i3c_master_=
+controller *master)
+>  			     desc->info.pid);
+> =20
+>  		if (desc->boardinfo)
+> -			desc->dev->dev.of_node =3D desc->boardinfo->of_node;
+> +			device_set_node(&desc->dev->dev, desc->boardinfo->fwnode);
+> =20
+>  		ret =3D device_register(&desc->dev->dev);
+>  		if (ret) {
 
 [Severity: High]
-Is a msi-map property missing from this pcie0 node?
+This is a pre-existing issue, but it appears desc->dev is left pointing to
+a freed device if device_register() fails. When put_device() frees the
+underlying struct i3c_device (via i3c_device_release()), desc->dev isn't
+set to NULL.
 
-Without the msi-map property, the kernel's PCI OF core cannot establish an
-MSI domain for the PCIe bus. Will this cause MSI/MSI-X interrupts to fail
-for all connected PCIe endpoints, forcing them to fall back to legacy INTx
-interrupts if supported?
+Later, if i3c_master_unregister_i3c_devs() runs during teardown, could this
+lead to a use-after-free and double-free?
+
+i3c_master_unregister_i3c_devs() {
+    ...
+    i3c_bus_for_each_i3cdev(&master->bus, i3cdev) {
+        if (!i3cdev->dev)
+            continue;
+
+        i3cdev->dev->desc =3D NULL;
+        if (device_is_registered(&i3cdev->dev->dev))
+            ...
+        else
+            put_device(&i3cdev->dev->dev);
+    }
+}
 
 [ ... ]
-> +		pcie1: pcie@1c08000 {
-> +			device_type =3D "pci";
-[ ... ]
-> +			iommu-map =3D <0 &apps_smmu 0x1400 0x1>,
-> +				    <0x100 &apps_smmu 0x1401 0x1>;
-> +
-> +			interrupt-map =3D <0 0 0 1 &intc 0 0 0 149 IRQ_TYPE_LEVEL_HIGH>,
+
+> -static int of_i3c_master_add_dev(struct i3c_master_controller *master,
+> -				 struct device_node *node)
+> +static int i3c_master_add_dev(struct i3c_master_controller *master,
+> +			      struct fwnode_handle *fwnode)
+>  {
+>  	u32 reg[3];
+>  	int ret;
+> =20
+>  	if (!master)
+>  		return -EINVAL;
+> =20
+> -	ret =3D of_property_read_u32_array(node, "reg", reg, ARRAY_SIZE(reg));
+> +	ret =3D fwnode_property_read_u32_array(fwnode, "reg", reg, ARRAY_SIZE(r=
+eg));
+>  	if (ret)
+>  		return ret;
 
 [Severity: High]
-Is a msi-map property also missing from this pcie1 node?
+Since this function is now called for ACPI child nodes via
+fwnode_populate_i3c_bus(), will this cause I3C master probe to fail on ACPI
+systems?
 
-Similar to pcie0, omitting this property might prevent modern devices like
-NVMe drives that exclusively rely on MSIs from functioning correctly on
-this controller.
+ACPI nodes typically use _ADR or _CRS instead of a "reg" property. If "reg"
+is missing, fwnode_property_read_u32_array() returns an error, which
+propagates up and causes the entire master registration to abort.
+
+Before this patch, the loop in of_populate_i3c_bus() was skipped completely
+on ACPI systems because dev->of_node was NULL.
+
+> =20
+>  	/*
+>  	 * The manufacturer ID can't be 0. If that's the case, we're
+>  	 * dealing with an I2C device.
+>  	 */
+>  	if (!reg[1])
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-eliza_evk-=
-v4-0-decc7fe5246e@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728065955.8094=
+45-1-akhilrajeev@nvidia.com?part=3D2
