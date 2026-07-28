@@ -1,123 +1,129 @@
-Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88EE3381AFF;
-	Tue, 28 Jul 2026 16:41:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785256895; cv=pass; b=s/d/4uxhDPiYDhLq7wHaUTR6OiLYQr8/Gul6oVyPl88FFgrK54VzjpCPDNPglp/v2r6fCGlJkhMOnWtgaB9QH29rX+tPOMmNbzQngVIrVn2/onN3OJvIKvHd1FnKIKfoU2zoNhqLmR2QpyMjYMu9/qqIDgFqctCy2rvFg7VcdTA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785256895; c=relaxed/simple;
-	bh=tNg5fQbD/+z6GIaSXIU1W+5GhX2fSWegOJzAhmVQZ8U=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=omUgrzm2VfKraQZPM5IHxVcO6b6OuiPj+BGc6KzJX+eMRKc37kRP9OnWeFLb5EH+BXnMoxAlL5/lv06+saP3sv09uQwdFM3JmJ7pCM1JmfznqmisKqAJU39QuWRuC0nIYvu2zmJrRa7Rd9lStbsEd2pNdTM1fqbn60k9XgrAHgg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=YvUN7Plm; arc=pass smtp.client-ip=136.143.188.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41F6139021E;
+	Tue, 28 Jul 2026 16:52:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785257524; cv=none; b=s+ZgPFpJRkLE+YP0eKyHTwhZzJEGprAfCm5yvtPbLsOa1FClc9EUCwanM4ZD2X+Yw5IueMI3Jvkz0YhgtOZ5y4wFZGICG9KYaI+O7y7eafaNHMAqKTsHU0fk48fKRhd+1tbAqMG6uVWbvEYuBo79GIfxn+jjuCe5LqjfzFCHoos=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785257524; c=relaxed/simple;
+	bh=cF84Aluq7zOpr48gpuCferNUW8pj6MmSwBQbgoGJYvk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aYnlnVgVyJrke3MXv6fXtjcYB2H8mIucVNoodDfn0imwvXsBfz9TQ0hwcbMkpCk2ZmS106szy4s+i6l5M+dcru94ChRP3dHJ9tgv9/UXeyO8yeNdD3h3FmxigoT+ZlBnsYv4sNqEh/8S+okf76KZbo73/QlsJuTSXDlrwvUFNWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RouYSSBb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="YvUN7Plm"
-ARC-Seal: i=1; a=rsa-sha256; t=1785256875; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=ODQU9J8WquXICZDIDUqri1aGzugYN1IgEo8gXefLQk2VCj3ywRKyi+H0bK18c2TJ7vd5WRPS2A0Q0WEQky/AK5TbBlFo9WeniKj+2HZAVmDdSzGv2JMdpaGAMuDR0Cn4/CtxJyVlBbN8cytBXg4h3ewLYyQR/JWy/BXrSxsycLI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1785256875; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=6XiCb3evbpJrCfe6+gAZAYoNBFBzKa5QdpNuV3NP9Ao=; 
-	b=Yl1epMAc0V9MDm9eRby5Yl/+ssAWK3xpIfGyblvSX9jAG9+SNor9/I0IPOmSwkxrCCltJOzbPNxmv6fn1drBMbxfuKzDB3CwgyaGuJpZtyQk7k0L4qVrv25TAlpbqQ6x/DJuUgcxyc71904KqF5zQrD2MNoGjw4jNyKTYJRI8Jk=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=pigmoral.tech;
-	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
-	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785256875;
-	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Cc:Cc:Reply-To;
-	bh=6XiCb3evbpJrCfe6+gAZAYoNBFBzKa5QdpNuV3NP9Ao=;
-	b=YvUN7Plmsr0Pczl17igM7no3ZSrGEVzP6U++iGaKF9lTo6z+9SUVAx9QhunNT/fq
-	IDI/On5ulNUW+x+Fc/qv4qNTXva9/U0AdopxQEyGsHyngFIRHKDECIavQNG+pJexlTl
-	G8KkvZM9SXR1Q3JO6KFu5QrDbNSuWCb4gMYipvTc=
-Received: by mx.zohomail.com with SMTPS id 1785256872287716.7797613609929;
-	Tue, 28 Jul 2026 09:41:12 -0700 (PDT)
-From: Junhui Liu <junhui.liu@pigmoral.tech>
-Date: Wed, 29 Jul 2026 00:40:15 +0800
-Subject: [PATCH] riscv: dts: spacemit: k3: Drop guest properties from
- M-level IMSIC
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RouYSSBb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A65561F000E9;
+	Tue, 28 Jul 2026 16:51:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785257522;
+	bh=WKwEeYD7Il3cUt4y4I43rvbKa4JayoZIADcBnGDf8sA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RouYSSBbHApS4ZxxzGytO1gh5MPEdKb/YCUJ0EHyUSfe3ZgUhMOUlSuTO1uNnJn00
+	 1hL/o9tNdRabUbgxH4cC2bqyKRSldzXNNXYWL3f/3EvXW8NjC0OaRu26AkfcogKekI
+	 rYPTf+IQ87A3VbY82bld8hkGO95Wk+I/FVrAly9WH9BOkbnqECEpsp3Vz2Bjem2WvX
+	 FImjmddjN5qjrZHROCMhPvLbgtW8Ju3iEP26KEOI4SyA5q/t9+Zftv+JkSctxo0jNI
+	 yiYXjGeV1Db40aahT1ySPDA7cyOV5NJzmcbmTkJZjfnRiAbgaKPtDRFQmFa1f/lW1W
+	 8kEcvvi16FLJg==
+Date: Tue, 28 Jul 2026 17:51:57 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Chris Morgan <macromorgan@hotmail.com>,
+	Luca Weiss <luca.weiss@fairphone.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] iio: imu: inv_icm42600: warn on whoami mismatch
+ instead of failing probe
+Message-ID: <20260728-extradite-yanking-42d918637f61@spud>
+References: <20260724202708.128267-1-jorijnvdgraaf@catcrafts.net>
+ <20260724202708.128267-3-jorijnvdgraaf@catcrafts.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260729-k3-mimsic-fix-v1-1-368c0aec04b9@pigmoral.tech>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDcyNL3Wxj3dzM3OLMZN20zApdM0ODlCSL5MRE4+QUJaCegqJUoDDYvOh
- YCL+4NCkrNbkEZIhSbS0AYbws5HEAAAA=
-X-Change-ID: 20260729-k3-mimsic-fix-610db8caa3cd
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Guodong Xu <guodong@riscstar.com>
-Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Junhui Liu <junhui.liu@pigmoral.tech>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2057;
- i=junhui.liu@pigmoral.tech; h=from:subject:message-id;
- bh=tNg5fQbD/+z6GIaSXIU1W+5GhX2fSWegOJzAhmVQZ8U=;
- b=owGbwMvMwCWWvDb1VEXc8j+Mp9WSGLIybs+78Ud+EvO72WcCphxWvSmz3D7gv3tEw2fd36vET
- h0T8buU2lHKwiDGxSArpsjC5S/+z1qH59sRgdb7MHNYmUCGMHBxCsBE7ncxMqzPXykqFnC8MkW+
- x31P9tSWdxcTVp3WEf+8Y+nC1yl+M34yMvSGnxZ4kMWXHfdI4RnzQz1vvRATlrRPi8u3OKzew/Z
- 5OicA
-X-Developer-Key: i=junhui.liu@pigmoral.tech; a=openpgp;
- fpr=15B30CC69C4BF0CC3C08F85A2A90CDC122DF37BF
-X-ZohoMailClient: External
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="9rBZKHmncbl1SZZf"
+Content-Disposition: inline
+In-Reply-To: <20260724202708.128267-3-jorijnvdgraaf@catcrafts.net>
 
-The mimsic node describes the machine-level IMSIC, whose MMIO region is
-0x10000 (64 KiB) for all 8 harts. However, the node also specifies
-riscv,guest-index-bits = <6>, and per the AIA specification the
-per-hart stride is 2^(guest-index-bits + 12) bytes when guest interrupt
-files exist, i.e. 2^(6 + 12) = 256 KiB per hart and 2 MiB for all 8
-harts. The described region cannot hold even a single hart's files, so
-the node contradicts itself. OpenSBI enforces exactly this constraint in
-imsic_data_check() and rejects the node with -EINVAL, preventing the
-M-level IMSIC from initializing:
+--9rBZKHmncbl1SZZf
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-  fdt_driver_init_by_offset: interrupt-controller@f1000000 (riscv,imsics) init failed: -3
-  init_coldboot: irqchip init failed (error -3)
+On Fri, Jul 24, 2026 at 10:27:06PM +0200, Jorijn van der Graaf wrote:
+> A WHOAMI value differing from the one the compatible implies aborts
+> probe with -ENODEV, which prevents a register-compatible part described
+> with a fallback compatible from probing at all.
+>=20
+> The devicetree compatible is authoritative for which part is fitted:
+> demote the mismatch to a warning and continue, as st_sensors does since
+> commit a3c2c5c937ed ("iio: st_sensors: relax WhoAmI check in
+> st_sensors_verify_id()"). This changes the probe outcome on mismatch
+> for all parts the driver supports.
+>=20
+> Tested via a backport to a Fairphone 6 running a 7.1-based kernel: its
+> ICM-42630 (WHOAMI 0x0C), described with an icm42631 fallback compatible
+> and matched as icm42631, warns once and probes, and accelerometer,
+> gyroscope and temperature reads work.
+>=20
+> Suggested-by: Conor Dooley <conor@kernel.org>
 
-Moreover, guest interrupt files exist to act as the supervisor-level
-interrupt files of virtual harts; there is no machine-level counterpart.
-riscv,num-guest-ids is equally meaningless for the machine-level IMSIC.
+I don't want this to warn, I want it gone. Fallback use should not
+produce a warning.
 
-Drop both "riscv,guest-index-bits" and "riscv,num-guest-ids" properties
-from the mimsic node so the node matches the actual hardware layout.
+> Link: https://lore.kernel.org/all/20260722-creature-volley-0f083b904c1d@s=
+pud/
+> Assisted-by: Claude:claude-fable-5
+> Signed-off-by: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+> ---
+> New in v2.
+>  drivers/iio/imu/inv_icm42600/inv_icm42600_core.c | 8 +++-----
+>  1 file changed, 3 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c b/drivers/i=
+io/imu/inv_icm42600/inv_icm42600_core.c
+> index dc97d8a274e3..f306e3ffca48 100644
+> --- a/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c
+> +++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c
+> @@ -509,11 +509,9 @@ static int inv_icm42600_setup(struct inv_icm42600_st=
+ate *st,
+>  	ret =3D regmap_read(st->map, INV_ICM42600_REG_WHOAMI, &val);
+>  	if (ret)
+>  		return ret;
+> -	if (val !=3D hw->whoami) {
+> -		dev_err(dev, "invalid whoami %#02x expected %#02x (%s)\n",
+> -			val, hw->whoami, hw->name);
+> -		return -ENODEV;
+> -	}
+> +	if (val !=3D hw->whoami)
+> +		dev_warn(dev, "unexpected whoami %#02x, expected %#02x (%s)\n",
+> +			 val, hw->whoami, hw->name);
+>  	st->name =3D hw->name;
+> =20
+>  	/* reset to make sure previous state are not there */
+> --=20
+> 2.55.0
+>=20
 
-Fixes: 56f37e391a62 ("riscv: dts: spacemit: add initial support for K3 SoC")
-Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
----
- arch/riscv/boot/dts/spacemit/k3.dtsi | 2 --
- 1 file changed, 2 deletions(-)
+--9rBZKHmncbl1SZZf
+Content-Type: application/pgp-signature; name=signature.asc
 
-diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
-index c3f2dce0969c..2d022e1364f1 100644
---- a/arch/riscv/boot/dts/spacemit/k3.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
-@@ -1287,9 +1287,7 @@ mimsic: interrupt-controller@f1000000 {
- 					      <&cpu4_intc 11>, <&cpu5_intc 11>,
- 					      <&cpu6_intc 11>, <&cpu7_intc 11>;
- 			msi-controller;
--			riscv,guest-index-bits = <6>;
- 			riscv,hart-index-bits = <4>;
--			riscv,num-guest-ids = <511>;
- 			riscv,num-ids = <511>;
- 			status = "reserved";
- 		};
+-----BEGIN PGP SIGNATURE-----
 
----
-base-commit: 46380e4b1534c1626cecd7f4d0abb5e0cce09af6
-change-id: 20260729-k3-mimsic-fix-610db8caa3cd
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCamjeLQAKCRB4tDGHoIJi
+0nxXAP9+g+b9V3pRyFw2nHjqhTi5NkcV7nyaAEeQH5nzVsbCzgD8Dvj969hmiF9A
+gXX6JP+uwjONiH8knXxlwW0Fmk67+AQ=
+=qMDO
+-----END PGP SIGNATURE-----
 
-Best regards,
---  
-Junhui Liu <junhui.liu@pigmoral.tech>
-
+--9rBZKHmncbl1SZZf--
