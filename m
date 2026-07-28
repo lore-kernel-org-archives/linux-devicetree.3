@@ -1,299 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DA963EF64F
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 08:40:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4C1D40DB5E
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 08:40:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785228008; cv=none; b=CKzmIjIQc4jboGgGNaFmriVRbb+M4+P8RVsfL6O5dkF9BQSRkEdhEhM1mZDazgudUwzO45JkHJ4U66ND0OrBoShK8lV0ROmq9aX2giGGlxUUDhS32TzrHg3c+0XV3O/MITl/QfelTDbX/V5d3flHu9zVvLaMZWOLPCBq3EgVt4E=
+	t=1785228041; cv=none; b=kj1+ZuZzpf4Gh+0mmHdnY+AOCqOcsXUCZYmaZ9lNIdNUIikckuHNUVfwbayE58u/KXdtRKm/rqpL8PN5UcJKU/gJqDQzIxZjoWp7+VLLW/+/h8uNCq+dR3ZTiPfU3fub1Vin0b4FMKH+JkA8SILHyX1lQRHqYhxDu2CbxQtdIKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785228008; c=relaxed/simple;
-	bh=2k4xSAgqor3lLbQ6UF+/oNmtqYq9+xmW5cVzFoOFBsU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rspIyyFrjxOVvL1QZXQZD+8NEn4HwBtJBo7hbzEgLnEAuPIPugmiiyCAlMVT0PYZq3I69gkdUtpmA+XmlZ8EQK06p95Hm7KxPeCxcsJQ576ZYLF+1fXEu9CdJ3ZEB83mFSfzkegzNWGe6UgcIWxvfmU4SVRoT+gR/IZ6gXfP18w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IB8r0nef; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785228041; c=relaxed/simple;
+	bh=F7p32oB/ucOg3yOmJ4wpTVe7WX/11jrTNbDkE7eAZ0o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MhUuJEbStDFEKc98w6o09/RfHTh2eoFiHvl4gjeQVfHuzu2wuiRtMdLlz6iMexbHCFim7jIelTvKE71F/w/aHQhpQPdesC5I9BESiojE7/aEXShc9lwo7tVsCEFqMZzkoMGfJDdIbiKEs0WrPyq2LcBcYyrai1Ct0WwF6SfrlMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KO9hN1L5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GbJpoRUN; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IB8r0nef"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1CA21F000E9;
-	Tue, 28 Jul 2026 08:40:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785228007;
-	bh=QUdilSRe5og9eOchSsVt/cwfQdyC2QX97pcFwgUe2zw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IB8r0nefTDJ/KZ0TisbaTLIsJVmUdLwn2iyaO8g2JUbv75j+s3iwhf6oUqgv3gqGA
-	 qNI+7d8xa/LY7OytbYqOXnjiM8aPJ4QYkXOgscBPRBkyyu3YzVBmvXaO8VnQVHn9VQ
-	 rqp6R7/S3/k6Rb08gRhYzAvIFantirTneTOax6oau66tFxt3yasY2WXpT60pCrbc/C
-	 gM/OLlmJFyX6scMRgWL3xsUvoO4GlDA4UberdBRdugZtYE81LPddbptv8uBUt2WZbj
-	 FvMW62JRd475UlMryW2QsIQDJUFWJnvKNtCj+BmigtLtTAr7rr81OKWygvOLy27p0N
-	 D6ridG5iNapEg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/3] media: qcom: jpeg: Add Qualcomm JPEG V4L2
- encoder
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Atanas Filipov" <atanas.filipov@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, media-ci@linuxtv.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260728082548.2511694-3-atanas.filipov@oss.qualcomm.com>
-References: <20260728082548.2511694-1-atanas.filipov@oss.qualcomm.com>
- <20260728082548.2511694-3-atanas.filipov@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 28 Jul 2026 08:40:06 +0000
-Message-Id: <20260728084006.B1CA21F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KO9hN1L5";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GbJpoRUN"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66S823G01663741
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 08:40:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=v9s9iq5JcdMGOz6OjYJ67D4UOGJu3ateBE0
+	XCwoxSv8=; b=KO9hN1L5943Kd3zn+Vjd6GrUG83l1RCwc45Cb9EOjGV8LTQFRDB
+	Krwy8V9KbpYuIhEtFt1HpnGSps4zG1iywaMZBRbP5BcKVLUzCifF1MnnEu7YZ0V+
+	Xm1H2KnabhQ2szvQJiGSKnl4ZtKawMxGlPj/TRGowIonphbf9pHkeSExoqDPIg3p
+	mEbpT9Iv+NvxqCeHz5jhst4TEICK/u+FZBe95zbiJFMgInpzcIzvoQA7yC90h7nA
+	WlcXTBYkkz84YNE7nC1t9hbLmB9bZ1cMxm50xKMB7aawpyWI9owP8PR0WcADv6NP
+	Wc2ToYvR2A2R823T1EV4A3VnjD/yavpXcig==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fppttrmka-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 08:40:38 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38f283baf1fso3225952a91.3
+        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 01:40:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785228038; x=1785832838; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=v9s9iq5JcdMGOz6OjYJ67D4UOGJu3ateBE0XCwoxSv8=;
+        b=GbJpoRUNAIZg0Mz+b3OnCI4XvVA9BlWXOagSsPLP02Ie9P0D/R9lTIxuWzXS3Cy6IN
+         jPWv7c4ADZE+E22XSGmK6xsNsRXbGEHzn8el7CqdIVi8swUOm7zQ/2dcndJx3KPe2nTN
+         UO8kBEpuMBYIh5Ffb8YIgGveBs4GIgGW1iYNYdJZW8F8Vv8ufoVTESr+MRQieW+9tvN7
+         FwEaRA1PcH3hSVvJQrNo2n6mF4x70bq/xnc/570jyFRX2uA0Qtq9gxWEJgaiV0sohH4W
+         Luk2IeZHGlic1EOsWkylp/RK2n7uHgUW697SPgZYvbMUgD74HWT3mBQn2nWKnYCoajrA
+         OVeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785228038; x=1785832838;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=v9s9iq5JcdMGOz6OjYJ67D4UOGJu3ateBE0XCwoxSv8=;
+        b=eQu23WnfWCPEaRkE9GijAkCvsOJqJhqdXTDUjFu63D6VDF+NDfzFARbcMPnf+YQYmV
+         xu546QYapkGgV3PoBeFE+CZSaHnXOAKXENWBQfefI+6+cAjEfgza5pNPnwdYDO/SQGH5
+         QMjOVHkJiuqe7sMLLnqDNsnptV6tfWXUbT2GJWsMUntMH6i4lfEaL9GEYBvBqkBIQsFd
+         CCjHuOWQTSnr26VHE6SJK6oSu4qeBzYQ8UUqur1vtKB7CRAqtTS61xCGRo3TB+MGSxuz
+         gPZC5f7tZSkogF00fO62tmzHgQV7z/8JiJlcDipDq5zha9YPpZ3FWOL27XHZOai0tOnI
+         v2yg==
+X-Forwarded-Encrypted: i=1; AHgh+Ro6GMboQW/M6+Za+SlDmMhg/xIsgj0mubd5MnvxCZ1bHNvmlytAu+3XFWGMkSo4qUVUn9G3b1xfbB8o@vger.kernel.org
+X-Gm-Message-State: AOJu0YyjDBsNLdMYEzQbhLRL1XNvoXRIaQtwhVeyjyeQKFsHRuU8uu3d
+	QrOPwwl9kzTeeg95CmbWjmtBICb1FTa8WUh6bTjoj2aLQ0T/2xkFwOcrGa5Hk6LqxrpLbSdlReB
+	zrZXaI02Hi6o5VNYDjzxKZ8NFjkkZoafsSH1L6tiFpFqdeRTtaynyqnu4I8cBFweII6YPPTL1
+X-Gm-Gg: AR+sD13LbIUcc6Acdm3qMeohKAge9mlmQWtyOQ9r3LvA7wZI6djJk7y2ZEH+nXvGLkQ
+	9qLyQL27N7DtRtIOjEL7SjPnZccf2vYWahstesMw9bF/f1dBNk5QDisjzqc9kbmSU+0B+JSgcpu
+	FfNMpvr/lFyRE0bdQGqGl7q01vK33ZiNyWjozvqibTZIhLKAASbXfDwI6SMlveho+lfJkmFLVRB
+	O7Ha4tMSDlWbxgp48WmJNvuCkF0/vQWz1NUghJ40wt1qiB9Q6AtL2CiH6LCnW1VgqD7B3/Yf/64
+	oeJEGkYMNtA9E9MTbfDGR9RvXaiVCj8NQagOR7NruyEjkvbJLzBWw/PWEoA/nd1AP6RBZCsLOag
+	jhqWlzh9otUUReyDpH6uR+akXDxsYnD1x2gzPxvVHZimRJQSWZsPARje9AhCJ
+X-Received: by 2002:a17:90b:2d8d:b0:38e:cb1:8ec9 with SMTP id 98e67ed59e1d1-38f6a5d0c8amr1598501a91.42.1785228038300;
+        Tue, 28 Jul 2026 01:40:38 -0700 (PDT)
+X-Received: by 2002:a17:90b:2d8d:b0:38e:cb1:8ec9 with SMTP id 98e67ed59e1d1-38f6a5d0c8amr1598473a91.42.1785228037794;
+        Tue, 28 Jul 2026 01:40:37 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f642bfc66sm916277a91.10.2026.07.28.01.40.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 28 Jul 2026 01:40:37 -0700 (PDT)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH v4 0/3] Add ADSP and CDSP support for Nord SoC
+Date: Tue, 28 Jul 2026 16:40:09 +0800
+Message-ID: <20260728084012.685036-1-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI4MDA3NCBTYWx0ZWRfX00sOPBra2HxT
+ +eAoWVpT5d0w2X6+tVzQSBfGdA5jnMzLEAxsXM/ej5G0AI445kC85PPyG5ycz0mE7hRWlxZuRfW
+ KjQzoZEv3/hMOPgHyKBEOKIHrtGxOOs=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI4MDA3NCBTYWx0ZWRfX4WjBmUIpTEkI
+ cF9Lr5T+SzlOve8RnJxPcaoxVcaalKEhXavlCRpxA+NvqlgSzh/UpIq1t6p4Q+bw7h5vDfAI6ID
+ r6w3fY53FGj4LEfu31x5wth88h1LMH49LQOTzgAR2pLHZt0Ulbu/9TcwnyIbIIjUpr7ta9mLBLR
+ atBRXtKugpDsI1qW6pgiwdQNTL+HCvzabjLaWsjEShIeqnRaKNF2IrG071PeKB8rTZQx11Erh2W
+ 2WUg4mI5a/WJKDRQDoXIqtrsBHZiu4lWHVSj6vNJUOIYcbHC8vUYl68zDD32rqF64al+O7N5alZ
+ KYN3G2ilbIOKNYxZPNQmQuSDfD2jN6ysPLoeBy+IwkTG5G6tjlDA0E0VqOr0sBf2NBFyb9KwZsJ
+ MwDJJ2CJW86/xTXAtm6081Syf/V0k8/H5H7Fi3XEo4NwIN5d4RqiZkE6sDg47EZoZUjArfNCiBI
+ E0Llmf4q9gvu6yXdlJQ==
+X-Authority-Analysis: v=2.4 cv=aa1RWxot c=1 sm=1 tr=0 ts=6a686b06 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=YTZeY_j4NDz4IKi_2jwA:9 a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-GUID: Z2VSnZ_RAV7TFE63rgl92wevPQXZofWV
+X-Proofpoint-ORIG-GUID: Z2VSnZ_RAV7TFE63rgl92wevPQXZofWV
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-28_02,2026-07-27_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 bulkscore=0 clxscore=1015 adultscore=0
+ suspectscore=0 impostorscore=0 malwarescore=0 phishscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607280074
 
-Thank you for your contribution! Sashiko AI review found 10 potential issue=
-(s) to consider:
-- [High] Active DMA buffers are returned to userspace while hardware is sti=
-ll running, leading to memory corruption and IOMMU faults.
-- [High] Missing synchronize_irq() during file release causes a Use-After-F=
-ree of `jenc_context` in the IRQ thread.
-- [High] V4L2 device release callback manually frees devres-managed memory,=
- causing a double-free.
-- [High] Dropping dev_mutex during stream shutdown allows racing hardware i=
-nitialization and teardown, corrupting system state.
-- [High] Asynchronous job completion scheduling after file close cancellati=
-on leads to Use-After-Free.
-- [High] Hardware write engine buffer size limit calculation permits out-of=
--bounds DMA writes.
-- [Medium] DMA API violation: Syncing a DMA_FROM_DEVICE capture buffer as D=
-MA_BIDIRECTIONAL.
-- [Medium] 32-bit arithmetic overflow in clock frequency calculation causes=
- severely downgraded performance.
-- [Medium] Transient errors permanently desynchronize queue sequences, free=
-zing the encoder context.
-- [Low] Undefined macro `kzalloc_obj` prevents compilation.
---
+The series documents AOSS side channel, adds ADSP (HPASS DSP) and
+4 CDSPs support for Nord SoC.
 
---- Patch [2]: [PATCH v5 2/3] media: qcom: jpeg: Add Qualcomm JPEG V4L2 enc=
-oder ---
-commit f8b765e57f128de496c47a3df983a6b13fbd2b0f
-Author: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-Subject: media: qcom: jpeg: Add Qualcomm JPEG V4L2 encoder
+Nord SoC actually has 3 ADSPs. This series only enables ADSP0 which
+can work independently. The rest two instances have dependencies on
+ADSP0 regarding start/stop and SSR. And remoteproc framework doesn't
+seem to support such "slave" instances yet.
 
-This commit adds a Qualcomm JPEG encoder driver implemented on top of the
-V4L2 mem2mem framework. The driver handles vb2 queues, format negotiation,
-JPEG header emission, interrupt-driven job completion, and runtime PM for
-the standalone JPEG encode hardware block.
+Changes for v4:
+- Add Nord PAS entries to qcom_pas_of_match[] in alphabetical order
+- Link to v3: https://lore.kernel.org/all/20260727074621.561661-1-shengchao.guo@oss.qualcomm.com/
 
-> diff --git a/drivers/media/platform/qcom/jpeg/qcom_jenc_ops.c b/drivers/m=
-edia/platform/qcom/jpeg/qcom_jenc_ops.c
-> --- a/drivers/media/platform/qcom/jpeg/qcom_jenc_ops.c
-> +++ b/drivers/media/platform/qcom/jpeg/qcom_jenc_ops.c
-[ ... ]
-> @@ -534,14 +534,16 @@ static int jpeg_apply_we_addr(struct jenc_context *=
-ectx, struct qcom_jenc_queue=20
->  	jpeg_upload_dmi_table(ectx);
->  	mutex_unlock(&ectx->quality_mutex);
-> =20
->  	/*
->  	 * Invalidate stale CPU cache lines before writing the JPEG header
->  	 * with the CPU into the destination buffer.
->  	 */
->  	jpeg_sync_sg(jenc->dev, frame, DMA_BIDIRECTIONAL, false);
+Changes for v3:
+- Fix qcom,nord-pas bindings to define "minItems: 3" for CDSPs with
+  an else clause
+- Link to v2: https://lore.kernel.org/all/20260724103848.233804-1-shengchao.guo@oss.qualcomm.com/
 
-[Severity: Medium]
-The destination buffer is provided by the videobuf2 capture queue, meaning =
-it
-is mapped as DMA_FROM_DEVICE. Is it valid to sync it here using
-DMA_BIDIRECTIONAL? Doing so might violate the DMA API and cause cache
-incoherency.
+Changes for v2:
+- Create a new qcom,nord-pas.yaml to cover Nord ADSP and CDSP
+- Include CDSPs support into the series
+- Link to v1: https://lore.kernel.org/all/20260709085149.4072181-1-shengchao.guo@oss.qualcomm.com/
 
-> =20
->  	header_size =3D min_t(size_t, vb->planes[0].length, ectx->hdr_cache.siz=
-e);
->  	header_size =3D qcom_jenc_header_emit(&ectx->hdr_cache, mptr,
->  					    (u32)header_size, (u16)q->vf.width,
->  					    (u16)q->vf.height);
-> =20
->  	dma +=3D header_size;
+Shawn Guo (3):
+  dt-bindings: soc: qcom,aoss-qmp: Document Nord AOSS side channel
+  dt-bindings: remoteproc: qcom,nord-pas: Document Nord PAS
+  remoteproc: qcom: pas: Add Nord ADSP and CDSP support
 
-[Severity: High]
-When the DMA base pointer is advanced by header_size here, does the hardware
-limit need to be updated as well? The hardware buffer size is set to the fu=
-ll
-sizeimage in jpeg_setup_we_size(). If the pointer is offset by header_size
-without reducing the writable size, could the hardware write past the physi=
-cal
-boundary of the buffer?
+ .../bindings/remoteproc/qcom,nord-pas.yaml    | 173 ++++++++++++++++++
+ .../bindings/soc/qcom/qcom,aoss-qmp.yaml      |   1 +
+ drivers/remoteproc/qcom_q6v5_pas.c            | 110 +++++++++++
+ 3 files changed, 284 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/remoteproc/qcom,nord-pas.yaml
 
->  	qcom_jenc_dqts_emit(&ectx->hdr_cache, mptr);
-[ ... ]
-> @@ -1560,6 +1560,8 @@ static unsigned long jpeg_calc_optimal_clk(struct q=
-com_jenc_dev *jenc,
-> =20
->  	ref_pixel_rate =3D res->ref_throughput_mpps * 1000000UL;
->  	pixel_rate =3D (unsigned long)width * height * fps;
-> =20
->  	optimal_clk =3D DIV_ROUND_UP_ULL(pixel_rate * res->ref_clk_hz, ref_pixe=
-l_rate);
+-- 
+2.43.0
 
-[Severity: Medium]
-Can this throughput calculation overflow on 32-bit architectures? The
-width, height, and fps are multiplied together as a 32-bit unsigned long
-before the product is multiplied by res->ref_clk_hz. For large resolutions
-and high framerates, should this be cast to a 64-bit type to prevent
-wrapping around?
-
-> =20
->  	return min_t(unsigned long, jenc->max_freq, optimal_clk);
->  }
-[ ... ]
-> diff --git a/drivers/media/platform/qcom/jpeg/qcom_jenc_v4l2.c b/drivers/=
-media/platform/qcom/jpeg/qcom_jenc_v4l2.c
-> --- a/drivers/media/platform/qcom/jpeg/qcom_jenc_v4l2.c
-> +++ b/drivers/media/platform/qcom/jpeg/qcom_jenc_v4l2.c
-[ ... ]
-> @@ -245,14 +245,13 @@ static void jpeg_v4l2_work_stop(struct jenc_context=
- *ctx, enum vb2_buffer_state=20
-> =20
->  	/* Drain CAPTURE queue; signal EOS on last buffer if V4L2_ENC_CMD_STOP.=
- */
->  	while ((vb =3D v4l2_m2m_dst_buf_remove(ctx->fh.m2m_ctx))) {
->  		if (was_stopping && !v4l2_m2m_last_dst_buf(ctx->fh.m2m_ctx)) {
->  			vb2_set_plane_payload(&vb->vb2_buf, 0, 0);
->  			v4l2_m2m_last_buffer_done(ctx->fh.m2m_ctx, vb);
->  		} else {
->  			v4l2_m2m_buf_done(vb, buff_state);
->  		}
->  	}
-> =20
->  	while ((vb =3D v4l2_m2m_src_buf_remove(ctx->fh.m2m_ctx)))
->  		v4l2_m2m_buf_done(vb, buff_state);
-
-[Severity: High]
-When returning active DMA buffers to userspace through VB2_BUF_STATE_ERROR
-here, does the hardware stop immediately? If the hardware continues perform=
-ing
-DMA transfers on these buffers after they are handed back, is there a risk =
-of
-memory corruption or IOMMU faults?
-
-> =20
->  	/* Always call job_finish to let m2m schedule the next job. */
->  	schedule_work(&ctx->finish_work);
-
-[Severity: High]
-Can scheduling this work item cause a use-after-free on the context?
-After cancelling finish_work in fop_jpeg_file_release(), calling
-v4l2_m2m_ctx_release() cascades into mop_jpeg_m2m_job_abort() and then here
-to jpeg_v4l2_work_stop(), which re-schedules the finish_work item. The work
-item will remain pending while the release function completes and frees the
-context memory.
-
->  }
-[ ... ]
-> @@ -465,6 +465,9 @@ static void bop_jpeg_vb2_stop_streaming(struct vb2_qu=
-eue *q)
->  	do_release =3D ectx->hw_acquired;
->  	ectx->hw_acquired =3D false;
-> =20
->  	mutex_unlock(&jenc->dev_mutex);
-> =20
->  	/*
->  	 * hw_release() calls jpeg_deinit() which issues HW_STOP and waits for
->  	 * the STOP_ACK interrupt completion.  It must be called outside
->  	 * dev_mutex to avoid a deadlock: the threaded IRQ handler acquires
->  	 * dev_mutex before signalling the completion.
->  	 */
->  	if (do_release)
->  		hw->hw_release(ectx, q);
-
-[Severity: High]
-By dropping dev_mutex before calling hw_release() (which issues hardware
-teardown like jpeg_deinit, disable_irq, and pm_runtime_put_sync), can this
-race with another thread executing STREAMON? If op_jpeg_acquire() runs
-concurrently, it could try to power on and initialize the hardware while
-this thread is actively shutting it down.
-
->  }
-[ ... ]
-> @@ -641,10 +641,12 @@ static void mop_jpeg_m2m_job_run(void *priv)
->  	if (hw->hw_prepare(jenc))
->  		goto err_stop;
-> =20
->  	sq =3D hw->get_queue(ectx, TYPE2QID(src_vb->vb2_buf.type));
->  	src_vb->sequence =3D sq->sequence++;
->  	if (hw->process_exec(jenc, ectx, &src_vb->vb2_buf))
->  		goto err_stop;
-> =20
->  	dq =3D hw->get_queue(ectx, TYPE2QID(dst_vb->vb2_buf.type));
->  	dst_vb->sequence =3D dq->sequence++;
-
-[Severity: Medium]
-If hw->process_exec() fails for the source buffer and jumps to err_stop, wi=
-ll
-the queue sequences become permanently misaligned? The source queue sequence
-is incremented before the destination queue sequence. Subsequent encode jobs
-might stall silently because the check for matching sequences will fail.
-
->  	if (hw->process_exec(jenc, ectx, &dst_vb->vb2_buf))
->  		goto err_stop;
-[ ... ]
-> @@ -1034,6 +1034,7 @@ static int fop_jpeg_file_open(struct file *file)
->  	struct jenc_context *ectx;
->  	int rc;
-> =20
->  	ectx =3D kzalloc_obj(*ectx, GFP_KERNEL);
-
-[Severity: Low]
-Does the kzalloc_obj macro exist in the kernel? It looks like this might
-cause a build failure and should perhaps use kzalloc().
-
->  	if (!ectx)
->  		return -ENOMEM;
-[ ... ]
-> @@ -996,6 +996,9 @@ static int fop_jpeg_file_release(struct file *file)
->  	spin_lock_irqsave(&jenc->hw_lock, flags);
->  	if (jenc->actx =3D=3D ectx)
->  		jenc->actx =3D NULL;
->  	spin_unlock_irqrestore(&jenc->hw_lock, flags);
-> =20
->  	cancel_work_sync(&ectx->stop_work);
->  	cancel_work_sync(&ectx->finish_work);
-> =20
->  	v4l2_m2m_ctx_release(ectx->fh.m2m_ctx);
->  	v4l2_m2m_put(m2m_dev);
->  	v4l2_ctrl_handler_free(&ectx->ctrl_hdl);
->  	v4l2_fh_del(&ectx->fh, file);
->  	v4l2_fh_exit(&ectx->fh);
->  	mutex_destroy(&ectx->quality_mutex);
->  	mutex_destroy(&ectx->ctx_lock);
->  	kfree(ectx);
-
-[Severity: High]
-Could this lead to a use-after-free if another file descriptor is still ope=
-n?
-When the context is freed here, the driver does not invoke synchronize_irq(=
-).
-The threaded IRQ handler in op_jpeg_irq_bot() might have already cached the
-actx pointer before it was cleared under the spinlock. Should
-synchronize_irq() be called before freeing the context?
-
-> =20
->  	return 0;
->  }
-[ ... ]
-> @@ -1115,6 +1115,8 @@ static void jenc_v4l2_dev_release(struct v4l2_devic=
-e *v4l2_dev)
->  {
->  	struct qcom_jenc_dev *jenc =3D container_of(v4l2_dev, struct qcom_jenc_=
-dev, v4l2_dev);
-> =20
->  	v4l2_device_unregister(&jenc->v4l2_dev);
->  	v4l2_m2m_put(jenc->m2m_dev);
->  	kfree(jenc);
-
-[Severity: High]
-Is it intentional to manually kfree() jenc here? Because it was originally
-allocated with devm_kzalloc() in qcom_jpeg_probe(), freeing it manually will
-cause a double-free during the devres teardown sequence.
-
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728082548.2511=
-694-1-atanas.filipov@oss.qualcomm.com?part=3D2
