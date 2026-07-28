@@ -1,40 +1,33 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59C5C2EC0A2;
-	Tue, 28 Jul 2026 15:28:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E08512F5474;
+	Tue, 28 Jul 2026 15:30:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785252534; cv=none; b=OJDegW/q9GyJxaDbHvHwSvVPiQjUmAKXX/e/vP3TyLAIbFpK0MxdO8nfeuOqd+zMTQIc0z8jS2r6pEiK+6bgD1i3OS9fOsllZ8Px7kVrvrXm8Q1KAoexu70ELosStwyX+o347Ds6ECvJI30Uw8G7q0NZvfCAJaQdxxXySIcW97Y=
+	t=1785252615; cv=none; b=Y9l/kxX/eNBnIyi0kNuAqxmUF+TPi8XuuvayNNrEKHwSQMItork1TsUWYwe/zlS8iWQa8oLYgMtbgKORubZoMbfg/1zlMw18NwZkqTNhhHqCIobviAqmCZbM6xYKsQe+teXibvUeCPxE7RnaAJVZCk+vb6/Z46pKCfATqMugtLg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785252534; c=relaxed/simple;
-	bh=u5GQmvOgz4Ap+OJsBET/yAI+gwsxy9J0r+fVRChxE/4=;
+	s=arc-20240116; t=1785252615; c=relaxed/simple;
+	bh=Se9h3YzznC9/HHyMcBATmwvfjvBCf9dNwbPwdKx9wxs=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uxkZiKNfKma/RIyDhk70Pl62Iaht4cd+JeY9zXlYCXwTzIsbBitt1Ky0QXsfvlhncTYJ0bCWUs4VH5pA9LEWHYyaxjWzBEq/UNWqNpbwel6kkBdMGGvjFMiZvLGHFR4TV+eiGJbkou+JcGM4T0DcNcZXxex8Hl7Fta1XDsgvQGI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=FVR5Tleb; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	 In-Reply-To:Content-Type; b=swMaSEhcrFlrEbDvzc+iFVIGHzBZiOqfP46GhwiuQMo9HkpEQeAhOVPuUbpNH1GpFP7U/p/lC9Dglac+KN2MYR8/xyxSaNLh5dpJfzoeLHP/qfPBY+J+5FQT9hR+81IZVCrol/PbU0DSPwG0XuLjSWDdiPdjX0/jYz2XFTHfGAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ewu4Kyfb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="FVR5Tleb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1785252531;
-	bh=u5GQmvOgz4Ap+OJsBET/yAI+gwsxy9J0r+fVRChxE/4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=FVR5TlebV/hxNwrPhCiD7Ji0XburW7Kl8qwY+ztKJCxBPz9GnlFRTcKRElOrfVD+L
-	 JZVoqVkWeHsHP7m8XHiG3Vtd+CDmRNy9LrnMQYpK8tJjrIdvlefamXuenCU8+0jdSq
-	 OPqRoJ/v1I+WDRHK1TRB8YB6z6XcaFj95hw79wyK2gwq+qVuGaF+F51Z+RvncRdTZ5
-	 xnLt9tbKqaYVmvRVRsKpw6xuK4fiHFUkHvFYRRi2yDvl1T+tXj2rsYPbjXV3wdh8ep
-	 d4awa1OLzLnNI03rcOQCQ5b75xyZ5a1n50LcnwhlGOO09qfj9jzVCov0C1dUFML4eK
-	 8RfcoXDp6U8wQ==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 4F5A317E015B;
-	Tue, 28 Jul 2026 17:28:50 +0200 (CEST)
-Message-ID: <a0ae9525-9288-4d13-a080-9cb3d965d536@collabora.com>
-Date: Tue, 28 Jul 2026 17:28:49 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ewu4Kyfb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4301B1F000E9;
+	Tue, 28 Jul 2026 15:30:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785252613;
+	bh=kHMHe8DXYFbv7HkrjiopSzw/zJOF/JWl21dsP0Poq2M=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ewu4Kyfbqhdf1jvk5L9GXGpzcB33+Eg/6yRdLcE8d1JVDXQoTvVzDBnFDVp/7c6yB
+	 9hj7lZs4vQ4dmZWRWl2spgWiKe6kWE6rPE05cHxhVlMHih9pvWmaQet+wBCpbaKSi5
+	 7Cv2lmpeP4xsnVG92JBsR+FooE1So3SFUv4GAnZllYkeQDY48mIIYCI5EKXrDWvoyw
+	 Tk/qTuaOQwTAob3WfLD5POa/TEZCb2TGwOOtPiI/54aP+BWBAxcCQR4+JSN7cKicU8
+	 UlLxfOlHeDzwpyHdKzAYa1UaPOfhHNqnZhWwgrrdkY/jV/f02u1NYHxIeqCurGVGw2
+	 qNETRf1zaM8qQ==
+Message-ID: <5306f685-46df-4956-9402-a86834f913c7@kernel.org>
+Date: Tue, 28 Jul 2026 17:30:06 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -42,94 +35,75 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/5] powervr: MT8173 GPU support
-To: wens@kernel.org
-Cc: Brian Masney <bmasney@redhat.com>, Chen-Yu Tsai <wenst@chromium.org>,
- Stephen Boyd <sboyd@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- Alessio Belle <alessio.belle@imgtec.com>,
- Luigi Santivetti <luigi.santivetti@imgtec.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- YoungJoon Lee <getfeus@gmail.com>
-References: <20260728091804.382753-1-wenst@chromium.org>
- <amiqKRkFItYwD6oL@redhat.com>
- <CAGb2v64zUO-azpTuei6LCypad2noGFbg+EmaBC1iidoZ2stQzw@mail.gmail.com>
- <c1048eae-72c5-4e2e-ac49-25e2c4297018@collabora.com>
- <CAGb2v67VRhy_xzkdwUAYhzM_sWzoXyfZ3rYSHYLYaxuve9H17w@mail.gmail.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <CAGb2v67VRhy_xzkdwUAYhzM_sWzoXyfZ3rYSHYLYaxuve9H17w@mail.gmail.com>
+Subject: Re: [PATCH v4 phy-next 0/9] RCW override for 10G Lynx dynamic
+ protocol reconfiguration
+To: Vladimir Oltean <vladimir.oltean@nxp.com>, Vinod Koul <vkoul@kernel.org>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+ Ioana Ciornei <ioana.ciornei@nxp.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Tanjeff Moos <tanjeff.moos@westermo.com>, Michael Walle <mwalle@kernel.org>,
+ Shawn Guo <shawnguo@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ linux-kernel@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>
+References: <20260721231603.67865-1-vladimir.oltean@nxp.com>
+ <20260723150105.da2cqgtb7t5vw2d3@skbuf>
+ <20260728134746.p7zqstau6376xifj@skbuf>
+Content-Language: fr-FR
+From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+In-Reply-To: <20260728134746.p7zqstau6376xifj@skbuf>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 7/28/26 16:44, Chen-Yu Tsai wrote:
-> On Tue, Jul 28, 2026 at 10:33 PM AngeloGioacchino Del Regno
-> <angelogioacchino.delregno@collabora.com> wrote:
->>
->> On 7/28/26 15:13, Chen-Yu Tsai wrote:
->>> On Tue, Jul 28, 2026 at 9:10 PM Brian Masney <bmasney@redhat.com> wrote:
->>>>
->>>> Hi Chen-Yu,
->>>>
->>>> On Tue, Jul 28, 2026 at 05:17:58PM +0800, Chen-Yu Tsai wrote:
->>>>> Hi everyone,
->>>>>
->>>>> This is v4 of my MT8173 PowerVR GPU support series.
->>>>>
->>>>> This time around Mesa was ready for basic testing, using both vulkanmark
->>>>> and glmark2-es2-drm (with Zink). Details below.
->>>>>
->>>>> Changes since v3 (all in the clk driver patch):
->>>>> - Changed pm_runtime_put() to pm_runtime_put_sync()
->>>>> - Added missing of_node_put() in remove function
->>>>>
->>>>> Changes since v2 (all in the clk driver patch):
->>>>> - Made COMMON_CLK_MT8173_MFGTOP depend on PM
->>>>>     - Needed since the driver implements PM domains using the generic PM
->>>>>       domain library, which also depends on PM
->>>>>     - Fixes build breakage (kernel test robot)
->>>>> - Fixed "RST_DELAY_CNT" name (Brian)
->>>>> - Dropped unused mfg_desc (Brian)
->>>>> - Added check of clk_prepare_enable()'s return value in
->>>>>     clk_mt8173_mfgtop_power_on() (Brian)
->>>>> - Saved error value for return in IS_ERR(data->clk_26m) branch
->>>>>     (Dan Carpenter / kernel test robot w/ smatch)
->>>>>
->>>>> Changes since v1:
->>>>> - Adapted to changed DT bindings
->>>>> - Dropped driver change
->>>>> - Use same power domain for "a" and "b" GPU power domains
->>>>>
->>>>>
->>>>> This series enables the PowerVR GPU found in the MT8173 SoC, found in
->>>>> some Chromebooks.
->>>>
->>>> I'm making a pull for Stephen for the clk changes. Should patches 1,2,4
->>>> go through the clk tree? Patches 3,5 go through the DRM tree?
->>>
->>> Only patches 1 and 2 should go through the clock tree.
->>>
->>> Patch 3, 4, 5 can all go through the soc tree if Angelo wants to pick up
->>> DT binding patches. Otherwise I can push patch 3 through drm-misc.
->>>
->>
->> Not sure if I can really take the DRM bindings patch through soc.
->>
->> I will take the devicetree ones exactly right now, even though it's going to
->> give warnings.
->>
->> I trust that you'll make the binding get into linux-next before it's too late.
+Hi Oltean,
+
+Le 28/07/2026 à 15:47, Vladimir Oltean a écrit :
+> Hi Christophe,
 > 
-> Rob beat me to it. :D
+> On Thu, Jul 23, 2026 at 06:01:05PM +0300, Vladimir Oltean wrote:
+>> On Wed, Jul 22, 2026 at 02:15:54AM +0300, Vladimir Oltean wrote:
+>>> Ioana Ciornei (4):
+>>>    soc: fsl: guts: use a macro to encode the DCFG CCSR space
+>>>    soc: fsl: guts: add a global structure to hold state
+>>>    soc: fsl: guts: add a central fsl_guts_read() function
+>>>    soc: fsl: guts: make it easier to determine on which SoC we are
+>>>      running
+>>>
+>>> Vladimir Oltean (5):
+>>>    soc: fsl: guts: perform fsl_guts_init() error teardown in reverse
+>>>      order of setup
+>>>    soc: fsl: guts: make fsl_soc_data available after fsl_guts_init()
+>>>    dt-bindings: fsl: layerscape-dcfg: define DCFG_DCSR region
+>>>    soc: fsl: guts: implement the RCW override procedure
+>>>    phy: lynx-10g: use RCW override procedure for dynamic protocol change
+>>
+>> Even though I intended these changes for linux-phy (they are also
+>> build-tested there), I'm fine either with these changes taken through
+>> Vinod's tree with Christophe's ACK for patches 1-8, or through
+>> Christophe's tree with Vinod's ACK for patch 9, really.
+>>
+>> I see on Patchwork there's a minor issue in the commit message of patch 3/9:
+>> https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fpatchwork.kernel.org%2Fproject%2Flinux-phy%2Fpatch%2F20260721231603.67865-4-vladimir.oltean%40nxp.com%2F&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7Cdfcaa68452fc46a3285108deecaed436%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639208432793851204%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=AUY%2BIZEiFp3aLAO4HlHQCrJ9ZnCyFqzshPEGq6CpfmU%3D&reserved=0
+>> "WARNING: 'struture' may be misspelled - perhaps 'structure'?"
+>>
+>> Could this be fixed up while applying, if there is no other feedback?
+> 
+> Do you have feedback/a preference for how these patches should be handled?
+> 
+> I see Vinod acked patch 9, so I guess that means his preference would be
+> for you to pick up the entire series (which is indivisible).
+> 
+> I checked that the patches apply to your soc_fsl branch:
+> https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgit.kernel.org%2Fpub%2Fscm%2Flinux%2Fkernel%2Fgit%2Fchleroy%2Flinux.git%2F%3Fh%3Dsoc_fsl&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7Cdfcaa68452fc46a3285108deecaed436%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639208432793877128%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=xjpwRCMIncWpW89zKzhil20%2BcUhnG4LPaFNbxw1pue8%3D&reserved=0
+> 
 
-Love it!
+Hum ... Seems like I overlooked your message as it was flagged phy-next 
+and I was on summer vacation on last two weeks.
 
-Thanks Rob :-D
+I'm fine with taking them via soc_fsl tree. I won't take them today 
+because I'm already pushing a large series from Paul Louvel but I'd push 
+them by tomorrow or thurday.
 
-Cheers,
-Angelo
+Please raise hand if nothing happened by friday.
+
+Christophe
