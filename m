@@ -1,154 +1,142 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D4B4333441;
-	Tue, 28 Jul 2026 16:27:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C05737C902
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 16:29:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785256071; cv=none; b=dQSKWFLTOafiMkl8/GapjNOjjz2o7nlEUpxDj7+LQ2RqXooGquxX8Mw8ms9onsr1ggvtE+QiCkQNXrcsUYHpRNv3DJIZe8MpF53mAOZ+zwBwGn2LbCzxfaUWKUto2fMkHWcbN8fhr6/04Rp/M4ZXJX5kYPwMYEHbtor74yQgNSU=
+	t=1785256178; cv=none; b=aTAUMCfvttLunuyhEV985La2c7EqEB0FPQ98TNgZv/DZvteVNZsY5umO/4tU6SQZPSYePNTmcPuj3i0Borx9M0qpK7rcHv3sVQIKr+6KXyb23O7Wfgo5141kG6+InRssRDSYA+4WHjHuFJxtsPSc98PB0S6a/nwlGYTN4WCc/GI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785256071; c=relaxed/simple;
-	bh=RHOZuDhoLOWJC9gYshJU/s3gdE8ibN2F5h9HuHwhmvM=;
+	s=arc-20240116; t=1785256178; c=relaxed/simple;
+	bh=489Ayo/RBcyK87e0Elaxl82x+FLN5tv8qEO1gO+qhJI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Yn0ugSTZIr2nGfy3tlrhzlY3IH0bPxGR4TpOWv3n02Zv0ga7b3Q7pF58VhlROwQrYaK9wilduFJmtDdu1Kp2izZMmSrmCzRVkQJAl7cTpGy6XEnjmhLSXf+HxdbH4BzAVRZtDkV4B76Ojhnrnu4j/UVWj1xUKso8jB7VGA923D4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kzmJy5Ao; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=u1+UYUGtHLYi9dmijxqPIUonYAMcCXB7TBep2glKszVIxRe/Qo+O4E9IsicWEl0xBzYqdLvwBwuTnA9ZsO39MKkBKmQOeQboLkP2T1y9Xx5Kb8P+oU4/tP41hwN9T4fMj+BE6UZyih6txiAZi2MJ4VexRk9t5qqSr8Q2PIKrgXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fqJqapZZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kzmJy5Ao"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A42051F000E9;
-	Tue, 28 Jul 2026 16:27:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fqJqapZZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A77AA1F000E9;
+	Tue, 28 Jul 2026 16:29:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785256069;
-	bh=0HqGjRgUHnbpEr/DQ0zxSBU0Rz3sjZSnb5874MPeUnw=;
+	s=k20260515; t=1785256177;
+	bh=QZj/5p0LAz1CI+ka+ex3k4TwSujqXNdOzhYIt9cRvHw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kzmJy5AoVqniNa/SOGtkl+4lT0d0WofTI9RjEpreT/DUP+OX0hbjF575rfiKfxJ5W
-	 vhktBSeKFdJi9z5/oJfJsXJwFEzyIyZELEt0Wt133S9RO8so4+svFTmG3yo5ie+YUh
-	 YsEMmTbm+n5f7WU8uO7k8nvJCxDkIhxHewAiNgyM/nK5v2Hh6CNAJrici4RN35cHLp
-	 zZgHmvWj9joFtMUFIQmX1Q/J3BOLgNpKXW2Byj/e7jlLj/zxdadVW//TmUSjAZMNKv
-	 KfHnORaM81nojUjejq4k57wP4/v5ZPrf+/DkenBNEAEXFJOFbzdZQYYq3M16Jwq46q
-	 qH6bpyROLMXVg==
+	b=fqJqapZZfnETHcehPo2gIGPZ+GVs4Wtk8/xRW4RPKiW0CLsc6wHsRRlOh9u1BQlrh
+	 Ki5tl9TC1jZ82n/1VKorMrfAVAiiIB8aT/i9MYLjJ9YeXrOzhZtaKJLfJO0w7ft3SN
+	 QQgIMOEZlNoNm5H4Pv40QGQtX5YqFmOPwEoUowj25n0eZzejVFxQcX69Sg85eLXTQI
+	 19Yo/Km7bBUe2Mp4/E4X5WQMzHhc2wW7lkfphplZYdmjKyJfEpvj/H5jDq2GbNXilD
+	 rr3ac/XFB5jAFnJ9mVT6eEYLnNoho2jdztTQliFmIH5IG1iuX0um+QHMFoVBow08D9
+	 yWUg7ePkMYXpg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/5] hwmon: (pmbus/core) Add mapping function to
- pmbus_read_block_data()
+Subject: Re: [PATCH v4 4/4] arm64: dts: qcom: hamoa-pmics: Add ADC support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?TnVubyBTw6E=?= <nuno.sa@analog.com>
-Cc: conor+dt@kernel.org, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260728-hwmon-max20826-support-v1-3-224766e0acd1@analog.com>
-References: <20260728-hwmon-max20826-support-v1-0-224766e0acd1@analog.com>
- <20260728-hwmon-max20826-support-v1-3-224766e0acd1@analog.com>
+To: "Jishnu Prakash" <jishnu.prakash@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260728-adc5_gen3_dt-v4-4-355f0edece77@oss.qualcomm.com>
+References: <20260728-adc5_gen3_dt-v4-0-355f0edece77@oss.qualcomm.com>
+ <20260728-adc5_gen3_dt-v4-4-355f0edece77@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 28 Jul 2026 16:27:49 +0000
-Message-Id: <20260728162749.A42051F000E9@smtp.kernel.org>
+Date: Tue, 28 Jul 2026 16:29:36 +0000
+Message-Id: <20260728162936.A77AA1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-New issues:
-- [High] Stack buffer overflow in `pmbus_debugfs_block_read` due to unbound=
-ed return value from custom `read_block_data` callback.
-
-Pre-existing issues:
-- [High] TOCTOU data race on PMBus hardware page selection during probe.
+- [Medium] Mismatch between configured pinctrl pins and ADC AMUX channels f=
+or system thermistors.
 --
 
---- Patch [3]: [PATCH 3/5] hwmon: (pmbus/core) Add mapping function to pmbu=
-s_read_block_data() ---
-commit c4bd4d03203a9fd14a7a2bcff69ec842b441fa68
-Author: Nuno S=C3=A1 <nuno.sa@analog.com>
+--- Patch [4]: [PATCH v4 4/4] arm64: dts: qcom: hamoa-pmics: Add ADC suppor=
+t ---
+commit abcfdfa0b33d2473870045c8d56652b236189ed1
+Author: Ayyagari Ushasreevalli <aushasre@qti.qualcomm.com>
 
-hwmon: (pmbus/core) Add mapping function to pmbus_read_block_data()
+arm64: dts: qcom: hamoa-pmics: Add ADC support
+   =20
+This commit adds ADC nodes and defines channels for die temperature, VPH po=
+wer,
+and system thermistors for various PMICs on hamoa boards. It also wires up
+io-channels for the temp_alarm nodes to get temperature readings.
 
-This commit introduces a mapping function to pmbus_read_block_data() in
-preparation for adding support to a device which needs to use its own
-read_block implementation.
-
-> diff --git a/drivers/hwmon/pmbus/pmbus.h b/drivers/hwmon/pmbus/pmbus.h
-> index 3d5586c67f840..d697939ec8921 100644
-> --- a/drivers/hwmon/pmbus/pmbus.h
-> +++ b/drivers/hwmon/pmbus/pmbus.h
-> @@ -459,6 +459,9 @@ struct pmbus_driver_info {
->  	int (*read_byte_data)(struct i2c_client *client, int page, int reg);
->  	int (*read_word_data)(struct i2c_client *client, int page, int phase,
->  			      int reg);
-> +	/* size of data_buf is I2C_SMBUS_BLOCK_MAX + 2 */
-> +	int (*read_block_data)(struct i2c_client *client, int page, u8 reg,
-> +			       char *data_buf);
-
-[Severity: High]
-Does this API need a size limit parameter? The comment specifies the buffer
-size is 34, without providing a limit parameter to the callback, which might
-encourage callbacks to return values up to 34.
+> diff --git a/arch/arm64/boot/dts/qcom/hamoa-pmics.dtsi b/arch/arm64/boot/=
+dts/qcom/hamoa-pmics.dtsi
+> index 6a31a0adf8be4..17d754d57e189 100644
+> --- a/arch/arm64/boot/dts/qcom/hamoa-pmics.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/hamoa-pmics.dtsi
 
 [ ... ]
 
-> diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus=
-_core.c
-> index 7b58f71985741..ff4572c473b70 100644
-> --- a/drivers/hwmon/pmbus/pmbus_core.c
-> +++ b/drivers/hwmon/pmbus/pmbus_core.c
-[ ... ]
-> @@ -678,7 +698,7 @@ static bool __maybe_unused pmbus_check_block_register=
-(struct i2c_client *client,
->  	struct pmbus_data *data =3D i2c_get_clientdata(client);
->  	char data_buf[I2C_SMBUS_BLOCK_MAX + 2];
+> @@ -277,6 +279,134 @@ pmk8550_pwm: pwm {
 > =20
-> -	rv =3D pmbus_read_block_data(client, page, reg, data_buf);
-> +	rv =3D _pmbus_read_block_data(client, page, reg, data_buf);
+>  			status =3D "disabled";
+>  		};
+> +
+> +		pmk8550_vadc: adc@9000 {
+> +			compatible =3D "qcom,spmi-adc5-gen3";
+> +			reg =3D <0x9000>, <0x9100>;
+> +			interrupts-extended =3D <&spmi_bus0 0x0 0x90 0x1 IRQ_TYPE_EDGE_RISING=
+>,
+> +					      <&spmi_bus0 0x0 0x91 0x1 IRQ_TYPE_EDGE_RISING>;
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +			#io-channel-cells =3D <1>;
+> +			pinctrl-0 =3D <&sys_therm_0_gpio3>, <&sys_therm_1_gpio4>;
+> +			pinctrl-names =3D "default";
 
-[Severity: High]
-This is a pre-existing issue, but can this lead to a race condition with
-sysfs accesses during probe?
-
-Looking at pmbus_init_debugfs(), it traverses pages and reads registers
-without taking the pmbus_lock. This indirectly invokes pmbus_set_page()
-through pmbus_check_block_register():
-
-pmbus_init_debugfs()
-  pmbus_check_block_register()
-    _pmbus_read_block_data()
-      pmbus_read_block_data()
-        pmbus_set_page()
-
-If userspace reads or writes to a sysfs attribute concurrently, it acquires
-the lock and sets the hardware page. Could the lockless call from
-pmbus_init_debugfs() interleave between the sysfs thread's pmbus_set_page()
-and its subsequent I2C operation, causing the sysfs thread to hit the wrong
-PMBus page?
-
->  	if (rv >=3D 0 && !(data->flags & PMBUS_SKIP_STATUS_CHECK))
->  		rv =3D pmbus_check_status_cml(client);
 [ ... ]
-> @@ -3564,7 +3584,7 @@ static ssize_t pmbus_debugfs_block_read(struct file=
- *file, char __user *buf,
->  	char data[I2C_SMBUS_BLOCK_MAX + 2] =3D { 0 };
-> =20
->  	scoped_guard(pmbus_lock, client) {
-> -		rc =3D pmbus_read_block_data(client, entry->page, entry->reg, data);
-> +		rc =3D _pmbus_read_block_data(client, entry->page, entry->reg, data);
->  		if (rc < 0)
->  			return rc;
->  	}
 
-[Severity: High]
-Can the new callback return a value large enough to cause an out-of-bounds
-write here?
+> +			channel@14a {
+> +				reg =3D <ADC5_GEN3_AMUX1_GPIO_100K_PU(1)>;
+> +				label =3D "pm8550_gpio_01";
+> +				qcom,ratiometric;
+> +				qcom,hw-settle-time =3D <200>;
+> +				qcom,pre-scaling =3D <1 1>;
+> +			};
+> +
+> +			channel@14b {
+> +				reg =3D <ADC5_GEN3_AMUX2_GPIO_100K_PU(1)>;
+> +				label =3D "pm8550_gpio_02";
+> +				qcom,ratiometric;
+> +				qcom,hw-settle-time =3D <200>;
+> +				qcom,pre-scaling =3D <1 1>;
+> +			};
 
-If _pmbus_read_block_data() delegates to the new read_block_data callback,
-and that callback returns a size of 34 (I2C_SMBUS_BLOCK_MAX + 2) or greater,
-would it cause a buffer overflow?
+[Severity: Medium]
+Is there a mismatch between the configured pinctrl pins and the ADC AMUX
+channels being read here?
 
-Just below this hunk in pmbus_debugfs_block_read(), the code does:
+The pinctrl explicitly configures GPIO3 and GPIO4 (sys_therm_0_gpio3 and
+sys_therm_1_gpio4) as analog inputs for the system thermistors. However, the
+channel definitions above use ADC5_GEN3_AMUX1_GPIO (GPIO1) and
+ADC5_GEN3_AMUX2_GPIO (GPIO2) with labels pm8550_gpio_01 and pm8550_gpio_02.
 
-    data[rc] =3D '\n';
+Could this cause the ADC to read from unconfigured pins and return floating
+temperature values, while the actual thermistor pins remain unread?
 
-Since the size of the data array is 34, an rc of 34 would write past the end
-of the array. Is a bounds check needed on rc before using it as an index?
+[ ... ]
+
+> @@ -301,6 +433,18 @@ pm8550_gpios: gpio@8800 {
+>  			#gpio-cells =3D <2>;
+>  			interrupt-controller;
+>  			#interrupt-cells =3D <2>;
+> +
+> +			sys_therm_0_gpio3: sys-therm-0-gpio3-state {
+> +				pins =3D "gpio3";
+> +				function =3D PMIC_GPIO_FUNC_NORMAL;
+> +				bias-high-impedance;
+> +			};
+> +
+> +			sys_therm_1_gpio4: sys-therm-1-gpio4-state {
+> +				pins =3D "gpio4";
+> +				function =3D PMIC_GPIO_FUNC_NORMAL;
+> +				bias-high-impedance;
+> +			};
+>  		};
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-hwmon-max2=
-0826-support-v1-0-224766e0acd1@analog.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-adc5_gen3_=
+dt-v4-0-355f0edece77@oss.qualcomm.com?part=3D4
