@@ -1,180 +1,244 @@
-Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com [209.85.167.170])
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4971846A5EA
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 18:39:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD99546AF17
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 18:42:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785263966; cv=none; b=AlXVh5j+VMN/QVpwD/yl9RP+W43ysPe7aarrZMwmauF5iaWJjUWhxHv2ZD5haJfvxnZAMG1FUTCak56eiotIq/EgzteePfhCn/QdtQ7I0FUsy5vRfMHNOu6Fdkf1+IU7G/7Ldbyp95RBqLYqW46AMPAvqL+D7FsO76I3w2ybDo8=
+	t=1785264153; cv=none; b=ZARPC2UeNV3oJfASz3FQmc1FJFEBdqkbWdZzD0jwPejHJ+t8Gu32w8he6soy2darvFBEAYqP5uRHwe8Lu9Yuol/dtRfPhFjMX4viu6S9rgzQsRT0KHIgUDtHNubW34qASfjjNXSIox7YpkQ+sP5HsBwi62GsC1eYvS/EzBMpSqA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785263966; c=relaxed/simple;
-	bh=RKr4sPw7yY59cnecNrMMRCBGIPohNGrdz5d9epxLmFA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rf8orBhiqL8vlAozIfv9/yj2qBD5Z+mVaSX6cV62iRe4O41KNAbzV0TxvS0wTITehH6DnVB+lJnCNEXEsbye2rN2sdAwU6lxnOE05+YhX/C1m77zQTYcIfZ/UYXrKGBwHLhWKXLuhxna+DU2/KAxaO3yvLUh8PL/FECElr2Z0Lo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=LfB8KLug; arc=none smtp.client-ip=209.85.167.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1785264153; c=relaxed/simple;
+	bh=rlWX8zSo109/lXQYg1Tk/kRqGUrbbsuhaVsjDuKwf4k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UydynJDpZURgCuoklP4aW4q9XtvquOIUcCwDGa8qHj34a51J8JsWYwMbYdwNY98f+rMUBXdhya4itouDuryTBBgFPEZQV6gId8AYb3ZlBpPSA9UDEpYG9LwCM6QJ12eeChHgKRseXk4UXHMHAcxkMSF8jT3VBhIwKLngHfS9nxk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hczTpfcG; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="LfB8KLug"
-Received: by mail-oi1-f170.google.com with SMTP id 5614622812f47-4ab70b882c5so66885b6e.2
-        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 11:39:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hczTpfcG"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-38dc4553f62so183027a91.0
+        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 11:42:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1785263963; x=1785868763; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eZ6KjfVMquoraO1Ezx1ttR0tE2SHYdbVoIEX1Kyjbc0=;
-        b=LfB8KLugj2YxSi5Tcqp+57pn5TicfayF9BCYrbMPzlZfNYQSfdqgybl5hoIpKoYQ9s
-         8+PB6pHbsa8v1kUeExycdGYz2u7FDbsyRLT0gNSG2A3UMac9/1EwrWCLIrWdg+EXHdZu
-         c1h4jIjFA7cnfR3yG4XZ8/GGywvHOSGwd9agpuEGXUw7kJpUaMV7axQ52zRBW8cOy4Jt
-         Bkyhe401J89xER3pErUa7hr5jDBhXHKHMhKHHAr7ZtmBqTVF+Uyur4iJ0NukKtHL26SX
-         MbjyX2P+I2Ul6DuVtL774rTlomP8WzmY7evjNc7NtN9o5sNGaWphiVUFCO5Nk9TAOCVW
-         n4/Q==
+        d=gmail.com; s=20251104; t=1785264150; x=1785868950; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=98KjwxSHL1rPAUCBymY6MMY6MwyG7kbviDNwGZEI2xU=;
+        b=hczTpfcGmc+WBJ16N5CYW0rKQmiuXSULOLsqoOf6wYH1+R8Rj/Zk6CmVrPT5sIv+pg
+         Xt+VzJdRDUAeBFp/CgjjzWS1ddr5LSTnLn1vahe/geYSdEEj9YoTh0PcraFY4xUnCw9p
+         bQjnex7HjnJxyUh90Dk7ZOMbWN5lTv+6BqTP3a76OMqHl5fRKRSeCAyam9Q606MBijkd
+         +KsTzRXzfYttvCXfugu/YoYDDU87JcfPYYhty9VG2gl+xRBp3SFEKyRdykoxpeNUOMC8
+         EZYUtS38T5j5DSynDSN/yr4R0GWIojusYCASgTDP10qCV+9aK8K/wquESOVianBehrti
+         bN0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785263963; x=1785868763;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1785264150; x=1785868950;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=eZ6KjfVMquoraO1Ezx1ttR0tE2SHYdbVoIEX1Kyjbc0=;
-        b=raIlTMHlajHJUxuYaSaYS5TQYNo0lehuvaEO0lsiRGUT+pftp27cDYBhCSbenPn7he
-         RnAKpqCKm97MK4S70rTOJy+Z1EpaHK4XJZ2oPBGD+ny6iRaISj8V11oziX4bxLoDK6Bz
-         +M8+cdouSGALM4kWliy4utY6CVjAi6KtIIEjrAM79ZZjgILEOwJNl60oIDzySeW55YkG
-         trQb2aggOgdkN4lbCVFdVqR6XqO6oZc2oACPitFSmxSw3kABJmbprRZLvtOhsD9xE+vh
-         4xC72eir5G2hf4gcrzKi3Nim92DUnr+lA42J2SoQcdNwET0m/eUbXBk1r2Scp9SKR0Nu
-         0Ouw==
-X-Forwarded-Encrypted: i=1; AHgh+RrLFFz7jrI2XL1vnXerVdnfFstD6yGJGMSo5Wmb2PPlqmcRPLYqzxosCRRAfg88K8A1xQ1tzcfyulwz@vger.kernel.org
-X-Gm-Message-State: AOJu0YyvlWyQw3/CH9STSRfkwqgUajxJD+O57U8V+qms911lGFE88k9H
-	q+NDXO2inX+CWF5Rt8Y1502OabFgbtdHYJ8VEotxlg6YU2SoFRw0Qe06ZPAqKUk/dTc=
-X-Gm-Gg: AR+sD11/NsoBaPAfPgXcDVOfoqnhi4r/oLmLOXvQnrtvPHl2m1NRxv+cqkTvkBMs+Ji
-	LunfJnNja9wQ4wmT//SceJddkn9RzK65kTiB0UFcG8HBupIT1Vq7PJGvHn8QPz2k7cMipIA9P9L
-	TgVGRaa1/TZUP8bYWsw6/7rkHDil/qQfVMVlxl8rMWQDhaZBtRyXuj+6d2hPihPiqIYm4Omk/36
-	oT1FdvlGSW7eLFkle6l/PcayepW8sv0i6mBRXzdWuadpmsGHtkwCw42/SHviUbsFK1svlPIm/mm
-	8ss15wz9PpTTHgP6ZA3+w8zFYc3wxOhK0cM/4Ugj47QKROuoAYNK6cMbn0I/L/uOuVbG2gsyX1g
-	3DH5wCnijE5CA2uM3WGu1UWgesN1PrR0qQhF0iZcCAz+qSIapqAaG//w+coc50sU6GNvOcBM9Wu
-	/cRzLYsrlXpOR9N6k8CJ44xMCvcySUG0Rb1vLXKSZ4TiV0FSyCYlbi
-X-Received: by 2002:a05:6808:2221:b0:497:da7f:179a with SMTP id 5614622812f47-4ad5bb442cemr2111452b6e.21.1785263962996;
-        Tue, 28 Jul 2026 11:39:22 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:3026:75d1:db9d:8984? ([2600:8803:e7e4:500:3026:75d1:db9d:8984])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4ad6b3f025dsm409931b6e.3.2026.07.28.11.39.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 28 Jul 2026 11:39:22 -0700 (PDT)
-Message-ID: <e1f977a8-ab38-4dc6-a82b-b955545550a0@baylibre.com>
-Date: Tue, 28 Jul 2026 13:39:20 -0500
+        bh=98KjwxSHL1rPAUCBymY6MMY6MwyG7kbviDNwGZEI2xU=;
+        b=HLX2hfov75as3nafnz1czX2ivqhygqeAw1mAxXQdvvsVRtaw2AmsZcZCXzagqjtSd4
+         eVr29WRe6vYRg2BkPgg5m98KGHkc54oFwH+hh4lKswlF+5yBwqVAvvdas6CswGDPEkCu
+         YHBhniWBu02/eh2iMB3VRvdb9ZVpu8U+kszFhJuffz5QQJsecnRMlbZuL5Zc5EFpmoUK
+         nHvIy4KZtg4u16pkWolDo3Yuh45Hdrk6Hv7JUDARsS41attc4QK2hj9a5GJt9w4xqYM5
+         fH1IaxFlmBBtNsn6kwuKswNOplvRmXtJ3F/YKboYPGxKMzoa4pBorJJ73vj4ghqDGWln
+         Gn2Q==
+X-Forwarded-Encrypted: i=1; AHgh+RoO96QXgqpzVEYfg346lVP5j9ws+rcoLe9lviJqhLM6msYeKfA6krdRAII9xHge8ouL3RDNlITgBWRu@vger.kernel.org
+X-Gm-Message-State: AOJu0YysZKV5/TIdXaZVYoYA7zhtWszXnVBMRcnQYEiVJ8QmP3JzZR/s
+	7vnd19Dkr9K8niD8ez7TeOTF8f5vgpBl6lYTkWwZSlOoVlJ335Tl8P72
+X-Gm-Gg: AR+sD12+sGKPuqP+y+lxqeRltEhn10Y4CW+T8NoWUpQH9/2rJv6zZhSyfxVp8n+PigN
+	JrVoJibmWAz/hhJ1WpoHvwYO3Ry49gD1E9/MvXKBr1v1qPt5BWpSBiIOUbLvnAaVl0sQ5pzt1EW
+	rW9eZcEX55XQXHldxdEatRtjoCVBN58ZPEOAYjvbD1WhY0LkaHg6J9vuOD8XCnnPkEHJ7OZdBqm
+	DOPJ7gqANZ9i7t249MoZnTk9m5UEIdoseVwNbIaQnVX30bP2m+sKJbviYI0srL7o16pbUMqxmm7
+	mGxRmNQo5CLHWPlyn6dvWcaAM33KxSCo2dk9LDN0v6XZrKhsdPH8xYnqsC8WuLR697gZGgG/rhm
+	qe2KubT8JMYq5xnrw/pa0joJjDQG2XisgKKlgi1V6lNAR2QRbvRWen2t+GysweqiY05QUt9ulzf
+	BUUaaonhb8ZrM8fvqDmhNP7NYZbiyi2O8H+2mlB7flvXvPoNcMO4FRPDooKFxGK+LU3oWzvhyFT
+	k4cuCMjNCNUMYqvJw==
+X-Received: by 2002:a17:90b:55c5:b0:38e:57a3:f218 with SMTP id 98e67ed59e1d1-38f6a336613mr3943439a91.13.1785264150174;
+        Tue, 28 Jul 2026 11:42:30 -0700 (PDT)
+Received: from fedora ([202.179.95.46])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31504cc63f3sm1013576eec.16.2026.07.28.11.42.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 28 Jul 2026 11:42:29 -0700 (PDT)
+From: Ninad Naik <ninadnaik07@gmail.com>
+To: lee@kernel.org,
+	pavel@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	simon.guinot@sequanux.org
+Cc: linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	me@brighamcampbell.com,
+	linux-kernel-mentees@lists.linux.dev,
+	skhan@linuxfoundation.org,
+	Ninad Naik <ninadnaik07@gmail.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v4] dt-bindings: leds: lacie,ns2-leds: Convert to DT schema
+Date: Wed, 29 Jul 2026 00:09:45 +0530
+Message-ID: <20260728183945.12008-1-ninadnaik07@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/7] spi: dt-bindings: Add spi-device-addr peripheral
- property
-To: Conor Dooley <conor@kernel.org>, Jonathan Cameron <jic23@kernel.org>
-Cc: Janani Sunil <janani.sunil@analog.com>,
- Lars-Peter Clausen <lars@metafoo.de>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Mark Brown <broonie@kernel.org>,
- Marius Cristea <marius.cristea@microchip.com>,
- Marcus Folkesson <marcus.folkesson@gmail.com>,
- Kent Gustavsson <kent@minoris.se>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, Janani Sunil <jan.sun97@gmail.com>,
- linux-spi@vger.kernel.org, Kent Gustavsson <nedo80@gmail.com>
-References: <20260722-ad5529r-driver-v7-0-7781cd74ad75@analog.com>
- <20260722-ad5529r-driver-v7-1-7781cd74ad75@analog.com>
- <e2118cfc-feef-4843-917f-844834ef4e60@baylibre.com>
- <20260725230445.60a445a0@jic23-huawei>
- <20260728-barrette-rickety-788b47da503c@spud>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260728-barrette-rickety-788b47da503c@spud>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 7/28/26 11:10 AM, Conor Dooley wrote:
-> On Sat, Jul 25, 2026 at 11:04:45PM +0100, Jonathan Cameron wrote:
->> On Sat, 25 Jul 2026 15:55:01 -0500
->> David Lechner <dlechner@baylibre.com> wrote:
->>
->>> On 7/22/26 2:54 AM, Janani Sunil wrote:
->>>> Some SPI devices support sharing a single chip select across multiple
->>>> physical chips by encoding a device address in the SPI frame itself.
->>>> Add the generic spi-device-addr property for describing these hardware
->>>> addresses. The property is placed on the SPI peripheral node and may
->>>> contain multiple addresses.
->>>>
->>>> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
->>>> ---
->>>>  Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml | 7 +++++++
->>>>  1 file changed, 7 insertions(+)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
->>>> index 880a9f624566..b59d047cf117 100644
->>>> --- a/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
->>>> +++ b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
->>>> @@ -142,6 +142,13 @@ properties:
->>>>      minItems: 2
->>>>      maxItems: 4
->>>>  
->>>> +  spi-device-addr:
->>>> +    $ref: /schemas/types.yaml#/definitions/uint32-array
->>>> +    description:
->>>> +      Device addresses used when multiple peripherals share a single chip
->>>> +      select. The array allows one logical peripheral to comprise multiple
->>>> +      physical devices, with one address per device.  
->>>
->>> "per physical device" for clarity.
->>>
->>
->> We may end up relaxing that again if multichip packages start doing this.
->> Fine to add that clarification for now. We can revisit when / if it ever
->> needs that relaxing.
->>
->>>> +
->>>>    st,spi-midi-ns:
->>>>      deprecated: true
->>>>      description: |
->>>>   
->>>
->>> If there is nothing useful the SPI core code can do with this information,
->>> I'm not entirely convinced that this needs to be a common property.
->>
->> I think being common does make some sense from a standarization point of
->> view and it isn't obvious where to put it other than under spi.
->>
->>>
->>> And this only allows for one logical device. If we wanted to treat each
->>> address as a logical device (all with same CS), we would need #address-cells = <2>;
->>> instead where the DT "address" is two values, the CS and the device address.
->>
->> Ah.  Good point for the adc@address or similar needing to match a combination
->> of CS and spi-device-addr.  Conor any thoughts on how this would be done?
-> 
-> I'm sorry, I don't quite understand. Why do you want to support both of
-> these representations? Hardware wise both of these things would be
-> describing the same setup, so allowing this alternate "multiple logical
-> device" typically is not permitted. What even is the use case of it?
-> Does it matter at all if you have one or more logical devices from a
-> consumer perspective?
-> 
-> I do have an idea of how to solve the adc@address problem (you can do
-> adc@address,spi-device-address like some other devices) but as I said I
-> don't get why it would be needed.
+Convert lacie,ns2-leds to DT schema.
 
-I would expect that if such a device was intended to be used as individual
-logical devices that they would just be wired up each with their own chip
-select rather than sharing one.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Ninad Naik <ninadnaik07@gmail.com>
+---
+Changes in v4:
+- Drop incorrect Reported-by and Closes tags.
+- Add complete changelog.
 
-The only reason I can think of actually needing adc@address,spi-device-address
-would be on a system that was really short on pins on the MCU.
+Changes in v3:
+- Add optional property num-modes to the schema.
 
-So not saying that we need it right now. Just wanted to make sure we were
-intentional about saying we don't need it if we don't.
+Changes in v2:
+- Change maintainers from the subsystem maintainers to Simon Guinot. 
+- Drop "|" from the description field and update the description. 
+- Remove patternProperties field and instead use additionalProperties.
+
+ .../bindings/leds/lacie,ns2-leds.yaml         | 85 +++++++++++++++++++
+ .../devicetree/bindings/leds/leds-ns2.txt     | 35 --------
+ 2 files changed, 85 insertions(+), 35 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/leds/lacie,ns2-leds.yaml
+ delete mode 100644 Documentation/devicetree/bindings/leds/leds-ns2.txt
+
+diff --git a/Documentation/devicetree/bindings/leds/lacie,ns2-leds.yaml b/Documentation/devicetree/bindings/leds/lacie,ns2-leds.yaml
+new file mode 100644
+index 000000000000..2138c75c0413
+--- /dev/null
++++ b/Documentation/devicetree/bindings/leds/lacie,ns2-leds.yaml
+@@ -0,0 +1,85 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/leds/lacie,ns2-leds.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Dual-GPIO LEDs found on Network Space v2 (and parents)
++
++maintainers:
++  - Simon Guinot <simon.guinot@sequanux.org>
++
++description:
++  The Network Space v2 dual-GPIO LED is wired to a CPLD. Three different LED
++  modes are available, off, on and SATA activity blinking. The LED modes are
++  controlled through two GPIOs (command and slow), each combination of values
++  for the command/slow GPIOs corresponds to a LED mode.
++
++properties:
++  compatible:
++    const: lacie,ns2-leds
++
++additionalProperties:
++  type: object
++  $ref: common.yaml#
++  unevaluatedProperties: false
++
++  description: Each child node represents a single LED
++
++  properties:
++    cmd-gpio:
++      maxItems: 1
++      description: GPIO connected to the command LED output
++
++    slow-gpio:
++      maxItems: 1
++      description: GPIO connected to the slow LED output
++
++    num-modes:
++      $ref: /schemas/types.yaml#/definitions/uint32
++      description:
++        Number of entries in modes-map.
++
++    modes-map:
++      $ref: /schemas/types.yaml#/definitions/uint32-matrix
++      description:
++        A mapping between LED modes (off, on or SATA activity blinking) and
++        the corresponding cmd-gpio/slow-gpio values. All the GPIO values
++        combinations should be given in order to avoid having an unknown
++        mode at driver probe time.
++
++      items:
++        items:
++          - description: LED mode
++            enum: [0, 1, 2]
++          - description: Command GPIO level
++            enum: [0, 1]
++          - description: Slow GPIO level
++            enum: [0, 1]
++
++  required:
++    - cmd-gpio
++    - slow-gpio
++    - modes-map
++
++required:
++  - compatible
++
++examples:
++  - |
++    #include <dt-bindings/leds/leds-ns2.h>
++
++    led-controller {
++        compatible = "lacie,ns2-leds";
++
++        led-0 {
++            label = "ns2:blue:sata";
++            slow-gpio = <&gpio0 29 0>;
++            cmd-gpio = <&gpio0 30 0>;
++            modes-map = <NS_V2_LED_OFF  0 1
++                         NS_V2_LED_ON   1 0
++                         NS_V2_LED_ON   0 0
++                         NS_V2_LED_SATA 1 1>;
++        };
++    };
++...
+diff --git a/Documentation/devicetree/bindings/leds/leds-ns2.txt b/Documentation/devicetree/bindings/leds/leds-ns2.txt
+deleted file mode 100644
+index 9f81258a5b6e..000000000000
+--- a/Documentation/devicetree/bindings/leds/leds-ns2.txt
++++ /dev/null
+@@ -1,35 +0,0 @@
+-Binding for dual-GPIO LED found on Network Space v2 (and parents).
+-
+-Required properties:
+-- compatible: "lacie,ns2-leds".
+-
+-Each LED is represented as a sub-node of the ns2-leds device.
+-
+-Required sub-node properties:
+-- cmd-gpio: Command LED GPIO. See OF device-tree GPIO specification.
+-- slow-gpio: Slow LED GPIO. See OF device-tree GPIO specification.
+-- modes-map: A mapping between LED modes (off, on or SATA activity blinking) and
+-  the corresponding cmd-gpio/slow-gpio values. All the GPIO values combinations
+-  should be given in order to avoid having an unknown mode at driver probe time.
+-
+-Optional sub-node properties:
+-- label: Name for this LED. If omitted, the label is taken from the node name.
+-- linux,default-trigger: Trigger assigned to the LED.
+-
+-Example:
+-
+-#include <dt-bindings/leds/leds-ns2.h>
+-
+-ns2-leds {
+-	compatible = "lacie,ns2-leds";
+-
+-	blue-sata {
+-		label = "ns2:blue:sata";
+-		slow-gpio = <&gpio0 29 0>;
+-		cmd-gpio = <&gpio0 30 0>;
+-		modes-map = <NS_V2_LED_OFF  0 1
+-			     NS_V2_LED_ON   1 0
+-			     NS_V2_LED_ON   0 0
+-			     NS_V2_LED_SATA 1 1>;
+-	};
+-};
+-- 
+2.55.0
 
