@@ -1,113 +1,212 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D08E83AFD07
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 19:57:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E5D74734C2
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 19:58:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785268627; cv=none; b=OzO02BVm2YymL42VW8uGKjUeoH4U88V9Et59aH7fpqhhAZQiA7RaOoUZAI/A+LeLYHBDnm9VrzeDLKrUT0XnF3EIn+vXl26ckJfBRaac+HYa3ELiejVRRj4GADLKwfXTzz81tDKeEHzKGXP56KTRC53t4Lbf/zYnrSY6G1IuT3g=
+	t=1785268734; cv=none; b=CdDVPVP3vONJR5jXhb9KD4KrXtp9PKke2ZCr9ixmnWwfpEnKOTymbtwC3XFQUXGLPpH8wxWzGIrMGYG23ht3zpcqYkj/AvzpOPq8bcGz9R5Riry6u6N8Qu3fSpbWqq/Ch/WPORGgAvc6q0KAKOIXQTEIlciNal+VZDzSwOuKYHY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785268627; c=relaxed/simple;
-	bh=LcAM2CgM9QPft5xkOCPJbqlA6H6pGs4qYIIQO/iOiR8=;
+	s=arc-20240116; t=1785268734; c=relaxed/simple;
+	bh=kjFZhfNCIZJllmTaPC4Z/UjMx0C3kevmnaBtfmER7b8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=glZXKGldz+7ozN3t5KNGUAK7bf8fa6QVozCXSczTKKdEb7I6lHo7WKyJxJRWJOpIQoM8hjBHHSI5eHwUT6gfJiDgjMIYutSkv5xmHtVjYJqOqYfDsrAvAXaJzWhQTtWta0m/LCdhxTwpt/Vp2C5doxlug3rMAA8bWtYcrkOaV1M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nOeYthQV; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=EKgszTmrWY87tq78jBphYkkpvCXJTMsefS/Kwhzo1ljr5l2/m0qZuekLe0pLaE701f/AVpS/Q7XyGzc06PLLEOduiQhQ57OYlEN0G3VZXkStig1aGvb+Jk+l2br+1ByZiuIdUjfZWsi22sSIkl3tRP2aj6XusCGygDFO+Ep5IfA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a17YPGc2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nOeYthQV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D5C41F00A3A;
-	Tue, 28 Jul 2026 19:57:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a17YPGc2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E9431F000E9;
+	Tue, 28 Jul 2026 19:58:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785268626;
-	bh=AFRuPxr/fN5ycCq1UYFgEo/76uhm86e5fNzzL5fqInQ=;
+	s=k20260515; t=1785268732;
+	bh=vXe274rOutSkaybKnxWKfkpNu58tVP13XdupURSxxQA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nOeYthQVmiVRzthYJrgelwBNLZDtiFJGAcp4szfyfClVl/z+Kl8svJUnKYShQMuvM
-	 XzSGgD2GOKMpPy0k5yXEPwDO8Q69IR+7sMU2nwzxjjK/ItzdXB2pHqbgYuP1hnJVcm
-	 LY/mJtv0fnnjSzjq4gc6mmafpb1i6tQoP0KjuH1eUqD0mn69XU8nzlgxn0BTxV/Sqf
-	 OCFMFXJQ8VxSnc47h0Z/TYcgcfpqImVtMmSSOtIlogGVbj8xKuIoJkT0mRb8qNhIXA
-	 k7a1cVRBp+PyN0hQTEiPU8qmgu1h6IdB3PbnmZHNZV9qRfrFarBX6YMV68t5IOe+Hg
-	 PkSobN1StJwkg==
+	b=a17YPGc2KhmVOtBWXdilEG9G0iPu2DUx3aZv4l3sR3XcHajfefi/XuKZ8Ig5zT//5
+	 JTOy10jaUur8v8FTeeLqpyI7/SQPUt7anHfQhvr07zfvfiom2Qx47BLpLnJVr+8h4o
+	 JkuAKbKIWxNZrhwGX4PIYB0K5BY/oj6m7HpWce8tOrWYsrQygimu7p3sH4iePMFai4
+	 5tFMISWIZYseDjqQ8thEsOkkLwY/Rz/5PUJzYaFOul8gQEpK3LiuFQMkgs4PFhyjxn
+	 Tq4z14Ed1zhzWasYS7sAcSydDB4VD3hnWMq2Vzr3XcCr7bnVcrYWJz40+d4ErVuD8A
+	 2JBmAeWwR4plw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] arm64: dts: ti: k3-am67a-beagley-ai: Add gpio
- ranges
+Subject: Re: [PATCH v7 12/18] drm/bridge: synopsys: dw-dp: Add Runtime PM
+ support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?RGF2aWQgTGVjaG5lciAoVEkp?= <dlechner@baylibre.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260728-arm-dts-beagleyai-gpio-info-v1-1-783ec90d54da@baylibre.com>
-References: <20260728-arm-dts-beagleyai-gpio-info-v1-0-783ec90d54da@baylibre.com>
- <20260728-arm-dts-beagleyai-gpio-info-v1-1-783ec90d54da@baylibre.com>
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org
+In-Reply-To: <20260728-synopsys-dw-dp-improvements-v7-12-b7640fa8cf48@collabora.com>
+References: <20260728-synopsys-dw-dp-improvements-v7-0-b7640fa8cf48@collabora.com>
+ <20260728-synopsys-dw-dp-improvements-v7-12-b7640fa8cf48@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 28 Jul 2026 19:57:05 +0000
-Message-Id: <20260728195706.3D5C41F00A3A@smtp.kernel.org>
+Date: Tue, 28 Jul 2026 19:58:52 +0000
+Message-Id: <20260728195852.7E9431F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] Adding `pinctrl-single,gpio-range` on K3 platforms causes dynamic =
-GPIO requests to silently overwrite the entire pad configuration register, =
-destroying previously applied board-specific settings like pull-ups and dri=
-ve strengths.
+
+New issues:
+- [Critical] Incorrect teardown order in dw_dp_unbind() allows AUX transfer=
+s to cause a kernel panic or hang.
+- [High] Calling a sleeping function (msleep) from a runtime PM resume call=
+back that is reachable from an atomic commit path.
+
+Pre-existing issues:
+- [High] Unbalanced phy_power_off() in dw_dp_bridge_atomic_disable() corrup=
+ts the PHY power count when atomic_enable() fails early.
 --
 
---- Patch [1]: [PATCH 1/2] arm64: dts: ti: k3-am67a-beagley-ai: Add gpio ra=
-nges ---
-commit c5d1a1cd5d0bb91d0c680ae90328952c44500103
-Author: David Lechner (TI) <dlechner@baylibre.com>
+--- Patch [12]: [PATCH v7 12/18] drm/bridge: synopsys: dw-dp: Add Runtime P=
+M support ---
+commit 6fa63f17bf7f03d90ce981c3f9cd86d3e8761c32
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-arm64: dts: ti: k3-am67a-beagley-ai: Add gpio ranges
+drm/bridge: synopsys: dw-dp: Add Runtime PM support
 
-Add pinctrl-single,gpio-range properties to the BeagleY-AI .dts so that
-GPIOs get the correct pin mux when requested.
+This commit adds runtime PM support to the Synopsys DesignWare DisplayPort
+bridge driver. The support is not enabled automatically and must be hooked
+up in the vendor specific glue code.
 
-> diff --git a/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts b/arch/arm64/=
-boot/dts/ti/k3-am67a-beagley-ai.dts
-> index 5255e04b9ac76..599d576f694f6 100644
-> --- a/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts
-> +++ b/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts
-> @@ -149,6 +149,19 @@ led-1 {
->  };
-> =20
->  &main_pmx0 {
-> +	pinctrl-single,gpio-range =3D
-> +		<&main_pmx0_range 0 32 PIN_GPIO_RANGE_IOPAD>,
-> +		<&main_pmx0_range 33 38 PIN_GPIO_RANGE_IOPAD>,
-
-[Severity: High]
-Does adding pinctrl-single,gpio-range here cause dynamic GPIO requests to
-silently overwrite the entire pad configuration register?
-
-On K3 platforms, the pinctrl-single,function-mask is typically <0xffffffff>,
-meaning the pad electrical properties and mux mode share the same register.
-When a GPIO in these ranges is requested via gpiod_get(), the gpiolib path
-calls the pinctrl driver's pcs_request_gpio().
-
-Since the function mask is 0xffffffff, pcs_request_gpio() will execute:
-
-    data &=3D ~pcs->fmask;
-    data |=3D frange->gpiofunc;
-
-Could this completely erase any previously applied board-specific settings
-like pull-ups or drive strengths from a device's pinctrl-0 property, and
-replace them with PIN_GPIO_RANGE_IOPAD (which includes PULL_DISABLE)?
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
+idge/synopsys/dw-dp.c
+> index d4f75b7f85d0a..8b650f904575d 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 
 [ ... ]
 
-> @@ -267,6 +280,15 @@ &main_uart0 {
->  };
+> @@ -1664,6 +1672,13 @@ static void dw_dp_bridge_atomic_enable(struct drm_=
+bridge *bridge,
+>  	struct drm_connector_state *conn_state;
+>  	int ret;
 > =20
->  &mcu_pmx0 {
-> +	pinctrl-single,gpio-range =3D
-> +		<&mcu_pmx_range 0 21 PIN_GPIO_RANGE_IOPAD>,
-> +		<&mcu_pmx_range 23 1 PIN_GPIO_RANGE_IOPAD>,
+> +	ret =3D pm_runtime_get_active(dp->dev, RPM_TRANSPARENT);
+> +	if (ret) {
+> +		dev_err(dp->dev, "runtime PM failure\n");
+> +		return;
+> +	}
+> +	dp->pm_active =3D true;
+> +
+>  	connector =3D drm_atomic_get_new_connector_for_encoder(state, bridge->e=
+ncoder);
+>  	if (!connector) {
+>  		dev_err(dp->dev, "failed to get connector\n");
+>  		return;
+>  	}
 
 [Severity: High]
-Will this have the same pad configuration overwrite issue for the MCU domain
-GPIOs when requested?
+This is a pre-existing issue, but does this early return cause an unbalanced
+phy_power_off() later?
+
+If dw_dp_bridge_atomic_enable() returns early here, it skips a successful
+phy_power_on(). However, the subsequent dw_dp_bridge_atomic_disable()
+unconditionally calls dw_dp_link_disable(), which executes phy_power_off().
+
+Would calling phy_power_off() without a preceding successful phy_power_on()
+decrease the PHY power count below 0 and permanently prevent the PHY from
+being powered on again?
+
+[ ... ]
+
+> @@ -2090,9 +2146,22 @@ EXPORT_SYMBOL_GPL(dw_dp_bind);
+> =20
+>  void dw_dp_unbind(struct dw_dp *dp)
+>  {
+> +	if (dp->usbc_mode)
+> +		pm_runtime_get_sync(dp->dev);
+> +
+> +	dp->drm_bound =3D false;
+>  	disable_irq(dp->irq);
+> +
+>  	cancel_work_sync(&dp->hpd_work);
+>  	phy_exit(dp->phy);
+> +
+> +	/* Last PM runtime suspend must be done with drm_bound =3D false */
+> +	pm_runtime_put_sync(dp->dev);
+> +
+> +	/* suspend once if runtime PM is disabled */
+> +	if (!pm_runtime_enabled(dp->dev))
+> +		dw_dp_runtime_suspend(dp);
+> +
+>  	drm_bridge_put(dp->next_bridge);
+>  	drm_dp_aux_unregister(&dp->aux);
+>  }
+
+[Severity: Critical]
+Does this teardown order in dw_dp_unbind() introduce a race condition with
+concurrent AUX transfers?
+
+Because drm_dp_aux_unregister() is called at the very end, the AUX interface
+remains active while the underlying hardware is shut down.
+
+If a concurrent dw_dp_aux_transfer() occurs from userspace while runtime PM
+is disabled, dw_dp_unbind() will manually call dw_dp_runtime_suspend()
+disabling the APB clock. The AUX transfer will succeed its PM guard and
+its subsequent regmap_write() will access unclocked hardware, triggering a
+synchronous bus abort.
+
+[ ... ]
+
+> @@ -2202,6 +2271,47 @@ struct dw_dp *dw_dp_probe(struct platform_device *=
+pdev, const struct dw_dp_plat_
+>  }
+>  EXPORT_SYMBOL_GPL(dw_dp_probe);
+> =20
+> +int dw_dp_runtime_suspend(struct dw_dp *dp)
+> +{
+> +	if (dp->drm_bound)
+> +		disable_irq(dp->irq);
+> +
+> +	clk_disable_unprepare(dp->aux_clk);
+> +	clk_disable_unprepare(dp->apb_clk);
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(dw_dp_runtime_suspend);
+> +
+> +int dw_dp_runtime_resume(struct dw_dp *dp)
+> +{
+> +	int ret;
+> +
+> +	ret =3D clk_prepare_enable(dp->apb_clk);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D clk_prepare_enable(dp->aux_clk);
+> +	if (ret) {
+> +		clk_disable_unprepare(dp->apb_clk);
+> +		return ret;
+> +	}
+> +
+> +	dw_dp_init_hw(dp);
+> +
+> +	/*
+> +	 * HPD_HOT_PLUG bit is asserted only after the sink holds HPD
+> +	 * high for at least 100ms.
+> +	 */
+> +	msleep(110);
+> +
+> +	if (dp->drm_bound)
+> +		enable_irq(dp->irq);
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(dw_dp_runtime_resume);
+
+[Severity: High]
+Does this introduce a sleeping delay in an atomic commit path?
+
+The drm_atomic_helper_commit_tail() path is an atomic context in DRM display
+drivers. During a commit, it calls dw_dp_bridge_atomic_enable(), which now
+makes a synchronous pm_runtime_get_active() call.
+
+That will invoke this dw_dp_runtime_resume() callback which executes
+msleep(110). Calling a sleeping function from an atomic commit path violates
+DRM subsystem requirements and can cause system instability and warnings.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-arm-dts-be=
-agleyai-gpio-info-v1-0-783ec90d54da@baylibre.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-synopsys-d=
+w-dp-improvements-v7-0-b7640fa8cf48@collabora.com?part=3D12
