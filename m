@@ -1,225 +1,229 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43DF141A922;
-	Tue, 28 Jul 2026 09:14:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785230092; cv=fail; b=l5fQHc6EgXmUKJf2TK7kS3fc3g/sTIf7cwm7SR/EraKC2SLpoVUA4Bkn6kzVemfsZOrudNfgTgMeUBU0q3SG12kFTBcXsc2F/96nfrFpoRnKZmnY5rzpOGd8ByMCi/TY4/VZptuKboubx+R6BQBJ5OQMMxMkcqMhmocsIbiAV4k=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785230092; c=relaxed/simple;
-	bh=yWC63wKS63icqw20h9wkn5CioQlxlhGXaMg7XWWKU8Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=JJgzzwblwbOkxs1u+rZezS3UwFGgPWi+p8GniT5TLUEZjT26lCYGK80e2AAve5fByJBx3OmM2rmNmU5qyboKGhQ/BsEeQQeQx9A49Wlljk85JAjXn/x3mQUZhr62HJU2ZnZbRYIFX401GLZtJ6f/y5l+ujcXrNilVrlGIEmIL6E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=jH6lDNF8; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=fJAayfwb; arc=fail smtp.client-ip=148.163.154.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6F4441D111
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 09:18:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785230300; cv=none; b=eKGj/9c1oiVQElQ+WkStD1peizvv1moDaRf5ih23dPLpa8q0J7MP2lRchxj90bWT4MJpfx8AyxbHOtGuFG8RZV45yjPMEPZJVkoCoWxGRZ+3D7HcneJfx1UU/9f1iarpWEpHYtsAR2rxzp/GItT61KrPGd7PpgdAqpzy+/c3iLY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785230300; c=relaxed/simple;
+	bh=CvGmTOjwKwuGUuEQE7R2xCU2vIxckDkn69CRfckAbFE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IE20vKsz0lfKe1Q3Acj0t/XNucJ3pz1h/1HLYAHSg+H/I7TS/V4w6WVwXlyTkfIseXd+nzKIc/qtGhW6dsWdVrSMfyV5NMPfx9lRv6x7WSQ+PpDOuYK6MJshs6xktnBJ2VqS2Vaf+ydVEH/e3sCGT3MwH+71jtgp3x1clgCsDVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=YXQh8TaN; arc=none smtp.client-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="jH6lDNF8";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="fJAayfwb"
-Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66S91jL23583805;
-	Tue, 28 Jul 2026 04:14:34 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=adJCrRLDWGkEMSyq6yOMN7R9HUUVElXlbhf1MXo9p
-	+M=; b=jH6lDNF8/IGiMGSF8mZxPvMYxCQyhZ6aprIOiqrC9qkMajhVwjB5xXuTN
-	d6tvVFB2K62A/DFm1C7YgCMpRrr9Y4kFdmT7ZS4zCQzOSTJbF6WFtTgeZz4L+VCY
-	fyzQ3gnZDmWOqALYFkcPZ3J3xrapBIiCPMC05RG/niNpJqGR+7ukXOSs3bW2lkN+
-	cgNh3nVl/ADkn4XsTISVzEDk8df+MsS1Gl4ZIO7thb5ZJwVrPSc56B9mx8cRNACC
-	tqC6YK1XDsAlNaakK6nO2cv2ECCofpG4ctDnacvQhxGC/qj+vxibtQfsPBIAMaeo
-	QX5rZJEgnlEpBG0HxjPx5BOSjw/uw==
-Received: from bl0pr03cu003.outbound.protection.outlook.com (mail-eastusazon11012048.outbound.protection.outlook.com [52.101.53.48])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4fpseb0211-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 28 Jul 2026 04:14:34 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=S5mMQIGTJiwITQrC3Icc5irPmfnte3999NqCNP8cPRxkYm+h3MqmrKKxJv33r9RJlQ+HzWUFDrvyV9Evz2AZ7OkE479VzCSq0wWKs5NVm1lc7oDRqPZqgi+HAw887XV6Z5JT9I7yAnnbt+TY6Nzk7/7kAXPoRT/BUgoNdbR2851SVY4/oZSyp6F80RoKjLith5tGs8aKKXX+pWAFKOFk5M4VO4OY/gkDl+dgC8vZMASOLg9mxgWU3TD1vg8rsNoBJQ/2IwXOUvRvcE7PBbn3B9+m4kDz+Ce0Z/l5nQsf5UKF2l1kg8uh3uL3FDfbBGZLno6xO/UfVNwS1pKu5/Elvg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=adJCrRLDWGkEMSyq6yOMN7R9HUUVElXlbhf1MXo9p+M=;
- b=vA9W3fdixkJ8Ol29Z6DUvwRFFt/YjDwce95/oCc/cxGMRszBNcaEl5mFAiWQk6SC9Soyg6Tb9HjWeNSJp85aTDk1kWg1qn/RFjta/ywPxh8s0v0GTQ65Ya3MnhmN008vY7kWmMR1jlPF3aK4Uz57Stv9xqF1GZ1CgtSWsxNQny3OadUuebGcCWR0MkqlZA48/ceGqmXat0qkP/1487Fg7cF1mzCGlLOcbc4z/KRbC8xjW4LxLv3br9mgnkO5fG8nkEvsSpc2tFVzalnvSN6Qr7uN5D4lp6qmG7h2q6xZRBr5UaaveZKOoLVGp83q8N7l9tEJkia+6d72IQEihfDi7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=adJCrRLDWGkEMSyq6yOMN7R9HUUVElXlbhf1MXo9p+M=;
- b=fJAayfwbLjvKT00/jUEPl//IubQJX9sBy/VREBlnS0j42Nt9AcC1RNg/PUA/SDHCRZsfFZ/NZIL5+J2/tOSpLCdKQV/xFu/OBvwdF5MEKk4eiixkF/BBS2SYqL2g/IvkYBOmzvVIDlj3pggL9vPkrKBf75Z8131BQAiZu3kCmV4=
-Received: from PH1PEPF000132FC.NAMP220.PROD.OUTLOOK.COM (2603:10b6:518:1::2d)
- by CH0PR10MB5067.namprd10.prod.outlook.com (2603:10b6:610:da::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Tue, 28 Jul
- 2026 09:14:32 +0000
-Received: from SN1PEPF00036F3D.namprd05.prod.outlook.com
- (2a01:111:f403:f90f::2) by PH1PEPF000132FC.outlook.office365.com
- (2603:1036:903:47::3) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.13 via Frontend Transport; Tue,
- 28 Jul 2026 09:14:31 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- SN1PEPF00036F3D.mail.protection.outlook.com (10.167.248.21) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.270.5 via Frontend Transport; Tue, 28 Jul 2026 09:14:30 +0000
-Received: from DFLE204.ent.ti.com (10.64.6.62) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 28 Jul
- 2026 04:14:17 -0500
-Received: from DFLE211.ent.ti.com (10.64.6.69) by DFLE204.ent.ti.com
- (10.64.6.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 28 Jul
- 2026 04:14:17 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE211.ent.ti.com
- (10.64.6.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Tue, 28 Jul 2026 04:14:17 -0500
-Received: from [10.24.52.125] (ws.dhcp.ti.com [10.24.52.125])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 66S9EDq52362029;
-	Tue, 28 Jul 2026 04:14:13 -0500
-Message-ID: <6d1b5b14-2e2f-493e-bdab-45d659d284e0@ti.com>
-Date: Tue, 28 Jul 2026 14:44:12 +0530
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="YXQh8TaN"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2ceaf8a1265so43657035ad.2
+        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 02:18:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1785230297; x=1785835097; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5I1AY9BLhfuJBpnfRkSYDGG1aWX86nocKReaece+rOM=;
+        b=YXQh8TaNwmi4884vXptU7HIw8A2DCGzXQcZ9wCdOWprHqZVBzd+ja5BvICb4sfFFTs
+         1xtrTeIGDGqXzgv+gEopuFGcjiInQq6BsJ+ZknE4QcXehgDYZ+dgTx7p4W5ql5S9njFK
+         3y2+TqhVtBjhroMHjeVfkLYWhfMnemHvUlumM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785230297; x=1785835097;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5I1AY9BLhfuJBpnfRkSYDGG1aWX86nocKReaece+rOM=;
+        b=JAURMNC/pmV3zO8DlYmXr6eUDxPHxOCaJZT2COpZFav4iwCcy24+t+bj44O0CnV1pN
+         8O/PPuGrzc1JMzOYRkTxkfcG8+H5mdJXuqu4QsKkjoc3SZvArg1eroV8D1+xxiWYfcWS
+         aPyVxDahmv5s3aCR3aX/SQGZxHx/kGxoT8Y8XqVYWXGubSchVkBU7VkORWA4LohHiL2Z
+         ceuZ89Q6Jw3T2k+0vxC9hQqVlsJ6YwgmmwL1DT3+CLCzJwCNQuCrZ3aNK6kuGfpfK1zE
+         YhVBm9Rbkf1Yq3OvO9RDvWWYvdWdZ0sBqr0+TDKGIJsJboUDel8+KrML8GqvBm4nNgXp
+         xqBw==
+X-Forwarded-Encrypted: i=1; AHgh+Rp4k9oWgiURfCuHMUztr+JD4M4fuozvuD4TPoHkxVoIs9ZR4uOLL295kq/eJQaLJeQ1eCnikKVz7C+P@vger.kernel.org
+X-Gm-Message-State: AOJu0YyCT7xnPVbC/62BaxsXJcLK486m/78JnRZd5r7S51iMV+jRoI1q
+	9CwJtsRRBFLHHqIbG0/V0CVqr/oIaachdeHSXFY+y9lfoPNyj6o3iGSprCVwitm31A==
+X-Gm-Gg: AR+sD13tOXL8yayFiepbqDiTuD11VpgmZXm722q45k4I6e13q5JDO7LQ6PCPNKfCpGc
+	DOod4/flKdN4QvB7eZX8cnjH+qBCOmIU5/LSZn+0uipWCkSItYmOTOMeMBgZqVNaMtXJOJo42o2
+	qBMcx8TeLfnobtjiPxoX+YCJbqS3g9rysWuTbv8ldtYrv1fB4oybwuw+3gxlMUFo1EzuoDqPCi/
+	3FFlKcV/gHyHM8MfQyF/TA3cJ9jPZiGvBiKKij1VHzMfR6zhivwTvH2Q0JDSFZKRB3/2GSr3AS4
+	S4W5B/g3ubHNzy12ZphMa22lUl+d2SpZMSJ+skDE+IGC0ahtjADhJbNOUGfX0BImxAXYeAiLCRL
+	d2Jnxj6suJvD71BzWNx4kHbIa9rbbqAGDfqqQajBApeWTOvqDxVaWF4/TJNJKiDpGSVjbGfZI+4
+	YoXeFkSGjxR67NkBz0p7TS3jpqbtKvzfeBPJuFdqmy3Y05OD8FHdr1Fe37KA8=
+X-Received: by 2002:a17:902:e945:b0:2cf:477f:57c5 with SMTP id d9443c01a7336-2d015ac708bmr18332045ad.1.1785230297072;
+        Tue, 28 Jul 2026 02:18:17 -0700 (PDT)
+Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:c85f:b2bb:a077:d544])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cfde81dcc1sm48616965ad.84.2026.07.28.02.18.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 28 Jul 2026 02:18:16 -0700 (PDT)
+From: Chen-Yu Tsai <wenst@chromium.org>
+To: Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Alessio Belle <alessio.belle@imgtec.com>,
+	Luigi Santivetti <luigi.santivetti@imgtec.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Chen-Yu Tsai <wenst@chromium.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	imagination@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+	YoungJoon Lee <getfeus@gmail.com>
+Subject: [PATCH v4 0/5] powervr: MT8173 GPU support
+Date: Tue, 28 Jul 2026 17:17:58 +0800
+Message-ID: <20260728091804.382753-1-wenst@chromium.org>
+X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/4] arm64: dts: ti: BeagleY-AI camera overlays
-To: Jai Luthra <jai.luthra@ideasonboard.com>, Nishanth Menon <nm@ti.com>,
-        Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>,
-        "Rob
- Herring" <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        "Conor
- Dooley" <conor+dt@kernel.org>
-CC: Robert Nelson <robertcnelson@gmail.com>, Andrew Davis <afd@ti.com>,
-        Devarsh Thakkar <devarsht@ti.com>,
-        Tomi Valkeinen
-	<tomi.valkeinen@ideasonboard.com>,
-        Yemike Abhilash Chandra
-	<y-abhilashchandra@ti.com>,
-        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-References: <20260602-beagley-cameras-v3-0-fe6ae35b7eda@ideasonboard.com>
-Content-Language: en-US
-From: Rishikesh Donadkar <r-donadkar@ti.com>
-In-Reply-To: <20260602-beagley-cameras-v3-0-fe6ae35b7eda@ideasonboard.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF00036F3D:EE_|CH0PR10MB5067:EE_
-X-MS-Office365-Filtering-Correlation-Id: fc51ac80-7510-4433-ef5f-08deec88a1f3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|1800799024|7416014|376014|36860700016|56012099006|10067099003|18002099003|22082099003|3023799007|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	828iBNr4BPA40nc10i6P0NWzQqdC1Qn4R+DppJ1hkhiD5YnYCKl1OuyWvaYb2dw51cBsv1V/MPFHweKmAi+26oxW9FB1lml6l6miPNbGm/L3m6UMPPm55pRh2TlWHr/J0NkNwqgqJNQ0XWy9ZkJOVEZ8hB2dHSBuWN1NERoXSNVXuz+h3lB+nOf04lwuRAtry6gJt/Wb8w1xjEixkJstP5oNSX6QRQ40iwRn970Hq3YDmVD5rErop+nV+fBenrSoCsrVolXRbAjNtMkeSeXC5H3Om0ierhNWYrGa/J5sKH1G4RjSRS1p62umbS8qMVrccBHR3Z9a2jZb/yrmeLVR0U7Xasonv+BCdikf9rLhSg+h1G4ffHrIQgyyL/GpszB85+6XHmwtKk9+fcyUfHUF7wSWYEk5Y1xH1jS1WT2WUJA8MgV+H6XP0YlJ5ddGPsgl93wpEW5TGEL0l4G2Ku/vCzQ0nUgNTYRLuIOMg6VV3kKD8UUuT53Gd+iJj/uPS8/9enXuyMHguXWP0W/7TQkkSE8aJKIpZ2fKtz0/frocaXEdLB18WFfFLO3Umt0aHbJs9gOnPjtMcuQpDRGrIezbsbkZqQwVSAOP86E+2fqElN1gnGKStIGdB5Xda2DHaL/JW1IHyoiqZKAAKxEL+D0uGGxXtnxhxodRgVZ5QvgtX3byeYtg4WKt/f5ms51P4b2xibnIazIRSvBjMH9zSmSSMw==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(1800799024)(7416014)(376014)(36860700016)(56012099006)(10067099003)(18002099003)(22082099003)(3023799007)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	kLWagqu33dkgh2DgyQKyLQu+/PxXSm4nJGOcDAsJ0J9DVQrEqRmddkrC4tc/h/neWv6nuFThLCX14wXvzEhDUum91XLJ1gUhczca16TozR5iuxC4o27nXw9WGf22xJcx5HRoB/y/0OWBAtH22KnytVxBSBtulCkXmox73qBRtxP0tXPryzCDqqtks3+t2vEl4Goxk62jOTstLApbyaNtyEaJPR+DIr04qlJZkDp3Yzze0MxgKlej/2SaNgs6OfSkleTwZPmPwdsX0ce7xkM0h3zbOq3EWskU2DzvHnmU8hWg/p1UPg5RGWMLyGOzDlBjTrhGOArXtUVqfYbkxC5U5lCYirLUx/KlYxkSTdnG3QBYfSKq4bn0p3f+geRhyuGVZ+zj3G5IhhvJNa7L13z4Ef8FE4iFoMST57vW7XCXWav5EMrC2FAAnAhsX9fi12Id
-X-Exchange-RoutingPolicyChecked:
-	oCirq9F3CEStCrhiAh/3NsQhGBo3uTHyQSXP5jITpIS3OUDYbDlAGn8UXKUwvef52NQbd62U/UgG0Bk72p1AWj1Ouk/rRQM0m03pxfwS33Z+ix5GbEoGdPY3zGl+4vpBB2Ke1ZL8AYx3Q6L2srw29IcAEC7Obrv4Qr6I1DcyFhddWHEBMP/AmiPXHQ84tbH3Py+LPTFmebF4/UFcEoCAInShTO95sa/s4I4hjK0ooMo7dh5+SsRyx1irb2Iu5s94OJjUBorExZhWJz/llySjgB+IcHdAgU90UNgv/rPG7dA6ljlskFsy/4JOkDWFXm72i+VuWIUpwzcDrqAwcuUAKg==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2026 09:14:30.9217
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fc51ac80-7510-4433-ef5f-08deec88a1f3
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF00036F3D.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR10MB5067
-X-Authority-Analysis: v=2.4 cv=c46bhx9l c=1 sm=1 tr=0 ts=6a6872fa cx=c_pps
- a=JX9C1NjKfd8eGP+3z/QwmQ==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
- a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=fPAWb5peG099m5CrUpKH:22 a=VwQbUJbxAAAA:8 a=P1BnusSwAAAA:8 a=sozttTNsAAAA:8
- a=Soqapf_rTBzX1gwIc-sA:9 a=QEXdDO2ut3YA:10 a=D0XLA9XvdZm18NrgonBM:22
-X-Proofpoint-ORIG-GUID: s3TKOQ_mv4jM1iBIJhiIzTZFtaFPeRdJ
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI4MDA4MCBTYWx0ZWRfX0XnO56ArP2Hi
- qsM6/Xo9cSpdtnwW2aYBcgeTZyALNowTB6P8y536X3CGqygXgRV1RtXnU0acAiqYntPUC8SRMM/
- aloaX+fjRORdnu+JB3rgJBbFarJtutU=
-X-Proofpoint-GUID: s3TKOQ_mv4jM1iBIJhiIzTZFtaFPeRdJ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI4MDA4MCBTYWx0ZWRfX6bTHPeMamXIb
- AumNniW0eEZEOntEBykuFXM6XAPRHRwlmzfCd7pgsHbm7wLH6E2BaecPs7YKNTAJa/PYbJGChAv
- ATF95ypXHsHMauwgmcLOFPakOQiB7KZ4V6MelL52Tl6k70/mDfrfLWVWI2ZSSDED/hf1EcWwmV+
- R43ZoCRVtYanv2gP3CZtLxDsTX56YR3KiWUFt8ZHoTrqIW0/iRZypAs8onmvFfWL0min0P4k5NH
- Y0NRE8IMPSzgxD/X4h5kL3/pX9/gVy9D9/gV72vZzSlS8tkYsgoKvnNzM1YZ4DK36cc5tBp4ZPN
- baap5mCRj68KTVzJv5dIdj1odHZobo6ZZYylg81tLgy1Lr8hHbKiZWw0c/yvQ+0klr9lEayRNc/
- 8isJdxZ0j/GFzjO7jDorC8pO3UPaTKND09IlhN94/EwxZ1NB833i9vuClFEU3aVCkYXAjw85Agp
- vuOR3mJnHB5NHOivoWQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-28_02,2026-07-27_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 phishscore=0 clxscore=1011 suspectscore=0
- priorityscore=1501 adultscore=0 malwarescore=0 bulkscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607280080
+Content-Transfer-Encoding: 8bit
+
+Hi everyone,
+
+This is v4 of my MT8173 PowerVR GPU support series.
+
+This time around Mesa was ready for basic testing, using both vulkanmark
+and glmark2-es2-drm (with Zink). Details below.
+
+Changes since v3 (all in the clk driver patch):
+- Changed pm_runtime_put() to pm_runtime_put_sync()
+- Added missing of_node_put() in remove function
+
+Changes since v2 (all in the clk driver patch):
+- Made COMMON_CLK_MT8173_MFGTOP depend on PM
+  - Needed since the driver implements PM domains using the generic PM
+    domain library, which also depends on PM
+  - Fixes build breakage (kernel test robot)
+- Fixed "RST_DELAY_CNT" name (Brian)
+- Dropped unused mfg_desc (Brian)
+- Added check of clk_prepare_enable()'s return value in
+  clk_mt8173_mfgtop_power_on() (Brian)
+- Saved error value for return in IS_ERR(data->clk_26m) branch
+  (Dan Carpenter / kernel test robot w/ smatch)
+
+Changes since v1:
+- Adapted to changed DT bindings
+- Dropped driver change
+- Use same power domain for "a" and "b" GPU power domains
 
 
+This series enables the PowerVR GPU found in the MT8173 SoC, found in
+some Chromebooks.
 
-On 02/06/26 18:29, Jai Luthra wrote:
-> This series adds support for using RPi V2 camera module through the
-> 22-pin CSI connectors present on BeagleY-AI.
-> 
-> The first two patches add support for I2C-2 (used by CSI0) and setup the
-> DSI0/CSI1 mux (used by CSI1) in the board devicetree.
-> 
-> Next two patches add two DT overlays, for CSI0 and CSI1 respectively.
-> 
-> Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+This version is different from the initial powervr driver submission [1]
+in that it splits out the GPU glue layer support out of the powervr
+driver and into a separate clock and power domain driver. The glue code
+is otherwise the same, and also the same as found in the ChromeOS
+kernels, with some extra comments and macro names added where possible.
 
-Hi Jai,
-Thank you for the patches. For the entire series,
+Patch 1 adds a binding for the glue layer, called mfgtop. The glue layer
+contains clock and power controls for the GPU.
 
-Reviewed-by: Rishikesh Donadkar <r-donadkar@ti.com>
+Patch 2 adds a driver for the glue layer, implemented as a clock driver
+that also provides power domains.
 
-Rishikesh
+Patch 3 adds an entry for the MT8173 GPU and 6XT series to the PowerVR
+binding.
 
-> ---
-> Changes in v3:
-> - Add disabled nodes for I2C0 and I2C2 along with the pinctrl for I2C2
-> - Add Rishikesh's R-by along with a link to the board schematics
-> - Add Links to RPi v2 camera module schematics and BeagleY connector
->    schematics
-> - Link to v2: https://lore.kernel.org/r/20260515-beagley-cameras-v2-0-f6acb66c9995@ideasonboard.com
-> 
-> Changes in v2:
-> - Use PIN_OUTPUT for the camera reset GPIO pins (I forgot to change the
->    sysconfig generated line).
-> - Link to v1: https://lore.kernel.org/r/20260514-beagley-cameras-v1-0-5c3500b5a436@ideasonboard.com
-> 
-> ---
-> Jai Luthra (4):
->        arm64: dts: ti: k3-am67a-beagley-ai: Setup I2C for CSI/DSI connectors
->        arm64: dts: ti: k3-am67a-beagley-ai: Add DSI0/CSI1 mux
->        arm64: dts: ti: k3-am67a-beagley-ai: Add overlay for IMX219 on CSI0
->        arm64: dts: ti: k3-am67a-beagley-ai: Add overlay for IMX219 on CSI1
-> 
->   arch/arm64/boot/dts/ti/Makefile                    |   8 ++
->   .../dts/ti/k3-am67a-beagley-ai-csi0-imx219.dtso    | 118 +++++++++++++++++++++
->   .../dts/ti/k3-am67a-beagley-ai-csi1-imx219.dtso    | 118 +++++++++++++++++++++
->   arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts     |  45 ++++++++
->   4 files changed, 289 insertions(+)
-> ---
-> base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
-> change-id: 20260514-beagley-cameras-21ce6a98a7f1
-> 
-> Best regards,
+Patch 4 corrects the clock for the GPU (called MFG) power domain.
+
+Patch 5 adds device nodes for the GPU and glue layer to the MT8173 dtsi
+file.
+
+The kernel driver successfully probes the hardware and loads the
+"rogue_4.40.2.51_v1.fw" firmware provided by Imagination Technologies [2].
+The "exp_hw_support" module parameter needs to be set for the driver to
+probe successfully.
+
+This was tested with Mesa 26.1.5 from Debian Forky. With this version
+vkmark and glmark2-es2 (over Zink) both run fine. Mesa spits out a bunch
+of warnings since the GX6250 core is not officially supported.
+
+    # PVR_I_WANT_A_BROKEN_VULKAN_DRIVER=1 vkmark
+    WARNING: powervr is not a conformant Vulkan implementation, testing use only.
+    WARNING: powervr is not a conformant Vulkan implementation, testing use only.
+    MESA: warning: ../src/imagination/vulkan/pvr_arch_job_context.c:73: FINISHME: Missing reset support for brn51764
+    MESA: warning: ../src/imagination/vulkan/pvr_arch_job_context.c:76: FINISHME: Missing reset support for brn58839
+    MESA: warning: ../src/imagination/vulkan/pvr_arch_job_context.c:523: FINISHME: Missing support for brn62269
+    MESA: warning: ../src/imagination/vulkan/pvr_arch_border.c:244: FINISHME: Devices without tpu_border_colour_enhanced require entries for compressed formats to be stored in the table pre-compressed.
+    WARNING: powervr is not a conformant Vulkan implementation, testing use only.
+    =======================================================
+	vkmark 2025.01
+    =======================================================
+	Vendor ID:      0x1010
+	Device ID:      0x6250
+	Device Name:    PowerVR Rogue GX6250
+	Driver Version: 109056005
+	Device UUID:    d04cd6f3a25fd4900f89c151bccfdfcf
+    =======================================================
+    [vertex] device-local=true: FPS: 251 FrameTime: 3.984 ms
+    [vertex] device-local=false: FPS: 220 FrameTime: 4.545 ms
+    [texture] anisotropy=0:^C FPS: 223 FrameTime: 4.484 ms
+    =======================================================
+				       vkmark Score: 231
+    =======================================================
+
+    # PVR_I_WANT_A_BROKEN_VULKAN_DRIVER=1 glmark2-es2-drm
+    WARNING: powervr is not a conformant Vulkan implementation, testing use only.
+    MESA: warning: ../src/imagination/vulkan/pvr_arch_job_context.c:73: FINISHME: Missing reset support for brn51764
+    MESA: warning: ../src/imagination/vulkan/pvr_arch_job_context.c:76: FINISHME: Missing reset support for brn58839
+    MESA: warning: ../src/imagination/vulkan/pvr_arch_job_context.c:523: FINISHME: Missing support for brn62269
+    MESA: warning: ../src/imagination/vulkan/pvr_arch_border.c:244: FINISHME: Devices without tpu_border_colour_enhanced require entries for compressed formats to be stored in the table pre-compressed.
+    Warning: DRM_CAP_ASYNC_PAGE_FLIP not supported, falling back to 'mailbox' mode for SwapInterval(0).
+    =======================================================
+	glmark2 2023.01
+    =======================================================
+	OpenGL Information
+	GL_VENDOR:      Mesa
+	GL_RENDERER:    zink Vulkan 1.2(PowerVR Rogue GX6250 (IMAGINATION_OPEN_SOURCE_MESA))
+	GL_VERSION:     OpenGL ES 2.0 Mesa 26.1.5-1
+	Surface Config: buf=32 r=8 g=8 b=8 a=8 depth=24 stencil=0 samples=0
+	Surface Size:   1366x768 fullscreen
+    =======================================================
+    [build] use-vbo=false: FPS: 49 FrameTime: 20.473 ms
+    [build] use-vbo=true: FPS: 45 FrameTime: 22.660 ms
+    [texture] texture-filter=nearest: FPS: 45 FrameTime: 22.642 ms
+    [texture] texture-filter=linear:^C FPS: 50 FrameTime: 20.172 ms
+    =======================================================
+				      glmark2 Score: 46
+    =======================================================
+
+
+Please have a look.
+
+Thanks
+ChenYu
+
+[1] https://lore.kernel.org/dri-devel/20220815165156.118212-2-sarah.walker@imgtec.com/
+[2] https://gitlab.freedesktop.org/imagination/linux-firmware/-/tree/powervr
+
+Chen-Yu Tsai (5):
+  dt-bindings: clock: mediatek: Add mt8173 mfgtop
+  clk: mediatek: Add mt8173-mfgtop driver
+  dt-bindings: gpu: powervr-rogue: Add MediaTek MT8173 GPU
+  arm64: dts: mediatek: mt8173: Fix MFG_ASYNC power domain clock
+  arm64: dts: mediatek: mt8173: Add GPU device nodes
+
+ .../clock/mediatek,mt8173-mfgtop.yaml         |  70 +++++
+ .../bindings/gpu/img,powervr-rogue.yaml       |   1 +
+ arch/arm64/boot/dts/mediatek/mt8173.dtsi      |  33 ++-
+ drivers/clk/mediatek/Kconfig                  |  10 +
+ drivers/clk/mediatek/Makefile                 |   1 +
+ drivers/clk/mediatek/clk-mt8173-mfgtop.c      | 242 ++++++++++++++++++
+ include/dt-bindings/clock/mt8173-clk.h        |   7 +
+ 7 files changed, 363 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/clock/mediatek,mt8173-mfgtop.yaml
+ create mode 100644 drivers/clk/mediatek/clk-mt8173-mfgtop.c
+
+-- 
+2.55.0.229.g6434b31f56-goog
 
