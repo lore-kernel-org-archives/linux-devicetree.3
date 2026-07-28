@@ -1,143 +1,86 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF0833B3C12
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 18:09:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEEFA3D9699
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 18:10:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785262174; cv=none; b=WowGlVvLq9VEIuK5Ytbr4bLQXvCDlEK8jBBniKhbw0MGlSaBqIK8AeuOGuaBYIFFwW0KSuMjy2U4Ovbdxn2QloIbrx5XR0j/xing01WGH3GNTxJmRgS8q+V2GLQJTvFXWsYtuL5hMdq3cB81EdVlvzzUGU4vR/bRcNHGFiEcy7w=
+	t=1785262205; cv=none; b=EnLt9l8ddeaNtFs5gWk5BeBlXmxjWdsgII34oNSNfyBS8A5MmnfrBB0WkyEEexGw6GCk6Hf4fEfC1IEEBycexqPTU5EnGj5n1qIMlk+Kwc89Kq58zSJp3d/jh8drFjuLMgtbNY4Y6Q6aOk0dNPfikV7MIEfA2qz0xcIkbTLXhTI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785262174; c=relaxed/simple;
-	bh=1HRp27XR4W/9CY67E0FkPX+NHxaPubKdyMbn9M+i/x8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=sHC63xKuRXFX2USHbHiKcDCqhFtaNbaJIonthR5gZm76eoh4pIKD6fmSgy95p9Zf9b5xrb58Aj2s1RceDn6aJYxEfho7ssigufyBg7UoMuUGONJ7ZznGyodaisQ38fDSxVRJOmuDZTJOcetpeD5pWI9SkXm2QAmozWGV4py1GYY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Efb/FWbq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785262205; c=relaxed/simple;
+	bh=/232i3ciMB8NmjWPpB05eROfdV+aUZZlZJYpjtc4qys=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=l/ZL3YLH23hBsQ3qnhwFcaIjgR/Vidwe0yS4F9jZh0gOstiAlhcCe+S9J3nVNMC1s4ymFW0rAM0jVoU2A2ykQWFy8g1URjIYnXwtZYGcVwZiQTleGb+7lkurC0cq/jYqJspKnpmngWVy93rx6QLgZfjb4OjKm8Lwr+hgYP1Kna4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RBPBdytz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Efb/FWbq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E70B71F000E9;
-	Tue, 28 Jul 2026 18:09:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RBPBdytz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08FF61F000E9;
+	Tue, 28 Jul 2026 18:10:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785262173;
-	bh=HVdR4ZKA7Zta2IZhjN6ktehlmIKQgutcv6DUrYZeOfs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Efb/FWbqQZ0J36nqejgeuMTSatXOwaWlF3ucrIRgQ46TUWHVmJ5hW9a04TAMNKRfi
-	 kcKMWID6iuyM6dJF+Ubl/9a4FuHMnOus7YR6ISd2/CGEqsSeiZtZn/Yqdbnt04E8X1
-	 PZec+B3uQgyPirtWdHIArS6pJt+y/5AFEzqPmxqpbGlCCd9GdNOGbdLOgQu+QoljuT
-	 5NpmEM5kHgqfwMm+/N99GZ0MBvsTbfYff8SbB4yYlD4ogDL93rW+QRidtHydMYikwu
-	 0wSbKuKs0QYnhPLx8WXv1nep0mXohGxY84Tn8+c5qL0dk5je1S4PFGdu2vnuiXXbw/
-	 QbeD7+EOdmpOw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 02/18] drm/bridge: synopsys: dw-dp: Cancel pending
- HPD work on unbind
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260728-synopsys-dw-dp-improvements-v7-2-b7640fa8cf48@collabora.com>
-References: <20260728-synopsys-dw-dp-improvements-v7-0-b7640fa8cf48@collabora.com>
- <20260728-synopsys-dw-dp-improvements-v7-2-b7640fa8cf48@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 28 Jul 2026 18:09:32 +0000
-Message-Id: <20260728180932.E70B71F000E9@smtp.kernel.org>
+	s=k20260515; t=1785262203;
+	bh=7D4ga2nTYroe9KumgB/K/vLYF94YdrzCaz7ws4KjaX8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=RBPBdytzXFnrhilxhA3xuGiJtul7A7YfGACCxzg0FJTzkto9/bhn1AIydHtnpmZLt
+	 csGD/jnXEJuFp41xvN8kR4Lg6d7iUuI+VnU/tUsVgDweOlTwXW2MpLScNENyfl3Mjp
+	 teBiJaspzjKLbOCfvn/M+/fQqxKRtPwqL9pErapALPzVRgfTCZW54+FOAlzumF4WXT
+	 UlIYnp9wX3t+tFzPCpmjUZvREkrU8vsQ0cquCp3D8Xrly1xqPX5OEGmlWp2PQZOa8q
+	 FXDnEx11pBohAT9OLpZF6qdXtSeLMLAKsXrPl+Ocn2lCrmB6ulGohuH5KtvywS8ySp
+	 KDU9rkyYmLXaA==
+From: Conor Dooley <conor@kernel.org>
+To: devicetree@vger.kernel.org,
+	Ilya Sorochan <k0tran@altlinux.org>
+Cc: conor@kernel.org,
+	Conor Dooley <mail@conchuod.ie>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	linux-riscv@lists.infradead.org,
+	e@freeshell.de,
+	heinrich.schuchardt@canonical.com
+Subject: Re: [PATCH] riscv: dts: starfive: jh7110-common: fix jh7110 SoC boot from SD-card.
+Date: Tue, 28 Jul 2026 19:02:45 +0100
+Message-ID: <178526175795.1708098.11834005845749245101.b4-ty@conchuod.ie>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260306171939.84568-1-k0tran@altlinux.org>
+References: <20260306171939.84568-1-k0tran@altlinux.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=638; i=mail@conchuod.ie; h=from:subject:message-id; bh=wpfuwMxtLYazjXBoDLqpVWtb0tRDw4Q6cCQhVsKkTlo=; b=owGbwMvMwCVWscWwfUFT0iXG02pJDFkZ7471haoXZneF96k8OJRoUbjk8ILLs+TORUy/5lw/l znDn0+ko5SFQYyLQVZMkSXxdl+L1Po/Ljuce97CzGFlAhnCwMUpABMxzGT4pzt9rXTYs471Aspz 6lZ7PflxzuX3dO3o2Z+VS5XE/JZ9u8Twz6ruHcMC9/OOK3f/vmh7wCjg3/Q7Sb1z/XdfqLMLcfe t4QAA
+X-Developer-Key: i=mail@conchuod.ie; a=openpgp; fpr=F9ECA03CF54F12CD01F1655722E2C55B37CF380C
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+From: Conor Dooley <mail@conchuod.ie>
 
-Pre-existing issues:
-- [High] Missing reinit_completion() in dw_dp_aux_transfer causes immediate=
- return on subsequent transfers if a previous one timed out.
-- [High] The driver requests a hardware reset control but never deasserts i=
-t, potentially leaving the hardware in a reset state.
-- [Medium] The DP AUX I2C adapter is exposed to userspace before the hardwa=
-re is initialized, and unregistered after the hardware is powered down.
---
+On Fri, 06 Mar 2026 20:19:39 +0300, Ilya Sorochan wrote:
+> Add bootph-pre-ram to mmc1_pins clk-pins.
+> 
+> U-Boot pruned their overrides recently in favor of Linux which broke booting
+> from sd-card for me and Heinrich Schuchardt [1]. Pruning commit:
+> 27f617019dd070cb61f2 ("riscv: dts: starfive: prune redundant jh7110-common overrides")
+> 
+> [1]  https://lore.kernel.org/all/ffdfc550-559b-4c59-9873-3f040fc3bb0e@canonical.com/
+> 
+> [...]
 
---- Patch [2]: [PATCH v7 02/18] drm/bridge: synopsys: dw-dp: Cancel pending=
- HPD work on unbind ---
-commit 9df51b0b37728e172be280b5d55126b4cd203eb4
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+Right, I am going to try this again. I don't think there's actually a
+valid technical argument against it, since it just affects the stage at
+which configuration is applied rather than configuration itself.
+If the configuration is wrong, and more devices don't use this configuration
+than do, people need to move the node to where they think should be. That
+shall be done separately.
 
-drm/bridge: synopsys: dw-dp: Cancel pending HPD work on unbind
-   =20
-This commit fixes a race condition during device unbind by canceling any
-pending HPD work after disabling the interrupt, preventing the worker thread
-from accessing invalid resources.
+I don't want to hear about the politics about whether or not Starfive want
+to support it or reverse engineering of binaries etc. All that I care about
+is discussion of the hardware itself and which boards need this and which do
+not.
 
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
-idge/synopsys/dw-dp.c
-> index 67d9cd0bf5fd4..8393f9c9b0f00 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> @@ -1996,6 +1996,7 @@ EXPORT_SYMBOL_GPL(dw_dp_bind);
->  void dw_dp_unbind(struct dw_dp *dp)
->  {
->  	disable_irq(dp->irq);
-> +	cancel_work_sync(&dp->hpd_work);
->  	phy_exit(dp->phy);
->  	drm_dp_aux_unregister(&dp->aux);
+Applied to riscv-dt-fixes, thanks!
 
-[Severity: Medium]
-This is a pre-existing issue, but the AUX adapter is unregistered after the
-PHY is shut down via phy_exit().
+[1/1] riscv: dts: starfive: jh7110-common: fix jh7110 SoC boot from SD-card.
+      https://git.kernel.org/conor/c/42c57c049054
 
-Can this allow in-flight transactions to access unpowered hardware? A
-userspace process could initiate an I2C transaction during device unbind af=
-ter
-phy_exit() is called but before drm_dp_aux_unregister(), causing I2C
-transfers to timeout or fail.
-
-Similarly, is the AUX adapter registered before hardware initialization in
-dw_dp_bind()? It appears drm_dp_aux_register() is called before
-dw_dp_init_hw() and phy_init() complete, exposing uninitialized hardware to
-potential userspace access.
-
->  }
-
-
-While reviewing this file, I also noticed a couple of other pre-existing
-issues outside of this patch's scope:
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does dw_dp_aux_transfer() fa=
-il
-to reinitialize the completion before waiting?
-
-drivers/gpu/drm/bridge/synopsys/dw-dp.c:dw_dp_aux_transfer() {
-    ...
-    status =3D wait_for_completion_timeout(&dp->complete, timeout);
-    ...
-}
-
-If an AUX reply interrupt fires after wait_for_completion_timeout() has tim=
-ed
-out, the completion structure's done count is incremented.
-
-On the next transfer, will wait_for_completion_timeout() return immediately
-without waiting for the new hardware reply? Consecutive I2C/AUX transfers
-could fail prematurely, potentially breaking display detection.
-
-
-[Severity: High]
-This is also a pre-existing issue, but the driver requests a hardware reset
-control without ever deasserting it:
-
-drivers/gpu/drm/bridge/synopsys/dw-dp.c:dw_dp_probe() {
-    ...
-    dp->rstc =3D devm_reset_control_get(dev, NULL);
-    ...
-}
-
-Can this leave the DisplayPort hardware in a reset state? There are no
-corresponding calls to reset_control_deassert() anywhere in the driver.
-
-If the bootloader has asserted the reset line, the driver might fail to
-communicate with the hardware and potentially cause bus hangs.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-synopsys-d=
-w-dp-improvements-v7-0-b7640fa8cf48@collabora.com?part=3D2
+Thanks,
+Conor.
