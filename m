@@ -1,121 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 317BC3ACA77;
-	Tue, 28 Jul 2026 21:20:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 138EE471CF5
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 21:23:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785273623; cv=none; b=ZTHeAqsCN+MZixq+wQUikCSz7QZxHUF+L292vnN89FBwAJs/pGjfZznvXZVa+UDMh6tOEEGdwNQKp54wggVcVmny3MWO8Ghjqxa9d8e+QVgkW6SljfLoQjBO53Pta5thOznJz/N55EtAzw0xSVamzd2IvIjO4bjCu+xU2dOQF1c=
+	t=1785273827; cv=none; b=Et1sfjJ0bVQSlW0yy+spKLnhCHwu090JvwM/q/o8N2/pYDHhvGoCRNZzwBHGC4rQCqmyt70w2nhqnlELGVXmJQLrW/s98YqLXF5Mi6Y9wB1fb+zfG1egMnEyu05pHbIPMsdsqHP7XqttlAv6yK0aI/K+vGByZNpO2sJmDR/fwEg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785273623; c=relaxed/simple;
-	bh=cQ/axbG4u2xMhP7KYYBACZecVz24/hpgptT3EV6khcQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=aBKLRZYD6ECliK1xfRmg5UBFAgnxcF9ThNNcC6ZEl43xHS5M+1IVfbkn2oqTRgbq3ywgfgtCdbFoaNTPZp0V6O4h6GnsaOBKzxccfOdGnsTr4/fssGyRH4hBiXO9n4iV0Tr/fI3PR2tjZvikWT7AnQVjZwF+nF7KcWzULl0iUpU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eUb62dVM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785273827; c=relaxed/simple;
+	bh=b8oJJ3oJi5FvCudewvdx7HBuEjOvvqUR3q65BZ+qfVw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=KjSAu0rtcX3EbYe0Xv9sI4iqJYaQtpYszqCUK/DWFPJ8aLWdW1z7271ARlS++ixWFhJ19pN3jYM+QwwnY1qvxiGfa6vdquDvTC1p+LMZ3hX6rAOnT9VpWv/dvGZazK1fLku41OhXibdVUTkuMX9cugJHLICUmU25YlfQpSPl1TY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K6NyyXll; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eUb62dVM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 719441F000E9;
-	Tue, 28 Jul 2026 21:20:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K6NyyXll"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0CFE1F000E9;
+	Tue, 28 Jul 2026 21:23:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785273622;
-	bh=iPZA0jMAzfMFPA/GiEBtreKUM+ZSQ2eea/AtUjxGUqg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=eUb62dVMiJGpG80osjIpauY+bA4lCc/4KA1/mBOTmkpXLeTievq+3xgESSnglGDt2
-	 sbrFvesazkkG6kUC1NnAFN/mUwKd4tY3x9wVngofcDCknMhTgdq6eBIObrqYadmxUh
-	 BLE3WEuf1eno1sXpWlfIu6QSd0wtT8mRiPoyGQnL0EKOARQL2G2q2AQUpKqbuSaYXm
-	 7q0xP18KvPe3OUgCmtenNvAnTDm13+OHmFDxyvdFOddFlSBJM0y0yIiwxhp5lKqXYN
-	 HcGXzUQczcY67nAFI3SmfnFuHXstM8ByTVfQRbHWy1f+esTuwRBhpSN5J0B5ey4zyu
-	 Omvo1Ct9jhNfA==
-Date: Tue, 28 Jul 2026 22:20:15 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Conor Dooley <conor@kernel.org>
-Cc: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>, Jean-Baptiste
- Maneyrol <jean-baptiste.maneyrol@tdk.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Chris
- Morgan <macromorgan@hotmail.com>, Luca Weiss <luca.weiss@fairphone.com>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/4] iio: imu: inv_icm42600: warn on whoami mismatch
- instead of failing probe
-Message-ID: <20260728222015.6a62b287@jic23-huawei>
-In-Reply-To: <20260728-extradite-yanking-42d918637f61@spud>
-References: <20260724202708.128267-1-jorijnvdgraaf@catcrafts.net>
-	<20260724202708.128267-3-jorijnvdgraaf@catcrafts.net>
-	<20260728-extradite-yanking-42d918637f61@spud>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1785273825;
+	bh=cBNzvHvrhUzWguWPt1fv8eiFakAldAWqLeL+gPKOerg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=K6NyyXllXitkID2y7q7twwOAglsJim6TyupJ67mJHhBTjTlXwpdDTgk7eo3xpxSE5
+	 MvFdCjDTP/61L9LfEzPe8n50pGUw+st+QoBN09m3w0pCYHEk0PmVko/WVownJqpJgi
+	 imePpaMpQ9eUZF32OsXlW8VbwGTMeMyegG9lJ3hkg8KEO0b6sovg1meg3SOjDs1vwx
+	 AB2qyg5njihXq8FxemIHL221aMnJoW1GKBe4/R7J5oXT9jz5XBYs1Oz1RDekXf8hFD
+	 GcaK77q6rDcCFQWXndrTlzrj7xOzfnfVxNoOLSpsVg8BdFmGygPq0989d7AW7iBTB4
+	 dRNfjqK7txFBw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/3] riscv: dts: spacemit: Add a common board dtsi for
+ Milk-V Jupiter boards
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Aurelien Jarno" <aurelien@aurel32.net>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260728211020.1248676-3-aurelien@aurel32.net>
+References: <20260728211020.1248676-1-aurelien@aurel32.net>
+ <20260728211020.1248676-3-aurelien@aurel32.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 28 Jul 2026 21:23:45 +0000
+Message-Id: <20260728212345.A0CFE1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Tue, 28 Jul 2026 17:51:57 +0100
-Conor Dooley <conor@kernel.org> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The patch incorrectly removes the original authors' copyright heade=
+rs from k1-milkv-jupiter.dts and replaces them with a single copyright clai=
+m by the patch author.
+--
 
-> On Fri, Jul 24, 2026 at 10:27:06PM +0200, Jorijn van der Graaf wrote:
-> > A WHOAMI value differing from the one the compatible implies aborts
-> > probe with -ENODEV, which prevents a register-compatible part described
-> > with a fallback compatible from probing at all.
-> > 
-> > The devicetree compatible is authoritative for which part is fitted:
-> > demote the mismatch to a warning and continue, as st_sensors does since
-> > commit a3c2c5c937ed ("iio: st_sensors: relax WhoAmI check in
-> > st_sensors_verify_id()"). This changes the probe outcome on mismatch
-> > for all parts the driver supports.
-> > 
-> > Tested via a backport to a Fairphone 6 running a 7.1-based kernel: its
-> > ICM-42630 (WHOAMI 0x0C), described with an icm42631 fallback compatible
-> > and matched as icm42631, warns once and probes, and accelerometer,
-> > gyroscope and temperature reads work.
-> > 
-> > Suggested-by: Conor Dooley <conor@kernel.org>  
-> 
-> I don't want this to warn, I want it gone. Fallback use should not
-> produce a warning.
+--- Patch [2]: [PATCH 2/3] riscv: dts: spacemit: Add a common board dtsi fo=
+r Milk-V Jupiter boards ---
+commit 97e4c73a96036da2bf4f3762abb7b076f18d6748
+Author: Aurelien Jarno <aurelien@aurel32.net>
 
-We've had enough problems with 'supposed' like for like replacements
-in the past that were anything but that I've been allowing some type of print.
+riscv: dts: spacemit: Add a common board dtsi for Milk-V Jupiter boards
+   =20
+This commit adds a common board dtsi file for the Milk-V Jupiter board
+variants. It factors out common configurations into the new dtsi while
+excluding CPU operating points, which are left for the specific board files.
 
-Don't mind it being a dev_info() though if that works for you.
-Some have I think gone as far as dev_dbg() which would be fine from my 
-point of view as well.
+[ ... ]
+> diff --git a/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts b/arch/ris=
+cv/boot/dts/spacemit/k1-milkv-jupiter.dts
+> index 3c16d0c20050e..9c4aa4f8a533c 100644
+> --- a/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts
+> +++ b/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts
+> @@ -1,471 +1,11 @@
+>  // SPDX-License-Identifier: GPL-2.0 OR MIT
+>  /*
+> - * Copyright (C) 2024 Yangyu Chen <cyy@cyyself.name>
+> - * Copyright (C) 2025 Javier Martinez Canillas <javierm@redhat.com>
+> + * Copyright (C) 2026 Aurelien Jarno <aurelien@aurel32.net>
+>   */
 
-Jonathan
+[Severity: Low]
+This isn't a bug, but should the original authors' copyright headers be
+retained here?
 
-> 
-> > Link: https://lore.kernel.org/all/20260722-creature-volley-0f083b904c1d@spud/
-> > Assisted-by: Claude:claude-fable-5
-> > Signed-off-by: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-> > ---
-> > New in v2.
-> >  drivers/iio/imu/inv_icm42600/inv_icm42600_core.c | 8 +++-----
-> >  1 file changed, 3 insertions(+), 5 deletions(-)
-> > 
-> > diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c b/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c
-> > index dc97d8a274e3..f306e3ffca48 100644
-> > --- a/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c
-> > +++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c
-> > @@ -509,11 +509,9 @@ static int inv_icm42600_setup(struct inv_icm42600_state *st,
-> >  	ret = regmap_read(st->map, INV_ICM42600_REG_WHOAMI, &val);
-> >  	if (ret)
-> >  		return ret;
-> > -	if (val != hw->whoami) {
-> > -		dev_err(dev, "invalid whoami %#02x expected %#02x (%s)\n",
-> > -			val, hw->whoami, hw->name);
-> > -		return -ENODEV;
-> > -	}
-> > +	if (val != hw->whoami)
-> > +		dev_warn(dev, "unexpected whoami %#02x, expected %#02x (%s)\n",
-> > +			 val, hw->whoami, hw->name);
-> >  	st->name = hw->name;
-> >  
-> >  	/* reset to make sure previous state are not there */
-> > -- 
-> > 2.55.0
-> >   
+While the original copyright headers were correctly preserved in the newly
+created k1-milkv-jupiter-common.dtsi file where the bulk of the code was
+moved, standard practice is to retain the original attribution in the
+existing file as well, alongside any new copyright claims.
 
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728211020.1248=
+676-1-aurelien@aurel32.net?part=3D2
