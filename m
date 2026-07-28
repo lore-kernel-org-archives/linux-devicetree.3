@@ -1,160 +1,141 @@
-Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com [209.85.160.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA11F3F0A96
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 12:58:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A66C1435517
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 13:05:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785243514; cv=none; b=VlK2isho32HEJ1sI7hF9tNRQS878APDQ+LFqYxRy2Q/kb9kSVVdj5Y2xMc0YWS+L24Oe/XECbutPMH+fry4T3LYiodIVDf40wIduhmq0uKv0sGD5kjaiJP9yv6ZlXCqB5Cu82Tx27uOvtG3tm09LQYHUqaXxhI7nkVhnKmim6vY=
+	t=1785243951; cv=none; b=Bl/4MX8aLtSFzWh2M1yWua9MVhEoTLG+AehotCS2FSk+JNDKb9uU7LVlr4tPRFviDoS3vXvZlxYkymh703i2O34N0G1GkrK1wyR0U/inlOteYQrHini1w0Kr3cBlCQGavAZbl7ZXpQutAhCkifFsMeUrzQhESwNSz+FwGhX1RTQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785243514; c=relaxed/simple;
-	bh=OyeMR3cJ8WscoN9OGaEmLNZDYNaijSeGjPRw6L+pOcQ=;
-	h=From:To:Cc:In-Reply-To:Subject:Date:Message-ID:MIME-Version:
-	 Content-Type:References; b=Xdgd7tc3ZwRzYHPj8hekXlehkjvR7P+IrBxRBfHQMA0T6VTFdiRAtw6+5BJfNAdZg2r25WnqzlXCEE7toSMH7aGg4mXfE5JiBXTi+nbgf7RvqsyviVFQKkgLFjVS7fml9cEcgIoRkdcuH3lzuSxIv0MnIinH/n7mWxYsTZ8knOU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=jMwErqVP; arc=none smtp.client-ip=203.254.224.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1785243951; c=relaxed/simple;
+	bh=r5WSFBmkwljdLSsc/dzbyuBziEidVcP84APtfukq1sY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ld8q8CZPLSeN9OFe4OsXn4W4LD7LvHKo4bTdGXSeezOmKYaSknFyCojewVeTufeV71Q7fw1PO7xV+hsMcjzmFhdzaQnNPQkaIGZLIeuAouU8mZM5gsqsEccRPS/3DZkozZLwoqaBLJNURQtwPhYbyt+apXgz3/z8MJqkOSiGwiA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L8PhTYo5; arc=none smtp.client-ip=209.85.160.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="jMwErqVP"
-Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
-	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20260728125829epoutp02237a9c98419e7facc08c524e9b3b3d05~GdYNSJFlW1057910579epoutp02k
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 12:58:29 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20260728125829epoutp02237a9c98419e7facc08c524e9b3b3d05~GdYNSJFlW1057910579epoutp02k
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1785243509;
-	bh=lP8NFI+OyPbuHpmHiNFGcoCPEUIZN9SjQ1oJW+fJU5w=;
-	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
-	b=jMwErqVPaYU4tg2Pdd4hiH3qtqC/7+zSM7dugheIyDvJKTz9hpPzdqga2rGaHvoE9
-	 p4a13nPZy0ZabfrCAxTvmW78fWxVfrPzpzX+4PZH4B8ob6O0NVYPl0WUDFSHDktWAw
-	 jr/1ei3zABv0wfGVrpKxrqivB0adp89K203X9544=
-Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
-	epcas5p4.samsung.com (KnoxPortal) with ESMTPS id
-	20260728125828epcas5p4edd38fced31f7d66d97b9b54ba5e1b47~GdYM0tjCt2003420034epcas5p4b;
-	Tue, 28 Jul 2026 12:58:28 +0000 (GMT)
-Received: from epcas5p1.samsung.com (unknown [182.195.38.88]) by
-	epsnrtp01.localdomain (Postfix) with ESMTP id 4h8b9v4mB8z6B9m5; Tue, 28 Jul
-	2026 12:58:27 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
-	20260728125827epcas5p48c135e631ddefc9fe2b2252ccebc0ab1~GdYLbRdWe2003420034epcas5p4O;
-	Tue, 28 Jul 2026 12:58:27 +0000 (GMT)
-Received: from INBRO002756 (unknown [107.122.3.168]) by epsmtip1.samsung.com
-	(KnoxPortal) with ESMTPA id
-	20260728125824epsmtip1a9f6f9957fcd7f540921087e09b53790~GdYJAkdYa0610306103epsmtip1P;
-	Tue, 28 Jul 2026 12:58:24 +0000 (GMT)
-From: "Alim Akhtar" <alim.akhtar@samsung.com>
-To: "'Krzysztof Kozlowski'" <krzk@kernel.org>, "'raghav.s'"
-	<raghav.s@samsung.com>, <s.nawrocki@samsung.com>, <cw00.choi@samsung.com>,
-	<peter.griffin@linaro.org>, <mturquette@baylibre.com>, <sboyd@kernel.org>,
-	<bmasney@redhat.com>, <robh@kernel.org>, <conor+dt@kernel.org>
-Cc: <linux-samsung-soc@vger.kernel.org>, <linux-clk@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <hajun.sung@samsung.com>,
-	<is.gandhi@samsung.com>, <ts.amit@samsung.com>, <pokala.reddy@samsung.com>
-In-Reply-To: <0c948180-3112-4e92-b752-0015c55fb26c@kernel.org>
-Subject: RE: [PATCH 04/13] arm64: dts: exynos8855: add cmu_top & cmu_peric
- clock DT nodes
-Date: Tue, 28 Jul 2026 18:28:23 +0530
-Message-ID: <079301dd1e90$c7d14ed0$5773ec70$@samsung.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L8PhTYo5"
+Received: by mail-oa1-f51.google.com with SMTP id 586e51a60fabf-456395f4e7bso2360343fac.0
+        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 06:05:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785243948; x=1785848748; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YbV6e6mV/G6JXllO00Yh3iiMBiWEbF5BD3K0uJ59MbQ=;
+        b=L8PhTYo5UeFpJ9ul5GE/W8USpc3+oHRIx/CZnWlLoaYDGFnwuC4fgIg04QtSFN+W6q
+         4Bv5rffa4u59wpmLtLz8mERN6gjZBCbxX81CHLHbEzq7JQjnOgzEMMsAphEAaRi1xDLH
+         dQQCgD0loDXyLuo4fNbQ2jI6R0KJRe6FRUlsZmDVctUT+wpWXiH+n6/L10l2YHIvqu3b
+         NcqSf2eeAIjNG3ss6EWGBTUqcQxIZGud25P+r05Zgd7LBlgXCOmD2lqbL4pxhVFCi9bj
+         goOXlCNKGxGyJLwkOzzbudQR9i+ezNwkV5NNSVz/1KTrbkgfGX/KIn00Xif63mOka+c1
+         vMOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785243948; x=1785848748;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=YbV6e6mV/G6JXllO00Yh3iiMBiWEbF5BD3K0uJ59MbQ=;
+        b=c0rourayrSliXQTQuHQBeRn0xo+1f7ZJ3beCqMenRAtJ1Vlk8wFRv9s4uEll0v0TXE
+         T00OjnKqzLduiIEFjh+d0cMdPuoG2lpqxNiojbtlqr/RojK1dhKvTBaWMUYoKgF+Bysz
+         2tDBVnVDFXFDoDj23MMzc/XFPc2eh9ok7ANlfUnYFW84jAvROKgBapiHLaCHi+Q6726p
+         24Jnr/HUrXURU1lxy/2k4SASm8EGQgy8xokXKX9OPn0DC7rR0ksjPABexrsHQOuollCR
+         hSvMQy4ZpxLZZoPC4cevNRJAD0rRzffuj77mxAq8jCTJiuygTbY/kxm7EHekTLqyEAoj
+         AXTw==
+X-Forwarded-Encrypted: i=1; AHgh+RqnIJwh58mq7/shsd8A25Vk4Aw+lPq1x/+17iC5BmaCDO3K+xKjyqKGc7JXLhOD3KRfLBC32NrnMzfY@vger.kernel.org
+X-Gm-Message-State: AOJu0YwyIEhixYcZk0BY06I1S0tS9zL8s/6H+2GDCpq/CERC5Q7m3rt6
+	ym91cel9apHlASHIknE5kzgESm5zMrYpw1yN5NTV+1ssPkF78j8pZbQE
+X-Gm-Gg: AR+sD1054UOEJFy39Zhylvc294jcRgMxbXS0Aw54J9ZR3iAfp+j7UWt/6v6wHy0FktO
+	x5LOnMV4zzVtOsj/BdPaf5kQyUPpl1lhAuMX5Tc+gl8zMd0v+d4vYf4DmKiLJNnJoHgMoldcx8W
+	bIlfzfH32ZDbYl+a9bAPNJGPFwshNkSvQa5C2D7ielNoLJXJBdzZ8LqdOOsGQbnjrYHuYsUaOmv
+	eW8gkeNxaCJQZjELDwN4lckuQI/zmofKJIf1OA4u1MS9k+mSjWxyRu8mvEpEEniXDXRdjPze0Ls
+	laOObndS+43iJw2D+ZMC//Kil/NhSjPVtlUFfSQ6RXwMQ6xzzFtxGMocD7srOZVVK3297E27JfZ
+	lIYTGTtYhoBXKu1vmjHRuHRKwM/Bc6cUeyRO/K8l0Q+lnCsmi2H/N6D5pnwz45ZGdhImDCn1Hv3
+	6jWKEsg8OAN/M=
+X-Received: by 2002:a05:6808:14d4:b0:49b:c387:36c5 with SMTP id 5614622812f47-4ad5b9c0d7emr1443628b6e.17.1785243948253;
+        Tue, 28 Jul 2026 06:05:48 -0700 (PDT)
+Received: from localhost ([2804:30c:2739:da00:1cf1:e457:fa41:ad98])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4ab5d917dcasm8030680b6e.16.2026.07.28.06.05.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 28 Jul 2026 06:05:47 -0700 (PDT)
+Date: Tue, 28 Jul 2026 10:06:53 -0300
+From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+To: linux-iio@vger.kernel.org
+Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, conor+dt@kernel.org,
+	robh@kernel.org, devicetree@vger.kernel.org,
+	marcelo.schmitt1@gmail.com
+Subject: Re: [PATCH v9 2/6] iio: adc: ltc2378: Add support for LTC2378-20 and
+ similar ADCs
+Message-ID: <amipbdc0tup9x3e2@debian-BULLSEYE-live-builder-AMD64>
+References: <cover.1785186980.git.marcelo.schmitt@analog.com>
+ <6cf0b5541cce4816877ebe754ef7fc2f0e30039c.1785186980.git.marcelo.schmitt@analog.com>
+ <20260727214213.D377F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQIRARWKMB8/axP+0I5R2y9G0OYjygMlHcTpAvLC774CITPxwwH7jt1WAdEvQ0+1uu02gA==
-Content-Language: en-us
-X-CMS-MailID: 20260728125827epcas5p48c135e631ddefc9fe2b2252ccebc0ab1
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-543,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20260728115256epcas5p38cbcfe68218d08301d237705388e6e62
-References: <20260728121111.2077860-1-raghav.s@samsung.com>
-	<CGME20260728115256epcas5p38cbcfe68218d08301d237705388e6e62@epcas5p3.samsung.com>
-	<20260728121111.2077860-5-raghav.s@samsung.com>
-	<8582d4f9-1a78-4f47-bab9-c52393dffbd1@kernel.org>
-	<079201dd1e8b$eca22680$c5e67380$@samsung.com>
-	<0c948180-3112-4e92-b752-0015c55fb26c@kernel.org>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260727214213.D377F1F000E9@smtp.kernel.org>
 
-Hi Krzysztof
+On 07/27, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] Holding CNV high during SPI transfer breaks 3-wire SPI wiring mode.
+> --
+> 
+> --- Patch [2]: [PATCH v9 2/6] iio: adc: ltc2378: Add support for LTC2378-20 and similar ADCs ---
+> commit 4d4231cee28f9742280dd61ed84f85cf3b4e0386
+> Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
+> 
+> iio: adc: ltc2378: Add support for LTC2378-20 and similar ADCs
+> 
+> This commit adds support for the Analog Devices LTC2378-20 and similar
+> analog-to-digital converters.
+> 
+> > diff --git a/drivers/iio/adc/ltc2378.c b/drivers/iio/adc/ltc2378.c
+> > new file mode 100644
+> > --- /dev/null
+> > +++ b/drivers/iio/adc/ltc2378.c
+> [ ... ]
+> > +static int ltc2378_convert_and_acquire(struct ltc2378_state *st)
+> > +{
+> > +	int ret;
+> > +
+> > +	/* Cause a rising edge of CNV to initiate a new ADC conversion */
+> > +	gpiod_set_value_cansleep(st->cnv_gpio, 1);
+> > +	fsleep(LTC2378_MAX_DATA_WAIT_US);
+> > +	ret = spi_sync_transfer(st->spi, &st->xfer, 1);
+> 
+> [Severity: High]
+> Does holding CNV high during the SPI transfer break 3-wire SPI wiring mode?
+> In 3-wire mode (where SDI is tied to GND), the SDO pin of the ADC remains in
+> a high-impedance state as long as the CNV pin is held high.
+No.
 
-> -----Original Message-----
-> From: Krzysztof Kozlowski <krzk=40kernel.org>
-> Sent: Tuesday, July 28, 2026 5:55 PM
-> To: Alim Akhtar <alim.akhtar=40samsung.com>; 'raghav.s'
-> <raghav.s=40samsung.com>; s.nawrocki=40samsung.com;
-> cw00.choi=40samsung.com; peter.griffin=40linaro.org;
-> mturquette=40baylibre.com; sboyd=40kernel.org; bmasney=40redhat.com;
-> robh=40kernel.org; conor+dt=40kernel.org
-> Cc: linux-samsung-soc=40vger.kernel.org; linux-clk=40vger.kernel.org;
-> devicetree=40vger.kernel.org; linux-arm-kernel=40lists.infradead.org; lin=
-ux-
-> kernel=40vger.kernel.org; hajun.sung=40samsung.com;
-> is.gandhi=40samsung.com; ts.amit=40samsung.com;
-> pokala.reddy=40samsung.com
-> Subject: Re: =5BPATCH 04/13=5D arm64: dts: exynos8855: add cmu_top &
-> cmu_peric clock DT nodes
->=20
-> On 28/07/2026 14:23, Alim Akhtar wrote:
-> > Hi Krzysztof,
-> >
-> >> -----Original Message-----
-> >> From: Krzysztof Kozlowski <krzk=40kernel.org>
-> >> Sent: Tuesday, July 28, 2026 5:30 PM
-> >> To: raghav.s <raghav.s=40samsung.com>; s.nawrocki=40samsung.com;
-> >> cw00.choi=40samsung.com; peter.griffin=40linaro.org;
-> >> alim.akhtar=40samsung.com; mturquette=40baylibre.com;
-> sboyd=40kernel.org;
-> >> bmasney=40redhat.com; robh=40kernel.org; conor+dt=40kernel.org
-> >> Cc: linux-samsung-soc=40vger.kernel.org; linux-clk=40vger.kernel.org;
-> >> devicetree=40vger.kernel.org; linux-arm-kernel=40lists.infradead.org;
-> >> linux- kernel=40vger.kernel.org; hajun.sung=40samsung.com;
-> >> is.gandhi=40samsung.com; ts.amit=40samsung.com;
-> pokala.reddy=40samsung.com
-> >> Subject: Re: =5BPATCH 04/13=5D arm64: dts: exynos8855: add cmu_top &
-> >> cmu_peric clock DT nodes
-> >>
-> >> On 28/07/2026 14:11, raghav.s wrote:
-> >>> Add required dt node for cmu_top & cmu_peric block
-> >>>
-> >>> Signed-off-by: raghav.s <raghav.s=40samsung.com>
-> >>> ---
-> >>>  arch/arm64/boot/dts/exynos/exynos8855.dtsi =7C 24
-> >>> ++++++++++++++++++++++
-> >>>  1 file changed, 24 insertions(+)
-> >>
-> >> Please organize your patches in reasonable order. DTS is never in the
-> >> middle, see submitting patches (both documents) and maintainer-soc
-> profile.
-> >>
-> > The thought was to add clks block wise and hence we see DTS coming in
-> between but for the other blocks.
-> > e.g. patch-2 and 3 adds binding and driver for TOP and PERIC and this p=
-atch-
-> 4 adds DTS.
-> > And patch-5 and 6 adds binding and driver for PERIS and patch-7 adds DT=
-S
-> and so on.
-> >
-> > Cover-letter should have explained this.
-> >
-> > Are you suggesting to re-order all the binding first followed by all bl=
-ocks
-> driver and then add a single DTS for all clock controller?
-> >
-> > Does current approach helps in review?
->=20
-> If you ask this, you did not read the docs.
->=20
-I think I just explain the reason why DTS came in-between for each block.
-Probably this series should have been sent in multiple chunks, if not, then=
- as you pointed and docs says DTS to be placed at the end of driver changes=
-. Agreed.=20
-=20
-> Best regards,
-> Krzysztof
+> 
+> Since the CNV pin remains high throughout the SPI transfer, could the SPI
+> controller clock in garbage data from a floating bus?
+No. That would only happen if the controller runs more SCLKs than the amount of
+precision/resolution bits (non-offload use case) but in those cases we right
+shift by _storage_bits - _real_bits, discarding any potential unwanted noise.
 
+> 
+> Would lowering CNV after the fsleep() wait and before calling
+> spi_sync_transfer() correctly enable SDO for 3-wire mode while remaining
+> compatible with 4-wire (CS) mode?
+These devices don't have a CS pin. SDI is tied to GND in the currently supported
+wiring configuration (single device normal mode). There is no SPI 4-wire mode.
+
+> 
+> > +	gpiod_set_value_cansleep(st->cnv_gpio, 0);
+> > +
+> > +	return ret;
+> > +}
+> [ ... ]
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/cover.1785186980.git.marcelo.schmitt@analog.com?part=2
