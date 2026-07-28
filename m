@@ -1,55 +1,69 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA45142A7BC;
-	Tue, 28 Jul 2026 14:42:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35A0645348A;
+	Tue, 28 Jul 2026 14:43:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785249744; cv=none; b=RFxjH0TFCxuhp/ahmozhC0BxrIktYIinAsTii7GBKnl4xq0Q5WEdFze+xsMmHGj1kuQIqTGRlfe5v62mhjlVjXYRnD11Yxsg/5+V+7BNS1LC2hOQtIoAJ+DqRhpAvr3+ZbNXceWuYmMOrIhvWbRqxksN8TqskpnoSxSdDEXf+iM=
+	t=1785249841; cv=none; b=HsPY3aMZAdIxMcEskCIfTVWm27EXaMNmc/NABoMviCeI1cqabVBXk5YvoncPAOcxyvaekrM4gDtLEiAEFHtUfd9v7IxsCu4e5h7z6xgfyX2gpaKj91QJKWDXtK6QNYdhmj5wHvbJJGNkKUnYQIfES9OyGg6WaKd7UpXSKYYbnIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785249744; c=relaxed/simple;
-	bh=m4bV5Y1aJpAkAkbvTmoV7jr58zyc6dz0hWZdXobo9Wo=;
+	s=arc-20240116; t=1785249841; c=relaxed/simple;
+	bh=YWQNWevA4HX4T4faPfwmY/KTdxQZTQLcbyHno4CQs2o=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oex7A6mwCkxG1qKqtP9+ak5H4uKySI+zCRjgGiQGMgJEYiVn5ZT+DCi0LJcNj23xG4Hyu6oAs5w5BomtB0UYVTsLERc7GVp1ezvrP2mnO2sEbUTRcNBSKsHyPjUM6GYOlZhrjwnBp9RiXycmM4zX6u1s8m+o8ZLDHCQzc2ovopI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GMtlsPzQ; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=J01Psbo7kf3NVincbNeVFmWv0DSpsc0WCidb+GLYM+CX9yLgsIH5bF9YgKeNTYmqN3izTxu+q0UfXCiV42uCvenDnfL37khFABnl9X3d36bhU5ByPgkdKh0HDxiR9uAOrApxpFoFJQUe15qrSCx6fls0BcJooIP8hicecxpdWDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hINOR36T; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GMtlsPzQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E09B51F000E9;
-	Tue, 28 Jul 2026 14:42:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785249743;
-	bh=DFq1P2GXspIY/uUf473I92xb3+BXZvYdQ6tdZRmrmW0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GMtlsPzQy5J8mAtWTLBMWkpqF3++U7zJadHpafD5LQpT2QqDt6MZwZofaXMJ1ar3o
-	 StUGgkG8CC9tknhFNhF9Po6nTcJgOI+5i+NXpXaXe4NeRsO92PECw2SeSZU14BJzaP
-	 8HUYS0pxhvbyykNJvFcVbaw63O1leZ4U7cR56NbU/qsiK23Wk04yrAzdvj0nubusU+
-	 IpHzOd3jlYjG01r7oY46ZwsiJ5zXJW0Y8KNXbvMJ4CBupix0s18e1Ure5PJmkKh+qM
-	 JjBY2zqguDaVvzFpKYR5wFpCBgiFOgNbOSyWp9rC+MElVNIGmVmYJbc7Zyh3IeaPmN
-	 nUn4G34AAI8Fg==
-Date: Tue, 28 Jul 2026 09:42:20 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Chen-Yu Tsai <wenst@chromium.org>
-Cc: linux-kernel@vger.kernel.org, Brian Masney <bmasney@redhat.com>,
-	Stephen Boyd <sboyd@kernel.org>, David Airlie <airlied@gmail.com>,
-	Luigi Santivetti <luigi.santivetti@imgtec.com>,
-	linux-mediatek@lists.infradead.org, dri-devel@lists.freedesktop.org,
-	imagination@lists.freedesktop.org,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	Alessio Belle <alessio.belle@imgtec.com>,
-	YoungJoon Lee <getfeus@gmail.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	devicetree@vger.kernel.org, Icenowy Zheng <zhengxingda@iscas.ac.cn>,
-	Simona Vetter <simona@ffwll.ch>
-Subject: Re: [PATCH v4 3/5] dt-bindings: gpu: powervr-rogue: Add MediaTek
- MT8173 GPU
-Message-ID: <178524973916.2137541.17965482257032885131.robh@kernel.org>
-References: <20260728091804.382753-1-wenst@chromium.org>
- <20260728091804.382753-4-wenst@chromium.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hINOR36T"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1785249839; x=1816785839;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=YWQNWevA4HX4T4faPfwmY/KTdxQZTQLcbyHno4CQs2o=;
+  b=hINOR36TIiadQ7GkEPNXY7pi6QfyB5ey0xYgMoCni4+en4hhLS2+tJf/
+   n/pu5eIlzFC2qbgxfUlewKzvpLBRuSxabxEQ4mW5zyEAKy0jsUQx+76KW
+   z6duPphFTJjKFQIeVruhsaBwAa3BLpUjPaPrrYPgzL52NO2DQjw6FpAJj
+   6m675jTjz1DdVYSf9R7bdaN2hYznlPZ/WI+HQfVbV9yrf1/y5dvUae32J
+   LhpaAAXqXNQMB23ucIxHSDv2TzJ0oypy/IzszXrtvf33oDrc6iMRDjPYl
+   GhoMpwd1A5SnXujGXIEXqU9XMZExCvnYj3M2udhXM+9pyPXuH14NfMNJ2
+   g==;
+X-CSE-ConnectionGUID: 1gXOZlrpQAa9WSbkw7mP8Q==
+X-CSE-MsgGUID: C8uqWJm6STGrJ7mm2nTpxw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="85954316"
+X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; 
+   d="scan'208";a="85954316"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jul 2026 07:43:58 -0700
+X-CSE-ConnectionGUID: +DuOp/ZmSgCZ2nNjj6og9Q==
+X-CSE-MsgGUID: C21xIU8dQWeIG0HuTFLrdA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; 
+   d="scan'208";a="289676016"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.69])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jul 2026 07:43:55 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 807A5121BF9;
+	Tue, 28 Jul 2026 17:43:54 +0300 (EEST)
+Date: Tue, 28 Jul 2026 17:43:54 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Philippe Baetens <philippebaetens@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v10 1/2] dt-bindings: media: i2c: Add mira220 image sensor
+Message-ID: <amjAKhNIt0_UIZqt@kekkonen.localdomain>
+References: <20260727-mira220-v10-0-8825794e6095@ideasonboard.com>
+ <20260727-mira220-v10-1-8825794e6095@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -58,25 +72,80 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260728091804.382753-4-wenst@chromium.org>
+In-Reply-To: <20260727-mira220-v10-1-8825794e6095@ideasonboard.com>
 
+Hi Jacopo,
 
-On Tue, 28 Jul 2026 17:18:01 +0800, Chen-Yu Tsai wrote:
-> The MediaTek MT8173 comes with a PowerVR Rogue GX6250, which is one
-> of the Series6XT GPUs, another sub-family of the Rogue family.
+On Mon, Jul 27, 2026 at 10:56:30AM +0200, Jacopo Mondi wrote:
+> From: Philippe Baetens <philippebaetens@gmail.com>
 > 
-> This was part of the very first few versions of the PowerVR submission,
-> but was later dropped.
+> Add bindings for the AMSOSRAM Mira220 image sensor.
 > 
-> [1] https://lore.kernel.org/dri-devel/6eeccb26e09aad67fb30ffcd523c793a43c79c2a.camel@imgtec.com/
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Signed-off-by: Philippe Baetens <philippebaetens@gmail.com>
+> Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 > 
-> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
-> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
 > ---
->  Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml | 1 +
->  1 file changed, 1 insertion(+)
+> v8->v9:
+> - Make link-frequencies required
 > 
+> v7->v8:
+> - Add Conor's tag
+> 
+> v5->v6:
+> - sashiko: use 'unevaluatedProperties: false' at the top level to allow
+>   properties from video-interface-devices.yaml
+> 
+> v4->v5:
+> - reflow description to 80 cols and drop |-
+> - remove 'reg' description
+> - remove 'anyOf' from data-lanes
+> - remove 'link-frequencies' from required properties
+> - remove 'clock-continuous: true' as we already allow all properties
+>   from 'video-interfaces.yaml'
+> - remove tabs from the example
+> ---
+>  .../devicetree/bindings/media/i2c/ams,mira220.yaml | 102 +++++++++++++++++++++
+>  MAINTAINERS                                        |   7 ++
+>  2 files changed, 109 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/i2c/ams,mira220.yaml b/Documentation/devicetree/bindings/media/i2c/ams,mira220.yaml
+> new file mode 100644
+> index 000000000000..fa6fec0072ef
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/i2c/ams,mira220.yaml
+> @@ -0,0 +1,102 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/i2c/ams,mira220.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: AMS 2.2 MP NIR enhanced global shutter image sensor
+> +
+> +maintainers:
+> +  - Philippe Baetens <philippebaetens@gmail.com>
+> +
+> +description:
+> +  2.2 MP NIR enhanced global shutter image sensor designed for 2D and 3D
+> +  consumer and industrial machine vision applications. Due to its small size,
+> +  configurability and high sensitivity both in visual as well as NIR, the
+> +  Mira220 is well suited for 2D and 3D applications, which include Active Stereo
+> +  Vision, Structured Light Vision for Robotics and AR/VR.
+> +
+> +allOf:
+> +  - $ref: /schemas/media/video-interface-devices.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: ams,mira220
 
-Applied, thanks!
+I haven't read the discussion on all versions of the set, but this way
+you'll have to power on the device to fully recognise it, further meaning
+the possible hardwired privacy LED will be lit at that time. Maybe it's not
+an issue. You'd likely have it with a CCS sensor, too...
 
+-- 
+Regards,
+
+Sakari Ailus
