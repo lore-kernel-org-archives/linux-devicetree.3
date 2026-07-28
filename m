@@ -1,137 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9681A3F0ABE
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 09:42:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3F822F8EBC
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 09:42:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785231721; cv=none; b=V4Fier9xZca5hwjkPSZIpz8E3Y5DZVRaEkDNwCXfaamElaEQEBHduLYgwvf+Klmgu/r/aaHHRjS/Ob/tEQP3GqQ13d+M1DozqsKzfhtE5uBPuMNHLxE/bq3ivYdxWm4133J2XfO8Q8DZBHUigj1UgPZNjhsXuGoHcMa+x+Njdyk=
+	t=1785231734; cv=none; b=cNlRmlg/B3iXiwsnBeEW+NGUtv3x8hCrJ6ynp7umB/vQ3DH0LGVTbDn5dA6IMuNOdk+qIJ39KpY9W4v9A+tkFycSxTSP54pFAE4YejIuFY8Per/Q8qvHrbv7WcfZ/58Rswypo6qP00fwyg5Z9hAYlBt3NI6hLjwJKDXtmZOex0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785231721; c=relaxed/simple;
-	bh=+6QlufWOKVHuphqolP0BEuZGH7XLPkLPXXZ4N4TUVoU=;
+	s=arc-20240116; t=1785231734; c=relaxed/simple;
+	bh=+G6RlWq3ZQBEqUx1s1iUxNn3bdgO1aMdDx0WN/mtEmA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Li5lPuwE55L5xMjFZZetJAHbzrapoTRNb8+o/aSyu3tSuwG8Lu7IgsH+jB6AAdiiOfo1uiXCOzhJUlqF3RNjpLX+r2LOrPAfGD8Aq7G8xzbqkxb6lkzq0YEUnKVXGIQjv8U1OJO4tgAXKHeZmM1OGdzqEbiqeQN1cEwOVz5Q4kY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DDLTpy7t; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=sjbMCUCZ3p3XQ8MwyC3xCMrXnPCjNfAK2FTXPuqT2B52QQ7KOJiHbMX/GPCQQH4DMZY9RU1r1A/1J3f0P1eD6jAmz8gY34jjMiptfveYm026xbvHE4mvcBaC2VZdlBwOdRN58Nr9Db93UcZdPcPurhNEirNnQ5wOXip/QG9ZNOg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RaF4w/Tr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DDLTpy7t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A25801F000E9;
-	Tue, 28 Jul 2026 09:41:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RaF4w/Tr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F6511F000E9;
+	Tue, 28 Jul 2026 09:42:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785231720;
-	bh=YtYWYlPP8G8MA8pdikfmkwfgsuyNy5YpMRRdmxQ8fyA=;
+	s=k20260515; t=1785231732;
+	bh=7Hxsh9sHfq64qWKITTQcYyw6k2PaFygn62uJh0kl2gM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DDLTpy7t51RQg9X3BPeydux0+62ZvSPTOOkdTVQyAp19fpT9ilnqTBtsBfN6QyOaK
-	 vcRMzGug+pKQPEk7rn/p+AUSQoIhiL+c8DRdpeoluQjCgjM3We8DsuqYVCm1bnXkpF
-	 8efza9gaENKr5VbK+LxcU5BeJ3d5WHMXJZbwcu3+8x8RaClgqy6/EGUi45qCdMNKLL
-	 H+MSiEBsFvFLd5l7HN5E+MV382Udsr6WnH5RIrhTHTPk2vsVeNBCpLQJV4tpOHab1t
-	 mbagy9dBwWIvdm69e7V9unrkratKOchFTebpitPYl8c9CbWb8516m2jAulEaVk6sFd
-	 IbgbatlLj3KfA==
+	b=RaF4w/TrYxZBGOBQUVokUxVMKGTNOhqxnyWyqJ7EOnmETnzcM93M3bkFTj1nx8x0p
+	 sNv/ufK5IxaGET/GNEeTR9qQ5eus+mNDBI23TCaV+3qODz9tjg+v7o2BEfRAG6BWIu
+	 rQuGPJBxbHvvH08RlmhnStaYZaYTZIrc1Sl8PopKMmUmurxUXhjd6KrfpnTuz+c/wR
+	 aZjnJEcQx0HfWj/j4mWY6WmvY7pdR0H6F300AnvstqpxmSdNbcJ9ahC1I7/Dg0EwBy
+	 jnmCGHluuEf+Ceg9sT35mm7NFZlSm/+RdkfK+T4rHybD3tlxSmSFk6oK84L2by2K3s
+	 x5Na5P+a3sMjw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/7] spmi: apple: check transaction status
+Subject: Re: [PATCH v13 5/5] dt-bindings: media: qcom,x1e80100-camss: Make
+ vdd-csiphy supplies optional
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sasha Finkelstein" <k@chaosmail.tech>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260728-t603x-spmi-v2-3-f43e5f10e583@chaosmail.tech>
-References: <20260728-t603x-spmi-v2-0-f43e5f10e583@chaosmail.tech>
- <20260728-t603x-spmi-v2-3-f43e5f10e583@chaosmail.tech>
+To: =?utf-8?b?QnJ5YW4gTydEb25vZ2h1ZQ==?= <bryan.odonoghue@linaro.org>
+Cc: media-ci@linuxtv.org, neil.armstrong@linaro.org, robh@kernel.org, devicetree@vger.kernel.org, olteanv@gmail.com, vkoul@kernel.org, conor+dt@kernel.org, linux-phy@lists.infradead.org
+In-Reply-To: <20260728-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v13-5-ae811e2f0799@linaro.org>
+References: <20260728-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v13-0-ae811e2f0799@linaro.org>
+ <20260728-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v13-5-ae811e2f0799@linaro.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 28 Jul 2026 09:41:58 +0000
-Message-Id: <20260728094159.A25801F000E9@smtp.kernel.org>
+Date: Tue, 28 Jul 2026 09:42:11 +0000
+Message-Id: <20260728094212.0F6511F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Missing synchronization (lock) around SPMI register accesses leads=
- to hardware register corruption.
-- [High] The driver does not flush the RX FIFO before initiating a new comm=
-and, making it highly vulnerable to stream desynchronization.
+- [Medium] Incomplete schema update for split PHY topology causes dt_bindin=
+g_check failures and incorrect hardware descriptions.
 --
 
---- Patch [3]: [PATCH v2 3/7] spmi: apple: check transaction status ---
-commit 9becb223fa5ce2e2f70eb92ec4088e2171b28c87
-Author: Alba Mendez <me@alba.sh>
+--- Patch [5]: [PATCH v13 5/5] dt-bindings: media: qcom,x1e80100-camss: Mak=
+e vdd-csiphy supplies optional ---
+commit 8ca017ccca6ab80da696ef7ec19b3fc7494d6187
+Author: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-spmi: apple: check transaction status
+dt-bindings: media: qcom,x1e80100-camss: Make vdd-csiphy supplies optional
 
-This commit adds checks for parity errors and missing command ACKs in the
-Apple SPMI controller driver. It reads the reply status from the SPMI
-response register and returns an error if the transaction fails.
+This commit removes the vdd-csiphy-0p8-supply and vdd-csiphy-1p2-supply from
+the required list in the qcom,x1e80100-camss binding. This makes the suppli=
+es
+optional to support moving the csiphy to peer nodes while maintaining
+backwards compatibility.
 
-> diff --git a/drivers/spmi/spmi-apple-controller.c b/drivers/spmi/spmi-app=
-le-controller.c
-> index b4f442d0b4ad7..4678a9e5270aa 100644
-> --- a/drivers/spmi/spmi-apple-controller.c
-> +++ b/drivers/spmi/spmi-apple-controller.c
-[ ... ]
-> @@ -62,7 +68,7 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, =
-u8 opc, u8 sid,
->  {
->  	struct apple_spmi *spmi =3D spmi_controller_get_drvdata(ctrl);
->  	u32 spmi_cmd =3D apple_spmi_pack_cmd(opc, sid, saddr, len);
+> diff --git a/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.=
+yaml b/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
+> index 126400772d028..57a838fe2d229 100644
+> --- a/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
+> +++ b/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
+> @@ -186,8 +186,6 @@ required:
+>    - iommus
+>    - power-domains
+>    - power-domain-names
+> -  - vdd-csiphy-0p8-supply
+> -  - vdd-csiphy-1p2-supply
 
-[Severity: High]
-This isn't a bug introduced by this patch, but since we are modifying
-spmi_read_cmd(), is there a missing lock around the SPMI register accesses?
+[Severity: Medium]
+Since the CSIPHY nodes are being moved out to peer nodes, do other properti=
+es
+in this schema also need to be updated to prevent validation regressions?
 
-When the SPMI command is written to the hardware register via
-writel(spmi_cmd, spmi->regs + SPMI_CMD_REG), concurrent SPMI transactions
-from different client drivers (like regulators or RTCs) could interleave
-their command writes and FIFO reads. Since the SPMI core does not serialize
-these callbacks, shouldn't the controller driver implement its own locking
-to prevent overwriting SPMI_CMD_REG before a transaction completes?
+For example, the reg-names, clock-names, and interrupt-names in this schema
+are currently defined as strict, fixed-order arrays that expect csiphy elem=
+ents
+at specific indices. If those elements are removed from the CAMSS node to a=
+void
+resource conflicts, won't the remaining elements shift and cause
+dt_binding_check to fail?
 
-[Severity: High]
-This is also a pre-existing issue, but does the driver need to flush the
-RX FIFO before initiating a new command?
+Additionally, the ports schema mandates data-lanes on the CAMSS endpoints.
+Is this requirement still correct for internal links between the CAMSS core
+and a peer PHY, rather than physical lanes to the sensor?
 
-When a new command is issued via writel(spmi_cmd, spmi->regs + SPMI_CMD_REG=
-),
-if a previous transaction timed out or a slave responded with excess data,
-leftover bytes might remain in the RX FIFO. Won't a subsequent transaction
-inadvertently read this stale data instead of its own response, potentially
-returning corrupted values to client drivers?
-
-> -	u32 rsp;
-> +	u32 reply, rsp;
->  	size_t len_read =3D 0;
->  	u8 i;
->  	int ret;
-
-[ ... ]
-
-> @@ -101,6 +110,7 @@ static int spmi_write_cmd(struct spmi_controller *ctr=
-l, u8 opc, u8 sid,
->  {
->  	struct apple_spmi *spmi =3D spmi_controller_get_drvdata(ctrl);
->  	u32 spmi_cmd =3D apple_spmi_pack_cmd(opc, sid, saddr, len);
-
-[Severity: High]
-This is a pre-existing issue, but similar to spmi_read_cmd(), are we
-missing a lock around the hardware register accesses in spmi_write_cmd()?
-
-Write operations also access the shared hardware controller without
-synchronization when writing to SPMI_CMD_REG, exposing it to concurrent
-overwrites.
-
-[Severity: High]
-This is a pre-existing issue, but does spmi_write_cmd() also need to
-ensure the RX FIFO is drained of stale data before writing a new command?
-
-Write commands similarly fail to flush the RX FIFO prior to execution,
-making them vulnerable to stream desynchronization if earlier commands
-timed out.
-
-> +	u32 reply;
->  	size_t i =3D 0, j;
->  	int ret;
+>    - ports
+> =20
+>  additionalProperties: false
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-t603x-spmi=
--v2-0-f43e5f10e583@chaosmail.tech?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-b4-linux-n=
+ext-25-03-13-dtsi-x1e80100-camss-v13-0-ae811e2f0799@linaro.org?part=3D5
