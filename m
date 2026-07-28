@@ -1,67 +1,68 @@
-Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com [209.85.221.175])
+Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com [209.85.221.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AC6730B521
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 03:07:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCAB530FF1D
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 03:07:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785208048; cv=none; b=jgAS0qn0L6yJ8hT0vLsNeoZ1pjR1vhd1UzIUj7q1SkgRbSiZ7tGwHV/pZNzDJwRUdV0bAqCWY2ydFVMXbtfgeVqWnTe98k5hKI/dI6OepmVL4srxzB5nn8wtdleuB3PqDOH3QfZ0eMFxDJpgAFw1ogCcGMVb9k7xQQ8OeRr+ea8=
+	t=1785208054; cv=none; b=dqZ0KTe0bxZ4uVYKXrbQu1Ap6C953/u8if6ADMYCB75KFoEulXMRiiTowAAr6EKj2PKO81nWPIKHBIG0+gng3+uYuyioC4CgXIn0O9+oe6ZzTJt0XFeVoM2zOk0HUS8Z/MO3w7mk80OxA1SOKF5sjQ7yqVJc3iYQAYG01rG+bY0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785208048; c=relaxed/simple;
-	bh=2Xkx9JAuHJBa2T/HnZYT+PlavJJoOnMUktYCNznAllI=;
+	s=arc-20240116; t=1785208054; c=relaxed/simple;
+	bh=rWZwf1SmZmy+I60NhIjL5+z4C+Nz7YTugxwvI3MpXGs=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eXCcKMvWlzpEY23JLo4LkvtnEwolCOQuW13fAsLt6jSejElwVxAqfwUawxvhaW5bkp/HgZ39bB5rd2FSzBfvzgdCUoPWdl27w1WKuYXHCCOvbPm9t6e8lYXLsKJdoemI3kIYYIvfSCjnGLPz5TnW3hbJF3VuBhzOu7Vb3xeDMBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZapjHw0L; arc=none smtp.client-ip=209.85.221.175
+	 In-Reply-To:To:Cc; b=KVfyVIM4fEjNf0ofR4WmEmlt676f645fXp5l+RsSo2s59GXq/mJfTjE65iEA5MENzla2RwcJpbJqXudDQxIgGZjjb/TLVtq2vAmlkJITXdnInpkwvvAQysYMCjnmnVHUHPhJ0oeqszh8DXzZqKePZRFZ3KFicxaSHV1n60JUQcQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NSFj5MFh; arc=none smtp.client-ip=209.85.221.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZapjHw0L"
-Received: by mail-vk1-f175.google.com with SMTP id 71dfb90a1353d-5bf9506704fso768356e0c.2
-        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 20:07:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NSFj5MFh"
+Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5c2c46a428eso1853964e0c.2
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 20:07:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785208045; x=1785812845; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785208052; x=1785812852; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UqIK17VASkWy77WTHqz/JQwmCp+MwjwqAuZ+PhSBltc=;
-        b=ZapjHw0LPC34P2HugFtgqaxU+EnvMxtHbZlivdE/kP2P3jUqtVaS0BCQzV8BT3GzKo
-         S4C9w4lC+0COrZDf3kNRcditxhXS08XgBmkAHh3vTWKkz+d3Znm4wcn0nk4QbYZVXwsk
-         9WWW11CWhcLovudICPZ6J7OaqmkesnEndvXI7UdNkRsCjrkq8F9hFKyEP6UcRLO38bXH
-         wqEWJm82y5OHON8YBNTHOTOXW+U7yf2qzI+NFoVv3kjq5Ht1NM2R6EIWex8ThJRwVCJC
-         Dex0p5fZWZQS0IQXaDVDO9JJtcmpXWx/hTAKuSCnFVUvukBFTamlcAPiXY8Vh/BRh5NJ
-         65fg==
+        bh=RsowAhie0fn+JDFgZmQoMRNcudB/ZaxkZWEVB+SjP1w=;
+        b=NSFj5MFhXUC2HyIcXEtaJ8lgvXUzqezQNYRr4yEuJVk5M/4IwVpZT9hGivAKBWEMKB
+         JVVEcIUqW+2uAsv9tBQBnUjrVjI9uQxQY4YYEjTsteWRSD9JsuqmhobHWMwsXdhiliQZ
+         Ftee0S3jpIFL1dZ4Zxj/+WYiT+1hYTGZLxnIqdXrIRoBjMIrjbqVv/40lQvgtEiIXJ8o
+         MYwXB/+dZI0JCSVuMY+KcoWXeTOETpmfjlTSn52tX7HD6t9Wz1W0d+QoC3h45y/EcYj5
+         IUViDamIpbUm3veWey/xdhH7g3DwWyYNlpX4c7iSrjEWxaEW7xlFgIfyHyaESXPxzKT6
+         PMZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785208045; x=1785812845;
+        d=1e100.net; s=20251104; t=1785208052; x=1785812852;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UqIK17VASkWy77WTHqz/JQwmCp+MwjwqAuZ+PhSBltc=;
-        b=qCM8/G11urbVpWqsn2ZD8Cxe/HMtBxdI07tRnV3mu5qdiUUjS2NtCW4U3/ei6qpFBy
-         lvrUD95M2FgGzEsE8Jy2i6iXObSLMo9gy9knaiihkfJT5Eqci1l92iuNyFlsDjEs/ER6
-         6WTuiaqCNqaW+4MmuOgp9BTl9DYUW7PdK4cBrITzbTfqIkMdDQrzvr0rUvlJ1gV9IJQz
-         8UuGlGcYVyQ4yhjVIZ09FZHNaM26O1Y+d2HrKAHVYra4T1ZvraS+G8jZFghh1JumS3PD
-         9H9fbrsI3PaeWIL/taQmBzdXrXGoWMcH/siR/Z4MYEdXToOqIDmfdHNM0TZHv4f1NnjP
-         Jbuw==
-X-Forwarded-Encrypted: i=1; AHgh+Rrvu3RMwegDS4jZPA98gXYIawUJsc+6FKx0MxhHi74HuU0tbvMu6+JFTY3GKrFM9ths7SFnmTPYvM7P@vger.kernel.org
-X-Gm-Message-State: AOJu0YzkWuoRb7WJYwwxi2nqwD0eDUUIamHu7AU1KHrlHsOGg2SduyWD
-	zwchr3FOGcrSijfcWNe+pRm4L0hanvaPXpdaCAUQChJRFsxXqwWbVFGq
-X-Gm-Gg: AR+sD12YjEqyc/FZWDiJyxmoXQ9I33JqQcIYFqw9k0HdEGxEOxH3YwVZhkmePgdUI/o
-	QhB+u4SOjn/un7AL3K8/miGGpHBju7krhylsOW2Zurte2Z4DGmqpjzAvU3CdnKi8h4Z1/rvkw4k
-	rFh1p6+7u8bQnVBITePz/5K3v/pRHcWG0KrunnlJFUmUIlqx6vk/maR4EN7BTkVbZLDHJf/Y38m
-	AXsTg/gCiJZqtuZgCOBs1vQeAsmg7T/ZGKafM9MR+1Zp978rl3q+hWYFsh0sAX0muPVPj9M8bsC
-	yC1auRZBBiW+edQiOuJvKwKxpKGdeFixg6o3fOAm4B2KWYoGJRYTS0Jg4pg5/F9OeaqVQob2LZb
-	3lBV2DWHKlLf3DjQrBzcCa6MZ/hA3ZYX8Vhhj4gHE4kg9WnhyPx2sO6CNVlJERN11ORQlbBCPH9
-	e3matafRf7vuzL/TLeXw==
-X-Received: by 2002:a05:6122:310b:b0:5c2:acd2:5b43 with SMTP id 71dfb90a1353d-5c33f86f6dcmr233593e0c.1.1785208045509;
-        Mon, 27 Jul 2026 20:07:25 -0700 (PDT)
+        bh=RsowAhie0fn+JDFgZmQoMRNcudB/ZaxkZWEVB+SjP1w=;
+        b=SIHClWOCo7X5ux9PE00Qog1YC9L2ww3g4FZvksJwAns9n1CwVlO+HKz3mM0yOtRppO
+         gikVY2KLGGIKrmC3Q8CXcW0p1M7JMfT7kfU8Adwn//0EK5bDFQ9oNQEhK0q/VUgeteaS
+         a3i/M2nqEAOPhshMePac+WtwKPsLtDQQ1/ZUSFwurn2Urus2SOxuGhvfU/zJ+n9cL3C1
+         tfvC4D8Kvj0YMOmI2jz4Y7ntf6jb7E4YoX/N67PLt/PKQzusjknYCRmxrpplLVUhnaiR
+         W+kT9yxd9VJLO+ZtzRUWnSZMPNkj+VcIaz0ELZBU2xZAKHpalFdhkLRAhamQqXpWE7uy
+         kYVw==
+X-Forwarded-Encrypted: i=1; AHgh+RrP29PwCYRnCWNwMEB5h0+ku5KReSHYeuYgPE1zM/v54neApnjIKlMgjilLpVrg1+OIIZfOujj2HRIQ@vger.kernel.org
+X-Gm-Message-State: AOJu0YzugNR7BxJH5Pg+tN6iGBh+88WYCKVgCz5PiRSHL3Ih/rqJMFEO
+	bzuXcbQbkCh+pOcrGCsm6KjmWw/2EeEKCWFMm68NzdXn5xISOM4/S70I
+X-Gm-Gg: AR+sD10+oVNqYcksJXCvXjcEsfRyv/JdQmrhCDwtXk0IHQ5RfMvc3tY5m18ywP1a7g9
+	1pUZyMVFnurP962FOp/+QfGuN95GGmgc6gNl5mx/btsmoyeFQQGZMczG7VNhPcLc2UimBU7mcuE
+	1gLhOI649QIRAeIDj973Z9dYruTphA/jqyDvJXALEN73U56BmrSB4SpLp7VnyuqgL1zAnbpXWEy
+	8nVEO+sedFMrS3/TGQwzlNcfCDECQ8L4oeHnHjYiL+bVZUWdjSXJ8ahBfqAfXZBLfGLf+3teTsi
+	JYQD0miqbIqEnmARas/r4F88LAadOreibscwXQ2n4BzRQERGw7B9vI4X0AMigmAuXgDghCBB8H3
+	UFX/3Z9PZuJIM9vqWgdcpZZUFNoNwgCk1oLaD+eThECYcFw6WkSlGmUCc2teSw/LkdUwvvWnZri
+	k5RH8AVH9xnpk6o8OR6Q==
+X-Received: by 2002:a05:6122:328e:b0:5bf:8c77:e89a with SMTP id 71dfb90a1353d-5c33f89b5d8mr301894e0c.2.1785208051755;
+        Mon, 27 Jul 2026 20:07:31 -0700 (PDT)
 Received: from tresc054937.tre-sc.gov.br ([187.65.210.13])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c305759d35sm8148812e0c.18.2026.07.27.20.07.19
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c305759d35sm8148812e0c.18.2026.07.27.20.07.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jul 2026 20:07:24 -0700 (PDT)
+        Mon, 27 Jul 2026 20:07:30 -0700 (PDT)
 From: Luiz Angelo Daros de Luca <luizluca@gmail.com>
-Date: Tue, 28 Jul 2026 00:07:09 -0300
-Subject: [hwmon-next PATCH v3 1/4] dt-bindings: hwmon: adi,adt7470
+Date: Tue, 28 Jul 2026 00:07:10 -0300
+Subject: [hwmon-next PATCH v3 2/4] hwmon: (adt7470) Add ADT7470_PWM_MAX
+ macro
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,7 +71,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260728-adt7470_thermalzone-v3-1-d4586478cdba@gmail.com>
+Message-Id: <20260728-adt7470_thermalzone-v3-2-d4586478cdba@gmail.com>
 References: <20260728-adt7470_thermalzone-v3-0-d4586478cdba@gmail.com>
 In-Reply-To: <20260728-adt7470_thermalzone-v3-0-d4586478cdba@gmail.com>
 To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
@@ -85,81 +86,52 @@ Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
  Luiz Angelo Daros de Luca <luizluca@gmail.com>, linux-pwm@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-The Analog Devices ADT7470 is a multichannel temperature sensor and
-PWM fan controller. It supports monitoring up to 10 external
-temperature sensors and controlling up to 4 fans.
-
-Add the device tree binding documentation for it. This includes
-support for the thermal framework by defining the "#thermal-sensor-cells"
-property, and models the fan control lines as PWM channels by
-defining the "#pwm-cells" property.
+Instead of a magic 255, use a macro to refer to it.
 
 Signed-off-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
 ---
- .../devicetree/bindings/hwmon/adi,adt7470.yaml     | 55 ++++++++++++++++++++++
- 1 file changed, 55 insertions(+)
+ drivers/hwmon/adt7470.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/hwmon/adi,adt7470.yaml b/Documentation/devicetree/bindings/hwmon/adi,adt7470.yaml
-new file mode 100644
-index 000000000000..bb2375a4a490
---- /dev/null
-+++ b/Documentation/devicetree/bindings/hwmon/adi,adt7470.yaml
-@@ -0,0 +1,55 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/hwmon/adi,adt7470.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Analog Devices ADT7470 hwmon sensor
-+
-+maintainers:
-+  - Luiz Angelo Daros de Luca <luizluca@gmail.com>
-+
-+description:
-+  Multi-channel temperature monitor and PWM fan controller.
-+  It supports monitoring up to 10 external temperature sensors and
-+  controlling up to four fans. The fan control lines are modeled
-+  as standard PWM channels.
-+
-+properties:
-+  compatible:
-+    const: adi,adt7470
-+
-+  reg:
-+    maxItems: 1
-+
-+  "#pwm-cells":
-+    const: 3
-+    description:
-+      See Documentation/devicetree/bindings/pwm/pwm.yaml for the
-+      generic PWM binding description.
-+
-+  "#thermal-sensor-cells":
-+    const: 1
-+    description:
-+      Number of cells required to uniquely identify the temperature sensors.
-+      Valid index values are 0 to 9, corresponding to temp1 through temp10.
-+
-+required:
-+  - compatible
-+  - reg
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        hwmon@2f {
-+            compatible = "adi,adt7470";
-+            reg = <0x2f>;
-+            #pwm-cells = <3>;
-+            #thermal-sensor-cells = <1>;
-+        };
-+    };
+diff --git a/drivers/hwmon/adt7470.c b/drivers/hwmon/adt7470.c
+index c45b984c02e6..87ddd7b8ddae 100644
+--- a/drivers/hwmon/adt7470.c
++++ b/drivers/hwmon/adt7470.c
+@@ -100,6 +100,7 @@ static const unsigned short normal_i2c[] = { 0x2C, 0x2E, 0x2F, I2C_CLIENT_END };
+ #define ADT7470_REG_FAN_MAX(x)	(ADT7470_REG_FAN_MAX_BASE_ADDR + ((x) * 2))
+ 
+ #define ADT7470_PWM_COUNT	4
++#define ADT7470_PWM_MAX		255
+ #define ADT7470_REG_PWM(x)	(ADT7470_REG_PWM_BASE_ADDR + (x))
+ #define ADT7470_REG_PWM_MAX(x)	(ADT7470_REG_PWM_MAX_BASE_ADDR + (x))
+ #define ADT7470_REG_PWM_MIN(x)	(ADT7470_REG_PWM_MIN_BASE_ADDR + (x))
+@@ -850,7 +851,7 @@ static int adt7470_pwm_write(struct device *dev, u32 attr, int channel, long val
+ 
+ 	switch (attr) {
+ 	case hwmon_pwm_input:
+-		val = clamp_val(val, 0, 255);
++		val = clamp_val(val, 0, ADT7470_PWM_MAX);
+ 		mutex_lock(&data->lock);
+ 		err = regmap_write(data->regmap, ADT7470_REG_PWM(channel),
+ 				   val);
+@@ -910,7 +911,7 @@ static ssize_t pwm_max_store(struct device *dev,
+ 	if (kstrtol(buf, 10, &temp))
+ 		return -EINVAL;
+ 
+-	temp = clamp_val(temp, 0, 255);
++	temp = clamp_val(temp, 0, ADT7470_PWM_MAX);
+ 
+ 	mutex_lock(&data->lock);
+ 	data->pwm_max[attr->index] = temp;
+@@ -945,7 +946,7 @@ static ssize_t pwm_min_store(struct device *dev,
+ 	if (kstrtol(buf, 10, &temp))
+ 		return -EINVAL;
+ 
+-	temp = clamp_val(temp, 0, 255);
++	temp = clamp_val(temp, 0, ADT7470_PWM_MAX);
+ 
+ 	mutex_lock(&data->lock);
+ 	data->pwm_min[attr->index] = temp;
 
 -- 
 2.55.0
