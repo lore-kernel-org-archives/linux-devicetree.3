@@ -1,87 +1,68 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 555A93815E1
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 04:07:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8F25380FDD
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 04:11:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785211673; cv=none; b=b4fLk6STbgrKV3q9fXo1kLaVk+pBb6nFGGdxmSyKqQTQM1AS8t5Y2axu7BRiDNVoNFt7XL69rjZtO2n04NhXjthfxJmUvUR5u1rxlgUNqoYA/moB3yYUVbd9GngV2NiBQwNWa8qVRmmOKr6GC6XsPIGiPeZqYzskTDorMJjyITU=
+	t=1785211878; cv=none; b=Ugz4HvK9rmpQGInuBL6T5sNeY7cVz6QQ/b39+UWMxOWcmcsenLOYmp+FuuOtBOTFnFh/b63kFvwNC/ycer6ceUc8mXFf3C5sc4XtpxTF5wnHlmOG3KOokUSZGLV0Co9vWQjNtSDdLLb4dEg336sO+pjfBEp5KzFZUiQFUBcr2Qk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785211673; c=relaxed/simple;
-	bh=1viSFWqmF3URMlkL5kC01xZkVFYGhTB/K2Hjjkt63Ak=;
+	s=arc-20240116; t=1785211878; c=relaxed/simple;
+	bh=rzHSSUxKw4BlJul30nuAk87yQXFGdgckT1MJA42S4SI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ARBTfGppboe203iZfmHFU/Zl3quQGPZXSpp5jwqDnXc/RFmjUdNslwREr5Zb4o4G7B1dobVfnNjXZYbdxzUZ44rEJw07NCHvHSDTVwFEOVUyfdOzRzU+qB2QBPsspX+guTVOf35ncUlEJc6pjY0fgchs7rMlRBa/o8WBNfx1Fps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FFgE1xJe; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NMtClLqc; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=abZdTaKNNl0B9oTFKKeLxmtso9F0wyG7mtPnO9ooVa28W+hAia679Au195ydV1pfDFN562kddcCnYaO1H/y6hYc2BRgMzqbpt2zuhkAWkpFEQK7h03b9P9D5eaVel5fDkMNUTn+XxZrJ0TS+9YQsnldwJk3kcEzS39Pu6w0wSVA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KGqTHsj9; arc=none smtp.client-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FFgE1xJe";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NMtClLqc"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66S3tr6H1920004
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 04:07:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	LK3y07L9JsKqzOy/FLTAxwpeW1DK6L0Aa7RC06zF1Gc=; b=FFgE1xJe6UKoNQYE
-	+igk/lKKKT2gc1TXlw7wG5U2X4N88qZIopsTTXkEHMOr+nrTgOX2g8/rEBlALAJ3
-	41DH2X3DseYCwgCcoo8soqHkig9SRruLONrjfJ+/uMfJFtYPcw/Ktef8FDYhnUqO
-	gGaiYdzllKLuD7zATWwLnnX3kk+g6jOeQ4SLHxKWICwjmOqiYIjg8gteKs4rtP7T
-	Qk8q6ck3aQIKxYjdPbnX1mg1beTunEGa9MAz4MvsiV17J4Q2O4ucKd1yg8hR/xT+
-	FBRAgm/m3Wbx6m+luhxgff2BIBImaXbhJlxfSkO6Y8P0IA0qVLyLGSiW/fZ0fDI3
-	Ej2kRw==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fpmy101b0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 04:07:50 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3811279d51aso6280480a91.1
-        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 21:07:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KGqTHsj9"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-84862b0d5f8so2720579b3a.3
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 21:11:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785211670; x=1785816470; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
+        d=gmail.com; s=20251104; t=1785211876; x=1785816676; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=LK3y07L9JsKqzOy/FLTAxwpeW1DK6L0Aa7RC06zF1Gc=;
-        b=NMtClLqcelqQ4qrEgQXhJUrb1gjfQjBvdmAl2+94JAldECsFJO9J9NgRDxrl6RXOBz
-         28Ey8OxfgZPTUddz/qOt8VQ/oXRnQLWvktvCK+oHQ3EOf70EYzxEczrH46W56ecDgFNf
-         BEVUkhSiKVEjcqPcOrLSZ8Xqzzb/nKyR91/sLon2SwT81EeRiWIPqHrJ8PxmPcqv3h0Y
-         E5Pz9NYlwvytRRSniJTEoC6XB0OsIhkh/MUcCJxj+Kddgnlj3Pjgd+68JMu7jBJwKvm/
-         TiRsV7ab9Nzu7stl9P2pX7LH9y3Z2H430Jdt4Wew5HT7pqgPMXiofXHCzj15cFs2jLjl
-         iAmw==
+        bh=iTBGyr7mBmgTBTF3mSoHRHnNBWWZbdw9RY2sNeblvzE=;
+        b=KGqTHsj9zEkEn4mhIBgoO8vah2XojKYxmH3XY8QvvztLFEc3VRMB1yph1535aoAEMs
+         OrVDvjl/7DiIRAzJPH08joqyu47c2pwmEcgbLwD0Oa5zxO5tBsU47jOWVbcmPCsa+HzU
+         tHG4WJUeM31XtN9meT1fHL+0GX+LPd0NCR/TENXKvpMQqkU+9/sWYNyllKtb4vH7eV0I
+         7L7aE46ZZuu2xhw4Z9Kc2/6y5jhhcSc99A5kO2ElwEAa77CH9PXYK2EtH5t6aPtWA1/w
+         exV/v610anRl4AAo8fjnXh5tt50cuXkRRXYFizd0KufhoL7ZGDoXuiY+UL34hB0xlP8E
+         yxjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785211670; x=1785816470;
-        h=content-transfer-encoding:content-type:in-reply-to:from
+        d=1e100.net; s=20251104; t=1785211876; x=1785816676;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LK3y07L9JsKqzOy/FLTAxwpeW1DK6L0Aa7RC06zF1Gc=;
-        b=G+hFPrGMM5Vlb4MRhFEnqDDO5dkdoQZhTaBYfcEA0VK8Fc10UBNxeF8sukLIfoHHTQ
-         7GB4PIPvsFARGGLhVJxiN10Ecu4sHCG/UE8uWEaFeStc+MDmxYMbWoXLQVAlkYtnqGeY
-         krfGpprhJP/CWgqWg2SWpmRofPElEFYL23+hoS1q2w/aZxiN/L+xpS3Xtdy/fPBw7jPR
-         tStB2b0IMSpjbnVyiVtGUG23KT+yQPLootSlP4JoLH/SWyRdqwj4WQymGLx7YH8Bss9A
-         bkY7ZmsqEFjJPFkJs+U6yd8Ss0a+7jHkfU9xqlv47A+9B+7gWCm+vUA9AlK8HXMy2t8l
-         5IOw==
-X-Forwarded-Encrypted: i=1; AHgh+RqvFkW0YMmUobA2vXYyspci9aETYy6YfnUGB2JJuOio6vBjyvsIbN1x1yq/acg847Erl/R5sTrRzGSf@vger.kernel.org
-X-Gm-Message-State: AOJu0YzDsHrKNZTtU3sxqL65gYzxni2ArVtbEcqoGmKYsfaPOvpaGSJY
-	E40rs3GlgcFkaYIaSCtxkTjBb3EL02T4VnHonZchuoyzTsnhOm2REzMhGAiz6a1d0492bLzoXWP
-	3AynVdq+0R7jepyT0XXNsEKVAN+u7ScF66SZJsiSHBq6ZKgfw/d+vJQiQmXGJU+NR
-X-Gm-Gg: AR+sD13NDKY2N08eVtZ8blg8lt0+bKPmgflqFeyzC/Mx3SMP1qFf/vQI5xeh1cSUOMI
-	nayaJyIMj13N5Fwqnm+8TN/7gpWKNwK3rso6LKKxZXyzj8a2St66l5KRqx3od/Vz9Tue0jX8kPC
-	xbilQ7et2CU6V6BzzrizqSS/hJXkmKDoJLyOLzXT8Wr7Hk4jm/Bd4lV0b46b9jD/NC/7UQCS9ZH
-	llRIEo0ZGCyWhf2PQ/8zCO7yeixNJ3gwvflmI38j8KDH37AU35ID7XWiuKoRnHPml73SepveOhI
-	rfoISZyVft6xI43muVD718FnJhYB+im0qZMaw/esLjH7iRXe9EJCxe6WmY8G23lKr+euzhQ8djR
-	2mZ8nLoTbziB2pMx/Ucwzsy0/b10mXgBsI/0X
-X-Received: by 2002:a05:6a20:6a15:b0:3c4:1708:9cd8 with SMTP id adf61e73a8af0-3c8ba6862bbmr1003911637.76.1785211669566;
-        Mon, 27 Jul 2026 21:07:49 -0700 (PDT)
-X-Received: by 2002:a05:6a20:6a15:b0:3c4:1708:9cd8 with SMTP id adf61e73a8af0-3c8ba6862bbmr1003878637.76.1785211668977;
-        Mon, 27 Jul 2026 21:07:48 -0700 (PDT)
-Received: from [192.168.1.14] ([103.28.245.137])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-314bc3e127asm62422249eec.2.2026.07.27.21.07.39
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=iTBGyr7mBmgTBTF3mSoHRHnNBWWZbdw9RY2sNeblvzE=;
+        b=iQQg8UR2m6ILIkaonar1mgOV20OM/HrWPj457YS+YScVuc/88fX9VuytErrUbfH28+
+         QvJXzDLu84RRjDaQj8ywnz/hIpQd57dRncVklIwUUtZWKYG02iqQfBPBxGFA99BbLw5q
+         6Jfo37MJFV67SEJAYlnLsfHXyxAbb+7gLOs12jI8q+kIfpFq373fO2rlP1Q5XVuLFiTg
+         2rFPT4mChRRNoIL2Xl4EXxy0OSBQIwVdEJjzf9KxWjq/t5RmZeWeaCYGvdImmL6QKMCJ
+         V7kVEwlU2YLwrdqfb2syiw5KrbyfFdpUe5AriMN4JQZFOz2o7luvnpqNuGuMk3w9sd+B
+         mK7A==
+X-Forwarded-Encrypted: i=1; AHgh+RqFvSP0S9PhD92cxeubQOHstPP+YzEevuA4QnrJCTPfBriMqZG9G5BgjFJyhD7cKOwKGnSJWIpiPdWS@vger.kernel.org
+X-Gm-Message-State: AOJu0YyhlsiVPp82Zx4+OwUpXxZAxfxp0YEJOtbKohjbGprtLdP5MvJ3
+	EwOEU5RSNLiJg6D1Gp6QKzhUhG2vDTt02TPG9hoCkBgc1JzbXt2ysApa
+X-Gm-Gg: AR+sD10QL0OWv/o6dUH6rgP2Ug5G3DpGqYSuKBnCGzfmr7BoqAb/7muqsoawjhXmwFw
+	yg3Jhin+WIzkNIc33hywbAByfhTYVtyR0kSYjWcADGQV6qvMradx3zORc4p6CblWpQYsguFydC7
+	iKXCNQlSsNq28L5xEPc+D8QQON8giPsgE9ZkeipZRERQ0Y+isUVU5D1K2mTO45Ctx/maBXDmFF6
+	GHZCShkbJZiHWpVl+SupIcG0JZCqr1tLjMAw+U8cI+UdKCd8g3LtcLNeGwweo2h8o/A2FJFZwiC
+	yXxaKbnpUV10hbStL9GV63aVL85Sr3zcXD9OJuQQZZmsG3FUFgUMa4kUDr5DqZNmsux7DKF63LD
+	V0ZrcPTDdk5nhNe4fTP3xsE0BeOPg5U2E+ox/LrYXZDgBDB6zSupzmmNwZyF9tl04MlWIitfo0j
+	gNoj3Kvp09w7vbuCPGPcEa53SMk3VtCTM00ndwza7N4pliA9HpGSQ=
+X-Received: by 2002:a05:6a00:f0c:b0:848:727f:2c8d with SMTP id d2e1a72fcca58-84e93313298mr692501b3a.77.1785211875939;
+        Mon, 27 Jul 2026 21:11:15 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e532acee2sm3757774b3a.27.2026.07.27.21.11.14
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 27 Jul 2026 21:07:48 -0700 (PDT)
-Message-ID: <0d0896af-a4a5-445d-8db7-fdb9eecd07a2@oss.qualcomm.com>
-Date: Tue, 28 Jul 2026 09:35:58 +0530
+        Mon, 27 Jul 2026 21:11:14 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <ca4f288b-7bdf-483f-babb-b5f948a27198@roeck-us.net>
+Date: Mon, 27 Jul 2026 21:11:13 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,441 +70,306 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v16 3/3] of: Respect #{iommu,msi}-cells in maps
-To: Neil Armstrong <neil.armstrong@linaro.org>,
-        Nipun Gupta <nipun.gupta@amd.com>,
-        Nikhil Agarwal <nikhil.agarwal@amd.com>,
-        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-        Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
-        Richard Zhu <hongxing.zhu@nxp.com>,
-        Lucas Stach <l.stach@pengutronix.de>,
-        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bjorn Helgaas
- <bhelgaas@google.com>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>, Juergen Gross <jgross@suse.com>,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-pci@vger.kernel.org,
-        imx@lists.linux.dev, xen-devel@lists.xenproject.org,
-        Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
-References: <20260603-parse_iommu_cells-v16-0-dc509dacb19a@oss.qualcomm.com>
- <20260603-parse_iommu_cells-v16-3-dc509dacb19a@oss.qualcomm.com>
- <3f5c974f-425d-47a5-9fda-e05de1f39d79@linaro.org>
+Subject: Re: [PATCH v5 3/3] hwmon: (pmbus/tps25990): Add TPS1689 support
+To: Stoyan Bogdanov <sbogdanov@baylibre.com>, jbrunet@baylibre.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, corbet@lwn.net,
+ skhan@linuxfoundation.org
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260728015857.193890-1-sbogdanov@baylibre.com>
+ <20260728015857.193890-4-sbogdanov@baylibre.com>
 Content-Language: en-US
-From: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
-In-Reply-To: <3f5c974f-425d-47a5-9fda-e05de1f39d79@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: EXwtoW3BgzHUd6oxc1ax0jX1Sr0QPH-_
-X-Proofpoint-ORIG-GUID: EXwtoW3BgzHUd6oxc1ax0jX1Sr0QPH-_
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI4MDAzNCBTYWx0ZWRfX3UI5+j74ynmn
- LLqFG0U+qq0s0l6LFHFhd5MPjdwjJfbyHGGBkIjHX7z7ISpSVcbEOio61Ctk9VzXyw416Fr75X3
- jAE0oHLWh8yV7PB/3km9zdi4OxUuIKo2nyf3vhLcTwsNVbMpFkRZrJ4XJ06pW+SdhueBSf4Taxh
- d0+UjjuFKQ9H0cH1ZtD0HbEZ4TUkBXmJj9Mye29F47R2gQaANXdLAt0iSJ2K0apukODPWkSLMpm
- RbQw7l6XcKMw9iLGQEYFymPIzzi9RJEgEsuooTUYNl0g1zjiOxy6vAkTuibd6k55QEcr6+rf/Q8
- Qw6f+Ilrcgos5vfI5AhNwqWUcEZu/Y7ZmMWOwXMXSOPkM2pDPvjfqm5GYGMTiSwgD2WIi0jOsxs
- 5gtwq0zjKXfGVeKHOD7gmjh493cEkeIQ7wYXT6vdchAdV7TUOj6C7FqtdXmDSeItC1+q0JstfQO
- z9xYSHUxWmSxTcAhBAA==
-X-Authority-Analysis: v=2.4 cv=PJo/P/qC c=1 sm=1 tr=0 ts=6a682b16 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=squdMJ+4YbgyfOnWmi5+Dg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=7CQSdrXTAAAA:8 a=EUspDBNiAAAA:8 a=q5R4RTgJWa76_yJtbd4A:9
- a=8pEowBHnLtz2IKIQ:21 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI4MDAzNCBTYWx0ZWRfX7V1Z5yf3LUdi
- MrS1l1XJQGrAhFA5pxh41uFBtR+0XTsYjPnsobtIs3rp6u7ljXK1/4kC7ziCz4q19IBN3zMRXUs
- n2pAepPSlBHP32H46yvHc26uuXvEb/Y=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-28_01,2026-07-27_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
- priorityscore=1501 malwarescore=0 adultscore=0 suspectscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607280034
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260728015857.193890-4-sbogdanov@baylibre.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-
-
-On 7/23/2026 6:47 PM, Neil Armstrong wrote:
-> Hi,
+On 7/27/26 18:58, Stoyan Bogdanov wrote:
+> Extend the existing TPS25990 driver to support the TPS1689 eFuse,
+> as both devices share the same command interface and functionality.
 > 
-> On 6/3/26 09:13, Vijayanand Jitta wrote:
->> From: Robin Murphy <robin.murphy@arm.com>
->>
->> So far our parsing of {iommu,msi}-map properties has always blindly
->> assumed that the output specifiers will always have exactly 1 cell.
->> This typically does happen to be the case, but is not actually enforced
->> (and the PCI msi-map binding even explicitly states support for 0 or 1
->> cells) - as a result we've now ended up with dodgy DTs out in the field
->> which depend on this behaviour to map a 1-cell specifier for a 2-cell
->> provider, despite that being bogus per the bindings themselves.
->>
->> Since there is some potential use in being able to map at least single
->> input IDs to multi-cell output specifiers (and properly support 0-cell
->> outputs as well), add support for properly parsing and using the target
->> nodes' #cells values, albeit with the unfortunate complication of still
->> having to work around expectations of the old behaviour too.
->>
->> Since there are multi-cell output specifiers, the callers of of_map_id()
->> may need to get the exact cell output value for further processing.
->> Update of_map_id() to set args_count in the output to reflect the actual
->> number of output specifier cells.
->>
->> Signed-off-by: Robin Murphy <robin.murphy@arm.com>
->> Signed-off-by: Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
->> Signed-off-by: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
->> ---
->>   drivers/of/base.c  | 168 +++++++++++++++++++++++++++++++++++++++++------------
->>   include/linux/of.h |   6 +-
->>   2 files changed, 135 insertions(+), 39 deletions(-)
->>
->> diff --git a/drivers/of/base.c b/drivers/of/base.c
->> index d658c2620135..ac7961cbab94 100644
->> --- a/drivers/of/base.c
->> +++ b/drivers/of/base.c
->> @@ -2116,19 +2116,49 @@ int of_find_last_cache_level(unsigned int cpu)
->>       return cache_level;
->>   }
->>   +/*
->> + * Some DTs have an iommu-map targeting a 2-cell IOMMU node while
->> + * specifying only 1 cell. Fortunately they all consist of value '1'
->> + * as the 2nd cell entry with the same target, so check for that pattern.
->> + *
->> + * Example:
->> + *    IOMMU node:
->> + *        #iommu-cells = <2>;
->> + *
->> + *    Device node:
->> + *        iommu-map = <0x0000 &smmu 0x0000 0x1>,
->> + *                <0x0100 &smmu 0x0100 0x1>;
+> Update the documentation to include TPS1689 support.
 > 
-> So the sm8650 PCIe controllers has:
+> Signed-off-by: Stoyan Bogdanov <sbogdanov@baylibre.com>
+> ---
+>   Documentation/hwmon/tps25990.rst | 15 +++--
+>   drivers/hwmon/pmbus/tps25990.c   | 98 ++++++++++++++++++++++++++------
+>   2 files changed, 92 insertions(+), 21 deletions(-)
 > 
-> pcie@1c08000:
->             iommu-map = <0     &apps_smmu 0x1480 0x1>,
->                     <0x100 &apps_smmu 0x1481 0x1>;
-> 
-> and
-> 
-> pcie@1c00000:
-> 
->             iommu-map = <0     &apps_smmu 0x1400 0x1>,
->                     <0x100 &apps_smmu 0x1401 0x1>;
-> 
-> and apps_smmu has #iommu-cells = <2>, but gets flagged at wrong:
-> 
-> [    7.538800] OF: /soc@0/pcie@1c08000: iommu-map has 1-cell entries targeting 2-cell #iommu-cells, treating as 1-cell output
-> 
-> Returning false in of_check_bad_map() triggers:
-> 
-> [    7.642680] OF: /soc@0/pcie@1c08000: Unsupported iommu-map - cannot handle 256-ID range with 2-cell output specifier
-> 
-> I don't understand the issue here, we use 2 cells as expected by
-> the iommu-cells, so why is it wrong ? can somebody explain in
-> comprehensive words ? I'm super confused, it worked like a charm until now.
-> 
-> Neil
-> 
+> diff --git a/Documentation/hwmon/tps25990.rst b/Documentation/hwmon/tps25990.rst
+> index 04faec780d26..e8bc9a550bda 100644
+> --- a/Documentation/hwmon/tps25990.rst
+> +++ b/Documentation/hwmon/tps25990.rst
+> @@ -9,26 +9,31 @@ Supported chips:
+>   
+>       Prefix: 'tps25990'
+>   
+> -  * Datasheet
+> +    Datasheet: Publicly available at Texas Instruments website: https://www.ti.com/lit/gpn/tps25990
+>   
+> -    Publicly available at Texas Instruments website: https://www.ti.com/lit/gpn/tps25990
+> +  * TI TPS1689
+> +
+> +    Prefix: 'tps1689'
+> +
+> +    Datasheet: Publicly available at Texas Instruments website: https://www.ti.com/lit/gpn/tps1689
+>   
+>   Author:
+>   
+>   	Jerome Brunet <jbrunet@baylibre.com>
+> +	Stoyan Bogdanov <sbogdanov@baylibre.com>
+>   
+>   Description
+>   -----------
+>   
+> -This driver implements support for TI TPS25990 eFuse.
+> +This driver implements support for TI TPS25990 and TI TPS1689 eFuse chips.
+>   This is an integrated, high-current circuit protection and power
+>   management device with PMBUS interface
+>   
+> -Device compliant with:
+> +Devices are compliant with:
+>   
+>   - PMBus rev 1.3 interface.
+>   
+> -Device supports direct format for reading input voltages,
+> +Devices supports direct format for reading input voltages,
+>   output voltage, input current, input power and temperature.
+>   
+>   Due to the specificities of the chip, all history reset attributes
+> diff --git a/drivers/hwmon/pmbus/tps25990.c b/drivers/hwmon/pmbus/tps25990.c
+> index 490dcd2a5fa5..7e2991a85da1 100644
+> --- a/drivers/hwmon/pmbus/tps25990.c
+> +++ b/drivers/hwmon/pmbus/tps25990.c
+> @@ -48,6 +48,7 @@
+>   					 PK_MIN_AVG_RST_MIN)
+>   
+>   enum chips {
+> +	tps1689,
+>   	tps25990,
+>   };
+>   
+> @@ -105,6 +106,8 @@ static int tps25990_mfr_write_protect_get(struct i2c_client *client)
+>   static int tps25990_read_word_data(struct i2c_client *client,
+>   				   int page, int phase, int reg)
+>   {
+> +	const struct pmbus_driver_info *info = pmbus_get_driver_info(client);
+> +	struct tps25990_data *data = container_of(info, struct tps25990_data, info);
+>   	int ret;
+>   
+>   	switch (reg) {
+> @@ -193,9 +196,11 @@ static int tps25990_read_word_data(struct i2c_client *client,
+>   		ret = pmbus_read_word_data(client, page, phase, reg);
+>   		if (ret < 0)
+>   			break;
+> -		ret = DIV_ROUND_CLOSEST(ret * TPS25990_VIN_OVF_NUM,
+> -					TPS25990_VIN_OVF_DIV);
+> -		ret += TPS25990_VIN_OVF_OFF;
+> +		if (data->chip_id == tps25990) {
+> +			ret = DIV_ROUND_CLOSEST(ret * TPS25990_VIN_OVF_NUM,
+> +						TPS25990_VIN_OVF_DIV);
+> +			ret += TPS25990_VIN_OVF_OFF;
+> +		}
 
-Hi Neil,
+Unless I am missing something, TPS1689 also has a voltage offset for this register.
 
-iommu-map = <0     &apps_smmu 0x1480 0x1>,
-            <0x100 &apps_smmu 0x1481 0x1>;
+>   		break;
+>   
+>   	case PMBUS_IIN_OC_FAULT_LIMIT:
+> @@ -207,9 +212,11 @@ static int tps25990_read_word_data(struct i2c_client *client,
+>   		ret = pmbus_read_byte_data(client, page, TPS25990_VIREF);
+>   		if (ret < 0)
+>   			break;
+> -		ret = DIV_ROUND_CLOSEST(ret * TPS25990_IIN_OCF_NUM,
+> -					TPS25990_IIN_OCF_DIV);
+> -		ret += TPS25990_IIN_OCF_OFF;
+> +		if (data->chip_id == tps25990) {
+> +			ret = DIV_ROUND_CLOSEST(ret * TPS25990_IIN_OCF_NUM,
+> +						TPS25990_IIN_OCF_DIV);
+> +			ret += TPS25990_IIN_OCF_OFF;
+> +		}
 
+Looking at the datasheet, I see no difference regarding TPS25990_VIREF
+and its use across the two chips. Also, it does not make sense to me to pass
+the value of TPS25990_VIREF directoy as OC fault limit. Unless I am missing
+something, I don't think this works as intended.
 
-Entries here are not 2-cell format, Even though apps_smmu declares #iommu-cells = <2>,
-this DT only supplies one output cell (0x1480/0x1481) — the trailing 0x1 is the length field,
-not a second output cell. (<id-base phandle out-base length>)
+>   		break;
+>   
+>   	case PMBUS_VIRT_SAMPLES:
+> @@ -238,6 +245,8 @@ static int tps25990_read_word_data(struct i2c_client *client,
+>   static int tps25990_write_word_data(struct i2c_client *client,
+>   				    int page, int reg, u16 value)
+>   {
+> +	const struct pmbus_driver_info *info = pmbus_get_driver_info(client);
+> +	struct tps25990_data *data = container_of(info, struct tps25990_data, info);
+>   	int ret;
+>   
+>   	switch (reg) {
+> @@ -253,20 +262,23 @@ static int tps25990_write_word_data(struct i2c_client *client,
+>   		value = clamp_val(value, 0, 0xff);
+>   		ret = pmbus_write_word_data(client, page, reg, value);
+>   		break;
+> -
+>   	case PMBUS_VIN_OV_FAULT_LIMIT:
+> -		value -= TPS25990_VIN_OVF_OFF;
+> -		value = DIV_ROUND_CLOSEST(((unsigned int)value) * TPS25990_VIN_OVF_DIV,
+> -					  TPS25990_VIN_OVF_NUM);
+> -		value = clamp_val(value, 0, 0xf);
+> +		if (data->chip_id == tps25990) {
+> +			value -= TPS25990_VIN_OVF_OFF;
+> +			value = DIV_ROUND_CLOSEST(((unsigned int)value) * TPS25990_VIN_OVF_DIV,
+> +						  TPS25990_VIN_OVF_NUM);
+> +			value = clamp_val(value, 0, 0xf);
+> +		}
 
-The new code detects exactly this pattern (same target phandle across all entries, length always 1)
-and falls back to treating the map as 1-cell output for backward compatibility — hence the pr_warn_once.
-It's harmless and expected, your RIDs still resolve to the correct SIDs (0 → 0x1480, 0x100 → 0x1481).
+As pointed out by Sashiko, a clamp is still needed here. Also, again,
+according to the datasheet there is still a voltage offset.
 
-The second message is a different case and shouldn't be coming from this same map — once the 1-cell
-fallback triggers on the first entry, it applies to the whole map, so you shouldn't hit both warnings
-together on the same node. That error only fires for a genuine 2-cell output specifier combined with
-an id_len > 1, e.g.:
+>   		ret = pmbus_write_word_data(client, page, reg, value);
+>   		break;
+>   
+>   	case PMBUS_IIN_OC_FAULT_LIMIT:
+> -		value -= TPS25990_IIN_OCF_OFF;
+> -		value = DIV_ROUND_CLOSEST(((unsigned int)value) * TPS25990_IIN_OCF_DIV,
+> -					  TPS25990_IIN_OCF_NUM);
+> -		value = clamp_val(value, 0, 0x3f);
+> +		if (data->chip_id == tps25990) {
+> +			value -= TPS25990_IIN_OCF_OFF;
+> +			value = DIV_ROUND_CLOSEST(((unsigned int)value) * TPS25990_IIN_OCF_DIV,
+> +						  TPS25990_IIN_OCF_NUM);
+> +			value = clamp_val(value, 0, 0x3f);
+> +		}
 
-iommu-map = <0x0 &apps_smmu 0x1480 0x1 0x100>;
-
-(<id-base, phandle, out0, out1, length=256>) — which isn't supported, since there's no way to
-linearly scale a multi-cell output specifier across a range of IDs.
-
-Are you seeing that second error on the same pcie node, or a different one?
-If it's the same node, can you share the exact iommu-map entry that triggers it?
-
-
-Thanks,
-Vijay
-
->> + */
->> +static bool of_check_bad_map(const __be32 *map, int len)
->> +{
->> +    __be32 phandle = map[1];
->> +
->> +    if (len % 4)
->> +        return false;
->> +    for (int i = 0; i < len; i += 4) {
->> +        if (map[i + 1] != phandle || map[i + 3] != cpu_to_be32(1))
->> +            return false;
->> +    }
->> +    return true;
->> +}
->> +
->>   /**
->>    * of_map_id - Translate an ID through a downstream mapping.
->>    * @np: root complex device node.
->>    * @id: device ID to map.
->>    * @map_name: property name of the map to use.
->> + * @cells_name: property name of target specifier cells.
->>    * @map_mask_name: optional property name of the mask to use.
->>    * @filter_np: pointer to an optional filter node, or NULL to allow bypass.
->>    *    If non-NULL, the map property must exist (-ENODEV if absent). If
->>    *    *filter_np is also non-NULL, only entries targeting that node match.
->>    * @arg: pointer to a &struct of_phandle_args for the result. On success,
->> - *    @arg->args[0] will contain the translated ID. If a map entry was
->> - *    matched, @arg->np will be set to the target node with a reference
->> - *    held that the caller must release with of_node_put().
->> + *    @arg->args_count will be set to the number of output specifier cells
->> + *    as defined by @cells_name in the target node, and
->> + *    @arg->args[0..args_count-1] will contain the translated output
->> + *    specifier values. If a map entry was matched, @arg->np will be set
->> + *    to the target node with a reference held that the caller must release
->> + *    with of_node_put().
->>    *
->>    * Given a device ID, look up the appropriate implementation-defined
->>    * platform ID and/or the target device which receives transactions on that
->> @@ -2137,19 +2167,21 @@ int of_find_last_cache_level(unsigned int cpu)
->>    * Return: 0 on success or a standard error code on failure.
->>    */
->>   int of_map_id(const struct device_node *np, u32 id,
->> -           const char *map_name, const char *map_mask_name,
->> +           const char *map_name, const char *cells_name,
->> +           const char *map_mask_name,
->>              struct device_node * const *filter_np, struct of_phandle_args *arg)
->>   {
->>       u32 map_mask, masked_id;
->> -    int map_len;
->> +    int map_bytes, map_len, offset = 0;
->> +    bool bad_map = false;
->>       const __be32 *map = NULL;
->>   -    if (!np || !map_name || !arg)
->> +    if (!np || !map_name || !cells_name || !arg)
->>           return -EINVAL;
->>       /* Ensure bypass/no-match success never returns a stale target node. */
->>       arg->np = NULL;
->>   -    map = of_get_property(np, map_name, &map_len);
->> +    map = of_get_property(np, map_name, &map_bytes);
->>       if (!map) {
->>           if (filter_np)
->>               return -ENODEV;
->> @@ -2159,11 +2191,9 @@ int of_map_id(const struct device_node *np, u32 id,
->>           return 0;
->>       }
->>   -    if (!map_len || map_len % (4 * sizeof(*map))) {
->> -        pr_err("%pOF: Error: Bad %s length: %d\n", np,
->> -            map_name, map_len);
->> -        return -EINVAL;
->> -    }
->> +    if (map_bytes % sizeof(*map))
->> +        goto err_map_len;
->> +    map_len = map_bytes / sizeof(*map);
->>         /* The default is to select all bits. */
->>       map_mask = 0xffffffff;
->> @@ -2176,39 +2206,93 @@ int of_map_id(const struct device_node *np, u32 id,
->>           of_property_read_u32(np, map_mask_name, &map_mask);
->>         masked_id = map_mask & id;
->> -    for ( ; map_len > 0; map_len -= 4 * sizeof(*map), map += 4) {
->> +
->> +    while (offset < map_len) {
->>           struct device_node *phandle_node;
->> -        u32 id_base = be32_to_cpup(map + 0);
->> -        u32 phandle = be32_to_cpup(map + 1);
->> -        u32 out_base = be32_to_cpup(map + 2);
->> -        u32 id_len = be32_to_cpup(map + 3);
->> +        u32 id_base, phandle, id_len, id_off, cells = 0;
->> +        const __be32 *out_base;
->> +
->> +        if (map_len - offset < 2)
->> +            goto err_map_len;
->> +
->> +        id_base = be32_to_cpup(map + offset);
->>             if (id_base & ~map_mask) {
->> -            pr_err("%pOF: Invalid %s translation - %s-mask (0x%x) ignores id-base (0x%x)\n",
->> -                np, map_name, map_name,
->> -                map_mask, id_base);
->> +            pr_err("%pOF: Invalid %s translation - %s (0x%x) ignores id-base (0x%x)\n",
->> +                   np, map_name, map_mask_name, map_mask, id_base);
->>               return -EFAULT;
->>           }
->>   -        if (masked_id < id_base || masked_id >= id_base + id_len)
->> -            continue;
->> -
->> +        phandle = be32_to_cpup(map + offset + 1);
->>           phandle_node = of_find_node_by_phandle(phandle);
->>           if (!phandle_node)
->>               return -ENODEV;
->>   +        /*
->> +         * Assume 1-cell output specifier if the target node lacks the
->> +         * #cells property, for backward compatibility with controllers
->> +         * that predate the property (e.g. arm,gic-v2m-frame).
->> +         */
->> +        if (bad_map || of_property_read_u32(phandle_node, cells_name, &cells))
->> +            cells = 1;
->> +
->> +        if (cells > MAX_PHANDLE_ARGS) {
->> +            pr_err("%pOF: %s cell count %d exceeds maximum\n",
->> +                   phandle_node, cells_name, cells);
->> +            of_node_put(phandle_node);
->> +            return -EINVAL;
->> +        }
->> +
->> +        if (offset == 0 && cells == 2) {
->> +            bad_map = of_check_bad_map(map, map_len);
->> +            if (bad_map) {
->> +                pr_warn_once("%pOF: %s has 1-cell entries targeting 2-cell %s, treating as 1-cell output\n",
->> +                         np, map_name, cells_name);
->> +                cells = 1;
->> +            }
->> +        }
->> +
->> +        if (map_len - offset < 3 + cells) {
->> +            of_node_put(phandle_node);
->> +            goto err_map_len;
->> +        }
->> +
->> +        out_base = map + offset + 2;
->> +        offset += 3 + cells;
->> +
->> +        id_len = be32_to_cpup(map + offset - 1);
->> +        id_off = masked_id - id_base;
->> +        if (masked_id < id_base || id_off >= id_len) {
->> +            of_node_put(phandle_node);
->> +            continue;
->> +        }
->> +        if (id_len > 1 && cells > 1) {
->> +            /*
->> +             * With 1 output cell we reasonably assume its value
->> +             * has a linear relationship to the input; with more,
->> +             * we'd need help from the provider to know what to do.
->> +             */
->> +            pr_err("%pOF: Unsupported %s - cannot handle %d-ID range with %d-cell output specifier\n",
->> +                   np, map_name, id_len, cells);
->> +            of_node_put(phandle_node);
->> +            return -EINVAL;
->> +        }
->> +
->>           if (filter_np && *filter_np && *filter_np != phandle_node) {
->>               of_node_put(phandle_node);
->>               continue;
->>           }
->>             arg->np = phandle_node;
->> -        arg->args[0] = masked_id - id_base + out_base;
->> -        arg->args_count = 1;
->> +        for (int i = 0; i < cells; i++)
->> +            arg->args[i] = id_off + be32_to_cpu(out_base[i]);
->> +        arg->args_count = cells;
->>             pr_debug("%pOF: %s, using mask %08x, id-base: %08x, out-base: %08x, length: %08x, id: %08x -> %08x\n",
->> -            np, map_name, map_mask, id_base, out_base,
->> -            id_len, id, masked_id - id_base + out_base);
->> +            np, map_name, map_mask, id_base,
->> +            cells ? be32_to_cpup(out_base) : 0,
->> +            id_len, id,
->> +            cells ? id_off + be32_to_cpup(out_base) : id_off);
->>           return 0;
->>       }
->>   @@ -2219,6 +2303,10 @@ int of_map_id(const struct device_node *np, u32 id,
->>       arg->args[0] = id;
->>       arg->args_count = 1;
->>       return 0;
->> +
->> +err_map_len:
->> +    pr_err("%pOF: Error: Bad %s length: %d\n", np, map_name, map_bytes);
->> +    return -EINVAL;
->>   }
->>   EXPORT_SYMBOL_GPL(of_map_id);
->>   @@ -2228,18 +2316,21 @@ EXPORT_SYMBOL_GPL(of_map_id);
->>    * @id: Requester ID of the device (e.g. PCI RID/BDF or a platform
->>    *      stream/device ID) used as the lookup key in the iommu-map table.
->>    * @arg: pointer to a &struct of_phandle_args for the result. On success,
->> - *    @arg->args[0] contains the translated ID. If a map entry was matched,
->> - *    @arg->np holds a reference to the target node that the caller must
->> - *    release with of_node_put().
->> + *    @arg->args_count will be set to the number of output specifier cells
->> + *    and @arg->args[0..args_count-1] will contain the translated output
->> + *    specifier values. If a map entry was matched, @arg->np holds a
->> + *    reference to the target node that the caller must release with
->> + *    of_node_put().
->>    *
->> - * Convenience wrapper around of_map_id() using "iommu-map" and "iommu-map-mask".
->> + * Convenience wrapper around of_map_id() using "iommu-map", "#iommu-cells",
->> + * and "iommu-map-mask".
->>    *
->>    * Return: 0 on success or a standard error code on failure.
->>    */
->>   int of_map_iommu_id(const struct device_node *np, u32 id,
->>               struct of_phandle_args *arg)
->>   {
->> -    return of_map_id(np, id, "iommu-map", "iommu-map-mask", NULL, arg);
->> +    return of_map_id(np, id, "iommu-map", "#iommu-cells", "iommu-map-mask", NULL, arg);
->>   }
->>   EXPORT_SYMBOL_GPL(of_map_iommu_id);
->>   @@ -2252,17 +2343,20 @@ EXPORT_SYMBOL_GPL(of_map_iommu_id);
->>    *    If non-NULL, the map property must exist (-ENODEV if absent). If
->>    *    *filter_np is also non-NULL, only entries targeting that node match.
->>    * @arg: pointer to a &struct of_phandle_args for the result. On success,
->> - *    @arg->args[0] contains the translated ID. If a map entry was matched,
->> - *    @arg->np holds a reference to the target node that the caller must
->> - *    release with of_node_put().
->> + *    @arg->args_count will be set to the number of output specifier cells
->> + *    and @arg->args[0..args_count-1] will contain the translated output
->> + *    specifier values. If a map entry was matched, @arg->np holds a
->> + *    reference to the target node that the caller must release with
->> + *    of_node_put().
->>    *
->> - * Convenience wrapper around of_map_id() using "msi-map" and "msi-map-mask".
->> + * Convenience wrapper around of_map_id() using "msi-map", "#msi-cells",
->> + * and "msi-map-mask".
->>    *
->>    * Return: 0 on success or a standard error code on failure.
->>    */
->>   int of_map_msi_id(const struct device_node *np, u32 id,
->>             struct device_node * const *filter_np, struct of_phandle_args *arg)
->>   {
->> -    return of_map_id(np, id, "msi-map", "msi-map-mask", filter_np, arg);
->> +    return of_map_id(np, id, "msi-map", "#msi-cells", "msi-map-mask", filter_np, arg);
->>   }
->>   EXPORT_SYMBOL_GPL(of_map_msi_id);
->> diff --git a/include/linux/of.h b/include/linux/of.h
->> index ea50b45d9ff7..374b249766a2 100644
->> --- a/include/linux/of.h
->> +++ b/include/linux/of.h
->> @@ -465,7 +465,8 @@ const char *of_prop_next_string(const struct property *prop, const char *cur);
->>   bool of_console_check(const struct device_node *dn, char *name, int index);
->>     int of_map_id(const struct device_node *np, u32 id,
->> -           const char *map_name, const char *map_mask_name,
->> +           const char *map_name, const char *cells_name,
->> +           const char *map_mask_name,
->>              struct device_node * const *filter_np,
->>              struct of_phandle_args *arg);
->>   @@ -950,7 +951,8 @@ static inline void of_property_clear_flag(struct property *p, unsigned long flag
->>   }
->>     static inline int of_map_id(const struct device_node *np, u32 id,
->> -                 const char *map_name, const char *map_mask_name,
->> +                 const char *map_name, const char *cells_name,
->> +                 const char *map_mask_name,
->>                    struct device_node * const *filter_np,
->>                    struct of_phandle_args *arg)
->>   {
->>
-> 
+Again, per datasheets, there does not appear to be a difference between
+the two chips regarding TPS25990_VIREF.
+>   		ret = pmbus_write_byte_data(client, page, TPS25990_VIREF, value);
+>   		break;
+>   
+> @@ -347,6 +359,59 @@ static const struct regulator_desc tps25990_reg_desc[] = {
+>   #endif
+>   
+>   static struct pmbus_driver_info tps25990_base_info[] = {
+> +	[tps1689] = {
+> +		.pages = 1,
+> +		.format[PSC_VOLTAGE_IN] = direct,
+> +		.m[PSC_VOLTAGE_IN] = 1166,
+> +		.b[PSC_VOLTAGE_IN] = 0,
+> +		.R[PSC_VOLTAGE_IN] = -2,
+> +		.format[PSC_VOLTAGE_OUT] = direct,
+> +		.m[PSC_VOLTAGE_OUT] = 1166,
+> +		.b[PSC_VOLTAGE_OUT] = 0,
+> +		.R[PSC_VOLTAGE_OUT] = -2,
+> +		.format[PSC_TEMPERATURE] = direct,
+> +		.m[PSC_TEMPERATURE] = 140,
+> +		.b[PSC_TEMPERATURE] = 32103,
+> +		.R[PSC_TEMPERATURE] = -2,
+> +		/*
+> +		 * Current and Power measurement depends on the ohm value
+> +		 * of Rimon. m is multiplied by 1000 below to have an integer
+> +		 * and -3 is added to R to compensate.
+> +		 */
+> +		.format[PSC_CURRENT_IN] = direct,
+> +		.m[PSC_CURRENT_IN] = 9548,
+> +		.b[PSC_CURRENT_IN] = 0,
+> +		.R[PSC_CURRENT_IN] = -6,
+> +		.format[PSC_CURRENT_OUT] = direct,
+> +		.m[PSC_CURRENT_OUT] = 24347,
+> +		.b[PSC_CURRENT_OUT] = 0,
+> +		.R[PSC_CURRENT_OUT] = -3,
+> +		.format[PSC_POWER] = direct,
+> +		.m[PSC_POWER] = 2775,
+> +		.b[PSC_POWER] = 0,
+> +		.R[PSC_POWER] = -4,
+> +		.func[0] = (PMBUS_HAVE_VIN |
+> +			    PMBUS_HAVE_VOUT |
+> +			    PMBUS_HAVE_VMON |
+> +			    PMBUS_HAVE_IIN |
+> +			    PMBUS_HAVE_PIN |
+> +			    PMBUS_HAVE_TEMP |
+> +			    PMBUS_HAVE_STATUS_VOUT |
+> +			    PMBUS_HAVE_STATUS_IOUT |
+> +			    PMBUS_HAVE_STATUS_INPUT |
+> +			    PMBUS_HAVE_STATUS_TEMP |
+> +			    PMBUS_HAVE_SAMPLES),
+> +
+> +		.read_word_data = tps25990_read_word_data,
+> +		.write_word_data = tps25990_write_word_data,
+> +		.read_byte_data = tps25990_read_byte_data,
+> +		.write_byte_data = tps25990_write_byte_data,
+> +
+> +#if IS_ENABLED(CONFIG_SENSORS_TPS25990_REGULATOR)
+> +		.reg_desc = tps25990_reg_desc,
+> +		.num_regulators = ARRAY_SIZE(tps25990_reg_desc),
+> +#endif
+> +		},
+>   	[tps25990] = {
+>   		.pages = 1,
+>   		.format[PSC_VOLTAGE_IN] = direct,
+> @@ -389,7 +454,6 @@ static struct pmbus_driver_info tps25990_base_info[] = {
+>   		.write_word_data = tps25990_write_word_data,
+>   		.read_byte_data = tps25990_read_byte_data,
+>   		.write_byte_data = tps25990_write_byte_data,
+> -
+>   #if IS_ENABLED(CONFIG_SENSORS_TPS25990_REGULATOR)
+>   		.reg_desc = tps25990_reg_desc,
+>   		.num_regulators = ARRAY_SIZE(tps25990_reg_desc),
+> @@ -398,12 +462,14 @@ static struct pmbus_driver_info tps25990_base_info[] = {
+>   };
+>   
+>   static const struct i2c_device_id tps25990_i2c_id[] = {
+> +	{ "tps1689", tps1689 },
+>   	{ "tps25990", tps25990 },
+>   	{}
+>   };
+>   MODULE_DEVICE_TABLE(i2c, tps25990_i2c_id);
+>   
+>   static const struct of_device_id tps25990_of_match[] = {
+> +	{ .compatible = "ti,tps1689", .data = (void *)tps1689 },
+>   	{ .compatible = "ti,tps25990", .data = (void *)tps25990 },
+>   	{}
+>   };
 
