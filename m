@@ -1,110 +1,121 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE37033AD9B;
-	Tue, 28 Jul 2026 15:52:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A55D30C146
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 16:00:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785253967; cv=none; b=ppIVFHbMfgYa3ghUT87fMMXddUC/PCC8xSAO40vjnukZbwkOK/PVF2TuJBEkfdqQb6mx6rORPPhmQKlcDb75UU/PUNpWnQr6ekkOXlRLS2lRsHILfbp71fw4rUt3Uu+Clgoq1L4W5EM6uSI6meCOw+nbysD52RBEyCakN0kTY5s=
+	t=1785254442; cv=none; b=pzH9cUrtY4No0PQqT+WXpuPpDV80axlWpuU6HbiFL8alANUxf5OFciPwg7gaJk2Mr6Z1vul42gU3EroU6WzSxHlzLaeNkPKjY9BzDFn9OSPCx+KwI152kgyoA/ZYkD450PAZ5lXzKcCV6pBVH6D2wJ/Qnw2O6LBX0+D26zD3Giw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785253967; c=relaxed/simple;
-	bh=9Bh8kCV0LkjDu3jkPYXajb/gwkn1SmkxH4gYN3gqdow=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ys1m8WSGNEdBpEcfVJchGbRbScK8HcVqUiNjI3OoV0Ly32clNhAxtRCDhOfn676R3xBulQ8gM14nniKMzY+m4otm9me9lF+rXwQlIkzW1l0M1wsQM765g2qYLvUomIlV3Xh3EvmKNkq82w4quwvriYSNXmezHGtFUh1YYRbh9zA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=YvC3RqYI; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1785254442; c=relaxed/simple;
+	bh=xRLMRX8Fi6kOnu80CnBQI+bAKGK0YWWwIxouBmhMwYc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=lCUKSEb2seC9rsdhv/4E/cYrbqCzbEG3Dqn0HtHIbjWETWqsyB4fy5Yzo36pTrLQa8hYMcxCSESpqJjvdpGJLyvpcI162OwP6utxml9M1haTCLrkvIFiDZBSdh1Y/tPgNJH3GVOof0OMqCJkzYcjc9fcreaWc5TkkH5vFvZenFs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sc2Oebl/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="YvC3RqYI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1785253963;
-	bh=9Bh8kCV0LkjDu3jkPYXajb/gwkn1SmkxH4gYN3gqdow=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=YvC3RqYI6S9fV2an63aV126TfIWw4t3u/1YlLn+E1H7ZmN9S3IwIPj9NsYBNS5gSy
-	 te8fjil7xkJ41zzlUh7xCvDJnlk1l5xDp+P+8vhC6Y/VkDQUUq8oRXrEXflAS4vl4b
-	 2sgie/qfU91LSSCHcDoJx3RjNoCshpOb6sBRxlxF0ZxMXGAO3AP8YfjtdyjQP8bomL
-	 KtlTZu8OAR0cc97WqH7o7lA1oyv562Q4Ep6tTXRpgqZJnuXZ28qSPf+uZvaC06YBO6
-	 yXsvSgPW+/jhdsTopZIHEr11EQenBU3pAooPqhr2ykiFTmmctnKie7l/XGZmXyah7T
-	 Khl0fJjLinsQw==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id E49DF17E028D;
-	Tue, 28 Jul 2026 17:52:42 +0200 (CEST)
-Message-ID: <79379dbb-5e15-4e30-ab1d-136a40e77af0@collabora.com>
-Date: Tue, 28 Jul 2026 17:52:42 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sc2Oebl/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11B651F000E9;
+	Tue, 28 Jul 2026 16:00:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785254441;
+	bh=gj+23EWc5lTytP7P+KPGgUbDKCkDKCl085ewmD74KOU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Sc2Oebl/tXZDGBKYrNZ0E110xsQsuRLR+hGnreQQ7cLao5xjQdh3bLGhq5j01C0Zr
+	 XaGUHKqqrN84T4JOahwamTr39pCw+4nApT99KRfnZM7qg9Jxsy4DbTGsMPoqMmfVvb
+	 2ZFWP2nRODlg/xewJ97hjJVGLw5ZMo+flhFLzMdCu8X9s0NhUCy4qMh1wyOJKvhCei
+	 gYYrStf9FEuQd4Jk7bqEM4d7fJzTx8h9jMrke/N97D/enwZW2cKxNbeslYHHdRb3HC
+	 IXjSF5Mu+SJAXoiZy11kSs2IkSn/1b+HrBzWfMN2nmiiRYKVxiLNI9W57jL3KCZoI0
+	 jjJRJXstDnEMQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 1/4] arm64: dts: qcom: Add header file for ADC5 Gen3
+ channel macros
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jishnu Prakash" <jishnu.prakash@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260728-adc5_gen3_dt-v4-1-355f0edece77@oss.qualcomm.com>
+References: <20260728-adc5_gen3_dt-v4-0-355f0edece77@oss.qualcomm.com>
+ <20260728-adc5_gen3_dt-v4-1-355f0edece77@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 28 Jul 2026 16:00:40 +0000
+Message-Id: <20260728160041.11B651F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] soc: mediatek: cmdq-helper: add legacy GCE ISA
- support
-To: Roman Vivchar <rva333@protonmail.com>
-Cc: Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- Houlong Wei <houlong.wei@mediatek.com>, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org
-References: <20260728-6572-gce-v1-0-750bba32689e@protonmail.com>
- <20260728-6572-gce-v1-2-750bba32689e@protonmail.com>
- <ebf419fc-24a8-472f-8996-a134ece69f21@collabora.com>
- <W3cNtJeiPe6gmMpfpNJOxa6NQtOyatXIFz6FyCh7pC8jkE90WX_1g3AgQwXadoba0BdHE3com-6cCkym5VCN5d-3sobraI8O4-TGwkqnWBA=@protonmail.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <W3cNtJeiPe6gmMpfpNJOxa6NQtOyatXIFz6FyCh7pC8jkE90WX_1g3AgQwXadoba0BdHE3com-6cCkym5VCN5d-3sobraI8O4-TGwkqnWBA=@protonmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 7/28/26 17:47, Roman Vivchar wrote:
-> Hi Angelo,
-> 
-> On Tuesday, July 28th, 2026 at 6:08 PM, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com> wrote:
-> 
->> On 7/28/26 11:42, Roman Vivchar via B4 Relay wrote:
->>> From: Roman Vivchar <rva333@protonmail.com>
->>>
->>> Some SoCs, such as mt6572, have different WRITE and POLL instruction
->>> encoding. Instead of 16-bit offset and 8-bit subsystem ID, old GCEs have
->>> 22-bit offset and 2-bit subsystem ID.
->>
->> What about poll_addr, mask, write_s, write_s_mask and others?
-> 
-> These don't seem to exist in all 65xx except 6595. TL;DR - old GCEs are
-> essentially dumb compared to newer ones. They have only basics like MASK (0x2),
-> WRITE (0x4), POLL (0x8), JUMP (0x10), WFE (0x20) and EOC (0x40). All logical
-> operations as well as GPR/SPR don't seem to exist.
-> 
-> cmdq_pkt_poll_addr, write_s, write_s_mask are not used by the DRM subsystem.
-> mask is the same across all GCEs because it takes only u32 mask without
-> address.
-> 
->> Not sure that this will actually work reliably (though I'm sure you're not
->> creating any regression).
-> 
-> I have tested this change (on top of out-of-tree mt6572 DRM) with some
-> dd if=/dev/urandom of=/dev/null spam + modetest, as well as igt. Seems to
-> work without issues...
-> 
-> Best regards,
-> Roman
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] Device tree binding header is improperly placed in an architectu=
+re-specific directory instead of `include/dt-bindings/`.
+- [Medium] Function-like macros share exact names with object-like macros u=
+sed in the driver, causing preprocessor namespace collisions.
+--
 
-Alright then - look, I'd really want to pick this one up, but it's a bit late
-in the cycle and I don't really have much time left for testing.
+--- Patch [1]: [PATCH v4 1/4] arm64: dts: qcom: Add header file for ADC5 Ge=
+n3 channel macros ---
+commit 59d21969abff768469fefb21430c2e819299df4b
+Author: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
 
-I'm sure that this is fine, but please understand me - I can't take this now,
-also because I'm going on holiday very soon and can't be here to take care of
-sudden breakages.
+arm64: dts: qcom: Add header file for ADC5 Gen3 channel macros
+   =20
+This commit adds macro definitions for virtual channels (combining the
+ADC channel number and PMIC SID number) to be used in the devicetree by
+clients of the ADC5 GEN3 device.
 
-I wonder if you could resend it in the next cycle, preferrably at the beginning?
+> diff --git a/arch/arm64/boot/dts/qcom/qcom-adc5-gen3.h b/arch/arm64/boot/=
+dts/qcom/qcom-adc5-gen3.h
+> new file mode 100644
+> index 0000000000000..aa8e54d7e786a
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/qcom-adc5-gen3.h
+> @@ -0,0 +1,88 @@
+> +/* SPDX-License-Identifier: GPL-2.0 OR BSD-2-Clause */
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#ifndef __DTS_ARM64_QCOM_ADC5_GEN3_H__
 
-Meanwhile, I'll get this series on the Collabora trees so that it gets cycled by
-the CI a bit (though, it's not enough, because that needs to be tested manually).
+[Severity: Medium]
+Should this device tree binding header be placed in include/dt-bindings/
+instead of arch/arm64/boot/dts/qcom/?
 
-Cheers,
-Angelo
+Headers that define hardware channel IDs form the ABI between the devicetree
+and the operating system drivers. Placing this in an architecture-specific
+directory makes it inaccessible to C drivers or other architectures.
+
+Moving it to include/dt-bindings/ would allow it to be shared universally a=
+nd
+parsed by standard DT schema validation tools. The include guard also appea=
+rs
+to couple the file unnecessarily to ARM64.
+
+> +#define __DTS_ARM64_QCOM_ADC5_GEN3_H__
+> +
+> +/* ADC channels for PMIC5 Gen3 */
+> +
+> +#define VIRT_CHAN(sid, chan)			((sid) << 8 | (chan))
+> +
+> +#define ADC5_GEN3_REF_GND(sid)			VIRT_CHAN(sid, 0x00)
+
+[Severity: Medium]
+Will this function-like macro collide with the object-like macros already
+used in the driver?
+
+The corresponding IIO ADC driver already uses identically named object-like
+macros, such as #define ADC5_GEN3_REF_GND 0x00.
+
+If the C driver includes this header to avoid duplicating channel
+definitions, using the exact same identifier for both a function-like macro
+and an object-like macro will trigger preprocessor redefinition errors.
+
+Could the base channel IDs be defined as object-like constants, and a
+distinctly named helper macro be provided to construct the virtual channel?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-adc5_gen3_=
+dt-v4-0-355f0edece77@oss.qualcomm.com?part=3D1
