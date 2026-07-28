@@ -1,137 +1,708 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.187.6.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 531F238B7BC;
-	Tue, 28 Jul 2026 10:59:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.187.6.220
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F0E63D522C;
+	Tue, 28 Jul 2026 11:01:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785236402; cv=none; b=dTua53GoIkyEfkGdrohj/vZfIeDAnGvVcGqQ4qvTZSxRWT/69bc24FVUWvkH4iN814tA+fsSEZi6zIF4JYfFjx+DZiL8UtAWn6W5TdofsuRqSgJ8pnXM9jwc/SJgpRISPOMIF6W46V2OqgkssQH1MiOh3nZzJvRa2S3uESDlhNc=
+	t=1785236525; cv=none; b=COESHParmZRk3z8ZG2Ohzv8Vb5lc+LxCpUkARf5Xzy2yyiWDerLfdEuZ2OgXqx/9Tl6JRYFVHKMSaKPjK8343gCwfF/AFhKB8a1w9QQGUwWgNMwN5DJqZMWYJQKLkcJsAs8Sl9Ghp3TSZXyXeHbVRiZHaBDO+NbGUZ1SVxLj6ds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785236402; c=relaxed/simple;
-	bh=MiHh9/bp5215An9jfgk35JYfCP0JRpdE9kbTOGGEXf8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=O7Ulm3aj/vqDw+hSM7WRRE7dcF5ndLHF4BanWPmc2otrUepuon0khSo7rifGwrci0pNZ1KRFIFdh2eMUtrvo8kyOOdGLol+7/WkSpslAOFGoOBn0lTn0EA5Sh5bnsZXlNe8ewprcWbbf6PrqCyI90A7EBQe556bD8W3mvfE9OAs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=52.187.6.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from dongxuyang$eswincomputing.com ( [10.12.96.41] ) by
- ajax-webmail-app2 (Coremail) ; Tue, 28 Jul 2026 18:59:36 +0800 (GMT+08:00)
-Date: Tue, 28 Jul 2026 18:59:36 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: "Xuyang Dong" <dongxuyang@eswincomputing.com>
-To: "Philipp Zabel" <p.zabel@pengutronix.de>,
-	sashiko-reviews@lists.linux.dev
-Cc: ukleinek@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, ben-linux@fluff.org, ben.dooks@codethink.co.uk,
-	linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, daniel.lezcano@kernel.org,
-	tglx@kernel.org, ningyu@eswincomputing.com,
-	linmin@eswincomputing.com, xuxiang@eswincomputing.com,
-	wangguosheng@eswincomputing.com, pinkesh.vaghela@einfochips.com
-Subject: Re: Re: Re: [PATCH v13 5/5] clocksource: dw_apb_timer: Use reset
- array API to handle all resets
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
- 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
- mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
-In-Reply-To: <331adad68e3913cae30d8b1c5764177affabf60f.camel@pengutronix.de>
-References: <20260724084153.1473-1-dongxuyang@eswincomputing.com>
- <20260724084437.1850-1-dongxuyang@eswincomputing.com>
- <20260724085527.D31BC1F000E9@smtp.kernel.org>
- <63b2ba86.8bcf.19fa2e572f4.Coremail.dongxuyang@eswincomputing.com>
- <331adad68e3913cae30d8b1c5764177affabf60f.camel@pengutronix.de>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	s=arc-20240116; t=1785236525; c=relaxed/simple;
+	bh=H0qvx95IhySPuFGswZJekvlhbuSpy1EpRxR0IlpIwt4=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=SpSSnQFF/mCCSi5w8XWtzFG2fVbE5MylwbbA4opQ+trujMGzrjg6NoFpdK0Ry48h1YAUy6XY3LqaTANPqy7o11j4KCMBMDFaJ2KYbIDBrFHgO0rRSG5Qu6hnPBbGB2IVFMQjdKcHfCXU5T8Zl45px3UybRa4Mtw23gJUBFCz/4M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id E41FF202A8B;
+	Tue, 28 Jul 2026 13:01:50 +0200 (CEST)
+Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wofZG-001i2l-2i;
+	Tue, 28 Jul 2026 13:01:50 +0200
+Received: from pza by lupine with local (Exim 4.98.2)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wofZG-000000008pp-2yjt;
+	Tue, 28 Jul 2026 13:01:50 +0200
+Message-ID: <6ff452366cc35b4c97f7d7d4f0fff902095e3d49.camel@pengutronix.de>
+Subject: Re: [PATCH v6 2/2] drm/bridge: add support for lontium lt9211c
+ bridge
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: vishnu.saini@oss.qualcomm.com, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart	 <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring	 <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley	 <conor+dt@kernel.org>, Marek
+ Vasut <marex@denx.de>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Yi Zhang <zhanyi@qti.qualcomm.com>, Nilesh
+ Laad	 <nilesh.laad@oss.qualcomm.com>, Gopi Botlagunta	
+ <venkata.botlagunta@oss.qualcomm.com>, venkata.valluru@oss.qualcomm.com, 
+ Jessica Zhang <jesszhan0024@gmail.com>
+Date: Tue, 28 Jul 2026 13:01:50 +0200
+In-Reply-To: <20260719-add-lt9211c-bridge-v6-2-e56d22152586@oss.qualcomm.com>
+References: <20260719-add-lt9211c-bridge-v6-0-e56d22152586@oss.qualcomm.com>
+	 <20260719-add-lt9211c-bridge-v6-2-e56d22152586@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <683d4880.8ceb.19fa8614bba.Coremail.dongxuyang@eswincomputing.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:TQJkCgAnPJ+Yi2hq9W03AA--.8107W
-X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/1tbiAQECAmpniCgZI
-	gAAsW
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VW3Jw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
 
-PiAKPiBPbiBNbywgMjAyNi0wNy0yNyBhdCAxNzoyNiArMDgwMCwgWHV5YW5nIERvbmcgd3JvdGU6
-Cj4gPiA+IAo+ID4gPiBUaGFuayB5b3UgZm9yIHlvdXIgY29udHJpYnV0aW9uISBTYXNoaWtvIEFJ
-IHJldmlldyBmb3VuZCAxIHBvdGVudGlhbCBpc3N1ZShzKSB0byBjb25zaWRlcjoKPiA+ID4gLSBb
-SGlnaF0gVGhlIHBhdGNoIGR5bmFtaWNhbGx5IGFsbG9jYXRlcyBhbiBleGNsdXNpdmUgcmVzZXQg
-Y29udHJvbCBhcnJheSB1c2luZyB0aGUgdW5tYW5hZ2VkIGBvZl9gIEFQSSBidXQgZmFpbHMgdG8g
-ZnJlZSBpdCwgcGVybWFuZW50bHkgbG9ja2luZyBzaGFyZWQgQVBCIHJlc2V0cyBhbmQgZGVhZGxv
-Y2tpbmcgb3RoZXIgZGV2aWNlcy4KPiA+ID4gLS0KPiA+ID4gCj4gPiA+IC0tLSBQYXRjaCBbNV06
-IFtQQVRDSCB2MTMgNS81XSBjbG9ja3NvdXJjZTogZHdfYXBiX3RpbWVyOiBVc2UgcmVzZXQgYXJy
-YXkgQVBJIHRvIGhhbmRsZSBhbGwgcmVzZXRzIC0tLQo+ID4gPiBjb21taXQgMDE1NDE4ZDcyMmI2
-NmE0NTQwMDBmZDdhOWMyNjA2YmVhM2Y3ZTE4Ygo+ID4gPiBBdXRob3I6IFh1eWFuZyBEb25nIDxk
-b25neHV5YW5nQGVzd2luY29tcHV0aW5nLmNvbT4KPiA+ID4gCj4gPiA+IGNsb2Nrc291cmNlOiBk
-d19hcGJfdGltZXI6IFVzZSByZXNldCBhcnJheSBBUEkgdG8gaGFuZGxlIGFsbCByZXNldHMKPiA+
-ID4gCj4gPiA+IFRoaXMgcGF0Y2ggdXBkYXRlcyB0aGUgdGltZXIgaW5pdGlhbGl6YXRpb24gdG8g
-ZmV0Y2ggYW5kIHB1bHNlIGFsbCByZXNldCBsaW5lcwo+ID4gPiBzcGVjaWZpZWQgaW4gdGhlIGRl
-dmljZSB0cmVlIGJ5IHN3aXRjaGluZyB0byB0aGUgcmVzZXQgYXJyYXkgQVBJLgo+ID4gPiAKPiA+
-ID4gPiBSZXBsYWNlIGl0IHdpdGggZGV2bV9yZXNldF9jb250cm9sX2FycmF5X2dldF9vcHRpb25h
-bF9leGNsdXNpdmUoKSB0bwo+ID4gPiA+IGZldGNoIGFuZCBjb250cm9sIGFsbCByZXNldCBsaW5l
-cyBsaXN0ZWQgaW4gdGhlIGRldmljZSB0cmVlLCBlbnN1cmluZwo+ID4gPiA+IGV2ZXJ5IGxpbmUg
-aXMgcHJvcGVybHkgYXNzZXJ0ZWQgYW5kIGRlYXNzZXJ0ZWQgcmF0aGVyIHRoYW4gb25seSB0aGUg
-Zmlyc3QuCj4gPiA+IAo+ID4gPiBbU2V2ZXJpdHk6IExvd10KPiA+ID4gVGhpcyBpc24ndCBhIGJ1
-ZywgYnV0IHRoZSBjb21taXQgbWVzc2FnZSBtZW50aW9ucyB1c2luZyB0aGUgbWFuYWdlZAo+ID4g
-PiBkZXZtX3Jlc2V0X2NvbnRyb2xfYXJyYXlfZ2V0X29wdGlvbmFsX2V4Y2x1c2l2ZSBmdW5jdGlv
-biwgd2hpbGUgdGhlIGNvZGUKPiA+ID4gYmVsb3cgYWN0dWFsbHkgdXNlcyB0aGUgdW5tYW5hZ2Vk
-IG9mX3Jlc2V0X2NvbnRyb2xfYXJyYXlfZ2V0X29wdGlvbmFsX2V4Y2x1c2l2ZQo+ID4gPiBmdW5j
-dGlvbi4KPiA+ID4gCj4gPiA+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvY2xvY2tzb3VyY2UvZHdf
-YXBiX3RpbWVyX29mLmMgYi9kcml2ZXJzL2Nsb2Nrc291cmNlL2R3X2FwYl90aW1lcl9vZi5jCj4g
-PiA+ID4gLS0tIGEvZHJpdmVycy9jbG9ja3NvdXJjZS9kd19hcGJfdGltZXJfb2YuYwo+ID4gPiA+
-ICsrKyBiL2RyaXZlcnMvY2xvY2tzb3VyY2UvZHdfYXBiX3RpbWVyX29mLmMKPiA+ID4gWyAuLi4g
-XQo+ID4gPiA+IEBAIC0yOSw5ICsyOSwxMSBAQCBzdGF0aWMgaW50IF9faW5pdCB0aW1lcl9nZXRf
-YmFzZV9hbmRfcmF0ZShzdHJ1Y3QgZGV2aWNlX25vZGUgKm5wLAo+ID4gPiA+IMKgCS8qCj4gPiA+
-ID4gwqAJICogUmVzZXQgdGhlIHRpbWVyIGlmIHRoZSByZXNldCBjb250cm9sIGlzIGF2YWlsYWJs
-ZSwgd2lwaW5nCj4gPiA+ID4gLQkgKiBvdXQgdGhlIHN0YXRlIHRoZSBmaXJtd2FyZSBtYXkgaGF2
-ZSBsZWZ0IGl0Cj4gPiA+ID4gKwkgKiBvdXQgdGhlIHN0YXRlIHRoZSBmaXJtd2FyZSBtYXkgaGF2
-ZSBsZWZ0IGl0Lgo+ID4gPiA+ICsJICogVXNlIGFycmF5IHZhcmlhbnQgdG8gaGFuZGxlIG11bHRp
-cGxlIHJlc2V0cyAoZS5nLiwgdGltZXIKPiA+ID4gPiArCSAqIGFuZCBBUEIgaW50ZXJmYWNlIHJl
-c2V0cykgaWYgc3BlY2lmaWVkIGluIHRoZSBkZXZpY2UgdHJlZS4KPiA+ID4gPiDCoAkgKi8KPiA+
-ID4gPiAtCXJzdGMgPSBvZl9yZXNldF9jb250cm9sX2dldChucCwgTlVMTCk7Cj4gPiA+ID4gKwly
-c3RjID0gb2ZfcmVzZXRfY29udHJvbF9hcnJheV9nZXRfb3B0aW9uYWxfZXhjbHVzaXZlKG5wKTsK
-PiA+ID4gPiDCoAlpZiAoIUlTX0VSUihyc3RjKSkgewo+ID4gPiA+IMKgCQlyZXNldF9jb250cm9s
-X2Fzc2VydChyc3RjKTsKPiA+ID4gPiDCoAkJcmVzZXRfY29udHJvbF9kZWFzc2VydChyc3RjKTsK
-PiA+ID4gPiDCoAl9Cj4gPiA+IAo+ID4gPiBbU2V2ZXJpdHk6IEhpZ2hdCj4gPiA+IERvZXMgdGhp
-cyBjb2RlIGxlYWsgdGhlIGV4Y2x1c2l2ZSByZXNldCBjb250cm9sIGFycmF5Pwo+ID4gPiAKPiA+
-ID4gU2luY2Ugb2ZfcmVzZXRfY29udHJvbF9hcnJheV9nZXRfb3B0aW9uYWxfZXhjbHVzaXZlIGlz
-IHVzZWQgaW5zdGVhZCBvZiB0aGUKPiA+ID4gbWFuYWdlZCBkZXZtIHZhcmlhbnQsIHRoZSByZXR1
-cm5lZCByc3RjIG5lZWRzIHRvIGJlIG1hbnVhbGx5IGZyZWVkLgo+ID4gPiAKPiA+ID4gQmVjYXVz
-ZSB0aGlzIEFQSSBhY3F1aXJlcyBleGNsdXNpdmUgcmVmZXJlbmNlcyB0byB0aGUgcmVzZXRzICh3
-aGljaCB0aGUKPiA+ID4gY29tbWVudCBub3RlcyBtaWdodCBpbmNsdWRlIHNoYXJlZCBBUEIgaW50
-ZXJmYWNlIHJlc2V0cyksIGV4aXRpbmcKPiAKPiBJcyB0aGlzIHRydWU/IERvIG11bHRpcGxlIHRp
-bWVycyBzaGFyZSB0aGUgc2FtZSBidXMgcmVzZXQ/Cj4gCgpIaSBQaGlsaXBwLAoKVGhhbmtzIGZv
-ciB5b3VyIGNvbW1lbnRzIGFuZCB0aW1lLgpJIHRoaW5rIGVhY2ggdGltZXIgbWlnaHQgaGF2ZSBp
-dHMgb3duIHJlc2V0IHNpZ25hbChzKS4KCj4gPiA+IHRpbWVyX2dldF9iYXNlX2FuZF9yYXRlIHdp
-dGhvdXQgY2FsbGluZyByZXNldF9jb250cm9sX3B1dChyc3RjKSBsZWF2ZXMKPiA+ID4gdGhlc2Ug
-cmVzZXRzIHBlcm1hbmVudGx5IGxvY2tlZC4KPiA+ID4gCj4gPiA+IENvdWxkIHRoaXMgcHJldmVu
-dCBvdGhlciBkZXZpY2VzIG9uIHRoZSBidXMgZnJvbSBhY3F1aXJpbmcgdGhlaXIgc2hhcmVkCj4g
-PiA+IHJlc2V0cyBkdXJpbmcgcHJvYmUgYnkgcmV0dXJuaW5nIC1FQlVTWT8KPiA+IAo+ID4gSGkg
-U2FzaGlrbywKPiA+IAo+ID4gV2lsbCBjaGFuZ2UgZGV2bV9yZXNldF9jb250cm9sX2FycmF5X2dl
-dF9vcHRpb25hbF9leGNsdXNpdmUoKSB0bwo+ID4gb2ZfcmVzZXRfY29udHJvbF9hcnJheV9nZXRf
-b3B0aW9uYWxfZXhjbHVzaXZlKCkgaW4gY29tbWl0IG1lc3NhZ2UuCj4gPiAKPiA+IEFkZCByZXNl
-dF9jb250cm9sX3B1dChyc3RjKSBhZnRlciBkZWFzc2VydC4gVGhlIG5leHQgdmVyc2lvbiB3aWxs
-IGJlwqAKPiA+IHVwZGF0ZWQgd2l0aCB0aGUgZm9sbG93aW5nIGNoYW5nZXMuwqAKPiA+IAo+ID4g
-LQlyc3RjID0gb2ZfcmVzZXRfY29udHJvbF9nZXQobnAsIE5VTEwpOwo+ID4gKwlyc3RjID0gb2Zf
-cmVzZXRfY29udHJvbF9hcnJheV9nZXRfb3B0aW9uYWxfZXhjbHVzaXZlKG5wKTsKPiA+IMKgCWlm
-ICghSVNfRVJSKHJzdGMpKSB7Cj4gPiDCoAkJcmVzZXRfY29udHJvbF9hc3NlcnQocnN0Yyk7Cj4g
-PiDCoAkJcmVzZXRfY29udHJvbF9kZWFzc2VydChyc3RjKTsKPiA+ICsJCXJlc2V0X2NvbnRyb2xf
-cHV0KHJzdGMpOwo+ID4gKwkJcnN0YyA9IE5VTEw7Cj4gPiDCoAl9Cj4gPiAKPiA+IERvIHlvdSB0
-aGluayB0aGlzIGNoYW5nZSBpcyBjb3JyZWN0Pwo+IAo+IEl0IGRvZXMgYWxsb3dzIG11bHRpcGxl
-IHRpbWVycyB0byByZXBlYXRlZGx5IGFzc2VydC9kZWFzc2VydCB0aGUgc2FtZQo+IGJ1cyByZXNl
-dC4gSXMgdGhpcyB3aGF0IHlvdSBuZWVkPwo+IAoKV2UgZG8gbm90IG5lZWQgdG8gcmVwZWF0ZWRs
-eSBhc3NlcnQgYW5kIGRlYXNzZXJ0IHRoZSBzYW1lIGJ1cyByZXNldCzCoApiZWNhdXNlIHdlIGRv
-IG5vdCB3YW50IG90aGVyIHRpbWVycyB0byBhZmZlY3QgdGhlIGN1cnJlbnQgdGltZXIgd2hlbsKg
-CnRoZXkgYXNzZXJ0IHRoZSByZXNldC4KCj4gU2VtYW50aWNhbGx5LCBpdCBpcyB3cm9uZywgdGhv
-dWdoLiBCeSByZWxlYXNpbmcgdGhlIHJlc2V0IGNvbnRyb2xzLCB0aGUKPiBkcml2ZXIgc3RhdGVz
-IHRoYXQgaXQgZG9lc24ndCBjYXJlIGFib3V0IHRoZSBzdGF0ZSBvZiB0aGUgcmVzZXQgbGluZXMK
-PiBhbnltb3JlLgo+IAoKV2lsbCBkcm9wICJyZXNldF9jb250cm9sX3B1dChyc3RjKTsiIGFuZCAi
-cnN0YyA9IE5VTEw7Ii4KS2VlcCBvbmx5IHRoZSBjb250ZW50IGJlbG93OgoKLQlyc3RjID0gb2Zf
-cmVzZXRfY29udHJvbF9nZXQobnAsIE5VTEwpOworCXJzdGMgPSBvZl9yZXNldF9jb250cm9sX2Fy
-cmF5X2dldF9vcHRpb25hbF9leGNsdXNpdmUobnApOwogCWlmICghSVNfRVJSKHJzdGMpKSB7CiAJ
-CXJlc2V0X2NvbnRyb2xfYXNzZXJ0KHJzdGMpOwogCQlyZXNldF9jb250cm9sX2RlYXNzZXJ0KHJz
-dGMpOwogCX0KCkRvIHlvdSB0aGluayB0aGlzIGNoYW5nZSBpcyBjb3JyZWN0PwoKQmVzdCByZWdh
-cmRzLApYdXlhbmcgRG9uZwo=
+On So, 2026-07-19 at 21:27 +0530, vishnu.saini@oss.qualcomm.com wrote:
+> From: Yi Zhang <zhanyi@qti.qualcomm.com>
+>=20
+> LT9211C is a Single/Dual-Link DSI/LVDS or Single DPI input to
+> Single-Link/Dual-Link DSI/LVDS or Single DPI output bridge chip.
+> Extend the existing lontium-lt9211 driver to support DSI-to-LVDS
+> bridge configuration by detecting and handling both LT9211 and LT9211C
+> variants from a single driver.
+>=20
+> Chip detection in lt9211_read_chipid() is extended to identify the
+> LT9211C by its distinct chip ID registers.
+>
+> A separate regmap configuration is introduced for LT9211C to cover
+> its extended register map. The chip_type field added to struct lt9211
+> selects the appropriate regmap and code paths at probe time using
+> of_device_is_compatible().
+
+This could be done via device match data instead.
+
+
+[...]
+> The LT9211C requires DSI clocks to be running before the bridge can
+> be initialised,
+
+Is this different from LT9211?
+
+> so lt9211_atomic_enable() queues
+> a delayed workqueue item for LT9211C rather than initialising
+> synchronously as LT9211 does.
+
+How does this follow? Isn't the DSI clock already enabled before
+atomic_enable is called?
+
+If the initialization is deferred to a delayed work item, we can't
+correctly enable downstream LVDS panels that require a few frames of
+valid LVDS signal before enabling the panel or backlight. This must be
+synchronous to work correctly.
+
+> LT9211C uses VIDEO|LPM DSI mode flags, which differ from the
+> sync-pulse mode used by LT9211.
+>=20
+> Signed-off-by: Yi Zhang <zhanyi@qti.qualcomm.com>
+> Signed-off-by: Nilesh Laad <nilesh.laad@oss.qualcomm.com>
+> Signed-off-by: Gopi Botlagunta <venkata.botlagunta@oss.qualcomm.com>
+> Signed-off-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/bridge/lontium-lt9211.c | 796 ++++++++++++++++++++++++++=
++++++-
+>  1 file changed, 779 insertions(+), 17 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/bridge/lontium-lt9211.c b/drivers/gpu/drm/br=
+idge/lontium-lt9211.c
+> index f39d83a5ae37..36c004df34fc 100644
+> --- a/drivers/gpu/drm/bridge/lontium-lt9211.c
+> +++ b/drivers/gpu/drm/bridge/lontium-lt9211.c
+> @@ -19,6 +19,7 @@
+>  #include <linux/of_graph.h>
+>  #include <linux/regmap.h>
+>  #include <linux/regulator/consumer.h>
+> +#include <linux/workqueue.h>
+> =20
+>  #include <drm/drm_atomic_helper.h>
+>  #include <drm/drm_bridge.h>
+> @@ -36,10 +37,21 @@
+>  #define REG_CHIPID2				0x8102
+>  #define REG_CHIPID2_VALUE			0xe3
+> =20
+> +/* LT9211C chip ID values */
+> +#define REG_CHIPID0_LT9211C_VALUE		0x21
+> +#define REG_CHIPID1_LT9211C_VALUE		0x03
+> +#define REG_CHIPID2_LT9211C_VALUE		0xe1
+> +
+>  #define REG_DSI_LANE				0xd000
+>  /* DSI lane count - 0 means 4 lanes ; 1, 2, 3 means 1, 2, 3 lanes. */
+>  #define REG_DSI_LANE_COUNT(n)			((n) & 3)
+> =20
+> +/* Chip type enum */
+> +enum lt9211_chip_type {
+> +	LT9211,
+> +	LT9211C,
+> +};
+> +
+>  struct lt9211 {
+>  	struct drm_bridge		bridge;
+>  	struct device			*dev;
+> @@ -50,6 +62,14 @@ struct lt9211 {
+>  	struct regulator		*vccio;
+>  	bool				lvds_dual_link;
+>  	bool				lvds_dual_link_even_odd_swap;
+> +	/* LT9211C specific fields */
+
+This isn't LT9211C specific:
+
+> +	enum lt9211_chip_type		chip_type;
+
+These won't be needed if the delayed work is dropped:
+
+> +	struct workqueue_struct		*wq;
+> +	struct delayed_work		lt9211_dw;
+> +	struct drm_display_mode		mode;
+> +	bool				bpp24;
+> +	bool				jeida;
+> +	bool				de;
+>  };
+> =20
+>  static const struct regmap_range lt9211_rw_ranges[] =3D {
+> @@ -93,6 +113,49 @@ static const struct regmap_config lt9211_regmap_confi=
+g =3D {
+>  	.max_register =3D 0xda00,
+>  };
+> =20
+> +static const struct regmap_range lt9211c_rw_ranges[] =3D {
+> +	regmap_reg_range(0xff, 0xff),
+> +	regmap_reg_range(0x8100, 0x8182),
+> +	regmap_reg_range(0x8200, 0x82aa),
+> +	regmap_reg_range(0x8500, 0x85ff),
+> +	regmap_reg_range(0x8600, 0x86a0),
+> +	regmap_reg_range(0x8700, 0x8746),
+> +	regmap_reg_range(0xd000, 0xd0a7),
+> +	regmap_reg_range(0xd400, 0xd42c),
+> +	regmap_reg_range(0xd800, 0xd838),
+> +	regmap_reg_range(0xd9c0, 0xd9d5),
+> +};
+> +
+> +static const struct regmap_access_table lt9211c_rw_table =3D {
+> +	.yes_ranges =3D lt9211c_rw_ranges,
+> +	.n_yes_ranges =3D ARRAY_SIZE(lt9211c_rw_ranges),
+> +};
+> +
+> +static const struct regmap_range_cfg lt9211c_range =3D {
+> +	.name =3D "lt9211c",
+> +	.range_min =3D 0x0000,
+> +	.range_max =3D 0xda00,
+> +	.selector_reg =3D REG_PAGE_CONTROL,
+> +	.selector_mask =3D 0xff,
+> +	.selector_shift =3D 0,
+> +	.window_start =3D 0,
+> +	.window_len =3D 0x100,
+> +};
+> +
+> +static const struct regmap_config lt9211c_regmap_config =3D {
+> +	.reg_bits =3D 8,
+> +	.val_bits =3D 8,
+> +	.rd_table =3D &lt9211c_rw_table,
+> +	.wr_table =3D &lt9211c_rw_table,
+> +	.volatile_table =3D &lt9211c_rw_table,
+> +	.ranges =3D &lt9211c_range,
+> +	.num_ranges =3D 1,
+> +	.cache_type =3D REGCACHE_RBTREE,
+
+Don't use REGCACHE_RBTREE without a good reason, current default is
+REGCACHE_MAPLE. But... if all RW registers are also marked volatile,
+the cache is useless. So, REGCACHE_NONE?
+Do you know anything about which registers may or may not be volatile?
+
+[...]
+> @@ -454,6 +526,651 @@ static int lt9211_configure_tx(struct lt9211 *ctx, =
+bool jeida,
+>  	return 0;
+>  }
+> =20
+> +static int lt9211c_configure_rx(struct lt9211 *ctx)
+> +{
+> +	unsigned int pval;
+>=20
+[...]
+> +	ret =3D regmap_multi_reg_write(ctx->regmap, lt9211c_rx_phy_seq,
+> +				     ARRAY_SIZE(lt9211c_rx_phy_seq));
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D regmap_multi_reg_write(ctx->regmap, lt9211c_rx_phy_reset_seq,
+> +				     ARRAY_SIZE(lt9211c_rx_phy_reset_seq));
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D regmap_multi_reg_write(ctx->regmap, lt9211c_rx_clk_sel_seq,
+> +				     ARRAY_SIZE(lt9211c_rx_clk_sel_seq));
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D regmap_read(ctx->regmap, 0x8180, &pval);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D regmap_write(ctx->regmap, 0x8180, ((pval & 0xfc) | 0x03));
+> +	if (ret)
+> +		return ret;
+
+These two are
+
+	ret =3D regmap_write_bits(ctx->regmap, 0x8180, 0x3, 0x3);
+
+or even
+
+	ret =3D regmap_set_bits(ctx->regmap, 0x8180, 0x3);
+
+[...]
+> +	ret =3D regmap_read(ctx->regmap, 0x8530, &pval);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D regmap_write(ctx->regmap, 0x8530, ((pval & 0xf8) | 0x11));
+> +	if (ret)
+> +		return ret;
+
+Not masking out bit 0x10 and then setting it is unusual. Was ((pval &
+0xe8) | 0x11) meant here?
+
+This corresponds to:
+
+	ret =3D regmap_write_bits(ctx->regmap, 0x8530, 0x17, 0x11);
+
+> +
+> +	ret =3D regmap_multi_reg_write(ctx->regmap, lt9211c_rx_input_sel_seq,
+> +				     ARRAY_SIZE(lt9211c_rx_input_sel_seq));
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D regmap_multi_reg_write(ctx->regmap, lt9211c_rx_dig_seq,
+> +				     ARRAY_SIZE(lt9211c_rx_dig_seq));
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Give the chip time to lock onto RX stream. */
+> +	msleep(100);
+
+Is there any status register that could be polled to see if the lock
+happened earlier?
+
+> +
+> +	return 0;
+> +}
+> +
+> +static int lt9211c_autodetect_rx(struct lt9211 *ctx,
+> +				 const struct drm_display_mode *mode)
+> +{
+> +	u16 width, height;
+> +	u8 buf[5];
+> +	u8 format;
+> +	u8 sot[8];
+> +	int ret;
+> +
+> +	/* Read the SOT from the chip. */
+> +	ret =3D regmap_bulk_read(ctx->regmap, 0xd088, sot, sizeof(sot));
+> +	if (ret)
+> +		return ret;
+> +
+> +	dev_dbg(ctx->dev, "Sot Num =3D 0x%02x, 0x%02x, 0x%02x, 0x%02x\n", sot[0=
+],
+> +		sot[2], sot[4], sot[6]);
+> +
+> +	dev_dbg(ctx->dev, "Sot Data =3D 0x%02x, 0x%02x, 0x%02x, 0x%02x\n", sot[=
+1],
+> +		sot[3], sot[5], sot[7]);
+> +	/* HS Settle Set */
+> +	if (sot[0] > 0x10 && sot[0] < 0x50)
+> +		regmap_write(ctx->regmap, 0xd002, sot[0] - 5);
+> +	else
+> +		regmap_write(ctx->regmap, 0xd002, 0x08);
+
+You could prepare the value then call regmap_write() once.
+
+[...]
+> +static int lt9211c_configure_timing(struct lt9211 *ctx,
+> +				    const struct drm_display_mode *mode)
+> +{
+> +	const struct reg_sequence lt9211c_timing[] =3D {
+> +		{ 0xd00d, (mode->vtotal >> 8) & 0xff },
+> +		{ 0xd00e, mode->vtotal & 0xff },
+> +		{ 0xd00f, (mode->vdisplay >> 8) & 0xff },
+> +		{ 0xd010, mode->vdisplay & 0xff },
+> +		{ 0xd011, (mode->htotal >> 8) & 0xff },
+> +		{ 0xd012, mode->htotal & 0xff },
+> +		{ 0xd013, (mode->hdisplay >> 8) & 0xff },
+> +		{ 0xd014, mode->hdisplay & 0xff },
+> +		{ 0xd015, (mode->vsync_end - mode->vsync_start) & 0xff },
+> +		{ 0xd04c, ((mode->hsync_end - mode->hsync_start) >> 8) & 0xff },
+
+Apart from 16-bit hsync_len this is identical to
+lt9211_configure_timing, maybe that could be reused.
+
+> +		{ 0xd016, (mode->hsync_end - mode->hsync_start) & 0xff },
+> +		{ 0xd017, ((mode->vsync_start - mode->vdisplay) >> 8) & 0xff },
+> +		{ 0xd018, (mode->vsync_start - mode->vdisplay) & 0xff },
+> +		{ 0xd019, ((mode->hsync_start - mode->hdisplay) >> 8) & 0xff },
+> +		{ 0xd01a, (mode->hsync_start - mode->hdisplay) & 0xff },
+> +	};
+> +
+> +	return regmap_multi_reg_write(ctx->regmap, lt9211c_timing,
+> +				      ARRAY_SIZE(lt9211c_timing));
+> +}
+> +
+> +static int lt9211c_configure_plls(struct lt9211 *ctx,
+> +				  const struct drm_display_mode *mode)
+> +{
+[...]
+> +	if (mode->clock < 22000) {
+> +		ret =3D regmap_write(ctx->regmap, 0x822f, 0x07);
+> +		ret |=3D regmap_write(ctx->regmap, 0x822c, 0x01);
+
+0x822c is never cleared in the other branches. Would it be possible to
+enable with a mode clock < 22000 and then disable and enable with a
+mode clock >=3D 22000 but < 44000, ending up with 0x822c still containing
+0x01 ?
+
+> +		div =3D 16;
+> +	} else if (mode->clock < 44000) {
+> +		ret =3D regmap_write(ctx->regmap, 0x822f, 0x07);
+> +		div =3D 16;
+> +	} else if (mode->clock < 88000) {
+> +		ret =3D regmap_write(ctx->regmap, 0x822f, 0x06);
+> +		div =3D 8;
+> +	} else if (mode->clock < 176000) {
+> +		ret =3D regmap_write(ctx->regmap, 0x822f, 0x05);
+> +		div =3D 4;
+> +	} else {
+> +		ret =3D regmap_write(ctx->regmap, 0x822f, 0x04);
+> +		div =3D 2;
+> +	}
+> +
+> +	if (ret)
+> +		return ret;
+> +
+> +	pcr_m =3D (mode->clock * div) / 25;
+> +	pcr_k =3D pcr_m % 1000;
+> +	pcr_m /=3D 1000;
+> +
+> +	pcr_up =3D pcr_m + 1;
+> +	pcr_down =3D pcr_m - 1;
+> +
+> +	pcr_k <<=3D 14;
+> +
+> +	ret =3D regmap_write(ctx->regmap, 0xd008, 0x00);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	/* 0xd026: pcr_m */
+> +	ret =3D regmap_write(ctx->regmap, 0xd026, (0x80 | (u8)pcr_m) & 0x7f);
+
+Why set bit 0x80 only to clear it right away?
+
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	/* 0xd027 0xd028 0xd029: pcr_k */
+> +	ret =3D regmap_write(ctx->regmap, 0xd027, (pcr_k >> 16) & 0xff);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	ret =3D regmap_write(ctx->regmap, 0xd028, (pcr_k >> 8) & 0xff);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	ret =3D regmap_write(ctx->regmap, 0xd029, pcr_k & 0xff);
+
+This always writes 0 because of the pcr_k <<=3D 14 above.
+
+[...]
+> +	if (mode->clock < 44000) {
+> +		ret =3D regmap_write(ctx->regmap, 0xd00c, 0x60);
+> +		ret |=3D regmap_write(ctx->regmap, 0xd01b, 0x00);
+> +		ret |=3D regmap_write(ctx->regmap, 0xd01c, 0x60);
+
+The sashiko bot correctly complained about this. Please fix the error
+handling.
+
+> +	} else {
+> +		ret =3D regmap_write(ctx->regmap, 0xd00c, 0x40);
+> +		ret |=3D regmap_write(ctx->regmap, 0xd01b, 0x00);
+> +		ret |=3D regmap_write(ctx->regmap, 0xd01c, 0x40);
+
+Same as above, you could prepare the 0x60 / 0x40 value in a variable
+and only call one set of regmap_write()s.
+
+> +	}
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D regmap_multi_reg_write(ctx->regmap, lt9211c_pcr_reset_seq,
+> +				     ARRAY_SIZE(lt9211c_pcr_reset_seq));
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* PCR stability test takes seconds. */
+> +	ret =3D regmap_read_poll_timeout(ctx->regmap, 0xd087, pval,
+> +				       ((pval & 0x18) =3D=3D 0x18), 20000, 3000000);
+> +	if (ret)
+> +		dev_err(ctx->dev, "PCR unstable, ret=3D%i\n", ret);
+> +
+> +	ret =3D regmap_write(ctx->regmap, 0x8180, 0x51);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D regmap_write(ctx->regmap, 0x863f, 0x00);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D regmap_write(ctx->regmap, 0x863f, 0x01);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D regmap_read_poll_timeout(ctx->regmap, 0x8640, pval,
+> +				       ((pval & 0x01) =3D=3D 0x01), 50000, 250000);
+> +	if (ret)
+> +		dev_err(ctx->dev, "Video check not stable, ret=3D%i\n", ret);
+> +
+> +	return ret;
+> +}
+> +
+> +static int lt9211c_configure_tx(struct lt9211 *ctx,
+> +				const struct drm_display_mode *mode)
+> +{
+[...]
+> +	ret =3D regmap_read(ctx->regmap, 0x8530, &pval);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D regmap_write(ctx->regmap, 0x8530, ((pval & 0x3f) | 0x40));
+> +	if (ret)
+> +		return ret;
+
+	ret =3D regmap_write_bits(ctx->regmap, 0x8530, 0xc0, 0x40);
+
+> +
+> +	/* [7]0:txpll normal work; txpll ref clk sel pix clk */
+> +	ret =3D regmap_write(ctx->regmap, 0x8230, 0x00);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (ctx->lvds_dual_link)
+> +		phy_clk =3D (u32)(mode->clock * 7 / 2);
+> +	else
+> +		phy_clk =3D (u32)(mode->clock * 7);
+> +
+> +	/* 0x8231: prediv sel */
+> +	if (mode->clock < 20000) {
+> +		val =3D 0x28;
+> +		pre_div =3D 1;
+
+Is this case the same as ...
+
+> +	} else if (mode->clock < 40000) {
+> +		val =3D 0x28;
+> +		pre_div =3D 1;
+
+.. this case on purpose? If so, why not merge the branches.
+
+> +	} else if (mode->clock < 80000) {
+> +		val =3D 0x29;
+> +		pre_div =3D 2;
+> +	} else if (mode->clock < 160000) {
+> +		val =3D 0x2a;
+> +		pre_div =3D 4;
+> +	} else if (mode->clock < 320000) {
+> +		val =3D 0x2b;
+> +		pre_div =3D 8;
+> +	} else {
+> +		val =3D 0x2f;
+> +		pre_div =3D 16;
+> +	}
+> +	ret =3D regmap_write(ctx->regmap, 0x8231, val);
+> +	if (ret < 0)
+> +		return ret;
+> +
+[...]
+> +
+> +	return 0;
+> +}
+> +
+> +static void lt9211_delayed_work_func(struct work_struct *work)
+> +{
+> +	struct delayed_work *dw =3D to_delayed_work(work);
+> +	struct lt9211 *ctx =3D container_of(dw, struct lt9211, lt9211_dw);
+> +	const struct drm_display_mode *mode =3D &ctx->mode;
+> +	int ret;
+> +
+> +	if (ctx->chip_type !=3D LT9211C) {
+> +		dev_err(ctx->dev, "LT9211: Delayed work called for non-LT9211C chip\n"=
+);
+> +		return;
+> +	}
+> +
+> +	ret =3D lt9211c_configure_rx(ctx);
+> +	if (ret)
+> +		return;
+> +
+> +	ret =3D lt9211c_autodetect_rx(ctx, mode);
+> +	if (ret)
+> +		return;
+> +
+> +	ret =3D lt9211c_configure_timing(ctx, mode);
+> +	if (ret)
+> +		return;
+> +
+> +	ret =3D lt9211c_configure_plls(ctx, mode);
+> +	if (ret)
+> +		return;
+> +
+> +	ret =3D lt9211c_configure_tx(ctx, mode);
+> +	if (ret)
+> +		return;
+> +}
+> +
+>  static void lt9211_atomic_enable(struct drm_bridge *bridge,
+>  				 struct drm_atomic_commit *state)
+>  {
+> @@ -523,6 +1240,15 @@ static void lt9211_atomic_enable(struct drm_bridge =
+*bridge,
+>  	if (ret)
+>  		return;
+> =20
+> +	if (ctx->chip_type =3D=3D LT9211C && ctx->wq) {
+> +		drm_mode_copy(&ctx->mode, mode);
+> +		/* LT9211C must enable after mipi clock enable */
+> +		queue_delayed_work(ctx->wq, &ctx->lt9211_dw,
+> +				   msecs_to_jiffies(100));
+
+Why is this deferred to a delayed work item?
+Can't we just wait here and run all the initialization synchronously?
+
+As the sashiko bot points out, this calls the delayed work function
+without initializing ctx->jeida, ctx->bpp24 and ctx->de, and both
+atomic_disable and driver remove are missing some kind of
+cancel_delayed_work_sync().
+Further, with the delayed initialization it is impossible to correctly
+enable downstream bridges or panels that require an active LVDS signal
+before (post)enabling.
+All of this wouldn't be a problem if the initialization was done
+synchronously.
+
+> +		dev_dbg(ctx->dev, "LT9211C enabled.\n");
+> +		return;
+> +	}
+> +
+>  	ret =3D lt9211_system_init(ctx);
+>  	if (ret)
+>  		return;
+> @@ -671,11 +1397,6 @@ static int lt9211_parse_dt(struct lt9211 *ctx)
+> =20
+>  static int lt9211_host_attach(struct lt9211 *ctx)
+>  {
+> -	const struct mipi_dsi_device_info info =3D {
+> -		.type =3D "lt9211",
+> -		.channel =3D 0,
+> -		.node =3D NULL,
+> -	};
+>  	struct device *dev =3D ctx->dev;
+>  	struct device_node *host_node;
+>  	struct device_node *endpoint;
+> @@ -697,7 +1418,22 @@ static int lt9211_host_attach(struct lt9211 *ctx)
+>  	if (dsi_lanes < 0)
+>  		return dsi_lanes;
+> =20
+> -	dsi =3D devm_mipi_dsi_device_register_full(dev, host, &info);
+> +	if (ctx->chip_type =3D=3D LT9211C) {
+> +		const struct mipi_dsi_device_info info =3D {
+> +			.type =3D "lt9211c",
+> +			.channel =3D 0,
+> +			.node =3D NULL,
+> +		};
+
+Moving mipi_dsi_device_info into device match data would allow to get
+rid of the branching here.
+
+> +		dsi =3D devm_mipi_dsi_device_register_full(dev, host, &info);
+> +	} else {
+> +		const struct mipi_dsi_device_info info =3D {
+> +			.type =3D "lt9211",
+> +			.channel =3D 0,
+> +			.node =3D NULL,
+> +		};
+> +		dsi =3D devm_mipi_dsi_device_register_full(dev, host, &info);
+> +	}
+> +
+>  	if (IS_ERR(dsi))
+>  		return dev_err_probe(dev, PTR_ERR(dsi),
+>  				     "failed to create dsi device\n");
+> @@ -706,10 +1442,16 @@ static int lt9211_host_attach(struct lt9211 *ctx)
+> =20
+>  	dsi->lanes =3D dsi_lanes;
+>  	dsi->format =3D MIPI_DSI_FMT_RGB888;
+> -	dsi->mode_flags =3D MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULS=
+E |
+> -			  MIPI_DSI_MODE_VIDEO_HSE | MIPI_DSI_MODE_VIDEO_NO_HSA |
+> -			  MIPI_DSI_MODE_VIDEO_NO_HFP | MIPI_DSI_MODE_VIDEO_NO_HBP |
+> -			  MIPI_DSI_MODE_NO_EOT_PACKET;
+> +
+> +	if (ctx->chip_type =3D=3D LT9211C) {
+> +		dsi->mode_flags =3D MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_LPM;
+
+This could also be stored in device match data.
+
+> +	} else {
+> +		dsi->mode_flags =3D
+> +			MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
+> +			MIPI_DSI_MODE_VIDEO_HSE | MIPI_DSI_MODE_VIDEO_NO_HSA |
+> +			MIPI_DSI_MODE_VIDEO_NO_HFP | MIPI_DSI_MODE_VIDEO_NO_HBP |
+> +			MIPI_DSI_MODE_NO_EOT_PACKET;
+> +	}
+> =20
+>  	ret =3D devm_mipi_dsi_attach(dev, dsi);
+>  	if (ret < 0) {
+> @@ -747,10 +1489,25 @@ static int lt9211_probe(struct i2c_client *client)
+>  	if (ret)
+>  		return ret;
+> =20
+> -	ctx->regmap =3D devm_regmap_init_i2c(client, &lt9211_regmap_config);
+> +	if (of_device_is_compatible(dev->of_node, "lontium,lt9211c")) {
+> +		ctx->chip_type =3D LT9211C;
+> +		ctx->regmap =3D
+> +			devm_regmap_init_i2c(client, &lt9211c_regmap_config);
+
+The branching here could be avoided by getting regmap config from
+device match data (e.g. via i2c_get_match_data from lt9211_id or
+lt9211_match_table).
+
+> +	} else {
+> +		ctx->chip_type =3D LT9211;
+> +		ctx->regmap =3D
+> +			devm_regmap_init_i2c(client, &lt9211_regmap_config);
+> +	}
+>  	if (IS_ERR(ctx->regmap))
+>  		return PTR_ERR(ctx->regmap);
+> =20
+> +	if (ctx->chip_type =3D=3D LT9211C) {
+> +		ctx->wq =3D create_workqueue("lt9211_work");
+> +		if (!ctx->wq)
+> +			return -ENOMEM;
+> +		INIT_DELAYED_WORK(&ctx->lt9211_dw, lt9211_delayed_work_func);
+> +	}
+
+I think this should be dropped.
+
+> +
+>  	dev_set_drvdata(dev, ctx);
+>  	i2c_set_clientdata(client, ctx);
+
+Not your addition, but these two calls to the same thing.
+This could be dropped with the lt9211_remove function by
+switching to devm_drm_bridge_add().
+
+
+regards
+Philipp
