@@ -1,376 +1,164 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 605994399F0
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 13:42:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 825253AA4E2;
+	Tue, 28 Jul 2026 13:42:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785246137; cv=none; b=rAWLh2HH3+cUpJSwFZF6U4k5mgMZ/eo9EjHZf6L/wwrDnKj3yha9myrOgAwqMD047PcgSTiqJCFzQTYwXhxjGjtkVum93kBkiSFUekKl2hhJo1a5bI1I2LHYJWCKjNANqlT/coPoTf6m2oGWAs+HxY9YcCOCW5uv2FuIRjbW8+Y=
+	t=1785246166; cv=none; b=d8Q3ghY8jqS9RUcod/+gDxoUczOYF2Kyh0TzRMnj7EejrTyCVJzufF41u978y1E2xSqb8kGL0BLEh7OL323YJfsVP1EkfHKZ50BRULKqPKY06lXskOzVPXgmAx0D1J74lyka5M5fGFK6o0+LF5s+JRYKlW0EGf3m0fDqqU1HgyA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785246137; c=relaxed/simple;
-	bh=o5hmn0o1eJi1oPcTIaRKtd4EVqB0u40I4yA2PmjGyek=;
+	s=arc-20240116; t=1785246166; c=relaxed/simple;
+	bh=Nx71uXges7GW2XsEONypqHwILxXGY0E+ZJTuhbGqQgk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gB87T3SaaEG8bfPMkend7JUZz9fN+kgHRuH+rAkbW7Cc6X13CcRcd8R5mIOoIO7C4+QUr22Zbg+6Bn/LlnRusUHbGd8ALedVLOY0KVUCjxzLsY9JL7x8SjbCB7IovNl4h8Z3dR50Kexio/xxzUykfo+Yrqih35A7FJjUrEoDk7g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=b5xZS8lj; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=QUwaMweH; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=FJs/d84ECXN1O5Wg+/39JNLFWcEGn8hcg5jlThveLEICvow4zBOtuw1BEAndz5+vM61s8zJH8ivBXMy+kN6+qcCsj/8g/dWT0PcEB6DGOcXkiYVu+r9gz5PdE89P73yVII2+/BUYr/R6cO1qiJM94X//IHhKJD7SVYcfRjRcq48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=odHB9goA; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Q7iuc854; arc=none smtp.client-ip=103.168.172.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="b5xZS8lj";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="QUwaMweH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1785246134;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zkiuYMKfTZUCAQyXJDsyAYrYbc3+oqsrPiHuKHrbdH4=;
-	b=b5xZS8ljJjqwFg/cqyMMZ4hAQ4P0D3PvyhBy3Nkio9Y/kXKGO9Td8qsbU7173Z008lVIPy
-	k5iVc55R7RNmaUMO/QN4cEvkfktiAgtvUzZRMBu085LBTq5f95LaSobTf1Z9icLCUE46GB
-	JRQ8Yf/ol6pFANNRF8r/PeXcxI7Onyg=
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-632-OaIxuu52PYqQbv1LIC3iEA-1; Tue, 28 Jul 2026 09:42:11 -0400
-X-MC-Unique: OaIxuu52PYqQbv1LIC3iEA-1
-X-Mimecast-MFC-AGG-ID: OaIxuu52PYqQbv1LIC3iEA_1785246130
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-8fc6b670b4bso49578416d6.1
-        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 06:42:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1785246130; x=1785850930; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-transfer-encoding
-         :content-disposition:content-type:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zkiuYMKfTZUCAQyXJDsyAYrYbc3+oqsrPiHuKHrbdH4=;
-        b=QUwaMweHXhS0WGZDP6K6Pms8C5E/L7tUT1xho6vWHB9jVEbn0iMcundI9sMBR6ZCVx
-         7b5HXexXQHJEJ23269DwerdnbT4CFVKa8tBQ5+sYeaDWm74q/xx9jxWOejpyllslqbW0
-         319f2cr+hdqMetxnDb7Fik5d0WYSg0Q+m4uSHbDkRTyZBzssejJDgPq41kZghqc6xcMy
-         G6xKzlSc7CqRKTRZ/C6k/1HwcDdQ42gc11EzE0e0uyiBGXwaBAKjeBuG9yvN8oPJdp7a
-         g0yxeG5fgP9E8vHBkUlN3A8pyYxyztvIFjTFsfZePzldeGlX4yjm+w8XsCDz9yxn+S7W
-         WAfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785246130; x=1785850930;
-        h=user-agent:in-reply-to:content-transfer-encoding
-         :content-disposition:content-type:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=zkiuYMKfTZUCAQyXJDsyAYrYbc3+oqsrPiHuKHrbdH4=;
-        b=hyFdf1JOwMykxRV0lEtm0NKQMuAdjfZPjAiFvzQUkgbE2Kd9kh4bt4d311qUgASlfm
-         jBKLrxgNNh6e9peEawQtWy/ium0hVHkkfMjj9a7NOG5GGDBaZ/wxzOCnbYnuBKPwoUYT
-         SxIiJDAC5GlWAGk9RepOz4uC2Q8s8B+Smxl/eSB9oCXBCkQGKBa2ReOQB+exADpeRQEW
-         5tCACCIQ30vqBqHmwVqfIrkLA2yGwdvjGR+0L58LRg+3IaBUsitxIPXoP1WXak3JGIDG
-         oA8mXRI3kR1JUynAEP9Sxkag1Oadt94ifDBTeZANyq8yyI1qn638hqHTo9YkSEY3STUz
-         +DgA==
-X-Forwarded-Encrypted: i=1; AHgh+RquQu/0UICfJUgT3KTinVhfolAX/evx6bhh/GM80QFw1JAz0X0zW1Zfuoai4OpNv6pZhPeVoGFWfjh8@vger.kernel.org
-X-Gm-Message-State: AOJu0YwnhLmwwZ8JJeRGlkqj1RVWYgDuhdF4xo8+zRyseT50rgR2JehB
-	AV6hP5SvQ2GB+lVitj8jqZNX9VwQKIn6QB2ZB8l9krV5YlOQgOVjooscR7m/gF/1lbhekBEtHUp
-	fsheOVzKIOYV2X4A0SJQo95y5PrW8dGBVR13bTq0eZg3h74ZE6+Ml4H1NNJkUjqM=
-X-Gm-Gg: AR+sD10kcNwk78VQVb2IyY1SBzITKTkFn/5ZIucZNweRQMz92NzOm0v4YQTutDKN5st
-	aKacDDxLsAb8ASjbmIbBzZeG7daom4wab3ZaqTOSYWHIuFu/SYq9lQ+hdTtIQPlIx/GT2Evj7Bh
-	enOc35N3Ik3Q2I+BNkf2wfun0byiB6UeTHDuGQeAln0gtQ3xIQEVN9Kf0CwTEgWB/FM6RJp3iwQ
-	EQj1KFiYiCYuLrf9Sz+DtToKcMT7Uyw/8pBThmd7Cqo4Xg8tAcrGGRxFBrGC0TeviUA4BYm7R7x
-	7F1I7AgYeHelRfWoWHzB3CAzFq07fYkMzZtUCXWgnFBSay3qFqV7nfI9UXTdavP6fWICaOnGxoH
-	wuQ5ShXLvQw76kl3g8bw435MEVm7dbjsTGxQ=
-X-Received: by 2002:a05:6214:5545:b0:8e8:7de7:ec20 with SMTP id 6a1803df08f44-90816f640a7mr25742686d6.4.1785246130286;
-        Tue, 28 Jul 2026 06:42:10 -0700 (PDT)
-X-Received: by 2002:a05:6214:5545:b0:8e8:7de7:ec20 with SMTP id 6a1803df08f44-90816f640a7mr25741856d6.4.1785246129549;
-        Tue, 28 Jul 2026 06:42:09 -0700 (PDT)
-Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-907e86d499dsm87767676d6.42.2026.07.28.06.42.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Jul 2026 06:42:07 -0700 (PDT)
-Date: Tue, 28 Jul 2026 09:42:06 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Stefan =?iso-8859-1?Q?D=F6singer?= <stefandoesinger@gmail.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="odHB9goA";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Q7iuc854"
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 3EB221400068;
+	Tue, 28 Jul 2026 09:42:42 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Tue, 28 Jul 2026 09:42:42 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1785246162;
+	 x=1785332562; bh=+IuxgIwm0QDAfUooXGiqVeiapgfcFg56lJ4PdzeIBNM=; b=
+	odHB9goAQMz9JvQgD8kTI0Nxt0LMUFLMvmgm44eeq0JA0s2ucEgCx5+dXHBmUzeQ
+	HX5vzvqRij8yTONVxTxe1pxB8v/2+wqIypeuCx4jB3QWh//SMtZjvHRAdLldjpNu
+	VTd6rNHzCI+xz6oJ3O12tMCdK831lhx828zttX6GU2T7m671LlTr1XNtjjRYWpmR
+	spQ+xPlaSH95acy9xXa2iR9B3YaWh2mxQQXwNchN583+MlEK6MuPZGnKPRcgG5st
+	V8FeIh/7Odlj6CVMx/Xipa73tveUgeaRLpWWHeQ8lxpnumHU9qqyU0AQPQU1h8kr
+	z2Otm9g1spgRs9S42oOhEA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1785246162; x=
+	1785332562; bh=+IuxgIwm0QDAfUooXGiqVeiapgfcFg56lJ4PdzeIBNM=; b=Q
+	7iuc854SNWNjLo8UV+V4rtnhViD46UNZarJqVdHHhbKhvmFOMXHdegiGtrudAJJv
+	1c97aCH10D3u6iRBIF0rOx/7FyTu/vgkGKP4g+iuGLXqri/momVQcv7vjfy2TXRY
+	cguLdiWL+9N6LLZvFm6/dFrNOhV7DFcW729BTVd+xbH10A2Xu2tzkrE2hW7gaY+5
+	TIUGCP+IJjllwv+eS3pv/doULxZxZpoIoMfdpAADucp1YGtMjGC0RPVlbXnbt29i
+	CeeLwv+1tImFuYDw82mClWumvMyvWOOQPLI7NRNn590OSf/gMgBz/euTtRe+yRxC
+	NfmtwCRNJBJkVcjpVmz2g==
+X-ME-Sender: <xms:0bFoalWfNtoCpieixH7bMALnhorJoQ--h0_v0cLRJdxAcXVlMew6pg>
+    <xme:0bFoakFzSnQqemWTrsIYW2q42YOBl-xXag2fEEwBmUMkQ3IjQbafCd5a0xmqZmrCI
+    _UfSNeDVP0bNL8FCgU7eyPZqxgN3zGs2hebtESOQm3XYbQp9aAJvrE>
+X-ME-Received: <xmr:0bFoaoOUJ3sXlkVIf0KQBNC0emrLjFhLJYu3yoRM6WRqxbTHePwgvkO-VNmP4Snp_jKZhihVRyALbzf4M0EL1GfY_qDQBNY>
+X-ME-Proxy-Cause: dmFkZTFUEAfTR2otyDl6BVd8V0kHyhLOk26+2XF3ZMmznGHTE6GKM5/jn0zrfALvSFd082
+    AhD44ziiI51BkrOyGavBf91CxlMrd9xekR3kFu9kxVtLJTo/NgzujTSd8+szGes2GPFaXe
+    VD0FrDT7Tg/RXUAWalydQgrZrI6TEJhaRoULWqadGQCEsD6VsgG/axl1TMA58r6Xv5sY5N
+    G193Py4ZJyXtlHj/p2dtPM9wP1bZBjUxzZCXgbZIZwBfc6d9m2Lb+RSWvOdDiM2eVzLcG0
+    ixVxKQbqdXd0uyGvf5OVMSGhe2w2OPuG2b3sdlJpCQEAJ0sTyo2sF9zF9ezCHIG/NoaHXr
+    rcFwAnijONPiNRCNN5Vj2BNpb2BndfM9iS5fXaDLCS/OObMuE2hF27RFH7MJC3uUysg65Z
+    MGSCdXMLbfXEGdP4YpfBFeiRkjix8lmjLtePMH68zQNS1c9k1aaSpb01kNfXcj5QLhfTmd
+    iJZFX38hfO9I1qmWwNccajOyy09pbi4ILctD2kHWqlWYAcCy2WYdGV2krrAMhPXoQu0a1B
+    Y7C+OTca6Hn17RmnDB/MbI6kyi+gmtrqvR3GxqGRk1rsFBHJqRHCW7HwxKYrpOf6GOoM4h
+    56kf3k4lnBDfHQyrX6Xjj5joK4LuwGjSPvBUywQxoXcQ80kllJ2rF4eApwDA
+X-ME-Proxy: <xmx:0bFoaoU5clMDofBAzv11FGhvbSctjl8L2M9Ztg3OTsH2xtLJCk5IPg>
+    <xmx:0bFoanw561Nkx4uVmtCxLlBU-b1rkdUuVWL9kdxYlUUM7ZBFOpUlqA>
+    <xmx:0bFoagNgVdO35SK-YQf12EHiUmBOmzv808xVNXY4czfNBkC3JkCY1g>
+    <xmx:0bFoahqZDatg8KJdIYRd9Mjb9lIJzPqFHaJBN2wZUd-xWEfIms27_w>
+    <xmx:0rFoaqyH21baMVJGCXcrWoIRlTBTEivhfGrHqpirJgkkux9AZJVe_SKP>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 28 Jul 2026 09:42:41 -0400 (EDT)
+Date: Tue, 28 Jul 2026 15:42:39 +0200
+From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Russell King <linux@armlinux.org.uk>, Lee Jones <lee@kernel.org>,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-phy@lists.infradead.org, mfd@lists.linux.dev
-Subject: Re: [PATCH v8 06/12] clk: zte: Add regmap-based clocks
-Message-ID: <amixrkffNj_JuXtU@redhat.com>
-References: <20260727-zx29clk-v8-0-7a107b00f1dd@gmail.com>
- <20260727-zx29clk-v8-6-7a107b00f1dd@gmail.com>
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"DavidS. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+Subject: Re: [PATCH net-next v5 2/3] ptp: Add driver for R-Car Gen4
+Message-ID: <20260728134239.GB2187218@ragnatech.se>
+References: <20260721132936.1331318-1-niklas.soderlund+renesas@ragnatech.se>
+ <20260721132936.1331318-3-niklas.soderlund+renesas@ragnatech.se>
+ <1ee51bd7-3667-4184-b018-8a8cf29512c0@redhat.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260727-zx29clk-v8-6-7a107b00f1dd@gmail.com>
-User-Agent: Mutt/2.4.0 (2026-06-19)
+In-Reply-To: <1ee51bd7-3667-4184-b018-8a8cf29512c0@redhat.com>
 
-On Mon, Jul 27, 2026 at 09:24:21PM +0300, Stefan Dösinger wrote:
-> This is based on meson/clk-regmap.c, although slightly simplified. I
-> have kept the copyright lines at the top of the file to indicate its
-> origin.
+Hi Paolo,
+
+Thanks for your feedback.
+
+On 2026-07-28 13:18:59 +0200, Paolo Abeni wrote:
+> On 7/21/26 3:29 PM, Niklas SÃ¶derlund wrote:
+> > +static int ptp_rcar_gen4_probe(struct platform_device *pdev)
+> > +{
+> > +	struct ptp_rcar_gen4_priv *priv;
+> > +	struct device *dev = &pdev->dev;
+> > +	unsigned long rate;
+> > +
+> > +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> > +	if (!priv)
+> > +		return -ENOMEM;
+> > +
+> > +	platform_set_drvdata(pdev, priv);
+> > +
+> > +	priv->base = devm_platform_ioremap_resource(pdev, 0);
+> > +	if (IS_ERR(priv->base))
+> > +		return PTR_ERR(priv->base);
+> > +
+> > +	priv->clk = devm_clk_get(dev, NULL);
+> > +	if (IS_ERR(priv->clk))
+> > +		return PTR_ERR(priv->clk);
+> > +
+> > +	rate = clk_get_rate(priv->clk);
+> > +	if (!rate)
+> > +		return -ENODEV;
+> > +
+> > +	spin_lock_init(&priv->lock);
+> > +
+> > +	priv->info = ptp_rcar_gen4_info;
+> > +
+> > +	/* Default timer increment in ns.
+> > +	 * bit[31:27] - integer
+> > +	 * bit[26:0]  - decimal
+> > +	 * increment[ns] = perid[ns] * 2^27 => (1ns * 2^27) / rate[hz]
+> > +	 */
+> > +
+> > +	priv->default_addend = div_s64(1000000000LL << 27, rate);
+> > +
+> > +	pm_runtime_enable(dev);
+> > +	pm_runtime_get_sync(dev);
 > 
-> I see that numerous clock drivers have their own incarnation of regmap-
-> based mux/div/gate clocks. If there is any version of it that is likely
-> to be elevated to shared code like clk-gate.c I'll copy that and try to
-> use it as unmodified as possible.
+> Both sashikos agrees pm_runtime_resume_and_get() should be used instead.
+> This was already raised in v4, with no reply.
+
+Ahh now I get it. The sashikos reply says that the return value of 
+pm_runtime_get_sync() is not checked, not to use 
+pm_runtime_resume_and_get().
+
+I only greped for other users of pm_runtime_get_sync() and saw none of 
+them checked the return value and ignored the sashikos reply. Will fix 
+in a new version.
+
 > 
-> Signed-off-by: Stefan Dösinger <stefandoesinger@gmail.com>
+> /P
 > 
-> ---
-> 
-> Version 8: Use ZX297520V3_CLK_NO_EXPORT instead of 0 for unexported clocks.
-> 
-> Version 6: Remove stray regmap (Sashiko)
-> 
-> Version 5: Use regmap_test_bits in zte_clk_regmap_gate_is_enabled
-> ---
->  drivers/clk/zte/clk-regmap.c | 218 ++++++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 215 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/clk/zte/clk-regmap.c b/drivers/clk/zte/clk-regmap.c
-> index 984abeb45ab2..671b81bcda4d 100644
-> --- a/drivers/clk/zte/clk-regmap.c
-> +++ b/drivers/clk/zte/clk-regmap.c
-> @@ -7,28 +7,240 @@
->   */
->  
->  #include <linux/clk-provider.h>
-> +#include <linux/container_of.h>
->  #include <linux/device.h>
->  #include <linux/regmap.h>
-> +#include <linux/types.h>
->  #include <linux/errno.h>
-> +#include <linux/bits.h>
-> +#include <linux/err.h>
->  
->  #include "clk-zx.h"
->  
-> +struct zte_clk_regmap {
-> +	struct clk_hw	hw;
-> +	struct regmap	*map;
-> +	u16		reg;
-> +	u8		shift;
-> +	u8		size;
-> +};
-> +
-> +static inline struct zte_clk_regmap *to_zte_clk_regmap(struct clk_hw *hw)
-> +{
-> +	return container_of(hw, struct zte_clk_regmap, hw);
-> +}
-> +
-> +static int zte_clk_regmap_gate_enable(struct clk_hw *hw)
-> +{
-> +	struct zte_clk_regmap *clk = to_zte_clk_regmap(hw);
-> +
-> +	return regmap_set_bits(clk->map, clk->reg, BIT(clk->shift));
-> +}
-> +
-> +static void zte_clk_regmap_gate_disable(struct clk_hw *hw)
-> +{
-> +	struct zte_clk_regmap *clk = to_zte_clk_regmap(hw);
-> +
-> +	regmap_clear_bits(clk->map, clk->reg, BIT(clk->shift));
-> +}
-> +
-> +static int zte_clk_regmap_gate_is_enabled(struct clk_hw *hw)
-> +{
-> +	struct zte_clk_regmap *clk = to_zte_clk_regmap(hw);
-> +
-> +	return regmap_test_bits(clk->map, clk->reg, BIT(clk->shift));
-> +}
-> +
-> +static const struct clk_ops zte_clk_regmap_gate_ops = {
-> +	.enable		= zte_clk_regmap_gate_enable,
-> +	.disable	= zte_clk_regmap_gate_disable,
-> +	.is_enabled	= zte_clk_regmap_gate_is_enabled,
-> +};
-> +
->  int zx_clk_register_gates(struct device *dev, struct regmap *regmap,
->  			  const struct zx_gate_desc *desc, unsigned int num,
->  			  struct clk_hw_onecell_data *clocks)
->  {
-> -	return -ENODEV;
-> +	struct zte_clk_regmap *clk;
-> +	unsigned int i;
-> +	int res;
-> +
-> +	for (i = 0; i < num; ++i) {
-> +		struct clk_init_data init = {};
-> +
-> +		clk = devm_kzalloc(dev, sizeof(*clk), GFP_KERNEL);
-> +		if (!clk)
-> +			return -ENOMEM;
-> +
-> +		init.name = desc[i].name;
-> +		init.ops = &zte_clk_regmap_gate_ops;
-> +		init.parent_names = &desc[i].parent;
-> +		init.num_parents = 1;
-> +		init.flags = CLK_SET_RATE_PARENT | desc[i].flags;
-> +		clk->hw.init = &init;
-> +		clk->map = regmap;
-> +		clk->reg = desc[i].reg;
-> +		clk->shift = desc[i].shift;
-> +		clk->size = 1;
-> +
-> +		res = devm_clk_hw_register(dev, &clk->hw);
-> +		if (res)
-> +			return dev_err_probe(dev, res, "Failed to register clk %s\n", desc[i].name);
-> +
-> +		if (desc[i].id != ZX297520V3_CLK_NO_EXPORT)
-> +			clocks->hws[desc[i].id] = &clk->hw;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static unsigned long zte_clk_regmap_div_recalc_rate(struct clk_hw *hw,
-> +						    unsigned long prate)
-> +{
-> +	struct zte_clk_regmap *clk = to_zte_clk_regmap(hw);
-> +	unsigned int val;
-> +	int ret;
-> +
-> +	ret = regmap_read(clk->map, clk->reg, &val);
-> +	if (ret)
-> +		/* Gives a hint that something is wrong */
-> +		return 0;
-> +
-> +	val >>= clk->shift;
-> +	val &= clk_div_mask(clk->size);
-> +	return divider_recalc_rate(hw, prate, val, NULL, 0, clk->size);
 
-Newline before the return
-
-> +}
-> +
-> +static int zte_clk_regmap_div_determine_rate(struct clk_hw *hw,
-> +					     struct clk_rate_request *req)
-> +{
-> +	struct zte_clk_regmap *clk = to_zte_clk_regmap(hw);
-> +
-> +	return divider_determine_rate(hw, req, NULL, clk->size, 0);
-> +}
-> +
-> +static int zte_clk_regmap_div_set_rate(struct clk_hw *hw, unsigned long rate,
-> +				       unsigned long parent_rate)
-> +{
-> +	struct zte_clk_regmap *clk = to_zte_clk_regmap(hw);
-> +	unsigned int val;
-> +	int ret;
-> +
-> +	ret = divider_get_val(rate, parent_rate, NULL, clk->size, 0);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	val = (unsigned int)ret << clk->shift;
-> +	return regmap_update_bits(clk->map, clk->reg, clk_div_mask(clk->size) << clk->shift, val);
->  }
->  
-> +static const struct clk_ops zte_clk_regmap_divider_ops = {
-> +	.recalc_rate = zte_clk_regmap_div_recalc_rate,
-> +	.determine_rate = zte_clk_regmap_div_determine_rate,
-> +	.set_rate = zte_clk_regmap_div_set_rate,
-> +};
-> +
->  int zx_clk_register_dividers(struct device *dev, struct regmap *regmap,
->  			     const struct zx_div_desc *desc, unsigned int num)
->  {
-> -	return -ENODEV;
-> +	struct zte_clk_regmap *clk;
-> +	unsigned int i;
-> +	int res;
-> +
-> +	for (i = 0; i < num; ++i) {
-> +		struct clk_init_data init = {};
-> +
-> +		clk = devm_kzalloc(dev, sizeof(*clk), GFP_KERNEL);
-> +		if (!clk)
-> +			return -ENOMEM;
-> +
-> +		init.name = desc[i].name;
-> +		init.ops = &zte_clk_regmap_divider_ops;
-> +		init.parent_names = &desc[i].parent;
-
-Use parent_data instead of parent_names
-
-> +		init.num_parents = 1;
-> +		init.flags = CLK_SET_RATE_PARENT;
-> +		clk->hw.init = &init;
-> +		clk->map = regmap;
-> +		clk->reg = desc[i].reg;
-> +		clk->shift = desc[i].shift;
-> +		clk->size = desc[i].size;
-> +
-> +		res = devm_clk_hw_register(dev, &clk->hw);
-> +		if (res)
-> +			return dev_err_probe(dev, res, "Failed to register clk %s\n", desc[i].name);
-> +	}
-> +
-> +	return 0;
->  }
->  
-> +static u8 zte_clk_regmap_mux_get_parent(struct clk_hw *hw)
-> +{
-> +	struct zte_clk_regmap *clk = to_zte_clk_regmap(hw);
-> +	unsigned int val;
-> +	int ret;
-> +
-> +	ret = regmap_read(clk->map, clk->reg, &val);
-> +	if (ret)
-> +		return 0xff;
-> +
-> +	val >>= clk->shift;
-> +	val &= GENMASK(clk->size - 1, 0);
-> +	return clk_mux_val_to_index(hw, NULL, 0, val);
-> +}
-> +
-> +static int zte_clk_regmap_mux_set_parent(struct clk_hw *hw, u8 index)
-> +{
-> +	struct zte_clk_regmap *clk = to_zte_clk_regmap(hw);
-> +	unsigned int val = clk_mux_index_to_val(NULL, 0, index);
-> +
-> +	return regmap_update_bits(clk->map, clk->reg,
-> +				  GENMASK(clk->size - 1, 0) << clk->shift,
-> +				  val << clk->shift);
-> +}
-> +
-> +static int zte_clk_regmap_mux_determine_rate(struct clk_hw *hw, struct clk_rate_request *req)
-> +{
-> +	return clk_mux_determine_rate_flags(hw, req, 0);
-> +}
-> +
-> +static const struct clk_ops zte_clk_regmap_mux_ops = {
-> +	.get_parent = zte_clk_regmap_mux_get_parent,
-> +	.set_parent = zte_clk_regmap_mux_set_parent,
-> +	.determine_rate = zte_clk_regmap_mux_determine_rate,
-> +};
-> +
->  int zx_clk_register_muxes(struct device *dev, struct regmap *regmap,
->  			  const struct zx_mux_desc *desc, unsigned int num,
->  			  struct clk_hw_onecell_data *clocks)
->  {
-> -	return -ENODEV;
-> +	struct zte_clk_regmap *clk;
-> +	unsigned int i;
-> +	int res;
-> +
-> +	for (i = 0; i < num; ++i) {
-> +		struct clk_init_data init = {};
-> +
-> +		clk = devm_kzalloc(dev, sizeof(*clk), GFP_KERNEL);
-> +		if (!clk)
-> +			return -ENOMEM;
-> +
-> +		init.name = desc[i].name;
-> +		init.ops = &zte_clk_regmap_mux_ops;
-> +		init.parent_names = desc[i].parents;
-
-Use parent_data instead of parent_names
-
-Brian
-
+-- 
+Kind Regards,
+Niklas SÃ¶derlund
