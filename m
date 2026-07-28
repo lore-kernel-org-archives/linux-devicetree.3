@@ -1,44 +1,44 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69BF63DA5D1;
-	Tue, 28 Jul 2026 17:40:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7433A3F6C33;
+	Tue, 28 Jul 2026 17:40:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785260455; cv=none; b=bnl4RFFJXNqY/we8WF/oTcG+ikkZ/AhhpyEWyVchatNVSKtRu5WM7bKyPP6SnqRsAKs4NnNf29+izmxvhVBPAXYg3gSeoN/bxmQ9w3mxuxslM5zd/BKs8hzfmtPdQc05O3ayg0V9QtKFyvoEIrlCLz2OucPrB6/9krq4lDa6p0k=
+	t=1785260455; cv=none; b=jhueLCtzrOmzExHn5Mo4iG0qUTsnKw041bMc4blHryYjbS4pVqwgqx02KpO0cL8SDXFcuUn9PmTQeX65iB3Dnd07yFD5XWo56q8TIZMls+fSkE8eP8d9yG3RXtvkMVuNZKnILEkA4+fA0UOQ2Gv7xgNQgfJiWlxS22AA9JtiQrQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785260455; c=relaxed/simple;
-	bh=52cVYZKJL8pFg8EqIp7KJVygDv198u5nbIuiljjR+48=;
+	bh=0YCsZJX71B73vAdxDS8uxgokNO/lK8lrhxEaeQjUJ7Q=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=T0yBHvX5sNE5ge99AzLd7o/ak7GEvF6e49Bp/YzCMAZXRj9WwP9xtbKDDTf/Wui1jJOwT4wUmFLHJwUQsKP9jmE44r3ZroLH3Dy8yBCkMh1hAa0KC2FoBMJLjyr2VbuDVtThS31kS+anNFBZO8pkg1DYp2VyLL2nJbcykO9aaHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Jo/mHEzw; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=tJX01io8hhnRP23rP4jVNa44eJ635kfFOSf74nl8Ep4lp48SVsqgoyxuZOVwA4LWwNgWyA/VrYJo7RkxFWi5UlJGQRhZDidXLg2yzBP4yreJz8jkjr8AdT8n13ZvAmuLdteZBNk8nM+vqD671M1johfyN6aVPzVyFrxofKeJwI0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=jI1/8MQc; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Jo/mHEzw"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="jI1/8MQc"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1785260446;
-	bh=52cVYZKJL8pFg8EqIp7KJVygDv198u5nbIuiljjR+48=;
+	s=mail; t=1785260447;
+	bh=0YCsZJX71B73vAdxDS8uxgokNO/lK8lrhxEaeQjUJ7Q=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=Jo/mHEzw1mvPZBT51/V0UrlR4MbY2lAc006k1RyCH6dtmA9tI9FB7Sv9IIo2e0twC
-	 daINQ3IHoMhxWzHTiD6QuFsppjddVLMqYAX53Zr1mHyoaYWv3tMgeNyd2iH3KNIj9u
-	 tmQP3yZJ+khsXZTY7JWbO4t+5Xc1zBiHGq8mrlza84RgfmMcWcljMdIawPAfV1lJmT
-	 wKuR22SdpzqIMPhIWNjVU6iVgHjixyEMzK4gkoJniLfvczum4UUviby1eOLk7HqhM0
-	 n3oBq5pGvIbh02hcJgH+V1KCm+CNBIg248MY28mMODnN72i8kMR0vXpnsC63SgvdzQ
-	 mJIyMYORaj/yw==
+	b=jI1/8MQcxpPhgdwJWnSUICz6F6lF3ma4Am5PJR+O3qUd4tEBZiKGXbnKRwNgaj7hq
+	 fw/o3S/O+oDvfNnuJ9EjslKzWv2i7CZWU6RS8f4wEBDY4l1Qk+0Olk5KUby5Jm4PrD
+	 RSBpQibGObKz6He+zIsBhI2F0jj8bdqeyW07OaLtYTcz1aeAcm3BD116PrUOcuDl1W
+	 aEk93z+/icrHRYlj2B7Y7wSodc+7YoJKZXy/F+Q9bRS0t4oID0HfKJXYt974ihSeMg
+	 AAH5wxXwU2uO7/pcKVroDmIw45b1pgafmYn5nafSN9FrJ0KOCp1vURyFPSOMTdPhor
+	 yQjBnt6injHrg==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id BD5F817E075D;
-	Tue, 28 Jul 2026 19:40:46 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0252417E07B6;
+	Tue, 28 Jul 2026 19:40:47 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 181EF48002B; Tue, 28 Jul 2026 19:40:46 +0200 (CEST)
+	id 1FE5E480055; Tue, 28 Jul 2026 19:40:46 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Tue, 28 Jul 2026 19:40:46 +0200
-Subject: [PATCH v7 10/18] drm/bridge: synopsys: dw-dp: Support software
- triggered OOB HPD
+Date: Tue, 28 Jul 2026 19:40:51 +0200
+Subject: [PATCH v7 15/18] drm/bridge: synopsys: dw-dp: Use regmap_set_bits
+ in dw_dp_send_sdp
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,7 +47,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260728-synopsys-dw-dp-improvements-v7-10-b7640fa8cf48@collabora.com>
+Message-Id: <20260728-synopsys-dw-dp-improvements-v7-15-b7640fa8cf48@collabora.com>
 References: <20260728-synopsys-dw-dp-improvements-v7-0-b7640fa8cf48@collabora.com>
 In-Reply-To: <20260728-synopsys-dw-dp-improvements-v7-0-b7640fa8cf48@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -72,127 +72,57 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-arm-kernel@lists.infradead.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3736;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1254;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=52cVYZKJL8pFg8EqIp7KJVygDv198u5nbIuiljjR+48=;
- b=kA0DAAoB2O7X88g7+poByyZiAGpo6Z2hN9vVs5czYRPsvXcBD/9DHxIQRYb9uimfEfge6NQge
- YkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqaOmdAAoJENju1/PIO/qai5QP/iQY
- ftE+bsQZygH98NNzHcdnaK5h4EYZOBLJDZuAyP1VVd3zZNB8XXbA8jbRzlT++UMT4UEdlGK0f6r
- /tc9Rvc3AAonr0FNwdzmN13qLTIN/nEJX2NvxsRrf7LeyPO79tQuhgMs46rbDknJlPAb0k49567
- ldMboeCaTawDUQDFY+fEX6vSdVijp2LF/9tYHrNZ5yHsT3DoOFJkoDYtA4abG7sBFLfVzqUxQF3
- Nrdk0mjA8mKscuYHrRICw6uwWkPXjIklz8WZcD8gn5qjvrRjuHf1U/dP3VYcuhMqg3pHDAGqNel
- Y2txqgl70oT/XZ6r7L2CICWDbkkHy25NrOtiQ+ekEjc4f0xQB1AVDCqusmP6gMwQaz4sMuKSrKq
- agFSwCPi4Iknm8/qpn3lcXHVFnGSlbIKCADTx/v+nZqpKN4reE2M1tQdVx9kiFKPG8dWgyDDbOR
- Tavvdg30410/FO5WczF7Yt0nnejwT00raijCnF/qvXKlYzNGJmowVyRoPeeT28U7ZiL0nyqhHdp
- UY2ZQBwIRpt1nR4Nq0/pWLzwDsqUaPVTAg6LydbFaKkcCPqUFK173L5SprlHl05wnG7r87JXHLC
- tOQD5XoRBAbd4eqm2clb0SHoozvjK02YcWKG3WyKv1Z0qY8AsEIduWouMc43BLwWUgjPfH09iml
- u3il4
+ bh=0YCsZJX71B73vAdxDS8uxgokNO/lK8lrhxEaeQjUJ7Q=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpo6Z32oSfdSbmHxGy0bdvFOvtnkqG9Su+Xd
+ 5LX6mT2nXcvMokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqaOmdAAoJENju1/PI
+ O/qaeAYP/Ru58oYU/vd4ZpInM/v+55BIQSIjtii4grvbhAJpkPKSQC4oxSlTkCBRsPuUbowfs8G
+ myZ19mrMrRK+wsqpI4kGRQgDnfG3JxdmuAfFlg6Ih/gg6lnGljWK8YCNE7pTWlYzDdord9cWCMv
+ o+1iwwPKQuGUA+ZtQlAG4LUBiUxdmHZ9fsbS+B/82p2XneFZJQB3NYAW14LDM9jfwoN11GlVZ+U
+ +E0G5/AUOutV4PQ5EGEfHZHuhiT1hBLtWf/9GuEfA2841zdoGV6ajbJUnU0VEpq1uIs1JqV/vSB
+ amp/B+tBh/GBPT3QSDDPve0TIssio0yFsS+spbqrK8xoNf4FO8hdKyb7H7gnRhF5eIsElg7uPvk
+ 0OO48h+thC14YGbFgI8oaZMUh/puRahRyvbAuXoFGdxmRHQqEq8ouuGlTSzRudVru5wACVS8KkC
+ DkVcYh5KSBwqTq0uxU2Iy9CZui7Hne2wq3MGBHJDDbjo3NDzDpItAg/Z1Ix7u792KA4bqFKMf4Z
+ +USqr315hX7mZTfQ5cDa+ki43MCfkxF2UTEyDfUzuN/f8ijYWkloBHUF9NCchN7EFMJD07i3NEE
+ JfFC9tVgeyfr7KbbKaVP98UY1wna1wVNTeWpG8XyTJT3n1MzAi8xQSrZ5orvjoz9grDq6hc4X49
+ onguzuiome75l8KP8jBczrA==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Add support for USB-C DP AltMode out-of-band hotplug handling. The
-handling itself is implemented in the platform specific driver as the
-registers to force HPD state are not part of the Designware DisplayPort
-IP itself. Instead the platform integration might provide the necessary
-functionality to mux the HPD signal.
+Simplify dw_dp_send_sdp() a little bit by making use of
+regmap_set_bits.
+
+No functional change intended.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 38 +++++++++++++++++++++++++++++++++
- include/drm/bridge/dw_dp.h              |  3 +++
- 2 files changed, 41 insertions(+)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index 719f22578ed6..d4f75b7f85d0 100644
+index 50eb7a467932..fcee47c6716a 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -1857,6 +1857,19 @@ static struct drm_bridge_state *dw_dp_bridge_atomic_duplicate_state(struct drm_b
- 	return &state->base;
+@@ -1068,14 +1068,12 @@ static int dw_dp_send_sdp(struct dw_dp *dp, struct dw_dp_sdp *sdp)
+ 			     FIELD_PREP(SDP_REGS, get_unaligned_le32(payload)));
+ 
+ 	if (sdp->flags & DW_DP_SDP_VERTICAL_INTERVAL)
+-		regmap_update_bits(dp->regmap, DW_DP_SDP_VERTICAL_CTRL,
+-				   EN_VERTICAL_SDP << nr,
+-				   EN_VERTICAL_SDP << nr);
++		regmap_set_bits(dp->regmap, DW_DP_SDP_VERTICAL_CTRL,
++				EN_VERTICAL_SDP << nr);
+ 
+ 	if (sdp->flags & DW_DP_SDP_HORIZONTAL_INTERVAL)
+-		regmap_update_bits(dp->regmap, DW_DP_SDP_HORIZONTAL_CTRL,
+-				   EN_HORIZONTAL_SDP << nr,
+-				   EN_HORIZONTAL_SDP << nr);
++		regmap_set_bits(dp->regmap, DW_DP_SDP_HORIZONTAL_CTRL,
++				EN_HORIZONTAL_SDP << nr);
+ 
+ 	return 0;
  }
- 
-+static void dw_dp_bridge_oob_notify(struct drm_bridge *bridge,
-+				    struct drm_connector *connector,
-+				    enum drm_connector_status status)
-+{
-+	bool hpd_high = status != connector_status_disconnected;
-+	struct dw_dp *dp = bridge_to_dp(bridge);
-+
-+	if (dp->plat_data.hpd_sw_cfg)
-+		dp->plat_data.hpd_sw_cfg(dp->plat_data.data, hpd_high);
-+	else
-+		dev_err_once(dp->dev, "Missing platform handler for OOB HPD handling\n");
-+}
-+
- static const struct drm_bridge_funcs dw_dp_bridge_funcs = {
- 	.atomic_duplicate_state = dw_dp_bridge_atomic_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
-@@ -1869,6 +1882,7 @@ static const struct drm_bridge_funcs dw_dp_bridge_funcs = {
- 	.atomic_disable = dw_dp_bridge_atomic_disable,
- 	.detect = dw_dp_bridge_detect,
- 	.edid_read = dw_dp_bridge_edid_read,
-+	.oob_notify = dw_dp_bridge_oob_notify,
- };
- 
- static int dw_dp_link_retrain(struct dw_dp *dp)
-@@ -1998,6 +2012,19 @@ static const struct regmap_config dw_dp_regmap_config = {
- 	.rd_table = &dw_dp_readable_table,
- };
- 
-+static bool dw_dp_is_routed_to_usb_c(struct drm_encoder *encoder)
-+{
-+	struct drm_bridge *last_bridge __free(drm_bridge_put) = NULL;
-+	struct fwnode_handle *fwnode;
-+
-+	last_bridge = drm_bridge_chain_get_last_bridge(encoder);
-+	if (!last_bridge)
-+		return false;
-+
-+	fwnode = of_fwnode_handle(last_bridge->of_node);
-+	return fwnode_device_is_compatible(fwnode, "usb-c-connector");
-+}
-+
- int dw_dp_bind(struct dw_dp *dp, struct drm_encoder *encoder)
- {
- 	struct device *dev = dp->dev;
-@@ -2032,6 +2059,13 @@ int dw_dp_bind(struct dw_dp *dp, struct drm_encoder *encoder)
- 		goto put_next_bridge;
- 	}
- 
-+	if (dw_dp_is_routed_to_usb_c(encoder)) {
-+		dev_dbg(dev, "USB-C mode\n");
-+
-+		if (dp->plat_data.hpd_sw_sel)
-+			dp->plat_data.hpd_sw_sel(dp->plat_data.data, 1);
-+	}
-+
- 	dw_dp_init_hw(dp);
- 
- 	ret = phy_init(dp->phy);
-@@ -2078,6 +2112,10 @@ struct dw_dp *dw_dp_probe(struct platform_device *pdev, const struct dw_dp_plat_
- 
- 	dp->dev = dev;
- 	dp->pixel_mode = plat_data->pixel_mode;
-+
-+	dp->plat_data.hpd_sw_sel = plat_data->hpd_sw_sel;
-+	dp->plat_data.hpd_sw_cfg = plat_data->hpd_sw_cfg;
-+	dp->plat_data.data = plat_data->data;
- 	dp->plat_data.max_link_rate = plat_data->max_link_rate;
- 
- 	bridge = &dp->bridge;
-diff --git a/include/drm/bridge/dw_dp.h b/include/drm/bridge/dw_dp.h
-index a82412a9e769..79b2cdf0df99 100644
---- a/include/drm/bridge/dw_dp.h
-+++ b/include/drm/bridge/dw_dp.h
-@@ -20,6 +20,9 @@ enum {
- struct dw_dp_plat_data {
- 	u32 max_link_rate;
- 	u8 pixel_mode;
-+	void *data;
-+	void (*hpd_sw_sel)(void *data, bool hpd);
-+	void (*hpd_sw_cfg)(void *data, bool hpd);
- };
- 
- int dw_dp_bind(struct dw_dp *dp, struct drm_encoder *encoder);
 
 -- 
 2.53.0
