@@ -1,44 +1,44 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB4A73BA222;
-	Tue, 28 Jul 2026 17:40:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB88B3DA5A0;
+	Tue, 28 Jul 2026 17:40:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785260451; cv=none; b=qZI7L7LYWJylaneMEkUQEwfxu3il6fL2lvliIH/br1cAxXn7TCcTPiIUGPRCDiBqBgtWALuDpmHaQj/Bz5DNWDY4dGi8a+/WL7bq+aUv8SvvrHxU9CoB1B/yLah3C6Kxt0ebuTlOoWlskP0BSiXWSjSGJzY8jtYeYS3ASMVvl5o=
+	t=1785260454; cv=none; b=TJgKwa1xE2iSf+q2H/0CpNGJofKux9oVhQ+IHQOhL0bhhyVNjtRKbXn1g62txj6bpP/CC76OhwTdk4Idrmkyc024N1SYs5Y7eXL1yZWM+xmnY3b11zvwY8uB27VDVT7gLJsKUyhAwEyxFwDzPKLR1ErI+LphlpgaxO4n1k4ptcI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785260451; c=relaxed/simple;
-	bh=Sw0eBvl1Fm8R1WcMvoZrOtiF6wxkEL0dY1GQpPPGQ6I=;
+	s=arc-20240116; t=1785260454; c=relaxed/simple;
+	bh=Ccx+QhJeQ1KNv7xuRbgnsS8npvB/wRINLZz8iwrkLyk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=tfzhU/Gib9Z9rp1aUUmy6cs0vmCJoKIoTsNFvOgu6mj8+mT9GuSy7W8h5DUHMEZzfwyoBMOmdkgUEWzrnBz9Nj5OjIcoC7iiypQXcOhBo6l4veyADDpA3t57Ki+aNKEqv2vW23WKibvIAhpPoa3VDgU/9MyiDRB0Ee2xCS1/3nw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=k2+kwQrR; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=a3clZYLjBl2D50XgLqdTsnH53yRhwKfnyR5AkCmyFwFZynoRJ3W9c9lnUroY/JcBG+9zQKFfppaSCxmNbjpY0V/s13SzmCrBCcKEaishrUQCHQiUcITU+mrKLi78RzrgDwtiozdGPFRcaX2Nob8p0NwJhkN/BiO9cY+EMZFS7iw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=g4XPpNla; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="k2+kwQrR"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="g4XPpNla"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1785260446;
-	bh=Sw0eBvl1Fm8R1WcMvoZrOtiF6wxkEL0dY1GQpPPGQ6I=;
+	bh=Ccx+QhJeQ1KNv7xuRbgnsS8npvB/wRINLZz8iwrkLyk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=k2+kwQrRU4hGifXPsYIwKUdcZsj2LpAHMhSfl/Rn1aIJ0tlAv+XH4ESHFqzSFLJhK
-	 A/YIYpwqzy1D05EPrQT9wfosHeNONslQMTKa0ObPT9F1dXOylLSQ6gs++txe77N6Ih
-	 ew0S02b0gAT//NpS/19SpWPsA+bm5g+7zOEnvo3OsbuHcq6Oem0FTJXNOZsQ2gcc1h
-	 F4OjArPdvIxRpYJ7ULCDCwW7Y8ukDnd36ZRD5AoOIA/+eTbcqlQQKxcqOl4eddeGus
-	 eKl2JLg3zV8tr+JVmu6YF33wg4sArWJdGDgqj3AyKMRUHbjXzSjB2w35MthhHAiRTy
-	 3uCifJymdW30w==
+	b=g4XPpNlaT7gZK98tmTUODI//Ku9evjTe/ATkJaZXTo/W1QqsYQ+EY3iwzXwQg8lYd
+	 HRysTQmP3t4LTIqSl/eRGuF44UFsniLagGU0drSIIcHoY3NDdkfCPdZK/phLQzQick
+	 azdNoE23npSnTui9J0TrNlyO1PpJYqf4WIJLZ38phEyn5tRh4Qp/VpPyFP21Qv2RAN
+	 UBBd7Sl4/J959dSWmiwHuftgwzFWjWMQB8TpVCaiv8n8jqwaO1Hb4BvLdWP3susw2j
+	 RLr57FoxSiV/OHpn9UMcUVbZud4oeGFYlVXgyuWFv1QuB1J2f6b7mhsN6dx/FWBAVR
+	 vh4YmBSicZmBw==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5A9A017E0726;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id A978617E0742;
 	Tue, 28 Jul 2026 19:40:46 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 0F787480030; Tue, 28 Jul 2026 19:40:46 +0200 (CEST)
+	id 12785480035; Tue, 28 Jul 2026 19:40:46 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Tue, 28 Jul 2026 19:40:40 +0200
-Subject: [PATCH v7 04/18] drm/bridge: synopsys: dw-dp: Add missing
- reinit_completion
+Date: Tue, 28 Jul 2026 19:40:42 +0200
+Subject: [PATCH v7 06/18] drm/bridge: synopsys: dw-dp: Free output_fmts
+ when none are valid
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,7 +47,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260728-synopsys-dw-dp-improvements-v7-4-b7640fa8cf48@collabora.com>
+Message-Id: <20260728-synopsys-dw-dp-improvements-v7-6-b7640fa8cf48@collabora.com>
 References: <20260728-synopsys-dw-dp-improvements-v7-0-b7640fa8cf48@collabora.com>
 In-Reply-To: <20260728-synopsys-dw-dp-improvements-v7-0-b7640fa8cf48@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -73,53 +73,52 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  Sebastian Reichel <sebastian.reichel@collabora.com>, 
  Sashiko <sashiko-bot@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1245;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1057;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=Sw0eBvl1Fm8R1WcMvoZrOtiF6wxkEL0dY1GQpPPGQ6I=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpo6Z0DXIdtnlpb2zQk2OemZA9q006AiFoaH
- 3Atf2WcSzjuqIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqaOmdAAoJENju1/PI
- O/qaGf4P/jSrAQ3f4seld+ntVRbufACqFMWRD3d+x8Q3wJU8TXYmJ+koBu+QjtdxWSmlyCtWlR8
- LlqPfxHYwg98ZXSufGwPfatJyH4lEG9fO9ghydFGN2vQ8Zi3wNKL83OypqY4q1X+eaBdc5OhAeW
- VoU0KPey96d/9WHUMLYpGrzMBSA4qJlSomjMaZzZI6xbfc+0MnH84v2ethqUxEhnRw3blDnH+4f
- pnD6x6733MNj2ALPm1rwvkLUUw/61TI+3wvnPDy8ySk7CrjefgqUJF2bBTNHiS8LOh2uA2L5FP5
- VVtY6LARhp39zEK6JJRbb6QiIaWlkCbZDn0BffSIIn96V9c52ryZaqC4UeSdNB9PoazdIfQsFHM
- UhzJeBmZC9qLkcSa1Zwd7DNhVI5tEY1QtOQ264L+Qu+YAkypx1embMOQuMzRPWmgpXEqcza20N7
- KEvczu66Aw4KAkHZQb41rUka7XeJ9hOAfTb198mg5Yicgo55SqWOwmAcvsEByXficlG01piTvRW
- JAeuXy5017wxLM7XYyJ+hyfbV4jYErt1I2+oe+9cdhWdQPIUb0lCHikQPhg7b5ydSV9cUdAZPvv
- IzqEH2It6yf4qdvnRvjOPMWRU/xWrFYMlCMSpweqEzvn1pLmB3cWorza0dgACnX4PTSsJF6kgq1
- JyVvg8UfO48wnhxbforIs0A==
+ bh=Ccx+QhJeQ1KNv7xuRbgnsS8npvB/wRINLZz8iwrkLyk=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpo6Z2VOflWC8HvxPS5FNVqexeGhxvDVz8Fl
+ cjjXCwxkY1yL4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqaOmdAAoJENju1/PI
+ O/qa/YsP/1nWJ9Pl4XZcTE431N5GCG0Hk7Y2ZRgSE2ffZivIsg3j5MaNYWCpDsk1EUbdxiWcvAQ
+ DBf0IALCKRLdgfvTBCJpii8rhis9LD4T8dkjL8enC4F7iYvDge33S6q+KQ73PC10OQx/I/niUz3
+ V7ED2SnmUuKd/GjYU4DM9Y+4GdIf8Igr4T4/jDaBUceXWpAE/MG9u1s90K10aUsWLfwDpeycjBa
+ myDatRGFNzTkhB6undPhOyhv3Le8JCf5RsVMj4kK7BYoibIFZx7LpRixH+gbT2YqvVxptHcv1Li
+ Zc+Azx8RFvPqamn0bKJX51arsuc2SYTSg4NisVDLNkhFF7KQeOQnSZZHdOYRfR+U+5idykRlOdO
+ jag3Ne/yRFZLlZrvY7kzmMoBVow6moOCsBgmlU6MvPpcO+j013Ii62CDWqLBWpHSb66vboCyyMU
+ zL2w391lK8L8LmyUf0PWc2+EH4oLNqw/6MC4G1me2x5frgTw0SMs7/Pi2uEeQM8MZIPi/Pxyw8n
+ puV3P2f8k1l7J2WqxZNlZ+2USkZxWmeTbskLcVw62Hu4Z+UInPNjktRbrpH4yiG/dHMNwEgA9K1
+ L/2/VYaV3YGmCbMfRTFyBAkbyqI+pUEyTWwjl8q7DEUsCkYc7F+536ARvBE+XEfMgkaCHjhnbzC
+ gzqb8HUGubaQJCtst79c0hg==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-The DP AUX transfer method uses a completion triggered by an interrupt,
-which can timeout. If the function runs into the timeout and the
-interrupt fires afterwards, the following DP aux transfer completion
-would trigger immediately without waiting for the interrupt. This in
-turn means the next one would also be broken and so on.
+If dw_dp_bandwidth_ok() returns false for all formats, *num_output_fmts
+might end up becoming 0. In this case functions calling it assume that
+nothing needs to be free'd, so free output_fmts within the function to
+avoid leaking memory.
 
-Fix this potential issue by re-initializing the completion before
-sending the AUX command.
-
-Reported-by: Sashiko <sashiko-bot@kernel.org>
 Fixes: 86eecc3a9c2e ("drm/bridge: synopsys: Add DW DPTX Controller support library")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index ca7ff544d243..951f1e280e47 100644
+index 1281fe28b0f9..ebb7280ad84c 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -1465,6 +1465,8 @@ static ssize_t dw_dp_aux_transfer(struct drm_dp_aux *aux,
- 	if (WARN_ON(msg->size > 16))
- 		return -E2BIG;
+@@ -1802,6 +1802,11 @@ static u32 *dw_dp_bridge_atomic_get_output_bus_fmts(struct drm_bridge *bridge,
+ 		output_fmts[j++] = fmt->bus_format;
+ 	}
  
-+	reinit_completion(&dp->complete);
++	if (j == 0) {
++		kfree(output_fmts);
++		output_fmts = NULL;
++	}
 +
- 	switch (msg->request & ~DP_AUX_I2C_MOT) {
- 	case DP_AUX_NATIVE_WRITE:
- 	case DP_AUX_I2C_WRITE:
+ 	*num_output_fmts = j;
+ 
+ 	return output_fmts;
 
 -- 
 2.53.0
