@@ -1,131 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C6A01EE7B7
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 00:27:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99F6E27A462;
+	Tue, 28 Jul 2026 01:06:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785198447; cv=none; b=DV/WsV0LlYQ3kzxhBT4mOCJ1D3esloHL2CoqbfYeZpA91+568ZaORulFT2rfGXDjVNQqQ5mr1oHYjmi627/D9GaAUO8IzywYRj2wHPqcZxyxplc6x5cwGNY0m2s0CN7d34r/C2Luic0SUotEAIsiHgaXFpdwrugKZJH2nO4Z8zw=
+	t=1785200799; cv=none; b=K/Ma2EFXy3XBxhPUkwPoJpBoiYgROD8nFXlfYFKq3M8eZBiFxEKnsUGKtZwdY6cZBuTGJndFWyGpT/YrigJMWJc8F3vBbJra53peOVPExrrlStFAyRr4LZN0r0cpC1Esbywrej5BaYteE4mn2JoGECY69BsNs0kdsktmNFeErtI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785198447; c=relaxed/simple;
-	bh=m/arKcB0jGgQ4ivYjIp66ZsnHv1A8QfK13D+S7wl8Mg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=eoaQbT26BgA/CKUMaEaUiGv3xGk4PJwpmpTlvE5zi8IY3QfIdqdGBqd6e51im4xskrxu0sy82z9ys+eH3bnm8WvJDedw6h6HFLYvDBFeOIpn/fH+lvbJedLviLpHru8sudF6NbmxHUhUFSRvhlgt8mWuFwxgcwzrXTQtbO5oxAE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ys/8tbsE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785200799; c=relaxed/simple;
+	bh=grRmr/IgtOJxFTSYyvwCbEf3PcoMpkHkiX+0Xi39IYs=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=cwLppmTQKDMaqkAobOxqZQMa7cUjS4h3LO8KFt68wjgg4Lm0sarAI+enSkAiOgY6V9+EhDE5Owjoc1ndjbU6vGwlccO4yBIhy2HpmbgQYuCf+jzhbUBKbVIcs7EuUmSndhTOUCRkTJz5cNzvIQVyZl7Jeu2pnGD0cZGi8+fXe1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=jFASUZ5o; arc=none smtp.client-ip=54.254.200.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ys/8tbsE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1CD91F000E9;
-	Tue, 28 Jul 2026 00:27:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785198445;
-	bh=iHU4dEMbydGVQarArbXaIBYSUhwOYR/ac9gsO8BNAKg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Ys/8tbsEYJxx5OevzArOpLbhqehMsgl2POujlj8F6KW6J2xGKILizLIBj0io7Tp76
-	 I+7slcZ8Q5fdABNdHSkOWgwiCQ/+6hO1ri2jc6vlBh7C9macrFPJ0WMlCusfDkOOEq
-	 1+x+PWXWLqrwqYNw4MWvFU/d0T02ySoD02BC9eiuvO7b6zB4KrTCuhXAgCwiN/sa6D
-	 t5kAj98v2fZ0OOp2TKtZumn6E2xSIdEl+PTbV6uQg+dluC27/l8OHMwM685AXDwBVb
-	 uIY41WRvpo76CUy5CZZ7GDx0aODe0TjYnfReZiK40XL29klUSwOMn3koLr+UR/w1dc
-	 jHIncMXPDvUdw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 4/6] arm64: dts: qcom: Add AYN Odin 2 Mini
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Aaron Kling" <webgeek1234@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260727-ayn-qcs8550-v9-4-e3db456e10e5@gmail.com>
-References: <20260727-ayn-qcs8550-v9-0-e3db456e10e5@gmail.com>
- <20260727-ayn-qcs8550-v9-4-e3db456e10e5@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 28 Jul 2026 00:27:25 +0000
-Message-Id: <20260728002725.A1CD91F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="jFASUZ5o"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1785200726;
+	bh=6cap9a2BbfmYlaJIhCTSwao4KweqQOkNFoHm+CXtfQs=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=jFASUZ5obEbzFnsF2x5oB/r4yh9bT5Tl9dXl/ifOnBcobg+v6qePr+Pu9N3AGm4ll
+	 6BtXdvm2uzktb1DgschRDbIWUohiNrrs7JwLrQn+yosjstiB4EzgdSjdjbM40behyM
+	 Jr/S9hdMiDgxwGGION+6/p/vh/TNueKmMvxGd6fc=
+X-QQ-mid: esmtpsz20t1785200718tda0b9dd6
+X-QQ-Originating-IP: WAyoVSiUnM+sYMQp6Xu4ZdivdB7TbtRNuRU9j6RRMMM=
+Received: from snode5.. ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 28 Jul 2026 09:05:16 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 5765152889471409520
+From: Sterling-Ash <liangbaihui@linux.spacemit.com>
+To: Frank Binns <frank.binns@imgtec.com>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Yixun Lan <dlan@kernel.org>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev
+Subject: [PATCH v3 0/2] drm/imagination: support GPU probe without power-domains
+Date: Tue, 28 Jul 2026 09:05:11 +0800
+Message-Id: <20260728010513.1627950-1-liangbaihui@linux.spacemit.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <75c9382d2bda766aa459b00321153d715254d1a4.camel@imgtec.com>
+References: <75c9382d2bda766aa459b00321153d715254d1a4.camel@imgtec.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: MEnmemzsw09gbmObJ7nVJm3oMj+ouwfy+NO61Ns86Iqo+j7NNKVt+Jz7
+	3mmSasm710mCIjdwUb6boFQCFyCoX5ETIuERgv4cjn2pTomq03dyx07m45556IrbUYkYQfw
+	oeE137gb81FDQo+/u8pObjT8prRAcFcuMzA3vnDbZMD+rXboshI/bKv/FvxMCkvdar8xeOE
+	RalH7V5SBj2T740HQdHgehFNBFCDy/Y3qdN5qUA/3A6R8aeTysBHwld/oaLP0vb6FFrfaaD
+	N1OoOJ6ThPnf5E6jSaj5dOcF0iv/dcXLPP/Rrol+A9VGsdiSqA1FWEaJOBp4q0aOENCJFJT
+	DeB3szInArK3gnvGxpXkgVmVuuMsNXBv5jyctTkacZrOoeBZPdjjLFQ7mNVIKLYzeBdm3Y4
+	fCEq2WE5eYe+CCZaYT3DtLt1yvvPvnjV/GnSYrbxDgu/JfeW2HV0PRiedg2Eaep95Y25h8Q
+	TawwRs7XlyRmClUzHLFQPWxmdzy6GWayLRUTkL6ssEazYWkq8EIEZnPcBfuoYGq86Oa/7pI
+	AbUvwQpGuCQWrTyAO4TkRBMacceMoeVr6pJAzNjHTf9Gh5mNV5Nr7VlD988Pn/fXGx2kB5Y
+	CZE3PH4dkhrQazF7n1yhnPYnTp3OU9mGAk/+IJGIfsXT96KObO0/fBRPRDrXGbdKkMIx21V
+	u4VBxMEK6Rk9JqtwuaCjH0NJ9E2UPq/4hYkNLZJecjJmVn21hsXthSzAZlZJEFz9F4K43aH
+	dzM0pDi/PI8FtboCBKQKGILwINaRNneMCRvbajnLtmpIN2qTPkJed9eX0sNH+p8sFS8wBWD
+	2I0UT4AOKcEGBznn7NymOzl/GvdgDDsgdAWRfGqq/wqYuy/U8m0iHSXlE8Su+5P//Gk8D7H
+	9EqPok4V6BnOqkO6ariNvhGY4ZQrylopy7jqVOcN1HoKv5yAprYTLkktg5buZnFgYXx/9Sz
+	LalXqXDFwHH7l3SLBPhQnXl+BrtUgt+qL+gsUwPF3mMnBYYaFdMRkJaGB
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-RECHKSPAM: 0
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Unused fixed regulator `vdd_disp_2v8` will be forcefully disabled =
-by the regulator core, disrupting bootloader continuous splash.
-- [High] The `display_panel` (`panel@0`) node is missing the required `comp=
-atible` property.
---
+This v3 addresses an automated ("Sashiko AI") review comment on v2 [2]:
+spacemit,k3-gpu didn't match any "if" block constraining clocks, so it
+fell back to this schema's general 1-3 item range, which would have
+let an invalid DT with 2 or 3 clocks pass validation even though this
+platform only ever has one. Patch 1 now also adds spacemit,k3-gpu to
+the existing ti,am62-gpu/ti,am62p-gpu/ti,j721s2-gpu "if" block that
+restricts clocks to a single entry, since K3 has the same requirement.
+See the v3 note under patch 1 for details.
 
---- Patch [4]: [PATCH v9 4/6] arm64: dts: qcom: Add AYN Odin 2 Mini ---
-commit 8dcee61439dddab941924480de9e3796fbbd1fce
-Author: Teguh Sobirin <teguh@sobir.in>
+v2 reordered and extended the earlier standalone pvr_power.c change
+per Alessio's review [1].
 
-arm64: dts: qcom: Add AYN Odin 2 Mini
-   =20
-The AYN Odin 2 Mini is a high-performance Android-based handheld gaming
-console powered by the Qualcomm Snapdragon 8 Gen 2 processor featuring a
-5-inch mini-led touchscreen.
+On the SpacemiT K3 SoC, the GPU power domain is enabled once by the
+bootloader before Linux boots and is neither modelled nor switched by
+Linux at runtime.
 
-> diff --git a/arch/arm64/boot/dts/qcom/qcs8550-ayntec-odin2mini.dts b/arch=
-/arm64/boot/dts/qcom/qcs8550-ayntec-odin2mini.dts
-> new file mode 100644
-> index 0000000000000..cc894bdd0c902
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/qcs8550-ayntec-odin2mini.dts
-> @@ -0,0 +1,44 @@
-[ ... ]
-> +&{/} {
-> +	model =3D "AYN Odin 2 Mini";
-> +	compatible =3D "ayntec,odin2mini", "qcom,qcs8550", "qcom,sm8550";
-> +
-> +	vdd_disp_2v8: vdd-disp-2v8-regulator {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "vdd_disp_2v8";
-> +
-> +		regulator-min-microvolt =3D <2800000>;
-> +		regulator-max-microvolt =3D <2800000>;
-> +
-> +		gpio =3D <&tlmm 142 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +	};
+As pointed out in review, img,powervr-rogue.yaml currently has no
+compatible entry this platform's GPU can use, so patch 1 adds one
+(spacemit,k3-gpu + img,img-bxm-4-64 + img,img-rogue) as its own oneOf
+entry, distinct from thead,th1520-gpu since the two differ in clock
+requirements. This new compatible doesn't match any "if" block that
+constrains power-domains, so that property falls back to the schema's
+default (optional) behaviour for it -- no additional required/false
+override is needed.
 
-[Severity: High]
-Since this regulator powers the display but isn't consumed by any device no=
-de
-like a panel or simple-framebuffer, will the kernel regulator core forceful=
-ly
-disable it as unused at the end of the initialization sequence?
+Patch 2 is the previously-sent driver change: pvr_power_domains_init()
+treats a missing "power-domains" property as "nothing to attach"
+instead of failing probe with -ENOENT.
 
-Without regulator-always-on or regulator-boot-on, this might kill any
-continuous splash screen left by the bootloader and leave the screen black.
+[1] https://lore.kernel.org/all/75c9382d2bda766aa459b00321153d715254d1a4.camel@imgtec.com/
+[2] https://sashiko.dev/#/patchset/20260727012231.1025210-1-baihui.liang@spacemit.com?part=1
 
-> +};
-[ ... ]
-> +&spk_amp_l {
-> +	firmware-name =3D "qcom/sm8550/ayntec/odin2mini/aw883xx_acf.bin";
-> +};
-> +
-> +&spk_amp_r {
-> +	firmware-name =3D "qcom/sm8550/ayntec/odin2mini/aw883xx_acf.bin";
-> +};
-> +
+Sterling-Ash (2):
+  dt-bindings: gpu: img,powervr-rogue: add spacemit,k3-gpu
+  drm/imagination: allow probe when no power-domains are described
 
-[Severity: High]
-Should this board file override the display_panel node from
-qcs8550-ayntec-common.dtsi to provide a compatible string?
+ .../devicetree/bindings/gpu/img,powervr-rogue.yaml       | 6 ++++++
+ drivers/gpu/drm/imagination/pvr_power.c                  | 9 +++++++++
+ 2 files changed, 15 insertions(+)
 
-The base dtsi defines the panel without one:
+-- 
+2.34.1
 
-display_panel: panel@0 {
-	reg =3D <0>;
-
-	port {
-		panel1_in: endpoint {
-			remote-endpoint =3D <&mdss_dsi1_out>;
-		};
-	};
-};
-
-Without an override providing a compatible string, won't this result in a
-dtbs_check validation error and prevent the kernel from matching a panel
-driver?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727-ayn-qcs855=
-0-v9-0-e3db456e10e5@gmail.com?part=3D4
