@@ -1,155 +1,144 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2033741DDFE
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 09:18:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+Received: from zg8tmja2lje4os43os4xodqa.icoremail.net (zg8tmja2lje4os43os4xodqa.icoremail.net [206.189.79.184])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5240E3A3816
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 09:19:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.79.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785230321; cv=none; b=OmzZNtaSkWm7QoMAPqoIOcc+FlOcIx5gi4WX4uXRKBrbA+ls9S5Xj+c4qNH41jo8bPGPs5cXNFER5b/Wnqomz1wr+R3m7OsbFRsBoBX/+oa1N5tGEvqsSQdjIoedBoUUurlQWiLYR9Y6Bsc8+LwhMWJOPm5aAznuJz8JWONEYsc=
+	t=1785230383; cv=none; b=Ta8T0ajmZJRlhLJmpyDZTa6yQugiYfW0n6Hn8f7t4dTT2blzADMRdjTK8GPSX/d65MJus33PYOJe2twQnEEiThC7SrpjNpBMXPuEFZMpy9sywNmQx1NIuZnYbWwrjShntjgFLOz0RlON76TAID9M1y7jMkmghh/G2QDdR++UKGI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785230321; c=relaxed/simple;
-	bh=9Pf42jTYd4BOZWSzwEb2fi7Fbo1AsB7wRyp4TwTJs3s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=s5fa+Yj0RTeH+1DdoXxJX1dZ6WoGsDc4yUhZKYkw5HlL7hAsSx6nyphvQBH/PMtv5NyyZ7gN3g0hzOSFj7fvFoRf1DjcZVpyGfkOAtYwOAwKa3eaZbtyCkvCVr4th3n7mgIvaTG8rKwdPgAqH8x0WjdKKxzygBD0/REzNZWWLfA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=XaPNyYAg; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="XaPNyYAg"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2cf6d65d8a7so53122305ad.0
-        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 02:18:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1785230319; x=1785835119; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AETGy+ANMs/4mEVJOXJB8nyO+6HDkmoHxo4KA1OMiIw=;
-        b=XaPNyYAgYYfBJHWuxPo2imNXxmZHKGpNIz6moCpNat+oxEUJyfnX2EenK1zkW0t4LL
-         RQlM/PgQKj+SEO7RGO+hocYUhX8KDgoQmNDrN6+7VGec2p2cFKOJ+Vl0cSYu0gFVOIx9
-         3k/E/2CfptBus0BgkM0M9YNBkP6+ppqmImNV4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785230319; x=1785835119;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AETGy+ANMs/4mEVJOXJB8nyO+6HDkmoHxo4KA1OMiIw=;
-        b=B8tmJDaeyJic3UuW6NEW9kVkQ18yOOjlSwSj47ilLCwe+2kzkM1ADx99qnfBkFzqXs
-         rBhEIwRX8LHq0ZL8OHo/T0TOn+ZB1ki4RXANpdLQB2JYvE1VFw1nBm5RnszFpYEXdWt8
-         r6c/tIhwTqbcWEnKcsSFHhWnntNxTDeBkKBCqCGmg0UDb5APjAK175CoVq7dwruKjhV4
-         W/WNu1AcxL43HBsA85oy4ng4SXcgwJcV77w+JQUNv2FwoW9Bz5SwYIcCjbz75dVjaIae
-         mh+vbB0pSO/2vE/MkD8s2rlBgv6t/Teudp3jKZyhcWAbnTyEtwAXlagOfuPR/50OCoKf
-         kofA==
-X-Forwarded-Encrypted: i=1; AHgh+Rqn7F7l8V8Er7Sk1+8NqKZ8vEdK1Zx/VAo9SsM3Q6ZQc0/efccqljOkXR1tBf/vynfGUHDbZ2Pq8ndl@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw1wv9ypG1yjFo6dm5yVaBjnAZN2/OVWKD0j7KzLsmvY/qcDG5k
-	bpd4kMJ94Cx5XB4qNsw1GvOF1NsCuQU1CAWZoH1bJr/kz592huYF8szpeHl/5ijyHQ==
-X-Gm-Gg: AR+sD12K6w4JMRlC6z+VoNr1d05/k0A3jd+PJnC4zHtpHmhMZ/rbzwhBJPuKGxIQGTF
-	CVE7Tse/9hGxCd2KIsPcw6+muZ4yIjuWnwtYQiftENOQ0KT6etAQvwvMv4vh81H0I5agYrttCim
-	XS1YXmRxG6loBArJSV8Gz6o13y20JRjHKc788I93sGBSoUrZVZJGDuht/0VJU2BwcmTkkOYd77H
-	aZmbPSwnMZz64/7pDzskhx+WlxmYuz80bY51cQfP3sAClUV4EZOyE0LaGjhZZnBlZYJ5okt7eVZ
-	EO+uDM64/CYRRA7RNPFvUOF+GFgWBAa0aInjsR8X5y4szDoRKivKcogaaoAnaP2BTfOuHYtu51O
-	s81WGm7tL4kUt6pmwvd6VCh86MFjZDsj1SheFIgkV7vNCl2+bkMhtgo6B0lkwjl4FZYoG4cj01B
-	9/S1KMCeWiNleAYdEY4qIM9urzk/jNdf2QNLiH7gMi39BmzxMB6Yv51eYUei1QqhOzq6f5Hg==
-X-Received: by 2002:a17:903:19f0:b0:2c9:fc14:588f with SMTP id d9443c01a7336-2d015f024b4mr18169045ad.29.1785230319419;
-        Tue, 28 Jul 2026 02:18:39 -0700 (PDT)
-Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:c85f:b2bb:a077:d544])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cfde81dcc1sm48616965ad.84.2026.07.28.02.18.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Jul 2026 02:18:38 -0700 (PDT)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney@redhat.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Alessio Belle <alessio.belle@imgtec.com>,
-	Luigi Santivetti <luigi.santivetti@imgtec.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Chen-Yu Tsai <wenst@chromium.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	imagination@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Icenowy Zheng <zhengxingda@iscas.ac.cn>,
-	YoungJoon Lee <getfeus@gmail.com>
-Subject: [PATCH v4 5/5] arm64: dts: mediatek: mt8173: Add GPU device nodes
-Date: Tue, 28 Jul 2026 17:18:03 +0800
-Message-ID: <20260728091804.382753-6-wenst@chromium.org>
-X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
-In-Reply-To: <20260728091804.382753-1-wenst@chromium.org>
-References: <20260728091804.382753-1-wenst@chromium.org>
+	s=arc-20240116; t=1785230383; c=relaxed/simple;
+	bh=fOV85kv7txVcUwX5kvKnBGzbXwwp6LiEAXgwJNsTako=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=PUw6Y7+JrFH2FWMwCagQ55mx0aWNgFjd+86eE5LEhiMxqtZTBNIMfdbE6eY8ZNN9LXl7PxEwd6tn4KPuElFjoxtSnmZnl6N/FtnPam3pDmmTgj9B9lcG9tIl7nWHE3McEbeyABoVMC6B36GSiWO3/29E6G66IiJ/h+uKCzQ2sfo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=206.189.79.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from luyulin$eswincomputing.com ( [10.12.96.77] ) by
+ ajax-webmail-app2 (Coremail) ; Tue, 28 Jul 2026 17:19:29 +0800 (GMT+08:00)
+Date: Tue, 28 Jul 2026 17:19:29 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: "Yulin Lu" <luyulin@eswincomputing.com>
+To: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+Cc: pinkesh.vaghela@einfochips.com, "Min Lin" <linmin@eswincomputing.com>
+Subject: Re: Re: [PATCH v2 3/8] riscv: dts: eswin: eic7700: add pinctrl
+ support
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
+ 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
+ mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
+In-Reply-To: <2bda5463.8c62.19fa7b775dd.Coremail.luyulin@eswincomputing.com>
+References: <2bda5463.8c62.19fa7b775dd.Coremail.luyulin@eswincomputing.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <157400cf.8ca5.19fa805a3a3.Coremail.luyulin@eswincomputing.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:TQJkCgDH3aAhdGhqjGs3AA--.10012W
+X-CM-SenderInfo: pox13z1lq6v25zlqu0xpsx3x1qjou0bp/1tbiAgECA2pniJ0WTwAB
+	sC
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWDJw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
 
-The MediaTek MT8173 comes with a PowerVR Rogue GX6250, which is part
-of the Series6XT, another variation of the Rogue family of GPUs.
-
-On top of the GPU is a glue layer that handles some clock and power
-signals.
-
-Add device nodes for both. While there is supposed to be two different
-power domains to the GPU, MediaTek does not have any information on how
-this is integrated internally. Assign the same GPU power domain to both.
-
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Tested-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
----
- arch/arm64/boot/dts/mediatek/mt8173.dtsi | 31 ++++++++++++++++++++++++
- 1 file changed, 31 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/mediatek/mt8173.dtsi b/arch/arm64/boot/dts/mediatek/mt8173.dtsi
-index 556e806b7787..169ba4fd183e 100644
---- a/arch/arm64/boot/dts/mediatek/mt8173.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8173.dtsi
-@@ -1002,6 +1002,37 @@ u2port1: usb-phy@11291000 {
- 			};
- 		};
- 
-+		gpu: gpu@13000000 {
-+			compatible = "mediatek,mt8173-gpu", "img,img-gx6250",
-+				     "img,img-rogue";
-+			reg = <0 0x13000000 0 0x10000>;
-+			interrupts = <GIC_SPI 217 IRQ_TYPE_LEVEL_LOW>;
-+			clocks = <&mfgtop CLK_MFG_G3D>,
-+				 <&mfgtop CLK_MFG_MEM>,
-+				 <&mfgtop CLK_MFG_AXI>;
-+			clock-names = "core", "mem", "sys";
-+			/*
-+			 * Binding and GPU core HW have two power domain
-+			 * inputs, but MediaTek does not have information
-+			 * on how this is done internally.
-+			 */
-+			power-domains = <&mfgtop>, <&mfgtop>;
-+			power-domain-names = "a", "b";
-+		};
-+
-+		mfgtop: clock-controller@13fff000 {
-+			compatible = "mediatek,mt8173-mfgtop";
-+			reg = <0 0x13fff000 0 0x1000>;
-+			clocks = <&topckgen CLK_TOP_AXI_MFG_IN_SEL>,
-+				 <&topckgen CLK_TOP_MEM_MFG_IN_SEL>,
-+				 <&topckgen CLK_TOP_MFG_SEL>,
-+				 <&clk26m>;
-+			clock-names = "sys", "mem", "core", "clk26m";
-+			power-domains = <&spm MT8173_POWER_DOMAIN_MFG>;
-+			#clock-cells = <1>;
-+			#power-domain-cells = <0>;
-+		};
-+
- 		mmsys: syscon@14000000 {
- 			compatible = "mediatek,mt8173-mmsys", "syscon";
- 			reg = <0 0x14000000 0 0x1000>;
--- 
-2.55.0.229.g6434b31f56-goog
-
+SGksIGNvbm9yLCByb2JoCgo+IFRoYW5rIHlvdSBmb3IgeW91ciBjb250cmlidXRpb24hIFNhc2hp
+a28gQUkgcmV2aWV3IGZvdW5kIDMgcG90ZW50aWFsIGlzc3VlKHMpIHRvIGNvbnNpZGVyOgo+IAo+
+IE5ldyBpc3N1ZXM6Cj4gLSBbTWVkaXVtXSBCb2FyZC1zcGVjaWZpYyBHUElPIHBpbiBjb25maWd1
+cmF0aW9ucyBhcmUgZGVmaW5lZCBidXQgbmV2ZXIgcmVmZXJlbmNlZCB2aWEgYHBpbmN0cmwtMGAs
+IHJlbmRlcmluZyB0aGVtIGluZXJ0Lgo+IC0gW01lZGl1bV0gUGVyaXBoZXJhbCBub2RlcyBkbyBu
+b3QgcmVmZXJlbmNlIHRoZWlyIG5ld2x5IGFkZGVkIHBpbmN0cmwgY29uZmlndXJhdGlvbnMuCj4g
+Cj4gUHJlLWV4aXN0aW5nIGlzc3VlczoKPiAtIFtIaWdoXSBUaGUgU29DIGRldmljZSB0cmVlIGxh
+Y2tzIGBncGlvLXJhbmdlc2AgcHJvcGVydGllcyBsaW5raW5nIHRoZSBEVyBBUEIgR1BJTyBjb250
+cm9sbGVycyB0byB0aGUgbmV3bHkgaW50cm9kdWNlZCBwaW5jdHJsIGNvbnRyb2xsZXIsIGJ5cGFz
+c2luZyBHUElPIG11eGluZyBsb2dpYy4KPiAtLQo+IAo+IGNvbW1pdCA5MmFiZTgzNmIxMWI2Yjgx
+MTczMWFjODcyZTBjMDFkY2NiY2NlZmQwCj4gQXV0aG9yOiBZdWxpbiBMdSA8bHV5dWxpbkBlc3dp
+bmNvbXB1dGluZy5jb20+Cj4gCj4gcmlzY3Y6IGR0czogZXN3aW46IGVpYzc3MDA6IGFkZCBwaW5j
+dHJsIHN1cHBvcnQKPiAKPiBUaGlzIGNvbW1pdCBhZGRzIHBpbmN0cmwgbm9kZXMgYW5kIHJlbGF0
+ZWQgcGluIGNvbmZpZ3VyYXRpb25zIGZvciB0aGUgRUlDNzcwMAo+IFNvQy4gSXQgYWxzbyBwcm92
+aWRlcyB0aGUgc3BlY2lmaWMgcGluIHN0YXRlcyBmb3IgdGhlIEhpRml2ZSBQcmVtaWVyIFA1NTAK
+PiBib2FyZC4KPiAKPiA+IGRpZmYgLS1naXQgYS9hcmNoL3Jpc2N2L2Jvb3QvZHRzL2Vzd2luL2Vp
+Yzc3MDAtaGlmaXZlLXByZW1pZXItcDU1MC5kdHMgYi9hcmNoL3Jpc2N2L2Jvb3QvZHRzL2Vzd2lu
+L2VpYzc3MDAtaGlmaXZlLXByZW1pZXItcDU1MC5kdHMKPiA+IGluZGV4IDEyNjY3NjJkZmNkOGMu
+Ljc0M2RlZGJkYjA4MWEgMTAwNjQ0Cj4gPiAtLS0gYS9hcmNoL3Jpc2N2L2Jvb3QvZHRzL2Vzd2lu
+L2VpYzc3MDAtaGlmaXZlLXByZW1pZXItcDU1MC5kdHMKPiA+ICsrKyBiL2FyY2gvcmlzY3YvYm9v
+dC9kdHMvZXN3aW4vZWljNzcwMC1oaWZpdmUtcHJlbWllci1wNTUwLmR0cwo+IFsgLi4uIF0KPiA+
+IEBAIC0yNSw2ICszNSwxMDUgQEAgJmNsb2NrXzI0bSB7Cj4gPiAgCWNsb2NrLW91dHB1dC1uYW1l
+cyA9ICJjbG9ja18yNG0iOwo+ID4gIH07Cj4gPiAgCj4gPiArJmdwaW8wX3BpbnMgewo+ID4gKwli
+aWFzLWRpc2FibGU7Cj4gPiArCWlucHV0LWVuYWJsZTsKPiA+ICt9Owo+ID4gKwo+ID4gKyZncGlv
+NV9waW5zIHsKPiA+ICsJYmlhcy1kaXNhYmxlOwo+ID4gKwlpbnB1dC1lbmFibGU7Cj4gPiArfTsK
+PiAKPiBbU2V2ZXJpdHk6IE1lZGl1bV0KPiBXaWxsIHRoZXNlIGJvYXJkLXNwZWNpZmljIEdQSU8g
+cGluIGNvbmZpZ3VyYXRpb25zIGV2ZXIgYmUgYXBwbGllZD8KPiAKPiBUaGUgYm9hcmQgRFRTIG92
+ZXJyaWRlcyBwcm9wZXJ0aWVzIGxpa2UgYmlhcy1wdWxsLXVwIGZvciB2YXJpb3VzIEdQSU8gbm9k
+ZXMgCj4gKCZncGlvMF9waW5zLCAmZ3BpbzE0X3BpbnMsIGV0Yy4pLCBidXQgdGhlc2UgcGluIGNv
+bmZpZ3VyYXRpb25zIGFyZSBuZXZlciAKPiByZWZlcmVuY2VkIGJ5IGFueSBwaW5jdHJsLTAgcHJv
+cGVydHkgaW4gYSBjb25zdW1lciBkZXZpY2Ugb3IgYXMgYSBwaW5jdHJsIGhvZy4KPiAKPiBXaXRo
+b3V0IGJlaW5nIHJlZmVyZW5jZWQgdmlhIHBpbmN0cmwtbmFtZXMgPSAiZGVmYXVsdCI7IGFuZCBw
+aW5jdHJsLTAgPSA8Li4uPjsKPiB3aXRoaW4gdGhlICZwaW5jdHJsIG5vZGUsIHRoZSBwaW5jdHJs
+IHN1YnN5c3RlbSB3aWxsIHBhcnNlIHRoZW0gYXMgdGVtcGxhdGVzCj4gYnV0IG5ldmVyIGNvbW1p
+dCB0aGUgaGFyZHdhcmUgY29uZmlndXJhdGlvbnMuCj4gCj4gVGhpcyBjb3VsZCBsZWF2ZSB0aGUg
+aGFyZHdhcmUgbGFja2luZyByZXF1aXJlZCBlbGVjdHJpY2FsIGNvbmZpZ3VyYXRpb25zLgo+IAoK
+SW4gdGhlIG5leHQgdmVyc2lvbiwgdGhlIHVucmVmZXJlbmNlZCBlbGVjdHJpY2FsIHByb3BlcnR5
+IG5vZGUgY29uZmlndXJhdGlvbnMgd2lsbCBiZSByZW1vdmVkLgoKPiBbIC4uLiBdCj4gPiArJnBp
+bmN0cmwgewo+ID4gKwl2cmdtaWktc3VwcGx5ID0gPCZ2Y2NfMXY4PjsKPiA+ICt9Owo+ID4gKwo+
+ID4gICZ1YXJ0MCB7Cj4gPiAgCXN0YXR1cyA9ICJva2F5IjsKPiA+ICB9Owo+IAo+IFtTZXZlcml0
+eTogTWVkaXVtXQo+IFNob3VsZCB0aGlzIHBlcmlwaGVyYWwgbm9kZSByZWZlcmVuY2UgaXRzIG5l
+d2x5IGFkZGVkIHBpbmN0cmwgY29uZmlndXJhdGlvbnM/Cj4gCj4gVGhlIGVpYzc3MDAtcGluY3Ry
+bC5kdHNpIGZpbGUgZGVmaW5lcyBleHRlbnNpdmUgcGlubXV4IGNvbmZpZ3VyYXRpb25zLCBzdWNo
+IGFzCj4gdWFydDBfcGlucyBhbmQgaTJjMF9waW5zLCBhbmQgdGhlIGJvYXJkIERUUyBlbmFibGVz
+IHRoZXNlIHBlcmlwaGVyYWxzIGhlcmUuIAo+IAo+IEhvd2V2ZXIsIHRoZSBib2FyZCBEVFMgZmFp
+bHMgdG8gYXNzaWduIHRoZXNlIHBpbm11eCBjb25maWd1cmF0aW9ucyB0byB0aGUgCj4gcGVyaXBo
+ZXJhbHMgdXNpbmcgcGluY3RybC1uYW1lcyA9ICJkZWZhdWx0IjsgYW5kIHBpbmN0cmwtMCA9IDwm
+dWFydDBfcGlucz47Lgo+IAo+IEFzIGEgcmVzdWx0LCBwZXJpcGhlcmFsIHBpbiBtdWx0aXBsZXhp
+bmcgaXMgbm90IGFwcGxpZWQgYnkgdGhlIGtlcm5lbCwgcmVseWluZyAKPiBlbnRpcmVseSBvbiB0
+aGUgYm9vdGxvYWRlcidzIGluaXRpYWwgc3RhdGUuCj4gCgpJbiB0aGUgbmV4dCB2ZXJzaW9uLCBy
+ZWZlcmVuY2VzIHRvIGkyYzBfcGlucywgaTJjMV9waW5zLCB1YXJ0MF9waW5zLCBhbmQgdWFydDJf
+cGlucwp3aWxsIGJlIGFkZGVkIHZpYSBwaW5jdHJsLTAgcHJvcGVydGllcy4KCj4gPiBkaWZmIC0t
+Z2l0IGEvYXJjaC9yaXNjdi9ib290L2R0cy9lc3dpbi9laWM3NzAwLmR0c2kgYi9hcmNoL3Jpc2N2
+L2Jvb3QvZHRzL2Vzd2luL2VpYzc3MDAuZHRzaQo+ID4gaW5kZXggYWY5ZTQwZDg3MzlhZC4uYTBm
+YjgyZjRhZGNhOSAxMDA2NDQKPiA+IC0tLSBhL2FyY2gvcmlzY3YvYm9vdC9kdHMvZXN3aW4vZWlj
+NzcwMC5kdHNpCj4gPiArKysgYi9hcmNoL3Jpc2N2L2Jvb3QvZHRzL2Vzd2luL2VpYzc3MDAuZHRz
+aQo+IFsgLi4uIF0KPiA+IEBAIC0zNDksNiArMzQ5LDExIEBAIGdwaW9EOiBncGlvLXBvcnRAMyB7
+Cj4gPiAgCQkJfTsKPiA+ICAJCX07Cj4gPiAgCj4gPiArCQlwaW5jdHJsOiBwaW5jdHJsQDUxNjAw
+MDgwIHsKPiA+ICsJCQljb21wYXRpYmxlID0gImVzd2luLGVpYzc3MDAtcGluY3RybCI7Cj4gPiAr
+CQkJcmVnID0gPDB4MCAweDUxNjAwMDgwIDB4MCAweDFmZmY4MD47Cj4gPiArCQl9Owo+ID4gKwo+
+IAo+IFtTZXZlcml0eTogSGlnaF0KPiBUaGlzIGlzbid0IGEgYnVnIGludHJvZHVjZWQgYnkgdGhp
+cyBwYXRjaCwgYnV0IGRvZXMgdGhlIFNvQyBkZXZpY2UgdHJlZSBsYWNrCj4gZ3Bpby1yYW5nZXMg
+cHJvcGVydGllcyBsaW5raW5nIHRoZSBEVyBBUEIgR1BJTyBjb250cm9sbGVycyB0byB0aGUgbmV3
+bHkKPiBpbnRyb2R1Y2VkIHBpbmN0cmwgY29udHJvbGxlcj8KPiAKPiBUaGUgZWljNzcwMC5kdHNp
+IGRlZmluZXMgR1BJTyBjb250cm9sbGVycyB1c2luZyB0aGUgc25wcyxkdy1hcGItZ3BpbyBkcml2
+ZXI6Cj4gCj4gCQkJZ3Bpb0E6IGdwaW8tcG9ydEAwIHsKPiAJCQkJY29tcGF0aWJsZSA9ICJzbnBz
+LGR3LWFwYi1ncGlvLXBvcnQiOwo+IAo+IFRoaXMgZHJpdmVyIHVuY29uZGl0aW9uYWxseSBzZXRz
+IC5yZXF1ZXN0ID0gZ3Bpb2NoaXBfZ2VuZXJpY19yZXF1ZXN0LiAKPiAKPiBXaGVuIGEgR1BJTyBp
+cyByZXF1ZXN0ZWQsIGdwaW9jaGlwX2dlbmVyaWNfcmVxdWVzdCBjaGVja3MgaWYgdGhlCj4gZ2Mt
+PmdwaW9kZXYtPnBpbl9yYW5nZXMgbGlzdCBpcyBlbXB0eS4gCj4gCj4gQmVjYXVzZSBlaWM3NzAw
+LmR0c2kgZmFpbHMgdG8gZGVmaW5lIGdwaW8tcmFuZ2VzIG1hcHBpbmcgdGhlIGdwaW8tcG9ydCBz
+dWJub2Rlcwo+IHRvIHRoZSBwaW5jdHJsIGNvbnRyb2xsZXIsIHRoZSBwaW5fcmFuZ2VzIGxpc3Qg
+aXMgZW1wdHkuIEFzIGEgcmVzdWx0LAo+IGdwaW9jaGlwX2dlbmVyaWNfcmVxdWVzdCgpIHJldHVy
+bnMgMCBlYXJseSBhbmQgbmV2ZXIgY2FsbHMKPiBwaW5jdHJsX2dwaW9fcmVxdWVzdCgpLiAKPiAK
+PiBUaGlzIGJ5cGFzc2VzIHRoZSBwaW5jdHJsIGRyaXZlcidzIGhhcmR3YXJlIG11eGluZyBsb2dp
+YyBlbnRpcmVseSwgbWVhbmluZwo+IEdQSU8gaGFyZHdhcmUgbXV4aW5nIHdpbGwgbm90IG9jY3Vy
+IHdoZW4gYSBHUElPIGlzIHJlcXVlc3RlZCwgbGVhdmluZyB0aGUgcGlucwo+IGluIHRoZWlyIGRl
+ZmF1bHQgb3IgcGVyaXBoZXJhbCBzdGF0ZS4KPiAKCiZnbWFjMCB7CgkuLi4KCXBpbmN0cmwtbmFt
+ZXMgPSAiZGVmYXVsdCI7CglwaW5jdHJsLTAgPSA8JmdwaW8xMDZfcGlucz47CgkuLi4KCXN0YXR1
+cyA9ICJva2F5IjsKfTsKCiZnbWFjMF9tZGlvIHsKCWdtYWMwX3BoeTA6IGV0aGVybmV0LXBoeUAw
+IHsKCQkuLi4KCQlyZXNldC1ncGlvcyA9IDwmZ3Bpb0QgMTAgR1BJT19BQ1RJVkVfTE9XPjsKCQku
+Li4KCX07Cn07CgpncGlvRDogZ3Bpby1wb3J0QDMgewoJLi4uCglncGlvLXJhbmdlcyA9IDwmcGlu
+Y3RybCAwIDE0MyAxNj47Cn07CgpUaGUgRFRTIGNvbmZpZ3VyYXRpb24gaXMgYXMgc2hvd24gYWJv
+dmUuCldoZW4gInBpbmN0cmwtMCIsICJyZXNldC1ncGlvcyIsIGFuZCAiZ3Bpby1yYW5nZXMiIGFy
+ZSBwcmVzZW50IGF0IHRoZQpzYW1lIHRpbWUsIHRoZSBHUElPIG1vZHVsZSBhbmQgdGhlIEV0aGVy
+bmV0IG1vZHVsZSBib3RoIGF0dGVtcHQgdG8KYWNxdWlyZSB0aGUgc2FtZSBHUElPLCBjYXVzaW5n
+IHRoZSBrZXJuZWwgdG8gcmVwb3J0IGFuIGVycm9yOgoicGluIGdwaW8xMDYgYWxyZWFkeSByZXF1
+ZXN0ZWQgYnkgNTA0MDAwMDAuZXRoZXJuZXQ7IGNhbm5vdCBjbGFpbSBmb3IgNTE2MDAwMDAuZ3Bp
+bzo2MTguIgoKRm9yIHRoZSBFSUM3NzAwIFNvQywgYSBwaW4gY2FuIG9ubHkgYmUgdXNlZCBhcyBH
+UElPIG9yIGFzIGFub3RoZXIKZnVuY3Rpb24gYXQgdGhlIHNhbWUgdGltZS4gVGhlcmVmb3JlLCB0
+aGUgIi5zdHJpY3QiIGluCnBpbmN0cmwtZWljNzcwMC5jIGlzIHNldCB0byAidHJ1ZSIuCgoicGlu
+Y3RybC1uYW1lcyIgYW5kICJwaW5jdHJsLTAiIGFyZSBuZWNlc3NhcnksIHNvIEkgdGhpbmsgdGhh
+dCBhZGRpbmcKImdwaW8tcmFuZ2VzIiB0byB0aGUgR1BJTyBjaGlsZCBub2RlcyBvbiB0aGUgRUlD
+NzcwMCBTb0MgaXMgbm90IHN1cHBvcnRlZC4KSWYgdGhlICJncGlvLXJhbmdlcyIgcHJvcGVydHkg
+aXMgbm90IGFkZGVkIHRvIHRoZSBHUElPIGNoaWxkIG5vZGVzLCBpcwp0aGF0IGFjY2VwdGFibGU/
+Cgo+IC0tIAo+IFNhc2hpa28gQUkgcmV2aWV3IMK3IGh0dHBzOi8vc2FzaGlrby5kZXYvIy9wYXRj
+aHNldC8yMDI2MDcwNjA4MTA1NS4xMTI2Mjc1LTEtcGlua2VzaC52YWdoZWxhQGVpbmZvY2hpcHMu
+Y29tP3BhcnQ9MwoKVGhhbmtzLApZdWxpbiBMdQo=
