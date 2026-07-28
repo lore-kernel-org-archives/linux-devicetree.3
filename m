@@ -1,136 +1,176 @@
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B44B53DD528
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 22:15:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67F3A3DD528
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 22:16:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785276956; cv=none; b=omLjxnzI2XkR7kdsowT33iiiXVdSpuK9J6WgbjT+0U7gkAjl9N1gTFf6v9ySPAgn4kI/i02+Uo/pOHR7fmAAlhzYkWfVej33AcdAyxng6YoFOrG0fPxGJF/HmZzHQdgtp+E9/cF/FC6740BHaEOJxb0O9lwCI7pF453WTDF+nVE=
+	t=1785276961; cv=none; b=dKFlVVG+gFnqTYkP4s+ho2NeHaeJ1zNNmjuWeaGQqQza5dj2gf89U24Ts/YyjY3dck9n3j49sh/0TVGF4rWjRjeMDjt1IWpNUXNKZLOWJp/f0vt3prKlB2YVw+xnkNlCEPujM84YRLO3Z4GX1VlRO1W8HPLrOni3jmZ7Eeo2GDc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785276956; c=relaxed/simple;
-	bh=iz5eEsTOMdWHCyx2WpA/dZYo9o9pe5LN+o8YsCcB1vo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GjWrM+hu6Kys9ApSAZ8rC5w2jQpfwLb+4VGdmjn92EMDmR1d6lr0CSnZzaJYvmTK01bxHXu4I6VflvjddnZ0Ppd7/iWFJDa94ogeR/jgWy9MiNYb6NL/m6O0SVBBjh0OS0MPDcalrjwCBTA/Tq+6vAMzEpe7eZ+YCxT22ltpwmY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BCfufqr1; arc=none smtp.client-ip=209.85.210.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1785276961; c=relaxed/simple;
+	bh=kDmieDGHB7qC5d/ULg3nvfofgN7MilYR3I47pvTTbjY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Wdr7TCj5OqMNei4yHtbgiibEIG6XiDxsccO5fOKf5g8L6EccxAJ6D6Dt0Eunam6LmnlREc/G627C2O2IrDElQ0dZh1pyiO479aW8x2n8HVxd94jt5bn54OEvLRzfr8ygNH0pKudq2EGfgtH0uPXVlnrpICo4usFpUWkhW3zhVQk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V+Ovug2p; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BCfufqr1"
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-845c92bc464so304121b3a.2
-        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 15:15:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V+Ovug2p"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2cf50c6f235so4481255ad.0
+        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 15:16:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785276954; x=1785881754; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Rje7HhQ48HT1sXup0TRphJEI0h4NvdmNL/JFa+vFWNM=;
-        b=BCfufqr1jGl3Hzwt1eo3BGdICvap8SxVDDoQ9RuJZzldlQAks7w7e60fSvcGO3BH49
-         sGFvImd0VzPg9dduY9uOIqAKZwM59sX76fj6L0QUYhl5UUoEMQeGSw2SYpH98eS2uDHk
-         vmOYrDbKoNid0kaaYvHECODym5DVG6JHcRzgga+TPc6pKHrIX94ClpW9XtZGvcruoWW5
-         wjSNZvqx2ltbff5U+5cA0iqoNlgLJedbxFMPeBK2Ia34mLUEkWyK2cquAzj8s+p0tw8x
-         voG5hlOUW8kiglWwGCA3gHkQW+twhNihrQM1EsWskhQCdJ0rmJfhTNUoaku2fc5Ho4iS
-         /KLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785276954; x=1785881754;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1785276960; x=1785881760; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Rje7HhQ48HT1sXup0TRphJEI0h4NvdmNL/JFa+vFWNM=;
-        b=nB+aPHdL9qyOVqOQf+mDf+xvdc05luGeaqX4170vFkNi5AO6Cs9IqeaZeUOK70h3cx
-         267COT7hBfiWP7L2iIYaj4AEBk+9buJPZXHNp8yARRaX+thvJHXpF2aIT6y6RWOgHhgY
-         /LsndLgdRcvLo2+CqFFaYSoFgDqd/2RUN0kb2NT+mj0RghPDI93SvZvhQ4AFktwA/LA5
-         bjtU+1heJ0bqs4zkYbl/hEPaoGhTw6kXQcCStZ1NQ6s0ytya/rGzlQIcPlKZbJkxUMUz
-         7tP+LJedZDC7nfjjKYNViOy8m06tBFDows3WWQJI7e8P5vq3PvsQJB/nwVjPia3aM3Wh
-         7bnA==
-X-Forwarded-Encrypted: i=1; AHgh+RoysyiTT70aFhvW63kSP4AWcVDcrh60p8g9LRCtEg2TgY0yauDzg0B+10g/VS/xbzKQEkdFXTvRvXIN@vger.kernel.org
-X-Gm-Message-State: AOJu0YzoXSEOnbrWu+Lyq3RDJJ23EjjV5evrVlloBRw1kn+4NXhFB3iQ
-	PRh7SmBaYKU4crKuogvVFBxKZpPrJ4UJDh19kwVu0inQ2GEk8DEMTP02
-X-Gm-Gg: AR+sD12Ef57YjeQx18hKT9JlCsJ71C3tJPTq5qH9eE/iGLRGXAecdHexOdKAqZ/iVWo
-	QJgdapaFmSsRb3va5HPvYbxZ12oBkbRWZbAB6yAQEbRdNK5TjFgHyK2fwxdM6c34jFamX6K/zZw
-	14ZtGdGz+hVXdfS2I+UbPtN377foySvM6HNL5BMDRiv1k12FnJ55FNVF1CUYrcfKBtsDDWVchd0
-	EC4Vrji51yVQhMwM1Lxo1BmSkeNM7hwKd6HKvqFfY4yDGbIaZGGMOsEomCtPRRQSISPZn85x3hn
-	LEz8o4Td8xQLgfDKppH5wss8y+/6Gn33vuMrKi1kmmNO/72YnhtijwttVgnVUbZt1dUpA9NpWM4
-	3yGWAXLb+CS1cO0gMOebcY26vSbNNIf6sJiWH3+NFXzjvX/Wue1z7uAMVTrrx5Mgfz7k2/VQEGO
-	HlqbUg80hd5yg5gvRHzxP3SAEd91itsiuItviXFsKdFQ2Bv3vNRhart7lpdC8=
-X-Received: by 2002:a05:6a00:3992:b0:848:7f8a:8d0e with SMTP id d2e1a72fcca58-84e932c5f3emr4027335b3a.55.1785276953823;
-        Tue, 28 Jul 2026 15:15:53 -0700 (PDT)
-Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84ea005287csm484155b3a.16.2026.07.28.15.15.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Jul 2026 15:15:53 -0700 (PDT)
-Date: Wed, 29 Jul 2026 06:15:43 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Junhui Liu <junhui.liu@pigmoral.tech>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Yixun Lan <dlan@kernel.org>, 
-	Inochi Amaoto <inochiama@outlook.com>, Samuel Holland <samuel.holland@sifive.com>, 
-	Anup Patel <anup@brainfault.org>, Guodong Xu <guodong@riscstar.com>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
-	Conor Dooley <conor.dooley@microchip.com>, Inochi Amaoto <inochiama@gmail.com>
-Subject: Re: [PATCH RFC 7/7] riscv: dts: spacemit: k3: Add ACLINT MSWI and
- MTIMER nodes
-Message-ID: <amkp9dLCVKTilhO-@inochi.infowork>
-References: <20260729-k3-aclint-v1-0-aef88614d3a5@pigmoral.tech>
- <20260729-k3-aclint-v1-7-aef88614d3a5@pigmoral.tech>
+        bh=TPJW547IHCyCPM/JEAD0xNvj4iqsAXEGGB3Y+0luzVc=;
+        b=V+Ovug2plTkb+1XEnmt8yXonQ4hRkiQ39kii1BGDtEbUWm2eGnezATf3qEcEZbOiAd
+         VI8/3BKmhMC5jiZQAdxjPq/WNFAErkc8XlCE2F/eSRu3na8cn4KejOJ1iYarZ3EdSTpE
+         GMVA5l52KAy7nOTO7xORgqop7BPNYE007IKsXcoRdeUasBBu76jOEkDG5mmk87MikpBq
+         cmA44iD4+Bu3/0e8+UTyCeVOlvNhBaUsNBd9t68stOPoq3Oe3pkEJm9XhBGWUo3zcZw8
+         D9bXiZVUIzfh+HwIT58thVY2DfeFNKd+teHB9M3U7OWMhEYnqzndbxY01YmvXbw6LDPQ
+         rKPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785276960; x=1785881760;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=TPJW547IHCyCPM/JEAD0xNvj4iqsAXEGGB3Y+0luzVc=;
+        b=lcGERrm2Ao5dFqkVCr6ZN/SjaJLs3jgMIRa/Vvl+aqoRHKdeXw77HkUzTB/vwuWJ9l
+         BBZMDYWrgH3EhT+HO/yS0VNjTX7RkCCdWydiG57J0+3P0i9dD+aoV62FPX+R1Q5RioGN
+         adj6Z/xgvuzxbeTv8tlZ8qllCkdZ87MT5NLvHqy9iWmOdpLhf/G93Bbp0CJ/tvHwEXdr
+         a9rHlhhug02QWbjwJCeIvzhJsEQL2lVb1KZHjhImOxPbNchkLP+e+16kA3hcHXyzosoX
+         Kf/yKQtvPWuZLzT6beT7+/op2TSWCLsQMOILx3V0Ho3Kocv2/b/X0AG7AwHRvByiPHxd
+         n6Lw==
+X-Forwarded-Encrypted: i=1; AHgh+Rp6MeV00+FLoKwxd5L/HF9yN5iETcBDfeoUDR5lg/oQLHzV/Zw4GYoBrXr+OdYwCzAdnLMsTw9gv8Ij@vger.kernel.org
+X-Gm-Message-State: AOJu0YyCS5G3rB0fe6+Jo1R3hNgYnxAd+o4i04UDGGoL22QH7PUvlE8F
+	081m4Hk8+7ZaXYW14XzytzGYsAZ/b8KvygQWPuSc6vLC+hCiSJIymkkr
+X-Gm-Gg: AR+sD10Xxv2H5uhfZv6i25EQfqWlZIgVWrTilyBkM6pcRFvd8tzWNNHpchln0u8bcHF
+	Gbl1KkYd62PYZelrIH2qKpasqiqlj3YVQ/LnQayRyzRUODJGNTfAODFcbThrkmURc9QyqDFultT
+	Av72I6Xy00fZ3+/rUOp4VDKGL0qXrRk9I3nlUoufC6R9oDyoo8JoF7uGUanfOfuUDUCY6XDLfi0
+	/36zda7OBH3Cr80rh2otN4YlfuTzfMuj+l69fwoQN651HIdSitMQkadvdsZ3NWwMbSnqCEEyr7p
+	a1/ztiu4+hpOqNra7EWtdpGUV6vg+Uz/0SBRN3deUFOGXP1JIzjrGxyhZPM2QaX4qfjUlFNahAG
+	hJNW9xmePb26suvzeN1lmTECHBkWeNw2Z5IwKfMPw0ex+FK/Gs63dspLtXsGzogLQBDoo1QS/X7
+	Rn6HHk7sJvilqwySQrvxYGq0jqsNgUV1axy6WKZ2k8CiIytXQcKjT2lSda7daP5BEgfE1Ju4nAM
+	4kQ/BT8oCWeI2m1HUuxZXBtTdR8/hBHBDm8igkzU0DtAbNw
+X-Received: by 2002:a17:903:2986:b0:2cf:bfbb:61e2 with SMTP id d9443c01a7336-2d015d9d17bmr49349855ad.39.1785276959791;
+        Tue, 28 Jul 2026 15:15:59 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d022bc9bd4sm2158235ad.48.2026.07.28.15.15.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 28 Jul 2026 15:15:59 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <500573ca-b236-46cc-b92e-987385ccaf06@roeck-us.net>
+Date: Tue, 28 Jul 2026 15:15:57 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260729-k3-aclint-v1-7-aef88614d3a5@pigmoral.tech>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/3] hwmon: (emc1403) Convert to use OF bindings
+To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Cc: Svyatoslav Ryhel <clamor95@gmail.com>, Jean Delvare <jdelvare@suse.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260721095935.439174-1-clamor95@gmail.com>
+ <20260721095935.439174-3-clamor95@gmail.com> <amGz2YZogakb5XAv@monoceros>
+ <CAPVz0n3WKw74zg0HmBBOo8Z7JV_pku-DjsgKF_74B8EdD5cXgA@mail.gmail.com>
+ <1d7b6ff4-4ea6-41c4-b59c-25e14fdd8b53@roeck-us.net>
+ <amUz_ilAvq_fBHld@monoceros>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <amUz_ilAvq_fBHld@monoceros>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 29, 2026 at 12:36:33AM +0800, Junhui Liu wrote:
-> The SpacemiT K3 SoC provides ACLINT MSWI and MTIMER controllers. Add
-> these nodes to complete the ACLINT description in the Device Tree for
-> M-mode firmware such as OpenSBI.
+On 7/28/26 14:44, Uwe Kleine-König wrote:
+> On Sat, Jul 25, 2026 at 07:23:13AM -0700, Guenter Roeck wrote:
+>> On 7/25/26 06:24, Svyatoslav Ryhel wrote:
+>>> чт, 23 лип. 2026 р. о 09:28 Uwe Kleine-König
+>>> <u.kleine-koenig@baylibre.com> пише:
+>>>>
+>>>> Hello,
+>>>>
+>>>> On Tue, Jul 21, 2026 at 12:59:34PM +0300, Svyatoslav Ryhel wrote:
+>>>>> From: Jonas Schwöbel <jonasschwoebel@yahoo.de>
+>>>>>
+>>>>> Add OF match compatible table to be able to use this driver with Device
+>>>>> Trees.
+>>>>>
+>>>>> Signed-off-by: Jonas Schwöbel <jonasschwoebel@yahoo.de>
+>>>>> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+>>>>> Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+>>>>
+>>>> Please put your S-o-b line last.
+>>>>
+>>>
+>>> If S-o-b's should be chronological, then this order is correct.
+>>> Guenter added his reviewed-by after I have added my signed-off-by.
 > 
-> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
-> ---
->  arch/riscv/boot/dts/spacemit/k3.dtsi | 19 +++++++++++++++++++
->  1 file changed, 19 insertions(+)
+> It's a nitpick, but as you added Guenter's tag, you modified the commit
+> log and then your S-o-b has to be renewed.
 > 
-> diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
-> index 5fb719f79467..ecb5f4fcd8fd 100644
-> --- a/arch/riscv/boot/dts/spacemit/k3.dtsi
-> +++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
-> @@ -1303,5 +1303,24 @@ maplic: interrupt-controller@f1800000 {
->  			riscv,num-sources = <512>;
->  			status = "reserved";
->  		};
-> +
-> +		aclint_mswi: interrupt-controller@f1810000 {
-> +			compatible = "spacemit,k3-aclint-mswi", "riscv,aclint-mswi";
-> +			reg = <0x0 0xf1810000 0x0 0x4000>;
-> +			interrupts-extended = <&cpu0_intc 3>, <&cpu1_intc 3>,
-> +					      <&cpu2_intc 3>, <&cpu3_intc 3>,
-> +					      <&cpu4_intc 3>, <&cpu5_intc 3>,
-> +					      <&cpu6_intc 3>, <&cpu7_intc 3>;
-> +		};
-> +
-> +		aclint_mtimer: timer@f1814000 {
-> +			compatible = "spacemit,k3-aclint-mtimer", "riscv,aclint-mtimer";
-> +			reg = <0x0 0xf1814000 0x0 0x8000>;
-> +			reg-names = "mtimecmp";
-> +			interrupts-extended = <&cpu0_intc 7>, <&cpu1_intc 7>,
-> +					      <&cpu2_intc 7>, <&cpu3_intc 7>,
-> +					      <&cpu4_intc 7>, <&cpu5_intc 7>,
-> +					      <&cpu6_intc 7>, <&cpu7_intc 7>;
-> +		};
->  	};
->  };
+>> That refers to S-o-B, not to Reviewed-by: trailers.
+>>
+>> Do we really have to argue about something like this ? Do I have
+>> to mandate the order of non-SoB trailers for this subsystem ?
 > 
-> -- 
-> 2.55.0
+> I wouldn't have replied just for the order, but I think it's convenient
+> and usual to have the own S-o-b last.
 > 
+> Depends on you how strict you want to be here, as usual. I for my part
+> ask for reordering or announce to fix the ordering if nothing else is in
+> the way for application.
+> 
+FWIW, my feedback wasn't directed at you.
 
-Squash this patch into the previous one, it is the same device.
+Guenter
 
-Regards,
-Inochi
