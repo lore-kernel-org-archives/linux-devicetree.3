@@ -1,101 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F28F23AB288;
-	Tue, 28 Jul 2026 13:27:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ADA5441600
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 13:34:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785245257; cv=none; b=m8pIC/wOZu2f8u35eX+dYkfVBww29v2HG/9QvUeLhybP+o3a5LEWmlN3K0JKoLMZN67iGJRWqLXf8L0Wa/ho77Q++YrcnIQ3K9pzi1uAx3JKpRE+uccMA+8AgSfPNDtK+5v8MAdWWWzMhae6jW4uus8yIXxlTJLqBoX6aFV4wiY=
+	t=1785245683; cv=none; b=aFR/Wv6YvHcZDEJ24h83WTPzg3Jp74VRdFqvAdflInhVsoBP1/LP8kpX7VGHOQw/grwjJPgjQ9TMxIUwQqjEu83bQH3gTynUmmju3OhEPcYUGxKOWRGCzvOwS5Ho+TINJ5NEkVoymioriRYPvy/ps54Fef/TAOM6LI2dnd1PX/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785245257; c=relaxed/simple;
-	bh=hzIXSiOLw+/mgI67+G0ajdAH36oPo7JWiwpk2IFH3K8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=usSvSMo76+pGePy9cwddCMADCwLLCSrIApjQIm4MEM8kXwDaWKLCt8qisD6VY4FaubbvhiAQDZBQjsGZ3yDZG4DYQezblyQWcbXK1QKgvT1XeoEBVi0VbVOhg8N4NNaRGZ3+B1LgZQbo3mk5dzPYDipb6mSYsQFvFQi/8XQBSN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lx6YOG/2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785245683; c=relaxed/simple;
+	bh=GNFioT5Go4+A2iCqPdYE4MF6fqEa92pWZK+ljRe2ivk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QjmoalP8vXlvAicoN6rFWkdG+fgpZvrWzGvi6bYaaYQN1jSxMWJ8GTzWKik9oGRxtKm/jEbkCqcmSQzuoCmm+H5FbT8U21BDRlg4eGxlsZeq/GP3SuEYy3ugAKWk1pmTmZrlSVLkH4LNxb4Qs5fYjAwv2i3oQDPbsC88w8qZ5Hw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=iyIwyQOP; arc=none smtp.client-ip=209.85.219.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lx6YOG/2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A65A81F000E9;
-	Tue, 28 Jul 2026 13:27:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785245255;
-	bh=zWIgPZ44q+pV3uugOSPIbIA0Di3E6uK2vMPuJMDykpI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Lx6YOG/27NdgLJ6xyZgPjaTY+qyWPyqifnDlIyGlrnD1HPRdqN6w6LVmWbWLMr15B
-	 +Uf8ApENwf2YXEr3p4+QWcjk3dNidB432hd6Pt/Azl9TFSvmAqOr5IGFRfg5sYqyud
-	 8lGRRmp2BYq3yo0X3TdtHuTpe2B2OnrU8KOKWv3rYr8QjD3hRSaG7NNL3IrOubKBf9
-	 6cw31ORUVwzFxT75T7kG1vk3Bq8dn5miwLYpnbyXh9sbTC+5phwhG3YA0tz4di0kkG
-	 i17+d6A5WSlRIPwJYg0JNVX+JGp++rO0fSR2IOnnmkEG80iUhakSPM4bq3uzZ7zJh/
-	 EF1D8jbiTDQLw==
-Date: Tue, 28 Jul 2026 15:27:26 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: "Martin K . Petersen" <martin.petersen@oracle.com>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@sandisk.com>, 
-	Bart Van Assche <bvanassche@acm.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Kumar Dwivedi <ram.dwivedi@oss.qualcomm.com>, Anjana Hari <anjana.hari@oss.qualcomm.com>, 
-	linux-arm-msm@vger.kernel.org, linux-scsi@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] scsi: ufs: dt-bindings: Add missing mcq reg for
- qcom,sa8255p-ufshc
-Message-ID: <asybgutzvupx6jfbaqsc27ikvqu2h2ycuq4aulh7tbrrzhp2y2@rfzp4salwhuq>
-References: <20260720023552.2667237-1-shengchao.guo@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="iyIwyQOP"
+Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-9063b380982so38122966d6.0
+        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 06:34:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1785245677; x=1785850477; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XzGCbFXxJEuGYSs3c0juxd6AOVKDvi6DBrR61H9y/ak=;
+        b=iyIwyQOPfrkNqOivvOHtBOKA+b9LKLNLCUukLsmgvodu++4vXsXc/Zq4XEs3AwZNIJ
+         oq2FwusW0svmmsgRIHQz0YJpFbjuStd1lnKMlWne/RmpNuHb19zuKC28xd3kWpX6gG+y
+         Q/iSXQ4iXbZ1PBu7OjCHOmIHAYBquRB3mk4tvUcIg9KGVeWJdajKvxzO6trwCLxMKAW1
+         VMp1uRhkjBiuawpJw0q+iSjkZ0yWr4EmnYsZk56AP9kaMRgrKflpAJ37tJD3At8PzYnH
+         jDAm9sroIS7XxwyJ/Ajn+kj/YXEmFfkEbr1ESZlRatEz7YnhIywDrrJb+JF9q5xwhLsM
+         HDRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785245677; x=1785850477;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XzGCbFXxJEuGYSs3c0juxd6AOVKDvi6DBrR61H9y/ak=;
+        b=HHI5QaJs1h/bvhuaNEWSKsNAPC0yUGkjhuNeLv8UTgWJ+Ddv6NEomVTQ7GBB56AzKg
+         s3WRsgAklYTB0S1MOSLqTkn8pR3xdeYi8bnRRuVM4399uN5ecvEMrEX0S6aQQ+SvcbZo
+         Esb8Wu39yKvsRHIht07aAfzseYY7aqaCxy/Dh/Rt6BfxyIraQYXkf6ByZkbNbj3gFrx+
+         zVL+kNGa7aPTeDo16FIAGuCjOtnhMJZWvgjX9y94Ic7ZOrX2Pe5LY95pvWXO20JGQdkE
+         Oi5VASRjJqdrq5yiQD3c5z2ElpCKT8xAjGFobUUiibZGjDaphtGlW2SdLiFfn3zLI5LM
+         WIow==
+X-Forwarded-Encrypted: i=1; AHgh+RpD65MUO04eDiX/idEDsYMpufGirV2AFwc2osrGXXghbNnc2yO63nvvEGcyzg2DhNYQMi25vltT7hb8@vger.kernel.org
+X-Gm-Message-State: AOJu0YzbO8tH8vxRt05O1nAQJS5zfpvWScnQ8rJYE7nlit75fNaeP+lA
+	a0vBDCHUsyfcBYum6RnTQjNtyKUWAPVIj6X+TZxGxlZc03V/DsJXd1BnLp7+YRwGTaM=
+X-Gm-Gg: AR+sD1368jhCIWdg8IJSHLi9TpVU1gK2jTex1jGnegQQE7HFRtugIf5ytMCEy0/kJbd
+	I9P2+ttR9i2/FbbvySTUM06k63yg/KVkDT+uzu/jpV6C1BGtwHZYBpXagrm+lDJjMEnahTnydXF
+	UQ+ycAxcF84PD9Tiy6v6ZNlEfclJWcXOc3U4n8QaIO+FTugMdwNj0SKNWSnulqSyIZdrxnPTY0t
+	joAcHNnNMRIlWLTPK+iozGRvEmxlhWevHW0nfxeq9jCiVvkEgzE41bbY1qzY3XivcUbTV+6/Fs/
+	yPfZpY5frOB6N/weO4PAudgKnY7eY2Mpi9RnlzSKKds/TDu6cRw4IONHtqOQa/4UnrnBXU0t0WR
+	UkCHISYednkyYeWYO2AmxgU5h82CWD5SC1E1jmTAqr3iuO0hkPOBht1CQ1/B+j7e2j4OIwj1w4l
+	dW8dkdw/QCotp3Hh+dkoR2XqVYRoadK0Jirx9apbpkb1qAPlsHmufYak+mwJ6L
+X-Received: by 2002:a05:620a:4693:b0:92e:e2fc:26d3 with SMTP id af79cd13be357-9330272f6b0mr228855185a.46.1785245677388;
+        Tue, 28 Jul 2026 06:34:37 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-932de6523c4sm844235885a.34.2026.07.28.06.34.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 28 Jul 2026 06:34:36 -0700 (PDT)
+Message-ID: <9b7cc38c-83d0-48fb-9282-b8c8efd2ae21@riscstar.com>
+Date: Tue, 28 Jul 2026 08:34:34 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260720023552.2667237-1-shengchao.guo@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/6] PCI/pwrctrl: tc9563: Skip Tx amplitude and DFE tuning
+ for DSP3
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: manivannan.sadhasivam@oss.qualcomm.com,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+ Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson
+ <andersson@kernel.org>, linux-pci@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260725-tc9563-fix-v1-0-ec4286e31331@oss.qualcomm.com>
+ <20260725-tc9563-fix-v1-4-ec4286e31331@oss.qualcomm.com>
+ <f9937e7b-746c-486b-b94f-fb3b34a2b0d0@riscstar.com>
+ <oefxm7olagbd3dby2npgly7ausiz3g6cvls5igaxdzvlbr3wrv@rjlfebi2p36j>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <oefxm7olagbd3dby2npgly7ausiz3g6cvls5igaxdzvlbr3wrv@rjlfebi2p36j>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jul 20, 2026 at 10:35:52AM +0800, Shawn Guo wrote:
-> Qualcomm UFS controller found on SoCs SA8255P/SA8797P has a MCQ I/O
-> address space. It should be defined in the bindings even though Linux
-> driver currently doesn't utilize it. Fix the binding before it gets
-> adopted by DTS.
+On 7/28/26 8:25 AM, Manivannan Sadhasivam wrote:
+> On Mon, Jul 27, 2026 at 10:59:11AM -0500, Alex Elder wrote:
+>> On 7/25/26 3:59 AM, Manivannan Sadhasivam via B4 Relay wrote:
+>>> From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+>>>
+>>> DSP3 doesn't support tuning Tx amplitude and DFE settings. So just skip
+>>> the setting if DT has passed the tuning properties. There is no need to
+>>> error out the whole driver because of it.
+>>>
+>>> Fixes: 4c9c7be47310 ("PCI: pwrctrl: Add power control driver for TC9563")
+>>> Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+>>
+>> So to keep things simple, tc9563_pwrctrl_parse_device_dt() is called
+>> for all downstream ports but you ignore the setting (with a warning)
+>> for those that do not apply to DSP3.
+>>
+>> What about tc9563_pwrctrl_set_nfts()?
+>>
 > 
-> Fixes: e2725ed2a7fb ("scsi: ufs: dt-bindings: Document bindings for SA8255P UFS Host Controller")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> Good catch! I missed adding the check for N_FTS as well:
 
-Acked-by: Manivannan Sadhasivam <mani@kernel.org>
+In case you need it:
 
-- Mani
+Reviewed-by: Alex Elder <elder@riscstar.com>
 
-> ---
-> Changes for v2:
-> - Recover the newline which got dropped by accident
-> - Link to v1: https://lore.kernel.org/r/20260716083313.2367249-1-shengchao.guo@oss.qualcomm.com
 > 
->  .../devicetree/bindings/ufs/qcom,sa8255p-ufshc.yaml      | 9 ++++++++-
->  1 file changed, 8 insertions(+), 1 deletion(-)
+> ```
+> diff --git a/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c b/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
+> index 9d869483b6b3..978907aa0ce5 100644
+> --- a/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
+> +++ b/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
+> @@ -410,11 +410,17 @@ static int tc9563_pwrctrl_set_nfts(struct tc9563_pwrctrl *tc9563,
+>                  {TC9563_NFTS_2_5_GT, nfts[0]},
+>                  {TC9563_NFTS_5_GT, nfts[1]},
+>          };
+> +       struct device *dev = tc9563->pwrctrl.dev;
+>          int ret;
 > 
-> diff --git a/Documentation/devicetree/bindings/ufs/qcom,sa8255p-ufshc.yaml b/Documentation/devicetree/bindings/ufs/qcom,sa8255p-ufshc.yaml
-> index db165a235cb6..66d73e9025d6 100644
-> --- a/Documentation/devicetree/bindings/ufs/qcom,sa8255p-ufshc.yaml
-> +++ b/Documentation/devicetree/bindings/ufs/qcom,sa8255p-ufshc.yaml
-> @@ -18,7 +18,14 @@ properties:
->            - const: qcom,sa8255p-ufshc
->  
->    reg:
-> -    maxItems: 1
-> +    minItems: 1
-> +    maxItems: 2
+>          if (!nfts[0])
+>                  return 0;
+> 
+> +       if (port == TC9563_VDSP) {
+> +               dev_dbg(dev, "N_FTS tuning not supported for VDSP\n");
+> +               return 0;
+> +       }
 > +
-> +  reg-names:
-> +    minItems: 1
-> +    items:
-> +      - const: std
-> +      - const: mcq
->  
->    interrupts:
->      maxItems: 1
-> -- 
-> 2.43.0
+>          ret =  tc9563_pwrctrl_i2c_write(tc9563->client, TC9563_PORT_SELECT,
+>                                          BIT(port));
+>          if (ret)
+> ```
+> 
+> @Bjorn: Could you please amend the above diff with this commit?
+> 
+> - Mani
 > 
 
--- 
-மணிவண்ணன் சதாசிவம்
