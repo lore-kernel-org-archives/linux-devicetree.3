@@ -1,91 +1,69 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8E6F4746B6;
-	Tue, 28 Jul 2026 21:56:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785275819; cv=fail; b=eEvX8XVY7/WSo5LNmSmWAjL5vyH4iGFpxZjX172pObSsI51nCLZPiecPo23mT27iEoAQ0WZ57sLWoyU+0/Px2kSbM2nouNJwUQgAxXJ2UMl+TybTTGMb1CdHeqcaZ3FxE2sYFcvjjSDAhIl9V/7o+SKORxzS5q10l5EDWQz6Hb0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785275819; c=relaxed/simple;
-	bh=gs8YGwvrAcs2d2+Gd1bOuTJQy6tXPriOeit2cY2dgCI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=svEozhQYzi9KLHDplCo931ORNOzisI3kiAx6VNoC9ft9q2AOU8Og/Y6dslTrT8nMHoT3Akc2gk5cqRjZYm3WbUtJ0Xj/XaszrlGrMy9xn4fn2gWZKlrVa/SE+ZDHYbrSdZWYv75CeuyhHIfEMGShbbI0yDeLs9FUtXG4owhGwhk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=NL1c4Gb4; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=xcB4UqAG; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44A8D3AF66D
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 22:13:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785276787; cv=none; b=EZ5PhtzdsZ0KXY2v3Zdbkx3X7n7iMwWxIbHl/IMGocw1rugewh/5Zdn/OOzvFzFOW0CT9XoTQyZ+GDwAI4y5C4P/Lm+ST3iV0RtA431XPWbNAbpniDfC35Yhq4dv9+qbKdCyPZqVyFoHbvu2nLNFB7lYxAqmgbH7tAtXVMCKQTY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785276787; c=relaxed/simple;
+	bh=8Ru3kX4qMNo9wxj66+I2T8rr7XvRGOMtvU/fdxfSj60=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hBDC2E5mYc0yCj+w48+CzdqoOTZjCOxQbU6ZJKP8IiKqWp1/m4IyKNhbS0MsWk7JrrbZ0+iwu0z9zVZxtvp62zVF8uAXNwuI6HuopEYDDk1GWPg4Qnt2A9RboEd2hSAULk7KhJcDFDq9WXNC8u7S+tD4LpGM4/5PvRs2tBMzco0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rYhV2Ebp; arc=none smtp.client-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="NL1c4Gb4";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="xcB4UqAG"
-Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
-	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 66SL5wLs2279245;
-	Tue, 28 Jul 2026 16:56:43 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=o0MnZy29bsbAVfNxElcsLqrqEuJhxLKhgYNb9en0e
-	nw=; b=NL1c4Gb4BZGIePOAPFPTHWDzxc8pBpwRf0XbwiOqXAtZQLm6b/EaFv7+o
-	jJ5mQ7fsJUlSizlBvp+9tYgToF7KZnKT2DHKcEZYQmVzmukX/c1LdGPbDT5fenzn
-	ZcvjVw2gpaVpmMzlJkQzUf+onxt7XNSMdM/+OnRue2eULf2Jl5MCGn07xP5TGQS2
-	WJ9tObQ+makQuSp7o5eaUJKgZGm9EWhEXbatVIna1SgQcVCqvc80mYBDqZb4BUxX
-	QZHDMhsm6HUwBNcaZMxNbeuZSxBw6reNWs8DhdfK/IAnn/hdKPKbwkfpptcJUJ1e
-	DgTTFhyukJXC3QQj68ntmDBzbiMEw==
-Received: from ch1pr05cu001.outbound.protection.outlook.com (mail-northcentralusazon11010059.outbound.protection.outlook.com [52.101.193.59])
-	by m0384305.ppops.net (PPS) with ESMTPS id 4fq41vr7bv-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 28 Jul 2026 16:56:43 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qDSXXTpK8ltCC+Qzr9vwPC373IP9Gxer6OEOrgpHMpzhG1zq5G696ZbOO5x5d4tZrD7hOxOC65HPu0bQZF4oTVpZuPY9j7WhK+/0hodIwGzsHf7suvfttQuki4bjdklaCGByfvBMlj1GkVjE+v/37ppXRij2rFq3+axtmEZoKGW+Y89NOZH3ac67Kf41DLhwCAcaVotkOfO0SAga5GBorr2N50bGW81xQY3Hpcs1oPfLuF4kjAYFE+GpGPNiPFpoCAuMt/IV8DGwmgB9Y/qY3t+dUL1ttMs0zTX5ePWC5V92GK+O+yf5blOCFxztp+aV0BnpESveuSCEE3okJ2QfwA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=o0MnZy29bsbAVfNxElcsLqrqEuJhxLKhgYNb9en0enw=;
- b=drzx8dUIXaXUKlvl8rNxnGmxPZ7KH/QalVsIS68IUJ1Un8Y/0GusBLJyIRd5cAHdYxTHHgx8z4ufEGivZwqStTr7zS7dL8jjCORcknCZ5FshHDLtLxVf6PTMRHXKaYrmvlnQwhz/dq+zps3SAvaDXk175A12UNuB+KZ8rmq6S78st0hkRlKWXGRxLSthotDJTGdH907XfmljpaZra5xpK19ZwRWOH7cklSPdacHafvak3Gz4SAcwda01UpxZPtGPalyLIawyZOukwYH3PIEgE2nZBqoWsLeX2kCkHMBgAfQZrQrMcGizDME8JKVLyTY+/alKb13Zj522HX5xkwpMPg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o0MnZy29bsbAVfNxElcsLqrqEuJhxLKhgYNb9en0enw=;
- b=xcB4UqAGTqe7Ix3txUZ0+mQODhI7Nj5rAterU+2i8AdZ7z27cnS6puSbGGCWL1Gp1BVoZQgzBj08SK5OzFNAXLOyOesNmXZa/oymia2eW2/1poS88h3qdsz3URgKBgV2IANhbhm2Lk0j154ox0O7cjHuW0zdOyq8lDxga/inoU8=
-Received: from SA1PR03CA0010.namprd03.prod.outlook.com (2603:10b6:806:2d3::26)
- by PH0PR10MB4597.namprd10.prod.outlook.com (2603:10b6:510:43::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12; Tue, 28 Jul
- 2026 21:56:40 +0000
-Received: from SN1PEPF0002636E.namprd02.prod.outlook.com
- (2603:10b6:806:2d3:cafe::af) by SA1PR03CA0010.outlook.office365.com
- (2603:10b6:806:2d3::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.12 via Frontend Transport; Tue,
- 28 Jul 2026 21:56:40 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- SN1PEPF0002636E.mail.protection.outlook.com (10.167.241.139) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.270.5 via Frontend Transport; Tue, 28 Jul 2026 21:56:39 +0000
-Received: from DFLE210.ent.ti.com (10.64.6.68) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 28 Jul
- 2026 16:56:36 -0500
-Received: from DFLE205.ent.ti.com (10.64.6.63) by DFLE210.ent.ti.com
- (10.64.6.68) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 28 Jul
- 2026 16:56:35 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE205.ent.ti.com
- (10.64.6.63) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Tue, 28 Jul 2026 16:56:35 -0500
-Received: from [128.247.81.105] (judy-hp.dhcp.ti.com [128.247.81.105])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 66SLuZJO4155652;
-	Tue, 28 Jul 2026 16:56:35 -0500
-Message-ID: <307ee173-81ae-4434-aee4-9ddbbc9e6890@ti.com>
-Date: Tue, 28 Jul 2026 16:56:35 -0500
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rYhV2Ebp"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-848643382fcso344998b3a.1
+        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 15:13:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785276782; x=1785881582; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Nx0CMy6uO6wOZN34IRldYq3WLOzdV2qa2pwIkucaz9E=;
+        b=rYhV2EbpG5FeT2gNSlTOxzyRi+dQxZkWXdfJ0XlHzAALzNdMLcakyKU7s1uzOTwHlR
+         /Zz7hWR2y86eB/XbIiS1YBbAfyrMF2T1q5dkZdYbHMLObBegPbEjioqEVbY+DZM78nEc
+         MkWMKSlAvevGHc2DEMgP7g7aELYlo7+Mc+0gdWKKnJp384JYoWL7aiJ/e1ammhgTc22y
+         tdOV42WxnDNFi9Fy4/Gva37QauIY8QgB2jROjD05h7lG2W8kT0IEuVpqUGiYQfyT/1gE
+         Ah5Hy9thyEJ+niFtFB9nzoJsZ23Vbq7yvDTt496GPd+ntSyJiOP5uRdt2YLflw0umsGm
+         iRFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785276782; x=1785881582;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Nx0CMy6uO6wOZN34IRldYq3WLOzdV2qa2pwIkucaz9E=;
+        b=MBke3U/5LF/c3mTS/HCadBU6dMAg7IiWcM5VohmeaDd7DflwAoG5xGQHS9gn3T42ij
+         S+T+fNcHLuqNeooNXaCY9C1woKLJl2tybK7QFOCobLoJCAO0jt2Guua0YiHgm4jDmXm2
+         VgcPf3QrGkkiOjjn56ktZjCdsABpXwMP42gGS0asX8RXf8yoQJmNdk9n+3bGPTbVmjhV
+         9uiomOAv57FFx3XG72hyg3+/VyxZxdxS5y4jTPywBqpU+nfup+CljBYKXGPF1jt1lF8b
+         npAHhUnclDYEJffKKqeEh3HBPOJGicDqKl908lgp6v0y3T4/xDRl1yvPTnjlGmQIR58q
+         zJTw==
+X-Forwarded-Encrypted: i=1; AHgh+Ro25rEA3p+YbLbyc9wrTgBunBArMttEQYYCslDMQX082wRDBxW8malhJfTLMD1Gdcc2wK+B9PI5i/kF@vger.kernel.org
+X-Gm-Message-State: AOJu0YxHQp2MXMGF+0rZ+8XrOpUy5+vJlL3N//3EewvZPRc471XCeNqg
+	PHv8TY7NGRXBSo7rev4GbmDkP6ab7K3ospuJRX38Q9yVF3mdOl950Ms0
+X-Gm-Gg: AR+sD13AVD21nqE6jYm3qL9FgjCIpxjk9PrmSCpfdTz/KixmFWXDJZnZcQtsXoSBClL
+	fP4IZzcz9+0D6nA6rCZgeXocxl13uktsRUzHC7xGLX/7gdYI9M/7S1EW0TP3bE2vQj5gr8sYcVz
+	Xw5brjXZB3uuOoUIFLgJuR2oUagV3aik2qkg5xbUp5qaHFSOLCFC9ljeEjc3TrTg7Zz72FTqilH
+	EjsvTOyKITKd/sb8C0q1R2kGcO5aBP2PSVVhjo2DPHONvtIwen4zZrtI0J2XLbiu6EpaSu8qXp9
+	TBRznn+2JWd5Uu7W1UL69b3yh5lh/bYIi40r3kaoYU9VCoaXoQOw5FdjmPb4sr+daijuIAUaPvq
+	X7JQpENgUNpQn+Q50ZApXFoJQB0FXGCj9RqW6kc0pk8207471Vj3LXHE8KtqHTxmM1t83FNbYfG
+	ItFTNOL0Avn9+xtrsySf2qe1wU1VCQ+5nHJLLlJ790l3aoVXfJdLKswIa/bGTKzs+kR+4aO8+6q
+	2GKwttypB0aaVnklhYnJ9uhGc4GThqFve/xQg==
+X-Received: by 2002:a05:6a00:4614:b0:84a:6726:62f9 with SMTP id d2e1a72fcca58-84e931f8aaamr4500859b3a.9.1785276782208;
+        Tue, 28 Jul 2026 15:13:02 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e9fe1d07dsm473575b3a.8.2026.07.28.15.13.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 28 Jul 2026 15:13:01 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <15f4a141-7e69-47e2-b584-9c1490447e12@roeck-us.net>
+Date: Tue, 28 Jul 2026 15:12:59 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -93,139 +71,1350 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] mmc: core: Add power-off-delay-us support
-To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-CC: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
-        "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, <linux-mmc@vger.kernel.org>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-References: <20260722205701.372789-1-jm@ti.com>
- <20260722205701.372789-4-jm@ti.com>
- <CAPx+jO9w0utg5BhsKnUSgdCWeM1prOqoV0gCrTpaeuaWZouXoA@mail.gmail.com>
+Subject: Re: [PATCH 5/5] hwmon: (pmbus) add support for MAX20826 and similar
+ devices
+To: nuno.sa@analog.com, linux-hwmon@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-doc@vger.kernel.org
+Cc: Mark Brown <broonie@kernel.org>, Alan Tull <atull@opensource.altera.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+References: <20260728-hwmon-max20826-support-v1-0-224766e0acd1@analog.com>
+ <20260728-hwmon-max20826-support-v1-5-224766e0acd1@analog.com>
 Content-Language: en-US
-From: Judith Mendez <jm@ti.com>
-In-Reply-To: <CAPx+jO9w0utg5BhsKnUSgdCWeM1prOqoV0gCrTpaeuaWZouXoA@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260728-hwmon-max20826-support-v1-5-224766e0acd1@analog.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002636E:EE_|PH0PR10MB4597:EE_
-X-MS-Office365-Filtering-Correlation-Id: 56eeffd9-d068-4eee-2a1a-08deecf31a1e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700016|23010399003|82310400026|1800799024|56012099006|4143699003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	364LIRUuDKIECOpqwMif44IL46MHdW72qd/Z+M0FdPiM5CGDIhA0MItPOuN53katuwxnYW8cvXhqTUX2PfXAB9FtP8Xy2PqxZqTGem366D2s3MFNvMQ8oZ5mPOmi8Ai3FbTmVWDVQ81ONdzK11Kpgqy8cd0nnaNk+fygQ6u824AdnPk8KDWBJhVZx1AitJyJkfINcHT5IDApnFW/GDCmzaxPG1b6TYrbfVfstiZrF/ZJebh+oV+9+gw1I02pZWzqIVzhi4LjgK8gIMENBYdS3SkGjbu58R53LhkQ2dvOPfSskzcEKvLgCRgZf65caP/1KJXBnoBXcRdahB+YwFSkldvD4YLmsjl1+54mZJr80WVGE48c7I+dUnesOp9AGuEMDNnaHiCpAn0qo9QzsO0pn4LMmsdgd8/iJeXIWfKoLZyUa2BlyEYMyIcGhGm50TBVpSxY0hZtyZRzJK5QoCUDCvG5zbRwqDFzc64Ugo9WiL0bL/aItLYygIM+IrWdgT4UAoBfqHf7NJpyX6eO1EWbkE4d20ZPsk4M0q+x8j3yJc5rZcs6bNkWaM0G/yDl7LF7GAGmM0Fw/bebkAXFHHSMOgVmoJ9y80D6jCW5RO1hU3VQQukSAp4EMRQgSotvS3d//mE/IfQjtnlooXARM6zxGub7/XwTXZdH4vz/T4ETKHXyUhuPSr8tWxCK0NuU5Rftr5GLAllc4KFZEYDg80O6Og==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(376014)(36860700016)(23010399003)(82310400026)(1800799024)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	WFvzyUF7PjiTQmHfElvxD4LxV1BO2DlZr1BKNzECn/E0nCWkUcU6J8wfeGLucsYi2rDbRhwJfbaF+PEB4/+DoBTNxTKko3WTDzxvbrnRAAw7cAQPGqhxT5po9JpL+4SpvEPzbLCR9ZX0mvT97gkQ4MlkaGkM3HmfbI2m5UWxkodARzW4isLGDGCguTYesqoV2qkGJm1fN0T/Co2Lko8UGCtn2uTnEvN4MT1vnA0ppL8V9DLGdXWyOczfMXTPCDSCUAMJN78oIPt1+19JVJZsPjiWM3MT26BBuX398aEPQD9JavUZZVYlcHyg/2ehEWija7csByaHwIDIm4GSaq/uQdw5JOzXJB/QlUManvVBWkTUYfNdVehmFsfzO411MEWZx4XXRqqTdF5VCSbKlvZV5eDhVQ32sofmKIytjsnJrubxP4BVo1Sc1uEENZqDIfPL
-X-Exchange-RoutingPolicyChecked:
-	LGp5R9vRYJvIHTJbe0ir46yrl6KFIhrUXsy1JVrAxkAqdpL12i6LdYfBsscgAm/sLVr0mCT3maFO3gFccD4+9iDcvU3mHAjvYFZ+GmR2P3UAKJJWSUN/pDu++gMzPCXutrdca00VtMLDpXpMDVhBmouEKzsHdtLd/4pNvyko0MMw6A9iCm0P11T4hdZjWkaRhz3Ay43FWYOOYeCYJ5g6MwW2rs8XNQ6T/9ll1ZA757KnCzPZjF/ogiEpuiIdkjrEJJKP6h9uCqvyqiB5dJmsGObpZDMjEN6GtfFhzVlq24/Huo5AdpUxAezA+1MljPAI/wZ2Z+UcLltvs8GEgCMM1w==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2026 21:56:39.1313
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 56eeffd9-d068-4eee-2a1a-08deecf31a1e
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF0002636E.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR10MB4597
-X-Authority-Analysis: v=2.4 cv=D/h37PRj c=1 sm=1 tr=0 ts=6a69259b cx=c_pps
- a=n1uwvu+HdmtEBt1mSuDWUg==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
- a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=taLDd7a_hP9WKsMzeGRc:22 a=sozttTNsAAAA:8 a=7b_yadTbGr7Tdn0-aBEA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: k61xDtuVDwc93lKSEVJmhlTGlCLLxTrw
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI4MDE4NyBTYWx0ZWRfX/KMyKBHjgggA
- pG+fZbR8HXrXivll3PTz77MhIIvcBnaJGeHdvoPW7357ffF9o07tpYzSzFWXFGI+m8VtH4PUIJK
- UN7/QSS6FKhNbsIfgjfdIOhyPL5Y3X0=
-X-Proofpoint-ORIG-GUID: k61xDtuVDwc93lKSEVJmhlTGlCLLxTrw
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI4MDE4NyBTYWx0ZWRfXzbQYlLuHUr4x
- ZUlIBX7Oczz7y99XM5KK0oSi99WeANH2sFuwt4i2qJG+C3hGZ9hgwlulxLWQha2iRrVAeuH3lRE
- xsjF/zKobr1uz8QVJ0OV/ImLw1Mdh/Mmad/AIkH8z/GvA2rMiwuBcD9ulDe/Itzq043UevZ2c8G
- YofEJ7dft7ZhtjvGrO/zbIQmmA4MW5nal0pqjhGY2dmmi57jeBgH0MPz0Ypb7MqCFEigx9S90ue
- dQ7JebFe0SJEfH/8HlrQcO6o4X060SwgknprDe+qJypaNc9D+RUNgiLjTZtbkfOQbuXR8GAyGMn
- 8RprwVMSB2ZvmPtzd/4kupM5QETxusUf6CthCbCZ9/D12iWYUbpIGSDxZC3EqiO/Rj9s5QlVdbD
- vV2OKpNQMp+OydOaf7xgcUtuGlc/U9BQEGxHEtHEx+u7Cp+E5pj10NddKZBAp81v2mlBXwtSA5C
- qpSd4o3GTiSuJNVQhLA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-28_06,2026-07-28_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 clxscore=1015 phishscore=0 adultscore=0
- impostorscore=0 lowpriorityscore=0 priorityscore=1501 malwarescore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607280187
 
-Hi Ulf,
-
-On 7/27/26 10:16 AM, Ulf Hansson wrote:
-> On Wed, Jul 22, 2026 at 10:57 PM Judith Mendez <jm@ti.com> wrote:
->>
->> Add support for power-off-delay-us which shall be used to specify
->> value of delay after deasserting power during MMC power cycles.
->> Default for delay is 1000us but custom delay can be passed in to work
->> around hardware issues such as slow RC discharge on MMC VDD rails.
->>
->> Signed-off-by: Judith Mendez <jm@ti.com>
->> ---
->> Changes since v1:
->> - Move delay to mmc_power_off
->> - Fix dt checks and remove print
->> - Move from mmc_host struct to mmc_ios struct
->> - Rename post-power-off-delay-ms to power_off_delay_us
->> ---
->>   drivers/mmc/core/core.c  | 2 +-
->>   drivers/mmc/core/host.c  | 8 ++++++++
->>   include/linux/mmc/host.h | 1 +
->>   3 files changed, 10 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/mmc/core/core.c b/drivers/mmc/core/core.c
->> index 29e80e5f928e9..9472041fe1c20 100644
->> --- a/drivers/mmc/core/core.c
->> +++ b/drivers/mmc/core/core.c
->> @@ -1388,7 +1388,7 @@ void mmc_power_off(struct mmc_host *host)
->>           * XO-1.5, require a short delay after poweroff before the card
->>           * can be successfully turned on again.
->>           */
->> -       mmc_delay(1);
->> +       mmc_delay_us(host->ios.power_off_delay_us);
->>   }
->>
->>   void mmc_power_cycle(struct mmc_host *host, u32 ocr)
->> diff --git a/drivers/mmc/core/host.c b/drivers/mmc/core/host.c
->> index b7ce3137d4529..fac50a2860211 100644
->> --- a/drivers/mmc/core/host.c
->> +++ b/drivers/mmc/core/host.c
->> @@ -421,6 +421,13 @@ int mmc_of_parse(struct mmc_host *host)
->>          device_property_read_u32(dev, "post-power-on-delay-ms",
->>                                   &host->ios.power_delay_ms);
->>
->> +       device_property_read_u32(dev, "power-off-delay-us",
->> +                                &host->ios.power_off_delay_us);
->> +       if (host->ios.power_off_delay_us < 1)
->> +               host->ios.power_off_delay_us = 1000;
+On 7/28/26 09:03, Nuno Sá via B4 Relay wrote:
+> From: Nuno Sá <nuno.sa@analog.com>
 > 
-> If power-off-delay-us is specified and the value >= 0, I think we can
-> respect it as is.
+> The MAX20826 IC and similar provide a high-density, flexible and scalable
+> dual-loop solution for high current cores for AI applications. These are
+> dual loop solutions multiphase voltage regulators. Between Rails A and B,
+> MAX20855B and MAX20908 supports up to 8 phases total configurable from
+> 8+0 to 4+4 phases, MAX20912 supports up to 12 phases from 12+0 to 6+6,
+> and MAX20826 and MAX20916 supports up to 16 phases from 16+0 to 8+8.
 > 
-> This means we need to treat "0" a bit special and bail out in mmc_delay_us().
+> Co-developed-by: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+> Signed-off-by: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+> Signed-off-by: Nuno Sá <nuno.sa@analog.com>
 
-Ok, just to confirm, then, you want to drop these guards in mmc_of_parse
-and instead catch 0 in mmc_power_off?
+Very incomplete review; see it as first glance feedback.
 
-What if DT parse gets garbled and host->ios.power_off_delay_us < 1 is
-passed?
+Guenter
 
-~ Judith
+> ---
+>   Documentation/hwmon/index.rst    |    1 +
+>   Documentation/hwmon/max20826.rst |  124 +++++
+>   MAINTAINERS                      |    2 +
+>   drivers/hwmon/pmbus/Kconfig      |   19 +
+>   drivers/hwmon/pmbus/Makefile     |    1 +
+>   drivers/hwmon/pmbus/max20826.c   | 1037 ++++++++++++++++++++++++++++++++++++++
+>   6 files changed, 1184 insertions(+)
+> 
+> diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
+> index 29130df44d12..c63992b292c1 100644
+> --- a/Documentation/hwmon/index.rst
+> +++ b/Documentation/hwmon/index.rst
+> @@ -164,6 +164,7 @@ Hardware Monitoring Kernel Drivers
+>      max197
+>      max20730
+>      max20751
+> +   max20826
+>      max20830
+>      max20860a
+>      max31722
+> diff --git a/Documentation/hwmon/max20826.rst b/Documentation/hwmon/max20826.rst
+> new file mode 100644
+> index 000000000000..be97312dc612
+> --- /dev/null
+> +++ b/Documentation/hwmon/max20826.rst
+> @@ -0,0 +1,124 @@
+> +.. SPDX-License-Identifier: GPL-2.0
+> +
+> +Kernel driver max20826
+> +======================
+> +
+> +Supported chips:
+> +
+> +  * Analog Devices MAX20826
+> +
+> +    Prefix: 'max20826'
+> +
+> +    Addresses scanned: -
+> +
+> +    Datasheet: Datasheet is not publicly available.
+> +
+> +  * Analog Devices MAX20855B
+> +
+> +    Prefix: 'max20855b'
+> +
+> +    Addresses scanned: -
+> +
+> +    Datasheet: Datasheet is not publicly available.
+> +
+> +  * Analog Devices MAX20908
+> +
+> +    Prefix: 'max20908'
+> +
+> +    Addresses scanned: -
+> +
+> +    Datasheet: Datasheet is not publicly available.
+> +
+> +  * Analog Devices MAX20912
+> +
+> +    Prefix: 'max20912'
+> +
+> +    Addresses scanned: -
+> +
+> +    Datasheet: Datasheet is not publicly available.
+> +
+> +  * Analog Devices MAX20916
+> +
+> +    Prefix: 'max20916'
+> +
+> +    Addresses scanned: -
+> +
+> +    Datasheet: Datasheet is not publicly available.
+> +
+> +Author:
+> +
+> +  - Nuno Sá <nuno.sa@analog.com>
+> +
+> +
+> +Description
+> +-----------
+> +
+> +This driver supports hardware monitoring for Analog Devices MAX20826,
+> +MAX20855B, MAX20908, MAX20912, and MAX20916 multiphase voltage regulator
+> +controllers with PMBus interface.
+> +
+> +The devices are dual-loop, multiphase controllers. Depending on the device and
+> +configuration, the high-speed processor voltage-control interface can be
+> +Nvidia PWMVID, Intel SVID, AMD SVI3, or AVSBus. PMBus is used for monitoring,
+> +configuration, status, and fault reporting.
+> +
+> +The driver detects whether the device uses PMBus page mode or direct address
+> +mode. In direct address mode, rail B is accessed at the rail A I2C address plus
+> +one. If rail B is present, the driver exposes a second PMBus page.
+> +
+> +The driver detects the active number of phases and exposes per-phase input and
+> +output current attributes through the PMBus virtual phase support.
+> +
+> +Usage Notes
+> +-----------
+> +
+> +This driver does not auto-detect devices. You will have to instantiate the
+> +devices explicitly. Please see Documentation/i2c/instantiating-devices.rst for
+> +details.
+> +
+> +The optional ``avren`` and ``bvren`` GPIOs may be provided to control the rail A
+> +and rail B hardware enable pins. If regulator support is enabled, the rails are
+> +also registered through the PMBus regulator framework.
+> +
+> +Sysfs entries
+> +-------------
+> +
+> +The following attributes are supported. Limits, alarms, and per-phase entries
+> +are exposed depending on device capabilities, rail configuration, and detected
+> +phase count.
+> +
+> +=========================== ================================================
+> +in1_label                   "vin"
+> +in1_input                   Measured input voltage
+> +in1_alarm                   Input voltage alarm
+> +in[2-3]_label               "vout[1-2]"
+> +in[2-3]_input               Measured output voltage
+> +in[2-3]_alarm               Output voltage alarm
+> +in[2-3]_high_speed_en       Enable high-speed voltage-control interface
+> +in_high_speed_bus           Active high-speed voltage-control interface
+> +currX_label                 "iinN", "iinN.P", "ioutN", or "ioutN.P"
+> +currX_input                 Measured input/output current
+> +currX_alarm                 Current alarm
+> +powerX_label                "pinN" or "poutN"
+> +powerX_input                Measured input/output power
+> +temp[1-2]_input             Measured temperature
+> +temp[1-2]_alarm             Temperature alarm
+> +=========================== ================================================
+> +
+> +Notes
+> +-----
+> +
+> +``N`` is the rail number, starting at 1. ``P`` is the phase number, starting at
+> +0. The exact ``currX`` indices depend on the number of present rails and on the
+> +detected phase count.
+> +
+> +``in[2-3]_high_speed_en`` is a per-rail read/write attribute matching the
+> +standard hwmon voltage channels for the output rails. ``in2_high_speed_en``
+> +controls rail A / ``vout1``. ``in3_high_speed_en`` controls rail B / ``vout2``
+> +and is only present if rail B is detected. Writing 1 selects the high-speed
+> +voltage-control interface for that rail; writing 0 selects PMBus voltage
+> +control.
+> +
+> +``in_high_speed_bus`` is a read-only attribute reporting the high-speed
+> +interface used by the device, for example ``Nvidia PWMVID``, ``Intel SVID``,
+> +``AMD SVI3``, or ``AVSBus``.
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index fe8808f3ee4c..8518d55800e9 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -15843,6 +15843,8 @@ L:	linux-hwmon@vger.kernel.org
+>   S:	Supported
+>   W:	https://ez.analog.com/linux-software-drivers
+>   F:	Documentation/devicetree/bindings/hwmon/pmbus/adi,max20826.yaml
+> +F:	Documentation/hwmon/max20826.rst
+> +F:	drivers/hwmon/pmbus/max20826.c
+>   
+>   MAX20830 HARDWARE MONITOR DRIVER
+>   M:	Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+> diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
+> index c8cda160b5f8..8d3568f7347d 100644
+> --- a/drivers/hwmon/pmbus/Kconfig
+> +++ b/drivers/hwmon/pmbus/Kconfig
+> @@ -393,6 +393,25 @@ config SENSORS_MAX20751
+>   	  This driver can also be built as a module. If so, the module will
+>   	  be called max20751.
+>   
+> +config SENSORS_MAX20826
+> +	tristate "Analog Devices MAX20826 and similar devices"
+> +	help
+> +	  If you say yes here you get hardware monitoring support for Analog
+> +	  Devices MAX20826 and similar devices.
+> +
+> +	  This driver can also be built as a module. If so, the module will
+> +	  be called max20826.
+> +
+> +config SENSORS_MAX20826_REGULATOR
+> +	bool "Regulator support for Analog Devices MAX20826 and similar devices"
+> +	depends on SENSORS_MAX20826 && REGULATOR
+> +	help
+> +	  If you say yes here you get regulator support for Analog Devices
+> +	  MAX20826 and similar sensors.
+> +
+> +	  This enables the MAX20826 to be used as a regulator device,
+> +	  providing voltage control through the regulator framework.
+> +
+>   config SENSORS_MAX20830
+>   	tristate "Analog Devices MAX20830"
+>   	help
+> diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
+> index ffc05f493213..15601443470b 100644
+> --- a/drivers/hwmon/pmbus/Makefile
+> +++ b/drivers/hwmon/pmbus/Makefile
+> @@ -38,6 +38,7 @@ obj-$(CONFIG_SENSORS_MAX16601)	+= max16601.o
+>   obj-$(CONFIG_SENSORS_MAX17616)	+= max17616.o
+>   obj-$(CONFIG_SENSORS_MAX20730)	+= max20730.o
+>   obj-$(CONFIG_SENSORS_MAX20751)	+= max20751.o
+> +obj-$(CONFIG_SENSORS_MAX20826)	+= max20826.o
+>   obj-$(CONFIG_SENSORS_MAX20830)	+= max20830.o
+>   obj-$(CONFIG_SENSORS_MAX20860A)	+= max20860a.o
+>   obj-$(CONFIG_SENSORS_MAX31785)	+= max31785.o
+> diff --git a/drivers/hwmon/pmbus/max20826.c b/drivers/hwmon/pmbus/max20826.c
+> new file mode 100644
+> index 000000000000..1b481cdd8c93
+> --- /dev/null
+> +++ b/drivers/hwmon/pmbus/max20826.c
+> @@ -0,0 +1,1037 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Hardware monitoring driver for Analog Devices MAX20826 PMBus device
+> + *
+> + * Copyright 2026 Analog Devices Inc.
+> + */
+> +#include <linux/bitfield.h>
+> +#include <linux/bitops.h>
+> +#include <linux/bits.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/device.h>
+> +#include <linux/err.h>
+> +#include <linux/hwmon-sysfs.h>
+> +#include <linux/i2c.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/module.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/pmbus.h>
+> +#include <linux/property.h>
+> +#include <linux/regulator/driver.h>
+> +#include <linux/slab.h>
+> +#include <linux/sysfs.h>
+> +#include <linux/string.h>
+> +#include <linux/types.h>
+> +#include <linux/unaligned.h>
+> +
+> +#include "pmbus.h"
+> +
+> +#define MAX20826_REG_RAIL_PHASE_CFG	0xB1
+> +#define MAX20826_REG_CTRL_MISC		0xCB
+> +#define MAX20826_OPL_EN_MSK		BIT(7)
+> +
+> +#define MAX20826_REG_VOUT_RES		0xDB
+> +#define MAX20826_VOUT_RES_MSK		BIT(7)
+> +
+> +#define MAX20855B_REG_VOUT_VRM		0xD1
+> +#define MAX20855B_REG_VOUT_VRM_MASK	BIT(4)
+> +
+> +#define MAX20826_REG_C_MODEAB		0xDC
+> +/* Byte 1 bits 7 and 6*/
+> +#define MAX20826_C_MODEAB_MASK		GENMASK(15, 14)
+> +
+> +#define MAX20826_REG_ADDR_MODE		0xEC
+> +#define MAX20826_PAGE_MODE_MSK		BIT(7)
+> +#define MAX20826_DIRECT_ADDR_MSK	GENMASK(6, 0)
+> +
+> +#define MAX20826_REG_OVERRIDE		0xED
+> +#define MAX20826_OVERRIDE_MASK		BIT(7)
+> +
+> +#define MAX20826_REG_PHASE_DETECT	0xF3
+> +#define MAX20826_REG_PHASE_READ		0xF4
+> +
+> +#define MAX20826_REG_STATUS_MON		0xF9
+> +#define MAX20826_PHASES_NUM_MASK	GENMASK(7, 3)
+> +
+> +#define MAX20826_MAX_PAGES		2
+> +#define MAX20826_MAX_PHASES		16
+> +#define MAX20826_PHASES_PER_PAGE	8
+> +#define MAX20826_INTF_PWMVID		1
+> +#define MAX20826_INTF_AVSBUS		3
+> +
+> +#define MAX20855B_PHASES_NUM_MASK	GENMASK(7, 4)
+> +#define MAX20855B_MAX_PHASES		8
+> +#define MAX20908_MAX_PHASES		8
+> +#define MAX20912_MAX_PHASES		12
+> +#define MAX20916_MAX_PHASES		16
+> +
+> +struct max20826_chip_info {
+> +	const char *vendor_bus_name;
+> +	u8 max_phases;
+> +	unsigned int phase_num_mask;
+> +	u8 start_index_iin;
+> +	u8 start_index_iout;
+> +	bool is_reg_addr_mode_block;
+> +	bool is_vout_direct;
+> +	bool select_vrm;
+> +	bool has_avsbus;
+> +	bool has_opl;
+> +	u8 (*count_phases)(const u8 *config, int page);
+> +};
+> +
+> +struct max20826 {
+> +	const struct max20826_chip_info *chip_info;
+> +	struct pmbus_driver_info info;
+> +	struct i2c_client *client;
+> +	/* RAIL-B direct mode */
+> +	struct i2c_client *client_b;
+> +	struct i2c_client *curr_client;
+> +	struct gpio_desc *avren;
+> +	struct gpio_desc *bvren;
+> +	bool vendor_bus;
+> +	bool high_speed[MAX20826_MAX_PAGES];
+> +	bool on_off_ctrl[MAX20826_MAX_PAGES];
+> +	bool opl_enabled[MAX20826_MAX_PAGES];
+> +};
+> +
+> +static u8 __max20826_count_phases(const u8 *config, int page)
+> +{
+> +	if (page)
+> +		return hweight8(config[4]);
+> +
+> +	return hweight8(config[0]) + hweight8(config[1]) -
+> +	       hweight8(config[4]);
+> +}
+> +
+> +static u8 __max20855b_count_phases(const u8 *config, int page)
+> +{
+> +	if (page)
+> +		return hweight8(config[3] & 0x3F);
+> +
+> +	return hweight8(config[0]) + hweight8(config[1] & 0x0F) -
+> +	       hweight8(config[3] & 0x3F);
+> +}
+> +
+> +static u8 __max20908_count_phases(const u8 *config, int page)
+> +{
+> +	if (page)
+> +		return hweight8(config[4]);
+> +
+> +	return hweight8(config[0]) + hweight8(config[1] & 0xF0) -
+> +	       hweight8(config[4]);
+> +}
+> +
+> +static u8 __max20912_count_phases(const u8 *config, int page)
+> +{
+> +	if (page)
+> +		return hweight8(config[4]);
+> +
+> +	return hweight8(config[0]) + hweight8(config[1] & 0xFC) -
+> +	       hweight8(config[4]);
+> +}
+> +
+> +#define to_max20826(p)	container_of(p, struct max20826, info)
+> +
+> +enum {
+> +	RAIL_A,
+> +	RAIL_B,
+> +};
+> +
+> +static const struct regulator_desc __maybe_unused max20826_reg_desc[] = {
+> +	PMBUS_REGULATOR("vout", 0),
+> +	PMBUS_REGULATOR("vout", 1),
+> +};
+> +
+> +static struct i2c_client *max20826_select_rail(struct max20826 *st,
+> +					       int page, bool probing)
+> +{
+> +	int ret;
+> +
+> +	/*
+> +	 * If in direct mode and we want RAIL_B (page 1) just return client_b.
+> +	 * Otherwise, set the proper page (if page mode) and return RAIL_A.
+> +	 */
+> +	if (st->client_b) {
+> +		/* if 0xff just return the last client */
+> +		if (page < 0)
+> +			return st->curr_client;
+> +		if (page)
+> +			st->curr_client = st->client_b;
+> +		else
+> +			st->curr_client = st->client;
+> +
+> +		return st->curr_client;
+> +	}
+> +
+> +	if (!probing)
+> +		ret = pmbus_set_page(st->client, page, 0xff);
+> +	else
+> +		ret = i2c_smbus_write_byte_data(st->client, PMBUS_PAGE, page);
+> +	if (ret < 0)
+> +		return ERR_PTR(ret);
+> +
+> +	return st->client;
+> +}
+> +
+> +static int max20826_update_byte_data_unsafe(const struct i2c_client *client,
+> +					    int reg, u8 mask, u8 value)
+> +{
+> +	int ret;
+> +
+> +	ret = i2c_smbus_read_byte_data(client, reg);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	value = (ret & ~mask) | (value & mask);
+> +
+> +	return i2c_smbus_write_byte_data(client, reg, value);
+> +}
 
-...
+Why not use pmbus_update_byte_data() ?
+
+> +
+> +static int max20826_read_block_data_unsafe(const struct i2c_client *client,
+> +					   int reg, u8 *block, u8 size)
+> +{
+> +	u8 block_data[I2C_SMBUS_BLOCK_MAX];
+> +	int ret;
+> +
+> +	ret = i2c_smbus_read_i2c_block_data(client, reg, size + 1,
+> +					    block_data);
+
+size can be up to I2C_SMBUS_BLOCK_MAX (32). With that, the above code
+reads up to 33 bytes, which would exceed the size of block_data[].
+
+> +	if (ret < 0)
+> +		return ret;
+> +	if (ret < size + 1)
+> +		return -EIO;
+
+No, this is wrong. The function needs to return the length of the returned data,
+which can be up to <size> and does not have to be an exact match.
+
+> +
+> +	/* byte 0 comes with the block length, discard it */
+> +	memcpy(block, block_data + 1, size);
+> +	return size;
+
+This is expected to return the actual data size, i.e., the value
+in block_data[0].
+> +}
+> +
+> +static int __max20826_read_block_data(struct max20826 *st, int page,
+> +				      int reg, u8 *block, u8 size)
+> +{
+> +	struct i2c_client *rail;
+> +
+> +	rail = max20826_select_rail(st, page, false);
+> +	if (IS_ERR(rail))
+> +		return PTR_ERR(rail);
+> +
+> +	return max20826_read_block_data_unsafe(rail, reg, block, size);
+> +}
+> +
+> +static int __max20826_read_byte_data(struct max20826 *st, int page, int reg)
+> +{
+> +	struct i2c_client *rail;
+> +
+> +	rail = max20826_select_rail(st, page, false);
+> +	if (IS_ERR(rail))
+> +		return PTR_ERR(rail);
+> +
+> +	return i2c_smbus_read_byte_data(rail, reg);
+> +}
+> +
+> +static int __max20826_write_byte_data(struct max20826 *st, int page, int reg,
+> +				      u8 value)
+> +{
+> +	struct i2c_client *rail;
+> +
+> +	rail = max20826_select_rail(st, page, false);
+> +	if (IS_ERR(rail))
+> +		return PTR_ERR(rail);
+> +
+> +	return i2c_smbus_write_byte_data(rail, reg, value);
+> +}
+> +
+> +static int __max20826_read_word_data(struct max20826 *st, int page, int reg)
+> +{
+> +	struct i2c_client *rail;
+> +
+> +	rail = max20826_select_rail(st, page, false);
+> +	if (IS_ERR(rail))
+> +		return PTR_ERR(rail);
+> +
+> +	return i2c_smbus_read_word_data(rail, reg);
+> +}
+> +
+> +static ssize_t max20826_high_speed_en_show(struct device *dev,
+> +					   struct device_attribute *devattr,
+> +					   char *buf)
+> +{
+> +	struct i2c_client *client = to_i2c_client(dev->parent);
+> +	const struct pmbus_driver_info *info = pmbus_get_driver_info(client);
+> +	unsigned int page = to_sensor_dev_attr(devattr)->index;
+> +	struct max20826 *st = to_max20826(info);
+> +
+> +	return sysfs_emit(buf, "%u\n", st->high_speed[page]);
+> +}
+> +
+> +static ssize_t max20826_high_speed_en_store(struct device *dev,
+> +					    struct device_attribute *devattr,
+> +					    const char *buf, size_t count)
+> +{
+> +	struct i2c_client *client = to_i2c_client(dev->parent);
+> +	const struct pmbus_driver_info *info = pmbus_get_driver_info(client);
+> +	unsigned int page = to_sensor_dev_attr(devattr)->index;
+> +	struct max20826 *st = to_max20826(info);
+> +	struct i2c_client *rail;
+> +	bool high_speed;
+> +	int ret;
+> +
+> +	ret = kstrtobool(buf, &high_speed);
+> +	if (ret)
+> +		return ret;
+> +
+> +	guard(pmbus_lock)(client);
+> +
+> +	rail = max20826_select_rail(st, page, false);
+> +	if (IS_ERR(rail))
+> +		return PTR_ERR(rail);
+> +
+> +	if (!high_speed) {
+> +		if (!st->vendor_bus && st->chip_info->has_avsbus) {
+> +			ret = max20826_update_byte_data_unsafe(rail,
+> +							       PMBUS_OPERATION,
+> +							       PB_OPERATION_CONTROL_V_SRC, 0);
+> +			if (ret)
+> +				return ret;
+> +
+> +			goto out_success;
+> +		}
+> +
+> +		ret = max20826_update_byte_data_unsafe(rail,
+> +						       MAX20826_REG_OVERRIDE,
+> +						       MAX20826_OVERRIDE_MASK,
+> +						       FIELD_PREP(MAX20826_OVERRIDE_MASK, 1));
+> +		if (ret)
+> +			return ret;
+> +
+> +		goto out_success;
+> +	}
+> +
+> +	if (!st->vendor_bus) {
+> +		ret = max20826_update_byte_data_unsafe(rail, PMBUS_OPERATION,
+> +						       PB_OPERATION_CONTROL_V_SRC,
+> +						       FIELD_PREP(PB_OPERATION_CONTROL_V_SRC, 3));
+> +		if (ret)
+> +			return ret;
+> +
+> +		goto out_success;
+> +	}
+> +
+> +	ret = max20826_update_byte_data_unsafe(rail, MAX20826_REG_OVERRIDE,
+> +					       MAX20826_OVERRIDE_MASK, 0);
+> +	if (ret)
+> +		return ret;
+> +
+> +out_success:
+> +	st->high_speed[page] = high_speed;
+> +	return count;
+> +}
+> +
+> +static ssize_t max20826_high_speed_bus_show(struct device *dev,
+> +					    struct device_attribute *devattr,
+> +					    char *buf)
+> +{
+> +	struct i2c_client *client = to_i2c_client(dev->parent);
+> +	const struct pmbus_driver_info *info = pmbus_get_driver_info(client);
+> +	struct max20826 *st = to_max20826(info);
+> +
+> +	if (st->vendor_bus)
+> +		return sysfs_emit(buf, "%s\n", st->chip_info->vendor_bus_name);
+> +
+> +	return sysfs_emit(buf, "AVSBus\n");
+> +}
+> +
+> +static SENSOR_DEVICE_ATTR_RW(in2_high_speed_en, max20826_high_speed_en, 0);
+> +static SENSOR_DEVICE_ATTR_RW(in3_high_speed_en, max20826_high_speed_en, 1);
+> +static SENSOR_DEVICE_ATTR_RO(in_high_speed_bus, max20826_high_speed_bus, 0);
+
+Those don't look like the values should or would be changed on the fly.
+Should that be devicetree properties ?
+
+> +
+> +static int max20826_read_curr(struct max20826 *st, int page, int phase, int reg)
+> +{
+> +	u8 val_out[6], start_byte;
+> +	struct i2c_client *rail;
+> +	int ret;
+> +
+> +	if (phase == 0xff)
+> +		return __max20826_read_word_data(st, page, reg);
+> +
+> +	/*
+> +	 * On Rail_A phases are ascending (from 1) while on RAIL_B they
+> +	 * are descending (from 16).
+> +	 */
+> +	if (!page)
+> +		phase += 1;
+> +	else
+> +		phase = st->chip_info->max_phases - phase;
+> +
+> +	/* phase detect and read are only available on RAIL_A */
+> +	rail = max20826_select_rail(st, RAIL_A, false);
+> +	if (IS_ERR(rail))
+> +		return PTR_ERR(rail);
+> +
+> +	ret = i2c_smbus_write_byte_data(rail, MAX20826_REG_PHASE_DETECT, phase);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	/*
+> +	 * For MAX20826: Byte 2:3 is for phase IOUT 4:5 is for phase IIN.
+> +	 * For other chips: Byte 0:1 is for phase IOUT 2:3 is for phase IIN.
+> +	 */
+> +	if (reg == PMBUS_READ_IIN)
+> +		start_byte = st->chip_info->start_index_iin;
+> +	else
+> +		start_byte = st->chip_info->start_index_iout;
+> +
+> +	ret = max20826_read_block_data_unsafe(rail, MAX20826_REG_PHASE_READ,
+> +					      val_out, sizeof(val_out));
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	return get_unaligned_le16(&val_out[start_byte]);
+> +}
+> +
+> +static int max20826_read_word_data(struct i2c_client *client, int page,
+> +				   int phase, int reg)
+> +{
+> +	const struct pmbus_driver_info *info = pmbus_get_driver_info(client);
+> +	struct max20826 *st = to_max20826(info);
+> +
+> +	switch (reg) {
+> +	case PMBUS_READ_IIN:
+> +	case PMBUS_READ_IOUT:
+> +		return max20826_read_curr(st, page, phase, reg);
+> +	case PMBUS_IOUT_OC_FAULT_LIMIT:
+> +		if (!st->chip_info->has_opl || !st->opl_enabled[page])
+> +			return __max20826_read_word_data(st, page, reg);
+> +		return -EIO;
+> +	case PMBUS_POUT_OP_FAULT_LIMIT:
+> +		/*
+> +		 * If Over Power Limit is enabled, PMBUS_IOUT_OC_FAULT_LIMIT
+> +		 * shows the power limit and hence we need to report it
+> +		 * properly in Watts.
+> +		 */
+> +		if (!st->chip_info->has_opl)
+> +			return __max20826_read_word_data(st, page, reg);
+> +
+> +		if (st->opl_enabled[page])
+> +			return __max20826_read_word_data(st, page,
+> +							 PMBUS_IOUT_OC_FAULT_LIMIT);
+> +		return -EIO;
+> +	default:
+> +		if (reg >= PMBUS_VIRT_BASE)
+> +			return -EOPNOTSUPP;
+> +		return __max20826_read_word_data(st, page, reg);
+> +	}
+> +}
+> +
+> +static int max20826_write_word_data(struct i2c_client *client, int page,
+> +				    int reg, u16 word)
+> +{
+> +	const struct pmbus_driver_info *info = pmbus_get_driver_info(client);
+> +	struct max20826 *st = to_max20826(info);
+> +	struct i2c_client *rail;
+> +
+> +	rail = max20826_select_rail(st, page, false);
+> +	if (IS_ERR(rail))
+> +		return PTR_ERR(rail);
+> +
+> +	return i2c_smbus_write_word_data(rail, reg, word);
+> +}
+> +
+> +static int max20826_regulator_enable(struct max20826 *st, int page, u8 byte)
+> +{
+> +	struct i2c_client *rail;
+> +
+> +	rail = max20826_select_rail(st, page, false);
+> +	if (IS_ERR(rail))
+> +		return PTR_ERR(rail);
+> +
+> +	/*
+> +	 * If AVSBus is enabled (bits 5 and 4 set) the device refuses to set bit
+> +	 * 7 of the OPERATION register. Hence, to workaround this, we first
+> +	 * clear the bits and then set them all together.
+> +	 */
+> +	if (st->chip_info->has_avsbus && !st->vendor_bus && st->high_speed[page] &&
+> +	    PB_OPERATION_CONTROL_ON & byte) {
+> +		u8 __byte = byte & ~(PB_OPERATION_CONTROL_V_SRC | PB_OPERATION_CONTROL_ON);
+> +		int ret;
+> +
+> +		ret = i2c_smbus_write_byte_data(rail, PMBUS_OPERATION, __byte);
+> +		if (ret < 0)
+> +			return ret;
+> +	}
+> +
+> +	if (page)
+> +		gpiod_set_value_cansleep(st->bvren, !!(PB_OPERATION_CONTROL_ON & byte));
+> +	else
+> +		gpiod_set_value_cansleep(st->avren, !!(PB_OPERATION_CONTROL_ON & byte));
+> +
+> +	return i2c_smbus_write_byte_data(rail, PMBUS_OPERATION, byte);
+> +}
+> +
+> +static int max20826_write_byte_data(struct i2c_client *client, int page,
+> +				    int reg, u8 byte)
+> +{
+> +	const struct pmbus_driver_info *info = pmbus_get_driver_info(client);
+> +	struct max20826 *st = to_max20826(info);
+> +
+> +	switch (reg) {
+> +	case PMBUS_OPERATION:
+> +		return max20826_regulator_enable(st, page, byte);
+> +	default:
+> +		return __max20826_write_byte_data(st, page, reg, byte);
+> +	}
+> +}
+> +
+> +static int max20826_write_byte(struct i2c_client *client, int page, u8 byte)
+> +{
+> +	const struct pmbus_driver_info *info = pmbus_get_driver_info(client);
+> +	struct max20826 *st = to_max20826(info);
+> +	struct i2c_client *rail;
+> +
+> +	rail = max20826_select_rail(st, page, false);
+> +	if (IS_ERR(rail))
+> +		return PTR_ERR(rail);
+> +
+> +	return i2c_smbus_write_byte(rail, byte);
+> +}
+> +
+> +static int max20826_regulator_enabled(struct max20826 *st, int page)
+> +{
+> +	struct gpio_desc *gpio = page ? st->bvren : st->avren;
+> +	int on, ret;
+> +
+> +	if (gpio) {
+> +		on = gpiod_get_value_cansleep(gpio);
+> +		if (on < 0)
+> +			return on;
+> +	} else {
+> +		/* If the gpios are not given, just assume it's on */
+> +		on = 1;
+> +	}
+> +
+> +	ret = __max20826_read_byte_data(st, page, PMBUS_OPERATION);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	if (st->on_off_ctrl[page])
+> +		on = (PB_OPERATION_CONTROL_ON & ret) && on;
+> +
+> +	ret &= ~PB_OPERATION_CONTROL_ON;
+> +	return ret | FIELD_PREP(PB_OPERATION_CONTROL_ON, on);
+> +}
+> +
+> +static int max20826_iout_status(struct max20826 *st, int page)
+> +{
+> +	int status;
+> +
+> +	status = __max20826_read_byte_data(st, page, PMBUS_STATUS_IOUT);
+> +	if (status < 0 || !st->chip_info->has_opl)
+> +		return status;
+> +
+> +	/*
+> +	 * If Over power limit is on, the fault condition is still set on the OC
+> +	 * bit
+> +	 */
+> +	if (st->opl_enabled[page] && (status & PB_IOUT_OC_FAULT))
+> +		return status | PB_POUT_OP_FAULT;
+> +
+> +	return status;
+> +}
+> +
+> +static int max20826_read_byte_data(struct i2c_client *client, int page, int reg)
+> +{
+> +	const struct pmbus_driver_info *info = pmbus_get_driver_info(client);
+> +	struct max20826 *st = to_max20826(info);
+> +
+> +	switch (reg) {
+> +	case PMBUS_OPERATION:
+> +		return max20826_regulator_enabled(st, page);
+> +	case PMBUS_STATUS_IOUT:
+> +		return max20826_iout_status(st, page);
+> +	default:
+> +		return __max20826_read_byte_data(st, page, reg);
+> +	}
+> +}
+> +
+> +static int max20826_read_block_data(struct i2c_client *client, int page, u8 reg,
+> +				    char *data_buf)
+> +{
+> +	const struct pmbus_driver_info *info = pmbus_get_driver_info(client);
+> +	struct max20826 *st = to_max20826(info);
+> +
+> +	switch (reg) {
+> +	case PMBUS_MFR_ID:
+> +	case PMBUS_MFR_MODEL:
+> +		return __max20826_read_block_data(st, page, reg, data_buf, 16);
+> +	case PMBUS_MFR_REVISION:
+> +		return __max20826_read_block_data(st, page, reg, data_buf, 2);
+> +	case PMBUS_MFR_DATE:
+> +		return __max20826_read_block_data(st, page, reg, data_buf, 8);
+> +	default:
+> +		return -EOPNOTSUPP;
+> +	}
+> +}
+> +
+> +static struct pmbus_driver_info max20826_default_info = {
+> +	.pages = 1,
+> +	.func[0] = PMBUS_HAVE_VIN | PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT |
+> +		   PMBUS_HAVE_IIN | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT |
+> +		   PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP |
+> +		   PMBUS_HAVE_STATUS_INPUT | PMBUS_HAVE_PIN | PMBUS_HAVE_POUT |
+> +		   PMBUS_PHASE_VIRTUAL,
+> +	.format[PSC_VOLTAGE_IN] = linear,
+> +	.format[PSC_VOLTAGE_OUT] = direct,
+> +	.format[PSC_TEMPERATURE] = linear,
+> +	.format[PSC_CURRENT_IN] = linear,
+> +	.format[PSC_CURRENT_OUT] = linear,
+> +	.format[PSC_POWER] = linear,
+> +	.m[PSC_VOLTAGE_OUT] = 2,
+> +	.R[PSC_VOLTAGE_OUT] = 3,
+> +	.write_byte_data = max20826_write_byte_data,
+> +	.write_byte = max20826_write_byte,
+> +	.read_byte_data = max20826_read_byte_data,
+> +	.read_word_data = max20826_read_word_data,
+> +	.write_word_data = max20826_write_word_data,
+> +	.read_block_data = max20826_read_block_data,
+> +#if IS_ENABLED(CONFIG_SENSORS_MAX20826_REGULATOR)
+> +	.num_regulators = 1,
+> +	.reg_desc = max20826_reg_desc,
+> +#endif
+> +};
+> +
+> +static struct attribute *max20826_attrs[MAX20826_MAX_PAGES + 1] = {
+> +	&sensor_dev_attr_in2_high_speed_en.dev_attr.attr,
+> +	&sensor_dev_attr_in3_high_speed_en.dev_attr.attr,
+> +	&sensor_dev_attr_in_high_speed_bus.dev_attr.attr,
+> +};
+> +
+> +static int max20826_detect_addr_mode(struct max20826 *st)
+> +{
+> +	struct device *dev = &st->client->dev;
+> +	int ret, val;
+> +	u8 val_buf[3];
+> +
+> +	/*
+> +	 * The idea is that after a POR, we are in page0 in which case we can
+> +	 * read MAX20826_REG_ADDR_MODE. If we fail to read
+> +	 * MAX20826_REG_ADDR_MODE, it might be due to a soft reset or unbinding
+> +	 * the device in which case the device could be left in page 1. Hence,
+> +	 * let's just try to change to page 0 and error out if we can't.
+> +	 *
+> +	 * OTOH, if the addressing mode is direct, we should be able to
+> +	 * read MAX20826_REG_ADDR_MODE. If not, we'll fail setting the page.
+> +	 *
+> +	 * REG_ADDR_MODE, MAX20855B has 6 bytes, other devices have 1. Byte 3 is
+> +	 * the equivalent of the single byte of the others.
+> +	 */
+> +	if (st->chip_info->is_reg_addr_mode_block)
+> +		val = max20826_read_block_data_unsafe(st->client,
+> +						      MAX20826_REG_ADDR_MODE,
+> +						      val_buf, sizeof(val_buf));
+> +	else
+> +		val = i2c_smbus_read_byte_data(st->client, MAX20826_REG_ADDR_MODE);
+> +
+> +	if (val < 0) {
+> +		ret = i2c_smbus_write_byte_data(st->client, PMBUS_PAGE, 0);
+> +		if (ret < 0)
+> +			return dev_err_probe(dev, ret,
+> +					     "Failed to change to page 0\n");
+> +
+> +		/* try again! */
+> +		if (st->chip_info->is_reg_addr_mode_block)
+> +			val = max20826_read_block_data_unsafe(st->client,
+> +							      MAX20826_REG_ADDR_MODE,
+> +							      val_buf, sizeof(val_buf));
+> +		else
+> +			val = i2c_smbus_read_byte_data(st->client,
+> +						       MAX20826_REG_ADDR_MODE);
+> +		if (val < 0)
+> +			return dev_err_probe(dev, val,
+> +					     "Failed to read MAX20826_REG_ADDR_MODE\n");
+> +	}
+> +
+> +	if (st->chip_info->is_reg_addr_mode_block)
+> +		val = val_buf[2];
+> +
+> +	if (val & MAX20826_PAGE_MODE_MSK)
+> +		return 0;
+> +
+> +	/*
+> +	 * If in direct mode, rail b will be accessible from the addr of RAIL_A
+> +	 * +1
+> +	 */
+> +	st->client_b = devm_i2c_new_dummy_device(dev, st->client->adapter,
+> +						 st->client->addr + 1);
+> +	if (IS_ERR(st->client_b))
+> +		return PTR_ERR(st->client_b);
+> +
+> +	return 0;
+> +}
+> +
+> +static int max20826_detect_phases(struct max20826 *st, struct i2c_client *rail,
+> +				  struct pmbus_driver_info *info, u8 page,
+> +				  u8 expected)
+> +{
+> +	int ret, ret2 = 0, oper_save = -1;
+> +	u8 status_mon[3];
+> +	u8 n_phases;
+> +
+> +	ret = i2c_smbus_read_byte_data(rail, PMBUS_OPERATION);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	/*
+> +	 * In order to detect the number of phases, we need to be regulating.
+> +	 * It is also assumed we're already in the page we want to detect the
+> +	 * phases.
+> +	 */
+> +	if (!(ret & PB_OPERATION_CONTROL_ON)) {
+> +		oper_save = ret;
+> +		ret |= PB_OPERATION_CONTROL_ON;
+> +		ret = i2c_smbus_write_byte_data(rail, PMBUS_OPERATION, ret);
+> +		if (ret < 0)
+> +			return ret;
+> +	}
+> +
+> +	ret = max20826_read_block_data_unsafe(rail, MAX20826_REG_STATUS_MON,
+> +					      status_mon, sizeof(status_mon));
+> +	if (ret < 0)
+> +		goto out_restore_oper;
+> +
+> +	n_phases = field_get(st->chip_info->phase_num_mask, status_mon[1]);
+> +	if (n_phases != expected) {
+> +		ret = dev_err_probe(&st->client->dev, -EIO,
+> +				    "Number of phases mismatch: expected=%u, detected=%u\n",
+> +				    expected, n_phases);
+> +		goto out_restore_oper;
+> +	}
+> +
+> +	info->phases[page] = n_phases;
+> +	for (unsigned int phase = 0; phase < n_phases; phase++)
+> +		info->pfunc[phase] = PMBUS_HAVE_IOUT | PMBUS_HAVE_IIN;
+> +
+> +out_restore_oper:
+> +	if (oper_save >= 0)
+> +		ret2 = i2c_smbus_write_byte_data(rail, PMBUS_OPERATION,
+> +						 oper_save);
+> +
+> +	return ret < 0 ? ret : ret2;
+> +}
+> +
+> +static int max20826_get_rail_config(struct max20826 *st,
+> +				    struct i2c_client *rail, u8 page)
+> +{
+> +	u8 ctrl_misc[2];
+> +	int ret;
+> +
+> +	/*
+> +	 * Check if we need to control PMBUS_OPERATION in addition to the
+> +	 * CONTROL pin.
+> +	 */
+> +	ret = i2c_smbus_read_byte_data(rail, PMBUS_ON_OFF_CONFIG);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	st->on_off_ctrl[page] = !!(ret & PB_ON_OFF_CONFIG_OPERATION_REQ);
+> +
+> +	/*
+> +	 * See if Over Power Limit is enabled. This will impact how
+> +	 * OC_FAULT_LIMIT is handled.
+> +	 */
+> +	if (st->chip_info->has_opl) {
+> +		ret = max20826_read_block_data_unsafe(rail, MAX20826_REG_CTRL_MISC,
+> +						      ctrl_misc, sizeof(ctrl_misc));
+> +		if (ret < 0)
+> +			return ret;
+> +
+> +		st->opl_enabled[page] = !!(ctrl_misc[0] & MAX20826_OPL_EN_MSK);
+> +	}
+> +
+> +	if (st->vendor_bus) {
+> +		ret = i2c_smbus_read_byte_data(rail, MAX20826_REG_OVERRIDE);
+> +		if (ret < 0)
+> +			return ret;
+> +
+> +		st->high_speed[page] = !(ret & MAX20826_OVERRIDE_MASK);
+> +		return 0;
+> +	}
+> +
+> +	ret = i2c_smbus_read_byte_data(rail, PMBUS_OPERATION);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	if (FIELD_GET(PB_OPERATION_CONTROL_V_SRC, ret) == MAX20826_INTF_AVSBUS)
+> +		st->high_speed[page] = true;
+> +
+> +	return 0;
+> +}
+> +
+> +static int max20826_add_attrs(struct device *dev,
+> +			      struct pmbus_driver_info *info)
+> +{
+> +	unsigned int attr, last = ARRAY_SIZE(max20826_attrs) - 1;
+> +	struct attribute_group *group;
+> +
+> +	info->groups = devm_kcalloc(dev, 2, sizeof(void *), GFP_KERNEL);
+> +	if (!info->groups)
+> +		return -ENOMEM;
+> +
+> +	group = devm_kzalloc(dev, sizeof(*group), GFP_KERNEL);
+> +	if (!group)
+> +		return -ENOMEM;
+> +
+> +	info->groups[0] = group;
+> +
+> +	group->attrs = devm_kcalloc(dev, info->pages + 2, sizeof(void *),
+> +				    GFP_KERNEL);
+> +	if (!group->attrs)
+> +		return -ENOMEM;
+> +
+> +	for (attr = 0; attr < info->pages; attr++)
+> +		group->attrs[attr] = max20826_attrs[attr];
+> +
+> +	group->attrs[attr] = max20826_attrs[last];
+> +
+> +	return 0;
+> +}
+> +
+> +static int max20826_setup_vout_format(struct max20826 *st)
+> +{
+> +	struct pmbus_driver_info *info = &st->info;
+> +	int ret;
+> +
+> +	if (st->chip_info->is_vout_direct) {
+> +		u8 vout_res[2];
+> +
+> +		ret = __max20826_read_block_data(st, RAIL_A,
+> +						 MAX20826_REG_VOUT_RES,
+> +						 vout_res, sizeof(vout_res));
+> +		if (ret < 0)
+> +			return ret;
+> +
+> +		/* check for 1 mv/LSB */
+> +		if (MAX20826_VOUT_RES_MSK & vout_res[1])
+> +			info->m[PSC_VOLTAGE_OUT] = 1;
+> +
+> +		return 0;
+> +	}
+> +
+> +	st->info.format[PSC_VOLTAGE_OUT] = vid;
+> +	for (unsigned int page = 0; page < info->pages; page++) {
+> +		if (!st->chip_info->select_vrm) {
+> +			/* only vr12 in this case */
+> +			st->info.vrm_version[page] = vr12;
+> +			continue;
+> +		}
+> +
+> +		ret = __max20826_read_byte_data(st, page,
+> +						MAX20855B_REG_VOUT_VRM);
+> +		if (ret < 0)
+> +			return ret;
+> +
+> +		if (ret & MAX20855B_REG_VOUT_VRM_MASK)
+> +			st->info.vrm_version[page] = vr13;
+> +		else
+> +			st->info.vrm_version[page] = vr12;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int max20826_setup(struct max20826 *st)
+> +{
+> +	struct pmbus_driver_info *info = &st->info;
+> +	u8 config[5], expected_phases;
+> +	struct device *dev = &st->client->dev;
+> +	struct i2c_client *rail;
+> +	int ret;
+> +
+> +	ret = max20826_detect_addr_mode(st);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	if (st->chip_info->has_avsbus) {
+> +		/*
+> +		 * After max20826_detect_addr_mode() we can just use RAIL_A client for
+> +		 * the following operations as even if in page mode, we must be in
+> +		 * page 0 by now. We also just need to check this for chips that might
+> +		 * also support selecting between custom or AVSBus.
+> +		 */
+> +		ret = i2c_smbus_read_word_data(st->client, MAX20826_REG_C_MODEAB);
+> +		if (ret < 0)
+> +			return ret;
+> +
+> +		if (FIELD_GET(MAX20826_C_MODEAB_MASK, ret) == MAX20826_INTF_PWMVID)
+> +			st->vendor_bus = true;
+> +	} else {
+> +		st->vendor_bus = true;
+> +	}
+> +
+> +	ret = max20826_read_block_data_unsafe(st->client,
+> +					      MAX20826_REG_RAIL_PHASE_CFG,
+> +					      config, sizeof(config));
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	/*
+> +	 * If we have phases in RAIL_B, we need to subtract them on config[1] as
+> +	 * those bits are also set in case RAIL_B has phases.
+> +	 */
+> +	expected_phases = st->chip_info->count_phases(config, RAIL_A);
+> +	ret = max20826_detect_phases(st, st->client, info, RAIL_A,
+> +				     expected_phases);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	ret = max20826_get_rail_config(st, st->client, RAIL_A);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	/* Let's see if RAIL_B is present */
+> +	rail = max20826_select_rail(st, RAIL_B, true);
+> +	if (IS_ERR(rail))
+> +		return PTR_ERR(rail);
+> +
+> +	/* Let's see if there's something on RAIL_B */
+> +	st->bvren = devm_gpiod_get_optional(dev, "bvren", GPIOD_OUT_HIGH);
+> +	if (IS_ERR(st->bvren))
+> +		return PTR_ERR(st->bvren);
+> +
+> +	expected_phases = st->chip_info->count_phases(config, RAIL_B);
+> +	ret = max20826_detect_phases(st, rail, info, RAIL_B, expected_phases);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	if (info->phases[RAIL_B]) {
+> +		info->pages = MAX20826_MAX_PAGES;
+> +		info->func[RAIL_B] = PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT |
+> +				     PMBUS_HAVE_IIN | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT |
+> +				     PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP |
+> +				     PMBUS_HAVE_STATUS_INPUT | PMBUS_HAVE_PIN | PMBUS_HAVE_POUT |
+> +				     PMBUS_PHASE_VIRTUAL;
+> +
+> +		if (IS_ENABLED(CONFIG_SENSORS_MAX20826_REGULATOR))
+> +			info->num_regulators = 2;
+> +
+> +		ret = max20826_get_rail_config(st, rail, RAIL_B);
+> +		if (ret < 0)
+> +			return ret;
+> +	}
+> +
+> +	ret = max20826_setup_vout_format(st);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	return max20826_add_attrs(&st->client->dev, info);
+> +}
+> +
+> +static int max20826_probe(struct i2c_client *client)
+> +{
+> +	struct max20826 *st;
+> +	int ret;
+> +
+> +	st = devm_kzalloc(&client->dev, sizeof(*st), GFP_KERNEL);
+> +	if (!st)
+> +		return -ENOMEM;
+> +
+> +	st->client = client;
+> +	memcpy(&st->info, &max20826_default_info, sizeof(st->info));
+> +
+> +	st->chip_info = i2c_get_match_data(client);
+> +	if (!st->chip_info)
+> +		return -EINVAL;
+> +
+> +	st->avren = devm_gpiod_get_optional(&client->dev, "avren", GPIOD_OUT_HIGH);
+> +	if (IS_ERR(st->avren))
+> +		return PTR_ERR(st->avren);
+> +
+> +	ret = max20826_setup(st);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return pmbus_do_probe(client, &st->info);
+> +}
+> +
+> +static const struct max20826_chip_info chip_info_max20826 = {
+> +	.vendor_bus_name = "Nvidia PWMVID",
+> +	.max_phases = MAX20826_MAX_PHASES,
+> +	.phase_num_mask = MAX20826_PHASES_NUM_MASK,
+> +	.start_index_iin = 4,
+> +	.start_index_iout = 2,
+> +	.is_vout_direct = true,
+> +	.has_avsbus = true,
+> +	.has_opl = true,
+> +	.count_phases = __max20826_count_phases,
+> +};
+> +
+> +static const struct max20826_chip_info chip_info_max20855b = {
+> +	.vendor_bus_name = "Intel SVID",
+> +	.max_phases = MAX20855B_MAX_PHASES,
+> +	.phase_num_mask = MAX20855B_PHASES_NUM_MASK,
+> +	.start_index_iin = 2,
+> +	.start_index_iout = 0,
+> +	.is_reg_addr_mode_block = true,
+> +	.select_vrm = true,
+> +	.count_phases = __max20855b_count_phases,
+> +};
+> +
+> +static const struct max20826_chip_info chip_info_max20908 = {
+> +	.vendor_bus_name = "AMD SVI3",
+> +	.max_phases = MAX20908_MAX_PHASES,
+> +	.phase_num_mask = MAX20826_PHASES_NUM_MASK,
+> +	.start_index_iin = 2,
+> +	.start_index_iout = 0,
+> +	.count_phases = __max20908_count_phases,
+> +};
+> +
+> +static const struct max20826_chip_info chip_info_max20912 = {
+> +	.vendor_bus_name = "AMD SVI3",
+> +	.max_phases = MAX20912_MAX_PHASES,
+> +	.phase_num_mask = MAX20826_PHASES_NUM_MASK,
+> +	.start_index_iin = 2,
+> +	.start_index_iout = 0,
+> +	.count_phases = __max20912_count_phases,
+> +};
+> +
+> +static const struct max20826_chip_info chip_info_max20916 = {
+> +	.vendor_bus_name = "AMD SVI3",
+> +	.max_phases = MAX20916_MAX_PHASES,
+> +	.phase_num_mask = MAX20826_PHASES_NUM_MASK,
+> +	.start_index_iin = 2,
+> +	.start_index_iout = 0,
+> +	.count_phases = __max20826_count_phases,
+> +};
+> +
+> +static const struct i2c_device_id max20826_id[] = {
+> +	{ "max20826", (kernel_ulong_t)&chip_info_max20826 },
+> +	{ "max20855b", (kernel_ulong_t)&chip_info_max20855b },
+> +	{ "max20908", (kernel_ulong_t)&chip_info_max20908 },
+> +	{ "max20912", (kernel_ulong_t)&chip_info_max20912 },
+> +	{ "max20916", (kernel_ulong_t)&chip_info_max20916 },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(i2c, max20826_id);
+> +
+> +static const struct of_device_id max20826_of_match[] = {
+> +	{ .compatible = "adi,max20826", .data = &chip_info_max20826 },
+> +	{ .compatible = "adi,max20855b", .data = &chip_info_max20855b },
+> +	{ .compatible = "adi,max20908", .data = &chip_info_max20908 },
+> +	{ .compatible = "adi,max20912", .data = &chip_info_max20912 },
+> +	{ .compatible = "adi,max20916", .data = &chip_info_max20916 },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, max20826_of_match);
+> +
+> +static struct i2c_driver max20826_driver = {
+> +	.driver = {
+> +		.name = "max20826",
+> +		.of_match_table = max20826_of_match,
+> +	},
+> +	.probe = max20826_probe,
+> +	.id_table = max20826_id,
+> +};
+> +module_i2c_driver(max20826_driver);
+> +
+> +MODULE_AUTHOR("Nuno Sá <nuno.sa@analog.com>");
+> +MODULE_DESCRIPTION("PMBus driver for MAX20826");
+> +MODULE_LICENSE("GPL");
+> +MODULE_IMPORT_NS("PMBUS");
+> 
+
