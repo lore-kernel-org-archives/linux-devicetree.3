@@ -1,304 +1,168 @@
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com [209.85.221.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32F9224DCF6
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 02:58:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F3E030C366
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 03:07:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785207520; cv=none; b=Ni1loZLMVj+eP3lDbYb9XWe1cs9IggPWJTxIzMDShz8hj9GTUvCf/tIUXVHce1/h6aCs0/lLHrroJilT5/KyI2VVHuiB6n1iNMocGmSoRAIzIyOLXgGDghj8KVqJ0xLKnFPC5cDWQR89kvhcV4VJeeaudVzlJFZ3cxhrbKl3IH0=
+	t=1785208043; cv=none; b=D/+wg5IWo5hdLpEXiLz4isWmvubLcDWY7IWg22jYahSvAL/hNexUhAkVqrAMmj+OEFFsOrAoByieDaC1XL8ZRFm/1kRcGs7Pd8MSwuR8MKVWaNn3dMdH4ovqODqJ8nHxfvu/agRF4g06uo81dWMGv4e96XOt/Hok35dKtHK3U3Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785207520; c=relaxed/simple;
-	bh=n5UoZL2wb83PkAUD6T96dvq5LT7Om3pjVqKuJQ8CYKQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=e5TQR8Fy0EHUdLYdY5/qJBcyfYVAXWD6zqUspN3waSOFzcsJKteMp80suvqrmBx2bS/5RB5vY0mhqffkYlHvnBdTMcvLZZ1804DTxvh3PJwT4HSdVwC4UpIjd0ApYP1ShLDucI4BYJBn02E+jrcSGL5ztdwbJFwItar38yDa/ak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JAviTgIc; arc=none smtp.client-ip=209.85.210.169
+	s=arc-20240116; t=1785208043; c=relaxed/simple;
+	bh=vKdAA6cFT54tLCIgFXya6DLI52t7A+r1YFU+iUb76PI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Br4a1iZZakTAxoFcXk+uOXV3vVhJ5PEv0Dcm0FV+2cL69PMWZbnATnfhFHS5cFQIEiWLwSnQdPPXBgZIBWsMrjUb+fhBwTvvkMALzbLGd6sB0BGsGgl94pyN1Hx/1M6GSHI7fXQXBEXVvYCGU4sP9+QP49nB9mNqgaI8TSIVT1s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q9VwL+KX; arc=none smtp.client-ip=209.85.221.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JAviTgIc"
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8485bd28dd0so3426985b3a.2
-        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 19:58:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q9VwL+KX"
+Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-5c2c96286f0so1349731e0c.3
+        for <devicetree@vger.kernel.org>; Mon, 27 Jul 2026 20:07:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785207518; x=1785812318; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DXc32F38MmKZTmXMK9yqhLkQilQPpMqwdQShzx5K5q8=;
-        b=JAviTgIc4eWsNYuggCw1uyAs4Tba/XtPTVRAZKk9zM4faUr+t9lsIXWYdBlOscJyUD
-         SQhGs2BqLTDvlzIsqV8sx5VfT0Y8cG8mxCIS2AWfxyYCvRVys/7+AlMehGRdUL0t0WHL
-         YTlj22OHk1/5LVRKr9RHKMIwy5Rlq46Z+wxr21TUWEiIj8htrv/AsWgUAGcgUNxxjxsw
-         ngjQ8iCj2ELCORU2wPYrh5H27Dz8fbLcOH3UGbPTTUtDC7/LjL/1PKwSQc2f+7/uRF9m
-         sy9S5bgWAg1ttQMOU4/8Cgz5qCU4xDFvYG6xFg0YddfJPJs2l0zTnVhFwpFZVgJSOtqX
-         870A==
+        d=gmail.com; s=20251104; t=1785208039; x=1785812839; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=2daEu8V03oHloZq7HOxZbsCrfFEu1YUSaEp/KisdjxA=;
+        b=q9VwL+KXqhK+BY0WMQkjPqa9L+mIsUg3Y11wLsMgTqNZSlqyVAQLdHDkFcgE84WDaQ
+         Aq7OUEoorbmSg4ATvGoD30CvE1ZX3UB2m+0SRel8M/6ZW+UVu3CULETfry4lRABGwyJq
+         McPTVIDqh57xysyR93CSnwhnMYL1QWjirCmg53AnEE/ckrf9G1INSKmHegpLdBkOoGfX
+         1YvwyRE69kQQDz1Z1VuE7hf/F8OK+T6XaNLKKgwGvCWNDrTvRSVGrAG/y9gw4jQfBWBA
+         qsBUmT+R6jDr8KSMK/DxcG2wuAnjecztyS45rnoglYp1SHN5HtWXZ+xOpjGVco/QcYfM
+         Z/Mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785207518; x=1785812318;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DXc32F38MmKZTmXMK9yqhLkQilQPpMqwdQShzx5K5q8=;
-        b=eEM+E7PVdlAjYJQnyPgqsiDJgWNqgn/oMKcUIxmL54UiXGLP9xUQJhO1On3SKTGAw5
-         R/oLQT3F/yDSvZ2YvQF6x7h0Pj9aK0/aHR8rCsvSqEeJNjdZ9t0J80sF80Kk94tU7ASS
-         jygmfmutEtw2Cste0cJW61YRK6LBaVPiLcpw2g/OuUVgDHUZeeN2H5jLzfdPrntf5NhE
-         ihAOPFhm2WMZYO7OQdZLrO0njqs8IHqWJYskWDjI+El4laPRmTGB03CeCXB6P14ShJ39
-         f13sVbM6U6p6rmewntSC8AsFO36i0h2TO5FwxoH48ATmwAPDORgybBR7Y/py4PmKteG4
-         vACw==
-X-Forwarded-Encrypted: i=1; AHgh+Rp1hcVemgPuE7dzt+wxrnV8uKl814swYlr9nvCR8CCwWphwkuk6Rtza8Bni3c9Ek1SqUoVkFfwbgN7R@vger.kernel.org
-X-Gm-Message-State: AOJu0YwFAJljqZU39NLuXFHQc0kw/MDummhsDZ6jlD2+eoS70wXU6yOW
-	Gqmlt11tMT3voYYP58rBAa8AyV5q+0RDV3B6piQSfVNZHXTrFzIplhkOrQBsIA==
-X-Gm-Gg: AR+sD137eUf7iiHQaoX6+ySBAJt690FdJmxVwUR3Wy065YZfdp2I7XYo2PtpXS4QrTV
-	8qj2AJGrH/bv/JkdYQW9dzWUT3kRK0jwxqzFxeHd8eVMKH0cz1bps3YSrrM6vmsJCT4nabjUwVV
-	BKnEZXU5IYM8Iar8mR05uWuTTZOhV/LvRGvXXwz1F+kSjmebjCmxC10O1irMZDXsAxN4og48DcJ
-	0EfgwrxgQG6ExAf3bur4tCRmkTwSUOuObGiy5XNK0bFNPd7h1A55baxfm+HfBJ/39t1WVt46B0s
-	Vo8g1vYC/tPoEyDMscSrQ6vEm8pkvP0aBF+pezD7274mu0KpL2okxltEXaa3+/f9/EUCfT3RCnw
-	1MCceqRjtq3aTZpIa3nKb8NZ0W96o11PBI6KR761cHTxHHUd+CGEvYS7Y3i0HopCkYgwd03R8bW
-	OCoC4heh5kAWTSrQJXOX2XGbU1THE/JJRq/qchoN3oozzvxAAYulUCnULv3hqYJ8HoxwVYiusPg
-	HeOy/44kFVpZ4IQ48sjcTKuZPq3H6NSIzEY
-X-Received: by 2002:a05:6a00:2d03:b0:848:2f73:8ffd with SMTP id d2e1a72fcca58-84e93378c58mr462507b3a.70.1785207518364;
-        Mon, 27 Jul 2026 19:58:38 -0700 (PDT)
-Received: from [172.19.1.48] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e5344e583sm3710262b3a.57.2026.07.27.19.58.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 27 Jul 2026 19:58:37 -0700 (PDT)
-Message-ID: <d117c544-1566-453d-880e-c4d903e09e23@gmail.com>
-Date: Tue, 28 Jul 2026 10:58:35 +0800
+        d=1e100.net; s=20251104; t=1785208039; x=1785812839;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=2daEu8V03oHloZq7HOxZbsCrfFEu1YUSaEp/KisdjxA=;
+        b=Nd5g+1afrM13o6s2if4uZVlgxPOlAnQQxjFAcmXEhLrBipK4febUw/hpuK+hPCQzJp
+         ubJ/tfmFwN+ry6x6pzYuIEVDl3BNZEZCGCZoVYJoJoDIQseFxQ7ZTiCoGqr453mNte5/
+         oNA7XbvgOwCbGsfCq4skG8XTCGWdA/XhfvJZ08sh7WE2ceSOB9WX5Dy4mfHKEi+V60ME
+         P+xDxehEN4ULSl6HRllq0gie9o9/hBphxYTS9TJJnzMc1w6T2qrXWBEomDoP/TiW7UOm
+         f06AD4jZoeN4bn1kmXQQo8EQ9aJe5Tf12l0uOxePDw4RcF+n5B5WnozuDQmngsibYJHN
+         1NGw==
+X-Forwarded-Encrypted: i=1; AHgh+Rq0XkKZ70KUg99090X8u8Ll3x/zVZ6isCYuMUlzfH64tmsgS+RLPjwSTjQWvGxQaA8Nz2WKq9KtFhUs@vger.kernel.org
+X-Gm-Message-State: AOJu0YxiP1nw8uVhOu8oA9uOvUyHzmhDVn2azKNaaR2468xGHoSKxN2O
+	9qtjOoPbkzCe6g8NERNNqzR5zHrjYEOp8oo2oIpZSIubYGON986eH5C9
+X-Gm-Gg: AR+sD13KF+Aw6K8jqVkyDBPANSmq/8jSaPbcZBeSsy10rfISKbI1eeJpgca0MYGxQGQ
+	Wv9IP2J3geE5a1yLP2UhMUqZ3/Y7m3nWK3lwrmmulK9eIGxATlAg3Uv0d9RziysbS5afB4iFyBv
+	2MaHh4ec1wEa+aanBt/KfhqaSoQjdWGyFzowDXxwq6aMOBljDXJDsNuJfLd6bbSPW8A8rnElcdp
+	yWQ/MDxs2MiU7JFmu/dBDuBccOmCjXZuCdkHPAXZrLJwXDQV8GMwrYjETBL20rN+7s3hraxCGTr
+	HwpFZeNn9vZGUJqfsi2HoE95ZaZmAz9p8ickZRNlKRaWDb91Z2QrIdNZIG7MbEj1RbcQ3yx/6a+
+	lo7P8aPxHFPiS0kEavnEXtJSn6fie44Rwbt/EikLN4R5ekyNZKXgUdUX13/un7kiww/u/iZMO5d
+	raHOAkINYcgAA4cEBisw==
+X-Received: by 2002:a05:6122:3124:b0:5bf:7f98:9657 with SMTP id 71dfb90a1353d-5c33f928744mr246810e0c.6.1785208039161;
+        Mon, 27 Jul 2026 20:07:19 -0700 (PDT)
+Received: from tresc054937.tre-sc.gov.br ([187.65.210.13])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c305759d35sm8148812e0c.18.2026.07.27.20.07.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Jul 2026 20:07:18 -0700 (PDT)
+From: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+Subject: [hwmon-next PATCH v3 0/4] hwmon: (adt7470) Add PWM provider and
+ thermal sensor support
+Date: Tue, 28 Jul 2026 00:07:08 -0300
+Message-Id: <20260728-adt7470_thermalzone-v3-0-d4586478cdba@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] watchdog: Add Nuvoton MA35D1 watchdog driver
- support
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, robh@kernel.org, linux-watchdog@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20260724091427.1689980-1-zychennvt@gmail.com>
- <20260724091427.1689980-3-zychennvt@gmail.com>
- <20260724092454.EE24D1F00A3A@smtp.kernel.org>
-Content-Language: en-US
-From: zychen <zychennvt@gmail.com>
-In-Reply-To: <20260724092454.EE24D1F00A3A@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIANwcaGoC/32Q0U7DMAxFf6XKM0FJWidphRD/gRByG3cNWlpos
+ jKY9u9kLdL2gHjzle3je31ikWZPkTXFic20+OinMYvyrmDdgOOOuHdZMyWUFkZqji6ZyojXNNA
+ ccP89jcShRimUMtYZxfLm+0y9P67UZzZ8hmnkIx0Te9l68dC+UZcu2Mv04GOa5q/VwiLXnX+vL
+ ZIL3nUA1JdAztHTLqDf33dTWC8s6pZh/maozEAAWZkabI/ulnHebM70ccj/SL85AsWI6z+a4mG
+ Dqyt8zbthobZUWqx0i/qKfbxEbTESzyL41BQWbPaHskPoayzLUrQVQO2wrSRoEFbnymqVDZ1/A
+ L6OxcWoAQAA
+X-Change-ID: 20260716-adt7470_thermalzone-59a102278d72
+To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Chris Packham <chris.packham@alliedtelesis.co.nz>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ "Darrick J. Wong" <djwong@us.ibm.com>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Luiz Angelo Daros de Luca <luizluca@gmail.com>, linux-pwm@vger.kernel.org
+X-Mailer: b4 0.15.2
 
+The ADT7470 is a temperature monitor and PWM fan controller capable of
+monitoring up to ten external temperature sensors and controlling up to
+four PWM outputs.
 
+Currently, the driver exposes these sensors and PWM controls only
+through the hwmon sysfs interface. This patch series integrates the
+ADT7470 driver with the kernel's thermal and PWM subsystems. This allows
+temperature sensors to participate in Device Tree thermal zones while
+exposing the PWM outputs as generic PWM providers for consumers such as
+pwm-fan.
 
-sashiko-bot@kernel.org 於 2026/7/24 下午 05:24 寫道:
-> Thank you for your contribution! Sashiko AI review found 6 potential issue(s) to consider:
-> - [High] Writes to REG_WDT_CTL are missing required hardware synchronization waits (SYNC bit), risking dropped writes and hardware state corruption.
-Not applicable. SYNC only used for the change of WDTEN.
+Patch 1 adds the YAML device tree binding documentation.
+Patch 2 introduces the ADT7470_PWM_MAX macro.
+Patch 3 registers the four PWM channels as a generic PWM provider.
+Patch 4 registers the external temperature sensors with the thermal
+framework.
 
-> - [High] The watchdog timer is not paused during system suspend if it was running from the bootloader but not yet opened by userspace, leading to unintended system resets.
-Fixed. Added a check for watchdog_hw_running.
+Signed-off-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
 
-> - [High] Driver fails to synchronize the hardware timeout with the software configuration when inheriting a running watchdog during probe.
-Fixed. Added set_timeout() before devm_watchdog_register_device().
+---
+Changes in v3:
+- Migrated from the `.apply` callback to the PWM Waveform API.
+- Moved fixes to another patch series:
+  20260727-adt7470_thermalzone-v3-0-21424d550c3d@gmail.com
+- Use guard(mutex) for simpler locking.
+- Link to v2: https://patch.msgid.link/20260717-adt7470_thermalzone-v2-0-a55147958fad@gmail.com
 
-> - [High] Read-modify-write operations on REG_WDT_CTL inadvertently clear W1C (Write-1-to-Clear) status flags, leading to lost interrupts and wakeup events.
-Not applicable. As noted in the cover letter, this does not affect the W1C flags.
+Changes in v2:
+- Fixed 2 previous bugs uncovered by Sashiko-bot during review.
+- Dropped the thermal cooling device registration for the PWM channels.
+- Implemented generic PWM provider support using the PWM subsystem.
+- Updated Kconfig to safely handle the PWM subsystem dependency (depends on PWM || PWM=n).
+- Updated Device Tree bindings to require #pwm-cells instead of #cooling-cells.
+- Link to v1: https://patch.msgid.link/20260716-adt7470_thermalzone-v1-0-cc55ef35edde@gmail.com
 
-> - [Medium] In ma35d1_wdt_resume(), the driver writes to REG_WDT_RSTCNT before ensuring the control register changes have synchronized.
-Not applicable. These two operations work independently and do not affect each other.
+To: Guenter Roeck <linux@roeck-us.net>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+To: Chris Packham <chris.packham@alliedtelesis.co.nz>
+To: Andrew Morton <akpm@linux-foundation.org>
+To: "Darrick J. Wong" <djwong@us.ibm.com>
+To: Uwe Kleine-König <ukleinek@kernel.org>
+Cc: linux-hwmon@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-pwm@vger.kernel.org
 
-> - [Low] Spelling mistake in Kconfig help text.
-Fixed. Corrected the spelling mistake in the Kconfig help text.
+---
+Luiz Angelo Daros de Luca (4):
+      dt-bindings: hwmon: adi,adt7470
+      hwmon: (adt7470) Add ADT7470_PWM_MAX macro
+      hwmon: (adt7470) Expose fan control via PWM framework
+      hwmon: (adt7470) Add thermal zone sensor support
 
-> --
-> 
-> --- Patch [2]: [PATCH v2 2/3] watchdog: Add Nuvoton MA35D1 watchdog driver support ---
-> commit 31ed5d4971c74d4f75935b7f98c40e226cdc3521
-> Author: Zi-Yu Chen <zychennvt@gmail.com>
-> 
-> watchdog: Add Nuvoton MA35D1 watchdog driver support
->     
-> This commit adds a new watchdog driver for the Nuvoton MA35D1 SoC. It provides
-> support for timeout configuration, ping, and system reset functionality via
-> the standard watchdog framework.
-> 
->> diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
->> index 08cb8612d41fe..972740fd36a69 100644
->> --- a/drivers/watchdog/Kconfig
->> +++ b/drivers/watchdog/Kconfig
->> @@ -720,6 +720,16 @@ config STMP3XXX_RTC_WATCHDOG
->>  	  To compile this driver as a module, choose M here: the
->>  	  module will be called stmp3xxx_rtc_wdt.
->>  
->> +config MA35D1_WDT
->> +	tristate "Nuvoton MA35D1 Watchdog Timer"
->> +	depends on ARCH_MA35 || COMPILE_TEST
->> +	select WATCHDOG_CORE
->> +	help
->> +	  Say Y here to include support for the watchdog timer
->> +	  for the Nuvoton MA35D1 series microprosser.
-> 
-> [Severity: Low]
-> Is "microprosser" a typo here? Did you mean "microprocessor"?
-> 
->> diff --git a/drivers/watchdog/ma35d1_wdt.c b/drivers/watchdog/ma35d1_wdt.c
->> new file mode 100644
->> index 0000000000000..e5247e55dfee4
->> --- /dev/null
->> +++ b/drivers/watchdog/ma35d1_wdt.c
-> 
-> [ ... ]
-> 
->> +static int ma35d1_wdt_stop(struct watchdog_device *wdt_dev)
->> +{
->> +	struct ma35d1_wdt_dev *ma35d1_wdt = watchdog_get_drvdata(wdt_dev);
->> +	unsigned int val;
->> +	int ret;
->> +
->> +	guard(spinlock_irqsave)(&ma35d1_wdt->lock);
->> +	val = readl_relaxed(ma35d1_wdt->wdt_base + REG_WDT_CTL);
->> +	val &= ~WDTEN;
->> +	writel_relaxed(val, ma35d1_wdt->wdt_base + REG_WDT_CTL);
-> 
-> [Severity: High]
-> Will this read-modify-write inadvertently clear Write-1-to-Clear (W1C) flags
-> like IF, WKF, or RSTF? 
-> 
-> Looking at ma35d1_wdt_isr(), it appears that reading a 1 and writing it back
-> clears the flag. Should these W1C flags be explicitly masked out when doing
-> read-modify-write operations on REG_WDT_CTL here, and similarly in other
-> functions like ma35d1_wdt_set_timeout(), ma35d1_wdt_start(), and
-> ma35d1_wdt_suspend()?
-> 
-> [ ... ]
-> 
->> +static int ma35d1_wdt_set_timeout(struct watchdog_device *wdt_dev,
->> +				  unsigned int timeout)
->> +{
->> +	struct ma35d1_wdt_dev *ma35d1_wdt = watchdog_get_drvdata(wdt_dev);
->> +	unsigned long target_ticks;
->> +	unsigned int val, i;
-> 
-> [ ... ]
-> 
->> +	guard(spinlock_irqsave)(&ma35d1_wdt->lock);
->> +	val = readl_relaxed(ma35d1_wdt->wdt_base + REG_WDT_CTL);
->> +	val &= ~TOUTSEL;
->> +	val |= FIELD_PREP(TOUTSEL, i);
->> +	writel_relaxed(val, ma35d1_wdt->wdt_base + REG_WDT_CTL);
->> +
->> +	ma35d1_wdt_ping(wdt_dev);
->> +	return 0;
->> +}
-> 
-> [Severity: High]
-> Does this writel_relaxed() require a call to ma35d1_wdt_wait_sync() before
-> proceeding? 
-> 
-> Without waiting for the SYNC bit, could the immediate ping command be ignored
-> by the hardware or cause hardware state corruption?
-> 
->> +static int ma35d1_wdt_start(struct watchdog_device *wdt_dev)
->> +{
->> +	struct ma35d1_wdt_dev *ma35d1_wdt = watchdog_get_drvdata(wdt_dev);
->> +	void __iomem *wdt_base = ma35d1_wdt->wdt_base;
->> +	unsigned int val;
->> +	int ret;
->> +
->> +	ret = ma35d1_wdt_set_timeout(wdt_dev, wdt_dev->timeout);
->> +	if (ret < 0)
->> +		return ret;
->> +
->> +	guard(spinlock_irqsave)(&ma35d1_wdt->lock);
->> +	val = readl_relaxed(wdt_base + REG_WDT_CTL);
->> +	val |= (WDTEN | RSTEN);
->> +
->> +	writel_relaxed(val, wdt_base + REG_WDT_CTL);
-> 
-> [Severity: High]
-> Because ma35d1_wdt_set_timeout() writes to REG_WDT_CTL without waiting for
-> sync, and then ma35d1_wdt_start() immediately performs another read-modify-write
-> on the same register, could this back-to-back unsynchronized access cause
-> dropped writes and prevent the watchdog from starting properly?
-> 
-> [ ... ]
-> 
->> +static int ma35d1_wdt_probe(struct platform_device *pdev)
->> +{
->> +	struct device *dev = &pdev->dev;
->> +	struct ma35d1_wdt_dev *ma35d1_wdt;
-> 
-> [ ... ]
-> 
->> +	val = readl_relaxed(ma35d1_wdt->wdt_base + REG_WDT_CTL);
->> +	if (val & RSTF) {
->> +		ma35d1_wdt->wdt_dev.bootstatus = WDIOF_CARDRESET;
->> +		writel_relaxed(val, ma35d1_wdt->wdt_base + REG_WDT_CTL);
->> +	}
-> 
-> [Severity: High]
-> Should there be a wait for hardware synchronization after this write clears
-> the RSTF bit?
-> 
->> +
->> +	if (val & WDTEN)
->> +		set_bit(WDOG_HW_RUNNING, &ma35d1_wdt->wdt_dev.status);
-> 
-> [Severity: High]
-> If the bootloader left the watchdog running with a very short timeout, could
-> the system reset before the core's ping worker can keep it alive?
-> 
-> Should this also call ma35d1_wdt_set_timeout() to ensure the hardware's
-> timeout matches the software configuration when taking over a running watchdog?
-> 
-> [ ... ]
-> 
->> +static int ma35d1_wdt_suspend(struct device *dev)
->> +{
->> +	struct ma35d1_wdt_dev *ma35d1_wdt = dev_get_drvdata(dev);
->> +
->> +	if (watchdog_active(&ma35d1_wdt->wdt_dev)) {
-> 
-> [Severity: High]
-> Does this need to check watchdog_hw_running() as well?
-> 
-> If the bootloader started the watchdog (WDOG_HW_RUNNING is set) but userspace
-> hasn't opened the device yet (WDOG_ACTIVE is false), this check will skip
-> pausing the hardware. Could the timer then expire and unexpectedly reset the
-> system during sleep?
-> 
-> [ ... ]
-> 
->> +static int ma35d1_wdt_resume(struct device *dev)
->> +{
->> +	struct ma35d1_wdt_dev *ma35d1_wdt = dev_get_drvdata(dev);
->> +
->> +	if (watchdog_active(&ma35d1_wdt->wdt_dev)) {
-> 
-> [Severity: High]
-> Similar to suspend, should this also check watchdog_hw_running() to ensure
-> a hardware-running watchdog is properly resumed?
-> 
->> +		u32 val;
->> +		int ret;
->> +
->> +		guard(spinlock_irqsave)(&ma35d1_wdt->lock);
->> +		val = readl_relaxed(ma35d1_wdt->wdt_base + REG_WDT_CTL);
->> +
->> +		if (device_may_wakeup(dev)) {
->> +			val |= RSTEN;
->> +			val &= ~(INTEN | WKEN);
->> +		} else {
->> +			val |= (WDTEN | RSTEN);
->> +		}
->> +		writel_relaxed(val, ma35d1_wdt->wdt_base + REG_WDT_CTL);
->> +		writel_relaxed(RESET_COUNTER,
->> +			       ma35d1_wdt->wdt_base + REG_WDT_RSTCNT);
->> +		ret = ma35d1_wdt_wait_sync(ma35d1_wdt);
-> 
-> [Severity: Medium]
-> Is it safe to issue the ping command (writing to REG_WDT_RSTCNT) before
-> waiting for the control register changes to synchronize?
-> 
-> In ma35d1_wdt_start(), the ping happens after ma35d1_wdt_wait_sync(). Could
-> doing it before sync here cause the ping to be ignored by the hardware?
-> 
+ .../devicetree/bindings/hwmon/adi,adt7470.yaml     |  55 ++++++++
+ drivers/hwmon/Kconfig                              |   1 +
+ drivers/hwmon/adt7470.c                            | 146 ++++++++++++++++++++-
+ 3 files changed, 199 insertions(+), 3 deletions(-)
+---
+base-commit: 858071a1ca5f9a3330b4559dab41565086ab4862
+change-id: 20260716-adt7470_thermalzone-59a102278d72
+prerequisite-message-id: <20260727-adt7470_fixes-v2-0-598e38a46ba6@gmail.com>
+prerequisite-patch-id: c9bcf1ff38418e47f71472b71dfde900d8d930ec
+prerequisite-patch-id: 13a1e87608fe9df25880aa4d1a415aa2dc0b6ffd
+prerequisite-patch-id: 01857ee7a1f867a6d415a72f471db5cfef294235
+prerequisite-patch-id: 4472685c2096d7d07e580b5d07c37328e0a13ad5
+prerequisite-patch-id: 7a40cf8dfb0282f8b7341a1277d4169d8573cb13
+prerequisite-patch-id: c8f47ab359354fcc2a7c742adb4b26e3a761bd07
+prerequisite-patch-id: 1b37470872d5d5d7795370ceec16e2695894bb44
+prerequisite-patch-id: 5ba552f8997854e2f24c3ef005490b5eedcf083f
 
-Regards,
-Zi-Yu Chen
+Best regards,
+--  
+Luiz Angelo Daros de Luca <luizluca@gmail.com>
+
