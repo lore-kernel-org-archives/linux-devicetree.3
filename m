@@ -1,176 +1,122 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67F3A3DD528
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 22:16:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C41763B992C
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 22:21:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785276961; cv=none; b=dKFlVVG+gFnqTYkP4s+ho2NeHaeJ1zNNmjuWeaGQqQza5dj2gf89U24Ts/YyjY3dck9n3j49sh/0TVGF4rWjRjeMDjt1IWpNUXNKZLOWJp/f0vt3prKlB2YVw+xnkNlCEPujM84YRLO3Z4GX1VlRO1W8HPLrOni3jmZ7Eeo2GDc=
+	t=1785277313; cv=none; b=YUKs5RpPk44I9NuvxcWWCF/XtovHdxP9wS0uHS4djolgM72GvoNSMzDq0S0xlRN1c3pLUjWlJs/dR7Ibn/IVKyia/nkAHJJMPBunccKLtdBmEIMyytKNVJhmKBNH+3T8+wG2uL6OrSoDLnhLNI/XwOrxX9foSZfHs2wVCzJ2ZWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785276961; c=relaxed/simple;
-	bh=kDmieDGHB7qC5d/ULg3nvfofgN7MilYR3I47pvTTbjY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Wdr7TCj5OqMNei4yHtbgiibEIG6XiDxsccO5fOKf5g8L6EccxAJ6D6Dt0Eunam6LmnlREc/G627C2O2IrDElQ0dZh1pyiO479aW8x2n8HVxd94jt5bn54OEvLRzfr8ygNH0pKudq2EGfgtH0uPXVlnrpICo4usFpUWkhW3zhVQk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V+Ovug2p; arc=none smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V+Ovug2p"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2cf50c6f235so4481255ad.0
-        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 15:16:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785276960; x=1785881760; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TPJW547IHCyCPM/JEAD0xNvj4iqsAXEGGB3Y+0luzVc=;
-        b=V+Ovug2plTkb+1XEnmt8yXonQ4hRkiQ39kii1BGDtEbUWm2eGnezATf3qEcEZbOiAd
-         VI8/3BKmhMC5jiZQAdxjPq/WNFAErkc8XlCE2F/eSRu3na8cn4KejOJ1iYarZ3EdSTpE
-         GMVA5l52KAy7nOTO7xORgqop7BPNYE007IKsXcoRdeUasBBu76jOEkDG5mmk87MikpBq
-         cmA44iD4+Bu3/0e8+UTyCeVOlvNhBaUsNBd9t68stOPoq3Oe3pkEJm9XhBGWUo3zcZw8
-         D9bXiZVUIzfh+HwIT58thVY2DfeFNKd+teHB9M3U7OWMhEYnqzndbxY01YmvXbw6LDPQ
-         rKPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785276960; x=1785881760;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=TPJW547IHCyCPM/JEAD0xNvj4iqsAXEGGB3Y+0luzVc=;
-        b=lcGERrm2Ao5dFqkVCr6ZN/SjaJLs3jgMIRa/Vvl+aqoRHKdeXw77HkUzTB/vwuWJ9l
-         BBZMDYWrgH3EhT+HO/yS0VNjTX7RkCCdWydiG57J0+3P0i9dD+aoV62FPX+R1Q5RioGN
-         adj6Z/xgvuzxbeTv8tlZ8qllCkdZ87MT5NLvHqy9iWmOdpLhf/G93Bbp0CJ/tvHwEXdr
-         a9rHlhhug02QWbjwJCeIvzhJsEQL2lVb1KZHjhImOxPbNchkLP+e+16kA3hcHXyzosoX
-         Kf/yKQtvPWuZLzT6beT7+/op2TSWCLsQMOILx3V0Ho3Kocv2/b/X0AG7AwHRvByiPHxd
-         n6Lw==
-X-Forwarded-Encrypted: i=1; AHgh+Rp6MeV00+FLoKwxd5L/HF9yN5iETcBDfeoUDR5lg/oQLHzV/Zw4GYoBrXr+OdYwCzAdnLMsTw9gv8Ij@vger.kernel.org
-X-Gm-Message-State: AOJu0YyCS5G3rB0fe6+Jo1R3hNgYnxAd+o4i04UDGGoL22QH7PUvlE8F
-	081m4Hk8+7ZaXYW14XzytzGYsAZ/b8KvygQWPuSc6vLC+hCiSJIymkkr
-X-Gm-Gg: AR+sD10Xxv2H5uhfZv6i25EQfqWlZIgVWrTilyBkM6pcRFvd8tzWNNHpchln0u8bcHF
-	Gbl1KkYd62PYZelrIH2qKpasqiqlj3YVQ/LnQayRyzRUODJGNTfAODFcbThrkmURc9QyqDFultT
-	Av72I6Xy00fZ3+/rUOp4VDKGL0qXrRk9I3nlUoufC6R9oDyoo8JoF7uGUanfOfuUDUCY6XDLfi0
-	/36zda7OBH3Cr80rh2otN4YlfuTzfMuj+l69fwoQN651HIdSitMQkadvdsZ3NWwMbSnqCEEyr7p
-	a1/ztiu4+hpOqNra7EWtdpGUV6vg+Uz/0SBRN3deUFOGXP1JIzjrGxyhZPM2QaX4qfjUlFNahAG
-	hJNW9xmePb26suvzeN1lmTECHBkWeNw2Z5IwKfMPw0ex+FK/Gs63dspLtXsGzogLQBDoo1QS/X7
-	Rn6HHk7sJvilqwySQrvxYGq0jqsNgUV1axy6WKZ2k8CiIytXQcKjT2lSda7daP5BEgfE1Ju4nAM
-	4kQ/BT8oCWeI2m1HUuxZXBtTdR8/hBHBDm8igkzU0DtAbNw
-X-Received: by 2002:a17:903:2986:b0:2cf:bfbb:61e2 with SMTP id d9443c01a7336-2d015d9d17bmr49349855ad.39.1785276959791;
-        Tue, 28 Jul 2026 15:15:59 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d022bc9bd4sm2158235ad.48.2026.07.28.15.15.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 28 Jul 2026 15:15:59 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <500573ca-b236-46cc-b92e-987385ccaf06@roeck-us.net>
-Date: Tue, 28 Jul 2026 15:15:57 -0700
+	s=arc-20240116; t=1785277313; c=relaxed/simple;
+	bh=ovsL/FcZTaRA7kE4cOav/t0xoU68EwIIXP676cOSvHc=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=We9e/3BZ/VTY/gUpes+VVJq/OASHgfvBmiPjBC4Tz9/uV8fVsB7EeuK5cN7AkdLupJbBnjzSaEzuX75Rqgjq4dz9V98FIrNjR/F38a7en0vZpNDe0rDRIULkTwCuyaJpmCEQK1lUCBnedtdosJ3xuu+MV4CGJ4x2ioegeMPQsgQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AE711F000E9;
+	Tue, 28 Jul 2026 22:21:52 +0000 (UTC)
+Received: by venus (Postfix, from userid 1000)
+	id 85777181F68; Wed, 29 Jul 2026 00:15:21 +0200 (CEST)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: linux-rockchip@lists.infradead.org, 
+ Chris Morgan <macroalpha82@gmail.com>
+Cc: devicetree@vger.kernel.org, xsf@rock-chips.com, sre@kernel.org, 
+ heiko@sntech.de, conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org, 
+ Chris Morgan <macromorgan@hotmail.com>
+In-Reply-To: <20260728203832.166402-1-macroalpha82@gmail.com>
+References: <20260728203832.166402-1-macroalpha82@gmail.com>
+Subject: Re: (subset) [PATCH V10 0/4] Add Anbernic RG Vita-Pro
+Message-Id: <178527692151.79336.909222279024554544.b4-ty@b4>
+Date: Wed, 29 Jul 2026 00:15:21 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] hwmon: (emc1403) Convert to use OF bindings
-To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Cc: Svyatoslav Ryhel <clamor95@gmail.com>, Jean Delvare <jdelvare@suse.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260721095935.439174-1-clamor95@gmail.com>
- <20260721095935.439174-3-clamor95@gmail.com> <amGz2YZogakb5XAv@monoceros>
- <CAPVz0n3WKw74zg0HmBBOo8Z7JV_pku-DjsgKF_74B8EdD5cXgA@mail.gmail.com>
- <1d7b6ff4-4ea6-41c4-b59c-25e14fdd8b53@roeck-us.net>
- <amUz_ilAvq_fBHld@monoceros>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <amUz_ilAvq_fBHld@monoceros>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-On 7/28/26 14:44, Uwe Kleine-König wrote:
-> On Sat, Jul 25, 2026 at 07:23:13AM -0700, Guenter Roeck wrote:
->> On 7/25/26 06:24, Svyatoslav Ryhel wrote:
->>> чт, 23 лип. 2026 р. о 09:28 Uwe Kleine-König
->>> <u.kleine-koenig@baylibre.com> пише:
->>>>
->>>> Hello,
->>>>
->>>> On Tue, Jul 21, 2026 at 12:59:34PM +0300, Svyatoslav Ryhel wrote:
->>>>> From: Jonas Schwöbel <jonasschwoebel@yahoo.de>
->>>>>
->>>>> Add OF match compatible table to be able to use this driver with Device
->>>>> Trees.
->>>>>
->>>>> Signed-off-by: Jonas Schwöbel <jonasschwoebel@yahoo.de>
->>>>> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
->>>>> Reviewed-by: Guenter Roeck <linux@roeck-us.net>
->>>>
->>>> Please put your S-o-b line last.
->>>>
->>>
->>> If S-o-b's should be chronological, then this order is correct.
->>> Guenter added his reviewed-by after I have added my signed-off-by.
-> 
-> It's a nitpick, but as you added Guenter's tag, you modified the commit
-> log and then your S-o-b has to be renewed.
-> 
->> That refers to S-o-B, not to Reviewed-by: trailers.
->>
->> Do we really have to argue about something like this ? Do I have
->> to mandate the order of non-SoB trailers for this subsystem ?
-> 
-> I wouldn't have replied just for the order, but I think it's convenient
-> and usual to have the own S-o-b last.
-> 
-> Depends on you how strict you want to be here, as usual. I for my part
-> ask for reordering or announce to fix the ordering if nothing else is in
-> the way for application.
-> 
-FWIW, my feedback wasn't directed at you.
 
-Guenter
+On Tue, 28 Jul 2026 15:38:28 -0500, Chris Morgan wrote:
+> From: Chris Morgan <macromorgan@hotmail.com>
+> 
+> Add support for the Anbernic RG Vita-Pro, based on the Rockchip RK3576 SoC.
+> 
+> Changes Since V1:
+>  - Updated documentation filename to matche compatible string.
+>  - Corrected order of allocating IRQ in charger driver and switched
+>    to using devm managed function to allocate work queue.
+> Changes Since V2:
+>  - Corrected issue with naming of panel binding document and added
+>    fallback compatible string.
+>  - Switched to devm helpers in panel driver. Note that
+>    devm_drm_panel_add() is currently only in the drm-next branch.
+>  - Optimized setting GPIOs for panel driver.
+> Changes Since V3:
+>  - Fixed numerous issues identifed by Sashiko bot, mainly relating
+>    to unclamped or improperly clamped values from within the
+>    charger driver.
+>  - Corrected hard-coded values in the panel driver unprepare routine
+>    as well as correcting an improperly checked return condition.
+> Changes Since V4:
+>  - Fixed errors identified by Sashiko bot on charger driver that could
+>    result in an improper value being written to the registers.
+>  - Corrected some error handling in the panel driver.
+> Changes Since V5:
+>  - Corrected minor errors in documentation and added default values.
+>  - Further corrected clamping behavior in charger driver.
+> Changes Since V6:
+>  - Additional corrections as suggested by Sashiko bot to fix potential
+>    edge cases during probe for sgm41542.
+>  - Corrected an improperly shifted value being written to register for
+>    sgm41542.
+>  - Changed a MV value to UV in sgm41542 driver to simplify function.
+> Changes Since V7:
+>  - Added PM functions to sgm41542 driver per request from Sashiko,
+>    which stops the hardware watchdog during suspend.
+>  - Switched from device_init_wakeup() to devm_device_init_wakeup().
+>  - Confirmed a state change in IRQ handler for sgm41542 to ensure we
+>    don't update input current limit except when the vbus goes from
+>    not okay to okay.
+>  - Removed panel patches, which have already been accepted upstream.
+>    Please note that this *may* cause an error about missing bindings.
+>    See commit 0fd6ead8270270d859a28d0196a4b47e7d6845b8 in linux-next.
+> Changes Since V8:
+>  - Added linux/bitfield.h header to prevent compile errors on certain
+>    platforms.
+>  - Added regulator to Kconfig as a dependency.
+>  - Added mutex to IRQ handling function.
+>  - Added update to watchdog enable field in suspend routine to ensure
+>    watchdog status "goes back to the way it was" after resume.
+>  - Sashiko complains of an issue if userspace updates values after
+>    devm_power_supply_register() is called but before the hardware
+>    limits are set from the device tree. While this is possible the
+>    threat of a problem should be very low given that the hardware
+>    limits are set immediately afterward and would overwrite any
+>    wrong values from userspace (should happen within a few
+>    milliseconds). Unfortunately, given that the function to get these
+>    limits requires the power supply be registered in order to read
+>    the battery node, it's not something that can be easily fixed at
+>    this time. Since it's an *extremely* unlikely edge case, I think
+>    that's acceptable.
+> Changes Since V9:
+>  - Made a few minor tweaks as suggested by sashiko.dev.
+>  - Adopted new init function for __power_supply_register() so that I
+>    can have the proper min and max values from the firmware prior to
+>    exposing the charger to userspace. New init function is part of
+>    this series here: https://lore.kernel.org/all/20260720011144.1280219-2-vincent.cloutier@icloud.com/
+> 
+> [...]
+
+Applied, thanks!
+
+[1/4] dt-bindings: power: supply: sgm41542: document sgm41542
+      commit: 15c53209e67ad450fb791aff5e0bd3dcc4349e36
+[2/4] power: supply: sgm41542: Add SG Micro sgm41542 charger
+      commit: 5584ad5706e594c7648655171785aa4fffdd3db5
+
+Best regards,
+-- 
+Sebastian Reichel <sebastian.reichel@collabora.com>
 
