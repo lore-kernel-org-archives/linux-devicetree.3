@@ -1,235 +1,199 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19FBE448CF1
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 14:17:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785248279; cv=pass; b=CHrEQaZovQiP2l6P3aaOg2Ug2FZSIwr5O+OTkGbM633K88e3HQdKoaX71UOs/igM3D1j4dNm52kpGk9f6lov1RNuPbG1goWbPj/fMLLT6eBU0rpgLd6Hrfjbkmt9Cg1ZtjENBHgQx9dMZW5DeYVuho91DWarzTupbnU212W3XyU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785248279; c=relaxed/simple;
-	bh=s0L6BAhWQAP5ekhIx6eSaVT1WWCc3scLWsxKArPZM+U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=J16ySLT3o2/lM7azOgNlBr5aSH6ax+OhCQIAGvlvzlPIyz8lfHSdXjY9XPwfELnIpSObIyN8yjp5CvByNyGMXnB/w1XnbvuJE9LxfuAknejP3g5hMl30aI8wzoVjYsSAWgPBam8rsvB2Rio4BPqzAMJvpE+T3bIw7Q1bHIeUxyU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CJQEJp/S; arc=pass smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81965448BBB
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 14:25:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785248727; cv=none; b=FDf+gA1Im7T4K61er/MI0Tf9FIWpeeuWlbw84QxOPDyKr+DRFC4y2imW8ingBn21HNJYfTyUMoyB3D6TjnIbLsXPHIcliLND1raPxRcZwbmauIOboQZUlYYr0ohs7IUfLLx4eT7SB3NXwFCGTAncYm3ViQgOHxhA/pTpxr9KKFI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785248727; c=relaxed/simple;
+	bh=5pXi4dgAo1m0sp77oTw62O1Q9wJLmYmFtoegNg07rZA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Nkp1SyTPILb3M8t24Kk71rUcZrEfK0dUJF4c/CgHvQWRLGajU2G35G6CP6+QH0XzzyIQ8/qwJrsSzvlRdQUIdz6qIxRWUjdT7SaB4Uof2WQn3p6EJGtBccCOfLEOf5XZ2K53saeDP2dcPDEuj0L3LHGTN27aofCFeDy0G8x2lYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I+Hd9qTV; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CJQEJp/S"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-38125cebfdaso5495787a91.1
-        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 07:17:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785248277; cv=none;
-        d=google.com; s=arc-20260327;
-        b=n4N40RUnIP92UMrGEbWc4+6b9BpQgnhgh0CFpOZaTKPD6SaBmbp81+efE4BvQBZB0i
-         pKfvhiOFMGYOhxHz3nDAKycvr2L5tdDoLkJaqQ6SVfoa9xR192/cCaya5uKWqq8nmb8B
-         5yI0KwRrVGUAAMbKbIc8RZjdb6ec98Yo5tfMHbmmqY2eKXiD6j/gpOVRBsL/Cg2hMhFk
-         AkdX8E5hTBsxP7SqFBcUeDw++e/ZgPqk5dGa5hy1Xw4yvySY6hmqW05R0gcCBMJrEkW5
-         w9yKAWSpXVbY7e/YauRsM/jLwMczpuBHoPpsFmQyamLtTlufP0Tl7/RZMhONFO3NYTi+
-         /g0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=YL5Iy3naCnnlYB9h+hgyvohN7nDYnPYG3Swu9uEYbAs=;
-        fh=8mBEXeDU2qv+LC8p82wVxSdqNbx0nYH+hy9UWqU41Ug=;
-        b=B62699aIrxfqyKjtZ5C79ROJtL7VZ0eRo8QVImZfhlLpE0jTlzwPtMTc3ik1UPO4lm
-         KmoOQmcVChobdQy49ym0LjiBofbnj/Ky8pOo42GVOdZkDX4yrnBwh0bvMIv0HVfzZ2vX
-         4UlD1jHw+ubJiVUoOMDiHpp1xmxqd1OsuuIoWdvhTjMEiAuq2p/quQqBcqDyONNZhtJw
-         Lvuh8F+OnHR7e3/8c8l0YXBeoLro+iMM+0Bc+ztjfxFPA778u6t1XdJ0ro8IOqMjapOX
-         uoQk9pRqHGrCaLY2m9ryi6LjH42efkQsCXAwCw9vr0KuuXVfdSuUlZQn4+qKsEAb9O5y
-         rEBg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I+Hd9qTV"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2caed617615so40637215ad.3
+        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 07:25:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785248277; x=1785853077; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YL5Iy3naCnnlYB9h+hgyvohN7nDYnPYG3Swu9uEYbAs=;
-        b=CJQEJp/SgiCvghXYapbOzlPgVC5SsLMSsN4BXVIsg6TSe+W6zdzuJ0rmszncKm8SLV
-         H5uD8gz9eSEeCcHzVFhq5raBYmYPUbF7vTdYTDSdIKc21DUbiCwLBtRwB1UJnxnp9Afb
-         SiFT+/+t+HncT+mMsyZ5Sk5scRF/a5Khn8m9Te/e68EgYSnk5A2niMzhluP1LNGyzuDV
-         O5kGPke9eRvZTQ459bvPYXzJ5ZUGW3qW+x15zAGCH1pL77tU8nrqUGAsfQbk4fYSE6wn
-         D5JqGJufvuHIpGwxuU93pbHnCeDImtmC/MAvZ5C5BFIuHcg3zW9j6FXwHfRX3JnYmQeM
-         hyMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785248277; x=1785853077;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1785248725; x=1785853525; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=YL5Iy3naCnnlYB9h+hgyvohN7nDYnPYG3Swu9uEYbAs=;
-        b=nUHwAh2B5QDNVyRt9i4UFRUA+GaqhTyvcRjmN/x48Cfqfxx2d8hBcgOES/zTTDZYpa
-         WpNgfa8jN2WI98Mo6NVck2GqtnizrS9tO97N4hizeFvzFByQNDVrtQspFu4QuUU1PXCb
-         04WO1bejGiLkehfcLAWIfn2iOUfl6b+czT74Utc7rL8/hgrJf+d9rSedSh3fq5sSYTah
-         hyNZl0ku88tBKwfzjw5kSvLVukOE1ihLeMuic31nT3AyMy0amxU9SEO0BtrRz3kDmqGa
-         TfqPExhlfunShjayjWx1ZFui2/VGmu3+lPEpqmEkoUhhJpInZQdhGTn4ncIqnbmobyLg
-         +mAQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqF7TSBk7a/hYX8mdcsUYwP4CCj6jWbFUyEkop5LHZmas9eG2DRUaq7IBwt8nODxI9UB/57ofysqrJC@vger.kernel.org
-X-Gm-Message-State: AOJu0YzAApM0qJ1eyJwgfJttc0SMQ3/NuCfqQcYB7XVehQ6AbrlIHCeo
-	topK8xL0nYnyHtC0NqFgsC1a3ZjcG2yRBSG8E5gQOofXJWzmKHS7R2/w/tZNTzcrRnP8wPEVGNC
-	orBnuUoc2wUKBYpeY5sfAg2eoe8axl20=
-X-Gm-Gg: AR+sD12tcCXgM8LyqhBSt1T3O8lQ96oHSmc96SPpenE9HlBFHdzOq68598MpdUILbr7
-	8QAak7/pNyjXJ4EckOINx75M9NpUbjehUC6bLskYbnRUaxurBwRKl/uK9wVPzj7i6D3jM6MhMbF
-	7i+Fb1gLCNWNxoOZXBrJ65J28mu5JvtKvE0O69tirkuGsxVW5vnidIpAuX6ULCnDR/qLdgIUYOp
-	HooX1lnZiWIsC7yj/2nOE3DulToLhZWxDUJ6An2kDqPqaK/z9GMPz1CHpnLpKl9G7ZicEKWvOMN
-	H/ZBlqNKcM533S4IvtU=
-X-Received: by 2002:a17:90b:1806:b0:380:fead:448d with SMTP id
- 98e67ed59e1d1-38f6a40bd7cmr3263576a91.13.1785248272625; Tue, 28 Jul 2026
- 07:17:52 -0700 (PDT)
+        bh=mAjDSAgZ2SM25Sq8ILGGacbnA1ulD3BXrj3aZojkvoQ=;
+        b=I+Hd9qTVKczeqvIxEuLGaXEtA/u2MWaOJ0GrySOwjQXamqKda2QynOikZCPmqlVltM
+         wzmdZYDxvMOEIzZq1HrxlfUFcrVOt5WSTk7sSlN5mf4c1MHUJq/ryXuOvSH63+DkvmNj
+         3fAFLki31ORrBpefJgGlYytOZCvIcmfuu5NO370sZq0P2s4MABleGsXFT/l+GS8Y1I/S
+         omY/zkxLq2DTBAX9uTef2/wA/jJ6grsymCoDCgurEA1/Y9GFPSVHHRr1xGxpT/WV8Q7P
+         7IdOj5gu7+lXpgmKXgwLlB6VdhD8ZoAjBgP/6LKzukP27i5JZnTs4SOx+7r6eM+ZBJ5l
+         0FCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785248725; x=1785853525;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=mAjDSAgZ2SM25Sq8ILGGacbnA1ulD3BXrj3aZojkvoQ=;
+        b=c7JpBm0aUxa2TOE7uy9khHSPR43FIVEX4pnFFt2oj4fNwqixxx4FHQepV9Io36gAI+
+         R4wcFzbqo10WknMGZlQJ6W3SuDWWK8c44u833gcT0JdZwmVyDoNH1Sdlz8D/oUyKlbKF
+         lE5GHpKf8C21mCWOvh+Svqtnki4JycCgssBcZbWpS6/3X8YDL+ICFHKG3rtmsvTIQKNr
+         Z86o5W4IsUpIazmqfA6fUEd9uM2GhFu0jf1k1bqhiVdNcYCx5BGG3EUv+cPyqB5wdvJ7
+         Y0/ubS5oedri0j36wh04Z9ZjDHJDLQv/miR1f9+BoJh0RmBn6/gRNum3HX6m+9A1bc9F
+         7g1w==
+X-Forwarded-Encrypted: i=1; AHgh+Rr+GEj8NsvJnxUOMSzk1MePmkFtPhP516garN6SPMemauzEIvZp5dIXej83QkJ+tdKbKXxGegKg/ufP@vger.kernel.org
+X-Gm-Message-State: AOJu0YxT8OUJ7Jt/s3egWzbQN0UGbSR1sa7Gs2bMpC7YUpXgXLZP0gou
+	DRdqP/d569J5tte8kNSELKn9KcLW0FcvvuyBlqEdvd9bhiPOCd3/AQik
+X-Gm-Gg: AR+sD11jPugU0IZ1n9l9l7ArnjPlifIbTxCMNjT9bHS4mtg0POsEfiV1NFgxNUGpxPA
+	a+8IeksvQPMRLMmiKWyTaSgLZ4UDyz8D/2ts06Wqd+FaLGrrLnPxOJPJ8SVVUqdn2Vt6IGV1qvp
+	in0CJCnqixkgx8n8tN7p0BBjYK8jQDeG/rozdjbjux0IA2a1/6BtLL/sjhGwrET4PH3eebpaCS6
+	CN6a4/Kohp9OLzJFczAAImb0OvAw8Mm+5HheEcLL69pLbwsTCDX+6LLyqfTuDOb07phOOOfR9XH
+	PG2LPPGvBadYq+geciIHbh961cMhtrTrarfcUTPJ3GEEcNyia6WitFnsA6kXwujg1bijsVf9/nU
+	3jOnSIa+QpjBMy8z1pCLcukc/wUAzv3GPEmJn9U/MQwXpvCXqey1iqtjT1XO7gOCTh0pnLhH+Ag
+	ZOcWMZI6vqzRvgvmjNbVQsM8mAkr1UGAcpFBh6NIrJ/jqsXJ7yF7g=
+X-Received: by 2002:a17:903:46cd:b0:2cc:f7c6:8353 with SMTP id d9443c01a7336-2d015da2cdcmr30952985ad.41.1785248724721;
+        Tue, 28 Jul 2026 07:25:24 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-314bc548efesm45553281eec.14.2026.07.28.07.25.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 28 Jul 2026 07:25:24 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <9812bc9e-75c7-49b8-82c3-1e9162d53ccd@roeck-us.net>
+Date: Tue, 28 Jul 2026 07:25:22 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260721101059.451699-1-clamor95@gmail.com> <20260721101059.451699-7-clamor95@gmail.com>
- <L1pGU82wTC69ycdbd3YRJQ@nvidia.com>
-In-Reply-To: <L1pGU82wTC69ycdbd3YRJQ@nvidia.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Tue, 28 Jul 2026 17:17:40 +0300
-X-Gm-Features: AUfX_mx6nAQUP8140au6l006nq8pIwhJbqbjeri4r4lcGh_AF4WWT8JcJVxbdyI
-Message-ID: <CAPVz0n2cBDZ16rek-phtp0J5QKSfyZHWHtJX7CeWjraEuz=5qw@mail.gmail.com>
-Subject: Re: [PATCH v2 06/10] ARM: tegra: tf701t: Tune MMC devices
-To: Mikko Perttunen <mperttunen@nvidia.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Thierry Reding <thierry.reding@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, devicetree@vger.kernel.org, 
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 4/4] hwmon: (pmbus/max20830): add support for max20830c
+ and max20840c
+To: "Torreno, Alexis Czezar" <AlexisCzezar.Torreno@analog.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>
+Cc: "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
+References: <20260728-dev-max20830c-v4-0-cec034298535@analog.com>
+ <20260728-dev-max20830c-v4-4-cec034298535@analog.com>
+ <336bd264-52ec-473a-b74f-5661f06286ed@roeck-us.net>
+ <PH0PR03MB6351D7369AB790714DF416BDF1CB2@PH0PR03MB6351.namprd03.prod.outlook.com>
+ <9559d319-4b44-45c2-ae13-f92099de4c89@roeck-us.net>
+ <PH0PR03MB63510057D496CBE8EBFAE246F1CB2@PH0PR03MB6351.namprd03.prod.outlook.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
+ RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
+ nyFiKxUehbNF3r9qlJgPqONwX5vJy4/GvDHdddSCxV41P/ejsZ8PykxyJs98UWhF54tGRWFl
+ 7i1xvaDB9lN5WTLRKSO7wICuLiSz5WZHXMkyF4d+/O5ll7yz/o/JxK5vO/sduYDIlFTvBZDh
+ gzaEtNf5tQjsjG4io8E0Yq0ViobLkS2RTNZT8ICq/Jmvl0SpbHRvYwa2DhNsK0YjHFQBB0FX
+ IdhdUEzNefcNcYvqigJpdICoP2e4yJSyflHFO4dr0OrdnGLe1Zi/8Xo/2+M1dSSEt196rXaC
+ kwu2KgIgmkRBb3cp2vIBBIIowU8W3qC1+w+RdMUrZxKGWJ3juwcgveJlzMpMZNyM1jobSXZ0
+ VHGMNJ3MwXlrEFPXaYJgibcg6brM6wGfX/LBvc/haWw4yO24lT5eitm4UBdIy9pKkKmHHh7s
+ jfZJkB5fWKVdoCv/omy6UyH6ykLOPFugl+hVL2Prf8xrXuZe1CMS7ID9Lc8FaL1ROIN/W8Vk
+ BIsJMaWOhks//7d92Uf3EArDlDShwR2+D+AMon8NULuLBHiEUQARAQABzTJHdWVudGVyIFJv
+ ZWNrIChMaW51eCBhY2NvdW50KSA8bGludXhAcm9lY2stdXMubmV0PsLBgQQTAQIAKwIbAwYL
+ CQgHAwIGFQgCCQoLBBYCAwECHgECF4ACGQEFAmgrMyQFCSbODQkACgkQyx8mb86fmYGcWRAA
+ oRwrk7V8fULqnGGpBIjp7pvR187Yzx+lhMGUHuM5H56TFEqeVwCMLWB2x1YRolYbY4MEFlQg
+ VUFcfeW0OknSr1s6wtrtQm0gdkolM8OcCL9ptTHOg1mmXa4YpW8QJiL0AVtbpE9BroeWGl9v
+ 2TGILPm9mVp+GmMQgkNeCS7Jonq5f5pDUGumAMguWzMFEg+Imt9wr2YA7aGen7KPSqJeQPpj
+ onPKhu7O/KJKkuC50ylxizHzmGx+IUSmOZxN950pZUFvVZH9CwhAAl+NYUtcF5ry/uSYG2U7
+ DCvpzqOryJRemKN63qt1bjF6cltsXwxjKOw6CvdjJYA3n6xCWLuJ6yk6CAy1Ukh545NhgBAs
+ rGGVkl6TUBi0ixL3EF3RWLa9IMDcHN32r7OBhw6vbul8HqyTFZWY2ksTvlTl+qG3zV6AJuzT
+ WdXmbcKN+TdhO5XlxVlbZoCm7ViBj1+PvIFQZCnLAhqSd/DJlhaq8fFXx1dCUPgQDcD+wo65
+ qulV/NijfU8bzFfEPgYP/3LP+BSAyFs33y/mdP8kbMxSCjnLEhimQMrSSo/To1Gxp5C97fw5
+ 3m1CaMILGKCmfI1B8iA8zd8ib7t1Rg0qCwcAnvsM36SkrID32GfFbv873bNskJCHAISK3Xkz
+ qo7IYZmjk/IJGbsiGzxUhvicwkgKE9r7a1rOwU0ETofVZwEQALlLbQeBDTDbwQYrj0gbx3bq
+ 7kpKABxN2MqeuqGr02DpS9883d/t7ontxasXoEz2GTioevvRmllJlPQERVxM8gQoNg22twF7
+ pB/zsrIjxkE9heE4wYfN1AyzT+AxgYN6f8hVQ7Nrc9XgZZe+8IkuW/Nf64KzNJXnSH4u6nJM
+ J2+Dt274YoFcXR1nG76Q259mKwzbCukKbd6piL+VsT/qBrLhZe9Ivbjq5WMdkQKnP7gYKCAi
+ pNVJC4enWfivZsYupMd9qn7Uv/oCZDYoBTdMSBUblaLMwlcjnPpOYK5rfHvC4opxl+P/Vzyz
+ 6WC2TLkPtKvYvXmdsI6rnEI4Uucg0Au/Ulg7aqqKhzGPIbVaL+U0Wk82nz6hz+WP2ggTrY1w
+ ZlPlRt8WM9w6WfLf2j+PuGklj37m+KvaOEfLsF1v464dSpy1tQVHhhp8LFTxh/6RWkRIR2uF
+ I4v3Xu/k5D0LhaZHpQ4C+xKsQxpTGuYh2tnRaRL14YMW1dlI3HfeB2gj7Yc8XdHh9vkpPyuT
+ nY/ZsFbnvBtiw7GchKKri2gDhRb2QNNDyBnQn5mRFw7CyuFclAksOdV/sdpQnYlYcRQWOUGY
+ HhQ5eqTRZjm9z+qQe/T0HQpmiPTqQcIaG/edgKVTUjITfA7AJMKLQHgp04Vylb+G6jocnQQX
+ JqvvP09whbqrABEBAAHCwWUEGAECAA8CGwwFAmgrMyQFCSbODQkACgkQyx8mb86fmYHlgg/9
+ H5JeDmB4jsreE9Bn621wZk7NMzxy9STxiVKSh8Mq4pb+IDu1RU2iLyetCY1TiJlcxnE362kj
+ njrfAdqyPteHM+LU59NtEbGwrfcXdQoh4XdMuPA5ADetPLma3YiRa3VsVkLwpnR7ilgwQw6u
+ dycEaOxQ7LUXCs0JaGVVP25Z2hMkHBwx6BlW6EZLNgzGI2rswSZ7SKcsBd1IRHVf0miwIFYy
+ j/UEfAFNW+tbtKPNn3xZTLs3quQN7GdYLh+J0XxITpBZaFOpwEKV+VS36pSLnNl0T5wm0E/y
+ scPJ0OVY7ly5Vm1nnoH4licaU5Y1nSkFR/j2douI5P7Cj687WuNMC6CcFd6j72kRfxklOqXw
+ zvy+2NEcXyziiLXp84130yxAKXfluax9sZhhrhKT6VrD45S6N3HxJpXQ/RY/EX35neH2/F7B
+ RgSloce2+zWfpELyS1qRkCUTt1tlGV2p+y2BPfXzrHn2vxvbhEn1QpQ6t+85FKN8YEhJEygJ
+ F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
+ FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <PH0PR03MB63510057D496CBE8EBFAE246F1CB2@PH0PR03MB6351.namprd03.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-=D0=B2=D1=82, 28 =D0=BB=D0=B8=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 15:09 Mikk=
-o Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Tuesday, July 21, 2026 7:10=E2=80=AFPM Svyatoslav Ryhel wrote:
-> > Add SDR104 mode to WiFi SDIO and uSD device nodes, remove mmc-ddr-1_8v
-> > which is eMMC specific and improve their power sequences. The uSD card
-> > refuses to work reliably with fixed regulator and 1.8V IO supply. Adjus=
-t
-> > configuration to mimic setup proposed by the vendor in the downstream
-> > kernel. Add HS200 mode support to the eMMC sdmmc device node.
-> >
-> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > ---
-> >  .../boot/dts/nvidia/tegra114-asus-tf701t.dts  | 35 +++++++------------
-> >  1 file changed, 13 insertions(+), 22 deletions(-)
-> >
-> > diff --git a/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts b/arch/a=
-rm/boot/dts/nvidia/tegra114-asus-tf701t.dts
-> > index 83f8dd84d28a2..3de5c84d5f009 100644
-> > --- a/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
-> > +++ b/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
-> > @@ -1645,9 +1645,9 @@ ldo8 {
-> >
-> >                                       vddio_usd: ldo9 {
-> >                                               regulator-name =3D "vddio=
-_usd";
-> > -                                             /* min voltage of 1.8v is=
- not stable */
-> > -                                             regulator-min-microvolt =
-=3D <2900000>;
-> > +                                             regulator-min-microvolt =
-=3D <1800000>;
-> >                                               regulator-max-microvolt =
-=3D <2900000>;
-> > +                                             regulator-boot-on;
-> >                                       };
-> >
-> >                                       avdd_hdmi: ldoln {
-> > @@ -2350,9 +2350,9 @@ brcm_wifi_pwrseq: pwrseq-wifi {
-> >               clocks =3D <&tegra_pmc TEGRA_PMC_CLK_BLINK>;
-> >               clock-names =3D "ext_clock";
-> >
-> > -             reset-gpios =3D <&gpio TEGRA_GPIO(X, 7) GPIO_ACTIVE_LOW>;
-> > -             post-power-on-delay-ms =3D <300>;
-> > -             power-off-delay-us =3D <300>;
-> > +             reset-gpios =3D <&gpio TEGRA_GPIO(CC, 5) GPIO_ACTIVE_LOW>=
-;
-> > +             post-power-on-delay-ms =3D <100>;
-> > +             power-off-delay-us =3D <100>;
-> >       };
-> >
-> >       /* WiFi */
-> > @@ -2372,9 +2372,7 @@ mmc@78000000 {
-> >               non-removable;
-> >
-> >               sd-uhs-ddr50;
-> > -             mmc-ddr-1_8v;
-> > -
-> > -             power-gpios =3D <&gpio TEGRA_GPIO(CC, 5) GPIO_ACTIVE_HIGH=
->;
-> > +             sd-uhs-sdr104;
-> >
-> >               nvidia,default-tap =3D <0x2>;
-> >               nvidia,default-trim =3D <0x2>;
-> > @@ -2396,14 +2394,18 @@ wifi@1 {
-> >       /* MicroSD card */
-> >       mmc@78000400 {
-> >               status =3D "okay";
-> > -
-> >               bus-width =3D <4>;
-> > +
-> >               cd-gpios =3D <&gpio TEGRA_GPIO(V, 2) GPIO_ACTIVE_LOW>;
-> > +             power-gpios =3D <&gpio TEGRA_GPIO(K, 1) GPIO_ACTIVE_HIGH>=
-;
-> > +
-> > +             sd-uhs-ddr50;
-> > +             sd-uhs-sdr104;
-> >
-> >               nvidia,default-tap =3D <0x3>;
-> >               nvidia,default-trim =3D <0x3>;
-> >
-> > -             vmmc-supply =3D <&vdd_2v9_usd>;
-> > +             vmmc-supply =3D <&vcore_emmc>;
-> >               vqmmc-supply =3D <&vddio_usd>;
-> >       };
-> >
-> > @@ -2414,6 +2416,7 @@ mmc@78000600 {
-> >
-> >               non-removable;
-> >               mmc-ddr-1_8v;
-> > +             mmc-hs200-1_8v;
-> >
-> >               vmmc-supply =3D <&vcore_emmc>;
-> >               vqmmc-supply =3D <&vdd_1v8_vio>;
-> > @@ -2608,17 +2611,6 @@ hdmi_5v0_sys: regulator-hdmi {
-> >               vin-supply =3D <&vdd_smps10_out2>;
-> >       };
-> >
-> > -     vdd_2v9_usd: regulator-vdd-usd {
-> > -             compatible =3D "regulator-fixed";
-> > -             regulator-name =3D "vdd_sd_slot";
-> > -             regulator-min-microvolt =3D <2900000>;
-> > -             regulator-max-microvolt =3D <2900000>;
-> > -             regulator-boot-on;
-> > -             gpio =3D <&gpio TEGRA_GPIO(K, 1) GPIO_ACTIVE_HIGH>;
-> > -             enable-active-high;
-> > -             vin-supply =3D <&vcore_emmc>;
-> > -     };
-> > -
-> >       vdd_1v8_cam: regulator-cam-vio {
-> >               compatible =3D "regulator-fixed";
-> >               regulator-name =3D "vdd_1v8_cam";
-> > @@ -2655,7 +2647,6 @@ vdd_3v3_com: regulator-com {
-> >               regulator-name =3D "vdd_3v3_com";
-> >               regulator-min-microvolt =3D <3300000>;
-> >               regulator-max-microvolt =3D <3300000>;
-> > -             regulator-always-on;
-> >               regulator-boot-on;
-> >               gpio =3D <&gpio TEGRA_GPIO(U, 1) GPIO_ACTIVE_HIGH>;
-> >               enable-active-high;
-> > --
-> > 2.53.0
-> >
-> >
->
-> Which vendor BSP are you referencing? The one I have seems to set
-> MMC_UHS_MASK_DDR50, but I'm not quite sure what board definitions these
-> devices are actually using.
->
+On 7/27/26 23:58, Torreno, Alexis Czezar wrote:
+>>
+>>>>
+>>>> Are those chips still not published ? I find MAX20840T, but no "C" variants.
+>>>> And MAX20840T presumably has an I2C device ID of "MAX20840", not
+>>>> "MAX20840C".
+>>>>
+>>>> I also noticed that MAX20810 and MAX20815 seem to be register
+>> compatible.
+>>>>
+>>>
+>>> I believe so yes, they aren't yet.
+>>>
+>>
+>> I just hope they are really compatible, and that the device ID strings really
+>> include the "C". The "T" variants seem to have no T in the device ID string,
+>> making it a bit odd that it was (or will be) added for the C variants.
+>>
+> 
+> Yeah the T is weird, but I did test the C variants and they do reply the 'c' char.
+> 
+>>> Actually MAX20810/815 and a few more are next in line after this. A
+>>> different person is handling it, but they're waiting on how this patches go.
+>>>
+>>
+>> You are making yourself more work than necessary. Knowing that there are
+>> more chips coming, the sequence of strcmp() is not really that desirable
+>> anymore.
+>> It might make sense to create an array with all chips supported by the driver
+>> instead of adding up strcmp sequences. That would make it much easier to add
+>> support for new variants.
+>>
+>> There also seems to be a MAX20830T. Does it actually make sense to list the
+>> variants (C/T) in the first place ?
+>>
+> 
+> Will think about how to make to scale the code when adding newer variants.
+> 
 
-TF701T is based on Macallan board file. Downstream sets
-MMC_UHS_MASK_DDR50 for sdmmc 1 and 2 (sd and wifi) and no flags for
-mmc. From extensive testing on the device I can confirm that sdr104
-mode can be used on sd and wifi sdmmc (in addition to ddr50 which is
-not removed). Same story with eMMC and HS200 mode.
+Something like the following should do.
+
+const char *supported_chips[] = {
+	"MAX20830",
+	"MAX20830C",
+	"MAX20840",
+	"MAX20840C"
+};
+
+...
+	for (i = 0, supported = false; i < ARRAY_SIZE(supported_chips) && !supported; i++)
+		supported = !strcmp(buf, supported_chips[i]);
+
+	if (!supported)
+		return dev_err_probe(&client->dev, -ENODEV,
+				     "Unsupported device: '%*pE'\n", ret, buf);
+
+Then all you'd need to do to add more chips would be to add the strings to
+the supported_chips[] array.
+
+Thanks,
+Guenter
+
