@@ -1,303 +1,208 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D37841B8F8;
-	Tue, 28 Jul 2026 10:27:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 807A142048D
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 10:30:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785234437; cv=none; b=O57iX5DSS1F/t0YDf0ttMbVZjoOslTdLtZVrnBrd1a1gU6j4TrguGFp2DHVveu5ET4HDEc5QPpCwS4Tsc5G4pftyKOs9BGaaBVlRfTjhtRZz5C+S5XG/d9ww35z+YRGtKKq5iINZfgum9Jm7Ee3nWFS512riXvMZTaTWGfS0NPw=
+	t=1785234650; cv=none; b=Qx/Pdl7tMucReBEnOHRQvvqCZ72y//psLLph92WziZCUWPuibpWfu+uYudOYUbXZ4U74lwM8Tz0CpvGJmJQNe82dw1vZ2kF0VK9aYg8wsiLfK89FpZ50khnf33fswiLCOQoMnTJ00tD7/KR/cToqK5OQAm1ErpCBLa1Mp9bSNpo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785234437; c=relaxed/simple;
-	bh=PBL4bcwsZ2pRcB92r/JbVDJLb9l/P0M8lnYx0YrbTI4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OkqiwBXhYnJdivlaKlWfnDzEdJKPEn23cWO9s8R1pPLANcXjdZNsWu+JyDill2vFp1az67m21Eoa6Ie1EIT7iWqiCAQfRvr2uGN2Ii2guTH/dBqCW4khloCzp4hriJRtNP1DLBh9DreBv1WiQtk5+OWEkDjjYfzqemrvlOMbQhE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V9fhMXGH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785234650; c=relaxed/simple;
+	bh=CHBpkIaOV/cygzkhMSeCo3PSs0M+g8d78QaRl8VFWhs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=r9qj6GA99Gs/tHyIf4cAGXliZ9VvdPeDLCqMUjHmICZXgYeRPBt4BBmc5CxOIjkQ/u5RxL7Zh6iAzryVlIuGJayFiWs2LWZXl/hSZkpQv3SI68Jnqj3eWlZ+zJ3QNoMaVIXim9IhpRgW323mlahbKURKBhYlrYg8vrAyqISuvMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nKxcHcdF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V9fhMXGH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AA641F000E9;
-	Tue, 28 Jul 2026 10:27:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nKxcHcdF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3E7B1F000E9;
+	Tue, 28 Jul 2026 10:30:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785234436;
-	bh=uiAaOW/UoDyPAMFo3YGGeL+aFC2bg347xxp5/EX2k1A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=V9fhMXGH0Ulk3AKxRHa767ua4g49h6kpMpshBFnBGQ2eNKWXwzcKlSZ573rh6W5Bq
-	 /KvGmNs2nzGG9yxWJSWeAsMbtzxvUUyhvuJUmonTZ2zkleeB88TzZNlPjxlNluXFJ4
-	 TaSnn7ivMlNBibznbA2aLwciPILSOlJfQYDHIyHNy6inO7DN5xVEFkiqKW5dTy99Px
-	 +PP8hfEHbf3eI8jOQ51tPrc7L+sz5uVm1PyXhfGDxOqz/kF7FGmEe+cmo4bw751F2q
-	 uX06XV/5Odf7cSvQ6wdKwPTG3oyXOePr8QpZfpsOJWO83OcLS69HitKrjYJ9P/Fivh
-	 IAFyV7HPui43g==
-Date: Tue, 28 Jul 2026 12:27:11 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Bhargav Joshi <j.bhargav.u@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Tony Lindgren <tony@atomide.com>, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
-	simona.toaca@nxp.com
-Subject: Re: [PATCH v2] regulator: dt-bindigs: ti,pbias-omap: Convert to DT
- schema
-Message-ID: <20260728-vegan-carrot-hyena-1275f1@quoll>
-References: <20260722-ti-pbias-omap-v2-1-e26fbd476e6e@gmail.com>
+	s=k20260515; t=1785234649;
+	bh=SrvA82VR2s/Czj3SgLLrD/E84EvR04FsO0mjgIFaPNE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=nKxcHcdFylFKvza58FjvbKNXmnRYKMyNmDk6/0VzU0J7XkIJkS/aDdBJVEmv+T6gV
+	 x9WjOwdioGUVM+ObgQJ9jQZ1gG6/FExjYaErb/Mqyc+sHh6VMD1V/Oe2kZuEDe0Lvg
+	 zpSMskx0SMsxfJwx9lynwV1EP2wbJFNW5Of9GoMZ22ipeCTZUFA86TXtxoZnVQd6QS
+	 F+cQZAom7vyb0aSN52s4KGwB3jRrY7dZhTUT9aibk4dzSnQCHUtkS5JbZ2yjS54ERZ
+	 jtdqgCnBoRp4cpSas3f0UMnA4UVOQ91ZaDvtHWeXAr23RoWizb3C2ODo/kIiw92coM
+	 Csded6u+fknjw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 4/5] phy: qualcomm: qmp-combo: Add USB4/TBT3
+ configuration data for Hamoa
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Konrad Dybcio" <konradybcio@kernel.org>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, robh@kernel.org, vkoul@kernel.org, olteanv@gmail.com
+In-Reply-To: <20260728-topic-usb4phy-v2-4-5d9dd5149ec7@oss.qualcomm.com>
+References: <20260728-topic-usb4phy-v2-0-5d9dd5149ec7@oss.qualcomm.com>
+ <20260728-topic-usb4phy-v2-4-5d9dd5149ec7@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 28 Jul 2026 10:30:48 +0000
+Message-Id: <20260728103048.B3E7B1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260722-ti-pbias-omap-v2-1-e26fbd476e6e@gmail.com>
 
-On Wed, Jul 22, 2026 at 09:55:07PM +0530, Bhargav Joshi wrote:
-> Convert Texas Instruments PBIAS internal regulator from text to DT
-> schema. No Functional changes are introduced.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] The driver reads the wrong register to check the `DP_TUNNELING_CLO=
+CK_GEN_EN` flag and then unconditionally clobbers the correct register with=
+ `writel`.
+- [Medium] Missing `clk_disable_unprepare` for `p2rr2p_pipe_clk` on error p=
+aths in `qmp_combo_usb4_init`.
+- [Medium] Double execution of `qmp_combo_usb_power_on` in `qmp_combo_usb4_=
+init` if the USB3 PHY is already active.
+- [Low] Several UCDR (Universal Clock and Data Recovery) register offsets a=
+re misleadingly defined with a `_TX_` prefix instead of `_RX_`.
+--
 
-Subject - typo, dt-bindings.
+--- Patch [4]: [PATCH v2 4/5] phy: qualcomm: qmp-combo: Add USB4/TBT3 confi=
+guration data for Hamoa ---
+commit cbebd51448ab869d435da5d2defb78f367d02956
+Author: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: phy: qualcomm: qmp-combo: Add USB4/TBT3 configuration data for Ham=
+oa
 
-> 
-> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
-> ---
-> Changes in v2:
-> - remove top level $ref: regulator.yaml#
-> - update schema to support OMAP3 SoCs to have both MMC and
->   SIM PBIAS regulators
-> - Link to v1: https://lore.kernel.org/r/20260717-ti-pbias-omap-v1-1-527848131801@gmail.com
-> ---
->  .../bindings/regulator/pbias-regulator.txt         |  32 -----
->  .../bindings/regulator/ti,pbias-omap.yaml          | 157 +++++++++++++++++++++
->  2 files changed, 157 insertions(+), 32 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/regulator/pbias-regulator.txt b/Documentation/devicetree/bindings/regulator/pbias-regulator.txt
-> deleted file mode 100644
-> index acbcb452a69a..000000000000
-> --- a/Documentation/devicetree/bindings/regulator/pbias-regulator.txt
-> +++ /dev/null
-> @@ -1,32 +0,0 @@
-> -PBIAS internal regulator for SD card dual voltage i/o pads on OMAP SoCs.
-> -
-> -Required properties:
-> -- compatible:
-> -  - should be "ti,pbias-dra7" for DRA7
-> -  - should be "ti,pbias-omap2" for OMAP2
-> -  - should be "ti,pbias-omap3" for OMAP3
-> -  - should be "ti,pbias-omap4" for OMAP4
-> -  - should be "ti,pbias-omap5" for OMAP5
-> -  - "ti,pbias-omap" is deprecated
-> -- reg: pbias register offset from syscon base and size of pbias register.
-> -- syscon : phandle of the system control module
-> -- regulator-name : should be
-> -			pbias_mmc_omap2430 for OMAP2430, OMAP3 SoCs
-> -			pbias_sim_omap3 for OMAP3 SoCs
-> -			pbias_mmc_omap4 for OMAP4 SoCs
-> -			pbias_mmc_omap5 for OMAP5 and DRA7 SoC
-> -
-> -Optional properties:
-> -- Any optional property defined in bindings/regulator/regulator.txt
-> -
-> -Example:
-> -
-> -		pbias_regulator: pbias_regulator {
-> -			compatible = "ti,pbias-omap";
-> -			reg = <0 0x4>;
-> -			syscon = <&omap5_padconf_global>;
-> -			pbias_mmc_reg: pbias_mmc_omap5 {
-> -				regulator-name = "pbias_mmc_omap5";
-> -				regulator-min-microvolt = <1800000>;
-> -				regulator-max-microvolt = <3000000>;
-> -			};
-> diff --git a/Documentation/devicetree/bindings/regulator/ti,pbias-omap.yaml b/Documentation/devicetree/bindings/regulator/ti,pbias-omap.yaml
-> new file mode 100644
-> index 000000000000..ea904946e352
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/regulator/ti,pbias-omap.yaml
-> @@ -0,0 +1,157 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/regulator/ti,pbias-omap.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Texas Instruments PBIAS internal regulator.
+This commit adds the offsets and configuration tables to support USB4 and
+Thunderbolt 3 operation on the USB4-capable PHYs found on Hamoa chips.
 
-Drop final stop. Titles don't have them.
+> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qual=
+comm/phy-qcom-qmp-combo.c
+> index b80eac9d71401..419668e014906 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+[ ... ]
+> @@ -1873,6 +1952,68 @@ static const struct qmp_phy_init_tbl x1e80100_usb4=
+3dp_tx_tbl[] =3D {
+>  	QMP_PHY_INIT_CFG(QSERDES_V6_N4_TX_RES_CODE_LANE_OFFSET_RX, 0x0a),
+>  };
+> =20
+> +static const struct qmp_phy_init_tbl x1e80100_usb4_rx_tbl[] =3D {
+[ ... ]
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_N4_RX_MODE_RATE3_B6, 0xe3),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_N4_TX_UCDR_FASTLOCK_COUNTER_LOW_RATE2, 0x30=
+),
 
-> +
-> +maintainers:
-> +  - Tony Lindgren <tony@atomide.com>
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - enum:
-> +          - ti,pbias-dra7
-> +          - ti,pbias-omap2
-> +          - ti,pbias-omap3
-> +          - ti,pbias-omap4
-> +          - ti,pbias-omap5
-> +      - const: ti,pbias-omap
+[Severity: Low]
+Is this macro name accurate? It uses a "_TX_" prefix but is placed inside an
+"rx_tbl".
 
-Odd, old binding did not list such order and it said ti,pbias-omap is
-deprecated.
+Since UCDR is fundamentally a receiver-side block and its offsets logically
+fall within the contiguous RX register block, using the "_TX_" prefix
+creates a misleading hardware representation for future maintenance.
 
-Nothing in commit msg explains changes done to the binding. I guess
-there is a reason to do that, but needs to be explicit. Especially that
-you are changing the ABI - disallowing ti,pbias-omap alone.
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_N4_TX_UCDR_FASTLOCK_COUNTER_HIGH_RATE2, 0x1=
+4),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_N4_TX_UCDR_FASTLOCK_COUNTER_LOW_RATE3, 0xff=
+),
+> +	QMP_PHY_INIT_CFG(QSERDES_V6_N4_TX_UCDR_FASTLOCK_COUNTER_HIGH_RATE3, 0x3=
+f),
+[ ... ]
+> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-qserdes-txrx-v6_n4.h b/dri=
+vers/phy/qualcomm/phy-qcom-qmp-qserdes-txrx-v6_n4.h
+> index d37cc0d4fd365..e72ae2cb460ac 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-qmp-qserdes-txrx-v6_n4.h
+> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-qserdes-txrx-v6_n4.h
+[ ... ]
+> @@ -23,27 +23,63 @@
+[ ... ]
+> +#define QSERDES_V6_N4_RX_UCDR_SO_SATURATION		0x214
+> +#define QSERDES_V6_N4_TX_UCDR_FASTLOCK_COUNTER_LOW_RATE1	0x224
+> +#define QSERDES_V6_N4_TX_UCDR_FASTLOCK_COUNTER_HIGH_RATE1	0x228
 
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  syscon:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description: phandle of the system control module
-> +
-> +  pbias_mmc_omap2430:
+[Severity: Low]
+Are these registers correctly named? As noted above, they have a "_TX_"
+prefix but are logically UCDR receiver-side block offsets.
 
-Names were also not in the old binding and this is not explained WHY you
-are doing that way.
+> +#define QSERDES_V6_N4_TX_UCDR_FASTLOCK_COUNTER_LOW_RATE2	0x22c
+> +#define QSERDES_V6_N4_TX_UCDR_FASTLOCK_COUNTER_HIGH_RATE2	0x230
+[ ... ]
 
-> +    type: object
-> +    $ref: regulator.yaml#
-> +
-> +    properties:
-> +      regulator-name:
-> +        const: pbias_mmc_omap2430
+With the introduction of USB4 support, does the initialization code in
+qmp_combo_com_init() corrupt the DP_TUNNELING_CLOCK_GEN_EN state?
 
-So the regulator-name is required or node name? Looking at the code I
-see only node name requirement, but feel free to elaborate in commit msg
-why this name must be fixed as well.
+drivers/phy/qualcomm/phy-qcom-qmp-combo.c:qmp_combo_com_init() {
+    ...
+	if (qmp->qmpphy_mode =3D=3D QMPPHY_MODE_USB4) {
+		pcs =3D qmp->usb4_pcs;
+        ...
+		/* Do not disturb the DP PLL in case there's an active DP tunnel */
+		if (readl(com + QPHY_V3_DP_COM_RESET_OVRD_CTRL) & DP_TUNNELING_CLOCK_GEN_=
+EN)
+			dp_reset_val &=3D ~SW_DPPHY_RESET_MUX;
+	}
+    ...
+	case QMPPHY_MODE_USB4:
+		writel(USB4_MODE, com + QPHY_V3_DP_COM_PHY_MODE_CTRL);
+    ...
+}
 
-> +
-> +    required:
-> +      - regulator-name
-> +
-> +    unevaluatedProperties: false
+[Severity: High]
+The code checks the tunneling state by reading QPHY_V3_DP_COM_RESET_OVRD_CT=
+RL
+instead of the correct PHY_MODE_CTRL register.
 
-Place this one after $ref.
+It then unconditionally overwrites QPHY_V3_DP_COM_PHY_MODE_CTRL completely
+via writel(), which clears the DP_TUNNELING_CLOCK_GEN_EN flag if it was
+previously active.
 
-> +
-> +  pbias_sim_omap3:
-> +    type: object
-> +    $ref: regulator.yaml#
-> +
-> +    properties:
-> +      regulator-name:
-> +        const: pbias_sim_omap3
-> +
-> +    required:
-> +      - regulator-name
-> +
-> +    unevaluatedProperties: false
+Can this break active DP tunnels by inappropriately resetting the DP PLL?
 
-Ditto
+Are we missing a clk_disable_unprepare() on the error paths in
+qmp_combo_usb4_init()?
 
-> +
-> +  pbias_mmc_omap4:
-> +    type: object
-> +    $ref: regulator.yaml#
-> +
-> +    properties:
-> +      regulator-name:
-> +        const: pbias_mmc_omap4
-> +
-> +    required:
-> +      - regulator-name
-> +
-> +    unevaluatedProperties: false
+drivers/phy/qualcomm/phy-qcom-qmp-combo.c:qmp_combo_usb4_init() {
+    ...
+	ret =3D clk_prepare_enable(qmp->p2rr2p_pipe_clk);
+	if (ret) {
+		dev_err(qmp->dev, "p2rr2p_pipe enable failed: %d\n", ret);
+		return ret;
+	}
 
-Ditto
+	ret =3D qmp_combo_com_init(qmp, false);
+	if (ret)
+		return ret;
+    ...
+}
 
-> +
-> +  pbias_mmc_omap5:
-> +    type: object
-> +    $ref: regulator.yaml#
-> +
-> +    properties:
-> +      regulator-name:
-> +        const: pbias_mmc_omap5
-> +
-> +    required:
-> +      - regulator-name
-> +
-> +    unevaluatedProperties: false
+[Severity: Medium]
+If qmp_combo_com_init(), qmp_combo_reconfigure_phy(), or
+qmp_combo_usb_power_on() fail during USB4 PHY initialization, the function
+returns without disabling the p2rr2p_pipe_clk prepared earlier, leaking
+the clock reference.
 
-Ditto
+Does qmp_combo_usb4_init() cause a double execution of
+qmp_combo_usb_power_on()?
 
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - syscon
-> +
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: ti,pbias-omap2
-> +    then:
-> +      required:
-> +        - pbias_mmc_omap2430
-> +      properties:
-> +        pbias_sim_omap3: false
-> +        pbias_mmc_omap4: false
-> +        pbias_mmc_omap5: false
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: ti,pbias-omap3
-> +    then:
-> +      anyOf:
-> +        - required:
-> +            - pbias_mmc_omap2430
-> +        - required:
-> +            - pbias_sim_omap3
-> +      properties:
-> +        pbias_mmc_omap4: false
-> +        pbias_mmc_omap5: false
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: ti,pbias-omap4
-> +    then:
-> +      required:
-> +        - pbias_mmc_omap4
-> +      properties:
-> +        pbias_mmc_omap2430: false
-> +        pbias_sim_omap3: false
-> +        pbias_mmc_omap5: false
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - ti,pbias-omap5
-> +              - ti,pbias-dra7
-> +    then:
-> +      required:
-> +        - pbias_mmc_omap5
-> +      properties:
-> +        pbias_mmc_omap2430: false
-> +        pbias_sim_omap3: false
-> +        pbias_mmc_omap4: false
-> +
-> +unevaluatedProperties: false
+drivers/phy/qualcomm/phy-qcom-qmp-combo.c:qmp_combo_reconfigure_phy() {
+    ...
+	if ((qmp->usb_init_count || qmp->usb4phy_init_count) &&
+	    new_mode !=3D QMPPHY_MODE_DP_ONLY)
+		qmp_combo_usb_power_on(qmp->usb_phy);
+    ...
+}
 
-additionalProperties instead.
+drivers/phy/qualcomm/phy-qcom-qmp-combo.c:qmp_combo_usb4_init() {
+    ...
+	ret =3D qmp_combo_reconfigure_phy(qmp, QMPPHY_MODE_USB4);
+	if (ret)
+		return ret;
 
-> +
-> +examples:
-> +  - |
-> +    pbias_regulator: pbias_regulator@0 {
+	ret =3D qmp_combo_usb_power_on(phy);
+    ...
+}
 
-Drop unused label.
+[Severity: Medium]
+When initializing USB4 mode and the USB3 PHY is already active
+(usb_init_count > 0), qmp_combo_reconfigure_phy() automatically invokes
+qmp_combo_usb_power_on().
 
+However, qmp_combo_usb4_init() unconditionally calls it a second time
+immediately after. This might redundantly rewrite all configuration
+registers and needlessly re-toggle SW_RESET and START_CTRL for the PHY.
 
-Best regards,
-Krzysztof
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-topic-usb4=
+phy-v2-0-5d9dd5149ec7@oss.qualcomm.com?part=3D4
