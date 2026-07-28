@@ -1,114 +1,130 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F20241DDEC
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 10:18:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66F403E638E;
+	Tue, 28 Jul 2026 10:20:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785233929; cv=none; b=M+/X4ZkYgdNE9jIRFS9+niuLDqrywoT2JLQUqeZInizx/aUyqQsTHyes7bgqxrcjvWuYCOgBFaHjDuc3cPkfW7SZxQLbfy5z1o3QggihB4D0uEnVhe1M+ITadnEZeKJ+7O/Vf2775rVad6okBqy8Ryln26RMTTuRo4WkNP5yZvY=
+	t=1785234022; cv=none; b=dhx37iqmnxZsmH6vw0KlgWKWD7O4GAQnLzOGM/Yows2h9sN3r78OsAPnIa7npOybK4J1KxYBr7NpMjvfb/yPiv9BpU/JJ3aUTspP22P05VoSEfkFt1dNRM+sRF9oq7JRe4E7JV8AuABedsH213TjVe2n8aM5dKEWbkuKfvlhvMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785233929; c=relaxed/simple;
-	bh=FggYYw61Kz7uIM9UHFCnamEP8OQ/fDKAp5ENOQADg2I=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CgHlnt40WkZqXOlJ+0B4nIMBsv9mG1l0zo/ZABdoBW9CZNorQbdM8VB0drmv/Y+/wWLTDWHIhnxnF2mR+GgLZdEiN4hViZJY07DZ2vy22EcEkZTMnjGR5lbBLtT3mmLwVgU46J8scu6XCkT0Ush5H9g508UWi4cUYtBPTWZS/sw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M/cxOxfm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785234022; c=relaxed/simple;
+	bh=fKw85KVXRLi4QXqCb/P7we/zdwA/I29yPM/Girk/sUg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dB9HYA4HWy/Mll6HZl3VMOoyGtV1aif1Y16lfYNA9RRyzBxDY4j0lK7Q6tZuE9yVKcHf2B+j6s3rjBKo4tPNPDxbB34Pe7zrPTDAOKfMv4ftAT9V8FwlddKqCWYeZiJ8ViHwLUzBLU3D/kV9ILHAOmjNK12rhKINsTOzucFXLPk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eLGgne3c; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M/cxOxfm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A581D1F000E9;
-	Tue, 28 Jul 2026 10:18:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eLGgne3c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 615EC1F000E9;
+	Tue, 28 Jul 2026 10:20:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785233928;
-	bh=5v+IuzVrb1HoJs5cUntZRspFCkDkXzZfZPwaeHJlO7M=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=M/cxOxfmtYPz7+bMwBKQD6y8wWY51BsqRspJQ3BUTxBoFOkGPSuOEN/seVZ1w874B
-	 fZdq/vNHxeqwz6STL6HlpKDnJD8pmbgtsnvhvQyu06S80GYXfnWxPEncedYn0Xhbfw
-	 n1x6EFDUjikRy/EA6J3qMYrG/wqNsT/46MaRhlxQFji8Nu9o+Ab3L8lYBY7qnU04A1
-	 TyAX9UqzSx5QLZ3tS1y1OkrOz4IE213IGxj6hjCDni8dg4T89WCBMqeexpXC/6OxeS
-	 i4+tVUdIMj46RonnjS+mD+S4WuaoA1OCV+hAdt38rR6fURf3R1ZcA1rNzioC9trjk/
-	 m5DtOspYpIeLg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/5] dt-bindings: phy: qcom,qmp-usb3-dp: Extend X1E
- description for USB4
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Konrad Dybcio" <konradybcio@kernel.org>
-Cc: robh@kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20260728-topic-usb4phy-v2-1-5d9dd5149ec7@oss.qualcomm.com>
-References: <20260728-topic-usb4phy-v2-0-5d9dd5149ec7@oss.qualcomm.com>
- <20260728-topic-usb4phy-v2-1-5d9dd5149ec7@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 28 Jul 2026 10:18:47 +0000
-Message-Id: <20260728101847.A581D1F000E9@smtp.kernel.org>
+	s=k20260515; t=1785234021;
+	bh=kSPnhViqx3Kje71wTQOzYJlariIKYc5Rlrp3Gssb9RU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=eLGgne3cdhdphYSsfMWhkGGynLD5eXG5PARcG1Kx9nK6bq1dP4OaE9zLqqur2lUcY
+	 6p2ZnnE4cgbsCOzNqLU0SQLC8fkC9roFxVQbU6uJbT52rIwdRCryZ7oUNbn14+Jwzc
+	 g0AXGPxmYrwdF++oG/pDgGfJow82MdN0z/2K+vMKhYFuThtC6+EOkKjCnCt2PLjBIM
+	 6iWs4qAnVZmQfYYDNDohcEJCqCTjT8gknoDumbCxNml13sp0Fesyb52+Qcss9L310O
+	 uGu7SwG/EPs/eVqUYcN92ogwZknPiihl3rpIWsbDZ4/F1QzMSlLi+ccTPEnBgwK9mD
+	 1UqjuZZn9rHgg==
+Message-ID: <3e50d846-e850-4c85-97c2-60a34b66e976@kernel.org>
+Date: Tue, 28 Jul 2026 12:20:12 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 2/3] dt-bindings: power: reset: fix minimum reg count
+ for pmk8350-pon
+To: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+Cc: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
+ Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+References: <20260724-b4-add_pwrkey_and_resin-v6-0-41acc214d93a@oss.qualcomm.com>
+ <20260724-b4-add_pwrkey_and_resin-v6-2-41acc214d93a@oss.qualcomm.com>
+ <20260727-weightless-fierce-tiger-a9c6ed@quoll>
+ <20260728101223.5uvgmqmpwgvjvysz@hu-kotarake-hyd.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260728101223.5uvgmqmpwgvjvysz@hu-kotarake-hyd.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Missing `maxItems: 4` constraint for `clock-names` in the fallback =
-`not:` conditional block.
---
+On 28/07/2026 12:12, Rakesh Kota wrote:
+> On Mon, Jul 27, 2026 at 08:36:38AM +0200, Krzysztof Kozlowski wrote:
+>> On Fri, Jul 24, 2026 at 03:44:12PM +0530, Rakesh Kota wrote:
+>>> The GEN3 PON peripheral requires two register address spaces: "hlos"
+>>> for the primary PON block and "pbs" for the address needs to be
+>>> specified to facilitate software debouncing. Set minItems: 2 for reg
+>>
+>> That's ABI break and I do not underestand if this was broken before or
+>> not. Driver ignores the PBS, so everything was working fine, no? Then
+>> why PBS is required now? Is it actually working or not?
+>>
+> 
+> Not an ABI break. All in-tree GEN3 DTs using qcom,pmk8350-pon have
+> always specified both "hlos" and "pbs" reg entries — pmk8350.dtsi,
 
---- Patch [1]: [PATCH v2 1/5] dt-bindings: phy: qcom,qmp-usb3-dp: Extend X1=
-E description for USB4 ---
-commit 95918238514fdc86a985725a4371c68f557aeda3
-Author: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+That's not related to ABI.
 
-dt-bindings: phy: qcom,qmp-usb3-dp: Extend X1E description for USB4
+What about my DTS?
 
-This commit extends the X1E USB43DP PHY binding to allow a fifth clock
-(P2RR2P) required for USB4 mode. It updates the top-level clock-names
-constraint and adds conditional blocks for specific compatible strings.
+> pmk8550.dtsi, pmk8850.dtsi, sc8280xp-pmics.dtsi. No issues were seen
+> precisely because PBS was never omitted on any GEN3 platform.
+> 
+> minItems: 2 simply enforces in the schema what has always been present
+> in practice, ensuring future GEN3 DTs cannot accidentally omit the PBS
+> address space which is a GEN3 hardware requirement.
+This does not answer my questions.
 
-> diff --git a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb4=
-3dp-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb4=
-3dp-phy.yaml
-> --- a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy=
-.yaml
-> +++ b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy=
-.yaml
-
-[ ... ]
-
-> @@ -187,21 +182,59 @@ allOf:
-
-[ ... ]
-
-> +  - if:
-> +      not:
-> +        properties:
-> +          compatible:
-> +            contains:
-> +              enum:
-> +                - qcom,x1e80100-qmp-usb3-dp-phy
-> +                - qcom,sc7180-qmp-usb3-dp-phy
-> +                - qcom,sdm845-qmp-usb3-dp-phy
-> +    then:
->        properties:
->          clocks:
->            maxItems: 4
->          clock-names:
-> -          maxItems: 4
-> +          items:
-> +            - const: aux
-> +            - const: ref
-> +            - const: com_aux
-> +            - const: usb3_pipe
-
-[Severity: Low]
-Does this omission of maxItems: 4 for clock-names allow an unconstrained
-fifth clock name to silently pass validation?
-
-Since the top-level clock-names property was updated to maxItems: 5, replac=
-ing
-maxItems: 4 with an items array in this fallback block without retaining
-maxItems: 4 means the schema inherits the 5-item limit.
-
-A device tree with 4 clocks but 5 clock-names for a non-X1E/SC7180/SDM845
-variant would pass validation.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-topic-usb4=
-phy-v2-0-5d9dd5149ec7@oss.qualcomm.com?part=3D1
+Best regards,
+Krzysztof
