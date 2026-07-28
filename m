@@ -1,110 +1,149 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC6743AE1A9;
-	Tue, 28 Jul 2026 13:39:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F2A33AA507
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 13:40:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785245950; cv=none; b=RoCjdkNG0pokV83hlgdI6v1Sqet1ecapoWXhm3l1681T7o0ykiLDoI+AptTRlS3P8WnSosknBASOqh3Dozs/mLEilEdoa8xvE/LdG2JBOXRYt6oiPa1XWSzJe5ZqR67+Z0AYnX0CX2nMl5yPSGjeDEt1jo4CzlfK1/qOhuNgmO0=
+	t=1785246060; cv=none; b=rawiVYdPmE/HrgEixrKmjX85Hk4tV/SyvsQv61uPVPM+ss0WGh6luCI6NHKJ0XsaNeOYnp6dpqef/Jq9Q1k2lAqlr/S5sdabUEWitjlnJN1+kQGa5RjBK9Ac+0qgdyaP491sg9Jy370qEkbHiBdB4OJQmCMhCmokT62TpKe/BAE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785245950; c=relaxed/simple;
-	bh=jmiUoKTvDMvPDyHn1DuDAArxWTGZWW6gVYu3pElwCVU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UQhAGj3tzl2nbCnwNt/s0+FAwBiAL1EUExZ29rtY6DPfvzED4zpOHB+N05mONgNnNGzvDnjPPRmoYWPY0wQpOVVk3m1zXbLNyGfIRmHXF47kTKeUNJt1n2TTlxf9Yeb+0BUdhYl35rELOyF3zJ/0MXfHnkU0SVlCnfo/fk5exD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N+XN7ac6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785246060; c=relaxed/simple;
+	bh=DhEDDIHsMKbny4hUeLUu84KjOl77WbOtKnFgo4mtyJk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qYzz+8CwV8VoS6FHrQYZaioAx22iqK9Q6ZBG5cojMC8GssGD5G/H2EQrP+mH4DwZg4W8VlPu1lCBzxCLynHTNqMTaca0PewKY+6uCj/7Ruh9flQuql+HZXVC0xuej6RMrUoHvUTF0RzchGX+1tw+Lg+2z48Xqd6EhLm4ZuIr2Zk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VOtQRQ1F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N+XN7ac6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 777151F000E9;
-	Tue, 28 Jul 2026 13:39:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VOtQRQ1F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 365A01F00A3D
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 13:40:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785245947;
-	bh=aI5SMR0pkwZxQk5sA1DFWQey3ShLOzud8TajucRDV0U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=N+XN7ac6XFx957dimqnDbEYF60qznyyVhXlNKufJO5vtl425VHE7FtRqxY2tXqD+4
-	 st4beDheXCLrFs6LsAQVjDdc4EUyabuDH92GxdHpHdso5S03kpfZULx52UdM6A0PM7
-	 znKu8a/rE6GAcdUBR2qQR4026GwIJmgwOeeAKIyvCc8mbOoUkylKN2hgfcfjgrCnwM
-	 1GAL9spyysasroZjfd3o2fV/vWCJS0IXXoNiANchrhHkKVHTw8UyXVtJUXtJho1vuw
-	 JrXrX++GDAzMbIvgi0fhyruwwdMYt9KRIhQDgDbWrUj/Nyv3a5LXPMYG1Rsi1Lyz8+
-	 Mzcy3xyqNVhyw==
-Date: Tue, 28 Jul 2026 15:38:57 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Alex Elder <elder@riscstar.com>
-Cc: manivannan.sadhasivam@oss.qualcomm.com, 
-	Bjorn Helgaas <bhelgaas@google.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/6] PCI/pwrctrl: tc9563: Fix parsing the integrated
- Ethernet MAC Endpoint node
-Message-ID: <elrj4hfxzrtn2hfldhvk4ychlbmxcrksmttg45a6nw2h3gulso@4nk3lrgo5rvu>
-References: <20260725-tc9563-fix-v1-0-ec4286e31331@oss.qualcomm.com>
- <20260725-tc9563-fix-v1-2-ec4286e31331@oss.qualcomm.com>
- <5348ff47-910b-4614-a935-6e99ad3b066d@riscstar.com>
- <uavzur74w3w6d4acq4keoi42pcob4p3jez7e5p2aubw27k5geo@ccaewywqbz3b>
+	s=k20260515; t=1785246059;
+	bh=uLE38ZE2Nl64r7ZYfy8C3Gaet0hedSBZyrnSuaM9AOo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=VOtQRQ1FNHpJCY6oZv+tRM7rG9KnugRqsOTe8hlqzlQ8jYSSZU6bbWmAZBX4ACMb2
+	 ZIHFthXA17nF/SHqFUfiJdgQo7fR3M58h3L3q1iMyesmMYEfxTKk6TWyEUoYD17UJd
+	 PvXMB51Shd7xCpfH3wHC1Dr07oxsmEk1+JqJmk9v8cQMBexHzDoJioBoiDI1L+XueJ
+	 vkB+e8EyB8QwO/W5b0e6uD9QuwWiQ3FKTW1oKpzszaiMrdlaMkKVi9rEZl7ZWHGPqc
+	 /CcrGqfisQMhMqU901n1J5ldGQChP1nfpVTFXZhF/BYETGAEYR69Ji1w5q2Wr3agTO
+	 GEm5wH+FwHOLA==
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c15d3cd51b2so491361566b.3
+        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 06:40:59 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RojkF02MSXWV1uTvZlY0XiJ7yr50vxrqZO1ItuoUMb2rtc0RRsPudEIPbAuFNe1dnFpb6JapXMEpAV1@vger.kernel.org
+X-Gm-Message-State: AOJu0YwF+bmnxe2jHcSqECUroW6KaHn8mReDnpKuRSsfZ9FXBCcpOU8m
+	VcPsr5Nhbok8lU/8Q9osyXPh2cgz9DFw0RVf1hjs4WNKoUjJ4JOrOHZAJJSgF5YekvXMM0DsWl3
+	4yLo/gY/xMxZ1yFlXH0OaOkWqQoluoA==
+X-Received: by 2002:a17:906:ee81:b0:c19:6104:e5e4 with SMTP id
+ a640c23a62f3a-c1f7209ca5cmr127185766b.20.1785246057830; Tue, 28 Jul 2026
+ 06:40:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <uavzur74w3w6d4acq4keoi42pcob4p3jez7e5p2aubw27k5geo@ccaewywqbz3b>
+References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com> <20260714114414.184512-43-angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20260714114414.184512-43-angelogioacchino.delregno@collabora.com>
+From: Rob Herring <robh@kernel.org>
+Date: Tue, 28 Jul 2026 08:40:45 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqJXpY8jHEgSHcHz4QZTFEZe8PLbO6vbpxWH4qobs0MPyA@mail.gmail.com>
+X-Gm-Features: AUfX_mxvmD92NXelgjlyAlofvaufu78xVu0ncLV-YvDBbjclxGqXQU3uLBZ5iYE
+Message-ID: <CAL_JsqJXpY8jHEgSHcHz4QZTFEZe8PLbO6vbpxWH4qobs0MPyA@mail.gmail.com>
+Subject: Re: [PATCH v2 42/46] dt-bindings: display: mediatek: Introduce MT8196
+ 2D Sharpness Processor
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com, 
+	simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
+	tzimmermann@suse.de, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	matthias.bgg@gmail.com, dri-devel@lists.freedesktop.org, 
+	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	justin.yeh@mediatek.com, jason-jh.lin@mediatek.com, kernel@collabora.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jul 28, 2026 at 03:12:49PM +0200, Manivannan Sadhasivam wrote:
-> On Mon, Jul 27, 2026 at 10:59:05AM -0500, Alex Elder wrote:
-> > On 7/25/26 3:59 AM, Manivannan Sadhasivam via B4 Relay wrote:
-> > > From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> > > 
-> > > DSP3 has an integrated Ethernet MAC Endpoint which has its own set of
-> > > config registers for configuring settings such as ASPM. The Endpoint
-> > > device has 2 physical functions and those 2 functions share the same
-> > > settings.
-> > 
-> > This was not clear from the code.  So this explanation alone
-> > represents an improvement.
-> > 
-> > > Hence, parse the Endpoint node under DSP3 instead of parsing both the
-> > > functions. The existing parsing logic also has one OOB issue as parsing
-> > > both functions will result in accessing past the tc9563_pwrctrl->cfg array.
-> > 
-> > The issue you mention is that the array has exactly one entry
-> > available for the Ethernet MAC endpoints, so parsing more than
-> > one (if defined in devicetree) references a non-existent entry.
-> > Right?
-> > 
-> 
-> Yes.
-> 
-> > But this constraint only applies to power control.  There can be
-> > multiple MAC nodes (for their PCI functions) defined.  And it
-> > seems the pwrctl settings (if any) *must* be specified for
-> > function 0 and if specified for any others, they are quietly
-> > ignored.
-> > 
-> > Is that accurate?
-> > 
-> 
-> Exactly. DT can define both functions, but since there is no per-function
-> tuning, these properties cannot exist in both nodes, but only in function 0,
-> which also corresponds to the Endpoint.
-> 
-> > If so I think the DT binding could explain and possibly enforce
-> > that, but I won't insist on that...
-> > 
-> 
-> It is being enforced in Patch 1.
-> 
+On Tue, Jul 14, 2026 at 6:45=E2=80=AFAM AngeloGioacchino Del Regno
+<angelogioacchino.delregno@collabora.com> wrote:
+>
+> Add documentation for the Two-Dimension Sharpness Processor, or
+> "TDSHP", found in many MediaTek SoCs including MT8196 and its
+> variants.
+>
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@coll=
+abora.com>
+> ---
+>  .../mediatek/mediatek,mt8196-tdshp.yaml       | 98 +++++++++++++++++++
+>  1 file changed, 98 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/mediatek/me=
+diatek,mt8196-tdshp.yaml
+>
+> diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,=
+mt8196-tdshp.yaml b/Documentation/devicetree/bindings/display/mediatek/medi=
+atek,mt8196-tdshp.yaml
+> new file mode 100644
+> index 000000000000..ccd6a8443443
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-=
+tdshp.yaml
+> @@ -0,0 +1,98 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/mediatek/mediatek,mt8196-tdsh=
+p.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: MediaTek Display Two-Dimension Sharpness Processor (TDSHP)
+> +
+> +maintainers:
+> +  - AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> +
+> +description:
+> +  The MediaTek 2D Sharpness Processor (TDSHP) is responsible for perform=
+ing
+> +  image sharpness adjustments/enhancements in a display pipeline.
+> +  This hardware block supports adjusting the luma and contour 2d histogr=
+ams,
+> +  frequency weighting, luma-chroma gain and others, with adaptive weight=
+s.
+> +
+> +properties:
+> +  compatible:
+> +    const: mediatek,mt8196-disp-tdshp
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  power-domains:
+> +    maxItems: 1
+> +
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +
+> +    properties:
+> +      port@0:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +
+> +      port@1:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +
+> +    required:
+> +      - port@0
+> +      - port@1
+> +
+> +  trigger-sources:
+> +    maxItems: 1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
 
-Sorry, the current enforcement is only for PHY related properties like Tx
-Amplitude, DFE and N_FTS. I didn't limit ASPM properties in function 1 though.
-Doesn't seem to be strictly needed as no one would configure per-function ASPM
-settings in DT (mostly unlikely).
+This causes a warning.
 
-- Mani
+Seems this is in linux-next already, but no reviews?
 
--- 
-மணிவண்ணன் சதாசிவம்
+Rob
