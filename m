@@ -1,133 +1,140 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33B302E7380;
-	Tue, 28 Jul 2026 20:44:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA1641C862F
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 20:50:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785271495; cv=none; b=QgZ8wLEX4pFCF6xx+cDL1n90w5gDf4+txTuXI5NubXUTXFfNmmN2FRuqrxp08tv8Gr16q4WVTD8YTdhPjLnyA7KXsf4PPsN9KTphLePWlkuJ8X4RARxnz4395ZivArBMcPJJ2/6sjP4HdkUS1/ey2qf8AEJwgXFGGkBPgZF473M=
+	t=1785271828; cv=none; b=reiBjhQX5QVvGsQk6Qp3ZG2xNIXtV2Kz15AGXn1W/zUcxKrZfUKrYkABWuTNQyrGCPUuchLVC4Bw9/ixwipNS2BBNUv9wbaj5dP1b69g+lzppYhgHOYyTk7H94jEt8AaZag8apt3+cZtb3BrU72yFVsoY1nVAhjZMDZrxok6uR0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785271495; c=relaxed/simple;
-	bh=84MbF9Uq5djPmt2mJekMTbLk9dlBMdAdd+mLwDfsdjk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=p91j5h2xeyyzesW4EaphASyb6XOpF9e71oNK88c3ji92n6X/KNM/OdoYSMaQqrb7KymwS2W20SJdtN0LZJwiHwBHr6FSb3u++aLvm6ePWvVueX2G+DoBpipNnshxOmRvjG+AgrvrVM4N9xrY4waVLco2qCFLfywp5CaBMsZfZek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TNHTiOlZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785271828; c=relaxed/simple;
+	bh=qEWk/wGkiGIKMpJdSK8XvVQj4rqTrcapNPU241gS+rM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=bHOsq4MXDyM3PIvPfyxd+/GMIv7LlEV3YaYQGdlvSzPn/GOj6kdzXvbgCp2gu1y3w4d+/TjxSAYD9U/dOTVx2pzsymV4YpmfMfN9j8UuzO5KYJGaNG54vlflxB7EqtQsFpo8h8qsQZLCjiqc3Ys9QGHNtqxmoSraj7C3KKPdqNA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eIiqCe7N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TNHTiOlZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAFE11F000E9;
-	Tue, 28 Jul 2026 20:44:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eIiqCe7N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF2A21F000E9;
+	Tue, 28 Jul 2026 20:50:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785271493;
-	bh=udc3Z7QxavxY+CTl8l3b556WiYIERFaKbNKPYKH4sWA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=TNHTiOlZap0ZA8HaUF5w1iewrcNTRdbWujGhtB35AU351pS6W3w3Pb6vVCqm37sBa
-	 TDLJEXytDEwxGVVb7cH7Q0ia3jAatF67tZdICxw+4bU+nzZaD05ACRVkTjJTw75e1u
-	 Yzbv+KJwq6bejUW59GM7DnyLt70GMUpUDhcbuP0IbnhPBBgIrq9kpc1hgKONfWv0cx
-	 7A06XoqgCm+Qivpn7/OFaYnuG+s73Q09LTqmbL7luxidy3XDgUrpe6kD2LVcLo7Aet
-	 BGzQlX/sN9NIK5boZNyDltMO7TmRAr1A3V7M2GpjGLP0n3dWBNcl72ClAj2x7cTW2Z
-	 XTe6xMG3Ys+cg==
-Date: Tue, 28 Jul 2026 21:44:50 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Conor Dooley <conor@kernel.org>
-Cc: Kim Seer Paller <kimseer.paller@analog.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Michael Hennerich
- <Michael.Hennerich@analog.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp
- Zabel <p.zabel@pengutronix.de>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux@analog.com, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 2/4] dt-bindings: iio: dac: add adi,ad5710r.yaml
-Message-ID: <20260728214450.121b6a69@jic23-huawei>
-In-Reply-To: <20260728-selected-pancake-8fa8a066f95d@spud>
-References: <20260721-iio-ad5710r-upstream-v2-0-324949dc72da@analog.com>
-	<20260721-iio-ad5710r-upstream-v2-2-324949dc72da@analog.com>
-	<20260721-clustered-jolliness-30d70a2acc49@spud>
-	<20260724225738.2e090842@jic23-huawei>
-	<20260728-selected-pancake-8fa8a066f95d@spud>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1785271827;
+	bh=LCL1QNvxMPjzTjFmC0W8Ajtf4tzoBIcO2WYr15c4cMU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=eIiqCe7NOB+cT/HHlB5QEwva/h/LoyHSEzCvOV2puRNgBhZKqwWgtzGIwlZA63elw
+	 M77EwJhXWsDnZlGHqJZpWnGfzTc0uwcOgBhimDydUHwz4aAgCj38HOl5LDsxtsXhPK
+	 aBhZqITeDnVOFRL1Tj91m3ajFK2adqet/NAY75KlgrK9le0y1AgCmTeJY5jesqeq+2
+	 E+DClHwN62IZYx3IBJhYKEM96TGAIzSB9cXhIl9lrqDrP5YXkfQzvsbrLZnxDTMOiL
+	 ZgYOPjyZgQ+TKphZvjUA6Po0BErlnKqASlbWfu0lb0ZFIWET2vYb+njjD1SbHDjDcP
+	 2IxeQKtPSnz9g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 17/18] drm/bridge: synopsys: dw-dp: Clear only
+ enabled SDPs on atomic disable
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260728-synopsys-dw-dp-improvements-v7-17-b7640fa8cf48@collabora.com>
+References: <20260728-synopsys-dw-dp-improvements-v7-0-b7640fa8cf48@collabora.com>
+ <20260728-synopsys-dw-dp-improvements-v7-17-b7640fa8cf48@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 28 Jul 2026 20:50:26 +0000
+Message-Id: <20260728205026.EF2A21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Tue, 28 Jul 2026 16:41:26 +0100
-Conor Dooley <conor@kernel.org> wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-> On Fri, Jul 24, 2026 at 10:57:38PM +0100, Jonathan Cameron wrote:
-> > On Tue, 21 Jul 2026 16:52:10 +0100
-> > Conor Dooley <conor@kernel.org> wrote:
-> >   
-> > > On Tue, Jul 21, 2026 at 04:47:11PM +0800, Kim Seer Paller wrote:  
-> > > > Add device tree bindings for the Analog Devices AD5710R/AD5711R
-> > > > 8-channel 12-/16-bit Configurable IDAC/VDAC.
-> > > > 
-> > > > Signed-off-by: Kim Seer Paller <kimseer.paller@analog.com>
-> > > > ---
-> > > >  .../devicetree/bindings/iio/dac/adi,ad5710r.yaml   | 143 +++++++++++++++++++++    
-> > >   
-> > > > +patternProperties:
-> > > > +  "^channel@[0-7]$":
-> > > > +    $ref: /schemas/iio/dac/dac.yaml#
-> > > > +    type: object
-> > > > +    description:
-> > > > +      Represents the external channels which are connected to the DAC.
-> > > > +
-> > > > +    properties:
-> > > > +      reg:
-> > > > +        description: Channel number
-> > > > +        items:
-> > > > +          minimum: 0
-> > > > +          maximum: 7
-> > > > +
-> > > > +      adi,ch-func:
-> > > > +        description:
-> > > > +          Channel output type. Use CH_FUNC_VOLTAGE_OUTPUT for voltage
-> > > > +          output or CH_FUNC_CURRENT_OUTPUT for current output.
-> > > > +        $ref: /schemas/types.yaml#/definitions/uint32
-> > > > +        enum: [1, 2]    
-> > > 
-> > > Please make this property a string.  
-> > 
-> > It's an existing binding.  I guess it is generic enough that perhaps we
-> > should make it a generic channel property and as part of that we can
-> > flip over to a string.  
-> 
-> Ah, if it is something already established then it can stay as-is.
-> 
-> > We may need to create a top level channels.yaml to cover both ADC and DAC
-> > channels though and reference that from both files.  
-> 
-> I mean yeah, that was one thought I had originally about the
-> spi-device-address property. I'm surprised there's already not more
-> commonality to begin with.
-> 
-> Just how common is some sort of "channel function" property and how
-> many devices are bastardising other properties like diff-channel with a
-> virtual channel to achieve the same result?
+Pre-existing issues:
+- [High] Unbalanced and unconditional clearing of SDP slot 0 defeats tracki=
+ng and risks concurrent stream corruption.
+- [High] Sleeping functions are called from an atomic commit callback path =
+in violation of DRM rules.
+--
 
-I don't think it is that common to mix different things that can be
-read on the same pin beyond a simple ADC / GPIO that we tend to
-handle by just not having the ADC channel specified.  Still there
-is clearly a non zero number of devices that do.
+--- Patch [17]: [PATCH v7 17/18] drm/bridge: synopsys: dw-dp: Clear only en=
+abled SDPs on atomic disable ---
+commit 7e0bb4945c91158df2f4360bed9dbdb18041404b
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-I can't immediately recall the virtual channel trick you suggest
-being used except when it is routing from a different place
-in a SoC which to me is a different input via a mux, rather than
-mode of the channel. 
+drm/bridge: synopsys: dw-dp: Clear only enabled SDPs on atomic disable
 
-Jonathan
+This commit updates dw_dp_bridge_atomic_disable() to selectively clear only
+the previously configured SDPs (like VSC SDP) instead of bulk clearing the
+entire SDP allocation bitmap. This aims to prevent handing out in-use SDPs
+to other systems like the upcoming audio infrastructure.
 
-> 
-> > 
-> > I guess we don't need to do that yet though given this is a DAC only device.
-> > The original place we added adi,ch-func is a combined ADC / DAC and 
-> > has a lot more possible functions.
-> > 
-> > Jonathan
-> > 
-> >   
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
+idge/synopsys/dw-dp.c
+> index fcee47c6716a7..c0026bd4c7b53 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 
+[ ... ]
+
+> +static void dw_dp_clear_sdp(struct dw_dp *dp, int nr)
+> +{
+> +	regmap_clear_bits(dp->regmap, DW_DP_SDP_VERTICAL_CTRL,
+> +			  EN_VERTICAL_SDP << nr);
+> +
+> +	regmap_clear_bits(dp->regmap, DW_DP_SDP_HORIZONTAL_CTRL,
+> +			  EN_HORIZONTAL_SDP << nr);
+> +
+> +	scoped_guard(mutex, &dp->sdp_lock)
+> +		clear_bit(nr, dp->sdp_reg_bank);
+> +}
+
+[ ... ]
+
+> @@ -1738,8 +1751,14 @@ static void dw_dp_bridge_atomic_disable(struct drm=
+_bridge *bridge,
+> =20
+>  	dw_dp_video_disable(dp);
+>  	dw_dp_link_disable(dp);
+> +
+> +	if (dp->vsc_sdp_nr >=3D 0) {
+> +		dw_dp_clear_sdp(dp, dp->vsc_sdp_nr);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this code call sleeping
+functions in an atomic commit path?
+
+The DRM subsystem calls dw_dp_bridge_atomic_disable() during non-blocking
+commits via drm_atomic_helper_commit_tail(), which runs in atomic context.
+This patch adds a call to dw_dp_clear_sdp(), which acquires a mutex using
+scoped_guard(mutex, &dp->sdp_lock).=20
+
+While the function already acquired this mutex and called sleeping functions
+on this path previously, adding new mutex acquisitions here can lead to
+system instability or deadlocks when the display mode is disabled.
+
+> +		dp->vsc_sdp_nr =3D -1;
+> +	}
+>  	scoped_guard(mutex, &dp->sdp_lock)
+> -		bitmap_zero(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
+> +		clear_bit(0, dp->sdp_reg_bank);
+
+[Severity: High]
+This is a pre-existing issue, but does unconditionally clearing bit 0 here
+defeat the tracking mechanism?
+
+If userspace opens the ALSA PCM device while the DRM bridge is disabled,
+ASoC might allocate slot 0 for audio. When the display is later enabled
+and disabled, dw_dp_bridge_atomic_disable() unconditionally executes
+clear_bit(0, dp->sdp_reg_bank).=20
+
+This silently revokes the active audio allocation, allowing another
+allocation to claim it while the audio subsystem still believes it owns
+the slot.
+
+While the previous code wiped the entire bank via bitmap_zero(),
+explicitly clearing bit 0 seems to leave the audio tracking vulnerable.
+Should this unconditional clear_bit() be removed entirely since
+vsc_sdp_nr is now being handled explicitly?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-synopsys-d=
+w-dp-improvements-v7-0-b7640fa8cf48@collabora.com?part=3D17
