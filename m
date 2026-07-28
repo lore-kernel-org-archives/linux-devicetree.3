@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA1641C862F
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 20:50:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A2BE37F011
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 20:52:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785271828; cv=none; b=reiBjhQX5QVvGsQk6Qp3ZG2xNIXtV2Kz15AGXn1W/zUcxKrZfUKrYkABWuTNQyrGCPUuchLVC4Bw9/ixwipNS2BBNUv9wbaj5dP1b69g+lzppYhgHOYyTk7H94jEt8AaZag8apt3+cZtb3BrU72yFVsoY1nVAhjZMDZrxok6uR0=
+	t=1785271951; cv=none; b=RrPuNVyGAQS8a5hkxEq4jBZGQgoLuS49YEbvWguvp3cjw1teE/7VYL6ySg2qyyra8Pco5xi/0tZWOueWfgMrq7awQdb/J1Ysw4XpcPVO0Pyw2FprhryA077I6U74ncAzrGq57TRSYMC6Ivum6voCICwdMA7b76gCPMbCT4XDFWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785271828; c=relaxed/simple;
-	bh=qEWk/wGkiGIKMpJdSK8XvVQj4rqTrcapNPU241gS+rM=;
+	s=arc-20240116; t=1785271951; c=relaxed/simple;
+	bh=Vf4QaaCgGOyaYT73PINkQXVgBpohQIl2U31mnyyQDKI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bHOsq4MXDyM3PIvPfyxd+/GMIv7LlEV3YaYQGdlvSzPn/GOj6kdzXvbgCp2gu1y3w4d+/TjxSAYD9U/dOTVx2pzsymV4YpmfMfN9j8UuzO5KYJGaNG54vlflxB7EqtQsFpo8h8qsQZLCjiqc3Ys9QGHNtqxmoSraj7C3KKPdqNA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eIiqCe7N; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=PBrIfb/+N9Y0WnZ6RHchGegVJJJbFKUk1J1wPbIUmQuDMzYH90M+npCZRX86+5/SUKh8L96qg9pIovf/fzVIiIExTxlwpv92XaGhQdvXihdGmW56TfgnhFp/Cq+gu35qJNiH8HtQ0tWlyG30SNIY4nRg9KZsPeMIBcMS1vOiid8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jf9ygqEF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eIiqCe7N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF2A21F000E9;
-	Tue, 28 Jul 2026 20:50:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jf9ygqEF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E25A31F000E9;
+	Tue, 28 Jul 2026 20:52:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785271827;
-	bh=LCL1QNvxMPjzTjFmC0W8Ajtf4tzoBIcO2WYr15c4cMU=;
+	s=k20260515; t=1785271950;
+	bh=jQZRwiozCCQeQ4uehsgTrlqO8kgTSKJHy96oWl52w1A=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eIiqCe7NOB+cT/HHlB5QEwva/h/LoyHSEzCvOV2puRNgBhZKqwWgtzGIwlZA63elw
-	 M77EwJhXWsDnZlGHqJZpWnGfzTc0uwcOgBhimDydUHwz4aAgCj38HOl5LDsxtsXhPK
-	 aBhZqITeDnVOFRL1Tj91m3ajFK2adqet/NAY75KlgrK9le0y1AgCmTeJY5jesqeq+2
-	 E+DClHwN62IZYx3IBJhYKEM96TGAIzSB9cXhIl9lrqDrP5YXkfQzvsbrLZnxDTMOiL
-	 ZgYOPjyZgQ+TKphZvjUA6Po0BErlnKqASlbWfu0lb0ZFIWET2vYb+njjD1SbHDjDcP
-	 2IxeQKtPSnz9g==
+	b=Jf9ygqEFnJHSGK9i6vVytoKPQOPal0ruqu0aiaWMQW9ulVqcN8IvgwaKiwCWOBH2d
+	 rp48K2t0t+z6GNAAkHNY3EGBzxnJHUHoUrMqgYUAfAPLkF0cX2nWZ51OiRgwUKa7I8
+	 u6scXDyGOU4RsbO+2sEZH9SBNQGk+eB2/B8FpIijq3Iav65IMLrPAptGiMjHu8hamG
+	 prU0+sLEBi5paNUUtRjruA+jlbQqUJe8vVwzsgJ5O19hm9INWQz1IYniw2uHKGX1sU
+	 A9jSvxLdzrCAZ7tqGGMJk93L311j8wB00oGy9yC+Xh/raUJ+VcMpuLhny4qEpAFO4B
+	 Cify+xNWoJv9Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 17/18] drm/bridge: synopsys: dw-dp: Clear only
- enabled SDPs on atomic disable
+Subject: Re: [PATCH V10 4/4] arm64: dts: rockchip: Add Anbernic RG Vita-Pro
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260728-synopsys-dw-dp-improvements-v7-17-b7640fa8cf48@collabora.com>
-References: <20260728-synopsys-dw-dp-improvements-v7-0-b7640fa8cf48@collabora.com>
- <20260728-synopsys-dw-dp-improvements-v7-17-b7640fa8cf48@collabora.com>
+To: "Chris Morgan" <macroalpha82@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260728203832.166402-5-macroalpha82@gmail.com>
+References: <20260728203832.166402-1-macroalpha82@gmail.com>
+ <20260728203832.166402-5-macroalpha82@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 28 Jul 2026 20:50:26 +0000
-Message-Id: <20260728205026.EF2A21F000E9@smtp.kernel.org>
+Date: Tue, 28 Jul 2026 20:52:29 +0000
+Message-Id: <20260728205229.E25A31F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,94 +46,64 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Unbalanced and unconditional clearing of SDP slot 0 defeats tracki=
-ng and risks concurrent stream corruption.
-- [High] Sleeping functions are called from an atomic commit callback path =
-in violation of DRM rules.
+- [Medium] The 'vdd_lcd' regulator is marked as 'regulator-always-on', whic=
+h prevents the panel driver from turning off the power during runtime scree=
+n blanking.
+- [Low] The R1 button is incorrectly labeled as 'T2' instead of 'TR'.
 --
 
---- Patch [17]: [PATCH v7 17/18] drm/bridge: synopsys: dw-dp: Clear only en=
-abled SDPs on atomic disable ---
-commit 7e0bb4945c91158df2f4360bed9dbdb18041404b
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+--- Patch [4]: [PATCH V10 4/4] arm64: dts: rockchip: Add Anbernic RG Vita-P=
+ro ---
+commit a452f1bd14e3a6fffeb75a59d2f85e2015412c25
+Author: Chris Morgan <macromorgan@hotmail.com>
 
-drm/bridge: synopsys: dw-dp: Clear only enabled SDPs on atomic disable
+arm64: dts: rockchip: Add Anbernic RG Vita-Pro
 
-This commit updates dw_dp_bridge_atomic_disable() to selectively clear only
-the previously configured SDPs (like VSC SDP) instead of bulk clearing the
-entire SDP allocation bitmap. This aims to prevent handing out in-use SDPs
-to other systems like the upcoming audio infrastructure.
+This commit adds the device tree for the Anbernic RG Vita-Pro handset,
+based on the Rockchip RK3576 SoC. It configures the hardware that is
+currently functional, such as the DSI display, buttons, LEDs, and WiFi.
 
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
-idge/synopsys/dw-dp.c
-> index fcee47c6716a7..c0026bd4c7b53 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-
-[ ... ]
-
-> +static void dw_dp_clear_sdp(struct dw_dp *dp, int nr)
-> +{
-> +	regmap_clear_bits(dp->regmap, DW_DP_SDP_VERTICAL_CTRL,
-> +			  EN_VERTICAL_SDP << nr);
-> +
-> +	regmap_clear_bits(dp->regmap, DW_DP_SDP_HORIZONTAL_CTRL,
-> +			  EN_HORIZONTAL_SDP << nr);
-> +
-> +	scoped_guard(mutex, &dp->sdp_lock)
-> +		clear_bit(nr, dp->sdp_reg_bank);
-> +}
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3576-anbernic-rg-vita-pro.dts=
+ b/arch/arm64/boot/dts/rockchip/rk3576-anbernic-rg-vita-pro.dts
+> new file mode 100644
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/rockchip/rk3576-anbernic-rg-vita-pro.dts
 
 [ ... ]
 
-> @@ -1738,8 +1751,14 @@ static void dw_dp_bridge_atomic_disable(struct drm=
-_bridge *bridge,
-> =20
->  	dw_dp_video_disable(dp);
->  	dw_dp_link_disable(dp);
-> +
-> +	if (dp->vsc_sdp_nr >=3D 0) {
-> +		dw_dp_clear_sdp(dp, dp->vsc_sdp_nr);
+> +		button-r1 {
+> +			gpios =3D <&gpio3 RK_PC2 GPIO_ACTIVE_LOW>;
+> +			label =3D "T2";
+> +			linux,code =3D <BTN_TR>;
+> +		};
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does this code call sleeping
-functions in an atomic commit path?
+[Severity: Low]
+This isn't a bug, but should the label for button-r1 be "TR" instead of "T2=
+"?
+L1 is labeled "TL", L2 is "TL2", and R2 is "TR2", so "T2" looks like it mig=
+ht
+be a typo.
 
-The DRM subsystem calls dw_dp_bridge_atomic_disable() during non-blocking
-commits via drm_atomic_helper_commit_tail(), which runs in atomic context.
-This patch adds a call to dw_dp_clear_sdp(), which acquires a mutex using
-scoped_guard(mutex, &dp->sdp_lock).=20
+[ ... ]
 
-While the function already acquired this mutex and called sleeping functions
-on this path previously, adding new mutex acquisitions here can lead to
-system instability or deadlocks when the display mode is disabled.
+> +	vdd_lcd: regulator-vdd-lcd {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "vdd_lcd";
+> +		regulator-always-on;
 
-> +		dp->vsc_sdp_nr =3D -1;
-> +	}
->  	scoped_guard(mutex, &dp->sdp_lock)
-> -		bitmap_zero(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
-> +		clear_bit(0, dp->sdp_reg_bank);
+[Severity: Medium]
+Does marking this regulator as 'regulator-always-on' prevent the panel driv=
+er
+from powering down the display during screen blanking? If the driver attemp=
+ts
+to call regulator_disable() on idle timeout, the regulator core will ignore
+it, which might lead to unnecessary battery drain on this handset.
 
-[Severity: High]
-This is a pre-existing issue, but does unconditionally clearing bit 0 here
-defeat the tracking mechanism?
+> +		enable-active-high;
+> +		gpios =3D <&gpio0 RK_PB0 GPIO_ACTIVE_HIGH>;
 
-If userspace opens the ALSA PCM device while the DRM bridge is disabled,
-ASoC might allocate slot 0 for audio. When the display is later enabled
-and disabled, dw_dp_bridge_atomic_disable() unconditionally executes
-clear_bit(0, dp->sdp_reg_bank).=20
-
-This silently revokes the active audio allocation, allowing another
-allocation to claim it while the audio subsystem still believes it owns
-the slot.
-
-While the previous code wiped the entire bank via bitmap_zero(),
-explicitly clearing bit 0 seems to leave the audio tracking vulnerable.
-Should this unconditional clear_bit() be removed entirely since
-vsc_sdp_nr is now being handled explicitly?
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-synopsys-d=
-w-dp-improvements-v7-0-b7640fa8cf48@collabora.com?part=3D17
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728203832.1664=
+02-1-macroalpha82@gmail.com?part=3D4
