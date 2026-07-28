@@ -1,76 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-178.mta0.migadu.com (out-178.mta0.migadu.com [91.218.175.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98A4A3DA5CC;
-	Tue, 28 Jul 2026 07:08:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21B823B961B
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 07:13:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785222533; cv=none; b=Y3RpIhztc+gZFczXtHVV8NGhipgwR0ixfMkTx35y67+ucujOZ9vfiqVh63QtW8mj+0Kq6k5Klf2HxziXB5Qq4lU6tiqKC6X6jphxupZzmcPDBWVpYbXHmUqGlxdtkLz9nFNvZBK6xuKBO9qyRw+WQvFkrqy1fQIIQwf6izW/gsU=
+	t=1785222802; cv=none; b=SzOrbIpmwUS2F9uvFolYeD8HEvocT7AeX7XbGx2Zs7AU9tVVHJejAQuqbcWsjFaeCMO6d+LznTXIlCDAsAGEqFzlk7k4zv5AYOGPIq6+/J4iMmGfQkFCcr6Pj9vA0eWNRUTmUdgL55AFq3m3OMgD4yXHGj2NpM+GTlkXZfgWp/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785222533; c=relaxed/simple;
-	bh=55A3f7h+OAAIgPZfAQMgR2SUEVtD5lmHb79C6kwLmpY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XsYShiABY2pcy2k7RJtKc5bAHKUWTdL/NwM4enHMFLphoj6USEf+ZrXFli/92yxir7943jEpd1Zvpr62ni8Gpg9/Dc6dlq+HPKWlVR9N70qEBEk6bh32K4NlFZ8yjX4jfm8mLK8RNTGEwYM5cxVoTBL5YFal7GjKzw2ucKTnpfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hR5Mvv++; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785222802; c=relaxed/simple;
+	bh=mjKK88DT1Rk+iIX8hOsyWczc26G4O8r4eaKiEyE3SM8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ax+4X9tq8ukVs6qRX0czgwtswR2/HA7WMcDFWmx3RjcaTgKaxmbTdvLtPYKWYs2P9MCvc+f9ON+4ekdRzLkI8pr1PqWG+On3zv10des2yrMa+LHqesJc1+d/D8QFocBygWOOLXWy1/5utzU7om8tr/SUfd9eOiPEGqQsD8AdLd8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mn9I/k6G; arc=none smtp.client-ip=91.218.175.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hR5Mvv++"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBE801F000E9;
-	Tue, 28 Jul 2026 07:08:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785222529;
-	bh=55A3f7h+OAAIgPZfAQMgR2SUEVtD5lmHb79C6kwLmpY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hR5Mvv++54XnWDhOv9KvdV1CsJruUv3ifVQYt7ggf+Tb6L4dpEow4qAuRdor5giGL
-	 OiBEZ1t8OEdGzGzCndMYQBQWMVfGGsA+Ei9qHymnE3AIE6VfK9PphsjMVARWfagE7X
-	 UZtfWcbQlYrGVI57JPjvCSAe9HRKthA1psjYWoaNVQkSUfkr817HmjloEwughnhZOD
-	 qe0105C8QuXCPeAo3SvwQVje/vMmUnYwJn1LId+fP4HBpXwkmU96Jlihq6QYFiUjdX
-	 Q7KUPE3mrU+hs5wG9Wkz/PSjT59xKCl9pEEj7Dz6tA64LACjZ9BGffbmZ6Wlyb7FLQ
-	 RndgvlNYySt3w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 01/12] dt-bindings: i3c: Add mipi-i3c-static-method
- to support SETAASA
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Akhil R" <akhilrajeev@nvidia.com>
-Cc: linux-i3c@lists.infradead.org, Frank.Li@kernel.org, "Alexandre Belloni" <alexandre.belloni@bootlin.com>, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, linux-hwmon@vger.kernel.org
-In-Reply-To: <20260728065955.809445-2-akhilrajeev@nvidia.com>
-References: <20260728065955.809445-1-akhilrajeev@nvidia.com>
- <20260728065955.809445-2-akhilrajeev@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 28 Jul 2026 07:08:48 +0000
-Message-Id: <20260728070848.CBE801F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mn9I/k6G"
+Date: Tue, 28 Jul 2026 09:13:09 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1785222795;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WNJfnJCVGrisL2Q9GMR3UZa22fIREltooVK55uzyj4g=;
+	b=mn9I/k6GlRH2HbTTrFSrjNw8RIgbs/VZ5oIbcBdsqrA1tPYm5Xmmzu35TT7Ap4TAkgSA7Y
+	tLcBqyxcQ4v+eTXhmUCr7VssVj4xAPVOFuI9+cgaLmPYk0NmvSoJX/ZjkRUkKwHfVMnJ27
+	O1eQlRcCKvLpFij/c0SXv1+JUhOqFfw=
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Richard Leitner <richard.leitner@linux.dev>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Conor Dooley <conor@kernel.org>, Mark Brown <broonie@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
+	Dave Stevenson <dave.stevenson@raspberrypi.com>, Alexander Stein <alexander.stein@ew.tq-group.com>, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, driver-core@lists.linux.dev
+Subject: Re: [PATCH RFC 1/2] dt-bindings: regmap: add common schema for
+ no-sequential-read
+Message-ID: <amhUDOnhoj4tk4vN@bombadil>
+References: <amD_vkMOrtKq5NvX@bombadil>
+ <20260722201622.GD648629@killaraus.ideasonboard.com>
+ <amEvJBOE3Ja014Ap@bombadil>
+ <525338f4-cad3-4acb-94c5-a4b71cde9c02@sirena.org.uk>
+ <amHznORUaOnUFyS4@bombadil>
+ <20260723154541.GA764516@killaraus.ideasonboard.com>
+ <20260723-hamster-juniper-5697cacade96@spud>
+ <20260723161048.GC767247@killaraus.ideasonboard.com>
+ <amJiqHd6I45w_e0-@bombadil>
+ <20260724092812.GD712773@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260724092812.GD712773@killaraus.ideasonboard.com>
+X-Migadu-Flow: FLOW_OUT
 
-> Add the 'mipi-i3c-static-method' property mentioned in the MIPI I3C
-> Discovery and Configuration Specification [1] to specify which discovery
-> method an I3C device supports during bus initialization. The property is
-> a bitmap, where a bit value of 1 indicates support for that method, and 0
-> indicates lack of support.
->=20
-> Bit 0: SETDASA CCC (Direct)
-> Bit 1: SETAASA CCC (Broadcast)
-> Bit 2: Other CCC (vendor / standards extension)
-> All other bits are reserved.
->=20
-> It is specifically needed when an I3C device requires SETAASA for the
-> address assignment. SETDASA will be supported by default if this property
-> is absent, which means for now the property just serves as a flag to
-> enable SETAASA, but keep the property as a bitmap to align with the
-> specifications.
->=20
-> [1] https://www.mipi.org/mipi-disco-for-i3c-download
->=20
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> Signed-off-by: Akhil R <akhilrajeev@nvidia.com>
+On Fri, Jul 24, 2026 at 12:28:12PM +0300, Laurent Pinchart wrote:
+> On Thu, Jul 23, 2026 at 08:55:18PM +0200, Richard Leitner wrote:
+> > On Thu, Jul 23, 2026 at 07:10:48PM +0300, Laurent Pinchart wrote:
+> > > On Thu, Jul 23, 2026 at 05:02:42PM +0100, Conor Dooley wrote:
+> > > > On Thu, Jul 23, 2026 at 06:45:41PM +0300, Laurent Pinchart wrote:
+> > > > > On Thu, Jul 23, 2026 at 01:01:11PM +0200, Richard Leitner wrote:
+> > > > > > On Wed, Jul 22, 2026 at 11:03:09PM +0100, Mark Brown wrote:
+> > > > > > > On Wed, Jul 22, 2026 at 11:58:46PM +0200, Richard Leitner wrote:
+> > > > > > > 
+> > > > > > > > @Mark: I understood that if the fpga really intercepts the I2C bus, it
+> > > > > > > > should be modelled accordingly in device tree. But what would be the
+> > > > > > > > preferred implementation if both devices sit on the same I2C bus, but
+> > > > > > > > one is messing up some register reads on purpose?
+> > > > > > > 
+> > > > > > > I think we would need to have a coherent understanding and description
+> > > > > > > of the actual issue to know how to describe it.
+> > > > > > 
+> > > > > > Understood. I will try to figure out how the hardware is really wired
+> > > > > > and come back to you.
+> > > > > 
+> > > > > Based on the information I have received so far, the FPGA is interposed
+> > > > > between the host and sensor. It could therefore be modelled in DT as
+> > > > > child of the I2C bus and a parent of the sensor.
+> > > > > 
+> > > > > New version of some of the Vision Components modules have fixed the
+> > > > > multi-read bug, so we will still need a property in the FPGA DT node to
+> > > > > indicate if the quirk should be activated.
+> > > > 
+> > > > Or come up with a compatible for the FPGA DT node that uniquely
+> > > > identifies the revision of the RTL in use.
+> > > > That's my preference for things that use some custom RTL that aren't
+> > > > configuration parameters.
+> > > 
+> > > I'm afraid we won't be able to get that information. We have limited
+> > > visibility on the ecosystem of modules and what the FPGA does in each of
+> > > them.
+> > 
+> > Thanks for the clarification. Should I continue working on this topic
+> > (i.e. modelling the FPGA as I2C controller with the sensor as a
+> > "subdevice")? Or do you want to take over Laurent? Do you have any other
+> > downstream work on the vc-mipi stuff, except the patches in your gitlab
+> > repo?
+> 
+> I'm afraid I won't have time for the time being, as I will soon start my
+> summer holidays. The patches in the git tree you mentioned are all I
+> have.
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+Ok. Thanks. Then I will give it a try.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728065955.8094=
-45-1-akhilrajeev@nvidia.com?part=3D1
+I did some more research on that module and it features a Lattice FPGA
+(LCMXO3LF-1300E) which to all of my measurement intercepts the I2C bus
+as expected.
 
+As it additionally manages the regulators my approach would be to
+implement a Multi-Function Devices (MFD) driver for it.
+
+The resulting DTS layout would then be something like:
+
+&i2c1 {
+	fpga@10 {
+		compatible = "visioncomponents,vc-mipi-controller";
+		reg = <0x10>;
+
+		i2c-mux {
+			compatible = "visioncomponents,vc-mipi-i2c-mux";
+
+			i2c@0 {
+				reg = <0>;
+
+				ov9282: camera-sensor@60 {
+					compatible = "ovti,ov9282";
+					reg = <0x60>;
+					...
+				};
+			};
+		};
+
+		vc_mipi_reg: regulator {
+			compatible = "visioncomponents,vc-mipi-regulator";
+		};
+	};
+};
+
+Mark, Laurent, if that's incorrect or otherwise not acceptable,
+please reach out. Thanks a lot!
+
+regards;rl
+
+> 
+> > I've additionally wrote "my Vision Components contact" an email asking
+> > for clarification of the I2C bus layout on the modules yesterday. If I
+> > get any new information from that path I will of course take it into account.
+> > 
+> > Thanks a lot, Laurent!
+> 
+> -- 
+> Regards,
+> 
+> Laurent Pinchart
