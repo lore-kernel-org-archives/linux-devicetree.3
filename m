@@ -1,158 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 707DF409635;
-	Tue, 28 Jul 2026 21:17:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF15B329E44
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 21:19:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785273446; cv=none; b=ga5bfaycRuWokyza0mn/iPK68k/E6V9/UsjbH1YNbLvMn4SCbpKJh8iGWOOgRz5EjaqW3iNY/0zie06P1TA5t47ewZL5fhB3lr3dKa9viEqqVs6p1qmWrD2V+etZy5TNstTA6Ba/xb7JQNwGtKgQjecu2hJNhGrQJ4O8pHyxBG4=
+	t=1785273601; cv=none; b=Cq3rlYhtvnXLDGQsywIl2kx9Ug5v2MTJv2KRp7yEpni89aDe4ux7/t2F09eJKN5ir3v6hwc8fzBj1fHH9DT89M62XrRyLPmM9TgqOMJmmFzI43tQqhqdie9J9O9X57NXyWFOMD+vSJmcqIaj0N0wCv+gJEWQeC6cI70bK7v8XJs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785273446; c=relaxed/simple;
-	bh=72f8biyVUgH335xMxu6GsNjwxPf4qtOV1/vFiyhG41w=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HD+T1b56C9bxe82AlRIDyanHeXNyz6UCyizvqsynI4/8WM/PZ5aBbCl2uSGBK0Z6ZNN+1OKOdcknNycGbL0oOw7ynqp0JCSSdTx/XQodnPATFxKBGGJNpCn+zcVYx7d8baDudSwwDJ3AvZ2L3ZtfP0LZBHCkRxMG5dNTqff8xj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ga2S1uTO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785273601; c=relaxed/simple;
+	bh=VWR2NaPOLPD8HjyRfpilyeBVEBKWGpqUMcJ+BQNHtNQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=i9SHWgkWz+fAos4Ck55/ur3DGtNj7tiZ9iESlDDEBK0dCKYz/UKrMSJy0AL6CqIvCNBuDNT85jEuYkTRQIx/DFmaVIlobwTpI9kH7sjwQWcBqLkOGIYleEO3TBHeH/P0hVkLU3wyCfZseFMz7+tD+/waLYRF3vURCtYJFc82VkU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TsftOtVY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ga2S1uTO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 844401F000E9;
-	Tue, 28 Jul 2026 21:17:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TsftOtVY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4174F1F000E9;
+	Tue, 28 Jul 2026 21:19:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785273445;
-	bh=RPYyzEACWXmL3B1yuWD9+3WsAbReeEdqc/tsPpB+Cz8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ga2S1uTOGLy3klZKkkmwDKmf82X4HWiqyRgsDOjF7WDZFcYZhh4ME6B+Ts/Yhb9J/
-	 GObH1TwC9F/3c6RLD/nCeGyaH6m0Xh4J+T5A1TomNDkk+ZHBiP8+ReNXGkNblMKXpi
-	 yMNYfuIorUmEXBt/9b9ImwbwrIeqX0ybORU2LMs1fqXU6I4j1TJILZPtAhUZffBFET
-	 C5vcZrunFh4NvOk3ROBZ91KqVRzGdmAloUdKR0LIQ4tpnIyAM6PgrTbJm64CvpEVrd
-	 sGpbzpGAzmuGMircFkRwv7JZ+mKcjNskIjfEM5UBwGSQSLPQX1kPe+Rjvr3/18OV9C
-	 /GOZKbJhaCwIg==
-Date: Tue, 28 Jul 2026 22:17:19 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Conor Dooley <conor@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>, Janani Sunil
- <janani.sunil@analog.com>, Lars-Peter Clausen <lars@metafoo.de>, Michael
- Hennerich <Michael.Hennerich@analog.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Jonathan
- Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Mark Brown
- <broonie@kernel.org>, Marius Cristea <marius.cristea@microchip.com>, Marcus
- Folkesson <marcus.folkesson@gmail.com>, Kent Gustavsson <kent@minoris.se>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, Janani Sunil
- <jan.sun97@gmail.com>, linux-spi@vger.kernel.org, Kent Gustavsson
- <nedo80@gmail.com>
-Subject: Re: [PATCH v7 2/7] dt-bindings: iio: adc: microchip,mcp3564: Add
- spi-device-addr
-Message-ID: <20260728221719.7f668a73@jic23-huawei>
-In-Reply-To: <20260728-patronize-thwarting-56fab2e11077@spud>
-References: <20260722-ad5529r-driver-v7-0-7781cd74ad75@analog.com>
-	<20260722-ad5529r-driver-v7-2-7781cd74ad75@analog.com>
-	<cb4098c1-4bad-4a11-9a6f-a833e554f197@baylibre.com>
-	<20260725230739.63ff7000@jic23-huawei>
-	<20260728-patronize-thwarting-56fab2e11077@spud>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1785273599;
+	bh=2gh6drt6uVByt/WUD2T7IevRSnybwnXjKrhL3fVh02o=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TsftOtVYdXLACD00zFpb/mGFQmpBhBuN7yH1Gqu80dMAeFomzL9zbB1Of3Qqfwdu3
+	 x2c9gD+EpvI6eONKUWaTD22gaHqjz+/eWsk9o2HHx+FHu3z3wB2RuQJLlcRw9XOgte
+	 EhRAaiZwJvIUaXkYYg3b/VAVQtTKN6NWdsf0pwZh1SxZW0qPd2mIeBaN5PaXLTaPTL
+	 dO/UgtOMjbTwporrs7eR26/6F7iCcd+U5jt8IbLIt9SvHcSq1/OQB5rfS9NPzBeiEk
+	 ek/m3JYgF727fzLSbd93qBWfH35OQk1Y/ecWgoxE03iyiRbolzcgCLcD0KqSruTNRl
+	 WfimNOtIK6ukA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/3] riscv: dts: spacemit: Add cpu scaling for Milk-V
+ Jupiter
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Aurelien Jarno" <aurelien@aurel32.net>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260728211020.1248676-2-aurelien@aurel32.net>
+References: <20260728211020.1248676-1-aurelien@aurel32.net>
+ <20260728211020.1248676-2-aurelien@aurel32.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 28 Jul 2026 21:19:58 +0000
+Message-Id: <20260728211959.4174F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Tue, 28 Jul 2026 17:00:55 +0100
-Conor Dooley <conor@kernel.org> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-> On Sat, Jul 25, 2026 at 11:07:39PM +0100, Jonathan Cameron wrote:
-> > On Sat, 25 Jul 2026 15:57:07 -0500
-> > David Lechner <dlechner@baylibre.com> wrote:
-> >   
-> > > On 7/22/26 2:54 AM, Janani Sunil wrote:  
-> > > > Add the generic spi-device-addr property to the binding and deprecate
-> > > > the existing vendor specific microchip,hw-device-address property.
-> > > > 
-> > > > Signed-off-by: Janani Sunil <janani.sunil@analog.com>
-> > > > ---
-> > > >  .../devicetree/bindings/iio/adc/microchip,mcp3564.yaml         | 10 ++++++++--
-> > > >  1 file changed, 8 insertions(+), 2 deletions(-)
-> > > > 
-> > > > diff --git a/Documentation/devicetree/bindings/iio/adc/microchip,mcp3564.yaml b/Documentation/devicetree/bindings/iio/adc/microchip,mcp3564.yaml
-> > > > index 675319276197..de1ea289e7f5 100644
-> > > > --- a/Documentation/devicetree/bindings/iio/adc/microchip,mcp3564.yaml
-> > > > +++ b/Documentation/devicetree/bindings/iio/adc/microchip,mcp3564.yaml
-> > > > @@ -80,6 +80,7 @@ properties:
-> > > >      $ref: /schemas/types.yaml#/definitions/uint32
-> > > >      minimum: 0
-> > > >      maximum: 3
-> > > > +    deprecated: true
-> > > >      description:
-> > > >        The address is set on a per-device basis by fuses in the factory,
-> > > >        configured on request. If not requested, the fuses are set for 0x1.
-> > > > @@ -91,6 +92,12 @@ properties:
-> > > >        clocking of the device address (BITS[7:6] - top two bits of COMMAND BYTE
-> > > >        which is first one on the wire).
-> > > >  
-> > > > +  spi-device-addr:
-> > > > +    maxItems: 1    
-> > > 
-> > > Does it not make sense to all for more than once device connected
-> > > to the same CS here? I would expect maxItems to be 4 to match the
-> > > number of possible addresses.
-> > >   
-> > 
-> > I think for this part their isn't a reason to aggregate.
-> > No magic accesses that touch them all at once.  So this hits
-> > exactly the point you raised about how we set the address for
-> > more than one of them.  
-> 
-> No David is actually right here, and maxitems should be 4.
-> Setting the address for multiple was already discussed I thought, with
-> the property being an array and each compatible being used to determine
-> the "stride" between entries based on the number of supported channels?
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but wiring it up to =
+cpufreq makes it a serious hardware safety risk: the CPU supply regulator (=
+`buck1_0v9`) has an overly permissive maximum voltage constraint of 3.45V, =
+which could physically damage the CPU.
+--
 
-I don't think that applies for this device or at least to do so
-is a major driver rewrite, not a simple binding change.  Probably we'd
-just add a bus and hang the 4 instances off it. They are running on own
-timing etc so we can't grab data across all of them in any sort of
-synchronous way - the clocks will probably drift over time etc.
+--- Patch [1]: [PATCH 1/3] riscv: dts: spacemit: Add cpu scaling for Milk-V=
+ Jupiter ---
+commit 4e25fb96470d1ad37415e03a27de699ef1f0da26
+Author: Aurelien Jarno <aurelien@aurel32.net>
 
-They are independent devices (think of them using spi-device-address
-like an i2c address) -  so why have one DT node for up to 4 of
-them?  Note this is different from the AD5529R where the design
-is intended for them to operate as one single larger device.
+riscv: dts: spacemit: Add cpu scaling for Milk-V Jupiter
 
-Jonathan
+This commit enables CPU DVFS on the Milk-V Jupiter board by including the O=
+PP
+tables and wiring the CPU nodes to the CPU regulator supply.
 
-> 
-> > 
-> > Jonathan
-> >   
-> > > > +    items:
-> > > > +      enum: [0, 1, 2, 3]
-> > > > +    default: [1]
-> > > > +
-> > > >    "#io-channel-cells":
-> > > >      const: 1
-> > > >  
-> > > > @@ -123,7 +130,6 @@ dependencies:
-> > > >  required:
-> > > >    - compatible
-> > > >    - reg
-> > > > -  - microchip,hw-device-address
-> > > >    - spi-max-frequency
-> > > >  
-> > > >  allOf:
-> > > > @@ -159,7 +165,7 @@ examples:
-> > > >              spi-cpha;
-> > > >              spi-cpol;
-> > > >              spi-max-frequency = <10000000>;
-> > > > -            microchip,hw-device-address = <1>;
-> > > > +            spi-device-addr = <1>;
-> > > >  
-> > > >              #address-cells = <1>;
-> > > >              #size-cells = <0>;
-> > > >     
-> > >   
-> >   
+> diff --git a/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts b/arch/ris=
+cv/boot/dts/spacemit/k1-milkv-jupiter.dts
+> index b61f5995ec771..3c16d0c20050e 100644
+> --- a/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts
+> +++ b/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts
+[ ... ]
+> @@ -107,6 +108,38 @@ &combo_phy {
+>  	status =3D "okay";
+>  };
+> =20
+> +&cpu_0 {
+> +	cpu-supply =3D <&buck1_0v9>;
+> +};
+[ ... ]
+> @@ -209,7 +242,7 @@ pmic@41 {
+>  		dldoin2-supply =3D <&buck5>;
+> =20
+>  		regulators {
+> -			buck1 {
+> +			buck1_0v9: buck1 {
+>  				regulator-min-microvolt =3D <500000>;
+>  				regulator-max-microvolt =3D <3450000>;
 
+[Severity: High]
+This is a pre-existing issue, but by wiring up the CPU supply for cpufreq i=
+n=20
+this patch, does it introduce a severe hardware safety risk?
+
+The buck1_0v9 regulator retains a very permissive maximum voltage constrain=
+t=20
+of 3.45V. Because the safe physical limit for the CPU is 1.05V (as defined =
+in=20
+k1-opp.dtsi), could this permanently damage the hardware if a kernel bug, o=
+pp=20
+misconfiguration, or privileged userspace requests a higher voltage up to t=
+he=20
+board-defined maximum?
+
+Should the board-level constraint be clamped to the safe physical limits of=
+=20
+the CPU (e.g., 1050000 microvolts) to prevent the regulator from supplying =
+a=20
+destructive voltage?
+
+>  				regulator-ramp-delay =3D <5000>;
+>  				regulator-always-on;
+>  			};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728211020.1248=
+676-1-aurelien@aurel32.net?part=3D1
