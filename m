@@ -1,172 +1,119 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AF1A3FB067
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 09:35:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A368F344DB9
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 09:37:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785231355; cv=none; b=D129ZlwtoC4ZgCVj2YrMk6cHY1xozeXaEJF/d30RlYPAmIbMaq7YwCUU01ileq+vGIfA2CV6ZOehxAMJSWsSj0/4KWJscgKt1vcob3+peNMw9CaMev+qs2MUgX+moz66bUDuZULrtuOKf1RHb7FV0oE9KbF3cYNBfG4MgEa+ry4=
+	t=1785231456; cv=none; b=bKT9KTu8oyy0ymLxVV9oVZMkQzvUGmqMHdZbEBmtO2X3O1vsV1I8Ox6CqbXQj7Qvu/GOjSjkcE9UbI6IxYo1HFvin+SsPHM0izniOf0iJXaKIAkoyLMtkImGcKd9qtT1pZm5R/kmIe3/BRtmggwSotOm3zrgCuyqOZBbszPIqCs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785231355; c=relaxed/simple;
-	bh=5wHZsmRZJkX36FzDROcwG3gCmz+4LTBOmCoFC9DNaFs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=IW4WS6OYLj5RJtfd+sRMcQIxVaz4HBD1y8YK6JCoC6k+MZB51Y/hcp8Jkg62sMnstF+tM/5/tg/vybZKuCK/WshWNnE8z2V58S1QYgnGCtuEz0UbPDIs7yhueO/q98BhfM4kRB1ROwKQ9IaSocj52S0XzR+kercoUCdmddt4pro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=n8PkHBGT; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1785231456; c=relaxed/simple;
+	bh=9t8UjavKmOko/656wPEi+lgnJzJHuj8dwsDGlGrrRVk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=llUbcLYLtyFSpJODrUmcyQ3siRkaGO/e8DU+gpw3HJhoZMzkgn1UJrop/RFumeKN/DhZ0K8NNXUzLEURV3L2QfQHSuN0wvoYzfrokOHKocSTHppbx5fY9PDZqTGr50UUp1vcTW2g1RGpMyj7bVJ7PsdD+0YZDKNOp/EsXVfuKD4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LZxCDpbL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="n8PkHBGT"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-471eeac43bfso3167471f8f.3
-        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 02:35:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1785231349; x=1785836149; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NJSm/JnxrKE81FhHQMmn4pN/cUcvRnDeftlQtOhibp4=;
-        b=n8PkHBGTcybZOz9v1m62kvkR1jzg6M7BU7Zf63FjwcJPH7G76Ya/bBGmN13mSr5I6G
-         p189/GhplhMQcmGHdx7k48LLOgTfz5s55xAbpLELPkPcdjo4CyUGmpIEr8XRIC9PvsGB
-         JDJw8OOmShcsGrLcccSCjfY0gBE8fk4/Yrx0H520pGlexyWWkDSGs9EIb5DF6qXktQr5
-         XIaVsqx7D6QPNmb1eQwOaCCbGpUOlcd7AhUM6xuJNQ1HnHRu03Ucre1KH9cqqg+2/wc6
-         gcx48K+dq8gdyYpzBYw0O5FwDfm9nEUxwDmcG3cS6QD0MRmajPGAiBxlF/NLg4I/xVHz
-         gnkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785231349; x=1785836149;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NJSm/JnxrKE81FhHQMmn4pN/cUcvRnDeftlQtOhibp4=;
-        b=ggy7RuAucGkj8eMT2PajcRGeMcaIegbeN4yk2aJsl8/HbjR+QgEv2/OprCjIqEUlZQ
-         p+wI79TXcNadlRpiSvNaiwzQiQ8mlaBKyKj5xXoYJTOpOSwv74/Yhd7w52pCrfx7Gumn
-         fFJucPH1vVp9o9rCrjc9b/MKezujyTPLt/1V8MvV3HeQ08PCrMUgIny02LG5iU8Js7da
-         uYUvW3zrM81YK0R7TnbLU9cZCxFNTOtZA+0sIig0oqn0wI0rfW/QgYwzoN4N+PY3pGel
-         fB7qN02DF7HpF7dbn3HMMsE1obaHYaJNxrwReek4fLIXdfWL0vMN44XTcVY6wY1RqKDY
-         EFmg==
-X-Forwarded-Encrypted: i=1; AHgh+RobyGmr/Fj/aS4GGS9vc2GErGJl4srKcta0JnREM5LVSpQaGWlIapedUD2Y+JrzS7dI+oSFSQqVujtN@vger.kernel.org
-X-Gm-Message-State: AOJu0YxBwklReaStqE17kdwIDYCkvflBlr2nIBcTByCzOz3dJvvclHcF
-	Y0i2tLHpsGDfVRfYBIUtC26uHhX0YlFGCUQNLW/Hoay0LXCYwElg65W0M6kxfsjR3R4=
-X-Gm-Gg: AR+sD10iA90gAYeGTZOa4ai9d12U9p+LaoTEEQObjOIOQU3byMQWepCtIZoOwboRYKI
-	9KxehssGfWUWgPHaLdZEHJolgoXtFSHXjygwn3xZOfZW1OUohndKe81Kg0ZVrWYQnQg45ammIHA
-	o+lLaYyJ4bYLawZRSNptLPcxaFFBFGHY3Gq8ZISj1gzr/9X5sj8YD9TS88WWj4zh87Rgv1BuFt1
-	iR10Oyq1KMUPt3rntc13iSLii0KbHhN5/WXzi/9qC90Z9DxxuybJtlpTDc358nGKn6R0pFGmazn
-	pLhiCWYSnnG369uj9rp3ylJB05pHyU3otE/bjciffIYsoOUcuez66Wv/FY/kX/oOcWWNm2cDoYx
-	NNcj9yKeaJBbrVx54OXYISuajnIgLkz2evwbu2N0miOEfpXp5b+r/07Ne/Gxv+DES2FqEdkj5wV
-	9HEWJQGR3SBLWgugclLKu3ZSM=
-X-Received: by 2002:a05:600c:3103:b0:493:f278:ba2f with SMTP id 5b1f17b1804b1-496c643219amr16527625e9.9.1785231349157;
-        Tue, 28 Jul 2026 02:35:49 -0700 (PDT)
-Received: from [192.168.0.35] ([109.77.204.94])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496c4632263sm68190825e9.15.2026.07.28.02.35.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Jul 2026 02:35:48 -0700 (PDT)
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Date: Tue, 28 Jul 2026 10:35:35 +0100
-Subject: [PATCH v13 4/5] dt-bindings: media: qcom,x1e80100-camss: Describe
- iommu entries
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LZxCDpbL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE69F1F000E9;
+	Tue, 28 Jul 2026 09:37:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785231455;
+	bh=gresHR0LaAJsP7a1mc6hKXSKUqCNhkwCw0ndeZGl3oQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LZxCDpbLt48S0xL1+HYT/J/kn7KAHGtTLLMV1uWAngk5JIP9Dz8Zqsy2SjXxaCYcR
+	 +aDHCuhHh2vAnwljzvbbmJj5iO9FSJokUPmErYUF64exP7Qy1imUX5r7TvnCqKHufq
+	 mefYCM6bTWrpDB+keIRGoom0Vaqtga6rNDBFSK9CFcMnUvc4GNn7U90V/7n8LLgkS3
+	 9Q5O9Xs8bfSwXIOcz9Bo2TCxMWkC5mdysAAUYfJtV69IHWDxTkUnj796kmcx26YGez
+	 HXN4iTrKoMewbaqal3FatLiH+dJGV6KjF/KfwoZO9+21npDpFAvVqU5MUrSDwWc7G/
+	 KdnafSyYgYZzQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 5/7] spmi: apple: lock around FIFOs
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sasha Finkelstein" <k@chaosmail.tech>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260728-t603x-spmi-v2-5-f43e5f10e583@chaosmail.tech>
+References: <20260728-t603x-spmi-v2-0-f43e5f10e583@chaosmail.tech>
+ <20260728-t603x-spmi-v2-5-f43e5f10e583@chaosmail.tech>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 28 Jul 2026 09:37:34 +0000
+Message-Id: <20260728093734.EE69F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260728-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v13-4-ae811e2f0799@linaro.org>
-References: <20260728-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v13-0-ae811e2f0799@linaro.org>
-In-Reply-To: <20260728-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v13-0-ae811e2f0799@linaro.org>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>, 
- Todor Tomov <todor.too@gmail.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Bryan O'Donoghue <bod@kernel.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, linux-phy@lists.infradead.org, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Krzysztof Kozlowski <krzk@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2593;
- i=bryan.odonoghue@linaro.org; h=from:subject:message-id;
- bh=5wHZsmRZJkX36FzDROcwG3gCmz+4LTBOmCoFC9DNaFs=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqaHftKWpv80r/kd2OEz0SwpuOlD6R3IYkWLa1/
- UqMkdNx1TuJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCamh37QAKCRAicTuzoY3I
- Ou+qD/9XJ9Kr2dtNDMp3LaXCqRgLwCUXh9WHlrVvWg0IEUWaEpC+qyd6w4rm2xFbsJXMZ0Cv7LX
- uBtcCNSqIDgb98WTUHsRlOCIKcV+N7Zc0DDczm9A0RR1ui19cgMcKZaY0dl6Tk2E3NpgZaOTXoq
- MVcpByF+yJBRETBwq7kDhVMEqOIPiszmPlrWCgT+aoLZ3980RwZVrIy4d3wu3UlzoFGtYRyjFTu
- 0irxHZfSOipWleivf/17UYZ/rkdb+ekKGdaQK0XAcuTlcirOXtmhrGOSw4EsRKFZtC6J4tTJh8w
- dSh0whpXzhKJLmPtKSpq/iCL0hE5/WX912Jaap7RUjVR3AANyTVyC+Ud+MMQNxBNRLzDJq1evau
- 1gpGTKQifnZs8NYzWyAjUJTF6UIT427qD2F410/GfVYAFZE4dGhiR9uOQTqHO5a6PuSpdma0H8b
- fYW1wZY/ebjcEKGRxWa6w5FH20Ftd5WTjrf8sUc0ge1LCa28Cm/4wAKA7dJ5k/qheaEtp0/ttOd
- fOlP4yBr+2PQ1IERSdxYS+Bq9K7twWG2rJ8KX3bWx6aSJLqfgDvx0BzkUZjXIqc8DiO5Ds4uEO0
- Oifi1v9Xk2RNYux1Q0KT25uOybo2KDQExNIn6XaMDN9xM0cMfGuHQN8eaeCI0OlX1vPUPvezEt+
- 5ShgyElMc0/0bHA==
-X-Developer-Key: i=bryan.odonoghue@linaro.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-The original iommus list included entries for ICP and BPS/IPE S1
-contexts. Only the five S1 HLOS stream IDs are required by the CAMSS
-ISP hardware: IFE/IFE_LITE read and write, SFE read and write, and
-CDM IFE. The remaining entries serve other hardware blocks which will
-be described in their own nodes as support is added.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
----
- .../bindings/media/qcom,x1e80100-camss.yaml        | 26 ++++++++++++++++------
- 1 file changed, 19 insertions(+), 7 deletions(-)
+Pre-existing issues:
+- [High] The driver does not drain or flush the RX FIFO during initializati=
+on or after error conditions, leading to cascading transaction failures and=
+ state desynchronization.
+--
 
-diff --git a/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml b/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
-index 2d1662ef522b7..126400772d028 100644
---- a/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
-+++ b/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
-@@ -104,7 +104,22 @@ properties:
-       - const: sf_icp_mnoc
- 
-   iommus:
--    maxItems: 8
-+    oneOf:
-+      - items:
-+          - description: S1 HLOS IFE and IFE_LITE non-protected read
-+          - description: S1 HLOS IFE and IFE_LITE non-protected write
-+          - description: S1 HLOS SFE non-protected read
-+          - description: S1 HLOS SFE non-protected write
-+          - description: S1 HLOS CDM IFE non-protected
-+          - description: Legacy slot 0 - do not use
-+          - description: Legacy slot 1 - do not use
-+          - description: Legacy slot 2 - do not use
-+      - items:
-+          - description: S1 HLOS IFE and IFE_LITE non-protected read
-+          - description: S1 HLOS IFE and IFE_LITE non-protected write
-+          - description: S1 HLOS SFE non-protected read
-+          - description: S1 HLOS SFE non-protected write
-+          - description: S1 HLOS CDM IFE non-protected
- 
-   power-domains:
-     items:
-@@ -332,13 +347,10 @@ examples:
-                                  "sf_icp_mnoc";
- 
-             iommus = <&apps_smmu 0x800 0x60>,
-+                     <&apps_smmu 0x820 0x60>,
-+                     <&apps_smmu 0x840 0x60>,
-                      <&apps_smmu 0x860 0x60>,
--                     <&apps_smmu 0x1800 0x60>,
--                     <&apps_smmu 0x1860 0x60>,
--                     <&apps_smmu 0x18e0 0x00>,
--                     <&apps_smmu 0x1980 0x20>,
--                     <&apps_smmu 0x1900 0x00>,
--                     <&apps_smmu 0x19a0 0x20>;
-+                     <&apps_smmu 0x18a0 0x0>;
- 
-             power-domains = <&camcc CAM_CC_IFE_0_GDSC>,
-                             <&camcc CAM_CC_IFE_1_GDSC>,
+--- Patch [5]: [PATCH v2 5/7] spmi: apple: lock around FIFOs ---
+commit 0e8d4d322dfd8a19a861bdcc1b9aefd06ad5b239
+Author: Alba Mendez <me@alba.sh>
 
--- 
-2.54.0
+spmi: apple: lock around FIFOs
 
+The driver adds a mutex to provide locking around register interactions.
+
+> --- a/drivers/spmi/spmi-apple-controller.c
+> +++ b/drivers/spmi/spmi-apple-controller.c
+[ ... ]
+> @@ -86,7 +90,7 @@ static int spmi_raw_cmd(struct spmi_controller *ctrl, u=
+8 opc, u8 sid,
+> =20
+>  	ret =3D apple_spmi_wait_rx_not_empty(ctrl);
+>  	if (ret)
+> -		return ret;
+> +		goto out;
+
+[Severity: High]
+This is a pre-existing issue, but if a transaction times out here and the
+hardware eventually replies, does the unread data remain in the hardware
+RX FIFO? If the FIFO isn't explicitly drained on errors, the next
+transaction could incorrectly consume the stale data as its own response,
+leading to persistent state desynchronization.
+
+> =20
+>  	reply =3D readl(spmi->regs + SPMI_RSP_REG);
+> =20
+[ ... ]
+> @@ -107,6 +112,8 @@ static int spmi_raw_cmd(struct spmi_controller *ctrl,=
+ u8 opc, u8 sid,
+>  	if (!(readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY))
+>  		dev_warn(&ctrl->dev, "FIFO has extra data\n");
+> =20
+> +	mutex_unlock(&spmi->fifo_lock);
+> +
+
+[Severity: High]
+This is also a pre-existing issue, but when extra data is detected here,
+should the driver drain the remaining words from the FIFO? Leaving the
+unexpected data inside the FIFO instead of reading it out could corrupt
+the state synchronization of the next command on the bus.
+
+[ ... ]
+> @@ -181,6 +192,7 @@ static int apple_spmi_probe(struct platform_device *p=
+dev)
+>  		return -ENOMEM;
+> =20
+>  	spmi =3D spmi_controller_get_drvdata(ctrl);
+> +	mutex_init(&spmi->fifo_lock);
+> =20
+>  	spmi->regs =3D devm_platform_ioremap_resource(pdev, 0);
+>  	if (IS_ERR(spmi->regs))
+
+[Severity: High]
+This is a pre-existing issue, but does apple_spmi_probe() need to flush
+or drain the RX FIFO during initialization? There could be stale data
+left over from bootloader or firmware interactions before the controller
+is fully registered and mapped.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-t603x-spmi=
+-v2-0-f43e5f10e583@chaosmail.tech?part=3D5
