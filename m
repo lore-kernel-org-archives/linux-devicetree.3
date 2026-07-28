@@ -1,39 +1,33 @@
-Received: from smtp-outgoing-1701.laposte.net (smtp-outgoing-1701.laposte.net [160.92.124.99])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED38342D76A
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 12:28:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.92.124.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACA563B47D6;
+	Tue, 28 Jul 2026 12:29:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785241712; cv=none; b=O1fnUw75lIEE+R5MyUzqIk1e4BYdv9W3OUDVRttLR4MZiTJPIYB+aGdWVPXvCbl36pm09NVJBt2qIc8MUlPM8MLhpdvWwGrrX2rWiyOisWHLyeI0linmuyEWpyItH6ePcdPIZb9Y20uhvZjgqtPsBxFq4Yl74F5UZpm3e088kbs=
+	t=1785241757; cv=none; b=fc6xogJBvhRvYGfa4hNJkh+Iw6yCm6QXxQGcM9/D4ilokSdvh2P/5F2wmdPfzXiuLE1FnwqwhgAySHi3dE6VCK5qXL3Xex+dEtL85fJZNO49TDTft1jpPmm2VLXaa3yMw/gsOoEzSFUuBfkEgUyQ/f1AfP7SZLcWMMokJnwbS9k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785241712; c=relaxed/simple;
-	bh=fuFuGjeSJ5R7IX0XoQ0bGlnKWPU2bT8b7T+6cu4eEzM=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
-	 In-Reply-To:Content-Type; b=DQkkRX12w85qswftUGu7i3oMj2RX50uubw3ZlaoizrGLjWC8aW73BIQopc0e4BxoxPVId4ah0wTMh4dHlwMTvh8QNTU0DoBdCFxOSRE60+k0JBrRr9CDJBHpWQGzteVmxiEYPOSu2G+/YEFj3vjBFhFuhPkRICKKe1mOQ4Jiyss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=laposte.net; spf=pass smtp.mailfrom=laposte.net; dkim=pass (2048-bit key) header.d=laposte.net header.i=@laposte.net header.b=GYn8Lup9; arc=none smtp.client-ip=160.92.124.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=laposte.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=laposte.net
+	s=arc-20240116; t=1785241757; c=relaxed/simple;
+	bh=wyG4GECzfSIB9jn/cnBZRJGNhr3BkoIzJAgycItNeL8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HOS2CSPnxlJfq24MWyRCFRkLBk7mO19FPivFWny1YAwmghCIa8v2GTXCBYuUZjSuld7aXg1f/xnc0AI5SSy3NbpPVbyu4/Cab0beGFSOUn4/ibnBNabGLn6BvEOOl6n2Os1zju9RYV6RduKemMhc6DyCfais0At0mAg2U2sqJQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AU7C3ZTB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=laposte.net header.i=@laposte.net header.b="GYn8Lup9"
-X-mail-filterd: {"version":"1.9.7","queueID":"4h8T9W1PR8zSgpL","contextId":
- "ab152995-0c31-475d-8f6c-4505b1b6d5ff"}
-Received: from outgoing-mail.laposte.net (localhost.localdomain [127.0.0.1])
-	by mlpnf0112.laposte.net (SMTP Server) with ESMTP id 4h8T9W1PR8zSgpL;
-	Tue, 28 Jul 2026 10:27:43 +0200 (CEST)
-X-mail-filterd: {"version":"1.9.7","queueID":"4h8T9V4ST7zSgp1","contextId":
- "bafc484e-eddf-447d-a6d3-e19b85c213d1"}
-X-lpn-mailing: LEGIT
-X-lpn-spamrating: 40
-X-lpn-spamlevel: not-spam
-Received: from [192.168.1.2] (unknown [82.67.82.126])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mlpnf0112.laposte.net (SMTP Server) with ESMTPSA id 4h8T9V4ST7zSgp1;
-	Tue, 28 Jul 2026 10:27:42 +0200 (CEST)
-Message-ID: <cc697c8d-8389-4d26-ac3e-4dc51a247dba@laposte.net>
-Date: Tue, 28 Jul 2026 10:27:32 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AU7C3ZTB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A8601F000E9;
+	Tue, 28 Jul 2026 12:29:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785241756;
+	bh=BlUioloYSGbVufswcJ7MSaU+6w+Mef3HekvOtjpEtHA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=AU7C3ZTBM6yTkTimQbZm5n08WZyQfG98HcfFJdW5Ul6jklfTBePDEFmibnzpejLYF
+	 j9wBoJsmZWG6epj+rz6o7hM00zeCnK16Zh5k6P6+OVUmTmKbapLwFV4hH43obRdEfj
+	 B2UXtsXA24kK1I1KCC5O+1aCQQ+iskuu2T/elIU6SzNOv1Xjpyj3Jup3pk6YnzsUjr
+	 DZJXQDijrMxK6iy7xJFoq6QPz9Ixf9m9f4tM7ap893gNqY4FnaK+znleCD49a5WvYv
+	 bKGqMUvEb28FebUzctXWHWsKrkmxcNbosHMQDklD0qzmcI3jLmnprX6idE9A2hJ/KJ
+	 ofAL2mWmxz58Q==
+Message-ID: <1d648ff6-1936-4002-bd2a-f521e99bc71c@kernel.org>
+Date: Tue, 28 Jul 2026 14:29:08 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,184 +35,128 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: wenmeng.liu@oss.qualcomm.com
-Cc: conor+dt@kernel.org, conor.dooley@microchip.com,
- devicetree@vger.kernel.org, krzk+dt@kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- mchehab@kernel.org, robh@kernel.org, sakari.ailus@linux.intel.com,
- vladimir.zapolskiy@linaro.org
-References: <f12c1344-67ff-4242-9c39-59ac208e9b35@oss.qualcomm.com>
-Subject: Re: [PATCH v3 0/3] media: i2c: Add OmniVision OG0VA1B camera sensor
- driver - IPU and ACPI
-Content-Language: fr
-From: Alain Cousinie <alain.cousinie@laposte.net>
-In-Reply-To: <f12c1344-67ff-4242-9c39-59ac208e9b35@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=laposte.net; s=lpn-wlmd; t=1785241707; bh=fuFuGjeSJ5R7IX0XoQ0bGlnKWPU2bT8b7T+6cu4eEzM=; h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:Content-Language:From:In-Reply-To:Content-Type:Content-Transfer-Encoding; b=GYn8Lup9MK7FGT8shm+V62xOdOF+MWVAkCc07fgNQIByLWfoUPufZ7Fm1cp2ZKVb/I3HK83WrNbfonfsE2vZV0cJw5LgBwCtD+j/DEIsL1D04SpaGLf9s3k9gTnk6UpZixk9f2v1K3rQQ3o6lah6U3W1KnmqG+EkgWgjAWcZPCTGrV6Gz6R8JZNmi3cRcFyBa7V/cGHFg4KyHDpLo7pEYM28pr+7yZn/rrjzv/JfPL2syl8KaVuyl4vaUpqEfNdBAcIEpYW7OZ27w7JXXlKv9pQWbCFBpRd6MquUMK4pMJs07li9aGmQwLYjD0BChvdwx0ibWHYBBLElCMu64Sv/TQ==;
+Subject: Re: [PATCH V3 2/4] dt-bindings: mmc: sdhci-msm: Document the Glymur
+ compatible
+To: Monish Chunara <monish.chunara@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Nitin Rawat <nitin.rawat@oss.qualcomm.com>,
+ Pradeep Pragallapati <pradeep.pragallapati@oss.qualcomm.com>,
+ Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
+ Sachin Rathore <sachin.rathore@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Sachin <ssachin@qti.qualcomm.com>
+References: <20260706141346.4180348-1-mchunara@oss.qualcomm.com>
+ <20260706141346.4180348-3-mchunara@oss.qualcomm.com>
+ <20260708-purring-infallible-bullmastiff-8f6dea@quoll>
+ <afb0862a-04d0-4171-887b-7f32ee64163f@oss.qualcomm.com>
+ <c714e746-8b58-42d8-8c37-160f8c5b5a59@kernel.org>
+ <147593cd-fc4e-41b9-83cf-2e42988c5e74@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <147593cd-fc4e-41b9-83cf-2e42988c5e74@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hello,
-I am a novice when it comes to the Linux kernel.
-The og0va1b sensor is also used in laptops (HP, Dell, etc.) with IPU6=20
-and ACPI.
-I tried this on my HP Spectre 14-eu0xxx laptop, and it seems to work=20
-(though it isn't fully functional yet, as other elements are missing).
-I would like to propose adding this configuration for this sensor.
-
-So, I added the ACPI ID=E2=80=94OVTI00AB for og0va1b=E2=80=94to the IPU:
-
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -73,6 +73,8 @@
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 IPU_SENSOR_CONFIG("INT3537", 1, 437000000),
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Lontium lt6911uxe */
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 IPU_SENSOR_CONFIG("INTC10C5", 0),
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Omnivision OG0VA1B */
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0IPU_SENSOR_CONFIG("OVTI00AB", 1, 480000000),
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Omnivision OV01A10 / OV01A1S */
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 IPU_SENSOR_CONFIG("OVTI01A0", 1, 400000000),
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 IPU_SENSOR_CONFIG("OVTI01AS", 1, 400000000),
----
-
-Then, I added the ACPI declaration to `ov0ve1b.c`, following the patches=20
-for og0va1b:
-
-diff --git a/drivers/media/i2c/og0ve1b.c b/drivers/media/i2c/og0ve1b.c
---- a/drivers/media/i2c/og0ve1b.c
-+++ b/drivers/media/i2c/og0ve1b.c
-@@ -978,8 +978,11 @@
-
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 og0ve1b->dev =3D &client->dev;
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 og0ve1b->data =3D i2c_get_match_data(client)=
-;
--=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!og0ve1b->data)
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -ENODEV;
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!og0ve1b->data) {
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 og0ve1b->data =3D=
- device_get_match_data(&client->dev);
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!og0ve1b->da=
-ta)
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 return -ENODEV;
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 }
-
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 v4l2_i2c_subdev_init(&og0ve1b->sd, client, &=
-og0ve1b_subdev_ops);
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 v4l2_i2c_subdev_set_name(&og0ve1b->sd, clien=
-t,
-@@ -1114,6 +1117,15 @@
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 SET_RUNTIME_PM_OPS(og0ve1b_power_off, og0ve1=
-b_power_on, NULL)
- =C2=A0};
-
-+#ifdef CONFIG_ACPI
-+static const struct acpi_device_id og0ve1b_acpi_ids[] =3D {
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 {"OVTI00AB", (uintptr_t)&og0va1b_data},
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 { /* sentinel */ }
-+};
-+
-+MODULE_DEVICE_TABLE(acpi, og0ve1b_acpi_ids);
-+#endif
-+
- =C2=A0static const struct of_device_id og0ve1b_of_match[] =3D {
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 { .compatible =3D "ovti,og0va1b", .data =3D =
-&og0va1b_data },
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 { .compatible =3D "ovti,og0ve1b", .data =3D =
-&og0ve1b_data },
-@@ -1126,6 +1138,7 @@
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 .name =3D "og0ve=
-1b",
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 .pm =3D &og0ve1b=
-_pm_ops,
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 .of_match_table =
-=3D og0ve1b_of_match,
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 .acpi_match_tabl=
-e =3D ACPI_PTR(og0ve1b_acpi_ids),
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 },
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 .probe =3D og0ve1b_probe,
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 .remove =3D og0ve1b_remove,
-
----
-
-Here is an example of my tests: `$ cam -c2 -C1 -Ftest.bin`
- =C2=A0 =C2=A0 Using camera \_SB_.PC00.LNK1 as cam0
- =C2=A0 =C2=A0 [3:02:57.280464484] [55404]=C2=A0 INFO Camera camera.cpp:1=
-216=20
-configuring streams: (0) 640x480-R10/sYCC
- =C2=A0 =C2=A0 cam0: Capture 1 frames
- =C2=A0 =C2=A0 10977.366149 (0.00 fps) cam0-stream0 seq: 000000 bytesused=
-: 614400
-
-This produces a raw image file that I can view using various tools, and=20
-it appears to correspond to the sensor.
-
-Best Regards,
-Alain
-
-> On 23/07/2026 =C3=A0 04:41, Wenmeng Liu wrote :
->>
->>
->> On 7/8/2026 10:33 PM, Wenmeng Liu wrote:
->>> Add OmniVision OG0VA1B driver support. The OmniVision OG0VA1B is a
->>> 1/10-inch monochrome CMOS VGA image sensor. It outputs 10-bit raw (Y1=
-0)
->>> frames at up to 640x480 resolution over a single-lane MIPI CSI-2
->>> interface and is controlled via an I2C-compatible SCCB bus.
+On 28/07/2026 14:25, Monish Chunara wrote:
+> 
+> 
+> On 7/28/2026 5:52 PM, Krzysztof Kozlowski wrote:
+>> On 21/07/2026 16:30, Monish Chunara wrote:
 >>>
->>> This driver has been verified(include tpg) on the Purwa EVK.
 >>>
->>> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
->>> ---
->>> Changes in v3:
->>> - Generalise the binding title and description for both sensors. --=20
->>> Vladimir
->>> - Keep the cached pre_isp read so the OG0VE1B test pattern still work=
-s,
->>> select it via a per-sensor callback. -- Bryan, Vladimir
->>> - Rename the "sensor" field to "data", drop bpp (derive from code) an=
-d
->>> add og0ve1b_pixel_rate(). -- Vladimir
->>> - Sort defines, rename the shared CHIP_ID reg to OG0V_ and order
->>> og0va1b_data first. -- Vladimir
->>> - Expose all four OG0VA1B test patterns instead of one.
->>> - Link to v2:=20
->>> https://lore.kernel.org/r/20260702-og0va1b-v2-0-0071442caa2a@oss.qual=
-comm.com
+>>> On 7/8/2026 12:18 PM, Krzysztof Kozlowski wrote:
+>>>> On Mon, Jul 06, 2026 at 07:43:44PM +0530, Monish Chunara wrote:
+>>>>> From: Monish Chunara <monish.chunara@oss.qualcomm.com>
+>>>>>
+>>>>> Glymur integrates the MSM SDHCI v5 controller. Document the SoC-specific
+>>>>> 'qcom,glymur-sdhci' compatible as required by binding convention to
+>>>>> identify the hardware and reserve the namespace for future SoC-specific
+>>>>> quirks, with 'qcom,sdhci-msm-v5' as the fallback.
+>>>>
+>>>> Drop half of above sentence.
+>>>>
+>>>> "Document the SDHCI controller on Qualcomm Glymur soC, fully compatible
+>>>> with existing MSM SDHCI v5."
+>>>>
+>>>> You do not need to say anything about some conventions or reserving
+>>>> namespaces. We do not reserve namespaces...
+>>>>
+>>>> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>>>>
+>>>> Best regards,
+>>>> Krzysztof
+>>>>
 >>>
->>> Changes in v2:
->>> - Integrate OG0VA1B into the existing og0ve1b driver and binding
->>> instead. -- Vladimir
->>> - Link to v1:=20
->>> https://lore.kernel.org/r/20260618-og0va1b-v1-0-dda71bb83009@oss.qual=
-comm.com
+>>> Sure, thanks. will update in v4. 
 >>>
->>> ---
->>> Wenmeng Liu (3):
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dt-bindings: media: i2c: og0ve1b=
-: Add OmniVision OG0VA1B=20
->>> camera sensor
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 media: i2c: og0ve1b: Introduce p=
-er-sensor data structure
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 media: i2c: og0ve1b: Add support=
- for OmniVision OG0VA1B
+>>> Just for my understanding, though: how does the suggested wording capture the 
+>>> why behind the change? Per previous comments and understanding, the rationale 
+>>> for introducing the SoC-specific compatible is the reason we are making this 
+>>> change. For future submissions, this would help to avoid similar back-and-forth.
 >>>
->>> =C2=A0 .../bindings/media/i2c/ovti,og0ve1b.yaml=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 15 +-
->>> =C2=A0 drivers/media/i2c/og0ve1b.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 375=20
->>> ++++++++++++++++++---
->>> =C2=A0 2 files changed, 344 insertions(+), 46 deletions(-)
->>> ---
->>> base-commit: 5c73cd9f0819c1c44e373e3dabb68318b1de1a12
->>> change-id: 20260618-og0va1b-55bbf3cabb0e
->>>
->>> Best regards,
 >>
+>> Why do you think you need to document the "why" if it is 100% obvious
+>> (and I did state it many times)?
 >>
->> Gentle reminder to review this patchset.
->>
->> Thanks,
->> Wenmeng
->>
+>> Best regards,
+>> Krzysztof
+> 
+> This was asked because it was suggested on first-post to add a why. 
+> 
+> "Same questions as always... why? Don't explain what you did. Explain why
+> ou did that way."
+> 
+> https://lore.kernel.org/all/9bb28a60-2c01-449d-9456-bcf2d780b68c@kernel.org/
+> 
+> Pardon, if this was a misunderstanding.
 
+Yes, so you need to explain why you did that way. Not why you are
+sending this patch. We all know why you are sending this patch.
 
+Best regards,
+Krzysztof
