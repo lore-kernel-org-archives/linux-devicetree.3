@@ -1,345 +1,140 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 893F5309F08;
-	Tue, 28 Jul 2026 01:33:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9716F2D5C83
+	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 01:34:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785202425; cv=none; b=kr9UrBuIcjN5F3BFZgeKFA/g4Wp3Uz9YGyG/1y7qxmYNkaw+56ukPqHftt3XY+poKIMSoF/PB+bsVUVztUcYNIed3OW4bEYO69ik2aai+E7EapmiQRylqLn6qGF8Rln1DVNCh8kEvzulvf6IW+4I0DJ9kQjQVadFpQugv1G6LvM=
+	t=1785202445; cv=none; b=T2H4TTlFZDuneQAZ98LFtcfhkkAEphI9CXFPjlRBb4RU0WPb2WI60kFcn2A88ZT8KUisvGHazvbqxBhIN8eAO0lfA7lFyaOmTVwQZZ5sB/g2ilaXP6q9QJLKSeHf8aMa9z2R5NON9KsqNJBOcqyG6jKJmIFY4mU/qlNgDFJoVBc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785202425; c=relaxed/simple;
-	bh=Eb9llJMtmz2qcQq8vuCE3o+si7lmoyR7oZPqFd4tABo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CDWiX8QOAs31LM4eCKLcHoO87AGlEsYkI7X2uXicweoYU/O0OqoCxUXBlfksrg4MBf3hKuZwcFLQUWF9QdzVzcNsCiMc+5kpH1oOuEJnPjsXmzblY2z4VQsjEg95WUqLb93G5vRxG4T7FI9HGeAlxC156lCYGnpGaTLig4Z8E84=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=xjxF9vz8; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=j1SnxuFc; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1785202445; c=relaxed/simple;
+	bh=eLJ4cm9aXbCg4AG6cBWY6zl9jR/oCZjPRsFw4LHK8zE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=SLb3vHB3JuzVb5HTB6zvzAhSq2eqyc/LYN1ha8Pn0KGEBTc+wVqtkdOYQdGWRDrdDuy4hCn35CDPra7iy6XR6mVoYJzgdv+1KWBL58UHunH5jAp5THiocVJti45Rguuw00BqZKFtgm4w4yZ+1Ky2sDOj6zW46HGerLaK4yK8Ato=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XZmuT19u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="xjxF9vz8";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="j1SnxuFc"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4h8Hzn3B5xz8vBB;
-	Tue, 28 Jul 2026 03:33:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1785202421;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nYA/9LlwqU2E+vBAE4IOmMISeUuH/BPmUSzuqRVq1d4=;
-	b=xjxF9vz8Nt9gRRIfJUMlpt1PSbcc0VR+bwkOKucsBU7WWvV+c8A0kn88G9ceiXYLUZNPCO
-	4aNmBzqB8fsPtrtLZVj2IFLLEQizZ7/gvtL5innSTrackMTSQE1jBKHHqNMk9p9W5s8qvG
-	nElOB6818Xwk8grK4xPuwgNAz/XhhF/h/cmxdwPGxTBa88O+u0haqJUWjvv/qn9VFvCb+Q
-	OnRMzvv5+Nb8IgCs/G66AfdlTcd50ynq+/zcBCA8ZMMPLRseFNvYYZFImRoxpb+trdqVrt
-	KVacPqOGNld5wr9H2Elfeks5ekR4NDrAaXFZhp9jPXrdrOTynojm4b8SgssK9g==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=j1SnxuFc;
-	spf=pass (outgoing_mbo_mout: domain of marek.vasut+renesas@mailbox.org designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=marek.vasut+renesas@mailbox.org
-From: Marek Vasut <marek.vasut+renesas@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1785202419;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nYA/9LlwqU2E+vBAE4IOmMISeUuH/BPmUSzuqRVq1d4=;
-	b=j1SnxuFcvhyjS/a47xWVKRKfjVBtDk+qbwHXJrHlzyJjvgPK7ZgMgElxeBdG1yc8o8jYG8
-	Fmaky2v3pAqluCp+1IuUIAZwigyQncshhLodmbzwxItNDNw5UbBXMc2kegnkgCzaHaIW6Z
-	Vws1dVkSW1k1RNVDZZoM3f2YIi2CCDdOrNuaxZMIpRtnULBrd4gnwp4FZaf0vqr4nSXu7+
-	iJDAVBJOYlU3jO5M2QP0OABqTtGBmpxasSoVvVHPDejUA565synWSkQWI2/mxvSyTB7DxO
-	Wg7K4BndB153kU+yA9eJ0q3Uf2Ra+iym/XbjBuoZ5Do9SW/sBBK9/kOF9l/ciQ==
-To: linux-pci@vger.kernel.org
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: [PATCH v3 6/6] PCI: dwc: rcar-gen4: Add support for R-Car X5H PCIe4
-Date: Tue, 28 Jul 2026 03:32:39 +0200
-Message-ID: <20260728013311.466242-7-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260728013311.466242-1-marek.vasut+renesas@mailbox.org>
-References: <20260728013311.466242-1-marek.vasut+renesas@mailbox.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XZmuT19u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA71D1F000E9;
+	Tue, 28 Jul 2026 01:34:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785202444;
+	bh=y2ZS71WoNaulKBW7nTpsYZ0yCqmGfmS07Fi6RI+zClM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XZmuT19uwj7slcOw2Rj+F8lbIDsP7ZnXs/zZ65+H4KHNzeoxg/7Jt5C+pKhNbBHkf
+	 JSgJgzOWP6R/Xf88tKWP91NjRZ24gfL0GNPGFZmRzyfEcE4S3J8hBIOu1ej3VeREfw
+	 cVOb7JouPEYtlqH8Q5JLDJakKIC79g0m0r8Oj6kKtb6RV0qMHo8wKL6jPnXbG8W0I+
+	 bUriJQYG8q4HFeV3+2iOAg+Y6PFVcBGucqVHTvNkm8Ph+PRs8q+kDn1j9rzdeN1HaG
+	 G6SjcxrMI/lDQI4FlOPp+ut2NQl5D6XdeW4Bcca7GGsZwHWokNOhQu7VxtTNuo9an1
+	 HC3kkxxEvRDSQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: usb: Add Parade PS5169 redriver
+ bindings
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Esteban Urrutia" <esteuwu@proton.me>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260727-ps5169-bup-v1-1-c76a8ef3b239@proton.me>
+References: <20260727-ps5169-bup-v1-0-c76a8ef3b239@proton.me>
+ <20260727-ps5169-bup-v1-1-c76a8ef3b239@proton.me>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 28 Jul 2026 01:34:03 +0000
+Message-Id: <20260728013403.BA71D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: qpyes9ggfhpjftdif8eiqbce158p1hrb
-X-MBO-RS-ID: b8034412e0936703ad5
-X-Rspamd-Queue-Id: 4h8Hzn3B5xz8vBB
 
-Add support for R8A78000 (R-Car X5H) PCIe4.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The schema incorrectly uses `additionalProperties: false` at the=
+ top level, rejecting inherited properties from referenced schemas and brea=
+king altmode support for the PS5170 variant.
+- [Medium] The `ports` object lacks an `unevaluatedProperties: false` const=
+raint, rendering the `if-then` restriction ineffective and silently allowin=
+g `port@2` on the PS5169 variant.
+--
 
-This driver previously supported R-Car Gen4 S4/V4H/V4M. PCIe features
-of R-Car X5H PCIe4 are almost all the same.
+--- Patch [1]: [PATCH 1/2] dt-bindings: usb: Add Parade PS5169 redriver bin=
+dings ---
+commit dc85f2d66c6d67f68f982e513db1687e5793eecf
+Author: Esteban Urrutia <esteuwu@proton.me>
 
-The controller initialization sequence is slightly different and is
-factored out into controller specific callbacks, in a manner similar
-to previous R-Car Gen4 handling.
+dt-bindings: usb: Add Parade PS5169 redriver bindings
 
-The controller does have a PHY attached to it, but the PHY is operated
-by a separate PHY driver, the PHY driver instance binding is handled
-in rcar_gen4_pcie_get_resources() and controlled in the aforementioned
-controller specific callbacks.
+Add bindings for the Parade PS5169 and PS5170 USB Type-C linear redrivers.
+The difference between PS5169 and PS5170 is that PS5170 features an
+embedded AUX switch, while PS5169 does not.
+Future-proof the binding by adding PS5170 as well.
 
-The controller driver is deliberately using "renesas,rcar-gen5-pcie4"
-DT compatible string to discern R-Car X5H PCIe4 controller supported
-by this driver, from R-Car X5H PCIe6 controller which will most likely
-use a separate driver.
+diff --git a/Documentation/devicetree/bindings/usb/parade,ps5169.yaml b/Doc=
+umentation/devicetree/bindings/usb/parade,ps5169.yaml
+new file mode 100644
+index 0000000000000..23ca8e6c0491f
+--- /dev/null
++++ b/Documentation/devicetree/bindings/usb/parade,ps5169.yaml
+[ ... ]
+> +  parade,usb-tx-set-gain:
+> +    type: boolean
+> +    description:
+> +      If this property is specified a gain of -0.9 dB will be applied on=
+ the USB transmit channels.
+> +
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +    properties:
 
-The R-Car X5H PCIe4 controller embeds HDMA instead of EDMA embedded
-in the R-Car Gen4 PCIe controller, "dw-edma" driver supports both
-DMA variants.
+[Severity: Medium]
+Should this ports definition include unevaluatedProperties: false?
 
-Endpoint mode is currently not implemented for R-Car Gen5 PCIe4.
+Without it, any unlisted extra properties are permitted by default.
 
-Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
----
-Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
-Cc: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-pci@vger.kernel.org
-Cc: linux-renesas-soc@vger.kernel.org
----
-V2: No change
-V3: - Disable clock in case of PHY init failure in rcar_gen5_pcie_init()
-    - Add .deinit callback and tear down Gen5 PHY in it
-    - Use 16bit accessors on LNKCTL register
----
- drivers/pci/controller/dwc/pcie-rcar-gen4.c | 128 +++++++++++++++++++-
- 1 file changed, 126 insertions(+), 2 deletions(-)
+This means the if-then block later in the schema will successfully define
+port@2 for PS5170, but it won't prevent port@2 from being silently accepted
+for the base PS5169 device that lacks an AUX switch.
 
-diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-index 30b024a620410..cfabb16402db4 100644
---- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-+++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-@@ -19,6 +19,7 @@
- #include <linux/of_address.h>
- #include <linux/of_irq.h>
- #include <linux/pci.h>
-+#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/reset.h>
-@@ -36,6 +37,7 @@
- 
- /* MSI Capability */
- #define MSICAP0			0x0050
-+#define MSICAP0_MMESCAP_MASK	GENMASK(19, 17)
- #define MSICAP0_MSIE		BIT(16)
- 
- /* PCIe Interrupt Status 0 */
-@@ -74,6 +76,11 @@
- #define PCIEPWRMNGCTRL		0x0070
- #define APP_CLK_REQ_N		BIT(11)
- #define APP_CLK_PM_EN		BIT(10)
-+#define APP_READY_ENTR_L23	BIT(6)
-+#define APP_REQ_ENTR_L1		BIT(5)
-+
-+/* PCI Express capability */
-+#define EXPCAP(x)		(0x0070 + (x))
- 
- #define RCAR_NUM_SPEED_CHANGE_RETRIES	10
- #define RCAR_MAX_LINK_SPEED		4
-@@ -98,6 +105,7 @@ struct rcar_gen4_pcie {
- 	struct dw_pcie dw;
- 	void __iomem *base;
- 	void __iomem *phy_base;
-+	struct phy *phy;
- 	struct platform_device *pdev;
- 	struct reset_control *perst;
- 	const struct rcar_gen4_pcie_drvdata *drvdata;
-@@ -170,6 +178,35 @@ static int rcar_gen4_pcie_speed_control(struct rcar_gen4_pcie *rcar)
- 	return 0;
- }
- 
-+static int rcar_gen5_pcie_speed_control(struct rcar_gen4_pcie *rcar)
-+{
-+	struct dw_pcie *dw = &rcar->dw;
-+	u32 lnkcap = dw_pcie_readl_dbi(dw, EXPCAP(PCI_EXP_LNKCAP));
-+	u32 lnksta = dw_pcie_readw_dbi(dw, EXPCAP(PCI_EXP_LNKSTA));
-+	u32 val, retries;
-+
-+	if ((lnksta & PCI_EXP_LNKSTA_CLS) == (lnkcap & PCI_EXP_LNKCAP_SLS))
-+		return 0;
-+
-+	/* Retrain link */
-+	val = dw_pcie_readw_dbi(dw, EXPCAP(PCI_EXP_LNKCTL));
-+	val |= PCI_EXP_LNKCTL_RL;
-+	dw_pcie_writew_dbi(dw, EXPCAP(PCI_EXP_LNKCTL), val);
-+
-+	/* Wait for link retrain */
-+	for (retries = 0; retries <= 10; retries++) {
-+		lnksta = dw_pcie_readw_dbi(dw, EXPCAP(PCI_EXP_LNKSTA));
-+
-+		/* Check retrain flag */
-+		if (!(lnksta & PCI_EXP_LNKSTA_LT))
-+			break;
-+
-+		usleep_range(1000, 1100);
-+	}
-+
-+	return 0;
-+}
-+
- /*
-  * Enable LTSSM of this controller and manually initiate the speed change.
-  * Always return 0.
-@@ -285,6 +322,49 @@ static int rcar_gen4_v4h_v4m_pcie_init(struct rcar_gen4_pcie *rcar)
- 	return 0;
- }
- 
-+static int rcar_gen5_pcie_init(struct rcar_gen4_pcie *rcar)
-+{
-+	struct dw_pcie *dw = &rcar->dw;
-+	int ret;
-+	u32 val;
-+
-+	/* R-Car Gen4 and Gen5 common initialization. */
-+	ret = rcar_gen4_pcie_common_init(rcar);
-+	if (ret)
-+		return ret;
-+
-+	/* R-Car Gen5 specific additional initialization. */
-+	ret = phy_init(rcar->phy);
-+	if (ret)
-+		goto err_unprepare;
-+
-+	dw_pcie_dbi_ro_wr_en(dw);
-+
-+	val = dw_pcie_readl_dbi(dw, PCIE_PORT_LANE_SKEW);
-+	val &= ~PORT_LANE_SKEW_INSERT_MASK;
-+	if (dw->num_lanes < 8)
-+		val |= BIT(6);
-+	dw_pcie_writel_dbi(dw, PCIE_PORT_LANE_SKEW, val);
-+
-+	val = dw_pcie_readl_dbi(dw, MSICAP0);
-+	FIELD_MODIFY(MSICAP0_MMESCAP_MASK, &val, 4);
-+	dw_pcie_writel_dbi(dw, MSICAP0, val);
-+
-+	dw_pcie_dbi_ro_wr_dis(dw);
-+
-+	val = readl(rcar->base + PCIEPWRMNGCTRL);
-+	val |= APP_CLK_REQ_N | APP_CLK_PM_EN |
-+	       APP_READY_ENTR_L23 | APP_REQ_ENTR_L1;
-+	writel(val, rcar->base + PCIEPWRMNGCTRL);
-+
-+	return 0;
-+
-+err_unprepare:
-+	clk_bulk_disable_unprepare(DW_PCIE_NUM_CORE_CLKS, dw->core_clks);
-+
-+	return ret;
-+}
-+
- static void rcar_gen4_pcie_common_deinit(struct rcar_gen4_pcie *rcar)
- {
- 	struct dw_pcie *dw = &rcar->dw;
-@@ -293,6 +373,12 @@ static void rcar_gen4_pcie_common_deinit(struct rcar_gen4_pcie *rcar)
- 	clk_bulk_disable_unprepare(DW_PCIE_NUM_CORE_CLKS, dw->core_clks);
- }
- 
-+static void rcar_gen5_pcie_deinit(struct rcar_gen4_pcie *rcar)
-+{
-+	phy_exit(rcar->phy);
-+	rcar_gen4_pcie_common_deinit(rcar);
-+}
-+
- static int rcar_gen4_pcie_prepare(struct rcar_gen4_pcie *rcar)
- {
- 	struct device *dev = rcar->dw.dev;
-@@ -322,8 +408,12 @@ static int rcar_gen4_pcie_get_resources(struct rcar_gen4_pcie *rcar)
- 	struct device_node *root_port;
- 
- 	rcar->phy_base = devm_platform_ioremap_resource_byname(rcar->pdev, "phy");
--	if (IS_ERR(rcar->phy_base))
--		return PTR_ERR(rcar->phy_base);
-+	if (IS_ERR(rcar->phy_base)) {
-+		rcar->phy_base = NULL;
-+		rcar->phy = devm_phy_get(dev, NULL);
-+		if (IS_ERR(rcar->phy))
-+			return PTR_ERR(rcar->phy);
-+	}
- 
- 	root_port = of_get_next_available_child(dev->of_node, NULL);
- 	if (root_port) {
-@@ -751,6 +841,28 @@ static int r8a779f0_pcie_ltssm_control(struct rcar_gen4_pcie *rcar, bool enable)
- 	return 0;
- }
- 
-+static int rcar_gen5_pcie_ltssm_control(struct rcar_gen4_pcie *rcar, bool enable)
-+{
-+	u32 val;
-+
-+	val = readl(rcar->base + PCIERSTCTRL1);
-+	if (enable) {
-+		val |= APP_LTSSM_ENABLE;
-+		val &= ~APP_HOLD_PHY_RST;
-+	} else {
-+		val &= ~APP_LTSSM_ENABLE;
-+		val |= APP_HOLD_PHY_RST;
-+	}
-+	writel(val, rcar->base + PCIERSTCTRL1);
-+
-+	if (enable)
-+		phy_power_on(rcar->phy);
-+	else
-+		phy_power_off(rcar->phy);
-+
-+	return 0;
-+}
-+
- static void rcar_gen4_pcie_phy_reg_update_bits(struct rcar_gen4_pcie *rcar,
- 					       u32 offset, u32 mask, u32 val)
- {
-@@ -933,6 +1045,14 @@ static struct rcar_gen4_pcie_drvdata drvdata_rcar_gen4_pcie_ep = {
- 	.mode = DW_PCIE_EP_TYPE,
- };
- 
-+static struct rcar_gen4_pcie_drvdata drvdata_rcar_gen5_pcie = {
-+	.init = rcar_gen5_pcie_init,
-+	.deinit = rcar_gen5_pcie_deinit,
-+	.ltssm_control = rcar_gen5_pcie_ltssm_control,
-+	.speed_control = rcar_gen5_pcie_speed_control,
-+	.mode = DW_PCIE_RC_TYPE,
-+};
-+
- static const struct of_device_id rcar_gen4_pcie_of_match[] = {
- 	{
- 		.compatible = "renesas,r8a779f0-pcie",
-@@ -950,6 +1070,10 @@ static const struct of_device_id rcar_gen4_pcie_of_match[] = {
- 		.compatible = "renesas,rcar-gen4-pcie-ep",
- 		.data = &drvdata_rcar_gen4_pcie_ep,
- 	},
-+	{
-+		.compatible = "renesas,rcar-gen5-pcie4",
-+		.data = &drvdata_rcar_gen5_pcie,
-+	},
- 	{},
- };
- MODULE_DEVICE_TABLE(of, rcar_gen4_pcie_of_match);
--- 
-2.53.0
+> +      port@0:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: Super Speed (SS) Output endpoint to the Type-C conn=
+ector
+[ ... ]
+> +allOf:
+> +  - $ref: usb-switch.yaml#
+> +  - $ref: usb-switch-ports.yaml#
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: parade,ps5170
+> +    then:
+> +      properties:
+> +        ports:
+> +          properties:
+> +            port@2:
+> +              $ref: /schemas/graph.yaml#/properties/port
+> +              description:
+> +                Sideband Use (SBU) AUX lines endpoint to the Type-C conn=
+ector for the purpose of
+> +                handling altmode muxing and orientation switching.
+> +
+> +additionalProperties: false
 
+[Severity: Medium]
+Does this need to be unevaluatedProperties: false instead of
+additionalProperties: false?
+
+In JSON schema, additionalProperties only considers the explicitly listed
+local properties and ignores properties imported via $ref in allOf.
+
+Because mode-switch (inherited from usb-switch.yaml) is omitted from the
+local properties list, additionalProperties: false will reject it. This
+might break validation for the PS5170 variant acting as an altmode switch.
+
+> +
+> +examples:
+> +  - |
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727-ps5169-bup=
+-v1-0-c76a8ef3b239@proton.me?part=3D1
