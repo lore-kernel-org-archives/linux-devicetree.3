@@ -1,113 +1,124 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78EAA41DED3
-	for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 10:06:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33C0A41A554;
+	Tue, 28 Jul 2026 10:10:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785233166; cv=none; b=rde9f/MKEQTlXr75T8N95YqQSW1zTQ11luqP1+uXdJQN6aYhAE5FmLHzbDs5eOM622maeY/2M9YLX06WH6Wj5cvjvhYhVREDtX2CpJzVegMY/6FmKJ9OH3fiTvEayJmkfqvfjkXVyAaP+beb6HirKJYUc4Mh+3FOfFMyGUMaJAk=
+	t=1785233428; cv=none; b=JNUC654u+6QFfFBMH8IaOwmjGV/tDGxemqfCaOrtQtQesKWMjN6CUlCXZIuzm5TttKj2zRvJJBJvGR02MrupcdqF5D5uRB4iZxN1TICAUOW0J+RpUaYwRIG76TeeeglRtvUROPRlIlDWDqxkyhmftnWMlnk0Cu4qEAf9Urois+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785233166; c=relaxed/simple;
-	bh=Rp6+uTMCabzqwWh7spwIBUTlBYjHvNxnWsIheA7Ukxo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bmezek1uAJ9m2JBzB0xJkozhGm8Ir6vbA/thEdFWK+phyjLCSF/YhGpm4ko3dGod5Uqv0RfAxEHGZpz9/U8DOjh0w3F8G0bl1amQCW+yEuby/02SlZy0AkhTfI3qjjX8U1HaWumc6kTbsrUM0HIxGaUoWR8adApy9ixTVE8+Tz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=RGgKQhgS; arc=none smtp.client-ip=209.85.218.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1785233428; c=relaxed/simple;
+	bh=CgTsrnw/oUs1nfPmmrF4f6odfgN+/4iQgg6M+/qZHn0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=F9S7yfe3xLZiu+OaC/vKijhFXBS4QHUQJtXZ0i638NZor+dDOtYWrcRX2/K1uZfO5FTD6eajp0xi8BK0Vfe0yDRj70SiWlPLFjDRYpiye4l+ujVMhagNY/Q3gvo3d3HYmO5HmStOHH+A11rTzvuy3lKFzemjSCRM/f7uNgzKqYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l3zSAmVz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="RGgKQhgS"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c15e592da74so400068166b.1
-        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 03:06:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1785233163; x=1785837963; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9YUhY2kLHKMkStru04ihqtiLZEbioAB+gFNR7L1P5RY=;
-        b=RGgKQhgSy5hbCKjGqFFIemOkOM5dQmn9Mgp+OPsN2AksZZU2QX5o0PCJjJg6ImnNx1
-         s1nQKXFm/a5sJi4xvVEHgOgKtuIvAtZjMks0hVpW2tDPss6c/u5SRpMrPuz9gTBhFHs8
-         0GB7hi9gu2UhZ7KAAke6KuGnfo/fuMe5h/Ty+H0ubN944+mHXLxupmIyeBTSQgnDDMK9
-         4+SawC2sTjDzOTCoB3Y6ViCpZXhu4WNsDl5kp1x53MTml8ATmCPyoViUYwGy5gsUGIeF
-         yawckni0U0EJ/W6X3cLba0ykyh9LNDA8pHaCTynZIEXY5v+1v55iYgeedgLek1hxl7t8
-         NU/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785233163; x=1785837963;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9YUhY2kLHKMkStru04ihqtiLZEbioAB+gFNR7L1P5RY=;
-        b=sjpWYZIo+oSLoQ78CNDpfk72sd8uzjKgKq+ZNPzjh8/sVcb+M+ud00c8g/wlDfWfh3
-         yTABrHpASqWLHmifAp4W7GmawKYLOpw0Whf5FC2NKFwokL/YcOKswDbgl/j7urIbgtRQ
-         QM+H79o5TaAGqOrlZkc4nevB5ySq7KfPuOb18kR1HQLeEja1LJf0VGXmOGULAIvAzMqZ
-         QQBRDUWnKsHc2nOdpwu2nb7BpXeV+ga2U/zn19kExoHFwwLM9VGIZk6Il7l0/43FDoAm
-         6xD3KoZLylWevTbPaGK4AiYFDF/ukzT7t/MoAO4CibyKnTE/Jybxrinkq+zxH1YpFXJD
-         1p6A==
-X-Forwarded-Encrypted: i=1; AHgh+Rqxum7pQi3Y08uf2snQN3HPNjImxiSE4aNLAr5PGXO9SE1wTCCSYHmNBlpzA/OCOmnrPIeJuZF5h2p9@vger.kernel.org
-X-Gm-Message-State: AOJu0YwwuqaIIFn1vzr/ijyAcgCGBuoRe/BCQSR4XwnKS0iCplC8kuAS
-	+5EaWlBl02mfXah5cjkXXzjax4PvVwFkoNVl3ACq+DlVqFVgZG4Qv8SfFYqeGWh5puU=
-X-Gm-Gg: AR+sD11wSJHY+/s+wj+FA4ZulJivU/CBOzPeYdvc20ZH972Ic86S/s/krS6UKgI5PgI
-	mJFKePtS3YTGw35Tbjrr9jVv8M30gs6hrdmAFs0tWsZnXluQ78rs/7aNGMlo/PK03PuEIWN0fDs
-	/UpruAQwc43G/5RAEm5d0gJpeHBgB8Od/RkqxkucatYBGQMe6uzvWBUsrWOUnnX6+OyFa0q4ukT
-	woRHIxbJno/OYnupu+MPNvpNN5qmaj6ijGoH3vbaRWwursr1ihCED5M5UnfgtqzHFxqh8LKQbf7
-	NpoVFHN5te+fQuBNfpBhU/Bvwhq7bS/1WFpSgxVyNzhBwaW844VxJwVyb888xerjQ9KFqczLzsW
-	5DghfgK9fW2Zk7WCNH8TRduZIlwFxKbvgGeD92r8Gw/Q0199MdcBi4r2AvvBAqK5JFpqbr9w1/R
-	hGg6u7uVU8boCkyQ==
-X-Received: by 2002:a17:906:fe4e:b0:c16:677b:4d1f with SMTP id a640c23a62f3a-c1f72489d85mr86000166b.54.1785233162679;
-        Tue, 28 Jul 2026 03:06:02 -0700 (PDT)
-Received: from [192.168.0.101] ([109.77.204.94])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1c32ac9d79sm725854666b.21.2026.07.28.03.06.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 28 Jul 2026 03:06:02 -0700 (PDT)
-Message-ID: <a9eb7475-2682-4b9a-b401-6178282d34aa@linaro.org>
-Date: Tue, 28 Jul 2026 11:06:01 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l3zSAmVz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3E3A1F000E9;
+	Tue, 28 Jul 2026 10:10:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785233425;
+	bh=jFpVwDGB+ken5MMKXbe3yv7FTf1GaeW4u1tfomWUaug=;
+	h=From:Subject:Date:To:Cc;
+	b=l3zSAmVzAQglOwjcIX8O/7otlDbuAB6E9RM7uOLWpk6dHKX0Uy7Gh1TOpbjATAxn/
+	 FQ72pGyBZhNfTflABvjAVoYDACMA2DuOCqj9lEe29is0FOfepzT8WcYSs8C28v6M1s
+	 Tlu/BYW2nsdtvhvrBbpvslQvwKX7xgQdP3auD4pAqmMIjE4DrR9LFj5s20bZ+uWqPD
+	 qfBfEavnjgbFKIOHqSR8/jngVir8H+ypmoKV4VAwb9dVE2CiRFulC9OgPO6ykbJCJo
+	 W4AnGxXWONaMUyp5p/ulN7RdfEp2eDWqQrNhP1DF/1J2P6oeuWEEkg6YROECrwOWsi
+	 3/nx6sCeH78Tw==
+From: Konrad Dybcio <konradybcio@kernel.org>
+Subject: [PATCH v2 0/5] USB4 mode programming for QMMPHY on X1E
+Date: Tue, 28 Jul 2026 12:10:11 +0200
+Message-Id: <20260728-topic-usb4phy-v2-0-5d9dd5149ec7@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 5/5] dt-bindings: media: qcom,x1e80100-camss: Make
- vdd-csiphy supplies optional
-To: sashiko-reviews@lists.linux.dev
-Cc: media-ci@linuxtv.org, neil.armstrong@linaro.org, robh@kernel.org,
- devicetree@vger.kernel.org, olteanv@gmail.com, vkoul@kernel.org,
- conor+dt@kernel.org, linux-phy@lists.infradead.org
-References: <20260728-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v13-0-ae811e2f0799@linaro.org>
- <20260728-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v13-5-ae811e2f0799@linaro.org>
- <20260728094212.0F6511F000E9@smtp.kernel.org>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20260728094212.0F6511F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNzQqDMBCEX0X23EgS/O2p71E8xLjWLdXYrEpFf
+ PdGe+5l4IOZbzZg9IQM12gDjwsxuSGAvkRgOzM8UFATGLTUmUxVISY3khUz18nYrQLLTOk2rY2
+ UBYTN6LGlz+m7Vz/muX6inQ7J0eiIJ+fX83BRR++fe1FCilw1hc5tUjbW3Bxz/J7Ny7q+j0NAt
+ e/7F94VhxfDAAAA
+X-Change-ID: 20260518-topic-usb4phy-e9612f5ba008
+To: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ usb4-upstream@oss.qualcomm.com, 
+ Raghavendra Thoorpu <rthoorpu@qti.qualcomm.com>, 
+ Mika Westerberg <westeri@kernel.org>, Sven Peter <sven@kernel.org>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785233420; l=2356;
+ i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
+ bh=CgTsrnw/oUs1nfPmmrF4f6odfgN+/4iQgg6M+/qZHn0=;
+ b=Qbs6F3qaxa8cYeTTpf8HDpHGcUxvBoIR5a8Ym6ZbuMWOgHA9mv3yJej2VsqH56jAV8bwvc1sv
+ SD8OKA+3ZCgCEnI5gz7TAfuYZOisJJiu4nTJA1nNcCRptLr3s6IB1QG
+X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
-On 28/07/2026 10:42, sashiko-bot@kernel.org wrote:
-> [Severity: Medium]
-> Since the CSIPHY nodes are being moved out to peer nodes, do other properties
-> in this schema also need to be updated to prevent validation regressions?
-> 
-> For example, the reg-names, clock-names, and interrupt-names in this schema
-> are currently defined as strict, fixed-order arrays that expect csiphy elements
-> at specific indices. If those elements are removed from the CAMSS node to avoid
-> resource conflicts, won't the remaining elements shift and cause
-> dt_binding_check to fail?
-> 
-> Additionally, the ports schema mandates data-lanes on the CAMSS endpoints.
-> Is this requirement still correct for internal links between the CAMSS core
-> and a peer PHY, rather than physical lanes to the sensor?
+The USB43DP QMP PHY, as the name suggests, supports USB4 in addition to
+DP/USB. This series provides the necessary plumbing to switch to that
+mode of operation on hamoa/purwa.
 
-A good guess but, no - illustrative of how LLMs "understand" stuff but 
-actually don't understand stuff.
+This is achieved by exposing a third `struct phy *` for the USB4 sub-
+PHY, which will be toggled by the USB4 router driver, living within the
+Thunderbolt framework, which will be posted separately.
 
-If the graph lookup and probe succeeds then the legacy regs/clocks are 
-never mapped by camss - if that lookup _fails_ then you absolutely need 
-the legacy stuff.
+Find more details in the individual commit messages. Tested on a
+X1E80100 CRD.
 
-"Dr Chandra will I dream" ?
+No external dependencies.
 
-"I don't know"
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+---
+Changes in v2:
+- Massage the bindings to only allow the p2rr2p clock on Hamoa
+- Pick up tags
+- Rebase (nop)
+- Link to v1: https://patch.msgid.link/20260518-topic-usb4phy-v1-0-71d827c49dca@oss.qualcomm.com
+
+To: Vinod Koul <vkoul@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-phy@lists.infradead.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
 
 ---
-bod
+Konrad Dybcio (5):
+      dt-bindings: phy: qcom,qmp-usb3-dp: Extend X1E description for USB4
+      phy: core: Define TBT phy_mode
+      phy: qualcomm: qmp-combo: Add preliminary USB4 support
+      phy: qualcomm: qmp-combo: Add USB4/TBT3 configuration data for Hamoa
+      arm64: dts: qcom: hamoa: Extend QMPPHY description for USB4
+
+ .../phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml         |  55 +-
+ arch/arm64/boot/dts/qcom/hamoa.dtsi                |  18 +-
+ drivers/phy/qualcomm/phy-qcom-qmp-combo.c          | 592 ++++++++++++++++++---
+ drivers/phy/qualcomm/phy-qcom-qmp-pcs-aon-v6.h     |   2 +
+ drivers/phy/qualcomm/phy-qcom-qmp-pcs-usb-v6.h     |  15 +
+ .../phy/qualcomm/phy-qcom-qmp-qserdes-txrx-v6_n4.h |  45 ++
+ include/dt-bindings/phy/phy-qcom-qmp.h             |   1 +
+ include/linux/phy/phy-tbt.h                        |  14 +
+ include/linux/phy/phy.h                            |   2 +
+ 9 files changed, 651 insertions(+), 93 deletions(-)
+---
+base-commit: 0d33d21e47d9dc66f91e44da3fc9220c74d93df7
+change-id: 20260518-topic-usb4phy-e9612f5ba008
+
+Best regards,
+--  
+Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
