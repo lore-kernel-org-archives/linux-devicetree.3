@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB8A940F74E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB7C4344DB9;
 	Tue, 28 Jul 2026 09:44:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785231867; cv=none; b=J5EV9qgNo5D0bOrg4jgDZO1A8N8xNgMe0udN3bO+5L+nFTNo6u7FlanhSAObkFPRpc3txj9rOBNRL2r60Hrkf175ED35QVUHcEpgrgwGkIddHdm1kpkclnZgb+YL37fv7C1boHxGteHhkQfQUmh4xaBfX9aNXSKB0Z+OFWqksqE=
+	t=1785231867; cv=none; b=WIm8pLLvLr0g8sLwPIzkx6K3GOpfAvqO1o/9vSvGm96/6OF7ORJwTdeGPWdiNIay1Mx2T7QxgWTbTAfs+xq3aMfHuD0C2mAZepzq7zqOPmVT09QCUgh7NZtphSSxF6yLZbp67wfzMLoHtiORYZYqRrK73CrQLeUqvx61xUc3o60=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785231867; c=relaxed/simple;
-	bh=B+Il3voZWOU+NfKjXmq5iEtbdl3/dZmOXmoyBUpXRSg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=VbkfKwk6yo8EzOieOFSgsuXlESsRr638elMqY9SzJ9wbowlQdM74ikCQgZBvrr2CbZS3BO3Judl0DUrEPumdDytBjmKN6B/q0NjWokwL1xv6kZw2Q7cG+S/UvWKP3ndXTPEzEaIaOD96dlpQ1pUYHie7o7L2S8AZL0+zLUwxS5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RQt1AqLw; arc=none smtp.client-ip=10.30.226.201
+	bh=h69R4j/rmpdgP8o8m1yEq9Zr1i/pxjtXgCv5NE7eh7U=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=QlKiAA3wlKsfbVe0KKN1DrYgcid93E2n2ucmkkXm9r9U9XrGPCLZz+RWIMueCmtdfEWcPnYBp6Fes/nTyYEV4kYYVQTbdrrmnzYUTI8KScW+0WYQeHIdm7dRM8S5azdt7hMn+xeQ4eDWxSkul2thewCP9eB8h0SLvpn5BAte6Is=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S0jrvz2X; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RQt1AqLw"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8A1D7C2BCFC;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S0jrvz2X"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7B385C2BCF6;
 	Tue, 28 Jul 2026 09:44:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1785231867;
-	bh=B+Il3voZWOU+NfKjXmq5iEtbdl3/dZmOXmoyBUpXRSg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=RQt1AqLwLkznKF3DKKp46q8wYr35VOCUD2WZpqzv2DotmazIQLEbjiz7cTYCaL0+Q
-	 saDA7JNK0eRSvRlquIAuVApjy0Lzsw33n+TSbGuhz8Gomlh09GtxnXaY7MJnn+P9j1
-	 8/ML9I7yQ3kid1yviyywAEhfnj2VxRU6NHDmIuwkDffZETUhQqAouBkrvq0WG5kpkI
-	 o3Z1Sn4HTcdzfZ+VJ3wSxjDsirrhAwnohTZ0makZSGHM+6M1vBmhJERfAg/5shISab
-	 sdX1tFvJVqnXgGOYwQMcXjOl2ovUy+vZhoLgorc0zS3v3XiGZMO1DqH2WfgReED3iR
-	 XzPQsZcdmtCmA==
+	bh=h69R4j/rmpdgP8o8m1yEq9Zr1i/pxjtXgCv5NE7eh7U=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=S0jrvz2XyEqa0+e4RphZWLei9168pGEJgI3ReuwPhXYi9AsvhTZloPqIWzMXCUudI
+	 tymDdDNbjmGXtytRT97k7UkUn/cdTRbgePN4emhOvN1aIs/lYVO9L7GUdyXM/fPhx+
+	 pTQvraLHu0xnKL/9fIm1SfDE/KHLgjWroJvp0TjtK8vBQ85XHHC87NtPvs+TEehu+f
+	 Wg/W9basLnRkQVlxNGvyKmOgI8jy1LWlynUHBAnoSIqSb7Pvp6Xb4ls9r4+fffAe0n
+	 LbB59sTr6fC9vBWOfT1Z1Q52VV69RTyZqMz6ujnPLYljlOBBz2Pn1FfDj3H8Zwcr2h
+	 JYlimM7G1pI0g==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 69C05C54F4C;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 52959C531F9;
 	Tue, 28 Jul 2026 09:44:27 +0000 (UTC)
 From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
-Date: Tue, 28 Jul 2026 12:42:46 +0300
-Subject: [PATCH 1/3] dt-bindings: mailbox: mediatek,gce-mailbox: add mt6572
+Subject: [PATCH 0/3] MediaTek mt6572 GCE support
+Date: Tue, 28 Jul 2026 12:42:45 +0300
+Message-Id: <20260728-6572-gce-v1-0-750bba32689e@protonmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,9 +40,10 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260728-6572-gce-v1-1-750bba32689e@protonmail.com>
-References: <20260728-6572-gce-v1-0-750bba32689e@protonmail.com>
-In-Reply-To: <20260728-6572-gce-v1-0-750bba32689e@protonmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqAIBCF4avErBNMSqmrRAuz0aaFhVYE0t2zW
+ n7wv5cgYiCM0BUJAp4UafUZVVmAmbV3yGjKBsGF5EooJhslmDPIpG5UhbbWlreQ8y2gpeu76of
+ f8RgXNPu7h/t+AOT7Go1sAAAA
+X-Change-ID: 20260727-6572-gce-6a571ef4af09
 To: Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
@@ -53,11 +54,11 @@ Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
  Roman Vivchar <rva333@protonmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785231864; l=2656;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785231864; l=2056;
  i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
- bh=gdmBpbzvMM1k4WMKvCNMXHzy/2AmitDeeVQZLFqJ/iw=;
- b=I7l0tZVnlxUmK7WNVN5xygPbnShw33DIxbkF+tiJSu9jcvQCvXK5Q0Hy4J8iinaN/5Xq7Boxo
- rBXW7pEw9E8Cqn2fBX/7gJn+J4xKv7IaaiduZGi1/ykm0/8rnN3YWpu
+ bh=h69R4j/rmpdgP8o8m1yEq9Zr1i/pxjtXgCv5NE7eh7U=;
+ b=EldVTVr9AKUbsyuW29i/MN4bIvptSWUJkcBtHqg7ZlMHiIH+s6/QhfjjYsy6XeKaPBX6K4Q9T
+ rUbTbLADPCXCGEsPTENo+EubLfTd3etsTrGIVtb+UwCjFwOyi8JmHdV
 X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
  pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
 X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
@@ -65,88 +66,52 @@ X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
 X-Original-From: Roman Vivchar <rva333@protonmail.com>
 Reply-To: rva333@protonmail.com
 
-From: Roman Vivchar <rva333@protonmail.com>
+Yes I know this one is very different from basics like previous pwrap
+and efuse...
 
-Add a compatible string and a header for the GCE constants.
+This patch series adds support for the Global Command Engine found in
+the mt6572 SoC.
+
+Notably, the patch 2 introduces legacy ISA format, which is used on
+mt6572, 6582 and 6592 SoCs. mt6577 doesn't have the GCE at all, mt6589
+seems to have new-ish ISA, and mt6595 is much more close to 6795/8173.
+Patch 3 adds mt6572 platform data and legacy_isa forwarding to the
+instruction JIT.
+
+This format was reverse engineered from the Android HAL and uses 22-bit
+offset with 2-bit subsystem ID, unlike the newer 16-bit offset and 8-bit
+subsystem ID.
+The mt6572 HAL includes workarounds for WFE and EOC instructions, emitting
+another WFE as barrier at WFE, and JUMP +8 at EOC.
+mt6582 and 6592 HAL dropped WFE barrier, but still have JUMP +8.
+
+This sounds very much like some kind of software mitigations for hardware
+bugs, but during testing on 6572 nothing bad happened so far. These
+additional instructions are not included in the patches.
+
+Note that while GCE can be used for e.g. mt6592 UFOE (which is at
+0x14013000, so outside of the u16 range), currently the driver still uses
+u16 for the offset, because I don't have any 6592 device.
 
 Signed-off-by: Roman Vivchar <rva333@protonmail.com>
 ---
+Roman Vivchar (3):
+      dt-bindings: mailbox: mediatek,gce-mailbox: add mt6572
+      soc: mediatek: cmdq-helper: add legacy GCE ISA support
+      mailbox: mtk-cmdq: add mt6572 support
+
  .../bindings/mailbox/mediatek,gce-mailbox.yaml     |  1 +
- include/dt-bindings/gce/mediatek,mt6572-gce.h      | 52 ++++++++++++++++++++++
- 2 files changed, 53 insertions(+)
+ drivers/mailbox/mtk-cmdq-mailbox.c                 | 11 +++++
+ drivers/soc/mediatek/mtk-cmdq-helper.c             | 55 +++++++++++++++-------
+ include/dt-bindings/gce/mediatek,mt6572-gce.h      | 52 ++++++++++++++++++++
+ include/linux/mailbox/mtk-cmdq-mailbox.h           |  1 +
+ 5 files changed, 103 insertions(+), 17 deletions(-)
+---
+base-commit: 8cd9520d35a6c38db6567e97dd93b1f11f185dc6
+change-id: 20260727-6572-gce-6a571ef4af09
 
-diff --git a/Documentation/devicetree/bindings/mailbox/mediatek,gce-mailbox.yaml b/Documentation/devicetree/bindings/mailbox/mediatek,gce-mailbox.yaml
-index 587126d03fc6..d6e93010bb94 100644
---- a/Documentation/devicetree/bindings/mailbox/mediatek,gce-mailbox.yaml
-+++ b/Documentation/devicetree/bindings/mailbox/mediatek,gce-mailbox.yaml
-@@ -18,6 +18,7 @@ properties:
-   compatible:
-     oneOf:
-       - enum:
-+          - mediatek,mt6572-gce
-           - mediatek,mt6779-gce
-           - mediatek,mt8173-gce
-           - mediatek,mt8183-gce
-diff --git a/include/dt-bindings/gce/mediatek,mt6572-gce.h b/include/dt-bindings/gce/mediatek,mt6572-gce.h
-new file mode 100644
-index 000000000000..e6d949d76f88
---- /dev/null
-+++ b/include/dt-bindings/gce/mediatek,mt6572-gce.h
-@@ -0,0 +1,52 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-+/*
-+ * Copyright (c) 2026 Roman Vivchar.
-+ */
-+
-+#ifndef _DT_BINDINGS_GCE_MT6572_H
-+#define _DT_BINDINGS_GCE_MT6572_H
-+
-+/* GCE HW thread priority */
-+#define CMDQ_THR_PRIO_NORMAL		0
-+#define CMDQ_THR_PRIO_HIGHEST		1
-+
-+/* GCE SUBSYS */
-+#define SUBSYS_14XXXXXX			0
-+#define SUBSYS_15XXXXXX			1
-+
-+/* GCE HW EVENT */
-+#define CMDQ_EVENT_MUTEX0		0
-+#define CMDQ_EVENT_MUTEX1		1
-+#define CMDQ_EVENT_MUTEX2		2
-+#define CMDQ_EVENT_MUTEX3		3
-+#define CMDQ_EVENT_MUTEX4		4
-+#define CMDQ_EVENT_MUTEX5		5
-+#define CMDQ_EVENT_MUTEX6		6
-+#define CMDQ_EVENT_MUTEX7		7
-+
-+#define CMDQ_EVENT_DISP_WDMA_EOF	12
-+#define CMDQ_EVENT_DISP_RDMA_EOF	13
-+#define CMDQ_EVENT_DISP_BLS_EOF		14
-+#define CMDQ_EVENT_DISP_COLOR_EOF	15
-+#define CMDQ_EVENT_DISP_OVL_EOF		16
-+#define CMDQ_EVENT_MDP_TDSHP_EOF	17
-+#define CMDQ_EVENT_MDP_RSZ1_EOF		18
-+#define CMDQ_EVENT_MDP_RSZ0_EOF		19
-+#define CMDQ_EVENT_MDP_RDMA_EOF		20
-+#define CMDQ_EVENT_MDP_WDMA_EOF		21
-+#define CMDQ_EVENT_MDP_WROT_EOF		22
-+
-+#define CMDQ_EVENT_MDP_WROT_SOF		24
-+#define CMDQ_EVENT_MDP_RSZ0_SOF		25
-+#define CMDQ_EVENT_MDP_RSZ1_SOF		26
-+#define CMDQ_EVENT_DISP_OVL_SOF		27
-+#define CMDQ_EVENT_MDP_WDMA_SOF		28
-+#define CMDQ_EVENT_MDP_RDMA_SOF		29
-+#define CMDQ_EVENT_DISP_WDMA_SOF	30
-+#define CMDQ_EVENT_DISP_COLOR_SOF	31
-+#define CMDQ_EVENT_MDP_TDSHP_SOF	32
-+#define CMDQ_EVENT_DISP_BLS_SOF		33
-+#define CMDQ_EVENT_DISP_RDMA_SOF	34
-+#define CMDQ_EVENT_CAM_MDP		35
-+
-+#endif
-
--- 
-2.54.0
+Best regards,
+--  
+Roman Vivchar <rva333@protonmail.com>
 
 
