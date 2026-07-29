@@ -1,163 +1,201 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76AF9481ABB;
-	Wed, 29 Jul 2026 12:32:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10D2047F2EA
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 12:34:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785328377; cv=none; b=nUu7rCTaRvZ6TTHxB5B/tKmoPhNwXniogP2YlbLpML7IPFb/InLs3Qoi5IsP1E0sJg6TdlZID9LbQwmCpf6MpxaKyfjTz+kCxG+9bMMa5R+RbPmI+n8TUPmF7cZR7Auq8vYtRQ4NJnxb+Kw57nmyko5rpiQNp7n17nxjl6NCDzI=
+	t=1785328447; cv=none; b=OV5JuOCq7VDUomFHJCPSaDyP7qlaAUcSNu1WLa6g05Zd9Xzf6LlZ7cZyX+ASDLHly2w+qfM9xbsUgX6V/OgmRXB6pR5itK393hhbp0XtzG7Cgu/5BSTzUvR+4WnHZyuke2/Pv1SUEG6pGdP+rtN0DesZ/Eh7OVodLsgiqO6NuoY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785328377; c=relaxed/simple;
-	bh=Efv27Nhf1gNpoPVClqZKBxOSTwfe9r0DdydCcAQA4zU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BLOZaEsT203yQatUh/XqNuwR+BPfY8q6wpuKCWXwZqO7XBfutIBODZPcIzR/p/6xXuXeq+n25dtJxFFKeP8BtGy1vXhvAAaOt2V66ikWkLsJPk26eblZsvGmV/N/z1qpuTjZ0tLvD7vw/UbekIznjDw7oPHCiIdGJ8BHFkotRso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=itaIsCEL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785328447; c=relaxed/simple;
+	bh=HeAEDpOyWDfK0HywfMKKJR7m/lfHHAOTVtMyX32Yin4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ANNlNI67qtAv72AD+CUnctVGS86QIBwLvu9rbSeEQdbdnV5bkN/GWTPwuPU2yBIPLO/lQJqzO67Q6o2exfsnqRczvbtrFs7yfZyJbhCqaTuXOAvHiB7Eq8S4pGgyCHW+iSkFJTCyXwokwmOGLGkz2JsPrIHlYZ196PRCpW5h6Is=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=JyLSAyA7; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="itaIsCEL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44DAD1F000E9;
-	Wed, 29 Jul 2026 12:32:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785328363;
-	bh=IT8XVe1oAEQ8ge+kuY5c5MgD2tqKCKNTD47Vo2dqYQs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=itaIsCELLk0paLdNzF04weWmpedRtNvvSSFOVcbjuu1XeK60coNTVs6paN1rmpaSU
-	 kzoqZOhypXLmc90+Rgk1Vah3/Fr9FMrYHK+1S2ePeTk32Mzpvt21wmU2iMIlrK/MhD
-	 /oJsucorU4gS6waSN1FD0WdKGuUnnX2fjbSpI3dGT5lnW2bxshXvk6xEKffUCLLI5f
-	 2RtsG0xL41Oyv3ghQvuL2CW2RHN/rzt6v/ZNkBafJDrMXSjO216uu4vAXtxCcmD4WR
-	 AcOCFWAvw/q61/j1U/6Yk5pnHAhg3qMNIYiNlTDn6UP4fOvFH8GCgl/mud9bmuh347
-	 f7gN9oQSFmW8g==
-Message-ID: <e9dec9e9-afcc-45a1-9d52-2c4ff34958a0@kernel.org>
-Date: Wed, 29 Jul 2026 14:32:34 +0200
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="JyLSAyA7"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49553515a8bso11534125e9.1
+        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 05:34:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1785328442; x=1785933242; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hj7jv6pRB6x5AF5ocoOAZbiwUraKrz6rxk84/RgEz0M=;
+        b=JyLSAyA7JLsBjzsv5sIAMPO8UgSES5gspaHVhSgXArmDW4bnZ3K4YkR+4qtU1fywnQ
+         Irjg6ff/Nvjc9ubPdR9GnYaiSVWJ6Da7YS4a2hnizuFlf9PDpqpYTwK03dtfX8cAxayz
+         3UIZ5GdqQYnTu1hiva6mTgO8/7DP+6yIaC7oIU6+J9wmD2Rn8dcoVWOezjHdTsbyn5Mk
+         wpC1l0wxXWdOpnXu+GBVY3mIhqePwqtPbHJTgwmpDO+x1laQYOe+JfuOWdoTQefrmkOK
+         MowjE8U9DfsaCnyRNE5JCeZysqJapQ45v5K48JDGha168J44FXT5NQUi73Yy62IRY1vI
+         IhkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785328442; x=1785933242;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hj7jv6pRB6x5AF5ocoOAZbiwUraKrz6rxk84/RgEz0M=;
+        b=Ky9WWmC0cRQiaEUMZshjvpZVBkhAWJRwF0KLxyE1T9HTijWZoTzoBDFPll9Mj6s1S4
+         HPuZ4XxGFYnIlgeBYR5cFaIGoTX+wR81v6UYwpwz1kUWAvNUxeaiRMIKBzV5+F2q6kv7
+         qh9vlmCXJ/izTR3W5DHOCvrjkXZ//PK2MG+mlIYtuulWa6nrAaIW1R4sdikD3rIVUkt7
+         ZJCI6SlQuj3E0yz0IARBLF/NJJdbU2FmgFqkZrXIHK6hPKfb1O6TjYVJ6/nVUybQLbMs
+         XrzPc5mMEeOXvh257TjX3dzX4QVjjzo8navWSGQ72lYaf5HZrtB4oeotwMVDiGDBOJLa
+         boow==
+X-Forwarded-Encrypted: i=1; AHgh+RrVH2L+3EUGg2Vtskr/C19axhvRZo9dpm+Nq7mF1DbaMZs6GIoXVgsOulzYvlNik5spHFzKUG+zxf/t@vger.kernel.org
+X-Gm-Message-State: AOJu0YztFooOsU+U+G3MvrS4hSygbSq7qUJxVFqTMblwnRtI7xpcTI09
+	qX+CeuRWALBeChEHNoOvscqrprnIhjNDWgt9frCgvY55GGtRIPJrK4T6iutSeZ/kVgw=
+X-Gm-Gg: AR+sD11SSpn6JJDZ8sRx4hswW9q9A4rc6QXiwbXPSTHFpY6dryTac8pRLXeweTYEHbo
+	OCSYllv3XZDPSmR/6zkKrFjbBMAxr8+AvVbSQWdMehBaK5mNPkxGXAcUCJLQZ1hpBjwe0Zy3nP7
+	TecaHBPmvnNZsbLHBvp1jVut5t8B+DrpncVwyIUJ52+DmhVQfBXUu/jDgmrQfWlcPZ2PvgXpfRP
+	6BJCF1E6UsvxT07L4ISBr445ki26P5K0ktLkHI7olIV1nKDhB9lXFM3xr3eojbKPd44fJRVG4fF
+	6rxLsNoT9WEIte+30J+BahpsoTa9326AUVRf6sioaWyj81KqvbaLa/WdpqGF2erCSgmL654Ptr7
+	RVgB4Sxek+OAELi7otzaD/2+ppTmyTuFd7/Pjq4nwJRIsf1I99dq80u92L0kqBh6RmlhpWhukbv
+	KRMK9XPq+Vh2AnfPlN9wZN8gykHv9cTyaa5Suf73fa0RfHOCa2jfZyYBru83HDXn1ThO6opRjXh
+	aQp05Ey++c/zVjZv4vmwQMVhdnYDCU61IGoyEmrFK+5LdgOOGf8TwHr5Lb21w==
+X-Received: by 2002:a05:600c:1f95:b0:490:c6c2:52 with SMTP id 5b1f17b1804b1-496c64261d4mr74271315e9.3.1785328441446;
+        Wed, 29 Jul 2026 05:34:01 -0700 (PDT)
+Received: from localhost (p200300f65f47db0401da7fd03a16a046.dip0.t-ipconnect.de. [2003:f6:5f47:db04:1da:7fd0:3a16:a046])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49764d6d0f8sm50701985e9.2.2026.07.29.05.34.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 29 Jul 2026 05:34:00 -0700 (PDT)
+Date: Wed, 29 Jul 2026 14:33:59 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+	Sebastian Reichel <sre@kernel.org>, Ion Agorria <ion@agorria.com>, 
+	=?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-input@vger.kernel.org, linux-leds@vger.kernel.org, linux-pm@vger.kernel.org
+Subject: Re: [PATCH v10 2/7] mfd: Add driver for ASUS Transformer embedded
+ controller
+Message-ID: <amnxliqWscD4Mjdz@monoceros>
+References: <20260721095233.420823-1-clamor95@gmail.com>
+ <20260721095233.420823-3-clamor95@gmail.com>
+ <amGx2fJCUB4_XW1M@monoceros>
+ <CAPVz0n2yWtTOgruRc+MAYTZ9=rd6qf6sEnX9v8THvJkN_opvbA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/8] dt-bindings: embedded-controller: qcom,hamoa-crd-ec:
- Add qcom,tsens
-To: Anvesh Jain P <anvesh.p@oss.qualcomm.com>,
- Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org
-References: <20260728-ec_add_more_commands-v1-0-771abd65ee1a@oss.qualcomm.com>
- <20260728-ec_add_more_commands-v1-1-771abd65ee1a@oss.qualcomm.com>
- <b7a45a38-008f-45e1-b138-91ca34704bde@kernel.org>
- <d1af3fcb-f2cd-4e37-b1b1-d8caff984c84@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <d1af3fcb-f2cd-4e37-b1b1-d8caff984c84@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-On 29/07/2026 13:54, Anvesh Jain P wrote:
-> 
-> 
-> On 7/29/2026 4:38 PM, Krzysztof Kozlowski wrote:
->> On 28/07/2026 19:44, Anvesh Jain P wrote:
->>> Add the qcom,tsens property so Hamoa-based boards can list the tsens
->>> providers, and how many leading sensor IDs on each, whose readings the
->>> driver averages to compute the SoC junction temperature reported to
->>> the EC for fan control.
->>>
->>> The generic thermal-sensors property has no standard semantic for
->>> selecting a range of sensor IDs from a provider without enumerating
->>> each one, so a vendor-specific phandle-array with an explicit sensor
->>> count is used instead.
->>>
->>> Signed-off-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
->>> ---
->>>  .../embedded-controller/qcom,hamoa-crd-ec.yaml     | 31 ++++++++++++++++++++++
->>>  1 file changed, 31 insertions(+)
->>>
->>> diff --git a/Documentation/devicetree/bindings/embedded-controller/qcom,hamoa-crd-ec.yaml b/Documentation/devicetree/bindings/embedded-controller/qcom,hamoa-crd-ec.yaml
->>> index c07483aa5937..ec809fcd03ab 100644
->>> --- a/Documentation/devicetree/bindings/embedded-controller/qcom,hamoa-crd-ec.yaml
->>> +++ b/Documentation/devicetree/bindings/embedded-controller/qcom,hamoa-crd-ec.yaml
->>> @@ -33,11 +33,40 @@ properties:
->>>    interrupts:
->>>      maxItems: 1
->>>  
->>> +  # A generic "thermal-sensors" phandle only identifies individual sensor
->>> +  # IDs, and thermal zones are a Linux-side grouping of those sensors, not
->>> +  # a devicetree concept the EC cares about. What the driver actually needs
->>> +  # is raw readings from a contiguous range of leading sensor IDs on each
->>> +  # tsens provider, averaged together, so qcom,tsens pairs each provider
->>> +  # phandle with a count instead of enumerating every sensor cell.
->>> +  qcom,tsens:
->>
->>
->> What is the point of having internal review and then IGNORE that review?
->>
->> NAK
->>
->> Best regards,
->> Krzysztof
-> 
-> Krzysztof — for context: I did move to thermal-sensors after your
-> review, but Konrad separately suggested keeping just the provider
-> phandle instead of enumerating every sensor cell, since we only need a
-> leading range per provider. qcom,tsens was meant to combine both
-> suggestions, not ignore yours. Happy to instead just go with your
-> original suggestion and use plain thermal-sensors, enumerating each
-> sensor — let me know which you'd prefer.
-
-How does <"thermal-sensors" phandle only identifies individual sensor>
-and this phandlel does not? I see absolutely no difference thus you
-duplicated the property, which I EXPLICITLY asked NOT TO during internal
-review.
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="6dqlofrf2szwmrad"
+Content-Disposition: inline
+In-Reply-To: <CAPVz0n2yWtTOgruRc+MAYTZ9=rd6qf6sEnX9v8THvJkN_opvbA@mail.gmail.com>
 
 
+--6dqlofrf2szwmrad
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v10 2/7] mfd: Add driver for ASUS Transformer embedded
+ controller
+MIME-Version: 1.0
 
-Best regards,
-Krzysztof
+On Sat, Jul 25, 2026 at 04:23:13PM +0300, Svyatoslav Ryhel wrote:
+> =D1=87=D1=82, 23 =D0=BB=D0=B8=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 09:25 Uw=
+e Kleine-K=C3=B6nig
+> <u.kleine-koenig@baylibre.com> =D0=BF=D0=B8=D1=88=D0=B5:
+> >
+> > Hello,
+> >
+> > On Tue, Jul 21, 2026 at 12:52:28PM +0300, Svyatoslav Ryhel wrote:
+> > > From: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
+> > >
+> > > Support Nuvoton NPCE795-based ECs as used in Asus Transformer TF201,
+> > > TF300T, TF300TG, TF300TL and TF700T pad and dock, as well as TF101 do=
+ck
+> > > and TF600T, P1801-T and TF701T pad. This is a glue driver handling
+> > > detection and common operations for EC's functions.
+> > >
+> > > Co-developed-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > Signed-off-by: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
+> >
+> > Documentation/process/submitting-patches.rst has:
+> >
+> >         [...] the ordering of Signed-off-by: tags should reflect the
+> >         chronological history of the patch insofar as possible [...]
+> >
+> > So your S-o-b should be last when you submit a patch.
+> >
+> > > +#include <linux/i2c.h>
+> > > [...]
+> > > +#include <linux/mod_devicetable.h>
+> >
+> > <linux/mod_devicetable.h> will go away soon. Please rely on
+> > <linux/i2c.h> to provide a definition of struct of_device_id and drop
+> > the #include of mod_devicetable.h.
+> >
+> > > +static const struct of_device_id asus_ec_match[] =3D {
+> > > +     {
+> > > +             .compatible =3D "asus,sl101-ec-dock",
+> > > +             .data =3D &asus_ec_sl101_dock_data
+> > > +     }, {
+> > > +             .compatible =3D "asus,tf101-ec-dock",
+> > > +             .data =3D &asus_ec_tf101_dock_data
+> > > +     }, {
+> > > +             .compatible =3D "asus,tf201-ec-pad",
+> > > +             .data =3D &asus_ec_tf201_pad_data
+> > > +     }, {
+> > > +             .compatible =3D "asus,tf600t-ec-pad",
+> > > +             .data =3D &asus_ec_tf600t_pad_data
+> > > +     },
+> > > +     { /* sentinel */ }
+> > > +};
+> >
+> > Trailing comma after the assignments to .data please.
+> >
+>=20
+> Sure, but out of curiosity, why in this case you ask for trailing
+> comma and if entries are in one line, you don't.
+
+Because this is the most used style. The rationale for the trailing
+comma is that if you want to add a new assignment to a multiline
+initializer you have to touch the line without comma:
+
+ 	}, {
+ 		.compatible =3D "asus,tf600t-ec-pad",
+-		.data =3D &asus_ec_tf600t_pad_data
++		.data =3D &asus_ec_tf600t_pad_data,
++		.something_else =3D &foobar,
+ 	},
+
+so if the comma is already there, the patch reduces to:
+
+ 	}, {
+ 		.compatible =3D "asus,tf600t-ec-pad",
+ 		.data =3D &asus_ec_tf600t_pad_data,
++		.something_else =3D &foobar,
+ 	},
+
+=2E For adding a new assignment to:
+
+ 	{ .compatible =3D "..." }
+
+you have to touch the line anyhow, so there is no advantage to already
+have the comma. And then it seems parsimony prevails.
+
+Best regards
+Uwe
+
+--6dqlofrf2szwmrad
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpp8zUACgkQj4D7WH0S
+/k6ZNAf8DhR7uBfXuQZzNcJ2dR9KB5Mucc4l5ZRolBWJcq6FHN8KK2BbDb+bkrcE
+pUhYeNPt0LnZBA6JHWhJAM1zlHnLaQ2PlBWxeR4EIwAhM8nyXcfHgmgMJxBHSeEQ
+qHWXZKtQd90uCGYg4BnQO8LmgAQR610/ujayOjnD0EgB2Wy19ZkENuG5Nu+Irzef
+8DWW0WMWbrTCP49l4fgVWsLE8/yOaBE1jBeyaZ17yXLwz5vbs6OfeCkqaK11AOnH
+KXbRlcea/K7YZX7wPKZLhHMSvmzSk+NEQgQpg7+qgg7NYMLDgJFCfvFTWhNj5lqb
+GcHcRJv6c3GBFhS3t9oSrHiBeXrX0A==
+=JxD4
+-----END PGP SIGNATURE-----
+
+--6dqlofrf2szwmrad--
