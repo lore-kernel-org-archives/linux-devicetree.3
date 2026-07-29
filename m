@@ -1,116 +1,97 @@
-Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
+Received: from freeshell.de (freeshell.de [116.202.128.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B266A2D73A1;
-	Wed, 29 Jul 2026 09:37:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.154.119.183
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A7FD4071D2
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 09:40:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.202.128.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785317881; cv=none; b=R+d+fSRMu3Tefld8B/uG+kAH4xequzjVH9XueLrXEOpzJJBiRRwD0SRPTrQl1CtQTtNMqaiInCuQcjlAubyiRSQCHoybJwl6JLybXBHYqGMa2/noxlwVoARLP5F021Fsi4gxtwIesvgkpWIaDWccTsZq82rXOo7m9xrOXXOQXGw=
+	t=1785318046; cv=none; b=b4rKKr5wP17+Cp/PPAqtX08tsOyBrYhd61PgM1/gndneWfB5EUjIKXI6GgW/5j+xqa/T/Q+enUZedZdBAZQIkYymcJor4XEX+qDbODjATLJRFZu4D+TnsQOtXjYJYdFNmMfPBSJWNMlSt6Pi3ItMlRJ4vogcqA8xxV19Vze9JF0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785317881; c=relaxed/simple;
-	bh=28D5nNF4zbN3byS6jWFAsLf3aFZVFARqN4RKV7DUUt0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C5qT3wGvFUl27os2D3OcA+fpJUugbPl047UMhh7QAhUb9T7BHr4Jw8jPioOXj0MW7EQQ89Ue2EEjWiMsMkpuJdAcIgIH/UVTg7GoG1GmHQkntwApKRdeDUA5De+IFPbrAiJ+8XLdOPWNSfCjfFoQYJ7mAlTACcbYZon9jbLHslc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net; spf=pass smtp.mailfrom=aurel32.net; dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b=mrMjcnY7; arc=none smtp.client-ip=195.154.119.183
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
+	s=arc-20240116; t=1785318046; c=relaxed/simple;
+	bh=3wrqckctt6zgH9bKd9dhTAE6d7ty9EDoCoNpUpTvjZY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=M8s/aFsaCfecVs1i0U/U/lDTQ2xDUbv9jg6mwwFtUIItZGTY8KifUiOdO3grCccASwp813eXvWjXhQpiw7f8tb8brFvdJIqk3uAGsmo2vU3VIo6clA0bv2Bbxr2GSPcUnAoIKB27aKs8Nfg0I1NbxMlObassVHHHCpM87pjtJKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de; spf=pass smtp.mailfrom=freeshell.de; dkim=pass (2048-bit key) header.d=freeshell.de header.i=@freeshell.de header.b=RSzCztt2; arc=none smtp.client-ip=116.202.128.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=freeshell.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b="mrMjcnY7"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
-	; s=202004.hall; h=In-Reply-To:Content-Type:MIME-Version:References:
-	Message-ID:Subject:Cc:To:From:Date:Content-Transfer-Encoding:From:Reply-To:
-	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
-	bh=jdJjAQ5usu/uPD4P5xeoaT+rcjDFpo2ZWXNtcZD+yKI=; b=mrMjcnY7nPhCaAbMQmxKfVOR94
-	QnAM7D6AdTeeW+wn6FeoQR+WN0qHSGk/6cwltYj579cHeOAlA4aB83Fq6ZB5cfbJN8mUJtptQfd5C
-	qQmQPsSwig5PQIVVU5JxVmkaTm+uOyA3hT5jACOf/XVI4H95YxIQ//dvyGd705OyH0p0TPlhC9sPl
-	Le4dSOwv/Bw/mZXuM7CCdC17lfqwjKkWUI52ykN599iVjIxLRTjqjBv20gJQRXwGuehi3pLcQGO20
-	Fz4mXXFawAd7Im3B924iNfACNFVLdZpuMyTYs5k0hf4FnprlB78x8qFjb3Ftltkgcd78B37e+UhcE
-	zAk+N6Vg==;
-Received: from authenticated user
-	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <aurelien@aurel32.net>)
-	id 1wp0jd-00000002Jo2-2BFi;
-	Wed, 29 Jul 2026 11:37:57 +0200
-Date: Wed, 29 Jul 2026 11:37:52 +0200
-From: Aurelien Jarno <aurelien@aurel32.net>
-To: sashiko-reviews@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Yixun Lan <dlan@kernel.org>
-Cc: Aurelien Jarno <aurelien@aurel32.net>,
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>
-Subject: Re: [PATCH 2/3] riscv: dts: spacemit: Add a common board dtsi for
- Milk-V Jupiter boards
-Message-ID: <amnJ8JmhGbH_sNV_@aurel32.net>
-Mail-Followup-To: sashiko-reviews@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Yixun Lan <dlan@kernel.org>,
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>
-References: <20260728211020.1248676-1-aurelien@aurel32.net>
- <20260728211020.1248676-3-aurelien@aurel32.net>
- <20260728212345.A0CFE1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=freeshell.de header.i=@freeshell.de header.b="RSzCztt2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=freeshell.de;
+	s=s2025; t=1785318000;
+	bh=6JutlRpMF2GZhC2lvsYXiSLked//G4vutb8ZF7y6E8Q=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=RSzCztt2IWqTYIFfh9noNOZcXN7H64bMob7rzm6kp8FHcntymwdt42OSJ4n1V3lC6
+	 /kwmGlUjw14qUbcUDrZ4AZ0IlYB0SDFXV3pKOjehX4fY3+bUQyrPt8VbCM+2XeSrFc
+	 0Ra0v6oRDyvrZVj8zp1UCwEPvn9/fvlIQXzcWRTD6RVu5R88m/Q4LBv5mqNQPAMhfc
+	 bFEs3KY5OnB+Z4S+JrWDz2MMXILb7iL9fJPitnsf6SzLowj/4jcE3IV6sz+UUjxwP+
+	 qf6Ayf2ET+V7yFE4KzRFdbpRu1VGjMCKe1RpE6r7qQDBuMPCTHKYySH78YT017/hNf
+	 8hUDx+FwhPnIg==
+Received: from [IPV6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc] (unknown [IPv6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc])
+	(Authenticated sender: e)
+	by freeshell.de (Postfix) with ESMTPSA id 3D763B220F77;
+	Wed, 29 Jul 2026 11:39:59 +0200 (CEST)
+Message-ID: <a32646aa-446a-4f95-9293-40001aeedae5@freeshell.de>
+Date: Wed, 29 Jul 2026 02:39:50 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260728212345.A0CFE1F000E9@smtp.kernel.org>
-User-Agent: Mutt/2.2.13 (2024-03-09)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] riscv: dts: starfive: jh7110-common: fix jh7110 SoC boot
+ from SD-card.
+To: Conor Dooley <conor@kernel.org>, devicetree@vger.kernel.org,
+ Ilya Sorochan <k0tran@altlinux.org>
+Cc: Conor Dooley <mail@conchuod.ie>, Emil Renner Berthing <kernel@esmil.dk>,
+ linux-riscv@lists.infradead.org, heinrich.schuchardt@canonical.com
+References: <20260306171939.84568-1-k0tran@altlinux.org>
+ <178526175795.1708098.11834005845749245101.b4-ty@conchuod.ie>
+Content-Language: en-US
+From: E Shattow <e@freeshell.de>
+In-Reply-To: <178526175795.1708098.11834005845749245101.b4-ty@conchuod.ie>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 2026-07-28 21:23, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Low] The patch incorrectly removes the original authors' copyright headers from k1-milkv-jupiter.dts and replaces them with a single copyright claim by the patch author.
-> --
-> 
-> --- Patch [2]: [PATCH 2/3] riscv: dts: spacemit: Add a common board dtsi for Milk-V Jupiter boards ---
-> commit 97e4c73a96036da2bf4f3762abb7b076f18d6748
-> Author: Aurelien Jarno <aurelien@aurel32.net>
-> 
-> riscv: dts: spacemit: Add a common board dtsi for Milk-V Jupiter boards
->     
-> This commit adds a common board dtsi file for the Milk-V Jupiter board
-> variants. It factors out common configurations into the new dtsi while
-> excluding CPU operating points, which are left for the specific board files.
-> 
-> [ ... ]
-> > diff --git a/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts b/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts
-> > index 3c16d0c20050e..9c4aa4f8a533c 100644
-> > --- a/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts
-> > +++ b/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts
-> > @@ -1,471 +1,11 @@
-> >  // SPDX-License-Identifier: GPL-2.0 OR MIT
-> >  /*
-> > - * Copyright (C) 2024 Yangyu Chen <cyy@cyyself.name>
-> > - * Copyright (C) 2025 Javier Martinez Canillas <javierm@redhat.com>
-> > + * Copyright (C) 2026 Aurelien Jarno <aurelien@aurel32.net>
-> >   */
-> 
-> [Severity: Low]
-> This isn't a bug, but should the original authors' copyright headers be
-> retained here?
-> 
-> While the original copyright headers were correctly preserved in the newly
-> created k1-milkv-jupiter-common.dtsi file where the bulk of the code was
-> moved, standard practice is to retain the original attribution in the
-> existing file as well, alongside any new copyright claims.
 
-Thanks for the hint, I'll fix that in the next version.
 
--- 
-Aurelien Jarno                          GPG: 4096R/1DDD8C9B
-aurelien@aurel32.net                     http://aurel32.net
+On 7/28/26 11:02, Conor Dooley wrote:
+> From: Conor Dooley <mail@conchuod.ie>
+> 
+> On Fri, 06 Mar 2026 20:19:39 +0300, Ilya Sorochan wrote:
+>> Add bootph-pre-ram to mmc1_pins clk-pins.
+>>
+>> U-Boot pruned their overrides recently in favor of Linux which broke booting
+>> from sd-card for me and Heinrich Schuchardt [1]. Pruning commit:
+>> 27f617019dd070cb61f2 ("riscv: dts: starfive: prune redundant jh7110-common overrides")
+>>
+>> [1]  https://lore.kernel.org/all/ffdfc550-559b-4c59-9873-3f040fc3bb0e@canonical.com/
+>>
+>> [...]
+> 
+> Right, I am going to try this again. I don't think there's actually a
+> valid technical argument against it, since it just affects the stage at
+> which configuration is applied rather than configuration itself.
+> If the configuration is wrong, and more devices don't use this configuration
+> than do, people need to move the node to where they think should be. That
+> shall be done separately.
+> 
+> I don't want to hear about the politics about whether or not Starfive want
+> to support it or reverse engineering of binaries etc. All that I care about
+> is discussion of the hardware itself and which boards need this and which do
+> not.
+> 
+> Applied to riscv-dt-fixes, thanks!
+> 
+> [1/1] riscv: dts: starfive: jh7110-common: fix jh7110 SoC boot from SD-card.
+>       https://git.kernel.org/conor/c/42c57c049054
+> 
+> Thanks,
+> Conor.
+
+Second NAK to this being applied, again, do not apply as-is.
+
+As you're not interested in the technical discussion, then you won't
+have one.
+
+-E
