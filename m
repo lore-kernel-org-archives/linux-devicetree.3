@@ -1,195 +1,227 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA6BD456E07
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 09:50:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEE6B441635;
+	Wed, 29 Jul 2026 09:54:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785318660; cv=none; b=ru2A2IKIFjHu3GoVG1oZIi9OChMQyF5r7aXGsFY4FDyT8LOZY2GBdYpzTkbDWiMgFrdwVpgzZPG1XV+M+n0ZqxWvBbI4kdzdMSrfk9reC+BV1dOlZQuXgnN/QNVV9sxTM+vWHWuXfT5GOn7Q/wsjf1do0humxqVrCyhwUvlMvSU=
+	t=1785318873; cv=none; b=A98W46XOJA/pwx8975s0zYmmcblUGKQfg2ClCXIJmzMl8oRTUNELtLruOTzCI0n7RcsIy7vORdTgB5ggjPpr/67/ouZ1PQBvOmBlhRrC/1JEA3HxEoSK2TYd/3OJQaed1XPETOwe2uHTG1WYe5RjAEGnPdmbq0ZznJK8yVajHzw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785318660; c=relaxed/simple;
-	bh=0PRAwL94Zg/K83iADkQUEyQBMjpcSePQXE2NWzs6w+M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=q8lUINYtkH1V9xk9yRc78yeyQzNWwSbl606wBioXmzFBlx+zG+rk6Ac0ehgbXsDLEc970jyILmB0y1bcRGdI/e/1xF6kcn4b2jTd7ORUF2ZveRtpek+ko5IkfhvoKioBtDjSlIsHrlx3mr/t0OAk2kA8yNaFm7cYPimskHtTfaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BwJF9uFE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dqt9eb60; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785318873; c=relaxed/simple;
+	bh=0p0OVf8eEBHecHovXZ3j4B0vNeuwTeVq7d3EyQB37E8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uib15rUbCLHe4/+6q2+paIxtdVJcb2TVI1Ng8ak1KKxJfkPZl+VVo/dTUFGEdgtCucCNxDG9gcpNi13w2KtMDREQpgM7GcMWvOYgc/OExt5jeWQBaiSulSNziIVmatMEHhUvcYgnmYy6kQhJE39HedVugbLLT1Al7wgdpQjSVYs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lJBovSoI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BwJF9uFE";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dqt9eb60"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66T7f8YM1390121
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 09:50:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=dY/kYFuWXoOZQdsHmp4MpeQe
-	J9QhTJRZK/WeF4pyjQ8=; b=BwJF9uFEeYb9Tu/qIo4IpK6zN5hTYQeKZKbNrzj6
-	rwA+dikxzgC5G3++g9aU50K/nnLHju82AjetKWSvHHj98zEzZzSUTx7V5Qm0lAnw
-	Te6xEYcgZ3p7mL2TsTq3Kyg6tvBgx6xHRDIs4V5/AXsDfuphmboKezkArrgmAivn
-	QQ4BX+aFjCHiMMR9p0wD2ihRWYa+jHkJ6VVVHosBfPva0rukdSy5aLE9S+hP45nl
-	VmzlxRInEoc2YIfNlt35nBo2WcVcbcrmbQ3duV2qcQf9UVTBQuVzyXEBTwtYxVXt
-	/xvjKN9KOo5wBtUFgOpWbWnxLpY70cnlOmj4w2042jcdGw==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fqbmxrymk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 09:50:57 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-ca124bf0189so1505424a12.0
-        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 02:50:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785318657; x=1785923457; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dY/kYFuWXoOZQdsHmp4MpeQeJ9QhTJRZK/WeF4pyjQ8=;
-        b=dqt9eb60UBgsIMOSrWqzlCvBTSUs52xxMi4F1sZ91fEw4SQ+A0iPc3jQeDca8fiBuo
-         nxxVBtaGGfcpQMAEF5KYGO7i5HNf1bKskDPVtNtPhg8qDWRI0Oodai2a5QpxThYr3e9s
-         1xjjwvnEVqZIbPlvuv3RlpeYdWpS5T9QdEOZG8Azo1lzrOKoX1UmW76Ed+DjKPBTGG/f
-         ZScy0APWprYagiLUNI8CgRT84SOC/SLZdWClkIbNo5yO0iEEv/9BTDnzmVbC7woMZ07M
-         V11rPcWOuQNjWc0gAcCs7jXKShWWVmeDSWzQEvdbuMQ5kRWG9mCmSTA26j3pwRpEHfqg
-         +X1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785318657; x=1785923457;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dY/kYFuWXoOZQdsHmp4MpeQeJ9QhTJRZK/WeF4pyjQ8=;
-        b=n3VAa6sOg2+Htni0kJTFpANWzA7PVF/rl8l1zRdq3nxFzazCBPoJV5c8DBh0YbdYQo
-         kIwGTfDpDcVzo8tjyLPibzYK7t4Fq7p6ixAyNdfqyliUQEgdw8GyLjd4LcCzTnNT+EMc
-         M82QoMAOLP80G1y2wZgmgbwTbOQXn8I/vSM9lfwDWBVB5yCkyKsM5GKNsN4pM8U/UiKF
-         DEP95Q34r7j1kaOzazLolPXNzzbw/aqKjmm9Qe6IwZ6CIzO+xOW0HtVHiBG29OMDNqks
-         B1CEvLBKN0G0oDCIAro5fcX5Pq0PuEFE3+9TllAo+f4wgyBesSbwrB+2JTuierbLbJhX
-         jnjQ==
-X-Forwarded-Encrypted: i=1; AHgh+Ronq7Zt7BaLzbMZwsjuJm5yecJBdKJGnYlOkImyPFEYAcGqHj71LUMthU6pg/i05ZS9yzmf9l9YrYg8@vger.kernel.org
-X-Gm-Message-State: AOJu0YxPU7oNonON7DsbdszdQunf7foGT0TaZzBpI5D395P23fbiLOz9
-	r77OP7UMKKEAVM5kRlw6Kg6WtEBbd3HrM2G5swjmw98jPTIv8r1mb5JZuruKcAb0kdXuHpNqe1W
-	ZnuH9GDV6Lhch5EkCTW7nExkT6QuFTZGXdnRA/Yua2YcUgzICu965GFDdEQTHZPI5
-X-Gm-Gg: AR+sD10buQs035ld2fDN/o0DIav7GOsUZQgTJXAGvPIwRpHsgB1l8jnm/wsuPqp/VTC
-	R9e9LTHJVBRB+6nSj3szIW4tL3X+Q6RkB2KYj51BdJ69ry+waCVmKyhus72u7kuMyzUfb6O6NCI
-	CPNcB2Ah2Wt/oXm+pV1XeRrcScgyPCa5iwtsDwwFweRZLvgywi9GFGRy8iB2oJKRx26C5tCtUQ3
-	3wgP6x8Bx9+GW+0FgYJEGmbst3M+AXkyX7oXPm6LEvw92bUImKoNt5aKAbYJCHULFw/jNhhSlEf
-	0Ktj00ozdqssZZk+/75C/PYQduou6tkeEpySqyta785RVGjZXWxMXAadekv2hu2tIriBz5Xxlhv
-	QxkQM2vX2uClP4NOwAzpdqufHnKuPLBBdPxeiW+01CD5nODA=
-X-Received: by 2002:a17:902:eccc:b0:2cf:4c37:d955 with SMTP id d9443c01a7336-2d026793097mr17395775ad.27.1785318656520;
-        Wed, 29 Jul 2026 02:50:56 -0700 (PDT)
-X-Received: by 2002:a17:902:eccc:b0:2cf:4c37:d955 with SMTP id d9443c01a7336-2d026793097mr17395535ad.27.1785318656074;
-        Wed, 29 Jul 2026 02:50:56 -0700 (PDT)
-Received: from hu-qianyu-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d022bf8880sm8677205ad.66.2026.07.29.02.50.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Jul 2026 02:50:55 -0700 (PDT)
-Date: Wed, 29 Jul 2026 02:50:53 -0700
-From: Qiang Yu <qiang.yu@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-        Philipp Zabel <p.zabel@pengutronix.de>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 4/6] arm64: dts: qcom: glymur-crd: Add PHY supplies
- for pcie3_phy
-Message-ID: <amnM/dVT3tZeR4h7@hu-qianyu-lv.qualcomm.com>
-References: <20260724-glymur_linkmode_0724-v7-0-65c8469c6b65@oss.qualcomm.com>
- <20260724-glymur_linkmode_0724-v7-4-65c8469c6b65@oss.qualcomm.com>
- <74907d0a-cf14-43b6-bcfb-8c283926a820@oss.qualcomm.com>
- <ammhm1mnHhn2okgJ@hu-qianyu-lv.qualcomm.com>
- <2091d5bf-8c76-479b-98fd-fc75b3adf644@oss.qualcomm.com>
- <amnDqhTpMffP9M1w@hu-qianyu-lv.qualcomm.com>
- <cc185dfa-4271-4c63-89a9-05b8990db242@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lJBovSoI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0B001F000E9;
+	Wed, 29 Jul 2026 09:54:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785318871;
+	bh=/m3EqjQj6dh7+d0yty3JfXEFXGnIOmp4aIhXtpHFn+s=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=lJBovSoIXJ8AtGUmY18WXUfFEMtODh2dL2J2gnJJ79jFukasLla8XwOfVEBD8wpLf
+	 Xtonpz4zNEAmlKtU6M98gCr2uEHPyvjgWmka6Yi4T9ZHfLpGsXjXPHC7SeNaIRG9yu
+	 E0i6WSSux5sSuvOkmg1pm9W1NxHCD4ClNxCmQr1vN9t/Mdj9S8VnUs7Zte6GP4ryU9
+	 LJHP1+eLYHGZv2RSLAKsSAtcfaMaURc26Ho0LTi0EZbXpXsqI+aqCtjsJllF8v+lju
+	 2k+BS+/QGNWq+nJr/eJ4f5RHUv6PZzZo8PjvWkDBq1KECY6mQV3qXXBp+Bp0DEZQMi
+	 HRKtSpna56PkA==
+Message-ID: <2918ad67-7a78-4e47-824a-15500edeeff1@kernel.org>
+Date: Wed, 29 Jul 2026 11:54:23 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cc185dfa-4271-4c63-89a9-05b8990db242@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDA4MCBTYWx0ZWRfXycHRaIaHcxTo
- COSk5luLKmeN8kowbfBFQT75LOqlDxGMvETHeccxhuCOitP96gX7jqZ29cYiirRQPn8BnI1qJkW
- RePpVEjQPGVq5C2CpMnHT3iWT7/31l/ouyAup5yUrtGPLbCGsyNYX1BANsDd1n19ZdYzVOXnY7M
- fd2c93lPi7Znl8wZwbYwen4GHGXOu6npbCKiz7bReaq9braQ0KSoSHo/enfdzk1w8DUYGOju92w
- f9UjPYYfNVxX8KZsDBcmQbJobsGaRJCmEjT/VtUYILKMhpX0i4xL6C7b/bPGWpeC5rGGNg1cjhn
- w25cNTuAyyNrZpjIZcpY9j5bZakNCfFh3r4V1Yv25AoWycvARQzTNB8kDcycYmSMcJ/JPIAalUC
- 3UcDzgeLKDPeGhia2UngYlcUfzUp98mICMOwuXCsfz4AjaboByIdcoPGgHguVIjtAtnsTMGQ6cf
- wEqHJxkdtWdu4lZmUpQ==
-X-Proofpoint-ORIG-GUID: cvgf-qglzm_5y28NnFCxuU6EdChbsuL4
-X-Proofpoint-GUID: cvgf-qglzm_5y28NnFCxuU6EdChbsuL4
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDA4MCBTYWx0ZWRfX8PxC1BkB8bbT
- wN8gX+iEwx+Fd03V7yYkLZfk55ALc5qD54l0SjG6LbHDF7TwO61fYEbrVhRUruGCW2NjReU/0nS
- Y1Vh7HumhtIGePRCsQdRf+ZO6ph3tWs=
-X-Authority-Analysis: v=2.4 cv=fLIJG5ae c=1 sm=1 tr=0 ts=6a69cd01 cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=6I5spZTCEmWeGOySesgA:9 a=CjuIK1q_8ugA:10
- a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-29_03,2026-07-28_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 malwarescore=0 phishscore=0 suspectscore=0
- clxscore=1015 spamscore=0 impostorscore=0 adultscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607290080
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] dt-bindings: pci: Add CPM6 support to AMD MDB PCIe
+ binding
+To: Sai Krishna Musham <sai.krishna.musham@amd.com>, bhelgaas@google.com,
+ lpieralisi@kernel.org, kw@linux.com, mani@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, cassel@kernel.org
+Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, michal.simek@amd.com,
+ bharat.kumar.gogada@amd.com, thippeswamy.havalige@amd.com,
+ pranav.sanwal@amd.com
+References: <20260728202044.1785986-1-sai.krishna.musham@amd.com>
+ <20260728202044.1785986-2-sai.krishna.musham@amd.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <20260728202044.1785986-2-sai.krishna.musham@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Jul 29, 2026 at 11:22:45AM +0200, Konrad Dybcio wrote:
-> On 7/29/26 11:11 AM, Qiang Yu wrote:
-> > On Wed, Jul 29, 2026 at 10:30:27AM +0200, Konrad Dybcio wrote:
-> >> On 7/29/26 8:45 AM, Qiang Yu wrote:
-> >>> On Mon, Jul 27, 2026 at 04:47:15PM +0200, Konrad Dybcio wrote:
-> >>>> On 7/24/26 12:01 PM, Qiang Yu wrote:
-> >>>>> CRD wires the shared Gen5x8 PCIe PHY's regulator supplies through
-> >>>>> board-specific PMIC rails. Add the vdda-phy, vdda-pll, and
-> >>>>> vdda-refgen0p9/1p2 supplies for &pcie3_phy.
-> >>>>>
-> >>>>> Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
-> >>>>> ---
-> >>>>>  arch/arm64/boot/dts/qcom/glymur-crd.dts | 8 ++++++++
-> >>>>>  1 file changed, 8 insertions(+)
-> >>>>>
-> >>>>> diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dts b/arch/arm64/boot/dts/qcom/glymur-crd.dts
-> >>>>> index 6125617de82a..0aae613a33ad 100644
-> >>>>> --- a/arch/arm64/boot/dts/qcom/glymur-crd.dts
-> >>>>> +++ b/arch/arm64/boot/dts/qcom/glymur-crd.dts
-> >>>>> @@ -28,3 +28,11 @@ &mdss_dp1 {
-> >>>>>  &mdss_dp1_out {
-> >>>>>  	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
-> >>>>>  };
-> >>>>> +
-> >>>>> +&pcie3_phy {
-> >>>>> +	vdda-phy-supply = <&vreg_l3c_e1_0p89>;
-> >>>>> +	vdda-pll-supply = <&vreg_l2c_e1_1p14>;
-> >>>>> +
-> >>>>> +	vdda-refgen0p9-supply = <&vreg_l1c_e1_0p82>;
-> >>>>> +	vdda-refgen1p2-supply = <&vreg_l4f_e1_1p08>;
-> >>>>
-> >>>> I'm guessing you also meant to enable it here
-> >>>
-> >>> No, we need to keep it as disabled because pcie3b is not enabled by
-> >>> default on glymur crd.
-> >>>
-> >>> See the fake pcie3b_phy be dropped, it is disabled
-> >>> https://lore.kernel.org/all/20260420133616.88740-2-krzysztof.kozlowski@oss.qualcomm.com/
-> >>
-> >> I think there are SKUs with dual-NVMe that use it
-> > 
-> > But the pcie3b controller node is also disabled, should I enable it in
-> > this series?
+On 28/07/2026 22:20, Sai Krishna Musham wrote:
+> The AMD CPM6 PCIe controller is based on the Synopsys DesignWare PCIe IP.
+> Add "intr" to snps,dw-pcie.yaml vendor-specific reg-names for the
+> per-controller interrupt register region used by CPM6.
 > 
-> Do we know what happens if UEFI sets this to x8-mode? (is that even
+> Update amd,versal2-mdb-host.yaml with separate register definitions:
+> - MDB5: 4 regions (slcr, config, dbi, atu)
+> - CPM6: 5 regions (slcr, config, dbi, atu, intr)
+> 
+> Signed-off-by: Sai Krishna Musham <sai.krishna.musham@amd.com>
+> ---
+> Changes in v2:
+> - Update the CPM6 device tree binding and example.
+> 
+> v1 https://lore.kernel.org/all/20260402180006.486229-2-sai.krishna.musham@amd.com/
+> ---
+>  .../bindings/pci/amd,versal2-mdb-host.yaml    | 111 ++++++++++++++++--
+>  .../devicetree/bindings/pci/snps,dw-pcie.yaml |   2 +
+>  2 files changed, 102 insertions(+), 11 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/pci/amd,versal2-mdb-host.yaml b/Documentation/devicetree/bindings/pci/amd,versal2-mdb-host.yaml
+> index 406c15e1dee1..d22de24b41ca 100644
+> --- a/Documentation/devicetree/bindings/pci/amd,versal2-mdb-host.yaml
+> +++ b/Documentation/devicetree/bindings/pci/amd,versal2-mdb-host.yaml
+> @@ -12,24 +12,65 @@ maintainers:
+>  allOf:
+>    - $ref: /schemas/pci/pci-host-bridge.yaml#
+>    - $ref: /schemas/pci/snps,dw-pcie.yaml#
+> +  - if:
 
-UEFI will not set it two x8 mode on crd.
+Move entire allOf to the end, after required: block.
 
-> a concern on CRDs specifically though?) Will the second controller fail
-> to probe and become a sync_state hog?
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: amd,versal2-mdb-host
+> +    then:
+> +      properties:
+> +        reg:
+> +          items:
+> +            - description: MDB System Level Control and Status Register (SLCR) Base
+> +            - description: configuration region
+> +            - description: data bus interface
+> +            - description: address translation unit register
+> +        reg-names:
+> +          items:
+> +            - const: slcr
+> +            - const: config
+> +            - const: dbi
+> +            - const: atu
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - amd,versal2-cpm6-host
+> +              - amd,versal2-cpm6-host1
+> +    then:
+> +      properties:
+> +        reg:
+> +          minItems: 4
+> +          items:
+> +            - description: MDB System Level Control and Status Register (SLCR) Base
+> +            - description: configuration region
+> +            - description: data bus interface
+> +            - description: address translation unit register
+> +            - description: CPM6 PCIe error and event interrupt registers
+> +        reg-names:
+> +          minItems: 4
+> +          items:
+> +            - const: slcr
+> +            - const: config
+> +            - const: dbi
+> +            - const: atu
+> +            - const: intr
+>  
+>  properties:
+>    compatible:
+> -    const: amd,versal2-mdb-host
+> +    enum:
+> +      - amd,versal2-mdb-host
+> +      - amd,versal2-cpm6-host
+> +      - amd,versal2-cpm6-host1
+>  
+>    reg:
+> -    items:
+> -      - description: MDB System Level Control and Status Register (SLCR) Base
+> -      - description: configuration region
+> -      - description: data bus interface
+> -      - description: address translation unit register
+> +    minItems: 4
+> +    maxItems: 5
+>  
+>    reg-names:
+> -    items:
+> -      - const: slcr
+> -      - const: config
+> -      - const: dbi
+> -      - const: atu
 
-PCIe3b is not enabled in UEFI by default, if we enable it here, we will
-see probe fail.
+Leave the list and extend it.
 
-- Qiang Yu
+> +    minItems: 4
+
+You need only this.
+
+> +    maxItems: 5
+>  
+>    ranges:
+>      maxItems: 2
+> @@ -141,3 +182,51 @@ examples:
+>              };
+>          };
+>      };
+> +
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    soc {
+> +        #address-cells = <2>;
+> +        #size-cells = <2>;
+> +        pcie@fcdd0000 {
+> +            compatible = "amd,versal2-cpm6-hos
+
+You do not need new example for one new property.
+
+Best regards,
+Krzysztof
