@@ -1,513 +1,151 @@
-Received: from mail-oa1-f45.google.com (mail-oa1-f45.google.com [209.85.160.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85DE64432F8
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 09:35:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785317706; cv=pass; b=u8yaBwLgeyYH8CtQnOxOgsAbhyppBWIwNiWSmkvbWvzeos/Xv91+dGCIEk1dyr42v45gPA+n/7wjQVOsG9QRlY8cWczv0J5JfA3s40f6l5SkoRDTSMNURhZr3/gUxp2eiOCs+S0PVReqPTn+TxIyGWwXCpPvPcPFOgVTnsMuwdc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785317706; c=relaxed/simple;
-	bh=L1Cwge6zqVDGiZ+r2BgIBck2+bEHp2fjsCI7Eb4yKRM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kHT51KNvuscPmRvw02rQdheSVRO+5QeUoAhsHe/niUZw50WnXfZtreQH8PWSdaFCdmWCWPe5pc28rRYdQdW1O44SaP7BRWnSAjBZS8pkKq0fY6Le2D2XDmwqLYiEh+YIoudsULjj54xgPCDBdaNYjWur0xGhdwxtMwGjZJxlBCs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gqPtFe9/; arc=pass smtp.client-ip=209.85.160.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DF6E444719
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 09:35:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785317711; cv=none; b=WjcepdJCfwjEsic43me8mhjDtYJfgvVmg7jdhN9obdbWrsPk5yFB1/x1XFi6mXEId3Va7VjZwhzCWMOtwsWEIT31rltdHIRVaO99rEfioNblGLF8CKuZJ36+qrxFgBdH1T0rqdiIMqanCdbLAZfxa/RVq1wHJMgh7nbnG3+qRLg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785317711; c=relaxed/simple;
+	bh=gUAg+DD0KaHOsFRq4/7kFj5VC/oamgCFk3ts8c7doFY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=d2lYCf8kDNmMEk27h2m93Q4eaV4e0U9850R0UUZwK8OPgn8aNQM94xHziMxD3iiHTk8SJ6A5/gr2vLUBARmGbx34oNjdiPstwjFKRn/rfQGlr5hb8VbZGXwfJIQYi5fMhrKMK2E9j9xdiiH1gugnt4QqJlw+T5fEQ9s7V+3xvZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fHVBdnyC; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ajZdl+DV; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gqPtFe9/"
-Received: by mail-oa1-f45.google.com with SMTP id 586e51a60fabf-4563ac048f4so434927fac.0
-        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 02:35:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785317700; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jYa7a8CD2kmop3rwlRb3K02i6hOAaeZ+7ZL3Jmqw75KVLhsegXuEiWDQzLMX3kjnqm
-         b6ha90SGj0l/VhuWxUVXZ5J/UUwIHjYRpN508PwQxPBTJXuUSsWLOhHdskGNVngLEfyC
-         DA+1Euj+lEwUdFOUz9rqVAsACwBezaHvzHqU57EvI9/v6LnBuEiGz/J3oq9em4/QIfIv
-         VaBnWNQuM+vhF8tqxRC1yklFuxQiY5KY+qDI3TUaQkDhU5EAY/IrwKWmPA58KnBNObPu
-         hr/i0J3I22Y/wJzJ/T5hZcdzHZWCu1K3QTm4UBNHEMVxc4/gYizWudlbqA9P1fgMTa9+
-         El4Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=nHkBtF+R2SjHdapq97pn9cgpiPwnGdu2tbx0ToIewSU=;
-        fh=b9iNqSZ7ImY6NTn6UG/1ZM6hnfB1llmIZUZnsyGl/IQ=;
-        b=IRzU7CyQvvSv++lIVMPDoo/B5Pbg3TgJHyVYuQi7lMXrahPMlB/SxYksGfJEN74U+w
-         DrevQbNkpJwjv3jUKqtEAnafOej0GUSTC/mjmOJ+Jj3iJ3p1P8wS0+3MmL7Yda8aFLpr
-         //Y390yafd0+nwoAW6LWuY4CrXKmxgFbYNvUdLKUhi/JBUPjYCZOQTcFfOafyn0VYjdn
-         LipMQVNEOMOomOOvctqEbkLONVuTThC0y7HYZ1LynBEheqbwH/L+flJhg2uNheRX9aga
-         ET0bRCmQw276iBwok0jgyCFQtQvN9LkxwSWYxhz58ZX3PRxSinpsmZBwxUHsb1//KQq/
-         Abew==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fHVBdnyC";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ajZdl+DV"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66T7f2Ya1088701
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 09:35:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	hSTtkZvwveJDCCpOzg4zgb4mS/QvLkyal6y+qXozD2Y=; b=fHVBdnyCizBDqg8A
+	ujQEp4EBS3XyFM35mlNNmZvPzWc8t9H17BRb/JCM/7sqSaFTnS/kJr+tZ5sNvbfc
+	3KRT5qBXBuIXztRdFAGQsNz8HGqrsFQ+MpAStlMM3y8fKkh6S04KT+luE3Gw6RKF
+	VJC0LP5zrIdO2TBzBYbly01Tp41xNMiArWh92TJMNFd7xmfh06K4E73yeul210VP
+	PTpYA8VwkolQ2vkllJHaINmmIxRv7U0YrHWL3Dvl2lkC50y8u2pTv14a7gvwumkJ
+	5QmMOePHWTG0NfPNLQtrPpbNaTHN1IAUYQTFpTu3pSfcNZ98m/dTeO1wJRQuaGlb
+	MRz1Cg==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fq5saj34x-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 09:35:09 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51c9d953b71so1044921cf.0
+        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 02:35:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785317700; x=1785922500; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nHkBtF+R2SjHdapq97pn9cgpiPwnGdu2tbx0ToIewSU=;
-        b=gqPtFe9/e87CagC5/EbU+8flQMsJnq8eOwUK2CZNmv6XShvIcdCTTJ/tVXgRThjGdU
-         UIJvcCul7IdBBP1d1TR563twBmf7z0NtiTGqcybZA6feCcKQbI0Z8Kj8l3M61UKyDEjl
-         5Z37UXdbOoR4w39jBkVvjuYeZdxx329DfvwPHJuQ7/znZS2kK0RRQaL8miFqEKazE1KQ
-         cAl2Dk8Bdx8lI88znZX9ZX6iOIzzJqTajhAn+v9GipQ4y42H+ttYSDjcEGkvz9UHBmDa
-         eKw9EWd0lv0qH+4ew8remCzXfQD+lUwrtPwCNSD10/L1E7MzkLYokQ3EVTo6v4cIE1my
-         mANA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785317700; x=1785922500;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1785317709; x=1785922509; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=nHkBtF+R2SjHdapq97pn9cgpiPwnGdu2tbx0ToIewSU=;
-        b=Iq5O/JWqu6OkNSyKCfYszzL3CB8QDIl40Fkbi4rV4FOgTijmUsMlgRpv1EzXY8UN9G
-         9EebQs+pyJznyrg595bjWUca1vl+/hjUJJ7fSZ1DL2o63K8dB1OvttfdwlUUevL1U7uW
-         OIgDnFjm9g75CQdva+mg+PecdFbYuJec25OjkGqbqTra7tDe+fpt+0oA/T00ZGe3Y4eb
-         iOTDwgvGI3DnZrWTwmx2QusAte32UNp42uk+ff/YJ/7jh/91Vp0VOxttttst+6+tG462
-         rjI2NNF+5cCZ4OCKkvLYwMcbrX+NBDcR01TEQvrbNEjREx7cnvu9UAsUtEm8POJ3gL1G
-         BChQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqLERdRUUT9AbUTKiSUk5RUXOkPmZT/NbLaA1LHbfu0YBGP3j2kQ+u9w5FJ6NXU/VGdQ9SQd95Uh6+M@vger.kernel.org
-X-Gm-Message-State: AOJu0YzbXHNCE1/RZNIlZsaNwPgE5ol/46E5I2p5GH5rFfVedHnpl7ej
-	hZRmt0s1EX8c2y6F0AhgWHJM2fn+9wFyd4D6xokw4Birca6HIy9zCq8CmNh+SPszrnbg1DQrm1y
-	T0mHQ5a2/HsWtD5lRgTU/vHW7KP7lZTk=
-X-Gm-Gg: AR+sD10Hv81W8KN/xvaT/Y289QvKOtf0sgLRD8Ek1lnfVCQQlSFPdSz1Hz2EI/XyiiX
-	HZVyO0RFSGYSV0TxwT8BKvAwDWSvwX+sOhhOuLqnE9YRPo7JYJOTvhYhVxMWyactH8SF813RjXi
-	4qXrl1MrS3cPs0jNByYXwqKPrChocQHau4UCeFbtm/IcN4B7aLYZKlsD1wn6P6m3RoFBcl30xO8
-	e1+JyY2CSPiLH3NUbJuyOmBtvtmqPUeAKkCu3PWttWeD1fHr3+zopUqgjkJsF1p1OXFzbHtbV9E
-	QBCSts55jeYoqC6+Dk8BMOQR8zAIY0du60PJNNX0934DT3fXUA0yPNYIpLimuEh+C38iHOhthbR
-	rRIt+Jn6DshX/
-X-Received: by 2002:a05:6808:c2a7:b0:4a4:adaf:5579 with SMTP id
- 5614622812f47-4ad5bb24a2emr3262966b6e.23.1785317700208; Wed, 29 Jul 2026
- 02:35:00 -0700 (PDT)
+        bh=hSTtkZvwveJDCCpOzg4zgb4mS/QvLkyal6y+qXozD2Y=;
+        b=ajZdl+DVwOdYVXBoB1TkcF6Z29nTc20ViPkuRg7aUaiLsYhYOAKRZr52LNxCleYzpe
+         KnwU5bj5/ZrxzGPyV3in0th9921ABOkSDq6lMKTxE/FzKBgJmImxBRr79pmt0iENRQC3
+         msCkgbda8UZYkQB96CtdELoPLSqY4aS3U3xIVozvYPfdffa6tu85Hbxh1+XXS2tEnkZj
+         amfNrJ6SmIzzTtSuKlfQij7K3y7+Vee7+hO5XuZ2u8Hiy/AvSRbOybR8IKHNXr5I2dnq
+         Ls6lQRaxxEVCguAH9cDgxoT5gThbhcLqpury+47AyUmBE0j2m2mV9fPUMolYfnj2LwaC
+         gEUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785317709; x=1785922509;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hSTtkZvwveJDCCpOzg4zgb4mS/QvLkyal6y+qXozD2Y=;
+        b=CZbQ/pafW22/HG+byGhDtuFUHtfv8rmI/K9t6WoOxV6q4kvnZ/4usS6js0zSt53dW2
+         bcAk4Uq8d/iRIjykBh1fXe+OLotzWaUJlm6YHvZhP0PI5C4L6128RDmioRvpIjwAWsc7
+         qtu7xrDSHyH0KcQa87sOdbzraDTw88GzB3RTeR6EYVg5cZcCvhYW8HiW2glvDDNxbzCF
+         uxWM+7hzCdd3+B5EpIKnVnZQ+6nNTxqH4emU7WKR4MXLNWoVSyj8JsxzMhjT+q82gFJ2
+         0liHeBD03+VFlINKJmp7AEFmO1vNzsNGsvA6AZ6vHx9EtLBD9OVk59BSCZNMer8Hq92j
+         CsFw==
+X-Forwarded-Encrypted: i=1; AHgh+RpPcoSTcUJatDknjOF++gyXBC+3g3zM0wOfZFKhUNcjm1tTahmsTl385Op0eEaflOuSxUlZdCQFU+OZ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy6Kgl6DB3/2iunnItp0p9UjoQnS9nAQQqwVWvNKHxQahevbK6P
+	vP4prWhgpQ+yzody8eIf3SDRMvS5TP+7MnmwHG97lsgNJuIuf1qJUSiCq0cvDwJ3y0j+DbL4I+5
+	KyU0trOMCRoYjbFRX+AeJ6xtu/WJXT3ruySwxchKp1gVgMzvD5aOTrpHcX3yiQB1b
+X-Gm-Gg: AR+sD11znEv8565btMComHzMKE22iMrgRvUMobCxl3UdRstqmUZzC7r8TrE8LusXcsC
+	J1Yvca7A2cvuGYf7OSybnmOJ00fJsTt0jOw1CQ8Rdpp2c+N1gd3DK/SoROyAcRct6l1NA+gQBSi
+	VPze1uk4dY/w+tE2bi8vJiflKIKCbxATF7fgAQUcwxUWeXAGqw62Kgj5Kck9J3mbsFTFK0aev5M
+	guxavuE/wOb+VhFcvhcvWyQn17dCSQYjpQyNf5m/X2PnaqXJCdcapsG1GxiEzKGjYLIgIDZbW5c
+	up9RL9KenL7q2t+mLY6MNSMLjLzCAIKvLQslSHD+xybS56Lm+1pt8kY6J8j4sMMKKqG3M5WH7VR
+	lDHtKThoPgEKfAjn3IdqmelCM
+X-Received: by 2002:a05:620a:a21c:b0:931:10e:befe with SMTP id af79cd13be357-933024869bamr417312885a.0.1785317708756;
+        Wed, 29 Jul 2026 02:35:08 -0700 (PDT)
+X-Received: by 2002:a05:620a:a21c:b0:931:10e:befe with SMTP id af79cd13be357-933024869bamr417309785a.0.1785317708225;
+        Wed, 29 Jul 2026 02:35:08 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1f83fabc2fsm87620566b.50.2026.07.29.02.35.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 29 Jul 2026 02:35:07 -0700 (PDT)
+Message-ID: <bb3ff752-7e85-40c2-b9ae-4f32469f1c48@oss.qualcomm.com>
+Date: Wed, 29 Jul 2026 11:35:05 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260728091804.382753-1-wenst@chromium.org> <amiqKRkFItYwD6oL@redhat.com>
- <CAGb2v64zUO-azpTuei6LCypad2noGFbg+EmaBC1iidoZ2stQzw@mail.gmail.com>
- <c1048eae-72c5-4e2e-ac49-25e2c4297018@collabora.com> <CAGb2v67VRhy_xzkdwUAYhzM_sWzoXyfZ3rYSHYLYaxuve9H17w@mail.gmail.com>
- <a0ae9525-9288-4d13-a080-9cb3d965d536@collabora.com> <CA+m4KrAvATV9qMMN9h+tKcPdrHRp7-jFJ0-Jq3DeCZLi3Z6RsA@mail.gmail.com>
- <CAGXv+5G8zPGb3SUwnzuutCF_U=+NKB4VQBsu+the6nLUqM-RDg@mail.gmail.com> <CA+m4KrDQ0tf0ffx9ttARBF-5sDZUz5bF0Apu3-M=wr=psYLogg@mail.gmail.com>
-In-Reply-To: <CA+m4KrDQ0tf0ffx9ttARBF-5sDZUz5bF0Apu3-M=wr=psYLogg@mail.gmail.com>
-From: YoungJoon Lee <getfeus@gmail.com>
-Date: Wed, 29 Jul 2026 18:34:46 +0900
-X-Gm-Features: AUfX_mwpvttWPSpQHnZKsUEo8Ujpvv33oWaosxrWC_IQP1bq3F_8ZvCYw0QiSGg
-Message-ID: <CA+m4KrCZdQb7=+7wJDH0H8KZgDzWkB1CtB2jEbEnRUxu9OJybA@mail.gmail.com>
-Subject: Re: [PATCH v4 0/5] powervr: MT8173 GPU support
-To: Chen-Yu Tsai <wenst@chromium.org>
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, wens@kernel.org, 
-	Brian Masney <bmasney@redhat.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, Alessio Belle <alessio.belle@imgtec.com>, 
-	Luigi Santivetti <luigi.santivetti@imgtec.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] arm64: dts: qcom: eliza-cqs-evk: Enable sound card
+ support with WSA8845 and DMIC
+To: Ravi Hothi <ravi.hothi@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, mohammad.rafi.shaik@oss.qualcomm.com,
+        ajay.nandam@oss.qualcomm.com
+References: <20260723121516.2341900-1-ravi.hothi@oss.qualcomm.com>
+ <20260723121516.2341900-3-ravi.hothi@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260723121516.2341900-3-ravi.hothi@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: uxUgzHjJrFSQKdZiS58QVfULHtXhI584
+X-Authority-Analysis: v=2.4 cv=C5fZDwP+ c=1 sm=1 tr=0 ts=6a69c94d cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=i1AF-yj2SoNdfRuAw8sA:9 a=QEXdDO2ut3YA:10 a=zgiPjhLxNE0A:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-ORIG-GUID: uxUgzHjJrFSQKdZiS58QVfULHtXhI584
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDA3OCBTYWx0ZWRfX3sGM78SGZFux
+ 5hVHmdvWPlrmWYoPwirdKc5SEkpn9PicqhZ9s1F8N/+yVjTfXRoTAsYzOZjU4oYMfg6JTjn1elW
+ NmqAyqFuo72bpAqASnc2W3/0NDRU0dI=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDA3OCBTYWx0ZWRfXxZzXFY4NlfgV
+ Tdvf6JiKMS+IO/exMKo8lhoU3IzidIgG1U+Jsh/SUAQV5OFwkLhIynYhP1fKZzpKJ3dFcOyZU63
+ 7IRmzQTCQQD8ge2/Vf0PFpAGxipDPhzwt9jdr0EJ8e9+5X//tary6sBFz7EPAxJISh+jT/A4ZSG
+ LYmE/yQqmQF7r9AU7PdNAemDtmVtQVvZzQWvbCoBH9rRBpTXjdCepfXnz45djeLHDHZJKXNKYYb
+ QJezaQxwAMlHJWY4/eCXYUzUtKp43d3KfKpIbOl7GiY4ypXFLNVFalY3Zikoo0Qhmf+RQB3T/Y2
+ YI4iwHTEisU2TkJVfHV5bxao6hYMObjX/S9dBJP4GcDXHwd+103nJk8eCaalfV6+TNyWsOhTiiJ
+ 8ldrQMzrgYhKozqti2ZbO/+oCVU8YkBQ8CKDa38RIcQjx2ft1Wcarq0j6PZX88blYkCDxCLPB2U
+ Yper5xiLJL1Ftp4ltmg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-29_03,2026-07-28_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 impostorscore=0 malwarescore=0 adultscore=0
+ clxscore=1015 priorityscore=1501 bulkscore=0 lowpriorityscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607290078
 
-Hi Chen-Yu,
+On 7/23/26 2:15 PM, Ravi Hothi wrote:
+> Enable the sound card on the Eliza CQS EVK platform, including the
+> WSA8845 external speaker path and DMIC microphone capture via VA macro.
+> 
+> Enable the required LPASS WSA macro, VA macro and SoundWire controller
+> along with the necessary pinctrl configurations for DMIC and WSA
+> SoundWire interfaces.
+> 
+> Signed-off-by: Ravi Hothi <ravi.hothi@oss.qualcomm.com>
+> ---
 
-A follow-up to my previous email.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-The official v1.1 firmware did fix the original "GPU device lost"
-problem.
-
-The following now works correctly:
-
-    PVR_I_WANT_A_BROKEN_VULKAN_DRIVER=3D1 vulkaninfo --summary
-
-The driver initializes successfully and detects the PowerVR Rogue
-GX6250.
-
-However, while testing actual rendering, I found another issue which
-appears to be unrelated to the firmware.
-
-Kernel:
-
-    Linux 7.2.0-rc5-next-20260727-stb-cbm-next-pvr-v4+
-
-Board:
-
-    Google Elm (Acer Chromebook R13 / MT8173)
-
-Mesa:
-
-    mesa 26.1.5
-    vulkan-powervr 26.1.5
-
-Firmware:
-
-    rogue_4.40.2.51_v1.fw
-    FW version v1.1 (build 6976702 OS)
-
-Kernel command line:
-
-    powervr.exp_hw_support=3D1
-
-Test command:
-
-    PVR_I_WANT_A_BROKEN_VULKAN_DRIVER=3D1 glmark2-es2-drm
-
-Renderer:
-
-    GL_RENDERER:
-    zink Vulkan 1.2
-    (PowerVR Rogue GX6250)
-
-The benchmark progresses normally:
-
-    build (VBO off)          212 FPS
-    build (VBO on)           216 FPS
-    texture nearest          174 FPS
-    texture linear           173 FPS
-    texture mipmap           174 FPS
-    shading gouraud          165 FPS
-    shading blinn-phong      135 FPS
-    shading phong             99 FPS
-
-It consistently hangs at:
-
-    shading=3Dcel
-
-Immediately afterwards the kernel reports:
-
-    refcount_t: underflow; use-after-free
-
-The first warning is:
-
-    pvr_free_list_put()
-      -> pvr_hwrt_dataset_release()
-      -> pvr_hwrt_dataset_put()
-      -> pvr_ioctl_destroy_hwrt_dataset()
-
-followed by:
-
-    refcount_warn_saturate()
-
-Shortly afterwards another kernel Oops occurs:
-
-    Unable to handle kernel NULL pointer dereference
-
-The second backtrace shows:
-
-    pvr_gem_object_create()
-      -> pvr_fw_object_create()
-      -> pvr_hwrt_dataset_create()
-      -> pvr_ioctl_create_hwrt_dataset()
-
-The glmark2 process remains as:
-
-    glmark2-es2-drm <defunct>
-
-The system is otherwise still reachable through SSH.
-
-I collected additional diagnostics, including:
-
-    - complete dmesg
-    - complete kernel journal
-    - kernel configuration
-    - PowerVR module information
-    - userspace package versions
-    - process/thread state
-    - runtime PM state
-    - running Device Tree
-
-I can send any of these if they would help.
-
-Also, please disregard my previous Tested-by tag for now, since this
-rendering issue was discovered afterwards.
-
-Thank you again for your help.
-
-Best regards,
-
-YoungJoon Lee
-
-2026=E5=B9=B47=E6=9C=8829=E6=97=A5(=E6=B0=B4) 13:38 YoungJoon Lee <getfeus@=
-gmail.com>:
->
-> Hi Chen-Yu,
->
-> Thank you. Updating the firmware fixed the issue.
->
-> I replaced my previous firmware blob with the official v1.1 firmware:
->
->   FW version v1.1 (build 6976702 OS)
->
->   SHA256:
->   e6bf10aaf442798fd81df9b9122e7e85900aafe77fcbec34b426af435c2b1c44
->
-> After rebooting, the driver loaded the new firmware successfully:
->
->   powervr 13000000.gpu: [drm] loaded firmware
->   powervr/rogue_4.40.2.51_v1.fw
->   powervr 13000000.gpu: [drm] FW version v1.1
->   (build 6976702 OS)
->
-> I then ran:
->
->   PVR_I_WANT_A_BROKEN_VULKAN_DRIVER=3D1 vulkaninfo --summary
->
-> This now completes successfully and detects the PowerVR Rogue GX6250.
-> The previous "GPU device lost" error no longer occurs.
->
-> So the issue was caused by the older, non-official firmware blob I was
-> using, rather than the v4 kernel series or my kernel configuration.
->
-> Thank you for pointing this out, and sorry for the noise.
->
-> Tested-by: YoungJoon Lee <getfeus@gmail.com>
->
-> Best regards,
-> YoungJoon
->
-> 2026=E5=B9=B47=E6=9C=8829=E6=97=A5(=E6=B0=B4) 12:32 Chen-Yu Tsai <wenst@c=
-hromium.org>:
-> >
-> > On Wed, Jul 29, 2026 at 8:08=E2=80=AFAM YoungJoon Lee <getfeus@gmail.co=
-m> wrote:
-> > >
-> > > Hi Chen-Yu,
-> > >
-> > > Thank you for posting the v4 series.
-> > >
-> > > I tested the complete v4 series on my MT8173 Chromebook, but I am
-> > > seeing a GPU device loss as soon as Mesa initializes the Vulkan devic=
-e.
-> > >
-> > > My current setup is:
-> > >
-> > >   Board: Google Elm / Acer Chromebook R13 (CB5-312T)
-> > >   Kernel:
-> > >     linux-next next-20260727
-> > >     commit: 33d6e5134c70446eddafbb3fd5ad088e848a7ad6
-> > >     (next-20260727-5-g33d6e5134c70)
-> > >
-> > >   Kernel release: 7.2.0-rc5-next-20260727-stb-cbm-next-pvr-v4+
-> > >
-> > >   Mesa: 26.1.5
-> > >   vulkan-powervr: 26.1.5
-> > >   Firmware:
-> > >     rogue_4.40.2.51_v1.fw
-> > >     SHA256:
-> > >     f44b7056992fb4057c987dcd7073468bec628aa56cb9815b1162f1cb7c1d73f2
-> >
-> > My firmware blob is different from yours:
-> >
-> > powervr 13000000.gpu: [drm] loaded firmware powervr/rogue_4.40.2.51_v1.=
-fw
-> > powervr 13000000.gpu: [drm] FW version v1.0 (build 6503725 OS)
-> >
-> > SHA256: 1456504351bd041f0bf96667403ad32460fc7b807c09858df1f083e207323e4=
-a
-> >
-> > Funny thing is neither of ours match the official firmware blobs releas=
-ed
-> > by Imagination [1].
-> >
-> > The latest version is "FW version v1.1 (build 6976702 OS)" with
-> > SHA256: e6bf10aaf442798fd81df9b9122e7e85900aafe77fcbec34b426af435c2b1c4=
-4
-> >
-> > This version also works for me.
-> >
-> > The "initial version" is "FW version v1.0 (build 6734358 OS)" with
-> > SHA256: baa227de4f297b7c0928c6535d15affd80aa9c5f528d2d5dc4b764ad050d22f=
-2
-> >
-> > And this version also works.
-> >
-> > It seems your firmware build is even older than mine. I suggest you
-> > update it and try again?
-> >
-> > [1] https://gitlab.freedesktop.org/imagination/linux-firmware/-/blob/po=
-wervr/powervr/rogue_4.40.2.51_v1.fw
-> >
-> >
-> > > All five patches applied cleanly. The PowerVR driver probes, loads th=
-e
-> > > firmware, and creates the DRM render node successfully.
-> > >
-> > > However, when I run the following from an SSH session without GDM or
-> > > another graphical session running:
-> > >
-> > >   PVR_I_WANT_A_BROKEN_VULKAN_DRIVER=3D1 vulkaninfo --summary
-> > >
-> > > Mesa prints the expected GX6250 warnings:
-> > >
-> > >   Missing reset support for brn51764
-> > >   Missing reset support for brn58839
-> > >   Missing support for brn62269
-> > >
-> > > The command then hangs, and the kernel reports:
-> > >
-> > >   powervr 13000000.gpu: [drm] *ERROR* GPU device lost
-> > >
-> > > There are no additional timeout, MMU fault, firmware, clock, or runti=
-me
-> > > PM messages immediately before the device-lost message.
-> > >
-> > > I originally also observed the same failure when GDM started GNOME
-> > > Shell, but reproducing it with vulkaninfo from a non-graphical SSH
-> > > session indicates that this is not specific to Mutter or GNOME.
-> > >
-> > > Since your cover letter reports that vkmark and glmark2-es2-drm work
-> > > with Mesa 26.1.5, I suspect that there may be a difference in the
-> > > kernel configuration or another part of the test environment.
-> > >
-> > > Could you please share the following details from your working setup?
-> > >
-> > >   1. The exact Chromebook board/model used for testing
-> >
-> > The codename is "telesu", which is basically a hana in a different case=
-.
-> >
-> > >   2. The exact kernel base commit
-> >
-> > I have a whole bunch of patches on top of next-20260727, but none
-> > that should affect this.
-> >
-> > >   3. The kernel configuration, or at least the relevant DRM, PM,
-> > >      generic power-domain, IOMMU, and MediaTek clock options
-> >
-> > All relevant options are built-in.
-> >
-> > >   4. Whether CONFIG_DRM_POWERVR was built-in or built as a module
-> >
-> > Module.
-> >
-> > >   5. The firmware SHA256
-> >
-> > See above.
-> >
-> > >   6. The kernel command line and bootloader used
-> >
-> > Chromebook's builtin bootloader.
-> >
-> > cmdline:
-> >
-> >     cros_secure root=3DPARTUUID=3D824526A4-24EE-344D-85A2-20630C42D31A
-> >     console=3Dtty0 console=3DttyS0,115200n8 earlycon ro text drm.debug=
-=3D0x106
-> >     panic=3D30 rootwait log_buf_len=3D1M no_console_suspend
-> >
-> > AFAICT nothing special.
-> >
-> > >   7. Whether `vulkaninfo --summary` also completes successfully
-> > >
-> > > My current relevant configuration includes:
-> > >
-> > > CONFIG_PM_SLEEP=3Dy
-> > > CONFIG_PM=3Dy
-> > > CONFIG_PM_GENERIC_DOMAINS=3Dy
-> > > CONFIG_MODULES=3Dy
-> > > CONFIG_DMA_SHARED_BUFFER=3Dy
-> > > CONFIG_DRM_POWERVR=3Dm
-> > > CONFIG_DRM_MEDIATEK=3Dy
-> > > CONFIG_SYNC_FILE=3Dy
-> > > CONFIG_COMMON_CLK_MT8173_MFGTOP=3Dy
-> > > CONFIG_IOMMU_SUPPORT=3Dy
-> > > CONFIG_ARM_SMMU=3Dy
-> > > CONFIG_MTK_IOMMU=3Dy
-> > >
-> > > I would be happy to test additional patches or provide any further
-> > > logs, kernel configuration, or debugging information if that would
-> > > help.
-> >
-> > As mentioned above, please try updating your firmware blob. Your
-> > version is even older than mine, and neither of ours is the "official"
-> > release.
-> >
-> >
-> > Thanks
-> > ChenYu
-> >
-> >
-> > > Thanks,
-> > > YoungJoon Lee
-> > >
-> > > 2026=E5=B9=B47=E6=9C=8829=E6=97=A5(=E6=B0=B4) 0:28 AngeloGioacchino D=
-el Regno
-> > > <angelogioacchino.delregno@collabora.com>:
-> > > >
-> > > > On 7/28/26 16:44, Chen-Yu Tsai wrote:
-> > > > > On Tue, Jul 28, 2026 at 10:33=E2=80=AFPM AngeloGioacchino Del Reg=
-no
-> > > > > <angelogioacchino.delregno@collabora.com> wrote:
-> > > > >>
-> > > > >> On 7/28/26 15:13, Chen-Yu Tsai wrote:
-> > > > >>> On Tue, Jul 28, 2026 at 9:10=E2=80=AFPM Brian Masney <bmasney@r=
-edhat.com> wrote:
-> > > > >>>>
-> > > > >>>> Hi Chen-Yu,
-> > > > >>>>
-> > > > >>>> On Tue, Jul 28, 2026 at 05:17:58PM +0800, Chen-Yu Tsai wrote:
-> > > > >>>>> Hi everyone,
-> > > > >>>>>
-> > > > >>>>> This is v4 of my MT8173 PowerVR GPU support series.
-> > > > >>>>>
-> > > > >>>>> This time around Mesa was ready for basic testing, using both=
- vulkanmark
-> > > > >>>>> and glmark2-es2-drm (with Zink). Details below.
-> > > > >>>>>
-> > > > >>>>> Changes since v3 (all in the clk driver patch):
-> > > > >>>>> - Changed pm_runtime_put() to pm_runtime_put_sync()
-> > > > >>>>> - Added missing of_node_put() in remove function
-> > > > >>>>>
-> > > > >>>>> Changes since v2 (all in the clk driver patch):
-> > > > >>>>> - Made COMMON_CLK_MT8173_MFGTOP depend on PM
-> > > > >>>>>     - Needed since the driver implements PM domains using the=
- generic PM
-> > > > >>>>>       domain library, which also depends on PM
-> > > > >>>>>     - Fixes build breakage (kernel test robot)
-> > > > >>>>> - Fixed "RST_DELAY_CNT" name (Brian)
-> > > > >>>>> - Dropped unused mfg_desc (Brian)
-> > > > >>>>> - Added check of clk_prepare_enable()'s return value in
-> > > > >>>>>     clk_mt8173_mfgtop_power_on() (Brian)
-> > > > >>>>> - Saved error value for return in IS_ERR(data->clk_26m) branc=
-h
-> > > > >>>>>     (Dan Carpenter / kernel test robot w/ smatch)
-> > > > >>>>>
-> > > > >>>>> Changes since v1:
-> > > > >>>>> - Adapted to changed DT bindings
-> > > > >>>>> - Dropped driver change
-> > > > >>>>> - Use same power domain for "a" and "b" GPU power domains
-> > > > >>>>>
-> > > > >>>>>
-> > > > >>>>> This series enables the PowerVR GPU found in the MT8173 SoC, =
-found in
-> > > > >>>>> some Chromebooks.
-> > > > >>>>
-> > > > >>>> I'm making a pull for Stephen for the clk changes. Should patc=
-hes 1,2,4
-> > > > >>>> go through the clk tree? Patches 3,5 go through the DRM tree?
-> > > > >>>
-> > > > >>> Only patches 1 and 2 should go through the clock tree.
-> > > > >>>
-> > > > >>> Patch 3, 4, 5 can all go through the soc tree if Angelo wants t=
-o pick up
-> > > > >>> DT binding patches. Otherwise I can push patch 3 through drm-mi=
-sc.
-> > > > >>>
-> > > > >>
-> > > > >> Not sure if I can really take the DRM bindings patch through soc=
-.
-> > > > >>
-> > > > >> I will take the devicetree ones exactly right now, even though i=
-t's going to
-> > > > >> give warnings.
-> > > > >>
-> > > > >> I trust that you'll make the binding get into linux-next before =
-it's too late.
-> > > > >
-> > > > > Rob beat me to it. :D
-> > > >
-> > > > Love it!
-> > > >
-> > > > Thanks Rob :-D
-> > > >
-> > > > Cheers,
-> > > > Angelo
+Konrad
