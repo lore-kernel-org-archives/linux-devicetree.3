@@ -1,30 +1,32 @@
-Received: from out-174.mta1.migadu.com (out-174.mta1.migadu.com [95.215.58.174])
+Received: from out-177.mta1.migadu.com (out-177.mta1.migadu.com [95.215.58.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B86F1477284
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 16:08:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD2AA4968FA
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 16:08:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785341319; cv=none; b=gPDViHrxSQ5Jm74TQU2BJJ7PtMWn4/8JCEeMDJI/WyhSxtE5pkHcZgSI8WXOsxBzVBVrGJTPKTwE+ThggP9RLmHNpIa8Ys8FifsRqxwmy4n9gEfeLTEjjYNeY4KRUSc2/Zo4kssN+VOi48SkGb2OPUEFrOT8+h/TkItm0zcUCf0=
+	t=1785341334; cv=none; b=KI0JVOgeeZcSNDm7f211+6rkAbzPo9zszdkh29Ja7j/5BZqIPb3oeiDOQDSFmT1dqaVfnvaqYKRdy3yZVEqs9QOTJ8exhb4adMtzyEmzeOCKlQCjgDrwa/c3VHwrsXRyGvnW0Da4yIK1EB/8yPEWdpt53oY6Q3T/RYLVwxpLSp0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785341319; c=relaxed/simple;
-	bh=9Kl6s+vwzUvSWiCJ7DNDa5W8zLkfL82HX/JYNw/OWIg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Wr83Qk2EGjc+9GzcMj1W2VpK0kABpxUsC7ghQGUxkzdBuikKWUSq4z7GgYpEObIhMVpRv7J5bdwLZVoyDjsDCOThPqdTJq389rcmb0t0TcAvUOKlZWTVA+l0SNVUt3xEBNoQJcCFvLDpegKuapETcemQsDwJwxp/dHd1zLiGapk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=k2byokiX; arc=none smtp.client-ip=95.215.58.174
+	s=arc-20240116; t=1785341334; c=relaxed/simple;
+	bh=gP7jYoRt+IdZyasWdBdMUklN4NFyhjSWlZkRsSUAcc4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Hp5jaGCygnDNwroEsJ7ge78vbD6UrUXpkzxWcicSRWS4/88+BkrWt2Q/i8LsrHfv0pW3ZKFtwWNC+o4MtT1uvZPx91NcyuwrQqe75uLvEwFk60PzxjnbfdosBE6JID/pCvXbi/HthsoeJBGtFqU/OhREezXWYFGfaCLG3lHLb2I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=PJzrEgMe; arc=none smtp.client-ip=95.215.58.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="k2byokiX"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="PJzrEgMe"
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1785341311;
+	t=1785341329;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=q20EbqiUoUh++CZnYOPasINTNNTzimjQmZPWgue2as0=;
-	b=k2byokiXDa6k6qo8BdZQcJhgAJFi+V27i2vLGjIysGB+PjEXSNrOTE4I1qJ+nSUmgbXEu5
-	pcHavBb2jOixIJU5/A2jZSHo6H1hAFvsnG/kGz9oWuXwVOwoXGpaLci1NywFCVeBJLSS7S
-	rqQHhJ1PsC0utD7rIx8uiaJGDEH0G4U=
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DBk4p2RXMKnYsEr0sh0paH4lVGhJKHhJcYQcOGZOPc0=;
+	b=PJzrEgMe1Ts9yfrqgQgKP0VSKbRSuVdr2xYx3ffY/Sw2TfU/h7SJBCXLvgwMRG4YtpAOEL
+	ACpLSJEXzL9ReHjRuJ5s4qC2TQRJ3rI0Z/ySNVBt5pzx/iFvpNfrRtWBxnN+dnSF7b8D4a
+	ZD/kljvMiBNxhM04wk6kPe8XrOHtftI=
 From: Junjie Cao <junjie.cao@linux.dev>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
 	Jessica Zhang <jesszhan0024@gmail.com>,
@@ -43,10 +45,13 @@ Cc: Junjie Cao <junjie.cao@linux.dev>,
 	dri-devel@lists.freedesktop.org,
 	devicetree@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/2] drm/panel: Add support for Novatek NT36532 panel
-Date: Wed, 29 Jul 2026 09:08:02 -0700
-Message-ID: <20260729160804.912826-1-junjie.cao@linux.dev>
+	linux-kernel@vger.kernel.org,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v2 1/2] dt-bindings: display: panel: Add Novatek NT36532
+Date: Wed, 29 Jul 2026 09:08:03 -0700
+Message-ID: <20260729160804.912826-2-junjie.cao@linux.dev>
+In-Reply-To: <20260729160804.912826-1-junjie.cao@linux.dev>
+References: <20260729160804.912826-1-junjie.cao@linux.dev>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -56,44 +61,105 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Migadu-Flow: FLOW_OUT
 
-This series adds support for panels using the Novatek NT36532 Display
-Driver IC, a dual-DSI, dual-DSC controller that requires DPU support
-for MIPI_DSI_MODE_DSC_ALL_SLICES_IN_PKT.
+NT36532 is a driver IC used to drive MIPI-DSI panels. It is found
+in OnePlus Pad 2 tablets with CSOT panels.
 
-The first user is the CSOT PPC100HB1-1 panel found in the OnePlus Pad 2
-(OnePlus Pad Pro in China) tablet: 3000x2120, dual-DSI in bonded mode,
-DSC 1.2 with two slices per line.
-
-This has been tested on the OnePlus Pad 2: the panel comes up in its
-native 3000x2120 mode at 120Hz over dual-DSI in bonded mode with DSC,
-and displays a stable image.
-
-Changes in v2:
-- Rebase onto next-20260727.
-- Update to the new DRM APIs: devm_drm_panel_alloc(), devm_drm_panel_add().
-- Drop the driver-private 'dsc_slice_per_pkt' plumbing and rely on
-  MIPI_DSI_MODE_DSC_ALL_SLICES_IN_PKT instead.
-- Send DCS commands through the second DSI link in dual-DSI mode.
-- Change the refresh rate control register 0xb3 value from 0x41 to 0x40.
-- Drop the of_node assignment when registering the secondary DSI device,
-  matching panel-novatek-nt36523.
-- Update author email to junjie.cao@linux.dev.
-- Pick up Conor's Acked-by on the binding.
-- Link to v1: https://lore.kernel.org/all/20251001135914.13754-1-caojunjie650@gmail.com
-
-Junjie Cao (2):
-  dt-bindings: display: panel: Add Novatek NT36532
-  drm/panel: Add Novatek NT36532 panel driver
-
- .../display/panel/novatek,nt36532.yaml        |  83 ++++
- MAINTAINERS                                   |   7 +
- drivers/gpu/drm/panel/Kconfig                 |  10 +
- drivers/gpu/drm/panel/Makefile                |   1 +
- drivers/gpu/drm/panel/panel-novatek-nt36532.c | 430 ++++++++++++++++++
- 5 files changed, 531 insertions(+)
+Signed-off-by: Junjie Cao <junjie.cao@linux.dev>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+---
+ .../display/panel/novatek,nt36532.yaml        | 83 +++++++++++++++++++
+ 1 file changed, 83 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/display/panel/novatek,nt36532.yaml
- create mode 100644 drivers/gpu/drm/panel/panel-novatek-nt36532.c
 
+diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt36532.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt36532.yaml
+new file mode 100644
+index 000000000000..c1ab793dd718
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/novatek,nt36532.yaml
+@@ -0,0 +1,83 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/novatek,nt36532.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Novatek NT36532 based DSI display Panels
++
++maintainers:
++  - Junjie Cao <junjie.cao@linux.dev>
++
++description: |
++  The NT36532 IC from Novatek is a Driver IC used to drive MIPI-DSI panels.
++
++allOf:
++  - $ref: panel-common-dual.yaml#
++
++properties:
++  compatible:
++    items:
++      - enum:
++          - csot,ppc100hb1-1
++      - const: novatek,nt36532
++
++  reg:
++    maxItems: 1
++
++  reset-gpios:
++    maxItems: 1
++    description: phandle of gpio for reset line - This should be 8mA
++
++  vddio-supply:
++    description: regulator that supplies the I/O voltage
++
++  ports: true
++
++required:
++  - compatible
++  - reg
++  - vddio-supply
++  - reset-gpios
++  - ports
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        panel@0 {
++            compatible = "csot,ppc100hb1-1", "novatek,nt36532";
++            reg = <0>;
++
++            reset-gpios = <&tlmm 133 GPIO_ACTIVE_LOW>;
++
++            vddio-supply = <&vreg_l12b_1p8>;
++
++            ports {
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                port@0 {
++                    reg = <0>;
++                    panel_in_0: endpoint {
++                        remote-endpoint = <&dsi0_out>;
++                    };
++                };
++
++                port@1 {
++                    reg = <1>;
++                    panel_in_1: endpoint {
++                        remote-endpoint = <&dsi1_out>;
++                    };
++                };
++            };
++        };
++    };
++
++...
 
 base-commit: 0d33d21e47d9dc66f91e44da3fc9220c74d93df7
 -- 
