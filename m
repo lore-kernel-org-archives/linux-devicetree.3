@@ -1,127 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB6E747A87B;
-	Wed, 29 Jul 2026 11:56:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B415245D5F5
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 11:59:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785326174; cv=none; b=rHhNUaSeuY4dWbxhpvU2xwfyx7giJjw5BD11j8Vf6qjyJTPpINhN4WHiH7Iul93L4jKYkHzL0ZQU47Px6qyJrdsuSkZh6YiKW1y33XJz08YkE4EueDL4GESbmTA5AKT+NDgiUsf4hEkuompoZ9c2wBOj2CLVifhOR7N0n6nSAHI=
+	t=1785326347; cv=none; b=FIOxTc85blc4ilyLlJ5qsIfLlDHx9qwHimVnWIJrBzDJmkE8S+bsDba4XL2PLHwh+j4R7tB3x853eS3Ld6yOJef0/fA8geHf9ajueiA1Y0o7Ue8qDwxT5V9GSMkh681zxHssmSBJKNxEIy+LaKcHj/lFL4FeADmw2Cis+OJSVkY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785326174; c=relaxed/simple;
-	bh=I1BHMnC7gJYXLrkfU7v8e1A0JJJZhj9ZD9vcQ0x2d7Y=;
+	s=arc-20240116; t=1785326347; c=relaxed/simple;
+	bh=5Fyxb20o4sLedYC9ZHE/+/VMyUeXrMeIc7UgGt2n6Rg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Cmt57jt0Nf1Hsqxx+oFR6Z+VnhvFKagHcRVD1Hu70iyMJG0DQ06hvIltOi6RtKFhbIT5yZq5EW7UlXvAQsppDSUEWtwm79byFFLUmJL+dLlZ3xW35f0WTI4BXUgHgrgC+NjmVKLo5qSSk6aVk/rbskY329+x5500y8Dq5MHTNkg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lFrdRjrn; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=c5SH61XAhpbhBevKSm1B4UaACFTAI0GM7dtcgstKCR2LX/VAmnYB19AXLFNmJS3kCjhMocE0LxWUFQTo3J0eAdHB/snsxJU60slRXnWV95VXDylg/K0MY6Cbasf1DYbXl/Hsr6gCCVaDcrROgzP3+J8NYewododjT3evbsWK9ts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BXHJj932; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lFrdRjrn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7CC31F000E9;
-	Wed, 29 Jul 2026 11:56:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BXHJj932"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D93D1F000E9;
+	Wed, 29 Jul 2026 11:59:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785326173;
-	bh=pyk3ersoilGzCxngyyl7AHzUGDzKJUpUkOct9+nO+Ow=;
+	s=k20260515; t=1785326346;
+	bh=K2CgLS/+spJKMUpO/gEQ5A95XiQKoylqnDx1qFFVkFE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lFrdRjrnzwdjOI+skMMJsRUDdP5IGEKFypKbcHSUioSKVQJZfzi2ml8IPlGJ5jUOM
-	 0JfiPKU/x2q8oJHOioB1+XBD5oCV/8s3fvi7EfRBbEFRlFHaKxCTjVEi1R0+GHFyXs
-	 2a9tSPOQDRKrhbun8eKdMW1th+eHD2F2Hk8uO/lSRUe8zlBjRHN6ISOB4KQMmx8pUu
-	 8GKR8YVV5Pd/tC41Xt8b3ibVKegQM4ZraXgbq8N7tji/tiOHIbzDTZbeokN9Ok0ppS
-	 w0GywNYkJNpcDGhELqIFYKWkFHG0Rct8kYum0VasZApUAXH/92gxzX4HdHJ7Rpc9N5
-	 XXXLq1fgmUpRQ==
+	b=BXHJj932r2CwwtHtw38BnylLcrtx87Nve7ZB1oWd/b8kl+SbqeD7BmF66yMC2PNjn
+	 dp/5BftDDJbNhHsrD91xM0t4lQIIFs2x7J5thUFDbFEqqkcYijQoZUBBpJgInp+y1b
+	 DYVUCFyA/4FBgiErmHYEhVBMTbmLlRrX4hoHi+V4NHTLBZgVp+zM0qqayFjlJdHy8X
+	 DGG9x5OBwYpz+tlJ1L5YrdeRqZnvfUOBeayUXtmICD2zzsFs8ry8yqy46X4nNlCG6D
+	 ahbvevcHO3LfeHwaEYAkEMfdw1XdJom4UGTf8Am7XzWcXA88fD3c2067FcxGZl4a5T
+	 Ls7hzQTOO94AA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] dmaengine: apple-admac: Add M3 generation ADMACs
+Subject: Re: [PATCH v5 1/9] dt-bindings: reset: renesas,rzg2l-usbphy-ctrl:
+ Document RZ/G3L support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sasha Finkelstein" <k@chaosmail.tech>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, Frank.Li@kernel.org, dmaengine@vger.kernel.org, vkoul@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260729-t603x-admac-v2-2-e4b2bb6ca45e@chaosmail.tech>
-References: <20260729-t603x-admac-v2-0-e4b2bb6ca45e@chaosmail.tech>
- <20260729-t603x-admac-v2-2-e4b2bb6ca45e@chaosmail.tech>
+To: Biju <biju.das.au@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org
+In-Reply-To: <20260729115022.222340-2-biju.das.jz@bp.renesas.com>
+References: <20260729115022.222340-1-biju.das.jz@bp.renesas.com>
+ <20260729115022.222340-2-biju.das.jz@bp.renesas.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 29 Jul 2026 11:56:12 +0000
-Message-Id: <20260729115612.C7CC31F000E9@smtp.kernel.org>
+Date: Wed, 29 Jul 2026 11:59:05 +0000
+Message-Id: <20260729115906.0D93D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] The driver schedules a tasklet for DMA channel completion but fail=
-s to kill it upon driver unbind, leading to a Use-After-Free.
-- [High] Missing memory barrier between CPU writes to the DMA buffer and tr=
-iggering the hardware via MMIO.
+- [Low] The `regulators` object node is missing the `additionalProperties: =
+false` constraint.
 --
 
---- Patch [2]: [PATCH v2 2/2] dmaengine: apple-admac: Add M3 generation ADM=
-ACs ---
-commit 3e4665bdfbbc14988e79c929d83bff445def0885
-Author: Sasha Finkelstein <k@chaosmail.tech>
+--- Patch [1]: [PATCH v5 1/9] dt-bindings: reset: renesas,rzg2l-usbphy-ctrl=
+: Document RZ/G3L support ---
+commit 222a9a4d47d2afbc7efadd9794f65d8f61be1bb8
+Author: Biju Das <biju.das.jz@bp.renesas.com>
+dt-bindings: reset: renesas,rzg2l-usbphy-ctrl: Document RZ/G3L support
 
-dmaengine: apple-admac: Add M3 generation ADMACs
-   =20
-The admacs present on t8122 and t603x SoCs need additional writes in
-order to operate correctly. The exact purpose of this register
-is unknown
+This commit documents the Renesas RZ/G3L (r9a08g046) USB PHY controller=20
+bindings. It introduces a regulators sub-node to handle per-port vbus0 and=
+=20
+vbus1 entries, which replaces the single regulator-vbus property used by=20
+other compatible SoCs.
 
-> diff --git a/drivers/dma/apple-admac.c b/drivers/dma/apple-admac.c
-> index 14a5ee14a4815..72ff677c8ce54 100644
-> --- a/drivers/dma/apple-admac.c
-> +++ b/drivers/dma/apple-admac.c
+> diff --git a/Documentation/devicetree/bindings/reset/renesas,rzg2l-usbphy=
+-ctrl.yaml b/Documentation/devicetree/bindings/reset/renesas,rzg2l-usbphy-c=
+trl.yaml
+> index c83469a1b379a..9e0c450976573 100644
+> --- a/Documentation/devicetree/bindings/reset/renesas,rzg2l-usbphy-ctrl.y=
+aml
+> +++ b/Documentation/devicetree/bindings/reset/renesas,rzg2l-usbphy-ctrl.y=
+aml
 [ ... ]
-> @@ -935,9 +954,18 @@ static void admac_remove(struct platform_device *pde=
-v)
->  	reset_control_rearm(ad->rstc);
->  }
+> @@ -50,6 +51,28 @@ properties:
+>      $ref: /schemas/regulator/regulator.yaml#
+>      unevaluatedProperties: false
+> =20
+> +  regulators:
+> +    type: object
+> +    description:
+> +      list of vbus regulators provided by this controller.
+> +
+> +    properties:
 
-[Severity: High]
-This isn't a bug introduced by this patch, but I noticed the driver schedul=
-es
-a tasklet for DMA channel completion but fails to kill it upon driver unbin=
-d.
+[Severity: Low]
+Should this regulators object node include an additionalProperties: false
+constraint?
 
-Does this leave the code open to a use-after-free? If an interrupt fires ju=
-st
-before free_irq() and schedules the tasklet, the tasklet may run after
-admac_remove() returns and the devm_kzalloc managed memory (struct admac_da=
-ta)
-is freed.
+Without it, any arbitrary or misspelled properties added inside the regulat=
+ors
+sub-node might silently pass schema validation.
 
-Could we add a call to tasklet_kill() during the teardown sequence?
-
-[Severity: High]
-This is another pre-existing issue not touched by this patch, but I noticed
-missing memory barriers when the hardware is started via MMIO.
-
-Looking at admac_start_chan() and admac_cyclic_write_one_desc():
-
-drivers/dma/apple-admac.c:admac_start_chan() {
-    ...
-	switch (admac_chan_direction(adchan->no)) {
-	case DMA_MEM_TO_DEV:
-		writel_relaxed(startbit, ad->base + REG_TX_START);
-		break;
-    ...
-}
-
-drivers/dma/apple-admac.c:admac_cyclic_write_one_desc() {
-    ...
-	writel_relaxed(lower_32_bits(addr), ad->base + REG_DESC_WRITE(channo));
-	writel_relaxed(upper_32_bits(addr), ad->base + REG_DESC_WRITE(channo));
-    ...
-}
-
-Could CPU writes to the DMA buffer be delayed and become visible to the DMA
-controller only after it starts fetching data?=20
-
-Since writel_relaxed() does not include a memory barrier on ARM64 architect=
-ures
-and spin_lock only provides ACQUIRE semantics, prior memory stores to the D=
-MA
-buffer might be reordered after the MMIO write. Does this require a memory
-barrier to prevent transmitting stale data?
+> +      vbus0:
+> +        type: object
+> +        description: Port 1 USB VBUS regulator
+> +        $ref: /schemas/regulator/regulator.yaml#
+> +        unevaluatedProperties: false
+> +
+> +      vbus1:
+> +        type: object
+> +        description: Port 2 USB VBUS regulator
+> +        $ref: /schemas/regulator/regulator.yaml#
+> +        unevaluatedProperties: false
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729-t603x-adma=
-c-v2-0-e4b2bb6ca45e@chaosmail.tech?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729115022.2223=
+40-1-biju.das.jz@bp.renesas.com?part=3D1
