@@ -1,113 +1,170 @@
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05528407569
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 11:43:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7870A4749D6;
+	Wed, 29 Jul 2026 11:46:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.81.229.115
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785325401; cv=none; b=cIo2jPKThHXn2bnt5WxsLIzUEnyyGKScqd1rJQkmeC7a5PKGQQm39lmX/x3VXkdf853r7pqvOrO9Tl3bZ2vX9RvD3Cj0X0PTBdajeM46w1oYseslWuv+xlhc9ac7fWrBixUgnPuoyK8CuJqhWuetPdrYkxDNsHDUmzzoronMGwM=
+	t=1785325616; cv=none; b=cx9//w2rmuJxOsIr9dplOS9VNoTVkj/V/caGQUSTmwBppXbloGJrLG2/853dfi7MLStjLRW3jPnpZ9NWWWrIN7ed8xFreP/meZTTYCw4RHQj7V7Nz4hs8VePsqrRvt4BuJw+5jnNkXkh9fTM10hfM/NjvrLVUOy7DdjKFY9Aa40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785325401; c=relaxed/simple;
-	bh=iHFddn1NgUUqhSC51J/bjqOXWMO30/0lFQI97yEWeag=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bM9QZoBFGHs5sh9K9p20srkpF6+cVYT5Xt/4HZsLi1SRqYGqP+YvGlY4E+GjQ9u27kflIs/6BfGLOvCoCFUaLq/Bu7Z42lMWaj/wvi4MhnyoKytXimOadcla4dSdtqHvrZ6aWsT+z7QqZyAJQXYdlQ3SmjU8WcUenP3ddhbM68g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iSbDspuQ; arc=none smtp.client-ip=209.85.210.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785325616; c=relaxed/simple;
+	bh=KF1A2iyE3TFi2OyUnOG2tm9359rUCpVRvLWRA/axo+E=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=CNCBp7bTVekKotk3ZMKIx+dWsCdP+iOrkjwh8iEbvZZCE90U4z8v//LxwlSF08rKKhY9fPt+otSNOEuE6Y6nR9/pMKQ4Jb8kxJgQ1xr9MQ3fiLVgPv6SH9pxqK3qtgOioajxd/v0oYvKPaSs48uwFGq6dQ8INtqtKxC0+yDRDy8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech; spf=pass smtp.mailfrom=chaosmail.tech; dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b=QLrqABkH; arc=none smtp.client-ip=77.81.229.115
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iSbDspuQ"
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8485bd28dd0so866979b3a.2
-        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 04:43:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785325398; x=1785930198; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gUdqR2Hxxm0m0RqPyLuS7KiUs0HH+0wvNQWmKBLU3XU=;
-        b=iSbDspuQ3bqe5+dd9R9l57y3xsrCVpbCFziSR8r+xznh2QVgcE5DxKyMIL+mArBaKp
-         SVWhr4UWTT+COE1CE8nUGIa6wosNtWU/TWErLXTMgUWjEDOcKo9e0dVXHHGljfj5aoVm
-         4S01G1doNv4KFiNY+lr2UwlR1rrfz/iIyGrDMw8Y2VOvNuenbYGbWk+Kt2BrjcysIxBW
-         W7ovjPzZWcrFCUb2M2KZj+WU7ht7nhbnMFczGGBj7MKJLkL7LqQlKkFvYwlILBn2KSfn
-         TxCZ+lFi67pPX6SODECChKskavSql8m+FToj4mKoBtbV6UxOmncUhpETzifeAiA6UMJY
-         MbMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785325398; x=1785930198;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gUdqR2Hxxm0m0RqPyLuS7KiUs0HH+0wvNQWmKBLU3XU=;
-        b=ZsoZ98WFw+jNBPf5aH38v3M9rvry3szV53Au4GRUaXeVeLZdJ0OtIg2AsGQ9YV09Kr
-         TCxTnMjYAVT7i24KfgXVwKjfZaewXTtpL08DDrxav4coxzQfMyzLqDfj1sBkM9YTb8wG
-         EvukfFv+f0IWDp/ZbzNhCew1Nrl4Pn13Swsps02HLMJmmUOWMGgLhSnOMnZpzcZ6ZDsr
-         SyuVay3q3bKHNm7JfUSalak3wsnsgeRnNFaaEZN/oWcSz71+1CfN+I6Ibw3ppMKWrbQc
-         XouAmyJsmOU5j8hyrseF0nNq0aqZf9dOp/U/EevwVZMcohYGwjgdxxF6gVniF8JlCEpY
-         m49g==
-X-Gm-Message-State: AOJu0Yxiy4OTbWnMHo+7l2ke/xO5jwtipLgETqvxS8yTpWB3mYl1nSN3
-	VAoRHMLpcB3Evupzo6ubgrfdwZIQtuY7SHuXMaO2wyB0N6N93/xVvztT
-X-Gm-Gg: AR+sD12jML66fuk0AK4vUUF9jG4j7YTgGnKh72i8a6MRkqQZKdungIjg0TknjTaL3xs
-	P4jW1oQMV5jFJrBsNJRFlKkxNEQCIOqC6klAxgyaIHX1GZ3E7lEDD5vnpLv4mfBlC3mCUSD7sgs
-	dXvpNbwfAmQDNxdy1xfm37+ypJuhJNnJrs1bLps/JXz2BWnAhvmdSN9LmmOqd69Q5wsQQU7lnhp
-	cJDOMWS7AFWiqEQ1xtPVuFevgA61fJ7UHVvphURiJ2YtpcNwQGN2c2HIUjcCYJJ32h1BFGeJqt6
-	jrCxBR5ypWtVkOZMUDWvCbr1U9h+OkbBzr3E8BsImitOFd8Fkqhq4SJ+XIKC9218pq4uH3/JTrz
-	E1apQurvUGgcqNk8UzTLvy2X9eQyNwH6SvNfu4VgUj9BX54i4LMWhZXeh70gbA0G7CKB6NfZ0bV
-	i3d71vfngMR+fiiCks89zLqThYdVa1DBW06wut/MiGVPIZG9s1/CBQEbKUasn4Sc9TNnnw1oAPj
-	y6rDYucUOpDpShUvLUqHSViG/5orpcYWkY=
-X-Received: by 2002:a05:6a00:2e84:b0:84e:1a9d:d879 with SMTP id d2e1a72fcca58-84e93246ae3mr6928584b3a.28.1785325398098;
-        Wed, 29 Jul 2026 04:43:18 -0700 (PDT)
-Received: from cosmo-ubuntu-2404.. (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84ea03cbd1csm1263532b3a.53.2026.07.29.04.43.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Jul 2026 04:43:17 -0700 (PDT)
-From: Cosmo Chou <chou.cosmo@gmail.com>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	joel@jms.id.au,
-	andrew@codeconstruct.com.au
-Cc: devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-aspeed@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	cosmo.chou@quantatw.com,
-	Cosmo Chou <chou.cosmo@gmail.com>
-Subject: [PATCH v2 4/4] ARM: dts: aspeed: bletchley: Add second source ISL1208 RTC
-Date: Wed, 29 Jul 2026 19:43:12 +0800
-Message-ID: <20260729114312.3947300-5-chou.cosmo@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260729114312.3947300-1-chou.cosmo@gmail.com>
-References: <20260729114312.3947300-1-chou.cosmo@gmail.com>
+	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b="QLrqABkH"
+Received: by chaosmail.tech (Postfix) id CE0D11C8820;
+	Wed, 29 Jul 2026 11:46:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
+	s=mail; t=1785325606;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9tmvwrJ0xAvFpL6kO2DR2jbek1e3eFM52GDYpZIs/VY=;
+	b=QLrqABkHOz64G5kfp690ogIu7bvkdHeN6I338zpf2aZn5pCyZceseeOYbqk4OQfL+FpDOj
+	R10ck+9emtf5G9OqC1GhEWzeYa0SvAukHmUyrIQs+/lp9CXV/Oy/zqVWx9Iwz1iyxUT89l
+	D6/ML06tj5xuJAtWT7r7opDwtt68qNY=
+From: Sasha Finkelstein <k@chaosmail.tech>
+Date: Wed, 29 Jul 2026 13:46:35 +0200
+Subject: [PATCH v2 2/2] dmaengine: apple-admac: Add M3 generation ADMACs
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260729-t603x-admac-v2-2-e4b2bb6ca45e@chaosmail.tech>
+References: <20260729-t603x-admac-v2-0-e4b2bb6ca45e@chaosmail.tech>
+In-Reply-To: <20260729-t603x-admac-v2-0-e4b2bb6ca45e@chaosmail.tech>
+To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ =?utf-8?q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ dmaengine@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Sasha Finkelstein <k@chaosmail.tech>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785325604; l=3308;
+ i=k@chaosmail.tech; s=20241124; h=from:subject:message-id;
+ bh=KF1A2iyE3TFi2OyUnOG2tm9359rUCpVRvLWRA/axo+E=;
+ b=OOecFCG2yjQneFPJHEl1F5nHn6efDo2iklDsDRWNddvwJXHoGDxa7EnG+KlZWXOGt0V5D6gPb
+ 9x9dBgXW/uWAEsaI4e+Yd/k+RFn9aoBF4S1aCFhTlP7kHGAFoghUUQc
+X-Developer-Key: i=k@chaosmail.tech; a=ed25519;
+ pk=aSkp1PdZ+eF4jpMO6oLvz/YfT5XkBUneWwyhQrOgmsU=
 
-Add alternative ISL1208 RTC at address 0x6f to support boards populated
-with the ISL1208 instead of the primary PCF85263 at 0x51.
+The admacs present on t8122 and t603x SoCs need additional writes in
+order to operate correctly. The exact purpose of this register
+is unknown
 
-Signed-off-by: Cosmo Chou <chou.cosmo@gmail.com>
+Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
 ---
- arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-bletchley.dts | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/dma/apple-admac.c | 32 ++++++++++++++++++++++++++++++--
+ 1 file changed, 30 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-bletchley.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-bletchley.dts
-index 3da1cf9bbb99..01dbbda3e4b6 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-bletchley.dts
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-bletchley.dts
-@@ -1269,6 +1269,11 @@ eeprom@56 {
- 		compatible = "atmel,24c64";
- 		reg = <0x56>;
- 	};
+diff --git a/drivers/dma/apple-admac.c b/drivers/dma/apple-admac.c
+index 14a5ee14a481..72ff677c8ce5 100644
+--- a/drivers/dma/apple-admac.c
++++ b/drivers/dma/apple-admac.c
+@@ -39,10 +39,14 @@
+ 
+ #define FLAG_DESC_NOTIFY	BIT(16)
+ 
++#define T8122_UNK_28_VAL	0x200000
 +
-+	rtc@6f {
-+		compatible = "isil,isl1208";
-+		reg = <0x6f>;
-+	};
+ #define REG_TX_START		0x0000
+ #define REG_TX_STOP		0x0004
+ #define REG_RX_START		0x0008
+ #define REG_RX_STOP		0x000c
++#define REG_UNK_28		0x0028
++#define REG_UNK_2C		0x002c
+ #define REG_IMPRINT		0x0090
+ #define REG_TX_SRAM_SIZE	0x0094
+ #define REG_RX_SRAM_SIZE	0x0098
+@@ -127,6 +131,7 @@ struct admac_data {
+ 	struct mutex cache_alloc_lock;
+ 	struct admac_sram txcache, rxcache;
+ 
++	bool set_unk28;
+ 	int irq;
+ 	int irq_index;
+ 	int nchannels;
+@@ -147,6 +152,10 @@ struct admac_tx {
+ 	struct list_head node;
  };
  
- &i2c7 {
++struct admac_hw {
++	bool set_unk28;
++};
++
+ static int admac_alloc_sram_carveout(struct admac_data *ad,
+ 				     enum dma_transfer_direction dir,
+ 				     u32 *out)
+@@ -747,6 +756,11 @@ static int admac_device_config(struct dma_chan *chan,
+ 	u32 bus_width = readl_relaxed(ad->base + REG_BUS_WIDTH(adchan->no)) &
+ 		~(BUS_WIDTH_WORD_SIZE | BUS_WIDTH_FRAME_SIZE);
+ 
++	if (ad->set_unk28) {
++		writel_relaxed(T8122_UNK_28_VAL, ad->base + REG_UNK_28);
++		writel_relaxed(T8122_UNK_28_VAL, ad->base + REG_UNK_2C);
++	}
++
+ 	switch (is_tx ? config->dst_addr_width : config->src_addr_width) {
+ 	case DMA_SLAVE_BUSWIDTH_1_BYTE:
+ 		wordsize = 1;
+@@ -805,6 +819,7 @@ static int admac_probe(struct platform_device *pdev)
+ 	struct device_node *np = pdev->dev.of_node;
+ 	struct admac_data *ad;
+ 	struct dma_device *dma;
++	const struct admac_hw *hw;
+ 	int nchannels;
+ 	int err, irq, i;
+ 
+@@ -813,6 +828,9 @@ static int admac_probe(struct platform_device *pdev)
+ 		dev_err(&pdev->dev, "missing or invalid dma-channels property\n");
+ 		return -EINVAL;
+ 	}
++	hw = of_device_get_match_data(&pdev->dev);
++	if (!hw)
++		return -EINVAL;
+ 
+ 	ad = devm_kzalloc(&pdev->dev, struct_size(ad, channels, nchannels), GFP_KERNEL);
+ 	if (!ad)
+@@ -821,6 +839,7 @@ static int admac_probe(struct platform_device *pdev)
+ 	platform_set_drvdata(pdev, ad);
+ 	ad->dev = &pdev->dev;
+ 	ad->nchannels = nchannels;
++	ad->set_unk28 = hw->set_unk28;
+ 	mutex_init(&ad->cache_alloc_lock);
+ 
+ 	/*
+@@ -935,9 +954,18 @@ static void admac_remove(struct platform_device *pdev)
+ 	reset_control_rearm(ad->rstc);
+ }
+ 
++static const struct admac_hw admac_t8103_hw = {
++	.set_unk28 = false,
++};
++
++static const struct admac_hw admac_t8122_hw = {
++	.set_unk28 = true,
++};
++
+ static const struct of_device_id admac_of_match[] = {
+-	{ .compatible = "apple,t8103-admac", },
+-	{ .compatible = "apple,admac", },
++	{ .compatible = "apple,t8122-admac", .data = &admac_t8122_hw },
++	{ .compatible = "apple,t8103-admac", .data = &admac_t8103_hw },
++	{ .compatible = "apple,admac", .data = &admac_t8103_hw },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, admac_of_match);
+
 -- 
-2.43.0
+2.55.0
 
