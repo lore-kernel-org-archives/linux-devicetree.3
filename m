@@ -1,124 +1,189 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A636B47ECDF
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 13:46:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D8AE48CD61
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 13:47:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785332818; cv=none; b=KZPA5DbEvDb2P/hDpPrvBwosvfXIkNXz8JkltEIjjqmqovacyi2t252X/ms3ldwN3t3l7gmtQf4l+dBAp0M/k25Odl4/b33qSON0LuKjxzq9W+QH0nX03wuPvo03T4T0o6fesHOQO68lidAdi1HBr/vcCuVNvSx2dI+7aLUK+/g=
+	t=1785332849; cv=none; b=hTgk8fJLJH1uUV/QUG01B9nQKwMKR99S3Rb48EGj+xwVRINAxXVAAe0AQF6r/RYGDhVckWZv7ulhJ2NIN7ukqGldJ9GvA1S5Ls1xr86rnW6SNNyYmshcZEnu7XUIcwYgfT8ogiDZvHDwuHwLDPviPLOnOf2GbmY4qdX2GRK94V4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785332818; c=relaxed/simple;
-	bh=bHs5MXmiibyX2pgXn4/nqKzswg3+z6mzRTKbjueUmHs=;
+	s=arc-20240116; t=1785332849; c=relaxed/simple;
+	bh=H7J76ETzBaqcts6RQAyXHdYyQ9IBmiLJ+rcQNcCE0CU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=c5Ep8OnAfSlfY0E547aRCIhwLNlqysIKdT0qJ6w/XFQjOjKchyWdbFM2U9iDU/Lb+N7XIUgfal0YbF7NNLMCExFo/jxnvoH897GIq3zLjsxRWic/JbYlRYxK+WH0B8gl43Du2zgg8gpTb/zP7Yt3C3Q4mJ2hFYdlonladyQvhUU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JzZWz0s1; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=btzw6mhiYgrBUthlajr7bI4+/WzegqWOW5avNVj31/CMtMxsCSPVx6onHgjQq6/a9DxdVVwT2WRWEoLPagp3WrakduF2Ga8dXS/9et3mD8lR5JQu8s+T7sNc60X1lv69Zu06Gto3mG983LrVvYzjnKVMZNZvJXdscF+XwOYYKJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Aa7WdwiT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JzZWz0s1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24C231F000E9;
-	Wed, 29 Jul 2026 13:46:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Aa7WdwiT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D0101F00A3A;
+	Wed, 29 Jul 2026 13:47:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785332816;
-	bh=R1v4W1KHbtTQH3TjC+BruYDcTSFebXS95u7mtKdWbTg=;
+	s=k20260515; t=1785332847;
+	bh=NQmbohLukp0LrrWgZ1UO3RuJ0KW0XvMECGMChAWYCaM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JzZWz0s1FL0IY8Di85K/wSLzI76WA5pzHY9BjbvlJ8kuOm8UyUg/lC3QnY/zeUmlB
-	 R4C37vYF+8y6IwsNoyXzGV/2synyIwkDJ6vjC6yG7Ekjcgqo0fekcodCOAsGawzHyo
-	 r7GQONPQyStwilqGOtwHSH/PZoyd9XJ+fdeeTmQkTTvIdI1yCAl1c51NZddGZTOkbD
-	 AWufvAC1sdrZsmP1bsz7LH5BMqkcVTVZQP7zAVjiQ3DSC/9eYjmDfM0b96Pdi+idgM
-	 OvJr04oTaTNQgusJgvt9AFkWaHP6m213xHuP0WMnkcoc/YaeNjp6vDj1zKV4x4Q/iw
-	 nY5TsIsnQXsKQ==
+	b=Aa7WdwiTyNXyY0kot5Z5A03MjJn0qptxEcqzgnvWX04imNN0yOG+GWkP8wO+Dx+46
+	 9QJMLuWiof3QNO/MtXwV6eEEjY/l9SLPPgUsRtS8ypqr5i/EH6nApgxJoUmcj91I0x
+	 CA/7NY24hLKUi647ydrFI/BseKPWGpoP4pQLHe2gBFrDrvlR4KRd6OuOr4cx51cUYf
+	 Rw+tY9GxPzxzPLcbKRr50qdQtXjnTYFX1siyorB/yQf7qsu4FLecmxwhWQvUP5h5Zl
+	 r/YhXDlHEpLAfWi9tI7bG6KDp6YtnfoQVHcvZ9TZiomCYR/2NjDUoUx5xWFIP+kDCF
+	 b/7tfA6WhPKkA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/4] dt-bindings: gpio: rockchip,gpio-bank: Add
- rockchip,grf property
+Subject: Re: [PATCH v3 4/4] pinctrl: rockchip: Add RV1106 pinctrl support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Simon Glass" <sjg@chromium.org>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260729072727.v3.2.d04a89a3849323a0dcee2c701cba43adbb0523b2@changeid>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260729072727.v3.4.0af20e702c540f54a3d1694654b158a9b783d68e@changeid>
 References: <20260729132736.3807082-1-sjg@chromium.org>
- <20260729072727.v3.2.d04a89a3849323a0dcee2c701cba43adbb0523b2@changeid>
+ <20260729072727.v3.4.0af20e702c540f54a3d1694654b158a9b783d68e@changeid>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 29 Jul 2026 13:46:55 +0000
-Message-Id: <20260729134656.24C231F000E9@smtp.kernel.org>
+Date: Wed, 29 Jul 2026 13:47:26 +0000
+Message-Id: <20260729134727.5D0101F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] The newly added decoding for `DRV_TYPE_IO_LEVEL_2_BIT` in `rockc=
-hip_get_drive_perpin()` exposes an overly broad pre-existing override, caus=
-ing it to return corrupted drive strength values for 8-bit pins on RV1103B.
+
+New issues:
+- [High] Hardware register aliasing in RV1106 Bank 0 due to incorrect pin c=
+ount and missing bounds checks.
+
+Pre-existing issues:
+- [Critical] State corruption and out-of-bounds access due to static `rockc=
+hip_pin_ctrl` mutation on probe deferral.
 --
 
---- Patch [2]: [PATCH v3 2/4] dt-bindings: gpio: rockchip,gpio-bank: Add ro=
-ckchip,grf property ---
-commit b8824e91fa66d4af5685a314e266ea1b47feaa8a
+--- Patch [4]: [PATCH v3 4/4] pinctrl: rockchip: Add RV1106 pinctrl support=
+ ---
+commit 5db525b718839289847048c3ede5984a9fb138b8
 Author: Simon Glass <sjg@chromium.org>
 
-pinctrl: rockchip: Decode drive strength in the get function
+pinctrl: rockchip: Add RV1106 pinctrl support
 
-This commit moves the decoding logic for 2-bit and 8-bit drive-strength
-values from rockchip_set_drive_perpin() to rockchip_get_drive_perpin()
-where it can actually be used to report configuration properly.
+Add pinctrl support for the Rockchip RV1106. Each GPIO bank has its own
+IO control (IOC) register block, referenced by the rockchip,grf phandle
+of the bank node; the register offsets are relative to the bank's own block.
+
+Link: https://github.com/LuckfoxTECH/luckfox-pico
 
 > diff --git a/drivers/pinctrl/pinctrl-rockchip.c b/drivers/pinctrl/pinctrl=
 -rockchip.c
-> index 7e0fcd45fd265..08a46a04a8157 100644
+> index 08a46a04a8157..4e5e4434ba4e7 100644
 > --- a/drivers/pinctrl/pinctrl-rockchip.c
 > +++ b/drivers/pinctrl/pinctrl-rockchip.c
+
 [ ... ]
-> @@ -3267,6 +3267,25 @@ static int rockchip_get_drive_perpin(struct rockch=
-ip_pin_bank *bank,
->  	case DRV_TYPE_IO_1V8_ONLY:
->  		rmask_bits =3D RK3288_DRV_BITS_PER_PIN;
->  		break;
-> +	case DRV_TYPE_IO_LEVEL_2_BIT:
-> +		ret =3D regmap_read(regmap, reg, &data);
-> +		if (ret)
-> +			return ret;
-> +		data >>=3D bit;
-> +
-> +		return data & 0x3;
 
-[Severity: Medium]
-This is a pre-existing issue, but this newly added decoding exposes an
-overly broad override earlier in rockchip_get_drive_perpin():
+> @@ -4505,6 +4594,44 @@ static int rockchip_pinctrl_probe(struct platform_=
+device *pdev)
+>  	/* try to find the optional reference to the ioc1 syscon */
+>  	info->regmap_ioc1 =3D syscon_regmap_lookup_by_phandle_optional(np, "roc=
+kchip,ioc1");
+> =20
+> +	/*
+> +	 * On SoCs where each GPIO bank has its own IOC block, the bank nodes
+> +	 * carry a rockchip,grf phandle pointing at it. The bank number comes
+> +	 * from the gpio alias, as used by the gpio driver, falling back to
+> +	 * the node position for devicetrees without aliases. The fallback is
+> +	 * wrong when an SoC variant omits a bank, so aliases are needed
+> +	 * there.
+> +	 */
+> +	i =3D 0;
+> +	for_each_child_of_node_scoped(np, child) {
+> +		struct rockchip_pin_bank *bank =3D NULL;
+> +		int id, j;
 
-drivers/pinctrl/pinctrl-rockchip.c:rockchip_get_drive_perpin() {
+[ ... ]
+
+> +		bank->regmap_ioc =3D syscon_regmap_lookup_by_phandle_optional(
+> +							child, "rockchip,grf");
+> +		if (IS_ERR(bank->regmap_ioc))
+> +			return dev_err_probe(dev, PTR_ERR(bank->regmap_ioc),
+> +					     "%pOFn: failed to look up bank ioc\n",
+> +					     child);
+> +	}
+
+[Severity: Critical]
+This is a pre-existing issue, but does this new syscon lookup reliably
+trigger state corruption across probe deferrals?
+
+Looking at rockchip_pinctrl_get_soc_data() called earlier in probe, it
+mutates the static rockchip_pin_ctrl structure:
+
+drivers/pinctrl/pinctrl-rockchip.c:rockchip_pinctrl_get_soc_data() {
     ...
-    if (ctrl->type =3D=3D RV1103B && pin_num >=3D 12)
-        drv_type =3D DRV_TYPE_IO_LEVEL_2_BIT;
+    bank->pin_base =3D ctrl->nr_pins;
+    ctrl->nr_pins +=3D bank->nr_pins;
     ...
 }
 
-Since that check does not restrict itself to a specific bank, such as
-bank->bank_num =3D=3D 2, does it erroneously force Bank 0 and Bank 1 pins to
-be evaluated as DRV_TYPE_IO_LEVEL_2_BIT?
+If syscon_regmap_lookup_by_phandle_optional() returns -EPROBE_DEFER, the
+probe fails without resetting this static state. On subsequent probes,
+ctrl->nr_pins accumulates, inflating bank->pin_base.
 
-Before this patch, DRV_TYPE_IO_LEVEL_2_BIT fell through to the default
-case and safely returned -EINVAL. With this case now wired up, it silently
-intercepts these pins and returns a truncated 2-bit value for 8-bit
-register fields. Can this result in corrupted drive strength readbacks
-for those other banks?
+When a pin is later accessed, does this inflated pin_base cause
+pin_to_bank() to return the wrong bank, leading to a large negative
+integer for the pin?
 
-> +	case DRV_TYPE_IO_LEVEL_8_BIT:
-> +		ret =3D regmap_read(regmap, reg, &data);
-> +		if (ret)
-> +			return ret;
-> +		data >>=3D bit;
-> +		data &=3D (1 << 8) - 1;
+drivers/pinctrl/pinctrl-rockchip.c:pin_to_bank() {
+    ...
+    while (pin >=3D (b->pin_base + b->nr_pins))
+        b++;
+    return b;
+}
+
+Would this negative pin value act as a negative array index for
+bank->iomux[iomux_num], reading garbage offsets and corrupting arbitrary
+registers?
+
 > +
-> +		ret =3D hweight8(data);
-> +		if (ret > 0)
-> +			return ret - 1;
-> +		else
-> +			return -EINVAL;
->  	default:
->  		dev_err(dev, "unsupported pinctrl drive type: %d\n", drv_type);
->  		return -EINVAL;
+>  	ret =3D rockchip_pinctrl_register(pdev, info);
+>  	if (ret)
+>  		return ret;
+
+[ ... ]
+
+> @@ -4623,6 +4750,69 @@ static struct rockchip_pin_ctrl rv1103b_pin_ctrl _=
+_maybe_unused =3D {
+>  	.schmitt_calc_reg	=3D rv1103b_calc_schmitt_reg_and_bit,
+>  };
+> =20
+> +static struct rockchip_pin_bank rv1106_pin_banks[] =3D {
+> +	PIN_BANK_IOMUX_FLAGS_OFFSET_DRV_FLAGS(0, 32, "gpio0",
+> +				    IOMUX_WIDTH_4BIT,
+> +				    IOMUX_WIDTH_4BIT,
+
+[Severity: High]
+Since only pins 0-6 of GPIO0 have drive-strength registers, does declaring
+bank 0 with 32 pins expose hardware register aliasing?
+
+Without bounds checking for higher pins, if pin 16 is accessed, the offset
+calculation in rv1106_calc_pull_reg_and_bit() evaluates to 0x40:
+
+drivers/pinctrl/pinctrl-rockchip.c:rv1106_calc_pull_reg_and_bit() {
+    ...
+    *reg =3D rv1106_pull_offsets[bank->bank_num];
+    *reg +=3D ((pin_num / RV1106_PULL_PINS_PER_REG) * 4);
+    ...
+}
+
+Because rv1106_smt_offsets[0] is also 0x40, wouldn't setting the pull
+configuration for pin 16 silently overwrite the schmitt trigger registers
+for pins 0-7?
+
+> +				    IOMUX_WIDTH_4BIT,
+> +				    IOMUX_WIDTH_4BIT,
+> +				    0, -1, -1, -1,
+> +				    DRV_TYPE_IO_LEVEL_8_BIT,
+> +				    DRV_TYPE_IO_LEVEL_8_BIT,
+> +				    DRV_TYPE_IO_LEVEL_8_BIT,
+> +				    DRV_TYPE_IO_LEVEL_8_BIT),
+
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729132736.3807=
-082-1-sjg@chromium.org?part=3D2
+082-1-sjg@chromium.org?part=3D4
