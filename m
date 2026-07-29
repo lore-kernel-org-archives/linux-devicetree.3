@@ -1,167 +1,144 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3014A446051
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 11:08:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B0E4443E4A
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 11:09:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785323310; cv=none; b=RW7ctA1dH7xLqikPw3Fy/O7uCYhlL+qi0twR++KLBmgWcXFk83cQzCvrpNLFkkzE9/Ea1Dh6hBpfZ13fs3bBAu45XtG5R0gG6wsa9PEagOp9TuNSOSDn1bwlIqlQQcpNoBTGJ2nNXrY8HNir8K+q2X0QY5DNPgeS2OoyGz1Eh8g=
+	t=1785323397; cv=none; b=Em/3b4P+NXNLdeZ7vVT2HjbvDFYh64VgMMED6cxw6WHBZ0EhNgXnntEhKFke8M9VtDaQ6Cu8YE6eSaN2nqiGbakn3mnpjwHBy37sasJCRJuWpvFGVPIfkk6XUgY5LYfvcGmAJTBU7MR1I9+pkhW5kiDL+YeNktGcfkGKmAwVGL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785323310; c=relaxed/simple;
-	bh=jwLSnPHPhs07q4yGQ1uUTlOrqbgHeEvkeKKGcscaaMs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=b1Nuoi+FWBzUw3mIq9u2K8ytIpybT/sIGmFl+p+5xx7XV5TxxwWj5/t3yXf4qlx/9BKXT1OrQd6xYtvNmhuvA49QmNKVWFRsufeWJG5/wjhi/luB+jU0xXllTpe+UzxIC1fKECxJixvOfxMAK1gZUZPmbiMn80oQ5ziSLdl+Jfc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kbj5Ei3i; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LiKT8cLN; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785323397; c=relaxed/simple;
+	bh=0Ui/ZYcBNci5/ncy0KAudCDjTSBCmc3Xmu/aU3q6Jvk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=SBMKKc5kwBegD39ataakdJsEti6AHFRpXMU/EqleeTVQY4kjOwB+1SXUb/C/jVD3886x0ARkFhNPDOzT2WPxNtwdYiERk1u1t9mJKrSiGkoK9/Bk+eJ96ARfmcMdINpFUA8JGrb6yxXIQ+54Q1TKPjUdEt4PaDXgJ2pspCefYic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P4nSuFRM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kbj5Ei3i";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LiKT8cLN"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66TB78O61158792
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 11:08:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	XsF4AYt0q/thRJpzFo1gQ/Z6B82oRkzfDmlpGkTlKmU=; b=kbj5Ei3inFRzMxsv
-	ITEqZztJFJGgTDGcNM1ZBGcs5aJLLiHEQKVT9tfGb2k/sOooGPeB3Jyq6Sf+9dPz
-	wAf8R98ICewKDbEKG9Xtiinmzy1pfLKsq2dro1Cs92tfUC+rIN1yteIReVeYWafJ
-	O5eet2M+ruFj1Zqsa8GwqHeeIMcIx3d8Rkpth9JWytASoOb/V4Wsx2WWW6tKB1Wh
-	AHUBAjmLx6i/I2eP+nqf8impZnzOVDxTLW1TPzN9BqqKPwmvfoVdtdOojQseVdS8
-	8xKKHGDtAioQK1WO+J8Cqml20i0sZdc8O+YddVRR+5XQ4pftz8RvuimWxR1u8vuw
-	lgNy4w==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fqbn1saf2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 11:08:28 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51ca37ce4c3so1724091cf.3
-        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 04:08:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785323307; x=1785928107; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XsF4AYt0q/thRJpzFo1gQ/Z6B82oRkzfDmlpGkTlKmU=;
-        b=LiKT8cLNtcgY7kLq1/BFaibLbw91e0E1tifDofoNSx6yPv+pkOofAQDFNuaJ9UE3Tq
-         0z9xJrteZtzlbqcASvdQLmcFmZMzL5/NcLHUITJiu9xsBmHPhRufbZA3mP/NOnPE1fQH
-         XRWgyPpcRqsLp0l1veB0vPduIB0FMdtqQzgWoJkkSDlgDlAKB1prw7qY8YqMtg99P4Oc
-         z5XQPcfb/oBHm7B+5GW1kBmaN9cUSBpuHrTkR9I4jMCD7AbqnLdRqWDc0sT3BjcAdJ5h
-         XsUcQounn1DwmHbF6XOe5JUQe+6qm/zXYxTopNoTbJTwE5L6xHYCHwBOuaV0NUnPyosz
-         obhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785323307; x=1785928107;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XsF4AYt0q/thRJpzFo1gQ/Z6B82oRkzfDmlpGkTlKmU=;
-        b=eOKmc2iZowo1V/enCj5v8SLQBBrHEWd9o0F7MURm1j0KXkltI4Gtxd7ZFUBJVnFzeP
-         5e4ZyNgQLqFJ9AygVxjXl0XdKt+g5OpYse8a0IkZiGFUepQQePm626W357zPpFxgIluy
-         5UuNjyCLStJUcJqcp6XBoVckmE+RedjZPEok7G2/o41bqMFrNtGp8sZjQfwHJlPMGWHQ
-         CfgZIAWQYjEw1PCJUzkSH1XxbiqpatG1aBioBgpqG6tdpZes97fPm7fhHpGvbwWwBJYE
-         OvJWhKheQosUjbFbaj66Dg4jLQwum4NnyDsmi59g+TvECnhCORBVeqjGpFl2w7kfpu5g
-         Q9hg==
-X-Forwarded-Encrypted: i=1; AHgh+RontvApYwf+rf3oNv1UK0cpxZLqjndnqeHeZiGwxRTXA0bWZDV6SMt5CcOSqLpDbVPWTCvrgnGPYpWw@vger.kernel.org
-X-Gm-Message-State: AOJu0YwRq7x7End7hHdb/YRRF4X4N9bPlbcTmKTbsgfOUSoamgjySJu9
-	cXVxl2j40rWpwMjtRcPtyYOcOkAvMNf3D6J1ZOUhTZE/frBhwVoBIAJej6gngRot4mZWY5gLG4q
-	pZQGHKGfKPyhIY1/ZyE5dP5YNxa5ylhxsXJ+zGEt0R4ItTilscsI4XV+pJPEtkSoV
-X-Gm-Gg: AR+sD13db/wgmqMA0JlVsBQ4vplgBlGLZe017GCZiYWTzR3dKvTRlPfN84077Ezb/hy
-	BLZd7/U78U5KFgbA8Myn0MtvuM0X7BVlwG/qXktdJDpky3ac82RuqmtOvcempcoUZpQgRn2n/OZ
-	P8zvXJV9IKmUx7zadeT/aRllraJasGpjWbNYu6FdGe2ZTS0Ht827VM9B+X1jPfmu1oUAYBcJVUT
-	Paa0TZaH1DP5f5AXq+wrZcEkdLJyOsPjzvYKh9alPFAJEntfALfMcVDbbNyZpQjVTzy/Bb8ii+/
-	pnOuO888HjAKU0nIL4aNnpdIwyPSrk+2BOP4AZQ+pbuh4+U1Pm9NkcFXTqH3zM1UB0Yo87oFtMr
-	MCorbH3c/OSeghpfbT0LC5EST
-X-Received: by 2002:a05:622a:1191:b0:51c:11b4:6b24 with SMTP id d75a77b69052e-529d6fb9320mr55113821cf.3.1785323307288;
-        Wed, 29 Jul 2026 04:08:27 -0700 (PDT)
-X-Received: by 2002:a05:622a:1191:b0:51c:11b4:6b24 with SMTP id d75a77b69052e-529d6fb9320mr55113161cf.3.1785323306692;
-        Wed, 29 Jul 2026 04:08:26 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1f83f4e062sm99494066b.33.2026.07.29.04.08.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 29 Jul 2026 04:08:25 -0700 (PDT)
-Message-ID: <b451e31a-cc1d-4e0a-9686-c04ba33720e2@oss.qualcomm.com>
-Date: Wed, 29 Jul 2026 13:08:23 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P4nSuFRM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0BEF1F000E9;
+	Wed, 29 Jul 2026 11:09:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785323395;
+	bh=eY1cndUhu07b5ZmSD7E6cnuPwNk4nW4d/HTkux98kG8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=P4nSuFRMyMtO16W3sWjGbPJcJmq8kfO9NgOrJAsX5DHTIFusd8JI6embtZ2onOfGg
+	 TfiqUlzTr6vKarkPio/QUGcM5DE3Orm4lE+vth183V4NzxX3ybBRQdteorVg4RyG1g
+	 bYBCXPJSf/BRrrsUq1JoXzA+dPTUCHqtRSUGOWi/z3lhAbhlH8EoBAHnVLpnRv/Pio
+	 bC82qet2UquQmJmbC3bIDNa0q1rhGVAG+AhJRq8ZNwj162tX1aAYBnKAEhdrtG2ZY+
+	 Mb7LjdETgEScjb+w+g4+KOR0F+jsvD+zzGZRio87KV4J3jTYkrYNlkvcAzwHckbkE1
+	 QBKvZxksqJzTw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/3] arm64: dts: qcom: hamoa: Number usb_2 HS port
+ and add M.2 endpoint stubs
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Wei Deng" <wei.deng@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260729-hamoa-m2-dts-v2-v3-1-4d7ef9274575@oss.qualcomm.com>
+References: <20260729-hamoa-m2-dts-v2-v3-0-4d7ef9274575@oss.qualcomm.com>
+ <20260729-hamoa-m2-dts-v2-v3-1-4d7ef9274575@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 29 Jul 2026 11:09:55 +0000
+Message-Id: <20260729110955.A0BEF1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/8] platform: arm64: qcom-hamoa-ec: Verify required I2C
- adapter functionality
-To: Anvesh Jain P <anvesh.p@oss.qualcomm.com>,
-        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
-        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org
-References: <20260728-ec_add_more_commands-v1-0-771abd65ee1a@oss.qualcomm.com>
- <20260728-ec_add_more_commands-v1-5-771abd65ee1a@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260728-ec_add_more_commands-v1-5-771abd65ee1a@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDA5MiBTYWx0ZWRfX1YEfQSzSD7fY
- hAr8pxHLpU3PnrFfT2H7fKXoO3rFJsU3dVAyQfAiGnBPJW5GQGfeczU+XvN7BgIJnESNIjbrJOb
- kecxV0ZGfqGGljPDBeGIpUGfpXFDR9E=
-X-Proofpoint-ORIG-GUID: Vhpvtqn34BO7Gje7uCROoQqkQKpCKXrU
-X-Authority-Analysis: v=2.4 cv=csCrVV4i c=1 sm=1 tr=0 ts=6a69df2c cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=CFGf0PpD_GUA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=8kbzDDFSmQlM37ls7SUA:9 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDA5MiBTYWx0ZWRfX3zQ1yps+cTHK
- tF1fVr4U8XOYQcZc8dXWkB9t2o3t/c2OF0EgfR2wcP7+Jcusk8/CggR+UIJRbp/5xq3N9GRBFWc
- IvifdUJlhpCVwYVoEN7lPrbBX9sJPpbvzXuREcOnqPNXMDho5zzVHrLHsWI0C4R7NAkylR/Oeb4
- X2DCS7S45DB7lJAJSQPYq7IYo0+jaHee1GZSFk5u4h/PCIfLiLwyYJVzegtBvNz8S+06M+LyO0C
- WYnibDYIyDejJW2vsUTXWbPpCP109qV90jGEp+9FoRT+f9795qrwQTr9udgTy6pEDg+5v3gAgdE
- 2btdB9Upui1ZT5nCKntnWu1aE+xUufMI6zo5eMUUVE5kzNlDH159/DWC+3e0GjelhXUmDA8C4li
- zKiJGUkskaOhPBo9pKyYaS2Xt6UfYzx3MNk4NXCADIJysQeWaYo56z0hAt9JIv3M+NsraTuUejv
- MV0LddHZR47SaZxLetA==
-X-Proofpoint-GUID: Vhpvtqn34BO7Gje7uCROoQqkQKpCKXrU
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-29_04,2026-07-28_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 spamscore=0 phishscore=0 impostorscore=0 bulkscore=0
- suspectscore=0 malwarescore=0 adultscore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607290092
 
-On 7/28/26 7:44 PM, Anvesh Jain P wrote:
-> Check the underlying I2C adapter supports both the raw I2C transfers
-> used by the fan RPM/LUT commands and the SMBus byte and block-write
-> transfers used by the other EC commands, and fail probe early with a
-> clear error if it doesn't.
-> 
-> Signed-off-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
-> ---
->  drivers/platform/arm64/qcom-hamoa-ec.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/drivers/platform/arm64/qcom-hamoa-ec.c b/drivers/platform/arm64/qcom-hamoa-ec.c
-> index d0c45d9970ee..a420a180a194 100644
-> --- a/drivers/platform/arm64/qcom-hamoa-ec.c
-> +++ b/drivers/platform/arm64/qcom-hamoa-ec.c
-> @@ -1195,6 +1195,11 @@ static int qcom_ec_probe(struct i2c_client *client)
->  	unsigned int i;
->  	int ret;
->  
-> +	if (!i2c_check_functionality(client->adapter,
-> +				     I2C_FUNC_I2C | I2C_FUNC_SMBUS_BYTE_DATA |
-> +				     I2C_FUNC_SMBUS_WRITE_I2C_BLOCK))
-> +		return -EOPNOTSUPP;
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The M.2 USB 2.0 endpoint stub (`usb_2_m2_ep`) is incorrectly map=
+ped to `port@1` in the `usb_2` DWC3 controller, which violates the DWC3 OF-=
+graph schema.
+- [Low] The commit message fails to mention the addition of the PCIe endpoi=
+nt stub (`pcie4_port0_ep`).
+--
 
-return dev_err_probe(dev, -EOPNOTSUPP, "I2C adapter missing required functionality\n")
+--- Patch [1]: [PATCH v3 1/3] arm64: dts: qcom: hamoa: Number usb_2 HS port=
+ and add M.2 endpoint stubs ---
+commit 83adf4d287cf5b2273e244ab2fb06d8aa0806c46
+Author: Wei Deng <wei.deng@oss.qualcomm.com>
 
-Konrad
+arm64: dts: qcom: hamoa: Number usb_2 HS port and add M.2 endpoint stubs
+   =20
+Number the existing High-Speed data bus port of the usb_2 DWC3
+controller as port@0, consistent with the snps,dwc3 binding convention.
+
+Also add an empty port@1 endpoint stub (usb_2_m2_ep) for the USB 2.0
+interface to M.2 peripherals, and an empty UART endpoint stub
+(uart14_ep) in the uart14 serial controller, so that board DTS files
+can reference these labels directly without re-entering the port
+hierarchy.
+
+> diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/dts/qc=
+om/hamoa.dtsi
+> index 4ba751a65142b..dbe1bec0258ce 100644
+> --- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
+[ ... ]
+> @@ -3843,6 +3848,11 @@ pcie4_port0: pcie@0 {
+>  				#address-cells =3D <3>;
+>  				#size-cells =3D <2>;
+>  				ranges;
+> +
+> +				port {
+> +					pcie4_port0_ep: endpoint {
+> +					};
+> +				};
+>  			};
+
+[Severity: Low]
+This isn't a bug, but the commit message details the addition of the USB and
+UART M.2 endpoint stubs without mentioning the addition of this PCIe endpoi=
+nt
+stub in the pcie4_port0 node.
+
+Could the commit message be updated to mention pcie4_port0_ep as well?
+
+[ ... ]
+> @@ -5189,8 +5199,22 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
+> =20
+>  			status =3D "disabled";
+> =20
+> -			port {
+> -				usb_2_dwc3_hs: endpoint {
+> +			ports {
+> +				#address-cells =3D <1>;
+> +				#size-cells =3D <0>;
+> +
+> +				port@0 {
+> +					reg =3D <0>;
+> +
+> +					usb_2_dwc3_hs: endpoint {
+> +					};
+> +				};
+> +
+> +				port@1 {
+> +					reg =3D <1>;
+> +
+> +					usb_2_m2_ep: endpoint {
+> +					};
+>  				};
+>  			};
+
+[Severity: Medium]
+Does mapping the M.2 USB 2.0 endpoint stub (usb_2_m2_ep) to port@1 in the u=
+sb_2
+controller violate the DWC3 OF-graph schema?
+
+The snps,dwc3-common.yaml schema explicitly reserves port@0 for the High-Sp=
+eed
+(USB 2.0) bus and port@1 for the Super-Speed (USB 3.0) bus.
+
+Since the usb_2 controller is a High-Speed-only controller, attaching a USB=
+ 2.0
+interface to port@1 incorrectly models the hardware by attaching it to a
+non-existent SuperSpeed port.
+
+Could this cause dtbs_check validation failures or incorrect OF-graph parsi=
+ng
+in drivers that expect port@1 to strictly represent a SuperSpeed link?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729-hamoa-m2-d=
+ts-v2-v3-0-4d7ef9274575@oss.qualcomm.com?part=3D1
