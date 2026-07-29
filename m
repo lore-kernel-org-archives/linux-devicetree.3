@@ -1,105 +1,199 @@
-Received: from out-178.mta0.migadu.com (out-178.mta0.migadu.com [91.218.175.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85A214052C8
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 16:31:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.178
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785342687; cv=none; b=eTnWLhSsa1BhQAjqLn7+XK47mLVFA597R4n9PSaTtM5tgUk3c9Zk63u80T/xbq2achn7bbtvJK5xYKHsFFhTAB86WITFI7GdbrrFGrT6S0Mf/J7HiiELsFCqzCjRyd+YmXWoAVzwE27OYms5roxhoM1rAR32k2q5AV1A7z2QDgk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785342687; c=relaxed/simple;
-	bh=0oDXRC+Rvna+8p7jpLxlKei3kZFTAr3bo/bQUBYC3Kg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:Message-ID:
-	 MIME-Version:Content-Type; b=fP94EtwYahMLaGy6mMdqTbiZOEFlx64ZR0mcnTlY0OoNhPgAnjb7i0SciLLcA3MCvjGkJBpZ41Nl+dp+wK0S/Mb3OYZHEFh/zAcZUuktEOPRJp7/y4hIm5GchjwogWmpcwGZhJ8ijBjTQG66RXNs4ekA+P05/qECmrs+Gz0D6h8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org; spf=pass smtp.mailfrom=postmarketos.org; dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b=RlhoJ0IO; arc=none smtp.client-ip=91.218.175.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52A333C1D5A
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 16:32:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785342742; cv=pass; b=kfvSpaJrORZYBgoaq+M0XyDyAm4uO/QJL13dRc3UsUcSfSga2zxPhE4SjisIaX7wC2VT6M4MzZv7qMtNuEiACXPGl883FmN0MKO6Wy5UXOlj21gTlIbuUpVJ4F2YPnoSSOGLg0jSLsUWUXGmDAzSZWPxMht5MjtMkCmADZFt4xQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785342742; c=relaxed/simple;
+	bh=DAtgpZj1DNS+c1m55PrDVqDn1j/YKlo7Xv6LfVC98fQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gWULY6wky+kNZkWdA0gdpQqV6p9Io4X8KTXN0pt+ZBdmxWdLpaSYYDPdhxbuTCJotY0QP665SOVJHe+GoGZpYqyOq5cBRz1a672vUQj/mWagNT0IZrlRP4HPIWyqTPLgOZz84Z8VizjSf1vbN0K38cGfOn0+/xm9jjgbYiwrwZE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TkzYL0AI; arc=pass smtp.client-ip=209.85.160.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b="RlhoJ0IO"
-Date: Wed, 29 Jul 2026 16:16:49 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=postmarketos.org;
-	s=key1; t=1785342668;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=G/CH1RQ51wDKB1nw1PqJ4AnZY65vJPiP0L6rpa3Xr34=;
-	b=RlhoJ0IOQVoLpDQtytQO8MTjIYvJpV3c/0Zq3gYTRqDiCpNDZmC8ob6kOYX3z7VfxM3Ivs
-	1is//wB95LM4LTyrvKkj4de4HjIwlR38130ajWnOSPkmPJhLTvXIv9nytRZgNcPDeshIs+
-	uRMOpQ04SZPdTnp06C+fkrbKpBuMHMC+qIEDCRyC2uiYV0kWN77rCAOGPJsk9gZjRKZvbu
-	r6QGk2IIcYtHhsmY0sUq2zxJ/hDf3wFAZK9IZHQnhq68dJgUXfR87uIoQ3qhTtVv6zXtnf
-	7s7CjvtQ2qwu/S8l3/mfJkp4vTI/bH9ye7bPEL6GlhJ+fl9wqXnzCVN1It6o1Q==
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Ferass El Hafidi <funderscore@postmarketos.org>
-To: linux-amlogic@lists.infradead.org, Alberto Robazza <robazza.alberto@proton.me>, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, khilman@baylibre.com
-Cc: jbrunet@baylibre.com, martin.blumenstingl@googlemail.com, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, Alberto Robazza <robazzalberto@gmail.com>
-Subject: Re: [PATCH v4 1/3] dt-bindings: vendor-prefixes: add Orbbec
-References: <20260729141234.65037-1-robazzalberto@gmail.com> <20260729141234.65037-2-robazzalberto@gmail.com>
-In-Reply-To: <20260729141234.65037-2-robazzalberto@gmail.com>
-Message-ID: <tiy37g.1ypi45yn8qibx@postmarketos.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TkzYL0AI"
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-51c2808dbc3so7578621cf.1
+        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 09:32:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785342740; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bi5+mi3MDV+lNCobEXGNaWC9OzwDj+2xNOplFvWaTtkTB/KiI1RDbGGbuW/2lcRil0
+         jPu3XFastWBWH9w9p5cvUOTeANzaLGkIT10jcENVnAsZbDt0lXMb14miPb+kO1puJAPd
+         xVipQpgu0Zaol3opEJY8eyzfhJp6kPiXqTEdR2RJpouGjurBrQXfskvLgVjxxQr4Swf9
+         AK00U4LXMZ0d33ixKVpqDHmrVtu6g6huMJyva3kfZ6HBj1VaacmpRJCSvTapPfIyTSkx
+         +9TnLlivhuIi6d+XNRAYIlyW1T0vWRq4AUKP8+2YNhGQPjDEzINOif5QByw6Lu0Shs2S
+         VgUg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Q7pTQ84ALbX/4r2igPejPxSAqnbe2d+NJmIUI1AGgJ0=;
+        fh=J6BBWMeRxko+oJRZETeKeuKUP+Lw47eQRt4GhS7cQAk=;
+        b=BWGZMYwih1IZQOIwZwsZLINkZxbmjqZ630a9ZNvLz/YZ8F2cVgFm8Sci0wv7ARddJk
+         oD7dQsAxkuecAzgzVUYmmE5CcZbfr6UUooLN2YutA91i+MT7lsvssH+aaK+RzEZANTk8
+         4kVt44aBVyhjLPMGabQZsrEgfwh1/BrghWa12JKtQ7US8vobkG6/79E/Evpe61c+g5JW
+         1uXZVR/704UoVR9/bLMF2L8qrV5ktn/OLkCtH1i02xgZDQ3+lKA/wMUvgMpOqeRI2Twd
+         fGRKg7U2JW5omL3lKb0pQ9AbF+Q3qI3VqDvb1+eZbooaqFvlR/pVDzYzjvMIaoWFzl9M
+         O3+w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785342740; x=1785947540; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Q7pTQ84ALbX/4r2igPejPxSAqnbe2d+NJmIUI1AGgJ0=;
+        b=TkzYL0AI0C+sps+hglf3P6W8Byegmj5eaGWsgOCzTg3NNmpDBrhW6Dx5Gqn7WCe4XV
+         Hhad/c+C6c0iuRGpyWZE8YPRtLauT2eJVnG4KPuWuBV6Ie2yRXZpPO8aHCiCMxD9s+TE
+         aSzd27L6D/l8jaOYF94Iy2PbFk/v5fCbop6H0pkhbCfLggTY60hVJla3fahHlim1rvSk
+         iRVSKZ4cXswi/lLKUIQqPZ5XogzKKrYJCmgge+vpOZmIFS+bKmCWHqZcpZUbhtxJevzc
+         E9Gs7dxY2usnyohSsplwoaEFau3AF81Ep5D8kp2oRE5H+sOPGi01NwULsf2P8isehTdM
+         dmkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785342740; x=1785947540;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Q7pTQ84ALbX/4r2igPejPxSAqnbe2d+NJmIUI1AGgJ0=;
+        b=hBhw8b1bp9JNxTjowQXM2lZJHeXoKUMdQft0W+62OlWNWTOodRDQ/Qt63JRLGYKSTx
+         AyCZ413DiVghQSeaEtarh/DatM6PMxEPyOuBAXHFBTTHLtwO34hpHDHaMmDaO2aqomfO
+         icZnLvBvE4k4ge0y3hWtlgMGFwINS8IOl6dGSqD4QxOAsclrUo1kpeAcPqa34TXgGnkK
+         SvzmqubH0hi1RH6TxlqTdlwEZsxYlxBL9Q6NNLcNsgaCmNl6OZZjQr/2XZnEZlkfyoIg
+         bnrWJpozlAKde2qa3fbnE/Lyear+P08ryAuYexUrKPKcFm4K7EV7KHYhMN5FHSGGHL4T
+         f/5w==
+X-Forwarded-Encrypted: i=1; AHgh+RqXHolA8EDNw+Qf/FqOllMEsj7yKAkRDgyNX0bdoYxsTL798RDavtKueA3Dv00PEqXF+VNK9g3GfylH@vger.kernel.org
+X-Gm-Message-State: AOJu0YxchvgsSTjOpm+3LuAYxvxuaFn2UTMZiBiEIc/OMuG8DEdNyIX3
+	0pfdhTHqX4XAtWVa6KwtlyVW1z7Kt1FE98sa/SkjDDX2y6DHfxn1uSec0ET9cMrkHg9uIqOnE4M
+	qhPPsc12Sjn7o12x8U6RPnoit+ZKHxnM=
+X-Gm-Gg: AR+sD136mDgb58iIsbavjXQnXY2D0T2ugMPovZAljsP7vwAT7/o+D609/o4u5s6COdf
+	hCo+QHb4dTXR9baAMeBZZPgA1t6J4L0ldpsTWZTqF8SjCJboYHLUsIrQZLFfyc3yh8ViL+c+tUX
+	2yV1cW1tzyerqrKQl/9zcDqqJCWBk+YJa2z/YNiWDLBKbI9sH7ZpovEOIySGwrQteWba7JOC2Mz
+	hyZ6TM7o9mr+9Y4SxhqX4yTSsqbl9f9CM3XkfI/YIt3qd/QRlg1yF3cokrj/xRBSxkL0pmFiAMZ
+	RU0b/g76TGVAmH6QSbiaBM2C+TAdOKVia54HYSiBSVwL31umeKLQvK2Ce+Dr9hdZ+D5sJ7CFaHM
+	=
+X-Received: by 2002:ac8:5747:0:b0:51c:19af:6341 with SMTP id
+ d75a77b69052e-529d713873fmr69349981cf.36.1785342739913; Wed, 29 Jul 2026
+ 09:32:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset=utf-8; format=flowed
-X-Migadu-Flow: FLOW_OUT
+References: <20250925-rk3576-evb1-dsi-v1-1-c76fc3740abc@gmail.com>
+ <748fd61a-31fb-436f-b028-b47807a4860c@gmail.com> <12339028.CDJkKcVGEf@phil> <29759328.czjnFlTdjD@diego>
+In-Reply-To: <29759328.czjnFlTdjD@diego>
+From: Alexey Charkov <alchark@gmail.com>
+Date: Wed, 29 Jul 2026 20:32:08 +0400
+X-Gm-Features: AUfX_mzBEaSdgIsBEYN7VZbYtoGsNzcTEENadfy3YmzUtDsOgmQlt3t77sIoNTw
+Message-ID: <CABjd4Yy7kzPFxSakaGqY18hyJCfQf5neCoHBdm4DueFrfnda0A@mail.gmail.com>
+Subject: Re: [PATCH] arm64: dts: rockchip: Add DSI LCD display on rk3576-evb1
+To: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, 
+	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Alberto,
-
-On Wed, 29 Jul 2026 14:12, Alberto Robazza <robazzalberto@gmail.com> wrote:
->Add the "orbbec" vendor prefix for Orbbec Inc., a manufacturer of
->3D depth cameras and embedded vision boards.
+On Wed, Jul 29, 2026 at 6:46=E2=80=AFPM Heiko St=C3=BCbner <heiko@sntech.de=
+> wrote:
 >
->Signed-off-by: Alberto Robazza <robazzalberto@gmail.com>
->---
-> Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
-> 1 file changed, 2 insertions(+)
+> Am Montag, 20. Oktober 2025, 14:31:12 Mitteleurop=C3=A4ische Sommerzeit s=
+chrieb Heiko Stuebner:
+> > Am Montag, 20. Oktober 2025, 10:50:58 Mitteleurop=C3=A4ische Sommerzeit=
+ schrieb Alexey Charkov:
+> > >
+> > > On Mon, Oct 20, 2025 at 12:31=E2=80=AFPM Heiko Stuebner <heiko@sntech=
+.de> wrote:
+> > > >
+> > > > Am Montag, 20. Oktober 2025, 10:19:51 Mitteleurop=C3=A4ische Sommer=
+zeit schrieb Alexey Charkov:
+> > > > > On Thu, Sep 25, 2025 at 12:38=E2=80=AFAM Alexey Charkov <alchark@=
+gmail.com> wrote:
+> > > > > >
+> > > > > > Add support for the Rockchip W552793DBA-V10 LCD+touchscreen ass=
+embly which
+> > > > > > comes physically attached to Rockchip RK3576 EVB1 boards.
+> > > > > >
+> > > > > > The display part is driven by the on-chip MIPI DSI controller, =
+and the
+> > > > > > touchscreen is connected over I2C.
+> > > > > >
+> > > > > > Signed-off-by: Alexey Charkov <alchark@gmail.com>
+> > > > > > ---
+> > > > > > Note that backlight support is left out for now, as it depends =
+on PWM
+> > > > > > support [0] which has not yet been merged.
+> > > > > >
+> > > > > > A workaround is simply `gpioset -c 0 13=3D1` to set the respect=
+ive GPIO
+> > > > > > pin high and thus to light up the display unconditionally.
+> > > > > >
+> > > > > > [0] https://lore.kernel.org/lkml/20250602-rk3576-pwm-v2-0-a6434=
+b0ce60c@collabora.com/
+> > > > > > ---
+> > > > > >  arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts | 89 ++++++++=
+++++++++++++++++
+> > > > > >  1 file changed, 89 insertions(+)
+> > > > >
+> > > > > Hi Heiko,
+> > > > >
+> > > > > Any thoughts about this one? Can we perhaps get it merged for -ne=
+xt?
+> > > >
+> > > > Does the gpio-backlight work on that device?
+> > > > That would make the gpioset hack unnecessary.
+> > >
+> > > I've got a local patch using pwm-gpio and pwm-backlight as a stop-gap
+> > > solution, but I don't think it's worth merging upstream, because the
+> > > backlight is supposed to be driven by the hardware PWM on the same pi=
+n
+> > > (not bit-banging the GPIO line). After all, Nicolas has been working =
+on
+> > > adding a proper hardware PWM driver for RK3576.
+> > >
+> > > The display itself works without PWM support, and so does the touchsc=
+reen.
+> >
+> > Right now, I don't think we have an actual timeline if/when Nicolas wil=
+l
+> > be able to work on the pwm again. So my idea was if we want to
+> > integrate the baclight as you described below, to have an actual usable
+> > display and then when the new pwm has landed switch over to that one?
 >
+> With the ELCE around the corner we're nearing the year-mark here ;-)
+> (And I'm surprised, I remembered this pending patch)
 
-You seem to have missed Krzysztof's Acked-by tag in this patch:
-https://lore.kernel.org/all/20260729-unbreakable-observant-clam-ca4f6d@quoll/
+I've been hoping that Nicolas' PWM series gets further along in the meantim=
+e :)
 
-Reviewers will typically give out Acked-by or Reviewed-by tags to your
-patch to signal that the patch looks good to them (typically the former tag)
-or that they have reviewed it in great detail and approve it (typically the
-latter tag). These tags need to be picked up and added to your patch.
+> So how about integrating your gpio-pwm backlight for the time being?
 
-If you use b4 to send the patches, you can run `b4 trailers -u` each
-time before sending a new patchset revision to the mailing list to get
-all Acked-by and Reviewed-by tags reviewers will give to your patch.
-If you don't use b4, you should be able to add them manually still with
-git commands.
+Could do that, but I'm worried if it would immediately become set in
+stone because DT is ABI, making it hard to switch to a "proper"
+hardware-driven PWM once Nicolas' series lands.
 
-If you don't have them added to your patch, it may sound like you
-ignored their review. Reviewing takes effort and is time-consuming,
-so always make sure you have all of them added.
+> Or alternatively just going with a gpio-backlight, like the Anbernic Vita=
+ did:
+>
+>         /*
+>          * LEDs and Backlights can be controlled as a PWM, but PWM
+>          * support is not yet available.
+>          */
+>         gpio_backlight: backlight {
+>                 compatible =3D "gpio-backlight";
+>                 gpios =3D <&gpio2 RK_PC4 GPIO_ACTIVE_HIGH>;
+>                 pinctrl-0 =3D <&led_backlight_h>;
+>                 pinctrl-names =3D "default";
+>         };
 
-Also see: https://docs.kernel.org/process/submitting-patches.html
+In the case of RK3576 EVB1 enabling it at full power is eye-burning
+bright, so some sort of PWM is definitely warranted.
 
 Best regards,
-Ferass
-
->diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
->index 396044f36..a42899bd2 100644
->--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
->+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
->@@ -1251,6 +1251,8 @@ patternProperties:
->     description: Option NV
->   "^oranth,.*":
->     description: Shenzhen Oranth Technology Co., Ltd.
->+  "^orbbec,.*":
->+    description: Orbbec Inc.
->   "^ORCL,.*":
->     description: Oracle Corporation
->   "^orisetech,.*":
->-- 
->2.55.0
->
->
->_______________________________________________
->linux-amlogic mailing list
->linux-amlogic@lists.infradead.org
->http://lists.infradead.org/mailman/listinfo/linux-amlogic
+Alexey
