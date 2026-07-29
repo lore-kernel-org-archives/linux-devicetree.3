@@ -1,2314 +1,272 @@
-Received: from MTA-15-3.privateemail.com (mta-15-3.privateemail.com [198.54.122.111])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com [209.85.167.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C268728373;
-	Wed, 29 Jul 2026 00:08:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.122.111
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785283694; cv=none; b=IiEK2m2HpJOtCOOOuoT4E5Ek1FZ+bT4oQvPooje8gXz62WFkSsbDR6Ralz9tKEkNg/knS5DKb9fNT0ev5YIXJfLT7kZBgv4LnnaquNSaCbUe17DNFjmHdvaEjztY7YBjlTaZwKFDx9z3Rd0n18evJ8Yec+QFQa8Sw6dEPNgoSp0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785283694; c=relaxed/simple;
-	bh=UXve/4Nq/bbOZM+rwN/mlr1lE84nuC+zRJADjMoFwVw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kMrvZeNwHKL+/EUBLhqvC6rEcxi35IjMlPab4k9coAopFMlSO71ILrfVxDCseoE6nTpFLPt25hNocO0kZVHNKmZRDNXLBsMlTLonPehpwxi9Vcd+RFF650l4eMI6h/ImM104oCkTDLyJadZISkeq1Ni65Mvk0ortAL4am7/rubI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net; spf=pass smtp.mailfrom=catcrafts.net; arc=none smtp.client-ip=198.54.122.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catcrafts.net
-Received: from mail.privateemail.com (K8S-PROD-WORKER-09 [87.215.145.39])
-	by mta-15.privateemail.com (Postfix) with ESMTPA id 4h8t2B3vp7z3hhTQ;
-	Tue, 28 Jul 2026 20:07:45 -0400 (EDT)
-From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-To: Mark Brown <broonie@kernel.org>
-Cc: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Julian Braha <julianbraha@gmail.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Luca Weiss <luca.weiss@fairphone.com>,
-	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
-	Ravi Hothi <ravi.hothi@oss.qualcomm.com>,
-	linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/2] ASoC: codecs: wcd9378: add TX/capture codec driver
-Date: Wed, 29 Jul 2026 02:06:49 +0200
-Message-ID: <20260729000649.263426-3-jorijnvdgraaf@catcrafts.net>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260729000649.263426-1-jorijnvdgraaf@catcrafts.net>
-References: <20260729000649.263426-1-jorijnvdgraaf@catcrafts.net>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FE483B1B4
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 00:08:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785283736; cv=pass; b=I3n3hekve5SUJA10kXMZrqihrYV+eN66WRQnkcUfoOtNJ31uIQO07NOWFmaeGF+Anx2qidHgDTaBv96/s0TmR/OBCtCnltdo1uLcNdYmV/ASOlQkN0jNN9fHvVIYBe4SOZax82qp0mQSzEOu8DbEJFtMewGX4dhf7VetZdnveEA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785283736; c=relaxed/simple;
+	bh=cDxfYqcfSByeJjQqSK1OEhcdxCYtFWgTcU8x9Td5aQg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IoN/RWM2EMBdb0s2oDUrKvSCWxnmYqqyybdWtkCB+CWuke9cyrRIDcV/q2xAgtuUJOKBkVBywUiAhDuy/YEzM9+rY0qeOW8zCjk9NBEcTeiJHvD+lItdXfDNYpu2ap7vIdUOGDV1AzSnrM4rDI457p5LWHrSSVim6MruMeBxwp4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PlvKkHpU; arc=pass smtp.client-ip=209.85.167.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PlvKkHpU"
+Received: by mail-oi1-f177.google.com with SMTP id 5614622812f47-4a483a552efso154250b6e.1
+        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 17:08:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785283733; cv=none;
+        d=google.com; s=arc-20260327;
+        b=pcJF9vyJoClWwITe2CUooNlNhdthH6vwX8nmY/4UzPwGD7xfp12EgRNvbIK2djxjix
+         0f5g9W2/oLZCKfR2YtbFNkr2AE+BeHCn8+XHT9U/2yLdAyaed/8xE7WEacW60P6hZaRN
+         ZCtEjY1eOlsq8xLAqTGSzbsc6RFVuEnVOGRrwLzyNIC7iMrRNhoP+i1G9hY2+Gt4yb6I
+         EYdg9dl+xJRH0MVP9KX8kmTHRo5K7bEYS5OOY/pj9KV4ewY3Oq/ZNIizYaM94O3+atWe
+         z7ARjj4Kyo/STUAqN6Wn8tLijp65j7nMRIebSPKaBq23ry6/JWFI7L+wxWBzVBdx+vFH
+         3hHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=kyoFypV4ziVMyYM4rNHMecvIB5wpcxkRGbJyRri9dnY=;
+        fh=DqiBv8UHUl+xJbWkxWvmSKBPR4PV434Bi2Eo43RIPvY=;
+        b=GEM7k+tLOW/s0W+iDLXFtVR2OtGJBGpcQoYIAr7NgxoP4c01CbUTHUYrEi3xfw4lMi
+         6QfnpH+w5XzPGym6HVQVy7KIc3RLhlA/jXi2auN8HkTKAe59mzWP7J+U3i9t1H8aNFCI
+         09Sc95tehpwWdEW9+bkPrgsJakolZU3kazvmR6FGYhvLDgbZ/SfXZn+PdmB7aiBMm0ni
+         e/Hqjhd03e6z2Jjh3cWDU7gbhvGQDCvYSopCyfFY7A3djXtvbQ9rPONKVMSSkYZil0Kq
+         ERorO+gOwCZeTMzIw0YxsOBQhLwSx7IPbiMksWdhT4aFDwpHOuFvLp3W7RGSlCmWmEuo
+         LaqA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785283733; x=1785888533; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kyoFypV4ziVMyYM4rNHMecvIB5wpcxkRGbJyRri9dnY=;
+        b=PlvKkHpUFhBkE3JglxXMHHFFM6lJSixpSMG+mZUpfJicsDLxKtamyylms3+ivWZ2sg
+         Hu3gNOjDzvWdSpDUJz96XVBpz3dbs8q/9x3wGeT/WVftfuEBEslPnYQ0YB88pTtsIg//
+         i74ioDsCqkltbZK4R+qf78wBH49fHV/w0LWfI1K3zVZpEd2aqsRx94CAUhk31dO0u6S+
+         RlsyNa8OHdePeUW13Url369+slsgPL35z2AhBbbmwHqBxnizLgr1sGFmwwUXImo3xBDk
+         8OA2Ecqb4OtKUOm4ictkoWKxsRKuKp2ExFjS8yALtN5x4MfaEWYaGgdckTTQQ3NkolSJ
+         o5pg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785283733; x=1785888533;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kyoFypV4ziVMyYM4rNHMecvIB5wpcxkRGbJyRri9dnY=;
+        b=I1eaqy/7QXYK866xZH4KZeFa+9wEnovxiCx4QCtFxc2JLKBwLGd76mqhwkkIR3xnEU
+         9Na0U5EwUyMESqwv6J8nb8pASI3t4eoOpsVA/BJwRUrkIdHvoVIK2/AvFLH7vTAQj19n
+         KPJYtJr4mLBahDXSp8o0x50MwufBVtl0YePqDKCgcm6T148RcqSLunynbd1d+YjLp8lJ
+         uBKhZkuihLpqCHBzZZ8fQWkUbmMBkJxmfda9w02dNa0q2qhqb7j9OpbwNco3PrwnWHRZ
+         hHCW07fcMKgZJSkUaiSLOMJ+uLH9CEw2vNWGvLjF2FaH0WrENjVadACV+4VIJrDTQRxW
+         b2QA==
+X-Forwarded-Encrypted: i=1; AHgh+RrHi8Wm9i2SeBDcBr0yZhQFIK+PgAjjR6uM8L6u9oLXwFVvlHUIGE3RnVhCY2TLJLcgkO6w1MvDCUR3@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx6M8DxOfYxwTb4vWFPcxVd5zS90yuungqwFDD4f76eZRsSnZfS
+	b2HEA2H0jWTVWQPCsWaZHM4adIuTzon7knnr8IhTjzZgXVMswKRhEydwZ/MO5wic5ekcLspRn2a
+	3KjKlhyCISCNP4429hlzdcxHxYWJpmV0=
+X-Gm-Gg: AR+sD10lii60FxeMuH4TtCPp/dWZxXlm1cAbH4meTs9hqhfRIv53fIw1rX3MNZJw5dy
+	yxVqMNwMjY3wRB+xazTwN7mfS7973LscN3/i4f0j9ArBZJjy6rqNz7e/BkrCQVWTZ86ixHg511I
+	JSIg9KJTKyAqITfRGtnY873+Fv9YH2xVrZl4usOjsUak5e2rl0KVsFasRQW1xZYA4Jjb8DwE8ch
+	LsVtbJKdyDekFykQydHjHeR23cxz818/wM059fLyz5LN2SQN4/8WaFTvO3r5YF9jFBUM97FAT8m
+	Y/+nfJBk1vOZxTKf1/rddwfV77Q7Yk6Pf1VTl8TdRIVW6rSeSzM4v8TNNc84uNGCVNXUSeQgva7
+	xhnH9dx6S+xY0tQ==
+X-Received: by 2002:a05:6808:220f:b0:496:2b3:ae71 with SMTP id
+ 5614622812f47-4ad5b9cb9dfmr3003896b6e.18.1785283732989; Tue, 28 Jul 2026
+ 17:08:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260728091804.382753-1-wenst@chromium.org> <amiqKRkFItYwD6oL@redhat.com>
+ <CAGb2v64zUO-azpTuei6LCypad2noGFbg+EmaBC1iidoZ2stQzw@mail.gmail.com>
+ <c1048eae-72c5-4e2e-ac49-25e2c4297018@collabora.com> <CAGb2v67VRhy_xzkdwUAYhzM_sWzoXyfZ3rYSHYLYaxuve9H17w@mail.gmail.com>
+ <a0ae9525-9288-4d13-a080-9cb3d965d536@collabora.com>
+In-Reply-To: <a0ae9525-9288-4d13-a080-9cb3d965d536@collabora.com>
+From: YoungJoon Lee <getfeus@gmail.com>
+Date: Wed, 29 Jul 2026 09:08:40 +0900
+X-Gm-Features: AUfX_mxJyiSm31bWY5a0snpvZu7asEtmvztGs1v4_zBGPb9VpXQsQKFqM4tmGnM
+Message-ID: <CA+m4KrAvATV9qMMN9h+tKcPdrHRp7-jFJ0-Jq3DeCZLi3Z6RsA@mail.gmail.com>
+Subject: Re: [PATCH v4 0/5] powervr: MT8173 GPU support
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: wens@kernel.org, Brian Masney <bmasney@redhat.com>, Chen-Yu Tsai <wenst@chromium.org>, 
+	Stephen Boyd <sboyd@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti <luigi.santivetti@imgtec.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The Qualcomm WCD9378 is the audio codec found on SM7635 boards such as
-the Fairphone 6. It pairs a WCD937x-compatible analog core with SDCA
-function blocks (SmartMIC0/1/2, SmartJACK, SmartAMP) whose built-in
-sequencers perform the analog power-up/down autonomously: capture is
-started by programming the ADC usage mode, requesting power state 0 on
-the function's power domain entity and letting the sequencer ramp the
-ADC and the mic bias selected through SMx_MB_SEL.
+Hi Chen-Yu,
 
-Like the other codecs of the family the WCD9378 presents two SoundWire
-slaves (manufacturer 0x0217, part 0x0110); a platform device created
-from the codec DT node acts as component master over the two slave
-devices, reusing the wcd-common helpers. Unlike the older family
-members, all control registers - the SDCA function blocks and the
-analog core alike - live in a 32-bit paged SDCA control address space
-accessed through the TX slave, so the slave regmap needs
-prop.paging_support (on Qualcomm controllers this in turn needs SCP
-address paging support in the controller driver). The sequencers clock
-off the SoundWire bus clock and stall without the SCP bus-clock
-base/scale indication; the slaves declare prop.clock_reg_supported so
-the core programs those registers at enumeration (on Qualcomm
-controllers this in turn needs the controller driver to declare the
-bus clock in prop.mclk_freq).
+Thank you for posting the v4 series.
 
-Compute platforms wire the same chip as a single aggregated SDCA-mode
-slave instead; probe declines nodes marked qcom,compute-mode, so an
-SDCA class driver for that presentation can share the SoundWire ID
-table with this driver.
+I tested the complete v4 series on my MT8173 Chromebook, but I am
+seeing a GPU device loss as soon as Mesa initializes the Vulkan device.
 
-Two hardware behaviours deserve a note:
+My current setup is:
 
- - The SDCA function engine does not survive SoundWire bus clock-stop.
-   Every register keeps its value (so a regcache sync restores
-   nothing), but the sequencers ignore all subsequent power requests,
-   including forced trigger and soft-reset writes; only a codec reset
-   revives the engine. The downstream stack sidesteps this by marking
-   the TX SoundWire master "qcom,is-always-on" in its devicetree; do
-   the equivalent and hold a runtime PM reference on the TX slave for
-   as long as the codec is bound. The FUNC_ACT class-load activation
-   is likewise done with plain writes rather than update_bits so the
-   0->1 activation edge always reaches the wire regardless of
-   regcache state.
+  Board: Google Elm / Acer Chromebook R13 (CB5-312T)
+  Kernel:
+    linux-next next-20260727
+    commit: 33d6e5134c70446eddafbb3fd5ad088e848a7ad6
+    (next-20260727-5-g33d6e5134c70)
 
-   Scoping the reference to active capture and reviving the engine
-   with a codec reset on runtime resume was considered and rejected
-   for now: the reset tears down every SDCA function (including
-   future jack-detection state), forces re-enumeration of both slaves
-   and adds the ~65 ms class-load ritual to each capture start.
-   System sleep is untested and will need a reset-based recovery on
-   resume, since a runtime PM reference does not prevent clock-stop
-   across system suspend; that is a known limitation of this patch.
+  Kernel release: 7.2.0-rc5-next-20260727-stb-cbm-next-pvr-v4+
 
- - The TX analog gain field steps 1.5 dB per code (+30 dB over the
-   0..20 range), measured acoustically on a Fairphone 6 against a
-   fixed reference tone. The downstream wcd9378 driver corroborates
-   this: its TLV declares a 0..30 dB min/max over the same range, and
-   so does mainline wcd938x. (The wcd937x and wcd939x drivers declare
-   0.25 dB steps for the equivalent field; whether that is correct
-   for those chips has not been verified here.)
+  Mesa: 26.1.5
+  vulkan-powervr: 26.1.5
+  Firmware:
+    rogue_4.40.2.51_v1.fw
+    SHA256:
+    f44b7056992fb4057c987dcd7073468bec628aa56cb9815b1162f1cb7c1d73f2
 
-Only the TX/capture paths (ADC1-3 fed from AMIC1-4, mic bias 1-3) are
-implemented; RX/playback, MBHC and the SmartAMP function can be added
-on top. The RX slave and a playback DAI are still registered: the
-codec is one component master over both slaves (the power topology
-and device links need the RX device bound), and registering both DAIs
-now keeps the DAI indices stable for machine drivers once playback
-lands. The ADC input muxes expose the full hardware routing;
-combinations not covered by any of the chip's 13 canned sys-usage
-profiles are rejected at sequencer power-up.
+All five patches applied cleanly. The PowerVR driver probes, loads the
+firmware, and creates the DRM render node successfully.
 
-Register sequences are derived from the GPL downstream wcd9378 driver
-in Qualcomm's audio-kernel-ar tree.
+However, when I run the following from an SSH session without GDM or
+another graphical session running:
 
-Verified on the Fairphone 6: handset mic capture through the LPASS TX
-macro at 48 kHz, repeated across reboots, including UCM-driven use by
-PipeWire in a Plasma Mobile session.
+  PVR_I_WANT_A_BROKEN_VULKAN_DRIVER=3D1 vulkaninfo --summary
 
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
----
-v2, following the v1 reviews:
-- probe returns -ENODEV for nodes marked qcom,compute-mode, keeping a
-  single sdw_driver and modalias for the chip's two presentations as
-  agreed with Srinivas (link in the cover letter); the aggregated
-  SDCA-mode slave will be served by his SDCA class driver. The
-  common-module factoring discussed there is deferred until his
-  series lands code to share; this single sdw_driver is the agreed
-  entry point.
-- the TX role comes from qcom,control-device and the port map from the
-  single qcom,port-mapping; the channel-mapping parsing is dropped
-  with the binding properties, making the channel-info tables const
-  (supersedes the devm-copy promised in the sashiko-bot triage).
-- bus-clock indication reworked per Pierre-Louis's review: the
-  hand-rolled SCP base/scale/commit writes and their defines are
-  deleted; the slaves declare prop.clock_reg_supported so the core
-  programs the registers at enumeration, and bank switches go through
-  the family's wcd_bus_config helper. On Qualcomm controllers this
-  depends on the bus declaring mclk_freq - see the cover letter for
-  ordering.
-- runtime PM per Pierre-Louis's review: init moved before
-  component_master_add_with_match, converted to
-  pm_runtime_use_autosuspend + devm_pm_runtime_set_active_enabled,
-  autosuspend delay raised to 3 s, the remove()-path PM calls and the
-  sdw-probe pm_runtime_set_suspended (dead on every path) dropped.
-- FUNC_STAT sticky bits are cleared through a named mask that spares
-  FUNCTION_BUSY, as sound/soc/sdca does (Pierre-Louis).
-- comments promised in Pierre-Louis's review round: sys-usage
-  semantics, class-load step labels, the probe/bind flow at the codec
-  probe, and where the slaves' runtime PM is handled, on the sdw
-  remove path.
-- tx_mode_put rejects out-of-range enum values; mutex_destroy moved
-  from unbind to remove (sashiko-bot).
-- Kconfig: conditional-dependency style and attribute grouping
-  (Julian Braha).
-- "SDCA-style" tightened to SDCA; comment for the vendor
-  bus-interface registers in the direct address space.
+Mesa prints the expected GX6250 warnings:
 
- sound/soc/codecs/Kconfig       |   19 +
- sound/soc/codecs/Makefile      |    7 +
- sound/soc/codecs/wcd9378-sdw.c |  441 +++++++++++
- sound/soc/codecs/wcd9378.c     | 1366 ++++++++++++++++++++++++++++++++
- sound/soc/codecs/wcd9378.h     |  244 ++++++
- 5 files changed, 2077 insertions(+)
- create mode 100644 sound/soc/codecs/wcd9378-sdw.c
- create mode 100644 sound/soc/codecs/wcd9378.c
- create mode 100644 sound/soc/codecs/wcd9378.h
+  Missing reset support for brn51764
+  Missing reset support for brn58839
+  Missing support for brn62269
 
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index bfd81ca89110..e3f163e3fa74 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -305,6 +305,7 @@ config SND_SOC_ALL_CODECS
- 	imply SND_SOC_WCD9335
- 	imply SND_SOC_WCD934X
- 	imply SND_SOC_WCD937X_SDW
-+	imply SND_SOC_WCD9378_SDW
- 	imply SND_SOC_WCD938X_SDW
- 	imply SND_SOC_WCD939X_SDW
- 	imply SND_SOC_LPASS_MACRO_COMMON
-@@ -2474,6 +2475,24 @@ config SND_SOC_WCD937X_SDW
- 	  via soundwire.
- 	  To compile this codec driver say Y or m.
- 
-+config SND_SOC_WCD9378
-+	tristate
-+	depends on SND_SOC_WCD9378_SDW
-+	depends on SOUNDWIRE if SOUNDWIRE
-+	select SND_SOC_WCD_COMMON
-+
-+config SND_SOC_WCD9378_SDW
-+	tristate "WCD9378 Codec - SDW"
-+	depends on SOUNDWIRE
-+	select SND_SOC_WCD9378
-+	select REGMAP_SOUNDWIRE
-+	help
-+	  The WCD9378 is an audio codec IC connected to the host over
-+	  SoundWire, found on Qualcomm SM7635 boards. It has three ADCs
-+	  for analog microphones, mic bias supplies, headphone/earpiece
-+	  outputs and MBHC.
-+	  To compile this codec driver say Y or m.
-+
- config SND_SOC_WCD938X
- 	depends on SND_SOC_WCD938X_SDW
- 	tristate
-diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
-index d2a689006d69..b8be5479b11a 100644
---- a/sound/soc/codecs/Makefile
-+++ b/sound/soc/codecs/Makefile
-@@ -361,6 +361,8 @@ snd-soc-wcd9335-y := wcd9335.o
- snd-soc-wcd934x-y := wcd934x.o
- snd-soc-wcd937x-y := wcd937x.o
- snd-soc-wcd937x-sdw-y := wcd937x-sdw.o
-+snd-soc-wcd9378-y := wcd9378.o
-+snd-soc-wcd9378-sdw-y := wcd9378-sdw.o
- snd-soc-wcd938x-y := wcd938x.o
- snd-soc-wcd938x-sdw-y := wcd938x-sdw.o
- snd-soc-wcd939x-y := wcd939x.o
-@@ -806,6 +808,11 @@ ifdef CONFIG_SND_SOC_WCD937X_SDW
- # avoid link failure by forcing sdw code built-in when needed
- obj-$(CONFIG_SND_SOC_WCD937X) += snd-soc-wcd937x-sdw.o
- endif
-+obj-$(CONFIG_SND_SOC_WCD9378)	+= snd-soc-wcd9378.o
-+ifdef CONFIG_SND_SOC_WCD9378_SDW
-+# avoid link failure by forcing sdw code built-in when needed
-+obj-$(CONFIG_SND_SOC_WCD9378) += snd-soc-wcd9378-sdw.o
-+endif
- obj-$(CONFIG_SND_SOC_WCD938X)	+= snd-soc-wcd938x.o
- ifdef CONFIG_SND_SOC_WCD938X_SDW
- # avoid link failure by forcing sdw code built-in when needed
-diff --git a/sound/soc/codecs/wcd9378-sdw.c b/sound/soc/codecs/wcd9378-sdw.c
-new file mode 100644
-index 000000000000..d46bea6d716e
---- /dev/null
-+++ b/sound/soc/codecs/wcd9378-sdw.c
-@@ -0,0 +1,441 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (c) 2026, Jorijn van der Graaf
-+ *
-+ * SoundWire slave driver for the Qualcomm WCD9378 audio codec.
-+ *
-+ * The codec presents two SoundWire slaves (RX and TX, mfg 0x0217 part
-+ * 0x0110); the SDCA control space is a 32-bit paged register map accessed
-+ * through the TX slave.
-+ */
-+
-+#include <linux/component.h>
-+#include <linux/device.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regmap.h>
-+#include <linux/soundwire/sdw.h>
-+#include <linux/soundwire/sdw_registers.h>
-+#include <linux/soundwire/sdw_type.h>
-+#include <sound/pcm_params.h>
-+
-+#include "wcd-common.h"
-+#include "wcd9378.h"
-+
-+#define WCD9378_SDW_CH(id, pn, cmask, mmask)	\
-+	[id] = {				\
-+		.port_num = pn,			\
-+		.ch_mask = cmask,		\
-+		.master_ch_mask = mmask,	\
-+	}
-+
-+/*
-+ * Each ADC sits alone on its own TX device port (channel 1); by default
-+ * they land on channels 1/2/3 of the same master port. DMIC/MBHC masks
-+ * per the downstream qcom,tx_swr_ch_map.
-+ */
-+static const struct wcd_sdw_ch_info wcd9378_sdw_tx_ch_info[] = {
-+	WCD9378_SDW_CH(WCD9378_ADC1, WCD9378_ADC_1_PORT, BIT(0), BIT(0)),
-+	WCD9378_SDW_CH(WCD9378_ADC2, WCD9378_ADC_2_PORT, BIT(0), BIT(1)),
-+	WCD9378_SDW_CH(WCD9378_ADC3, WCD9378_ADC_3_PORT, BIT(0), BIT(2)),
-+	WCD9378_SDW_CH(WCD9378_DMIC0, WCD9378_DMIC_0_1_MBHC_PORT, BIT(2), BIT(0)),
-+	WCD9378_SDW_CH(WCD9378_DMIC1, WCD9378_DMIC_0_1_MBHC_PORT, BIT(3), BIT(1)),
-+	WCD9378_SDW_CH(WCD9378_MBHC, WCD9378_DMIC_0_1_MBHC_PORT, BIT(2), BIT(2)),
-+	WCD9378_SDW_CH(WCD9378_DMIC2, WCD9378_DMIC_2_5_PORT, BIT(0), BIT(2)),
-+	WCD9378_SDW_CH(WCD9378_DMIC3, WCD9378_DMIC_2_5_PORT, BIT(1), BIT(3)),
-+	WCD9378_SDW_CH(WCD9378_DMIC4, WCD9378_DMIC_2_5_PORT, BIT(2), BIT(0)),
-+	WCD9378_SDW_CH(WCD9378_DMIC5, WCD9378_DMIC_2_5_PORT, BIT(3), BIT(1)),
-+};
-+
-+static const struct wcd_sdw_ch_info wcd9378_sdw_rx_ch_info[] = {
-+	WCD9378_SDW_CH(WCD9378_HPH_L, WCD9378_HPH_PORT, BIT(0), BIT(0)),
-+	WCD9378_SDW_CH(WCD9378_HPH_R, WCD9378_HPH_PORT, BIT(1), BIT(1)),
-+	WCD9378_SDW_CH(WCD9378_CLSH, WCD9378_CLSH_PORT, BIT(0), BIT(0)),
-+	WCD9378_SDW_CH(WCD9378_COMP_L, WCD9378_COMP_PORT, BIT(0), BIT(0)),
-+	WCD9378_SDW_CH(WCD9378_COMP_R, WCD9378_COMP_PORT, BIT(1), BIT(1)),
-+	WCD9378_SDW_CH(WCD9378_LO, WCD9378_LO_PORT, BIT(0), BIT(0)),
-+	WCD9378_SDW_CH(WCD9378_DSD_L, WCD9378_DSD_PORT, BIT(0), BIT(0)),
-+	WCD9378_SDW_CH(WCD9378_DSD_R, WCD9378_DSD_PORT, BIT(1), BIT(1)),
-+};
-+
-+static struct sdw_dpn_prop wcd9378_dpn_prop[WCD9378_MAX_SWR_PORTS] = {
-+	{
-+		.num = 1,
-+		.type = SDW_DPN_SIMPLE,
-+		.min_ch = 1,
-+		.max_ch = 8,
-+		.simple_ch_prep_sm = true,
-+	}, {
-+		.num = 2,
-+		.type = SDW_DPN_SIMPLE,
-+		.min_ch = 1,
-+		.max_ch = 4,
-+		.simple_ch_prep_sm = true,
-+	}, {
-+		.num = 3,
-+		.type = SDW_DPN_SIMPLE,
-+		.min_ch = 1,
-+		.max_ch = 4,
-+		.simple_ch_prep_sm = true,
-+	}, {
-+		.num = 4,
-+		.type = SDW_DPN_SIMPLE,
-+		.min_ch = 1,
-+		.max_ch = 4,
-+		.simple_ch_prep_sm = true,
-+	}, {
-+		.num = 5,
-+		.type = SDW_DPN_SIMPLE,
-+		.min_ch = 1,
-+		.max_ch = 4,
-+		.simple_ch_prep_sm = true,
-+	}
-+};
-+
-+int wcd9378_sdw_hw_params(struct wcd9378_sdw_priv *wcd,
-+			  struct snd_pcm_substream *substream,
-+			  struct snd_pcm_hw_params *params,
-+			  struct snd_soc_dai *dai)
-+{
-+	struct sdw_port_config port_config[WCD9378_MAX_SWR_PORTS];
-+	unsigned long ch_mask;
-+	int i, j;
-+
-+	wcd->sconfig.ch_count = 1;
-+	wcd->active_ports = 0;
-+	for (i = 0; i < WCD9378_MAX_SWR_PORTS; i++) {
-+		ch_mask = wcd->port_config[i].ch_mask;
-+		if (!ch_mask)
-+			continue;
-+
-+		for_each_set_bit(j, &ch_mask, 4)
-+			wcd->sconfig.ch_count++;
-+
-+		port_config[wcd->active_ports] = wcd->port_config[i];
-+		wcd->active_ports++;
-+	}
-+
-+	wcd->sconfig.bps = 1;
-+	wcd->sconfig.frame_rate = params_rate(params);
-+	wcd->sconfig.direction = wcd->is_tx ? SDW_DATA_DIR_TX : SDW_DATA_DIR_RX;
-+	wcd->sconfig.type = SDW_STREAM_PCM;
-+
-+	return sdw_stream_add_slave(wcd->sdev, &wcd->sconfig,
-+				    &port_config[0], wcd->active_ports,
-+				    wcd->sruntime);
-+}
-+EXPORT_SYMBOL_GPL(wcd9378_sdw_hw_params);
-+
-+static const struct sdw_slave_ops wcd9378_slave_ops = {
-+	.update_status = wcd_update_status,
-+	.bus_config = wcd_bus_config,
-+};
-+
-+static const struct reg_default wcd9378_defaults[] = {
-+	{ WCD9378_ANA_BIAS,			0x00 },
-+	{ WCD9378_ANA_TX_CH1,			0x20 },
-+	{ WCD9378_ANA_TX_CH2,			0x00 },
-+	{ WCD9378_ANA_TX_CH3,			0x20 },
-+	{ WCD9378_ANA_TX_CH3_HPF,		0x00 },
-+	{ WCD9378_ANA_MICB2_RAMP,		0x00 },
-+	{ WCD9378_BIAS_VBG_FINE_ADJ,		0x55 },
-+	{ WCD9378_MBHC_CTL_SPARE_1,		0x02 },
-+	{ WCD9378_MICB1_TEST_CTL_2,		0x00 },
-+	{ WCD9378_MICB2_TEST_CTL_2,		0x00 },
-+	{ WCD9378_MICB3_TEST_CTL_2,		0x80 },
-+	{ WCD9378_TX_COM_TXFE_DIV_CTL,		0x22 },
-+	{ WCD9378_SLEEP_CTL,			0x16 },
-+	{ WCD9378_TX_NEW_CH12_MUX,		0x11 },
-+	{ WCD9378_TX_NEW_CH34_MUX,		0x23 },
-+	{ WCD9378_TOP_CLK_CFG,			0x00 },
-+	{ WCD9378_CDC_ANA_TX_CLK_CTL,		0x0e },
-+	{ WCD9378_CDC_AMIC_CTL,			0x07 },
-+	{ WCD9378_PDM_WD_CTL0,			0x0f },
-+	{ WCD9378_PDM_WD_CTL1,			0x0f },
-+	{ WCD9378_PLATFORM_CTL,			0x01 },
-+	{ WCD9378_SYS_USAGE_CTRL,		0x00 },
-+	{ WCD9378_HPH_UP_T0,			0x02 },
-+	{ WCD9378_HPH_UP_T9,			0x02 },
-+	{ WCD9378_HPH_DN_T0,			0x05 },
-+	{ WCD9378_MICB_REMAP_TABLE_VAL_3,	0x00 },
-+	{ WCD9378_MICB_REMAP_TABLE_VAL_4,	0x00 },
-+	{ WCD9378_MICB_REMAP_TABLE_VAL_5,	0x00 },
-+	{ WCD9378_SM0_MB_SEL,			0x00 },
-+	{ WCD9378_SM1_MB_SEL,			0x00 },
-+	{ WCD9378_SM2_MB_SEL,			0x00 },
-+	{ WCD9378_MB_PULLUP_EN,			0x00 },
-+	{ WCD9378_SMP_AMP_FUNC_ACT,		0x00 },
-+	{ WCD9378_CMT_GRP_MASK,			0x00 },
-+	{ WCD9378_SMP_JACK_IT31_MICB,		0x00 },
-+	{ WCD9378_SMP_JACK_IT31_USAGE,		0x03 },
-+	{ WCD9378_SMP_JACK_PDE34_REQ_PS,	0x03 },
-+	{ WCD9378_SMP_JACK_FUNC_ACT,		0x00 },
-+	{ WCD9378_SMP_MIC_IT11_MICB(0),		0x00 },
-+	{ WCD9378_SMP_MIC_IT11_USAGE(0),	0x03 },
-+	{ WCD9378_SMP_MIC_PDE11_REQ_PS(0),	0x03 },
-+	{ WCD9378_SMP_MIC_FUNC_ACT(0),		0x00 },
-+	{ WCD9378_SMP_MIC_IT11_MICB(1),		0x00 },
-+	{ WCD9378_SMP_MIC_IT11_USAGE(1),	0x03 },
-+	{ WCD9378_SMP_MIC_PDE11_REQ_PS(1),	0x03 },
-+	{ WCD9378_SMP_MIC_FUNC_ACT(1),		0x00 },
-+	{ WCD9378_SMP_MIC_IT11_MICB(2),		0x00 },
-+	{ WCD9378_SMP_MIC_IT11_USAGE(2),	0x03 },
-+	{ WCD9378_SMP_MIC_PDE11_REQ_PS(2),	0x03 },
-+	{ WCD9378_SMP_MIC_FUNC_ACT(2),		0x00 },
-+};
-+
-+static bool wcd9378_rdwr_register(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case WCD9378_ANA_BIAS:
-+	case WCD9378_ANA_TX_CH1:
-+	case WCD9378_ANA_TX_CH2:
-+	case WCD9378_ANA_TX_CH3:
-+	case WCD9378_ANA_TX_CH3_HPF:
-+	case WCD9378_ANA_MICB2_RAMP:
-+	case WCD9378_BIAS_VBG_FINE_ADJ:
-+	case WCD9378_MBHC_CTL_SPARE_1:
-+	case WCD9378_MICB1_TEST_CTL_2:
-+	case WCD9378_MICB2_TEST_CTL_2:
-+	case WCD9378_MICB3_TEST_CTL_2:
-+	case WCD9378_TX_COM_TXFE_DIV_CTL:
-+	case WCD9378_SLEEP_CTL:
-+	case WCD9378_TX_NEW_CH12_MUX:
-+	case WCD9378_TX_NEW_CH34_MUX:
-+	case WCD9378_HPH_RDAC_GAIN_CTL:
-+	case WCD9378_HPH_RDAC_HD2_CTL_L:
-+	case WCD9378_HPH_RDAC_HD2_CTL_R:
-+	case WCD9378_TOP_CLK_CFG:
-+	case WCD9378_CDC_ANA_TX_CLK_CTL:
-+	case WCD9378_CDC_AMIC_CTL:
-+	case WCD9378_PDM_WD_CTL0:
-+	case WCD9378_PDM_WD_CTL1:
-+	case WCD9378_PLATFORM_CTL:
-+	case WCD9378_SYS_USAGE_CTRL:
-+	case WCD9378_HPH_UP_T0:
-+	case WCD9378_HPH_UP_T9:
-+	case WCD9378_HPH_DN_T0:
-+	case WCD9378_MICB_REMAP_TABLE_VAL_3:
-+	case WCD9378_MICB_REMAP_TABLE_VAL_4:
-+	case WCD9378_MICB_REMAP_TABLE_VAL_5:
-+	case WCD9378_SM0_MB_SEL:
-+	case WCD9378_SM1_MB_SEL:
-+	case WCD9378_SM2_MB_SEL:
-+	case WCD9378_MB_PULLUP_EN:
-+	case WCD9378_SMP_AMP_FUNC_STAT:
-+	case WCD9378_SMP_AMP_FUNC_ACT:
-+	case WCD9378_CMT_GRP_MASK:
-+	case WCD9378_SMP_JACK_IT31_MICB:
-+	case WCD9378_SMP_JACK_IT31_USAGE:
-+	case WCD9378_SMP_JACK_PDE34_REQ_PS:
-+	case WCD9378_SMP_JACK_FUNC_STAT:
-+	case WCD9378_SMP_JACK_FUNC_ACT:
-+	case WCD9378_SMP_MIC_IT11_MICB(0):
-+	case WCD9378_SMP_MIC_IT11_USAGE(0):
-+	case WCD9378_SMP_MIC_PDE11_REQ_PS(0):
-+	case WCD9378_SMP_MIC_FUNC_STAT(0):
-+	case WCD9378_SMP_MIC_FUNC_ACT(0):
-+	case WCD9378_SMP_MIC_IT11_MICB(1):
-+	case WCD9378_SMP_MIC_IT11_USAGE(1):
-+	case WCD9378_SMP_MIC_PDE11_REQ_PS(1):
-+	case WCD9378_SMP_MIC_FUNC_STAT(1):
-+	case WCD9378_SMP_MIC_FUNC_ACT(1):
-+	case WCD9378_SMP_MIC_IT11_MICB(2):
-+	case WCD9378_SMP_MIC_IT11_USAGE(2):
-+	case WCD9378_SMP_MIC_PDE11_REQ_PS(2):
-+	case WCD9378_SMP_MIC_FUNC_STAT(2):
-+	case WCD9378_SMP_MIC_FUNC_ACT(2):
-+		return true;
-+	}
-+
-+	return false;
-+}
-+
-+static bool wcd9378_volatile_register(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case WCD9378_FUNC_EXT_ID_0:
-+	case WCD9378_FUNC_EXT_ID_1:
-+	case WCD9378_FUNC_EXT_VER:
-+	case WCD9378_FUNC_STAT:
-+	case WCD9378_DEV_MANU_ID_0:
-+	case WCD9378_DEV_MANU_ID_1:
-+	case WCD9378_DEV_PART_ID_0:
-+	case WCD9378_DEV_PART_ID_1:
-+	case WCD9378_DEV_VER:
-+	case WCD9378_EFUSE_REG_16:
-+	case WCD9378_EFUSE_REG_29:
-+	case WCD9378_SEQ_TX0_STAT:
-+	case WCD9378_SEQ_TX1_STAT:
-+	case WCD9378_SEQ_TX2_STAT:
-+	case WCD9378_SMP_AMP_FUNC_STAT:
-+	case WCD9378_SMP_JACK_FUNC_STAT:
-+	case WCD9378_SMP_JACK_PDE34_ACT_PS:
-+	case WCD9378_SMP_MIC_FUNC_STAT(0):
-+	case WCD9378_SMP_MIC_FUNC_STAT(1):
-+	case WCD9378_SMP_MIC_FUNC_STAT(2):
-+	case WCD9378_SMP_MIC_OT10_USAGE(0):
-+	case WCD9378_SMP_MIC_PDE11_ACT_PS(0):
-+	case WCD9378_SMP_MIC_OT10_USAGE(1):
-+	case WCD9378_SMP_MIC_PDE11_ACT_PS(1):
-+	case WCD9378_SMP_MIC_OT10_USAGE(2):
-+	case WCD9378_SMP_MIC_PDE11_ACT_PS(2):
-+		return true;
-+	}
-+
-+	return false;
-+}
-+
-+static bool wcd9378_readable_register(struct device *dev, unsigned int reg)
-+{
-+	if (wcd9378_volatile_register(dev, reg))
-+		return true;
-+
-+	return wcd9378_rdwr_register(dev, reg);
-+}
-+
-+static const struct regmap_config wcd9378_regmap_config = {
-+	.name = "wcd9378_csr",
-+	.reg_bits = 32,
-+	.val_bits = 8,
-+	.cache_type = REGCACHE_MAPLE,
-+	.reg_defaults = wcd9378_defaults,
-+	.num_reg_defaults = ARRAY_SIZE(wcd9378_defaults),
-+	.max_register = WCD9378_MAX_REGISTER,
-+	.readable_reg = wcd9378_readable_register,
-+	.writeable_reg = wcd9378_rdwr_register,
-+	.volatile_reg = wcd9378_volatile_register,
-+};
-+
-+static int wcd9378_sdw_probe(struct sdw_slave *pdev,
-+			     const struct sdw_device_id *id)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct wcd9378_sdw_priv *wcd;
-+	unsigned int num_ports;
-+	int ret;
-+
-+	/*
-+	 * The codec enumerates with the same device ID in both of its
-+	 * operating modes. In SDCA mode it is a single aggregated slave
-+	 * carrying control and data, served by the SDCA driver; this
-+	 * driver handles the mobile presentation, where the codec is
-+	 * split over an RX and a TX slave.
-+	 */
-+	if (of_property_read_bool(dev->of_node, "qcom,compute-mode"))
-+		return -ENODEV;
-+
-+	wcd = devm_kzalloc(dev, sizeof(*wcd), GFP_KERNEL);
-+	if (!wcd)
-+		return -ENOMEM;
-+
-+	/* Only the TX slave reaches the codec control register space */
-+	wcd->is_tx = of_property_read_bool(dev->of_node, "qcom,control-device");
-+
-+	if (wcd->is_tx)
-+		num_ports = WCD9378_MAX_TX_SWR_PORTS;
-+	else
-+		num_ports = WCD9378_MAX_SWR_PORTS;
-+
-+	/* Port map index starts at 0, however the data ports start at index 1 */
-+	ret = of_property_read_u32_array(dev->of_node, "qcom,port-mapping",
-+					 &pdev->m_port_map[1], num_ports);
-+	if (ret < 0)
-+		dev_info(dev, "Error getting static port mapping for %s (%d)\n",
-+			 wcd->is_tx ? "TX" : "RX", ret);
-+
-+	wcd->sdev = pdev;
-+	dev_set_drvdata(dev, wcd);
-+
-+	pdev->prop.scp_int1_mask = SDW_SCP_INT1_BUS_CLASH |
-+				   SDW_SCP_INT1_PARITY;
-+	pdev->prop.lane_control_support = true;
-+	pdev->prop.simple_clk_stop_capable = true;
-+	/* The SDCA control space sits above the 16-bit address range */
-+	pdev->prop.paging_support = true;
-+	/* Have the core program the SCP bus-clock base/scale registers */
-+	pdev->prop.clock_reg_supported = true;
-+
-+	if (wcd->is_tx) {
-+		pdev->prop.source_ports = GENMASK(WCD9378_MAX_TX_SWR_PORTS, 1);
-+		pdev->prop.src_dpn_prop = wcd9378_dpn_prop;
-+		wcd->ch_info = wcd9378_sdw_tx_ch_info;
-+		pdev->prop.wake_capable = true;
-+
-+		wcd->regmap = devm_regmap_init_sdw(pdev, &wcd9378_regmap_config);
-+		if (IS_ERR(wcd->regmap))
-+			return dev_err_probe(dev, PTR_ERR(wcd->regmap),
-+					     "Regmap init failed\n");
-+
-+		/* Start in cache-only until device is enumerated */
-+		regcache_cache_only(wcd->regmap, true);
-+	} else {
-+		pdev->prop.sink_ports = GENMASK(WCD9378_MAX_SWR_PORTS, 1);
-+		pdev->prop.sink_dpn_prop = wcd9378_dpn_prop;
-+		wcd->ch_info = wcd9378_sdw_rx_ch_info;
-+	}
-+
-+	return component_add(dev, &wcd_sdw_component_ops);
-+}
-+
-+static void wcd9378_sdw_remove(struct sdw_slave *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+
-+	/*
-+	 * Runtime PM for the slave is enabled in wcd-common's component
-+	 * bind and disabled in its unbind, which this component_del()
-+	 * triggers when the aggregate device tears down.
-+	 */
-+	component_del(dev, &wcd_sdw_component_ops);
-+}
-+
-+static const struct sdw_device_id wcd9378_sdw_id[] = {
-+	SDW_SLAVE_ENTRY(0x0217, 0x0110, 0),
-+	{ },
-+};
-+MODULE_DEVICE_TABLE(sdw, wcd9378_sdw_id);
-+
-+static int wcd9378_sdw_runtime_suspend(struct device *dev)
-+{
-+	struct wcd9378_sdw_priv *wcd = dev_get_drvdata(dev);
-+
-+	if (wcd->regmap) {
-+		regcache_cache_only(wcd->regmap, true);
-+		regcache_mark_dirty(wcd->regmap);
-+	}
-+
-+	return 0;
-+}
-+
-+static int wcd9378_sdw_runtime_resume(struct device *dev)
-+{
-+	struct wcd9378_sdw_priv *wcd = dev_get_drvdata(dev);
-+
-+	if (wcd->regmap) {
-+		regcache_cache_only(wcd->regmap, false);
-+		regcache_sync(wcd->regmap);
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct dev_pm_ops wcd9378_sdw_pm_ops = {
-+	RUNTIME_PM_OPS(wcd9378_sdw_runtime_suspend, wcd9378_sdw_runtime_resume, NULL)
-+};
-+
-+static struct sdw_driver wcd9378_sdw_driver = {
-+	.probe = wcd9378_sdw_probe,
-+	.remove = wcd9378_sdw_remove,
-+	.ops = &wcd9378_slave_ops,
-+	.id_table = wcd9378_sdw_id,
-+	.driver = {
-+		.name = "wcd9378-sdw",
-+		.pm = pm_ptr(&wcd9378_sdw_pm_ops),
-+	}
-+};
-+module_sdw_driver(wcd9378_sdw_driver);
-+
-+MODULE_DESCRIPTION("WCD9378 SDW codec driver");
-+MODULE_LICENSE("GPL");
-diff --git a/sound/soc/codecs/wcd9378.c b/sound/soc/codecs/wcd9378.c
-new file mode 100644
-index 000000000000..fadf65f3283d
---- /dev/null
-+++ b/sound/soc/codecs/wcd9378.c
-@@ -0,0 +1,1366 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (c) 2026, Jorijn van der Graaf
-+ *
-+ * Qualcomm WCD9378 audio codec driver.
-+ *
-+ * The WCD9378 pairs a WCD937x-compatible analog core with SDCA
-+ * function blocks (SmartMIC0/1/2, SmartJACK, SmartAMP) whose built-in
-+ * sequencers perform the analog power-up/down autonomously: capture is
-+ * started by programming the ADC usage mode (ITxx_USAGE), requesting
-+ * power state 0 on the function's PDE, and letting the sequencer ramp
-+ * the micbias selected through SMx_MB_SEL. The sequencers are a vendor
-+ * layer behind the SDCA-shaped controls: a power-state request starts
-+ * an autonomous multi-step analog program, rather than the plain byte
-+ * accesses of generic SDCA.
-+ *
-+ * TX/capture paths only for now; RX (earpiece/headphone), MBHC and the
-+ * SmartAMP function are not implemented.
-+ */
-+
-+#include <linux/component.h>
-+#include <linux/device.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/slab.h>
-+#include <linux/soundwire/sdw.h>
-+#include <linux/soundwire/sdw_registers.h>
-+#include <linux/soundwire/sdw_type.h>
-+#include <sound/sdca_function.h>
-+#include <sound/soc.h>
-+#include <sound/soc-dapm.h>
-+#include <sound/tlv.h>
-+
-+#include "wcd-common.h"
-+#include "wcd9378.h"
-+
-+enum {
-+	AIF1_PB = 0,
-+	AIF1_CAP,
-+	NUM_CODEC_DAIS,
-+};
-+
-+enum {
-+	MIC_BIAS_1 = 1,
-+	MIC_BIAS_2,
-+	MIC_BIAS_3,
-+};
-+
-+enum {
-+	MICB_PULLUP_ENABLE,
-+	MICB_PULLUP_DISABLE,
-+	MICB_ENABLE,
-+	MICB_DISABLE,
-+};
-+
-+/*
-+ * sys-usage capability bits. SYS_USAGE_CTRL is a vendor register in
-+ * the sequencer block (not an SDCA control) selecting one of 13 canned
-+ * "active entity set" profiles; these are the capabilities a profile
-+ * can advertise, and wcd9378_sys_usage_profiles[] below maps each
-+ * profile to the set it provides. Names from the downstream driver.
-+ */
-+enum {
-+	WCD9378_SYS_USAGE_CLASS_AB = 0,
-+	WCD9378_SYS_USAGE_TX1_FOR_JACK,
-+	WCD9378_SYS_USAGE_TX2_AMIC4,
-+	WCD9378_SYS_USAGE_TX2_AMIC1,
-+	WCD9378_SYS_USAGE_TX1_AMIC3,
-+	WCD9378_SYS_USAGE_TX1_AMIC2,
-+	WCD9378_SYS_USAGE_TX0_AMIC2,
-+	WCD9378_SYS_USAGE_TX0_AMIC1,
-+	WCD9378_SYS_USAGE_RX2_EAR,
-+	WCD9378_SYS_USAGE_RX2_AUX,
-+	WCD9378_SYS_USAGE_RX1_AUX,
-+	WCD9378_SYS_USAGE_RX0_EAR,
-+	WCD9378_SYS_USAGE_RX0_RX1_HPH,
-+};
-+
-+/* Capability sets of the 13 canned SYS_USAGE_CTRL profiles */
-+static const unsigned int wcd9378_sys_usage_profiles[] = {
-+	0x0c95, 0x12a7, 0x0c99, 0x1aab, 0x0894, 0x11a6, 0x0898,
-+	0x11ab, 0x126a, 0x116b, 0x1ca7, 0x1195, 0x1296,
-+};
-+
-+struct wcd9378_priv {
-+	struct sdw_slave *tx_sdw_dev;
-+	struct wcd9378_sdw_priv *sdw_priv[NUM_CODEC_DAIS];
-+	struct device *txdev;
-+	struct device *rxdev;
-+	struct device_node *rxnode;
-+	struct device_node *txnode;
-+	struct regmap *regmap;
-+	struct wcd_common common;
-+	/* micbias refcount lock */
-+	struct mutex micb_lock;
-+	u8 micb_usage_val[WCD9378_MAX_MICBIAS];
-+	int micb_ref[WCD9378_MAX_MICBIAS];
-+	int pullup_ref[WCD9378_MAX_MICBIAS];
-+	unsigned long sys_usage_mask;
-+	/* per-ADC profile bit and target function, latched at power-up */
-+	int tx_sys_bit[3];
-+	bool tx_is_jack[3];
-+	u32 tx_mode[3];
-+	struct gpio_desc *reset_gpio;
-+};
-+
-+static const char * const wcd9378_supplies[] = {
-+	"vdd-rxtx", "vdd-io", "vdd-buck", "vdd-mic-bias",
-+};
-+
-+/* SDCA function block registers driving one ADC */
-+struct wcd9378_smp_fn {
-+	u32 usage_reg;
-+	u32 micb_reg;
-+	u32 req_reg;
-+	u32 act_reg;
-+	u32 hpf_reg;
-+	u8 hpf_mask;
-+};
-+
-+/* ADC1/2/3 through SmartMIC0/1/2 */
-+static const struct wcd9378_smp_fn wcd9378_smp_mic[] = {
-+	{
-+		.usage_reg = WCD9378_SMP_MIC_IT11_USAGE(0),
-+		.micb_reg = WCD9378_SMP_MIC_IT11_MICB(0),
-+		.req_reg = WCD9378_SMP_MIC_PDE11_REQ_PS(0),
-+		.act_reg = WCD9378_SMP_MIC_PDE11_ACT_PS(0),
-+		.hpf_reg = WCD9378_ANA_TX_CH2,
-+		.hpf_mask = WCD9378_ANA_TX_CH2_HPF1_INIT,
-+	}, {
-+		.usage_reg = WCD9378_SMP_MIC_IT11_USAGE(1),
-+		.micb_reg = WCD9378_SMP_MIC_IT11_MICB(1),
-+		.req_reg = WCD9378_SMP_MIC_PDE11_REQ_PS(1),
-+		.act_reg = WCD9378_SMP_MIC_PDE11_ACT_PS(1),
-+		.hpf_reg = WCD9378_ANA_TX_CH2,
-+		.hpf_mask = WCD9378_ANA_TX_CH2_HPF2_INIT,
-+	}, {
-+		.usage_reg = WCD9378_SMP_MIC_IT11_USAGE(2),
-+		.micb_reg = WCD9378_SMP_MIC_IT11_MICB(2),
-+		.req_reg = WCD9378_SMP_MIC_PDE11_REQ_PS(2),
-+		.act_reg = WCD9378_SMP_MIC_PDE11_ACT_PS(2),
-+		.hpf_reg = WCD9378_ANA_TX_CH3_HPF,
-+		.hpf_mask = WCD9378_ANA_TX_CH3_HPF3_INIT,
-+	},
-+};
-+
-+/* ADC2 fed from AMIC2 runs through the SmartJACK function instead */
-+static const struct wcd9378_smp_fn wcd9378_smp_jack_adc2 = {
-+	.usage_reg = WCD9378_SMP_JACK_IT31_USAGE,
-+	.micb_reg = WCD9378_SMP_JACK_IT31_MICB,
-+	.req_reg = WCD9378_SMP_JACK_PDE34_REQ_PS,
-+	.act_reg = WCD9378_SMP_JACK_PDE34_ACT_PS,
-+};
-+
-+/*
-+ * Measured acoustically: the TX gain field steps 1.5 dB per code
-+ * (+6 dB per 4 codes, +30 dB over the full 0..20 range), as does
-+ * mainline wcd938x; the wcd937x and wcd939x drivers claim 0.25 dB
-+ * steps for the same field.
-+ */
-+static const DECLARE_TLV_DB_SCALE(analog_gain, 0, 150, 0);
-+
-+static void wcd9378_reset(struct wcd9378_priv *wcd9378)
-+{
-+	gpiod_set_value(wcd9378->reset_gpio, 1);
-+	usleep_range(20, 30);
-+	gpiod_set_value(wcd9378->reset_gpio, 0);
-+	usleep_range(20, 30);
-+}
-+
-+/*
-+ * Activate the SDCA function classes. Without FUNC_ACT the sequencer
-+ * ignores all PDE power-state requests.
-+ */
-+static void wcd9378_class_load(struct snd_soc_component *component)
-+{
-+	int i;
-+
-+	/*
-+	 * Plain writes, not update_bits, so the 0->1 activation edge
-+	 * always reaches the hardware regardless of regcache state.
-+	 * The engine boots from this edge only on a freshly reset
-+	 * codec; once it dies (bus clock-stop) no register write
-+	 * revives it, see the TX bus PM hold in wcd9378_bind().
-+	 */
-+	/* SmartAMP: activation edge, class-load delay, clear the stickies */
-+	snd_soc_component_write(component, WCD9378_SMP_AMP_FUNC_ACT, 0x00);
-+	snd_soc_component_write(component, WCD9378_SMP_AMP_FUNC_ACT, 0x01);
-+	usleep_range(20000, 20010);
-+	snd_soc_component_write(component, WCD9378_SMP_AMP_FUNC_STAT,
-+				WCD9378_FUNC_STAT_STICKY_MASK);
-+
-+	/*
-+	 * SmartJACK: same steps, plus the commit-group assignment the
-+	 * downstream driver makes during its class load.
-+	 */
-+	snd_soc_component_write(component, WCD9378_SMP_JACK_FUNC_ACT, 0x00);
-+	snd_soc_component_write(component, WCD9378_SMP_JACK_FUNC_ACT, 0x01);
-+	usleep_range(30000, 30010);
-+	snd_soc_component_update_bits(component, WCD9378_CMT_GRP_MASK,
-+				      0xff, 0x02);
-+	snd_soc_component_write(component, WCD9378_SMP_JACK_FUNC_STAT,
-+				WCD9378_FUNC_STAT_STICKY_MASK);
-+
-+	/* SmartMIC0/1/2: same steps per mic function */
-+	for (i = 0; i < 3; i++) {
-+		snd_soc_component_write(component,
-+					WCD9378_SMP_MIC_FUNC_ACT(i), 0x00);
-+		snd_soc_component_write(component,
-+					WCD9378_SMP_MIC_FUNC_ACT(i), 0x01);
-+		usleep_range(5000, 5010);
-+		snd_soc_component_write(component,
-+					WCD9378_SMP_MIC_FUNC_STAT(i),
-+					WCD9378_FUNC_STAT_STICKY_MASK);
-+	}
-+}
-+
-+static void wcd9378_io_init(struct snd_soc_component *component)
-+{
-+	u32 efuse;
-+
-+	/* Bandgap and analog master bias, with precharge pulse */
-+	efuse = snd_soc_component_read(component, WCD9378_EFUSE_REG_16);
-+	snd_soc_component_update_bits(component, WCD9378_MBHC_CTL_SPARE_1,
-+				      0x03, efuse == 0 ? 0x03 : 0x01);
-+	snd_soc_component_update_bits(component, WCD9378_SLEEP_CTL,
-+				      WCD9378_SLEEP_CTL_BG_CTL_MASK, 0x0e);
-+	snd_soc_component_update_bits(component, WCD9378_SLEEP_CTL,
-+				      WCD9378_SLEEP_CTL_BG_EN,
-+				      WCD9378_SLEEP_CTL_BG_EN);
-+	usleep_range(1000, 1010);
-+	snd_soc_component_update_bits(component, WCD9378_SLEEP_CTL,
-+				      WCD9378_SLEEP_CTL_LDOL_BG_SEL,
-+				      WCD9378_SLEEP_CTL_LDOL_BG_SEL);
-+	usleep_range(1000, 1010);
-+	snd_soc_component_update_bits(component, WCD9378_BIAS_VBG_FINE_ADJ,
-+				      0xf0, 0xb0);
-+	snd_soc_component_update_bits(component, WCD9378_ANA_BIAS,
-+				      WCD9378_ANA_BIAS_ANALOG_BIAS_EN,
-+				      WCD9378_ANA_BIAS_ANALOG_BIAS_EN);
-+	snd_soc_component_update_bits(component, WCD9378_ANA_BIAS,
-+				      WCD9378_ANA_BIAS_PRECHRG_EN,
-+				      WCD9378_ANA_BIAS_PRECHRG_EN);
-+	usleep_range(10000, 10010);
-+	snd_soc_component_update_bits(component, WCD9378_ANA_BIAS,
-+				      WCD9378_ANA_BIAS_PRECHRG_EN, 0x00);
-+
-+	/* TX supporting clocks/dividers */
-+	snd_soc_component_update_bits(component, WCD9378_CDC_ANA_TX_CLK_CTL,
-+				      WCD9378_CDC_ANA_TXSCBIAS_CLK_EN,
-+				      WCD9378_CDC_ANA_TXSCBIAS_CLK_EN);
-+	snd_soc_component_update_bits(component, WCD9378_TX_COM_TXFE_DIV_CTL,
-+				      WCD9378_TX_COM_TXFE_DIV_SEQ_BYPASS,
-+				      WCD9378_TX_COM_TXFE_DIV_SEQ_BYPASS);
-+	snd_soc_component_update_bits(component, WCD9378_PDM_WD_CTL0,
-+				      0x18, 0x10);
-+	snd_soc_component_update_bits(component, WCD9378_PDM_WD_CTL1,
-+				      0x18, 0x10);
-+
-+	/* Micbias LDO driver bias */
-+	snd_soc_component_update_bits(component, WCD9378_MICB1_TEST_CTL_2,
-+				      0x07, 0x01);
-+	snd_soc_component_update_bits(component, WCD9378_MICB2_TEST_CTL_2,
-+				      0x07, 0x01);
-+	snd_soc_component_update_bits(component, WCD9378_MICB3_TEST_CTL_2,
-+				      0x07, 0x01);
-+
-+	/* RX defaults (harmless while RX is unimplemented) */
-+	snd_soc_component_update_bits(component, WCD9378_HPH_RDAC_HD2_CTL_L,
-+				      0x0f, 0x04);
-+	snd_soc_component_update_bits(component, WCD9378_HPH_RDAC_HD2_CTL_R,
-+				      0x0f, 0x04);
-+	snd_soc_component_update_bits(component, WCD9378_HPH_RDAC_GAIN_CTL,
-+				      0xf0, 0x50);
-+	snd_soc_component_update_bits(component, WCD9378_HPH_UP_T0,
-+				      0x07, 0x05);
-+	snd_soc_component_update_bits(component, WCD9378_HPH_UP_T9,
-+				      0x07, 0x05);
-+	snd_soc_component_update_bits(component, WCD9378_HPH_DN_T0,
-+				      0x07, 0x06);
-+
-+	/* SmartMIC function N powers the micbias SMx_MB_SEL points at */
-+	snd_soc_component_update_bits(component, WCD9378_SM0_MB_SEL,
-+				      WCD9378_SM_MB_SEL_MASK, 0x01);
-+	snd_soc_component_update_bits(component, WCD9378_SM1_MB_SEL,
-+				      WCD9378_SM_MB_SEL_MASK, 0x02);
-+	snd_soc_component_update_bits(component, WCD9378_SM2_MB_SEL,
-+				      WCD9378_SM_MB_SEL_MASK, 0x03);
-+	snd_soc_component_update_bits(component, WCD9378_SYS_USAGE_CTRL,
-+				      WCD9378_SYS_USAGE_CTRL_MASK, 0x00);
-+
-+	wcd9378_class_load(component);
-+}
-+
-+/*
-+ * Derive the sys-usage capability bit for an ADC from its input mux.
-+ * Only combinations the canned profiles cover are usable.
-+ */
-+static int wcd9378_sys_usage_bit_get(struct snd_soc_component *component,
-+				     int adc, bool *is_jack)
-+{
-+	u32 val;
-+
-+	*is_jack = false;
-+
-+	switch (adc) {
-+	case 0:
-+		val = snd_soc_component_read(component, WCD9378_TX_NEW_CH12_MUX) &
-+			WCD9378_TX_NEW_CH12_MUX_CH1_SEL_MASK;
-+		if (val == 0x01)
-+			return WCD9378_SYS_USAGE_TX0_AMIC1;
-+		if (val == 0x02)
-+			return WCD9378_SYS_USAGE_TX0_AMIC2;
-+		break;
-+	case 1:
-+		val = (snd_soc_component_read(component, WCD9378_TX_NEW_CH12_MUX) &
-+			WCD9378_TX_NEW_CH12_MUX_CH2_SEL_MASK) >> 3;
-+		if (val == 0x02) {
-+			*is_jack = true;
-+			return WCD9378_SYS_USAGE_TX1_AMIC2;
-+		}
-+		if (val == 0x03)
-+			return WCD9378_SYS_USAGE_TX1_AMIC3;
-+		break;
-+	case 2:
-+		val = snd_soc_component_read(component, WCD9378_TX_NEW_CH34_MUX) &
-+			WCD9378_TX_NEW_CH34_MUX_CH3_SEL_MASK;
-+		if (val == 0x01)
-+			return WCD9378_SYS_USAGE_TX2_AMIC1;
-+		if (val == 0x03)
-+			return WCD9378_SYS_USAGE_TX2_AMIC4;
-+		break;
-+	}
-+
-+	dev_err(component->dev,
-+		"ADC%d input mux selection not supported by any sys-usage profile\n",
-+		adc + 1);
-+	return -EINVAL;
-+}
-+
-+static int wcd9378_sys_usage_update(struct snd_soc_component *component,
-+				    int bit, bool enable)
-+{
-+	struct wcd9378_priv *wcd9378 = snd_soc_component_get_drvdata(component);
-+	int i;
-+
-+	if (!enable) {
-+		clear_bit(bit, &wcd9378->sys_usage_mask);
-+		return 0;
-+	}
-+
-+	set_bit(bit, &wcd9378->sys_usage_mask);
-+
-+	for (i = 0; i < ARRAY_SIZE(wcd9378_sys_usage_profiles); i++) {
-+		if ((wcd9378_sys_usage_profiles[i] & wcd9378->sys_usage_mask) ==
-+		    wcd9378->sys_usage_mask)
-+			break;
-+	}
-+
-+	if (i == ARRAY_SIZE(wcd9378_sys_usage_profiles)) {
-+		clear_bit(bit, &wcd9378->sys_usage_mask);
-+		dev_err(component->dev,
-+			"no sys-usage profile covers active paths (mask %#lx)\n",
-+			wcd9378->sys_usage_mask);
-+		return -EINVAL;
-+	}
-+
-+	snd_soc_component_update_bits(component, WCD9378_SYS_USAGE_CTRL,
-+				      WCD9378_SYS_USAGE_CTRL_MASK, i);
-+
-+	return 0;
-+}
-+
-+static u32 wcd9378_get_mode_val(struct wcd9378_priv *wcd9378, int adc)
-+{
-+	switch (wcd9378->tx_mode[adc]) {
-+	case 1:
-+		return WCD9378_ADC_USAGE_HIFI;
-+	case 2:
-+		return WCD9378_ADC_USAGE_LO_HIF;
-+	case 4:
-+		return WCD9378_ADC_USAGE_LP;
-+	case 0: /* ADC_INVALID (unset) */
-+	case 3:
-+	default:
-+		return WCD9378_ADC_USAGE_NORMAL;
-+	}
-+}
-+
-+/* Actual bus clock is half the SoundWire double-rate frequency */
-+static unsigned int wcd9378_tx_bus_clk(struct wcd9378_priv *wcd9378)
-+{
-+	return wcd9378->tx_sdw_dev->bus->params.curr_dr_freq / 2;
-+}
-+
-+static int wcd9378_tx_sequencer_enable(struct snd_soc_dapm_widget *w,
-+				       struct snd_kcontrol *kcontrol,
-+				       int event)
-+{
-+	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
-+	struct wcd9378_priv *wcd9378 = snd_soc_component_get_drvdata(component);
-+	const struct wcd9378_smp_fn *fn;
-+	int adc = w->shift;
-+	bool is_jack = false;
-+	int sys_bit, retries;
-+	u32 val;
-+
-+	switch (event) {
-+	case SND_SOC_DAPM_PRE_PMU:
-+		sys_bit = wcd9378_sys_usage_bit_get(component, adc, &is_jack);
-+		if (sys_bit < 0)
-+			return sys_bit;
-+
-+		/*
-+		 * Latch the profile bit and the target function: the input
-+		 * mux can be rewritten while the path is powered, and
-+		 * power-down must tear down what was actually powered up.
-+		 */
-+		wcd9378->tx_sys_bit[adc] = sys_bit;
-+		wcd9378->tx_is_jack[adc] = is_jack;
-+		if (is_jack)
-+			fn = &wcd9378_smp_jack_adc2;
-+		else
-+			fn = &wcd9378_smp_mic[adc];
-+
-+		if (wcd9378_sys_usage_update(component, sys_bit, true))
-+			return -EINVAL;
-+
-+		/*
-+		 * NORMAL/HIFI ADC modes need a 9.6 MHz bus clock; on a
-+		 * 4.8 MHz bus only the LP mode is valid and anything else
-+		 * makes the sequencer refuse to power up.
-+		 */
-+		if (wcd9378_tx_bus_clk(wcd9378) < 9600000)
-+			val = WCD9378_ADC_USAGE_LP;
-+		else
-+			val = wcd9378_get_mode_val(wcd9378, adc);
-+
-+		snd_soc_component_update_bits(component, fn->usage_reg, 0xff, val);
-+		if (fn->hpf_reg)
-+			snd_soc_component_update_bits(component, fn->hpf_reg,
-+						      fn->hpf_mask, fn->hpf_mask);
-+		snd_soc_component_update_bits(component, fn->req_reg, 0xff,
-+					      WCD9378_PDE_PS0_ON);
-+		usleep_range(800, 810);
-+
-+		if (fn->hpf_reg)
-+			snd_soc_component_update_bits(component, fn->hpf_reg,
-+						      fn->hpf_mask, 0x00);
-+
-+		/* Wait for the sequencer to reach PS0 */
-+		retries = 20;
-+		do {
-+			val = snd_soc_component_read(component, fn->act_reg);
-+			if (val == WCD9378_PDE_PS0_ON)
-+				break;
-+			usleep_range(500, 510);
-+		} while (--retries);
-+		if (val != WCD9378_PDE_PS0_ON)
-+			dev_warn(component->dev,
-+				 "TX%d sequencer not in PS0 (act_ps %#x, bus %u Hz)\n",
-+				 adc, val,
-+				 wcd9378->tx_sdw_dev->bus->params.curr_dr_freq);
-+		break;
-+	case SND_SOC_DAPM_POST_PMD:
-+		sys_bit = wcd9378->tx_sys_bit[adc];
-+		if (sys_bit < 0)
-+			break;
-+		if (wcd9378->tx_is_jack[adc])
-+			fn = &wcd9378_smp_jack_adc2;
-+		else
-+			fn = &wcd9378_smp_mic[adc];
-+
-+		snd_soc_component_update_bits(component, fn->usage_reg, 0xff,
-+					      WCD9378_ADC_USAGE_OFF);
-+		if (fn->hpf_reg)
-+			snd_soc_component_update_bits(component, fn->hpf_reg,
-+						      fn->hpf_mask, 0x00);
-+		snd_soc_component_update_bits(component, fn->req_reg, 0xff,
-+					      WCD9378_PDE_PS3_OFF);
-+		usleep_range(800, 810);
-+		wcd9378_sys_usage_update(component, sys_bit, false);
-+		wcd9378->tx_sys_bit[adc] = -1;
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+static int wcd9378_micbias_control(struct snd_soc_component *component,
-+				   int micb_num, int req)
-+{
-+	struct wcd9378_priv *wcd9378 = snd_soc_component_get_drvdata(component);
-+	int mb_index = micb_num - 1;
-+	u32 usage_reg;
-+	u8 usage_val;
-+	u8 pullup_bit;
-+
-+	if (micb_num < MIC_BIAS_1 || micb_num > MIC_BIAS_3)
-+		return -EINVAL;
-+
-+	usage_reg = wcd9378_smp_mic[mb_index].micb_reg;
-+	usage_val = wcd9378->micb_usage_val[mb_index];
-+	pullup_bit = BIT(mb_index);
-+
-+	mutex_lock(&wcd9378->micb_lock);
-+
-+	switch (req) {
-+	case MICB_ENABLE:
-+		wcd9378->micb_ref[mb_index]++;
-+		if (wcd9378->micb_ref[mb_index] == 1) {
-+			if (micb_num == MIC_BIAS_2) {
-+				snd_soc_component_update_bits(component,
-+							      WCD9378_ANA_MICB2_RAMP,
-+							      WCD9378_ANA_MICB2_RAMP_SHIFT_CTL_MASK,
-+							      0x0c);
-+				snd_soc_component_update_bits(component,
-+							      WCD9378_ANA_MICB2_RAMP,
-+							      WCD9378_ANA_MICB2_RAMP_EN, 0x00);
-+			}
-+			snd_soc_component_update_bits(component, usage_reg,
-+						      0xff, usage_val);
-+			if (micb_num == MIC_BIAS_2)
-+				snd_soc_component_update_bits(component,
-+							      WCD9378_SMP_JACK_IT31_MICB,
-+							      0xff, usage_val);
-+		}
-+		break;
-+	case MICB_DISABLE:
-+		if (wcd9378->micb_ref[mb_index] > 0)
-+			wcd9378->micb_ref[mb_index]--;
-+		if (wcd9378->micb_ref[mb_index] == 0 &&
-+		    wcd9378->pullup_ref[mb_index] > 0) {
-+			snd_soc_component_update_bits(component,
-+						      WCD9378_MB_PULLUP_EN,
-+						      pullup_bit, pullup_bit);
-+			snd_soc_component_update_bits(component, usage_reg, 0xff,
-+						      WCD9378_MICB_USAGE_1P8V_OR_PULLUP);
-+			if (micb_num == MIC_BIAS_2)
-+				snd_soc_component_update_bits(component,
-+							      WCD9378_SMP_JACK_IT31_MICB, 0xff,
-+							      WCD9378_MICB_USAGE_1P8V_OR_PULLUP);
-+		} else if (wcd9378->micb_ref[mb_index] == 0) {
-+			snd_soc_component_update_bits(component, usage_reg,
-+						      0xff, WCD9378_MICB_USAGE_OFF);
-+			if (micb_num == MIC_BIAS_2) {
-+				snd_soc_component_update_bits(component,
-+							      WCD9378_SMP_JACK_IT31_MICB,
-+							      0xff, WCD9378_MICB_USAGE_OFF);
-+				snd_soc_component_update_bits(component,
-+							      WCD9378_ANA_MICB2_RAMP,
-+							      WCD9378_ANA_MICB2_RAMP_SHIFT_CTL_MASK,
-+							      0x0c);
-+				snd_soc_component_update_bits(component,
-+							      WCD9378_ANA_MICB2_RAMP,
-+							      WCD9378_ANA_MICB2_RAMP_EN,
-+							      WCD9378_ANA_MICB2_RAMP_EN);
-+			}
-+		}
-+		break;
-+	case MICB_PULLUP_ENABLE:
-+		wcd9378->pullup_ref[mb_index]++;
-+		if (wcd9378->pullup_ref[mb_index] == 1 &&
-+		    wcd9378->micb_ref[mb_index] == 0) {
-+			snd_soc_component_update_bits(component,
-+						      WCD9378_MB_PULLUP_EN,
-+						      pullup_bit, pullup_bit);
-+			snd_soc_component_update_bits(component, usage_reg, 0xff,
-+						      WCD9378_MICB_USAGE_1P8V_OR_PULLUP);
-+			if (micb_num == MIC_BIAS_2)
-+				snd_soc_component_update_bits(component,
-+							      WCD9378_SMP_JACK_IT31_MICB, 0xff,
-+							      WCD9378_MICB_USAGE_1P8V_OR_PULLUP);
-+		}
-+		break;
-+	case MICB_PULLUP_DISABLE:
-+		if (wcd9378->pullup_ref[mb_index] > 0)
-+			wcd9378->pullup_ref[mb_index]--;
-+		if (wcd9378->pullup_ref[mb_index] == 0 &&
-+		    wcd9378->micb_ref[mb_index] == 0) {
-+			snd_soc_component_update_bits(component,
-+						      WCD9378_MB_PULLUP_EN, pullup_bit, 0x00);
-+			snd_soc_component_update_bits(component, usage_reg, 0xff,
-+						      WCD9378_MICB_USAGE_PULL_DOWN);
-+			if (micb_num == MIC_BIAS_2)
-+				snd_soc_component_update_bits(component,
-+							      WCD9378_SMP_JACK_IT31_MICB, 0xff,
-+							      WCD9378_MICB_USAGE_PULL_DOWN);
-+		}
-+		break;
-+	}
-+
-+	mutex_unlock(&wcd9378->micb_lock);
-+
-+	return 0;
-+}
-+
-+static int wcd9378_codec_enable_micbias(struct snd_soc_dapm_widget *w,
-+					struct snd_kcontrol *kcontrol,
-+					int event)
-+{
-+	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
-+	int micb_num = w->shift;
-+
-+	switch (event) {
-+	case SND_SOC_DAPM_PRE_PMU:
-+		wcd9378_micbias_control(component, micb_num, MICB_ENABLE);
-+		break;
-+	case SND_SOC_DAPM_POST_PMU:
-+		usleep_range(1000, 1100);
-+		break;
-+	case SND_SOC_DAPM_POST_PMD:
-+		wcd9378_micbias_control(component, micb_num, MICB_DISABLE);
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+static int wcd9378_codec_enable_micbias_pullup(struct snd_soc_dapm_widget *w,
-+					       struct snd_kcontrol *kcontrol,
-+					       int event)
-+{
-+	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
-+	int micb_num = w->shift;
-+
-+	switch (event) {
-+	case SND_SOC_DAPM_PRE_PMU:
-+		wcd9378_micbias_control(component, micb_num,
-+					MICB_PULLUP_ENABLE);
-+		break;
-+	case SND_SOC_DAPM_POST_PMU:
-+		usleep_range(1000, 1100);
-+		break;
-+	case SND_SOC_DAPM_POST_PMD:
-+		wcd9378_micbias_control(component, micb_num,
-+					MICB_PULLUP_DISABLE);
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+static int wcd9378_connect_port(struct wcd9378_sdw_priv *wcd, u8 port_idx,
-+				u8 ch_id, bool enable)
-+{
-+	struct sdw_port_config *port_config = &wcd->port_config[port_idx - 1];
-+	const struct wcd_sdw_ch_info *ch_info = &wcd->ch_info[ch_id];
-+	u8 port_num = ch_info->port_num;
-+	u8 ch_mask = ch_info->ch_mask;
-+	u8 mstr_port_num, mstr_ch_mask;
-+	struct sdw_slave *sdev = wcd->sdev;
-+
-+	port_config->num = port_num;
-+
-+	mstr_port_num = sdev->m_port_map[port_num];
-+	mstr_ch_mask = ch_info->master_ch_mask;
-+
-+	if (enable) {
-+		port_config->ch_mask |= ch_mask;
-+		wcd->master_channel_map[mstr_port_num] |= mstr_ch_mask;
-+	} else {
-+		port_config->ch_mask &= ~ch_mask;
-+		wcd->master_channel_map[mstr_port_num] &= ~mstr_ch_mask;
-+	}
-+
-+	return 0;
-+}
-+
-+static int wcd9378_get_swr_port(struct snd_kcontrol *kcontrol,
-+				struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct soc_mixer_control *mixer = (struct soc_mixer_control *)kcontrol->private_value;
-+	struct snd_soc_component *comp = snd_kcontrol_chip(kcontrol);
-+	struct wcd9378_priv *wcd9378 = snd_soc_component_get_drvdata(comp);
-+	struct wcd9378_sdw_priv *wcd;
-+	int dai_id = mixer->shift;
-+	int ch_idx = mixer->reg;
-+	int portidx;
-+
-+	wcd = wcd9378->sdw_priv[dai_id];
-+	portidx = wcd->ch_info[ch_idx].port_num;
-+
-+	ucontrol->value.integer.value[0] = wcd->port_enable[portidx];
-+
-+	return 0;
-+}
-+
-+static int wcd9378_set_swr_port(struct snd_kcontrol *kcontrol,
-+				struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct soc_mixer_control *mixer = (struct soc_mixer_control *)kcontrol->private_value;
-+	struct snd_soc_component *comp = snd_kcontrol_chip(kcontrol);
-+	struct wcd9378_priv *wcd9378 = snd_soc_component_get_drvdata(comp);
-+	struct wcd9378_sdw_priv *wcd;
-+	int dai_id = mixer->shift;
-+	int ch_idx = mixer->reg;
-+	int portidx;
-+	bool enable;
-+
-+	wcd = wcd9378->sdw_priv[dai_id];
-+	portidx = wcd->ch_info[ch_idx].port_num;
-+
-+	enable = ucontrol->value.integer.value[0];
-+
-+	if (enable == wcd->port_enable[portidx]) {
-+		wcd9378_connect_port(wcd, portidx, ch_idx, enable);
-+		return 0;
-+	}
-+
-+	wcd->port_enable[portidx] = enable;
-+	wcd9378_connect_port(wcd, portidx, ch_idx, enable);
-+
-+	return 1;
-+}
-+
-+static int wcd9378_tx_mode_get(struct snd_kcontrol *kcontrol,
-+			       struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
-+	struct wcd9378_priv *wcd9378 = snd_soc_component_get_drvdata(component);
-+	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
-+	int adc = e->shift_l;
-+
-+	ucontrol->value.enumerated.item[0] = wcd9378->tx_mode[adc];
-+
-+	return 0;
-+}
-+
-+static int wcd9378_tx_mode_put(struct snd_kcontrol *kcontrol,
-+			       struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
-+	struct wcd9378_priv *wcd9378 = snd_soc_component_get_drvdata(component);
-+	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
-+	int adc = e->shift_l;
-+	u32 mode_val = ucontrol->value.enumerated.item[0];
-+
-+	if (mode_val >= e->items)
-+		return -EINVAL;
-+
-+	if (mode_val == wcd9378->tx_mode[adc])
-+		return 0;
-+
-+	wcd9378->tx_mode[adc] = mode_val;
-+
-+	return 1;
-+}
-+
-+static const char * const tx_mode_mux_text[] = {
-+	"ADC_INVALID", "ADC_HIFI", "ADC_LO_HIF", "ADC_NORMAL", "ADC_LP",
-+};
-+
-+static const struct soc_enum tx0_mode_enum =
-+	SOC_ENUM_SINGLE(SND_SOC_NOPM, 0, ARRAY_SIZE(tx_mode_mux_text),
-+			tx_mode_mux_text);
-+static const struct soc_enum tx1_mode_enum =
-+	SOC_ENUM_SINGLE(SND_SOC_NOPM, 1, ARRAY_SIZE(tx_mode_mux_text),
-+			tx_mode_mux_text);
-+static const struct soc_enum tx2_mode_enum =
-+	SOC_ENUM_SINGLE(SND_SOC_NOPM, 2, ARRAY_SIZE(tx_mode_mux_text),
-+			tx_mode_mux_text);
-+
-+static const struct snd_kcontrol_new wcd9378_snd_controls[] = {
-+	SOC_SINGLE_TLV("ADC1 Volume", WCD9378_ANA_TX_CH1, 0, 20, 0,
-+		       analog_gain),
-+	SOC_SINGLE_TLV("ADC2 Volume", WCD9378_ANA_TX_CH2, 0, 20, 0,
-+		       analog_gain),
-+	SOC_SINGLE_TLV("ADC3 Volume", WCD9378_ANA_TX_CH3, 0, 20, 0,
-+		       analog_gain),
-+
-+	SOC_ENUM_EXT("TX0 MODE", tx0_mode_enum,
-+		     wcd9378_tx_mode_get, wcd9378_tx_mode_put),
-+	SOC_ENUM_EXT("TX1 MODE", tx1_mode_enum,
-+		     wcd9378_tx_mode_get, wcd9378_tx_mode_put),
-+	SOC_ENUM_EXT("TX2 MODE", tx2_mode_enum,
-+		     wcd9378_tx_mode_get, wcd9378_tx_mode_put),
-+
-+	SOC_SINGLE_EXT("ADC1 Switch", WCD9378_ADC1, AIF1_CAP, 1, 0,
-+		       wcd9378_get_swr_port, wcd9378_set_swr_port),
-+	SOC_SINGLE_EXT("ADC2 Switch", WCD9378_ADC2, AIF1_CAP, 1, 0,
-+		       wcd9378_get_swr_port, wcd9378_set_swr_port),
-+	SOC_SINGLE_EXT("ADC3 Switch", WCD9378_ADC3, AIF1_CAP, 1, 0,
-+		       wcd9378_get_swr_port, wcd9378_set_swr_port),
-+};
-+
-+static const char * const adc1_mux_text[] = {
-+	"CH1_AMIC_DISABLE", "CH1_AMIC1", "CH1_AMIC2", "CH1_AMIC3", "CH1_AMIC4",
-+};
-+
-+static const char * const adc2_mux_text[] = {
-+	"CH2_AMIC_DISABLE", "CH2_AMIC1", "CH2_AMIC2", "CH2_AMIC3", "CH2_AMIC4",
-+};
-+
-+static const char * const adc3_mux_text[] = {
-+	"CH3_AMIC_DISABLE", "CH3_AMIC1", "CH3_AMIC3", "CH3_AMIC4",
-+};
-+
-+static const struct soc_enum adc1_mux_enum =
-+	SOC_ENUM_SINGLE(WCD9378_TX_NEW_CH12_MUX, 0,
-+			ARRAY_SIZE(adc1_mux_text), adc1_mux_text);
-+static const struct soc_enum adc2_mux_enum =
-+	SOC_ENUM_SINGLE(WCD9378_TX_NEW_CH12_MUX, 3,
-+			ARRAY_SIZE(adc2_mux_text), adc2_mux_text);
-+static const struct soc_enum adc3_mux_enum =
-+	SOC_ENUM_SINGLE(WCD9378_TX_NEW_CH34_MUX, 0,
-+			ARRAY_SIZE(adc3_mux_text), adc3_mux_text);
-+
-+static const struct snd_kcontrol_new adc1_mux = SOC_DAPM_ENUM("ADC1 MUX", adc1_mux_enum);
-+static const struct snd_kcontrol_new adc2_mux = SOC_DAPM_ENUM("ADC2 MUX", adc2_mux_enum);
-+static const struct snd_kcontrol_new adc3_mux = SOC_DAPM_ENUM("ADC3 MUX", adc3_mux_enum);
-+
-+static const struct snd_kcontrol_new tx0_seq_switch =
-+	SOC_DAPM_SINGLE("Switch", SND_SOC_NOPM, 0, 1, 0);
-+static const struct snd_kcontrol_new tx1_seq_switch =
-+	SOC_DAPM_SINGLE("Switch", SND_SOC_NOPM, 0, 1, 0);
-+static const struct snd_kcontrol_new tx2_seq_switch =
-+	SOC_DAPM_SINGLE("Switch", SND_SOC_NOPM, 0, 1, 0);
-+
-+static const struct snd_soc_dapm_widget wcd9378_dapm_widgets[] = {
-+	/* Analog mic inputs */
-+	SND_SOC_DAPM_INPUT("AMIC1"),
-+	SND_SOC_DAPM_INPUT("AMIC2"),
-+	SND_SOC_DAPM_INPUT("AMIC3"),
-+	SND_SOC_DAPM_INPUT("AMIC4"),
-+
-+	/* ADC input muxes */
-+	SND_SOC_DAPM_MUX("ADC1 MUX", SND_SOC_NOPM, 0, 0, &adc1_mux),
-+	SND_SOC_DAPM_MUX("ADC2 MUX", SND_SOC_NOPM, 0, 0, &adc2_mux),
-+	SND_SOC_DAPM_MUX("ADC3 MUX", SND_SOC_NOPM, 0, 0, &adc3_mux),
-+
-+	/* SDCA TX sequencers (widget shift = ADC index) */
-+	SND_SOC_DAPM_MIXER_E("TX0 SEQUENCER", SND_SOC_NOPM, 0, 0,
-+			     &tx0_seq_switch, 1, wcd9378_tx_sequencer_enable,
-+			     SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
-+	SND_SOC_DAPM_MIXER_E("TX1 SEQUENCER", SND_SOC_NOPM, 1, 0,
-+			     &tx1_seq_switch, 1, wcd9378_tx_sequencer_enable,
-+			     SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
-+	SND_SOC_DAPM_MIXER_E("TX2 SEQUENCER", SND_SOC_NOPM, 2, 0,
-+			     &tx2_seq_switch, 1, wcd9378_tx_sequencer_enable,
-+			     SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
-+
-+	/* Micbias supplies (widget shift = micbias number) */
-+	SND_SOC_DAPM_SUPPLY("MIC BIAS1", SND_SOC_NOPM, MIC_BIAS_1, 0,
-+			    wcd9378_codec_enable_micbias,
-+			    SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU |
-+			    SND_SOC_DAPM_POST_PMD),
-+	SND_SOC_DAPM_SUPPLY("MIC BIAS2", SND_SOC_NOPM, MIC_BIAS_2, 0,
-+			    wcd9378_codec_enable_micbias,
-+			    SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU |
-+			    SND_SOC_DAPM_POST_PMD),
-+	SND_SOC_DAPM_SUPPLY("MIC BIAS3", SND_SOC_NOPM, MIC_BIAS_3, 0,
-+			    wcd9378_codec_enable_micbias,
-+			    SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU |
-+			    SND_SOC_DAPM_POST_PMD),
-+
-+	SND_SOC_DAPM_SUPPLY("VA MIC BIAS1", SND_SOC_NOPM, MIC_BIAS_1, 0,
-+			    wcd9378_codec_enable_micbias_pullup,
-+			    SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU |
-+			    SND_SOC_DAPM_POST_PMD),
-+	SND_SOC_DAPM_SUPPLY("VA MIC BIAS2", SND_SOC_NOPM, MIC_BIAS_2, 0,
-+			    wcd9378_codec_enable_micbias_pullup,
-+			    SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU |
-+			    SND_SOC_DAPM_POST_PMD),
-+	SND_SOC_DAPM_SUPPLY("VA MIC BIAS3", SND_SOC_NOPM, MIC_BIAS_3, 0,
-+			    wcd9378_codec_enable_micbias_pullup,
-+			    SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU |
-+			    SND_SOC_DAPM_POST_PMD),
-+
-+	/* Outputs towards the SoundWire TX bus / LPASS TX macro */
-+	SND_SOC_DAPM_OUTPUT("ADC1_OUTPUT"),
-+	SND_SOC_DAPM_OUTPUT("ADC2_OUTPUT"),
-+	SND_SOC_DAPM_OUTPUT("ADC3_OUTPUT"),
-+};
-+
-+static const struct snd_soc_dapm_route wcd9378_audio_map[] = {
-+	{ "ADC1_OUTPUT", NULL, "TX0 SEQUENCER" },
-+	{ "TX0 SEQUENCER", "Switch", "ADC1 MUX" },
-+	{ "ADC1 MUX", "CH1_AMIC1", "AMIC1" },
-+	{ "ADC1 MUX", "CH1_AMIC2", "AMIC2" },
-+	{ "ADC1 MUX", "CH1_AMIC3", "AMIC3" },
-+	{ "ADC1 MUX", "CH1_AMIC4", "AMIC4" },
-+
-+	{ "ADC2_OUTPUT", NULL, "TX1 SEQUENCER" },
-+	{ "TX1 SEQUENCER", "Switch", "ADC2 MUX" },
-+	{ "ADC2 MUX", "CH2_AMIC1", "AMIC1" },
-+	{ "ADC2 MUX", "CH2_AMIC2", "AMIC2" },
-+	{ "ADC2 MUX", "CH2_AMIC3", "AMIC3" },
-+	{ "ADC2 MUX", "CH2_AMIC4", "AMIC4" },
-+
-+	{ "ADC3_OUTPUT", NULL, "TX2 SEQUENCER" },
-+	{ "TX2 SEQUENCER", "Switch", "ADC3 MUX" },
-+	{ "ADC3 MUX", "CH3_AMIC1", "AMIC1" },
-+	{ "ADC3 MUX", "CH3_AMIC3", "AMIC3" },
-+	{ "ADC3 MUX", "CH3_AMIC4", "AMIC4" },
-+};
-+
-+/*
-+ * Map the DT micbias millivolt values onto ITxx_MICB usage codes;
-+ * non-standard voltages go through the sequencer remap table.
-+ */
-+static void wcd9378_set_micb_usage_vals(struct snd_soc_component *component)
-+{
-+	struct wcd9378_priv *wcd9378 = snd_soc_component_get_drvdata(component);
-+	static const u32 remap_regs[] = {
-+		WCD9378_MICB_REMAP_TABLE_VAL_3,
-+		WCD9378_MICB_REMAP_TABLE_VAL_4,
-+		WCD9378_MICB_REMAP_TABLE_VAL_5,
-+	};
-+	int i, vout;
-+
-+	for (i = 0; i < WCD9378_MAX_MICBIAS; i++) {
-+		switch (wcd9378->common.micb_mv[i]) {
-+		case 1200:
-+			wcd9378->micb_usage_val[i] = WCD9378_MICB_USAGE_1P2V;
-+			break;
-+		case 1800:
-+			wcd9378->micb_usage_val[i] = WCD9378_MICB_USAGE_1P8V_OR_PULLUP;
-+			break;
-+		case 2200:
-+			wcd9378->micb_usage_val[i] = WCD9378_MICB_USAGE_2P2V;
-+			break;
-+		case 2500:
-+			wcd9378->micb_usage_val[i] = WCD9378_MICB_USAGE_2P5V;
-+			break;
-+		case 2700:
-+			wcd9378->micb_usage_val[i] = WCD9378_MICB_USAGE_2P7V;
-+			break;
-+		case 2750:
-+			wcd9378->micb_usage_val[i] = WCD9378_MICB_USAGE_2P75V;
-+			break;
-+		case 2800:
-+			wcd9378->micb_usage_val[i] = WCD9378_MICB_USAGE_2P8V;
-+			break;
-+		default:
-+			vout = wcd_get_micb_vout_ctl_val(component->dev,
-+							 wcd9378->common.micb_mv[i]);
-+			if (vout < 0) {
-+				wcd9378->micb_usage_val[i] =
-+					WCD9378_MICB_USAGE_1P8V_OR_PULLUP;
-+				break;
-+			}
-+			snd_soc_component_update_bits(component, remap_regs[i],
-+						      0xff, vout);
-+			wcd9378->micb_usage_val[i] =
-+				WCD9378_MICB_USAGE_REMAP_TABLE_3 + i;
-+			break;
-+		}
-+	}
-+}
-+
-+static int wcd9378_soc_codec_probe(struct snd_soc_component *component)
-+{
-+	struct wcd9378_priv *wcd9378 = snd_soc_component_get_drvdata(component);
-+	struct device *dev = component->dev;
-+	unsigned int part0 = 0, part1 = 0;
-+	int ret;
-+
-+	/*
-+	 * Flow up to this point: the two sdw probes registered
-+	 * components; the platform probe reset the codec and added the
-+	 * component master, whose bind then bound the slaves and
-+	 * registered this snd_soc component. io_init() below programs
-+	 * the analog core and must hit an enumerated codec with the bus
-+	 * clock indicated, so first wait out the TX slave's
-+	 * post-reset (re-)enumeration; this codec probe is the earliest
-+	 * point where all of that holds.
-+	 */
-+	ret = sdw_slave_wait_for_init(wcd9378->tx_sdw_dev, 5000);
-+	if (ret)
-+		return ret;
-+
-+	snd_soc_component_init_regmap(component, wcd9378->regmap);
-+
-+	ret = pm_runtime_resume_and_get(dev);
-+	if (ret < 0)
-+		return ret;
-+
-+	regmap_read(wcd9378->regmap, WCD9378_DEV_PART_ID_0, &part0);
-+	regmap_read(wcd9378->regmap, WCD9378_DEV_PART_ID_1, &part1);
-+	dev_dbg(dev, "WCD9378 part id %#x\n", (part1 << 8) | part0);
-+
-+	/*
-+	 * SDCA interrupt type configuration, mirroring the downstream init
-+	 * sequence. Nothing consumes these interrupts yet (no MBHC support);
-+	 * kept so the bring-up sequence validated on hardware is unchanged.
-+	 */
-+	sdw_write(wcd9378->tx_sdw_dev, WCD9378_SWRS_SCP_SDCA_INTRTYPE_1, 0xff);
-+	sdw_write(wcd9378->tx_sdw_dev, WCD9378_SWRS_SCP_SDCA_INTRTYPE_2, 0x0b);
-+	sdw_write(wcd9378->tx_sdw_dev, WCD9378_SWRS_SCP_SDCA_INTRTYPE_3, 0xff);
-+
-+	wcd9378_io_init(component);
-+	wcd9378_set_micb_usage_vals(component);
-+
-+	pm_runtime_mark_last_busy(dev);
-+	pm_runtime_put_autosuspend(dev);
-+
-+	return 0;
-+}
-+
-+static const struct snd_soc_component_driver soc_codec_dev_wcd9378 = {
-+	.name = "wcd9378_codec",
-+	.probe = wcd9378_soc_codec_probe,
-+	.controls = wcd9378_snd_controls,
-+	.num_controls = ARRAY_SIZE(wcd9378_snd_controls),
-+	.dapm_widgets = wcd9378_dapm_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(wcd9378_dapm_widgets),
-+	.dapm_routes = wcd9378_audio_map,
-+	.num_dapm_routes = ARRAY_SIZE(wcd9378_audio_map),
-+	.endianness = 1,
-+};
-+
-+static int wcd9378_codec_hw_params(struct snd_pcm_substream *substream,
-+				   struct snd_pcm_hw_params *params,
-+				   struct snd_soc_dai *dai)
-+{
-+	struct wcd9378_priv *wcd9378 = dev_get_drvdata(dai->dev);
-+	struct wcd9378_sdw_priv *wcd = wcd9378->sdw_priv[dai->id];
-+
-+	return wcd9378_sdw_hw_params(wcd, substream, params, dai);
-+}
-+
-+static int wcd9378_codec_free(struct snd_pcm_substream *substream,
-+			      struct snd_soc_dai *dai)
-+{
-+	struct wcd9378_priv *wcd9378 = dev_get_drvdata(dai->dev);
-+	struct wcd9378_sdw_priv *wcd = wcd9378->sdw_priv[dai->id];
-+
-+	return sdw_stream_remove_slave(wcd->sdev, wcd->sruntime);
-+}
-+
-+static int wcd9378_codec_set_sdw_stream(struct snd_soc_dai *dai,
-+					void *stream, int direction)
-+{
-+	struct wcd9378_priv *wcd9378 = dev_get_drvdata(dai->dev);
-+	struct wcd9378_sdw_priv *wcd = wcd9378->sdw_priv[dai->id];
-+
-+	wcd->sruntime = stream;
-+
-+	return 0;
-+}
-+
-+static int wcd9378_get_channel_map(const struct snd_soc_dai *dai,
-+				   unsigned int *tx_num, unsigned int *tx_slot,
-+				   unsigned int *rx_num, unsigned int *rx_slot)
-+{
-+	struct wcd9378_priv *wcd9378 = dev_get_drvdata(dai->dev);
-+	struct wcd9378_sdw_priv *wcd = wcd9378->sdw_priv[dai->id];
-+	int i;
-+
-+	switch (dai->id) {
-+	case AIF1_PB:
-+		if (!rx_slot || !rx_num) {
-+			dev_err(dai->dev, "Invalid rx_slot %p or rx_num %p\n",
-+				rx_slot, rx_num);
-+			return -EINVAL;
-+		}
-+
-+		for (i = 0; i < SDW_MAX_PORTS; i++)
-+			rx_slot[i] = wcd->master_channel_map[i];
-+
-+		*rx_num = i;
-+		break;
-+	case AIF1_CAP:
-+		if (!tx_slot || !tx_num) {
-+			dev_err(dai->dev, "Invalid tx_slot %p or tx_num %p\n",
-+				tx_slot, tx_num);
-+			return -EINVAL;
-+		}
-+
-+		for (i = 0; i < SDW_MAX_PORTS; i++)
-+			tx_slot[i] = wcd->master_channel_map[i];
-+
-+		*tx_num = i;
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct snd_soc_dai_ops wcd9378_sdw_dai_ops = {
-+	.hw_params = wcd9378_codec_hw_params,
-+	.hw_free = wcd9378_codec_free,
-+	.set_stream = wcd9378_codec_set_sdw_stream,
-+	.get_channel_map = wcd9378_get_channel_map,
-+};
-+
-+#define WCD9378_RATES (SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000 |\
-+		       SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_48000 |\
-+		       SNDRV_PCM_RATE_96000 | SNDRV_PCM_RATE_192000)
-+#define WCD9378_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE |\
-+			 SNDRV_PCM_FMTBIT_S24_3LE | SNDRV_PCM_FMTBIT_S32_LE)
-+
-+static struct snd_soc_dai_driver wcd9378_dais[] = {
-+	[0] = {
-+		.name = "wcd9378-sdw-rx",
-+		.playback = {
-+			.stream_name = "WCD AIF Playback",
-+			.rates = WCD9378_RATES,
-+			.formats = WCD9378_FORMATS,
-+			.rate_min = 8000,
-+			.rate_max = 192000,
-+			.channels_min = 1,
-+			.channels_max = 4,
-+		},
-+		.ops = &wcd9378_sdw_dai_ops,
-+	},
-+	[1] = {
-+		.name = "wcd9378-sdw-tx",
-+		.capture = {
-+			.stream_name = "WCD AIF Capture",
-+			.rates = WCD9378_RATES,
-+			.formats = WCD9378_FORMATS,
-+			.rate_min = 8000,
-+			.rate_max = 192000,
-+			.channels_min = 1,
-+			.channels_max = 4,
-+		},
-+		.ops = &wcd9378_sdw_dai_ops,
-+	},
-+};
-+
-+static int wcd9378_bind(struct device *dev)
-+{
-+	struct wcd9378_priv *wcd9378 = dev_get_drvdata(dev);
-+	int ret;
-+
-+	/* Give the SDW subdevices some more time to settle */
-+	usleep_range(5000, 5010);
-+
-+	ret = component_bind_all(dev, wcd9378);
-+	if (ret) {
-+		dev_err(dev, "Slave bind failed, ret = %d\n", ret);
-+		return ret;
-+	}
-+
-+	wcd9378->rxdev = of_sdw_find_device_by_node(wcd9378->rxnode);
-+	if (!wcd9378->rxdev) {
-+		dev_err(dev, "could not find rx slave with matching of node\n");
-+		ret = -EINVAL;
-+		goto err_component_unbind;
-+	}
-+
-+	wcd9378->sdw_priv[AIF1_PB] = dev_get_drvdata(wcd9378->rxdev);
-+	wcd9378->sdw_priv[AIF1_PB]->wcd9378 = wcd9378;
-+
-+	wcd9378->txdev = of_sdw_find_device_by_node(wcd9378->txnode);
-+	if (!wcd9378->txdev) {
-+		dev_err(dev, "could not find tx slave with matching of node\n");
-+		ret = -EINVAL;
-+		goto err_put_rxdev;
-+	}
-+
-+	wcd9378->sdw_priv[AIF1_CAP] = dev_get_drvdata(wcd9378->txdev);
-+	wcd9378->sdw_priv[AIF1_CAP]->wcd9378 = wcd9378;
-+	wcd9378->tx_sdw_dev = dev_to_sdw_dev(wcd9378->txdev);
-+
-+	/*
-+	 * As TX is the main CSR reg interface, it should not be suspended
-+	 * first. Explicitly add the dependency link.
-+	 */
-+	if (!device_link_add(wcd9378->rxdev, wcd9378->txdev,
-+			     DL_FLAG_STATELESS | DL_FLAG_PM_RUNTIME)) {
-+		dev_err(dev, "Could not devlink TX and RX\n");
-+		ret = -EINVAL;
-+		goto err_put_txdev;
-+	}
-+
-+	if (!device_link_add(dev, wcd9378->txdev,
-+			     DL_FLAG_STATELESS | DL_FLAG_PM_RUNTIME)) {
-+		dev_err(dev, "Could not devlink WCD and TX\n");
-+		ret = -EINVAL;
-+		goto err_remove_link1;
-+	}
-+
-+	if (!device_link_add(dev, wcd9378->rxdev,
-+			     DL_FLAG_STATELESS | DL_FLAG_PM_RUNTIME)) {
-+		dev_err(dev, "Could not devlink WCD and RX\n");
-+		ret = -EINVAL;
-+		goto err_remove_link2;
-+	}
-+
-+	wcd9378->regmap = wcd9378->sdw_priv[AIF1_CAP]->regmap;
-+	if (!wcd9378->regmap) {
-+		dev_err(dev, "could not get TX device regmap\n");
-+		ret = -EINVAL;
-+		goto err_remove_link3;
-+	}
-+
-+	/*
-+	 * The SDCA function engine dies when the TX bus enters clock-stop
-+	 * and only a codec reset revives it - registers keep their values
-+	 * so a regcache sync or a FUNC_ACT re-toggle does not help. The
-+	 * downstream stack sidesteps the same problem by marking the TX
-+	 * SoundWire master "qcom,is-always-on"; do the equivalent and
-+	 * keep the TX slave (and thus its bus) runtime-active while the
-+	 * codec is bound.
-+	 */
-+	ret = pm_runtime_resume_and_get(wcd9378->txdev);
-+	if (ret < 0) {
-+		dev_err(dev, "could not resume TX device\n");
-+		goto err_remove_link3;
-+	}
-+
-+	ret = snd_soc_register_component(dev, &soc_codec_dev_wcd9378,
-+					 wcd9378_dais, ARRAY_SIZE(wcd9378_dais));
-+	if (ret) {
-+		dev_err(dev, "Codec registration failed\n");
-+		pm_runtime_put(wcd9378->txdev);
-+		goto err_remove_link3;
-+	}
-+
-+	return ret;
-+
-+err_remove_link3:
-+	device_link_remove(dev, wcd9378->rxdev);
-+err_remove_link2:
-+	device_link_remove(dev, wcd9378->txdev);
-+err_remove_link1:
-+	device_link_remove(wcd9378->rxdev, wcd9378->txdev);
-+err_put_txdev:
-+	put_device(wcd9378->txdev);
-+err_put_rxdev:
-+	put_device(wcd9378->rxdev);
-+err_component_unbind:
-+	component_unbind_all(dev, wcd9378);
-+	return ret;
-+}
-+
-+static void wcd9378_unbind(struct device *dev)
-+{
-+	struct wcd9378_priv *wcd9378 = dev_get_drvdata(dev);
-+
-+	snd_soc_unregister_component(dev);
-+	pm_runtime_put(wcd9378->txdev);
-+	device_link_remove(dev, wcd9378->txdev);
-+	device_link_remove(dev, wcd9378->rxdev);
-+	device_link_remove(wcd9378->rxdev, wcd9378->txdev);
-+	component_unbind_all(dev, wcd9378);
-+	put_device(wcd9378->txdev);
-+	put_device(wcd9378->rxdev);
-+}
-+
-+static const struct component_master_ops wcd9378_comp_ops = {
-+	.bind = wcd9378_bind,
-+	.unbind = wcd9378_unbind,
-+};
-+
-+static int wcd9378_add_slave_components(struct wcd9378_priv *wcd9378,
-+					struct device *dev,
-+					struct component_match **matchptr)
-+{
-+	struct device_node *np = dev->of_node;
-+
-+	wcd9378->rxnode = of_parse_phandle(np, "qcom,rx-device", 0);
-+	if (!wcd9378->rxnode) {
-+		dev_err(dev, "Couldn't parse phandle to qcom,rx-device!\n");
-+		return -ENODEV;
-+	}
-+
-+	component_match_add_release(dev, matchptr, component_release_of,
-+				    component_compare_of, wcd9378->rxnode);
-+
-+	wcd9378->txnode = of_parse_phandle(np, "qcom,tx-device", 0);
-+	if (!wcd9378->txnode) {
-+		dev_err(dev, "Couldn't parse phandle to qcom,tx-device\n");
-+		return -ENODEV;
-+	}
-+
-+	component_match_add_release(dev, matchptr, component_release_of,
-+				    component_compare_of, wcd9378->txnode);
-+
-+	return 0;
-+}
-+
-+static int wcd9378_probe(struct platform_device *pdev)
-+{
-+	struct component_match *match = NULL;
-+	struct device *dev = &pdev->dev;
-+	struct wcd9378_priv *wcd9378;
-+	int ret, i;
-+
-+	wcd9378 = devm_kzalloc(dev, sizeof(*wcd9378), GFP_KERNEL);
-+	if (!wcd9378)
-+		return -ENOMEM;
-+
-+	dev_set_drvdata(dev, wcd9378);
-+	mutex_init(&wcd9378->micb_lock);
-+	for (i = 0; i < ARRAY_SIZE(wcd9378->tx_sys_bit); i++)
-+		wcd9378->tx_sys_bit[i] = -1;
-+	wcd9378->common.dev = dev;
-+	wcd9378->common.max_bias = WCD9378_MAX_MICBIAS;
-+
-+	wcd9378->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
-+	if (IS_ERR(wcd9378->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(wcd9378->reset_gpio),
-+				     "failed to get reset gpio\n");
-+
-+	ret = devm_regulator_bulk_get_enable(dev, ARRAY_SIZE(wcd9378_supplies),
-+					     wcd9378_supplies);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "Failed to get and enable supplies\n");
-+
-+	ret = wcd_dt_parse_micbias_info(&wcd9378->common);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to get micbias\n");
-+
-+	ret = wcd9378_add_slave_components(wcd9378, dev, &match);
-+	if (ret)
-+		return ret;
-+
-+	wcd9378_reset(wcd9378);
-+
-+	pm_runtime_set_autosuspend_delay(dev, 3000);
-+	pm_runtime_use_autosuspend(dev);
-+	ret = devm_pm_runtime_set_active_enabled(dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = component_master_add_with_match(dev, &wcd9378_comp_ops, match);
-+	if (ret)
-+		return ret;
-+
-+	pm_runtime_mark_last_busy(dev);
-+	pm_runtime_idle(dev);
-+
-+	return 0;
-+}
-+
-+static void wcd9378_remove(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct wcd9378_priv *wcd9378 = dev_get_drvdata(dev);
-+
-+	component_master_del(dev, &wcd9378_comp_ops);
-+
-+	mutex_destroy(&wcd9378->micb_lock);
-+}
-+
-+static const struct of_device_id wcd9378_of_match[] = {
-+	{ .compatible = "qcom,wcd9378-codec" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, wcd9378_of_match);
-+
-+static struct platform_driver wcd9378_codec_driver = {
-+	.probe = wcd9378_probe,
-+	.remove = wcd9378_remove,
-+	.driver = {
-+		.name = "wcd9378_codec",
-+		.of_match_table = wcd9378_of_match,
-+		.suppress_bind_attrs = true,
-+	},
-+};
-+module_platform_driver(wcd9378_codec_driver);
-+
-+MODULE_DESCRIPTION("WCD9378 Codec driver");
-+MODULE_LICENSE("GPL");
-diff --git a/sound/soc/codecs/wcd9378.h b/sound/soc/codecs/wcd9378.h
-new file mode 100644
-index 000000000000..b28d541b4db0
---- /dev/null
-+++ b/sound/soc/codecs/wcd9378.h
-@@ -0,0 +1,244 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (c) 2026, Jorijn van der Graaf
-+ *
-+ * Register map for the Qualcomm WCD9378 audio codec.
-+ *
-+ * The codec exposes its control registers in the SoundWire SDCA control
-+ * address space (bit 30 set, SDCA function number in bits 25:22), accessed
-+ * through the TX SoundWire slave. The analog core registers (function 0,
-+ * implementation-defined region at +0x180000) are layout-compatible with
-+ * the WCD937x family; on top of that the chip adds SDCA functions
-+ * (SmartMIC0/1/2, SmartJACK, SmartAMP) whose sequencers drive the analog
-+ * power-up autonomously.
-+ */
-+
-+#ifndef __WCD9378_H__
-+#define __WCD9378_H__
-+
-+#include <linux/regmap.h>
-+#include <linux/soundwire/sdw.h>
-+#include <linux/soundwire/sdw_type.h>
-+#include <sound/soc.h>
-+
-+/* SDCA function 0 (extension unit): device identity */
-+#define WCD9378_FUNC_EXT_ID_0			0x40000048
-+#define WCD9378_FUNC_EXT_ID_1			0x40000049
-+#define WCD9378_FUNC_EXT_VER			0x40000050
-+#define WCD9378_FUNC_STAT			0x40080000
-+
-+/*
-+ * FUNC_STAT sticky (write-1-to-clear) bits are everything except the
-+ * live FUNCTION_BUSY flag, as in sound/soc/sdca.
-+ */
-+#define WCD9378_FUNC_STAT_STICKY_MASK		((u8)~SDCA_CTL_ENTITY_0_FUNCTION_BUSY)
-+#define WCD9378_DEV_MANU_ID_0			0x40100060
-+#define WCD9378_DEV_MANU_ID_1			0x40100061
-+#define WCD9378_DEV_PART_ID_0			0x40100068
-+#define WCD9378_DEV_PART_ID_1			0x40100069
-+#define WCD9378_DEV_VER				0x40100070
-+
-+/* Analog core (WCD937x-compatible layout), function 0 + 0x180000 */
-+#define WCD9378_ANA_PAGE			0x40180000
-+#define WCD9378_ANA_BIAS			0x40180001
-+#define WCD9378_ANA_BIAS_ANALOG_BIAS_EN		BIT(7)
-+#define WCD9378_ANA_BIAS_PRECHRG_EN		BIT(6)
-+#define WCD9378_ANA_RX_SUPPLIES			0x40180008
-+#define WCD9378_ANA_TX_CH1			0x4018000e
-+#define WCD9378_ANA_TX_CH2			0x4018000f
-+#define WCD9378_ANA_TX_CH2_HPF1_INIT		BIT(6)
-+#define WCD9378_ANA_TX_CH2_HPF2_INIT		BIT(5)
-+#define WCD9378_ANA_TX_CH3			0x40180010
-+#define WCD9378_ANA_TX_CH3_HPF			0x40180011
-+#define WCD9378_ANA_TX_CH3_HPF3_INIT		BIT(6)
-+#define WCD9378_ANA_MICB1			0x40180022
-+#define WCD9378_ANA_MICB2			0x40180023
-+#define WCD9378_ANA_MICB2_RAMP			0x40180024
-+#define WCD9378_ANA_MICB2_RAMP_SHIFT_CTL_MASK	GENMASK(4, 2)
-+#define WCD9378_ANA_MICB2_RAMP_EN		BIT(7)
-+#define WCD9378_ANA_MICB3			0x40180025
-+#define WCD9378_BIAS_VBG_FINE_ADJ		0x40180029
-+#define WCD9378_MBHC_CTL_SPARE_1		0x40180058
-+#define WCD9378_MICB1_TEST_CTL_2		0x4018006c
-+#define WCD9378_MICB2_TEST_CTL_2		0x4018006f
-+#define WCD9378_MICB3_TEST_CTL_2		0x40180072
-+#define WCD9378_TX_COM_TXFE_DIV_CTL		0x4018007b
-+#define WCD9378_TX_COM_TXFE_DIV_SEQ_BYPASS	BIT(7)
-+#define WCD9378_SLEEP_CTL			0x40180103
-+#define WCD9378_SLEEP_CTL_BG_CTL_MASK		GENMASK(3, 1)
-+#define WCD9378_SLEEP_CTL_BG_EN			BIT(7)
-+#define WCD9378_SLEEP_CTL_LDOL_BG_SEL		BIT(6)
-+#define WCD9378_TX_NEW_CH12_MUX			0x4018012e
-+#define WCD9378_TX_NEW_CH12_MUX_CH1_SEL_MASK	GENMASK(2, 0)
-+#define WCD9378_TX_NEW_CH12_MUX_CH2_SEL_MASK	GENMASK(5, 3)
-+#define WCD9378_TX_NEW_CH34_MUX			0x4018012f
-+#define WCD9378_TX_NEW_CH34_MUX_CH3_SEL_MASK	GENMASK(2, 0)
-+#define WCD9378_HPH_RDAC_GAIN_CTL		0x40180132
-+#define WCD9378_HPH_RDAC_HD2_CTL_L		0x40180133
-+#define WCD9378_HPH_RDAC_HD2_CTL_R		0x40180136
-+
-+/* Digital page */
-+#define WCD9378_TOP_CLK_CFG			0x40180407
-+#define WCD9378_CDC_ANA_TX_CLK_CTL		0x40180417
-+#define WCD9378_CDC_ANA_TXSCBIAS_CLK_EN		BIT(0)
-+#define WCD9378_CDC_AMIC_CTL			0x4018045a
-+#define WCD9378_PDM_WD_CTL0			0x40180465
-+#define WCD9378_PDM_WD_CTL1			0x40180466
-+#define WCD9378_EFUSE_REG_16			0x401804c0
-+#define WCD9378_EFUSE_REG_29			0x401804cd
-+#define WCD9378_PLATFORM_CTL			0x401804f0
-+
-+/* Sequencer block (SEQR) */
-+#define WCD9378_SYS_USAGE_CTRL			0x40180501
-+#define WCD9378_SYS_USAGE_CTRL_MASK		GENMASK(3, 0)
-+#define WCD9378_HPH_UP_T0			0x40180510
-+#define WCD9378_HPH_UP_T9			0x40180519
-+#define WCD9378_HPH_DN_T0			0x4018051b
-+#define WCD9378_SEQ_TX0_STAT			0x40180592
-+#define WCD9378_SEQ_TX1_STAT			0x40180593
-+#define WCD9378_SEQ_TX2_STAT			0x40180594
-+#define WCD9378_MICB_REMAP_TABLE_VAL_3		0x401805a3
-+#define WCD9378_MICB_REMAP_TABLE_VAL_4		0x401805a4
-+#define WCD9378_MICB_REMAP_TABLE_VAL_5		0x401805a5
-+#define WCD9378_SM0_MB_SEL			0x401805b0
-+#define WCD9378_SM1_MB_SEL			0x401805b1
-+#define WCD9378_SM2_MB_SEL			0x401805b2
-+#define WCD9378_SM_MB_SEL_MASK			GENMASK(1, 0)
-+#define WCD9378_MB_PULLUP_EN			0x401805b3
-+
-+/* SmartAMP SDCA function */
-+#define WCD9378_SMP_AMP_FUNC_STAT		0x40880000
-+#define WCD9378_SMP_AMP_FUNC_ACT		0x40880008
-+
-+/* SmartJACK SDCA function (hosts ADC2 when fed from AMIC2) */
-+#define WCD9378_CMT_GRP_MASK			0x40c00008
-+#define WCD9378_SMP_JACK_IT31_MICB		0x40c00798
-+#define WCD9378_SMP_JACK_IT31_USAGE		0x40c007a0
-+#define WCD9378_SMP_JACK_PDE34_REQ_PS		0x40c00808
-+#define WCD9378_SMP_JACK_FUNC_STAT		0x40c80000
-+#define WCD9378_SMP_JACK_FUNC_ACT		0x40c80008
-+#define WCD9378_SMP_JACK_PDE34_ACT_PS		0x40c80800
-+
-+/* SmartMIC0/1/2 SDCA functions (ADC1/ADC2/ADC3 sequencers) */
-+#define WCD9378_SMP_MIC_BASE(n)			(0x41000000 + (n) * 0x400000)
-+#define WCD9378_SMP_MIC_IT11_MICB(n)		(WCD9378_SMP_MIC_BASE(n) + 0x98)
-+#define WCD9378_SMP_MIC_IT11_USAGE(n)		(WCD9378_SMP_MIC_BASE(n) + 0xa0)
-+#define WCD9378_SMP_MIC_PDE11_REQ_PS(n)		(WCD9378_SMP_MIC_BASE(n) + 0x108)
-+#define WCD9378_SMP_MIC_OT10_USAGE(n)		(WCD9378_SMP_MIC_BASE(n) + 0x3a0)
-+#define WCD9378_SMP_MIC_FUNC_STAT(n)		(WCD9378_SMP_MIC_BASE(n) + 0x80000)
-+#define WCD9378_SMP_MIC_FUNC_ACT(n)		(WCD9378_SMP_MIC_BASE(n) + 0x80008)
-+#define WCD9378_SMP_MIC_PDE11_ACT_PS(n)		(WCD9378_SMP_MIC_BASE(n) + 0x80100)
-+
-+#define WCD9378_MAX_REGISTER			0x41900070
-+
-+/*
-+ * Vendor bus-interface registers of the slave itself: raw 16-bit
-+ * addresses in the direct (unpaged) SoundWire address space, written
-+ * with sdw_write() directly - distinct from the paged codec control
-+ * space all other registers in this file live in.
-+ */
-+#define WCD9378_SWRS_SCP_SDCA_INTRTYPE_1	0xf4
-+#define WCD9378_SWRS_SCP_SDCA_INTRTYPE_2	0xf8
-+#define WCD9378_SWRS_SCP_SDCA_INTRTYPE_3	0xfc
-+
-+/* ITxx_USAGE ADC mode values */
-+#define WCD9378_ADC_USAGE_HIFI			0x01
-+#define WCD9378_ADC_USAGE_LO_HIF		0x02
-+#define WCD9378_ADC_USAGE_NORMAL		0x03
-+#define WCD9378_ADC_USAGE_LP			0x05
-+#define WCD9378_ADC_USAGE_OFF			0x00
-+
-+/* ITxx_MICB usage values */
-+#define WCD9378_MICB_USAGE_OFF			0x00
-+#define WCD9378_MICB_USAGE_PULL_DOWN		0x01
-+#define WCD9378_MICB_USAGE_1P2V			0x02
-+#define WCD9378_MICB_USAGE_1P8V_OR_PULLUP	0x03
-+#define WCD9378_MICB_USAGE_2P5V			0x04
-+#define WCD9378_MICB_USAGE_2P75V		0x05
-+#define WCD9378_MICB_USAGE_2P2V			0xf0
-+#define WCD9378_MICB_USAGE_2P7V			0xf1
-+#define WCD9378_MICB_USAGE_2P8V			0xf2
-+#define WCD9378_MICB_USAGE_REMAP_TABLE_3	0xf3
-+#define WCD9378_MICB_USAGE_REMAP_TABLE_4	0xf4
-+#define WCD9378_MICB_USAGE_REMAP_TABLE_5	0xf5
-+
-+/* PDExx_REQ_PS power states */
-+#define WCD9378_PDE_PS0_ON			0x00
-+#define WCD9378_PDE_PS3_OFF			0x03
-+
-+#define WCD9378_MAX_MICBIAS			3
-+#define WCD9378_MAX_SWR_CH_IDS			15
-+
-+enum wcd9378_tx_sdw_ports {
-+	WCD9378_ADC_1_PORT = 1,
-+	WCD9378_ADC_2_PORT,
-+	WCD9378_ADC_3_PORT,
-+	WCD9378_DMIC_0_1_MBHC_PORT,
-+	WCD9378_DMIC_2_5_PORT,
-+	WCD9378_MAX_TX_SWR_PORTS = WCD9378_DMIC_2_5_PORT,
-+};
-+
-+enum wcd9378_rx_sdw_ports {
-+	WCD9378_HPH_PORT = 1,
-+	WCD9378_CLSH_PORT,
-+	WCD9378_COMP_PORT,
-+	WCD9378_LO_PORT,
-+	WCD9378_DSD_PORT,
-+	WCD9378_MAX_SWR_PORTS = WCD9378_DSD_PORT,
-+};
-+
-+enum wcd9378_tx_sdw_channels {
-+	WCD9378_ADC1,
-+	WCD9378_ADC2,
-+	WCD9378_ADC3,
-+	WCD9378_DMIC0,
-+	WCD9378_DMIC1,
-+	WCD9378_MBHC,
-+	WCD9378_DMIC2,
-+	WCD9378_DMIC3,
-+	WCD9378_DMIC4,
-+	WCD9378_DMIC5,
-+};
-+
-+enum wcd9378_rx_sdw_channels {
-+	WCD9378_HPH_L,
-+	WCD9378_HPH_R,
-+	WCD9378_CLSH,
-+	WCD9378_COMP_L,
-+	WCD9378_COMP_R,
-+	WCD9378_LO,
-+	WCD9378_DSD_L,
-+	WCD9378_DSD_R,
-+};
-+
-+struct wcd9378_priv;
-+struct wcd9378_sdw_priv {
-+	struct sdw_slave *sdev;
-+	struct sdw_stream_config sconfig;
-+	struct sdw_stream_runtime *sruntime;
-+	struct sdw_port_config port_config[WCD9378_MAX_SWR_PORTS];
-+	const struct wcd_sdw_ch_info *ch_info;
-+	bool port_enable[WCD9378_MAX_SWR_CH_IDS];
-+	unsigned int master_channel_map[SDW_MAX_PORTS];
-+	int active_ports;
-+	bool is_tx;
-+	struct wcd9378_priv *wcd9378;
-+	struct regmap *regmap;
-+};
-+
-+#if IS_ENABLED(CONFIG_SND_SOC_WCD9378_SDW)
-+int wcd9378_sdw_hw_params(struct wcd9378_sdw_priv *wcd,
-+			  struct snd_pcm_substream *substream,
-+			  struct snd_pcm_hw_params *params,
-+			  struct snd_soc_dai *dai);
-+#else
-+static inline int wcd9378_sdw_hw_params(struct wcd9378_sdw_priv *wcd,
-+					struct snd_pcm_substream *substream,
-+					struct snd_pcm_hw_params *params,
-+					struct snd_soc_dai *dai)
-+{
-+	return -EOPNOTSUPP;
-+}
-+#endif
-+
-+#endif /* __WCD9378_H__ */
--- 
-2.55.0
+The command then hangs, and the kernel reports:
 
+  powervr 13000000.gpu: [drm] *ERROR* GPU device lost
+
+There are no additional timeout, MMU fault, firmware, clock, or runtime
+PM messages immediately before the device-lost message.
+
+I originally also observed the same failure when GDM started GNOME
+Shell, but reproducing it with vulkaninfo from a non-graphical SSH
+session indicates that this is not specific to Mutter or GNOME.
+
+Since your cover letter reports that vkmark and glmark2-es2-drm work
+with Mesa 26.1.5, I suspect that there may be a difference in the
+kernel configuration or another part of the test environment.
+
+Could you please share the following details from your working setup?
+
+  1. The exact Chromebook board/model used for testing
+  2. The exact kernel base commit
+  3. The kernel configuration, or at least the relevant DRM, PM,
+     generic power-domain, IOMMU, and MediaTek clock options
+  4. Whether CONFIG_DRM_POWERVR was built-in or built as a module
+  5. The firmware SHA256
+  6. The kernel command line and bootloader used
+  7. Whether `vulkaninfo --summary` also completes successfully
+
+My current relevant configuration includes:
+
+CONFIG_PM_SLEEP=3Dy
+CONFIG_PM=3Dy
+CONFIG_PM_GENERIC_DOMAINS=3Dy
+CONFIG_MODULES=3Dy
+CONFIG_DMA_SHARED_BUFFER=3Dy
+CONFIG_DRM_POWERVR=3Dm
+CONFIG_DRM_MEDIATEK=3Dy
+CONFIG_SYNC_FILE=3Dy
+CONFIG_COMMON_CLK_MT8173_MFGTOP=3Dy
+CONFIG_IOMMU_SUPPORT=3Dy
+CONFIG_ARM_SMMU=3Dy
+CONFIG_MTK_IOMMU=3Dy
+
+I would be happy to test additional patches or provide any further
+logs, kernel configuration, or debugging information if that would
+help.
+
+Thanks,
+YoungJoon Lee
+
+2026=E5=B9=B47=E6=9C=8829=E6=97=A5(=E6=B0=B4) 0:28 AngeloGioacchino Del Reg=
+no
+<angelogioacchino.delregno@collabora.com>:
+>
+> On 7/28/26 16:44, Chen-Yu Tsai wrote:
+> > On Tue, Jul 28, 2026 at 10:33=E2=80=AFPM AngeloGioacchino Del Regno
+> > <angelogioacchino.delregno@collabora.com> wrote:
+> >>
+> >> On 7/28/26 15:13, Chen-Yu Tsai wrote:
+> >>> On Tue, Jul 28, 2026 at 9:10=E2=80=AFPM Brian Masney <bmasney@redhat.=
+com> wrote:
+> >>>>
+> >>>> Hi Chen-Yu,
+> >>>>
+> >>>> On Tue, Jul 28, 2026 at 05:17:58PM +0800, Chen-Yu Tsai wrote:
+> >>>>> Hi everyone,
+> >>>>>
+> >>>>> This is v4 of my MT8173 PowerVR GPU support series.
+> >>>>>
+> >>>>> This time around Mesa was ready for basic testing, using both vulka=
+nmark
+> >>>>> and glmark2-es2-drm (with Zink). Details below.
+> >>>>>
+> >>>>> Changes since v3 (all in the clk driver patch):
+> >>>>> - Changed pm_runtime_put() to pm_runtime_put_sync()
+> >>>>> - Added missing of_node_put() in remove function
+> >>>>>
+> >>>>> Changes since v2 (all in the clk driver patch):
+> >>>>> - Made COMMON_CLK_MT8173_MFGTOP depend on PM
+> >>>>>     - Needed since the driver implements PM domains using the gener=
+ic PM
+> >>>>>       domain library, which also depends on PM
+> >>>>>     - Fixes build breakage (kernel test robot)
+> >>>>> - Fixed "RST_DELAY_CNT" name (Brian)
+> >>>>> - Dropped unused mfg_desc (Brian)
+> >>>>> - Added check of clk_prepare_enable()'s return value in
+> >>>>>     clk_mt8173_mfgtop_power_on() (Brian)
+> >>>>> - Saved error value for return in IS_ERR(data->clk_26m) branch
+> >>>>>     (Dan Carpenter / kernel test robot w/ smatch)
+> >>>>>
+> >>>>> Changes since v1:
+> >>>>> - Adapted to changed DT bindings
+> >>>>> - Dropped driver change
+> >>>>> - Use same power domain for "a" and "b" GPU power domains
+> >>>>>
+> >>>>>
+> >>>>> This series enables the PowerVR GPU found in the MT8173 SoC, found =
+in
+> >>>>> some Chromebooks.
+> >>>>
+> >>>> I'm making a pull for Stephen for the clk changes. Should patches 1,=
+2,4
+> >>>> go through the clk tree? Patches 3,5 go through the DRM tree?
+> >>>
+> >>> Only patches 1 and 2 should go through the clock tree.
+> >>>
+> >>> Patch 3, 4, 5 can all go through the soc tree if Angelo wants to pick=
+ up
+> >>> DT binding patches. Otherwise I can push patch 3 through drm-misc.
+> >>>
+> >>
+> >> Not sure if I can really take the DRM bindings patch through soc.
+> >>
+> >> I will take the devicetree ones exactly right now, even though it's go=
+ing to
+> >> give warnings.
+> >>
+> >> I trust that you'll make the binding get into linux-next before it's t=
+oo late.
+> >
+> > Rob beat me to it. :D
+>
+> Love it!
+>
+> Thanks Rob :-D
+>
+> Cheers,
+> Angelo
