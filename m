@@ -1,591 +1,176 @@
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011036.outbound.protection.outlook.com [52.101.70.36])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 077D5285CB4
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 01:21:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12439287247;
+	Wed, 29 Jul 2026 01:21:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.36
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785288104; cv=pass; b=p7569b9Nx0fLFJkzdtdQmzrhu7HVcEa6LDGWQ0HxftUNSivs3DHE5o6NpFeU8alo1rtlxUkJ2Di8/wBW+F3VS6dSjMGgZgmMI74S9/GvLhH9sO3wuc3GmMQyAPpcmx35jEA8wIwrwe29EGXtmakWwXa34maxYUud3Fb3PTv0bCA=
+	t=1785288118; cv=fail; b=Y58gBCz9armFRJu2aAt5ZCmq16VGBr753lL6SxLof+7R7V+k3cwL/nZWdE+K+A6UoDQQdUknnLUY0RqYb0bMHrLILmqh3ih/qY92feRhGkSG9xOFtv+Njfz1uR/LIByfWn3wW9yzuSvdLEe9Q7kD+ChMlVRtEPo2UkXboPM7LBM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785288104; c=relaxed/simple;
-	bh=QAWcP+VBH0+vyCxvrAr8FdGTeexiTUFST6hV5JQpnso=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JEgek+qgcbEFBLqOWozPVPl63PzcUh/4/ix/FjUlmz82Pxabx/kD/VBF4oJJEWuc+Jn2ADJqHlTGecY9FFhK8rV8pJF9n4wKqaVJzPzlGF8wDpL8Cg8TTSWUW6EWN9jjktuCDsQGpo+1AdwvOARKsfli3i4tExutiTAofyxIETQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TP+BOJGm; arc=pass smtp.client-ip=209.85.208.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785288118; c=relaxed/simple;
+	bh=N9CbEHYXLkttpPTqIyZ+jt1CZwm15YLm40sJFPLonGk=;
+	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=UEmmD9Wdqtchi9ohtRJ+viMSFkBJubce3LpVfoiqQn3/ufbZ2iDLOMGXBxXKUTzYsM2Fntw4Rl9ytS1OK/8toxyQNEE+prcS4V3B2eG9ZHzpbZ+tDn6/FXGi8eDZntfHLpq92HVgItotuUVEhC34Kh2n4BAkWLN2pmQUWh41e0A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=l6s97X97; arc=fail smtp.client-ip=52.101.70.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TP+BOJGm"
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-39c83acb86eso3136161fa.1
-        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 18:21:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785288101; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Iwo7090wnjyriVyqKFiU9G8DCfDjvx43CVMJENoVJ+ngOCBJLZGkm2PPIn6le6YRXr
-         bcfg9VpwloK/F6j2iiHCnX/OuKQziqi615dJERsS1anbkSkGgfn5+juFUWa5pWluJumc
-         mYR+T67XsoAZpcSeN95CV3pRgt/laMyiNGMP+0GBFkiGN1tXFKwhIlfp/4bsgOoNzeIZ
-         /tLBcUpnvEKk29mGj3IEFqFK0MZhmW1PYh8LWSQRGe/w1kXTSyD20o5wYxUADHPmowBi
-         omd4zXm0tqhM87Ay4OF4gEr2yX0UJQr5A4cNsFCXo9GcvQl0342enbdYlssru5MYk8gU
-         Oz9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=AnRdLsh923Pk5BBlDr27FcT7vp2fr2DhBy6XMLZMvCY=;
-        fh=OOcRAk+sYf/9bEEJBkLHhjAH/TzQMkHJtuyzW/9mZe4=;
-        b=Y2u+XQYEx3afy901rVDXN494FJ7fGRAtHC213+RAr5yAOmtOy5I/yvYFrfV/pWimZR
-         t3ha31ovxBOwgn6+lfNdDMAxBHJFksxK9qua3nb0wnYxjvGQxXyX2bJ+UHgI0XQl/0Hu
-         dXoTiPwyZmdsFdUlZauh+sba3IeEQbkqq37oshLACLpsS9Lt/PCgR/IXRTzs1FTIcSWa
-         HM/VHtBngH3Vb8bo1uD6XwuWc1d+zK+kJCSd7W7L2HqN/BKH6jTk1PplnqxODpAeQPtZ
-         8ER6hO8n9qBAMwuz4QqdTTW2E56h5G5GkF26tpu+ZhutsA0gRYciFCUG5fCrLhYAii90
-         dELw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785288101; x=1785892901; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=AnRdLsh923Pk5BBlDr27FcT7vp2fr2DhBy6XMLZMvCY=;
-        b=TP+BOJGmnsXMBvxtylnwW/S/qzjrRvdPMx4rXTuDTFvluYxb81r7k2goDEVA2PL3w3
-         BhhBFHhfVI7wTfhJQSTFLiIjIHJREfYna9rzz+wlS8IPxz8+9pDZOeaBf2L9ScjD3ShF
-         FJgFoDyAl3ESHRNC+PMJVTk9xIz2rI55oDTRHEoLZdJdvEjTn94RO5HI64aNVPQzugl6
-         U34ilSv5is4ttGy2PG6bvr4K2Sws73XIFGzMJHtuvP0i47o7D6wZk6faulfl71OgWfAb
-         uQ6dKV01G8Kdz3BxADaVocylLhQPZ/hnxQE3eMXWJRIrygkPOvIZ71QYZggRKW66OMFs
-         2IkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785288101; x=1785892901;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AnRdLsh923Pk5BBlDr27FcT7vp2fr2DhBy6XMLZMvCY=;
-        b=e2JpP1VsUNFoCv+hGIEC2ZQKiiDRubrI3lNI0Wm/3L/eEJy6BSbQFI/R1YSaS4fSuH
-         CWhyKlAP+a89Ncb57+JDvNQaCqaZ+hkCMKlDh2IeK3Is3hus+vDKDkl/cz88YBYGxn5d
-         th2VnnKdYJXva2rdBedpJ/JcBoWkRr0O+hDbnq7/DuqhwL0B7QGVfM2m4ZJXycjTxGOl
-         5m8YEFgEzwWvjlF2CYXlgj8U2SfthmorHxIqU5Z0FpborljMoQZq2gBY3/vSbDPZ9dYn
-         qw03jci0p5pjw+e6CrckP9ZyHJm9i8uxcd79gkulEEmddQ4EI41khw4/xiFoIXFpPQFp
-         9NLg==
-X-Forwarded-Encrypted: i=1; AHgh+Rp3OzuyLmZ6rZ1CIT+hH6pMwXftCtNyEezOQe9g3uRtHFnr5vnXAxQzCSPw+d6QrEIJu6Ww65o0T7+u@vger.kernel.org
-X-Gm-Message-State: AOJu0YzbbhiDsANu+OVTiqHRhd1th9u1i9FDV3eBhf6N+tV51sw9m2A2
-	IxtpdkPX6KbdyFfzgcXsBd4uMmXD0RS2DJY2GDGS8M3SQYIR3z/grKL984+cLTg9dIP6yA9VCBa
-	Rj1ZgSIcrOqpkbRVXHyX5FspO+MHF2gFyo8SD
-X-Gm-Gg: AR+sD11K7KWAqEF+4Z8ltzMkSmuNPttqIYszR/2bf1K9lTjCkx6rktmr3wc4rfQdSbb
-	brYCeJ0LDiZehn4oWl22Cf/itUf1B/ZFN/OCvcZ5ekp8zlc4IbSezvOUTdDzm+2/oXR6YlhmknA
-	Jo8+Fcr0cugVuihXpVGvZAlPGTwWr+uwm/qTQyHuapO/s1MoHc3KuY3rmP25j20OaRX0zP0Hzp+
-	QKh/eGZQqcjVwu5KZKWYWfdqYGDEVUH/+tNxV7ifpzJIxxNL1AfbaLb/uBC5N28def1eGbt2GLw
-	cvLLMETVOIELWxDYFc9xOBxNcWCnpNd0GnavRnobR12lew==
-X-Received: by 2002:a05:651c:211d:b0:39c:9e1c:7cd with SMTP id
- 38308e7fff4ca-39f51e5887emr8422161fa.39.1785288100701; Tue, 28 Jul 2026
- 18:21:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="l6s97X97"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aJZw9HIlsWcoYXnTdbrrKeMI27nbb+Lz3OeeYvbPio/tWVahNtj3Eo9TpW3SKX/QWNM1wIib4620Qq4vUHn7gqKIH2CagboMNZCi+WWfd+6VjhiC3UPELKuW9HCoM3FXcBEOgqfsZbJ5243TkEKFhNch/4EuvbOXCRo7UIkfHPHAherVG2kOk28unogbLrUS7wcTt1gESEFUQiqTVQhHTcRvv92dlR4UFW+q9vvonBcj53JiJb9sBorYIwkjsbZTFqTz0gHR3pLxgMGiJ+RRjeptm1eQXkHjlPGHAbzTCexznTy9lfRj08Y0K9y7iUTnHNOk5NALZKpWA+nQSL+JuQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xm5DFAo+VX9a4ezM/0xvDvsb22fQqXVWusY0bfnvFYk=;
+ b=iIuaT/Mq/35q6bryfh9j5nEJ9+7tHEReSk2CFrDlFDQd21J+SXzBTkpWhdctf7Sj0P97dMI+F1q0XHySBoiQdYUxG2WphL/8+XUAgv0xdR5BtMmLal3p3u2vLyZ4tsbqyXc8EksicCX92O8v6YDhzPEOEw6Rdka6HQwjuYXr1gf7wVAhu9CTANeYeChTuxUvJjtmBS2HvwJnuYWtLqvb3IySzzbs5S/9bP3/emjC+JUPdA0jemksflayBZf5/SQlMagUkwnznvzn9TPkAbSGqNpzjochck+vwpoVeb5dAesBvpBd7ibad2fcQ7QaMAMuY4iJ8fOYIzt9OZTIPJcwIg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xm5DFAo+VX9a4ezM/0xvDvsb22fQqXVWusY0bfnvFYk=;
+ b=l6s97X97lmFbXJdLPN5bWVWoL4q0Au3ZjDCseyBLqivbCwLqIpDWXuI9UyChskpALGafr4su3floVL4wICUAgnhlHSKGUChNnIdEdG2lensz0Z4iZXak8c+5KBC/v4ihhk1rzuvzr2+mCDInoKZEmDx0g03BXn83Ry8m9ITyxcP4TM9k9xyXVdlv/lFs1Mk33TLVNbi72M69YZNRgOwLdxt9dDWnmkXyYDDe8ZD8gHNy+iM25Jy29F39BqvGXANeL2ZeOBq0q+w9zve6fg4yyoOdbKxJPE5yfZ9eWWR68CU6TcrOQAWZGXCkNZ+O5w4Dr2heoMYufFEViP5U2dvBhw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+ by DU4PR04MB12274.eurprd04.prod.outlook.com (2603:10a6:10:62b::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12; Wed, 29 Jul
+ 2026 01:21:54 +0000
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0245.010; Wed, 29 Jul 2026
+ 01:21:54 +0000
+From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Subject: [PATCH 0/7] arm64: dts: freescale: rename vdevbuffer to
+ vdev0buffer
+Date: Wed, 29 Jul 2026 09:25:35 +0800
+Message-Id: <20260729-rproc-dts-v1-0-368bca0b309f@nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAI9WaWoC/yXMQQ5AMBBA0avIrDWhTRBXEYtqp4wFMoNIGndXL
+ F/y8yMIMqFAm0VgPEloXRLKPAM32WVERT4ZdKGrotaN4o1Xp/wuygRjSh9qh9ZC6jfGQNf36vr
+ fcgwzuv0dwH0/aX+PRm0AAAA=
+X-Change-ID: 20260728-rproc-dts-3f331df7ceaa
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Francesco Valla <francesco@valla.it>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Peng Fan <peng.fan@nxp.com>
+X-Mailer: b4 0.16-dev-7bc12
+X-ClientProxiedBy: MA5P287CA0261.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1f1::17) To AM8PR04MB7874.eurprd04.prod.outlook.com
+ (2603:10a6:20b:24d::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260728-ti-ads112c04-driver-v1-0-475efe4e2b78@gmail.com>
- <20260728-ti-ads112c04-driver-v1-2-475efe4e2b78@gmail.com> <2f2d7ae4-1923-4a57-9939-63361f2ff5ca@baylibre.com>
-In-Reply-To: <2f2d7ae4-1923-4a57-9939-63361f2ff5ca@baylibre.com>
-From: Kyle Hsieh <kylehsieh1995@gmail.com>
-Date: Wed, 29 Jul 2026 09:23:29 +0800
-X-Gm-Features: AUfX_myh7WBiwO5itXKuiSkiHU9EbPtIt3nLaUifDHWyr9O4SqmM2iwLloeOCo8
-Message-ID: <CAF7HswNFg2DkD2Wif=9Hv3cyak5UVdBOUKhkH-iYBJ0NMaTxGA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] iio: adc: ti-ads112c04: Add support for TI ADS112C04
-To: David Lechner <dlechner@baylibre.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, linux-iio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|DU4PR04MB12274:EE_
+X-MS-Office365-Filtering-Correlation-Id: ca42c7ce-b202-4ef8-6e76-08deed0fc64c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|19092799006|376014|7416014|56012099006|11063799006|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	tHFbekVoc3tt5/eXvJBzaZyI8q53eBuFRgJxBnMezm+kgin8ZA4Z7/i6o467g5aUKUfatcJHJAJe0v7p0XMrO9tDTqBcxZb4ix7ZuwmxvNKtS28zOOVqh4RmrYRydocQEva/LPScmzjOsW9y6fnJK1VD7lSDUDV8PiIJYjBtuXVmUDThQh29LcBL7FFBUaVhPWZr7YgRo/vb+GsqOc2moE0NSQTwZaQmzJ63yA7kLuepZ2jXPbKwbpTIWBhqQOAx4t003enE16xcP+QOM5+0NTYNbpp/0sYgnlmBULWj0WLo1OI2dpVl1TMFSD7AomRcC/3YLMByA+7BwHH9QqJvtNXijwsReI3bMQbSLyEmaKMC+lYlLXmap5KkY+Sz5p6p7F9E0wFBFkFloqVRvf+ILvD7Fp9chHa227SNSefMATERRL8x7aYx4wdpg77By0V+FGshwtPdksHVrFtHfYtSLD4JF+bFzR0HL1zIAHSjxp/7hHlYbxj+9QJ7OS71Uyhit5yh2c2KAXnujSaEbCmU+P7t5Bw/Z2EYGbG0NxN4S63edc7JUCJbuT2wPbHkz5r6erPUPQZovd13O4Mi7LDIfkhqwmxdFWjzIZUBlM6cGrvRnd0oyReQGAQdCF/UOw67XybzVhGM5pgrZtLlXvYxWQ/bvRu+YkzYAaMpP7Hjues=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(19092799006)(376014)(7416014)(56012099006)(11063799006)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?OWQ2OVVweEg5dmZBRndIakp0cTR3Y2lrVjNhUWZQcDhFd1dzS2lyMlVwUDN3?=
+ =?utf-8?B?UmZyVmNiQ2lGU0tJQy9nLzM1eDZLV01nclUvOUdMdEUwOWNVSzZkcW9Rakhs?=
+ =?utf-8?B?U0JscTdGVm1pZ1FGMTN0aUpjT0JwdWtmV0JGdzlqdFZSWjZwQk83MDhkSThq?=
+ =?utf-8?B?b0tKV2t0eHJXWHlvenc2Yit6SmNCeUdhRG1CNTdLL2ZianJoeGhLeUw5OG9C?=
+ =?utf-8?B?clRrbjVoMFFNaXhCRzNORWplT2h4WUxHd04xZUIxZDdGR2V2MU1CNEdUTE5F?=
+ =?utf-8?B?cWh3VUo5a2pYTUxYdHRDaDFDYlI4V0JNK2U5NXRHYmloL2FUVmVEMlRHaVAw?=
+ =?utf-8?B?a0xPbHZlZE9Bam9BN0lNMHNsUUZFMlpWSjNTaVBQZWhNUFZ2QStxME1MNlhR?=
+ =?utf-8?B?ZEF5TVZDWVE1MjZWTUlkVWF4NGNZMmJFWFZTc0dwejE0VWNSTURZUE9NTzVa?=
+ =?utf-8?B?dDFieGdFSDgzbUNFV3J6YjEra0pFSDAxUHpmMjJ1REdjN1cvNFh3YVcwZ2Rt?=
+ =?utf-8?B?azhBdnZXQ1VEMExpbXZyV3dIbjFFbitZS1huTDNRRU1LeUIvVjdyVGpoODdy?=
+ =?utf-8?B?dGtrOGQrTGR0Z1MvTzh1cUJJbmtWWVNEQzFxOVh1c2RETWlFOVppU21KSWNY?=
+ =?utf-8?B?MzAvQnZvTXd1bnVEVktBV0EwdE0vUWFrdUhtK01SRnJyS1ZRYkVobW9Lc3dz?=
+ =?utf-8?B?VllhOXRzV09ISjVpRGFscDM4QUtLdWxXSUlkeGdCdEZQT3JTc3laeVg0c3Vr?=
+ =?utf-8?B?d3dKVGZzWHdnVlZDMVlvTVcwc0hsb0pPdi9yQkJRK1FLNjhGZnBrQ1ZDMlpy?=
+ =?utf-8?B?TUFSVTEyMTZnbVQrTU9FZk9CeVk5Q08zWkQyRWU2M0dXWW5kT0xMRnFCbSt0?=
+ =?utf-8?B?K0ZVZlVTWmJpTXhjZkk2UTRNQWFsek0xV1hqOVhzRlRObHhSeGtMS2J1Y1BD?=
+ =?utf-8?B?YTNzT2swalcvRmhkZzhwUmVxU0I4by9KNVlZQUdtZnQvWUVGcXU0UGthMllV?=
+ =?utf-8?B?cVd4MkN4ZGFiSkg0T1MxYTMzTG9MYzRSV0FCVlljc1EyWmpTR0twenVCRHM4?=
+ =?utf-8?B?SmU4b1kxRWZQTXBLVEZkT2s1SFI3bWxVM0IzbHZFRlpWblRrNDVlRUthamhT?=
+ =?utf-8?B?L2lUVTFvQnVQaDdoeTV6VUc4UExxOUdURTQrWVZGUndqR0h0UmFvWCtrSkdh?=
+ =?utf-8?B?QkxBWC9jWFlLWnNXZXBoeUpLY2djV2VVUlFNUGpRV2sraTNDY1J4d3dYWkNp?=
+ =?utf-8?B?SEFZM1FUUFE0UFdoYmZ3QXphVHBuZDhUM013QllHSHZoWmFHWnNGdWFxSFZB?=
+ =?utf-8?B?MG9xcVp6aC9MVWJRamtvdy9LcHJQTyt5a0pQa0JrSXpObU1TZlMwN0JrYmZZ?=
+ =?utf-8?B?enM3WW1qY0QydWFZUzhib0xqejBxZXdaeEZwbllXRWhQaVBFVjFCZlVFY25U?=
+ =?utf-8?B?bTdERHVhV0ZMdmkrSzdLRUhwVVhFSVpPTk1ReHBBM0RteVZmVXhNWTdVbzlB?=
+ =?utf-8?B?SVFrUWxSQ2dpZUZsaDVxRTlpdHRXMjFTRngvZEw2WjdCZW1qN1o4akplNjN6?=
+ =?utf-8?B?bmdVSGFNOVRkdm5Hb2t4REFScDdnT2luL1Y1U3BqUHhhQVcrUDA3ajcwNFN1?=
+ =?utf-8?B?MWxtdnlWaWRJRldKN1JmK0dvTG9ZVElOOXRYc042QTBzQmE1dkYrNkloMFJr?=
+ =?utf-8?B?ZjI4WmlJU1EvY3RSNThNQXRlLzNpa3pDSUtxajhsMndHd25LQUpFOE12M1NF?=
+ =?utf-8?B?d0dTbU5yZk14WnNCYTBQckQwTmJuRThscDBCc3FoK1VadHA4OXRQMGxhZjM4?=
+ =?utf-8?B?M2wvaXdQZ29EOVR5ZDExQnl4V1JTWlZrWjVNV0NtNXpPWWRBK1ZTZSszbzRR?=
+ =?utf-8?B?bUtoRklRSm9pS0VxZzZBaEV0Sm9sd0p2NndLR2E5cTZRMjBNbWFCOTJtU2Er?=
+ =?utf-8?B?cjBzcFFZbktXRDl5VVFGUXo5Z2pHQmxJblZEbHYxN3EyTUdmNEgydEYzL3hm?=
+ =?utf-8?B?T21ucW5uK2JXbnFYMGxOUUo0VHhUTFZXR2hHSmdTK3ppMVdaOElqeUxhZ0Z5?=
+ =?utf-8?B?Q3IyaGRwNk5jTFlxd3h2eVNJdDBMcUx2M0pnTXdsMmJWRVFVbTduNVlFRjNj?=
+ =?utf-8?B?TTBONzJnOEFCaUZzMzI2WlB3REQzY3dNWTVMcWxXL0tvWE9hZ0dDVzF2VTFv?=
+ =?utf-8?B?MEZxVjREeXpJMGtWWnJnb3RnYXZkUllnYkg3T2h1WU5WWVJEakwySUcwRFFh?=
+ =?utf-8?B?MWQrZ3RnR3Y4ZHlZNExsL0JPNkN2TEMxWmFTeXhmSEsrd05RY3I3eXp3emNG?=
+ =?utf-8?B?NEVzMzVvNW16Sy9GZzZuYTJ6enJaSjdHZGtPRDNoeE02ZGdHMm9ERnUyN28z?=
+ =?utf-8?Q?xsds/cKJqvKcQC5ijTMrqxGrrxw0s04J6NDWX?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ca42c7ce-b202-4ef8-6e76-08deed0fc64c
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2026 01:21:54.3113
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 11vDVASFd4XxQt8aCBv+NFkqKNhIvvPToJcSY37xa6cUz29vGRxNNa1tn5Rh12W3G0jKQGBE8m96EnrgMigsCIX38hglAmc4X4PdSzI2atbfFyUKvgIROGDRmXGjcQ6C
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB12274
 
-Hi David,
+The imx_rproc driver checks for the name "vdev0buffer" to skip mapping
+the vdev buffer region, as it is handled by rproc_add_virtio_dev.
+With the node named "vdevbuffer", the check fails and the region gets
+unnecessarily mapped. Rename it to "vdev0buffer" across multiple i.MX
+board dts files to match what the driver expects.
 
-Thank you for the detailed review and for pointing out the modern kernel AP=
-Is.
+In theory, dts should not change because of driver expecting, but the
+dts changes were landed upstream at late stage, so correct the dts in
+this patchset.
 
-On Tue, Jul 28, 2026 at 11:21=E2=80=AFPM David Lechner <dlechner@baylibre.c=
-om> wrote:
->
-> On 7/28/26 3:01 AM, Kyle Hsieh wrote:
-> > Add IIO driver support for the Texas Instruments ADS112C04 (16-bit)
-> > delta-sigma ADCs.
-> >
-> > The driver implements:
-> > - Single-shot conversions using the IIO raw read interface.
-> > - MUX configuration for single-ended and differential channels.
-> > - Hardware interrupt support via the DRDY pin, falling back to
-> >   software polling of the configuration register if no IRQ is provided.
-> > - Scale calculation based on the internal 2.048V reference.
-> > - Dynamic reference voltage scaling via the regulator subsystem
-> >   (vref-supply), falling back to the internal 2.048V reference
-> >   if not specified.
->
-> Nice to see it starting with a minimal feature set like this. Makes it ea=
-sy
-> to review.
->
-> In the cover letter, it would be nice to know if this is all the features
-> you need or if you plan to add more soon.
-I will clarify this in the next version cover letter. This minimal set
-covers our
-current use case now.
->
-> >
-> > Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
-> > ---
-> >  drivers/iio/adc/Kconfig        |  10 ++
-> >  drivers/iio/adc/Makefile       |   1 +
-> >  drivers/iio/adc/ti-ads112c04.c | 317 +++++++++++++++++++++++++++++++++=
-++++++++
-> >  3 files changed, 328 insertions(+)
-> >
-> > diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-> > index 3755a81c1efd..402e841bc083 100644
-> > --- a/drivers/iio/adc/Kconfig
-> > +++ b/drivers/iio/adc/Kconfig
-> > @@ -1789,6 +1789,16 @@ config TI_ADS1119
-> >           This driver can also be built as a module. If so, the module =
-will be
-> >           called ti-ads1119.
-> >
-> > +config TI_ADS112C04
-> > +     tristate "Texas Instruments ADS112C04 ADC"
-> > +     depends on I2C
-> > +     help
-> > +       If you say yes here you get support for Texas Instruments
-> > +       ADS112C04 (16-bit) I2C analog to digital converters.
-> > +
-> > +       This driver can also be built as a module. If so, the module wi=
-ll be
-> > +       called ti-ads112c04.
-> > +
-> >  config TI_ADS124S08
-> >       tristate "Texas Instruments ADS124S08"
-> >       depends on SPI
-> > diff --git a/drivers/iio/adc/Makefile b/drivers/iio/adc/Makefile
-> > index 707dd708912f..ebf9d4047a5a 100644
-> > --- a/drivers/iio/adc/Makefile
-> > +++ b/drivers/iio/adc/Makefile
-> > @@ -153,6 +153,7 @@ obj-$(CONFIG_TI_ADS1015) +=3D ti-ads1015.o
-> >  obj-$(CONFIG_TI_ADS1018) +=3D ti-ads1018.o
-> >  obj-$(CONFIG_TI_ADS1100) +=3D ti-ads1100.o
-> >  obj-$(CONFIG_TI_ADS1119) +=3D ti-ads1119.o
-> > +obj-$(CONFIG_TI_ADS112C04)   +=3D ti-ads112c04.o
-> >  obj-$(CONFIG_TI_ADS124S08) +=3D ti-ads124s08.o
-> >  obj-$(CONFIG_TI_ADS1298) +=3D ti-ads1298.o
-> >  obj-$(CONFIG_TI_ADS131E08) +=3D ti-ads131e08.o
-> > diff --git a/drivers/iio/adc/ti-ads112c04.c b/drivers/iio/adc/ti-ads112=
-c04.c
-> > new file mode 100644
-> > index 000000000000..0f1d415e3f21
-> > --- /dev/null
-> > +++ b/drivers/iio/adc/ti-ads112c04.c
-> > @@ -0,0 +1,317 @@
-> > +// SPDX-License-Identifier: GPL-2.0
->
-> Prefer either GPL-2.0-only or GPL-2.0-or-later (your choice).
->
-> > +/*
-> > + * Texas Instruments ADS112C04 16-bit I2C ADC driver
-> > + * Based on TI Reference Code and standard Linux IIO framework.
-> > + */
-> > +
-> > +#include <linux/module.h>
-> > +#include <linux/i2c.h>
-> > +#include <linux/delay.h>
-> > +#include <linux/interrupt.h>
-> > +#include <linux/mutex.h>
-> > +#include <linux/iio/iio.h>
-> > +#include <linux/iio/sysfs.h>
-> > +#include <linux/regulator/consumer.h>
-> > +
-> > +/* ADS112C04 Commands */
-> > +#define ADS112C04_CMD_RESET         0x06
-> > +#define ADS112C04_CMD_START_SYNC    0x08
-> > +#define ADS112C04_CMD_POWERDOWN     0x02
-> > +#define ADS112C04_CMD_RDATA         0x10
-> > +#define ADS112C04_CMD_RREG(reg)     (0x20 | ((reg) << 2))
-> > +#define ADS112C04_CMD_WREG(reg)     (0x40 | ((reg) << 2))
-> > +
-> > +/* Registers */
-> > +#define ADS112C04_REG_CONFIG0       0x00
-> > +#define ADS112C04_REG_CONFIG1       0x01
-> > +#define ADS112C04_REG_CONFIG2       0x02
-> > +#define ADS112C04_REG_CONFIG3       0x03
-> > +
-> > +/* Config2 Masks */
-> > +#define ADS112C04_DRDY_MASK         BIT(7)
-> > +
-> > +struct ads112c04_state {
-> > +     struct i2c_client *client;
-> > +     /* Protects concurrent ADC reads and device configuration */
-> > +     struct mutex lock;
-> > +     struct completion completion;
-> > +     struct regulator *vref_reg;
-> > +     int vref_mv;
-> > +     u8 config0;
-> > +     u8 config1;
-> > +};
-> > +
-> > +static int ads112c04_write_cmd(struct i2c_client *client, u8 cmd)
-> > +{
-> > +     return i2c_master_send(client, &cmd, 1);
-> > +}
-> > +
-> > +static int ads112c04_read_reg(struct i2c_client *client, u8 reg, u8 *v=
-al)
-> > +{
-> > +     u8 cmd =3D ADS112C04_CMD_RREG(reg);
-> > +     int ret;
-> > +
-> > +     ret =3D i2c_master_send(client, &cmd, 1);
-> > +     if (ret < 0)
-> > +             return ret;
-> > +
-> > +     ret =3D i2c_master_recv(client, val, 1);
-> > +     return ret < 0 ? ret : 0;
-> > +}
-> > +
-> > +static int ads112c04_write_reg(struct i2c_client *client, u8 reg, u8 v=
-al)
-> > +{
-> > +     u8 buf[2] =3D { ADS112C04_CMD_WREG(reg), val };
-> > +     int ret;
-> > +
-> > +     ret =3D i2c_master_send(client, buf, 2);
-> > +     return ret < 0 ? ret : 0;
-> > +}
-> > +
-> > +static int ads112c04_wait_for_data(struct ads112c04_state *st)
-> > +{
-> > +     int ret, timeout =3D 50;
->
-> Why is poll timeout 50x longer than interrupt timeout?
->
-> > +     u8 val;
-> > +
-> > +     /* If IRQ is available, wait for DRDY interrupt completion */
-> > +     if (st->client->irq > 0) {
-> > +             ret =3D wait_for_completion_timeout(&st->completion, msec=
-s_to_jiffies(1000));
-> > +             if (!ret)
-> > +                     return -ETIMEDOUT;
-> > +             return 0;
-> > +     }
-> > +
-> > +     /* Fallback: Poll DRDY bit in CONFIG2 */
->
-> Use read_poll_timeout() or if you convert to use regmap, regmap_read_poll=
-_timeout().
-I will switch to `read_poll_timeout()` and align the timeout duration prope=
-rly.
->
-> > +     while (timeout--) {
-> > +             ret =3D ads112c04_read_reg(st->client, ADS112C04_REG_CONF=
-IG2, &val);
-> > +             if (ret < 0)
-> > +                     return ret;
-> > +             if (val & ADS112C04_DRDY_MASK)
-> > +                     return 0;
-> > +             usleep_range(1000, 2000);
-> > +     }
-> > +
-> > +     return -ETIMEDOUT;
-> > +}
-> > +
-> > +static int ads112c04_read_data(struct ads112c04_state *st, int *val)
-> > +{
-> > +     u8 cmd =3D ADS112C04_CMD_RDATA;
-> > +     u8 buf[2];
->
-> Use __be16 buf;
->
-> > +     int ret;
-> > +
-> > +     ret =3D i2c_master_send(st->client, &cmd, 1);
-> > +     if (ret < 0)
-> > +             return ret;
-> > +
-> > +     ret =3D i2c_master_recv(st->client, buf, 2);
-> > +     if (ret < 0)
-> > +             return ret;
->
-> Can be simplified by using smbus APIs. It would just be one call.
->
-> > +
-> > +     /* 16-bit 2's complement conversion */
-> > +     *val =3D (s16)((buf[0] << 8) | buf[1]);
->
-> And here use be16_to_cpu() and sign_extend32(). Then no comments needed.
-Thank you for the suggestion. I will update the data reading logic to use
-`__be16`, `be16_to_cpu()`, and `sign_extend32()` for a much cleaner
-implementation.
->
-> > +     return 0;
-> > +}
-> > +
-> > +static int ads112c04_get_adc_result(struct ads112c04_state *st,
-> > +                                 struct iio_chan_spec const *chan,
-> > +                                 int *val)
-> > +{
-> > +     int ret;
-> > +     u8 mux;
-> > +
-> > +     mux =3D (chan->address << 4) & 0xF0;
->
-> Use FIELD_PREP().
-Got it.
->
-> > +     if ((st->config0 & 0xF0) !=3D mux) {
->
-> Another option would be to use regmap with cache so that we don't
-> have to keep track of the current config ourselves.
->
-> > +             st->config0 =3D (st->config0 & 0x0F) | mux;
-> > +             ads112c04_write_reg(st->client, ADS112C04_REG_CONFIG0, st=
-->config0);
-> > +     }
-> > +
-> > +     reinit_completion(&st->completion);
-> > +
-> > +     ret =3D ads112c04_write_cmd(st->client, ADS112C04_CMD_START_SYNC)=
-;
-> > +     if (ret < 0)
-> > +             return ret;
-> > +
-> > +     ret =3D ads112c04_wait_for_data(st);
-> > +     if (ret < 0)
-> > +             return ret;
-> > +
-> > +     return ads112c04_read_data(st, val);
-> > +}
-> > +
-> > +static int ads112c04_read_raw(struct iio_dev *indio_dev,
-> > +                           struct iio_chan_spec const *chan,
-> > +                           int *val, int *val2, long mask)
-> > +{
-> > +     struct ads112c04_state *st =3D iio_priv(indio_dev);
-> > +     int ret, raw;
-> > +
-> > +     switch (mask) {
-> > +     case IIO_CHAN_INFO_RAW:
-> > +             mutex_lock(&st->lock);
-> > +             ret =3D ads112c04_get_adc_result(st, chan, val);
-> > +             mutex_unlock(&st->lock);
-> > +
-> > +             if (ret < 0)
-> > +                     return ret;
-> > +             return IIO_VAL_INT;
-> > +
-> > +     case IIO_CHAN_INFO_SCALE:
-> > +             *val =3D st->vref_mv;
-> > +             *val2 =3D 15; /* 2^15 */
-> > +             return IIO_VAL_FRACTIONAL_LOG2;
-> > +
-> > +     default:
-> > +             return -EINVAL;
-> > +     }
-> > +}
-> > +
-> > +static irqreturn_t ads112c04_irq_handler(int irq, void *private)
-> > +{
-> > +     struct iio_dev *indio_dev =3D private;
-> > +     struct ads112c04_state *st =3D iio_priv(indio_dev);
-> > +
-> > +     complete(&st->completion);
->
-> nit: add blank line here.
-Will fix.
->
-> > +     return IRQ_HANDLED;
-> > +}
-> > +
-> > +#define ADS112C04_V_CHAN(_chan, _addr) {                     \
-> > +     .type =3D IIO_VOLTAGE,                                    \
-> > +     .indexed =3D 1,                                           \
-> > +     .channel =3D _chan,                                       \
-> > +     .address =3D _addr,                                       \
-> > +     .info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW),           \
-> > +     .info_mask_shared_by_type =3D BIT(IIO_CHAN_INFO_SCALE),   \
-> > +}
-> > +
-> > +#define ADS112C04_V_DIFF_CHAN(_chan, _chan2, _addr) {                \
-> > +     .type =3D IIO_VOLTAGE,                                    \
-> > +     .differential =3D 1,                                      \
-> > +     .indexed =3D 1,                                           \
-> > +     .channel =3D _chan,                                       \
-> > +     .channel2 =3D _chan2,                                     \
-> > +     .address =3D _addr,                                       \
-> > +     .info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW),           \
-> > +     .info_mask_shared_by_type =3D BIT(IIO_CHAN_INFO_SCALE),   \
-> > +}
-> > +
-> > +static const struct iio_chan_spec ads112c04_channels[] =3D {
-> > +     ADS112C04_V_DIFF_CHAN(0, 1, 0x00),
-> > +     ADS112C04_V_DIFF_CHAN(0, 2, 0x01),
-> > +     ADS112C04_V_DIFF_CHAN(0, 3, 0x02),
-> > +     ADS112C04_V_DIFF_CHAN(1, 0, 0x03),
-> > +     ADS112C04_V_DIFF_CHAN(1, 2, 0x04),
-> > +     ADS112C04_V_DIFF_CHAN(1, 3, 0x05),
-> > +     ADS112C04_V_DIFF_CHAN(2, 3, 0x06),
-> > +     ADS112C04_V_DIFF_CHAN(3, 2, 0x07),
-> > +     ADS112C04_V_CHAN(0, 0x08),
-> > +     ADS112C04_V_CHAN(1, 0x09),
-> > +     ADS112C04_V_CHAN(2, 0x0A),
-> > +     ADS112C04_V_CHAN(3, 0x0B),
-> > +};
-> > +
-> > +static const struct iio_info ads112c04_info =3D {
-> > +     .read_raw =3D ads112c04_read_raw,
-> > +};
-> > +
-> > +static void ads112c04_regulator_disable(void *data)
-> > +{
-> > +     regulator_disable(data);
-> > +}
-> > +
-> > +static int ads112c04_probe(struct i2c_client *client)
-> > +{
-> > +     struct iio_dev *indio_dev;
-> > +     struct ads112c04_state *st;
-> > +     int ret;
-> > +
-> > +     indio_dev =3D devm_iio_device_alloc(&client->dev, sizeof(*st));
-> > +     if (!indio_dev)
-> > +             return -ENOMEM;
-> > +
-> > +     st =3D iio_priv(indio_dev);
-> > +     st->client =3D client;
-> > +     mutex_init(&st->lock);
->
->         ret =3D devm_mutex_init(&st->lock);
->         if (ret)
->                 return ret;
->
-> > +     init_completion(&st->completion);
-> > +
-> > +     indio_dev->name =3D "ads112c04";
-> > +     indio_dev->modes =3D INDIO_DIRECT_MODE;
-> > +     indio_dev->info =3D &ads112c04_info;
-> > +     indio_dev->channels =3D ads112c04_channels;
-> > +     indio_dev->num_channels =3D ARRAY_SIZE(ads112c04_channels);
->
-> We need more information to know how to configure each channel, so we
-> probably won't be able to use fixed channels like this.
-I will drop the fixed array and refactor the driver to parse the
-channel configurations
-dynamically from the devicetree child nodes, matching the dt-bindings updat=
-e.
->
-> > +
-> > +     st->vref_reg =3D devm_regulator_get_optional(&client->dev, "vref"=
-);
->
-> This is gonig to be more compilicated. See ti-ads112c14 driver.
+Not critial fixes. No rush for 7.2
 
->
-> > +     if (IS_ERR(st->vref_reg)) {
-> > +             ret =3D PTR_ERR(st->vref_reg);
-> > +             if (ret =3D=3D -ENODEV) {
-> > +                     st->vref_mv =3D 2048;
-> > +                     st->config1 =3D 0x00; /* VREF[1:0] =3D 00 */
-> > +             } else {
-> > +                     return ret;
-> > +             }
-> > +     } else {
-> > +             ret =3D regulator_enable(st->vref_reg);
-> > +             if (ret)
-> > +                     return ret;
-> > +
-> > +             ret =3D devm_add_action_or_reset(&client->dev, ads112c04_=
-regulator_disable,
-> > +                                            st->vref_reg);
-> > +             if (ret)
-> > +                     return ret;
-> > +
-> > +             ret =3D regulator_get_voltage(st->vref_reg);
-> > +             if (ret < 0)
-> > +                     return ret;
-> > +
-> > +             st->vref_mv =3D ret / 1000;
-> > +             st->config1 =3D 0x02;
-> > +     }
-> > +
-> > +     /* Reset device to defaults */
->
-> There is a hardware reset, so the way we usually do that is to use
-> devm_reset_control_get_optional_exclusive() to see if the gpio is
-> wired up. If it is, use that to do the reset, otherwise fall back
-> to the software reset.
-I will implement the hardware reset fallback logic using
-`devm_gpiod_get_optional()` as you suggested.
->
-> > +     ads112c04_write_cmd(client, ADS112C04_CMD_RESET);
-> > +     usleep_range(1000, 2000);
->
->         fsleep(1000);
->
-> > +
-> > +     /* Set defaults: PGA Disabled (For single-ended safety), Gain=3D1=
- */
-> > +     st->config0 =3D 0x01;
-> > +
-> > +     ads112c04_write_reg(client, ADS112C04_REG_CONFIG1, st->config1);
->
-> Check return value.
-Will fix.
->
-> > +
-> > +     if (client->irq > 0) {
-> > +             ret =3D devm_request_irq(&client->dev, client->irq,
-> > +                                    ads112c04_irq_handler,
-> > +                                    IRQF_TRIGGER_FALLING,
->
-> This flag already comes from the devicetree and should not be hard-coded
-> here.
-I will change this to `0` to inherit the trigger type from the devicetree.
->
-> > +                                    indio_dev->name, indio_dev);
-> > +             if (ret) {
-> > +                     dev_err(&client->dev, "Failed to request DRDY IRQ=
-\n");
-> > +                     return ret;
-> > +             }
-> > +     }
-> > +
-> > +     return devm_iio_device_register(&client->dev, indio_dev);
-> > +}
-> > +
-> > +static const struct i2c_device_id ads112c04_id[] =3D {
-> > +     { "ads112c04", 0 },
->
->         { .name =3D "ads112c04" },
->
-Will update to use the named initializer.
-Thanks again for your time and the fantastic guidance!
-> > +     { }
-> > +};
-> > +MODULE_DEVICE_TABLE(i2c, ads112c04_id);
-> > +
-> > +static const struct of_device_id ads112c04_of_match[] =3D {
-> > +     { .compatible =3D "ti,ads112c04" },
-> > +     { }
-> > +};
-> > +MODULE_DEVICE_TABLE(of, ads112c04_of_match);
-> > +
-> > +static struct i2c_driver ads112c04_driver =3D {
-> > +     .driver =3D {
-> > +             .name =3D "ads112c04",
-> > +             .of_match_table =3D ads112c04_of_match,
-> > +     },
-> > +     .probe =3D ads112c04_probe,
-> > +     .id_table =3D ads112c04_id,
-> > +};
-> > +module_i2c_driver(ads112c04_driver);
-> > +
-> > +MODULE_AUTHOR("Kyle Hsieh <kylehsieh1995@gmail.com>");
-> > +MODULE_DESCRIPTION("Texas Instruments ADS112C04 ADC driver");
-> > +MODULE_LICENSE("GPL");
-> >
->
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
+---
+Peng Fan (7):
+      arm64: dts: imx8dxl-evk: rename vdevbuffer to vdev0buffer
+      arm64: dts: imx8qm-mek: rename vdevbuffer to vdev0buffer
+      arm64: dts: imx8qxp-mek: rename vdevbuffer to vdev0buffer
+      arm64: dts: imx8ulp-evk: rename vdevbuffer to vdev0buffer
+      arm64: dts: imx93-11x11-frdm: rename vdevbuffer to vdev0buffer
+      arm64: dts: imx93-14x14-evk: rename vdevbuffer to vdev0buffer
+      arm64: dts: imx93-9x9-qsb: rename vdevbuffer to vdev0buffer
+
+ arch/arm64/boot/dts/freescale/imx8dxl-evk.dts      | 4 ++--
+ arch/arm64/boot/dts/freescale/imx8qm-mek.dts       | 6 +++---
+ arch/arm64/boot/dts/freescale/imx8qxp-mek.dts      | 4 ++--
+ arch/arm64/boot/dts/freescale/imx8ulp-evk.dts      | 4 ++--
+ arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts | 4 ++--
+ arch/arm64/boot/dts/freescale/imx93-14x14-evk.dts  | 4 ++--
+ arch/arm64/boot/dts/freescale/imx93-9x9-qsb.dts    | 4 ++--
+ 7 files changed, 15 insertions(+), 15 deletions(-)
+---
+base-commit: 0d33d21e47d9dc66f91e44da3fc9220c74d93df7
+change-id: 20260728-rproc-dts-3f331df7ceaa
+
+Best regards,
+--  
+Peng Fan <peng.fan@nxp.com>
+
