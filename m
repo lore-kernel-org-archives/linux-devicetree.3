@@ -1,162 +1,214 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B01744611C2
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 10:52:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 871FB47013D
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 10:59:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785322346; cv=none; b=k1HNwt/8N3i0FxoJ0BZarGoaGW/oHruSPRtVi0SYpNNdG5ok3h9JVKZwDkAPyEtGEKu/YhR+eSPYvKpHJPbMyC5T5B4XzWjTpfWyW08i9UtTYUfcArbK0t9mEbdnKo/Lu+WKvUH2wxM3TeSri0RBNTqBxQdVIt+MQG40TaNSIVw=
+	t=1785322784; cv=none; b=AiTmHJMBo5d9CzjqlrM6eYbzwSjEEaPVMOat8Y367yj+cUxFdSWl8cfRy09lGo9zHU8U5TqhHDHoFXL0qhVrLpzsYEiXTWDR+TB/W08n/i/XDQnyp9xWyLHTmWfpHkb0naZdaG7iEsH40C8pgikZj7gbbU/28GyfGN4i5ZOO7y4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785322346; c=relaxed/simple;
-	bh=dkn99kzl89UH+0qwq+1682GCiFy38KgRMzlk5Rr9Kcg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GLFVQM48j50IxmrzN03SAM4CVZVqvc7SJLIP2zzqdD14L0R06nL7kTOO04fhU+QuNVNsfTTAhVfF/M1K722rVtWGYkbfqaiqINPKSwYW1gGxoJ/7YvnxnjUxaC2NTOnQPXkukXZT2yW15uY7A9DEfuK4PEW+3vjNqFPnnYRj0c4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mBag6JT7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785322784; c=relaxed/simple;
+	bh=7RTJQWnL5hx+W9CM10/WlCRexSIlFybuQu3riz/+oNY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WJPSbb/PnoeVf8CsbWvmoKyRW8Eix0rdF70JRZrferGjB3bWGpknv3JHt1wryj/2ray85AyYGAP+CjIvQwZspduEe7aK5fB3Aqya3bcSQQFy09acv/nMe/vNtes/Y2g6mVk+kB2N8m+9JHuWGmlMNxgqP3qXOCDxB3duXzyeOic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UV3jKmR4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Y32G40m5; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mBag6JT7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB0E81F00A3A;
-	Wed, 29 Jul 2026 10:52:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785322334;
-	bh=photie4QCGE7ubYTZ3oU7o56noCY1Ic4qjJ/ozKqHvQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mBag6JT7z+ppGlX966+rNcpEv5LX44nkPy+3Bu/tYGx+chtwqLNpbJ3tudp+d/Yww
-	 JTS9aOoXCa1ujTzfCC5zz6rRt9v2tX7L4hdsT5EDR7XJRltTqVpuMto3a77MCOrwJz
-	 wi7tOmHHhPvRBeTZgAsu/k0CzU0Ku74L+DHRfUZEan7TZdWlIzGPUQUhFwpEYc8zHS
-	 a3pWw6eUO4bbWmMXzMoHvK2Rij/l66+7G/VAAqRV3H0vrogMIcCeNgG8VkK5Fdi3Eb
-	 tv5kDXYoYkLJPBbSbHFpeHF3YS7W9EoBnZfUnottIfQBp85cuJy+mIaDQn4zzb5MSS
-	 mrJ9EKumXMUrw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: hamoa-iot-evk: Describe the
- PCIe M.2 Key E connector
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wei Deng" <wei.deng@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260729-hamoa-m2-dts-v2-v3-3-4d7ef9274575@oss.qualcomm.com>
-References: <20260729-hamoa-m2-dts-v2-v3-0-4d7ef9274575@oss.qualcomm.com>
- <20260729-hamoa-m2-dts-v2-v3-3-4d7ef9274575@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 29 Jul 2026 10:52:14 +0000
-Message-Id: <20260729105214.AB0E81F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UV3jKmR4";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Y32G40m5"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66T7f3lC1167941
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 10:59:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	z+HScNtSm/fsTc1nP6tPXuEJN/xN6GzE8XU6z4AKsg4=; b=UV3jKmR4XDL+hMwp
+	dfLUHAwwp4UXdOyNHTIiktHXU33Y0hh3pEygrOnp9N/FMObTo58VwRD7p4aRcZcT
+	NXUXMNGtF7p8+2Wxe/FRWD+Tqff71Jo3GARRjvU2Yvs/87/hVXqfaqZ85vxRaXl9
+	B+qP0dwDkSKJ+jUWLmlXzT+4aB/eymzaBO3gTM4NTYqNa5+o2096C4nFj8njz60Q
+	9bA9tY+W5PI4W0D9ofb1cHALlirLW7OSU6j0pmrqWVykGmXQ+ZrgDJcmhjjUme/w
+	iSe+Ra6kaglwJN+JuhDi8gKYToMN9ZzTwKeAMoTWay1a4/XIPP5liAZz0aNA9JvQ
+	qBCbLQ==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fqbhj9bg5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 10:59:41 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93102454272so20081485a.1
+        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 03:59:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785322781; x=1785927581; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=z+HScNtSm/fsTc1nP6tPXuEJN/xN6GzE8XU6z4AKsg4=;
+        b=Y32G40m5MOj6JZZL/Cs1WG0nrDDbMad7eT24e0UPmlni9EDTgyQGrIkV6KTO+c1Ls8
+         H5DDFMJOobGx7GG2zh48xPpoUCxdSWuEvuKYX8mQv2LC4oT5s1TdTORxIpb9sS3CfEUK
+         GdMvjA+SG/6DBqFdaYqyKThjmaQxUBh57zCov4bUZ1n4nO0db/9daOnYIEXmVnUTQl6j
+         DnrEPEwJN+q0l8+e/J11K1Z5IE5fr/qMV0JHkd9qGsABf8SloRgtl+uliX8SjaZPCp8G
+         uVHl5ourbKQloG0M1NkyvwOdbZXLx7RhkR1ngGL7gn7DEKcYckGfoZCiRSBlHOX/zEtX
+         9a3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785322781; x=1785927581;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z+HScNtSm/fsTc1nP6tPXuEJN/xN6GzE8XU6z4AKsg4=;
+        b=pvkRqVSTRCYeNL2Bby51fd8U3H5OG/kmyoim58bJD+7Lh8VlNQXjKJrvihWcU9BVqt
+         Gvn3v8riQ3CtsVeCZVBRPcS9lv1H8c3cPya5WzLaLJwKiSlCuTDavotIv6Q5tAhw9QZ2
+         zQCGR+sBIAibrMejCy2Pic/TDU5+7bEyyqo4PQdUQhW5BK/DiTSAO4iY0Vis+80Agfo1
+         ffdZ+z999TbB0I+f+5D+e0LcYnxl02voJWJ7KllNztc7s9yrPPadrpUsnPaEtxO1hvvR
+         lr4QqDEeAoreyY4wzZiZXl+AlV6g7Bbmh1SqollpBBXu1itQJsj+iDrepOXtkH3uuMpL
+         jDPA==
+X-Forwarded-Encrypted: i=1; AHgh+RpWTpW5t9W+iGrpIlDike+HnvqFM+qyjXNlblSdBpj5Mio0TahNsgr/vlYm8R0v/i4kETN/3qOY58QW@vger.kernel.org
+X-Gm-Message-State: AOJu0YwehELXGPLTUzRGQCP4JZV5eQ3yTfZSju6xZpVFmZ/in4mIHyW6
+	NveddwKd450x8zpm2RqjXTprCjsRBjuzWYPhy6XoQiQcjHzk3dWq0deqyc/cV8ejlgB2CPBhapr
+	8q0NGlcmmhwmzGwNQiUIEbTkdpm8o4mAbRgvtC8pZOtT6afDxtvuVVk9A8+iIEJ4JaoaY/53A
+X-Gm-Gg: AR+sD12uUdZzSs/x7oEn6C89kMVg4Vz+e0CjnnuJmF6uzXvjbO3TWfmsyCKYpinW3Ra
+	AFyXA/mJHUTX+cCOqZq+j19sq8hSICk3FQkm4QCzTHM9/HkzFRMHWBVdy2oMwoCTaB3e2TN0gKk
+	EbMA8+SeFjyrGMKrzH3WZqrkWwD+9LGYEJqpLwwWHlZ3bFIeH2JVH1T3Xa6jLPe3dKbQ3hQxvPi
+	Ae2wgA6E6fYe7ElzvbGICAFLSi93aoP4GdtmFXdvohf4F0+KribiIvI5LI46J+OkfDcsNZ9/chL
+	UzzkdHK8N+3VJ1skM6ZYrTpbAbJdCvO0QRdQL8aMAe7M6TT6HC2Ad9+o7o0TOavLvz6uUNSqq6d
+	XhXWskodR4IUNAPfNfahdYcg9
+X-Received: by 2002:a05:622a:14d0:b0:517:5d21:9899 with SMTP id d75a77b69052e-529df876c1bmr60463381cf.5.1785322780766;
+        Wed, 29 Jul 2026 03:59:40 -0700 (PDT)
+X-Received: by 2002:a05:622a:14d0:b0:517:5d21:9899 with SMTP id d75a77b69052e-529df876c1bmr60463221cf.5.1785322780392;
+        Wed, 29 Jul 2026 03:59:40 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a050be9607sm737824a12.12.2026.07.29.03.59.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 29 Jul 2026 03:59:38 -0700 (PDT)
+Message-ID: <94081897-2e6a-4c8f-bd95-1961ca843478@oss.qualcomm.com>
+Date: Wed, 29 Jul 2026 12:59:35 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/8] platform: arm64: qcom-hamoa-ec: Add SoC junction
+ temperature reporting
+To: Anvesh Jain P <anvesh.p@oss.qualcomm.com>,
+        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
+        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org
+References: <20260728-ec_add_more_commands-v1-0-771abd65ee1a@oss.qualcomm.com>
+ <20260728-ec_add_more_commands-v1-2-771abd65ee1a@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260728-ec_add_more_commands-v1-2-771abd65ee1a@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDA5MCBTYWx0ZWRfXwWw2qA64jLDE
+ e7SXR/Nre6xHwmW16/+xLj3M3mFMtTvXgzX/cbXmZoeTLT/Ll86jsZK1oMetijx8vRPlYOmxQ9T
+ YFWnbSCVAEd2lIAX6i8o2fcjVNLbaAWzRD2utT9ULzCVKcpWWUQKbyUgN65Tmi7X5FhmgfNI3ab
+ bQzDDILBCnZ8zxrJO+Yu85PTpsdIaf7yxAtWddTtighqmaPVUVH5wdjNaarrPfTQCs94YPmhhul
+ CwJWcDBK2bErZaV8OaF0BlFDWwpaocnYVxexUc4+q2vNoxS23ihSzb5HlrxPOpxuOQRbRX0/f2L
+ lbHqKBFf/SZ5TLqm3IJzrGk20hNYyW/RGVk6sSYrOlYrjR2ST7Y+gRVa97/A4dP2UvCnGA4l0xe
+ RFRwARp6wA7/s1jfmROfdmKBtnVYoFgQ7G1LwlDrHHN9OkyjalY4KGS+OiB7qi4jfbkCu3vd+lZ
+ HT6At4IMhenAuFucAFg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDA5MCBTYWx0ZWRfXxKffiih+8UkT
+ tO4AmUHkCUSqdYfXwBzjTz2ktiC2Lxd+MzX8E3BCTvSZIGjhsg2de/RyfRmSbWbZC8sEhMbkPqA
+ X9axgfgDKsTGo0BUcqbGKg8DaO3r1do=
+X-Proofpoint-ORIG-GUID: YYAMlcj2OqSDUjqyUn_-U3ewHOPF8YBG
+X-Proofpoint-GUID: YYAMlcj2OqSDUjqyUn_-U3ewHOPF8YBG
+X-Authority-Analysis: v=2.4 cv=dsvrzVg4 c=1 sm=1 tr=0 ts=6a69dd1d cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=0UkU7q0zyOI0kmPNHrEA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-29_03,2026-07-28_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 suspectscore=0 priorityscore=1501 malwarescore=0
+ adultscore=0 lowpriorityscore=0 spamscore=0 clxscore=1015 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607290090
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Switching to the M.2 power sequencer framework breaks Bluetooth in=
-itialization because the `hci_qca` driver and the `pwrseq-pcie-m2` driver u=
-se mismatched power sequencer target names, causing probe failure.
-- [High] The `wifi-bt-connector` node omits the 1.8V IO supply (`vpcie1v8-s=
-upply`), breaking strict dependency tracking for the M.2 VIO.
-- [Medium] The removal of the explicit `bluetooth` serdev node drops the `m=
-ax-speed =3D <3200000>` property without an equivalent replacement mechanis=
-m, leading to a Bluetooth throughput regression.
---
+On 7/28/26 7:44 PM, Anvesh Jain P wrote:
+> Add the EC command definitions and handler function for reporting the
+> SoC junction temperature (Tj) to the EC.
+> 
+> Discover the platform's thermal sensor to zone mapping via the
+> qcom,tsens device tree property, average the junction temperatures
+> across the mapped zones, and periodically report the result to the EC
+> over SMBus using a delayed work item. Serialize this and the existing
+> EC command sequences (firmware version read, thermal capability read,
+> SCI event control, and the SCI IRQ handler) under a new io_lock mutex,
+> since the delayed work item now runs concurrently with those paths.
+> 
+> Re-arm the periodic report on resume and cancel it on suspend to avoid
+> racing with the modern standby transition.
+> ---
 
---- Patch [3]: [PATCH v3 3/3] arm64: dts: qcom: hamoa-iot-evk: Describe the=
- PCIe M.2 Key E connector ---
-commit 519be148d37d417828c1284c945a2103a6f63bb5
-Author: Wei Deng <wei.deng@oss.qualcomm.com>
+Missing sign-off, have you run b4 prep --check?
 
-arm64: dts: qcom: hamoa-iot-evk: Describe the PCIe M.2 Key E connector
+[...]
 
-This patch replaces the static WCN7850-specific Wi-Fi and Bluetooth nodes
-with a dynamic pcie-m2-e-connector node. It delegates card power and dynamic
-node creation to the pwrseq-pcie-m2 driver. The older dummy regulators and=
-=20
-chip-specific wcn7850-pmu nodes are removed.
 
-> diff --git a/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts b/arch/arm64/boot=
-/dts/qcom/hamoa-iot-evk.dts
-> index c7ba4b353ddd2..a2632554aa83a 100644
-> --- a/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
-> +++ b/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
+> +	mutex_lock(&ec->io_lock);
+>  	ret = qcom_ec_read(ec, EC_FW_VERSION_CMD, EC_FW_VERSION_RESP_LEN, resp);
+> +	mutex_unlock(&ec->io_lock);
 
-[ ... ]
+Does it make more sense to simply stick a guard(mutex)(&ec->io_lock)
+at the beginning of qcom_ec_read()?
 
-> @@ -538,6 +512,55 @@ vreg_wwan: regulator-wwan {
->  		regulator-boot-on;
->  	};
-> =20
-> +	wifi-bt-connector {
-> +		compatible =3D "pcie-m2-e-connector";
-> +		vpcie3v3-supply =3D <&vreg_wcn_3p3>;
+[...]
 
-[Severity: High]
-This node appears to omit the 1.8V IO supply (vpcie1v8-supply) that was
-previously supplied to the PMU as vddio-supply.
-
-Since the pwrseq-pcie-m2 driver uses of_regulator_bulk_get_all() to acquire
-all supplies, and vreg_l15b_1p8 is not marked as regulator-always-on in this
-tree, could the IO domain lose power during runtime if all other consumers
-release the 1.8V regulator?
-
+> +static struct thermal_zone_device *
+> +qcom_ec_sensor_to_zone(struct device_node *sensor_np, u32 sensor_id)
+> +{
+> +	struct device_node *tz_np __free(device_node) =
+> +		of_find_node_by_name(NULL, "thermal-zones");
 > +
-> +		w-disable1-gpios =3D <&tlmm 117 GPIO_ACTIVE_LOW>;
-> +		w-disable2-gpios =3D <&tlmm 116 GPIO_ACTIVE_LOW>;
-
-[Severity: High]
-Could the w-disable2-gpios reset remain permanently asserted during Bluetoo=
-th
-initialization?
-
-When hci_qca probes the dynamic Bluetooth node, it attempts to acquire the
-power sequencer using devm_pwrseq_get(&serdev->dev, "bluetooth"). However, =
-the
-pwrseq-pcie-m2 driver appears to register the target as "uart".=20
-
-Will this name mismatch cause devm_pwrseq_get() to fail with -ENOENT,=20
-prompting hci_qca to fall back to parsing direct regulators and GPIOs that =
-are
-no longer present, ultimately failing the probe?
-
+> +	if (!tz_np)
+> +		return ERR_PTR(-ENODEV);
 > +
-> +		pinctrl-0 =3D <&wcn_wlan_en>, <&wcn_bt_en>;
-> +		pinctrl-names =3D "default";
+> +	for_each_available_child_of_node_scoped(tz_np, child) {
+> +		struct of_phandle_args args;
+> +
+> +		if (of_parse_phandle_with_args(child, "thermal-sensors",
+> +					       "#thermal-sensor-cells", 0, &args))
+> +			continue;
+> +
+> +		of_node_put(args.np);
+> +
+> +		if (args.np == sensor_np &&
+> +		    sensor_id == (args.args_count ? args.args[0] : 0))
+> +			return thermal_zone_get_zone_by_name(child->name);
+> +	}
 
-[ ... ]
+I'm not sure that's the intended use of the API, but this is NHI
+of_thermal_zone_find()
 
-> @@ -1514,19 +1469,10 @@ wcn_usb_sw_n: wcn-usb-sw-n-state {
-> =20
->  &uart14 {
->  	status =3D "okay";
-> +};
-> =20
-> -	bluetooth {
-> -		compatible =3D "qcom,wcn7850-bt";
-> -		max-speed =3D <3200000>;
+[...]
 
-[Severity: Medium]
-By removing this static bluetooth node, we lose the explicit max-speed
-property.=20
+> +static void qcom_ec_sci_evt_disable(void *data)
+> +{
+> +	struct device *dev = data;
+> +	int ret;
+> +
+> +	ret = qcom_ec_sci_evt_control(dev, false);
+> +	if (ret < 0)
+> +		dev_err(dev, "Failed to disable SCI events: %d\n", ret);
+>  }
 
-Does the new dynamic node generation framework in the pwrseq-pcie-m2 driver
-have a mechanism to inject the max-speed property into the dynamically crea=
-ted
-UART serdev?=20
+This should be a separate fix. FWIW suspending and resuming on
+linux-next/master currently gives me:
 
-If not, will the hci_qca driver fall back to a lower default baud rate and
-reduce Bluetooth throughput?
+[   43.754787] geni_i2c a84000.i2c: error turning SE resources:-13
+[   43.754811] qcom-hamoa-ec 3-0076: Failed to read EC SCI Event: -13
 
-> -
-> -		vddaon-supply =3D <&vreg_pmu_aon_0p59>;
-> -		vddwlcx-supply =3D <&vreg_pmu_wlcx_0p8>;
-> -		vddwlmx-supply =3D <&vreg_pmu_wlmx_0p85>;
-> -		vddrfacmn-supply =3D <&vreg_pmu_rfa_cmn>;
-> -		vddrfa0p8-supply =3D <&vreg_pmu_rfa_0p8>;
-> -		vddrfa1p2-supply =3D <&vreg_pmu_rfa_1p2>;
-> -		vddrfa1p8-supply =3D <&vreg_pmu_rfa_1p8>;
-> -	};
-> +&uart14_ep {
-> +	remote-endpoint =3D <&m2_e_uart_ep>;
->  };
-> =20
->  &uart21 {
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729-hamoa-m2-d=
-ts-v2-v3-0-4d7ef9274575@oss.qualcomm.com?part=3D3
+Konrad
