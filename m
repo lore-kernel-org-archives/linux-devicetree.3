@@ -1,89 +1,139 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02D0E43DA50
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 08:45:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A9EC43DA4A
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 08:45:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785314750; cv=none; b=HCzaolRRqx5MM39V+2jipbyIW1v6PROz/xE74VA1BSpHGpQnB+EkFX/n1qpuCyWsGDiHt59WvfTSRHVzBQuVk/kLZskIPeDf4VAsoS6PPqAlni3PCXaMcZsk1LeQ1tJ9rDOwyB6xJA81tvyZRiyFa81eHrWY51b4OTN/4A/n9IU=
+	t=1785314757; cv=none; b=royHcsoW6k940N4R3e1/DZo5mn+jC4e8KxpbbUyrLxYlWKfTkGL10DshSjJZ7AVOjqyHQim07raroecHw5oaT5ilPgPnHWZ8vrfhJVJdva6B34gSJbkQ4vkUl7SMhx8rFVe6Bc/CN+jGQPcUElT3oFd2zgaKt4sdWoX+zTDmHbE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785314750; c=relaxed/simple;
-	bh=Uem0BCTQG+LFAr0n9rYxTIFcsrX39QrrrrkVdgpsJn0=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=kvIaonZYrT7RPVtglVlwu+V1Ivpj6yacTsGTIB86HqM7R0qMGCbbwXhxu8V1YR8QQ60JIaCxpseDIquDAl5fxmDF0zQPNZyL3ajNy9huixwBlYPdjIhtuySXuX+JDS0LkFJRkXNUcs6Yc0369HA+No8aG0zfGD1zqHiQozpw3SA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=yfWc11bO; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1785314757; c=relaxed/simple;
+	bh=+lXQ+3Un1FBVqsEHnJ1ITc4zSDwMw1RX0qZ1gW7uDTE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Zgg9n92JGxvAJyHs35a6QAnJShpaqDjsOYpm2z0BZQ/+UoHVu7PgdZEfTn/Tl+GgaC+x4avb2O5uXY4QoNZ+e/sa6IIykieUbMdKVIcbtz0iQvfvIHUOrBcdzMXbu3TWmbtwEOoDHwEWwjx9mcJV8DeGOtdKhJbOZ02N71zylmU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JY/hvz2O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="yfWc11bO"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 3E29E4E40FD9;
-	Wed, 29 Jul 2026 08:45:46 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 061A16039A;
-	Wed, 29 Jul 2026 08:45:46 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 06BAA11C11FDA;
-	Wed, 29 Jul 2026 10:45:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1785314741; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=Uem0BCTQG+LFAr0n9rYxTIFcsrX39QrrrrkVdgpsJn0=;
-	b=yfWc11bOPX9DS6oVz3wVHzXAZYLOKldzTwc5ox7bVJ3aWyMLfnePszDAAzZMINh9m6Q5VY
-	Za8SnYVD+h9nY0YNws5+R/GjzLhPznYpzbkUh5oymaS0pkU3iZnNF9016hM3XrjHSGctv2
-	l4uqPKKh5UZQBRQWcZW1YiIq2QM6WMIMHwewaVRfvi8NYmEqf1SN/GPemiu68w9Qkk+q3O
-	oYLllgf5z/baoYscM/tNfRD/ZwQiSLNpA3Hm5NdSdS9TAcfP0lety1CJE0qXB7ooVPwnG/
-	NRH1ddXWGEPD35U7x9WlyABZzOIHkah4FQom7s1gymCOuf1AcZOR2kDEkPj6Cg==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: sashiko-bot@kernel.org
-Cc: "Santhosh Kumar K" <s-k6@ti.com>,  sashiko-reviews@lists.linux.dev,
-  "Pratyush Yadav" <pratyush@kernel.org>,  devicetree@vger.kernel.org,
-  "Takahiro Kuwano" <takahiro.kuwano@infineon.com>,  conor+dt@kernel.org,
-  "Vignesh Raghavendra" <vigneshr@ti.com>,  robh@kernel.org,  "Richard
- Weinberger" <richard@nod.at>,  "Michael Walle" <mwalle@kernel.org>
-Subject: Re: [PATCH v6 15/17] mtd: spinand: negotiate optimal controller
- operating point before dirmap creation
-In-Reply-To: <20260723120247.8E1BD1F000E9@smtp.kernel.org>
-	(sashiko-bot@kernel.org's message of "Thu, 23 Jul 2026 12:02:23
-	+0000")
-References: <20260723110219.3180747-1-s-k6@ti.com>
-	<20260723110219.3180747-16-s-k6@ti.com>
-	<20260723120247.8E1BD1F000E9@smtp.kernel.org>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Wed, 29 Jul 2026 10:45:39 +0200
-Message-ID: <87fr12mbf0.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JY/hvz2O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A569E1F000E9;
+	Wed, 29 Jul 2026 08:45:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785314755;
+	bh=Wnd8ULuVDrGq+CRZe9tJhHSiv8qr9YJABz2DVNMKR/A=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JY/hvz2OLwShRnKAsZrlmv8nX4XIcmawk6ALCXvNdDnYx8ryn8d9DDlWFA8950XyI
+	 C6SO5NxOBNXVz/1WIqqjGXJgMyifd+UoUt1UW6Et/oqog3wJwj/Ehpx1XoWUAydLUQ
+	 pFiWrZGH6aHDJM+6GPk1KoEZUH1t7y56+T3PUZiC4dlR7xV3DQw/oS4PLuK2Ak+3nt
+	 kjgTjRe9AkpIWlCv/4ceEgE7QwhV08oYGlsQL65XUWU/EfR9oywYPpT/2xts7aV/s5
+	 +yTeioNDsf5l8h2CvvS+Fck2fm0w6ti3PIOffIFM2+8/gI3A3GK4IaQUyJPn+AkJof
+	 RPFXypM1WJ9OA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 13/17] iio: frequency: ad9910: add RAM mode support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Rodrigo Alencar" <rodrigo.alencar@analog.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260729-ad9910-iio-driver-v10-13-aa1f6167729e@analog.com>
+References: <20260729-ad9910-iio-driver-v10-0-aa1f6167729e@analog.com>
+ <20260729-ad9910-iio-driver-v10-13-aa1f6167729e@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 29 Jul 2026 08:45:55 +0000
+Message-Id: <20260729084555.A569E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Santhosh,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Incomplete error rollback when enabling or disabling RAM mode leav=
+es the software cache and hardware SPI shadow registers corrupted and out o=
+f sync.
+--
 
-On 23/07/2026 at 12:02:23 GMT, sashiko-bot@kernel.org wrote:
+--- Patch [13]: [PATCH v10 13/17] iio: frequency: ad9910: add RAM mode supp=
+ort ---
+commit c736cdf97db9c2e3b8047b8df7de313bdac03b16
+Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-> Thank you for your contribution! Sashiko AI review found 4 potential issu=
-e(s) to consider:
-> - [High] Ranked controller optimization downgrades the read variant on tu=
-ning failure but fails to update or disable continuous read, leading to pot=
-ential controller lockups and data corruption.
-> - [High] The SPI NAND chip is unconditionally restored to ODTR mode upon =
-system resume, even if controller optimization dynamically fell back to SSD=
-R mode at probe time, breaking statically configured dirmaps.
-> - [High] SPI controller PHY tuning state is lost across suspend/resume cy=
-cles.
-> - [Medium] `spinand->max_write_op` is not reset between iterations in
-> `spinand_try_ranked_variant()`, leaking `max_freq` modifications
-> across tuning attempts.
+iio: frequency: ad9910: add RAM mode support
 
-The four reports seem legitimate. Some are easy to fix, the one about
-continuous reads is a real concern I also had during my previous review
-but forgot about it, and it is going to be slightly more challenging
-than the others to handle properly. Of course we want both features to
-work together, ideally.
+Add RAM control channel, which includes RAM data loading via firmware uploa=
+d,
+per-profile configuration, profile switching, sampling frequency control, a=
+nd
+read/write paths that swap register cache when RAM is active.
 
-Thanks,
-Miqu=C3=A8l
+> diff --git a/drivers/iio/frequency/ad9910.c b/drivers/iio/frequency/ad991=
+0.c
+> --- a/drivers/iio/frequency/ad9910.c
+> +++ b/drivers/iio/frequency/ad9910.c
+
+[ ... ]
+
+> @@ -1156,6 +1257,41 @@ static int ad9910_write_raw(struct iio_dev *indio_=
+dev,
+>  						   AD9910_CFR2_DRG_DEST_MSK |
+>  						   AD9910_CFR2_DRG_ENABLE_MSK,
+>  						   tmp32, true);
+> +		case AD9910_CHANNEL_RAM:
+> +			if (AD9910_RAM_ENABLED(st) =3D=3D !!val)
+> +				return 0;
+> +
+> +			/* swap profile configs */
+> +			for (i =3D 0; i < AD9910_NUM_PROFILES; i++) {
+> +				tmp64 =3D st->reg[AD9910_REG_PROFILE(i)].val64;
+> +				ret =3D ad9910_reg64_write(st,
+> +							 AD9910_REG_PROFILE(i),
+> +							 st->reg_profile[i],
+> +							 false);
+> +				if (ret)
+> +					break;
+> +				st->reg_profile[i] =3D tmp64;
+> +			}
+> +
+> +			if (ret) {
+> +				/*
+> +				 * After the write failure, profiles 0..i-1 were
+> +				 * already swapped in SW, but Hw registers are
+> +				 * still pending an IO update, so swap them back
+> +				 * in SW to keep the state consistent.
+> +				 */
+> +				while (i--) {
+> +					tmp64 =3D st->reg[AD9910_REG_PROFILE(i)].val64;
+> +					st->reg[AD9910_REG_PROFILE(i)].val64 =3D st->reg_profile[i];
+> +					st->reg_profile[i] =3D tmp64;
+> +				}
+> +				return ret;
+
+[Severity: High]
+If a SPI error occurs inside the for loop above, this while loop reverts the
+software arrays (st->reg and st->reg_profile), but does it leave the hardwa=
+re
+shadow registers modified?
+
+The prior successful loop iterations issued SPI writes with update =3D fals=
+e.
+On the next successful driver operation that triggers an IO update, could
+these corrupted profiles be latched into the active hardware since no SPI
+writes are issued during the rollback?
+
+> +			}
+> +
+> +			tmp32 =3D FIELD_PREP(AD9910_CFR1_RAM_ENABLE_MSK, !!val);
+> +			return ad9910_reg32_update(st, AD9910_REG_CFR1,
+> +						   AD9910_CFR1_RAM_ENABLE_MSK,
+> +						   tmp32, true);
+
+[Severity: High]
+If this ad9910_reg32_update() for CFR1 fails, the function returns
+immediately.
+
+Since the profile configs were completely swapped in the preceding loop, do=
+es
+this leave the software arrays (st->reg and st->reg_profile) permanently
+inverted while the hardware's RAM mode state remains unchanged?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729-ad9910-iio=
+-driver-v10-0-aa1f6167729e@analog.com?part=3D13
