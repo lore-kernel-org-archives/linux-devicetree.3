@@ -1,199 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA87240681D;
-	Wed, 29 Jul 2026 22:07:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4DD536F8F5
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 22:08:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785362829; cv=none; b=LkyT8Ggg7ilXHWtaGllOGOKUajflIaNov6fESoI1oo+Ly4NqIX6j7QkHTgcWK13Ibm0FbiE7K7gHyzU4F4flX36UGq23FBgMCJWf+CNcV0+LWsIsw8vZ8kYD2I1Ex5NkSXkhl0ZjA8Zn8ko4HUxDoEygWl2YeByjdfSh1KpSIVU=
+	t=1785362939; cv=none; b=LvMqWj2mnjhDrE5v8oY8ipdbugFq70WRa23O2zWAyYTJjhlbOaTZ6oCZDkBRGKe2tvvGEpUberu2R0MaLG9fb4IGEVxLvdwJkbBz0bIRCgBS81TX1hIoYxuDrOA298OO/KtRcuw67wf8g2rnQTNiDt9eIkVzIDvoMTgG7aDERQg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785362829; c=relaxed/simple;
-	bh=5Bc6bmCb+M2krUQ8iuQsrVLPsnQRzlhc4Je6kdeKHWA=;
+	s=arc-20240116; t=1785362939; c=relaxed/simple;
+	bh=Qv83pZkTwk8cTg4Fv02oL+XpU//mD0ctqQF29flqb4M=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SMCnyB2k/CzPn1n11Aw/7WOeg3natRu27SgIbxtZbZ9fulXui010DlFVskoV5F3GwxqUXkv4KmR4qpgGK2YU+CjVaE1b04TCcKoap1D9MgR78Tqrxk1ls/0vekuCB5ODLBE4/hhthCsq4VBQB9xwr9Z92mHNbXr3D5r/Jad9miA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HoSwLQx+; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=dBKPaJAuQ8xOqk5/nOG1hzFP8BHvwi98g1Aza1fSwZpzFXjGl7b/Idc1abU3JNo276p8IFLxV4Gjpb5qRv4qq+2aLWyNNp96gdr5CdG4Q4iBgZ87pQlmDeQvEEFRqdKXdcFDuNC4cYaM0z7t0HmgE22STWhHi149Sbf2v7B0fC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W6l+JCum; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HoSwLQx+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 978B61F000E9;
-	Wed, 29 Jul 2026 22:07:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W6l+JCum"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEA4E1F000E9;
+	Wed, 29 Jul 2026 22:08:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785362825;
-	bh=hCJuMqfwrG2rpL40gyXp8yV6X0k0t3yZFs++EHofY84=;
+	s=k20260515; t=1785362937;
+	bh=zMoomxKsynFE4JSA+0MJpbIZiipGeVN/ZLZSuc0EmYc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HoSwLQx+G4w2g/3sGkNoXpPOebnJMTcfi48vhnews3O9iHCazF5k+O6QHmxi8cLl7
-	 pz5W1iBvbKkmt/PAaQlrJJbLGuJBMtM1tYHjWF1KTPWcr15HBKTg1zOwyqjF7/JatC
-	 qQrAMJuKAu+CQSKgsVQvAfT76ABtnShClbJMPHsjKMtX9mN3iQGgrHWx/ohpoNBoHC
-	 IRJGDLAhlNzJnnxr3jjY+SAX1WSRDdKUZ59V66uQAsWI6rDo32VJwtSwStOzLwUnQ/
-	 ubEZ59EuaVHoUOG9QROuB3OBKOsdEFPQiQOrpQtWkEQ5HJaJEvJBSA7pQgBWcctuTN
-	 mYc35OnD0A24Q==
+	b=W6l+JCum9GM5hUWtwLTpVELrH44NJRKKzy39djZMOJgTRp5u8if707eQTXozTHkZ1
+	 MEVwMxCKwdqwLv2DoDwzUKqEax7gsaZei3V72UiOpFadp910Ny9y1gMT93193drae+
+	 ejM91Kyj0rbTz2za2kcITujVJTXv810d5ghMh0ixYQSQVL4rLwxsYkjVEXvj0Z+9BU
+	 496huhyUCLYc/DPf0SppFWzLe7kyRtPbqBnr1/QuAydlgJ9f3rcrkrxYJueGD1WngZ
+	 9D9F9zx0DF3nSEF29e6lPiMBYdwqCak6CxZIyeakc8M84xCnKgahqzkZIV3pGasyZQ
+	 zezdzQYBVshYQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 4/4] hwmon: pmbus: mpq8646: gate the writes
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: sdm845-shift-axolotl: Add
+ actuator for main rear camera
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vincent Jardin" <vjardin@free.fr>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org
-In-Reply-To: <20260729-mpq8646_v0-v6-4-98848151cdb4@free.fr>
-References: <20260729-mpq8646_v0-v6-0-98848151cdb4@free.fr>
- <20260729-mpq8646_v0-v6-4-98848151cdb4@free.fr>
+To: "David Heidelberg" <david@ixit.cz>
+Cc: conor+dt@kernel.org, robh@kernel.org, media-ci@linuxtv.org, devicetree@vger.kernel.org
+In-Reply-To: <20260729-dw9714v-v1-2-3c479b3cf8c0@ixit.cz>
+References: <20260729-dw9714v-v1-0-3c479b3cf8c0@ixit.cz>
+ <20260729-dw9714v-v1-2-3c479b3cf8c0@ixit.cz>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 29 Jul 2026 22:07:05 +0000
-Message-Id: <20260729220705.978B61F000E9@smtp.kernel.org>
+Date: Wed, 29 Jul 2026 22:08:56 +0000
+Message-Id: <20260729220856.EEA4E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Debugfs attributes perform I2C accesses without acquiring necessar=
-y locks, risking race conditions and bypassing hardware write protection.
-- [Medium] Mixing goto-based error handling with guard() declarations in th=
-e same function.
-- [Medium] Debugfs write functions mask negative error codes by returning 0=
- (success) on hardware failure.
+- [Low] Deprecated node name for the fixed regulator 'cam-bus-2p8-regulator=
+'.
 --
 
---- Patch [4]: [PATCH v6 4/4] hwmon: pmbus: mpq8646: gate the writes ---
-commit ec4599677b214a57f0796000d18d9f3b6e5d4fb5
-Author: Vincent Jardin <vjardin@free.fr>
+--- Patch [2]: [PATCH 2/2] arm64: dts: qcom: sdm845-shift-axolotl: Add actu=
+ator for main rear camera ---
+commit 4edbb2eb79bd8137a526316cca12432942ca08b4
+Author: David Heidelberg <david@ixit.cz>
 
-hwmon: pmbus: mpq8646: gate the writes
+arm64: dts: qcom: sdm845-shift-axolotl: Add actuator for main rear camera
 
-This commit adds unsafe debugfs provisioning and benchmarking helpers
-to write specific registers. These operations are restricted due to the
-risk of browning out the board or persisting bad setpoints.
+This commit adds a fixed regulator and actuator node for the Dongwoon
+DW9714V main rear camera actuator.
 
-> diff --git a/drivers/hwmon/pmbus/mpq8646.c b/drivers/hwmon/pmbus/mpq8646.c
-> index 1fd41d89e5bef..0034cf5919345 100644
-> --- a/drivers/hwmon/pmbus/mpq8646.c
-> +++ b/drivers/hwmon/pmbus/mpq8646.c
-[ ... ]
-> +static int mpq8646_dbg_clear_protection_last(void *data, u64 val)
-> +{
-[ ... ]
-> +	scoped_guard(mutex, &priv->mps_lock)
-> +		rc =3D i2c_smbus_write_byte(priv->client, MPS_CLEAR_LAST_FAULT);
-> +	if (rc < 0)
-> +		dev_warn(&priv->client->dev,
-> +			 "clear_protection_last: CLEAR_LAST_FAULT write failed (%d)\n",
-> +			 rc);
-> +	return 0;
-> +}
+> diff --git a/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts b/arch/arm=
+64/boot/dts/qcom/sdm845-shift-axolotl.dts
+> index e31c784eff3de..6d0254e205850 100644
+> --- a/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
+> +++ b/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
+> @@ -86,6 +86,32 @@ battery: battery {
+>  		voltage-max-design-microvolt =3D <4400000>;
+>  	};
+> =20
+> +	/* SGM2036-2.8YUDH4G/TR */
+> +	cam_bus_2p8: cam-bus-2p8-regulator {
+> +		compatible =3D "regulator-fixed";
 
-[Severity: Medium]
-Should this propagate the negative error code from rc instead of returning =
-0?
-Returning 0 masks hardware faults and might lead userspace provisioning
-scripts to assume the write succeeded.
+[Severity: Low]
+Does this node name trigger a dtbs_check warning during validation?
 
-[ ... ]
-> +static int mpq8646_dbg_clear_protection_last_force(void *data, u64 val)
-> +{
-[ ... ]
-> +	guard(pmbus_lock)(priv->client);
-> +	guard(mutex)(&priv->mps_lock);
-> +
-> +	wp_orig =3D i2c_smbus_read_byte_data(priv->client, PMBUS_WRITE_PROTECT);
-> +	if (wp_orig < 0) {
-> +		dev_warn(&priv->client->dev,
-> +			 "clear_protection_last_force: WRITE_PROTECT read failed (%d), aborti=
-ng\n",
-> +			 wp_orig);
-> +		return 0;
-> +	}
-
-[Severity: Medium]
-Like above, should this return the negative error code in wp_orig so the I2C
-read failure is reported to the caller?
+The fixed-regulator schema typically expects node names to use a regulator-=
+=20
+prefix to match its regex pattern. Naming this node regulator-cam-bus-2p8=20
+instead of cam-bus-2p8-regulator would match the preferred schema and avoid=
+=20
+triggering a deprecated pattern warning during static analysis.
 
 [ ... ]
-> +	rc =3D i2c_smbus_write_word_data(priv->client, MPS_MFR_CFG_EXT,
-> +				       (u16)cfg_orig | MPS_MFR_CFG_EXT_CLR_LAST_EN);
-> +	if (rc < 0) {
-> +		dev_warn(&priv->client->dev,
-> +			 "clear_protection_last_force: gate open failed (%d)\n",
-> +			 rc);
-> +		goto restore_wp;
-> +	}
-
-[Severity: Medium]
-Does this mix goto-based error handling with guard() declarations in the
-same function?
-
-The cleanup guidelines specify that functions should either use scope-based
-cleanup exclusively or not at all, to avoid confusing ownership semantics.
-
-[ ... ]
-> +static int mpq8646_dbg_store_all(void *data, u64 val)
-> +{
-[ ... ]
-> +	mpq8646_unsafe_warn_once(priv);
-> +	scoped_guard(mutex, &priv->mps_lock)
-> +		rc =3D i2c_smbus_write_byte(priv->client, PMBUS_STORE_USER_ALL);
-
-[Severity: High]
-Should this also acquire the global pmbus_lock?=20
-
-Issuing STORE_USER_ALL without the pmbus_lock might expose an unprotected
-NVM-busy window to PMBus core background polling.
-
-> +	if (rc < 0)
-> +		dev_warn(&priv->client->dev,
-> +			 "store_all: STORE_USER_ALL (0x15) write failed (%d)\n",
-> +			 rc);
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Does this need to return the negative error code in rc instead of 0 on
-failure?
-
-[ ... ]
-> +static int mpq8646_dbg_restore_all(void *data, u64 val)
-> +{
-[ ... ]
-> +	mpq8646_unsafe_warn_once(priv);
-> +	scoped_guard(mutex, &priv->mps_lock)
-> +		rc =3D i2c_smbus_write_byte(priv->client, PMBUS_RESTORE_USER_ALL);
-
-[Severity: High]
-As with mpq8646_dbg_store_all(), should this also hold pmbus_lock to
-prevent NVM-busy window races?
-
-> +	if (rc < 0)
-> +		dev_warn(&priv->client->dev,
-> +			 "restore_all: RESTORE_USER_ALL (0x16) write failed (%d)\n",
-> +			 rc);
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Should this return the negative error code in rc?
-
-[ ... ]
-> +static int mpq8646_dbg_reg_set(void *data, u64 val)
-> +{
-> +	struct mpq8646_dbg_reg_ctx *ctx =3D data;
-> +	int rc;
-> +
-> +	mpq8646_unsafe_warn_once(ctx->priv);
-> +	if (ctx->desc->is_word)
-> +		rc =3D i2c_smbus_write_word_data(ctx->priv->client,
-> +					       ctx->desc->reg, (u16)val);
-> +	else
-> +		rc =3D i2c_smbus_write_byte_data(ctx->priv->client,
-> +					       ctx->desc->reg, (u8)val);
-
-[Severity: High]
-Does this need to acquire pmbus_lock or mps_lock before performing the I2C
-write?
-
-If another thread concurrently calls mpq8646_dbg_clear_protection_last_forc=
-e()
-which temporarily lowers the PMBUS_WRITE_PROTECT register, could a direct
-write here slip through and bypass the hardware write protection?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729-mpq8646_v0=
--v6-0-98848151cdb4@free.fr?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729-dw9714v-v1=
+-0-3c479b3cf8c0@ixit.cz?part=3D2
