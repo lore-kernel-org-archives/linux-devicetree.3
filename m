@@ -1,121 +1,280 @@
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out-170.mta1.migadu.com (out-170.mta1.migadu.com [95.215.58.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFF084749DC
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 11:27:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75B4A476076
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 11:34:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785324453; cv=none; b=SM0ybu8zbqKBbfTnCPbwcc7GtfPGaHyQLCoPW0TW6f5Td3sEjKaG9+jsFRPQE7vMzSRRpk9Qpn2COlnpQT2EMvn16SB1LwTg7fduBc/DbCcvNK/6lPvM8J1YL0vZrT0tfXPDcUOY/SjybzXfI5Cs9MC+L5IL5CDLTNEjssJdoUs=
+	t=1785324886; cv=none; b=EKUw+7ldHdrmgZhr1vnpuN5tlnWRf8TDXCyv9ILyNNQSDoZaDGMWHUoXo0GWgyQhdk0viOiMSdXUAPemohKucwlGtm5rc/gvGMQmQh56POgz6yvRm4Q0c+/uUaSMN7Z+LjpWv/9ha8aVNgZD25KaV5uf/vKp50BpcA+NDJgoDEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785324453; c=relaxed/simple;
-	bh=o5fuh0olua3cmod/5ayAnVMOpDpteZ21Pp91RNNLJQM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Xwg6VwIc6Rxr+jOmVDf4J5YwflFjIFb0mbJ2UTLb0/E2mUasEuD/Ss1Y0t0oCvcl+EJIiIET1rXLwNjHU3N5szCQxuK/BrqE0OENO5ddjQeioYV5YMO3UkK7RrqS5lOr8NqvOC0BC55rkNPckC+2Wi/EvlLZiAo0cmD6DKF/7q8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=PpioGXT0; arc=none smtp.client-ip=209.85.167.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1785324886; c=relaxed/simple;
+	bh=nEPx9E5impsDPcZMyWdMRdAlTpvRV8eM2K+fWz7+m2o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=t2wyu3/jkdXVIth0i5KAnsQBGLOFUc9GRGg8BFzCNM3qA0HOaZhEe6B17u+h58z4fUGRhyl9LyhndQzizNnAjxK9T0PV6/ieDHg/oy64+hK+fF1VX5xi38KlErgtXbTMOQFzJTAu34vFwANbY293dAQ3Jh4qhjHIWYsVIksyrpE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ab/QC3bA; arc=none smtp.client-ip=95.215.58.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="PpioGXT0"
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5b2a1fd0ab0so74490e87.0
-        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 04:27:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1785324450; x=1785929250; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4pWtgZKuw2W+ngq7ib5CKwcZeLXinWBcwq/8MK7k5OM=;
-        b=PpioGXT0dPHRAW+OzKD0POXZK53LP4g/4DjOvStlbF1ny1m3ZHedQINi8MLvOrQ1z3
-         fKuhL2xcTgEYmEMgW5Q6a1MwqvjQsq5xsi486d+xHY1LqZ/PQieKe9TcybegkPMBnFbI
-         I7KF1BF4M9w+4yjMw6MxufngnF83LY+k19dGiuMxno+YetnNtZdVxVTXUOKlNtKmyH7r
-         VVFYxNMrEf9Qug9GHeZoLRCqYqI94KvXGmSUH5kMz6k3f5xxL2Mj4crhKWVx3S1y5SDI
-         Baw9y8rw1sIJgX7Rf1LdN3iKP7oJxL/kg/0XopR06k4TywN0CQqR9KT9OR9JbEXDtT8Z
-         kpSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785324450; x=1785929250;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4pWtgZKuw2W+ngq7ib5CKwcZeLXinWBcwq/8MK7k5OM=;
-        b=ZFpmvgL8QK+jY2J23QMEoU97ngrHdJ5vWWorkj/9AljnZHaD1sa7tRqmsMGyp0JHjf
-         GhqisbWHp97U6Yvcal6E3AUJYe1i3NGW+vfozOcp3/fzCXpzrK+57/ariK33ztZuv5Ij
-         ual+QrLpuEZNFN1UvZL+QmJWLWKXB4pPGV0WSWTjBAP0qpxdUsDKJBq7KlR/MAmKrhaX
-         8EbryeynwDpTU6bB7/3B/SfzZrLwZwL3UM/KdkDdDeIZp9Esn5cowMBxX0UjzZ3xmQpu
-         8dbwWE0j0z/vlSLkui2vBa9EmPQr7CRrGNlePwLGl5MwoCO8wMRh1F+odQIme258tKHG
-         6WVQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoTXaQP7Z+6Ytp8HxNjJTv6xEd63Oc0qpq7W1liQeQw6o0lHhf71bDZ2Vplye+Tn7bIZ/MDRnV/KlE7@vger.kernel.org
-X-Gm-Message-State: AOJu0YxJ8l+7ipmqdGyRvmVwAkaz89yumNsjHnMkvE0WvRyhLa1zyMOS
-	A/UYG+mzuNsgYeU46Ft1FgLyL+cEYV/DJlNtsN1+OtVaa4BVFAgziZN3/BkCGFv6a8c=
-X-Gm-Gg: AR+sD10eB9sAokZcmCotjv0256nr1oNZWJskkSqz5/Oh3iW3TAWNcj4qB/TM4niPEBS
-	gRyXvf2LYKe2ND7rDFHuwNJQMl0ezUjzkw8wZJU9YQSM8qCTrFfzLKruDAQUu2enyPqksJaxCpw
-	NBodXNJBFZFDoCWWjramszjEr9Xqg2AFlFrTPb21ZHDvcMAgDIVj6vsde1R0RGQEQ+uL9VCg/CA
-	KF+dsZ+a0avTbQupSRiNXNIj37GQ3eNsSZuTutD2R8jBPFWinYxzC7Enlyz+JWtkGMrjc1L7m+s
-	L0xtzFtxSg3hb0lMWp6Nsg8N7+IaAXelItnKv9NSGBgyFMMyCt2BTeTqarBzgdWslzPkQg3Ggjy
-	lMEjg1IcEunSxasPy5IFVtYYZ5QZ1VqUOh8QFOM/NC7WSdZMXKFcErrYl837rlrboH5ger7Q+DX
-	ZO9I+InZp+LlT3Eh/TT0Rra8Ubiw1oel7c3wrmjg1bp6LZHjtw+bgdR+576gMzKrpgIP7k1Q5Ul
-	7SSnpnGjPs8yjKZfAxPHtddCpLSIw==
-X-Received: by 2002:a05:6512:3413:b0:5ae:cf48:bd37 with SMTP id 2adb3069b0e04-5b2d0247dd5mr930296e87.1.1785324449626;
-        Wed, 29 Jul 2026 04:27:29 -0700 (PDT)
-Received: from thyme (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2d76aa2b4sm336457e87.29.2026.07.29.04.27.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Jul 2026 04:27:29 -0700 (PDT)
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH] arm64: dts: qcom: sm8650: Assign CCI clock rates to 37.5MHz
-Date: Wed, 29 Jul 2026 14:27:19 +0300
-Message-ID: <20260729112719.1151700-1-vladimir.zapolskiy@linaro.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ab/QC3bA"
+Message-ID: <40c7a0c9-de85-4b11-86fc-53b48e42462c@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1785324882;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5qNCJH22qm7cfEdh/HVFrum6obb4H9CNKJl/CnAEcG0=;
+	b=ab/QC3bAcqdwhrmsZRO3j9IxBI79qYESa7COWqFzkJs54+oHK2aOoR1/kgXR4lMxXsdU4N
+	7Fuw35QVamscKQBSeXei3YAKDFCp3WgbfoVgWeaO8hU1sRn50au+I8RpZemkpDgmQ6QvWB
+	CaSwXSx4aB5O6a/Qi52U8L7yQrIsy2s=
+Date: Wed, 29 Jul 2026 13:33:22 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v2 2/2] ASoC: codecs: wcd9378: add TX/capture codec driver
+To: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
+ Mark Brown <broonie@kernel.org>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Julian Braha <julianbraha@gmail.com>,
+ Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Luca Weiss <luca.weiss@fairphone.com>,
+ Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+ Ravi Hothi <ravi.hothi@oss.qualcomm.com>, linux-sound@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260729000649.263426-1-jorijnvdgraaf@catcrafts.net>
+ <20260729000649.263426-3-jorijnvdgraaf@catcrafts.net>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+In-Reply-To: <20260729000649.263426-3-jorijnvdgraaf@catcrafts.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 
-Setting CCI supply clock rate to higher value of 37.5MHz allows to
-program the controller to configure its I2C bus speed to Fast-mode plus.
+Looks mostly good, I only have comments on confusing explanations
+related to the two-peripheral split and pm_runtime support, see below.
 
-Signed-off-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
----
- arch/arm64/boot/dts/qcom/sm8650.dtsi | 6 ++++++
- 1 file changed, 6 insertions(+)
+On 7/29/26 02:06, Jorijn van der Graaf wrote:
+> The Qualcomm WCD9378 is the audio codec found on SM7635 boards such as
+> the Fairphone 6. It pairs a WCD937x-compatible analog core with SDCA
+> function blocks (SmartMIC0/1/2, SmartJACK, SmartAMP) whose built-in
+> sequencers perform the analog power-up/down autonomously: capture is
+> started by programming the ADC usage mode, requesting power state 0 on
+> the function's power domain entity and letting the sequencer ramp the
+> ADC and the mic bias selected through SMx_MB_SEL.
+> 
+> Like the other codecs of the family the WCD9378 presents two SoundWire
+> slaves (manufacturer 0x0217, part 0x0110); a platform device created
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8650.dtsi b/arch/arm64/boot/dts/qcom/sm8650.dtsi
-index a64922c21267..a14e11d81488 100644
---- a/arch/arm64/boot/dts/qcom/sm8650.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8650.dtsi
-@@ -5615,6 +5615,8 @@ cci0: cci@ac15000 {
- 			clock-names = "camnoc_axi",
- 				      "cpas_ahb",
- 				      "cci";
-+			assigned-clocks = <&camcc CAM_CC_CCI_0_CLK>;
-+			assigned-clock-rates = <37500000>;
- 			pinctrl-0 = <&cci0_0_default &cci0_1_default>;
- 			pinctrl-1 = <&cci0_0_sleep &cci0_1_sleep>;
- 			pinctrl-names = "default", "sleep";
-@@ -5648,6 +5650,8 @@ cci1: cci@ac16000 {
- 			clock-names = "camnoc_axi",
- 				      "cpas_ahb",
- 				      "cci";
-+			assigned-clocks = <&camcc CAM_CC_CCI_1_CLK>;
-+			assigned-clock-rates = <37500000>;
- 			pinctrl-0 = <&cci1_0_default &cci1_1_default>;
- 			pinctrl-1 = <&cci1_0_sleep &cci1_1_sleep>;
- 			pinctrl-names = "default", "sleep";
-@@ -5681,6 +5685,8 @@ cci2: cci@ac17000 {
- 			clock-names = "camnoc_axi",
- 				      "cpas_ahb",
- 				      "cci";
-+			assigned-clocks = <&camcc CAM_CC_CCI_2_CLK>;
-+			assigned-clock-rates = <37500000>;
- 			pinctrl-0 = <&cci2_0_default &cci2_1_default>;
- 			pinctrl-1 = <&cci2_0_sleep &cci2_1_sleep>;
- 			pinctrl-names = "default", "sleep";
--- 
-2.53.0
+same part with two different unique_id or two different parts?
 
+> from the codec DT node acts as component master over the two slave
+> devices, reusing the wcd-common helpers. Unlike the older family
+> members, all control registers - the SDCA function blocks and the
+> analog core alike - live in a 32-bit paged SDCA control address space
+> accessed through the TX slave, so the slave regmap needs
+> prop.paging_support (on Qualcomm controllers this in turn needs SCP
+> address paging support in the controller driver). The sequencers clock
+> off the SoundWire bus clock and stall without the SCP bus-clock
+> base/scale indication; the slaves declare prop.clock_reg_supported so
+> the core programs those registers at enumeration (on Qualcomm
+> controllers this in turn needs the controller driver to declare the
+> bus clock in prop.mclk_freq).
+> 
+> Compute platforms wire the same chip as a single aggregated SDCA-mode
+> slave instead; probe declines nodes marked qcom,compute-mode, so an
+> SDCA class driver for that presentation can share the SoundWire ID
+> table with this driver.
+> 
+> Two hardware behaviours deserve a note:
+> 
+>  - The SDCA function engine does not survive SoundWire bus clock-stop.
+>    Every register keeps its value (so a regcache sync restores
+>    nothing), but the sequencers ignore all subsequent power requests,
+>    including forced trigger and soft-reset writes; only a codec reset
+>    revives the engine. The downstream stack sidesteps this by marking
+>    the TX SoundWire master "qcom,is-always-on" in its devicetree; do
+>    the equivalent and hold a runtime PM reference on the TX slave for
+>    as long as the codec is bound. 
+
+The write-up seems to suggest that the manager and peripheral devices
+remain pm_active and the bus clock is never stopped then? IWO there is
+no pm_runtime suspend support for this SoundWire link.
+
+> +static const struct sdw_device_id wcd9378_sdw_id[] = {
+> +	SDW_SLAVE_ENTRY(0x0217, 0x0110, 0),
+> +	{ },
+
+presumably it's the same part_id for RX and TX, so there must be a
+unique_id to make the difference between RX and TX.
+
+> +static int wcd9378_sdw_runtime_suspend(struct device *dev)
+> +{
+> +	struct wcd9378_sdw_priv *wcd = dev_get_drvdata(dev);
+> +
+> +	if (wcd->regmap) {
+> +		regcache_cache_only(wcd->regmap, true);
+> +		regcache_mark_dirty(wcd->regmap);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int wcd9378_sdw_runtime_resume(struct device *dev)
+> +{
+> +	struct wcd9378_sdw_priv *wcd = dev_get_drvdata(dev);
+> +
+> +	if (wcd->regmap) {
+> +		regcache_cache_only(wcd->regmap, false);
+> +		regcache_sync(wcd->regmap);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct dev_pm_ops wcd9378_sdw_pm_ops = {
+> +	RUNTIME_PM_OPS(wcd9378_sdw_runtime_suspend, wcd9378_sdw_runtime_resume, NULL)
+> +};
+
+not able to reconcile the definition of those pm_runtime routines with
+the earlier assertion that a pm_runtime reference it takes to prevent
+the bus clock from suspending.
+
+
+> +static int wcd9378_bind(struct device *dev)
+> +{
+> +	struct wcd9378_priv *wcd9378 = dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	/* Give the SDW subdevices some more time to settle */
+> +	usleep_range(5000, 5010);
+
+you may want to describe what those values refer to, experiments or
+actual time expected from the documentation.
+
+> +	ret = component_bind_all(dev, wcd9378);
+> +	if (ret) {
+> +		dev_err(dev, "Slave bind failed, ret = %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	wcd9378->rxdev = of_sdw_find_device_by_node(wcd9378->rxnode);
+> +	if (!wcd9378->rxdev) {
+> +		dev_err(dev, "could not find rx slave with matching of node\n");
+> +		ret = -EINVAL;
+> +		goto err_component_unbind;
+> +	}
+> +
+> +	wcd9378->sdw_priv[AIF1_PB] = dev_get_drvdata(wcd9378->rxdev);
+> +	wcd9378->sdw_priv[AIF1_PB]->wcd9378 = wcd9378;
+> +
+> +	wcd9378->txdev = of_sdw_find_device_by_node(wcd9378->txnode);
+> +	if (!wcd9378->txdev) {
+> +		dev_err(dev, "could not find tx slave with matching of node\n");
+> +		ret = -EINVAL;
+> +		goto err_put_rxdev;
+> +	}
+> +
+> +	wcd9378->sdw_priv[AIF1_CAP] = dev_get_drvdata(wcd9378->txdev);
+> +	wcd9378->sdw_priv[AIF1_CAP]->wcd9378 = wcd9378;
+> +	wcd9378->tx_sdw_dev = dev_to_sdw_dev(wcd9378->txdev);
+> +
+> +	/*
+> +	 * As TX is the main CSR reg interface, it should not be suspended
+> +	 * first. Explicitly add the dependency link.
+> +	 */
+> +	if (!device_link_add(wcd9378->rxdev, wcd9378->txdev,
+> +			     DL_FLAG_STATELESS | DL_FLAG_PM_RUNTIME)) {
+> +		dev_err(dev, "Could not devlink TX and RX\n");
+> +		ret = -EINVAL;
+> +		goto err_put_txdev;
+> +	}
+> +
+> +	if (!device_link_add(dev, wcd9378->txdev,
+> +			     DL_FLAG_STATELESS | DL_FLAG_PM_RUNTIME)) {
+> +		dev_err(dev, "Could not devlink WCD and TX\n");
+> +		ret = -EINVAL;
+> +		goto err_remove_link1;
+> +	}
+> +
+> +	if (!device_link_add(dev, wcd9378->rxdev,
+> +			     DL_FLAG_STATELESS | DL_FLAG_PM_RUNTIME)) {
+> +		dev_err(dev, "Could not devlink WCD and RX\n");
+> +		ret = -EINVAL;
+> +		goto err_remove_link2;
+> +	}
+> +
+> +	wcd9378->regmap = wcd9378->sdw_priv[AIF1_CAP]->regmap;
+> +	if (!wcd9378->regmap) {
+> +		dev_err(dev, "could not get TX device regmap\n");
+> +		ret = -EINVAL;
+> +		goto err_remove_link3;
+> +	}
+> +
+> +	/*
+> +	 * The SDCA function engine dies when the TX bus enters clock-stop
+> +	 * and only a codec reset revives it - registers keep their values
+> +	 * so a regcache sync or a FUNC_ACT re-toggle does not help. The
+> +	 * downstream stack sidesteps the same problem by marking the TX
+> +	 * SoundWire master "qcom,is-always-on"; do the equivalent and
+> +	 * keep the TX slave (and thus its bus) runtime-active while the
+> +	 * codec is bound.
+
+So in practice only the RX peripheral can do a pm_runtime suspend?
+
+> +	 */
+> +	ret = pm_runtime_resume_and_get(wcd9378->txdev);
+> +	if (ret < 0) {
+> +		dev_err(dev, "could not resume TX device\n");
+> +		goto err_remove_link3;
+> +	}
+> +
+> +	ret = snd_soc_register_component(dev, &soc_codec_dev_wcd9378,
+> +					 wcd9378_dais, ARRAY_SIZE(wcd9378_dais));
+> +	if (ret) {
+> +		dev_err(dev, "Codec registration failed\n");
+> +		pm_runtime_put(wcd9378->txdev);
+> +		goto err_remove_link3;
+> +	}
+> +
+> +	return ret;
+> +
+> +err_remove_link3:
+> +	device_link_remove(dev, wcd9378->rxdev);
+> +err_remove_link2:
+> +	device_link_remove(dev, wcd9378->txdev);
+> +err_remove_link1:
+> +	device_link_remove(wcd9378->rxdev, wcd9378->txdev);
+> +err_put_txdev:
+> +	put_device(wcd9378->txdev);
+> +err_put_rxdev:
+> +	put_device(wcd9378->rxdev);
+> +err_component_unbind:
+> +	component_unbind_all(dev, wcd9378);
+> +	return ret;
+> +}
+> +
+> +static void wcd9378_unbind(struct device *dev)
+> +{
+> +	struct wcd9378_priv *wcd9378 = dev_get_drvdata(dev);
+> +
+> +	snd_soc_unregister_component(dev);
+> +	pm_runtime_put(wcd9378->txdev);
+
+pm_runtime_put_sync() to make sure the idle routine is called
+immediately and not later?
+
+> +	device_link_remove(dev, wcd9378->txdev);
+> +	device_link_remove(dev, wcd9378->rxdev);
+> +	device_link_remove(wcd9378->rxdev, wcd9378->txdev);
+> +	component_unbind_all(dev, wcd9378);
+> +	put_device(wcd9378->txdev);
+> +	put_device(wcd9378->rxdev);
+> +}
