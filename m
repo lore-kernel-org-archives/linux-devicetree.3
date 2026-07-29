@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49D21242D65;
-	Wed, 29 Jul 2026 06:19:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D41F3242D65;
+	Wed, 29 Jul 2026 06:20:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785305984; cv=none; b=iu7tpBGRKqzgpQsuj5cC0AfuzVXktjgC286spiZwaAMoqh9rrieSRrYO3AwGrrG3qpFrXi/CA7JxDh59TBGsrUJUZZuPin3FIzNSqyMSwrosCKE7fgBuROHo8XpS67M8DDmNP8pHChGvWVdCgKZuhQ0p8NnQk/hDLtIkDgmHQQc=
+	t=1785306037; cv=none; b=gJW41g0Z3SYi/XoiGVoECVl57GBBK/vfCRjjij+1+t3wKiAxOMbhwEyT2p6VgZHoTJFNKEx1XNAIzpO1wSfnFux0JgQjTGDFPfiaskF5X0Ysk535MmkE7UQV7fR7c/lEfzZ5BtkyU3AookJtFRsbjuzDt3J0YdKF/t4bIiRvLO0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785305984; c=relaxed/simple;
-	bh=whgiEArBV8aOm8noH6sp2Q0y+DeuBi6QC1lj8Ogv14U=;
+	s=arc-20240116; t=1785306037; c=relaxed/simple;
+	bh=wE7UBsvpeqJd0CFAJT+VWAJdv2ia3FqZTIlXTwJekFY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sgoS3dn6Zh1mdPFT7r52bPmAIHclN98an59QZ7aA8UM8I8AEJ+Wql5yNZ991WZNT/Znj8tuZpu8a4IAA8lVYvcJsbBuwmE1+mGNFJh0CXtr8P5EDaGGouTSfa3hJrE8OXHvgiMiDNQ90gqCY4AfW9xdVPE1AZk2TFwMkWxPOPhM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GCrm57jO; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=q7tX2nVkyaDdNvnln3fBOMNB2qvGdkhudhGWmpczLSkltPIwkM6yh8yxqvv75wvIGNvmumhaPViQgJBu7+n8OsYUL7dlTC+cKBpwinXlCEJXCD3QEZ4/SkY4Uu6bDqNrLVSt06CxxKYScG86u4dbpaTJ5OJaaT+/qGMCzVTK2kM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M8wAWprT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GCrm57jO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9528F1F000E9;
-	Wed, 29 Jul 2026 06:19:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M8wAWprT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E1411F000E9;
+	Wed, 29 Jul 2026 06:20:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785305983;
-	bh=1ahsh8KGGbbw/1MbGvQhKGLLx27DzaCVwhsg9q5kqLc=;
+	s=k20260515; t=1785306036;
+	bh=9E07WBG4e1iWD5xUZGJn0NSvYmMapfDeDDHULu1n8mE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=GCrm57jOMSzOzA3MwBPPQtUmDjo88LSUC5D8TTrgEfGhqjKgLuz1qquihSknF8Aia
-	 kp1dYTkiL/vNmi49xSM/5yRrU/MGi1TagDuFFEyzeyF5ZUDWdO1xzKiRzqQdGI8eiw
-	 iC04bX4I1+bWBkJiLxTMsen6RAK/iNN3zSuLE9iAEJP0ur/rKdas5qecHWFZkClxbW
-	 5WVEdwePKcXbb3/RJ3H4Vkg7HffGkk8CXrp7csJIC5WzsjhFOYxrWorj0EOcDlCUcR
-	 1DsbX5eZyirr3aEP+Fvm093ddJ378h5rwpYDMwrXN+r7tCseBYZE3eMl9kK1EW1pUZ
-	 6k7gO4KG2zq7w==
-Message-ID: <ee479488-9f36-412f-b6d0-725180cc1122@kernel.org>
-Date: Wed, 29 Jul 2026 08:19:36 +0200
+	b=M8wAWprTLL5WvnijCbXMQ04MnsUxZJ6qMAiKFb7CzEWYd5GS83z/WM/Yb68ApswyC
+	 nmsJf+TtB5R9U3SSpueGaf7oqjzgF75c8a98pZc/eAPjbi8Vnpsa7bOKdO9zEGcPcH
+	 cHJFzzLj7Lpdxls4iWeD12yhcq3Ks2q4ZX0XQazcLYpVfCF9ERQn5uZ/1dQpfxSiij
+	 RmmagMomjBIz1ohmFTb1Y0E/T5Hg5B+YtsZz+67F8RsKO1H/miATvan6jvlkc2N19w
+	 LCmtdqfpe3HYlmD+jloMa0gyrBf1jCvl1fwsiEFPB9bTj8wdZ/ALH4Io0ia9SrS1gR
+	 qJVutT8EQA6Gg==
+Message-ID: <d8291f87-0a1d-4047-9aa2-78c19946654d@kernel.org>
+Date: Wed, 29 Jul 2026 08:20:28 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,8 +35,7 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] arm64: dts: qcom: shikra-iqs-evk: Add LT9611UXD
- HDMI bridge support
+Subject: Re: [PATCH v3 2/2] arm64: defconfig: Enable LT9611C bridge driver
 To: Mohit Dsor <mohit.dsor@oss.qualcomm.com>,
  Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -45,7 +44,7 @@ Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  devicetree@vger.kernel.org, venkata.valluru@oss.qualcomm.com,
  Jessica Zhang <jesszhan0024@gmail.com>
 References: <20260728-shikra-work-v3-0-e08c322596ac@oss.qualcomm.com>
- <20260728-shikra-work-v3-1-e08c322596ac@oss.qualcomm.com>
+ <20260728-shikra-work-v3-2-e08c322596ac@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -91,26 +90,22 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260728-shikra-work-v3-1-e08c322596ac@oss.qualcomm.com>
+In-Reply-To: <20260728-shikra-work-v3-2-e08c322596ac@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 28/07/2026 14:00, Mohit Dsor wrote:
-> Enable the Shikra MDSS display subsystem on the Qualcomm Shikra IQS
-> EVK board and add the Lontium LT9611UXD DSI-to-HDMI bridge node.
-> 
-> The LT9611UXD is connected via I2C (bus 4, address 0x41), powered by
-> a GPIO-controlled 3.3V regulator (PM8150 GPIO4) and an always-on 1.8V
-> rail. Reset is on GPIO76 and interrupt on GPIO85.
-> 
-> The bridge receives DSI output from MDSS and drives an HDMI-A
-> connector, with the link wired as: DPU -> DSI0 -> LT9611UXD -> HDMI.
+> Enable the Lontium LT9611C DSI-to-HDMI bridge driver as a module.
+> This driver supports the LT9611UXD chip used on the Shikra IQS EVK
+> board to provide HDMI output via the MDSS DSI interface.
 > 
 > Signed-off-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
 > ---
+>  arch/arm64/configs/defconfig | 1 +
+>  1 file changed, 1 insertion(+)
+> 
 
-Did you ignore here previous review as well, just like you did on
-LT9611C patchset?
+Don't send this again if you have 5 other patchsets as dependencies.
 
 Best regards,
 Krzysztof
