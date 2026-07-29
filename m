@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2CDC3AB272;
-	Wed, 29 Jul 2026 18:07:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 621942264C0;
+	Wed, 29 Jul 2026 18:07:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785348430; cv=none; b=j2C8NVpTn4HM0QQiIkRoUEG9Lr/P3ihDAFnUkrJLOOSQOh5DZ/BTVnvmQS44j6h1Dz8NqSAFVBzhR5ZAVZD1/D+eS9QycFKEu6NFfrFAwVpSPwdp8rFjPEkpyd2FoZV84WjadTrj4bAfkWbWz0xY3XVTHEmrF2bY56VYs3JOEHQ=
+	t=1785348434; cv=none; b=Fh70d1jIniiUtj18oJai7pZwC44Z8ZGCP2j30Tn7Jv+p3LZ0f0R8/zpGjff1f+ztSjBLIMSA/4+oz5kdSCSUwFRpuhnJP5EbkuTI95RXYUHfuhdsY6ZdLA1JrbsmnFvl8oWUGWWfvBIK9Lcp2mgaFOrq+sYiCplavghrBCai0R4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785348430; c=relaxed/simple;
-	bh=hF96k2yDYP4CtxHfzjkO+7f/2yc+R1uWoFynofZ9XNM=;
+	s=arc-20240116; t=1785348434; c=relaxed/simple;
+	bh=nHnPXLDaCa4Lt62WW6923t423XXWLdDqRKugD1X7RUs=;
 	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=aUhUS5hBT5ZpuPmyqs5CSSkMVTPxt09TepfrnN0T37K1bmbub3tRif6XFphpx3wP73qBw4rOmTil4D/8mSoP/lV6F1aPei4dadqxugUfN6E1+ItLWeMkAlMYKM1GCkhAr1YY726eExlw58zlubRDFFJ9A0dmPbGWF7EkNGzyP5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Oy3WZX3V; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id:Subject; b=h8lXe27+oFhX2lwpdO3gYPHccd2sf+15kQEYwjmvzYUOnDp4LwEjKihDri4crGEasZGzsaxQwy8GXpRpVRZV7Swa+fNYs+eNvuc7DeCGjEoZ4fFTXtKA6tCJhxG1NFU9278u/ywhX21/eY+XIqo0ip0q9EBEsbGnbd7xFxgNqLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aR7FJnPB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Oy3WZX3V"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87FA11F000E9;
-	Wed, 29 Jul 2026 18:07:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aR7FJnPB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5861B1F00A3D;
+	Wed, 29 Jul 2026 18:07:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785348420;
-	bh=LfVo/5pspi7nSOnwGr07fdJGZ3XUZxg5tX6GJjgn0I8=;
+	s=k20260515; t=1785348422;
+	bh=2FX4VAzunLlvP4EmFN8MkUWYq3P348kKelyXyud6OO4=;
 	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=Oy3WZX3V8SgdlrdI9eD0k11Icsgg9aRKtE0lgNAZElHusC8aqnRKu3bzFh5wstaSg
-	 5qAYdcZTLLWFGcpyFjiu2hzT8yRTs/cohj6Y/xs5HT+AbplhWHrCOJ1uoXwQxOy9BX
-	 xWAqHsdYqKZeTnc8C85Fq55kEXkPiEINKcmD9bYxJ0WEqo28no+28dwdQBo053mCVG
-	 QugWGcWlkrh/PjVv2Fw+vatfxsbWvExc+HyqGYRG+1S4YPVBM4bC8mI5qxnxhpmVX1
-	 TB7qbWEHGUmBoogwWEOCxJ4D4Czwg49oLfRRdd/jFLyBkWXwpM3jl5iDHUMaAEcp8f
-	 T8GzYgbhrdvLQ==
-Date: Wed, 29 Jul 2026 13:06:59 -0500
+	b=aR7FJnPBlssHNB2OHUB4ACC02xlJgQE79wgQhyW/0EwvqKQ5yCHXWYPRtZTJvhYH6
+	 QNJsoup9kXjfXNGBEG8d+IKywdRpo53dzjytjB032WxbZunGiq8Iw/H7/Gysloxm5I
+	 YgDNZpRCzX0NFEyu2ckFPxuJsrcLqvLeS2fh1/CNxwDZkTXXfawiC/iCAlbKjniA1q
+	 xID8YJEffiSl5h+W8yknGS8LisvPuKNTrL8Kn7RCLf7wCpvxY+CAuK8y5me53oh4Uh
+	 2Hpojn/SdZ1Lf8OUf8CRu2/9or64urUKU+OZ5cW9f3hxh2oDl5nSgEo0kbil6NaudT
+	 AjCdWXGAX/VtA==
+Date: Wed, 29 Jul 2026 13:07:01 -0500
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -36,43 +36,35 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: anup@brainfault.org, guodong@riscstar.com, 
- pincheng.plct@isrc.iscas.ac.cn, alex@ghiti.fr, aou@eecs.berkeley.edu, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- michal.simek@amd.com, dave.patel@riscstar.com, pjw@kernel.org, 
- linux-riscv@lists.infradead.org, zhangchunyan@iscas.ac.cn, 
- raymond.mao@riscstar.com, palmer@dabbelt.com, greentime.hu@sifive.com, 
- dfustini@oss.tenstorrent.com, luxu.kernel@bytedance.com, 
- conor+dt@kernel.org, akpm@linux-foundation.org, scott@riscstar.com, 
- jim.shu@sifive.com, krzk+dt@kernel.org, robin.randhawa@sifive.com, 
- zong.li@sifive.com, pawandeep.oza@oss.qualcomm.com, nick.hu@sifive.com, 
- samuel.holland@sifive.com, darshan.prajapati@einfochips.com, 
- junhui.liu@pigmoral.tech, dlan@kernel.org
-To: Yu-Chien Peter Lin <peter.lin@sifive.com>
-In-Reply-To: <20260729163908.249838-3-peter.lin@sifive.com>
-References: <20260729163908.249838-1-peter.lin@sifive.com>
- <20260729163908.249838-3-peter.lin@sifive.com>
-Message-Id: <178534841698.3259786.10094204605740986474.robh@kernel.org>
-Subject: Re: [PATCH v2 2/3] dt-bindings: riscv: Add Worlds per-hart
- properties
+Cc: Russell King <linux@armlinux.org.uk>, Paolo Abeni <pabeni@redhat.com>, 
+ netdev@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>, 
+ Vladimir Oltean <olteanv@gmail.com>, Simon Horman <horms@kernel.org>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Martin Kaistra <martin.kaistra@linutronix.de>, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
+ Eric Dumazet <edumazet@google.com>, devicetree@vger.kernel.org, 
+ Jakub Kicinski <kuba@kernel.org>
+To: Vasilij Strassheim <v.strassheim@linutronix.de>
+In-Reply-To: <20260729-devel-vstrassheim-soce-dsa-ml-v1-2-be569dae1b20@linutronix.de>
+References: <20260729-devel-vstrassheim-soce-dsa-ml-v1-0-be569dae1b20@linutronix.de>
+ <20260729-devel-vstrassheim-soce-dsa-ml-v1-2-be569dae1b20@linutronix.de>
+Message-Id: <178534841981.3259959.17483842007790222848.robh@kernel.org>
+Subject: Re: [PATCH 2/4] dt-bindings: net: dsa: Add SoC-e switch IP and DSA
+ bindings
 
 
-On Thu, 30 Jul 2026 00:39:07 +0800, Yu-Chien Peter Lin wrote:
-> Add per-hart DT properties for the RISC-V Worlds architecture:
-> riscv,pmwid, riscv,pmwidlist, and riscv,pmlwidlist. These
-> platform-defined values are primarily used by M-mode firmware
-> to configure World ID CSRs and restrict WID usage across
-> privilege levels.
+On Wed, 29 Jul 2026 18:36:55 +0200, Vasilij Strassheim wrote:
+> Add DT schema documentation for SoC-e FPGA switch devices.
+> The binding is split into:
+>  - a switch IP node describing the MMIO register block
+>  - a DSA MDIO node describing the DSA-facing switch instance
+> Both nodes are linked through the soce,switch-ip phandle.
 > 
-> Also add schema validation rules to enforce valid property
-> combinations based on the ISA extensions present.
-> 
-> Signed-off-by: Yu-Chien Peter Lin <peter.lin@sifive.com>
+> Signed-off-by: Vasilij Strassheim <v.strassheim@linutronix.de>
 > ---
->  .../devicetree/bindings/riscv/cpus.yaml       | 61 +++++++++++++++
->  .../devicetree/bindings/riscv/worlds.yaml     | 77 +++++++++++++++++++
->  2 files changed, 138 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/riscv/worlds.yaml
+>  .../bindings/net/dsa/soce,switch-dsa.yaml          | 195 +++++++++++++++++++++
+>  .../bindings/net/dsa/soce,switch-ip.yaml           |  54 ++++++
+>  2 files changed, 249 insertions(+)
 > 
 
 My bot found errors running 'make dt_binding_check' on your patch:
@@ -80,18 +72,12 @@ My bot found errors running 'make dt_binding_check' on your patch:
 yamllint warnings/errors:
 
 dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/cpu/idle-states.example.dtb: cpu@0 (riscv): 'riscv,pmwid' is a required property
-	from schema $id: http://devicetree.org/schemas/riscv/cpus.yaml
-Documentation/devicetree/bindings/cpu/idle-states.example.dtb: cpu@1 (riscv): 'riscv,pmwid' is a required property
-	from schema $id: http://devicetree.org/schemas/riscv/cpus.yaml
-Documentation/devicetree/bindings/cpu/idle-states.example.dtb: cpu@10 (riscv): 'riscv,pmwid' is a required property
-	from schema $id: http://devicetree.org/schemas/riscv/cpus.yaml
-Documentation/devicetree/bindings/cpu/idle-states.example.dtb: cpu@11 (riscv): 'riscv,pmwid' is a required property
-	from schema $id: http://devicetree.org/schemas/riscv/cpus.yaml
+Documentation/devicetree/bindings/net/dsa/soce,switch-ip.example.dtb: switch@80020000 (soce,mrs-24-01): reg: [[0, 2147614720], [0, 65536]] is too long
+	from schema $id: http://devicetree.org/schemas/net/dsa/soce,switch-ip.yaml
 
 doc reference errors (make refcheckdocs):
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260729163908.249838-3-peter.lin@sifive.com
+See https://patchwork.kernel.org/project/devicetree/patch/20260729-devel-vstrassheim-soce-dsa-ml-v1-2-be569dae1b20@linutronix.de
 
 The base for the series is generally the latest rc1. A different dependency
 should be noted in *this* patch.
