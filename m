@@ -1,119 +1,258 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66FB043C067;
-	Wed, 29 Jul 2026 09:59:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64183443A82;
+	Wed, 29 Jul 2026 10:03:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785319180; cv=none; b=kVIFobLRROFiU9Paco1rsj4lOt/w2RrrN6AQzZJNsB1l10uPJqdniNwedI2Q2kQ3vnINNa6S8cd1pqWyhopQQUZ+EIv3ma/WjM71t7+JSRqEqFEVpuGIozXPcfj+apeHqB8SrzsNmJLTNRzI7PkldpN08fQvTsVakfDI5MiGedU=
+	t=1785319393; cv=none; b=k7OEpAcuUddcHz/Snjz4eA9Q4jayshiZXhXV0kCw5iOEogqPdj7vvIKz9jrp8IQZfhey38s8vif5yII4A0Q1DZaBM+1EfN7i1xRqrMRDZRquy3ot5qOWB8Ib+ulvK3hFCcuNDz0ebdcHwHSVgSNIv9ecotbdDH72n0SDjy329xw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785319180; c=relaxed/simple;
-	bh=d3tVu++XWFnt+3llxlSIR5IeRhNyTeIZGBslCiwOZKo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=B2hW+IFIcfhaox4k51ZvrTeYOu5y4x3WgC5Np6poTvj+oScx58rYpOj4Ciqos1Rr1e+F7WiayhwR4Vrl288qhYAdEmkMvpQFmMUPbXfEG/ihYnb3p2zf3H/vOnjmjeNWKV+Oeo1WOxleDpd98LYS4A0pSkOKhazdXEXdxACE1+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OcdOsdYQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785319393; c=relaxed/simple;
+	bh=vSlx1YR8yuwqabNxdGdT5bOCw3FjxlNU3NevIxUKNuU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=gx/+BY/jmW8cjMw2A7QIxYuCdyVnQa2yruO6p6JCPhISsptPiXNHcpqzanefQXf9i84Vd0GegKBXucS7l1mODetgcXRpjP8ajepGzcZc0c5sQJXoWh9pProTdDbvJJo8pIdMKrsnEnGts3w/xUsP0dCw7RdBIvz5cu6PCCLojpw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=c/soOaXN; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OcdOsdYQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 979351F000E9;
-	Wed, 29 Jul 2026 09:59:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785319179;
-	bh=UPSQuIZCLeDjvkmQgOhrkHgGt8HlgRZqYzKxSEUdlaY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OcdOsdYQ0zdV64nmvxgjUz/WXsgp8cG9yNRarb2DP/dRL2IoUKn3TxtC5V80N1Cgi
-	 LoZRCL5qCDXkAgRr4gOeTo0YaZfnRNBj9kGjBCSIoNQ2w0UPmb/uZlMe76dJHe1VFN
-	 ddClvNgmgUNL9Oqe83jr/+dQsPEacWe74uKHPfGBIR6kTyfcDIcSO830SpmWhUQ3eM
-	 YlUN5AEnZ41Zq/CxgFXQsM2Yp7W+uyIpzLNKyjJmj9gtxV2CNZp02CBanIC/jLEyhQ
-	 8spFHh6930TJ5+I6EVNVS+Nt4d0QDdUDNjGFM4e5Q6cIDJxpu3np8J5dfS/Q/CJ/K7
-	 HCB0pZ4yOJE+g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v31 6/7] arm64: dts: imx8ulp: add secure enclave node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: pankaj.gupta@oss.nxp.com
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev
-In-Reply-To: <20260729-imx-se-if-v31-6-e59af7adb784@nxp.com>
-References: <20260729-imx-se-if-v31-0-e59af7adb784@nxp.com>
- <20260729-imx-se-if-v31-6-e59af7adb784@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 29 Jul 2026 09:59:38 +0000
-Message-Id: <20260729095938.979351F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="c/soOaXN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1785319389;
+	bh=vSlx1YR8yuwqabNxdGdT5bOCw3FjxlNU3NevIxUKNuU=;
+	h=From:Subject:Date:To:Cc:From;
+	b=c/soOaXNb5PxoIfIOHLXE2UzIIV8kVDu4oURvh1ZyOnCIoDggkm0MIF1C/kH1wQgB
+	 4drjTQqlS6zISIf3pttrHK2Fmo1btop2riP6gYMjHjf/K1vfu8ROQ/CJpAL2dME7AS
+	 5+SGRGaO887kQA0f3retMCOkb0MxLJ+bkyQ1LOaF3sFbLwGu4QwL7RdBKZc9IFoCuF
+	 aUnytaOmlPB1OBW43bUTX0ky6vkMapDi25ZaEhOuFGrKorf9YHr8FeHwpW0EeUuz+8
+	 Js9uEmHmSH2uFVAFlCq1rHQMAnmslGBdNO7dE5fws1zvPEzGtd0DfklFYWgyZJh6LK
+	 faXV3R3b2kFkQ==
+Received: from yukiji.home (unknown [100.64.0.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: laeyraud)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 1EB5917E0048;
+	Wed, 29 Jul 2026 12:03:08 +0200 (CEST)
+From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Subject: [PATCH v4 00/24] MT8189: Add support for system and base clock
+ controllers
+Date: Wed, 29 Jul 2026 12:02:44 +0200
+Message-Id: <20260729-mt8189-clocks-system-base-v4-0-e356b813a64c@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32Qy27DIBBFf8ViXSoeLsZZ9T+qLgY8NKi2aYGiR
+ JH/vQRvoqry8s7onDuaG0kYPSZy6m4kYvHJh7WG/qkj9gzrB1I/1UwEE4opyeiSNdcjtXOwn4m
+ ma8q4UAMJ6cAG3mPvnAAglf+K6Pylud/e9xzx+6dW5H1IGmbDsvh86la8ZNpqBqHJHTj7lEO8t
+ tsKb8S+Z/zgjMIpo8KwXjtEeGHwasM8gwkRnmtXMxfxaBuPbOJuG4WaQE5GWfefTT7YxNGLiqw
+ 2jWoaRzASJvHXtm3bL5XaD3OTAQAA
+X-Change-ID: 20260630-mt8189-clocks-system-base-70714e4ff2aa
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Chun-Jie Chen <chun-jie.chen@mediatek.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Edward-JW Yang <edward-jw.yang@mediatek.com>, 
+ Richard Cochran <richardcochran@gmail.com>, 
+ Chen-Yu Tsai <wenst@chromium.org>
+Cc: kernel@collabora.com, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ netdev@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>, 
+ Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>, 
+ Irving-CH Lin <irving-ch.lin@mediatek.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785319387; l=9420;
+ i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
+ bh=vSlx1YR8yuwqabNxdGdT5bOCw3FjxlNU3NevIxUKNuU=;
+ b=HMumC0T/jkieBml2dcRLtePL/Wdf21tvYbX4ZO+zOonIJ7CHj3Be1sg6VMgJkpzMmnVGHFHs5
+ bVN05+Effr9DBvpaE9bQxt66tvYsK5dysuoHGbozQYBuheZPgo99o7u
+X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
+ pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The newly added 'secure-enclave' node lacks the strictly required '=
-memory-region' property, and the referenced include file 'imx8ulp-firmware.=
-dtsi' does not exist in the tree.
---
+This series is a continuation by AngeloGioacchino Del Regno and I of a
+previous series ([1]), that adds the clock controller support for
+the Mediatek MT8189 SoC and its variants (MT8371, MT8391).  
 
---- Patch [6]: [PATCH v31 6/7] arm64: dts: imx8ulp: add secure enclave node=
- ---
-commit 84c95486094c423a74f2d67654a196de0232a9f8
-Author: Pankaj Gupta <pankaj.gupta@nxp.com>
+The first major changes is the split of the series in two:
+- one for all basic clock controllers including system ones (this
+series)
+- one for the multimedia and graphics related clock controllers (to be
+send in the future)
 
-arm64: dts: imx8ulp: add secure enclave node
+We chose to separate the multimedia clock drivers from the base system
+ones, as there is currently an unsolvable inter-dependency between the
+power domains and multimedia clocks; the power domains need a
+dual-stage bring-up, where only a part of the multimedia clocks are
+accessible in the first power domain powerup stage, and the rest when
+the second stage (SRAM enablement) is done.
+The current workarounds for this issue, such as removing the is_enabled
+operation from the impacted clock controllers clk_ops table or
+let the multimedia power domain always on, were quickly discarded
+for upstream.
 
-Add the EdgeLock Enclave (ELE) secure-enclave node to the i.MX8ULP SoC dtsi,
-together with a label for sram@2201f000 that the node references. The node
-is kept disabled by default.
+The second major change is the dt-bindings patch ([2]) that got heavily
+reworked, not only because of the split choice. We took the opportunity
+to regroup in the MT8186 clock and system clock dt-bindings the
+description of several other Mediatek SoC (MT8188, MT8192 and MT8195)
+and add in them the MT8189 new ones.
+The rationale is to ease maintainability and have common files for
+several currently supported SoC or new future ones, that have the same
+kind of clock controller design.
 
->     Keep the node disabled in the SoC dtsi so it does not impose a
->     reserved-memory requirement on every board. Boards enable the enclave=
- and
->     provide its memory-region by including imx8ulp-firmware.dtsi.
+Finally the pending remarks from peer reviews on the v6 revision of [1]
+were also taken into account and new fixes and cleanups were also
+added.
 
-[Severity: Low]
-Is imx8ulp-firmware.dtsi missing from this patch series? It doesn't appear
-to exist in the tree, which might prevent boards from enabling the enclave
-as instructed.
+A more detailed changelog between [1] and this series:
+- Removed multimedia and graphics related clock controllers code and
+  definitions from series
+- Added new dt-bindings patches to factorise existing MT8188, MT8192
+  and MT8195 in MT8186 clock dt-bindings
+- Heavily modified the MT8189 dt-bindings to add new compatibles 
+  in MT8186 clock dt-bindings
+- Created a new dt-bindings include for the MT8189 reset controller
+  definitions (include/dt-bindings/reset/mediatek,mt8189-resets.h)
+- Removed unnecessary `syscon` compatible fallback from MT8189 base
+  clock controllers
+- Added missing 'mediatek,mt8189-fhctl' compatible declaration in
+  dt-bindings
+- Modified Kconfig to COMMON_CLK_MT8189 be tristate (and not bool) to 
+  allow all MT8189 clock controller drivers to be built as modules (it
+  was partial) 
+- Fix pll unregisters in clk_mt8189_apmixed_probe error case
+- Reparent several clocks to correct 26M references in clk-mt8189-bus.c,
+  clk-mt8189-topckgen.c and clk-mt8189-vlpckgen.c
+- Removed CLK_SET_RATE_NO_REPARENT flag from mfg_sel_mfgpll
+- Rename TOPCKGEN_fmipi_csi_up26m clock to fmipi_csi_up26m to remove caps usage
+- Implemented reset controllers in clk-mt8189-ufs.c
+- Updated all file headers to update copyrights and add all authors
+- Added all co-developed-by trailers
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx8ulp.dtsi b/arch/arm64/boot=
-/dts/freescale/imx8ulp.dtsi
-> index c6d1bb9edf388..38233dd74ee33 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8ulp.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx8ulp.dtsi
-[ ... ]
-> @@ -185,6 +185,14 @@ scmi_sensor: protocol@15 {
->  				#thermal-sensor-cells =3D <1>;
->  			};
->  		};
-> +
-> +		hsm0: secure-enclave {
-> +			compatible =3D "fsl,imx8ulp-se-ele-hsm";
-> +			mbox-names =3D "tx", "rx";
-> +			mboxes =3D <&s4muap 0 0>, <&s4muap 1 0>;
-> +			sram =3D <&sram0>;
-> +			status =3D "disabled";
-> +		};
->  	};
+The series is based on linux-next tree (tag: next-20260728) and has
+been tested on Mediatek Genio 520-EVK (MT8371) and 720-EVK (MT8391)
+boards, with hardware enablement patch series ([3]), and on Genio
+510-EVK (MT8370, variant of MT8188) and Genio 1200-EVK (MT8395,
+variant of MT8195).
 
-[Severity: Low]
-Will this node fail dtbs_check validation on boards that leave it disabled?
+[1]: https://lore.kernel.org/linux-mediatek/20260309120512.3624804-1-irving-ch.lin@mediatek.com/
+[2]: https://lore.kernel.org/linux-mediatek/20260309120512.3624804-2-irving-ch.lin@mediatek.com/
+[3]: https://lore.kernel.org/linux-mediatek/20260701-add-mediatek-genio-520-720-evk-v2-0-19d5da4ef984@collabora.com/
 
-According to Documentation/devicetree/bindings/firmware/fsl,imx-se.yaml,
-the memory-region property is unconditionally required for this compatible
-string:
+---
+Changes in v4:
+- Rebased on next-20260728 tag
+- Added patches 9 to 14 to add new clock ops data set for PLL and
+  PLL-FHCTL to handle a new PLL switch logic for PLL control and BAR
+  reset, supported by MT8189 SoC
+- Patch 15:
+  - Removed useless includes (B. Masney)
+  - Fixed variable declaration order in clk_mt8189_apmixed_probe (B.
+    Masney)
+  - Added missing pwr_reg setting setting in PLL_SETCLR macro (B. 
+    Masney, Sashiko)
+  - Added en_set_reg, en_clr_reg, rst_bar_reg, rst_bar_set_reg and
+    rst_bar_clr_reg fixed offsets and new mtk_pll_setclr_ops ops
+    setting in PLL_SETCLR macro
+  - Added pwr_reg offset values in apmixed_plls array
+  - Fixed rst_bar_mask for mainpll univpll, and mmpll in apmixed_plls
+    array to match rst_bar set/clr reg settings
+- Fixed factor ratio for mainpll_d4_d8, tvdpll1_d16, tvdpll2_d16 and
+  osc_d16 clocks (Sashiko)
+- Link to v3: https://lore.kernel.org/r/20260720-mt8189-clocks-system-base-v3-0-8e6d99ab3ad2@collabora.com
 
-  - if:
-      properties:
-        compatible:
-          contains:
-            enum:
-              - fsl,imx8ulp-se-ele-hsm
-              - fsl,imx93-se-ele-hsm
-    then:
-      required:
-        - memory-region
+Changes in v3:
+- Rebased on next-20260717 tag
+- Added Fixes tags to patches 1, 2 and 3
+- Reworded patch 8 subject and description messages
+- Updated Reviewed-by and Acked-by trailers
+- Link to v2: https://lore.kernel.org/r/20260709-mt8189-clocks-system-base-v2-0-2926da3db6cf@collabora.com
 
-Even with status =3D "disabled", the schema expects the memory-region prope=
-rty
-to be present in the node.
+Changes in v2:
+- Rebased on next-20260708 tag
+- Added patch 1,2 and 3 to make the #clock-cells a required property in
+  MT8186, MT8192 and MT8195 clock controller dt-bindings
+- Patch 5:
+  - Removed conditional blocks to check clock-cells property presence
+    for MT8188 clock controller compatible
+  - Reworded commit message to remove the note (no more applicable)
+  - Fixed incorrect property value in else block for #reset-cells
+    property check.
+_ Removed from patch 9 conditional blocks to check clock-cells property
+  presence for MT8189 clock controller compatible
+- Fixed missing MODULE_DEVICE_TABLE in patches 10, 11 and 12.
+- Added devicetree series link in cover letter
+- Link to v1: https://lore.kernel.org/r/20260701-mt8189-clocks-system-base-v1-0-2b048feea50a@collabora.com
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729-imx-se-if-=
-v31-0-e59af7adb784@nxp.com?part=3D6
+---
+Louis-Alexis Eyraud (24):
+      dt-bindings: clock: mediatek: Make '#clock-cells' required for MT8186
+      dt-bindings: clock: mediatek: Make '#clock-cells' required for MT8192
+      dt-bindings: clock: mediatek: Make '#clock-cells' required for MT8195
+      dt-bindings: clock: mediatek: reorder MT8186 compatibles
+      dt-bindings: clock: mediatek: regroup MT8188 dt-bindings into MT8186
+      dt-bindings: clock: mediatek: regroup MT8192 dt-bindings into MT8186
+      dt-bindings: clock: mediatek: regroup MT8195 dt-bindings into MT8186
+      dt-bindings: clock: mediatek: Add MT8189 system/base clocks and resets
+      clk: mediatek: Harmonize mtk_pll_fenc related symbol names
+      clk: mediatek: pll: Add BAR reset register offsets
+      clk: mediatek: pll: split default prepare/unprepare callbacks
+      clk: mediatek: pll: Add ops for PLLs using set/clr regs
+      clk: mediatek: pllfh: Add configurable clock ops to mtk_pllfh_data
+      clk: mediatek: pllfh: Add ops for PLLs using set/clr regs
+      clk: mediatek: Add MT8189 apmixedsys clock support
+      clk: mediatek: Add MT8189 topckgen clock support
+      clk: mediatek: Add MT8189 vlpckgen clock support
+      clk: mediatek: Add MT8189 vlpcfg clock support
+      clk: mediatek: Add MT8189 bus clock support
+      clk: mediatek: Add MT8189 dbgao clock support
+      clk: mediatek: Add MT8189 dvfsrc clock support
+      clk: mediatek: Add MT8189 i2c clock support
+      clk: mediatek: Add MT8189 scp clock support
+      clk: mediatek: Add MT8189 ufs clock support
+
+ .../bindings/clock/mediatek,mt8186-clock.yaml      |  128 ++-
+ .../bindings/clock/mediatek,mt8186-fhctl.yaml      |    1 +
+ .../bindings/clock/mediatek,mt8186-sys-clock.yaml  |   24 +-
+ .../bindings/clock/mediatek,mt8188-clock.yaml      |   93 --
+ .../bindings/clock/mediatek,mt8188-sys-clock.yaml  |   58 --
+ .../bindings/clock/mediatek,mt8192-clock.yaml      |  191 ----
+ .../bindings/clock/mediatek,mt8192-sys-clock.yaml  |   68 --
+ .../bindings/clock/mediatek,mt8195-clock.yaml      |  238 -----
+ .../bindings/clock/mediatek,mt8195-sys-clock.yaml  |   76 --
+ drivers/clk/mediatek/Kconfig                       |   79 ++
+ drivers/clk/mediatek/Makefile                      |    8 +
+ drivers/clk/mediatek/clk-mt8189-apmixedsys.c       |  203 ++++
+ drivers/clk/mediatek/clk-mt8189-bus.c              |  200 ++++
+ drivers/clk/mediatek/clk-mt8189-dbgao.c            |   98 ++
+ drivers/clk/mediatek/clk-mt8189-dvfsrc.c           |   58 ++
+ drivers/clk/mediatek/clk-mt8189-iic.c              |  122 +++
+ drivers/clk/mediatek/clk-mt8189-scp.c              |   77 ++
+ drivers/clk/mediatek/clk-mt8189-topckgen.c         | 1025 ++++++++++++++++++++
+ drivers/clk/mediatek/clk-mt8189-ufs.c              |  133 +++
+ drivers/clk/mediatek/clk-mt8189-vlpcfg.c           |  116 +++
+ drivers/clk/mediatek/clk-mt8189-vlpckgen.c         |  285 ++++++
+ drivers/clk/mediatek/clk-mt8196-apmixedsys.c       |    2 +-
+ drivers/clk/mediatek/clk-mt8196-vlpckgen.c         |    2 +-
+ drivers/clk/mediatek/clk-pll.c                     |  135 ++-
+ drivers/clk/mediatek/clk-pll.h                     |   13 +-
+ drivers/clk/mediatek/clk-pllfh.c                   |   15 +-
+ drivers/clk/mediatek/clk-pllfh.h                   |    3 +
+ include/dt-bindings/clock/mediatek,mt8189-clk.h    |  433 +++++++++
+ include/dt-bindings/reset/mediatek,mt8189-resets.h |   17 +
+ 29 files changed, 3135 insertions(+), 766 deletions(-)
+---
+base-commit: bbda95765d148ddea2f3876bb09aadd741cf3316
+change-id: 20260630-mt8189-clocks-system-base-70714e4ff2aa
+
+Best regards,
+-- 
+Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+
