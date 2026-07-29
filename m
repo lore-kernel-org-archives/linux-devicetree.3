@@ -1,133 +1,90 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from MTA-08-4.privateemail.com (mta-08-4.privateemail.com [198.54.122.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06EA333DEE6;
-	Wed, 29 Jul 2026 17:22:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AF1534216C;
+	Wed, 29 Jul 2026 17:23:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.122.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785345768; cv=none; b=R4gAgqS9Gp1tMxqZHrJ/3dx5j8fxPqBIdAdCAb5PM/SQ+g3fuxQMNuRPAPAmICjIazTwI1GJbI6QXuK4kcRHbzgZCVNtsp36blIkcM0OnJ5CZKCCFndggeUL2/idVIv7fAmMo5Rg1H3kMYt9cwKlVTngeQmiehr4PlZA3nsv9O8=
+	t=1785345830; cv=none; b=TFGMqNENU8jGGwYHnybLDFsqYMrSr9vNkFRsnoDj9fO4kR1nTx+dDXSGdTI2uNYm6KMOlPBnve+QSwcZ1zo1T8iVmKvqRKJ/yaf4sBNZUpcxSX3bj9Dg1xJBlChbIcrxJaRfgYfzu7wIfGv8565h4nu7YIwz0Hm6E8sKSpM1cL4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785345768; c=relaxed/simple;
-	bh=rKwwbbeUhYJYWtqvfZI94lJBYyOS0Gf7tjoXONG1z2U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AcvLRWRRyEcHYX8iJHNif1H8D1B8lGvqubiMx6Kw0Wc7oDbMs4qfgloF0jaxeZg6Pvj2cXpVLsfMiX30petv3dPZtaRpmWrPfBwfw8ITl60CBSBWo2sv3TmU2XDRq/9Sl9Ih5wJtNZG+MGbxhO7iTER4+mtOMYxt1HFjXb9jRfQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=UQH+2+fT; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="UQH+2+fT"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=9fPk+ekSPojXSzMMxvbRxnaMQS/1Or1+tzZjym+mrQw=; b=UQH+2+fTr5y9NBm9iSO5MY0U/w
-	E8pRe0E5DDnZYLukXtgCxqahz7f7Qiiamox/jsDS1kgrMmz7FiqP4okR+UAu5pelwx64FdOfgYfm1
-	5+/Qz1LBuYYDHI/WzjaGPfqlejK8KkkN8SjWa2Ne1SonTzHN/3ZkSQhJx1L6F+tL4Nug=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wp7zK-00EqxX-Fv; Wed, 29 Jul 2026 19:22:38 +0200
-Date: Wed, 29 Jul 2026 19:22:38 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Vasilij Strassheim <v.strassheim@linutronix.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	s=arc-20240116; t=1785345830; c=relaxed/simple;
+	bh=ZhLMvacTOrHBow+sxLM+A0As0oYsRxeOKlzy39KpUQE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GN0TmNbnmHIYD5e726hkCjJsIH5SolUv6l6Hl1htZ5ltDcvkUC5qlCGQQjexHukpMlz9dMGhqn1UMq3tzUY/ZUyRFEEihtnRYnWol2c7xxl0NFuPI78R9hyWycwUcsnBQzL93l+3mFOLdgFXO8HiIkt9euoNNymq8vToYiV/qjo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net; spf=pass smtp.mailfrom=catcrafts.net; arc=none smtp.client-ip=198.54.122.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catcrafts.net
+Received: from mail.privateemail.com (K8S-PROD-WORKER-03 [87.215.145.39])
+	by mta-08.privateemail.com (Postfix) with ESMTPA id 4h9K164ljCz3hhTM;
+	Wed, 29 Jul 2026 13:23:22 -0400 (EDT)
+From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
+	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Maciej Strozek <mstrozek@opensource.cirrus.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Russell King <linux@armlinux.org.uk>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	Martin Kaistra <martin.kaistra@linutronix.de>
-Subject: Re: [PATCH 3/4] net: dsa: Add support for SoC-e SDSA tags
-Message-ID: <df7e7e04-80fc-4b80-9afd-0e9bc14a759f@lunn.ch>
-References: <20260729-devel-vstrassheim-soce-dsa-ml-v1-0-be569dae1b20@linutronix.de>
- <20260729-devel-vstrassheim-soce-dsa-ml-v1-3-be569dae1b20@linutronix.de>
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	patches@opensource.cirrus.com,
+	linux-sound@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 7/8] dt-bindings: sound: qcom: add Tambora WCD9378 SDCA codec
+Date: Wed, 29 Jul 2026 19:23:08 +0200
+Message-ID: <20260729172308.43573-1-jorijnvdgraaf@catcrafts.net>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <6a901a72-fbcf-4478-b798-e5f234c5e9d8@kernel.org>
+References: <20260722234221.884765-1-srinivas.kandagatla@oss.qualcomm.com> <20260722234221.884765-8-srinivas.kandagatla@oss.qualcomm.com> <219d44e2-28ed-4c54-bd00-66e687a0ba48@kernel.org> <d0891f90-b69b-4b27-ad58-94c342ad9a6a@oss.qualcomm.com> <3c484a68-5db8-464f-992a-6c7584841a10@kernel.org> <0cb5a2dd-c49e-47e3-8cc5-ab2ffd397a32@oss.qualcomm.com> <ba147ca6-3788-4cbe-95c3-949ae73ee8f0@kernel.org> <54f1c3e5-0b84-44a6-a03c-3cd65792de9c@oss.qualcomm.com> <6ed441b8-7148-43ef-9c9f-4bc30c468443@kernel.org> <b123882c-c51f-44b3-9004-bc1c4242af81@oss.qualcomm.com> <6a901a72-fbcf-4478-b798-e5f234c5e9d8@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260729-devel-vstrassheim-soce-dsa-ml-v1-3-be569dae1b20@linutronix.de>
+Content-Transfer-Encoding: 8bit
 
-> @@ -98,6 +98,12 @@ config NET_DSA_TAG_EDSA
->  	  Say Y or M if you want to enable support for tagging frames for the
->  	  Marvell switches which use EtherType DSA headers.
->  
-> +config NET_DSA_TAG_SDSA
-> +	tristate "Tag driver for SoC-e switches using EtherType SDSA headers"
-> +	help
-> +	  Say Y or M if you want to enable support for tagging frames for the
-> +	  SoC-e switches.
-> +
+On 7/29/26 4:04 PM, Krzysztof Kozlowski wrote:
+> All this should be part of TX.
 
-These entries are sorted, so it probably should be between
-NET_DSA_TAG_RZN1_A5PSW and NET_DSA_TAG_LAN9303.
+I have prototyped this with my mobile-mode wcd9378 driver for the
+FP6. For the paths my driver implements (TX/capture), the following
+works:
 
-> @@ -23,6 +23,7 @@ dsa_core-y += \
->  obj-$(CONFIG_NET_DSA_TAG_AR9331) += tag_ar9331.o
->  obj-$(CONFIG_NET_DSA_TAG_BRCM_COMMON) += tag_brcm.o
->  obj-$(CONFIG_NET_DSA_TAG_DSA_COMMON) += tag_dsa.o
-> +obj-$(CONFIG_NET_DSA_TAG_SDSA) += tag_sdsa.o
->  obj-$(CONFIG_NET_DSA_TAG_GSWIP) += tag_gswip.o
+- the TX slave node owns reset-gpios, the supplies and the mic-bias
+  voltages; the RX slave is referenced from the TX node by phandle;
+- like the wsa883x/wsa8840 speaker amps (powerdown GPIO and supplies
+  on the slave node), the TX slave driver does the supply/reset
+  bring-up itself from its probe, and both slaves then enumerate
+  normally;
+- the ASoC component and DAIs register on the TX slave device; the
+  aggregation is TX-over-RX instead of a third device over both.
 
-Also sorted, and this is the wrong spot.
+Verified on the FP6 across two boots: both slaves enumerate, the card
+registers, and handset-mic capture passes the same kind of 1 kHz
+speaker-to-mic round-trip check used to validate [1]. However RX playback and
+MBHC are not implemented in my driver in either shape, so I cannot
+speak to those paths.
 
-> +#define SDSA_HLEN	8
-> +
-> +#define SDSA_NAME	"sdsa"
+Since, as agreed with Srinivas, [1] already carries this binding:
+whatever shape is decided here, I would like to respin [1] to match
+rather than have the two threads resolve differently.
 
-Does SDSA mean anything? Or have you taken net/dsa/tag_dsa.c, and just
-changed edsa to sdsa?
+[1] https://lore.kernel.org/all/20260729000649.263426-1-jorijnvdgraaf@catcrafts.net/
 
-> +static struct sk_buff *sdsa_xmit(struct sk_buff *skb, struct net_device *dev)
-> +{
-> +	struct dsa_port *dp = dsa_user_to_port(dev);
-> +	u8 *sdsa_header;
-> +
-> +	if (skb_cow_head(skb, SDSA_HLEN) < 0)
-> +		return NULL;
-> +
-> +	skb_push(skb, SDSA_HLEN);
-> +	dsa_alloc_etype_header(skb, SDSA_HLEN);
-> +
-> +	/* Construct the FROM_CPU DSA tag. */
+Prototype: commit 7b720141754b, the top commit of
+https://forgejo.catcrafts.net/Catcrafts/milos-linux/src/branch/wcd9378-parentless-proto
+(milos v7.1.2 integration tree; the parentless conversion is that one
+commit on top of the posted v2 driver).
 
-Is FROM_CPU a concept for this device? Are there other types of tag?
-
-> +	sdsa_header = dsa_etype_header_pos_tx(skb);
-> +	sdsa_header[0] = (ETH_P_SDSA >> 8) & 0xff;
-> +	sdsa_header[1] = ETH_P_SDSA & 0xff;
-> +	sdsa_header[2] = 0x00; /* reserved */
-> +	sdsa_header[3] = 0x00; /* reserved */
-> +	sdsa_header[4] = FIELD_PREP(SDSA_TAG_FRAME_TYPE_MASK, 1) |
-> +			 FIELD_PREP(SDSA_TAG_PORT_HI_MASK, dp->index >> 5);
-> +	sdsa_header[5] = FIELD_PREP(SDSA_TAG_PORT_MASK, dp->index);
-> +	sdsa_header[6] = 0x00; /* VLAN not supported */
-> +	sdsa_header[7] = 0x00; /* VLAN not supported */
-> +
-> +	return skb;
-> +}
-> +
-> +static struct sk_buff *sdsa_rcv(struct sk_buff *skb, struct net_device *dev)
-> +{
-> +	u8 *sdsa_header;
-> +	int source_port;
-> +	u8 frame_type;
-> +
-> +	if (unlikely(!pskb_may_pull(skb, SDSA_HLEN)))
-> +		return NULL;
-> +
-> +	sdsa_header = dsa_etype_header_pos_rx(skb);
-> +
-> +	/* Check that the frame type is TO_CPU. */
-> +	frame_type = FIELD_GET(SDSA_TAG_FRAME_TYPE_MASK, sdsa_header[4]);
-> +	if (frame_type != 0)
-
-#define for TO_CPU?
-
-	Andrew
+Jorijn
