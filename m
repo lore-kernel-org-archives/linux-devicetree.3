@@ -1,139 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 052A5469828
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 17:59:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 457D442C4E4;
+	Wed, 29 Jul 2026 18:07:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785348000; cv=none; b=ca+ljEzCut6WkO5V2q+B2UYbyA6+GxFUKbx3XufJ9GfZH6ZiIKmwW9dBLqQBx6LE7ywRsRyTdeZGp+ut4OfecdyOeLWoPhwI23rWrPfsFghXNUJRcCVWGMDVmGqeEhH2+ZLwRcUAOAn4HWYe/bf7qC/Usd4XkI9gfCAy0p+16M0=
+	t=1785348431; cv=none; b=umbhDGQUTqKtZ6eZR1s5uXsY/fIM8vLDO09Lfio/YsoIZOBywkPTUSU3Hq3AMs9tiITQxLbNurBvYiG0iDjw8/6Qh+MjsiXJgn8Tx2ddc7Amq7niNc31QbTvi17lQyg/1FuRqPX8wqGSP7YIKDKyh+VkmyhwcOmCoI+tzAt/uA4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785348000; c=relaxed/simple;
-	bh=PFjYtGsVWcVPmrKY00WgdQvssom7EfPHrYeryBVZwM4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IJqXQRupsdGy5eFeedV9nmuFRAFBPPNRTyPZllaAEoIHMX5DHOcBcr7IaWzQAdTh9Az1fufB3ePx3HKKEuwPS8MbTPU4NG2RwLX8WirOyCLbs/k/zh5CR7CJrnvFnAISCzAadcEkEUr5QvpsPxKZeGMTZDfStir7I6efOgMGRKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k0TlBh85; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785348431; c=relaxed/simple;
+	bh=p7lrigBk+vv9qDOsNFychIfRZk0ek9Nm5DOiWNyn8Ek=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=J1KodBBNQXoju9YP1bpzQgJUPLegKxhEozxseE73XqCJbcc2KjYthcabh97hv3SloI+Az1awVmrRPO+FGxN+ypwn82pYoywqX1s5DQ0IwdxqWuZ9QnYvoCPHRtb/PqTvT1vZDrhObpooFLlRwK1HFifsmQE+tawOhnewaPTPKMM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FIoeCB4O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k0TlBh85"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B772F1F000E9;
-	Wed, 29 Jul 2026 17:59:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FIoeCB4O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6220A1F00A3A;
+	Wed, 29 Jul 2026 18:07:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785347996;
-	bh=Afr8AYMx3BMn2gSwsRKx+oiaoVXcclqbOn2L0f9Bohs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=k0TlBh850067w6GKBvF0eJQhok/oWcwB7gCBx3JSKxmovtZIDAfdvZ/96oXuq7jiX
-	 EyQiTuzDC0EyUcjNxNcYZ5OplID+bhCpgPS6w4hAnBp/6xHsirjcEb96HqVPIC36kx
-	 doOZ5ckF5RiD1oMkrNp88NpeEviAsW+Y6kvJP5bSHpMj1+kCbeSrsl6K1hXH64chPa
-	 lWZnuSAQJ+A3cBIQcD39McX5nMkxPMJ8vh+3LhwLlCJHQo1taEI+a64bM1K9s/4Lc2
-	 q5QWaxEyeeQcYztm77vOM7W3gaFTKVSQD6abZ4GJ5sUm5DylHp1bF2cDlxTh/aZoZo
-	 2an1kMHsQOtug==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/3] arm64: dts: amlogic: add support for Orbbec Zora
- P1
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alberto Robazza" <robazzalberto@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, neil.armstrong@linaro.org, linux-amlogic@lists.infradead.org
-In-Reply-To: <20260729175134.92909-4-robazzalberto@gmail.com>
-References: <20260729175134.92909-1-robazzalberto@gmail.com>
- <20260729175134.92909-4-robazzalberto@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 29 Jul 2026 17:59:55 +0000
-Message-Id: <20260729175955.B772F1F000E9@smtp.kernel.org>
+	s=k20260515; t=1785348421;
+	bh=GxH/r7+adCfOo3v2pAd+rEyUjiBUoOm+f3CHIqF+c3M=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=FIoeCB4OiM6hKu3j9xG+F9sYFXH4FYo1vOy/tJDbSeMVrp53n+5J4sNJyuSNdfWSL
+	 dYrU91KJ+PC+Shxlr7lVoN4V6ud4/0xUulDk/w7vKNW2rbnYDjqUL/wTa9V/zszDg7
+	 UtG5708Wh1Vt6Mx71ym6W5n0RphL++edE6KtXAL7LxDp8+m5N1entN+h//1x0+Hmv+
+	 773PCW4LLjTfgZyHp/cZzYV+rSzb8XOt2v/1L7E4H6KUvY4NNyXQsHXd3f38Hlbkv4
+	 RkcH9shNJmm8xep3Djaq9/NHvkWoWg/ampFYdnrH0DI+go97qlUk1rrTXQ87bPJ6BC
+	 MyREDatYZxdLQ==
+Date: Wed, 29 Jul 2026 13:07:00 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: guodong@riscstar.com, pjw@kernel.org, zhangchunyan@iscas.ac.cn, 
+ conor+dt@kernel.org, greentime.hu@sifive.com, robin.randhawa@sifive.com, 
+ dfustini@oss.tenstorrent.com, raymond.mao@riscstar.com, 
+ dave.patel@riscstar.com, pincheng.plct@isrc.iscas.ac.cn, 
+ linux-kernel@vger.kernel.org, darshan.prajapati@einfochips.com, 
+ linux-riscv@lists.infradead.org, junhui.liu@pigmoral.tech, 
+ akpm@linux-foundation.org, dlan@kernel.org, jim.shu@sifive.com, 
+ devicetree@vger.kernel.org, luxu.kernel@bytedance.com, krzk+dt@kernel.org, 
+ zong.li@sifive.com, anup@brainfault.org, michal.simek@amd.com, 
+ scott@riscstar.com, alex@ghiti.fr, samuel.holland@sifive.com, 
+ aou@eecs.berkeley.edu, pawandeep.oza@oss.qualcomm.com, palmer@dabbelt.com, 
+ nick.hu@sifive.com
+To: Yu-Chien Peter Lin <peter.lin@sifive.com>
+In-Reply-To: <20260729163908.249838-4-peter.lin@sifive.com>
+References: <20260729163908.249838-1-peter.lin@sifive.com>
+ <20260729163908.249838-4-peter.lin@sifive.com>
+Message-Id: <178534841831.3259884.2854898669055783798.robh@kernel.org>
+Subject: Re: [PATCH v2 3/3] dt-bindings: sifive: Add WorldGuard Checker
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Pin multiplexing conflict on GPIOX_16 between Wi-Fi reset and PWM =
-clock.
-- [Low] The LED node fails to override the legacy 'label' property, resulti=
-ng in incorrect sysfs naming.
---
 
---- Patch [3]: [PATCH v5 3/3] arm64: dts: amlogic: add support for Orbbec Z=
-ora P1 ---
-commit 92879b64fc9510d716492c86c79ec3e7f0eaad2f
-Author: Alberto Robazza <robazzalberto@gmail.com>
+On Thu, 30 Jul 2026 00:39:08 +0800, Yu-Chien Peter Lin wrote:
+> Add YAML binding schema for the SiFive wgChecker, a programmable
+> access controller integrated in the interconnect fabric of RISC-V
+> Worlds-capable SoCs.
+> 
+> wgChecker enforces World ID (WID) based access control on downstream
+> bus transactions. Each checker slot encodes a 2-bit permission field
+> per WID (read/write), enabling fine-grained memory partitioning and
+> device isolation between execution contexts. Violations are reported
+> via bus errors, interrupts, or both, selectable and lockable per slot.
+> 
+> The binding registers wgChecker as an access-controllers provider.
+> Consumers (i.e. its protected device) reference it via the standard
+> access-controllers phandle to declare their access requirements.
+> 
+> Also document the sifive,trustedwid property for the /cpus node,
+> identifying the privileged WID authorized to configure all checkers
+> on the platform.
+> 
+> Link: https://github.com/riscvarchive/security/blob/main/papers/worldguard%20proposal.pdf
+> Signed-off-by: Yu-Chien Peter Lin <peter.lin@sifive.com>
+> Reviewed-by: Zong Li <zong.li@sifive.com>
+> Reviewed-by: Jim Shu <jim.shu@sifive.com>
+> ---
+>  .../devicetree/bindings/riscv/worlds.yaml     |   9 +
+>  .../bindings/sifive/sifive,wgchecker2.yaml    | 356 ++++++++++++++++++
+>  2 files changed, 365 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sifive/sifive,wgchecker2.yaml
+> 
 
-arm64: dts: amlogic: add support for Orbbec Zora P1
+My bot found errors running 'make dt_binding_check' on your patch:
 
-The Orbbec Zora P1 is an A311D (Meson G12B) board with 2/4 GiB DDR4,
-an Ampak AP6256 combo module (Broadcom BCM43456 Wi-Fi over SDIO and
-BCM4345C5 Bluetooth over UART_A).
-According to the original Linux dts, the board is a modded version
-of the ODROID-N2, with Amlogic A311D instead of the original S922X
-and WiFi and Bluetooth support.
+yamllint warnings/errors:
 
-> diff --git a/arch/arm64/boot/dts/amlogic/meson-g12b-zora-p1.dts b/arch/ar=
-m64/boot/dts/amlogic/meson-g12b-zora-p1.dts
-> new file mode 100644
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/amlogic/meson-g12b-zora-p1.dts
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/sifive/sifive,wgchecker2.example.dtb: uart@1c1000 (ns16550a): $nodename:0: 'uart@1c1000' does not match '^serial(@.*)?$'
+	from schema $id: http://devicetree.org/schemas/serial/8250.yaml
+Documentation/devicetree/bindings/sifive/sifive,wgchecker2.example.dtb: uart@1c1000 (ns16550a): Unevaluated properties are not allowed ('access-controllers', 'reg-names' were unexpected)
+	from schema $id: http://devicetree.org/schemas/serial/8250.yaml
 
-[ ... ]
+doc reference errors (make refcheckdocs):
 
-> +	leds {
-> +		/* Status led on Zora is actually green, same pin as N2, but reversed =
-polarity */
-> +		led-blue {
-> +			function =3D LED_FUNCTION_STATUS;
-> +			color =3D <LED_COLOR_ID_GREEN>;
-> +			gpios =3D <&gpio_ao GPIOAO_11 GPIO_ACTIVE_LOW>;
-> +		};
-> +	};
+See https://patchwork.kernel.org/project/devicetree/patch/20260729163908.249838-4-peter.lin@sifive.com
 
-[Severity: Low]
-Is this led-blue node missing a /delete-property/ for the label?
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
 
-The device tree includes meson-g12b-odroid-n2.dtsi which defines a label
-property for led-blue. When the LED subsystem parses this in
-led_parse_fwnode_props(), it reads the inherited label and returns
-immediately, ignoring the newly added color and function properties.
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
 
-Will this cause the LED to appear as 'n2:blue' in sysfs instead of the
-intended color-based name?
+pip3 install dtschema --upgrade
 
-> +
-> +	sdio_pwrseq: sdio-pwrseq {
-> +		compatible =3D "mmc-pwrseq-simple";
-> +		reset-gpios =3D <&gpio GPIOX_16 GPIO_ACTIVE_LOW>;
-> +		clocks =3D <&clock_32768>;
-> +		clock-names =3D "ext_clock";
-> +	};
-> +
-> +	clock_32768: clock-32768 {
-> +		compatible =3D "pwm-clock";
-> +		#clock-cells =3D <0>;
-> +		clock-frequency =3D <32768>;
-> +		pwms =3D <&pwm_ef 0 30518 0>;
-> +	};
-> +
-> +	sound {
-> +		model =3D "ZORA-P1";
-> +	};
-> +};
-> +
-> +&pwm_ef {
-> +	status =3D "okay";
-> +	pinctrl-0 =3D <&pwm_e_pins>;
-> +	pinctrl-names =3D "default";
-> +};
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
-[Severity: High]
-Does this pin configuration create a multiplexing conflict on GPIOX_16?
-
-The sdio_pwrseq node requests GPIOX_16 as a standard GPIO for the reset
-sequence. However, pwm_ef requests the pwm_e_pins pinctrl group. Based on
-drivers/pinctrl/meson/pinctrl-meson-g12a.c, pwm_e_pins maps directly to
-GPIOX_16.
-
-Since the pinctrl subsystem prevents concurrent claims of the same pin for
-different functions, will one of these initializations fail and prevent
-Wi-Fi from working?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729175134.9290=
-9-1-robazzalberto@gmail.com?part=3D3
