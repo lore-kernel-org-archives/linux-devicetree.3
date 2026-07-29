@@ -1,195 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0023A47CC9C
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 12:10:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2FCD47D460
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 12:11:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785327023; cv=none; b=YP0qpx6XACZNO4l/BjnI2sqUJhMK8nNpiLTFBTWl+vQyUHndj+gPyrNUwpleazN5Pbq11Xjz0Wj+b00kHtOuqCRAD4GBvGaMJwvDMokdkZopFtQ3+cbtKFwYPnMC0tm5Lbbyaq7ZEkEFtG6QRKPwTI1mmMD5q0P4F/dHVHvc8Ck=
+	t=1785327066; cv=none; b=s65MQKR9G2vcx18cyBC4ASf5AqsvXcTyBxIoF9kMIttx1Zys2/F+2LMXHVx9OwHXOLyrXS1TryjnIcf/Ifl3FeQIpOQ2FOwYky7BgjFAv8x9jSuBjG2aRDdP4z0Dm69HE9PbLJL4nze6XUNhAYo/T+jjoCpivaLiVawjTc30JjY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785327023; c=relaxed/simple;
-	bh=20QyRXZKqXQBTVCA6bkZ54kk7wxWZ8k6gL3c9o/GY/Q=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FnYMvtFBmzcXh28qWFPuPKU2gKsTWPwgacrwaECWRZgooPw3u9Ruun6gohBEgVDau5MtJfX2OwEQ1HXhsJjk2iVoxyqKBWMaYIaiaX7rSJfxxQPOfIWTO2ckdSKz7lXHxaLR4yl7PA2CoqluavLb7aAhHlKlIQ2KFXNvhUBhlDM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A5z2iE3c; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785327066; c=relaxed/simple;
+	bh=5k6QLzfp9EOmnIdr58qsCb+iZZ/k/Ku2n2OBXhKPZhs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JU9P9NYh3Tlousfm7zws/wEzsI6MIVXtXrD5aokr8iIPKnHtj8il1Y1WzeHXHtoshNNqozTQiaOFON7wBXR0OrOQ3xlGpCu4+U4IanzeILs2LLS0Gliz9zvE+asNOWzhH32Ka/Nrbl5B7V576NPOZzj8jTpe2+QT9fho/1IYCic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=j36KunEz; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VgJGRuQz; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A5z2iE3c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 484781F000E9;
-	Wed, 29 Jul 2026 12:10:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785327021;
-	bh=LJVvew1XbbHDMn1ZUJqpVsG7gwiDaHbs30KxwmDH5gw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=A5z2iE3cUlwaNNupSwovRrcIDVHWN9IQJt1YITeD8NVwJeQITX5V/fKVhn8+3hLng
-	 kORwv7X6AAo3gUJp/gN/g2qQZRMwTbNqvvRDSy2tfLIoBtMTpO7z6rgF0+ABf/jmmN
-	 Vg2gijC3VZ7nHitdJDsweC2jcYFjkJAuhogV1Sqa9b6+IYNbwXwOq4vgvA2/+WYVGJ
-	 BoLQoW3xbYRmC3kgITee7XBEQsnGB8kPK7EcDehidQOxYBU8kAfJ6XkV/txldBEHz2
-	 zWKOqj/QEiXJ/FiowKmxWhjLwKUsVNG+V2NsBSS18rZYn3w+rozbcNx3/TLZfOWFKL
-	 /RInOaMG3sRQw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] clk: si544: add support for si549
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?UGF2ZWwgTMO2Ymw=?= <pavel@loebl.cz>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260729115310.3490589-3-pavel@loebl.cz>
-References: <20260729115310.3490589-1-pavel@loebl.cz>
- <20260729115310.3490589-3-pavel@loebl.cz>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 29 Jul 2026 12:10:20 +0000
-Message-Id: <20260729121021.484781F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="j36KunEz";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VgJGRuQz"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66TBt52l1767556
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 12:11:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Z7xRn4gcm0i6IkHFV6kZbzngWFhH+D/HYku0JGYpp5g=; b=j36KunEzlDTKGKCc
+	6EnnxrhKoY2aie7fGwhJEX6YYGzYLxxjZUzYp360FNyerynTZC6iLId0Ffbr4LZx
+	TnzqAqQX2PY57KSAK3fVueokCruE1ckK8jz2Qhvh4ZLACCX80Fi5djyY9uBeVC6y
+	vSnF77fCPaJ5iz5EMYTCyOLLGk2sWPJdMPRKqMOX3a4Y8pPx6oJ4F3ZTnwZ4fPJd
+	ZVBLPvwidnTZ/1PVp4XnLOM5KcPbx1Z17XvFcC9GFBoqqBRrvqDzMwf5DrDspkSh
+	rMU6agu6gQxtyF9/vvUpfJ9uXIMiF4TIV0WrtB6LLQxsFjPbN93bpCtFWF73NBLy
+	p890Vg==
+Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fqh2kg1wr-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 12:10:59 +0000 (GMT)
+Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-9775a8105d6so10470241.0
+        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 05:10:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785327059; x=1785931859; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Z7xRn4gcm0i6IkHFV6kZbzngWFhH+D/HYku0JGYpp5g=;
+        b=VgJGRuQzQ1STxyr4m33+9lY0igzJ/K641t9fy6lIXlV+xWAYVkK3AmTdQOOzibMbnG
+         QsDT9p72hKDNKlagCusOZI9xaAYA+CUjoVG01hG9+EM+dzgQJ/NPw0LWA2QpgjexLChH
+         Wl/8T0sLnkAcid6iaSG8ZK9s39bVCwe7CNUCZwgNnT+3tDg5WYalbCR89ANEhMvho3DL
+         Biw2e+wuIQgyeitfPfNB2eh3Y6aTdfes7r9/BI5nyif8j9zIwgAPSf+512KwZmK2q3K+
+         gOiIuvuom4iry2PjHz0OtaOMjfoWApKXzr1uYZHWBi1KtVzJeARmHVWpgFETayCu9abd
+         x7JA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785327059; x=1785931859;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Z7xRn4gcm0i6IkHFV6kZbzngWFhH+D/HYku0JGYpp5g=;
+        b=ckZ+ivYPC0fg5wtRG5BDONZ64iryj65OoXowGSbd2dBzCAukkndLzXb7vvNdkZuEyI
+         WW8fJMtfAvjzK6CGzWYC+2SeAO5IpRKxQ+UsXdpA49YqE+fTTg2AUwxIsgylhNw1Vneh
+         5YLMf7jC7ghMM4bOD33yLcUW3G45BZbcVm42OABMGNxhqIiqFq43vAXyEdXDPQdixWwm
+         5CKU454ihlEByeb9q701ZIKHKnuaZd9hV4Q8W3YWkeJTwzGF3uuHPKf4SN1PfQc3Lyhx
+         B8e7zREo5yYb2YliKMDT6+THmfhmZEjnT20hG7k7vWLoJIp2mLF6JSLDn27DF+rRCoBF
+         5iUg==
+X-Forwarded-Encrypted: i=1; AHgh+RqUJSV38zpEpte1veWyd3XyC8W7ENXwu6TZV5g4i5Ki4QX+S19MWqpVkEX1yN5Q+/ZN0pgpK/p0/ie5@vger.kernel.org
+X-Gm-Message-State: AOJu0YzJtwRDyBEpZFizfMf0n0tmd0MmhDkkj22uXCumyE7nkJjEguaQ
+	Z08SUzcfKyNJ1C+ThaGJ7o2FWzDF9AH7g8fmgWmvhlAZzeoHqYKTQNGIyrP87tgTj/uuXuY+llP
+	mFgj6+umyTd9tPUqjF4nCtHaUZW4+0L9C6syG7xW15cWuwZvX9IIvvER+iZI0Oy4o
+X-Gm-Gg: AR+sD11AcywALjzVLcmBURbmyM1oFn5W4RD1mrjFTJxmntEIRNQsny7wR7IixCvhXRQ
+	k7PSNdN5pJUslzcmOAYxLav1a/a1pTR9nxwGDCdxEFoC4c+dZRj6jwc1IHjlGqr8oXfFFIGKSnQ
+	93aeX99vchzX0rgJyjAf8gO/Cmbpoc3h6RHaIIwlGKkcLpZNrwBqmoWYETZiXDmGsvttgqpsmDO
+	oWaT0rXcVIaRXJ6ue7CwkW9lVpqa8bRXDaBsCIPOwnvJgFeKLHFMHJ+fgsQOfmCMPluSTnysgPJ
+	yvy+zWKrMDspLZWTbPRqgsDcRwb/vSKpSI9CFHZ9mUFZjKIrwGOExHpMNc0OwM3+h8U7ELxmzYA
+	GBC16LSwqvcAQKeubFm9U0dgj
+X-Received: by 2002:a05:6102:548c:b0:738:8d0f:72a3 with SMTP id ada2fe7eead31-754a1ba9552mr1418600137.4.1785327059162;
+        Wed, 29 Jul 2026 05:10:59 -0700 (PDT)
+X-Received: by 2002:a05:6102:548c:b0:738:8d0f:72a3 with SMTP id ada2fe7eead31-754a1ba9552mr1418588137.4.1785327058715;
+        Wed, 29 Jul 2026 05:10:58 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1f83fabcccsm101740366b.49.2026.07.29.05.10.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 29 Jul 2026 05:10:57 -0700 (PDT)
+Message-ID: <35b14c17-2953-4b74-af15-4677390aec9a@oss.qualcomm.com>
+Date: Wed, 29 Jul 2026 14:10:56 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/3] arm64: dts: qcom: ipq5210: Introduce RDP504 common
+ DT file
+To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260724-08-dts-v4-0-65e61a1061f0@oss.qualcomm.com>
+ <20260724-08-dts-v4-2-65e61a1061f0@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260724-08-dts-v4-2-65e61a1061f0@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDEwMCBTYWx0ZWRfX4QmSCoO4zHmW
+ LLHDd6A/i6oXMdmpH/T07aQ6d2F98YqkLlmw8eCsw5elclwYMnqRco2u5poRGA+Df2+aHCYytoV
+ bCvwlKOiC2VM4fhKfNn7yguR99N6DYSgTzcsE4SbhXy1T4HLUFbXMUIU9r6AM/IXA/Yi6/WUVj0
+ QWyXS1GqFMDkm1Pket9wW4Prt4it9YhJnGSBhP5N9/RmH42o/CPjs9+M7byti1FuAx/3ut01xDz
+ s7RNCWxzfXZK2d+oDAtvNsXXWOh/tsltWtEAzv+7CcyOjI6N+zGrWvoYTnXJvxAG1dEA+R0tbut
+ BI+wlqFlKSCONngxBBQYBo6pvaRHA5VFgWdwyd1oQsVvAwYfKYaG6TuNN5A8uBijRcEZFAlyvr5
+ mKb47B/nP6tylB5lofMg2bsQqXtAEnXeK7T6Lm7yoh4y9ULS8HJj1Ij7e/MZBBMuI0QX/UxAKQT
+ oJBbgcOYURUje/Qf+ww==
+X-Proofpoint-GUID: sfPtT8RJ6Fg6wK4mv0gu5nvZHRrUqc3d
+X-Authority-Analysis: v=2.4 cv=Q4biJY2a c=1 sm=1 tr=0 ts=6a69edd3 cx=c_pps
+ a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=qsMvIBxTQZfwbozelBgA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
+ a=1WsBpfsz9X-RYQiigVTh:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDEwMCBTYWx0ZWRfX2c/KGZt5sLEH
+ 7q6fW97jRZ1Pnbp3ble9enovsZ0vimPuPtB05iRrrpglD0trKjoztU0dYQe0T6GrXWHUfaTDL5q
+ 6sJdBuY1Rl0QRJ/sC77HBBgrLfUG9as=
+X-Proofpoint-ORIG-GUID: sfPtT8RJ6Fg6wK4mv0gu5nvZHRrUqc3d
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-29_04,2026-07-28_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 adultscore=0 suspectscore=0
+ lowpriorityscore=0 bulkscore=0 clxscore=1015 malwarescore=0 spamscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607290100
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+On 7/24/26 11:54 AM, Varadarajan Narayanan wrote:
+> RDP504 has USB, PCIe and SPI NAND devices populated. EMMC and NAND
+> share the GPIOs. The board has to be reworked to change from EMMC
+> to NAND variant. Rename ipq5210-rdp504.dts as ipq5210-rdp504-common.dtsi
+> and include it in variant specific DTS file.
+> 
+> Describe the fixed USB regulators, PCIe reset GPIOs, QPIC SPI NAND flash
+> and required pinctrl states. Enable QPIC BAM, USB and PCIe for the board.
+> 
+> Remove ipq5210-rdp504.dtb from Makefile to avoid build break.
 
-New issues:
-- [High] Missing NULL check for `i2c_get_match_data()` leads to a NULL poin=
-ter dereference.
-- [Low] The `si544_id` array uses positional initializers instead of named =
-initializers, violating the I2C subsystem rules.
+You're essentially removing support for the board for this commit
+Instead, this commit could be:
 
-Pre-existing issues:
-- [High] Unconditional dereference of `client->dev.of_node` causes a kernel=
- panic on non-DT systems.
-- [High] Division by zero occurs in `si544_calc_center_rate()` if the hardw=
-are returns 0 for the `HS_DIV` register.
---
+create .dtsi (90% of the current .dts)
+add #include .dtsi to .dts
 
---- Patch [2]: [PATCH v3 2/2] clk: si544: add support for si549 ---
-commit 12920363f4810dc248ea69506597ff1f3d421e35
-Author: Pavel L=C3=B6bl <pavel@loebl.cz>
+and patch 3 could be:
 
-clk: si544: add support for si549
+create another dts
 
-This patch adds support for the Si549 programmable clock generator, which
-differs from the Si544 primarily in internal oscillator frequency. It
-introduces three types (A, B, and C) with different maximum output
-frequencies and fixes the maximum frequency for the Si544 C variant.
+preferably then, all new additions would be done in patch 4 altering
+just the dtsi
 
-> diff --git a/drivers/clk/clk-si544.c b/drivers/clk/clk-si544.c
-> index 09c06ecec1a52..8e6c2487b79b8 100644
-> --- a/drivers/clk/clk-si544.c
-> +++ b/drivers/clk/clk-si544.c
-
-[ ... ]
-
-> @@ -258,15 +270,16 @@ static unsigned long si544_calc_center_rate(
->  		const struct clk_si544_muldiv *settings)
->  {
->  	u32 d =3D settings->hs_div * BIT(settings->ls_div_bits);
-> +	u32 fxo =3D settings->xo_freq;
->  	u64 vco;
-> =20
->  	/* Calculate VCO from the fractional part */
-> -	vco =3D (u64)settings->fb_div_frac * FXO;
-> -	vco +=3D (FXO / 2);
-> +	vco =3D (u64)settings->fb_div_frac * fxo;
-> +	vco +=3D (fxo / 2);
->  	vco >>=3D 32;
-> =20
->  	/* Add the integer part of the VCO frequency */
-> -	vco +=3D (u64)settings->fb_div_int * FXO;
-> +	vco +=3D (u64)settings->fb_div_int * fxo;
-> =20
->  	/* Apply divider to obtain the generated frequency */
->  	do_div(vco, d);
-
-[Severity: High]
-This is a pre-existing issue, but can this result in a division by zero if
-the hardware returns 0 for the HS_DIV register?
-
-During driver probe, si544_get_muldiv() reads the HS_DIV register from the
-I2C device. If the hardware is uninitialized or malfunctioning, settings->h=
-s_div
-evaluates to 0:
-
-si544_get_muldiv() {
-    ...
-    settings->hs_div =3D (reg[1] & 0x07) << 8 | reg[0];
-    ...
-}
-
-This would cause the divisor d to be 0 here in si544_calc_center_rate(),
-leading to a division by zero when executing do_div(vco, d).
-
-[ ... ]
-
-> @@ -446,7 +459,7 @@ static int si544_probe(struct i2c_client *client)
->  	init.num_parents =3D 0;
->  	data->hw.init =3D &init;
->  	data->i2c_client =3D client;
-> -	data->max_freq =3D (uintptr_t)i2c_get_match_data(client);
-> +	data->chip_info =3D i2c_get_match_data(client);
-
-[Severity: High]
-Is it possible to hit a NULL pointer dereference here if the driver is bound
-manually via sysfs?
-
-If the driver is bound without a matching id_table entry (for example, via
-driver_override), i2c_get_match_data() can return NULL. This NULL pointer is
-then unconditionally assigned to data->chip_info.
-
-Later in si544_get_muldiv(), the unvalidated pointer is dereferenced:
-
-si544_get_muldiv() {
-    ...
-    settings->xo_freq =3D data->chip_info->xo_freq;
-    ...
-}
-
-Could a NULL check be added for data->chip_info before continuing the probe?
-
-> =20
->  	if (of_property_read_string(client->dev.of_node, "clock-output-names",
->  			&init.name))
->  		init.name =3D client->dev.of_node->name;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but could this fallback path
-trigger a NULL pointer dereference on non-Device Tree systems?
-
-On platforms like ACPI or board files where client->dev.of_node is NULL,
-of_property_read_string() safely handles the NULL pointer and returns -ENOS=
-YS.
-This causes the if condition to evaluate to true.
-
-The fallback path then unconditionally dereferences client->dev.of_node to
-access its name, which will cause a kernel panic if it is NULL.
-
-[ ... ]
-
-> @@ -478,18 +491,54 @@ static int si544_probe(struct i2c_client *client)
->  	return 0;
->  }
-
-[ ... ]
-
->  static const struct i2c_device_id si544_id[] =3D {
-> -	{ "si544a", 1500000000 },
-> -	{ "si544b", 800000000 },
-> -	{ "si544c", 350000000 },
-> +	{ "si544a", (kernel_ulong_t)&clk_si544a_info },
-> +	{ "si544b", (kernel_ulong_t)&clk_si544b_info },
-> +	{ "si544c", (kernel_ulong_t)&clk_si544c_info },
-> +	{ "si549a", (kernel_ulong_t)&clk_si549a_info },
-> +	{ "si549b", (kernel_ulong_t)&clk_si549b_info },
-> +	{ "si549c", (kernel_ulong_t)&clk_si549c_info },
->  	{ }
->  };
-
-[Severity: Low]
-Are these array initializations compliant with the I2C subsystem requiremen=
-ts?
-
-The I2C subsystem guidelines state that initialized arrays of type
-struct i2c_device_id must use named initializers, but these new entries use
-positional initializers.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729115310.3490=
-589-1-pavel@loebl.cz?part=3D2
+Konrad
