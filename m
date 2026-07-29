@@ -1,245 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1AFB48AE33;
-	Wed, 29 Jul 2026 13:23:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0267748B396;
+	Wed, 29 Jul 2026 13:23:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785331400; cv=none; b=Hq1hF6hFyfYK+YRgyIrXMWE32LxIGFIzrSMOE5yNFpP6ODx8Ad08mfvfbyvXnUe6pgFKvIo2ygx6R1r7obSvaumTWws2Wdc0guaCMg7BtfZgQ8iifgJ83nSK3KJr36qchwnmT7+qT6dOiXsPxVry4tWXswNRZmXE34w3B4uQHPc=
+	t=1785331437; cv=none; b=TVIiPyESApp/4DSwsW4HHYJCECT6l1B79+nSn9AVslsyaOMv3FLT7IBpufaO1bBU+EqswiiT1Va7auW4FpwN+gHGqb+wnJnhoopfXmySeTjgLOzqp5X5kmGdOsSA52X3Y9x9o6R09FiHLZAkdiP4Y2Z58T7Lj1r3Qntr8WGCx0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785331400; c=relaxed/simple;
-	bh=cm6Kqqnwtss89i2hbh0cuhLvvyLx2uHlmNp73i9wVQc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Rq75L8qh5817QPqiWKElE3J86C4qKZBK96+eOViQYQao03oYFsiDQGhx6j0YpaqfcRDMVwt6InRX5HySNGY4pI980AVyGg29hFH7ES1IYKxVQkAhPZk72Ygqt0PRck3zMyGc57H7Y/R147BxlgoqRx5jXfHC6k6Z9BC4mK2HItA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X249pq8x; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785331437; c=relaxed/simple;
+	bh=6BNK88zKM88nbcLvy+EVbZDvhRzmsLaV65CYTHaYxCk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=uv5//05tyfC+tNuNz0kgcZH2uOa0U3K57vgi7zsFBaxcBghA0e3thyfNQwrGtvB4+oWMx94afP10eDlbCJ746Z+glicbkviLClIkaeLf8ZqjKXA/jsB+2tEOX8TxRz5wSI6k4tCI1tccHivamO8XaN09CzRpRHimogqS89CN1Sk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nnBwBPn8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X249pq8x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C824E1F000E9;
-	Wed, 29 Jul 2026 13:23:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nnBwBPn8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D58EC1F00A3A;
+	Wed, 29 Jul 2026 13:23:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785331398;
-	bh=sxzJ+faJZvkT4x85fLBm3HFdvbOfygPZbWj1RZ66evo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=X249pq8xjx8MjqnUwVMB6Qi35K1TbodNh3bPuEZwyJCiar5UCKubymB0w/+GyHupW
-	 ZYRg3zBrTTEcoJd8Ya9wMmC4xLrAqEi0uAH2qGwEY8I/JoN9c1hHA0T5Tt2kotfU/Y
-	 rxNe+TYA3nZ3SoS0AtB9br2+/NSfIaepWtkCiFEcjGYyakzwBsIX86/FIeen9G3MZj
-	 4o5IucXNeA+FaF3b+/he6jgloKdXHXVQucsebHlcp2ic7BqjquiZj+3vi5oKAh2fYr
-	 suYVl4ja//u9gx4nsLNME4dDWiojgA7SYUOc+5Zeq426NU4CswQ53+eYqZuytSRCtz
-	 1jAZ5xD1EsoPA==
-Message-ID: <6ed441b8-7148-43ef-9c9f-4bc30c468443@kernel.org>
-Date: Wed, 29 Jul 2026 15:23:06 +0200
+	s=k20260515; t=1785331435;
+	bh=i/WGlrbxrMiDYEOsdojzzSwIFQsd0dQf+Ix4cFLLK0E=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=nnBwBPn870V36/sDMi5kco4URv5XcdwQpRl+kZ1w7Mo2EG7dl6UYRT1tusVdxWgvk
+	 Uveuh3ZKhjpsuo0lY1So1hSbah9OrPHVEjAdnH2d9l/0KJsdtDuLRJbsNEzgXLI1tD
+	 vwULSbPT8LI4hZasOh0qwMAyS69D2v5h2H9x5qPjAo/h67tBdPhp2c8RDUDFHvuRWW
+	 vM3HpT8uxG2DlE86kTjufvECARCXU2D+d9BzNMQayPsrd03yDkjjsDfEZzgaCTOkT6
+	 Wc5AE3DCxe7yTHyq3t1vtZPr6pVHOcw9BKhwUUKSuo//J+1ISo39cYvquYk2EMIgE/
+	 nD4Gu2jrgcAQA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 02/12] arm64: dts: imx8qm-mek: fix reserved memory
+ node names for remoteproc
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?UGVuZyBGYW4gKE9TUyk=?= <peng.fan@oss.nxp.com>
+Cc: imx@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20260729-rproc-dts-v2-2-debbe0816202@nxp.com>
+References: <20260729-rproc-dts-v2-0-debbe0816202@nxp.com>
+ <20260729-rproc-dts-v2-2-debbe0816202@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 29 Jul 2026 13:23:54 +0000
+Message-Id: <20260729132354.D58EC1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 7/8] dt-bindings: sound: qcom: add Tambora WCD9378
- SDCA codec
-To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
- Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Maciej Strozek <mstrozek@opensource.cirrus.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>
-Cc: Bard Liao <yung-chuan.liao@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
- linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, patches@opensource.cirrus.com,
- linux-kernel@vger.kernel.org
-References: <20260722234221.884765-1-srinivas.kandagatla@oss.qualcomm.com>
- <20260722234221.884765-8-srinivas.kandagatla@oss.qualcomm.com>
- <219d44e2-28ed-4c54-bd00-66e687a0ba48@kernel.org>
- <d0891f90-b69b-4b27-ad58-94c342ad9a6a@oss.qualcomm.com>
- <3c484a68-5db8-464f-992a-6c7584841a10@kernel.org>
- <0cb5a2dd-c49e-47e3-8cc5-ab2ffd397a32@oss.qualcomm.com>
- <ba147ca6-3788-4cbe-95c3-949ae73ee8f0@kernel.org>
- <54f1c3e5-0b84-44a6-a03c-3cd65792de9c@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <54f1c3e5-0b84-44a6-a03c-3cd65792de9c@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 29/07/2026 15:02, Srinivas Kandagatla wrote:
-> 
-> 
-> On 7/29/26 1:43 PM, Krzysztof Kozlowski wrote:
->> On 29/07/2026 14:36, Srinivas Kandagatla wrote:
->>> On 7/29/26 1:30 PM, Krzysztof Kozlowski wrote:
->>>> On 29/07/2026 14:17, Srinivas Kandagatla wrote:
->>>>> On 7/29/26 12:40 PM, Krzysztof Kozlowski wrote:
->>>>>> On 23/07/2026 01:42, Srinivas Kandagatla wrote:
->>>>>>> Describe the WCD9378 SDCA peripheral node (compatible sdw20217011000)
->>>>>>> driven by the wcd9378-sdca codec driver for headphone playback, headset
->>>>>>> mic capture and jack detection via the SimpleJack SDCA function type.
->>>>>>>
->>>>>>> WCD9378 codec can be wired up in 2 different modes.
->>>>>>> "mobile mode" on phone/tablet SoCs is enumerated as tx and rx device,
->>>>>>> each of which has dedicated control and data lines.
->>>>>>> "compute mode" on compute platforms such as Glymur is enumerated as
->>>>>>> single standard MIPI SDCA class device.
->>>>>>>
->>>>>>> Both modes share same Device ID, compatible; qcom,compute-mode selects
->>>>>>> which driver path is taken.  Supplies, reset GPIO and mic-bias voltages
->>>>>>> live on the SoundWire slave node in compute mode and are forbidden in
->>>>>>> mobile mode (owned by the top-level codec parent there).
->>>>>>>
->>>>>>> Assisted-by: Claude:claude-opus-4-7
->>>>>>> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
->>>>>>> ---
->>>>>>>  .../bindings/sound/qcom,wcd9378-sdw.yaml      | 200 ++++++++++++++++++
->>>>>>>  1 file changed, 200 insertions(+)
->>>>>>>  create mode 100644 Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
->>>>>>>
->>>>>>> diff --git a/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml b/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
->>>>>>> new file mode 100644
->>>>>>> index 000000000000..2ed4ad92958e
->>>>>>> --- /dev/null
->>>>>>> +++ b/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
->>>>>>> @@ -0,0 +1,200 @@
->>>>>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->>>>>>> +%YAML 1.2
->>>>>>> +---
->>>>>>> +$id: http://devicetree.org/schemas/sound/qcom,wcd9378-sdw.yaml#
->>>>>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>>>>>> +
->>>>>>> +title: Qualcomm SoundWire Slave devices on WCD9378
->>>>>>> +
->>>>>>> +maintainers:
->>>>>>> +  - Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
->>>>>>> +  - Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
->>>>>>> +
->>>>>>> +description: |
->>>>>>> +  The Qualcomm WCD9378 codec presents its SoundWire slave devices with
->>>>>>> +  class ID sdw20217011000 in both operating modes:
->>>>>>> +
->>>>>>> +    * mobile mode -- two slave instances sit on separate SoundWire
->>>>>>> +      masters carrying data only.  A separate top-level codec node
->>>>>>> +      owns the codec's supplies, mic-bias voltages and reset GPIO.
->>>>>>> +
->>>>>>> +    * SDCA / compute mode -- one aggregated slave sits on a multi-lane
->>>>>>> +      master and carries both control and data.  There is no separate
->>>>>>> +      top-level codec node, so the SoundWire slave node itself owns
->>>>>>> +      supplies, reset GPIO and mic-bias voltage configuration.  It is
->>>>>>> +      marked with qcom,compute-mode.
->>>>>>> +
->>>>>>> +  Codec drivers that match sdw20217011000 use qcom,compute-mode to
->>>>>>> +  decide which mode to serve; the presence or absence of this property
->>>>>>> +  also gates whether the supply and mic-bias properties on this node
->>>>>>> +  are required or forbidden.
->>>>>>> +
->>>>>>> +properties:
->>>>>>> +  compatible:
->>>>>>> +    const: sdw20217011000
->>>>>>> +
->>>>>>> +  reg:
->>>>>>> +    maxItems: 1
->>>>>>> +
->>>>>>> +  qcom,compute-mode:
->>>>>>> +    description: |
->>>>>>> +      Marks this SoundWire slave as the single aggregated slave that
->>>>>>> +      implements the codec in SDCA / compute mode.  Only present when
->>>>>>> +      the codec has no separate top-level codec parent; in that case
->>>>>>> +      this slave node also owns the codec's supplies, reset GPIO and
->>>>>>> +      mic-bias voltage configuration.  Absent in mobile mode.
->>>>>>
->>>>>> I doubt there is really "compute" or "mobile" mode, so you just wrote to
->>>>>> match use case, but that does not match hardware.
->>>>>>
->>>>> This is hardware fuse setting, its not just usecase based but it changes
->>>>> complete wcd9378 hardware topology, in mobile mode we have 2 soundwire
->>>>> devices representing tx and rx side of wcd9378 however in compute mode
->>>>> it only has one soundwire device dealing with both tx and rx. compute
->>>>> mode is sdca class compliant device.
->>>>>
->>>>>
->>>>>> I think there should be no separate top-level codec parent in the first
->>>>>> place, thus this property is not needed. You always list here all resources.
->>>>> There is no top level aggregated device when the codec is fused in
->>>>> compute mode.
->>>>
->>>> There should not be a top-level in either case. This was always Linux
->>>> driver limitation.
->>>
->>> That is not true, its clearly a hardware topology thing.
->>> Codec has two devices tx and rx, Only one of the device (tx) has access
->>> to CSR registers of the codec, so rx and tx are pretty much a single
->>> aggregate codec device which is why we have top-level representation of
->>> the aggregate device.
->>
->> So two devices, but not three. If TX has access to RX, it does not mean
->> there is third device. If there was a third device (that top level
->> thingy) you would have it here as well. You don't have, because it is
->> purely for Linux.
-> 
-> WCD codec is a single Codec IP Hardware block which contains two
-> soundwire interface devices. Effectively we have one aggregate device
-> representing codec which encompasses two soundwire devices.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-You have only two devices.
+Pre-existing issues:
+- [High] Renaming the vring memory nodes for cm4-1 to `vdev2vring0` and `vd=
+ev3vring0` breaks static vring matching in the remoteproc core, causing a f=
+allback to dynamic allocation and breaking IPC.
+- [High] The DSP's vdev buffer and vring nodes in `imx8qm-mek.dts` were mis=
+sed during the rename, leaving them with the generic `memory` node name, wh=
+ich breaks the driver's memory region parsing and IPC.
+--
 
-> 
-> Third device is the only place where we could represent entire Codec
+--- Patch [2]: [PATCH v2 02/12] arm64: dts: imx8qm-mek: fix reserved memory=
+ node names for remoteproc ---
+commit b33c57fd7f12629e7e4a66a20b899d545ad3c226
+Author: Peng Fan <peng.fan@nxp.com>
 
-No, any of these devices could. The top-level is a fake being.
+arm64: dts: imx8qm-mek: fix reserved memory node names for remoteproc
+   =20
+The imx_rproc driver uses node names to identify reserved memory regions.
+It checks for "vdev0buffer" to skip mapping, "rsc-table" to locate the
+resource table, and "vdev" prefix to filter vdev regions.
 
-> rather than just soundwire interface devices of the codec.
-> 
-> Am not sure what is Linux specific here, its purely hardware topology.
+> diff --git a/arch/arm64/boot/dts/freescale/imx8qm-mek.dts b/arch/arm64/bo=
+ot/dts/freescale/imx8qm-mek.dts
+> index 9e49ac377162b..8b67fb5d670da 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8qm-mek.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx8qm-mek.dts
+> @@ -44,57 +44,57 @@ reserved-memory {
+>  		#size-cells =3D <2>;
+>  		ranges;
 
-The Linux specific is because you needed a placeholder for power
-sequencing. It is not a pure hardware topology.
+[ ... ]
 
-Otherwise, please point me on which/what hardware bus that top-level
-codec resides on if it represents hardware topology.
+> -		vdev2vring0: memory@90100000 {
+> +		vdev2vring0: vdev2vring0@90100000 {
 
-Best regards,
-Krzysztof
+[Severity: High]
+This isn't a bug introduced by this patch, but will this renaming actually
+work for the cm4-1 remoteproc instance?
+
+Since imx8qm-cm4-1 is an independent rproc instance, its first virtio device
+index is 0. Looking at the remoteproc core, rproc_alloc_vring() searches for
+vring carveouts using the format string "vdev%dvring%d".
+
+Because of this, won't the core search for "vdev0vring0" and "vdev0vring1"
+instead of "vdev2vring0"? If so, the mismatch would cause rproc_alloc_vring=
+()
+to fail finding the carveout and fall back to dynamic allocation, potential=
+ly
+breaking IPC.
+
+>  			reg =3D <0 0x90100000 0 0x8000>;
+>  			no-map;
+>  		};
+
+[ ... ]
+
+[Severity: High]
+This is a pre-existing issue, but were the DSP vdev buffer and vring nodes
+missed during this rename?
+
+Looking at dsp_vdev0buffer in the same file (which currently remains as
+memory@94300000), the imx_dsp_rproc driver will fail to skip the node
+because it evaluates strstarts(res.name, "vdev0buffer").
+
+Since the node name remains "memory", won't remoteproc_virtio fall back to
+dynamic allocation from system memory and break IPC for the DSP?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729-rproc-dts-=
+v2-0-debbe0816202@nxp.com?part=3D2
