@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95831489869;
-	Wed, 29 Jul 2026 19:31:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A1F748988B;
+	Wed, 29 Jul 2026 19:31:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785353518; cv=none; b=etzBjPFc8EyfvC7Dya8sH6Fd1quQs0M48gFSfttbk5cEEdRA//mI8Oyx9t5eFx0DaKguEJjNSrtUWAYO4UcnFSYhmSVE76XZsiDfaxMq/FyGjEV0cuoBmjEuiImMIKVeXT+54YrMatvyL0YLbhzl4ZxP7C6/t1kq66s0zSCkDpU=
+	t=1785353519; cv=none; b=MzRnWLuiqQM7y5+e2OlSQ8JbTbyAB/HDbldxvnxVMjps8kgs7Mo6ntmIYvYb0xEEYyyGb1wZvuiZ6MPLAkyDNkwmqtfBxcZbzrVSOiS4pB6lRZkXO00pI5MEnXHhH8LMkIiTVARSxGS72JO2xumq9I3Uuo7BnRCU2wh11ZfVAeY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785353518; c=relaxed/simple;
-	bh=ui8kY158w/vOloTWLLkXaCIXmhaSFnGgGqfPzLZawq8=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=FujDkr6E6/WKxRT5lONWyBUqaBcYNuaBIGSrOqvb6NfQ9c/WAxGznvUUHsHSMlbAWZrcb3JQ4TUJp9xXxGVbbMeyx1RcfhunK49MERXbzdD/H3uyyhiHraKib+G1VHW/ReNn4AZnc/OUw3DLJ9uvkEVlnsN3QgL7dSv+A9kITb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LPQKqiz9; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1785353519; c=relaxed/simple;
+	bh=Wf2EtlUeo6FZ4AcnDHaXkXMcOAXWk4X32FUairCCbwU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=qVEBLppDKqOhKgsj3Fd16cVQGdPoaJEkziydMhG+eYC8Rb1COZdg1Y8nZsHaDXCqldOvy/aNWB/HAYSs8+iZP5YKzCAa4QP6YrwdGS+++X7tveUExH7pRuK2CGGSQYDS7eycbHheCrqjgF9JyZ71ox5x+V/uARZgn2eMepTF5SI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kEv1Ex8c; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LPQKqiz9"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E20F8C2BCF5;
-	Wed, 29 Jul 2026 19:31:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kEv1Ex8c"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 119D8C2BCB3;
+	Wed, 29 Jul 2026 19:31:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1785353518;
-	bh=ui8kY158w/vOloTWLLkXaCIXmhaSFnGgGqfPzLZawq8=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=LPQKqiz9vF16S7ZNRzj5jc9TNPmqDdeBRr1k1CpsE1DaCh5ter9ZsrIFWmPoej9v8
-	 YUT0u5AU93oQxUSYPmJ6FKV0KnOfvbht8BYSKQoeNO3OjS0crfaMUu1HWQgGetiK+q
-	 isPr7uNOpny6/l/Rd+Ciog36TDyGM1uFohdg2KS4OtcejlHv7KND6NbAjalJuv5Mnj
-	 6EAQr2CTtkIfxPUZat6wNbKTb3QlWFW8PcmqLAd9G8JzQlK+befwJlozxszD39WAwz
-	 +MkFB6nRtHhrQJ5TE5AiEFoT0rXfGgkeli2fI9HsFgu5R8aHn0Ka2tVsHd0Riewy2G
-	 l2PQlnoAGewUQ==
+	bh=Wf2EtlUeo6FZ4AcnDHaXkXMcOAXWk4X32FUairCCbwU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=kEv1Ex8cU/LXiiUoAFxrv1JAOiSnROfgSRT1XQr8axHWHmkLY/uS5qPkOJwbBVEZl
+	 BtIrmEURT3GVfiNFPYTggXYoijAru/89SIZvrfEBS7Mv4x6P5c0cB7GzloJiyImmbZ
+	 rvtTyZ+P7HAaAGVWAdA5n6xCqnU40T27gPNK6A7VkmSSdE2SqwuHMng6+7LqhYh4QS
+	 rpSjk6BCUGiX1O054Ye18qjVPPb9NowuFgJ0TjEQY4m3Iq4uedH0L8i9ov8AMKJMkY
+	 EzmlEUMVW3zX/IMB2aDpHWtOjVcW81xWaBz8yoE+OTnA2uRtCN9edtvbe7VYEWaa3E
+	 Tdsti3hjFxwAw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CCBAEC54F51;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E8C87C54F55;
 	Wed, 29 Jul 2026 19:31:57 +0000 (UTC)
 From: Esteban Urrutia via B4 Relay <devnull+esteuwu.proton.me@kernel.org>
-Subject: [PATCH 0/2] SM8475 sndcard support
-Date: Wed, 29 Jul 2026 15:31:53 -0400
-Message-Id: <20260729-sm8475-asoc-v1-0-3edad8aa7628@proton.me>
+Date: Wed, 29 Jul 2026 15:31:55 -0400
+Subject: [PATCH 2/2] ASoC: qcom: sc8280xp: Add support for SM8475
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,10 +40,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ5AMBBA4avIrDWhFHUVsagajMRPOohE3F2x/
- BbvXcDoCBnK4AKHBzEts0ccBmAHM/coqPUGGcksyqUWPBVproThxYrEplqbWKkm0eCL1WFH53e
- r6t+8NyPa7V3AfT8mPdlYbwAAAA==
-X-Change-ID: 20260729-sm8475-asoc-3c499a155b39
+Message-Id: <20260729-sm8475-asoc-v1-2-3edad8aa7628@proton.me>
+References: <20260729-sm8475-asoc-v1-0-3edad8aa7628@proton.me>
+In-Reply-To: <20260729-sm8475-asoc-v1-0-3edad8aa7628@proton.me>
 To: Srinivas Kandagatla <srini@kernel.org>, 
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -53,11 +52,11 @@ Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  phone-devel@vger.kernel.org, Esteban Urrutia <esteuwu@proton.me>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785353516; l=647;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785353516; l=1427;
  i=esteuwu@proton.me; s=20260622; h=from:subject:message-id;
- bh=ui8kY158w/vOloTWLLkXaCIXmhaSFnGgGqfPzLZawq8=;
- b=1+d8VGyqqsWjOa8B3JJOh0YCFB9hMiaVg5gN0neu3MKpkQpLSrqyH7k7NKnPARn+TaZDI5mcM
- SwGv8czX+ruB7gA1oSSm0yoi4B3vy9jX8+97aerhvp9sx1oTpUzlKrX
+ bh=LPNPk32JR+3Yfc6bcAUf5H0iSCn6KrddoUkqE6S79To=;
+ b=kqdC7AoaptT1gMKNhyV6c/egWFeHnpURHaXskErHKYgEFEinbXaTeA0+rTKVP8VooK+vVx2wZ
+ f44wenZn1N3B1LnzcCNy7ET5vhfCTAVKBJDWcWNgyWReVHZokn3CCzA
 X-Developer-Key: i=esteuwu@proton.me; a=ed25519;
  pk=wToFt4mOAWkzbqb15Ye1hrhevI13vK9BcMUFiQ/me1M=
 X-Endpoint-Received: by B4 Relay for esteuwu@proton.me/20260622 with
@@ -65,24 +64,43 @@ X-Endpoint-Received: by B4 Relay for esteuwu@proton.me/20260622 with
 X-Original-From: Esteban Urrutia <esteuwu@proton.me>
 Reply-To: esteuwu@proton.me
 
-Add the required bindings and driver support for supporting the sound
-card found in the SM8475 SoC.
+From: Esteban Urrutia <esteuwu@proton.me>
+
+With this, SM8475 topologies can have their own firmware folder.
 
 Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
 ---
-Esteban Urrutia (2):
-      ASoC: dt-bindings: qcom,sm8250: Add compatible string for SM8475
-      ASoC: qcom: sc8280xp: Add support for SM8475
+ sound/soc/qcom/sc8280xp.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
- Documentation/devicetree/bindings/sound/qcom,sm8250.yaml | 1 +
- sound/soc/qcom/sc8280xp.c                                | 8 ++++++++
- 2 files changed, 9 insertions(+)
----
-base-commit: 78bc8af4affb9a732504eb22eeac7d1e50883853
-change-id: 20260729-sm8475-asoc-3c499a155b39
+diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
+index a9304784d41e..f0f3cd8fca38 100644
+--- a/sound/soc/qcom/sc8280xp.c
++++ b/sound/soc/qcom/sc8280xp.c
+@@ -362,6 +362,13 @@ static const struct snd_soc_common sm8450_priv_data = {
+ 	.wcd_jack = true,
+ };
+ 
++static const struct snd_soc_common sm8475_priv_data = {
++	.driver_name = "sm8475",
++	.dapm_widgets = sc8280xp_dapm_widgets,
++	.num_dapm_widgets = ARRAY_SIZE(sc8280xp_dapm_widgets),
++	.wcd_jack = true,
++};
++
+ static const struct snd_soc_common sm8550_priv_data = {
+ 	.driver_name = "sm8550",
+ 	.dapm_widgets = sc8280xp_dapm_widgets,
+@@ -395,6 +402,7 @@ static const struct of_device_id snd_sc8280xp_dt_match[] = {
+ 	{ .compatible = "qcom,qcs9100-sndcard", .data = &qcs9100_priv_data },
+ 	{ .compatible = "qcom,sc8280xp-sndcard", .data = &sc8280xp_priv_data },
+ 	{ .compatible = "qcom,sm8450-sndcard", .data = &sm8450_priv_data },
++	{ .compatible = "qcom,sm8475-sndcard", .data = &sm8475_priv_data },
+ 	{ .compatible = "qcom,sm8550-sndcard", .data = &sm8550_priv_data },
+ 	{ .compatible = "qcom,sm8650-sndcard", .data = &sm8650_priv_data },
+ 	{ .compatible = "qcom,sm8750-sndcard", .data = &sm8750_priv_data },
 
-Best regards,
---  
-Esteban Urrutia <esteuwu@proton.me>
+-- 
+2.55.0
 
 
