@@ -1,89 +1,89 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A828439F8A
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 08:05:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55F2B43E495
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 08:05:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785312310; cv=none; b=JP06eL9V9KGKtZ+GGk5+JMyLsaK0SutXMHONny2vYsQ4DTu/PbyUn4O2k4jJNPCpSZkzbtFTmQlOHMZlby9D+wOFbU13KK6vxiMOWQdH4lNOL95QvlbDMTUmlp7hh2e439cIXuGPyrEv57T7pnpwwg3zCQJdE1jcGwrjw4qa3vw=
+	t=1785312313; cv=none; b=g2NmpZ5bP/UYHTtzVR4qQy3PNSCVo45+oujdydKvuF+a1L9Yza01IrFSrJnhXSiT+twBQTwNHCWcbuMeWuciUaZyRvtaphW2dqHVTLYnWJBt94GhpRxLTVc7fsWZKtDDFmFx7APgNzxafDTY7kD4UnmeoENStWQ3KdmC9UWCO10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785312310; c=relaxed/simple;
-	bh=BOPYSAsb3CqKje/YcY4e0F73RIl8eiebRpNH6lVe0f0=;
+	s=arc-20240116; t=1785312313; c=relaxed/simple;
+	bh=xSTRYc11Z5wi3GO+Jq2eImIviy3GkRHkrx/FWYYBthg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=CC/0JKjIV7AAtUp0XPMUaFK3DJUXdUiZ7yhPM4F+62b19YZ1asZmfGzeJKXIAtnY6dCOWlSaZzSGW7L/RGuJtnoSvO8JJstwupss5vKbc/YRZRD40hlbUAQtiJ8XzPaGr7s1PvnoYa9ragJDZRfVS82uvM9ZH7NfFgpcCXDPc8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=akPT+8Nw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Yrmb3c6y; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=PM9fUVgel6j7glq8gG0VLqDINH6dZfnJTOtmaLGmWFT07YIEoEInoKy5sHf4Is2xAli+lL6vSTOBVwJz48pC7zE5HenkyamBpgVOD4rEPbBnAWtOnJaJOHXO58zYUDzKseChhQtOHIsjxZCwzlUNowIpuwyCwt3HmjKr1xohTVE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Vz2mdjaG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=T8r5twkK; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="akPT+8Nw";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Yrmb3c6y"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66T7fJbo1182043
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 08:05:04 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Vz2mdjaG";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="T8r5twkK"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66T7fJnj1569506
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 08:05:10 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	6surQOqzNPItlMgudmHbDUDlw8wPb5bA/oEuE6aFfR4=; b=akPT+8NwDrljPyke
-	bBxCubc8n6f5XjwVfbJfWJmirxsbXVXdkR/Ctcs5hOyu6UDi3wA7GCmRzASSpTHA
-	r2U/Nsl1oTKnHmWx3Sjc0YZ3KifDEIIwsj1RdZlzlWWhvJWWgd6+Onva4UsocvZN
-	QTewtBqTVDJIitQpfT1S1m/7p7TzVr0IuJPDnGTLklCSOY3OLIv3CTqtltEIxj68
-	YgpdJ7GqiA19eORyx3cpnLNzbtTWm9WE5LQlLDjjf4TvOg5hnoVdlLF2FcTT80xz
-	3Vsou26JoMkVc5Y5eDx72Owea5Cj2vyIw2WiaH6vohJsZVolv1efDiKZ50O4viUU
-	y2MX+w==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fqbmcrhxr-1
+	LLkPvrA/Tcomebna1Rpr9teGgRrX7jnWi3qASe4YJ+A=; b=Vz2mdjaGrJxKnKLF
+	Vbkv+jrZgorpftmckhzLxIGqnUIXMlF6zjJgRSHzVcZ5Eo29XI8ouTGzdoZrlO/y
+	HPaPe/+mfitYJxZg6oxGrej/mEGztUab6p14tSp44pMKTf2ulS0E5Hat0ZAvG4/Z
+	7vYtexmX4kN2M+2URXF99VM3J89bin+ouLpxV8MRr9y77m0cG7f48sbj2TU3tiHp
+	NqbByAlRCAgTCzCfOAJuq7sfEf2ju8ANPNBtdKdTJwgZ2KXXKT3HiJgNrob1jzry
+	xUHJpBF8TuhNeAbpFzqE8+muebMYtX9kAtdEQJy8F07dsefXEbN5G43PN1HgX9/0
+	qYZBBA==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fq108tvfd-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 08:05:04 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51c26012cd0so6615301cf.0
-        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 01:05:04 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 08:05:10 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5283fa0656dso23479301cf.1
+        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 01:05:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785312304; x=1785917104; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1785312309; x=1785917109; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6surQOqzNPItlMgudmHbDUDlw8wPb5bA/oEuE6aFfR4=;
-        b=Yrmb3c6yjPOXETZ26kAtObGH36XA/ctCijlzR3p6Og3W5kC87CaBOxN3Jy3T6PSoad
-         L4GZiMOL3/QNJklGvg9zmh+OQ3mhlJBtgQKootBfA4kCyqaDiLWdhN7Q1tbJlgRKCkm+
-         QMtMIRKUylnsEmEQ1kDRIyP96p/BEWZFMhV1wrRhpjP+qdbqhaoMjuTTp180qAEzSh0O
-         nfV09M1HhU2qY5kTKA9WV+4Qr1VUdjz8aOVvN8kh9eLruwgPcCpXyjBIdnhRDCu25/I2
-         9oLEeXJn6HbbRsMNKgNjPoN1PpqO3uWSm/nP9knc215ORlpcsUXf53ciBet1QlXtDAm2
-         XK7w==
+        bh=LLkPvrA/Tcomebna1Rpr9teGgRrX7jnWi3qASe4YJ+A=;
+        b=T8r5twkKqYWYpevcQ1WwqNLU+KR/weqbN85sW70LgAjrBp2YWkEIQ/HEgmGZVtaHqE
+         BpXGGe7ufO8hNuhXs33IV0hsLFQ/f+mBSNKVoPWgZvZ3QkMRyILAu6vz/HRVjg1JXmpJ
+         kdo3wMcWzbgOS2kA7+DbgVtF80AvY1EYfIyxDU6gYUB66gapIsHGNyqWIvvF+9CCqMuq
+         Wn8XtCafvoA3emiPV6icq/BQe5PuZ61Ok6rAfQsmVupEedMic9DU0G1cncvOCgIBjfjz
+         aG2UaTtCWt0T6T7eNmJ9TOtlwDPvFfDHSFavmjXSmY79P+OhSgfdvW2N3Co24G2d/Yis
+         bsdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785312304; x=1785917104;
+        d=1e100.net; s=20251104; t=1785312309; x=1785917109;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6surQOqzNPItlMgudmHbDUDlw8wPb5bA/oEuE6aFfR4=;
-        b=U/BKZ2ncE+6fJ85ievE8NAhmHB9ceoYzjHcNT4qK+KKvxnSzOOzDjDLJjKi3LrHu/v
-         rnDx60nKttMH1MpsSysn2qhnmnP4VYG+a7CkvixgLlmvj9P6MXNfqFzz5cnzXsQRcM29
-         Za8vB5GjN7z+VG3d+zQSmOFIkKyaa1KsV+fsR2NNnYtoqQpOnbnd3jCvnreahREUUN2X
-         /5pl38DQfJTwcfwCnvbYE3ZtBaEphftLsqeaYEeEe5WK7957lxOeXqoXJ/i2nsjGJbcu
-         QDPT0IP/UqZDRtDcYq21GHBnAxZy/Oogv7iI9bttPCZO9jqHRDaqI2YU6iR17yY5Qewc
-         5hFQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpnOwpSL4qPXASKDxoyIRCPPvSVeD6LBIPqskJ9xMWuQ8q05uwiJjTvxY7dRI03NWcXaoKy1hj6qbqb@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzvj1DdY0ZN/g62K7QGBICl8Fw3XZ7f6uGp65Ol9/cptP/9jZHq
-	HFJUyS1yh+y9OrziW8ejaxTQIjeEwZR3DEvW9AzSNxb1fvcBfuzfB8krakEefYsHl8NBfYAMT5P
-	ndFahjbtU9vdJn9L7kemDq5SxueW8+hh2vvLGpP/pOAdyDJG+n+nX743GfJgQ1kUs70EjqRKQ9n
-	c=
-X-Gm-Gg: AR+sD13kZDrsghwg8NTDdD5skdFLq5PdYj6JW8hDaAoWJpV1D9M8Ccoku8BvAn+XFse
-	VfFkp1p05SnUakz4Byg5dthora+QP3Ep60C54CB9kHq0kQCx6LEwFyEGm6uucuZkarg0nntpFqi
-	3an9Rzoys17H+8wNfe/ltnPzJT1D/X6M5/lAux9Z6L3MrQRvY6HMV9mIiJrqpO8SdGEzVOmbmsO
-	JtEhjU5FDQYUQRhadHr3rZdRctNf/4q+HzmRcqbNtVgWu57QoiQqc6Mz1e3qQDlYDi1Mso6VAqd
-	ffqyOs76fWfLG1J3bWGBqOSqDpEMGYt+pJmb9sod/1IEXMV9uEqudJ/Y6R5Oppylb3zvC7JcaNN
-	a7wOjwnGek+HBRmODIKVxnI1TDbxLAFY182YU5OgfwPkrRUItySqhvmASCQ78ZGLhCUK9
-X-Received: by 2002:a05:622a:1a99:b0:51c:1408:6c12 with SMTP id d75a77b69052e-529d70d6b93mr50413471cf.47.1785312303493;
-        Wed, 29 Jul 2026 01:05:03 -0700 (PDT)
-X-Received: by 2002:a05:622a:1a99:b0:51c:1408:6c12 with SMTP id d75a77b69052e-529d70d6b93mr50413131cf.47.1785312302954;
-        Wed, 29 Jul 2026 01:05:02 -0700 (PDT)
+        bh=LLkPvrA/Tcomebna1Rpr9teGgRrX7jnWi3qASe4YJ+A=;
+        b=JRSyTdTtmev2U9QsAIVzUExx6IsoVbEplB/yOE1N/ZeNZkfCxHFC4rGQ/fl67Y6Lpn
+         HQxN1+mMWRHoq7fKuMd0Q/V2ZxTNQBmsa+/hkYMR5TtTS39EoEyaAYVIXUdL2jMs9bVe
+         bSxB+Dcqt79NYmM2+MTHAo0NoSxI4Q0vvIUfHM+nKvWFnpIA9jNmqSR0LhbW9ileCpt1
+         I4cCcSgVzresPdULZm8qVFZVMm2CT53By9pQuRJQ5jytVDEUtPdc0IsPom16QUlfjXL6
+         ZChghVp7cWgdnBrZGCUF2P2gtdFaKcenaBHVakA8NlSoEenns2XZxcEM11I2SYvPmhar
+         ne2g==
+X-Forwarded-Encrypted: i=1; AHgh+RqN9r+YKaLlxUReA2DN3CtlnZoeTjivyvGEKpkZHUeZ8BsDzdsZtDTFpGo91cWy/tCA5Cy2K7/Ot7lA@vger.kernel.org
+X-Gm-Message-State: AOJu0YyxY8RsPL8DwriLBCswEpafo2n6Vd1I/ivqIxQZKj16X+7TJCW3
+	37dhIOr6upYhSnuK+kIJfix2cqYkfO/Wjd1d0ZbgKVUpxX4av7AIc6BJxkPBFTmxEhIr0awXpBj
+	xo73p3utUU05F5DLCvDC3UlQRkuUS+XWj7XrA7VfRBrqCu1JtzSlizGSv8oBy/JVjvnUE4SoOvU
+	Y=
+X-Gm-Gg: AR+sD12eD8ARJaQZBdDdQcGW7qTF2ii89qmacbqnJuF2DAFip2q/0q9fPPq4CMOxM5S
+	EI2Lp5CZWfnYzKDPEE30p4Bz6pLJCTW5iodRuhfSSo5EbyjzckdITNiRZjCiK0VJYqq0uhgi4h4
+	Qyqv6JU+NrkqI06jZBWuz1zb9bzc2mXgtOAVmzBFw4ywicnKUyDFlel+GuSBKsrFqAw5Sm0YXIP
+	zBVXWfdni9mPByFF/huHwhxN5UkUIkvuH5FrSwpFqxIEUcNgz2jFfU1fn06LRTGYm2EE2uIb/Fq
+	dNu7GejQm8W1ZZu2KR/QG1iyZpojui2biwjT8g2wYBGDezULttpCmHx6Uwm4NLbgYUliMFw1oDo
+	X09ConJowN8GbABUk0NlVfrLVlwsT67qJI42mAhZ0RrhkzcPUQZzp3OAfd5/yZ97beTqe
+X-Received: by 2002:ac8:7c54:0:b0:51a:8c86:bd2f with SMTP id d75a77b69052e-52b2ae1f254mr8443351cf.36.1785312309330;
+        Wed, 29 Jul 2026 01:05:09 -0700 (PDT)
+X-Received: by 2002:ac8:7c54:0:b0:51a:8c86:bd2f with SMTP id d75a77b69052e-52b2ae1f254mr8443071cf.36.1785312308821;
+        Wed, 29 Jul 2026 01:05:08 -0700 (PDT)
 Received: from WENMLIU-LAB01.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-529e30f2a96sm13772631cf.28.2026.07.29.01.04.58
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-529e30f2a96sm13772631cf.28.2026.07.29.01.05.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Jul 2026 01:05:02 -0700 (PDT)
+        Wed, 29 Jul 2026 01:05:07 -0700 (PDT)
 From: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
-Date: Wed, 29 Jul 2026 16:04:32 +0800
-Subject: [PATCH v4 3/4] media: i2c: og0ve1b: Introduce per-sensor data
- structure
+Date: Wed, 29 Jul 2026 16:04:33 +0800
+Subject: [PATCH v4 4/4] media: i2c: og0ve1b: Add support for OmniVision
+ OG0VA1B
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -92,7 +92,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260729-og0va1b-v4-3-ec7e7ed87b2b@oss.qualcomm.com>
+Message-Id: <20260729-og0va1b-v4-4-ec7e7ed87b2b@oss.qualcomm.com>
 References: <20260729-og0va1b-v4-0-ec7e7ed87b2b@oss.qualcomm.com>
 In-Reply-To: <20260729-og0va1b-v4-0-ec7e7ed87b2b@oss.qualcomm.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -104,323 +104,456 @@ Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
         linux-kernel@vger.kernel.org,
         Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785312282; l=10063;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785312282; l=13926;
  i=wenmeng.liu@oss.qualcomm.com; s=20250925; h=from:subject:message-id;
- bh=BOPYSAsb3CqKje/YcY4e0F73RIl8eiebRpNH6lVe0f0=;
- b=4qep5gu4I0EMf/eU77r3hmgjl120Wh2+hXkE4a3Aj/EyZEXOZgHrG6MCbJsMScHXNZUW2QIjg
- ydy6pldl3qvBIU9Dy5StMY2AJ3ee30ijG8JFC2A4DYbOICEb4hnuGFS
+ bh=xSTRYc11Z5wi3GO+Jq2eImIviy3GkRHkrx/FWYYBthg=;
+ b=NxDR0jTN0AW3YedS7VFi/I1C6EyC8vxJAFM4+HO0xdzcEby3IbCNxHQoHZ7qeaVCY/cP5iff8
+ 5gEQooh2M1iDgyFWdn0VmPVrdPQIyW+uIgXN0DKYks4SGktug5tP8eB
 X-Developer-Key: i=wenmeng.liu@oss.qualcomm.com; a=ed25519;
  pk=fQJjf9C3jGDjE1zj2kO3NQLTbQEaZObVcXAzx5WLPX0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDA2NCBTYWx0ZWRfX+pUkeyA/F/uz
- Ae132+5yuCmNyd0NAehDPHNXfOnxkGLoAjXGMxLutMYLwlig/zlfXh71e5b3JyRiX+TpYv9ipoe
- DvUAfmoK1t/cTGMZMEpF34FQ9A2rIDtVDg3n9Qdh6/Dn7m07NUTCe+MDNRVQGHzTz6afplohMww
- kpKZKvIUaJGJ+a3abXrVjAXWS5zfTLmhmKTmfUo+7rIOyjp1SIaBSpt3vP8rl2V814ewvLqdLyh
- x+uyyKsGm+jVS9W79SI+lrSQbS6BajW9xXfCLTu/co/OJLb2U09bNIIP5MFr459VSGw/f0UeiFx
- 79T5PgBf2iyYKOv2dO4ppLOV9ZYhLEHrwACywOxN1SQgW6+gxNUQ+9D5megbvP1Pp9Yd2rFiXH7
- owLpPk20lkzxwygVOmKbahgQs6vYiW/h52YRvXSunInwtPkXswWk4ZSYhRUvxRpW/G5S1zY+w+9
- 7JVLv5g6cmjctUxrK/Q==
-X-Authority-Analysis: v=2.4 cv=HP3z0Itv c=1 sm=1 tr=0 ts=6a69b430 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+X-Proofpoint-ORIG-GUID: h6DcD0ILrrelrYM7Cz3rvvrB4UHvXmBI
+X-Authority-Analysis: v=2.4 cv=fufsol4f c=1 sm=1 tr=0 ts=6a69b436 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
  a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=VAKwkO4vsx98L2EZLfkA:9 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-GUID: aElVluRy8O55AWXfatRUi6NKFros0y2t
-X-Proofpoint-ORIG-GUID: aElVluRy8O55AWXfatRUi6NKFros0y2t
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDA2NCBTYWx0ZWRfX85WBjPhd0I2G
- IxvuE4irIwsli3kCo+Hlxdnf8ytzUD5RwbVZQi7rLGN3phJjDgs+kaKTLE/NIKd1OEboODIlzRZ
- SoJ/QwaOr/8DBJ8Vw/v6uNO6QWYxoSM=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=kvSDJSb0XTZWr82cfuIA:9 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-GUID: h6DcD0ILrrelrYM7Cz3rvvrB4UHvXmBI
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDA2NCBTYWx0ZWRfX40kUdI7T4qsU
+ o9eJE6I+UjeqhtXSZv8rudOPLHj1cItHghhw45EKn+Ey+WbzQd6INWN66JfFHZlc1XcDqd8BQPT
+ JfY4wlnkE6qbuyr7WpGxXWyQOLEAJfg=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDA2NCBTYWx0ZWRfX8el00yu2sA/i
+ bnK3rWmdPY3P9WQ1CASRB2/JT7w//9jWHDdvT/GH15yR2jFBTWQg9pDQ3xjyCuOXFKGz88xiuX+
+ AWPwznnh6oDPzRT7S4xPXMdvJA0cSBluFQe6mPgBpHVlWzRYhw2dE0aX9oELetGEXovjFRQZE3c
+ 7rLcQiZilSi7xOjlW8aVYwqnUTDUlIn+GLhcv6YkAF8gHLNQmHxsdLKXRWWdiPctZ9QqUVUzzlh
+ k8zgITTKUvRGDP0TMdi53auj1ycOfIxK4YaIHuCnxMfQiB7npecHNjA0UKVxLMWiFwOUkmiMA1i
+ yd6LhnIRPE8KxtvAU3kklF5sSCXoDBF30LQR1MFKULsYCf6I43oUJKhMvw4mbPTE+ZxAbMmdtM8
+ ftu8pOOfRfyLv9ZLxDAqEZ4t1fPo09V5GNrX9AQzzQvmDTZt5o2vsARu+q6v0OEI+3PcRWKAoWU
+ djCHpTF58CvnSHPwKzw==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-29_03,2026-07-28_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 spamscore=0 adultscore=0 impostorscore=0
- clxscore=1015 lowpriorityscore=0 bulkscore=0 phishscore=0 priorityscore=1501
+ bulkscore=0 impostorscore=0 adultscore=0 clxscore=1015 suspectscore=0
+ priorityscore=1501 spamscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607290064
 
-Refactor the driver to separate sensor-specific data from the common
-driver code. Introduce a sensor_data structure, populated through
-i2c_get_match_data(), to hold the chip ID, MCLK frequency, link
-frequencies and supported modes.
+The OmniVision OG0VA1B is a monochrome image sensor closely related to
+the OG0VE1B. It shares the SCCB control interface, power supplies and
+the single-lane MIPI D-PHY description, and differs in its chip id, the
+test pattern register, the register programming and the output format
+(10-bit RAW instead of 8-bit).
 
-Test pattern programming is described by a per-sensor callback, and each
-mode stores its media bus format code (rather than a bits-per-pixel
-value) so that sensors with a different output format can be supported.
+Add an og0ve1b_sensor_data entry describing the OG0VA1B together with
+its 640x480 60fps register sequence.
 
 Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Tested-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Tested-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org> # og0ve1b
 Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
 ---
- drivers/media/i2c/og0ve1b.c | 99 ++++++++++++++++++++++++++++++++-------------
- 1 file changed, 71 insertions(+), 28 deletions(-)
+ drivers/media/i2c/og0ve1b.c | 278 ++++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 266 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/media/i2c/og0ve1b.c b/drivers/media/i2c/og0ve1b.c
-index da5c8e49d4a811f55736bd89c6922856f2e7391c..df428137cfdc1a0936c9bc936d015ed2a649c218 100644
+index df428137cfdc1a0936c9bc936d015ed2a649c218..1d220515de4bb199618d0f08ded5f975c7bd04c6 100644
 --- a/drivers/media/i2c/og0ve1b.c
 +++ b/drivers/media/i2c/og0ve1b.c
-@@ -65,11 +65,23 @@ struct og0ve1b_mode {
- 	u32 height;	/* Frame height in pixels */
- 	u32 hts;	/* Horizontal timing size */
- 	u32 vts;	/* Default vertical timing size */
--	u32 bpp;	/* Bits per pixel */
-+	u32 code;	/* MEDIA_BUS_FMT code */
+@@ -14,10 +14,14 @@
+ #include <media/v4l2-device.h>
+ #include <media/v4l2-fwnode.h>
  
- 	const struct og0ve1b_reg_list reg_list;	/* Sensor register setting */
++#define OG0VA1B_LINK_FREQ_480MHZ	(480 * HZ_PER_MHZ)
++#define OG0VA1B_MCLK_FREQ_19_2MHZ	(19200 * HZ_PER_KHZ)
++
+ #define OG0VE1B_LINK_FREQ_500MHZ	(500 * HZ_PER_MHZ)
+ #define OG0VE1B_MCLK_FREQ_24MHZ		(24 * HZ_PER_MHZ)
+ 
+-#define OG0VE1B_REG_CHIP_ID		CCI_REG24(0x300a)
++#define OG0V_REG_CHIP_ID		CCI_REG24(0x300a)
++#define OG0VA1B_CHIP_ID			0xc75641
+ #define OG0VE1B_CHIP_ID			0xc75645
+ 
+ #define OG0VE1B_REG_MODE_SELECT		CCI_REG8(0x0100)
+@@ -45,12 +49,18 @@
+ #define OG0VE1B_REG_VTS			CCI_REG16(0x380e)
+ #define OG0VE1B_VTS_MAX			0xffff
+ 
+-/* Test pattern */
++/* Test pattern - OG0VA1B uses 0x5100, OG0VE1B uses 0x5e00 */
++#define OG0VA1B_REG_TEST_PATTERN	CCI_REG8(0x5100)
++#define OG0VA1B_TEST_PATTERN_BAR_SHIFT	2
+ #define OG0VE1B_REG_PRE_ISP		CCI_REG8(0x5e00)
+ #define OG0VE1B_TEST_PATTERN_ENABLE	BIT(7)
+ 
+ #define to_og0ve1b(_sd)			container_of(_sd, struct og0ve1b, sd)
+ 
++static const s64 og0va1b_link_freq_menu[] = {
++	OG0VA1B_LINK_FREQ_480MHZ,
++};
++
+ static const s64 og0ve1b_link_freq_menu[] = {
+ 	OG0VE1B_LINK_FREQ_500MHZ,
+ };
+@@ -73,15 +83,31 @@ struct og0ve1b_mode {
+ struct og0ve1b;
+ 
+ struct og0ve1b_sensor_data {
++	const char *name;
+ 	u64 chip_id;
+ 	unsigned long mclk_freq;
+ 	int (*enable_test_pattern)(struct og0ve1b *og0ve1b, u32 pattern);
++	const char * const *test_pattern_menu;
++	int num_test_patterns;
++	bool cache_test_pattern_reg;
++	/* Exposure register unit: OG0VE1B 1/16 line (4), OG0VA1B whole lines (0). */
++	unsigned int exposure_shift;
++	/* Pixel rate multiplier: OG0VA1B uses CSI-2 DDR (2), OG0VE1B keeps 1. */
++	unsigned int pixel_rate_mul;
+ 	const s64 *link_freq_menu;
+ 	int num_link_freqs;
+ 	const struct og0ve1b_mode *modes;
+ 	int num_modes;
  };
  
-+struct og0ve1b;
-+
-+struct og0ve1b_sensor_data {
-+	u64 chip_id;
-+	unsigned long mclk_freq;
-+	int (*enable_test_pattern)(struct og0ve1b *og0ve1b, u32 pattern);
-+	const s64 *link_freq_menu;
-+	int num_link_freqs;
-+	const struct og0ve1b_mode *modes;
-+	int num_modes;
++static const char * const og0va1b_test_pattern_menu[] = {
++	"Disabled",
++	"Standard Test Bar",
++	"Top-Bottom Darker Test Bar",
++	"Right-Left Darker Test Bar",
++	"Bottom-Top Darker Test Bar",
 +};
 +
  static const char * const og0ve1b_test_pattern_menu[] = {
  	"Disabled",
  	"Standard Test Bar",
-@@ -99,6 +111,8 @@ struct og0ve1b {
+@@ -115,6 +141,196 @@ struct og0ve1b {
+ 	const struct og0ve1b_sensor_data *data;
+ };
  
- 	/* Saved register value */
- 	u64 pre_isp;
++static const struct cci_reg_sequence og0va1b_640x480_60fps_mode[] = {
++	{ CCI_REG8(0x0302), 0x31 },
++	{ CCI_REG8(0x0303), 0x02 },
++	{ CCI_REG8(0x0304), 0x01 },
++	{ CCI_REG8(0x0305), 0x90 },
++	{ CCI_REG8(0x0306), 0x00 },
++	{ CCI_REG8(0x0323), 0x02 },
++	{ CCI_REG8(0x0325), 0x68 },
++	{ CCI_REG8(0x0326), 0xd8 },
++	{ CCI_REG8(0x3006), 0x0e },
++	{ CCI_REG8(0x300d), 0x08 },
++	{ CCI_REG8(0x3018), 0xf0 },
++	{ CCI_REG8(0x301c), 0xf0 },
++	{ CCI_REG8(0x3020), 0x20 },
++	{ CCI_REG8(0x3040), 0x0f },
++	{ CCI_REG8(0x3022), 0x01 },
++	{ CCI_REG8(0x3107), 0x40 },
++	{ CCI_REG8(0x3216), 0x01 },
++	{ CCI_REG8(0x3217), 0x00 },
++	{ CCI_REG8(0x3218), 0xc0 },
++	{ CCI_REG8(0x3219), 0x55 },
++	{ CCI_REG8(0x3506), 0x01 },
++	{ CCI_REG8(0x3507), 0x50 },
++	{ CCI_REG8(0x3508), 0x01 },
++	{ CCI_REG8(0x3509), 0x00 },
++	{ CCI_REG8(0x350a), 0x01 },
++	{ CCI_REG8(0x350b), 0x00 },
++	{ CCI_REG8(0x350c), 0x00 },
++	{ CCI_REG8(0x3541), 0x00 },
++	{ CCI_REG8(0x3542), 0x40 },
++	{ CCI_REG8(0x3605), 0x90 },
++	{ CCI_REG8(0x3606), 0x41 },
++	{ CCI_REG8(0x3612), 0x00 },
++	{ CCI_REG8(0x3620), 0x08 },
++	{ CCI_REG8(0x3630), 0x17 },
++	{ CCI_REG8(0x3631), 0x99 },
++	{ CCI_REG8(0x3639), 0x88 },
++	{ CCI_REG8(0x3668), 0x00 },
++	{ CCI_REG8(0x3674), 0x00 },
++	{ CCI_REG8(0x3677), 0x3f },
++	{ CCI_REG8(0x368f), 0x06 },
++	{ CCI_REG8(0x36a2), 0x19 },
++	{ CCI_REG8(0x36a4), 0xf1 },
++	{ CCI_REG8(0x36a5), 0x2d },
++	{ CCI_REG8(0x3706), 0x30 },
++	{ CCI_REG8(0x370d), 0x72 },
++	{ CCI_REG8(0x3713), 0x86 },
++	{ CCI_REG8(0x3715), 0x03 },
++	{ CCI_REG8(0x3716), 0x00 },
++	{ CCI_REG8(0x376d), 0x24 },
++	{ CCI_REG8(0x3770), 0x3a },
++	{ CCI_REG8(0x3778), 0x00 },
++	{ CCI_REG8(0x37a8), 0x03 },
++	{ CCI_REG8(0x37a9), 0x00 },
++	{ CCI_REG8(0x37df), 0x7d },
++	{ CCI_REG8(0x3800), 0x00 },
++	{ CCI_REG8(0x3801), 0x00 },
++	{ CCI_REG8(0x3802), 0x00 },
++	{ CCI_REG8(0x3803), 0x00 },
++	{ CCI_REG8(0x3804), 0x02 },
++	{ CCI_REG8(0x3805), 0x8f },
++	{ CCI_REG8(0x3806), 0x01 },
++	{ CCI_REG8(0x3807), 0xef },
++	{ CCI_REG8(0x3808), 0x02 },
++	{ CCI_REG8(0x3809), 0x80 },
++	{ CCI_REG8(0x380a), 0x01 },
++	{ CCI_REG8(0x380b), 0xe0 },
++	{ CCI_REG8(0x380c), 0x01 },
++	{ CCI_REG8(0x380d), 0x78 },
++	{ CCI_REG8(0x380e), 0x08 },
++	{ CCI_REG8(0x380f), 0x30 },
++	{ CCI_REG8(0x3810), 0x00 },
++	{ CCI_REG8(0x3811), 0x08 },
++	{ CCI_REG8(0x3812), 0x00 },
++	{ CCI_REG8(0x3813), 0x08 },
++	{ CCI_REG8(0x3814), 0x11 },
++	{ CCI_REG8(0x3815), 0x11 },
++	{ CCI_REG8(0x3816), 0x00 },
++	{ CCI_REG8(0x3817), 0x01 },
++	{ CCI_REG8(0x3818), 0x00 },
++	{ CCI_REG8(0x3819), 0x05 },
++	{ CCI_REG8(0x3820), 0x40 },
++	{ CCI_REG8(0x3821), 0x04 },
++	{ CCI_REG8(0x3823), 0x00 },
++	{ CCI_REG8(0x3826), 0x00 },
++	{ CCI_REG8(0x3827), 0x00 },
++	{ CCI_REG8(0x382b), 0x52 },
++	{ CCI_REG8(0x384a), 0xa2 },
++	{ CCI_REG8(0x3858), 0x00 },
++	{ CCI_REG8(0x3859), 0x00 },
++	{ CCI_REG8(0x3860), 0x00 },
++	{ CCI_REG8(0x3861), 0x00 },
++	{ CCI_REG8(0x3866), 0x0c },
++	{ CCI_REG8(0x3867), 0x07 },
++	{ CCI_REG8(0x3884), 0x00 },
++	{ CCI_REG8(0x3885), 0x08 },
++	{ CCI_REG8(0x3888), 0x50 },
++	{ CCI_REG8(0x3893), 0x6c },
++	{ CCI_REG8(0x3898), 0x00 },
++	{ CCI_REG8(0x389a), 0x04 },
++	{ CCI_REG8(0x389b), 0x01 },
++	{ CCI_REG8(0x389c), 0x0b },
++	{ CCI_REG8(0x389d), 0xdc },
++	{ CCI_REG8(0x38b1), 0x04 },
++	{ CCI_REG8(0x38b2), 0x00 },
++	{ CCI_REG8(0x38b3), 0x08 },
++	{ CCI_REG8(0x38c1), 0x46 },
++	{ CCI_REG8(0x38c9), 0x02 },
++	{ CCI_REG8(0x38d4), 0x06 },
++	{ CCI_REG8(0x38d5), 0x5a },
++	{ CCI_REG8(0x38d6), 0x08 },
++	{ CCI_REG8(0x38d7), 0x3a },
++	{ CCI_REG8(0x391f), 0x00 },
++	{ CCI_REG8(0x3920), 0xaa },
++	{ CCI_REG8(0x3921), 0x00 },
++	{ CCI_REG8(0x3922), 0x00 },
++	{ CCI_REG8(0x3923), 0x00 },
++	{ CCI_REG8(0x3924), 0x00 },
++	{ CCI_REG8(0x3925), 0x00 },
++	{ CCI_REG8(0x3926), 0x00 },
++	{ CCI_REG8(0x3927), 0x00 },
++	{ CCI_REG8(0x3928), 0x10 },
++	{ CCI_REG8(0x3929), 0x01 },
++	{ CCI_REG8(0x392a), 0xb4 },
++	{ CCI_REG8(0x392b), 0x00 },
++	{ CCI_REG8(0x392c), 0x10 },
++	{ CCI_REG8(0x392d), 0x01 },
++	{ CCI_REG8(0x392e), 0x78 },
++	{ CCI_REG8(0x392f), 0x4a },
++	{ CCI_REG8(0x391e), 0x01 },
++	{ CCI_REG8(0x389f), 0x08 },
++	{ CCI_REG8(0x38a0), 0x00 },
++	{ CCI_REG8(0x38a1), 0x00 },
++	{ CCI_REG8(0x3a06), 0x06 },
++	{ CCI_REG8(0x3a07), 0x78 },
++	{ CCI_REG8(0x3a08), 0x08 },
++	{ CCI_REG8(0x3a09), 0x80 },
++	{ CCI_REG8(0x3a52), 0x00 },
++	{ CCI_REG8(0x3a53), 0x01 },
++	{ CCI_REG8(0x3a54), 0x0c },
++	{ CCI_REG8(0x3a55), 0x04 },
++	{ CCI_REG8(0x3a58), 0x0c },
++	{ CCI_REG8(0x3a59), 0x04 },
++	{ CCI_REG8(0x4000), 0xcf },
++	{ CCI_REG8(0x4003), 0x40 },
++	{ CCI_REG8(0x4008), 0x04 },
++	{ CCI_REG8(0x4009), 0x13 },
++	{ CCI_REG8(0x400a), 0x02 },
++	{ CCI_REG8(0x400b), 0x34 },
++	{ CCI_REG8(0x4010), 0x71 },
++	{ CCI_REG8(0x4042), 0xc3 },
++	{ CCI_REG8(0x4306), 0x04 },
++	{ CCI_REG8(0x4307), 0x12 },
++	{ CCI_REG8(0x4500), 0x70 },
++	{ CCI_REG8(0x4509), 0x00 },
++	{ CCI_REG8(0x450b), 0x83 },
++	{ CCI_REG8(0x4604), 0x68 },
++	{ CCI_REG8(0x481b), 0x44 },
++	{ CCI_REG8(0x481f), 0x30 },
++	{ CCI_REG8(0x4823), 0x44 },
++	{ CCI_REG8(0x4825), 0x35 },
++	{ CCI_REG8(0x4837), 0x11 },
++	{ CCI_REG8(0x4f00), 0x04 },
++	{ CCI_REG8(0x4f10), 0x04 },
++	{ CCI_REG8(0x4f21), 0x01 },
++	{ CCI_REG8(0x4f22), 0x00 },
++	{ CCI_REG8(0x4f23), 0x54 },
++	{ CCI_REG8(0x4f24), 0x51 },
++	{ CCI_REG8(0x4f25), 0x41 },
++	{ CCI_REG8(0x5000), 0x3f },
++	{ CCI_REG8(0x5001), 0x80 },
++	{ CCI_REG8(0x500a), 0x00 },
++	{ CCI_REG8(0x5100), 0x00 },
++	{ CCI_REG8(0x5111), 0x20 },
++};
 +
-+	const struct og0ve1b_sensor_data *data;
- };
- 
++static const struct og0ve1b_mode og0va1b_supported_modes[] = {
++	{
++		.width = 640,
++		.height = 480,
++		.hts = 752,
++		.vts = 2096,
++		.code = MEDIA_BUS_FMT_Y10_1X10,
++		.reg_list = {
++			.regs = og0va1b_640x480_60fps_mode,
++			.num_regs = ARRAY_SIZE(og0va1b_640x480_60fps_mode),
++		},
++	},
++};
++
  static const struct cci_reg_sequence og0ve1b_640x480_120fps_mode[] = {
-@@ -247,13 +261,13 @@ static const struct cci_reg_sequence og0ve1b_640x480_120fps_mode[] = {
- 	{ CCI_REG8(0x3f47), 0x35 },
+ 	{ CCI_REG8(0x30a0), 0x02 },
+ 	{ CCI_REG8(0x30a1), 0x00 },
+@@ -275,6 +491,17 @@ static const struct og0ve1b_mode og0ve1b_supported_modes[] = {
+ 	},
  };
  
--static const struct og0ve1b_mode supported_modes[] = {
-+static const struct og0ve1b_mode og0ve1b_supported_modes[] = {
- 	{
- 		.width = 640,
- 		.height = 480,
- 		.hts = 792,
- 		.vts = 568,
--		.bpp = 8,
-+		.code = MEDIA_BUS_FMT_Y8_1X8,
- 		.reg_list = {
- 			.regs = og0ve1b_640x480_120fps_mode,
- 			.num_regs = ARRAY_SIZE(og0ve1b_640x480_120fps_mode),
-@@ -273,11 +287,21 @@ static int og0ve1b_enable_test_pattern(struct og0ve1b *og0ve1b, u32 pattern)
++static int og0va1b_enable_test_pattern(struct og0ve1b *og0ve1b, u32 pattern)
++{
++	u64 val = 0;
++
++	if (pattern)
++		val = ((pattern - 1) << OG0VA1B_TEST_PATTERN_BAR_SHIFT) |
++		      OG0VE1B_TEST_PATTERN_ENABLE;
++
++	return cci_write(og0ve1b->regmap, OG0VA1B_REG_TEST_PATTERN, val, NULL);
++}
++
+ static int og0ve1b_enable_test_pattern(struct og0ve1b *og0ve1b, u32 pattern)
+ {
+ 	u64 val = og0ve1b->pre_isp;
+@@ -287,10 +514,31 @@ static int og0ve1b_enable_test_pattern(struct og0ve1b *og0ve1b, u32 pattern)
  	return cci_write(og0ve1b->regmap, OG0VE1B_REG_PRE_ISP, val, NULL);
  }
  
-+static const struct og0ve1b_sensor_data og0ve1b_data = {
-+	.chip_id = OG0VE1B_CHIP_ID,
-+	.mclk_freq = OG0VE1B_MCLK_FREQ_24MHZ,
-+	.enable_test_pattern = og0ve1b_enable_test_pattern,
-+	.link_freq_menu = og0ve1b_link_freq_menu,
-+	.num_link_freqs = ARRAY_SIZE(og0ve1b_link_freq_menu),
-+	.modes = og0ve1b_supported_modes,
-+	.num_modes = ARRAY_SIZE(og0ve1b_supported_modes),
++static const struct og0ve1b_sensor_data og0va1b_data = {
++	.name = "og0va1b",
++	.chip_id = OG0VA1B_CHIP_ID,
++	.mclk_freq = OG0VA1B_MCLK_FREQ_19_2MHZ,
++	.enable_test_pattern = og0va1b_enable_test_pattern,
++	.test_pattern_menu = og0va1b_test_pattern_menu,
++	.num_test_patterns = ARRAY_SIZE(og0va1b_test_pattern_menu),
++	.exposure_shift = 0,
++	.pixel_rate_mul = 2,
++	.link_freq_menu = og0va1b_link_freq_menu,
++	.num_link_freqs = ARRAY_SIZE(og0va1b_link_freq_menu),
++	.modes = og0va1b_supported_modes,
++	.num_modes = ARRAY_SIZE(og0va1b_supported_modes),
 +};
 +
- static int og0ve1b_set_ctrl(struct v4l2_ctrl *ctrl)
- {
- 	struct og0ve1b *og0ve1b = container_of(ctrl->handler, struct og0ve1b,
- 					       ctrl_handler);
--	const struct og0ve1b_mode *mode = &supported_modes[0];
-+	const struct og0ve1b_mode *mode = &og0ve1b->data->modes[0];
- 	s64 exposure_max;
- 	int ret;
- 
-@@ -314,7 +338,7 @@ static int og0ve1b_set_ctrl(struct v4l2_ctrl *ctrl)
- 				ctrl->val + mode->height, NULL);
+ static const struct og0ve1b_sensor_data og0ve1b_data = {
++	.name = "og0ve1b",
+ 	.chip_id = OG0VE1B_CHIP_ID,
+ 	.mclk_freq = OG0VE1B_MCLK_FREQ_24MHZ,
+ 	.enable_test_pattern = og0ve1b_enable_test_pattern,
++	.test_pattern_menu = og0ve1b_test_pattern_menu,
++	.num_test_patterns = ARRAY_SIZE(og0ve1b_test_pattern_menu),
++	.cache_test_pattern_reg = true,
++	.exposure_shift = 4,
++	.pixel_rate_mul = 1,
+ 	.link_freq_menu = og0ve1b_link_freq_menu,
+ 	.num_link_freqs = ARRAY_SIZE(og0ve1b_link_freq_menu),
+ 	.modes = og0ve1b_supported_modes,
+@@ -331,7 +579,8 @@ static int og0ve1b_set_ctrl(struct v4l2_ctrl *ctrl)
  		break;
- 	case V4L2_CID_TEST_PATTERN:
--		ret = og0ve1b_enable_test_pattern(og0ve1b, ctrl->val);
-+		ret = og0ve1b->data->enable_test_pattern(og0ve1b, ctrl->val);
+ 	case V4L2_CID_EXPOSURE:
+ 		ret = cci_write(og0ve1b->regmap, OG0VE1B_REG_EXPOSURE,
+-				ctrl->val << 4, NULL);
++				ctrl->val << og0ve1b->data->exposure_shift,
++				NULL);
  		break;
- 	default:
- 		ret = -EINVAL;
-@@ -330,10 +354,19 @@ static const struct v4l2_ctrl_ops og0ve1b_ctrl_ops = {
- 	.s_ctrl = og0ve1b_set_ctrl,
- };
+ 	case V4L2_CID_VBLANK:
+ 		ret = cci_write(og0ve1b->regmap, OG0VE1B_REG_VTS,
+@@ -359,7 +608,7 @@ static s64 og0ve1b_pixel_rate(const struct og0ve1b_sensor_data *data)
+ 	const struct og0ve1b_mode *mode = &data->modes[0];
+ 	unsigned int bpp = mode->code == MEDIA_BUS_FMT_Y8_1X8 ? 8 : 10;
  
-+static s64 og0ve1b_pixel_rate(const struct og0ve1b_sensor_data *data)
-+{
-+	const struct og0ve1b_mode *mode = &data->modes[0];
-+	unsigned int bpp = mode->code == MEDIA_BUS_FMT_Y8_1X8 ? 8 : 10;
-+
-+	return data->link_freq_menu[0] / bpp;
-+}
-+
- static int og0ve1b_init_controls(struct og0ve1b *og0ve1b)
- {
- 	struct v4l2_ctrl_handler *ctrl_hdlr = &og0ve1b->ctrl_handler;
--	const struct og0ve1b_mode *mode = &supported_modes[0];
-+	const struct og0ve1b_mode *mode = &og0ve1b->data->modes[0];
-+	const struct og0ve1b_sensor_data *data = og0ve1b->data;
- 	s64 exposure_max, pixel_rate, h_blank, v_blank;
- 	struct v4l2_fwnode_device_properties props;
- 	struct v4l2_ctrl *ctrl;
-@@ -343,12 +376,12 @@ static int og0ve1b_init_controls(struct og0ve1b *og0ve1b)
- 
- 	ctrl = v4l2_ctrl_new_int_menu(ctrl_hdlr, &og0ve1b_ctrl_ops,
- 				      V4L2_CID_LINK_FREQ,
--				      ARRAY_SIZE(og0ve1b_link_freq_menu) - 1,
--				      0, og0ve1b_link_freq_menu);
-+				      data->num_link_freqs - 1,
-+				      0, data->link_freq_menu);
- 	if (ctrl)
- 		ctrl->flags |= V4L2_CTRL_FLAG_READ_ONLY;
- 
--	pixel_rate = og0ve1b_link_freq_menu[0] / mode->bpp;
-+	pixel_rate = og0ve1b_pixel_rate(data);
- 	v4l2_ctrl_new_std(ctrl_hdlr, &og0ve1b_ctrl_ops, V4L2_CID_PIXEL_RATE,
- 			  0, pixel_rate, 1, pixel_rate);
- 
-@@ -407,7 +440,7 @@ static int og0ve1b_init_controls(struct og0ve1b *og0ve1b)
- static void og0ve1b_update_pad_format(const struct og0ve1b_mode *mode,
- 				      struct v4l2_mbus_framefmt *fmt)
- {
--	fmt->code = MEDIA_BUS_FMT_Y8_1X8;
-+	fmt->code = mode->code;
- 	fmt->width = mode->width;
- 	fmt->height = mode->height;
- 	fmt->field = V4L2_FIELD_NONE;
-@@ -421,8 +454,8 @@ static int og0ve1b_enable_streams(struct v4l2_subdev *sd,
- 				  struct v4l2_subdev_state *state, u32 pad,
- 				  u64 streams_mask)
- {
--	const struct og0ve1b_reg_list *reg_list = &supported_modes[0].reg_list;
- 	struct og0ve1b *og0ve1b = to_og0ve1b(sd);
-+	const struct og0ve1b_reg_list *reg_list = &og0ve1b->data->modes[0].reg_list;
- 	int ret;
- 
- 	ret = pm_runtime_resume_and_get(og0ve1b->dev);
-@@ -484,13 +517,14 @@ static int og0ve1b_set_pad_format(struct v4l2_subdev *sd,
- 				  struct v4l2_subdev_state *state,
- 				  struct v4l2_subdev_format *fmt)
- {
-+	struct og0ve1b *og0ve1b = to_og0ve1b(sd);
- 	struct v4l2_mbus_framefmt *format;
- 	const struct og0ve1b_mode *mode;
- 
- 	format = v4l2_subdev_state_get_format(state, 0);
- 
--	mode = v4l2_find_nearest_size(supported_modes,
--				      ARRAY_SIZE(supported_modes),
-+	mode = v4l2_find_nearest_size(og0ve1b->data->modes,
-+				      og0ve1b->data->num_modes,
- 				      width, height,
- 				      fmt->format.width,
- 				      fmt->format.height);
-@@ -505,10 +539,12 @@ static int og0ve1b_enum_mbus_code(struct v4l2_subdev *sd,
- 				  struct v4l2_subdev_state *sd_state,
- 				  struct v4l2_subdev_mbus_code_enum *code)
- {
-+	struct og0ve1b *og0ve1b = to_og0ve1b(sd);
-+
- 	if (code->index > 0)
- 		return -EINVAL;
- 
--	code->code = MEDIA_BUS_FMT_Y8_1X8;
-+	code->code = og0ve1b->data->modes[0].code;
- 
- 	return 0;
+-	return data->link_freq_menu[0] / bpp;
++	return data->link_freq_menu[0] * data->pixel_rate_mul / bpp;
  }
-@@ -517,15 +553,18 @@ static int og0ve1b_enum_frame_size(struct v4l2_subdev *sd,
- 				   struct v4l2_subdev_state *sd_state,
- 				   struct v4l2_subdev_frame_size_enum *fse)
- {
--	if (fse->index >= ARRAY_SIZE(supported_modes))
-+	struct og0ve1b *og0ve1b = to_og0ve1b(sd);
-+	const struct og0ve1b_sensor_data *data = og0ve1b->data;
-+
-+	if (fse->index >= data->num_modes)
- 		return -EINVAL;
  
--	if (fse->code != MEDIA_BUS_FMT_Y8_1X8)
-+	if (fse->code != data->modes[fse->index].code)
- 		return -EINVAL;
+ static int og0ve1b_init_controls(struct og0ve1b *og0ve1b)
+@@ -412,8 +661,8 @@ static int og0ve1b_init_controls(struct og0ve1b *og0ve1b)
  
--	fse->min_width = supported_modes[fse->index].width;
-+	fse->min_width = data->modes[fse->index].width;
- 	fse->max_width = fse->min_width;
--	fse->min_height = supported_modes[fse->index].height;
-+	fse->min_height = data->modes[fse->index].height;
- 	fse->max_height = fse->min_height;
+ 	v4l2_ctrl_new_std_menu_items(ctrl_hdlr, &og0ve1b_ctrl_ops,
+ 				     V4L2_CID_TEST_PATTERN,
+-				     ARRAY_SIZE(og0ve1b_test_pattern_menu) - 1,
+-				     0, 0, og0ve1b_test_pattern_menu);
++				     data->num_test_patterns - 1,
++				     0, 0, data->test_pattern_menu);
  
- 	return 0;
-@@ -534,13 +573,14 @@ static int og0ve1b_enum_frame_size(struct v4l2_subdev *sd,
- static int og0ve1b_init_state(struct v4l2_subdev *sd,
- 			      struct v4l2_subdev_state *state)
- {
-+	const struct og0ve1b_mode *mode = &to_og0ve1b(sd)->data->modes[0];
- 	struct v4l2_subdev_format fmt = {
- 		.which = V4L2_SUBDEV_FORMAT_TRY,
- 		.pad = 0,
- 		.format = {
--			.code = MEDIA_BUS_FMT_Y8_1X8,
--			.width = supported_modes[0].width,
--			.height = supported_modes[0].height,
-+			.code = mode->code,
-+			.width = mode->width,
-+			.height = mode->height,
- 		},
- 	};
+ 	if (ctrl_hdlr->error)
+ 		return ctrl_hdlr->error;
+@@ -620,7 +869,7 @@ static int og0ve1b_identify_sensor(struct og0ve1b *og0ve1b)
+ 	u64 val;
+ 	int ret;
  
-@@ -586,9 +626,9 @@ static int og0ve1b_identify_sensor(struct og0ve1b *og0ve1b)
+-	ret = cci_read(og0ve1b->regmap, OG0VE1B_REG_CHIP_ID, &val, NULL);
++	ret = cci_read(og0ve1b->regmap, OG0V_REG_CHIP_ID, &val, NULL);
+ 	if (ret) {
+ 		dev_err(og0ve1b->dev, "failed to read chip id: %d\n", ret);
  		return ret;
- 	}
- 
--	if (val != OG0VE1B_CHIP_ID) {
--		dev_err(og0ve1b->dev, "chip id mismatch: %x!=%llx\n",
--			OG0VE1B_CHIP_ID, val);
-+	if (val != og0ve1b->data->chip_id) {
-+		dev_err(og0ve1b->dev, "chip id mismatch: %llx!=%llx\n",
-+			og0ve1b->data->chip_id, val);
+@@ -632,10 +881,12 @@ static int og0ve1b_identify_sensor(struct og0ve1b *og0ve1b)
  		return -ENODEV;
  	}
  
-@@ -624,8 +664,8 @@ static int og0ve1b_check_hwcfg(struct og0ve1b *og0ve1b)
- 	ret = v4l2_link_freq_to_bitmap(og0ve1b->dev,
- 				       bus_cfg.link_frequencies,
- 				       bus_cfg.nr_of_link_frequencies,
--				       og0ve1b_link_freq_menu,
--				       ARRAY_SIZE(og0ve1b_link_freq_menu),
-+				       og0ve1b->data->link_freq_menu,
-+				       og0ve1b->data->num_link_freqs,
- 				       &freq_bitmap);
+-	ret = cci_read(og0ve1b->regmap, OG0VE1B_REG_PRE_ISP,
+-		       &og0ve1b->pre_isp, NULL);
+-	if (ret)
+-		dev_err(og0ve1b->dev, "failed to read pre_isp: %d\n", ret);
++	if (og0ve1b->data->cache_test_pattern_reg) {
++		ret = cci_read(og0ve1b->regmap, OG0VE1B_REG_PRE_ISP,
++			       &og0ve1b->pre_isp, NULL);
++		if (ret)
++			dev_err(og0ve1b->dev, "failed to read pre_isp: %d\n", ret);
++	}
  
- 	v4l2_fwnode_endpoint_free(&bus_cfg);
-@@ -686,6 +726,9 @@ static int og0ve1b_probe(struct i2c_client *client)
- 		return -ENOMEM;
- 
- 	og0ve1b->dev = &client->dev;
-+	og0ve1b->data = i2c_get_match_data(client);
-+	if (!og0ve1b->data)
-+		return -ENODEV;
+ 	return ret;
+ }
+@@ -731,6 +982,8 @@ static int og0ve1b_probe(struct i2c_client *client)
+ 		return -ENODEV;
  
  	v4l2_i2c_subdev_init(&og0ve1b->sd, client, &og0ve1b_subdev_ops);
++	v4l2_i2c_subdev_set_name(&og0ve1b->sd, client,
++				 og0ve1b->data->name, NULL);
  
-@@ -700,7 +743,7 @@ static int og0ve1b_probe(struct i2c_client *client)
- 				     "failed to get XVCLK clock\n");
- 
- 	freq = clk_get_rate(og0ve1b->xvclk);
--	if (freq && freq != OG0VE1B_MCLK_FREQ_24MHZ)
-+	if (freq && freq != og0ve1b->data->mclk_freq)
- 		return dev_err_probe(og0ve1b->dev, -EINVAL,
- 				     "XVCLK clock frequency %lu is not supported\n",
- 				     freq);
-@@ -819,7 +862,7 @@ static const struct dev_pm_ops og0ve1b_pm_ops = {
+ 	og0ve1b->regmap = devm_cci_regmap_init_i2c(client, 16);
+ 	if (IS_ERR(og0ve1b->regmap))
+@@ -862,6 +1115,7 @@ static const struct dev_pm_ops og0ve1b_pm_ops = {
  };
  
  static const struct of_device_id og0ve1b_of_match[] = {
--	{ .compatible = "ovti,og0ve1b" },
-+	{ .compatible = "ovti,og0ve1b", .data = &og0ve1b_data },
++	{ .compatible = "ovti,og0va1b", .data = &og0va1b_data },
+ 	{ .compatible = "ovti,og0ve1b", .data = &og0ve1b_data },
  	{ /* sentinel */ }
  };
- MODULE_DEVICE_TABLE(of, og0ve1b_of_match);
+@@ -880,5 +1134,5 @@ static struct i2c_driver og0ve1b_i2c_driver = {
+ module_i2c_driver(og0ve1b_i2c_driver);
+ 
+ MODULE_AUTHOR("Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>");
+-MODULE_DESCRIPTION("OmniVision OG0VE1B sensor driver");
++MODULE_DESCRIPTION("OmniVision OG0VE1B/OG0VA1B sensor driver");
+ MODULE_LICENSE("GPL");
 
 -- 
 2.34.1
