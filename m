@@ -1,218 +1,167 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DA7131282F
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 04:45:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785300359; cv=pass; b=EZ0fO46YeEELrCeG3nvtpWKbS6RdXGL8vDjAjvrzlX+Ks5kxdKfGhsYlppsFWc+XRO+LEs+hov+ZkSma4lofEuFerLsCBsQJSkMitDJmjGXF6OkeWzBpEL8Jdn6qSLjcYXRVZO/US//XAzHHMiFGJyUSBEYdX2tD4j/IxsrAUsY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785300359; c=relaxed/simple;
-	bh=TWU8vryfQeA/MKw4NADKO2ArzyxCXV4H0Tgo3gyI/pI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QnnJd8NgjUawof9AaioNq5Zoeai7VdxwEzWzaKQBa/Nj6X2ana/1WHZqjrPRNzJhoQJEcj6rpwAIz4Iw1NjPb/TtGG5q89TjHEXlkUwY1l3XqZiDpb59l6dFGlL/r0bMisrz7REBDKQk7vPKVB8TgibMf4/iYOmCR2XxAWZGmxU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hg75JBAV; arc=pass smtp.client-ip=209.85.208.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B443B3101A7
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 04:46:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785300395; cv=none; b=ZdjueL5QhA06352+5htJqXyvk0Wbzzy+IpyTsmbT5xffpAG2imClnkMsubgloFrKInGQx4t9siE5/remmuG9W5by7GG++fekTQqmM6+fp95HopH205zv9aDbpw84pI+mRl6WUaaSIbcDlxtTVqZlOhLloepeB/gIciyjLykC19w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785300395; c=relaxed/simple;
+	bh=Fi0vOZ4jalvPpZIuCzGkTKUxkJ5O8zX5z9PHvD/InwU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=qgmZOkW2oApIA5nG6O5rl9yMCmypHQjOQKWh5+/y7IMPRd8r6QV38aLUuQgpJzZmWyByUZQDo2rJRXpq6COkAKWgydkeQwWsgldaRCC3NghTferj1VLFfKBqCfSPCufasyCcc8yimkBpN8fv3lTwtDVVPXP7V3mprFnUywHFKwA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EuaEPTKn; arc=none smtp.client-ip=209.85.216.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hg75JBAV"
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-69c108fee7fso703749a12.3
-        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 21:45:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785300356; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Qx+P9qXm20MIG+kehwnHIixy5YB4QLd7fHTWUG1yhYgzRZ8QBt+exflyaqAJyGAk9A
-         tH0GjlhCbyoBMl/m2mUHvSXwSYnCrx4w7HHtT4dVp2OHxD9RfQt1jKB19P6kP90clK9w
-         rQ4S/VwgZKFkTS5EPWNSydkToJCyBNkB7O10Gne26u2I95da2optRQZkCnPnzrrmfOie
-         ailhber2qoc5not86UwScI0v47q68vEvPG3nHOuvbSTj3gjUnA6V5c1dr8jFrYGOhMEM
-         H1pRK5OyT5eC+d8woJJsEdqmX6CTuCQp5mhj/Xn2Amm/Mgsg5gOSN6k0j8CeZAUECHPY
-         rIrA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=kpGwAc/zS1Z5Ybg4YnxkG9yP5l6pon/d5qwt4j5rY3s=;
-        fh=OXkB20inigESnT6gIhia5dYBgLf/8OZodSc3i/wbxNY=;
-        b=nFM2XUCB4rsjlqMtDY5KUiSr/TNrHeUz8JuzZvolDRYTM/3e8OkrwzOTM1tT4XGs2R
-         mMYE8KMPOnrOeZzMi97TzzAyN/86vecgN8do3AJlX5XFqpMrrH6k9GEjuH8pn7KowVCy
-         H0n1YU/IL7lBsNNQcI58V76mFjeeJCrC0GrDAAhgMZ/A0xUDk0aZtSOfhBm8gtWxTYu4
-         EssGKu0pb1DMaDxsuV3p0jbx3DqVc7IzabpR2JYm6LbTellM1CSU/vc3BHJxTarkCCJk
-         ExssD04iDRrRdkX152a6K2hGrAI5t62Ts8apsy6lqtJnzahJ6PCpJLgLNu6dYY83fT+Q
-         5Zjg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EuaEPTKn"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-383cb94f742so595161a91.3
+        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 21:46:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785300356; x=1785905156; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kpGwAc/zS1Z5Ybg4YnxkG9yP5l6pon/d5qwt4j5rY3s=;
-        b=hg75JBAVhes13FzVBTmeu8mnh4XqFQtBEx0bjuV7eoV/0syqJWyqKaKf54v2B7fQMn
-         W54uHQhHuWAwloOvW5EBUZIcmIBi1xAacGP7jPbxCDbhJRhepoSI5BFu/ZVJPT0mKvwW
-         k9b1QTGOEEWaEcIg76QMYpNUY9a9kB/83O0CIDvjKz5p52CCUSstHI3fv0QFYCGsoB1r
-         mH4SPs2RtyqfjdYYApuaU+JTzYQ/PFlAr37vidxvr43sY2sGrW731sl28RrSU9KhUuMM
-         jR5r1WHQYOLjtxTDJDqz3qTaB3E9zVO7BECmPBUyp3Z70i5+U3qZRFOrwL+tqbYTOU7w
-         6JDw==
+        d=gmail.com; s=20251104; t=1785300393; x=1785905193; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Ru0XT0Vwee8BIrhpYRN+CuhFxBsS6D9U/jFgcFF2Cvc=;
+        b=EuaEPTKnf0idn0iQZ+PhvmnDoYrH0+btpPT+rHbM2kmpywL+Qn8mPYaJNBWiEhprgv
+         eENtO2IzuMGC77WvQI6AnL7ptbCfCSy87ZZibUgrHDqIN60V61Z4JeDQz529gBIA+E47
+         aG0d+CGHLTyd2Wyoj/f9rkYsftFLZd3vVbYyHl+fyNPS4pbaVMEGucUc1xy9fbWDa52E
+         UFbIASgxuNuljXRZS5Yaa5wwdKjdzGK53DOHi9kJI6SVMOO/N0ep99uqBx7t6aXbEutg
+         ACJcZhz6U7m2dHf4732Fm9YnKoQEzTOy1v0AsABTiw8re3ZFmdvY4NicQFcOVwVlV/Eb
+         vwMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785300356; x=1785905156;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20251104; t=1785300393; x=1785905193;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=kpGwAc/zS1Z5Ybg4YnxkG9yP5l6pon/d5qwt4j5rY3s=;
-        b=pXmau3xKQtNH8l4HLyLlmIMUTUuWuPtUpKPmOyTF0XmUFEtRY/EVpXLE0PxqXY2ZHM
-         5pykKtLlcFDM+4XPTStraM02iBXYLszZSjeN3sAyN+w5ooFwwX4jPpcKda8LZMuuUckc
-         i2vYoTtBHAYDBeS6GMQoFxrtK0TauACN18TbJGkX/3Q8m/2afousIRTV6Go0eQwwIJEA
-         6W2C0L9ZW44743b3lyYJCx9XkflG6IduNjDSpMJAR9TIoRV1F87dnK9taISHaH8kmj3f
-         OlcQZLO1+AMwEj6VgcYXVGapE/clvcohd2iOcpZEKqXTcDxlLhLJSwi/n63CX3adsWmm
-         j/EA==
-X-Forwarded-Encrypted: i=1; AHgh+RpevvazpudslMoQeZ90HqVMJwbN46e0gu0zlidipjOZ8Ebvagk4ANcmd/gleivtG0Dt9gzpurwDGsPi@vger.kernel.org
-X-Gm-Message-State: AOJu0YwPmdjuPfXIfP6D+2QwRhRZly7Yz3dxG1lZWvftHAhZvJPMjoYd
-	T9lh0PWaIUOUeYZ8LxR5GfjvIaFukoLw442xr7VGHkgcpFQFUiPY/bDdqRDZs8dxNGcJTipawot
-	M8D+MtL3ced/mpsms6nQY2TfhbBDzRhg=
-X-Gm-Gg: AR+sD12uLlRmBi/cbpZK4DUvt2y6/6g+sA9WfSD/Nd2ZUcAiYjgvBPLn736s8yKCNbw
-	nTgzqPH6Ad/4gaQIH+Kx3iD2j9nVTLxTWD9/YKS+cveV768R5GzcB0/iqEVN7On4+/1B8qt7ZGT
-	hdKCF5btRtRIy8dKb3G/bonHB8A/3OZjBRgSyox/epbNmI2GmXQjkkI1iqMnieaQYuJiCG6nPyE
-	8bdndzXdUOPmU19TYj7L50Fqu4c38uedAwkPkb4XmY25IAtAnATvZBHOlK4CxVOjKuwT15Weytp
-	luVPkXoGsUZtHfyBlP3WWqaFqoFFeGIDVJvCPOuLDhRggwGeDB7C/RgvX+GoIYy5vOXUF+uONNv
-	7NA==
-X-Received: by 2002:a17:907:d408:b0:c1c:4d59:2b03 with SMTP id
- a640c23a62f3a-c1f71eae0e6mr258727366b.3.1785300355708; Tue, 28 Jul 2026
- 21:45:55 -0700 (PDT)
+        bh=Ru0XT0Vwee8BIrhpYRN+CuhFxBsS6D9U/jFgcFF2Cvc=;
+        b=Vtf0qulJ5x4X1lv7EJ1iIeeWHqtVOJi7UHZEKEmuUMsoW+TYL15fypDR6BtwFObDtu
+         sogHDnPsMu8dm9nBSs7Z15pClpylQxYVNst1CvskuoYa+OQ5Y27DtoedRpAEIC9l+kUW
+         3V6NWYcIhp29+kmig2HObCP9mLGf69SCQsyGdCWsOpTubLl2ulItbi6FfGl4z7EdphQs
+         K4D5d1wxQOyNbQ+YGRnT7aicxUUoAfsTo8T17nlnmlp3atBFz9v4AoD+PgNRdeVrqa3B
+         ACG4z+OttVNPEBZ4ujOS/ceN3RpYGbxshicAsCD5nifcCItmOdk3JKbGMTLOeu4Ol/zt
+         3sjg==
+X-Forwarded-Encrypted: i=1; AHgh+Ro8UMo3qbZZHbxQBILVxNl6FNe0YwECsuwzbD9m5gKbfnFVmcAqK7hslW28uTMmKIYqQja7LoELKELa@vger.kernel.org
+X-Gm-Message-State: AOJu0YxfxTg+07Z0VhX61M+B6snBfFX8Pffd8+o2We+gfT9/TzfpkJO/
+	lRJMUN/se0zglGYCiY79xXK1KjV3mZSavIE/Bd/UNugGDa2s2vz3XGf+
+X-Gm-Gg: AR+sD13bzWfChKi+Z2p2QktS4pvGfGwosJCKEVyjWmal9lW3mJ9gLEUQXujmrRWNyon
+	xlOFi8IIHRMqVonp6t69K4y/t9RXFG0IpPvvMoPFNVm7yArd8mUMmWu5NR5ONf00JOcP9PeAvbA
+	6Bdg1VOouyHosNmBacsemzG7baIlt1ctRsLvqoXBAf+DOSD87gwucgWlgCX6S4bpX62yueY6WMl
+	2eOVLWVhetc4edWfYKSivD18OAg2ZqvXbvNywgtJoGpXKSjU1OsFvHyqiSonyw24Csds870+rdH
+	espUOTY3Z54qUvLCYadMPmZndLRSj8AAtoFFLZnsb7r04qPYeZ04Zm6N727VI/WFloO5lac2RYg
+	qhxaO9e3iZFzE/EqTskocOUgzK3Zo1kGGkqMZNqa0uo/pl75v612eGRLaoNRAF656Tay6xEaG9F
+	hVXhrkQ1gaGAomhRDAW5pZeGGPBoBqJfbcr56b86KufUOo+Md/o8xLEbwnzNdF9/z09fjBe5ugl
+	Rj1
+X-Received: by 2002:a17:90b:4d0f:b0:38e:5dc:af03 with SMTP id 98e67ed59e1d1-38f6a48103cmr5204321a91.40.1785300392937;
+        Tue, 28 Jul 2026 21:46:32 -0700 (PDT)
+Received: from tresc054937.tre-sc.gov.br ([187.65.210.13])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31504b6d14bsm4730437eec.10.2026.07.28.21.46.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 28 Jul 2026 21:46:31 -0700 (PDT)
+From: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+Subject: [hwmon-next PATCH v4 0/4] hwmon: (adt7470) Add PWM provider and
+ thermal sensor support
+Date: Wed, 29 Jul 2026 01:46:08 -0300
+Message-Id: <20260729-adt7470_thermalzone-v4-0-c14039dfa0e6@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260728-adt7470_thermalzone-v3-0-d4586478cdba@gmail.com>
- <20260728-adt7470_thermalzone-v3-1-d4586478cdba@gmail.com> <20260728-meteoric-quixotic-sunfish-0de2cb@quoll>
-In-Reply-To: <20260728-meteoric-quixotic-sunfish-0de2cb@quoll>
-From: Luiz Angelo Daros de Luca <luizluca@gmail.com>
-Date: Wed, 29 Jul 2026 01:45:42 -0300
-X-Gm-Features: AUfX_mzeoGI1TquWNmmBg4ZCCnURWWqxT7S385nR9H6VYiwBt6Kck6h22oP1jNU
-Message-ID: <CAJq09z5CQgzzFahoiteh9ykjdbsYpP=QZ2AugzY4tQ79RpA-cg@mail.gmail.com>
-Subject: Re: [hwmon-next PATCH v3 1/4] dt-bindings: hwmon: adi,adt7470
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Chris Packham <chris.packham@alliedtelesis.co.nz>, 
-	Andrew Morton <akpm@linux-foundation.org>, "Darrick J. Wong" <djwong@us.ibm.com>, 
-	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>, 
-	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAJGFaWoC/33QzY7CIBAA4FcxnBcDFAp68j2MMQhTy8aCAta/9
+ N3F9tJszB4nM/PNzwsliA4SWi9eKELvkgu+BPxngUyr/RGwsyVGjLCaSFpjbbPkkuxzC7HTp2f
+ wgMVKU8KYVFYyVDrPERp3H9Utam9d8NjDPaPdlEvXwy+Y/GE/1a1LOcTHuEJPx55/p/UUE2yME
+ NBUAqyFzbHT7rQ0oRsn9GxuyO8GK4YWgnK5EqrR9q9RzQymvhtVMSwXquZSGXvQc2OYTo1wuZa
+ f5ukXu2F4A0Q32gBxAQAA
+X-Change-ID: 20260716-adt7470_thermalzone-59a102278d72
+To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Chris Packham <chris.packham@alliedtelesis.co.nz>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ "Darrick J. Wong" <djwong@us.ibm.com>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Luiz Angelo Daros de Luca <luizluca@gmail.com>, linux-pwm@vger.kernel.org
+X-Mailer: b4 0.15.2
 
-Hi Krzysztof,
+The ADT7470 is a temperature monitor and PWM fan controller capable of
+monitoring up to ten external temperature sensors and controlling up to
+four PWM outputs.
 
-Thanks for the review.
+Currently, the driver exposes these sensors and PWM controls only
+through the hwmon sysfs interface. This patch series integrates the
+ADT7470 driver with the kernel's thermal and PWM subsystems. This allows
+temperature sensors to participate in Device Tree thermal zones while
+exposing the PWM outputs as generic PWM providers for consumers such as
+pwm-fan.
 
-> On Tue, Jul 28, 2026 at 12:07:09AM -0300, Luiz Angelo Daros de Luca wrote:
-> > The Analog Devices ADT7470 is a multichannel temperature sensor and
-> > PWM fan controller. It supports monitoring up to 10 external
-> > temperature sensors and controlling up to 4 fans.
-> >
-> > Add the device tree binding documentation for it. This includes
-> > support for the thermal framework by defining the "#thermal-sensor-cells"
-> > property, and models the fan control lines as PWM channels by
-> > defining the "#pwm-cells" property.
-> >
-> > Signed-off-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
-> > ---
-> >  .../devicetree/bindings/hwmon/adi,adt7470.yaml     | 55 ++++++++++++++++++++++
-> >  1 file changed, 55 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/hwmon/adi,adt7470.yaml b/Documentation/devicetree/bindings/hwmon/adi,adt7470.yaml
-> > new file mode 100644
-> > index 000000000000..bb2375a4a490
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/hwmon/adi,adt7470.yaml
-> > @@ -0,0 +1,55 @@
-> > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/hwmon/adi,adt7470.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Analog Devices ADT7470 hwmon sensor
-> > +
-> > +maintainers:
-> > +  - Luiz Angelo Daros de Luca <luizluca@gmail.com>
-> > +
-> > +description:
-> > +  Multi-channel temperature monitor and PWM fan controller.
-> > +  It supports monitoring up to 10 external temperature sensors and
-> > +  controlling up to four fans. The fan control lines are modeled
-> > +  as standard PWM channels.
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: adi,adt7470
-> > +
-> > +  reg:
-> > +    maxItems: 1
-> > +
-> > +  "#pwm-cells":
-> > +    const: 3
-> > +    description:
-> > +      See Documentation/devicetree/bindings/pwm/pwm.yaml for the
-> > +      generic PWM binding description.
->
-> Drop description.
->
-> You OTOH, miss ref to pwm schema. Referencing here in description should
-> raise you questions... And then use unevaluatedProperties.
+Patch 1 adds the YAML device tree binding documentation.
+Patch 2 introduces the ADT7470_PWM_MAX macro.
+Patch 3 registers the four PWM channels as a generic PWM provider.
+Patch 4 registers the external temperature sensors with the thermal
+framework.
 
-I will drop the description and change to `unevaluatedProperties: false`.
+Signed-off-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
 
-Regarding the reference to the PWM schema, adding `$ref:
-/schemas/pwm/pwm.yaml#` enforces the `$nodename` to match
-`^pwm(@.*|-([0-9a-f]+))?$`. Since the ADT7470 is primarily a hardware
-monitor, its node is typically named `sensor@...`,
-`fan-controller@...` or `hwmon@...`. Importing `pwm.yaml` causes
-`dtbs_check` to fail on existing node names because of this mismatch.
+---
+Changes in v4:
+- dt-bindings: Dropped redundant descriptions for standard properties
+  (#pwm-cells and #thermal-sensor-cells).
+- dt-bindings: Conditionally referenced thermal-sensor.yaml to preserve
+  ABI compatibility.
+- dt-bindings: Switched to unevaluatedProperties due to the imported $ref.
+- Link to v3: https://patch.msgid.link/20260728-adt7470_thermalzone-v3-0-d4586478cdba@gmail.com
 
-Since we cannot override the `$nodename` from an imported schema, what
-is the preferred approach here? Should I skip the `$ref` to `pwm.yaml`
-in this specific case, or is there an accepted workaround for sensors
-acting as PWM providers?
+Changes in v3:
+- Migrated from the `.apply` callback to the PWM Waveform API.
+- Moved fixes to another patch series:
+  20260727-adt7470_thermalzone-v3-0-21424d550c3d@gmail.com
+- Use guard(mutex) for simpler locking.
+- Link to v2: https://patch.msgid.link/20260717-adt7470_thermalzone-v2-0-a55147958fad@gmail.com
 
-> You most likely miss ref to thermal-sensor.yaml as well, but that would
-> change the ABI since hwmon would fail on missing cells, right?
+Changes in v2:
+- Fixed 2 previous bugs uncovered by Sashiko-bot during review.
+- Dropped the thermal cooling device registration for the PWM channels.
+- Implemented generic PWM provider support using the PWM subsystem.
+- Updated Kconfig to safely handle the PWM subsystem dependency (depends on PWM || PWM=n).
+- Updated Device Tree bindings to require #pwm-cells instead of #cooling-cells.
+- Link to v1: https://patch.msgid.link/20260716-adt7470_thermalzone-v1-0-cc55ef35edde@gmail.com
 
-Yes, you are right. It would require #thermal-sensor-cells and the
-device might not have a thermal sensor connected if it is used as a
-pure fan controller. Likewise, it can also be used as a simple
-analog-to-digital temperature adapter, with no fans connected (and
-"#pwm-cells" might be missing).
+To: Guenter Roeck <linux@roeck-us.net>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+To: Chris Packham <chris.packham@alliedtelesis.co.nz>
+To: Andrew Morton <akpm@linux-foundation.org>
+To: "Darrick J. Wong" <djwong@us.ibm.com>
+To: Uwe Kleine-König <ukleinek@kernel.org>
+Cc: linux-hwmon@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-pwm@vger.kernel.org
 
-To address this without breaking the ABI, we could add the ref
-conditionally if "#thermal-sensor-cells" is present.
+---
+Luiz Angelo Daros de Luca (4):
+      dt-bindings: hwmon: add adi,adt7470
+      hwmon: (adt7470) Add ADT7470_PWM_MAX macro
+      hwmon: (adt7470) Expose fan control via PWM framework
+      hwmon: (adt7470) Add thermal zone sensor support
 
-allOf:
- - if:
-     required:
-       - "#thermal-sensor-cells"
-   then:
-     $ref: /schemas/thermal/thermal-sensor.yaml#
+ .../devicetree/bindings/hwmon/adi,adt7470.yaml     |  58 ++++++++
+ drivers/hwmon/Kconfig                              |   1 +
+ drivers/hwmon/adt7470.c                            | 146 ++++++++++++++++++++-
+ 3 files changed, 202 insertions(+), 3 deletions(-)
+---
+base-commit: 4c2e8c377915496fbe9cc1c9d91a7297aaa01783
+change-id: 20260716-adt7470_thermalzone-59a102278d72
 
-I just don't know if it is ok to ref thermal-sensor but not pwm.
+Best regards,
+--  
+Luiz Angelo Daros de Luca <luizluca@gmail.com>
 
-> > +
-> > +  "#thermal-sensor-cells":
-> > +    const: 1
-> > +    description:
-> > +      Number of cells required to uniquely identify the temperature sensors.
->
-> Drop sentence, you never need to explain standard properties. It only
-> adds bloat and more places to fix/change if we do any refactoring.
->
-> > +      Valid index values are 0 to 9, corresponding to temp1 through temp10.
->
-> Only this is needed.
-
-I'll keep only the sentence regarding the valid index values.
-
-I'll send a v4 with the updates mostly because Sashiko-bot failed to
-merge v3 with dependencies.
-
-Regards,
-
-Luiz
