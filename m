@@ -1,102 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 860CA4A33F2;
-	Wed, 29 Jul 2026 14:05:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785333948; cv=none; b=No28uZ0Nd/sLr73FDLiFXb4Sf156sNzCSlOQsHzkJQJ32bUhM1S/fyaXtKa0NOjhBH5QHZkMDn/S37B1yPWqAWBVtEsZVt+QUhM6fwqPn43j9TAD1KiYJMJXdI8pvNejHCaN8b2RvWDaoHAecYTI8PmX6wdiS/HuYApAx+v83Lc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785333948; c=relaxed/simple;
-	bh=B5FMELXRHEXTUYiede/BKz9/z6BMwNMYS+2PP59cEBk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=HzaE7EkeDZc++xWRgIsUa8T+a2u4Jp2EDEXRL85lryCvaIG8xvdgvk7EsG1d87Ir+tB99e3Fmr9hdSElwUcr0deejYwcqu7QLSPhf7oYG0VmNHEdINobElIF+i4MHBLPgy1o0KEaKPJxSssRzA7f2tO6z8oqxQ2oZNcRA5fIago=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nLoNHcb1; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E96EF48C3F3
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 14:05:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785333959; cv=pass; b=PmnCdEsTYgcerVZUO+QTlplZNpXSrNGVjM3BpicD7biYENN5YrXS3lWM2hN9mHiYe4TdYAbHJbSUo3R8Wnc9+P1WvfEb/714/e9rtknJDQGpbMent92D9mJzOEQvwNDNy8vUlM5nRYWaETd/QY+OBd/KWmrO/4jq55sedoUfo0U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785333959; c=relaxed/simple;
+	bh=a/yZ2ryno5QQqoWFq7rssKxvGgdH+IdvJ1MYCeu+/uo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nG5Fm9lQClihHHRqHUyP4O9rIHLfi1AB2wUQ2MRCiF5WKDQrNyj1YfuLtMBwHy7LB7VSVET0hWSDtlSIgWhzZ3u9YH9H6TS7L5mBAi1pNGT7lTPuvdEj1EUuqaE28KMPaAJ9hrXfXXjZ7HgwT62qiuLjVNOwPV1N1FF4SCWtwrU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qrIC4nzp; arc=pass smtp.client-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nLoNHcb1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 263131F000E9;
-	Wed, 29 Jul 2026 14:05:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785333947;
-	bh=jIhNIiEZkLt+dE+wo+L7k7sQuGFLBgh3nnH1ThQbofM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nLoNHcb1WC1PkLhg7gwniBPZOiK66aA+UolNNIQA4vvUmXv9QTqGE3ph6eoy1qPG1
-	 MxjXmMM48CS5rJzBRp4NgyRH4Nq/S3dtJgwXJYiEESwhglgx/unRuRiCBLBOIpGalO
-	 Zs24viMTrMvlBJ/Vpzc41ngcXshaVjp8jbILo4+98sG7Dqpb84HMpdsfgb6NfxLypb
-	 I63GGQTqpMEmer9tkzqR6BW3sZtZPaaVqpo0HHWjcD3txZBA1fghd+1A76QSi1/yps
-	 VAf1Gen0aDuKZ6H2b74FcCjs9svYhnyoS8inF4wNwoIupkGeKDysSge4LyOygsGoEN
-	 1JlpwJ5gaAx8g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 10/12] arm64: dts: imx8dxl-sr-som: fix reserved
- memory node names for remoteproc
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?UGVuZyBGYW4gKE9TUyk=?= <peng.fan@oss.nxp.com>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260729-rproc-dts-v2-10-debbe0816202@nxp.com>
-References: <20260729-rproc-dts-v2-0-debbe0816202@nxp.com>
- <20260729-rproc-dts-v2-10-debbe0816202@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 29 Jul 2026 14:05:46 +0000
-Message-Id: <20260729140547.263131F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qrIC4nzp"
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c1c50c1e29bso147049366b.3
+        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 07:05:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785333956; cv=none;
+        d=google.com; s=arc-20260327;
+        b=d8+MwffftfLBXgI86pCnPETfFYyccpKh1he3tsEo785LTpiElz6RHQL0SVmIETt9pW
+         0X+vVqL+zBNTer5QkVMEFPuqanmB+LnqL+zG/HhTHTQEmpZsVaW8iGMPwIYKccks+7X+
+         zlxIWfmsvK92EzDPx2tlHsErSvhkIld+YBzACdVMpFZ6sZ32DYk9sg3zadUVZ9/AT+5k
+         74TRcIQHdNNUC9f3Bt+z+5BfQYUGB5RS10hgCa4hvnsqLLc2FMr7lPJ9cqIn4uULScDZ
+         /Y9kFilHTSrpn0S9ciLWNTuu4AOHjVuFGFcKrz1Yb/ixhvNIvvSPKIeyjMXcS5yeP95a
+         u68w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=a/yZ2ryno5QQqoWFq7rssKxvGgdH+IdvJ1MYCeu+/uo=;
+        fh=S3XxiNRz4dnvt4/PSPYueIyKGB1FWnyD31bAPeoEcYY=;
+        b=RCiikGtm9EZji6VhVcoHU+uXT9KXr2NfsCOw8WdSmNn2i/KXA6kb0u1+5JPdhWuxJq
+         RFk2K/yLKKShmeUX+GUxlJ15nShUDTV3TY8Dy/LJ623oVjslc5McvphQYsTCjt5GDj47
+         PiT4IuNJDkCrfuOSmEgb8bL1pIlODoIcDI6albkZ+7egogfREgDkj7vfGLUmjFlGIiGL
+         UM1ONzsrs5yUW6vPvl1orTamDeppUy96YaEShI98qTuGBGaXqXFG9siyBlfyjxDAbGF1
+         FZ8T13U6WhWHf2LIHzYIqr+rVKahirbSrVOT24hQDEfLBi9m1VXbPUhUMW85EAQbpKkB
+         xr8g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785333956; x=1785938756; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=a/yZ2ryno5QQqoWFq7rssKxvGgdH+IdvJ1MYCeu+/uo=;
+        b=qrIC4nzpeyACYl49TiUpAL/Q4+SXvYiUFzpmSVeFt6gTqO2nGtfymKJCVVS7dZKNV0
+         c4acjSyj1JWvaDhhutjbvYZnL4tVBYZ0Dc83tORiuOFCcawJ9dqqwdtNWBUH7w9GKwsx
+         /m3Sx5xdUJz59fdqwh8DL++Kqds5srLOYDd7Bhs4gFsM8n2+XvC1FDhNBZjkiCmEmmjy
+         9C8yLSjdyRGZDEp9kC9EP8NM0DLGqrPz3DfOdA2VOOiTTkuKM1htScI/YoJb4rhe50+4
+         QBSQqs6G0eBUuHSTGxH6L1ik2JkrtSz0xtFPeSVXJCXPYynvOzzj0LfYCZVvLZhqM4nm
+         fYcw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785333956; x=1785938756;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=a/yZ2ryno5QQqoWFq7rssKxvGgdH+IdvJ1MYCeu+/uo=;
+        b=Aa+A60q2098/niSBrBb6zITqYzfrmv9lsFforUSFRPcDQ7pya6QoG/j2VVb4bphcHA
+         VFF77gfRjo1Mu5L3dly/1bPZKKBRG3OmAX3+pPSxkFMQhzbCdDveQJNXerfyTGZGn5KJ
+         gXHzpdpla3nNZ3mlettSh/7uFX3i+2hn1XL9LYe4+XndOgl2kAwm9NZ3YUAl4Qv5dR7F
+         wSlCusa5wGKvAWzi+xgadB0KGZe8GsE7EePCUXgHCgutmXngfr4qJzKOXN4q0xOxgKgk
+         lNbG+a/1AEDBWma6Pq1wRYCPrzPjw2O5qd+vmU8ikj1Y0oAOMrRMqUbsqE++C73GpYjv
+         uk2A==
+X-Forwarded-Encrypted: i=1; AHgh+RoDAqN7lB8Tf5BujQ6jMDTgHRh3tYmO0OutAt9MSFe8sYtViQP7A2eYpkSzDEt6Ym9fKQPhblZ51SCR@vger.kernel.org
+X-Gm-Message-State: AOJu0YwT9L5UbFnjXn50eNsy4PjFIq/lM1O6l4OjetV0Y9k6AUTKuTAJ
+	wfz1LdKVhzzgMgYnsOdHhIRv9mfmEe49bv7AW0v5r1SeNFal9GSq+elp1okAuV7eJbf9leKyOLU
+	i68eY3nGvJK0rp6Kffq9UA2VsJjCltLA=
+X-Gm-Gg: AR+sD11PAeA0qhSe9hxZUHObAnRlZMm+eKroAWZB8K+ZYpK80F/ZSw7yQ1ePr5xCLzm
+	W/qzwoVXpRR2uWZDljVY0HYB+ZlFm9oGiVx9miFIrAqVyTDhTFWRXd7UEzXeBgmkrHAXohbC+MK
+	NGv9ajxllR+p7HgDrej6QdiielFSTkCZkaooHG9JpsN+3Qd8LpljJycFprOhhM0o53dGPnWEJ0E
+	dSx9XMWoZ2P/BxRWbSXqgU2euvv+9DsTFWcOgcDAsY3yIhluG+Laf2hwYWWMlvLSpd3XqcHHS8k
+	keCXXvXn2i+T6VK76a62LWBCtpdEO0/lp1kjeQJGf2eArZQZo8B+kcuc8kh+mXV27UWaROPY1FY
+	AKeXlDUh5fwB8zIuUbWuexa3JWswDOZqiiD8c4DU9E+4nkYGpRSF/1m++JEN3yAk=
+X-Received: by 2002:a17:907:d22:b0:c19:5a94:411e with SMTP id
+ a640c23a62f3a-c1f721a2a2fmr377952666b.15.1785333955992; Wed, 29 Jul 2026
+ 07:05:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260728-arm-dts-beagleyai-gpio-info-v1-0-783ec90d54da@baylibre.com>
+ <7ee50408-aa33-4d16-b8ff-f5e2dc59104b@ti.com> <02b159ad-42d3-4d1b-a73e-13612d9f2845@baylibre.com>
+In-Reply-To: <02b159ad-42d3-4d1b-a73e-13612d9f2845@baylibre.com>
+From: Robert Nelson <robertcnelson@gmail.com>
+Date: Wed, 29 Jul 2026 09:05:23 -0500
+X-Gm-Features: AUfX_mwf3aCSm6GuLX1EzXgq-pTWbpjV5yXZsWLP91DhUY8upOQJyH4jnPqt5GY
+Message-ID: <CAOCHtYiBRAfqc2dKve8UQa0QEd4GyBQXoYkhSEtYgXwAdWzy2Q@mail.gmail.com>
+Subject: Re: [PATCH 0/2] arm64: dts: ti: k3-am67a-beagley-ai: GPIO improvements
+To: David Lechner <dlechner@baylibre.com>
+Cc: Vignesh Raghavendra <vigneshr@ti.com>, Nishanth Menon <nm@ti.com>, Tero Kristo <kristo@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The patch replaces generic Device Tree node names with non-generic,=
- specific names (e.g., `vdev0vring0@90000000`) to satisfy hardcoded string =
-matching in the `imx_rproc` driver. This violates the DT specification rule=
- that node names should be generic.
---
+On Wed, Jul 29, 2026 at 8:57=E2=80=AFAM David Lechner <dlechner@baylibre.co=
+m> wrote:
+>
+> On 7/29/26 4:57 AM, Vignesh Raghavendra wrote:
+> > Hi David,
+> >
+> > On 29/07/26 01:14, David Lechner (TI) wrote:
+> >> This is picking up a few downstream changes from [1] to make GPIOs
+> >> easier to use that I missed when using the BeagleY-AI with a mainline
+> >> kernel.
+> >>
+> >> [1]: https://openbeagle.org/beagleboard/linux/-/blob/v6.6.58-ti-arm64-=
+r35/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai-pinmux.dtsi?ref_type=3Dheads
+> >>
+> > Above had to be reverted due to reasons mentioned here:
+> > https://lore.kernel.org/all/20250221091447.595199-2-mwalle@kernel.org/
+> Thanks. I was starting to suspect something like that.
+>
+> Is PATCH 2/2 still acceptable?
 
---- Patch [10]: [PATCH v2 10/12] arm64: dts: imx8dxl-sr-som: fix reserved m=
-emory node names for remoteproc ---
-commit 1d32457a00ef15e201f5eccc0be6be161bf05b59
-Author: Peng Fan <peng.fan@nxp.com>
+Yep, 2/2 is still good..
 
-arm64: dts: imx8dxl-sr-som: fix reserved memory node names for remoteproc
+I really wish we could use the instial state of the pinmux from 1/2
+but that broke too much..
 
-This patch renames reserved memory nodes in the device tree to use specific
-names like vdev0vring0 to satisfy hardcoded string matches in the imx_rproc
-driver.
-
-> diff --git a/arch/arm64/boot/dts/freescale/imx8dxl-sr-som.dtsi b/arch/arm=
-64/boot/dts/freescale/imx8dxl-sr-som.dtsi
-> --- a/arch/arm64/boot/dts/freescale/imx8dxl-sr-som.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx8dxl-sr-som.dtsi
-
-[ ... ]
-
-> @@ -103,32 +103,32 @@ linux,cma {
->  			linux,cma-default;
->  		};
-> =20
-> -		vdev0vring0: memory0@90000000 {
-> +		vdev0vring0: vdev0vring0@90000000 {
-
-[Severity: Low]
-Does replacing generic node names with driver-specific names violate the
-Device Tree specification rule requiring generic node names?
-
-The specification states that node names should be generic (e.g., memory@..=
-.)
-and reflect the hardware class, not a specific driver or programming model.
-
-Could the imx_rproc driver be updated to use the standard memory-region-nam=
-es
-property to identify these regions, rather than working around the driver's
-expectations by introducing non-generic node names into the DTS?
-
->  			reg =3D <0 0x90000000 0 0x8000>;
->  			no-map;
->  		};
-
-[ ... ]
+Regards,
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729-rproc-dts-=
-v2-0-debbe0816202@nxp.com?part=3D10
+Robert Nelson
+https://rcn-ee.com/
