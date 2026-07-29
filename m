@@ -1,125 +1,129 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79F062DA749
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 01:24:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28D992D0C9D;
+	Wed, 29 Jul 2026 01:35:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785288274; cv=none; b=pzaO0AgPirs+Virt0bSr/mWV9M3R0GggHbbbQysICFIyvcbOcX7ADyI3ElbOCeZRKiTvv5u5senneETl0/zHV+A09nc9d3FHQbkO31s/s0d87N67C6jLE1kr+62tuCkudNQ49dtcCZGgK71LUyxJ0pfuqnfkkpw8J6ZTmD5zjr8=
+	t=1785288908; cv=none; b=MD3x0v459npfyILuUnrK5j7slcXBfRmMM4S3p9k9qLaaF8yMZ8AkIryBxjQkv89tsbPca/QTchK6f+jmgRVm4OPvKhgFlMf6CF8R8fa7Zlw11+99tbB/GGqENbnZweRCICW9AOyxE12JOYYrPZeHQuNMXIOFNmAXLtz6z8P7ba8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785288274; c=relaxed/simple;
-	bh=9kuNkMh30cWF5g7Vn8rhOkpm0/QjdCZ8taduOQM4uQs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KsMuu4zdytCWoBzZ2spjKBXm5SAC6xRGIBN9KSDgc7L2s/BbRsbjXWhDKAqBr/ImFdJ1+w9qdWRLIRBpP426D/kvIcpT9bbbnW0rFLef+d2qn3ladPWYm1zF1zNMbOHvwMcSR+F7o6Dj3noiIdZue6+Q6DQI5X7y3qvjhvdE85c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=frGtLM15; arc=none smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785288908; c=relaxed/simple;
+	bh=Hc8DhQm88xcW8/eXJZ5URAcu8rZsWT3ISd8BVbdRILo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=QfnnW7PZvBwKf6R6Si5qmNkjqD6NYmXqeFlKxSxZEEfjvgz9ky6mMMzeziJKnuhW5oZYuwlRJrTP4yqen9xsnSM0m0JVD1phaIHVklPq67uIHDAayyFG/T6TQ2gSWiXUQ8NzeTFL469W7H0SMJbasK7UeYG6DfbLCxKFExGuKTM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UrKrx2FZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="frGtLM15"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2ce7d2adef4so6848955ad.3
-        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 18:24:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785288273; x=1785893073; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=z0DReSFbvl/l2HPJej1GugpIyErIl/Q0rTs60WwHT90=;
-        b=frGtLM1532KNnsN8iZQO9oujNc/sSNcg6vNDlr+9NPAuI+etYclDb2jy3N5kFXg6o3
-         w093OxNAopQRvPc6ZCSH+FLtAN5CTmB5CGRkFFnigNsRMlpT7xzTmxCyTY+/yZO4US1H
-         O9qEIv+ttnyfBWITD8aeqY6wtjGLZqxxOpwqyBfsoMeQFeqnE5jNWA5XseIQrxRKSeMy
-         ZfZU4WF1aCmZsuJa927QNMUxzTTrAxSBXDXbs8Fw8nQNb4i/1BKeo+5soHje/J3lMpFW
-         7A+3hww4X0xMWhkOLTBU/EkoRY8tqm3MCu9ftT2IkWoE2gUafDpfF/AoVOCWiB/txerR
-         fGkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785288273; x=1785893073;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=z0DReSFbvl/l2HPJej1GugpIyErIl/Q0rTs60WwHT90=;
-        b=j7eN6lrZJGQcPOzv+jnyvErJDQa0hIoexM9TDSfJmB82hrP68r6GubSkUi/UXk6RoV
-         gLZ2W6M39V7/pSx2Ac2cNjolZeiW8RMjzkya7YKP2hb10BQzb60IsiwJxPuIkjVAdxBY
-         L61cg0UIqoNMQmhhkLSznC4Busqp5WfUVR7TiX0DmQABI+d80op7LAGRHLdDxtrbhAOY
-         2CuuL63iDMEBH3xzKZdZnu2xdMiCgaI46N33kRbYMMrrj2NyE4eM2Yh/TaTSfTZYN5hh
-         V+XqJPngI9i1a/35M4jrsDREP6pX1RDdAGXn8rgLbJIbE3iszU0w/HldAcY75jLd8LK1
-         NMIQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrxiFEDuziXeaLZA45KTIIP8J/seaY27wCChEe+Yn5uozPenjkc7mmTV02hQ1IFECNGu+7+ecIq+IH4@vger.kernel.org
-X-Gm-Message-State: AOJu0YyFnsggt7Ay/Liw5ByO5mWyXc0WlMkF/cALL1VewjDqerPTuXHr
-	oC13Euei5JPd3ONBDEmLLxEu/vW3G5UxPij9we/FJpeTauuViCxD9UUe
-X-Gm-Gg: AR+sD11H0M6sEqD3N1i4R0FhLZ6TAG0CIqkG8CaC9YT+z5m2S2/WFjIYMH60JGK1q+q
-	Yj7/iUKttqhtI9owmGbGdSazIDQm9PfwIT5o1c3OwEt4nTtp2iiyiX+uY6/E38UcROnb2Lx1Wd3
-	jHIKsAZ4BN0CXYwfSlXgDJkIb9Q/cfWUoid0abELi179neCmHPkcYyBzwAxfi9HhA3zW5ZtMHeh
-	5M63W+9AURgH9nuMFjEV0b0O6mllTuSAxKcEOv74sh7SCKr61Rwx+sZ/Fr5pCKNBkDxgrTGu3e8
-	aiP84yCvv7NSIPH6fglevJMN7SlDrSdwjMQYk1bOfXrH3e9GB4COs1iuDVF2C8p5J2hjEV0o1UF
-	pqs3bjC8lQK1NJyw3a4dOMPYmt/lsrk9kRdflL5KHHevKV5FpLtB00c0l1taDEDewzVBje2O/UT
-	uii2NdRBe85TVbNqKHg3DrtPHriwhety/GbqFDCifVDlagN66XxFCinSQPyzcAq7Q24k1cpg==
-X-Received: by 2002:a17:90b:5205:b0:38e:6f90:eabd with SMTP id 98e67ed59e1d1-38f6a3d599fmr5804183a91.5.1785288272736;
-        Tue, 28 Jul 2026 18:24:32 -0700 (PDT)
-Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f7f292b06sm569244a91.10.2026.07.28.18.24.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Jul 2026 18:24:32 -0700 (PDT)
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Yixun Lan <dlan@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>
-Cc: Inochi Amaoto <inochiama@gmail.com>,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Yixun Lan <dlan@gentoo.org>,
-	Longbin Li <looong.bin@gmail.com>
-Subject: [PATCH 2/2] riscv: dts: spacemit: Make dtschema recognize the etherent PHY correctly on K3 com260 board
-Date: Wed, 29 Jul 2026 09:24:17 +0800
-Message-ID: <20260729012418.154652-2-inochiama@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260729012418.154652-1-inochiama@gmail.com>
-References: <20260729012418.154652-1-inochiama@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UrKrx2FZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 584321F000E9;
+	Wed, 29 Jul 2026 01:35:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785288906;
+	bh=lZlCSTBZkQE/4Nnq1N0VKXhxEqBkevmtns5kcgvU7iE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=UrKrx2FZYotrxAQh65Wq5ZDVUi+kWCC8f51edJjbG3nr8elc5WuavdIeZrmSjs0/v
+	 5jlu0nZpAfl3b/SC9hhoCvNOldVojUDl9QNeYl/yQYRSno0E6GpKceXjaJe2zvO37H
+	 ySUQaNnAgpSwN3yqb46geYPCV/P9mR9b2iUiY66Y8yDWvrL9PLGypBGg5bGi8XeTUd
+	 hJaG/+OPmj6w5B4o/M0Ndc0bZNfpWxOwAO9Nj2Tc9gfvxLgTxWddYWEn5RSfaQUXgf
+	 YKB1Z7NwExerpyAwy3hxLS3oF1lhYe3rzV2gOXFm5syVUby0OPiOMY3R1vanZExfvJ
+	 Mx0JAlvDy4j8A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 4/7] arm64: dts: imx8ulp-evk: rename vdevbuffer to
+ vdev0buffer
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?UGVuZyBGYW4gKE9TUyk=?= <peng.fan@oss.nxp.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260729-rproc-dts-v1-4-368bca0b309f@nxp.com>
+References: <20260729-rproc-dts-v1-0-368bca0b309f@nxp.com>
+ <20260729-rproc-dts-v1-4-368bca0b309f@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 29 Jul 2026 01:35:05 +0000
+Message-Id: <20260729013506.584321F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Since the previous commit does not change the phy node name,
-the dtschema can not recognize the type of the ethernet phy,
-so the following error is produced:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dtb: phy@1 (ethernet-phy-id001c.c916): $nodename:0: 'phy@1' does not match '^ethernet-phy(@[a-f0-9]+)?$'
-        from schema $id: http://devicetree.org/schemas/net/realtek,rtl82xx.yaml
-/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dtb: phy@1 (ethernet-phy-id001c.c916): Unevaluated properties are not allowed ('reg', 'reset-assert-us', '
-reset-deassert-us', 'reset-gpios' were unexpected)
-        from schema $id: http://devicetree.org/schemas/net/realtek,rtl82xx.yaml
+Pre-existing issues:
+- [High] An off-by-one error in address bounds checking incorrectly rejects=
+ memory translations that exactly fit within a region.
+- [Medium] DT ABI breakage and incomplete fix by renaming device tree nodes=
+ instead of fixing the driver.
+--
 
-Change the nodename to make the dtschema can recognize the right
-PHY type.
+--- Patch [4]: [PATCH 4/7] arm64: dts: imx8ulp-evk: rename vdevbuffer to vd=
+ev0buffer ---
+commit 6ba801ee20ee0b1a91efe7b3138304a45163e3aa
+Author: Peng Fan <peng.fan@nxp.com>
 
-Fixes: 9db839d52ccd ("riscv: dts: spacemit: Fix phy id check for the phy on com260 board")
-Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
----
- arch/riscv/boot/dts/spacemit/k3-com260.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+arm64: dts: imx8ulp-evk: rename vdevbuffer to vdev0buffer
 
-diff --git a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-index 2a07cd8f2a56..c7a04a338d08 100644
---- a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-@@ -173,7 +173,7 @@ &eth1 {
- 	status = "okay";
- 
- 	mdio {
--		phy1: phy@1 {
-+		phy1: ethernet-phy@1 {
- 			compatible = "ethernet-phy-id001c.c916";
- 			reg = <1>;
- 			reset-gpios = <&gpio 1 5 GPIO_ACTIVE_LOW>;
--- 
-2.55.0
+The imx_rproc driver expects the virtio buffer node to be named
+"vdev0buffer" to skip mapping the vdev buffer region. This patch
+renames the node to match what the driver expects.
 
+> diff --git a/arch/arm64/boot/dts/freescale/imx8ulp-evk.dts b/arch/arm64/b=
+oot/dts/freescale/imx8ulp-evk.dts
+> index 5dea66c1e7aa0..48a3e40053299 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8ulp-evk.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx8ulp-evk.dts
+> @@ -67,7 +67,7 @@ vdev1vring1: vdev1vring1@aff18000 {
+>  			no-map;
+>  		};
+> =20
+> -		vdevbuffer: vdevbuffer@a8400000 {
+> +		vdev0buffer: vdev0buffer@a8400000 {
+
+[Severity: Medium]
+This is a pre-existing issue, but does renaming the node here break Device
+Tree ABI compatibility?
+
+Users running newer kernels with older DTBs will still experience the mappi=
+ng
+bug because the driver remains hardcoded to expect "vdev0buffer".
+Additionally, there are other in-tree boards (such as
+imx93-11x11-evk-common.dtsi) that still use "vdevbuffer".
+
+Should the underlying driver bug in imx_rproc_prepare() be fixed instead
+to support the legacy node name?
+
+drivers/remoteproc/imx_rproc.c:imx_rproc_prepare() {
+    ...
+    if (strstarts(res.name, "vdev0buffer"))
+    ...
+}
+
+>  			compatible =3D "shared-dma-pool";
+>  			reg =3D <0 0xa8400000 0 0x100000>;
+>  			no-map;
+
+[ ... ]
+
+[Severity: High]
+This isn't a bug introduced by this patch, but while looking at the
+imx_rproc driver, is there an off-by-one error in the address bounds
+checking?
+
+In imx_rproc_da_to_sys() and imx_rproc_da_to_va(), a strictly-less-than
+operator is used for the upper bound limit:
+
+drivers/remoteproc/imx_rproc.c:imx_rproc_da_to_sys() {
+    ...
+    if (da >=3D att->da && da + len < att->da + att->size) {
+    ...
+}
+
+If a firmware segment request perfectly fills the remainder of the region
+(where da + len =3D=3D att->da + att->size), it appears this valid request
+evaluates to false and the translation gets wrongly rejected.
+
+Could this cause valid firmware segments to fail to load, and should this
+check use <=3D instead?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729-rproc-dts-=
+v1-0-368bca0b309f@nxp.com?part=3D4
