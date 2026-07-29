@@ -1,147 +1,225 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03A7737C109;
-	Wed, 29 Jul 2026 17:31:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A36FE37C934;
+	Wed, 29 Jul 2026 17:32:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785346307; cv=none; b=PvzFkWUX2fUMIrZQZ3NWTFkTvnzD3uBWevdGBoL2owLPtofN7qA/ZM30EfnPOExB71hUrJrWhUoAePaL+wPmBvxVCcHmzZuIbWDxHfUGk8wkRnw9UjI9KsnAd5hOogtsS4Pd7Ck0bPvUOBL8S1j5nbgg/H5527Gv9v26FhMLy9U=
+	t=1785346355; cv=none; b=gOPqEOfrar2VHQ7ANoxaSQpSnUhbNmZVUNlqSIui0QEudM6OIuLiDrOa24q/lWMsmYG1HDRJvfOLbfFRLMXGVjWgCRW7M0mNoGx+zOMufaZXvbxhpcaMgxNcM9jh99GtGq3bdUvwT0fZfKIIT3RP/v4dj2BzU4TakA7T78qHsRA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785346307; c=relaxed/simple;
-	bh=G79NbSvwKI++wZpGYi+45JJW6Wpsaiw6AEejdKZ/wmU=;
+	s=arc-20240116; t=1785346355; c=relaxed/simple;
+	bh=dWpwaixtjSkDkpqhYJ3TVYwhTM5mPzHzRheqXs6aWCY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DRWlsKdEsJUMYDzPxo9ROuHNkOFQ/4TRkw9I2RzkftNNXLxThXShuTbalXkQEWpzyZqTrqremApEz73kKs81gSDdNec7uYuL5M4Hc1xkiK31RTBwETPHHC4dmia+RB0fVmVUoiKnqO4M1s6xBeAM8/61wbPzIe3gRE2J8o/rx5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=tL3ldWex; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=u/IeuaZ669Wa/d7RPkTP3DDQfBeg6RgQ7/7q02tOFnjwfgkIXQ54RgsXq0Sl5wGxAL/SuHUtmsv57Y/ANWxakscunEYeffJ2XDyuXBkCSpL8uEsW62+kENUv2VoN5bXNA8TsXb1ZbiyhnBjZgsjTzcUPZVB7l71TZtr/b9NHKhY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DVaWEpg1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="tL3ldWex"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=m6jv1w2l5pSZTcWzDdhssO8hH6rvY6jkG7tNNwArU5g=; b=tL3ldWexjTh537HWxjnSmN0xK3
-	GCpPSrlATuOcZFawODjIGY05kEtdeImCOJg05ErgeKYg36+cdC0hxyt+aimoUF/bhRIhfIONA4Zma
-	xgY+IqU4zt22AXrdYGOu7mu/ov3QuKIZX+yTB/a6xYDDRwRjk0pB5+eBRbC48H/+IxKg=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wp880-00Er08-MC; Wed, 29 Jul 2026 19:31:36 +0200
-Date: Wed, 29 Jul 2026 19:31:36 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Vasilij Strassheim <v.strassheim@linutronix.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DVaWEpg1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F27721F000E9;
+	Wed, 29 Jul 2026 17:32:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785346351;
+	bh=ZBy5MVeU7TQua/dAX5cOUPmb+YsKmk/igucJkOOmXxE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DVaWEpg1Hi+BYx06d+Vz1H02BrNUj79KxOnSFnUzesMFZX46gMjDAZiPXpwz7UUNZ
+	 iZwczgK++b5cK6/VQaT79PW5TuzQRBUOEXEhFGuv2HzoNeRiUalWL9OAvKffCPuHtE
+	 XyS5ThpyhGEy619UVvLesA1pnyIR5AAikNc1ij8p6iUH8+xVxBCsdv8QrVsqo9NyLJ
+	 /C2T297fjrLh/hpbJyagSPkq4lGi2OLHEthw5K9ixuDPZ8aXG5CbD8GAkiMsLr3WSL
+	 xbtXih+1d84dTXryi43BkwkhOvV250yj5ZL5ZGf4DjdqA6qjvYx6+ujkJhkA14dCcD
+	 r5mD0tEdCVBQw==
+Date: Wed, 29 Jul 2026 18:32:26 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Rohan Santosh Joshi <rohan1sj@cadence.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Russell King <linux@armlinux.org.uk>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	Martin Kaistra <martin.kaistra@linutronix.de>
-Subject: Re: [PATCH 4/4] net: dsa: soce: Add initial driver support for MRS
- switches
-Message-ID: <b45edf4e-3312-4e73-8967-39b9b1e0701b@lunn.ch>
-References: <20260729-devel-vstrassheim-soce-dsa-ml-v1-0-be569dae1b20@linutronix.de>
- <20260729-devel-vstrassheim-soce-dsa-ml-v1-4-be569dae1b20@linutronix.de>
+	Masahiro Yamada <yamada.masahiro@socionext.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	"linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Milind Parab <mparab@cadence.com>,
+	Pawel Laszczak <pawell@cadence.com>,
+	Swapnil Kashinath Jakhade <sjakhade@cadence.com>,
+	Manikandan Karunakaran Pillai <mpillai@cadence.com>,
+	"razb@mobileye.com" <razb@mobileye.com>,
+	Brad Larson <blarson@amd.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: mmc: cdns,sdhci: Add CQE support
+Message-ID: <20260729-empower-cheddar-abdd64961c6b@spud>
+References: <20260722-cdns_sdhci_cqe-support-v3-0-4412856a4488@cadence.com>
+ <20260722-cdns_sdhci_cqe-support-v3-1-4412856a4488@cadence.com>
+ <20260722-nursing-shrine-9e9196d96f14@spud>
+ <CH3PR07MB106257D01FBAA8310F90C02C58CCA2@CH3PR07MB10625.namprd07.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ggQjqE9E7xunXzdV"
+Content-Disposition: inline
+In-Reply-To: <CH3PR07MB106257D01FBAA8310F90C02C58CCA2@CH3PR07MB10625.namprd07.prod.outlook.com>
+
+--ggQjqE9E7xunXzdV
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260729-devel-vstrassheim-soce-dsa-ml-v1-4-be569dae1b20@linutronix.de>
+Content-Transfer-Encoding: quoted-printable
 
-> +static int soce_sw_probe(struct mdio_device *mdiodev)
-> +{
-> +	const struct soce_variant_desc *variant;
-> +	struct device *dev = &mdiodev->dev;
-> +	struct device_node *switch_node;
-> +	struct soce_dsa_local *local;
-> +	const char *soce_compatible;
-> +	struct soce_priv *priv;
-> +	u32 numports;
-> +	int ret;
-> +
-> +	priv = devm_kzalloc(&mdiodev->dev, sizeof(*priv), GFP_KERNEL);
-> +	if (!priv)
-> +		return -ENOMEM;
-> +
-> +	priv->ds = devm_kzalloc(&mdiodev->dev, sizeof(*priv->ds), GFP_KERNEL);
-> +	if (!priv->ds)
-> +		return -ENOMEM;
-> +
-> +	priv->ds->dev = dev;
-> +	priv->ds->priv = priv;
-> +	local = &priv->local;
-> +
-> +	switch_node = of_parse_phandle(dev->of_node, "soce,switch-ip", 0);
-> +	if (!switch_node) {
-> +		dev_err(dev, "missing or invalid switch IP reference\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	ret = of_property_read_string(switch_node, "compatible",
-> +				      &soce_compatible);
-> +	if (ret) {
-> +		dev_err(dev, "missing compatible property in %pOF\n",
-> +			switch_node);
-> +		of_node_put(switch_node);
-> +		return -EINVAL;
-> +	}
-> +
-> +	variant = soce_match_variant(soce_compatible);
-> +	if (!variant) {
-> +		dev_err(dev, "unsupported compatible '%s' in %pOF\n",
-> +			soce_compatible, switch_node);
-> +		of_node_put(switch_node);
-> +		return -ENODEV;
-> +	}
-> +
-> +	ret = of_property_read_u32(switch_node, "soce,num-ports", &numports);
-> +	if (ret) {
-> +		dev_err(dev, "missing soce,num-ports in %pOF\n", switch_node);
-> +		of_node_put(switch_node);
-> +		return -EINVAL;
-> +	}
-> +	if (numports == 0 || numports > SOCE_MAX_NUM_PORTS) {
-> +		dev_err(dev, "invalid soce,num-ports %u (max %d)\n", numports,
-> +			SOCE_MAX_NUM_PORTS);
-> +		of_node_put(switch_node);
-> +		return -EINVAL;
-> +	}
-> +
-> +	local->base_addr = devm_of_iomap(dev, switch_node, 0, NULL);
-> +	if (IS_ERR(local->base_addr)) {
-> +		dev_err(dev, "failed to map switch register space for %pOF\n",
-> +			switch_node);
-> +		of_node_put(switch_node);
-> +		return PTR_ERR(local->base_addr);
-> +	}
-> +
-> +	priv->ds->ops = &soce_switch_ops;
-> +	local->mdio_ops = variant->mdio_ops;
-> +	local->mdio_master_addr =
-> +		local->base_addr + variant->mdio_master_offset;
-> +	local->layout = variant->layout;
-> +	of_node_put(switch_node);
-> +
-> +	priv->ds->num_ports = numports;
-> +	ret = soce_sw_parse_port_mdio(priv, dev, numports);
-> +	if (ret)
-> +		return ret;
-> +
-> +	dev_set_drvdata(&mdiodev->dev, priv);
-> +
-> +	dev_info(dev, "soce %s SDSA driver probed.\n", soce_compatible);
-> +
-> +	return dsa_register_switch(priv->ds);
-> +}
+On Wed, Jul 29, 2026 at 05:05:43AM +0000, Rohan Santosh Joshi wrote:
+> Hi Conor,
+>=20
+> Currently, there is no public domain information that confirms if the elb=
+a supports CQE.
 
-Looking at this struct mdio_device *mdiodev is not used, other than
-for ->dev. Is this device actually on an MDIO bus?
+Well then modifying it to add CQE is wrong.
 
-	Andrew
+> In the last (v2) patch series, Krzysztof mentioned about why the Pensando=
+ Elba is NOT being modified/considered for the CQE.
+
+Right, and he's coming at this from the same perspective as me.
+We both want to know why you're making (or not making) the changes that
+you are to the binding. You didn't explain in v2 why the elba didn't
+need the change and now in v3 you haven't actually explained that it
+does.
+
+> The current implementation marks CQE as optional space and the related dr=
+iver can take the CQE or non-CQE path depending on whether the DT defines i=
+t.
+> Please refer to the cover letter for additional details on this.
+>=20
+> Given the above information, can you please confirm if the next patch sho=
+uld modify the elba or restrict the new reg entries to device compatibles?=
+=20
+
+You need to figure that out, perhaps by CCing the person responsible for
+the addition and maintainance of the platform?
+
+Additionally, please fix your quoting.
+
+Thanks,
+Conor.
+
+>=20
+> Best Regards,
+> Rohan=20
+>=20
+> -----Original Message-----
+> From: Conor Dooley <conor@kernel.org>=20
+> Sent: Wednesday, July 22, 2026 10:07 PM
+> To: Rohan Santosh Joshi <rohan1sj@cadence.com>
+> Cc: Ulf Hansson <ulfh@kernel.org>; Rob Herring <robh@kernel.org>; Krzyszt=
+of Kozlowski <krzk+dt@kernel.org>; Conor Dooley <conor+dt@kernel.org>; Masa=
+hiro Yamada <yamada.masahiro@socionext.com>; Adrian Hunter <adrian.hunter@i=
+ntel.com>; linux-mmc@vger.kernel.org; devicetree@vger.kernel.org; linux-ker=
+nel@vger.kernel.org; Milind Parab <mparab@cadence.com>; Pawel Laszczak <paw=
+ell@cadence.com>; Swapnil Kashinath Jakhade <sjakhade@cadence.com>; Manikan=
+dan Karunakaran Pillai <mpillai@cadence.com>; razb@mobileye.com
+> Subject: Re: [PATCH v3 1/2] dt-bindings: mmc: cdns,sdhci: Add CQE support
+>=20
+> EXTERNAL MAIL
+>=20
+>=20
+> On Wed, Jul 22, 2026 at 04:18:37PM +0530, Rohan Joshi via B4 Relay wrote:
+> > From: Rohan Joshi <rohan1sj@cadence.com>
+> >=20
+> > Cadence host controller can optionally support CQE.
+> > Add optional CQE register space to cdns sdhci bindings.
+> >=20
+> > Signed-off-by: Rohan Joshi <rohan1sj@cadence.com>
+> > ---
+> >  .../devicetree/bindings/mmc/cdns,sdhci.yaml        | 28 ++++++++++++++=
++++++---
+> >  1 file changed, 25 insertions(+), 3 deletions(-)
+> >=20
+> > diff --git a/Documentation/devicetree/bindings/mmc/cdns,sdhci.yaml b/Do=
+cumentation/devicetree/bindings/mmc/cdns,sdhci.yaml
+> > index 6c7317d13aa6..10bc9ac2073a 100644
+> > --- a/Documentation/devicetree/bindings/mmc/cdns,sdhci.yaml
+> > +++ b/Documentation/devicetree/bindings/mmc/cdns,sdhci.yaml
+> > @@ -22,7 +22,14 @@ properties:
+> > =20
+> >    reg:
+> >      minItems: 1
+> > -    maxItems: 2
+> > +    maxItems: 3
+> > +
+> > +  reg-names:
+> > +    minItems: 1
+> > +    items:
+> > +      - const: hc
+> > +      - enum: [bctl, cqhci]
+> > +      - const: cqhci
+> > =20
+> >    interrupts:
+> >      maxItems: 1
+> > @@ -131,13 +138,27 @@ allOf:
+> >      then:
+> >        properties:
+> >          reg:
+> > +          minItems: 2
+> >            items:
+> >              - description: Host controller registers
+> >              - description: Elba byte-lane enable register for writes
+> > +            - description: CQE (Command Queuing Engine) registers (opt=
+ional)
+>=20
+> I see no explanation in your commit message for why the elba is being
+> modified.
+>=20
+> This new reg entry should be restricted to only the device-specific
+> compatibles that actually support it.
+>=20
+> pw-bot: changes-requested
+>=20
+> Thanks,
+> Conor.
+>=20
+> > +        reg-names:
+> > +          minItems: 2
+> > +          items:
+> > +            - const: hc
+> > +            - const: bctl
+> > +            - const: cqhci
+> >      else:
+> >        properties:
+> >          reg:
+> > -          maxItems: 1
+> > +          items:
+> > +            - description: Host Controller registers
+> > +            - description: CQE (Command Queuing Engine) registers (opt=
+ional)
+> > +        reg-names:
+> > +          items:
+> > +            - const: hc
+> > +            - const: cqhci
+> > =20
+> >  unevaluatedProperties: false
+> > =20
+> > @@ -145,7 +166,8 @@ examples:
+> >    - |
+> >      emmc: mmc@5a000000 {
+> >          compatible =3D "socionext,uniphier-sd4hc", "cdns,sd4hc";
+> > -        reg =3D <0x5a000000 0x400>;
+> > +        reg =3D <0x5a000000 0x400>, <0x5a000400 0x060>;
+> > +        reg-names =3D "hc", "cqhci";
+> >          interrupts =3D <0 78 4>;
+> >          clocks =3D <&clk 4>;
+> >          bus-width =3D <8>;
+> >=20
+> > --=20
+> > 2.43.0
+> >=20
+> >=20
+
+--ggQjqE9E7xunXzdV
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCamo5KgAKCRB4tDGHoIJi
+0mB+AP9UbEV8Aes+YoGfo3dWw8dRNX6E8w9ofgcKtojSzFB0hgD+Jl3mPtbDm8Pd
+R9djyoTluoQWaUxmZksOEGEQQZ3N0AM=
+=try9
+-----END PGP SIGNATURE-----
+
+--ggQjqE9E7xunXzdV--
