@@ -1,210 +1,190 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB1F623909F;
-	Wed, 29 Jul 2026 08:03:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9432442B731
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 08:04:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785312209; cv=none; b=XVsFZr5TWbEfPif9aVXysx4dNao0qDKKAPhjC4NjGtEsRVFwZoMc13b9GcKTH1Ut3uf1B+CKew1V/P2JueEe9ao/+qZg2anBjbjR6CS95NQc/qfJ1BR+1FzDLMPriUnfX2QBA5CDgAxxwuik3T/e+U0cABEhxPu2Ne4XTCOMH8E=
+	t=1785312292; cv=none; b=nYEi5EtknE4MZVYnb5uyjymM+g+WJaK19malCV2dNFpumnVhuQxkTrvLDhAkpdi9Su+IdxvZfAtxe9iDLxZy7V/0PY81cQDPe99H3xdTQFovB6KhyWq8dtvgLZytZqZw0/WmZQcxEa0KMf1BZ2wCwQCsb2zq6ySNvRRcEHnVBfA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785312209; c=relaxed/simple;
-	bh=GnZcwKI+XfZvnS2Df1q/BSFAho55OGNCVk7vAkSMC1A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AxauJaCGInOmf4erwoAZ11/SWC//3e/IiTWB852XvgXn4uszaJWrBG/5AKL/EtJqpS7tXSCu/8LrTeWmJ08crpxi+3Ed6bYLMer9XfiRQ7iEKaRH80rWIY6nqVwcWmAAB9m5N5EKZ5b0eR1Htk71xcySGIMZAuPCgHjsosY/j38=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IQ179P4C; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785312292; c=relaxed/simple;
+	bh=PouABadX/+Jt1AOVhbgCCNEjQ6ajOIWLp3o+AuDQzdw=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Rkf/7hOYK2OaOg5dLZsoiKvzEjMkeo1lkpHH6zr+UVPFKclztKskQVATlhuohjCLPVtaxRuiXtXX2Q1Wh+q1zDxAWyvsLWKlwbAMEFLOmSF8BcKtgJGLVkKYgp6MfVGMERDDbMGwgYTpXg7cZYLWTMWFkMUBL0/TZgtDHDRzDvU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=E0VJ6m6I; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QuNnrvF2; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IQ179P4C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 449DA1F000E9;
-	Wed, 29 Jul 2026 08:03:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785312205;
-	bh=JteUNebrq8Y5BoF6qFLQtjZt8zz9HlOcVSVsWZpTXkA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=IQ179P4CWgJQUfIO/xTq6P8zIgK/o1owHEh2nTPZngI7nTSouMh1AAPQGX2SPtybA
-	 9TNXfo9m0yvDhta7jDb+MjlOM2UPaKBX6ll6ehaYxKrFmGHtkCJCgNwwZYXl0RZ/B6
-	 0mEjmr1SfBPBoXAMwSPV3ZVrywogrGNy1UCka6tQnyDJUmv/1z7pQPylwCbvK8LRyI
-	 3i83/lt0DkSA6bGzzWCpRajoLUkcSs/IaBEdUgYlnY5PODfPvLa/M1wdw3LG5ubFso
-	 5pH8H4j2+JCn0VVtW4HoWrC3k/eSYM+NKpRaG+XeObT2VvRbmtjcuZGx7TCISUsDmc
-	 a42YPQ2BWxJyg==
-Message-ID: <986fac76-3bcd-4523-a902-701027aff1bf@kernel.org>
-Date: Wed, 29 Jul 2026 10:03:16 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="E0VJ6m6I";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QuNnrvF2"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66T7f3lX1309768
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 08:04:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=em10awCLWennKk9O2Kkk8V
+	F01q0fuL2yHIQrnTtggE4=; b=E0VJ6m6IbDNhcex3Acfb+WPyE4deYJPLHeM/gp
+	bM8zCMbMtvrDBgBZc7XcD6pO0zptHFtJQWUn4RHYXACOY1jc2qN38A40QEXx+HVI
+	uVUEVqREOCDqWFVsc59AYAQhazq86KUqEZs2TxRwLWvFKKSEQO6LPqGsegAuQEhc
+	4cdmziHsKCdEHPEafYW8JdPy42daCAj3eRlqCGRjIYLZQuc/9PpgekcxWDS4M9Bb
+	vR7+iToZhMQpM9EtxiVidrfdNSRhEzR8jT2kdWneW7gdeSXehUhrHAuMSzOLWi3x
+	zJBRTAli19tPsZSRlG/WRdGLzF9OVB0c7pBroDWXzpuuzibQ==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fqa330usm-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 08:04:48 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51bec738909so5814701cf.1
+        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 01:04:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785312287; x=1785917087; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=em10awCLWennKk9O2Kkk8VF01q0fuL2yHIQrnTtggE4=;
+        b=QuNnrvF27Y6f++knJBl7gQtnsLaIoWAHLrISoWv+tTVq7P8lVa1fhLKUmEimSMQKm+
+         5POblY2iDOjnOWoWx8nNFkjRiVK+CMak7FQn11uHXP04LaK4PsJeT0drBStaj4wh4FyX
+         EPwQolVgNU1w1Jwnh6eTqEriMAddS+/ULia+PJhrhLcGGAqDnfcQWV/M5Z7BoQFSko0Y
+         oovJX6S6cjF76obJVFEJMMeBxd8BG8koHgvVfKqiF4YI7m/yyhU8/ZaGEZkl6k1HXxeb
+         VyBiqYFdXo0n74RC/+Wk8Neng+IxeQVQHW49oVfVn3Ln5fbG8XwTn1SQiYoeyXtqAyQk
+         qdCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785312287; x=1785917087;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=em10awCLWennKk9O2Kkk8VF01q0fuL2yHIQrnTtggE4=;
+        b=rQ20Nj5fjjnNP60DTz9mZEwT6LGfiwUyoBUOdb0h02J7/NI70TxVLXTwp4ENxvRvvp
+         c105zOSbunpgCQWtb4hANhLCVvvt1scGJVZYgV4W3LV6thbQ2HMlpx3EY7p9MBkKcwnC
+         3oyiWejBwKa10Pb7jbu+ITMFcgNPDaslSRpy4E6W/i4qM8UV7eG1Vfk+dgcr17bIoZbv
+         TpjxKZ0l0CGyBmwK+8M7MySiW67G4rR6iGlDN1IBF8jP+RqWdODfzMPyVH/o7A/cSxao
+         rIurr5qVDcxxeo7t70q+Ii1Je2fshCK2NaXW5S8lZgfYgK+VrPRx4nz8Tq79y2KW7siX
+         2L+A==
+X-Forwarded-Encrypted: i=1; AHgh+RoBOVHrxmeGsok0Ip+/WxeWk02sb3w4aF+/tL7UulfI/4OBg1aRH5LPdEYhffrJ8S1xJ2p7CFuhQzcR@vger.kernel.org
+X-Gm-Message-State: AOJu0YzhFBNIulJrGsG49c+Omx9B0og1VCtNhY0vuGmdEWo+lmPLYXXP
+	FW8CGG9qGColEftcnfqOw/46UXA+uwsFU3PWt7PCT3KBJ3EQJ/jZhpraCYEA62198v3F1vSG/h3
+	ZRL6WYKXz73Hl2mZQoU5nTiVbmADNU6j7WrCopo/nB652bsv+69ohp5IIVThfFFiXB5muDgbAB4
+	M=
+X-Gm-Gg: AR+sD10qThE4VM4bmJlGvKbg0sBfQrNj9lGooyRwBZEGjlW533g5xn65x6WDxmDyJ1V
+	qU4hVzjqACtZsmhzsF2UsVPmMQmxxK0biMPVf68Gs4ap+5kdcAVDgXfyE+5wGGgOUjnO8xC/Noq
+	41VtC+h1asRYV+KQGPDL0vK87/k8BcrJSW8xXXfQbkDACjHF4ock3/9JIRHgGnoX6vHWzZsNaiQ
+	KcXUn26mAgs39BG8QuRFP4F7sHSNdKG+0FaQAgB4Lf9XvI3V69gpuiW5DMdFlreu1aDmDR9CuUd
+	c7Vtv5SbVJ19UGjIyaoiM5Fxb4sjFf+Htso3o050DeXVnv8ERfwsdlktO/jn9hzM43e7K3g4nHp
+	R1qToFRXkZO29tFQOsgk7RTz1vQdDciIxgYg6u9tcCc+lpyLT28AxVyADqr/FmfgOzog5
+X-Received: by 2002:a05:622a:89:b0:517:8a18:7624 with SMTP id d75a77b69052e-529d709e52cmr51651731cf.3.1785312287465;
+        Wed, 29 Jul 2026 01:04:47 -0700 (PDT)
+X-Received: by 2002:a05:622a:89:b0:517:8a18:7624 with SMTP id d75a77b69052e-529d709e52cmr51651481cf.3.1785312287044;
+        Wed, 29 Jul 2026 01:04:47 -0700 (PDT)
+Received: from WENMLIU-LAB01.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-529e30f2a96sm13772631cf.28.2026.07.29.01.04.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 29 Jul 2026 01:04:46 -0700 (PDT)
+From: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+Subject: [PATCH v4 0/4] media: i2c: Add OmniVision OG0VA1B camera sensor
+ driver
+Date: Wed, 29 Jul 2026 16:04:29 +0800
+Message-Id: <20260729-og0va1b-v4-0-ec7e7ed87b2b@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: gpio: Add Axiado SGPIO controller
-To: Petar Stepanovic <pstepanovic@axiado.com>, Tzu-Hao Wei <twei@axiado.com>,
- Swark Yang <syang@axiado.com>, Prasad Bolisetty <pbolisetty@axiado.com>,
- Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>,
- SriNavmani A <srinavmani@axiado.com>, Karthikeyan Mitran <kmitran@axiado.com>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260729-axiado-ax3000-sgpio-controller-v2-0-976f4ed11438@axiado.com>
- <20260729-axiado-ax3000-sgpio-controller-v2-1-976f4ed11438@axiado.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260729-axiado-ax3000-sgpio-controller-v2-1-976f4ed11438@axiado.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAA20aWoC/3WNyw6CMBBFf4V0bcn0BejK/zAuplCgiVhttdEQ/
+ t3CBhJ1M8md3HPuSILx1gRyyEbiTbTBumsKcpeRusdrZ6htUiYceAEFq6jrICLTVCmtW1Gj1mB
+ Iat+8ae1rMZ3OKfc2PJx/L+LI5u+3IzIKtGmwZFpXAmB/dCHk9ydeajcMeTpkVkW+4iXwFecJB
+ yiZlLxG5PgHF1t8sy7mdVMZKaVSKPkPfJqmD8F/dHUjAQAA
+X-Change-ID: 20260618-og0va1b-55bbf3cabb0e
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Sakari Ailus <sakari.ailus@linux.intel.com>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
+        Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785312282; l=2064;
+ i=wenmeng.liu@oss.qualcomm.com; s=20250925; h=from:subject:message-id;
+ bh=PouABadX/+Jt1AOVhbgCCNEjQ6ajOIWLp3o+AuDQzdw=;
+ b=qVbptrfAZUXO8jWSnGHsHwrbNpwyQlxwhKKOnE8oiPBW04C0a+geC1quP2CXKEIEF7EaXRlYP
+ 6bOhWpuEl+NCD/XRSJFVeeyK2BTMCHBmW2KbR3vxWil4LaVRgXiqZBQ
+X-Developer-Key: i=wenmeng.liu@oss.qualcomm.com; a=ed25519;
+ pk=fQJjf9C3jGDjE1zj2kO3NQLTbQEaZObVcXAzx5WLPX0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDA2NCBTYWx0ZWRfX/RL1sv96riJe
+ j6tag/mBxr8WOdihxnvmd4kOH56G6D9wdGeZa6fba8HbHjW2OBntRIi1V92nu/haGLBLsDqaUcQ
+ lZaNnavQp8y3m2QMMsESwAe6Vr3JQWlBWqItQDqCYmkEzxopJNXzbU3cX+9FxghSIXoDzPAlq86
+ GG7PGuqgIn4YkP+WfVZfZmEsgXmCPwFY0FtDlbKC/VMM0BByQ5iRD3WMt6YpJgEd9/LQ5IHz6rV
+ 7EZquBW6rGnDvT5cvhtoTjGphlgpTNRB4yOsTFmEC7KG5lYxHJj/0fatuaDIXMT65swdyWOPUFm
+ SggZZk6oss2bcD/XkmpEyLGM9T+VLtzIn7+Ne5hTL8CBnImmmG5SixBiv/HQwDL00Ct0xFjX44G
+ McRrOl2wOUs8hxBdNxhE44irLhwgcm+X6Jcy+02e4NAGpIoq8JyJLYAsiGwaxz36x/F336TQU4Z
+ kOfIrn1AgMnS94WFuTw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDA2NCBTYWx0ZWRfX/T8vJsa8RaSq
+ +Fq9Nw8KEK6WsJlRkbQhXZibNTNfaRq0AL09cJj5HvvIOG57JzqZbuh30tp9etkKVdGDSzFyZWS
+ Hnh+www9JzuqCNierIe00lXeUnBiKfQ=
+X-Proofpoint-ORIG-GUID: JpeHEgj3t2rMITDgrmGMVosDa4A02T2F
+X-Authority-Analysis: v=2.4 cv=Ap/eGu9P c=1 sm=1 tr=0 ts=6a69b420 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=QHcE8raJy8psccEy0TIA:9 a=QEXdDO2ut3YA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-GUID: JpeHEgj3t2rMITDgrmGMVosDa4A02T2F
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-29_03,2026-07-28_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015 priorityscore=1501
+ suspectscore=0 bulkscore=0 malwarescore=0 phishscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607290064
 
-On 29/07/2026 09:02, Petar Stepanovic wrote:
-> +description: |
-> +  The Axiado SGPIO controller provides a serial GPIO expansion interface
-> +  that multiplexes multiple GPIO signals over a small set of physical lines.
-> +
-> +  The controller operates as a shift-based interface, where output values
-> +  are serialized on a data output line and input values are sampled from a
-> +  data input line in synchronization with a shift clock. A latch signal is
-> +  used to update output states after each transfer cycle.
-> +
-> +  The interface uses data output (DOUT), data input (DIN), shift clock
-> +  (SCLK), and latch signal (LATCH).
-> +
-> +  Each SGPIO position provides one fixed-direction input GPIO and one
-> +  fixed-direction output GPIO. Input GPIOs support edge-triggered
-> +  interrupts.
-> +
-> +  GPIOs are organized in banks of 32 signals, with registers controlling
-> +  output values, input sampling, and interrupt status. The number of GPIO
-> +  lines depends on the hardware variant.
-> +
-> +  The controller detects changes on input GPIOs. Interrupt events are
-> +  aggregated and signaled through a single interrupt line to the parent
-> +  interrupt controller.
-> +
-> +  Register access is performed over the APB bus. The SGPIO shift clock is
-> +  derived from the APB clock using a programmable divider.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - axiado,ax3000-sgpio
-> +      - axiado,ax3005-sgpio
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    description:
-> +      APB clock used for register access and SGPIO shift clock generation
-> +    maxItems: 1
-> +
-> +  bus-frequency:
-> +    description: SGPIO shift clock frequency in Hz
-> +    minimum: 1
+Add OmniVision OG0VA1B driver support. The OmniVision OG0VA1B is a
+1/10-inch monochrome CMOS VGA image sensor. It outputs 10-bit raw (Y10)
+frames at up to 640x480 resolution over a single-lane MIPI CSI-2
+interface and is controlled via an I2C-compatible SCCB bus.
 
-Such property is not allowed. Why you cannot calculate it automatically?
+This driver has been verified(include tpg) on the Purwa EVK.
 
-> +
-> +  gpio-controller: true
-> +
-> +  '#gpio-cells':
-> +    const: 2
-> +
-> +  interrupt-controller: true
-> +
-> +  '#interrupt-cells':
-> +    const: 2
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  ngpios:
-> +    description:
-> +      Number of SGPIO positions. Each position provides one input GPIO and
-> +      one output GPIO.
-> +    enum: [128, 512]
-> +
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          const: axiado,ax3000-sgpio
-> +    then:
-> +      properties:
-> +        ngpios:
-> +          const: 128
+Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+---
+Changes in v4:
+- Rename the OG0VA1B and OG0VE1B test pattern menu entries to make them 
+more accurate. -- Vladimir
+- Link to v3: https://lore.kernel.org/r/20260708-og0va1b-v3-0-de8e44455a42@oss.qualcomm.com
 
-else what? 3005 has 512? Then these are implied by compatible, no?
+Changes in v3:
+- Generalise the binding title and description for both sensors. -- Vladimir
+- Keep the cached pre_isp read so the OG0VE1B test pattern still works,
+select it via a per-sensor callback. -- Bryan, Vladimir
+- Rename the "sensor" field to "data", drop bpp (derive from code) and
+add og0ve1b_pixel_rate(). -- Vladimir
+- Sort defines, rename the shared CHIP_ID reg to OG0V_ and order
+og0va1b_data first. -- Vladimir
+- Expose all four OG0VA1B test patterns instead of one.
+- Link to v2: https://lore.kernel.org/r/20260702-og0va1b-v2-0-0071442caa2a@oss.qualcomm.com
 
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - bus-frequency
-> +  - gpio-controller
-> +  - '#gpio-cells'
-> +  - interrupt-controller
-> +  - '#interrupt-cells'
-> +  - interrupts
-> +  - ngpios
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +    sgpio@a000 {
+Changes in v2:
+- Integrate OG0VA1B into the existing og0ve1b driver and binding
+instead. -- Vladimir
+- Link to v1: https://lore.kernel.org/r/20260618-og0va1b-v1-0-dda71bb83009@oss.qualcomm.com
 
-git grep sgpio@
+---
+Wenmeng Liu (4):
+      dt-bindings: media: i2c: og0ve1b: Add OmniVision OG0VA1B camera sensor
+      media: i2c: og0ve1b: Use monochrome-appropriate test pattern name
+      media: i2c: og0ve1b: Introduce per-sensor data structure
+      media: i2c: og0ve1b: Add support for OmniVision OG0VA1B
 
-No results (except well known poor coding style platform). I already
-commented on this.
+ .../bindings/media/i2c/ovti,og0ve1b.yaml           |  15 +-
+ drivers/media/i2c/og0ve1b.c                        | 377 ++++++++++++++++++---
+ 2 files changed, 345 insertions(+), 47 deletions(-)
+---
+base-commit: 3652b49adac266a3d27cb41cdfdb7d8790fc3633
+change-id: 20260618-og0va1b-55bbf3cabb0e
 
-> +        compatible = "axiado,ax3005-sgpio";
-> +        reg = <0xa000 0x800>;
-> +        clocks = <&apb_clk>;
-> +        bus-frequency = <1000000>;
-> +        gpio-controller;
 Best regards,
-Krzysztof
+-- 
+Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+
