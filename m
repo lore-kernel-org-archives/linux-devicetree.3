@@ -1,171 +1,195 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC4F24446E6
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 12:10:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785327020; cv=pass; b=i+J9nC7VmxgZDfJfP/UxG9ezDhk9JnrcAD9uF8tQF/XQB+SVGbdsgtrbEeAM/W8ef/VPKMiwSI/8c/klZKQzdG7QS902ep4QCwU/k8GzWQ23sre8NML6vPAShOiOr/YprsieAptye1RET9K4YKXR3woThY4gkMfamy+zcB0aEc0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785327020; c=relaxed/simple;
-	bh=XUGcCmIhNgHPxGmy+I7u5lQ5TeoD2906Q7Yn3cntuVI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VOKeAVCaY2qPQuXjUTINK6o7xTx2VNPzziVRPnTurXHr3m1NLv1LiPVZMdXEQzW3AZTK/YSvPBRA//+E950P8zHRWC3PkJTvgHOGP+HRjk4BUrmgovXWH5rWCQDqLZcJZbY3xNOKv5PfrsgDjG6bha9cfS4ipxSgsuCHt9sYDPk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aMwh0tpJ; arc=pass smtp.client-ip=209.85.216.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0023A47CC9C
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 12:10:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785327023; cv=none; b=YP0qpx6XACZNO4l/BjnI2sqUJhMK8nNpiLTFBTWl+vQyUHndj+gPyrNUwpleazN5Pbq11Xjz0Wj+b00kHtOuqCRAD4GBvGaMJwvDMokdkZopFtQ3+cbtKFwYPnMC0tm5Lbbyaq7ZEkEFtG6QRKPwTI1mmMD5q0P4F/dHVHvc8Ck=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785327023; c=relaxed/simple;
+	bh=20QyRXZKqXQBTVCA6bkZ54kk7wxWZ8k6gL3c9o/GY/Q=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=FnYMvtFBmzcXh28qWFPuPKU2gKsTWPwgacrwaECWRZgooPw3u9Ruun6gohBEgVDau5MtJfX2OwEQ1HXhsJjk2iVoxyqKBWMaYIaiaX7rSJfxxQPOfIWTO2ckdSKz7lXHxaLR4yl7PA2CoqluavLb7aAhHlKlIQ2KFXNvhUBhlDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A5z2iE3c; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aMwh0tpJ"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-38ea87caafeso677008a91.3
-        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 05:10:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785327018; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hllM7PzarZcfj0ZifmL5xjZDK8AKX+Nvw1hGdBSoYpeQRUyXKj7yoPYX6CwXNSy7JL
-         RjGuOnGucCuX7UqDDLm1TOVWioDbqGwvFNFh5c4SErt0HvEsyf7+D6nxWuZUBbUGWe58
-         8jOoXQLcQVGgBl/yna8N7GJdiEqVAt7AqsluMTqIVqnV0PoqJuS0yA5hVIxOKLDOdyFP
-         xxC+wq+w+3sazrIq01cTpq2NfvKIeMhLef4YYUcBccTyQfPV05VptJplz57g/od8V7T5
-         JuaXfrn5byJ9brSs/1vJc+WDQTc52gqBXl6EyCD9hb7w2/xuG8OyQ/SyryY06/DWUyxd
-         SMSA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=P1fFeqBdTSvS5DElnkKPCOeQbS6PZaEvevS5BkPtZxk=;
-        fh=aU3zD5PJAdDgXByayfP94i4Kw7BfRFVI3QXCTo03TOE=;
-        b=BZzDPiefcuCzFkY13plVSYkqm9vjchQILQkUIqxwQr2hSztWIzaIz3mzrEa68nDBYm
-         6zjx8MOoPvzyPEutLBUaLdxdaFb4HHtUvAxkG099/xtra59oO8YhBc86fHdp0bd4EikJ
-         xN43p0wruvSHgOhRzCHYmajkVCWM/xwjnMX9AGdRQrwrPL140Zl1lOBOOb5MZJHdJDpT
-         BDlr93Y0iTxcgJlo+rspfTY1X2xNPpBn83mrj8YhaAt8do3pQAEjsyZ8xbdlqflH78Wg
-         wXfk6VloXmnN4hR7Ufjtp5oLkAa1yyYKBZPTDIJ965luxwbFjM5et50N9Py6P3m7SrvN
-         DbvQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785327018; x=1785931818; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=P1fFeqBdTSvS5DElnkKPCOeQbS6PZaEvevS5BkPtZxk=;
-        b=aMwh0tpJa3U/0aoxIuNXIoGVjNkcuvdDjAux7VBymPqmLh2GNGhjlnKy6NbbfxTICR
-         DCooYcoOrMik7M0HTTpfNYRY2SfbjLf77cF2mtqIQOhYZwM+Z+2PqXQYILkiXacMqjRT
-         9Pv7hkqmqTZwp21Q/1yvCo7fnPvTql1LmmrK9hkJvA+yfVJa7NTJyrIIReL6H1GpymRX
-         DYphkxT0f64xbZZg6TXbrJuPYzW+CntwcIkzu9OZRFCDsM4BT7n0fxqE4fvlfXpw7ez+
-         m/Ohg/boCtn+Zd4J9aTkWQ6c7nY0WRMz3GYyQvXL5U+qr2R5tSQ6bF8bEt0E5o3S+umf
-         oV9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785327018; x=1785931818;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=P1fFeqBdTSvS5DElnkKPCOeQbS6PZaEvevS5BkPtZxk=;
-        b=Ty1BDFbsTvnHZzOx00A40JVWrU/CeeF2oZIs6uAJXm/t1WyUdaiusS+cCDnT9AYVr2
-         XYCk3iuqbf2acTn/zjW2MfnzCz52AtCPSj2tU9CCTN9oMzVUhJEloNnueHSUOTlrXuQR
-         OXminyHlmym47LjdVoodwka71l1mlXoqqY2ZC4CUBYIHPnqwytnes/O6SQbsVJYeygD0
-         X7m3p5LecJ4D/SjuTpvZegNeAzbxagh7XoGUEd3rFARgjwvYpvtIe5+P0uY6wsOBRQp7
-         K8lfUYLdXeLUvzVqRvEz9JZEB/5syKrAxagYn85edb/CNjTGQfmcspzV2dKs/vOQoCws
-         iXKA==
-X-Forwarded-Encrypted: i=1; AHgh+Rp8u7qed1vd2wMsKEKksRxB5QGdR8CQe68+tS1aAzeIXY1NvXJE/P44GuEgRsiBXdPZWvVOCQOYhf5n@vger.kernel.org
-X-Gm-Message-State: AOJu0YyKCjkb5lBk0XGsAbIavLCTMHWgOR26kFpoH1rctP3RVRRh19um
-	MbstpO3JCrKWWZ5fpW7GYQktcrAQeS8wgkuGFge9pIkiB6Cqgx4QnJOY4DJqtT86T6EHPcZcArM
-	4qeyCOt3V5fhXjH0pl5twH1ejhLO3AXo=
-X-Gm-Gg: AR+sD10NE2KLopdCpkPZ3+k/PIisogaXiqaJlCHpnFauc0DdgZ8z4VYKoNv+PBooWeh
-	KB2YBXYXAlovo8C+vRCcR2NiNcQTF+vb+LgLjFSAOPO/mD2Zb2A6GAr9nZkZGoD1qCt2tCx29y9
-	M1H8EOkXlHJsXhX3UIjW2jev16iz4nHpwsP384sNfVSGFacgcxeJfVy60+Cnh/3gf+OCyk61yZr
-	0JuBTKZIgaiIy1kG30LjseZrUA8KsQgD7PguBLQ1n/cowY2IZPSUekN8sy9u6aDccl6d0CTeTSa
-	+nIbd1iPAizmmnk+pRwn+c8V8gJAxi5OdSQe4oBOaoLWjUXVWBD0mXnQKZaKF9TC3pqOlmd9qjm
-	CPw==
-X-Received: by 2002:a17:90b:2747:b0:37f:9ce1:735e with SMTP id
- 98e67ed59e1d1-38f6a57fb65mr6732166a91.31.1785327018081; Wed, 29 Jul 2026
- 05:10:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A5z2iE3c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 484781F000E9;
+	Wed, 29 Jul 2026 12:10:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785327021;
+	bh=LJVvew1XbbHDMn1ZUJqpVsG7gwiDaHbs30KxwmDH5gw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=A5z2iE3cUlwaNNupSwovRrcIDVHWN9IQJt1YITeD8NVwJeQITX5V/fKVhn8+3hLng
+	 kORwv7X6AAo3gUJp/gN/g2qQZRMwTbNqvvRDSy2tfLIoBtMTpO7z6rgF0+ABf/jmmN
+	 Vg2gijC3VZ7nHitdJDsweC2jcYFjkJAuhogV1Sqa9b6+IYNbwXwOq4vgvA2/+WYVGJ
+	 BoLQoW3xbYRmC3kgITee7XBEQsnGB8kPK7EcDehidQOxYBU8kAfJ6XkV/txldBEHz2
+	 zWKOqj/QEiXJ/FiowKmxWhjLwKUsVNG+V2NsBSS18rZYn3w+rozbcNx3/TLZfOWFKL
+	 /RInOaMG3sRQw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/2] clk: si544: add support for si549
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?UGF2ZWwgTMO2Ymw=?= <pavel@loebl.cz>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260729115310.3490589-3-pavel@loebl.cz>
+References: <20260729115310.3490589-1-pavel@loebl.cz>
+ <20260729115310.3490589-3-pavel@loebl.cz>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 29 Jul 2026 12:10:20 +0000
+Message-Id: <20260729121021.484781F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260721101059.451699-1-clamor95@gmail.com> <20260721101059.451699-8-clamor95@gmail.com>
- <AHCWpU8lS5mcA3Do5U45Xw@nvidia.com> <CAPVz0n2AOJ_rcsCEhVQWUq1fXtd7kXkE9yScY1VwGyZefz50Uw@mail.gmail.com>
- <amnVVwVoZ7NnclWQ@orome>
-In-Reply-To: <amnVVwVoZ7NnclWQ@orome>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Wed, 29 Jul 2026 15:10:06 +0300
-X-Gm-Features: AUfX_mzZGmZZSlJ542WOtleodu7fRHFeQqx0BLso3-8iZXD4OCqbnM_3YWVcmek
-Message-ID: <CAPVz0n0T_U1UiN8FMe-efOmRJWRxcStn9qa4GAENv6ETotk_xA@mail.gmail.com>
-Subject: Re: [PATCH v2 07/10] ARM: tegra: tf701t: Fix BCM43341 WiFi/BT chip configuration
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Mikko Perttunen <mperttunen@nvidia.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, devicetree@vger.kernel.org, 
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-=D1=81=D1=80, 29 =D0=BB=D0=B8=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 13:27 Thie=
-rry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Tue, Jul 28, 2026 at 05:08:40PM +0300, Svyatoslav Ryhel wrote:
-> > =D0=B2=D1=82, 28 =D0=BB=D0=B8=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 15:13 =
-Mikko Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> > >
-> > > On Tuesday, July 21, 2026 7:10=E2=80=AFPM Svyatoslav Ryhel wrote:
-> > > > Drop reset GPIO from bluetooth part. Add lpo clock to both WiFi and
-> > > > bluetooth nodes. Add 'brcm,bcm43340-fmac' as primary compatible and
-> > > > 'brcm,bcm4329-fmac' remains as fallback.
-> > > >
-> > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > ---
-> > > >  arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts | 13 ++++++++---=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+
+New issues:
+- [High] Missing NULL check for `i2c_get_match_data()` leads to a NULL poin=
+ter dereference.
+- [Low] The `si544_id` array uses positional initializers instead of named =
+initializers, violating the I2C subsystem rules.
+
+Pre-existing issues:
+- [High] Unconditional dereference of `client->dev.of_node` causes a kernel=
+ panic on non-DT systems.
+- [High] Division by zero occurs in `si544_calc_center_rate()` if the hardw=
+are returns 0 for the `HS_DIV` register.
 --
-> > > >  1 file changed, 8 insertions(+), 5 deletions(-)
-> > > >
-> > > > diff --git a/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts b/ar=
-ch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
-> > > > index 3de5c84d5f009..b71a02b3fd86f 100644
-> > > > --- a/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
-> > > > +++ b/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
-> > > > @@ -1300,8 +1300,9 @@ bluetooth {
-> > > >                       compatible =3D "brcm,bcm4334-bt";
-> > > >                       max-speed =3D <4000000>;
-> > > >
-> > > > -                     clocks =3D <&tegra_pmc TEGRA_PMC_CLK_BLINK>;
-> > > > -                     clock-names =3D "txco";
-> > > > +                     clocks =3D <&tegra_pmc TEGRA_PMC_CLK_BLINK>,
-> > > > +                              <&palmas_clk32k>;
-> > > > +                     clock-names =3D "txco", "lpo";
-> > > >
-> > > >                       interrupt-parent =3D <&gpio>;
-> > > >                       interrupts =3D <TEGRA_GPIO(U, 6) IRQ_TYPE_EDG=
-E_RISING>;
-> > > > @@ -1309,7 +1310,6 @@ bluetooth {
-> > > >
-> > > >                       device-wakeup-gpios =3D <&gpio TEGRA_GPIO(EE,=
- 1) GPIO_ACTIVE_HIGH>;
-> > > >                       shutdown-gpios =3D <&gpio TEGRA_GPIO(Q, 7) GP=
-IO_ACTIVE_HIGH>;
-> > > > -                     reset-gpios =3D <&gpio TEGRA_GPIO(Q, 6) GPIO_=
-ACTIVE_LOW>;
-> > >
-> > > I'd appreciate a note in the commit message on why this is dropped.
-> > >
-> >
-> > It does not comply schema for "brcm,bcm4334-bt", further testing with
-> > this reset gpio removed confirmed that it has nothing to do with
-> > bluetooth and bluetooth works just fine without it.
->
-> Maybe this should be a separate patch to make it obvious that this fixes
-> a DTB validation issue. At the very least the commit message should say
-> that this drop the reset GPIO because it's not part of the binding.
->
 
-To be clear, I did not refuse to add note into commit message as Mikko
-asked, I have just explained why this change was added.
+--- Patch [2]: [PATCH v3 2/2] clk: si544: add support for si549 ---
+commit 12920363f4810dc248ea69506597ff1f3d421e35
+Author: Pavel L=C3=B6bl <pavel@loebl.cz>
 
-I have included rese-gpio removal here since it logically can be
-grouper with other manipulations with the bt/wifi chip binding. I
-would like to avoid inflating patchset since it is already a big
-series and tweaks to binding are small but significant. I will expand
-commit descriptions for each change included but if you insist on
-splitting this commit, I am perfectly fine with this too. Please let
-me know.
+clk: si544: add support for si549
 
-> Thierry
+This patch adds support for the Si549 programmable clock generator, which
+differs from the Si544 primarily in internal oscillator frequency. It
+introduces three types (A, B, and C) with different maximum output
+frequencies and fixes the maximum frequency for the Si544 C variant.
+
+> diff --git a/drivers/clk/clk-si544.c b/drivers/clk/clk-si544.c
+> index 09c06ecec1a52..8e6c2487b79b8 100644
+> --- a/drivers/clk/clk-si544.c
+> +++ b/drivers/clk/clk-si544.c
+
+[ ... ]
+
+> @@ -258,15 +270,16 @@ static unsigned long si544_calc_center_rate(
+>  		const struct clk_si544_muldiv *settings)
+>  {
+>  	u32 d =3D settings->hs_div * BIT(settings->ls_div_bits);
+> +	u32 fxo =3D settings->xo_freq;
+>  	u64 vco;
+> =20
+>  	/* Calculate VCO from the fractional part */
+> -	vco =3D (u64)settings->fb_div_frac * FXO;
+> -	vco +=3D (FXO / 2);
+> +	vco =3D (u64)settings->fb_div_frac * fxo;
+> +	vco +=3D (fxo / 2);
+>  	vco >>=3D 32;
+> =20
+>  	/* Add the integer part of the VCO frequency */
+> -	vco +=3D (u64)settings->fb_div_int * FXO;
+> +	vco +=3D (u64)settings->fb_div_int * fxo;
+> =20
+>  	/* Apply divider to obtain the generated frequency */
+>  	do_div(vco, d);
+
+[Severity: High]
+This is a pre-existing issue, but can this result in a division by zero if
+the hardware returns 0 for the HS_DIV register?
+
+During driver probe, si544_get_muldiv() reads the HS_DIV register from the
+I2C device. If the hardware is uninitialized or malfunctioning, settings->h=
+s_div
+evaluates to 0:
+
+si544_get_muldiv() {
+    ...
+    settings->hs_div =3D (reg[1] & 0x07) << 8 | reg[0];
+    ...
+}
+
+This would cause the divisor d to be 0 here in si544_calc_center_rate(),
+leading to a division by zero when executing do_div(vco, d).
+
+[ ... ]
+
+> @@ -446,7 +459,7 @@ static int si544_probe(struct i2c_client *client)
+>  	init.num_parents =3D 0;
+>  	data->hw.init =3D &init;
+>  	data->i2c_client =3D client;
+> -	data->max_freq =3D (uintptr_t)i2c_get_match_data(client);
+> +	data->chip_info =3D i2c_get_match_data(client);
+
+[Severity: High]
+Is it possible to hit a NULL pointer dereference here if the driver is bound
+manually via sysfs?
+
+If the driver is bound without a matching id_table entry (for example, via
+driver_override), i2c_get_match_data() can return NULL. This NULL pointer is
+then unconditionally assigned to data->chip_info.
+
+Later in si544_get_muldiv(), the unvalidated pointer is dereferenced:
+
+si544_get_muldiv() {
+    ...
+    settings->xo_freq =3D data->chip_info->xo_freq;
+    ...
+}
+
+Could a NULL check be added for data->chip_info before continuing the probe?
+
+> =20
+>  	if (of_property_read_string(client->dev.of_node, "clock-output-names",
+>  			&init.name))
+>  		init.name =3D client->dev.of_node->name;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but could this fallback path
+trigger a NULL pointer dereference on non-Device Tree systems?
+
+On platforms like ACPI or board files where client->dev.of_node is NULL,
+of_property_read_string() safely handles the NULL pointer and returns -ENOS=
+YS.
+This causes the if condition to evaluate to true.
+
+The fallback path then unconditionally dereferences client->dev.of_node to
+access its name, which will cause a kernel panic if it is NULL.
+
+[ ... ]
+
+> @@ -478,18 +491,54 @@ static int si544_probe(struct i2c_client *client)
+>  	return 0;
+>  }
+
+[ ... ]
+
+>  static const struct i2c_device_id si544_id[] =3D {
+> -	{ "si544a", 1500000000 },
+> -	{ "si544b", 800000000 },
+> -	{ "si544c", 350000000 },
+> +	{ "si544a", (kernel_ulong_t)&clk_si544a_info },
+> +	{ "si544b", (kernel_ulong_t)&clk_si544b_info },
+> +	{ "si544c", (kernel_ulong_t)&clk_si544c_info },
+> +	{ "si549a", (kernel_ulong_t)&clk_si549a_info },
+> +	{ "si549b", (kernel_ulong_t)&clk_si549b_info },
+> +	{ "si549c", (kernel_ulong_t)&clk_si549c_info },
+>  	{ }
+>  };
+
+[Severity: Low]
+Are these array initializations compliant with the I2C subsystem requiremen=
+ts?
+
+The I2C subsystem guidelines state that initialized arrays of type
+struct i2c_device_id must use named initializers, but these new entries use
+positional initializers.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729115310.3490=
+589-1-pavel@loebl.cz?part=3D2
