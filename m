@@ -1,280 +1,203 @@
-Received: from out-170.mta1.migadu.com (out-170.mta1.migadu.com [95.215.58.170])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75B4A476076
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 11:34:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B54D3C3F75
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 11:37:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785324886; cv=none; b=EKUw+7ldHdrmgZhr1vnpuN5tlnWRf8TDXCyv9ILyNNQSDoZaDGMWHUoXo0GWgyQhdk0viOiMSdXUAPemohKucwlGtm5rc/gvGMQmQh56POgz6yvRm4Q0c+/uUaSMN7Z+LjpWv/9ha8aVNgZD25KaV5uf/vKp50BpcA+NDJgoDEw=
+	t=1785325047; cv=none; b=p5VLfO8GimWs8jn9e9LTT1qUoggFj/Sa4QS4na4nLW0I7dHElqTIeaXhoX0pZwGwoDfNq+Y/5OW2S8Zm0kcyfrMu1yN41q70pPDCp11n+lKwytIG1LhdKEl7LUdQWEyAyM2N9PKXtSdIUs0YJADcG2ZSxJv8j8Dd99M75b7xgwk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785324886; c=relaxed/simple;
-	bh=nEPx9E5impsDPcZMyWdMRdAlTpvRV8eM2K+fWz7+m2o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=t2wyu3/jkdXVIth0i5KAnsQBGLOFUc9GRGg8BFzCNM3qA0HOaZhEe6B17u+h58z4fUGRhyl9LyhndQzizNnAjxK9T0PV6/ieDHg/oy64+hK+fF1VX5xi38KlErgtXbTMOQFzJTAu34vFwANbY293dAQ3Jh4qhjHIWYsVIksyrpE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ab/QC3bA; arc=none smtp.client-ip=95.215.58.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1785325047; c=relaxed/simple;
+	bh=jX4ytLiDlHTnwLtKQDI8GK7zxpHUjDcs70Q2mGNIQzo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=N2zQpgFINVlWs2wNCtz2C2OU3w67AuH/0gGEPigNgL/poS1UEHrsGZasFxe89OcLsc6PP+JPeKUkv2Jj93M1x0fQU/8a9AVYVQvxbLGXFQbhhrKJcG2Jbyc4DoFoYCx2+zIi+lV0iyIqXZYz8xfwD3ncX+ZaNCyJnSshDpuhLW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eIGCXOBa; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=P3MRLgyi; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ab/QC3bA"
-Message-ID: <40c7a0c9-de85-4b11-86fc-53b48e42462c@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1785324882;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5qNCJH22qm7cfEdh/HVFrum6obb4H9CNKJl/CnAEcG0=;
-	b=ab/QC3bAcqdwhrmsZRO3j9IxBI79qYESa7COWqFzkJs54+oHK2aOoR1/kgXR4lMxXsdU4N
-	7Fuw35QVamscKQBSeXei3YAKDFCp3WgbfoVgWeaO8hU1sRn50au+I8RpZemkpDgmQ6QvWB
-	CaSwXSx4aB5O6a/Qi52U8L7yQrIsy2s=
-Date: Wed, 29 Jul 2026 13:33:22 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eIGCXOBa";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="P3MRLgyi"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66TBXX0Q1218133
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 11:37:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=JuKTV+oT7PmTQiu/vwLbiWOH
+	3Hnm+6HCgD4PAqwboi4=; b=eIGCXOBaDq/Zp7sSl4VKuXuBoKeURK9h1aUx1Qdf
+	WxYgF+TOi0SFUK3WUv0HFr8eROt7ET2YJE3RhAVVBI9c0Y4inDjpj2gtkXTmcAiO
+	DSaa7US8bmg2Txje04V9JdOnh4lYwbXrf7+veFWnJU2kX3LP8SINp1M7DiEuVwd+
+	TiNYsL1mDBf5Mnto78xbwxEQOUwv2LwQ6uLO+S9lwLeRq/1/hZkVXMW8hnI/HH7l
+	e77HEm1hY+J/GOItZeEKhTQaa38ieXVOPbc3WQGkK9y66Aebmr4pJ7z00pJSnF/q
+	hPyf+IvN4B9k3GU3xrV2t+ogec+uLgypwtw3d5kl7tgWQw==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fqgrj00h1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 11:37:24 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38e63de75aaso1373285a91.3
+        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 04:37:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785325044; x=1785929844; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JuKTV+oT7PmTQiu/vwLbiWOH3Hnm+6HCgD4PAqwboi4=;
+        b=P3MRLgyiKvx/ky9o5xqdnWhr8yk96OGjl4ukIryEzpigZTuFtr0Nf7Sui7wWBzMGUL
+         o71ioLaAx0s9XCc1Ee6VW3sDf4D5GODB6NPooyuWiUiOPmHjxMnVN0QKx3lXvyLA9vwV
+         mOH8gPOm3nHXMq+1fjPUth8xB/odCiFKRwFAK3uLXR6nGcV+uMaxNpQKK4BOYrwkJyCx
+         1qGD1T+ISuONdQpeRxpSNsoqNiDq+oW2vmTDx8hWq7wMrut4iDpQ6yXv12KciuXyNf8I
+         KV4AVBidQKqcRuaxUZThnoISB7Mw0/INvV3bwT+l8Js+HbhHHHYHQYpiU8Yv1Eg/XFSH
+         Jwjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785325044; x=1785929844;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JuKTV+oT7PmTQiu/vwLbiWOH3Hnm+6HCgD4PAqwboi4=;
+        b=CWpcr03PfmObAnTcYWQnJpbsri/u6rs6LuKIQiac2gRDABLBNPGV0rkZWmmRmkEWuc
+         L+MQ1cK7pZ+7hKD7552jD0by1uRgVqLNY7zQOHn6AtSSdpcVUTGC+nfCvnk8PGkkOzTe
+         FAgFaNhYmc4YCE4A/DJNZl/HYvtpXlTcWfCMUp0jGOdYdDHdqpJ1JH/P+53Pp0ojFXzC
+         AFYs7V+FU6JlfUlVivu8bQJwKlrQSAnuEON31UVlG3XLhaHRPFhW62S615p++gK/0EOZ
+         AnrKq68MDbvXv6gZAkphv1wcPVau9VobarZHuZKn+f4a9SZl/1a1TjzIbT5ckOMmeROS
+         uwRA==
+X-Forwarded-Encrypted: i=1; AHgh+Rr25al6dZzribLnI+ajp4FG4HbFFQy+2pDfiJd5rgLM+PuAXlmm8jrOs7f+k9Qvy9FrYO2wASapMWQh@vger.kernel.org
+X-Gm-Message-State: AOJu0YxHcqDsGPSmh/GdMdCnooC6lEKAu24T0c1wll2RUne1IOwB8sjS
+	lICF6WXeaZzD4uzfnGNfF7O4SEUyh7CaHDl8XO2K3j7jidg0a32NczlKO6MwjR0sTqfa2m2mqDW
+	4vRkYLe5zDAECyrKWWrBZzhmAnc8/SWaKJ5XCwBOKZyPBaE4O3QEKY0W4dr9tNtOu
+X-Gm-Gg: AR+sD12b6x7Fha3DmQKZVgQqHxV8C/tG0DqBoFAtWEjbEgkVJssT0BatWub6kqJmmtH
+	SsITJ7N1rIL9Pxc2qy5UJmHr2WFTHmjo10NivarEsnCJxWRQHWaTJmxdK4B4/GRnIfb5SUvbh6b
+	bBC2gGXjszMI14wZYQOpjgG/TygsTZZ1zsyy2tE94B1ITiFbPME2rLxDRhmyK+feOqOF+qVYntF
+	+zxIzLJwWzb2AqW4z15umJfMY5lymm7aC7ugGXERGnO3mh1HqKwLPcmoaJfEFMlWbWluFUdBjlO
+	JpcS8pptKncJCuLL9QCCBLCi4WmiPbo9gcP60FfIGDoccBdHaXezQaYyA6BhaM6Zhyf17JP3LSf
+	wawycclzpqOD6uKPvTicijaRkkw==
+X-Received: by 2002:a17:90b:2701:b0:36b:bec8:94c5 with SMTP id 98e67ed59e1d1-38f6a4585e5mr6625877a91.10.1785325044117;
+        Wed, 29 Jul 2026 04:37:24 -0700 (PDT)
+X-Received: by 2002:a17:90b:2701:b0:36b:bec8:94c5 with SMTP id 98e67ed59e1d1-38f6a4585e5mr6625838a91.10.1785325043665;
+        Wed, 29 Jul 2026 04:37:23 -0700 (PDT)
+Received: from hu-mdsor-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31504db2c4csm9199730eec.28.2026.07.29.04.37.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 29 Jul 2026 04:37:23 -0700 (PDT)
+Date: Wed, 29 Jul 2026 17:07:13 +0530
+From: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Sunyun Yang <syyang@lontium.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Robert Foss <rfoss@kernel.org>,
+        Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+        Jonas Karlman <jonas@kwiboo.se>,
+        Jernej Skrabec <jernej.skrabec@gmail.com>,
+        Luca Ceresoli <luca.ceresoli@bootlin.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, venkata.valluru@oss.qualcomm.com,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Mohit Dsor <mdsor@oss.qualcomm.com>
+Subject: Re: [PATCH v8 1/2] dt-bindings: bridge: Add Lontium LT9611C(EX/UXD)
+ MIPI DSI to HDMI driver
+Message-ID: <amnl6SENeY3jjBm4@hu-mdsor-hyd.qualcomm.com>
+References: <20260728-lt9611c-v7-v8-0-bda216bfaf37@oss.qualcomm.com>
+ <20260728-lt9611c-v7-v8-1-bda216bfaf37@oss.qualcomm.com>
+ <114159dd-0271-4d15-b07d-20fc1e28ee6d@kernel.org>
+ <20260729-truthful-cinnamon-giraffe-f250d6@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v2 2/2] ASoC: codecs: wcd9378: add TX/capture codec driver
-To: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
- Mark Brown <broonie@kernel.org>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Julian Braha <julianbraha@gmail.com>,
- Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Luca Weiss <luca.weiss@fairphone.com>,
- Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
- Ravi Hothi <ravi.hothi@oss.qualcomm.com>, linux-sound@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260729000649.263426-1-jorijnvdgraaf@catcrafts.net>
- <20260729000649.263426-3-jorijnvdgraaf@catcrafts.net>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-In-Reply-To: <20260729000649.263426-3-jorijnvdgraaf@catcrafts.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260729-truthful-cinnamon-giraffe-f250d6@quoll>
+X-Authority-Analysis: v=2.4 cv=RJOD2Yi+ c=1 sm=1 tr=0 ts=6a69e5f4 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=Kz8-B0t5AAAA:8 a=9bdzyRqNf_OfPh25cPwA:9 a=CjuIK1q_8ugA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22 a=RuZk68QooNbwfxovefhk:22
+X-Proofpoint-ORIG-GUID: PhAsb0HHQRXll-pro5-9txmiHTep7fA8
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDA5NSBTYWx0ZWRfX7zCM+Tis8U4Y
+ M3Te8Xp/lV7X39G2c6xbWACGsR75FiMg3fLEfiDprsSmF2J9wrtv4E1gW5kbULGia+zgUvRHZHG
+ BllyM8Hb6GUxddv3AVeG4IKMwVwJIWOIFnrKCCMsgYadiMv/UB8+pb49X9R2ZD7oJpUtrvg4i7D
+ /ihM4DS0/9sVfpoNMVeeK1137Hyx9Ojydrrpp110oxkg0cFpOY/fQDzXLg9PyXuA6NJ178sBKEB
+ NemTqa84w5WV7iRU2ervHq1siA01xl35k3CoY2kA4mQvhepqTi6HtVNeigXHAylHMR801tlofMu
+ mSp+/0oaO4eeHv/fyLgVeeDMUeCfJtDeTqVErEtGqlHWtDUn0kbJI9fXzVOE+BQquVTbsi2l54Z
+ JU0vyFOQ/ybKBQk6J48b52Rq/QzyNmdsaKOMyqSAVvozaeicdl40pCyaLMpeH5F9olASf8QOBPT
+ lL/ENyAk6a2k9Lh+v6Q==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDA5NSBTYWx0ZWRfX2fZh3wFAcsiv
+ rKYrCeGCHGaeGvmJ5DZkB2FoMM8UTzWQ4svBlcsOsHUR/Gt6tJ/57RgWvvjPQYfcqdxHbar+GKm
+ C3gA5Dl1Aq7hdbnWR0I3HmAlAlzXRe8=
+X-Proofpoint-GUID: PhAsb0HHQRXll-pro5-9txmiHTep7fA8
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-29_04,2026-07-28_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
+ impostorscore=0 suspectscore=0 clxscore=1015 spamscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607290095
 
-Looks mostly good, I only have comments on confusing explanations
-related to the two-peripheral split and pm_runtime support, see below.
-
-On 7/29/26 02:06, Jorijn van der Graaf wrote:
-> The Qualcomm WCD9378 is the audio codec found on SM7635 boards such as
-> the Fairphone 6. It pairs a WCD937x-compatible analog core with SDCA
-> function blocks (SmartMIC0/1/2, SmartJACK, SmartAMP) whose built-in
-> sequencers perform the analog power-up/down autonomously: capture is
-> started by programming the ADC usage mode, requesting power state 0 on
-> the function's power domain entity and letting the sequencer ramp the
-> ADC and the mic bias selected through SMx_MB_SEL.
+On Wed, Jul 29, 2026 at 08:37:42AM +0200, Krzysztof Kozlowski wrote:
+> On Wed, Jul 29, 2026 at 08:18:58AM +0200, Krzysztof Kozlowski wrote:
+> > On 28/07/2026 13:09, mohit.dsor@oss.qualcomm.com wrote:
+> > > From: Sunyun Yang <syyang@lontium.com>
+> > > 
+> > > LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual port
+> > > mipi dsi and output hdmi, differences in hardware features:
+> > > - LT9611C: supports 1-port mipi dsi to hdmi 1.4
+> > > - LT9611EX: supports 2-port mipi dsi to hdmi 1.4
+> > > - LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
+> > > 
+> > > Signed-off-by: Sunyun Yang <syyang@lontium.com>
+> > > Signed-off-by: Mohit Dsor <mdsor@oss.qualcomm.com>
+> > > ---
+> > 
+> > NAK. You received review. Sending the same is wasting our time.
 > 
-> Like the other codecs of the family the WCD9378 presents two SoundWire
-> slaves (manufacturer 0x0217, part 0x0110); a platform device created
+> Actually you ignored TWO independent reviews, so I will not waste time
+> on this patchset anymore.
+1.
+>> So you need "if:then:" block disallowing port@1.
+>Ok, need to add in driver code? Will add this in v8.
+ 
+Sorry, I missed adding this in the bindings. I assumed a driver-side check would be sufficient, so I added the following validation in the driver:
++       if (lt9611c->dsi1_node && lt9611c->chip_type == CHIP_LT9611C) {
++               of_node_put(lt9611c->dsi1_node);
++               of_node_put(lt9611c->dsi0_node);
++               return dev_err_probe(dev, -EINVAL,
++                                    "LT9611C does not support dual DSI\n");
++       }
+ 
+ 
+If I understand your suggestion correctly, it would be preferable to enforce this constraint in the DT bindings as well.
+let me know if this is correct approach for DT bindings:
+ 
+--- a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
++++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
+@@ -82,6 +82,16 @@ required:
+allOf:
+   - $ref: /schemas/sound/dai-common.yaml#
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: lontium,lt9611c
++    then:
++      properties:
++        ports:
++          properties:
++            port@1: false
 
-same part with two different unique_id or two different parts?
-
-> from the codec DT node acts as component master over the two slave
-> devices, reusing the wcd-common helpers. Unlike the older family
-> members, all control registers - the SDCA function blocks and the
-> analog core alike - live in a 32-bit paged SDCA control address space
-> accessed through the TX slave, so the slave regmap needs
-> prop.paging_support (on Qualcomm controllers this in turn needs SCP
-> address paging support in the controller driver). The sequencers clock
-> off the SoundWire bus clock and stall without the SCP bus-clock
-> base/scale indication; the slaves declare prop.clock_reg_supported so
-> the core programs those registers at enumeration (on Qualcomm
-> controllers this in turn needs the controller driver to declare the
-> bus clock in prop.mclk_freq).
+2. These are some odd characters here. I guess this was in earlier versions
+as well....
+I am sorry for this, I missed it. I will correct it in v9.
 > 
-> Compute platforms wire the same chip as a single aggregated SDCA-mode
-> slave instead; probe declines nodes marked qcom,compute-mode, so an
-> SDCA class driver for that presentation can share the SoundWire ID
-> table with this driver.
+> Best regards,
+> Krzysztof
 > 
-> Two hardware behaviours deserve a note:
-> 
->  - The SDCA function engine does not survive SoundWire bus clock-stop.
->    Every register keeps its value (so a regcache sync restores
->    nothing), but the sequencers ignore all subsequent power requests,
->    including forced trigger and soft-reset writes; only a codec reset
->    revives the engine. The downstream stack sidesteps this by marking
->    the TX SoundWire master "qcom,is-always-on" in its devicetree; do
->    the equivalent and hold a runtime PM reference on the TX slave for
->    as long as the codec is bound. 
-
-The write-up seems to suggest that the manager and peripheral devices
-remain pm_active and the bus clock is never stopped then? IWO there is
-no pm_runtime suspend support for this SoundWire link.
-
-> +static const struct sdw_device_id wcd9378_sdw_id[] = {
-> +	SDW_SLAVE_ENTRY(0x0217, 0x0110, 0),
-> +	{ },
-
-presumably it's the same part_id for RX and TX, so there must be a
-unique_id to make the difference between RX and TX.
-
-> +static int wcd9378_sdw_runtime_suspend(struct device *dev)
-> +{
-> +	struct wcd9378_sdw_priv *wcd = dev_get_drvdata(dev);
-> +
-> +	if (wcd->regmap) {
-> +		regcache_cache_only(wcd->regmap, true);
-> +		regcache_mark_dirty(wcd->regmap);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int wcd9378_sdw_runtime_resume(struct device *dev)
-> +{
-> +	struct wcd9378_sdw_priv *wcd = dev_get_drvdata(dev);
-> +
-> +	if (wcd->regmap) {
-> +		regcache_cache_only(wcd->regmap, false);
-> +		regcache_sync(wcd->regmap);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct dev_pm_ops wcd9378_sdw_pm_ops = {
-> +	RUNTIME_PM_OPS(wcd9378_sdw_runtime_suspend, wcd9378_sdw_runtime_resume, NULL)
-> +};
-
-not able to reconcile the definition of those pm_runtime routines with
-the earlier assertion that a pm_runtime reference it takes to prevent
-the bus clock from suspending.
-
-
-> +static int wcd9378_bind(struct device *dev)
-> +{
-> +	struct wcd9378_priv *wcd9378 = dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	/* Give the SDW subdevices some more time to settle */
-> +	usleep_range(5000, 5010);
-
-you may want to describe what those values refer to, experiments or
-actual time expected from the documentation.
-
-> +	ret = component_bind_all(dev, wcd9378);
-> +	if (ret) {
-> +		dev_err(dev, "Slave bind failed, ret = %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	wcd9378->rxdev = of_sdw_find_device_by_node(wcd9378->rxnode);
-> +	if (!wcd9378->rxdev) {
-> +		dev_err(dev, "could not find rx slave with matching of node\n");
-> +		ret = -EINVAL;
-> +		goto err_component_unbind;
-> +	}
-> +
-> +	wcd9378->sdw_priv[AIF1_PB] = dev_get_drvdata(wcd9378->rxdev);
-> +	wcd9378->sdw_priv[AIF1_PB]->wcd9378 = wcd9378;
-> +
-> +	wcd9378->txdev = of_sdw_find_device_by_node(wcd9378->txnode);
-> +	if (!wcd9378->txdev) {
-> +		dev_err(dev, "could not find tx slave with matching of node\n");
-> +		ret = -EINVAL;
-> +		goto err_put_rxdev;
-> +	}
-> +
-> +	wcd9378->sdw_priv[AIF1_CAP] = dev_get_drvdata(wcd9378->txdev);
-> +	wcd9378->sdw_priv[AIF1_CAP]->wcd9378 = wcd9378;
-> +	wcd9378->tx_sdw_dev = dev_to_sdw_dev(wcd9378->txdev);
-> +
-> +	/*
-> +	 * As TX is the main CSR reg interface, it should not be suspended
-> +	 * first. Explicitly add the dependency link.
-> +	 */
-> +	if (!device_link_add(wcd9378->rxdev, wcd9378->txdev,
-> +			     DL_FLAG_STATELESS | DL_FLAG_PM_RUNTIME)) {
-> +		dev_err(dev, "Could not devlink TX and RX\n");
-> +		ret = -EINVAL;
-> +		goto err_put_txdev;
-> +	}
-> +
-> +	if (!device_link_add(dev, wcd9378->txdev,
-> +			     DL_FLAG_STATELESS | DL_FLAG_PM_RUNTIME)) {
-> +		dev_err(dev, "Could not devlink WCD and TX\n");
-> +		ret = -EINVAL;
-> +		goto err_remove_link1;
-> +	}
-> +
-> +	if (!device_link_add(dev, wcd9378->rxdev,
-> +			     DL_FLAG_STATELESS | DL_FLAG_PM_RUNTIME)) {
-> +		dev_err(dev, "Could not devlink WCD and RX\n");
-> +		ret = -EINVAL;
-> +		goto err_remove_link2;
-> +	}
-> +
-> +	wcd9378->regmap = wcd9378->sdw_priv[AIF1_CAP]->regmap;
-> +	if (!wcd9378->regmap) {
-> +		dev_err(dev, "could not get TX device regmap\n");
-> +		ret = -EINVAL;
-> +		goto err_remove_link3;
-> +	}
-> +
-> +	/*
-> +	 * The SDCA function engine dies when the TX bus enters clock-stop
-> +	 * and only a codec reset revives it - registers keep their values
-> +	 * so a regcache sync or a FUNC_ACT re-toggle does not help. The
-> +	 * downstream stack sidesteps the same problem by marking the TX
-> +	 * SoundWire master "qcom,is-always-on"; do the equivalent and
-> +	 * keep the TX slave (and thus its bus) runtime-active while the
-> +	 * codec is bound.
-
-So in practice only the RX peripheral can do a pm_runtime suspend?
-
-> +	 */
-> +	ret = pm_runtime_resume_and_get(wcd9378->txdev);
-> +	if (ret < 0) {
-> +		dev_err(dev, "could not resume TX device\n");
-> +		goto err_remove_link3;
-> +	}
-> +
-> +	ret = snd_soc_register_component(dev, &soc_codec_dev_wcd9378,
-> +					 wcd9378_dais, ARRAY_SIZE(wcd9378_dais));
-> +	if (ret) {
-> +		dev_err(dev, "Codec registration failed\n");
-> +		pm_runtime_put(wcd9378->txdev);
-> +		goto err_remove_link3;
-> +	}
-> +
-> +	return ret;
-> +
-> +err_remove_link3:
-> +	device_link_remove(dev, wcd9378->rxdev);
-> +err_remove_link2:
-> +	device_link_remove(dev, wcd9378->txdev);
-> +err_remove_link1:
-> +	device_link_remove(wcd9378->rxdev, wcd9378->txdev);
-> +err_put_txdev:
-> +	put_device(wcd9378->txdev);
-> +err_put_rxdev:
-> +	put_device(wcd9378->rxdev);
-> +err_component_unbind:
-> +	component_unbind_all(dev, wcd9378);
-> +	return ret;
-> +}
-> +
-> +static void wcd9378_unbind(struct device *dev)
-> +{
-> +	struct wcd9378_priv *wcd9378 = dev_get_drvdata(dev);
-> +
-> +	snd_soc_unregister_component(dev);
-> +	pm_runtime_put(wcd9378->txdev);
-
-pm_runtime_put_sync() to make sure the idle routine is called
-immediately and not later?
-
-> +	device_link_remove(dev, wcd9378->txdev);
-> +	device_link_remove(dev, wcd9378->rxdev);
-> +	device_link_remove(wcd9378->rxdev, wcd9378->txdev);
-> +	component_unbind_all(dev, wcd9378);
-> +	put_device(wcd9378->txdev);
-> +	put_device(wcd9378->rxdev);
-> +}
