@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B6093A75B6;
-	Wed, 29 Jul 2026 06:19:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49D21242D65;
+	Wed, 29 Jul 2026 06:19:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785305952; cv=none; b=Sg9Bm1Ey9qwcb0CepcbFiL/VJX63hRRPxF2Y0Z48BaSfrU0BKOofXKdvuHGK98dhvhiOsPFNTq8sLurqx6LLtT21AI6bu2ByJoXWldZ+WCDW6oYkYCyT0PYNV3UhfehlDNx+MgciihOH4j14th09i+ymnPztWnWU/RYHV/Oa/dk=
+	t=1785305984; cv=none; b=iu7tpBGRKqzgpQsuj5cC0AfuzVXktjgC286spiZwaAMoqh9rrieSRrYO3AwGrrG3qpFrXi/CA7JxDh59TBGsrUJUZZuPin3FIzNSqyMSwrosCKE7fgBuROHo8XpS67M8DDmNP8pHChGvWVdCgKZuhQ0p8NnQk/hDLtIkDgmHQQc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785305952; c=relaxed/simple;
-	bh=rB1d4uG84a72kJTGamI1RlMtoFAVCXamsKUSO7JFF0o=;
+	s=arc-20240116; t=1785305984; c=relaxed/simple;
+	bh=whgiEArBV8aOm8noH6sp2Q0y+DeuBi6QC1lj8Ogv14U=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UzNbkoz93d2wIsEmLsHoF5lC8mMjDWLmsIzA/7+a/XRZR/zYVKI4GUeE6NCAlild+rf8N+uvvLZm8PEYrBpoVfpv2uNaxdpxKz1+hm0UfSlS1KrxTlh3s22K74Qn649hxsr556KKLFbODG59tiNjM4skFKsN5lu7+WJ+U5o8PJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ECp9MwtF; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=sgoS3dn6Zh1mdPFT7r52bPmAIHclN98an59QZ7aA8UM8I8AEJ+Wql5yNZ991WZNT/Znj8tuZpu8a4IAA8lVYvcJsbBuwmE1+mGNFJh0CXtr8P5EDaGGouTSfa3hJrE8OXHvgiMiDNQ90gqCY4AfW9xdVPE1AZk2TFwMkWxPOPhM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GCrm57jO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ECp9MwtF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3F8A1F000E9;
-	Wed, 29 Jul 2026 06:19:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GCrm57jO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9528F1F000E9;
+	Wed, 29 Jul 2026 06:19:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785305951;
-	bh=83QpMuzhVNwMA8Mz3/80sRgX6wbFFLPpVL4qq1W45Dg=;
+	s=k20260515; t=1785305983;
+	bh=1ahsh8KGGbbw/1MbGvQhKGLLx27DzaCVwhsg9q5kqLc=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ECp9MwtFUSfAmvKWXslahwOhIby0vsqLk8qBNAnk5+dhjrCyp/p5Uk0ntWhM7sV5h
-	 Vk4phCXbQxgnvYSOOSTIjLG+N9RcnsMBuFCqpEWJ05rsoTanVMFRMBCFHHeTHNYZlh
-	 sYev3Q2gCQM3eGoL+n26mUd4/TYR5KipLdk/TJTwjCli9FhwmPgiImhFWTT/xSc8zA
-	 XhHE9vXidcKl6pKAhKhPxZKW6RqOQd6o5C4rUl3h4oFmIzFjqaf6nKLyYi7pcvi2xE
-	 P1rSpgeNf66PKLN+znVVPhHotWxcdYHSADlXYl74MC1fHRu5jmEcHrTMQMmBfxhjLw
-	 XXcJ5kN0zo31w==
-Message-ID: <114159dd-0271-4d15-b07d-20fc1e28ee6d@kernel.org>
-Date: Wed, 29 Jul 2026 08:18:58 +0200
+	b=GCrm57jOMSzOzA3MwBPPQtUmDjo88LSUC5D8TTrgEfGhqjKgLuz1qquihSknF8Aia
+	 kp1dYTkiL/vNmi49xSM/5yRrU/MGi1TagDuFFEyzeyF5ZUDWdO1xzKiRzqQdGI8eiw
+	 iC04bX4I1+bWBkJiLxTMsen6RAK/iNN3zSuLE9iAEJP0ur/rKdas5qecHWFZkClxbW
+	 5WVEdwePKcXbb3/RJ3H4Vkg7HffGkk8CXrp7csJIC5WzsjhFOYxrWorj0EOcDlCUcR
+	 1DsbX5eZyirr3aEP+Fvm093ddJ378h5rwpYDMwrXN+r7tCseBYZE3eMl9kK1EW1pUZ
+	 6k7gO4KG2zq7w==
+Message-ID: <ee479488-9f36-412f-b6d0-725180cc1122@kernel.org>
+Date: Wed, 29 Jul 2026 08:19:36 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,24 +35,17 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/2] dt-bindings: bridge: Add Lontium LT9611C(EX/UXD)
- MIPI DSI to HDMI driver
-To: mohit.dsor@oss.qualcomm.com, Sunyun Yang <syyang@lontium.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, venkata.valluru@oss.qualcomm.com,
- Jessica Zhang <jesszhan0024@gmail.com>, Mohit Dsor <mdsor@oss.qualcomm.com>
-References: <20260728-lt9611c-v7-v8-0-bda216bfaf37@oss.qualcomm.com>
- <20260728-lt9611c-v7-v8-1-bda216bfaf37@oss.qualcomm.com>
+Subject: Re: [PATCH v3 1/2] arm64: dts: qcom: shikra-iqs-evk: Add LT9611UXD
+ HDMI bridge support
+To: Mohit Dsor <mohit.dsor@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, venkata.valluru@oss.qualcomm.com,
+ Jessica Zhang <jesszhan0024@gmail.com>
+References: <20260728-shikra-work-v3-0-e08c322596ac@oss.qualcomm.com>
+ <20260728-shikra-work-v3-1-e08c322596ac@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -98,24 +91,26 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260728-lt9611c-v7-v8-1-bda216bfaf37@oss.qualcomm.com>
+In-Reply-To: <20260728-shikra-work-v3-1-e08c322596ac@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 28/07/2026 13:09, mohit.dsor@oss.qualcomm.com wrote:
-> From: Sunyun Yang <syyang@lontium.com>
+On 28/07/2026 14:00, Mohit Dsor wrote:
+> Enable the Shikra MDSS display subsystem on the Qualcomm Shikra IQS
+> EVK board and add the Lontium LT9611UXD DSI-to-HDMI bridge node.
 > 
-> LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual port
-> mipi dsi and output hdmi, differences in hardware features:
-> - LT9611C: supports 1-port mipi dsi to hdmi 1.4
-> - LT9611EX: supports 2-port mipi dsi to hdmi 1.4
-> - LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
+> The LT9611UXD is connected via I2C (bus 4, address 0x41), powered by
+> a GPIO-controlled 3.3V regulator (PM8150 GPIO4) and an always-on 1.8V
+> rail. Reset is on GPIO76 and interrupt on GPIO85.
 > 
-> Signed-off-by: Sunyun Yang <syyang@lontium.com>
-> Signed-off-by: Mohit Dsor <mdsor@oss.qualcomm.com>
+> The bridge receives DSI output from MDSS and drives an HDMI-A
+> connector, with the link wired as: DPU -> DSI0 -> LT9611UXD -> HDMI.
+> 
+> Signed-off-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
 > ---
 
-NAK. You received review. Sending the same is wasting our time.
+Did you ignore here previous review as well, just like you did on
+LT9611C patchset?
 
 Best regards,
 Krzysztof
