@@ -1,161 +1,168 @@
-Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AAED43C043
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 08:02:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785312130; cv=pass; b=V9qZRps95q41pi934tf4Sht43q+R9douFHjY4fwIYxS3NrJTD8xBaWk6yuU7XZfFeLa9QDAgpLF+ZC6v6FjJgDXI+INOogNiCzedM6Lo4tmthyayQVcBWsSDiwr8Ho/A9ZXkYFZ+mi9T9VPAVZXaekmUFB8E0tEMRJq7hqwJZWo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785312130; c=relaxed/simple;
-	bh=tQIx/beIhZjfhEwMkT/O4vuIekscTTh9vo5S2QcC4B4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=huTGEuianR8DH17KOBLRnnKgPdbwNGaONdkFmlhfmG6BFnq4BNkXS+ncUGsmwG+PmjV21rdDkKV6jYr+n0TfBciP4xcVKK09LQyJ76Rovt47LzakaCWDfFO8K+6b4W38QRUmCIG4KeOTwn8e6RPPdEg4p54baiq0zRt8XNVr+Gg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=EGYNjW9k; arc=pass smtp.client-ip=74.125.224.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EA5143B3FF
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 08:03:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785312197; cv=none; b=oHeUS/H2wVGoItCny1TVlKTL0gwtTr9F+KnDxATSmEIotdpWTT6byU3sQYja/LB7pB1fK2/RqZpipZDH+CDr7ujY6LrH8mSLa0rWeGRojfP5+XOsRzetmtaqXyQHe6sztLOTZ2Z6HSrbc22wwalVvqxV8qaytgFdAdRh2kLvIwA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785312197; c=relaxed/simple;
+	bh=VIXH/4wp7GDGEjcN/n0qLhwMWfSkC161PQaJIB1mta0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=m3bHO6p+3Eqqh3hAmIYRynB955j6WKLUY4XcaaP2PGk7xTI1RStKMkg3yHSRKMW4X0cnN6MCPEme5ch372AN2mzXCEtXjW/EVPdqkhyWqq2QuSGE+Ccw4q9YJ2YK1eJeaEpJpmeNROLOrfPuAkd0mlakST7U98qBYIuGLLVYL1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DYQ+Wll5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XowlwIL6; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="EGYNjW9k"
-Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-6688acd1a51so812695d50.3
-        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 01:02:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785312127; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PseykZKXXjmRfYkmCoTllSkJPx966h+sgOUud/kgDF4sdFu4NAtwzszp14QzxR0Oq0
-         aEfJFanO2CmZY0A1WmOgUgQzAt7VY+96NpqunHSZqfuTCGNrMjZ+h5yqX7oMQ/c+u7iN
-         YY5t586xyC6mElxcGeXX8AHRIRP39khHQPwzY75524pJbq3ai/e1WgAYjb8XmLKpOsSk
-         AwhB1COsLZ7ACLAYlRNOJEP1w/3R8vyDxRyiQN9T8kIHQQFXtr9yCu2g7TfK/v6Pzqmt
-         iLaAlFC6EfO7vuPMmQJ/Lg/v2dq2QS5E6AM1Id0twtVBJl4qTimrOf+jvmyLI0Wvweoq
-         Zvug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=nWTQqQwG3YVHAteC50PeEEuDDKjaYcAXX2qekTmA0yI=;
-        fh=rmOM4PbP2emc4azeBWjGKhTcvvCsw7Zxy/TLwMCpo+I=;
-        b=e2iBDb2fG0FhyLcBB2MXaF8kYjYHE1QPnjPKiWYYxvxGJi6SK7T256yV1GD73jCmeu
-         QZ8NfX9g/N8pyhIxPWLncpWSGy1HPKWQHfIk9NFB2yu6T6jhmRl0/sNanZBgdcchj8YE
-         j5XD8Q3X2ItPgJ5W2ZBnkhXR5rUU2IMYQ1g4TB5+U93z2YDZNTEPg+nKhP7l+TWz/4KV
-         v9yMvgDAUpaV6rj3EF9bfPCitdwt8gwcyaa7wteO1MqG5ffjJC8yK5CaNdAmM2//JCGY
-         lI7xI5K/6YbFpqTUtNZk7qbUBu5xX/3c9cJAiCSEY5ecUUyLnZ3riGQKD23hTx27iTbu
-         OV3A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DYQ+Wll5";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XowlwIL6"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66T7fIbS1182038
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 08:03:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=5lBdzh8bRoeR8HuofUs5c1Q1
+	lfWDYRIe765m7EVTOgI=; b=DYQ+Wll5//7/3bfEluNlFT0s8RNE1i2CWf/EqOTF
+	JxOoPGqLAWPz4vkAFOPqHavzKLZb7EZBL4fFhjQgzHVDAcwKft7c3gQYWzVAXbQU
+	+y/yVbstWDdGviq+ITbmwCVyhl7BXKzIA6MucRYLD1EXzkCvc3lgjQ6mw67sdNk0
+	490Oiv4DSDGWs7YUW641jFQeIxEPtEaZf1GNj/n93YGkScmOmDfvA/V32UUI4XUQ
+	4b22hk0BRvIU4uz9BIRnstxnsEto+mLX14FaUf+HFDwMIYaB9BiTywPV40iUAh14
+	e+P7Umxp2YKlybDralLgO71es+oUTwuu6cB+GoBhzg6kUA==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fqbmcrhph-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 08:03:09 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-84c4cd31b51so2201960b3a.0
+        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 01:03:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1785312127; x=1785916927; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=oss.qualcomm.com; s=google; t=1785312188; x=1785916988; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=nWTQqQwG3YVHAteC50PeEEuDDKjaYcAXX2qekTmA0yI=;
-        b=EGYNjW9k5+Hk04XxsCNaajg0AJEQgXgoPfTfNlcKRRc+zomYHbG3PFLeD92v0w++wZ
-         /fJhJk3eUWd76IVb/jVDWf2DTrCjfGBZy5fReSrBl4DOUO5A5rvP/cZ0BRXJUWZisUCH
-         zUnCUB6oFWwWNUHHo62KbKgTtsLNhQ+lFHF/GRE7h7SFAnDGMPQr3KB3MCaXMjapa5qT
-         BqlYPdkh2Sssh+DWzYPjSnPRQH8e5fhN8UOFonPbAuSoxzflIx8DhgjP9HUfUMYlpizM
-         zUdt2gnyCggOORwjxQVlVXhwed/Uy1JTbUvHn9+crzyLHEm9FAZCdLV1hjJmIaX+2QS+
-         U+dA==
+        bh=5lBdzh8bRoeR8HuofUs5c1Q1lfWDYRIe765m7EVTOgI=;
+        b=XowlwIL6TLJ4N9RW2RzfFlPASbqFISOou7A3RTzLatUjL//ATJFKs56DPIVMCBWnzU
+         tI+OyeQ1VH6OICH+xXbpFqwwVmA0mPW3+6028jJHKyALXkoG/A0QkkQTJ55FCzjSFWjn
+         TKvzDOzYjkeEgd0zVTvhUn2nAN5E32zd1Yc5iRVi6IGBcQXX8bX2KjyLCmr/d+F1t9Ih
+         hV/l73dpNzYIC8Q1vqpvSO4Sq4u47XKfTIOaN1vqEyteGDl3Yyn0qctXn+IxwdVsRrXR
+         OyqouGibawpwnFcV0gMZvRaQgZI53t8u/d7TuM2RCPIqftZ6UhoMMvqHbdI6atu7lA8a
+         l7EA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785312127; x=1785916927;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1785312188; x=1785916988;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=nWTQqQwG3YVHAteC50PeEEuDDKjaYcAXX2qekTmA0yI=;
-        b=YfohZHjS/lT8h6aeRbdwa4+gQLnZc4++BD3VYk38sUutRC6u1JrBqnTHcxacOV/Kxa
-         Nf9o5b1uwlxZ41z0+UCZUjgrxwFHkpA8Q/6IdIX6o+astxC+2FEsKy5Ge67kMdlFSndz
-         bMhzkRVoZnaQ2O6Frw1dd6JdNyZNIcaJ/Rb8nDX7pY+RdDGvlHUCacdPgM7rEU51MF95
-         ys73m1OVkTPuEoa/QLhuW8YY3zqeWoo6GZNDypa5g3NoszRgOoldaY0bzrWWMlIVAMl4
-         W1kcMtg7jdgwUdSMQgUuDj6/2WXjAVWoF4oCys75/fQiqabkbQlpmh5edhMSexksgQv/
-         ZKPg==
-X-Forwarded-Encrypted: i=1; AHgh+RoGgLck1WQWq7hRCn/OGIjeybC9jc8Xtz5FX4sAC2SpF5FDdz0muq8ruLy5x+wHbLWrbL1OVWPQx6je@vger.kernel.org
-X-Gm-Message-State: AOJu0YwbYVFo+q/eQoVKhMWa2PbsXQlk5sutCKSfb5K4E6VFkka5gncf
-	fRt6vw35YOe5vSBv3OocRQIokCVyAoh/vDfLBzRvThhgQvERn4gSWVWQJqO0KNVyihjXW9lmlDm
-	zololfvhZP2xUXFzuV06qmbysN8IN989HgVdJQOR1YA==
-X-Gm-Gg: AR+sD13Lsx1okyHVX9szbiawyT9T42RVrkQUNkQt6cMhrDyHm5eMIGZBM5fobuXR2/q
-	T1A5xGLMwVOyCEZsX8S2vdLTWHbBXIOpAT2g6etmzuBfGYGKp+9WIGRgYNlI232w6UpmQ98pAfg
-	0kz4rRKjbSkr3n/18zqKs4GiFWJVFoR1q0E9IYLAzaoWZ9uyyf+EFd1kBzUs5bdwX77Aqc8OYz6
-	3itBcz6D7P6taLjNsw4sqZGx2ny8jepv29EV7oijHtoOUswjJapaeNLxt9YuKYCqwq7K1B2xSUu
-	cmVqRSgPCIzx3MZNSqgcwAw7JxW0zGUIvvkcUfKhJrAueaRD
-X-Received: by 2002:a05:690e:4507:10b0:668:9a53:c392 with SMTP id
- 956f58d0204a3-66905822945mr1566093d50.75.1785312126656; Wed, 29 Jul 2026
- 01:02:06 -0700 (PDT)
+        bh=5lBdzh8bRoeR8HuofUs5c1Q1lfWDYRIe765m7EVTOgI=;
+        b=pLvWBcJ73Ov7WDC5qPFv1ds4dpGlHNTc1r42aZdtocIvArZ7OU/sYljFCwA7yrqIOQ
+         giuhtwxKAckQglaZAGTG7zByzdBS9FbXlGzgX5RpOHVbQR2hPXGaedd2r5akINO6qUL0
+         +jhxCif8HAlGuq32YvZtOCVTkEEAXxacLeTAJLWmE6kIODMoACYoykVJuT9SH0iniyz7
+         PEDN3IEJZbgETSYAqTeEIL4uX01Lw3pePVmM+Jdk7woo1ax0DgODzsnXzmXa7pzIrKQt
+         GUBT041akOZtx8dDyNBAwh5/iD0qG1yxQJJuoYt9j156Ap0qT9VIsxbAwqy31qE9I6mZ
+         5OIw==
+X-Forwarded-Encrypted: i=1; AHgh+Rqff/d/NcOyDtj84XbQyqFd3/Uv9QKR3wTR0zf3GG2XIOtCltzkX/5e+f48t2DXcGpYenMFM8S2QvNi@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw3vGrmoTsUKtZgeTRhkOOvJ3O9+nq053DBmqfnaTSP8meGWI+9
+	vgExnPSQUlqrJLPmH7Zz09UPIAYj4f0005EsgDNTXjglpnuG6AiGGVrRXZE1Vc+wL2SuEDjzPs7
+	bS+pTkVTxJPm3yUmXtI/BKsU3RIn+AL+ZfB4RghrvYf7AokdkHPnyYYFdNAfNK5O7G9nQfVxs
+X-Gm-Gg: AR+sD13Vfl9vFJ5reB4+geivvAnF9FGH0uadW22WjQZWl5obYkGMlxJn/KJjaoGOx9K
+	NGsa6WL1e0x2mx/2iHcMGS1QGvO9bolUK/2L3SSVKQkURrIhOs+/JOjA23bF0dXLm40ne9LC7d+
+	+7M2uLjvEnZ0D5ME+HKSdSInuay55VP0LraotZ6RLwXbRtwu14v76leu5i0I9he/42glZXefvfB
+	d0iOX/GSTjPqdGfU1RCiJlAakorvsKQxj85l5/lImHqZBKDaHxOjzv5Jy1SaAxdVqUNvH52ZWVT
+	SnHRxF/0mlz9oqXkiN0APlaiAq2pP+ZcxZO/uSAOlzU06+/CAvin7ftaS2nuHy/Afz876sOkBQt
+	ivGNb3g3agLdXLA6FW4VAMVGapQLrNDssq+J9c8tv6ukWDlA=
+X-Received: by 2002:aa7:8c18:0:b0:848:7bcf:9a9a with SMTP id d2e1a72fcca58-84ea7949e47mr1014504b3a.1.1785312188102;
+        Wed, 29 Jul 2026 01:03:08 -0700 (PDT)
+X-Received: by 2002:aa7:8c18:0:b0:848:7bcf:9a9a with SMTP id d2e1a72fcca58-84ea7949e47mr1014478b3a.1.1785312187664;
+        Wed, 29 Jul 2026 01:03:07 -0700 (PDT)
+Received: from hu-qianyu-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84ea03d3182sm965815b3a.54.2026.07.29.01.03.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 29 Jul 2026 01:03:07 -0700 (PDT)
+Date: Wed, 29 Jul 2026 01:03:05 -0700
+From: Qiang Yu <qiang.yu@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: clock: qcom: Move x1e80100 TCSR to own
+ binding
+Message-ID: <ammzueQdjCXTOMUH@hu-qianyu-lv.qualcomm.com>
+References: <20260714-hamoa_tcsr_qref_0714_2-v1-0-13047922a376@oss.qualcomm.com>
+ <20260714-hamoa_tcsr_qref_0714_2-v1-1-13047922a376@oss.qualcomm.com>
+ <20260721-tactful-cerulean-shrew-120a9c@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
- <20260727-sm8650-7-1-bonded-dsi-v5-1-c042266b9eeb@linaro.org> <20260727-stirring-miraculous-nautilus-e22bda@quoll>
-In-Reply-To: <20260727-stirring-miraculous-nautilus-e22bda@quoll>
-From: Jun Nie <jun.nie@linaro.org>
-Date: Wed, 29 Jul 2026 16:01:55 +0800
-X-Gm-Features: AUfX_mwa3Ibvs_xhtU9_glYoRrnOJI9mbG-XhW0xN7OZQOuaCyqfso8Gz7qCh3g
-Message-ID: <CABymUCNm8_KNgh+6wKH_PO0Y=N6kxfMxOrWsq=wZZQY9vX2kkA@mail.gmail.com>
-Subject: Re: [PATCH v5 1/6] dt-bindings: display: panel: Modify reset gpio
- number constrain
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
-	Marijn Suijten <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260721-tactful-cerulean-shrew-120a9c@quoll>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDA2NCBTYWx0ZWRfX/ytqjibBskzK
+ 40OEiulKaS252pyF466V3j/Iqh/fMNqBn4aZCZ7cBn76VPDGvcoARzr5Dh8ylblFLWK8Sbj4MSs
+ VCO3O2BuEwJhsuwZ4y83L/G8PL4WBlGOZzJCsMmOocLz0hbrQa1yKGVXPCbSdDXpqMhyJ1lBPj8
+ 1FuiYH0roEAHv0SWc4zJOUENM0fCiWEsxrHV6BNgsw2YDebLj+RC4tHD4Ws58hdGd+VDgZNv7xD
+ hCDhBo7zxuq68ZuG9eJ5B9JEqL+EBpofc5+fo0VmU+MB5ONEkFu4hgavJweDARs0l0nOZJ3SU8L
+ iJfKo3iZ0vLHI6HIJjZidTiullw2xD1KUob1hRKKgUk7eLD5ibVAlogLzI0soaKlJvuMKspofgq
+ c3SbPIR1a3yG9EP4GUHYam1H1WgXbGOSE/ulWhbhQTy1Hpj502VYKblulI+rtBneuAhXvgoX47T
+ DGBzjrHux2YZjkOuMTA==
+X-Authority-Analysis: v=2.4 cv=HP3z0Itv c=1 sm=1 tr=0 ts=6a69b3bd cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=u6tME7obI1wO0-EO1nUA:9 a=CjuIK1q_8ugA:10 a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-GUID: 66xm3IBCPn5UeLV9NNxIPwvyDfuCxgxk
+X-Proofpoint-ORIG-GUID: 66xm3IBCPn5UeLV9NNxIPwvyDfuCxgxk
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDA2NCBTYWx0ZWRfX1sriale5WPMB
+ whmHapl5hNtrf1pot41SxSktzHMtMYpKAHh0789OyCHi2ipgEqsbuzGzQ9D3TQ21Ehew7BpnpEj
+ mv58objNZlxdlgFgUnAiwmBnkv74zcU=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-29_03,2026-07-28_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 spamscore=0 adultscore=0 impostorscore=0
+ clxscore=1015 lowpriorityscore=0 bulkscore=0 phishscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607290064
 
-Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B47=E6=9C=8828=E6=
-=97=A5=E5=91=A8=E4=BA=8C 04:23=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Mon, Jul 27, 2026 at 04:08:40PM +0800, Jun Nie wrote:
-> > Some panel support 2 reset gpio, such as Synaptics R63455. So modify th=
-e
->
-> There is no such binding for R63455.
->
-> > number constrain of gpio to 1 to avoid check failure.
->
-> What check failure? Please paste actual warnings (but not fake ones).
->
-It is a review warning from sashiko.
-- [Low] The `reset-gpios` property's `maxItems: 2` constraint
-conflicts with the strictly enforced `maxItems: 1` inherited from
-`panel-common.yaml`.
+On Tue, Jul 21, 2026 at 11:52:52AM +0200, Krzysztof Kozlowski wrote:
+> On Tue, Jul 14, 2026 at 07:40:41PM -0700, Qiang Yu wrote:
+> > +required:
+> > +  - compatible
+> > +  - clocks
+> > +  - vdda-qrefrpt0-0p9-supply
+> > +  - vdda-qrefrpt1-0p9-supply
+> > +  - vdda-qrefrpt2-0p9-supply
+> > +  - vdda-qrefrpt3-0p9-supply
+> > +  - vdda-qrefrpt4-0p9-supply
+> > +  - vdda-qrefrx0-0p9-supply
+> > +  - vdda-qrefrx1-0p9-supply
+> > +  - vdda-qrefrx2-0p9-supply
+> > +  - vdda-qrefrx3-0p9-supply
+> > +  - vdda-qrefrx4-0p9-supply
+> > +  - vdda-qreftx0-0p9-supply
+> > +  - vdda-qreftx0-1p2-supply
+> > +  - vdda-qreftx1-0p9-supply
+> > +  - vdda-qreftx1-1p2-supply
+> > +  - vdda-refgen0-0p9-supply
+> > +  - vdda-refgen0-1p2-supply
+> > +  - vdda-refgen2-0p9-supply
+> > +  - vdda-refgen2-1p2-supply
+> 
+> This looks like ABI break without any explanation.
 
-> >
-> > Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> > ---
-> >  Documentation/devicetree/bindings/display/panel/panel-common.yaml | 2 =
-+-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/Documentation/devicetree/bindings/display/panel/panel-comm=
-on.yaml b/Documentation/devicetree/bindings/display/panel/panel-common.yaml
-> > index 087415753d606..7c450d2799808 100644
-> > --- a/Documentation/devicetree/bindings/display/panel/panel-common.yaml
-> > +++ b/Documentation/devicetree/bindings/display/panel/panel-common.yaml
-> > @@ -119,7 +119,7 @@ properties:
-> >        confused with a backlight enable signal.
-> >
-> >    reset-gpios:
-> > -    maxItems: 1
-> > +    minItems: 1
->
-> I do not get why all bindings now get completely flexible number of
-> resets. I am pretty sure not all of them constrain that. It's rather
-> your task to check it and explain in commit msg.
->
-> For example the second random I took to check (ILI7807S) does not
-> restrict, so you just made that binding accepting 1000 reset lines. Why?
+Okay, will add below description in commit msg.
 
-I just want to extend the maxItems from 1 to 2 for my case. Do you have
-any suggestion? Thanks!
+These LDOs are required by QREF to provide a stable reference clock, 
+otherwise the USB/PCIe/eDP PHYs cannot work properly.
 
-Regards,
-Jun
-
->
-> Best regards,
-> Krzysztof
->
+- Qiang Yu
+> The dependency here makes it also non-testable by toolset.
