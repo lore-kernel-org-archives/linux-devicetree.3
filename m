@@ -1,104 +1,189 @@
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E71174963B1
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 13:57:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D6404A2E1B
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 14:01:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785333459; cv=none; b=CWEVnpmXTQ4M0zjH6brk2gwxOTbThAal4cZvU/VqkXeJVtx885BAC6SK5W4rmhRCXnoa7bR21vfqO8MttnaG2Mo3q6JqrFG+b0/M54QhnjAaFFlC2B2lxllPA1z7VrT6zmweuimuQI9kHlXCYR0FenMVT4XTGiXH3sPdW/pn7Oc=
+	t=1785333697; cv=none; b=aqd6km/OB1/rYZKB+Vol12mWY4m2Yy7cRbEPWe5mP5BAWygyiMlj8280U0HvEBRaz9PTNB0Cww/+VzqFfmLUAgjqAbfLoZ/r4NzYZ7lvDxis327KtAkXyle3tvSM7TUK7BIPdaFHrI89eQdj9cvTedMZLp4LvnBtUJTptegUzyY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785333459; c=relaxed/simple;
-	bh=vJdll9tgUFJTkxZ66v8f/MFpSPCfNVfFJzk9JQDOSCI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uaJ1vcANMeKKjRlXmMokKUgqzi+o9flGDMvcEay6eDzRaG8cPYGYsTbJrDME8neXusX1rhkaNTepfa4SoeX4DXP2IeuBnwkijyNGoIsABZiGiZ7Twf0li4sDxEipenqX6ymFIGYiFDmjEhQes8g+W+2QZoEAIrpoT8m7tbVTfIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=JyXIGrVm; arc=none smtp.client-ip=209.85.210.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1785333697; c=relaxed/simple;
+	bh=mb8QZO52zmswOCLzMr24dFwI+Z1dHZrV7ksLiupn17Y=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=fncm+WBnU8nRkZfmWGsRfs5inXi0PHVTNxTb9h1GfXHdZklpI4SLsBAD3UdmUAqSOzWhYKZg3W1TsEb3FW1164h9/kHtFerdcUTV19zCXnG56jmS2ZoC9tNniZQ90gVVjuvFvgOQLQfoutCxgIKOL9pIO7CH9ZH2X2P1siaMMPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VCdV/uBA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="JyXIGrVm"
-Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-7ee4399c423so843565a34.0
-        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 06:57:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1785333441; x=1785938241; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=a1faCMgze9p8XUDYZgawC40ARuZzb777TUs53Av6Blw=;
-        b=JyXIGrVmE/e1OiMDfg5vh71SIXp2Qw840nw7q0ysxRCvKBjbNmGLPolMqa/9sssFgB
-         +NTaymU4izBbTXTY8ZMTf7DG7Pa6G/euK/jkGRMpFFwQzyF113tsV//k3/sDztP1HYqG
-         ID1iiPeZf7nh7ICNhPJM+AAEmqMR4YC7jvy4yRnKddC7eU5UPAwD0tEs+To1XoC8Lx1z
-         SdG0yO9/ChIr2K2f2w48uQv81y1jywTdFNYQc0LIk4emTVnJ8sIbEUz3rWRJcdG5Nm3G
-         XE0MwSgZksrGq7QEZvh51NXgp0OtVjIomA2UGv3WqgOipAYI8MkLk1ZQ2X5pXFFpSH46
-         vsdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785333441; x=1785938241;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=a1faCMgze9p8XUDYZgawC40ARuZzb777TUs53Av6Blw=;
-        b=M9YDoSA5WcguJetafreDhRc5wrmkxcvTKNt6REKJi1mty24xti6tbIpReaZ5cWYYYT
-         iOwCGpqtJ/KJ0lFBILtAhXKx+XBxKdY0Ie2flzEEZbV5gLVASSyZjDPO2mrgKFJ9L3ba
-         fRKwNBj51DuaUy4FH+5CUZFC+KsihC8GLCIq/D0jTxoe/KcHIEfri7YxPPvoOm5q9nMu
-         OJnei3K9fOxM1wbbwkAT0/EGCH9GJe3sjIYCUNCIOmnLCPU3XtmjvkJlyem5QVYJjZX/
-         GR4G3FPfIHLm9aCLxLKZJqOwk7AV7ZcSycTzYLkI9/7zCg+0ic8t7nv9KAM2j76ZPQCn
-         FNCw==
-X-Forwarded-Encrypted: i=1; AHgh+RrVqIjaqJyyLxGMyoblrSyxmEqntvEpX1ccWR33Pw1HmYSwbRAyi8FZjWV8Ags9tIwec8/dJsNrxr0P@vger.kernel.org
-X-Gm-Message-State: AOJu0YyapibTeYtIoySA4Mu9r1/nqtBSSIMBnYoBmzCcRFSU4MwqkdTh
-	ZRQN6SEynkUDL6SA3F4tkgcvBzE2obp235i1UZNhExoDXVdXckOXPCamShgv3tOJBz0=
-X-Gm-Gg: AR+sD11ec6yMsNKhAlnWvLB9RCOhVFtmOSyLB2L2umoa398VZwLrr+3mMsJjWYpA3wh
-	Hz/5PhbuHWtMbMTWQQFjOebfGC5zArTzWdKJbLRfpPfAS/dcNmdywfqA9VBl6GCxzbPRj7qz27o
-	4n5QAgUWjaZCwsdZb7vDzWEGGJa+x5Ji/lAvqchPq1AAbKR2UiQbK7mxgGCSlu3F21QRRGvaS31
-	W8QvPR75pw6OnLrM+N0MI8RduUn5vpdSrHC8X0nQuBQZR1NWEQGjkESV9hJz5CEp9F1hW7kU9EY
-	PLuGnTJZqposNggWgBEWSRJQ+HYrJIkclPZHcjxYGCeroKtlUMYBkjy/S/2R0P0TS7alSHlOAYr
-	B8+UtNT1Ga3Dp04IxYLzzjA/QGEyqq7MFaD/n1QCZQMzAM2DHhvnCISygTdKvYo1GJqRGx1eysl
-	vsg7FmdBidAoQd+hmnBwa3PkMb1FPFBitYReXO8VCpPODQdi4OvSSOThpJie+4xVwRcU3VWkl7D
-	246vbOvluF4xmdQv0CrviHeGxh5xntic4BsqZ0=
-X-Received: by 2002:a05:6820:168b:b0:6a4:cf9:9a74 with SMTP id 006d021491bc7-6ac969bce4cmr3382658eaf.1.1785333441212;
-        Wed, 29 Jul 2026 06:57:21 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:3096:ee5f:6f57:afe1? ([2600:8803:e7e4:500:3096:ee5f:6f57:afe1])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-45886924321sm2551708fac.17.2026.07.29.06.57.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 29 Jul 2026 06:57:20 -0700 (PDT)
-Message-ID: <02b159ad-42d3-4d1b-a73e-13612d9f2845@baylibre.com>
-Date: Wed, 29 Jul 2026 08:57:19 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VCdV/uBA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEC481F000E9;
+	Wed, 29 Jul 2026 14:01:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785333694;
+	bh=KzPD2vNXbNx8NrI2xHkEJklLXVAAG3NAM05/0MprzZ8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VCdV/uBAeeoFd6z7VSrK62tf0VAnGqoL/2cFSdFQytjoGCdL/H4noeDdDTpd8ah6d
+	 YRKomAB7OKdQaTnbTdiBUNSyJHvl6THzIdXO6G2HCgqADuSnzW84abRLSdDhmPYLQ9
+	 /DCeokH44UsUtkMzHpXDkZOE1ItD7NKEwZsZs7Xp8vdAKEzPMxrr7cP8ErktEWYZwG
+	 M6pur9ir72jTQ1H1p5BZk1l1OFImysaHHNWUc3cpYyR4GmDyKRDrp4E2KKTX9d3vvZ
+	 VNLPexB5KrtLXP5GG/P+CBPKLnuhz0O1L57W5LlNb61Bbcc6zXMxyIRw/x3Xc1GQXu
+	 rKulIFG/Mu0MQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 4/6] ARM: dts: rockchip: Add support for RV1106 and
+ RV1103
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Simon Glass" <sjg@chromium.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260729133609.3465563-5-sjg@chromium.org>
+References: <20260729133609.3465563-1-sjg@chromium.org>
+ <20260729133609.3465563-5-sjg@chromium.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 29 Jul 2026 14:01:34 +0000
+Message-Id: <20260729140134.AEC481F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] arm64: dts: ti: k3-am67a-beagley-ai: GPIO
- improvements
-To: Vignesh Raghavendra <vigneshr@ti.com>, Nishanth Menon <nm@ti.com>,
- Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: Robert Nelson <robertcnelson@gmail.com>,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260728-arm-dts-beagleyai-gpio-info-v1-0-783ec90d54da@baylibre.com>
- <7ee50408-aa33-4d16-b8ff-f5e2dc59104b@ti.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <7ee50408-aa33-4d16-b8ff-f5e2dc59104b@ti.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 7/29/26 4:57 AM, Vignesh Raghavendra wrote:
-> Hi David,
-> 
-> On 29/07/26 01:14, David Lechner (TI) wrote:
->> This is picking up a few downstream changes from [1] to make GPIOs
->> easier to use that I missed when using the BeagleY-AI with a mainline
->> kernel.
->>
->> [1]: https://openbeagle.org/beagleboard/linux/-/blob/v6.6.58-ti-arm64-r35/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai-pinmux.dtsi?ref_type=heads
->>
-> Above had to be reverted due to reasons mentioned here:
-> https://lore.kernel.org/all/20250221091447.595199-2-mwalle@kernel.org/
-Thanks. I was starting to suspect something like that.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Deleting the `&gpio2` node causes a kernel panic when reading pinc=
+trl debugfs because the statically registered pins reference a missing bank=
+ node.
+- [High] Schema violation and hardware misconfiguration by injecting `rockc=
+hip,grf` into `gpio-bank` nodes and assigning a dummy global GRF.
+- [Low] The unit-address of the `gic` node does not match the first address=
+ in its `reg` property.
+--
 
-Is PATCH 2/2 still acceptable?
+--- Patch [4]: [PATCH v3 4/6] ARM: dts: rockchip: Add support for RV1106 an=
+d RV1103 ---
+commit 2a704554f0ba16f51aa70ddcf7fa1a4a81337f55
+Author: Simon Glass <sjg@chromium.org>
 
+ARM: dts: rockchip: Add support for RV1106 and RV1103
+   =20
+Add the devicetree files for the Rockchip RV1106, a Cortex-A7 SoC
+aimed at IP cameras, and its RV1103 package variant, which has fewer
+pins and no GPIO2 bank. The pinctrl data comes from the vendor kernel in
+the Luckfox Pico SDK.
+
+[1] https://github.com/LuckfoxTECH/luckfox-pico
+
+> diff --git a/arch/arm/boot/dts/rockchip/rv1103.dtsi b/arch/arm/boot/dts/r=
+ockchip/rv1103.dtsi
+> new file mode 100644
+> index 0000000000000..025fde5bf09cf
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/rockchip/rv1103.dtsi
+> @@ -0,0 +1,16 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> +/*
+> + * Copyright (c) 2022 Rockchip Electronics Co., Ltd.
+> + */
+> +
+> +#include "rv1106.dtsi"
+> +
+> +/ {
+> +	compatible =3D "rockchip,rv1103";
+> +
+> +	aliases {
+> +		/delete-property/ gpio2;
+> +	};
+> +};
+> +
+> +/delete-node/ &gpio2;
+
+[Severity: High]
+Does deleting the gpio2 node cause a kernel panic when reading pinctrl
+debugfs?
+
+The Rockchip pinctrl driver registers pins statically based on the SoC
+variant. Because the node is deleted, the pinctrl driver cannot retrieve
+the per-bank rockchip,grf regmap, leaving it NULL or ERR_PTR.
+
+When /sys/kernel/debug/pinctrl/pinctrl-rockchip/pinconf-pins iterates over
+all statically registered pins and calls rockchip_pinconf_get(), would
+passing this uninitialized regmap to regmap_read() trigger a kernel panic?
+
+Should this use status =3D "disabled" instead to safely disable the bank?
+
+[ ... ]
+> diff --git a/arch/arm/boot/dts/rockchip/rv1106.dtsi b/arch/arm/boot/dts/r=
+ockchip/rv1106.dtsi
+> new file mode 100644
+> index 0000000000000..70d3da6bd03ef
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/rockchip/rv1106.dtsi
+[ ... ]
+> +	pinctrl: pinctrl {
+> +		compatible =3D "rockchip,rv1106-pinctrl";
+> +		rockchip,grf =3D <&gpio1_ioc>;
+
+[Severity: High]
+Does assigning gpio1_ioc as the global GRF cause the generic
+pinctrl-rockchip driver to incorrectly route pull/drive configurations for
+all banks (0, 2, 3, 4) to gpio1_ioc?
+
+To satisfy the rockchip,pinctrl.yaml requirement for a global rockchip,grf
+on the parent node, gpio1_ioc is assigned here. This instructs the generic
+driver to use it as info->regmap_base for all banks, which could result in
+silent failures and register corruption.
+
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <1>;
+> +		ranges;
+> +
+> +		gpio0: gpio@ff380000 {
+> +			compatible =3D "rockchip,gpio-bank";
+> +			reg =3D <0xff380000 0x100>;
+> +			interrupts =3D <GIC_SPI 5 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks =3D <&cru PCLK_PMU_GPIO0>, <&cru DBCLK_PMU_GPIO0>;
+> +			gpio-controller;
+> +			#gpio-cells =3D <2>;
+> +			gpio-ranges =3D <&pinctrl 0 0 32>;
+> +			interrupt-controller;
+> +			#interrupt-cells =3D <2>;
+> +			rockchip,grf =3D <&gpio0_ioc>;
+
+[Severity: High]
+Does injecting rockchip,grf into the gpio-bank nodes violate the
+Devicetree schema?
+
+The rockchip,gpio-bank.yaml schema has additionalProperties: false and does
+not define rockchip,grf. Adding it here would trigger a dtbs_check error.
+
+[ ... ]
+> +	soc {
+> +		compatible =3D "simple-bus";
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <1>;
+> +		ranges;
+> +
+> +		grf: syscon@ff000000 {
+> +			compatible =3D "rockchip,rv1106-grf", "syscon";
+> +			reg =3D <0xff000000 0x68000>;
+> +		};
+> +
+> +		gic: interrupt-controller@ff1f0000 {
+> +			compatible =3D "arm,gic-400";
+> +			reg =3D <0xff1f1000 0x1000>,
+
+[Severity: Low]
+Does the unit-address in the node name mismatch the first address in the
+reg property?
+
+The node is named interrupt-controller@ff1f0000, but the first address in
+its reg block is 0xff1f1000. This violates the Devicetree specification
+which requires the unit-address to strictly match the first reg address,
+causing a dtc warning.
+
+Could this be renamed to interrupt-controller@ff1f1000?
+
+> +			      <0xff1f2000 0x2000>,
+> +			      <0xff1f4000 0x2000>,
+> +			      <0xff1f6000 0x2000>;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729133609.3465=
+563-1-sjg@chromium.org?part=3D4
