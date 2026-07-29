@@ -1,271 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53CFA4ADD8A;
-	Wed, 29 Jul 2026 14:04:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E39E34ADD88
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 14:05:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785333898; cv=none; b=oEJY7nUqAw4LYV3FO1RMppOJUIB+h7ybgaCkRfOvN7nAYnzuCvimmVpad06uxgyPpNYYTnfk9CjNtk5ryJXLlTRe0swbR15O2/uMDfIOhMrId1ZgkoraKJPDTJ/Q07lqlTM5ESpz/SlBoJLewzd1/4+rSgS1FclFZmlpSc2VY0E=
+	t=1785333922; cv=none; b=tB+ueYaoQU/xOm02qf7jEEOurG9AC0B8PBySMGh/T5Tv3q2OlB3iUNvY0Lgpj5KUcIcmBJfq8CeGPDE/IkZ1V58y8TMHCRNIduAwThWI+Ai18Uwnt1H28ZKbKqpJXMeHS8YsFTVJI1UZ0+pTz+o2SjbJmOPALrWGfuzYDt2p6NE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785333898; c=relaxed/simple;
-	bh=1a0C9cke4e+5+Kzv29V9S2eVJYfsQkgbvXtAF8XmeNg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tc9n4jCEvpwnanKvs1L/JcJO4uGVlp/KP593xtfO/lYlbjpdbDdyJ+7MBQgOP3k9j0rm+ZdghkEx8jFOUpNvsFaNX6jKgnfxJblXXCc+x1KO5JmVUNi1p+zw9TwpwtniLALUNM2DqY7ZaGoIhnG7OCASlnpTyEqWMw6CpTaEtkk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QguFoiyB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785333922; c=relaxed/simple;
+	bh=kedJqclyCyRJp/6i6+30OOv6NmXTkEEPXp9aMCp9oEw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VxdpTtdCgvsZj6yFGeZS9uRLz+u94CO1J2kHkpgQXOnTySvNa+KEV03+zjnvh783b3UZ+HCdM7+4h7xLCkIuVCPq0+OD+P1w/j/tTACSHEiND7TBQraCjPXmbjd6c790zOQJo7uGyEVMFSRPqGSg5jOXkt6yG87Ba263z1FpScE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YjYJjsfh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=c13VMtom; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QguFoiyB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8370D1F000E9;
-	Wed, 29 Jul 2026 14:04:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785333897;
-	bh=vGx4CqWtQi4SS5X8k2wA0qclMwzASCjnk7HhucnvH8A=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=QguFoiyBjuVW58s63p3VZlBPWJl14pCtkcFAHK6ICYvDy8K+O5SPUvOjAmVB4AzJc
-	 JzjODFG5pWXN84Zt8vDnC8MA5RD99mKCX39JJfEeBWeV0DqJBZDYnDCfPm3oO/O9fM
-	 uP+1j5J/e0Jgfq0e16kQ/MntMxdMyr3FG52pyiV6sb4DKnCCHie49xckZPyDDmXPTi
-	 mqDWTVvXaTxT9y5KaWSlgjHzVpxSoeo03vcNscfoEIfrOd0A3t8cuokUL2H6iWUHrx
-	 JNY/bjz86VBf4Nucqh75iI37eXavc9p7Clsr6mXH/PrETcQJH+SjOfkSj1bh+5dfpD
-	 pOa+SWpTgY9vw==
-Message-ID: <6a901a72-fbcf-4478-b798-e5f234c5e9d8@kernel.org>
-Date: Wed, 29 Jul 2026 16:04:44 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YjYJjsfh";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="c13VMtom"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66TD85nF2061077
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 14:05:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=dtdy+XMyJko6rbke1I+HYXXk
+	E83TfRSaA1yEDFKgiGU=; b=YjYJjsfhT6NJP/PNCN02QupJhX46Ya30fQF/PoUj
+	LET0fwlDTdhAuPeStwMMBKIOcrrQa1oaNjAH5b11a8Y4nFDbAzgroyHRoN1Lx54y
+	mM/giatmvOdw9N1ByIGEICPlKL/Pn8he0P2ObHEIkXsfLRoAK6QBLTRBSXPVCNkJ
+	K42Q1DcxRKwJUnLdYKOAJAgapp4tdtepZ+Ra3Yfn0Zt9D9/gmeuZlrFWpsUXglVs
+	+mMc/kMTfE12Sf00VYi/oX3EVf8L8LWUl7tHHq8vtQYM93URIpUudMxvndo+t42i
+	qymuK29z+D0q7/QjyATpuJWuEWhYAWPtJxo5icNlQXEZLQ==
+Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fqgrcgmf4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 14:05:19 +0000 (GMT)
+Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5bfd3313dadso1185108e0c.3
+        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 07:05:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785333919; x=1785938719; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dtdy+XMyJko6rbke1I+HYXXkE83TfRSaA1yEDFKgiGU=;
+        b=c13VMtomRSjTZlPrT+f4XLw4Lb4BCWZCSSkoa4uAlnwugRXRBtWeee29PEg1TlfJhj
+         yF7cGCP9e8tplc7A/tGcT9MdRajFfX/EPEfeLvDGZLHLT/jKumpzMJZOJLVIwi3s8MUp
+         pI0fbcPfCunAPIOHHjDlBkyqebpwf4XCRzSxUSudcJ/6NGEd06FptlR+ICDO0s7xL9hK
+         1VG0KInbnYWZ2o6nZgljznkaKe69cX21sl1lAfH4Z1xv6LV8NJwyWDGx/xBfUAVahRyt
+         V+SJocJQrdXcIYYx46XD8yK5JeN2iL3IA3c1N333/fT9Pa8zS77Cv5jUg/EKd02OkvoA
+         ck+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785333919; x=1785938719;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dtdy+XMyJko6rbke1I+HYXXkE83TfRSaA1yEDFKgiGU=;
+        b=OoiNtltsXJohfT9UydrTEd9aEWmPoYfJM2I/QlDtGDFzFmMgrbgO6jpvylrvqBJRgy
+         PXXa+z8zWUJsc9HoZF1klVAHqIoPuKp55O8W2m/1aL4A4USYlBKyb/eaVKXq6gxl2Tg3
+         fPPVwMExvyoEUUrLQL2tfhOjOjQHwo9R/yEWWcowdVcleHs6a8jNTLyiz1VRRXAyuPeC
+         rq44jLS6JchlkP9PReM+m9ZJK2LarWrh16XjHLear/FmY5yqm64dxTvq6gcmqulJszl7
+         FnVQ9smBI9b086dvbUdvk1BZL0J3hBmmE9TOVCKp7DoO0FYhGYoZO2cAtRzlR7Gjjy61
+         1ayA==
+X-Forwarded-Encrypted: i=1; AHgh+RobCs00/5cwTALQD8wRVCwVLkh/mOFwoHtMM1QQhJGwaif2gVn16+nUbVAmZWIaikuYkyOOkzsWgrFv@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx5vN9Wi44Ip6KQaS0JhxnK4kMX7MWIhzJMnfKOYEX6VMXnc4+e
+	2WLn4tPhDhBJpTttSDU6H4IN73HoaxFbMyK3aHmpbEgv5uty1AIQ4Ytah3q7qeBHwuuNOpLjIyi
+	FMuXjeP9g1Tj2oDWqp6tu42bjGVfqyzUytGih4KbE7M1mfk1PjjnCEPfJoCMvJnjEZY1QMA4aOA
+	ch4g==
+X-Gm-Gg: AR+sD11vM9S6dFNbDn3ZOLPKKqt5Fsby2+qcSV33l1bVp7I/qv57arKLD+Uur/yK3c9
+	XA0kCSqx5Ps6qVqjF0w5+bJadLIhjSXbzw/DGgwMThOsVmkftJSvJW+JJ2YuGkf0NZfVEKWf0oS
+	XL8wrMnszEiv5+LuGygjiyrqNlVeqFIl40UPFS6JionYNAlx0Z+emoghP5GvVf3zMLQkVtWDIWq
+	IpEM1S5Nw/AZE1TmUTcicP4wU7U0QQau3XaTS28HuM1/0mT5vbRXymYJGvBm9Fwv+ts7YCU/IFX
+	9MVkRWUfFgg5iXuq2pM/yfIDD4L/SfXP2H/jUX/aHjP8xPmPyrO1DeR9ibKtFV8ZoqLBGxsbahW
+	/SKGCxJC9asbc308mvIrJuPUAN35MljsZrqLv9fiwlG7ABKzbiEjRmf+GsOn7q7fsDaV+zEwaOh
+	Wh5BldrZodV9rY0w==
+X-Received: by 2002:a05:6122:168b:b0:5c1:47db:cfcb with SMTP id 71dfb90a1353d-5c33f94e88cmr3208366e0c.4.1785333918999;
+        Wed, 29 Jul 2026 07:05:18 -0700 (PDT)
+X-Received: by 2002:a05:6122:168b:b0:5c1:47db:cfcb with SMTP id 71dfb90a1353d-5c33f94e88cmr3208312e0c.4.1785333918363;
+        Wed, 29 Jul 2026 07:05:18 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39f5d68b24fsm4265361fa.22.2026.07.29.07.05.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 29 Jul 2026 07:05:17 -0700 (PDT)
+Date: Wed, 29 Jul 2026 17:05:15 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: mohit.dsor@oss.qualcomm.com, conor+dt@kernel.org,
+        dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+        robh@kernel.org
+Subject: Re: [PATCH v8 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
+ to HDMI driver
+Message-ID: <5xpvwwovgwuxltjqjnlchamwcvppdc4376fcujeqovm7fr3uhw@6r55ztlq47ob>
+References: <20260728-lt9611c-v7-v8-0-bda216bfaf37@oss.qualcomm.com>
+ <20260728-lt9611c-v7-v8-2-bda216bfaf37@oss.qualcomm.com>
+ <20260728112614.BF6721F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 7/8] dt-bindings: sound: qcom: add Tambora WCD9378
- SDCA codec
-To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
- Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Maciej Strozek <mstrozek@opensource.cirrus.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>
-Cc: Bard Liao <yung-chuan.liao@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
- linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, patches@opensource.cirrus.com,
- linux-kernel@vger.kernel.org
-References: <20260722234221.884765-1-srinivas.kandagatla@oss.qualcomm.com>
- <20260722234221.884765-8-srinivas.kandagatla@oss.qualcomm.com>
- <219d44e2-28ed-4c54-bd00-66e687a0ba48@kernel.org>
- <d0891f90-b69b-4b27-ad58-94c342ad9a6a@oss.qualcomm.com>
- <3c484a68-5db8-464f-992a-6c7584841a10@kernel.org>
- <0cb5a2dd-c49e-47e3-8cc5-ab2ffd397a32@oss.qualcomm.com>
- <ba147ca6-3788-4cbe-95c3-949ae73ee8f0@kernel.org>
- <54f1c3e5-0b84-44a6-a03c-3cd65792de9c@oss.qualcomm.com>
- <6ed441b8-7148-43ef-9c9f-4bc30c468443@kernel.org>
- <b123882c-c51f-44b3-9004-bc1c4242af81@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <b123882c-c51f-44b3-9004-bc1c4242af81@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260728112614.BF6721F000E9@smtp.kernel.org>
+X-Proofpoint-GUID: aNpvag47VhYkt6IZWUInoVO9oVT7p3OO
+X-Authority-Analysis: v=2.4 cv=Id+3n2qa c=1 sm=1 tr=0 ts=6a6a089f cx=c_pps
+ a=+D9SDfe9YZWTjADjLiQY5g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8
+ a=CTjjQwyGzVbXpAY5hREA:9 a=CjuIK1q_8ugA:10 a=vmgOmaN-Xu0dpDh8OwbV:22
+X-Proofpoint-ORIG-GUID: aNpvag47VhYkt6IZWUInoVO9oVT7p3OO
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDExNSBTYWx0ZWRfX4UMyYvTBE4Lm
+ pUTw2zQ4R9VZSFmagdCsl0u44VuaFAMn6CPwJYl9e6agWK70Uv8VOexiRU1sj7ifkKc8XZVvtyh
+ 8lFX2vdqV5WTbT9mtN4Wk305SCoIGag=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDExNSBTYWx0ZWRfXzXlD+FSLgEkj
+ jFAuPUht7A7zIZbYBC1tngEpXctU772gV76n1z5sNrWkbybIEPcXJrou3EYdlXZmNwh8UZNvGXM
+ sd8qy5OqJOTy4G7mi73wa0Yh2gFwR9r1yEI1dnhHs4CxsyxPy8YidJrmv41Kb/N7g1pLpoF9iNt
+ +pTwDDKopziyLrLKTqr2zHkk+9AXRWYhySUgTmWBT61lxxxcvUmXLJ8RVGOjlOIhH7AlGNaXut/
+ 2who2tqeQ2KDs2uNMX/f0YYTdOxYjVyuhkTHw1TvSD/piDKjcKrMkVz+5HERLzvVU2hPvkoAeCv
+ KuC+Hoy2c2YM6l20wp0P2N2MO31qTQe+RedKYqG0/XbwYiW6k0Tcq8qKpYmZNBsbN0PePHfSeSI
+ A/bOE9lR/CM4SOGpRtEa1o6G/UM39cq8pAPZXqTmJjEE1PGg2CUxxKSN9IbIvTNk1iomxCmLTIM
+ wsbQl4x93lUcq9i0+lQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-29_05,2026-07-28_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 impostorscore=0 suspectscore=0 clxscore=1015
+ adultscore=0 malwarescore=0 spamscore=0 bulkscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607290115
 
-On 29/07/2026 15:34, Srinivas Kandagatla wrote:
-> 
-> 
-> On 7/29/26 2:23 PM, Krzysztof Kozlowski wrote:
->> On 29/07/2026 15:02, Srinivas Kandagatla wrote:
->>>
->>>
->>> On 7/29/26 1:43 PM, Krzysztof Kozlowski wrote:
->>>> On 29/07/2026 14:36, Srinivas Kandagatla wrote:
->>>>> On 7/29/26 1:30 PM, Krzysztof Kozlowski wrote:
->>>>>> On 29/07/2026 14:17, Srinivas Kandagatla wrote:
->>>>>>> On 7/29/26 12:40 PM, Krzysztof Kozlowski wrote:
->>>>>>>> On 23/07/2026 01:42, Srinivas Kandagatla wrote:
->>>>>>>>> Describe the WCD9378 SDCA peripheral node (compatible sdw20217011000)
->>>>>>>>> driven by the wcd9378-sdca codec driver for headphone playback, headset
->>>>>>>>> mic capture and jack detection via the SimpleJack SDCA function type.
->>>>>>>>>
->>>>>>>>> WCD9378 codec can be wired up in 2 different modes.
->>>>>>>>> "mobile mode" on phone/tablet SoCs is enumerated as tx and rx device,
->>>>>>>>> each of which has dedicated control and data lines.
->>>>>>>>> "compute mode" on compute platforms such as Glymur is enumerated as
->>>>>>>>> single standard MIPI SDCA class device.
->>>>>>>>>
->>>>>>>>> Both modes share same Device ID, compatible; qcom,compute-mode selects
->>>>>>>>> which driver path is taken.  Supplies, reset GPIO and mic-bias voltages
->>>>>>>>> live on the SoundWire slave node in compute mode and are forbidden in
->>>>>>>>> mobile mode (owned by the top-level codec parent there).
->>>>>>>>>
->>>>>>>>> Assisted-by: Claude:claude-opus-4-7
->>>>>>>>> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
->>>>>>>>> ---
->>>>>>>>>  .../bindings/sound/qcom,wcd9378-sdw.yaml      | 200 ++++++++++++++++++
->>>>>>>>>  1 file changed, 200 insertions(+)
->>>>>>>>>  create mode 100644 Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
->>>>>>>>>
->>>>>>>>> diff --git a/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml b/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
->>>>>>>>> new file mode 100644
->>>>>>>>> index 000000000000..2ed4ad92958e
->>>>>>>>> --- /dev/null
->>>>>>>>> +++ b/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
->>>>>>>>> @@ -0,0 +1,200 @@
->>>>>>>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->>>>>>>>> +%YAML 1.2
->>>>>>>>> +---
->>>>>>>>> +$id: http://devicetree.org/schemas/sound/qcom,wcd9378-sdw.yaml#
->>>>>>>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>>>>>>>> +
->>>>>>>>> +title: Qualcomm SoundWire Slave devices on WCD9378
->>>>>>>>> +
->>>>>>>>> +maintainers:
->>>>>>>>> +  - Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
->>>>>>>>> +  - Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
->>>>>>>>> +
->>>>>>>>> +description: |
->>>>>>>>> +  The Qualcomm WCD9378 codec presents its SoundWire slave devices with
->>>>>>>>> +  class ID sdw20217011000 in both operating modes:
->>>>>>>>> +
->>>>>>>>> +    * mobile mode -- two slave instances sit on separate SoundWire
->>>>>>>>> +      masters carrying data only.  A separate top-level codec node
->>>>>>>>> +      owns the codec's supplies, mic-bias voltages and reset GPIO.
->>>>>>>>> +
->>>>>>>>> +    * SDCA / compute mode -- one aggregated slave sits on a multi-lane
->>>>>>>>> +      master and carries both control and data.  There is no separate
->>>>>>>>> +      top-level codec node, so the SoundWire slave node itself owns
->>>>>>>>> +      supplies, reset GPIO and mic-bias voltage configuration.  It is
->>>>>>>>> +      marked with qcom,compute-mode.
->>>>>>>>> +
->>>>>>>>> +  Codec drivers that match sdw20217011000 use qcom,compute-mode to
->>>>>>>>> +  decide which mode to serve; the presence or absence of this property
->>>>>>>>> +  also gates whether the supply and mic-bias properties on this node
->>>>>>>>> +  are required or forbidden.
->>>>>>>>> +
->>>>>>>>> +properties:
->>>>>>>>> +  compatible:
->>>>>>>>> +    const: sdw20217011000
->>>>>>>>> +
->>>>>>>>> +  reg:
->>>>>>>>> +    maxItems: 1
->>>>>>>>> +
->>>>>>>>> +  qcom,compute-mode:
->>>>>>>>> +    description: |
->>>>>>>>> +      Marks this SoundWire slave as the single aggregated slave that
->>>>>>>>> +      implements the codec in SDCA / compute mode.  Only present when
->>>>>>>>> +      the codec has no separate top-level codec parent; in that case
->>>>>>>>> +      this slave node also owns the codec's supplies, reset GPIO and
->>>>>>>>> +      mic-bias voltage configuration.  Absent in mobile mode.
->>>>>>>>
->>>>>>>> I doubt there is really "compute" or "mobile" mode, so you just wrote to
->>>>>>>> match use case, but that does not match hardware.
->>>>>>>>
->>>>>>> This is hardware fuse setting, its not just usecase based but it changes
->>>>>>> complete wcd9378 hardware topology, in mobile mode we have 2 soundwire
->>>>>>> devices representing tx and rx side of wcd9378 however in compute mode
->>>>>>> it only has one soundwire device dealing with both tx and rx. compute
->>>>>>> mode is sdca class compliant device.
->>>>>>>
->>>>>>>
->>>>>>>> I think there should be no separate top-level codec parent in the first
->>>>>>>> place, thus this property is not needed. You always list here all resources.
->>>>>>> There is no top level aggregated device when the codec is fused in
->>>>>>> compute mode.
->>>>>>
->>>>>> There should not be a top-level in either case. This was always Linux
->>>>>> driver limitation.
->>>>>
->>>>> That is not true, its clearly a hardware topology thing.
->>>>> Codec has two devices tx and rx, Only one of the device (tx) has access
->>>>> to CSR registers of the codec, so rx and tx are pretty much a single
->>>>> aggregate codec device which is why we have top-level representation of
->>>>> the aggregate device.
->>>>
->>>> So two devices, but not three. If TX has access to RX, it does not mean
->>>> there is third device. If there was a third device (that top level
->>>> thingy) you would have it here as well. You don't have, because it is
->>>> purely for Linux.
->>>
->>> WCD codec is a single Codec IP Hardware block which contains two
->>> soundwire interface devices. Effectively we have one aggregate device
->>> representing codec which encompasses two soundwire devices.
->>
->> You have only two devices.
->>
->>>
->>> Third device is the only place where we could represent entire Codec
->>
->> No, any of these devices could. The top-level is a fake being.
->>
->>> rather than just soundwire interface devices of the codec.
->>>
->>> Am not sure what is Linux specific here, its purely hardware topology.
->>
->> The Linux specific is because you needed a placeholder for power
->> sequencing. It is not a pure hardware topology.
-> 
-> Not just power sequencing we have
-> 
-> 1.  tx and rx register read/write interactions happen as part of this
-> device ex: reading and writing rx blocks inside codec needs to go via tx
-> device.
-> 2. connecting/interacting TX and rx processing blocks ex: mbhc
-> 3. power and codec internal clock management
+On Tue, Jul 28, 2026 at 11:26:14AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 12 potential issue(s) to consider:
+> - [Critical] Recursive locking deadlock in `lt9611c_hdmi_audio_prepare`.
+> - [High] The IRQ is enabled before the hardware reset is completed during resume.
+> - [High] Premature manual teardown in remove() conflicts with devm_* APIs, leading to UAF and timeouts.
+> - [High] The IRQ handler incorrectly clears unhandled interrupts by writing an inverted bitmask.
+> - [High] Early registration of the DRM bridge exposes it before resource initialization is complete, risking use-after-free on probe failure.
+> - [Medium] The return value of devm_drm_bridge_add() is ignored.
+> - [Medium] Selecting REGMAP_I2C without a dependency on I2C causes a Kconfig warning and build failure.
+> - [Medium] request_firmware() is called while holding the ocm_lock mutex.
+> - [Medium] Missing `regmap_read()` error handling causes uninitialized memory usage and broken firmware upgrade logic.
+> - [Medium] Incomplete error recovery in suspend callback leaves the device in a permanently broken state.
+> - [Medium] Synchronous firmware request during probe may permanently fail if the root filesystem is not yet mounted.
+> - [Low] Firmware version is not updated in the driver state after a successful sysfs upgrade.
+> --
 
-All this should be part of TX. You cannot use argument that you moved
-some logic outside as reason why you need to move that logic. That's
-circular.
+Please respond to Sashiko findings.
 
-> 
-> 
->>
->> Otherwise, please point me on which/what hardware bus that top-level
->> codec resides on if it represents hardware topology.
-> 
-> Its external codec to the SoC.
 
-No, that's irrelevant. On which external bus does it sit? I2C devices
-sit on I2C bus. Do you see them in top-level?
-
-Best regards,
-Krzysztof
+-- 
+With best wishes
+Dmitry
