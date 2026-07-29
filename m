@@ -1,181 +1,78 @@
-Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.197.177])
+Received: from mail-05.mail-europe.com (mail-05.mail-europe.com [85.9.206.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FF1F4477EF
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 10:06:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=43.154.197.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2E8B4457C6
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 10:09:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.9.206.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785319572; cv=none; b=rIlYW2d2ANjPzFdE5UdsQBk5xv9Jw75j9+rj7xQSkgowZjBHZZTNJbxpwGbXUkpQjoAIwPnDF5s3JfQYdwu2ZzwZPhhid8Q6m4KLEXs8JYAJ2o5/QH8LbHRQW2ExuQH0e+2BLO4Tpcg6qLdCMkQhbhyYcs149/uc1uSTQoDTerw=
+	t=1785319753; cv=none; b=fcpTr4A9dvkD/Hsl7T/Mg85UiGtvF+flQZVXq27bwvcw82lFoZ510WXK38opGm/l6zXL+4abtj4MXLKMDPPRPgNTx4RYmtfSdjFkVjYiTD/cV9bxr5/aIITHwX6BWwnrq13GkfifCSGpR1HN5F111DQLqBn7xRvKSuVY3KSiO98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785319572; c=relaxed/simple;
-	bh=rdrD93vGw6rglSTXXPTSCOggBebhZR6E67QQaOT9DTw=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=bRjXjBK6ECzgbp705TXS4R/X8i+/8v3Re+rPAivZ2JsfMaen0brApXdtV+/C6iOpWWtz0YIgJcKbK9zB3UqgmkiU0mjl0doFxQWrnrShxvJLyaDIRl8IWWmpmW2hSm7caZZ1zeLW1N8ztI3Y+MFaYW8w7v/8Y1wJJ5Ly6I7oKss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=B/Ee5JNH; arc=none smtp.client-ip=43.154.197.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1785319753; c=relaxed/simple;
+	bh=cSe1V1Dmq3Kejcc6aGi3LQ7jrgxlYr6ep914mbo7vOk=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tyodglKgjfqbwBu+qh+4kGWT+7J8iszYpVLOYJYKtWCQVyChzgG/6sYOY2X4YZHxuIPIVmvRIlLxKnBCYL3DLJb5HkpFdQdk10+AVvZZWQRmhWpacKY8rSxryZf9o618mIYaU2mglVAk1opE+sIf+V1OhOrkaLuoT7dZXWwqUJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nxsw.ie; spf=pass smtp.mailfrom=nxsw.ie; dkim=pass (2048-bit key) header.d=nxsw.ie header.i=@nxsw.ie header.b=OX0hVFH2; arc=none smtp.client-ip=85.9.206.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nxsw.ie
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxsw.ie
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="B/Ee5JNH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1785319491;
-	bh=rGjRoJY2bcOuoh/YLY1s9eXB07hnFRse6TYTrFiBgo0=;
-	h=Mime-Version:Date:Message-Id:Subject:From:To;
-	b=B/Ee5JNHBb6O03VFB1ylyBJ/8BqoGaS6ExKQEnnPpLv9EtzyomiggXWib6OUSc9DG
-	 0iiTbfH2/jDxpBRZ1f90D4CGck/40j3MTpudAbAlRxnGmn4F48ZYMVhRFwq1GIOw7H
-	 ho36qc9UFEeqhhZBMEr1HHVSPFjpurRTDlgij9cI=
-X-QQ-mid: zesmtpgz6t1785319483t91deea57
-X-QQ-Originating-IP: 5tTKMPmo2435qtvnLyHekoCjA48pilenE9UZy9JvxsA=
-Received: from localhost ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 29 Jul 2026 18:04:41 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 286073189035881177
+	dkim=pass (2048-bit key) header.d=nxsw.ie header.i=@nxsw.ie header.b="OX0hVFH2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxsw.ie;
+	s=protonmail; t=1785319738; x=1785578938;
+	bh=cSe1V1Dmq3Kejcc6aGi3LQ7jrgxlYr6ep914mbo7vOk=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=OX0hVFH2ZN2+b0M5ro/vMqmcgBAmxD/O6LiTrMnutfY8ZXjupSujcct+yP1BNGvhd
+	 wO3A7JK3Dh+imMPJHPIL52LaGXyugweRMKgt9SPUVTk8/1FBiY68mo2vrBowBbFgs/
+	 eec3UDeWptLbcptfc+uuLcPAGHyj3GVUZqQpsz3PXGh122Am9xpf2ZXJIkYOqTkuWl
+	 IV/w47VT1AyRkqk7pWZsJFvPARE+l4fKXiHdi8XugkE8MKXAxvS0wsPbE8yUuwx2P4
+	 j4RLpsQStrVbgLRq7efXA9dchxpBJKtKewzldKjir6CGbq/VWZJcOoLwjjnsXclnb4
+	 GuZ+JHpquopag==
+Date: Wed, 29 Jul 2026 10:08:54 +0000
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod.linux@nxsw.ie>
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Stanimir Varbanov <stanimir.k.varbanov@gmail.com>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, iommu@lists.linux.dev, devicetree@vger.kernel.org
+Subject: Re: [PATCH v10 01/14] dt-bindings: media: qcom,glymur-iris: Add glymur video codec
+Message-ID: <cTyvVlG4njDAALGERZCnJMS54r5ZomPQ6aLejsdTWw3ifNJ3yuz38KU4j9_PrlabOH4e0Oo4XsuftZkODeXPg1ecfCRdlKHTLkw_JWXWnRY=@nxsw.ie>
+In-Reply-To: <20260726-glymur-v10-1-de451559e88b@oss.qualcomm.com>
+References: <20260726-glymur-v10-0-de451559e88b@oss.qualcomm.com> <20260726-glymur-v10-1-de451559e88b@oss.qualcomm.com>
+Feedback-ID: 136405006:user:proton
+X-Pm-Message-ID: 5442727d7ee7276a753e63241932cc42b0a9b833
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 29 Jul 2026 18:04:41 +0800
-Message-Id: <DKAYXR5BO1X3.3R5L4FN5KF6L7@linux.spacemit.com>
-Cc: "frank.binns" <frank.binns@imgtec.com>, "robh" <robh@kernel.org>,
- "krzk+dt" <krzk+dt@kernel.org>, "conor+dt" <conor+dt@kernel.org>, "dlan"
- <dlan@kernel.org>, "dri-devel" <dri-devel@lists.freedesktop.org>,
- "devicetree" <devicetree@vger.kernel.org>, "linux-kernel"
- <linux-kernel@vger.kernel.org>, "linux-riscv"
- <linux-riscv@lists.infradead.org>, "spacemit" <spacemit@lists.linux.dev>
-Subject: Re: [PATCH v3 1/2] dt-bindings: gpu: img,powervr-rogue: add
- spacemit,k3-gpu
-From: "Baihui Liang" <liangbaihui@linux.spacemit.com>
-To: "Krzysztof Kozlowski" <krzk@kernel.org>
-X-Mailer: aerc 0.17.0
-References: <tencent_79CE08BE248E9ACA2E62BF64@qq.com>
- <065a229b-e6a8-4cce-8725-9c2e19c8f463@kernel.org>
- <DKAXV3CTQ6B1.36715CJUMEB9A@linux.spacemit.com>
- <39f12852-a0d4-4d90-8ea3-dbfa7e1c2059@kernel.org>
-In-Reply-To: <39f12852-a0d4-4d90-8ea3-dbfa7e1c2059@kernel.org>
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: NFQMG86uACrUwTrKvbPcTPng7ir3UJFqNOcGB1iYuTWJpwGjyDBbqxZ0
-	9F/a9j2pPoGkkGb7JA7F7A7iEA+F0ZYKNs+N+KRlSdwjw8fT4Ss4NZ+r6CZ1MfNDf8o6h3D
-	tVrPPLlpwhovr7zfTfxr9QaJ5q0tALhqpiPUBEwgO2SrAFYaCytnZNgNrvlImgERVVEtKQI
-	3KnnzeXkOU0LtZrITZpMU2RFt+zLvXS++mVQollO4embq9qR1PNNUfaI4PBD4q83ULKQCTI
-	y1QPDnLwemgeydmajD/NisDpS+1IPyx3+DTQFEPED9iunGjq9+u/+hZV6xTBWd1EgGA41CZ
-	h8N2IEEMU1w6At4CuLEWZjjss9J9a+OAcEFuO56vH7VIIGb8UNF32WUeRmD/LY2qtUgcQVH
-	+JLNnjBzLFGfzRIcF3Q2MGC3YNvnnDR2JyzTklZ1oqg9HRujvGpIrAuxlNic7wbs0aNZAZD
-	nanRQ4FCbBSdZL0wVGudfkG3A26Oln6khbSSsYXR2dPH3hobOwCTsllxAB1bfCjWpoMTVOy
-	S7b7OsIwxlCh3pMwR9lQ7trtRQnQhpD3KbT4qWdu0KIh+pLOfGAU/peHgIKNgOXtOpy/TeS
-	zy/c/LSZkJE6u5s06eu/owszPXzfwKEngXw3e3aQGSZiS3/3Q/plaoFxE3zznw6zKxRgQY9
-	Ymyd9yuuQd9T/9bnDqOxlzsn3okUlP+pvf3TvZeO4Zq+0Z0xijlqSDqF5FO5/GP89XaQJ+T
-	lKmK3O/uCCqpib3yPSL6L7PYiNip+b4g7s7Qi6Visb280rduV3jLr17P+2Q2trPVYNT+9aq
-	t8fbM7bWMB1Myfi/1VE4CE80HoKcqLwU/cxguTZPpv1PbYwtTHkCBNAu6mGfeagCo5mh3Ie
-	W/H3uh3533b5MXL0wsJNydzDxo08ZvlwqYxaJzKp3sS8vHWlc7fcAFy8Zb13TcUGGFXDnrZ
-	UfqmKdBKu8nWip8GQHPjTCVyo+pNsAdPwnXfHCUPBzCy+oDiVacK/B3hnhh9/YrJbbWTf+h
-	hotNKNCJarIFvk1WWUYNMAXA3SVTHjoFRTOnOOQgBDK4lRZRl5
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-RECHKSPAM: 0
 
-On Wed Jul 29, 2026 at 5:16 PM CST, Krzysztof Kozlowski wrote:
-> On 29/07/2026 11:14, Baihui Liang wrote:
-> > On Wed Jul 29, 2026 at 3:57 PM CST, Krzysztof Kozlowski wrote:
-> >> On 29/07/2026 09:46, Baihui Liang wrote:
-> >>> On Tue, Jul 28, 2026, Krzysztof Kozlowski wrote:
-> >>> &gt; &gt; [...]
-> >>> &gt; &gt; spacemit,k3-gpu is added to the existing ti,am62-gpu/ti,am6=
-2p-gpu/
-> >>> &gt; &gt; ti,j721s2-gpu "if" block that restricts clocks to a single =
-entry,
-> >>> &gt; &gt; since K3 has the same single-clock requirement. It does not=
- match any
-> >>> &gt; &gt; "if" block that constrains power-domains, so that property =
-falls back
-> >>> &gt;
-> >>> &gt; I don't get this explanation. Are you explaining what the patch =
-is doing
-> >>> &gt; or explaining WHY you did this that way?
-> >>>
-> >>>
-> >>> That paragraph was describing schema mechanics, which does not belong=
- in
-> >>> a commit message. v4 will drop it and state only the hardware facts: =
-the
-> >>> K3 integration of the BXM-4-64 has a single "core" clock, and it has =
-no
-> >>> software-controllable GPU power domain.
-> >>>
-> >>>
-> >>> &gt; &gt; to this schema's general constraints, where it is optional.=
- This
-> >>> &gt; &gt; leaves room for a power-domains provider to be added later =
-without a
-> >>> &gt; &gt; further binding change, should one ever be modelled in Linu=
-x for this
-> >>> &gt; &gt; SoC.
-> >>> &gt;
-> >>> &gt; No, you need to provide constraints now. Please read carefully
-> >>> &gt; writing-bindings.
-> >>>
-> >>>
-> >>> Understood. spacemit,k3-gpu currently matches no power-domains "if"
-> >>> block, so it falls back to the top-level 1-2 domains with
-> >>> power-domain-names "a"/"b". That would let a K3 DT with two power
-> >>> domains pass validation, which does not describe this hardware. v4 wi=
-ll
-> >>> add an explicit "if" block:
-> >>>
-> >>>
-> >>> &nbsp; &nbsp; - if:
-> >>> &nbsp; &nbsp; &nbsp; &nbsp; properties:
-> >>> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; compatible:
-> >>> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; contains:
-> >>> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; const: spacemit,k3-g=
-pu
-> >>> &nbsp; &nbsp; &nbsp; then:
-> >>> &nbsp; &nbsp; &nbsp; &nbsp; properties:
-> >>> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; power-domains: false
-> >>> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; power-domain-names: false
-> >>
-> >> I understand only half of this. Please fix your email client.
-> >>
-> >> And why this reply misses reply-to header which connects it to proper
-> >> thread? How am I supposed to find the thread now, among 200 I received
-> >> yesterday?
-> >=20
-> > Sorry -- that went out through a webmail client which sent HTML, so the
-> > quoting and the YAML indentation were destroyed, and it composed a new
-> > message instead of replying in place, which is why it lost the thread.
-> > I have switched to git send-email over our own SMTP; this reply should
-> > be plain text and properly threaded.
-> >=20
-> >> So your name is presented here as "Baihui Liang" then why do you use
-> >> some fake company name?
-> >=20
-> > liangbaihui@linux.spacemit.com is my real work address at SpacemiT. It =
-is
-> > now sent through the company's own mail server.
->
-> Again: then why do you use fake company name as name? Actually not a
-> company name, but laminated product of some company?
->
-> What is Sterling-Ash?
->
-> Best regards,
-> Krzysztof
+On Sunday, 26 July 2026 at 06:50, Vishnu Reddy <busanna.reddy@oss.qualcomm.=
+com> wrote:
 
-Sorry, I misread what you were asking and answered the wrong question.
+> Add device tree binding for the Qualcomm Glymur Iris video codec. Glymur
+> is a new generation of video IP that introduces a dual-core architecture.
+> The second core brings its own power domain, clocks, and reset lines,
+> requiring additional power domains and clocks in the power sequence.
+> The current maxItems constraints for clocks and power-domains in the
+> common venus schema were sized for platforms available at the time of
+> authoring. The glymur platform introduces a dual core architecture
+> that requires more clocks and power domains, exceeding these limits.
+> Raise maxItems for clocks, clock-names, power-domains and
+> power-domain-names to accommodate the glymur platform.
+> The glymur platform-specific schema have fixed constraints for these
+> properties, so the common schema only acts as an upper bound.
+>=20
+> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 
-"Sterling-Ash" is not a company and not a product name. It was a
-personal nickname left over in my git config, and I did not notice it
-was being used as the author name on the patches until you asked. It is
-not my name and should not have appeared there.
+Krzysztof's RB has been dropped from v9 to v10 here.
 
-The git config is fixed, and v4 will be sent with:
+Is that purposeful - all of the other patches in this series have the relev=
+ant RB's retained.
 
-  From: Baihui Liang <liangbaihui@linux.spacemit.com>
-  Signed-off-by: Baihui Liang <liangbaihui@linux.spacemit.com>
+Using proton mail web thingy so my email may appear weird idk.
 
-Best regards,
-Baihui Liang
+Anyway please indicate what is going on with the yaml RB's here.
+
+---
+bod
