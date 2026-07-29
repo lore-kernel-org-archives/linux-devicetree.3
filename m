@@ -1,312 +1,183 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECFBE3BB109;
-	Wed, 29 Jul 2026 08:27:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E53C43F0BD
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 08:30:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785313632; cv=none; b=BS0oGqYSdFBOLgGIQKJAKjth3Xinh789m/Jbaw0wlhMjfU0Ihfw2gBj7nXQYRHA5HxNQD1iRcjIeDs74t/jsPZ4XJ9rp6p0czxitU46S0KEpZsfA9xqEmN7hHG9zRH2mjhgc4fac47KOcpDGEpWimOWGOCqdaILu10fmAl95tnI=
+	t=1785313847; cv=none; b=Z00x3ZZsB6mpHpJ2i6G81Bt/dxIfrDE7wN9CdE+YqPuS3VBgTdLTqpTQ269CZ5XcXyYvfAhzgOdrc9Eww/KJgNaKZcgE+wigiHvMEr3dFS5Jay6OsVpysNk4oaD0GKMXXIXtHOC19/f/1+kwVDjT045sV8Z2jLnN6F38JiuxP7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785313632; c=relaxed/simple;
-	bh=zDzo9F6BjYMLU4Bklfq3YRGbBEWoNPSpXL18gbs0G2E=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=g2pHBjwaiQLjvC9Ktb/BhhUOLzBRb4S0snvItn9Zca0kRAHURwx68rjnFfOn05P6C+sj9Q0L0enXGguUfiwDUc9yOjB1SZyVoD5VWkrNW3jsVHRLphJr6Yu8SUSQuRuT1Rnv0erziMb6Cs448EFiIiEZDefRiCZQFm3TsITdkdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OLGaG75e; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1785313847; c=relaxed/simple;
+	bh=idS56dZxFrCrC/0KTOhaUmII5hR1qScA8Hw7c63mzUA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qJmpk3l8wad99dhySzTLphFdLIgWcM7/EiIsOznTirw7gfCqswxYFMmB2wgZsScMsQrCyFC/rxiIcQ8bDVPhBNlws5nZt+vewHiwysmdMtsjQP7Ll4Nz9xdrLDf3RSqmWj4kpQJUvDngLUZ2+FTdANy38PpX1qbNvi21UvAhQ5U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XAjw0fuL; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gQTbQPBU; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OLGaG75e"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 0957CC4AF48;
-	Wed, 29 Jul 2026 08:27:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1785313629;
-	bh=zDzo9F6BjYMLU4Bklfq3YRGbBEWoNPSpXL18gbs0G2E=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=OLGaG75eUFoR568hmVjiBGvp+6N9jEegJLlWSa76zD0i/FOGOGEN4mzl0qsLJo/dO
-	 3J0xJ68vibqFJ8UNzmZR/Ssk1nHZTD3YOgI1x+H8zDPNoANRZeK88pbC1a010QzmAJ
-	 vUP3vaVJw9RHPZq7DaQFY0+BvhuqBAmh1EyFAMchQI3Sz64jlgernX6V3QsLIonT93
-	 tNrJYD7pJUbcBGsrjE6PQGAoXeZInIAB2qfEM2cIhdDdHte0pBt+uaboLLD8g7baiD
-	 64kmYW8+SGZ6kkNe20LTQ/DTchZPmT+zcHqQZ9LP84HzFu9Q0gQetgdUvUYWCpRZih
-	 TuhkcAE1o1JFw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E735BC53219;
-	Wed, 29 Jul 2026 08:27:08 +0000 (UTC)
-From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Date: Wed, 29 Jul 2026 09:25:33 +0100
-Subject: [PATCH v10 06/17] iio: core: create local __iio_chan_prefix_emit()
- for reuse
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XAjw0fuL";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gQTbQPBU"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66T7f37M1341149
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 08:30:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	taUkXjqd56QZtUnPVegV2/U17mWYpbYvfF4/cskROPg=; b=XAjw0fuLNy/jVuRs
+	bw1+42NxWqrrIwWQKMk8y9pXIGurnt9jZnSDbvL9uMA3LsCalRgaukAhAedITlzr
+	FNYgr2IbQgNXpCrHYpN3NyazMUH+XiJYlPoufuDGj0NJ82bsIOqQ/9HKESaiqkoF
+	ZXeoSWF4QS17ycOtLdSDMuFAk6i6KIl8rwqIhK5wy9Ge/tupyWZBUeFHiqD9UXRA
+	lmLz829THJpUtSntKnTtYpgHN/2p9cTh24VPI0PP9N4zZAwGnOA5yaUqvQkPaoAN
+	Trn5Ma0HE1n+rGUIk9LnPBwr2Y8qLFt0bYQIxX3ViLV7i1HJZkUI5apQUcSbDB29
+	ewkCcw==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fq0q6u27h-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 08:30:32 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-92e661ce1dcso11219785a.0
+        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 01:30:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785313831; x=1785918631; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=taUkXjqd56QZtUnPVegV2/U17mWYpbYvfF4/cskROPg=;
+        b=gQTbQPBUjTO1uRK8Hak9MgNuIG/QWp/K9V1c0vkrO8CBb105QkBee3uGJBxt1qKpxq
+         z+LUWdDQkDrBjOF0zFMTpuuNdaXFqJcbD4a4N4cpGQEWXBAN0S4A30gqUiIjiGxgGdcN
+         eUFBE8hUmJ3nmdXx9Jto+hBDJCWMiWvw0lqE53uzGj9o7cZd5ofdhEPsVtAl0PZDXXJv
+         rpEKRXkeO8NDEUbLoWjmLU/nhQpZMUg7/al6SSnvlOXxxCNVxhelg7aMOaMa0JE9d+q7
+         Ou7tAZTQMkt6SN24nNygIWChl5qBk1fGtUrKqHOlcUkk9VZwf/oCJ3Cyf6up8WxjdjEb
+         8ehw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785313831; x=1785918631;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=taUkXjqd56QZtUnPVegV2/U17mWYpbYvfF4/cskROPg=;
+        b=O2Ej+Cfcscgj6Q+zZjqTo1VJqJ2qL6ud1CFaS6hrZyjj565wufKWxUC9kaaOSUoxOf
+         SXUGrbi3AuwhxZ6S9qF49TULCPD8Uua8d325VLpa30CXo6C/oRNrx7whVwJ+PLlV2Yr8
+         chWheKP+jQrPqwfPTqQ8/InSIlY1JSU9dx0qX5/XNjmO5cjvuQ8etbz9dWU5fpuu9yuu
+         sQLXp0qywMfwNbGHgbqkwfiFqj4mUC51tqTy6iNLRKGV40OOSu1NfcNvmYEIXB0H4yaz
+         UlOoGPcwHPIZHXdqglZu1uPu8pBBCysZlutb1FQwEWi6xVfgAYwHxXNPWGBcywGFtKWC
+         YMqA==
+X-Forwarded-Encrypted: i=1; AHgh+RrjaMXyKukWwlpb5vllnPf94ERp8i/YOMZqyiXRAq+zLf4tuknMDINr9423rWy1ai0keTNp23iEE2xq@vger.kernel.org
+X-Gm-Message-State: AOJu0YxQWjF0oGlQPquZe9BLa6tT9TtVpz4ZI3t0C6RJUYqkjXf3g3B2
+	yftcnENZm9O+V1Iyq5AJxXkc2hZN5szg/oaunCHbADetHlfPYqY4Bi/dPIrAP/VnUbfkLEKEzjY
+	rO+AhIpOYduv6Cfo5LsKhvU1qQqdVi2Bc+5OqcY0Z735s2codJc3Or8Ia2LEzO+Ul
+X-Gm-Gg: AR+sD13V657H0WnWfT6lipjYR1f1dpXnFXh+zI/H0/71vPZztvs/kBmCRJcqnxF2Uoi
+	vIuCNXXsb44TEtXllmh6esQEYdLsuTIJfZLApFtSYY5LLFhE356yqAwCkxaPRTufRUXUhz5LtFb
+	ik62hxt4CgtI3uib7LSc4XaO1Vd4iEbdpq7eRyM4Oj4mdlW+VLoJ765oVxy9CTTxxftR8aoXH7G
+	YcRPvWGxDNVuDL3uwtXA0eQ8hUOeXtUoauUBbpR59bbR4fnQAd1tOHVQnCseQfDx/JGkgLtdnjG
+	74KLuFbLIVs27yyhxfyWlkHb+K19s8C26pBQTvv2AlQbrT5pZQjz5s/ia8WUMFPrjoLMHmTiFAR
+	h+3ZFREdVOLGlvDbh4c9BiW87
+X-Received: by 2002:a05:620a:4726:b0:92e:6485:f640 with SMTP id af79cd13be357-93302671e18mr523006485a.4.1785313831376;
+        Wed, 29 Jul 2026 01:30:31 -0700 (PDT)
+X-Received: by 2002:a05:620a:4726:b0:92e:6485:f640 with SMTP id af79cd13be357-93302671e18mr523002885a.4.1785313830916;
+        Wed, 29 Jul 2026 01:30:30 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1f8f981705sm28440166b.9.2026.07.29.01.30.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 29 Jul 2026 01:30:29 -0700 (PDT)
+Message-ID: <2091d5bf-8c76-479b-98fd-fc75b3adf644@oss.qualcomm.com>
+Date: Wed, 29 Jul 2026 10:30:27 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 4/6] arm64: dts: qcom: glymur-crd: Add PHY supplies for
+ pcie3_phy
+To: Qiang Yu <qiang.yu@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+        Philipp Zabel <p.zabel@pengutronix.de>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260724-glymur_linkmode_0724-v7-0-65c8469c6b65@oss.qualcomm.com>
+ <20260724-glymur_linkmode_0724-v7-4-65c8469c6b65@oss.qualcomm.com>
+ <74907d0a-cf14-43b6-bcfb-8c283926a820@oss.qualcomm.com>
+ <ammhm1mnHhn2okgJ@hu-qianyu-lv.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <ammhm1mnHhn2okgJ@hu-qianyu-lv.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260729-ad9910-iio-driver-v10-6-aa1f6167729e@analog.com>
-References: <20260729-ad9910-iio-driver-v10-0-aa1f6167729e@analog.com>
-In-Reply-To: <20260729-ad9910-iio-driver-v10-0-aa1f6167729e@analog.com>
-To: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-hardening@vger.kernel.org
-Cc: Lars-Peter Clausen <lars@metafoo.de>, 
- Michael Hennerich <Michael.Hennerich@analog.com>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
- Rodrigo Alencar <rodrigo.alencar@analog.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785313627; l=7174;
- i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
- bh=oHv9yUvbBMOmb0C0IYClxjAbCiF7JNtiCFd2C4OtotY=;
- b=A0vJkFNftPNOwbmZ8FKtGzgMckpUA0p1xgXPRi1AycPhrw4sIZ1zNO75OWDRprv7zktvf1Q9Q
- hHv9hDbnn1oC+thpnAcmhdmqUv272IvZJ3MjmtIrrsGW30lil+kyFYz
-X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
- pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
-X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
- with auth_id=561
-X-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-Reply-To: rodrigo.alencar@analog.com
+X-Proofpoint-GUID: VjlDpTQOwOPEqN5k8iPnXf5x64d21JSR
+X-Authority-Analysis: v=2.4 cv=DqpmPm/+ c=1 sm=1 tr=0 ts=6a69ba28 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=UQj4KVIS10MEeeuzceMA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-ORIG-GUID: VjlDpTQOwOPEqN5k8iPnXf5x64d21JSR
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDA2OCBTYWx0ZWRfX9bE+h+p3+mw5
+ tPO0kLoCknvL1Eahq3xz1H6Z1LkMesbV28D3bWvft0Jzvo7Pd5+oA9x5ml+ZdQ6OV5NIgs2oEjd
+ Y50VtHomMpqulmnKyNkQmSLnc0poQmU=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDA2OCBTYWx0ZWRfX2wsyVd63H/a4
+ FQTvf2eFBrDXLznlI8fyrVaFRe1q94Q50LiOABm75WdXoscmleR8FKS+g53rq0e9mdPsh/dJ/+T
+ 4uasPNIA+4duXaI+3j70ZCWSjSZdXvLTF30jT9dTNpl1nkiGFoV0OCJIu/gPD0nH7tDd3MkJN5P
+ GNI9eQXiaJuoz+amqt1127nL0EWG7P2tn2/21+wWKLUnkWJVLSyPJjpDY74onJidZs1rUbjL6fe
+ /XhtXyg5EDSGOSDlAmv1Ff4kSm/a/CzCgzxE2s3xxvwtMMIzMtVaIKm7Fe4SqK4tavlTTsPCpcq
+ FzvQvnOkkfYv84wSAUtPaE4BP3vH5Hjza4SSpeoBDlxpEIYV9sFKapD3a8t4n0Oo8OMuBEAEKY8
+ wC4HMrRFZtZ3Oy13GOuV2QOzOHAEEL70iw+U4nLKj0oix0n4YyroMpCXpQUY/sqffybS1lIFt3i
+ JbBOM/EDAYU3a4aGzEw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-29_03,2026-07-28_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 adultscore=0 bulkscore=0 spamscore=0
+ suspectscore=0 lowpriorityscore=0 malwarescore=0 priorityscore=1501
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607290068
 
-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+On 7/29/26 8:45 AM, Qiang Yu wrote:
+> On Mon, Jul 27, 2026 at 04:47:15PM +0200, Konrad Dybcio wrote:
+>> On 7/24/26 12:01 PM, Qiang Yu wrote:
+>>> CRD wires the shared Gen5x8 PCIe PHY's regulator supplies through
+>>> board-specific PMIC rails. Add the vdda-phy, vdda-pll, and
+>>> vdda-refgen0p9/1p2 supplies for &pcie3_phy.
+>>>
+>>> Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
+>>> ---
+>>>  arch/arm64/boot/dts/qcom/glymur-crd.dts | 8 ++++++++
+>>>  1 file changed, 8 insertions(+)
+>>>
+>>> diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dts b/arch/arm64/boot/dts/qcom/glymur-crd.dts
+>>> index 6125617de82a..0aae613a33ad 100644
+>>> --- a/arch/arm64/boot/dts/qcom/glymur-crd.dts
+>>> +++ b/arch/arm64/boot/dts/qcom/glymur-crd.dts
+>>> @@ -28,3 +28,11 @@ &mdss_dp1 {
+>>>  &mdss_dp1_out {
+>>>  	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
+>>>  };
+>>> +
+>>> +&pcie3_phy {
+>>> +	vdda-phy-supply = <&vreg_l3c_e1_0p89>;
+>>> +	vdda-pll-supply = <&vreg_l2c_e1_1p14>;
+>>> +
+>>> +	vdda-refgen0p9-supply = <&vreg_l1c_e1_0p82>;
+>>> +	vdda-refgen1p2-supply = <&vreg_l4f_e1_1p08>;
+>>
+>> I'm guessing you also meant to enable it here
+> 
+> No, we need to keep it as disabled because pcie3b is not enabled by
+> default on glymur crd.
+> 
+> See the fake pcie3b_phy be dropped, it is disabled
+> https://lore.kernel.org/all/20260420133616.88740-2-krzysztof.kozlowski@oss.qualcomm.com/
 
-Move logic to create a channel prefix for naming attribute files into a
-separate __iio_chan_prefix_emit() function for reuse. The dev pointer is
-passed to __iio_device_attr_init() so that dev_err() replaces WARN().
-The new helper is going to be used to expose channel relationships as
-sysfs attributes.
+I think there are SKUs with dual-NVMe that use it
 
-Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
----
- drivers/iio/industrialio-core.c | 172 +++++++++++++++++-----------------------
- 1 file changed, 71 insertions(+), 101 deletions(-)
-
-diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-core.c
-index 98fc00343dc5..23d3801887a9 100644
---- a/drivers/iio/industrialio-core.c
-+++ b/drivers/iio/industrialio-core.c
-@@ -25,6 +25,7 @@
- #include <linux/poll.h>
- #include <linux/property.h>
- #include <linux/sched.h>
-+#include <linux/seq_buf.h>
- #include <linux/slab.h>
- #include <linux/wait.h>
- 
-@@ -199,6 +200,61 @@ static const char * const iio_chan_info_postfix[] = {
- 	[IIO_CHAN_INFO_CONVDELAY] = "convdelay",
- 	[IIO_CHAN_INFO_POWERFACTOR] = "powerfactor",
- };
-+
-+static ssize_t __iio_chan_prefix_emit(struct device *dev,
-+				      const struct iio_chan_spec *chan,
-+				      enum iio_shared_by shared_by,
-+				      char *buf, size_t len)
-+{
-+	const char *type = iio_chan_type_name_spec[chan->type];
-+	const char *dir = iio_direction[chan->output];
-+	struct seq_buf s;
-+
-+	seq_buf_init(&s, buf, len);
-+
-+	switch (shared_by) {
-+	case IIO_SHARED_BY_ALL:
-+		break;
-+	case IIO_SHARED_BY_DIR:
-+		seq_buf_printf(&s, "%s", dir);
-+		break;
-+	case IIO_SHARED_BY_TYPE:
-+		seq_buf_printf(&s, "%s_%s", dir, type);
-+		if (chan->differential)
-+			seq_buf_printf(&s, "-%s", type);
-+		break;
-+	case IIO_SEPARATE:
-+		/* Validate differential channel settings */
-+		if (chan->differential) {
-+			if (!chan->indexed) {
-+				dev_err(dev, "Differential channels must be indexed\n");
-+				return -EINVAL;
-+			}
-+			if (chan->modified) {
-+				dev_err(dev, "Differential channels can not have modifier\n");
-+				return -EINVAL;
-+			}
-+		}
-+
-+		seq_buf_printf(&s, "%s_%s", dir, type);
-+
-+		if (chan->indexed)
-+			seq_buf_printf(&s, "%d", chan->channel);
-+
-+		if (chan->differential)
-+			seq_buf_printf(&s, "-%s%d", type, chan->channel2);
-+
-+		if (chan->modified)
-+			seq_buf_printf(&s, "_%s", iio_modifier_names[chan->channel2]);
-+
-+		if (chan->extend_name)
-+			seq_buf_printf(&s, "_%s", chan->extend_name);
-+		break;
-+	}
-+
-+	return seq_buf_has_overflowed(&s) ? -EOVERFLOW : s.len;
-+}
-+
- /**
-  * iio_device_id() - query the unique ID for the device
-  * @indio_dev:		Device structure whose ID is being queried
-@@ -1088,7 +1144,8 @@ static ssize_t iio_write_channel_info(struct device *dev,
- }
- 
- static
--int __iio_device_attr_init(struct device_attribute *dev_attr,
-+int __iio_device_attr_init(struct device *dev,
-+			   struct device_attribute *dev_attr,
- 			   const char *postfix,
- 			   struct iio_chan_spec const *chan,
- 			   ssize_t (*readfunc)(struct device *dev,
-@@ -1100,106 +1157,22 @@ int __iio_device_attr_init(struct device_attribute *dev_attr,
- 						size_t len),
- 			   enum iio_shared_by shared_by)
- {
--	int ret = 0;
--	char *name = NULL;
--	char *full_postfix;
-+	char prefix[NAME_MAX + 1];
-+	ssize_t ret;
- 
- 	sysfs_attr_init(&dev_attr->attr);
- 
--	/* Build up postfix of <extend_name>_<modifier>_postfix */
--	if (chan->modified && (shared_by == IIO_SEPARATE)) {
--		if (chan->extend_name)
--			full_postfix = kasprintf(GFP_KERNEL, "%s_%s_%s",
--						 iio_modifier_names[chan->channel2],
--						 chan->extend_name,
--						 postfix);
--		else
--			full_postfix = kasprintf(GFP_KERNEL, "%s_%s",
--						 iio_modifier_names[chan->channel2],
--						 postfix);
--	} else {
--		if (chan->extend_name == NULL || shared_by != IIO_SEPARATE)
--			full_postfix = kstrdup(postfix, GFP_KERNEL);
--		else
--			full_postfix = kasprintf(GFP_KERNEL,
--						 "%s_%s",
--						 chan->extend_name,
--						 postfix);
--	}
--	if (full_postfix == NULL)
-+	ret = __iio_chan_prefix_emit(dev, chan, shared_by, prefix, sizeof(prefix));
-+	if (ret < 0)
-+		return ret;
-+
-+	if (ret)
-+		dev_attr->attr.name = kasprintf(GFP_KERNEL, "%s_%s", prefix, postfix);
-+	else
-+		dev_attr->attr.name = kstrdup(postfix, GFP_KERNEL);
-+	if (!dev_attr->attr.name)
- 		return -ENOMEM;
- 
--	if (chan->differential) { /* Differential can not have modifier */
--		switch (shared_by) {
--		case IIO_SHARED_BY_ALL:
--			name = kasprintf(GFP_KERNEL, "%s", full_postfix);
--			break;
--		case IIO_SHARED_BY_DIR:
--			name = kasprintf(GFP_KERNEL, "%s_%s",
--						iio_direction[chan->output],
--						full_postfix);
--			break;
--		case IIO_SHARED_BY_TYPE:
--			name = kasprintf(GFP_KERNEL, "%s_%s-%s_%s",
--					    iio_direction[chan->output],
--					    iio_chan_type_name_spec[chan->type],
--					    iio_chan_type_name_spec[chan->type],
--					    full_postfix);
--			break;
--		case IIO_SEPARATE:
--			if (!chan->indexed) {
--				WARN(1, "Differential channels must be indexed\n");
--				ret = -EINVAL;
--				goto error_free_full_postfix;
--			}
--			name = kasprintf(GFP_KERNEL,
--					    "%s_%s%d-%s%d_%s",
--					    iio_direction[chan->output],
--					    iio_chan_type_name_spec[chan->type],
--					    chan->channel,
--					    iio_chan_type_name_spec[chan->type],
--					    chan->channel2,
--					    full_postfix);
--			break;
--		}
--	} else { /* Single ended */
--		switch (shared_by) {
--		case IIO_SHARED_BY_ALL:
--			name = kasprintf(GFP_KERNEL, "%s", full_postfix);
--			break;
--		case IIO_SHARED_BY_DIR:
--			name = kasprintf(GFP_KERNEL, "%s_%s",
--						iio_direction[chan->output],
--						full_postfix);
--			break;
--		case IIO_SHARED_BY_TYPE:
--			name = kasprintf(GFP_KERNEL, "%s_%s_%s",
--					    iio_direction[chan->output],
--					    iio_chan_type_name_spec[chan->type],
--					    full_postfix);
--			break;
--
--		case IIO_SEPARATE:
--			if (chan->indexed)
--				name = kasprintf(GFP_KERNEL, "%s_%s%d_%s",
--						    iio_direction[chan->output],
--						    iio_chan_type_name_spec[chan->type],
--						    chan->channel,
--						    full_postfix);
--			else
--				name = kasprintf(GFP_KERNEL, "%s_%s_%s",
--						    iio_direction[chan->output],
--						    iio_chan_type_name_spec[chan->type],
--						    full_postfix);
--			break;
--		}
--	}
--	if (name == NULL) {
--		ret = -ENOMEM;
--		goto error_free_full_postfix;
--	}
--	dev_attr->attr.name = name;
--
- 	if (readfunc) {
- 		dev_attr->attr.mode |= 0444;
- 		dev_attr->show = readfunc;
-@@ -1210,10 +1183,7 @@ int __iio_device_attr_init(struct device_attribute *dev_attr,
- 		dev_attr->store = writefunc;
- 	}
- 
--error_free_full_postfix:
--	kfree(full_postfix);
--
--	return ret;
-+	return 0;
- }
- 
- static void __iio_device_attr_deinit(struct device_attribute *dev_attr)
-@@ -1242,7 +1212,7 @@ int __iio_add_chan_devattr(const char *postfix,
- 	iio_attr = kzalloc_obj(*iio_attr);
- 	if (iio_attr == NULL)
- 		return -ENOMEM;
--	ret = __iio_device_attr_init(&iio_attr->dev_attr,
-+	ret = __iio_device_attr_init(dev, &iio_attr->dev_attr,
- 				     postfix, chan,
- 				     readfunc, writefunc, shared_by);
- 	if (ret)
-
--- 
-2.43.0
-
-
+Konrad
