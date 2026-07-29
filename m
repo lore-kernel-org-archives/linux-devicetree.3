@@ -1,108 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mxb.seznam.cz (mxb.seznam.cz [77.75.78.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B415245D5F5
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 11:59:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B06C5443AA7;
+	Wed, 29 Jul 2026 11:59:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.75.78.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785326347; cv=none; b=FIOxTc85blc4ilyLlJ5qsIfLlDHx9qwHimVnWIJrBzDJmkE8S+bsDba4XL2PLHwh+j4R7tB3x853eS3Ld6yOJef0/fA8geHf9ajueiA1Y0o7Ue8qDwxT5V9GSMkh681zxHssmSBJKNxEIy+LaKcHj/lFL4FeADmw2Cis+OJSVkY=
+	t=1785326403; cv=none; b=K3yG2rzDBdfMPE/y4qF7lKQH+q3I4oLBC42ktW/e+mj2ooVc11IjEV+blUTeBA4q2fuFyHxWv8n7Vc05xeuNQ5tQZ1XPcdNE7XQVk6CkdtdnsC8tLisijbqQLKnQ4uIosP7YEUJ4h/1VheVRiwmM7zPDoewFglhjX65+ADzSkfQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785326347; c=relaxed/simple;
-	bh=5Fyxb20o4sLedYC9ZHE/+/VMyUeXrMeIc7UgGt2n6Rg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=c5SH61XAhpbhBevKSm1B4UaACFTAI0GM7dtcgstKCR2LX/VAmnYB19AXLFNmJS3kCjhMocE0LxWUFQTo3J0eAdHB/snsxJU60slRXnWV95VXDylg/K0MY6Cbasf1DYbXl/Hsr6gCCVaDcrROgzP3+J8NYewododjT3evbsWK9ts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BXHJj932; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785326403; c=relaxed/simple;
+	bh=kOdEVimoPBGtAMpf8yRJ+sOoCFXh/vCxiVV147TWl7A=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=NP1Ev/oDWcP4UyFL2bWhAfJMaVHwBwxvny1kfsDDRUicALXJ2GLRZ3iMjsLJfLqv3fOZ2Xf63lur5xZYCnRltE6PxxmoeiJnCOrdx555+XM+6dn1zlWuA+87WeCsyB55C6NL5OkT94UsusizGvk/SBmo9+IQHp/xxZlWJh3JR/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loebl.cz; spf=none smtp.mailfrom=loebl.cz; dkim=pass (2048-bit key) header.d=emailprofi.seznam.cz header.i=@emailprofi.seznam.cz header.b=OGSwdu6S; arc=none smtp.client-ip=77.75.78.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loebl.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=loebl.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BXHJj932"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D93D1F000E9;
-	Wed, 29 Jul 2026 11:59:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785326346;
-	bh=K2CgLS/+spJKMUpO/gEQ5A95XiQKoylqnDx1qFFVkFE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BXHJj932r2CwwtHtw38BnylLcrtx87Nve7ZB1oWd/b8kl+SbqeD7BmF66yMC2PNjn
-	 dp/5BftDDJbNhHsrD91xM0t4lQIIFs2x7J5thUFDbFEqqkcYijQoZUBBpJgInp+y1b
-	 DYVUCFyA/4FBgiErmHYEhVBMTbmLlRrX4hoHi+V4NHTLBZgVp+zM0qqayFjlJdHy8X
-	 DGG9x5OBwYpz+tlJ1L5YrdeRqZnvfUOBeayUXtmICD2zzsFs8ry8yqy46X4nNlCG6D
-	 ahbvevcHO3LfeHwaEYAkEMfdw1XdJom4UGTf8Am7XzWcXA88fD3c2067FcxGZl4a5T
-	 Ls7hzQTOO94AA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/9] dt-bindings: reset: renesas,rzg2l-usbphy-ctrl:
- Document RZ/G3L support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Biju <biju.das.au@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org
-In-Reply-To: <20260729115022.222340-2-biju.das.jz@bp.renesas.com>
-References: <20260729115022.222340-1-biju.das.jz@bp.renesas.com>
- <20260729115022.222340-2-biju.das.jz@bp.renesas.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 29 Jul 2026 11:59:05 +0000
-Message-Id: <20260729115906.0D93D1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=emailprofi.seznam.cz header.i=@emailprofi.seznam.cz header.b="OGSwdu6S"
+Received: from email.seznam.cz
+	by smtpc-mxb-7f8c58b87b-r86x2
+	(smtpc-mxb-7f8c58b87b-r86x2 [2a02:598:64:8a00::1000:906])
+	id 542d34384fbfb9ec50c88dba;
+	Wed, 29 Jul 2026 13:58:47 +0200 (CEST)
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=emailprofi.seznam.cz; s=szn1; t=1785326327;
+	bh=e7s3QzmzogSw1oVZAIzoXxznxQIkj+MrFBtWtnhExik=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	b=OGSwdu6S0ksq0qdRoEqA8+6JUWi1IzD5pC/fqq8bq8x0F+zGbtFAWW2/pbpazbqT4
+	 tK6d+1GjmbYaGQ2r22fpp4UsnugU7caaZDZrK67K7auSJjJlkLiidJ8gH0j2fv4iLD
+	 36NpN4S905IJpblQMKbYGThXlDQMmCd3GktQWdtH1ZD3xUX7H02FA64ofSw/c0sgps
+	 8i1KqYnd3xDJ+FpGfmZY27Lfu2zFPbaWr1iCTa6XKimfhU5+3Rpkf9TVxrsfloOBfn
+	 Hn21+u8wub2qO7EKNMlqkjwPLDKhtuxSvMhOh45L5RXA2GUNBgJZVoCAcEorGzxH8Z
+	 CErjUhfuyOpxg==
+Received: from localhost (109-81-114-141.rct.o2.cz [109.81.114.141])
+	by smtpd-relay-7b8c6c77dd-qk97r (szn-email-smtpd/2.0.79) with ESMTPA
+	id b10099ce-0067-45a2-b3c2-539484e39067;
+	Wed, 29 Jul 2026 13:58:35 +0200
+From: =?UTF-8?q?Pavel=20L=C3=B6bl?= <pavel@loebl.cz>
+To: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: devicetree@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	=?UTF-8?q?Pavel=20L=C3=B6bl?= <pavel@loebl.cz>
+Subject: [PATCH v3 1/2] dt-bindings: clock: si544: add si549 compatible
+Date: Wed, 29 Jul 2026 13:53:09 +0200
+Message-ID: <20260729115310.3490589-2-pavel@loebl.cz>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260729115310.3490589-1-pavel@loebl.cz>
+References: <20260729115310.3490589-1-pavel@loebl.cz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The `regulators` object node is missing the `additionalProperties: =
-false` constraint.
---
+Adding Si549 compatible, which uses different internal oscillator
+frequency. Like in Si544 case, there are three types ending with
+latters a,b and c. Each with different maximum output frequency.
 
---- Patch [1]: [PATCH v5 1/9] dt-bindings: reset: renesas,rzg2l-usbphy-ctrl=
-: Document RZ/G3L support ---
-commit 222a9a4d47d2afbc7efadd9794f65d8f61be1bb8
-Author: Biju Das <biju.das.jz@bp.renesas.com>
-dt-bindings: reset: renesas,rzg2l-usbphy-ctrl: Document RZ/G3L support
+Also fix datasheet links after Silicon Labs acquisition by
+Skyworks Solutions.
 
-This commit documents the Renesas RZ/G3L (r9a08g046) USB PHY controller=20
-bindings. It introduces a regulators sub-node to handle per-port vbus0 and=
-=20
-vbus1 entries, which replaces the single regulator-vbus property used by=20
-other compatible SoCs.
+Signed-off-by: Pavel Löbl <pavel@loebl.cz>
+---
+ .../devicetree/bindings/clock/silabs,si544.yaml        | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-> diff --git a/Documentation/devicetree/bindings/reset/renesas,rzg2l-usbphy=
--ctrl.yaml b/Documentation/devicetree/bindings/reset/renesas,rzg2l-usbphy-c=
-trl.yaml
-> index c83469a1b379a..9e0c450976573 100644
-> --- a/Documentation/devicetree/bindings/reset/renesas,rzg2l-usbphy-ctrl.y=
-aml
-> +++ b/Documentation/devicetree/bindings/reset/renesas,rzg2l-usbphy-ctrl.y=
-aml
-[ ... ]
-> @@ -50,6 +51,28 @@ properties:
->      $ref: /schemas/regulator/regulator.yaml#
->      unevaluatedProperties: false
-> =20
-> +  regulators:
-> +    type: object
-> +    description:
-> +      list of vbus regulators provided by this controller.
-> +
-> +    properties:
+diff --git a/Documentation/devicetree/bindings/clock/silabs,si544.yaml b/Documentation/devicetree/bindings/clock/silabs,si544.yaml
+index f87e71867108..c58171f1bc5b 100644
+--- a/Documentation/devicetree/bindings/clock/silabs,si544.yaml
++++ b/Documentation/devicetree/bindings/clock/silabs,si544.yaml
+@@ -4,7 +4,7 @@
+ $id: http://devicetree.org/schemas/clock/silabs,si544.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: Silicon Labs SI514/SI544 clock generator
++title: Silicon Labs SI514/SI544/SI549 clock generator
+ 
+ maintainers:
+   - Mike Looijmans <mike.looijmans@topic.nl>
+@@ -13,8 +13,9 @@ description: >
+   Silicon Labs 514/544 programmable I2C clock generator. Details about the device
+   can be found in the datasheet:
+ 
+-    https://www.silabs.com/Support%20Documents/TechnicalDocs/si514.pdf
+-    https://www.silabs.com/documents/public/data-sheets/si544-datasheet.pdf
++    https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si514.pdf
++    https://www.skyworksinc.com/-/media/SkyWorks/SL/documents/public/data-sheets/si544-datasheet.pdf
++    https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/si549-datasheet.pdf
+ 
+ properties:
+   compatible:
+@@ -23,6 +24,9 @@ properties:
+       - silabs,si544a
+       - silabs,si544b
+       - silabs,si544c
++      - silabs,si549a
++      - silabs,si549b
++      - silabs,si549c
+ 
+   reg:
+     maxItems: 1
+-- 
+2.53.0
 
-[Severity: Low]
-Should this regulators object node include an additionalProperties: false
-constraint?
-
-Without it, any arbitrary or misspelled properties added inside the regulat=
-ors
-sub-node might silently pass schema validation.
-
-> +      vbus0:
-> +        type: object
-> +        description: Port 1 USB VBUS regulator
-> +        $ref: /schemas/regulator/regulator.yaml#
-> +        unevaluatedProperties: false
-> +
-> +      vbus1:
-> +        type: object
-> +        description: Port 2 USB VBUS regulator
-> +        $ref: /schemas/regulator/regulator.yaml#
-> +        unevaluatedProperties: false
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729115022.2223=
-40-1-biju.das.jz@bp.renesas.com?part=3D1
