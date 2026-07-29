@@ -1,182 +1,153 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24C5F43E08A
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 09:11:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 349253A450C
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 09:15:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.243.244.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785316272; cv=none; b=gwfRpPjoo5bj3S0v+t5y1qsuGz7BpDy9y2HlWwzupr1U9woyLMUhi9dbieHFbCg4dPRRxnLhzhCSJ2GRG02/mdnENuz3ccEre/C+rCk5mD8CcDVrEv8WGSiNjVc54Je3fMCtwQiD7ckIYGXSyNEGuYB/5l4iHT4GtjcBxOrIVHA=
+	t=1785316527; cv=none; b=nSvU6xu7cP3BGShIciFt710nRn5u0m9aWnb3hgSp4Alfz+vbutwfHaLBawjrZr0mquQrFpP2mIG+eHsOExD6J7yk37lWfuBFoxximZ2xNtsIEODv8P/e23RO2n9eT8jqyyjb+scT+lO5cHJlt/znK2X+f8UNiTHSiLagWw0Ji5A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785316272; c=relaxed/simple;
-	bh=QoddJzJhebR8IjYCrkbLAN0s0tIW48jnNL4y2MIVi+Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mzJ394vbXvsiwEBYibLg+cZjqeObdzDFju/poWO1sb47ogr8oYHiXgxIIUnkDTPCcMfhz3YUCKWGObPm7KgOLBeJYhqSWEW9OobfEbXQaDF6h+K5WFXxaui9NeHUIpGdi8KCjWL16HhKm2S3OcVAtHi7CMNGjk4w15JOUSk+xrQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=olgukxVm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fkezUdmv; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785316527; c=relaxed/simple;
+	bh=7dQJOLYN/AMcn00lyTExvQ2yf6auzhnjf1GDAS+h8Qg=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=AV6S0MUaB17ztbT51Y6N2woWpoqw3dAY0YcSPBFDzhRLaqjPjTNf3zeVlAW5ifbqRr6b20SwUAHZMLzBbVYRl2wChAOpoVvDsHvgKhqlu64jzJTNSATHA/Hln3suznFtR4juqWwInNcd20pDe8pUXehb8b5EjTVYoO822Yq5ixI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=t+rz80j6; arc=none smtp.client-ip=54.243.244.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="olgukxVm";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fkezUdmv"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66T7fJOJ1089137
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 09:11:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=wXnburUlupRiHpSJ4CDRreFD
-	5mzaQY+gxtna4BDSfRo=; b=olgukxVmAsWZ02LcXQwlyT8bYAehDVFa3R7kbCpe
-	DakOUQidq6ip4mUR00onnJBM4zWYIk5wcpYS1Iw4gQjhjvgu5ndOyN7NMeEUVXji
-	B4Mqf8T4+ZSuwcQQlfOcEXCYLcZtP+HyHLNrx93ael2OvAhZVYr9lG1lMlj6Yylj
-	VtSRZ8ia63bA5kpjFI5ZbmKSfSt26FQvf/7un5Cm2vxsR+3ANwMdX6sUXGCKe1Ir
-	6aBcJO9ZBNaaOhxueO4fjxX2x4qD6nQqqaDFBOSDMvuX00rqJLtKs9AF8nV1R2W/
-	pw/uISdOUS2rbhY/+Gsi2YyWBQhAo+8TY7O7aBGMGhW97w==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fq5sahygg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 09:11:10 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-388b404eaa4so1055200a91.0
-        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 02:11:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785316270; x=1785921070; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wXnburUlupRiHpSJ4CDRreFD5mzaQY+gxtna4BDSfRo=;
-        b=fkezUdmv+7DlD74zMlqjvarAuJrxM53YW31C0ElV5QwQkwpI/LmRp6RO0TyiOThKRV
-         CqCHoUtdruRGlSxao3k1aZB4KOoyovrXyP/8pCRnFjAhYnursJ5KdCQcEA5wApjGhzW2
-         diJ26vciKisW4BYz+cM15zvGFQdhcQEzDWYqDez6OfDDKEXB0M+yOXTzaYo7okjqeiqE
-         bc977GK5uROovC/bYOmO3W55TfqRJJQ5Kexj0UL7gaY5G/MHWfHwnCJd2FoijRTJgFJS
-         8w3Despgzn+6Jx6pTfocFpuAmH49iMppGB4nk+FfqHg+1vWRHdVbKHeWtbYay1vNDoNH
-         rWcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785316270; x=1785921070;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wXnburUlupRiHpSJ4CDRreFD5mzaQY+gxtna4BDSfRo=;
-        b=LCYGcddzQcP1l0njnYsrTViXAap7qYJ0vhOnAUGZgvco0/uXPG1+cRGasK1qEXoVVo
-         I66OqvyKSe4CM/0p2ruBmSaxv7ZXZVgOHySH2LBDYJTVaVVMFlL+S2FZ9GiKe8oHsooS
-         TuIZZETtPP/It9Kg98crOUx3tSBRyZTzAfo8i/63e1uhkUf/AUpHHuDjlEcvaxILb0lc
-         fc0mVn5ETRBMQNSEqv49iVSqVayrVdyi6eLPZSnoB8IyzY/9dXX8XLSHt0p1tEySnHbj
-         PO6sGCljtmwBkMVJ8kpDpe2dBimO7lWlFMw+W/6MRLkQj46RR7473GSLN8rZCD+bigpH
-         FKIw==
-X-Forwarded-Encrypted: i=1; AHgh+Rr9vPjnWSI1dEvaQac3YIHUX68xDmnOIvShFQuh6kSZRhycECC+lY9TeR2O3UwJ3vl16JrfPcFwwMHT@vger.kernel.org
-X-Gm-Message-State: AOJu0YyCbGY+w/MQJt2SQ22uMq4h468yCyn9gK1Lr+YV6mp703mBxjS3
-	QZ7Thqs09/BcitJfpJH5BItQVHXV9F/5HrBgjRi3RiziC+Fo5XnrcLragcVwK9BaNwuXQfB9PaK
-	lSELBp+PeIv/raR5VgbVCZsd6dmJHp716Zw1M7f5uSma7bh/IwS7lA5qwBElKhmCJ
-X-Gm-Gg: AR+sD104nV5XdxPBQrrYOUt49VK1v6/JnxcQ13Phei57af/LKyIZBWF6QYQeznGSTDe
-	zovS/19fwXQ23u+Lhnv69+q4oOrfxABDcVrQLi/TkNbe0Fgj9v50FAtozjvnfZY2guoG1knNPaZ
-	Wmz3ODFdzLACNl8nkGnDxH+RYBtuQeOzzdtuKbCMzzNwSHViUxTw+aF9rqjPK1OXrujmK84zBhQ
-	PtsxCSigBxrJ5SSMrgAIugr+qhOAAehXIJ8HI/v90x42IzgoAo/I/p61r8Ak3RQGC38LueV/V5r
-	DqHVv0IY+/kyDgNTWhIVpr0sZtFa0jLWkjsrAfVN9k+6L2PmgF/Gbbuww0pe39H9SeWHtVgaVp8
-	2KAYt7X1SlK6xTWbll4hrwl8la2bfLBzwF2Dbp0xyuo2e/r4=
-X-Received: by 2002:a17:90b:17cb:b0:37f:9ce2:348f with SMTP id 98e67ed59e1d1-38f6a5430c5mr5909560a91.32.1785316269608;
-        Wed, 29 Jul 2026 02:11:09 -0700 (PDT)
-X-Received: by 2002:a17:90b:17cb:b0:37f:9ce2:348f with SMTP id 98e67ed59e1d1-38f6a5430c5mr5909528a91.32.1785316269144;
-        Wed, 29 Jul 2026 02:11:09 -0700 (PDT)
-Received: from hu-qianyu-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f7f0edc1csm1058184a91.3.2026.07.29.02.11.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Jul 2026 02:11:08 -0700 (PDT)
-Date: Wed, 29 Jul 2026 02:11:06 -0700
-From: Qiang Yu <qiang.yu@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-        Philipp Zabel <p.zabel@pengutronix.de>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 4/6] arm64: dts: qcom: glymur-crd: Add PHY supplies
- for pcie3_phy
-Message-ID: <amnDqhTpMffP9M1w@hu-qianyu-lv.qualcomm.com>
-References: <20260724-glymur_linkmode_0724-v7-0-65c8469c6b65@oss.qualcomm.com>
- <20260724-glymur_linkmode_0724-v7-4-65c8469c6b65@oss.qualcomm.com>
- <74907d0a-cf14-43b6-bcfb-8c283926a820@oss.qualcomm.com>
- <ammhm1mnHhn2okgJ@hu-qianyu-lv.qualcomm.com>
- <2091d5bf-8c76-479b-98fd-fc75b3adf644@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="t+rz80j6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1785316462;
+	bh=7dQJOLYN/AMcn00lyTExvQ2yf6auzhnjf1GDAS+h8Qg=;
+	h=Mime-Version:Date:Message-Id:Subject:From:To;
+	b=t+rz80j6QvUXPZ3fax4An8udlSlIJg8WIEQfzxtYlPImTYt48OeSN+A6zRPRwgRr1
+	 Y67L3RDsYtftIUfk3xMiNHw8uVGV6sdAiSKbnoyiwzEfILt8o82Onskd/Uqc7XBNhy
+	 C/wOWZzHCtDkiNeOzICYpJja5orIm/SUE4AiHHhI=
+X-QQ-mid: zesmtpgz5t1785316453t920e2043
+X-QQ-Originating-IP: zAlwTsMr81y+gJMiR91lCYUcBGOKHctjS3NDk86hNXY=
+Received: from localhost ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 29 Jul 2026 17:14:11 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 7786942154255255945
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2091d5bf-8c76-479b-98fd-fc75b3adf644@oss.qualcomm.com>
-X-Proofpoint-GUID: byQvOKxYGCfWmkMz8b8dRDplM_-u9iHd
-X-Authority-Analysis: v=2.4 cv=C5fZDwP+ c=1 sm=1 tr=0 ts=6a69c3ae cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=iYY4eBxCTIKzZHblZ3kA:9 a=CjuIK1q_8ugA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-ORIG-GUID: byQvOKxYGCfWmkMz8b8dRDplM_-u9iHd
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDA3NCBTYWx0ZWRfX45FrSag9e29u
- IHE5JcL9IqgLwZ2svS0x1Nb+aDleIJaw7XTnYLH8qVgCgLMm82A1Q7O9E04RdWaw38Gz0P2O061
- 1z6bD29c55rDcw/FMl9FqFzRnU8Tl0w=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDA3NCBTYWx0ZWRfX+yWyJH3DSWPV
- 2vBJwKcB1zMwBIPBvs7lM2bAX7n9ya8xc5Vfydt8/eAGGQ6TW5JAWsqHYe4WRhxk1MLthxzDHLf
- wPv8tZS30Rl+IIkvSu6PA0c2HjE2uw3Wx4zqdwdfam+4Q9nUdgj7T7PQL2j3US4IQdA7ZZhm7P1
- 1/gxz9Hom0VDhx0RCg3jfTv8eY4blr7xh30RYFAWlgfz7QzXEhXaVB89Ykg1U69brN5zBWpGmxI
- nHbhjMVxrcNBAawWGs4lq9TsFaaxYCwxz6IwQrDZrGPBNRf5yfCIgXBjCCFVQ1+GCyopZx+9e8s
- z9pLNvF/i6YB4lsYHIeIptge21/BCPxsgfuD22Vzk8Z0raktW3/SjGQphuSAWGU7DTBrXuJkW1G
- lGuWpLAgAOqI7/gZ1awl0UDc+r001LDcd5QhZT/0b2MqJDNs6BlfFC8ja9RoMTaIAVnHyDxP/Fb
- oTnNKnnNNj9VEjCX5nQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-29_03,2026-07-28_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 impostorscore=0 malwarescore=0 adultscore=0
- clxscore=1015 priorityscore=1501 bulkscore=0 lowpriorityscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607290074
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 29 Jul 2026 17:14:11 +0800
+Message-Id: <DKAXV3CTQ6B1.36715CJUMEB9A@linux.spacemit.com>
+Cc: "frank.binns" <frank.binns@imgtec.com>, "robh" <robh@kernel.org>,
+ "krzk+dt" <krzk+dt@kernel.org>, "conor+dt" <conor+dt@kernel.org>, "dlan"
+ <dlan@kernel.org>, "dri-devel" <dri-devel@lists.freedesktop.org>,
+ "devicetree" <devicetree@vger.kernel.org>, "linux-kernel"
+ <linux-kernel@vger.kernel.org>, "linux-riscv"
+ <linux-riscv@lists.infradead.org>, "spacemit" <spacemit@lists.linux.dev>
+Subject: Re: [PATCH v3 1/2] dt-bindings: gpu: img,powervr-rogue: add
+ spacemit,k3-gpu
+From: "Baihui Liang" <liangbaihui@linux.spacemit.com>
+To: "Krzysztof Kozlowski" <krzk@kernel.org>
+X-Mailer: aerc 0.17.0
+References: <tencent_79CE08BE248E9ACA2E62BF64@qq.com>
+ <065a229b-e6a8-4cce-8725-9c2e19c8f463@kernel.org>
+In-Reply-To: <065a229b-e6a8-4cce-8725-9c2e19c8f463@kernel.org>
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: NiFdmnmiW14nHyLZW49OFnOnrQv7pEUGBojWfLnJ5yyoCmLXC9cz7V5p
+	xGYy4V4aS2FXmrhIlarC0KUF4HW/Ytv84XSJOMeZxZixfipGOyrmKSZ0Tue1w0gJyngmx6Y
+	tMcExDPFYoORhVJDscoUyzklc9rhuDteR8z7ZNybSv6rgXSl4VoyKNSa6vPwUY/OTP3Vfnv
+	GBsI0s3u1Wb3WB7VN0h97oSUuP+mijAVdiHXU9pci7XErPtzuEAl5Zx32vLQLMnRHK42x3B
+	aTqPBaRnb3tsSfZBdjafuAS3ARLHlxjNE+Q+avYxEomNF9cN2OP6loWP3URpcOVHdwca5tF
+	fZkU6wL8uQKaSHqPieiSMnJOAEBMIDvQ2dUtjRkMGAqtGDY34Q4lC8aC/z/Ol1Y2DxaCEFe
+	PXqK8EBPQh/BXyKqwJs+IIqyh8HnvreNpR2PHJV4rqkzAoPg+XTnZNtRC74Sie+GFO7qzYI
+	h1zslLcCeASZ4re6kWEC9sf7TdCvYKnef94EFvaXVVhmdHmAbd/6MMf9VDevrTULRoFJxMH
+	j+szNkMzHCGz52H07E15GY+aj0iAOAlhEfNXvCJrRErXeVXs9KboV4mION+I/BCy6g2/gRR
+	lxl8bYIF65zW9JgtIQbjTwU1nRicBCzIZABF4XQZ49g1MR18T9b5K3v+rb8r+k/UJ7G53jP
+	p4cRLEXMj+XvJnuXsgVK18HtNJBFCK7cJKnCBsKKvMIHDj5IGEfju4fY9Dvx/JVC1VzjIyk
+	mPnTTGHnwCw3p6fbrl+wnZCrOLhqPb/lt1fPG64stuqxtTQQasokD53eAm8BORRhe/9TkHk
+	nltwMblDW6a+Wi1nGCQ9dY9GrsP0xibn+Tlit9DKF/YxagcV8cBRe3lo/ENzWdME60JPxrK
+	vcBHl51DDsv/tjSAgqGmt0sujy/Gk4e45lSvCbc3tQ5y2tWy1tqFymHwDZKwJJUGaNJ2QFf
+	JJCCaIhPK2/Hwc7xF71hL8Ks1eJ+AV9wlboPg5K3sdh0WURQFjnv60o/QG8D/cTJFFWrbi/
+	vy8CYeTuXZqD8LPTKQiPysHz7jrfpOdgKb2/caUg==
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-RECHKSPAM: 0
 
-On Wed, Jul 29, 2026 at 10:30:27AM +0200, Konrad Dybcio wrote:
-> On 7/29/26 8:45 AM, Qiang Yu wrote:
-> > On Mon, Jul 27, 2026 at 04:47:15PM +0200, Konrad Dybcio wrote:
-> >> On 7/24/26 12:01 PM, Qiang Yu wrote:
-> >>> CRD wires the shared Gen5x8 PCIe PHY's regulator supplies through
-> >>> board-specific PMIC rails. Add the vdda-phy, vdda-pll, and
-> >>> vdda-refgen0p9/1p2 supplies for &pcie3_phy.
-> >>>
-> >>> Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
-> >>> ---
-> >>>  arch/arm64/boot/dts/qcom/glymur-crd.dts | 8 ++++++++
-> >>>  1 file changed, 8 insertions(+)
-> >>>
-> >>> diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dts b/arch/arm64/boot/dts/qcom/glymur-crd.dts
-> >>> index 6125617de82a..0aae613a33ad 100644
-> >>> --- a/arch/arm64/boot/dts/qcom/glymur-crd.dts
-> >>> +++ b/arch/arm64/boot/dts/qcom/glymur-crd.dts
-> >>> @@ -28,3 +28,11 @@ &mdss_dp1 {
-> >>>  &mdss_dp1_out {
-> >>>  	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
-> >>>  };
-> >>> +
-> >>> +&pcie3_phy {
-> >>> +	vdda-phy-supply = <&vreg_l3c_e1_0p89>;
-> >>> +	vdda-pll-supply = <&vreg_l2c_e1_1p14>;
-> >>> +
-> >>> +	vdda-refgen0p9-supply = <&vreg_l1c_e1_0p82>;
-> >>> +	vdda-refgen1p2-supply = <&vreg_l4f_e1_1p08>;
-> >>
-> >> I'm guessing you also meant to enable it here
-> > 
-> > No, we need to keep it as disabled because pcie3b is not enabled by
-> > default on glymur crd.
-> > 
-> > See the fake pcie3b_phy be dropped, it is disabled
-> > https://lore.kernel.org/all/20260420133616.88740-2-krzysztof.kozlowski@oss.qualcomm.com/
-> 
-> I think there are SKUs with dual-NVMe that use it
+On Wed Jul 29, 2026 at 3:57 PM CST, Krzysztof Kozlowski wrote:
+> On 29/07/2026 09:46, Baihui Liang wrote:
+> > On Tue, Jul 28, 2026, Krzysztof Kozlowski wrote:
+> > &gt; &gt; [...]
+> > &gt; &gt; spacemit,k3-gpu is added to the existing ti,am62-gpu/ti,am62p=
+-gpu/
+> > &gt; &gt; ti,j721s2-gpu "if" block that restricts clocks to a single en=
+try,
+> > &gt; &gt; since K3 has the same single-clock requirement. It does not m=
+atch any
+> > &gt; &gt; "if" block that constrains power-domains, so that property fa=
+lls back
+> > &gt;
+> > &gt; I don't get this explanation. Are you explaining what the patch is=
+ doing
+> > &gt; or explaining WHY you did this that way?
+> >=20
+> >=20
+> > That paragraph was describing schema mechanics, which does not belong i=
+n
+> > a commit message. v4 will drop it and state only the hardware facts: th=
+e
+> > K3 integration of the BXM-4-64 has a single "core" clock, and it has no
+> > software-controllable GPU power domain.
+> >=20
+> >=20
+> > &gt; &gt; to this schema's general constraints, where it is optional. T=
+his
+> > &gt; &gt; leaves room for a power-domains provider to be added later wi=
+thout a
+> > &gt; &gt; further binding change, should one ever be modelled in Linux =
+for this
+> > &gt; &gt; SoC.
+> > &gt;
+> > &gt; No, you need to provide constraints now. Please read carefully
+> > &gt; writing-bindings.
+> >=20
+> >=20
+> > Understood. spacemit,k3-gpu currently matches no power-domains "if"
+> > block, so it falls back to the top-level 1-2 domains with
+> > power-domain-names "a"/"b". That would let a K3 DT with two power
+> > domains pass validation, which does not describe this hardware. v4 will
+> > add an explicit "if" block:
+> >=20
+> >=20
+> > &nbsp; &nbsp; - if:
+> > &nbsp; &nbsp; &nbsp; &nbsp; properties:
+> > &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; compatible:
+> > &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; contains:
+> > &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; const: spacemit,k3-gpu
+> > &nbsp; &nbsp; &nbsp; then:
+> > &nbsp; &nbsp; &nbsp; &nbsp; properties:
+> > &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; power-domains: false
+> > &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; power-domain-names: false
+>
+> I understand only half of this. Please fix your email client.
+>
+> And why this reply misses reply-to header which connects it to proper
+> thread? How am I supposed to find the thread now, among 200 I received
+> yesterday?
 
-But the pcie3b controller node is also disabled, should I enable it in
-this series?
+Sorry -- that went out through a webmail client which sent HTML, so the
+quoting and the YAML indentation were destroyed, and it composed a new
+message instead of replying in place, which is why it lost the thread.
+I have switched to git send-email over our own SMTP; this reply should
+be plain text and properly threaded.
 
-- Qiang Yu
+> So your name is presented here as "Baihui Liang" then why do you use
+> some fake company name?
+
+liangbaihui@linux.spacemit.com is my real work address at SpacemiT. It is
+now sent through the company's own mail server.
+
+> Best regards,
+> Krzysztof
