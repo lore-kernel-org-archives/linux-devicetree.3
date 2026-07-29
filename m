@@ -1,42 +1,44 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC2D64963CE;
-	Wed, 29 Jul 2026 16:37:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE9114119E6;
+	Wed, 29 Jul 2026 16:37:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785343064; cv=none; b=bS9hkENrU20h8dyUxRMaDL+QAxMySyQdlo0mxR72z8cvmQAldde6vjTi06/4irWuPDwlLJpNBkJeN1GlnCICwsI7tzpaeReBLVkiMc3eMiEIwMVO1cMoeYt1qp1XpnxDAg+AUOEHVw11qR0JB47C+Kzbk8ejfJKlyt8ZOUJX97U=
+	t=1785343070; cv=none; b=jn4jMZ3RwQQIX6B8gNorUfExR0HiBtWCTmVF81aVCtJwd2rUS9XXjcQSQGi4ZYovvQM6Td63xY7tGZoRNrdyru9jiCgVQrh3REk7DtYFNQplhmC3wbZyIVM95znPpq6wjguYM4HwGRLcn6xLsfBguYlM3mLmH3GCynKyPKYzrZ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785343064; c=relaxed/simple;
-	bh=w+LY+at3i1wtP5freBQv64xCeTkh+8ycBGr6lvULLpk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=H+exxMoicWhyoNfWD78oY6WmwJf45l6k/Ot286q8nka4wYy5srSTR9YsndL196D2/cHiEC9G98wqkmkBbd44zm5MTBljN1NF355g5j0HRFpYxgrEcBnNdyDOw+G2jRBUf6Q2KblrpqI3Tg5gFCYKYzAw9bVsZPssmr4nK85MbVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=clVU+2MQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785343070; c=relaxed/simple;
+	bh=Z1w5WIvbNQo9Zn50jFBwKMQf8kI7lW0aM+16Dh/V7qY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=sUkuoSQgQgeAmk80jLHZ/Qkl2fdN9rqWZO8OuZCQxxhk+BQltiyGQQiva4dq+r3OfiO57mnFC6DxG+fMKoo+4fencLoRhIeoiBw7QnwM5TMdVWmicX/Gqq6tg0OJSPSiqv5EdsC+xqxpURo0Cp0PJnt5uvXQ7QSGrrA7RENv8CE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Rigbcil8; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=JWSoiNys; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="clVU+2MQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 812301F000E9;
-	Wed, 29 Jul 2026 16:37:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785343062;
-	bh=+HCM0kX9dT01jkiSkFQppEmfi0MQQnG5asMyMvfSwCM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=clVU+2MQIhFjgHCTdaYhVd87PvHZH+X4RHevgpJt1ptJkrY80zXMeGzY6mDJwcUqy
-	 rjfSPSoFS3kYZDFjRN+V4RmA6kAowSMaiZyRctitnUdwX6KwmHIl/Nwqq0Z7SxDMnV
-	 wWOhOyPihETxrK5FaA4NQiM1rj6Tr5Xm/rfT9Hz5Cu2ThOtLsHEDATa7gOf2ENrAcU
-	 b/V+3OrZaOH2Yprv5eU3FPDgyB7JGu64sVYiYXhbqGaNyH3pMNfU08QyZ1ghksBnwA
-	 fL3Ij4YycjW1thu4PPrgtmw2vDQKqrzxI2/IXFzwzp28oW7i1J8STxMYQrvmgtZY6V
-	 /F9mdTzR1Ye/Q==
-From: Mark Brown <broonie@kernel.org>
-To: Fabio Estevam <festevam@gmail.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260727185814.2599488-1-festevam@gmail.com>
-References: <20260727185814.2599488-1-festevam@gmail.com>
-Subject: Re: [PATCH] ASoC: dt-bindings: realtek,rt5640: Make interrupts
- optional
-Message-Id: <178533341943.172652.9595574921790565444.b4-ty@b4>
-Date: Wed, 29 Jul 2026 14:56:59 +0100
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Rigbcil8";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="JWSoiNys"
+From: Vasilij Strassheim <v.strassheim@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1785343064;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=LtRaNxgRbpO/FK7lN9MVibch0eWYBHUpJXlU+vO4/rQ=;
+	b=Rigbcil8PytSssH8pyA1XNmp7ZqzLaaYaDjedBFfrRypeDeB39SAGfNSjmlkIEh6ADklE1
+	AxggnuCAxcq5RGJySBZA45hiVIwdzwPL+z1S1bgv8lFc0MXCO/QM5TWGTnwFN/ACd5SBpM
+	gwb79nsu/zlQAGd0c2NqH8SFPw2oCdQiRWIFzKKKVmU2m8ftMrnaPILlxWEM65v9yLiCzG
+	0a46+rjus2TXEM7t3Kr9EAtbt3XS3p5oHkTUp+0nwbRakuKPv9BsfbxwPDO0G9AeQKcaeu
+	ciYpcXKB8h5fcdjAr67q0m1KRxTBm5PGeeCUmj6fwv4Buo57ZxgWebzSlKGF0A==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1785343064;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=LtRaNxgRbpO/FK7lN9MVibch0eWYBHUpJXlU+vO4/rQ=;
+	b=JWSoiNys9q2nq89H6sf17ra8TjUP0dlH2vr1+9ZHbOnj0vZ7gH0ckbe9+aEGRodS5buSQ9
+	a6nIKMvU8jBMZzAw==
+Subject: [PATCH 0/4] net: dsa: Add SoC-e DSA driver
+Date: Wed, 29 Jul 2026 18:36:53 +0200
+Message-Id: <20260729-devel-vstrassheim-soce-dsa-ml-v1-0-be569dae1b20@linutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,36 +47,69 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16-dev
+X-B4-Tracking: v=1; b=H4sIACUsamoC/yXMTQrCMBAG0KuUWTsQI9bqVaSLafJpR/ojmRqE0
+ rsbdfk2byVDUhhdqpUSsprOU8F+V1HoZbqDNRaTd752J3/miIyBsy1JzHroyDYHcDThcWDvYi1
+ HiV1zaKgcz4Sbvn//tf3bXt0DYfmmtG0fj5iUPoEAAAA=
+X-Change-ID: 20260729-devel-vstrassheim-soce-dsa-ml-20d6a5adb838
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
+ Vladimir Oltean <olteanv@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Russell King <linux@armlinux.org.uk>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ netdev@vger.kernel.org, Martin Kaistra <martin.kaistra@linutronix.de>, 
+ Vasilij Strassheim <v.strassheim@linutronix.de>
 
-On Mon, 27 Jul 2026 15:58:14 -0300, Fabio Estevam wrote:
-> ASoC: dt-bindings: realtek,rt5640: Make interrupts optional
+Add initial support for the DSA driver for SoC-e FPGA-based (IP core)
+Ethernet switches.
 
-Applied to
+This first functional driver baseline is kept focused on Managed
+Redundant Switch (MRS) which is also runtime-tested (25.01 IP using
+24.01 layout) on ZynqMP hardware. It includes basic support for
+networking (STP, FDB and Phylink), but not the IEEE 802.1Q VLAN tagging.
+This will likely be added in the future.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.2
+This work is based on non-publicly available SoC-e DSA driver code, with
+permission from the company to contribute it under different authorship.
+There are different variants of the SoC-e switch IP, which can be
+additionally configured at runtime with proprietary userspace software.
+All variants share the same DSA features with a few differences in
+register layout. Additional SoC-e switch variants might be introduced
+later in separate patch series. 
 
-Thanks!
+Signed-off-by: Vasilij Strassheim <v.strassheim@linutronix.de>
+---
+Vasilij Strassheim (4):
+      dt-bindings: vendor-prefixes: Add soce
+      dt-bindings: net: dsa: Add SoC-e switch IP and DSA bindings
+      net: dsa: Add support for SoC-e SDSA tags
+      net: dsa: soce: Add initial driver support for MRS switches
 
-[1/1] ASoC: dt-bindings: realtek,rt5640: Make interrupts optional
-      https://git.kernel.org/broonie/sound/c/537601771adb
+ .../bindings/net/dsa/soce,switch-dsa.yaml          | 195 +++++++++++
+ .../bindings/net/dsa/soce,switch-ip.yaml           |  54 +++
+ .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
+ drivers/net/dsa/Kconfig                            |   2 +
+ drivers/net/dsa/Makefile                           |   1 +
+ drivers/net/dsa/soce/Kconfig                       |  12 +
+ drivers/net/dsa/soce/Makefile                      |   6 +
+ drivers/net/dsa/soce/soce_common.c                 | 159 +++++++++
+ drivers/net/dsa/soce/soce_common.h                 |  36 ++
+ drivers/net/dsa/soce/soce_dsa.h                    |  41 +++
+ drivers/net/dsa/soce/soce_dsa_core.c               | 354 +++++++++++++++++++
+ drivers/net/dsa/soce/soce_mdio.c                   | 381 +++++++++++++++++++++
+ drivers/net/dsa/soce/soce_mdio.h                   |  40 +++
+ drivers/net/dsa/soce/soce_mrs.h                    |  21 ++
+ include/net/dsa.h                                  |   2 +
+ net/dsa/Kconfig                                    |   6 +
+ net/dsa/Makefile                                   |   1 +
+ net/dsa/tag_sdsa.c                                 | 102 ++++++
+ 18 files changed, 1415 insertions(+)
+---
+base-commit: 9fb3b84c9577707db14e633ea3c57048380bf822
+change-id: 20260729-devel-vstrassheim-soce-dsa-ml-20d6a5adb838
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Best regards,
+--  
+Vasilij Strassheim <v.strassheim@linutronix.de>
 
