@@ -1,178 +1,112 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 611D32E2F0E
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 20:23:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 410EC3DA7C3
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 20:23:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785356618; cv=none; b=mQaDlSd4FW8vcaCb4ULHiBx+ATZdzKKc+/ozx0yQxeipnjQhncqsdUMdvfsB/+sFTMZ3kvK4vysGjuxQ2dvjf0nQAUESdTGdAkgH0xe+i37OB5RqogHx9yZWCJt0LSeHAavKWED1eYCJpYtBQSbfk5zubx1ZiCvpNCP6TVRU2LE=
+	t=1785356620; cv=none; b=EFK/t34023qfD8TPOD0m7mXgdeesYbffYOUGSxlc3yilhshpbckwb7gcW1rfLqgl7QK3r6BcIJ4vb8vBALvR3og9c5Y+TF0+r9vfb/c4lHil9hPgb56EwfxH/vj82WwGt3tLIPVRt2wNESkss2WKPjcX8ge1zSnIoguncCMycsY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785356618; c=relaxed/simple;
-	bh=QsmgOTB0+XfW4IuMxTu+A2chFmz1GsdHM4/TOVX+xxs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=p0LtOi+oN33JcCh6T/THySTZEzyC9JsLr+Y0FUHWyNk4lo03xoHwiFy1yKGYzJwxChbpB/XjXxDfNQsczbfMIgK14u1c1Aevu5sIpPUpW0FGbEkzXTP8dp5RJ4TPe8kpAJXeZN6ayHhYSScDGWSPNmYxxIQknMq45emuCPGNznU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mUNqrcal; arc=none smtp.client-ip=209.85.216.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785356620; c=relaxed/simple;
+	bh=QrhDybLBDTOuvrc7xBUErQeKKoQ9fkmqg8KIt3ZB6js=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=L3EtdsLwQU7RAOFUJJKbBgaKjkzYEGAJYF0rxXKNp268SiD1Q3YFxxVNtGpL2mylub1WEzy6BzjTsakev+LQ3MptAkx2KPWAy7Og/W3e5FiEjDRQ3yKXVpAfIth2ig5JpEANrE2JVNFOhJAi0cQTvViuA/E2Qxfd01pf6OKrynA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e/WUJfb7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mUNqrcal"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-383cb94f742so1453711a91.3
-        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 13:23:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785356614; x=1785961414; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bH71fmWcaZmonfoK7tsPjNB22a63jGjEHObBS1Hv1i0=;
-        b=mUNqrcalKwRTuc1DK9JfoWdINDQNXvf2R9PpmWxtzDuflK3AroWw923DGVkPQDaIv9
-         hX2yM/UDYb68MV4JJ99ogmBosmhmNIrWyZwZ1wLk7LmtAVFlrp0ufU/hgkr4i4u/2j5V
-         IVYvMkD2c3eSXjYobC4i6xjoMYC7c90CzuAgvckND9kezK0wmzy2HXPsYGdGej/MjA4o
-         TTcCjscFF79GJ067stIjbUUgpOkBffe3T4oivy/WzJSJ0d4+etLzBDDVs/KuWkh0E2R/
-         8/MP/mVCDe/P9goriiMBjjGN9DavCRCgmgjwOjGtaek4sItMZPLqrlugwV60CFb+YdLs
-         OaMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785356614; x=1785961414;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=bH71fmWcaZmonfoK7tsPjNB22a63jGjEHObBS1Hv1i0=;
-        b=sc65mS3k/QOwSRRmkxaXRx2S60i6FLFYD8UYnSPU71FFNedfG1vYZtMG+yM8Yge8kE
-         RHuiRHd7K2UhSn+zxGNhggf3NX01Gke1O4bW4T37vYPUZWdZTJIefPmeHt0vlh2QKYvI
-         VQyoTHOlpw1BBAsKp7Abvki6SbqQ/li4PoCmIWFFJNdkcMPr3lBFgOpnBkPPPRpzlLIs
-         WCQ0M4A2wxHsI86Db0Vx5Nj7mhY/pWy8lcPr80CHZVUCHQADSbLyPyvwDHAbGd/NwKYU
-         sU1aG/uqFmSlEqtPwuAHUBOJqcOx92Dv2oVm4cK67hciocv9Ad4nIQjzCREcCSJlh381
-         jXGQ==
-X-Forwarded-Encrypted: i=1; AHgh+RreTAOt4K9nnjyZcRI5Gr5/wd3IA8q58TMbuEOZ8BX8/FKg3jb0HmW4eSrLZdRHeIghoZ6tyCWNQCWB@vger.kernel.org
-X-Gm-Message-State: AOJu0YzWTy9eftcb8EoUolO+ryU8Kydrot511PC4T334280B40Pk/8zQ
-	3xwVRgjpCPzo8YDQuDBdaKVWRsyZg1bJtde3bngwjTgGdGQLq632cMjw
-X-Gm-Gg: AR+sD106DPz46yUXJUiTCYfGGCUxS8qzT7fdvezsExLbaj0rQJYB5DAdxuGUN3Z4ASO
-	NExxa4Y55snOJXlav19drYCIub3bRjzqw0VQSXaORpeUgPMdhNBXUf4gOMW9OzI8Duvuk7A+Ydv
-	p489w5fO3GraK7tzBbrUEwj2IHscAK408o/Gy5UtzFV2gK2uycWSRJnk21QHekrJkCtZRrkm8Cg
-	7/gLV77sjtuI29UEiB4DPl5lG57J2IINTyj77s+IVOT2f+yMJHg/xLcRK+0A8E6AeWg8HsxHaNh
-	CaZ6Q9xkhAYPEM5R0xalgr0t1v+/RFEzi/mJ2BmNqpzOIkyd67yS6omUiRXUeagQWTmzY+++fXA
-	DLZd0ducphfYL1MG6fwQwSBGC2UKsHO4NhFzxZe3cDcEK57e/dFiuFN9hmz42EYFXwa97wTPmpY
-	4+iHobq7nUtvCWZFi53ThWSuV0Ep/d1OIuziemo1GGpXhufYNUEZA4Ue1iYDNFXqrzOcP0+/6pa
-	qVe6vjgsPcObJEz/6p00FF6bM3G4gUSKEb1Fg==
-X-Received: by 2002:a17:90b:3803:b0:381:6466:7160 with SMTP id 98e67ed59e1d1-38f99254a39mr301005a91.26.1785356614020;
-        Wed, 29 Jul 2026 13:23:34 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13e72643a12sm19379339c88.5.2026.07.29.13.23.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 29 Jul 2026 13:23:33 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <d0625bd7-b5e0-4419-bcdd-9f7a5f8c38fa@roeck-us.net>
-Date: Wed, 29 Jul 2026 13:23:31 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e/WUJfb7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CABD11F000E9;
+	Wed, 29 Jul 2026 20:23:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785356617;
+	bh=qSvWIpZh3+YXiBJWapJs7D+pwVAX7/eOlw49x9LDJwc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=e/WUJfb70BvJF1T5m2fQnTY0EN8/IMQcByqvtIlQa5VlzBKy4XnEvQtUkdOKN6pld
+	 P1+RASzEoRjstNPXdYeLJKCcxgvYDBUP5rZaHTDXLY4+QkWfQjrds2Sgr7mU3wWp2U
+	 KTVb1IOxcV8KwnLWQIzm6in/L6HJFKiU0CUuoyb/bbH+2REZX0GhMHUnhU0E4CaHFY
+	 7Ap3YrTxVK5/7we3YguHvf5cPAw5F4wHLZBdKpiyM821L6OtQcAg0zPxG/dknzqypb
+	 70SnKpgTB0k7LuwKQ+v1d+bIdbRtCoHSNburzbgHcwWo46CPLTajoOOUMVCvgoxSTN
+	 31WYIeV8cDC4g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 1/2] dt-bindings: mmc: Extend keep-power-in-suspend
+ beyond SDIO
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kamal Dasu" <kamal.dasu@broadcom.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260729201420.4047677-2-kamal.dasu@broadcom.com>
+References: <20260729201420.4047677-1-kamal.dasu@broadcom.com>
+ <20260729201420.4047677-2-kamal.dasu@broadcom.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 29 Jul 2026 20:23:36 +0000
+Message-Id: <20260729202336.CABD11F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [hwmon-next PATCH v4 3/4] hwmon: (adt7470) Expose fan control via
- PWM framework
-To: Luiz Angelo Daros de Luca <luizluca@gmail.com>
-Cc: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Chris Packham <chris.packham@alliedtelesis.co.nz>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Darrick J. Wong" <djwong@us.ibm.com>, linux-hwmon@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-pwm@vger.kernel.org
-References: <20260729-adt7470_thermalzone-v4-0-c14039dfa0e6@gmail.com>
- <20260729-adt7470_thermalzone-v4-3-c14039dfa0e6@gmail.com>
- <12dfeaae-f806-4adc-95f1-97fe10ef748e@roeck-us.net>
- <amnoV4Vlxmc5QgVC@monoceros>
- <e535a9c5-28a5-470c-be21-95e1812e5e01@roeck-us.net>
- <CAJq09z5diKf9HpJ0B_7tyo2-2wPfojyG4pRY1qhRQ3fzx0Gr4A@mail.gmail.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <CAJq09z5diKf9HpJ0B_7tyo2-2wPfojyG4pRY1qhRQ3fzx0Gr4A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 7/29/26 12:05, Luiz Angelo Daros de Luca wrote:
-> Hi Guenter, Uwe,
-> 
-> Thank you both for the detailed reviews. I hope I'll address all the
-> points discussed in the next version.
-> 
->>>> No, I won't accept this. It has to be either or. A pwm channel modeled as pwm
->>>> subsystem channel must not be visible via hwmon attributes.
->>>
->>> I didn't look in detail, but maybe my red line is a bit more lax. IMHO
->>> it's not OK to be able to modify a setting that results from pushing
->>> hwmon knobs using PWM operations or vice-versa. Switching between
->>> exclusive use at runtime is IMHO ok.
->>>
->> It is my call to make, and my call is either-or to avoid confusion.
-> 
-> Guenter, I agree and followed your strict "either-or" directive. If
-> the device is bound via the PWM framework (i.e., #pwm-cells is present
-> in the DT), the driver completely hides all legacy hwmon PWM
-> attributes.
-> 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The commit documents `keep-power-in-suspend` as a supported contra=
+ct for (e)MMC platforms to preserve power during suspend, but the MMC core =
+does not implement this behavior for non-SDIO cards, resulting in a false c=
+ontract. The MMC core will unconditionally power off the card during suspen=
+d, breaking firmware that relies on the card remaining powered.
+--
 
-Yes, that is what I am looking for, assuming it is per channel.
-We do not want to unconditionally disable automatic fan control support
-by the chip just because a single channel is used as generic PWM controller.
+--- Patch [1]: [PATCH v5 1/2] dt-bindings: mmc: Extend keep-power-in-suspen=
+d beyond SDIO ---
+commit 4c90177be3ef2dae76dde526bf579376039fcb17
+Author: Kamal Dasu <kamal.dasu@broadcom.com>
 
-> One implementation detail: currently, the driver hides the hwmon
-> attributes only if #pwm-cells is present and IS_REACHABLE(CONFIG_PWM)
-> is true. If the DTS has #pwm-cells but the PWM framework is disabled
-> in the kernel, it emits a dev_warn and falls back to exposing the
-> hwmon attributes. Please let me know if you would prefer to
-> unconditionally hide the hwmon attributes merely based on the presence
-> of the DT property, regardless of the CONFIG_PWM state.
-> 
-No, that would be overkill.
+dt-bindings: mmc: Extend keep-power-in-suspend beyond SDIO
 
-Thanks,
-Guenter
+This commit drops the "SDIO only" restriction for the keep-power-in-suspend
+property in the MMC device tree bindings. It updates the documentation to
+state that for (e)MMC devices, this property indicates a platform requireme=
+nt
+where firmware accesses the card directly during resume.
 
+> diff --git a/Documentation/devicetree/bindings/mmc/mmc-controller-common.=
+yaml b/Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml
+> --- a/Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml
+> +++ b/Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml
+> @@ -291,7 +291,12 @@ properties:
+>    keep-power-in-suspend:
+>      $ref: /schemas/types.yaml#/definitions/flag
+>      description:
+> -      SDIO only. Preserves card power during a suspend/resume cycle.
+> +      Preserves card power during a suspend/resume cycle. For SDIO,
+> +      this is a request an individual function driver can make at
+> +      runtime via sdio_set_host_pm_flags(). For (e)MMC, it is instead
+> +      a fixed platform characteristic, needed on boards where firmware
+> +      accesses the card directly during system resume, before the
+> +      kernel's own resume path runs.
+
+[Severity: High]
+Does the MMC core actually support keeping power for non-SDIO cards during
+suspend?
+
+Looking at the implementation in drivers/mmc/core/mmc.c, _mmc_suspend()
+appears to unconditionally power off the card:
+
+drivers/mmc/core/mmc.c:_mmc_suspend() {
+        ...
+        if (!err) {
+                mmc_power_off(host);
+                mmc_card_set_suspended(host->card);
+        }
+}
+
+Unlike the SDIO suspend path, it lacks a check for mmc_card_keep_power(host=
+).
+Without this check, won't the kernel still power off the card during suspend
+even if keep-power-in-suspend is defined in the device tree?=20
+
+If firmware attempts to access the unpowered MMC device during early resume
+because it expects this DT contract to be honored, could this result in a
+system crash or resume hang?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729201420.4047=
+677-1-kamal.dasu@broadcom.com?part=3D1
