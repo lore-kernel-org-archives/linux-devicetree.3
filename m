@@ -1,164 +1,266 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94660479861;
-	Wed, 29 Jul 2026 10:03:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785319423; cv=none; b=k4l6yDJoZ64ruUbYRj4E33NrM+LCf+rWPJM5qwGRXGKS6uU4sNfFmSXLcrE1txJhqffFq/Zjy1i6lgerb4e2yhcXkJoUSokAp0B5h9mdlCORu12wmjIQ8jtdtZ3bTMLsNno77YZJ6dFfHQ/g7tGRTFCWVKmEkwOCEjr9/g+XBcM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785319423; c=relaxed/simple;
-	bh=8ljoaTpz5t6t77Caaz/zig+MpVBJQnZxOU1I+EbEjvk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=hP1tlcbNcx4q/G9iSFtXe6i4s5kxYFsMtCKdXVJef/zMOMJxaNrBLfnSJf/yAtDtSfYyeHHvqfnRkwRq1/h/emWZupBdhRVOCNIOJkagII8E88vsf7aaw42/gWQ7lXt7EzbxSy5x7FF19RTin46B3hCMgAWon1qPcb1uju2YejE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W6IZ7YJ4; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W6IZ7YJ4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6A401F000E9;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6DC14779B2;
 	Wed, 29 Jul 2026 10:03:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785319421;
-	bh=/UafdEDqXih3rHvhZ19Ua3rvxLUVOZmkB5i7H47oM8I=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=W6IZ7YJ4NnRAAM78luyDktpccKBKK7HtKYM2gN1dRMZf9OKtG38ZxjwYjOA4dDL+C
-	 jNY+8qg2ojchjtTVQgc5HVr78ApMXGIUd0Eoudle5XQdJ0Hoc3N+6P7Opdnr7VDcnu
-	 +UT7+jJePu/gR9REY9oLykZxxcmDm8BZqeZjS+Y7J/H5JpKzIDzokaEd1BMsx+P44e
-	 9vrw0XdFnpz660hZgVpfkngJPCzuvlV7U7qSit58Nt966QTlmWjFhItS4u3yVD8Fkd
-	 K44bYcVI/Yumck5wgi5Hp7QYUmWcdBxyy5cv/YZ0vrv0cg+MjLNGMIGKXcJc+F6Xdv
-	 AtsE6Yi2Ykc7w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v31 4/7] firmware: imx: device context dedicated to priv
-Reply-To: sashiko-reviews@lists.linux.dev
-To: pankaj.gupta@oss.nxp.com
-Cc: imx@lists.linux.dev, Frank.Li@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260729-imx-se-if-v31-4-e59af7adb784@nxp.com>
-References: <20260729-imx-se-if-v31-0-e59af7adb784@nxp.com>
- <20260729-imx-se-if-v31-4-e59af7adb784@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 29 Jul 2026 10:03:40 +0000
-Message-Id: <20260729100340.C6A401F000E9@smtp.kernel.org>
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785319424; cv=none; b=R8pYhIv6V/Hc4Jme4wBn5Rtijrs8Qww6s//Xs1hJ1RbFCXmeacbRk5QQqWEj+80suzFg7RHf7OWDnIpOiDGvnQNtG5L5R8WSm9L5PR5Xw1v61ApK3olsxDL2edO2Kr5dx0Wkxvdz8Ub26HuOLSbyswjcpn2gi4gF1isjYnsfwd0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785319424; c=relaxed/simple;
+	bh=Zh06wlUmAIC1iukSKooFVWp0hF17e98otRnRFvdgrT0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=TI8MNg0InhdZv22PcbIo5LL026ZZTpz+f7X8QB7YpcYN0Q06LT4FbgK+IBs7+uYHCQv8k8ggKyQNsBrXk3HwyBKCXEPct9wXNs+8D9vBmiP9VlyFLMItnO3RUVrYDdIunUdE2ezcASS7/lsm58LMipu+PG2jdBRQgOyWP4v6VLk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=lv0WUgTW; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="lv0WUgTW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1785319418;
+	bh=Zh06wlUmAIC1iukSKooFVWp0hF17e98otRnRFvdgrT0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=lv0WUgTW5IqFnPZGFoE3kIMBhu9IzP12WRWxlguIg/BL8fRuN1ClKKsjReCkfYKOu
+	 0Dk7d63MjMirKShBOKAe4G0aICIEwtoMAuPsiJIvu9adnHWlBLrqRxV55qrf3p543G
+	 85geM0IIfr+NzqIdsrA4wj+OFTp0qYEZ4Li5z5SwTjZumPJ6a0NleLh4YuJkiODkkF
+	 sdmozSe22nmMv9OMrkcIKwx4BDU5LB3VsWKh/SoE2u7Hxb/quHNiVDhwnWZyCoHCva
+	 Y5sC4SUav5FUKy9bNJij6lpT6P815edN8ZYW4gilbxnDoQ0148pgs5g49JGc2Z1rOr
+	 FNDrHLA42dNdg==
+Received: from yukiji.home (unknown [100.64.0.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: laeyraud)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id C521517E0682;
+	Wed, 29 Jul 2026 12:03:37 +0200 (CEST)
+From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Date: Wed, 29 Jul 2026 12:03:08 +0200
+Subject: [PATCH v4 24/24] clk: mediatek: Add MT8189 ufs clock support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260729-mt8189-clocks-system-base-v4-24-e356b813a64c@collabora.com>
+References: <20260729-mt8189-clocks-system-base-v4-0-e356b813a64c@collabora.com>
+In-Reply-To: <20260729-mt8189-clocks-system-base-v4-0-e356b813a64c@collabora.com>
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Chun-Jie Chen <chun-jie.chen@mediatek.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Edward-JW Yang <edward-jw.yang@mediatek.com>, 
+ Richard Cochran <richardcochran@gmail.com>, 
+ Chen-Yu Tsai <wenst@chromium.org>
+Cc: kernel@collabora.com, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ netdev@vger.kernel.org, Irving-CH Lin <irving-ch.lin@mediatek.com>, 
+ Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785319388; l=7242;
+ i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
+ bh=Zh06wlUmAIC1iukSKooFVWp0hF17e98otRnRFvdgrT0=;
+ b=gO61SdH2zYrjFtvn38J7fZcr/ebMsLx0JzWTkuecPzuLLCGhmKPn9krA2cZnhJIuUsRaWnoNd
+ 3HZvE6XsVYVDOnLROYHbl8SMdqcQg9muzpTvW0ttd65Bi2Z768jc/3L
+X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
+ pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] se_if_probe_cleanup() frees priv->priv_dev_ctx before freeing the =
-mailbox channels, creating a race condition where the mailbox RX callback c=
-an access a freed devname string on the error logging path.
---
+Add support for the MT8189 ufs clock controller,
+which provides clock gate control for Universal Flash Storage.
 
---- Patch [4]: [PATCH v31 4/7] firmware: imx: device context dedicated to p=
-riv ---
-commit 29854db2c90371c5e52ff11225c81835904c4be3
-Author: Pankaj Gupta <pankaj.gupta@nxp.com>
+Co-developed-by: Irving-CH Lin <irving-ch.lin@mediatek.com>
+Signed-off-by: Irving-CH Lin <irving-ch.lin@mediatek.com>
+Co-developed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+---
+ drivers/clk/mediatek/Kconfig          |  12 +++
+ drivers/clk/mediatek/Makefile         |   1 +
+ drivers/clk/mediatek/clk-mt8189-ufs.c | 133 ++++++++++++++++++++++++++++++++++
+ 3 files changed, 146 insertions(+)
 
-firmware: imx: device context dedicated to priv
+diff --git a/drivers/clk/mediatek/Kconfig b/drivers/clk/mediatek/Kconfig
+index 919a916f1f4f..34a270a377cc 100644
+--- a/drivers/clk/mediatek/Kconfig
++++ b/drivers/clk/mediatek/Kconfig
+@@ -882,6 +882,18 @@ config COMMON_CLK_MT8189_SCP
+ 	  management for SCP-related features, ensuring proper clock
+ 	  distribution and gating for power efficiency and functionality.
+ 
++config COMMON_CLK_MT8189_UFS
++	tristate "Clock driver for MediaTek MT8189 ufs"
++	depends on COMMON_CLK_MT8189
++	default COMMON_CLK_MT8189
++	help
++	  Enable this to support the clock management for the Universal Flash
++	  Storage (UFS) interface on MediaTek MT8189 SoCs. This includes
++	  clock sources, dividers, and gates that are specific to the UFS
++	  feature of the MT8189 platform. It is recommended to enable this
++	  option if the system includes a UFS device that relies on the MT8189
++	  SoC for clock management.
++
+ config COMMON_CLK_MT8192
+ 	tristate "Clock driver for MediaTek MT8192"
+ 	depends on ARM64 || COMPILE_TEST
+diff --git a/drivers/clk/mediatek/Makefile b/drivers/clk/mediatek/Makefile
+index a3a93a16b369..1aa9f4265225 100644
+--- a/drivers/clk/mediatek/Makefile
++++ b/drivers/clk/mediatek/Makefile
+@@ -130,6 +130,7 @@ obj-$(CONFIG_COMMON_CLK_MT8189_DBGAO) += clk-mt8189-dbgao.o
+ obj-$(CONFIG_COMMON_CLK_MT8189_DVFSRC) += clk-mt8189-dvfsrc.o
+ obj-$(CONFIG_COMMON_CLK_MT8189_IIC) += clk-mt8189-iic.o
+ obj-$(CONFIG_COMMON_CLK_MT8189_SCP) += clk-mt8189-scp.o
++obj-$(CONFIG_COMMON_CLK_MT8189_UFS) += clk-mt8189-ufs.o
+ obj-$(CONFIG_COMMON_CLK_MT8192) += clk-mt8192-apmixedsys.o clk-mt8192.o
+ obj-$(CONFIG_COMMON_CLK_MT8192_AUDSYS) += clk-mt8192-aud.o
+ obj-$(CONFIG_COMMON_CLK_MT8192_CAMSYS) += clk-mt8192-cam.o
+diff --git a/drivers/clk/mediatek/clk-mt8189-ufs.c b/drivers/clk/mediatek/clk-mt8189-ufs.c
+new file mode 100644
+index 000000000000..85afab04420f
+--- /dev/null
++++ b/drivers/clk/mediatek/clk-mt8189-ufs.c
+@@ -0,0 +1,133 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2025-2026 MediaTek Inc.
++ *                    Qiqi Wang <qiqi.wang@mediatek.com>
++ *                    Irving-CH Lin <irving-ch.lin@mediatek.com>
++ * Copyright (C) 2026 Collabora Ltd.
++ *                    AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
++ *                    Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
++ */
++
++#include <linux/clk-provider.h>
++#include <linux/module.h>
++#include <linux/of_device.h>
++#include <linux/platform_device.h>
++
++#include "clk-mtk.h"
++#include "clk-gate.h"
++
++#include <dt-bindings/clock/mediatek,mt8189-clk.h>
++#include <dt-bindings/reset/mediatek,mt8189-resets.h>
++
++#define MT8189_UFSCFG_AO_RST0_SET_OFFSET	0x48
++#define MT8189_UFSCFG_PDN_RST0_SET_OFFSET	0x48
++
++static const struct mtk_gate_regs ufscfg_ao_reg_cg_regs = {
++	.set_ofs = 0x8,
++	.clr_ofs = 0xc,
++	.sta_ofs = 0x4,
++};
++
++#define GATE_UFSCFG_AO_REG(_id, _name, _parent, _shift)		\
++	GATE_MTK(_id, _name, _parent, &ufscfg_ao_reg_cg_regs, _shift, &mtk_clk_gate_ops_setclr)
++
++static const struct mtk_gate ufscfg_ao_reg_clks[] = {
++	GATE_UFSCFG_AO_REG(CLK_UFSCFG_AO_REG_UNIPRO_TX_SYM,
++			   "ufscfg_ao_unipro_tx_sym", "clk26m", 1),
++	GATE_UFSCFG_AO_REG(CLK_UFSCFG_AO_REG_UNIPRO_RX_SYM0,
++			   "ufscfg_ao_unipro_rx_sym0", "clk26m", 2),
++	GATE_UFSCFG_AO_REG(CLK_UFSCFG_AO_REG_UNIPRO_RX_SYM1,
++			   "ufscfg_ao_unipro_rx_sym1", "clk26m", 3),
++	GATE_UFSCFG_AO_REG(CLK_UFSCFG_AO_REG_UNIPRO_SYS,
++			   "ufscfg_ao_unipro_sys", "ufs_sel", 4),
++	GATE_UFSCFG_AO_REG(CLK_UFSCFG_AO_REG_U_SAP_CFG,
++			   "ufscfg_ao_u_sap_cfg", "clk26m", 5),
++	GATE_UFSCFG_AO_REG(CLK_UFSCFG_AO_REG_U_PHY_TOP_AHB_S_BUS,
++			   "ufscfg_ao_u_phy_ahb_s_bus", "axi_u_sel", 6),
++};
++
++static u16 ufscfg_ao_rst_ofs[] = {
++	MT8189_UFSCFG_AO_RST0_SET_OFFSET,
++};
++
++static u16 ufscfg_ao_rst_idx_map[] = {
++	[MT8189_UFSAO_RST_UFS_MPHY] = 8,
++};
++
++static const struct mtk_clk_rst_desc ufscfg_ao_rst_desc = {
++	.version = MTK_RST_SET_CLR,
++	.rst_bank_ofs = ufscfg_ao_rst_ofs,
++	.rst_bank_nr = ARRAY_SIZE(ufscfg_ao_rst_ofs),
++	.rst_idx_map = ufscfg_ao_rst_idx_map,
++	.rst_idx_map_nr = ARRAY_SIZE(ufscfg_ao_rst_idx_map),
++};
++
++static const struct mtk_clk_desc ufscfg_ao_reg_mcd = {
++	.clks = ufscfg_ao_reg_clks,
++	.num_clks = ARRAY_SIZE(ufscfg_ao_reg_clks),
++	.rst_desc = &ufscfg_ao_rst_desc,
++};
++
++static const struct mtk_gate_regs ufscfg_pdn_reg_cg_regs = {
++	.set_ofs = 0x8,
++	.clr_ofs = 0xc,
++	.sta_ofs = 0x4,
++};
++
++#define GATE_UFSCFG_PDN_REG(_id, _name, _parent, _shift)	\
++	GATE_MTK(_id, _name, _parent, &ufscfg_pdn_reg_cg_regs, _shift, &mtk_clk_gate_ops_setclr)
++
++static const struct mtk_gate ufscfg_pdn_reg_clks[] = {
++	GATE_UFSCFG_PDN_REG(CLK_UFSCFG_REG_UFSHCI_UFS,
++			    "ufscfg_ufshci_ufs", "ufs_sel", 0),
++	GATE_UFSCFG_PDN_REG(CLK_UFSCFG_REG_UFSHCI_AES,
++			    "ufscfg_ufshci_aes", "aes_ufsfde_sel", 1),
++	GATE_UFSCFG_PDN_REG(CLK_UFSCFG_REG_UFSHCI_U_AHB,
++			    "ufscfg_ufshci_u_ahb", "axi_u_sel", 3),
++	GATE_UFSCFG_PDN_REG(CLK_UFSCFG_REG_UFSHCI_U_AXI,
++			    "ufscfg_ufshci_u_axi", "mem_sub_u_sel", 5),
++};
++
++static u16 ufscfg_pdn_rst_ofs[] = {
++	MT8189_UFSCFG_PDN_RST0_SET_OFFSET,
++};
++
++static u16 ufscfg_pdn_rst_idx_map[] = {
++	[MT8189_UFSPDN_RST_UFS_UNIPRO] = 0,
++	[MT8189_UFSPDN_RST_UFS_CRYPTO] = 1,
++	[MT8189_UFSPDN_RST_UFS_HCI] = 2,
++};
++
++static const struct mtk_clk_rst_desc ufscfg_pdn_rst_desc = {
++	.version = MTK_RST_SET_CLR,
++	.rst_bank_ofs = ufscfg_pdn_rst_ofs,
++	.rst_bank_nr = ARRAY_SIZE(ufscfg_pdn_rst_ofs),
++	.rst_idx_map = ufscfg_pdn_rst_idx_map,
++	.rst_idx_map_nr = ARRAY_SIZE(ufscfg_pdn_rst_idx_map),
++};
++
++static const struct mtk_clk_desc ufscfg_pdn_reg_mcd = {
++	.clks = ufscfg_pdn_reg_clks,
++	.num_clks = ARRAY_SIZE(ufscfg_pdn_reg_clks),
++	.rst_desc = &ufscfg_pdn_rst_desc,
++};
++
++static const struct of_device_id of_match_clk_mt8189_ufs[] = {
++	{ .compatible = "mediatek,mt8189-ufscfg-ao", .data = &ufscfg_ao_reg_mcd },
++	{ .compatible = "mediatek,mt8189-ufscfg-pdn", .data = &ufscfg_pdn_reg_mcd },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, of_match_clk_mt8189_ufs);
++
++static struct platform_driver clk_mt8189_ufs_drv = {
++	.probe = mtk_clk_simple_probe,
++	.remove = mtk_clk_simple_remove,
++	.driver = {
++		.name = "clk-mt8189-ufs",
++		.of_match_table = of_match_clk_mt8189_ufs,
++	},
++};
++module_platform_driver(clk_mt8189_ufs_drv);
++
++MODULE_DESCRIPTION("MediaTek MT8189 ufs clocks driver");
++MODULE_LICENSE("GPL");
 
-Add priv_dev_ctx to prepare enabling misc-device context based send-receive
-path, to communicate with FW.
+-- 
+2.55.0
 
-Closes: https://sashiko.dev/#/patchset/20260721-imx-se-if-v29-0-04a362f4fcc=
-a@nxp.com?part=3D4
-
-> diff --git a/drivers/firmware/imx/ele_common.c b/drivers/firmware/imx/ele=
-_common.c
-> --- a/drivers/firmware/imx/ele_common.c
-> +++ b/drivers/firmware/imx/ele_common.c
-
-[ ... ]
-
-> @@ -294,13 +301,14 @@ void se_if_rx_callback(struct mbox_client *mbox_cl,=
- void *msg)
->  		 * Clamp the copy length to the pre-allocated receiver buffer (MAX_NVM=
-_MSG_LEN).
->  		 */
->  		se_clbk_hdl->rx_msg_sz =3D min_t(u32, rx_msg_sz, MAX_NVM_MSG_LEN);
-> +		devname =3D se_clbk_hdl->dev_ctx->devname;
->  		memcpy(se_clbk_hdl->rx_msg, msg, se_clbk_hdl->rx_msg_sz);
->  		complete(&se_clbk_hdl->done);
->  		spin_unlock_irqrestore(&se_clbk_hdl->clbk_rx_lock, flags);
->  		if (sz_mismatch)
->  			dev_err(dev,
-> -				"CMD-RCVER NVM: hdr(0x%x) with different sz(%d !=3D %d).\n",
-> -				*(u32 *)header,
-> +				"%s: CMD-RCVER NVM: hdr(0x%x) with different sz(%d !=3D %d).\n",
-> +				devname, *(u32 *)header,
->  				(header->size << 2), rx_msg_sz);
-
-[ ... ]
-
-> @@ -335,14 +343,15 @@ void se_if_rx_callback(struct mbox_client *mbox_cl,=
- void *msg)
->  			sz_mismatch =3D true;
-> =20
->  		se_clbk_hdl->rx_msg_sz =3D min(rx_msg_sz, exp_rx_msg_sz);
-> +		devname =3D se_clbk_hdl->dev_ctx->devname;
->  		memcpy(se_clbk_hdl->rx_msg, msg, se_clbk_hdl->rx_msg_sz);
->  		complete(&se_clbk_hdl->done);
->  		spin_unlock_irqrestore(&se_clbk_hdl->clbk_rx_lock, flags);
-> =20
->  		if (sz_mismatch)
->  			dev_err(dev,
-> -				"Rsp to CMD: hdr(0x%x) with different sz(%d !=3D %d).\n",
-> -				*(u32 *)header,
-> +				"%s: Rsp to CMD: hdr(0x%x) with different sz(%d !=3D %d).\n",
-> +				devname, *(u32 *)header,
->  				(header->size << 2), exp_rx_msg_sz);
-
-[ ... ]
-
-> diff --git a/drivers/firmware/imx/se_ctrl.c b/drivers/firmware/imx/se_ctr=
-l.c
-> --- a/drivers/firmware/imx/se_ctrl.c
-> +++ b/drivers/firmware/imx/se_ctrl.c
-
-[ ... ]
-
-> @@ -309,6 +339,11 @@ static void se_if_probe_cleanup(void *plat_dev)
->  	if (!priv)
->  		return;
-> =20
-> +	if (priv->priv_dev_ctx) {
-> +		kfree(priv->priv_dev_ctx->devname);
-> +		kfree(priv->priv_dev_ctx);
-> +	}
-> +
->  	if (priv->rx_chan)
->  		mbox_free_channel(priv->rx_chan);
->  	if (priv->tx_chan)
-
-[Severity: High]
-Can this sequence result in a use-after-free of devname?
-
-If the firmware sends a response with an unexpected size during a probe
-transaction, sz_mismatch becomes true. In se_if_rx_callback(), the code
-caches devname, calls complete(), drops the lock, and then calls dev_err()
-passing the cached devname:
-
-drivers/firmware/imx/ele_common.c:se_if_rx_callback()
-        devname =3D se_clbk_hdl->dev_ctx->devname;
-        ...
-        complete(&se_clbk_hdl->done);
-        spin_unlock_irqrestore(...);
-       =20
-        if (sz_mismatch)
-                dev_err(dev, "%s ...", devname, ...);
-               =20
-Calling complete() wakes up the waiting probe thread. If the probe aborts
-due to this mismatch and triggers devres cleanup, se_if_probe_cleanup()
-runs.
-
-Because se_if_probe_cleanup() frees priv_dev_ctx and its devname before
-calling mbox_free_channel() (which would otherwise synchronize and stop
-pending callbacks), devname could be freed while the callback thread is
-preempted before or during the dev_err() call.
-
-Would it be safer to free priv_dev_ctx after the mailbox channels are freed?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729-imx-se-if-=
-v31-0-e59af7adb784@nxp.com?part=3D4
