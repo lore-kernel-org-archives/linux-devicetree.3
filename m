@@ -1,60 +1,60 @@
-Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com [209.85.167.181])
+Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com [209.85.167.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EBB1483BC1
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 13:30:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB05548D89B
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 13:30:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785331827; cv=none; b=uhuMZJNPYySWaFB+u/yQLvfMY2sn45u7vQfDKAl6kO46wG9aHTSMyjZv/A1SJKp+E2nvUaZWDfuz1eYj/jW6KZxXnAn1X1Xq4lGpyVrnKwhNYLyNWKn8ozm/EbohMPsbk76SmuARISVn1p9dYtHC6p1G5By3e61lmZOklMfDxGI=
+	t=1785331832; cv=none; b=FoKgTgV0qQaYHF1bDjpDuMEE249yeaToucXKqJRG8Fh/bEkcFCVTpLFnGGYotEpC3b9Yq+7wRQwdpB+ENLtuVJZ6S7Q2GN+UGfWiEBIkAXSMAzWE7LMf9wt86xYI/S468BOKZhwiT/28MejoWJJownVwa4c4zzov8zwv8/GoPz0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785331827; c=relaxed/simple;
-	bh=JNPAUINbD0RD9KybCqO6mE+R6lBKwrezk7Zf9d2lUIA=;
+	s=arc-20240116; t=1785331832; c=relaxed/simple;
+	bh=oueusPkMTr2doN92hQqXYGW5MFvViZBL/xUb/Vo1yeE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dr8qFFKzZVkrClZjRUUcgRGjnI4zF7OEYIUgz6kfb1R7nWlAWKDne3kqQI7firT+5M+l8Er3tnRgNbxBex66KtqvuaK5BTOkOXsk3F+M5IiG2XUbUzSZoao1D/RCr7vkQD8hzsqt4GxUe4O+51lJPJvSkUoEv15VQcGrHryGRVM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=TkQJrfGO; arc=none smtp.client-ip=209.85.167.181
+	 MIME-Version; b=GJ2nBbgr2VT7sj1H9eVHDPAnqkS5MnWL8JKflpZpr2djjo9q1FZWWkhrEe9TgUiJ6hOmgt0TA1bcrp0h/ihytnOjYR79u7UO1SimySRi+hSFIL+0FX6VHG2coC9Vk1+ww5g7aGjRPgN1ybUKoqBDKxuL/BfiZ7NkpQM4pBQXqZE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=LrITWAIw; arc=none smtp.client-ip=209.85.167.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="TkQJrfGO"
-Received: by mail-oi1-f181.google.com with SMTP id 5614622812f47-4ab89cff9c7so304245b6e.2
-        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 06:30:23 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="LrITWAIw"
+Received: by mail-oi1-f175.google.com with SMTP id 5614622812f47-4a427e628a9so334611b6e.0
+        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 06:30:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1785331822; x=1785936622; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1785331825; x=1785936625; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=MGY9pJ9HxACe2V5dSfk8s/efrdxSSwRbR+Ftr/FTg6A=;
-        b=TkQJrfGOnJ+TUAHwGpumGr3sfyOodaoPGSBN39Epa8WquMSayZ2w3v6ATkP1wFwHSd
-         SMVDQ1C5LxDPD25a+haBhY2t4lqAgJ2yt4/V6eRnB4BCraNqEY3It/5IC/UdgDTia2dk
-         XblpPOcCnfHzICLcub+p+dDubANL9x3tN0J30=
+        bh=BUxFHoBHdn28B47c4spoxc42rP6ch6/zwTGsysh3p5I=;
+        b=LrITWAIwCP24RGkrE26Azek1v5HsFHUgUQR7V85PMqBSnvG/2KDJHYRnQeofg3OS5z
+         liXzeDPw7jlI83ZMEegWyI2RnVUyqs9rVpg9B9CFo5S9NJxPURljzq8I3w5rbXfo2pIg
+         2z0/ze87OkhOaUbLa/M5rPMpGLARsKXfgUxh0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785331822; x=1785936622;
+        d=1e100.net; s=20251104; t=1785331825; x=1785936625;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MGY9pJ9HxACe2V5dSfk8s/efrdxSSwRbR+Ftr/FTg6A=;
-        b=dNrc0XP1IZ42AQblkiAPjUd8V2k8f3ncwUtqDRcrnTVFdI5OeHdVHIA/9WOWFkfy8X
-         o5HrxhDAYc9CO6gfQ5XT1EWQCP59FzRBFTxR+duWetIdold4qUdfKkQg3u6xgv9/F0bX
-         n36Be7NerqBVoC2x+8bNCbsPyrIa3o1JYCJpdjxhs6Gy1OMEK6PjipsERL/q+7zT0Sbe
-         Di/dWXeaUnWSca11xF3i4/nK6V+G+reK++vpmgPIDoPa0lANGHjxLiD5065eZcH453iL
-         WeAekloeB9YPcT0uf3oRTFdumYXDzBqpf05/c8uivYMSA5scji5lEmIP4yV6UdSQIyMW
-         rY+A==
-X-Forwarded-Encrypted: i=1; AHgh+Rr+u6etDo0ovgKRM7r63ufYys0T56fD7+3G/HHc8UNPauQH9WkxLvAq2LqRsWfGY54juF/mqQqXnUI9@vger.kernel.org
-X-Gm-Message-State: AOJu0Yygj9JinNNoTufBObDiv57GGEms6/NlhBmKR4EIqZ6cAFEaijcI
-	Zde8NLUNGCxUwtld3+biMC40Mcj4O0oE+kII9DDMiDn9FbN/9dhikpaq+EWg+YeStA==
-X-Gm-Gg: AR+sD10EVAlFroC4+6fE7kDhK9NXLnC1AoVKMKmx7es7sv3trBfD76s7npUwihau2Vr
-	fWWtWhipL3A1FwVb7ocGxu3fHgT7GPEVDSlY4Xpue6lOZ4NI4kHC5oKqXV5JLJa680C4Z43HINr
-	6XxxNyMxSKF2REx1mBvfrFZ0Y/MXwRgcGAy4Ou6GEyuuekqWYuryAXOnmM/9JdD6rn/c/3e72jX
-	BP/scwUF1i2zbs0rioEth0XxhB7i3T2T5+qbwTPn9tyesHaaTFmYiRogkUj1IQ95MY18zOjVQ3I
-	u/CDSwz5O46v0TLfdVXPP+t/QeKIqTRMkf7u9SO8xLqR59Ep8Fso+hL/M24UMdj3JO/bg5nzjPT
-	HqCPP9vSEYzR/bntKO+yVF91dZiPpVYbk0x8PZTNohndGOyU7cM1qUTAQOUHe67tx6OkE3FbPpb
-	6VgZ5rgQTAHEaKJp2cvcG/VbuEp2LahNqtHkv3U5UNx0WPii5WO1BjqiexiT6WKlq4Xw==
-X-Received: by 2002:a05:6808:1905:b0:496:11f1:f2b5 with SMTP id 5614622812f47-4ad5b987d6emr3451568b6e.10.1785331822286;
-        Wed, 29 Jul 2026 06:30:22 -0700 (PDT)
+        bh=BUxFHoBHdn28B47c4spoxc42rP6ch6/zwTGsysh3p5I=;
+        b=tLgwXzdrEXmduRrc+0p6neVDLGSo+vu2m4B5KuF3i4u/BabYKNSueVz6ezeyZAcqJF
+         ylaSkKli6fYcbK2/qoxuvBKwYYFKWeVUh7Ufy5diOXC2dFsOe69iQrepnT8AFHgy/0Qy
+         jluNE3Cm7DXRTrTSlaYc6CmQ/PBJZjueucRJtKJczyjD+IReL5re+1BezrOZw6bRiXC4
+         ULamu6hNe+jeSptCtaxZfk7zzdTcKJsZVPeDXG5R4lv0Q4v+DXohrvKKesJwuo4tHuUH
+         guLOOQ7B6xzLt/kh54C1zrAYuEqYiQe5iJB8DL38yNOH3jm9Jfi8jVvjoJsFSqzvUi3r
+         WZew==
+X-Forwarded-Encrypted: i=1; AHgh+Rpx/FDy66voPUjtdoE4yzdL9LxWTV690fhBAcVxe59qwBPg5Bk5GpkTQ18eDzPwfZbq1Ps6wwR8iKZv@vger.kernel.org
+X-Gm-Message-State: AOJu0YwVt67HOTlSwjVRhmnvImPWGABXSyuGxM9EICgopW60tyUk/9oW
+	RROVTfVyqwLAZJ0GJWN/8LiYHgj4oyImsZv60fIHdE9bkE1x3H/OUbMKOhP6lBK69g==
+X-Gm-Gg: AR+sD123h9HjgxoSN6uhRBSyE1FdxX3+uUZhXNovYbdihvNcH40oynZJeMtTffHfW2o
+	MVS6rI/mIE8CwSK6NUMVSK8Jj3aVCj7sYBLrUdLFlxX5wDQcISWg/VlMoM1g24FTFSa9OCnHS6E
+	jDrK5ExFJcnNBvVvmIzqL57bAnsxP3rww1YgNxYlH4oDhJFW05MDUjakU+hx1tgslqFUamoqEnE
+	J5H5Rso/cVpDGpN1i0Uxap+e4mUT2+tmSWkJpEU+MM+MxGPm3pucoRi4NlN4AzXQGc3E2exldys
+	o5zge7PHFGx1DNe70MfrppIW5TyTMFpHantIwgPs6kuaBeANANP7iVYUxVeUZO8T5TOGTcu7N7w
+	OMPkY/dS3reQZBdd1gok8p0DiD2j5b86MUJc0qVUY9bI1TUku8vjff/XFXR45ecttkvmjMe9wct
+	6wNgazNDHRfmB8WLE6I6Y/h0YMQqHztX7zXodQOMhODDoPnXPBZ/Do2cU=
+X-Received: by 2002:a05:6808:220f:b0:496:2b3:ae71 with SMTP id 5614622812f47-4ad5b9cb9dfmr4064130b6e.18.1785331825191;
+        Wed, 29 Jul 2026 06:30:25 -0700 (PDT)
 Received: from chromium.org ([174.51.25.52])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4ad6ef5d650sm1712932b6e.9.2026.07.29.06.30.19
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4ad6ef5d650sm1712932b6e.9.2026.07.29.06.30.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Jul 2026 06:30:20 -0700 (PDT)
+        Wed, 29 Jul 2026 06:30:24 -0700 (PDT)
 From: Simon Glass <sjg@chromium.org>
 To: Linus Walleij <linusw@kernel.org>
 Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -70,9 +70,9 @@ Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Jeffy Chen <jeffy.chen@rock-chips.com>,
 	huang lin <hl@rock-chips.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 3/4] dt-bindings: pinctrl: rockchip: Add RV1106 compatible
-Date: Wed, 29 Jul 2026 07:27:27 -0600
-Message-ID: <20260729072727.v3.3.3a4f9d47d4dba36e14141f8796afe8907028aa9c@changeid>
+Subject: [PATCH v3 4/4] pinctrl: rockchip: Add RV1106 pinctrl support
+Date: Wed, 29 Jul 2026 07:27:28 -0600
+Message-ID: <20260729072727.v3.4.0af20e702c540f54a3d1694654b158a9b783d68e@changeid>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260729132736.3807082-1-sjg@chromium.org>
 References: <20260729132736.3807082-1-sjg@chromium.org>
@@ -84,30 +84,344 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the compatible for the pin controller of the Rockchip RV1106 and
-its RV1103 package variant.
+Add pinctrl support for the Rockchip RV1106, based on the vendor
+kernel in the Luckfox Pico SDK [1] at commit 824b817f8 (a Linux
+5.10.160 kernel tree). Each GPIO bank has its own IO control (IOC)
+register block, referenced by the rockchip,grf phandle of the bank
+node; the register offsets are relative to the bank's own block. The
+drive strength uses the RK3568-style exponential encoding and only
+pins 0-6 of GPIO0 have drive-strength registers.
+
+The RV1103 is a package variant of the RV1106 with fewer pins and uses
+the same pin controller.
+
+[1] https://github.com/LuckfoxTECH/luckfox-pico
 
 Signed-off-by: Simon Glass <sjg@chromium.org>
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
 ---
 
-(no changes since v1)
+Changes in v3:
+- Declare the 8-bit level drive type on the banks so that reads decode
+  correctly
+- Return an error from the iomux functions when a bank has no IOC
+  regmap, rather than falling back to the shared regmap
 
- Documentation/devicetree/bindings/pinctrl/rockchip,pinctrl.yaml | 1 +
- 1 file changed, 1 insertion(+)
+Changes in v2:
+- Use a separate IOC regmap per bank, taken from the rockchip,grf
+  phandle of each bank node and identified by the gpio alias, with
+  block-relative register offsets
+- Reject drive-strength requests for GPIO0 pins above 6, which have no
+  drive-strength registers
+- Specify only the first iomux offset for each bank, letting the driver
+  calculate the increments
 
-diff --git a/Documentation/devicetree/bindings/pinctrl/rockchip,pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/rockchip,pinctrl.yaml
-index 9b3cbeb54fed..81747bb53056 100644
---- a/Documentation/devicetree/bindings/pinctrl/rockchip,pinctrl.yaml
-+++ b/Documentation/devicetree/bindings/pinctrl/rockchip,pinctrl.yaml
-@@ -51,6 +51,7 @@ properties:
-       - rockchip,rk3576-pinctrl
-       - rockchip,rk3588-pinctrl
-       - rockchip,rv1103b-pinctrl
-+      - rockchip,rv1106-pinctrl
-       - rockchip,rv1108-pinctrl
-       - rockchip,rv1126-pinctrl
+ drivers/pinctrl/pinctrl-rockchip.c | 192 +++++++++++++++++++++++++++++
+ drivers/pinctrl/pinctrl-rockchip.h |   4 +
+ 2 files changed, 196 insertions(+)
+
+diff --git a/drivers/pinctrl/pinctrl-rockchip.c b/drivers/pinctrl/pinctrl-rockchip.c
+index 08a46a04a815..4e5e4434ba4e 100644
+--- a/drivers/pinctrl/pinctrl-rockchip.c
++++ b/drivers/pinctrl/pinctrl-rockchip.c
+@@ -1188,6 +1188,12 @@ static int rockchip_get_mux(struct rockchip_pin_bank *bank, int pin)
+ 	else
+ 		regmap = info->regmap_base;
  
++	/* Banks with their own IOC block use its regmap for the iomux */
++	if (bank->regmap_ioc)
++		regmap = bank->regmap_ioc;
++	else if (ctrl->type == RV1106)
++		return -EINVAL;
++
+ 	if (ctrl->type == RV1103B && bank->bank_num == 2 && pin >= 12)
+ 		return 0;
+ 
+@@ -1317,6 +1323,12 @@ static int rockchip_set_mux(struct rockchip_pin_bank *bank, int pin, int mux)
+ 	else
+ 		regmap = info->regmap_base;
+ 
++	/* Banks with their own IOC block use its regmap for the iomux */
++	if (bank->regmap_ioc)
++		regmap = bank->regmap_ioc;
++	else if (ctrl->type == RV1106)
++		return -EINVAL;
++
+ 	if (ctrl->type == RV1103B && bank->bank_num == 2 && pin >= 12)
+ 		return 0;
+ 
+@@ -1725,6 +1737,78 @@ static int rv1103b_calc_schmitt_reg_and_bit(struct rockchip_pin_bank *bank,
+ 	return 0;
+ }
+ 
++#define RV1106_DRV_BITS_PER_PIN		8
++#define RV1106_DRV_PINS_PER_REG		2
++#define RV1106_PULL_BITS_PER_PIN	2
++#define RV1106_PULL_PINS_PER_REG	8
++#define RV1106_SMT_BITS_PER_PIN		1
++#define RV1106_SMT_PINS_PER_REG		8
++
++/*
++ * Each bank has its own IOC block, referenced by the rockchip,grf
++ * phandle of the bank node. The offsets below are relative to the
++ * bank's own block.
++ */
++static const int rv1106_drv_offsets[] = { 0x10, 0x80, 0xc0, 0x100, 0x20 };
++static const int rv1106_pull_offsets[] = { 0x38, 0x1c0, 0x1d0, 0x1e0, 0x70 };
++static const int rv1106_smt_offsets[] = { 0x40, 0x280, 0x290, 0x2a0, 0xa0 };
++
++static int rv1106_calc_drv_reg_and_bit(struct rockchip_pin_bank *bank,
++				       int pin_num, struct regmap **regmap,
++				       int *reg, u8 *bit)
++{
++	if (bank->bank_num >= ARRAY_SIZE(rv1106_drv_offsets) ||
++	    !bank->regmap_ioc)
++		return -EINVAL;
++
++	/* Only pins 0-6 of GPIO0 have drive-strength registers */
++	if (bank->bank_num == 0 && pin_num > 6)
++		return -ENOTSUPP;
++
++	*regmap = bank->regmap_ioc;
++	*reg = rv1106_drv_offsets[bank->bank_num];
++	*reg += ((pin_num / RV1106_DRV_PINS_PER_REG) * 4);
++	*bit = pin_num % RV1106_DRV_PINS_PER_REG;
++	*bit *= RV1106_DRV_BITS_PER_PIN;
++
++	return 0;
++}
++
++static int rv1106_calc_pull_reg_and_bit(struct rockchip_pin_bank *bank,
++					int pin_num, struct regmap **regmap,
++					int *reg, u8 *bit)
++{
++	if (bank->bank_num >= ARRAY_SIZE(rv1106_pull_offsets) ||
++	    !bank->regmap_ioc)
++		return -EINVAL;
++
++	*regmap = bank->regmap_ioc;
++	*reg = rv1106_pull_offsets[bank->bank_num];
++	*reg += ((pin_num / RV1106_PULL_PINS_PER_REG) * 4);
++	*bit = pin_num % RV1106_PULL_PINS_PER_REG;
++	*bit *= RV1106_PULL_BITS_PER_PIN;
++
++	return 0;
++}
++
++static int rv1106_calc_schmitt_reg_and_bit(struct rockchip_pin_bank *bank,
++					   int pin_num,
++					   struct regmap **regmap,
++					   int *reg, u8 *bit)
++{
++	if (bank->bank_num >= ARRAY_SIZE(rv1106_smt_offsets) ||
++	    !bank->regmap_ioc)
++		return -EINVAL;
++
++	*regmap = bank->regmap_ioc;
++	*reg = rv1106_smt_offsets[bank->bank_num];
++	*reg += ((pin_num / RV1106_SMT_PINS_PER_REG) * 4);
++	*bit = pin_num % RV1106_SMT_PINS_PER_REG;
++	*bit *= RV1106_SMT_BITS_PER_PIN;
++
++	return 0;
++}
++
+ #define RV1108_PULL_PMU_OFFSET		0x10
+ #define RV1108_PULL_OFFSET		0x110
+ #define RV1108_PULL_PINS_PER_REG	8
+@@ -3329,6 +3413,7 @@ static int rockchip_set_drive_perpin(struct rockchip_pin_bank *bank,
+ 		ret = strength;
+ 		goto config;
+ 	} else if (ctrl->type == RV1103B ||
++		   ctrl->type == RV1106 ||
+ 		   ctrl->type == RK3506 ||
+ 		   ctrl->type == RK3528 ||
+ 		   ctrl->type == RK3562 ||
+@@ -3482,6 +3567,7 @@ static int rockchip_get_pull(struct rockchip_pin_bank *bank, int pin_num)
+ 				: PIN_CONFIG_BIAS_DISABLE;
+ 	case PX30:
+ 	case RV1103B:
++	case RV1106:
+ 	case RV1108:
+ 	case RK3188:
+ 	case RK3288:
+@@ -3547,6 +3633,7 @@ static int rockchip_set_pull(struct rockchip_pin_bank *bank,
+ 		break;
+ 	case PX30:
+ 	case RV1103B:
++	case RV1106:
+ 	case RV1108:
+ 	case RV1126:
+ 	case RK3188:
+@@ -3843,6 +3930,7 @@ static bool rockchip_pinconf_pull_valid(struct rockchip_pin_ctrl *ctrl,
+ 		return pull ? false : true;
+ 	case PX30:
+ 	case RV1103B:
++	case RV1106:
+ 	case RV1108:
+ 	case RV1126:
+ 	case RK3188:
+@@ -4452,6 +4540,7 @@ static int rockchip_pinctrl_probe(struct platform_device *pdev)
+ 	struct resource *res;
+ 	void __iomem *base;
+ 	int ret;
++	int i;
+ 
+ 	if (!dev->of_node)
+ 		return dev_err_probe(dev, -ENODEV, "device tree node not found\n");
+@@ -4505,6 +4594,44 @@ static int rockchip_pinctrl_probe(struct platform_device *pdev)
+ 	/* try to find the optional reference to the ioc1 syscon */
+ 	info->regmap_ioc1 = syscon_regmap_lookup_by_phandle_optional(np, "rockchip,ioc1");
+ 
++	/*
++	 * On SoCs where each GPIO bank has its own IOC block, the bank nodes
++	 * carry a rockchip,grf phandle pointing at it. The bank number comes
++	 * from the gpio alias, as used by the gpio driver, falling back to
++	 * the node position for devicetrees without aliases. The fallback is
++	 * wrong when an SoC variant omits a bank, so aliases are needed
++	 * there.
++	 */
++	i = 0;
++	for_each_child_of_node_scoped(np, child) {
++		struct rockchip_pin_bank *bank = NULL;
++		int id, j;
++
++		if (!of_match_node(rockchip_bank_match, child))
++			continue;
++
++		id = of_alias_get_id(child, "gpio");
++		if (id < 0)
++			id = i;
++		i++;
++
++		for (j = 0; j < ctrl->nr_banks; j++) {
++			if (ctrl->pin_banks[j].bank_num == id) {
++				bank = &ctrl->pin_banks[j];
++				break;
++			}
++		}
++		if (!bank)
++			continue;
++
++		bank->regmap_ioc = syscon_regmap_lookup_by_phandle_optional(
++							child, "rockchip,grf");
++		if (IS_ERR(bank->regmap_ioc))
++			return dev_err_probe(dev, PTR_ERR(bank->regmap_ioc),
++					     "%pOFn: failed to look up bank ioc\n",
++					     child);
++	}
++
+ 	ret = rockchip_pinctrl_register(pdev, info);
+ 	if (ret)
+ 		return ret;
+@@ -4623,6 +4750,69 @@ static struct rockchip_pin_ctrl rv1103b_pin_ctrl __maybe_unused = {
+ 	.schmitt_calc_reg	= rv1103b_calc_schmitt_reg_and_bit,
+ };
+ 
++static struct rockchip_pin_bank rv1106_pin_banks[] = {
++	PIN_BANK_IOMUX_FLAGS_OFFSET_DRV_FLAGS(0, 32, "gpio0",
++				    IOMUX_WIDTH_4BIT,
++				    IOMUX_WIDTH_4BIT,
++				    IOMUX_WIDTH_4BIT,
++				    IOMUX_WIDTH_4BIT,
++				    0, -1, -1, -1,
++				    DRV_TYPE_IO_LEVEL_8_BIT,
++				    DRV_TYPE_IO_LEVEL_8_BIT,
++				    DRV_TYPE_IO_LEVEL_8_BIT,
++				    DRV_TYPE_IO_LEVEL_8_BIT),
++	PIN_BANK_IOMUX_FLAGS_OFFSET_DRV_FLAGS(1, 32, "gpio1",
++				    IOMUX_WIDTH_4BIT,
++				    IOMUX_WIDTH_4BIT,
++				    IOMUX_WIDTH_4BIT,
++				    IOMUX_WIDTH_4BIT,
++				    0, -1, -1, -1,
++				    DRV_TYPE_IO_LEVEL_8_BIT,
++				    DRV_TYPE_IO_LEVEL_8_BIT,
++				    DRV_TYPE_IO_LEVEL_8_BIT,
++				    DRV_TYPE_IO_LEVEL_8_BIT),
++	PIN_BANK_IOMUX_FLAGS_OFFSET_DRV_FLAGS(2, 32, "gpio2",
++				    IOMUX_WIDTH_4BIT,
++				    IOMUX_WIDTH_4BIT,
++				    IOMUX_WIDTH_4BIT,
++				    IOMUX_WIDTH_4BIT,
++				    0x20, -1, -1, -1,
++				    DRV_TYPE_IO_LEVEL_8_BIT,
++				    DRV_TYPE_IO_LEVEL_8_BIT,
++				    DRV_TYPE_IO_LEVEL_8_BIT,
++				    DRV_TYPE_IO_LEVEL_8_BIT),
++	PIN_BANK_IOMUX_FLAGS_OFFSET_DRV_FLAGS(3, 32, "gpio3",
++				    IOMUX_WIDTH_4BIT,
++				    IOMUX_WIDTH_4BIT,
++				    IOMUX_WIDTH_4BIT,
++				    IOMUX_WIDTH_4BIT,
++				    0x40, -1, -1, -1,
++				    DRV_TYPE_IO_LEVEL_8_BIT,
++				    DRV_TYPE_IO_LEVEL_8_BIT,
++				    DRV_TYPE_IO_LEVEL_8_BIT,
++				    DRV_TYPE_IO_LEVEL_8_BIT),
++	PIN_BANK_IOMUX_FLAGS_OFFSET_DRV_FLAGS(4, 24, "gpio4",
++				    IOMUX_WIDTH_4BIT,
++				    IOMUX_WIDTH_4BIT,
++				    IOMUX_WIDTH_4BIT,
++				    0,
++				    0, -1, -1, -1,
++				    DRV_TYPE_IO_LEVEL_8_BIT,
++				    DRV_TYPE_IO_LEVEL_8_BIT,
++				    DRV_TYPE_IO_LEVEL_8_BIT,
++				    DRV_TYPE_IO_LEVEL_8_BIT),
++};
++
++static struct rockchip_pin_ctrl rv1106_pin_ctrl __maybe_unused = {
++	.pin_banks		= rv1106_pin_banks,
++	.nr_banks		= ARRAY_SIZE(rv1106_pin_banks),
++	.label			= "RV1106-GPIO",
++	.type			= RV1106,
++	.pull_calc_reg		= rv1106_calc_pull_reg_and_bit,
++	.drv_calc_reg		= rv1106_calc_drv_reg_and_bit,
++	.schmitt_calc_reg	= rv1106_calc_schmitt_reg_and_bit,
++};
++
+ static struct rockchip_pin_bank rv1108_pin_banks[] = {
+ 	PIN_BANK_IOMUX_FLAGS(0, 32, "gpio0", IOMUX_SOURCE_PMU,
+ 					     IOMUX_SOURCE_PMU,
+@@ -5261,6 +5451,8 @@ static const struct of_device_id rockchip_pinctrl_dt_match[] = {
+ 		.data = &px30_pin_ctrl },
+ 	{ .compatible = "rockchip,rv1103b-pinctrl",
+ 		.data = &rv1103b_pin_ctrl },
++	{ .compatible = "rockchip,rv1106-pinctrl",
++		.data = &rv1106_pin_ctrl },
+ 	{ .compatible = "rockchip,rv1108-pinctrl",
+ 		.data = &rv1108_pin_ctrl },
+ 	{ .compatible = "rockchip,rv1126-pinctrl",
+diff --git a/drivers/pinctrl/pinctrl-rockchip.h b/drivers/pinctrl/pinctrl-rockchip.h
+index bb0e803e3b8a..f62213d99792 100644
+--- a/drivers/pinctrl/pinctrl-rockchip.h
++++ b/drivers/pinctrl/pinctrl-rockchip.h
+@@ -186,6 +186,7 @@
+ enum rockchip_pinctrl_type {
+ 	PX30,
+ 	RV1103B,
++	RV1106,
+ 	RV1108,
+ 	RV1126,
+ 	RK2928,
+@@ -295,6 +296,8 @@ struct rockchip_drv {
+  * @dev: the pinctrl device bind to the bank
+  * @reg_base: register base of the gpio bank
+  * @regmap_pull: optional separate register for additional pull settings
++ * @regmap_ioc: optional per-bank IO control regmap, for SoCs where each
++ *	    bank has its own IOC block
+  * @clk: clock of the gpio bank
+  * @db_clk: clock of the gpio debounce
+  * @irq: interrupt of the gpio bank
+@@ -323,6 +326,7 @@ struct rockchip_pin_bank {
+ 	struct device			*dev;
+ 	void __iomem			*reg_base;
+ 	struct regmap			*regmap_pull;
++	struct regmap			*regmap_ioc;
+ 	struct clk			*clk;
+ 	struct clk			*db_clk;
+ 	int				irq;
 -- 
 2.43.0
 
