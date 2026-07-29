@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9412943E078;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C59F643C067;
 	Wed, 29 Jul 2026 08:27:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785313631; cv=none; b=Jq471uA1J4QrTVfYE87AZlpMU1iUR8bfNaVuHhZ5N/Sl3aRHyfjHouj9QJxUjUGNVECzF83zqdJz8R5HYHo8Q/qy0dAarzSpEUjan7WDQvtu6bezOV96iQDDmTOX2t3T02IhNyLlTVnBZQZ6t1gwhton0JIJEiQN/gfAOwZiwoQ=
+	t=1785313631; cv=none; b=J+b1RJavA25+upWtXd7rwsysPNjA8n0hPYw8gFBfhkNdXVcO4EdeQWE8XngFw9O+1qa5pmupaPtUhAlhA+FkWwr8KWJkZuurfB+PpQdeTP+fVwrduvm24vs3vqkPWH2eYDElhaoOzbTcgKKe2FG5kw6YbtqKVHbBw/f20yMKUNw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785313631; c=relaxed/simple;
-	bh=W0+Cjm/asGvRtGDRN3KkCSFrsxsXiywDO8oj7nyS8h0=;
+	bh=zG3Hcr+dZCAXqoc2L0YBgtKn6lp/p6ZycDfn+34fYYQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MYGXAszAKj14B1SO+UR4sGTqNWIX5k/bCmRFRm/cGpmEvOaZ/Hoiis4Ynol6J+vwZZNuKLKGGJHSb/enVYELgiY1zgjwoJ1/WqkuKOELLarFu85xd9o229IWLqP5JRF28aM00jmrRJMJ/1S2p9N0OkPbEcb2DQDs029tMFCMWnQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GmeYCvmo; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=IKzeJHbEB63ERmiXnCkr/mXuAmiu1S/rHW9X6KQtNPpUPXmBBIFbpaLg7Dh2KZ9xWdWN60E8CelePCUUaTmLJNW4xj2a/UPY1c0TTnZUzluopRhJ+SOJS5cGFix87ir5+zGXn+BwrUj1kgY87q3TfJ92tcpJcDDrTr1YtM8c73I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cc+he6oQ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GmeYCvmo"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1972EC32781;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cc+he6oQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id BD32FC2BCFB;
 	Wed, 29 Jul 2026 08:27:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1785313629;
-	bh=W0+Cjm/asGvRtGDRN3KkCSFrsxsXiywDO8oj7nyS8h0=;
+	bh=zG3Hcr+dZCAXqoc2L0YBgtKn6lp/p6ZycDfn+34fYYQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=GmeYCvmoa1s3M6uQFqv4xUdN4JMxqerSc7ebjW7OeaW4Bu6itrKfDr8Zxd9LhQBlD
-	 CWqNJCIh8WsRBRdEEZqefdOC/w8rb7dCReKvDAAgTkt+FPUMsgfhtIP2tCLFrlwB9N
-	 bHCJKtl9dF6hMvE9BxJsEer+pupHjyJZwSBF6vuSK2ftH6+MAhz4NkWFZImKfFjIeR
-	 CxWuQcNK+tsRwtSKZMrerhJedDRNn+uyvGQ4yqk9p1Y0hxk3JOZEM5VJrHW6FallYa
-	 YWedk1kR0sSF8B1UPZz9+MFsbHcMWjuVv1+2EF7u5XNhJSGzfjhQZ7/cgBcyFL/Zxq
-	 XgzkcZorX1uCg==
+	b=cc+he6oQHlkfSaSP7LVDh4ZkTI1NkpphQzi5/tytftIPv+JrFk+z0pHL2FUiYPwl7
+	 NarcHvoTBJi/E9NC8/v0ojyayZTXAowpTeRVZLz4lWTJyar+xSvS5Hw64gd8oqGF6K
+	 vsVhFIhEEl5lAd9heLyPzc+ygyorq8tX7WTyfOZ6800dOnnKa7jxFN706z9SwnP1CJ
+	 uLUS3qNnU51RzWjxkOrdOxZR5O/tKNKEx/Y7NmviHBAGcomFX1ls8cz9c20CfNSA5G
+	 zA2JOAW/k4J92Ad4DrA+Fq1F52Thkmx8pTgfq1g/Dla7wO8942oabr0sQWcnKnbrjd
+	 a015vexEyKnyQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 047E2C54F5C;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AC937C53200;
 	Wed, 29 Jul 2026 08:27:09 +0000 (UTC)
 From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Date: Wed, 29 Jul 2026 09:25:34 +0100
-Subject: [PATCH v10 07/17] iio: test: add kunit tests for channel prefix
- naming generation
+Date: Wed, 29 Jul 2026 09:25:44 +0100
+Subject: [PATCH v10 17/17] docs: iio: add documentation for ad9910 driver
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,8 +39,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260729-ad9910-iio-driver-v10-7-aa1f6167729e@analog.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260729-ad9910-iio-driver-v10-17-aa1f6167729e@analog.com>
 References: <20260729-ad9910-iio-driver-v10-0-aa1f6167729e@analog.com>
 In-Reply-To: <20260729-ad9910-iio-driver-v10-0-aa1f6167729e@analog.com>
 To: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
@@ -57,11 +56,11 @@ Cc: Lars-Peter Clausen <lars@metafoo.de>,
  Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
  Rodrigo Alencar <rodrigo.alencar@analog.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785313627; l=14007;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785313627; l=26543;
  i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
- bh=/BO9KKwfYEce739YkoLXpbt9r/zP9Z3389wSrDL1VZw=;
- b=BIt5Jh8ZeMv8b542x1GfsH8Rds9MPmbmwKHb1yLjT+4JCvLAInVTNzzgTWxnJY47L1LMNBw1/
- /07Ao/ighbPCGAQgPay1M0dw7fvLM89AwJBjPtsjbSTjVAnmhifxytb
+ bh=D2LjCw1KmJ0To3sfebYdvpgVfZ3l23at37JrySnH4aU=;
+ b=/UA7bm2z0NSd0Ce+8cUfSSN5fw6pa6CLqteUkDVIliVFAhdHO6V7qkHKGEfovgmA5laeb8Pph
+ qKvLUsxYi+VCTGJuioApeVqaFBJ9DCSD4z7m96C+5R7D4jEVjkrwerC
 X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
  pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
 X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
@@ -71,463 +70,838 @@ Reply-To: rodrigo.alencar@analog.com
 
 From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-Add a KUnit test suite covering __iio_chan_prefix_emit(), the helper
-that builds IIO sysfs attribute name prefixes from an iio_chan_spec.
-The suite groups cases by the enum iio_shared_by mode it exercises:
-
-  - IIO_SHARED_BY_ALL: produces an empty prefix.
-  - IIO_SHARED_BY_DIR: emits direction only ("in" / "out").
-  - IIO_SHARED_BY_TYPE: emits "<dir>_<type>" and the differential
-    "<dir>_<type>-<type>" variant.
-  - IIO_SEPARATE: covers the full matrix of indexed, differential,
-    modified, output and extend_name combinations, plus the two
-    documented error paths (differential without indexed, differential
-    with modifier).
-
-A final case exercises the seq_buf overflow path by passing an
-undersized buffer and expects -EOVERFLOW.
-
-Also, an entry is created under MAINTAINERS dedicated to tests for IIO
-core helpers.
+Add documentation for the AD9910 DDS IIO driver, which describes channels,
+DDS modes, attributes and ABI usage examples.
 
 Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
 ---
- MAINTAINERS                                |   7 +
- drivers/iio/iio_core.h                     |   7 +
- drivers/iio/industrialio-core.c            |  13 +-
- drivers/iio/test/Kconfig                   |  14 ++
- drivers/iio/test/Makefile                  |   1 +
- drivers/iio/test/iio-test-channel-prefix.c | 307 +++++++++++++++++++++++++++++
- 6 files changed, 345 insertions(+), 4 deletions(-)
+ Documentation/iio/ad9910.rst | 792 +++++++++++++++++++++++++++++++++++++++++++
+ Documentation/iio/index.rst  |   1 +
+ MAINTAINERS                  |   1 +
+ 3 files changed, 794 insertions(+)
 
+diff --git a/Documentation/iio/ad9910.rst b/Documentation/iio/ad9910.rst
+new file mode 100644
+index 000000000000..aab569f561db
+--- /dev/null
++++ b/Documentation/iio/ad9910.rst
+@@ -0,0 +1,792 @@
++.. SPDX-License-Identifier: GPL-2.0-only
++
++=============
++AD9910 driver
++=============
++
++Direct Digital Synthesizer (DDS) driver for the Analog Devices Inc. AD9910.
++The module name is ``ad9910``.
++
++* `AD9910 <https://www.analog.com/en/products/ad9910.html>`_
++
++The AD9910 is a 1 GSPS DDS with a 14-bit DAC, controlled over SPI. The driver
++exposes the device through a hierarchy of typed IIO output channels. The root
++``phy`` channel controls the system clock and full-scale output current.
++Sub-channels provide independent control over single tone profiles, parallel
++port modulation, digital ramp generation (DRG), RAM playback and output shift
++keying (OSK).
++
++
++Channel hierarchy
++=================
++
++The driver exposes the following IIO output channels, each identified by a
++unique channel number and a human-readable label. The ``phy`` channel is the
++root of the hierarchy. Changing its ``sampling_frequency`` reconfigures the
++system clock (SYSCLK) which affects all other channels.
++
++.. flat-table::
++   :header-rows: 1
++
++   * - Channel
++     - Label
++     - Parent
++     - Description
++
++   * - ``out_altcurrent100``
++     - ``phy``
++     -
++     - Physical output: system clock and full-scale output current (:math:`I_{FS}`).
++       See `Physical channel`_.
++
++   * - ``out_altcurrent110`` ... ``out_altcurrent117``
++     - ``profile0`` ... ``profile7``
++     - ``phy``
++     - Single tone control: frequency, phase, amplitude, enable.
++       See `Single Tone mode`_.
++
++   * - ``out_altcurrent120``
++     - ``parallel_amplitude``
++     - ``phy``
++     - Parallel port amplitude channel.
++       See `Parallel Port mode`_.
++
++   * - ``out_phase120``
++     - ``parallel_phase``
++     - ``phy``
++     - Parallel port phase channel.
++
++   * - ``out_frequency120``
++     - ``parallel_frequency``
++     - ``phy``
++     - Parallel port frequency channel: ``scale`` sets the FM gain
++       (power-of-2 multiplier), ``offset`` sets the base FTW.
++
++   * - ``out_altcurrent121``
++     - ``parallel_polar_amplitude``
++     - ``phy``
++     - Parallel polar amplitude channel: ``scale`` is the amplitude
++       resolution, ``offset`` is the amplitude bias (lower 6 bits of ASF).
++
++   * - ``out_phase121``
++     - ``parallel_polar_phase``
++     - ``phy``
++     - Parallel polar phase channel: ``scale`` is the phase resolution,
++       ``offset`` is the phase bias (lower 8 bits of POW).
++
++   * - ``out_frequency130``
++     - ``drg_frequency``
++     - ``phy``
++     - DRG frequency channel: ``en`` selects and enables the DRG with
++       frequency as the ramp target.
++       See `Digital ramp generator (DRG)`_.
++
++   * - ``out_frequency131``
++     - ``drg_rising_frequency``
++     - ``drg_frequency``
++     - DRG frequency rising-ramp parameters: limit code, dwell enable,
++       ramp clock, rate of change.
++
++   * - ``out_frequency132``
++     - ``drg_falling_frequency``
++     - ``drg_frequency``
++     - DRG frequency falling-ramp parameters: limit code, dwell enable,
++       ramp clock, rate of change.
++
++   * - ``out_phase130``
++     - ``drg_phase``
++     - ``phy``
++     - DRG phase channel: ``en`` selects and enables the DRG with phase
++       as the ramp target.
++       See `Digital ramp generator (DRG)`_.
++
++   * - ``out_phase131``
++     - ``drg_rising_phase``
++     - ``drg_phase``
++     - DRG phase rising-ramp parameters: limit code, dwell enable, ramp clock,
++       rate of change.
++
++   * - ``out_phase132``
++     - ``drg_falling_phase``
++     - ``drg_phase``
++     - DRG phase falling-ramp parameters: limit code, dwell enable, ramp clock,
++       rate of change.
++
++   * - ``out_altcurrent130``
++     - ``drg_amplitude``
++     - ``phy``
++     - DRG amplitude channel: ``en`` selects and enables the DRG with
++       amplitude as the ramp target.
++       See `Digital ramp generator (DRG)`_.
++
++   * - ``out_altcurrent131``
++     - ``drg_rising_amplitude``
++     - ``drg_amplitude``
++     - DRG amplitude rising-ramp parameters: limit code, dwell enable,
++       ramp clock, rate of change.
++
++   * - ``out_altcurrent132``
++     - ``drg_falling_amplitude``
++     - ``drg_amplitude``
++     - DRG amplitude falling-ramp parameters: limit code, dwell enable,
++       ramp clock, rate of change.
++
++   * - ``out_altcurrent140``
++     - ``ram``
++     - ``phy``
++     - RAM playback: enable, frequency, phase and sampling frequency for
++       the active profile. See `RAM mode`_.
++
++   * - ``out_altcurrent150``
++     - ``osk``
++     - ``phy``
++     - Output shift keying (OSK): enable, amplitude code, ramp rate,
++       rate of change. See `Output Shift Keying (OSK)`_.
++
++DDS modes
++=========
++
++The AD9910 supports multiple modes of operation that can be configured
++independently or in combination. Each DDS core parameter (frequency, phase
++and amplitude) can come from different sources, but only one is active at a
++time. This activation depends on a priority list, which is based on the enable
++and destination configurations for such modes. The following tables are
++extracted from the AD9910 datasheet and summarize the control parameters for
++each mode and their priority when multiple sources are enabled simultaneously:
++
++.. flat-table:: DDS Frequency Control
++   :header-rows: 1
++
++   * - Priority
++     - Data Source
++     - Conditions
++
++   * - Highest Priority
++     - RAM
++     - RAM enabled and data destination is frequency
++
++   * -
++     - DRG
++     - DRG enabled and data destination is frequency
++
++   * -
++     - Parallel data and Frequency Tuning Word, FTW (frequency_offset)
++     - Parallel data port enabled and data destination is frequency
++
++   * -
++     - FTW register (frequency)
++     - RAM enabled and data destination is not frequency
++
++   * - Lowest Priority
++     - FTW (frequency) in single tone channel for the active profile
++     - All other cases
++
++.. flat-table:: DDS Phase Control
++   :header-rows: 1
++
++   * - Priority
++     - Data Source
++     - Conditions
++
++   * - Highest Priority
++     - RAM
++     - RAM enabled and data destination is phase or polar
++
++   * -
++     - DRG
++     - DRG enabled and data destination is phase
++
++   * -
++     - Parallel data port
++     - Parallel data port enabled and data destination is phase
++
++   * -
++     - Parallel data port and Phase Offset Word, POW register LSBs (phase_offset)
++     - Parallel data port enabled and data destination is polar
++
++   * -
++     - POW register (phase)
++     - RAM enabled and destination is not phase nor polar
++
++   * - Lowest Priority
++     - POW (phase) in single tone channel for the active profile
++     - All other cases
++
++.. flat-table:: DDS Amplitude Control
++   :header-rows: 1
++
++   * - Priority
++     - Data Source
++     - Conditions
++
++   * - Highest Priority
++     - Amplitude Scale Factor, ASF register and OSK generator
++     - OSK enabled
++
++   * -
++     - RAM
++     - RAM enabled and data destination is amplitude or polar
++
++   * -
++     - DRG
++     - DRG enabled and data destination is amplitude
++
++   * -
++     - Parallel data port
++     - Parallel data port enabled and data destination is amplitude
++
++   * -
++     - Parallel data port and ASF register LSBs (scale_offset)
++     - Parallel data port enabled and data destination is polar
++
++   * - Lowest Priority
++     - ASF (scale) in single tone channel for the active profile
++     - (Amplitude scale is already enabled by default)
++
++While debugging or testing, the debug attributes ``frequency_source``,
++``phase_source`` and ``amplitude_source`` can be used to read the label of
++the channel that is actively controlling the correspondent DDS parameter,
++which reflects the priority list described above.
++
++Single Tone mode
++----------------
++
++Single tone is the baseline operating mode. The ``profileY`` channels
++provide enable, frequency, phase and amplitude control:
++
++.. flat-table::
++   :header-rows: 1
++
++   * - Attribute
++     - Unit
++     - Description
++
++   * - ``en``
++     - boolean (0 or 1)
++     - Enable/disable profile Y. Only one profile can be active at a
++       time. When enabling a profile it disables the current active profile.
++       Disabling an active profile brings the device to a powered down state.
++
++   * - ``frequency``
++     - Hz
++     - Output frequency. Range :math:`[0, f_{SYSCLK} / 2)`. Stored in the
++       profile's frequency tuning word (FTW).
++
++   * - ``phase``
++     - rad
++     - Phase offset. Range :math:`[0, 2\pi)`. Stored in the profile's phase
++       offset word (POW).
++
++   * - ``raw``
++     - integer
++     - Amplitude scale factor code. Range :math:`[0, 16383]`. Stored in the
++       profile's amplitude scale factor (ASF) register. The physical output
++       amplitude is ``raw * scale`` where ``scale`` is read from the ``phy``
++       channel.
++
++Profile switching is allowed while RAM mode is enabled. In that case single
++tone parameters are stored in a shadow register and are not written to
++hardware until RAM mode is disabled.
++
++Usage examples
++^^^^^^^^^^^^^^
++
++Configure a 100 MHz tone in profile 2 and set it as the active profile:
++
++.. code-block:: bash
++
++  echo 100000000 > /sys/bus/iio/devices/iio\:device0/out_altcurrent112_frequency
++  echo 0 > /sys/bus/iio/devices/iio\:device0/out_altcurrent112_phase
++  echo 16383 > /sys/bus/iio/devices/iio\:device0/out_altcurrent112_raw
++
++  # Activate profile 2
++  echo 1 > /sys/bus/iio/devices/iio\:device0/out_altcurrent112_en
++
++Read back the current single tone frequency:
++
++.. code-block:: bash
++
++  cat /sys/bus/iio/devices/iio\:device0/out_altcurrent112_frequency
++
++Parallel Port mode
++------------------
++
++The parallel port allows real-time modulation of DDS parameters through a
++16-bit external data bus. The driver exposes separate typed channels for each
++modulation target.
++
++Non-polar modulation
++^^^^^^^^^^^^^^^^^^^^
++
++In non-polar mode each DDS parameter is controlled by an independent 16-bit bus
++input. The parallel port channels expose the resolution and base offset of their
++respective bus inputs:
++
++.. flat-table::
++   :header-rows: 1
++
++   * - Channel
++     - Attribute
++     - Unit
++     - Description
++
++   * - ``out_phase120``
++     - ``scale``
++     - rad
++     - Phase resolution per parallel bus LSB. Fixed at :math:`\pi / 2^{15}`
++       rad/LSB (full 16-bit POW resolution).
++
++   * - ``out_frequency120``
++     - ``scale``
++     - Hz
++     - Outputs the frequency scale evaluated as
++       :math:`f_{SYSCLK} \cdot FM / 2^{32}`. Assuming that :math:`f_{SYSCLK}` is
++       fixed, it is used to configure the modulation gain :math:`FM`, which is a
++       power-of-2 multiplier in range :math:`[1, 32768]`. Writing to this
++       attribute rounds up to the nearest :math:`FM` power of 2.
++
++   * - ``out_frequency120``
++     - ``offset``
++     - Hz
++     - Outputs the frequency offset in raw units evaluated as :math:`FTW / FM`.
++       Assuming that :math:`FM` is fixed, it is used to configure the FTW
++       register, which is a 32-bit unsigned integer.
++
++Polar modulation
++^^^^^^^^^^^^^^^^
++
++In polar mode a single 16-bit bus word carries both amplitude (high byte)
++and phase (low byte). The ``parallel_polar_amplitude`` and
++``parallel_polar_phase`` channels configure the bias applied to the low-order
++bits of the ASF and POW registers respectively:
++
++.. flat-table::
++   :header-rows: 1
++
++   * - Channel
++     - Attribute
++     - Unit
++     - Description
++
++   * - ``out_altcurrent121``
++     - ``scale``
++     - mA/LSB
++     - Full-scale amplitude resolution (read-only, fixed at :math:`I_{FS} / 2^{8}`).
++
++   * - ``out_altcurrent121``
++     - ``offset``
++     - fractional (raw units)
++     - Amplitude bias. Lower 6 bits of ASF register. Range :math:`[0, 1)`.
++
++   * - ``out_phase121``
++     - ``scale``
++     - rad/LSB
++     - Phase resolution (read-only, fixed at :math:`\pi / 2^{7}`).
++
++   * - ``out_phase121``
++     - ``offset``
++     - fractional (raw units)
++     - Phase bias. Lower 8 bits of POW register. Range :math:`[0, 1)`.
++
++Usage examples
++^^^^^^^^^^^^^^
++
++Set parallel port frequency modulation with a modulation gain of 16 and a 50 MHz
++offset:
++
++.. code-block:: bash
++
++  # f_SYSCLK = 1 GHz, FM = 16
++  # frequency scale = f_SYSCLK * FM / 2^32 = 3.725290298
++  echo 3.725290298 > /sys/bus/iio/devices/iio\:device0/out_frequency120_scale
++  # frequency offset = 50 MHz / scale = 50e6 / 13421772.8
++  echo 13421772.8 > /sys/bus/iio/devices/iio\:device0/out_frequency120_offset
++
++One should choose a frequency scale that allows all the desired frequencies
++to be represented in the 16-bit bus range, i.e.,
++:math:`scale = (f_{max} - f_{min}) / 2^{16}`.
++
++
++Digital ramp generator (DRG)
++----------------------------
++
++The DRG produces linear frequency, phase or amplitude sweeps using dedicated
++hardware. The active ramp target (destination) is selected by enabling the
++corresponding typed channel at channel number 130:
++
++- ``out_frequency130`` (label ``drg_frequency``) — ramp targets frequency
++- ``out_phase130`` (label ``drg_phase``) — ramp targets phase
++- ``out_altcurrent130`` (label ``drg_amplitude``) — ramp targets amplitude
++
++Writing ``en=1`` to one of these channels enables the DRG and switches its
++destination. Writing ``en=0`` disables the DRG if the channel is the current
++active destination; writing to an already-inactive destination is a no-op.
++
++Each destination channel also exposes a read-only ``scale`` attribute
++reporting the physical quantity per ramp register LSB, which allows converting
++raw limit codes to physical values.
++
++The six ramp channels:
++
++- ``out_frequency131`` (label ``drg_rising_frequency``)
++- ``out_frequency132`` (label ``drg_falling_frequency``)
++- ``out_phase131`` (label ``drg_rising_phase``)
++- ``out_phase132`` (label ``drg_falling_phase``)
++- ``out_altcurrent131`` (label ``drg_rising_amplitude``)
++- ``out_altcurrent132`` (label ``drg_falling_amplitude``)
++
++configure ascending and descending ramp parameters.
++
++Destination channel attributes
++^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++
++.. flat-table::
++   :header-rows: 1
++
++   * - Attribute
++     - Unit
++     - Description
++
++   * - ``en``
++     - boolean
++     - Enable the DRG with this channel as the active destination. Only one
++       destination can be active at a time.
++
++   * - ``scale``
++     - Hz/LSB, rad/LSB or mA/LSB
++     - Read-only. Physical quantity per raw units. Multiply a ramp
++       rising/falling channel ``raw`` value by this scale to get the physical
++       ramp target.
++
++Ramp channel attributes
++^^^^^^^^^^^^^^^^^^^^^^^
++
++.. flat-table::
++   :header-rows: 1
++
++   * - Attribute
++     - Unit
++     - Description
++
++   * - ``dwell_en``
++     - boolean
++     - Enable dwell at the ramp limit. When disabled, the ramp
++       auto-transitions at this limit without waiting for the DRCTL pin.
++       Disabling both creates a bidirectional continuous ramp (triangular
++       pattern). Other combinations create single-shot ramps at the DRCTL
++       pin transition.
++
++   * - ``raw``
++     - integer (64-bit)
++     - Ramp limit expressed as a raw DRG register code in
++       :math:`[0, 2^{32}-1]`. The physical value is ``raw * scale`` where
++       ``scale`` is read from the active destination channel.
++
++   * - ``sampling_frequency``
++     - Hz
++     - Ramp clock rate. Controlled by an integer divider; the written value
++       is adjusted to the nearest supported rate.
++
++   * - ``raw_roc``
++     - /s
++     - Rate of change. Number of register codes advanced per second, computed
++       from the hardware step size and the current ramp clock. Writing
++       requires ``sampling_frequency`` to be configured first.
++
++Usage examples
++^^^^^^^^^^^^^^
++
++Configure a frequency sweep from 40 MHz to 60 MHz with a rate of change of
++25 GHz/s:
++
++.. code-block:: bash
++
++  # Disable dwell on both limits for a bidirectional continuous ramp
++  echo 0 > /sys/bus/iio/devices/iio\:device0/out_frequency131_dwell_en
++  echo 0 > /sys/bus/iio/devices/iio\:device0/out_frequency132_dwell_en
++
++  # Set ramp rate at 250 MHz
++  echo 250000000 > /sys/bus/iio/devices/iio\:device0/out_frequency131_sampling_frequency
++  echo 250000000 > /sys/bus/iio/devices/iio\:device0/out_frequency132_sampling_frequency
++
++  # read the frequency scale to convert physical values to raw units
++  cat /sys/bus/iio/devices/iio\:device0/out_frequency130_scale
++  0.232830643650
++
++  # 40 MHz / 0.232830643650 = 171798692
++  echo 171798692 > /sys/bus/iio/devices/iio\:device0/out_frequency131_raw
++  # 60 MHz / 0.232830643650 = 257698038
++  echo 257698038 > /sys/bus/iio/devices/iio\:device0/out_frequency132_raw
++
++  # 25 GHz/s / 0.232830643650 = 107374182402
++  echo 107374182402 > /sys/bus/iio/devices/iio\:device0/out_frequency131_raw_roc
++  echo 107374182402 > /sys/bus/iio/devices/iio\:device0/out_frequency132_raw_roc
++
++  # Enable the DRG with frequency as the destination
++  echo 1 > /sys/bus/iio/devices/iio\:device0/out_frequency130_en
++
++RAM mode
++--------
++
++The AD9910 contains a 1024 x 32-bit RAM that can be loaded with waveform data
++and played back to modulate frequency, phase, amplitude, or polar (phase +
++amplitude) parameters.
++
++RAM control channel attributes
++^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++
++.. flat-table::
++   :header-rows: 1
++
++   * - Attribute
++     - Unit
++     - Description
++
++   * - ``en``
++     - boolean
++     - Enable/disable RAM playback. Toggling swaps profile registers between
++       single tone and RAM configurations across all 8 profiles.
++
++   * - ``frequency``
++     - Hz
++     - Frequency tuning word used as the single tone frequency when
++       RAM destination is not ``frequency``. Range: :math:`[0, f_{SYSCLK} / 2)`.
++
++   * - ``phase``
++     - rad
++     - Phase offset word used as the single tone phase when RAM destination
++       is not ``phase``. Range: :math:`[0, 2\pi)`.
++
++   * - ``sampling_frequency``
++     - Hz
++     - RAM playback step rate of the active profile, which controls how fast
++       the address counter advances. Controlled by an integer divider; the
++       written value is adjusted to the nearest supported rate.
++
++Loading RAM data
++^^^^^^^^^^^^^^^^
++
++RAM data is loaded through the firmware upload framework. The driver registers
++a firmware upload sysfs entry named ``iio_deviceX:ram``. The firmware data
++follows a binary format (version 1) with an 80-byte header followed by data
++words. All fields are big-endian.
++
++.. flat-table:: RAM firmware header (80 bytes)
++   :header-rows: 1
++
++   * - Offset
++     - Size
++     - Field
++     - Description
++
++   * - 0
++     - 4
++     - ``magic``
++     - Magic number: ``0x00AD9910``
++
++   * - 4
++     - 2
++     - ``version``
++     - Format version: ``0x0001``
++
++   * - 6
++     - 2
++     - ``wcount``
++     - Number of 32-bit RAM data words (0--1024)
++
++   * - 8
++     - 4
++     - ``crc``
++     - CRC32 checksum over ``cfr1``, ``profiles`` and ``words``
++
++   * - 12
++     - 4
++     - ``cfr1``
++     - CFR1 register value. Only RAM-relevant bits are used:
++       bits [30:29] set data destination (00: frequency, 01: phase,
++       10: amplitude, 11: polar); bits [20:17] set internal profile
++       control (see datasheet Table 14)
++
++   * - 16
++     - 64
++     - ``profiles[0..7]``
++     - 8 sets of 8-byte RAM profile configurations (see below)
++
++   * - 80
++     - 4 x wcount
++     - ``words[]``
++     - RAM data words in reverse order
++
++Each 8-byte profile entry contains:
++
++.. flat-table:: RAM profile entry (8 bytes)
++   :header-rows: 1
++
++   * - Bits
++     - Field
++     - Description
++
++   * - [55:40]
++     - Address step rate
++     - Controls playback speed for this profile
++
++   * - [39:30]
++     - End address
++     - Last RAM address for this profile
++
++   * - [23:14]
++     - Start address
++     - First RAM address for this profile
++
++   * - [5]
++     - No-dwell high
++     - No-dwell at high limit (ramp-up mode)
++
++   * - [3]
++     - Zero-crossing
++     - Zero-crossing enable (direct-switch mode)
++
++   * - [2:0]
++     - Operating mode
++     - 000: direct switch, 001: ramp-up, 010: bidirectional,
++       011: bidirectional continuous, 100: ramp-up continuous
++
++Usage examples
++^^^^^^^^^^^^^^
++
++Configure RAM mode with firmware data and enable it:
++
++.. code-block:: bash
++
++  # Load RAM data via firmware upload
++  echo 1 > /sys/class/firmware/iio\:device0\:ram/loading
++  cat ad9910-ram.bin > /sys/class/firmware/iio\:device0\:ram/data
++  echo 0 > /sys/class/firmware/iio\:device0\:ram/loading
++
++  # Enable RAM mode
++  echo 1 > /sys/bus/iio/devices/iio\:device0/out_altcurrent140_en
++
++Output Shift Keying (OSK)
++-------------------------
++
++OSK controls the output amplitude envelope, allowing the output to be ramped
++on/off rather than switched abruptly.
++
++.. flat-table::
++   :header-rows: 1
++
++   * - Attribute
++     - Unit
++     - Description
++
++   * - ``en``
++     - boolean (0 or 1)
++     - Enable/disable OSK.
++
++   * - ``raw``
++     - integer
++     - Target amplitude code. 14-bit ASF field. Range: :math:`[0, 16383]`.
++       The physical output amplitude is ``raw * scale`` where ``scale`` is read
++       from the ``phy`` channel.
++
++   * - ``raw_roc``
++     - /s
++     - Amplitude ramp rate. Writing a non-zero value enables automatic OSK
++       and selects the closest hardware step size. Writing ``0`` disables
++       automatic ramping (manual control via ``raw``). Writing the maximum
++       available value enables pin-controlled immediate transition.
++
++   * - ``raw_roc_available``
++     - /s
++     - Lists the available ``raw_roc`` values based on the current
++       ``sampling_frequency``. The first value is always ``0`` (disabled) and
++       the last value corresponds to pin-controlled immediate mode.
++
++   * - ``sampling_frequency``
++     - Hz
++     - OSK ramp clock. Controlled by an integer divider; the written value
++       is adjusted to the nearest supported rate.
++
++Usage examples
++^^^^^^^^^^^^^^
++
++Enable OSK with automatic ramping:
++
++.. code-block:: bash
++
++  # Set ramp rate 1MHz
++  echo 1000000 > /sys/bus/iio/devices/iio\:device0/out_altcurrent150_sampling_frequency
++
++  # Check available rate of change values
++  cat /sys/bus/iio/devices/iio\:device0/out_altcurrent150_raw_roc_available
++  0 1000000 2000000 4000000 8000000 16383000000
++
++  # Enable automatic OSK with a rate of change of 8000000 raw units/s
++  echo 8000000 > /sys/bus/iio/devices/iio\:device0/out_altcurrent150_raw_roc
++
++  # Enable OSK
++  echo 1 > /sys/bus/iio/devices/iio\:device0/out_altcurrent150_en
++
++Enable pin-controlled immediate OSK:
++
++.. code-block:: bash
++
++  # Enable OSK in manual mode (no ramp)
++  echo 0 > /sys/bus/iio/devices/iio\:device0/out_altcurrent150_raw_roc
++  echo 1 > /sys/bus/iio/devices/iio\:device0/out_altcurrent150_en
++
++  # Set target amplitude to full scale
++  echo 16383 > /sys/bus/iio/devices/iio\:device0/out_altcurrent150_raw
++
++Physical channel
++================
++
++The ``phy`` channel provides device-level control:
++
++.. flat-table::
++   :header-rows: 1
++
++   * - Attribute
++     - Unit
++     - Description
++
++   * - ``sampling_frequency``
++     - Hz
++     - System clock (SYSCLK) frequency. When the internal PLL is enabled
++       (via the ``adi,pll-enable`` devicetree property), configures the PLL
++       multiplier (Range: :math:`[420, 1000]` MHz). Without PLL, the reference
++       clock can only be divided by 2.
++
++   * - ``scale``
++     - mA/LSB
++     - Full-scale DAC output current per amplitude code LSB, which is evaluated
++       as :math:`I_{FS} / 2^{14}`. Shared across all ``altcurrent`` channels.
++       Setting this attribute reconfigures the auxiliary DAC full-scale code and
++       updates the effective amplitude resolution for single tone profiles,
++       DRG amplitude ramps and OSK.
++
++   * - ``powerdown``
++     - boolean (0 or 1)
++     - Software power-down. Writing 1 powers down the digital core, DAC,
++       reference clock input and auxiliary DAC simultaneously.
++
++Usage examples
++--------------
++
++Set the system clock to 1 GHz:
++
++.. code-block:: bash
++
++  echo 1000000000 > /sys/bus/iio/devices/iio\:device0/out_altcurrent100_sampling_frequency
++
++Read current system clock frequency:
++
++.. code-block:: bash
++
++  cat /sys/bus/iio/devices/iio\:device0/out_altcurrent100_sampling_frequency
++
++Power down the device:
++
++.. code-block:: bash
++
++  echo 1 > /sys/bus/iio/devices/iio\:device0/out_altcurrent100_powerdown
+diff --git a/Documentation/iio/index.rst b/Documentation/iio/index.rst
+index b02b879b053a..4c30ef033685 100644
+--- a/Documentation/iio/index.rst
++++ b/Documentation/iio/index.rst
+@@ -30,6 +30,7 @@ Industrial I/O Kernel Drivers
+    ad7606
+    ad7625
+    ad7944
++   ad9910
+    ade9000
+    adf41513
+    adis16475
 diff --git a/MAINTAINERS b/MAINTAINERS
-index ce020ded5fd3..101303d28a17 100644
+index d671c1ff71d5..5b930d767143 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -12634,6 +12634,13 @@ F:	include/dt-bindings/iio/
- F:	include/linux/iio/
- F:	tools/iio/
+@@ -1686,6 +1686,7 @@ W:	https://ez.analog.com/linux-software-drivers
+ F:	Documentation/ABI/testing/debugfs-iio-ad9910
+ F:	Documentation/ABI/testing/sysfs-bus-iio-frequency-ad9910
+ F:	Documentation/devicetree/bindings/iio/frequency/adi,ad9910.yaml
++F:	Documentation/iio/ad9910.rst
+ F:	drivers/iio/frequency/ad9910.c
  
-+IIO CORE KUNIT TESTS
-+M:	Rodrigo Alencar <rodrigo.alencar@analog.com>
-+L:	linux-iio@vger.kernel.org
-+S:	Maintained
-+F:	drivers/iio/test/iio-test-channel-prefix.c
-+F:	drivers/iio/test/iio-test-format.c
-+
- IIO UNIT CONVERTER
- M:	Peter Rosin <peda@lysator.liu.se>
- L:	linux-iio@vger.kernel.org
-diff --git a/drivers/iio/iio_core.h b/drivers/iio/iio_core.h
-index b7d5f4f0fada..59fa1bd9924b 100644
---- a/drivers/iio/iio_core.h
-+++ b/drivers/iio/iio_core.h
-@@ -109,4 +109,11 @@ void iio_device_wakeup_eventset(struct iio_dev *indio_dev);
- struct iio_event_interface;
- bool iio_event_enabled(const struct iio_event_interface *ev_int);
- 
-+#if IS_ENABLED(CONFIG_KUNIT)
-+ssize_t __iio_chan_prefix_emit(struct device *dev,
-+			       const struct iio_chan_spec *chan,
-+			       enum iio_shared_by shared_by,
-+			       char *buf, size_t len);
-+#endif
-+
- #endif
-diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-core.c
-index 23d3801887a9..aa9d6474edd9 100644
---- a/drivers/iio/industrialio-core.c
-+++ b/drivers/iio/industrialio-core.c
-@@ -9,12 +9,15 @@
- 
- #define pr_fmt(fmt) "iio-core: " fmt
- 
-+#include <kunit/visibility.h>
-+
- #include <linux/anon_inodes.h>
- #include <linux/cdev.h>
- #include <linux/cleanup.h>
- #include <linux/debugfs.h>
- #include <linux/device.h>
- #include <linux/err.h>
-+#include <linux/export.h>
- #include <linux/fs.h>
- #include <linux/idr.h>
- #include <linux/kdev_t.h>
-@@ -201,10 +204,11 @@ static const char * const iio_chan_info_postfix[] = {
- 	[IIO_CHAN_INFO_POWERFACTOR] = "powerfactor",
- };
- 
--static ssize_t __iio_chan_prefix_emit(struct device *dev,
--				      const struct iio_chan_spec *chan,
--				      enum iio_shared_by shared_by,
--				      char *buf, size_t len)
-+VISIBLE_IF_KUNIT
-+ssize_t __iio_chan_prefix_emit(struct device *dev,
-+			       const struct iio_chan_spec *chan,
-+			       enum iio_shared_by shared_by,
-+			       char *buf, size_t len)
- {
- 	const char *type = iio_chan_type_name_spec[chan->type];
- 	const char *dir = iio_direction[chan->output];
-@@ -254,6 +258,7 @@ static ssize_t __iio_chan_prefix_emit(struct device *dev,
- 
- 	return seq_buf_has_overflowed(&s) ? -EOVERFLOW : s.len;
- }
-+EXPORT_SYMBOL_IF_KUNIT(__iio_chan_prefix_emit);
- 
- /**
-  * iio_device_id() - query the unique ID for the device
-diff --git a/drivers/iio/test/Kconfig b/drivers/iio/test/Kconfig
-index 4fc17dd0dcd7..7d2c29cc583b 100644
---- a/drivers/iio/test/Kconfig
-+++ b/drivers/iio/test/Kconfig
-@@ -4,6 +4,20 @@
- #
- 
- # Keep in alphabetical order
-+config IIO_CHANNEL_PREFIX_KUNIT_TEST
-+	tristate "Test IIO channel prefix" if !KUNIT_ALL_TESTS
-+	depends on KUNIT && IIO
-+	default KUNIT_ALL_TESTS
-+	help
-+	  Build unit tests for __iio_chan_prefix_emit(), the helper that
-+	  builds IIO sysfs attribute name prefixes from an iio_chan_spec.
-+	  The tests are compiled into the IIO core module.
-+
-+	  For more information on KUnit and unit tests in general, please refer
-+	  to the KUnit documentation in Documentation/dev-tools/kunit/.
-+
-+	  If unsure, say N.
-+
- config IIO_GTS_KUNIT_TEST
- 	tristate "Test IIO gain-time-scale helpers" if !KUNIT_ALL_TESTS
- 	depends on KUNIT
-diff --git a/drivers/iio/test/Makefile b/drivers/iio/test/Makefile
-index 0c846bc21acd..ba08afa7f3f2 100644
---- a/drivers/iio/test/Makefile
-+++ b/drivers/iio/test/Makefile
-@@ -4,6 +4,7 @@
- #
- 
- # Keep in alphabetical order
-+obj-$(CONFIG_IIO_CHANNEL_PREFIX_KUNIT_TEST) += iio-test-channel-prefix.o
- obj-$(CONFIG_IIO_RESCALE_KUNIT_TEST) += iio-test-rescale.o
- obj-$(CONFIG_IIO_FORMAT_KUNIT_TEST) += iio-test-format.o
- obj-$(CONFIG_IIO_GTS_KUNIT_TEST) += iio-test-gts.o
-diff --git a/drivers/iio/test/iio-test-channel-prefix.c b/drivers/iio/test/iio-test-channel-prefix.c
-new file mode 100644
-index 000000000000..44c838fcd8d6
---- /dev/null
-+++ b/drivers/iio/test/iio-test-channel-prefix.c
-@@ -0,0 +1,307 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Unit tests for IIO channel prefix generation.
-+ */
-+
-+#include <kunit/test.h>
-+#include <kunit/visibility.h>
-+
-+#include <linux/iio/iio.h>
-+#include <linux/limits.h>
-+#include <linux/string.h>
-+
-+#include "../iio_core.h"
-+
-+#define PREFIX_BUF_SIZE		(NAME_MAX + 1)
-+
-+#define EXPECT_PREFIX(_test, _buf, _ret, _expected) do {			\
-+		struct kunit *__test = (_test);					\
-+		const char *__expected = (_expected);				\
-+										\
-+		KUNIT_EXPECT_EQ(__test, (_ret), (ssize_t)strlen(__expected));	\
-+		KUNIT_EXPECT_STREQ(__test, (_buf), __expected);			\
-+	} while (0)
-+
-+static char *iio_test_prefix_alloc(struct kunit *test)
-+{
-+	char *buf = kunit_kzalloc(test, PREFIX_BUF_SIZE, GFP_KERNEL);
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, buf);
-+	return buf;
-+}
-+
-+static void iio_test_prefix_shared_by_all(struct kunit *test)
-+{
-+	const struct iio_chan_spec chan = {
-+		.type = IIO_VOLTAGE,
-+	};
-+	const struct iio_chan_spec chan_noisy = {
-+		.type = IIO_ACCEL,
-+		.output = 1,
-+		.indexed = 1,
-+		.modified = 1,
-+		.channel = 7,
-+		.channel2 = IIO_MOD_Z,
-+		.extend_name = "supply",
-+	};
-+	char *buf = iio_test_prefix_alloc(test);
-+	ssize_t ret;
-+
-+	ret = __iio_chan_prefix_emit(NULL, &chan, IIO_SHARED_BY_ALL,
-+				     buf, PREFIX_BUF_SIZE);
-+	EXPECT_PREFIX(test, buf, ret, "");
-+
-+	ret = __iio_chan_prefix_emit(NULL, &chan_noisy, IIO_SHARED_BY_ALL,
-+				     buf, PREFIX_BUF_SIZE);
-+	EXPECT_PREFIX(test, buf, ret, "");
-+}
-+
-+static void iio_test_prefix_shared_by_dir(struct kunit *test)
-+{
-+	const struct iio_chan_spec chan_in = {
-+		.type = IIO_VOLTAGE,
-+		.output = 0,
-+	};
-+	const struct iio_chan_spec chan_out = {
-+		.type = IIO_VOLTAGE,
-+		.output = 1,
-+	};
-+	const struct iio_chan_spec chan_in_noisy = {
-+		.type = IIO_ACCEL,
-+		.indexed = 1,
-+		.modified = 1,
-+		.channel = 5,
-+		.channel2 = IIO_MOD_Y,
-+		.extend_name = "supply",
-+	};
-+	char *buf = iio_test_prefix_alloc(test);
-+	ssize_t ret;
-+
-+	ret = __iio_chan_prefix_emit(NULL, &chan_in, IIO_SHARED_BY_DIR,
-+				     buf, PREFIX_BUF_SIZE);
-+	EXPECT_PREFIX(test, buf, ret, "in");
-+
-+	ret = __iio_chan_prefix_emit(NULL, &chan_out, IIO_SHARED_BY_DIR,
-+				     buf, PREFIX_BUF_SIZE);
-+	EXPECT_PREFIX(test, buf, ret, "out");
-+
-+	ret = __iio_chan_prefix_emit(NULL, &chan_in_noisy, IIO_SHARED_BY_DIR,
-+				     buf, PREFIX_BUF_SIZE);
-+	EXPECT_PREFIX(test, buf, ret, "in");
-+}
-+
-+static void iio_test_prefix_shared_by_type(struct kunit *test)
-+{
-+	const struct iio_chan_spec chan = {
-+		.type = IIO_VOLTAGE,
-+	};
-+	const struct iio_chan_spec chan_diff = {
-+		.type = IIO_VOLTAGE,
-+		.differential = 1,
-+	};
-+	const struct iio_chan_spec chan_noisy = {
-+		.type = IIO_VOLTAGE,
-+		.indexed = 1,
-+		.modified = 1,
-+		.channel = 4,
-+		.channel2 = IIO_MOD_X,
-+		.extend_name = "supply",
-+	};
-+	char *buf = iio_test_prefix_alloc(test);
-+	ssize_t ret;
-+
-+	ret = __iio_chan_prefix_emit(NULL, &chan, IIO_SHARED_BY_TYPE,
-+				     buf, PREFIX_BUF_SIZE);
-+	EXPECT_PREFIX(test, buf, ret, "in_voltage");
-+
-+	ret = __iio_chan_prefix_emit(NULL, &chan_diff, IIO_SHARED_BY_TYPE,
-+				     buf, PREFIX_BUF_SIZE);
-+	EXPECT_PREFIX(test, buf, ret, "in_voltage-voltage");
-+
-+	ret = __iio_chan_prefix_emit(NULL, &chan_noisy, IIO_SHARED_BY_TYPE,
-+				     buf, PREFIX_BUF_SIZE);
-+	EXPECT_PREFIX(test, buf, ret, "in_voltage");
-+}
-+
-+static void iio_test_prefix_separate_simple(struct kunit *test)
-+{
-+	const struct iio_chan_spec chan = {
-+		.type = IIO_TEMP,
-+	};
-+	char *buf = iio_test_prefix_alloc(test);
-+	ssize_t ret;
-+
-+	ret = __iio_chan_prefix_emit(NULL, &chan, IIO_SEPARATE,
-+				     buf, PREFIX_BUF_SIZE);
-+	EXPECT_PREFIX(test, buf, ret, "in_temp");
-+}
-+
-+static void iio_test_prefix_separate_indexed(struct kunit *test)
-+{
-+	const struct iio_chan_spec chan = {
-+		.type = IIO_VOLTAGE,
-+		.indexed = 1,
-+		.channel = 3,
-+	};
-+	char *buf = iio_test_prefix_alloc(test);
-+	ssize_t ret;
-+
-+	ret = __iio_chan_prefix_emit(NULL, &chan, IIO_SEPARATE,
-+				     buf, PREFIX_BUF_SIZE);
-+	EXPECT_PREFIX(test, buf, ret, "in_voltage3");
-+}
-+
-+static void iio_test_prefix_separate_indexed_diff(struct kunit *test)
-+{
-+	const struct iio_chan_spec chan = {
-+		.type = IIO_VOLTAGE,
-+		.indexed = 1,
-+		.differential = 1,
-+		.channel = 0,
-+		.channel2 = 1,
-+	};
-+	char *buf = iio_test_prefix_alloc(test);
-+	ssize_t ret;
-+
-+	ret = __iio_chan_prefix_emit(NULL, &chan, IIO_SEPARATE,
-+				     buf, PREFIX_BUF_SIZE);
-+	EXPECT_PREFIX(test, buf, ret, "in_voltage0-voltage1");
-+}
-+
-+static void iio_test_prefix_separate_modified(struct kunit *test)
-+{
-+	const struct iio_chan_spec chan = {
-+		.type = IIO_ACCEL,
-+		.modified = 1,
-+		.channel2 = IIO_MOD_X,
-+	};
-+	char *buf = iio_test_prefix_alloc(test);
-+	ssize_t ret;
-+
-+	ret = __iio_chan_prefix_emit(NULL, &chan, IIO_SEPARATE,
-+				     buf, PREFIX_BUF_SIZE);
-+	EXPECT_PREFIX(test, buf, ret, "in_accel_x");
-+}
-+
-+static void iio_test_prefix_separate_indexed_modified(struct kunit *test)
-+{
-+	const struct iio_chan_spec chan = {
-+		.type = IIO_ACCEL,
-+		.indexed = 1,
-+		.modified = 1,
-+		.channel = 2,
-+		.channel2 = IIO_MOD_Y,
-+	};
-+	char *buf = iio_test_prefix_alloc(test);
-+	ssize_t ret;
-+
-+	ret = __iio_chan_prefix_emit(NULL, &chan, IIO_SEPARATE,
-+				     buf, PREFIX_BUF_SIZE);
-+	EXPECT_PREFIX(test, buf, ret, "in_accel2_y");
-+}
-+
-+static void iio_test_prefix_separate_extend_name(struct kunit *test)
-+{
-+	const struct iio_chan_spec chan = {
-+		.type = IIO_VOLTAGE,
-+		.indexed = 1,
-+		.channel = 2,
-+		.extend_name = "supply",
-+	};
-+	char *buf = iio_test_prefix_alloc(test);
-+	ssize_t ret;
-+
-+	ret = __iio_chan_prefix_emit(NULL, &chan, IIO_SEPARATE,
-+				     buf, PREFIX_BUF_SIZE);
-+	EXPECT_PREFIX(test, buf, ret, "in_voltage2_supply");
-+}
-+
-+static void iio_test_prefix_output_separate(struct kunit *test)
-+{
-+	const struct iio_chan_spec chan = {
-+		.type = IIO_VOLTAGE,
-+		.output = 1,
-+		.indexed = 1,
-+		.channel = 0,
-+	};
-+	char *buf = iio_test_prefix_alloc(test);
-+	ssize_t ret;
-+
-+	ret = __iio_chan_prefix_emit(NULL, &chan, IIO_SEPARATE,
-+				     buf, PREFIX_BUF_SIZE);
-+	EXPECT_PREFIX(test, buf, ret, "out_voltage0");
-+}
-+
-+static void iio_test_prefix_diff_unindexed_fails(struct kunit *test)
-+{
-+	const struct iio_chan_spec chan = {
-+		.type = IIO_VOLTAGE,
-+		.differential = 1,
-+	};
-+	char *buf = iio_test_prefix_alloc(test);
-+	ssize_t ret;
-+
-+	ret = __iio_chan_prefix_emit(NULL, &chan, IIO_SEPARATE,
-+				     buf, PREFIX_BUF_SIZE);
-+	KUNIT_EXPECT_EQ(test, ret, -EINVAL);
-+}
-+
-+static void iio_test_prefix_diff_modified_fails(struct kunit *test)
-+{
-+	const struct iio_chan_spec chan = {
-+		.type = IIO_VOLTAGE,
-+		.indexed = 1,
-+		.differential = 1,
-+		.modified = 1,
-+		.channel = 0,
-+		.channel2 = 1,
-+	};
-+	char *buf = iio_test_prefix_alloc(test);
-+	ssize_t ret;
-+
-+	ret = __iio_chan_prefix_emit(NULL, &chan, IIO_SEPARATE,
-+				     buf, PREFIX_BUF_SIZE);
-+	KUNIT_EXPECT_EQ(test, ret, -EINVAL);
-+}
-+
-+static void iio_test_prefix_overflow(struct kunit *test)
-+{
-+	const struct iio_chan_spec chan = {
-+		.type = IIO_VOLTAGE,
-+	};
-+	char small[4];
-+	ssize_t ret;
-+
-+	ret = __iio_chan_prefix_emit(NULL, &chan, IIO_SHARED_BY_TYPE,
-+				     small, sizeof(small));
-+	KUNIT_EXPECT_EQ(test, ret, -EOVERFLOW);
-+}
-+
-+static struct kunit_case iio_chan_prefix_test_cases[] = {
-+	KUNIT_CASE(iio_test_prefix_shared_by_all),
-+	KUNIT_CASE(iio_test_prefix_shared_by_dir),
-+	KUNIT_CASE(iio_test_prefix_shared_by_type),
-+	KUNIT_CASE(iio_test_prefix_separate_simple),
-+	KUNIT_CASE(iio_test_prefix_separate_indexed),
-+	KUNIT_CASE(iio_test_prefix_separate_indexed_diff),
-+	KUNIT_CASE(iio_test_prefix_separate_modified),
-+	KUNIT_CASE(iio_test_prefix_separate_indexed_modified),
-+	KUNIT_CASE(iio_test_prefix_separate_extend_name),
-+	KUNIT_CASE(iio_test_prefix_output_separate),
-+	KUNIT_CASE(iio_test_prefix_diff_unindexed_fails),
-+	KUNIT_CASE(iio_test_prefix_diff_modified_fails),
-+	KUNIT_CASE(iio_test_prefix_overflow),
-+	{ }
-+};
-+
-+static struct kunit_suite iio_channel_prefix_test_suite = {
-+	.name = "iio-channel-prefix",
-+	.test_cases = iio_chan_prefix_test_cases,
-+};
-+
-+kunit_test_suite(iio_channel_prefix_test_suite);
-+
-+MODULE_AUTHOR("Rodrigo Alencar <rodrigo.alencar@analog.com>");
-+MODULE_DESCRIPTION("Test IIO channel prefix generation");
-+MODULE_LICENSE("GPL");
-+MODULE_IMPORT_NS("EXPORTED_FOR_KUNIT_TESTING");
+ ANALOG DEVICES INC MAX22007 DRIVER
 
 -- 
 2.43.0
