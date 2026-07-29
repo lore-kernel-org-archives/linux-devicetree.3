@@ -1,75 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEAED4052B5;
-	Wed, 29 Jul 2026 17:14:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF2A13064B5;
+	Wed, 29 Jul 2026 17:16:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785345293; cv=none; b=laX6Af1gNOQIiu9Pctbk/WVabJbweFcXQ/XlCHvpeBoA6Y4xpXyo3l2eYUakQSQQzgViteowbX1XtoT19P1wDTaTTwJIYkgyn2jHGBsD1KJSWPiVGVzkFLip8WezM6RIsHwcJHmAlNz5cKYJKMSJIYXi8XZKHSMi6D/LMeZByUI=
+	t=1785345395; cv=none; b=iWoaGGqMcnfNze7Ttq/LAHvCkpqCql9FoOiGXiYlBj8RQEuQjQBF0MbJ4sSW2qa6P9X8EqDlCGmB4mL76+eQiZ/LFGqnf27fRupSL3WvZUVpbkCpEJSzx7bSLu1v7mTO5ifvJewODLhHCBLKe4TpXpAdkMPe72qypfNe+yjVWKg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785345293; c=relaxed/simple;
-	bh=SYHfsqLre1VNwCLVMdD9iEa1fyKuVtkoYSnwjEAEpUA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qatp7jldbKoarKYObmdpxsOabkBj/jS2v5XSUi3Ue8mwKlP9tGI4ZdpfNNilUQFPyIHE5bpvVxhx531Fb9bChoTRH6cb3FXZDI46n2OQrVUfjsSQSZR/mulo1yDV5IeGr3ZcjeyNP+GrMhlUskkOJHfnV2sDBXXwbxDf3zTuoJ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O/l7FNn2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785345395; c=relaxed/simple;
+	bh=1Wr6MddhiZoo0mrobyjiJZCZyvWwMJHSqcwp+nKwbis=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=X/e3wYkvv5kpvS2ZQuoUecppPQ6S7LVFwmMvMO9Oz9PTdy2pdgXQMtgc2iycrNCyirmIb7GaGRB6A1X5lkQP5QW5vjhMIDCSLMHFU9IoGVaLqssyEUthu+IOe4RhimX/WOXhXEwNNnIwKVFTLQB00QqRCEqzBtSyGEqDGYDm+xA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K8iJ4C92; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O/l7FNn2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BF041F000E9;
-	Wed, 29 Jul 2026 17:14:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K8iJ4C92"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D6B21F000E9;
+	Wed, 29 Jul 2026 17:16:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785345288;
-	bh=SYHfsqLre1VNwCLVMdD9iEa1fyKuVtkoYSnwjEAEpUA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=O/l7FNn2wFLiZzwepTKYziAUXH8U/SqldYq/CS1BmllPkQYim7815qKp2QqvyCOQu
-	 hmqlaLDeTuth71Dj+AVdahccmDqFU6Elu+8Gc+gv1VZp0ECMMUy2fpko9kA/Y3Tv3P
-	 Z6HLq0u2jXWNsjd9R8SE4KJ8Ss8629EPfhneU73xnro2GVju09vwDrh+kZr5UKoc/+
-	 ob1Q2Y6icc3m90YWi3HqayB8a2Yu0hpyQj2l0JrN2ChcgmRebcXdTx9t9+LvveELSA
-	 gklaNZ+z0PShKimNsQuHf/7kgcpmQPYZGvOiA5USYBqhB4y5d4YpFBj8NWmzcpEjRr
-	 3FhiEL0Dslu5Q==
-Date: Wed, 29 Jul 2026 18:14:43 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chris Morgan <macromorgan@hotmail.com>,
-	Luca Weiss <luca.weiss@fairphone.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] dt-bindings: iio: imu: icm42600: add icm42630
-Message-ID: <20260729-crepe-finch-b2fdda5cf48d@spud>
-References: <20260728184351.75015-1-jorijnvdgraaf@catcrafts.net>
- <20260728184351.75015-4-jorijnvdgraaf@catcrafts.net>
+	s=k20260515; t=1785345393;
+	bh=Vu14hoOqHu7kL6akz/0SfotRbbjkLAUU8E9503FWyfY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=K8iJ4C92/1uVpZzZRSSj0O+zPBGYAylA6wTsIwaKVVcnxeCPJZ/XopVpgaHC0N5Bo
+	 RFEise6rRwGsyyiEaziuqn6knAqArWc/CTTmYEMggtrF99rov2QPnME61rWQYsXiHK
+	 StlfNMfom0pd9pc+I4eLoR4yd3Q4UvRuy1N+To8ns8M2i5zyowG/benf4ITUGRelqB
+	 DRBEXgmyMj2zV1ql6rCP9LJFRb/m/GM+R2Qd3rkRu9VXcgJrBOWIxr/nvftDrtXI5e
+	 U6ZbXQKOIgS1bj5rJGNA1Z0fael8BvXrzTcpYEI+eZWAkhCbvPvU+uLjbkOrtJBMl7
+	 979oBcSRuvKWQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v19 06/10] net: dsa: tag_mtk: add Airoha
+ variant usage of this TAG
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Christian Marangi" <ansuelsmth@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, lee@kernel.org, mfd@lists.linux.dev, robh@kernel.org
+In-Reply-To: <20260728154846.1828945-7-ansuelsmth@gmail.com>
+References: <20260728154846.1828945-1-ansuelsmth@gmail.com>
+ <20260728154846.1828945-7-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 29 Jul 2026 17:16:32 +0000
+Message-Id: <20260729171633.0D6B21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="OPeCChbmr9OiJaSn"
-Content-Disposition: inline
-In-Reply-To: <20260728184351.75015-4-jorijnvdgraaf@catcrafts.net>
 
---OPeCChbmr9OiJaSn
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Introducing DSA_TAG_PROTO_AIROHA breaks DSA hardware offloading an=
+d tag processing in compatible Ethernet MAC drivers (Airoha and Mediatek).
+--
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+--- Patch [6]: [PATCH net-next v19 06/10] net: dsa: tag_mtk: add Airoha var=
+iant usage of this TAG ---
+commit 2b8fd23ca8ea6ac3597ff1360a2ad1a9a14fa563
+Author: Christian Marangi <ansuelsmth@gmail.com>
 
---OPeCChbmr9OiJaSn
-Content-Type: application/pgp-signature; name=signature.asc
+net: dsa: tag_mtk: add Airoha variant usage of this TAG
 
------BEGIN PGP SIGNATURE-----
+This commit introduces a new DSA tag protocol variant for Airoha switches,
+documenting differences from the Mediatek tag bitmap. It also adds a
+dedicated config, makefile entry, and "airoha" name for external tools
+like libpcap.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCamo1AwAKCRB4tDGHoIJi
-0nkCAP94ZmpgJ6E6Siskba++0VwApcOJlTVZFj9p/XH8+p40oAD/b/BRsz0fzGxm
-GzJXpOk5qJ/yp1nTC63b9Whd8wFDTQg=
-=F17L
------END PGP SIGNATURE-----
+> diff --git a/include/net/dsa.h b/include/net/dsa.h
+> index 8c16ef23cc102..9957443e2907f 100644
+> --- a/include/net/dsa.h
+> +++ b/include/net/dsa.h
+> @@ -73,6 +74,7 @@ enum dsa_tag_protocol {
+>  	DSA_TAG_PROTO_KSZ9893		=3D DSA_TAG_PROTO_KSZ9893_VALUE,
+>  	DSA_TAG_PROTO_LAN9303		=3D DSA_TAG_PROTO_LAN9303_VALUE,
+>  	DSA_TAG_PROTO_MTK		=3D DSA_TAG_PROTO_MTK_VALUE,
+> +	DSA_TAG_PROTO_AIROHA		=3D DSA_TAG_PROTO_AIROHA_VALUE,
 
---OPeCChbmr9OiJaSn--
+[Severity: High]
+Will this new tag protocol break hardware offloading and tag processing in
+the Ethernet MAC drivers?
+
+Looking at airoha_get_dsa_tag() in drivers/net/ethernet/airoha/airoha_eth.c=
+,=20
+the driver requires DSA_TAG_PROTO_MTK to extract the tag into the DMA=20
+descriptor:
+
+	if (dev->dsa_ptr->tag_ops->proto !=3D DSA_TAG_PROTO_MTK)
+		return 0;
+
+For DSA_TAG_PROTO_AIROHA, this fails and leaves the tag in the packet=20
+payload, which can break the PPE module that expects untagged packets.
+
+Similarly, the Mediatek Ethernet driver checks strictly for DSA_TAG_PROTO_M=
+TK
+in mtk_uses_dsa() (mtk_eth_soc.c), __mtk_ppe_check_skb() (mtk_ppe.c), and
+mtk_flow_get_dsa_port() (mtk_ppe_offload.c). Without DSA_TAG_PROTO_MTK,
+hardware DSA untagging and PPE offloading will silently fail.
+
+Do these host Ethernet drivers need to be updated to accept=20
+DSA_TAG_PROTO_AIROHA alongside DSA_TAG_PROTO_MTK?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728154846.1828=
+945-1-ansuelsmth@gmail.com?part=3D6
