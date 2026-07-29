@@ -1,201 +1,256 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10D2047F2EA
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 12:34:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 371DD42FCC5
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 12:36:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785328447; cv=none; b=OV5JuOCq7VDUomFHJCPSaDyP7qlaAUcSNu1WLa6g05Zd9Xzf6LlZ7cZyX+ASDLHly2w+qfM9xbsUgX6V/OgmRXB6pR5itK393hhbp0XtzG7Cgu/5BSTzUvR+4WnHZyuke2/Pv1SUEG6pGdP+rtN0DesZ/Eh7OVodLsgiqO6NuoY=
+	t=1785328572; cv=none; b=XeIfNG9vEzWqnuO2bdtefIOM3A634/CDkVtvYqVfnmodx3a/xGADWnOUdkeUf6J9QUvu1W6odu6IJKHwhwoA34JGRKGBiymmLC4EEqkILHLVd182zocSmm5eD77EYKZjQcM3r51dFFZ/jctfJJ4Ao4fAvzS4FcbLKP4VzlGDjAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785328447; c=relaxed/simple;
-	bh=HeAEDpOyWDfK0HywfMKKJR7m/lfHHAOTVtMyX32Yin4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ANNlNI67qtAv72AD+CUnctVGS86QIBwLvu9rbSeEQdbdnV5bkN/GWTPwuPU2yBIPLO/lQJqzO67Q6o2exfsnqRczvbtrFs7yfZyJbhCqaTuXOAvHiB7Eq8S4pGgyCHW+iSkFJTCyXwokwmOGLGkz2JsPrIHlYZ196PRCpW5h6Is=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=JyLSAyA7; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1785328572; c=relaxed/simple;
+	bh=b+iNsDFEHoCrdY3q7/dXhBGQBGrcI1IKuOBRzn7zAds=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Y/LYdbFVlTaQBWIuNt9kf3URrp0YSRvGSZqsk3+UeaoijzYpBKqzOWjKykKCx0jU8l+BQdws7sOozOyGWKB8XtWfOXXXFwFfHZcqKADpaDwexjrvBVXR1h1Hwwa4KwfgvzRUV5uCL1PKw6vqtGXfs8mOO7sSrE9/Mx+u4De46C4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LugtbWXW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DLOw6gEr; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="JyLSAyA7"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49553515a8bso11534125e9.1
-        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 05:34:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LugtbWXW";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DLOw6gEr"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66TBlpQE1511963
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 12:36:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	/y1ew/AaO4a3TiUoZQMqr3KatEChOpw6KP2tFHQUBBM=; b=LugtbWXWveq7yjdD
+	e0MFujqOckmzpkStmmE3+Rw13C7v3VWBzdN5bkNQY5cH1I7pon74vnJTkxwz82cg
+	9wbcJA6wkRoH5OKfX0MPzHQyDcBB42VXoFBF/1Zk9wu+mFabiFARInRY+Y7YTBd3
+	W62vV7pfwrlMxE06Q9dbSBW81JxW6AO4+FaYR1SyGlPjRV8YC9SJJG3UE9jlRw8X
+	rcB3V1SN3gRPmXvFPus1dd7wt1HhDiBEivE2Pt4o2F4TDGkuXswBfyTvudTIBkMT
+	OVVguOuP29t8TRrkDlUXsu/PjWjZ3Tr4W221Tue7Bb1zPq87sIkH3WYpivOnXtGQ
+	1HP21Q==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fqgy905sm-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 12:36:05 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51a8b0a08d2so7565291cf.0
+        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 05:36:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1785328442; x=1785933242; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hj7jv6pRB6x5AF5ocoOAZbiwUraKrz6rxk84/RgEz0M=;
-        b=JyLSAyA7JLsBjzsv5sIAMPO8UgSES5gspaHVhSgXArmDW4bnZ3K4YkR+4qtU1fywnQ
-         Irjg6ff/Nvjc9ubPdR9GnYaiSVWJ6Da7YS4a2hnizuFlf9PDpqpYTwK03dtfX8cAxayz
-         3UIZ5GdqQYnTu1hiva6mTgO8/7DP+6yIaC7oIU6+J9wmD2Rn8dcoVWOezjHdTsbyn5Mk
-         wpC1l0wxXWdOpnXu+GBVY3mIhqePwqtPbHJTgwmpDO+x1laQYOe+JfuOWdoTQefrmkOK
-         MowjE8U9DfsaCnyRNE5JCeZysqJapQ45v5K48JDGha168J44FXT5NQUi73Yy62IRY1vI
-         IhkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785328442; x=1785933242;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1785328565; x=1785933365; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hj7jv6pRB6x5AF5ocoOAZbiwUraKrz6rxk84/RgEz0M=;
-        b=Ky9WWmC0cRQiaEUMZshjvpZVBkhAWJRwF0KLxyE1T9HTijWZoTzoBDFPll9Mj6s1S4
-         HPuZ4XxGFYnIlgeBYR5cFaIGoTX+wR81v6UYwpwz1kUWAvNUxeaiRMIKBzV5+F2q6kv7
-         qh9vlmCXJ/izTR3W5DHOCvrjkXZ//PK2MG+mlIYtuulWa6nrAaIW1R4sdikD3rIVUkt7
-         ZJCI6SlQuj3E0yz0IARBLF/NJJdbU2FmgFqkZrXIHK6hPKfb1O6TjYVJ6/nVUybQLbMs
-         XrzPc5mMEeOXvh257TjX3dzX4QVjjzo8navWSGQ72lYaf5HZrtB4oeotwMVDiGDBOJLa
-         boow==
-X-Forwarded-Encrypted: i=1; AHgh+RrVH2L+3EUGg2Vtskr/C19axhvRZo9dpm+Nq7mF1DbaMZs6GIoXVgsOulzYvlNik5spHFzKUG+zxf/t@vger.kernel.org
-X-Gm-Message-State: AOJu0YztFooOsU+U+G3MvrS4hSygbSq7qUJxVFqTMblwnRtI7xpcTI09
-	qX+CeuRWALBeChEHNoOvscqrprnIhjNDWgt9frCgvY55GGtRIPJrK4T6iutSeZ/kVgw=
-X-Gm-Gg: AR+sD11SSpn6JJDZ8sRx4hswW9q9A4rc6QXiwbXPSTHFpY6dryTac8pRLXeweTYEHbo
-	OCSYllv3XZDPSmR/6zkKrFjbBMAxr8+AvVbSQWdMehBaK5mNPkxGXAcUCJLQZ1hpBjwe0Zy3nP7
-	TecaHBPmvnNZsbLHBvp1jVut5t8B+DrpncVwyIUJ52+DmhVQfBXUu/jDgmrQfWlcPZ2PvgXpfRP
-	6BJCF1E6UsvxT07L4ISBr445ki26P5K0ktLkHI7olIV1nKDhB9lXFM3xr3eojbKPd44fJRVG4fF
-	6rxLsNoT9WEIte+30J+BahpsoTa9326AUVRf6sioaWyj81KqvbaLa/WdpqGF2erCSgmL654Ptr7
-	RVgB4Sxek+OAELi7otzaD/2+ppTmyTuFd7/Pjq4nwJRIsf1I99dq80u92L0kqBh6RmlhpWhukbv
-	KRMK9XPq+Vh2AnfPlN9wZN8gykHv9cTyaa5Suf73fa0RfHOCa2jfZyYBru83HDXn1ThO6opRjXh
-	aQp05Ey++c/zVjZv4vmwQMVhdnYDCU61IGoyEmrFK+5LdgOOGf8TwHr5Lb21w==
-X-Received: by 2002:a05:600c:1f95:b0:490:c6c2:52 with SMTP id 5b1f17b1804b1-496c64261d4mr74271315e9.3.1785328441446;
-        Wed, 29 Jul 2026 05:34:01 -0700 (PDT)
-Received: from localhost (p200300f65f47db0401da7fd03a16a046.dip0.t-ipconnect.de. [2003:f6:5f47:db04:1da:7fd0:3a16:a046])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49764d6d0f8sm50701985e9.2.2026.07.29.05.34.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Jul 2026 05:34:00 -0700 (PDT)
-Date: Wed, 29 Jul 2026 14:33:59 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
-	Sebastian Reichel <sre@kernel.org>, Ion Agorria <ion@agorria.com>, 
-	=?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-input@vger.kernel.org, linux-leds@vger.kernel.org, linux-pm@vger.kernel.org
-Subject: Re: [PATCH v10 2/7] mfd: Add driver for ASUS Transformer embedded
- controller
-Message-ID: <amnxliqWscD4Mjdz@monoceros>
-References: <20260721095233.420823-1-clamor95@gmail.com>
- <20260721095233.420823-3-clamor95@gmail.com>
- <amGx2fJCUB4_XW1M@monoceros>
- <CAPVz0n2yWtTOgruRc+MAYTZ9=rd6qf6sEnX9v8THvJkN_opvbA@mail.gmail.com>
+        bh=/y1ew/AaO4a3TiUoZQMqr3KatEChOpw6KP2tFHQUBBM=;
+        b=DLOw6gErmb7qnBWp7OJ3GW+TIPdmHeZ3Z0l45KPFjliIcYWnWtiZqPGtRc9oq1F84Q
+         a1ySHoPjCWhrsK30nymNy2/dABdZQw66VMIJ8BfG2OSFAZ+pV2VNF16z5dMM2MR9zaDc
+         sH38ht3K/4GJR7cw7hfW1j6TwjrMV69ILMEpt3P0C6NMmtQF27COiRHsN+kw1t8ZTv4X
+         r3WDkztdqhKrm3xnfXSqVxnSQUKMCAA0wq862a9kze6AjMlu8G5OsaRiQwv1T5CeQU8l
+         690WywJeC9SknaZYvchMGtkO/JDA/5G9kroxorT8btjl510jqNDp/gt4Fp2T0xsMOT7A
+         N6Bg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785328565; x=1785933365;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/y1ew/AaO4a3TiUoZQMqr3KatEChOpw6KP2tFHQUBBM=;
+        b=H0dYRYef5km7mInA7GCWqS1UnouiPfU1ARlh8ybhLv0JTJi9k9YnEAFLw0BxrKbDdd
+         OVojOaHWYQkiuPcepOWTtoSkZnTs7GmKY+cziNsFl3fxpLl/ma8RFSkTvyIYgWMCZdse
+         3LF0Q+KkgFBZMlLjJ+R1z6IZjuNgSsm5zWgtxzP2F+Jhrx0voJvHAx4jzgQif1hGJq0o
+         tWbV8gX9qa6mdXrVLkCGQAIsJaszYAwHFKQhPksi1SFPOfCuMS2DWfEXXLW/krBlvpcr
+         abc+jAdBKS2emltpbNGjRqNrU2zJkY/czkxL2n/bUD88vtKQ7HBhSM/BVtgJDdGqBXuv
+         rOHA==
+X-Forwarded-Encrypted: i=1; AHgh+Rq2wYgh0DoXXzKXnuoYOkefhQPxSwXSPhB5g6sSr+M351+AqvmGBr+dVuhM4PTaAsJSJv8Npb8xoa/X@vger.kernel.org
+X-Gm-Message-State: AOJu0YyuU/nitRwVPxiRLQafpea5KFT2PM857Egq4lfqqaaLXGHEx3F6
+	YaLSlv52OhuaWGInrE4/dVyF/DuxfO98eL5ZkNHflFP3f024JOOTZTAgxIjsqh+w8GZ9DF6iuNI
+	CkQIBk7X/qLBbOuNpe2bjS2xI1+D1mM3+X0TjIWkDS1+KagzZIvjhX9ELCOwGv0TE
+X-Gm-Gg: AR+sD11UPaBccSCJAsJT7W6hfVnxI/LLhm+qvnjGmm2PLzhTc87v8wy4FHXvNVY5Ruk
+	wHPFBv2kjztzUUxI6prhlOVUQxbG4cUpCFvrUdMM1R23C4QQuVnHE0ZWIqD4uSeQLo6RCP6SORc
+	p0f/ybQX8OeC+XJk9brx4s6jDbcWMf7fPmdMOy9uq9TLP8SB6TGTDrUglVIbsbXh9W3XTn355u1
+	yHFAbubo/1gRSPhIRHxsdZsT2m7aJBcV7jYuUc8pgQ5eEVfQTlOkDpP5n5O4c84Lo/9ymrkLBsx
+	ZBf41jwwI8UwBnFqx0EXUvum6H52uJR74L86WxXvsAKBzwa5tFzsuwE6qMBU4k/pbUlhVM2L+6W
+	j8RVTHodeJPII3mLXKrEC5wVZka8=
+X-Received: by 2002:a05:622a:4d91:b0:51c:164b:b240 with SMTP id d75a77b69052e-529d6faf287mr57170141cf.4.1785328564477;
+        Wed, 29 Jul 2026 05:36:04 -0700 (PDT)
+X-Received: by 2002:a05:622a:4d91:b0:51c:164b:b240 with SMTP id d75a77b69052e-529d6faf287mr57169831cf.4.1785328563999;
+        Wed, 29 Jul 2026 05:36:03 -0700 (PDT)
+Received: from [192.168.68.112] ([5.133.47.210])
+        by smtp.googlemail.com with ESMTPSA id 4fb4d7f45d1cf-6a050be9a91sm839143a12.13.2026.07.29.05.36.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 29 Jul 2026 05:36:03 -0700 (PDT)
+Message-ID: <0cb5a2dd-c49e-47e3-8cc5-ab2ffd397a32@oss.qualcomm.com>
+Date: Wed, 29 Jul 2026 13:36:02 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6dqlofrf2szwmrad"
-Content-Disposition: inline
-In-Reply-To: <CAPVz0n2yWtTOgruRc+MAYTZ9=rd6qf6sEnX9v8THvJkN_opvbA@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 7/8] dt-bindings: sound: qcom: add Tambora WCD9378
+ SDCA codec
+To: Krzysztof Kozlowski <krzk@kernel.org>, Mark Brown <broonie@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>,
+        Charles Keepax
+ <ckeepax@opensource.cirrus.com>,
+        Maciej Strozek <mstrozek@opensource.cirrus.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Srinivas Kandagatla <srini@kernel.org>
+Cc: Bard Liao <yung-chuan.liao@linux.intel.com>,
+        Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+        Richard Fitzgerald <rf@opensource.cirrus.com>,
+        Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
+        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, patches@opensource.cirrus.com,
+        linux-kernel@vger.kernel.org
+References: <20260722234221.884765-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260722234221.884765-8-srinivas.kandagatla@oss.qualcomm.com>
+ <219d44e2-28ed-4c54-bd00-66e687a0ba48@kernel.org>
+ <d0891f90-b69b-4b27-ad58-94c342ad9a6a@oss.qualcomm.com>
+ <3c484a68-5db8-464f-992a-6c7584841a10@kernel.org>
+Content-Language: en-US
+From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <3c484a68-5db8-464f-992a-6c7584841a10@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDEwNCBTYWx0ZWRfX5JXQyeiKLK94
+ isA7Tjfxr6ftOau3o3RWnPBo2lXr5WkRNDZgTWxtIhrx20nvWqxun41iKUdsSxuj3UauRyROwjV
+ DcDDzsrQuau9ICzqbdusvYzT+LkLx7w=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDEwNCBTYWx0ZWRfX/FU3a2o7PjCN
+ hdwKvNYCaFKmAYCP0J/C6mUKanjTNkFhHJqfsEPW0fliDPnfcF8tGvxW1w6lUJrjdhezvo5yO9K
+ ndrko9MtIPta0SYfbzbsVDR8yeYYzmncO09NUvPlOgAGdAVwuCLtZGTpqRcek9LUHjoA9lRiyzA
+ /zXc/a45pK2XOKV8ILMjl0adiz1MK/NIfS33zX8TnSxtfp7Tuq7MlRSjHychQ/u8C03TKjJkEXB
+ 1C2knmLs0kt0I08tor1RruYt/ghBwnEESiwNGlLtF1R9egYyPUvNZL/CIzGydu6CD/nyBXGqu/A
+ wvPewGobCXUKRT3KvQUb0GxmA/4/1MsAgAIACjKTxvH/91CpEHfVAdeObXnfCgr52hYldORtqAX
+ UFs34KSUYyyNQ0eTuahqeglGUVvb9KWCbTOfPNjoSoYVUOG83RLfQ3ja6Eynj0uprKK7nyAml3d
+ zwS3Xn0GEpyjBEGyJeg==
+X-Authority-Analysis: v=2.4 cv=LtKiDHdc c=1 sm=1 tr=0 ts=6a69f3b5 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=GYSh3LzNAAAA:8 a=ueJt-ghu4yImuhG8B5YA:9
+ a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22 a=sptkURWiP4Gy88Gu7hUp:22
+ a=lWcdFasyL5yHfcDTNXXo:22
+X-Proofpoint-GUID: rkzvxicYeI2iUEqkKHQ44VZyxvIJUNXU
+X-Proofpoint-ORIG-GUID: rkzvxicYeI2iUEqkKHQ44VZyxvIJUNXU
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-29_04,2026-07-28_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 suspectscore=0 lowpriorityscore=0 clxscore=1015
+ adultscore=0 priorityscore=1501 phishscore=0 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607290104
 
+On 7/29/26 1:30 PM, Krzysztof Kozlowski wrote:
+> On 29/07/2026 14:17, Srinivas Kandagatla wrote:
+>> On 7/29/26 12:40 PM, Krzysztof Kozlowski wrote:
+>>> On 23/07/2026 01:42, Srinivas Kandagatla wrote:
+>>>> Describe the WCD9378 SDCA peripheral node (compatible sdw20217011000)
+>>>> driven by the wcd9378-sdca codec driver for headphone playback, headset
+>>>> mic capture and jack detection via the SimpleJack SDCA function type.
+>>>>
+>>>> WCD9378 codec can be wired up in 2 different modes.
+>>>> "mobile mode" on phone/tablet SoCs is enumerated as tx and rx device,
+>>>> each of which has dedicated control and data lines.
+>>>> "compute mode" on compute platforms such as Glymur is enumerated as
+>>>> single standard MIPI SDCA class device.
+>>>>
+>>>> Both modes share same Device ID, compatible; qcom,compute-mode selects
+>>>> which driver path is taken.  Supplies, reset GPIO and mic-bias voltages
+>>>> live on the SoundWire slave node in compute mode and are forbidden in
+>>>> mobile mode (owned by the top-level codec parent there).
+>>>>
+>>>> Assisted-by: Claude:claude-opus-4-7
+>>>> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+>>>> ---
+>>>>  .../bindings/sound/qcom,wcd9378-sdw.yaml      | 200 ++++++++++++++++++
+>>>>  1 file changed, 200 insertions(+)
+>>>>  create mode 100644 Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml b/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
+>>>> new file mode 100644
+>>>> index 000000000000..2ed4ad92958e
+>>>> --- /dev/null
+>>>> +++ b/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
+>>>> @@ -0,0 +1,200 @@
+>>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>>>> +%YAML 1.2
+>>>> +---
+>>>> +$id: http://devicetree.org/schemas/sound/qcom,wcd9378-sdw.yaml#
+>>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>>> +
+>>>> +title: Qualcomm SoundWire Slave devices on WCD9378
+>>>> +
+>>>> +maintainers:
+>>>> +  - Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+>>>> +  - Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+>>>> +
+>>>> +description: |
+>>>> +  The Qualcomm WCD9378 codec presents its SoundWire slave devices with
+>>>> +  class ID sdw20217011000 in both operating modes:
+>>>> +
+>>>> +    * mobile mode -- two slave instances sit on separate SoundWire
+>>>> +      masters carrying data only.  A separate top-level codec node
+>>>> +      owns the codec's supplies, mic-bias voltages and reset GPIO.
+>>>> +
+>>>> +    * SDCA / compute mode -- one aggregated slave sits on a multi-lane
+>>>> +      master and carries both control and data.  There is no separate
+>>>> +      top-level codec node, so the SoundWire slave node itself owns
+>>>> +      supplies, reset GPIO and mic-bias voltage configuration.  It is
+>>>> +      marked with qcom,compute-mode.
+>>>> +
+>>>> +  Codec drivers that match sdw20217011000 use qcom,compute-mode to
+>>>> +  decide which mode to serve; the presence or absence of this property
+>>>> +  also gates whether the supply and mic-bias properties on this node
+>>>> +  are required or forbidden.
+>>>> +
+>>>> +properties:
+>>>> +  compatible:
+>>>> +    const: sdw20217011000
+>>>> +
+>>>> +  reg:
+>>>> +    maxItems: 1
+>>>> +
+>>>> +  qcom,compute-mode:
+>>>> +    description: |
+>>>> +      Marks this SoundWire slave as the single aggregated slave that
+>>>> +      implements the codec in SDCA / compute mode.  Only present when
+>>>> +      the codec has no separate top-level codec parent; in that case
+>>>> +      this slave node also owns the codec's supplies, reset GPIO and
+>>>> +      mic-bias voltage configuration.  Absent in mobile mode.
+>>>
+>>> I doubt there is really "compute" or "mobile" mode, so you just wrote to
+>>> match use case, but that does not match hardware.
+>>>
+>> This is hardware fuse setting, its not just usecase based but it changes
+>> complete wcd9378 hardware topology, in mobile mode we have 2 soundwire
+>> devices representing tx and rx side of wcd9378 however in compute mode
+>> it only has one soundwire device dealing with both tx and rx. compute
+>> mode is sdca class compliant device.
+>>
+>>
+>>> I think there should be no separate top-level codec parent in the first
+>>> place, thus this property is not needed. You always list here all resources.
+>> There is no top level aggregated device when the codec is fused in
+>> compute mode.
+> 
+> There should not be a top-level in either case. This was always Linux
+> driver limitation.
 
---6dqlofrf2szwmrad
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v10 2/7] mfd: Add driver for ASUS Transformer embedded
- controller
-MIME-Version: 1.0
+That is not true, its clearly a hardware topology thing.
+Codec has two devices tx and rx, Only one of the device (tx) has access
+to CSR registers of the codec, so rx and tx are pretty much a single
+aggregate codec device which is why we have top-level representation of
+the aggregate device.
 
-On Sat, Jul 25, 2026 at 04:23:13PM +0300, Svyatoslav Ryhel wrote:
-> =D1=87=D1=82, 23 =D0=BB=D0=B8=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 09:25 Uw=
-e Kleine-K=C3=B6nig
-> <u.kleine-koenig@baylibre.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> >
-> > Hello,
-> >
-> > On Tue, Jul 21, 2026 at 12:52:28PM +0300, Svyatoslav Ryhel wrote:
-> > > From: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
-> > >
-> > > Support Nuvoton NPCE795-based ECs as used in Asus Transformer TF201,
-> > > TF300T, TF300TG, TF300TL and TF700T pad and dock, as well as TF101 do=
-ck
-> > > and TF600T, P1801-T and TF701T pad. This is a glue driver handling
-> > > detection and common operations for EC's functions.
-> > >
-> > > Co-developed-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > Signed-off-by: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
-> >
-> > Documentation/process/submitting-patches.rst has:
-> >
-> >         [...] the ordering of Signed-off-by: tags should reflect the
-> >         chronological history of the patch insofar as possible [...]
-> >
-> > So your S-o-b should be last when you submit a patch.
-> >
-> > > +#include <linux/i2c.h>
-> > > [...]
-> > > +#include <linux/mod_devicetable.h>
-> >
-> > <linux/mod_devicetable.h> will go away soon. Please rely on
-> > <linux/i2c.h> to provide a definition of struct of_device_id and drop
-> > the #include of mod_devicetable.h.
-> >
-> > > +static const struct of_device_id asus_ec_match[] =3D {
-> > > +     {
-> > > +             .compatible =3D "asus,sl101-ec-dock",
-> > > +             .data =3D &asus_ec_sl101_dock_data
-> > > +     }, {
-> > > +             .compatible =3D "asus,tf101-ec-dock",
-> > > +             .data =3D &asus_ec_tf101_dock_data
-> > > +     }, {
-> > > +             .compatible =3D "asus,tf201-ec-pad",
-> > > +             .data =3D &asus_ec_tf201_pad_data
-> > > +     }, {
-> > > +             .compatible =3D "asus,tf600t-ec-pad",
-> > > +             .data =3D &asus_ec_tf600t_pad_data
-> > > +     },
-> > > +     { /* sentinel */ }
-> > > +};
-> >
-> > Trailing comma after the assignments to .data please.
-> >
->=20
-> Sure, but out of curiosity, why in this case you ask for trailing
-> comma and if entries are in one line, you don't.
+--srini
+> 
+> Best regards,
+> Krzysztof
 
-Because this is the most used style. The rationale for the trailing
-comma is that if you want to add a new assignment to a multiline
-initializer you have to touch the line without comma:
-
- 	}, {
- 		.compatible =3D "asus,tf600t-ec-pad",
--		.data =3D &asus_ec_tf600t_pad_data
-+		.data =3D &asus_ec_tf600t_pad_data,
-+		.something_else =3D &foobar,
- 	},
-
-so if the comma is already there, the patch reduces to:
-
- 	}, {
- 		.compatible =3D "asus,tf600t-ec-pad",
- 		.data =3D &asus_ec_tf600t_pad_data,
-+		.something_else =3D &foobar,
- 	},
-
-=2E For adding a new assignment to:
-
- 	{ .compatible =3D "..." }
-
-you have to touch the line anyhow, so there is no advantage to already
-have the comma. And then it seems parsimony prevails.
-
-Best regards
-Uwe
-
---6dqlofrf2szwmrad
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpp8zUACgkQj4D7WH0S
-/k6ZNAf8DhR7uBfXuQZzNcJ2dR9KB5Mucc4l5ZRolBWJcq6FHN8KK2BbDb+bkrcE
-pUhYeNPt0LnZBA6JHWhJAM1zlHnLaQ2PlBWxeR4EIwAhM8nyXcfHgmgMJxBHSeEQ
-qHWXZKtQd90uCGYg4BnQO8LmgAQR610/ujayOjnD0EgB2Wy19ZkENuG5Nu+Irzef
-8DWW0WMWbrTCP49l4fgVWsLE8/yOaBE1jBeyaZ17yXLwz5vbs6OfeCkqaK11AOnH
-KXbRlcea/K7YZX7wPKZLhHMSvmzSk+NEQgQpg7+qgg7NYMLDgJFCfvFTWhNj5lqb
-GcHcRJv6c3GBFhS3t9oSrHiBeXrX0A==
-=JxD4
------END PGP SIGNATURE-----
-
---6dqlofrf2szwmrad--
