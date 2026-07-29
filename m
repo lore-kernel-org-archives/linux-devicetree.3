@@ -1,161 +1,152 @@
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ixit.cz (ixit.cz [185.100.197.86])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71F2D379EC8
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 18:13:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785348803; cv=pass; b=oqZ1DslK3QBPRyW2+JvVi6VePl7asjgRYm1bLwhRgygLxoTvQeTU4agNWyuClKUm/9SROyXzOyI3eMOfjiXGbVmRcgz6T7moeTrhQMwt7YKUAx/PaDuZbEuNqRZ+BKZWfP6fNx0hKcAl5lT4nrCOdB322KU58Mw9L7kao+dZst8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785348803; c=relaxed/simple;
-	bh=l9Uk7VyAGhBOCH47wMyEDvu7VOuPXGyeXwTOqqtrNwQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=m1WbbEo1sdIrqQl9KA5Y8V560pnlwpXDUn7ZmmoKGdFh5ND1+l9/yybuSd+IsEJXFuIqUx1rD5DjUKSN+/0mKV1g5rbDyboVkMomn+yc1QpA8ide0LEhaAb/YVU+6ZfmnMvq9CSDZbt4uDvy0EAYyDeXXmmrGLUFw0E6nah4lvo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YXdM78FQ; arc=pass smtp.client-ip=209.85.208.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FC77486620;
+	Wed, 29 Jul 2026 18:22:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785349376; cv=none; b=WdeT/RDcmM/rQtsawD1Ez1fhZK/UJ5pATCOeQMiKubNODuYjpGOz7JwnxztX4PiOEW+wYW7ypNuc2GXv8DN1xo2ANNFbPdE4+hF0a5Z2jxjZr6BpmG3RqZAb6UtKGOESJGWeXmj4HkIaidyGrnuHBVnw0qpQGevIS/q2p/gDB5g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785349376; c=relaxed/simple;
+	bh=rDWejifrk12ZaVO+yIvkGdMax1Zy6L+1nkcejV1xP8o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=h8aj1aO18PTf+59gzCHvwPXkrVaYlPGkreOlL3gA/Uog+AQ560eri7azJwyaCHWeVDheBaYkGwgXn/LqY908M6fqmWaaY/N1ljJnUFEFgVeJ8D4FRY5G4D3gIegKwP9tqLo5wS3cFOS/CvsqB92pZJNQQm9m4HoYa5cHgY7cZhc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=yH4mHFiV; arc=none smtp.client-ip=185.100.197.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YXdM78FQ"
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6a051b73866so1668858a12.0
-        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 11:13:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785348801; cv=none;
-        d=google.com; s=arc-20260327;
-        b=osWWKlS92S+FJFgLzpxBI/odYCvhnI7tNYAb0Xe3H0bM340Eg59tRJHL7cATTChOBe
-         Burif74KaO+55yoNvwbLlqJiBJZT4Le3hWnyLk6p9rdZkhQSvL0lc4Y8YDwTOW02Li8R
-         8+xU2rSHJxUHlOUSFDAY+Kze/hdpZPxxjO0NfWzKuZ1QXrDdWRn75oPrFuqz7wEmXAuJ
-         YLWyFcUkWn37AxQrebC40N2u+eyIlIYC3FZZwHk3a5YT4a3B+Z/VV/ZJ6Rc7I+tpdpVp
-         Un1ifSlvTMwds1oL3PtzgnbehbXbxKNhE6hOjL7pNbYvWyF+jVMJJ5M9jIfAfx6V1j4U
-         PBSA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=w1z/xndzybZ5D+AlRgPZw9qYMQrcZbDchb7urQIjmOM=;
-        fh=dvwdQjDdzp8geEq1ZPh69UD4RyuyC82eG3537ggWc+U=;
-        b=gi5nY1yc/EY4JoQoyvgGSytvJYwLEYv1UE9HGAuKMsHcSdCegbmcQdCFt8PKSxwRX4
-         UGZvv28nlzcxZCqGquvspurlyVVjgnKFP81doO71PHpVUNtf2C+k8lVnaszo0Wr9w1Pl
-         H7gC8AQSIJqNSA8V+4eQeJzQe03hGjXwEOzGkoiD4MzqwsIQTx9EWtkEX5DrjFgPXlNr
-         gbLMeE3Ers/LL00S4b4OfonHzl01qwdnJs8r54xT/uoy7rPPaa4nRj0Gy8kg+T6a5bWO
-         RVutnchco5dC2IFoPd41kmLt3EPDHNNRgJPbXX1BjSeQxHs/KZPR/85qUd88PqO8cC6I
-         i5UA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785348801; x=1785953601; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=w1z/xndzybZ5D+AlRgPZw9qYMQrcZbDchb7urQIjmOM=;
-        b=YXdM78FQofmjdWCB9Set1P1CbXFia9LTTlYsZxtoOXo9peUSO4I0xexFTLaCy5GLE8
-         6ma0ZCmnD4faHQcTj/o7RK8e8SXdqMYrhjV7TcEIcu+rd9vXdfqL00hC91w6hIv3YmZj
-         wSpxxHUbbFw+FYbUp9ZSKI9eG6Bqni1tKEcnJjuym+bQx4NDT/1bLYh3FZEDE/RbCDSq
-         TzJRalUs98o0TxIUZA1uEwX+/p+hiHWEa4x9kHblA69anWOJEfgEqXy37JBNpO/Y+jrH
-         hj5FdJwt7WnmahnrIVxDDn24/QeNL14Hc21SiKruQxSx33WSYlfMwKRQk5/IjVk7ix+w
-         efuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785348801; x=1785953601;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=w1z/xndzybZ5D+AlRgPZw9qYMQrcZbDchb7urQIjmOM=;
-        b=rQXKKQB6ampcjMG3qoFX86QOF0ypk0Rxa87dsUBAirE+49Vrp1nlrjgQakxmnO+HNJ
-         wj/lUXU0F7O8YPF5yB+a1+ZbbBjjahC8EI16bKrlmTz0FRuxOQ88iZSn6gy+GSPNER4y
-         BBp8rUnG/gfHKLInMFJe6cXCy+mQ6HdHQHGlxE7bVWfJzLqWHR76JFbjhHeKRGa1ZVg1
-         X3HKE/XrQJNPLfB9kqysODCngc969M9ZXq5qrDLWQziBIFDX/EGOvjwal2wiCL3z1+n5
-         vcBxf9T9I5xKZ1GepeLwu0GG5q0ArKj1BUKa4yeIgKxvv8pxfAKeZkxWcweYrTZvsVFD
-         XKCA==
-X-Forwarded-Encrypted: i=1; AHgh+Rr21wQjrgw6k4JeZR5L1isVLoYpbv5gIRzyKf3gzlA7jtqzuRiNoioQBZmknokwMP6cxtreQdV0RkQb@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw7Bqo0d1uZj5cF96apv3byQAS2hS5URmB7w/fWrkA/Bf1azB9f
-	yaGHh3KhlJJFQemY/lx9f3I7JHFLSnG2tU97Ixgxbmz8b7K1w7IwiifSCSSy+jPfKiGZsGZmc+F
-	V1PzfSuByqDRxLJM/BBqNbsiuKC5Zh+t34J2M
-X-Gm-Gg: AR+sD12AF3mZVN1Ryde8otYE/O1fNvnKjshGNuROwd1dvQCqOvusVlwDCNzaYIXnt4H
-	oP9gbqs7HrAiefg4Tl1fdXu4C/sgfqtwZWK0AR43yTo4vIbzKzJumH/dwNgm5I/uOm9m9ufADYp
-	C2+GwYcq4uAA5iYxXm0Xy67u5zfntKQ8hOXqHxoNiJp6TKT4I1qqmGuAQTiGdZWY2mkV8oxz475
-	mDcdUe7EUN+ZV/Um29GBnLrSOhYLKKUYRCv6uQeRrLbtJPF6pDidhV9zuoYYldzujGPvESSi4/G
-	cKFjvxu6rkKzz0tHA2l9LqsyKzGnOE99iHcPN6wGgmkkZe3HZ78Q2p22XLEv5etASsXVzlvK6GS
-	rU712K9kZfPtt7MZjwJZifaT4g8xXv/ZuGyRsbx7aHhYWfd1tXNLtTHpLRALXbN7AVXdhbeBvR9
-	fMnocpFbrlwJumkUs0mold0uOneNtHZybTL/SvRUBp1NVvywW829Ug7Bf6K7AIUGhFRhQ=
-X-Received: by 2002:a05:6402:3899:b0:698:5610:76de with SMTP id
- 4fb4d7f45d1cf-6a034a0b14amr4298664a12.4.1785348800634; Wed, 29 Jul 2026
- 11:13:20 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="yH4mHFiV"
+Received: from [192.168.1.182] (ip-62-24-73-79.bb.vodafone.cz [62.24.73.79])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 75ACA534026B;
+	Wed, 29 Jul 2026 20:22:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1785349363;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=+UzzBPByKV2xoKLVXU1Mt93Z2ZeBFEJ7upQV1CrUXDo=;
+	b=yH4mHFiV6aSCxW9UALzkhVUrECFpwLUTWHnJ+VbQoWRyQNHo/n0tDJ+3mtEAI4jECscKtO
+	BLpiCd4icnPPthR4cZT0eZHeZU0eI7NpJ3nBpw+gvsmikRO4cY0hUpb5/gRjjOdHVl86wV
+	eMTSHMoG/D1DKyO7d/WhXHRDEopLRGQ=
+Message-ID: <1348b108-1034-4ab0-a967-972a9456151d@ixit.cz>
+Date: Wed, 29 Jul 2026 20:22:42 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260628231156.1254012-1-rosenp@gmail.com> <20260628232714.BD9581F000E9@smtp.kernel.org>
- <CAKxU2N-3zVUM6A-fQnYWud4O7M55Ghc-wnTCG+8DD6_nh2827g@mail.gmail.com> <ba56ee70-9702-4b11-ad04-d63322ab60b4@app.fastmail.com>
-In-Reply-To: <ba56ee70-9702-4b11-ad04-d63322ab60b4@app.fastmail.com>
-From: Rosen Penev <rosenp@gmail.com>
-Date: Wed, 29 Jul 2026 11:13:09 -0700
-X-Gm-Features: AUfX_mxsWPdeWCTjyGu9bwG4Ft-f7FWsPOq11UXIaV9_Yv9Ny3dg6AFlEw2whJY
-Message-ID: <CAKxU2N9Nt+HF-4TzB3+_5ta=28wb0xCCLuUVO6Bm=LW3ZnNmHw@mail.gmail.com>
-Subject: Re: [PATCH] ARM: dts: BCM5301X: drop extra AXI bus ranges that break PCIe
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: sashiko-reviews@lists.linux.dev, devicetree@vger.kernel.org, 
-	Conor Dooley <conor+dt@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 5/6] ASoC: cs35l36: Implement set_tdm_slot to program
+ RX slot register
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ David Rhodes <drhodes@opensource.cirrus.com>,
+ Conor Dooley <conor+dt@kernel.org>, linux-sound@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ patches@opensource.cirrus.com, devicetree@vger.kernel.org,
+ phone-devel@vger.kernel.org
+References: <20260705-pixel3-audio-v1-0-3b66f33859f1@ixit.cz>
+ <20260705-pixel3-audio-v1-5-3b66f33859f1@ixit.cz>
+ <aktsvw1IrM7ctTxg@opensource.cirrus.com>
+Content-Language: en-US
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <aktsvw1IrM7ctTxg@opensource.cirrus.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Jul 29, 2026 at 8:40=E2=80=AFAM Arnd Bergmann <arnd@arndb.de> wrote=
-:
->
-> I saw this in the fixes pull request, and the descriptions
-> below don't make much sense to me. I'll hold off on the pull
-> request until someone can come up with a fix that they
-> can accurately describe.
->
-> On Sat, Jul 4, 2026, at 00:17, Rosen Penev wrote:
-> > On Sun, Jun 28, 2026 at 4:27=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
-> >>
-> >> Thank you for your contribution! Sashiko AI review found 1 potential i=
-ssue(s) to consider:
-> >> - [High] Removing the PCI memory ranges from the parent `axi@18000000`=
- bus breaks outbound PCIe memory mapping because the child `pcie` nodes can=
- no longer translate their addresses to CPU physical addresses.
->
-> This makes sense to me, but doesn't explain what caused
-> the observed bug
->
-> >> commit 4f061464281d4964ce46dab60d36a09328f14862
-> >> Author: Rosen Penev <rosenp@gmail.com>
-> >>
-> >> ARM: dts: BCM5301X: drop extra AXI bus ranges that break PCIe
-This patch can be dropped.
+On 06/07/2026 10:52, Charles Keepax wrote:
+> On Sun, Jul 05, 2026 at 10:06:55PM +0200, David Heidelberg via B4 Relay wrote:
+>> From: David Heidelberg <david@ixit.cz>
+>>
+>> Program ASP_RX1_SLOT with the first set bit of rx_mask so the
+>> amplifier listens on the correct TDM slot when configured by
+>> machine drivers.
+>>
+>> Assisted-by: Claude:claude-4.6-opus
+>> Signed-off-by: David Heidelberg <david@ixit.cz>
+>> ---
+>> +static int cs35l36_set_tdm_slot(struct snd_soc_dai *dai,
+>> +				    unsigned int tx_mask, unsigned int rx_mask,
+>> +				    int slots, int slot_width)
+>> +{
+>> +	struct cs35l36_private *cs35l36 =
+>> +			snd_soc_component_get_drvdata(dai->component);
+>> +
+>> +	if (rx_mask)
+>> +		regmap_update_bits(cs35l36->regmap, CS35L36_ASP_RX1_SLOT,
+>> +				   CS35L36_ASP_RX1_SLOT_MASK,
+>> +				   ffs(rx_mask) - 1);
+> 
+> It is more normal for the masks to specify the slot number rather
+> than the bit number, it would probably be nicer to stick with
+> that convention even though it will complicate the code here a
+> little.
 
-https://lore.kernel.org/all/20260727140939.389-1-strst.gs@gmail.com/
+Thank you, is there one of the cs*l* series which implements in similar fashion 
+as requested?
 
-is the proper solution to the problem.
-> >>
-> >> This commit removes extra AXI bus ranges that overlap with DRAM on
-> >> BCM5301X/BCM470X SoCs. The intention is to restore the original
-> >> single-entry mapping and fix PCIe routing issues.
->
-> The DRAM ranges on this chip are at 0x00000000 and 0x88000000
-> and don't overlap with the axi bus ranges at
-> 0x18000000/0x08000000/0x20000000/0x28000000, so the initial
-> analysis is wrong.
->
-> > With need_ob_cfg =3D false (no brcm,pcie-ob in bcm-ns.dtsi),
-> > iproc_pcie_map_ranges() is never called. The bootloader has already
-> > configured the PCIe controller's outbound windows correctly. By
-> > removing the extra AXI bus ranges, of_translate_address() fails, those
-> > bogus resources are skipped (the OF_BAD_ADDR check at
-> > drivers/pci/of.c:377), and the kernel stops registering DRAM addresses
-> > as PCI MMIO windows. The hardware continues working with its
-> > pre-configured outbound windows.
->
-> This sounds like the bootloader configured ranges don't
-> match the ones in the devicetree description, which would
-> leave three options:
->
-> - change the bootloader to match the dts
-> - change the dts to match the bootloader
-> - change the driver to reconfigure the windows according to DT
->
-> Can you check how the OB windows are actually configured
-> by the bootloader on your board?
->
->       Arnd
+Thanks
+David
+
+> 
+> Thanks,
+> Charles
+
+-- 
+David Heidelberg
+
