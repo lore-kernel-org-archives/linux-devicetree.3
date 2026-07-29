@@ -1,157 +1,199 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 799BA43C7C3;
-	Wed, 29 Jul 2026 22:06:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA87240681D;
+	Wed, 29 Jul 2026 22:07:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785362806; cv=none; b=QNPsTwd2vJjSweC+nVSHHrwQe+qgKbYImlQWbMTmZwhWn3ZP2tIxEJ2ylW9e3ejS/EiUh6qCRbVi4Y1MOMykqEWsBwmjkBzFYtgRzuxvXjsGPihqjY7CgNxQgKOuGWmITxG8bLhRp/QJ6WkfPJ9fYM1Kwd01LITb6dTcT7l4zzQ=
+	t=1785362829; cv=none; b=LkyT8Ggg7ilXHWtaGllOGOKUajflIaNov6fESoI1oo+Ly4NqIX6j7QkHTgcWK13Ibm0FbiE7K7gHyzU4F4flX36UGq23FBgMCJWf+CNcV0+LWsIsw8vZ8kYD2I1Ex5NkSXkhl0ZjA8Zn8ko4HUxDoEygWl2YeByjdfSh1KpSIVU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785362806; c=relaxed/simple;
-	bh=ZIjZpQaDkHJQFQ0Jj02qiSlwPPUj2tUXHh2nU8+XW24=;
+	s=arc-20240116; t=1785362829; c=relaxed/simple;
+	bh=5Bc6bmCb+M2krUQ8iuQsrVLPsnQRzlhc4Je6kdeKHWA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ay7WXVDXELKoAyHBzybylLVfka8nHV8TVeR22xGrHFgB0P2XanpoCPZZXpdLPwo/j/vCrnX05pAnM7vQBFuUgXCaXbFYWIupnzcN7TFGbnZxTOG3Tlp8HbpREopBezL1sgCkbzGwVSi7yR50nGbzyeWk4p0+Mm11l9tuj5pHzX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NR+LlCyM; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=SMCnyB2k/CzPn1n11Aw/7WOeg3natRu27SgIbxtZbZ9fulXui010DlFVskoV5F3GwxqUXkv4KmR4qpgGK2YU+CjVaE1b04TCcKoap1D9MgR78Tqrxk1ls/0vekuCB5ODLBE4/hhthCsq4VBQB9xwr9Z92mHNbXr3D5r/Jad9miA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HoSwLQx+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NR+LlCyM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AEC31F000E9;
-	Wed, 29 Jul 2026 22:06:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HoSwLQx+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 978B61F000E9;
+	Wed, 29 Jul 2026 22:07:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785362795;
-	bh=s1yVBj90xwhF0mjXk/9IVq12UtERshwZJrpGalNdZ2s=;
+	s=k20260515; t=1785362825;
+	bh=hCJuMqfwrG2rpL40gyXp8yV6X0k0t3yZFs++EHofY84=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NR+LlCyMWEY3+RfQG50i3Hso+FJLS8pmN2k2ADGd1HpasZlIUNx+nMZRL+hs3HVCJ
-	 sQ4CcZGQdOU/wOISPsoflGK/Y62vPqkuvnOEUns0XGe1qle56gLdvMMRn6uP8q3pnl
-	 PLDfRcovQTqJnSQ4Ppbi/qvwOUJrlPq29oknic8CaGuOsFLNdFUoFt3G/ROONcUzjf
-	 PFhvWxn9bo6WFEZfo+Swwm+epIpmdTMqpOZ+qlV2+Niz9STvJWy9YVtn0+x0U5IsEl
-	 h2Lhim7IMAHPASMH9D355vi5T27630mArt92FUSec7/xZZPUIvgVd6Db2OLGhNvkQK
-	 kLc7hIvIw6Zig==
+	b=HoSwLQx+G4w2g/3sGkNoXpPOebnJMTcfi48vhnews3O9iHCazF5k+O6QHmxi8cLl7
+	 pz5W1iBvbKkmt/PAaQlrJJbLGuJBMtM1tYHjWF1KTPWcr15HBKTg1zOwyqjF7/JatC
+	 qQrAMJuKAu+CQSKgsVQvAfT76ABtnShClbJMPHsjKMtX9mN3iQGgrHWx/ohpoNBoHC
+	 IRJGDLAhlNzJnnxr3jjY+SAX1WSRDdKUZ59V66uQAsWI6rDo32VJwtSwStOzLwUnQ/
+	 ubEZ59EuaVHoUOG9QROuB3OBKOsdEFPQiQOrpQtWkEQ5HJaJEvJBSA7pQgBWcctuTN
+	 mYc35OnD0A24Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 2/7] arm64: dts: imx8mm: imx8mp: Add LVDS DTOs for
- Data Modul i.MX8M Mini and Plus eDM SBC
+Subject: Re: [PATCH v6 4/4] hwmon: pmbus: mpq8646: gate the writes
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marek Vasut" <marex@nabladev.com>
-Cc: Frank.Li@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260729214723.557461-2-marex@nabladev.com>
-References: <20260729214723.557461-1-marex@nabladev.com>
- <20260729214723.557461-2-marex@nabladev.com>
+To: "Vincent Jardin" <vjardin@free.fr>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org
+In-Reply-To: <20260729-mpq8646_v0-v6-4-98848151cdb4@free.fr>
+References: <20260729-mpq8646_v0-v6-0-98848151cdb4@free.fr>
+ <20260729-mpq8646_v0-v6-4-98848151cdb4@free.fr>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 29 Jul 2026 22:06:34 +0000
-Message-Id: <20260729220634.9AEC31F000E9@smtp.kernel.org>
+Date: Wed, 29 Jul 2026 22:07:05 +0000
+Message-Id: <20260729220705.978B61F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] Incorrect backlight enable GPIO and pinctrl applied for the g215=
-hvn011 panel on the native i.MX8MP LVDS interface.
-- [Medium] The `assigned-clock-rates` property in `&media_blk_ctrl` lacks t=
-he required `assigned-clocks` property, causing the LVDS panel clock config=
-uration to be silently ignored.
+- [High] Debugfs attributes perform I2C accesses without acquiring necessar=
+y locks, risking race conditions and bypassing hardware write protection.
+- [Medium] Mixing goto-based error handling with guard() declarations in th=
+e same function.
+- [Medium] Debugfs write functions mask negative error codes by returning 0=
+ (success) on hardware failure.
 --
 
---- Patch [2]: [PATCH v7 2/7] arm64: dts: imx8mm: imx8mp: Add LVDS DTOs for=
- Data Modul i.MX8M Mini and Plus eDM SBC ---
-commit 57ce2b382e55c1c98951209e8e0a8f4ea3f2c65c
-Author: Marek Vasut <marex@nabladev.com>
+--- Patch [4]: [PATCH v6 4/4] hwmon: pmbus: mpq8646: gate the writes ---
+commit ec4599677b214a57f0796000d18d9f3b6e5d4fb5
+Author: Vincent Jardin <vjardin@free.fr>
 
-arm64: dts: imx8mm: imx8mp: Add LVDS DTOs for Data Modul i.MX8M Mini and Pl=
-us eDM SBC
+hwmon: pmbus: mpq8646: gate the writes
 
-This patch adds DT overlays for the DSI-to-LVDS adapter populated with a
-Lontium LT9211 bridge on Data Modul i.MX8M Mini and Plus eDM SBCs. It
-supports multiple panels for both the bridge and native i.MX8MP LVDS
-interfaces.
+This commit adds unsafe debugfs provisioning and benchmarking helpers
+to write specific registers. These operations are restricted due to the
+risk of browning out the board or persisting bad setpoints.
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc-over=
-lay-lvds-g215hvn011.dtsi b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-=
-edm-sbc-overlay-lvds-g215hvn011.dtsi
-> new file mode 100644
-> index 0000000000000..3585170bd59dd
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc-overlay-lvd=
-s-g215hvn011.dtsi
-> @@ -0,0 +1,30 @@
+> diff --git a/drivers/hwmon/pmbus/mpq8646.c b/drivers/hwmon/pmbus/mpq8646.c
+> index 1fd41d89e5bef..0034cf5919345 100644
+> --- a/drivers/hwmon/pmbus/mpq8646.c
+> +++ b/drivers/hwmon/pmbus/mpq8646.c
 [ ... ]
-> +&backlight {
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&pinctrl_panel_backlight>;
-> +	enable-gpios =3D <&gpio3 0 GPIO_ACTIVE_HIGH>;
-> +	/* 6.5 POWER ON/OFF SEQUENCE, T6 >=3D 10 ms */
-
+> +static int mpq8646_dbg_clear_protection_last(void *data, u64 val)
+> +{
 [ ... ]
-
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-over=
-lay-edm-sbc-imx8mp-lvds-g215hvn011.dtso b/arch/arm64/boot/dts/freescale/imx=
-8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-g215hvn011.dtso
-> new file mode 100644
-> index 0000000000000..a6d13c3609796
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-overlay-edm=
--sbc-imx8mp-lvds-g215hvn011.dtso
-> @@ -0,0 +1,36 @@
-[ ... ]
-> +&backlight {
-> +	power-supply =3D <&reg_panel_bl_supply>;
-> +};
+> +	scoped_guard(mutex, &priv->mps_lock)
+> +		rc =3D i2c_smbus_write_byte(priv->client, MPS_CLEAR_LAST_FAULT);
+> +	if (rc < 0)
+> +		dev_warn(&priv->client->dev,
+> +			 "clear_protection_last: CLEAR_LAST_FAULT write failed (%d)\n",
+> +			 rc);
+> +	return 0;
+> +}
 
 [Severity: Medium]
-Will this result in the wrong GPIO being toggled for the native i.MX8MP LVDS
-interface?
-
-The shared imx8mm-data-modul-edm-sbc-overlay-lvds-g215hvn011.dtsi file hard=
-codes
-enable-gpios to &gpio3 0 and defines a pinctrl. However, the native i.MX8MP
-LVDS interface uses the IO expander's &gpiowifi 0 (via reg_panel_bl in
-edm-sbc-imx8mp-lvds.dtsi).=20
-
-Since this overlay only overrides power-supply and does not remove the
-inapplicable pinctrl or override enable-gpios, won't the backlight driver
-toggle the incorrect baseboard adapter GPIO pin instead of the intended one?
+Should this propagate the negative error code from rc instead of returning =
+0?
+Returning 0 masks hardware faults and might lead userspace provisioning
+scripts to assume the write succeeded.
 
 [ ... ]
-
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-over=
-lay-edm-sbc-imx8mp-lvds-g101ice-l01.dtso b/arch/arm64/boot/dts/freescale/im=
-x8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-g101ice-l01.dtso
-> new file mode 100644
-> index 0000000000000..817d4ec62d0e8
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-overlay-edm=
--sbc-imx8mp-lvds-g101ice-l01.dtso
-> @@ -0,0 +1,24 @@
+> +static int mpq8646_dbg_clear_protection_last_force(void *data, u64 val)
+> +{
 [ ... ]
-> +&media_blk_ctrl {
-> +	/*
-> +	 * The G101ICE-L01 panel requires 71.1 MHz LVDS clock.
-> +	 * Set IMX8MP_VIDEO_PLL1 to 497.7 MHz , since 497.7 MHz / 7 =3D 71.1 MH=
-z .
-> +	 */
-> +	assigned-clock-rates =3D <500000000>, <200000000>,
-> +			       <0>, <0>, <500000000>, <497700000>;
-> +};
+> +	guard(pmbus_lock)(priv->client);
+> +	guard(mutex)(&priv->mps_lock);
+> +
+> +	wp_orig =3D i2c_smbus_read_byte_data(priv->client, PMBUS_WRITE_PROTECT);
+> +	if (wp_orig < 0) {
+> +		dev_warn(&priv->client->dev,
+> +			 "clear_protection_last_force: WRITE_PROTECT read failed (%d), aborti=
+ng\n",
+> +			 wp_orig);
+> +		return 0;
+> +	}
 
 [Severity: Medium]
-Will this clock configuration be silently ignored by the clock framework?
+Like above, should this return the negative error code in wp_orig so the I2C
+read failure is reported to the caller?
 
-This overlay (and several others for the native LVDS interface) defines
-assigned-clock-rates without providing or inheriting an accompanying
-assigned-clocks array.
+[ ... ]
+> +	rc =3D i2c_smbus_write_word_data(priv->client, MPS_MFR_CFG_EXT,
+> +				       (u16)cfg_orig | MPS_MFR_CFG_EXT_CLR_LAST_EN);
+> +	if (rc < 0) {
+> +		dev_warn(&priv->client->dev,
+> +			 "clear_protection_last_force: gate open failed (%d)\n",
+> +			 rc);
+> +		goto restore_wp;
+> +	}
 
-The base board file imx8mp-data-modul-edm-sbc.dts does not include
-imx8mp-nominal.dtsi, where the assigned-clocks array is typically defined.=
-=20
+[Severity: Medium]
+Does this mix goto-based error handling with guard() declarations in the
+same function?
 
-When assigned-clocks is missing, of_parse_phandle_with_args() returns -ENOE=
-NT,
-and __set_clk_rates() silently skips setting the rates. Should assigned-clo=
-cks
-be explicitly defined here so the panel clock frequency is correctly set?
+The cleanup guidelines specify that functions should either use scope-based
+cleanup exclusively or not at all, to avoid confusing ownership semantics.
+
+[ ... ]
+> +static int mpq8646_dbg_store_all(void *data, u64 val)
+> +{
+[ ... ]
+> +	mpq8646_unsafe_warn_once(priv);
+> +	scoped_guard(mutex, &priv->mps_lock)
+> +		rc =3D i2c_smbus_write_byte(priv->client, PMBUS_STORE_USER_ALL);
+
+[Severity: High]
+Should this also acquire the global pmbus_lock?=20
+
+Issuing STORE_USER_ALL without the pmbus_lock might expose an unprotected
+NVM-busy window to PMBus core background polling.
+
+> +	if (rc < 0)
+> +		dev_warn(&priv->client->dev,
+> +			 "store_all: STORE_USER_ALL (0x15) write failed (%d)\n",
+> +			 rc);
+> +	return 0;
+> +}
+
+[Severity: Medium]
+Does this need to return the negative error code in rc instead of 0 on
+failure?
+
+[ ... ]
+> +static int mpq8646_dbg_restore_all(void *data, u64 val)
+> +{
+[ ... ]
+> +	mpq8646_unsafe_warn_once(priv);
+> +	scoped_guard(mutex, &priv->mps_lock)
+> +		rc =3D i2c_smbus_write_byte(priv->client, PMBUS_RESTORE_USER_ALL);
+
+[Severity: High]
+As with mpq8646_dbg_store_all(), should this also hold pmbus_lock to
+prevent NVM-busy window races?
+
+> +	if (rc < 0)
+> +		dev_warn(&priv->client->dev,
+> +			 "restore_all: RESTORE_USER_ALL (0x16) write failed (%d)\n",
+> +			 rc);
+> +	return 0;
+> +}
+
+[Severity: Medium]
+Should this return the negative error code in rc?
+
+[ ... ]
+> +static int mpq8646_dbg_reg_set(void *data, u64 val)
+> +{
+> +	struct mpq8646_dbg_reg_ctx *ctx =3D data;
+> +	int rc;
+> +
+> +	mpq8646_unsafe_warn_once(ctx->priv);
+> +	if (ctx->desc->is_word)
+> +		rc =3D i2c_smbus_write_word_data(ctx->priv->client,
+> +					       ctx->desc->reg, (u16)val);
+> +	else
+> +		rc =3D i2c_smbus_write_byte_data(ctx->priv->client,
+> +					       ctx->desc->reg, (u8)val);
+
+[Severity: High]
+Does this need to acquire pmbus_lock or mps_lock before performing the I2C
+write?
+
+If another thread concurrently calls mpq8646_dbg_clear_protection_last_forc=
+e()
+which temporarily lowers the PMBUS_WRITE_PROTECT register, could a direct
+write here slip through and bypass the hardware write protection?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729214723.5574=
-61-1-marex@nabladev.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729-mpq8646_v0=
+-v6-0-98848151cdb4@free.fr?part=3D4
