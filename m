@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 457D442C4E4;
-	Wed, 29 Jul 2026 18:07:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2CDC3AB272;
+	Wed, 29 Jul 2026 18:07:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785348431; cv=none; b=umbhDGQUTqKtZ6eZR1s5uXsY/fIM8vLDO09Lfio/YsoIZOBywkPTUSU3Hq3AMs9tiITQxLbNurBvYiG0iDjw8/6Qh+MjsiXJgn8Tx2ddc7Amq7niNc31QbTvi17lQyg/1FuRqPX8wqGSP7YIKDKyh+VkmyhwcOmCoI+tzAt/uA4=
+	t=1785348430; cv=none; b=j2C8NVpTn4HM0QQiIkRoUEG9Lr/P3ihDAFnUkrJLOOSQOh5DZ/BTVnvmQS44j6h1Dz8NqSAFVBzhR5ZAVZD1/D+eS9QycFKEu6NFfrFAwVpSPwdp8rFjPEkpyd2FoZV84WjadTrj4bAfkWbWz0xY3XVTHEmrF2bY56VYs3JOEHQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785348431; c=relaxed/simple;
-	bh=p7lrigBk+vv9qDOsNFychIfRZk0ek9Nm5DOiWNyn8Ek=;
+	s=arc-20240116; t=1785348430; c=relaxed/simple;
+	bh=hF96k2yDYP4CtxHfzjkO+7f/2yc+R1uWoFynofZ9XNM=;
 	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=J1KodBBNQXoju9YP1bpzQgJUPLegKxhEozxseE73XqCJbcc2KjYthcabh97hv3SloI+Az1awVmrRPO+FGxN+ypwn82pYoywqX1s5DQ0IwdxqWuZ9QnYvoCPHRtb/PqTvT1vZDrhObpooFLlRwK1HFifsmQE+tawOhnewaPTPKMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FIoeCB4O; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id:Subject; b=aUhUS5hBT5ZpuPmyqs5CSSkMVTPxt09TepfrnN0T37K1bmbub3tRif6XFphpx3wP73qBw4rOmTil4D/8mSoP/lV6F1aPei4dadqxugUfN6E1+ItLWeMkAlMYKM1GCkhAr1YY726eExlw58zlubRDFFJ9A0dmPbGWF7EkNGzyP5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Oy3WZX3V; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FIoeCB4O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6220A1F00A3A;
-	Wed, 29 Jul 2026 18:07:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Oy3WZX3V"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87FA11F000E9;
+	Wed, 29 Jul 2026 18:07:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785348421;
-	bh=GxH/r7+adCfOo3v2pAd+rEyUjiBUoOm+f3CHIqF+c3M=;
+	s=k20260515; t=1785348420;
+	bh=LfVo/5pspi7nSOnwGr07fdJGZ3XUZxg5tX6GJjgn0I8=;
 	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=FIoeCB4OiM6hKu3j9xG+F9sYFXH4FYo1vOy/tJDbSeMVrp53n+5J4sNJyuSNdfWSL
-	 dYrU91KJ+PC+Shxlr7lVoN4V6ud4/0xUulDk/w7vKNW2rbnYDjqUL/wTa9V/zszDg7
-	 UtG5708Wh1Vt6Mx71ym6W5n0RphL++edE6KtXAL7LxDp8+m5N1entN+h//1x0+Hmv+
-	 773PCW4LLjTfgZyHp/cZzYV+rSzb8XOt2v/1L7E4H6KUvY4NNyXQsHXd3f38Hlbkv4
-	 RkcH9shNJmm8xep3Djaq9/NHvkWoWg/ampFYdnrH0DI+go97qlUk1rrTXQ87bPJ6BC
-	 MyREDatYZxdLQ==
-Date: Wed, 29 Jul 2026 13:07:00 -0500
+	b=Oy3WZX3V8SgdlrdI9eD0k11Icsgg9aRKtE0lgNAZElHusC8aqnRKu3bzFh5wstaSg
+	 5qAYdcZTLLWFGcpyFjiu2hzT8yRTs/cohj6Y/xs5HT+AbplhWHrCOJ1uoXwQxOy9BX
+	 xWAqHsdYqKZeTnc8C85Fq55kEXkPiEINKcmD9bYxJ0WEqo28no+28dwdQBo053mCVG
+	 QugWGcWlkrh/PjVv2Fw+vatfxsbWvExc+HyqGYRG+1S4YPVBM4bC8mI5qxnxhpmVX1
+	 TB7qbWEHGUmBoogwWEOCxJ4D4Czwg49oLfRRdd/jFLyBkWXwpM3jl5iDHUMaAEcp8f
+	 T8GzYgbhrdvLQ==
+Date: Wed, 29 Jul 2026 13:06:59 -0500
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -36,54 +36,43 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: guodong@riscstar.com, pjw@kernel.org, zhangchunyan@iscas.ac.cn, 
- conor+dt@kernel.org, greentime.hu@sifive.com, robin.randhawa@sifive.com, 
- dfustini@oss.tenstorrent.com, raymond.mao@riscstar.com, 
- dave.patel@riscstar.com, pincheng.plct@isrc.iscas.ac.cn, 
- linux-kernel@vger.kernel.org, darshan.prajapati@einfochips.com, 
- linux-riscv@lists.infradead.org, junhui.liu@pigmoral.tech, 
- akpm@linux-foundation.org, dlan@kernel.org, jim.shu@sifive.com, 
- devicetree@vger.kernel.org, luxu.kernel@bytedance.com, krzk+dt@kernel.org, 
- zong.li@sifive.com, anup@brainfault.org, michal.simek@amd.com, 
- scott@riscstar.com, alex@ghiti.fr, samuel.holland@sifive.com, 
- aou@eecs.berkeley.edu, pawandeep.oza@oss.qualcomm.com, palmer@dabbelt.com, 
- nick.hu@sifive.com
+Cc: anup@brainfault.org, guodong@riscstar.com, 
+ pincheng.plct@isrc.iscas.ac.cn, alex@ghiti.fr, aou@eecs.berkeley.edu, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ michal.simek@amd.com, dave.patel@riscstar.com, pjw@kernel.org, 
+ linux-riscv@lists.infradead.org, zhangchunyan@iscas.ac.cn, 
+ raymond.mao@riscstar.com, palmer@dabbelt.com, greentime.hu@sifive.com, 
+ dfustini@oss.tenstorrent.com, luxu.kernel@bytedance.com, 
+ conor+dt@kernel.org, akpm@linux-foundation.org, scott@riscstar.com, 
+ jim.shu@sifive.com, krzk+dt@kernel.org, robin.randhawa@sifive.com, 
+ zong.li@sifive.com, pawandeep.oza@oss.qualcomm.com, nick.hu@sifive.com, 
+ samuel.holland@sifive.com, darshan.prajapati@einfochips.com, 
+ junhui.liu@pigmoral.tech, dlan@kernel.org
 To: Yu-Chien Peter Lin <peter.lin@sifive.com>
-In-Reply-To: <20260729163908.249838-4-peter.lin@sifive.com>
+In-Reply-To: <20260729163908.249838-3-peter.lin@sifive.com>
 References: <20260729163908.249838-1-peter.lin@sifive.com>
- <20260729163908.249838-4-peter.lin@sifive.com>
-Message-Id: <178534841831.3259884.2854898669055783798.robh@kernel.org>
-Subject: Re: [PATCH v2 3/3] dt-bindings: sifive: Add WorldGuard Checker
+ <20260729163908.249838-3-peter.lin@sifive.com>
+Message-Id: <178534841698.3259786.10094204605740986474.robh@kernel.org>
+Subject: Re: [PATCH v2 2/3] dt-bindings: riscv: Add Worlds per-hart
+ properties
 
 
-On Thu, 30 Jul 2026 00:39:08 +0800, Yu-Chien Peter Lin wrote:
-> Add YAML binding schema for the SiFive wgChecker, a programmable
-> access controller integrated in the interconnect fabric of RISC-V
-> Worlds-capable SoCs.
+On Thu, 30 Jul 2026 00:39:07 +0800, Yu-Chien Peter Lin wrote:
+> Add per-hart DT properties for the RISC-V Worlds architecture:
+> riscv,pmwid, riscv,pmwidlist, and riscv,pmlwidlist. These
+> platform-defined values are primarily used by M-mode firmware
+> to configure World ID CSRs and restrict WID usage across
+> privilege levels.
 > 
-> wgChecker enforces World ID (WID) based access control on downstream
-> bus transactions. Each checker slot encodes a 2-bit permission field
-> per WID (read/write), enabling fine-grained memory partitioning and
-> device isolation between execution contexts. Violations are reported
-> via bus errors, interrupts, or both, selectable and lockable per slot.
+> Also add schema validation rules to enforce valid property
+> combinations based on the ISA extensions present.
 > 
-> The binding registers wgChecker as an access-controllers provider.
-> Consumers (i.e. its protected device) reference it via the standard
-> access-controllers phandle to declare their access requirements.
-> 
-> Also document the sifive,trustedwid property for the /cpus node,
-> identifying the privileged WID authorized to configure all checkers
-> on the platform.
-> 
-> Link: https://github.com/riscvarchive/security/blob/main/papers/worldguard%20proposal.pdf
 > Signed-off-by: Yu-Chien Peter Lin <peter.lin@sifive.com>
-> Reviewed-by: Zong Li <zong.li@sifive.com>
-> Reviewed-by: Jim Shu <jim.shu@sifive.com>
 > ---
->  .../devicetree/bindings/riscv/worlds.yaml     |   9 +
->  .../bindings/sifive/sifive,wgchecker2.yaml    | 356 ++++++++++++++++++
->  2 files changed, 365 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sifive/sifive,wgchecker2.yaml
+>  .../devicetree/bindings/riscv/cpus.yaml       | 61 +++++++++++++++
+>  .../devicetree/bindings/riscv/worlds.yaml     | 77 +++++++++++++++++++
+>  2 files changed, 138 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/riscv/worlds.yaml
 > 
 
 My bot found errors running 'make dt_binding_check' on your patch:
@@ -91,14 +80,18 @@ My bot found errors running 'make dt_binding_check' on your patch:
 yamllint warnings/errors:
 
 dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/sifive/sifive,wgchecker2.example.dtb: uart@1c1000 (ns16550a): $nodename:0: 'uart@1c1000' does not match '^serial(@.*)?$'
-	from schema $id: http://devicetree.org/schemas/serial/8250.yaml
-Documentation/devicetree/bindings/sifive/sifive,wgchecker2.example.dtb: uart@1c1000 (ns16550a): Unevaluated properties are not allowed ('access-controllers', 'reg-names' were unexpected)
-	from schema $id: http://devicetree.org/schemas/serial/8250.yaml
+Documentation/devicetree/bindings/cpu/idle-states.example.dtb: cpu@0 (riscv): 'riscv,pmwid' is a required property
+	from schema $id: http://devicetree.org/schemas/riscv/cpus.yaml
+Documentation/devicetree/bindings/cpu/idle-states.example.dtb: cpu@1 (riscv): 'riscv,pmwid' is a required property
+	from schema $id: http://devicetree.org/schemas/riscv/cpus.yaml
+Documentation/devicetree/bindings/cpu/idle-states.example.dtb: cpu@10 (riscv): 'riscv,pmwid' is a required property
+	from schema $id: http://devicetree.org/schemas/riscv/cpus.yaml
+Documentation/devicetree/bindings/cpu/idle-states.example.dtb: cpu@11 (riscv): 'riscv,pmwid' is a required property
+	from schema $id: http://devicetree.org/schemas/riscv/cpus.yaml
 
 doc reference errors (make refcheckdocs):
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260729163908.249838-4-peter.lin@sifive.com
+See https://patchwork.kernel.org/project/devicetree/patch/20260729163908.249838-3-peter.lin@sifive.com
 
 The base for the series is generally the latest rc1. A different dependency
 should be noted in *this* patch.
