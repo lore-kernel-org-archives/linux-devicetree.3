@@ -1,108 +1,139 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B0464582DE
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 12:06:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A380D47F2D1
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 12:08:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785326775; cv=none; b=E5EtiJDPee2H9yJg3XcxFpQauv4RT7E9ngQt2Fn2zmkklXW7TTxn/8naO5WZTdlZarKTl3rSbwpPAo+Pjx8SCJwqM1kmTr0NMmabtLJ4TMnAiqh+n5/z6o+S7vrZC1x70V+GCUqU9mMmTNz+X+zRS68exnyUGVkmezusgTquDJ4=
+	t=1785326887; cv=none; b=CotS6YP7DYoGKJ9JsAGNl3wOwlt+RIj9t7JLP6hOw/XgfiNV5w3UvhpXdAiP+BBTEdtLP8scKSCoVXIPIIPwE9e0Y4V89pYU77+pAZ8JGsndt6TlgaV3hInvGYHfiJvNzYQ1hcv3xEOefAi3ED3L8T0jctt+eWVmCSTBtNNe828=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785326775; c=relaxed/simple;
-	bh=XaU/sKgH4dbno4MAzXu/NnGyRsuXxrohTi6PE0VHIf0=;
+	s=arc-20240116; t=1785326887; c=relaxed/simple;
+	bh=FWrJjj7dBTYxI+LIG7LHhLaYY2G5QrKMkQAoTR8U14I=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rL+wM1/2mlW6yLLMPKMebf8in1BxM+oqBxc8gIHRvKVH53yIBCQH1SLp5Sfv07fYvwoc5GYQmKFuVkG3hwLYEWsyp/9FbX5w2K9BqTOynztLLkR4Xn76xpTHSw8tg7IrdNS5Q93HjQZtOAsnf3QSLJ5kCBgesCtZN98BgsbOvag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LbDoyoC6; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Rby6BVcEpyfQYjRI55346dW5/FsMkLrf3SUtCykr0AnGsPcIDQrU/Xk0p7HhLAD2ekS0jeuhXtFa4Mj3WcD6vxV8iBeB0Dw3fp0tHbqcsrJdWSVY6rlbXbR94MtVZ/6/aGJJwE73uvEcZyHBvpmZc55yVFpCGZ0EnSl7y67QZOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GcKFzC+P; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LbDoyoC6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B3A81F000E9;
-	Wed, 29 Jul 2026 12:06:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GcKFzC+P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F38E71F00A3A;
+	Wed, 29 Jul 2026 12:08:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785326774;
-	bh=QOmWAsiHKfgwl6g/3aUPb7xQSJCMASD1J3HzrZINTvQ=;
+	s=k20260515; t=1785326886;
+	bh=F/XIL3zOUCaz+ySplfXKASyxGJ9qtVNzL+LagsFuKSc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LbDoyoC6Zi8Dlz0lYJQJeZEhKoO6/RNrxWYensssniGv/4Zj/rRgb3LS8kTDNYHSP
-	 fU/EQ8MBqmgeyXKO2qXYZWi1OXnXx1PeX/dHs1jN7zXpMSIyEIDRh4TUCyiqzLLMip
-	 lBR4P7sEutnp+USfwGE63mJdL0DIDR1hhjOH0xT2jk4blNeo0LJsVe95CEUZDHm25F
-	 0Uc1rNkxcI8J+IkPG724QPglY3FL5JVJZNHj66CIFdfp0iGacXjg41bnzLYL+hlxMX
-	 gLoIk31CdBJL7QxJYLzdW26EOcYUDiQ9DIaDbTO34rLV8kRkLfINKt5Ja7e7AF6lAU
-	 cNaWr3cdzC5xA==
+	b=GcKFzC+PEybwmm9K6LhFHT/IFcsYECHO0TBKTIKhBWzmiyQ0iPoFhR29BpX+/vEfV
+	 VTfe3mX7kW/kPjwMh9PltehMh7CwI3igIBeOMLQltBsq0FXrFXw5kNctczpFVfQY5a
+	 AmM7Ajm14BuaLw6rbEyO3DyjCajIFaouoQucuqeHW7yOvoVk3GVOzAXQnqudhovk6M
+	 T6dtGrsqLM1LUae1N+m8TdhNukMBXArWPh2wV4ErGbC1TR+w5AVS39L8lhR3f9lAtc
+	 ic5oyeeZOqDQxsx02/OFCGT5e9mwwJz8PInogltI4kC4V/ZJMr+OFlze9aOx89RYI8
+	 6NBxjmYyepMpA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: clock: si544: add si549 compatible
+Subject: Re: [PATCH v2 3/4] ARM: dts: aspeed: bletchley: Add second source
+ PCA9532 LED controllers
 Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?UGF2ZWwgTMO2Ymw=?= <pavel@loebl.cz>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260729115310.3490589-2-pavel@loebl.cz>
-References: <20260729115310.3490589-1-pavel@loebl.cz>
- <20260729115310.3490589-2-pavel@loebl.cz>
+To: "Cosmo Chou" <chou.cosmo@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260729114312.3947300-4-chou.cosmo@gmail.com>
+References: <20260729114312.3947300-1-chou.cosmo@gmail.com>
+ <20260729114312.3947300-4-chou.cosmo@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 29 Jul 2026 12:06:13 +0000
-Message-Id: <20260729120613.8B3A81F000E9@smtp.kernel.org>
+Date: Wed, 29 Jul 2026 12:08:05 +0000
+Message-Id: <20260729120805.F38E71F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] The updated datasheet URL for the si544 datasheet contains a capita=
-lization typo in the path (`SkyWorks` instead of `Skyworks`), which could r=
-esult in a 404 Not Found error on case-sensitive web servers.
-- [Low] The binding description text was not updated to mention the new Si5=
-49 devices, leaving it inconsistent with the updated title and compatible s=
-tring list.
+- [High] The alternative PCA9532 LED controllers use incorrect GPIO active =
+polarity flags, causing the LEDs to operate inverted compared to the primar=
+y PCA9552 controllers.
 --
 
---- Patch [1]: [PATCH v3 1/2] dt-bindings: clock: si544: add si549 compatib=
-le ---
-commit 529dcd41cafc82a36f39e95eb442dbe9230735cf
-Author: Pavel L=C3=B6bl <pavel@loebl.cz>
+--- Patch [3]: [PATCH v2 3/4] ARM: dts: aspeed: bletchley: Add second sourc=
+e PCA9532 LED controllers ---
+commit a1677ab804733ff8d7d1bbc1ba314032d50ddf82
+Author: Cosmo Chou <chou.cosmo@gmail.com>
 
-dt-bindings: clock: si544: add si549 compatible
+ARM: dts: aspeed: bletchley: Add second source PCA9532 LED controllers
 
-This commit adds the Si549 compatible strings to the si544 clock generator
-binding. It also updates the datasheet links to point to Skyworks Solutions
-after their acquisition of Silicon Labs.
+This commit adds alternative PCA9532 LED controllers at address 0x66 to
+support boards populated with the PCA9532 instead of the primary PCA9552
+at 0x67.
 
-> diff --git a/Documentation/devicetree/bindings/clock/silabs,si544.yaml b/=
-Documentation/devicetree/bindings/clock/silabs,si544.yaml
-> index f87e718671080..c58171f1bc5be 100644
-> --- a/Documentation/devicetree/bindings/clock/silabs,si544.yaml
-> +++ b/Documentation/devicetree/bindings/clock/silabs,si544.yaml
+> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-bletchley.dts b=
+/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-bletchley.dts
+> index e1fa3a18ea5cf..3da1cf9bbb990 100644
+> --- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-bletchley.dts
+> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-bletchley.dts
 
 [ ... ]
 
-> @@ -13,8 +13,9 @@ description: >
->    Silicon Labs 514/544 programmable I2C clock generator. Details about t=
-he device
->    can be found in the datasheet:
-
-[Severity: Low]
-Should the description block also be updated to mention the 549 series? The
-title and compatible properties were updated to include 549, but this text
-remains limited to 514/544.
-
-> -    https://www.silabs.com/Support%20Documents/TechnicalDocs/si514.pdf
-> -    https://www.silabs.com/documents/public/data-sheets/si544-datasheet.=
-pdf
-> +    https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/dat=
-a-sheets/Si514.pdf
-> +    https://www.skyworksinc.com/-/media/SkyWorks/SL/documents/public/dat=
-a-sheets/si544-datasheet.pdf
-
-[Severity: Low]
-Is the capitalization in this URL path correct? The other updated links use
-"Skyworks" in the path, but this one uses "SkyWorks". This might result in a
-broken link if the web server relies on strict case-sensitivity.
-
-> +    https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/dat=
-a-sheets/si549-datasheet.pdf
+> @@ -86,6 +87,66 @@ led-7 {
+>  		};
+>  	};
 > =20
->  properties:
+> +	fan_gpio_leds_alt {
+> +		compatible =3D "gpio-leds";
+> +
+> +		led-0 {
+> +			default-state =3D "on";
+> +			gpios =3D <&fan_leds_alt 8 GPIO_ACTIVE_HIGH>;
+
+[Severity: High]
+Will this GPIO active polarity cause the LED to operate inverted compared t=
+o the
+primary PCA9552 controller?
+
+The leds-pca955x driver maps a raw value of 1 to High-Z and 0 to Output LOW,
+whereas the leds-pca9532 driver maps a raw value of 1 to Output LOW and 0 to
+High-Z.
+
+Because the two drivers map raw GPIO values to opposite electrical states, =
+does
+this flag need to be GPIO_ACTIVE_LOW to produce the same physical state when
+logically ON?
+
+> +			label =3D "fan0_blue";
+> +			retain-state-shutdown;
+> +		};
+> +
 
 [ ... ]
+
+> @@ -162,6 +223,24 @@ led-1 {
+>  		};
+>  	};
+> =20
+> +	sled1_gpio_leds_alt {
+> +		compatible =3D "gpio-leds";
+> +
+> +		led-0 {
+> +			default-state =3D "keep";
+> +			gpios =3D <&sled1_leds_alt 0 GPIO_ACTIVE_LOW>;
+
+[Severity: High]
+Similar to the fan LEDs above, does this polarity need to be GPIO_ACTIVE_HI=
+GH
+for the PCA9532 to output the same physical LOW state when logically ON?
+
+The current GPIO_ACTIVE_LOW flag appears to be copied from the primary PCA9=
+552
+node, but due to the inverted semantics of the leds-pca9532 driver, this mi=
+ght
+result in inverted electrical signals.
+
+Does this polarity issue also apply to the alternative nodes for sled2 thro=
+ugh
+sled6?
+
+> +			label =3D "sled1_amber";
+> +			retain-state-shutdown;
+> +		};
+> +
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729115310.3490=
-589-1-pavel@loebl.cz?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729114312.3947=
+300-1-chou.cosmo@gmail.com?part=3D3
