@@ -1,253 +1,178 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED9713CCFCC;
-	Wed, 29 Jul 2026 20:00:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785355231; cv=fail; b=EZh4kqnHoiYORiLV3o0EyBoH2+rb2JBB9EDjZL8ZXC8b2UQFn/6RciZ/PaQykgS3Xw0JKZb509z0z9KdykaYND0KuyGehwJVkoH10IBkK7qHyLz27kRCDtRNY5qbKGH6qquMqA9/qjCW4jxOFr2tD4quRiqWBcVFxqHSEj5/obE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785355231; c=relaxed/simple;
-	bh=4A7+pNlyc2GkE9VkEjDunAaTUx5S8qt/BN1+cfGAmHs=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LGsw8zz+mn/xCvOgV/X652+ulDwq0UQHXMJdQE75IesaITN+SR5NJi1B5QsM9hZ+Vi/srLiDZTIFROJnePaywn1PUjTOm97ZotYqfK55M3N7llKX4fgfADKDF2EPczkkYL9INNP3SyZccqNt4uogQHkv+Xv4l/zByZEYZi0iReo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=qt0ccMHo; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=o0+7ORUT; arc=fail smtp.client-ip=148.163.154.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36954489894;
+	Wed, 29 Jul 2026 20:05:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785355560; cv=none; b=KJCQ8IyrzU92x3XpgmcVlaAwYWeivXf+3Z9jBXJm76/00rDUj1tvqQwxNZ1HeQjByobwH8YV8PPwGjVarRMaPqepVrkjITyoiqtpMysXjNA0Gf5d6aVVk0eORo1BR2Yi5E54oP88EHzzF8OAYeYNulpGHBVmlU4+uqKeTM4mAdA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785355560; c=relaxed/simple;
+	bh=VutXEHDqOoAryf9Q9xVogMMvtw9jjQHcg6AgJGjqGTE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BzqFvglYlq1FKBJzJNvdp6DRPnh0xdePd8mq+wO0IdxpUxezfDVZrunotaqWbKWSYGxGIbPKu8yfhqUrufe75SLu4vodmNY4ULh4pzjd4F3xGSseSuHxZFqiXkUa90AYw/pcD39tHqaATxvBpqYa1xkdpR3YW0F//Y32ZzHZkCE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=iQaHFgOm; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="qt0ccMHo";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="o0+7ORUT"
-Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66TJ66Cf3536895;
-	Wed, 29 Jul 2026 15:00:25 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=mhYsPvpNS1Lga2EJS7BVoXruOEDLk70zbqb99PZIh
-	t4=; b=qt0ccMHo/X8RH/a7TK+Ei65MU0bxFZP1ipukw7QUMFXs6288FqyIDLtW3
-	eKm4zWOwqubTEeVu7ATu5qkLWxLXyjzxFGLvMaI97rrjoMtFYZKz9AeNkE0vOUt5
-	PXI5PSVyKMAPCaW/+DvwXagrgXM6hPLn6HRHMHLXmMDDMcWOlYcBfD/Z5PQDqpXN
-	dLryG8E7/lBF1RzOewSBREyuQ4TntlvMIelE2GC9vnCplQbyYimuXHsSt8kar4c8
-	H+oS6ciFPipCcEhGiJA7K8YnyCSH6w/t0e6h8RxbbiU0SVSUNo75ks2GeHkHyuWf
-	CuWgJS+jtA2HCcwGsjR4G7wn99peg==
-Received: from mw6pr02cu001.outbound.protection.outlook.com (mail-westus2azon11012022.outbound.protection.outlook.com [52.101.48.22])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4fqqcmraqy-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 29 Jul 2026 15:00:24 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=X7w09H0OX1KahXpGu9rXw/UTGZXEJA4M6woqLftfxJdYsiGEL6HeWCpSrR0I1JlIq0llq4oq1VqTnmk1cGHhxNUQIGp6TD8s3QjxVrD6L8lZ6pTQEOHaNIst/L1GXudtnEoTzhexJ6QHnGeZuZxoekodTOzRg3nyEQOGOdO99ORUESN9ElD+txfy1tnVYRukPnNcdmL5ORbmuPKkRpl67Isry8oJXnvwBy5XWRWbAdqxOy2iTqF1mawUANUb9hKQ1QXG534xnkPVCFXLR6VAJE150fYnLDrw4mHEHnr6KGz9Du1ICjDmNTqom1IJAGuHaOpry5bxPxz7OxINZLEXPw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mhYsPvpNS1Lga2EJS7BVoXruOEDLk70zbqb99PZIht4=;
- b=D2kAnsRYOb+SclgkKz3lCfj0QX8FaQJEGLyansS/FEgO70NHRUHnrS9Ihgavze+ELJKUSlRs2L1DmKEei+pPv4OuDkUBAAX97EU822hfaEI9Eyvv8kk76uzC4eVHow3mMauhMVlTF7fawhgA+5JlWvTlxCKk5fseMR343I/yr6g7cWHSFidF2u7CoSKDy973k2KL8DGY2pI3fL83+rqNQpr9CdXe7vSbLayyu7SUBSQ2dFXZMe7+hSmOaD0bCNdJJkNiBbwxkAD3bKyRYx2fNRDA1bvwHlGMFZOPIAQRowKbNkdI4thO7SKZ0HVkaBtEW4728xt2YEYAkKCAzAUyyw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mhYsPvpNS1Lga2EJS7BVoXruOEDLk70zbqb99PZIht4=;
- b=o0+7ORUTqFc/7FxvnPuyZNeUZLwsr52BtjLKi08a9kM72ghNW5rdY3N7hi8j9RXLK20dRiOwldOI7l96XHFYPTAtz7oJtsvVe8XdxFiAT2flrz1mdWbZFgoJM5On2AKq1q0rBvEM2mTL1j3sGdOkvoS/9p49m0BInJnuuqAbXoE=
-Received: from BLAPR05CA0006.namprd05.prod.outlook.com (2603:10b6:208:36e::9)
- by CO1PR10MB4417.namprd10.prod.outlook.com (2603:10b6:303:93::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12; Wed, 29 Jul
- 2026 20:00:19 +0000
-Received: from BL02EPF0001A108.namprd05.prod.outlook.com
- (2603:10b6:208:36e:cafe::7) by BLAPR05CA0006.outlook.office365.com
- (2603:10b6:208:36e::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.8 via Frontend Transport; Wed, 29
- Jul 2026 20:00:19 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- BL02EPF0001A108.mail.protection.outlook.com (10.167.241.138) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.8 via Frontend Transport; Wed, 29 Jul 2026 20:00:18 +0000
-Received: from DFLE207.ent.ti.com (10.64.6.65) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 29 Jul
- 2026 14:59:59 -0500
-Received: from DFLE206.ent.ti.com (10.64.6.64) by DFLE207.ent.ti.com
- (10.64.6.65) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 29 Jul
- 2026 14:59:58 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE206.ent.ti.com
- (10.64.6.64) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Wed, 29 Jul 2026 14:59:58 -0500
-Received: from judy-hp.dhcp.ti.com (judy-hp.dhcp.ti.com [128.247.81.105])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 66TJxwfw1923570;
-	Wed, 29 Jul 2026 14:59:59 -0500
-From: Judith Mendez <jm@ti.com>
-To: Judith Mendez <jm@ti.com>, Nishanth Menon <nm@ti.com>,
-        Vignesh Raghavendra
-	<vigneshr@ti.com>
-CC: Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>,
-        "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, Moteen Shah <m-shah@ti.com>
-Subject: [PATCH 5/8] arm64: dts: ti: k3-am64: Enable IO expander interrupt
-Date: Wed, 29 Jul 2026 14:59:55 -0500
-Message-ID: <20260729195958.671147-6-jm@ti.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260729195958.671147-1-jm@ti.com>
-References: <20260729195958.671147-1-jm@ti.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="iQaHFgOm"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=JFwlVFixiBqlz0i4w0ziil+HIUsQrfPYhT1P9OfuLY4=; b=iQaHFgOmYlR1V6ZLguD93PniG7
+	eoKeMyMIuoQr0312EcXpz+RanY+e1L0SW/HnhRyrFhARJmqYsNW3k0KXDCrvsBszQqStY5HgpbUOH
+	f5AA7x/4Ags8X0GmuIfaDA+v0kS+bU8ZlCqgjKyl2a+wbAtZgfYvu317ifKmbSwrcN8M=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wpAX6-00Eruw-TP; Wed, 29 Jul 2026 22:05:40 +0200
+Date: Wed, 29 Jul 2026 22:05:40 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Vasilij Strassheim <v.strassheim@linutronix.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Russell King <linux@armlinux.org.uk>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	Martin Kaistra <martin.kaistra@linutronix.de>
+Subject: Re: [PATCH 4/4] net: dsa: soce: Add initial driver support for MRS
+ switches
+Message-ID: <f17d3a62-456f-4580-90bd-c54a30dceddc@lunn.ch>
+References: <20260729-devel-vstrassheim-soce-dsa-ml-v1-0-be569dae1b20@linutronix.de>
+ <20260729-devel-vstrassheim-soce-dsa-ml-v1-4-be569dae1b20@linutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A108:EE_|CO1PR10MB4417:EE_
-X-MS-Office365-Filtering-Correlation-Id: ddab66ac-9863-4879-5ddc-08deedac0374
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|36860700016|23010399003|1800799024|22082099003|18002099003|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	yIij6LjUbneb6JBEcqeIzz9fErB5S4SCguS2SGJnqi57+5x7/0JU3rZl9MjWAYlCOyGLjWrisNMJa3V3y6fPiPeADoPUIW6/sedqBq+jkF+z6RBER6My50/Losz1+UKFKlXe83BR3wDYcCpF5dHpYnfh+vj4xK1sIYg30qH1OBZ/1lzUs27LXw92W1h9iakZk6vgfFoeG3E0Typ3LOVrDG0WAcQWy1bW3bfnC68dNxVd5A9XzbZGC9hmKq/k4PglH4Rh67A0VEc1Qax2ZcATePeYPAJkjPMkgxjChMy4GoFOA8V/1N9lpihoDta+6tzwX9z/0skgzRaoIwoB1r3J/wmmstHDLvdvQpZAXA3iHx5ENSXuqEtMod3U5+96rV9tqf4DqWWxx0OjAj5XmKBMTvuzeez0a0JswGSnt9jGOV4lj22Q0A0blCjz8mDqeKXtRaJi1cru8TMGRJnbIyvSobx5HN5mXZaS2hCETBQddVyWN6pMdY4QVamVTRg7F9BFILLoui4souilYLpkNeeSwGHe/peMjlmC1hbq6yioIR7T+S+XvboDDhH673wfx8GKGE5Ga+jzn4LuOIRLzumMzkFRkhyr3okhS7SCAg+OjpNTEG2Jj1QCd+yfyJxTDogpw3q+hYRQxeI6heZR/Q83bzSxS8CIM+uNo5KE8N3WTyrDCPHPXxaZOQ8BvL3+xlvgA3VC0oC412NO+j1Be/gK8w==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(82310400026)(376014)(36860700016)(23010399003)(1800799024)(22082099003)(18002099003)(56012099006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	kjjXH3XeB0H2R3iyik2rSe8IkR4uNQBaH8IG3hB2pz5jSjhhRJDOMbd09yXIfR+tfDJl9E++g/+n7ejp4GG0m0ohBAh/n0IdU+P0KG9kq16r32Ka/gI2V6MeRqAhrCiRu6cZzw5nQ14ZR9DSq91swRqWqbUwSxiKD07kPCfF256kZTCXJZppoQiY71X5JOT6X5cDYHEH/eZGBvVuZxcvelaXk3BcV2G+7g7B20w16vHAWwKgMZ2c4+oh4Jpufx/ErwhWAizCeT3PLIt/4wXA8OGdsEOnW2eS+xMsMGs2IRzVrFkIRHXjw3SRK1PjGae113oFq6Yq2gRHtHQHYG9O+WKSLwMKBGj93eiGugRV+ajUae9MCfPcyWA3se6/s99N2oxJbjO3f6HkvkdVpjPDMp0U4/KIO0qpUzfn/FI7rscsMcqxV8KSFNagoH2Wg9u4
-X-Exchange-RoutingPolicyChecked:
-	e3b0kTg+LBSbnu0yPgxrO0+g2X6lKKyVfowBVWTtB1plDedyDMchB2RrTkp0xo13dAOExAn9lplMvf10KPwPOecVWnqhe7NjS0dpVbgabY1pzJqM5WLushPG1S6sRMUjS3nr5UfHb8SjgkstCJP0L07ZYkiaCO1pzpTdOfM8bXGBSQWDqmku7qCrCbK8rnQX4P9h3xoC+zWGYUWSCPu9PePye4HIBP+/dHg4ZSBD27f8WE20SUaTsoJNuOr8zWFgIglyb2SmBIJGRQaqjyDxqxD1ez97rlpIO5uJKLfr9HFwDPx5iW0nWVkkEEaf5bPq6QzNUZ+ZJSIDZVztV/S0vw==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2026 20:00:18.0145
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ddab66ac-9863-4879-5ddc-08deedac0374
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF0001A108.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR10MB4417
-X-Proofpoint-ORIG-GUID: BTCRzejCDZlS-u38LXBtkolnrESQhl3S
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDE1MyBTYWx0ZWRfX0IQtKZEWCdHI
- Qr1IHpIt07YYtsUFLT0IZUedD1BybWKQ6/RRDsmvvxgX37gMizWoeQiAD/B8kOB3pgz/VWFWm16
- wLPuRco5wNfRBbxZbSu8bh3yvQdZIRs=
-X-Authority-Analysis: v=2.4 cv=UtZT8ewB c=1 sm=1 tr=0 ts=6a6a5bd8 cx=c_pps
- a=WaebrhBVOVZn7IYqRlctMQ==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=RAioF0-LDSMA:10 a=V5UXEbMT0ywA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=fPAWb5peG099m5CrUpKH:22
- a=sozttTNsAAAA:8 a=69n5StGKHvAR_yp2vncA:9
-X-Proofpoint-GUID: BTCRzejCDZlS-u38LXBtkolnrESQhl3S
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDE1MyBTYWx0ZWRfX1QNMjSntgsEJ
- olsASfBa2Y4tn7b1IMq4rlRpRMKw0rLalC1JXbxtBZvYXhtS7sVKReVpkIROakEI1McxujWi+MK
- vZLRqAqbzIGugbIGgbjNfBn2pQFFNigh9dWYIaGyNcdVHLQ5CE1uxX8/oD/sELj8slarU5rVxlw
- wAWze63uS3fOQ9TlqtF3pEmi4U7uxhcfmdcl2162eXSHuvF0m7bT8IB2an7Ag0hDgYnuw5Q1W6T
- ub80DXBEjngjOTCnfhPAiCtDSQpo4NuEExvDVixSIS/OvxvtO6H77TBoak+2QZtu6gUBCzAHelH
- dvOHt77FmehJcMhluOZ9z1Go7roEzu2KPwS/DWFMnpVXwpzSJDj3wkf27T8Xupq0UrDJ4lXdmE8
- Vb3IHD6pYJ571m07zFkGCVfxpi8TMP2pVyS7U4HjnuItXYEvaoms4C0RHh56RTaSURR7VScTu3U
- ddbILTeNWrhcg8RBqeg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-29_07,2026-07-29_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 malwarescore=0 adultscore=0 suspectscore=0
- clxscore=1015 spamscore=0 bulkscore=0 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607290153
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260729-devel-vstrassheim-soce-dsa-ml-v1-4-be569dae1b20@linutronix.de>
 
-On AM64 EVM and SK boards, MMC1_SDWP is used for IO expander interrupt,
-remove from MMC1 pinmux node and setup as exp1 IO expander interrupt.
+> +static u8 soce_map_stp_state(u8 state)
+> +{
+> +	switch (state) {
+> +	case BR_STATE_DISABLED:
+> +	case BR_STATE_BLOCKING:
+> +	case BR_STATE_LISTENING:
+> +		return 0;
+> +	case BR_STATE_LEARNING:
+> +		return 1;
+> +	case BR_STATE_FORWARDING:
+> +	default:
+> +		return 3;
 
-Signed-off-by: Judith Mendez <jm@ti.com>
----
- arch/arm64/boot/dts/ti/k3-am642-evm.dts | 14 +++++++++++++-
- arch/arm64/boot/dts/ti/k3-am642-sk.dts  | 14 +++++++++++++-
- 2 files changed, 26 insertions(+), 2 deletions(-)
+#defines for 0, 1 and 3.
 
-diff --git a/arch/arm64/boot/dts/ti/k3-am642-evm.dts b/arch/arm64/boot/dts/ti/k3-am642-evm.dts
-index bc4347cf71140..bb756c922252a 100644
---- a/arch/arm64/boot/dts/ti/k3-am642-evm.dts
-+++ b/arch/arm64/boot/dts/ti/k3-am642-evm.dts
-@@ -259,11 +259,17 @@ AM64X_IOPAD(0x0284, PIN_INPUT_PULLUP, 0) /* (L21) MMC1_DAT1 */
- 			AM64X_IOPAD(0x0280, PIN_INPUT_PULLUP, 0) /* (K19) MMC1_DAT2 */
- 			AM64X_IOPAD(0x027c, PIN_INPUT_PULLUP, 0) /* (K18) MMC1_DAT3 */
- 			AM64X_IOPAD(0x0298, PIN_INPUT_PULLUP, 0) /* (D19) MMC1_SDCD */
--			AM64X_IOPAD(0x029c, PIN_INPUT, 0) /* (C20) MMC1_SDWP */
- 			AM64X_IOPAD(0x0290, PIN_INPUT, 0) /* MMC1_CLKLB */
- 		>;
- 	};
- 
-+	main_gpio1_ioexp_intr_pins_default: main-gpio1-ioexp-intr-default-pins {
-+		pinctrl-single,pins = <
-+			AM64X_IOPAD(0x029c, PIN_INPUT, 7) /* (C20) MMC1_SDWP.GPIO1_78 */
-+		>;
-+		bootph-all;
-+	};
-+
- 	main_uart1_pins_default: main-uart1-default-pins {
- 		pinctrl-single,pins = <
- 			AM64X_IOPAD(0x0248, PIN_INPUT, 0)		/* (D16) UART1_CTSn */
-@@ -481,6 +487,12 @@ exp1: gpio@22 {
- 		bootph-all;
- 		compatible = "ti,tca6424";
- 		reg = <0x22>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&main_gpio1_ioexp_intr_pins_default>;
-+		interrupt-parent = <&main_gpio1>;
-+		interrupts = <78 IRQ_TYPE_LEVEL_HIGH>;
-+		interrupt-controller;
-+		#interrupt-cells = <2>;
- 		gpio-controller;
- 		#gpio-cells = <2>;
- 		gpio-line-names = "GPIO_eMMC_RSTn", "CAN_MUX_SEL",
-diff --git a/arch/arm64/boot/dts/ti/k3-am642-sk.dts b/arch/arm64/boot/dts/ti/k3-am642-sk.dts
-index d28a38c87f32a..3d7160400cef5 100644
---- a/arch/arm64/boot/dts/ti/k3-am642-sk.dts
-+++ b/arch/arm64/boot/dts/ti/k3-am642-sk.dts
-@@ -198,7 +198,6 @@ &main_pmx0 {
- 	main_mmc1_pins_default: main-mmc1-default-pins {
- 		bootph-all;
- 		pinctrl-single,pins = <
--			AM64X_IOPAD(0x029c, PIN_INPUT_PULLUP, 0) /* (C20) MMC1_SDWP */
- 			AM64X_IOPAD(0x0298, PIN_INPUT_PULLUP, 0) /* (D19) MMC1_SDCD */
- 			AM64X_IOPAD(0x0294, PIN_INPUT_PULLUP, 0) /* (J19) MMC1_CMD */
- 			AM64X_IOPAD(0x0290, PIN_INPUT, 0) /* (#N/A) MMC1_CLKLB */
-@@ -210,6 +209,13 @@ AM64X_IOPAD(0x027c, PIN_INPUT_PULLUP, 0) /* (K18) MMC1_DAT3 */
- 		>;
- 	};
- 
-+	main_gpio1_ioexp_intr_pins_default: main-gpio1-ioexp-intr-default-pins {
-+		pinctrl-single,pins = <
-+			AM64X_IOPAD(0x029c, PIN_INPUT, 7) /* (C20) MMC1_SDWP.GPIO1_78 */
-+		>;
-+		bootph-all;
-+	};
-+
- 	main_uart0_pins_default: main-uart0-default-pins {
- 		bootph-all;
- 		pinctrl-single,pins = <
-@@ -383,6 +389,12 @@ exp1: gpio@70 {
- 		bootph-all;
- 		compatible = "nxp,pca9538";
- 		reg = <0x70>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&main_gpio1_ioexp_intr_pins_default>;
-+		interrupt-parent = <&main_gpio1>;
-+		interrupts = <78 IRQ_TYPE_LEVEL_HIGH>;
-+		interrupt-controller;
-+		#interrupt-cells = <2>;
- 		gpio-controller;
- 		#gpio-cells = <2>;
- 		gpio-line-names = "GPIO_CPSW2_RST", "GPIO_CPSW1_RST",
--- 
-2.54.0
+What does 2 mean?
 
+Since you don't implement bridge offload, i'm not sure having STP
+states makes any sense.
+
+> +static void soce_fast_age(struct dsa_switch *ds, int port,
+> +			  const struct soce_layout *layout)
+> +{
+> +	struct soce_priv *priv = ds->priv;
+> +	struct soce_dsa_local *local;
+> +	void __iomem *p_mes_ctrl;
+> +	u32 val;
+
+Does aging make any sense without bridge offload?
+
+> +/* Bridge membership is handled by the switch forwarding model directly. */
+> +int soce_port_bridge_join(struct dsa_switch *ds, int port,
+> +			  struct dsa_bridge bridge, bool *tx_fwd_offload,
+> +			  struct netlink_ext_ack *extack)
+> +{
+> +	return 0;
+> +}
+> +
+> +void soce_port_bridge_leave(struct dsa_switch *ds, int port,
+> +			    struct dsa_bridge bridge)
+> +{
+> +}
+
+If you don't support bridge offload, you should not need these.
+
+> +static void soce_phylink_get_caps(struct dsa_switch *ds, int port,
+> +				  struct phylink_config *config)
+> +{
+> +	if (dsa_is_cpu_port(ds, port)) {
+> +		__set_bit(PHY_INTERFACE_MODE_GMII,
+
+Is that really true? What is part of the IP core, and what is to do
+with integration of the core into the system as a whole? It seems like
+RGMII is also supported, so why cannot i instantiate a RGMII MII blob
+for the CPU port as well?
+
+> +			  config->supported_interfaces);
+> +		config->mac_capabilities = MAC_10 | MAC_100 | MAC_1000 |
+> +					   MAC_SYM_PAUSE | MAC_ASYM_PAUSE;
+> +		return;
+> +	}
+> +
+> +	phy_interface_set_rgmii(config->supported_interfaces);
+
+And flipping that around, if the core supports GMII, could i
+instantiate a GMII user port?
+
+> +static const struct dsa_switch_ops soce_switch_ops = {
+> +	.get_tag_protocol	= soce_get_tag_protocol,
+> +	.setup			= soce_setup,
+> +	.teardown		= soce_teardown,
+> +	.phylink_get_caps	= soce_phylink_get_caps,
+> +	.phy_read		= soce_phy_read,
+> +	.phy_write		= soce_phy_write,
+
+phy_read and phy_write are legacy. Instantiate a Linux MDIO bus and
+don't list anything here.
+
+> +static const struct soce_variant_desc *
+> +soce_match_variant(const char *compatible)
+> +{
+> +	int i;
+> +
+> +	for (i = 0; soce_variants[i].compatible; i++) {
+> +		if (!strcmp(compatible, soce_variants[i].compatible))
+> +			return &soce_variants[i];
+> +	}
+> +
+> +	return NULL;
+
+This kind of looks like a reinvention of of_device_get_match_data()
+
+> +static int soce_sw_parse_port_mdio_config(struct soce_dsa_local *local,
+> +					  struct device *dev,
+> +					  struct device_node *port_node,
+> +					  u32 port)
+> +{
+> +	struct device_node *phy_node;
+> +	u32 val;
+> +	int ret;
+> +
+> +	if (of_find_property(port_node, "ethernet", NULL) ||
+> +	    of_find_property(port_node, "link", NULL)) {
+> +		if (of_find_property(port_node, "phy-handle", NULL)) {
+> +			dev_err(dev,
+> +				"phy-handle not allowed on CPU/DSA port %u\n",
+> +				port);
+> +			return -EINVAL;
+> +		}
+> +
+> +		return 0;
+> +	}
+
+Why is all of this parsing of DT needed? These should all be standard
+properties which the DSA core handles.
+
+This currently has the feel of being a "vendor crap" driver. Please
+spend some time to clean this driver up, bring it up to Mainline
+standards.
+
+	Andrew
