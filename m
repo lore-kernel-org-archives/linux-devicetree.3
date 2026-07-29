@@ -1,156 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84FFA4028F5;
-	Wed, 29 Jul 2026 08:18:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B0343D4FF
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 08:22:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785313121; cv=none; b=UNSZQ5/Wud1eFlB0cViLPf3YWT9WYekP1CjnoeMLwgnlHaJZ+XrRhYK66uc6faT9Xi1JaqU2rpayRCzS/kr5mW3BdqT5IxGHkr6wZlrELW4jwEfUHlGW0BCkBmvUdoyqEG+pCcpkITCI7kfJ5M5YWk5mty97WGqHsco5kEyxlo0=
+	t=1785313352; cv=none; b=EgnSqoqm4Cq6ZQeGveLrxT4e4Jd7yonm/BqX1q/YT61Mj8z9cXGq3hHT9sHyXhvlyvKmzRSjzfxV+5BIbhMxUxZzJWVUG3bDBzY7VGDeGSwNpc147hRvjkFGf0dSWE59GebgZ3A21pV7JouUvdzIFKQP7XEdr5gu1S0ERTO6l4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785313121; c=relaxed/simple;
-	bh=5LhzBAZ6YFvkeSm6D73QOYm7iIYty+g3rP+mlJfEAcQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qmcgkNaMQX7R+g/XCIM7YQpr5TzC3J8bYcE5qzyr5NJjlcFBQJwP1Y3aACktqel8JqGPm9pf0EVkknu73s/osx9zz9ZpjgWQT4qtORwKkb3pfa/tLZn4eyxLBaXsOpsHlcO3T30LSLtgDvCnAUO7DKgBYCZEZEXVR4vobW/aG9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e5tkCaJg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785313352; c=relaxed/simple;
+	bh=axX7gKKOHk1YW+RtZKclI+E6KyFiOiLKwFFLmh3AX7g=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Iuj+GeKtzRGjGKQkwR2CAks1/5em7XcL24dogYmOZ0U6fMq0g1B5vXTOnYpslLJkX0MKAtGK9h4NF2bqMakw8yoMERi13UrsyddU+8g62qJDC+F36qh+OnA9T4h2LZZmkUobzxo1vPQx5wIzL7kI8cIrIEgSjVm8m5+h5IZMXpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hsy9ttj6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e5tkCaJg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36BC41F000E9;
-	Wed, 29 Jul 2026 08:18:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hsy9ttj6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9461A1F00A3A;
+	Wed, 29 Jul 2026 08:22:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785313120;
-	bh=//Gz0k8xoKuGyoL3SetvzbbEXuy+ZNGJA64aKia2J84=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=e5tkCaJgFw4RW2jrpn92XuA/Z5TSnfNdMDhvw80U5oCVveRdM3O8tNOBCFNAAL5Vx
-	 Il0NeKnWM9i7XTpfSVdZmMIOL/0pzCZmVfzcpVSivEPO9oVDayCEfIOjAFZ215ZRR+
-	 w/rp7ZBlk2J7R3LE8hBAraCcD9tU1ZSNPijXA5Vh79UJJyQm2nBQ5ULyCEsiIgH+2Y
-	 hIiqfuJ8KQFLsmVAngNbvAyAZuHkQYEcxwccun6meZ87WlUfd4vX2/3ctvu8O1Q9cy
-	 qF6ndT0JisuZY+wJ4Jqia8petNHX/Jf5ofnI5SP6iVNF07Xfxlk4KN2s4UJ1YiS2sr
-	 N6WPBOgcrNdHA==
-Date: Wed, 29 Jul 2026 10:18:36 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Yashas D <y-d@ti.com>
-Cc: "Rob Herring (Arm)" <robh@kernel.org>, 
-	Laurent.pinchart@ideasonboard.com, j-choudhary@ti.com, luca.ceresoli@bootlin.com, 
-	andrzej.hajda@intel.com, krzk+dt@kernel.org, devicetree@vger.kernel.org, s-jain1@ti.com, 
-	tzimmermann@suse.de, linux-kernel@vger.kernel.org, yamonkar@cadence.com, 
-	simona@ffwll.ch, maarten.lankhorst@linux.intel.com, b-padhi@ti.com, 
-	airlied@gmail.com, jonas@kwiboo.se, tomi.valkeinen@ideasonboard.com, 
-	sjakhade@cadence.com, r-ravikumar@ti.com, conor+dt@kernel.org, u-kumar1@ti.com, 
-	mripard@kernel.org, neil.armstrong@linaro.org, jernej.skrabec@gmail.com, 
-	devarsht@ti.com, rfoss@kernel.org, dridevel@lists.freedesktop.org, 
-	d-mittal@ti.com
-Subject: Re: [PATCH v5 1/2] dt-bindings: display: bridge: cdns,mhdp8546: Add
- no-hpd property to the cadence bridge
-Message-ID: <20260729-divergent-stirring-stoat-c08715@quoll>
-References: <20260728124224.774785-1-y-d@ti.com>
- <20260728124224.774785-2-y-d@ti.com>
- <178524895001.2116102.6714678554328277201.robh@kernel.org>
- <07f536f1-9a60-46a3-bc3e-fcec4bb7ce02@ti.com>
+	s=k20260515; t=1785313337;
+	bh=tqKuUG4JRKq+XxC9umJMKRbK9NDvv+i1824XarU7c6g=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Hsy9ttj6g6sxE3VUBjQqXID677pyICSCI6SyDRtCzVAa5SRtQC8pZDBUZ6CoGj1K0
+	 t0MWPQfNOzhfMh1oJLnwJChXqJ1MAkH8N8HOZDrXLAk8dAzvozBaBgDuJsyDorwNuI
+	 BjKYD1FqHjMpndt5rLxv5uLml1/kZQKn8KK/SoFopVl9hqLB5I1fyna+NsEEfA5S/0
+	 ClPdVLsoq/3+5cRs1OwFdlD2v3Giouyp7Yz5sI/xId17ZxDGuiHjS65cMRvTjwymtd
+	 tQmIbozRko2nSgtS3qpRkC1P6921YaLNseF2Bx4d9vi+ZyEYLA51aqfvr1CSpI8WJp
+	 OIeILOuJXPGow==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 3/4] media: i2c: og0ve1b: Introduce per-sensor data
+ structure
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Wenmeng Liu" <wenmeng.liu@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, devicetree@vger.kernel.org
+In-Reply-To: <20260729-og0va1b-v4-3-ec7e7ed87b2b@oss.qualcomm.com>
+References: <20260729-og0va1b-v4-0-ec7e7ed87b2b@oss.qualcomm.com>
+ <20260729-og0va1b-v4-3-ec7e7ed87b2b@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 29 Jul 2026 08:22:17 +0000
+Message-Id: <20260729082217.9461A1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <07f536f1-9a60-46a3-bc3e-fcec4bb7ce02@ti.com>
 
-On Tue, Jul 28, 2026 at 09:49:47PM +0530, Yashas D wrote:
->=20
->=20
-> On 28/07/26 19:59, Rob Herring (Arm) wrote:
-> > On Tue, 28 Jul 2026 18:=E2=80=8A12:=E2=80=8A23 +0530, Yashas D wrote: >=
- From: Rahul T R
-> > <r-ravikumar@=E2=80=8Ati.=E2=80=8Acom> > > The mhdp bridge can work wit=
-hout its HPD pin
-> > hooked up to the connector, > but the current bridge driver throws an
-> > error when hpd
-> >=20
-> >=20
-> > On Tue, 28 Jul 2026 18:12:23 +0530, Yashas D wrote:
-> > > From: Rahul T R <r-ravikumar@ti.com>
-> > >=20
-> > > The mhdp bridge can work without its HPD pin hooked up to the connect=
-or,
-> > > but the current bridge driver throws an error when hpd line is not
-> > > connected to the connector. For such cases, we need an indication for
-> > > no-hpd, using which we can bypass the hpd detection and instead use t=
-he
-> > > auxiliary channels connected to the DP connector to confirm the
-> > > connection.
-> > > So add no-hpd property to the bindings, to disable hpd when not
-> > > connected or cannot be used for hotplug detection.
-> > >=20
-> > > Signed-off-by: Rahul T R <r-ravikumar@ti.com>
-> > > Signed-off-by: Jayesh Choudhary <j-choudhary@ti.com>
-> > > Signed-off-by: Yashas D <y-d@ti.com>
-> > > ---
-> > >  .../bindings/display/bridge/cdns,mhdp8546.yaml  | 17 +++++++++++++++=
-++
-> > >  1 file changed, 17 insertions(+)
-> > >=20
-> >=20
-> > My bot found errors running 'make dt_binding_check' on your patch:
-> >=20
-> > yamllint warnings/errors:
-> > ./Documentation/devicetree/bindings/display/bridge/cdns,mhdp8546.yaml:6=
-6:30: [error] syntax error: mapping values are not allowed here (syntax)
-> >=20
-> > dtschema/dtc warnings/errors:
-> > /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings=
-/display/bridge/cdns,mhdp8546.yaml: ignoring, error parsing file
-> > ./Documentation/devicetree/bindings/display/bridge/cdns,mhdp8546.yaml: =
-error loading YAML: mapping values are not allowed here
-> >    in "./Documentation/devicetree/bindings/display/bridge/cdns,mhdp8546=
-=2Eyaml", line 66, column 30
-> > ./Documentation/devicetree/bindings/display/bridge/cdns,mhdp8546.yaml:6=
-6:30: mapping values are not allowed here
-> > make[2]: *** Deleting file 'Documentation/devicetree/bindings/display/b=
-ridge/cdns,mhdp8546.example.dts'
-> > Documentation/devicetree/bindings/display/bridge/cdns,mhdp8546.yaml:66:=
-30: mapping values are not allowed here
-> > make[2]: *** [Documentation/devicetree/bindings/Makefile:26: Documentat=
-ion/devicetree/bindings/display/bridge/cdns,mhdp8546.example.dts] Error 1
-> > make[2]: *** Waiting for unfinished jobs....
-> > make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1703: dt_b=
-inding_check] Error 2
-> > make: *** [Makefile:248: __sub-make] Error 2
-> >=20
-> > doc reference errors (make refcheckdocs):
-> >=20
-> > Seehttps://urldefense.com/v3/__https://patchwork.kernel.org/project/
-> > devicetree/patch/20260728124224.774785-2-y-d@ti.com__;!!G3vK!W-
-> > t7VTYjMiEiiyA5HnNwMPXZXIDl6mIiVFQjSxqG20XM1FTyTXYmNfyADL2cjwLH7WdrUA$ <=
-https://urldefense.com/v3/__https://patchwork.kernel.org/project/devicetree=
-/patch/20260728124224.774785-2-y-d@ti.com__;!!G3vK!W-t7VTYjMiEiiyA5HnNwMPXZ=
-XIDl6mIiVFQjSxqG20XM1FTyTXYmNfyADL2cjwLH7WdrUA$>
-> >=20
-> > The base for the series is generally the latest rc1. A different depend=
-ency
-> > should be noted in *this* patch.
-> >=20
-> > If you already ran 'make dt_binding_check' and didn't see the above
-> > error(s), then make sure 'yamllint' is installed and dt-schema is up to
-> > date:
-> >=20
-> > pip3 install dtschema --upgrade
-> >=20
-> > Please check and re-submit after running the above command yourself. No=
-te
-> > that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-> > your schema. However, it must be unset to test all examples with your s=
-chema.
-> >=20
->=20
-> Hi Rob,
-> My dt_binding_check had passed, will upgrade and run it again and send a =
-new
-> patch.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Build failure on 32-bit architectures due to 64-bit division withou=
+t kernel math helpers.
+--
 
-I doubt, code has obvious syntax issues...
+--- Patch [3]: [PATCH v4 3/4] media: i2c: og0ve1b: Introduce per-sensor dat=
+a structure ---
+commit 44a11606f1ac2c69b89a34ee20cb6650216651a9
+Author: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+Subject: media: i2c: og0ve1b: Introduce per-sensor data structure
 
-Best regards,
-Krzysztof
+This commit refactors the driver to separate sensor-specific data from the
+common driver code. It introduces a sensor_data structure, populated through
+i2c_get_match_data(), to hold chip ID, MCLK frequency, link frequencies, and
+supported modes.
 
+> diff --git a/drivers/media/i2c/og0ve1b.c b/drivers/media/i2c/og0ve1b.c
+> index da5c8e49d4a81..df428137cfdc1 100644
+> --- a/drivers/media/i2c/og0ve1b.c
+> +++ b/drivers/media/i2c/og0ve1b.c
+
+[ ... ]
+
+> @@ -330,10 +354,19 @@ static const struct v4l2_ctrl_ops og0ve1b_ctrl_ops =
+=3D {
+>  	.s_ctrl =3D og0ve1b_set_ctrl,
+>  };
+> =20
+> +static s64 og0ve1b_pixel_rate(const struct og0ve1b_sensor_data *data)
+> +{
+> +	const struct og0ve1b_mode *mode =3D &data->modes[0];
+> +	unsigned int bpp =3D mode->code =3D=3D MEDIA_BUS_FMT_Y8_1X8 ? 8 : 10;
+> +
+> +	return data->link_freq_menu[0] / bpp;
+
+[Severity: Low]
+Will this 64-bit division cause a linker error on 32-bit architectures?
+
+Because data->link_freq_menu[0] is an s64 and the bpp divisor is evaluated =
+at
+runtime, the compiler can no longer constant-fold the division. On 32-bit
+architectures (like i386 or arm32), a native 64-bit division by a 32-bit
+variable results in an undefined reference to __divdi3 or similar.
+
+Does this code need to use div_s64() or div_u64() instead?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729-og0va1b-v4=
+-0-ec7e7ed87b2b@oss.qualcomm.com?part=3D3
