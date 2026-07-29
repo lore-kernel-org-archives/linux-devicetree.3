@@ -1,197 +1,127 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F31A44E038
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 11:54:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB6E747A87B;
+	Wed, 29 Jul 2026 11:56:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785326079; cv=none; b=e2OlyJHIE86TN+kQYipdCvnBSsiWPHy00npmCR6YbM4DgFvzu3wYyBueScARv3JG0KOv2dBjM4hmjq6zxPi5CGsfiuhfTDja1TE3J7cjUyDA8st2IFHpBt4J0HzHXsesxzQZySA4LaKlCmxjFT2zchcbnJfOue/8CuopNGfs4Dc=
+	t=1785326174; cv=none; b=rHhNUaSeuY4dWbxhpvU2xwfyx7giJjw5BD11j8Vf6qjyJTPpINhN4WHiH7Iul93L4jKYkHzL0ZQU47Px6qyJrdsuSkZh6YiKW1y33XJz08YkE4EueDL4GESbmTA5AKT+NDgiUsf4hEkuompoZ9c2wBOj2CLVifhOR7N0n6nSAHI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785326079; c=relaxed/simple;
-	bh=9a9so1CYH3stmaNiF2igDa4SDSwTPoO+r+0jxm4VP3c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=W7eHTPFynHBoOueLctMMbVvTVkfGvFzb6gsBBaD3N6IaCkqKmUgkzCGALypLFPm715xj9fX6nLyGf74inlMRkrGKFu0XdSYOPhbfEYqviyq+CAgui77FKuWYjLSHetbTHXbZp+PySCeVFo2sdZE0yViKTaylNx3sStO4xPBRAZo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ggvTB0Q7; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=C0ENa+xE; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785326174; c=relaxed/simple;
+	bh=I1BHMnC7gJYXLrkfU7v8e1A0JJJZhj9ZD9vcQ0x2d7Y=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Cmt57jt0Nf1Hsqxx+oFR6Z+VnhvFKagHcRVD1Hu70iyMJG0DQ06hvIltOi6RtKFhbIT5yZq5EW7UlXvAQsppDSUEWtwm79byFFLUmJL+dLlZ3xW35f0WTI4BXUgHgrgC+NjmVKLo5qSSk6aVk/rbskY329+x5500y8Dq5MHTNkg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lFrdRjrn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ggvTB0Q7";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="C0ENa+xE"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66TBXWo51218114
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 11:54:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	6FmIKkJTESuL46QyrIupTolyqTQ4VxA4jR8F/WmR/GU=; b=ggvTB0Q7NEWrk2/i
-	ICsIYlqYDS8gh/tIp1vUJE4+a05LTveWQFwroV0Ub/EemjMxEOa5H2eQ913Z/frn
-	ZavclWAelZhQsV+MHSjB7/6b2wqJp6x7ZJfkee7g6QSOFV9smG5rtWRm/GfjYhB9
-	3pu3F+qhHSlD5yYvo7tmQoSLXMd2awV0/fm3vTXGh34v2FanMpYOLCocn0MNyPBv
-	pOsSHuRHIsrF0JSyMS7ng5EWIHR9IB8AJqOlcwefh2uqyI30+4idgkIN/T3yeKwE
-	imC4VP/xo2wbJYp6PIhfcXM77GFfnVuOFdr36xBtb0msn4+K/oYRpRVZKIWkMoeS
-	L7T0/A==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fqgrj02sk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 11:54:37 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d001671a54so19266635ad.2
-        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 04:54:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785326077; x=1785930877; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6FmIKkJTESuL46QyrIupTolyqTQ4VxA4jR8F/WmR/GU=;
-        b=C0ENa+xEBxWbcYhrfnxVrzeItm8BIlP7cblcHcreTGP693rE7Vs7L+HI0c9PDQrg4L
-         hyybNsN0rm1uDmStD8x6BNcigDJctzkY/+FpFsFsUTkp4QOL+Gl+fFpFfhIWzfKb/m3j
-         J158TsnljuLxopl5tktQztc4/n95EdjMQpLYUgLKoPA+tfGTq6p2nFTjUE5DkqjuPz/5
-         0i0CautQ5WaJyGydE6zM0twBY60lIIWSpcZE3XR8HjiuI6FHeG27GwybBuXhuffr6Qvs
-         2KNh1yF1Pmmcr3zDtosnsQawgML4kkG2/DpBumXPxWopt7KNsEGAK7W/sIlvkE9yBOfH
-         VknA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785326077; x=1785930877;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6FmIKkJTESuL46QyrIupTolyqTQ4VxA4jR8F/WmR/GU=;
-        b=BpmYhryabokib1fd6UNWSuwNdmtCaHHZwbWcEj3Zm1nyUlRf3TxGM3asDv+rJamzO6
-         v38pLjUQpstr/0P8Nf1poG2H3SvUaMffoN1gwk9O7uclvz20VBHoY0I0YxFeFLnk9slh
-         AzMryq6tYbEr5UXd9sLzGDAIa6tv6tRx8Z1uvYDfiwvTju2rXcun17nczAHG3Nuwn/Wo
-         /Eewm9jMpl0sIjA5VYDKxQBappSsTAwzR+/ntUOodj6NhbHVcxfIBJU7yk+vNN/3sqNw
-         ZjWkaoXapHJY/447CKwQuEZg+NFS/swwzLGxTEdf40HzGVI9OOHidGtZX2Ccf8i+naLT
-         I04w==
-X-Forwarded-Encrypted: i=1; AHgh+RpyludH+h3Ml8RiKn+p2Czedh/QvduWHZmTLmeVJBXbUsHixRQE7kGJijx2DMYtC9wEsIbGDE5ZwJYu@vger.kernel.org
-X-Gm-Message-State: AOJu0YzdrSCnGAd1HDg0h13j+Wv3JpyNhav0sC3wp+HWZ6iEbJ291Tj1
-	uxxewD8A3qxI3EZzdbrd3zF9DYEGEm2HjemtkuVajTYb+L9zcOPJoyDDyqaxRdcZVEC7XwDrZXq
-	kKT8f2bpyuiagofVnjrkrhbB/dQjzACBi+9dzli36kdIXQHgtBCijQRhFK4/Fiz9x
-X-Gm-Gg: AR+sD138fxr0OQHkk+G7VkOEZroY0iz80TMbz+ibiHkaA9hGR5utyoliGEf97KH5iNc
-	1bzRk7y62EilCoSproGiIKsgjMR0V/Sg3hXVUy/znn3Q74EXl5oTE8HZx50CqBFni/hS1uyPTw6
-	r8Q5GG/4YKMFDdkJN64a2yUIUcoW/6TGvtGzi1mx2o7O8VmAyEtdt+bZps9WAh1sPel8ZYA87HQ
-	LDLp1OL0sAd11O9cK1YNkoXZ4RYc0+DG/bwD497I70nzukhRbUns94Y/vyBUxzizhR2CbtaBOTe
-	psd2ECNCgAj15dAJKxqTV6Fm7GSDiLrKPZgUyvowMz5UexyV/Y4tOxiZbQrQnl7tUerTo83qE8h
-	6zszkp6QvuyXoBDqAGJJdwiHKTwtA+dqPsEw/erqQFf95VWST3A+f+9b49zwAQEk7RA97KhpduL
-	NmzQfjeCGYJYm3
-X-Received: by 2002:a17:903:2351:b0:2ce:ed59:7044 with SMTP id d9443c01a7336-2d015d4610bmr68523435ad.30.1785326076797;
-        Wed, 29 Jul 2026 04:54:36 -0700 (PDT)
-X-Received: by 2002:a17:903:2351:b0:2ce:ed59:7044 with SMTP id d9443c01a7336-2d015d4610bmr68523165ad.30.1785326076380;
-        Wed, 29 Jul 2026 04:54:36 -0700 (PDT)
-Received: from [10.149.71.180] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d022bc6d56sm10233465ad.49.2026.07.29.04.54.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 29 Jul 2026 04:54:35 -0700 (PDT)
-Message-ID: <d1af3fcb-f2cd-4e37-b1b1-d8caff984c84@oss.qualcomm.com>
-Date: Wed, 29 Jul 2026 17:24:30 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lFrdRjrn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7CC31F000E9;
+	Wed, 29 Jul 2026 11:56:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785326173;
+	bh=pyk3ersoilGzCxngyyl7AHzUGDzKJUpUkOct9+nO+Ow=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=lFrdRjrnzwdjOI+skMMJsRUDdP5IGEKFypKbcHSUioSKVQJZfzi2ml8IPlGJ5jUOM
+	 0JfiPKU/x2q8oJHOioB1+XBD5oCV/8s3fvi7EfRBbEFRlFHaKxCTjVEi1R0+GHFyXs
+	 2a9tSPOQDRKrhbun8eKdMW1th+eHD2F2Hk8uO/lSRUe8zlBjRHN6ISOB4KQMmx8pUu
+	 8GKR8YVV5Pd/tC41Xt8b3ibVKegQM4ZraXgbq8N7tji/tiOHIbzDTZbeokN9Ok0ppS
+	 w0GywNYkJNpcDGhELqIFYKWkFHG0Rct8kYum0VasZApUAXH/92gxzX4HdHJ7Rpc9N5
+	 XXXLq1fgmUpRQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] dmaengine: apple-admac: Add M3 generation ADMACs
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sasha Finkelstein" <k@chaosmail.tech>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, Frank.Li@kernel.org, dmaengine@vger.kernel.org, vkoul@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260729-t603x-admac-v2-2-e4b2bb6ca45e@chaosmail.tech>
+References: <20260729-t603x-admac-v2-0-e4b2bb6ca45e@chaosmail.tech>
+ <20260729-t603x-admac-v2-2-e4b2bb6ca45e@chaosmail.tech>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 29 Jul 2026 11:56:12 +0000
+Message-Id: <20260729115612.C7CC31F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/8] dt-bindings: embedded-controller: qcom,hamoa-crd-ec:
- Add qcom,tsens
-To: Krzysztof Kozlowski <krzk@kernel.org>,
-        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
-        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org
-References: <20260728-ec_add_more_commands-v1-0-771abd65ee1a@oss.qualcomm.com>
- <20260728-ec_add_more_commands-v1-1-771abd65ee1a@oss.qualcomm.com>
- <b7a45a38-008f-45e1-b138-91ca34704bde@kernel.org>
-Content-Language: en-US
-From: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
-In-Reply-To: <b7a45a38-008f-45e1-b138-91ca34704bde@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=RJOD2Yi+ c=1 sm=1 tr=0 ts=6a69e9fd cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=5Skys0qmx9fMEjuPsKYA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-ORIG-GUID: QlhR_KuMh8DEWq3X1RNCaj1HO6IM46Xf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDA5OCBTYWx0ZWRfX3IvdmFZtUQ0h
- 5R9AcMqdOzULOPxInbmE16pW4f+RglwM9rIrT2pOd1E/gsy3pJtCOz1m9CJ4Vq9R2BG0UUxJ8AJ
- rYw+XDamRLjs/9Zoeks0KL0+2a0y/La0Ss42Qucw/UxqqcmK4zez46YIinGWvj9lxg1znfRT3Bl
- QGq1JqHnO4ojp3RmKqWvEFugeQQxXofhNPYzIGSHaMXo4xtzGEj6bpH40+hK0JzhiDSA6QJHDxs
- 2RjqnmxVGdwnCY/0miPWWTPe1VFrhuf2PCSMVG9ILQVfD/e5Aab0P8h+kHG8BiuVLlIGuVOR16V
- Fu80/UzEhZLsdQTfIVmEt237GWo52HOTd1ucp9Nb8J+orsllPMS8IndSUR16CR6AlxUUhQYocAc
- IVyeNAhx5VsP1iBgyqLclDJdpmBKKovMzYQkComHUqcX+QQnpfX8ZLfBAasuBZgkVOT9BUyt8Mh
- BP45DzgxCuu2GymQrQg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDA5OCBTYWx0ZWRfXxg5GzJZ64l1M
- iQkh3myTC27IAF+yNC/vRxsKAukK1BrzvkJYmI8x/5UDecith7PW9NENDKFW4REmWryEY13mtKS
- K1HtBid3wW5GrNguXjKDzPd1q5pm5Lg=
-X-Proofpoint-GUID: QlhR_KuMh8DEWq3X1RNCaj1HO6IM46Xf
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-29_04,2026-07-28_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
- impostorscore=0 suspectscore=0 clxscore=1015 spamscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607290098
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
+Pre-existing issues:
+- [High] The driver schedules a tasklet for DMA channel completion but fail=
+s to kill it upon driver unbind, leading to a Use-After-Free.
+- [High] Missing memory barrier between CPU writes to the DMA buffer and tr=
+iggering the hardware via MMIO.
+--
 
-On 7/29/2026 4:38 PM, Krzysztof Kozlowski wrote:
-> On 28/07/2026 19:44, Anvesh Jain P wrote:
->> Add the qcom,tsens property so Hamoa-based boards can list the tsens
->> providers, and how many leading sensor IDs on each, whose readings the
->> driver averages to compute the SoC junction temperature reported to
->> the EC for fan control.
->>
->> The generic thermal-sensors property has no standard semantic for
->> selecting a range of sensor IDs from a provider without enumerating
->> each one, so a vendor-specific phandle-array with an explicit sensor
->> count is used instead.
->>
->> Signed-off-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
->> ---
->>  .../embedded-controller/qcom,hamoa-crd-ec.yaml     | 31 ++++++++++++++++++++++
->>  1 file changed, 31 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/embedded-controller/qcom,hamoa-crd-ec.yaml b/Documentation/devicetree/bindings/embedded-controller/qcom,hamoa-crd-ec.yaml
->> index c07483aa5937..ec809fcd03ab 100644
->> --- a/Documentation/devicetree/bindings/embedded-controller/qcom,hamoa-crd-ec.yaml
->> +++ b/Documentation/devicetree/bindings/embedded-controller/qcom,hamoa-crd-ec.yaml
->> @@ -33,11 +33,40 @@ properties:
->>    interrupts:
->>      maxItems: 1
->>  
->> +  # A generic "thermal-sensors" phandle only identifies individual sensor
->> +  # IDs, and thermal zones are a Linux-side grouping of those sensors, not
->> +  # a devicetree concept the EC cares about. What the driver actually needs
->> +  # is raw readings from a contiguous range of leading sensor IDs on each
->> +  # tsens provider, averaged together, so qcom,tsens pairs each provider
->> +  # phandle with a count instead of enumerating every sensor cell.
->> +  qcom,tsens:
-> 
-> 
-> What is the point of having internal review and then IGNORE that review?
-> 
-> NAK
-> 
-> Best regards,
-> Krzysztof
+--- Patch [2]: [PATCH v2 2/2] dmaengine: apple-admac: Add M3 generation ADM=
+ACs ---
+commit 3e4665bdfbbc14988e79c929d83bff445def0885
+Author: Sasha Finkelstein <k@chaosmail.tech>
 
-Krzysztof — for context: I did move to thermal-sensors after your
-review, but Konrad separately suggested keeping just the provider
-phandle instead of enumerating every sensor cell, since we only need a
-leading range per provider. qcom,tsens was meant to combine both
-suggestions, not ignore yours. Happy to instead just go with your
-original suggestion and use plain thermal-sensors, enumerating each
-sensor — let me know which you'd prefer.
+dmaengine: apple-admac: Add M3 generation ADMACs
+   =20
+The admacs present on t8122 and t603x SoCs need additional writes in
+order to operate correctly. The exact purpose of this register
+is unknown
 
--- 
-Best Regards,
-Anvesh
+> diff --git a/drivers/dma/apple-admac.c b/drivers/dma/apple-admac.c
+> index 14a5ee14a4815..72ff677c8ce54 100644
+> --- a/drivers/dma/apple-admac.c
+> +++ b/drivers/dma/apple-admac.c
+[ ... ]
+> @@ -935,9 +954,18 @@ static void admac_remove(struct platform_device *pde=
+v)
+>  	reset_control_rearm(ad->rstc);
+>  }
 
+[Severity: High]
+This isn't a bug introduced by this patch, but I noticed the driver schedul=
+es
+a tasklet for DMA channel completion but fails to kill it upon driver unbin=
+d.
+
+Does this leave the code open to a use-after-free? If an interrupt fires ju=
+st
+before free_irq() and schedules the tasklet, the tasklet may run after
+admac_remove() returns and the devm_kzalloc managed memory (struct admac_da=
+ta)
+is freed.
+
+Could we add a call to tasklet_kill() during the teardown sequence?
+
+[Severity: High]
+This is another pre-existing issue not touched by this patch, but I noticed
+missing memory barriers when the hardware is started via MMIO.
+
+Looking at admac_start_chan() and admac_cyclic_write_one_desc():
+
+drivers/dma/apple-admac.c:admac_start_chan() {
+    ...
+	switch (admac_chan_direction(adchan->no)) {
+	case DMA_MEM_TO_DEV:
+		writel_relaxed(startbit, ad->base + REG_TX_START);
+		break;
+    ...
+}
+
+drivers/dma/apple-admac.c:admac_cyclic_write_one_desc() {
+    ...
+	writel_relaxed(lower_32_bits(addr), ad->base + REG_DESC_WRITE(channo));
+	writel_relaxed(upper_32_bits(addr), ad->base + REG_DESC_WRITE(channo));
+    ...
+}
+
+Could CPU writes to the DMA buffer be delayed and become visible to the DMA
+controller only after it starts fetching data?=20
+
+Since writel_relaxed() does not include a memory barrier on ARM64 architect=
+ures
+and spin_lock only provides ACQUIRE semantics, prior memory stores to the D=
+MA
+buffer might be reordered after the MMIO write. Does this require a memory
+barrier to prevent transmitting stale data?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729-t603x-adma=
+c-v2-0-e4b2bb6ca45e@chaosmail.tech?part=3D2
