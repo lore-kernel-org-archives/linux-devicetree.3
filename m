@@ -1,146 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 892614772A6;
-	Wed, 29 Jul 2026 11:42:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E97DB47729E
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 11:43:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785325331; cv=none; b=aAq1U+CGZYOytBaDrPAL0N+35FsV9kCBAIrKqCIwHcwpFUwKCZ4ayfrK8FtUgJYiP5F/tfml3G2IH8oQ36vvtIC2maYA+MyYJcbVU9CHJEtB2uKwEt1p4jtk4ztjy86HlvVbkJIkpCEdF94gfL/ga/+tWBxGT0iA/zkYV/Yi3HI=
+	t=1785325390; cv=none; b=CpVfeUo3sTM/nNTEKF59m8nns++oywVP2uEwDjRfHly1eqooBxm/3GED8+OxdWgFOpB18AzSyAc+G/iB4gjEeEgrkjX1y5zrehWVqGDpZKQdGGzyWjJZW79s68dPXhEUK74n8FIFkviRTRwCNUnKWCMt4Yi6HLEwUWM8N9o27V8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785325331; c=relaxed/simple;
-	bh=6hB/q9Y2sR4PUKGaVsrJU6rbtN/onGHwx02BgLrihnQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TWhnA2ujgBLrr0QjqSkbBs6rMQ3NtZDrCEzGr2h+23celD2KUm0NETrxMSfRYDYbj1FHFd1ynqJjdt2RtoTkM+YscGBzTVK4Ps6tQMnnpDmAI2RyjcZfYVCveuE9ua4vfmZBuOYJI6yiJCtv6IfYaZkjtbTnrFakyvmMNEbz+r0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aVQnaNiA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785325390; c=relaxed/simple;
+	bh=Xul55S/VLyUTZVZJGfGLsizDILZQ+pNaMeyBo7aBFUM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=K1dx+N9DNzf9e5HaQjueg4fvvVR9nhq+Tjr3MDDlYlSh/f/bl8WpLaWtJoMxoKk4QyRoDHr/avKDbdZgo1UVNjIPTTKVqoVLE02k8ZZ55LW4v4a+4sf7PQFzOV5ZndvLj/gIRhz3oZoMk7+0Wpy3K6kdSW71NLMRyP+veQV6F7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GOdY4Tr/; arc=none smtp.client-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aVQnaNiA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B4C41F000E9;
-	Wed, 29 Jul 2026 11:41:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785325330;
-	bh=xHg0SOLDtQCWaGstHBgfK3i8N8/cHf6NYyxxP1x1d2Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=aVQnaNiA+3xTNhvqg1R9d44GvEIpmKLq8jtxhpuqfLYx52IVb5FkCbTjCKUJMHhPU
-	 P5qfocEoGpkP1F1vWjM+NgNIVsI82jiE8hExlByYuT0bkjYwbB/nhqVLpmgXrzYehV
-	 qw8oJs/I8ezM70eCH5yWCOBWMH2EXQ4gIACUwusaPBRydiX0a3d+oBIl18V38eGpaM
-	 0g1OgbNuwSPz0hzLIJmRbYZ+++ek25xF/FcsZaShYUnrclJhqtvNn+m9FeUNd7DfUg
-	 IpPTnuEfsNNN+YjIEuGQn+A73U8MRMOprwftsUqXasBpnf7fp14y2IXXkWfwbM1nbR
-	 O4Iu+0vH8Mffw==
-Message-ID: <cedd89d4-28ec-4a86-99ab-249637d81736@kernel.org>
-Date: Wed, 29 Jul 2026 13:41:57 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GOdY4Tr/"
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-848595b338cso1005593b3a.0
+        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 04:43:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785325387; x=1785930187; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=c+h8NJ3p4DMHwqN+FWUP3u5Jy7dG3Az5SXXuJ0SBbqw=;
+        b=GOdY4Tr/GZpVXai4T6MT4TZJmpviNUjFPeLuH4rQkZLSqPOfirWc3iMEVVkNy0rRlS
+         mRBWkHVvDaYsN5dKU1sQOZF1i2kxFs9ZhMihCH/L7iK5ao5OqPxnQredUTsYLu5z/PqS
+         uOz6Z+ijWn6Y6920GX2KXTxYAs/VhlXEHEctttS2JE8ywZVKqUH18PDbSORgEFjwWnOi
+         YvPd9KnY2MtcQNnEEnob+zEq82VbtJHJd46KsQfbp/fBZRfvKxIimFvwdFYgU3qh2i86
+         oCawI/QVSXgpbvkuvx1H+QXmy3r0+8b+OrtSsr7dT+TEN0/ePxSz3HVviSxlYSL/Y8aE
+         TZOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785325387; x=1785930187;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=c+h8NJ3p4DMHwqN+FWUP3u5Jy7dG3Az5SXXuJ0SBbqw=;
+        b=Y0weDyoGQsFNcr3IuoV3UbN32Rsba88r1b6bK8k5zMSVPq/2GEAqoQV8hNydJzGtnk
+         AjHRgsLhsgiQpARLGx0aVtJWRt0MrnRwYUQU5Gcsb5u2Fl18vCvAEX67wV4A6S9LeHS3
+         YZgbtd1RvgT/K24tP2yYi5EPXpzNfk4QZiG5Ihbu309RQrLjVvA0dXUdog4y7/1Ex6ab
+         6PLIJ4Bq8U/CthZ/BzEBajzDBrfG9n4O4WyvBPfMe1tNOyBDk2Mjt/yyQPLcmaZS6JQU
+         ZhXOyh7fX//U7kRdnY1c4x0q06gLXwC5C6AVmp1GteQSihCmtg6lAJHxiP+Tea1Soxtq
+         WC7w==
+X-Gm-Message-State: AOJu0Yz42dcTWxSlzf7QMv6MxIjRoTPb3LR/MrQPt/NrI5WBXuZiXqYc
+	jLUirRtPRpELJlsIxrEA7br6e64fZRpJArlgqfLdGfEsi2ndMmf3sMzf
+X-Gm-Gg: AR+sD102iakgRqesdJr8PDAIFKrp+FujyOBvC5XfSs/k+VDLKMGk2qxJozUMO4rF0E9
+	eFqP2q0F3oxX5dai0DpHId33gk837N/vgr/DeQKCVZ027n/LyvqJ3LWwbTxoRe/LvTvyOCBPFUY
+	Aqu1oTL5YCO/rpg6BUmfIIqVeYWBydtDhHy0oSpK4H0gkawJv7W/nPFqzXk1Kiqrw56QTCwo9Em
+	vCPS4z1A2ym/yhYBLqZrYJVCSEDasMdnY1Uch31nf+R0j5SOV9LPd4uegXhPvzu/hCwQe5zwSV3
+	fSSyOaqzrgYr8XxCFhbP4MkF00vcCf/W0rxY7g+iumn2Qpxk8zD+rb5YICYrhEZ3hthSBrqIUul
+	nzkdik6dy9Uhh5IAnH/pYrYTKSg4aRvUtaO0Nf+CxP6yGvJAyDOGxWdpYG/4miilDMxdgPU8I12
+	84UmSecJIRhFhk0R1z/5Bd0T/qNrsuqsBX2D0Kq9fkOZ4M4LoxNvT6uEC1QSoDfvH6yWcVwB+iB
+	x4n3/djM3cdSKaRtahZAH7z9iKj1TAWL4g=
+X-Received: by 2002:a05:6a00:10c7:b0:847:83bc:d2a4 with SMTP id d2e1a72fcca58-84e931f6966mr6315709b3a.2.1785325386605;
+        Wed, 29 Jul 2026 04:43:06 -0700 (PDT)
+Received: from cosmo-ubuntu-2404.. (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84ea03cbd1csm1263532b3a.53.2026.07.29.04.43.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 29 Jul 2026 04:43:06 -0700 (PDT)
+From: Cosmo Chou <chou.cosmo@gmail.com>
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	joel@jms.id.au,
+	andrew@codeconstruct.com.au
+Cc: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	cosmo.chou@quantatw.com,
+	Cosmo Chou <chou.cosmo@gmail.com>
+Subject: [PATCH v2 0/4] ARM: dts: aspeed: bletchley: Cleanups and second source devices
+Date: Wed, 29 Jul 2026 19:43:08 +0800
+Message-ID: <20260729114312.3947300-1-chou.cosmo@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 0/8] ASoC: SDCA: enable on DT platforms and add
- Qualcomm WCD9378 (Tambora) codec
-To: Charles Keepax <ckeepax@opensource.cirrus.com>,
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Maciej Strozek <mstrozek@opensource.cirrus.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
- linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, patches@opensource.cirrus.com,
- linux-kernel@vger.kernel.org
-References: <20260722234221.884765-1-srinivas.kandagatla@oss.qualcomm.com>
- <amHqO5pMFmKRNYTT@opensource.cirrus.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <amHqO5pMFmKRNYTT@opensource.cirrus.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 23/07/2026 12:17, Charles Keepax wrote:
-> On Thu, Jul 23, 2026 at 12:42:10AM +0100, Srinivas Kandagatla wrote:
->> At Linux Plumbers 2025 in the Devicetree MC I raised the "SDCA and the
->> classic ACPI-DT problem" [1]: MIPI SDCA is built around ACPI/DisCo
->> firmware descriptors, and the in-tree ASoC SDCA framework
->> (sound/soc/sdca/) enumerates functions, entities, controls and PDEs by
->> walking those tables. On ARM64 DT platforms there is no DisCo, so the
->> framework is unreachable and sdca codecs will not be able to use the
->> generic sdca drivers and duplicating.
->>
->> The direction from that discussion was to let DT platforms reuse the
->> same class/function auxiliary driver plumbing and have codec drivers
->> supply the small amount of static function/entity metadata that DisCo
->> would otherwise carry, plus hooks for device-specific bring-up.  This
->> series is a first cut at that, with the Qualcomm WCD9378 ("Tambora")
->> SDCA codec on the Glymur CRD as the first consumer. Static table that in
->> part of this codec is generated from acpi tables.
-> 
-> Fascinating, a shame I missed the discussion. Main question
-> I have is what was the reasoning behind using static tables
-> rather than just putting the data in device tree? All the core
-> code uses the generic firmware parsing function so should be
-> perfectly capable of parsing the data out of device tree. The
-> only bit that is missing is really the sdca_lookup_functions
-> bit you ifdef out, but updating that to also support DT should
-> be pretty simple.
-> 
-> Looking through your presentation (thanks for linking that),
-> am I to guess this was mostly a device tree people didn't like
-> the stuff SDCA contains problem? I do see that some of the SDCA
-> stuff isn't an exact match for how Linux has traditionally liked
-> to handle DT but also really not sure I see any benefit to DT
-> and ACPI support being different.
+This series resolves dt-check-style warnings, sorts I2C nodes,
+and adds second-source RTC/LED support for the Bletchley.
 
-We do not describe in DT properties which are implied/deducible from the
-compatible, because it is redundant and we do not like redundancy.
+Changes in v2:
+- Added patch to sort I2C device nodes by address.
+- Added patch to fix dt-check-style warnings.
+- Carried over second-source RTC and LED controller patches from v1.
 
-The device is WCD9378 as defined by compatible, thus all or most of SDCA
-properties do not belong to DT.
+Cosmo Chou (4):
+  ARM: dts: aspeed: bletchley: Sort i2c device nodes by address
+  ARM: dts: aspeed: bletchley: Fix style warnings
+  ARM: dts: aspeed: bletchley: Add second source PCA9532 LED controllers
+  ARM: dts: aspeed: bletchley: Add second source ISL1208 RTC
 
-Best regards,
-Krzysztof
+ .../aspeed/aspeed-bmc-facebook-bletchley.dts  | 1317 +++++++++++------
+ 1 file changed, 903 insertions(+), 414 deletions(-)
+
+-- 
+2.43.0
+
