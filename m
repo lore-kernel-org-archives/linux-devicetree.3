@@ -1,175 +1,127 @@
-Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com [209.85.161.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 428CD47605A
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 14:22:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C97A238166;
+	Wed, 29 Jul 2026 14:26:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785334936; cv=none; b=p9Lb1+zDCiV/z3zRp+q3mb7NzKhlugvoyEoiKKFCy6I3qQoLhGYHQ8vh7392Hd5m3FkvghvwPZ48lXaWhfw5p4+CYc4rZSSzdted7PRqBhvCkGo+cA3O0OKPb8JecT02/VRQFG0BnbcN53P05Rh24w9bQYrFLUeaV4d4pBi5w7c=
+	t=1785335176; cv=none; b=nBcfhXTixBf2EQxDz6vo0+vUCzPKZedMwu28mI/Uj2+IqCUgx8KQPg3c3HvrUExpobKA8GodO2xozyjO2oomxMNn7Uk4g+eNwdrqwtStwV65j2VEX9RJogwCsXYy1I/O54hxcLWQyJO1OhHHWpU1zul+WKhTHEaPF9QXTcB/GbM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785334936; c=relaxed/simple;
-	bh=wfthrTkDQg+zXZkKyFIKQ1Q32bcyZi6WCgNCplThDEo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cDGeS/FaWY5bdNU/UTUtgviZY7cdGABX+8Zjgk8Xata8tv2TgGZMvw9gddm0vza0wQ7oh2KM3Wt71GEzD2To9DQWjgifsafDNfrkn36UaVYsSMxmtEtcmpZAiYPt5T6daKIun6IxXbGFeyRaL7qZ83GmkRtk+DQ3w9FIfWgS2eg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zu7vlek6; arc=none smtp.client-ip=209.85.161.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785335176; c=relaxed/simple;
+	bh=yFlXnG0ur/Otw0N6Nkkw8CSvjnpqzUz/IXWbJov3m+4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KvMrn8aEt1b21MtIX3ac5NXUatWSn97s7yBVwcJZclZex1AmfScFRnRznUKmlkKOD3uZNJYpJcx3zy3LmZXN5vZELnIzje5UeqtuXRQCMhSot66AxFZggq3xKbguxWgeyBWJu2AVwwstHq0woyR35Urjtu86NZ4LXf0p+vRu3Ks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FwwYyVBC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zu7vlek6"
-Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-6aae367af50so387806eaf.1
-        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 07:22:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785334933; x=1785939733; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aBs0uk/Nz7BeNh47t+Q3dnJOuZWHDf1CUHbRfB2n60M=;
-        b=Zu7vlek6cx4S3C9lKbOA13aJ+03kEKHYnKklrVbhOtplebZcoCcgWd1jYoS4Oi2npo
-         5EoL0Oyv0TE3A/z/ioNAAqsdlFZFDfzW+FssehwYHyxiVHesVQQK7IojsIVfp2fcg7OZ
-         UvoteJDnPf9Pq2F2VCfXU8X2l+AR5rda+Ctm7HAG5hjVVW/xYvFOPYB2IsVScdDGEVgY
-         WQHK+s6iSZmVbLPrOjmU65uh76nu5kBZz67ajBo067+DapsQJG3EygP+waMhsLyGCteW
-         V3doNiC+kNmLjwkDXe71Fvhl3Zn1kflKcFtFBJZNb9iIj69LJ/2Vebv5U9tm76y1DnyD
-         G6zw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785334933; x=1785939733;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=aBs0uk/Nz7BeNh47t+Q3dnJOuZWHDf1CUHbRfB2n60M=;
-        b=mONVirvBdAjnlH8KklbFTXzItmb0AhKf30nk2+B+cIHhUT5ZXC8MnI35aOG+0THKPd
-         Km3c4yb6ySUqPTe+ukKtcG1+u/HT1gOuYAumxkR840LqkRHkkKOWoo+tI0VNRmCT+YzF
-         3jnYdiOrugASXm38WMo0a8ubshYP5OJbvBpZgjxMEGZgB9XPoIlfgKez8RPG3hRYOJWu
-         meEOsYb4hRL5SagxRk1ydlU/3hlXyq5MmKwYvZNzZ/7Q2XOUtGFro3h39H2J4y4kEJH5
-         HmnffvvYN1eSZCkMdC15dsX2ns6wNiNwbT1mm78dLlQHyjHFYDmQ4vyUupTr+gbsZJxK
-         +B5Q==
-X-Forwarded-Encrypted: i=1; AHgh+RqxCuVJeuoqb96xgJ1qA/EoTpBPiC/BQQedPbS/Zgur0G96GSMyHvP0mA/lzPR5PZ0culkQ244kFesm@vger.kernel.org
-X-Gm-Message-State: AOJu0YwsJyQb/pPUNwHI20T30F+iJnHRo58xPjn1b//KRy7lPsUUHT3o
-	IIMqDdKfLEaYu6SyCpJYP+8LdEV3Ry03+n5K3KxrU7raKQesRsUXAtDh
-X-Gm-Gg: AR+sD10GK+KnuU2iyIhQdmmGi0tezk4ncE3DC9zdnexGt9iycy3ZYmeXCYhBzNa0wxE
-	BHp32QwTr8zfVGJbgghENW9NK84x+6RE7JLAwG1xFAJCD837sD1Te0wMxGNG0LR+b46Wtq3rzjM
-	YSJ8qGrdjFfA2LgpduuBlYYLLtidF/TGmEhGwavFU9qeDzi43pDg5Ek1FqAUY+d5khJyEQjyiRJ
-	O9VviUuliMVbKSk3c3dP3wkIHYpv58PiqXaiD2jdXspFg8NEbxYsZCzH6UH2j8Ix6IxRIbb/3SR
-	WVzwN6Z4BrzgOs+VUaHxA+tig1/81GbKz2l/G3wxgyQ9xxd7H+PmqC0sEyw8oohdGWrY7Mc05XN
-	eHyeJO1344TlDZej+GBMDhfqRInU8qAYdAMjgQesKmn6AQs4uf4T9FYGJXBFJIUYpnF4JGKblgt
-	8Sm/PoN1JiMLO5sX+moPz3nfUh5XH6Zf/CxbihZXwbqGsJALLU5jebXFyc1VebxT0b6iaoRfp/m
-	Ja4gNfiX0beOO/y6clCsgxtYUJUYXbFF6ngpw==
-X-Received: by 2002:a05:6820:2908:b0:6aa:f61e:2463 with SMTP id 006d021491bc7-6acb603b4f1mr8979eaf.24.1785334933143;
-        Wed, 29 Jul 2026 07:22:13 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4588646ade0sm2426214fac.5.2026.07.29.07.22.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 29 Jul 2026 07:22:12 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <e535a9c5-28a5-470c-be21-95e1812e5e01@roeck-us.net>
-Date: Wed, 29 Jul 2026 07:22:10 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FwwYyVBC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BC6E1F000E9;
+	Wed, 29 Jul 2026 14:26:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785335175;
+	bh=gGSf24Anm/3gY02Cfg9fyD38hHxiAaKDsAJVM7+eVI4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FwwYyVBCB0W6Z2ZQsGNJEf7ezaOW0YoMC8J7BRn0baHpwWDfv793TrivO+ecmMldS
+	 jghDuubuo0DDNoRYKMQZMdOdpb86Pi/0CfAEpJClu5Rsm+tjg187XKarU8KjZd8+9Q
+	 qelGYnxPLursQGH0hFjF85QsR/CW/IW2WhSMQZ7L51QpRoEzMR6MFuhvSmZycqEtJJ
+	 4lBUZSdiUUp8Z7ZVVlD4eehdWrhaSfvsR+XMlLVV7EhCQeD1WEPlnjfQnvl0cxfzRa
+	 HMsv4HlxmI1l8ilLze62+LqCecxaknld6UOM604kyRD4oeOdUBV9tX29A9lDQqSiOo
+	 cfhbJIyCzPkJQ==
+Date: Wed, 29 Jul 2026 16:26:04 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Manikanta Maddireddy <mmaddireddy@nvidia.com>
+Cc: Thierry Reding <thierry.reding@kernel.org>, linux-pci@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, Thierry Reding <treding@nvidia.com>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thierry Reding <thierry.reding@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Karthikeyan Mitran <m.karthikeyan@mobiveil.co.in>, Hou Zhiqiang <Zhiqiang.Hou@nxp.com>, 
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>, 
+	Michal Simek <michal.simek@amd.com>, Kevin Xie <kevin.xie@starfivetech.com>, 
+	Aksh Garg <a-garg7@ti.com>
+Subject: Re: [PATCH v8 4/6] PCI: tegra: Add Tegra264 support
+Message-ID: <nhl5l745nomss74qguitht3xy6skebmpfzngl5nmmqvaen74w5@agnwbcj67xbb>
+References: <20260716-tegra264-pcie-v8-0-23e51589229b@nvidia.com>
+ <20260716-tegra264-pcie-v8-4-23e51589229b@nvidia.com>
+ <063777d8-cd4d-43cc-8f65-102191848c9d@nvidia.com>
+ <amd8FoDqTNV2z2vM@orome>
+ <a12ed6d2-ceca-496b-b104-aa669cace5cd@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [hwmon-next PATCH v4 3/4] hwmon: (adt7470) Expose fan control via
- PWM framework
-To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-Cc: Luiz Angelo Daros de Luca <luizluca@gmail.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Chris Packham <chris.packham@alliedtelesis.co.nz>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Darrick J. Wong" <djwong@us.ibm.com>, linux-hwmon@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-pwm@vger.kernel.org
-References: <20260729-adt7470_thermalzone-v4-0-c14039dfa0e6@gmail.com>
- <20260729-adt7470_thermalzone-v4-3-c14039dfa0e6@gmail.com>
- <12dfeaae-f806-4adc-95f1-97fe10ef748e@roeck-us.net>
- <amnoV4Vlxmc5QgVC@monoceros>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <amnoV4Vlxmc5QgVC@monoceros>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <a12ed6d2-ceca-496b-b104-aa669cace5cd@nvidia.com>
 
-On 7/29/26 04:49, Uwe Kleine-König wrote:
-> On Tue, Jul 28, 2026 at 10:56:04PM -0700, Guenter Roeck wrote:
->> On 7/28/26 21:46, Luiz Angelo Daros de Luca wrote:
->>> The ADT7470 features four PWM outputs designed to control fans.
->>> Previously, these were only accessible through the legacy hwmon
->>> sysfs interface.
->>>
->>> Expose the ADT7470 fan control lines through the generic PWM framework.
->>> This allows generic PWM consumers described in Device Tree, such as
->>> "pwm-fan", to use the device through the "#pwm-cells" property.  This is
->>> particularly necessary for boards where the ADT7470 external temperature
->>> sensors are not populated and the chip is used strictly as a fan
->>> controller (e.g., Edgecore ECS-2100-52T switches). In such setups,
->>> delegating control to the generic PWM subsystem allows the kernel's
->>> thermal framework to manage the fans based on unrelated temperature
->>> zones, such as internal SoC sensors.
->>>
->>> When a PWM consumer applies a new PWM state, the driver automatically
->>> switches the corresponding PWM channel to manual mode so that the
->>> requested duty cycle takes effect. The duty cycle specified by the PWM
->>> framework is internally converted to the 0-255 scale expected by the
->>> hardware registers.
->>>
->>> The legacy sysfs interface remains unaffected and operates in parallel.
->>
->> No, I won't accept this. It has to be either or. A pwm channel modeled as pwm
->> subsystem channel must not be visible via hwmon attributes.
+On Tue, Jul 28, 2026 at 09:25:17AM +0530, Manikanta Maddireddy wrote:
 > 
-> I didn't look in detail, but maybe my red line is a bit more lax. IMHO
-> it's not OK to be able to modify a setting that results from pushing
-> hwmon knobs using PWM operations or vice-versa. Switching between
-> exclusive use at runtime is IMHO ok.
 > 
-It is my call to make, and my call is either-or to avoid confusion.
+> On 27/07/26 9:14 pm, Thierry Reding wrote:
+> > > > +static int tegra264_pcie_suspend(struct device *dev)
+> > > > +{
+> > > > +	/*
+> > > > +	 * No need to do anything device-specific here, BPMP handles the
+> > > > +	 * details of taking the link into L2.
+> > > > +	 */
+> > > > +
+> > > > +	return pinctrl_pm_select_sleep_state(dev);
+> > > > +}
+> > > > +
+> > > > +static int tegra264_pcie_resume(struct device *dev)
+> > > > +{
+> > > > +	struct tegra264_pcie *pcie = dev_get_drvdata(dev);
+> > > > +	int err;
+> > > > +
+> > > > +	err = pinctrl_pm_select_default_state(dev);
+> > > > +	if (err < 0) {
+> > > > +		dev_err(dev, "failed to configure sideband pins: %pe\n",
+> > > > +			ERR_PTR(err));
+> > > > +		return err;
+> > > > +	}
+> > > > +
+> > > > +	tegra264_pcie_init(pcie);
+> > > > +
+> > > > +	return 0;
+> > > > +}
+> > > > +
+> > > > +static DEFINE_SIMPLE_DEV_PM_OPS(tegra264_pcie_pm_ops,
+> > > > +				tegra264_pcie_suspend,
+> > > > +				tegra264_pcie_resume);
+> > > PCI subsystem registered pm_noirq callbacks. So, controller should also
+> > > register to pm_noirq callbacks.
+> > Unfortunately that causes illegal uses of msleep() in no-IRQ context.
+> > Sashiko complains about it and is right. I don't observe any runtime
+> > issues with switching to the _noirq variants, but it doesn't seem right
+> > to stick to it.
+> > 
+> > Is there any reason why this needs to be _noirq, or any benefits if it
+> > was?
+> > 
+> > Thierry
+> 
+> The PCI subsystem registers pci_pm_resume_noirq() as a noirq resume
+> callback. This function accesses PCI configuration space to transition the
+> device from D3hot to D0. Therefore, the controller driver must first bring
+> the PCIe controller out of reset and make its configuration space accessible
+> to the PCI subsystem.
+> 
+> Many other controller drivers in drivers/pci/controller/ are registering
+> noirq callback.
+> 
 
-Thanks,
-Guenter
+Since the PCI client drivers use noirq callbacks, they would expect the device
+to be accessible by the time the callbacks get executed. But if the controller
+driver disables the resources or puts the devices into D3Cold in regular suspend
+callback, then it will cause the client driver to fail or even crash.
 
+This is why it is recommended to use noirq callbacks in controller drivers.
+
+- Mani
+
+-- 
+மணிவண்ணன் சதாசிவம்
