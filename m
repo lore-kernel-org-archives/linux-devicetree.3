@@ -1,178 +1,118 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36954489894;
-	Wed, 29 Jul 2026 20:05:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FAEA3859C2
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 20:08:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785355560; cv=none; b=KJCQ8IyrzU92x3XpgmcVlaAwYWeivXf+3Z9jBXJm76/00rDUj1tvqQwxNZ1HeQjByobwH8YV8PPwGjVarRMaPqepVrkjITyoiqtpMysXjNA0Gf5d6aVVk0eORo1BR2Yi5E54oP88EHzzF8OAYeYNulpGHBVmlU4+uqKeTM4mAdA=
+	t=1785355689; cv=none; b=QV9gCKztxNH+j2ZU6J5FExxiDsRycU88BYW5gvZsPBxDnT4F/3FcALQX4CRwsLUQvLXCNNRSanAp8YAppdDKZpCHgYD09hPZ/O1u2nxl8qD8/y76rOsx0hNsvJDj+9k9ShLUchliQLV0nxVXjjtwAkgyjh/vP4fgf6PQ9PqQ9DA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785355560; c=relaxed/simple;
-	bh=VutXEHDqOoAryf9Q9xVogMMvtw9jjQHcg6AgJGjqGTE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BzqFvglYlq1FKBJzJNvdp6DRPnh0xdePd8mq+wO0IdxpUxezfDVZrunotaqWbKWSYGxGIbPKu8yfhqUrufe75SLu4vodmNY4ULh4pzjd4F3xGSseSuHxZFqiXkUa90AYw/pcD39tHqaATxvBpqYa1xkdpR3YW0F//Y32ZzHZkCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=iQaHFgOm; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1785355689; c=relaxed/simple;
+	bh=mu+k0cScOfg9KpSjqvXC63I0QuyF76rYwLYMB52b+6g=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=M8Q7BrwI0gJPuqMzktDRkntydTD51reokinwVUSJUsYsAeyc5gUMLeyRrMm9gZ7BRNqEJb/2iHGjjfXdeKGm5TMoX9bzE8QAi6af7HdWEy6ddZwLGLZ6HRTgKESUkbwiSozGBXGFd/GripE4+tqHLsaOOT8Nx/2TeadWP5EE7SA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bYnMe/fF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="iQaHFgOm"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=JFwlVFixiBqlz0i4w0ziil+HIUsQrfPYhT1P9OfuLY4=; b=iQaHFgOmYlR1V6ZLguD93PniG7
-	eoKeMyMIuoQr0312EcXpz+RanY+e1L0SW/HnhRyrFhARJmqYsNW3k0KXDCrvsBszQqStY5HgpbUOH
-	f5AA7x/4Ags8X0GmuIfaDA+v0kS+bU8ZlCqgjKyl2a+wbAtZgfYvu317ifKmbSwrcN8M=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wpAX6-00Eruw-TP; Wed, 29 Jul 2026 22:05:40 +0200
-Date: Wed, 29 Jul 2026 22:05:40 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Vasilij Strassheim <v.strassheim@linutronix.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Russell King <linux@armlinux.org.uk>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	Martin Kaistra <martin.kaistra@linutronix.de>
-Subject: Re: [PATCH 4/4] net: dsa: soce: Add initial driver support for MRS
- switches
-Message-ID: <f17d3a62-456f-4580-90bd-c54a30dceddc@lunn.ch>
-References: <20260729-devel-vstrassheim-soce-dsa-ml-v1-0-be569dae1b20@linutronix.de>
- <20260729-devel-vstrassheim-soce-dsa-ml-v1-4-be569dae1b20@linutronix.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bYnMe/fF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98B3D1F000E9;
+	Wed, 29 Jul 2026 20:08:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785355687;
+	bh=qwyemSvoSeGIGQ1GLeT+hInpUA8d7Gf2Fp37ytmqueE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=bYnMe/fFW2TRSk4mReseMvO6A+MvH3ifVTxKT4/eFpurYm+/LoYQqddY5TK10/fIA
+	 eQPRhUM187OmfeRqYO3St1Kq128oOolWCTJbJt1JahD1kvfsCHyBzF2G4ibtxgkQT7
+	 dN8zJmkEQLStmgl7QjG3Mjfb5+/G02hVieH2GMwQ+2TPGNTSfu+NIbARHLRb4Ryenx
+	 LYJWdgHqBYw/h/Ah/9kWbh9eyOBis5rtAvWK4WNi2UibBFeqkuH2FQhHapSkhYCMy7
+	 j0IQdJaSB9atD3xo1vkNQseaFDu8lsk9jZcLKs61xgzIJFHJV9oZl1JhIWprR+5D9H
+	 XOKinG5JyCVOA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/8] arm64: dts: ti: k3-am62: Set MMC clock pins as
+ OUTPUT
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Judith Mendez" <jm@ti.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260729195958.671147-4-jm@ti.com>
+References: <20260729195958.671147-1-jm@ti.com>
+ <20260729195958.671147-4-jm@ti.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 29 Jul 2026 20:08:07 +0000
+Message-Id: <20260729200807.98B3D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260729-devel-vstrassheim-soce-dsa-ml-v1-4-be569dae1b20@linutronix.de>
 
-> +static u8 soce_map_stp_state(u8 state)
-> +{
-> +	switch (state) {
-> +	case BR_STATE_DISABLED:
-> +	case BR_STATE_BLOCKING:
-> +	case BR_STATE_LISTENING:
-> +		return 0;
-> +	case BR_STATE_LEARNING:
-> +		return 1;
-> +	case BR_STATE_FORWARDING:
-> +	default:
-> +		return 3;
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-#defines for 0, 1 and 3.
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the commit fails=
+ to apply the necessary AM62x SoC hardware constraint to several third-part=
+y device trees. While it correctly updates the TI SK and Beagle boards' MMC=
+ clock pins to `PIN_OUTPUT` to disable the receiver per the TRM (SPRUIV7), =
+boards like the Toradex Verdin, PHYTEC phyCORE, TQ, and Variscite AM62x SOM=
+s still incorrectly define MMC0/1/2 clock pins as `PIN_INPUT` or `PIN_INPUT=
+_PULLDOWN`. As this is an underlying SoC requirement, all boards integratin=
+g the AM62x SoC must implement the correct pad configuration.
+--
 
-What does 2 mean?
+--- Patch [3]: [PATCH 3/8] arm64: dts: ti: k3-am62: Set MMC clock pins as O=
+UTPUT ---
+commit 7601627985b20fa80186e314fd493c2b9a330fe1
+Author: Judith Mendez <jm@ti.com>
 
-Since you don't implement bridge offload, i'm not sure having STP
-states makes any sense.
+arm64: dts: ti: k3-am62: Set MMC clock pins as OUTPUT
 
-> +static void soce_fast_age(struct dsa_switch *ds, int port,
-> +			  const struct soce_layout *layout)
-> +{
-> +	struct soce_priv *priv = ds->priv;
-> +	struct soce_dsa_local *local;
-> +	void __iomem *p_mes_ctrl;
-> +	u32 val;
+This commit updates the MMC clock pin configuration on various AM62x boards=
+ to
+use PIN_OUTPUT. This matches the TRM requirement to disable the receiver for
+these pins.
 
-Does aging make any sense without bridge offload?
+> diff --git a/arch/arm64/boot/dts/ti/k3-am62-lp-sk.dts b/arch/arm64/boot/d=
+ts/ti/k3-am62-lp-sk.dts
+> index dfd65c00f5b95..7fd508f4eddf1 100644
+> --- a/arch/arm64/boot/dts/ti/k3-am62-lp-sk.dts
+> +++ b/arch/arm64/boot/dts/ti/k3-am62-lp-sk.dts
+> @@ -86,7 +86,7 @@ main_mmc0_pins_default: main-mmc0-default-pins {
+>  		bootph-all;
+>  		pinctrl-single,pins =3D <
+>  			AM62X_IOPAD(0x220, PIN_INPUT, 0) /* (V3) MMC0_CMD */
+> -			AM62X_IOPAD(0x218, PIN_INPUT, 0) /* (Y1) MMC0_CLK */
+> +			AM62X_IOPAD(0x218, PIN_OUTPUT, 0) /* (Y1) MMC0_CLK */
 
-> +/* Bridge membership is handled by the switch forwarding model directly. */
-> +int soce_port_bridge_join(struct dsa_switch *ds, int port,
-> +			  struct dsa_bridge bridge, bool *tx_fwd_offload,
-> +			  struct netlink_ext_ack *extack)
-> +{
-> +	return 0;
-> +}
-> +
-> +void soce_port_bridge_leave(struct dsa_switch *ds, int port,
-> +			    struct dsa_bridge bridge)
-> +{
-> +}
+[Severity: High]
+This isn't a bug introduced by this patch, but while this updates the TI SK=
+ and
+Beagle boards to use PIN_OUTPUT for MMC clock pins, it looks like several
+third-party AM62x boards still define these pins as PIN_INPUT or
+PIN_INPUT_PULLDOWN.
 
-If you don't support bridge offload, you should not need these.
+For example:
 
-> +static void soce_phylink_get_caps(struct dsa_switch *ds, int port,
-> +				  struct phylink_config *config)
-> +{
-> +	if (dsa_is_cpu_port(ds, port)) {
-> +		__set_bit(PHY_INTERFACE_MODE_GMII,
+arch/arm64/boot/dts/ti/k3-am62-verdin.dtsi:pinctrl_sdhci0()
+    AM62X_IOPAD(0x218, PIN_INPUT,        0) /* (AB1) MMC0_CLK  */
 
-Is that really true? What is part of the IP core, and what is to do
-with integration of the core into the system as a whole? It seems like
-RGMII is also supported, so why cannot i instantiate a RGMII MII blob
-for the CPU port as well?
+arch/arm64/boot/dts/ti/k3-am62-phycore-som.dtsi:main_mmc0_pins_default()
+    AM62X_IOPAD(0x218, PIN_INPUT_PULLDOWN, 0) /* (AB1) MMC0_CLK */
 
-> +			  config->supported_interfaces);
-> +		config->mac_capabilities = MAC_10 | MAC_100 | MAC_1000 |
-> +					   MAC_SYM_PAUSE | MAC_ASYM_PAUSE;
-> +		return;
-> +	}
-> +
-> +	phy_interface_set_rgmii(config->supported_interfaces);
+arch/arm64/boot/dts/ti/k3-am62x-phyboard-lyra.dtsi:main_mmc1_pins_default()
+    AM62X_IOPAD(0x234, PIN_INPUT_PULLDOWN, 0) /* (B22) MMC1_CLK */
 
-And flipping that around, if the core supports GMII, could i
-instantiate a GMII user port?
+arch/arm64/boot/dts/ti/k3-am62a-phycore-som.dtsi:main_mmc0_pins_default()
+    AM62AX_IOPAD(0x218, PIN_INPUT_PULLDOWN, 0) /* (AB7) MMC0_CLK */
 
-> +static const struct dsa_switch_ops soce_switch_ops = {
-> +	.get_tag_protocol	= soce_get_tag_protocol,
-> +	.setup			= soce_setup,
-> +	.teardown		= soce_teardown,
-> +	.phylink_get_caps	= soce_phylink_get_caps,
-> +	.phy_read		= soce_phy_read,
-> +	.phy_write		= soce_phy_write,
+arch/arm64/boot/dts/ti/k3-am625-tqma62xx.dtsi:main_mmc0_pins()
+    AM62X_IOPAD(0x218, PIN_INPUT, 0)
 
-phy_read and phy_write are legacy. Instantiate a Linux MDIO bus and
-don't list anything here.
+Since this is an underlying AM62x SoC hardware requirement from the TRM, sh=
+ould
+these other device trees also be updated to prevent potential signal integr=
+ity
+issues and intermittent SD/eMMC I/O failures?
 
-> +static const struct soce_variant_desc *
-> +soce_match_variant(const char *compatible)
-> +{
-> +	int i;
-> +
-> +	for (i = 0; soce_variants[i].compatible; i++) {
-> +		if (!strcmp(compatible, soce_variants[i].compatible))
-> +			return &soce_variants[i];
-> +	}
-> +
-> +	return NULL;
-
-This kind of looks like a reinvention of of_device_get_match_data()
-
-> +static int soce_sw_parse_port_mdio_config(struct soce_dsa_local *local,
-> +					  struct device *dev,
-> +					  struct device_node *port_node,
-> +					  u32 port)
-> +{
-> +	struct device_node *phy_node;
-> +	u32 val;
-> +	int ret;
-> +
-> +	if (of_find_property(port_node, "ethernet", NULL) ||
-> +	    of_find_property(port_node, "link", NULL)) {
-> +		if (of_find_property(port_node, "phy-handle", NULL)) {
-> +			dev_err(dev,
-> +				"phy-handle not allowed on CPU/DSA port %u\n",
-> +				port);
-> +			return -EINVAL;
-> +		}
-> +
-> +		return 0;
-> +	}
-
-Why is all of this parsing of DT needed? These should all be standard
-properties which the DSA core handles.
-
-This currently has the feel of being a "vendor crap" driver. Please
-spend some time to clean this driver up, bring it up to Mainline
-standards.
-
-	Andrew
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729195958.6711=
+47-1-jm@ti.com?part=3D3
