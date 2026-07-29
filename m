@@ -1,218 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1A92481FAF;
-	Wed, 29 Jul 2026 12:43:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6530748663B
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 12:55:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785329046; cv=none; b=VNqZzEcKEAMdOH3fF4/SnieIoyQtAhbW4ENeXo3aj3cyx/3Ds8yfPgXxcl7k6+8t6827iSc6db4gtqbMDTG5038bVhEBs88OVWAZNhVSCUmlQdRVyTNLNArCXWwUoY8K3UoXWQRVxsEFqz4It1uV0CwsavWRJCjKaCiy7A8WS/o=
+	t=1785329736; cv=none; b=VJHDYrqfdgKENjmtsx2tynYeL0U9IHE6cldiILzD3EL2Yai6//syICreU6M/lmz2HY0MTmUecL3WcF0Zcwt6ia5fNGrD/gf7KWzqM4mP8WOUDyT6zGOfh4cbuW5JVYCmeZDR6KFNd9bxGY34LXLI2C4RZYMHbBpzELVG+zArCEk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785329046; c=relaxed/simple;
-	bh=jSAOvCNLUccg2QkmtsqmycDxn2Wh/ERQhZLs5+IRTLI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Lsu4X8sMwgHtMcOtj3dJ8AFGzuwCsch+6Gahy+RqVGXTxNXtVuMYvrrzo+ocoaLgDu0rWkHQwy+p6Xm2cNS8mRvjJlhs1/bLoq91kH2aCJE0yS87yK+ODzsG2aNEoQIl1+yO86Dl7J/T2sRTDyUEvG7SG3IqoW1ZQ9fYhG5oMk8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IgMryxma; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785329736; c=relaxed/simple;
+	bh=Bx0Vs+iueJGyB6GEqn43qo8+5IZiDTGORo1LWg+9v8M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RLt3i/noHsG+WV1Fmw9BjXkY57ubpoim+7wJyj1QtnPIsS5CKuIZHbFwOLR7MwU3SUA4Pj8Dwk4HOjqurVyYQtrWogJQuxfPvNq1g2MH+21sWYeLxrN/Duk51I1i3xBW9qeHOlxQ/S8Rnz1EjJ7PlGDPxdBHGEBy48ynag7aYL0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k47Om4JU; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IgMryxma"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 446841F00A3A;
-	Wed, 29 Jul 2026 12:43:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785329034;
-	bh=zKJ3nLlyFpv9ZABf3+g3F88lSeUX9s1rtPBz/svgPV8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=IgMryxmazxYmeZd+jQZmLr0kJfE/AKZirwEdO8SVTDjNal6ofYiGwYKGtoM6E02MW
-	 guYbW8LSpYIrv1HmZL1ZPvFzIzBbpwY+Sg5P6nh0MwfpZ9ZJz43oGQWan01N8yABk4
-	 czWjNaiMavFrxMICUq/q6BJRvqUDK8rRluUm7NkYmkFbMbyjeYsoJKGWniCf6RM6tS
-	 BlxWFGXnWlnT6KrZN4RZSC7H9bResbSCtNTgFtwxIHQqa5Dch6f7l1lXnaRZXcfet7
-	 jZK7SVkGJz+GSVsnR5U9UssHL3rLutoYHO0Gz2iZPQS6fgDwcwOmG7JJqAIpqLjiQ2
-	 zEmqJPlnMFpxA==
-Message-ID: <ba147ca6-3788-4cbe-95c3-949ae73ee8f0@kernel.org>
-Date: Wed, 29 Jul 2026 14:43:43 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k47Om4JU"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-47f97d310caso884970f8f.2
+        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 05:55:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785329723; x=1785934523; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Z1wP4pta5UyofIbZoGK/pLyizl12pGGfGAIOeMl3uuI=;
+        b=k47Om4JUcn9s7ZHfm3ihLX02z8xan71uLcVXRZ54UjBx6xZOj34dm2m011QU9B0fZv
+         XgQJg6vF7c7kal1Mv4nJ1VNythwpapkthpXDRLw+8l+1rc2iuwh7IJBNfXxwZduFQs81
+         eyOwQH5H50drIkOhuW9Exp3RGxvygJ7oSJMjTOJPdBUX544iEkQJcrPFbDNeCZhDf4lT
+         j/J49OTUIDCSdg3c/a/Sigg/tgFj1/TZYZJZE1G1IzmEFPAnjqckE1duI1DBAsyOECK2
+         wfzpbaCLV3/dEu/WlSi+RHtKHO8wjCN3Tn/zdrABGj08Ti7xMI5lMOmx48bM4/r97SYB
+         OyFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785329723; x=1785934523;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Z1wP4pta5UyofIbZoGK/pLyizl12pGGfGAIOeMl3uuI=;
+        b=SIlRfib6sD+ovmuTgfWAuGrJztPxd701ZSChzU0+GLbpjq1zzi0BNzpTv5HVir46kL
+         mgg1mg4qjbdyWpxr/Pv35Nhc3qn7EhemCt0HdZtTKgtI+s2Z+ZYuwQV0Lzvbaz+upqF/
+         vD9wt1nm9V2lLLLPHUE86ZwvD4zNvKBdhu+0tEBngVcovbGutZjF1RlF+CPVqU7eGU4b
+         93qpB5eLrAjcA0rtfEG3PeLQdp9H4f5MJM+9P/pYW/NjYGr+LCbo/9drQRCbfhkPFa8N
+         zhaMo/NmwBIK1ekIZz0lu0s6ZV7LHglbetHBIbu8QvF8MN4byWe0dUgMB+JcjKc3Ev/4
+         PXlg==
+X-Forwarded-Encrypted: i=1; AHgh+RoA6DbC7G4uXCfo7m9jYdlUlQtfweFFMt7Ip7jHLO8kdma6dEKYflS/8yn05dyhYV1YgFqduh7u2rbo@vger.kernel.org
+X-Gm-Message-State: AOJu0YxpdBHNxRj9TPChFOERA6AKgoPSyzENSkhCDCcFho3c7id/lTIC
+	7KoYPxQwIe/wKcJnUvBd9P5RF+uBgh893+Mq9nTSQN19yYXejN8NINZ+
+X-Gm-Gg: AR+sD13bHLf9zk/CXt9O3KQP6VcPzwuOEmPstDZbCbUdamMOgRLp7d9lPOoQW3ao2GO
+	I4RIPBgL+wRLVU3SKBqwFZ6IT9h5pmGjtgsAZzIk0cCehYOTq2nufLv8dEarHaXYeMaYPkEvDG+
+	BLXH4MHhyRPVD2McNN/gzEB7Jm7jU9hnI1VmmmzzN20V5sdFJCVJsdKOyN03fzU3yR1l1AWUb4A
+	qUEYVfW1in1k17fmFDlqOXAweSmkliG7fG9bbKI8d092KEb7+bCSibhsbg6i5ztWxIBNFO8T1g7
+	9JlNhGWvfQaHskaVXgUvEFsig8zTnvfuOUALj1o6AG/eZT9sr+3hxGlBOdhisYW/yjjq3fqGkaT
+	z+QMj5mbE2uLJXrIz3I1kcGkfTDsztwke8IOW2mWJF7SG5s3QaFY5pIuuCJh0E4UXDN9iTHAI2Q
+	fe8/eoe7o7Cbbg3DD6L+Xa4Ogud2/QD0QOMy3KEo7HHwvP3E5ZKZALldg08T2BCv7bxbn6XCuT/
+	OTU8SSduZal0Q==
+X-Received: by 2002:a5d:6f13:0:b0:47f:7fd1:9602 with SMTP id ffacd0b85a97d-47fb1e87636mr7709094f8f.11.1785329722702;
+        Wed, 29 Jul 2026 05:55:22 -0700 (PDT)
+Received: from localhost.localdomain ([2a00:23c4:a702:d301:10b8:4461:ee04:15e2])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fb6b189e5sm9264645f8f.27.2026.07.29.05.55.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 29 Jul 2026 05:55:21 -0700 (PDT)
+From: Biju <biju.das.au@gmail.com>
+X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Biju Das <biju.das.au@gmail.com>
+Subject: [PATCH v2 00/16] Add support for DU, LVDS and DSI on the Renesas RZ/G3L SoC
+Date: Wed, 29 Jul 2026 13:54:52 +0100
+Message-ID: <20260729125516.230757-1-biju.das.jz@bp.renesas.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 7/8] dt-bindings: sound: qcom: add Tambora WCD9378
- SDCA codec
-To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
- Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Maciej Strozek <mstrozek@opensource.cirrus.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>
-Cc: Bard Liao <yung-chuan.liao@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
- linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, patches@opensource.cirrus.com,
- linux-kernel@vger.kernel.org
-References: <20260722234221.884765-1-srinivas.kandagatla@oss.qualcomm.com>
- <20260722234221.884765-8-srinivas.kandagatla@oss.qualcomm.com>
- <219d44e2-28ed-4c54-bd00-66e687a0ba48@kernel.org>
- <d0891f90-b69b-4b27-ad58-94c342ad9a6a@oss.qualcomm.com>
- <3c484a68-5db8-464f-992a-6c7584841a10@kernel.org>
- <0cb5a2dd-c49e-47e3-8cc5-ab2ffd397a32@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <0cb5a2dd-c49e-47e3-8cc5-ab2ffd397a32@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 29/07/2026 14:36, Srinivas Kandagatla wrote:
-> On 7/29/26 1:30 PM, Krzysztof Kozlowski wrote:
->> On 29/07/2026 14:17, Srinivas Kandagatla wrote:
->>> On 7/29/26 12:40 PM, Krzysztof Kozlowski wrote:
->>>> On 23/07/2026 01:42, Srinivas Kandagatla wrote:
->>>>> Describe the WCD9378 SDCA peripheral node (compatible sdw20217011000)
->>>>> driven by the wcd9378-sdca codec driver for headphone playback, headset
->>>>> mic capture and jack detection via the SimpleJack SDCA function type.
->>>>>
->>>>> WCD9378 codec can be wired up in 2 different modes.
->>>>> "mobile mode" on phone/tablet SoCs is enumerated as tx and rx device,
->>>>> each of which has dedicated control and data lines.
->>>>> "compute mode" on compute platforms such as Glymur is enumerated as
->>>>> single standard MIPI SDCA class device.
->>>>>
->>>>> Both modes share same Device ID, compatible; qcom,compute-mode selects
->>>>> which driver path is taken.  Supplies, reset GPIO and mic-bias voltages
->>>>> live on the SoundWire slave node in compute mode and are forbidden in
->>>>> mobile mode (owned by the top-level codec parent there).
->>>>>
->>>>> Assisted-by: Claude:claude-opus-4-7
->>>>> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
->>>>> ---
->>>>>  .../bindings/sound/qcom,wcd9378-sdw.yaml      | 200 ++++++++++++++++++
->>>>>  1 file changed, 200 insertions(+)
->>>>>  create mode 100644 Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
->>>>>
->>>>> diff --git a/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml b/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
->>>>> new file mode 100644
->>>>> index 000000000000..2ed4ad92958e
->>>>> --- /dev/null
->>>>> +++ b/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
->>>>> @@ -0,0 +1,200 @@
->>>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->>>>> +%YAML 1.2
->>>>> +---
->>>>> +$id: http://devicetree.org/schemas/sound/qcom,wcd9378-sdw.yaml#
->>>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>>>> +
->>>>> +title: Qualcomm SoundWire Slave devices on WCD9378
->>>>> +
->>>>> +maintainers:
->>>>> +  - Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
->>>>> +  - Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
->>>>> +
->>>>> +description: |
->>>>> +  The Qualcomm WCD9378 codec presents its SoundWire slave devices with
->>>>> +  class ID sdw20217011000 in both operating modes:
->>>>> +
->>>>> +    * mobile mode -- two slave instances sit on separate SoundWire
->>>>> +      masters carrying data only.  A separate top-level codec node
->>>>> +      owns the codec's supplies, mic-bias voltages and reset GPIO.
->>>>> +
->>>>> +    * SDCA / compute mode -- one aggregated slave sits on a multi-lane
->>>>> +      master and carries both control and data.  There is no separate
->>>>> +      top-level codec node, so the SoundWire slave node itself owns
->>>>> +      supplies, reset GPIO and mic-bias voltage configuration.  It is
->>>>> +      marked with qcom,compute-mode.
->>>>> +
->>>>> +  Codec drivers that match sdw20217011000 use qcom,compute-mode to
->>>>> +  decide which mode to serve; the presence or absence of this property
->>>>> +  also gates whether the supply and mic-bias properties on this node
->>>>> +  are required or forbidden.
->>>>> +
->>>>> +properties:
->>>>> +  compatible:
->>>>> +    const: sdw20217011000
->>>>> +
->>>>> +  reg:
->>>>> +    maxItems: 1
->>>>> +
->>>>> +  qcom,compute-mode:
->>>>> +    description: |
->>>>> +      Marks this SoundWire slave as the single aggregated slave that
->>>>> +      implements the codec in SDCA / compute mode.  Only present when
->>>>> +      the codec has no separate top-level codec parent; in that case
->>>>> +      this slave node also owns the codec's supplies, reset GPIO and
->>>>> +      mic-bias voltage configuration.  Absent in mobile mode.
->>>>
->>>> I doubt there is really "compute" or "mobile" mode, so you just wrote to
->>>> match use case, but that does not match hardware.
->>>>
->>> This is hardware fuse setting, its not just usecase based but it changes
->>> complete wcd9378 hardware topology, in mobile mode we have 2 soundwire
->>> devices representing tx and rx side of wcd9378 however in compute mode
->>> it only has one soundwire device dealing with both tx and rx. compute
->>> mode is sdca class compliant device.
->>>
->>>
->>>> I think there should be no separate top-level codec parent in the first
->>>> place, thus this property is not needed. You always list here all resources.
->>> There is no top level aggregated device when the codec is fused in
->>> compute mode.
->>
->> There should not be a top-level in either case. This was always Linux
->> driver limitation.
-> 
-> That is not true, its clearly a hardware topology thing.
-> Codec has two devices tx and rx, Only one of the device (tx) has access
-> to CSR registers of the codec, so rx and tx are pretty much a single
-> aggregate codec device which is why we have top-level representation of
-> the aggregate device.
+From: Biju Das <biju.das.jz@bp.renesas.com>
 
-So two devices, but not three. If TX has access to RX, it does not mean
-there is third device. If there was a third device (that top level
-thingy) you would have it here as well. You don't have, because it is
-purely for Linux.
+Hi All,
 
-Best regards,
-Krzysztof
+This patch series aims to add DSI, LVDS and LCD support for the RZ/G3L
+SMARC EVK. The RZ/G3L LCDC is similar to the one found on RZ/G2L, but has
+LVDS support. It is simpler compared to RZ/G3E [1], hence sending
+this series to get review feedback. Based on the discussion on [1],
+will rebase this later.
+
+This patch series has a dependency on [2].
+
+Also, the LVDS series [3] is merged here to get an overall picture.
+
+[1] https://lore.kernel.org/all/cover.1770996493.git.tommaso.merciai.xr@bp.renesas.com
+[2] https://lore.kernel.org/all/20260619164030.380098-1-biju.das.jz@bp.renesas.com/
+[3] https://lore.kernel.org/all/20260625172359.292631-1-biju.das.jz@bp.renesas.com/
+
+v1->v2:
+ * Dropped renesas,sysc-pwrrdy property as it is modelled as power
+   sequence.
+ * Switched to power sequence for handling pwrrdy signal.
+ * Dropped header file regmap.h and mfd/syscon.h
+ * Added header file pwrseq/consumer.h
+ * Replaced syscon_field->pwrrdy in struct rzg3l_mipi_dsi_info.
+ * Restored ports in DU bindings.
+ * Replaced endpoint with port in ports node.
+ * Dropped the macro RZG2L_DU_FEATURE_SMUX2_DSI_CLK and RZG2L_DU_MAX_LVDS.
+ * Dropped the variable rcdu from struct rzg2l_du_encoder.
+ * Dropped the variable lvds from struct rzg2l_du_device.
+ * Dropped renesas,sysc-pwrrdy from dsi node.
+
+Biju Das (16):
+  dt-bindings: display: bridge: renesas,dsi: Document RZ/G3L
+  drm: renesas: rzg2l_mipi_dsi: Add dphyctrl0_init_val to hw_info
+  drm: renesas: rzg2l_mipi_dsi: Add activation_dly to hw_info
+  drm: renesas: rzg2l_mipi_dsi: Move global timings into hardware info
+    struct
+  drm: renesas: rzg2l_mipi_dsi: Add support for DSI PWRRDY
+  drm: renesas: rzg2l_mipi_dsi: Add RZ/G3L MIPI DSI support
+  dt-bindings: display: renesas,rzg2l-du: Document RZ/G3L SoC
+  drm: renesas: rz-du: Add RZ/G3L (R9A08G046) DU support
+  dt-bindings: display: bridge: Document Renesas RZ/G3L LVDS encoder
+  drm: renesas: rz-du: Add support for RZ/G3L LVDS encoder
+  arm64: dts: renesas: r9a08g046: Add fcpvd node
+  arm64: dts: renesas: r9a08g046: Add vspd node
+  arm64: dts: renesas: r9a08g046: Add DU and DSI nodes
+  arm64: dts: renesas: r9a08g046: Add LVDS node
+  arm64: dts: renesas: Add DSI overlay for RZ/G3L SMARC EVK with ADV7535
+  arm64: dts: renesas: Add LVDS overlay for RZ/G3L SMARC EVK with
+    ITE6263
+
+ .../bindings/display/bridge/renesas,dsi.yaml  |   1 +
+ .../bridge/renesas,r9a08g046-lvds.yaml        | 120 +++++++
+ .../bindings/display/renesas,rzg2l-du.yaml    |  26 +-
+ arch/arm64/boot/dts/renesas/Makefile          |   6 +
+ arch/arm64/boot/dts/renesas/r9a08g046.dtsi    | 139 ++++++++
+ .../r9a08g046l48-smarc-dsi-adv7535.dtso       |  95 ++++++
+ .../r9a08g046l48-smarc-lvds-ite6263.dtso      | 104 ++++++
+ drivers/gpu/drm/renesas/rz-du/Kconfig         |  13 +
+ drivers/gpu/drm/renesas/rz-du/Makefile        |   1 +
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c  |  22 +-
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h  |   1 +
+ .../gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c    | 182 ++++++++++-
+ drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c    | 299 ++++++++++++++++++
+ .../gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h   |  25 ++
+ 14 files changed, 1025 insertions(+), 9 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/display/bridge/renesas,r9a08g046-lvds.yaml
+ create mode 100644 arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-dsi-adv7535.dtso
+ create mode 100644 arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-lvds-ite6263.dtso
+ create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c
+ create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h
+
+-- 
+2.43.0
+
