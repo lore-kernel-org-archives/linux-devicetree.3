@@ -1,194 +1,178 @@
-Received: from xry111.site (xry111.site [89.208.246.23])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E330C42B75C;
-	Wed, 29 Jul 2026 08:09:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=89.208.246.23
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785312580; cv=none; b=oEofhq81HmgTj08idLhbluyvYkYAuVXX03o7wsD+jC+gzgg2mCuxigfTIhHf6Zl7wMmzr1sVZq9bYL998Np760DPyN7VutEsTYsvYAoJaeuMlYzpyBco5nQ28Old+bteh3kWyc/WEc2cOUYKMPLJNE6OZReo49G9zrdOAHoL7P4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785312580; c=relaxed/simple;
-	bh=FKRCzNl9iXi9B2N+9NYj5FAjRRrTLfK+wJOxreVTgFs=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=QMkLxpXk5FuscuSOvfNT1MOWBC3mKQlo0uv7jIBgrdmCXb9CJIFOb5pfpBJ4BdD+tG8h1p9JJ/tenHR2tP6Ouk2O2Rbi9kTO/+nnKzT0+Z6j1u0HMaWwhleCWVRcOct50MqDUQGwGzHs5rYBKkYzU9Ru38okqH1T5GmXt3vm/SA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xry111.site; spf=pass smtp.mailfrom=xry111.site; dkim=pass (1024-bit key) header.d=xry111.site header.i=@xry111.site header.b=WhwvIDxd; arc=none smtp.client-ip=89.208.246.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xry111.site
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xry111.site
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 994A72F7F14
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 08:17:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785313044; cv=pass; b=l4PprkWvj/8B2r4Asp5w8hZuWDXYhVyqikTB4wDtaf9X1B0VIY+ZxQd8Nc1r3BkHJ15On7iDWd1q54T+bbmV+vdaIxqe8gVHt4yk8Hw15YAV0NhuAgxDyI97gzxvFz/n9hsl0AOOCJbKalnBiSBb+oLh51KvXcb1YZlwteRfpqY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785313044; c=relaxed/simple;
+	bh=l4JsZotX6Rb/ZGZLRDjIYLspHxiktvwSAQJuBdfSCdk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ApgIl6Xa1/threZ9LmjPOdBEFvdhimLGjUvQ2D0TKoCgD7iUbW8WWURtIL5XiPF+kw60brDRpLQjJxA2nw63cvP0gs1EaLaI5y97MZNPsa1JXn9kiPI/Xm+HAeM2nb08kGufKIkrxnZPsOmEnxjsZYbNMLm3ELGFr0DxFuxBvnQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=diAqbiOz; arc=pass smtp.client-ip=74.125.224.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xry111.site header.i=@xry111.site header.b="WhwvIDxd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=xry111.site;
-	s=default; t=1785312576;
-	bh=EDLt92zXnWfQkNO/nMchV0mYN1bzrdRqmWVRBvOZuQ8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=WhwvIDxddwF8BefP8Ku3WrZ9cHlrrGRjUlcYodcN4r0I0OdASSpQgC033WV/tvz1e
-	 uTlW62UoIqsdZfpb/wrwr9ez80VpUpXFbVV9UKBkB8H/D7tCACaE34x7oa7JC7L9/v
-	 yWb+mHk6LhoYZa9BPjSsvyh3f2jHy+Rosad7Uj6Q=
-Received: from [127.0.0.1] (2607-8700-5500-e873-0000-0000-0000-1001.16clouds.com [IPv6:2607:8700:5500:e873::1001])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (secp384r1) server-digest SHA384)
-	(Client did not present a certificate)
-	(Authenticated sender: xry111@xry111.site)
-	by xry111.site (Postfix) with ESMTPSA id 8C52765AAE;
-	Wed, 29 Jul 2026 04:09:33 -0400 (EDT)
-Message-ID: <affa49c80b0762b5b9e6ae4f4fa4ae787afecbd8.camel@xry111.site>
-Subject: Re: [PATCH v8 2/2] i2c: ls2x: Add clocks property parsing and
- adjust bus speed
-From: Xi Ruoyao <xry111@xry111.site>
-To: Hongliang Wang <wanghongliang@loongson.cn>, Binbin Zhou
-	 <zhoubinbin@loongson.cn>, Andi Shyti <andi.shyti@kernel.org>, Rob Herring
-	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	 <conor+dt@kernel.org>, Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
-	loongarch@lists.linux.dev, Huacai Chen <chenhuacai@loongson.cn>, 
-	stable@vger.kernel.org
-Date: Wed, 29 Jul 2026 16:09:31 +0800
-In-Reply-To: <20260721122604.12717-3-wanghongliang@loongson.cn>
-References: <20260721122604.12717-1-wanghongliang@loongson.cn>
-	 <20260721122604.12717-3-wanghongliang@loongson.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="diAqbiOz"
+Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-6689402c7bfso685154d50.1
+        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 01:17:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785313041; cv=none;
+        d=google.com; s=arc-20260327;
+        b=U8gBFCivp7J5zy8CPtKeNKGS1+MCPfUh7BQdC7seChTnU+BME8jhhFhvz0TJz58yBI
+         9LnpgfjfO2Nd5ugoYlqTkPTOoL1G386WlDAROrOXOplJ3DngLjL1iBfW9xtepjoMkoWW
+         dSsl6cZG9vS2pywJXC2z1rVK4mc8MBt3i/wV8kVBo9OPoOzFacnmteIcbZ37enS9FWjL
+         IkMBm9rxcaZXUWnKIvEU2m3W6r3KBc0gEmdcgojg4+VWdDPFMmaaMqKAeIaFUVG9ipsh
+         1HHSDAq9gSz+bpfSz8Ng3iToYiYIGJWC3oMcFZc86vC7g/JnSgI1rkRbvIF5EoHuXP1Z
+         cd6w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=WEqhopWknuqx85ckMTtGRckp0jJiYMoXslq0KHJVS3w=;
+        fh=mr6J0/aX2kicX1AsNxhXZxOsm2a6Kg+ggNl5AQVU2F4=;
+        b=KgirbbjRmEG0mplmlQLsW3FfAg40xRror/8B3QLLtUuB+JhQGm+0WOD+HLTLw9kOmN
+         x3wMxXAvj/g7FAoBxUEks7DWTBAdVBa2xrh1MN9HeVwndex90g9dZmcmE60c+gRZj3rs
+         FYrnt+Dvl9LWspU1E4HEkXB7GHqxz96pYe/EsitGqD+vGIjUyRWCqEixMell82m1Ivh5
+         iAypWWjociesvUQATSk88JpMFM0TWSQXlmuCYyBqSiZVr80rgrP1thUxVkMU7JH8+G/B
+         ZWlybSyEWlCvHaXmgwgqKM0ZnggVW+rLAjv8frJqBwaG7gl77SOSJSzh4asZ1dTIs9Pc
+         n+Fw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1785313041; x=1785917841; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WEqhopWknuqx85ckMTtGRckp0jJiYMoXslq0KHJVS3w=;
+        b=diAqbiOzpCacdI/9Xzg3PGwi3M5YIlKE/bZvFsvI/Iij0iIsG0zsVGYoAs5bFU5574
+         3Q9e71B58YFEVwUiISjyNnH5hUGBAfxTcG/cS24t1qyKGHMl2A6h+fBzm/XNBfsgxAWU
+         SJNin0nm+OxzdJ8FqAq/NVe/tkea5FwkeA2tmvEU1lChHB2ZUcCE/SAc44loUAjt++Px
+         KsT0K2UM5cH9zxWiuIXJEkF7mvFc7bzX2LyH49jspMUnFSThQRqNVv7js2PwtTxH6xFN
+         +uOySWutQ2oshaG23levk7Gx+CrqE4wmpb5TINW/oK7z6oMTHLmeKsq6E8tGRmyaClei
+         fcaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785313041; x=1785917841;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WEqhopWknuqx85ckMTtGRckp0jJiYMoXslq0KHJVS3w=;
+        b=SbqtErtpoiQ/vYxOEtsKKyRZyobO8Avfq8Ydf8nuL54YNKiYIZLRT7+RQY6YvumHjp
+         1PuJkX6VWzTvxVPq2wVDmFvgdp5Z2oEhQBJ+/lj5DRjEB62FgyJ6GZkmhNsecn2J+tO5
+         bRmN6O7tHh8tHczojywO0IFYrfEPvYic0pNxvkkRm+pNdT+rKcz++i1kFg1u+ZzSjyX1
+         emwhmcMTdjOmSVXTnVlU653jJz00WRJ3cjov0e7FHqkVVT1vYm1ipA3gnAJrKPq7kaCe
+         jU0sn/F23nC+Xjfr7WHcHPerFOrV+rovpt6sSLOSwakq5MxvK3BcwhxiEFrZ/milSE1L
+         j3+Q==
+X-Forwarded-Encrypted: i=1; AHgh+RrBoaDP4SNDxoHCUbWpXnA2ymEhbatkrogyu9twiUePqUUzr6/NWKcwadirjSYU0dRrud7DZ+9EIw2H@vger.kernel.org
+X-Gm-Message-State: AOJu0YzIetZSAIGVYSL4WdZTk1ImeGeDQ77TllA4qgZDUBOfoi9qfPZV
+	haM54QOTglVEeGry/vFNEbl6zWn2mIem7hWptMVxiogNbSkViK3VFt/OqQOFhIJWDAQfWEIKU7P
+	23eH8ZVGaTm6antJkZDMkZwbpwCGbRYk5l2BKQ/UnPw==
+X-Gm-Gg: AR+sD12R4VE+IvezaYUtswW6mc56fDoem9z1FajltiNeegdGocCUpH/6HsePVP2wZgH
+	NF6ZfT7uk0f256yFZeZE5h0IDAP7slQV87Eg5WWnTR9mRg2U/BQbj+M+9Mga+bGJMxBQy8s61PN
+	atP/P+X6HLsBU0MmLL9sRbMq3P1wI9pGocpfmA+iionS3yc49+ZkGqlBz8KguE0CWHQCEVEuKbG
+	PvQhR06IiQJTmhnc5LK/32krQRx/UouTH9Ln76yD5C5G2BzfsQQpI/HzUsCUGTN7pVBDkGqtj+v
+	ng+/nFzB/CAU+/hcFSX9yVDLBW0PdoSPyc3p78Gpf+tZKX9A
+X-Received: by 2002:a53:c750:0:b0:664:f751:4b59 with SMTP id
+ 956f58d0204a3-669057f6a66mr1929474d50.51.1785313041424; Wed, 29 Jul 2026
+ 01:17:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
+ <20260727-sm8650-7-1-bonded-dsi-v5-1-c042266b9eeb@linaro.org>
+ <20260727-stirring-miraculous-nautilus-e22bda@quoll> <CABymUCNm8_KNgh+6wKH_PO0Y=N6kxfMxOrWsq=wZZQY9vX2kkA@mail.gmail.com>
+ <e7767824-33f4-4601-9b85-8bdc64cb4d4e@kernel.org>
+In-Reply-To: <e7767824-33f4-4601-9b85-8bdc64cb4d4e@kernel.org>
+From: Jun Nie <jun.nie@linaro.org>
+Date: Wed, 29 Jul 2026 16:17:09 +0800
+X-Gm-Features: AUfX_mw9Cu6yAJcPR1V0IIlGNQ-386b7zdVy8vAzfi4FAjHtDNsP_9Xp1j66v-I
+Message-ID: <CABymUCOTurnQzSnBHknT_EJ4Hd-BBScebSbA0g2ZhzH0ih7Qnw@mail.gmail.com>
+Subject: Re: [PATCH v5 1/6] dt-bindings: display: panel: Modify reset gpio
+ number constrain
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+	Marijn Suijten <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2026-07-21 at 20:26 +0800, Hongliang Wang wrote:
-> The i2c-ls2x driver supports dts and acpi parameter passing.
->=20
-> In dts, uses clock framework, by parsing clocks property to
-> get i2c bus reference clock, and define the div of reference
-> clock by device data.
->=20
-> In acpi, by passing clocks property to describe i2c bus reference
-> clock and clock-div property to describe the div of reference clock.
->=20
-> Based on i2c bus reference clock(clock_a), i2c bus speed(clock_s)
-> and div, calculate the prcescale of i2c divider register. The
-> calculation formula is
->=20
-> prcescale =3D (clock_a*10)/(div*clock_s)-1
->=20
-> Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongliang Wang <wanghongliang@loongson.cn>
+Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B47=E6=9C=8829=E6=
+=97=A5=E5=91=A8=E4=B8=89 16:05=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On 29/07/2026 10:01, Jun Nie wrote:
+> > Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B47=E6=9C=882=
+8=E6=97=A5=E5=91=A8=E4=BA=8C 04:23=E5=86=99=E9=81=93=EF=BC=9A
+> >>
+> >> On Mon, Jul 27, 2026 at 04:08:40PM +0800, Jun Nie wrote:
+> >>> Some panel support 2 reset gpio, such as Synaptics R63455. So modify =
+the
+> >>
+> >> There is no such binding for R63455.
+> >>
+> >>> number constrain of gpio to 1 to avoid check failure.
+> >>
+> >> What check failure? Please paste actual warnings (but not fake ones).
+> >>
+> > It is a review warning from sashiko.
+> > - [Low] The `reset-gpios` property's `maxItems: 2` constraint
+> > conflicts with the strictly enforced `maxItems: 1` inherited from
+> > `panel-common.yaml`.
+>
+> I don't understand what comment from sashiko has something to do with
+> some check failure.
+>
+> Anyway, we do not create commits because of some review. We write them
+> because there is a reason related to code, products etc.
+>
+> >
+> >>>
+> >>> Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> >>> ---
+> >>>  Documentation/devicetree/bindings/display/panel/panel-common.yaml | =
+2 +-
+> >>>  1 file changed, 1 insertion(+), 1 deletion(-)
+> >>>
+> >>> diff --git a/Documentation/devicetree/bindings/display/panel/panel-co=
+mmon.yaml b/Documentation/devicetree/bindings/display/panel/panel-common.ya=
+ml
+> >>> index 087415753d606..7c450d2799808 100644
+> >>> --- a/Documentation/devicetree/bindings/display/panel/panel-common.ya=
+ml
+> >>> +++ b/Documentation/devicetree/bindings/display/panel/panel-common.ya=
+ml
+> >>> @@ -119,7 +119,7 @@ properties:
+> >>>        confused with a backlight enable signal.
+> >>>
+> >>>    reset-gpios:
+> >>> -    maxItems: 1
+> >>> +    minItems: 1
+> >>
+> >> I do not get why all bindings now get completely flexible number of
+> >> resets. I am pretty sure not all of them constrain that. It's rather
+> >> your task to check it and explain in commit msg.
+> >>
+> >> For example the second random I took to check (ILI7807S) does not
+> >> restrict, so you just made that binding accepting 1000 reset lines. Wh=
+y?
+> >
+> > I just want to extend the maxItems from 1 to 2 for my case. Do you have
+> > any suggestion? Thanks!
+>
+> I understand what you wanted, but you did not do that. You changed the
+> property for every case.
+>
+So changing to this is OK?     maxItems: 2
 
-This resolves the jittery touchpad input on the EAECIS NL60R laptop.
-
-Tested-by: Xi Ruoyao <xry111@xry111.site>
-
-> ---
-> =C2=A0drivers/i2c/busses/i2c-ls2x.c | 40 ++++++++++++++++++++++++++++++++=
----
-> =C2=A01 file changed, 37 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/i2c/busses/i2c-ls2x.c b/drivers/i2c/busses/i2c-ls2x.=
-c
-> index b475dd27b7af..25f8301ae14f 100644
-> --- a/drivers/i2c/busses/i2c-ls2x.c
-> +++ b/drivers/i2c/busses/i2c-ls2x.c
-> @@ -12,6 +12,7 @@
-> =C2=A0
-> =C2=A0#include <linux/bitfield.h>
-> =C2=A0#include <linux/bits.h>
-> +#include <linux/clk.h>
-> =C2=A0#include <linux/completion.h>
-> =C2=A0#include <linux/device.h>
-> =C2=A0#include <linux/iopoll.h>
-> @@ -63,11 +64,19 @@
-> =C2=A0/* The default bus frequency, which is an empirical value */
-> =C2=A0#define LS2X_I2C_FREQ_STD	(33 * HZ_PER_KHZ)
-> =C2=A0
-> +/* The div of i2c reference clock on LS2K0500/2K1000/2K2000 */
-> +#define LS2X_I2C_2K_CLOCK_DIV	40
-> +
-> +/* The div of i2c reference clock on LS7A1000/7A2000 */
-> +#define LS2X_I2C_7A_CLOCK_DIV	50
-> +
-> =C2=A0struct ls2x_i2c_priv {
-> =C2=A0	struct i2c_adapter	adapter;
-> =C2=A0	void __iomem		*base;
-> =C2=A0	struct i2c_timings	i2c_t;
-> =C2=A0	struct completion	cmd_complete;
-> +	unsigned int		div;
-> +	unsigned int		pclk;
-> =C2=A0};
-> =C2=A0
-> =C2=A0/*
-> @@ -107,12 +116,13 @@ static void ls2x_i2c_adjust_bus_speed(struct ls2x_i=
-2c_priv *priv)
-> =C2=A0	else
-> =C2=A0		t->bus_freq_hz =3D LS2X_I2C_FREQ_STD;
-> =C2=A0
-> +	val =3D (priv->pclk * 10) / (priv->div * t->bus_freq_hz) - 1;
-> +
-> =C2=A0	/*
-> =C2=A0	 * According to the chip manual, we can only access the registers =
-as bytes,
-> =C2=A0	 * otherwise the high bits will be truncated.
-> =C2=A0	 * So set the I2C frequency with a sequential writeb() instead of =
-writew().
-> =C2=A0	 */
-> -	val =3D LS2X_I2C_PCLK_FREQ / (5 * t->bus_freq_hz) - 1;
-> =C2=A0	writeb(FIELD_GET(GENMASK(7, 0), val), priv->base + I2C_LS2X_PRER_L=
-O);
-> =C2=A0	writeb(FIELD_GET(GENMASK(15, 8), val), priv->base + I2C_LS2X_PRER_=
-HI);
-> =C2=A0}
-> @@ -287,6 +297,7 @@ static const struct i2c_algorithm ls2x_i2c_algo =3D {
-> =C2=A0static int ls2x_i2c_probe(struct platform_device *pdev)
-> =C2=A0{
-> =C2=A0	int ret, irq;
-> +	struct clk *clk;
-> =C2=A0	struct i2c_adapter *adap;
-> =C2=A0	struct ls2x_i2c_priv *priv;
-> =C2=A0	struct device *dev =3D &pdev->dev;
-> @@ -304,6 +315,29 @@ static int ls2x_i2c_probe(struct platform_device *pd=
-ev)
-> =C2=A0	if (irq < 0)
-> =C2=A0		return irq;
-> =C2=A0
-> +	if (dev_of_node(dev)) {
-> +		clk =3D devm_clk_get_optional_enabled(dev, NULL);
-> +		if (IS_ERR(clk))
-> +			return PTR_ERR(clk);
-> +		if (clk)
-> +			priv->pclk =3D clk_get_rate(clk);
-> +		else
-> +			priv->pclk =3D LS2X_I2C_PCLK_FREQ;
-> +
-> +		priv->div =3D (unsigned long)device_get_match_data(dev);
-> +		if (!priv->div)
-> +			priv->div =3D LS2X_I2C_2K_CLOCK_DIV;
-> +	} else {
-> +		/* clocks and clock-div are only ACPI properties. */
-> +		ret =3D device_property_read_u32(dev, "clocks", &priv->pclk);
-> +		if (ret)
-> +			priv->pclk =3D LS2X_I2C_PCLK_FREQ;
-> +
-> +		ret =3D device_property_read_u32(dev, "clock-div", &priv->div);
-> +		if (ret || !priv->div)
-> +			priv->div =3D LS2X_I2C_7A_CLOCK_DIV;
-> +	}
-> +
-> =C2=A0	/* Add the i2c adapter */
-> =C2=A0	adap =3D &priv->adapter;
-> =C2=A0	adap->retries =3D 5;
-> @@ -349,8 +383,8 @@ static DEFINE_RUNTIME_DEV_PM_OPS(ls2x_i2c_pm_ops,
-> =C2=A0				 ls2x_i2c_suspend, ls2x_i2c_resume, NULL);
-> =C2=A0
-> =C2=A0static const struct of_device_id ls2x_i2c_id_table[] =3D {
-> -	{ .compatible =3D "loongson,ls2k-i2c" },
-> -	{ .compatible =3D "loongson,ls7a-i2c" },
-> +	{ .compatible =3D "loongson,ls2k-i2c", .data =3D (void *)LS2X_I2C_2K_CL=
-OCK_DIV, },
-> +	{ .compatible =3D "loongson,ls7a-i2c", .data =3D (void *)LS2X_I2C_7A_CL=
-OCK_DIV, },
-> =C2=A0	{ /* sentinel */ }
-> =C2=A0};
-> =C2=A0MODULE_DEVICE_TABLE(of, ls2x_i2c_id_table);
-
---=20
-Xi Ruoyao <xry111@xry111.site>
+Regards,
+Jun
