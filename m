@@ -1,248 +1,113 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 901343B05BD;
-	Wed, 29 Jul 2026 15:20:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD6C132E141;
+	Wed, 29 Jul 2026 15:21:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785338447; cv=none; b=h3A+NIM2qTGvmlltPOAsq+5uujgLrgAhm0JPqoBQq2L9kq8Z3JT2HEdqvDYxGEwGkNHnykpbXwSVl8JRblO49ksoQnZT7sOnlf+1Rn27TA2rFShgBsPfltCnpsy5HTYMQaQDPbizE7xGR0nh6z9Sk0gh8CM/yOhlgOfqZ1d95Cs=
+	t=1785338517; cv=none; b=EN1KB0d1OGDIVdQ113UY8aWtlJss2grouxJMSzzx+g6GvoJ9cVp49ccGSiSXnUJSaCFQcxaKpDKAe8uZapuaRXyzq+zitcJ80YxEbxnWwCfIaU6UC4Ox1Qrmk+YIz3s+/w/Q8UdJRlYgF3cXvp3wYWxUf6kDQYwB7grYO5P9CdQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785338447; c=relaxed/simple;
-	bh=MFHbaHaVVt153tSYrZv3eQ0iNJf9O/3fITl/yXkrOX0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AViPAcZR1Pa6MEybWAund0I90OCwo8BQu9KL/zriH2Mfxzct0l3dI3xc0/bErJwBVCPyjYM8WJLdKLY4egMrWf/VO5C/r6MmdXCfxg8VcQM/1fXBt9x3Jr5hkcfNFxy1DTFg0QNpO7PjFeJcQLqXIIeiDFhKNGAtUmObWD1sm/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=S/3Q0Bnq; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1785338517; c=relaxed/simple;
+	bh=Bs84pcFgVlxk3672f9eybsO4n6BmjSyoqyj3ujfJnNE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=g56OCLlyk9H0txZENQRHHzeYCIOAqsH4U4uML9TtlrQe74AjvinLidte/6Fdjnv/Sb+ojKnYn1rRDcEiJVYVOfGj4JGxMhUcbN+SdyxoaR9kA9hLcov/4c+LeqvoJAopiCX++83vQlI4t7cqm4oVg6dzvRnAmAZPoXbL1Cp9II0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mm+Gq5cD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="S/3Q0Bnq"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=mABh2OQBhAUA7eN+87r478yGoqxajXeOENCfKZxWJeA=; b=S/3Q0Bnq4xPJ4O8no5JeqAx3On
-	L9u7qtyvrLbPLK4sNmOsNDmzx9YGxap/s+dXIkE2DVu1ePPrSMnIV79P7QE9N5XcLzNxY09nJ3xCF
-	rEEgJamiwBjfHBhSX9+f8Bz+22fl2aj3ZRymXrTXZIV2N+Thzq55RYVYtQhl50/RwmGEKqAe5Bhi9
-	qZ+EKCMhKWJ0nD4k4/RSkthYkuh2tL43W+0nlOMTkyxN9NjgW8j2PDHfREpLbzMmdW36IwtGhWVVG
-	i/W+ZxBUrMtVlZieZ0H0WZJ/58Ih5M3OwisS3zcDQ/thjEONoREPev7ACzSt4YaVIO6oJmSsSWMJj
-	FRPC5c7g==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: tomeu@tomeuvizoso.net, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
- ulfh@kernel.org, p.zabel@pengutronix.de, ogabbay@kernel.org,
- Jiaxing Hu <gahing@gahingwoo.com>
-Cc: chaoyi.chen@rock-chips.com, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, iommu@lists.linux.dev,
- linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Jiaxing Hu <gahing@gahingwoo.com>
-Subject:
- Re: [RFC PATCH v2 2/8] pmdomain/rockchip: add optional per-domain power-on
- settle delay
-Date: Wed, 29 Jul 2026 17:20:20 +0200
-Message-ID: <3322194.D8ZAKjAxdT@diego>
-In-Reply-To: <20260718031146.3368811-3-gahing@gahingwoo.com>
-References:
- <20260718031146.3368811-1-gahing@gahingwoo.com>
- <20260718031146.3368811-3-gahing@gahingwoo.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mm+Gq5cD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FF2F1F000E9;
+	Wed, 29 Jul 2026 15:21:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785338516;
+	bh=zL6Hv0PFVPmAnBkkmFZnr0OL+VKp+L9i49IFy2aE60I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Mm+Gq5cDv4X8XZHaCBBsX346Ay4A90TxjL3TNuXAJq+l8ymSP9jN3A3TrFSD2TsBB
+	 w9B+rVXIBuQ+1yMsQl5/PEsT2SPwn+Y9VGz9rtQYZwVzpMFkqqjrDKBJ9EIiopsO38
+	 DcpGx151f8kWD8VDt6Xb63vpaKScNZK3TgWETWA8jwqMKCdBrwcQtF8AFWr5Tk1UQ7
+	 mYT0sVhirDxYnKozGCcOHVYEhTDvrwy3CWUgGNW3nxsz/G/BN3ehdwcSPyO2kWGLE9
+	 b5/71B2fDQX4aB7aeGjHfccOMTb71vK2fhZdNNHbr8Dc6CDzuNNo1AEiv2pQ/3GhZx
+	 hc2GuDLq6UE2A==
+Date: Wed, 29 Jul 2026 17:21:45 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Alex Elder <elder@riscstar.com>, 
+	manivannan.sadhasivam@oss.qualcomm.com, Bjorn Helgaas <bhelgaas@google.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	linux-pci@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/6] PCI/pwrctrl: tc9563: Skip Tx amplitude and DFE
+ tuning for DSP3
+Message-ID: <a2v3seclmgu2lqpf7w2icamnz2iwwjahveryjke272nrx2oary@kgq755ojyxdk>
+References: <oefxm7olagbd3dby2npgly7ausiz3g6cvls5igaxdzvlbr3wrv@rjlfebi2p36j>
+ <20260728160457.GA1316307@bhelgaas>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260728160457.GA1316307@bhelgaas>
 
-Am Samstag, 18. Juli 2026, 05:11:40 Mitteleurop=C3=A4ische Sommerzeit schri=
-eb Jiaxing Hu:
-> The RK3576 NPU domains need a short settle time after the idle
-> request is released before the QoS registers behind the domain are
-> written: restoring QoS immediately after de-idle can raise an SError
-> on the register access while the NoC is still settling (observed on
-> ROCK 4D as a panic inside rockchip_pd_power() during NPU runtime-PM
-> cycling).
->=20
-> The vendor kernel handles this with a per-domain delay_us field
-> applied between the de-idle request and the QoS restore, carrying
-> 15us for the RK3576 NPUTOP domain.  Mirror that: add delay_us to
-> rockchip_domain_info, honor it in rockchip_pd_power() right before
-> rockchip_pmu_restore_qos(), and set 15us for NPUTOP, NPU0 and NPU1
-> (the two core domains power-cycle constantly under runtime PM and
-> showed the same symptom during bring-up).  All other domains keep 0,
-> so nothing changes for them.
->=20
-> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
-> ---
->  drivers/pmdomain/rockchip/pm-domains.c | 51 ++++++++++++++------------
->  1 file changed, 28 insertions(+), 23 deletions(-)
->=20
-> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/ro=
-ckchip/pm-domains.c
-> index 490bbb1d1..1787f62ba 100644
-> --- a/drivers/pmdomain/rockchip/pm-domains.c
-> +++ b/drivers/pmdomain/rockchip/pm-domains.c
-> @@ -59,6 +59,7 @@ struct rockchip_domain_info {
->  	u32 pwr_offset;
->  	u32 mem_offset;
->  	u32 req_offset;
-> +	u32 delay_us;
->  };
-> =20
->  struct rockchip_pmu_info {
-> @@ -185,7 +186,7 @@ struct rockchip_pmu {
->  	.need_regulator =3D regulator,			\
->  }
-> =20
-> -#define DOMAIN_M_O_R_G(_name, p_offset, pwr, status, m_offset, m_status,=
- r_status, r_offset, req, idle, ack, g_mask, wakeup)	\
-> +#define DOMAIN_M_O_R_G(_name, p_offset, pwr, status, m_offset, m_status,=
- r_status, r_offset, req, idle, ack, g_mask, delay, wakeup)	\
-
-DOMAIN_M_O_R_G describes the fields it sets (mask, offset,  regulator clk-u=
-ngate)
-
-So if you're adding the new wakeup delay that is specific to this one
-implementation-variant, please also add a _W the name DOMAIN_M_O_R_G_W
-
-
-Otherwise looks good.
-
-
-Heiko
->  {							\
->  	.name =3D _name,					\
->  	.pwr_offset =3D p_offset,				\
-> @@ -200,6 +201,7 @@ struct rockchip_pmu {
->  	.req_mask =3D (req),				\
->  	.idle_mask =3D (idle),				\
->  	.clk_ungate_mask =3D (g_mask),			\
-> +	.delay_us =3D (delay),				\
->  	.ack_mask =3D (ack),				\
->  	.active_wakeup =3D wakeup,			\
->  }
-> @@ -244,8 +246,8 @@ struct rockchip_pmu {
->  #define DOMAIN_RK3568(name, pwr, req, wakeup)		\
->  	DOMAIN_M(name, pwr, pwr, req, req, req, wakeup)
-> =20
-> -#define DOMAIN_RK3576(name, p_offset, pwr, status, r_status, r_offset, r=
-eq, idle, g_mask, wakeup)	\
-> -	DOMAIN_M_O_R_G(name, p_offset, pwr, status, 0, r_status, r_status, r_of=
-fset, req, idle, idle, g_mask, wakeup)
-> +#define DOMAIN_RK3576(name, p_offset, pwr, status, r_status, r_offset, r=
-eq, idle, g_mask, delay, wakeup)	\
-> +	DOMAIN_M_O_R_G(name, p_offset, pwr, status, 0, r_status, r_status, r_of=
-fset, req, idle, idle, g_mask, delay, wakeup)
-> =20
->  /*
->   * Dynamic Memory Controller may need to coordinate with us -- see
-> @@ -612,7 +614,6 @@ static int rockchip_do_pmu_set_power_domain(struct ro=
-ckchip_pm_domain *pd,
->  			return ret;
->  	}
-> =20
-> -
->  	ret =3D readx_poll_timeout_atomic(rockchip_pmu_domain_is_on, pd, is_on,
->  					is_on =3D=3D on, 0, 10000);
->  	if (ret) {
-> @@ -667,6 +668,9 @@ static int rockchip_pd_power(struct rockchip_pm_domai=
-n *pd, bool power_on)
->  		if (ret < 0)
->  			goto out;
-> =20
-> +		if (pd->info->delay_us)
-> +			udelay(pd->info->delay_us);
-> +
->  		rockchip_pmu_restore_qos(pd);
->  	}
-> =20
-> @@ -1286,25 +1290,26 @@ static const struct rockchip_domain_info rk3568_p=
-m_domains[] =3D {
->  };
-> =20
->  static const struct rockchip_domain_info rk3576_pm_domains[] =3D {
-> -	[RK3576_PD_NPU]		=3D DOMAIN_RK3576("npu",    0x0, BIT(0),  BIT(0), 0,  =
-     0x0, 0,       0,       0,       false),
-> -	[RK3576_PD_NVM]		=3D DOMAIN_RK3576("nvm",    0x0, BIT(6),  0,      BIT(=
-6),  0x4, BIT(2),  BIT(18), BIT(2),  false),
-> -	[RK3576_PD_SDGMAC]	=3D DOMAIN_RK3576("sdgmac", 0x0, BIT(7),  0,      BI=
-T(7),  0x4, BIT(1),  BIT(17), 0x6,     false),
-> -	[RK3576_PD_AUDIO]	=3D DOMAIN_RK3576("audio",  0x0, BIT(8),  0,      BIT=
-(8),  0x4, BIT(0),  BIT(16), BIT(0),  false),
-> -	[RK3576_PD_PHP]		=3D DOMAIN_RK3576("php",    0x0, BIT(9),  0,      BIT(=
-9),  0x0, BIT(15), BIT(15), BIT(15), false),
-> -	[RK3576_PD_SUBPHP]	=3D DOMAIN_RK3576("subphp", 0x0, BIT(10), 0,      BI=
-T(10), 0x0, 0,       0,       0,       false),
-> -	[RK3576_PD_VOP]		=3D DOMAIN_RK3576("vop",    0x0, BIT(11), 0,      BIT(=
-11), 0x0, 0x6000,  0x6000,  0x6000,  false),
-> -	[RK3576_PD_VO1]		=3D DOMAIN_RK3576("vo1",    0x0, BIT(14), 0,      BIT(=
-14), 0x0, BIT(12), BIT(12), 0x7000,  false),
-> -	[RK3576_PD_VO0]		=3D DOMAIN_RK3576("vo0",    0x0, BIT(15), 0,      BIT(=
-15), 0x0, BIT(11), BIT(11), 0x6800,  false),
-> -	[RK3576_PD_USB]		=3D DOMAIN_RK3576("usb",    0x4, BIT(0),  0,      BIT(=
-16), 0x0, BIT(10), BIT(10), 0x6400,  true),
-> -	[RK3576_PD_VI]		=3D DOMAIN_RK3576("vi",     0x4, BIT(1),  0,      BIT(1=
-7), 0x0, BIT(9),  BIT(9),  BIT(9),  false),
-> -	[RK3576_PD_VEPU0]	=3D DOMAIN_RK3576("vepu0",  0x4, BIT(2),  0,      BIT=
-(18), 0x0, BIT(7),  BIT(7),  0x280,   false),
-> -	[RK3576_PD_VEPU1]	=3D DOMAIN_RK3576("vepu1",  0x4, BIT(3),  0,      BIT=
-(19), 0x0, BIT(8),  BIT(8),  BIT(8),  false),
-> -	[RK3576_PD_VDEC]	=3D DOMAIN_RK3576("vdec",   0x4, BIT(4),  0,      BIT(=
-20), 0x0, BIT(6),  BIT(6),  BIT(6),  false),
-> -	[RK3576_PD_VPU]		=3D DOMAIN_RK3576("vpu",    0x4, BIT(5),  0,      BIT(=
-21), 0x0, BIT(5),  BIT(5),  BIT(5),  false),
-> -	[RK3576_PD_NPUTOP]	=3D DOMAIN_RK3576("nputop", 0x4, BIT(6),  0,      BI=
-T(22), 0x0, 0x18,    0x18,    0x18,    false),
-> -	[RK3576_PD_NPU0]	=3D DOMAIN_RK3576("npu0",   0x4, BIT(7),  0,      BIT(=
-23), 0x0, BIT(1),  BIT(1),  0x1a,    false),
-> -	[RK3576_PD_NPU1]	=3D DOMAIN_RK3576("npu1",   0x4, BIT(8),  0,      BIT(=
-24), 0x0, BIT(2),  BIT(2),  0x1c,    false),
-> -	[RK3576_PD_GPU]		=3D DOMAIN_RK3576("gpu",    0x4, BIT(9),  0,      BIT(=
-25), 0x0, BIT(0),  BIT(0),  BIT(0),  false),
-> +	/*                                               name    p_offset pwr  =
-    status  r_status r_offset req      idle     g_mask   delay wakeup */
-> +	[RK3576_PD_NPU]		=3D DOMAIN_RK3576("npu",    0x0, BIT(0),  BIT(0), 0,  =
-     0x0, 0,       0,       0,       0,    false),
-> +	[RK3576_PD_NVM]		=3D DOMAIN_RK3576("nvm",    0x0, BIT(6),  0,      BIT(=
-6),  0x4, BIT(2),  BIT(18), BIT(2),  0,    false),
-> +	[RK3576_PD_SDGMAC]	=3D DOMAIN_RK3576("sdgmac", 0x0, BIT(7),  0,      BI=
-T(7),  0x4, BIT(1),  BIT(17), 0x6,     0,    false),
-> +	[RK3576_PD_AUDIO]	=3D DOMAIN_RK3576("audio",  0x0, BIT(8),  0,      BIT=
-(8),  0x4, BIT(0),  BIT(16), BIT(0),  0,    false),
-> +	[RK3576_PD_PHP]		=3D DOMAIN_RK3576("php",    0x0, BIT(9),  0,      BIT(=
-9),  0x0, BIT(15), BIT(15), BIT(15), 0,    false),
-> +	[RK3576_PD_SUBPHP]	=3D DOMAIN_RK3576("subphp", 0x0, BIT(10), 0,      BI=
-T(10), 0x0, 0,       0,       0,       0,    false),
-> +	[RK3576_PD_VOP]		=3D DOMAIN_RK3576("vop",    0x0, BIT(11), 0,      BIT(=
-11), 0x0, 0x6000,  0x6000,  0x6000,  0,    false),
-> +	[RK3576_PD_VO1]		=3D DOMAIN_RK3576("vo1",    0x0, BIT(14), 0,      BIT(=
-14), 0x0, BIT(12), BIT(12), 0x7000,  0,    false),
-> +	[RK3576_PD_VO0]		=3D DOMAIN_RK3576("vo0",    0x0, BIT(15), 0,      BIT(=
-15), 0x0, BIT(11), BIT(11), 0x6800,  0,    false),
-> +	[RK3576_PD_USB]		=3D DOMAIN_RK3576("usb",    0x4, BIT(0),  0,      BIT(=
-16), 0x0, BIT(10), BIT(10), 0x6400,  0,    true),
-> +	[RK3576_PD_VI]		=3D DOMAIN_RK3576("vi",     0x4, BIT(1),  0,      BIT(1=
-7), 0x0, BIT(9),  BIT(9),  BIT(9),  0,    false),
-> +	[RK3576_PD_VEPU0]	=3D DOMAIN_RK3576("vepu0",  0x4, BIT(2),  0,      BIT=
-(18), 0x0, BIT(7),  BIT(7),  0x280,   0,    false),
-> +	[RK3576_PD_VEPU1]	=3D DOMAIN_RK3576("vepu1",  0x4, BIT(3),  0,      BIT=
-(19), 0x0, BIT(8),  BIT(8),  BIT(8),  0,    false),
-> +	[RK3576_PD_VDEC]	=3D DOMAIN_RK3576("vdec",   0x4, BIT(4),  0,      BIT(=
-20), 0x0, BIT(6),  BIT(6),  BIT(6),  0,    false),
-> +	[RK3576_PD_VPU]		=3D DOMAIN_RK3576("vpu",    0x4, BIT(5),  0,      BIT(=
-21), 0x0, BIT(5),  BIT(5),  BIT(5),  0,    false),
-> +	[RK3576_PD_NPUTOP]	=3D DOMAIN_RK3576("nputop", 0x4, BIT(6),  0,      BI=
-T(22), 0x0, 0x18,    0x18,    0x18,    15,   false),
-> +	[RK3576_PD_NPU0]	=3D DOMAIN_RK3576("npu0",   0x4, BIT(7),  0,      BIT(=
-23), 0x0, BIT(1),  BIT(1),  0x1a,    15,   false),
-> +	[RK3576_PD_NPU1]	=3D DOMAIN_RK3576("npu1",   0x4, BIT(8),  0,      BIT(=
-24), 0x0, BIT(2),  BIT(2),  0x1c,    15,   false),
-> +	[RK3576_PD_GPU]		=3D DOMAIN_RK3576("gpu",    0x4, BIT(9),  0,      BIT(=
-25), 0x0, BIT(0),  BIT(0),  BIT(0),  0,    false),
->  };
-> =20
->  static const struct rockchip_domain_info rk3588_pm_domains[] =3D {
->=20
+On Tue, Jul 28, 2026 at 11:04:57AM -0500, Bjorn Helgaas wrote:
+> On Tue, Jul 28, 2026 at 03:25:29PM +0200, Manivannan Sadhasivam wrote:
+> > On Mon, Jul 27, 2026 at 10:59:11AM -0500, Alex Elder wrote:
+> > > On 7/25/26 3:59 AM, Manivannan Sadhasivam via B4 Relay wrote:
+> > > > From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> > > > 
+> > > > DSP3 doesn't support tuning Tx amplitude and DFE settings. So just skip
+> > > > the setting if DT has passed the tuning properties. There is no need to
+> > > > error out the whole driver because of it.
+> > > > 
+> > > > Fixes: 4c9c7be47310 ("PCI: pwrctrl: Add power control driver for TC9563")
+> > > > Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> > > 
+> > > So to keep things simple, tc9563_pwrctrl_parse_device_dt() is called
+> > > for all downstream ports but you ignore the setting (with a warning)
+> > > for those that do not apply to DSP3.
+> > > 
+> > > What about tc9563_pwrctrl_set_nfts()?
+> > 
+> > Good catch! I missed adding the check for N_FTS as well:
+> > 
+> > ```
+> > diff --git a/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c b/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
+> > index 9d869483b6b3..978907aa0ce5 100644
+> > --- a/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
+> > +++ b/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
+> > @@ -410,11 +410,17 @@ static int tc9563_pwrctrl_set_nfts(struct tc9563_pwrctrl *tc9563,
+> >                 {TC9563_NFTS_2_5_GT, nfts[0]},
+> >                 {TC9563_NFTS_5_GT, nfts[1]},
+> >         };
+> > +       struct device *dev = tc9563->pwrctrl.dev;
+> >         int ret;
+> > 
+> >         if (!nfts[0])
+> >                 return 0;
+> > 
+> > +       if (port == TC9563_VDSP) {
+> > +               dev_dbg(dev, "N_FTS tuning not supported for VDSP\n");
+> > +               return 0;
+> > +       }
+> > +
+> >         ret =  tc9563_pwrctrl_i2c_write(tc9563->client, TC9563_PORT_SELECT,
+> >                                         BIT(port));
+> >         if (ret)
+> > ```
+> > 
+> > @Bjorn: Could you please amend the above diff with this commit?
+> 
+> It didn't apply cleanly (maybe whitespace damage?), but I applied it
+> by hand:
+> https://git.kernel.org/cgit/linux/kernel/git/pci/pci.git/commit/?id=b859b9366b44
 
 
+LGTM, thanks!
 
+- Mani
 
+-- 
+மணிவண்ணன் சதாசிவம்
