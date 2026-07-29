@@ -1,99 +1,147 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AEC4347FEC;
-	Wed, 29 Jul 2026 17:26:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03A7737C109;
+	Wed, 29 Jul 2026 17:31:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785345986; cv=none; b=DIy9kEGpCKt95Va88pmvsUp8SPWDDWpLpQ4KUGhumxLux5dONDccE4jOIyaAGNec8yobeJeB06+xkFHXvZ0cCx9/ttprnZQyX26JGkzlkhHZPAqr+cdxN1TDL0rQ4ys8aO+fBKGMyTrhnzYC6MfCEUavE88Byrwyqf/0VtUenuA=
+	t=1785346307; cv=none; b=PvzFkWUX2fUMIrZQZ3NWTFkTvnzD3uBWevdGBoL2owLPtofN7qA/ZM30EfnPOExB71hUrJrWhUoAePaL+wPmBvxVCcHmzZuIbWDxHfUGk8wkRnw9UjI9KsnAd5hOogtsS4Pd7Ck0bPvUOBL8S1j5nbgg/H5527Gv9v26FhMLy9U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785345986; c=relaxed/simple;
-	bh=nMjFaRoJNGnbz+t5zveKj4iOLSf/Wb8jM6TD9XURS+Q=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=Jo2ronRGMfIlxXXGXlaOAqUCCyGJmLN92yUnwxgHSybtIaG/4b0EiZTtkuCGU6BbuuCSMBLSNI7RfF29nOaSCDmGE4JO+/2QGct6G4h0zwOe4LSBGiF3z+qU4y0xszjDCOcanxhu3x0qJ+i1igNNfiZbm0kpKL6xBaT3j1fD3dg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=PsV07Bat; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	s=arc-20240116; t=1785346307; c=relaxed/simple;
+	bh=G79NbSvwKI++wZpGYi+45JJW6Wpsaiw6AEejdKZ/wmU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DRWlsKdEsJUMYDzPxo9ROuHNkOFQ/4TRkw9I2RzkftNNXLxThXShuTbalXkQEWpzyZqTrqremApEz73kKs81gSDdNec7uYuL5M4Hc1xkiK31RTBwETPHHC4dmia+RB0fVmVUoiKnqO4M1s6xBeAM8/61wbPzIe3gRE2J8o/rx5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=tL3ldWex; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="PsV07Bat"
-Received: from mail01.layka.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 5516D9D7AF;
-	Wed, 29 Jul 2026 19:26:21 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id YwPuHWlpuxWt; Wed, 29 Jul 2026 19:26:20 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1785345980; bh=nMjFaRoJNGnbz+t5zveKj4iOLSf/Wb8jM6TD9XURS+Q=;
-	h=Date:Cc:Subject:From:To:References:In-Reply-To;
-	b=PsV07BatffL5jN3ImqbbcQv+gur5q/xysu6e5JICwMI9lxzOvSI9sCAnqiZDA7QVT
-	 mPkbxMsSjpCE8PgzaamveMgcSu2pGBcQKiFCQK7lhxICTjuLPMlXX7f+DuERrWhB/I
-	 WU3KR30ZAnEVnwMIboFqSPZuXmYqka4DutprVZ42NCi7g8w+oN0W04f2Ly1ul5fQW2
-	 I5Fzs5skSlgupEx4jRX5z7+UHcjONQATcj1ui0fLwuIOnVhzw8TNino8U05W6LfFMT
-	 3r9wNwBcZ1YhChkCUgdA+NRVCb7VyWBV39o7avsjXGKfHUerm4lBc8vIRNsLzeQtUF
-	 yfKpi6wGkGD+g==
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="tL3ldWex"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=m6jv1w2l5pSZTcWzDdhssO8hH6rvY6jkG7tNNwArU5g=; b=tL3ldWexjTh537HWxjnSmN0xK3
+	GCpPSrlATuOcZFawODjIGY05kEtdeImCOJg05ErgeKYg36+cdC0hxyt+aimoUF/bhRIhfIONA4Zma
+	xgY+IqU4zt22AXrdYGOu7mu/ov3QuKIZX+yTB/a6xYDDRwRjk0pB5+eBRbC48H/+IxKg=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wp880-00Er08-MC; Wed, 29 Jul 2026 19:31:36 +0200
+Date: Wed, 29 Jul 2026 19:31:36 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Vasilij Strassheim <v.strassheim@linutronix.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Russell King <linux@armlinux.org.uk>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	Martin Kaistra <martin.kaistra@linutronix.de>
+Subject: Re: [PATCH 4/4] net: dsa: soce: Add initial driver support for MRS
+ switches
+Message-ID: <b45edf4e-3312-4e73-8967-39b9b1e0701b@lunn.ch>
+References: <20260729-devel-vstrassheim-soce-dsa-ml-v1-0-be569dae1b20@linutronix.de>
+ <20260729-devel-vstrassheim-soce-dsa-ml-v1-4-be569dae1b20@linutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 29 Jul 2026 22:56:07 +0530
-Message-Id: <DKB8BQP42BAT.3TZICIQBS85Z3@disroot.org>
-Cc: "Jonathan Cameron" <jic23@kernel.org>, "David Lechner"
- <dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- "Andy Shevchenko" <andy@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, "Peter Griffin" <peter.griffin@linaro.org>, "Alim
- Akhtar" <alim.akhtar@samsung.com>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-samsung-soc@vger.kernel.org>
-Subject: Re: [PATCH 1/3] dt-bindings: iio: proximity: add Sharp GP2AP070S
- proximity sensor
-From: "Kaustabh Chakraborty" <kauschluss@disroot.org>
-To: "Joshua Crofts" <joshua.crofts1@gmail.com>, "Kaustabh Chakraborty"
- <kauschluss@disroot.org>
-References: <20260723-gp2ap070s-v1-0-b8ca3a4c10dd@disroot.org>
- <20260723-gp2ap070s-v1-1-b8ca3a4c10dd@disroot.org>
- <20260723234751.5ff138bd@systembl0wer>
-In-Reply-To: <20260723234751.5ff138bd@systembl0wer>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260729-devel-vstrassheim-soce-dsa-ml-v1-4-be569dae1b20@linutronix.de>
 
-On 2026-07-23 23:47 +02:00, Joshua Crofts wrote:
-> On Thu, 23 Jul 2026 22:58:33 +0530
-> Kaustabh Chakraborty <kauschluss@disroot.org> wrote:
->
->> The GP2AP070S is a proximity sensor designed and manufactured by Sharp
->> Corporation. Unlike the other GP2AP* schemas, this is strictly a
->> proximity sensor and NOT an ambient light sensor.
->>=20
->> For power supplies, it expects two voltage supplies, one for core and
->> other for driving the infrared LED which is used to measure proximity
->> distance.
->>=20
->> This chip has been used in production mobile devices such as the Samsung
->> Galaxy J6.
->>=20
->> Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
->> ---
->
-> ...
->
->> +  vdd-supply:
->> +    description: Voltage supply for the internal circuitry
->> +
->> +  vled-supply:
->> +    description: Voltage supply for the IR LED
->> +
->> +  proximity-near-level: true
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +  - interrupts
->
-> vdd-supply and vled-supply are definitely required.
+> +static int soce_sw_probe(struct mdio_device *mdiodev)
+> +{
+> +	const struct soce_variant_desc *variant;
+> +	struct device *dev = &mdiodev->dev;
+> +	struct device_node *switch_node;
+> +	struct soce_dsa_local *local;
+> +	const char *soce_compatible;
+> +	struct soce_priv *priv;
+> +	u32 numports;
+> +	int ret;
+> +
+> +	priv = devm_kzalloc(&mdiodev->dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	priv->ds = devm_kzalloc(&mdiodev->dev, sizeof(*priv->ds), GFP_KERNEL);
+> +	if (!priv->ds)
+> +		return -ENOMEM;
+> +
+> +	priv->ds->dev = dev;
+> +	priv->ds->priv = priv;
+> +	local = &priv->local;
+> +
+> +	switch_node = of_parse_phandle(dev->of_node, "soce,switch-ip", 0);
+> +	if (!switch_node) {
+> +		dev_err(dev, "missing or invalid switch IP reference\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	ret = of_property_read_string(switch_node, "compatible",
+> +				      &soce_compatible);
+> +	if (ret) {
+> +		dev_err(dev, "missing compatible property in %pOF\n",
+> +			switch_node);
+> +		of_node_put(switch_node);
+> +		return -EINVAL;
+> +	}
+> +
+> +	variant = soce_match_variant(soce_compatible);
+> +	if (!variant) {
+> +		dev_err(dev, "unsupported compatible '%s' in %pOF\n",
+> +			soce_compatible, switch_node);
+> +		of_node_put(switch_node);
+> +		return -ENODEV;
+> +	}
+> +
+> +	ret = of_property_read_u32(switch_node, "soce,num-ports", &numports);
+> +	if (ret) {
+> +		dev_err(dev, "missing soce,num-ports in %pOF\n", switch_node);
+> +		of_node_put(switch_node);
+> +		return -EINVAL;
+> +	}
+> +	if (numports == 0 || numports > SOCE_MAX_NUM_PORTS) {
+> +		dev_err(dev, "invalid soce,num-ports %u (max %d)\n", numports,
+> +			SOCE_MAX_NUM_PORTS);
+> +		of_node_put(switch_node);
+> +		return -EINVAL;
+> +	}
+> +
+> +	local->base_addr = devm_of_iomap(dev, switch_node, 0, NULL);
+> +	if (IS_ERR(local->base_addr)) {
+> +		dev_err(dev, "failed to map switch register space for %pOF\n",
+> +			switch_node);
+> +		of_node_put(switch_node);
+> +		return PTR_ERR(local->base_addr);
+> +	}
+> +
+> +	priv->ds->ops = &soce_switch_ops;
+> +	local->mdio_ops = variant->mdio_ops;
+> +	local->mdio_master_addr =
+> +		local->base_addr + variant->mdio_master_offset;
+> +	local->layout = variant->layout;
+> +	of_node_put(switch_node);
+> +
+> +	priv->ds->num_ports = numports;
+> +	ret = soce_sw_parse_port_mdio(priv, dev, numports);
+> +	if (ret)
+> +		return ret;
+> +
+> +	dev_set_drvdata(&mdiodev->dev, priv);
+> +
+> +	dev_info(dev, "soce %s SDSA driver probed.\n", soce_compatible);
+> +
+> +	return dsa_register_switch(priv->ds);
+> +}
 
-Only marking vdd-supply as required as some chips are able to draw LED
-power from vdd-supply instead of its own regulator.
+Looking at this struct mdio_device *mdiodev is not used, other than
+for ->dev. Is this device actually on an MDIO bus?
+
+	Andrew
