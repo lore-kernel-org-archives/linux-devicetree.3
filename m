@@ -1,176 +1,159 @@
-Received: from ixit.cz (ixit.cz [185.100.197.86])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FBC1469823;
-	Wed, 29 Jul 2026 17:08:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C4EE469842;
+	Wed, 29 Jul 2026 17:11:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785344902; cv=none; b=O9jZmCCRHgizMoZG9dMrEtIRzBSpIJqLL4N0yu5Z9i9BJPcJ4OeSCEU1RFUhbASepugurpWlRrP9epXcSY5h86wifJgIUKZhkest36/Qz5XwsVr0fgHAjQ1tuUmntbxWL//Sy3BvAFAWvrqkmakt/llFrQkdx5H6R7+4RO2i+ws=
+	t=1785345080; cv=none; b=A1U1dry/jk4z9T88onW/aTePOU4T9BiAhMxEB/ie7zlddF1nSotj1E6yzbq7VH2o/ADmXA8yeNnY/neG2y+3lxvgDt5K5yL/lL/iyMpyRg580/HdsyBHt7y/KSWInzcHxDWzapCIchaGJ2Bxsf9tnBPJuskdhPb3UxL5O0iElWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785344902; c=relaxed/simple;
-	bh=XUgSEOECOk87snbrtqy2YpMZLdGVK8ibAtYx5elhhy4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZFmiCaEtkw/woIbzB7y+5SyCVorWv3Aw+oVMruJqKVWSiVyvFfwQE6tcdtXWJ0/bGuzlb7u/cQldpCGm1j+vLsj/OEndSsmTxi7LRaNlhqyzdG+L3iIWsK1o6PsP/q/Mji4I1pIBb25d3XnrHZfq0/GRddNdRK/0ZUujH4JM4cU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=ZRvZzKTP; arc=none smtp.client-ip=185.100.197.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1785345080; c=relaxed/simple;
+	bh=GIBr0e6Qohif1hY06+maXM2OC1Sl/W3PH7t2MyVcScU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XNfmgPZRqeW5b+dBuNjHDk/+1JyEf4tYoJuihyAadRXzOza2BYOV/k8O1u/5WTcZZO568KT8tExyV0vOeK/L3dI9IG5SYQ4Mb+tCeEwxuG1l5nQygJQtK0h/j02r0uUVBM5WA7I92vbXREnVqpfioyB4meetNosrCdCgGNOccuY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D+xvFhIs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="ZRvZzKTP"
-Received: from [192.168.1.182] (ip-62-24-73-79.bb.vodafone.cz [62.24.73.79])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id C583D53402BF;
-	Wed, 29 Jul 2026 19:07:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1785344878;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=QeAwVZh/2cBTMk1KlZMpikSQXyD36r/uXve28Tg4hyQ=;
-	b=ZRvZzKTPylb9mf639FGieM5CPFwSVqqKARfIGGJwtImAnsQMUb6x8BJ1DJn18H88UTuJCL
-	7FzTUEZ/ATeDzReWBVum+G1JixDQc+WmktLaunJzrrnYADlxZzh4nZ80GzrRD4kxK3e72o
-	f6VhVV2QVgMzjk16tAf58afE+FM4yU8=
-Message-ID: <cadefce1-076b-4349-9d96-80d524652017@ixit.cz>
-Date: Wed, 29 Jul 2026 19:07:53 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D+xvFhIs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4021B1F000E9;
+	Wed, 29 Jul 2026 17:11:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785345078;
+	bh=iXYKxTlvKOPippmrUXWMD36DOpAVWQ48cIit+L9UArY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=D+xvFhIsKkKhmLHd4/ZZLEC8kNSyQ3xI5wXBZnn53LCrz03r22XcNQC1EUPzFHlyo
+	 Nj7yeW6UkNXEQDrVfJw5cbemHzGETOMfgItY+j8kbXj55YFwrrnls23Smq1MRT5Na2
+	 69p530IzNe0WckUJUnONj8N4gtOYc6W6g+apZ2D1C9GhzuFwd/YMvb28gE4PHPQxLi
+	 sdg2h0Eea0N9QsZ1jXf+P+hLXvsqtvdb4+LIq/nQjGrSj3CqgI2fK+UatQtGFDwzhw
+	 b00LG7C0tupWlFcalfGKV6Vh3GqxTkMFhqpTuIimCvaIz6Eei2qzAFLGoo7Bcd+nyx
+	 OSDerIKTmR80A==
+Date: Wed, 29 Jul 2026 18:11:14 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Kim Seer Paller <kimseer.paller@analog.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux@analog.com,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] dt-bindings: iio: dac: add adi,ad5710r.yaml
+Message-ID: <20260729-empower-suitcase-bca517bf113e@spud>
+References: <20260721-iio-ad5710r-upstream-v2-0-324949dc72da@analog.com>
+ <20260721-iio-ad5710r-upstream-v2-2-324949dc72da@analog.com>
+ <20260721-clustered-jolliness-30d70a2acc49@spud>
+ <20260724225738.2e090842@jic23-huawei>
+ <20260728-selected-pancake-8fa8a066f95d@spud>
+ <20260728214450.121b6a69@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/7] dt-bindings: Orientation defines
-To: Kieran Bingham <kieran.bingham@ideasonboard.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jacopo Mondi <jacopo@jmondi.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, Jimmy Su <jimmy.su@intel.com>,
- Matthias Fend <matthias.fend@emfend.at>,
- Mikhail Rudenko <mike.rudenko@gmail.com>,
- Daniel Scally <dan.scally@ideasonboard.com>,
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
- Michael Riesch <michael.riesch@collabora.com>,
- Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
- Sylvain Petinot <sylvain.petinot@foss.st.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Paul Elder <paul.elder@ideasonboard.com>,
- Martin Kepplinger <martin.kepplinger@puri.sm>,
- Quentin Schulz <quentin.schulz@theobroma-systems.com>,
- Tommaso Merciai <tomm.merciai@gmail.com>,
- Svyatoslav Ryhel <clamor95@gmail.com>,
- Richard Acayan <mailingradian@gmail.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, Heiko Stuebner <heiko@sntech.de>
-Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
- linux@ew.tq-group.com, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
- Conor Dooley <conor.dooley@microchip.com>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-References: <20260628-kbingham-orientation-v3-0-4ed92968aff8@ideasonboard.com>
-Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20260628-kbingham-orientation-v3-0-4ed92968aff8@ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="3TzUSDQHa89c6W6X"
+Content-Disposition: inline
+In-Reply-To: <20260728214450.121b6a69@jic23-huawei>
 
-On 28/06/2026 12:22, Kieran Bingham wrote:
-> Add a new dt-bindings/media/video-interface-devices.h header that
-> initially supports the Orientation types and convert existing users
-> throughout the code base.
-> 
-> v3 collects tags, and fixes the typo, but drops all hunks that do not
-> apply on the media-next tree so that these changes can be merged. Once
-> the core feature is accepted a second sweep will convert remaining (new)
-> additions of the orientation field.
-> 
-> v2:
->   - Now expands from the original v1 "dt-bindings: media: Add macros for
->     video interface devices" to update
->     Documentation/devicetree/bindings/media/video-interface-devices.yaml
->     and extend to actually change all users to the new types.
->   - Link to v2: https://lore.kernel.org/r/20260626-kbingham-orientation-v2-0-47178be927b4@ideasonboard.com
-> 
-> v3:
->   - Fix the arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi
->     MEDIA_ORIENTATION_REAR to MEDIA_ORIENTATION_BACK
->     - Though this patch is dropped from this series to post the main
->       integration through the media tree.
->   - Drop (temporarily) changes to:
->      - arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi
->      - arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
->      - arch/arm64/boot/dts/rockchip/rk3588-rock-5b-plus-radxa-cam4k-cam0.dtso
->      - arch/arm64/boot/dts/rockchip/rk3588-rock-5b-plus-radxa-cam4k-cam1.dtso
->   - Non applying changes will be re-posted after the core feature
->     lands in linux-next, or after those changes appear in media-next.
-> 
-> ---
-> Kieran Bingham (7):
->        dt-bindings: media: Add macros for video interface devices
->        media: dt-bindings: video-interface-devices: add video-interface-devices.h references
->        dt-bindings: media: i2c: Utilise video-interface-devices enums
->        arm64: dts: freescale: Convert to new media orientation definitions
->        arm64: dts: qcom: Convert to new media orientation definitions
->        arm64: dts: renesas: Convert to new media orientation definitions
->        arm64: dts: rockchip: Convert to new media orientation definitions
-> 
-series,
-Reviewed-by: David Heidelberg <david@ixit.cz>
+--3TzUSDQHa89c6W6X
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Thank you!
-David
+On Tue, Jul 28, 2026 at 09:44:50PM +0100, Jonathan Cameron wrote:
+> On Tue, 28 Jul 2026 16:41:26 +0100
+> Conor Dooley <conor@kernel.org> wrote:
+>=20
+> > On Fri, Jul 24, 2026 at 10:57:38PM +0100, Jonathan Cameron wrote:
+> > > On Tue, 21 Jul 2026 16:52:10 +0100
+> > > Conor Dooley <conor@kernel.org> wrote:
+> > >  =20
+> > > > On Tue, Jul 21, 2026 at 04:47:11PM +0800, Kim Seer Paller wrote: =
+=20
+> > > > > Add device tree bindings for the Analog Devices AD5710R/AD5711R
+> > > > > 8-channel 12-/16-bit Configurable IDAC/VDAC.
+> > > > >=20
+> > > > > Signed-off-by: Kim Seer Paller <kimseer.paller@analog.com>
+> > > > > ---
+> > > > >  .../devicetree/bindings/iio/dac/adi,ad5710r.yaml   | 143 +++++++=
+++++++++++++++   =20
+> > > >  =20
+> > > > > +patternProperties:
+> > > > > +  "^channel@[0-7]$":
+> > > > > +    $ref: /schemas/iio/dac/dac.yaml#
+> > > > > +    type: object
+> > > > > +    description:
+> > > > > +      Represents the external channels which are connected to th=
+e DAC.
+> > > > > +
+> > > > > +    properties:
+> > > > > +      reg:
+> > > > > +        description: Channel number
+> > > > > +        items:
+> > > > > +          minimum: 0
+> > > > > +          maximum: 7
+> > > > > +
+> > > > > +      adi,ch-func:
+> > > > > +        description:
+> > > > > +          Channel output type. Use CH_FUNC_VOLTAGE_OUTPUT for vo=
+ltage
+> > > > > +          output or CH_FUNC_CURRENT_OUTPUT for current output.
+> > > > > +        $ref: /schemas/types.yaml#/definitions/uint32
+> > > > > +        enum: [1, 2]   =20
+> > > >=20
+> > > > Please make this property a string. =20
+> > >=20
+> > > It's an existing binding.  I guess it is generic enough that perhaps =
+we
+> > > should make it a generic channel property and as part of that we can
+> > > flip over to a string. =20
+> >=20
+> > Ah, if it is something already established then it can stay as-is.
+> >=20
+> > > We may need to create a top level channels.yaml to cover both ADC and=
+ DAC
+> > > channels though and reference that from both files. =20
+> >=20
+> > I mean yeah, that was one thought I had originally about the
+> > spi-device-address property. I'm surprised there's already not more
+> > commonality to begin with.
+> >=20
+> > Just how common is some sort of "channel function" property and how
+> > many devices are bastardising other properties like diff-channel with a
+> > virtual channel to achieve the same result?
+>=20
+> I don't think it is that common to mix different things that can be
+> read on the same pin beyond a simple ADC / GPIO that we tend to
+> handle by just not having the ADC channel specified.  Still there
+> is clearly a non zero number of devices that do.
+>=20
+> I can't immediately recall the virtual channel trick you suggest
+> being used except when it is routing from a different place
+> in a SoC which to me is a different input via a mux, rather than
+> mode of the channel.=20
+
+It may be my lack of understanding of the devices, I just recall there
+being use made of diff-channels to map to different internal references,
+which felt like the kind of thing that someone might see a generic
+"channel mode" property and use to achieve that goal instead.
+I think the current approach using diff-channels is fine, even if it
+isn't a real "channel" represented by a pin, I just don't want to see
+two approaches for the same result (not that this particular binding is
+doing that at all)
+
+--3TzUSDQHa89c6W6X
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCamo0MQAKCRB4tDGHoIJi
+0t1IAQCK5TG2TzJwkgyLhjLEp8WPPLff6z6lHtL06dxokCExrQD+KaaObozNfhLK
+DX+jr9aUjLtOgtIJtYR2Npjv511u6Qc=
+=KTuR
+-----END PGP SIGNATURE-----
+
+--3TzUSDQHa89c6W6X--
