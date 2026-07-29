@@ -1,126 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D97EF395AF4
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 10:38:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70223446C01
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 10:42:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785321534; cv=none; b=ddgBMwX/Jp88udkEai4oMCep9NZE55FlXehiEbJxJvVJhGEacbL51yDeE4cLuGB2JfHQdn4iE1Y6Ht8Wxdco1BF/tclFQ/fpniMhkoYFP335w0zG37pKnu2fEqqFI5NW6rEnR781rbW1liCldJX1XWua3Ui9561cDAdq+OWlNIA=
+	t=1785321754; cv=none; b=nN2txXor1aLMQYUnxVeLuWZDXGCdZfHO4rPUDtDlhsC6B50+MUtKqAeXzPne6QZtU4QvojT3CN5TZCCAzEaRmSvlO5QRUKkSN5JHipLRpgYOCqEVYYnQKrHAQKhslsZIfmP09k+xHLPul6sQx2EjICtt8pSqFdJ6WfguLHOyBDI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785321534; c=relaxed/simple;
-	bh=5l945be6IsKm4BJgWGrLU7vYt9LQNEpLM9cQS/FmvWM=;
+	s=arc-20240116; t=1785321754; c=relaxed/simple;
+	bh=otLTJVv5EptweQY8zjnrdWfPZBg5pE+xxkmF+MrQUh0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IAayPo0FXX/baLNc7dNSGw/DRdsKtKXiIJql8RKSkj3lrs0BbpRQ0/mhLP1cqDx2m3Cb7I988H1LeVIAteyZTs4F6dOKG4kIqWqOA4h/rAn3c2roe/GDPn1BcYrp6nm5xf6h40X8UaamtNI7RrbEzT6YO1oMi4j8K11QxdJHYco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kyFolm9o; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=fTFUgj0JQFYnE903qS60vqfAqG8ApPNhy39qDfJz3bNbPvABs/zWLrxQTl6SliXvoe3XxlXbxgjUlZOLyp6kIda8oR3yF/81Ul9ZkkpVwgW+WlR7iCuukcXoOQfW5ya1UpXp1c1OV5PFh9FUb+GiH8paQgeIOfd8AP2k4KQXhj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fu/1Pis9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kyFolm9o"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 282791F000E9;
-	Wed, 29 Jul 2026 10:38:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fu/1Pis9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C3BF1F000E9;
+	Wed, 29 Jul 2026 10:42:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785321532;
-	bh=oSL86/m+FmrzcXLpJ3pDOHUL9c1KLdmt3STM71WIAn8=;
+	s=k20260515; t=1785321747;
+	bh=7aafAII75zFOwDIet+zxccb/wH6Cjbph1bV4JdIARek=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kyFolm9oIdtLvqRn+hIe9Zz+TsPBPyvkqm9C8x3u3zHwy0ETYZhrZV6uac42Mk3d/
-	 bX47E0ZhZDU/VFRzUkA2ZMKXQDhXOJxOwTBmgiNFr1JCW5VXQBQvRXU/RCeSwkHpI4
-	 FE61YOeo9lla7h1uyiQR/2gNyopzuDNcMSHkg32LrAVuQcvTdAC4xCQcuY6qk+xiML
-	 oYskmyI5RyJ461nWFCaAApCAub51IOHETC/Zx4GwyKh2ce5wG/TzPqvB/lbDS2VCXs
-	 sw/QbAtFgaX6lhZTMm/xF2TPGYV7pvczgc4Piw/FiMJDXZEp952+w1ZmyqquGty3qE
-	 cERtmBw5Ben7Q==
+	b=Fu/1Pis9KDEBb0e55Wp7zy84pUeAILmyunJ6fsj5w54DCIYth7lEeeeiD3bK3LznH
+	 pGo3b6j5+5v8adIrDrnSsQLesYK0uOQrCh0l2HG3rvOUk/15zjRiZCTVhd2GDvCGgS
+	 CNd9Lx9NwAI0tZ3GFHXRYZABtfsWBU0AOCa8M5l1pV4UpxpjNr0F0V6ejdrRjFCTKv
+	 k2pgNLBI5rr7LK//Eh6HFTP4P3k9ka6O+OIFr6JJUFnb44r9k+VlaBrtuEq1b1Ozmp
+	 L1bXU4P0B2AZj4z5lq1VvC5DIUmjT14rC6Qhsh7LqVL1rgkDx4eVm/VtaLIdniqxko
+	 +WiEL/9LuKT3Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v19 4/4] crypto: spacc - Add SPAcc Kconfig and Makefile
+Subject: Re: [PATCH v19 3/4] crypto: spacc - Add SPAcc AUTODETECT Support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Pavitrakumar Managutte" <pavitrakumarm@vayavyalabs.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260729102547.159890-5-pavitrakumarm@vayavyalabs.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260729102547.159890-4-pavitrakumarm@vayavyalabs.com>
 References: <20260729102547.159890-1-pavitrakumarm@vayavyalabs.com>
- <20260729102547.159890-5-pavitrakumarm@vayavyalabs.com>
+ <20260729102547.159890-4-pavitrakumarm@vayavyalabs.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 29 Jul 2026 10:38:51 +0000
-Message-Id: <20260729103852.282791F000E9@smtp.kernel.org>
+Date: Wed, 29 Jul 2026 10:42:26 +0000
+Message-Id: <20260729104227.3C3BF1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Hardware tuning parameters are hardcoded via Kconfig options rat=
-her than dynamic configuration mechanisms.
-- [Low] Redundant 'default n' and inconsistent indentation in help text.
-- [Low] Missing 'depends on HAS_IOMEM' for an MMIO-based driver.
+- [High] Unbounded wait_event() in spacc_check_modes() can hang the kernel =
+unkillably on hardware failure
 --
 
---- Patch [4]: [PATCH v19 4/4] crypto: spacc - Add SPAcc Kconfig and Makefi=
-le ---
-commit 976ac00ba3bdbdaaa6d1e32b6172c60030c0e6b9
+--- Patch [3]: [PATCH v19 3/4] crypto: spacc - Add SPAcc AUTODETECT Support=
+ ---
+commit 962d554e2ceb06aab36f424093e873ccc473ceb6
 Author: Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
 
-crypto: spacc - Add SPAcc Kconfig and Makefile
-   =20
-This commit introduces the Makefile and Kconfig definitions for the new
-SPAcc (Security Protocol Accelerator) crypto driver.
+crypto: spacc - Add SPAcc AUTODETECT Support
 
-> diff --git a/drivers/crypto/dwc-spacc/Kconfig b/drivers/crypto/dwc-spacc/=
-Kconfig
-> new file mode 100644
-> index 0000000000000..b528c8e47b3b5
-> --- /dev/null
-> +++ b/drivers/crypto/dwc-spacc/Kconfig
-> @@ -0,0 +1,82 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +
-> +config CRYPTO_DEV_SPACC
-> +	tristate "Support for dwc_spacc Security Protocol Accelerator"
-> +	depends on HAS_DMA
+This commit adds autodetect configuration support to the SPAcc driver.
+It attempts to automatically detect the supported cryptographic algorithms
+at runtime instead of relying on a static configuration.
 
-[Severity: Low]
-Does this driver need a dependency on HAS_IOMEM? The Kconfig option
-CRYPTO_DEV_SPACC_DEBUG_TRACE_IO notes tracing of MMIO, indicating the driver
-uses memory-mapped I/O. Without this dependency, randconfig builds might fa=
-il
-on architectures that lack MMIO support.
-
-> +	select CRYPTO_ENGINE
-> +	select CRYPTO_HASH if CRYPTO_DEV_SPACC_HASH
-
+> diff --git a/drivers/crypto/dwc-spacc/spacc_core.c b/drivers/crypto/dwc-s=
+pacc/spacc_core.c
+> index b4eaab534c8ee..ec77a13612756 100644
+> --- a/drivers/crypto/dwc-spacc/spacc_core.c
+> +++ b/drivers/crypto/dwc-spacc/spacc_core.c
 [ ... ]
-
-> +config CRYPTO_DEV_SPACC_PRIORITY
-> +	int "VSPACC priority value"
-> +	range 0 15
-> +	default 1
-
-[Severity: Medium]
-Would it be better to configure hardware tuning parameters like arbitration
-priority and internal counter timeouts dynamically (e.g., via module
-parameters or device tree)? Defining them in Kconfig bakes the values into
-the kernel image at compile time, which prevents configuring different
-SPAcc instances with varying parameters on a multi-platform kernel.
-
-> +	help
-> +	  Default arbitration priority weight for this Virtual SPAcc instance.
-> +	  Hardware resets this to 1. Higher values means higher priority.
-
-[ ... ]
-
-> +config CRYPTO_DEV_SPACC_CONFIG_DEBUG
-> +	bool "Enable SPAcc debug logs"
-> +	default n
-> +	help
-> +          Say y to enable additional debug prints and diagnostics in the
-
-[Severity: Low]
-This isn't a bug, but should the 10-space indentation on this line be
-replaced with a standard tab and two spaces to match Kconfig styling
-guidelines? Also, the 'default n' on the preceding line is redundant
-since Kconfig options default to 'n' if no other default is specified.
-
-> +	  SPAcc driver. Disable this for production builds.
+> +	err =3D spacc_packet_enqueue_ddt(spacc, rc, ddt, ddt, proclen, 0,
+> +				       aadlen, 0, 0, 0);
+> +	job =3D &spacc->job[rc];
 > +
-> +endif # CRYPTO_DEV_SPACC
+> +	if (err =3D=3D 0) {
+> +		/*
+> +		 * No timeout, not interruptible: this only returns once
+> +		 * job_done is actually true, i.e. the hardware has
+> +		 * genuinely relinquished the job. That guarantees it is
+> +		 * always safe to close the job/context and (via the
+> +		 * caller) free the DMA buffer immediately below --
+> +		 * there is no "unconfirmed" case left to handle.
+> +		 *
+> +		 * Tradeoff: if the hardware ever genuinely fails to
+> +		 * complete a submitted job, this hangs here
+> +		 * unkillably (TASK_UNINTERRUPTIBLE, no timeout) for the
+> +		 * rest of probe. Accepted deliberately in place of the
+> +		 * abandoned-job/UAF risk of giving up early with no
+> +		 * hardware cancel available.
+> +		 */
+> +		wait_event(job->waitq, job->job_done);
+                ^^^^^^^^^^
+
+[Severity: High]
+Is it safe to use an unbounded wait here?
+
+If the hardware is faulty or drops the interrupt, wait_event() will hang
+indefinitely in TASK_UNINTERRUPTIBLE (D-state). If the driver is built-in,
+this would hang the entire kernel boot process. If it is loaded as a module,
+it permanently hangs the loading process.
+
+While the comment explains this is a deliberate tradeoff to avoid a
+use-after-free, could we use wait_event_timeout() instead? If the timeout
+expires, the driver could fail the probe and intentionally leak the DMA
+buffers and job context (or reset the hardware block) to safely prevent the
+UAF without permanently hanging the system.
+
+> +
+> +		job->job_done =3D 0;
+> +		err =3D job->job_err;
+> +	}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729102547.1598=
-90-1-pavitrakumarm@vayavyalabs.com?part=3D4
+90-1-pavitrakumarm@vayavyalabs.com?part=3D3
