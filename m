@@ -1,171 +1,162 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1444B39658D
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 10:51:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B01744611C2
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 10:52:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785322312; cv=none; b=gqPNyekgkk5qalTzP/GAylZuXL/q04IqXkDo3qHXIkA3v03bbyCvB7V24iYKolHSqG5EFRp4+rKG6+0GgL30pSRpFYc4FiHrd/JBppK1qhqGuPh6/itzyxxOqCYgGN425QOp1kjEmeLmJZQjn/yMQs0DsyD+8HYTfrZfjfV0MXM=
+	t=1785322346; cv=none; b=k1HNwt/8N3i0FxoJ0BZarGoaGW/oHruSPRtVi0SYpNNdG5ok3h9JVKZwDkAPyEtGEKu/YhR+eSPYvKpHJPbMyC5T5B4XzWjTpfWyW08i9UtTYUfcArbK0t9mEbdnKo/Lu+WKvUH2wxM3TeSri0RBNTqBxQdVIt+MQG40TaNSIVw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785322312; c=relaxed/simple;
-	bh=4JPrL1boeP0zkJkJ6n1n+sxuwrxfu+vFwO3zzo8geME=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GYIPACMbUzSxV208xfmY3Hc4WvXpItep/Enr1CzHhHTMEDZmjQXtkMzjk3DN25ywLJqw1KID5uE8IaXoRi9b1mQnjXQMvWxmP3/RGsI3fWl1U9LAoAjjJEdr2ZRwtoAnbP8ahresUXVJEZoyOtU8OvJQZvug85C+dWicswk70DQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mvbLkTSM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Ct222NTC; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785322346; c=relaxed/simple;
+	bh=dkn99kzl89UH+0qwq+1682GCiFy38KgRMzlk5Rr9Kcg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=GLFVQM48j50IxmrzN03SAM4CVZVqvc7SJLIP2zzqdD14L0R06nL7kTOO04fhU+QuNVNsfTTAhVfF/M1K722rVtWGYkbfqaiqINPKSwYW1gGxoJ/7YvnxnjUxaC2NTOnQPXkukXZT2yW15uY7A9DEfuK4PEW+3vjNqFPnnYRj0c4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mBag6JT7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mvbLkTSM";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ct222NTC"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66T7f80S683437
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 10:51:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	z4VD1fGnOXstdgV6tE+n0grMbMG2QfBdfgX8jxY7iFQ=; b=mvbLkTSMvhH6rH+K
-	qf7I9UU+VM4teGLw6652DeNREAADp6eQAIyRbnS66W9Xxc6TO8jYdZTsSGxOBUjx
-	jMUNCnlblom5znP1NWOtPMfURWC9fJAjDkE0TGf41BOmub1oyqNlkW6VAWfFD1cW
-	ibocvoKfYrwNbHpaS07J76BfPAQaXV3qwF3GF4/UP5mG6Cyw07DWK7qOjYI3Aiyj
-	w+8wic3mIbGzRUPfo+nRDyDzeJIITwiXyAV7jJAzzpZ5Htlax9tAQc3h/3/ohgLp
-	qmHcWh33kBqHSC9UU9sgdACD7/FcaQ34+bSQS/4mV0JiIf1heVKfVoB0n+q3v1eb
-	8I9mKg==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fqbn1s8hy-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 10:51:50 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51c20762d21so10438261cf.0
-        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 03:51:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785322309; x=1785927109; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=z4VD1fGnOXstdgV6tE+n0grMbMG2QfBdfgX8jxY7iFQ=;
-        b=Ct222NTCji9dlQbt9Qs4sgLa1ePEq9ndcb/nsaeEvnxfYNC7erP1C1RSNj86FgXxsC
-         6PkixXAMQ5ac73GD8o9j8T5Vjdn/fpwcxX15Hd5WNqwcVX02uEXk0eejwNpuao9bzHif
-         0TSJKHW9F0l9MFZsxI7yiuC42dRUpjzhKP5PZ69zXm9al73KUCCxYt8w6h71rPF4nCIM
-         HUyn/kz/elxmju/+ajg3fFKf8+fcHafvaCV0k1k3WI+XW0e0tNFAcnMVYl3R7qYp/SVm
-         Ata3hq5RejwZvC4zb6i/4rn4KsQEEc/QNNynhp5tTQqXUoE1aJqe5j8yodehnoWsLZr8
-         7heQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785322309; x=1785927109;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=z4VD1fGnOXstdgV6tE+n0grMbMG2QfBdfgX8jxY7iFQ=;
-        b=DFHUS9AZRMHS519dYqQyE55TSertX6ij+6F/XsMmqt2v5Grv2DomxUQF1okruASjU0
-         g0nyW+Xh4iLtiSaj7taZ1tsxmeI7QqBO8RKnLp9uDAdO45gZe1U+f1i4MY+L9IYWP1wp
-         0tFF0iIIPOght2NTehfaKbiV0H+cTfVqUOpIek+z4F8yyVmAHZl5Fbt9baj3IogQHydT
-         cvs/8nu7u1COgWEkJKoW7vJcWDINwaxDTijgytHyWQAVErSGBtFzoqZtGTN+XB6gno5V
-         Y3lUdsAQghomrhQg9cbgRCP7OWxhvI2x5mD6hOCuw1aT6rbofbXEvhKJpfNEqrPmYDQF
-         KtKQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoC7i99TFmnu6vaEjWEXrfmlrWXgM+TN+/s5hkV3mIvurSJSZzz9IL1mFv6Lg/HsPV92P48S+ymbUC3@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy5bS/+hEDh9D1CRz1Skb/gjHgCtVw81hzw6XsYBzpz/7robXXx
-	U+BgaesWOZ7WeExdLiFH4OxuH0o/wzvw+dVPIIhV414aWVBekYw/ye6d1uIvvlU4KBkwJaKMI5m
-	XcSuMYVdzP2c4N9rn2nHSGc3kdpyVV2GR9XDwUPyDt53v8Lh8xrV4to/vjLJsAwsH
-X-Gm-Gg: AR+sD10AfW7S8+vFaex+jrv/MBcUEt7xUn1PfoWJu/5bgGeoEtxe0dRya5rDp2IDZal
-	40qblrCr4P+O4xwGlXjWkVne+3HCRTVGqCfUqwjvCMfTdBkoMiShcTLkqyvMXFmoe0Z+IrsQdaA
-	G+uErk4Y4s44VQ650MXsmksZug0KT/73j7ErE2kIGL4r/0boJhruvlrgUPI0nNh/vRPNVFiNfB5
-	R0bS8Pp382LV0NI882XRaR2P/qRwlajlhq5UDVHB/xlPx4v948nJ0GFkMyAFHUEGRH0DZpDpxWC
-	c011wdoQA+sPzsC7RBbS1aFuU4YOPAuTs/Vv/LW7f34O297fSDCAPygSOxNm9Og8d0vhNaEkWBl
-	00zAZvNkdevbO4FqHElbZm6YBeTR80e41G9jSI20lccujOYrRaWlnEQf+0zcyOW1mGZ6J0Uhg
-X-Received: by 2002:a05:622a:1e17:b0:51c:7b12:1207 with SMTP id d75a77b69052e-529d728801emr49858131cf.85.1785322308962;
-        Wed, 29 Jul 2026 03:51:48 -0700 (PDT)
-X-Received: by 2002:a05:622a:1e17:b0:51c:7b12:1207 with SMTP id d75a77b69052e-529d728801emr49857991cf.85.1785322308550;
-        Wed, 29 Jul 2026 03:51:48 -0700 (PDT)
-Received: from [192.168.1.31] ([85.196.172.179])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a050ae95ffsm697272a12.0.2026.07.29.03.51.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 29 Jul 2026 03:51:47 -0700 (PDT)
-Message-ID: <013e1e65-b9dd-4662-a273-68748271220a@oss.qualcomm.com>
-Date: Wed, 29 Jul 2026 13:51:45 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mBag6JT7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB0E81F00A3A;
+	Wed, 29 Jul 2026 10:52:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785322334;
+	bh=photie4QCGE7ubYTZ3oU7o56noCY1Ic4qjJ/ozKqHvQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=mBag6JT7z+ppGlX966+rNcpEv5LX44nkPy+3Bu/tYGx+chtwqLNpbJ3tudp+d/Yww
+	 JTS9aOoXCa1ujTzfCC5zz6rRt9v2tX7L4hdsT5EDR7XJRltTqVpuMto3a77MCOrwJz
+	 wi7tOmHHhPvRBeTZgAsu/k0CzU0Ku74L+DHRfUZEan7TZdWlIzGPUQUhFwpEYc8zHS
+	 a3pWw6eUO4bbWmMXzMoHvK2Rij/l66+7G/VAAqRV3H0vrogMIcCeNgG8VkK5Fdi3Eb
+	 tv5kDXYoYkLJPBbSbHFpeHF3YS7W9EoBnZfUnottIfQBp85cuJy+mIaDQn4zzb5MSS
+	 mrJ9EKumXMUrw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: hamoa-iot-evk: Describe the
+ PCIe M.2 Key E connector
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Wei Deng" <wei.deng@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260729-hamoa-m2-dts-v2-v3-3-4d7ef9274575@oss.qualcomm.com>
+References: <20260729-hamoa-m2-dts-v2-v3-0-4d7ef9274575@oss.qualcomm.com>
+ <20260729-hamoa-m2-dts-v2-v3-3-4d7ef9274575@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 29 Jul 2026 10:52:14 +0000
+Message-Id: <20260729105214.AB0E81F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/3] dt-bindings: media: qcom: Add JPEG encoder binding
-To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        linux-media@vger.kernel.org
-Cc: mchehab@kernel.org, vladimir.zapolskiy@linaro.org,
-        loic.poulain@oss.qualcomm.com, dmitry.baryshkov@oss.qualcomm.com,
-        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        andersson@kernel.org, konradybcio@kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org
-References: <20260728082548.2511694-1-atanas.filipov@oss.qualcomm.com>
- <20260728082548.2511694-2-atanas.filipov@oss.qualcomm.com>
- <9ac3c44f-2227-44fd-abad-fc85ee57ea13@linaro.org>
- <22caf78c-4855-41c6-8a36-4dde85e3d102@oss.qualcomm.com>
-Content-Language: en-US
-From: "Gjorgji Rosikopulos (Consultant)"
- <gjorgji.rosikopulos@oss.qualcomm.com>
-In-Reply-To: <22caf78c-4855-41c6-8a36-4dde85e3d102@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDA4OSBTYWx0ZWRfX0WXx61uB8oiG
- VVWqjcoApf4W7MU4RGt3WQSyRmDsrOgsJZkTrZewinUdNi5Sm7YjD2DFaTQJVVgnNsDrYGuUlDv
- zSvnVppNdvintnqiYBVJ+Z4H+9VYqRY=
-X-Proofpoint-ORIG-GUID: PUiXbdz8i_zNkm9-Ot_bE7wmGdrUUHVF
-X-Authority-Analysis: v=2.4 cv=csCrVV4i c=1 sm=1 tr=0 ts=6a69db46 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=Q/e3f29T3Hw2hnAEzBPF7w==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=3SnrRBytGKCmZdh1xI8A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDA4OSBTYWx0ZWRfX7ewBNo+KSU67
- qxoBBkMZXaZ0BL4uWLrPgxzk1EdgdorLClc+CouM7CaKeI1NfdmH/0xoaVW19g/tjB434UzoPos
- gnTjCFpxDn9oN7MPU3XFlIgahQz2EjmjmOucvkQB+NromWSBfrK2jzQQGSMhuNveteQHct+yuGK
- xrgT4Uy8piGF4lTOlTmp+S7YMER6UC+SAl7PFAMBGiQHmuZjr0J76rPDgTij//sDqu5DIc746wB
- 1cKtW6Po7RlOQh/nsFkJXJcrHR/xuHrHJ9SmYM/sfWh0CDJHHHlPLsfftaCH769HDByOAVrF/6q
- YvZL7uR1fGhSvVrsFOQysadTvBLJN0Cm0bWhIti/2jxz5+RLosqMOAf3kmuQ6S5S5HLUA6nIQTD
- ZVkoOmS6UEHfVlQTge0x0MOl20KHHotyH7jbAx1+HA9bGAlUBaffSGxveX0D0TOUp2EcvTNePmr
- bQKnz3i00kt/o7G7Gdw==
-X-Proofpoint-GUID: PUiXbdz8i_zNkm9-Ot_bE7wmGdrUUHVF
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-29_03,2026-07-28_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 spamscore=0 phishscore=0 impostorscore=0 bulkscore=0
- suspectscore=0 malwarescore=0 adultscore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607290089
 
-Hi Atanas,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Switching to the M.2 power sequencer framework breaks Bluetooth in=
+itialization because the `hci_qca` driver and the `pwrseq-pcie-m2` driver u=
+se mismatched power sequencer target names, causing probe failure.
+- [High] The `wifi-bt-connector` node omits the 1.8V IO supply (`vpcie1v8-s=
+upply`), breaking strict dependency tracking for the M.2 VIO.
+- [Medium] The removal of the explicit `bluetooth` serdev node drops the `m=
+ax-speed =3D <3200000>` property without an equivalent replacement mechanis=
+m, leading to a Bluetooth throughput regression.
+--
 
-On 7/28/2026 12:28 PM, Atanas Filipov wrote:
-> On 7/28/2026 12:12 PM, Bryan O'Donoghue wrote:
->> On 28/07/2026 09:25, Atanas Filipov wrote:
->>> +
->>> +        power-domains = <&camcc TITAN_TOP_GDSC>;
->>> +
->>
->> I'd expect to see MMCX and MXC in this list.
->>
->> ---
->> bod
-> 
-> The MMCX vote is already covered at the clock controller level.
-> The camcc node in sm8250.dtsi declares:
-> 
->     power-domains = <&rpmhpd RPMHPD_MMCX>;
-> 
-> TITAN_TOP_GDSC is a child power domain of camcc, so when the JPEG
-> encoder enables it the framework walks the parent chain and votes
-> for MMCX through camcc automatically.
-> 
-> This is consistent with cci0, cci1, and camss in sm8250.dtsi --
-> all use only TITAN_TOP_GDSC with no direct MMCX/MX entry.
+--- Patch [3]: [PATCH v3 3/3] arm64: dts: qcom: hamoa-iot-evk: Describe the=
+ PCIe M.2 Key E connector ---
+commit 519be148d37d417828c1284c945a2103a6f63bb5
+Author: Wei Deng <wei.deng@oss.qualcomm.com>
 
-This was commented in v4. Bryan asks JPEG node to explicitly list its full power-domain dependencies.
-Please add MMCX and MXC to the power domain list. I hope that will be enough.
+arm64: dts: qcom: hamoa-iot-evk: Describe the PCIe M.2 Key E connector
 
-Regards,
-~Gjorgji
+This patch replaces the static WCN7850-specific Wi-Fi and Bluetooth nodes
+with a dynamic pcie-m2-e-connector node. It delegates card power and dynamic
+node creation to the pwrseq-pcie-m2 driver. The older dummy regulators and=
+=20
+chip-specific wcn7850-pmu nodes are removed.
 
+> diff --git a/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts b/arch/arm64/boot=
+/dts/qcom/hamoa-iot-evk.dts
+> index c7ba4b353ddd2..a2632554aa83a 100644
+> --- a/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
+> +++ b/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
+
+[ ... ]
+
+> @@ -538,6 +512,55 @@ vreg_wwan: regulator-wwan {
+>  		regulator-boot-on;
+>  	};
+> =20
+> +	wifi-bt-connector {
+> +		compatible =3D "pcie-m2-e-connector";
+> +		vpcie3v3-supply =3D <&vreg_wcn_3p3>;
+
+[Severity: High]
+This node appears to omit the 1.8V IO supply (vpcie1v8-supply) that was
+previously supplied to the PMU as vddio-supply.
+
+Since the pwrseq-pcie-m2 driver uses of_regulator_bulk_get_all() to acquire
+all supplies, and vreg_l15b_1p8 is not marked as regulator-always-on in this
+tree, could the IO domain lose power during runtime if all other consumers
+release the 1.8V regulator?
+
+> +
+> +		w-disable1-gpios =3D <&tlmm 117 GPIO_ACTIVE_LOW>;
+> +		w-disable2-gpios =3D <&tlmm 116 GPIO_ACTIVE_LOW>;
+
+[Severity: High]
+Could the w-disable2-gpios reset remain permanently asserted during Bluetoo=
+th
+initialization?
+
+When hci_qca probes the dynamic Bluetooth node, it attempts to acquire the
+power sequencer using devm_pwrseq_get(&serdev->dev, "bluetooth"). However, =
+the
+pwrseq-pcie-m2 driver appears to register the target as "uart".=20
+
+Will this name mismatch cause devm_pwrseq_get() to fail with -ENOENT,=20
+prompting hci_qca to fall back to parsing direct regulators and GPIOs that =
+are
+no longer present, ultimately failing the probe?
+
+> +
+> +		pinctrl-0 =3D <&wcn_wlan_en>, <&wcn_bt_en>;
+> +		pinctrl-names =3D "default";
+
+[ ... ]
+
+> @@ -1514,19 +1469,10 @@ wcn_usb_sw_n: wcn-usb-sw-n-state {
+> =20
+>  &uart14 {
+>  	status =3D "okay";
+> +};
+> =20
+> -	bluetooth {
+> -		compatible =3D "qcom,wcn7850-bt";
+> -		max-speed =3D <3200000>;
+
+[Severity: Medium]
+By removing this static bluetooth node, we lose the explicit max-speed
+property.=20
+
+Does the new dynamic node generation framework in the pwrseq-pcie-m2 driver
+have a mechanism to inject the max-speed property into the dynamically crea=
+ted
+UART serdev?=20
+
+If not, will the hci_qca driver fall back to a lower default baud rate and
+reduce Bluetooth throughput?
+
+> -
+> -		vddaon-supply =3D <&vreg_pmu_aon_0p59>;
+> -		vddwlcx-supply =3D <&vreg_pmu_wlcx_0p8>;
+> -		vddwlmx-supply =3D <&vreg_pmu_wlmx_0p85>;
+> -		vddrfacmn-supply =3D <&vreg_pmu_rfa_cmn>;
+> -		vddrfa0p8-supply =3D <&vreg_pmu_rfa_0p8>;
+> -		vddrfa1p2-supply =3D <&vreg_pmu_rfa_1p2>;
+> -		vddrfa1p8-supply =3D <&vreg_pmu_rfa_1p8>;
+> -	};
+> +&uart14_ep {
+> +	remote-endpoint =3D <&m2_e_uart_ep>;
+>  };
+> =20
+>  &uart21 {
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729-hamoa-m2-d=
+ts-v2-v3-0-4d7ef9274575@oss.qualcomm.com?part=3D3
