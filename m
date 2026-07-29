@@ -1,87 +1,80 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5992A484245
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 12:55:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAA2F486E44
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 12:55:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785329743; cv=none; b=chJ1qvtgmLG5GsbijP27H+nSzQKOVqnTa6Da8cG94I5v5C3Lv0pUonquX1r+hBB8r60bei8UMX8szsupAO/HivPRP4NKMK4bwM3jSPx0TgHmJPSAbOmiXuN5PxZj7mn45MN4tbFv5x8TUrUvzPuW4gkaUu3rnSZgeQnvzW5QrG8=
+	t=1785329751; cv=none; b=nd13EOiRRP8wwqd6EZ9fDGx55pz1b2H5LwJvbHpDeUuf6qnxrrj+PtO3W/54t4DqL2jB5AnpYM4Jk0ZGAAmKkm0vVbcAM8bToM9DagiSV/VBMeGrF9B7I+3AJ6TNLl/dOR74GUsrb88zX1QQJTsf6PuBeR4koxV5mLNO3eB5w0I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785329743; c=relaxed/simple;
-	bh=thYrugbM4d2KwbV9wG/VWIgAfkIOaVdnFynhoOLCrm0=;
+	s=arc-20240116; t=1785329751; c=relaxed/simple;
+	bh=iRKRIycCvcKqPjLNh88Zh533HoO63Je7dMr06fWDt+c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fmH/pJAPbhVc5l26ea8XkFdda7TQkOZbnhG1P7XfcGjoiqjCfVHKcVMwO1USeS9aGvhxx4NQSEs91Hhl8AFRhaeNipn801EXVUWPD/lME71Fkvv5QivcGuKP4z3+eyFQq7+pyeD3iT3ebh2FxqTzeuZzC2P2jooG2CcBqnRBDkE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=odU5+1IK; arc=none smtp.client-ip=209.85.128.46
+	 MIME-Version; b=EewWWfJrvRyXK+oomfFPB5HFA156HNlxopwZsEkv9WAx3tZzUNcqb4p0RozhdtikN8pvgdHaMPHRkUAwVNpmEbEFUr6GFCwBhqaJKhNsEqjvZowLf2/FSd4DfQe+yUb7ruWwds4zSXS1v4bngg/zfkyXN2jgcBcD76UqJUjXgKE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C8rAMNu+; arc=none smtp.client-ip=209.85.128.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="odU5+1IK"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4956869750eso6610275e9.2
-        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 05:55:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C8rAMNu+"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4957eefd361so6608585e9.1
+        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 05:55:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785329734; x=1785934534; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785329745; x=1785934545; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=3c69RKvA+f6vz1rynv3Xy+wD041KoVVbloyxYN/KJv0=;
-        b=odU5+1IKJwDpQ5e5r81S1YpX4bjT7lyMDgWnAM2YYqnYk1fSd2Js5mBCGU4sXuDTYj
-         XhYNBuhuDuHshPQwrGdZpxe9FPF0ZwBcj4/Lx7guLotwEkpw6iX7GSf3/osOz/b4L5Z/
-         +r0RGcro6WHgBwZBJHK2t74ZFC7TBdFRAVWNfKwmGgvHx+U4z0KtTU8g0aCShIg6sQTj
-         w4w8FLhdTIoh4Vd4GLhn/YlbKSPHABPljZ7qyqJ3nIFr6oBYAhKbtqfDWC4wP3aDhoR8
-         PapjCunO/RB9m9KIHsDq3tJGmJkE5cr7C8FuCGwTMobkty8s/zlsL2BMnwX/IjTIsaAC
-         WvBw==
+        bh=pTuEH5lpMdAEcWjhyDWlMU+ZO+/JKfEhygzkvHRW+1M=;
+        b=C8rAMNu+/uzjiGZrcEvSK7FMbDxwlLMsrJ2g8QKe/96InLR8rFD7cX3CMojjf4nLmG
+         hGAhyl5VU63S8JyiQiq3hSABraO5V5fbS0jQs9OGreyH9KR+iGmsdc36IK6GXiuSy2WW
+         ZH3Lj2/meScmjwfP995wqH7PfhXGsbztQKB42CmeTKT3ldNFhjRLouaQifTofEFgv7P3
+         MNetozXz5rCawZnteiTpWoP9HUEL4HLGO9GG6oUfVH6k0Wgp90OmBEN7pynAYreuYmXw
+         7M8lvHn0sp6FoIbLpRraSVWIGP2KHvfZvY3BMxjbRwIOjRInLD9EyANpIygTxRl9QF8I
+         /vLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785329734; x=1785934534;
+        d=1e100.net; s=20251104; t=1785329745; x=1785934545;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3c69RKvA+f6vz1rynv3Xy+wD041KoVVbloyxYN/KJv0=;
-        b=s8A1kgT24yTJ0H8Bc0TnVNgJOJB6ec+mLfhHxDnn360uPb85a04ICyJdP9pjhSp++Y
-         B8you44rMA0dmdHYXz1Biql0gd1WO7/cnnOfpPDk+3NLRVYqJtPIGuzFm1Yep5L0+BW5
-         N9a6krQzB8QV0loIROfC43vBXWyNwOqg/bUTb04PT0G0TuKWdmb8pSNP3KEf+M5C0c+k
-         EXPlXK3xIfTpbR+Fk0SqPQRjRw3M4aeDrDGER07uXbLn+hVbZhY3HHNKjUFquKA1ui4b
-         gSptG74n/YhqYQ/LG0uYESygtoB24osLLE6gwv5y8pr4s21AACB0yvboux03sjiPCPw0
-         oyYQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpOUHjyKKQlEYkEhWmeYO7dEqiddp7HuwcKy4lpFDZmSFvZCTipUygdqjNN6O9gF9HzoJHnLyQWnVm6@vger.kernel.org
-X-Gm-Message-State: AOJu0YxDB4ba+fZJEG0a3O1iA406x06wrNoF9hrs1sIBPRVoAqKkiZZy
-	KlJs0a2YpdawH0kX0WJiDjOg4KVXF0ULFqz397YT/K3AlrMpOW44uV0t
-X-Gm-Gg: AR+sD10yJhh52yaax+eU4G05NMjAqGMYc1SakPpQqYf/0Txnf3ON8PE7SgLexxUBsjY
-	kzfiEg7WUUYhSF3FfG2/5LQuCw8aHg20lbldSyP37ZQDAlNpYp1mjJVv9GBuNJREA3i9LKfl6T2
-	Zvdf9GOi5M1HPKlb3H4cqeLp1LWU4Efuu65j2Qz+fiqApTgzObtByyP6OBUMAwOfuYMpeAg+kSC
-	EPeglY/WXQKcHhBptj+XW/g7qdKX2Ss4f8bTqqkufOCAthFoiL10/srKClk7bKmLkwmevZ7uwl4
-	91xaHR8zeH99Y4FpLS3xSjGnE96Q3oE0/zRDNXCsVmLFxOwDPaWYwO/5JB14Q3OJ1toDXDAUTm7
-	fM3JHd39WwdKuy3yAFULsPqgX+FMM1orlaTqLXQx0CmZFuZqcLvWcyXA6r5AGbZF/wCXYEjMTtE
-	uvc3NmOom33tUUtK276rB3mqhilbp09C1EZLHAseiIdLMjnVHLT0fBCOTnqMFvBfscNJq7olcLo
-	0hXsmq4fjtlVl1aSwi6iVRZ
-X-Received: by 2002:a05:600c:1384:b0:496:c441:1354 with SMTP id 5b1f17b1804b1-496c65744f0mr79543445e9.29.1785329734116;
-        Wed, 29 Jul 2026 05:55:34 -0700 (PDT)
+        bh=pTuEH5lpMdAEcWjhyDWlMU+ZO+/JKfEhygzkvHRW+1M=;
+        b=Kg/8QY3NtwZSJ36qKhd3OnmRiEjOVcooC1kqHUayKH9PhNSLP0Jmp/y9DbQTYdWK4o
+         PzKQIAA5vnAFfwtUM9SUjstFpcrsGRxgHjHj9MQ2nrzb28uyAGD7AmsYvurtcHtSxArB
+         9xoCXSEJxR9tC9m48K0W3rVHQKIfp7yNonmfiHg7CNpFPQ1XARIKxQHAZ6MPUhwdcWmO
+         6qoxDtJFJTDM66Xnun8W242CRrmdo2oKN1nDGpNaflryVj9RIYgpIXvN9jl8wl4/7JSx
+         mNkAMUgGR0+5UrKvKzt6DhEsqo+iJm1aG4Q6dsS00v0edFRP2L+HMpclh7AleOi+s5sT
+         dPFQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpMo3LxfQHYhfXihLfDO/4SR13oU7wyswRPE50NyOVfDLklu5tj0kJ6HSUvPcWNTTkPsfJdonB3j148@vger.kernel.org
+X-Gm-Message-State: AOJu0YxRqEPvxTni8KrL/yoUSpLqkeXDfxu4qgr++TMoKwVn4JsiJjcP
+	mJHUVvam1ACUOXDpLr4+j0RJvKk5sFyZSLnmmPj2VnQJZxC2ZQ3MIkpD
+X-Gm-Gg: AR+sD10GPJdm5wVYCns5EBm3hmIZ50THINLGO0G8VuudbM+E96HxiJA434tMKUTTExt
+	HSk05o9oAZVoNgW04ErNU0ZZSGQQi1XSmAeN7ytsltjmDIlMbfQpW8i45CQuFI6kXIwzdj4RAGq
+	g6CHw+tIm7LkkZAq54U3pB3UO7lBXy7GDthMJZUM38iynXSZqEtoA4/FxLcGC6e68uat983a6fK
+	Kh9gsTTOw2+RXVwLn/VAQOa48M+vV4Uoe3vxF1LxX3OjGlwZsZz3tknCRskN/V6pyOaNTC3ou7N
+	OpC14Dod2NGTzTS185s9UwR+YeUjyoziqauIXFyGl1mfDUx0F9enVcWqM5iUG8GdjVLTkfmZYAJ
+	JrD9VjgMhWQmKh+ucOPCi/1DBhZAE9uxKnHjJoyv1XJUjmU0XgCmifp2exESXCAM6NvZHhJRuCC
+	RtCCP0LbGcuG6HeA8DbPI5kQF4YV717Bm8KxAP5Ixk76vHZLOm4LFq4uI4KU/20Np8Jud8QqLyZ
+	2IH/Yo/k1Usog==
+X-Received: by 2002:a05:600c:a016:b0:495:6397:14b1 with SMTP id 5b1f17b1804b1-496c65a2d7cmr72308465e9.34.1785329745092;
+        Wed, 29 Jul 2026 05:55:45 -0700 (PDT)
 Received: from localhost.localdomain ([2a00:23c4:a702:d301:10b8:4461:ee04:15e2])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fb6b189e5sm9264645f8f.27.2026.07.29.05.55.32
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fb6b189e5sm9264645f8f.27.2026.07.29.05.55.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Jul 2026 05:55:33 -0700 (PDT)
+        Wed, 29 Jul 2026 05:55:43 -0700 (PDT)
 From: Biju <biju.das.au@gmail.com>
 X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
-To: Biju Das <biju.das.jz@bp.renesas.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>
-Cc: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
-	dri-devel@lists.freedesktop.org,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
 	linux-renesas-soc@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
 	Biju Das <biju.das.au@gmail.com>
-Subject: [PATCH v2 07/16] dt-bindings: display: renesas,rzg2l-du: Document RZ/G3L SoC
-Date: Wed, 29 Jul 2026 13:54:59 +0100
-Message-ID: <20260729125516.230757-8-biju.das.jz@bp.renesas.com>
+Subject: [PATCH v2 13/16] arm64: dts: renesas: r9a08g046: Add DU and DSI nodes
+Date: Wed, 29 Jul 2026 13:55:05 +0100
+Message-ID: <20260729125516.230757-14-biju.das.jz@bp.renesas.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260729125516.230757-1-biju.das.jz@bp.renesas.com>
 References: <20260729125516.230757-1-biju.das.jz@bp.renesas.com>
@@ -95,91 +88,111 @@ Content-Transfer-Encoding: 8bit
 
 From: Biju Das <biju.das.jz@bp.renesas.com>
 
-The DU block on the RZ/G3L SoC is identical to the one found on the RZ/G2L
-SoC. However, it supports the DSI, DPI, and LVDS interfaces, while the
-RZ/G2L supports only the DSI and DPI interfaces.
-
-Due to this difference, a SoC-specific compatible string,
-'renesas,r9a08g046-du', is added for the RZ/G3L SoC.
+Add DU and DSI nodes to RZ/G3L SoC DTSI.
 
 Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 ---
 v1->v2:
- * Restored ports.
- * Replaced endpoint with port in ports node.
+ * Dropped renesas,sysc-pwrrdy from dsi node.
 ---
- .../bindings/display/renesas,rzg2l-du.yaml    | 26 ++++++++++++++++++-
- 1 file changed, 25 insertions(+), 1 deletion(-)
+ arch/arm64/boot/dts/renesas/r9a08g046.dtsi | 77 ++++++++++++++++++++++
+ 1 file changed, 77 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
-index 7c84a9ecc7a7..5c9b15a09dee 100644
---- a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
-+++ b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
-@@ -20,6 +20,7 @@ properties:
-       - enum:
-           - renesas,r9a07g043u-du # RZ/G2UL
-           - renesas,r9a07g044-du # RZ/G2{L,LC}
-+          - renesas,r9a08g046-du # RZ/G3L
-           - renesas,r9a09g057-du # RZ/V2H(P)
-           - renesas,r9a09g077-du # RZ/T2H
-       - items:
-@@ -65,7 +66,7 @@ properties:
-       model-dependent. Each port shall have a single endpoint.
+diff --git a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
+index 14c7f0b0b2a6..8a0bc4d2b150 100644
+--- a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
++++ b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
+@@ -696,6 +696,49 @@ ssi3: ssi@100e4c00 {
+ 			status = "disabled";
+ 		};
  
-     patternProperties:
--      "^port@[0-1]$":
-+      "^port@[0-2]$":
-         $ref: /schemas/graph.yaml#/properties/port
-         unevaluatedProperties: false
- 
-@@ -108,6 +109,7 @@ allOf:
-             port@0:
-               description: DPI
-             port@1: false
-+            port@2: false
- 
-           required:
-             - port@0
-@@ -124,10 +126,31 @@ allOf:
-               description: DSI
-             port@1:
-               description: DPI
-+            port@2: false
- 
-           required:
-             - port@0
-             - port@1
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: renesas,r9a08g046-du
-+    then:
-+      properties:
-+        ports:
-+          properties:
-+            port@0:
-+              description: DSI
-+            port@1:
-+              description: DPI
-+            port@2:
-+              description: LVDS
++		dsi: dsi@10850000 {
++			compatible = "renesas,r9a08g046-mipi-dsi";
++			reg = <0 0x10850000 0 0x20000>;
++			interrupts = <GIC_SPI 170 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 171 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 172 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 173 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 174 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 175 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 176 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "seq0", "seq1", "vin1", "rcv",
++					  "ferr", "ppi", "debug";
++			clocks = <&cpg CPG_CORE R9A08G046_MIPI_DSI_PLLCLK>,
++				 <&cpg CPG_MOD R9A08G046_MIPI_DSI_SYSCLK>,
++				 <&cpg CPG_MOD R9A08G046_MIPI_DSI_ACLK>,
++				 <&cpg CPG_MOD R9A08G046_MIPI_DSI_PCLK>,
++				 <&cpg CPG_MOD R9A08G046_MIPI_DSI_VCLK>,
++				 <&cpg CPG_MOD R9A08G046_MIPI_DSI_LPCLK>;
++			clock-names = "pllclk", "sysclk", "aclk", "pclk", "vclk", "lpclk";
++			resets = <&cpg R9A08G046_MIPI_DSI_CMN_RSTB>,
++				 <&cpg R9A08G046_MIPI_DSI_ARESET_N>,
++				 <&cpg R9A08G046_MIPI_DSI_PRESET_N>;
++			reset-names = "rst", "arst", "prst";
++			power-domains = <&cpg>;
++			status = "disabled";
 +
-+          required:
-+            - port@0
-+            - port@1
-+            - port@2
-   - if:
-       properties:
-         compatible:
-@@ -140,6 +163,7 @@ allOf:
-             port@0:
-               description: DSI
-             port@1: false
-+            port@2: false
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++					dsi_in: endpoint {
++						remote-endpoint = <&du_out_dsi>;
++					};
++				};
++
++				port@1 {
++					reg = <1>;
++				};
++			};
++		};
++
+ 		vspd: vsp@10870000 {
+ 			compatible = "renesas,r9a08g046-vsp2",
+ 				     "renesas,r9a07g044-vsp2";
+@@ -721,6 +764,40 @@ fcpvd: fcp@10880000 {
+ 			power-domains = <&cpg>;
+ 		};
  
-           required:
-             - port@0
++		du: display@10890000 {
++			compatible = "renesas,r9a08g046-du";
++			reg = <0 0x10890000 0 0x10000>;
++			interrupts = <GIC_SPI 178 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&cpg CPG_MOD R9A08G046_LCDC_CLK_A>,
++				 <&cpg CPG_MOD R9A08G046_LCDC_CLK_P>,
++				 <&cpg CPG_MOD R9A08G046_LCDC_CLK_D>;
++			clock-names = "aclk", "pclk", "vclk";
++			power-domains = <&cpg>;
++			resets = <&cpg R9A08G046_LCDC_RESET_N>;
++			renesas,vsps = <&vspd 0>;
++			status = "disabled";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++					du_out_dsi: endpoint {
++						remote-endpoint = <&dsi_in>;
++					};
++				};
++
++				port@1 {
++					reg = <1>;
++				};
++
++				port@2 {
++					reg = <2>;
++				};
++			};
++		};
++
+ 		gpu: gpu@108b0000 {
+ 			compatible = "renesas,r9a08g046-mali",
+ 				     "arm,mali-bifrost";
 -- 
 2.43.0
 
