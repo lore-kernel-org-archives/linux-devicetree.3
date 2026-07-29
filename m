@@ -1,75 +1,78 @@
-Received: from mail-vk1-f228.google.com (mail-vk1-f228.google.com [209.85.221.228])
+Received: from mail-oa1-f100.google.com (mail-oa1-f100.google.com [209.85.160.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D2753C4544
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 20:14:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.228
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7411D3D5645
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 20:14:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785356070; cv=none; b=fSQ93oEkROamUb4Mrm8GXCI2pGEt0Nag/xi6mB/oXWn5bQPC4NQEgFzkR5ID8noO/29No5sY32xFJSosMKpDZvGuMa4TdOokoWUpNbmqwpasXY7w0u4yEOL6jG1pOCdWXZawZNEoEiC19nqBCI8G4NfTOrgEU9IaCDhz7LcH6tE=
+	t=1785356073; cv=none; b=CHgrzeDvKEPOYg9PayItxASGGOAwvHEL2QFuaMaWGswxTpXoNqCtyvTopGc1PgYV5PobGnpJbuVwVaJRkQSu5htAqgp9x9QMf/nEwbfWvsnvyw8BWrZuvz0XNUeo3wWggtNSdr8tMfuPdM4W6qBBRqhXtjLvET+gpGRjsByEgyY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785356070; c=relaxed/simple;
-	bh=dNibn9+fRRxAz+bSl+iGvhTZbe1S1JvPG2WY/u6Qyeg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Aq/gaAPQle2hVWxaVHL/q0Q3EYMLDQq+9WISWvp4hlhQSCYp+q96HXQjU1VP/ieAdedv3xJy4X7XD/0UbHbsUGWsXKR5fC7UuQAPPMY7+imcIUFFNMzzhfUDHTFHTmGxydFv5OyiZ4OowCK3fdgH76SxyXXSxp3hvKahJZwqShc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=KLAT7xGN; arc=none smtp.client-ip=209.85.221.228
+	s=arc-20240116; t=1785356073; c=relaxed/simple;
+	bh=uD4u9KTgNvJKJ5gV6MxgBAGV39N6ROb42LaNKTZXIdc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=Xvl9LIRgQ3Rq66jLT0WRT3rkCeEAbtoUqG57X+X80bom7tUJGFEF8orGfNmksvWvJMZbQaDzqnJqZasneRhOY5q5od6UF99xIB2MketWfpnscDpx80y0L/rLBBDSloftmhqqgvYftDYnqmS1P7pcIgKyIx61hGyW3pbpw0KJEQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=azdSlEtO; arc=none smtp.client-ip=209.85.160.100
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="KLAT7xGN"
-Received: by mail-vk1-f228.google.com with SMTP id 71dfb90a1353d-5bf9466867cso421819e0c.2
-        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 13:14:28 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="azdSlEtO"
+Received: by mail-oa1-f100.google.com with SMTP id 586e51a60fabf-4472500e25fso600551fac.1
+        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 13:14:31 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785356067; x=1785960867;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Q8cg7db2G8jIu7Q9xqei7Xa543QGG7fv2VU1Z8dI/3U=;
-        b=coWUqiyJO/R5pVrplqJu3kyT9Lp5fchKUb/gb/rVxd4xDeuBnggEjffM+vwKPjCd0c
-         AqG+q+eASIzLRhM/4VZB51Tn6UrCyftn2iFY6TwXyymqgKDe3SliczEAxwzTyyjUcjgE
-         vSKRmSgKa2c+x9xH+YIOD6aEn9dNzw3qf3wZG/wEGkVDTsUujc8Y6XQ1sFtTQgrrHmkK
-         7LdePDUAX9lWm5BEiX+Kp6/g93M4pnqUz5yV12c2hknOCeO8J4iW4PESJCgNgYQrAM01
-         XSbwcbbw53wOZvTlQmpsfHG/rhzLwWz4mtRIrhX9Pte8cFN+njRjX3QTlI190nxHuLrZ
-         izMQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpA0jiQsfJRLY1mF/g2KHUInL96Fnial7tDcYx3ofr0Cpg5S2BdICt7wLFOdwkMq3QYLmC+zNLOlgVV@vger.kernel.org
-X-Gm-Message-State: AOJu0YyN6WrsqBSFOM2J4rGlkTaL/3HicD0FDHd3uHuIsnXez/9AK+L1
-	dM/PT6Bg6t/pqW2HxxO6S69elFa0L8PFPq1+nfPDHTWmAhcF8N/qlVE7erAJFdvifEvJ3R4jVly
-	S7ImcceqVchm8JNsUK+l4WndM/T6+v5XwsXxAOcUjCCeRt5dURCrhPQmoJJogc+3iVD0+wxxQrF
-	Ezd2/8RsFaA0PsgfbQ0slEHg1a6dO+f5q46kGXoTgrPXC6Jt4gkqHzyO985Ad1V2CDtDvcNJPus
-	oAu0UiaRRUd0A==
-X-Gm-Gg: AR+sD10sdIzEfZjhjDvkLGwMHTM/5gET9stoWqGkO81sjhKBxtqyi9+4Y9WSmnozFdl
-	z+MthwY5LslqldwaPVjGYV09vZAEb8bD/ccFw0Xkm/d0W5WIttlEnITAvLJsa6dXkEc11vlxfwx
-	C4diSnXi65MFlwnLluFhtPIBNwlJaqgz4CWlvx8H19L5S/V0e7uZgEImW9nUtcp6H7mNwD7JwDL
-	KHg742GxZhAg+QoObzMDYRMYC381Lw24yWkJbjNbVwaC2Wd1az+aEKBmwt6cnQkNd5VYH/1rCQO
-	nwSPvX+OT5Qm4uM0jpxroS3DAP7Df24HLZs3O/3jPqM4d71qg4e0xFWYWq4umAw3S0WvES9yGAx
-	ivJmObWKjaf4O5y/uv/R30GEjpJpd120Eew+FQ5XKoyZO+YT4DgoNxJDQ2EbBYqPcKKaG0mOliV
-	tig8pB9XnuwkUOURJGcgDQfyB9n9HRUUNb
-X-Received: by 2002:a05:6122:4f82:b0:5a0:370:f12c with SMTP id 71dfb90a1353d-5c363cf95e5mr63708e0c.11.1785356067340;
-        Wed, 29 Jul 2026 13:14:27 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1785356070; x=1785960870;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XbWrGnIrUUsth3Yia1cqmAkJSDCXp1RV0SQ0sLkznek=;
+        b=q5F6RQMyStLi3HX3btI9coI8UobKU1SW3scMoynHLYQ4G50LUKleLC5JnBYI2N/HW0
+         PVfBIlpolFsPLQDdJ7zFrL6wUiiD7shUEYuWy3d9lvb1ky1uKkqWlTUp2+BZYTaACyUi
+         Sveqv1r+Eyj/Rrzty4cvnoIKhYR2sZDpSyYkLVE5aY0J4J6/AtWdK/ZN1DS8672TsYhp
+         1SsL+1RvwYQ1d3R9Tg2GKB6Gzj/ucnm32B2ZPI6O89onC5Kzxdb0A2QTCHYx28ddzJHq
+         9G5kGbd2GuvKhLyqdN8ZKaiLz06AWCxrEXKqEhvxXm+UuaBtVB9zs8vG25/f8dFWQ6nt
+         bsDw==
+X-Forwarded-Encrypted: i=1; AHgh+Ro1dUELC/T98/dPSryJYg3KKtzDh3GaAq24hrU87+nmssHDVLFrLKlgMDKTQ+2NFBo52Mk3oBsd7GQ+@vger.kernel.org
+X-Gm-Message-State: AOJu0YwZ3gXkL/hLoeRYo9vPI7me5GWOegnI1AilyCBk0bCUW6taSU+T
+	2WUyfz110I274n2ER0ajkFZspVRH6eK5i+d+MxKVEszGewsMoZ6HIZDgUbDCvi9QPlvbHr515fL
+	ZYkGE60qEC6mjFnsTvIdihyx5heouFaUu0DZ28OTnuU8bRd+f2S+QV2c88t9mvFv4jTjZggo4Ir
+	lVDxbC8/r1nMDjJUHMWBF/DTFAKCffl2lwuG91VfqYNSKX1/vXmUJYcQQ6ex+uWY31y58Sb57aQ
+	zqIL58IJDbHsg==
+X-Gm-Gg: AR+sD11lvV1hlkn/FLfKkgKOzZMoFyC1Sulvu/HZ3rexdh8XQeR9ra2dPA9jbec+5r9
+	o71bPooSpnfnenz+nTUTEw0MbcZSqbyYJcZQzAPtJ+j8U55sKn05plWJb56BnxG7GnOEW9FOWbY
+	5Fx7fGfS6hLrzYZyePbDaNEUCo+yv4Uxl8pN8lYNB7XLyLnosZB8pCVBjA9WZq+Rko6OxLlDtrL
+	og2K9R3pshyyTJzZMnUwOL6Pw0lVX9NJppJZAZ+S+S0GmVGHGJq3SWGrt4ZssufYcAXfIPXHazB
+	s+RkvrGDsIke2WRhrXdxENtHPWfd7Gf0oc5srjtseIn/4lkmHC8/x1SwCJrzRz9+DUPVQ3HytbC
+	vhu2y2XKWPjh3bq9qsdedprum+sg4Yw80c7z/pb1+IAvUyfLBDrFszzwqzokuzOFaQTfdHr+Qy4
+	/CfO8jB0T50Q+4QogXuunwWce8+lhEcfOw
+X-Received: by 2002:a05:6870:174c:b0:44c:e350:a0b7 with SMTP id 586e51a60fabf-458bc4b43b4mr128801fac.27.1785356069934;
+        Wed, 29 Jul 2026 13:14:29 -0700 (PDT)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-26.dlp.protect.broadcom.com. [144.49.247.26])
-        by smtp-relay.gmail.com with ESMTPS id 71dfb90a1353d-5c34f0eb4dasm367118e0c.5.2026.07.29.13.14.27
+        by smtp-relay.gmail.com with ESMTPS id 586e51a60fabf-45886b50e15sm279859fac.16.2026.07.29.13.14.29
         for <devicetree@vger.kernel.org>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 29 Jul 2026 13:14:27 -0700 (PDT)
+        Wed, 29 Jul 2026 13:14:29 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-907e49dbae8so12453556d6.0
-        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 13:14:26 -0700 (PDT)
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-9077b4c35c5so25725056d6.2
+        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 13:14:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1785356066; x=1785960866; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Q8cg7db2G8jIu7Q9xqei7Xa543QGG7fv2VU1Z8dI/3U=;
-        b=KLAT7xGN3zCGZ0XuY/1YFG3dwgTEk/fgJRRQa9Wzqu/x21cQZXM8rc7C51NzVTstKB
-         Yod+MxN/3f8/b0eVCVOuCSTzKCWmhYKG9Ni28Vn8wpi1IaYailKx9gpxdCRvOce9OVSs
-         N/wZtWSEUhwjDoWheOoO83VnVJyexcuNVQ880=
-X-Forwarded-Encrypted: i=1; AHgh+RqrZXJbaN7vjzU394r09S/3fTuai324WHRws1X6BFaAhL0RvLZGmgUar0TWQrNkINdCFtZiCjtK//u6@vger.kernel.org
-X-Received: by 2002:ad4:5f05:0:b0:8e9:f62b:8fa0 with SMTP id 6a1803df08f44-908302562d3mr3904276d6.53.1785356066539;
-        Wed, 29 Jul 2026 13:14:26 -0700 (PDT)
-X-Received: by 2002:ad4:5f05:0:b0:8e9:f62b:8fa0 with SMTP id 6a1803df08f44-908302562d3mr3903896d6.53.1785356066008;
-        Wed, 29 Jul 2026 13:14:26 -0700 (PDT)
+        d=broadcom.com; s=google; t=1785356069; x=1785960869; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XbWrGnIrUUsth3Yia1cqmAkJSDCXp1RV0SQ0sLkznek=;
+        b=azdSlEtOm4Oomid4DKfQG6xJo4A2mpn1Zik0jFUcWlCbSNZ0DIXYUeAFzJNihy5LMe
+         C2pv8fHqPf9Ag1hxNK/e/i6MaBdObnsQUXIZpOgPtaPyKB0mLAL2K4DVmvU/EEdmcSJ6
+         pHY/2Cidi0TIXNX6Kmqdh52BXbCQeQRfpRYxM=
+X-Forwarded-Encrypted: i=1; AHgh+RqNw7p0Vw8/ouQ/Ax/wHApD5Zws7Er7k9TNcG6o0EDYoqmLJs7kxz+biGQHSG+cnEagdB7Of04bNmZt@vger.kernel.org
+X-Received: by 2002:a05:6214:3217:b0:8f0:9d9c:52c1 with SMTP id 6a1803df08f44-908302a7f25mr4192666d6.38.1785356069119;
+        Wed, 29 Jul 2026 13:14:29 -0700 (PDT)
+X-Received: by 2002:a05:6214:3217:b0:8f0:9d9c:52c1 with SMTP id 6a1803df08f44-908302a7f25mr4192236d6.38.1785356068701;
+        Wed, 29 Jul 2026 13:14:28 -0700 (PDT)
 Received: from mail.broadcom.net ([192.19.144.250])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9081dd8cb0dsm32033066d6.48.2026.07.29.13.14.24
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9081dd8cb0dsm32033066d6.48.2026.07.29.13.14.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Jul 2026 13:14:25 -0700 (PDT)
+        Wed, 29 Jul 2026 13:14:27 -0700 (PDT)
 From: Kamal Dasu <kamal.dasu@broadcom.com>
 To: Ulf Hansson <ulfh@kernel.org>
 Cc: Kamal Dasu <kamal.dasu@broadcom.com>,
@@ -85,11 +88,14 @@ Cc: Kamal Dasu <kamal.dasu@broadcom.com>,
 	Conor Dooley <conor+dt@kernel.org>,
 	linux-mmc@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 0/2] mmc: core: Keep the card powered across suspend when firmware needs it live
-Date: Wed, 29 Jul 2026 16:14:18 -0400
-Message-Id: <20260729201420.4047677-1-kamal.dasu@broadcom.com>
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v5 1/2] dt-bindings: mmc: Extend keep-power-in-suspend beyond SDIO
+Date: Wed, 29 Jul 2026 16:14:19 -0400
+Message-Id: <20260729201420.4047677-2-kamal.dasu@broadcom.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260729201420.4047677-1-kamal.dasu@broadcom.com>
+References: <20260729201420.4047677-1-kamal.dasu@broadcom.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -99,64 +105,51 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-This is v5.
+keep-power-in-suspend already documents exactly the requirement
+needed on (e)MMC platforms where firmware accesses the card directly
+during resume. Rather than add a separate property describing the
+same contract, drop its "SDIO only" restriction and document the
+(e)MMC use case alongside the existing SDIO one.
 
-Background: on brcmstb boards with a Kioxia 016G01 eMMC, firmware
-accesses the card directly during resume from Suspend-to-DRAM, before
-the kernel's own resume path runs, in order to load boot code using
-hard wired logic that is not field updatable. The card needs to stay
-powered and responsive for that access to succeed.
-
+Signed-off-by: Kamal Dasu <kamal.dasu@broadcom.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
 Changes in v5:
-  - Patch 1: added Krzysztof's Reviewed-by.
-  - Patch 2: only set host->pm_flags |= MMC_PM_KEEP_POWER after
-    mmc_deselect_cards() succeeds, instead of unconditionally before
-    it. Otherwise, if the deselect fails, the card is never marked
-    suspended, _mmc_resume() takes its early exit, and the flag never
-    gets cleared -- leaking it for the rest of uptime.
+  - Added Krzysztof's Reviewed-by.
 
 Changes in v4:
-  - Dropped the no-mmc-poweroff-suspend DT property and
-    MMC_CAP2_NO_POWEROFF_SUSPEND host capability entirely. Krzysztof
-    pointed out they described exactly the same contract as the
-    existing keep-power-in-suspend property (don't power off the card
-    across suspend/resume). Extended keep-power-in-suspend's scope
-    beyond SDIO instead, and reworked _mmc_suspend() to check
-    host->pm_caps & MMC_PM_KEEP_POWER directly rather than adding a
-    new capability. (e)MMC has no per-function driver to make the
-    dynamic sdio_set_host_pm_flags() request SDIO uses, so this reads
-    pm_caps -- the DT-derived, fixed platform characteristic -- not
-    pm_flags.
-  - Gated the fast path on pm_type == MMC_POWEROFF_SUSPEND; it was
-    previously unconditional, so it wrongly skipped the required
-    power-off/notify handling during shutdown, unbind and
-    undervoltage as well.
-  - Reset the host to its initial bus state (mmc_set_clock() +
-    mmc_set_initial_state(), the same helpers _mmc_hw_reset() uses for
-    a non-power-cycle reset) before marking the card suspended.
-  - Set/clear host->pm_flags |= MMC_PM_KEEP_POWER around the suspend/
-    resume, mirroring the SDIO convention, so host drivers can tell
-    power was preserved if they need to.
+  - Dropped no-mmc-poweroff-suspend entirely and extended
+    keep-power-in-suspend instead, per Krzysztof: the two properties
+    described the same "don't power off across suspend/resume"
+    contract.
 
 Changes in v3:
-  - Reworked the fix in _mmc_suspend() (drivers/mmc/core/mmc.c) to
-    skip the poweroff-notify/sleep/power-off sequence entirely.
-  - Renamed no-mmc-sleep/MMC_CAP2_NO_SLEEP_CMD to
-    no-mmc-poweroff-suspend/MMC_CAP2_NO_POWEROFF_SUSPEND.
+  - Renamed from no-mmc-sleep; dropped S_A_TIMEOUT framing per Ulf.
 
 Changes in v2:
-  - Replaced v1's card-level MMC_QUIRK_BROKEN_SLEEP quirk with a host
-    capability and matching DT property, per Ulf's suggestion.
-  - Added Reported-by/Closes tags crediting Florian.
+  - New patch, replacing v1's card-level quirk, per Ulf.
 
-Kamal Dasu (2):
-  dt-bindings: mmc: Extend keep-power-in-suspend beyond SDIO
-  mmc: core: Honor keep-power-in-suspend for (e)MMC in suspend/resume
+ Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
- .../bindings/mmc/mmc-controller-common.yaml |  7 ++++-
- drivers/mmc/core/mmc.c                      | 30 ++++++++++++++++++++
- 2 files changed, 36 insertions(+), 1 deletion(-)
-
---
+diff --git a/Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml b/Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml
+index 3d7195e9461c..f4663b318435 100644
+--- a/Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml
++++ b/Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml
+@@ -291,7 +291,12 @@ properties:
+   keep-power-in-suspend:
+     $ref: /schemas/types.yaml#/definitions/flag
+     description:
+-      SDIO only. Preserves card power during a suspend/resume cycle.
++      Preserves card power during a suspend/resume cycle. For SDIO,
++      this is a request an individual function driver can make at
++      runtime via sdio_set_host_pm_flags(). For (e)MMC, it is instead
++      a fixed platform characteristic, needed on boards where firmware
++      accesses the card directly during system resume, before the
++      kernel's own resume path runs.
+ 
+   wakeup-source:
+     $ref: /schemas/types.yaml#/definitions/flag
+-- 
 2.34.1
 
