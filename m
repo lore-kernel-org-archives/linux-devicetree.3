@@ -1,208 +1,164 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2CB7476CDB;
-	Wed, 29 Jul 2026 10:03:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94660479861;
+	Wed, 29 Jul 2026 10:03:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785319422; cv=none; b=WfqbIVG6hSpIdQlpNo9stcodkdrSjdMSWrZ198tbKam72QPWpB544LZGe9mmTMBDsh7T14LZcOjpThXZq0ZQMdOARyczU0Q8HxEiNYPUCOteLnFYiFMViO5kAetvB5qT1IHFZguudlTeXR7n8rBXqGo6U+lVuWlYXCUurkIrt4Q=
+	t=1785319423; cv=none; b=k4l6yDJoZ64ruUbYRj4E33NrM+LCf+rWPJM5qwGRXGKS6uU4sNfFmSXLcrE1txJhqffFq/Zjy1i6lgerb4e2yhcXkJoUSokAp0B5h9mdlCORu12wmjIQ8jtdtZ3bTMLsNno77YZJ6dFfHQ/g7tGRTFCWVKmEkwOCEjr9/g+XBcM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785319422; c=relaxed/simple;
-	bh=7nxjFDvM8+mIB8eYa2kyDbOfy5LmVW0Q4CN2nrB4Rb4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=KvNIFBkV7n7xPZr3Smso4ZLxHZFlXQdpyGDtcWv78zj3XeUX2ZED77mzq6ztbJ7cLk+KFq6uY7HKH+pOWXLmeuT5uAYhzfTDTRJflpW1Z1MPHxLzNniHth2HIcgAEcRe4WSkL74BnWiaMaKWEoOrWKPflrRj1iPtBo3dlpl3FzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=WX0RZQO+; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1785319423; c=relaxed/simple;
+	bh=8ljoaTpz5t6t77Caaz/zig+MpVBJQnZxOU1I+EbEjvk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=hP1tlcbNcx4q/G9iSFtXe6i4s5kxYFsMtCKdXVJef/zMOMJxaNrBLfnSJf/yAtDtSfYyeHHvqfnRkwRq1/h/emWZupBdhRVOCNIOJkagII8E88vsf7aaw42/gWQ7lXt7EzbxSy5x7FF19RTin46B3hCMgAWon1qPcb1uju2YejE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W6IZ7YJ4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="WX0RZQO+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1785319417;
-	bh=7nxjFDvM8+mIB8eYa2kyDbOfy5LmVW0Q4CN2nrB4Rb4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=WX0RZQO+4RgQM5d1tSE9S6aqKBxRb11oUc7vdbBGOoO9j/IFzKKJF6oqFRWDZb2Xb
-	 pVxRDLuuHEGz1WKHYXE92DrRHvKx8OaulybE42JpCtghofZQ053Wvb/p/7n3OeTfxv
-	 i+mDUvvJv1vm7QxoCFYRTt28KAWhQdu0Emi6vveAwdbinV7LMQI7NjsfmAjK/eYzkl
-	 vjNmadXudBFcbqruxQZy4madlRztapUP2bZ6GlQvSHbO0NLBifLMNBFS695JYutBjM
-	 YxzPO/jrCRESgyqDWt6viq4yoUSMMUJ2bir9CG0LlqpYfiKQM96dKsk+cOLoF1v9T7
-	 8nt1ob0Ub2fZA==
-Received: from yukiji.home (unknown [100.64.0.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: laeyraud)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 898E217E0110;
-	Wed, 29 Jul 2026 12:03:36 +0200 (CEST)
-From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Date: Wed, 29 Jul 2026 12:03:07 +0200
-Subject: [PATCH v4 23/24] clk: mediatek: Add MT8189 scp clock support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W6IZ7YJ4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6A401F000E9;
+	Wed, 29 Jul 2026 10:03:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785319421;
+	bh=/UafdEDqXih3rHvhZ19Ua3rvxLUVOZmkB5i7H47oM8I=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=W6IZ7YJ4NnRAAM78luyDktpccKBKK7HtKYM2gN1dRMZf9OKtG38ZxjwYjOA4dDL+C
+	 jNY+8qg2ojchjtTVQgc5HVr78ApMXGIUd0Eoudle5XQdJ0Hoc3N+6P7Opdnr7VDcnu
+	 +UT7+jJePu/gR9REY9oLykZxxcmDm8BZqeZjS+Y7J/H5JpKzIDzokaEd1BMsx+P44e
+	 9vrw0XdFnpz660hZgVpfkngJPCzuvlV7U7qSit58Nt966QTlmWjFhItS4u3yVD8Fkd
+	 K44bYcVI/Yumck5wgi5Hp7QYUmWcdBxyy5cv/YZ0vrv0cg+MjLNGMIGKXcJc+F6Xdv
+	 AtsE6Yi2Ykc7w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v31 4/7] firmware: imx: device context dedicated to priv
+Reply-To: sashiko-reviews@lists.linux.dev
+To: pankaj.gupta@oss.nxp.com
+Cc: imx@lists.linux.dev, Frank.Li@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260729-imx-se-if-v31-4-e59af7adb784@nxp.com>
+References: <20260729-imx-se-if-v31-0-e59af7adb784@nxp.com>
+ <20260729-imx-se-if-v31-4-e59af7adb784@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 29 Jul 2026 10:03:40 +0000
+Message-Id: <20260729100340.C6A401F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260729-mt8189-clocks-system-base-v4-23-e356b813a64c@collabora.com>
-References: <20260729-mt8189-clocks-system-base-v4-0-e356b813a64c@collabora.com>
-In-Reply-To: <20260729-mt8189-clocks-system-base-v4-0-e356b813a64c@collabora.com>
-To: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Chun-Jie Chen <chun-jie.chen@mediatek.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Edward-JW Yang <edward-jw.yang@mediatek.com>, 
- Richard Cochran <richardcochran@gmail.com>, 
- Chen-Yu Tsai <wenst@chromium.org>
-Cc: kernel@collabora.com, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- netdev@vger.kernel.org, Irving-CH Lin <irving-ch.lin@mediatek.com>, 
- Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785319388; l=5001;
- i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
- bh=7nxjFDvM8+mIB8eYa2kyDbOfy5LmVW0Q4CN2nrB4Rb4=;
- b=KgLDaJyDCsvOeM+RnhSpQhTGrCnBKlgSUhVL01ig+n0y1dDShRaimbI73kcEnXt/QcytWKaY/
- PAoMzyVtjtMA+glkEc9Bn8RdBXUU/L4s81SVio+H7JAWrgUxdj3CJR1
-X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
- pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
 
-Add support for the MT8189 scp clock controller,
-which provides clock gate control for System Control Processor.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] se_if_probe_cleanup() frees priv->priv_dev_ctx before freeing the =
+mailbox channels, creating a race condition where the mailbox RX callback c=
+an access a freed devname string on the error logging path.
+--
 
-Co-developed-by: Irving-CH Lin <irving-ch.lin@mediatek.com>
-Signed-off-by: Irving-CH Lin <irving-ch.lin@mediatek.com>
-Co-developed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
----
- drivers/clk/mediatek/Kconfig          | 10 +++++
- drivers/clk/mediatek/Makefile         |  1 +
- drivers/clk/mediatek/clk-mt8189-scp.c | 77 +++++++++++++++++++++++++++++++++++
- 3 files changed, 88 insertions(+)
+--- Patch [4]: [PATCH v31 4/7] firmware: imx: device context dedicated to p=
+riv ---
+commit 29854db2c90371c5e52ff11225c81835904c4be3
+Author: Pankaj Gupta <pankaj.gupta@nxp.com>
 
-diff --git a/drivers/clk/mediatek/Kconfig b/drivers/clk/mediatek/Kconfig
-index bba631138b07..919a916f1f4f 100644
---- a/drivers/clk/mediatek/Kconfig
-+++ b/drivers/clk/mediatek/Kconfig
-@@ -872,6 +872,16 @@ config COMMON_CLK_MT8189_IIC
- 	  the MT8189 chipset, improving the overall performance and power
- 	  efficiency of the device.
- 
-+config COMMON_CLK_MT8189_SCP
-+	tristate "Clock driver for MediaTek MT8189 scp"
-+	depends on COMMON_CLK_MT8189
-+	default COMMON_CLK_MT8189
-+	help
-+	  Enable this to support the clock framework for the System Control
-+	  Processor (SCP) in the MediaTek MT8189 SoC. This includes clock
-+	  management for SCP-related features, ensuring proper clock
-+	  distribution and gating for power efficiency and functionality.
-+
- config COMMON_CLK_MT8192
- 	tristate "Clock driver for MediaTek MT8192"
- 	depends on ARM64 || COMPILE_TEST
-diff --git a/drivers/clk/mediatek/Makefile b/drivers/clk/mediatek/Makefile
-index bfc075023d9b..a3a93a16b369 100644
---- a/drivers/clk/mediatek/Makefile
-+++ b/drivers/clk/mediatek/Makefile
-@@ -129,6 +129,7 @@ obj-$(CONFIG_COMMON_CLK_MT8189_BUS) += clk-mt8189-bus.o
- obj-$(CONFIG_COMMON_CLK_MT8189_DBGAO) += clk-mt8189-dbgao.o
- obj-$(CONFIG_COMMON_CLK_MT8189_DVFSRC) += clk-mt8189-dvfsrc.o
- obj-$(CONFIG_COMMON_CLK_MT8189_IIC) += clk-mt8189-iic.o
-+obj-$(CONFIG_COMMON_CLK_MT8189_SCP) += clk-mt8189-scp.o
- obj-$(CONFIG_COMMON_CLK_MT8192) += clk-mt8192-apmixedsys.o clk-mt8192.o
- obj-$(CONFIG_COMMON_CLK_MT8192_AUDSYS) += clk-mt8192-aud.o
- obj-$(CONFIG_COMMON_CLK_MT8192_CAMSYS) += clk-mt8192-cam.o
-diff --git a/drivers/clk/mediatek/clk-mt8189-scp.c b/drivers/clk/mediatek/clk-mt8189-scp.c
-new file mode 100644
-index 000000000000..75197cd98b52
---- /dev/null
-+++ b/drivers/clk/mediatek/clk-mt8189-scp.c
-@@ -0,0 +1,77 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2025-2026 MediaTek Inc.
-+ *                    Qiqi Wang <qiqi.wang@mediatek.com>
-+ *                    Irving-CH Lin <irving-ch.lin@mediatek.com>
-+ * Copyright (C) 2026 Collabora Ltd.
-+ *                    AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-+ *                    Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-+ */
-+
-+#include <linux/clk-provider.h>
-+#include <linux/module.h>
-+#include <linux/of_device.h>
-+#include <linux/platform_device.h>
-+
-+#include "clk-mtk.h"
-+#include "clk-gate.h"
-+
-+#include <dt-bindings/clock/mediatek,mt8189-clk.h>
-+
-+static const struct mtk_gate_regs scp_cg_regs = {
-+	.set_ofs = 0x4,
-+	.clr_ofs = 0x8,
-+	.sta_ofs = 0x4,
-+};
-+
-+#define GATE_SCP(_id, _name, _parent, _shift)		\
-+	GATE_MTK(_id, _name, _parent, &scp_cg_regs, _shift, &mtk_clk_gate_ops_setclr_inv)
-+
-+static const struct mtk_gate scp_clks[] = {
-+	GATE_SCP(CLK_SCP_SET_SPI0, "scp_set_spi0", "clk26m", 0),
-+	GATE_SCP(CLK_SCP_SET_SPI1, "scp_set_spi1", "clk26m", 1),
-+};
-+
-+static const struct mtk_clk_desc scp_mcd = {
-+	.clks = scp_clks,
-+	.num_clks = ARRAY_SIZE(scp_clks),
-+};
-+
-+static const struct mtk_gate_regs scp_iic_cg_regs = {
-+	.set_ofs = 0x8,
-+	.clr_ofs = 0x4,
-+	.sta_ofs = 0x0,
-+};
-+
-+#define GATE_SCP_IIC(_id, _name, _parent, _shift)	\
-+	GATE_MTK(_id, _name, _parent, &scp_iic_cg_regs, _shift, &mtk_clk_gate_ops_setclr_inv)
-+
-+static const struct mtk_gate scp_iic_clks[] = {
-+	GATE_SCP_IIC(CLK_SCP_IIC_I2C0_W1S, "scp_iic_i2c0_w1s", "vlp_scp_iic_sel", 0),
-+	GATE_SCP_IIC(CLK_SCP_IIC_I2C1_W1S, "scp_iic_i2c1_w1s", "vlp_scp_iic_sel", 1),
-+};
-+
-+static const struct mtk_clk_desc scp_iic_mcd = {
-+	.clks = scp_iic_clks,
-+	.num_clks = ARRAY_SIZE(scp_iic_clks),
-+};
-+
-+static const struct of_device_id of_match_clk_mt8189_scp[] = {
-+	{ .compatible = "mediatek,mt8189-scp-clk", .data = &scp_mcd },
-+	{ .compatible = "mediatek,mt8189-scp-i2c-clk", .data = &scp_iic_mcd },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, of_match_clk_mt8189_scp);
-+
-+static struct platform_driver clk_mt8189_scp_drv = {
-+	.probe = mtk_clk_simple_probe,
-+	.remove = mtk_clk_simple_remove,
-+	.driver = {
-+		.name = "clk-mt8189-scp",
-+		.of_match_table = of_match_clk_mt8189_scp,
-+	},
-+};
-+module_platform_driver(clk_mt8189_scp_drv);
-+
-+MODULE_DESCRIPTION("MediaTek MT8189 scp clocks driver");
-+MODULE_LICENSE("GPL");
+firmware: imx: device context dedicated to priv
 
--- 
-2.55.0
+Add priv_dev_ctx to prepare enabling misc-device context based send-receive
+path, to communicate with FW.
 
+Closes: https://sashiko.dev/#/patchset/20260721-imx-se-if-v29-0-04a362f4fcc=
+a@nxp.com?part=3D4
+
+> diff --git a/drivers/firmware/imx/ele_common.c b/drivers/firmware/imx/ele=
+_common.c
+> --- a/drivers/firmware/imx/ele_common.c
+> +++ b/drivers/firmware/imx/ele_common.c
+
+[ ... ]
+
+> @@ -294,13 +301,14 @@ void se_if_rx_callback(struct mbox_client *mbox_cl,=
+ void *msg)
+>  		 * Clamp the copy length to the pre-allocated receiver buffer (MAX_NVM=
+_MSG_LEN).
+>  		 */
+>  		se_clbk_hdl->rx_msg_sz =3D min_t(u32, rx_msg_sz, MAX_NVM_MSG_LEN);
+> +		devname =3D se_clbk_hdl->dev_ctx->devname;
+>  		memcpy(se_clbk_hdl->rx_msg, msg, se_clbk_hdl->rx_msg_sz);
+>  		complete(&se_clbk_hdl->done);
+>  		spin_unlock_irqrestore(&se_clbk_hdl->clbk_rx_lock, flags);
+>  		if (sz_mismatch)
+>  			dev_err(dev,
+> -				"CMD-RCVER NVM: hdr(0x%x) with different sz(%d !=3D %d).\n",
+> -				*(u32 *)header,
+> +				"%s: CMD-RCVER NVM: hdr(0x%x) with different sz(%d !=3D %d).\n",
+> +				devname, *(u32 *)header,
+>  				(header->size << 2), rx_msg_sz);
+
+[ ... ]
+
+> @@ -335,14 +343,15 @@ void se_if_rx_callback(struct mbox_client *mbox_cl,=
+ void *msg)
+>  			sz_mismatch =3D true;
+> =20
+>  		se_clbk_hdl->rx_msg_sz =3D min(rx_msg_sz, exp_rx_msg_sz);
+> +		devname =3D se_clbk_hdl->dev_ctx->devname;
+>  		memcpy(se_clbk_hdl->rx_msg, msg, se_clbk_hdl->rx_msg_sz);
+>  		complete(&se_clbk_hdl->done);
+>  		spin_unlock_irqrestore(&se_clbk_hdl->clbk_rx_lock, flags);
+> =20
+>  		if (sz_mismatch)
+>  			dev_err(dev,
+> -				"Rsp to CMD: hdr(0x%x) with different sz(%d !=3D %d).\n",
+> -				*(u32 *)header,
+> +				"%s: Rsp to CMD: hdr(0x%x) with different sz(%d !=3D %d).\n",
+> +				devname, *(u32 *)header,
+>  				(header->size << 2), exp_rx_msg_sz);
+
+[ ... ]
+
+> diff --git a/drivers/firmware/imx/se_ctrl.c b/drivers/firmware/imx/se_ctr=
+l.c
+> --- a/drivers/firmware/imx/se_ctrl.c
+> +++ b/drivers/firmware/imx/se_ctrl.c
+
+[ ... ]
+
+> @@ -309,6 +339,11 @@ static void se_if_probe_cleanup(void *plat_dev)
+>  	if (!priv)
+>  		return;
+> =20
+> +	if (priv->priv_dev_ctx) {
+> +		kfree(priv->priv_dev_ctx->devname);
+> +		kfree(priv->priv_dev_ctx);
+> +	}
+> +
+>  	if (priv->rx_chan)
+>  		mbox_free_channel(priv->rx_chan);
+>  	if (priv->tx_chan)
+
+[Severity: High]
+Can this sequence result in a use-after-free of devname?
+
+If the firmware sends a response with an unexpected size during a probe
+transaction, sz_mismatch becomes true. In se_if_rx_callback(), the code
+caches devname, calls complete(), drops the lock, and then calls dev_err()
+passing the cached devname:
+
+drivers/firmware/imx/ele_common.c:se_if_rx_callback()
+        devname =3D se_clbk_hdl->dev_ctx->devname;
+        ...
+        complete(&se_clbk_hdl->done);
+        spin_unlock_irqrestore(...);
+       =20
+        if (sz_mismatch)
+                dev_err(dev, "%s ...", devname, ...);
+               =20
+Calling complete() wakes up the waiting probe thread. If the probe aborts
+due to this mismatch and triggers devres cleanup, se_if_probe_cleanup()
+runs.
+
+Because se_if_probe_cleanup() frees priv_dev_ctx and its devname before
+calling mbox_free_channel() (which would otherwise synchronize and stop
+pending callbacks), devname could be freed while the callback thread is
+preempted before or during the dev_err() call.
+
+Would it be safer to free priv_dev_ctx after the mailbox channels are freed?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729-imx-se-if-=
+v31-0-e59af7adb784@nxp.com?part=3D4
