@@ -1,354 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3573C3CAA30
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 07:14:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E0543F927A
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 07:20:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785309278; cv=none; b=PIH8lsUFSCD/4cCiTZUZBV2+sHr1AWIAcE7uJ+JguyhEau7//vfl5IDYHha2mwZwBc4FXTIhgdSIbBT58oeaqiHKa7RiLt7IVmZE70qml8+B+yBPIjwx8sRW93jJ7XZws4NErLzV656Hr5RkV8UN5rBcAHH5EKRfI53uQZ/prOI=
+	t=1785309647; cv=none; b=gWwbfYALFvDLKFd8kgkUWtdePhrfhnmbHetEIHKL/xOGvVzP6c0WmfzbOPJcRo5Hfn//0F0m98mYTs1LDav/ooqXP9tmRJx1uinC/UAXUcHSo7VXDJBL6mV456ODFf9DUXkg8wyd8a/fi2vTtj+gKtaBC4TvHRR0qR1V90IVN68=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785309278; c=relaxed/simple;
-	bh=v6dKEZ4B7/uQ+YCApH9cHCCdEz8pIJK3eynwWOaK8dM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=lVHGT9uPyuEm6nnXO9Wr95lrPEwA5fsBX4EpAD4MicDpjMJOtiH+4irrMwhTdQJlWR9xsLe61tGwIP2CPh5onPRdUz923992IPpGcJxR0+hvcKES387QsRxUNLtSFTUeFkJVNuP8XmcjotdGJBd7Rast3DSav4h3l3lgiSIIjJA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H8JPLAcs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785309647; c=relaxed/simple;
+	bh=F3osq0NQLSA1IaSPhSx8AeYk1CenoWaLoKonJzx3tfo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Q4U/+P5OgvFhfuXjtl9KNdgynGWYWC5XE5J9J0QgPVeMQ37wKh7RIKTmdhOqGdhPdgkRaqT4XRQhIDiKG/myMrexxEWuh0n405IMWuJ+ObT4TPaX663hcyma6OP3U0+qO3jFWUZ+JRP/CaqIKbWF1KjJkph3jRNQCH/GgbPpCXE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VanMweZk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fNz8WidP; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H8JPLAcs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61FDA1F000E9;
-	Wed, 29 Jul 2026 07:14:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785309275;
-	bh=836z6hzXhiHDQw8br6v4sqbJnlbAdPohyHx6KEt8CIs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=H8JPLAcs5GWe+vYCejwiTyLOz121SlJ4trDXfbMZgHDtUDwCwRjge+JdDXBcMwgZu
-	 nOcywhskOF8D4E++PxpG8Pf+IToAPjNVEl0AOzM3dvZPoCjuYmZAN1OUNF7kq8BlQg
-	 WisrNasPAUJ7rpTe93ibWbWywsODJwk8SpuCC5ykjEQQUc1R+dECkyOao+IPMhLgzJ
-	 F8KNoQgAfF7ZJmB8MB1a+ti3QieYB7qnO1ZiMMxZedG/YDQhaQoK3vUiAqos+IsMac
-	 H1IG8dX8MdrG8c0qb5LvY71cWbMRTdtek0o3+0nyn/P4PZT+4OA/CyQ9OhWOnEdmEO
-	 8ArUg1HWwXxkg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] gpio: axiado: add SGPIO controller support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Petar Stepanovic" <pstepanovic@axiado.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260729-axiado-ax3000-sgpio-controller-v2-2-976f4ed11438@axiado.com>
-References: <20260729-axiado-ax3000-sgpio-controller-v2-0-976f4ed11438@axiado.com>
- <20260729-axiado-ax3000-sgpio-controller-v2-2-976f4ed11438@axiado.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 29 Jul 2026 07:14:34 +0000
-Message-Id: <20260729071435.61FDA1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VanMweZk";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fNz8WidP"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66T5hprI1099248
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 07:20:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=/DgIWD5Lly5mly0/f905YXhV
+	vh1IPuOymULqG3vH/W0=; b=VanMweZkX08xlyvYO4bmHTKWP419D/58OYFGnOgO
+	SCAh43pGFh/uNtg7nFiBAOt9jzQwb8ZNuYCXQ4W1fyAakMqSXF2h6dHe1r+2THF/
+	5hT1u+M66yB74XD/VTwxHJewxHRJkH3Ha7pBkkXIk0QVlOnfIADLMjUo9OhxB0Kw
+	iJPHw9E97MKJ+ZaUiaHswLMGExy3d6tnm7YbdfWC68bKPaw7m2Y3hZzHMwXu72rT
+	J+6s93sYQLmmY3XpM2QxRBl4q+pfhCED4daV2yfkbisZ8MXaq75z4IvspDepHUmO
+	E/5gtZR7nlsvvUqqhs2Cwtpv2NGRwhVxnpVvRVJik7n5Dw==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fqbmm8c67-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 07:20:37 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-c9c26587e67so665412a12.0
+        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 00:20:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785309636; x=1785914436; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/DgIWD5Lly5mly0/f905YXhVvh1IPuOymULqG3vH/W0=;
+        b=fNz8WidP988SCEE9QrqXvNxbpoCV4dnGKSOZTyV2cZZpWRmV55Evmp8R46Tl8H29sq
+         7sNxNiSQ/lMu/B6Da0PppIywOrpDeXUAqGotnP3gJVdzZm08GbGc7nsRv546e9U1wFhQ
+         OBu22jmgxM9JW34T1rKg7dnKbGLfIAdWPSHkUE+MIULDimNoUD1VMjSeTB+wUWY2d1Aa
+         48LVFVIAZAIEjMLy6zDED0nl4Pkx/wIg384AYlPM8ggcRUfA/J6jyz2PNORx4kqFzpgX
+         QcX0wagNoFN9iD4slz4tEtHpcpnM8gNuy2brll9VpSP1/wLg09GyI0Dnhr2z/dkT107i
+         xfFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785309636; x=1785914436;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/DgIWD5Lly5mly0/f905YXhVvh1IPuOymULqG3vH/W0=;
+        b=BxambFKuKdP3KDGAbCZcvWxPZaZoopmqCXQ/QqvpFikIPlNmta/KCIvuW4gGPEW3lD
+         jssW9AwphHCQl2WyyzI7JP8EZJbkpR5C+ZKOx/qY3IxPRHjtSNFCBEfRiA90EFQmEtpv
+         6MiU3GkhAY5T3y9oarBPKCEqJLAIMGH6e2KbBZZx5voPzkUam5eBfg9QBEk8a2NfpFBE
+         cxByOUZRVfLmzG9PXafhaod7V7Gs+nXX2kZCEKrpTJFELcQdOdAsHfTZWTveF/SwLRq1
+         x3+nQaXwNelqhNkHZ2tECHC7N7e6i+qHmQkAJxrCQM0yPXJRkRSR9FLZoxehAvQ7isio
+         IL5w==
+X-Forwarded-Encrypted: i=1; AHgh+RrX5aUnvR5Mmk64BcGMdLny1gYBGvhDmC2O4nmzT0MJGRq6fSJXfTc/6CPVK+0NEcno+LWcqbJUUfvB@vger.kernel.org
+X-Gm-Message-State: AOJu0YyxeaQ0aM82rkxIPVwmQAJi1oPxae5qfd/iJiVtXcvBP87pMJvk
+	dCMAIGh6S8qIiGZVoPxLGEUWm/Dg8iFlVRY2Nh8CljYhAGx+0DvGnmQImMx4ibq8yDe+ycw3fqK
+	y68MpK2YAfKYivFd6Y2kYaPQgmRQh/O1YKaoAFrlzrgVyZxteJic9wqNyap+3ZKGw
+X-Gm-Gg: AR+sD129cWyWCbqAXUXevLyoehP8ZYdeSNUhBWqOGhU9rcv3C35TKym0ICt01xNxCJB
+	URUQygqit9axDyce0qA6/GNp6SDwyrjiar1pPNh67PB0OLdzP6sZOaaKcZx2s/WhTNsjeFBYU6S
+	ULm4GpUE9HqDBHLwpCsKYPCTxD9Zg9vkVqS036FbsThH+GSsd255ojd72vNh7Y4tk2fMLJRyx9q
+	r1zNfVFM3y1BNRbDHxZ3oWA4aKvCAtx2ZZqaqSKukyemmBbei/COaACRJtuXhEW42lGycq7dlWS
+	nFVQnXflY74Tghj3EkTKOEs4Tonbex4dWBp/WTypLbeJ5w/Y9IIZ+tSduVSeCbq6LMHODogrutb
+	ytk3TKjISZrqrwppJ62f0OiTWLuMjzoaDlBGZiN0OlA4=
+X-Received: by 2002:a05:6a21:3946:b0:3c3:d298:81b2 with SMTP id adf61e73a8af0-3c8e467b0c1mr1234267637.1.1785309636090;
+        Wed, 29 Jul 2026 00:20:36 -0700 (PDT)
+X-Received: by 2002:a05:6a21:3946:b0:3c3:d298:81b2 with SMTP id adf61e73a8af0-3c8e467b0c1mr1234227637.1.1785309635643;
+        Wed, 29 Jul 2026 00:20:35 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbdba351979sm514790a12.15.2026.07.29.00.20.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 29 Jul 2026 00:20:35 -0700 (PDT)
+Date: Wed, 29 Jul 2026 15:20:29 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
+        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 0/6] Add initial device trees for Nord platform
+Message-ID: <ammpvbKeGgComA1L@QCOM-aGQu4IUr3Y>
+References: <20260729010022.875799-1-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260729010022.875799-1-shengchao.guo@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDA1OCBTYWx0ZWRfX9OxowoScnx+l
+ Jql31m/J0SMRbNAABOwJO5/cvG5i9zcAsDhyyaOTRrzG12eomrFcbHszADIz22BO6iJoyvsuxje
+ +t6+MhGUhxaDNmQgmptrxmQgVdFVbxs=
+X-Authority-Analysis: v=2.4 cv=L7ktheT8 c=1 sm=1 tr=0 ts=6a69a9c5 cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=yPCof4ZbAAAA:8 a=PPB80SP1y2LXfg1cI6sA:9
+ a=CjuIK1q_8ugA:10 a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-GUID: WMZxqtJ7Wj0pq2M1FYDaAK4YosIrGNco
+X-Proofpoint-ORIG-GUID: WMZxqtJ7Wj0pq2M1FYDaAK4YosIrGNco
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDA1OCBTYWx0ZWRfX14cJRGL13DgU
+ aNUE8uRl2FQw0PbdPxP693DQ/GB2g9dOhxCHZkiEnmotfxhjBKyAD76jnNQLlh84fmc4YClNbD+
+ YFVw52ppQuAOGqGPmevsbDMNpt4YcwMLmLfjlS0JjjVvFBYjEn5WO0pdzBcQFWlpEnW/BB1II3V
+ HS3wYxDIlwWPi4LIYSjHq/oeMPc49RrcYRpAPdubkusNauPA1O2Ib+7/XK31jkI3gSVA0HklYFA
+ bkjhI+PLf9U7w5OzcwzN5JALJuMnviQImZRFzSYWG2MkdFThiQ6NrisISUO9RLEIYM9bulK3J8f
+ WYB41/mUKC/womw9t4u7/9DKSwL/FjUVgD6Eo4o0CEIfezVQaq7LO7gn1Xbjs0yjegScVFzFaEO
+ f/MXK8swjJ8Fb9cR0hBG4mb9f30Kn9JiG7BUkttCq1Z7HdMRlU9wjd+Tpjstz9M0RisXHf/Gz5c
+ WbDq7Cv2W7H1o5dRCYA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-29_02,2026-07-28_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 lowpriorityscore=0 adultscore=0 spamscore=0
+ clxscore=1015 bulkscore=0 phishscore=0 suspectscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607290058
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [High] ax3000_sgpio_get() returns a stale cached value for input GPIOs, w=
-hich breaks polling loops and risks livelocks.
-- [High] Edge interrupts are permanently lost if they occur while the child=
- interrupt is masked.
-- [High] Missing required `irq_ack` callback for `handle_edge_irq` causes a=
- NULL pointer dereference.
-- [High] Hardware configuration for Clock (Slice A0) and Output Enable (Sli=
-ce E4) is hardcoded to 32 pins, truncating SGPIO operation.
-- [High] Function pointer type mismatch for `sgpio->chip.set` causes Contro=
-l-Flow Integrity (KCFI) panics.
-- [High] Devres registration order causes a Use-After-Free of the IRQ domai=
-n when the device is unbound.
-- [Medium] The threaded IRQ handler `sgpio_irq_handler` unconditionally ret=
-urns `IRQ_HANDLED`, preventing the detection of spurious interrupts.
---
+On Wed, Jul 29, 2026 at 09:00:16AM +0800, Shawn Guo wrote:
+> This series adds initial device tree support for Qualcomm's Nord SoC
+> and the reference design boards, SA8797P RIDE for Automotive and IQ10 RRD
+> for Robotics.
+> 
+> Nord includes two variants, GearVM and Embedded. The GearVM variant has
+> platform resources (clocks, regulators, powerdomains, etc.) controlled
+> by SCMI server running on a VM. And the Embedded variant has the resources
+> directly controlled by the operating system.
+> 
+> SA8797P RIDE board is built on GearVM variant, while IQ10 RRD is built
+> on Embedded variant.
+> 
+> Tested on next-20260728.
+> 
+> Changes for v8:
+> - Drop UFS support from gearvm variant to clear binding dependency
+> - Link to v7: https://lore.kernel.org/all/20260721044005.2882803-1-shengchao.guo@oss.qualcomm.com/
 
---- Patch [2]: [PATCH v2 2/2] gpio: axiado: add SGPIO controller support ---
-commit f070fa50e06960bd582fe83c1386133514675e7d
-Author: Petar Stepanovic <pstepanovic@axiado.com>
+Hi Bjorn,
 
-gpio: axiado: add SGPIO controller support
-   =20
-Add support for the Axiado SGPIO controller.
+You can ignore v8 and just apply v7, as Martin picked up UFS binding[1]
+now.
 
-Each SGPIO position provides one input GPIO and one output GPIO with
-fixed directions. The driver registers the controller as a gpio_chip,
-supports interrupts on input GPIOs, and uses regmap for register access.
+Shawn
 
-> diff --git a/drivers/gpio/gpio-axiado-sgpio.c b/drivers/gpio/gpio-axiado-=
-sgpio.c
-> new file mode 100644
-> index 0000000000000..91e63239c99d4
-> --- /dev/null
-> +++ b/drivers/gpio/gpio-axiado-sgpio.c
-
-[ ... ]
-
-> +static const struct irq_chip axiado_sgpio_irqchip =3D {
-> +	.name =3D "axiado-sgpio",
-> +	.irq_mask =3D sgpio_mask_irq,
-> +	.irq_unmask =3D sgpio_unmask_irq,
-> +	.irq_set_type =3D sgpio_set_irq_type,
-> +	.irq_shutdown =3D sgpio_irq_shutdown,
-> +	.flags =3D IRQCHIP_IMMUTABLE | IRQCHIP_MASK_ON_SUSPEND,
-> +	GPIOCHIP_IRQ_RESOURCE_HELPERS,
-> +};
-
-[Severity: High]
-Is a .irq_ack callback required here?
-
-The flow handler for edge interrupts is set to handle_edge_irq() below in
-sgpio_set_irq_type(). The kernel's handle_edge_irq() unconditionally calls
-the .irq_ack callback on the irq_chip.
-
-Will omitting .irq_ack from this structure cause a NULL pointer dereference
-when the handler fires?
-
-[ ... ]
-
-> +static int ax3000_sgpio_set(struct gpio_chip *chip, unsigned int offset,
-> +			     int value)
-
-[Severity: High]
-Is it safe to define this function as returning an int?
-
-The set callback in struct gpio_chip is expected to return void.
-
-Could assigning an int-returning function to the chip.set pointer trigger a
-Control-Flow Integrity (KCFI) panic when the callback is indirectly invoked?
-
-[ ... ]
-
-> +static int ax3000_sgpio_get(struct gpio_chip *chip, unsigned int offset)
-> +{
-> +	struct ax3000_sgpio *sgpio =3D gpiochip_get_data(chip);
-> +	u32 position =3D (offset / 2) % 32;
-> +	u32 bank =3D (offset / 2) / 32;
-> +	u32 val;
-> +
-> +	if (!(offset % 2)) {
-> +		guard(spinlock_irqsave)(&sgpio->lock);
-> +
-> +		val =3D sgpio->slices[3].reg_ss[bank];
-
-[Severity: High]
-Does this return a stale cached value for input GPIOs?
-
-The slices[3].reg_ss cache is only updated during the threaded IRQ handler
-sgpio_irq_handler().
-
-If a consumer driver loops polling this GPIO state while preventing the
-IRQ thread from running, could this cause a permanent livelock since the
-cache will never be refreshed?
-
-[ ... ]
-
-> +static irqreturn_t sgpio_irq_handler(int irq, void *arg)
-> +{
-> +	struct ax3000_sgpio *sgpio =3D (struct ax3000_sgpio *)arg;
-> +	u32 status, new_value;
-> +	u32 changed_value;
-> +	int bit, reg_ptr;
-> +	int ret, i;
-> +
-> +	/* Read-on-clear (ACK) parent cause */
-> +	ret =3D regmap_read(sgpio->regmap,
-> +			  sgpio->regmap_base_offset + sgpio->regs->status,
-> +			  &status);
-> +	if (ret)
-> +		return IRQ_NONE;
-> +
-> +	status >>=3D 16;
-> +
-> +	bool has_shifted_layout =3D (sgpio->max_offset_regs =3D=3D MAX_OFFSET_R=
-EG);
-> +
-> +	reg_ptr =3D has_shifted_layout ? 16 - DIV_ROUND_UP(sgpio->ngpios, 32) :=
- 0;
-> +
-> +	for (i =3D 0; i < DIV_ROUND_UP(sgpio->ngpios, 32); i++, reg_ptr++) {
-> +		if (status & BIT(reg_ptr)) {
-> +			ret =3D regmap_read(sgpio->regmap,
-> +					  sgpio->regmap_base_offset +
-> +					  sgpio->regs->din_ss +
-> +					  reg_ptr * sizeof(u32),
-> +					  &new_value);
-> +			if (ret)
-> +				continue;
-> +
-> +			{
-> +				guard(spinlock_irqsave)(&sgpio->lock);
-> +				changed_value =3D sgpio->slices[3].reg_ss[i] ^ new_value;
-> +				sgpio->slices[3].reg_ss[i] =3D new_value;
-> +			}
-
-[Severity: High]
-Can this permanently drop edge interrupts if they occur while the child
-interrupt is masked?
-
-When an edge event triggers the parent handler, the software cache is updat=
-ed
-here regardless of the child IRQ's mask state.
-
-If the child IRQ is currently masked below, the event isn't pended or
-otherwise saved. Once the IRQ is unmasked, wouldn't the edge be completely
-lost since the cache has already absorbed the state change?
-
-> +
-> +			while (changed_value) {
-> +				irq_hw_number_t hwirq;
-> +				unsigned int position;
-> +				unsigned int type;
-> +				bool rising;
-> +
-> +				bit =3D __ffs(changed_value);
-> +				changed_value &=3D ~BIT(bit);
-> +
-> +				position =3D i * 32 + bit;
-> +				hwirq =3D position * 2;
-> +
-> +				rising =3D !!(new_value & BIT(bit));
-> +				type =3D READ_ONCE(sgpio->irq_type[position]);
-> +
-> +				if (rising &&
-> +				    !(type & IRQ_TYPE_EDGE_RISING))
-> +					continue;
-> +
-> +				if (!rising &&
-> +				    !(type & IRQ_TYPE_EDGE_FALLING))
-> +					continue;
-> +
-> +				if (READ_ONCE(sgpio->irq_unmasked[position])) {
-> +					unsigned int child_irq;
-> +
-> +					child_irq =3D irq_find_mapping(sgpio->chip.irq.domain,
-> +								     hwirq);
-> +					if (child_irq)
-> +						handle_nested_irq(child_irq);
-> +				}
-> +			}
-> +		}
-> +	}
-> +
-> +	return IRQ_HANDLED;
-> +}
-
-[Severity: Medium]
-Should this return IRQ_HANDLED unconditionally?
-
-If no bits are set in the status register that match the loop conditions,
-no events are processed but the handler still claims the interrupt.
-
-Could this prevent the kernel's spurious interrupt detector from noticing
-an interrupt storm and disabling the misbehaving IRQ line?
-
-[ ... ]
-
-> +static void sgpio_hw_init(struct ax3000_sgpio *sgpio)
-> +{
-> +	bool has_shifted_layout =3D (sgpio->max_offset_regs =3D=3D MAX_OFFSET_R=
-EG);
-> +	u32 position;
-> +	u32 bank;
-> +	int i;
-> +
-> +	regmap_write(sgpio->regmap,
-> +		     sgpio->regmap_base_offset + sgpio->regs->mask, 0);
-> +
-> +	/* slice A0, Clock Pin - 0 */
-> +	regmap_write(sgpio->regmap,
-> +		     sgpio->regmap_base_offset + sgpio->regs->mux_0, 0x306);
-> +	regmap_write(sgpio->regmap,
-> +		     sgpio->regmap_base_offset + sgpio->regs->preset_0,
-> +		     sgpio->preset_value);
-> +	regmap_write(sgpio->regmap,
-> +		     sgpio->regmap_base_offset + sgpio->regs->count_0,
-> +		     sgpio->count_value);
-> +	regmap_write(sgpio->regmap,
-> +		     sgpio->regmap_base_offset + sgpio->regs->pos_0, 0x1f001f);
-
-[Severity: High]
-Are the Clock (Slice A0) and Output Enable (Slice E4) hardware configuratio=
-ns
-hardcoded to only support 32 pins?
-
-Writing 0x1f001f configures the hardware position for 32 bits. Later on,
-only a single 32-bit register is initialized for the Output Enable (regs->o=
-e).
-
-If this driver is bound to a 128-pin or 512-pin controller, won't this
-leave all pins beyond the first 32 completely disabled and unclocked?
-
-[ ... ]
-
-> +	/* Slice E4, Output Enable for respective pins */
-> +	regmap_write(sgpio->regmap,
-> +		     sgpio->regmap_base_offset + sgpio->regs->mux_4,
-> +		     has_shifted_layout ? 0x10c : 0x104);
-> +	regmap_write(sgpio->regmap, sgpio->regmap_base_offset + sgpio->regs->oe,
-> +		     0xffffffff);
-> +	regmap_write(sgpio->regmap,
-> +		     sgpio->regmap_base_offset + sgpio->regs->oe_ss,
-> +		     0xffffffff);
-> +	regmap_write(sgpio->regmap,
-> +		     sgpio->regmap_base_offset + sgpio->regs->preset_4,
-> +		     sgpio->preset_value);
-> +	regmap_write(sgpio->regmap,
-> +		     sgpio->regmap_base_offset + sgpio->regs->count_4,
-> +		     sgpio->count_value);
-> +	regmap_write(sgpio->regmap,
-> +		     sgpio->regmap_base_offset + sgpio->regs->pos_4, 0x1f001f);
-
-[ ... ]
-
-> +static int sgpio_probe(struct platform_device *pdev)
-> +{
-...
-> +	rc =3D devm_request_threaded_irq(&pdev->dev, irq, NULL, sgpio_irq_handl=
-er,
-> +				       IRQF_ONESHOT, dev_name(&pdev->dev), sgpio);
-> +
-> +	if (rc)
-> +		return dev_err_probe(&pdev->dev, rc, "Failed to request IRQ\n");
-
-[Severity: High]
-Does registering the IRQ before adding the gpiochip cause a use-after-free
-on device unbind?
-
-Devres manages resource cleanup in reverse order (LIFO).
-
-If the IRQ is requested here, and then the gpiochip is added below:
-
-> +
-> +	sgpio->chip.parent =3D &pdev->dev;
-> +	sgpio->chip.ngpio =3D sgpio->ngpios * 2;
-> +	sgpio->chip.get_direction =3D ax3000_sgpio_get_direction;
-> +	sgpio->chip.direction_input =3D ax3000_sgpio_dir_in;
-> +	sgpio->chip.direction_output =3D ax3000_sgpio_dir_out;
-> +	sgpio->chip.get =3D ax3000_sgpio_get;
-> +	sgpio->chip.set =3D ax3000_sgpio_set;
-> +	sgpio->chip.can_sleep =3D true;
-> +	sgpio->chip.label =3D dev_name(&pdev->dev);
-> +	sgpio->chip.base =3D -1;
-> +
-> +	girq =3D &sgpio->chip.irq;
-> +
-> +	gpio_irq_chip_set_chip(girq, &axiado_sgpio_irqchip);
-> +	girq->handler =3D handle_bad_irq;
-> +	girq->default_type =3D IRQ_TYPE_NONE;
-> +	girq->init_valid_mask =3D axiado_sgpio_irq_init_valid_mask;
-> +	girq->threaded =3D true;
-> +	girq->parent_handler =3D NULL;
-> +	girq->num_parents =3D 0;
-> +	girq->parents =3D NULL;
-> +
-> +	rc =3D devm_gpiochip_add_data(&pdev->dev, &sgpio->chip, sgpio);
-
-won't the gpiochip and its IRQ domain be torn down during removal while the
-interrupt handler is still registered?
-
-If the interrupt fires in this window, the handler calls irq_find_mapping()
-on a freed IRQ domain.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729-axiado-ax3=
-000-sgpio-controller-v2-0-976f4ed11438@axiado.com?part=3D2
+[1] https://lore.kernel.org/all/178529373848.132455.4656284480950878568.b4-ty@oracle.com/
