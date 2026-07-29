@@ -1,35 +1,37 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from freeshell.de (freeshell.de [116.202.128.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30480369D57;
-	Wed, 29 Jul 2026 21:25:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5D2C3AC0FF
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 21:27:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.202.128.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785360334; cv=none; b=ca02TDRDo6xpDqgvhGSZE6MU6nViSKjEcDfoyobUI4C+zkxoPHYHHCFVlWF4cHRYEB4xLA0h1/Aay55okehbul/I3JZlZopWgf/aHk7whmPUTFP9dhxCrfHwNSRkXwsyUlYAbvBWfoc0VrhnXMfqhqeI5psmfmm9JBXbD1VpWRE=
+	t=1785360444; cv=none; b=dhsieQ57wDb00QNoNVDf5np+jrG+aq086JqrChminmAkc57F+EtKxuCik0tumluk4bdxy8n1Da3Gpqw1WhEsmf7ndEiVMb5rUnwS7lyWRErkWAC7dg7YUl25NOQFP1W8joXqEgSxnm8A35MrzYrAiPHw1u+UaN7H1x5uCA3v3Bw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785360334; c=relaxed/simple;
-	bh=mAZ8xvJQ1noKP8NU39VvfEAzcQ8Ye5Hxy2tDCwvbS/E=;
+	s=arc-20240116; t=1785360444; c=relaxed/simple;
+	bh=//SXKt9w9Gcbogu6OSXQ+LBVA60p0Og6LHU7IHE9c8Y=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=S2s1rTfhx9Pdq7S0VshOBKGWogmzMLnu0PaLwVsbghJ2Jz4oNzQMCFGP8ASFyN1PKN64ddBptHU8ZFmnKMiw87DG7DqdTveHW467CJM/kC9mLnBnDynYtEObvvOFKKoPbP7uzYNT7yGHemwKf9B70rkrdpNe6uMM9L9NFjta/WE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=XK4YLob3; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	 In-Reply-To:Content-Type; b=RJUIIRfbSowpnwLrCWISO66D1s+K+OsUNZQDPzy/6GJ5A0USRqhC/WntmCu94N2J3Idn1q7yqprEjbRz5zrvCA7XBVrpV5CvjHBvqF/wqJ6ij/IBKxvHROeUklznlxSQN6GkHmqXi1VKPBtC45xINrpqrf8kptTUWRmLB8JZI2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de; spf=pass smtp.mailfrom=freeshell.de; dkim=pass (2048-bit key) header.d=freeshell.de header.i=@freeshell.de header.b=R5PrIS8U; arc=none smtp.client-ip=116.202.128.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=freeshell.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="XK4YLob3"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 47DF411B700;
-	Wed, 29 Jul 2026 23:25:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1785360326;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=ZoMb+2U4HmX2tz3eN2n4VIXtSjD5srK4Rp9AxU0PyT0=;
-	b=XK4YLob3pF+mVAMBaL/NfYuezShIK7BcFQq1MdkpSjieKQIBcuHN6NdvZIeR5Nc+S1+n5t
-	XknesjssUy8Avx1rkmgFgHwWIXGJjFLkJQBQ7dFARcicvRnAKtqvuhnx4p+70xr7lunjwX
-	9DbjLoFAPZI6ksBtRt+mIYztKoE14WW4tc6pnj4ZKD0M3teO2PSx8PIPW0OjKP8EU9lT1a
-	9gxK//4Aky4TFPcErVkp7Oka109OGEruGoe60dSrDui07VAauZmIlfcPOptxDLk6w/dN2q
-	hoNrPP7LWiQjZAG6OAGZCzTRL0wym6U2VVvqAUwmywfEOnY9TXlS+bRJzyBVTQ==
-Message-ID: <d73c2ad1-c25a-4b31-9b0e-b38099d27d81@nabladev.com>
-Date: Wed, 29 Jul 2026 23:25:24 +0200
+	dkim=pass (2048-bit key) header.d=freeshell.de header.i=@freeshell.de header.b="R5PrIS8U"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=freeshell.de;
+	s=s2025; t=1785360411;
+	bh=qIeB7odIPYqV8wTIrHOpI6P/vGVIYxJtiGk+dolwf/c=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=R5PrIS8UrT3OoxRFc88eOYa3p0BWuImXPSWlI7GxpU2i0ZaYtD7Ki+HzqTgssZKPm
+	 grbRgQIixF21CyT8fN0C+kiUIGWwTQquolHJWW7Sg42yF2Z3PDvt7Af6cNh7+kjD3l
+	 CvFyfYPeWfHlPgaMdIHpTNOiuEA9O1vCMMETCH9PIqnKAqlE6SsfA4z4Onn++ssPOw
+	 Yk3IvO3d5QSLcyl37AXaStjHaFRPbdFZj+XWSBvy022z6f5H9mHTLlo9QN8lAF8rAG
+	 wg6jYEw1ZTuDv2xdy9w0+F1DNCMUYiEMCjGXaGfkvGnaR1R8jKDbqyXUB5flb4sf5S
+	 CjbDkf6Ddv4tw==
+Received: from [IPV6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc] (unknown [IPv6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc])
+	(Authenticated sender: e)
+	by freeshell.de (Postfix) with ESMTPSA id 0BC81B220608;
+	Wed, 29 Jul 2026 23:26:49 +0200 (CEST)
+Message-ID: <d09431e5-37c0-4b92-ac93-d6f01a053b96@freeshell.de>
+Date: Wed, 29 Jul 2026 14:26:47 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -37,117 +39,99 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/7] arm64: dts: imx8mp: Add DT label to SPBA5 bus
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: linux-arm-kernel@lists.infradead.org, Frank Li <Frank.Li@nxp.com>,
- Conor Dooley <conor+dt@kernel.org>, Fabio Estevam <festevam@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Rob Herring <robh@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- devicetree@vger.kernel.org, imx@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20260727195244.78199-1-marex@nabladev.com>
- <178526691528.3668106.10748099183405791163.b4-ty@b4>
- <amoclu5c3bQH2zzF@lizhi-Precision-Tower-5810>
- <59bbc6ec-e01d-4656-a0a8-bc81c3cfbbe2@nabladev.com>
- <amojcXE2di_lwB2v@SMW015318>
- <114bc96c-459b-471c-8852-36309cca10b6@nabladev.com>
- <ampkUinVz4s2sMEl@lizhi-Precision-Tower-5810>
- <03143ba3-e589-42b4-9221-59d9258e7d21@nabladev.com>
- <ampuAiIUR-1FUxV-@SMW015318>
+Subject: Re: [PATCH] riscv: dts: starfive: jh7110-common: fix jh7110 SoC boot
+ from SD-card.
+To: Heinrich Schuchardt <heinrich.schuchardt@canonical.com>,
+ Conor Dooley <mail@conchuod.ie>
+Cc: Emil Renner Berthing <kernel@esmil.dk>, linux-riscv@lists.infradead.org,
+ Ilya Sorochan <k0tran@altlinux.org>, devicetree@vger.kernel.org,
+ Conor Dooley <conor@kernel.org>
+References: <20260306171939.84568-1-k0tran@altlinux.org>
+ <178526175795.1708098.11834005845749245101.b4-ty@conchuod.ie>
+ <a32646aa-446a-4f95-9293-40001aeedae5@freeshell.de>
+ <bb94e760-c7c3-43be-a221-5a45f8ec2db2@canonical.com>
 Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <ampuAiIUR-1FUxV-@SMW015318>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+From: E Shattow <e@freeshell.de>
+In-Reply-To: <bb94e760-c7c3-43be-a221-5a45f8ec2db2@canonical.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 7/29/26 11:17 PM, Frank Li wrote:
-> On Wed, Jul 29, 2026 at 11:14:08PM +0200, Marek Vasut wrote:
->> On 7/29/26 10:36 PM, Frank Li wrote:
->>> On Wed, Jul 29, 2026 at 06:49:03PM +0200, Marek Vasut wrote:
->>>> On 7/29/26 5:59 PM, Frank Li wrote:
->>>>> On Wed, Jul 29, 2026 at 05:50:21PM +0200, Marek Vasut wrote:
->>>>>> On 7/29/26 5:30 PM, Frank Li wrote:
->>>>>>> On Tue, Jul 28, 2026 at 04:56:42PM -0400, Frank.Li@oss.nxp.com wrote:
->>>>>>>> From: Frank Li <Frank.Li@nxp.com>
->>>>>>>>
->>>>>>>>
->>>>>>>> On Mon, 27 Jul 2026 21:52:16 +0200, Marek Vasut wrote:
->>>>>>>>> Add DT label to SPBA5 bus for usage in board DTs.
->>>>>>>>> No functional change.
->>>>>>>>
->>>>>>>> Applied, thanks!
->>>>>>>>
->>>>>>>> [1/7] arm64: dts: imx8mp: Add DT label to SPBA5 bus
->>>>>>>>           commit: 697f6889aa50996de067a8d170323535570052ad
->>>>>>>> [2/7] arm64: dts: imx8mm: imx8mp: Add LVDS DTOs for Data Modul i.MX8M Mini and Plus eDM SBC
->>>>>>>>           commit: 3eacea24d258ff5169d84a419b07cb5828e91718
->>>>>>>> [3/7] arm64: dts: imx8mm: imx8mp: Add legacy board DTOs for Data Modul i.MX8M Mini and Plus eDM SBC
->>>>>>>>           commit: 81a2094bb922290e4b52a1467037f8d2ac07ad87
->>>>>>>> [4/7] arm64: dts: imx8mm: imx8mp: Add HDMI DTOs for Data Modul i.MX8M Mini and Plus eDM SBC
->>>>>>>>           commit: cfdee13eba802665ecd8751fefa754a759f414c4
->>>>>>>> [5/7] arm64: dts: imx8mm: imx8mp: Add CM DTOs for Data Modul i.MX8M Mini and Plus eDM SBC
->>>>>>>>           commit: b26192de5d0f4635d73ad2aea43e3e83a9ef5f77
->>>>>>>> [6/7] arm64: dts: imx8mm: imx8mp: Add FIO1 DTOs for Data Modul i.MX8M Mini and Plus eDM SBC
->>>>>>>>           commit: dca8d10e97bd121494106f54f4577291a9bb0f13
->>>>>>>> [7/7] arm64: dts: imx8mm: imx8mp: Add FIO1-Audio DTOs for Data Modul i.MX8M Mini and Plus eDM SBC
->>>>>>>>           commit: 8ea2fa3fdc65f2750718aebdcf912cccde5913b8
->>>>>>>
->>>>>>> Sorry, I have to drop these because met build error
->>>>>>>
->>>>>>> Failed to apply 'arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-rev902.dtbo': FDT_ERR_NOTFOUND
->>>>>>>
->>>>>>> Failed to apply 'arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-rev900.dtbo': FDT_ERR_NOTFOUND
->>>>>>> make[3]: *** [scripts/Makefile.dtbs:94: arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-rev902.dtb] Error 1
->>>>>>> make[3]: *** Waiting for unfinished jobs....
->>>>>>> make[3]: *** [scripts/Makefile.dtbs:94: arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-rev900.dtb] Error 1
->>>>>>> make[2]: *** [scripts/Makefile.build:549: arch/arm64/boot/dts/freescale] Error 2
->>>>>>> make[1]: *** [/home/lizhi/source/linux-imx/Makefile:1629: dtbs] Error 2
->>>>>> How can I reproduce this build error ?
->>>>>
->>>>> Apply patch base on git@gitolite.kernel.org:pub/scm/linux/kernel/git/frank.li/linux imx/dt64 branch
->>>>>
->>>>> make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j8 dtbs
->>>> It seems to work fine:
->>>>
->>>> $ git remote get-url frank
->>>> https://git.kernel.org/pub/scm/linux/kernel/git/frank.li/linux.git
->>>>
->>>> $ git reset --hard frank/imx/dt64
->>>> HEAD is now at eba4724641990 arm64: dts: imx95: Add dma, intr, aer and pme
->>>> interrupts for PCIe
->>>>
->>>> # https://patchwork.kernel.org/project/linux-arm-kernel/patch/20260727195244.78199-1-marex@nabladev.com/
->>>>     -> series
->>>> $ git am v6-1-7-arm64-dts-imx8mp-Add-DT-label-to-SPBA5-bus.patch
->>>> Applying: arm64: dts: imx8mp: Add DT label to SPBA5 bus
->>>> Applying: arm64: dts: imx8mm: imx8mp: Add LVDS DTOs for Data Modul i.MX8M
->>>> Mini and Plus eDM SBC
->>>> Applying: arm64: dts: imx8mm: imx8mp: Add legacy board DTOs for Data Modul
->>>> i.MX8M Mini and Plus eDM SBC
->>>> Applying: arm64: dts: imx8mm: imx8mp: Add HDMI DTOs for Data Modul i.MX8M
->>>> Mini and Plus eDM SBC
->>>> Applying: arm64: dts: imx8mm: imx8mp: Add CM DTOs for Data Modul i.MX8M Mini
->>>> and Plus eDM SBC
->>>> Applying: arm64: dts: imx8mm: imx8mp: Add FIO1 DTOs for Data Modul i.MX8M
->>>> Mini and Plus eDM SBC
->>>> Applying: arm64: dts: imx8mm: imx8mp: Add FIO1-Audio DTOs for Data Modul
->>>> i.MX8M Mini and Plus eDM SBC
->>>>
->>>> $ git clean -fqdx
->>>> $ export CROSS_COMPILE=aarch64-linux-gnu-
->>>> $ make defconfig
->>>> $ make -j8 dtbs 2>&1 | tee /tmp/dt.log
+
+
+On 7/29/26 04:21, Heinrich Schuchardt wrote:
+> On 7/29/26 11:39, E Shattow wrote:
+>>
+>>
+>> On 7/28/26 11:02, Conor Dooley wrote:
+>>> From: Conor Dooley <mail@conchuod.ie>
 >>>
->>> Missed
+>>> On Fri, 06 Mar 2026 20:19:39 +0300, Ilya Sorochan wrote:
+>>>> Add bootph-pre-ram to mmc1_pins clk-pins.
+>>>>
+>>>> U-Boot pruned their overrides recently in favor of Linux which broke
+>>>> booting
+>>>> from sd-card for me and Heinrich Schuchardt [1]. Pruning commit:
+>>>> 27f617019dd070cb61f2 ("riscv: dts: starfive: prune redundant jh7110-
+>>>> common overrides")
+>>>>
+>>>> [1]  https://lore.kernel.org/all/
+>>>> ffdfc550-559b-4c59-9873-3f040fc3bb0e@canonical.com/
+>>>>
+>>>> [...]
 >>>
->>> DTC_FLAGS_imx8mp-data-modul-edm-sbc-overlay-edm-mod-imx8mm-lvds-g070y2-l01 := -@
+>>> Right, I am going to try this again. I don't think there's actually a
+>>> valid technical argument against it, since it just affects the stage at
+>>> which configuration is applied rather than configuration itself.
+>>> If the configuration is wrong, and more devices don't use this
+>>> configuration
+>>> than do, people need to move the node to where they think should be.
+>>> That
+>>> shall be done separately.
 >>>
->>> did you set global env variable add -@ to export all symbal?
->> Sure, I always have DTC_FLAGS = " -@" set . Do you want that in Makefile for
->> those various DTOs ?
+>>> I don't want to hear about the politics about whether or not Starfive
+>>> want
+>>> to support it or reverse engineering of binaries etc. All that I care
+>>> about
+>>> is discussion of the hardware itself and which boards need this and
+>>> which do
+>>> not.
+>>>
+>>> Applied to riscv-dt-fixes, thanks!
+>>>
+>>> [1/1] riscv: dts: starfive: jh7110-common: fix jh7110 SoC boot from
+>>> SD-card.
+>>>        https://git.kernel.org/conor/c/42c57c049054
+>>>
+>>> Thanks,
+>>> Conor.
+>>
+>> Second NAK to this being applied, again, do not apply as-is.
+>>
+>> As you're not interested in the technical discussion, then you won't
+>> have one.
+>>
+>> -E
 > 
-> Yes, we need make sure kernel pass build by other people.
-All right, let me retest and sent a V7 shortly with this one change.
+> As E does not offer any reason for their NAK, I guess it can be safely
+> ignored as invalid.
+> 
+> Best regards
+> 
+> Heinrich
+> 
+> 
 
-Thanks, I didn't realize this DTC_FLAGS part.
+Reason has not changed in 4+ months since the last attempt to shove this
+patch through without technical merit. Please participate instead of
+being like however this is toward me, I would greatly value your
+analysis if you would just attempt to do so as Hal and myself have done.
+It is unfortunate I find discrepancies in Hal's description that plainly
+does not match what I find in the actual hardware. We should do some of
+the work here not relying on Hal, and especially not relying on myself
+(I'm not a career programmer obviously). Will you find time to
+participate in review of the StarFive loader code and features that are
+purported to be so desired for U-Boot compatibility?
+
+https://web.archive.org/web/20260501210605/https://freeshell.de/e/riscv64/hrv-jhre-JH-7110%20BootROM%20analysis_2026_02_22.gar
+
+-E
