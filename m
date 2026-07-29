@@ -1,88 +1,108 @@
-Received: from mxb.seznam.cz (mxb.seznam.cz [77.75.78.89])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3778747B40D;
-	Wed, 29 Jul 2026 12:01:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.75.78.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B0464582DE
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 12:06:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785326520; cv=none; b=owXD3waEd0NN5k9i5kXM8fJusaxZ/yvhlzOIXVnfRlTO4k9X0/6FaBirsiZ7r/aRNi5zNh6rPtc58bwq+8/8BtwfOwNzwG/8yF/nNX8ZSKqHEYbJYVi8D5W1ta/OMZwAuuOx/sY46EF6ZVBRnux8xkLj93wCMWKzyUw0N2hKtK8=
+	t=1785326775; cv=none; b=E5EtiJDPee2H9yJg3XcxFpQauv4RT7E9ngQt2Fn2zmkklXW7TTxn/8naO5WZTdlZarKTl3rSbwpPAo+Pjx8SCJwqM1kmTr0NMmabtLJ4TMnAiqh+n5/z6o+S7vrZC1x70V+GCUqU9mMmTNz+X+zRS68exnyUGVkmezusgTquDJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785326520; c=relaxed/simple;
-	bh=w2DTi4murj2vKpLiI662adWYX3Ihvrtoh/OXug3aI9I=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ln9A/Ib0kDeHaFHmnEKG162wd9TSSnj0AtK3Oys9cuQ6cSXtc6YiDBe2ds5E9pJrTV9YisoLIQn0R6d5QJsZbPWD3CDVRHCDUmXd2Qoy49W+736ddvI/BpKiNJ5zaQLXm+x0lnFOd0w4kf7Pal52M+A7HlVOgcS3+UiKICyhszE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loebl.cz; spf=none smtp.mailfrom=loebl.cz; dkim=pass (2048-bit key) header.d=emailprofi.seznam.cz header.i=@emailprofi.seznam.cz header.b=LdNVV1QC; arc=none smtp.client-ip=77.75.78.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loebl.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=loebl.cz
+	s=arc-20240116; t=1785326775; c=relaxed/simple;
+	bh=XaU/sKgH4dbno4MAzXu/NnGyRsuXxrohTi6PE0VHIf0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=rL+wM1/2mlW6yLLMPKMebf8in1BxM+oqBxc8gIHRvKVH53yIBCQH1SLp5Sfv07fYvwoc5GYQmKFuVkG3hwLYEWsyp/9FbX5w2K9BqTOynztLLkR4Xn76xpTHSw8tg7IrdNS5Q93HjQZtOAsnf3QSLJ5kCBgesCtZN98BgsbOvag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LbDoyoC6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=emailprofi.seznam.cz header.i=@emailprofi.seznam.cz header.b="LdNVV1QC"
-Received: from email.seznam.cz
-	by smtpc-mxb-6fbd4fd44b-jrm75
-	(smtpc-mxb-6fbd4fd44b-jrm75 [2a02:598:128:8a00::1000:910])
-	id 389e55fc230cd8283c7bec7e;
-	Wed, 29 Jul 2026 14:01:56 +0200 (CEST)
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=emailprofi.seznam.cz; s=szn1; t=1785326516;
-	bh=0cNEBHJ8YypuAMvYccK19bwKBDUcOIjicYfN9f8bbGw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	b=LdNVV1QCopv9mPJPDmq0viRuZJmLqGdbwbpWFP9070AS8V9DyarRZYqxvX7Y/rTM1
-	 AFwZhs9PmLfYtOXMjDULoSb5Pn8IxQvskgUE1lyjAnxvcfst4A1ZHSVV8nKk1ELHUc
-	 hyGXJE6hrdk3ZEstVkdPkSFSCk13ZtkjPYaHwpJ1paZAlYScfqANDCQmjsaawm1STb
-	 JZTU/intlctQoXCA8rqFRhWBAvXpFzy1K2/HYEUuIlb1JobvLMMdFHynDS0U0iEer9
-	 GxT1GssBEGGbFjEH8z4iIxq4e/8AXWyOKkBHMKvB+bLcXtebuOQflqNcrcUHYawUj/
-	 VZvNyoC9R5g1A==
-Received: from localhost (109-81-114-141.rct.o2.cz [109.81.114.141])
-	by smtpd-relay-7b8c6c77dd-6k8bg (szn-email-smtpd/2.0.79) with ESMTPA
-	id 75d33d37-4aa7-4501-bc9c-48347b9a01c8;
-	Wed, 29 Jul 2026 13:58:34 +0200
-From: =?UTF-8?q?Pavel=20L=C3=B6bl?= <pavel@loebl.cz>
-To: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: devicetree@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	=?UTF-8?q?Pavel=20L=C3=B6bl?= <pavel@loebl.cz>
-Subject: [PATCH v3 0/2] Add support for Si549 programmable clock
-Date: Wed, 29 Jul 2026 13:53:08 +0200
-Message-ID: <20260729115310.3490589-1-pavel@loebl.cz>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LbDoyoC6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B3A81F000E9;
+	Wed, 29 Jul 2026 12:06:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785326774;
+	bh=QOmWAsiHKfgwl6g/3aUPb7xQSJCMASD1J3HzrZINTvQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LbDoyoC6Zi8Dlz0lYJQJeZEhKoO6/RNrxWYensssniGv/4Zj/rRgb3LS8kTDNYHSP
+	 fU/EQ8MBqmgeyXKO2qXYZWi1OXnXx1PeX/dHs1jN7zXpMSIyEIDRh4TUCyiqzLLMip
+	 lBR4P7sEutnp+USfwGE63mJdL0DIDR1hhjOH0xT2jk4blNeo0LJsVe95CEUZDHm25F
+	 0Uc1rNkxcI8J+IkPG724QPglY3FL5JVJZNHj66CIFdfp0iGacXjg41bnzLYL+hlxMX
+	 gLoIk31CdBJL7QxJYLzdW26EOcYUDiQ9DIaDbTO34rLV8kRkLfINKt5Ja7e7AF6lAU
+	 cNaWr3cdzC5xA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: clock: si544: add si549 compatible
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?UGF2ZWwgTMO2Ymw=?= <pavel@loebl.cz>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260729115310.3490589-2-pavel@loebl.cz>
+References: <20260729115310.3490589-1-pavel@loebl.cz>
+ <20260729115310.3490589-2-pavel@loebl.cz>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 29 Jul 2026 12:06:13 +0000
+Message-Id: <20260729120613.8B3A81F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-This adds support for Si549 programmable oscillator. It's almost the
-same as already supported Si544, except it uses different internal
-oscillator frequency.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Low] The updated datasheet URL for the si544 datasheet contains a capita=
+lization typo in the path (`SkyWorks` instead of `Skyworks`), which could r=
+esult in a 404 Not Found error on case-sensitive web servers.
+- [Low] The binding description text was not updated to mention the new Si5=
+49 devices, leaving it inconsistent with the updated title and compatible s=
+tring list.
+--
 
-So new compatible strings are added, and driver data is extended
-to carry both maximum output frequency and internal xtal frequency.
+--- Patch [1]: [PATCH v3 1/2] dt-bindings: clock: si544: add si549 compatib=
+le ---
+commit 529dcd41cafc82a36f39e95eb442dbe9230735cf
+Author: Pavel L=C3=B6bl <pavel@loebl.cz>
 
-Changes in v3:
-  Added missing xo_freq member description as found by kernel test robot:
+dt-bindings: clock: si544: add si549 compatible
 
-  https://lore.kernel.org/oe-kbuild-all/202607291708.qFSxYL2s-lkp@intel.com/
+This commit adds the Si549 compatible strings to the si544 clock generator
+binding. It also updates the datasheet links to point to Skyworks Solutions
+after their acquisition of Silicon Labs.
 
-Changes in v2:
-  Fixed obvious stuff found by Sashiko (extra unused struct member),
-  removing unneeded data argument to calculation functions, xo_freq
-  is now passed in settings struct.
+> diff --git a/Documentation/devicetree/bindings/clock/silabs,si544.yaml b/=
+Documentation/devicetree/bindings/clock/silabs,si544.yaml
+> index f87e718671080..c58171f1bc5be 100644
+> --- a/Documentation/devicetree/bindings/clock/silabs,si544.yaml
+> +++ b/Documentation/devicetree/bindings/clock/silabs,si544.yaml
 
-Pavel Löbl (2):
-  dt-bindings: clock: si544: add si549 compatible
-  clk: si544: add support for si549
+[ ... ]
 
- .../bindings/clock/silabs,si544.yaml          | 10 ++-
- drivers/clk/Kconfig                           |  6 +-
- drivers/clk/clk-si544.c                       | 83 +++++++++++++++----
- 3 files changed, 76 insertions(+), 23 deletions(-)
+> @@ -13,8 +13,9 @@ description: >
+>    Silicon Labs 514/544 programmable I2C clock generator. Details about t=
+he device
+>    can be found in the datasheet:
 
--- 
-2.53.0
+[Severity: Low]
+Should the description block also be updated to mention the 549 series? The
+title and compatible properties were updated to include 549, but this text
+remains limited to 514/544.
 
+> -    https://www.silabs.com/Support%20Documents/TechnicalDocs/si514.pdf
+> -    https://www.silabs.com/documents/public/data-sheets/si544-datasheet.=
+pdf
+> +    https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/dat=
+a-sheets/Si514.pdf
+> +    https://www.skyworksinc.com/-/media/SkyWorks/SL/documents/public/dat=
+a-sheets/si544-datasheet.pdf
+
+[Severity: Low]
+Is the capitalization in this URL path correct? The other updated links use
+"Skyworks" in the path, but this one uses "SkyWorks". This might result in a
+broken link if the web server relies on strict case-sensitivity.
+
+> +    https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/dat=
+a-sheets/si549-datasheet.pdf
+> =20
+>  properties:
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729115310.3490=
+589-1-pavel@loebl.cz?part=3D1
