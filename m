@@ -1,80 +1,33 @@
-Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 990FC4734CC
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 11:21:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.123
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3C352473C8B;
+	Wed, 29 Jul 2026 11:21:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785324089; cv=none; b=g4vAAqFY2jhh6s59w/a7SF1WwArDUIenvZ6yEFwRw3atMk54tFAVxkroBsJbGMH7+pjC9V9SZ5PiD8owRjrFgQvWW/scyt8qj1AOvJuRl2PRHNq3iIEAJ6JDt+KOvKCwwRJu/mjVbmhpfGlWFQKu85Gf24YQtrDUxZebD+DCjzM=
+	t=1785324100; cv=none; b=Cmwj7cvvBoSwlw+qOukkrOaJr4WNQtD8W2aOt5z7PM56t3Oxhje5SVjzwAp+4Irdni7MuZAwCdlZqDXj7UskzdOlrm68n8fDgoskm7TXgDIxmxi14LB7YrMEtmTIMjTcOLNLu4QOxVhjNjJ9ktBwbVMf7ezXiM3kHXyXTwgsCN8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785324089; c=relaxed/simple;
-	bh=Hp2+IfUwP2mHvBcaRk8gZZ18t+cUXx5TnKgSvTXq7LQ=;
+	s=arc-20240116; t=1785324100; c=relaxed/simple;
+	bh=MB28ZDQXnRUEjS0QpfpMx6wHRzIxNI4OeS25bP12DFc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=T3pXE8UBbMUmn2//9eGZHPAWAn3JTk2PjXRuYpV32+k23qOmg+3uK0vTEbcsfb8RRV3lRMi9U3MHXCiNyH0eR8XN1uf7aHYavZr6Wm/bEF69wh6DtY449c+BZLFFuot3nUy8LaGpP4U3+QFRmMMvm6wcDDyYx1W4BSTAf31Tl6E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=E98ISPU5; arc=none smtp.client-ip=185.125.188.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+	 In-Reply-To:Content-Type; b=DhtHkm4Gjxpf7nouOiEy/t+Wmf8RKewm+f/czypLEFtzkIm4q0PfpCi8ZHUtCUGtTw9s/SDZhA6QAoP5LQuVZDXnk0arvkxnMnwr8YnUtyv6KN0o0PIkWn1NTA4S7j3e4bSLaRMoXdidyRG7gR6VgxO6yHP1D6fUHAuwMgbwqRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qATPPOOi; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="E98ISPU5"
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 177B03F82D
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 11:21:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1785324078;
-	bh=uHQjuj6Xcqi1BVE9uzz71sr2eQbfCmUCgJ90Wi9b1Bk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type;
-	b=E98ISPU5CSfVeI8s7wy1wqjXwbRuGiW6VLQpr+KjBq21yMf9fC61O57EA+lJmBoEx
-	 ad/gkX+3FPW4YyOf4EaLG0JoZp0nSoSiekcjm7/dklVPLiXEmZecs+5WOhnwmCSm6x
-	 Wg/K5bCsOTnBS2OUvzgXuPrbIgOfp0mOtTnE1bZUoLsfFBZJV2QXRI+G7VvkxcKfIO
-	 0Vk6kOeJclfNGK9pjuxUgFm0MBKVLsfXpUnnI7SMH5hCRpZ5zGu69SttACwUU3YC9k
-	 llmZdfZPppgZBPsXYKomYNq6aiCkYVkDDSHn7N5J7Yz5hr210mRwaAlHxZy3TfW5Oy
-	 YRsRNKhj8B3owVOmCwvcIQhWzJMNhsGwlrRv6ZPm/26eJQNWY0CnKSW8N96LCM5Aqd
-	 KZ4U20bn4CLP/NI3PYbs1vgKhMIt3z9H72NRg59678rZJ4hkpMhd0P4F9Hy+o5c8cT
-	 KVUk0wsN5lNxXlHuSlcW+430qPnOtXyMWnlgd43nT1x2COYejKYziWBcY1+oCTkazk
-	 iNO2lCXC1JO/rTCynfnODSBvYq8W8WY1Ol/TDQGTI/VtyR8QDh0Ov556CNWltXgOTi
-	 kNa01suMdCrCehHRClnukt1fF2BOCY7O5xBEQsbNqObNYmIBP4bJWY4T+WlmBstOa7
-	 Je8A72Pct0MgR2Kl4jzzYBB0=
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4954c2d4081so6186265e9.2
-        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 04:21:18 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785324077; x=1785928877;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uHQjuj6Xcqi1BVE9uzz71sr2eQbfCmUCgJ90Wi9b1Bk=;
-        b=j7AGY7a+QWHrv2lQpG2Jy1BnkVRQK+yFy7h9B1XUmDfO9SgLBoQjHdvYT9gvP48SRk
-         4YmqtbZZum68CJEdQFO6acKZHZIJf5y/udzD/n2fbryWUUYjVTwZON1SzcWRKlr8M4TH
-         NGBgou3JsViMT126Jr76AdgUf5d3qREyInJIFdW2ZpymqoofCHXKA1qO+Mx/BprLsA8h
-         bp1LooOQKxUAehEga3T+IOab4zJphNIRZJhq52v1+5M9lZ5S1HfjUO1aX0o4r1LfgQ/8
-         QAf5MbEQVRYEzB+51jhQ6DtVAQ4yM9rievXGqyKSAmEDhqXdbAFS/Fv0swOVf8doyjdK
-         2CcA==
-X-Forwarded-Encrypted: i=1; AHgh+RqB3hTEwsyTH+VVw+iEHHqC0T9tMSBWBsez6FeysJURDn0kckvVIMB5MVCwdpAfXpM5FHuiacmwEK5W@vger.kernel.org
-X-Gm-Message-State: AOJu0YzOtCHbvOWXh+lD5nkVSad3t5anWgueov/1Y9A8IksPH3gCuRF7
-	T0FDxBt5YxUVkF4/mq/ejF44ySX1OVKBlSNSzRGWjHySJZbS8M7M3muXOfUu3jrJ6sJKXoDCARy
-	wX3y+z/w24mZgajlyRnxyG/akUyR9e92Ldd+9v6F+J0ZOF7zQT0504QifOcnRLxqjrhrW4Oboah
-	zQW3E=
-X-Gm-Gg: AR+sD12jv5209K230xGx68L2KjTA/Sr83Z+uu/la1Mfr7mPGyQpUveXyezl3pCwHVOK
-	gD6V5w/KOhlafxjrneQFsoldpk+WIdE9LVLRFtBPcOD6+jGF5w0wC6fyBtfS+gMFD9cQ0P3PEkF
-	WJF6ixwBaU3xTfahX7JSinq4SIztPyMlQQh/jUV1sgVu2QP/CwKt3yalmf1Z7rGS4c0TVQya7eT
-	hdDk5rqbbbFMR7/0MNwWusFmilcWrpB1rRBNjn7PLnB9O12LngK0qHtYU0RPT57kSv7Ip+whYnl
-	ylEKNn6NgIjbqWOrRtBhUL00LmoCTAhHV5UVhpSt0dWgJ6G4+fITqPyOvBIpRnLfjtMaLyjI9s6
-	gVNQL4irkGVsAxZiRiar2SiptnSPGy1kIWO2hpCbDR4YePRbEtfIe0r/b3TlK/LGgsALHYHpGSr
-	Fqb54A9SrKA48rnAE9Phravw4=
-X-Received: by 2002:a05:600c:19cb:b0:495:3a21:4e5d with SMTP id 5b1f17b1804b1-496c60c111dmr63691915e9.0.1785324077567;
-        Wed, 29 Jul 2026 04:21:17 -0700 (PDT)
-X-Received: by 2002:a05:600c:19cb:b0:495:3a21:4e5d with SMTP id 5b1f17b1804b1-496c60c111dmr63691695e9.0.1785324077221;
-        Wed, 29 Jul 2026 04:21:17 -0700 (PDT)
-Received: from ?IPV6:2a02:3035:674:ff84:634a:fb9a:d64a:718e? ([2a02:3035:674:ff84:634a:fb9a:d64a:718e])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496e905fa40sm43707215e9.2.2026.07.29.04.21.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 29 Jul 2026 04:21:16 -0700 (PDT)
-Message-ID: <bb94e760-c7c3-43be-a221-5a45f8ec2db2@canonical.com>
-Date: Wed, 29 Jul 2026 13:21:14 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qATPPOOi"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 89C231688;
+	Wed, 29 Jul 2026 04:21:34 -0700 (PDT)
+Received: from [10.57.44.102] (unknown [10.57.44.102])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 463383F86F;
+	Wed, 29 Jul 2026 04:21:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1785324098; bh=MB28ZDQXnRUEjS0QpfpMx6wHRzIxNI4OeS25bP12DFc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=qATPPOOiKFq2WOesC8q1NUuqO8LSLfmyaDs5deWapEMmKkCbPR0dThDjYWrbdPVZf
+	 dE4OeQNPo2A07MypAALO2HOPX2h9phA76VaX6TLEkiyyCiKdhJ4DG2Cph/4s2dfyBL
+	 e8VzRjDJQSsry1xjPn//P0JB30WEF1h5KK4iZn+c=
+Message-ID: <1361ff13-fd24-4ba6-a048-eb2091d989ea@arm.com>
+Date: Wed, 29 Jul 2026 12:21:30 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -82,70 +35,102 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] riscv: dts: starfive: jh7110-common: fix jh7110 SoC boot
- from SD-card.
-To: Conor Dooley <mail@conchuod.ie>
-Cc: Emil Renner Berthing <kernel@esmil.dk>, linux-riscv@lists.infradead.org,
- Ilya Sorochan <k0tran@altlinux.org>, devicetree@vger.kernel.org,
- Conor Dooley <conor@kernel.org>, E Shattow <e@freeshell.de>
-References: <20260306171939.84568-1-k0tran@altlinux.org>
- <178526175795.1708098.11834005845749245101.b4-ty@conchuod.ie>
- <a32646aa-446a-4f95-9293-40001aeedae5@freeshell.de>
-Content-Language: en-US
-From: Heinrich Schuchardt <heinrich.schuchardt@canonical.com>
-In-Reply-To: <a32646aa-446a-4f95-9293-40001aeedae5@freeshell.de>
+Subject: Re: [PATCH v2 4/5] iommu: Add Broadcom BCM2712 IOMMU driver
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Daniel Drake <dan@reactivated.net>, "Joerg Roedel (AMD)"
+ <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ nick.hollinghurst@raspberrypi.com
+References: <20260727-bcm2712-iommu-submit-v2-0-0247b5c03de8@reactivated.net>
+ <20260727-bcm2712-iommu-submit-v2-4-0247b5c03de8@reactivated.net>
+ <3e7ba95b-51e7-48e4-aea5-f86db1739ac2@arm.com> <amlE8rEgryPqrUZd@ziepe.ca>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <amlE8rEgryPqrUZd@ziepe.ca>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 7/29/26 11:39, E Shattow wrote:
+On 2026-07-29 1:10 am, Jason Gunthorpe wrote:
+> On Tue, Jul 28, 2026 at 11:51:04AM +0100, Robin Murphy wrote:
+>>> +	ret = pt_iommu_bcm2712_init(&domain->pt, &cfg, GFP_KERNEL);
+>>> +	if (ret)
+>>> +		goto err;
+>>> +
+>>> +	/* Set up a default (error) page used to catch illegal reads/writes */
+>>> +	domain->default_page = iommu_alloc_pages_sz(GFP_KERNEL, PAGE_SIZE);
+>>> +	if (!domain->default_page)
+>>> +		goto err;
+>>> +
+>>> +	domain->base.geometry.aperture_start = BCM2712_APERTURE_BASE;
+>>> +	domain->base.geometry.aperture_end = BCM2712_APERTURE_END - 1;
+>>> +	domain->base.geometry.force_aperture = true;
+>>
+>> ...and thus (as things stand) this is a lie :(
 > 
+> Well, it shouldn't be here, the iommupt core code should be setting
+> this from its own internal information. If there is something missing
+> to add in the full_va_prefix we should fix it.
 > 
-> On 7/28/26 11:02, Conor Dooley wrote:
->> From: Conor Dooley <mail@conchuod.ie>
->>
->> On Fri, 06 Mar 2026 20:19:39 +0300, Ilya Sorochan wrote:
->>> Add bootph-pre-ram to mmc1_pins clk-pins.
->>>
->>> U-Boot pruned their overrides recently in favor of Linux which broke booting
->>> from sd-card for me and Heinrich Schuchardt [1]. Pruning commit:
->>> 27f617019dd070cb61f2 ("riscv: dts: starfive: prune redundant jh7110-common overrides")
->>>
->>> [1]  https://lore.kernel.org/all/ffdfc550-559b-4c59-9873-3f040fc3bb0e@canonical.com/
->>>
->>> [...]
->>
->> Right, I am going to try this again. I don't think there's actually a
->> valid technical argument against it, since it just affects the stage at
->> which configuration is applied rather than configuration itself.
->> If the configuration is wrong, and more devices don't use this configuration
->> than do, people need to move the node to where they think should be. That
->> shall be done separately.
->>
->> I don't want to hear about the politics about whether or not Starfive want
->> to support it or reverse engineering of binaries etc. All that I care about
->> is discussion of the hardware itself and which boards need this and which do
->> not.
->>
->> Applied to riscv-dt-fixes, thanks!
->>
->> [1/1] riscv: dts: starfive: jh7110-common: fix jh7110 SoC boot from SD-card.
->>        https://git.kernel.org/conor/c/42c57c049054
->>
->> Thanks,
->> Conor.
-> 
-> Second NAK to this being applied, again, do not apply as-is.
-> 
-> As you're not interested in the technical discussion, then you won't
-> have one.
-> 
-> -E
+> But, AFAIK this is the correct way to declare a page table that has a
+> range of IOVA - which I think is what this is doing..
 
-As E does not offer any reason for their NAK, I guess it can be safely 
-ignored as invalid.
+Nope, aperture_start and aperture_end already indicate the range of what 
+can be used as translatable IOVAs; force_aperture is supposed to 
+indicate whether addresses _outside_ that range are blocked, or may 
+still be able to access memory as with a GART-style device.
 
-Best regards
+Heck, a "proper" IOMMU doesn't even have an "aperture", it simply has an 
+entire input address space.
 
-Heinrich
+>> If you want to operate like an IOMMU, then the translation aperture and the
+>> bypass window should really be mutually-exclusive;
+> 
+> I think it is operating like an iommu..
+> 
+> It uses generic_single_device_group() so there is only ever one
+> translation.
 
+Also like a GART.
+
+> If identity is attached then it clears MMMU_CTRL_OPERATING_FLAGS which
+> I guess fully disables the IOVA aperture
+
+Not unlike a GART.
+
+> If paging is attached then it sets MMMU_CTRL_OPERATING_FLAGS and
+> places the aperture at 40G. Based on the comments about blocking I
+> wonder if the "bypass" even works when paging is on?
+
+Rather like a GART.
+
+> If blocking is attached then it sets MMMU_CTRL_OPERATING_FLAGS with
+> some 0 address cap which aborts everything?
+
+Disabling the aperture is also GART-like, but also disabling the bypass 
+window would seem the be the exclusively IOMMU-like behaviour there ;)
+
+> It looks to me like some of those comments and choices don't reflect
+> what the driver actually does. Since there is only ever one
+> translation we never need to be worried about where the aperture is,
+> it could be anything so long as the HW gives it priority to bypass.
+
+I'm looking at the BYPASS_START/BYPASS_END stuff, where (assuming that's 
+intuitive and not completely misnamed) bcm2712_iommu_attach_dev() sure 
+seems to be opening up a giant hole in all paging domains per the commit 
+message, thus while they can offer the convenience of IOVA remapping, 
+they aren't providing any real memory protection.
+
+Thanks,
+Robin.
+
+> Could the aperture be placed at 0 with the bypass fully disabled? Then
+> it would basically be a normal iommu.
+> 
+> Jason
 
