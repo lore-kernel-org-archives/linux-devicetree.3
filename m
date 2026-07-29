@@ -1,157 +1,181 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.197.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11D62446831;
-	Wed, 29 Jul 2026 10:03:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FF1F4477EF
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 10:06:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=43.154.197.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785319439; cv=none; b=ArDFhs+Fvz9mDggxwLv3CefmWAxYgEYelw1FxirBXwyQY7ofQFRNRgwNKoPposgD9C3V0gJAOqT7eLSwD4PlbMJrDvnCDnHUEQs6hSLoe01TETtqKFGTa+aTL6nSlaE3RQKjWYfUOvfc9zMDVASh0jiYUrLKes+Qaqzo/E/HAJA=
+	t=1785319572; cv=none; b=rIlYW2d2ANjPzFdE5UdsQBk5xv9Jw75j9+rj7xQSkgowZjBHZZTNJbxpwGbXUkpQjoAIwPnDF5s3JfQYdwu2ZzwZPhhid8Q6m4KLEXs8JYAJ2o5/QH8LbHRQW2ExuQH0e+2BLO4Tpcg6qLdCMkQhbhyYcs149/uc1uSTQoDTerw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785319439; c=relaxed/simple;
-	bh=L5O7TKLJYJbz5sJH2LCXaJ7ousZ6uetbMELyuaw9NUg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EfN6MXTTdFBiRgv1pBFuq0zHYQxjYIvjKiercqxwaWNSeqJq772xPAfMIncpqcRxPjZiVE2IUXJ0tWH368IQaP6OzSQNRXTQojQP3y77EQel/T0WJZmVJPSavljcuSe2dPjjqgqsK+iMPzqzJ5TABU8yJhyB/0Cwx67PAQRIZbQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c3yapnFk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785319572; c=relaxed/simple;
+	bh=rdrD93vGw6rglSTXXPTSCOggBebhZR6E67QQaOT9DTw=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=bRjXjBK6ECzgbp705TXS4R/X8i+/8v3Re+rPAivZ2JsfMaen0brApXdtV+/C6iOpWWtz0YIgJcKbK9zB3UqgmkiU0mjl0doFxQWrnrShxvJLyaDIRl8IWWmpmW2hSm7caZZ1zeLW1N8ztI3Y+MFaYW8w7v/8Y1wJJ5Ly6I7oKss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=B/Ee5JNH; arc=none smtp.client-ip=43.154.197.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c3yapnFk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F15D1F000E9;
-	Wed, 29 Jul 2026 10:03:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785319437;
-	bh=4+j+9lZzTfZIYwGJ38XqtaOoEIAdLJ4GkOmOYPU6JJc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=c3yapnFkTmvD3BQ+EOmxo6Rt22pkUU4+Ulwykq28WRHN0PKO9mbu0R1JYRNEcmdDC
-	 2F+kjpBFc3A8yyCeXFn7gHxoq5mHSoPImLCukWpn/oFMbHNdgjJ1ozxD+SwSQUojaQ
-	 PVBog1+6Z44nSGrsQPipSsXCeF2JW2zgVKmrLEOrJ0PwqTybtfFApyKj66RT8zP6OC
-	 kHrUn7d+fLvSoCyM+2VTU9o9PrVn7hJf0oPI8wSyey7RkkBnIN1/OZYG02koQzolxa
-	 kZvLyF5ykn+0OeZ3vpQ+zGwz27iGVcUpEd2tHdw1+ujoVX1uXOjta/66JXjSrnPQgJ
-	 uwP92Q7+uijEw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v31 3/7] firmware: imx: add driver for NXP EdgeLock
- Enclave
-Reply-To: sashiko-reviews@lists.linux.dev
-To: pankaj.gupta@oss.nxp.com
-Cc: devicetree@vger.kernel.org, robh@kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev
-In-Reply-To: <20260729-imx-se-if-v31-3-e59af7adb784@nxp.com>
-References: <20260729-imx-se-if-v31-0-e59af7adb784@nxp.com>
- <20260729-imx-se-if-v31-3-e59af7adb784@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 29 Jul 2026 10:03:57 +0000
-Message-Id: <20260729100357.8F15D1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="B/Ee5JNH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1785319491;
+	bh=rGjRoJY2bcOuoh/YLY1s9eXB07hnFRse6TYTrFiBgo0=;
+	h=Mime-Version:Date:Message-Id:Subject:From:To;
+	b=B/Ee5JNHBb6O03VFB1ylyBJ/8BqoGaS6ExKQEnnPpLv9EtzyomiggXWib6OUSc9DG
+	 0iiTbfH2/jDxpBRZ1f90D4CGck/40j3MTpudAbAlRxnGmn4F48ZYMVhRFwq1GIOw7H
+	 ho36qc9UFEeqhhZBMEr1HHVSPFjpurRTDlgij9cI=
+X-QQ-mid: zesmtpgz6t1785319483t91deea57
+X-QQ-Originating-IP: 5tTKMPmo2435qtvnLyHekoCjA48pilenE9UZy9JvxsA=
+Received: from localhost ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 29 Jul 2026 18:04:41 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 286073189035881177
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 29 Jul 2026 18:04:41 +0800
+Message-Id: <DKAYXR5BO1X3.3R5L4FN5KF6L7@linux.spacemit.com>
+Cc: "frank.binns" <frank.binns@imgtec.com>, "robh" <robh@kernel.org>,
+ "krzk+dt" <krzk+dt@kernel.org>, "conor+dt" <conor+dt@kernel.org>, "dlan"
+ <dlan@kernel.org>, "dri-devel" <dri-devel@lists.freedesktop.org>,
+ "devicetree" <devicetree@vger.kernel.org>, "linux-kernel"
+ <linux-kernel@vger.kernel.org>, "linux-riscv"
+ <linux-riscv@lists.infradead.org>, "spacemit" <spacemit@lists.linux.dev>
+Subject: Re: [PATCH v3 1/2] dt-bindings: gpu: img,powervr-rogue: add
+ spacemit,k3-gpu
+From: "Baihui Liang" <liangbaihui@linux.spacemit.com>
+To: "Krzysztof Kozlowski" <krzk@kernel.org>
+X-Mailer: aerc 0.17.0
+References: <tencent_79CE08BE248E9ACA2E62BF64@qq.com>
+ <065a229b-e6a8-4cce-8725-9c2e19c8f463@kernel.org>
+ <DKAXV3CTQ6B1.36715CJUMEB9A@linux.spacemit.com>
+ <39f12852-a0d4-4d90-8ea3-dbfa7e1c2059@kernel.org>
+In-Reply-To: <39f12852-a0d4-4d90-8ea3-dbfa7e1c2059@kernel.org>
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: NFQMG86uACrUwTrKvbPcTPng7ir3UJFqNOcGB1iYuTWJpwGjyDBbqxZ0
+	9F/a9j2pPoGkkGb7JA7F7A7iEA+F0ZYKNs+N+KRlSdwjw8fT4Ss4NZ+r6CZ1MfNDf8o6h3D
+	tVrPPLlpwhovr7zfTfxr9QaJ5q0tALhqpiPUBEwgO2SrAFYaCytnZNgNrvlImgERVVEtKQI
+	3KnnzeXkOU0LtZrITZpMU2RFt+zLvXS++mVQollO4embq9qR1PNNUfaI4PBD4q83ULKQCTI
+	y1QPDnLwemgeydmajD/NisDpS+1IPyx3+DTQFEPED9iunGjq9+u/+hZV6xTBWd1EgGA41CZ
+	h8N2IEEMU1w6At4CuLEWZjjss9J9a+OAcEFuO56vH7VIIGb8UNF32WUeRmD/LY2qtUgcQVH
+	+JLNnjBzLFGfzRIcF3Q2MGC3YNvnnDR2JyzTklZ1oqg9HRujvGpIrAuxlNic7wbs0aNZAZD
+	nanRQ4FCbBSdZL0wVGudfkG3A26Oln6khbSSsYXR2dPH3hobOwCTsllxAB1bfCjWpoMTVOy
+	S7b7OsIwxlCh3pMwR9lQ7trtRQnQhpD3KbT4qWdu0KIh+pLOfGAU/peHgIKNgOXtOpy/TeS
+	zy/c/LSZkJE6u5s06eu/owszPXzfwKEngXw3e3aQGSZiS3/3Q/plaoFxE3zznw6zKxRgQY9
+	Ymyd9yuuQd9T/9bnDqOxlzsn3okUlP+pvf3TvZeO4Zq+0Z0xijlqSDqF5FO5/GP89XaQJ+T
+	lKmK3O/uCCqpib3yPSL6L7PYiNip+b4g7s7Qi6Visb280rduV3jLr17P+2Q2trPVYNT+9aq
+	t8fbM7bWMB1Myfi/1VE4CE80HoKcqLwU/cxguTZPpv1PbYwtTHkCBNAu6mGfeagCo5mh3Ie
+	W/H3uh3533b5MXL0wsJNydzDxo08ZvlwqYxaJzKp3sS8vHWlc7fcAFy8Zb13TcUGGFXDnrZ
+	UfqmKdBKu8nWip8GQHPjTCVyo+pNsAdPwnXfHCUPBzCy+oDiVacK/B3hnhh9/YrJbbWTf+h
+	hotNKNCJarIFvk1WWUYNMAXA3SVTHjoFRTOnOOQgBDK4lRZRl5
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] DMA Use-After-Free / Memory Corruption on command timeout
---
+On Wed Jul 29, 2026 at 5:16 PM CST, Krzysztof Kozlowski wrote:
+> On 29/07/2026 11:14, Baihui Liang wrote:
+> > On Wed Jul 29, 2026 at 3:57 PM CST, Krzysztof Kozlowski wrote:
+> >> On 29/07/2026 09:46, Baihui Liang wrote:
+> >>> On Tue, Jul 28, 2026, Krzysztof Kozlowski wrote:
+> >>> &gt; &gt; [...]
+> >>> &gt; &gt; spacemit,k3-gpu is added to the existing ti,am62-gpu/ti,am6=
+2p-gpu/
+> >>> &gt; &gt; ti,j721s2-gpu "if" block that restricts clocks to a single =
+entry,
+> >>> &gt; &gt; since K3 has the same single-clock requirement. It does not=
+ match any
+> >>> &gt; &gt; "if" block that constrains power-domains, so that property =
+falls back
+> >>> &gt;
+> >>> &gt; I don't get this explanation. Are you explaining what the patch =
+is doing
+> >>> &gt; or explaining WHY you did this that way?
+> >>>
+> >>>
+> >>> That paragraph was describing schema mechanics, which does not belong=
+ in
+> >>> a commit message. v4 will drop it and state only the hardware facts: =
+the
+> >>> K3 integration of the BXM-4-64 has a single "core" clock, and it has =
+no
+> >>> software-controllable GPU power domain.
+> >>>
+> >>>
+> >>> &gt; &gt; to this schema's general constraints, where it is optional.=
+ This
+> >>> &gt; &gt; leaves room for a power-domains provider to be added later =
+without a
+> >>> &gt; &gt; further binding change, should one ever be modelled in Linu=
+x for this
+> >>> &gt; &gt; SoC.
+> >>> &gt;
+> >>> &gt; No, you need to provide constraints now. Please read carefully
+> >>> &gt; writing-bindings.
+> >>>
+> >>>
+> >>> Understood. spacemit,k3-gpu currently matches no power-domains "if"
+> >>> block, so it falls back to the top-level 1-2 domains with
+> >>> power-domain-names "a"/"b". That would let a K3 DT with two power
+> >>> domains pass validation, which does not describe this hardware. v4 wi=
+ll
+> >>> add an explicit "if" block:
+> >>>
+> >>>
+> >>> &nbsp; &nbsp; - if:
+> >>> &nbsp; &nbsp; &nbsp; &nbsp; properties:
+> >>> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; compatible:
+> >>> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; contains:
+> >>> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; const: spacemit,k3-g=
+pu
+> >>> &nbsp; &nbsp; &nbsp; then:
+> >>> &nbsp; &nbsp; &nbsp; &nbsp; properties:
+> >>> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; power-domains: false
+> >>> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; power-domain-names: false
+> >>
+> >> I understand only half of this. Please fix your email client.
+> >>
+> >> And why this reply misses reply-to header which connects it to proper
+> >> thread? How am I supposed to find the thread now, among 200 I received
+> >> yesterday?
+> >=20
+> > Sorry -- that went out through a webmail client which sent HTML, so the
+> > quoting and the YAML indentation were destroyed, and it composed a new
+> > message instead of replying in place, which is why it lost the thread.
+> > I have switched to git send-email over our own SMTP; this reply should
+> > be plain text and properly threaded.
+> >=20
+> >> So your name is presented here as "Baihui Liang" then why do you use
+> >> some fake company name?
+> >=20
+> > liangbaihui@linux.spacemit.com is my real work address at SpacemiT. It =
+is
+> > now sent through the company's own mail server.
+>
+> Again: then why do you use fake company name as name? Actually not a
+> company name, but laminated product of some company?
+>
+> What is Sterling-Ash?
+>
+> Best regards,
+> Krzysztof
 
---- Patch [3]: [PATCH v31 3/7] firmware: imx: add driver for NXP EdgeLock E=
-nclave ---
-commit ae6974582706d865c1232af0bb0e80860d057d5e
-Author: Pankaj Gupta <pankaj.gupta@nxp.com>
+Sorry, I misread what you were asking and answered the wrong question.
 
-firmware: imx: add driver for NXP EdgeLock Enclave
+"Sterling-Ash" is not a company and not a product name. It was a
+personal nickname left over in my git config, and I did not notice it
+was being used as the author name on the patches until you asked. It is
+not my name and should not have appeared there.
 
-Add MU-based communication interface for secure enclave.
+The git config is fixed, and v4 will be sent with:
 
-NXP hardware IP(s) for secure-enclaves like Edgelock Enclave(ELE), are
-embedded in the SoC to support the features like HSM, SHE & V2X, using
-message based communication interface.
+  From: Baihui Liang <liangbaihui@linux.spacemit.com>
+  Signed-off-by: Baihui Liang <liangbaihui@linux.spacemit.com>
 
-> Two findings need no code change:
-> - DMA free on timeout: -ETIMEDOUT means FW is fenced by fw_busy, so the
->   free is safe.
-
-[Severity: High]
-Is this description accurate? The fw_busy flag is a software-side atomic va=
-riable
-that only prevents the kernel from sending subsequent commands. It does not=
-hing
-to cancel the in-flight hardware DMA operation. Once the enclave has the ph=
-ysical
-address, the kernel cannot safely free the memory until it guarantees the e=
-nclave
-will no longer write to it.
-
-> diff --git a/drivers/firmware/imx/ele_base_msg.c b/drivers/firmware/imx/e=
-le_base_msg.c
-> --- /dev/null
-> +++ b/drivers/firmware/imx/ele_base_msg.c
-
-[ ... ]
-
-> +static void ele_get_info_cleanup(struct se_if_priv *priv, u32 *buf, dma_=
-addr_t d_addr,
-> +				 size_t size)
-> +{
-> +	if (priv->mem_pool)
-> +		gen_pool_free(priv->mem_pool, (unsigned long)buf, size);
-> +	else
-> +		dma_free_coherent(priv->dev, size, buf, d_addr);
-> +}
-
-[Severity: High]
-Does ele_get_info_cleanup() in drivers/firmware/imx/ele_base_msg.c uncondit=
-ionally
-free the DMA buffer back to the allocator even if the firmware is still exe=
-cuting
-the command and may write to it?
-
-[ ... ]
-
-> +	ret =3D ele_msg_send_rcv(priv, tx_msg, ELE_GET_INFO_REQ_MSG_SZ, rx_msg,
-> +			       ELE_GET_INFO_RSP_MSG_SZ);
-> +	if (ret < 0) {
-> +		ele_get_info_cleanup(priv, get_info_data, get_info_addr, get_info_len);
-> +		return ret;
-> +	}
-
-[Severity: High]
-If ele_msg_send_rcv() times out and returns -ETIMEDOUT, won't ele_get_info()
-invoke the unsafe free operation while the firmware might still be processi=
-ng
-the request?
-
-> diff --git a/drivers/firmware/imx/ele_common.c b/drivers/firmware/imx/ele=
-_common.c
-> --- /dev/null
-> +++ b/drivers/firmware/imx/ele_common.c
-
-[ ... ]
-
-> +	} else if (header->tag =3D=3D priv->if_defs->rsp_tag) {
-> +		bool exception_for_sz_mismatch =3D check_hdr_exception_for_sz(priv, he=
-ader);
-> +		u32 exp_rx_msg_sz =3D 0;
-> +
-> +		/*
-> +		 * rx_msg and rx_msg_sz are owned by the sender under clbk_rx_lock.
-> +		 * Read both under the lock: drop a late response instead of copying
-> +		 * into freed memory, and avoid a stale size. A late response also
-> +		 * closes the firmware-busy circuit breaker.
-> +		 */
-> +		se_clbk_hdl =3D &priv->waiting_rsp_clbk_hdl;
-> +		spin_lock_irqsave(&se_clbk_hdl->clbk_rx_lock, flags);
-> +		if (!se_clbk_hdl->rx_msg) {
-> +			/* Close circuit breaker on spinlock race */
-> +			atomic_set(&priv->fw_busy, 0);
-> +			spin_unlock_irqrestore(&se_clbk_hdl->clbk_rx_lock, flags);
-> +			dev_info(dev, "ELE responded (late), recovery FW available.");
-> +			return;
-> +		}
-
-[Severity: High]
-When a late response arrives after a timeout, does clearing the software ci=
-rcuit
-breaker in se_if_rx_callback() leave the system completely oblivious to the=
- fact
-that the hardware just wrote to freed memory?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729-imx-se-if-=
-v31-0-e59af7adb784@nxp.com?part=3D3
+Best regards,
+Baihui Liang
