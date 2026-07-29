@@ -1,125 +1,245 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4850230214B;
-	Wed, 29 Jul 2026 13:20:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1AFB48AE33;
+	Wed, 29 Jul 2026 13:23:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785331232; cv=none; b=t+BdCN86NFCFuk61ZEplLehD0TxT8R3Hy01yJNfMMYunZCyHXT7zc7Vij/mHw2XeJxzDvl8OXl6kc3V0EKiT5decni78pLSIECK7+x69dd0wo7tpRXHn9aSDGTTx88aqA/RdT7nf+Qvbdb6oXPvg+RMj5xQWYfH8Ux0bqZ5KFRk=
+	t=1785331400; cv=none; b=Hq1hF6hFyfYK+YRgyIrXMWE32LxIGFIzrSMOE5yNFpP6ODx8Ad08mfvfbyvXnUe6pgFKvIo2ygx6R1r7obSvaumTWws2Wdc0guaCMg7BtfZgQ8iifgJ83nSK3KJr36qchwnmT7+qT6dOiXsPxVry4tWXswNRZmXE34w3B4uQHPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785331232; c=relaxed/simple;
-	bh=U/NMDFTCpnuyg54N8wD3GdJRAVFigtmYJZzpfI8QEZs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nvzQ7xvEMUTA/Cl1CSBn6Z3EEfqcZwXOpNAlkzI7p0HTmpJAdp1t7DczXDivpP2WD5lLzoyfY21HGbYDhCU30oMn16fNjiTFcIadd8KFaTgc5IyaQIX6W2D+8f8iTcaHeFM2PGdTpS0ZvDKoNuaMPmuXbXyo/KH7q2HfxAMyc8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cRuPUJg8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785331400; c=relaxed/simple;
+	bh=cm6Kqqnwtss89i2hbh0cuhLvvyLx2uHlmNp73i9wVQc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Rq75L8qh5817QPqiWKElE3J86C4qKZBK96+eOViQYQao03oYFsiDQGhx6j0YpaqfcRDMVwt6InRX5HySNGY4pI980AVyGg29hFH7ES1IYKxVQkAhPZk72Ygqt0PRck3zMyGc57H7Y/R147BxlgoqRx5jXfHC6k6Z9BC4mK2HItA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X249pq8x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cRuPUJg8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFF8F1F00A3A;
-	Wed, 29 Jul 2026 13:20:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X249pq8x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C824E1F000E9;
+	Wed, 29 Jul 2026 13:23:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785331231;
-	bh=wGQodtaTXTxH+/RhzI6Faf01MAGNfuuMdQ1Qj/IFWlA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=cRuPUJg8HnKvbSwVSKMR6ftr3BCZEvR5W2McHacBZKd67OiMSlhUoYK4cf2zcCmUO
-	 9loRqsin884kfqV9uYuCxkG/4KwXmDLLxI1CBYe++lj54Q0pUgA702hdA9eVbaDi+c
-	 ldcIk69SJruCVR2gRceqI0Cja+I/b6SE9kmP2c5DSD8pMX2ud+vfmBbWrlTdnC1QD+
-	 VPduFFUTEhEuWHIvG7CAUD324pIR0PSsf+xmsJ0I0gSNq9+dHmVSZlhA7e7vtPyuGo
-	 Xkv2Vz3qbvuE5t+PuyhTNCj2iLacyKwyTWFS8kVg7x4NUZOpOmHc67elHAdCtRIARz
-	 GRaguW/1NQPKQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 03/12] arm64: dts: imx8qm-mek: fix dsp reserved
- memory node names for remoteproc
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?UGVuZyBGYW4gKE9TUyk=?= <peng.fan@oss.nxp.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, imx@lists.linux.dev, Frank.Li@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260729-rproc-dts-v2-3-debbe0816202@nxp.com>
-References: <20260729-rproc-dts-v2-0-debbe0816202@nxp.com>
- <20260729-rproc-dts-v2-3-debbe0816202@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 29 Jul 2026 13:20:30 +0000
-Message-Id: <20260729132030.AFF8F1F00A3A@smtp.kernel.org>
+	s=k20260515; t=1785331398;
+	bh=sxzJ+faJZvkT4x85fLBm3HFdvbOfygPZbWj1RZ66evo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=X249pq8xjx8MjqnUwVMB6Qi35K1TbodNh3bPuEZwyJCiar5UCKubymB0w/+GyHupW
+	 ZYRg3zBrTTEcoJd8Ya9wMmC4xLrAqEi0uAH2qGwEY8I/JoN9c1hHA0T5Tt2kotfU/Y
+	 rxNe+TYA3nZ3SoS0AtB9br2+/NSfIaepWtkCiFEcjGYyakzwBsIX86/FIeen9G3MZj
+	 4o5IucXNeA+FaF3b+/he6jgloKdXHXVQucsebHlcp2ic7BqjquiZj+3vi5oKAh2fYr
+	 suYVl4ja//u9gx4nsLNME4dDWiojgA7SYUOc+5Zeq426NU4CswQ53+eYqZuytSRCtz
+	 1jAZ5xD1EsoPA==
+Message-ID: <6ed441b8-7148-43ef-9c9f-4bc30c468443@kernel.org>
+Date: Wed, 29 Jul 2026 15:23:06 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 7/8] dt-bindings: sound: qcom: add Tambora WCD9378
+ SDCA codec
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+ Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Maciej Strozek <mstrozek@opensource.cirrus.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>
+Cc: Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
+ linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, patches@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org
+References: <20260722234221.884765-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260722234221.884765-8-srinivas.kandagatla@oss.qualcomm.com>
+ <219d44e2-28ed-4c54-bd00-66e687a0ba48@kernel.org>
+ <d0891f90-b69b-4b27-ad58-94c342ad9a6a@oss.qualcomm.com>
+ <3c484a68-5db8-464f-992a-6c7584841a10@kernel.org>
+ <0cb5a2dd-c49e-47e3-8cc5-ab2ffd397a32@oss.qualcomm.com>
+ <ba147ca6-3788-4cbe-95c3-949ae73ee8f0@kernel.org>
+ <54f1c3e5-0b84-44a6-a03c-3cd65792de9c@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <54f1c3e5-0b84-44a6-a03c-3cd65792de9c@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On 29/07/2026 15:02, Srinivas Kandagatla wrote:
+> 
+> 
+> On 7/29/26 1:43 PM, Krzysztof Kozlowski wrote:
+>> On 29/07/2026 14:36, Srinivas Kandagatla wrote:
+>>> On 7/29/26 1:30 PM, Krzysztof Kozlowski wrote:
+>>>> On 29/07/2026 14:17, Srinivas Kandagatla wrote:
+>>>>> On 7/29/26 12:40 PM, Krzysztof Kozlowski wrote:
+>>>>>> On 23/07/2026 01:42, Srinivas Kandagatla wrote:
+>>>>>>> Describe the WCD9378 SDCA peripheral node (compatible sdw20217011000)
+>>>>>>> driven by the wcd9378-sdca codec driver for headphone playback, headset
+>>>>>>> mic capture and jack detection via the SimpleJack SDCA function type.
+>>>>>>>
+>>>>>>> WCD9378 codec can be wired up in 2 different modes.
+>>>>>>> "mobile mode" on phone/tablet SoCs is enumerated as tx and rx device,
+>>>>>>> each of which has dedicated control and data lines.
+>>>>>>> "compute mode" on compute platforms such as Glymur is enumerated as
+>>>>>>> single standard MIPI SDCA class device.
+>>>>>>>
+>>>>>>> Both modes share same Device ID, compatible; qcom,compute-mode selects
+>>>>>>> which driver path is taken.  Supplies, reset GPIO and mic-bias voltages
+>>>>>>> live on the SoundWire slave node in compute mode and are forbidden in
+>>>>>>> mobile mode (owned by the top-level codec parent there).
+>>>>>>>
+>>>>>>> Assisted-by: Claude:claude-opus-4-7
+>>>>>>> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+>>>>>>> ---
+>>>>>>>  .../bindings/sound/qcom,wcd9378-sdw.yaml      | 200 ++++++++++++++++++
+>>>>>>>  1 file changed, 200 insertions(+)
+>>>>>>>  create mode 100644 Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
+>>>>>>>
+>>>>>>> diff --git a/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml b/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
+>>>>>>> new file mode 100644
+>>>>>>> index 000000000000..2ed4ad92958e
+>>>>>>> --- /dev/null
+>>>>>>> +++ b/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
+>>>>>>> @@ -0,0 +1,200 @@
+>>>>>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>>>>>>> +%YAML 1.2
+>>>>>>> +---
+>>>>>>> +$id: http://devicetree.org/schemas/sound/qcom,wcd9378-sdw.yaml#
+>>>>>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>>>>>> +
+>>>>>>> +title: Qualcomm SoundWire Slave devices on WCD9378
+>>>>>>> +
+>>>>>>> +maintainers:
+>>>>>>> +  - Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+>>>>>>> +  - Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+>>>>>>> +
+>>>>>>> +description: |
+>>>>>>> +  The Qualcomm WCD9378 codec presents its SoundWire slave devices with
+>>>>>>> +  class ID sdw20217011000 in both operating modes:
+>>>>>>> +
+>>>>>>> +    * mobile mode -- two slave instances sit on separate SoundWire
+>>>>>>> +      masters carrying data only.  A separate top-level codec node
+>>>>>>> +      owns the codec's supplies, mic-bias voltages and reset GPIO.
+>>>>>>> +
+>>>>>>> +    * SDCA / compute mode -- one aggregated slave sits on a multi-lane
+>>>>>>> +      master and carries both control and data.  There is no separate
+>>>>>>> +      top-level codec node, so the SoundWire slave node itself owns
+>>>>>>> +      supplies, reset GPIO and mic-bias voltage configuration.  It is
+>>>>>>> +      marked with qcom,compute-mode.
+>>>>>>> +
+>>>>>>> +  Codec drivers that match sdw20217011000 use qcom,compute-mode to
+>>>>>>> +  decide which mode to serve; the presence or absence of this property
+>>>>>>> +  also gates whether the supply and mic-bias properties on this node
+>>>>>>> +  are required or forbidden.
+>>>>>>> +
+>>>>>>> +properties:
+>>>>>>> +  compatible:
+>>>>>>> +    const: sdw20217011000
+>>>>>>> +
+>>>>>>> +  reg:
+>>>>>>> +    maxItems: 1
+>>>>>>> +
+>>>>>>> +  qcom,compute-mode:
+>>>>>>> +    description: |
+>>>>>>> +      Marks this SoundWire slave as the single aggregated slave that
+>>>>>>> +      implements the codec in SDCA / compute mode.  Only present when
+>>>>>>> +      the codec has no separate top-level codec parent; in that case
+>>>>>>> +      this slave node also owns the codec's supplies, reset GPIO and
+>>>>>>> +      mic-bias voltage configuration.  Absent in mobile mode.
+>>>>>>
+>>>>>> I doubt there is really "compute" or "mobile" mode, so you just wrote to
+>>>>>> match use case, but that does not match hardware.
+>>>>>>
+>>>>> This is hardware fuse setting, its not just usecase based but it changes
+>>>>> complete wcd9378 hardware topology, in mobile mode we have 2 soundwire
+>>>>> devices representing tx and rx side of wcd9378 however in compute mode
+>>>>> it only has one soundwire device dealing with both tx and rx. compute
+>>>>> mode is sdca class compliant device.
+>>>>>
+>>>>>
+>>>>>> I think there should be no separate top-level codec parent in the first
+>>>>>> place, thus this property is not needed. You always list here all resources.
+>>>>> There is no top level aggregated device when the codec is fused in
+>>>>> compute mode.
+>>>>
+>>>> There should not be a top-level in either case. This was always Linux
+>>>> driver limitation.
+>>>
+>>> That is not true, its clearly a hardware topology thing.
+>>> Codec has two devices tx and rx, Only one of the device (tx) has access
+>>> to CSR registers of the codec, so rx and tx are pretty much a single
+>>> aggregate codec device which is why we have top-level representation of
+>>> the aggregate device.
+>>
+>> So two devices, but not three. If TX has access to RX, it does not mean
+>> there is third device. If there was a third device (that top level
+>> thingy) you would have it here as well. You don't have, because it is
+>> purely for Linux.
+> 
+> WCD codec is a single Codec IP Hardware block which contains two
+> soundwire interface devices. Effectively we have one aggregate device
+> representing codec which encompasses two soundwire devices.
 
-Pre-existing issues:
-- [High] Missing cancellation of `rproc_work` leads to Use-After-Free on dr=
-iver unbind.
---
+You have only two devices.
 
---- Patch [3]: [PATCH v2 03/12] arm64: dts: imx8qm-mek: fix dsp reserved me=
-mory node names for remoteproc ---
-commit ccca82516c9f0cb91d5a0dd4d02b6d18ce2a6c7e
-Author: Peng Fan <peng.fan@nxp.com>
+> 
+> Third device is the only place where we could represent entire Codec
 
-arm64: dts: imx8qm-mek: fix dsp reserved memory node names for remoteproc
+No, any of these devices could. The top-level is a fake being.
 
-The imx_dsp_rproc driver checks for the name "vdev0buffer" to skip
-mapping the vdev buffer region, as it is handled by
-rproc_add_virtio_dev. With the node named "memory", the check fails
-and the region gets unnecessarily mapped.
+> rather than just soundwire interface devices of the codec.
+> 
+> Am not sure what is Linux specific here, its purely hardware topology.
 
-Rename the DSP reserved memory nodes to use proper names for
-consistency with other remoteproc reserved memory regions and to
-ensure the vdev0buffer check works correctly.
+The Linux specific is because you needed a placeholder for power
+sequencing. It is not a pure hardware topology.
 
-Rename the DSP reserved memory nodes to use the expected names so
-the driver can correctly identify and handle each region.
+Otherwise, please point me on which/what hardware bus that top-level
+codec resides on if it represents hardware topology.
 
-Fixes: d0ee7ae8ce26 ("arm64: dts: imx8qm-mek: enable dsp node for rproc usa=
-ge")
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
-
-> diff --git a/arch/arm64/boot/dts/freescale/imx8qm-mek.dts b/arch/arm64/bo=
-ot/dts/freescale/imx8qm-mek.dts
-> index 8b67fb5d670da..1afa65bd955ec 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8qm-mek.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx8qm-mek.dts
-[ ... ]
-> -		dsp_vdev0buffer: memory@94300000 {
-> +		dsp_vdev0buffer: vdev0buffer@94300000 {
->  			compatible =3D "shared-dma-pool";
->  			reg =3D <0 0x94300000 0 0x100000>;
->  			no-map;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is there a missing cancellat=
-ion
-of rproc_work in the imx_dsp_rproc driver that could lead to a use-after-fr=
-ee
-on driver unbind?
-
-In drivers/remoteproc/imx_dsp_rproc.c:imx_dsp_rproc_probe():
-
-	INIT_WORK(&priv->rproc_work, imx_dsp_rproc_vq_work);
-
-And later in imx_dsp_rproc_rx_tx_callback(), the work is scheduled:
-
-	default:
-		schedule_work(&priv->rproc_work);
-		break;
-
-Because the driver does not define a remove callback and relies entirely on
-devres cleanup, the work is never explicitly cancelled (e.g., via
-cancel_work_sync()).
-
-During driver unbind, devm_rproc_alloc teardown will free the rproc structu=
-re,
-along with its embedded priv. If the scheduled work executes concurrently o=
-r is
-pending on the system workqueue, it will access the freed priv->rproc, lead=
-ing
-to a use-after-free.
-
-Could a devres action be added to properly flush and destroy this workqueue
-before the rproc is freed?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729-rproc-dts-=
-v2-0-debbe0816202@nxp.com?part=3D3
+Best regards,
+Krzysztof
