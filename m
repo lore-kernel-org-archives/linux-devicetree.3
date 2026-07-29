@@ -1,221 +1,182 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE6733A9013
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 09:11:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24C5F43E08A
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 09:11:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785316266; cv=none; b=JHEQU4lS67tN39Q/PPUIDodKR1wQYduV6XWC1v1xb8unpjRfHV9EfGBT5gj7V3GUXzF8/EmWobt1UUbzy+C2VK7cB+rxZ6ZJxHdmM1K8ar9kmVZBkRC3RYfPC/dZ5JPERTSpNcUKtVzwcYdO678w0i1yWhR1FHXZcBPdYn2Cg8U=
+	t=1785316272; cv=none; b=gwfRpPjoo5bj3S0v+t5y1qsuGz7BpDy9y2HlWwzupr1U9woyLMUhi9dbieHFbCg4dPRRxnLhzhCSJ2GRG02/mdnENuz3ccEre/C+rCk5mD8CcDVrEv8WGSiNjVc54Je3fMCtwQiD7ckIYGXSyNEGuYB/5l4iHT4GtjcBxOrIVHA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785316266; c=relaxed/simple;
-	bh=0SKZh1st/HhZg1CcSpdf8b/H6exD43q23fXM3I6+7Uk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SbpGCR6B+bUWZqOcXg2Xajuv7cCIyEIwVhP3qLy9hosgxjNe1NJdRA+eRK2B7N32XRXzl4zCII9e1Ql7C6NM33SGcGvlMwRJYqfdHGhpQrtSua7luzshYBX15JVv54RViN/3rXboT9sJyemsnXnKzZnH/PLTgFSsq5UWDq8cy74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CY2hYgDC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785316272; c=relaxed/simple;
+	bh=QoddJzJhebR8IjYCrkbLAN0s0tIW48jnNL4y2MIVi+Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mzJ394vbXvsiwEBYibLg+cZjqeObdzDFju/poWO1sb47ogr8oYHiXgxIIUnkDTPCcMfhz3YUCKWGObPm7KgOLBeJYhqSWEW9OobfEbXQaDF6h+K5WFXxaui9NeHUIpGdi8KCjWL16HhKm2S3OcVAtHi7CMNGjk4w15JOUSk+xrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=olgukxVm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fkezUdmv; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CY2hYgDC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F6861F000E9;
-	Wed, 29 Jul 2026 09:11:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785316264;
-	bh=qFhafGiS0JK1WucHXMTTN92G6qfNLMO69AgtvQrcbQg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CY2hYgDCswKwRGnlGH1Nf3oXEBH1is58c+NgjRfwKkwANfjJ3Dw5LMBu505jGgHtP
-	 5pihevxpDd0G0oIL3m1PYG6o20seBi2DfDBsyONaUYNgmUBy1JRKO5kF0qF/TCTjC0
-	 dU5WhmlKPpMnfQwUzXLdRkbr+bZLXrfyR98CBU8Y1ZPbmk8EBx42jBk8F9mKGrtAGg
-	 Apip0YzYpDzGXPTNnyq8x3056pwxhsoSvaeN5BPRTts4HtI8zLcFEO5FGrHzBN03fN
-	 RHOTW3HAB25pG9Vb8HNQ4uS4LIb7HIh7sW+OZZlQs042DInKUSGESvuwcHpO6TfgeV
-	 7uhqHKGHmdbGA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] nvmem: rockchip-efuse: add write support with
- optional VQPS supply gating
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Hrushiraj Gandhi" <hrushirajg23@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260729085856.226001-3-hrushirajg23@gmail.com>
-References: <20260729085856.226001-1-hrushirajg23@gmail.com>
- <20260729085856.226001-3-hrushirajg23@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 29 Jul 2026 09:11:03 +0000
-Message-Id: <20260729091104.1F6861F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="olgukxVm";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fkezUdmv"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66T7fJOJ1089137
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 09:11:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=wXnburUlupRiHpSJ4CDRreFD
+	5mzaQY+gxtna4BDSfRo=; b=olgukxVmAsWZ02LcXQwlyT8bYAehDVFa3R7kbCpe
+	DakOUQidq6ip4mUR00onnJBM4zWYIk5wcpYS1Iw4gQjhjvgu5ndOyN7NMeEUVXji
+	B4Mqf8T4+ZSuwcQQlfOcEXCYLcZtP+HyHLNrx93ael2OvAhZVYr9lG1lMlj6Yylj
+	VtSRZ8ia63bA5kpjFI5ZbmKSfSt26FQvf/7un5Cm2vxsR+3ANwMdX6sUXGCKe1Ir
+	6aBcJO9ZBNaaOhxueO4fjxX2x4qD6nQqqaDFBOSDMvuX00rqJLtKs9AF8nV1R2W/
+	pw/uISdOUS2rbhY/+Gsi2YyWBQhAo+8TY7O7aBGMGhW97w==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fq5sahygg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 09:11:10 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-388b404eaa4so1055200a91.0
+        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 02:11:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785316270; x=1785921070; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wXnburUlupRiHpSJ4CDRreFD5mzaQY+gxtna4BDSfRo=;
+        b=fkezUdmv+7DlD74zMlqjvarAuJrxM53YW31C0ElV5QwQkwpI/LmRp6RO0TyiOThKRV
+         CqCHoUtdruRGlSxao3k1aZB4KOoyovrXyP/8pCRnFjAhYnursJ5KdCQcEA5wApjGhzW2
+         diJ26vciKisW4BYz+cM15zvGFQdhcQEzDWYqDez6OfDDKEXB0M+yOXTzaYo7okjqeiqE
+         bc977GK5uROovC/bYOmO3W55TfqRJJQ5Kexj0UL7gaY5G/MHWfHwnCJd2FoijRTJgFJS
+         8w3Despgzn+6Jx6pTfocFpuAmH49iMppGB4nk+FfqHg+1vWRHdVbKHeWtbYay1vNDoNH
+         rWcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785316270; x=1785921070;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wXnburUlupRiHpSJ4CDRreFD5mzaQY+gxtna4BDSfRo=;
+        b=LCYGcddzQcP1l0njnYsrTViXAap7qYJ0vhOnAUGZgvco0/uXPG1+cRGasK1qEXoVVo
+         I66OqvyKSe4CM/0p2ruBmSaxv7ZXZVgOHySH2LBDYJTVaVVMFlL+S2FZ9GiKe8oHsooS
+         TuIZZETtPP/It9Kg98crOUx3tSBRyZTzAfo8i/63e1uhkUf/AUpHHuDjlEcvaxILb0lc
+         fc0mVn5ETRBMQNSEqv49iVSqVayrVdyi6eLPZSnoB8IyzY/9dXX8XLSHt0p1tEySnHbj
+         PO6sGCljtmwBkMVJ8kpDpe2dBimO7lWlFMw+W/6MRLkQj46RR7473GSLN8rZCD+bigpH
+         FKIw==
+X-Forwarded-Encrypted: i=1; AHgh+Rr9vPjnWSI1dEvaQac3YIHUX68xDmnOIvShFQuh6kSZRhycECC+lY9TeR2O3UwJ3vl16JrfPcFwwMHT@vger.kernel.org
+X-Gm-Message-State: AOJu0YyCbGY+w/MQJt2SQ22uMq4h468yCyn9gK1Lr+YV6mp703mBxjS3
+	QZ7Thqs09/BcitJfpJH5BItQVHXV9F/5HrBgjRi3RiziC+Fo5XnrcLragcVwK9BaNwuXQfB9PaK
+	lSELBp+PeIv/raR5VgbVCZsd6dmJHp716Zw1M7f5uSma7bh/IwS7lA5qwBElKhmCJ
+X-Gm-Gg: AR+sD104nV5XdxPBQrrYOUt49VK1v6/JnxcQ13Phei57af/LKyIZBWF6QYQeznGSTDe
+	zovS/19fwXQ23u+Lhnv69+q4oOrfxABDcVrQLi/TkNbe0Fgj9v50FAtozjvnfZY2guoG1knNPaZ
+	Wmz3ODFdzLACNl8nkGnDxH+RYBtuQeOzzdtuKbCMzzNwSHViUxTw+aF9rqjPK1OXrujmK84zBhQ
+	PtsxCSigBxrJ5SSMrgAIugr+qhOAAehXIJ8HI/v90x42IzgoAo/I/p61r8Ak3RQGC38LueV/V5r
+	DqHVv0IY+/kyDgNTWhIVpr0sZtFa0jLWkjsrAfVN9k+6L2PmgF/Gbbuww0pe39H9SeWHtVgaVp8
+	2KAYt7X1SlK6xTWbll4hrwl8la2bfLBzwF2Dbp0xyuo2e/r4=
+X-Received: by 2002:a17:90b:17cb:b0:37f:9ce2:348f with SMTP id 98e67ed59e1d1-38f6a5430c5mr5909560a91.32.1785316269608;
+        Wed, 29 Jul 2026 02:11:09 -0700 (PDT)
+X-Received: by 2002:a17:90b:17cb:b0:37f:9ce2:348f with SMTP id 98e67ed59e1d1-38f6a5430c5mr5909528a91.32.1785316269144;
+        Wed, 29 Jul 2026 02:11:09 -0700 (PDT)
+Received: from hu-qianyu-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f7f0edc1csm1058184a91.3.2026.07.29.02.11.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 29 Jul 2026 02:11:08 -0700 (PDT)
+Date: Wed, 29 Jul 2026 02:11:06 -0700
+From: Qiang Yu <qiang.yu@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+        Philipp Zabel <p.zabel@pengutronix.de>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 4/6] arm64: dts: qcom: glymur-crd: Add PHY supplies
+ for pcie3_phy
+Message-ID: <amnDqhTpMffP9M1w@hu-qianyu-lv.qualcomm.com>
+References: <20260724-glymur_linkmode_0724-v7-0-65c8469c6b65@oss.qualcomm.com>
+ <20260724-glymur_linkmode_0724-v7-4-65c8469c6b65@oss.qualcomm.com>
+ <74907d0a-cf14-43b6-bcfb-8c283926a820@oss.qualcomm.com>
+ <ammhm1mnHhn2okgJ@hu-qianyu-lv.qualcomm.com>
+ <2091d5bf-8c76-479b-98fd-fc75b3adf644@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2091d5bf-8c76-479b-98fd-fc75b3adf644@oss.qualcomm.com>
+X-Proofpoint-GUID: byQvOKxYGCfWmkMz8b8dRDplM_-u9iHd
+X-Authority-Analysis: v=2.4 cv=C5fZDwP+ c=1 sm=1 tr=0 ts=6a69c3ae cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=iYY4eBxCTIKzZHblZ3kA:9 a=CjuIK1q_8ugA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-ORIG-GUID: byQvOKxYGCfWmkMz8b8dRDplM_-u9iHd
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDA3NCBTYWx0ZWRfX45FrSag9e29u
+ IHE5JcL9IqgLwZ2svS0x1Nb+aDleIJaw7XTnYLH8qVgCgLMm82A1Q7O9E04RdWaw38Gz0P2O061
+ 1z6bD29c55rDcw/FMl9FqFzRnU8Tl0w=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDA3NCBTYWx0ZWRfX+yWyJH3DSWPV
+ 2vBJwKcB1zMwBIPBvs7lM2bAX7n9ya8xc5Vfydt8/eAGGQ6TW5JAWsqHYe4WRhxk1MLthxzDHLf
+ wPv8tZS30Rl+IIkvSu6PA0c2HjE2uw3Wx4zqdwdfam+4Q9nUdgj7T7PQL2j3US4IQdA7ZZhm7P1
+ 1/gxz9Hom0VDhx0RCg3jfTv8eY4blr7xh30RYFAWlgfz7QzXEhXaVB89Ykg1U69brN5zBWpGmxI
+ nHbhjMVxrcNBAawWGs4lq9TsFaaxYCwxz6IwQrDZrGPBNRf5yfCIgXBjCCFVQ1+GCyopZx+9e8s
+ z9pLNvF/i6YB4lsYHIeIptge21/BCPxsgfuD22Vzk8Z0raktW3/SjGQphuSAWGU7DTBrXuJkW1G
+ lGuWpLAgAOqI7/gZ1awl0UDc+r001LDcd5QhZT/0b2MqJDNs6BlfFC8ja9RoMTaIAVnHyDxP/Fb
+ oTnNKnnNNj9VEjCX5nQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-29_03,2026-07-28_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 impostorscore=0 malwarescore=0 adultscore=0
+ clxscore=1015 priorityscore=1501 bulkscore=0 lowpriorityscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607290074
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
+On Wed, Jul 29, 2026 at 10:30:27AM +0200, Konrad Dybcio wrote:
+> On 7/29/26 8:45 AM, Qiang Yu wrote:
+> > On Mon, Jul 27, 2026 at 04:47:15PM +0200, Konrad Dybcio wrote:
+> >> On 7/24/26 12:01 PM, Qiang Yu wrote:
+> >>> CRD wires the shared Gen5x8 PCIe PHY's regulator supplies through
+> >>> board-specific PMIC rails. Add the vdda-phy, vdda-pll, and
+> >>> vdda-refgen0p9/1p2 supplies for &pcie3_phy.
+> >>>
+> >>> Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
+> >>> ---
+> >>>  arch/arm64/boot/dts/qcom/glymur-crd.dts | 8 ++++++++
+> >>>  1 file changed, 8 insertions(+)
+> >>>
+> >>> diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dts b/arch/arm64/boot/dts/qcom/glymur-crd.dts
+> >>> index 6125617de82a..0aae613a33ad 100644
+> >>> --- a/arch/arm64/boot/dts/qcom/glymur-crd.dts
+> >>> +++ b/arch/arm64/boot/dts/qcom/glymur-crd.dts
+> >>> @@ -28,3 +28,11 @@ &mdss_dp1 {
+> >>>  &mdss_dp1_out {
+> >>>  	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
+> >>>  };
+> >>> +
+> >>> +&pcie3_phy {
+> >>> +	vdda-phy-supply = <&vreg_l3c_e1_0p89>;
+> >>> +	vdda-pll-supply = <&vreg_l2c_e1_1p14>;
+> >>> +
+> >>> +	vdda-refgen0p9-supply = <&vreg_l1c_e1_0p82>;
+> >>> +	vdda-refgen1p2-supply = <&vreg_l4f_e1_1p08>;
+> >>
+> >> I'm guessing you also meant to enable it here
+> > 
+> > No, we need to keep it as disabled because pcie3b is not enabled by
+> > default on glymur crd.
+> > 
+> > See the fake pcie3b_phy be dropped, it is disabled
+> > https://lore.kernel.org/all/20260420133616.88740-2-krzysztof.kozlowski@oss.qualcomm.com/
+> 
+> I think there are SKUs with dual-NVMe that use it
 
-New issues:
-- [Critical] Lack of preemption and IRQ protection around precisely timed S=
-TROBE pulse during eFuse programming.
-- [Critical] Missing driver-level locking allows concurrent reads and write=
-s to corrupt global controller registers and destroy eFuses.
-- [Medium] VQPS regulator is enabled without explicitly configuring its str=
-ictly required programming voltage.
+But the pcie3b controller node is also disabled, should I enable it in
+this series?
 
-Pre-existing issues:
-- [High] Read address bits are not cleared before ORing the next address, p=
-ermanently corrupting multi-word read addresses.
-- [High] CPU-endian register reads are copied via memcpy, causing byte-orde=
-r reversal on Big Endian systems.
---
-
---- Patch [2]: [PATCH v2 2/2] nvmem: rockchip-efuse: add write support with=
- optional VQPS supply gating ---
-commit 9787a852435c97fd8c38650a5baf58286ca592d1
-Author: Hrushiraj Gandhi <hrushirajg23@gmail.com>
-
-nvmem: rockchip-efuse: add write support with optional VQPS supply gating
-
-This commit adds write support for the RK3399 eFuse using the A_PGM
-programming mode. It retrieves an optional VQPS regulator that is enabled
-only during write operations to fulfill hardware requirements. If the
-regulator is absent, the device is left read-only to prevent unsafe writes.
-
-> diff --git a/drivers/nvmem/rockchip-efuse.c b/drivers/nvmem/rockchip-efus=
-e.c
-> index 013e67136f3b9..3bde09236c74c 100644
-> --- a/drivers/nvmem/rockchip-efuse.c
-> +++ b/drivers/nvmem/rockchip-efuse.c
-[ ... ]
-> @@ -177,6 +193,7 @@ static int rockchip_rk3399_efuse_read(void *context, =
-unsigned int offset,
->  	writel(RK3399_LOAD | RK3399_PGENB | RK3399_STROBSFTSEL | RK3399_RSB,
->  	       efuse->base + REG_EFUSE_CTRL);
->  	udelay(1);
-> +
->  	while (addr_len--) {
->  		writel(readl(efuse->base + REG_EFUSE_CTRL) | RK3399_STROBE |
->  		       ((addr_start++ & RK3399_A_MASK) << RK3399_A_SHIFT),
->  		       efuse->base + REG_EFUSE_CTRL);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is it possible for multi-word
-reads to use corrupted addresses here?=20
-
-The loop bitwise-ORs the new read address into REG_EFUSE_CTRL but never
-clears the previous address bits. On subsequent iterations, the old address
-bits remain set, which causes the new read address to be a bitwise OR of all
-prior addresses in the sequence.
-
->  		udelay(1);
->  		out_value =3D readl(efuse->base + REG_EFUSE_DOUT);
->  		writel(readl(efuse->base + REG_EFUSE_CTRL) & (~RK3399_STROBE),
->  		       efuse->base + REG_EFUSE_CTRL);
->  		udelay(1);
-> =20
->  		memcpy(&buf[i], &out_value, RK3399_NBYTES);
-
-[Severity: High]
-This is a pre-existing issue, but does copying the register value this way
-cause byte-order reversal on big-endian systems?=20
-
-readl() returns the 32-bit value in the CPU's native endianness, and using
-memcpy() to serialize it will store the most significant byte at the lowest
-address on big-endian systems. Should this use put_unaligned_le32() or
-similar to guarantee consistent byte layout across architectures?
-
-[ ... ]
-> +static int rockchip_rk3399_efuse_write(void *context, unsigned int offse=
-t,
-> +				       void *val, size_t bytes)
-> +{
-> +	struct rockchip_efuse_chip *efuse =3D context;
-> +	u8 *buf =3D val;
-> +	int ret;
-> +
-> +	ret =3D clk_prepare_enable(efuse->clk);
-> +	if (ret < 0) {
-> +		dev_err(efuse->dev, "failed to prepare/enable efuse clk\n");
-> +		return ret;
-> +	}
-> +
-> +	ret =3D regulator_enable(efuse->vqps);
-
-[Severity: Medium]
-Could enabling the VQPS regulator without enforcing a specific voltage cause
-hardware issues?=20
-
-The commit message mentions a 1.8V to 1.98V requirement, but
-regulator_enable() does not enforce this. If the device tree defines this as
-a shared or variable regulator currently set to a different voltage, could =
-it
-fail to program the OTP or cause overvoltage damage? Should this use
-regulator_set_voltage() to guarantee the required programming voltage?
-
-> +	if (ret < 0) {
-> +		dev_err(efuse->dev, "failed to enable vqps regulator\n");
-> +		clk_disable_unprepare(efuse->clk);
-> +		return ret;
-> +	}
-> +
-> +	while (bytes--) {
-> +		u8 byte =3D *buf++;
-> +		int bit;
-> +
-> +		for (bit =3D 0; bit < 8; bit++) {
-> +			u32 addr, ctrl;
-> +
-> +			if (!(byte & BIT(bit)))
-> +				continue;
-> +
-> +			addr =3D offset * 8 + bit;
-> +
-> +			/*
-> +			 * A_PGM mode (TRM table 23-3):
-> +			 * CSB=3DL, PGENB=3DL, PS=3DH, PD=3DL, LOAD=3DL, RSB=3DL,
-> +			 * STROBSFTSEL=3DH (software controls STROBE)
-> +			 * STROBE is asserted separately below.
-> +			 */
-> +			ctrl =3D RK3399_STROBSFTSEL | RK3399_PS |
-> +			       ((addr & RK3399_A_MASK) << RK3399_A_SHIFT);
-> +
-> +			writel(ctrl, efuse->base + REG_EFUSE_CTRL);
-
-[Severity: Critical]
-Can concurrent reads and writes corrupt the global controller registers?=20
-
-The NVMEM core does not serialize device-level reads and writes. Both
-rockchip_rk3399_efuse_write() and rockchip_rk3399_efuse_read() modify the
-global REG_EFUSE_CTRL register.
-
-If a concurrent read occurs from sysfs during a write operation, couldn't it
-abruptly overwrite the A_PGM state, clear RK3399_PS, or assert standby mode
-while the programming STROBE is active? Furthermore, reading while the vqps
-regulator is enabled violates the hardware requirement that VQPS must be 0V
-during reads. Should a driver-level mutex be used to protect the register
-state and regulator transitions?
-
-> +			udelay(1);
-> +
-> +			/* Assert STROBE to program the selected bit */
-> +			writel(ctrl | RK3399_STROBE, efuse->base + REG_EFUSE_CTRL);
-> +			udelay(RK3399_PGM_TIME_US);
-
-[Severity: Critical]
-Can this tight programming loop cause issues if it gets preempted?=20
-
-The RK3399 TRM specifies a precise programming STROBE pulse. This code uses
-a udelay() loop that spins in process context without disabling interrupts =
-or
-preemption.
-
-If a timer interrupt fires or the thread is preempted during this udelay(),
-would the STROBE line remain asserted for the duration of the interruption,
-potentially permanently degrading the OTP memory cells? Should
-local_irq_save() and local_irq_restore() or similar atomic context guarante=
-es
-be used around the strobe?
-
-> +
-> +			/* Deassert STROBE */
-> +			writel(ctrl, efuse->base + REG_EFUSE_CTRL);
-> +			udelay(1);
-> +		}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729085856.2260=
-01-1-hrushirajg23@gmail.com?part=3D2
+- Qiang Yu
