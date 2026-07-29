@@ -1,189 +1,271 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D6404A2E1B
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 14:01:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53CFA4ADD8A;
+	Wed, 29 Jul 2026 14:04:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785333697; cv=none; b=aqd6km/OB1/rYZKB+Vol12mWY4m2Yy7cRbEPWe5mP5BAWygyiMlj8280U0HvEBRaz9PTNB0Cww/+VzqFfmLUAgjqAbfLoZ/r4NzYZ7lvDxis327KtAkXyle3tvSM7TUK7BIPdaFHrI89eQdj9cvTedMZLp4LvnBtUJTptegUzyY=
+	t=1785333898; cv=none; b=oEJY7nUqAw4LYV3FO1RMppOJUIB+h7ybgaCkRfOvN7nAYnzuCvimmVpad06uxgyPpNYYTnfk9CjNtk5ryJXLlTRe0swbR15O2/uMDfIOhMrId1ZgkoraKJPDTJ/Q07lqlTM5ESpz/SlBoJLewzd1/4+rSgS1FclFZmlpSc2VY0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785333697; c=relaxed/simple;
-	bh=mb8QZO52zmswOCLzMr24dFwI+Z1dHZrV7ksLiupn17Y=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=fncm+WBnU8nRkZfmWGsRfs5inXi0PHVTNxTb9h1GfXHdZklpI4SLsBAD3UdmUAqSOzWhYKZg3W1TsEb3FW1164h9/kHtFerdcUTV19zCXnG56jmS2ZoC9tNniZQ90gVVjuvFvgOQLQfoutCxgIKOL9pIO7CH9ZH2X2P1siaMMPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VCdV/uBA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785333898; c=relaxed/simple;
+	bh=1a0C9cke4e+5+Kzv29V9S2eVJYfsQkgbvXtAF8XmeNg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tc9n4jCEvpwnanKvs1L/JcJO4uGVlp/KP593xtfO/lYlbjpdbDdyJ+7MBQgOP3k9j0rm+ZdghkEx8jFOUpNvsFaNX6jKgnfxJblXXCc+x1KO5JmVUNi1p+zw9TwpwtniLALUNM2DqY7ZaGoIhnG7OCASlnpTyEqWMw6CpTaEtkk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QguFoiyB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VCdV/uBA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEC481F000E9;
-	Wed, 29 Jul 2026 14:01:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QguFoiyB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8370D1F000E9;
+	Wed, 29 Jul 2026 14:04:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785333694;
-	bh=KzPD2vNXbNx8NrI2xHkEJklLXVAAG3NAM05/0MprzZ8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VCdV/uBAeeoFd6z7VSrK62tf0VAnGqoL/2cFSdFQytjoGCdL/H4noeDdDTpd8ah6d
-	 YRKomAB7OKdQaTnbTdiBUNSyJHvl6THzIdXO6G2HCgqADuSnzW84abRLSdDhmPYLQ9
-	 /DCeokH44UsUtkMzHpXDkZOE1ItD7NKEwZsZs7Xp8vdAKEzPMxrr7cP8ErktEWYZwG
-	 M6pur9ir72jTQ1H1p5BZk1l1OFImysaHHNWUc3cpYyR4GmDyKRDrp4E2KKTX9d3vvZ
-	 VNLPexB5KrtLXP5GG/P+CBPKLnuhz0O1L57W5LlNb61Bbcc6zXMxyIRw/x3Xc1GQXu
-	 rKulIFG/Mu0MQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/6] ARM: dts: rockchip: Add support for RV1106 and
- RV1103
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Simon Glass" <sjg@chromium.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260729133609.3465563-5-sjg@chromium.org>
-References: <20260729133609.3465563-1-sjg@chromium.org>
- <20260729133609.3465563-5-sjg@chromium.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 29 Jul 2026 14:01:34 +0000
-Message-Id: <20260729140134.AEC481F000E9@smtp.kernel.org>
+	s=k20260515; t=1785333897;
+	bh=vGx4CqWtQi4SS5X8k2wA0qclMwzASCjnk7HhucnvH8A=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=QguFoiyBjuVW58s63p3VZlBPWJl14pCtkcFAHK6ICYvDy8K+O5SPUvOjAmVB4AzJc
+	 JzjODFG5pWXN84Zt8vDnC8MA5RD99mKCX39JJfEeBWeV0DqJBZDYnDCfPm3oO/O9fM
+	 uP+1j5J/e0Jgfq0e16kQ/MntMxdMyr3FG52pyiV6sb4DKnCCHie49xckZPyDDmXPTi
+	 mqDWTVvXaTxT9y5KaWSlgjHzVpxSoeo03vcNscfoEIfrOd0A3t8cuokUL2H6iWUHrx
+	 JNY/bjz86VBf4Nucqh75iI37eXavc9p7Clsr6mXH/PrETcQJH+SjOfkSj1bh+5dfpD
+	 pOa+SWpTgY9vw==
+Message-ID: <6a901a72-fbcf-4478-b798-e5f234c5e9d8@kernel.org>
+Date: Wed, 29 Jul 2026 16:04:44 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 7/8] dt-bindings: sound: qcom: add Tambora WCD9378
+ SDCA codec
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+ Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Maciej Strozek <mstrozek@opensource.cirrus.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>
+Cc: Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
+ linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, patches@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org
+References: <20260722234221.884765-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260722234221.884765-8-srinivas.kandagatla@oss.qualcomm.com>
+ <219d44e2-28ed-4c54-bd00-66e687a0ba48@kernel.org>
+ <d0891f90-b69b-4b27-ad58-94c342ad9a6a@oss.qualcomm.com>
+ <3c484a68-5db8-464f-992a-6c7584841a10@kernel.org>
+ <0cb5a2dd-c49e-47e3-8cc5-ab2ffd397a32@oss.qualcomm.com>
+ <ba147ca6-3788-4cbe-95c3-949ae73ee8f0@kernel.org>
+ <54f1c3e5-0b84-44a6-a03c-3cd65792de9c@oss.qualcomm.com>
+ <6ed441b8-7148-43ef-9c9f-4bc30c468443@kernel.org>
+ <b123882c-c51f-44b3-9004-bc1c4242af81@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <b123882c-c51f-44b3-9004-bc1c4242af81@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Deleting the `&gpio2` node causes a kernel panic when reading pinc=
-trl debugfs because the statically registered pins reference a missing bank=
- node.
-- [High] Schema violation and hardware misconfiguration by injecting `rockc=
-hip,grf` into `gpio-bank` nodes and assigning a dummy global GRF.
-- [Low] The unit-address of the `gic` node does not match the first address=
- in its `reg` property.
---
+On 29/07/2026 15:34, Srinivas Kandagatla wrote:
+> 
+> 
+> On 7/29/26 2:23 PM, Krzysztof Kozlowski wrote:
+>> On 29/07/2026 15:02, Srinivas Kandagatla wrote:
+>>>
+>>>
+>>> On 7/29/26 1:43 PM, Krzysztof Kozlowski wrote:
+>>>> On 29/07/2026 14:36, Srinivas Kandagatla wrote:
+>>>>> On 7/29/26 1:30 PM, Krzysztof Kozlowski wrote:
+>>>>>> On 29/07/2026 14:17, Srinivas Kandagatla wrote:
+>>>>>>> On 7/29/26 12:40 PM, Krzysztof Kozlowski wrote:
+>>>>>>>> On 23/07/2026 01:42, Srinivas Kandagatla wrote:
+>>>>>>>>> Describe the WCD9378 SDCA peripheral node (compatible sdw20217011000)
+>>>>>>>>> driven by the wcd9378-sdca codec driver for headphone playback, headset
+>>>>>>>>> mic capture and jack detection via the SimpleJack SDCA function type.
+>>>>>>>>>
+>>>>>>>>> WCD9378 codec can be wired up in 2 different modes.
+>>>>>>>>> "mobile mode" on phone/tablet SoCs is enumerated as tx and rx device,
+>>>>>>>>> each of which has dedicated control and data lines.
+>>>>>>>>> "compute mode" on compute platforms such as Glymur is enumerated as
+>>>>>>>>> single standard MIPI SDCA class device.
+>>>>>>>>>
+>>>>>>>>> Both modes share same Device ID, compatible; qcom,compute-mode selects
+>>>>>>>>> which driver path is taken.  Supplies, reset GPIO and mic-bias voltages
+>>>>>>>>> live on the SoundWire slave node in compute mode and are forbidden in
+>>>>>>>>> mobile mode (owned by the top-level codec parent there).
+>>>>>>>>>
+>>>>>>>>> Assisted-by: Claude:claude-opus-4-7
+>>>>>>>>> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+>>>>>>>>> ---
+>>>>>>>>>  .../bindings/sound/qcom,wcd9378-sdw.yaml      | 200 ++++++++++++++++++
+>>>>>>>>>  1 file changed, 200 insertions(+)
+>>>>>>>>>  create mode 100644 Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
+>>>>>>>>>
+>>>>>>>>> diff --git a/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml b/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
+>>>>>>>>> new file mode 100644
+>>>>>>>>> index 000000000000..2ed4ad92958e
+>>>>>>>>> --- /dev/null
+>>>>>>>>> +++ b/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
+>>>>>>>>> @@ -0,0 +1,200 @@
+>>>>>>>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>>>>>>>>> +%YAML 1.2
+>>>>>>>>> +---
+>>>>>>>>> +$id: http://devicetree.org/schemas/sound/qcom,wcd9378-sdw.yaml#
+>>>>>>>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>>>>>>>> +
+>>>>>>>>> +title: Qualcomm SoundWire Slave devices on WCD9378
+>>>>>>>>> +
+>>>>>>>>> +maintainers:
+>>>>>>>>> +  - Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+>>>>>>>>> +  - Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+>>>>>>>>> +
+>>>>>>>>> +description: |
+>>>>>>>>> +  The Qualcomm WCD9378 codec presents its SoundWire slave devices with
+>>>>>>>>> +  class ID sdw20217011000 in both operating modes:
+>>>>>>>>> +
+>>>>>>>>> +    * mobile mode -- two slave instances sit on separate SoundWire
+>>>>>>>>> +      masters carrying data only.  A separate top-level codec node
+>>>>>>>>> +      owns the codec's supplies, mic-bias voltages and reset GPIO.
+>>>>>>>>> +
+>>>>>>>>> +    * SDCA / compute mode -- one aggregated slave sits on a multi-lane
+>>>>>>>>> +      master and carries both control and data.  There is no separate
+>>>>>>>>> +      top-level codec node, so the SoundWire slave node itself owns
+>>>>>>>>> +      supplies, reset GPIO and mic-bias voltage configuration.  It is
+>>>>>>>>> +      marked with qcom,compute-mode.
+>>>>>>>>> +
+>>>>>>>>> +  Codec drivers that match sdw20217011000 use qcom,compute-mode to
+>>>>>>>>> +  decide which mode to serve; the presence or absence of this property
+>>>>>>>>> +  also gates whether the supply and mic-bias properties on this node
+>>>>>>>>> +  are required or forbidden.
+>>>>>>>>> +
+>>>>>>>>> +properties:
+>>>>>>>>> +  compatible:
+>>>>>>>>> +    const: sdw20217011000
+>>>>>>>>> +
+>>>>>>>>> +  reg:
+>>>>>>>>> +    maxItems: 1
+>>>>>>>>> +
+>>>>>>>>> +  qcom,compute-mode:
+>>>>>>>>> +    description: |
+>>>>>>>>> +      Marks this SoundWire slave as the single aggregated slave that
+>>>>>>>>> +      implements the codec in SDCA / compute mode.  Only present when
+>>>>>>>>> +      the codec has no separate top-level codec parent; in that case
+>>>>>>>>> +      this slave node also owns the codec's supplies, reset GPIO and
+>>>>>>>>> +      mic-bias voltage configuration.  Absent in mobile mode.
+>>>>>>>>
+>>>>>>>> I doubt there is really "compute" or "mobile" mode, so you just wrote to
+>>>>>>>> match use case, but that does not match hardware.
+>>>>>>>>
+>>>>>>> This is hardware fuse setting, its not just usecase based but it changes
+>>>>>>> complete wcd9378 hardware topology, in mobile mode we have 2 soundwire
+>>>>>>> devices representing tx and rx side of wcd9378 however in compute mode
+>>>>>>> it only has one soundwire device dealing with both tx and rx. compute
+>>>>>>> mode is sdca class compliant device.
+>>>>>>>
+>>>>>>>
+>>>>>>>> I think there should be no separate top-level codec parent in the first
+>>>>>>>> place, thus this property is not needed. You always list here all resources.
+>>>>>>> There is no top level aggregated device when the codec is fused in
+>>>>>>> compute mode.
+>>>>>>
+>>>>>> There should not be a top-level in either case. This was always Linux
+>>>>>> driver limitation.
+>>>>>
+>>>>> That is not true, its clearly a hardware topology thing.
+>>>>> Codec has two devices tx and rx, Only one of the device (tx) has access
+>>>>> to CSR registers of the codec, so rx and tx are pretty much a single
+>>>>> aggregate codec device which is why we have top-level representation of
+>>>>> the aggregate device.
+>>>>
+>>>> So two devices, but not three. If TX has access to RX, it does not mean
+>>>> there is third device. If there was a third device (that top level
+>>>> thingy) you would have it here as well. You don't have, because it is
+>>>> purely for Linux.
+>>>
+>>> WCD codec is a single Codec IP Hardware block which contains two
+>>> soundwire interface devices. Effectively we have one aggregate device
+>>> representing codec which encompasses two soundwire devices.
+>>
+>> You have only two devices.
+>>
+>>>
+>>> Third device is the only place where we could represent entire Codec
+>>
+>> No, any of these devices could. The top-level is a fake being.
+>>
+>>> rather than just soundwire interface devices of the codec.
+>>>
+>>> Am not sure what is Linux specific here, its purely hardware topology.
+>>
+>> The Linux specific is because you needed a placeholder for power
+>> sequencing. It is not a pure hardware topology.
+> 
+> Not just power sequencing we have
+> 
+> 1.  tx and rx register read/write interactions happen as part of this
+> device ex: reading and writing rx blocks inside codec needs to go via tx
+> device.
+> 2. connecting/interacting TX and rx processing blocks ex: mbhc
+> 3. power and codec internal clock management
 
---- Patch [4]: [PATCH v3 4/6] ARM: dts: rockchip: Add support for RV1106 an=
-d RV1103 ---
-commit 2a704554f0ba16f51aa70ddcf7fa1a4a81337f55
-Author: Simon Glass <sjg@chromium.org>
+All this should be part of TX. You cannot use argument that you moved
+some logic outside as reason why you need to move that logic. That's
+circular.
 
-ARM: dts: rockchip: Add support for RV1106 and RV1103
-   =20
-Add the devicetree files for the Rockchip RV1106, a Cortex-A7 SoC
-aimed at IP cameras, and its RV1103 package variant, which has fewer
-pins and no GPIO2 bank. The pinctrl data comes from the vendor kernel in
-the Luckfox Pico SDK.
+> 
+> 
+>>
+>> Otherwise, please point me on which/what hardware bus that top-level
+>> codec resides on if it represents hardware topology.
+> 
+> Its external codec to the SoC.
 
-[1] https://github.com/LuckfoxTECH/luckfox-pico
+No, that's irrelevant. On which external bus does it sit? I2C devices
+sit on I2C bus. Do you see them in top-level?
 
-> diff --git a/arch/arm/boot/dts/rockchip/rv1103.dtsi b/arch/arm/boot/dts/r=
-ockchip/rv1103.dtsi
-> new file mode 100644
-> index 0000000000000..025fde5bf09cf
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/rockchip/rv1103.dtsi
-> @@ -0,0 +1,16 @@
-> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-> +/*
-> + * Copyright (c) 2022 Rockchip Electronics Co., Ltd.
-> + */
-> +
-> +#include "rv1106.dtsi"
-> +
-> +/ {
-> +	compatible =3D "rockchip,rv1103";
-> +
-> +	aliases {
-> +		/delete-property/ gpio2;
-> +	};
-> +};
-> +
-> +/delete-node/ &gpio2;
-
-[Severity: High]
-Does deleting the gpio2 node cause a kernel panic when reading pinctrl
-debugfs?
-
-The Rockchip pinctrl driver registers pins statically based on the SoC
-variant. Because the node is deleted, the pinctrl driver cannot retrieve
-the per-bank rockchip,grf regmap, leaving it NULL or ERR_PTR.
-
-When /sys/kernel/debug/pinctrl/pinctrl-rockchip/pinconf-pins iterates over
-all statically registered pins and calls rockchip_pinconf_get(), would
-passing this uninitialized regmap to regmap_read() trigger a kernel panic?
-
-Should this use status =3D "disabled" instead to safely disable the bank?
-
-[ ... ]
-> diff --git a/arch/arm/boot/dts/rockchip/rv1106.dtsi b/arch/arm/boot/dts/r=
-ockchip/rv1106.dtsi
-> new file mode 100644
-> index 0000000000000..70d3da6bd03ef
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/rockchip/rv1106.dtsi
-[ ... ]
-> +	pinctrl: pinctrl {
-> +		compatible =3D "rockchip,rv1106-pinctrl";
-> +		rockchip,grf =3D <&gpio1_ioc>;
-
-[Severity: High]
-Does assigning gpio1_ioc as the global GRF cause the generic
-pinctrl-rockchip driver to incorrectly route pull/drive configurations for
-all banks (0, 2, 3, 4) to gpio1_ioc?
-
-To satisfy the rockchip,pinctrl.yaml requirement for a global rockchip,grf
-on the parent node, gpio1_ioc is assigned here. This instructs the generic
-driver to use it as info->regmap_base for all banks, which could result in
-silent failures and register corruption.
-
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <1>;
-> +		ranges;
-> +
-> +		gpio0: gpio@ff380000 {
-> +			compatible =3D "rockchip,gpio-bank";
-> +			reg =3D <0xff380000 0x100>;
-> +			interrupts =3D <GIC_SPI 5 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks =3D <&cru PCLK_PMU_GPIO0>, <&cru DBCLK_PMU_GPIO0>;
-> +			gpio-controller;
-> +			#gpio-cells =3D <2>;
-> +			gpio-ranges =3D <&pinctrl 0 0 32>;
-> +			interrupt-controller;
-> +			#interrupt-cells =3D <2>;
-> +			rockchip,grf =3D <&gpio0_ioc>;
-
-[Severity: High]
-Does injecting rockchip,grf into the gpio-bank nodes violate the
-Devicetree schema?
-
-The rockchip,gpio-bank.yaml schema has additionalProperties: false and does
-not define rockchip,grf. Adding it here would trigger a dtbs_check error.
-
-[ ... ]
-> +	soc {
-> +		compatible =3D "simple-bus";
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <1>;
-> +		ranges;
-> +
-> +		grf: syscon@ff000000 {
-> +			compatible =3D "rockchip,rv1106-grf", "syscon";
-> +			reg =3D <0xff000000 0x68000>;
-> +		};
-> +
-> +		gic: interrupt-controller@ff1f0000 {
-> +			compatible =3D "arm,gic-400";
-> +			reg =3D <0xff1f1000 0x1000>,
-
-[Severity: Low]
-Does the unit-address in the node name mismatch the first address in the
-reg property?
-
-The node is named interrupt-controller@ff1f0000, but the first address in
-its reg block is 0xff1f1000. This violates the Devicetree specification
-which requires the unit-address to strictly match the first reg address,
-causing a dtc warning.
-
-Could this be renamed to interrupt-controller@ff1f1000?
-
-> +			      <0xff1f2000 0x2000>,
-> +			      <0xff1f4000 0x2000>,
-> +			      <0xff1f6000 0x2000>;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729133609.3465=
-563-1-sjg@chromium.org?part=3D4
+Best regards,
+Krzysztof
