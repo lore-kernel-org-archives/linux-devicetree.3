@@ -1,87 +1,87 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F10B73438BC
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 11:03:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EA88442B2F
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 11:07:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785322988; cv=none; b=bQqwYtL3YEmhY3fLzz9Kllw9pqTVa2A/IAko0K4nBPLD8C6A9BmcQQJOwLfYc78RPN72O1Fj25DKEkAY+0MVlvSleiuO85B9H3o9V26H3nNKulWHY2wCgdSII5iWayPiYFPf8CrOY8XFYZcV7rR17Wl60R1Q8991Lo67qc9IRw8=
+	t=1785323247; cv=none; b=UyjhJf63JRHpPm5jcy0w+LCxUV8OiVvNlZWRz500RoUQGe1emNBraSZe+nmnTx2qOP+kl9zUrkS5VqA1vivhtFepBl0m6K5AbblR6Aca9EBlKerXLwPCsmRC1ZUiK/sGUx2Js4zhvwR6CCvXz5GndPU1VEVxbjbAdREn0ctsh1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785322988; c=relaxed/simple;
-	bh=PxOtOLx01FWwtuTSeEKZdDI2cMEM41pZ6VTI5diTbmw=;
+	s=arc-20240116; t=1785323247; c=relaxed/simple;
+	bh=d3y7bvLW+9u7dcFhzMEPcUOpEjchimLMTHUk3emE8FQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AsTlsV6d2kqixl3AlMdZQ1WVWsFLv83cNwHD7cGskTamsPPOJOpi6GSrySIScZ34WBhFkwZnKrPYnE79n7swFw437NhBcAFgIZXdL2kURkPOZoIU9aQ0NXi/MBbJZH63TTUjCV/s4PKAWQZVl0FexAoQPRyrliwN+yRww27uDME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=idfMF46d; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ft6RS99g; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:Content-Type; b=qOWuqlXBWKXes3uq1kubo0r3879OqPqfjpIJht1fiLMDjgQkGmvP3+Cy2tIlXZkAqDd61b5iOrN4exdANf5q5SZZti51uu+EyhkVdcZDb9crNnihknRYVjkfB4kVdwDMrlnsvoVgpcfC6C2nPc8iOxgN5aYIbWBZ9iWhi+leHIs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cpTp/awj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UnigvOPi; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="idfMF46d";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ft6RS99g"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cpTp/awj";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UnigvOPi"
 Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66T7enhr944282
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 11:03:06 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66TB6sQK1421262
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 11:07:25 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	za0FHuojM5j39EDfBnNki699HVub6S3hVXHlAo6pnRc=; b=idfMF46dQbv0R6vl
-	2j12h7nz7rJUyx0Y8qkretvbs5ejVQsu9922KI9Wgxj8kFB+zTz+BwwBV20a4S1y
-	YGrN3k4DhUqSKljMNJeH53VrBn6UOKdFLvqwfuN4COKLShTrhe6NI6S7W7gBnVaA
-	nV6SSZOIjY9ZXxjSQ0wytBqVipFP6ok+sT6+8XUvydo0dq4WikxoD7H+5dSu1cZ+
-	xuH5uGOcppZ4uqGPvIsSO6lq/ik+K/IIwdX88LUa88PoJEh9SWftRIKl5G24c533
-	OH8COo5cY7R6zXo+cPObVYxy/qyFVZC6Z6H/H+ue0olvjVzs3ptafg4rUD15kI/w
-	Cn4xZA==
-Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fqbmm1ayb-1
+	Jb6QOfLmqATVdsCHpt9kJ443d7h4Y5J6phU4BXwhkVE=; b=cpTp/awjkvX6Sety
+	QSIEZMSfVSq/7ylmL6PnI9O0hejiP1x1/YyebnU21eMdCtWc7vcbw+vy942lZtfx
+	PSVW6xx82InJ4e9kUE4fDVW0fi3KE5E8SjgQ5or9ethjAYOuAE1+i3X98KIy2iq9
+	HNmeXJ80oFCXm8BI1O8Mv99q36vKKWFAZ5+zyZ5i+FqbLpUalHd7n3+D+1QxTdbA
+	sD1PzO+14S9eOSif+i8it/vFgV0Dp8cUHAa5k5u5AAeq15uyu6kHSgrwlSjTcUzp
+	MElbi52WWMvtvwJLuj42UTtFLq11/ZrlKcEubmcTK27ss7a0xV/PjlxqIktAVadw
+	VNOM1A==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fqbmm1bg7-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 11:03:06 +0000 (GMT)
-Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-977c01fee74so3326241.2
-        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 04:03:05 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 11:07:25 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51c1e777a15so1081181cf.2
+        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 04:07:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785322985; x=1785927785; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1785323245; x=1785928045; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=za0FHuojM5j39EDfBnNki699HVub6S3hVXHlAo6pnRc=;
-        b=ft6RS99gV0YCQrN0QM4BdKOowgyezcdv6C1ubAEZCUmvbGxmtUYtVb+oBLXD3Y4CF9
-         4DAY8lxiaPAGvbITGvX7L3JFo0H26ty/SKLwjfru8CsFGmY62YnwuCOWmHLEDpML+Otw
-         FByCtG5Wm6vnPZDHAJR15LqUfNBhI02WpIosX6GBSluzXj1h37kV915kWhwTGtkk8eYJ
-         rLZQIke4d58b8B/T2p8i11kElHw5pw9WhCqFnveuRBL6k3NrONNqO4dWjHkZPbW8WH4Q
-         SBM5lcb++tLE6EaI8oJeVnymr33BgE4bKurbryQR7xrzYhdw4mb7mZ7sGTOVzeoJEFPm
-         LcCg==
+        bh=Jb6QOfLmqATVdsCHpt9kJ443d7h4Y5J6phU4BXwhkVE=;
+        b=UnigvOPiON/dHoEMFPZoHppbfTfmWIN2khdPjcfQElxIEAMje/5LwgMMDgOMO33WhD
+         KGiQnSdCEN3Fohr8BC69UeS7MDKcyD0xaeaIJ3Lv3MlvgrxP5LhF+mEF/Vp4/FPZWUSo
+         aFxr9ldk1SIcSrJlTraB1BdmNjj4cw8jCsebJIto3HwT6kN99ED2QbOL60UAO2Fw55Le
+         XYlUMdI6yvmhqs55ZWWxydfq0Uv/vFTh+GcrSP4qq+Foge8vVnqVgnvkUH/55fE0ICXq
+         T5bhr0VF9pesCYIHYyc4WZh7ihy++G0c4N2adYushhkLu/kXxtcSPkSbfL+EIdz0h2eM
+         HJLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785322985; x=1785927785;
+        d=1e100.net; s=20251104; t=1785323245; x=1785928045;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=za0FHuojM5j39EDfBnNki699HVub6S3hVXHlAo6pnRc=;
-        b=cntuVvTpdkH+bCf+QTD/xj73X4xBKLg+gPiCO6az6qEbo9dtzuvv/cGzA7Lshm51UQ
-         bUn/GJh66JHP6/TWgTgK6u5hxD8aFiUU97e3HkiwDcgk+r999A8PaXl1vKpDOI58nBF+
-         if5W2MJZYshF67rkzVpu8lBKUfwlT/G14N3fAQKgYbxEOPF6jMD//ipph01nsQJwWp/r
-         aWorebLU0zy0EeOu25pIj3yUhm1dwzofBXOCEJua+ekZMZxVwOMMy0PM2JnfX6goqOBS
-         UsgSvdoqoqF7foPSHBXGytI8721wdPnjxHH3lI5Yy6fd5/2QLUkhu4l4jgrXD4Ell9T/
-         Vmow==
-X-Forwarded-Encrypted: i=1; AHgh+RoK3lUIYyJHuNpcK5UYAqzh65Sk1/OIaoL5fqdlxoMX2A9FZ0gVIUmjB1zWDpkGxJ4HALXd+gVmQsPK@vger.kernel.org
-X-Gm-Message-State: AOJu0YyoAhCLSxjvQgxpQLo79pcJ3RHBh7R5bR77EPQYr5hQ8mDF3DhC
-	75EuHze+YNAF5y+7e7fpkOsmP25Y5ndvBx4Zdf8mhNK2ByDKS41Gdz/y/dmEbn5LE19mPZInmvd
-	8ymlBOh4VppoCMlc1tFlM1c16AX0snbOdWtBHDmww8VQaBCZNIQMZ42WEBMNXkyqW
-X-Gm-Gg: AR+sD11qF+4eQv/EDgOsnyKosY1iNvuwwJJNLKweyMYirAK1AIKqCU5x9Pg0GMHKgPg
-	rEqw5Kf0v1m8k1pZwDflFGlV7/biqz9tKXBRaYSKjfJ2HnHl/u6Oinay63oZVUY8Wtsvr/HDvcc
-	WtFwwg5cupgEJYk8c/zvZwKrkD1gujEnvHaqq3POMdvB2+fnSEs2gfnRemODYI9Gvb1C4VI0ni0
-	eQIC22HaOGlmi0IAWXMSV7iTF/Q0LOm0y4qvoBvMQExqbPoGzcA56AWl+O3/yeJSp65tP+/PkJ3
-	lO7+gH/qX2juCAMrL9FYpMoc81FfG54K6nv9yswdZsGf6Xo3pm1vyF4YaKOz9MRcv0vIoSYzqNw
-	m0rtHLH8iAZYbiCDzJmwXU5kp
-X-Received: by 2002:a05:6102:1485:b0:74d:ce65:3e8b with SMTP id ada2fe7eead31-7549f558f50mr1348631137.2.1785322985158;
-        Wed, 29 Jul 2026 04:03:05 -0700 (PDT)
-X-Received: by 2002:a05:6102:1485:b0:74d:ce65:3e8b with SMTP id ada2fe7eead31-7549f558f50mr1347388137.2.1785322969721;
-        Wed, 29 Jul 2026 04:02:49 -0700 (PDT)
+        bh=Jb6QOfLmqATVdsCHpt9kJ443d7h4Y5J6phU4BXwhkVE=;
+        b=Pjuxl442lbvwlTVUq/PSi++NOSOOxEdSNfETfEzUqdS7ekkt59z1xZ69+JS+8foBtx
+         WWZ0GepaI1HiQtHac+9RX4heDPnU7T4SuOmBYYMtvZz83PNrN0Zts7w8+q/qJX9qeVRr
+         vuOt6JyUdN+vn2otQBSllXKeJ4zIn0BTT58C9iNMuVCa/nRhUoHC+A3M7xHIXSmGYxBq
+         IHVw9IXTmLumeRUY3XnozNQISLsLyYMDGro//vOwGnUNqJAFk4oQGSR+Z6/tLLmjVFwJ
+         sERwWxAXf753E1QWM6/gq6+OqkD8i0zjyTsyoruRIEZP/T9r9JZIvKRCtlBsst1uo4Nj
+         nhwQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rp0yQSx5p/vb+3VW1XuWykT1X85WrhiuKpeUuWXZcF0jdinMVByaWcmg9kNlY5VwLNMyc3rCUTeai4s@vger.kernel.org
+X-Gm-Message-State: AOJu0YyIQiuPOQn497Hm4F93R2AaecdlSPRPk+aYfp6GXoGIi4FoxEHJ
+	yyIiCKhGMJRW/ik57/tL+2Psh2AzZR0YzOyWiRaWIKIGPUECrZoB0QzPT8NIJZY9VXFlZSiyHch
+	ZNbNBjSTaBBBEwvcVZLMcqbgaBT6kGTOva6vDaRiTijuU013TOPHUekxdcAqFklk0
+X-Gm-Gg: AR+sD10DeGoNxl/INIuCEb0VeKLZUGkvVQ9AeZdW70GviH03Yj1KyMj/ms0aCSY/EZ0
+	+FrXSS7L6wlknuvFYj5YoFCmnbB1ZkFVWYfFScNIBcZfk81NTpqAidUu3Hm03XRlxXlAF6VF149
+	00SKQ78coq6fxDbVq8uZdevIypKIj1FLbrfuCAtWzcwX+MzqDwFHMRfjJRKSIwyMsgpOJeTWD72
+	hB9nvI9rS1qGn6bI2Ur601R8g1z4RlpaassSAkd6Dpb0KqxZMLSAGFA4xTdzvS9/wa4Ma6TiV9H
+	ZEG+KkgEaz3xbZZYNe7me4LePiZh1JgkWH+8i3i5D5RMfpMBiLHwzKu6T1dpjFJU+BHtH9sByGb
+	d+ryhPcfwehQykWSL1NTEut1G
+X-Received: by 2002:a05:622a:144b:b0:51c:83f1:bcd4 with SMTP id d75a77b69052e-529df3170c7mr57667741cf.0.1785323244625;
+        Wed, 29 Jul 2026 04:07:24 -0700 (PDT)
+X-Received: by 2002:a05:622a:144b:b0:51c:83f1:bcd4 with SMTP id d75a77b69052e-529df3170c7mr57667271cf.0.1785323244206;
+        Wed, 29 Jul 2026 04:07:24 -0700 (PDT)
 Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a050be9607sm743481a12.12.2026.07.29.04.02.47
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1f83c6858asm99687666b.10.2026.07.29.04.07.21
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 29 Jul 2026 04:02:49 -0700 (PDT)
-Message-ID: <cf04c613-ed91-4929-aaf6-421fe9bb7ab4@oss.qualcomm.com>
-Date: Wed, 29 Jul 2026 13:02:46 +0200
+        Wed, 29 Jul 2026 04:07:23 -0700 (PDT)
+Message-ID: <eb8731e2-6cc5-49d1-a746-3c81563094f0@oss.qualcomm.com>
+Date: Wed, 29 Jul 2026 13:07:21 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,8 +89,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/8] platform: arm64: qcom-hamoa-ec: Switch fan profile
- based on power supply state
+Subject: Re: [PATCH 4/8] platform: arm64: qcom-hamoa-ec: Add fan RPM query and
+ LUT calibration
 To: Anvesh Jain P <anvesh.p@oss.qualcomm.com>,
         Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
         Rob Herring <robh@kernel.org>,
@@ -104,91 +104,68 @@ To: Anvesh Jain P <anvesh.p@oss.qualcomm.com>,
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
         linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org
 References: <20260728-ec_add_more_commands-v1-0-771abd65ee1a@oss.qualcomm.com>
- <20260728-ec_add_more_commands-v1-3-771abd65ee1a@oss.qualcomm.com>
+ <20260728-ec_add_more_commands-v1-4-771abd65ee1a@oss.qualcomm.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260728-ec_add_more_commands-v1-3-771abd65ee1a@oss.qualcomm.com>
+In-Reply-To: <20260728-ec_add_more_commands-v1-4-771abd65ee1a@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: vfZnQF8mLWFtKRy2qFl7IrjfFCwdmh0R
-X-Proofpoint-ORIG-GUID: vfZnQF8mLWFtKRy2qFl7IrjfFCwdmh0R
-X-Authority-Analysis: v=2.4 cv=R/Uz39RX c=1 sm=1 tr=0 ts=6a69ddea cx=c_pps
- a=KB4UBwrhAZV1kjiGHFQexw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+X-Proofpoint-GUID: Zef-FLukaRnzhJwAS-EUlV0nEs22c4yd
+X-Proofpoint-ORIG-GUID: Zef-FLukaRnzhJwAS-EUlV0nEs22c4yd
+X-Authority-Analysis: v=2.4 cv=R/Uz39RX c=1 sm=1 tr=0 ts=6a69deed cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
  a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=Cp8rfTUuKJJUPH2W_1oA:9 a=QEXdDO2ut3YA:10
- a=o1xkdb1NAhiiM49bd1HK:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDA5MSBTYWx0ZWRfX154RAKf/Hy5d
- AucOAOv3xMDxO7fb1VU2j09J0K+uzh7U7gDTCb57mAl4JfmxfWtCQmiGyOegJp6QfA3sx2fFK40
- unmy3YnH+0uuvPyAlZdKKhaLITzWf/yiHCLJP0Jjad//Md7V4F4jyYH9zwoDgfw1VsxmvcmwPny
- JzGVlkkTwRFrpULtGeI0nJhbSBqJnfaSnTVax4q2SfIoeruInXHhMnr0tW3eIy6zNGoUyMD2HgZ
- uG762r4OrTm8k1g/5pHBvOKKnMs5SlYDQ30ZFKuAkYfKGgelqIf8afhzrRQzgX55zUyY8swqCKY
- GKLNmfsiGK2avp7q0FA//B9cSAd9rrqHVYAiZUYTNITlrZsg3XtM4mA58Qdxmu7ugfV2ZaKS7lr
- WpzjHASSPeTxa5dCWt2jzripoMqVHdLHECD5qRtm5oZEPnaOolMJ+MIcdLTjrM4or+sZ00hdxWw
- c/caqgzVe8O1qp51xZg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDA5MSBTYWx0ZWRfXxTeIRh7ps777
- P1T3Kkelq5sl+T58Wy5FgSNlAwtGuanLAIcbcMa61LGsRjWqSkS+qT6BE5mYCRunOkklg0M3EkC
- WRkc0xhYA2Mo4duOD2quVJXqZ6+RPeM=
+ a=8DESU-PLTaP04mM2rpwA:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDA5MiBTYWx0ZWRfX1v6hiV/3lAdk
+ jttFEC701XBSNnQmV28tUmXWgVb8baaKaZb+TYzfflfLvASj022ggMNOvXdyE7qhVOujA9eMyU/
+ w2f3tJFnjZMGbFh9JlA28k5AzpR0FTMQknBTe0fhkqQ3q9PnPbwLzX2EbFv+eJO1C+mwWkjPAdT
+ 380Prw2Aphkj2JCkgPGUe6GuMTldzrvv2A+fxlPbpQ6rliTu6bIUMhKRjcTfISGxfpjhVXhSczD
+ EcqaoVyu4l8mneDlVkF2thDEJylZ+hCQiqMvg80Ox32Wi6XEsNSo5mQFlv0iaav/txVHY0B2sZI
+ Phc5j+n64wc7txvuUeqei+UY/z2L5X//8ic1ZONZZAJcgkbZ9a0/RCQ1/Dj7GLO/ATyb902Crmd
+ zFvM4dIefiumEGSbFkS8BUOmUAsjBWI+fzjGhhDLcDhI60CU1d8H+MniGC+m9b2d4vdRRKzJIeT
+ Um/G3DtGkQdhO17WkYw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDA5MiBTYWx0ZWRfX4FkygBf+olxD
+ 2YM2DltuU5qS9lYGBJcMtebDywy5hysQ4gKbbDCWihFhhlLYIccSNYb1QYlKPdDqZPN89QsEykE
+ 5h3d1KTm+mS1aTi9LAcZHAgEKMeqzXQ=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-29_03,2026-07-28_02,2025-10-01_01
+ definitions=2026-07-29_04,2026-07-28_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  spamscore=0 adultscore=0 suspectscore=0 malwarescore=0 bulkscore=0
  impostorscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015
  priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607290091
+ definitions=main-2607290092
 
 On 7/28/26 7:44 PM, Anvesh Jain P wrote:
-> Add the EC command definitions and handler functions for switching and
-> reading the EC fan profile.
+> Add the EC command definitions and handler functions for querying fan
+> RPM and programming per-fan LUTs (lookup tables mapping SoC
+> temperature to target RPM), and introduce a raw i2c_transfer()-based
+> transport for the two commands, since their variable-length,
+> sub-command-addressed payloads don't fit the smbus block-data model
+> used by the existing commands.
 > 
-> Register a power supply notifier so the driver can react to AC/battery
-> transitions: on each PSY_EVENT_PROP_CHANGED notification, queue work
-> that checks power_supply_is_system_supplied() and, if the AC/battery
-> state has actually changed, switches the fan profile to the
-> performance profile on AC or the battery-saver profile on battery.
-> Track the last-applied state in on_ac_power to avoid redundant EC
-> writes. Run the initial sync once at probe time, and defer the actual
-> switch to a work item since the notifier callback runs in atomic
-> context.
-> 
-> Serialize the fan profile write under the existing io_lock mutex,
-> alongside the other EC command sequences.
-> 
-> Signed-off-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
-> ---
+> Fan LUT geometry and temperature breakpoints vary by board, so encode
+> them in per-compatible qcom_ec_lut_config data selected via
+> device_get_match_data(). Add configs for the Hamoa CRD, Hamoa/Purwa
+> IOT EVK, and Glymur CRD ECs; IOT EVK boards share the Hamoa LUT
+> geometry but are bring-up platforms without a calibrated fan curve,
+> so skip_lut_set suppresses the LUT-set command on those boards.
 
-[...]
+So are we expecting every single laptop/device that utilizes a
+compatible EC to require modifications to the driver here?
 
-> +static int qcom_ec_set_fan_profile(struct qcom_ec *ec, u8 profile_id)
-> +{
-> +	int ret;
-> +
-> +	ret = i2c_smbus_write_byte_data(ec->client, EC_FAN_PROFILE_CMD, profile_id);
+> Since the LUT values depend on each fan's maximum RPM, which varies
+> per board assembly, calibrate it at runtime: drive the fan to full
+> PWM, wait for it to spin up, and read back the achieved RPM via the
+> new query command. Run calibration in a work item at probe time and
+> after EC reset recovery, and make it abortable via a completion so
+> suspend can cut it short. Track calibration completion state so the
+> LUT is programmed once calibration finishes and again on every
+> subsequent power-supply-driven profile switch.
 
-Shouldn't all the accesses be serialized after patch 2?
-
-[...]
-
-> +static int qcom_ec_update_profile_from_power_supply(struct qcom_ec *ec)
-> +{
-> +	int on_ac_power;
-> +	u8 profile;
-> +	int ret = 0;
-> +
-> +	on_ac_power = power_supply_is_system_supplied() > 0 ? 1 : 0;
-
-Comparisons already return a boolean value (i.e. the ternary operator is
-not necessary here)
-
-> +
-> +	profile = on_ac_power ? EC_FAN_PROFILE_BEST_PERF_PLUGGED_IN :
-> +				EC_FAN_PROFILE_BETTER_BATT_ON_BATT;
-
-Is being on a (powerful) charger a prerequisite for entering this profile?
-Currently plugging in a 5W charger would trigger the switch as well.
-
-Should this instead be exposed as a fan profile for userspace?
+I don't want my laptop to become a jetplane on every bootup. I
+doubt anyone does.
 
 Konrad
