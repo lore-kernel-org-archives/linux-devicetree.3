@@ -1,243 +1,122 @@
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF5E1280331
-	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 01:35:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8748E2417D1;
+	Wed, 29 Jul 2026 01:36:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785288936; cv=none; b=uf7eM/IlJnLcXIwXApbvjK37M9zVjaa7TqUPwt1kssdHu/08uI3P5UrFP1pMggDor61HcTHg63OvuMIXJIqdl6x+YODUlmk5TEey9t60Gj5bB3BCkxUE9G38ePdz7tOsGtQyGMYRKbaqW/anllDWmHmQJxjTFBJVwt/rZAwhOfk=
+	t=1785288994; cv=none; b=hgWJ9iOsClJA+U/CwskB+ssXsDfdnja8lwl3e2tnYMshZBwcOhZq8Gj5h6Ed6NiJZpc4rlKdPWZfF/xRxyiMASFsffiDjKJbDoGULRNqH9wIm0aSh2fwaapz8lb30NhhiNLYIIH4xTjopDRTnrgstLRaA/hTFAZt4Zw0LzChnDA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785288936; c=relaxed/simple;
-	bh=sV2SvcZOHypxN+2wpELw+PZPGTBHySBWn6AG9jFe1fo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=s8yVxUiLPn/tTuX7Ch8vyzWG9oe5pmq01Px3G3CYGM6ekwAbBTD65kyB5MyKyIgS0AFB9iUR1y2rYu8ZeGrN+hkmN/THRbQrT3aO88zH+mMcwkse26tomdMcu7eHDTzyWTgrLE2YHpjDc1jgN3WVClqgOIOQynsCyEh3pYCrVG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rE2Yb5dn; arc=none smtp.client-ip=209.85.215.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785288994; c=relaxed/simple;
+	bh=ErAMrKEZCdRnZMD555KoFluujwhfSI+M/HXEMbUI6ms=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=GlXzad5Y8QBlId8WgjWighpIQefyuQyXp+gnFfH80zaYDXjJvUgxNkMZRvp6TidS3chlI6Eya890eKINPemRBiVgYlq0iLU6ntVzSsky90hu1g8NdycVL16cVFZ676r3BCulsqPaUQ8oy2L3YN4LCDvxw5ltaEgtFpgTSqe1UL8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ig1FhA3g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rE2Yb5dn"
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-ca7bea5e5b3so269229a12.1
-        for <devicetree@vger.kernel.org>; Tue, 28 Jul 2026 18:35:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785288934; x=1785893734; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tUfiCLkCKlRJRlT81ihqbtaGYX9nwrTTHIIwvNg7zHg=;
-        b=rE2Yb5dn67lsI+LvrhJxj0jm8/uaFp1jTANWpLBHfyw0fi4a+Lp6cmA2PLKHBeLT3m
-         c9d9+4nZnmCokyFZkLlDdTspXgKHl5yewkmUEAo/EM6Iw+5A1Sq5H2DN1QyTowyDeA2Q
-         TQaGqIj+N5prEcy1jWrbkSGbcKzKD2eIe2G/HHCnNY7MbadAfqPJq4fdHHBPBiu0AMoj
-         we6t0tbDgaovCqGNUpDyDvTc1DQTug/1Y5Sm2dOMf7ovO+AWmd0f2nYwZCn5Bmr6rg7/
-         R2dCXZTHa+KNEFb8cspu5b6MmaQ9g4ciLTzl/eH6SbVFWam8838jyhUb9BNVUInjnYUk
-         FZ0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785288934; x=1785893734;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=tUfiCLkCKlRJRlT81ihqbtaGYX9nwrTTHIIwvNg7zHg=;
-        b=jJz9Gzw4/3VK5qzlYMPqniEuyItTubC/eVOIMvHEXjMZmbXUP1M2CKj2xdPEN8KlM4
-         HmdpmmLKvudUqd5/a/oMt/ieBiKZthb3QTZaT8GANamuXVh2NFw0s+S2A271SH0sBZOZ
-         +QDaT/oHb49uIN2puZFcMwoYleyyEBrt/2O/Tii+Fgu/6VWovlKmZwhxyKwtluk/9t7a
-         5bptMADhhwVC+eoTjDN+JX/sdIHomNyYqUNqaTDK6FPsQKHFvqDQbZRt+Yw24AicrksF
-         7pcoOeAHIJ728muNObyBMWq3PZU703vWQcEVNTvcmiekSxQ3KuYbNWa8gxMocDYRh0Lc
-         rAWA==
-X-Forwarded-Encrypted: i=1; AHgh+RrB18Q6Mda+XWX75Wj1zn/jNGbs/Zw2EUm8V1RuoyQq698SN+OlQDNmJjQbZTMdC09S+gD1Uabvo9ib@vger.kernel.org
-X-Gm-Message-State: AOJu0YzRfdBCYCM0HOM/OO4uWmZoT67Ex5hRgqP+QJBndZsXo5kIN9rT
-	/ottyypi9aPGfBTdv6PRXDIeb2K32UK2ANuJ7id49cDP1SyOYMuac2iZ
-X-Gm-Gg: AR+sD12b2YLRLpuFSJ/W8G9qnZkIkdFmYIB02C1GWiIHCswyekKJgnoX/hGt7zRjPsQ
-	413f09Aqr8yxgQNttKvr7ufL+nODwdxi693a616XvmT0/kdqP3/cedC49afTLxnT0O94ndpSVZj
-	nBtyK6ad+a2+IiUHpa1a/hn1WMUtMACyR3P3jxojCbEKS2Wf4hb7yY6WJSaLQF4cQG+bNDhvLRx
-	KetvyTWSA7sttKNMbQ0zxs2y5qg1gf1nzOJ2/r3QRf1+j4HsKbbk20oKvs8Sa4VyNkHRJLyyTTE
-	zujdTOgBtt0NoyDIFKKI7xF/OPUVh88MoEWl2O1enhFWYXuutVYR+7He+GBStCXXnaO/Fmo8Jzi
-	OZPaEda2ZyO6JgYMno78ldiDtWz3S9Su7AgPQXoLmwirzJnyoF9WBoGRCoz/AOqStIWLZGPtpCC
-	MTW5bFmJ2yjV9y2uGC6tqbxMfM+XZitXaLAxf4oMlYcUdTv7jS8sMeAeZyXLrqSbEcWavVULnw0
-	PZLaDCwxBBV9AVVcsEnQ6TV6qtGMTXcjSRc6f5y3l67YsRr
-X-Received: by 2002:a05:6a21:648a:b0:3bf:983d:e9b4 with SMTP id adf61e73a8af0-3c8ba472cfcmr6275680637.33.1785288933992;
-        Tue, 28 Jul 2026 18:35:33 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31504b12cdasm4024680eec.1.2026.07.28.18.35.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 28 Jul 2026 18:35:33 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <354c3535-71a8-4058-90fc-a991657d1e80@roeck-us.net>
-Date: Tue, 28 Jul 2026 18:35:32 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ig1FhA3g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB00A1F000E9;
+	Wed, 29 Jul 2026 01:36:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785288993;
+	bh=xShIzjDAgzOj8/7HMGb2nFPI75srvttSd87jkabKynw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Ig1FhA3gPQtWrJdWlHLOy8eIcjmUTbvCTtrze2sm2WnrwHG9recSYt9lFWKGZ718W
+	 K1zFj/IldK3CttCu6m/uUXw+ucb7fUnF4Dp5ZUVv5qvpczWQC70F8taOBE3GJaOXw7
+	 pDAW6PErYalIj1AhqAZvFLBf9q6o8V8t+siv4fxm+UIDybqlBnLuhVk9/kFaXwme+4
+	 L9iBZ83NVrx6lX3WIlNkdSkA2xQBeaOxd6bE3zrgBx9I9dbdjl7ijyIkr7RtM24EX/
+	 0LNjKizUJcjdrC5dQ1qqhadgh0HpMh+zloJ0bnc6QgXAsZhMZLMQ3nM0BFoYODTrXY
+	 tV59ztvVJYtPg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/7] arm64: dts: imx8qxp-mek: rename vdevbuffer to
+ vdev0buffer
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?UGVuZyBGYW4gKE9TUyk=?= <peng.fan@oss.nxp.com>
+Cc: robh@kernel.org, imx@lists.linux.dev, conor+dt@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20260729-rproc-dts-v1-3-368bca0b309f@nxp.com>
+References: <20260729-rproc-dts-v1-0-368bca0b309f@nxp.com>
+ <20260729-rproc-dts-v1-3-368bca0b309f@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 29 Jul 2026 01:36:32 +0000
+Message-Id: <20260729013632.BB00A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 4/4] hwmon: (pmbus/max20830): add support for max20830c
- and max20840c
-To: "Torreno, Alexis Czezar" <AlexisCzezar.Torreno@analog.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>
-Cc: "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
-References: <20260728-dev-max20830c-v4-0-cec034298535@analog.com>
- <20260728-dev-max20830c-v4-4-cec034298535@analog.com>
- <336bd264-52ec-473a-b74f-5661f06286ed@roeck-us.net>
- <PH0PR03MB6351D7369AB790714DF416BDF1CB2@PH0PR03MB6351.namprd03.prod.outlook.com>
- <9559d319-4b44-45c2-ae13-f92099de4c89@roeck-us.net>
- <PH0PR03MB63510057D496CBE8EBFAE246F1CB2@PH0PR03MB6351.namprd03.prod.outlook.com>
- <9812bc9e-75c7-49b8-82c3-1e9162d53ccd@roeck-us.net>
- <PH0PR03MB635177B2B6831AFFAA2C30D6F1CA2@PH0PR03MB6351.namprd03.prod.outlook.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
- RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
- nyFiKxUehbNF3r9qlJgPqONwX5vJy4/GvDHdddSCxV41P/ejsZ8PykxyJs98UWhF54tGRWFl
- 7i1xvaDB9lN5WTLRKSO7wICuLiSz5WZHXMkyF4d+/O5ll7yz/o/JxK5vO/sduYDIlFTvBZDh
- gzaEtNf5tQjsjG4io8E0Yq0ViobLkS2RTNZT8ICq/Jmvl0SpbHRvYwa2DhNsK0YjHFQBB0FX
- IdhdUEzNefcNcYvqigJpdICoP2e4yJSyflHFO4dr0OrdnGLe1Zi/8Xo/2+M1dSSEt196rXaC
- kwu2KgIgmkRBb3cp2vIBBIIowU8W3qC1+w+RdMUrZxKGWJ3juwcgveJlzMpMZNyM1jobSXZ0
- VHGMNJ3MwXlrEFPXaYJgibcg6brM6wGfX/LBvc/haWw4yO24lT5eitm4UBdIy9pKkKmHHh7s
- jfZJkB5fWKVdoCv/omy6UyH6ykLOPFugl+hVL2Prf8xrXuZe1CMS7ID9Lc8FaL1ROIN/W8Vk
- BIsJMaWOhks//7d92Uf3EArDlDShwR2+D+AMon8NULuLBHiEUQARAQABzTJHdWVudGVyIFJv
- ZWNrIChMaW51eCBhY2NvdW50KSA8bGludXhAcm9lY2stdXMubmV0PsLBgQQTAQIAKwIbAwYL
- CQgHAwIGFQgCCQoLBBYCAwECHgECF4ACGQEFAmgrMyQFCSbODQkACgkQyx8mb86fmYGcWRAA
- oRwrk7V8fULqnGGpBIjp7pvR187Yzx+lhMGUHuM5H56TFEqeVwCMLWB2x1YRolYbY4MEFlQg
- VUFcfeW0OknSr1s6wtrtQm0gdkolM8OcCL9ptTHOg1mmXa4YpW8QJiL0AVtbpE9BroeWGl9v
- 2TGILPm9mVp+GmMQgkNeCS7Jonq5f5pDUGumAMguWzMFEg+Imt9wr2YA7aGen7KPSqJeQPpj
- onPKhu7O/KJKkuC50ylxizHzmGx+IUSmOZxN950pZUFvVZH9CwhAAl+NYUtcF5ry/uSYG2U7
- DCvpzqOryJRemKN63qt1bjF6cltsXwxjKOw6CvdjJYA3n6xCWLuJ6yk6CAy1Ukh545NhgBAs
- rGGVkl6TUBi0ixL3EF3RWLa9IMDcHN32r7OBhw6vbul8HqyTFZWY2ksTvlTl+qG3zV6AJuzT
- WdXmbcKN+TdhO5XlxVlbZoCm7ViBj1+PvIFQZCnLAhqSd/DJlhaq8fFXx1dCUPgQDcD+wo65
- qulV/NijfU8bzFfEPgYP/3LP+BSAyFs33y/mdP8kbMxSCjnLEhimQMrSSo/To1Gxp5C97fw5
- 3m1CaMILGKCmfI1B8iA8zd8ib7t1Rg0qCwcAnvsM36SkrID32GfFbv873bNskJCHAISK3Xkz
- qo7IYZmjk/IJGbsiGzxUhvicwkgKE9r7a1rOwU0ETofVZwEQALlLbQeBDTDbwQYrj0gbx3bq
- 7kpKABxN2MqeuqGr02DpS9883d/t7ontxasXoEz2GTioevvRmllJlPQERVxM8gQoNg22twF7
- pB/zsrIjxkE9heE4wYfN1AyzT+AxgYN6f8hVQ7Nrc9XgZZe+8IkuW/Nf64KzNJXnSH4u6nJM
- J2+Dt274YoFcXR1nG76Q259mKwzbCukKbd6piL+VsT/qBrLhZe9Ivbjq5WMdkQKnP7gYKCAi
- pNVJC4enWfivZsYupMd9qn7Uv/oCZDYoBTdMSBUblaLMwlcjnPpOYK5rfHvC4opxl+P/Vzyz
- 6WC2TLkPtKvYvXmdsI6rnEI4Uucg0Au/Ulg7aqqKhzGPIbVaL+U0Wk82nz6hz+WP2ggTrY1w
- ZlPlRt8WM9w6WfLf2j+PuGklj37m+KvaOEfLsF1v464dSpy1tQVHhhp8LFTxh/6RWkRIR2uF
- I4v3Xu/k5D0LhaZHpQ4C+xKsQxpTGuYh2tnRaRL14YMW1dlI3HfeB2gj7Yc8XdHh9vkpPyuT
- nY/ZsFbnvBtiw7GchKKri2gDhRb2QNNDyBnQn5mRFw7CyuFclAksOdV/sdpQnYlYcRQWOUGY
- HhQ5eqTRZjm9z+qQe/T0HQpmiPTqQcIaG/edgKVTUjITfA7AJMKLQHgp04Vylb+G6jocnQQX
- JqvvP09whbqrABEBAAHCwWUEGAECAA8CGwwFAmgrMyQFCSbODQkACgkQyx8mb86fmYHlgg/9
- H5JeDmB4jsreE9Bn621wZk7NMzxy9STxiVKSh8Mq4pb+IDu1RU2iLyetCY1TiJlcxnE362kj
- njrfAdqyPteHM+LU59NtEbGwrfcXdQoh4XdMuPA5ADetPLma3YiRa3VsVkLwpnR7ilgwQw6u
- dycEaOxQ7LUXCs0JaGVVP25Z2hMkHBwx6BlW6EZLNgzGI2rswSZ7SKcsBd1IRHVf0miwIFYy
- j/UEfAFNW+tbtKPNn3xZTLs3quQN7GdYLh+J0XxITpBZaFOpwEKV+VS36pSLnNl0T5wm0E/y
- scPJ0OVY7ly5Vm1nnoH4licaU5Y1nSkFR/j2douI5P7Cj687WuNMC6CcFd6j72kRfxklOqXw
- zvy+2NEcXyziiLXp84130yxAKXfluax9sZhhrhKT6VrD45S6N3HxJpXQ/RY/EX35neH2/F7B
- RgSloce2+zWfpELyS1qRkCUTt1tlGV2p+y2BPfXzrHn2vxvbhEn1QpQ6t+85FKN8YEhJEygJ
- F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
- FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <PH0PR03MB635177B2B6831AFFAA2C30D6F1CA2@PH0PR03MB6351.namprd03.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 7/28/26 17:25, Torreno, Alexis Czezar wrote:
->> On 7/27/26 23:58, Torreno, Alexis Czezar wrote:
->>>>
->>>>>>
->>>>>> Are those chips still not published ? I find MAX20840T, but no "C" variants.
->>>>>> And MAX20840T presumably has an I2C device ID of "MAX20840", not
->>>>>> "MAX20840C".
->>>>>>
->>>>>> I also noticed that MAX20810 and MAX20815 seem to be register
->>>> compatible.
->>>>>>
->>>>>
->>>>> I believe so yes, they aren't yet.
->>>>>
->>>>
->>>> I just hope they are really compatible, and that the device ID
->>>> strings really include the "C". The "T" variants seem to have no T in
->>>> the device ID string, making it a bit odd that it was (or will be) added for the
->> C variants.
->>>>
->>>
->>> Yeah the T is weird, but I did test the C variants and they do reply the 'c' char.
->>>
->>>>> Actually MAX20810/815 and a few more are next in line after this. A
->>>>> different person is handling it, but they're waiting on how this patches go.
->>>>>
->>>>
->>>> You are making yourself more work than necessary. Knowing that there
->>>> are more chips coming, the sequence of strcmp() is not really that
->>>> desirable anymore.
->>>> It might make sense to create an array with all chips supported by
->>>> the driver instead of adding up strcmp sequences. That would make it
->>>> much easier to add support for new variants.
->>>>
->>>> There also seems to be a MAX20830T. Does it actually make sense to
->>>> list the variants (C/T) in the first place ?
->>>>
->>>
->>> Will think about how to make to scale the code when adding newer variants.
->>>
->>
->> Something like the following should do.
->>
->> const char *supported_chips[] = {
->> 	"MAX20830",
->> 	"MAX20830C",
->> 	"MAX20840",
->> 	"MAX20840C"
->> };
->>
->> ...
->> 	for (i = 0, supported = false; i < ARRAY_SIZE(supported_chips) &&
->> !supported; i++)
->> 		supported = !strcmp(buf, supported_chips[i]);
->>
->> 	if (!supported)
->> 		return dev_err_probe(&client->dev, -ENODEV,
->> 				     "Unsupported device: '%*pE'\n", ret, buf);
->>
->> Then all you'd need to do to add more chips would be to add the strings to the
->> supported_chips[] array.
->>
-> 
-> For some reason they didn't ask me to add MAX20840, and I did double check with them.
-> 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Odd. Well, guess we can add it later if/when someone asks for it.
+Pre-existing issues:
+- [High] Incomplete fix for remoteproc driver node name string matching, ca=
+using wasted CMA memory and broken resource table loading.
+--
 
-> Code wise, I ended up with this. (I guess am trying to avoid mailing a v6)
-> 
-> ...
-> static const char * const supported_chip_ids[] = {
-> 	"MAX20830",
-> 	"MAX20830C",
-> 	"MAX20840C",
-> };
-> ...
-> 	for (i = 0; i < ARRAY_SIZE(supported_chip_ids); i++) {
-> 		if (!strcmp(buf, supported_chip_ids[i]))
-> 			goto id_ok;
-> 	}
-> 
-> 	return dev_err_probe(&client->dev, -ENODEV,
-> 			     "Unsupported device: '%*pE'\n", ret, buf);
-> 
-> id_ok:
-> ... (probe after)
-> 
+--- Patch [3]: [PATCH 3/7] arm64: dts: imx8qxp-mek: rename vdevbuffer to vd=
+ev0buffer ---
+commit 3123a86d4f3fafc543a5613360cdacc5946dbc06
+Author: Peng Fan <peng.fan@nxp.com>
+Date:   Wed Jul 29 01:25:38 2026 +0000
 
-If you don't like the extra variable, you could avoid the goto with
+arm64: dts: imx8qxp-mek: rename vdevbuffer to vdev0buffer
 
-  	for (i = 0; i < ARRAY_SIZE(supported_chip_ids); i++) {
-  		if (!strcmp(buf, supported_chip_ids[i]))
-  			break;
-  	}
+The imx_rproc driver checks for the name "vdev0buffer" to skip mapping
+the vdev buffer region. This commit renames the device tree node to
+"vdev0buffer" to match what the driver expects.
 
-	if (i == ARRAY_SIZE(supported_chip_ids)
-	 	return dev_err_probe(&client->dev, -ENODEV,
-  				     "Unsupported device: '%*pE'\n", ret, buf);
+diff --git a/arch/arm64/boot/dts/freescale/imx8qxp-mek.dts b/arch/arm64/boo=
+t/dts/freescale/imx8qxp-mek.dts
+--- a/arch/arm64/boot/dts/freescale/imx8qxp-mek.dts
++++ b/arch/arm64/boot/dts/freescale/imx8qxp-mek.dts
+@@ -267,7 +267,7 @@ rsc_table: memory@900ff000 {
+ 			no-map;
+ 		};
+=20
+[Severity: High]
+This is a pre-existing issue, but does this incomplete node renaming leave=
+=20
+other remoteproc string-matching checks broken?
 
-Thanks,
-Guenter
+Since this patch corrects the node name for the vdev buffer, what about the
+sibling nodes like the resource table above, or the vrings?
 
+The imx_rproc driver's address initialization relies on the device tree
+node name string to filter memory regions:
+
+drivers/remoteproc/imx_rproc.c:imx_rproc_addr_init() {
+    ...
+    /* Not map vdevbuffer, vdevring region */
+    if (strstarts(res.name, "vdev"))
+        continue;
+    ...
+}
+
+Because the vring nodes (like vdev0vring0) and the resource table node are
+still generically named "memory" in the device tree, they will fail these=20
+checks.=20
+
+Does this cause the vring memory to be unnecessarily mapped, forcing
+rproc_alloc_vring() to dynamically allocate CMA memory and waste the
+pre-reserved regions because it cannot find its pre-registered carveout?
+
+Furthermore, does the rsc_table name mismatch break the fallback logic
+that loads a memory-provided resource table, since priv->rsc_table is
+never successfully populated?
+
+Other boards appear to have identical issues. For example, in imx8qm-mek.dt=
+s,
+dsp_vdev0buffer is also named "memory" instead of "dsp_vdev0buffer". Should=
+=20
+we update the node names for the vrings and resource tables across these=20
+boards as well to fully fix the string matching logic?
+
+> -		vdevbuffer: memory@90400000 {
+> +		vdev0buffer: vdev0buffer@90400000 {
+>  			compatible =3D "shared-dma-pool";
+>  			reg =3D <0 0x90400000 0 0x100000>;
+>  			no-map;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729-rproc-dts-=
+v1-0-368bca0b309f@nxp.com?part=3D3
