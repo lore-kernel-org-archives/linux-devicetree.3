@@ -1,249 +1,253 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8996E443315;
-	Wed, 29 Jul 2026 10:11:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1485D41D117
+	for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 10:26:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785319912; cv=none; b=IxdLoyZ77xmcBlWMAFfmkAiQt7XqJP+TuYShRQhdAo7mIkBO9RO+bswDCq10wgeWYkx4pjowSULaB784B3vCaXiXlIiILdDOi53t2n7ZyLFjiF5kfxKeVonC0viOdREbbamQJupXO4s7/s2z19puljx0kMnezjrpU1Bx5NLE9R0=
+	t=1785320814; cv=none; b=mrYAMs4PBAgNCkLMW+APVrS1sQz7yuqsF5LJwV6wc2f01W4ukbfP8w2c+2laSexyCCtemH0Wop8VZgdZYvTP1ApXar8Avec0Zhvw8nTyxUA1R//YSBQUDfhtof85d2AOWBnoabGmSFizTCN/Q+fMDyjuW0+zJOHtftm0hhnGWtg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785319912; c=relaxed/simple;
-	bh=oiemHj56VtLB+ORjIE0sCzjpI1W6K234NwTe54ZQwR0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=hZG3Pht4b6F8wSfUb9BInEdYkXGdGlP5N4aGxCAJlcigc2Dn/If62A6SRZcEVaOpvtUiQOv9X3G2tPXhvXl9FaVM0A2sZEFJr0wiLCjW13OxcJji89FAW7gIB3LJyKEDlQ4J6OjrhRWqBlhxwO/d6sFOrRLX2YU1BvTIhix6FEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L7N55UcZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785320814; c=relaxed/simple;
+	bh=CygJ8T4Zb7XQcQUADszHxMX7rpY4dYAVC5v2dsy5VpQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mKAZ9g0BKdG1AheXTkdU8miYHuZb0frDJUF0COlEW3Dzt2Ajr45fnTo077+bzfF8MyY49+3qI4xbIUAPI8ZSvGn1V6ZCQcwlNNCDh0mexmrEGQcSsYCNQfVY8W8arTQ1Es5OwD+DfKdQ7ooTQz8/J442zu+bWUDMatxcuy4pVw0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vayavyalabs.com; spf=pass smtp.mailfrom=vayavyalabs.com; dkim=pass (1024-bit key) header.d=vayavyalabs.com header.i=@vayavyalabs.com header.b=SD151rD/; arc=none smtp.client-ip=209.85.215.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vayavyalabs.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vayavyalabs.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L7N55UcZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 103571F000E9;
-	Wed, 29 Jul 2026 10:11:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785319911;
-	bh=VCwkeStOBq8QOwOlSuI805jpM0UddO0M+c7s1xJRf2Q=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=L7N55UcZ7g3eAvBB79qnycJjj6lnVa2IZTXRg1Q0WgI9qu2wPDyOI/Fa/oPXc9HTG
-	 VpCCcdP6xzk/Vx4VIcSujZ7KYbOPYhdlspYpSeuIufMogHPFBvn+DdPXCNgWia6Iwd
-	 uetSM+RDBX4oHZIqhLqouuIJGJD0eXmExiiGFHQanGBR3VygZRt5XFLVy62fdwCe+Y
-	 c/Q3Sd4LIDjtN617M0rFVZCcFB8iWA3Qx6ZNFXffCF3r6W8Kt0N6XPD9tcZfjkiCOL
-	 Il0RmAzEcQzm8Na0eSQtCmY9S/7NvZhR1aR69zO8PF2b8lROnRtAxNauTo2Ry5xe5o
-	 MHtmG23IPbGVw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v31 5/7] firmware: imx: adds miscdev
-Reply-To: sashiko-reviews@lists.linux.dev
-To: pankaj.gupta@oss.nxp.com
-Cc: Frank.Li@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260729-imx-se-if-v31-5-e59af7adb784@nxp.com>
-References: <20260729-imx-se-if-v31-0-e59af7adb784@nxp.com>
- <20260729-imx-se-if-v31-5-e59af7adb784@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 29 Jul 2026 10:11:50 +0000
-Message-Id: <20260729101151.103571F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=vayavyalabs.com header.i=@vayavyalabs.com header.b="SD151rD/"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cbb8b54fcf8so670727a12.0
+        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 03:26:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=vayavyalabs.com; s=google; t=1785320812; x=1785925612; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4xKoJRB4NEHLYh+2Y3EmCp7IEodO8atnxKBQr+cph94=;
+        b=SD151rD/8nSJlEEu8b7A+U5985VBFumEwxBn2flvIJVokBLCt1MZvrGPiW4QVVtTh/
+         l3LcCHStTN7DQA9KZtjx2sKhOqyDk/tO6fUMQbWPI7LuIxwojcpf95Q/1xy8z80quBW1
+         81OKkcfOaYmIv7Gdi0s3MkeLmvGHsY1C1NceM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785320812; x=1785925612;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4xKoJRB4NEHLYh+2Y3EmCp7IEodO8atnxKBQr+cph94=;
+        b=Z8dwOxrqngdOVdM3VITCRb+nEkpHDV/rEuKcJ9IyHCPCQpSqypQjYEchBToHi12//c
+         BO1EtZbZhYC4crIut1V/ex/xSEii6Bpi66wRIhwS/ZfSthugXjh0HfVsDsw8jZeK1u4H
+         VrB2Sy2ZJvzTOrpBqdWqC6Sq0OFnObModckO3/CnDzkmITmBNEu/fzTIv0uVa9YQk1hQ
+         S32rc/84haKWw/bxHo9NAfR6poZXF62NeXzDRSUOZ1NHNtEPV5f8YBiLXqUzD3WSsHPP
+         V4Ft0KwhpQscB3sF/CO2WY3g1nMqHcu9AOX7Z4tZ2efkI5mFDCXJ37vLuZ1EAJynMToL
+         2hHQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rq9DA6s9Y+AHgS/RnH1KB1mP2YQ2iwgIpw61RZyu+sfQprHWnBsCR9RDM5FrNmkNHudbRTOnvLfYeQQ@vger.kernel.org
+X-Gm-Message-State: AOJu0YzMZK5sficOGrpigCijUlegprlfSvZVtRtvzjVPaIVzMGedJ4HQ
+	jf2jCym+Y+Hc6o4ULCND9mZrxdNdbtvijXPh7TS4u5feSySPHgj/LuXsofnRsMwDp6U=
+X-Gm-Gg: AR+sD10XqbDtLL0l9eXKRJLWvCeFv7LvJzFFsqwPFCZKrNFzewMJm4i2kuBARko2jCs
+	AC3tWx056Mg5gM3UcBYQ6tV4Vr7VCbn90BT4snQNfsGSsm71ICy9vWEkXfrANB1+gSnX/vyuWL1
+	fSsmEIkbb0lLK5BTiONDnl6shhoRcwPJjNydqTjFsa0r4A4RNTrn+lt+kuCtJzrI5cSiKL+V3yZ
+	vm0kKBY5uqKxK0WpdfRTbMve2Lq7lbtuViNJ5zUOxC+TWOBBiNZRp/m94LhZiH3OnRsbys6NVD7
+	oWmo4svUia57c9FMYKPRYMBCSHji79wW/05Z4YquhIllP6/cgFZC6iPjIQWiX4XJyry5uMQJS4h
+	x320AYkepwUWdTXzXzIxDgblG3L/5LIBp+Dq+jiVWZoj75uPNaMCfkC9/tIjaUvXOGwHOKyrFV3
+	SVk6lXMPJa6z+tAw7XOFMUppX1E/cox3xeguxQJvi89d62Xq2zDOettOyUvfaZOJz+Nx579235k
+	J8MKuitlL97457M+N3VV+JnisYjZeRxsU/6kOyl7nY5hUM4cOyZTsTfyEVjnRmoMwZXwqQFlQEH
+	nun/30vnIUsN6rIdoKpRrlD60ZAN
+X-Received: by 2002:a05:6a20:748c:b0:3b4:5c70:ca3e with SMTP id adf61e73a8af0-3c8ab0e16d6mr7808703637.25.1785320812201;
+        Wed, 29 Jul 2026 03:26:52 -0700 (PDT)
+Received: from localhost.localdomain ([103.108.57.9])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31504b15f77sm9238958eec.4.2026.07.29.03.26.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 29 Jul 2026 03:26:50 -0700 (PDT)
+From: Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
+To: linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	herbert@gondor.apana.org.au,
+	robh@kernel.org
+Cc: krzk@kernel.org,
+	conor+dt@kernel.org,
+	ruud.derwig@gf.com,
+	rbannerm@synopsys.com,
+	manjunath.hadli@vayavyalabs.com,
+	adityak@vayavyalabs.com,
+	navami.telsang@vayavyalabs.com,
+	bhoomikak@vayavyalabs.com,
+	nazim.khan@vayavyalabs.com,
+	Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
+Subject: [PATCH v19 0/4] crypto: spacc - Add SPAcc Crypto Driver
+Date: Wed, 29 Jul 2026 15:55:43 +0530
+Message-Id: <20260729102547.159890-1-pavitrakumarm@vayavyalabs.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
+Add the driver for SPAcc(Security Protocol Accelerator), which is a
+crypto acceleration IP from Synopsys. The SPAcc supports multiple ciphers,
+hashes and AEAD algorithms with various modes. The driver currently supports
+below
 
-New issues:
-- [Critical] Kernel panic due to traversing an uninitialized list head (`me=
-m_pool_buf_list`) during device context cleanup.
-- [Critical] The driver allows user-space to construct raw command payloads=
- and embed unvalidated DMA addresses, leading to a Confused Deputy vulnerab=
-ility.
-- [High] Firmware commands sent to the command receiver can overwrite unpro=
-cessed commands, leading to lost events and spurious `-ENODEV` failures.
-- [High] The SE_IOCTL_CMD_SEND_RCV_RSP ioctl incorrectly returns a positive=
- integer to userspace when the firmware command fails or the response valid=
-ation fails, masking the failure and skipping subsequent cleanup error chec=
-ks.
-- [High] A TOCTOU race between `ele_msg_send_rcv()` checking the `going_awa=
-y` flag and `se_if_probe_cleanup()` forcing a wakeup causes a lost wakeup d=
-uring unbind, leading to a permanent deadlock.
-- [High] A slab-out-of-bounds read occurs in `se_val_rsp_hdr_n_status` when=
- handling specific debug commands with a small `rx_buf_sz`.
+hash:
+- cmac(aes)
+- xcbc(aes)
+- cmac(sm4)
+- xcbc(sm4)
+- hmac(md5)
+- md5
+- hmac(sha1)
+- sha1
+- sha224
+- sha256
+- sha384
+- sha512
+- hmac(sha224)
+- hmac(sha256)
+- hmac(sha384)
+- hmac(sha512)
+- sha3-224
+- sha3-256
+- sha3-384
+- sha3-512
 
-Pre-existing issues:
-- [High] Internal kernel hardware operations (like IMEM save/restore during=
- suspend/resume) fail spuriously if a signal is pending, breaking PM transi=
-tions.
+changelog:
+  v1->v2 changes:
+    - Added local_bh_disable() and local_bh_enable() for the below calls.
+      a. for ciphers skcipher_request_complete()
+      b. for aead aead_request_complete()
+      c. for hash ahash_request_complete()
+    - dt-bindings updates
+      a. removed snps,vspacc-priority and made it into config option
+      b. renamed snps,spacc-wdtimer to snps,spacc-internal-counter
+      c. Added description to all properties
+    - Updated corresponding dt-binding changes to code
+
+  v2->v3 changes:
+    - cra_init and cra_exit replaced with init_tfm and exit_tfm for hashes.
+    - removed mutex_lock/unlock for spacc_skcipher_fallback call
+    - dt-bindings updates
+     a. updated SOC related information
+     b. renamed compatible string as per SOC
+   - Updated corresponding dt-binding changes to code
+
+  v3->v4 changes:
+   - removed snps,vspacc-id from the dt-bindings
+   - removed mutex_lock from ciphers
+   - replaced magic numbers with macros
+   - removed sw_fb variable from struct mode_tab and associated code from the
+     hashes
+   - polling code is replaced by wait_event_interruptible
+
+  v4->v5 changes:
+   - Updated to register with the crypto-engine
+   - Used semaphore to manage SPAcc device hardware context pool
+   - This patchset supports Hashes only
+   - Dropping the support for Ciphers and AEADs in this patchset
+   - Added Reviewed-by tag on the Device tree patch since it was reviewed on
+     v4 patch by Krzysztof Kozlowski and Rob Herring (Arm)
+
+  v5->v6 changes:
+   - Removed CRYPTO_DEV_SPACC_CIPHER and CRYPTO_DEV_SPACC_AEAD Kconfig options,
+     since the cipher and aead support is not part of this patchset
+   - Dropped spacc_skcipher.o and spacc_aead.o from Makefile to fix build errors
+     reported by kernel test robot
+   - Added Reported-by and Closes tags as suggested
+
+  v6->v7 changes:
+   - Fixed build error reported by Kernel test robot
+   - Added Reported-by and Closes tags as suggested
+
+  v7->v8 changes:
+   - Fixed misleading comment: Clarified that only HMAC key pre-processing
+     is done in software, while the actual HMAC operation is performed by
+     hardware
+   - Simplified do_shash() function signature by removing unused parameters
+   - Updated all do_shash() call sites to use new simplified signature
+   - Fixed commit message formatting by adding "crypto: spacc - <subject>" to
+     all patches
+   - used __free() for scope based resource management
+
+  v8->v9 changes:
+   - Updated the software fallback implementation to use HASH_FBREQ_ON_STACK
+   - Corrected dynamic allocation of statesize and reqsize in init_tfm
+   - Fixed synchronization issues in the digest request
+
+  v9->v10 changes:
+   - Fixed unused variable warning
+
+  v10->v11 changes:
+   - Removed the redundant crypto_alloc_ahash in the init_tfm function
+   - Removed the redundant crypto_free_ahash in exit_tfm function
+   - Removed the redundant crypto_ahash_setkey call in setkey function
+
+  v11->v12 changes:
+   - Removed do_shash() and switched to lib/crypto API in spacc_hash_setkey
+   - Dropped support for SM3 algorithm
+   - Improved multi-device safety by encapsulating handling within priv
+   - Added memzero_explicit() in sensitive paths
+   - Minor code cleanups and style fixes
+   - Algorithm registration cleanups
+
+  v12->v13 changes:
+   - Removed all the sleep function from setkey function
+   - Added shash implemntation for aes algorthims
+
+  v13->v14 changes:
+   -Added fixes based on the reports by Sashiko
+   -Removed the spacc_is_mode_keysize_supported call from do_one_request
+
+  v14->v15 changes:
+   -Added fixes based on the reports by Sashiko on 19/jun/2026
+   -Fixed styling in the Kconfig
+
+  v15->v16 changes:
+   -Added fixes based on the reports by Sashiko
+
+  v16->v17 changes:
+   -Added fixes based on the reports by Sashiko
+
+  v17->v18 changes:
+   -Added fixes based on the reports by Sashiko
+
+  v18->v19 changes:
+   -Added fixes based on the reports by Sashiko
+
+Pavitrakumar Managutte (4):
+  dt-bindings: crypto: Document support for SPAcc
+  crypto: spacc - Add SPAcc ahash support
+  crypto: spacc - Add SPAcc AUTODETECT Support
+  crypto: spacc - Add SPAcc Kconfig and Makefile
+
+ .../bindings/crypto/snps,dwc-spacc.yaml       |   50 +
+ drivers/crypto/Kconfig                        |    1 +
+ drivers/crypto/Makefile                       |    1 +
+ drivers/crypto/dwc-spacc/Kconfig              |   82 +
+ drivers/crypto/dwc-spacc/Makefile             |    7 +
+ drivers/crypto/dwc-spacc/spacc_ahash.c        | 1001 +++++++
+ drivers/crypto/dwc-spacc/spacc_core.c         | 2561 +++++++++++++++++
+ drivers/crypto/dwc-spacc/spacc_core.h         |  857 ++++++
+ drivers/crypto/dwc-spacc/spacc_device.c       |  288 ++
+ drivers/crypto/dwc-spacc/spacc_device.h       |  242 ++
+ drivers/crypto/dwc-spacc/spacc_hal.c          |  344 +++
+ drivers/crypto/dwc-spacc/spacc_hal.h          |  118 +
+ drivers/crypto/dwc-spacc/spacc_interrupt.c    |  324 +++
+ drivers/crypto/dwc-spacc/spacc_manager.c      |  665 +++++
+ 14 files changed, 6541 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/crypto/snps,dwc-spacc.yaml
+ create mode 100644 drivers/crypto/dwc-spacc/Kconfig
+ create mode 100644 drivers/crypto/dwc-spacc/Makefile
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_ahash.c
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_core.c
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_core.h
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_device.c
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_device.h
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_hal.c
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_hal.h
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_interrupt.c
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_manager.c
+
+
+base-commit: 1163a476a568f6c0f852d469c8e4c5a5f805adac
 --
+2.25.1
 
---- Patch [5]: [PATCH v31 5/7] firmware: imx: adds miscdev ---
-commit 81281c9d3b1f75f8ca39e2d84326a1eb70748f81
-Author: Pankaj Gupta <pankaj.gupta@nxp.com>
-
-firmware: imx: adds miscdev
-   =20
-This commit adds the character driver to enable communication with the NXP
-secure enclave hardware from user-space applications. It introduces ioctls
-for shared memory management and exchanging messages with the firmware.
-Several checks are implemented on incoming message headers to block
-restricted commands.
-
-> diff --git a/drivers/firmware/imx/ele_common.c b/drivers/firmware/imx/ele=
-_common.c
-> --- a/drivers/firmware/imx/ele_common.c
-> +++ b/drivers/firmware/imx/ele_common.c
-> @@ -246,6 +246,14 @@ int ele_msg_send_rcv(struct se_if_device_ctx *dev_ct=
-x, void *tx_msg,
->  	guard(mutex)(&priv->se_if_cmd_lock);
-> =20
-> +	/*
-> +	 * Teardown has begun: do not arm a new transaction. A thread that was
-> +	 * blocked on se_if_cmd_lock while se_if_probe_cleanup() ran its
-> +	 * complete_all() would otherwise miss that wake-up, re-arm the
-> +	 * completion below and wait the full timeout, while unbind blocks
-> +	 * indefinitely on this thread's fops_lock. Bail out instead.
-> +	 */
-> +	if (atomic_read(&priv->going_away))
-> +		return -ENODEV;
-> +
->  	if (atomic_read(&priv->fw_busy)) {
->  		dev_dbg(priv->dev, "%s: ELE became unresponsive.\n", dev_ctx->devname);
->  		return -EBUSY;
->  	}
-> +
->  	reinit_completion(&priv->waiting_rsp_clbk_hdl.done);
-
-[Severity: High]
-Is there a TOCTOU race condition here with se_if_probe_cleanup()? If
-se_if_probe_cleanup() sets going_away =3D 1 and calls complete_all() without
-acquiring se_if_cmd_lock, could it execute complete_all() right after this
-atomic_read() check but before reinit_completion() is called? Would this
-erase the forced teardown wakeup and cause a permanent deadlock?
-
-[ ... ]
-
-> @@ -279,6 +284,14 @@ int ele_msg_send_rcv(struct se_if_device_ctx *dev_ct=
-x, void *tx_msg,
->  	if (priv->waiting_rsp_clbk_hdl.signal_rcvd) {
->  		/*
->  		 * Signal was deferred until the FW/kernel protocol resynchronized.
->  		 * On success report -ERESTARTSYS for the interrupted wait; the
->  		 * command is not re-sent. Keep real errors like -ETIMEDOUT.
->  		 */
->  		if (err > 0)
->  			err =3D -ERESTARTSYS;
->  		priv->waiting_rsp_clbk_hdl.signal_rcvd =3D false;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does this explicit override
-of a successful hardware interaction with -ERESTARTSYS break Power Manageme=
-nt
-transitions? If a signal is pending during system suspend, could this cause
-internal kernel hardware operations like se_save_imem_state() to fail
-spuriously and permanently lose the enclave IMEM state required for proper
-resume?
-
-[ ... ]
-
-> @@ -323,9 +395,13 @@ void se_if_rx_callback(struct mbox_client *mbox_cl, =
-void *msg)
->  		/*
->  		 * Clamp the copy length to the pre-allocated receiver buffer (MAX_NVM=
-_MSG_LEN).
->  		 */
->  		se_clbk_hdl->rx_msg_sz =3D min_t(u32, rx_msg_sz, MAX_NVM_MSG_LEN);
->  		devname =3D se_clbk_hdl->dev_ctx->devname;
->  		memcpy(se_clbk_hdl->rx_msg, msg, se_clbk_hdl->rx_msg_sz);
->  		complete(&se_clbk_hdl->done);
-
-[Severity: High]
-Does this unconditionally overwrite the shared rx_msg buffer and call
-complete() upon receiving a firmware command? If the firmware issues a
-second command before the userspace daemon executes a read() to consume the
-first one, could the first command's payload be completely overwritten,
-resulting in a spurious -ENODEV failure?
-
-> diff --git a/drivers/firmware/imx/se_ctrl.c b/drivers/firmware/imx/se_ctr=
-l.c
-> --- a/drivers/firmware/imx/se_ctrl.c
-> +++ b/drivers/firmware/imx/se_ctrl.c
-> @@ -284,11 +292,308 @@ static int get_se_soc_info(struct se_if_priv *priv=
-, const struct se_soc_info *se
-> +static int init_se_shared_mem(struct se_if_device_ctx *dev_ctx)
-> +{
-> +	struct se_shared_mem_mgmt_info *se_shared_mem_mgmt =3D &dev_ctx->se_sha=
-red_mem_mgmt;
-> +	struct se_if_priv *priv =3D dev_ctx->priv;
-> +
-> +	INIT_LIST_HEAD(&se_shared_mem_mgmt->pending_out);
-> +	INIT_LIST_HEAD(&se_shared_mem_mgmt->pending_in);
-> +
-> +	if (priv->mem_pool)
-> +		INIT_LIST_HEAD(&se_shared_mem_mgmt->mem_pool_buf_list);
-
-[Severity: Critical]
-If priv->mem_pool is NULL, the mem_pool_buf_list remains zero-initialized.
-Will se_cleanup_mem_pool_buf() later unconditionally traverse this
-uninitialized list head via list_for_each_entry_safe() and cause a kernel
-panic when the file descriptor is closed?
-
-[ ... ]
-
-> +static int se_ioctl_cmd_snd_rcv_rsp_handler(struct se_if_device_ctx *dev=
-_ctx,
-> +					    void __user *uarg)
-> +{
-[ ... ]
-> +	struct se_api_msg *tx_msg __free(kfree) =3D
-> +		memdup_user(u64_to_user_ptr(cmd_snd_rcv_rsp_info.tx_buf),
-> +			    cmd_snd_rcv_rsp_info.tx_buf_sz);
-> +	if (IS_ERR(tx_msg)) {
-> +		err =3D PTR_ERR(tx_msg);
-> +		se_ioctl_cmd_snd_rcv_cleanup(dev_ctx, uarg, &cmd_snd_rcv_rsp_info);
-> +		return err;
-> +	}
-
-[Severity: Critical]
-Does this allow user-space to construct raw command payloads and embed
-unvalidated DMA addresses? Since these addresses are not validated to ensure
-they point to memory allocated via SE_IOCTL_SETUP_IOBUF before calling
-ele_msg_send(), could a malicious application embed spoofed physical
-addresses (like kernel page tables) and instruct the hardware to access
-them?
-
-[ ... ]
-
-> +	struct se_api_msg *rx_msg __free(kfree) =3D
-> +		kzalloc(cmd_snd_rcv_rsp_info.rx_buf_sz, GFP_KERNEL);
-> +	if (!rx_msg) {
-> +		se_ioctl_cmd_snd_rcv_cleanup(dev_ctx, uarg, &cmd_snd_rcv_rsp_info);
-> +		return -ENOMEM;
-> +	}
-
-[Severity: High]
-Can this lead to a slab-out-of-bounds read in se_val_rsp_hdr_n_status()?
-If rx_buf_sz is small (e.g., 4 bytes) but the firmware returns a header size
-larger than SE_MU_HDR_WORD_SZ for debug commands, will
-check_hdr_exception_for_sz() bypass the mismatch check and cause
-se_val_rsp_hdr_n_status() to read past the 4-byte allocated rx_msg buffer?
-
-[ ... ]
-
-> +	rsp_status_err =3D
-> +		se_val_rsp_hdr_n_status(priv, rx_msg, tx_msg->header.command,
-> +					cmd_snd_rcv_rsp_info.rx_buf_sz,
-> +					tx_msg->header.ver =3D=3D priv->if_defs->base_api_ver);
-> +
-> +	if (!rsp_status_err) {
-> +		err =3D se_dev_ctx_cpy_out_data(dev_ctx);
-> +		if (err < 0) {
-> +			se_ioctl_cmd_snd_rcv_cleanup(dev_ctx, uarg, &cmd_snd_rcv_rsp_info);
-> +			return err;
-> +		}
-> +	}
-
-[Severity: High]
-Does this mask the failure when the firmware command fails? If
-se_val_rsp_hdr_n_status() sets a negative error code in rsp_status_err,
-it skips se_dev_ctx_cpy_out_data(), but the positive message size from
-ele_msg_send_rcv() stored in err isn't updated. Could this cause the ioctl
-to return a positive value to userspace, falsely indicating success?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729-imx-se-if-=
-v31-0-e59af7adb784@nxp.com?part=3D5
