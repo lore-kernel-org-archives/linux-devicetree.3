@@ -1,120 +1,58 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07E4D3FFF94;
-	Thu, 30 Jul 2026 10:53:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDCC13CF21D;
+	Thu, 30 Jul 2026 10:54:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785408822; cv=none; b=dbBIC9yaMgaahLepyCUWTTWDIq3hL1kg+5bmyWdZlLUIMCAVMaxOlTv4ZOhigzTWFl4KlLlhI/m/nxD/EMzTeLT25VJrTDkfUubuyG13GvV3zKbSMd1AOYj0RlNODbQ9ghmKB5Nq8vdBz2Eat+KjP2/wTLwcg05/FYk6pYcOMuY=
+	t=1785408863; cv=none; b=oRVOHgsqXBBY56dXZelsaRvst+5tXo2uFkyon3csviaDWDQ1U1LQ70vFMF+Xf5NljChMLzt7UcxY8sjUuvBVSrvsIGoaW3A9asB5hki8O/1G8i4z1IfWams+A6Ss2cIX84EEEjhKeRmldTqpV3jr6wbs+zDL89xTWqa55iBzLTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785408822; c=relaxed/simple;
-	bh=ovsIbtH7x7vPLzVIVcr438UeWKzVRzdNiVzAfMZW+Io=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=sktoQRAZJVoij4ASEP774+r4lfjecbhd4V2KjRe5oTd58O9EilsNVzNCi1oMOANeQT6AHRnqSlgR39DfFMZ4cCq4wlkJBWO7rUPXADkXLbxP3wSF5TfqrX3f8TDlv6bBcRx2gKob0vC8op2LW+sNwa2ilMsy/axK8Wkt1QrOT1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jq4NcSy3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785408863; c=relaxed/simple;
+	bh=7M7PxMrXz7rT6NNf7IZDmgGIJ3G2vQ9gjAASGaKTFQ0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FTNayPK0ilL4Ja11RUSFPt9jtJOXFLderBU0mEdQXOqSL3rg6k8mIIFSP/GwzU1oFkFfwDCL7DqfbUm3n5jPHlKiuK1RyApo5GAIwAGVbHtN7M4ZnzzzfN4yiiLXbEF4PWY+66LErp1AF5u6dwwdPlzafcmoiVT+OHSnr1L2PDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tQfBE4L1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jq4NcSy3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D80FA1F000E9;
-	Thu, 30 Jul 2026 10:53:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785408820;
-	bh=pJDOR8Kv5HZvweVN+eeDRb3EHC5i492sV6j2rZCPFfc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jq4NcSy3EVrqGW+u3uFp9qXCqxsDwk+mi4hS/o8Nzq8mmFwTnE8KULoN9SRKl8vLN
-	 jcJpck0h91CykH3LiAva5XpPGQP8yibLHNP3nGJbsyS0WJcJraCRcQ8D2DuH8hcw75
-	 AHpwUNb1DZrBdG7p6sZcwbFGfzL/s4EYYaVI/Xr8G1I5WFF13lGJsQNZoZ09zQv7ju
-	 d0T1BnhjtrU/ebz+Eso+lpfVl4hwV3rNMvU77Ez+7i2wZ6Q+2024MxfEPwVkZazmaY
-	 cVLrxGIvakoBE9QEMLSBbUjR/mj4W+1KTbFazzSzcnyEiBhE2WmYtUZiWDK+l5NCGO
-	 eK2uH4i+NPFqQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 20/26] scsi: ufs: mediatek: Back up idle timer in
- per-instance struct
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
-Cc: conor+dt@kernel.org, linux-phy@lists.infradead.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, robh@kernel.org, linux-scsi@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260730-mt8196-ufs-v10-20-bc5ecef202dc@collabora.com>
-References: <20260730-mt8196-ufs-v10-0-bc5ecef202dc@collabora.com>
- <20260730-mt8196-ufs-v10-20-bc5ecef202dc@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 10:53:39 +0000
-Message-Id: <20260730105339.D80FA1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tQfBE4L1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 996821F000E9;
+	Thu, 30 Jul 2026 10:54:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1785408861;
+	bh=7M7PxMrXz7rT6NNf7IZDmgGIJ3G2vQ9gjAASGaKTFQ0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=tQfBE4L10h6MxfMM7dbUNHYdeMUOlox3f1ty4z6drfCujVpu99b8/RH5N3Pr1ZSpv
+	 kZacoqZI7o+LMPTd8I+zp4CJzsb8WoFKdIKrHi5P/SKuI2CMSVejX6jwrq1ZF9+eMT
+	 Qc+FaKpnfmTGJ73dKgcbtvVazuxtw3W7Tfqk/EPQ=
+Date: Thu, 30 Jul 2026 12:54:07 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Long Zhao <longzhao@ambarella.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, linux-clk@vger.kernel.org,
+	Linus Walleij <linusw@kernel.org>, linux-gpio@vger.kernel.org,
+	Jiri Slaby <jirislaby@kernel.org>, linux-serial@vger.kernel.org,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 08/10] serial: ambarella: add Ambarella UART driver
+Message-ID: <2026073055-ibuprofen-fading-ed86@gregkh>
+References: <20260730104330.81367-1-longzhao@ambarella.com>
+ <20260730104330.81367-9-longzhao@ambarella.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260730104330.81367-9-longzhao@ambarella.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Thu, Jul 30, 2026 at 06:43:28PM +0800, Long Zhao wrote:
+> NOTE: This email (including attachments) contain Ambarella Proprietary and/or Confidential Information and is intended solely for the use of the individual(s) to whom it is addressed. Any unauthorized review, use, disclosure, distribute, copy, or print is prohibited. If you are not an intended recipient, please contact the sender by reply email and destroy all copies of the original message. Thank you.
 
-Pre-existing issues:
-- [High] Skipped POST_CHANGE notification on power change failure leads to =
-permanent loss of auto-hibernate configuration, disabling Auto-Hibern8.
---
-
---- Patch [20]: [PATCH v10 20/26] scsi: ufs: mediatek: Back up idle timer i=
-n per-instance struct ---
-commit 31da80f38058b251310b08adf616cded137a1bcd
-Author: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-
-scsi: ufs: mediatek: Back up idle timer in per-instance struct
-
-This commit moves the backup of the auto-hibernate idle timer from a
-static local variable to a per-instance host struct member. This ensures
-correct behavior when multiple instances of the driver are loaded.
-
-> diff --git a/drivers/ufs/host/ufs-mediatek.c b/drivers/ufs/host/ufs-media=
-tek.c
-> index c784ecb30e74e..115056927223f 100644
-> --- a/drivers/ufs/host/ufs-mediatek.c
-> +++ b/drivers/ufs/host/ufs-mediatek.c
-> @@ -1400,27 +1400,24 @@ static int ufs_mtk_pwr_change_notify(struct ufs_h=
-ba *hba,
->  				enum ufs_notify_change_status stage,
->  				struct ufs_pa_layer_attr *dev_req_params)
->  {
-> -	int ret =3D 0;
-> -	static u32 reg;
-> +	struct ufs_mtk_host *host =3D ufshcd_get_variant(hba);
-> =20
->  	switch (stage) {
->  	case PRE_CHANGE:
->  		if (ufshcd_is_auto_hibern8_supported(hba)) {
-> -			reg =3D ufshcd_readl(hba, REG_AUTO_HIBERNATE_IDLE_TIMER);
-> +			host->ahit =3D ufshcd_readl(
-> +				hba, REG_AUTO_HIBERNATE_IDLE_TIMER);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does this sequence permanent=
-ly
-disable Auto-Hibern8 if a power change fails?
-
-If a DME power mode change fails, the UFS core in ufshcd_change_power_mode()
-skips the POST_CHANGE notification:
-
-drivers/ufs/core/ufshcd.c:ufshcd_change_power_mode() {
-    ...
-    ret =3D ufshcd_dme_change_power_mode(hba, pwr_mode);
-    if (!ret)
-        ufshcd_vops_pwr_change_notify(hba, POST_CHANGE, pwr_mode);
-    ...
-}
-
-Because POST_CHANGE is skipped, the hardware register remains at 0 (since
-it was disabled right below by ufs_mtk_auto_hibern8_disable).
-
-On the next power mode change attempt, PRE_CHANGE will run again and read t=
-he
-current register value (0) into host->ahit, overwriting the valid backup.
-When POST_CHANGE eventually succeeds, it will write 0 back to the register,
-leaving Auto-Hibern8 permanently disabled until a reset or suspend/resume.
-
->  			ufs_mtk_auto_hibern8_disable(hba);
->  		}
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-mt8196-ufs=
--v10-0-bc5ecef202dc@collabora.com?part=3D20
+Now deleted.
