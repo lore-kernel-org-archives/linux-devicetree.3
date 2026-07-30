@@ -1,142 +1,63 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-10629.protonmail.ch (mail-10629.protonmail.ch [79.135.106.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF45A33438F
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 02:22:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDD82367B68;
+	Thu, 30 Jul 2026 02:24:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.29
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785378171; cv=none; b=PoJTXdOndoanlVLyGPDzxG2/3yFqdCwAthYxUkPmRymV766v0eBlDHigrmU4mhKOMX9wto1UObVrlpZiulKqiLkXHA9FGIE5TqeFZWBWsO38P7QZUl2O/qLlQIhSVn+qemGKa7r4X0EyxHASZ3Yn2UYpXabgaCmLjXpKQKF4YBU=
+	t=1785378285; cv=none; b=syzFH2ePLLB2uxsq41CXZ2FQfeUUgoYi/L9uku9PktK17CChvZlpcy9ZScI0bxZ8jk4NXln/WmMulimVH6wEnryPsS5aazQkUsdjzLFFleyYZAncbI8yNx6oRdHqJNJk4/9s74EYkXWLhwrjM0N+7s2LJiXOreKcVVhxh6nRYC0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785378171; c=relaxed/simple;
-	bh=Hga2O1ThDhC2vEw5LRKHIv/BzqSSHYYaZ8Zv8UiNjAc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=RbZjQtqD3GQQNUkeMKLtiiptfzhjeSE2Jiy8ER0A2IcdjqkSvDJLYv7hxBeHAH0OkEOyoeMm0MW6fea32cVWNXoBkDUPZUNGI20Cw13/KswpGzpq/TkbVmEPNAWIddehFnqsSIlb2JWQoLVTwTJTYZv88674sNaJVpNQrVhfDiQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DaClreMT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785378285; c=relaxed/simple;
+	bh=faQGHyzsqOboMyGKSXdPzb5LA7GJgulr+Q/mJtOt/5I=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Im4BEpImLUpoVNKlEhTm0nds9WWAAC/SePKnkoHdfYazUqA5c3kvggbt0p5hb6lQJaT3gL7NqJNG++mM03BNlhS0uOxF5gYK+UpmfH4/10Smt2tW0H9ydE6/t9sAeBrTQCB1Fv+F/u0B0CNnh380n65QbPxLt9tbvyJZYameT5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=R8hWTNgY; arc=none smtp.client-ip=79.135.106.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DaClreMT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFBA31F000E9;
-	Thu, 30 Jul 2026 02:22:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785378170;
-	bh=PkhuxXFkClyqkH7kY16cra6ae6dAyAfBNdHYRbyhu78=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DaClreMTCZbAGn2AIanhUtORfdtd4/DL+sHUA0BeiOMsz+28EYnu9k0d+AHj3Gxxy
-	 C57fioL5/TwCXuwdFLcA+iPhmCN9IpvVpyS7X4tkQk3e8i93fyAolMeSpwGEpV8A5i
-	 pPi/NF0AmpaOabOtwyHz69ondtCWh2rvX9MWJBaGJq7laCaRMBWZwCugTo/AEirBux
-	 VgvlcDF2TcU6kkcFDk2hN3uX0LBrNQABLjr2hWTtQ/9s+5TC2p3mZfIDd0gpr4UGy5
-	 xhCxg9HVJOBoWZgIwFSYCURNDoUAN2V3i0BmZlNpFrg2VSKEyaWIK4EOEjyqPz7S8/
-	 YmXK0DTlvBPhg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] media: dt-bindings: imx908: Add Sony IMX908 sensor
- bindings
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Lachlan Michael" <lachlan.michael@sony.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20260730021525.166811-2-lachlan.michael@sony.com>
-References: <20260730021525.166811-1-lachlan.michael@sony.com>
- <20260730021525.166811-2-lachlan.michael@sony.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 02:22:49 +0000
-Message-Id: <20260730022249.EFBA31F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="R8hWTNgY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1785378272; x=1785637472;
+	bh=faQGHyzsqOboMyGKSXdPzb5LA7GJgulr+Q/mJtOt/5I=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=R8hWTNgY4o5V2ugRjgcRGOiMxZyywm9BYcMOdu1w89fAw60rwk5WE29BANpwZb43F
+	 +kfRMgQUjW5B4xQawbdm0ZVQx9rRekLiIdBd6VU/rWJAZglkXRg5jUpwMJP3LIRSd9
+	 FaHwa1lxYYWe6sD7duAgVyVySi/x4fDlyKVhBNhfwT3/fYMXQdqRR4Oj9ABx5q8/0d
+	 1xyxEesD1SikADLXTT6wKvRWx2aCnEk05aq/oK6UvFNHGnWxsXMrcgeQYLTU3oR8vJ
+	 pCYoplnIdj8dxGmSF3j2Sa0XrSxDjItC4jKkrvxOaqPSTJfTo+WtXhXECrRn09BmPR
+	 qjLD5/CnQyd6A==
+Date: Thu, 30 Jul 2026 02:24:27 +0000
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, Srinivas Kandagatla <srini@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+From: Esteban Urrutia <esteuwu@proton.me>
+Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
+Subject: Re: [PATCH 2/2] ASoC: qcom: sc8280xp: Add support for SM8475
+Message-ID: <32d3c172-8210-4553-8dad-9b1b5d7fee5b@proton.me>
+In-Reply-To: <667133b5-10c9-4007-b5db-27e553dd5034@oss.qualcomm.com>
+References: <20260729-sm8475-asoc-v1-0-3edad8aa7628@proton.me> <20260729-sm8475-asoc-v1-2-3edad8aa7628@proton.me> <667133b5-10c9-4007-b5db-27e553dd5034@oss.qualcomm.com>
+Feedback-ID: 147889766:user:proton
+X-Pm-Message-ID: bace4fb72e50feb96fc72ccd2cd4ea6d6bba9f26
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Low] The `endpoint` node incorrectly uses `additionalProperties: false` =
-alongside a `$ref`, causing `dt_binding_check` failure.
-- [Low] The schema omits a reference to `video-interface-devices.yaml`, for=
-bidding standard camera properties.
-- [Low] The MAINTAINERS entry references a non-existent driver file.
---
+On 7/29/26 7:11 PM, Srinivas Kandagatla wrote:
+> Patch itself looks sane to me, but the commit log needs bit more love.
+> Its too short and does not explain what this is platform is supporting.
+>=20
+>=20
+> Once fixed.
+>=20
+> Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 
---- Patch [1]: [PATCH 1/2] media: dt-bindings: imx908: Add Sony IMX908 sens=
-or bindings ---
-commit b917e4497ee65daa99bbbfe30747c3a19b86a295
-Author: Lachlan Michael <lachlan.michael@sony.com>
+Will fix in v2, thanks.
 
-media: dt-bindings: imx908: Add Sony IMX908 sensor bindings
+Regards,
+Esteban
 
-The Sony IMX908 is an 8.39 megapixel (3856x2176) CMOS image sensor
-with a MIPI CSI-2 output interface.
-Add device tree bindings for the sensor.
-
-> diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml=
- b/Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
-> new file mode 100644
-> index 0000000000000..6ab382d1cf34c
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
-[ ... ]
-> +    properties:
-> +      endpoint:
-> +        $ref: /schemas/media/video-interfaces.yaml#
-> +        additionalProperties: false
-
-[Severity: Low]
-Since this endpoint node uses a $ref to video-interfaces.yaml, will using
-additionalProperties: false here reject standard inherited properties?
-
-For example, the dt_binding_check might fail because remote-endpoint is used
-in the example below but is not locally listed in this properties block.
-Should this be unevaluatedProperties: false instead?
-
-> +
-> +        properties:
-> +          data-lanes:
-[ ... ]
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - dvdd-supply
-> +  - ovdd-supply
-> +  - avdd-supply
-> +  - port
-> +
-> +additionalProperties: false
-
-[Severity: Low]
-Does this schema need a reference to video-interface-devices.yaml?
-
-Without inheriting from /schemas/media/video-interface-devices.yaml# in an
-allOf block, does this additionalProperties: false prevent users from
-specifying standard camera sensor properties like orientation or rotation?
-
-> +
-> +examples:
-> +  - |
-[ ... ]
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 2f9472c1a0907..5a0265e0676a2 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -25266,6 +25266,13 @@ T:	git git://linuxtv.org/media.git
->  F:	Documentation/devicetree/bindings/media/i2c/sony,imx415.yaml
->  F:	drivers/media/i2c/imx415.c
-> =20
-> +SONY IMX908 SENSOR DRIVER
-> +M:	Lachlan Michael <lachlan.michael@sony.com>
-> +L:	linux-media@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
-> +F:	drivers/media/i2c/imx908.c
-
-[Severity: Low]
-Is it intended to reference drivers/media/i2c/imx908.c here?
-
-This file does not appear to be introduced in this patch, which might
-trigger warnings from maintenance scripts about a missing file.
-
-> +
->  SONY MEMORYSTICK SUBSYSTEM
->  M:	Maxim Levitsky <maximlevitsky@gmail.com>
->  M:	Alex Dubov <oakad@yahoo.com>
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730021525.1668=
-11-1-lachlan.michael@sony.com?part=3D1
