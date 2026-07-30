@@ -1,162 +1,130 @@
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C858221FB4
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 11:12:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785409944; cv=pass; b=JHDQLuu3AaCMsDQy0v735Hew0RwKoq6pisD0M6M8RzR0+3SYvR1Z8K8mMSm7meZJkexFh77wN9UjEHSyxEvybcRzKHhSaTaPL5qHvMih75q8DVZmARQNfjiva8zgFwkSyaMpiO9xi5BW4QQ3sqEsKD+lVLZOH+kEZ9gM+Qa1mWE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785409944; c=relaxed/simple;
-	bh=sLN/8L1y06cQ6KWA4CLKB+Y1mIYSPe3mmBiGBLZ+Ins=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=asCHNk+JFkTQjZk+rQLlpSAYe531bHbwLmp9+sGTBJkS3antzRh4n5pGk6z8A/er39hZffdHW9IiS1NeJJbHuJE4d/mISbrVIOc3l7Po+/rugkSVIlzXvCtMJ3Xf71cbDm/RSft1DePwtCAFa8y2XKDNNqDA/OK2X5D7YRR492o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=PXyW+AXA; arc=pass smtp.client-ip=209.85.161.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDE3D410D32;
+	Thu, 30 Jul 2026 11:13:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785410009; cv=none; b=EGx+O/pR+ey/KxpuTNz7JhWswtwbbimzah9e+h0bhQYj3CsWbsU7h7GCmWC337tIve+m2sIS9j4FQiUaSbbbAPjHt7hTdWwq6Cd5YeBHGuyvq053poi/mHKpfWA1q4Jfb7HGV1vu/iTVKcqv5lGNkXRycovQWPfCk8fpAPi8il4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785410009; c=relaxed/simple;
+	bh=6cxibO1OAUR7Y0Nyaqf/c9Eu5zMlvus+uTTntTeH8ns=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=jRfQBqXLFnGvVA+pP8A56mjk9on1jqbpD26VhpghkSctPmRnQSnTuq8E2CfB/am87Cye3bxsiZFykGR1swHNKjjQvwvnZX2EwFD4cPYLhzVPolrehFgf1iHJqv7xfFjO9atkwhhh5YsZRPV7IaKkoagJArKGzd3bV1/g0j+bahU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BwcJc3lZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="PXyW+AXA"
-Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-6ab08d289d1so1228874eaf.3
-        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 04:12:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785409938; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Ukx5edRoJPAXHrLiEpDvlu60HgBukhudtdVq3ATZ/cohmOrG7N618d9JFWRE8MPdLJ
-         ObyebOGd5u5kBtXw7hQd5ZHCzIbuTPPYyKuYhdErXNJ3u46lDTp5M/QPHH8giyGeFW8p
-         BobUnxxhWP0Ru1aniY4ja/DPclUieSthKkKNLSaOwmqqCDr9BgJyHL3ESU50zhDkCmlN
-         mb8NMxB9jftgf5CpFdwnTtumKa8XhQnXVZaqR4XwFhhkqfRLGGSKDbO47+mOWpTw8IvT
-         ObLjEsARRFZm8AswXAWy3tvHqAQQsdULnSYcP+juZR9mEi3ogw5hcoVFYyzjVjaxVPIs
-         sB9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=NUBLC7I5kJZ00fPSEGgwcR4RGiMCMioSkU56rCYLaVU=;
-        fh=BDVLQKxLgBrnar9YMnu1Ly9o8ZFNmWBkn6ScNkXK4O4=;
-        b=J7J8eTU4eBhMNQ8Cqhv0xYi/IK8PUBccMrznEqBNS8TeXpXWD/RJyEp8rf+Ei5DKoL
-         lQlkVjccPOvISkSPDNH6bwPuGmQP5wFPgYKpRVSb0zGRqK8/6hDvzD/xUNRkpPxexMF9
-         Av3v9PWKTD3OsgPKcLV+AKaZrutC9qqH5/5jW/vyCJJ7LyHtFFse/3cBqFLDYEhvmnnF
-         cZK/N5U8nfklu+kY+49mx/AOZDaNQS59nLWJJZOjHOnIItkvjokq9QkRvUcn/YBlLX7a
-         WWXJLm1IgAapSm9W9iGq3Hmh6hgQs5N085wQEBPNzv8iqtTuZc42teFTu1WUB4xp6vbb
-         iISQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1785409938; x=1786014738; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NUBLC7I5kJZ00fPSEGgwcR4RGiMCMioSkU56rCYLaVU=;
-        b=PXyW+AXANS3ydiN/LP3CDYr8822XsQ2Eas0p2c7hq8DNiI4s2KOsJCI/XN4vQ7lALJ
-         qcM/nlUYI05Q6HmLTHvHc2gCnxxtnt/VM1vfy/xnHHNnzK+o5UwH2lz0aLsZg3x799v/
-         WzkBM5y9NCzW3bGxoT6dA4ERz5fTfwjjkjluadPVlax2F7ThlIGCYKrjD1rkNOZnzD3T
-         qWK0xOFl7dweMkgQ7UJMNWve71q1LI7AcSo2fK+GJmntWsgh573E4qB9vT7BtSb5ED1h
-         vwvdjDKLtmKS2WwKWM6bV4F05N5MnjkBbzcl92hfteiDx0wyN0AcSIGMJ+Uffkm1kFYM
-         O8LA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785409938; x=1786014738;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=NUBLC7I5kJZ00fPSEGgwcR4RGiMCMioSkU56rCYLaVU=;
-        b=L5iy7jYA97+IuRbXabUMq8OPrHmZayLttaG6mjMrKBSLPW0DtkjgFwTRCyHRPGKfHI
-         jIGTbauLku16KJXwi4M+y6m/Ed/qvRMJ8gqtxsUcUrKzRpOsTt+0zpadTVsjFpxjaOOQ
-         6CkobSEpWOwEPOegYiFZeLzg8E+QYEh12l0uuzL4v+CBnIUTwQ55j2p2q34vYWLyTEoH
-         3rqjRbHnj1LCj8hfT/nik+xVIfYz8DSNPAtf9bMLaRjXO2itPRGYrsdHrKneFOM04cym
-         ufbXBuyRtnLkrH24T/uPEECh9KmfD5aqgHYjkiV4oEDBRSU3lzQxliADiuIOVdXqHLKp
-         fAUA==
-X-Forwarded-Encrypted: i=1; AHgh+RqbjizJezP8ZK+E0MAHjpi/uiSpmfs8MUq3BQT2FzhzEuNA/RECUOd0u0mMuHfh9lFgsTZeeXNOg+L2@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy2EI4ySeFBBqLE5oBqy7LMy/oZMXqU7/n6MO09A3EAn7M17PqQ
-	MhdlVss0sYO5TGo8MLxCRpfkshodRE4atbqKOyEAIAW0dfODfPLQN6VYUxtwQsWuTUV4B12pzF3
-	kGwPzdg+Tw3lq6epQtiOJZewek7BlK68c8HPqxFH0kA==
-X-Gm-Gg: AR+sD12vqBRrkpoIxMVUxv9FADsaA2aWRQZ/l/bQYeBJvnUPCA1HO0mk3zSBbu7pTiJ
-	Pp358Bg58ohWoyoA8KBwkNtYPZPDJFxdGucUXExTvbz0BXD0z/AV7WZMeYd8t09apg0TceSN1ST
-	lrUWoK8aIlCuF0zM4HZdm2ZSUGX9S7Y4NTGEjhVLSXghbT48Jozqj2SxtV+Sq1ojIJBtr4YoCrB
-	HUBZjkscS4+HP6E0Cr9zYlBShVrzl85Lea9LnptjlZopX74zRv13BaM4CosOEu43pdYVym/DxTt
-	jCn3tvrlSkiZQiNu2kq4dyP88aJlkYNZfw9cqb2ut6+T9g/UANon22rYfMAbf2XKSMRi/C8vNfE
-	2cNFwSBHGn2OsIImrqcoTXKgfTwXNpEkILswByk6qQnzwPfpIUz7DHHeMlxWdoQ==
-X-Received: by 2002:a05:6820:1c9b:b0:6a1:9a5c:b60d with SMTP id
- 006d021491bc7-6acbc15dddbmr1193434eaf.65.1785409938066; Thu, 30 Jul 2026
- 04:12:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BwcJc3lZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2D051F00A3A;
+	Thu, 30 Jul 2026 11:13:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785410007;
+	bh=aPOvsIc3guHZFzSxfhOwyQI1XWMCxa87Cbpi6kj7XmM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=BwcJc3lZpkKPGfehX0CFhcOgvguoxoFTa16dBhoxoL7Dl2P7lQHefdj8uoVVWH5Fy
+	 wFkpADZi2g6tKBEHZXuH+iCHwWua134rdzsvQ+8PVQffhaRHg5AfjEpMeBv/IJfObf
+	 QyQrMfUrfzbqEQjsi5/3VxC0XXef9ELjP/wiDORxcc79kbPg65p9bBOod9IVLK4r6p
+	 R1up+B1rHkEmcOXEF1BboxmImzVE6BaIhJa9q93RgiGovtHnZKPIobM6JH1U2H/ux/
+	 kAAp34jvwYTymCQSGayluVGeRZu0Ss+7htBPd/5xvGEDVPv2xY4ohN7cZXmP5fNNg+
+	 dxVYKFpaG+6ZQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 24/26] arm64: dts: mediatek: mt8195: Align ufshci
+ node to dt-bindings changes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
+Cc: olteanv@gmail.com, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, linux-scsi@vger.kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, vkoul@kernel.org
+In-Reply-To: <20260730-mt8196-ufs-v10-24-bc5ecef202dc@collabora.com>
+References: <20260730-mt8196-ufs-v10-0-bc5ecef202dc@collabora.com>
+ <20260730-mt8196-ufs-v10-24-bc5ecef202dc@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 30 Jul 2026 11:13:26 +0000
+Message-Id: <20260730111326.E2D051F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260312150437.1091195-1-eagle.alexander923@gmail.com>
- <20260312150437.1091195-3-eagle.alexander923@gmail.com> <CAPY8ntAf9TjgW-E6WeJuMdsHy8pV8-CvqQJriWEFpgLB-brD5A@mail.gmail.com>
- <178455866124.1426769.18237320419273419942@freya> <CAPY8ntCvB9ij=rMwwBmBDfe_gWQboX9Xbt0ZB6WPVyFvc2CLZw@mail.gmail.com>
- <178461038136.1426769.8068222330738680407@freya>
-In-Reply-To: <178461038136.1426769.8068222330738680407@freya>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Thu, 30 Jul 2026 12:12:01 +0100
-X-Gm-Features: AUfX_myGTmVBH34m2Jz8-C-my113aiV1VSAYpXPgOIiCRDk6IfxzvOQH-m-YR4A
-Message-ID: <CAPY8ntDk+4aseGqijPz8Y9cGFzN=4zHPEj3HiHgetn=O_ufh_Q@mail.gmail.com>
-Subject: Re: [PATCH 2/2] media: i2c: Add driver for Sony IMX662 sensor
-To: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Alexander Shiyan <eagle.alexander923@gmail.com>, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Hans Verkuil <hverkuil@kernel.org>, 
-	Hans de Goede <hansg@kernel.org>, Tetsuya Nomura <tetsuya.nomura@soho-enterprise.com>
-Content-Type: text/plain; charset="UTF-8"
 
-Hi Jai
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Removing the `freq-table-hz` property without adding an `operating=
+-points-v2` table causes the UFS core platform driver to skip parsing and e=
+nabling all hardware clocks, resulting in a controller initialization failu=
+re.
+--
 
-On Tue, 21 Jul 2026 at 06:06, Jai Luthra <jai.luthra@ideasonboard.com> wrote:
->
-> Hi Dave,
+--- Patch [24]: [PATCH v10 24/26] arm64: dts: mediatek: mt8195: Align ufshc=
+i node to dt-bindings changes ---
+commit eac3ed6e6791c53424e4e025e4dfd47b68309eb7
+Author: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 
-<snip>
+arm64: dts: mediatek: mt8195: Align ufshci node to dt-bindings changes
 
-> > > and implement
-> > > it using the common raw sensor model directly?
-> > >
-> > > I did it for IMX678 [1] on Sakari's suggestion [2]. The two sensors are
-> > > quite similar, so I'm happy to help in whatever way I can on getting this
-> > > working with the new model too :-)
+This commit updates the MT8195 UFS host controller dt bindings by adding
+new required clocks and removing the deprecated freq-table-hz property.
+It states that converting to an OPP table is not needed since the values
+were all zero.
 
-I'd also noticed that all the Starvis 2 sensors are very similar, to
-the extent that it seemed worth a very quick test to see how much
-needed to change for the imx678 driver to work with imx662.
+> diff --git a/arch/arm64/boot/dts/mediatek/mt8195.dtsi b/arch/arm64/boot/d=
+ts/mediatek/mt8195.dtsi
+> --- a/arch/arm64/boot/dts/mediatek/mt8195.dtsi
+> +++ b/arch/arm64/boot/dts/mediatek/mt8195.dtsi
+[ ... ]
+> @@ -1481,15 +1480,15 @@ ufshci: ufshci@11270000 {
+>  				 <&infracfg_ao CLK_INFRA_AO_UNIPRO_TICK>,
+>  				 <&infracfg_ao CLK_INFRA_AO_UFS_MP_SAP_B>,
+>  				 <&infracfg_ao CLK_INFRA_AO_UFS_TX_SYMBOL>,
+> -				 <&infracfg_ao CLK_INFRA_AO_PERI_UFS_MEM_SUB>;
+> -			clock-names =3D "ufs", "ufs_aes", "ufs_tick",
+> -					"unipro_sysclk", "unipro_tick",
+> -					"unipro_mp_bclk", "ufs_tx_symbol",
+> -					"ufs_mem_sub";
+> -			freq-table-hz =3D <0 0>, <0 0>, <0 0>,
+> -					<0 0>, <0 0>, <0 0>,
+> -					<0 0>, <0 0>;
+> -
 
-The answer turned out to be really not much:
-- PIXEL_RATE
-- PIX_PER_CLK
-- ID
-- native and active areas
-- min_hmax
-- common_regs (culled nearly all of them, although I do have the
-spreadsheet from Sony which needs to be added to my next version)
-- VMAX_DEFAULT setup if you want the full frame rate.
+[Severity: High]
+Does removing this property introduce a regression in the UFS controller
+initialization?
 
-Those would all parameterise quite easily.
+Looking at ufshcd_parse_clock_info() in drivers/ufs/host/ufshcd-pltfrm.c,
+the driver skips parsing the clock properties entirely if freq-table-hz is
+missing:
 
-I also have an IMX675 module from Soho Enterprises which is a 5MPix
-Starvis 2 sensor. I don't have a datasheet for it at present.
-That streams OK at the requested rates by just updating the active
-area to 2608x1960 and ignoring the ID. However I can only receive test
-patterns as all the active images I get are pure black :( I'm hoping
-it's a faulty module, but will keep poking.
+drivers/ufs/host/ufshcd-pltfrm.c:ufshcd_parse_clock_info() {
+    ...
+	sz =3D of_property_count_u32_elems(np, "freq-table-hz");
+	if (sz <=3D 0) {
+		dev_info(dev, "freq-table-hz property not specified\n");
+		goto out;
+	}
+    ...
+}
 
-There is also IMX585 as an 8MPix Starvis2 sensor. I'd hoped Naush had
-one to test, but it seems not. In the meantime I've compared against
-the driver Will Whang sent to linux-media a while back [1] and that
-also looks largely the same.
+Since an operating-points-v2 node is also absent, the alternative parser
+ufshcd_parse_operating_points() will also return early. This leaves
+hba->clk_list_head empty.
 
-And the imx908 Starvis 3 driver that has just been posted [2] is also
-looking incredibly similar.
+If the list is empty, ufshcd_init_clocks() and ufshcd_setup_clocks()
+will silently return without turning on any hardware clocks.=20
 
-So the big question is whether it is better to have separate drivers
-for all these sensors, or one combined Starvis2/3 driver? Do we shoot
-ourselves in the foot when we come to add functionality and find that
-it only applies to some models?
-The awkward part would be testing all variants when patches are
-submitted, as I suspect there won't be one person that has access to
-all of them.
+Could this cause a probe failure or a system crash (SError) when the driver
+later attempts to access unclocked UFS MMIO registers?
 
-Thoughts appreciated.
+> +				 <&infracfg_ao CLK_INFRA_AO_PERI_UFS_MEM_SUB>,
+> +				 <&topckgen CLK_TOP_UFS_RX_SYMBOL>,
+> +				 <&topckgen CLK_TOP_UFS_RX_SYMBOL1>;
+> +			clock-names =3D "main", "aes", "tick", "unipro_sysclk",
+> +				      "unipro_tick", "unipro_mp_bclk",
+> +				      "tx_symbol", "mem_sub", "rx_symbol0",
+> +				      "rx_symbol1";
+> +			interrupts =3D <GIC_SPI 137 IRQ_TYPE_LEVEL_HIGH 0>;
+> +			phys =3D <&ufsphy>;
+>  			mediatek,ufs-disable-mcq;
+>  			status =3D "disabled";
+>  		};
 
-  Dave
-
-[1] https://lore.kernel.org/linux-media/20250816055432.131912-1-will@willwhang.com/
-[2] https://lore.kernel.org/linux-media/20260730021525.166811-1-lachlan.michael@sony.com/T/#t
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-mt8196-ufs=
+-v10-0-bc5ecef202dc@collabora.com?part=3D24
