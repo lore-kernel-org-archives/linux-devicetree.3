@@ -1,35 +1,47 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D956F3D9DDB;
-	Thu, 30 Jul 2026 22:30:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D032F3A6F11;
+	Thu, 30 Jul 2026 22:44:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785450653; cv=none; b=LSymTkeJVYIsWPmO/W0qiwKIH8YBJOUqZJSwtT5tQ5cLak8Uq7APmr7YGCrjO5mYonXvipNEMOvB2UsE1FJuBuz/TPvauzD7KUOnhVVhWDeDy1RlRvTInngrx01hFJ5dG/O++0G8hSJLof4ZIcZMczBnER9XotuFppSB0nO8wyw=
+	t=1785451449; cv=none; b=grVcL+/weKiv6JZq2dlxI5syxQMU6AL8Rs+A3XhrNcmk/IN+FwMbOtNVfv2+4QUEOJkfYr7E+gBn1M0edvrL/7CYDH+DBDgfGQbAWP08TYq+MtDfyXxsF1qstN9kzV3l3z5e5tcUXBahSgIAJ2Gi+AyZM4jSakHoRifzHgt/53Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785450653; c=relaxed/simple;
-	bh=aRdRNwfVzv+pWeZfpzuXmidWHQrToLQvGvxf4PWC9j4=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=YnBnM1Wtx50cyu8qmHBB38wC9W/QyCbg80bhJZMWDvYIb63da32y/++Lnbn6cIhbiFcL5humBvpMgazMWqD4eHmUE4rie8xk56tzNA1jOobWBd/6fvv8dQC0euZo7EGxADgHF2UZ/l/Da59Ymztsn/hhEWQylIZY1QtQ15RV+2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nfxdUyAl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785451449; c=relaxed/simple;
+	bh=QsKUysKL+QbLKjZWxuThVsQ0AK6zTlGogBO7XVEwnoo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VLr9iTPeMISrnuTQ+k5QYRcoB+Kh8SQTdw57qISOuS6EOeXS0jmHdA/p35X0T0DwVF1ytYVAzkO35dQrFjpzA13vOkKYSNa9AfDlvk6dzuBo9pFC8EpJHH3p0phSEKwfS+7RajrD7jmg0DHqrozvyJNKDeFcKFuskrugpWdskYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=Yc+SrsCY; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nfxdUyAl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C5CC1F000E9;
-	Thu, 30 Jul 2026 22:30:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785450651;
-	bh=3GdfQsE7M2CiRlwBe33ozH0LAWPA4ZyF88hgKGRIcW8=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=nfxdUyAl9PjaRwQDzZh2oatn8D7DJ/vHAd3pbxb/XxS36oXwZt4K9rncB9gvVaA56
-	 aw+Rjl6fZNAVDTMUAacRw9SZb56LKcbf0WoqiSNBcU61yt3X4hKrgbf0oi1TnAqrB2
-	 ZbYxESlQWG8O4LoPNHWUSo8YUyHJeLfChazoJvLgwVFamA5HxDuNocxOc8wVvPg50p
-	 10tUwfTyf975YY8V8zciMFm/6hXLxsc3iNb4mvpQqh7D+Teb+TlpK1i/dLCOAUCh+Q
-	 OXLeSJSVCi9TWrzqz9ZtUdLmIj5Yp18V+CrejXSbUXcdBkM1h694ZBn0uhzrCa3eOh
-	 tLVqjvezdv5KQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 198563924459;
-	Thu, 30 Jul 2026 22:30:16 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="Yc+SrsCY"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 818D911B91F;
+	Fri, 31 Jul 2026 00:43:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1785451441; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=wy+7pP6/2786p1cEJdzAOhNBv0+Zz/x0WQIVBEqSFIU=;
+	b=Yc+SrsCYWQCVEePKfmFCdqfH+82wm8HVFHjD/EhN2wSpB7xFgggWS1/JrBy+wYsO47jl8n
+	IlFcfXkB2hFKlRGlG7Kj5Sy/60PMQrl0rQP3yoG5XY3Y29yX380LfHN0t9v1yPuGX4ek8k
+	q74F4rRLdNx41LjuOzk0TDpfZpIm7Ap2dqYiLB/ZeEP2j0MfJsBG04y8TZIuvu2dnpn5DY
+	/ljtOj7g7kJ07Xdh2Q1+QouGzAD+4xT5gnVPzRQXglv7WddzCBxBpVwyT4my7aKpukIlz0
+	HArekm27iUUsfUcTer91FbbNlNWmlheyBs2QlaFt0MUwEdMbGxdIRHrmH5halw==
+From: Marek Vasut <marex@nabladev.com>
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marex@nabladev.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Fabio Estevam <festevam@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Rob Herring <robh@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v8 1/7] arm64: dts: imx8mp: Add DT label to SPBA5 bus
+Date: Fri, 31 Jul 2026 00:43:16 +0200
+Message-ID: <20260730224351.95006-1-marex@nabladev.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -37,41 +49,46 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v2] dt-bindings: net: microchip: fix entry
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178545061463.16570.1712327331541284719.git-patchwork-notify@kernel.org>
-Date: Thu, 30 Jul 2026 22:30:14 +0000
-References: <20260722093259.3109588-2-manuelebnerli@mailbox.org>
-In-Reply-To: <20260722093259.3109588-2-manuelebnerli@mailbox.org>
-To: Manuel Ebner <manuelebnerli@mailbox.org>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, o.rempel@pengutronix.de, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hello:
+Add DT label to SPBA5 bus for usage in board DTs.
+No functional change.
 
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+Signed-off-by: Marek Vasut <marex@nabladev.com>
+---
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Fabio Estevam <festevam@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Sascha Hauer <s.hauer@pengutronix.de>
+Cc: devicetree@vger.kernel.org
+Cc: imx@lists.linux.dev
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+---
+V6: New patch factored out of previous
+    arm64: dts: imx8mm: imx8mp: Add LVDS DTOs for Data Modul i.MX8M Mini and Plus eDM SBC
+V7: No change
+V8: No change
+---
+ arch/arm64/boot/dts/freescale/imx8mp.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On Wed, 22 Jul 2026 11:32:59 +0200 you wrote:
-> Remove needless '  ID)'
-> 
-> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
-> ---
-> [v2]
->  Remove ')' -> Remove '  ID)' as suggested by Jakub Kicinski
-> 
-> [...]
-
-Here is the summary with links:
-  - [v2] dt-bindings: net: microchip: fix entry
-    https://git.kernel.org/netdev/net-next/c/61a878bafdf6
-
-You are awesome, thank you!
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp.dtsi b/arch/arm64/boot/dts/freescale/imx8mp.dtsi
+index 9cf9f6f08654d..bec64cbb36347 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mp.dtsi
+@@ -1437,7 +1437,7 @@ aips5: bus@30df0000 {
+ 			#access-controller-cells = <3>;
+ 			ranges = <0x30c00000 0x30c00000 0x400000>;
+ 
+-			spba-bus@30c00000 {
++			spba5: spba-bus@30c00000 {
+ 				compatible = "fsl,spba-bus", "simple-bus";
+ 				reg = <0x30c00000 0x100000>;
+ 				#address-cells = <1>;
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.53.0
 
