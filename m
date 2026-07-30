@@ -1,76 +1,98 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB7583AA4E0;
-	Thu, 30 Jul 2026 19:36:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 584E93A0E80
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 19:38:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785440203; cv=none; b=DvuvRtV2AWBrNGkroFdptCk443n9rd69BN1BrIdJms4Huy6TYUThrUYIPPu0t2W3AQVy9LZAkORzF8IgbfEAnM5BtuT3HFk7Y51GAunfdYprSVbxB/L3GYCOxhMdTi8Y+zxFG+lduHxVIZmtOjypNeZYf20/vtTOIUYWdRzHNdI=
+	t=1785440318; cv=none; b=pBFvbuS2Xyv2HcGgv/kSj6gzdfDuxWoAS5yuTq/Yl9USgTr5Hd2tnnKy2xFAir5Y5RlE6pq2yqaO/cupdh0BrlTq6DvyVKEnsp3oK8Wzbk5bpvLb3CFoo0ILw6tq4w4AvdTJlOhBc+uuvfg6ZSKjRvqKUlfcz7ypeSfEu7FdIt8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785440203; c=relaxed/simple;
-	bh=gXM2uHcZ0BT1egGODlahZ0/bg1Nmk6mpO/+jOkZRUvc=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=lHYuCM8UKFCBZkkmuVAEWNztdB9GBeLyDbn0JL0P4l1WAt/i4q9XWrdq5iabLEJMFkVnqAhFGZlngbNRP20zcRV6vPrB5on1S3toHSv8wZy6LaYdAF7dhLATuL7f7Da0I7XBfFabL72yPWe1MNXpomrRHEkHRKY6OjFMxPCwcEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=ZrqsjbP6; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	s=arc-20240116; t=1785440318; c=relaxed/simple;
+	bh=vMf9K4hXh9JT/FqIRHA9O2qTrH5e3TMBUaoKhImhkN4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=aXwk0tE/oa4TpeCth/aBYxsF26VCQ5uyR68C4GJsLOTSycOuwj3Lkt88PJWttKephLYWT14MITij4T9W/m4gicpMEZGcevctk4JwisnSbU3z8MdeZUZXJEQEjAo5c2SY4Sh21kkIU2G9bd/LFvdb0WFGov15gi4X+QchdDFTb64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YcV0FhXP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="ZrqsjbP6"
-Received: from mail01.layka.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 328BB41BB2;
-	Thu, 30 Jul 2026 21:36:40 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id g_CoqoGw_zcD; Thu, 30 Jul 2026 21:36:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1785440199; bh=gXM2uHcZ0BT1egGODlahZ0/bg1Nmk6mpO/+jOkZRUvc=;
-	h=Date:Cc:Subject:From:To:References:In-Reply-To;
-	b=ZrqsjbP6oNBo2EBxfWyWs5H4giKy9svA+O8x+E7EMUNXlBo6K4IcN7qHwnU/fbejR
-	 NZbObViE6bjWx/vPc7uzlUGGARmFxn9hHZDWbhKoPSBVRC0Go2nGFNlQJScG+nLAo2
-	 t2v5Hg3ydTpR/iznzazl+0PscIaT2njJPkqkbh+spRWRjSwhZt8op029/H2mQKitNU
-	 xOyjPnKZdCxdTfBxVW6KmQXbT5fmkLe9i10TzQAdbpQewro8WiYzHy76M2ZLVNJHU+
-	 z5nOohZ5AltVf+AJyLRTTwLIZ/mQ4azNpAHZepguAIEVSbVgCCotiTPAmkhVyPbM9X
-	 dtDVJwZZqoGPQ==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YcV0FhXP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F1F81F000E9;
+	Thu, 30 Jul 2026 19:38:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785440317;
+	bh=aOtu2pft52UdgsapuT6p4ghIbZMbmyHE6OueF15cDVY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=YcV0FhXPIii6SWIU3LG44ihNVD/ZAnKQRUOyn9dZbb/7J8J4oUkJ9PG+5+TVOzFRN
+	 hmS3IxTug9iqu4cXfMG436tJoMWkxolNiAMjRXx6rxys4Uox5oq2lVtsJ9wJrIoiFX
+	 C1I35CLHp1d9f1+bCaLAGcryOCVUrjuFbkIBiltJ7O3LIGLAJS5iWXq19DmLJjV5nq
+	 ofPksMOfJ3nsz4DHhpPLRRJEliQPBCFLsnyqZTKNsNNunfm6Q/KFQkSfLLBJ1Ss7wi
+	 PC4qufWpjFk1/ocH2JX5klO97sg9mpfDZYFqaIKYp/LAydoPhdY3nFfWc7226onSti
+	 6Ae2kxPuh6LxQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/3] dt-bindings: iio: proximity: add Sharp GP2AP070S
+ proximity sensor
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kaustabh Chakraborty" <kauschluss@disroot.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260731-gp2ap070s-v2-1-1bdfee07d5ea@disroot.org>
+References: <20260731-gp2ap070s-v2-0-1bdfee07d5ea@disroot.org>
+ <20260731-gp2ap070s-v2-1-1bdfee07d5ea@disroot.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 30 Jul 2026 19:38:36 +0000
+Message-Id: <20260730193837.0F1F81F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 31 Jul 2026 01:06:25 +0530
-Message-Id: <DKC5Q1ZHLH2W.VZI09E6IC82D@disroot.org>
-Cc: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-samsung-soc@vger.kernel.org>
-Subject: Re: [PATCH v2 2/3] iio: proximity: add driver for Sharp GP2AP070S
- proximity sensor
-From: "Kaustabh Chakraborty" <kauschluss@disroot.org>
-To: "Kaustabh Chakraborty" <kauschluss@disroot.org>, "Jonathan Cameron"
- <jic23@kernel.org>, "David Lechner" <dlechner@baylibre.com>,
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy Shevchenko"
- <andy@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Peter Griffin"
- <peter.griffin@linaro.org>, "Alim Akhtar" <alim.akhtar@samsung.com>
-References: <20260731-gp2ap070s-v2-0-1bdfee07d5ea@disroot.org>
- <20260731-gp2ap070s-v2-2-1bdfee07d5ea@disroot.org>
-In-Reply-To: <20260731-gp2ap070s-v2-2-1bdfee07d5ea@disroot.org>
 
-On 2026-07-31 01:01 +05:30, Kaustabh Chakraborty wrote:
-> The GP2AP070S is a proximity sensor designed and manufactured by Sharp
-> Corporation. This sensor is used in mobile devices, including, but not
-> limited to - the Samsung Galaxy J6.
->
-> The driver has been adopted from Samsung's downstream kernel
-> implementation [1]. Due to the lack of public documentation about the
-> schematics of this device. The downstream driver acts as the secondary
-> source of information. Driver clarity has also been improved with the
-> help of the GP2AP* drivers in iio/light.
->
-> Link: https://github.com/Exynos7870/android_kernel_samsung_universal7870/=
-blob/lineage-16.0/drivers/sensors/gp2ap070s.c [1]
-> Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The hardware voltage supplies (`vdd-supply` and `vled-supply`) a=
+re not marked as required, despite the commit message stating the hardware =
+explicitly expects them.
+--
 
-This is stale. I'm sending v3 right away.
+--- Patch [1]: [PATCH v2 1/3] dt-bindings: iio: proximity: add Sharp GP2AP0=
+70S proximity sensor ---
+commit 96d4a5f0f4aeeedf39b25cab70844620180ba231
+Author: Kaustabh Chakraborty <kauschluss@disroot.org>
+
+dt-bindings: iio: proximity: add Sharp GP2AP070S proximity sensor
+
+This commit introduces the device tree bindings for the Sharp GP2AP070S
+proximity sensor. It defines properties for the voltage supplies expected
+for the core and infrared LED, as well as the interrupt configuration.
+
+> diff --git a/Documentation/devicetree/bindings/iio/proximity/sharp,gp2ap0=
+70s.yaml b/Documentation/devicetree/bindings/iio/proximity/sharp,gp2ap070s.=
+yaml
+> new file mode 100644
+> index 0000000000000..bcae68303b3f0
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/proximity/sharp,gp2ap070s.yaml
+[ ... ]
+> +  vdd-supply:
+> +    description: Voltage supply for the internal circuitry
+> +
+> +  vled-supply:
+> +    description: Voltage supply for the IR LED
+> +
+> +  proximity-near-level: true
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+
+[Severity: Medium]
+Should vdd-supply and vled-supply be included in this required list?
+
+The commit message notes that the hardware explicitly expects two voltage
+supplies, one for the core and the other for driving the infrared LED. If
+they are omitted from the required list, an incomplete device tree
+configuration could silently pass schema validation despite missing
+properties that the hardware fundamentally requires.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-gp2ap070s-=
+v2-0-1bdfee07d5ea@disroot.org?part=3D1
