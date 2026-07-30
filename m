@@ -1,63 +1,63 @@
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
+Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC064446826
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 17:44:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A08824457A2
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 17:44:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785433452; cv=none; b=SFxGay1vKqLcYDA+OiE37GjS8nIUbYDS8dJXWvJ1j90fgFThXLjdE5ooKAY/yu4JM5ptRh5B4iAnjIZCQUol53oFdd6uRm2srludVBJ+y+UFiEb1CisCvBXtwotJsll7xMZrRkdqJcZhSl+dOPnkENiUkLtKY+Yh0YPhDqbJrGw=
+	t=1785433456; cv=none; b=JHYbLRbvhrdAkyd6LqbMWeuw/lT13Io6GBa5LbPNK5CFZRJXEUvo0mfK9OtzVpJcjiHyjuntOK3cQeHimi3tJ1GwJXZTgGCaIavxlywWSiG5BZUMSm5JSOmGHO6xAhGXOpVo0/ysy+sR632xELQzv1AXOH3j+Ah/K7wPh74JIXw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785433452; c=relaxed/simple;
-	bh=khfiSS0XIlKu5DSCQEk7RiTjxSUSShB3Tb8nSjkW9UM=;
+	s=arc-20240116; t=1785433456; c=relaxed/simple;
+	bh=0SNVcD2ismw260/fCs9UP7KNTkcK5iz1vXhTrUZeJXY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EnbHbuTK9SrcxMq9zNAV9wdYRXhf7sMSgJVfK8n8ttCaelcoLRXL5NTLWkiguj5bTRuqENQovatYf0fbKYXiWgYEoqj1LAipsK/noTjeyzLnfWqg8MMI5fHniqG7+lXOBNmHUF6qnbZlWPOqSP40vmSoJhFYuQhrXu/C3GXlwTs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PaKbZZ7H; arc=none smtp.client-ip=209.85.222.180
+	 MIME-Version; b=DhRr/geqmYB0brGXht5nbbrvpbGQ8ZCwQepHFb/Jcy6yATE6eKQhgQn0pi/Hw/rbCeg6qDZlGXnMS+dSPYvj/i9jlY76C1EOlzcvy0MmWMPetVKG+fSu9vDBmdKYpMt+YCF5GvO7xQY2gX2q7QX+ZDsMrpf9gx9P//FEg2f6MSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mN5sCL/m; arc=none smtp.client-ip=209.85.222.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PaKbZZ7H"
-Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-92e53581361so8370085a.1
-        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 10:44:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mN5sCL/m"
+Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-92e5cb052edso9123985a.2
+        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 10:44:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785433450; x=1786038250; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785433453; x=1786038253; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=dXeESfthaaswCT1+YBVYrBR9m/03EesiVa1toHE2g3o=;
-        b=PaKbZZ7H1GUp57lmBFAKPTprCiJVqFbX1ukAfMj4z91sE7Qe3EGpKKU4pSq7amzBC0
-         PO+JYOtlFnXgKkxdpjoIYqGjWqaY9tEIY5eCjGNIcaIAFddvEaPW87lfGSzb/J2YxbIZ
-         IVd0lPSuAV2SqivIcGYpGi/qXtPW37+kb+MfHIcr+rvIEj+J+yOdhninn6I9yxyoZuLb
-         whL6HZt6NAvHPmzSB/tnaOXOeAapKBE/yroBuun9lcevGpN5wnSJKyiiIxEK+Ia00oxL
-         JFesG/pK/n2C7/cGOecSqoTAhIkwBac/f2krMFMoAuKTtu9gYBXjenxaojqxp5lhu2dq
-         RKWA==
+        bh=Mke9aMgFoX8mi0/LEKnGWho0tCyc+eXDPVUKaIIH15E=;
+        b=mN5sCL/mhztkXQ9/LIDMH1Bi2dWxYeExnkMxgsojYwnSxzHQgoSefCH6/1wQ1LFlsG
+         Rc+Z/s4DGWVKeiBMawvxM7l/KXRmlbakNDsExxKHGWGR5wO5az4QLtRnmoNPh32OIju1
+         gRiR2nLoFX7GzcgTVTB+nckxCM4wT/y15hL9PHAywyArIdiMY65tStoUFJz9RR5Y8LcK
+         Ft0+6+kyHaA4fGDZ1WEhrxXcxyvQUfl7JDPN5/BXi2JdY450EQH93fq+9899esXhFcvZ
+         T3pVgI2UrPjU3WleoAtOqQK5XcrkscAvCBjgZxCFJ9hod9KWBbtCTrbcmnf59l5TEAcd
+         vw8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785433450; x=1786038250;
+        d=1e100.net; s=20251104; t=1785433453; x=1786038253;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dXeESfthaaswCT1+YBVYrBR9m/03EesiVa1toHE2g3o=;
-        b=NhNIrILoOzVnmTVtSyjtNqQeq6vq8xpaErGYp6h9cVuFO/mm7gjHg6AznxkoC3K4mZ
-         tEZcS4uX3Qa2c3b4wF48d/bJlh5aNnRnBGeyAPMAzHaRYerLVZXzwWyJHY1HkOrl+K7P
-         QdXUFdRkDYETSN+62LR5reInci815V5bU3Xts2t3mN5naLV7ip6QDMDgk+EUmew8z9Ph
-         AuShX2cD4P7K+piGppEYJ0tj5hvQzP4AAyZRT+UHOMe474ekP61tKcyAi5WN17e4Yiri
-         kTuj2K13Ui6wqeeP+drU+qb586RWlBUZ+P1sbGGFSz+Y2a9Zjqikbed5BHMMxnvqKT5T
-         4xrw==
-X-Forwarded-Encrypted: i=1; AHgh+RqEIfUvMCUUz8wHh2IQxvl5zRuj3uh12Fnn+1dlkEHuK0dVW8xi0nvxlddPoEfX3sfN3jNX03WXeIQV@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy2rJZcwAr90m70N3W7Rh2byBv8fW5kfe/btREwO0ay8M7nKXXH
-	BTZk5eRSKAUb7PVEc6ou2MA7GQqPKvHoeJU26Mpcv3swRZK5yl2XkLtO
-X-Gm-Gg: AR+sD12bmLtKiVp95YUTlKivMweKNCdg+VKdt7zTresh2Y/AKyINXQeeMIqLpFtW1A4
-	xI2pMnbqB4EqTrdwrF8DDG49SqpRFXfaKXIRpfCHU9hoc0WlcB7YemHKj2OmrFIfhbat2nIGjgF
-	aSN2SIWyOflce0c3vZdYIE/M7iaSSrulgthapgdUyDXvexoidhpXE0gtZw7CR+VBxWky+NWSLT0
-	u6ruRT3PiVg1/kUOjTkgS9lZ0Yh82NAJ8/C42lcYentvU+dI22wPsjHoA29/cWhkpmVVs25pkjD
-	Qg2dtc2PQ5yXUpQUx+EELSkpjTjoKSbe/o5DE0FF0tKTMlLwpzZQMa8EoDCH99S7QggPL07746P
-	2gLKAGMhlKsOBVsRNXGvejRgG04tNxeyK0rcB/5aXix/s78L/kThv1MQk7TFySes1sovAqS0HK9
-	RzM7SmbisavQTrtWm4iyGJ16xEe/iUrxnFZIfvZgULWg1EmAyteZZQCsLzKC4=
-X-Received: by 2002:a05:620a:7115:b0:925:56bc:b8bb with SMTP id af79cd13be357-93485f9902amr409114385a.9.1785433449557;
-        Thu, 30 Jul 2026 10:44:09 -0700 (PDT)
+        bh=Mke9aMgFoX8mi0/LEKnGWho0tCyc+eXDPVUKaIIH15E=;
+        b=E7zgsh7O1CpTcNhPj6RrrJ0kYT2A3Uxd0yR+lyBS9jdb14npBn93JfcIHw/yB3AKs8
+         dLKyIR5W0Gdhokm5C99JgfsJAo+zJtdisXs+xA6ZawCvpV14uzCXJVNZCryqs2VZUWOW
+         eApkyrS58CxU2GJYBk5YGSYEjdPEIa36A3g+2wkOsuVk6P3DMqZMU1wzLPIf2zeYXCy2
+         AuxrEf0YJRYHJanwxgLZF4+soLPsTC3BrfgvELiZ2i6J9wGF2G+k7x62Gs39fqiOsQuS
+         lZhEVFYy03F1JnHW9SYoCNN4yDwhw/JNtlbdEHCdccAmJx6aut6KFuui4ahNSle+c0cY
+         X53Q==
+X-Forwarded-Encrypted: i=1; AHgh+Rr6csjgxhUn0dKknVRX283A7W4s1m9SbIffJ74dTLUYtAjo19IdZ9eMZXFux82tf6mFpJqp8w9/Yw+L@vger.kernel.org
+X-Gm-Message-State: AOJu0YyXcu0nkgYNC1ZibY1pyccoFQGzsvm2BBMxo6DYI8D4CgFIEOBw
+	bYjkl2BYeDtJVYYOPK92fr5xG/EucjZRdGxjOKf4C854aqmIYAFeNpSb
+X-Gm-Gg: AR+sD13Z0m8jypivOBSTpuxnHr6l/AzXkOtIM8of5CcWjV8AJqjZON+qJzAVCT1wAqx
+	y5qSRWSz3LFuVgFhCo+xVeEa5Mk28bHYRkrR70lLMmMw/6Lp7dtCvGzFJL8FPXu+Wrvti2xNyQr
+	h7oF3M4QFWygIfxdH2W4/FXmkH/sR4ilcqXrXERZUjjiUB+WK/O26TcPLLp+VSUmqtVfHSmT+2W
+	28cyadG07jRBjnz8LX4P37ETsH5FhO1rZwAFBMDz8fG+d6jdpJB7WvfPjDLvMLm7uB9r671hvxj
+	EGSh6lIP7gMKuC620pt1CqbjRSrJATKN1E2DR/OXiNckDGnxeT9Dh8wzHAJ/jhft+gRdejx7a9V
+	arjp+oK6NjwxLwk0GaAmWYEYz0VGC+ZE6OT3sS0bsRWqV7egKXUqPVvBz2xkWjr7ylQol4S6ieM
+	1QJVPSAQrfVLCtFnyNg70HVKCcqGVXBs0N80kpo6lSArCmqSrjla3QwMqs2ikaypfRl6yKiA==
+X-Received: by 2002:a05:620a:b8f:b0:932:f1d8:b0da with SMTP id af79cd13be357-93486157c96mr295847585a.57.1785433453529;
+        Thu, 30 Jul 2026 10:44:13 -0700 (PDT)
 Received: from localhost ([70.54.57.80])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-933d3221c71sm469990085a.2.2026.07.30.10.44.08
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-933e733d933sm473505785a.35.2026.07.30.10.44.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 10:44:09 -0700 (PDT)
+        Thu, 30 Jul 2026 10:44:12 -0700 (PDT)
 From: Richard Acayan <mailingradian@gmail.com>
 To: Srinivas Kandagatla <srini@kernel.org>,
 	Liam Girdwood <lgirdwood@gmail.com>,
@@ -81,9 +81,9 @@ Cc: Nickolay Goppen <setotau@mainlining.org>,
 	Charles Keepax <ckeepax@opensource.cirrus.com>,
 	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
 	Richard Acayan <mailingradian@gmail.com>
-Subject: [PATCH v6 03/15] ASoC: dt-bindings: pm8916-wcd-analog-codec: Document pm8950/pm8953
-Date: Thu, 30 Jul 2026 13:43:41 -0400
-Message-ID: <20260730174353.108023-4-mailingradian@gmail.com>
+Subject: [PATCH v6 04/15] ASoC: dt-bindings: pm8916-analog-codec: Add PM660L compatible
+Date: Thu, 30 Jul 2026 13:43:42 -0400
+Message-ID: <20260730174353.108023-5-mailingradian@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260730174353.108023-1-mailingradian@gmail.com>
 References: <20260730174353.108023-1-mailingradian@gmail.com>
@@ -95,31 +95,39 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Adam Skladowski <a39.skl@gmail.com>
+The PM8953 (cajon 2.0) revision of the PM8916 analog codec is also found
+on PM660L, typically connected to the SDM660 internal sound card via the
+digital codec. Provide a space for specific compatibles and add the
+compatible for PM660L.
 
-Document pm8950 and pm8953 analog audio codecs.
-
-Signed-off-by: Adam Skladowski <a39.skl@gmail.com>
-[richard: add back empty line]
 Signed-off-by: Richard Acayan <mailingradian@gmail.com>
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- .../bindings/sound/qcom,pm8916-wcd-analog-codec.yaml         | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ .../sound/qcom,pm8916-wcd-analog-codec.yaml        | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
 diff --git a/Documentation/devicetree/bindings/sound/qcom,pm8916-wcd-analog-codec.yaml b/Documentation/devicetree/bindings/sound/qcom,pm8916-wcd-analog-codec.yaml
-index 94e7a1860977..15389645a3e8 100644
+index 15389645a3e8..be47dbdb2e92 100644
 --- a/Documentation/devicetree/bindings/sound/qcom,pm8916-wcd-analog-codec.yaml
 +++ b/Documentation/devicetree/bindings/sound/qcom,pm8916-wcd-analog-codec.yaml
-@@ -14,7 +14,10 @@ description:
+@@ -14,10 +14,16 @@ description:
  
  properties:
    compatible:
--    const: qcom,pm8916-wcd-analog-codec
-+    enum:
-+      - qcom,pm8916-wcd-analog-codec
-+      - qcom,pm8950-wcd-analog-codec
-+      - qcom,pm8953-wcd-analog-codec
+-    enum:
+-      - qcom,pm8916-wcd-analog-codec
+-      - qcom,pm8950-wcd-analog-codec
+-      - qcom,pm8953-wcd-analog-codec
++    oneOf:
++      - items:
++          - enum:
++              - qcom,pm660l-wcd-analog-codec
++          - const: qcom,pm8953-wcd-analog-codec
++
++      - enum:
++          - qcom,pm8916-wcd-analog-codec
++          - qcom,pm8950-wcd-analog-codec
++          - qcom,pm8953-wcd-analog-codec
  
    reg:
      maxItems: 1
