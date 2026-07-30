@@ -1,133 +1,216 @@
-Received: from mx08-001d1705.pphosted.com (mx08-001d1705.pphosted.com [185.183.30.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6944D2EEE76;
-	Thu, 30 Jul 2026 02:39:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.183.30.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B3837DEBB
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 02:40:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785379201; cv=none; b=Up4ASaPM3mcgEJnmzw6M6m1tfjwDaGEla8zxF2/S/1xZWuqxZMCKdl5K1cHR29vuzyRN6R9JGa3Z1GnW0lgvXLIO/WvLkgmQuxLHWabb+vq0OWKY0cMvfxTahjNCepXnpP1yj4hFu1w/dPNDojxipZ8aBEGS1++UuElR6KvdZa4=
+	t=1785379257; cv=none; b=vEAIwk7U7+YL/PLXAlgGj8sF01SNf3e1QnlbNduUkKp2kaNL8+3SjWKfNG8pzA6Uby3mvxjYW9qiv0LnONjRSkFCYE1iiJLl5M3DRCHdTMkDDDGtj5Aj5A3v7g61jnK05eu5jZyisLbBsGkgZeLlwpLoUFvqb0eNZebnabnMwcg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785379201; c=relaxed/simple;
-	bh=Vr1rL4I1TbVCKqlG90DBUEIoJyhybuV0PH7pWSj4r60=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SPB0nyl3rUGwGlgrMZYUJ8H1J/Nuq4utiBtGG0vPtqQi/Lr0JTtO59t0jhFXqenDfZpHfhYtNYEehqH/5lsI+ZLcSaMlP/0NBKHZZV0ildp7SWJli0Zsd0/r/21QUzc+O7o0Wy6zQ+mpCY0/I0E9rf9iXjv1nPCfsv9A+5l01JY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com; spf=pass smtp.mailfrom=sony.com; dkim=pass (2048-bit key) header.d=sony.com header.i=@sony.com header.b=S1/AYywU; arc=none smtp.client-ip=185.183.30.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sony.com
+	s=arc-20240116; t=1785379257; c=relaxed/simple;
+	bh=bHfqsarsKeqIkFDqllAq2cLDi3NkY7dQiJHYzxf7614=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ex7SLHjg9vAA9rQ/TJq5/WsQNjAqP7CMCFTITtTvjMzRBZwDjzCdQ+wRoAEaRWxDR4lkfAuHpNgJhy92m/Tnw5dyjgddjTa61gaeKb5UnkUxfgJ/EqX0r/90mPctNuHxdJKska0nbuin1tpJp79prQ1C28sixxEWeoeex1m3u9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S0Wu9UnP; arc=none smtp.client-ip=209.85.215.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sony.com header.i=@sony.com header.b="S1/AYywU"
-Received: from pps.filterd (m0209323.ppops.net [127.0.0.1])
-	by mx08-001d1705.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66U0iJY32410860;
-	Thu, 30 Jul 2026 02:15:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sony.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=p1; bh=6QhiE74b3iRQceMyeBZZcqJ9ADt/ztrTQ1Q+wgH0A5
-	A=; b=S1/AYywUiy2eMowSSPN5DfT3j6I6vhC0bk5WzUL89im6z8hDexClXmcrf+
-	UximyEuRsb+LliqHjv2zElb8vYw9v6Sc6JWLGZk7u2B0yWzF8tUnojkrhKO5tt7n
-	jGN6nz0rwZvlpu6oqCm7kf1ayxAtt8kXzRd2CmC0RQkui015Cxbxc10fJE5AP8Xk
-	wY/VyTD1/SXQCXW5nOVcMxIN7S/Hd0ZA7a3l2LhRs9G0v+veLRBTXQx1J/GGrIof
-	B7rNAFKdLI5d7zYvxrjBbsvL5O9Ra72NNqTfCTBIVlhBEOeAzDJbSwi7SmAjXf6h
-	wZ4v2snFXAeVX1YExN6nR9jjl0ug==
-Received: from usculxsnt01v.am.sony.com (usculxsnt01v.am.sony.com [160.33.194.232])
-	by mx08-001d1705.pphosted.com (PPS) with ESMTPS id 4fmnagw2xf-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-	Thu, 30 Jul 2026 02:15:46 +0000 (GMT)
-Received: from pps.filterd (USCULXSNT01v.am.sony.com [127.0.0.1])
-	by USCULXSNT01v.am.sony.com (8.18.1.7/8.18.1.7) with ESMTP id 66U1N2FX019661;
-	Thu, 30 Jul 2026 02:15:45 GMT
-Received: from sgppsba01v.s.gdce.sony.com.sg ([146.215.113.218])
-	by USCULXSNT01v.am.sony.com (PPS) with ESMTPS id 4fmmdd37xk-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 30 Jul 2026 02:15:45 +0000 (GMT)
-Received: from pps.filterd (SGPPSBA01v.s.gdce.sony.com.sg [127.0.0.1])
-	by SGPPSBA01v.s.gdce.sony.com.sg (8.18.1.7/8.18.1.7) with ESMTP id 66U0jOmR009147;
-	Thu, 30 Jul 2026 02:15:42 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by SGPPSBA01v.s.gdce.sony.com.sg (PPS) with ESMTPS id 4fprhxbxjr-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-	Thu, 30 Jul 2026 02:15:42 +0000 (GMT)
-Received: from SGPPSBA01v.s.gdce.sony.com.sg (SGPPSBA01v.s.gdce.sony.com.sg [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 66U2FfVL002867;
-	Thu, 30 Jul 2026 02:15:42 GMT
-Received: from localhost.localdomain ([146.215.113.251])
-	by SGPPSBA01v.s.gdce.sony.com.sg (PPS) with ESMTP id 4fprhxbxjn-1;
-	Thu, 30 Jul 2026 02:15:41 +0000 (GMT)
-From: Lachlan Michael <lachlan.michael@sony.com>
-To: mchehab@kernel.org, sakari.ailus@linux.intel.com,
-        hverkuil+cisco@kernel.org, laurent.pinchart@ideasonboard.com,
-        linux-media@vger.kernel.org, devicetree@vger.kernel.org
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        kieran.bingham@ideasonboard.com, jai.luthra@ideasonboard.com,
-        Ryuichi.Tadano@sony.com, Kengo.Hayasaka@sony.com, Tim.Bird@sony.com,
-        Kazumi.A.Sato@sony.com, linux-kernel@vger.kernel.org,
-        Lachlan Michael <lachlan.michael@sony.com>
-Subject: [PATCH 0/2] Add bindings and driver for Sony IMX908
-Date: Thu, 30 Jul 2026 11:15:23 +0900
-Message-ID: <20260730021525.166811-1-lachlan.michael@sony.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S0Wu9UnP"
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cb5b8572b70so1284094a12.2
+        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 19:40:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785379254; x=1785984054; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hpl/BhnmY3lT4VrDtie/BwPkv0Auv8SB6MI32u30mKs=;
+        b=S0Wu9UnPGR2+X98ecsAivrcMShE+nJTSCc6o9/1YSfm5PgoiRD8FRpHkjYRyZ2Ylrb
+         uYzZv1RXA84YHq89WZqY3UPjCH7L0VAhKv2rMd0caFwsnUE42C0SOPVwO6WL1r9/4wr2
+         cNedGTzEjTaKAb5CD+DvklSlAicvnP4dJ4xBKkC2vvuuAqRsGVHw4rGLIaoW1orgI/Cf
+         I2pR8TTuFupjtDqyAluvYGTiuSUHB8WRRd5UwvZoEuK2EexdCn+S71/7uemVczLDtXeT
+         SmcczdwnNtY458GFR/NugsaWB2yJ7KhrhnbRb3nCW/AI5UGFYLvhrGXreFDZVQqueFez
+         tfNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785379254; x=1785984054;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hpl/BhnmY3lT4VrDtie/BwPkv0Auv8SB6MI32u30mKs=;
+        b=f49qoSuOGpDWlk6n2crQn6Rm7cbWaUfFswlaTwnWvhzv/deo629ntYVbLSgHEP3Cff
+         3GVmtEEV9m63ifX8cveApV/cmycUF6Se8eqwDT+Hgnuf1MrkFbML3GsXQlHWpYEUXBkA
+         niwOv/68ePZXzIPQzuXSOTUz75e9ppDWSnz3NN6YePi/6edfS5k+yPk8j+xkoPDu0TpK
+         L1tVyB9vO2AVqUr4a1zKFTPa+ptBxNz/H7n0Crmeoy6W4PGZwbMMP6de8yhf19PV15WQ
+         h26iopSOIgA6/ugzFR26R3651m0uRRZ2fJZHIA1a1OmwHfdWsOQtpZpAazznp+ZDSLX4
+         1G9w==
+X-Forwarded-Encrypted: i=1; AHgh+RoujCnDHHVC/nWTREllNCqE0NaAPNgkJz6nJK5zrhOkgIid9h+o1AzSP7S3/zp0csbV1l5jWg/F5frc@vger.kernel.org
+X-Gm-Message-State: AOJu0YwLZn/vXF8p67E9dnoNIwNJMidCncxed2ZfqdcmLOYwp6mDse62
+	XLkrJIYuEZXoAhOZbDx+wu5Zpczjx3/Ca7a+vJSFg/xwiASAJfQabD5s
+X-Gm-Gg: AR+sD11ybqmiuZR+h4HgCil6njxFPpv4jIIYN2lSWFsJxfiAoNnr6JZqIEAsDj4pJ7s
+	TGhANoe7x8qayqpl/DRXjdWLgz06fBsmLinj/czvIXWRAKE3xplJT8ldMWnYU/h6HY34QlcXJIV
+	or6uA8kJoevKLCH/hmTPymDhcrtzH3kFlOmvKvmJyrBdlhZbXFquM56SIgGIhdX5qaIThHIvBNx
+	UkD/K1ecb4zvXc6dwKA+lUqv3Mg2J5m5VPv4dFGm11mnU1YpXH+lRKZQfMDYeBLFtIJvKhI7NdP
+	/xFPiLodN0k4SM7JwyB0IwudhMmF4rbcC/TsmbZYtL3n2QChuI0g9oDlZip7MIpx1xZZk5hI6Yq
+	cps92QxjpArg4WTOpJyRXcdr0LQ45iavcmnKkpn7MMKxEVT1n0QBs41bCZYIpkROhY5EjAMspSZ
+	q72EENHYSQuJosrdl8thSTDwmpabBj2Zjf4GFZKfYoukckmXrtIoV3p0Bhe9dG3XpUoeIoO3IJa
+	g==
+X-Received: by 2002:a05:6a21:9985:b0:3c0:9c19:6587 with SMTP id adf61e73a8af0-3c900a02a8emr615851637.65.1785379254046;
+        Wed, 29 Jul 2026 19:40:54 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31504cc63fesm14028363eec.15.2026.07.29.19.40.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 29 Jul 2026 19:40:53 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Wed, 29 Jul 2026 19:40:52 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v5 2/4] hwmon: (pmbus/max20830): add VOUT feedback
+ resistor scaling support
+Message-ID: <4e0d09d8-c083-417e-bd33-f5c132a802b8@roeck-us.net>
+References: <20260730-dev-max20830c-v5-0-a7553f84ee74@analog.com>
+ <20260730-dev-max20830c-v5-2-a7553f84ee74@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Sony-BusinessRelay-GUID: Q9nkGs2S8rjW_VAO_GU8FULp49CSiSg6
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-29_09,2026-07-29_01,2025-10-01_01
-X-Sony-EdgeRelay-GUID: W11nRE3IggHd-XxdeQ9iQ7RCPz--PFV9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-29_09,2026-07-29_01,2025-10-01_01
-X-Authority-Analysis: v=2.4 cv=dfywG3Xe c=1 sm=1 tr=0 ts=6a6ab3d2 cx=c_pps
- a=+By/qi0JbgTNrI/GZhIcbg==:117 a=+By/qi0JbgTNrI/GZhIcbg==:17
- a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=KAb5x4SsHD3PzxGk7EmX:22
- a=dNm3KQjjYUbhztXjLiFs:22 a=aTAPx9apeGqCGgnlAmkA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDAxMiBTYWx0ZWRfX5zTXhQGa9zuq
- e8Y+vf2d4oXghv81Sl1t8hah7z3ZP8vshrLAPwN9+PvFwkESp/Hx4gF+64KE3LfCr/3aDAQ4Ogt
- RZrKa7WPKt3shPL7nCli2d3mrD4WtIKnxVfRK2YoYNPRdJX4+ISFvb/ZA0tz1LOQZEnREn4PKet
- M44IjofTX0fXSBEq6+tG/QU7X8xhL8E+C1Ty83r/4lc09YGsQscJa4TgqYp1Yc+O+ji/gTbKuXx
- vpm5NQa1sOFjPSKgJya2fQuXPPHIsNOeKDh2yiQIr2ZD0OxFg1oxAvINrXxE5j7iwgIs+PwHdKf
- +UdTCEeWKMxZRSyulwPZkOgIkyTudo7Bo+CRG1XoawQRrIEYMdp7fo7eUq/pkaebHVTu1gTFpUg
- eiSydRkPy3wwcxCFUWula0mnB0IXHrd+DZ7dm89MqSl5WQASD7w9Bg7VvkIgfmSbPmKcS/zpCvF
- w/HZdX8xE7O4y+8eAKA==
-X-Proofpoint-GUID: yycRivaqoY7ejhsPoWGWVVfFEaL7sZeA
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDAxMiBTYWx0ZWRfXzozGW9Px/TaZ
- s4FTgskkG6tntiFQrBMovDHELlRNG4dPWBBBgan0nRULP5ssf5zR2on0NEZAsh1Ahc7/9PP2QRu
- LJRvUXr2rcmng4pwN0M6ZEpz690+XvWsexYyRPp7BxXI3K6YUWO8
-X-Proofpoint-ORIG-GUID: yycRivaqoY7ejhsPoWGWVVfFEaL7sZeA
-X-Sony-Outbound-GUID: yycRivaqoY7ejhsPoWGWVVfFEaL7sZeA
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-29_09,2026-07-29_01,2025-10-01_01
+In-Reply-To: <20260730-dev-max20830c-v5-2-a7553f84ee74@analog.com>
 
-Hi,
+On Thu, Jul 30, 2026 at 09:03:34AM +0800, Alexis Czezar Torreno wrote:
+> Implement support for external voltage divider scaling using the
+> adi,vout-rfb1-ohms and adi,vout-rfb2-ohms device tree properties.
+> 
+> When the desired output voltage exceeds VREF, a resistor divider
+> (RFB1 and RFB2) is used to scale down the feedback voltage. The
+> driver reads these resistor values from device tree and applies
+> the scaling formula: VOUT_actual = VOUT_measured × (1 + RFB1/RFB2)
+> 
+> The properties are optional. If not specified, the driver assumes
+> no voltage divider is present and reports the raw VOUT reading.
+> 
+> Signed-off-by: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
 
-This series adds device tree bindings and a V4L2 sub-device driver
-for the Sony IMX908 image sensor.
+Applied.
 
-The IMX908 is an 8.39 MP CMOS image sensor with a MIPI CSI-2 output
-interface. The driver supports RAW10 and RAW12 output formats,
-exposure and analogue gain controls, image flipping, blanking
-controls, window cropping and test pattern generation.
+Thanks,
+Guenter
 
-HDR modes and RAW16 output are not currently supported.
-
-Comments and feedback are welcome.
-
-Lachlan Michael (2):
-  media: dt-bindings: imx908: Add Sony IMX908 sensor bindings
-  media: i2c: Add Sony IMX908 image sensor driver
-
- .../bindings/media/i2c/sony,imx908.yaml       |  107 ++
- MAINTAINERS                                   |    7 +
- drivers/media/i2c/Kconfig                     |   11 +
- drivers/media/i2c/Makefile                    |    1 +
- drivers/media/i2c/imx908.c                    | 1593 +++++++++++++++++
- 5 files changed, 1719 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
- create mode 100644 drivers/media/i2c/imx908.c
-
--- 
-2.47.3
-
+> ---
+>  drivers/hwmon/pmbus/max20830.c | 65 +++++++++++++++++++++++++++++++++++++++++-
+>  1 file changed, 64 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/hwmon/pmbus/max20830.c b/drivers/hwmon/pmbus/max20830.c
+> index cb2c23672166d641852199ca07eb716924f4f286..ddead72a8db5d6f8491cbfbf356db0f8de64da03 100644
+> --- a/drivers/hwmon/pmbus/max20830.c
+> +++ b/drivers/hwmon/pmbus/max20830.c
+> @@ -7,6 +7,7 @@
+>  
+>  #include <linux/errno.h>
+>  #include <linux/i2c.h>
+> +#include <linux/math64.h>
+>  #include <linux/mod_devicetable.h>
+>  #include <linux/module.h>
+>  #include <linux/string.h>
+> @@ -14,6 +15,56 @@
+>  
+>  #define MAX20830_IC_DEVICE_ID_LENGTH	9
+>  
+> +struct max20830_data {
+> +	struct pmbus_driver_info info;
+> +	u32 vout_rfb1;
+> +	u32 vout_rfb2;
+> +};
+> +
+> +/*
+> + * MAX20830 only supports READ_VOUT for VOUT monitoring.
+> + *
+> + * Limit registers (VOUT_OV_WARN_LIMIT, VOUT_OV_FAULT_LIMIT, etc.) are not
+> + * supported by this driver and return -ENODATA. This means sysfs attributes
+> + * like in1_max, in1_crit, etc. will not be available. Only in1_input (the
+> + * scaled output voltage) is supported.
+> + *
+> + * MAX20830 uses an external resistor divider for voltage sensing:
+> + * - VOUT_COMMAND and VOUT_MAX set the reference voltage at the feedback pin
+> + * - READ_VOUT reports the feedback voltage, which needs to be scaled for actual
+> + *   output voltage
+> + *
+> + * Scaling formula: vout_actual = vout_fb × (1 + RFB1 / RFB2)
+> + *
+> + * If regulator support is added in the future, some adjustments are needed to
+> + * ensure correct feedback voltages are set.
+> + */
+> +static int max20830_read_word_data(struct i2c_client *client, int page,
+> +				   int phase, int reg)
+> +{
+> +	const struct pmbus_driver_info *info = pmbus_get_driver_info(client);
+> +	const struct max20830_data *data = container_of(info, struct max20830_data, info);
+> +	int ret;
+> +	u64 temp;
+> +
+> +	switch (reg) {
+> +	case PMBUS_READ_VOUT:
+> +		ret = pmbus_read_word_data(client, page, phase, reg);
+> +		if (ret < 0)
+> +			return ret;
+> +
+> +		/* Apply voltage divider scaling if resistors are non-zero */
+> +		if (data->vout_rfb1 && data->vout_rfb2) {
+> +			temp = (u64)data->vout_rfb1 + (u64)data->vout_rfb2;
+> +			temp = DIV_ROUND_CLOSEST_ULL((u64)ret * temp, data->vout_rfb2);
+> +			ret = clamp_val(temp, 0, 0xFFFF);
+> +		}
+> +		return ret;
+> +	default:
+> +		return -ENODATA;
+> +	}
+> +}
+> +
+>  static struct pmbus_driver_info max20830_info = {
+>  	.pages = 1,
+>  	.format[PSC_VOLTAGE_IN] = linear,
+> @@ -24,13 +75,25 @@ static struct pmbus_driver_info max20830_info = {
+>  		PMBUS_HAVE_TEMP |
+>  		PMBUS_HAVE_STATUS_VOUT | PMBUS_HAVE_STATUS_IOUT |
+>  		PMBUS_HAVE_STATUS_INPUT | PMBUS_HAVE_STATUS_TEMP,
+> +	.read_word_data = max20830_read_word_data,
+>  };
+>  
+>  static int max20830_probe(struct i2c_client *client)
+>  {
+>  	u8 buf[I2C_SMBUS_BLOCK_MAX + 1] = {};
+> +	struct max20830_data *data;
+>  	int ret;
+>  
+> +	data = devm_kzalloc(&client->dev, sizeof(*data), GFP_KERNEL);
+> +	if (!data)
+> +		return -ENOMEM;
+> +
+> +	data->info = max20830_info;
+> +
+> +	/* Read optional voltage divider resistor values */
+> +	device_property_read_u32(&client->dev, "adi,vout-rfb1-ohms", &data->vout_rfb1);
+> +	device_property_read_u32(&client->dev, "adi,vout-rfb2-ohms", &data->vout_rfb2);
+> +
+>  	if (!i2c_check_functionality(client->adapter, I2C_FUNC_SMBUS_READ_BLOCK_DATA) &&
+>  	    !i2c_check_functionality(client->adapter, I2C_FUNC_SMBUS_READ_I2C_BLOCK))
+>  		return -ENODEV;
+> @@ -78,7 +141,7 @@ static int max20830_probe(struct i2c_client *client)
+>  		return dev_err_probe(&client->dev, -ENODEV,
+>  				     "Unsupported device: '%s'\n", buf);
+>  
+> -	return pmbus_do_probe(client, &max20830_info);
+> +	return pmbus_do_probe(client, &data->info);
+>  }
+>  
+>  static const struct i2c_device_id max20830_id[] = {
