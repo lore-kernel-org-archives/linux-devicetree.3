@@ -1,122 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB377342509
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 20:19:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DCC2342509;
+	Thu, 30 Jul 2026 20:19:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785442753; cv=none; b=nrhbNhCYZDfZuUXuAiDRFIOB6f9ajlGHnbV0IDX4+HdG46yTkI5Bo9W5IjPbv6pBYeeqLOHtaitglqKDxI227sCevBPNlCL40txmoE1x6mA8EczPFYXX6UUbhuEJcy+qdzQ5bjzTsuHqyTx5epsunhpO+3yhKJ9MDPDxLfuxWfk=
+	t=1785442755; cv=none; b=QjAX/vPSQ2ORyTEadqb27dS/8tolp2GLfpFqbVU9WfG/Ih/hQsbWVErQsCYIIpIBtGAWkHkHV9R61/GmqtZLDRGSmvkbfkvSJTb9ixqCmRRr/mI8l6E/HZBo3njL9QRuMPI3lb0qEViFq3skeA0VeBbshruqOUlkT+cgrhBLuGc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785442753; c=relaxed/simple;
-	bh=w9pqK8fP3brD0prcz8D+uwcpsoZp2BFTN1aZthSqfAc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NfcwH53ZjtZZq4xhk+/d5Vm5OW85o1oX1AelhWiUodpTSlS6Z+6QuFGD+CWCfnw47+6D8QEcdxN/cERD0J9ugnqgX2vtHZAia0PcHBGHo9awqJH87J/cqLxLXeMQWnRzLxiR6ZUboM8/cgEem7rDlmolZhl+AfbRv4c5PKittzI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YB2LVJ2i; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785442755; c=relaxed/simple;
+	bh=5OosL7UAzAlw+AfOM4QcdD9qlKoevvkWJfZrS6zvBNQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=a5/HWJdIcNNapvoJsBrNx1/Y3MtJWfvU7lGiemTB9zcCOLT61r6FSm11cV4s41E+GmktotFNfvjtq1dB9SIZasHyl0gm3fVUBt7gpobMfEHqndMQcW5KciGdFb36stawcoLUHcVPXhqs5OtJblD0UPdLcPY6opKQb87v45fRo0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=Ewe99sfk; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YB2LVJ2i"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3A9C1F000E9;
-	Thu, 30 Jul 2026 20:19:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785442752;
-	bh=fV+g4Re49+YD0PpyqGUBWFTua/OsWCrYCApwuM82WNE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YB2LVJ2iEQ4t9McOynl/+UubK1+WkG0NebL2owFct7n7C8OrJW1+Xm/BxDz2tlykP
-	 MhushSGRQCnmMCQ4zazsjRPnnwc9FCY/T+YRLq1GnDLe+VDmwD0hQpa3+lE5sPmun0
-	 1mlJRX5Cfj/tveJkkjNejkiBUGz60W3255ZGRVvZUeD+CRUYsC3SuVUX/tr+P5Awj5
-	 JkIvMW+Pqnas3zqbUsreeOTajtwn9GPndLHZQMFOPekLXYeSVJg02Cir5AfbsRwfXg
-	 GRl0lF/4mTWVM9OZ3snOu3Vt8rIeSGjm9Trd45cFYT0CwzdLa6+VjCGeSB3jyN8PqY
-	 SjgAGGEENsJ7g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/3] arm64: dts: exynos7870-j6lte: add Sharp
- GP2AP070S proximity sensor
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kaustabh Chakraborty" <kauschluss@disroot.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260731-gp2ap070s-v3-3-d1f5cecf9fe7@disroot.org>
-References: <20260731-gp2ap070s-v3-0-d1f5cecf9fe7@disroot.org>
- <20260731-gp2ap070s-v3-3-d1f5cecf9fe7@disroot.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 20:19:11 +0000
-Message-Id: <20260730201911.F3A9C1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="Ewe99sfk"
+Received: from mail01.layka.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id 2AB1C41B26;
+	Thu, 30 Jul 2026 22:19:13 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id Q4j9SEw-Bkvx; Thu, 30 Jul 2026 22:19:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1785442752; bh=5OosL7UAzAlw+AfOM4QcdD9qlKoevvkWJfZrS6zvBNQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=Ewe99sfkvWSZXTNSu3ln2Uho22qPWxPzZK5pkAfcK4GjyMJm7ipEuSqnlTxwhnzTV
+	 EuWrjy1SVA8+z+sSyzlP4yDXvbphbPtU7T17aANDh6s0qHmx7ACGjQuQgQCdS/5cw2
+	 pqxwUDrptkzRJnbW4D5ZAQ8STWhRT2lNqL+p1Tv8Je+ZLn6eQ69YrGesksfw/93D06
+	 cnKC/0CO0SXqo101L1CY9b/YoL1xtQABdc0RHBwFBM8D0K+nABbiWSNGwpeFnElEpw
+	 fAH9nFvNLyzta2MwW97RlFPiV4GAkYL+920fXs189RJIM7xpODQJrQm9rUEoDH6dUV
+	 bxbtlQ5ZL5xog==
+From: Kaustabh Chakraborty <kauschluss@disroot.org>
+Date: Fri, 31 Jul 2026 01:48:35 +0530
+Subject: [PATCH v3 2/5] Input: zinitix - do not ignore non-moving fingers
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260731-zinitix-modes-v3-2-2c8de712997a@disroot.org>
+References: <20260731-zinitix-modes-v3-0-2c8de712997a@disroot.org>
+In-Reply-To: <20260731-zinitix-modes-v3-0-2c8de712997a@disroot.org>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Michael Srba <Michael.Srba@seznam.cz>, 
+ Linus Walleij <linusw@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-samsung-soc@vger.kernel.org, 
+ Kaustabh Chakraborty <kauschluss@disroot.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The `i2c_proxm_bus` pinctrl node assigns a hardware alternate pi=
-n function (`EXYNOS_PIN_FUNC_3`) to pins that are driven by a software bit-=
-banged `i2c-gpio` device.
---
+With the ZT7548 touchscreen present in the Galaxy J6, multitouch does not
+work reliably. This is due to the fact that the driver reports fingers
+only when their state is changed, so it's either placed against the
+screen, moved, or drawn away from the screen.
 
---- Patch [3]: [PATCH v3 3/3] arm64: dts: exynos7870-j6lte: add Sharp GP2AP=
-070S proximity sensor ---
-commit 2279f9b3f632fe5641c2ffa9eb9b410688448a06
-Author: Kaustabh Chakraborty <kauschluss@disroot.org>
+The function which is responsible for this is zinitix_report_finger().
+This function is called from the IRQ handler, under the following
+condition:
 
-arm64: dts: exynos7870-j6lte: add Sharp GP2AP070S proximity sensor
+		if (p->sub_status & SUB_BIT_EXIST)
+			zinitix_report_finger(bt541, i, p);
 
-This commit adds the devicetree node for the Sharp GP2AP070S proximity sens=
-or
-which is connected to a GPIO-driven I2C line, alongside a new fixed regulat=
-or
-for its VDD supply.
+This implies and ensures that every valid finger must have the
+SUB_BIT_EXIST flag.
 
-> diff --git a/arch/arm64/boot/dts/exynos/exynos7870-j6lte.dts b/arch/arm64=
-/boot/dts/exynos/exynos7870-j6lte.dts
-> index de30d0970336f..dd493138fed6e 100644
-> --- a/arch/arm64/boot/dts/exynos/exynos7870-j6lte.dts
-> +++ b/arch/arm64/boot/dts/exynos/exynos7870-j6lte.dts
-> @@ -73,6 +73,35 @@ key-volup {
->  		};
->  	};
-> =20
-> +	i2c-proximity {
-> +		compatible =3D "i2c-gpio";
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
-> +
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&i2c_proxm_bus>;
-> +
-> +		sda-gpios =3D <&gpf4 3 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
-> +		scl-gpios =3D <&gpf4 2 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
+However, at the beginning of the function, it refuses to recognize any
+finger if it has none of SUB_BIT_UP | SUB_BIT_DOWN | SUB_BIT_MOVE. This
+excludes fingers in reports which do not move from the position since
+the previous interrupt. Add SUB_BIT_EXIST to the list of valid bits.
 
-[ ... ]
+Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
+---
+ drivers/input/touchscreen/zinitix.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-> @@ -579,6 +624,12 @@ bt_enable: bt-enable-pins {
->  		samsung,pin-pud =3D <EXYNOS_PIN_PULL_DOWN>;
->  	};
-> =20
+diff --git a/drivers/input/touchscreen/zinitix.c b/drivers/input/touchscreen/zinitix.c
+index 3421b8ffb19b..a0a89d25e25b 100644
+--- a/drivers/input/touchscreen/zinitix.c
++++ b/drivers/input/touchscreen/zinitix.c
+@@ -406,7 +406,7 @@ static void zinitix_report_finger(struct bt541_ts_data *bt541, int slot,
+ 	u16 x, y;
+ 
+ 	if (unlikely(!(p->sub_status &
+-		       (SUB_BIT_UP | SUB_BIT_DOWN | SUB_BIT_MOVE)))) {
++		       (SUB_BIT_EXIST | SUB_BIT_UP | SUB_BIT_DOWN | SUB_BIT_MOVE)))) {
+ 		dev_dbg(&bt541->client->dev, "unknown finger event %#02x\n",
+ 			p->sub_status);
+ 		return;
+@@ -473,7 +473,7 @@ static irqreturn_t zinitix_ts_irq_handler(int irq, void *bt541_handler)
+ 		const struct point_coord *p = &touch_event.point_coord[i];
+ 
+ 		/* Only process contacts that are actually reported */
+-		if (p->sub_status & SUB_BIT_EXIST)
++		if (p->sub_status)
+ 			zinitix_report_finger(bt541, i, p);
+ 	}
+ 
 
-[Severity: Medium]
-Is it intentional to configure a hardware alternate function for a bus that
-is driven by a software i2c-gpio device?
+-- 
+2.54.0
 
-The i2c-proximity node uses the i2c-gpio driver for software bit-banging, b=
-ut
-the i2c_proxm_bus pinctrl configuration below assigns EXYNOS_PIN_FUNC_3 ins=
-tead
-of a standard GPIO function.
-
-This configuration can cause the pinctrl framework to briefly connect the p=
-ins
-to a hardware IP block before the GPIO framework requests them and forces t=
-hem
-back to software mode. If the underlying hardware IP is active during this
-initialization window, it could drive the lines and lead to transient bus
-contention or glitches on the sensor during system probe.
-
-> +	i2c_proxm_bus: i2c-proxm-bus-pins {
-> +		samsung,pins =3D "gpf4-3", "gpf4-2";
-> +		samsung,pin-function =3D <EXYNOS_PIN_FUNC_3>;
-> +		samsung,pin-pud =3D <EXYNOS_PIN_PULL_NONE>;
-> +	};
-> +
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-gp2ap070s-=
-v3-0-d1f5cecf9fe7@disroot.org?part=3D3
