@@ -1,90 +1,244 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAA3A3B894B;
-	Thu, 30 Jul 2026 08:28:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41EBB3C4577
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 08:30:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785400102; cv=none; b=pM1pcDMbL9byQOB9Jj4LUQs3AmT95ZbHD9NlBH6zlZMMBbBqYk3ZmjaozAp5y0gw6HXl1XEaoAwGlZrrDuL/7kIAHtA3nmPOfR8efR7IxKmGEG9sK8rUyk+uP+mjyN3+S2lDG4WYB67T4BbLVrjf2YJ//iUMgFqubHUs5fiIwtQ=
+	t=1785400231; cv=none; b=J2mJiXXA4MvhNbo2Y5d9aSATPVd7I266bjgTbQFGNCtR3ZxZ+3sF83RfNI/ko9sou700Mh0cEtPP/a0HPWZ42seGei7JPeAhkMPOWemirpOhTTRJ1wD8T6xp76B+EJQP18PfjCMviYUHoSbALCPU6b9QUssTtrhJCBmtCSChWuw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785400102; c=relaxed/simple;
-	bh=bxBJBjrKqgZwEbpNaf5/UI47pXkxo93TJAhmSmSxQ98=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AVeKUWufyzS0IeSgYx4ROM4/cj+6dmXgO31GQYELlkpsV8x1qDhc258/NH/wM7dIY4vTSH/5qnL/KSTrfIcTj1tWg4y3zocnlfeQL2yI032Ipi7D9qUcdQMgzjrtgQN7Z3rh7QQApKCH9ctWPte+UxtG6G3QKL4aegv68srjmgg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dxi1cOys; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785400231; c=relaxed/simple;
+	bh=T6H1+jLR73lq9fJAwpW8tYIqxPmRLZOdyWbz2kizNXk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RZ+ly84eBqsQ6decOn3Eem5AjtSKlZAYp9hCUrcCMNTK9PYIHKJ4e/bV9qWAOQC1rlmfwLulIZRz6UAN3Wg0oyLPrqcHbqiicmhlUgyG0nXJB1Q+Hw/3NEnQduGyM5idoh61jkzeq4Yp22dyHzp89SUkkhWcYPfM7pm3ajlqx9Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aUHGeG/Q; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dxi1cOys"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09F251F000E9;
-	Thu, 30 Jul 2026 08:28:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785400096;
-	bh=IqWfPHowzypNS3fC5xvMrVulrkg/53CBTJvxev8Nx5k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Dxi1cOyszRtlP/OETbzH9DzS1JrcmsxerAuE1GIeA4eMSLgfQxwXEVtPcz45v6Jk+
-	 rA2Bks3auZ1nx2bGDNs1LFcWAjBoxlIVoYdQQAbVUCPNEMbFFwA/99atlIdEc/e0FK
-	 Q4q0EhvQbJsdKHIH+4Wh/EEPMOKTtz5h12QXlKgLsdMVsDhzfiGJI1a7uPWNkTkhlL
-	 6oBTm9s571O/TBpR2hhYdjXIeRJ20qGx+dTOlKb4oElWzDStMNGNlCLHpNAHVCS9BO
-	 naVZLLc713RhicSXOhVRgNOpzqzdebsGnG8DLHLn90BHePFJ4XNGVKTTBQCYKHaSd/
-	 9WrV7yUewA71w==
-Date: Thu, 30 Jul 2026 10:28:10 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Gavin Gao <attinagaoxu@gmail.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, heiko@sntech.de, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, mcoquelin.stm32@gmail.com, 
-	alexandre.torgue@foss.st.com, richardcochran@gmail.com, nicolas.frattaroli@collabora.com, 
-	sebastian.reichel@collabora.com, sashal@kernel.org, alchark@gmail.com, chaoyi.chen@rock-chips.com, 
-	amadeus@jmu.edu.cn, rmk+kernel@armlinux.org.uk, horms@kernel.org, 
-	alok.a.tiwari@oracle.com, david.wu@rock-chips.com, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [PATCH net-next 2/3] arm64: dts: rockchip: Add RK3576 GMAC 25M
- refout clocks
-Message-ID: <20260730-complex-funky-angelfish-dc9aad@quoll>
-References: <20260727021048.3375444-1-attinagaoxu@gmail.com>
- <20260727021048.3375444-3-attinagaoxu@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aUHGeG/Q"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4954f5e8020so8614225e9.2
+        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 01:30:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785400228; x=1786005028; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7NamuILDbN24NT7HoXCJwp+4/ZlAqP3PaYd9uoEAoB8=;
+        b=aUHGeG/QfKRbqUnCVLRq0bgG9Qt6R+Pme6fwoFeMywNJLrLc7HJeWRz56xonroQnNf
+         z4KJvyAcegvNZIAsMImmMqk18Dp5bK1+E3bqXCwVo8A2I8wLq6bGEMG6cJYgl/EifeZN
+         p8vVKIo0fqw9j0dkvjuoFi46oOEgghiKwnTL0isfExJawCTquu6WvjycAXcIzBiRgM/A
+         OtkyMYJAO/ClRwUkpW7qujPUJA3PlbbEw1AM7oIXzZAp8gTkmjL1qDhZOLZef2UqzZIX
+         LhWPIXIKZUEOGxmjq9XsdMsZI/ausBAWMU9wnCZ2jKD2VBFdOhAKbwnr3G9c9Bs8q4N1
+         ahgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785400228; x=1786005028;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7NamuILDbN24NT7HoXCJwp+4/ZlAqP3PaYd9uoEAoB8=;
+        b=iKROTFyT+T+RPw6pwsdm3Wj4CTmAiV51bKz4hjbg0IbfwKeLt7iaCSiz9Y366J7x9t
+         oE9NtABiXCIWc8mOm8RkY/YW8pKNV1OtVFVviqAjDA4G2PMDPyTv1UFPPO74nDIScw12
+         1mXNOpSHvgHgeIN5IFaGBjTp4Svza/bRaHdM7P7Fnm7w6w7S1hxj4mdgcTjfzX2fzjS+
+         eEvFjydUsG116+wmW2T4G926WT7TvNrBBdkwFb4CHIET5ZLXoSvq2073ybfsUiNxY2yI
+         vp6hFbziniioKIdOmF0k7K0JgIa9r2fcJsdgt7uELV2sSyPdoMf+BM0pVbiaJKyS8vmm
+         EmeQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrUnPcMp/biOfZMR/7t4Cr1g6BjDnFdjKkD79m2msljLvgwXaQA69YYQ0j3+CG8XXWc99VahfrTHJrA@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz8ox0jsA1YYdylheVRcaX85RRTyJmM3SYKJmM1ru3ZzahFHcgv
+	r2cR6gorJ5nW0CqGMWPdIevlYt0npesPHPFOEHJACPLsBWF8/5TcVHOT06Q8/6yD
+X-Gm-Gg: AR+sD13oz/zpN4Hq0g6k7D4UX31472NRBTgvkY2awolwi3X3hVrDmhexsxF/LlvCL+y
+	4uB7SXHMl1XXch6GiKjzI5XxNv6V2VRyxbxWhm6xd116tDyiknulW02wmJEpuiXesf4cplsthAi
+	/MKipf48fyTCFr/PqFaahmtSmn0pKRErDz5wCD905sWh/xROJQbNgk3T/lZzqye5uHGu1kfctKG
+	lqFGgY0CBMsj68YkTcDUEtv9iX+ILyxu/lqCdZnL9j7ly+3dopjaD+Lm8ZWmpGpI7LA7r3162Cg
+	5r9lNQgs/u3px/C/4rOzpiNRuA3GEDnf+uh6E26KRzNaBM5NsaXh8qafIQf7vLV0s3g91dXc+h5
+	FoKKqIVxN+XH4dXMbB++skaVV00NkGUPvQzqW1GLdFGWc94S4CyJOBpPSSs0J2LIYt5vof/wpA4
+	blh1TEIEDjSgJMEkKn6Ylk3Pef2f3ZWFrwZ24O0TZxcs/zGp4DMabavBe7ms8E5Rn/uGBlnwDfT
+	C60+uzSUCuMHzwJV+mgA47paOGujOaMJQ==
+X-Received: by 2002:a05:600c:628c:b0:496:c9cd:e7ab with SMTP id 5b1f17b1804b1-49800e6d1b7mr20262755e9.5.1785400227968;
+        Thu, 30 Jul 2026 01:30:27 -0700 (PDT)
+Received: from fedora.tail6d6c39.ts.net ([82.77.79.56])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49800f1a7f7sm48924335e9.5.2026.07.30.01.30.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 30 Jul 2026 01:30:26 -0700 (PDT)
+From: Eduard Bostina <egbostina@gmail.com>
+To: Brian Masney <bmasney@redhat.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	Eduard Bostina <egbostina@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mark Brown <broonie@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>
+Cc: daniel.baluta@nxp.com,
+	simona.toaca@nxp.com,
+	goledhruva@gmail.com,
+	m-chawdhry@ti.com
+Subject: [PATCH] dt-bindings: clock: ti: Convert APLL clock to DT schema
+Date: Thu, 30 Jul 2026 11:30:19 +0300
+Message-ID: <20260730083019.29998-1-egbostina@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260727021048.3375444-3-attinagaoxu@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jul 27, 2026 at 10:10:46AM +0800, Gavin Gao wrote:
-> RK3576 provides REFCLKO25M_GMAC0_OUT and REFCLKO25M_GMAC1_OUT clocks
-> for the two GMAC instances.
-> 
-> Describe these clocks with the clk_mac_25m_refout clock name so boards
-> using RGMII output clock mode can let the MAC driver manage the 25 MHz
-> reference output.
-> 
-> Signed-off-by: Gavin Gao <attinagaoxu@gmail.com>
-> ---
->  arch/arm64/boot/dts/rockchip/rk3576.dtsi | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-> index 70e67d4dccb8..f1125c2f88ab 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-> @@ -1692,10 +1692,10 @@ gmac0: ethernet@2a220000 {
->  			reg = <0x0 0x2a220000 0x0 0x10000>;
->  			clocks = <&cru CLK_GMAC0_125M_SRC>, <&cru CLK_GMAC0_RMII_CRU>,
->  				 <&cru PCLK_GMAC0>, <&cru ACLK_GMAC0>,
-> -				 <&cru CLK_GMAC0_PTP_REF>;
-> +				 <&cru CLK_GMAC0_PTP_REF>, <&cru REFCLKO25M_GMAC0_OUT>;
->  			clock-names = "stmmaceth", "clk_mac_ref",
->  				      "pclk_mac", "aclk_mac",
-> -				      "ptp_ref";
-> +				      "ptp_ref", "clk_mac_25m_refout";
+Convert the Texas Instruments APLL clock bindings to DT schema.
 
-Where is clk_mac_refout? Why do you claim this is a different input
-(important: INPUT)?
+Signed-off-by: Eduard Bostina <egbostina@gmail.com>
+---
+ .../devicetree/bindings/clock/ti/apll.txt     | 43 ---------
+ .../bindings/clock/ti/ti,apll-clock.yaml      | 89 +++++++++++++++++++
+ 2 files changed, 89 insertions(+), 43 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/clock/ti/apll.txt
+ create mode 100644 Documentation/devicetree/bindings/clock/ti/ti,apll-clock.yaml
 
-Best regards,
-Krzysztof
+diff --git a/Documentation/devicetree/bindings/clock/ti/apll.txt b/Documentation/devicetree/bindings/clock/ti/apll.txt
+deleted file mode 100644
+index bbd505c11..000000000
+--- a/Documentation/devicetree/bindings/clock/ti/apll.txt
++++ /dev/null
+@@ -1,43 +0,0 @@
+-Binding for Texas Instruments APLL clock.
+-
+-This binding uses the common clock binding[1].  It assumes a
+-register-mapped APLL with usually two selectable input clocks
+-(reference clock and bypass clock), with analog phase locked
+-loop logic for multiplying the input clock to a desired output
+-clock. This clock also typically supports different operation
+-modes (locked, low power stop etc.) APLL mostly behaves like
+-a subtype of a DPLL [2], although a simplified one at that.
+-
+-[1] Documentation/devicetree/bindings/clock/clock-bindings.txt
+-[2] Documentation/devicetree/bindings/clock/ti/dpll.txt
+-
+-Required properties:
+-- compatible : shall be "ti,dra7-apll-clock" or "ti,omap2-apll-clock"
+-- #clock-cells : from common clock binding; shall be set to 0.
+-- clocks : link phandles of parent clocks (clk-ref and clk-bypass)
+-- reg : address and length of the register set for controlling the APLL.
+-  It contains the information of registers in the following order:
+-	"control" - contains the control register offset
+-	"idlest" - contains the idlest register offset
+-	"autoidle" - contains the autoidle register offset (OMAP2 only)
+-- ti,clock-frequency : static clock frequency for the clock (OMAP2 only)
+-- ti,idlest-shift : bit-shift for the idlest field (OMAP2 only)
+-- ti,bit-shift : bit-shift for enable and autoidle fields (OMAP2 only)
+-
+-Examples:
+-	apll_pcie_ck: apll_pcie_ck {
+-		#clock-cells = <0>;
+-		clocks = <&apll_pcie_in_clk_mux>, <&dpll_pcie_ref_ck>;
+-		reg = <0x021c>, <0x0220>;
+-		compatible = "ti,dra7-apll-clock";
+-	};
+-
+-	apll96_ck: apll96_ck {
+-		#clock-cells = <0>;
+-		compatible = "ti,omap2-apll-clock";
+-		clocks = <&sys_ck>;
+-		ti,bit-shift = <2>;
+-		ti,idlest-shift = <8>;
+-		ti,clock-frequency = <96000000>;
+-		reg = <0x0500>, <0x0530>, <0x0520>;
+-	};
+diff --git a/Documentation/devicetree/bindings/clock/ti/ti,apll-clock.yaml b/Documentation/devicetree/bindings/clock/ti/ti,apll-clock.yaml
+new file mode 100644
+index 000000000..e14a76254
+--- /dev/null
++++ b/Documentation/devicetree/bindings/clock/ti/ti,apll-clock.yaml
+@@ -0,0 +1,89 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/clock/ti/ti,apll-clock.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments APLL clock
++
++maintainers:
++  - Eduard Bostina <egbostina@gmail.com>
++
++allOf:
++  - $ref: /schemas/clock/clock.yaml#
++
++description:
++  This binding assumes a register-mapped APLL with usually two selectable
++  input clocks (reference clock and bypass clock), with analog phase locked
++  loop logic for multiplying the input clock to a desired output clock.
++  This clock also typically supports different operation modes (locked, low
++  power stop etc.) APLL mostly behaves like a subtype of a DPLL, although
++  a simplified one at that.
++
++properties:
++  compatible:
++    enum:
++      - ti,dra7-apll-clock
++      - ti,omap2-apll-clock
++
++  "#clock-cells":
++    const: 0
++
++  clocks:
++    minItems: 1
++    maxItems: 2
++    description: Link phandles of parent clocks (clk-ref and clk-bypass)
++
++  reg:
++    minItems: 2
++    maxItems: 3
++    description: |
++      Address and length of the register set for controlling the APLL.
++      It contains the information of registers in the following order:
++      "control" - contains the control register offset
++      "idlest" - contains the idlest register offset
++      "autoidle" - contains the autoidle register offset (OMAP2 only)
++
++  ti,clock-frequency:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: static clock frequency for the clock (OMAP2 only)
++
++  ti,idlest-shift:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: bit-shift for the idlest field (OMAP2 only)
++
++  ti,bit-shift:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: bit-shift for enable and autoidle fields (OMAP2 only)
++
++required:
++  - compatible
++  - "#clock-cells"
++  - clocks
++  - reg
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    bus {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        clock@21c {
++            #clock-cells = <0>;
++            compatible = "ti,dra7-apll-clock";
++            clocks = <&apll_pcie_in_clk_mux>, <&dpll_pcie_ref_ck>;
++            reg = <0x021c>, <0x0220>;
++        };
++
++        clock@500 {
++            #clock-cells = <0>;
++            compatible = "ti,omap2-apll-clock";
++            clocks = <&sys_ck>;
++            ti,bit-shift = <2>;
++            ti,idlest-shift = <8>;
++            ti,clock-frequency = <96000000>;
++            reg = <0x0500>, <0x0530>, <0x0520>;
++        };
++    };
+-- 
+2.54.0
 
