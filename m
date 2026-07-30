@@ -1,129 +1,179 @@
-Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 864AC39D6F2
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 04:50:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E19183A48E6
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 04:51:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.182
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785387038; cv=pass; b=CSpoWuxG16JMU6N6GDf9mi8d2K2AN6LB10rb1maBMnp3jhQPBCibo1A091B+ZPF8dgzNv4OvUWnN2XzdMELMevOC5YmlvzGbTl2C2TPbmBMe6R0my7DGh8gwIGlJiFRfj8kg69sGvw1WUKU0+lk1gty4TOI2hscT3kGBtY/6a8M=
+	t=1785387097; cv=pass; b=uaHD6CRHEz9glRDgyxuwMGgfBrJ9UfrkC4s67RV0dE7pJrWbbdxMV2HgszCZ5q4GiDYsKm1u7J5zS9nE5jHjPIkQbSOXnFFV8DvVsMTMgonpala9U/en2yZLyElifSEoIfnB2c4YHmw4a0S9EhU54JzMxcPqBOPC8BfJfv8fRPo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785387038; c=relaxed/simple;
-	bh=x4/nkR85gHt/p05IHxpT90cgtYPAQUFwTKs6hOHyuUo=;
+	s=arc-20240116; t=1785387097; c=relaxed/simple;
+	bh=NYYY6bXttSIzHd98I87BJHvnHe3viVIhQmcGl5Svy7w=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AVpmJhMzKJKQsPRP//zXVFYKXYSxstE0d/xfCpVyqfbrD8G4AQgget1oywdiesnKQgqfvKswWTJ4SCXAO4uUcvoS5rA7PJ5sm3bgq6c42OPEjuKPOwpffkUuN0IESsDExjNJRFWAynR7EFMwQ+/zuienZsGuQNuNqUlTeHbUMGY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M+fa664+; arc=pass smtp.client-ip=209.85.161.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=A5JMmfRlE2uamht0ux+GUk5ZkxTWANOdqYKggv8hqvJKrhHoN6IURsnItnVWTyaGx0m9TzziKPRkUsJeJd7z1tscydRRz/YO0G3LWJUQhPufe3MSOKi4hifxcR+GukgyFdTR3YcsPuy1qv98u9es/vopXvxFDUr1Jdghrwe9G4Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=XBQKUVFP; arc=pass smtp.client-ip=209.85.128.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M+fa664+"
-Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-6acbf97e9a1so89682eaf.1
-        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 21:50:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785387036; cv=none;
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="XBQKUVFP"
+Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-81f52945098so8193347b3.0
+        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 21:51:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785387093; cv=none;
         d=google.com; s=arc-20260327;
-        b=P2fTkespbQUtFR5TseSr4ls4CXIuSWI4ht+LcqtdcWmp5N1PPVNDgstS+GsACdvqBS
-         x9TRnroXNz1B2Yf0dTxtys302A8oFlIKredDgnLb/0Y9AL/GwsXilE6Tp2ET/IHM/HyR
-         U8wKKZEqTvqWZvNDoahb6THO5YykmRz7GFRAHWd+KT1jEx0SfMArS8oRp4ioI3jcmpFK
-         XyRC3ex/YSvfo6qbaiqvVC1T0XGVRcEZ+QxUqUMrFjiG7GKcCcAVBXmnSs64nnkpV101
-         pj9ZSN1TMQEavZf+dr9ALTpCZZX4RKCxISFBiSTaj8prFMPpQCZ4LNfNedVd2quSXcYc
-         IdeQ==
+        b=UMnNDtizPsn/i3hv22SB0tcezqcchYLBZSKMbjxdoE3WJG0ppZwKUmkcQjbSM+z2XL
+         Ot5TT93gsNx4C0nj+0fj2ZqMeiM9N3BKOjMAOfUfovRyWBzO9A9sntSQLZGzdDHtoKq9
+         9oNeM/BYw1W0OAGPitA9POIYMZyml89vIkylTuEP8OAynlUncxk+DNjQxbwMLPPIK8fA
+         Y4Rv8kgrly172RMLEqAZEP9wVb82gboaRbt7CRdPFX2Dh5FzVQcH8olPVF37cKdvkMeq
+         hUuCsRBiI2qjAqoxrvTravMs5g9w9bjrRREuRpiaB9Utbp7gsf0Bw69AjreHTAvHJkCY
+         Dxww==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=x4/nkR85gHt/p05IHxpT90cgtYPAQUFwTKs6hOHyuUo=;
-        fh=GAdAYCPutPqlzwMz6nF77TW7mLnv/7ufSvivMqwuLqs=;
-        b=hpSDB4FCXNc2jmNSKmAKa9Ig3iEla6YO8yH9mLRWMHvfEpL6S4H80v5+HXdygXIZex
-         IVK4wCYGE8xUbrs0U06/jKBBGVhy447KP6rvmmubgZLDYjYW8pn863EIrun2zzMP39WG
-         +I/CHO8xc/5NrHQC8GqU1dCnGdFyAFFHwykSsZT8K0PDDRkwAzRWp9KjapuLFljqLzqd
-         icYSe4ev3nMl+MnlIlXvRdNN0CqTbqzE7Gob0hnQGeHK6cl0phaDG7ZshVzBg0XqX1VI
-         62Ms6OKEjTmcSX9KOAsKIMgWzyr0s6www0NCYka3uqNLZwP9cDU/pQFEDsjgJEpX3jVU
-         WGQA==;
+        bh=ayTdrhGTmTRlS5yubk7pA+8kF1TugqiIc+iTJFgG25U=;
+        fh=+3vW1XzRj0Sl1VnVPQcIlwODI4rcMOoPdDhWVfsj634=;
+        b=Umlylx0/q/vlsIT+cLBHqXVzxh5Fe30oMV50vXXgt25AlZa7b31vDN6qAl2jmHNYnR
+         KFjCYDziJgjKNij9egNfRAytCqCKwFZIxBzAtUNuke0Az8Y1Or4PFfV9aIaK3hTtg9ub
+         VdA1FoSoLI4eZpTyXzHX+0BggyoPLGznnBeExUF2eWa+vuol1K95ilrthT0gO2PItH8/
+         lPj/oeBIot16oa6GXWKtDtf7g567A6N1UfGS42uk65wZzNQBoycIp2lNdMvvvMTuInqk
+         h/7Cx3ecXD1kzJHp1oFtYrx9thy5rPQyWOOfS5Qcc2GqJe6yuzaMQnySipc6A35gmcfl
+         ybbw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785387036; x=1785991836; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1785387093; x=1785991893; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=x4/nkR85gHt/p05IHxpT90cgtYPAQUFwTKs6hOHyuUo=;
-        b=M+fa664+M6wfAokcE06JIfkQ9zVHlL3dZWf1tdyDQKjyveiYur8svwsj6NXzCMsVCD
-         2uqpOyvF5UTk7vWlHJRlKM1YVMlWoUFuuIkImTaObvOk1epoT/UMG8/VhIlMM2vqUzsM
-         znKovwXGZ0rmYykkGjvtDADwiR2VL7StTMaHXdx6rHHtFvYNU5QG9lmlzqISGteEmp9V
-         tDrxCpy2Xmoga/FIfeuqYuRbomNPvyHfygKmqe5FrMJdo9df7vkBqtvFiMUACV4prt6m
-         qE1FilJvGCnA6dVZMWImH0DxLC2SCPDooLEZyK0NBoRwaNyQexFKP1YUwTrDwnOXmKN8
-         7Cgg==
+        bh=ayTdrhGTmTRlS5yubk7pA+8kF1TugqiIc+iTJFgG25U=;
+        b=XBQKUVFPkPb7GsxBT3siztnVMv/M8zQAoRENDzknBzXsPMw/vaSYTL/wpA4iH13eGu
+         NWcSPEgqNwGTX+UT0fI0STZ0QU0nelJ6krNoY99ZCvPpQsqlz6ECd/eHf9IObNHK326z
+         BMNc1L2Ztq+IoKtdl/oPfN/acLGSy3p/Fy3LQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785387036; x=1785991836;
+        d=1e100.net; s=20251104; t=1785387093; x=1785991893;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=x4/nkR85gHt/p05IHxpT90cgtYPAQUFwTKs6hOHyuUo=;
-        b=f0cYnr0TZ27gw7qqdC1iuZms3JPH0MKadTfd0Q8GCsLqnRZKarA2Q6hcY5VdxV/wXe
-         zudb6RqsIsyUVD8j9cBE2aAhejnZGp5oNuZ7Jwd+hSMFVF0yhI/8A85aX7YadcLU4gas
-         uW5pohLsZIJ4L1WDsPxvLiCA8PNzpVwaPeA29ghESlqv3Ql6ARyA1cXE3Ft3fwie7Bx9
-         BiJ7EcMmCJN964KzY2DB5KXgDtJw0awl8LqPmacmkpn3h76ZPNtOv8ZE0RVV2BCqe7Hy
-         r/qpzkoRiL+gR+hGwrNDBi0gzXXf5I/a6o34q1wLcQvRaVAPsKrXR9eavnw8reZikMwP
-         gaBQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpO8i1pGJStXYC/mvW/b5lDLE7QD+Y7/enGMZFsa7si/TyMMAVlfBOz/6x0c80+hb9hJMxI0i/IpmaJ@vger.kernel.org
-X-Gm-Message-State: AOJu0YwxLuCDh+r3QXLdCNOdWlVKYxROKAqpj8V4I9FnijrQ2fGDQKdM
-	jEgzS/WpuffAPQJQQM4cR6EkKZbiEc7PUjYFeC4fq4a1c/jYQSMKgPVfgmhISBjbprR2MZtdNs5
-	MglaXdW2SGPSSOfQm5e77G4d/0ndj4flpQecGddI=
-X-Gm-Gg: AR+sD122Ygq/oab9PKo5asNr7sVjdhXpjvPQ2TuK+WNLx4Te3Jz1FTkLkQ+s8OkT3tm
-	jWV0axCiXMG+audXzUix7Q5iwI3KHuUW+2UgP+4LQRfwIb0PxCJTv5R/86EdcjAnSH3543w8hVH
-	ckE72HuiOEYaURNlE7NwJZDdx0pJb3PcBF1qo8AVUCRfNo5KpXjaAVh3dmHJ4tj3TlEaYMTXSHa
-	Xzc8MedosQzxNk9cOwPhWF6S116ndfKFiQBs/kLH8azl+5uTWKdlHPH+1xlIEwv8uBHdVjPROPL
-	Qs13LinI+/HrssgrJdOAc4QSd4B2WTyaQHJUgR90pv/Ze7Uxg31CuKjrzNvlVVN+8kqFVcwXdjd
-	DrI3P0Aq1oADUUykV8Wn5ZtgHCbF5b5ugK+4QUPkjSsEj1iJ8fO1V4YfVXewdrv0S7YhLQr8nNb
-	k76Ta01Wl3HhyanYV/Qoy8u6R9zl++7PCKt2XqImQ4BgbVGKL+rUaWvA==
-X-Received: by 2002:a05:6820:1a0f:b0:6ac:a88f:bb7e with SMTP id
- 006d021491bc7-6acbbd319dcmr707974eaf.10.1785387036300; Wed, 29 Jul 2026
- 21:50:36 -0700 (PDT)
+        bh=ayTdrhGTmTRlS5yubk7pA+8kF1TugqiIc+iTJFgG25U=;
+        b=YjPVYJ0C7yMlyjCkJ6idsIuiAy6caI2B2rflkwtvdEo/uVB/g7EEATcTsvfGE+9eyG
+         5OmnQraUi/8b6Yd3ZfOl6+IflMNsDZPHbyVHUk+lidcZCiFj4HKqZ6hr+/XGq1efYO1u
+         MZYmDLIIMn8U+GKqI9oEbPmrgGz7W6km/qxrBbaoqEgUS61xHfV3jRTre8tl/PvMsaGe
+         DMwO29LVQNp38x/amm6aQer/RPsPd0L0dcdhPz5q1k9n66y9cA+2EnUJSJ9uoEiEKIdo
+         AnlPjkZnr3e0MLXNJbEsUbTYYls1eQRnCqhZd4rgGnzauyDMW1+YofzLigcqXyyFVLHK
+         0p9g==
+X-Forwarded-Encrypted: i=1; AHgh+RqO2fYzmfEXMkwmTx94WLav5d+Vel/v+KNPRqQVUMB2VgBZIHYxGxVVyqD80LcTBz0+EGKNAKeLos0i@vger.kernel.org
+X-Gm-Message-State: AOJu0YwMWJJG4Fnnd648+Rgi3wbiinhOqZXacoxLlL9mXP5xG4ImJ1pE
+	RM630v5+y23/iOfSd7cWV9+V+ZGpuetAReJBHcaSQK5O62ksH0eLNl0nfrZXZjPqKZFIVNCy9Yk
+	0Q1QxxhdxumrQsnU7MfcdmORxRC7it1qbuX757LCG
+X-Gm-Gg: AR+sD10zCpy+TUx2tdyPfIF8fLhlyxa2HuJhloZNs5nilY/q02FxFX2dSG8HJSIpMyq
+	m9560bn7d3JSt0ndHho+LbZg7dOrCtAWyIpBbwFlAjt80T52mBkMAMR08YGGjfe15CdX+h8ETN4
+	cRxMZ44mhx6S1+GZZ7tV1essALeFPf69vuKPJEBrTOtFQcLEAZt1ztLHdO1+a5xX1p3XPoUufL/
+	Wn1rpgnL6R2phEUzg+L6+/Xlpx7pvdTvSvbFrN8vpnejzdsWWiP3OC+OAX59d8Okx4ColiiWWQ/
+	gZzS7dLp5T4ickt68OSwXT1Mroi9WsWYc3BvqZETf3UQvob7544zzvBEpnLQOUZG2d3VgbBdYRv
+	tDf2BgN5Jsg==
+X-Received: by 2002:a05:690c:288:b0:81e:ba92:b253 with SMTP id
+ 00721157ae682-81fb964be1amr5292937b3.4.1785387092765; Wed, 29 Jul 2026
+ 21:51:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260729064538.19564-1-kaipeng94@gmail.com> <20260729064538.19564-3-kaipeng94@gmail.com>
- <7eae2da9-1d4d-4ed2-85ba-4ec5d389b0df@packett.cool>
-In-Reply-To: <7eae2da9-1d4d-4ed2-85ba-4ec5d389b0df@packett.cool>
-From: Jactry Zeng <jactry92@gmail.com>
-Date: Thu, 30 Jul 2026 12:50:19 +0800
-X-Gm-Features: AUfX_myTvI8zL7ckXgbzmHbIIIfo9z4_b0Srq0DHDvkyZHz0yFFZUAHfP5Tj3Gs
-Message-ID: <CAManwEwiQXQJYP897hsq7R0-qj-2ocz+J7rX4ri82cF6gM6C7A@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] arm64: dts: qcom: Add support for Acer Swift Go
- Pro AI (SFA14-11)
-To: Val Packett <val@packett.cool>
-Cc: Kaipeng Zeng <kaipeng94@gmail.com>, devicetree@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org, 
-	robh@kernel.org, konradybcio@kernel.org, andersson@kernel.org
+References: <20260728091804.382753-1-wenst@chromium.org> <amiqKRkFItYwD6oL@redhat.com>
+ <CAGb2v64zUO-azpTuei6LCypad2noGFbg+EmaBC1iidoZ2stQzw@mail.gmail.com> <c1048eae-72c5-4e2e-ac49-25e2c4297018@collabora.com>
+In-Reply-To: <c1048eae-72c5-4e2e-ac49-25e2c4297018@collabora.com>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Thu, 30 Jul 2026 12:51:21 +0800
+X-Gm-Features: AUfX_mxnxexVKpsRakYQvwrmIlkydC8kB3j1QZQvD5J6WTjr-o8egQw_wYmWxF8
+Message-ID: <CAGXv+5EgGYFVt4TJCysQgRqA1J5=Qz9c0oWY5YTxgc5PnNC_AQ@mail.gmail.com>
+Subject: Re: [PATCH v4 0/5] powervr: MT8173 GPU support
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Brian Masney <bmasney@redhat.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti <luigi.santivetti@imgtec.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, Icenowy Zheng <zhengxingda@iscas.ac.cn>, 
+	YoungJoon Lee <getfeus@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jul 30, 2026 at 9:46=E2=80=AFAM Val Packett <val@packett.cool> wrot=
-e:
+On Tue, Jul 28, 2026 at 10:33=E2=80=AFPM AngeloGioacchino Del Regno
+<angelogioacchino.delregno@collabora.com> wrote:
 >
-> On 7/29/26 3:45 AM, Kaipeng Zeng wrote:
-> > Introduce device tree for the Acer Swift Go Pro AI (SFA14-11).
+> On 7/28/26 15:13, Chen-Yu Tsai wrote:
+> > On Tue, Jul 28, 2026 at 9:10=E2=80=AFPM Brian Masney <bmasney@redhat.co=
+m> wrote:
+> >>
+> >> Hi Chen-Yu,
+> >>
+> >> On Tue, Jul 28, 2026 at 05:17:58PM +0800, Chen-Yu Tsai wrote:
+> >>> Hi everyone,
+> >>>
+> >>> This is v4 of my MT8173 PowerVR GPU support series.
+> >>>
+> >>> This time around Mesa was ready for basic testing, using both vulkanm=
+ark
+> >>> and glmark2-es2-drm (with Zink). Details below.
+> >>>
+> >>> Changes since v3 (all in the clk driver patch):
+> >>> - Changed pm_runtime_put() to pm_runtime_put_sync()
+> >>> - Added missing of_node_put() in remove function
+> >>>
+> >>> Changes since v2 (all in the clk driver patch):
+> >>> - Made COMMON_CLK_MT8173_MFGTOP depend on PM
+> >>>    - Needed since the driver implements PM domains using the generic =
+PM
+> >>>      domain library, which also depends on PM
+> >>>    - Fixes build breakage (kernel test robot)
+> >>> - Fixed "RST_DELAY_CNT" name (Brian)
+> >>> - Dropped unused mfg_desc (Brian)
+> >>> - Added check of clk_prepare_enable()'s return value in
+> >>>    clk_mt8173_mfgtop_power_on() (Brian)
+> >>> - Saved error value for return in IS_ERR(data->clk_26m) branch
+> >>>    (Dan Carpenter / kernel test robot w/ smatch)
+> >>>
+> >>> Changes since v1:
+> >>> - Adapted to changed DT bindings
+> >>> - Dropped driver change
+> >>> - Use same power domain for "a" and "b" GPU power domains
+> >>>
+> >>>
+> >>> This series enables the PowerVR GPU found in the MT8173 SoC, found in
+> >>> some Chromebooks.
+> >>
+> >> I'm making a pull for Stephen for the clk changes. Should patches 1,2,=
+4
+> >> go through the clk tree? Patches 3,5 go through the DRM tree?
+> >
+> > Only patches 1 and 2 should go through the clock tree.
+> >
+> > Patch 3, 4, 5 can all go through the soc tree if Angelo wants to pick u=
+p
+> > DT binding patches. Otherwise I can push patch 3 through drm-misc.
+> >
 >
-> Are you sure it's called that?
+> Not sure if I can really take the DRM bindings patch through soc.
 >
-> I think GoPro (the action camera company) would not have been very happy
-> with that branding :D
->
-> https://duckduckgo.com/?q=3DAcer+Swift+Go+Pro+AI+(SFA14-11)
->
-> It's only been called that (with the "Pro") on the ubuntu forum and
-> such, all the other pages refer to it as "Acer Swift Go 14 AI", no "Pro".
->
+> I will take the devicetree ones exactly right now, even though it's going=
+ to
+> give warnings.
 
-Regardless of what camera companies think, this is it.
-The model is sold exclusively in China under the name "Acer =E9=9D=9E=E5=87=
-=A1 Go Pro AI".
-Since other Swift models were marketed as "=E9=9D=9E=E5=87=A1" in the Chine=
-se market, I think
-it is appropriate to translate "=E9=9D=9E=E5=87=A1" as "Swift" in this cont=
-ext.
-Additionally, please distinguish between the model names "SFA14-11" and
-"SF14-11". I think this was well discussed in the earlier versions of
-this series.
+Apologies for missing this, but the first DT patch depends on the clk DT
+bindings patch for the clk ID macros. This is causing build errors in
+linux-next right now.
+
+Not sure how we can fix this right now.
+
+Brian, would it be possible for you to split out that patch into a
+separate immutable branch for Angelo to merge?
+
+Otherwise Angelo might need to drop the DT patches until the next cycle.
+
+
+Thanks
+ChenYu
