@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BED23C1D70
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 15:32:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D0CB194A6C
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 15:32:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785425552; cv=none; b=NCucYOjlXRJyzsqg2FxhkcbXegYgTMWqGald4ZYo3gNKNc+peoGYdQ9X4I0Xc1HdEzsOEDoOZ/pcpCyETc54hJNkwqxwjdLeb/nmsMfqAiaOzj5hBDZ75MZrHeiS4dB7/0hD+2JPlp4r05kfhiysLghgk6CEM3zZ5RSvSy478u0=
+	t=1785425558; cv=none; b=SoZ36Lsn8n2dS5SgGXpXyKaG5LrD4vSwVZWECr+CiG/zEZ5D9b2wpvrlOAxEBl6Cr/TCpCyO4REMT9QOvRZYlrIH5i9b5yU4eBjKAgXFY3pT9FMDJDWjLBvIJPa0Du6hdu08+HKKHI0kdekCkAEg9snw8lJD5mkkJkx2OOkmT/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785425552; c=relaxed/simple;
-	bh=0s5wzu4q/Y7Pyx2udO6rOgZ1rvvN+FvD/kubSe2xWVg=;
+	s=arc-20240116; t=1785425558; c=relaxed/simple;
+	bh=iD3Kkh4N8tnCOaKueSda+XrpsP3WNDlW85HnawW4O8I=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=us7uuGQSBmeOvearZ46vJnnRVA5mvyNtVF7uzBO9jv+EwHLVGptf+oeU5TH1/fv2BsIWjov6cYmGOHGaLk8cfp23R1+9g5dGK5dW+SyxdKPCaHXuuz3nTpCVTSw3aFnyL+964k9MOb0dDDQUWcDerT5zSVLTysL4aLhLeEpP0k4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LtZrvLhi; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=UrbeNzzK9SWMVLwwxVzv4OZnaJuvKR43O8JlrS5KofMllC4Imc2XrVGRYeiPbpHzH1ysrg8ac8TN/vPxdTxemKF8PfK2u6rhw8dDa0XouywoJR0dCNIs/Ld51xH4k2u9EYoD6tjP+IOtvj9nWU4a0e3SPHQ1dbLJxZEoBIigaa8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jxwtz2f+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LtZrvLhi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BEDF1F000E9;
-	Thu, 30 Jul 2026 15:32:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jxwtz2f+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 773A01F000E9;
+	Thu, 30 Jul 2026 15:32:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785425551;
-	bh=q7ebgAO+8SzC4aKu74psayKb6S6HHSQsWGoqk2HltPw=;
+	s=k20260515; t=1785425556;
+	bh=Wag7+XaRq8gXmkBnBAZP5dr0WAuUBdkwCXmOoK7uV8Y=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LtZrvLhifZGY8Sm9T8DTg3DoaMv+J2Yst9LXgB5L9Tcx9h2Xib6UsjM5L5GlNf85+
-	 VWOWUx2hSDxJIWhLo2BOwDjiWsmM+878A92523eDaaoR8xhP6zuYqbs2KeeIdGqjQN
-	 rzQqNL3Z6igHl/XJPGXHbUnVpx9aadjDKCGgracA6aM4MmhDLwY1LyyNHfVdGRtp5Q
-	 h5N+YmIwsteFQ/4UP73UwQvKA8Cp5QQhp+P8XlDqAKK/oZSruoGgkLcefp4yQVzSfa
-	 Pf8hXFXW4wmUwq2OaVlSLdv6gpHTU8a1rF9fyd+jKWm7FxY8oUx688fGBPEdUN/spJ
-	 BgIXDDibU9TcA==
+	b=jxwtz2f+FXQzHjkvpq0irVzdjUflZgWgLyM5ibYA6rs8MRIrjtR2CyUjn2nMqTM5w
+	 z9J7topeDdMqxpPmigvuLqVU1BxNPKyaymNGNH365FF5YXZ1Cec6uDJ2yjVL/Gg16U
+	 Mk1bHK0YuQrR8vdVxnlTEXOeqZ4RJNn6TwR9Ae3BIf1xjv4plyFeg9RQ5O8BqrhL1T
+	 UG2f4nqXn6KFHGG4NO7DpYizjNkE2b1ViM90Qs0PvVTxqn/50WDTc5ncxpWGuUXGdu
+	 tkmemuLt5MZJAyATDbf5OnUyFrzYvMtufnmOf+sDCLV89EEvXCRAZO50GEHZtuMkue
+	 MUMAngAi8+xWQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 08/18] media: iris: Add platform data field for
- watchdog interrupt mask
+Subject: Re: [PATCH v8 02/18] media: iris: Skip UBWC configuration when not
+ supported
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20260730-iris-ar50lt-v8-8-6597c08cea6f@oss.qualcomm.com>
+Cc: robh@kernel.org, media-ci@linuxtv.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260730-iris-ar50lt-v8-2-6597c08cea6f@oss.qualcomm.com>
 References: <20260730-iris-ar50lt-v8-0-6597c08cea6f@oss.qualcomm.com>
- <20260730-iris-ar50lt-v8-8-6597c08cea6f@oss.qualcomm.com>
+ <20260730-iris-ar50lt-v8-2-6597c08cea6f@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 15:32:30 +0000
-Message-Id: <20260730153230.9BEDF1F000E9@smtp.kernel.org>
+Date: Thu, 30 Jul 2026 15:32:36 +0000
+Message-Id: <20260730153236.773A01F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,58 +47,78 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Incomplete refactoring of watchdog interrupt bitmask. The new `w=
-d_intr_mask` field is used for clearing and handling interrupts, but the ha=
-rdware unmasking in `iris_vpu_interrupt_init()` still uses the hardcoded `W=
-RAPPER_INTR_MASK_A2HWD_BMSK` (`BIT(3)`).
+
+Pre-existing issues:
+- [High] UBWC system initialization is skipped on unsupported platforms, bu=
+t UBWC V4L2 pixel formats are still unconditionally exposed and accepted, l=
+eading to invalid session configurations.
 --
 
---- Patch [8]: [PATCH v8 08/18] media: iris: Add platform data field for wa=
-tchdog interrupt mask ---
-commit 7b1829b3b98fff57fbf33321045b38db86f344d4
+--- Patch [2]: [PATCH v8 02/18] media: iris: Skip UBWC configuration when n=
+ot supported ---
+commit 2c20085257ddd4d7a77928a6e07815a827326525
 Author: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
 
-media: iris: Add platform data field for watchdog interrupt mask
+media: iris: Skip UBWC configuration when not supported
 
-This commit introduces a new platform data field, wd_intr_mask, to support
-different watchdog interrupt bitmasks per platform. It updates the interrupt
-clearing and watchdog handling routines to use this field instead of the
-hardcoded WRAPPER_INTR_STATUS_A2HWD_BMSK macro.
+This commit skips Universal Bandwidth Compression (UBWC) configuration
+during system initialization on unsupported platforms. It achieves this
+by checking if the UBWC encoder version is non-zero before sending UBWC
+properties to the firmware.
 
-> diff --git a/drivers/media/platform/qcom/iris/iris_vpu_register_defines.h=
- b/drivers/media/platform/qcom/iris/iris_vpu_register_defines.h
-> index 72168b9ffa738..4fffa094c52fe 100644
-> --- a/drivers/media/platform/qcom/iris/iris_vpu_register_defines.h
-> +++ b/drivers/media/platform/qcom/iris/iris_vpu_register_defines.h
-> @@ -41,7 +41,6 @@
->  #define MSK_CORE_POWER_ON			BIT(1)
+> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_packet.c b/dr=
+ivers/media/platform/qcom/iris/iris_hfi_gen2_packet.c
+> index 0d05dd2afc07d..6e04175eb904b 100644
+> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_packet.c
+> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_packet.c
+> @@ -140,6 +140,9 @@ void iris_hfi_gen2_packet_sys_init(struct iris_core *=
+core, struct iris_hfi_heade
+>  				    &payload,
+>  				    sizeof(u32));
 > =20
->  #define WRAPPER_INTR_STATUS			(WRAPPER_BASE_OFFS + 0x0C)
-> -#define WRAPPER_INTR_STATUS_A2HWD_BMSK		BIT(3)
->  #define WRAPPER_INTR_STATUS_A2H_BMSK		BIT(2)
-> =20
->  #define WRAPPER_INTR_MASK			(WRAPPER_BASE_OFFS + 0x10)
+> +	if (!ubwc->ubwc_enc_version)
+> +		return;
+> +
 
-[Severity: Medium]
-While WRAPPER_INTR_STATUS_A2HWD_BMSK was removed and replaced with the
-platform-specific wd_intr_mask, does iris_vpu_interrupt_init() still
-hardcode the mask?
+[Severity: High]
+This is a pre-existing issue, but while this patch prevents UBWC system
+initialization on unsupported SoCs, are UBWC V4L2 pixel formats still
+unconditionally exposed and accepted by the driver?
 
-drivers/media/platform/qcom/iris/iris_vpu_common.c:iris_vpu_interrupt_init(=
-) {
-    ...
-	mask_val &=3D ~(WRAPPER_INTR_MASK_A2HWD_BMSK |
-		      WRAPPER_INTR_MASK_A2HCPU_BMSK);
-    ...
-}
+In drivers/media/platform/qcom/iris/iris_vdec.c:check_format(), the request=
+ed
+format is validated against a static array without checking for UBWC suppor=
+t:
 
-If AR50LT has a different bit for the watchdog interrupt, will it
-remain masked in the hardware because WRAPPER_INTR_MASK_A2HWD_BMSK is
-still defined as BIT(3)?
+    case V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE:
+        fmt =3D iris_vdec_formats_cap;
+        size =3D ARRAY_SIZE(iris_vdec_formats_cap);
+        break;
 
-Should the WRAPPER_INTR_MASK_A2HWD_BMSK macro also be removed and replaced
-with wd_intr_mask during initialization?
+If userspace selects a UBWC format (like V4L2_PIX_FMT_QC08C) on an unsuppor=
+ted
+SoC, it appears drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c:
+iris_hfi_gen2_set_colorformat() will still send UBWC session properties to =
+the
+firmware:
+
+        switch (pixelformat) {
+        ...
+        case V4L2_PIX_FMT_QC08C:
+            hfi_colorformat =3D HFI_COLOR_FMT_NV12_UBWC;
+            break;
+
+Since system-level UBWC configuration is now skipped, will sending these UB=
+WC
+session properties cause firmware errors or stream failures? Should the dri=
+ver
+also filter out UBWC formats during enumeration and validation on these
+platforms?
+
+>  	payload =3D qcom_ubwc_macrotile_mode(ubwc) ? 8 : 4;
+>  	iris_hfi_gen2_create_packet(hdr,
+>  				    HFI_PROP_UBWC_MAX_CHANNELS,
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-iris-ar50l=
-t-v8-0-6597c08cea6f@oss.qualcomm.com?part=3D8
+t-v8-0-6597c08cea6f@oss.qualcomm.com?part=3D2
