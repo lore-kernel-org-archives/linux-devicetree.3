@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A74449B30
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 16:03:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB93A449B35;
+	Thu, 30 Jul 2026 16:03:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785427414; cv=none; b=fjigig2NBKkjuDYVqtLZuf/6VVuO5FejEEZJ5CmH2q3lPl7hPVbkQJ7Iq4OoR6B0GOjpn78fVYLcI8FJ23HTmIMA1lp235PYwynfhWbbemVwMl7YrkBmzx1ov/FcjI3GUMTxvmF0fJGOw5Q86tvevzo+ISFvAaRa1dFj/pbmyxE=
+	t=1785427415; cv=none; b=b1qKCHg8KnTuaYvHiZOdIk/cAwGjrTfrxosCds0Tiq/c+XP78VIRZk4aFtl9JKDDIo2k0744vt4nhfg4712a3otAg2CTb6+IPFBrLa22erZWwLFgpm2JhXVdNmf6ublbqSvrTzkp2e/ylLCcsBkcCOPZhvCymnKqUPT3MSWunnY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785427414; c=relaxed/simple;
-	bh=W3ZCJ2Thyaylk4281N4/5Mw4dDyhWO09uhJDtY+Nf0I=;
+	s=arc-20240116; t=1785427415; c=relaxed/simple;
+	bh=ceEe461xnkPr7KVo3Q/8xQYbBkQdxxrp7f8TIeSjez4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KPjN2U3OggnNSRDzecpfLk4XMAYe4BgCqliyBSOTy9oDJOyENSeVhU1kTwPOCm3evrOmI5ZNDJVrTnTXoPEd0NJy5jlTl53vyHKuv4Y4Ow5aO8W9V7qwtjSefpoYRgQmyBM0DSp9TAqX3dxq6DjM4TheUb5PSttAsxZKEXs6pP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oFqdNKN1; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=C3qOSIwagYruTRUvzldLF9JPtTgJX/A1isF0ImkGlEnzV+0uO6/2E36sI+44hxF2hemwWJwSanaCymumZEjV96Y8TCijRY+wxL2mz4grI4suANmgYQC18Uz0O7kMNDveFN/cMD8i55SB8UVPyoYoC5DCZXX2yNl0pPnEOquSr0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l6Ieme5t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oFqdNKN1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0BF31F000E9;
-	Thu, 30 Jul 2026 16:03:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l6Ieme5t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FC5D1F00A3A;
+	Thu, 30 Jul 2026 16:03:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785427412;
-	bh=SP7qprh71lB7CsgKqkfSjxrC6nOimwTVnskfl2jRJ9s=;
+	s=k20260515; t=1785427413;
+	bh=mT6jpMPoiUXp90l9UyfSzAJa+9jo1OUsisnALTf5JSI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oFqdNKN1Xzidw/ph690WO/dZZ6E0StcDp3Cb7l3F2CUDOXAHXkeF9U1KGcLc53ddV
-	 IjlgPII2p6qPCrIJH6Qq1FXV2/qIigxrxGl0Cd4izMLr9qoCeW/NPQuimX6A4kLO6t
-	 690e6zOVVU8SXPmtGBmbRokj0l3M3N49XiYnkuP56x7k5A0k8SiCpUwrViXuHGz7rs
-	 pZD+NH6Nlf3RnXeIUibX9PLqlKv9v+QjnOSyWVFzaTZNeXRLxnyzaIJpTHTmBNFsU+
-	 xOvc0vKPIkv1b50orsNQMQVLG5V1ub03stFakEm/03L6m+IFvzvLYwEyPXyv4jCjj1
-	 CHxA5SO4g1e8g==
+	b=l6Ieme5t1w+tpLcPWieC39dFmGAWTqAK0JMxQEv2lsD23MzcHO3VPn6OM8BgVrVdD
+	 IbsqjJUETIkCdYPbagSOgnrtxBo0L8ZXabkK4bytaDSW/r5mXUQ8UJHL1lFUWkKXXa
+	 LjDKsx1QBYcTuWU9hDrR7NgbU5G01EicRUBqvuqXYI8fUHdg3iBBR/dnbd+QB2hF2v
+	 QNU0rOQ7GUcHU6CS8PKseM1N90LyNImWypAfq39rY/YPke56SBAHATcWqi+7VrDYPF
+	 VmldkGYwOpceMFvyrVOzZO9YP/QEo+9BMFtA6o75Jf3S6AfvueLXC06SzXkrQ5TKpP
+	 oyLLMaxjwB8yA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v8 6/9] net: mdio: realtek-rtl9300: Add page
- tracking
+Subject: Re: [PATCH v7 3/4] hwmon: pmbus: add MPQ8646 driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Markus Stockhausen" <markus.stockhausen@gmx.de>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260729160227.155613-7-markus.stockhausen@gmx.de>
-References: <20260729160227.155613-1-markus.stockhausen@gmx.de>
- <20260729160227.155613-7-markus.stockhausen@gmx.de>
+To: "Vincent Jardin" <vjardin@free.fr>
+Cc: robh@kernel.org, linux-hwmon@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260730-mpq8646_v0-v7-3-e7c7ad768d5d@free.fr>
+References: <20260730-mpq8646_v0-v7-0-e7c7ad768d5d@free.fr>
+ <20260730-mpq8646_v0-v7-3-e7c7ad768d5d@free.fr>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 16:03:32 +0000
-Message-Id: <20260730160332.A0BF31F000E9@smtp.kernel.org>
+Date: Thu, 30 Jul 2026 16:03:33 +0000
+Message-Id: <20260730160333.6FC5D1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,63 +46,47 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Data race on `priv->page[port]` due to missing `priv->lock` in `=
-otto_emdio_notify_phy_detach`.
+- [Low] The `alarm_poll_interval_ms` variable is accessed and modified conc=
+urrently without any locking or atomic primitives, leading to a data race.
 --
 
---- Patch [6]: [PATCH net-next v8 6/9] net: mdio: realtek-rtl9300: Add page=
- tracking ---
-commit 05ca21acb226d57fd7de64847d2a32c8443b9dcd
-Author: Markus Stockhausen <markus.stockhausen@gmx.de>
-net: mdio: realtek-rtl9300: Add page tracking
+--- Patch [3]: [PATCH v7 3/4] hwmon: pmbus: add MPQ8646 driver ---
+commit 013992e945508f7fa55c531019d24aec0d1d90cd
+Author: Vincent Jardin <vjardin@free.fr>
 
-This commit intercepts accesses to the Realtek page register (C22 reg 31)
-to prevent interference with the hardware polling unit. It stores the target
-page per-port and injects it into hardware commands. It also restricts C22
-bus attachment to Realtek PHYs and resets the cached page upon detach.
+hwmon: pmbus: add MPQ8646 driver
 
-> diff --git a/drivers/net/mdio/mdio-realtek-rtl9300.c b/drivers/net/mdio/m=
-dio-realtek-rtl9300.c
-> index aca0a9448bb0c..dc3661b2cd945 100644
-> --- a/drivers/net/mdio/mdio-realtek-rtl9300.c
-> +++ b/drivers/net/mdio/mdio-realtek-rtl9300.c
+Add a new driver for the MPS MPQ8646 that is a PMBus device. Includes an
+in-driver alarm-poll fallback for boards without SMBALERT.
 
+> diff --git a/drivers/hwmon/pmbus/mpq8646.c b/drivers/hwmon/pmbus/mpq8646.c
+> --- /dev/null
+> +++ b/drivers/hwmon/pmbus/mpq8646.c
 [ ... ]
-
-> @@ -608,12 +632,17 @@ static void otto_emdio_notify_phy_detach(struct phy=
-_device *phydev)
->  {
->  	struct otto_emdio_priv *priv =3D otto_emdio_bus_to_priv(phydev->mdio.bu=
-s);
->  	int port =3D otto_emdio_phy_to_port(phydev->mdio.bus, phydev->mdio.addr=
-);
-> +	struct otto_emdio_chan *chan =3D phydev->mdio.bus->priv;
->  	struct mii_bus *bus =3D phydev->mdio.bus;
->  	int ret;
-> =20
->  	if (port < 0)
->  		return;
-> =20
-> +	/* avoid wrong cached page for next attachment */
-> +	if (!priv->smi_bus_is_c45[chan->mdio_bus])
-> +		priv->page[port] =3D 0;
-
-[Severity: Medium]
-Does this write to priv->page[port] need to be protected by priv->lock?
-
-Looking at otto_emdio_read_c22() and otto_emdio_write_c22() introduced
-earlier in this patch, accesses to priv->page[port] are protected by taking
-priv->lock. Here in otto_emdio_notify_phy_detach(), the assignment happens
-without acquiring priv->lock.
-
-Could this cause a data race if a concurrent MDIO read/write ioctl occurs
-while the PHY is being detached?
-
+> +static int mpq8646_dbg_poll_interval_set(void *data, u64 val)
+> +{
+> +	struct mpq8646_priv *priv =3D data;
+> +	bool was_off =3D !priv->alarm_poll_interval_ms;
 > +
->  	ret =3D otto_emdio_set_port_polling(priv, port, false);
->  	if (ret)
->  		dev_err(bus->parent, "failed to disable polling for port %d\n", port);
+> +	priv->alarm_poll_interval_ms =3D (u32)val;
+
+[Severity: Low]
+Can this result in a data race when accessed concurrently by the polling wo=
+rker?
+
+If a user writes to the debugfs file while mpq8646_alarm_poll_work() is
+running, the worker thread reads this same variable to determine the next
+delay:
+
+drivers/hwmon/pmbus/mpq8646.c:mpq8646_alarm_poll_work() {
+    ...
+    schedule_delayed_work(&priv->alarm_poll_work,
+                          msecs_to_jiffies(priv->alarm_poll_interval_ms));
+}
+
+Should these accesses be protected with WRITE_ONCE() and READ_ONCE() to
+prevent KCSAN warnings and ensure safe concurrent access?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729160227.1556=
-13-1-markus.stockhausen@gmx.de?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-mpq8646_v0=
+-v7-0-e7c7ad768d5d@free.fr?part=3D3
