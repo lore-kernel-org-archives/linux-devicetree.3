@@ -1,88 +1,89 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0A8C44BC93
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 16:00:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F68544E045
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 16:01:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785427261; cv=none; b=e06KwzHAY3XHizf+Lfqii8Rgi2tMgE6Y3MGiFp7GkReKj42n3h64LWuGsEzII9rfY1nOjaBmmNWRf/QO/WtDm/QwVQkc1xGNY8SSPSWEag2C1/0A4Co4NpkRNFMZ9FRQR1PdQ1CWB6TT7sSRmHg+hOCuTBy3+Q5EiHYwN0ay2yM=
+	t=1785427266; cv=none; b=ejW7BVeugsn4KfSRGIKtmqZoTSLqpjuJasH6skoBL4GaIPCwL5xHz3QYzx7QAZzPQCB+0fio6CLcOmwE2Vd7pgU8T5trtLZw6bK7gCsajYe+ARLOsF/DqMveR4o8yZlZGxjq33QxMX4VLst46VawbjeXy9Jd5jH5HAGVOttMvOI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785427261; c=relaxed/simple;
-	bh=e1BHr0wmF5299UV1v6fL7f7L0crddyWGWs5kiho4htM=;
+	s=arc-20240116; t=1785427266; c=relaxed/simple;
+	bh=L92wgefYXvtbzOMdFEhUTkLwtCR1yYb0ZcvRRGDMuNM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Jqv5NOlWyYLlCZHqrBCN/f6yODhCytpf8ax5DEkDNCo+mgyIw7i2d8heapoO03JcYB0GwLg86a/EONAhPUuMejqxXn1QutWR+Vo+3MiE3mkyY5aDArbbbNCdClz3A3m2LPeI58gGywihRjSh+vy3rnFMsGQPnJ43u5UgBGV0YfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FSJ9MQDu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Y8BOjgjc; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=SDXNK1RTDCHyE8AiKTlV9MZWOl8c4+nAieQVzbhjjySC4EC/1DI5Il8ERBRmS0V9bJyP+moZ+gfak/KR9dGPeP4wtduDX2JCYyIJMk7UJ76BknYV39frhfJfDJdUvttOzdlKryXmiZjhbm8rttPYaKJOy5m+XBKBmxqrpMAbHag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YT7WVXhE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=c7eBGp/v; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FSJ9MQDu";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Y8BOjgjc"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66UFRQ4G1224608
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 16:00:58 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YT7WVXhE";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="c7eBGp/v"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66UFQvdV1475240
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 16:01:03 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	aDt5pjeFtajo9LKvxXqbwHoJxyk2CqVKt7fGD3zDCJY=; b=FSJ9MQDuIz1U6hI6
-	SpkIH2oF4oSwoCYtA/PO/IRefZoco8KcIBWM8ukHFXxfjDY1wkhzs/720TUR4ad7
-	glCxACA0h303CnwvgEZEbeU1fz9MLabU9RfIasN2ceNOd7GTbtH/QIMG/+l3g8tG
-	df2MSCFWktAk2/EXaeGPKCEcIOAJFyiRv6UBhWouj/zLOxegRtzOKZ43WsXbDHQ5
-	qgRB4FSzNo3SF0eGGstsrL+1er75AZSg3v6nWtpSnRSRXxCKQchS+3UQSSBHMZX9
-	MQ8PDC+3Sbya6JUkiod2wo483m2Ie8YQcM25pzOxTWjz6TnmTKTlpv48uJvFvEOB
-	TF4iEA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fr8jmrem3-1
+	cPeNqGPMRBWAfsA5CvuzYdqPrDk9qOkztMDjoEMaK1o=; b=YT7WVXhEsZRuo4tj
+	rRS18ZkhpL5M/kLvIYGgnkfXMVwlcTPPbuqRyMuROdWq9ab8QuFzzS63kAEy5Bi7
+	Bvul0ORPu/UUS9bzL1gT27Zxr+5i5GR57qvYOl+bme9l1fq5wRTG5PZrnEw1l1eW
+	1/rR4Hr3YnpsT2IOumRcSXZ6WlkW2Cw7icpC/OTfAsoMgmmy8/lGe11+NAlgfwKh
+	4I7NSS5Jjo8umJcK+JZEfDhGuzM2LaU8JxjSapPBb1pC1al/8a794ME7mQaDak3J
+	BmjU11jGwrDQ8FhK1xknkfHycAOXCqqXpbGdQGFoXBO6yOHNx/aJtQe9jm32PfGv
+	wl8fGQ==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fr7q3gqe0-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 16:00:58 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92e55f0613cso210613485a.3
-        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 09:00:58 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 16:01:02 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5283fa0656dso12134501cf.1
+        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 09:01:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785427258; x=1786032058; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1785427262; x=1786032062; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=aDt5pjeFtajo9LKvxXqbwHoJxyk2CqVKt7fGD3zDCJY=;
-        b=Y8BOjgjclmqlTcbHCzZ5Qdd+0YeW6L2SlYEYnfuHeEgxvv8bv0Qbx5Ja5IaQy4u/yH
-         MivGlZjWUz8Hr3iCtgoWgHBDDj7MazVeisTagZ/WDZvDfA7PfiK/u0Z4fBFHjNBMkhnT
-         bq4vunQ/FmLcJ3+9nWP3egpjsjkhCCMuYJuiuY8S/DoOk0bbcvxPTZ1veaXyGy3mVMcg
-         +L3Mi9+oKLYJFEeQzRZWHY/wtYohVxuPCV7JkWg3bia3OiY43KnRIwiP9U9Tk09PXHpd
-         I+lMJJihh2TsB1TAznuP9Q0XzOyhMnekjfFrM8CwAzoYlGS41MggFr0jXKCdR659HITR
-         Dghg==
+        bh=cPeNqGPMRBWAfsA5CvuzYdqPrDk9qOkztMDjoEMaK1o=;
+        b=c7eBGp/vY0cHLNRlKO5upfkX4e4aWZIV/B8yN383nMapLLHloSJzLqto2X4chQfPqY
+         pmHS803tEb6Swjqg2nPbdPRDHlOcG5isZMrvnbM2QchGeHrOHYUgxXrx3OEuDD1pTJB2
+         d/quBbt8NNAuix77mkfw7WsD29FCUcbQxop+Nwv/K3ze1BS4vGd7i2AdRGROf+qHYvFY
+         O0ktu0UpFhNLK2ROgkxeoBHg+y9u3ZJuay7e9UA0HAscu6FAW0tkbCDVpA/d7l2Lk8F3
+         OOQlDZcAl7cFVP7o5X/VNIwxePjZCodVymLMrmL8eYYBy2damXfeZkmPnFpMvjlp0yAj
+         /FPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785427258; x=1786032058;
+        d=1e100.net; s=20251104; t=1785427262; x=1786032062;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=aDt5pjeFtajo9LKvxXqbwHoJxyk2CqVKt7fGD3zDCJY=;
-        b=U7Dz7LvPPv39/zJPwWjeWzQkKvw5PNLEcIo0OsxVQ8+PWXm/59AgeJvM5qqz7bBr81
-         XCnpK1fZYcKnKNdNSNvB6LpWI5i84L8LoHSWzudwqwvV/85AWcxlorIW2liXji7WmbDf
-         JhywrtSvJJ/m8qt/Xj2IwRmTKyN6oDs8ZLQruoZqXZPJX5ZpQEuKysiNSdYyi98xshWg
-         IU654CJqFJGysFCNwdHxFmVNqUToZkyIl27pY6X95vu8H5BVIrkLvXDi6qadGSyFvT/9
-         nuJ0wTtJV3RgSpa629Gq1OLn3VGsUu+EiH9nn3kGy0NdX/tt2zj0pqahiSBQrqM8jnAo
-         OdKA==
-X-Forwarded-Encrypted: i=1; AHgh+Ro0r6pZTbXeNbfb/zoQKBIU8lqcUAqS6igfzg8CbudyG9AeQEBBU6JD4emQ4uYQGfhI+LTqvH5umvo6@vger.kernel.org
-X-Gm-Message-State: AOJu0YwK6j00RFHPmYK4ZjHB1ZqHsetxGT9JiSrC9SmRLfNNgnEAQIUp
-	Locus0u/xOfDLkZUDgBluN6rqBr9bAH1Tz7cU/3nGU+awfo5ckolO7UcF3Ppm5gSr8poK87HCmh
-	8oFwdRs/StVNrkLU9alfblt3MprGe/PSP7iVqOOCf405UmF/OSaMit9iU2JSgVK4i
-X-Gm-Gg: AR+sD12UAGSjZe65yJ55pljC/17dll6uouWsCxoDEsayWhe92S+wKHsWGNFzLslza4M
-	pXly3jD6MZF3RbK82qVhXDPkx1PxUso/kFiBUDznlpa/yH3ee6MbmHUxUuoaDzA3o75R2WF7Yx+
-	cS374bJ6RKjbGiD9F5V1J+s83fa+/DBpZ2xvIkV5ctclEW1IK+lymvpGbiVZ7RZ/7MncgqCOWgn
-	Kx6JoeSgUc4qhgAFNRl9eWuYSx6TK4Xv7DWKmkePLkpVybQpLSotbE1O+nG5VjfSgTxPQ+ePO8O
-	EYH8AA1bSGxerVZlvhnTKrm6NvMzh38uc5eAxVkrPoN7jEIcCgwvau8quLhJ+oyDxwhZrk3+PVO
-	RTmCRENAfyIOunG5Eib01Za8McpmX2X4DxdyBPtjW7owWYVd+CrEshXa3sxpNj5IvC5PhnOlw8G
-	Gz/hlq4pFPD/jbRegP0eOQWmoD3cz6gixCshBiP7/GTrTYhY0NEqHI
-X-Received: by 2002:ac8:5703:0:b0:51a:8e07:59d5 with SMTP id d75a77b69052e-52b38368a96mr31927121cf.12.1785427257372;
-        Thu, 30 Jul 2026 09:00:57 -0700 (PDT)
-X-Received: by 2002:ac8:5703:0:b0:51a:8e07:59d5 with SMTP id d75a77b69052e-52b38368a96mr31925901cf.12.1785427256465;
-        Thu, 30 Jul 2026 09:00:56 -0700 (PDT)
+        bh=cPeNqGPMRBWAfsA5CvuzYdqPrDk9qOkztMDjoEMaK1o=;
+        b=MiRaakBKjcksI48LfxTaVFekc3I6EwtMzMGE0749W+c50TFtKlj0i6Iu7zIKWc6hfN
+         c3pkdbP7iXUU37aeHqSnohwo8pBdSJWkeWHi39TNoCL4fZw5yUOaWqM2kA5Urhke7yTF
+         Hh8LUKhvXLyH1QYgHdKjSWfaZk1NdgFBIr1SDDRx225W9fMWFmCv+q6FQwUxl5Sc4YSt
+         5vMUUnccigRI04Cz1K/1B+0v8Wv00aFbvlFEbbiSRC4NYmlKoL6n7xG9+e7MAPF7uJPW
+         fsXSOlXsZPVMz4p1scBQ3+tkxrFv5UkXNIXViQKjRl268w1a6SNWvKYvqM8vuIt89fbP
+         gMMQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rp09fIBvDD94GX4bQM4MnBWFlaFwDDYa4P7LpLidjXaLh+usIBbHBefglKLIlxN1yvETLaIHd5ZFuDZ@vger.kernel.org
+X-Gm-Message-State: AOJu0YzYoNcvGaJYHj/MXdNv4of1uy8fJyuc5+Ukax2T3VAjBlX0ofVO
+	173krNJT4EZakjRjjJs2RSucOxe0JPNiLBuTuQ0612JjsSnp6r04kdgjVLwQnIhhTMIg6iCIM/3
+	KJ3nYFLwK+1R8dQ+Efu5mrmcdoyck97Osz62Sjz08akdkx6o2wbd6UA/c7H6Uy9iZ
+X-Gm-Gg: AR+sD12P5A3RGQRAShBhdN9vEEj1evmGWcyIxDkwLAReH5eUD2FgoQ0KsWaeUrKMRjc
+	v5rxyJq82A8kF8E29+BQZfhO49Jf6pwk4kSPABlj72oRDi7AZs3PeDSJx7xbOqm9DbWndnjrQ9s
+	XKRg23j2ti8NRgQXb+u3m4uIbzki6wloMvUW4bkTUE9aPNu6SFH2yrpFfnQvmdp4ckg0Zld83ns
+	uOynqSmv0rDZFioD2eGmOtlfO4yYSA63BY/bLf63xMh+9fk8dlnkY0pIA0T5MzwV2LDHXPnqbZD
+	Mey/13YLP29GUgyTJyzaunMvmMY2Qd5PnLhHh4N44zXToqgCaOgpcLv2eACy+uGcaX1ROFlRZzI
+	0FUBgUo5StCj6+GYaTczFA5fdVbVm+2RzY+lHdiGrQ5rcsvfoDz1dhtNcXLyHi4JiuKMH4v8l1K
+	j4I/1B4KBDxw2eltA4sOzsjH+ZeziBQSRaqhdpeKybR3NLy7GX/gw4
+X-Received: by 2002:a05:622a:488d:b0:528:1bad:a2a4 with SMTP id d75a77b69052e-52b424e2ebfmr11075291cf.15.1785427261782;
+        Thu, 30 Jul 2026 09:01:01 -0700 (PDT)
+X-Received: by 2002:a05:622a:488d:b0:528:1bad:a2a4 with SMTP id d75a77b69052e-52b424e2ebfmr11072291cf.15.1785427258968;
+        Thu, 30 Jul 2026 09:00:58 -0700 (PDT)
 Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:61cd:dcd3:c61a:ac3c])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1fa8bb6deesm85168066b.53.2026.07.30.09.00.54
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1fa8bb6deesm85168066b.53.2026.07.30.09.00.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 09:00:55 -0700 (PDT)
+        Thu, 30 Jul 2026 09:00:58 -0700 (PDT)
 From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Thu, 30 Jul 2026 18:00:36 +0200
-Subject: [PATCH v9 06/10] block: implement NVMEM provider
+Date: Thu, 30 Jul 2026 18:00:37 +0200
+Subject: [PATCH v9 07/10] net: of_net: Add of_get_nvmem_eui48() helper for
+ EUI-48 lookup
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -91,7 +92,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260730-block-as-nvmem-v9-6-f72935817dbf@oss.qualcomm.com>
+Message-Id: <20260730-block-as-nvmem-v9-7-f72935817dbf@oss.qualcomm.com>
 References: <20260730-block-as-nvmem-v9-0-f72935817dbf@oss.qualcomm.com>
 In-Reply-To: <20260730-block-as-nvmem-v9-0-f72935817dbf@oss.qualcomm.com>
 To: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -122,287 +123,156 @@ Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
         Loic Poulain <loic.poulain@oss.qualcomm.com>,
         Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Authority-Analysis: v=2.4 cv=V4tNF+ni c=1 sm=1 tr=0 ts=6a6b753a cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDEyMCBTYWx0ZWRfX3YUt9vTw1kWr
+ qjECzvx/jH8VBWEacZQxdYH7gHhXaMmz+EEK0cqXc0dwcQA5JMAGkf45x6ZClyWrJVU6QdflcIw
+ hm1tWfKxdtWM51cONVcetLynCzqLuVQRzefoBm/XBGUwgQpU/idsDnB/HdCmezIpx8eAinEhFff
+ kt7RHxfcYl21zHiVnH2WlaR8c58gGMch0i/9ZM5E3YOY6T8nx35LHz3PWv8bwHUBG5yxXEIL9+6
+ OErNqkbcUwPmOcEY99qatHkAoYNgHnEtJGBmzlGJluM/VsEA/jtZcbGDPfcqa8kQG6EF3IVsTnt
+ hhtvrt5t3ZL5Q88ibmaf6zYQpl6UkJPzdbiLMDw2Bncqfr26vvBZtuqF8e3TDnxsv6UBEGjfOkW
+ 2Wap7JMhySUkqIhAlvF70ggQD4doNtHt17ka2ALFFaob43TB575NNzwF48IAL/6n7Jh3d9+2XKS
+ SSxOE7aotoxBNEDOziw==
+X-Proofpoint-GUID: wRt5Fl0NKsl9J7-Aax3f_UDOL2ppSFIk
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDEyMCBTYWx0ZWRfXwkdk5x/HXPAs
+ ZUz0D9SE1Y6fV66o2Rhz6/cTf6882aiKxiZSapu1cwoo6KL9qtTAh7kHfMcUIY/3ytdVxYpFxeV
+ 8qlLDL4upXG/FXm4CyZwXHDoQ8Rz0Fc=
+X-Proofpoint-ORIG-GUID: wRt5Fl0NKsl9J7-Aax3f_UDOL2ppSFIk
+X-Authority-Analysis: v=2.4 cv=WuQb99fv c=1 sm=1 tr=0 ts=6a6b753f cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
- a=VT4XjZGOAAAA:8 a=71DuYGxFrHUPmPLwgxgA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22 a=6CpsfURP9XNmmWg3j1mJ:22
-X-Proofpoint-GUID: NDml2go6iZNFPPuUnwbRJCjKJl_juc6H
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDEyMCBTYWx0ZWRfX9AXaZPX0Jtqu
- oFePv1/1cz1UuuRTqdolYSkBk4oE8VAvVXUD1O0IiPC96DZZQEQ8dkooUFGAP6wkGCCopyxOC9Y
- wnmyTyJzuH2oBZI3wt+79HGwmbBkDeNUw8STkH0k9cHVv1KQ8OJDLPGIre/TpPFOM1W+rxpnFu6
- zTt4JVjjMUnbgjUITWjxKRnHlsN2BTc2kgWLThqqbBkSKWMHK924FcgJ5PUyQHEKipJKeYPtnwH
- YH1NRxpeBMrPHmmRocwgH0/M2YY+r+pWctrtGEEKsyFyaqkNh3XkT5PN6EKMur6lu7k1ocJOqaN
- mwlCZVS8T+akPR1SAQsKAC1iCIvT8Ve91gQPq0AHbGYvoXTC/EaGbwoo1CYwx4MF8gby2JHSyB0
- /oKQt4FJQyZS6cXymp4YxOEgk6He91uu2XbwCTRKEuigh3/UdNPJ4mTZzVksbhfD9ihFsua7/Km
- 6LDHFBKp6/rOrvQ8Asw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDEyMCBTYWx0ZWRfXyuksBdePmh1l
- cQ0bePckAab92asdIhhXENG6FZO9ZtFgDGUuBgUZaDc3EsVVD6hwa7W+GNw+mcAdocuU4qnDNpL
- o/InDWsAUJHYrLcN/iLKDmTnWaXi3uQ=
-X-Proofpoint-ORIG-GUID: NDml2go6iZNFPPuUnwbRJCjKJl_juc6H
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
+ a=bEbww9rD5qa0LKludeoA:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-30_04,2026-07-30_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0 impostorscore=0 suspectscore=0 phishscore=0
- adultscore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0 malwarescore=0
+ clxscore=1015 priorityscore=1501 impostorscore=0 adultscore=0 spamscore=0
+ lowpriorityscore=0 suspectscore=0 malwarescore=0 bulkscore=0 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607300120
 
-On embedded devices using an eMMC it is common that one or more partitions
-on the eMMC are used to store MAC addresses and Wi-Fi calibration EEPROM
-data. Allow referencing the partition in device tree for the kernel and
-Wi-Fi drivers accessing it via the NVMEM layer.
+Factor out the common NVMEM EUI-48 retrieval logic from
+of_get_mac_address_nvmem() into a new of_get_nvmem_eui48() helper that
+accepts the NVMEM cell name as a parameter. This allows other subsystems
+(e.g. Bluetooth) to reuse the same lookup-validate-copy pattern with a
+different cell name, without duplicating code.
 
-NVMEM is registered for a block device whose OF node describes an NVMEM
-layout, either via an "nvmem-layout" child or by being a "fixed-layout"
-node itself (e.g. an eMMC boot partition associated through its mmc-card
-node).
+of_get_mac_address_nvmem() is updated to call of_get_nvmem_eui48() with
+"mac-address", preserving its existing behavior.
 
-The NVMEM device is a read-only side channel: the block device stays
-fully usable, reads are performed with a non-exclusive BLK_OPEN_READ
-open, and no synchronization is done against concurrent writes to the
-same region. This is acceptable for the intended use case of write-once,
-factory-provisioned data.
-
-Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 ---
- block/Kconfig             |  11 +++++
- block/Makefile            |   1 +
- block/blk-nvmem.c         | 104 ++++++++++++++++++++++++++++++++++++++++++++++
- block/blk.h               |   8 ++++
- block/genhd.c             |   4 ++
- block/partitions/core.c   |   5 +++
- include/linux/blk_types.h |   4 ++
- 7 files changed, 137 insertions(+)
+ include/linux/of_net.h |  7 +++++++
+ net/core/of_net.c      | 52 ++++++++++++++++++++++++++++++++++++++------------
+ 2 files changed, 47 insertions(+), 12 deletions(-)
 
-diff --git a/block/Kconfig b/block/Kconfig
-index 70e4a66d941ff66ecb0ec34f4f7eff7fd1e4be40..4899ad572c71ffdbb62460d57623216254893ddc 100644
---- a/block/Kconfig
-+++ b/block/Kconfig
-@@ -209,6 +209,17 @@ config BLK_INLINE_ENCRYPTION_FALLBACK
- 	  by falling back to the kernel crypto API when inline
- 	  encryption hardware is not present.
- 
-+config BLK_NVMEM
-+	bool "Block device NVMEM provider"
-+	depends on OF
-+	depends on NVMEM
-+	help
-+	  Allow block devices (or partitions) to act as NVMEM providers,
-+	  exposing factory-provisioned data such as MAC addresses or Wi-Fi
-+	  calibration blobs to the drivers that consume them. This is
-+	  typically used on embedded devices where such data is stored in a
-+	  dedicated area of an eMMC, instead of a separate EEPROM or OTP.
-+
- source "block/partitions/Kconfig"
- 
- config BLK_PM
-diff --git a/block/Makefile b/block/Makefile
-index e7bd320e3d6971a8abf584f5de42776bb54e8216..8200297fbcbab304beb4239d0c33da07011c3ed9 100644
---- a/block/Makefile
-+++ b/block/Makefile
-@@ -39,3 +39,4 @@ obj-$(CONFIG_BLK_INLINE_ENCRYPTION)	+= blk-crypto.o blk-crypto-profile.o \
- 					   blk-crypto-sysfs.o
- obj-$(CONFIG_BLK_INLINE_ENCRYPTION_FALLBACK)	+= blk-crypto-fallback.o
- obj-$(CONFIG_BLOCK_HOLDER_DEPRECATED)	+= holder.o
-+obj-$(CONFIG_BLK_NVMEM)                += blk-nvmem.o
-diff --git a/block/blk-nvmem.c b/block/blk-nvmem.c
-new file mode 100644
-index 0000000000000000000000000000000000000000..05bc35b9b8f373ccb606bdca35d211c41d2764fe
---- /dev/null
-+++ b/block/blk-nvmem.c
-@@ -0,0 +1,104 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * block device NVMEM provider
-+ *
-+ * Copyright (c) 2024 Daniel Golle <daniel@makrotopia.org>
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ *
-+ * Useful on devices using a whole disk or a partition (e.g. an eMMC boot
-+ * partition) to store MAC addresses, Bluetooth addresses or Wi-Fi
-+ * calibration EEPROM data.
-+ *
-+ * The NVMEM device is a side channel onto a block device that stays fully
-+ * usable. This is somewhat mitigated by opening the device exclusively.
-+ */
-+
-+#include <linux/cleanup.h>
-+#include <linux/device.h>
-+#include <linux/file.h>
-+#include <linux/fs.h>
-+#include <linux/nvmem-provider.h>
-+#include <linux/nvmem-consumer.h>
-+#include <linux/of.h>
-+#include <linux/property.h>
-+
-+#include "blk.h"
-+
-+static int blk_nvmem_reg_read(void *priv, unsigned int from,
-+			      void *val, size_t bytes)
-+{
-+	struct block_device *bdev = priv;
-+	struct file *bdev_file;
-+	loff_t pos = from;
-+	ssize_t ret;
-+
-+	/* open and prevent other exclusive openers */
-+	bdev_file = bdev_file_open_by_dev(bdev->bd_dev,
-+					  BLK_OPEN_READ | BLK_OPEN_EXCL,
-+					  blk_nvmem_reg_read, NULL);
-+	if (IS_ERR(bdev_file))
-+		return PTR_ERR(bdev_file);
-+
-+	ret = kernel_read(bdev_file, val, bytes, &pos);
-+	if (ret >= 0 && ret != bytes)
-+		ret = -EIO;
-+
-+	fput(bdev_file);
-+
-+	return ret < 0 ? ret : 0;
-+}
-+
-+int blk_nvmem_add(struct block_device *bdev)
-+{
-+	struct device *dev = &bdev->bd_device;
-+	struct device_node *np = dev_of_node(dev);
-+	struct nvmem_config config = {};
-+	struct nvmem_device *nvmem;
-+
-+	/* skip devices which do not have a device tree node */
-+	if (!np)
-+		return 0;
-+
-+	/*
-+	 * The layout is described either by an "nvmem-layout" child node or
-+	 * by the device node itself being a "fixed-layout" container.
-+	 */
-+	struct device_node *child __free(device_node) =
-+			of_get_child_by_name(np, "nvmem-layout");
-+	if (!child && !of_device_is_compatible(np, "fixed-layout"))
-+		return 0;
-+
-+	if (bdev_nr_bytes(bdev) > INT_MAX) {
-+		dev_warn(dev, "block device too large to be an NVMEM\n");
-+		return 0;
-+	}
-+
-+	config.id = NVMEM_DEVID_NONE;
-+	config.dev = dev;
-+	config.name = dev_name(dev);
-+	config.owner = THIS_MODULE;
-+	config.priv = bdev;
-+	config.reg_read = blk_nvmem_reg_read;
-+	config.size = bdev_nr_bytes(bdev);
-+	config.word_size = 1;
-+	config.stride = 1;
-+	config.read_only = true;
-+	config.root_only = true;
-+	config.ignore_wp = true;
-+	config.of_node = np;
-+
-+	nvmem = nvmem_register(&config);
-+	if (IS_ERR(nvmem))
-+		return dev_err_probe(dev, PTR_ERR(nvmem),
-+				     "Failed to register NVMEM device\n");
-+
-+	bdev->bd_nvmem = nvmem;
-+
-+	return 0;
-+}
-+
-+void blk_nvmem_del(struct block_device *bdev)
-+{
-+	nvmem_unregister(bdev->bd_nvmem);
-+	bdev->bd_nvmem = NULL;
-+}
-diff --git a/block/blk.h b/block/blk.h
-index 25af8ac5ef0f77c09b4d747827b275c32e9f2972..dad8f0d7a218edbafa9b6a03aed673657f3e8cbb 100644
---- a/block/blk.h
-+++ b/block/blk.h
-@@ -810,4 +810,12 @@ static inline void blk_debugfs_unlock(struct request_queue *q,
- 	memalloc_noio_restore(memflags);
+diff --git a/include/linux/of_net.h b/include/linux/of_net.h
+index d88715a0b3a52f87af23d47791bea3baf5be5200..7854ba555d9a55f3d020a37fe00a27ae52e0e5dc 100644
+--- a/include/linux/of_net.h
++++ b/include/linux/of_net.h
+@@ -15,6 +15,7 @@ struct net_device;
+ extern int of_get_phy_mode(struct device_node *np, phy_interface_t *interface);
+ extern int of_get_mac_address(struct device_node *np, u8 *mac);
+ extern int of_get_mac_address_nvmem(struct device_node *np, u8 *mac);
++int of_get_nvmem_eui48(struct device_node *np, const char *cell_name, u8 *addr);
+ int of_get_ethdev_address(struct device_node *np, struct net_device *dev);
+ extern struct net_device *of_find_net_device_by_node(struct device_node *np);
+ #else
+@@ -34,6 +35,12 @@ static inline int of_get_mac_address_nvmem(struct device_node *np, u8 *mac)
+ 	return -ENODEV;
  }
  
-+#ifdef CONFIG_BLK_NVMEM
-+int blk_nvmem_add(struct block_device *bdev);
-+void blk_nvmem_del(struct block_device *bdev);
-+#else
-+static inline int blk_nvmem_add(struct block_device *bdev) { return 0; }
-+static inline void blk_nvmem_del(struct block_device *bdev) {}
-+#endif
++static inline int of_get_nvmem_eui48(struct device_node *np,
++				      const char *cell_name, u8 *addr)
++{
++	return -ENODEV;
++}
 +
- #endif /* BLK_INTERNAL_H */
-diff --git a/block/genhd.c b/block/genhd.c
-index f84b6a355b574af88c870938a8c69aeb9f8f44ad..0c9c5e5ea7baffa326a2d45b075688cf3a0edf5a 100644
---- a/block/genhd.c
-+++ b/block/genhd.c
-@@ -421,6 +421,8 @@ static void add_disk_final(struct gendisk *disk)
- 		 */
- 		dev_set_uevent_suppress(ddev, 0);
- 		disk_uevent(disk, KOBJ_ADD);
-+
-+		blk_nvmem_add(disk->part0);
+ static inline int of_get_ethdev_address(struct device_node *np, struct net_device *dev)
+ {
+ 	return -ENODEV;
+diff --git a/net/core/of_net.c b/net/core/of_net.c
+index 93ea425b9248a23f4f95a336e9cdbf0053248e32..999ca0e9258c41580823b80e0ef6db26617bc968 100644
+--- a/net/core/of_net.c
++++ b/net/core/of_net.c
+@@ -61,9 +61,7 @@ static int of_get_mac_addr(struct device_node *np, const char *name, u8 *addr)
+ int of_get_mac_address_nvmem(struct device_node *np, u8 *addr)
+ {
+ 	struct platform_device *pdev = of_find_device_by_node(np);
+-	struct nvmem_cell *cell;
+-	const void *mac;
+-	size_t len;
++	u8 mac[ETH_ALEN] __aligned(sizeof(u16));
+ 	int ret;
+ 
+ 	/* Try lookup by device first, there might be a nvmem_cell_lookup
+@@ -75,27 +73,57 @@ int of_get_mac_address_nvmem(struct device_node *np, u8 *addr)
+ 		return ret;
  	}
  
- 	blk_apply_bdi_limits(disk->bdi, &disk->queue->limits);
-@@ -704,6 +706,8 @@ static void __del_gendisk(struct gendisk *disk)
- 
- 	disk_del_events(disk);
- 
-+	blk_nvmem_del(disk->part0);
+-	cell = of_nvmem_cell_get(np, "mac-address");
++	ret = of_get_nvmem_eui48(np, "mac-address", mac);
++	if (ret)
++		return ret;
 +
- 	/*
- 	 * Prevent new openers by unlinked the bdev inode.
- 	 */
-diff --git a/block/partitions/core.c b/block/partitions/core.c
-index 72f435dfeffc63e897913571f319e5edd8e7ba88..e4a41ffcce12a08051bbd90437312b9242bf600e 100644
---- a/block/partitions/core.c
-+++ b/block/partitions/core.c
-@@ -279,6 +279,8 @@ void drop_partition(struct block_device *part)
- 	xa_erase(&part->bd_disk->part_tbl, bdev_partno(part));
- 	kobject_put(part->bd_holder_dir);
- 
-+	blk_nvmem_del(part);
++	if (!is_valid_ether_addr(mac))
++		return -EINVAL;
 +
- 	device_del(&part->bd_device);
- 	put_device(&part->bd_device);
++	memcpy(addr, mac, ETH_ALEN);
++	return 0;
++}
++EXPORT_SYMBOL(of_get_mac_address_nvmem);
++
++/**
++ * of_get_nvmem_eui48 - Read a 6-byte EUI-48 address from a named NVMEM cell.
++ * @np:		Device node to look up the NVMEM cell from.
++ * @cell_name:	Name of the NVMEM cell (e.g. "mac-address", "local-bd-address").
++ * @addr:	Output buffer for the 6-byte address.
++ *
++ * Reads the named NVMEM cell and validates that it contains a non-zero 6-byte
++ * address. Returns 0 on success, negative errno on failure.
++ */
++int of_get_nvmem_eui48(struct device_node *np, const char *cell_name, u8 *addr)
++{
++	struct nvmem_cell *cell;
++	const void *eui48;
++	size_t len;
++
++	cell = of_nvmem_cell_get(np, cell_name);
+ 	if (IS_ERR(cell))
+ 		return PTR_ERR(cell);
+ 
+-	mac = nvmem_cell_read(cell, &len);
++	eui48 = nvmem_cell_read(cell, &len);
+ 	nvmem_cell_put(cell);
+ 
+-	if (IS_ERR(mac))
+-		return PTR_ERR(mac);
++	if (IS_ERR(eui48))
++		return PTR_ERR(eui48);
+ 
+-	if (len != ETH_ALEN || !is_valid_ether_addr(mac)) {
+-		kfree(mac);
++	/* Reject unprogrammed cells that read as all-zeroes or all-ones */
++	if (len != ETH_ALEN ||
++	    !memchr_inv(eui48, 0x00, ETH_ALEN) ||
++	    !memchr_inv(eui48, 0xff, ETH_ALEN)) {
++		kfree(eui48);
+ 		return -EINVAL;
+ 	}
+ 
+-	memcpy(addr, mac, ETH_ALEN);
+-	kfree(mac);
++	memcpy(addr, eui48, ETH_ALEN);
++	kfree(eui48);
+ 
+ 	return 0;
  }
-@@ -396,6 +398,9 @@ static struct block_device *add_partition(struct gendisk *disk, int partno,
- 	/* suppress uevent if the disk suppresses it */
- 	if (!dev_get_uevent_suppress(ddev))
- 		kobject_uevent(&pdev->kobj, KOBJ_ADD);
-+
-+	blk_nvmem_add(bdev);
-+
- 	return bdev;
+-EXPORT_SYMBOL(of_get_mac_address_nvmem);
++EXPORT_SYMBOL_GPL(of_get_nvmem_eui48);
  
- out_del:
-diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
-index 8808ee76e73c09e0ceaac41ba59e86fb0c4efc64..6ed173c649025b95cce9253b27f68f2c7dbab8eb 100644
---- a/include/linux/blk_types.h
-+++ b/include/linux/blk_types.h
-@@ -15,6 +15,7 @@
- struct bio_set;
- struct bio;
- struct bio_integrity_payload;
-+struct nvmem_device;
- struct page;
- struct io_context;
- struct cgroup_subsys_state;
-@@ -73,6 +74,9 @@ struct block_device {
- 	int			bd_writers;
- #ifdef CONFIG_SECURITY
- 	void			*bd_security;
-+#endif
-+#ifdef CONFIG_BLK_NVMEM
-+	struct nvmem_device	*bd_nvmem;
- #endif
- 	/*
- 	 * keep this out-of-line as it's both big and not needed in the fast
+ /**
+  * of_get_mac_address()
 
 -- 
 2.34.1
