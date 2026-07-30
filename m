@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17CA6390C9F
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 15:39:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1090A381AF0
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 15:39:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785425954; cv=none; b=sSXkL/E44g1REvKFgctbuvyD/I7y++YEYwwq2gUt4J8+UzKM6cP8j+tdeaXlNiHacfZHAuMDw46siGltXEyl1NciW1/WbrS8xNvw5Vo7f70wA2ZzZh/MM4G74+k9S1rRgxudSh7EUfzFMr7kmkHMe+/s0VqVE/SemDuC7HCGVZU=
+	t=1785425975; cv=none; b=vBHDqkp3lRb+amdpaebcNbq7Qf3k4vIBlsgHlYgt1xSZnMPaAKTVPq1gw8PMfK5VbkNzsrDwVh8iQrU/X9qXQIT58Tfw6amBp+tviNXBoKNHBEd7KYdX8pyhEEHUs9PzpVeNE1sWaWwqltePSUoOWun6qYw1G23dP7ynWWG6JQ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785425954; c=relaxed/simple;
-	bh=95WB2jXREgpHlSYAS0nLsX71ZiRC2bzaCYV0V4uuiZQ=;
+	s=arc-20240116; t=1785425975; c=relaxed/simple;
+	bh=6P3wZvE8mlyWwpy4mlFasgJ4GnTGvrdHQF1nzkt8r2Y=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FyhYEuSkY0jKb/y0C5pLto4BYtl0CcQlG3XXKhAb+ft2JslmzJZoLKp1reCJWc63IAU/3DeBRXkUAI2hu9E7K9muPR+YxbZurPjTxqBiAvMobYCdSfflfYF+gV+NsV21nqbQXqxBnLpbBXIFcw7KUmm1He/bdki7eUBqzRwDdWQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QB/JIkmx; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=WXAbUxtIuxgRh7KPAJ7w7unkTxVHyyiHc2VBj+9lqjX7DrJI0LxELQlqtUfbeKTq6qodr7MhrW4waFs7xZPkY/NK/gPMDXj0p+RbEtg0Q6ByrGMrvUdmI5D8ej2qoJDz1RTAUfQctUlRBhG4Y058lTlqhq2pzFGgy33AD2hzuA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UjHCmlZ9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QB/JIkmx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAC5E1F00A3D;
-	Thu, 30 Jul 2026 15:39:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UjHCmlZ9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6943E1F00A3A;
+	Thu, 30 Jul 2026 15:39:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785425953;
-	bh=TjNBrTCtYBzNWNsyLG1kxHXqs+yodHFRj2rK4p70iVI=;
+	s=k20260515; t=1785425973;
+	bh=6aZkuEOjA4J9MjZHL0W8HnEgmqtNLqCwB+v7Y2On8Ds=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QB/JIkmx7dwLFkUEHajMX/XSTlNAeACiX0rOF+AYozOVPOjj0EKUIyx9SrGdgt6md
-	 KIVEyOgkahZAIZmAzm/jTttSYg3ybyeut8uQB4RvTXRW7o+5mxGEfaGt2G9U2Ptecm
-	 Q2BHPGkNTEckEtnIj8j1gbv7xZeA1425ThqmhEkSNT+wrr8956wL+TTcDISuHIYMlU
-	 BGP3Ic8aCjlOVPhqb8szeFz9W8MpsyAVP7nTsEpjqmf4AlP7X7GgVhlFrTvK/Fyc/d
-	 BwCWX/WWqjNd+CmkEG7dTH/WSppGU2t3anBUjTOhuPESsF01zFSPyFvNizUFnke9S9
-	 +jl+GMqLUZ8IQ==
+	b=UjHCmlZ9j69N33SmFLNQMI3WyqICLDzuAWBnvjgw9Jjd6t4RTPP36p7loL4HDs+nR
+	 MohPYXMn/qsIaXCNgRqwd5by6bfgzqlvvce+l3X+iOvIhg8u2vl4OeYbeASABn14up
+	 mvPUoc2DTHNd9uK9lEsajVKBLF0o3Fmuqj3jMxJEDov7DVRQWUV/PVrPpTHmHYIqTc
+	 MZnqaOOqOFwM8nD3upxG3Fxvmxzt77rTrFkQe0sSMZ/RecaFSj7HKHRZQhckKl7Xi8
+	 fepQwiMI1Xy6G+sn3+42cnx7A+esiKHK0rXJP8pF/wvFP+fWzpoNAw0L8XwEcXqV7V
+	 kfuOC75xNK3Ug==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 17/18] media: venus: skip QCM2290 if Iris driver is
- enabled
+Subject: Re: [PATCH v8 12/18] media: iris: add minimal GET_PROPERTY
+ implementation
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: media-ci@linuxtv.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260730-iris-ar50lt-v8-17-6597c08cea6f@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, media-ci@linuxtv.org, conor+dt@kernel.org
+In-Reply-To: <20260730-iris-ar50lt-v8-12-6597c08cea6f@oss.qualcomm.com>
 References: <20260730-iris-ar50lt-v8-0-6597c08cea6f@oss.qualcomm.com>
- <20260730-iris-ar50lt-v8-17-6597c08cea6f@oss.qualcomm.com>
+ <20260730-iris-ar50lt-v8-12-6597c08cea6f@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 15:39:12 +0000
-Message-Id: <20260730153912.BAC5E1F00A3D@smtp.kernel.org>
+Date: Thu, 30 Jul 2026 15:39:33 +0000
+Message-Id: <20260730153933.6943E1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,104 +49,126 @@ Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [Critical] Unbalanced teardown of delayed work core->work leads to Use-Af=
-ter-Free.
-- [Medium] Memory and DMA allocations are leaked on the venus_probe() error=
- path.
+- [High] Use-after-free race condition in `iris_hfi_gen1_handle_response` d=
+ue to lack of instance refcounting.
+- [High] Concurrent commands can corrupt `inst->completion` and falsely sig=
+nal command completion due to lock dropping.
 --
 
---- Patch [17]: [PATCH v8 17/18] media: venus: skip QCM2290 if Iris driver =
-is enabled ---
-commit 3f4135bbccd5abb2cbdcfce435629b2b86cda1f5
+--- Patch [12]: [PATCH v8 12/18] media: iris: add minimal GET_PROPERTY impl=
+ementation ---
+commit 30243b6f486f6a7511eef1e8f6ae8cf07acc9093
 Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-media: venus: skip QCM2290 if Iris driver is enabled
+media: iris: add minimal GET_PROPERTY implementation
 
-As the Iris driver now supports the QCM2290 hardware too, there is a
-race between Venus and Iris drivers on binding to the corresponding
-device. Follow the approach used by other platforms and skip QCM2290 in
-the Venus driver if Iris is enabled.
+This commit adds minimal support for querying properties from the Gen1
+firmware in the iris driver, specifically implementing
+HFI_CMD_SESSION_GET_PROPERTY. This is required for AR50Lt to read
+HFI_PROPERTY_CONFIG_BUFFER_REQUIREMENTS.
 
-> diff --git a/drivers/media/platform/qcom/venus/core.c b/drivers/media/pla=
-tform/qcom/venus/core.c
-> index 243e342b0ae75..3c88594eb1d00 100644
-> --- a/drivers/media/platform/qcom/venus/core.c
-> +++ b/drivers/media/platform/qcom/venus/core.c
+> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen1_command.c b/d=
+rivers/media/platform/qcom/iris/iris_hfi_gen1_command.c
+> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen1_command.c
+> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen1_command.c
+> @@ -1117,10 +1117,31 @@ static int iris_hfi_gen1_session_set_config_param=
+s(struct iris_inst *inst, u32 p
+
 [ ... ]
-> @@ -1169,13 +1168,16 @@ static const struct venus_resources qcm2290_res =
-=3D {
->  	.enc_nodename =3D "video-encoder",
->  	.min_fw =3D &min_fw,
->  };
-> +#endif
-> =20
->  static const struct of_device_id venus_dt_match[] =3D {
->  	{ .compatible =3D "qcom,msm8916-venus", .data =3D &msm8916_res, },
->  	{ .compatible =3D "qcom,msm8939-venus", .data =3D &msm8939_res, },
->  	{ .compatible =3D "qcom,msm8996-venus", .data =3D &msm8996_res, },
->  	{ .compatible =3D "qcom,msm8998-venus", .data =3D &msm8998_res, },
-> +#if (!IS_ENABLED(CONFIG_VIDEO_QCOM_IRIS))
->  	{ .compatible =3D "qcom,qcm2290-venus", .data =3D &qcm2290_res, },
-> +#endif
->  	{ .compatible =3D "qcom,sc7180-venus", .data =3D &sc7180_res, },
->  	{ .compatible =3D "qcom,sdm660-venus", .data =3D &sdm660_res, },
->  	{ .compatible =3D "qcom,sdm845-venus", .data =3D &sdm845_res, },
 
-[Severity: Medium]
-This is a pre-existing issue, but does the error path in venus_probe() leak
-memory and DMA allocations?
+> +static int iris_hfi_gen1_session_get_property(struct iris_inst *inst, u3=
+2 packet_type)
+> +{
+> +	struct hfi_session_get_property_pkt pkt;
+> +	int ret;
+> +
+> +	pkt.shdr.hdr.size =3D sizeof(pkt);
+> +	pkt.shdr.hdr.pkt_type =3D HFI_CMD_SESSION_GET_PROPERTY;
+> +	pkt.shdr.session_id =3D inst->session_id;
+> +	pkt.num_properties =3D 1;
+> +	pkt.data =3D packet_type;
+> +
+> +	reinit_completion(&inst->completion);
+> +
+> +	ret =3D iris_hfi_queue_cmd_write(inst->core, &pkt, pkt.shdr.hdr.size);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return iris_wait_for_session_response(inst, false);
+> +}
 
-Looking at venus_probe(), if devm_request_threaded_irq() fails, the code ju=
-mps
-directly to err_core_put:
+[Severity: High]
+This isn't a bug introduced by this patch, but does dropping the lock in
+iris_wait_for_session_response() while waiting on a single shared completion
+allow concurrent ioctls to corrupt the completion state?
 
-drivers/media/platform/qcom/venus/core.c:venus_probe() {
-    ...
-	ret =3D devm_request_threaded_irq(dev, core->irq, hfi_isr, venus_isr_threa=
-d,
-					IRQF_TRIGGER_HIGH | IRQF_ONESHOT,
-					"venus", core);
-	if (ret)
-		goto err_core_put;
-    ...
-err_hfi_destroy:
-	hfi_destroy(core);
-err_core_put:
-    ...
-}
+A thread executing a V4L2 ioctl can lock inst->lock and issue a firmware
+command. It then calls iris_wait_for_session_response(), which explicitly
+unlocks inst->lock and sleeps on inst->completion:
 
-This bypasses err_hfi_destroy and skips the hfi_destroy() cleanup, permanen=
-tly
-leaking the resources allocated by hfi_create(). Should the failure path ju=
-mp
-to err_hfi_destroy instead?
+iris_wait_for_session_response()
+    mutex_unlock(&inst->lock);
+    ret =3D wait_for_completion_timeout(done, ...);
+    mutex_lock(&inst->lock);
 
-[Severity: Critical]
-This is a pre-existing issue, but could the delayed work core->work lead to=
- a
-use-after-free?
+While the first thread is waiting, another thread executing a concurrent
+ioctl can acquire inst->lock, send a different firmware command, and call
+reinit_completion(&inst->completion). Both threads end up sleeping on the
+same completion.
 
-In the venus_probe() error path, cancel_delayed_work_sync() is omitted enti=
-rely.
-If the IRQ is successfully registered and fires before probe aborts, it can
-queue core->work which could execute after the core object is freed.
+When the firmware responds to the first command, the single completion is
+triggered, which could incorrectly wake up the second thread prematurely.
 
-Additionally, in venus_remove():
+Could this lead to corrupted driver state or commands assuming success befo=
+re
+the hardware has actually completed them?
 
-drivers/media/platform/qcom/venus/core.c:venus_remove() {
-	cancel_delayed_work_sync(&core->work);
-    ...
-	hfi_destroy(core);
-    ...
-}
 
-cancel_delayed_work_sync() is invoked before the IRQ is disabled in
-hfi_destroy(). If an interrupt fires between these two calls, the ISR can
-re-queue the work, which will subsequently execute on a freed core object.=
-=20
+> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c b/=
+drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
+> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
+> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
+> @@ -652,6 +656,8 @@ static void iris_hfi_gen1_handle_response(struct iris=
+_core *core, void *response
+>  			iris_hfi_gen1_session_etb_done(inst, hdr);
+>  		} else if (hdr->pkt_type =3D=3D HFI_MSG_SESSION_FILL_BUFFER) {
+>  			iris_hfi_gen1_session_ftb_done(inst, hdr);
+> +		} else if (hdr->pkt_type =3D=3D HFI_MSG_SESSION_PROPERTY_INFO) {
+> +			complete(&inst->completion);
+>  		} else {
 
-Could we move the cancel_delayed_work_sync() call after the IRQ is disabled?
+[Severity: High]
+This is a pre-existing issue, but is there a use-after-free race condition =
+in
+iris_hfi_gen1_handle_response() when dealing with inst?
+
+When the hardware triggers an interrupt, the response handler retrieves the
+instance pointer using iris_get_instance(). This function returns the point=
+er
+without incrementing any reference count:
+
+iris_get_instance()
+    mutex_lock(&core->lock);
+    [ ... ]
+    return inst;=20
+
+If the response handler thread is preempted here, a concurrent close() on t=
+he
+device file descriptor can execute iris_close(). This would lock inst->lock,
+remove the instance from the core list, and free the instance memory.
+
+When the response handler resumes, it attempts to lock the freed instance:
+
+iris_hfi_gen1_handle_response()
+    inst =3D iris_get_instance(...);
+    [ ... ]
+    mutex_lock(&inst->lock);
+
+Can this be triggered by a user space process rapidly closing the file
+descriptor while firmware responses are pending, leading to memory corrupti=
+on
+or a kernel panic?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-iris-ar50l=
-t-v8-0-6597c08cea6f@oss.qualcomm.com?part=3D17
+t-v8-0-6597c08cea6f@oss.qualcomm.com?part=3D12
