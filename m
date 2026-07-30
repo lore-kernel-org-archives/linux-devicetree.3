@@ -1,88 +1,107 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF4832BF24;
-	Thu, 30 Jul 2026 09:55:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2E65401A0A;
+	Thu, 30 Jul 2026 09:57:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785405327; cv=none; b=P33qsNqtqZsl9P3BaCaYonJ+jLFJNMZggy0Bf8TiFx5IOYtKHAMJsN41mUlgDpcTn450owJcgIjwzE6/HA2KS+gLMmt7uBTpuJts1uS1+85EdDNKGjgJUfq8OT1cN7JtCRCIxFl/vc8petLEaVPRORWbGThdU+Dlbnk9KusiGtY=
+	t=1785405450; cv=none; b=JPLg0usPTtViovWbS96ZGSWLN8Q1oS4hKvIVCTKWLhx5O+Uzq45E4n5AXwP7M11gvxEZlzfYnsjzXODsJC1kTFINtGEBjmQW+X2FRN2s0dQepR27D1/M7UfMiEqDfT1Lzpwtt1W+KUlqdUbK8sAjk0P6dvho/+BD+M8BLxLXfjM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785405327; c=relaxed/simple;
-	bh=MkocP/exxjWkExBkIUIx0zmhCnw4pV46V/2tv655Qx8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=l1E4901shF7rvC3Nh5U6o0D8GI4IUsO5pvBXzjHBReS6cvyZBsBtra/GgqZM+nFQphoqu8W2FujWBU1ZdM44Min76gZjSZUyvWbuk1pL8nBac6idy4218hwOY0v/4WiSAhADnEtu49o6QArzwgV2TYVVaI1raCF7PymMdUTDh0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=i01e/2eG; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1785405450; c=relaxed/simple;
+	bh=X6dmBnceiESCZAqE6/ztrMyuTNb0v2wTjNX5z13Q94M=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=T+Dd264IKAwKTp+cJ4cPVfPL+8XnIgZz9oBrZ9guwKv754pi1oIXUkHWkrAliDRJhfvxhR+MRImU0dE1IVE+t/86EXDVYBGBCccznBTfWTwPFyNls7wD6sI3tC1e3PaDn6qOfZY4SzpPMiYAfmKNZyzRMJnCZz+i0VreHRSI4ZE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jqchFDnE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="i01e/2eG"
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 89E281E4;
-	Thu, 30 Jul 2026 11:54:09 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1785405250;
-	bh=MkocP/exxjWkExBkIUIx0zmhCnw4pV46V/2tv655Qx8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=i01e/2eGhYb90MI/TpsxOAe36iRCix9y78XYuIAArWTu/nXYgTMnO9i4wKubeSqG7
-	 IBYr/j0QWKZvqLWh5R5fZJGBR0EYm84Vn648K3rD6I9upVndN0vPnpTkPeErBNh9x0
-	 iz5mUhNIlfx/TlgBZ4fMRPzO4y2rfr0a8MuDQweE=
-Message-ID: <a89591d4-e6eb-4622-9c2f-2e0d52733feb@ideasonboard.com>
-Date: Thu, 30 Jul 2026 12:55:12 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jqchFDnE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A8891F00A3A;
+	Thu, 30 Jul 2026 09:57:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785405449;
+	bh=b+vfWu1ola51xy9nswRhq9CC0HcMCp0ViCVth5o0f2A=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=jqchFDnEVVu59jScbr8g+voltb1YxA+ir9chWBov/wVPbNocMehlw+6ryOCTw44Bv
+	 8pzVJ9DUgK4gLcp3E5a5lmHAx33bxMhzIQW5En7SSJ0ZEA1F2ru77RjqRfWLHFmIbl
+	 VegsCRloIMFLBA72734EZ2yOHwB0OiZXLqTS/PSzYENSicYDhIWS9H838bAxfQPwCa
+	 TNoTPfD5QGwXKagSsX4WOIBC0dGZSJqTTyeRF96cgguUEsnlVpMNmeAJDlsQBuwgW3
+	 fJXKXEuL+qG20QSi9Zd8p0D8dvlZQuBZENdVMs2SwPycSkdnNbsRWslFltRa6yUiid
+	 KYoYEbzA4scgA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 02/26] dt-bindings: ufs: mediatek,ufs: Complete the
+ binding
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
+Cc: conor+dt@kernel.org, neil.armstrong@linaro.org, devicetree@vger.kernel.org, linux-phy@lists.infradead.org, olteanv@gmail.com, robh@kernel.org, vkoul@kernel.org, linux-scsi@vger.kernel.org
+In-Reply-To: <20260730-mt8196-ufs-v10-2-bc5ecef202dc@collabora.com>
+References: <20260730-mt8196-ufs-v10-0-bc5ecef202dc@collabora.com>
+ <20260730-mt8196-ufs-v10-2-bc5ecef202dc@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 30 Jul 2026 09:57:28 +0000
+Message-Id: <20260730095729.0A8891F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 10/15] drm/tidss: Add support for DPIENABLE bit
-To: Devarsh Thakkar <devarsht@ti.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
- Aradhya Bhatia <aradhya.bhatia@linux.dev>, Nishanth Menon <nm@ti.com>,
- Vignesh Raghavendra <vigneshr@ti.com>, Swamil Jain <s-jain1@ti.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>
-References: <20260529-beagley-ai-display-v3-0-7fefdc5d1adf@ideasonboard.com>
- <20260529-beagley-ai-display-v3-10-7fefdc5d1adf@ideasonboard.com>
- <4cdc9944-9486-461b-b637-702921a4367e@ti.com>
-Content-Language: en-US
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-In-Reply-To: <4cdc9944-9486-461b-b637-702921a4367e@ti.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The property `clock-names` is misspelled as `clocks-names` in the M=
+T8192 conditional block, leaving the actual property unconstrained.
+--
 
-On 08/07/2026 09:35, Devarsh Thakkar wrote:
-> Hi,
-> 
-> On 29/05/26 14:15, Tomi Valkeinen wrote:
->> Many (or even all?) K3 SoCs have DSS VP_CONTROL.DPIENABLE bit described
->> in their documentation. This bit controls whether the DPI block is
->> enabled, and is set to 1 by default (i.e. DPI is enabled at HW reset).
->>
->> However, in almost all SoCs the setting does not actually do anything,
->> and at the moment the bit is not managed by the driver.
->>
->> The exception is AM62L, which does have DPIENABLE connected, and
->> disabling the DPI block when it is not in use provides power savings.
->>
->> Let's add a new feature flag for this, 'has_vp_control_dpienable', and
->> implement the support.  Disable DPIENABLE for all videoports at resume
->> time, so that it is 0 by default. Specifically enable and disable it in
->> dispc_vp_enable() and dispc_vp_disable() for DPI output.
->>
-> 
-> I think in commit msg you probably mean to capture dispc_vp_prepare/ 
-> dispc_vp_unprepare instead of dispc_vp_enable() and dispc_vp_disable() 
-> for enabling/disabling DPIENABLE bits. With that correction in commit msg,
+--- Patch [2]: [PATCH v10 02/26] dt-bindings: ufs: mediatek,ufs: Complete t=
+he binding ---
+commit 515312405d3e2237cad578f6e9bc085ee3772431
+Author: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
-Indeed. A left-over from an earlier version. Thanks!
+dt-bindings: ufs: mediatek,ufs: Complete the binding
 
-  Tomi
+This commit updates the MediaTek UFS binding to replace deprecated frequency
+tables with operating-points-v2 and adds missing optional resets. It also
+corrects the clock definitions for different SoC variants and documents the
+required power supplies.
 
+> diff --git a/Documentation/devicetree/bindings/ufs/mediatek,ufs.yaml b/Do=
+cumentation/devicetree/bindings/ufs/mediatek,ufs.yaml
+> index 15c347f5e6604..e7e360c59ba59 100644
+> --- a/Documentation/devicetree/bindings/ufs/mediatek,ufs.yaml
+> +++ b/Documentation/devicetree/bindings/ufs/mediatek,ufs.yaml
+
+[ ... ]
+
+> @@ -54,29 +96,41 @@ allOf:
+
+[ ... ]
+
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: mediatek,mt8192-ufshci
+> +    then:
+>        properties:
+>          clocks:
+> -          maxItems: 1
+> +          minItems: 3
+> +          maxItems: 3
+> +        clocks-names:
+           ^^^^^^^^^^^^
+
+[Severity: Low]
+Is there a typo in this property name? It appears to say clocks-names inste=
+ad
+of clock-names. This might leave the actual clock-names property unconstrai=
+ned
+for the MT8192 hardware variant and cause schema validation to miss incorre=
+ct
+device tree configurations.
+
+> +          minItems: 3
+> +          maxItems: 3
+> +        avdd09-supply: false
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-mt8196-ufs=
+-v10-0-bc5ecef202dc@collabora.com?part=3D2
