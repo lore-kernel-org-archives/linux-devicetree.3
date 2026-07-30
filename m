@@ -1,111 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011042.outbound.protection.outlook.com [52.101.70.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE23437124;
-	Thu, 30 Jul 2026 13:22:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785417755; cv=none; b=FUxhZjegu0M7tXR9zPETONdd18l38FviMJdXx/XBznRQbz8DYrEWjL11al6PLsCzfMeVpVxaewNNfM2L7WdWHXFTHFDoPqxoeONi45cZ+xm86W7fPKDkODWhz7fI1HB9MzrLmX3r2ITMdMWxpJNrVTjb4pbzS4bmCbb7sc2fokg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785417755; c=relaxed/simple;
-	bh=mIo3bDHGxiYgzwh+V9qnJf9WN84MJyrvU3GvTfByHMg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ssvPp6jlPtGKbhfsj1fsVVymWqYSP6DKj3/w1ryLzJBTvYWjeZ2mxQLja9WDeERKJp9rczsRkJIy3GFUawqaMu7MTtC891Lj5jjhgCrcGTcKGX2X6kPwnF8YGOzPZyrhV21YUKlb99JThK0czRzO+aEWt3w02lQEclmCbIQPccw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B/O8Ol09; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED4D241A79C;
+	Thu, 30 Jul 2026 13:22:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785417782; cv=fail; b=ZfjiGFrQfK4QO1pnFkSd3rfkLNqeLqchE44xencABdV2dPu5zo9mHr6k1f8q+PJDbEerlxEz4RMcHO5msWHGqx7YWogSQw95l5hWF+R6TfceqXwe24NuS3o70qBM+6WakcgVtb5HrN1Bmf0Fe76j0tv0iGFYXcgiMyYyi4SuxOs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785417782; c=relaxed/simple;
+	bh=WEqa0fizZdO0/BjzO3cFj2iKsLzY0hTcWXtPlNzBAzo=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=StPEM0VmUDEsORo1UMkibXjHHCf75ELv+TtL3+pVKRJk6IWBMPDSoh/KQcVbbte9DKgO1FOSxjVCy/ahkaEuvwlhmSqbvlwxskClTlIrrxRYWaLQH+XFrFYhYzCKXbAXnRdCW+RhcieGghA59Hm/9O2q+C3WMC9YbDALK1/iQQg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cherry.de; spf=pass smtp.mailfrom=cherry.de; dkim=pass (1024-bit key) header.d=cherry.de header.i=@cherry.de header.b=IXluj8yY; arc=fail smtp.client-ip=52.101.70.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cherry.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherry.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B/O8Ol09"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C06F1F000E9;
-	Thu, 30 Jul 2026 13:22:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785417753;
-	bh=9Q3HIxWWSodqt0Bo0OCgnfV4yYAcllzEKkbzND1L9o0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=B/O8Ol09cZSmMUODobcKqSgd5Q/JcwB+2tZgm0DaW+RO4xPO7iONvAMbU7s8GrSss
-	 tF71RlusA1A8HJt452LGRwMCcB+O2o5A+ngycPYg/Pn6KsVL8Zy1VIuU7WWaMht3I1
-	 0050WXTMkk7gol4vgXHOeTeAFqzR2l3icuVR7z2g0PmSwR0DM3skSzni0sjgoafmZd
-	 vnSfQHPVUf0C8FiZDURuUF/UMKh/fEO/i4hKC8kSFW0RbqHKFp5TJhPoRk56uEhQO/
-	 8ihOS88SOl29wZ09Wr6XN2aX/RUL7xIZD0rW0ttoinnmiUzo65zvplml7lv7YQ5Lcl
-	 cyf7wIqfPgXgw==
-Date: Thu, 30 Jul 2026 14:22:28 +0100
-From: Mark Brown <broonie@kernel.org>
-To: xianwei.zhao@amlogic.com
-Cc: Sunny Luo <sunny.luo@amlogic.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-amlogic@lists.infradead.org, linux-spi@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] spi: dt-bindings: amlogic: spisg: Document
- A9-specific properties
-Message-ID: <db111663-27a2-4299-a692-6154f1f842ca@sirena.org.uk>
-References: <20260723-a9-spisg-v2-0-9fc39106b7e2@amlogic.com>
- <20260723-a9-spisg-v2-1-9fc39106b7e2@amlogic.com>
+	dkim=pass (1024-bit key) header.d=cherry.de header.i=@cherry.de header.b="IXluj8yY"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GhaHrxP9DyQlWFgxdVTtlilsVShsO+dXP97uZTmyD8BQpYD6nysnpmAY424sQ8kfpifQCcYSGxnmfEQgLL5UShvoUxWkXt2Pd0m7ATk+zeSseAn1rZxTP2aAKXKkZ0wFox9MHgUMZdwhwVR8yfIAbIoVQrjyj1Q8712iy26+v3Z06yOLFaV5lG5bik1GX7eGzieeOBKlbuj9sgzPCLooZ46HXREbtABjd3/DcEf44J2aPT1s/xOQSOM/7Mi81xMZOgeLKR5dTrykiu97pit1NX+b+pIgQjm96wInudN2xoI/C34dZCGX5u83gLXi566zQlSYfggR6VXqD53kjIrlHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GQ5dXOOWYXFVcM6x9nGVblT1wUHAuKXaLQ/Eg3mA7Fk=;
+ b=Rp9hv4x/cM0yDk9fvPrVW2bQZ9Y/2++z+2zZfWRwZeIS1JWVuhRLZENMerZsZ/oXxpDigSz47aiQ0bnqvUS4d2De+9yf+5OmDjXd6EVt/c7tKmcLaLhMQVCU/ALqYIcvEAvCw5cwsxunbUMnPCgl/IDZvyHdtywTmCwZ5jkX/W1M1NYh6c145A4HSIAVSkaA8BhrM14epnJGXVrso3pRkG5A3qqEuvSpqhRThOxe0N0ZXqiyOEzy7bbn8ME3hBtSRz0nNLBf2PrzUbIG84flP4GRT18eITlWuPJdOFQgl+Cz0krvC6KUz23XfpW1rzz+97okla9HlCeuCkcfSXw9Bg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=cherry.de; dmarc=pass action=none header.from=cherry.de;
+ dkim=pass header.d=cherry.de; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cherry.de;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GQ5dXOOWYXFVcM6x9nGVblT1wUHAuKXaLQ/Eg3mA7Fk=;
+ b=IXluj8yYLmkrma0TFlgCV2LL1lJ63bkWM0U19AbMrt7gv39YJzOJJLBkQI/q8pDYsbzBB+REl1sMeJ2LPtgRExCWwfymxs2uZzuhKNNIRECVn8SDfJXi7wd1Wdcw4m4d7Ljj3leHGDxRC5IGtYaLZEKwOD34/U6NlBoozYLRcpg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=cherry.de;
+Received: from PA4PR04MB7743.eurprd04.prod.outlook.com (2603:10a6:102:b8::20)
+ by PA4PR04MB9221.eurprd04.prod.outlook.com (2603:10a6:102:27d::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12; Thu, 30 Jul
+ 2026 13:22:54 +0000
+Received: from PA4PR04MB7743.eurprd04.prod.outlook.com
+ ([fe80::9a4e:252f:2fd:97b7]) by PA4PR04MB7743.eurprd04.prod.outlook.com
+ ([fe80::9a4e:252f:2fd:97b7%6]) with mapi id 15.21.0270.012; Thu, 30 Jul 2026
+ 13:22:54 +0000
+Message-ID: <2b7519cc-9e22-45de-940e-2996c2423de5@cherry.de>
+Date: Thu, 30 Jul 2026 15:22:53 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 3/4] arm64: dts: rockchip: add CAN-FD nodes for RK3588
+To: Cunhao Lu <1579567540@qq.com>, Marc Kleine-Budde <mkl@pengutronix.de>,
+ kernel@pengutronix.de, Vincent Mailhol <mailhol@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: linux-can@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Heiko Stuebner <heiko.stuebner@cherry.de>
+References: <20260725-master-v5-0-75da459d2b93@qq.com>
+ <tencent_BE229ADF4693078DBBCC6C02CC0855C01E06@qq.com>
+Content-Language: en-US
+From: Quentin Schulz <quentin.schulz@cherry.de>
+In-Reply-To: <tencent_BE229ADF4693078DBBCC6C02CC0855C01E06@qq.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS4P195CA0031.EURP195.PROD.OUTLOOK.COM
+ (2603:10a6:20b:65a::10) To PA4PR04MB7743.eurprd04.prod.outlook.com
+ (2603:10a6:102:b8::20)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="9CS4vkVm2ZtSBEMP"
-Content-Disposition: inline
-In-Reply-To: <20260723-a9-spisg-v2-1-9fc39106b7e2@amlogic.com>
-X-Cookie: In specially marked packages only.
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB7743:EE_|PA4PR04MB9221:EE_
+X-MS-Office365-Filtering-Correlation-Id: d71ad0a7-c58d-4448-c717-08deee3da9ec
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|7416014|376014|10067099003|4143699003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	iCgN/mFWoMXncKpVi9r573z3sJtZIdD3lnvrOSDhge7u8q9JdRkv951Fmqs8W253SOAZAOBR9b2ALXbSckWN2TpdOxY5D+gq7kKxiBlldg0V6Iu4SxJi/toKxY3DEU8zScKCiSXrpoPr/ADKXob9IVpqYdiUQdp7B63VyJ0Ax/VuuMkAMsIyOyctkeozX30Mbx8cv5C+9MLW51uomdNXcGIf8uNwB15cKs1xodJRuHWszEQGGZJQzTVCQbGYeuJLgQ8qzoT6GptOUS1vP7ZqGBOd3qIglzCbPV1ZR50HYhHUmOeeJmvACKnwCIX51Y6C9WEF6Eg0greSl4YtKm19Rcz2S/bzaD3II7a5QZoCRJ6Nj4mgp4VpPl7IKBXdmsBAh9ZIWv8tyaNaEqHuyfpHBIUlv9O0lONCb0FdNYjRzP2TxcBQlaG0jBA2P+KcvMzfAYY2t8OQkQLRdChUpO5pbBn6O87nTrnnCqm76QjBVDDjhFitYt/rYtRWSIe0Ogx4u/Z1HN1FW8YAP5kh2bl8JflM/8PX0KR7TwXV4PbAIc/5SApZFuGUjnRHrzBAL3CDY5C3qf/XWbUSW24zHttU7N18BZ6YZ0ggiL7m3aWBpyr7c+uMWEas7uGkuCVaNbmcRoMQFcRJQa73DJaUt9VlPbJ+9BV5HNhw6ZHiZOHBQU4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB7743.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(7416014)(376014)(10067099003)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cDBnSmJxcVJsSlB2R3AvKzlzY1RtbmdQcDBldUJQNi85bFJQSm00NHFPVUdL?=
+ =?utf-8?B?K3NUQ01YVDA4TGJSa2s3Yis2SGw0RVJhMmF3RTh6aUJvajVFNnVrTWVtb1J1?=
+ =?utf-8?B?M2dzZ2xGMFZ3dU9BMk41eE8yZVd0Z2hHeFVDZTV0czZCOWFoZ1JxRXNhUGlz?=
+ =?utf-8?B?TkpUUHZMSlRjK0Z3SlBWM0YvMG55eE9DaVJUcGxaMGRsSEYwN0FhRGZUaXJM?=
+ =?utf-8?B?T3lYTVQzUzNFa0M2MEhYNmVRbTlWeEcySExyZ08yVEljVmovOW1TbVBRKzVD?=
+ =?utf-8?B?UGVUZUJXakRpUjZqZm5MOGI4aEtFY1hQcDI0T3hCdHAzRW8xVkhQblRWWFEv?=
+ =?utf-8?B?OFc3NkxxMzRvVUpzcG00WWh2aUlZd2F2OHBrbS9SRHpWcjZlLzVoWUJ2U3lw?=
+ =?utf-8?B?aU8vZGJ1d0VaSTVpRFdOM0gyM01PRlJtT1IyTjcyNGtFdUgwa3UyclJBZUVR?=
+ =?utf-8?B?RWJDL0g0SGJ1VHUzUnRpRE1FdHEzdGpyQkp2djdZdmVjNURYM1VjbWtwWDNn?=
+ =?utf-8?B?K2RybnFncXVnbFc5SGpOOFphTjBkbUE1S2pDY1hwbEphU05oZWthaXVYb2Yw?=
+ =?utf-8?B?NnpYaG9VazFSNE5tNG13MWdCOUJ6VWVWT2wyRXBmZjlVaHJCTTFOeGwwYmtX?=
+ =?utf-8?B?UTg3WFdLQXBCd3FJWFZzdnBSN2IvakM5b2htQ085WDVpdWlqZlhxVllMa3E4?=
+ =?utf-8?B?YVBWeWFkNHdrOVVHZUdOMUhZeXFTQ0p6Y01WU3BoTUJ0elhmUGliQVhWWGxG?=
+ =?utf-8?B?Nk5YQzhXZmdDNUN6SHBoWmxQVW5nZjBqWjBSYzBBVGlSUXVablp6Nmp4R3RJ?=
+ =?utf-8?B?K2pVZCttbU84Smh2Wkp1aG1ZVi9sY01DK1NJcmlrQWlOT1BsN2FZL2FqcjY5?=
+ =?utf-8?B?SlNTU2tYVUVsd084U0JjVE1BbVN4c0FEZEFFUTh4Z043QWhJZ3JvbFZQTmtz?=
+ =?utf-8?B?WW4yLzVpMzlPL2xsVVVuTCtTb1Z1RVk1SWVzNDRwc2t4blNRWXJWbnYyckZz?=
+ =?utf-8?B?K1MwcG55M3QxRkxMMWMvbXhNZ0NlZXhMWEhFKzkrYnVXY21DYkUrRTRYMU4v?=
+ =?utf-8?B?MzNEbmdBUFNCaSsrKzBCU1UzZW9BQ1o2YzR5MW8wVk9ucytyQWN5cnBvOUZ6?=
+ =?utf-8?B?TExoVmNMR3c5WU5jTk5DNSsyZkk4eDVmaFpjeHNsMk1zakxUZWFZc2tzT0F2?=
+ =?utf-8?B?OU1HM1VmWXR1Y2x5bVFNaENKWHNiVGh1T1pTNmR4VTFBWnFNOU8zSlZjTWNB?=
+ =?utf-8?B?YmV6RzdoeTZXQ2FqOW9KV2I3dmdpY1dXMm9zS2k3SElyRlFEWktHSG9NbDYv?=
+ =?utf-8?B?aDc1dEJpVXp1Z3RodXVXck1HV1VvalJkTiszSVprWGdDeXViZXJ2THRIOXZT?=
+ =?utf-8?B?SnQyR1hWanVZUWk3Rk5INkd5SkcwSjRFdGlFbE5jUWdWdnZKaXBPYzVlY1dJ?=
+ =?utf-8?B?N0dXdVRJSjRJYVlPN0pJcjJ6Q3hXdXVzMkFxckQrOUJFNHFPanE1MzIvQTBt?=
+ =?utf-8?B?WGZQckwwRk5sV1ZYU1UraVhkd3RsR01yUkhBdjhWWGxmNjFQYmFCd280UXlx?=
+ =?utf-8?B?YVVXMHVONFB3SGJGbVBDQmxtNXhCTXdBNGsyT2Q4YVYwNGhUdnhPWnZ2K2gz?=
+ =?utf-8?B?bi93NmhlVFRUUkQ1aDBzUEJNNnZIcjhLcUpReEZKbVZGdVNCNFJXbCtBNUd6?=
+ =?utf-8?B?S1A0em1nbFBmS0xoRlhEUExRTWJPNHBpRENna3ZDT0FIbXY2ZlBqWjFYdUtV?=
+ =?utf-8?B?UTk4RWxoOFY1cXdzVWNMcjFHelhhcFB6ak9Wb1QrWWxDcmtZSk1IRTNwUnBQ?=
+ =?utf-8?B?OWhXSWRmczMzRlRwOG1MdlMxV0xiVVJwTU1xbExOYVlSZURIY1JtSWJzdHdV?=
+ =?utf-8?B?c0c1Zm85SzQxN3VFb1BXb2FOWnF4ajYvVW5lUWV6U0lTSlVITzVHQ3d4STRo?=
+ =?utf-8?B?KzRmdmd3VGhhTGlCRVl5dGZNOEFaU0t3R2hYL0pqT0VXQkp5T1JJcWhzVGNo?=
+ =?utf-8?B?MkFwekh5L21NSjFPaGVNOEUxblV4aDJvQzlMdWZrcDlpZUxjRUtBeVdPOXk5?=
+ =?utf-8?B?eWpqNm1nMUZ5dHRpZyszYjZ1TUVKaVFROHRyT1dzWU5xUDBaQ3g1dlpqVWhC?=
+ =?utf-8?B?cmxBMWovMFl4UVl1enVyZWtiRTRJL1JOdTg5THBFK0ZTRDJQa3lweGNMdkRE?=
+ =?utf-8?B?TmtIblF0QlQwK3hncnpsYkgvZCtRNzROWDkwL0tRMjM0OU5BWCttSDduQzBP?=
+ =?utf-8?B?cW9EajBXU3FXcUp0b1RtbXpsOUZvbHdFUGZ6MmpSRXhoWkJMQmlsNHNoZG0w?=
+ =?utf-8?B?WjcxMmswQzJZOEZTQjMrQzRxemMyMTVhUTVlREZRMzIrbXU2SFpaQT09?=
+X-OriginatorOrg: cherry.de
+X-MS-Exchange-CrossTenant-Network-Message-Id: d71ad0a7-c58d-4448-c717-08deee3da9ec
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB7743.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2026 13:22:54.6703
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 5e0e1b52-21b5-4e7b-83bb-514ec460677e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kogD20edc+nTrvadNutN2lqGZPAt5GUT2LpQjFmbk3ne/NZo+RcwBTrj1BJN3mQZqha7TfJZwmPymOunvh6LHruTpfHykUuQ80egKenU4UM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB9221
 
+Hi Cunhao Lu,
 
---9CS4vkVm2ZtSBEMP
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 7/25/26 9:03 AM, Cunhao Lu wrote:
+> Describe the three CAN-FD controllers integrated in RK3588 in the base
+> SoC .dtsi.
+> 
+> Add CAN0, CAN1 and CAN2 nodes with their register ranges, interrupts,
+> clocks and resets, and keep them disabled by default so board DTS files
+> can enable them as needed.
+> 
+> Co-developed-by: Heiko Stuebner <heiko.stuebner@cherry.de>
+> Signed-off-by: Heiko Stuebner <heiko.stuebner@cherry.de>
+> Signed-off-by: Cunhao Lu <1579567540@qq.com>
+> Reviewed-by: Quentin Schulz <quentin.schulz@cherry.de>
 
-On Thu, Jul 23, 2026 at 06:43:42AM +0000, Xianwei Zhao via B4 Relay wrote:
-> From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Tested-by: Quentin Schulz <quentin.schulz@cherry.de> # RK3588 Jaguar
 
-> Document the Amlogic A9 SPISG controller and its additional
-> Device Tree properties.
+where we have all three CAN controllers accessible (two via an adapter 
+board). See 
+https://lore.kernel.org/linux-rockchip/20260730-jaguar-can-v1-0-9b566bd785da@cherry.de/ 
+for more info and the test setup.
 
-> Add the "amlogic,a9-spisg" compatible string and define the
-> A9-specific "amlogic,mo-idle-output" and "amlogic,word-gap"
-> properties, which configure the MOSI idle output level and
-> the inter-word gap, respectively.
-
-> @@ -35,6 +34,23 @@ properties:
->    resets:
->      maxItems: 1
-> =20
-> +  amlogic,mo-idle-output:
-> +    description: |
-> +      Controls the MOSI output level when the controller is idle.
-> +      0 - Drive MOSI low
-> +      1 - Drive MOSI high
-> +      2 - Follow the last transmitted bit
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    enum: [0, 1, 2]
-> +    default: 0
-> +
-> +  amlogic,word-gap:
-> +    description: |
-> +      Number of idle clock cycles inserted between consecutive SPI words.
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    enum: [0, 1, 2, 3]
-> +    default: 1
-
-I'd expect these to be per-device properties, not per controller.  The
-word_gap sounds a lot like the existing word_delay feature we have - if
-it's different it'd be good to be clear why.
-
---9CS4vkVm2ZtSBEMP
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmprUBMACgkQJNaLcl1U
-h9B6Igf/X+zzg9VfJoUN5T5BGj5eihf8ukNh7rLmr4zYQsfOkHIr/NcL/kZsXsxf
-7KuCeVVRO/KVxZesl6kSr8Kf7h8SEjJChTauUDDy2Yy3up9zzI0seOO2Kpibc3Nh
-Xq+6ZmSDie9G3zBKMHNB71//bhMI+K5duCbfk8A0F6dsG1wsJobxAAlhTcHZnsiu
-LkmiQ+7p/rbBodJ6B+zk7tnpSvNFYaOkXVYO0I+kgDCF7uCyHok1/UKT/iYaaBbI
-R6ryWEykKC5fRmxPgculPRoamYLQhC/uMIMtSLdQK1DiKxVc5tEzp0pVLkKi4xss
-nQMdyTzCWVf4gThGtW1MS6J6xSXnRw==
-=2hV1
------END PGP SIGNATURE-----
-
---9CS4vkVm2ZtSBEMP--
+Thanks!
+Quentin
