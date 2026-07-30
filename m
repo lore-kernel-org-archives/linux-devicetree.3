@@ -1,203 +1,113 @@
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB5D144683D
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 17:44:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A9DC369985;
+	Thu, 30 Jul 2026 17:47:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.235.229.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785433499; cv=none; b=WK8h9hmJOmYgm8wGYcpoK7pLJp8PrYpaX/z+ur3yJH2OYMA06VjoBVqvRyNtxY4j+PJIDCdi/1Xbwq2+QnarsDFj85VYILImT5wSLtRGM2gFwaZUTeb3vA1vd4e/2Gz310CPsdypaTUfNO4DzZteW7LOVNmhmFZy2MHV+i1s5xo=
+	t=1785433668; cv=none; b=nr2pbiPyIUuN3NCovGOJOBDFbVtZHEvuCZiOUHGKn62t+Pb8YJ5EpuJ7KemJ1YoQmk5J0SFDvZhew3vu9n+rJt5HaXOg8DoNbNKE0G0WCNesbaSI9hlgF8McMd+q9kYLQppamPOs1E7U0KV35aLSr6t7oCRNqx1R4AsmAoljkqg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785433499; c=relaxed/simple;
-	bh=yPBiN2t1xLgV8+yggesYBRe1ZEPqmT38ZiLc7QyNnXI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JKrL8hoXT2fGXh/tV8vzoSypKt5u/JNuw0QRmROl0Rw3S+JdWfNrAQl9xhULpPrnL8c6SzJkdAoZJ+weEjNa/YSxoi/ch0a1UOmeE+n+x7cLGniVTOufjuPlC8rBT1Ofo1STmGsBdAI1iBC9BFHyDhJvidFYrwfe+IacKQAWeuc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CLJZSEKa; arc=none smtp.client-ip=209.85.222.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785433668; c=relaxed/simple;
+	bh=e+0ok1JCx21GutzrmJHR03gizwPHvHNvaU/J1sXC36g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mcyZvYy7DIQ6e3IJaU7VTKIK3lzRgYfAEZlZ9bhWSvfx8GoggNGIjhGVqAKr6nHl8hAXOCtSYlmoYY+A3oGdCQnIhOEqnb0dSQT24qKMWqkbwOLE0RN3Taz6h7SW/NEJCOQHJSrn2GCcfhNjj/divmCBvI/hYDdVLV7zwgr8eeM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=treblig.org; spf=pass smtp.mailfrom=treblig.org; dkim=pass (2048-bit key) header.d=treblig.org header.i=@treblig.org header.b=pw6S3AZl; arc=none smtp.client-ip=46.235.229.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=treblig.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=treblig.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CLJZSEKa"
-Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-92e4fd65b2bso8996685a.0
-        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 10:44:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785433497; x=1786038297; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hFupwMuTfDFhyvQ+ZCo6JTL5ovd2CQAQ3darP1+tv4Q=;
-        b=CLJZSEKaGhmvDYMqggDuwEf0OiWCc7q/rpvNBmU58nWwaRCJezVvkuXYezFeIkVxIu
-         J8cGf4bJYJH3lAPyPS3S5LaPwPLtleFgAEdNuJZXPknsE9m+LvtuimqpdIo6AADUHDAT
-         d4OGqLsZe9iAzpK/kd9IUG7thuqbbN9pA2Av5ftsimboqcCdlgLKI78IwOt04ctGKTR0
-         VasZUHJmuTrCaKY7pwzLMOeRriDiU7wE58M8Fzxpm42xoZRYWk3IvNOcwLjVw5ry/+H+
-         7eI1owpQ0M6PwJRHaMDrpFqouJ6rxEmQCCfZ9gbRyjtz75ROEIhKi6nKK/F/geg8JJct
-         gTeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785433497; x=1786038297;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hFupwMuTfDFhyvQ+ZCo6JTL5ovd2CQAQ3darP1+tv4Q=;
-        b=XsoE7OmqF5q6WMchfORkVZFaFRKJAay7RJaKUSscs+L0kV0mR79N77InYt9O43pTu1
-         0gBG4eW5QQ83tjUbuQNmhiuio+M90AsWLnLbMsdX5my35vwNOk+O6gxDxcgNVxomD9xx
-         z8zN0XU47Mk5Gl9yUK4rnFqtHpuGuLnDHaBwO71ev5FnE25sAOghIpizDDdy/Y0d8kNV
-         aWG+m09AVeF8ykjf1nZCHcfEimlRMGY9GLaX6qDlFZZtMlYuQ47tP3KajCkLoRxxJWZH
-         lHIsj7aXG1Zz/oqgdfEYRBaDBUVjRiOinKPnxeGF8ATbzPDbX/B9H5MgxPhoQIAqz9QL
-         CIQg==
-X-Forwarded-Encrypted: i=1; AHgh+RqQORU53mgqZRz3G+lEuyD5GJqA0uCXiLzQD56/SWgYSR7GJAPSQ2RKjPVWFb7tXF+I+HcfSPULLrW7@vger.kernel.org
-X-Gm-Message-State: AOJu0YzrP+rJyYYvnXv+1HYv3dyjslCRmaeGodlMcYBFKy2TuKqPUqxr
-	WAOMEOZUbuqVcuYsw78cCNe/jA0ZGOCjWb28tEmzTf76H8oryN80To/l
-X-Gm-Gg: AR+sD13q39W0+hrrRjCrF/x5XyCbBB231bVfc5IRFAHvoawlj+1EGw9oZnVmW/fSYcx
-	Iesk2J5gYc3G4D+Ighme3KzqA7kJMBJ6JKTgmChFiX9DfyGpzO03uJVVdB9+fT+eBWbd8RtjyRx
-	8vXi19FLfZ1wWNMaVuOziFiiskhbBYDwgimPuLQbBPU54g+S/jQsDm/V2EOFs9NCU4viqQiE3f7
-	0XuKzAFscDzUcrwhc5oOnXznyfyJ2jggT52vbWV+2A5D4b77v6M77CvK+3bz8yk7hIDEV/Nz3ae
-	djMfs0+VUSDMX3ClLZViTjjmi+qyrmer1fQLGQybiyuCHJnA65LMiKBrKYDELtVO0WDxuA4q7yQ
-	dB9JeJSZvQpFWp4D9m+oRjAj7vHCa/e3L0arNieWO2JtiD4tfO5+Q+HtsMOftQY+ira1HqWoXgq
-	LLeDdkJrmOXnGSi/tFTfcjYot5mLaWAqQ9Tyryb4CphaGlxeO712rBQzpYKjY=
-X-Received: by 2002:a05:622a:2c3:b0:51b:efbb:fbf with SMTP id d75a77b69052e-52b385fe1b6mr35845161cf.18.1785433496752;
-        Thu, 30 Jul 2026 10:44:56 -0700 (PDT)
-Received: from localhost ([70.54.57.80])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-529e2b181b1sm45736801cf.6.2026.07.30.10.44.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 10:44:56 -0700 (PDT)
-From: Richard Acayan <mailingradian@gmail.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
+	dkim=pass (2048-bit key) header.d=treblig.org header.i=@treblig.org header.b="pw6S3AZl"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
+	; s=bytemarkmx; h=Content-Type:MIME-Version:Message-ID:Subject:From:Date:From
+	:Subject; bh=M8gGV/RkrR2DhChPfjFgBTL106iZJcX3f0d5aMARbkA=; b=pw6S3AZlbVa7eap5
+	6S2AADOpFjK+v6bKCmzos7sjStWwnhV1vjBtEuJvjn3hSKHtQRp4iRkdsctINUvUJiVGO71ydY3a0
+	lEVTz2hToyZsMI+WiSMT0lZyc/+3YgRbgzGSKW5o6kgXwgdWCmGKd/IPd8qpCq50aL4upGk56ABgV
+	H3/vLLa88LQW6hVPMYlqDQFXVsZ8AM+ciKmQOxi+ETO5A1WcV9FCAmhlk1EuBSmZ9fo40zl90EslO
+	Mn8OPeGZN+/z9szwRWX68uMg5cevHAWvI1xxDqZ+9uBh2RVkxhUrw1b8bKjWLY8Hw9nI5L9KYArnr
+	+o4nmH2/pZVHJHqumQ==;
+Received: from dg by mx.treblig.org with local (Exim 4.98.2)
+	(envelope-from <dg@treblig.org>)
+	id 1wpUXr-00000006qC2-05P7;
+	Thu, 30 Jul 2026 17:27:47 +0000
+Date: Thu, 30 Jul 2026 17:27:46 +0000
+From: "Dr. David Alan Gilbert" <dave@treblig.org>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Jens Glathe <jens.glathe@oldschoolsolutions.biz>,
+	Sebastian Reichel <sre@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	linux-sound@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org
-Cc: Nickolay Goppen <setotau@mainlining.org>,
-	Adam Skladowski <a39.skl@gmail.com>,
-	Vladimir Lypak <vladimir.lypak@gmail.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
-	Johan Hovold <johan@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Richard Acayan <mailingradian@gmail.com>
-Subject: [PATCH v6 15/15] ASoC: msm8916-wcd-analog: add quirk for cajon 2.0
-Date: Thu, 30 Jul 2026 13:43:53 -0400
-Message-ID: <20260730174353.108023-16-mailingradian@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260730174353.108023-1-mailingradian@gmail.com>
-References: <20260730174353.108023-1-mailingradian@gmail.com>
+	Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 0/5] usb: typec: ps883x: fixes for older Thunderbolt 4 /
+ USB4 docks
+Message-ID: <amuJkjN1OH_-7a7g@gallifrey>
+References: <20260718-ps883x-disable-usb4-v1-0-cec86d0b909e@oldschoolsolutions.biz>
+ <al6-IyyWYRnEW4VC@venus>
+ <al-dJjzorP-I4Yff@gallifrey>
+ <al_0LjwmfW-cECnY@venus>
+ <41222b67-19e5-4f74-b4aa-928d05db9675@oldschoolsolutions.biz>
+ <amDi7e8fqqzCRlAc@venus>
+ <47810646-3476-4f5b-b140-77b1934fd5b4@oldschoolsolutions.biz>
+ <29de839d-707e-499d-a90b-36aaca0bebec@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+In-Reply-To: <29de839d-707e-499d-a90b-36aaca0bebec@oss.qualcomm.com>
+X-Chocolate: 70 percent or better cocoa solids preferably
+X-Operating-System: Linux/6.12.95+deb13-amd64 (x86_64)
+X-Uptime: 17:26:13 up 24 days, 17:07,  2 users,  load average: 0.02, 0.03,
+ 0.00
+User-Agent: Mutt/2.2.13 (2024-03-09)
 
-The codec version CAJON_2_0 on the Snapdragon 670 requires touching the
-HPH test registers. Add the quirk so this driver can also support
-SDM670.
+* Konrad Dybcio (konrad.dybcio@oss.qualcomm.com) wrote:
+> On 7/22/26 7:18 PM, Jens Glathe wrote:
+> > Hi Sebastian,
+> > 
+> > On 7/22/26 18:03, Sebastian Reichel wrote:
+> >> Hi,
+> >>
+> >> On Wed, Jul 22, 2026 at 10:38:34AM +0200, Jens Glathe wrote:
+> >>> I understand, however I wouldn't want to nerf ps883x for the Hamoa
+> >>> platform until the USB4 stack is complete. The issues you
+> >>> currently run into is:
+> >> That's exactly what this series is doing and not really a problem
+> >> considering USB4 is not working anyways.
+> > 
+> > ...yet :) Alright, nerf patch it is. Question is how broad we need to specify. You have ps883x on all x1 (Hamoa and Purwa, like, Zenbook A14, IdeaCentre Mini X, HP Omnibook X14 fe1). So probably those compatibles: qcom,x1e80100, qcom,x1p42100, qcom,hamoa, qcom,purwa. Looks like a nerfing table :)
+> > 
+> > I will do this in v2.
+> 
+> On one hand, I would just say "don't be surprised connecting USB4
+> hardware to hardware that doesn't [yet] support USB4 doesn't work"..
+> 
+> But if I were in your shoes, I'd prefer for my dock to work too..
 
-Signed-off-by: Richard Acayan <mailingradian@gmail.com>
----
- sound/soc/codecs/msm8916-wcd-analog.c | 63 ++++++++++++++++++++++++++-
- 1 file changed, 61 insertions(+), 2 deletions(-)
+Note that this isn't just something like a dock; but even a TB capable
+C-C cable can't do usb networking over it between a pair of Snapdragon
+laptops, while an older cable works fine.
 
-diff --git a/sound/soc/codecs/msm8916-wcd-analog.c b/sound/soc/codecs/msm8916-wcd-analog.c
-index b9325290c28d..87f8a47cc293 100644
---- a/sound/soc/codecs/msm8916-wcd-analog.c
-+++ b/sound/soc/codecs/msm8916-wcd-analog.c
-@@ -217,9 +217,11 @@
- #define CDC_A_RX_HPH_BIAS_LDO_OCP	(0xf195)
- #define CDC_A_RX_HPH_BIAS_CNP		(0xf196)
- #define CDC_A_RX_HPH_CNP_EN		(0xf197)
-+#define CDC_A_RX_HPH_L_TEST		(0xf19A)
- #define CDC_A_RX_HPH_L_PA_DAC_CTL	(0xf19B)
- #define RX_HPA_L_PA_DAC_CTL_DATA_RESET_MASK	BIT(1)
- #define RX_HPA_L_PA_DAC_CTL_DATA_RESET_RESET	BIT(1)
-+#define CDC_A_RX_HPH_R_TEST		(0xf19C)
- #define CDC_A_RX_HPH_R_PA_DAC_CTL	(0xf19D)
- #define RX_HPH_R_PA_DAC_CTL_DATA_RESET	BIT(1)
- #define RX_HPH_R_PA_DAC_CTL_DATA_RESET_MASK BIT(1)
-@@ -705,6 +707,59 @@ static int pm8916_wcd_analog_enable_ear_pa(struct snd_soc_dapm_widget *w,
- 	return 0;
- }
- 
-+static int pm8916_wcd_analog_enable_hphl_pa(struct snd_soc_dapm_widget *w,
-+					    struct snd_kcontrol *kcontrol,
-+					    int event)
-+{
-+	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
-+	struct pm8916_wcd_analog_priv *priv = dev_get_drvdata(component->dev);
-+
-+	/* This quirk is not required for revisions prior to CAJON_2_0 */
-+	if (priv->codec_version < 4)
-+		return 0;
-+
-+	switch (event) {
-+	case SND_SOC_DAPM_POST_PMU:
-+		usleep_range(7000, 7100);
-+		snd_soc_component_update_bits(component, CDC_A_RX_HPH_L_TEST,
-+				0x04, 0x04);
-+		break;
-+	case SND_SOC_DAPM_POST_PMD:
-+		/* wait 20 ms after the digital codec has powered down */
-+		msleep(20);
-+		snd_soc_component_update_bits(component, CDC_A_RX_HPH_L_TEST,
-+				0x04, 0x00);
-+		break;
-+	}
-+	return 0;
-+}
-+
-+static int pm8916_wcd_analog_enable_hphr_pa(struct snd_soc_dapm_widget *w,
-+					    struct snd_kcontrol *kcontrol,
-+					    int event)
-+{
-+	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
-+	struct pm8916_wcd_analog_priv *priv = dev_get_drvdata(component->dev);
-+
-+	/* This quirk is not required for revisions prior to CAJON_2_0 */
-+	if (priv->codec_version < 4)
-+		return 0;
-+
-+	switch (event) {
-+	case SND_SOC_DAPM_POST_PMU:
-+		usleep_range(7000, 7100);
-+		snd_soc_component_update_bits(component, CDC_A_RX_HPH_R_TEST,
-+				0x04, 0x04);
-+		break;
-+	case SND_SOC_DAPM_POST_PMD:
-+		msleep(20);
-+		snd_soc_component_update_bits(component, CDC_A_RX_HPH_R_TEST,
-+				0x04, 0x00);
-+		break;
-+	}
-+	return 0;
-+}
-+
- static const struct reg_default wcd_reg_defaults_2_0[] = {
- 	{CDC_A_RX_COM_OCP_CTL, 0xD1},
- 	{CDC_A_RX_COM_OCP_COUNT, 0xFF},
-@@ -954,11 +1009,15 @@ static const struct snd_soc_dapm_widget pm8916_wcd_analog_dapm_widgets[] = {
- 	SND_SOC_DAPM_MUX("EAR_S", SND_SOC_NOPM, 0, 0, &ear_mux),
- 	SND_SOC_DAPM_SUPPLY("EAR CP", CDC_A_NCP_EN, 4, 0, NULL, 0),
- 
--	SND_SOC_DAPM_PGA("HPHL PA", CDC_A_RX_HPH_CNP_EN, 5, 0, NULL, 0),
-+	SND_SOC_DAPM_PGA_E("HPHL PA", CDC_A_RX_HPH_CNP_EN, 5, 0, NULL, 0,
-+			   pm8916_wcd_analog_enable_hphl_pa,
-+			   SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_POST_PMD),
- 	SND_SOC_DAPM_MUX("HPHL", SND_SOC_NOPM, 0, 0, &hphl_mux),
- 	SND_SOC_DAPM_MIXER("HPHL DAC", CDC_A_RX_HPH_L_PA_DAC_CTL, 3, 0, NULL,
- 			   0),
--	SND_SOC_DAPM_PGA("HPHR PA", CDC_A_RX_HPH_CNP_EN, 4, 0, NULL, 0),
-+	SND_SOC_DAPM_PGA_E("HPHR PA", CDC_A_RX_HPH_CNP_EN, 4, 0, NULL, 0,
-+			   pm8916_wcd_analog_enable_hphr_pa,
-+			   SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_POST_PMD),
- 	SND_SOC_DAPM_MUX("HPHR", SND_SOC_NOPM, 0, 0, &hphr_mux),
- 	SND_SOC_DAPM_MIXER("HPHR DAC", CDC_A_RX_HPH_R_PA_DAC_CTL, 3, 0, NULL,
- 			   0),
+> And perhaps this is a common problem. Do you have an x86 machine
+> with TBT/USB4 where you could build a kernel with
+> CONFIG_THUNDERBOLT=n? Does the platform firmware there handle this
+> more gracefully, or do we need to make this a generic consideration?
+
+I don't have an x86 Type-c machine, but someone did say aarch macs have
+the problem as well.
+
+Dave
+
+> Konrad
 -- 
-2.55.0
-
+ -----Open up your eyes, open up your mind, open up your code -------   
+/ Dr. David Alan Gilbert    |       Running GNU/Linux       | Happy  \ 
+\        dave @ treblig.org |                               | In Hex /
+ \ _________________________|_____ http://www.treblig.org   |_______/
