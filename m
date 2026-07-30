@@ -1,172 +1,220 @@
-Received: from mail-m3294.qiye.163.com (mail-m3294.qiye.163.com [220.197.32.94])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB35C3A425B;
-	Thu, 30 Jul 2026 08:04:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.94
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34D8D38F949
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 08:04:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785398659; cv=none; b=pr+0OG24f1ylghoiLVPZFe77gHrhZ2Od9VkZt1f1mun4wkS1YMq3DO/lhmoH/fpLejGs6Avo33BuLx0dOjOKfKMmoCcIp+VqQO+s1Nr8QB2jdXPctzmycoEWtu9EZwam/IahfXQy1NE1Ibto1A8k0bmzpZPh8BcwYcgF3S3ZNV0=
+	t=1785398702; cv=none; b=QLXqwSbMFl/Ua5csz8BiGPIGFd+DIiLrGsn7WIP0wozqg/ngJ0l3jbO91s6O2uVDUPnJmJhtjRzq5YZQlO7XazaxVa0vbbtxpvs5mqOpRXvOMsRun2kBg+/YJ8/2wRxAMEQ20RfBuBdDIrXoIyfcAXaoGG/LlUedW0a/JkSyDrc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785398659; c=relaxed/simple;
-	bh=9ZFKHoQ1Pz7ruSskq2fyKQ661N08xPsejhM8XmKtIv0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=ZslQoKpjKQDIPTsN7nKeLDXZ/exzQkCSVzGyO7NV1u+xTPOhdBYgz0d/IbeIHA3AltcZIVZM/jK99aeeHCnSO2cUWdrSEy8jhItwxauxVytWndG0wAJd6E34vSpSoZ7Fts9LfFTaeztBp+pkaft+oZbhbeFItYOFHcOjrcWzSag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=jB6P56QT; arc=none smtp.client-ip=220.197.32.94
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1785398702; c=relaxed/simple;
+	bh=MMhFBx3TD2czG+25iLyuy0m4zdD4fN8WtBGrjjmP3aA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=giJjr90ZcQbUvGTRq8ZvvNMUSzYIWTPEgvAlia7H94l4bkla7+wmamU0vzUlo1BOft5WxM3IgSvcjDWpCBC4bheNjzDHNf+Rb14yNr31zN3pDAEbXVoBf0XqKZZPxSWhPRYclTLA9MMXN+yVWIfCuU+bDVl6vLQYjd0UOr5bm1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=DWZ7pNoC; arc=none smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="jB6P56QT"
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 481c5dbd2;
-	Thu, 30 Jul 2026 11:28:00 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Andy Yan <andy.yan@rock-chips.com>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v1 4/7] drm/bridge: analogix_dp: Extend clear_hotplug_interrupts to accept IRQ bitmask
-Date: Thu, 30 Jul 2026 11:27:41 +0800
-Message-Id: <20260730032744.381566-5-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260730032744.381566-1-damon.ding@rock-chips.com>
-References: <20260730032744.381566-1-damon.ding@rock-chips.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="DWZ7pNoC"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-47f752b3423so1114132f8f.3
+        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 01:04:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1785398697; x=1786003497; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=GFIwwv1ZKlwIh2R3SG739aEFifVFKq7ZdG19KNvDtIc=;
+        b=DWZ7pNoCLHvEZ5q3Rm7XZD7bwWDtLDBW0Qqnd/Tx7xuLLiP/R0RMaKBnRI6kGSah6q
+         LeuSU8y2BOYOmWZ5xlaEWSt6GXrjyQvQhlR3/opmj5lKOSl9HHqv+AUlOkT9rxjPJrVK
+         k3it4tvw0fFFSyv4hIIv6FD/uaOWxP9S32MMmefI4Ty1M/61EgIVPPq5VEbWc10bw2Bo
+         jIcK6HG0zKQXieaNXEkjECDTcEom1N+7bhnOIzgXUQ71hCR/RHknjkERfAe0dlNMa72S
+         BYlqpWWsNOjB1EDF6lIZU0QBPM4izDLIA7yLkFrDZGq9bQEXAjwaWm2wMvuX/4MzRm8o
+         JZaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785398697; x=1786003497;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=GFIwwv1ZKlwIh2R3SG739aEFifVFKq7ZdG19KNvDtIc=;
+        b=lcefckXHeFHfl4lX9csl9X1Vyu9lsvWrF36U1ki9+ZnKYI04FR0GYjHusphgfj/gKT
+         hLOhln0Bza7/LZw9gri+y0Ej79OD28Te3b2QShfjFdIS/AZH+xpMkFeVZfsllWHw+J9V
+         RKhaXaULYv/LrEN7lGMpME10h+/rRGdpWatR+qzrMm1YVPFdq0258bqKOyuTTNnOzJf5
+         Jcm0YMN/JrcuoQ3CzfyrLeWPG9XcZpOSseGQS4t6KW1HoC73J+EmGwlMRmFvc1uxXghi
+         9EGmyJFOqUqxq+HiQ9K/Z6BBOQdkjirQc9xrvoiE4qZKMdVOwTtX+CB+ZuyVajdUVpTK
+         KxLQ==
+X-Gm-Message-State: AOJu0Yw5iwwNnQfvl9OoqnaSTh2TWcTNtcXfaPqpQAjlr+oNY3FvdrsK
+	RdXaKgQU3ZUfyaAI/BJ9smdSnp3pm2D16MH5BqpPFW1F5uxDbnuI58PtRP4rEn2SdN0=
+X-Gm-Gg: AR+sD11qfh68LIu9epRutuL0N6wawQOlBt7WIFhtE3GGsNF1DT85ndllrJ7Ygu7Aw5x
+	/jZ1JB8byaPkewFr2loKseGtm9wIDSkH9vpgMTFEpPCIjWAG/Nq/VMcDj8tWApMtlVHY3UfIMcX
+	WLZv/s1aH9LdHfjgkQBeXbEhtpSQiRFSjThSGlee2FUdbHrSdi9UimUmc1CczohUWg3hqUffHVO
+	sX25AD7xH8w+rwJPUNQeFmXWXQvLKUdgFSo1exTq2AFc2HEFHFdTWbwKNnjkdqHgrpSeUK6nv8W
+	Mt7m+fFRsaGdIvbXhmCSKc+8+LJFxPfIO2wpYD9KsZn5KtkR8sVeUxaphCKmGswBLhASmzvJlI8
+	9YdXtY++UGhx+7NKk69/ZE+1ZFfd8OqIoAqpB56+asvz0a2BVcOMai9oAl4riqjEI1YZ1w2yUsz
+	xc85WePYc+GFw5EHLG2UNYYlWXH3d3VAiBZdk8SPzyXQymtPkAc5CRXRubHYJCtst3ED3wnmmcZ
+	B51q+CJooGSolydTcr5URM6grwNdL3+jEvJBbFF+QVPf39+Agg5HZvP/e4=
+X-Received: by 2002:a05:6000:400b:b0:47f:8465:2712 with SMTP id ffacd0b85a97d-47fc8213000mr2091889f8f.56.1785398697420;
+        Thu, 30 Jul 2026 01:04:57 -0700 (PDT)
+Received: from [127.0.0.1] (host-212-171-227-71.pool212171.interbusiness.it. [212.171.227.71])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fc877dafasm3797373f8f.0.2026.07.30.01.04.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 30 Jul 2026 01:04:56 -0700 (PDT)
+From: Carlo Caione <ccaione@baylibre.com>
+Date: Thu, 30 Jul 2026 10:04:41 +0200
+Subject: [PATCH v2] arm64: dts: mediatek: mt8390-genio-common: add boot
+ phase tags
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9fb11090b603a8kunm040f79123746e6
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTx4dVkMdHUpJSh5OTExLTVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=jB6P56QTBwB3M2Fe2A7+m3cYOdzAyyO+/ALWzKSzFef9lePJElGn439UWo0KxdA3Y1Fi6ypW12Ffkpj/XlWOxkpT7GapCK3GX9YrwJXG4ALjPigMK/FNr1hnuoKH1Cle6Z7Me9suJiyYIekyee5wik7BhxW/0CeJpHMqXqGizq4=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=aLYMustPoXkMtRAN3kGJyKv3pEdMrefd8L2c/gGFsQ8=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260730-ccaione-upstream-mt8390-bootph-v2-1-82f67feadf7a@baylibre.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42OQQ6CMBBFr0K6dgwdK1BX3sOwaMsgNUJJW4iEc
+ HcLXsDlS17++ysL5C0FdstW5mm2wbohAZ4yZjo1PAlsk5hhjkVeIgdjVFIIpjFET6qHPlYXmYN
+ 2Lo4dkCoVCiFQomFpZPTU2s8ReNQ/DpN+kYn76m50NkTnl+PBzHfv79jMgcO1EMhl1cpSNnetl
+ rfVns7G9azetu0L93RbKeEAAAA=
+X-Change-ID: 20260721-ccaione-upstream-mt8390-bootph-ea7a2444292c
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino@collabora.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ David Lechner <dlechner@baylibre.com>, 
+ Julien Stephan <jstephan@baylibre.com>, Carlo Caione <ccaione@baylibre.com>
+X-Mailer: b4 0.15.2
 
-Update analogix_dp_clear_hotplug_interrupts() to take an irq_type
-bitmask argument. Instead of clearing all hotplug interrupt bits
-unconditionally, only clear the interrupt flags corresponding to the
-triggered events.
+U-Boot SPL runs after the platform DDR loader has initialized DRAM on
+the Genio 510 and Genio 700 EVKs. It needs the debug UART and eMMC
+controller, together with their clock, syscon, pinctrl, interrupt and
+watchdog providers, to load the firmware FIT.
 
-Pass the detected IRQ bitmask from the irq thread handler, and use the
-full HPD_IRQ mask during HPD initialization.
+Mark the nodes consumed by the current SPL configuration with
+'bootph-pre-ram' so that the canonical devicetree carries the boot-phase
+information and bootloaders do not need local overrides.
 
-This implements fine-grained pending interrupt clearing logic and
-removes limitations brought by unconditional register writes,
-supporting improved accuracy for HPD event handling.
-
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+Signed-off-by: Carlo Caione <ccaione@baylibre.com>
 ---
- .../drm/bridge/analogix/analogix_dp_core.c    |  2 +-
- .../drm/bridge/analogix/analogix_dp_core.h    |  2 +-
- .../gpu/drm/bridge/analogix/analogix_dp_reg.c | 25 +++++++++++++------
- 3 files changed, 19 insertions(+), 10 deletions(-)
+Add the boot-phase annotations needed by U-Boot SPL on the MediaTek
+Genio 510 and Genio 700 EVKs. Both boards use the same pre-RAM device
+dependency chain, so keep the annotations in their shared
+mt8390-genio-common.dtsi.
+---
+Changes in v2:
+- Move the tags from the Genio 700 board DTS to
+  mt8390-genio-common.dtsi so they are shared with Genio 510.
+- Update the subject and description to cover both EVKs.
+- Link to v1: https://patch.msgid.link/20260721-ccaione-upstream-mt8390-bootph-v1-1-5642198f979d@baylibre.com
+---
+ .../boot/dts/mediatek/mt8390-genio-common.dtsi     | 84 ++++++++++++++++++++++
+ 1 file changed, 84 insertions(+)
 
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index 1671f388ef30..5af4150f0e7e 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -729,7 +729,7 @@ static irqreturn_t analogix_dp_irq_thread(int irq, void *arg)
- 	}
+diff --git a/arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi b/arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi
+index b0c97930a0e6..6172160ea9f5 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi
+@@ -20,6 +20,10 @@
+ #include <dt-bindings/usb/pd.h>
  
- 	if (irq_type) {
--		analogix_dp_clear_hotplug_interrupts(dp);
-+		analogix_dp_clear_hotplug_interrupts(dp, irq_type);
- 		analogix_dp_unmute_hpd_interrupt(dp, irq_type);
- 	}
- 
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
-index bc13ae45be69..2066e575ce10 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
-@@ -194,7 +194,7 @@ int analogix_dp_init_analog_func(struct analogix_dp_device *dp);
- void analogix_dp_init_hpd(struct analogix_dp_device *dp);
- void analogix_dp_force_hpd(struct analogix_dp_device *dp);
- u32 analogix_dp_get_irq_type(struct analogix_dp_device *dp);
--void analogix_dp_clear_hotplug_interrupts(struct analogix_dp_device *dp);
-+void analogix_dp_clear_hotplug_interrupts(struct analogix_dp_device *dp, u32 irq_type);
- void analogix_dp_reset_aux(struct analogix_dp_device *dp);
- void analogix_dp_init_aux(struct analogix_dp_device *dp);
- int analogix_dp_get_plug_in_status(struct analogix_dp_device *dp);
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-index 42c1da160ad0..816be79a8da6 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-@@ -24,6 +24,8 @@
- #define COMMON_INT_MASK_4	(HOTPLUG_CHG | HPD_LOST | PLUG)
- #define INT_STA_MASK		INT_HPD
- 
-+#define HPD_IRQ			(DP_IRQ_TYPE_HP_CABLE_IN | DP_IRQ_TYPE_HP_CABLE_OUT | \
-+				 DP_IRQ_TYPE_HP_CHANGE | DP_IRQ_TYPE_IRQ_HPD)
- #define COMMON_INT_4_HPD_IRQ	(DP_IRQ_TYPE_HP_CABLE_IN | DP_IRQ_TYPE_HP_CABLE_OUT | \
- 				 DP_IRQ_TYPE_HP_CHANGE)
- 
-@@ -408,18 +410,25 @@ int analogix_dp_init_analog_func(struct analogix_dp_device *dp)
- 	return 0;
- }
- 
--void analogix_dp_clear_hotplug_interrupts(struct analogix_dp_device *dp)
-+void analogix_dp_clear_hotplug_interrupts(struct analogix_dp_device *dp, u32 irq_type)
- {
--	u32 reg;
-+	u32 reg = 0;
- 
--	if (dp->hpd_gpiod)
-+	if (dp->hpd_gpiod || !irq_type)
- 		return;
- 
--	reg = HOTPLUG_CHG | HPD_LOST | PLUG;
--	writel(reg, dp->reg_base + ANALOGIX_DP_COMMON_INT_STA_4);
-+	if (irq_type & COMMON_INT_4_HPD_IRQ) {
-+		if (irq_type & DP_IRQ_TYPE_HP_CABLE_IN)
-+			reg |= PLUG;
-+		if (irq_type & DP_IRQ_TYPE_HP_CABLE_OUT)
-+			reg |= HPD_LOST;
-+		if (irq_type & DP_IRQ_TYPE_HP_CHANGE)
-+			reg |= HOTPLUG_CHG;
-+		writel(reg, dp->reg_base + ANALOGIX_DP_COMMON_INT_STA_4);
-+	}
- 
--	reg = INT_HPD;
--	writel(reg, dp->reg_base + ANALOGIX_DP_INT_STA);
-+	if (irq_type & DP_IRQ_TYPE_IRQ_HPD)
-+		writel(INT_HPD, dp->reg_base + ANALOGIX_DP_INT_STA);
- }
- 
- void analogix_dp_init_hpd(struct analogix_dp_device *dp)
-@@ -429,7 +438,7 @@ void analogix_dp_init_hpd(struct analogix_dp_device *dp)
- 	if (dp->hpd_gpiod)
- 		return;
- 
--	analogix_dp_clear_hotplug_interrupts(dp);
-+	analogix_dp_clear_hotplug_interrupts(dp, HPD_IRQ);
- 
- 	reg = readl(dp->reg_base + ANALOGIX_DP_SYS_CTL_3);
- 	reg &= ~(F_HPD | HPD_CTRL);
--- 
-2.34.1
+ / {
++	memory@40000000 {
++		bootph-pre-ram;
++	};
++
+ 	aliases {
+ 		dsi0 = &disp_dsi0;
+ 		ethernet0 = &eth;
+@@ -1586,3 +1590,83 @@ &xhci2 {
+ 	vbus-supply = <&sdio_fixed_3v3>; /* wifi_3v3 */
+ 	status = "okay";
+ };
++
++&apmixedsys {
++	bootph-pre-ram;
++};
++
++&clk26m {
++	bootph-pre-ram;
++};
++
++&gic {
++	bootph-pre-ram;
++};
++
++&infracfg_ao {
++	bootph-pre-ram;
++};
++
++&mmc0 {
++	bootph-pre-ram;
++};
++
++&mmc0_default_pins {
++	bootph-pre-ram;
++
++	pins-clk {
++		bootph-pre-ram;
++	};
++
++	pins-cmd-dat {
++		bootph-pre-ram;
++	};
++
++	pins-rst {
++		bootph-pre-ram;
++	};
++};
++
++&mmc0_uhs_pins {
++	bootph-pre-ram;
++
++	pins-clk {
++		bootph-pre-ram;
++	};
++
++	pins-cmd-dat {
++		bootph-pre-ram;
++	};
++
++	pins-ds {
++		bootph-pre-ram;
++	};
++
++	pins-rst {
++		bootph-pre-ram;
++	};
++};
++
++&pio {
++	bootph-pre-ram;
++};
++
++&topckgen {
++	bootph-pre-ram;
++};
++
++&uart0 {
++	bootph-pre-ram;
++};
++
++&uart0_pins {
++	bootph-pre-ram;
++
++	pins {
++		bootph-pre-ram;
++	};
++};
++
++&watchdog {
++	bootph-pre-ram;
++};
+
+---
+base-commit: 11028ab62899e4191e074ee364c712b77823a9c4
+change-id: 20260721-ccaione-upstream-mt8390-bootph-ea7a2444292c
+
+Best regards,
+--  
+Carlo Caione <ccaione@baylibre.com>
 
