@@ -1,139 +1,123 @@
-Received: from mail-m49214.qiye.163.com (mail-m49214.qiye.163.com [45.254.49.214])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AADA91A9FA0;
-	Thu, 30 Jul 2026 03:33:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.214
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D64938C426
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 03:38:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785382405; cv=none; b=uu2msguEfgjO8vNVwf5IPER02i4vNDJ7bSk5AgaDL6qPyFH9DCO4Y4SPGNpGhn99Z1yQeykGqjk3qaaCSoRflB8VAFKypnviehx/XMFWdNKFRSs/nkoYihqg85JiOXxAb3W384APXnjXsFD2D+vFDmJTlAyw8gsQEFqw44Msp0A=
+	t=1785382737; cv=none; b=PDizdIy3U3xmaQr83Ubi0JIDlpIgIJqE8K/Mp4EA2ePvCb0iRtU31HlfHipgxpZ6Q62kUPv0zdXP/ehH3aKXc8QEMIlnUCYWKZCnrlvdZoKhN2Glw6VGVs5DJATS9fsgaAL7mmFUexAbb8CG9fq3QZc2oLNp3KizyP5LGAgHXyo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785382405; c=relaxed/simple;
-	bh=p1wNd7E/0PjEGux9/htqeyVEMutbRFXr3Lwyrl3uhLA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=ZP8KL22it+eekmjmqx6eWNb8gQB4v7lJSeV4brX6KodPDS0LfwQEP0nQh65oxphk4iSnQrk+hNqWnr6mBmP2B8wMclmnnVcYZFU9VmCm95WbqfeRVnb33iBPZpLmgCXGbIIDF/q9//ZBOERLU6xW6lB8QeyBst1H4mV+8p7Xgas=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=kkqG58EZ; arc=none smtp.client-ip=45.254.49.214
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1785382737; c=relaxed/simple;
+	bh=hKl6I8adbKfhfsuOz3BI5xtfkYGKRG3IGfM/n4scdU4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=KJnVDTRsYLbXnym37H+3kF3F/2lE2u6H5DKk5nOdYkcOlnifsQCvHtc6oriIBMvj9hAvRvPHDBaGWeptPQVDascS7Ez61gCv89I53+//GLaAqcksYUaX4wWuiHs/z877zkCQU0IZpAf4xMkSREcEpTR9WeNovGndanRtnaMUmZE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JfzhnEly; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="kkqG58EZ"
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 481c5dbe0;
-	Thu, 30 Jul 2026 11:28:03 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Andy Yan <andy.yan@rock-chips.com>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v1 6/7] drm/bridge: analogix_dp: Use platform-specific HPD detection scheme
-Date: Thu, 30 Jul 2026 11:27:43 +0800
-Message-Id: <20260730032744.381566-7-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260730032744.381566-1-damon.ding@rock-chips.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JfzhnEly"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D1DC1F000E9;
+	Thu, 30 Jul 2026 03:38:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785382734;
+	bh=YGs4mWmdEraeAL7XILm5j/zC6IKpWQd8Uhrmgav7Y1w=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JfzhnElyul7+xm5zN65fCw1h+yjLs9aD7MR+eM3+Z6YI06zcv9vf4AZ/AVKpm1cM5
+	 /bJl3lHHXCXjaMdHfOTkGGk6HBJYO4ud+OJ/TuAbR236KoHPgZHupUEOveIeJ1kAi7
+	 NV8P1q6diEvmSgRouilo6pgeQGmnUH7b1wgy81vQP5vfGy/XJKx28tU72zJK00cnfm
+	 YPb718HwqHD+/XiB8qxZYaBY6xP4By7jpjnY+r7GdU3OZBek/TDWg9IxtGyLKqnBj1
+	 W7j3RpMCEsz241arJ8CY0xbasBhAGeIERHkkNxjBeXZcT0v1e6KPdKCJRpuA5J4rXo
+	 Gz8j+cYCerJGg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 4/7] drm/bridge: analogix_dp: Extend
+ clear_hotplug_interrupts to accept IRQ bitmask
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Damon Ding" <damon.ding@rock-chips.com>
+Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260730032744.381566-5-damon.ding@rock-chips.com>
 References: <20260730032744.381566-1-damon.ding@rock-chips.com>
+ <20260730032744.381566-5-damon.ding@rock-chips.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 30 Jul 2026 03:38:53 +0000
+Message-Id: <20260730033854.7D1DC1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9fb11099f703a8kunm040f7912374703
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTx0aVh5MQhhPThgZHh0YGFYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=kkqG58EZk/bq0j0078a+tutvBffDoUkUeP5DBcaR2GjxzGZwKm+vFqJzXagP3ujiMTNjxaw7l8eFPr8XwwGj5tTQXqi9q4jFdaFv4E2US4QkXaNiFMb+7PW+9LSmrGF1+W4uatEIaX4Ik8C4Ssv13JBFxiim95ziqeDO0f6HoUw=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=elyGK4QoDPo3Zn9iP3mbc9y7RPMCsYI4PnIQJ5KkDHs=;
-	h=date:mime-version:subject:message-id:from;
 
-Hotplug detection can be implemented either via HOTPLUG_CHG interrupt,
-or the combination of PLUG and HPD_LOST interrupts.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-For Rockchip platforms, configure HPD deglitch to 2ms and rely on
-HOTPLUG_CHG interrupt for hotplug events, which is verified as the
-optimal solution through engineering tests. Other platforms continue
-using PLUG + HPD_LOST pair.
+New issues:
+- [High] Data Race in Interrupt Mask Registers During RMW
 
-Adjust analogix_dp_config_interrupt() to apply platform-specific
-interrupt masking and deglitch settings. Update threaded irq handler
-to check corresponding interrupt flags according to platform type.
+Pre-existing issues:
+- [High] Lost Hardware Hotplug Events Due to Late Status Clearing
+--
 
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
----
- .../gpu/drm/bridge/analogix/analogix_dp_core.c   |  9 +++++++--
- .../gpu/drm/bridge/analogix/analogix_dp_reg.c    | 16 +++++++++++++++-
- 2 files changed, 22 insertions(+), 3 deletions(-)
+--- Patch [4]: [PATCH v1 4/7] drm/bridge: analogix_dp: Extend clear_hotplug=
+_interrupts to accept IRQ bitmask ---
+commit f4ba8e259db1706905ae7d04afdea18e9d5a28d6
+Author: Damon Ding <damon.ding@rock-chips.com>
 
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index 5af4150f0e7e..a292bc881b6b 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -719,10 +719,15 @@ static irqreturn_t analogix_dp_irq_thread(int irq, void *arg)
- {
- 	struct analogix_dp_device *dp = arg;
- 	u32 irq_type;
-+	bool hpd_detected;
- 
- 	irq_type = analogix_dp_get_irq_type(dp);
--	if (irq_type & DP_IRQ_TYPE_HP_CABLE_IN ||
--	    irq_type & DP_IRQ_TYPE_HP_CABLE_OUT) {
-+	if (!dp->hpd_gpiod && analogix_dp_is_rockchip(dp->plat_data->dev_type))
-+		hpd_detected = irq_type & DP_IRQ_TYPE_HP_CHANGE;
-+	else
-+		hpd_detected = (irq_type & DP_IRQ_TYPE_HP_CABLE_IN) ||
-+			       (irq_type & DP_IRQ_TYPE_HP_CABLE_OUT);
-+	if (hpd_detected) {
- 		dev_dbg(dp->dev, "Detected cable status changed!\n");
- 		if (dp->drm_dev)
- 			drm_helper_hpd_irq_event(dp->drm_dev);
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-index 42463e18f392..981ce3810e90 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-@@ -177,7 +177,21 @@ void analogix_dp_config_interrupt(struct analogix_dp_device *dp)
- 	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_2);
- 	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_3);
- 
--	analogix_dp_unmute_hpd_interrupt(dp, HPD_IRQ);
-+	if (analogix_dp_is_rockchip(dp->plat_data->dev_type)) {
-+		/*
-+		 * Either HOTPLUG_CHG interrupt or PLUG + HPD_LOST interrupt
-+		 * pair can be used to implement hotplug detection.
-+		 *
-+		 * On Rockchip platforms, configuring HPD deglitch to 2ms and
-+		 * using HOTPLUG_CHG interrupt for hotplug detection is proven
-+		 * as a better solution via engineering verification.
-+		 */
-+		writel(0x80, dp->reg_base + ANALOGIX_DP_HPD_DEGLITCH_L);
-+		writel(0xbb, dp->reg_base + ANALOGIX_DP_HPD_DEGLITCH_H);
-+		analogix_dp_unmute_hpd_interrupt(dp, DP_IRQ_TYPE_HP_CHANGE);
-+	} else {
-+		analogix_dp_unmute_hpd_interrupt(dp, HPD_IRQ);
-+	}
- }
- 
- void analogix_dp_mute_hpd_interrupt(struct analogix_dp_device *dp, u32 irq_type)
--- 
-2.34.1
+drm/bridge: analogix_dp: Extend clear_hotplug_interrupts to accept IRQ bitm=
+ask
 
+Update analogix_dp_clear_hotplug_interrupts() to take an irq_type
+bitmask argument. Instead of clearing all hotplug interrupt bits
+unconditionally, only clear the interrupt flags corresponding to the
+triggered events.
+
+> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers=
+/gpu/drm/bridge/analogix/analogix_dp_core.c
+> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> @@ -733,7 +733,7 @@ static irqreturn_t analogix_dp_irq_thread(int irq, vo=
+id *arg)
+>  	}
+> =20
+>  	if (irq_type) {
+> -		analogix_dp_clear_hotplug_interrupts(dp);
+> +		analogix_dp_clear_hotplug_interrupts(dp, irq_type);
+
+[Severity: High]
+This is a pre-existing issue, but can this late clearing cause hardware
+hotplug events to be silently lost?
+
+Because the hardware interrupt status is cleared at the end of the threaded
+handler, it executes after the time-consuming drm_helper_hpd_irq_event()
+completes:
+
+analogix_dp_irq_thread()
+    if (hpd_detected) {
+        ...
+        drm_helper_hpd_irq_event(dp->drm_dev);
+    }
+
+If a fast unplug/plug cable bounce occurs exactly while
+drm_helper_hpd_irq_event() is executing, the hardware sets the status bit
+again. Clearing the write-1-to-clear (W1C) register after this will clear
+the new event without triggering a new interrupt.
+
+Should the W1C status registers be cleared immediately after reading their
+state, before executing the event handling logic?
+
+>  		analogix_dp_unmute_hpd_interrupt(dp, irq_type);
+
+[Severity: High]
+Does this code need a spinlock to protect the interrupt mask registers?
+
+Since the IRQ is requested without IRQF_ONESHOT, the hardirq handler can
+preempt the threaded handler. If analogix_dp_unmute_hpd_interrupt() reads
+ANALOGIX_DP_COMMON_INT_MASK_4 and gets preempted by a new hardirq that
+masks a new event, the resuming threaded handler might overwrite the
+register with its stale read value.
+
+Could this cause a hotplug interrupt type to become permanently masked
+if the hardirq overwrites the threaded handler's unmute operation?
+
+>  	}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730032744.3815=
+66-1-damon.ding@rock-chips.com?part=3D4
