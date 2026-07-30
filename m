@@ -1,203 +1,138 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from smtp-1909.mail.infomaniak.ch (smtp-1909.mail.infomaniak.ch [185.125.25.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 621C5430CC3;
-	Thu, 30 Jul 2026 13:18:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E20CA434409
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 13:18:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.25.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785417524; cv=none; b=qSgqv1jncotPuLPjlLFa2wZlXqsr3WcQ8oFCGJgRG3g9xo5vzXJFEikc8cXsg/EWvRpx2YCC8tokj9NaRZuO1K40VvE2yR3MZ965pp04Tiwd3FSpaEDbX3z0fdGcd6CcT6aczqi1PTnAnxSFfWljHjUKTxH5exu6PxJX+vlqO6A=
+	t=1785417526; cv=none; b=MLJGQAGUiQzierfodqN9/ou3eCf75N4EMX6hdx0vBIIBwKlMiF+FKD0TJrj8iR39d7YnNPJiauzth5E3Dt3M6CejSRqvSlMlnaaqccpUZqAGSUW8MHJs16k1L5h8W7wf/PoCZr984akTrVuI2UCprHaIGaIjT/HJu3g180yTlJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785417524; c=relaxed/simple;
-	bh=24y+3UdFsQ5wFN5feLpIVst8Gu8wmIUooQ9yuQU5Yk8=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=g95t9xEPACh/E66raeBjEyQKL7P8SM0ZEEbP5K4naB5/k5XI0k872/zoAxnDxxYaTiiprayzJYe9KYXOhg+yYbnRNm7zc8ET2bKIZAIMLxk6Q6qRQfPy78Z9w7/wvJi6UjCFTFwUku4Hv2iILDI1NAyKXqNG3DLYmgj/ZqSwNJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=axnYuVaB; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1785417526; c=relaxed/simple;
+	bh=yViWIZbNIFZy2KEtroEk78bC6uXTreWRWeMBQjIOHwA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=hx6RD56e87gUdUR0yRzrtNaLL95rcK6QlQnXMloU6voimue+UggH5FVNQsSpiis3rg0csATe4GltpOBKgBo1DkTlSylsGdARNmZNrG4i7gvWpP9YubsECbHNCwiK7t4pFTpjCzvRt2JcbzBDztvpQ9jn+84Bk2iwTsmx4+Zz5Us=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=0leil.net; spf=pass smtp.mailfrom=0leil.net; dkim=pass (2048-bit key) header.d=0leil.net header.i=@0leil.net header.b=UrDNyIaX; arc=none smtp.client-ip=185.125.25.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=0leil.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0leil.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="axnYuVaB"
-Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66UDGoYL672900;
-	Thu, 30 Jul 2026 09:18:19 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=r9UE6
-	yFBxz9Q0cLHhNjx12MtLGO5UTjvcHU5Q2cVTUs=; b=axnYuVaBr3UUdVaff3e+E
-	DNge+oNA0LFIO9Rs+ki8ERWUairNUq9kep4vc0LwOR/9H29bKsc5x/KYdzL1mDWE
-	N6lPJ+m0BL90guI+kXfUE4/vrWWUAhGZuA7hinJHg4VNb5RK4r1sgr68QJ/bciFz
-	bTESZNhD6Mj8aD/eX5PVosYeb9ilV1AeDD9T+SSTt9fkyL19c7RIbXebAlp9fyI/
-	tqG9KURhk+MX5M9zIS2X64SpSohBP3H8ItYfj+q2//6EybZGdrGGgJwg+1qTR0X9
-	z1PBZMZbZCcXyprz5NQyz9WH5eZSjj/99AnJJ7mgpGLCkwzyFMpExuM93pPvFVVI
-	g==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4fqag4f4hu-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 30 Jul 2026 09:18:18 -0400 (EDT)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 66UDIHXi022496
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 30 Jul 2026 09:18:17 -0400
-Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
- ASHBMBX9.ad.analog.com (10.64.17.10) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Thu, 30 Jul 2026 09:18:17 -0400
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by
- ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Thu, 30 Jul 2026 09:18:17 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Thu, 30 Jul 2026 09:18:17 -0400
-Received: from HYB-JRXo5UEs61B.ad.analog.com ([10.66.6.190])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 66UDHtPv008508;
-	Thu, 30 Jul 2026 09:18:12 -0400
-From: Stefan Popa <stefan.popa@analog.com>
-To: <linux-iio@vger.kernel.org>
-CC: <linux-hwmon@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <jic23@kernel.org>, <andy@kernel.org>,
-        <nuno.sa@analog.com>, <linux@roeck-us.net>, <robh@kernel.org>,
-        <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <dlechner@baylibre.com>,
-        <ciprian.hegbeli@analog.com>, <siratul.islam@linux.dev>,
-        <u.kleine-koenig@baylibre.com>, <joshua.crofts1@gmail.com>,
-        Stefan Popa
-	<stefan.popa@analog.com>
-Subject: [PATCH v6 1/2] dt-bindings: iio: adc: add adi,max40080
-Date: Thu, 30 Jul 2026 16:17:37 +0300
-Message-ID: <20260730131738.822405-2-stefan.popa@analog.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260730131738.822405-1-stefan.popa@analog.com>
-References: <20260730131738.822405-1-stefan.popa@analog.com>
+	dkim=pass (2048-bit key) header.d=0leil.net header.i=@0leil.net header.b="UrDNyIaX"
+Received: from smtp-3-0000.mail.infomaniak.ch (smtp-3-0000.mail.infomaniak.ch [10.4.36.107])
+	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4h9qX74WclzCjr;
+	Thu, 30 Jul 2026 15:18:31 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=0leil.net;
+	s=20231125; t=1785417511;
+	bh=jf4ZRq/wrnel4LOU01dqWeI/qawB5heyUyukbpuhQ2g=;
+	h=From:Subject:Date:To:Cc:From;
+	b=UrDNyIaXTWMhJduxqiqjfeXqAG7dEVtRVJOtviak91UuMfbr4wwWspgQaDckEGdwy
+	 G/5GqIqDQu1yPs/cD31bdnFO7wKEbLRr9Wrn37wQUqLJPF0uDZ4CUz02Y+XDnLmeHM
+	 XO2Hv5mtfLmzsjYIBAPGuz3AczreT55uLQWPBMgzG5T5CRKkPeCAKl7Me0p2ZMGhAc
+	 mgZP2nduVaZclrlHZbPR/wc2E/R7PnWEMQIM/VfAytssSAPIA22p1+c3w6xXvWHIvL
+	 3xdPeMmlYPbhK4clvF6AEKz6CWEp8waAlQr21i37KbKH/hU1jr0NnWnJ9npIgiAtii
+	 XQGYxwAoDp0Jw==
+Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4h9qX53YB7zGNB;
+	Thu, 30 Jul 2026 15:18:29 +0200 (CEST)
+From: Quentin Schulz <foss+kernel@0leil.net>
+Subject: [PATCH 0/2] arm64: dts: rockchip: support CAN1-CAN2-UART4 adapter
+ for RK3588 Jaguar + enable CAN0
+Date: Thu, 30 Jul 2026 15:18:26 +0200
+Message-Id: <20260730-jaguar-can-v1-0-9b566bd785da@cherry.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Authority-Analysis: v=2.4 cv=V/tNF+ni c=1 sm=1 tr=0 ts=6a6b4f1b cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=Z0pTeXoby7EwIRygza74:22 a=gEfo2CItAAAA:8 a=gAnH3GRIAAAA:8 a=VwQbUJbxAAAA:8
- a=edEkJmESHCq-kgOIXrUA:9 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-GUID: vmv_OLrjw3o7hGlzs3k3kiAh2OdEkkgr
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDEwMCBTYWx0ZWRfXwbRiZ5u9la8B
- De2SGc6BAkI/OYkESJFkTuTDcHO80lWPqV2JkPmjE8BL8JvVIFD7ZeLJWAZxQiejorIBofjtAQj
- sCd5Y2JfhSOHjLRG6PXB18h10hPzHbBtBCUiy5pqjcCqs+vEbK+XMUT32WGVotgJue4+/UNfMlw
- ufAX8Jxu9dpbrABV3I2jcRM7iFcrMktvGVsCRlRp+6LFQnP1e0eBzSoVLCwvmjw2zl1b//YO5Zt
- WQ62CUeJz8EuSB6f2HVzpViTtX0GAuRZXUz882fcMnM8uWuPHQlVsGHntpXvkcEVps3Sl8jYwku
- 5V4ovjY2wurhFtEsX60/k46nFsReEV15qpoDLVSa4O1cXy8MlLzw5n3jLVu6vVolnrNqparRCqX
- g4eo0DduuG/Ax36iF4m5xYfJNSGjVNgEcuiodxjsmVCpG2xRoiHJLLE1mzLq6ASi4mxB0gd+EgU
- XRiL/dlyACOAGxcFIpw==
-X-Proofpoint-ORIG-GUID: vmv_OLrjw3o7hGlzs3k3kiAh2OdEkkgr
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDEwMCBTYWx0ZWRfXw5+Uu0abiAEw
- 48yt2/tz62hp5Wf/TcSV5Q+VRwDTnV1auefRglqnzjYjCO9DmUWCSNRKuPlZhkQLkHoQvAVjp9f
- fpEQuB7+13qpXyLmp5KFtMm0jG39P5B1mnBQmLsyeaXcTVtv6tRc
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-30_04,2026-07-29_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 impostorscore=0 spamscore=0 suspectscore=0
- clxscore=1011 priorityscore=1501 malwarescore=0 bulkscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607300100
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ5AMBRF0a3IH2tSlVTYihhUPXyDkhaRNPauG
+ J7BvZECPCNQk0XyODnw6hKKPCM7GzdB8JBMSiotq1KKxUyH8cIaJ2qUuoeuBlhFKdg8Rr6+Wdv
+ 9Dke/wO7vge77AbzJB9luAAAA
+X-Change-ID: 20260730-jaguar-can-9e36be67dec2
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: Cunhao Lu <1579567540@qq.com>, Marc Kleine-Budde <mkl@pengutronix.de>, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Quentin Schulz <quentin.schulz@cherry.de>
+X-Mailer: b4 0.16-dev
+X-Infomaniak-Routing: alpha
 
-Add device tree bindings for the Analog Devices MAX40080 bidirectional
-current-sense amplifier with a 12-bit ADC and an I2C/SMBus interface.
+This depends on the RK3588 CAN driver support series: 
+https://lore.kernel.org/linux-rockchip/tencent_76C8BC251C8C3C068C23BAF859351DD3300A@qq.com/
+I send this series early to try to prove that CAN2 also works on RK3588
+as Cunhao Lu stated they only tested CAN0<->CAN1 loop. I cannot test
+CAN-FD as neither Rk3588 Jaguar nor the Haikou carrierboard for RK3588
+Tiger have CAN-FD-able transceivers according to their datasheets.
 
-Signed-off-by: Stefan Popa <stefan.popa@analog.com>
+RK3588 Jaguar exposes three CAN busses. CAN0 on the P5 connector on the
+SBC itself. CAN1 and CAN2 via the proprietary Mezzanine connector which
+are then exposed via the CAN1-CAN2-UART4 Mezzanine adapter.
+
+Enable the three CAN busses. This was tested with
+
+ip link set canX up type can bitrate 1000000
+ip link set canY up type can bitrate 1000000
+cansequence canX -p
+cansequence canY -r -q -v
+
+with canX being one of the three RK3588 CAN controllers and canY being a
+USB-CAN Theobroma Systems Seal device. 200k+ iterations in both
+directions without an issue reported by cansequence. I hit the same
+issue as reported by Cunaho Lu here:
+https://lore.kernel.org/linux-rockchip/tencent_D802EB485A801362BF9F54130C0D990C6206@qq.com/
+Namely a bunch of:
+rockchip_canfd fea60000.can can0: rkcanfd_tx_tail_is_eff: echo_skb[0]=NULL tx_head=0x00060f7d tx_tail=0x00060f7c
+
+Add support for the CAN1-CAN2-UART4 adapter.
+
+RS232 UART was tested with:
+- 1 256-character transfer sent to USB adapter (and checked),
+- 1 256-character transfer received from USB adapter (and checked),
+done 100 times for each baudrate among 9600, 19200, 38400, 57600, 115200
+and 230400.
+
+When the first transfer after a change of baudrate happens in the
+direction "to USB", the first (few) characters are missing, when
+switching from 57600 to 115200. It doesn't happen when the first
+transfer after a change of baudrate happens in the direction "from USB".
+I have not investigated this issue, maybe a script issue.
+
+My script is:
+
+for baud in 9600 19200 38400 57600 115200 230400; do
+  ./test-serial.py --baudrate $baud -n 100 -B /dev/ttyS4 /dev/ttyUSB0
+done
+for baud in 9600 19200 38400 57600 115200 230400; do
+  ./test-serial.py --baudrate $baud -n 100 -B /dev/ttyUSB0 /dev/ttyS4
+done
+
+test-serial.py is
+https://git.embedded.cherry.de/som-tools.git/tree/testing/serial/test-serial.py
+
+Another way is:
+
+./test-serial.py -n 100 -B --min-baudrate 9600 --max-baudrate 250000 \
+		-F baudrate /dev/ttyS4 /dev/ttyUSB0
+./test-serial.py -n 100 -B --min-baudrate 9600 --max-baudrate 250000 \
+		-F baudrate /dev/ttyUSB0 /dev/ttyS4
+
+The latter will work just fine, the former will have issues mostly with
+baudrates 230400 and 115200.
+
+Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
 ---
- .../bindings/iio/adc/adi,max40080.yaml        | 63 +++++++++++++++++++
- MAINTAINERS                                   |  8 +++
- 2 files changed, 71 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/iio/adc/adi,max40080.yaml
+Quentin Schulz (2):
+      arm64: dts: rockchip: enable CAN0 on RK3588 Jaguar
+      arm64: dts: rockchip: support CAN1-CAN2-UART4 adapter for RK3588 Jaguar
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/adi,max40080.yaml b/Documentation/devicetree/bindings/iio/adc/adi,max40080.yaml
-new file mode 100644
-index 0000000000000..8dddf58e44125
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/adc/adi,max40080.yaml
-@@ -0,0 +1,63 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/adc/adi,max40080.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Analog Devices MAX40080 bidirectional current-sense amplifier
-+
-+maintainers:
-+  - Ciprian Hegbeli <ciprian.hegbeli@analog.com>
-+  - Stefan Popa <stefan.popa@analog.com>
-+
-+description: |
-+  The MAX40080 is a high-precision, bidirectional current-sense amplifier with
-+  an integrated 12-bit ADC and an I2C/SMBus interface. It measures the voltage
-+  across an external shunt resistor and the input bus voltage, and stores the
-+  results in an internal FIFO.
-+
-+  Datasheet:
-+    https://www.analog.com/en/products/max40080.html
-+
-+properties:
-+  compatible:
-+    const: adi,max40080
-+
-+  reg:
-+    maxItems: 1
-+
-+  "#io-channel-cells":
-+    const: 1
-+
-+  vdd-supply:
-+    description: Power supply for the device.
-+
-+  interrupts:
-+    maxItems: 1
-+    description: ALERT output for overcurrent/undervoltage threshold events.
-+
-+  shunt-resistor-micro-ohms:
-+    description:
-+      Value of the current-sense shunt resistor connected between the IN+ and
-+      IN- inputs. Used to scale the reported current.
-+
-+required:
-+  - compatible
-+  - reg
-+  - shunt-resistor-micro-ohms
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        adc@20 {
-+            compatible = "adi,max40080";
-+            reg = <0x20>;
-+            #io-channel-cells = <1>;
-+            shunt-resistor-micro-ohms = <100000>;
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index e087673237636..e1170230c4bb2 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -28893,3 +28893,11 @@ S:	Buried alive in reporters
- T:	git git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
- F:	*
- F:	*/
-+
-+MAXIM MAX40080 CURRENT SENSE AMPLIFIER DRIVER
-+M:	Ciprian Hegbeli <ciprian.hegbeli@analog.com>
-+M:	Stefan Popa <stefan.popa@analog.com>
-+L:	linux-iio@vger.kernel.org
-+S:	Supported
-+W:	https://ez.analog.com/linux-software-drivers
-+F:	Documentation/devicetree/bindings/iio/adc/adi,max40080.yaml
--- 
-2.53.0
+ arch/arm64/boot/dts/rockchip/Makefile              |  4 ++++
+ .../rockchip/rk3588-jaguar-can1-can2-uart4.dtso    | 27 ++++++++++++++++++++++
+ arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts     | 16 +++++++++++++
+ 3 files changed, 47 insertions(+)
+---
+base-commit: 942a6a4d3a94f24d39dd4dc2664c950972d66c59
+change-id: 20260730-jaguar-can-9e36be67dec2
+
+Best regards,
+--  
+Quentin Schulz <quentin.schulz@cherry.de>
 
