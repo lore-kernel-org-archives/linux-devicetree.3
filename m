@@ -1,98 +1,130 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8EC43B3896;
-	Thu, 30 Jul 2026 08:14:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FEA03998B1
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 08:15:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785399273; cv=none; b=TdrxhE6vNWrb9hl4YEq54sQ4gpc8NPddXLWWSSnzP/Z9R1If9OyepO5vWWMY3iLhV6/jj62S+VefLmo4uT2HcPVf0c+CZNa1v4+iF1157xIMJqrNj18gvTi8LYXsdPpfzImT8hx94x90EP+Umy/IRu/spEKhfxWDBr4YVACES1U=
+	t=1785399315; cv=none; b=vC/gPd9mPokyxlRpD0W4Cml2IxpWvWfMiJ5TFmPBcm5Pnmk9GCwgaqtrn00HI70WaBrsrNDI7hRPN1KJ9IW7LpoHq7S2Oj1RUpqzucNVYcDSUsrLwMesZtszJw50PNqIkeGieeT3/C0AlcqW+w5DLRnNtgx1SItC0SqL6j4IZ4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785399273; c=relaxed/simple;
-	bh=eUU1KIlhVLzY4qUH65coETABuKTCmhaR8IfX8AIfArM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HJxwqFAqsQrA75/kA6WGDLXx3Q4TxVpvHvKBZRcjn320zxR67YFZo+lRqJTT+8JqOXtuIoNnLUYMmoZPnxO+vyYi27o2wl8pbkP0UvQPIyIpS8AmbjRqiFTmClnswORk6TYAsZFYUpKRq7289wcKI0RYA3dey8Sbjpsyz7Nu7Dg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DDjRuhBN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785399315; c=relaxed/simple;
+	bh=ZU0HW8VsC7SXpvemHPTgCWU6sh34m2UXp9XP14fgZd4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=gwAvhGSFWs6wCN/IDTUqX2+y1pSQm7R83uSq4Ox8TgE7xACX599aRT4Maj/nhu/PqaipuLxg+9yIt8Qhlqc0I1YW8bThTzmNwjXQIO4Nm9oUZEu7z1I8Fk43fdPs3RT7aprBA1DxfO9uk4u0Qy43d98vSfcpyZDujxpg8lF7syY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FBpWtXC5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DDjRuhBN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E5E01F000E9;
-	Thu, 30 Jul 2026 08:14:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FBpWtXC5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1F911F000E9;
+	Thu, 30 Jul 2026 08:15:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785399272;
-	bh=SwkH9XaoCa13wc4+S4EGR+0lca2+/4IaQb96VBK1TQA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DDjRuhBNK1vDBHwwDcwRemcaBGxrBHsfylBpk9kDXZvEtRahMvanJmpvZWgBVv84J
-	 yVfbP/gRptzDKqH0dnM6NfYddKHZ3TXzoFyODtDtZCWC9qVaZ+zGFhQ3vGu2h50neb
-	 t+z8+tyj6g5l8Q5i05KsGbclo4uzY+ABO16Cz6CMKSBQ+hrJ8jdok1M1VHUMGznZGp
-	 o5lj16rc1kbbZkokh5l7VBZj7/LoVWSxAixYzCvFG2O+FyUAMyIWtMour4YAEVWmaR
-	 Y+h1M76EZ6ZF77Ylmp1rVjtRgVA3hTJvcIJMcGzQonKC7l1GaFNEbVmxwut8OiRiYR
-	 6PXg2kUAH9J3A==
-From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-To: linux-phy@lists.infradead.org,
-	Vladimir Oltean <vladimir.oltean@nxp.com>
-Cc: Christophe Leroy <chleroy@kernel.org>,
-	devicetree@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-arm-kernel@lists.infradead.org,
-	Ioana Ciornei <ioana.ciornei@nxp.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Tanjeff Moos <tanjeff.moos@westermo.com>,
-	Michael Walle <mwalle@kernel.org>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	linux-kernel@vger.kernel.org,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH v4 phy-next 0/9] RCW override for 10G Lynx dynamic protocol reconfiguration
-Date: Thu, 30 Jul 2026 10:14:07 +0200
-Message-ID: <178539922189.574381.6258263697994334139.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260721231603.67865-1-vladimir.oltean@nxp.com>
-References: <20260721231603.67865-1-vladimir.oltean@nxp.com>
+	s=k20260515; t=1785399308;
+	bh=YaQK5n54FocYdpeO5BrLL3ZN4krx3wPENIrvX38VsXM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=FBpWtXC5bJtig2kTSYFdjaaLdhQJkJypgYfMTb64aUOAa/GXlwMtiHCjL70z+TyHn
+	 Shp0XwSGjRqBPWR4lvCUwskNaE+wyzkhILhYs7RdFHsbJjU1sRLCahqcrQIdHLXhVh
+	 l+YH34dzcreW+qXyiD2H2o8BU8CRshBozJoetO/xW1TttV685RIWqzm1SB9j+3diqO
+	 YO0Fotsl6ZgRh84tk3LXZa/PUH4a4pCNY95COdT8IVpCd67VbtFJ+KrLIX1/trpGcN
+	 IPE9jWn0w+ZSL/U4EWIwLzS4BdpQkRP0cuNDlW7PdkINHlxN3Q4K9zXgTTpKd5IUFR
+	 WdgtPBNGdiW6w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v16 1/7] dt-bindings: arm: Add support for Qualcomm TGU
+ trace
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Songwei Chai" <songwei.chai@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260730080704.2903540-2-songwei.chai@oss.qualcomm.com>
+References: <20260730080704.2903540-1-songwei.chai@oss.qualcomm.com>
+ <20260730080704.2903540-2-songwei.chai@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 30 Jul 2026 08:15:07 +0000
+Message-Id: <20260730081507.B1F911F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1716; i=chleroy@kernel.org; h=from:subject:message-id; bh=Qt+vOFxP9nNU5Yu1070glj6/XYtWpjM8nIz+zpYRJJ4=; b=owGbwMvMwCV2d0KB2p7V54MZT6slMWRls18UjW8ryxGu0F176CvH16WSOYzJUtvUowOq1hyLy DNI9FPsKGVhEONikBVTZDn+n3vXjK4vqflTd+nDzGFlAhnCwMUpABNRuM7IMNVulcS7qB/uh298 +bfu/OcU5kNBX1YsuCRyJqH3exHfljUMfyXsXdvfG+bZPippu3/8aK3YA5fapKtLlVtkr3TsyPc UYQYA
-X-Developer-Key: i=chleroy@kernel.org; a=openpgp; fpr=10FFE6F8B390DE17ACC2632368A92FEB01B8DD78
-Content-Transfer-Encoding: 8bit
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The binding schema omits the `interrupts` property despite the h=
+ardware description explicitly stating it can generate interrupts.
+- [Low] The schema claims `arm,primecell` compatibility but uses `additiona=
+lProperties: false` without referencing the standard Primecell schema, inco=
+rrectly blocking valid Primecell properties.
+--
 
-On Wed, 22 Jul 2026 02:15:54 +0300, Vladimir Oltean wrote:
-> Previous set "New Generic PHY driver for Lynx 10G SerDes":
-> https://lore.kernel.org/linux-phy/20260610151952.2141019-1-vladimir.oltean@nxp.com/
-> introduced the 10G Lynx SerDes driver with a reduced functionality set.
-> Namely, only minor protocol changes are supported (1GbE <-> 2.5GbE).
-> The major protocol changes need a procedure named RCW override,
-> explained in more detail in commits 6/8 and 7/8.
-> 
-> [...]
+--- Patch [1]: [PATCH v16 1/7] dt-bindings: arm: Add support for Qualcomm T=
+GU trace ---
+commit 1cb0b1557ad8efca643aa36dee2d1b84f9c415b0
+Author: Songwei Chai <songwei.chai@oss.qualcomm.com>
 
-Applied, thanks!
+dt-bindings: arm: Add support for Qualcomm TGU trace
 
-[1/9] soc: fsl: guts: perform fsl_guts_init() error teardown in reverse order of setup
-      commit: c200e79a5e3a9af0ed368f2f60ecbe37c3077d48
-[2/9] soc: fsl: guts: use a macro to encode the DCFG CCSR space
-      commit: 77a46f8fa169b1c01940c4c12851dd4a07f8de4a
-[3/9] soc: fsl: guts: add a global structure to hold state
-      commit: 2c498f7254acf7ec0c0c589c0e42024ffdd6e81b
-[4/9] soc: fsl: guts: add a central fsl_guts_read() function
-      commit: 51749b225c21889e4c59c5850ec14c392b8d17b0
-[5/9] soc: fsl: guts: make it easier to determine on which SoC we are running
-      commit: 9ee864e5c28b30b97db03b9e94c1624484a46e30
-[6/9] soc: fsl: guts: make fsl_soc_data available after fsl_guts_init()
-      commit: 989c49a752850789eec8a79a68613210b11bc765
-[7/9] dt-bindings: fsl: layerscape-dcfg: define DCFG_DCSR region
-      commit: 086923eb1fef29995ffdf75cb7574dc947caf5e8
-[8/9] soc: fsl: guts: implement the RCW override procedure
-      commit: f1ab3e661b457937cc1cb975e9f2090f6b6de6d7
-[9/9] phy: lynx-10g: use RCW override procedure for dynamic protocol change
-      commit: 2e233235fd463c65188626b9cc5e272c5ee96c07
+This commit introduces the device tree binding schema for the Qualcomm
+Trigger Generation Unit (TGU). The TGU monitors signals to identify issues
+and can generate a trigger into the CTI or interrupts to processors.
 
-Best regards,
--- 
-Christophe Leroy (CS GROUP) <chleroy@kernel.org>
+> diff --git a/Documentation/devicetree/bindings/arm/qcom,tgu.yaml b/Docume=
+ntation/devicetree/bindings/arm/qcom,tgu.yaml
+> new file mode 100644
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/arm/qcom,tgu.yaml
+[ ... ]
+> +description: |
+> +  The Trigger Generation Unit (TGU) is a Data Engine which can be utiliz=
+ed
+> +  to sense a plurality of signals and create a trigger into the CTI or
+> +  generate interrupts to processors. The TGU is like the trigger circuit
+[ ... ]
+> +  preprogrammed state/sequence and then produce a trigger or interrupt.
+[ ... ]
+> +properties:
+> +  compatible:
+> +    items:
+> +      - const: qcom,tgu
+> +      - const: arm,primecell
+
+[Severity: Low]
+Since this device claims arm,primecell compatibility, shouldn't there be a
+schema reference to /schemas/arm/primecell.yaml# included to properly
+inherit standard PrimeCell properties?
+
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  clock-names:
+> +    items:
+> +      - const: apb_pclk
+
+[Severity: Medium]
+The description above mentions the hardware can "produce a trigger or
+interrupt", but an interrupts property is missing from this list.
+
+Will device trees that legitimately specify the hardware's interrupt line
+fail schema validation when additionalProperties: false is enforced below?
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +
+> +additionalProperties: false
+
+[Severity: Low]
+Because arm,primecell compatibility is claimed, should this use
+unevaluatedProperties: false instead?
+
+Using additionalProperties: false without inheriting the PrimeCell schema
+will block valid inherited properties like arm,primecell-periphid from
+being used in the device tree without validation errors.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730080704.2903=
+540-1-songwei.chai@oss.qualcomm.com?part=3D1
