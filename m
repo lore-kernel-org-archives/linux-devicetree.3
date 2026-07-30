@@ -1,194 +1,127 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAE883DD86F
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 08:50:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44AD83E44E7
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 08:54:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785401443; cv=none; b=RISOuHNolx9BNbl3xAYHbihpm8blxYqzdua71eWHKEQ8IDFAiyvwAmkWUWnYHQ1CzvDclgH7jS5Lch28fJn/nuoqjmCvLP6OqjUetzdQ4KnNhcONq/uGtegES2C845gg2PK8X7ks7D1Hvwl/lCLEF9dWEVhZ5p5WWXr2GDt9qhM=
+	t=1785401668; cv=none; b=tb85TsSzX4PK6bepwFAOx12iPv3AGHo088RKAMLlR/FxNwss+jiCeWynUxJp1CDpgyLEJ89ZEuwidaa+zZxsKYMsJoprHSk9QtKlQGrfa0gMtkEAewIYooIB4Oc5gU5T8xJ9KdzKJubT1Blm49yN3al9bfs9GTZG/lQqzIZXWQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785401443; c=relaxed/simple;
-	bh=KZKdLIYWIv8tdGoWpFWS4PuNKTV0IFluv0JT6hkKHDo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AC3fbSC9YXWBS/kScuVux3Eme6lScnlx3vuJ2QMhHVehw4EzY1UPdyAemBsngd2QUYemClO8Qjk+CdMbRl1MCD9eGa895fGsCTSyxEzQXmIVX2MlPm6Ws+NKMTObOh9WRCcPYbnrtufGClyAP4iQCmiLNCBt1ua6eRzirzHxs5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=edmY86q5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YaX2mCNq; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785401668; c=relaxed/simple;
+	bh=Kvtuszz3nRa/+IdlvXfvBPOMgtFAA/VHxwZTL40appM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JxBPiyNPv6KO9cYYikV2GV4tlkLScZVAn1DrQNLTDJ8FpdNvVNCde2PEFhPWFDnN9eVQq9zD0hPNqOTqHhI7hvhHepibHij2oC1NAHsABJE0kWbVu5nksV2QGZGzPTtoU3Ive87vUof0ZCNNHmwRW9b8ZOTomdL4+CVttDg3UzY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eVZbkArH; arc=none smtp.client-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="edmY86q5";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YaX2mCNq"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66U8oOpt4026905
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 08:50:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	xOvJCQ+5VvVgswjumANrE9rhfvumkQxKMERIvOtcGjk=; b=edmY86q5QQeIvazu
-	UjATeEWrkaPoVuItFLnqi8ukeZe/RsH5yy6ozKux94y1hl4z+rfCM7h8ZGzxRYCg
-	uQOUnYrGIDzhSXY83Ov6NGdw78Ba42s0D7O9MLjPS1t0F83NMpxWnsF7fy9H6oDG
-	1kPbReqs0kD3uVWJSkra3Qx99+1HN5r86f4BqlrT8nP0iL6rgFhO+Qn+QL4qskvy
-	OMYX9tgCJ015m2V0P/Bys2gvumz+OF/9E3oxfisp1fzN7aNiluk+WrJK6FpmuNlG
-	3UoExxKIpn36LsCIyVza3ncVWOJgIEUz3bYoMXRRHl7sxi1bJd9qI1bZtJzbq88h
-	BUMKFg==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fr3f3801c-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 08:50:38 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cb74d5db64eso1954106a12.2
-        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 01:50:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eVZbkArH"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c12614b81c9so336326366b.3
+        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 01:54:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785401438; x=1786006238; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xOvJCQ+5VvVgswjumANrE9rhfvumkQxKMERIvOtcGjk=;
-        b=YaX2mCNqAmBm8klEQXsxbaAu0QBD/CeVsn4QxejeewF5GzQcMdK7w/AxDMzZNHqboT
-         vlJyIt7EikrRVNDc1FOvHRdOdkwaTccOxHooP6wuwKQ3HDzxknd0N0IFHpk3M0j8dCPa
-         R6NoZ2p1q1ldOapt8pXZPf/9LFzb6MThWv5PUt5F77u07LYfZAJJP5QAqGnocgHwNCv9
-         YUoZPcdY0O8AC47EzUoRB28PE2klVpcVxLj38IuKIHRMY4tvWT/NkGM3NfhbQ8AEXfZi
-         NRaWacleAtrMTqo4yEXhbfoZuffXyyWcMCXmuJqT62HrYFc3hNmNUt9P7YjsEiDQdOMQ
-         d3+g==
+        d=gmail.com; s=20251104; t=1785401665; x=1786006465; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=216gNUt0ekkJYFeQoQEhN31HOLBnWymhqc9D9IgKUL8=;
+        b=eVZbkArHaaw5H2FCbLF59eYWc0giCJQUmhDWt+vsE8RYrH32pBj6a42jWshXl5RcJT
+         jhgm1B0QfKsrWk4Djy4mtdSCLy4aLDJgYC0Aj83GIrIwc9bJnGtJbdkj9hO+fhokOWhR
+         6+vYy2iLMRIKbNFvRoQoVpj+fQEqKXS58pCIW5YM2vBZLmdGwk6VVXKqywW7zjqt28J/
+         C7z9sVg3NYIXaZ88m/u+VIPPgR20nVivd2KQnty+Lubj2MAiwW3eMp9np4h2xp7XyNoV
+         ShP9Mc4eUQCH2zyX+XlITP52nCTfXv175h5ehNvZpdhuZxwUXpYpxQnljOFsZSqPWsj7
+         HDyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785401438; x=1786006238;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1785401665; x=1786006465;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xOvJCQ+5VvVgswjumANrE9rhfvumkQxKMERIvOtcGjk=;
-        b=i5ID9OEqs9FuhVIPTIPIxP6EcirrwwikGBHyNslkep1EpSy94+lWi68S4GkbSDYWhT
-         heLV+u/7oP2PFYA1ydkSw4MYVYBoR4raZ/vTiqb5Ku/jzfXXIJ8CHc4JQJADiAV9m6vt
-         4NvKbSgaEW/m432VAMBX6bsNOtz66izwKU94z9YXyj8AxgS5bbm55xjayPs2cIYMcxZ9
-         5xgn0h033YfbovfG/TSMCDLr6N5CWU3Y6cxsvfo0lE+zxV+UZEKzuAwfZ9R2I5hSXDYP
-         3GAi+etHp66I7Mifu8LCQBmIQ60O6PfmdoSYT/v+It1aALIQVNigAdFH53umJkCutABZ
-         j/QQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoYHi86S50FM0gYsiZL/xT0OcN4HV1IGErEjJR85e+223971Wcqfd8OCCkc1cj7TIjW6DlGGhybmXLJ@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzu06nk8YaU6/z8wiOrLdOqeb93gqQNL6jUc2s6nLQdT5z+QFKs
-	QrZRo4frERCcHg6omzNIrT8mR+qwPkMYZcVi/tFOoiNMsOwZyukF/sG9kDg0v1zlONyCeTstUzk
-	G3fcGYkjG0D2q9F7YiUhNGUvB6Hc5rPnzzdUP2Hd3AaIh+7AcQS6qm+ubisFExceI
-X-Gm-Gg: AR+sD130Vt1WMjVqQCfi7RFOKR3Ij4x6cfHcB6Sb+hbDQZD+80Qzi30uThuAs8opMcX
-	khTruTv2zrJyCfo4aE0XcWOWZRbgo0kBi72qPhaqAd9e3lR+HymOoXQZ2gurUHui9XEQJwbnUPp
-	58qcGhEnNca50/NKAwr2uf/2/W+AHijYPkhAbW0n4KRJz5Zqp1hdCV3MYplgP3xiYzG5NLw0ZEQ
-	jXjnFHgcfe3jsMFpGzfhVhsWJFNZXQIPO4OVBm+SQyzOhCnnM6+OFsMF0WuSm91d53tW4vRnPWa
-	0afBod35bSTLoKHImWKL+ptO5XoPEGIZ72ysMDcA8H7qloQNLExPh6akQzPyuSVRiLffOM33Gh3
-	UE6mOoHvflrrgowdCDpWVNMQOXTlqvQEfcOk=
-X-Received: by 2002:a05:6a21:600b:b0:3c0:b766:74f4 with SMTP id adf61e73a8af0-3c9007b4c82mr1766090637.31.1785401437696;
-        Thu, 30 Jul 2026 01:50:37 -0700 (PDT)
-X-Received: by 2002:a05:6a21:600b:b0:3c0:b766:74f4 with SMTP id adf61e73a8af0-3c9007b4c82mr1766066637.31.1785401437294;
-        Thu, 30 Jul 2026 01:50:37 -0700 (PDT)
-Received: from [192.168.0.172] ([49.205.250.102])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31504b12cdasm21115475eec.1.2026.07.30.01.50.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 30 Jul 2026 01:50:36 -0700 (PDT)
-Message-ID: <854914dd-0872-497d-94f6-81a36a405cf2@oss.qualcomm.com>
-Date: Thu, 30 Jul 2026 14:20:29 +0530
+        bh=216gNUt0ekkJYFeQoQEhN31HOLBnWymhqc9D9IgKUL8=;
+        b=IuxZF0KsxHu3CxphJLgXIpc8boe4NJtsfknEVFAKGvytFcP534IkX0evN0CHgAUpk4
+         RSWZyt504UGGDnHxpU/seNAYsdmu5hLSVQ5jzsmvYdYtJfNzNm3hYUJad/xEfLYXGpUD
+         D0Ctq9AF8TUzI8KUa9Zr/pUhz3LuZV9viHmnZpU2H0uDFZg4DYIHIijNJIlONvzbAlev
+         edIn2ggp3QOYJXYUR3pK3Clj4u3BBmKQxZY7qNsAdZnn4eGpE1DiKrHcFXsW3k64uU2Z
+         nBCghiZbSDy1aVvkS+3IYc0IahU63YpPHngH22zSKWK7fuU3cYjE5jI5WAORej2l4D8w
+         I7+Q==
+X-Forwarded-Encrypted: i=1; AHgh+RpuAD2mNWKn/1aVEtIqBMcam3mdmA51jmL7ACerrUv6eRek598HQ35OZ7ac4/J0BXLR8Z5HtiRLPqyX@vger.kernel.org
+X-Gm-Message-State: AOJu0YwJmOnZMy1dv+5Jb3D7jOyx18N4EWMB0WKPQYJQFCxwm4VlisiV
+	/nerhF/FWoG64bpyaQKN5P4P9/Djz314yH7+kuEwOCckwtpqftndbNCrQVJyvppF
+X-Gm-Gg: AR+sD12mwGcVb41jYbj9X0ns1RRZ3QJMpTFWn/Cb6GavEdVaRRSTaAwhGF3ng+zciGd
+	MPzHtcfJE3Ze0CNvPtBO58JFg6S43hQjuGhQn4FPICb/5GmzCdn87Yl2zcqxp7EYpr16OvaU0Aj
+	VabShEf8sNYt26ZV69vwLjAHH9Ve5ydFHWKcb9WrQNyYqfVQBcdzn2L6aTHVPmEPHoqIX+8WEju
+	gUSC8uGmKZImG1HuKX3dQgLzXFCuW33PjukgKJSR4k/wVlC+Pn8j5EqQouDXsSM648t7X6DiMo8
+	tUh4g2Qs2KaMbtaHD0tmYZSEnZ3Xw2ywfOenmF41bGAmxy4DW7uLH8VM6mbgPpJcOQGf3nfN/zf
+	gPiqWQ4vk304PPdCjrfPXfZ9eHfAzEhm3xN1cgg+yCcLj3C+TQYP9IuJmFHpCPuzGQzwdeT7FAI
+	IyLi1O3vEqGFdglJYYNjx4Wac9ZW0oAGLBevuu1SJ94vjXldBAtnEucHR1NKXj6kEP9XlROR5Bp
+	penFH+7u4Np6BKUdA4Hfg==
+X-Received: by 2002:a05:6938:a08a:10b0:c12:96af:acf7 with SMTP id a640c23a62f3a-c1fa574388dmr61198066b.43.1785401665319;
+        Thu, 30 Jul 2026 01:54:25 -0700 (PDT)
+Received: from workstation (161-53-210-87.ftth.glasoperator.nl. [87.210.53.161])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1fa8beda56sm41603266b.55.2026.07.30.01.54.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 30 Jul 2026 01:54:24 -0700 (PDT)
+From: Stanislav Zaikin <zstaseg@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Stanislav Zaikin <zstaseg@gmail.com>
+Subject: [PATCH] arm64: dts: qcom: taoyao: Drop adsp_rpc_remote_heap_mem override
+Date: Thu, 30 Jul 2026 10:54:21 +0200
+Message-ID: <20260730085422.631896-1-zstaseg@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/4] dt-bindings: media: qcom,venus-common: Add IOMMU
- IOVA reservation region
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
-        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260722-shikra_vpu-v5-0-3d80babd4672@oss.qualcomm.com>
- <5nIoqMekE2B3CTU4TIlUJxoI3Exckc2sUM9RmZBqboEOvgmkdrhKlRX3-FiMOiYFCWXwzO5pii52NJ6epuy1Fw==@protonmail.internalid>
- <20260722-shikra_vpu-v5-1-3d80babd4672@oss.qualcomm.com>
- <557377b0-7a21-45b6-b62c-d3b34a6a29f4@linaro.org>
- <67c78d88-92b8-44b9-bbcc-6f53f6c60ef9@oss.qualcomm.com>
- <048506d0-7dac-43f1-a50b-f9f4c1d125a1@oss.qualcomm.com>
- <c3131fcd-c2ff-47e2-a8eb-858456b88ed9@oss.qualcomm.com>
-Content-Language: en-US
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-In-Reply-To: <c3131fcd-c2ff-47e2-a8eb-858456b88ed9@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDA2MyBTYWx0ZWRfX9v9WnFu9N7VH
- 4onpJFokFe+F67IiNkyvNdi4yByGlzoPuh4bpNqZzNhy5EC7alXcRiSte2XB9+GAZJbSiUzbYMy
- 3RFCu7lmBT5FCq8p477sVgVmfObwkQo=
-X-Authority-Analysis: v=2.4 cv=Do9mPm/+ c=1 sm=1 tr=0 ts=6a6b105e cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=M2acBXnaP4sAQTlOGKtplg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8 a=Z3p5NtGldf99kMNzltkA:9 a=QEXdDO2ut3YA:10
- a=_Vgx9l1VpLgwpw_dHYaR:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-GUID: Bx4jU7zLS7lWeAzYH9JmT3UUDMdo4q9S
-X-Proofpoint-ORIG-GUID: Bx4jU7zLS7lWeAzYH9JmT3UUDMdo4q9S
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDA2MyBTYWx0ZWRfXxOlNS27oawYB
- mlHq+D6eS6JIocDnRe1rLskmJAyBxE9W+WNmnGbsEoDZ6gCJkEt2OWYHiQ3/CRaZTkRG86VPc3a
- 38TMdU3SnDmqrysYuDKSv1o4Md4xHBt8FLQTgbsRH9SuswVefzx5/nAUXvwGT9eM1AG68mt6IBM
- VrW71YkHGbLgwQZxZk8Ph0bl0fZJ/Po80iaLqgKwX4iHNPynPxg3Oq86Wb/9YodH2ulyU8UGcu6
- kn63H9kKkCcF2MPb4Cwj1sVIbbev+jBwySHK+TqIWR2NI1i1uxPad5UI6xBF8RZ+VUwOhm6Dhy4
- tlauCncnZDYgV9E49VZ/vZjX9YhzBlsNI+QoghLj/7d2F1M5SG+L/P9o/KVfDDj2fnXisdquFUE
- bajt99CU1DwFiA+UfPP6NK3Mzr/LXwKU/Qzk9H55MOIHZEbxQRSfv+b/8KdG84KZ3EpDF6ECpvY
- ColhCWSqg3UuVTSZIFw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-30_02,2026-07-29_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 malwarescore=0 phishscore=0 priorityscore=1501
- suspectscore=0 adultscore=0 bulkscore=0 lowpriorityscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607300063
+Content-Transfer-Encoding: 8bit
 
+taoyao originally redefined adsp_rpc_remote_heap_mem at a fixed address
+to avoid overlapping with cdsp_mem, since kodiak.dtsi's version was a
+fixed-address at the time.
 
-On 7/29/2026 5:51 PM, Konrad Dybcio wrote:
-> On 7/23/26 12:44 PM, Vikash Garodia wrote:
->>
->> On 7/23/2026 2:36 PM, Konrad Dybcio wrote:
->>> On 7/23/26 12:03 AM, Bryan O'Donoghue wrote:
->>>> On 22/07/2026 14:41, Vikash Garodia wrote:
->>>>> Update the memory-region property to support two regions:
->>>>> 1. Firmware-loaded codec carveout (existing)
->>>>> 2. IOMMU IOVA reservation region (new)
->>>>>
->>>>> The IOMMU IOVA reservation region is required to restrict usage of
->>>>> specific IOVA memory range. For example, VPU restricts usage of 600MB
->>>>> for specific streams, which could otherwise lead to device crash. This
->>>>> change allows platforms to define separate memory regions for codec
->>>>> carveout and IOVA restrictions.
->>>>> This schema update supports existing DTS having single memory-region,
->>>>> thereby allowing gradual migration of DTS to support two memory region.
->>>>>
->>>>> Signed-off-by: Vikash Garodia<vikash.garodia@oss.qualcomm.com>
->>>>> ---
->>>>
->>>> I'm not mega-happy with this pattern being used - I prefer the pixel pixel_cb sub-node model you've proposed yourself.
->>>>
->>>> OTOH you're the maintainer so its really up to you how you want to arbitrate this - the 600MB constraint will work even if its not pretty or the best thing (tm).
->>>>
->>>> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
->>>
->>> Doesn't this cause the same limitation that the initial patch
->>> by Daniel (all HW contexts can't access 0-600MiB anymore)?
->>
->> Yes, it does, but for cases, like Shikra, which have single streams (with SMRs), there is no additional benefit in going with sub nodes in such case.
-> 
-> Please note that somewhere, I was under the impression all venus
-> impls suffer from that
+kodiak.dtsi now defines adsp_rpc_remote_heap_mem as a dynamically
+allocated "shared-dma-pool" region instead, which removes the fixed
+address entirely and so cannot overlap with cdsp_mem. This makes the
+override unnecessary.
 
-Yes, all of venus/iris, including Shikra, have this limitation. I was 
-trying to convey that for single stream case, like that of Shikra, we 
-can specify the restrictive IOVA range in the parent iris node itself 
-instead of introducing a sub node and put the same restriction there.
+Remove the taoyao-local /delete-node/ and static reg-based redefinition,
+and inherit the definition from kodiak.dtsi instead.
 
-Regards,
-Vikash
+Fixes: 28705df5d0df ("arm64: dts: qcom: sm7325: Add Xiaomi 12 Lite 5G (taoyao) DTS")
 
-> 
-> Konrad
+Signed-off-by: Stanislav Zaikin <zstaseg@gmail.com>
+---
+ arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts | 6 ------
+ 1 file changed, 6 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts b/arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts
+index 6f8bc65bb99b..87f267aaeec0 100644
+--- a/arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts
++++ b/arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts
+@@ -27,7 +27,6 @@
+ 
+ /* The following reserved memory regions have different addresses or sizes */
+ /delete-node/ &adsp_mem;
+-/delete-node/ &adsp_rpc_remote_heap_mem;
+ /delete-node/ &cdsp_mem;
+ /delete-node/ &rmtfs_mem;
+ 
+@@ -203,11 +202,6 @@ neuron_block_1_mem: neuron-block@d7f80000 {
+ 			no-map;
+ 		};
+ 
+-		adsp_rpc_remote_heap_mem: adsp-rpc-remote-heap@e0400000 {
+-			reg = <0x0 0xe0400000 0x0 0x800000>;
+-			no-map;
+-		};
+-
+ 		framebuffer_reserved: framebuffer@e1000000 {
+ 			reg = <0x0 0xe1000000 0x0 (1080 * 2400 * 4)>;
+ 			no-map;
+-- 
+2.53.0
 
