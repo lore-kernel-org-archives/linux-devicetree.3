@@ -1,162 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17CC8429803;
-	Thu, 30 Jul 2026 11:56:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5738A423EB9;
+	Thu, 30 Jul 2026 11:56:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785412577; cv=none; b=cNqV66Mb59+mJadABvWfmGQFPQ7O77i48FFvTGOH1Mssd7EBdya9TTmY7TDuKYsy1aQdmAUtKpcFrinurhYTPFMfPZfYMzU3q2MTIsBHuQOEP5IXsKZlyLW1QbzRq7p5reVL7AT0Uz4jkCiPOt7uQAzqqgpu2RhL1xWV0YtvGN4=
+	t=1785412603; cv=none; b=hvsjwz65MqFR8zYBokWU0g+i+CgWoAgkYLuyIGGVJKipYW675pdWfm7/h7jNxkpOQahN6O8xK5Ou6MhCDcoMt/2LKOjpfQujktqqsI3VXVZDQ5OWR0LOU8aXhorIUH/wyd1aX6e3cz4mEyzz5LPIeTr1fbIh9+vc3hUgl2JJGCw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785412577; c=relaxed/simple;
-	bh=xF+RX4PjUx54dKkGcHmGQiP1j/BrEpTmNZ7txnWx97U=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=gyX6nmfLJX26de0s8c16grPFbx7q2K79l/o26TgR5okK4XsNhpu6TJg1VvJyhterryiaYTfrPztp9lQZK00+m+bveVEvceABU57s9FYyvAxNIGkGs9jtVKf2d1r6gDTVRK+rHQZyKLVFFREh6EGYXKvQprHyHGY8zrXIP4m31vc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=An5nHS6w; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1785412603; c=relaxed/simple;
+	bh=eUdPpF2aPfV+5zFJbox69rDruWhHk4EJd2mIWwEH/XE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FaGapjjoJMSp/FzcfkgGv8R2dEAPs84ifsse0kMbF5CHktOUt33RMCQAARzh6WpHpStoFNWhnkgakCjfPXmuQBxWcdaMvA4lni3fwFTO/r1JvO9NNzmJzhiPkWk3khAP38ZzCmFgO1hE5Pe6YzwIREo2hVJ9N+tml/CY8S9RClM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=H2CSFJEi; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="An5nHS6w"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id F0B15C2BD00;
-	Thu, 30 Jul 2026 11:56:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1785412577;
-	bh=xF+RX4PjUx54dKkGcHmGQiP1j/BrEpTmNZ7txnWx97U=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=An5nHS6w0ptOZc2FBAslwH4KRiS0ctXUrXN829aHAe2lDfVvaeTutkm1E+1noWfK9
-	 CO+Bm5DnlS6HqXdG5prU8FxYChopheii9G+ZDGRzz0JwxMQAwR6BSjFYphPuWimbUV
-	 5u3OgG4Gh003eQbr726gZP66ovVs1j79hOhuzC51bqnAYpXVKCgaXhJU66Tf9LYiLQ
-	 fvfhRSvqxsMtUe0c44Xbcl21acglYWUGhvt6N+w24Ndu85vkUqK7b/BI9Kw0WAjgZm
-	 4v5FY8+asZF1OpUlMmrIHjSjvO9XU/BycVHmiUaH95PgCuVK8calWTsq4aKWvehB8t
-	 y0xJKeeOrUmww==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DF22CC55165;
-	Thu, 30 Jul 2026 11:56:16 +0000 (UTC)
-From: Manivannan Sadhasivam via B4 Relay <devnull+manivannan.sadhasivam.oss.qualcomm.com@kernel.org>
-Date: Thu, 30 Jul 2026 13:56:03 +0200
-Subject: [PATCH 22/22] arm64: dts: qcom:
- qcs6490-rb3gen2-industrial-mezzanine: Fix the PCIe iommu-map entries
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="H2CSFJEi"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 7904E4E40FAF;
+	Thu, 30 Jul 2026 11:56:38 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 49C91602B8;
+	Thu, 30 Jul 2026 11:56:38 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 75E7E11C15B5B;
+	Thu, 30 Jul 2026 13:56:31 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1785412597; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=3Ef1P6L/nl5Yq+a1L+Mp1w6BvcG1ZQc74+9RfReR48E=;
+	b=H2CSFJEi52MZg5AMBAodTlp78EUjV/3SknW0Ms+7byVOonCK8bf7xweA+PQORSRV8GGmBK
+	RUKqidciS5RFhXI3OpGjuePLa9RJADedZR1prt+ACFje4A4QDjNHmflTzHafNgETAdjv5B
+	3Ey95ueQ56UnP4+nDZkoIT2LhZ/huDWgUCV1gExpgIny3qLZ5LGaQnLYW6SxkMNtyJtAIU
+	umzpe5kkdlyFNddvl944Y+lXFFaUPzbZnpngOCTe7Pgl/vjxaGevnyFmsESvCLzUCw+uvn
+	8R5rwSvmTKOqBaTzA1mYVUDVv8noVgTFag+j2uy/6Genn+qd6HJ8eQL+xZgj1A==
+Date: Thu, 30 Jul 2026 13:56:30 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Long Zhao <longzhao@ambarella.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"soc@lists.linux.dev" <soc@lists.linux.dev>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	"linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	"linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [EXT] Re: [PATCH 00/10] Ambarella CV75 SoC minimal bring-up
+Message-ID: <20260730115630b8f9bcaf@mail.local>
+References: <20260730104330.81367-1-longzhao@ambarella.com>
+ <0fce6943-0d4b-4f3f-ae5f-277633577774@kernel.org>
+ <DS0PR19MB792519CDB8D28B0672713A05DAC92@DS0PR19MB7925.namprd19.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260730-iommu-map-fix-v1-22-83405d37ba41@oss.qualcomm.com>
-References: <20260730-iommu-map-fix-v1-0-83405d37ba41@oss.qualcomm.com>
-In-Reply-To: <20260730-iommu-map-fix-v1-0-83405d37ba41@oss.qualcomm.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3442;
- i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
- bh=yyugXvaIDoOF39T2alzVy57BkmdKy2KLxfP4F34+35I=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBqazvc9oeRxc6EHNug6KybI3uvprlcwu5WMrESI
- 3NwxLEwEA2JATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCams73AAKCRBVnxHm/pHO
- 9bk9B/40Z/wq27mw062+nDWjMiyzSpkU7+lvZp9ayYj6qQKZNHu8C9jtoAdqVzXUCM8KAfs7191
- hpLMgEl7N6ipl5925ANEIrKDCzpvOYCQWQlOfhoOCm4gtpkN6XDLeqB1P4tXM6bvUq1cXg1s5Ik
- 1qJAB9EYS5L4HYKvoU1QTgmUYnNbVuYxy42pELAXPzsqaHF2GNQ2l3TfHys8SKbEyJNckiZLTb0
- O+b+VGz5hjZWuM+pfIvnUCPtZz2qfJLw3lt+Obd+7C4PKI9vrMwp29V6CF5cCY54k7ws5VNf9F7
- Zxiq8DBZMtoN19eaHRn3S39sfaU2iOGlAWdYNUUdibC7Prrk
-X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
-X-Endpoint-Received: by B4 Relay for
- manivannan.sadhasivam@oss.qualcomm.com/default with auth_id=461
-X-Original-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Reply-To: manivannan.sadhasivam@oss.qualcomm.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DS0PR19MB792519CDB8D28B0672713A05DAC92@DS0PR19MB7925.namprd19.prod.outlook.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+On 30/07/2026 11:05:01+0000, Long Zhao wrote:
+> Hi Krzysztof,
+> 
+> Thank you for the feedback.
+> 
+> Regarding the footer: I did not see that disclaimer when I sent a
+> test copy to myself. It looks like our mail system automatically
+> appends it only on messages going outside the company. That was
+> unintentional on my side, and I will check with our IT and find a way 
+> to send v2 without that corporate disclaimer.
+> 
+> I will also switch to SoC-specific compatibles and re-read the writing
+> bindings documentation and DTS coding guidelines before posting v2.
+> 
+> I will wait a bit for further comments on the rest of the series and
+> address them together in v2.
+> 
 
-The IOMMU provider apps_smmu uses '#iommu-cells = <2>', but the PCIe
-iommu-map entries specify only one cell for the SID, omitting the SID
-mask. This went unnoticed until the OF core started warning with commit
-ccb2fd725d41 ("of: Respect #{iommu,msi}-cells in maps"):
+Note that tabs were converted to spaces in your submissions.
 
-  iommu-map has 1-cell entries targeting 2-cell #iommu-cells, treating as 1-cell output
 
-So fix the entries to match the provider's '#iommu-cells' property.
-
-Fixes: 4559b435f741 ("arm64: dts: qcom: qcs6490-rb3gen2-industrial-mezzanine: Add TC9563 PCIe switch node for PCIe0")
-Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
----
- .../qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso | 50 +++++++++++-----------
- 1 file changed, 25 insertions(+), 25 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
-index 83908db335af..14c64439ae1e 100644
---- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
-+++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
-@@ -54,15 +54,15 @@ &pcie0 {
- 	pinctrl-0 = <&pcie0_reset_n>, <&pcie0_wake_n>, <&pcie0_clkreq_n>;
- 	pinctrl-names = "default";
- 
--	iommu-map = <0x0 &apps_smmu 0x1c00 0x1>,
--		    <0x100 &apps_smmu 0x1c01 0x1>,
--		    <0x208 &apps_smmu 0x1c04 0x1>,
--		    <0x210 &apps_smmu 0x1c05 0x1>,
--		    <0x218 &apps_smmu 0x1c06 0x1>,
--		    <0x300 &apps_smmu 0x1c07 0x1>,
--		    <0x400 &apps_smmu 0x1c08 0x1>,
--		    <0x500 &apps_smmu 0x1c09 0x1>,
--		    <0x501 &apps_smmu 0x1c10 0x1>;
-+	iommu-map = <0x0 &apps_smmu 0x1c00 0x0 0x1>,
-+		    <0x100 &apps_smmu 0x1c01 0x0 0x1>,
-+		    <0x208 &apps_smmu 0x1c04 0x0 0x1>,
-+		    <0x210 &apps_smmu 0x1c05 0x0 0x1>,
-+		    <0x218 &apps_smmu 0x1c06 0x0 0x1>,
-+		    <0x300 &apps_smmu 0x1c07 0x0 0x1>,
-+		    <0x400 &apps_smmu 0x1c08 0x0 0x1>,
-+		    <0x500 &apps_smmu 0x1c09 0x0 0x1>,
-+		    <0x501 &apps_smmu 0x1c10 0x0 0x1>;
- 
- 	status = "okay";
- };
-@@ -151,22 +151,22 @@ pci@0,1 {
- };
- 
- &pcie1 {
--	iommu-map = <0x0 &apps_smmu 0x1c80 0x1>,
--		    <0x100 &apps_smmu 0x1c81 0x1>,
--		    <0x208 &apps_smmu 0x1c84 0x1>,
--		    <0x210 &apps_smmu 0x1c85 0x1>,
--		    <0x218 &apps_smmu 0x1c86 0x1>,
--		    <0x300 &apps_smmu 0x1c87 0x1>,
--		    <0x408 &apps_smmu 0x1c90 0x1>,
--		    <0x410 &apps_smmu 0x1c91 0x1>,
--		    <0x418 &apps_smmu 0x1c92 0x1>,
--		    <0x500 &apps_smmu 0x1c93 0x1>,
--		    <0x600 &apps_smmu 0x1c94 0x1>,
--		    <0x700 &apps_smmu 0x1c95 0x1>,
--		    <0x701 &apps_smmu 0x1c96 0x1>,
--		    <0x800 &apps_smmu 0x1c97 0x1>,
--		    <0x900 &apps_smmu 0x1c98 0x1>,
--		    <0x901 &apps_smmu 0x1c99 0x1>;
-+	iommu-map = <0x0 &apps_smmu 0x1c80 0x0 0x1>,
-+		    <0x100 &apps_smmu 0x1c81 0x0 0x1>,
-+		    <0x208 &apps_smmu 0x1c84 0x0 0x1>,
-+		    <0x210 &apps_smmu 0x1c85 0x0 0x1>,
-+		    <0x218 &apps_smmu 0x1c86 0x0 0x1>,
-+		    <0x300 &apps_smmu 0x1c87 0x0 0x1>,
-+		    <0x408 &apps_smmu 0x1c90 0x0 0x1>,
-+		    <0x410 &apps_smmu 0x1c91 0x0 0x1>,
-+		    <0x418 &apps_smmu 0x1c92 0x0 0x1>,
-+		    <0x500 &apps_smmu 0x1c93 0x0 0x1>,
-+		    <0x600 &apps_smmu 0x1c94 0x0 0x1>,
-+		    <0x700 &apps_smmu 0x1c95 0x0 0x1>,
-+		    <0x701 &apps_smmu 0x1c96 0x0 0x1>,
-+		    <0x800 &apps_smmu 0x1c97 0x0 0x1>,
-+		    <0x900 &apps_smmu 0x1c98 0x0 0x1>,
-+		    <0x901 &apps_smmu 0x1c99 0x0 0x1>;
- };
- 
- &pcie1_switch0_dsp1 {
+> Thanks,
+> Long Zhao
+> 
+> -----Original Message-----
+> From: Krzysztof Kozlowski <krzk@kernel.org> 
+> Sent: Thursday, July 30, 2026 18:48
+> To: Long Zhao <longzhao@ambarella.com>; Arnd Bergmann <arnd@arndb.de>; Alexandre Belloni <alexandre.belloni@bootlin.com>; linux-arm-kernel@lists.infradead.org; soc@lists.linux.dev
+> Cc: Rob Herring <robh@kernel.org>; Krzysztof Kozlowski <krzk+dt@kernel.org>; Conor Dooley <conor+dt@kernel.org>; devicetree@vger.kernel.org; Michael Turquette <mturquette@baylibre.com>; Stephen Boyd <sboyd@kernel.org>; linux-clk@vger.kernel.org; Linus Walleij <linusw@kernel.org>; linux-gpio@vger.kernel.org; Greg Kroah-Hartman <gregkh@linuxfoundation.org>; Jiri Slaby <jirislaby@kernel.org>; linux-serial@vger.kernel.org; Catalin Marinas <catalin.marinas@arm.com>; Will Deacon <will@kernel.org>; linux-kernel@vger.kernel.org
+> Subject: [EXT] Re: [PATCH 00/10] Ambarella CV75 SoC minimal bring-up
+> 
+> On 30/07/2026 12:43, Long Zhao wrote:
+> > 
+> > NOTE: This email (including attachments) contain Ambarella Proprietary and/or Confidential Information and is intended solely for the use of the individual(s) to whom it is addressed. Any unauthorized review, use, disclosure, distribute, copy, or print is prohibited. If you are not an intended recipient, please contact the sender by reply email and destroy all copies of the original message. Thank you.
+> 
+> Maybe I am the intended recipient of your message, maybe not. I don't want to have any legal questions regarding upstream, public collaboration, thus probably I should just remove your messages.
+> 
+> Please talk with your IT that such disclaimers in open-source are not desired (and maybe even harmful).
+> If you do not understand why, please also see:
+> https://urldefense.com/v3/__https://www.youtube.com/live/fMeH7wqOwXA?si=GY7igfbda6vnjXlJ&t=835__;!!PeEy7nZLVv0!mZI0csEB1zKe7UGEUdAjbQT7R3g7c3LEYitq4DVi3F_PXjl08eazP5ctMgouCBoz1x_bdQ3kJdmIWGo$ 
+> 
+> If you need to go around company SMTP server, then consider using b4
+> web-relay: https://urldefense.com/v3/__https://b4.docs.kernel.org/en/latest/contributor/send.html__;!!PeEy7nZLVv0!mZI0csEB1zKe7UGEUdAjbQT7R3g7c3LEYitq4DVi3F_PXjl08eazP5ctMgouCBoz1x_bdQ3kYN0VDlM$ 
+> 
+> Please be informed that by responding to this email you agree that all communications from you and/or your company is made public. In other words, all messages originating from you and/or your company will be made public.
+> 
+> Best regards,
+> Krzysztof
+> 
+> ######################################################################
+> This EXTERNAL email has been scanned by Proofpoint Email Protect service.
 
 -- 
-2.43.0
-
-
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
