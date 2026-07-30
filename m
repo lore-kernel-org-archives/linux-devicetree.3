@@ -1,170 +1,137 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3DFB38B150
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 16:25:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C2DC38BF81
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 16:29:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785428746; cv=none; b=H4iCbS3OClIc/MQqsNhN8khPbxwXLZWowm4ICRe+wdmnu8uquKBSWa0OTJENCMHqIGDEFCoa1ZSm9+RhSb5Z/jKune54hl+C6VAwljtopddEdCpIhrwna+nezOssMvGCVx8b9Qg5GPq2XrIUPk9Puhk2ZZmUgnYuFJUzm+hwaKM=
+	t=1785428943; cv=none; b=NPprTBgYAEXUfzLxz76jGIcg+1nYnwjZ1x8fVUALsMTK/ZnGVYrRML8/KJpnAGrWlbgBZXXJyYUio6hucsYZAX3gGIGRc4Vv+7269zDsDyAh9p6/jQBb6wvQwxo4blBKI699WsNDy+PxZ+ux7ACb1bDtOwxQkEycw/VH1UmKdEQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785428746; c=relaxed/simple;
-	bh=e8krjuXORD3eiisq9t1nWDxjYeLTjw3YQstvDkeoZ4w=;
+	s=arc-20240116; t=1785428943; c=relaxed/simple;
+	bh=8S+TWKatXbX5wujIAAzGp39n4pQcsk+sM8ipb22/aEQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Pj9KnfKSo0sGBhnAq7TWPlTRAIM6rOIJPcQ4QzGdUQ3rGuY0I5hDhWb0ubPZomALGzNh/gls5l9H9Rx7tuH5P+1D7zdpioXtPk9hWRJsBKTUhiJrDLrQJWhXpg4CbKs8srlO+vL3s3WL3umxRbzOLE2hX39C5WCDDmA4MwSkhqM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=f54vVozd; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SmP+USCO; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=f/wdulqRYOSn6PTbVZHExchsqc4dvA+y8OGopbdLs9bxft8peUjuaEaU32pX4ip/ABqHTbnqj/X/FnhIGdRQJPJrnqZGhSS8NSw03iXp90+Lh8JZ/qWaiozxEAw3wxz4VekcvYH0iQ+aKKwFYHwyARmdwLvgVm1Nth2OiHVg9NA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=chW2OVNu; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=M71WIobj; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="f54vVozd";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SmP+USCO"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66UFQoOA1087237
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 16:25:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	4rZUWXyiPA7EzNtyFdqNeVBBODKgqKe4kAxXVPsMPVI=; b=f54vVozdJRdphjSd
-	CrWcy4K7L0Nr0p9d8YMr38TCfHqSJD1NsrUEWbfZcnNOWXSXnyX3rWvEUAlgujgS
-	RaIuyVjk+EoAesW+ixBhmyOzcR0gHtKEhaOu8YhzPRqXHZdhgftOzeFVjjw0UE+f
-	FOB/ZY+cgJ3lz4xWVPgaPjIQf+/4j1DPsffB4hg3ousTnqytZwjWYTlz53x4RDT2
-	VnuZ3R7of6s19/DK3AYSvPeLuOTfYFtAptWAboo62OkvoswCLsDWCJH7DdWm7DXQ
-	D3inmviQBYZNdNspyTHCAePVp69/Y1JenN1UBRhaF1hq8WG6xLeAmek3iblSeYck
-	p9QX6A==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fr8n38j6n-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 16:25:43 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51c1d137a68so44782711cf.3
-        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 09:25:43 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="chW2OVNu";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="M71WIobj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1785428939;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YWnL5VleVaqHnf4WDlOmR61fSZ2iE1J6L7mVb4UvJLk=;
+	b=chW2OVNuwiMJ5FdTDDC4E/CW1qsc3l3HORqD+G1pI+BJSlD4CEXF4eU+Yhxbq4MPhpYGJi
+	xeQq0uSSoJoBshk714wUB1gnd8j+0Qy/3x5tx+NA2Sz7NVsViNcHPKpbSdBbdcb0050258
+	w+DaQZTpq/keCZaLV+5ECEufQ1GXe5I=
+Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com
+ [209.85.128.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-628-BCL9BkyXMyu5rFyaNVMM1w-1; Thu, 30 Jul 2026 12:28:56 -0400
+X-MC-Unique: BCL9BkyXMyu5rFyaNVMM1w-1
+X-Mimecast-MFC-AGG-ID: BCL9BkyXMyu5rFyaNVMM1w_1785428936
+Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-81cb01c07b2so177747b3.1
+        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 09:28:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785428743; x=1786033543; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4rZUWXyiPA7EzNtyFdqNeVBBODKgqKe4kAxXVPsMPVI=;
-        b=SmP+USCOQiGUbJQBwfVjqsLsjvwGkLdu8wIiGAgO/fNqjBtI7rEfJs+s5OxXVlrJlG
-         FiYvSz8k9Lvdb9/RhZAKw7K328ZUSosbt4iRf7ljxBkGjBfWe+9kPF+xUyAj4oJlz4wx
-         C4U9bGokofg+yFNir6Ca8MCzSAnBNSUO60YtVywRbTKHXMDl/RVRyswpqrz75ULVTQbV
-         d4i/juwE0Qd4lzIA3xV29Vk7DHeT+5E+AKGotjlRgcvmy0/TBi+8q96G0fS5j7eAFcwH
-         bsiNwL9IMh0psKG2hmMSLMKcfJEyPgQWR3/8fXfQNyNgGO6Cz8g9wfSY31xE+VgRu08O
-         QsJA==
+        d=redhat.com; s=google; t=1785428936; x=1786033736; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=YWnL5VleVaqHnf4WDlOmR61fSZ2iE1J6L7mVb4UvJLk=;
+        b=M71WIobjLcSRkZYmyRuWDhi6RkQ5L5SPpQxZl9utPY540t0PHJR+ejQ28Ji8vWQKYt
+         ZQXs+ntAl3X8PwI4gT8Ov+y5oBKS1pDrHiSeRNb0dL/Ws5e9WBa6KP3BKobUjeWWUUTy
+         ebvaqAjUmHQqZhqxYKN+/HJ8P8ql3mndrjiS0KrN6z3RfF939OgMKfmyFCIdfUAttAUQ
+         A1u1lQjGG+ufs3z7Fd1rA/k/Or4n3FD9CXbFoaUZ98UyisayC7UqiXNXUgNcHUwhcSPG
+         hoOs6KqCap5tIXW2g3IFu/LgWF7lvE6AG+IzT00mhRWFoCH+sjTG/RkbZmpYBHhvCxCx
+         MU9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785428743; x=1786033543;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=4rZUWXyiPA7EzNtyFdqNeVBBODKgqKe4kAxXVPsMPVI=;
-        b=hMqA7Ub2aDqHzyWDvIw44s+9VDvVyFqes3Tdz0Jm0SlOxtez/nNxf8ucxxXM5Am4Eu
-         2aZSv8xoul9vdXWWQ0JARCftaTETNgfDGHwu49jegtmyZkoxfMKtpnkAn9JHdsfnRPNp
-         bW4yUFLwF6ghpCyfS4B0frgTcJDXdH2J2ZQ5m0rjt3i6oGZc/4ecpdN79BGoA7KdbZNc
-         nVCXsyyseOjzBy73kM7987MJvmA6DkeBu8XyuQz6KEhonaAR50dkVjS3V6a0D9SksW4+
-         C241g/COYVReYQvn7P0/4d77zFdJpsSy2HscDKBEvVUM7nuvL9FBq5JP8ASMEGJfC32o
-         vb+g==
-X-Forwarded-Encrypted: i=1; AHgh+Ro+xAiS534VHobdQ+AR0CYuNtHeI3uJKl6eO1Ko+00jWej8orzGrkGl+evco00UWWPzSnoLTa+8e9Op@vger.kernel.org
-X-Gm-Message-State: AOJu0YzHTBH3VBjFEHG5HZIzdAR1rLquB615BQ3Jr0Ft5Xgf6G4Li5Eu
-	ykPSqsJxKtIU5UWH723TLl2rCHBN1nKRtlAy2s3zdiSWCQnyI0wYm90xgFk5AjIR3YhkePQBp5s
-	kjHaknyQylTTRyT45p8prKe9OAaz1Y5iV4PjDBr8xmiyn6CBz/QOnC/yLUV4IfIkT
-X-Gm-Gg: AR+sD12cCPWZw6UR/hhy65uoJkZVeUY2NbuurcHiLmk+ryeqzSgTV5t4HjCdNmtWyl+
-	pXYyo6xf5tLGJF0Zhik827abVJLySfAoaD6JOlgHEGRNi8b2kIA4AJ3UH+RdbKRxgxvLCbs61CV
-	qQTMST2BWQTD/2hxhxA5BRwkRyj7Igcw2YFazVGV0ORfauaqYgXOUQuE6MQ2wV/5hfn2DUN2G/w
-	pSgkAljFQlrOqIl5vnlUxhwcNkOJW12HMRCQIQdxvCKHpUZhFLh3VG5VTX77AGo1rtUig9BkPZp
-	IHuy/H1x2YweqJL7BFSsyU6d96+eoFwZkKWFGLbBQP12Cuvl6/JqMDAfV/0yfrMV/j2UjMSJr/y
-	zj7a7mAzRuR0gH283IjjyEiFuC1xfjNFq8Pe0UQBTv7HnZJehU2/eFQelX8nug0vOfEeM2xQAaK
-	pNgBE8CHAtfVSwGw==
-X-Received: by 2002:a05:622a:1ba4:b0:51c:7b11:419c with SMTP id d75a77b69052e-52b38704761mr36932001cf.73.1785428743011;
-        Thu, 30 Jul 2026 09:25:43 -0700 (PDT)
-X-Received: by 2002:a05:622a:1ba4:b0:51c:7b11:419c with SMTP id d75a77b69052e-52b38704761mr36931671cf.73.1785428742524;
-        Thu, 30 Jul 2026 09:25:42 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2db9530e5sm466968e87.33.2026.07.30.09.25.40
+        d=1e100.net; s=20251104; t=1785428936; x=1786033736;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YWnL5VleVaqHnf4WDlOmR61fSZ2iE1J6L7mVb4UvJLk=;
+        b=J0Xuo1pghdnJWwKvc/WWILrJO/4qTj9RML2BmpiH0NBZxfW1Fk0wqCd3H9lvC712Uu
+         tN7EJb2zlUONSHybfzplrflVBkAIKNHP43Ed/zXMoVhvrGGdA2KSaG0jgySaJPJTNON5
+         t11O5JGsdsv1hpjQ3ZBZKLOTVYOoHFFLbAhP/exhV7kSNvEuzZFOFbgOxioSWI2umahF
+         2y00lnl3WLaeIvrClfvCVnLq6EdLu/raQ21uY9QJx5sySjqMhXN/sV8bHoxsi0AN3Wf0
+         wV7/tNZxKitPkTazE1dHjpZlpaPQAXx3lfT/RoGwiR7Td6/gSY2YfHQt5c7PatreBbx6
+         uGcw==
+X-Forwarded-Encrypted: i=1; AHgh+RropXBxnUdxLMEQd/Rc6i6PI85QjQqV8Z/oqdvzzfzDsDrSL4HekmJPC7soBwAut1oBxjK8ZUfHyqoy@vger.kernel.org
+X-Gm-Message-State: AOJu0YxQLrDTPMVfyx0TzdlwoIRrfaOKcZ+7jbZ54fy0KB+hk8dkCDbD
+	NCMA2dJBgifhEeJjTs3HNROJ8U0hFmtqzsmxESqwSXJwRPnNtcKw8eCFaPGseRV8lWwdsiEAZJl
+	CLhBRx16d8u87dBF70RwwDWsOzuMJtzrzQxSzd4pyGVQtq89hUabTl8tha0hmAoE=
+X-Gm-Gg: AR+sD105jWkLeUCdojOOqX6J5Z9iXxqCo5AA2DiPe3JSMkcmw/ECnUUCzcGr6hpzt29
+	WewX9z7SZ27Kiwcwl9QmWDe0Hy3n6feUqnznmz5Axn24G0VhL9b2V9SvWso7iovW3SvB1PYl8nM
+	Dy6zEm+r65iT1Cm98GV7OamOUazAUbhnniqnQglVb/xtKoZhfQ0I8i9BREn4Np58t2XcDIUj/Rb
+	5LUn5pfZtRljezIPJlxPFGnLuLkqwY3UNuzFR2HZX4pwucFOlZoJq9+z+vjkchlOBeDOQ6+W532
+	ukp2rjpfzxPS0dCh1Wa9MtaDG53Kj+Soz5G5/t4rd3hBRYVV+ql+sFCEfOjl9arg+Bj0oMnIPQD
+	E50RcMiRvjzq+fmo57H2l+CHH9g3c1AtYgW4=
+X-Received: by 2002:a05:690c:3503:b0:81e:6c2e:f114 with SMTP id 00721157ae682-81fb895416fmr21778887b3.30.1785428935668;
+        Thu, 30 Jul 2026 09:28:55 -0700 (PDT)
+X-Received: by 2002:a05:690c:3503:b0:81e:6c2e:f114 with SMTP id 00721157ae682-81fb895416fmr21778617b3.30.1785428935253;
+        Thu, 30 Jul 2026 09:28:55 -0700 (PDT)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-81fb88c4a57sm13093077b3.8.2026.07.30.09.28.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 09:25:41 -0700 (PDT)
-Date: Thu, 30 Jul 2026 19:25:39 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: manivannan.sadhasivam@oss.qualcomm.com, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH 00/22] arm64: dts: qcom: Fix the PCIe iommu-map entries
-Message-ID: <mygjnnq3jt32mg5azihuxcrdu4b5uyn3bhebt6cvwkkcc23pb3@yia7nk7senyu>
-References: <20260730-iommu-map-fix-v1-0-83405d37ba41@oss.qualcomm.com>
- <qw62kk4cv3knqbwa44kvs5hj2uojkkgwrvd4mljd6g5qbn5xb4@jv2lsctxzliv>
- <4sbgvbb5admwtfsggio2tzdwpb5kimddxcpjxjuoiptcuwke6y@nr3nm7577tna>
+        Thu, 30 Jul 2026 09:28:54 -0700 (PDT)
+Date: Thu, 30 Jul 2026 12:28:51 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Yu-Chun Lin <eleanor.lin@realtek.com>
+Cc: mturquette@baylibre.com, sboyd@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, p.zabel@pengutronix.de,
+	cylee12@realtek.com, jyanchou@realtek.com, afaerber@suse.com,
+	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-realtek-soc@lists.infradead.org, james.tai@realtek.com,
+	cy.huang@realtek.com, stanley_chang@realtek.com,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v11 01/11] dt-bindings: clock: Add Realtek RTD1625 Clock
+ & Reset Controller
+Message-ID: <amt7w327inR5rZrU@redhat.com>
+References: <20260728142806.1954638-1-eleanor.lin@realtek.com>
+ <20260728142806.1954638-2-eleanor.lin@realtek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <4sbgvbb5admwtfsggio2tzdwpb5kimddxcpjxjuoiptcuwke6y@nr3nm7577tna>
-X-Authority-Analysis: v=2.4 cv=Ar/eGu9P c=1 sm=1 tr=0 ts=6a6b7b07 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=OlEKn_Yfc8uRCJjl9zcA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-GUID: SfqIXZ1JXd0taL0e2JH-61cbhy2kWr9U
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDEyMyBTYWx0ZWRfX1ufK2q+7VMbN
- aMRmtMlWXvkJAT4aBpWZPGCjYsqYDUczSREJiXpsdeXXKcd9CFsJOB4bZx3F/PgBid1AKufP8+o
- UsrQS0gZlaInqu+TikKZsAA5ndVaQxROZMW8E6VjdjIb2CZs1urKloKqwvmIqWNYOAIqZK5cnfj
- iFUCaU/PXT1gFFu+uCbHzt5TmxzmLTcw78CSumUh0/Le6Po9PRUpfedCsBOQHM+bd2wa41Ko5WU
- q/W6V0dKZyZFTQt6LFNaqO6S52Cok2aIMfgr70ac0MfDpwZgX69SkXGpLgJhoqHhqjuGDghrbQ+
- gkVe73E3+SnWIylGU4iDH7xvN/4pMcItSQJxDpCbMxKL2pHmmuNT3INexu4JGcUy2Rw3oK6tqfa
- W9Lzl6R7erCFkK0ryfM1loz/YbQfUqCS/TJ8pmrMZY6CD0l1tyLAIsSMwn9wzEDwe4BYi6x7pT9
- pW5wVgUOrNwly6e20Ow==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDEyMyBTYWx0ZWRfX+TTsY0z4qDUz
- Bw2lIjHe+p42jNLVj5Xn5l1jrIgZ8sjlmSYYPtW7PcmZ8NDV42UXBQrxPxDydT8ox39g64OaM/y
- aaRty9tGJ1hxVtF7+2YygJaAEAdp77M=
-X-Proofpoint-ORIG-GUID: SfqIXZ1JXd0taL0e2JH-61cbhy2kWr9U
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-30_04,2026-07-30_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 priorityscore=1501 malwarescore=0 impostorscore=0
- bulkscore=0 adultscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607300123
+In-Reply-To: <20260728142806.1954638-2-eleanor.lin@realtek.com>
+User-Agent: Mutt/2.4.0 (2026-06-19)
 
-On Thu, Jul 30, 2026 at 06:14:09PM +0200, Manivannan Sadhasivam wrote:
-> On Thu, Jul 30, 2026 at 03:23:28PM +0300, Dmitry Baryshkov wrote:
-> > On Thu, Jul 30, 2026 at 01:55:41PM +0200, Manivannan Sadhasivam via B4 Relay wrote:
-> > > Several Qualcomm SoCs declare their IOMMU providers like apps_smmu and
-> > > pcie_smmu, with '#iommu-cells = <2>', where the two cells are the SID
-> > > and the SID mask. But the PCIe iommu-map entries on these SoCs specify
-> > > only one output cell for the SID and omit the mask. This went unnoticed
-> > > until the OF core started warning with commit
-> > > ccb2fd725d41 ("of: Respect #{iommu,msi}-cells in maps"):
-> > > 
-> > >   iommu-map has 1-cell entries targeting 2-cell #iommu-cells, treating as 1-cell output
-> > > 
-> > > So this series fixes the iommu-map entries across the affected SoC, SoM, board
-> > > and overlay files to match the provider's '#iommu-cells' property.
-> > > 
-> > > Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> > 
-> > Note, this must be merged only after the commit fixing iommu-maps lands
-> > in the qcom dt tree.
-> > 
-> 
-> Which commit you are referring to? The commit which triggers this warning is
-> already part of 7.2-rc1.
+Hi Yu-Chun,
 
-Ok then. I haven't tracked if it was merged or not.
+On Tue, Jul 28, 2026 at 10:27:56PM +0800, Yu-Chun Lin wrote:
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 2f9472c1a090..65dd2be63903 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -22741,6 +22741,16 @@ S:	Maintained
+>  F:	Documentation/devicetree/bindings/net/dsa/realtek.yaml
+>  F:	drivers/net/dsa/realtek/*
+>  
+> +REALTEK SOC CLOCK AND RESET DRIVERS
+> +M:	Cheng-Yu Lee <cylee12@realtek.com>
+> +M:	Yu-Chun Lin <eleanor.lin@realtek.com>
+> +L:	devicetree@vger.kernel.org
 
-> 
-> - Mani
-> 
-> -- 
-> மணிவண்ணன் சதாசிவம்
+You add drivers to this list later in the series.
+devicetree@vger.kernel.org shouldn't be listed here so that the list is
+not CCed for just driver changes. It'll get picked up if someone is
+making changes to the dt-bindings via the "OPEN FIRMWARE AND FLATTENED
+DEVICE TREE BINDINGS" entry.
 
--- 
-With best wishes
-Dmitry
+Brian
+
+
+> +L:	linux-clk@vger.kernel.org
+> +S:	Supported
+> +F:	Documentation/devicetree/bindings/clock/realtek*
+> +F:	include/dt-bindings/clock/realtek*
+> +F:	include/dt-bindings/reset/realtek*
+
