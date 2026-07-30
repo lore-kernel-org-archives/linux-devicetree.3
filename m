@@ -1,218 +1,166 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC7801F3B85;
-	Thu, 30 Jul 2026 14:11:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30E3F3C3F4C
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 14:13:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785420711; cv=none; b=NcKriSZcRaocYpqwYOPN0T2O8UAU/2r+VGzxWTTj/LK9HRBi7SGU0yhT+cjArSHfh858GFh8dCp2jEs8ej5KaoNRJrlV1Elc2/8JJggAwCkqnW+oUG3Ie3/UBCe5pHYSjjpsg0ZD0Hl5nOhGD9N1YlSe/cHFo9q0nujcm+hO/XU=
+	t=1785420821; cv=none; b=SBSikS7X81OTA76D+d4ep7wBhXiYM4rc/DoaSVt49fa9/MyZF6HLF/ZRZx/o/kBC5SePkCn1dr6iZwIN0nlGEaPu61mHkRhpOkpFXHefD1Aon+/EjHw4oUZBL0wDgMmyt4BjcLW3g0FjMpS/LApKy+tVGJtiktchV5jhAYlz8yQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785420711; c=relaxed/simple;
-	bh=58yU4qPtja/6Fpw6sKzfo0PGAqgv65nlsTPh9rhr31k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Q7hNYVqfVEw6x+f69UB5Yeky8poQwKw39aosaywx7leZSebMsjs7MRIF1iX5M8lKA4lJx2jLPjpM1lv+0QHiLSUVmme1jZLexdO8VcBrCRmwzuEw2M+aoFy9w17p602++y4SKldtIQIvgvnr3SDpqE/wQWUk/bUfGnPmjQ6SZfQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z8vLubTb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785420821; c=relaxed/simple;
+	bh=nmLetJqmRQz56qeG7CExVX5XcOQM646N8rwLYK9wIxo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=PkAkL9t7v5IHUMb6xpvxpFKG12lK9bm6Ppa74cXupqJJNuHiVvlbwKYzNv6jkKAl/Ru6+hfjQ5YLLi0cIbfdUGe1DpYzl1t0HV03sjeS/etoXZZE4gBvCE/Dh+UoR30D/fnCYYwDmXbSso9CPLxn9DsQk7t37l8E/tyRLuAxPao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e+TSJCJi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z8vLubTb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70AC31F000E9;
-	Thu, 30 Jul 2026 14:11:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e+TSJCJi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 680B81F000E9;
+	Thu, 30 Jul 2026 14:13:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785420709;
-	bh=xOfZ1XZtmIGv5xPs/JpL5IA5kDeBp4wZjvToK2htZEg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Z8vLubTbVrC5ggTk1y2XualK8J6337oJ22xbo6bslpP7b4zn0dWTkMpUIQ9r2F1vd
-	 wVgQx4rddZtSPRahJAUSCohb8kgDwjkOe/0FJzH9ieNLIiG6MR96um9+5hEimKYvL/
-	 al4vXaF0SYqn4yr3k9vm1F4IHLxrex+cFKMj2FP2iwvdYCeY1dESMqfjP+wKT1aSAZ
-	 DOyOQN5S1xNyPYjdZL9wIk5mMYrO+1bNzh1stF/vmBLT6xHQnRp4VP8U81ldpWcz6t
-	 jEgq4ctZt4/UPYwlQeQl+RD46/tA3FfeX5ZVxDfq/wxEzU60d6kQ+0ZhQ/eG3ndBTN
-	 mjIFhls78msYw==
-Date: Thu, 30 Jul 2026 09:11:48 -0500
-From: Rob Herring <robh@kernel.org>
-To: Long Zhao <longzhao@ambarella.com>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, linux-clk@vger.kernel.org,
-	Linus Walleij <linusw@kernel.org>, linux-gpio@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, linux-serial@vger.kernel.org,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 03/10] dt-bindings: clock: add Ambarella CV75 RCT clock
- controller
-Message-ID: <20260730141148.GA2828054-robh@kernel.org>
-References: <20260730104330.81367-1-longzhao@ambarella.com>
- <20260730104330.81367-4-longzhao@ambarella.com>
+	s=k20260515; t=1785420819;
+	bh=I5GwpwZWmSMbLHVBAn1Wn6Dr/xQbgXHKS/lIG0Te5Sw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=e+TSJCJithB42FTdeMYT8bRbWa7shv/AabqBDar7zKFvJo7s1PbaOZSI1/3jT+tko
+	 SBXIIC3ai3B5kAOU4/Z4C56DTKrvTulpOjFhhLZrqQCFDgpKp+vD+5l/SULDgs0dtd
+	 gDO5G0O8GpdlxbCjtsV9PwDM148XHIwbZc+KBB61A9GaHp86hoqh+dX1AlQCs9ZR2M
+	 JPEhNF6M28tB3dP2wGpchkTzdU9FJRcIH5ly47qsdoB2bnSV4jz20unOQTNGzxHK8k
+	 QowDxBkjWpBEPKWm/BAYHXG8OROt+ESzo97zsqR3GMtVc7hyhF/XDbwEB4HaKIG8gX
+	 CNazamHR/WgmQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] phy: qcom-snps-femto-v2: Add support for SA8255P
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mattijs Korpershoek" <mkorpershoek@kernel.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, linux-phy@lists.infradead.org, olteanv@gmail.com, neil.armstrong@linaro.org, devicetree@vger.kernel.org
+In-Reply-To: <20260730-phy-qcom-snps-femto-v2-8255-v1-2-8b8bf5105a68@kernel.org>
+References: <20260730-phy-qcom-snps-femto-v2-8255-v1-0-8b8bf5105a68@kernel.org>
+ <20260730-phy-qcom-snps-femto-v2-8255-v1-2-8b8bf5105a68@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 30 Jul 2026 14:13:38 +0000
+Message-Id: <20260730141339.680B81F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260730104330.81367-4-longzhao@ambarella.com>
 
-On Thu, Jul 30, 2026 at 06:43:23PM +0800, Long Zhao wrote:
-> Add the CV75 RCT clock controller binding and clock ID header.
-> 
-> Signed-off-by: Long Zhao <longzhao@ambarella.com>
-> ---
->  .../bindings/clock/ambarella,cv75-rct.yaml    | 94 +++++++++++++++++++
->  .../dt-bindings/clock/ambarella,cv75-clock.h  | 17 ++++
->  2 files changed, 111 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/clock/ambarella,cv75-rct.yaml
->  create mode 100644 include/dt-bindings/clock/ambarella,cv75-clock.h
-> 
-> diff --git a/Documentation/devicetree/bindings/clock/ambarella,cv75-rct.yaml b/Documentation/devicetree/bindings/clock/ambarella,cv75-rct.yaml
-> new file mode 100644
-> index 000000000000..5ff5b6a4a0b9
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/clock/ambarella,cv75-rct.yaml
-> @@ -0,0 +1,94 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/clock/ambarella,cv75-rct.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Ambarella CV75 RCT Clock Controller
-> +
-> +maintainers:
-> +  - Long Zhao <longzhao@ambarella.com>
-> +
-> +description: |
-> +  The RCT (Reset and Clock Tree) block on the Ambarella CV75 SoC provides
-> +  PLLs, clock muxes and dividers for on-chip peripherals.
-> +
-> +  The same register region is also exposed as a syscon for other drivers
-> +  (e.g. pin drive-strength), hence the "syscon" compatible.
-> +
-> +  Clock indices are defined in
-> +  include/dt-bindings/clock/ambarella,cv75-clock.h:
-> +
-> +  - CV75_GCLK_UART0: UART0 mux/div clock
-> +  - CV75_GCLK_CORE: Core PLL (gclk_core)
-> +  - CV75_GCLK_AHB: AHB bus clock (core / 2)
-> +  - CV75_GCLK_APB: APB bus clock (core / 4)
-> +
-> +allOf:
-> +  - $ref: /schemas/mfd/syscon-common.yaml#
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Incorrect power domain enablement and teardown ordering in d3 <-->=
+ d0 transitions.
+- [Medium] The `sa8255p_snps_hs_phy` match data is defined as a scalar stru=
+ct but iterated over as an array, risking out-of-bounds memory access.
+--
 
-Drop this.
+--- Patch [2]: [PATCH 2/2] phy: qcom-snps-femto-v2: Add support for SA8255P=
+ ---
+commit 337a4b6fa46b42e255f6aa6b19e2b52e65e59f7d
+Author: Sriram Dash <quic_sriramd@quicinc.com>
 
+phy: qcom-snps-femto-v2: Add support for SA8255P
+
+The Qualcomm automotive SA8255p SoC relies on firmware to configure
+platform resources, including clocks, interconnects and TLMM.
+The driver requests resources operations over SCMI using power protocols.
+
+> diff --git a/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c b/drivers/phy/=
+qualcomm/phy-qcom-snps-femto-v2.c
+> index eb0b0f61d98e0..4a9bd3ae0e535 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
+
+[ ... ]
+
+> @@ -136,8 +139,81 @@ struct qcom_snps_hsphy {
+> +/* d3_to_d0 transition by turning on all the suppliers */
+> +static int qcom_snps_d3_to_d0(struct qcom_snps_hsphy *hsphy)
+> +{
+> +	int ret;
 > +
-> +properties:
-> +  $nodename:
-> +    pattern: "^clock-controller(@.*)?$"
+> +	if (!hsphy->pd_list)
+> +		return 0;
+> +
+> +	ret =3D pm_runtime_resume_and_get(hsphy->pd_list->pd_devs[0]);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D pm_runtime_resume_and_get(hsphy->pd_list->pd_devs[1]);
+> +	if (ret)
+> +		pm_runtime_put_sync(hsphy->pd_list->pd_devs[0]);
+> +
+> +	return ret;
+> +}
 
-"^clock-controller@"
+[Severity: High]
+Does this resume the power domains in the correct order?
 
-unit-address is not optional.
+The commit message states that the power domain 'core' (pd_devs[1]) controls
+the GDSC, and 'transfer' (pd_devs[0]) controls clocks and interconnects.
+Resuming 'transfer' before 'core' means clocks are enabled without their
+powering GDSC, which could cause bus hangs on Qualcomm SoCs.
+
+Additionally, since state d1 has 'transfer' OFF and 'core' ON, shouldn't 'c=
+ore'
+always be enabled first and disabled last?
 
 > +
-> +  compatible:
-> +    items:
-> +      - const: ambarella,cv75-rct
-> +      - const: syscon
+> +/* d0_to_d3 transition by turning off all the suppliers */
+> +static void qcom_snps_d0_to_d3(struct qcom_snps_hsphy *hsphy)
+> +{
+> +	if (!hsphy->pd_list)
+> +		return;
 > +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    description: Reference crystal oscillator (typically 24 MHz)
-> +    maxItems: 1
-> +
-> +  clock-names:
-> +    const: osc
-> +
-> +  "#clock-cells":
-> +    const: 1
+> +	pm_runtime_put_sync(hsphy->pd_list->pd_devs[1]);
+> +	pm_runtime_put_sync(hsphy->pd_list->pd_devs[0]);
+> +}
+
+[Severity: High]
+Should the 'transfer' domain (pd_devs[0]) be put before the 'core'
+domain (pd_devs[1])?
+
+Putting 'core' before 'transfer' disables the GDSC while the clocks are
+still active.
+
+[ ... ]
+
+> @@ -316,6 +394,10 @@ static const struct override_param ls_fs_output_impe=
+dance_sc7280[] =3D {
+>  	{ 1310, 0 },
+>  };
+> =20
+> +static const struct override_param_map sa8255p_snps_hs_phy =3D {
+> +	.fw_managed =3D true,
+> +};
 > +
 
-> +  assigned-clocks: true
-> +
-> +  assigned-clock-parents: true
-> +
-> +  assigned-clock-rates: true
+[Severity: Medium]
+Will this scalar struct cause an out-of-bounds read in
+qcom_snps_hsphy_read_override_param_seq()?
 
-Drop. These are implicitly allowed for any node with 'clocks'.
+The match data is defined here as a single scalar struct, but
+qcom_snps_hsphy_read_override_param_seq() casts the match data to an array =
+and
+iterates over it until cfg[i].prop_name !=3D NULL:
 
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - clock-names
-> +  - "#clock-cells"
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/ambarella,cv75-clock.h>
-> +
-> +    / {
-> +        compatible = "ambarella,cv75-evk", "ambarella,cv75";
-> +        #address-cells = <2>;
-> +        #size-cells = <2>;
+drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c:qcom_snps_hsphy_read_override=
+_param_seq() {
+    ...
+	cfg =3D of_device_get_match_data(dev);
+	if (!cfg)
+		return;
 
-Drop all this, not relevant to this binding.
+	for (i =3D 0; cfg[i].prop_name !=3D NULL; i++) {
+    ...
+}
 
-> +
-> +        osc: oscillator {
-> +            compatible = "fixed-clock";
-> +            #clock-cells = <0>;
-> +            clock-output-names = "osc";
-> +            clock-frequency = <24000000>;
-> +        };
+Currently this terminates on the first iteration because the uninitialized
+.prop_name field is implicitly NULL, but if a property is ever added to this
+struct in the future, it will read past the end of the struct into adjacent
+memory.
 
-Drop. We don't put providers in examples.
+Should this be defined as an array with an empty sentinel element like the
+other param maps?
 
-> +
-> +        rct: clock-controller@ed080000 {
-> +            compatible = "ambarella,cv75-rct", "syscon";
-> +            reg = <0xff 0xed080000 0x0 0x1000>;
-> +            clocks = <&osc>;
-> +            clock-names = "osc";
-> +            #clock-cells = <1>;
-> +
-> +            assigned-clocks = <&rct CV75_GCLK_UART0>;
-> +            assigned-clock-parents = <&osc>;
-> +            assigned-clock-rates = <24000000>;
-> +        };
-> +    };
-> diff --git a/include/dt-bindings/clock/ambarella,cv75-clock.h b/include/dt-bindings/clock/ambarella,cv75-clock.h
-> new file mode 100644
-> index 000000000000..3d3314446e75
-> --- /dev/null
-> +++ b/include/dt-bindings/clock/ambarella,cv75-clock.h
-> @@ -0,0 +1,17 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
-> +/*
-> + * Copyright (C) 2026 Ambarella, Inc.
-> + */
-> +
-> +#ifndef _DT_BINDINGS_CLOCK_AMBARELLA_CV75_CLOCK_H
-> +#define _DT_BINDINGS_CLOCK_AMBARELLA_CV75_CLOCK_H
-> +
-> +/* Boot / bus clocks */
-> +#define CV75_GCLK_UART0                0
-> +#define CV75_GCLK_CORE         1
-> +#define CV75_GCLK_AHB          2
-> +#define CV75_GCLK_APB          3
-> +
-> +#define CV75_CLK_NUM           4
-> +
-> +#endif
-> --
-> 2.34.1
-> 
-> NOTE: This email (including attachments) contain Ambarella Proprietary and/or Confidential Information and is intended solely for the use of the individual(s) to whom it is addressed. Any unauthorized review, use, disclosure, distribute, copy, or print is prohibited. If you are not an intended recipient, please contact the sender by reply email and destroy all copies of the original message. Thank you.
-
-You must remove this or we can't do anything with your patches.
-
-Rob
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-phy-qcom-s=
+nps-femto-v2-8255-v1-0-8b8bf5105a68@kernel.org?part=3D2
