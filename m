@@ -1,122 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m49220.qiye.163.com (mail-m49220.qiye.163.com [45.254.49.220])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24DD54195B5
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 12:29:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D63E2877DE;
+	Thu, 30 Jul 2026 12:31:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785414565; cv=none; b=EyTNQ581pwdlnSiQ2ctlZE1SV2/DpyIlJIZX6VA8MMqE79+HvMsFaoEtx1ui4lBMPItf4ytUgLeq4qlQuqaMdFtzye9cekm7mMLSC50+y8a1YZfUv85IBJi4eOnhFyXvP6vvkXOVNjnhsh9I6GyF5C+/wLdZThBDCP261C7PBgg=
+	t=1785414703; cv=none; b=gk3Eu9k20agYT2enGhgbJ62KntEDOr4/VSbYKb/xpU+3zELCj5LrFQZWkqnBYCkfhjaQ7sRocLP/x72nlpyrRINGwsuZWnBrQ/c2ChV4/uaRwDlgHJSpvSkCjCQbphlG20myd6MUV0FlwEmDy6T20lH6TvcaIE/4Y87J1+3QOEQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785414565; c=relaxed/simple;
-	bh=zVnVD+uTm2J1cADEZclX3BawdLxne7yT7O/HeFAzn2Y=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EEYsTQoPWHfzU1yVtc1p4G3fG0N+tShKdSQFEGhosrbCc+e2ashia+QyHW/EqqGgoqtmilYfgywpPaR9W1hUTZ3ddTQwZg8GNpGGBLKbmExB6tM/dkpYFCGH4m77yEL8n8zT+24Rf6fYR/C3cNpxhuMB221nrtPiDakQrWaW33o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZVdYpowl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785414703; c=relaxed/simple;
+	bh=IykQzerDeo/4fDfwDpCXZo1aSS5CczrT+2it/yBjHzA=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=qmu71Phua/MbQIqJqAhuDKz3bu5oxeB+QWsDTECUBz3qAhITlSn2Om0iExr2i6xzqYqN8VGKp230b5yAdOE3BkLsdUfEHgFKScjlV4LQd7rmJ9MzM8DjOp+CQ5sETOL4OzQurBLpDJImCCpV2bAjdRtdljnilOY/Uq097AxKb1k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=gYJOxO7V; arc=none smtp.client-ip=45.254.49.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZVdYpowl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F2A21F000E9;
-	Thu, 30 Jul 2026 12:29:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785414562;
-	bh=BPQwdGXmJYlmkXd/e4pksGZSTA1//4gtR4JzJv+hOS8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZVdYpowlQU+uR+oC0GfT/jjV+p/G/bH0GbLlB7EGyniKvc1fzGSRtrbPx+7ZP4htK
-	 HB+qezriBdfojrMgy+HG3mDTu5BhH6janMwAaKle/oray+PQMJ1mXoiy4Bp8WbJYEX
-	 8B9Yqe88vHEngzvDv65gP6S2Oa/Ks0+n77ueTIS7tbeTEZhkJRvoW7BWqbMoNgkUu0
-	 Apux3y6O+rP2O83RIJ7ezu6Ik6LFnLz2rOz1y/mKq89tO7+wsrlhmw5yCSijVMo+JT
-	 Si6h83sa9wwW1V7rTMzUFlqMnRfzpp3C+jkjGW40ZUanBabyPw3VJjsuUI1H4TfIfd
-	 D9LvuFzF6urIQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 20/22] arm64: dts: qcom:
- qcs6490-thundercomm-minipc-g1iot: Fix the PCIe iommu-map entries
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Manivannan Sadhasivam" <manivannan.sadhasivam@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260730-iommu-map-fix-v1-20-83405d37ba41@oss.qualcomm.com>
-References: <20260730-iommu-map-fix-v1-0-83405d37ba41@oss.qualcomm.com>
- <20260730-iommu-map-fix-v1-20-83405d37ba41@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 12:29:22 +0000
-Message-Id: <20260730122922.8F2A21F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="gYJOxO7V"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 481c5dbe5;
+	Thu, 30 Jul 2026 11:28:04 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Andy Yan <andy.yan@rock-chips.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v1 7/7] drm/bridge: analogix_dp: Skip native HPD interrupt ops for GPIO HPD
+Date: Thu, 30 Jul 2026 11:27:44 +0800
+Message-Id: <20260730032744.381566-8-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260730032744.381566-1-damon.ding@rock-chips.com>
+References: <20260730032744.381566-1-damon.ding@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9fb1109e2a03a8kunm040f791237470a
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCHh4YVhkZH0tNSB5KSB1KHlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=gYJOxO7VF2rBVMVcyxtDaQbEIiRD8BHO9RhDcf5VOdmDEfAazaJn7nefWbKsz/97jaA/H7ycR33SCuXgNMrUIdh9tHHVuYb8jZDSTBancIYUCD62YdiduN+KXFTn+d6bg22iDytZarUOxe9toeCbZPFs7XRSs2DMwd0pRngWVXU=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=fbciKp0LoMzz95JiE7ECSmclFwuRl2dYOZQo4Ge7CaE=;
+	h=date:mime-version:subject:message-id:from;
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+GPIO HPD does not rely on DP controller internal native HPD interrupts.
+Skip native HPD register manipulations to avoid irrelevant operations.
 
-Pre-existing issues:
-- [Medium] The patch series successfully fixes incomplete `iommu-map` prope=
-rty entries for `qcs6490-thundercomm-minipc-g1iot.dts` and several other bo=
-ards, but completely misses identical 4-cell entries targeting a 2-cell IOM=
-MU provider in sibling board and devicetree files. The OF core will continu=
-e treating these maps as 1-cell output and emit warnings.
---
+Configure interrupt routine mutes native HPD interrupts when
+dp->hpd_gpiod exists. Add identical condition guards in hardirq and
+threaded irq handlers. Drop redundant dp->hpd_gpiod condition inside
+analogix_dp_clear_hotplug_interrupts().
 
---- Patch [20]: [PATCH 20/22] arm64: dts: qcom: qcs6490-thundercomm-minipc-=
-g1iot: Fix the PCIe iommu-map entries ---
-commit 8f2a940116e71ca780253365df0150f683e455ed
-Author: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+---
+ .../drm/bridge/analogix/analogix_dp_core.c    |  5 +--
+ .../gpu/drm/bridge/analogix/analogix_dp_reg.c | 32 +++++++++++--------
+ 2 files changed, 21 insertions(+), 16 deletions(-)
 
-arm64: dts: qcom: qcs6490-thundercomm-minipc-g1iot: Fix the PCIe iommu-map =
-entries
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index a292bc881b6b..91fa7569950a 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -708,7 +708,8 @@ static irqreturn_t analogix_dp_hardirq(int irq, void *arg)
+ 
+ 	irq_type = analogix_dp_get_irq_type(dp);
+ 	if (irq_type) {
+-		analogix_dp_mute_hpd_interrupt(dp, irq_type);
++		if (!dp->hpd_gpiod)
++			analogix_dp_mute_hpd_interrupt(dp, irq_type);
+ 		ret = IRQ_WAKE_THREAD;
+ 	}
+ 
+@@ -733,7 +734,7 @@ static irqreturn_t analogix_dp_irq_thread(int irq, void *arg)
+ 			drm_helper_hpd_irq_event(dp->drm_dev);
+ 	}
+ 
+-	if (irq_type) {
++	if (!dp->hpd_gpiod && irq_type) {
+ 		analogix_dp_clear_hotplug_interrupts(dp, irq_type);
+ 		analogix_dp_unmute_hpd_interrupt(dp, irq_type);
+ 	}
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+index 981ce3810e90..cf1f9216c742 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+@@ -177,20 +177,24 @@ void analogix_dp_config_interrupt(struct analogix_dp_device *dp)
+ 	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_2);
+ 	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_3);
+ 
+-	if (analogix_dp_is_rockchip(dp->plat_data->dev_type)) {
+-		/*
+-		 * Either HOTPLUG_CHG interrupt or PLUG + HPD_LOST interrupt
+-		 * pair can be used to implement hotplug detection.
+-		 *
+-		 * On Rockchip platforms, configuring HPD deglitch to 2ms and
+-		 * using HOTPLUG_CHG interrupt for hotplug detection is proven
+-		 * as a better solution via engineering verification.
+-		 */
+-		writel(0x80, dp->reg_base + ANALOGIX_DP_HPD_DEGLITCH_L);
+-		writel(0xbb, dp->reg_base + ANALOGIX_DP_HPD_DEGLITCH_H);
+-		analogix_dp_unmute_hpd_interrupt(dp, DP_IRQ_TYPE_HP_CHANGE);
++	if (dp->hpd_gpiod) {
++		analogix_dp_mute_hpd_interrupt(dp, HPD_IRQ);
+ 	} else {
+-		analogix_dp_unmute_hpd_interrupt(dp, HPD_IRQ);
++		if (analogix_dp_is_rockchip(dp->plat_data->dev_type)) {
++			/*
++			 * Either HOTPLUG_CHG interrupt or PLUG + HPD_LOST interrupt
++			 * pair can be used to implement hotplug detection.
++			 *
++			 * On Rockchip platforms, configuring HPD deglitch to 2ms and
++			 * using HOTPLUG_CHG interrupt for hotplug detection is proven
++			 * as a better solution via engineering verification.
++			 */
++			writel(0x80, dp->reg_base + ANALOGIX_DP_HPD_DEGLITCH_L);
++			writel(0xbb, dp->reg_base + ANALOGIX_DP_HPD_DEGLITCH_H);
++			analogix_dp_unmute_hpd_interrupt(dp, DP_IRQ_TYPE_HP_CHANGE);
++		} else {
++			analogix_dp_unmute_hpd_interrupt(dp, HPD_IRQ);
++		}
+ 	}
+ }
+ 
+@@ -411,7 +415,7 @@ void analogix_dp_clear_hotplug_interrupts(struct analogix_dp_device *dp, u32 irq
+ {
+ 	u32 reg = 0;
+ 
+-	if (dp->hpd_gpiod || !irq_type)
++	if (!irq_type)
+ 		return;
+ 
+ 	if (irq_type & COMMON_INT_4_HPD_IRQ) {
+-- 
+2.34.1
 
-The IOMMU provider apps_smmu uses '#iommu-cells =3D <2>', but the PCIe
-iommu-map entries specify only one cell for the SID, omitting the SID
-mask. This went unnoticed until the OF core started warning with commit
-ccb2fd725d41 ("of: Respect #{iommu,msi}-cells in maps").
-
-> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dt=
-s b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts
-> --- a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts
-> +++ b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts
-> @@ -711,15 +711,15 @@ &pcie1 {
->  		    <&pcie1_wake_n>;
->  	pinctrl-names =3D "default";
-> =20
-> -	iommu-map =3D <0x0 &apps_smmu 0x1c80 0x1>,
-> -		    <0x100 &apps_smmu 0x1c81 0x1>,
-[ ... ]
-> +	iommu-map =3D <0x0 &apps_smmu 0x1c80 0x0 0x1>,
-> +		    <0x100 &apps_smmu 0x1c81 0x0 0x1>,
-> +		    <0x208 &apps_smmu 0x1c84 0x0 0x1>,
-> +		    <0x210 &apps_smmu 0x1c85 0x0 0x1>,
-> +		    <0x218 &apps_smmu 0x1c86 0x0 0x1>,
-> +		    <0x300 &apps_smmu 0x1c87 0x0 0x1>,
-> +		    <0x400 &apps_smmu 0x1c88 0x0 0x1>,
-> +		    <0x500 &apps_smmu 0x1c89 0x0 0x1>,
-> +		    <0x501 &apps_smmu 0x1c90 0x0 0x1>;
-
-[Severity: Medium]
-This is a pre-existing issue, but since you are fixing the missing SID mask
-for this board, should the identical malformed entries in other sibling boa=
-rds
-and devicetree files also be updated?
-
-For example, in arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts for pcie1:
-
-	iommu-map =3D <0x0 &apps_smmu 0x1c80 0x1>,
-		    <0x100 &apps_smmu 0x1c81 0x1>,
-
-In arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso for p=
-cie0
-and pcie1:
-
-	iommu-map =3D <0x0 &apps_smmu 0x1c00 0x1>,
-		    <0x100 &apps_smmu 0x1c01 0x1>,
-
-And in arch/arm/boot/dts/qcom/qcom-sdx55.dtsi for pcie_rc:
-
-			iommu-map =3D <0x0   &apps_smmu 0x0200 0x1>,
-				    <0x100 &apps_smmu 0x0201 0x1>,
-
-Leaving these unfixed will continue to trigger the OF core warning about
-1-cell entries targeting 2-cell #iommu-cells. Would it make sense to
-include fixes for these files as well?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-iommu-map-=
-fix-v1-0-83405d37ba41@oss.qualcomm.com?part=3D20
