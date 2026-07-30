@@ -1,146 +1,281 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56F3A2BDC23;
-	Thu, 30 Jul 2026 08:23:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 75A3438DC4F;
+	Thu, 30 Jul 2026 08:26:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785399799; cv=none; b=jCUfRSt/KXrloVsiER1EOY4Q+PYpWSXt398eLZvDylBFivDbQN+nM6uTeWLmi0KKVqTe/rd0HdxwTPq3dJjBtTQdlwRDn7o8L7dfzaRJfKAfmWj/2cvC6OBhCEdEgMrbmi7n7s99LzkIEcyC0Rajbl0AdJCRiqk0RYMfhGmKgLY=
+	t=1785400002; cv=none; b=KmSwTgOOZ5o8m77uQik5nuJIyMPkDm04C1+lvh56oo0G27lDBtldIxoh0q/AHNoKi96buT0mFpSpr2FMnLPKkIYp1r+0Bdj38jGKKT4o8jPwfcb+WHFClq5RvuV03JdqcWX4tQywcc+fJzlClAO+YD/ug6Wu/kvTad5O5waU2x4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785399799; c=relaxed/simple;
-	bh=nGG9LtH3M3n5b0i0af5jANNTuqeyC/oMM6qwL7FI4is=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZBuU/toEcz/Sv7P1jeoQ2S22cEbI9TPS5AGHz526hOXH65MzppkEJEWtnqHeROvH4dY9sIJqLBt0lOOQFQu2T4+/zK9kUA0Usc+c+u7zwhiT15IRe+1rZas627L+Wraue5j49dwM2Vc52f4wkaAKAQtLBgy0PMrC8uTKBuOKlIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=ZW6guvuf; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1785400002; c=relaxed/simple;
+	bh=4w8q+HwzoPPem5RJrr3ZmXMHDoIyxikUraEmRbUPK5E=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=qjppd6eTY2G+cKE2t/wlA2v1kVslRlaa2xcH2Au9VRXpFedTJSvKRuZHsXXogLWEj8YKyMvPHoePDttIl5n/ZHrZQ94irzT7OClXOAbruxae8SG7h3diMpJQgY/Ol7bvIfqBCc/H0oeDvCPcuoGzYnROPzGvms5ElqbIWXvgm58=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=WDK2/Rka; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="ZW6guvuf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1785399796;
-	bh=nGG9LtH3M3n5b0i0af5jANNTuqeyC/oMM6qwL7FI4is=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ZW6guvuf0Pa3TUqsqHD9xIFIOpIlto1dDyerDBo6lTaEhwwdvi3LD0+5lvtlreb8M
-	 VIAoCsoxmGsXWft6YSdWbbH6PaZNyik2FW7oRay0RyF+E/LPUqBxTHtjVud2Lyn3ly
-	 euUSLv12apRjBS4xsG3usTiSwDSaJh0zb7fdu2dKdzk64sB9D7IPUiT9L3PYE0EOa6
-	 aVCy2fMLpKnCJaBeM0fjITlZCtR46VEQpIgXok9m64rxQny0Xl7lC3dRtinz3CSnPx
-	 E+dKdt5ZnKT1xHshwWY55CWE0mk/KLYMpyGHCnWGuwRk95lu2RxztStHiu8KaCVeSQ
-	 JIyuAU1eP7FTg==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 555DE17E001F;
-	Thu, 30 Jul 2026 10:23:15 +0200 (CEST)
-Message-ID: <36f2775a-d332-4913-8e9e-ca0429c3f713@collabora.com>
-Date: Thu, 30 Jul 2026 10:23:14 +0200
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="WDK2/Rka"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	References:Date:Message-Id; bh=dFgcn74sVilpLq7F2SOu9G/jEv27ABV7Y
+	bzyHKYYlJA=; b=WDK2/RkaQy6bsZ7duu0XLw2vgZsVBA6shB2CKbH8+rwm4jwLE
+	aon188Lvl+rMX5og5+gMyJHEQYuxgXYotgssUf6ydGPt3j9YqIq7uOeeXJ5JYYPm
+	Gtn5qj7YDBrffTv74y2lmEsQxdDuYEtXfJU1NrMNYkpvIJwpCP55qtbq9g=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwA3cULRCmtqQcsVAA--.18292S2;
+	Thu, 30 Jul 2026 16:26:57 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/5] powervr: MT8173 GPU support
-To: Chen-Yu Tsai <wenst@chromium.org>, Brian Masney <bmasney@redhat.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>, Alessio Belle <alessio.belle@imgtec.com>,
- Luigi Santivetti <luigi.santivetti@imgtec.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- YoungJoon Lee <getfeus@gmail.com>
-References: <20260728091804.382753-1-wenst@chromium.org>
- <amiqKRkFItYwD6oL@redhat.com>
- <CAGb2v64zUO-azpTuei6LCypad2noGFbg+EmaBC1iidoZ2stQzw@mail.gmail.com>
- <c1048eae-72c5-4e2e-ac49-25e2c4297018@collabora.com>
- <CAGXv+5EgGYFVt4TJCysQgRqA1J5=Qz9c0oWY5YTxgc5PnNC_AQ@mail.gmail.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <CAGXv+5EgGYFVt4TJCysQgRqA1J5=Qz9c0oWY5YTxgc5PnNC_AQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v3 2/3] PCI: ultrarisc: get and enable DP1000 PCIe
+ clocks
+From: Jia Wang <wangjia@ultrarisc.com>
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Jia Wang <wangjia@ultrarisc.com>, 
+ Xincheng Zhang <zhangxincheng@ultrarisc.com>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, linux-pci@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <hqzcquvsbd2kpmkup6be6lxwihitugai7aubeyyz3rxtgmra4a@wfhz4rdfp5mw>
+References: <20260714-ultrarisc-pci-clk-v3-0-e72723fc0ef1@ultrarisc.com>
+ <20260714-ultrarisc-pci-clk-v3-2-e72723fc0ef1@ultrarisc.com>
+ <2n44tfzw26mfis3nvnre2fph4u2whns5xgxvdmcczyfebt6gt2@ln53o5bi773e>
+ <178539410375.553273.13405298466842007043.b4-reply@b4>
+ <hqzcquvsbd2kpmkup6be6lxwihitugai7aubeyyz3rxtgmra4a@wfhz4rdfp5mw>
+Date: Thu, 30 Jul 2026 16:26:29 +0800
+Message-Id: <178539998982.1582149.3956352602743263407.b4-reply@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785399990; l=6976;
+ i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
+ bh=4w8q+HwzoPPem5RJrr3ZmXMHDoIyxikUraEmRbUPK5E=;
+ b=XnG8JueFYxIslDa+4z/tr0/w0mm6l7L5YmuV865DxMVx9LjxzmiypDBUtvONL4WBSaqesK9qh
+ 9YcfDnsktnHAExZYfGqRu6hQNpr6tppCK89C2d9U6FxXbIiJwZzENk1
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
+X-CM-TRANSID:AQAAfwA3cULRCmtqQcsVAA--.18292S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3XFW8ArWkCFWrJr4xWrW3KFg_yoWxWryDpF
+	WUGa1jkF4DJryYgr1Iqwn8A3ZIyr1jyFy7XFZrKw12vrn0vFn7try8J34Y9F1vkr1DW3Wj
+	vF4jkFW3Ca1rX37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9G14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJV
+	WxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK6svPMxAIw28IcxkI7VAKI48JMx
+	C20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAF
+	wI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20x
+	vE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v2
+	0xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxV
+	W8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VU13ku3UUUUU==
+X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAEEWpqylMAEgAAsf
 
-On 7/30/26 06:51, Chen-Yu Tsai wrote:
-> On Tue, Jul 28, 2026 at 10:33 PM AngeloGioacchino Del Regno
-> <angelogioacchino.delregno@collabora.com> wrote:
->>
->> On 7/28/26 15:13, Chen-Yu Tsai wrote:
->>> On Tue, Jul 28, 2026 at 9:10 PM Brian Masney <bmasney@redhat.com> wrote:
->>>>
->>>> Hi Chen-Yu,
->>>>
->>>> On Tue, Jul 28, 2026 at 05:17:58PM +0800, Chen-Yu Tsai wrote:
->>>>> Hi everyone,
->>>>>
->>>>> This is v4 of my MT8173 PowerVR GPU support series.
->>>>>
->>>>> This time around Mesa was ready for basic testing, using both vulkanmark
->>>>> and glmark2-es2-drm (with Zink). Details below.
->>>>>
->>>>> Changes since v3 (all in the clk driver patch):
->>>>> - Changed pm_runtime_put() to pm_runtime_put_sync()
->>>>> - Added missing of_node_put() in remove function
->>>>>
->>>>> Changes since v2 (all in the clk driver patch):
->>>>> - Made COMMON_CLK_MT8173_MFGTOP depend on PM
->>>>>     - Needed since the driver implements PM domains using the generic PM
->>>>>       domain library, which also depends on PM
->>>>>     - Fixes build breakage (kernel test robot)
->>>>> - Fixed "RST_DELAY_CNT" name (Brian)
->>>>> - Dropped unused mfg_desc (Brian)
->>>>> - Added check of clk_prepare_enable()'s return value in
->>>>>     clk_mt8173_mfgtop_power_on() (Brian)
->>>>> - Saved error value for return in IS_ERR(data->clk_26m) branch
->>>>>     (Dan Carpenter / kernel test robot w/ smatch)
->>>>>
->>>>> Changes since v1:
->>>>> - Adapted to changed DT bindings
->>>>> - Dropped driver change
->>>>> - Use same power domain for "a" and "b" GPU power domains
->>>>>
->>>>>
->>>>> This series enables the PowerVR GPU found in the MT8173 SoC, found in
->>>>> some Chromebooks.
->>>>
->>>> I'm making a pull for Stephen for the clk changes. Should patches 1,2,4
->>>> go through the clk tree? Patches 3,5 go through the DRM tree?
->>>
->>> Only patches 1 and 2 should go through the clock tree.
->>>
->>> Patch 3, 4, 5 can all go through the soc tree if Angelo wants to pick up
->>> DT binding patches. Otherwise I can push patch 3 through drm-misc.
->>>
->>
->> Not sure if I can really take the DRM bindings patch through soc.
->>
->> I will take the devicetree ones exactly right now, even though it's going to
->> give warnings.
+On 2026-07-30 10:00 +0200, Manivannan Sadhasivam wrote:
+> On Thu, Jul 30, 2026 at 02:48:23PM +0800, Jia Wang wrote:
+> > On 2026-07-29 15:48 +0200, Manivannan Sadhasivam wrote:
+> > > On Tue, Jul 14, 2026 at 09:11:03AM +0800, Jia Wang via B4 Relay wrote:
+> > > > From: Jia Wang <wangjia@ultrarisc.com>
+> > > > 
+> > > > Add the required core, dbi, and aux clocks for the DP1000 PCIe
+> > > > controller and enable them before initializing the DesignWare host.
+> > > > 
+> > > > Also manage the clocks across system suspend and resume.
+> > > > 
+> > > > Fixes: 5fc35740c3b3 ("PCI: ultrarisc: Add UltraRISC DP1000 PCIe Root Complex driver")
+> > > > Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+> > > > ---
+> > > >  drivers/pci/controller/dwc/pcie-ultrarisc.c | 102 ++++++++++++++++++++++++++--
+> > > >  1 file changed, 95 insertions(+), 7 deletions(-)
+> > > > 
+> > > > diff --git a/drivers/pci/controller/dwc/pcie-ultrarisc.c b/drivers/pci/controller/dwc/pcie-ultrarisc.c
+> > > > index 6ee661ceff67..72ba5840b62d 100644
+> > > > --- a/drivers/pci/controller/dwc/pcie-ultrarisc.c
+> > > > +++ b/drivers/pci/controller/dwc/pcie-ultrarisc.c
+> > > > @@ -5,6 +5,7 @@
+> > > >   * Copyright (C) 2026 UltraRISC Technology (Shanghai) Co., Ltd.
+> > > >   */
+> > > >  
+> > > > +#include <linux/clk.h>
+> > > >  #include <linux/kernel.h>
+> > > >  #include <linux/module.h>
+> > > >  #include <linux/of_device.h>
+> > > > @@ -23,6 +24,12 @@
+> > > >  
+> > > >  #define ULTRARISC_PCIE_COMP_TIMEOUT_65_210MS	0x6
+> > > >  
+> > > > +struct ultrarisc_pcie {
+> > > > +	struct dw_pcie pci;
+> > > > +	struct clk_bulk_data clks[3];
+> > > > +	bool clks_enabled;
+> > > > +};
+> > > > +
+> > > >  static struct pci_ops ultrarisc_pci_ops = {
+> > > >  	.map_bus = dw_pcie_own_conf_map_bus,
+> > > >  	.read = pci_generic_config_read32,
+> > > > @@ -98,17 +105,66 @@ static const struct dw_pcie_ops dw_pcie_ops = {
+> > > >  	.start_link = ultrarisc_pcie_start_link,
+> > > >  };
+> > > >  
+> > > > +static int ultrarisc_pcie_enable_clks(struct ultrarisc_pcie *ultra)
+> > > > +{
+> > > > +	int ret;
+> > > > +
+> > > > +	if (ultra->clks_enabled)
+> > > > +		return 0;
+> > > > +
+> > > 
+> > > This check looks redundant and I don't see a need for the 'clks_enabled' flag.
+> > > Just do:
+> > > 
+> > > 	return clk_bulk_prepare_enable();
+> > >
+> > 
+> > Thanks for the review.
+> > 
+> > Agreed. I will remove clks_enabled and have ultrarisc_pcie_enable_clks()
+> > return clk_bulk_prepare_enable() directly in the next version.
+> > 
+> > > > +	ret = clk_bulk_prepare_enable(ARRAY_SIZE(ultra->clks), ultra->clks);
+> > > > +	if (ret)
+> > > > +		return ret;
+> > > > +
+> > > > +	ultra->clks_enabled = true;
+> > > > +
+> > > > +	return 0;
+> > > > +}
+> > > > +
+> > > > +static void ultrarisc_pcie_disable_clks(void *data)
+> > > > +{
+> > > > +	struct ultrarisc_pcie *ultra = data;
+> > > > +
+> > > > +	if (!ultra->clks_enabled)
+> > > > +		return;
+> > > > +
+> > > > +	clk_bulk_disable_unprepare(ARRAY_SIZE(ultra->clks), ultra->clks);
+> > > > +	ultra->clks_enabled = false;
+> > > 
+> > > Same here.
+> > >
+> > 
+> > Agreed. I will make ultrarisc_pcie_disable_clks() call
+> > clk_bulk_disable_unprepare() unconditionally in the next version.
+> > 
+> > > > +}
+> > > > +
+> > > > +static int ultrarisc_pcie_init_clks(struct ultrarisc_pcie *ultra)
+> > > > +{
+> > > > +	struct device *dev = ultra->pci.dev;
+> > > > +	int ret;
+> > > > +
+> > > > +	ultra->clks[0].id = "core";
+> > > > +	ultra->clks[1].id = "dbi";
+> > > > +	ultra->clks[2].id = "aux";
+> > > > +
+> > > > +	ret = devm_clk_bulk_get(dev, ARRAY_SIZE(ultra->clks), ultra->clks);
+> > > 
+> > > Use devm_clk_bulk_get_all()
+> > >
+> > 
+> > I used `devm_clk_bulk_get()` to make the driver require the "core", "dbi",
+> > and "aux" clock names. Using `devm_clk_bulk_get_all()` would instead accept
+> > the clocks without requiring those names. Is that intended, or is there a
+> > requirement or convention I am missing?
+> > 
 > 
-> Apologies for missing this, but the first DT patch depends on the clk DT
-> bindings patch for the clk ID macros. This is causing build errors in
-> linux-next right now.
-> 
-> Not sure how we can fix this right now.
-> 
-> Brian, would it be possible for you to split out that patch into a
-> separate immutable branch for Angelo to merge?
-> 
-> Otherwise Angelo might need to drop the DT patches until the next cycle.
-> 
-> 
-Yeah, that's so bad.
-I'd be happy to be able to resolve this, but it's too late on my side.
+> Your DT binding should ensure that the DTS supplies the required clocks. So the
+> driver shouldn't hardcode the clock name and just get whatever clocks DTS
+> passes. Otherwise, the driver will become a DTS validator.
+>
 
-I should've checked the DT patches more carefully, my bad: I got a bit too excited
-to finally see this PowerVR stuff working on MT8173 and going upstream.
+Agreed. I will use devm_clk_bulk_get_all() and rely on the DT binding to
+validate the required clocks in v4. Thanks!
 
-Sadly, I have to drop the devicetree patches :-(
+> > > > +	if (ret)
+> > > > +		return dev_err_probe(dev, ret, "Failed to get clocks\n");
+> > > > +
+> > > > +	ret = ultrarisc_pcie_enable_clks(ultra);
+> > > > +	if (ret)
+> > > > +		return dev_err_probe(dev, ret, "Failed to enable clocks\n");
+> > > > +
+> > > > +	return devm_add_action_or_reset(dev, ultrarisc_pcie_disable_clks, ultra);
+> > > > +}
+> > > > +
+> > > >  static int ultrarisc_pcie_probe(struct platform_device *pdev)
+> > > >  {
+> > > > +	struct ultrarisc_pcie *ultra;
+> > > >  	struct device *dev = &pdev->dev;
+> > > >  	struct dw_pcie_rp *pp;
+> > > >  	struct dw_pcie *pci;
+> > > >  	int ret;
+> > > >  
+> > > > -	pci = devm_kzalloc(dev, sizeof(*pci), GFP_KERNEL);
+> > > > -	if (!pci)
+> > > > +	ultra = devm_kzalloc(dev, sizeof(*ultra), GFP_KERNEL);
+> > > > +	if (!ultra)
+> > > >  		return -ENOMEM;
+> > > >  
+> > > > +	pci = &ultra->pci;
+> > > >  	pci->dev = dev;
+> > > >  	pci->ops = &dw_pcie_ops;
+> > > >  
+> > > > @@ -117,7 +173,11 @@ static int ultrarisc_pcie_probe(struct platform_device *pdev)
+> > > >  
+> > > >  	pp = &pci->pp;
+> > > >  
+> > > > -	platform_set_drvdata(pdev, pci);
+> > > > +	platform_set_drvdata(pdev, ultra);
+> > > > +
+> > > > +	ret = ultrarisc_pcie_init_clks(ultra);
+> > > > +	if (ret)
+> > > > +		return ret;
+> > > >  
+> > > >  	pp->num_vectors = MAX_MSI_IRQS;
+> > > >  	/* No L2/L3 Ready indication is available on this platform */
+> > > > @@ -135,16 +195,44 @@ static int ultrarisc_pcie_probe(struct platform_device *pdev)
+> > > >  
+> > > >  static int ultrarisc_pcie_suspend_noirq(struct device *dev)
+> > > >  {
+> > > > -	struct dw_pcie *pci = dev_get_drvdata(dev);
+> > > > +	struct ultrarisc_pcie *ultra = dev_get_drvdata(dev);
+> > > > +	struct dw_pcie *pci = &ultra->pci;
+> > > > +	int ret;
+> > > > +
+> > > > +	if (pci->suspended) {
+> > > > +		ultrarisc_pcie_disable_clks(ultra);
+> > > > +		return 0;
+> > > > +	}
+> > > 
+> > > Same as above. This looks redundant. Actually, it is wrong too as there cannot
+> > > be more than one suspend callback invocations.
+> > >
+> > 
+> > Agreed that suspend_noirq() is invoked once per transition. However, a
+> > failed resume leaves pci->suspended set and the clocks disabled. The PM
+> > core records the resume error and continues the transition, so a later,
+> > independent system suspend can invoke this callback again. In the next
+> > version, I will keep the entry check as an early return for that case,
+> > without disabling the clocks again.
+> > 
+> 
+> OK!
+> 
+> - Mani
+> 
+> -- 
+> மணிவண்ணன் சதாசிவம்
+> 
 
-Cheers,
-Angelo
+Best regards,
+Jia Wang
+
+
