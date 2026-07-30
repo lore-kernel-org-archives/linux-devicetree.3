@@ -1,106 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84EB4341057
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 07:43:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D330344D95;
+	Thu, 30 Jul 2026 07:47:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785397388; cv=none; b=fxNsE3UsW3Fw57pAYvqJMc1E/wOq7BJuyF4ZY+yC9KYvC0zobPlnij0nNtkamBHl9bVs59HG9NaGB+4mtxCaNPxqsyus/rd+hOJVPANQ8khTFJE6Dsx+Tl/41xOKAWQEa5P9EO/UREocJuB68GNB8sYLDLSX4lsYeV2p23ZeBs4=
+	t=1785397628; cv=none; b=PJvavRv0Et215HxJeprLxPUPKdLzVMeM737Il8XM5dtND24hUELaMmASmSqy8y5tOs/yrbzjsqF+90FO2RRYTEH91bsSeFBP/rvAb2n4N1dSnv+YJ/W48QuvlZC7DPAGxvPo1eF1iJUeDJKTTOaJD7VUTXBy/afwUDTlpG6jm9s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785397388; c=relaxed/simple;
-	bh=bXPljUnxnnJz6PBNhPTuG6vYgQ5pp6aqidDHQfjQVuU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nWhLrhjLP2PhzaE82ht+nMxnzPoMDXMrkKFE+vQM/fRNMPeeIArXdw/bekBbm2v2ejwcUpk6/GW6GQh7gPYY2Rc3W7dUjDiU6ETgfRSKhB9Y2gPreu/svRzPYAKwVrAbZzcPXSZkEYI/41SkiAMBH8wJ9d5rF6XeKzk8nuTA9ys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IEL02Hp9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785397628; c=relaxed/simple;
+	bh=vBG/+XjgNpk73GUFO/06lH1j86rx36DLCZeuYSpXlXY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nvYm28DFa0JGsLCQSRkryQfoHqqdkDoYyXhKrFIJdTVgnWY+0UMlFoe0AMEwMisud3NvfatQHnAM9rBI9bYHuixTemu7MKhIV1454JDY81JefM/hj5Jl2TOZdcFMyrVB7BM0GM9aezqmS35z559NcP40ccummEucJoZpL5Cs5dg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gu5ITmSY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IEL02Hp9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C29A1F00A3A;
-	Thu, 30 Jul 2026 07:43:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gu5ITmSY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 632C91F000E9;
+	Thu, 30 Jul 2026 07:47:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785397385;
-	bh=QzIYCGrZ9g9KqfqXJe7x3oETIIC0MRlwFQUQSa5Qjts=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IEL02Hp9XcS6qwuujIoZoY2a4FzLF9je80YirBHOnxNTF7Cr06ac8S+5KTmZeJfi6
-	 fXnMS1MhrXuJJnkNc3I/U3kWbi3PPbDe1oTeWYOvUbsdAyFGMBZ2ZXOL8gOIG9EXSV
-	 O5QE20sCrfqJ03mr3uVtZyIFfrtv10G8IiFhQIKq3RBT+Pq4wrC4LJfFFlPFeG5ZEV
-	 gjdUBi4ZbtiVux3N1vXmcPRZ46yrhrfeErNeGSzu/QLw8SBVMnuI1QUBp99YTT5F1W
-	 /Lz6EfldKSEgPgbtvJYktkkhnuYV/iJeeMyFkOi51strX3RX+RFExNHXR5Xa/1DDjb
-	 jxH1wNun5OuTA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/3] dt-bindings: i2c: Add Novatek NT72676 I2C
- controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: nina_kuo@novatek.com.tw
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260730072529.492398-2-nina_kuo@novatek.com.tw>
-References: <20260730072529.492398-1-nina_kuo@novatek.com.tw>
- <20260730072529.492398-2-nina_kuo@novatek.com.tw>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 07:43:04 +0000
-Message-Id: <20260730074305.6C29A1F00A3A@smtp.kernel.org>
+	s=k20260515; t=1785397627;
+	bh=AcoHbhRxZ7Cx7jJrRogtuX35rh7buG53Pjs7XRBmccE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Gu5ITmSYspBu46ExalHJ+y25JfehB+ZViCo0NSwglj52HJCGTL7irxvIw+pMJkHNi
+	 OamZHDxaCsB/wN6w8Vljlaffxrkt/ogNiGkd4t0jHi1LmoGFkP2v4/M5bMC2eSPGvj
+	 Kbmoeurxyl27+eATsV7K0qZGrnH0SBbU/N+g67q8J6WCj6FockjRUxM3LndHzXNDIq
+	 i+Bos1iCh7MV7YYTHVW8M6WPmKYRZUU14oxxuFpjaaqtlHNwhGmflzMrxBCoKF/8/I
+	 NX/g90+IfFnzTAxfzHgRB2LjmsOPDGkbMwrmTdWz/g6sI8dVymqSj2Dm0/nd/36rgu
+	 BHbz3zT8reo/w==
+Date: Thu, 30 Jul 2026 09:46:57 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Jia Wang <wangjia@ultrarisc.com>
+Cc: Xincheng Zhang <zhangxincheng@ultrarisc.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-pci@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v3 3/3] PCI: ultrarisc: allow DP1000 driver to build as
+ module
+Message-ID: <dvarzmhaakmz5qycowdwxqggkwvezijjestz5miv2cqy4b3ilw@zek66ydqjo5l>
+References: <20260714-ultrarisc-pci-clk-v3-0-e72723fc0ef1@ultrarisc.com>
+ <20260714-ultrarisc-pci-clk-v3-3-e72723fc0ef1@ultrarisc.com>
+ <dz43ty5hgpefk67lmgxfn2tmppng4ws6oy66zns5ajt3qwdfai@k3exaapdqvxh>
+ <178539453673.553273.3197955075422858659.b4-reply@b4>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <178539453673.553273.3197955075422858659.b4-reply@b4>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The dt_binding_check target will fail to compile the example due to=
- an unresolved phandle reference.
---
+On Thu, Jul 30, 2026 at 02:55:36PM +0800, Jia Wang wrote:
+> On 2026-07-29 15:49 +0200, Manivannan Sadhasivam wrote:
+> > On Tue, Jul 14, 2026 at 09:11:04AM +0800, Jia Wang via B4 Relay wrote:
+> > > From: Jia Wang <wangjia@ultrarisc.com>
+> > > 
+> > > CONFIG_PCIE_ULTRARISC is a tristate option, so the driver can be selected
+> > > as a module when COMPILE_TEST or platform configuration allows it.  Using
+> > > builtin_platform_driver() leaves the module build without the module
+> > > init/exit plumbing and causes modpost failures for the generated .ko.
+> > > 
+> > > Use module_platform_driver() so the driver works for both module and
+> > > built-in builds while keeping the existing tristate Kconfig entry.
+> > > 
+> > > Add a remove callback and call dw_pcie_host_deinit() during removal so the
+> > > root bus is torn down before devres releases the controller data.
+> > > 
+> > > Fixes: 5fc35740c3b3 ("PCI: ultrarisc: Add UltraRISC DP1000 PCIe Root Complex driver")
+> > > Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+> > > ---
+> > >  drivers/pci/controller/dwc/pcie-ultrarisc.c | 10 +++++++++-
+> > >  1 file changed, 9 insertions(+), 1 deletion(-)
+> > > 
+> > > diff --git a/drivers/pci/controller/dwc/pcie-ultrarisc.c b/drivers/pci/controller/dwc/pcie-ultrarisc.c
+> > > index 72ba5840b62d..9bee522a20e9 100644
+> > > --- a/drivers/pci/controller/dwc/pcie-ultrarisc.c
+> > > +++ b/drivers/pci/controller/dwc/pcie-ultrarisc.c
+> > > @@ -193,6 +193,13 @@ static int ultrarisc_pcie_probe(struct platform_device *pdev)
+> > >  	return 0;
+> > >  }
+> > >  
+> > > +static void ultrarisc_pcie_remove(struct platform_device *pdev)
+> > > +{
+> > > +	struct ultrarisc_pcie *ultra = platform_get_drvdata(pdev);
+> > > +
+> > > +	dw_pcie_host_deinit(&ultra->pci.pp);
+> > > +}
+> > 
+> > Since this driver registers an internal MSI controller, it is not safe to
+> > remove it due to irq disposal concern. But you can build this driver as a
+> > module though.
+> >
+> 
+> Right, I missed that this was intentionally changed to
+> builtin_platform_driver() to prevent irqchip removal. I will drop this
+> patch entirely in the next revision. Thanks!
+>  
 
---- Patch [1]: [PATCH v4 1/3] dt-bindings: i2c: Add Novatek NT72676 I2C con=
-troller ---
-commit 232c18d6988d7363aafdb8a90285eb1bffed9745
-Author: Ben Huang <Ben_Huang@novatek.com.tw>
+No, you can still load the driver as a module, that is fine, but just do not
+allow removing it. So your module_platform_driver() change is fine.
 
-dt-bindings: i2c: Add Novatek NT72676 I2C controller
+- Mani
 
-Add Devicetree binding documentation for Novatek NT72676 I2C
-controller.
-
-> diff --git a/Documentation/devicetree/bindings/i2c/novatek,nt72676-i2c.ya=
-ml b/Documentation/devicetree/bindings/i2c/novatek,nt72676-i2c.yaml
-> new file mode 100644
-> index 0000000000000..8e2595f882c44
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/i2c/novatek,nt72676-i2c.yaml
-
-[ ... ]
-
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +    i2c@fd000000 {
-> +      compatible =3D "novatek,nt72676-i2c";
-> +      reg =3D <0xfd000000 0x100>;
-> +      interrupts =3D <GIC_SPI 67 IRQ_TYPE_LEVEL_HIGH>;
-> +      clock-frequency =3D <400000>;
-> +      #address-cells =3D <1>;
-> +      #size-cells =3D <0>;
-> +    };
-> +
-> +    i2c@fc040a00 {
-> +      compatible =3D "novatek,nt72676-stbc-i2c";
-> +      reg =3D <0xfc040a00 0x40>;
-> +      interrupts =3D <GIC_SPI 77 IRQ_TYPE_LEVEL_HIGH>;
-> +      novatek,stbc-syscon =3D <&sysreg_system_controller>;
-[Severity: Low]
-Will dt_binding_check fail to compile the example here? It looks like the
-label sysreg_system_controller is not defined anywhere in the example node
-tree.=20
-
-Should a dummy node with the sysreg_system_controller label be added to the
-example so the compiler can resolve this phandle?
-
-> +      #address-cells =3D <1>;
-> +      #size-cells =3D <0>;
-> +    };
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730072529.4923=
-98-1-nina_kuo@novatek.com.tw?part=3D1
+-- 
+மணிவண்ணன் சதாசிவம்
