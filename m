@@ -1,61 +1,77 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 250A130567C;
-	Thu, 30 Jul 2026 22:04:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D956F3D9DDB;
+	Thu, 30 Jul 2026 22:30:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785449074; cv=none; b=eL0I//VMGvQmZay6R/NxkTLOdtIruqphYKWz02amoykL+lzpeQJBvs0l18XYLO/Q4+UyimfRj8gkHSyD7jY1r5pMGk7Zw/EWzpsHTdrOPDB4Gmh6wE+mkmYcWgUE/q+0rMCR0jYKGhp44VE0iuIdv3hPKa0yyhIWv91VuTCXopQ=
+	t=1785450653; cv=none; b=LSymTkeJVYIsWPmO/W0qiwKIH8YBJOUqZJSwtT5tQ5cLak8Uq7APmr7YGCrjO5mYonXvipNEMOvB2UsE1FJuBuz/TPvauzD7KUOnhVVhWDeDy1RlRvTInngrx01hFJ5dG/O++0G8hSJLof4ZIcZMczBnER9XotuFppSB0nO8wyw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785449074; c=relaxed/simple;
-	bh=t0liFaiZANNHqmqeVPHU8zVU9riqfNJoavuOSw/6qzw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=ZUYGVJxkEG5mpvKE1eei/SjvzdjydOhZzmq2Kb7L+B8P6ZHfhUQgdOF9UUUfQmdwrfj14d+q0GAja5EFKjFT7+8TFg/AzP6DJwr5tzI02ngmmfs1Q+wmtPCm+dO0+pPg70gpcDv2yn6SGfZaWOJ6AAbsn3f1ru5aG6u7iyi/saA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C19911F00A3A;
-	Thu, 30 Jul 2026 22:04:32 +0000 (UTC)
-Received: by venus (Postfix, from userid 1000)
-	id 589BA18073A; Fri, 31 Jul 2026 00:04:31 +0200 (CEST)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, 
- Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260724-b4-add_pwrkey_and_resin-v6-0-41acc214d93a@oss.qualcomm.com>
-References: <20260724-b4-add_pwrkey_and_resin-v6-0-41acc214d93a@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v6 0/3] monaco: Add PMM8654AU PON support
-Message-Id: <178544907134.238864.1390835100279901939.b4-ty@b4>
-Date: Fri, 31 Jul 2026 00:04:31 +0200
+	s=arc-20240116; t=1785450653; c=relaxed/simple;
+	bh=aRdRNwfVzv+pWeZfpzuXmidWHQrToLQvGvxf4PWC9j4=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=YnBnM1Wtx50cyu8qmHBB38wC9W/QyCbg80bhJZMWDvYIb63da32y/++Lnbn6cIhbiFcL5humBvpMgazMWqD4eHmUE4rie8xk56tzNA1jOobWBd/6fvv8dQC0euZo7EGxADgHF2UZ/l/Da59Ymztsn/hhEWQylIZY1QtQ15RV+2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nfxdUyAl; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nfxdUyAl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C5CC1F000E9;
+	Thu, 30 Jul 2026 22:30:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785450651;
+	bh=3GdfQsE7M2CiRlwBe33ozH0LAWPA4ZyF88hgKGRIcW8=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=nfxdUyAl9PjaRwQDzZh2oatn8D7DJ/vHAd3pbxb/XxS36oXwZt4K9rncB9gvVaA56
+	 aw+Rjl6fZNAVDTMUAacRw9SZb56LKcbf0WoqiSNBcU61yt3X4hKrgbf0oi1TnAqrB2
+	 ZbYxESlQWG8O4LoPNHWUSo8YUyHJeLfChazoJvLgwVFamA5HxDuNocxOc8wVvPg50p
+	 10tUwfTyf975YY8V8zciMFm/6hXLxsc3iNb4mvpQqh7D+Teb+TlpK1i/dLCOAUCh+Q
+	 OXLeSJSVCi9TWrzqz9ZtUdLmIj5Yp18V+CrejXSbUXcdBkM1h694ZBn0uhzrCa3eOh
+	 tLVqjvezdv5KQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 198563924459;
+	Thu, 30 Jul 2026 22:30:16 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v2] dt-bindings: net: microchip: fix entry
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178545061463.16570.1712327331541284719.git-patchwork-notify@kernel.org>
+Date: Thu, 30 Jul 2026 22:30:14 +0000
+References: <20260722093259.3109588-2-manuelebnerli@mailbox.org>
+In-Reply-To: <20260722093259.3109588-2-manuelebnerli@mailbox.org>
+To: Manuel Ebner <manuelebnerli@mailbox.org>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, o.rempel@pengutronix.de, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 
+Hello:
 
-On Fri, 24 Jul 2026 15:44:10 +0530, Rakesh Kota wrote:
-> This patch series updates the PON power and reset dt-bindings and
-> device tree to add support for PON power and reset keys on the
-> Monaco platform.
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-Applied, thanks!
+On Wed, 22 Jul 2026 11:32:59 +0200 you wrote:
+> Remove needless '  ID)'
+> 
+> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+> ---
+> [v2]
+>  Remove ')' -> Remove '  ID)' as suggested by Jakub Kicinski
+> 
+> [...]
 
-[1/3] dt-bindings: power: reset: qcom-pon: Add new compatible PMM8654AU
-      commit: 84b3a9353e3f32ebd0dc5bf1ab378742bd7cb682
+Here is the summary with links:
+  - [v2] dt-bindings: net: microchip: fix entry
+    https://git.kernel.org/netdev/net-next/c/61a878bafdf6
 
-Best regards,
+You are awesome, thank you!
 -- 
-Sebastian Reichel <sebastian.reichel@collabora.com>
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
