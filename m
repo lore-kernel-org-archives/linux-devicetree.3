@@ -1,120 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59FAF3CCFD4;
-	Thu, 30 Jul 2026 21:43:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69A4D3921D5;
+	Thu, 30 Jul 2026 21:52:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785447796; cv=none; b=Azg9ZGPxppiYkHOV0imSrVMLAOL32zDHdbpzqK2OHbuIe4KvVq6VIkIbYuY41TsHye/tVaz/h4zQRF8kozE2ynfafsLFRTcbb0omgB6meYw+q0A7UBURVZ4zWKXDJic6x6l/KyV7M88fnlLJV2F/8TAnIW9hrXvvmL79wlSnIeA=
+	t=1785448337; cv=none; b=dCE4GmaJPnlIqnW6keHDa2zrXCvwQ+V9hxiCk8LA9JRPT1necZUGgS58bobSkkdI1krkcIu0LPgGCW45g0mvgSdpjhcL+sOwjLfz8NJ9ZC90YRylAqkEnURoKiDeaEtJx5aFFI5wh5xSowqPDwtjY8X7MAzxRzIaTedjWO2eQOQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785447796; c=relaxed/simple;
-	bh=V9rYynbSE+1wHx1sDb7iECiRI5J+f8taN6rZWUqWtEg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AAilkMy08exkstJZtORXm8JnKmidScL7fuc8BGodetdmteQXckZUF4u2692LOnfT9xODYcOzY6nNzzDd/WA5BP1FVLBGaWf7+bjSVd5guC+PKP7hYeIWnwFZnEaRvc5JeoS+B7A3Cl3z0ojAbmYgv16VOEhNiuFQJVBujqtLcrc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CVwYX2dN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785448337; c=relaxed/simple;
+	bh=7rEhVxZ7nNk8sJnrw/sTqbxNnY8YdaxE/JmM+BbsQWg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=qlxp5/UoDp3JgMCE9NVzU7g3asn/58ndGo3xJD2Tp0rI3NpWvn9465VQ12fPFQ/V9pQOgoxE5LZUhOU1WD9rAzw8i2PXFiAegi0pANc25nbBcTOgEnzxubqj9WHnOKOZNlepxvxNeJBA+4S8maU3D+dnJb04pOImB0MLJgy7Ijk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=vCdyzIgC; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CVwYX2dN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 427691F000E9;
-	Thu, 30 Jul 2026 21:43:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785447795;
-	bh=4FUmNq/usI5vewlnY/6oOnz5o3JSNvbj54eRDZLgEY0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CVwYX2dNha22tV3mDPPRTFwLiF+uQeagHW6mMR5GDuA8o9B8VgHyaFPO3GEnPp+XZ
-	 4bPVGK7BegZ65fG88L4JET2oMl26N19DPGKL5Xe/PTamX3c0RaKXj3dHl7ZSglaqb3
-	 HMoBctje2wFqhHAMn4TZfrofhLmIwxoLoMDU+dkebcUHXWOAjf2gDaNagmjWJzDXHw
-	 Gr2EoSN1XHvIPq0aSweRaHhWZCggDYTvJTFP6y+9ImQZol+LZTTNBs1mA45Inmqclk
-	 k8DSGBt0HTVx5hBEZD26hg1O0jEZ5Mbnyz22SuUx++OWLicmaNBbv5aLryqsTX0z2a
-	 r3ZsQjZnzUsCg==
-From: sashiko-bot@kernel.org
-Subject: Re: [hwmon-next PATCH v5 4/4] hwmon: (adt7470) Add thermal zone
- sensor support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Luiz Angelo Daros de Luca" <luizluca@gmail.com>
-Cc: robh@kernel.org, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260730-adt7470_thermalzone-v5-4-42995a6bb8c5@gmail.com>
-References: <20260730-adt7470_thermalzone-v5-0-42995a6bb8c5@gmail.com>
- <20260730-adt7470_thermalzone-v5-4-42995a6bb8c5@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 21:43:13 +0000
-Message-Id: <20260730214314.427691F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="vCdyzIgC"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 1BD63C2BCF4;
+	Thu, 30 Jul 2026 21:52:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1785448337;
+	bh=7rEhVxZ7nNk8sJnrw/sTqbxNnY8YdaxE/JmM+BbsQWg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=vCdyzIgCiiaigU2U0uf/C5OBH4vYqenrcEUQtUoQu5fYlheYtpUqYjiNTciRifU5e
+	 dmm6NZvzwbET+G5lwD7Pcclg+QGywhFmKd0YE+kq5ek4RrNxD8IJey/0xw8LB+2h4Y
+	 VXAsrJQaNXVQu84DE18ivleFdKCzIPkBbAxm/mu3BW8NjDhotLZ9+0PAB9KHlseud5
+	 rA/v5FnMRRhNZwG3fDX1vkXaI7DPthdZcW0Vi7lxctphjfaCuESzytX+gjP9GDxzg1
+	 m/t6nHTc4AbVNg2CLvwPVvqkw0fVVQESwgRaMkqWkqY6iHvWIre2gek2okSUvJiN5w
+	 iRRDfKoisVQNA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 07EC0C55167;
+	Thu, 30 Jul 2026 21:52:17 +0000 (UTC)
+From: =?utf-8?q?Dawid_Wr=C3=B3bel_via_B4_Relay?= <devnull+me.dawidwrobel.com@kernel.org>
+Date: Thu, 30 Jul 2026 23:52:01 +0200
+Subject: [PATCH 2/4] dt-bindings: arm: qcom: add the Xiaomi Mi Pad 5 Pro 5G
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260730-sm8250-xiaomi-enuma-v1-2-ed6d8fb99668@dawidwrobel.com>
+References: <20260730-sm8250-xiaomi-enuma-v1-0-ed6d8fb99668@dawidwrobel.com>
+In-Reply-To: <20260730-sm8250-xiaomi-enuma-v1-0-ed6d8fb99668@dawidwrobel.com>
+To: Jianhua Lu <lujianhua000@gmail.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ =?utf-8?q?Dawid_Wr=C3=B3bel?= <me@dawidwrobel.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=893; i=me@dawidwrobel.com;
+ h=from:subject:message-id;
+ bh=fLllZL12p66slp7ozlqH9iay8dnPtAgyjBfCTQiWkDo=;
+ b=owGbwMvMwCV2qrTGfeXVd28ZT6slMWRlH+8/t1D/yb5m883rz0Qq5rJPaOeUEkpTW/e1QnDLZ
+ RGGs3kyHaUsDGJcDLJiiix6aUF7rIJffn/34nc4zBxWJpAhDFycAjCRhC2MDFvWqCSJKHr2TV8q
+ fEGcm/lw/pkMNac27f1Vuaa3og5+ucLwz9T51qPiUIHzF2OlNnw+3rB7l6zcawn3RSbzH+glZUX
+ e4gMA
+X-Developer-Key: i=me@dawidwrobel.com; a=openpgp;
+ fpr=B64A778E0E64049A70C831C8B7B81FA12B282A92
+X-Endpoint-Received: by B4 Relay for me@dawidwrobel.com/default with
+ auth_id=901
+X-Original-From: =?utf-8?q?Dawid_Wr=C3=B3bel?= <me@dawidwrobel.com>
+Reply-To: me@dawidwrobel.com
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Registering the device as a thermal zone exposes the thermal subsy=
-stem to severe latency stalls.
---
+From: Dawid Wróbel <me@dawidwrobel.com>
 
---- Patch [4]: [hwmon-next PATCH v5 4/4] hwmon: (adt7470) Add thermal zone =
-sensor support ---
-commit ee08dfc4b8ac9e072681b3ebf92b63eb473bf1a7
-Author: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+The Mi Pad 5 Pro 5G (enuma) is the modem-equipped variant of the Mi Pad
+5 Pro (elish) and shares its board design, so it falls back to the elish
+compatible.
 
-hwmon: (adt7470) Add thermal zone sensor support
+Signed-off-by: Dawid Wróbel <me@dawidwrobel.com>
+---
+ Documentation/devicetree/bindings/arm/qcom.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-This commit registers the ADT7470 temperature channels as thermal zone
-sensors.
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index f8c37096df46..a19d0146ae4b 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -1110,6 +1110,11 @@ properties:
+               - xiaomi,pipa
+           - const: qcom,sm8250
+ 
++      - items:
++          - const: xiaomi,enuma
++          - const: xiaomi,elish
++          - const: qcom,sm8250
++
+       - items:
+           - enum:
+               - microsoft,surface-duo2
 
-> diff --git a/drivers/hwmon/adt7470.c b/drivers/hwmon/adt7470.c
-> index eeec3db0da88d..f652532f2f32e 100644
-> --- a/drivers/hwmon/adt7470.c
-> +++ b/drivers/hwmon/adt7470.c
-> @@ -1396,6 +1396,8 @@ static const struct hwmon_ops adt7470_hwmon_ops =3D=
- {
->  };
-> =20
->  static const struct hwmon_channel_info * const adt7470_info[] =3D {
-> +	HWMON_CHANNEL_INFO(chip,
-> +			   HWMON_C_REGISTER_TZ),
+-- 
+2.55.0
 
-[Severity: High]
-Will registering this device as a thermal zone cause severe latency stalls
-for the thermal subsystem?
 
-Looking at the background thread in the driver, it acquires the internal lo=
-ck
-before initiating a slow temperature read:
-
-adt7470_update_thread() {
-    ...
-    mutex_lock(&data->lock);
-    adt7470_read_temperatures(data);
-    mutex_unlock(&data->lock);
-    ...
-}
-
-Inside adt7470_read_temperatures(), the thread can sleep for up to 2 seconds
-while still holding this lock:
-
-adt7470_read_temperatures() {
-    ...
-    res =3D msleep_interruptible((data->num_temp_sensors >=3D 0 ?
-                                data->num_temp_sensors * 200 :
-                                TEMP_COLLECTION_TIME));
-    ...
-}
-
-Since thermal zone registration causes the thermal core to automatically
-and periodically poll the device, the thermal worker thread will attempt to
-acquire data->lock. Because the lock is held for up to 2 seconds by the
-background kthread, the thermal polling thread will be frequently delayed.
-
-Additionally, while the thermal thread waits for data->lock, it also holds
-the core hwdev->lock, which means any other userspace sysfs reads or writes
-to this hwmon device will also stall.
-
-Could this delay thermal mitigations for other devices on the system?
-
->  	HWMON_CHANNEL_INFO(temp,
->  			   HWMON_T_INPUT | HWMON_T_MIN | HWMON_T_MAX | HWMON_T_ALARM,
->  			   HWMON_T_INPUT | HWMON_T_MIN | HWMON_T_MAX | HWMON_T_ALARM,
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-adt7470_th=
-ermalzone-v5-0-42995a6bb8c5@gmail.com?part=3D4
