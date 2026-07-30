@@ -1,117 +1,158 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1245940681D;
-	Thu, 30 Jul 2026 12:18:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8D33429CFA;
+	Thu, 30 Jul 2026 12:22:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785413933; cv=none; b=BUgr0P/sUmQ1iWMOOWbZ8eyEiD8CxAV/z08YL82tFK44X69Dj7iKhSKbWCurZgTJYGSLFM3NUgxmWVUDNwF4NknLIPB1cmmqx+JjNNrqwkNEEVSUw6i9lssU8vi8JoqppBjJ9NBoNy/MqELFpBGZKAdPcXjT8uw780exUYPkiNQ=
+	t=1785414172; cv=none; b=nyA0ov+uvnsLdoaBdoiyGcdGSGKDhGeGe8/6IPasG0UY6+eRGoxYIPzVKwfeiaj7muc4hmUpMcogxGInLJ0XLrkGoSfi5zaKBfPX9oLSyS28fypY0pGejp5fGq2bx6lTXhz3hiNww+Yiq5zwxISBCQRHg4kHBVHmRo/Z6IWZRjs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785413933; c=relaxed/simple;
-	bh=jVPKa2VaoVV9XjaEVU/GwnBOp3DCoHvHFOl5tHZekJQ=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ppAdgGiyt7wv2jIl9+Rg/1aTXkFb9lYdD2Y87vtMRrxCya8P5ZS02XmL/D30HVcYAOs3Fa+E5qAziYpMXxjJ545iDyX/gefUNfB+GkpAbEpuVnN6SdaDSP3so11PQuhluvSoFacIz1nNomh5lyLOZ9WuyaONxILkur1HkWSyEiQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IERn+3yT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785414172; c=relaxed/simple;
+	bh=O5PoTBFlkzhjg33RGS15bxnkQwczdACW3nrRqI+KrDM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=MiRqXDLtVxZvrnPlsmgjZFQ3ofRr+8bn4PcXLe41XodHCkhzZOLRtBfqRGf2HtOqV8ei10+ygdNOun7R/X05TD34sMiY0zV5+c6zfOe+C3o699bFQ6jA2HiwclADItStySuBHmR7xSEcrT7r4jzGYg6ISQwSXJ+asYgIcXVIjrk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VvfPOl+4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IERn+3yT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3D301F000E9;
-	Thu, 30 Jul 2026 12:18:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VvfPOl+4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9D8A1F000E9;
+	Thu, 30 Jul 2026 12:22:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785413932;
-	bh=J51ZKPd6o6/BUGHko+ufxpPLTQ3XMe+QO50MAUxdiFE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=IERn+3yT3GKAwlEz98+hOOx2EELH5lepwtkHN1LPJPtSbBcaqZH8R70BuuTlh0A/8
-	 k5n++E+0Q+jQMwVMJ5nkn/Xd6iHEoJJnvs/YUNaRar4FAS8vlAs7p1Q/fuvnhnBKEA
-	 NFTW/P6d+tNp6ozLVFlHrQGpnzNz5ygDa67uINaflNJeY3CLZ5ETiif99Fwy2t+40S
-	 mADy0iBff6NfDgZyxfiJ4G7MyoPoL3GzrPyU60gqBkwNQq9DeSwXGb7lfNYpiyyPt/
-	 Mqm37WJE36T0QKo6JWfmlIp+mvylB5nxq7lzE2+1q9NZiL1TBlFFhRx//2VevGaH8G
-	 ACuAsWAw8gANg==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1wpPir-0000000AWIY-1wZS;
-	Thu, 30 Jul 2026 12:18:49 +0000
-Date: Thu, 30 Jul 2026 13:18:49 +0100
-Message-ID: <86ldasd61i.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Long Zhao <longzhao@ambarella.com>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	Alexandre Belloni
-	<alexandre.belloni@bootlin.com>,
-	<linux-arm-kernel@lists.infradead.org>,
-	<soc@lists.linux.dev>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	<devicetree@vger.kernel.org>,
-	"Michael\
- Turquette" <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	<linux-clk@vger.kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	<linux-gpio@vger.kernel.org>,
-	Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	<linux-serial@vger.kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 09/10] arm64: ambarella: add ARCH_AMBARELLA and CV75 EVK DT
-In-Reply-To: <20260730104330.81367-10-longzhao@ambarella.com>
-References: <20260730104330.81367-1-longzhao@ambarella.com>
-	<20260730104330.81367-10-longzhao@ambarella.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=k20260515; t=1785414169;
+	bh=Dx1KYsvfN0hek2uEU3lDcCuGLBOWNIEY1KDv82lPvBE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VvfPOl+4nHPN+hyxOwsfHLfvA3RJ+5fvcHrMkiiucwGdL71ah/vhy4QhuPM35b4XB
+	 H5/QLedjrsuLred7heElysY5aOy5ZUwFOV1JFi6qkX3HxPXcDkU7ios+TBA4Q+1EUG
+	 RJ6w38EF9T3WbJrxfWBOwKZUURvhaYMcTaVntcvCjRZZg2eYQK3nundWrv/FajuS51
+	 7TfaBQmfRbDNJWYvFrtOvz6VOxqu7BmFGEyhJocZIh4AHw+3yMV+WEolK/hLzpMVgF
+	 PZ+4hhTlPXcALJJ56xFilwENxUOwMyKT1IQU6oQjXeRSAaSYfVYcXcStNHqPL2bo55
+	 14Ki2z6e1JXMw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 1/3] arm64: dts: qcom: eliza: Add PCIe PHY and
+ controller nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Krishna Chaitanya Chundru" <krishna.chundru@oss.qualcomm.com>
+Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260730-eliza_evk-v7-1-7ac7b66a3e6d@oss.qualcomm.com>
+References: <20260730-eliza_evk-v7-0-7ac7b66a3e6d@oss.qualcomm.com>
+ <20260730-eliza_evk-v7-1-7ac7b66a3e6d@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 30 Jul 2026 12:22:48 +0000
+Message-Id: <20260730122248.A9D8A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: longzhao@ambarella.com, arnd@arndb.de, alexandre.belloni@bootlin.com, linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, mturquette@baylibre.com, sboyd@kernel.org, linux-clk@vger.kernel.org, linusw@kernel.org, linux-gpio@vger.kernel.org, gregkh@linuxfoundation.org, jirislaby@kernel.org, linux-serial@vger.kernel.org, catalin.marinas@arm.com, will@kernel.org, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Thu, 30 Jul 2026 11:43:29 +0100,
-Long Zhao <longzhao@ambarella.com> wrote:
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Missing `msi-map` property in PCIe controller nodes.
+- [High] Incorrect hardware configuration via copy-paste error: `pcie1` use=
+s SM8550 `pcie0` interrupts and stream IDs.
+- [Medium] Missing `num-lanes` property in PCIe controller nodes.
+--
 
-[...]
+--- Patch [1]: [PATCH v7 1/3] arm64: dts: qcom: eliza: Add PCIe PHY and con=
+troller nodes ---
+commit 2d2260f9f24a370e16b32d6b0fe6e207c07d9ae1
+Author: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
 
-> diff --git a/arch/arm64/boot/dts/ambarella/cv75.dtsi b/arch/arm64/boot/dts/ambarella/cv75.dtsi
-> new file mode 100644
-> index 000000000000..7c6a61f473ef
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/ambarella/cv75.dtsi
-> @@ -0,0 +1,151 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Ambarella CV75 SoC
-> + *
-> + * Boot peripheral: UART0 console.
-> + * Clocks: a single ambarella,cv75-rct provider.
-> + */
+arm64: dts: qcom: eliza: Add PCIe PHY and controller nodes
+
+Eliza supports two PCIe instances: one 8GT/s x1 (PCIe0) and one 8GT/s x2
+(PCIe1). Add PCIe controller and PHY nodes for both instances, and update
+the GCC clock references to use the newly added PHY nodes instead of
+placeholder zeros.
+
+> diff --git a/arch/arm64/boot/dts/qcom/eliza.dtsi b/arch/arm64/boot/dts/qc=
+om/eliza.dtsi
+> index 357e8066c1768..6834137bd5e98 100644
+> --- a/arch/arm64/boot/dts/qcom/eliza.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/eliza.dtsi
+[ ... ]
+> +		pcie0: pcie@1c00000 {
+> +			device_type =3D "pci";
+> +			compatible =3D "qcom,eliza-pcie", "qcom,pcie-sm8550";
+> +			reg =3D <0x0 0x01c00000 0x0 0x3000>,
+[ ... ]
+> +			ranges =3D <0x01000000 0x0 0x00000000 0x0 0x40200000 0x0 0x100000>,
+> +				 <0x02000000 0x0 0x40300000 0x0 0x40300000 0x0 0x3d00000>;
 > +
 
-[...]
+[Severity: High]
+Should this node include the msi-map property? Without msi-map mapping PCIe
+Requester IDs to the ITS Device IDs, the PCI framework cannot associate the
+devices with the GICv3 ITS MSI controller. This could cause endpoints to fa=
+il
+probing or silently fall back to legacy INTx.
 
-> +       timer {
-> +               compatible = "arm,armv8-timer";
-> +               interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>,
-> +                            <GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>,
-> +                            <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>,
-> +                            <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>;
-> +       };
+[Severity: Medium]
+The commit message mentions PCIe0 is an 8GT/s x1 instance. Does this need a
+num-lanes =3D <1>; property here to restrict the link width? Omitting it
+forces the driver to rely on unverified hardware reset defaults.
 
-You are missing the EL2 virtual timer interrupt, which is provided by
-Cortex-A76. This isn't optional. A recent Linux kernel will shout at
-you at boot time when booted at EL2 if this interrupt isn't present.
+> +			interrupts =3D <GIC_SPI 376 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 478 IRQ_TYPE_LEVEL_HIGH>,
+[ ... ]
+> +			operating-points-v2 =3D <&pcie0_opp_table>;
+> +
+> +			iommu-map =3D <0x0 &apps_smmu 0x1480 0x0 0x1>,
+> +				    <0x100 &apps_smmu 0x1481 0x0 0x1>;
 
-	M.
+[Severity: High]
+Is the stream ID (0x1480) swapped with pcie1? It looks like pcie0 is using
+the stream IDs typically reserved for pcie1, while pcie1 below uses 0x1400.
+Using incorrect stream IDs could cause immediate SMMU context faults when
+endpoints attempt DMA.
 
--- 
-Without deviation from the norm, progress is not possible.
+[ ... ]
+> +		pcie1: pcie@1c08000 {
+> +			device_type =3D "pci";
+> +			compatible =3D "qcom,eliza-pcie", "qcom,pcie-sm8550";
+> +			reg =3D <0x0 0x01c08000 0x0 0x3000>,
+[ ... ]
+> +			ranges =3D <0x01000000 0x0 0x00000000 0x0 0x44200000 0x0 0x100000>,
+> +				 <0x02000000 0x0 0x44300000 0x0 0x44300000 0x0 0x3d00000>,
+> +				 <0x43000000 0x4 0x00000000 0x4 0x00000000 0x3 0x00000000>;
+> +
+
+[Severity: High]
+Similar to pcie0, should pcie1 include the msi-map property to route its
+downstream MSIs to the GIC ITS?
+
+[Severity: Medium]
+The commit message mentions PCIe1 is an 8GT/s x2 instance. Should there be a
+num-lanes =3D <2>; property here to prevent relying on unverified hardware
+reset defaults for the link width?
+
+> +			interrupts =3D <GIC_SPI 141 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 142 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 143 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 144 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 145 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 146 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 147 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 148 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 140 IRQ_TYPE_LEVEL_HIGH>;
+
+[Severity: High]
+Are these interrupts correct for Eliza's pcie1? These look like an exact
+copy of the SM8550 pcie0 interrupts (141-148), whereas Eliza's pcie0 uses
+distinct interrupts (376, 478...). Wiring pcie1 to incorrect physical IRQ
+lines could render endpoint devices dead.
+
+[ ... ]
+> +			operating-points-v2 =3D <&pcie1_opp_table>;
+> +
+> +			iommu-map =3D <0x0 &apps_smmu 0x1400 0x0 0x1>,
+> +				    <0x100 &apps_smmu 0x1401 0x0 0x1>;
+
+[Severity: High]
+Similar to the interrupt assignment, are these stream IDs correct for pcie1?
+This uses 0x1400/0x1401 which are typically SM8550 pcie0 IDs, whereas pcie0
+above was assigned 0x1480.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-eliza_evk-=
+v7-0-7ac7b66a3e6d@oss.qualcomm.com?part=3D1
