@@ -1,208 +1,123 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6FB83B6352
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 15:17:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B29413B05A2
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 15:18:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785424654; cv=none; b=sxmF71Y917fkF6twQ4xEa6KyvEIFGVf/aQkDzPhmtypTGOlF93d+mmx/qn3qWtbLBRLbQhiy4H6+WPVWkCJT8LkQK/IMxlLaJK5JPEQyHDIKDqDuA+1Z5z9K5s4vOn0C43JBFjMJf1hxRLy8QegCalUsu8mPReWV9VSxXiUK9R8=
+	t=1785424695; cv=none; b=GxZ6Q1KE9jh/S4qvGLRSraOfz7wn5FBSphK6gkHid1bTN+mno/3XjkWynh1UWlon9aofDUik9A5rfztNouO/fVngSSU51D5z905yF81Am91Q/0J674+FyZHFfVp3xI3tV+z6xemZuxIhVB3NcOa9aOwfRzdTHTTBIJsI3OTMOAY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785424654; c=relaxed/simple;
-	bh=/tmLYh3mf9l6G0ZCyOuo7Psg6GSm8tsRf5oCW1AHMC4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZNgloiyvYoZ3pDq1R7QykYhpQz+PzV5rlNhacqJfyPqvVLodNcZw0AFfle9OeR5cqShI6RLvtlaZI3x1Qkf0ZOsawKSkFfvZOVp103Q8OPrcksnlz/wJQIAhLaAal/VhszmfFqJOG2qlcH8JP7ZGQZqo/6xqZ3xfeHSq7i8VzI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cZxc83Mz; arc=none smtp.client-ip=209.85.216.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+	s=arc-20240116; t=1785424695; c=relaxed/simple;
+	bh=72hnN/0rE7uzUdVvzXQ6rS4xBcofWgn8Ndd9UkHCOGk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=L+J4y9gpzmtepKjFoY4mMh3K/xPrEKifUF7IaH4ik+WepENmBwRvoezi2mfeB5nJ7O3iNsfmuPgzXdpocc2hJPU//iPqU/TQgY7uubl4EHvyaOSKDGtb0VXo+SVhjYGCcW5yKZ05MNTpY0u2WjzPSGc7rLKJISAX03lFMlNnC94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bdd5qv1G; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cZxc83Mz"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-38dfe910e9dso2005059a91.3
-        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 08:17:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bdd5qv1G"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49556f97a9dso15934905e9.1
+        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 08:18:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785424652; x=1786029452; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=o7Nf7T9c7X544T/agor4qYZ5LZRNgnGl7LJPSJPQukk=;
-        b=cZxc83MzPfDMKuMeYtVyNxarrSAD3pqx+ANkr0yjdaGvNNQjaptwkSX53ZhKIcQ5rZ
-         hEvXVGch1wspMJZnl88YPa9D7n5i4M27fHvfL+ly1dyGOrF/fDCBw9/S12nrofOzavVp
-         LBGaTs6kDcCrj2jQXC3Rs9DMb3cw1HD/cgIcKkvu3bjTaFMYQ9IOP3TvpKSa3XOQda76
-         xHX3SXZbLDpECxvlG+Y9qlzyzQZhIxlLxPnebO+tqs+XrBUCtbtbf2o+z/G5pdQUQRNX
-         NpV01P8jg7U6uhIq2d1X8BjK0hluZBcs7KW/aDJeHWwnx6++Zl0leu14q2MHhWZfdTk7
-         AtPg==
+        d=gmail.com; s=20251104; t=1785424692; x=1786029492; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Edhb2n6rlJZQPuQdw5wF8BrPLoATNFthrzHW9vrli1A=;
+        b=Bdd5qv1GJ9myn0Cs+T/Z+RBsxyRlTIuCltXZRxKsA4cbF4iTVxYCyqCD+cModZ+sxe
+         8M1rvthmX+U8oUGBbMq/P8ver+v7JUYpp3Px9IVf7++EGVUPPZPaKtyBSwTNNAwxl6Zp
+         InuKgmbu3aL8qwMyuYkJhn1sX70wfCaL2O6v/q6vuqU73vsRxQe+2mvxzNpOZAeLIxBY
+         +WFuYwIG4KmRJlnxHqSXduisRYH9Q4iNbm71TBbqIOxOL1IfMhXsOCSKyFP2Yg9/zc3o
+         AzWodz44TctvVFsSMgK1ZEJNBLng4ZM5IeuFi5Sn06ApZVZflIpZmrwa6oQUF33rWlY5
+         e7cw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785424652; x=1786029452;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=o7Nf7T9c7X544T/agor4qYZ5LZRNgnGl7LJPSJPQukk=;
-        b=cSIW73jeSceM3PXJ3AR7/EYvcZOdt8NLv1U0y38ixtuZ87C97AhkG0+arfOe+CXaqu
-         2mQDPfL15aoUyVMehdFYygm2rPGlNoRqOXK6eLCvrGKD6J0KXw0/VPa1d4LzXl4XF1W0
-         iosMPPZ4l1tfyQLIBSaR2yyWEEJy7kpNgxhUGmpUnBJO7cYR8Io0/BbFq0rdNQfxJbuE
-         fUDQsKmXYK+fMRPUBNx6AbtIdxS8uOSiu1ZjFBQhnUiF6x5W9QYKDwLrNxbDZFAAzgzB
-         D4u0JET+3Z8UZ92rCiqcsGQ2ylWQjKC/ynMOYLXKX18J4UhrLDuSELa5F59puO1xEvex
-         0T0A==
-X-Forwarded-Encrypted: i=1; AHgh+Rqd8s1ILF/vZgpA7ismN6LF1jrbT6ESr0DlcktBHRQLJDfJ3jMzFFM2iUEtwE/lq06xqbgouj6WC7OJ@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw8oKkc4AIBvcUUWNaQ/FRLey0MZI9UdsUbcEtGfDKDueE22AGA
-	hloze/rYXWHL27xJJYzZXJsEiXbIxTbBCrnlr/zVF0UP5lhoSLCx7flP
-X-Gm-Gg: AR+sD122rBWATPk3r5ibDf6VlNb0qQ67S7WpY8GEeHAB6ywGPg7aEw8OMVusueEPTgw
-	rs/pr0Eo61gDJrUwtSpJ5oQsL4YCvaHAg0y7apPKRiTvSCCUHg39oIOeSUG0grYErDznm2Sxof+
-	UnWlnEh+x1s2WtSqWKq1/FpWqPJfKJFTwNz9fQIWCG2F0+XEij7n3H3pWkIpP3+xQv9TeFdletl
-	CVCfvq0Z8x+P/41PuGPlEamG48J+4urnldvMfFIHP0wfJtu5HSBzg5dKgQs6MTiBw4tBQX6+v+d
-	ucMadv85CD2tfs2PHZjxIswvDaN2L7m6FoJo8NxjzrrUsQ69Isq7DJoUeLM3MCPaeWoIOIKFQTz
-	aSgImf/1Djjbo7JcBihb88csXUoG5RtFLUi0MyZxGjtDuDJwTG+uLhtG/WDYqUmzMZBpVvKSL4U
-	sDKrNn0I/QCLB3Y7mi1vPXVnHVrBw6VKzX0DO1J2UFomF4+PYW3i00zVxvfAZ7o904y7zGBN2PJ
-	bcGt4QqikN2NLWzKYmxH7YiFpyH5P4b2uCvcw==
-X-Received: by 2002:a17:90b:164f:b0:38e:76f8:fcc6 with SMTP id 98e67ed59e1d1-38fa7f545d0mr362212a91.32.1785424651858;
-        Thu, 30 Jul 2026 08:17:31 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f9aee9958sm589230a91.1.2026.07.30.08.17.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 30 Jul 2026 08:17:31 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <66979a1d-d92c-43b2-892d-cd73b6585509@roeck-us.net>
-Date: Thu, 30 Jul 2026 08:17:29 -0700
+        d=1e100.net; s=20251104; t=1785424692; x=1786029492;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Edhb2n6rlJZQPuQdw5wF8BrPLoATNFthrzHW9vrli1A=;
+        b=DnpfAHhZyI3CY7BY5i3xxqbkH6cmgLM9wvqe8QfBczA5U4ZhSK3Rd2+Jm38zrcotBt
+         pTlOXf6QVweo7LK9o4EBBRTRav4mI+H7uu/ezYlcXeVHHvbw/Z/VsuWG+drkY8T5NhUq
+         GxGOKgj4f3cYHwFmeGQxeKt0XlRlAFDBRch5Owg4ire//ObDWVlG9UxouFkJs2l1R+Wm
+         XQIG110r1tCIpCGdIG3GGggnbwQef1u9IrxAvPM/1Wcqr0fIjQtvrMY3196p1F12VFVL
+         UFXxRMDy9WqcggprPWq9zrmzF3XaLhWlIj3e0u9lW7klsxgDpJB3BJnBANtJOrxNLLQ3
+         vPQQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rrr1JVt1CxX9fhg+q3MJxEYoh/m7J0KzZSA9tGvNEBQ5AGHybB6Lw9nYoh0fRescu8LNumt9XkXGxyS@vger.kernel.org
+X-Gm-Message-State: AOJu0YyrDX2Aq7HC+1xZmGpz6Ju84i5h1W58xPX9VsRcSqyvz8dyM/L9
+	HG0pZgtbVe4+fRrDOd/NjNL+fLEIMLzET3gpMAfK1+meErmspIaOp2Kf
+X-Gm-Gg: AR+sD109drThJtEq1FU6S9jwlXXDq08hhNqZOXmPpXKGQfjs0ROiFamtwF1dEmu6ti6
+	X3AreAUOh7Mmyro4BQtXTCEhND1yuzm04C1yKpewZQrhrHqjcW+pmezOOhqATbMMrSka8I9V/Jr
+	/I1Ae9tC1taYzHIdPt1YNdrt3cvFAydQIbqodiOV9ylHAqN3eUa7P+C9JjSf9Cpmu1Y972YDpp6
+	n5k1SjDLLb77i/0EnMhQtmTbPBjQxydjqRwy+YeIcpExiA5TTWiqObTCxqtKjLbrrv+QG7EtJcq
+	NmkEV6evZTRldE5tYO3Phlye7AgqtmGJBWmfms33BXTn/0RSEPTaWUCp4UG6nDAYAa0hpIPyTNZ
+	T/CIdB8QUqU0M8TnI5Y0N6y+mL++p2ggAfP/kmgVuh5aGmY7RqWznk6SVWHZU20fRWCuWFeTkIv
+	u5WEYoBCjRsv8mVDkrkL471RwyH3AZEDah5gHQIf+kHJcA5QQoXeol/DZtllo1bFc=
+X-Received: by 2002:a05:600c:4e46:b0:493:e451:a9e1 with SMTP id 5b1f17b1804b1-49800e6d495mr45990775e9.2.1785424691553;
+        Thu, 30 Jul 2026 08:18:11 -0700 (PDT)
+Received: from nsa ([148.63.225.166])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49800e1f084sm7641595e9.0.2026.07.30.08.18.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 30 Jul 2026 08:18:11 -0700 (PDT)
+Date: Thu, 30 Jul 2026 16:19:20 +0100
+From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: nuno.sa@analog.com, linux-hwmon@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-doc@vger.kernel.org, Mark Brown <broonie@kernel.org>, 
+	Alan Tull <atull@opensource.altera.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
+Subject: Re: [PATCH 3/5] hwmon: (pmbus/core) Add mapping function to
+ pmbus_read_block_data()
+Message-ID: <amtqPQSM6zsiCh4B@nsa>
+References: <20260728-hwmon-max20826-support-v1-0-224766e0acd1@analog.com>
+ <20260728-hwmon-max20826-support-v1-3-224766e0acd1@analog.com>
+ <c3e143ed-af08-4a0f-a630-96a255df838d@roeck-us.net>
+ <amtewh9lOgWz0-Nh@nsa>
+ <e37df572-1ca9-4c56-a16e-faa44f1ff1cd@roeck-us.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 02/10] hwmon: Add Qualcomm PMIC BCL driver
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
- Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-hwmon@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- mfd@lists.linux.dev, Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-References: <20260722-qcom-bcl-hwmon-v2-0-febe2805e17b@oss.qualcomm.com>
- <20260722-qcom-bcl-hwmon-v2-2-febe2805e17b@oss.qualcomm.com>
- <373bd00e-bfcd-4f6c-b64e-a707af01417c@roeck-us.net>
- <cdc0fb5c-d277-40b4-8b00-c73eb881c062@oss.qualcomm.com>
- <4f2d9c51-1059-489c-a469-562ec52015da@roeck-us.net>
- <24a0ac2f-792e-4296-949c-047d9ce1c1f3@oss.qualcomm.com>
- <3635cd34-4c11-40fe-a9ff-48b752fb5150@roeck-us.net>
- <c1db2ca4-ad1c-440f-bff8-eb7660af8021@oss.qualcomm.com>
- <df2f8d63-4972-4b59-883f-0a919e7cb409@roeck-us.net>
- <5861906e-2969-4849-b9ec-ff6c7df65dad@oss.qualcomm.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <5861906e-2969-4849-b9ec-ff6c7df65dad@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <e37df572-1ca9-4c56-a16e-faa44f1ff1cd@roeck-us.net>
 
-On 7/30/26 04:48, Daniel Lezcano wrote:
-> On 7/24/26 02:04, Guenter Roeck wrote:
->> On 7/23/26 12:16, Manaf Meethalavalappu Pallikunhi wrote:
->>> Hi Guenter,
->>>
->>> On 7/23/2026 12:29 AM, Guenter Roeck wrote:
->>>> On 7/22/26 11:19, Manaf Meethalavalappu Pallikunhi wrote:
->>>>> Hi Guenter,
->>>>>
->>>>> On 7/22/2026 11:16 PM, Guenter Roeck wrote:
->>>>>> On 7/22/26 10:38, Manaf Meethalavalappu Pallikunhi wrote:
->>>>>> ...
->>>>>>>>
->>>>>>>> I am curious: Why not use static initialization and use the is_visible
->>>>>>>> function to determine if an attribute is visible or not ?
->>>>>>>
->>>>>>> ACK. There is already a comment in v1 suggesting the use of dynamic allocation based on the available attributes rather than static initialization. The intent is to avoid having to perform enable flag checks in multiple places.
->>>>>>> . >
->>>>>>
->>>>>> You lost me, sorry. There is only a single is_visible function,
->>>>>> and its intent is exactly to handle situations where some sensors
->>>>>> are not always available.
->>>>>>
->>>>>> What would be those "multiple places" ?
->>>>>
->>>>> Understood, thanks for the clarification. I'll revert to static attribute initialization in the next revision and use is_visible() to control attribute visibility where needed.
->>>>>
->>>>>>
->>>>>>>>  From the earlier exchange I had the impression that there is a large
->>>>>>>> number of current and voltage channels, but it looks like there is only
->>>>>>>> one each. That doesn't really warrant or need all this dynamic code
->>>>>>>
->>>>>>> Yes, this hardware only supports one or two channels (voltage and current). What we discussed earlier was that each channel can have up to three threshold alarms (warning, critical, and emergency). However, the hwmon framework currently supports only two limit alarms for these sensor types. I have not added support for the third alarm threshold in this series to keep the initial driver support aligned with the existing hwmon capabilities. Once the basic driver support is accepted, I can queue a follow-up series to add support for the third limit alarm.
->>>>>>>
->>>>>>
->>>>>> What does that have to do with attribute visibility ?
->>>>>
->>>>> I was only clarifying that the channel count has always been small (maximum of two channels) and has not changed since v1. The earlier discussion was primarily around the limit alarm attributes. That said, you're right that this is unrelated to attribute visibility.
->>>>>
->>>>
->>>> Feel free to use (and test)
->>>> https://lore.kernel.org/linux-hwmon/20260722185749.2313572-1- linux@roeck-us.net/T/#u
->>>
->>> Thanks for working on this. I'll use that change as the base, rebase my series on top of it, and add support for the third alarm level.
->>> By the way, for the voltage channel, the hardware monitors undervoltage conditions and provides three threshold levels. At the moment, I am mapping:
->>>
->>> LVL0 → min
->>> LVL1 → lcrit
->>>
->>> For LVL2, would it be possible to introduce a corresponding low- voltage emergency threshold, such as lemergency (or another more appropriate name), to represent the third alarm level for voltage sensors ?
->>>
->>
->> We can, but I really have no idea how to name it. lcrit is bad enough,
->> but lemergency is even worse (or at least I think so). "lemerg" would
->> be almost as bad, but at least it would kind of match "lcrit".
->> I tried to ask Google AI, but it didn't give me any useful ideas.
->> Any other suggestions or ideas ?
+On Thu, Jul 30, 2026 at 07:47:37AM -0700, Guenter Roeck wrote:
+> On 7/30/26 07:27, Nuno Sá wrote:
+> > On Tue, Jul 28, 2026 at 02:05:53PM -0700, Guenter Roeck wrote:
+> > > On 7/28/26 09:03, Nuno Sá via B4 Relay wrote:
+> > > > From: Nuno Sá <nuno.sa@analog.com>
+> > > > 
+> > > > This is in preparation for adding support to a device which needs to
+> > > > use it's own read_block implementation.
+> > > > 
+> > > 
+> > > The chip-specific implementation calls i2c_smbus_read_i2c_block_data().
+> > > I'll need to know if this is a chip limit or a controller limit.
+> > > If it is a controller limit, a chip specific override would be
+> > > inappropriate.
+> > 
+> > I'll reply from top of my head (did not looked at the driver again).
+> > IIRC, the biggest reason we need the chip-specific implementation is because of
+> > the RAIL selection logic (mainly when not in page mode).
+> > 
 > 
-> 'lfatal' ?
-> After thinking about it, I'll stick with "lemergency", reason being that
-it matches
-	crit -> lcrit
-	emergency -> lemergency
+> Yes, I have seen that. Question is why you use i2c_smbus_read_i2c_block_data()
+> instead of i2c_smbus_read_block_data(). The rail selection logic would not
+> require that.
 
-Guenter
+IIRC the reason was because the i2c controller on the raspberry pie does not
+support i2c_smbus_read_block_data(). So I guess this:
 
+https://elixir.bootlin.com/linux/v7.1.4/source/drivers/i2c/i2c-core-smbus.c#L220
+
+- Nuno Sá
+
+> 
+> Thanks,
+> Guenter
+> 
