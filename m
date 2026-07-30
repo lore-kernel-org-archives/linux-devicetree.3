@@ -1,200 +1,133 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4599443F0B3
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 15:54:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CEBD37F8D7
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 15:56:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785426886; cv=none; b=rTz44kw2X4h5qARI5SMg2ueXdxIdFhrLdYX9uVYmrm50puf7lYTDZdq5K1dcoOPwBmARnB/yeBV2bNsbLQH8r3OneNkS6xggSaiUQfQBtdLDZDc2x+2yiKXFKcMa1miOSOVveziuys6IiKJLE11hRSiI5xtZ2K0WNWqnKoR/x44=
+	t=1785427017; cv=none; b=TKoejOVh6mFh2YllPQZPbYs738SIkfSqC/0mrCa9o17+bHW88PGjUC4UAfaJD2vlRX8YhKhpBzxGkQYUW7sYMMuA1slisJWtydO2cm+g1WHbSX/1hX3e5Mb1NakiAbDzavRQRl51CnueQpSBh45Id14cnIJKluO0ijh3fy/zmL4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785426886; c=relaxed/simple;
-	bh=htW9/m0nyom5OVxvYwsNJO0b2gGU5Ir9tuA6trkzqEY=;
+	s=arc-20240116; t=1785427017; c=relaxed/simple;
+	bh=5Q2oew95xpekzlT96gqmmQRRrIVeHzGewIz4pN2Naz4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XLc4LfBPy526+aMnBqeN9C4yNvZbKwDabTDUXLFfu066AEbt+4MkJwTH206SMmf0SUefKAPpzANswk3D8AaG5RcGqfg8okSPvJ/l0Yv18IjIwAYYTiltSqJ/zZZo8p46burmV6rjQBbKK76QNMMnvHhG/n8KTkwTUjZWF2aJkjc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=agQCfxq8; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=QQ9WpYk8MW1lM1Kz69kSP7TzROBohJLkP02nnDuUURCDSqst9PWQv7sRmMPAM+3fx6oLnjr3z75KvrY7y9CcUZ5HeVhDDryrGOW+Z091brSQmFsdWo0fhWHi9PDBZ6VMl7tghjljO8uHSh7ti9XWgpv9kf+BAbBe7mKtJVagwPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FSvso3yT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="agQCfxq8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C30F01F00A3D;
-	Thu, 30 Jul 2026 15:54:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FSvso3yT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 094E91F00A3A;
+	Thu, 30 Jul 2026 15:56:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785426885;
-	bh=AjYKOFOidGQQj73S4Yh2kFJo6I9p7Ft4rR+nXNlJAY8=;
+	s=k20260515; t=1785427016;
+	bh=xzhXjcnJ8xiFoB1IBmWGXfZFAQWjNC0eaGJyd0LnAiw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=agQCfxq8s5n8ngo45zEDRPurwaEOpxWH1x11AIUouqZ6TtJyaVl3uesnDj5Aw0uOp
-	 BkZAJbYdgB+pK5Wv6noDQ3zVaOnQ8vjkItXtKPNVtbvuDk5W39yBnBGLcxXjLB35y5
-	 PswQvPp93iTzWqiKCiVlKpzU7I9xfUnXOY7/r9savd6xHE/YRQl+uYmje56vrvlVtD
-	 o1ZH3q8bUwaEEnmQstu47jiCOcjNRcM8aCeUCZFIdlBk4gADgxhcW7a7JchjABF2Mf
-	 ht/8xd6Zpsp+U/H5RKHO1uqJCL+qvAdVLEBxE7AfJZquOZ5xO4NTCrkLhpZP1nFlPC
-	 3xA6/om/OhIdw==
+	b=FSvso3yTGIil2te7p51qmCagbg+qDzBZhgT4kKV8Wz2qbqLalzQ0WNO3XNf27AaBH
+	 f7GqDMSCDBufb0KhwCrxt8tQQ9fi6GWJsq8CdCxl4lU47xjObcptnYkMlDGHn2dhBm
+	 BZPf5KiM/1p2qB+/8UPBvJyeG86TxTBo9453SuZYtzug1Q9I9AkAjQGSYicRfk7qWV
+	 hhVDCuHQ6+/DxQRkLk5vwJqIJnAru5xTnUVzmJQOguRBetKAFh1Xrg20jpC8oQURjY
+	 14clFaxLFnVSlb9XACVFUOE5upjd6zRh14RZWPJjwpm7tPhcxKrdFy6GNhLB4YVfdl
+	 FtX/AH5D3tWNg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 14/18] media: iris: implement support for the Agatti
- platform
+Subject: Re: [PATCH v8 10/18] media: iris: skip PIPE if it is not supported
+ by the platform
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, media-ci@linuxtv.org, conor+dt@kernel.org
-In-Reply-To: <20260730-iris-ar50lt-v8-14-6597c08cea6f@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, media-ci@linuxtv.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260730-iris-ar50lt-v8-10-6597c08cea6f@oss.qualcomm.com>
 References: <20260730-iris-ar50lt-v8-0-6597c08cea6f@oss.qualcomm.com>
- <20260730-iris-ar50lt-v8-14-6597c08cea6f@oss.qualcomm.com>
+ <20260730-iris-ar50lt-v8-10-6597c08cea6f@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 15:54:44 +0000
-Message-Id: <20260730155444.C30F01F00A3D@smtp.kernel.org>
+Date: Thu, 30 Jul 2026 15:56:55 +0000
+Message-Id: <20260730155656.094E91F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Critical] Mismatch between statically calculated vb2 buffer size and the=
- firmware's requested buffer size causes a potential buffer overflow when t=
-he firmware writes to external buffers.
-- [High] Querying buffer requirements for AR50Lt overwrites the DPB buffer =
-count (fw_min_count) with the display output buffer count.
-- [High] The AR50LT platform uses `iris_vpu2_calculate_frequency` but provi=
-des capability fields intended for `iris_vpu3x_vpu4x_calculate_frequency`, =
-resulting in severely under-calculated clock scaling.
-- [Medium] The hierarchical layer bitrates (LAYER0_BITRATE_H264 to LAYER5_B=
-ITRATE_H264) in `inst_fw_cap_gen1_ar50lt_enc` use the global `BITRATE_MAX` =
-(160Mbps) instead of the AR50LT-specific limit.
+
+Pre-existing issues:
+- [Critical] Omitting the PIPE capability causes a division-by-zero kernel =
+panic in `iris_vpu3x_vpu4x_calculate_frequency()`.
+- [Medium] `iris_set_stage()` lacks the fallback check for unsupported capa=
+bilities that was added to `iris_set_pipe()`.
 --
 
---- Patch [14]: [PATCH v8 14/18] media: iris: implement support for the Aga=
-tti platform ---
-commit 50e74e4ea9f26a2d05a3a8800b3cde717ea582a2
+--- Patch [10]: [PATCH v8 10/18] media: iris: skip PIPE if it is not suppor=
+ted by the platform ---
+commit 47a09938f9dc9bf17faca2d850a92320d738ffe8
 Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-media: iris: implement support for the Agatti platform
+media: iris: skip PIPE if it is not supported by the platform
 
-Port support for the AR50Lt video codec core (present for example on the
-Agatti platform) to the Iris driver. Unlike more recent cores this
-generation doesn't have the PIPE property (as it always has only one
-pipe). Also, unlike newer platforms, buffer sizes are requested from the
-firmware instead of being calculated by the driver.
+AR50Lt doesn't support HFI_PROPERTY_PARAM_WORK_ROUTE. Tables for AR50LT
+won't have corresponding entry in the capability tables. Let
+iris_set_pipe() silently skip propgramming the property if there is no
+corresponding capability.
 
-> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen1.c b/drivers/m=
-edia/platform/qcom/iris/iris_hfi_gen1.c
-> index ca1545d28b531..020f55092737d 100644
-> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen1.c
-> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen1.c
-
-[ ... ]
-
-> +	{
-> +		.cap_id =3D LAYER0_BITRATE_H264,
-> +		.min =3D 1,
-> +		.max =3D BITRATE_MAX,
-> +		.step_or_mask =3D 1,
-> +		.value =3D BITRATE_DEFAULT,
-> +		.hfi_id =3D HFI_PROPERTY_CONFIG_VENC_TARGET_BITRATE,
-> +		.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_INPUT_PORT |
-> +			CAP_FLAG_DYNAMIC_ALLOWED,
-> +		.set =3D iris_set_bitrate_gen1,
-> +	},
-
-[Severity: Medium]
-Should these hierarchical layers use BITRATE_MAX_AR50LT instead of
-BITRATE_MAX?
-
-The base BITRATE capability uses BITRATE_MAX_AR50LT (100M), but the
-hierarchical layers are using BITRATE_MAX (160M), which might allow
-userspace to request a configuration that exceeds the platform's hardware
-limits.
-
-[ ... ]
-
-> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen1_command.c b/d=
-rivers/media/platform/qcom/iris/iris_hfi_gen1_command.c
-> index 99e82e5510abe..329a9ef2fdc5f 100644
-> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen1_command.c
-> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen1_command.c
-
-[ ... ]
-
-> @@ -970,6 +970,13 @@ static int iris_hfi_gen1_set_bufsize(struct iris_ins=
-t *inst, u32 plane)
->  	struct hfi_buffer_size_actual bufsz;
->  	int ret;
+> diff --git a/drivers/media/platform/qcom/iris/iris_ctrls.c b/drivers/medi=
+a/platform/qcom/iris/iris_ctrls.c
+> index 10e33b8a73f60..33a34573391a4 100644
+> --- a/drivers/media/platform/qcom/iris/iris_ctrls.c
+> +++ b/drivers/media/platform/qcom/iris/iris_ctrls.c
+> @@ -534,6 +534,9 @@ int iris_set_pipe(struct iris_inst *inst, enum platfo=
+rm_inst_fw_cap_type cap_id)
+>  	u32 work_route =3D inst->fw_caps[PIPE].value;
+>  	u32 hfi_id =3D inst->fw_caps[cap_id].hfi_id;
 > =20
-> +	if (inst->core->iris_firmware_data->query_buffer_requirements) {
-> +		ret =3D inst->hfi_session_ops->session_get_property(inst,
-> +								  HFI_PROPERTY_CONFIG_BUFFER_REQUIREMENTS);
-> +		if (ret)
-> +			return ret;
-> +	}
+> +	if (!hfi_id)
+> +		return 0;
 > +
 
-[Severity: High]
-Could querying buffer requirements here overwrite the DPB buffer count
-with the display buffer count?
-
-When this queries HFI_PROPERTY_CONFIG_BUFFER_REQUIREMENTS,
-iris_hfi_gen1_session_buffer_requirements() processes the requirement.
-For BUF_OUTPUT (which maps to the display buffer in split mode), it sets:
-
-    if (type =3D=3D BUF_OUTPUT)
-        inst->fw_min_count =3D req->count_actual;
-
-Since iris_vpu_dpb_count() relies on inst->fw_min_count for the DPB
-count, does this result in allocating the wrong number of DPB buffers?
-
 [Severity: Critical]
-Could this lead to a buffer overflow when the firmware writes to
-the external buffers?
+This isn't a bug introduced by this patch, but by allowing platforms to
+legitimately omit the PIPE capability, could this lead to a division by zero
+panic in iris_vpu3x_vpu4x_calculate_frequency()?
 
-When the buffer requirements are queried,
-iris_hfi_gen1_session_buffer_requirements() overwrites the internal tracker:
+When the PIPE capability is missing (like in inst_fw_cap_sm8550_enc),
+inst->fw_caps[PIPE].value is initialized to 0. During clock scaling,
+iris_vpu3x_vpu4x_calculate_frequency() in iris_vpu_common.c unconditionally
+uses this value:
 
-    inst->buffers[type].size =3D req->size;
+drivers/media/platform/qcom/iris/iris_vpu_common.c:iris_vpu3x_vpu4x_calcula=
+te_frequency() {
+    ...
+    vpp_cycles =3D mult_frac(mbs_per_second, caps->mb_cycles_vpp,
+                           (u32)inst->fw_caps[PIPE].value);
+    ...
+}
 
-This firmware-requested size is then sent back to the firmware. However,
-when physical memory is prepared in iris_vb2_buf_prepare(), it validates the
-size against the statically calculated iris_get_buffer_size():
+Will this trigger a kernel panic if a stream is started on a platform where
+PIPE is intentionally absent?
 
-    if (vb2_plane_size(vb, 0) < iris_get_buffer_size(inst, BUF_OUTPUT))
-        return -EINVAL;
+[Severity: Medium]
+This is also a pre-existing issue, but should iris_set_stage() in
+iris_ctrls.c include the exact same hfi_id check?
 
-If the firmware requires a larger size than the static calculation, it
-might write beyond the statically allocated vb2_buffer bounds.
+In iris_common.c, iris_alloc_and_queue_input_int_bufs() calls both
+iris_set_stage() and iris_set_pipe(). Since iris_set_stage() lacks this
+check, if a platform omits the STAGE capability, it will call
+session_set_property() with an hfi_id of 0:
 
-[ ... ]
+drivers/media/platform/qcom/iris/iris_ctrls.c:iris_set_stage() {
+    ...
+    u32 hfi_id =3D inst->fw_caps[cap_id].hfi_id;
 
-> diff --git a/drivers/media/platform/qcom/iris/iris_platform_vpu_ar50lt.c =
-b/drivers/media/platform/qcom/iris/iris_platform_vpu_ar50lt.c
-> new file mode 100644
-> index 0000000000000..92f7e25465399
-> --- /dev/null
-> +++ b/drivers/media/platform/qcom/iris/iris_platform_vpu_ar50lt.c
+    return hfi_ops->session_set_property(inst, hfi_id, ...);
+    ...
+}
 
-[ ... ]
+Would this pass an invalid property ID and potentially crash the firmware?
 
-> +static struct platform_inst_caps platform_inst_cap_ar50lt =3D {
-> +	.min_frame_width =3D 128,
-> +	.max_frame_width =3D 1920,
-> +	.min_frame_height =3D 128,
-> +	.max_frame_height =3D 1920,
-> +	.max_mbpf =3D (1920 * 1088) / 256,
-> +	.mb_cycles_vpp =3D 440,
-> +	.mb_cycles_fw =3D 733003,
-> +	.mb_cycles_fw_vpp =3D 225975,
-> +	.max_frame_rate =3D 120,
-> +	.max_operating_rate =3D 120,
-> +};
-
-[Severity: High]
-Does this platform need mb_cycles_vsp defined to scale the clock properly?
-
-This struct provides mb_cycles_fw and mb_cycles_fw_vpp, which are used by
-iris_vpu3x_vpu4x_calculate_frequency(). However, qcm2290_data assigns
-iris_vpu_ar50lt_ops, which uses iris_vpu2_calculate_frequency():
-
-    vsp_freq =3D mbs_per_second * caps->mb_cycles_vsp;
-
-Since mb_cycles_vsp is omitted here, it defaults to 0. Will this cause the
-calculated vsp_freq to be 0 and severely under-calculate the required clock
-frequency?
+>  	return hfi_ops->session_set_property(inst, hfi_id,
+>  					     HFI_HOST_FLAGS_NONE,
+>  					     iris_get_port_info(inst, cap_id),
+>  					     HFI_PAYLOAD_U32,
+>  					     &work_route, sizeof(u32));
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-iris-ar50l=
-t-v8-0-6597c08cea6f@oss.qualcomm.com?part=3D14
+t-v8-0-6597c08cea6f@oss.qualcomm.com?part=3D10
