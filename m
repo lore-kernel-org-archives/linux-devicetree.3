@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 699A238DC44;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6990F2D8767;
 	Thu, 30 Jul 2026 21:52:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785448337; cv=none; b=gBK37qCCJhzJm+/qeJg0rKM6SrqSmV4fbCLsWV82OBPoc98mJ4zJK6FlJ5NnLMdbfkTJjURWhVVRnCtYf4GydrzE3YD1YZMgIKtadnfBD/JkMGpFkkitj9TUX/klo3BlArNCAATAezXg+VY/Av2dP4bVRepX+dp3StPkfU4/4JU=
+	t=1785448337; cv=none; b=oEHu3j9lj8JtwlIJBA72m/KkxJ1a8z5/CIJrZMhx08Gs3TmqRRO3uL1kGIUHwRRtFLeoYPpm4keAW6ERJPd0VMDiFUhUGBi0TG+C8bnogTpk+abG2Azxeoba7USQOAtm65dJ7U26DMZvxIrGpFkui7c1QbAxXPMIbFkxrfwSLFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785448337; c=relaxed/simple;
-	bh=ylL4HaLJUGIisHKBhr3vt+N6GH9GmauZVEy1Ot7Z0Ig=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=un0Y3FjQXzXAjtilCNdkQxpQyGdLZe2I+5kdQyNm4BDpiuZNNQTYZaEdbsOYU979zxGPsV5ZQ4PkiCWfITi3yPfs6n7te5DACbEEiInQ0EF/8ArXWf6gccjpwNjHtcUNznjwCaIvkd7JGGXevM2uCr+OVTNY9AXTZaQ6Fty2KkE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XJ+m87gp; arc=none smtp.client-ip=10.30.226.201
+	bh=N364PIoVWuH6cDGXXPM9/j7iB6vbHjElNnY5IAQZcD4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=omHkWe2Jq5C6KUwEQB9HjlfmY3Uq+ToAw/a8XM3LDqKFTtCfYjm157urbR4FP84JIxph5sxVBCVsgYFUi9jza/liCT2R6gGHZC1fi7gpbxxfPzkGX90Qxn9QFG3SP1N5iVDq1LtZ/6I4EvUqEWxEi1zTkfIxwLIRfSk1P+0Apo4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m9c7vw7Q; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XJ+m87gp"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 017D0C19425;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m9c7vw7Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0DCBFC2BCF7;
 	Thu, 30 Jul 2026 21:52:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1785448337;
-	bh=ylL4HaLJUGIisHKBhr3vt+N6GH9GmauZVEy1Ot7Z0Ig=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=XJ+m87gpXsFGiwvgEEXi1kHqzMYqV/lQ/Vt3pjoWJRk3PeSwV5/OJWyFFF+lJaCRI
-	 dH1/aqQOKUlY+UdNXkMQFDXPzEEt6dkKrXlBpzf1s3vwUBCK+FuWzQOqTwIr5dqBR4
-	 wnlZmo+y6W/3Mpc3T4TM/2G9TCCqOZFQly2OrKu3YwK70NG05Nl0i1B1D9x/SmBPLh
-	 0LSnuH+o73dgZHucxzXZDdlYdctV6xZjstXy2eG4JstnPLIxYhbxfGrze8YdiH6KFG
-	 sE+X63Wlb1F3qjzGWvetSDUctTFx/TIL/nzU4Gi57pD4+QHCnTF7pJDlocEafKDeuh
-	 ZObohb/BOlxjA==
+	bh=N364PIoVWuH6cDGXXPM9/j7iB6vbHjElNnY5IAQZcD4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=m9c7vw7Q4Q512J7Q+jBGFt6kwIbQtXjnlt6xzaE5MP3RFkF0A/UlFh6XWEfVYCYjm
+	 bk8qZXqDWCnQTALeaJ1ikuwLXTm+GqK7gk8/iXrXnq5oOBz6VRZKkW8cyW8QJ6Zuoc
+	 aM3spqQT+BIKrxTSJ4eWUJw/Arfi4BwBQ1gq13hS2DKqwZrM1jR16LPj/6t61d7+v2
+	 68sICCxhxEzl6uXvZVacGZqm7kytkkuHV1tfi/p+VoyuUMKPRUt2+18H0wQhKWg82F
+	 dq4iTfkz/37EE+gw1KWfb76L9jll5yHK0Wb6W+gQYUrUgeFn0hqOb6dDjtAOLTt14O
+	 UM+S2SUMEWBGQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DEF1FC5516D;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EE74AC55162;
 	Thu, 30 Jul 2026 21:52:16 +0000 (UTC)
 From: =?utf-8?q?Dawid_Wr=C3=B3bel_via_B4_Relay?= <devnull+me.dawidwrobel.com@kernel.org>
-Subject: [PATCH 0/4] arm64: dts: qcom: add the Xiaomi Mi Pad 5 Pro 5G
-Date: Thu, 30 Jul 2026 23:51:59 +0200
-Message-Id: <20260730-sm8250-xiaomi-enuma-v1-0-ed6d8fb99668@dawidwrobel.com>
+Date: Thu, 30 Jul 2026 23:52:00 +0200
+Subject: [PATCH 1/4] dt-bindings: display: panel: novatek,nt36523: add the
+ Mi Pad 5 Pro 5G panel
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,10 +41,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MTQqAIBBA4avErBuYtB/pKtFCaqxZaKEUQnT3p
- OW3eO+BxFE4wVg9EPmWJEcoaOoKlt2GjVHWYlCkeho0YfJGdYRZ7OEFOVzeIpvBOLWQaRsNpTw
- jO8n/dZrf9wOJQMBCZQAAAA==
-X-Change-ID: 20260730-sm8250-xiaomi-enuma-e878f2c08413
+Message-Id: <20260730-sm8250-xiaomi-enuma-v1-1-ed6d8fb99668@dawidwrobel.com>
+References: <20260730-sm8250-xiaomi-enuma-v1-0-ed6d8fb99668@dawidwrobel.com>
+In-Reply-To: <20260730-sm8250-xiaomi-enuma-v1-0-ed6d8fb99668@dawidwrobel.com>
 To: Jianhua Lu <lujianhua000@gmail.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>, 
  Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
@@ -57,13 +57,13 @@ Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  =?utf-8?q?Dawid_Wr=C3=B3bel?= <me@dawidwrobel.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2440; i=me@dawidwrobel.com;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1155; i=me@dawidwrobel.com;
  h=from:subject:message-id;
- bh=ylL4HaLJUGIisHKBhr3vt+N6GH9GmauZVEy1Ot7Z0Ig=;
- b=owGbwMvMwCV2qrTGfeXVd28ZT6slMWRlH+9P7G1rjtLsvSJ4eUUYe6SO+7qkTeGM81er78o1u
- i42eapMRykLgxgXg6yYIoteWtAeq+CX39+9+B0OM4eVCWQIAxenAExEaR4jw/oWRTu5B70Mghpp
- 0cdPLgxn/vxo2Sc3s2u/IrcJvf7SmcPw3+3MR6nX+78k1Yu9akhqOzRBMWJNyG/JDbuz2A9s4Xi
- 5lxsA
+ bh=HLBHIFL7Bhy2H/xHi+CSj5nPkTSnPI1C32w3QZKtKr8=;
+ b=owGbwMvMwCV2qrTGfeXVd28ZT6slMWRlH++XM91l8LFvVpKjuqHynx+HStJ/Lny+Z8+7fU6nC
+ vL3X2ON6ChlYRDjYpAVU2TRSwvaYxX88vu7F7/DYeawMoEMYeDiFICJqGow/OGfLPUuN9Fijcmd
+ b1fNm3xv3vi+2bn7YKj31/yLUf90S94z/NMu43G/+q5zqffCggP3zH+UO1zh+8ARZxR26Pz5fHH
+ WgwwA
 X-Developer-Key: i=me@dawidwrobel.com; a=openpgp;
  fpr=B64A778E0E64049A70C831C8B7B81FA12B282A92
 X-Endpoint-Received: by B4 Relay for me@dawidwrobel.com/default with
@@ -71,57 +71,35 @@ X-Endpoint-Received: by B4 Relay for me@dawidwrobel.com/default with
 X-Original-From: =?utf-8?q?Dawid_Wr=C3=B3bel?= <me@dawidwrobel.com>
 Reply-To: me@dawidwrobel.com
 
-The Mi Pad 5 Pro 5G (enuma, 2021) is the modem-equipped variant of the
-Mi Pad 5 Pro (elish). The two boards share a design, so this describes
-enuma as sm8250-xiaomi-elish-common.dtsi plus the three things that
-differ: the board ID the bootloader matches on, the panel compatible and
-the WiFi board data variant.
+From: Dawid Wróbel <me@dawidwrobel.com>
 
-Unlike elish, enuma shipped with a single display variant, so there is
-one device tree rather than a per-panel pair. The vendor device trees key
-the touch configuration to a display maker, and enuma declares a single
-entry against elish's three:
-
-  https://github.com/MiCode/kernel_devicetree/blob/elish-r-oss/qcom/enuma-sm8250.dtsi#L309
-  https://github.com/MiCode/kernel_devicetree/blob/elish-r-oss/qcom/elish-sm8250.dtsi#L294
-
-The panel itself is the same part elish uses: both trees pull in the
-same dsi-panel-k81-42-02-0a-video.dtsi, so the new
-xiaomi,enuma-csot-nt36523 compatible falls back to
-xiaomi,elish-csot-nt36523, leaving room to handle any difference that
-turns up later without requiring a device tree change.
-
-The WiFi board data is already upstream in ath11k-firmware as
-bus=pci,qmi-chip-id=0,qmi-board-id=255,variant=Xiaomi_Pad_5Pro_5G
-(QCA6390 hw2.0 board-2.bin, commit 235d09a5e111).
-
-Tested on the device: the panel and WiFi come up and perform as expected
-under postmarketOS.
-
-The fingerprint sensor, PCIe2/modem and touchscreen this board also
-provides are left out here; they depend on bindings that are not upstream
-yet and will follow separately.
+The Xiaomi Mi Pad 5 Pro 5G (enuma) ships the same CSOT panel as the Mi
+Pad 5 Pro (elish), so it falls back to the elish compatible. Give it a
+device-specific one in front, so a later difference does not need a
+device tree change.
 
 Signed-off-by: Dawid Wróbel <me@dawidwrobel.com>
 ---
-Dawid Wróbel (4):
-      dt-bindings: display: panel: novatek,nt36523: add the Mi Pad 5 Pro 5G panel
-      dt-bindings: arm: qcom: add the Xiaomi Mi Pad 5 Pro 5G
-      arm64: dts: qcom: sm8250-xiaomi-elish: label the WiFi node
-      arm64: dts: qcom: sm8250: add device tree for the Xiaomi Mi Pad 5 Pro 5G
+ Documentation/devicetree/bindings/display/panel/novatek,nt36523.yaml | 4 ++++
+ 1 file changed, 4 insertions(+)
 
- Documentation/devicetree/bindings/arm/qcom.yaml    |  5 +++++
- .../bindings/display/panel/novatek,nt36523.yaml    |  4 ++++
- arch/arm64/boot/dts/qcom/Makefile                  |  1 +
- .../boot/dts/qcom/sm8250-xiaomi-elish-common.dtsi  |  2 +-
- arch/arm64/boot/dts/qcom/sm8250-xiaomi-enuma.dts   | 26 ++++++++++++++++++++++
- 5 files changed, 37 insertions(+), 1 deletion(-)
----
-base-commit: bd94276d96726a82700d85ad3b32892f45809d3a
-change-id: 20260730-sm8250-xiaomi-enuma-e878f2c08413
+diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt36523.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt36523.yaml
+index b9300a1f2646..2f3f34d08f29 100644
+--- a/Documentation/devicetree/bindings/display/panel/novatek,nt36523.yaml
++++ b/Documentation/devicetree/bindings/display/panel/novatek,nt36523.yaml
+@@ -22,6 +22,10 @@ properties:
+               - xiaomi,elish-boe-nt36523
+               - xiaomi,elish-csot-nt36523
+           - const: novatek,nt36523
++      - items:
++          - const: xiaomi,enuma-csot-nt36523
++          - const: xiaomi,elish-csot-nt36523
++          - const: novatek,nt36523
+       - items:
+           - enum:
+               - lenovo,j606f-boe-nt36523w
 
-Best regards,
 -- 
-Dawid Wróbel <me@dawidwrobel.com>
+2.55.0
 
 
