@@ -1,115 +1,107 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 876423B27FA;
-	Thu, 30 Jul 2026 09:59:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E84E237EFE5
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 10:05:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785405600; cv=none; b=aOCf1PWB1087fNss4NNFIleGQMUCNBfyFM4lJ/tC2iQ5usxQfwGAGTGQaEQvtkFRlwpNNPasUO1iyZ0zF7BmWRTTjICGu8FzPsud7DZCw9smGvkzoLTRSIziL64O+L4s89Nmok0WjJiZf61hvlwRv0om83msB5kZgS13gtoaL4c=
+	t=1785405930; cv=none; b=fAf2bnubRbEIY+ldaGNYxmFyuBUeKHS8EIkdC2kTbLGI1sUtJ9+OdhdiHMdC34LjJlyxwJn/tqQOepQOn5BHr0UFEAHckzDmIDcenQNOTfFpjKzXaBAwEAizMVHwHEwwz7vOzC230Kl6JGkrHR23uEMzoEaL1k0A9Y9TlA9MFYA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785405600; c=relaxed/simple;
-	bh=tchxTTvBcdO02dGHnWnKG4MhRfWMWJsiYVUkgq7JxyA=;
+	s=arc-20240116; t=1785405930; c=relaxed/simple;
+	bh=chOkzH8fwSo8ZsHaeLtb8Jstk95wLF+BWX1y31kvOU8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=eP0HoORISUrdDFV58WxfBMA0euztUNOOJhAKZiuxXXNMBueoy5Ihtg6U9PVDf3nDaILdJfXqMjHM6Mo5X1Nvg+WKLwkSpr/+nOFc2okIQr1CDUljv5NM/paCAINoGtykg//7AQOYIYtM3TPOjSo5Dd0ZSFqK2ChRzw2mw0NKBhg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=igOVAejB; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=T59LTjSLewmq2c+5mLqf47837gXnFtymOhsaXnEpD1bVsRCEeLoDCT+rwLEp/9jXiuteXAExUKLEPDn2Y9hbguNCItJrfKdh8T7vfFdrSM1Tada6bVMEIsDl7CN+p5MxTZ4Qy12R00cg8tsHMa9Jm0kPlYjrfadENr6ZwtCwtVQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SuwJhKe0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="igOVAejB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88ED01F000E9;
-	Thu, 30 Jul 2026 09:59:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SuwJhKe0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 604A61F000E9;
+	Thu, 30 Jul 2026 10:05:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785405599;
-	bh=WK2tHPEkzBY2stLBdpC+fE4u48BNObxZFm8c/FNCDFM=;
+	s=k20260515; t=1785405928;
+	bh=ja7sKeIcMMr40p/PX6afQa8om4Ao3bieHhCBfhc64h0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=igOVAejB/OUbAzCHWVWjSSqRus6Ju7IUtE0GOUwaAXfEOBAabcicXh7NLGDU2x00I
-	 SJ2E05ZfPDyWBkLmGRnRQqY1a/nHsyV7KwSc3/ybfX9jS95PdtUe7rJW0nEiPWll8Y
-	 HoSYa7ZJTZ7DVC3kNOrFOoMx6fA0YSrc4jLJpyi7dXYhuXKkEqUR8HbOS1mwkEjMeU
-	 +aHSayHpWmqzezIl/nE2vRcaZEm6klGlvRdWwfOaRg/U5FO04EFWz4SmbFqUh5ff/h
-	 idphYHK140k5YpheYQM8rWZMSI1uiiXrRn4ytm2ENCtSjXjV62baPwPb9IycRi+ACi
-	 64diCu6dIJA+g==
+	b=SuwJhKe07QRxDB+/asE3C2xbpJx+T+z+EWOa1HfIm8jpF+U4+fpsSHbA2clcKXtQ/
+	 Qw9U1rw1wV44bII0yrMX8+KDSThCZBzBi0mMnRxTvvgyfXzKda1LvWTiBxZt1wRY8N
+	 C7+mziiNKbuTSu5T+3s1hr/T+w2JfvcXdKsi7kL8Cq9msfV1VPk6qAst1ue4kqH2FH
+	 1LtlQZyiByn1KSpRFLNX9iCXDxJpJXtU2PZt+nFlWZtnl8g7uaGVAXO95xexSqyynV
+	 T2/8jTm3mmcD3+tg8JpfSZIN5U53iNOXWHPy2Y1WkV7YayIJk9nQC6CjH/ilWDJgp9
+	 ndvROVjZQComA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 03/26] dt-bindings: ufs: mediatek,ufs: Add mt8196
- variant
+Subject: Re: [PATCH v4 01/24] dt-bindings: clock: mediatek: Make
+ '#clock-cells' required for MT8186
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
-Cc: devicetree@vger.kernel.org, linux-phy@lists.infradead.org, conor+dt@kernel.org, neil.armstrong@linaro.org, robh@kernel.org, vkoul@kernel.org, olteanv@gmail.com, linux-scsi@vger.kernel.org
-In-Reply-To: <20260730-mt8196-ufs-v10-3-bc5ecef202dc@collabora.com>
-References: <20260730-mt8196-ufs-v10-0-bc5ecef202dc@collabora.com>
- <20260730-mt8196-ufs-v10-3-bc5ecef202dc@collabora.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260729-mt8189-clocks-system-base-v4-1-e356b813a64c@collabora.com>
+References: <20260729-mt8189-clocks-system-base-v4-0-e356b813a64c@collabora.com>
+ <20260729-mt8189-clocks-system-base-v4-1-e356b813a64c@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 09:59:58 +0000
-Message-Id: <20260730095958.88ED01F000E9@smtp.kernel.org>
+Date: Thu, 30 Jul 2026 10:05:28 +0000
+Message-Id: <20260730100528.604A61F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] A typo in the `mediatek,mt8192-ufshci` conditional block uses `c=
-locks-names` instead of `clock-names`, bypassing array length validation.
-- [Low] The binding omits a supply property for the `AVDD09_UFS_1` pin, tyi=
-ng it to `AVDD09_UFS`, which violates the principle that Device Tree descri=
-bes the SoC hardware rather than a specific board's power routing.
+
+Pre-existing issues:
+- [Medium] The `#reset-cells` property is defined in the schema but is not =
+conditionally enforced as a required property for the `mediatek,mt8186-infr=
+acfg_ao` hardware variant, which acts as a reset provider. This is a direct=
+ violation of the Device Tree Bindings Subsystem Guidelines ('Hardware Vari=
+ant Required Properties').
 --
 
---- Patch [3]: [PATCH v10 03/26] dt-bindings: ufs: mediatek,ufs: Add mt8196=
- variant ---
-commit e0eeeaec009272d40ddbc2fee8902782c15e776c
-Author: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+--- Patch [1]: [PATCH v4 01/24] dt-bindings: clock: mediatek: Make '#clock-=
+cells' required for MT8186 ---
+commit d082742287ef7b48509a30300eb93b62072332ca
+Author: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 
-dt-bindings: ufs: mediatek,ufs: Add mt8196 variant
+dt-bindings: clock: mediatek: Make '#clock-cells' required for MT8186
 
-The MT8196 SoC's UFS controller uses a different set of supplies, making it
-incompatible with MT8195. This commit adds a compatible string for mt8196
-and updates the binding. It also notes that the AVDD09_UFS and AVDD09_UFS_1
-pins are commoned together on the referenced board.
+This commit adds '#clock-cells' to the required properties list for both
+the MT8186 clock and sys-clock device tree bindings. This enforces that
+clock provider nodes properly define this property during validation.
 
-> While it does have a AVDD09_UFS_1 pin in addition to the AVDD09_UFS pin,
-> it appears that these two pins are commoned together, as the board
-> schematic I have access to uses the same supply for both, and the
-> downstream driver does not distinguish between the two supplies either.
+[ ... ]
 
-[Severity: Low]
-Does omitting a separate supply property for the AVDD09_UFS_1 pin violate t=
-he
-principle that Device Tree bindings should describe the SoC hardware rather
-than a specific board's power routing?
-
-If a future board design supplies the AVDD09_UFS and AVDD09_UFS_1 pins from
-separate voltage regulators, the current binding wouldn't be able to accura=
-tely
-describe that hardware.
-
-While reviewing the file touched by this patch, I noticed a regression in t=
-he
-conditional block for the mt8192-ufshci compatible string:
-
-Documentation/devicetree/bindings/ufs/mediatek,ufs.yaml:allOf
->   - if:
->       properties:
->         compatible:
->           contains:
->             const: mediatek,mt8192-ufshci
->     then:
->       properties:
->         clocks:
->           minItems: 3
->           maxItems: 3
->         clocks-names:
->           minItems: 3
->           maxItems: 3
+> diff --git a/Documentation/devicetree/bindings/clock/mediatek,mt8186-sys-=
+clock.yaml b/Documentation/devicetree/bindings/clock/mediatek,mt8186-sys-cl=
+ock.yaml
+> index 1c446fbc5108c..f8acc02cafeeb 100644
+> --- a/Documentation/devicetree/bindings/clock/mediatek,mt8186-sys-clock.y=
+aml
+> +++ b/Documentation/devicetree/bindings/clock/mediatek,mt8186-sys-clock.y=
+aml
+> @@ -45,6 +45,7 @@ properties:
+>  required:
+>    - compatible
+>    - reg
+> +  - '#clock-cells'
 
 [Severity: Medium]
-Is the "clocks-names" property a typo here? It seems like this should be
-"clock-names".
+This is a pre-existing issue, but while we are updating the required proper=
+ties
+here, should the schema also conditionally enforce '#reset-cells' for the
+mediatek,mt8186-infracfg_ao variant?
 
-Because of the typo, the length of the clock-names array is not properly
-constrained for mt8192-ufshci. An invalid device tree with 3 clocks but a
-mismatched number of clock-names could silently pass dt_binding_check valid=
-ation.
+The '#reset-cells' property is defined in the schema but lacks an
+allOf: if-then block to conditionally enforce it specifically for the
+mediatek,mt8186-infracfg_ao hardware variant, which acts as a reset provide=
+r.
+
+Without this enforcement, device trees configuring the
+mediatek,mt8186-infracfg_ao variant but omitting the mandatory '#reset-cell=
+s'
+property will silently pass schema validation when running dt_binding_check.
+
+> =20
+>  additionalProperties: false
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-mt8196-ufs=
--v10-0-bc5ecef202dc@collabora.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729-mt8189-clo=
+cks-system-base-v4-0-e356b813a64c@collabora.com?part=3D1
