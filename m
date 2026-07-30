@@ -1,232 +1,152 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60B5237F8D7
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 15:38:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17CA6390C9F
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 15:39:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785425940; cv=none; b=r7dLXKVTI8Y8PK/mqicQWayhAx+Yxst39iZGHAuTO6781aL5QzWQY736UsQFVCsJfEraMKmSAnQW2JOMZxgUyX6j8osOHzrD6ce/gFPd4G44Onxm1sd4QCbxFhf0OvqAtTwMlBO9QkML/x4r2GPMUle/oRO8eyxV62xDnvOp2J8=
+	t=1785425954; cv=none; b=sSXkL/E44g1REvKFgctbuvyD/I7y++YEYwwq2gUt4J8+UzKM6cP8j+tdeaXlNiHacfZHAuMDw46siGltXEyl1NciW1/WbrS8xNvw5Vo7f70wA2ZzZh/MM4G74+k9S1rRgxudSh7EUfzFMr7kmkHMe+/s0VqVE/SemDuC7HCGVZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785425940; c=relaxed/simple;
-	bh=qQ7RtlTQHMHHpvj83e3+ghCiBppCt64olewSD63Aaq0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Sx0k4amswxWrC70VQdxsIqFRdI90ux7HxgoZWt6zJtc/lk5NCDn2OsDsivKGUT7OusdOBYPLY5VtEPUrB4/q7c2nFtv/rYbPc3twq/pPOVXdiy5DOEqZoEaAgE/z9IHKKX78s2O6svwY0i4fG5Lj4ct58UyTBkOYQLb95qKKm24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=afJ73mqq; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785425954; c=relaxed/simple;
+	bh=95WB2jXREgpHlSYAS0nLsX71ZiRC2bzaCYV0V4uuiZQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=FyhYEuSkY0jKb/y0C5pLto4BYtl0CcQlG3XXKhAb+ft2JslmzJZoLKp1reCJWc63IAU/3DeBRXkUAI2hu9E7K9muPR+YxbZurPjTxqBiAvMobYCdSfflfYF+gV+NsV21nqbQXqxBnLpbBXIFcw7KUmm1He/bdki7eUBqzRwDdWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QB/JIkmx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="afJ73mqq"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2cee9b74ee1so18476735ad.3
-        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 08:38:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785425938; x=1786030738; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=le2uxJXCjEqMP45D/ueXFV/jxmIOCD7UYIlA5TE2iaQ=;
-        b=afJ73mqqsrwan9DNuEDN4gqm0bcM8K1fvdiLp8fu2VPPgC1/i8zEt8hq3P9fYxMFl+
-         lWgZAk8yDYu1G0G5H4mFZNnRXnLpe+rgLXXfP7QOmdS8nnsZWUsCeWxUTJFzS+FAQTGS
-         Iehs/oPUJTiERKoAj0Kwz5/0aPmHi7wpzzSWfDYSh0Z5Og9loAlnto0JJrFzeA4BxB/T
-         PLcXJtTrFYAJj0PvVL6hNbEo1CHbFtD7vXZuVM4my4nLq1luyhZLsRBZ1GKD5A6JFIDW
-         uZkXhiCX10xGZEIE1jbhE8OjzfXMY61K+unP6ZfsjjRkjFMbOOLH7DGHjfu9yeqbtBPy
-         nTjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785425938; x=1786030738;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=le2uxJXCjEqMP45D/ueXFV/jxmIOCD7UYIlA5TE2iaQ=;
-        b=bDD+2B3Ljvryr5fJqj6Ea1fvoEWQxWFopykmLBifHWQSzDriNdl72oFndTnj9auaaX
-         wVS0enUcD2iPzjb6gL12Et6SET9EbI3NwVVb32uDnCwaitPhogf9upQPnSKOihcqRfnt
-         CKrvYlw5pCa4mJeP2u5vgP22+uMIGMnprDqUFTj2KAlek49QV3PJIwSvXpiY1/VBcfFu
-         sC7UAlXnNlDcJUxTjIV3lhzfoUh3HRG56PtnXtn8cE2NfaQAjn1QzEYwMj2YBxq4sySP
-         SF70vVj7SXOiFR8C/stPErIs+b1126RDjI6ub2RnAeBncwx0Y8pVbb7GBQjuXzoLRYxU
-         zCeQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rq7avQOss4gdplaFKW6ptHFbPVcFZf83jUcAn4mVTUe6YbZJVCxZgToJzSHrr/J6vfyIXC3nTxpv2oe@vger.kernel.org
-X-Gm-Message-State: AOJu0YyL2fM9eey76P7xOngMR10yfE3QeNTp5ODLnmP7dmNDKRoql7I4
-	tqvnv4m3P+BNJfy+sCvBsHgUs5vlX/KsY9xZVRxayGkK7ir0Bl+ClbVN
-X-Gm-Gg: AR+sD1101YuYj8H4cB0pf64ShAwTsAiouOlJYUt/laGSAUI1vbn/YhoFCaQTQ9ftrGA
-	Gle0N5P0/I4oacskTLNUkI9GTKgkk4+iA4M4tnCn6K9zNoUH6bTYo1Y572K/63hOnK6kbKZxaW+
-	0M607mTrnJmLiQq8skzHne4SJX4V1WwxDt2FQsV0WPm8vogLRHrZKiYHw1sGmuM9bW0vOMxeSfD
-	rIQvjPuNb+/Uz7mpnKUx+q8WypHE5GqdGLmZ51qYVPzKufc+u1SDdZAB3+P+I55msMsGtLZcuK6
-	D3/Hjyo55PlmH74gb6FEfBKbHb1PQoKF1pJk4cipJkGPa7L4e15r/qrGTYhxzz2IOJI5w1wWbLK
-	D2OvRVxtKPmldA/wy/tBo36/Xvu8kG24kFdUZez2icYcxhh8KUIkdNvdjboqZ4kvTkO2Mst5PfK
-	5ECLqy6sL59YMjHMdpyMjqbWgmDxTDsTvknHfGhfQe/FYgnUl3i1avaGwZWjZCsZgCS2484vC8u
-	zviJmGr4iDoAJ392U2rYz+cjuBP9ZHGkzNrwA==
-X-Received: by 2002:a17:902:d2d2:b0:2c9:e69f:edce with SMTP id d9443c01a7336-2d035d3be92mr34300745ad.44.1785425937429;
-        Thu, 30 Jul 2026 08:38:57 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d022bf4747sm28410415ad.56.2026.07.30.08.38.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 30 Jul 2026 08:38:56 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <05b7f116-25a9-49b3-a31c-15eb4e6ec838@roeck-us.net>
-Date: Thu, 30 Jul 2026 08:38:55 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QB/JIkmx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAC5E1F00A3D;
+	Thu, 30 Jul 2026 15:39:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785425953;
+	bh=TjNBrTCtYBzNWNsyLG1kxHXqs+yodHFRj2rK4p70iVI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=QB/JIkmx7dwLFkUEHajMX/XSTlNAeACiX0rOF+AYozOVPOjj0EKUIyx9SrGdgt6md
+	 KIVEyOgkahZAIZmAzm/jTttSYg3ybyeut8uQB4RvTXRW7o+5mxGEfaGt2G9U2Ptecm
+	 Q2BHPGkNTEckEtnIj8j1gbv7xZeA1425ThqmhEkSNT+wrr8956wL+TTcDISuHIYMlU
+	 BGP3Ic8aCjlOVPhqb8szeFz9W8MpsyAVP7nTsEpjqmf4AlP7X7GgVhlFrTvK/Fyc/d
+	 BwCWX/WWqjNd+CmkEG7dTH/WSppGU2t3anBUjTOhuPESsF01zFSPyFvNizUFnke9S9
+	 +jl+GMqLUZ8IQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 17/18] media: venus: skip QCM2290 if Iris driver is
+ enabled
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
+Cc: media-ci@linuxtv.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260730-iris-ar50lt-v8-17-6597c08cea6f@oss.qualcomm.com>
+References: <20260730-iris-ar50lt-v8-0-6597c08cea6f@oss.qualcomm.com>
+ <20260730-iris-ar50lt-v8-17-6597c08cea6f@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 30 Jul 2026 15:39:12 +0000
+Message-Id: <20260730153912.BAC5E1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [hwmon-next PATCH v3 1/4] dt-bindings: hwmon: adi,adt7470
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- Luiz Angelo Daros de Luca <luizluca@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Chris Packham <chris.packham@alliedtelesis.co.nz>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Darrick J. Wong" <djwong@us.ibm.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
- <ukleinek@kernel.org>, linux-hwmon@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-pwm@vger.kernel.org
-References: <20260728-adt7470_thermalzone-v3-0-d4586478cdba@gmail.com>
- <20260728-adt7470_thermalzone-v3-1-d4586478cdba@gmail.com>
- <20260728-meteoric-quixotic-sunfish-0de2cb@quoll>
- <CAJq09z5CQgzzFahoiteh9ykjdbsYpP=QZ2AugzY4tQ79RpA-cg@mail.gmail.com>
- <6cc03c4c-2d88-46f2-aee4-adb769d10cbd@kernel.org>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <6cc03c4c-2d88-46f2-aee4-adb769d10cbd@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 7/29/26 23:17, Krzysztof Kozlowski wrote:
-> On 29/07/2026 06:45, Luiz Angelo Daros de Luca wrote:
->> Hi Krzysztof,
->>
->> Thanks for the review.
->>
->>> On Tue, Jul 28, 2026 at 12:07:09AM -0300, Luiz Angelo Daros de Luca wrote:
->>>> The Analog Devices ADT7470 is a multichannel temperature sensor and
->>>> PWM fan controller. It supports monitoring up to 10 external
->>>> temperature sensors and controlling up to 4 fans.
->>>>
->>>> Add the device tree binding documentation for it. This includes
->>>> support for the thermal framework by defining the "#thermal-sensor-cells"
->>>> property, and models the fan control lines as PWM channels by
->>>> defining the "#pwm-cells" property.
->>>>
->>>> Signed-off-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
->>>> ---
->>>>   .../devicetree/bindings/hwmon/adi,adt7470.yaml     | 55 ++++++++++++++++++++++
->>>>   1 file changed, 55 insertions(+)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/hwmon/adi,adt7470.yaml b/Documentation/devicetree/bindings/hwmon/adi,adt7470.yaml
->>>> new file mode 100644
->>>> index 000000000000..bb2375a4a490
->>>> --- /dev/null
->>>> +++ b/Documentation/devicetree/bindings/hwmon/adi,adt7470.yaml
->>>> @@ -0,0 +1,55 @@
->>>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
->>>> +%YAML 1.2
->>>> +---
->>>> +$id: http://devicetree.org/schemas/hwmon/adi,adt7470.yaml#
->>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>>> +
->>>> +title: Analog Devices ADT7470 hwmon sensor
->>>> +
->>>> +maintainers:
->>>> +  - Luiz Angelo Daros de Luca <luizluca@gmail.com>
->>>> +
->>>> +description:
->>>> +  Multi-channel temperature monitor and PWM fan controller.
->>>> +  It supports monitoring up to 10 external temperature sensors and
->>>> +  controlling up to four fans. The fan control lines are modeled
->>>> +  as standard PWM channels.
->>>> +
->>>> +properties:
->>>> +  compatible:
->>>> +    const: adi,adt7470
->>>> +
->>>> +  reg:
->>>> +    maxItems: 1
->>>> +
->>>> +  "#pwm-cells":
->>>> +    const: 3
->>>> +    description:
->>>> +      See Documentation/devicetree/bindings/pwm/pwm.yaml for the
->>>> +      generic PWM binding description.
->>>
->>> Drop description.
->>>
->>> You OTOH, miss ref to pwm schema. Referencing here in description should
->>> raise you questions... And then use unevaluatedProperties.
->>
->> I will drop the description and change to `unevaluatedProperties: false`.
->>
->> Regarding the reference to the PWM schema, adding `$ref:
->> /schemas/pwm/pwm.yaml#` enforces the `$nodename` to match
->> `^pwm(@.*|-([0-9a-f]+))?$`. Since the ADT7470 is primarily a hardware
->> monitor, its node is typically named `sensor@...`,
->> `fan-controller@...` or `hwmon@...`. Importing `pwm.yaml` causes
->> `dtbs_check` to fail on existing node names because of this mismatch.
-> 
-> If it is a fan-controller then it should use common fan schema, because
-> you might be missing several properties.
-> 
-> Device having PWM outputs alone does not make it a fan controller, though.
-> 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-It is a fan controller. The logic used here is the opposite:
-It has pwm outputs to control the fans, therefore it should be modeled as
-pwm controller and use pwm controller bindings (to clarify, this is not
-my logic, but both DT and PWM maintainers insist on it).
+Pre-existing issues:
+- [Critical] Unbalanced teardown of delayed work core->work leads to Use-Af=
+ter-Free.
+- [Medium] Memory and DMA allocations are leaked on the venus_probe() error=
+ path.
+--
 
-Also, to clarify: I do not like the idea of registering pwm outputs with
-the pwm subsystem and require the pwm-fan driver to actually control the
-fan. I prefer the mechanism used by, for example, then emc2305 driver,
-which registers cooling devices with the thermal subsystem directly
-and uses of_parse_phandle_with_args() to extract the pwm configuration.
+--- Patch [17]: [PATCH v8 17/18] media: venus: skip QCM2290 if Iris driver =
+is enabled ---
+commit 3f4135bbccd5abb2cbdcfce435629b2b86cda1f5
+Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-However, the patch author claims that the pwm outputs are used for
-non-fan-control purposes (such as controlling LEDs), making the two-driver
-approach necessary.
+media: venus: skip QCM2290 if Iris driver is enabled
 
-Guenter
+As the Iris driver now supports the QCM2290 hardware too, there is a
+race between Venus and Iris drivers on binding to the corresponding
+device. Follow the approach used by other platforms and skip QCM2290 in
+the Venus driver if Iris is enabled.
 
+> diff --git a/drivers/media/platform/qcom/venus/core.c b/drivers/media/pla=
+tform/qcom/venus/core.c
+> index 243e342b0ae75..3c88594eb1d00 100644
+> --- a/drivers/media/platform/qcom/venus/core.c
+> +++ b/drivers/media/platform/qcom/venus/core.c
+[ ... ]
+> @@ -1169,13 +1168,16 @@ static const struct venus_resources qcm2290_res =
+=3D {
+>  	.enc_nodename =3D "video-encoder",
+>  	.min_fw =3D &min_fw,
+>  };
+> +#endif
+> =20
+>  static const struct of_device_id venus_dt_match[] =3D {
+>  	{ .compatible =3D "qcom,msm8916-venus", .data =3D &msm8916_res, },
+>  	{ .compatible =3D "qcom,msm8939-venus", .data =3D &msm8939_res, },
+>  	{ .compatible =3D "qcom,msm8996-venus", .data =3D &msm8996_res, },
+>  	{ .compatible =3D "qcom,msm8998-venus", .data =3D &msm8998_res, },
+> +#if (!IS_ENABLED(CONFIG_VIDEO_QCOM_IRIS))
+>  	{ .compatible =3D "qcom,qcm2290-venus", .data =3D &qcm2290_res, },
+> +#endif
+>  	{ .compatible =3D "qcom,sc7180-venus", .data =3D &sc7180_res, },
+>  	{ .compatible =3D "qcom,sdm660-venus", .data =3D &sdm660_res, },
+>  	{ .compatible =3D "qcom,sdm845-venus", .data =3D &sdm845_res, },
+
+[Severity: Medium]
+This is a pre-existing issue, but does the error path in venus_probe() leak
+memory and DMA allocations?
+
+Looking at venus_probe(), if devm_request_threaded_irq() fails, the code ju=
+mps
+directly to err_core_put:
+
+drivers/media/platform/qcom/venus/core.c:venus_probe() {
+    ...
+	ret =3D devm_request_threaded_irq(dev, core->irq, hfi_isr, venus_isr_threa=
+d,
+					IRQF_TRIGGER_HIGH | IRQF_ONESHOT,
+					"venus", core);
+	if (ret)
+		goto err_core_put;
+    ...
+err_hfi_destroy:
+	hfi_destroy(core);
+err_core_put:
+    ...
+}
+
+This bypasses err_hfi_destroy and skips the hfi_destroy() cleanup, permanen=
+tly
+leaking the resources allocated by hfi_create(). Should the failure path ju=
+mp
+to err_hfi_destroy instead?
+
+[Severity: Critical]
+This is a pre-existing issue, but could the delayed work core->work lead to=
+ a
+use-after-free?
+
+In the venus_probe() error path, cancel_delayed_work_sync() is omitted enti=
+rely.
+If the IRQ is successfully registered and fires before probe aborts, it can
+queue core->work which could execute after the core object is freed.
+
+Additionally, in venus_remove():
+
+drivers/media/platform/qcom/venus/core.c:venus_remove() {
+	cancel_delayed_work_sync(&core->work);
+    ...
+	hfi_destroy(core);
+    ...
+}
+
+cancel_delayed_work_sync() is invoked before the IRQ is disabled in
+hfi_destroy(). If an interrupt fires between these two calls, the ISR can
+re-queue the work, which will subsequently execute on a freed core object.=
+=20
+
+Could we move the cancel_delayed_work_sync() call after the IRQ is disabled?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-iris-ar50l=
+t-v8-0-6597c08cea6f@oss.qualcomm.com?part=3D17
