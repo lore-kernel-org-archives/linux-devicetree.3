@@ -1,193 +1,232 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01FF0372691
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 15:37:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60B5237F8D7
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 15:38:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785425847; cv=none; b=dXb7r1d1/TmlDt5CWp/W/6PEU+7kRxRccEYilGNoxRuF8zeCrMD7BlImwl6pQRY7qhO7xooLqvNk2B/c/6q5OXhXslavqKx0smnRNnQ1wjXH0y493s78ww0b8eWpuamGKgK7GZ5dx6u+FULZKm1PkW9FKS7GGpELSqhmAOgaS4A=
+	t=1785425940; cv=none; b=r7dLXKVTI8Y8PK/mqicQWayhAx+Yxst39iZGHAuTO6781aL5QzWQY736UsQFVCsJfEraMKmSAnQW2JOMZxgUyX6j8osOHzrD6ce/gFPd4G44Onxm1sd4QCbxFhf0OvqAtTwMlBO9QkML/x4r2GPMUle/oRO8eyxV62xDnvOp2J8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785425847; c=relaxed/simple;
-	bh=muQ41BBIvJHoOxz5cFni/iyyAXpAj/IirsfRFXeCOUQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QXzRmngqUkp59yu4P9QAffda/GX0lrkdnKiQhfEM9A2j4ONgyzcfh9cT0/vB5QcZ65PcKxh7hdT11h0liLlqD1NWyf26I/drcQtL7cYtjTuGFvLOgeTT2/c1ECLwUOQBpdyOr6jiht+SlptiQ2c2Z2VeVpcK+DrQfHLsCY9jqDM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UOYVCrtG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785425940; c=relaxed/simple;
+	bh=qQ7RtlTQHMHHpvj83e3+ghCiBppCt64olewSD63Aaq0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Sx0k4amswxWrC70VQdxsIqFRdI90ux7HxgoZWt6zJtc/lk5NCDn2OsDsivKGUT7OusdOBYPLY5VtEPUrB4/q7c2nFtv/rYbPc3twq/pPOVXdiy5DOEqZoEaAgE/z9IHKKX78s2O6svwY0i4fG5Lj4ct58UyTBkOYQLb95qKKm24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=afJ73mqq; arc=none smtp.client-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UOYVCrtG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2E781F000E9;
-	Thu, 30 Jul 2026 15:37:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785425845;
-	bh=FA404+Y56ggcLeHwFqylQnOLtTMi5CGdSyLThudGl90=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UOYVCrtG1ng0Snom/6RFWU/umOAiDrf5Jl130WuayHTFk42hJi0lvNWjNhA3UEPOm
-	 UUjYYGNXhuk+sIXOejQL7zg8OwbeVoZsHIJiVcNSfDAbNhZ2SfpUOlAu5cZ0EkjBcc
-	 Opl0PCFsDaesIob67KJByq5iR82aXAzATAsekl2kdkle7luLEiZXvRVGWbhoGHcxBz
-	 M7jWqVup15/8yBjeRHXlGLCo0nlNC73lKioc6rL2vCx01YtHHUdvSpVVqnHg2MY50x
-	 TnoT7QxZEOZrSDyAnTAZAxbn/DEG9KtmhxMnRlcI2qB3QPmDoOGEMIfDkUv0U4Luix
-	 NGqEF55CH+jaw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 01/18] media: iris: Add Gen2 firmware autodetect and
- fallback
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20260730-iris-ar50lt-v8-1-6597c08cea6f@oss.qualcomm.com>
-References: <20260730-iris-ar50lt-v8-0-6597c08cea6f@oss.qualcomm.com>
- <20260730-iris-ar50lt-v8-1-6597c08cea6f@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 15:37:25 +0000
-Message-Id: <20260730153725.A2E781F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="afJ73mqq"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2cee9b74ee1so18476735ad.3
+        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 08:38:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785425938; x=1786030738; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=le2uxJXCjEqMP45D/ueXFV/jxmIOCD7UYIlA5TE2iaQ=;
+        b=afJ73mqqsrwan9DNuEDN4gqm0bcM8K1fvdiLp8fu2VPPgC1/i8zEt8hq3P9fYxMFl+
+         lWgZAk8yDYu1G0G5H4mFZNnRXnLpe+rgLXXfP7QOmdS8nnsZWUsCeWxUTJFzS+FAQTGS
+         Iehs/oPUJTiERKoAj0Kwz5/0aPmHi7wpzzSWfDYSh0Z5Og9loAlnto0JJrFzeA4BxB/T
+         PLcXJtTrFYAJj0PvVL6hNbEo1CHbFtD7vXZuVM4my4nLq1luyhZLsRBZ1GKD5A6JFIDW
+         uZkXhiCX10xGZEIE1jbhE8OjzfXMY61K+unP6ZfsjjRkjFMbOOLH7DGHjfu9yeqbtBPy
+         nTjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785425938; x=1786030738;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=le2uxJXCjEqMP45D/ueXFV/jxmIOCD7UYIlA5TE2iaQ=;
+        b=bDD+2B3Ljvryr5fJqj6Ea1fvoEWQxWFopykmLBifHWQSzDriNdl72oFndTnj9auaaX
+         wVS0enUcD2iPzjb6gL12Et6SET9EbI3NwVVb32uDnCwaitPhogf9upQPnSKOihcqRfnt
+         CKrvYlw5pCa4mJeP2u5vgP22+uMIGMnprDqUFTj2KAlek49QV3PJIwSvXpiY1/VBcfFu
+         sC7UAlXnNlDcJUxTjIV3lhzfoUh3HRG56PtnXtn8cE2NfaQAjn1QzEYwMj2YBxq4sySP
+         SF70vVj7SXOiFR8C/stPErIs+b1126RDjI6ub2RnAeBncwx0Y8pVbb7GBQjuXzoLRYxU
+         zCeQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rq7avQOss4gdplaFKW6ptHFbPVcFZf83jUcAn4mVTUe6YbZJVCxZgToJzSHrr/J6vfyIXC3nTxpv2oe@vger.kernel.org
+X-Gm-Message-State: AOJu0YyL2fM9eey76P7xOngMR10yfE3QeNTp5ODLnmP7dmNDKRoql7I4
+	tqvnv4m3P+BNJfy+sCvBsHgUs5vlX/KsY9xZVRxayGkK7ir0Bl+ClbVN
+X-Gm-Gg: AR+sD1101YuYj8H4cB0pf64ShAwTsAiouOlJYUt/laGSAUI1vbn/YhoFCaQTQ9ftrGA
+	Gle0N5P0/I4oacskTLNUkI9GTKgkk4+iA4M4tnCn6K9zNoUH6bTYo1Y572K/63hOnK6kbKZxaW+
+	0M607mTrnJmLiQq8skzHne4SJX4V1WwxDt2FQsV0WPm8vogLRHrZKiYHw1sGmuM9bW0vOMxeSfD
+	rIQvjPuNb+/Uz7mpnKUx+q8WypHE5GqdGLmZ51qYVPzKufc+u1SDdZAB3+P+I55msMsGtLZcuK6
+	D3/Hjyo55PlmH74gb6FEfBKbHb1PQoKF1pJk4cipJkGPa7L4e15r/qrGTYhxzz2IOJI5w1wWbLK
+	D2OvRVxtKPmldA/wy/tBo36/Xvu8kG24kFdUZez2icYcxhh8KUIkdNvdjboqZ4kvTkO2Mst5PfK
+	5ECLqy6sL59YMjHMdpyMjqbWgmDxTDsTvknHfGhfQe/FYgnUl3i1avaGwZWjZCsZgCS2484vC8u
+	zviJmGr4iDoAJ392U2rYz+cjuBP9ZHGkzNrwA==
+X-Received: by 2002:a17:902:d2d2:b0:2c9:e69f:edce with SMTP id d9443c01a7336-2d035d3be92mr34300745ad.44.1785425937429;
+        Thu, 30 Jul 2026 08:38:57 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d022bf4747sm28410415ad.56.2026.07.30.08.38.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 30 Jul 2026 08:38:56 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <05b7f116-25a9-49b3-a31c-15eb4e6ec838@roeck-us.net>
+Date: Thu, 30 Jul 2026 08:38:55 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [hwmon-next PATCH v3 1/4] dt-bindings: hwmon: adi,adt7470
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+ Luiz Angelo Daros de Luca <luizluca@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Chris Packham <chris.packham@alliedtelesis.co.nz>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Darrick J. Wong" <djwong@us.ibm.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
+ <ukleinek@kernel.org>, linux-hwmon@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-pwm@vger.kernel.org
+References: <20260728-adt7470_thermalzone-v3-0-d4586478cdba@gmail.com>
+ <20260728-adt7470_thermalzone-v3-1-d4586478cdba@gmail.com>
+ <20260728-meteoric-quixotic-sunfish-0de2cb@quoll>
+ <CAJq09z5CQgzzFahoiteh9ykjdbsYpP=QZ2AugzY4tQ79RpA-cg@mail.gmail.com>
+ <6cc03c4c-2d88-46f2-aee4-adb769d10cbd@kernel.org>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <6cc03c4c-2d88-46f2-aee4-adb769d10cbd@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+On 7/29/26 23:17, Krzysztof Kozlowski wrote:
+> On 29/07/2026 06:45, Luiz Angelo Daros de Luca wrote:
+>> Hi Krzysztof,
+>>
+>> Thanks for the review.
+>>
+>>> On Tue, Jul 28, 2026 at 12:07:09AM -0300, Luiz Angelo Daros de Luca wrote:
+>>>> The Analog Devices ADT7470 is a multichannel temperature sensor and
+>>>> PWM fan controller. It supports monitoring up to 10 external
+>>>> temperature sensors and controlling up to 4 fans.
+>>>>
+>>>> Add the device tree binding documentation for it. This includes
+>>>> support for the thermal framework by defining the "#thermal-sensor-cells"
+>>>> property, and models the fan control lines as PWM channels by
+>>>> defining the "#pwm-cells" property.
+>>>>
+>>>> Signed-off-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+>>>> ---
+>>>>   .../devicetree/bindings/hwmon/adi,adt7470.yaml     | 55 ++++++++++++++++++++++
+>>>>   1 file changed, 55 insertions(+)
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/hwmon/adi,adt7470.yaml b/Documentation/devicetree/bindings/hwmon/adi,adt7470.yaml
+>>>> new file mode 100644
+>>>> index 000000000000..bb2375a4a490
+>>>> --- /dev/null
+>>>> +++ b/Documentation/devicetree/bindings/hwmon/adi,adt7470.yaml
+>>>> @@ -0,0 +1,55 @@
+>>>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+>>>> +%YAML 1.2
+>>>> +---
+>>>> +$id: http://devicetree.org/schemas/hwmon/adi,adt7470.yaml#
+>>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>>> +
+>>>> +title: Analog Devices ADT7470 hwmon sensor
+>>>> +
+>>>> +maintainers:
+>>>> +  - Luiz Angelo Daros de Luca <luizluca@gmail.com>
+>>>> +
+>>>> +description:
+>>>> +  Multi-channel temperature monitor and PWM fan controller.
+>>>> +  It supports monitoring up to 10 external temperature sensors and
+>>>> +  controlling up to four fans. The fan control lines are modeled
+>>>> +  as standard PWM channels.
+>>>> +
+>>>> +properties:
+>>>> +  compatible:
+>>>> +    const: adi,adt7470
+>>>> +
+>>>> +  reg:
+>>>> +    maxItems: 1
+>>>> +
+>>>> +  "#pwm-cells":
+>>>> +    const: 3
+>>>> +    description:
+>>>> +      See Documentation/devicetree/bindings/pwm/pwm.yaml for the
+>>>> +      generic PWM binding description.
+>>>
+>>> Drop description.
+>>>
+>>> You OTOH, miss ref to pwm schema. Referencing here in description should
+>>> raise you questions... And then use unevaluatedProperties.
+>>
+>> I will drop the description and change to `unevaluatedProperties: false`.
+>>
+>> Regarding the reference to the PWM schema, adding `$ref:
+>> /schemas/pwm/pwm.yaml#` enforces the `$nodename` to match
+>> `^pwm(@.*|-([0-9a-f]+))?$`. Since the ADT7470 is primarily a hardware
+>> monitor, its node is typically named `sensor@...`,
+>> `fan-controller@...` or `hwmon@...`. Importing `pwm.yaml` causes
+>> `dtbs_check` to fail on existing node names because of this mismatch.
+> 
+> If it is a fan-controller then it should use common fan schema, because
+> you might be missing several properties.
+> 
+> Device having PWM outputs alone does not make it a fan controller, though.
+> 
 
-New issues:
-- [High] Uninitialized memory scan in firmware generation detection.
+It is a fan controller. The logic used here is the opposite:
+It has pwm outputs to control the fans, therefore it should be modeled as
+pwm controller and use pwm controller bindings (to clarify, this is not
+my logic, but both DT and PWM maintainers insist on it).
 
-Pre-existing issues:
-- [High] Kernel crash: IRQ is enabled before the HFI ops are initialized, l=
-eading to a NULL pointer dereference on early interrupts.
-- [High] Use-After-Free of `iris_core` due to uncancelled delayed work duri=
-ng module teardown.
-- [High] Race condition in `iris_open` allows concurrent callers to bypass =
-the hardware initialization wait.
---
+Also, to clarify: I do not like the idea of registering pwm outputs with
+the pwm subsystem and require the pwm-fan driver to actually control the
+fan. I prefer the mechanism used by, for example, then emc2305 driver,
+which registers cooling devices with the thermal subsystem directly
+and uses of_parse_phandle_with_args() to extract the pwm configuration.
 
---- Patch [1]: [PATCH v8 01/18] media: iris: Add Gen2 firmware autodetect a=
-nd fallback ---
-commit a2c8d521a685de60d5919ebd8f396f7a268a25cc
-Author: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+However, the patch author claims that the pwm outputs are used for
+non-fan-control purposes (such as controlling LEDs), making the two-driver
+approach necessary.
 
-media: iris: Add Gen2 firmware autodetect and fallback
+Guenter
 
-Some Iris platforms support both Gen1 and Gen2 HFI firmware images.
-Update the firmware loading logic to handle this generically by
-preferring Gen2 when available, while safely falling back to Gen1
-when required.
-
-[ ... ]
-
-> diff --git a/drivers/media/platform/qcom/iris/iris_core.c b/drivers/media=
-/platform/qcom/iris/iris_core.c
-> index 52bf56e517f91..6dbe18be5b495 100644
-> --- a/drivers/media/platform/qcom/iris/iris_core.c
-> +++ b/drivers/media/platform/qcom/iris/iris_core.c
-> @@ -79,6 +80,7 @@ int iris_core_init(struct iris_core *core)
->  		goto error_unload_fw;
-> =20
->  	core->iris_firmware_data->init_hfi_ops(core);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but could this initialization
-sequence cause a NULL pointer dereference on early interrupts?
-
-In iris_core_init(), iris_vpu_power_on() is called earlier, which unmasks t=
-he
-interrupt via enable_irq(core->irq). At that point, core->hfi_sys_ops is st=
-ill
-NULL because init_hfi_ops() hasn't run yet.
-
-If an interrupt fires early (for example, from the VPU firmware booting),
-iris_hfi_isr_handler() will execute and unconditionally dereference
-core->hfi_sys_ops->sys_hfi_response_handler. Should init_hfi_ops() be called
-before enabling the IRQ?
-
-[Severity: High]
-This is a pre-existing issue, but does this function have a race condition =
-that
-allows concurrent callers to bypass the hardware initialization wait?
-
-When a user opens the device, iris_core_init() acquires the lock, sets
-core->state =3D IRIS_CORE_INIT, drops the lock, and then proceeds with the
-lengthy initialization and iris_wait_for_system_response().
-
-If a concurrent thread calls iris_open() and acquires the lock, it will see
-core->state =3D=3D IRIS_CORE_INIT, immediately return 0, and proceed to int=
-eract
-with the hardware before the firmware has actually finished booting. Could =
-this
-lead to undefined behavior?
-
-> +	iris_session_init_caps(core);
-> =20
->  	ret =3D iris_hfi_core_init(core);
->  	if (ret)
-
-[ ... ]
-
-> diff --git a/drivers/media/platform/qcom/iris/iris_firmware.c b/drivers/m=
-edia/platform/qcom/iris/iris_firmware.c
-> index 1a476146d7580..c5d2b9fd0502e 100644
-> --- a/drivers/media/platform/qcom/iris/iris_firmware.c
-> +++ b/drivers/media/platform/qcom/iris/iris_firmware.c
-
-[ ... ]
-
-> @@ -56,6 +209,9 @@ static int iris_load_fw_to_memory(struct iris_core *co=
-re, const char *fw_name)
->  	ret =3D qcom_mdt_load(dev, firmware, fw_name,
->  			    IRIS_PAS_ID, mem_virt, mem_phys, res_size, NULL);
-> =20
-> +	if (!ret)
-> +		iris_detect_firmware(core, fw_name, mem_virt, res_size, desc);
-
-[Severity: High]
-Could this scan uninitialized memory?
-
-The memory region is mapped via memremap() using MEMREMAP_WC without being
-zeroed, meaning it could retain contents from a previous boot or firmware l=
-oad.
-qcom_mdt_load() populates the memory but might leave gaps or leave the tail
-end untouched.
-
-Since iris_detect_firmware() is called with the total reserved memory size
-(res_size) rather than the actual loaded firmware size, could the loop in
-iris_detect_gen2_from_fwdata() scan past the valid loaded data and falsely
-detect a leftover QC_IMAGE_VERSION_STRING from an older firmware?
-
-> +
->  	memunmap(mem_virt);
->  err_release_fw:
->  	release_firmware(firmware);
-
-[ ... ]
-
-> diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/medi=
-a/platform/qcom/iris/iris_probe.c
-> index c2dcb50a27824..7fe31136df21b 100644
-> --- a/drivers/media/platform/qcom/iris/iris_probe.c
-> +++ b/drivers/media/platform/qcom/iris/iris_probe.c
-> @@ -251,8 +251,6 @@ static int iris_probe(struct platform_device *pdev)
->  		return core->irq;
-
-[Severity: High]
-This is a pre-existing issue, but does the module teardown path leak a runn=
-ing
-delayed work, leading to a use-after-free?
-
-iris_probe() initializes a delayed work sys_error_handler which uses the co=
-re
-pointer. In the teardown path, iris_remove() unregisters devices but does n=
-ot
-seem to call cancel_delayed_work_sync(&core->sys_error_handler).
-
-Since the core struct is managed by devm_kzalloc, it is freed when
-iris_remove() returns. If the delayed work was scheduled and runs after
-removal, won't it dereference the freed core pointer?
-
->  	core->iris_platform_data =3D of_device_get_match_data(core->dev);
-> -	core->iris_firmware_desc =3D core->iris_platform_data->firmware_desc;
-> -	core->iris_firmware_data =3D core->iris_firmware_desc->firmware_data;
-> =20
->  	core->ubwc_cfg =3D qcom_ubwc_config_get_data();
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-iris-ar50l=
-t-v8-0-6597c08cea6f@oss.qualcomm.com?part=3D1
