@@ -1,116 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC3041F7D7
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 12:12:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1245940681D;
+	Thu, 30 Jul 2026 12:18:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785413555; cv=none; b=EhHIWyRiIOD5eb8u4texiEQOztal2duibm8dyCu1wwBlFpbhzbjZWMo33DueiEXKb7TClMNsu+dvwXYVNTDm258Gcc0tdR8nITDU4qbkZnn9X/5DFAvstV3IFnJJzae8xj9qk6DTW2YGhNW0+TlPYpG+g2ujm+3em4ShxJIjd6s=
+	t=1785413933; cv=none; b=BUgr0P/sUmQ1iWMOOWbZ8eyEiD8CxAV/z08YL82tFK44X69Dj7iKhSKbWCurZgTJYGSLFM3NUgxmWVUDNwF4NknLIPB1cmmqx+JjNNrqwkNEEVSUw6i9lssU8vi8JoqppBjJ9NBoNy/MqELFpBGZKAdPcXjT8uw780exUYPkiNQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785413555; c=relaxed/simple;
-	bh=iOYB91hne6uKWD0qwuQgeWJCmE7ytPgfhumBCtUliUg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tFu7cGe4ToCFd5xvJfzXsSCLbNtU4FCa/O4YxjDRnkj5mxgMsCYqyxEnaE4M6DSFFU9zC4cwNmMRNOSMQqN9B7vtwp5GxgYQ+Q33ikbXuH+q8eLV1qS3wHPy7u7zPfAw53+ecIc7S1dVEH7G64sIR9V48UWbUb74lRgxjk11hjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N6mgSn5v; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785413933; c=relaxed/simple;
+	bh=jVPKa2VaoVV9XjaEVU/GwnBOp3DCoHvHFOl5tHZekJQ=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ppAdgGiyt7wv2jIl9+Rg/1aTXkFb9lYdD2Y87vtMRrxCya8P5ZS02XmL/D30HVcYAOs3Fa+E5qAziYpMXxjJ545iDyX/gefUNfB+GkpAbEpuVnN6SdaDSP3so11PQuhluvSoFacIz1nNomh5lyLOZ9WuyaONxILkur1HkWSyEiQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IERn+3yT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N6mgSn5v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44E3E1F000E9;
-	Thu, 30 Jul 2026 12:12:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IERn+3yT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3D301F000E9;
+	Thu, 30 Jul 2026 12:18:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785413554;
-	bh=LFj7CDvmdgR8LTOfKVbXb2b9JBYBuU5KbXklt7FN6lA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=N6mgSn5vs46CNEPe+4QM07XM4r8S+j4TYmfgTjxJazpoyHzi93+qgO2+Cz0P3SEqi
-	 kCYvUnNQ5J/HR+bNYplAt+Kg7sda4FthSpvfxDo7QcHG9aeNuCZOYF9V1Js7TwVc72
-	 Uh521+u0INwPHIVaruaJWDGHXh9xt3iASuJBmrOVgioU5cqybPy5H5+pgFAZoUwbDn
-	 fqDzsyOyPwwTcLIs2vF5rIKgZLPjV2B8OVBVUOWekh8eaJKN9twYc+xQ90z+lqaShW
-	 wbWrlMeZ949MDfUwnzguKMYiUil3JBha5Dk+VjvpngPnfr4Vm+9p31rX3gld6T/Knr
-	 1z0OWRSfa8BzQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 21/22] arm64: dts: qcom: qcs6490-rb3gen2: Fix the PCIe
- iommu-map entries
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Manivannan Sadhasivam" <manivannan.sadhasivam@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260730-iommu-map-fix-v1-21-83405d37ba41@oss.qualcomm.com>
-References: <20260730-iommu-map-fix-v1-0-83405d37ba41@oss.qualcomm.com>
- <20260730-iommu-map-fix-v1-21-83405d37ba41@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 12:12:33 +0000
-Message-Id: <20260730121234.44E3E1F000E9@smtp.kernel.org>
+	s=k20260515; t=1785413932;
+	bh=J51ZKPd6o6/BUGHko+ufxpPLTQ3XMe+QO50MAUxdiFE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=IERn+3yT3GKAwlEz98+hOOx2EELH5lepwtkHN1LPJPtSbBcaqZH8R70BuuTlh0A/8
+	 k5n++E+0Q+jQMwVMJ5nkn/Xd6iHEoJJnvs/YUNaRar4FAS8vlAs7p1Q/fuvnhnBKEA
+	 NFTW/P6d+tNp6ozLVFlHrQGpnzNz5ygDa67uINaflNJeY3CLZ5ETiif99Fwy2t+40S
+	 mADy0iBff6NfDgZyxfiJ4G7MyoPoL3GzrPyU60gqBkwNQq9DeSwXGb7lfNYpiyyPt/
+	 Mqm37WJE36T0QKo6JWfmlIp+mvylB5nxq7lzE2+1q9NZiL1TBlFFhRx//2VevGaH8G
+	 ACuAsWAw8gANg==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wpPir-0000000AWIY-1wZS;
+	Thu, 30 Jul 2026 12:18:49 +0000
+Date: Thu, 30 Jul 2026 13:18:49 +0100
+Message-ID: <86ldasd61i.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Long Zhao <longzhao@ambarella.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Alexandre Belloni
+	<alexandre.belloni@bootlin.com>,
+	<linux-arm-kernel@lists.infradead.org>,
+	<soc@lists.linux.dev>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	<devicetree@vger.kernel.org>,
+	"Michael\
+ Turquette" <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	<linux-clk@vger.kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	<linux-gpio@vger.kernel.org>,
+	Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	<linux-serial@vger.kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 09/10] arm64: ambarella: add ARCH_AMBARELLA and CV75 EVK DT
+In-Reply-To: <20260730104330.81367-10-longzhao@ambarella.com>
+References: <20260730104330.81367-1-longzhao@ambarella.com>
+	<20260730104330.81367-10-longzhao@ambarella.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: longzhao@ambarella.com, arnd@arndb.de, alexandre.belloni@bootlin.com, linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, mturquette@baylibre.com, sboyd@kernel.org, linux-clk@vger.kernel.org, linusw@kernel.org, linux-gpio@vger.kernel.org, gregkh@linuxfoundation.org, jirislaby@kernel.org, linux-serial@vger.kernel.org, catalin.marinas@arm.com, will@kernel.org, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Thu, 30 Jul 2026 11:43:29 +0100,
+Long Zhao <longzhao@ambarella.com> wrote:
 
-Pre-existing issues:
-- [Medium] The fix for malformed `iommu-map` entries is incomplete because =
-it misses the `qcs6490-rb3gen2-industrial-mezzanine.dtso` overlay, which co=
-ntains identically malformed entries.
---
+[...]
 
---- Patch [21]: [PATCH 21/22] arm64: dts: qcom: qcs6490-rb3gen2: Fix the PC=
-Ie iommu-map entries ---
-commit b18d2572691fe332011993576c307feac443dbbf
-Author: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> diff --git a/arch/arm64/boot/dts/ambarella/cv75.dtsi b/arch/arm64/boot/dts/ambarella/cv75.dtsi
+> new file mode 100644
+> index 000000000000..7c6a61f473ef
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/ambarella/cv75.dtsi
+> @@ -0,0 +1,151 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Ambarella CV75 SoC
+> + *
+> + * Boot peripheral: UART0 console.
+> + * Clocks: a single ambarella,cv75-rct provider.
+> + */
+> +
 
-arm64: dts: qcom: qcs6490-rb3gen2: Fix the PCIe iommu-map entries
+[...]
 
-This commit fixes malformed iommu-map entries for PCIe nodes in the
-qcs6490-rb3gen2 device tree by adding the missing SID mask cell to match
-the apps_smmu provider's 2-cell requirement.
+> +       timer {
+> +               compatible = "arm,armv8-timer";
+> +               interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>,
+> +                            <GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>,
+> +                            <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>,
+> +                            <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>;
+> +       };
 
-> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/bo=
-ot/dts/qcom/qcs6490-rb3gen2.dts
-> --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-> +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+You are missing the EL2 virtual timer interrupt, which is provided by
+Cortex-A76. This isn't optional. A recent Linux kernel will shout at
+you at boot time when booted at EL2 if this interrupt isn't present.
 
-[ ... ]
+	M.
 
-> @@ -846,15 +846,15 @@ &pcie1 {
->  	pinctrl-0 =3D <&pcie1_reset_n>, <&pcie1_wake_n>, <&pcie1_clkreq_n>;
->  	pinctrl-names =3D "default";
-> =20
-> -	iommu-map =3D <0x0 &apps_smmu 0x1c80 0x1>,
-> -		    <0x100 &apps_smmu 0x1c81 0x1>,
-
-[ ... ]
-
-> +	iommu-map =3D <0x0 &apps_smmu 0x1c80 0x0 0x1>,
-> +		    <0x100 &apps_smmu 0x1c81 0x0 0x1>,
-
-[Severity: Medium]
-This is a pre-existing issue, but does this fix also need to be applied to
-the qcs6490-rb3gen2-industrial-mezzanine.dtso overlay?
-
-Looking at the mezzanine overlay file, it appears to contain identically
-malformed iommu-map entries missing the 0x0 mask cell for both &pcie0
-and &pcie1:
-
-arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso:&pcie0 {
-	...
-	iommu-map =3D <0x0 &apps_smmu 0x1c00 0x1>,
-	...
-}
-
-arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso:&pcie1 {
-	...
-	iommu-map =3D <0x0 &apps_smmu 0x1c80 0x1>,
-	...
-}
-
-Will the OF core still warn and potentially misparse these entries when
-booting a device with the industrial mezzanine overlay applied?
-
-> +		    <0x208 &apps_smmu 0x1c84 0x0 0x1>,
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-iommu-map-=
-fix-v1-0-83405d37ba41@oss.qualcomm.com?part=3D21
+-- 
+Without deviation from the norm, progress is not possible.
