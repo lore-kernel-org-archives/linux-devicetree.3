@@ -1,86 +1,33 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C03FF3D3486
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 10:08:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 883F839183A;
+	Thu, 30 Jul 2026 10:08:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785406092; cv=none; b=HIJuLU745UEshLE6hvKITL+U1IeMAT5tWJEWGShu0aRCSNxAPHilM0A0V2wo/h1ebVsWUqWfKbwLoBbSItP9ZJ+eBeOA6StHMLfRZW/gBbPnMD0U0OU36WLYsD+bR10WZyvAeuT3x22NLxReN8OrpUKo4U2aq1hjuGr8Nk+HLsY=
+	t=1785406126; cv=none; b=Pk63ysQEd91oXMXQ87fxfVrHzO9cbxwHZmqO3AwlhXALP1jE7i3SDjisV2XokVrKmX8J+vyJjeywb+A8Wr2FUTEBbmGL4T4trE2765SugJrcKWEdPqr4c67zPUtq21D2MRCKb+qXxTOJKFAcPUJS42jYJDhZrQtp4yb3IzkfMx4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785406092; c=relaxed/simple;
-	bh=Qbd9OP9RaSmVgWE/08xXchOAy87JHiIPy3Xt7XdRZyo=;
+	s=arc-20240116; t=1785406126; c=relaxed/simple;
+	bh=p+rZ9DrvMqFtptkTTALH9XpZv7A9h5JxAAnb+YUaPVg=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JmC9aKvSyzbwexre07kWemKJ0uFTpsM+WjdmuyuRk3w/KkuSWXLgNouYRaxLfcJvMkf6XrU9ECFZJsPcLHljVmZ444RMYHau9w/VD2bHdETCS/fdb2bHw8bYRZgEZ7zGgWdYkMTd0poKI77lKpXrqfn03l5hDCR66hFIpZyAmFg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ogDo6z8C; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Lz/HOT+Z; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=IsjvHjjP1z6u880cjyJ6FmjJVEvrV8JhpltKwjOQX+hprrSHn+Bo6IaSjts8OtJU/CQBwNCbu5jqlzLcdK3C4ZxBBN6/CuYu8zkmXGX9YNYcRCERFg66HRmjEbXL34tzBODX2Mg2nBn+rJvhKM7kFQlgDxt26RuLYV/KA0GYDRY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EMasSm6X; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ogDo6z8C";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Lz/HOT+Z"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66UA2Z3W748922
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 10:08:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	2l/iWVzzYUmH93s2wNbdWFoLyvXQJu6s9IWrGf+BUl4=; b=ogDo6z8CKj5k3R/E
-	lBLT4WAu6qWnsJG7MmcE+3xNcS1QY6XTl9Q3M/ht/i3/K86rMzk+6JMk8tCg+ObH
-	U3x9106Jw4DdfLxuTx5EVcnbekC39xIAoOpLn2WfuTioRwAD3AKTTaoIAerV+2Mq
-	jG7GAlmeVQlL8OOlry87vdjEtgsfi/pDvMBkC0KTSCHr3g7W3xg6FS6qsUQIFCd2
-	tRnQWflcih6pW9ISoaN589uS7cZs6zSyUdYW5dyzgG3y3Q3BMpT5KSWdI2sByJH/
-	MynyDk6JcWOJ/eUZ3cNUQFfXdgGi4DtIcq49UXFlIFaKmNqnDKZ2uP6BdyBiybjB
-	0bHuyw==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fr3jv0ahf-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 10:08:08 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-84870e7f498so2100087b3a.3
-        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 03:08:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785406087; x=1786010887; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2l/iWVzzYUmH93s2wNbdWFoLyvXQJu6s9IWrGf+BUl4=;
-        b=Lz/HOT+ZqLw4qtczknU+ZxKiInwLjJkpXQQ7OZV8LK3ab/B0Rz7bCUEAxK9qHyCUCn
-         AI0skmKuU+pIPcKt8T+uOr0McCih9i8EjGLmN8Kqiy58rGts6CMYXwtAI56eFcsU9ggF
-         kKc8ef3bvDquUwE+xoMyWyqURNf4ZHYhm/xW0+2PpnZL82BokqaGKZJj24X3GPgS4bJB
-         2XC+xios7Q/XmL6yqvjqB/pfvzV0hA/s0aZvV1q87IRuYF6WiQQY6ccLqmmzuj1LrBfd
-         T8idNZrlBp4GtRgzPJZqLc4kLvEHMiTS55km091BsOUI41TTkHwJoVQ4M6UyX8opny0d
-         K75g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785406087; x=1786010887;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2l/iWVzzYUmH93s2wNbdWFoLyvXQJu6s9IWrGf+BUl4=;
-        b=OOuHv+Sr5xjgehqv2Ff8Rh6rSXLhtU+bq33sEri/sJe/I+NHiSBIadhdyJcH2ZmnvF
-         Zr1TspfrMRvc20NWQEAcBeVJ6rx1re9D/sdPAG4aRXMLK6aSqe0gAQ0gx5v4PgLO9sr3
-         4xOSNAU5w78/bjkXZTL2CK+XWxWqL4zHm25A4bVUPB1zfgptkT8ZEmc7v0vA+iDVRIO4
-         zedxz5T90kWBFla9joski0rl/2ggIHKRVYcCH/2P8bSCv4p4lJiWCi0zoAg+0CnZzPkh
-         4HQip/55dgE7SwoYr0qcxo3K3JxGDhtkncxoJBIxSkzZQVWp4ckJBkydT1QFpSPdAKLc
-         pukg==
-X-Gm-Message-State: AOJu0Ywce/bEQNZl4ModwH8RDRRXP69iyEoVnisoKtMbOJHqiJTuSuAX
-	Ok/0uK9T2YACYFdO1+Hlvt6oeGY2gPnF7iXd8zIHFT2yX2PNy1ziD9JETKLT8ACkIQskanSztGB
-	Kp3WfpSdWH7UfZ+8iiUftY849XhpwnkEO8FDYVO6fVqxT/fBIVvDWL/4P0a9oI6NX
-X-Gm-Gg: AR+sD12j0KOEMrk5hSzdNZKQN6dmkatxjaHDliYZKS5oBbxvTENRYriuHg9RYMY5IaK
-	t7f8zG0WaP7svm6QCBLZ0Vku2RY0DoX6VigTroMuStDG/utoGxF+5mM1gxRtL/NHxtkcK11cOUV
-	vyJzYp74xyPf/s3pzwn++QybrOxM4jfjP28ikjs1Y0V69YSqOvuaLdj51AXkOG8c/+O00oJS69L
-	gEXgnPl/DO6DL54pQ2ie6OQurlqsqKaogYfUBqQKwPEd7B0IvrtPW1qeOK+ROFJWw7TzfMi7fo9
-	DqBFWvdcwkbyBTGgogtmw2Q6dTwaZ7/hTMLU3MKptsueQ38bEK4glEg87+eP6itkbWpx+XRaUFa
-	gvCNHyZ+h7VodicSLRAQ8VQ0KrAzTlxCH24aJRyfPKUY2o/hrLPttU2j+4J6GhLpMr/CfUPg9
-X-Received: by 2002:a05:6a20:428b:b0:3c6:5723:5356 with SMTP id adf61e73a8af0-3c900a28d19mr1970044637.73.1785406087271;
-        Thu, 30 Jul 2026 03:08:07 -0700 (PDT)
-X-Received: by 2002:a05:6a20:428b:b0:3c6:5723:5356 with SMTP id adf61e73a8af0-3c900a28d19mr1970023637.73.1785406086816;
-        Thu, 30 Jul 2026 03:08:06 -0700 (PDT)
-Received: from [10.133.33.210] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbdba63f806sm2111539a12.23.2026.07.30.03.08.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 30 Jul 2026 03:08:06 -0700 (PDT)
-Message-ID: <0637c5b9-2cf3-462c-9664-e809cb9bc177@oss.qualcomm.com>
-Date: Thu, 30 Jul 2026 18:07:53 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EMasSm6X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5EAB1F000E9;
+	Thu, 30 Jul 2026 10:08:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785406125;
+	bh=xxONEWoahqdLx2cGOb39SBlMzHpCi6/IuFaprgVQ6QU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=EMasSm6XrbfPig9j9P4nZdqsTF3DAIDTGzBdQli1fSlNVeN4F8VqgM2kouzSjr6X0
+	 5yQXYmemIrzfzHNj+EWwj3GWnlyDy+4YB9knCGKuAtRLM8Js8LovWXLhkVBxbspxKL
+	 /7g0Q3RFgnInqKE4mycbIEaeNrsqBsjsNOx2Ww4Gl+V3pqim5RN/8n4mQaePdijPQV
+	 4SY++PNos6HJP1IMWmopiczVhgYbI+V3A+KdPd9EQekPVZgDbpzaCPQbwWY4zyJPuP
+	 tqYuIKqtY01mNA7wzKivqiNYqzz4zFlupeBzdEqoadMAlSKhe7jol4ofP3uDs9uWtO
+	 dqHklmWtf/FJQ==
+Message-ID: <2eb33f53-2320-40dc-8098-79fc4f48af8e@kernel.org>
+Date: Thu, 30 Jul 2026 12:08:39 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,138 +35,95 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v16 3/7] qcom-tgu: Add signal priority support
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-References: <20260730080704.2903540-1-songwei.chai@oss.qualcomm.com>
- <20260730080704.2903540-4-songwei.chai@oss.qualcomm.com>
- <20260730081714.118D31F000E9@smtp.kernel.org>
+Subject: Re: [PATCH v2 1/2] dt-bindings: arm: qcom: Add HAMOA-IOT-COME board
+To: yuanjiey <yuanjie.yang@oss.qualcomm.com>
+Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ tingwei.zhang@oss.qualcomm.com
+References: <20260727070758.528-1-yuanjie.yang@oss.qualcomm.com>
+ <20260727070758.528-2-yuanjie.yang@oss.qualcomm.com>
+ <20260730-alchemical-phoenix-of-excitement-fff9bc@quoll>
+ <amsfSzgMArno9zRH@YUANJIEY2.ap.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: "Songwei.Chai" <songwei.chai@oss.qualcomm.com>
-In-Reply-To: <20260730081714.118D31F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDA3NCBTYWx0ZWRfX8rqWh3ERw/ab
- r7t2EJDS8U13UTRVYmcblioKnCyckMcJauQK4gMlvX+T6Df0KR5RmbBiGZsdIaNnjTujiJ0p5lS
- tT/pkQtAqbnRgT3MJhhayC4EGUuNZXM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDA3NCBTYWx0ZWRfX93/m1kOZ+eje
- 1FqVpT+xDrU6eCtFfDQNCLZ6fHZgsSoOi1MqpV4BMAwdle2AFeyOEg9suRuFQzD2dKgUuSIQ3vO
- 59jWNA74QCpJpXh4Cy+/1pIzMDdJmnhk/9iBYxqYelMQUfFfVRmh1o0f5r7GPQ8uk4iaUUwBDNa
- lKI3AUAjvRTH155BqaAiBiTU+kqlvFY4C9BWwvlbWDOcYXdITCQl119U4W1Zyt/zB58ESbKbnco
- aiA8s0x1BG16WsybUk2LgbBsj0fwqqdOk7/tjdfD4l8TE8+P7nawXDHNxbm9DFDFKOOg1VXnif5
- 6NL2jlews4T5llhnW9L7idE/jLT/HUKNYVKKI2RYrionCDOMzMO+i6WGZzN342FQ0ONNwYi360q
- YawhzqSFj6sdSw/Vj/lrkuhppqrNkJJ91gBirlbff/vJCzPnERoRMOOygRvR1KTzuMePkgi2aPd
- hdC0mKvMT3eDWJT8waQ==
-X-Proofpoint-ORIG-GUID: XSyx-hUs9_vlmxUmc3Ti_tttDUGi8bNG
-X-Proofpoint-GUID: XSyx-hUs9_vlmxUmc3Ti_tttDUGi8bNG
-X-Authority-Analysis: v=2.4 cv=Tb6mcxQh c=1 sm=1 tr=0 ts=6a6b2288 cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Zh2D9iEZmoPOMH589UwA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=zc0IvFSfCIW2DFIPzwfm:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-30_03,2026-07-29_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0 adultscore=0
- clxscore=1015 suspectscore=0 impostorscore=0 spamscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607300074
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <amsfSzgMArno9zRH@YUANJIEY2.ap.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 30/07/2026 11:54, yuanjiey wrote:
+> On Thu, Jul 30, 2026 at 08:51:40AM +0200, Krzysztof Kozlowski wrote:
+>> On Mon, Jul 27, 2026 at 03:07:16PM +0800, Yuanjie Yang wrote:
+>>> Document the device tree binding for the HAMOA-IOT-COME board based on
+>>> the Qualcomm X1E80100 SoC.
+>>>
+>>> The platform consists of a system-on-module (SoM) mounted on a carrier
+>>> board. The SoM integrates the core system functionality, including a
+>>> SiP containing the X1E80100 SoC and its supporting components.
+>>>
+>>> The COME SiP hardware is effectively the same as the SoM used on the
+>>
+>> Effectively the same or the same? I googled for "hamoa iot come" and it
+>> gives me zero results. Provide some URLs describing both.
+> The same.
+> 
+> 
+> Here is pdf about the "hamoa iot come" SiP and SoM
+> link: https://advdownload.advantech.com.cn/productfile/PIS/SOM-6820/file/SOM-6820_DS(052925)20250529110758.pdf
+> 
+> The preliminary figure provides a complete overview of architecture, including the SiP, SoM.
+> 
+> In Block Diagram
+> hamoa come Qualcomm X-Elite SiP Module is the SoM on haoma evk.
 
-On 7/30/2026 4:17 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [Medium] tgu_dataset_store allows writes while the device is enabled, causing silent software/hardware state desynchronization.
-> - [Medium] tgu_dataset_store silently truncates out-of-range priority values on 64-bit systems.
-> --
->
-> --- Patch [3]: [PATCH v16 3/7] qcom-tgu: Add signal priority support ---
-> commit 8afece15a767b432d65a919119df2e97aca2bed5
-> Author: Songwei Chai <songwei.chai@oss.qualcomm.com>
->
-> qcom-tgu: Add signal priority support
->
-> This commit adds signal priority configuration support to the Qualcomm TGU
-> driver. It introduces sysfs attributes to configure the priority of sensed
-> signals for each step, and stores these configurations in a dynamically
-> allocated table.
->
->> diff --git a/drivers/hwtracing/qcom/tgu.c b/drivers/hwtracing/qcom/tgu.c
->> index 9c7dd4a09f027..0e88b437f191f 100644
->> --- a/drivers/hwtracing/qcom/tgu.c
->> +++ b/drivers/hwtracing/qcom/tgu.c
-> [ ... ]
->
->> +static ssize_t tgu_dataset_store(struct device *dev,
->> +				 struct device_attribute *attr,
->> +				 const char *buf, size_t size)
->> +{
->> +	struct tgu_drvdata *tgu_drvdata = dev_get_drvdata(dev);
->> +	struct tgu_attribute *tgu_attr =
->> +		container_of(attr, struct tgu_attribute, attr);
->> +	unsigned long val;
->> +	int index;
->> +	int ret;
->> +
->> +	ret = kstrtoul(buf, 0, &val);
-> [Severity: Medium]
-> Does this code silently truncate out-of-range priority values on 64-bit
-> systems?
->
-> The function uses kstrtoul() to parse user input into an unsigned long.
-> Later, it directly assigns this value to
-> tgu_drvdata->value_table->priority[index], which is an array of unsigned int.
->
-> On 64-bit systems, inputs exceeding UINT_MAX will be silently truncated
-> without returning an error like -ERANGE. Would kstrtouint() be more
-> appropriate here?
+I see on that PDF "SOM-6820", not "Hamoa IoT Come".
 
-|Clarification：|
+I have an impression that all this and previous bindings and DTs did not
+match reality at all. Or did not match how upstream works with such
+hardware.
 
-The target register is 32 bits wide (|REG_OFFSET = 0x4|). Therefore, any 
-value larger than |UINT_MAX| cannot be represented by the hardware and 
-is inherently meaningless.
-
-We can switch to |kstrtouint()| for stylistic consistency, but this is 
-not a functional bug.
-
->
->> +	if (ret)
->> +		return ret;
->> +
->> +	guard(mutex)(&tgu_drvdata->lock);
->> +	index = calculate_array_location(tgu_drvdata, tgu_attr->step_index,
->> +					 tgu_attr->operation_index,
->> +					 tgu_attr->reg_num);
->> +
->> +	tgu_drvdata->value_table->priority[index] = val;
-> [Severity: Medium]
-> Can this cause a silent desynchronization between software and hardware
-> state?
->
-> If a user writes to this attribute while the TGU is actively tracing
-> (tgu_drvdata->enabled == true), the driver updates the software backing array
-> and returns success, but the hardware is not dynamically updated. Subsequent
-> reads will return the new value, giving the false impression that the hardware
-> configuration has changed.
->
-> Should this check if the device is enabled and either return an error, or push
-> the update to the hardware registers?
-
-|Clarification：|
-
-The design is intentional.
-
-A complete TGU configuration spans multiple register groups (priority, 
-condition_decode, condition_select, timer, counter).
-
-Writing hardware on every store would leave the engine in a transient, 
-half-updated state between sysfs writes, which could feed a spurious 
-match into CTI/interrupt consumers — exactly the hazard documented in 
-tgu_write_all_hw_regs().
-
->
->> +
->> +	return size;
->> +}
+Best regards,
+Krzysztof
