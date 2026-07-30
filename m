@@ -1,307 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 381873939D2
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 19:43:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C89A3A6412;
+	Thu, 30 Jul 2026 19:48:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785440605; cv=none; b=FZWaCKiEjsDXvNatJh/Azxfmg4lpW2RjxLhm1HLWOhMAsh/OS9xOIIJJWs+ARsQpNjtsLEtqR8vvmwwpBzutLmdmTYxHr2CLcJcH1urfX5LO3s1aZ3tPnc88YteL2YTsX6tg0zVF9x0KiMkBkv+Lr/pKydjJ8tCrq3ENuZhG5TU=
+	t=1785440930; cv=none; b=D+JnVo8nuqyUAK6T9pbAFbo/8aUyCwSNkpDlW7B22j1Ta0G/TpJFi8DBwOUZ1Tu6YkoFj5+tR13uPn7EoTVWlP5JFKHxR+mtutcR2z7FBZUAQgwG2rv1zLW2rC23utGqqSO7i/zr31FlUUOdefN0xEKNDUEUdctRf85X2rUFmks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785440605; c=relaxed/simple;
-	bh=k2RvY8LyLIoZYfh5Pkwju8Ii+EPpzCpmDtgF8/Lzofo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=skhJTigdxbZhVWGcTuAVzrixcT3XiHqYDF0s9I33emXC/JJQyZVhOVbjcPJgdZPvPC34wXRsgYCN4jMzX3rWp2Tb97cQ3/GCMdsUpfQ2caHmIFzwNoZLBl8g/jsM5cZhooOXvIe8SBNNc05M9S5T3TV8XtF9FLrgGmBzZRXFZ2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=emxXhCwV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785440930; c=relaxed/simple;
+	bh=PpQVb8pOQOYjNyqKeq+veae0We3CXyLCN2DcwEItMdY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ZvGtVWqGfRJXMWuORsqtAu88tn2jluSwZs5OgIftYx2T7xGVePdstCMDbTPqlZa+URQLQQdpFGyOrdPopkihItysWlQj69jGNEBQ+fEIyw4LnCE4jcB83+KtPPiaKPKwrHIlbrsRoyZIQZdI4eP9o9xjGmtZZt/cVE3EE1rlypY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=FcQXTNET; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="emxXhCwV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B4C61F000E9;
-	Thu, 30 Jul 2026 19:43:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785440603;
-	bh=mLBDVd4j6t9uiCBSx05fPI2DLFvwaLeNJaDps5P47qo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=emxXhCwVXrthqU2yoOnuwXg5SixV2FyIKy3LKr7x/2D/xZxm/Hh4IutZH5oWpgmPS
-	 ShF7KYbOM3Eld3jJypL642DiqIQLuY6Na3ELO8ChWH0YGt73JmXG9CzrhuOICSacbg
-	 7BKKoPr9Plw64k0UC4WotmBI5aZCHu1t73u0RuCoQPqaSC50hLAY4d108UN5R+21cU
-	 U66hPZd/i5ZL60tomQK//aKC9E/PWeABdkVBLk5r+1Qd31BeaffNqwfbVpew+HravG
-	 cAGQLMqK5tkIoJ95zw7/EK4/6tXPylVxV4RH6Nq1R2tYO7C2urIt59Cne8aqMqdLlV
-	 RIaj4X5zMMY/w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] iio: proximity: add driver for Sharp GP2AP070S
- proximity sensor
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kaustabh Chakraborty" <kauschluss@disroot.org>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260731-gp2ap070s-v2-2-1bdfee07d5ea@disroot.org>
-References: <20260731-gp2ap070s-v2-0-1bdfee07d5ea@disroot.org>
- <20260731-gp2ap070s-v2-2-1bdfee07d5ea@disroot.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 19:43:22 +0000
-Message-Id: <20260730194323.3B4C61F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="FcQXTNET"
+Received: from mail01.layka.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id 573408498F;
+	Thu, 30 Jul 2026 21:48:37 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id SXOYjAxLIJqj; Thu, 30 Jul 2026 21:48:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1785440916; bh=PpQVb8pOQOYjNyqKeq+veae0We3CXyLCN2DcwEItMdY=;
+	h=From:Subject:Date:To:Cc;
+	b=FcQXTNETUXh/vagHDrt7ljIdIUxM//fKV5XyrRr+oPOwJKQ76oZ3yorHCTsPGBess
+	 d40+1Wc4YJCeEuRRQcBey1Vhr//6savdJfP4FormbNOWZQq8v82DMZYDIlIOsNgIBU
+	 JiVS4eMBaNTrqPcCHI2hrd9WCOXH6GaM4aaeaZhOGi2SC8V1ESWWaKPuV1UuHZkZbZ
+	 DcFGXbt4R1T1t0ZjZkcqPOb2H6+wIyduOTcfEV90tLhb3UBwTIZXWQ/BJHZy/JiJKG
+	 rnTXtriqAyFdwiOhwfS3V+TLIhjnpVAX3FvgPGsZQVmYWfLEBOIXLZVDoCNkQon1k5
+	 BZb9qftg5hnfw==
+From: Kaustabh Chakraborty <kauschluss@disroot.org>
+Subject: [PATCH v2 0/5] Support zinitix touch modes 0 and 1, dt changes to
+ Galaxy J6 (j6lte)
+Date: Fri, 31 Jul 2026 01:18:20 +0530
+Message-Id: <20260731-zinitix-modes-v2-0-ffe2ec9a9031@disroot.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/12NQQ6CMBBFr0JmbU0phBZX3sOwADrAmEhJpxKUc
+ HcLxo3Ll7z//gqMnpDhkqzgcSYmN0ZQpwTaoR57FGQjg5KqkFpl4k0jBVrEw1lkUba5zWXZlIg
+ ZxM3ksaPl6N2qL/OzuWMb9shuDMTB+ddxOKe792vnf+05FVJ0he20NUVttLlaYu9cODvfQ7Vt2
+ wfPyaIBvgAAAA==
+X-Change-ID: 20260723-zinitix-modes-9c4d409b9ee3
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Michael Srba <Michael.Srba@seznam.cz>, 
+ Linus Walleij <linusw@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-samsung-soc@vger.kernel.org, 
+ Kaustabh Chakraborty <kauschluss@disroot.org>
 
-Thank you for your contribution! Sashiko AI review found 9 potential issue(=
-s) to consider:
-- [High] Potential Interrupt Storm on I2C Read Errors
-- [High] Improper Use of WARN_ONCE for a Normal Physical Race Condition All=
-owing Denial of Service
-- [Medium] Resource Leak and Unbalanced Hardware Lifecycle
-- [Medium] Hardware Threshold Interrupts are Unconditionally Enabled at Pro=
-be
-- [Medium] Missing Bounds Check on User-Supplied Sysfs Thresholds Enables I=
-nteger Truncation and Invariant Bypass
-- [Medium] Missing Driver-Level Mutex Causes TOCTOU Race in Sysfs Writes
-- [Medium] Missing System Suspend/Resume Operations Prevents Deep Sleep
-- [Low] Inefficient Suboptimal I2C Reads in Threaded IRQ Handler
-- [Low] Use of Deprecated sprintf in sysfs Output
---
+The zinitix family of touchscreens support at least three modes, called
+0, 1, and 2. At least some digitizers (including, but not limited to
+ZT7548) are able to support multiple modes. Currently, the driver in
+linux supports mode 2 only. This series aims to add support for modes 0
+and 1, accompanied with necessary architectural changes.
 
---- Patch [2]: [PATCH v2 2/3] iio: proximity: add driver for Sharp GP2AP070=
-S proximity sensor ---
-commit 5c657e9abcf891397094f2fe629d2a5366679466
-Author: Kaustabh Chakraborty <kauschluss@disroot.org>
+Among other things, perhaps the biggest difference between multiple
+modes is how the touch report schema is laid out. Modes may skip
+reporting certain properties such as touch width and pressure. For more
+implementation details, the android driver [1] can be referred to, which
+was also the primary reference material for these changes.
 
-iio: proximity: add driver for Sharp GP2AP070S proximity sensor
+The last patch is for the Samsung Galaxy J6 (samsung-j6lte), which has a
+zinitix touchscreen digitizer. By default, mode 2 is assumed for the
+touchscreen, however the downstream kernel driver [1] for this device
+uses mode 0 by default. This creates an issue with aftermarket
+digitizers where mode 2 implementation isn't available simply because
+it's not required by the driver downstream.
 
-The GP2AP070S is a proximity sensor designed and manufactured by Sharp
-Corporation. This sensor is used in mobile devices, including, but not
-limited to - the Samsung Galaxy J6.
+This last patch needs to be accepted into next only when the former
+patches are in next.  
 
-The driver has been adopted from Samsung's downstream kernel
-implementation [1]. Due to the lack of public documentation about the
-schematics of this device. The downstream driver acts as the secondary
-source of information. Driver clarity has also been improved with the
-help of the GP2AP* drivers in iio/light.
+[1] https://github.com/samsungexynos7870/android_kernel_samsung_exynos7870/blob/master/drivers/input/touchscreen/zinitix/zinitix_zt75xx_ts.c
 
-Link: https://github.com/Exynos7870/android_kernel_samsung_universal7870/bl=
-ob/lineage-16.0/drivers/sensors/gp2ap070s.c [1]
+Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
+---
+Changes in v2:
+- Change condition for calling zinitix_report_finger() (Dmitry Torokhov)
+- Use function pointer for read_status_mode* switching (Dmitry Torokhov)
+- Link to v1: https://patch.msgid.link/20260724-zinitix-modes-v1-0-f6df7d86a878@disroot.org
 
-> diff --git a/drivers/iio/proximity/gp2ap070s.c b/drivers/iio/proximity/gp=
-2ap070s.c
-> new file mode 100644
-> index 0000000000000..9625f53d956ec
-> --- /dev/null
-> +++ b/drivers/iio/proximity/gp2ap070s.c
-[ ... ]
-> +static ssize_t gp2ap070s_iio_read_near_level(struct iio_dev *indio_dev,
-> +					     uintptr_t priv,
-> +					     const struct iio_chan_spec *chan,
-> +					     char *buf)
-> +{
-> +	struct gp2ap070s_drvdata *drvdata =3D iio_priv(indio_dev);
-> +
-> +	return sprintf(buf, "%u\n", drvdata->near_level);
+---
+Kaustabh Chakraborty (5):
+      Input: zinitix - check all available fingers for every touch event
+      Input: zinitix - do not ignore non-moving fingers
+      Input: zinitix - add support for modes 0 and 1
+      dt-bindings: input/ts/zinitix: document mode 0
+      arm64: dts: exynos7870-j6lte: set mode 0 as default for zinitix touchscreen
 
-[Severity: Low]
-Could this use sysfs_emit() instead of sprintf()? The kernel standard is to
-use sysfs_emit() for sysfs show callbacks to ensure safety and consistent
-formatting.
+ .../bindings/input/touchscreen/zinitix,bt400.yaml  |   4 +-
+ arch/arm64/boot/dts/exynos/exynos7870-j6lte.dts    |   2 +
+ drivers/input/touchscreen/zinitix.c                | 141 +++++++++++++++++++--
+ 3 files changed, 132 insertions(+), 15 deletions(-)
+---
+base-commit: 290aaf24a551d5a0dce037e3fab30820f9113a10
+change-id: 20260723-zinitix-modes-9c4d409b9ee3
 
-> +}
-[ ... ]
-> +static int gp2ap070s_iio_write_event_value(struct iio_dev *indio_dev,
-> +					   const struct iio_chan_spec *chan,
-> +					   enum iio_event_type type,
-> +					   enum iio_event_direction dir,
-> +					   enum iio_event_info info, int val,
-> +					   int val2)
-> +{
-> +	struct gp2ap070s_drvdata *drvdata =3D iio_priv(indio_dev);
-> +	__le16 value;
-> +	u16 threshold_other;
-> +	int ret;
+Best regards,
+--  
+Kaustabh Chakraborty <kauschluss@disroot.org>
 
-[Severity: Medium]
-Is a driver-level lock needed here to serialize sysfs writes?
-
-Since this function performs a read-modify-write sequence across multiple
-independent registers to enforce the lo < hi threshold rule, could concurre=
-nt
-sysfs writes race, read stale values, and write an invalid configuration?
-
-> +
-> +	if (type !=3D IIO_EV_TYPE_THRESH || info !=3D IIO_EV_INFO_VALUE)
-> +		return -EINVAL;
-> +
-> +	switch (dir) {
-> +	case IIO_EV_DIR_RISING:
-> +		ret =3D regmap_raw_read(drvdata->regmap,
-> +				      GP2AP070S_REG_PS_THD_LO_LE16, &value,
-> +				      sizeof(value));
-> +		if (ret)
-> +			return ret;
-> +
-> +		/* Ensure lo_threshold < hi_threshold */
-> +		threshold_other =3D le16_to_cpu(value);
-> +		if (threshold_other >=3D val)
-> +			return -EINVAL;
-
-[Severity: Medium]
-Could a negative val bypass this check?
-
-Since val is a signed int and threshold_other is an unsigned u16, C integer
-promotion rules will promote the u16 to a signed int for the comparison.
-
-If a user writes -1, wouldn't 100 <=3D -1 evaluate to false, bypassing the
-validation? The negative value would then wrap around when cast to u16
-below, writing a potentially huge value to the hardware register. Should val
-be bounds-checked (e.g., between 0 and U16_MAX)?
-
-> +
-> +		value =3D cpu_to_le16((u16)val);
-> +		ret =3D regmap_raw_write(drvdata->regmap,
-> +				       GP2AP070S_REG_PS_THD_HI_LE16, &value,
-> +				       sizeof(value));
-[ ... ]
-> +static irqreturn_t gp2ap070s_irq_handler(int irq, void *private)
-> +{
-> +	struct iio_dev *indio_dev =3D private;
-> +	struct gp2ap070s_drvdata *drvdata =3D iio_priv(indio_dev);
-> +	struct device *dev =3D drvdata->dev;
-> +	u16 threshold_lo, threshold_hi, distance;
-> +	__le16 value;
-> +	int ret;
-> +
-> +	ret =3D regmap_raw_read(drvdata->regmap, GP2AP070S_REG_PS_THD_LO_LE16,
-> +			      &value, sizeof(value));
-
-[Severity: Low]
-Is it necessary to read the static low and high thresholds from the hardware
-on every interrupt? Since these are configuration variables only modified by
-the driver itself, could they be cached in struct gp2ap070s_drvdata to
-prevent slow synchronous I2C bus traffic during the threaded IRQ handler?
-
-> +	if (ret) {
-> +		dev_err(dev, "Failed to read low threshold value (%d)\n", ret);
-> +		return IRQ_HANDLED;
-> +	}
-
-[Severity: High]
-Can returning IRQ_HANDLED here cause an interrupt storm? If the I2C read
-fails, the handler exits without clearing the device's interrupt condition.
-
-If the system's interrupt line is level-triggered, returning IRQ_HANDLED
-instructs the IRQ core to unmask the line. The hardware will then immediate=
-ly
-re-assert the interrupt, leading to an infinite loop and CPU lockup. Should
-this return IRQ_NONE or clear the interrupt state before returning?
-
-> +
-> +	threshold_lo =3D __le16_to_cpu(value);
-> +
-> +	ret =3D regmap_raw_read(drvdata->regmap, GP2AP070S_REG_PS_THD_HI_LE16,
-> +			      &value, sizeof(value));
-[ ... ]
-> +	if (distance >=3D threshold_hi) {
-> +		iio_push_event(indio_dev,
-> +			       IIO_UNMOD_EVENT_CODE(IIO_PROXIMITY, 0,
-> +						    IIO_EV_TYPE_THRESH,
-> +						    IIO_EV_DIR_RISING),
-> +			       iio_get_time_ns(indio_dev));
-> +	} else if (distance <=3D threshold_lo) {
-> +		iio_push_event(indio_dev,
-> +			       IIO_UNMOD_EVENT_CODE(IIO_PROXIMITY, 0,
-> +						    IIO_EV_TYPE_THRESH,
-> +						    IIO_EV_DIR_FALLING),
-> +			       iio_get_time_ns(indio_dev));
-> +	} else {
-> +		/*
-> +		 * If none match, then it's stuck in the threshold band gap.
-> +		 * The hardware generally does not issue interrupts here.
-> +		 */
-> +		WARN_ONCE(true, "spurious interrupt issued in proximity threshold gap\=
-n");
-
-[Severity: High]
-Is it safe to use WARN_ONCE() for a condition triggered by external physical
-events? If a physical object triggers the proximity interrupt but moves out
-of the threshold bounds before the I2C read completes, it will fall into
-this gap.
-
-Using WARN_ONCE() here allows unprivileged actors to trigger a kernel panic
-on systems configured with panic_on_warn. Could this be changed to
-dev_dbg() or dev_warn()?
-
-> +	}
-> +
-> +	return IRQ_HANDLED;
-> +}
-> +
-> +static int gp2ap070s_probe_hw_register(struct gp2ap070s_drvdata *drvdata)
-> +{
-> +	struct device *dev =3D drvdata->dev;
-> +	int ret;
-> +
-> +	ret =3D regmap_clear_bits(drvdata->regmap, GP2AP070S_REG_COM1, ~0);
-> +	if (ret)
-> +		return dev_err_probe(drvdata->dev, ret, "Failed to reset sensor\n");
-> +
-> +	ret =3D regmap_clear_bits(drvdata->regmap, GP2AP070S_REG_COM2, ~0);
-> +	if (ret)
-> +		return dev_err_probe(drvdata->dev, ret, "Failed to unmask interrupts\n=
-");
-> +
-> +	ret =3D regmap_set_bits(drvdata->regmap, GP2AP070S_REG_COM3,
-> +			      GP2AP070S_VAL_COM3_INT_PULSE);
-
-[Severity: Medium]
-Does this enable hardware threshold interrupts unconditionally during probe?
-Typically, IIO devices should start with interrupts disabled and only enable
-them when explicitly requested by userspace via write_event_config, to avoid
-wasting CPU cycles on spurious interrupts before a consumer is ready.
-
-> +	if (ret)
-> +		return dev_err_probe(drvdata->dev, ret, "Failed to enable interrupt\n"=
-);
-[ ... ]
-> +static int gp2ap070s_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev =3D &client->dev;
-> +	struct iio_dev *indio_dev;
-> +	struct gp2ap070s_drvdata *drvdata;
-> +	int ret;
-[ ... ]
-> +	ret =3D gp2ap070s_probe_hw_register(drvdata);
-> +	if (ret)
-> +		return ret;
-
-[Severity: Medium]
-If gp2ap070s_probe_hw_register() succeeds but a subsequent probe step fails,
-or if the module is later removed, will the hardware remain powered on and
-active? Should there be a devm_add_action_or_reset() or a .remove callback
-to properly power down the sensor and disable interrupts?
-
-> +
-> +	ret =3D devm_request_threaded_irq(dev, client->irq, NULL,
-> +					gp2ap070s_irq_handler, IRQF_ONESHOT,
-> +					"gp2ap070s-irq", indio_dev);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to request IRQ");
-> +
-> +	return devm_iio_device_register(&client->dev, indio_dev);
-> +}
-[ ... ]
-> +static struct i2c_driver gp2ap070s_i2c_driver =3D {
-> +	.driver =3D {
-> +		.name =3D "gp2ap070s",
-> +		.of_match_table =3D gp2ap070s_of_device_id,
-> +	},
-> +	.probe =3D gp2ap070s_probe,
-> +	.id_table =3D gp2ap070s_i2c_device_id,
-> +};
-> +module_i2c_driver(gp2ap070s_i2c_driver);
-
-[Severity: Medium]
-Are power management operations missing for this device? Without a .pm
-callback providing system suspend/resume handling, the active sensor may
-continue pulsing its LED and interrupt the host, draining battery and
-blocking deep sleep states when the system suspends.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-gp2ap070s-=
-v2-0-1bdfee07d5ea@disroot.org?part=3D2
