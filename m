@@ -1,240 +1,241 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 556743839B8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A83A438B14B
 	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 16:37:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785429479; cv=none; b=hlval/q9/d3MununZ4DqnzdTEE4JPWXlNaKdZf8raeFmxXCclkRwAYB3a+Yrzw7wcrd//cPl21uIxujFFTAgu3DMHPJ/q7TXNQvHak8mgiBIkDs5CyOaSdOxWDarMpbfv15j83EB4O328g966t3XYMMfzhGq3c4u2rEG4SaZ0so=
+	t=1785429480; cv=none; b=K/el+4HReExFfylxBU6plsy1/2mcQ8h7UsUpOQyFf9mN+ivU5ka6vt0wFzXzT61LHlW698g5Ih+rUrhRLktcyz3lvaufydYwnP6iY8TkLMWZUuKDhdRKs/dDMyP65OKSCbln0epTgo5HsVkjFVOMjTT72gfBNmRIlP/MUBkdGBk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785429479; c=relaxed/simple;
-	bh=5dIlJGKv0W+3Qcagf4SMrVe4dyUOsrEASrpZL78kU9o=;
+	s=arc-20240116; t=1785429480; c=relaxed/simple;
+	bh=oDCy5ncKOqvGn5JPuAGy1eFoCEzXS3xwiIJ+XPbSGiM=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=urnEgXzRMofoBOdq/1VNAAia8zSG4uH4CqH5l5DMfYCeqyGeFaX+1ofFTqsbJ1ZgJd9TxeD1BjEZrA9mGBHU4+r5lzHBd0LFoC3qtNHKuzBKH58a0iFq3rJ3sRakuKupR6BGuEWOss4d7Y7U06oRfuLFjWg7MzpELsfhskjPKRE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y+7iSvPl; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=fbs8yoSisHE7BqvQyovZ3U/XWGIUatzq72hXS3GoBaU7vGOzw/4eUgXuC36xjvEIAZzU71ZJcCULeyTpx6J1UYU1/xM672HuF1niJp38/9L2FaE+0FiiUKBSt6s5pf5Jpkgf42XXIYBs4W+auSi2y/8aUBz50JQEmNd20LCYM+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QqnZ/yRA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y+7iSvPl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B40901F00A3E;
-	Thu, 30 Jul 2026 16:37:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QqnZ/yRA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 659C91F00A3A;
+	Thu, 30 Jul 2026 16:37:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1785429478;
-	bh=6gBO+6iEg3mdhM5nX/mczsPQWJTdtf8v0QFDHX+3unU=;
+	bh=WjZ3rijSUJvFts5uo0Y6P2tL7dxdfplMsYresCPkO7U=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Y+7iSvPlj56HxNIebHKcZOk/Cv7iVaos+AoJf1wYWsb1Z69WwdoEAtlzW1DVlosBd
-	 9Y5ueAdVs1vux3jPDHQF1jOHFYnnqjozeEAdkZAht1ASLDITzO0/S2W5IKtJuC22kS
-	 iUv8RKzqJmD8rKsNz2KNy6zMBNb6uOMybAVPmO0N4pBBBnhz9nv8b51qLLXqoB5KnU
-	 gJTBFF1GsKGCgOV3XVPkV4a9NKZ3PueTHGMpm1pNw9QgAbP5tdK7fqArSE+AloAEEC
-	 /8hUJb2SM63/Oj/bR+fBfW1xBczkVzZuDKzxlHC+4+a2w9FreIR3ePk1Rvb751yuNI
-	 vSQySco8om4tA==
+	b=QqnZ/yRAAzrs9HeB3/YLZcX+zjdUBIND4NnOvi3beBiZF3bJEYEOswLfYefxRfmbG
+	 9TPbxAqeZKaut3f3ViwCIu7qyVx+P7nu3jyybX5LK+8BbWaiA+KbfYYVjLu+d16bA/
+	 +b+RyQJ4aG6zDaaKufXsodiwNmmRcEvQ+YxoSi/cNrrl+hg66lwVWNsAqMVjJYVWbo
+	 zDz8eZFZ3xpieYz4I6nePHnekoe3X53KViKX0JrfkLzIdie2q6csPeXOI3pViCK7+x
+	 P1VvnmUJBPW+SMYvELU8IngbYEHN2ewSqZS0bdFXGQpfoHOMoaiSFngruICADy6oeL
+	 VwIYtrMRkmgzA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/4] dt-bindings: net: dsa: Add SoC-e switch IP and DSA
- bindings
+Subject: Re: [PATCH 4/4] net: dsa: soce: Add initial driver support for MRS
+ switches
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Vasilij Strassheim" <v.strassheim@linutronix.de>
 Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260729-devel-vstrassheim-soce-dsa-ml-v1-2-be569dae1b20@linutronix.de>
+In-Reply-To: <20260729-devel-vstrassheim-soce-dsa-ml-v1-4-be569dae1b20@linutronix.de>
 References: <20260729-devel-vstrassheim-soce-dsa-ml-v1-0-be569dae1b20@linutronix.de>
- <20260729-devel-vstrassheim-soce-dsa-ml-v1-2-be569dae1b20@linutronix.de>
+ <20260729-devel-vstrassheim-soce-dsa-ml-v1-4-be569dae1b20@linutronix.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 16:37:57 +0000
-Message-Id: <20260730163757.B40901F00A3E@smtp.kernel.org>
+Date: Thu, 30 Jul 2026 16:37:58 +0000
+Message-Id: <20260730163758.659C91F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
 s) to consider:
-- [Medium] The `mdio` bus models a Linux software-synthetic topology rather=
- than the actual hardware layout, misusing `reg` and inventing custom physi=
-cal address properties.
-- [Medium] Setting `unevaluatedProperties: false` on the child `ethernet-ph=
-y` node breaks validation for vendor-specific PHY properties.
-- [Low] The device tree example in `soce,switch-dsa.yaml` fails to compile =
-because it references undefined phandle labels (`&soce_switch_ip` and `&gem=
-3`).
-- [Low] The device tree example in `soce,switch-ip.yaml` provides a 4-cell =
-`reg` property without a parent node specifying `#address-cells` and `#size=
--cells`, leading to validation failures.
-- [Low] The `ports` sub-node pattern property description claims to define =
-vendor-specific properties, but none are actually listed or defined.
-- [Low] Unnecessary `#address-cells` and `#size-cells` defined at the root =
-node level, causing dtc warnings.
-- [Low] The `soce,num-ports` property is missing constraints that are expli=
-citly stated in its description.
+- [High] Incorrect error check for `devm_of_iomap()` leads to potential NUL=
+L pointer dereference on mapping failure.
+- [High] The `ds->phys_mii_mask` is never initialized, causing the driver's=
+ custom MDIO bus to silently ignore all PHY reads and writes.
+- [High] Concurrent MDIO accesses via `slave_mii_bus` and `user_mii_bus` ra=
+ce on shared hardware registers, causing state corruption.
+- [Medium] Missing bitmasks on input parameters in MDIO hardware register c=
+onstruction allows out-of-bounds values to corrupt adjacent register fields.
+- [Medium] The driver unconditionally issues a flush command to the hardwar=
+e FDB controller even if the previous command is still being processed.
+- [Medium] Asynchronous, switch-wide FDB flush is performed instead of a sy=
+nchronous, per-port flush.
 --
 
---- Patch [2]: [PATCH 2/4] dt-bindings: net: dsa: Add SoC-e switch IP and D=
-SA bindings ---
-commit 28c590589436788e107ab82bf7fbd0fdcad40087
+--- Patch [4]: [PATCH 4/4] net: dsa: soce: Add initial driver support for M=
+RS switches ---
+commit 4ad10a20f72f216349a16415f424608c5d3e5c86
 Author: Vasilij Strassheim <v.strassheim@linutronix.de>
-Subject: dt-bindings: net: dsa: Add SoC-e switch IP and DSA bindings
 
-This commit adds DT schema documentation for SoC-e FPGA switch devices.
-The binding is split into a switch IP node describing the MMIO register
-block and a DSA MDIO node describing the DSA-facing switch instance.
+net: dsa: soce: Add initial driver support for MRS switches
 
-> diff --git a/Documentation/devicetree/bindings/net/dsa/soce,switch-dsa.ya=
-ml b/Documentation/devicetree/bindings/net/dsa/soce,switch-dsa.yaml
-> new file mode 100644
-> index 0000000000000..a04e2838d14eb
+This commit adds initial support for SoC-e switches based on FPGA IP cores.
+It provides MDIO access helpers for supported IP register layouts and common
+STP/FDB handling.
+
+> diff --git a/drivers/net/dsa/soce/soce_common.c b/drivers/net/dsa/soce/so=
+ce_common.c
+> index 0000000000000..f7f345a690e46
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/net/dsa/soce,switch-dsa.yaml
-> @@ -0,0 +1,195 @@
+> +++ b/drivers/net/dsa/soce/soce_common.c
 
 [ ... ]
 
-> +properties:
-> +  '#address-cells':
-> +    const: 1
+> +static void soce_fast_age(struct dsa_switch *ds, int port,
+> +			  const struct soce_layout *layout)
+> +{
+> +	struct soce_priv *priv =3D ds->priv;
+> +	struct soce_dsa_local *local;
+> +	void __iomem *p_mes_ctrl;
+> +	u32 val;
 > +
-> +  '#size-cells':
-> +    const: 0
-
-[Severity: Low]
-Are #address-cells and #size-cells necessary at the root node level?
-Since the only allowed sub-nodes (ports and mdio) do not use a @
-unit-address, compiling device trees conforming to this schema might emit
-avoid_unnecessary_addr_size dtc warnings.
-
-[ ... ]
-
-> +  mdio:
-> +    $ref: /schemas/net/mdio.yaml#
-> +    description: |
-> +      Optional child MDIO bus exposing PHY devices attached to switch us=
-er
-> +      ports. PHY nodes referenced by port "phy-handle" properties should=
- be
-> +      placed here. The PHY address seen by Linux on this bus is the swit=
-ch port
-> +      index, not necessarily the hardware PHY address selected internall=
-y by
-> +      the switch IP.
+> +	local =3D &priv->local;
+> +	if (!layout || !local->base_addr)
+> +		return;
+> +
+> +	p_mes_ctrl =3D local->base_addr + layout->fdb_ctrl;
+> +	if (readl_poll_timeout(p_mes_ctrl, val,
+> +			       !(val & SOCE_FDB_CLEAR_UNDER_PROCESS),
+> +			       SOCE_FAST_AGE_POLL_US, SOCE_FAST_AGE_TIMEOUT_US))
+> +		dev_warn(ds->dev, "SoC-e fast_age timeout on port %d\n", port);
+> +
+> +	writel(SOCE_FDB_CLEAR_FLUSH_MSTID, p_mes_ctrl);
 
 [Severity: Medium]
-Does this model a Linux software-synthetic topology rather than the actual
-hardware layout? Device tree bindings are expected to describe the hardware,
-rather than modeling internal software abstractions like Linux's synthetic
-MDIO bus mapping. Using custom properties for the hardware bus index instead
-of natural mdio subnodes might violate core DT design principles.
-
-> +    unevaluatedProperties: false
-> +
-> +    patternProperties:
-> +      "^ethernet-phy@[0-9a-f]+$":
-> +        type: object
-> +        $ref: /schemas/net/ethernet-phy.yaml#
-> +        unevaluatedProperties: false
+Does this code continue to issue the flush command even if the hardware is
+still processing the previous one? If readl_poll_timeout() fails, it prints
+a warning but unconditionally executes the writel() below it.
 
 [Severity: Medium]
-Will setting unevaluatedProperties: false on the child ethernet-phy node
-break validation for valid vendor-specific PHY properties? Device trees usi=
-ng
-specific PHY hardware with valid vendor properties (like ti,rx-internal-del=
-ay)
-might fail schema validation because the parent schema strictly forbids the=
-m.
+Will this flush the entire MSTID globally rather than just the specified po=
+rt?
+The command ignores the port argument. Additionally, it appears to return
+immediately without waiting for the clear operation to complete.
+
+> +}
 
 [ ... ]
 
-> +  ports:
-> +    type: object
-> +    description: Container node for the switch port sub-nodes.
-> +    properties:
-> +      '#address-cells':
-> +        const: 1
-> +      '#size-cells':
-> +        const: 0
-> +
-> +    patternProperties:
-> +      "^port@[0-9a-f]+$":
-> +        $ref: dsa-port.yaml#
-> +        unevaluatedProperties: false
-> +        description: |
-> +          Switch port. In addition to the standard DSA port properties
-> +          (label, phy-mode, ethernet, fixed-link) the following
-> +          vendor-specific properties are used for data ports connected to
-> +          external PHYs.
-
-[Severity: Low]
-Could this description be updated? It claims to define vendor-specific
-properties used for data ports connected to external PHYs, but the descript=
-ion
-abruptly ends and no such properties are actually listed or defined.
-
-[ ... ]
-
-> +examples:
-> +  - |
-> +    /* Excerpt from a Xilinx ZynqMP design (ARM64) */
-> +    mdio {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        soce_switch: switch@10 {
-> +            #address-cells =3D <1>;
-> +            #size-cells =3D <0>;
-> +            compatible =3D "soce,switch-dsa";
-> +            reg =3D <0x10>;
-> +            soce,switch-ip =3D <&soce_switch_ip>;
-
-[Severity: Low]
-Does this example fail to compile? The phandle label &soce_switch_ip
-does not appear to be defined in this example snippet, which might cause
-dt_binding_check to fail when dtc attempts to resolve it.
-
-[ ... ]
-
-> +                port@2 {
-> +                    reg =3D <0x2>;
-> +                    label =3D "INTERNAL_PORT";
-> +                    ethernet =3D <&gem3>;
-
-[Severity: Low]
-Similar to &soce_switch_ip, the &gem3 ethernet controller label also
-appears to be undefined in this example.
-
-> diff --git a/Documentation/devicetree/bindings/net/dsa/soce,switch-ip.yam=
-l b/Documentation/devicetree/bindings/net/dsa/soce,switch-ip.yaml
-> new file mode 100644
-> index 0000000000000..ba9bb396235f2
+> diff --git a/drivers/net/dsa/soce/soce_dsa_core.c b/drivers/net/dsa/soce/=
+soce_dsa_core.c
+> index 0000000000000..b88d00c56d718
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/net/dsa/soce,switch-ip.yaml
-> @@ -0,0 +1,54 @@
+> +++ b/drivers/net/dsa/soce/soce_dsa_core.c
 
 [ ... ]
 
-> +  soce,num-ports:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: |
-> +      Total number of switch ports (external/user ports plus the CPU upl=
-ink
-> +      port). Must be greater than zero and not exceed the selected IP va=
-riant.
+> +static int soce_phy_read(struct dsa_switch *ds, int port, int regnum)
+> +{
+> +	struct soce_priv *priv =3D ds->priv;
+> +	struct soce_dsa_local *local;
+> +
+> +	local =3D &priv->local;
+> +	if (!local->mdio_ops || !local->mdio_ops->phy_read)
+> +		return 0xffff;
+> +
+> +	return local->mdio_ops->phy_read(ds, port, regnum);
+> +}
 
-[Severity: Low]
-Should there be explicit JSON schema constraints (such as minimum: 1)
-added for this property? The description mentions it must be greater than
-zero, but invalid device trees specifying soce,num-ports =3D <0>; might
-pass validation without the constraint.
+[Severity: High]
+Can concurrent MDIO accesses race on the shared hardware registers here?
+The DSA core implicitly registers the slave_mii_bus, and the driver explici=
+tly
+registers a user_mii_bus. Both buses have their own independent mdio_lock
+mutex, but they share the same underlying MMIO routines.
 
 [ ... ]
 
-> +examples:
-> +  - |
-> +    switch_ip: switch@80020000 {
-> +        compatible =3D "soce,mrs-24-01";
-> +        reg =3D <0x0 0x80020000 0x0 0x10000>;
+> +static int soce_sw_probe(struct mdio_device *mdiodev)
+> +{
+[ ... ]
+> +	local->base_addr =3D devm_of_iomap(dev, switch_node, 0, NULL);
+> +	if (IS_ERR(local->base_addr)) {
+> +		dev_err(dev, "failed to map switch register space for %pOF\n",
+> +			switch_node);
+> +		of_node_put(switch_node);
+> +		return PTR_ERR(local->base_addr);
+> +	}
 
-[Severity: Low]
-Will this 4-cell reg property cause a validation failure? The implicit
-parent provides #address-cells =3D <1>, so this might parse as 2 items and
-exceed the maxItems: 1 constraint. It likely requires a parent node
-(e.g., a bus node) defining #address-cells =3D <2> and #size-cells =3D <2>.
+[Severity: High]
+Does devm_of_iomap() return NULL on failure rather than an error pointer?
+Checking IS_ERR() here will evaluate to false if it returns NULL, leading t=
+o a
+potential NULL pointer dereference later when accessing the MMIO base.
+
+[ ... ]
+
+> diff --git a/drivers/net/dsa/soce/soce_mdio.c b/drivers/net/dsa/soce/soce=
+_mdio.c
+> index 0000000000000..241fc373de8b8
+> --- /dev/null
+> +++ b/drivers/net/dsa/soce/soce_mdio.c
+
+[ ... ]
+
+> +static int soce_user_phy_read(struct mii_bus *bus, int addr, int reg)
+> +{
+> +	struct dsa_switch *ds =3D bus->priv;
+> +
+> +	if (ds->phys_mii_mask & BIT(addr))
+> +		return ds->ops->phy_read(ds, addr, reg);
+> +
+> +	return 0xffff;
+> +}
+
+[Severity: High]
+Is ds->phys_mii_mask ever initialized? It appears to default to 0 when
+allocated in soce_sw_probe(). If it is always 0, this check will fail and
+all user PHY reads will silently return 0xffff.
+
+[ ... ]
+
+> +int soce_user_mii_bus_register(struct dsa_switch *ds)
+> +{
+[ ... ]
+> +	ds->user_mii_bus->parent =3D ds->dev;
+> +	ds->user_mii_bus->phy_mask =3D ~ds->phys_mii_mask;
+
+[Severity: High]
+Since ds->phys_mii_mask defaults to 0, will setting phy_mask to the inverted
+value instruct the MDIO core to ignore all PHYs and prevent probing entirel=
+y?
+
+[ ... ]
+
+> +int soce_mdio_20_03_write(struct dsa_switch *ds, int portnumber, int reg=
+num,
+> +			  u16 val)
+> +{
+[ ... ]
+> +	/* Then write control */
+> +	regvalue =3D (mdio->phy_addr << SOCE_MDIO_20_03_CTRL_PHY_ADDR_SHIFT) |
+> +		   (regnum << SOCE_MDIO_20_03_CTRL_REG_ADDR_SHIFT) |
+> +		   SOCE_MDIO_20_03_CTRL_OP_WRITE |
+> +		   SOCE_MDIO_20_03_CTRL_START |
+> +		   mdio->mdio_output;
+> +	writel(regvalue, ctrl);
+
+[Severity: Medium]
+Should the phy_addr and regnum inputs be bounded or masked before shifting?
+If an oversized regnum is passed in via userspace ioctls, or a malformed DT
+provides a large soce,phy-addr, the shifted bits could overflow into adjace=
+nt
+control register fields.
+
+[ ... ]
+
+> +static int soce_mdio_23_02_read_c22(struct dsa_switch *ds, int portnumbe=
+r,
+> +				    int regnum)
+> +{
+[ ... ]
+> +	regvalue =3D (regnum << SOCE_MDIO_23_02_CTRL_REGADDRDEVTYPE_OFFSET) +
+> +		   (mdio->phy_addr << SOCE_MDIO_23_02_CTRL_PHYADDR_OFFSET);
+> +	writel(regvalue, params);
+
+[Severity: Medium]
+Similarly here, can the addition of unmasked values risk arithmetic overflow
+into adjacent bit ranges if the inputs are out-of-bounds?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729-devel-vstr=
-assheim-soce-dsa-ml-v1-0-be569dae1b20@linutronix.de?part=3D2
+assheim-soce-dsa-ml-v1-0-be569dae1b20@linutronix.de?part=3D4
