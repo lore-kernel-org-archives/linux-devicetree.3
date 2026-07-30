@@ -1,127 +1,79 @@
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44AD83E44E7
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 08:54:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B14C3E44EB;
+	Thu, 30 Jul 2026 08:54:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785401668; cv=none; b=tb85TsSzX4PK6bepwFAOx12iPv3AGHo088RKAMLlR/FxNwss+jiCeWynUxJp1CDpgyLEJ89ZEuwidaa+zZxsKYMsJoprHSk9QtKlQGrfa0gMtkEAewIYooIB4Oc5gU5T8xJ9KdzKJubT1Blm49yN3al9bfs9GTZG/lQqzIZXWQM=
+	t=1785401670; cv=none; b=EeLp/SL7fl6P7vl5e5q3LBWUs14oxDWXYR60C7nwpiVrqzCTD+PgBelSDJddXaxqVQ3FF1hqDhAqyY2sj2tx6Jw3abZFVRCWdNeevAL7dKJpB0LFRYFgAoUlVb5bpVd+FEU89NHbSrFi48k59XQVcsGeqEPlG3rU88ByCaElR6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785401668; c=relaxed/simple;
-	bh=Kvtuszz3nRa/+IdlvXfvBPOMgtFAA/VHxwZTL40appM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JxBPiyNPv6KO9cYYikV2GV4tlkLScZVAn1DrQNLTDJ8FpdNvVNCde2PEFhPWFDnN9eVQq9zD0hPNqOTqHhI7hvhHepibHij2oC1NAHsABJE0kWbVu5nksV2QGZGzPTtoU3Ive87vUof0ZCNNHmwRW9b8ZOTomdL4+CVttDg3UzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eVZbkArH; arc=none smtp.client-ip=209.85.218.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785401670; c=relaxed/simple;
+	bh=kg7wm4Rn2DAaDAUknEYYyu47GmqMjlGONc2jmWrgMew=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KcKaKHoTiCF0W3I2VTT9tUZDbdsi2CbBeZOmMguWNLLwF4Uj1dXM7hJy9mH90gxUtS++FQJ07HWlKB1iHYIqAT0w2lNGaUeqO/nPgb4DgIZC5S3LOYd1UDu/GHoxw2e4S3YpW1TEkDq7t/hXgmuo6DiBqs+sw7X+I5a9cPtNgt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EzNks7DH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eVZbkArH"
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c12614b81c9so336326366b.3
-        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 01:54:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785401665; x=1786006465; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=216gNUt0ekkJYFeQoQEhN31HOLBnWymhqc9D9IgKUL8=;
-        b=eVZbkArHaaw5H2FCbLF59eYWc0giCJQUmhDWt+vsE8RYrH32pBj6a42jWshXl5RcJT
-         jhgm1B0QfKsrWk4Djy4mtdSCLy4aLDJgYC0Aj83GIrIwc9bJnGtJbdkj9hO+fhokOWhR
-         6+vYy2iLMRIKbNFvRoQoVpj+fQEqKXS58pCIW5YM2vBZLmdGwk6VVXKqywW7zjqt28J/
-         C7z9sVg3NYIXaZ88m/u+VIPPgR20nVivd2KQnty+Lubj2MAiwW3eMp9np4h2xp7XyNoV
-         ShP9Mc4eUQCH2zyX+XlITP52nCTfXv175h5ehNvZpdhuZxwUXpYpxQnljOFsZSqPWsj7
-         HDyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785401665; x=1786006465;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=216gNUt0ekkJYFeQoQEhN31HOLBnWymhqc9D9IgKUL8=;
-        b=IuxZF0KsxHu3CxphJLgXIpc8boe4NJtsfknEVFAKGvytFcP534IkX0evN0CHgAUpk4
-         RSWZyt504UGGDnHxpU/seNAYsdmu5hLSVQ5jzsmvYdYtJfNzNm3hYUJad/xEfLYXGpUD
-         D0Ctq9AF8TUzI8KUa9Zr/pUhz3LuZV9viHmnZpU2H0uDFZg4DYIHIijNJIlONvzbAlev
-         edIn2ggp3QOYJXYUR3pK3Clj4u3BBmKQxZY7qNsAdZnn4eGpE1DiKrHcFXsW3k64uU2Z
-         nBCghiZbSDy1aVvkS+3IYc0IahU63YpPHngH22zSKWK7fuU3cYjE5jI5WAORej2l4D8w
-         I7+Q==
-X-Forwarded-Encrypted: i=1; AHgh+RpuAD2mNWKn/1aVEtIqBMcam3mdmA51jmL7ACerrUv6eRek598HQ35OZ7ac4/J0BXLR8Z5HtiRLPqyX@vger.kernel.org
-X-Gm-Message-State: AOJu0YwJmOnZMy1dv+5Jb3D7jOyx18N4EWMB0WKPQYJQFCxwm4VlisiV
-	/nerhF/FWoG64bpyaQKN5P4P9/Djz314yH7+kuEwOCckwtpqftndbNCrQVJyvppF
-X-Gm-Gg: AR+sD12mwGcVb41jYbj9X0ns1RRZ3QJMpTFWn/Cb6GavEdVaRRSTaAwhGF3ng+zciGd
-	MPzHtcfJE3Ze0CNvPtBO58JFg6S43hQjuGhQn4FPICb/5GmzCdn87Yl2zcqxp7EYpr16OvaU0Aj
-	VabShEf8sNYt26ZV69vwLjAHH9Ve5ydFHWKcb9WrQNyYqfVQBcdzn2L6aTHVPmEPHoqIX+8WEju
-	gUSC8uGmKZImG1HuKX3dQgLzXFCuW33PjukgKJSR4k/wVlC+Pn8j5EqQouDXsSM648t7X6DiMo8
-	tUh4g2Qs2KaMbtaHD0tmYZSEnZ3Xw2ywfOenmF41bGAmxy4DW7uLH8VM6mbgPpJcOQGf3nfN/zf
-	gPiqWQ4vk304PPdCjrfPXfZ9eHfAzEhm3xN1cgg+yCcLj3C+TQYP9IuJmFHpCPuzGQzwdeT7FAI
-	IyLi1O3vEqGFdglJYYNjx4Wac9ZW0oAGLBevuu1SJ94vjXldBAtnEucHR1NKXj6kEP9XlROR5Bp
-	penFH+7u4Np6BKUdA4Hfg==
-X-Received: by 2002:a05:6938:a08a:10b0:c12:96af:acf7 with SMTP id a640c23a62f3a-c1fa574388dmr61198066b.43.1785401665319;
-        Thu, 30 Jul 2026 01:54:25 -0700 (PDT)
-Received: from workstation (161-53-210-87.ftth.glasoperator.nl. [87.210.53.161])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1fa8beda56sm41603266b.55.2026.07.30.01.54.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 01:54:24 -0700 (PDT)
-From: Stanislav Zaikin <zstaseg@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EzNks7DH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C6B71F00AC4;
+	Thu, 30 Jul 2026 08:54:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785401668;
+	bh=ZByW0d9Cdpsyjv8QIk+DNR+PKdVmMUnUkPl8Y2F6nP0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EzNks7DHt0sEASAszaGXmT0VsGZKL3x5FCQbWEV+Dg4vmb4IC2LkJGw1PicQkXFox
+	 3ADlbxyiHOFRGb2OZl7/o/gXfwfcRx7ce0EgpTAAcca0i/RaHbd92gmPnLDi4+ojAj
+	 uaGH305BQgoOzZYM5gXb+ecbC40W7uGJFjdrD1lujBQRnSK0xRGw7eDfIMVagEfFON
+	 52cRH5yBlEmPtwdCSc7s53d/bYW8d/0+sw4vBXx3OqPncSqwlzh1JeqZ02hl7xVXrP
+	 rmwj7e0bpcGg+jtOkEVwSbaMTlh2x6xdvSxTT4Yz5qoQUAibSe7Tm2AI20IfdSUHXz
+	 5XKnkCiGNdECQ==
+Date: Thu, 30 Jul 2026 08:54:24 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Aurelien Jarno <aurelien@aurel32.net>
+Cc: linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Stanislav Zaikin <zstaseg@gmail.com>
-Subject: [PATCH] arm64: dts: qcom: taoyao: Drop adsp_rpc_remote_heap_mem override
-Date: Thu, 30 Jul 2026 10:54:21 +0200
-Message-ID: <20260730085422.631896-1-zstaseg@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+	"open list:RISC-V ARCHITECTURE" <linux-riscv@lists.infradead.org>,
+	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>
+Subject: Re: [PATCH v2 4/4] riscv: dts: spacemit: Add Milk-V Jupiter board
+ (M1)
+Message-ID: <20260730085424-GKK76518@kernel.org>
+References: <20260729160749.1621415-1-aurelien@aurel32.net>
+ <20260729160749.1621415-5-aurelien@aurel32.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260729160749.1621415-5-aurelien@aurel32.net>
 
-taoyao originally redefined adsp_rpc_remote_heap_mem at a fixed address
-to avoid overlapping with cdsp_mem, since kodiak.dtsi's version was a
-fixed-address at the time.
+Hi Aurelien, 
 
-kodiak.dtsi now defines adsp_rpc_remote_heap_mem as a dynamically
-allocated "shared-dma-pool" region instead, which removes the fixed
-address entirely and so cannot overlap with cdsp_mem. This makes the
-override unnecessary.
 
-Remove the taoyao-local /delete-node/ and static reg-based redefinition,
-and inherit the definition from kodiak.dtsi instead.
+On 18:00 Wed 29 Jul     , Aurelien Jarno wrote:
+> Add support for the Milk-V Jupiter board with the M1 CPU. The M1 differs
+> from the K1 only by its package, which provides improved cooling
+> performance and allows it to run at up to 1.8 GHz instead of 1.6 GHz.
+> 
+> Add m1-opp.dtsi to define the 1.8 GHz operating point and the
+> corresponding core voltage, based on the upstream kernel. Include it
+> from m1-milkv-jupiter.dts. Raise the maximum buck1 voltage to 1.116V to
+> match the new operating point.
+> 
+While checking the schematics, the buck1,2 provide power supply both
+for cpu core and AVDD09 domain - check schematics page 9/25 [1]
 
-Fixes: 28705df5d0df ("arm64: dts: qcom: sm7325: Add Xiaomi 12 Lite 5G (taoyao) DTS")
+the R81 is NC, so buck1,2 is actually all power supply, raise voltage will
+result high risk to damage the chip (overvoltage of AVDD09 domain), so
+a safe strategy would to test if M1 able to run at 1.8G without voltage 
+change (still at 1.05v)?
 
-Signed-off-by: Stanislav Zaikin <zstaseg@gmail.com>
----
- arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts | 6 ------
- 1 file changed, 6 deletions(-)
+Link: https://github.com/milkv-jupiter/jupiter-files/blob/main/hardware/v1_0/jupiter-sch-v1_0.pdf [1]
 
-diff --git a/arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts b/arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts
-index 6f8bc65bb99b..87f267aaeec0 100644
---- a/arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts
-+++ b/arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts
-@@ -27,7 +27,6 @@
- 
- /* The following reserved memory regions have different addresses or sizes */
- /delete-node/ &adsp_mem;
--/delete-node/ &adsp_rpc_remote_heap_mem;
- /delete-node/ &cdsp_mem;
- /delete-node/ &rmtfs_mem;
- 
-@@ -203,11 +202,6 @@ neuron_block_1_mem: neuron-block@d7f80000 {
- 			no-map;
- 		};
- 
--		adsp_rpc_remote_heap_mem: adsp-rpc-remote-heap@e0400000 {
--			reg = <0x0 0xe0400000 0x0 0x800000>;
--			no-map;
--		};
--
- 		framebuffer_reserved: framebuffer@e1000000 {
- 			reg = <0x0 0xe1000000 0x0 (1080 * 2400 * 4)>;
- 			no-map;
 -- 
-2.53.0
-
+Yixun Lan (dlan)
