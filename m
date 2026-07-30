@@ -1,327 +1,127 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 391443C0A08;
-	Thu, 30 Jul 2026 07:35:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DFCB3C379F;
+	Thu, 30 Jul 2026 07:37:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785396910; cv=none; b=JtKKrsXxGfl9wE9prjklwuBYLbUqopddYwWJ4M+THQAR4PLJUQoXfFKa7thKgIaCkGyYEwq/ddBQk4FaUm9UM4aVEr0cjC+nzc9YI5+eACtNSP5a1LO57BKP+qDQwkyjc43+mNBY/48KiznJWymhVztpTKywjkl/A1vfCIgn1Ik=
+	t=1785397053; cv=none; b=eFb6o5Uy4GwCnyvKtWo+qtKGe7SzZvABvr1K21nlLyIlMXXxjy+FzVsslT6SMu3US1SmQp3Uok3eh9wh/1LPc+eOHAvQHZzfxuExqZX27wVnUNCGdW83kxbNlspVyCnSlzbls/yzOkubX4NcFtf0t6/7SpDEYDOS/II0JLTloog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785396910; c=relaxed/simple;
-	bh=EiQmc5+X6r4B2NkGuSgpVvfeOI/m7LbeK+0VY59iB8g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gXFyOmm7VnVkw1olREHmvFLTccT3aSIDWHqvFSkJw7voMan+cdw4dVR9OKaMPEDTakxkG3c8yE1lDCA6eiJILinnz6mkX02lrkLsFg97UqIrtjVF75bDFDX4THFbsMxVzK3VP5ugcW4uyvD5UlnzCAQyi9e+XuaMGqISjgk0sLk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SQASIhUW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785397053; c=relaxed/simple;
+	bh=+6y6ISRWbnYRLQevAjCix5kUrLp6IViO132/b/TBFDY=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=TvrLaGmR3NC6zjbyY+zMu+7MY4miMWN8e4g+9eK7PlFBUON5whGVu5MldxBNsFuXZgXwCgU9LkWFUk7ST+66+iLE8eFQmYKiGa86KyXTr20RkXdtqxBcqDO9quXDAqmPPg+Qr7xv0bUwBW9f7VC6kWZgW9+xfPn6W1hrlDkoL7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d/g4pmgf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SQASIhUW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A304C1F000E9;
-	Thu, 30 Jul 2026 07:35:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d/g4pmgf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C9E11F000E9;
+	Thu, 30 Jul 2026 07:37:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785396906;
-	bh=MKQl6FL38HDWspXCOxkB5VXhKu31yQlk+FQCz/uJuSg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SQASIhUWIZgJoxY6QpH+sbIWUomaO+/6FidLLss9dTPjfKnNntmubmqEMjBMEIqxH
-	 eQDgp4Po42u+2U7hemoXGjI/oqHu9eIJXfbKnHrmfvYzVU3b72YkpdqZ9ZySZ1rfWP
-	 IUno0DGsimZK4E8eKp3uqQGtWU4AlBUT76lfZmwH0va7m/8+8S9VSCuQq3Ycp7+NgU
-	 cnVcI0/MFJAV2TP/FS7p6WRJzazEKG5m+DcQdSE41zZIb1HnhHFxCe0efnsex7yNuF
-	 Sb4b7a59/2MzLAOOdEJkwUDZxgkpf7AgOhhfxO5ZbLTbWJ/uho98Z7QMfUKmvbWdm4
-	 pbuX4BNMenX+Q==
-Date: Thu, 30 Jul 2026 09:35:02 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Yu-Chien Peter Lin <peter.lin@sifive.com>
-Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, 
-	samuel.holland@sifive.com, dlan@kernel.org, guodong@riscstar.com, 
-	dfustini@oss.tenstorrent.com, michal.simek@amd.com, junhui.liu@pigmoral.tech, 
-	darshan.prajapati@einfochips.com, akpm@linux-foundation.org, zhangchunyan@iscas.ac.cn, 
-	luxu.kernel@bytedance.com, pincheng.plct@isrc.iscas.ac.cn, nick.hu@sifive.com, 
-	jim.shu@sifive.com, zong.li@sifive.com, greentime.hu@sifive.com, 
-	robin.randhawa@sifive.com, scott@riscstar.com, dave.patel@riscstar.com, 
-	raymond.mao@riscstar.com, anup@brainfault.org, pawandeep.oza@oss.qualcomm.com
-Subject: Re: [PATCH v2 3/3] dt-bindings: sifive: Add WorldGuard Checker
-Message-ID: <20260730-towering-modest-horse-ccbdcc@quoll>
-References: <20260729163908.249838-1-peter.lin@sifive.com>
- <20260729163908.249838-4-peter.lin@sifive.com>
+	s=k20260515; t=1785397046;
+	bh=AVOrRNoq62N9+QBL3+8EmHNyVMENAHZlE2b5tidgQD4=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=d/g4pmgffqVtGARV+giVRSjQ+EWDk7NE8yIZKBycaZcnOkdj5eVfRL8bbdu6dA9O2
+	 UGIEdGdFxZo3mh6GQoN2i2b9WWDkHtzLv9SS9GWYOSAmkue1EDnTOqa6MUyo4aV3+t
+	 hgnYmVJtnB+3y17ZzBfsfVKlgc7ztTwsOwM5jqppGGJKlmzgUPVDl/I5Y89NVz5WjR
+	 gSoN2Xtv5k8khrHVUAVszPPlaRG9k+JX504OXv3sHfG/PTUgiuyD9E6oUzojA5mRir
+	 NEOYTjCrs8+ByOrFYKZzF7AdvqzZEAW9ywrUMOqwXcLyjpr2E5Aece/nhp7DpmVUjb
+	 YW4ph96MTx47Q==
+Message-ID: <20019441-9ebe-4a13-9bb5-fe1beea386ae@kernel.org>
+Date: Thu, 30 Jul 2026 09:37:11 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260729163908.249838-4-peter.lin@sifive.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] dt-bindings: sifive: Add WorldGuard Checker
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Yu-Chien Peter Lin <peter.lin@sifive.com>
+Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+ linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
+ aou@eecs.berkeley.edu, alex@ghiti.fr, samuel.holland@sifive.com,
+ dlan@kernel.org, guodong@riscstar.com, dfustini@oss.tenstorrent.com,
+ michal.simek@amd.com, junhui.liu@pigmoral.tech,
+ darshan.prajapati@einfochips.com, akpm@linux-foundation.org,
+ zhangchunyan@iscas.ac.cn, luxu.kernel@bytedance.com,
+ pincheng.plct@isrc.iscas.ac.cn, nick.hu@sifive.com, jim.shu@sifive.com,
+ zong.li@sifive.com, greentime.hu@sifive.com, robin.randhawa@sifive.com,
+ scott@riscstar.com, dave.patel@riscstar.com, raymond.mao@riscstar.com,
+ anup@brainfault.org, pawandeep.oza@oss.qualcomm.com
+References: <20260729163908.249838-1-peter.lin@sifive.com>
+ <20260729163908.249838-4-peter.lin@sifive.com>
+ <20260730-towering-modest-horse-ccbdcc@quoll>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260730-towering-modest-horse-ccbdcc@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jul 30, 2026 at 12:39:08AM +0800, Yu-Chien Peter Lin wrote:
-> Add YAML binding schema for the SiFive wgChecker, a programmable
-
-There is no "YAML" binding schema.
-
-> access controller integrated in the interconnect fabric of RISC-V
-> Worlds-capable SoCs.
+On 30/07/2026 09:35, Krzysztof Kozlowski wrote:
+>> +allOf:
+>> +  - $ref: /schemas/access-controllers/access-controllers.yaml#
+>> +
+>> +properties:
+>> +  compatible:
+>> +    oneOf:
+>> +      - items:
+>> +          - const: qemu,wgchecker2
+>> +          - const: sifive,wgchecker2
+>> +      - const: sifive,wgchecker2
 > 
-> wgChecker enforces World ID (WID) based access control on downstream
-> bus transactions. Each checker slot encodes a 2-bit permission field
-> per WID (read/write), enabling fine-grained memory partitioning and
-> device isolation between execution contexts. Violations are reported
-> via bus errors, interrupts, or both, selectable and lockable per slot.
+> You need soc specific compatibles.
 > 
-> The binding registers wgChecker as an access-controllers provider.
-> Consumers (i.e. its protected device) reference it via the standard
-> access-controllers phandle to declare their access requirements.
-> 
-> Also document the sifive,trustedwid property for the /cpus node,
-> identifying the privileged WID authorized to configure all checkers
-> on the platform.
-> 
-> Link: https://github.com/riscvarchive/security/blob/main/papers/worldguard%20proposal.pdf
-> Signed-off-by: Yu-Chien Peter Lin <peter.lin@sifive.com>
-> Reviewed-by: Zong Li <zong.li@sifive.com>
-> Reviewed-by: Jim Shu <jim.shu@sifive.com>
-
-What exactly these reviews pointed out?
-
-> ---
->  .../devicetree/bindings/riscv/worlds.yaml     |   9 +
->  .../bindings/sifive/sifive,wgchecker2.yaml    | 356 ++++++++++++++++++
->  2 files changed, 365 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sifive/sifive,wgchecker2.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/riscv/worlds.yaml b/Documentation/devicetree/bindings/riscv/worlds.yaml
-> index cc8b3747591e..c39a06c2dd8d 100644
-> --- a/Documentation/devicetree/bindings/riscv/worlds.yaml
-> +++ b/Documentation/devicetree/bindings/riscv/worlds.yaml
-> @@ -34,6 +34,14 @@ properties:
->      minimum: 2
->      maximum: 64
->  
-> +  sifive,trustedwid:
-
-No, for the same reasons.
-
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    maximum: 31
-> +    description: |
-> +      The World ID (WID) designated as the trusted WID for this platform.
-> +      Transactions tagged with this WID are authorized to access and configure
-> +      WorldGuard blocks, including wgCheckers and wgMarkers.
-> +
->  additionalProperties: true
->  
->  examples:
-> @@ -44,6 +52,7 @@ examples:
->          #size-cells = <0>;
->          timebase-frequency = <1000000>;
->          riscv,nworlds = <4>;
-> +        sifive,trustedwid = <3>;
->  
->          cpu@0 {
->              device_type = "cpu";
-> diff --git a/Documentation/devicetree/bindings/sifive/sifive,wgchecker2.yaml b/Documentation/devicetree/bindings/sifive/sifive,wgchecker2.yaml
-> new file mode 100644
-> index 000000000000..c025a4765cb3
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sifive/sifive,wgchecker2.yaml
-
-No, you do not get per vendor directory. NAK.
-
-Do you see Qcom? Or TI? Or NXP?
-
-Place it in appropriate directory matching the hardware.
+> I do not believe the two review tags did any actual real review. They
+> would tell you to read writing bindings document, wouldn't they?
 
 
-> @@ -0,0 +1,356 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +# Copyright (C) 2026 SiFive, Inc.
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sifive/sifive,wgchecker2.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: SiFive WorldGuard Checker
-> +
-> +maintainers:
-> +  - Yu-Chien Peter Lin <peter.lin@sifive.com>
-> +
-> +description: |
-> +  The RISC-V Worlds ISA extension defines World IDs (WIDs) as architectural
-> +  identifiers that tag each system transaction with its originating context.
-> +  System integrators assign WIDs to execution contexts such as privilege modes,
-> +  trusted execution environments, or other isolation boundaries.
-> +
-> +  The SiFive WorldGuard Checker is a hardware firewall positioned in the
-> +  system interconnect fabric. It inspects every transaction, evaluating the
-> +  WID against access control policies encoded in checker slots for each
-> +  protected resource. Transactions from unauthorized WIDs are blocked and
-> +  reported as bus errors, interrupts, or both.
-> +
-> +  This enables spatial partitioning of memory regions and memory-mapped devices
-> +  across execution contexts. Different address ranges can enforce distinct
-> +  policies, allowing isolated workloads to coexist with hardware-enforced
-> +  protection.
-> +
-> +  The wgChecker acts as an access-controller provider as defined in the
-> +  access-controllers framework. Protected devices are consumers that declare
-> +  their access policy via the access-controllers property. The hardware
-> +  supports up to 32 World IDs.
-> +
-> +  The World ID authorized to configure WorldGuard blocks is specified by the
-> +  sifive,trustedwid property in the /cpus node.
-> +
-> +allOf:
-> +  - $ref: /schemas/access-controllers/access-controllers.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - items:
-> +          - const: qemu,wgchecker2
-> +          - const: sifive,wgchecker2
-> +      - const: sifive,wgchecker2
+And you WERE TOLD this already at v1 - missing device specific compatibles.
 
-You need soc specific compatibles.
-
-I do not believe the two review tags did any actual real review. They
-would tell you to read writing bindings document, wouldn't they?
-
-> +
-> +  reg:
-> +    maxItems: 1
-> +    description:
-> +      Base address and size of the wgChecker memory-mapped I/O registers.
-
-Again, standard comment. Why do you need description?
-
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +    description:
-> +      Interrupt line asserted when a WID access violation is detected and
-> +      interrupt reporting is enabled in the slot configuration (IR or IW
-> +      bits set).
-> +
-> +  '#access-controller-cells':
-> +    const: 1
-> +    description: |
-> +      Specifies the partition identifier to reference a partition child
-> +      node that defines the access control region, WID permissions, and
-> +      access failure configuration. The special ID 0xFFFFFFFF indicates
-> +      unprotected mode, granting unrestricted access to the device.
-> +
-> +  '#address-cells':
-
-Use consistent quotes.
-
-> +    const: 1
-> +
-> +  '#size-cells':
-> +    const: 0
-> +
-> +patternProperties:
-> +  "^partition@[0-9a-f]+$":
-> +    type: object
-> +    additionalProperties: false
-> +
-> +    properties:
-> +      reg:
-> +        maximum: 0xFFFFFFFE
-> +        description:
-> +          Partition identifier. Must be unique within the wgChecker node.
-> +          The value 0xFFFFFFFF is reserved for unprotected mode and must
-> +          not be used.
-> +
-> +      sifive,protected-region:
-> +        $ref: /schemas/types.yaml#/definitions/uint32-array
-> +        description:
-> +          Protected memory region encoded as a base address and size.
-> +        items:
-> +          - description: Upper 32 bits of the base address
-> +          - description: Lower 32 bits of the base address
-> +          - description: Upper 32 bits of the region size
-> +          - description: Lower 32 bits of the region size
-> +
-> +      sifive,slot-permissions:
-> +        $ref: /schemas/types.yaml#/definitions/uint64
-> +        description: |
-> +          64-bit WID permission bitmap. Each WID N uses two consecutive bits:
-> +            - bit[2*N]  : Read  permission for WID N
-> +            - bit[2*N+1]: Write permission for WID N
-> +          Set bits grant access.
-> +
-> +      sifive,slot-config:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        maximum: 0x1F
-> +        description: |
-> +          Access failure configuration flags for this slot:
-> +            bit[0] (ER): report read  violations as bus errors
-> +            bit[1] (EW): report write violations as bus errors
-> +            bit[2] (IR): report read  violations via interrupt
-> +            bit[3] (IW): report write violations via interrupt
-> +            bit[4] (L) : lock this slot against further modification
-> +          Bits[5:31] are reserved and must be zero.
-> +
-> +    required:
-> +      - reg
-> +      - sifive,protected-region
-> +      - sifive,slot-permissions
-> +      - sifive,slot-config
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - '#address-cells'
-> +  - '#size-cells'
-> +  - '#access-controller-cells'
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +    // Example 1: Peripheral device protection
-> +
-> +    cpus {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +        timebase-frequency = <1000000>;
-> +        riscv,nworlds = <4>;
-> +        sifive,trustedwid = <3>;
-> +
-> +        cpu@0 {
-> +            device_type = "cpu";
-> +            reg = <0>;
-> +            compatible = "riscv";
-> +            riscv,isa-base = "rv64i";
-> +            riscv,isa-extensions = "i", "m", "a", "c", "smlwid";
-> +            riscv,pmwid = <3>;
-> +
-> +            cpu_intc0: interrupt-controller {
-> +                #interrupt-cells = <1>;
-> +                compatible = "riscv,cpu-intc";
-> +                interrupt-controller;
-> +            };
-> +        };
-> +    };
-> +
-> +    soc {
-> +        #address-cells = <2>;
-> +        #size-cells = <2>;
-> +
-> +        uart: uart@1c1000 {
-> +            compatible = "ns16550a";
-> +            reg = <0x0 0x001c1000 0x0 0x1000>;
-> +            reg-names = "control";
-> +            interrupts = <10 IRQ_TYPE_LEVEL_HIGH>;
-> +            access-controllers = <&wgchecker0 0>;
-> +        };
-
-None of these are relevant. Drop all of the nodes.
-
-Please read carefully writing bindings and DTS101 slides before posting
-next version.
+Drop all review tags here, they did not happen.
 
 Best regards,
 Krzysztof
-
