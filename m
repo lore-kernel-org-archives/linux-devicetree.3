@@ -1,340 +1,194 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012049.outbound.protection.outlook.com [52.101.66.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67CCF380FC6
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 04:26:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785385607; cv=none; b=uzjg1pXciMlUQzK3Bm+U2JpFGYKxpld9CoZHaaecqeo2SFV0Xahf7e8vRVFKeQ/IdKusBZnLp/qALx1EoF28p3VCeYtL4UNYMfF++NY/7DTOMCa94SW6y1BdgP7JOl0voQYfizNzxghYTrMjQmE2/jInE/fQs7fzQaMNHU3AfU0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785385607; c=relaxed/simple;
-	bh=TqdyjM/5GLN2EIbS4ZTkI2p/xSup96wYJXGxoia6qi8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=S2l+tRkpxR9fT7uwJbzlQPsIH4BPYiQ1TebF53ORzp+pBCECg7Zny8ZcXzE5EZqiId3yrLTU9fMzeBvowS9LmYW0juS5pgRd2jVI6qaAwwLI4t2FA3hzdDlEq1bPIRGMaPVJn/qL8ksrtjr0YM/tYelflLObxXCJRiEmBREyfH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tNi6Yi3W; arc=none smtp.client-ip=209.85.210.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7169D39CD17;
+	Thu, 30 Jul 2026 04:30:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785385836; cv=fail; b=gqbUp6qaI6r4hlSvoD0srSgm2qdccGow5BH0mc4uYxYYICzyHNsRkiKjuw6RCjr3n0zsvvsrOFuG3VHJ0jN+nbQh52DK3slEBs4JHV0GBfVVzI2bBl6y6s3qRefkol3XSW18rjtpT3yLIz6ibduNwIpGDgBxq71vC0o3kkNBvpA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785385836; c=relaxed/simple;
+	bh=3YrYQWUt5uN05xUGKkNiFGHJLE6GodB3q6yMHOSOGnQ=;
+	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=IRBJJF7lwnkorq97RfH91TH+tGsfTtPkFtf+x6pBp5eeyrIjewgcRxBSyW/GZ8NYepdyVJv4gqCPz+VqNjIoCXMXIYOyN9lmSldFpozvF1J7pwOTlvT7wWGDkVmtq5dqzmYTNt9zIqhmJtdWh5iLixnQLqu7rs6FSl7nbUCpkqw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Wg6VvwID; arc=fail smtp.client-ip=52.101.66.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tNi6Yi3W"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-84864086bfeso1736034b3a.1
-        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 21:26:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785385604; x=1785990404; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SiQ1daJGHngzKWEQKXllXfEw1lyX6ubdIL7ID1shbk4=;
-        b=tNi6Yi3W1ghYQExSF+l78mW5gG69KD8QYLizk2z/xz26EUU2PRQpBixH+XeIDUPN2X
-         6lZE5dBx6nEu7DXdy/xdLpKrf96Vwqn41yBRULYZ0IrYXqnCRWIHVSW1V62IqAkA6cbo
-         qZAs/03j+gVCcZevKajtc8K6JwzFlKJacVS5Qjka57q5mGPoyYv2Sk4rR2CjpHBIZJMB
-         4AGimVvHvHDZ+61cGCTM7TIA/DNmAyiom7+Etzut8yY5jxioPzso0shX0GO1DVNnrYLj
-         Iwbx0rBuiQcvA8Eg6G2scPe3itNL6y0tR/WXTlvzf/V/xT6U65kHMrdg3fZ9tRZ1lP2I
-         A+/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785385604; x=1785990404;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=SiQ1daJGHngzKWEQKXllXfEw1lyX6ubdIL7ID1shbk4=;
-        b=HP+yrEmGqMZ3Z2S0nsc/5rprULv5Hr/0OPnWQIb/V3w/lHSa1lwknk2JkcXC/8pTOr
-         e9RNlfdlqqI+NciU+84nxM/aAVLGv4+xzZW6AvgkEaTA3acs095EdrwGueVtH4Ij0Dsa
-         oUosCeokN/yO+wmQZXJTXdGQyrZZIX0HLMiL6zOvM+Q21XccIq8JjzZMkdkGlvII6PFi
-         4h3LokccH3prT2Z2f2JBCjhWIjXYFQ94itepbCra4ZpV0rrLgpN6RdmN5swJ+rzTd9x7
-         0tcG04bDYvRe6CE0jckoy6tIBpyWJMQPgPVno+76Ccsmr+JeVFL1SllK1EYM/R63bnHw
-         HuLw==
-X-Forwarded-Encrypted: i=1; AHgh+RpHS9eqd7zwIrybY11oQUlZf1FWdthPugxRjMgf6qXsyVvQMTF4OV2I8WyvM6Yip6kowCKuGqSssngA@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy8K6WidSxy75ishJ1Ch3nX25/w4p+RxzES3Z+zbrhqpQpsyAKA
-	sfP0tkMtmDYypB7ZMn6jagvcN9tzP4xN0FuLndIrV/H66sJ9k4fDUUaa
-X-Gm-Gg: AR+sD13FCzQCAl7EobkG/sGgzkDBiAqsQbUe2RILGSt8RKTuGKKBNQl2T5xzabIAQlI
-	NAVPtwNGejW3O9xBxb4pSmdBguOIqwF/nVSP2lc9POJVNuDVvS+g/xv3LnmmH+K2jyrZRluwsd7
-	fz3Or3qaTH7JupoLk9A9x6rSROTtBt7vgDizLIna+6Q4V+5XquDBuTuHFDxvJ96Ictp7+lv1WsU
-	qnuzR6K6MB11eSSAVZItKM/5Imw1dPp71imMrulSnBR2pXm7qH1yhvq33eGQ52K++PsTkpcV/rd
-	1ZwXvg9DfmUjO3dXr3r7zVW+KkH4gztWSrEbs0AZ3rduzddfvqLpyv2Tn60oNulKGX69ltKP5vt
-	sgbps8EmGl3ReaV8LpnPxQr9Jae6I8Diw97jyZhsg2AAPhzChCZRNHm/zRdsLPhfPDNb+mUMg1H
-	j6cmoPX7XVbRj9fCXoml+F8xloRzUD7i2hZmUhGdHgkj52deGzUTK91ogyBFPXrVzF7K+Co76X2
-	SMwND/VWXTWk8Vkyz4RFIBUxb3+TEcJW7TMmg==
-X-Received: by 2002:a05:6a00:21c8:b0:848:2c6c:dfe3 with SMTP id d2e1a72fcca58-84ebc22ff1amr1152781b3a.17.1785385603717;
-        Wed, 29 Jul 2026 21:26:43 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84ea02fa4d4sm2244187b3a.38.2026.07.29.21.26.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 29 Jul 2026 21:26:43 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <6c663220-c4f2-47bc-8dd7-83cfaaf079da@roeck-us.net>
-Date: Wed, 29 Jul 2026 21:26:41 -0700
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Wg6VvwID"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TeZdKb+Q8+OJH9ZScjgrTF9HuRa/LAPolDmOcSvGRfcYjcwH4Fz3lF/ATYLjNYJMnyFjbxeuOu+npK2nZ67XwErwvoNI2Yts7fqJMffgmagwdD+SfGsaHlcwj+bre8G4Udn/dsrnzMQ/tpOXvD2G+wttF6LZcfnT/a+nZibk4IVTIHN8vpjyvIu/svPVb/KiBOXqcCseCFwcFh+Th6ewk2+LSx9svXIW/wOBJJ1PXT4fVpPULw8XYdgk3pewXv912m+GfOk3pFWPHbWxjMNZjuXN0J50hfUDGyEUgkQ5zI05xQgncuQBps5mJwngfHcLYHhUplyrTlp3bL4PyUZzPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LHxK52yAsiBc0Y2s5RYti93+juZcr3ETsD4L/3+9/cE=;
+ b=GrIwy9v5i8bX9wmT5sxOsQ6iWVt5cBh2qxLE+XX5sxmyFNhSCMhy4XC3T0Mndph83TRp6lTmcEYh4cZ0yHwbXR49aslEfUfrppSsO5ZE/finoptdI8HvPGdxq41dl40DciWWd7VOxFqB83e9oI3d/4bHFWA9CdP1jp15mEkyxMCyja8b4xC5L5E9QGOP0bAq3mMuk+YeFDZTOgeOm5MJl3kMx2TmSx2EFg+olPPGzVYVfRt6H4u/C629TgKM0SE5idPmtJfkuVbwPcsaU9RFOPJSKQkqfOV3qs/+kr3afbMWDhBj0AF3P3Be2s2iwxFtVO0PLaOUjn7E58CM92AVCw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LHxK52yAsiBc0Y2s5RYti93+juZcr3ETsD4L/3+9/cE=;
+ b=Wg6VvwIDVLpQORSLaYmwGJQjUhCDmAxYpqtqTvUvcT8eGfN4NJYBFMpzy3dDAsk648F/8Zzni/8exPO07PYXX+F6kcq06pyF2qxPoOExGyZMKd9ti2vKAdtx/BXwZN6iOaNq9O7O/XlGcdNOMi1yfGXYgGH14qI2pqc0sfA8io7weHyJm/HY5qz5AGRo2qJraLJ2O6cCZxkDSuVEEL5GQjGrFw1IxKw8xfSUozcxyYeKGbhe8AS+I0hBJ7oGmUQOYUK1a89ugPLAkU52fGKDzpJD42f1KAISfCL+gkancKXtPa0OA2wrOIYS9q6FjIsal9Re0ucSRP6WDvdup/lcJQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from PA6PR04MB11909.eurprd04.prod.outlook.com
+ (2603:10a6:102:51c::22) by PAXPR04MB8239.eurprd04.prod.outlook.com
+ (2603:10a6:102:1c2::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.13; Thu, 30 Jul
+ 2026 04:30:30 +0000
+Received: from PA6PR04MB11909.eurprd04.prod.outlook.com
+ ([fe80::a4b:fa4e:7fe7:e6a2]) by PA6PR04MB11909.eurprd04.prod.outlook.com
+ ([fe80::a4b:fa4e:7fe7:e6a2%5]) with mapi id 15.21.0270.012; Thu, 30 Jul 2026
+ 04:30:30 +0000
+From: haibo.chen@oss.nxp.com
+Subject: [PATCH 0/3] arm64: dts: imx95-15x15-frdm: support CAN transceivers
+ sharing a silent GPIO
+Date: Thu, 30 Jul 2026 12:33:25 +0800
+Message-Id: <20260730-can-share-silent-v1-0-63fd603f943d@nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABXUamoC/x3MQQqAIBBA0avErBsww7KuEi1EpxoICyciCO+et
+ HyL/18QSkwCY/VCopuFj1jQ1BX4zcWVkEMxaKU71bcKvYsom0uEwjvFC423gzNhCa2yULIz0cL
+ Pv5zmnD8HNgcPYgAAAA==
+X-Change-ID: 20260730-can-share-silent-5c89a5dfd308
+To: Marc Kleine-Budde <mkl@pengutronix.de>, 
+ Vincent Mailhol <mailhol@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: linux-can@vger.kernel.org, linux-phy@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ Haibo Chen <haibo.chen@nxp.com>, qijian.guo@nxp.com
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785386048; l=1939;
+ i=haibo.chen@nxp.com; s=20250421; h=from:subject:message-id;
+ bh=3YrYQWUt5uN05xUGKkNiFGHJLE6GodB3q6yMHOSOGnQ=;
+ b=B4GtVblCqYARVVdgMDG0Pc0ByravfE68txWp34dT+5H0PP0q57q0chgI6ih4lT8OtNyD70qHs
+ +RTdtza5aCdA/WOAcj2vrE4Zx/0AOQoRMGglCgdjYv/JiqygnJ6mSjR
+X-Developer-Key: i=haibo.chen@nxp.com; a=ed25519;
+ pk=HR9LLTuVOg3BUNeAf4/FNOIkMaZvuwVJdNrGpvKDKaI=
+X-ClientProxiedBy: MA5PR01CA0173.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1a9::7) To PA6PR04MB11909.eurprd04.prod.outlook.com
+ (2603:10a6:102:51c::22)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 4/4] hwmon: pmbus: mpq8646: gate the writes
-To: vjardin@free.fr, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Charles Hsu <ythsu0511@gmail.com>
-Cc: Markus Elfring <Markus.Elfring@web.de>, linux-hwmon@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-doc@vger.kernel.org
-References: <20260729-mpq8646_v0-v6-0-98848151cdb4@free.fr>
- <20260729-mpq8646_v0-v6-4-98848151cdb4@free.fr>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260729-mpq8646_v0-v6-4-98848151cdb4@free.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA6PR04MB11909:EE_|PAXPR04MB8239:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2323edfc-c6ec-4787-acf0-08deedf34987
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|19092799006|376014|366016|23010399003|921020|11063799006|56012099006|10067099003|3023799007|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	T4TDWfiAj5pq1l0uMEefaP0mkerjECsN6dCB2SgXs1OQbGcAqZ8sKNi6s/heZBEtISBGUDgBEceulf7YYHpWWZgjOX5h/rYkBIi0M4Baf1O0+AFHKwt2fuFbFc5cAXsUVhdG5qFP3GRSnZplYF7j/CURkzwN+KXLnAzjDd/yLddy9HNkTor29G8kw/2QjjYAh5oxa8LikH5RUkE+AMZnd9/IdCYbH2QPfJ9m/IxXgkU4SqFz8gw2Jaa8JFDFlf1SCHwW5Z7S/bLoQZS9dBdZFxxc7U1oKzumH33LJZnoTM1TFFMsWGfyhXBhiGushIVJxEauDtTAvzDqxPtvfu5SRsqWJ1iIP6dYY+k9SdpNbD2NIK7hZMLgJ0gST0nFoYdeOjXfSRKzIMPRCFF+H1w/PvcPyzyrj5Y4ArfKf+oAxqthVs3GyeiGVARHgvTXBNfP0F76UHKasrahA12VaroFzVxysAKhU4M26YiE2MPCpZnEx/990+L6g4hBs9oerrQUf6P/DOeEnTeef/ycJs4zLo60iqRaLlkGrf6KVQwIVAuenSpawpsDaCQYnzUtCf5CHpAhLaWzp/z5TqcxFK7ZUB40C+EkbsGQMo056HQpY8VYG/cbeDeAi6aw3XRVEYAHBZmQoqhCJJuL4jqLvENz7pTpqqdeRt3GuRo5HDGy6jBn9bUpLERMlGwL4uRaHA8abhUNqalqVs4fD2jZualT4w==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA6PR04MB11909.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(19092799006)(376014)(366016)(23010399003)(921020)(11063799006)(56012099006)(10067099003)(3023799007)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TGh6ZUlwbk1mZWI2ZWczaFZaT0t4Wk1yUUpmeDhyMkpwbWI1YmR5UG9lV0o2?=
+ =?utf-8?B?bEs4c0ZMU1hEQS9ZQ2pSRFJmUHNvdWZhRUVHMjhvS2lXVGlHeFF6dDFCYmI5?=
+ =?utf-8?B?Qk1mdDVheHBlVDR4dTNuRGU2dy94c3lUdy9BWG5kSE1sQ1BtVFNCUTRESXY4?=
+ =?utf-8?B?bUNNY3RiNWZFaGpRUVVvcWk5c2RvTmtWMU5JNXBwWTlSWHp0Qy9jR3VpM3Yw?=
+ =?utf-8?B?bWc1QS9lR2EvcHphVlZSb01MV0NhWWhsQ3RiZWw3NTNGMWtwTWlYdjQxY3VX?=
+ =?utf-8?B?aE9oZUVlR3ZnaU05RjY0N0RkNUViYnYrUHVqY2ZicVlqbUVzeGgwOXM3M1JT?=
+ =?utf-8?B?N2lBdjBQRUVVSnZ6SjZJWitNV2taZ0tnZHdlUW9HTGhwSURDVUF4ekNZSk1n?=
+ =?utf-8?B?OUZlVk01aTV5YTBpOGRscWhNWTNJbVIrS0NqbjAyK2U4SDJHcVk3aHFVWnJ2?=
+ =?utf-8?B?ZFpHdjNjZTdWZVdCM0N5OGs0V1RReWZicjZDa3lDcXBacWRiQXo5OFFVbVFC?=
+ =?utf-8?B?RSsvYUZmUVdmdUtZUUVvT0pnS2tvWExEUXd5Ky9HTWRtK3lBdDdvZVBPT2VE?=
+ =?utf-8?B?L3dFUTNSK3BtYVhONVpTVWdtYVREUHpoQk9xNEtxV2ZnbEwzUnVyck5iOUds?=
+ =?utf-8?B?aVFraHhaMjgvV0RvQitueHRyVDJRMmtmRVJlVnZIQ1ovZW1rRFpsWVFHRWhR?=
+ =?utf-8?B?RWhaS3VrTlY2bnY0KyswdTRMRC9pSDhBWndEajNNNitTNzZ6OW5xeVBsYTlU?=
+ =?utf-8?B?cEtSR3FXZS8wQzhDZDArTnNJRklWYUgzdzlWbzZ6cmxwTmFPMUJCWGlpTFVv?=
+ =?utf-8?B?eE15cXRiS0krVnJvazlodmFoa25JK1p3eDhuSFgvUUdQbE5Fcko0U3ZoTE5l?=
+ =?utf-8?B?ZVRsa09VNXhjUW5NTmRqcERsK1drUzAvMDZUVUJlVUl1Sk51YmNoTWIwQ1Zj?=
+ =?utf-8?B?QXVRSjdlRGY4bVByNzdFblZLdVpaNS9RNHRUaCsxbUc2M1NrcG9QYkx3OVRu?=
+ =?utf-8?B?RkJrcWhFbmhNWWJ3bFRoMlNkZ3c4dGZDbnI1cEdBSG5uOEtGRlNtZVB5RDFZ?=
+ =?utf-8?B?eUlZVm9ENnFSTXJvdkdXQ2J4dmNGdysyZTEzUnYrL0VuSWxOU01lNVY1N2Vp?=
+ =?utf-8?B?anAzaHZ4bHBBVmZTenJwdWR1VXhreGxmSUt1Q2NXMzM2Q2xSOFdaWlZKU0x0?=
+ =?utf-8?B?Yi9FUGxUVURPdlE1U0VLOE5MR2hNaXd4T1gwdURYeGJ4WjIwSW1ZRkFGK1Ri?=
+ =?utf-8?B?bGJYU0pEV0t1c0dwVzRWblNLRWpaR2JlZUZHcjV1aml5YldGc0FQcHFuRndT?=
+ =?utf-8?B?NEtiRkdYYXdscEFrSXd6dklUS0ZXYzIzdy83T016Q1F3RmtvaFNmdUcrR0Jq?=
+ =?utf-8?B?RUtYSXhJN2JjMnlYYStkcGJMNlZVN0ZBVkpEZkxLU1YvM2dqWHpZS3hPMDJh?=
+ =?utf-8?B?empTVVRvNHBxN2ZGWUkvOURxSTFRVnROdE5jbk9GdzdNb052Q3BhQTJLYVFJ?=
+ =?utf-8?B?ejNSbWFIWldaN2wyK0NYY2g0MDF0RGRqZGFHTGhROXdXNnlBYkVtdW1PNmZW?=
+ =?utf-8?B?RC9UT0psbmZubm1uS3dybVJNWm1uRHcra2s1SGFaRkVLZHhRdXlHeU1pa0hK?=
+ =?utf-8?B?ZmgxMjNuNlJweWwvdm9BUVFIQ2xUUTFqc01ZdVZGSE1aWDZONDl6RkxlRjRy?=
+ =?utf-8?B?NitxS3pFcHFBTXNlTUtzYjlsMTg3d1ZrSEp6MXpoTmNuTnlvdXdoVkJOKy9m?=
+ =?utf-8?B?SW1rbElBdUV2ZC80Rk02eUpYV3FlQU1QL0xhQmpxb08rRkRic29NcE9vaGd3?=
+ =?utf-8?B?QlVMb3c5eVBnbXdMYStGbkkwY3dSK0hLL0ZmUGZCcHE3TDJzSVBUc1VEM2Rl?=
+ =?utf-8?B?Q1djSXBMQ0VaR01hTTl6VGtRSXFpdkVHaFhtMlY0VnRwUlRmTFlJTlpmcXhV?=
+ =?utf-8?B?K1I1L0RwWDdZTzA1SjgybDBaMC9MUWE0VXJaTGtCNGVBUnNabnJNMityNDdT?=
+ =?utf-8?B?d29rQjRiSWJxSFFWOFR2V0hvREN3MXh3OVcrOE5POW5ReU9IL05yTkFDd0Zt?=
+ =?utf-8?B?Y2VOTU5wVzVYb0E0MDlvQ1ZRaVZySVZWdndaU0xXb3d6cFBsZHZsNEZUZFl0?=
+ =?utf-8?B?dWxFTXlaWWJKU25EeW9IcS9IUjQrdjUrRStIcTRadjMzVlNuRmhFWld3M3Bq?=
+ =?utf-8?B?RDcxMm5NTWRnWXRIKzBFZjF3QUlORjNlRlg3TlVIY2xjY1NQRkVBQktvUTRH?=
+ =?utf-8?B?UVRDOVAzeFlDN0ZXVndMOGNIMkdnNm5uUGpmbURTSjZSTDM0SDFUS0JBZHFp?=
+ =?utf-8?B?RXFzUzZtV0VvdnBnUEdwRGxjZSt0VGRZczBsN0kyZnFJci9vTGdHVDc2QVBC?=
+ =?utf-8?Q?tCUtypNwabXuX1oskZIyZ6QmkTrykhPyC2yf6?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2323edfc-c6ec-4787-acf0-08deedf34987
+X-MS-Exchange-CrossTenant-AuthSource: PA6PR04MB11909.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2026 04:30:30.2987
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: F/pJ20dZxgcVnUQt1VDz/1Z3j+cZpUZ1tb+OlZdB+wChIo992yPxmrQaasoelF7Kb+HofK6zZ6ZJc0+p6ADk+g536GYR8SZaSy8mVX64EqbaTLEA1gN6mUJggsxW72gM
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8239
 
-On 7/29/26 14:51, Vincent Jardin via B4 Relay wrote:
-> From: Vincent Jardin <vjardin@free.fr>
-> 
-> The write cases of debugfs entries are provisioning and bench
-> helpers. By designs the MPQ8646 powers the CPU cores rail,
-> so a wrong write can brown out the board or persist a bad
-> setpoint into finite-cycle NVM.
-> 
-> Signed-off-by: Vincent Jardin <vjardin@free.fr>
-> ---
->   Documentation/hwmon/mpq8646.rst |  37 ++++++
->   drivers/hwmon/pmbus/Kconfig     |  17 +++
->   drivers/hwmon/pmbus/mpq8646.c   | 269 ++++++++++++++++++++++++++++++++++++++++
->   3 files changed, 323 insertions(+)
-> 
-> diff --git a/Documentation/hwmon/mpq8646.rst b/Documentation/hwmon/mpq8646.rst
-> index d3ede656ea15..6207cfd89f7f 100644
-> --- a/Documentation/hwmon/mpq8646.rst
-> +++ b/Documentation/hwmon/mpq8646.rst
-> @@ -246,6 +246,43 @@ The only writable entry is ``alarm_poll_interval_ms`` (the alarm-poll
->   worker cadence, see above), it is driver-local and never touches the
->   chip.
->   
-> +Unsafe provisioning
-> +-------------------
-> +
-> +Available only when ``CONFIG_SENSORS_MPQ8646_DEBUG_UNSAFE=y``
-> +(``default n``, it is for boards bring up only). They WRITE to the regulator.
-> +On many designs the MPQ8646 powers the main CPU core rail, so a wrong write can
-> +brown out the board or persist a bad setpoint into finite-cycle NVM. The first
-> +gated write logs a one-shot warning.
-> +
+On the i.MX95 15x15 FRDM board the two CAN transceivers (attached to
+flexcan2 and flexcan5) share a single "silent" control pin, which is
+routed through the on-board PCAL6524 GPIO expander. Both transceiver PHY
+nodes therefore reference the same GPIO line for their silent-gpios
+property.
 
-This and the explanation in Kconfig need to be much stronger,
-along the line of
+This series makes that sharing work correctly and puts the transceivers
+into the proper default state:
 
-"WARNING: Wrong register writes can and likely will physically damage
-or destroy the chip and/or the board".
+- The silent pin is active high: asserting it places the transceiver in
+  silent (listen-only) mode with the transmitter disabled. At probe time
+  and before the PHY is powered on, the transceiver should default to
+  silent mode. This is both the functionally correct and the lower-power
+  state, so the silent GPIO is now requested as GPIOD_OUT_HIGH instead of
+  GPIOD_OUT_LOW.
 
-> +===============================  ===============  =========================================================
-> +File                             PMBus / MFR cmd  Description
-> +===============================  ===============  =========================================================
-> +``store_all``                    0x15             STORE_USER_ALL Send-Byte (commit RAM config to NVM)
-> +``restore_all``                  0x16             RESTORE_USER_ALL Send-Byte (revert RAM to last-NVM image)
-> +``clear_protection_last``        0x08             CLEAR_LAST_FAULT Send-Byte
-> +``clear_protection_last_force``  --               gated CLEAR_LAST_FAULT, see below
-> +``on_off_config``                0x02 (byte)      PMBus vs CTRL-pin on/off source + active polarity
-> +``vout_margin_high``             0x25 (word)      margin-high VOUT setpoint
-> +``vout_margin_low``              0x26 (word)      margin-low VOUT setpoint
-> +``mfr_pmbus_lock``               0xEE (word)      programmable PMBus write-lock
-> +``mfr_product_rev_user``         0xC2 (word)      user-programmable product revision
-> +===============================  ===============  =========================================================
-> +
-> +``clear_protection_last`` writes ``CLEAR_LAST_FAULT`` (0x08) Send-Byte.
-> +The chip silently no-ops unless ``MFR_CFG_EXT`` (0xF5) bit[6] is set.
-> +
-> +``clear_protection_last_force`` performs the unlock with the following
-> +six-step dancing:
-> +
-> +1. read ``WRITE_PROTECT`` (0x10) and ``MFR_CFG_EXT`` (0xF5) for restore
-> +2. clear ``WRITE_PROTECT`` if set
-> +3. set ``MFR_CFG_EXT`` bit[6] = 1, preserving other bits
-> +4. send ``CLEAR_LAST_FAULT`` (0x08)
-> +5. restore ``MFR_CFG_EXT`` (with retry to handle the chip's
-> +   undocumented post-NVM-write busy window)
-> +6. restore ``WRITE_PROTECT``
-> +
->   Devicetree
->   ----------
->   
-> diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
-> index 9f44e76b0b64..9c6d3de61a75 100644
-> --- a/drivers/hwmon/pmbus/Kconfig
-> +++ b/drivers/hwmon/pmbus/Kconfig
-> @@ -627,6 +627,23 @@ config SENSORS_MPQ8646
->   	  This driver can also be built as a module. If so, the module
->   	  will be called mpq8646.
->   
-> +config SENSORS_MPQ8646_DEBUG_UNSAFE
-> +	bool "MPQ8646 unsafe write/provisioning debugfs (DANGEROUS)"
-> +	depends on SENSORS_MPQ8646 && DEBUG_FS
-> +	default n
-> +	help
-> +	  Expose additional WRITE-able debugfs files in the client's
-> +	  pmbus debugfs directory,
-> +	  /sys/kernel/debug/i2c/i2c-<bus>/<bus>-<addr>/
-> +
-> +	  These are provisioning and bring-up aids. On many designs the
-> +	  MPQ8646 powers the SoC core rail, so a wrong write can brown out
-> +	  or permanently mis-provision the board.
-> +
-> +	  It shall never be set in a production, shipping, or default configuration.
-> +
-> +	  If unsure, say N.
-> +
->   config SENSORS_PIM4328
->   	tristate "Flex PIM4328 and compatibles"
->   	help
-> diff --git a/drivers/hwmon/pmbus/mpq8646.c b/drivers/hwmon/pmbus/mpq8646.c
-> index 1fd41d89e5be..0034cf591934 100644
-> --- a/drivers/hwmon/pmbus/mpq8646.c
-> +++ b/drivers/hwmon/pmbus/mpq8646.c
-> @@ -7,6 +7,7 @@
->   
->   #include <linux/bitops.h>
->   #include <linux/debugfs.h>
-> +#include <linux/delay.h>
->   #include <linux/i2c.h>
->   #include <linux/module.h>
->   #include <linux/mutex.h>
-> @@ -23,8 +24,18 @@
->   #define MPQ8646_ALARM_POLL_MS_DEFAULT	1000
->   
->   /* MPS vendor-extended command codes (NOT in PMBus 1.3 Part II) */
-> +#define MPS_CLEAR_LAST_FAULT		0x08
-> +#define MPS_MFR_CFG_EXT			0xF5
-> +#define MPS_MFR_CFG_EXT_CLR_LAST_EN	BIT(6)
->   #define MPS_PROTECTION_LAST		0xFB
->   
-> +/*
-> + * PMBus 1.3 NVM commit / revert commands. MPS equivalent of
-> + * STORE_ALL (15h) and RESTORE_ALL (16h).
-> + */
-> +#define PMBUS_STORE_USER_ALL		0x15
-> +#define PMBUS_RESTORE_USER_ALL		0x16
-> +
->   /* PMBus 1.3 timing / UVLO command codes */
->   #define PMBUS_VIN_ON			0x35
->   #define PMBUS_VIN_OFF			0x36
-> @@ -36,10 +47,32 @@
->   /* MPS vendor-extended observability / identity registers */
->   #define MPS_MFR_CONFIG_ID		0xC0
->   #define MPS_MFR_CONFIG_CODE_REV		0xC1
-> +#define MPS_MFR_PRODUCT_REV_USER	0xC2
->   #define MPS_MFR_SILICON_REV		0xC3
->   #define MPS_MFR_RETRY_TIMES		0xF4
->   #define MPS_MFR_VBOOT_CFG		0xFC
->   
-> +/*
-> + * MPS_MFR_PMBUS_LOCK (EEh): 16-bit WORD whose low two bits gate
-> + * subsequent PMBus writes
-> + *   bits[1:0] = 00  -- unlocked (POR default)
-> + *               01  -- lock all writes EXCEPT VOUT_COMMAND (0x21)
-> + *                      so the operator can still DVFS the rail
-> + *               11  -- lock all writes
-> + * A negative-going PG edge resets these bits to 00, the lock
-> + * is operationally reversible without a full chip POR.
-> + */
-> +#define MPS_MFR_PMBUS_LOCK		0xEE
-> +
-> +/*
-> + * Retry parameters for the MFR_CFG_EXT gate-close write after
-> + * CLEAR_LAST_FAULT. Bench-observed NVM-busy NACK window on this
-> + * silicon is about 1 ms; the datasheet does not have information.
-> + */
-> +#define MPQ8646_NVM_RETRY_MAX		5
-> +#define MPQ8646_NVM_RETRY_DELAY_US_MIN	2000
-> +#define MPQ8646_NVM_RETRY_DELAY_US_MAX	4000
-> +
->   #define MPQ8646_DEBUG(client, fmt, ...) \
->   	dev_dbg(&(client)->dev, fmt, ##__VA_ARGS__)
->   
-> @@ -498,6 +531,240 @@ static int mpq8646_dbg_reg_show(struct seq_file *s, void *unused)
->   }
->   DEFINE_SHOW_ATTRIBUTE(mpq8646_dbg_reg);
->   
-> +#ifdef CONFIG_SENSORS_MPQ8646_DEBUG_UNSAFE
-> +/*
-> + * Write/provisioning data, disabled by default: NVM commit and
-> + * revert, the CLEAR_LAST_FAULT sequences and a small set of named
-> + * writable registers.
-> + */
-> +
-> +static void mpq8646_unsafe_warn_once(struct mpq8646_priv *priv)
-> +{
-> +	dev_warn_once(&priv->client->dev,
-> +		      "UNSAFE debugfs write to core-rail regulator; board integrity not guaranteed (CONFIG_SENSORS_MPQ8646_DEBUG_UNSAFE)\n");
+- Because the same physical GPIO is shared by two independent PHY
+  devices, it is requested through the GPIO shared proxy. ARCH_MXC now
+  selects HAVE_SHARED_GPIOS so that this mechanism is available on i.MX
+  platforms.
 
-This is also not strong enough. You insist adding this functionality to the driver.
-Please inform the user that they are about to shoot themselves into the foot.
-This is much worse than "board integrity not guaranteed".
+- The two CAN transceiver PHY device tree nodes previously used the same
+  node name "can-phy", causing a node name collision. They are renamed to
+  "can-phy0" and "can-phy1" to make them unique; both continue to point
+  at the shared silent GPIO.
 
-CONFIG_SENSORS_MPQ8646_DEBUG_UNSAFE in the message is pretty pointless.
+Signed-off-by: Haibo Chen <haibo.chen@nxp.com>
+---
+Haibo Chen (3):
+      phy: phy-can-transceiver: default silent GPIO to high during probe
+      arm64: select HAVE_SHARED_GPIOS for ARCH_MXC
+      arm64: dts: imx95-15x15-frdm: fix duplicated can-phy node names
 
-Also, the message should be shown when the driver is loaded, as multi-line
-message, similar to the unhashed kernel memory address warning.
+ arch/arm64/Kconfig.platforms                       | 1 +
+ arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts | 4 ++--
+ drivers/phy/phy-can-transceiver.c                  | 2 +-
+ 3 files changed, 4 insertions(+), 3 deletions(-)
+---
+base-commit: 78bc8af4affb9a732504eb22eeac7d1e50883853
+change-id: 20260730-can-share-silent-5c89a5dfd308
 
-**********************************************************
-**   NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE   **
-**                                                      **
-** This system shows unhashed kernel memory addresses   **
-** via the console, logs, and other interfaces. This    **
-** might reduce the security of your system.            **
-**                                                      **
-** If you see this message and you are not debugging    **
-** the kernel, report this immediately to your system   **
-** administrator!                                       **
-**                                                      **
-**   NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE   **
-**********************************************************
-
-only as WARNING not as NOTICE.
-
-I'll leave it up to you to find an appropriate and strong enough message.
-
-Thanks,
-Guenter
+Best regards,
+-- 
+Haibo Chen <haibo.chen@nxp.com>
 
