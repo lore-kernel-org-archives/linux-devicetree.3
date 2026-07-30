@@ -1,254 +1,204 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 054A03AAF42
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 17:52:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A4523AE71E
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 17:54:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785433950; cv=none; b=OgeJnp/bCKLOlDj6511fqVBpTyLFnAOggZFuHQXfNgRgmvkYZ8xvNSLMbTMLiBpr40SyDDFiIhzLZHYf712PvEejvIbj+bt4AfuKupj5ReljhMilKSTFLN8Ck5Q8v39c3cFEgClnntSDqING5eHPlSjkMAr241fSY2c55ebCvLs=
+	t=1785434087; cv=none; b=BjMT6xy4pNzHsGXQK89J2iKB0e/j2FnqGU4fr9wmmCu81PZksnVkNqrAAdy55tb1ik326E3n8OhSAaG+vsK+GvDuzOEWmtHZLhpwrv4EN9r2anzB7YXw+Gj70JJ4sGrqDguDyTGgWH9Kv47L6++BXpRtyBnYavSo9BqLEv6Mxdk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785433950; c=relaxed/simple;
-	bh=ixsd5SsG+xB7+7j21LOpjLGNFmFmOi3reYCo+2uoSEk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=a+D9nNQ/cL0TUJUIPxTViWSI/i6unkFQ6jWpYi7oLkXqB0ZIjDoGpbapZxgDQzZBwI+09kOju5NzcQnE1vjTd4oLDO0yGLkYT75Qk4Zt7BckJWLZnKDtAqsN6RZzesLv4Egn4VVXr5X2eth3QQkryOw8kPZnt/yO6AIMsTgDoxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nszBkBMC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785434087; c=relaxed/simple;
+	bh=/QTaqqQP/iMHUTIsjATiz1okadrXGJ+qYuzqDe4y2uQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=OR6/XGJyxa6K5NogVoKRk95Y839cEQwskVw94OOhuhQD3u1JqDuxHwFYctkr5o5gizh8+ZGbTeredF9L9BGw1kWOf+2ZYHQbabYhIh5mviGzazRONa0cAZurp67d+krn3pl24PJ2kxyjIcrG3K7/akfjHerxQKwHhCdCYwDlTnE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=L5RpLKhy; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Wm92Ylp3; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nszBkBMC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6069C1F000E9;
-	Thu, 30 Jul 2026 17:52:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785433948;
-	bh=MVARr/TN+7s03zeGE2Ko9hAysq4Qg9iFByGFSG3Ah/E=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nszBkBMC+WrLCbzRGxKI78Lc4azR1lttXQejb6Rz5euPNKzPueD0TkZ+dLkYbGMYG
-	 nhH/vsSwsZKe60RgdzC9IHR+U/URdOjFh4A8zyxGV3oyxBkG8sPGOgb7o48uzyh2TW
-	 N/OX+tkK7rev7ntBnycKxU4MUo9xEWjjlyaq0QVIYQzz9E5nwvHxUTD0x6mU5arwZt
-	 ab6SAPhoX8RP1Z+Jp5OOoAqdExzharIiyxznwCDC1LS5CwRDP3mrs1tw+aveKngjbv
-	 Qx95FiqcuKBLJKJZeSigJsAbLj0dB12xhQ7OQXrOaHZxuj1sNBPmAXDvQN6RrQTQ3v
-	 gDe5nQNTJ+TIw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] drm/glanda: Add initial DRM driver for GlandaGPU
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Leander Kieweg" <kieweg.leander@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260730173643.256052-3-kieweg.leander@gmail.com>
-References: <20260730173643.256052-1-kieweg.leander@gmail.com>
- <20260730173643.256052-3-kieweg.leander@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 17:52:27 +0000
-Message-Id: <20260730175228.6069C1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="L5RpLKhy";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Wm92Ylp3"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66UGWSTM1179821
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 17:54:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=sOYSAr6uu/0ra4AmicnafZ
+	NxmpLHsj2Ia5yTMbKfemI=; b=L5RpLKhyEoLXRemIGOOWUQghmr9O1XNGFF9GXQ
+	WmsLN2x0f0DUfkKR4OrBYkiDCzOH1FXuPSv5tI+Mi7Do5uJLb83TL72nvVqe+eWE
+	HUUXLVbfLktcELUgVjM3I8ArTCTDsPLpwHuurnIBOtjQ84GEEhYhKAkXNCZaosi2
+	uO0DiLp3nq5qW0U96W4mIyLbdQSeM3nX1+C9NHYCBz3BgdaXPBnvQ2ec9XyI9w19
+	B3mNEXnWX0nQmDLUFp/C48JCaZJi/LPbhcVHJPBUPQM/xuzgSI4g+t2muTimJm1R
+	N8Nxi3tmI4u4NLodwLitoWJU2f0iocmZUicor7L2ghJdqxow==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fr8n813b0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 17:54:45 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-caf5fa127d4so116642a12.0
+        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 10:54:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785434084; x=1786038884; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=sOYSAr6uu/0ra4AmicnafZNxmpLHsj2Ia5yTMbKfemI=;
+        b=Wm92Ylp3BSaNNEKUIUgkwDtd0S8h3OMlJDVGyuYU1t/LAF01s55PyP9ZhNLcw+FzOU
+         huAx4z3+SXNlkNfVWHkysUt5xDHYncCoh49NzHD86sZJj6lDpB59tZ1EmnXyoBE3eaEw
+         8GNRzbfsMym20c/po8h1MM+QMaTRtmIYOU/OmZu54xX3doYoHcN7dPFIlP2HoVD8jnL/
+         o7O5tETapPFDog7IqcZEHCOzTn50zO7m5AdGOPCdGZh77IMYc3+xQaMBNDR8dshh85vo
+         qIJhk4B5z1yiUtI4zgKkUfGTv6N3PNp6hG04XWwvngKqCcrtpxMwOY8xWPEoVKfIO4da
+         fCbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785434084; x=1786038884;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=sOYSAr6uu/0ra4AmicnafZNxmpLHsj2Ia5yTMbKfemI=;
+        b=Zi1Wevt4fdI1heuJR84eOTSqiv2Q4ynhhyTSAgiA6Lykb+zFY+2t0wb15YQBOwE/iQ
+         6pSxt4+SrBmF9t0csT7Y2QalrjVkTSEt+/CjJMSv/qizGXJzkqhwyRz2PHl4d0yH0SqB
+         GYa8CvkUMJlIOrBkxGCBLd4bLSNkD1bhc/Jp6fQY+p4ENRIMbTQRt25GfRlEzUUKsjOo
+         OnIZ/QNetiUoQoum7P7xMCntbXFVD66er8jQpah0GMGPcDNJLWbYJIY3BknVxhRhyuSq
+         2oobxDBemwp+pr20qaPJ70JiatUVetoYhPK5lkVjiHpa/u8O9WSy0uPstdZc7BAmtDk4
+         fauQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rp6nWNVeKvQbdlRwHND2DbhJv0sC3oOod3naCM3Cpi02cmx69A+RudTtYH9benJC5IOHMcwnn/0mxgP@vger.kernel.org
+X-Gm-Message-State: AOJu0YyUIbydHNGbIVb2HHaQv8zyikmz2wYsyuGHeMI+efsvaeTolxyW
+	FX+jkk4JMgqx88kUPrGVh93bAc7b1cC29j/VY4JB6CqTYhBHxA6iUDsBMMgosXFnfRzQNlVlKYc
+	daPdAchOzztXViwnuteeD9b8kU7hcvHK+q8XhKG3BDNyot9DM8lc2ec5dpk0Nwr01
+X-Gm-Gg: AR+sD12R5OZhf/ZN3O7xm/3m/F2WtTqbHfbwdS4Tg/0fRRS+NZJ3IYc9PVC3qTod8PP
+	48wz/GtVw/jkJEYlNX5B4YSQbKfIZSg//VwrPPhQm/wH0Ih2ZUJfAwPx/RnZl/0Z2oowkrUk4cM
+	pQvDOZRLPzQqNR1cz80ddhbMusZaQnrZjT7hVMtKXsZPh8k775GyfgK7G2mUMnUmjLMR/t14PiV
+	fe8niGLu4wD36I8vxpv02vA7dXp50tysgIa/Nc5l5+AVAPaO6GnzKtNYiCiq6GCM82cS1qYNVpj
+	0SPhthn+BxEsCtIHpTQZEcqP7BwejXOq0JekZFjrlOppaW+TgHIJogYltM00+Jd1nKY5rOuQHWV
+	+zLs6BBGJ/ewvXTczeEoXK3bW
+X-Received: by 2002:a05:6a21:695:b0:3c3:8ead:6df0 with SMTP id adf61e73a8af0-3c900535ef9mr3433712637.28.1785434084632;
+        Thu, 30 Jul 2026 10:54:44 -0700 (PDT)
+X-Received: by 2002:a05:6a21:695:b0:3c3:8ead:6df0 with SMTP id adf61e73a8af0-3c900535ef9mr3433683637.28.1785434084250;
+        Thu, 30 Jul 2026 10:54:44 -0700 (PDT)
+Received: from hu-tdas-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13e72643a12sm36444098c88.5.2026.07.30.10.54.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 30 Jul 2026 10:54:43 -0700 (PDT)
+From: Taniya Das <taniya.das@oss.qualcomm.com>
+Subject: [PATCH v4 0/5] clk: qcom: Introduce initial clock controllers for
+ Maili SoC
+Date: Thu, 30 Jul 2026 23:24:33 +0530
+Message-Id: <20260730-maili_initial_clock-v4-0-ed52ade264f0@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIANmPa2oC/3XNTQ6CMBAF4KuYri3pLwVX3sMYQkuRiYUqRaIh3
+ N1CYnSBm0ne5M03Ewq2BxvQYTeh3o4QwHcxiP0OmabsLhZDFTNihKUkpQq3JTgooIMBSlcY580
+ VG2WZFpKTKiMoXt56W8NzVU/nmBsIg+9f65ORLtuPl216I8UEV6mtLOGSUcqPPoTk/iid8W2bx
+ IEWdmRfSlG+TbFIqVyKrCZay6z+Q/EfioltikdKSC1VbFCT0w1qnuc3oPmcrlMBAAA=
+X-Change-ID: 20260617-maili_initial_clock-c7e2b4530d80
+To: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Vivek Aknurwar <vivek.aknurwar@oss.qualcomm.com>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.15-dev-aa3f6
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDEzMyBTYWx0ZWRfX3KiHbOiLNOCv
+ 3ISs3G9JH09oBtZ98fYPg2UeVWVJjf9D0n/x4AvEPOOgYel4vMIvo/HDAqm9ji2CNQI0+eZqvTt
+ LZlzT5PKN1YURdLyjOIIZpWlu3mcmnaJ7KiYIYo/DH8IdiIhY3k5TXq0Pb/4MIgq93D/FZefakj
+ 8iN3NVqYZvsJHB8TMYZfVAoIMKiBAloJAp9BYGjQQG36nycQF/JLG6nvUet3CK7+c8JutaZoQjm
+ f738dniBGAxsERYxrYT9dSykYyJ9UlgiuyyG2b1jGtQQ2c4uva8XxTwAllgmyng9wJTd0H73Z8X
+ czfqmF+fTe1vfSxreUQK+8OyjyXUq6wrhFQKvuGmM74vgaqiLyALSh8iL+iBCqF6shTS4S070Tf
+ de6yiUfovRc17n3xPNjbucZ2uAq+OxBFLe4qbHwceaHz5DCwQAkzWiOhIvTMTBAnLqfHV52Jjx8
+ EDWr2XK6YKLb2P/KDnw==
+X-Authority-Analysis: v=2.4 cv=DNq/JSNb c=1 sm=1 tr=0 ts=6a6b8fe5 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Kp3T8kGXBi3sce7iFlAA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-ORIG-GUID: fWs0_Tfd60jOQ7aZB9btwrUqiF1B-i5b
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDEzMyBTYWx0ZWRfXwKMsFNDgYDNW
+ sNWWLC8QKBkr5HAbUFCIajQ+b8GCPrKgINY/ytsFPgv6/4002z3RrqyaTWImRNWZG6cgADnrH95
+ /LzqgRtlzn8Azge0jSo+8K7HoJ9IC9s=
+X-Proofpoint-GUID: fWs0_Tfd60jOQ7aZB9btwrUqiF1B-i5b
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-30_05,2026-07-30_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 priorityscore=1501 suspectscore=0 clxscore=1015
+ impostorscore=0 bulkscore=0 spamscore=0 phishscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607300133
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
-s) to consider:
-- [High] Ignored return value of drm_mode_config_init().
-- [High] Hardware interrupts are left enabled if drm_dev_register() fails, =
-leading to an unhandled interrupt storm.
-- [High] Missing resource size validation before I/O memory mapping allows =
-out-of-bounds mapping and writes.
-- [High] Userspace atomic commits hang when the driver falls back to pollin=
-g mode because vblank events are armed but never signaled.
-- [Medium] Unused INT_DONE interrupt is unconditionally enabled, risking an=
- interrupt storm.
-- [Medium] Native u32 read of little-endian pixel data breaks color convers=
-ions on big-endian CPUs.
-- [Low] Missing dependencies in Kconfig for DRM_GLANDA.
-- [Low] Using platform_get_irq() for an optional IRQ causes log spam.
---
+Introduce the initial set of clock controller bindings and driver
+support for the upcoming Qualcomm Maili SoC.
 
---- Patch [2]: [PATCH v2 2/2] drm/glanda: Add initial DRM driver for Glanda=
-GPU ---
-commit 47c9d06e7235a576cf0a48e9d5a1011c1d5c7ced
-Author: Leander Kieweg <kieweg.leander@gmail.com>
-Subject: drm/glanda: Add initial DRM driver for GlandaGPU
+Maili is a new mobile SoC from Qualcomm. It is a derivative of the
+Hawi SoC and shares most of its clock topology. Where the hardware is
+identical, Maili reuses the existing Hawi drivers via fallback
+compatible strings. Where Maili diverges — specifically in the Global
+Clock Controller (GCC), which carries an additional QUPv3 wrapper
+(WRAP5) — the Hawi GCC driver is extended to handle both SoCs.
 
-Introduce the core DRM/KMS driver for GlandaGPU. This driver supports basic
-modesetting, atomic updates via shadow plane helpers, and optional QEMU PCI
-probing alongside the platform driver.
+The series covers the following clock controllers:
 
-> diff --git a/drivers/gpu/drm/tiny/Kconfig b/drivers/gpu/drm/tiny/Kconfig
-> index f0e72d4b6a470..f5aaf499e34eb 100644
-> --- a/drivers/gpu/drm/tiny/Kconfig
-> +++ b/drivers/gpu/drm/tiny/Kconfig
-[ ... ]
-> @@ -56,6 +56,17 @@ config DRM_CIRRUS_QEMU
->  	   - qxl (DRM_QXL, qemu -vga qxl, works best with spice)
->  	   - virtio (DRM_VIRTIO_GPU), qemu -vga virtio)
-> =20
-> +config DRM_GLANDA
-> +	tristate "GlandaGPU DRM driver"
-> +	depends on DRM
-> +	select DRM_KMS_HELPER
-> +	select DRM_GEM_SHMEM_HELPER
+  - RPMH clock controller: identical to Hawi; uses qcom,hawi-rpmh-clk
+    as fallback.
+  - TCSR clock controller: identical to Hawi; uses qcom,hawi-tcsrcc
+    as fallback.
+  - Global Clock Controller (GCC): extends the Hawi GCC driver with
+    eight additional QUPV3 WRAP5 clocks present only on Maili.
+  - CPUCP mailbox controller: software-compatible with X1E80100; uses
+    qcom,x1e80100-cpucp-mbox as fallback.
 
-[Severity: Low]
-Does this config need to depend on MMU and PCI || COMPILE_TEST? The driver
-selects DRM_GEM_SHMEM_HELPER which depends on MMU, and it calls PCI devres
-functions that lack non-PCI stubs when CONFIG_PCI is disabled.
+The devicetree for Maili will be upstreamed later.
 
-> diff --git a/drivers/gpu/drm/tiny/glandagpu.c b/drivers/gpu/drm/tiny/glan=
-dagpu.c
-> new file mode 100644
-> index 0000000000000..e4dfddaba4e3b
-> --- /dev/null
-> +++ b/drivers/gpu/drm/tiny/glandagpu.c
-[ ... ]
-> +static void glanda_plane_atomic_update(struct drm_plane *plane,
-> +				       struct drm_atomic_commit *state)
-> +{
-[ ... ]
-> +	for (y =3D 0; y < height; y++) {
-> +		size_t offset =3D y * GLANDA_WIDTH * sizeof(u32);
-> +		u32 __iomem *dst =3D (u32 __iomem *)(gdev->vram_base + offset);
-> +
-> +		for (x =3D 0; x < width; x++) {
-> +			u32 pixel =3D iosys_map_rd(&shadow_state->data[0],
-> +						 y * src_pitch + x * sizeof(u32), u32);
-> +			u32 packed =3D ((pixel >> 12) & 0x0F00) |
-> +				((pixel >> 8) & 0x00F0) |
-> +				((pixel >> 4) & 0x000F);
-> +
-> +			writel_relaxed(packed, &dst[x]);
-> +		}
-> +	}
+Changes in v4:
+  - Rebase the binding of tcsr to linux-next.
+  - Add RB-by from Konrad Dybcio on the GCC driver patch.
+  - Link to v3: https://lore.kernel.org/r/20260724-maili_initial_clock-v3-0-45b577241c91@oss.qualcomm.com
 
-[Severity: Medium]
-Will this bitwise extraction read the correct color channels on big-endian
-architectures? By using iosys_map_rd to read a native u32, the little-endian
-DRM_FORMAT_XRGB8888 byte stream will have its bytes inverted on big-endian
-CPUs.
+Changes in v3:
+  - Update the comment for extending the array appropriately size.
+  - Add RB-by [Krzysztof] from v2
+  - Link to v2: https://lore.kernel.org/r/20260713-maili_initial_clock-v2-0-79548f0bb58f@oss.qualcomm.com
 
-[ ... ]
-> +static void glanda_crtc_atomic_flush(struct drm_crtc *crtc,
-> +				     struct drm_atomic_commit *state)
-> +{
-> +	struct drm_crtc_state *new_state =3D drm_atomic_get_new_crtc_state(stat=
-e, crtc);
-> +	struct drm_pending_vblank_event *event;
-> +
-> +	if (new_state->event) {
-> +		event =3D new_state->event;
-> +
-> +		new_state->event =3D NULL;
-> +
-> +		spin_lock_irq(&crtc->dev->event_lock);
-> +
-> +		if (drm_crtc_vblank_get(crtc) =3D=3D 0)
-> +			drm_crtc_arm_vblank_event(crtc, event);
-> +		else
-> +			drm_crtc_send_vblank_event(crtc, event);
+ Changes in v2:
+  - Split the new Maili-only QUPv3 WRAP5 clock IDs out of
+    qcom,hawi-gcc.h into a new qcom,maili-gcc.h header (which includes
+    qcom,hawi-gcc.h), instead of adding them directly to the Hawi
+    header. [Krzysztof]
+  - Update the GCC driver to include the maili-gcc header.
+  - Link to v1: https://lore.kernel.org/r/20260618-maili_initial_clock-v1-0-d6ede0352113@oss.qualcomm.com
 
-[Severity: High]
-What happens to armed vblank events when the driver falls back to polling
-mode? If there is no hardware interrupt to call drm_crtc_handle_vblank(),
-these events might never be signaled, which can cause userspace page flips
-to hang. Should the driver set crtc->state->no_vblank =3D true or bypass
-drm_crtc_arm_vblank_event in polling mode?
+---
+Taniya Das (5):
+      dt-bindings: clock: qcom-rpmhcc: Add RPMH clock controller for Maili
+      dt-bindings: clock: qcom: Add Maili TCSR clock controller
+      dt-bindings: clock: qcom: Add Maili global clock controller
+      clk: qcom: gcc-hawi: Add support for global clock controller on Maili
+      dt-bindings: mailbox: qcom: Document Maili CPUCP mailbox controller
 
-[ ... ]
-> +static int glanda_drm_init(struct glanda_device *gdev, int irq)
-> +{
-[ ... ]
-> +	writel(0, gdev->mmio_base + REG_IER);
-> +	writel(0xFFFFFFFF, gdev->mmio_base + REG_ISR);	/* clear flags */
-> +
-> +	/* DRM mode config */
-> +	drm_mode_config_init(&gdev->drm);
+ .../devicetree/bindings/clock/qcom,hawi-gcc.yaml   |  11 +-
+ .../devicetree/bindings/clock/qcom,rpmhcc.yaml     |  65 ++++---
+ .../bindings/clock/qcom,sm8550-tcsr.yaml           |  32 ++--
+ .../bindings/mailbox/qcom,cpucp-mbox.yaml          |   1 +
+ drivers/clk/qcom/gcc-hawi.c                        | 201 +++++++++++++++++++++
+ include/dt-bindings/clock/qcom,maili-gcc.h         |  21 +++
+ 6 files changed, 285 insertions(+), 46 deletions(-)
+---
+base-commit: 95d6a9ccef99117115e41e9adb271243bd5e985b
+change-id: 20260617-maili_initial_clock-c7e2b4530d80
 
-[Severity: High]
-Is it safe to ignore the integer return value of drm_mode_config_init? If
-this fails due to memory allocation issues, the DRM mode configuration state
-will be partially initialized, potentially leading to NULL pointer
-dereferences later when the DRM core accesses it.
+Best regards,
+-- 
+Taniya Das <taniya.das@oss.qualcomm.com>
 
-[ ... ]
-> +	if (irq > 0) {
-> +		gdev->irq =3D irq;
-> +		ret =3D devm_request_irq(gdev->drm.dev, gdev->irq, glanda_irq_handler,
-> +				       IRQF_SHARED, "glandagpu", gdev);
-> +		if (ret) {
-> +			drm_err(&gdev->drm, "Failed to request IRQ %d\n",
-> +				gdev->irq);
-> +			return ret;
-> +		}
-> +
-> +		writel(INT_DONE, gdev->mmio_base + REG_IER);
-
-[Severity: Medium]
-Could enabling INT_DONE cause an interrupt storm? If the hardware asserts
-INT_DONE when the 2D engine is idle, and the driver never submits commands
-to it, the IRQ handler might get caught in a loop continuously clearing it.
-
-> +		drm_info(&gdev->drm, "IRQ %d requested and enabled\n", gdev->irq);
-> +	} else {
-> +		drm_warn(&gdev->drm, "No IRQ found, falling back to polling\n");
-> +	}
-> +
-> +	ret =3D drm_dev_register(&gdev->drm, 0);
-> +	if (ret)
-> +		return ret;
-
-[Severity: High]
-Does this error path leave hardware interrupts enabled? If
-drm_dev_register fails, the function returns without clearing REG_IER.
-Since devres frees the IRQ handler, this might leave the hardware asserting
-an interrupt with no kernel handler available to acknowledge it.
-
-[ ... ]
-> +static int glandagpu_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	res =3D platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> +	if (!res)
-> +		return -ENODEV;
-> +
-> +	gdev->vram_phys =3D res->start;
-> +	gdev->vram_base =3D devm_ioremap(&pdev->dev, res->start, GLANDA_VRAM_SI=
-ZE);
-> +	gdev->mmio_base =3D devm_ioremap(&pdev->dev, res->start + GLANDA_MMIO_O=
-FFSET,
-> +				       GLANDA_MMIO_SIZE);
-
-[Severity: High]
-Should there be a check on the underlying resource length before mapping?
-Blindly mapping GLANDA_VRAM_SIZE without verifying resource_size(res) could
-cause out-of-bounds mappings if the hardware resource is undersized. Later,
-the shadow plane write loop in glanda_plane_atomic_update() could overrun
-the boundaries and corrupt physical memory.
-
-> +	if (!gdev->vram_base || !gdev->mmio_base) {
-> +		drm_err(&gdev->drm, "failed to ioremap\n");
-> +		return -ENOMEM;
-> +	}
-> +
-> +	irq =3D platform_get_irq(pdev, 0);
-> +	if (irq =3D=3D -ENXIO)
-> +		irq =3D -1;	/* no IRQ resource, fall back to polling */
-
-[Severity: Low]
-Since the driver gracefully supports polling mode, could this use
-platform_get_irq_optional instead? Using platform_get_irq logs a
-false-positive error when the IRQ is not found.
-
-[ ... ]
-> +static int glandagpu_pci_probe(struct pci_dev *pdev, const struct pci_de=
-vice_id *id)
-> +{
-[ ... ]
-> +	gdev->mmio_base =3D pcim_iomap_table(pdev)[0];
-> +	gdev->vram_base =3D pcim_iomap_table(pdev)[1];
-> +	gdev->vram_phys =3D pci_resource_start(pdev, 1);
-
-[Severity: High]
-Does this PCI probe path also need to validate the size of the mapped BARs
-against the expected GLANDA_VRAM_SIZE and GLANDA_MMIO_SIZE to prevent
-similar out-of-bounds writes?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730173643.2560=
-52-1-kieweg.leander@gmail.com?part=3D2
