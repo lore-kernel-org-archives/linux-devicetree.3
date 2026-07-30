@@ -1,302 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD6583AFD08;
-	Thu, 30 Jul 2026 17:34:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16FDD3AAF6D;
+	Thu, 30 Jul 2026 17:35:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785432872; cv=none; b=Y7phijTIYkmYgz3wvdPdLqt+DjQMcI2JrzvWSGKfPcIqCHVTE4Q8P9XC9HAI2uYc9DcZFGWJi3kNiH2CoS8XCW3dOSQZAboV2ofj5qjjtzmRolcUtcMxU27boVULlAXMn80kDvB2lND9wCLvXcYgt8jpD6WUVhlgjEgqHCd45fs=
+	t=1785432954; cv=none; b=ZVrX3M7GyVPZDGndUN2dHYaNMMuOPIdzzhajeagjFx4RoYi2lXpDL73oEZoyBE5oH/eIfx1lihGue4OOHliq37dqCKmUy1H+nZZFA5eZ1nmhaeGtITShQhD5STxOT0kwiLtLT+274DUhJgWG9K0uR3lWkjakgAs0MZXDDjFspAE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785432872; c=relaxed/simple;
-	bh=wVCHEiB4jfgGm4pZxUP0mkHcMrjil6cNQBNLsE11hUQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FTqQ08MguVwexcAD/7Fo/S7B5TJNfwKLYvkKzQ3+bwyXPq78TtaI2mEl4LRuoamS9azYC6VIVkllNvAPt+yAfHf1jZ8cTb5z0DO0V3riei7cA/MLzNvr2WHLM8u1pNLX8hvZAZE/2NaAdaK6/MILM0Q733CY0ZXqCqw9Bh2FlII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZRmYqDNJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785432954; c=relaxed/simple;
+	bh=acaD9K41+QiD/mT5oibqK0MWmcPuDMQ2txDDD6kYMtA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=oVENA1H/XnuJO8RQoCKEHH96wdN+PQxgsinla3dCqf/TR324l/V5Ms+D1vZdOKW9U9dp/8fZkDoHMQda9FCSvl1y+t+liG7TAYG9H+ZFOE6GnCq7VFvhui9x57qi+WfSPYweaNDXWFXjvX7Ug2jO1x10fA2OyqaknYbvgYnMopQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iWFNN7jl; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZRmYqDNJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEAFD1F000E9;
-	Thu, 30 Jul 2026 17:34:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785432870;
-	bh=wFd/U3+bJJzWJa3YP6HFnPKazM7hBVF6VDlozGeiPbQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ZRmYqDNJews0kLUI8EyKKf+rvLW4Zg8UqwachQ+sdUKw4y4pPK3wDQeDtTTjfvU6R
-	 qK080T53q70LBdhHe7hJA5Ymqcpl+HLTlo1c3v+RUd7LR3GyOwWxPnRE4eohRF4P3E
-	 VhbAhG2/zp4KxvnXyl5J4ts0/0sLLXqY8dhRMM+RNfWtH3ROEcusxBrvufY3NP9JGx
-	 loZfoKSJAZYyYjbR/NR22avpYwMxkkZMfz/qRF+U9Va2fze9ErZMeNjfqWaZKcb7od
-	 0uobfcZHYUQo3w1rf4a8lQQVQDsq+DjdGaVt4XDaZGeIDQfpDZotY9hbbkFRHFa0Jo
-	 DMxqzTBEHdlkw==
-Date: Thu, 30 Jul 2026 18:34:25 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Nuno =?UTF-8?B?U8Oh?= <noname.nuno@gmail.com>
-Cc: Conor Dooley <conor@kernel.org>, David Lechner <dlechner@baylibre.com>,
- Janani Sunil <janani.sunil@analog.com>, Lars-Peter Clausen
- <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Mark Brown <broonie@kernel.org>, Marius Cristea
- <marius.cristea@microchip.com>, Marcus Folkesson
- <marcus.folkesson@gmail.com>, Kent Gustavsson <kent@minoris.se>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, Janani Sunil
- <jan.sun97@gmail.com>, linux-spi@vger.kernel.org, Kent Gustavsson
- <nedo80@gmail.com>
-Subject: Re: [PATCH v7 2/7] dt-bindings: iio: adc: microchip,mcp3564: Add
- spi-device-addr
-Message-ID: <20260730183425.22f2ba8c@jic23-huawei>
-In-Reply-To: <amslUWahHYtwXuCG@nsa>
-References: <20260722-ad5529r-driver-v7-0-7781cd74ad75@analog.com>
-	<20260722-ad5529r-driver-v7-2-7781cd74ad75@analog.com>
-	<cb4098c1-4bad-4a11-9a6f-a833e554f197@baylibre.com>
-	<20260725230739.63ff7000@jic23-huawei>
-	<20260728-patronize-thwarting-56fab2e11077@spud>
-	<20260728221719.7f668a73@jic23-huawei>
-	<20260729-hundredth-suffice-f28afa67bc06@spud>
-	<20260730000929.2ec20cf8@jic23-huawei>
-	<amslUWahHYtwXuCG@nsa>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iWFNN7jl"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B9520C2BCB9;
+	Thu, 30 Jul 2026 17:35:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1785432953;
+	bh=acaD9K41+QiD/mT5oibqK0MWmcPuDMQ2txDDD6kYMtA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=iWFNN7jl+tAiw9mqVuETM+di2rLntSVtDYvRSAxiIS/1IneObTvfNnt0EcRp6m4ns
+	 eQvDvQHeQPO+GEXX8EPJgvRgJjv6eUztF5rlyi8bbCQNTRmtRH5Nfv+qbDUI1PSQom
+	 An8z52hcWejAf4GY0fma6Qm4EdJniG+rvHUU4HowJS93olNstv7cY993OWtM36VhCY
+	 aE0hGOqR1m1lZPnCysAjp63j0YAK39xSIUUEavzizCj4DeFtblNginAozlhE1eUBcn
+	 ySFD/g9JfILsTZutxkwNt9ijAgq3/LLS6MZhJUcTPTczLTQUdJ6nf3azblHlxQ2b+z
+	 Wdasqf3hq6pbA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9B085C5516E;
+	Thu, 30 Jul 2026 17:35:53 +0000 (UTC)
+From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
+Date: Thu, 30 Jul 2026 19:35:35 +0200
+Subject: [PATCH v2 1/2] dt-bindings: dpll: zl3073x: ZL30643 is compatible
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260730-for-upstream-zl30643-v2-1-0ea0bbd03755@free.fr>
+References: <20260730-for-upstream-zl30643-v2-0-0ea0bbd03755@free.fr>
+In-Reply-To: <20260730-for-upstream-zl30643-v2-0-0ea0bbd03755@free.fr>
+To: Ivan Vecera <ivecera@redhat.com>, 
+ Prathosh Satish <Prathosh.Satish@microchip.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>, 
+ Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>, 
+ Jiri Pirko <jiri@resnulli.us>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Vincent Jardin <vjardin@free.fr>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785432952; l=1773;
+ i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
+ bh=hxP/Qko0hV2ofmO+jMLSUDHekBmOPqUro1uZGRZYS10=;
+ b=cSXPD8AtHdb07rV/UrvxgRHHUHmhna8lo8Fxj+WoyhYSh0ALue5YJCWRAwAko26/llCjzej6G
+ 29/SCzGVPxFDP3J/QWjfERr23+gTvb6GlqWK5D5MD9bIKrwPSUQUhUf
+X-Developer-Key: i=vjardin@free.fr; a=ed25519;
+ pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
+X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
+ auth_id=871
+X-Original-From: Vincent Jardin <vjardin@free.fr>
+Reply-To: vjardin@free.fr
 
-On Thu, 30 Jul 2026 11:25:34 +0100
-Nuno S=C3=A1 <noname.nuno@gmail.com> wrote:
+From: Vincent Jardin <vjardin@free.fr>
 
-> On Thu, Jul 30, 2026 at 12:09:29AM +0100, Jonathan Cameron wrote:
-> > On Wed, 29 Jul 2026 21:47:45 +0100
-> > Conor Dooley <conor@kernel.org> wrote:
-> >  =20
-> > > On Tue, Jul 28, 2026 at 10:17:19PM +0100, Jonathan Cameron wrote: =20
-> > > > On Tue, 28 Jul 2026 17:00:55 +0100
-> > > > Conor Dooley <conor@kernel.org> wrote:
-> > > >    =20
-> > > > > On Sat, Jul 25, 2026 at 11:07:39PM +0100, Jonathan Cameron wrote:=
-   =20
-> > > > > > On Sat, 25 Jul 2026 15:57:07 -0500
-> > > > > > David Lechner <dlechner@baylibre.com> wrote:
-> > > > > >      =20
-> > > > > > > On 7/22/26 2:54 AM, Janani Sunil wrote:     =20
-> > > > > > > > Add the generic spi-device-addr property to the binding and=
- deprecate
-> > > > > > > > the existing vendor specific microchip,hw-device-address pr=
-operty.
-> > > > > > > >=20
-> > > > > > > > Signed-off-by: Janani Sunil <janani.sunil@analog.com>
-> > > > > > > > ---
-> > > > > > > >  .../devicetree/bindings/iio/adc/microchip,mcp3564.yaml    =
-     | 10 ++++++++--
-> > > > > > > >  1 file changed, 8 insertions(+), 2 deletions(-)
-> > > > > > > >=20
-> > > > > > > > diff --git a/Documentation/devicetree/bindings/iio/adc/micr=
-ochip,mcp3564.yaml b/Documentation/devicetree/bindings/iio/adc/microchip,mc=
-p3564.yaml
-> > > > > > > > index 675319276197..de1ea289e7f5 100644
-> > > > > > > > --- a/Documentation/devicetree/bindings/iio/adc/microchip,m=
-cp3564.yaml
-> > > > > > > > +++ b/Documentation/devicetree/bindings/iio/adc/microchip,m=
-cp3564.yaml
-> > > > > > > > @@ -80,6 +80,7 @@ properties:
-> > > > > > > >      $ref: /schemas/types.yaml#/definitions/uint32
-> > > > > > > >      minimum: 0
-> > > > > > > >      maximum: 3
-> > > > > > > > +    deprecated: true
-> > > > > > > >      description:
-> > > > > > > >        The address is set on a per-device basis by fuses in=
- the factory,
-> > > > > > > >        configured on request. If not requested, the fuses a=
-re set for 0x1.
-> > > > > > > > @@ -91,6 +92,12 @@ properties:
-> > > > > > > >        clocking of the device address (BITS[7:6] - top two =
-bits of COMMAND BYTE
-> > > > > > > >        which is first one on the wire).
-> > > > > > > > =20
-> > > > > > > > +  spi-device-addr:
-> > > > > > > > +    maxItems: 1       =20
-> > > > > > >=20
-> > > > > > > Does it not make sense to all for more than once device conne=
-cted
-> > > > > > > to the same CS here? I would expect maxItems to be 4 to match=
- the
-> > > > > > > number of possible addresses.
-> > > > > > >      =20
-> > > > > >=20
-> > > > > > I think for this part their isn't a reason to aggregate.
-> > > > > > No magic accesses that touch them all at once.  So this hits
-> > > > > > exactly the point you raised about how we set the address for
-> > > > > > more than one of them.     =20
-> > > > >=20
-> > > > > No David is actually right here, and maxitems should be 4.
-> > > > > Setting the address for multiple was already discussed I thought,=
- with
-> > > > > the property being an array and each compatible being used to det=
-ermine
-> > > > > the "stride" between entries based on the number of supported cha=
-nnels?   =20
-> > > >=20
-> > > > I don't think that applies for this device or at least to do so
-> > > > is a major driver rewrite, not a simple binding change.  Probably w=
-e'd   =20
-> > >=20
-> > > Whether or not it is a big driver change, the binding should represent
-> > > what the hardware is capable of.
-> > >  =20
-> > > > just add a bus and hang the 4 instances off it. They are running on=
- own
-> > > > timing etc so we can't grab data across all of them in any sort of
-> > > > synchronous way - the clocks will probably drift over time etc.   =
-=20
-> > >=20
-> > > Did I miss something about the ADI devices in this thread where they
-> > > have some multicast ability to read all devices at once? I thought th=
-at
-> > > that was a different series where each device had dedicated mosi and
-> > > miso lines, rather than the shared ones here. I didn't think the ad55=
-29r
-> > > did anything special from my reading of the datasheet but I'm not the
-> > > expert in this area! =20
-> >=20
-> > It's a DAC so other way around but yes they have exactly that in the se=
-ction:
-> > https://www.analog.com/media/en/technical-documentation/data-sheets/ad5=
-529r.pdf
-> >=20
-> > 	Register Details: Hotpath DAC registermap.
-> >=20
-> > The is a brief description earlier of the whole feature that might
-> > serve for this discussion:
-> >=20
-> > "DAC HOTPATH
-> > The DAC hotpath is a dedicated register region that optimizes
-> > DAC updates in multidevice configurations where several AD5529R
-> > devices share a common SPI bus. It reduces the number of SPI
-> > frames required to write DAC data and supports synchronized
-> > output updates across devices. In single device systems, the hotpath
-> > offers no advantage over the standard register map and can be
-> > disregarded."
-> >=20
-> > As an example
-> > MULTI DEVICE SW LDAC MODE 0 REGISTER
-> > "This register sends a software LDAC update to the selected devices
-> > that share the SPI lines but have different addresses, using the ID0
-> > and ID1 pins. The selection is done on a per-device basis corresponding
-> > to the configured bit field."
-> >=20
-> > This one triggers all selected DACs (there is bit corresponding to
-> > each address) to update in sync. (Lets put aside normal systems
-> > where an LDAC gpio is wired to multiple devices as that is a whole
-> > different problem).
-> >=20
-> >=20
-> > It is this part that is driving the suggestion of having
-> > a combined device representation for multiple physical devices.
-> > In practice it is very similar to chained devices where we do that
-> > already in that a longer access sequence is used to talk to multiple
-> > devices at once.
-> >=20
-> > Those SPI messages do not carry the address (or they are ignored - I di=
-dn't
-> > dig into the mechanism).
-> >=20
-> >  =20
-> > >  =20
-> > > > They are independent devices (think of them using spi-device-address
-> > > > like an i2c address) -  so why have one DT node for up to 4 of
-> > > > them?  Note this is different from the AD5529R where the design
-> > > > is intended for them to operate as one single larger device.   =20
-> > >=20
-> > > I don't buy this argument, I just don't see what differs between the
-> > > devices. The microchip datasheet I read talked about using 3 devices =
-to
-> > > measure 3 phase power setups (I think that's what it was) which is, in
-> > > my book, evidence that they're not just intended to be used
-> > > independently. =20
-> >=20
-> > Sure but that could just as easily be done with normal SPI and 3 chip
-> > selects. For these devices there is no broadcast write magic (I think
-> > anyway!)
-> >  =20
-> > >=20
-> > > That said, the more this discussion goes on, the more I think that
-> > > merging the devices into a single node is a mistake. Logically there =
-may
-> > > be one device, but really there are one to four devices. Doing the
-> > > logical device thing is nice maybe for software but I no longer think
-> > > that it represents the hardware correctly. I know this will cause
-> > > problems with registration of devices in the SPI core, but we need to
-> > > pick one representation for these devices that fits in all usecases
-> > > and with the things brought up in the other mail I am having a lot of
-> > > doubts. =20
-> >=20
-> > This wasn't about use cases as such but the broadcast like facilities t=
-he
-> > ADI parts have which to me smell like the main reason you'd put them on
-> > a single bus and use this feature in the first place - you are making
-> > one big DAC from multiple chips.
-> >  =20
-> > >=20
-> > > Only going to reply to this for now, I'll reply to the other thread of
-> > > this conversation later so as not to end up duplicating discussion, b=
-ut
-> > > I am thinking of things like what if someone puts a mcp3654r and an
-> > > ad5529r on the same chip select? I think that's actually perfectly
-> > > functional on a hardware level, provided the fuses/pins are set up
-> > > correctly (and if it is not, mixing the microchip devices is possible
-> > > and probably mixing future ADI ones will be too). =20
-> >=20
-> > The broadcast stuff is what breaks this.  Otherwise I fully agree they
-> > should be independent and we should have SPI allow that.
-> >  =20
->=20
-> Exactly! The idea of having the devices as separate nodes always felts
-> really appealing to me given that's what we have (strictly sepaking) in
-> HW. But as you stated, the big reason to pack multiple devices (for the
-> ADI case) is to basically increase the number of channels and so
-> aggregate the devices together.
+The Microchip ZL30643 (chip ID 0x0E3B) is a member of the ZL3064x
+line card timing family. It is register compatible with the 3-channel
+ZL30733 (chip ID 0x0E95) of the ZL3073x family: both datasheets
+describe the same register map and use the same chip-ID encoding.
 
-Key detail is not just aggregate devices but have them act as one device
-from an interface point of view (just like SPI chaining).  One message
-affects multiple devices.
+Describe it with a fallback to microchip,zl30733 rather than a new
+standalone compatible.
 
-> But taking on David's suggestion,
-> couldn't we somehow reuse that for AD5529R such that the additional
-> DAC's would be child nodes?
+Signed-off-by: Vincent Jardin <vjardin@free.fr>
+---
+ .../devicetree/bindings/dpll/microchip,zl30731.yaml   | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
 
+diff --git a/Documentation/devicetree/bindings/dpll/microchip,zl30731.yaml b/Documentation/devicetree/bindings/dpll/microchip,zl30731.yaml
+index fa5a8f8e390c..17983e6c3597 100644
+--- a/Documentation/devicetree/bindings/dpll/microchip,zl30731.yaml
++++ b/Documentation/devicetree/bindings/dpll/microchip,zl30731.yaml
+@@ -14,15 +14,22 @@ description:
+   provides up to 5 independent DPLL channels, up to 10 differential or
+   single-ended inputs and 10 differential or 20 single-ended outputs.
+   These devices support both I2C and SPI interfaces.
++  The ZL3064x line card timing ICs  share the ZL3073x register map
++  and are described with a fallback to the register equivalent ZL3073x
++  part.
+ 
+ properties:
+   compatible:
+-    enum:
+-      - microchip,zl30731
+-      - microchip,zl30732
+-      - microchip,zl30733
+-      - microchip,zl30734
+-      - microchip,zl30735
++    oneOf:
++      - enum:
++          - microchip,zl30731
++          - microchip,zl30732
++          - microchip,zl30733
++          - microchip,zl30734
++          - microchip,zl30735
++      - items:
++          - const: microchip,zl30643
++          - const: microchip,zl30733
+ 
+   reg:
+     maxItems: 1
 
-If they were child nodes that just means we have a device specific binding
-and in practice ends up the same as a binding that just makes it one device.
+-- 
+2.43.0
 
-adc@cs {
-
-	adc@spi-device-addr0 {
-		spi-device-addr =3D spi-device-addr0;
-	};
-	adc@spidevice-addr1 {
-		spi-device-addr =3D spi-device-addr1;
-	};
-}
-
-Fun question of where we do the xlate for references to channels so
-does a consumer point at the outer node or the inner one?
-
-I'm not seeing a gain over having an array of spi-device-addr in the
-top level node.
-
->=20
-> I agree that we should just pick one representation and it feels
-> to me that device@cs,spi-addr (or something like it) is the more
-> flexible approach.
-
-Agreed though if there is an array it will be first spi-addr.  That
-should be fine.
-
->=20
-> - Nuno S=C3=A1
->=20
 
