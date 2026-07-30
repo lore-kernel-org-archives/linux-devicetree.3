@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE0192DECDF;
-	Thu, 30 Jul 2026 05:56:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6B722FE05C;
+	Thu, 30 Jul 2026 05:59:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785391000; cv=none; b=gJ6FqQdZRD9FbBnZvTc0QC5UmzhquGke3sZqxTrcycN8vXHohke5Mo90TgzaWJz+57XT81X0hJpArI6qHvdgoYrATcX5bhQtc8dWFu9lJ15ir8XsXEyda7eAYSQsVkNRIlrprogyIDROMBdBNhxeB/QgdFnUljHt20a/I6DFS84=
+	t=1785391181; cv=none; b=ro+LAXG7sVf5BWjOEg2UcW5XkvVAV+BxukFg+wHuOgrPOdf/uaQbtp3RyZk+U7Aj5cJHDwHiKIwQf+g2Guwv3WFS2WF8ZIyw+efPKJtERw4p751Z+mbmgyB/2Se/2XIyedNUWwYCeKeC4IuYTFvswrEyYSIb6At+Lon0dLG5p8Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785391000; c=relaxed/simple;
-	bh=1huBuap014BzteL8e+NDSuW84MlBtEgLaRtLHfAe1XE=;
+	s=arc-20240116; t=1785391181; c=relaxed/simple;
+	bh=NdfX3FdbOCpYqarMXlzZGZ6EShuWGY1mEzJqOUopHek=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Fn86gI8QbRIPkx9sBP7Bg8K87Dn+dbGpMEj9kCakob1HM9h4LHlM5DIkdp4sTBfyLIxSOr4ttZQDk4t/RYW0hoUrL2rCyA1GjtSZCnzgIj4fuVjIgDH+1qMQ4cghCPI9v3ehOyIZacG0UuBjn7H5Fhx2nDd48WsEiuZuyCCcR/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nsmEKlok; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=IsvrMzBTHLPwyA6XVxU08zjDnjt/H7n+z4IIexD1IGlAOgJPqQIgEXnlTq/cEjIcJ0dk0QjFQpYZpBb5/8GmAtC9KhPvTDTvz9OGfiTp9E2hmNhXUuT4aHwlulC/IDbL5YFFaI4BOvrzGDq7I4/PtEAT19PbHxp9R3symIo88Ss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q62su0Qs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nsmEKlok"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46C711F000E9;
-	Thu, 30 Jul 2026 05:56:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q62su0Qs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75A031F000E9;
+	Thu, 30 Jul 2026 05:59:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785390999;
-	bh=CpoQIiER541n7mJRohMaVVWUG6KxxmV8kOdly+Nh+BY=;
+	s=k20260515; t=1785391178;
+	bh=Elrrmn657Rbg3UfKcwkLutUo3t2jwMQx9G6/NT4Wnow=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=nsmEKlokrirmAeVUYxcK6v6OCj4E9MdxaH+9TtWg2fbfj2JiBLKeEnevushQUtp1R
-	 CTNGrfUtYfSw86Tu/4/paS/3kFUakD2Q2Jwo6CH64KmhDLvpS300VtCnWqPTYadVO9
-	 CpbM9z+hLlJcxGqldr5Vi/rsx/WkHW/8IKLtgHtXpubNc8g5nbOTXo5yZRuH5wlton
-	 98fRg3Sck59a00nGOJ+hI5LEFgTqur+Cybj2HOCo2IhCKiyZR+cBfgyesbJEPGFCSl
-	 MNt7sH8HEHVElK+nVoLxawnIlxKGoFM75oww0HZQpdXuVxLiZDQDV4KWWW0izttiO/
-	 jvV1+sd6HGNjQ==
-Message-ID: <d580900f-d880-4ede-ab74-a83fc0c71be9@kernel.org>
-Date: Thu, 30 Jul 2026 07:56:32 +0200
+	b=Q62su0QsxlhhEaAZd0h4YZHWaeUAkzjx4ToR4PHTrvnBsj+iX6Wx3KzTWbbsbo4Xq
+	 iPd0wIseoXw3mtww01Jsc+CnZ5bR8gQepeMDOyXY/kgWEmyd05L0oEWba9xw71YUJ9
+	 zQubMxrBgzFnLhTezvNqYFm75/jBALLebtgq7MUH7AXpxJH6tLLtVFD6FE+b0rhp12
+	 AVXDyCFpCPwxIhBa7ZjUvCZGZkMVH9DHnjokS3vjSb9uNRAAlj3Ct8IMHqRehYXpkA
+	 e+y+SLkXCAw0+ooJpkMDsrZ6pnwTNyjUvK5tMAAuzcNOvJOX4nuZCLL72TE0pIJwkZ
+	 zwHhBxbdnl5/g==
+Message-ID: <c8faf721-b3fe-43a7-943a-99b82a36e116@kernel.org>
+Date: Thu, 30 Jul 2026 07:59:31 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,15 +35,17 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: altera-sdram: Add Agilex5 ECC manager
- compatible
-To: Rounak Das <rounakdas2025@gmail.com>
-Cc: bp@alien8.de, conor+dt@kernel.org, devicetree@vger.kernel.org,
- dinguyen@kernel.org, krzk+dt@kernel.org, linux-edac@vger.kernel.org,
- linux-kernel@vger.kernel.org, niravkumar.l.rabara@altera.com,
- robh@kernel.org, tony.luck@intel.com
-References: <20260724-sensible-flamingo-of-experiment-5a389f@quoll>
- <20260729204308.21562-1-rounakdas2025@gmail.com>
+Subject: Re: [PATCH 1/2] dt-bindings: mailbox: add Axiado AX3005 mailbox
+To: Swark Yang <syang@axiado.com>, Krishnakumar Kesavan
+ <kkesavan@axiado.com>, Prasad Bolisetty <pbolisetty@axiado.com>,
+ Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Tzu-Hao Wei <twei@axiado.com>,
+ Karthikeyan Mitran <kmitran@axiado.com>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260729-upstream-axiado-ax3005-mailbox-upstream-v1-0-8961b7350338@axiado.com>
+ <20260729-upstream-axiado-ax3005-mailbox-upstream-v1-1-8961b7350338@axiado.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -89,20 +91,69 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260729204308.21562-1-rounakdas2025@gmail.com>
+In-Reply-To: <20260729-upstream-axiado-ax3005-mailbox-upstream-v1-1-8961b7350338@axiado.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 29/07/2026 22:43, Rounak Das wrote:
-> Add the altr,socfpga-agilex5-ecc-manager compatible as an enum next to
-> the Stratix10 entry, since both share the Arria10 fallback.
-> 
-> Signed-off-by: Rounak Das <rounakdas2025@gmail.com>
-> ---
->  .../devicetree/bindings/edac/altr,socfpga-ecc-manager.yaml | 7 +++----
->  1 file changed, 3 insertions(+), 4 deletions(-)
+On 30/07/2026 06:36, Swark Yang wrote:
 
-Dinh just sent it, didn't he?
+> +  - Krishnakumar Kesavan <kkesavan@axiado.com>
+> +  - Prasad Bolisetty <pbolisetty@axiado.com>
+> +  - Swark Yang <syang@axiado.com>
+> +
+> +description: |
+
+Do not need '|' unless you need to preserve formatting.
+
+> +  The Axiado mailbox controller provides inter-processor communication
+> +  channels between subsystems within the Axiado SoC. The hardware has
+> +  separate TX and RX register regions. Only the RX channels (channels 8-15)
+> +  generate interrupts; TX channels are purely poll/write-based.
+> +
+> +properties:
+> +  compatible:
+> +    const: axiado,ax3005-mailbox
+> +
+> +  reg:
+> +    items:
+> +      - description: TX mailbox register region
+> +      - description: RX mailbox register region
+> +
+> +  reg-names:
+> +    items:
+> +      - const: tx
+> +      - const: rx
+> +
+> +  interrupts:
+> +    description: |
+
+Do not need '|' unless you need to preserve formatting.
+
+> +      One interrupt per RX channel. The hardware exposes eight RX interrupt
+> +      lines corresponding to channels 8 through 15.
+> +    minItems: 8
+
+Drop
+
+
+> +            reg-names = "tx", "rx";
+> +            /* Only RX channels (8-15) have IRQs */
+> +            interrupts = <GIC_SPI 242 IRQ_TYPE_LEVEL_HIGH>,
+> +                         <GIC_SPI 243 IRQ_TYPE_LEVEL_HIGH>,
+> +                         <GIC_SPI 244 IRQ_TYPE_LEVEL_HIGH>,
+> +                         <GIC_SPI 245 IRQ_TYPE_LEVEL_HIGH>,
+> +                         <GIC_SPI 246 IRQ_TYPE_LEVEL_HIGH>,
+> +                         <GIC_SPI 247 IRQ_TYPE_LEVEL_HIGH>,
+> +                         <GIC_SPI 248 IRQ_TYPE_LEVEL_HIGH>,
+> +                         <GIC_SPI 249 IRQ_TYPE_LEVEL_HIGH>;
+> +            interrupt-names = "ch8", "ch9", "ch10", "ch11",
+> +                              "ch12", "ch13", "ch14", "ch15";
+> +            interrupt-parent = <&gic500>;
+> +            #mbox-cells = <1>;
+> +            status = "okay";
+
+Drop
+
 
 Best regards,
 Krzysztof
