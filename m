@@ -1,134 +1,151 @@
-Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com [209.85.221.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0C32407582
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 23:33:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70EAE3AFCE3
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 23:37:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785454419; cv=none; b=s9QjA+gvQrKEzcNRw1PJJ6NKd1oSHL0f/gTl01hCTt8o0kaqUUGNAboZ1CRvB/m7bVCGApCcFLnFrIaIjZJDGfEUoHSqxhWSakyi4Y0rZvKsfrKO4kA8aOaEfQ5P5nRie9kC11rqhh3e5mW62O4Y83IrzjoUPqWQ/U3dW87f/QE=
+	t=1785454637; cv=none; b=nrwS80tkiW+udEIZ7O62KWBw31wLrbtHR9zIFgF8HbjMa3uo7Cr1JHhRVYuy7d2nug6MaSZU/sbbgcqVYZMwddSwNmp5LeC+uCDP10rAdSEiRo5ej1pkc2rKQPSS7UeGZovQMqwsQmp759xNrEeLkPpiK84P8K2r+mmaqMmHbso=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785454419; c=relaxed/simple;
-	bh=GPZxIJ12NCdT32FLt89aeHS/XUCWgFohujxo0l4BvtQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=n792xdNHr9ZKjA4fZEAp7zE6otuar6C5AmEccYDdSA2fRPtQI7G+OxfJIwIJsDRdKKt7iZ2ft0+97zLPs22LQpewbUV9qyusu93+Tf7rf23ymhbnW/LWWUSzCgMc72P4jfW0L5sWEaZI5hJ8+6eARS4ftyOTZYjvUg/BpDNZwU4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=E3V5dqCt; arc=none smtp.client-ip=209.85.221.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1785454637; c=relaxed/simple;
+	bh=4lRX+v5ofI8pAEpVAItAgS5X5NxnSEovANu9RD25YUA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NptNZgmgbI67avBUb2VRXK4c/6CSaABSJisMoiNOn5c0VBpXD4FZdrXHYyGG36EhyxiZxbat+QaxdscHKBIe6TFQVDN3zOdwXHfWwmi+/G2vfR26TFpCyVjNMnLhr97TzedwJlhBRdJRitgjqHCGVJOLBI+e1YZBjkT2GLLe/s0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DONNrXbz; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=db0TCmA3; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="E3V5dqCt"
-Received: by mail-vk1-f173.google.com with SMTP id 71dfb90a1353d-5c30d9adfa7so157567e0c.3
-        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 16:33:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DONNrXbz";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="db0TCmA3"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66UMrAtU2121442
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 23:37:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=QElqoxWPFZqN4pslZeJRYhEi
+	+Ncp5rGlPM3D+WWt1NI=; b=DONNrXbzfhC/VkbFKsEz0WBFLnu/fE87Opq8jpKD
+	gm0Y72aQmv0YjOKCrEOOU2JMrRKUkskh1yNrM4Rf7PyG8rhnrGwWAn4lNhYneJIW
+	ICGTq+MU1ougpzZZ9/ibVPPfhnkhSIudlyMoHjzJvOqEkkFlE22uJbWHJSd3fzQb
+	80RQBQl7BX23SUc6F15USrlUJE+D+8uDW+kDcuCfBkWf4qMrQmonPOukIDZAqNtK
+	NL1HJRnhCOt7hTUECctb5OK4QAv+27F+wVNvo9yz6SK2FeAGR8zBLRkq9tVFk8eN
+	3sDc9wO7Erx7idWamCH3rMkksWAZKJrgFJglzelqo2xsXA==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4frfmr04n8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 23:37:15 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51c110a3b6aso5119821cf.1
+        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 16:37:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1785454417; x=1786059217; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=oss.qualcomm.com; s=google; t=1785454634; x=1786059434; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=1swx6ZS7vRHB6s/IgYx4mgkiMyCPAEEjNZGLF7mxwyE=;
-        b=E3V5dqCt/Ln7Nm69H6cIZugVC02Rkjjx7HfvXAOG58sWLk9G4QiOIxkWtcyTt4M+zL
-         I8xlXGl7dKBpZM/NO42yNyCvjuynsguT5q/5MGYFBBgRI+GOg4eADgUiyT90xVrVW5kL
-         uk42+Vy3YsLxezLpxPT2Qm1Nxl+S4N/yuGJww=
+        bh=QElqoxWPFZqN4pslZeJRYhEi+Ncp5rGlPM3D+WWt1NI=;
+        b=db0TCmA3P6dJKy9dKs0oqgsez8lAKRMImXV2s7hizUXpCxYveBETAbBynA6jfi4QDM
+         4+EPgJPS0LAaMWjRs5PpCsEM8Z4L8xByIuGNhsmE6nkl156Y0Va6I4Kg00oCMKX6chJX
+         RyqiO3fcJJumsgND895vJrxuNmCwyHdrr6gP00Yx/QRhz8ADXSAlba206koqW9524NwL
+         R+D5nCmEphwkBWous7aAUrpxVMBviAXOlixnaWUh6cJn5Q4bsnIi07/TDNkeyPGP7o+x
+         iS0wL+72cn7J//WBV8GUEnUkPMfAopKpEJ9D1cVKRZ8v4ICE4QA9m7ulxUVKwI9IS9Wh
+         SIgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785454417; x=1786059217;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1785454634; x=1786059434;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1swx6ZS7vRHB6s/IgYx4mgkiMyCPAEEjNZGLF7mxwyE=;
-        b=p8/bnZrSs8iSCTk00EwQbLZvaSLbeh0WHQ5rsI3ITcZgmlyyUIoZ91a75kf6pFGoas
-         wpzgMvxbHE/JkVAUtdLa6n5iCUigGZlJJurM1G/tjIKjTIPhEdLapDzx4n18r0xRDfAS
-         GdPrgs+2bdn5QCtN+f4PqVqHe/L9brC2CVaSv96nr3ohztJQdZx+lGV5t+a+hyxCHo43
-         9EYMZgXpTXbrqTUhuRdJ36agIkdaCHmTNCgeEu5rFh6zg0bfdbN7DNloyFije0X4vgth
-         A497XrUOXz+BNMN9AkLcQLsOOpl2ufoKSSbcE+LOTib9T0xdUqFbgibhcLuSMHOmVDhO
-         7j+Q==
-X-Forwarded-Encrypted: i=1; AHgh+RoTarNpFwXr6FfZ1Z7ZtII0y6u6ore9dpDRCpkAUFWCbSxCcriJSFULG7ii/AFSTv71IhNMEKb+2djE@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzaj4SJjzTRssb1p0pOLR1XzD3fuSojYrEW1o7b8WeClMjwHIc/
-	iXkqun8MGBhQOTwKIwbufTKlKqEn27ydt5W8DpwBCClrwtAHBxhNdx2PHhPE09IVwnx/9km4ObP
-	gXfc=
-X-Gm-Gg: AR+sD12UHyJP4YDPLfLibZOGjOlg0jYiIEAK8Jm/UXkjJbVKeGeDcEiuD4azoNHVuMm
-	DitMoaXMJWLVTabHRiciSarUrABcAE5aOmm3G/uHQmScI/P1/8c7iV7Leu5uihTg2Q+ID6td+sp
-	2aFITD0ndIJS4HYw3Lx2YgAxzRFRvEaUukmjpm0SWSoKocmTABBlg5j1/1MpFfqN2WJ6xFQ6Tj2
-	/5Npdjo7y0gqbc3HHoYROqRNokxngyQqHpaFT4vFDLfRwD72RutnmKxGukxH1eDCrCWyHG+8ABh
-	y3EMQ8IvwCPi5U0Nw6M4QVbNTMlrN3Z9zeAk5sqfGCpvIryMizXCod1cIIoGSwtkJbKrmQjHTyl
-	8EFMaCqv4VgTTL5rIu7eaKV0FWqqoi6ozDBCQ5QzmF1U2bo8de8XYCGDspyd7MTy1RjP86GK8SV
-	zkSqBc24dWEjPUAAJPLJgy96b0iitpvi0Mlvvb7rLUt5xuWRWSb4w2AqEd3EnL1UvbrVyBjgNu8
-	2gnJ89h2rypABrvG25xiMl0aWc=
-X-Received: by 2002:a05:6122:e233:b0:5bb:aae2:1754 with SMTP id 71dfb90a1353d-5c366221d69mr1592291e0c.13.1785454416813;
-        Thu, 30 Jul 2026 16:33:36 -0700 (PDT)
-Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com. [209.85.222.42])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c3666d53a3sm2852322e0c.12.2026.07.30.16.33.35
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 30 Jul 2026 16:33:35 -0700 (PDT)
-Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-96944741eaeso93182241.1
-        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 16:33:35 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Roc58q/W6Url2dJf2MXEcqJddyeia2uGwYvr9UnpJafheG74dmcQZfT3hXe6fyuXfhFA1Cjca1HfsXc@vger.kernel.org
-X-Received: by 2002:a05:6102:3592:b0:608:9a34:c8ea with SMTP id
- ada2fe7eead31-7574e6d1a1amr1650546137.10.1785454414391; Thu, 30 Jul 2026
- 16:33:34 -0700 (PDT)
+        bh=QElqoxWPFZqN4pslZeJRYhEi+Ncp5rGlPM3D+WWt1NI=;
+        b=MDfxPpgBVlfc6gxpCs29c/rCaD6NeBFO5MIxqdOTSff9mwxpwND1mwJ9VHrULEiICz
+         +9rN6xLrfdl3hU6jtcaRXIx0d75tIXG6GS6P+vX83DsepL5VLP5vWc538+GZu9uC6t5n
+         APV/UyXJp1/2XYIivoAEedJZNgpjw3RCshjLxadBmNwfbG6sdAE11pR9oyR47xZoCtTx
+         +ZvAJ+phVy4xOsrH5pioWfOb9jX6kYT6KLsZqHdC9NfXk2ZuUE0DXlNUK0qzEjoCkXBy
+         rSdn2oQA2UABaOj+zcMefJvATbeKOQlluShHQVm3PI8YRsGC8PoVyV+4uMpCIyK6bkOn
+         qexA==
+X-Gm-Message-State: AOJu0Yyap2mezE8Kt73hMFdcMJBOzX/L1WsNPiBd80Gi+V1IX8v/wuwU
+	T2MMwUyav6NQ3BnTIwCvtE4kAo2eYTFn1rBboC5uPH7dmfFUyitZV43zuS2pW8ECAO4eq2a7PWN
+	/B4kPgnr01IFfVV0PLQSzj2dDJAnOTJY/V5sVAd5vDy6hLqA1a5g/p6g+7V9SoB2W
+X-Gm-Gg: AR+sD12xcClaYOSAcFS1IvI6UnpgXDhc0S4YWSIM5XIpba/+ReDKk3734/qk/SZH1Hv
+	iBN+G7E2PSKAdJt8D1XkuzlIUlqX73UnWNg7z+9XevClYVLuN/KcdTkMNondvHAKILK/L3lAO9o
+	K4r+6eTPutonDsHM1z8hwimCr4+MeD4vzi6ciFOooUyBaOlRoY+F4/ijGZ3E7hFv33U3ao4aRBl
+	PzRizrH3XfJmr4aE7pEIdNiw0rJO/N9/r39WZeFJRLjX/0K7auO/BWyrDUNZN3zKT2PpKUnD0Zt
+	bTTv6d9+I7YqkwPPmL++T2e81EO66Gx1Faywfg9+kj7HFlTNOY/R40/hqHZw8RcAEJQcHVMtSQ9
+	YE00yqLpOS/fvC752QhqOE0X2hVUmByP2K7Iucy9zevOBd5K4EwBDLcDre003pamsoPyAJb6i/f
+	lMidSpBrTzcAkKxQ==
+X-Received: by 2002:a05:622a:510:b0:51c:147d:9bec with SMTP id d75a77b69052e-52b38378b62mr50900531cf.6.1785454634441;
+        Thu, 30 Jul 2026 16:37:14 -0700 (PDT)
+X-Received: by 2002:a05:622a:510:b0:51c:147d:9bec with SMTP id d75a77b69052e-52b38378b62mr50900231cf.6.1785454634026;
+        Thu, 30 Jul 2026 16:37:14 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2db9baa0dsm640324e87.54.2026.07.30.16.37.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 30 Jul 2026 16:37:12 -0700 (PDT)
+Date: Fri, 31 Jul 2026 02:37:09 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org, media-ci@linuxtv.org,
+        conor+dt@kernel.org
+Subject: Re: [PATCH v8 14/18] media: iris: implement support for the Agatti
+ platform
+Message-ID: <tokophmqfjim6f4wrpwletnpojcasnn47prkww3k4nuz6byqwq@buuvvn7ls6j7>
+References: <20260730-iris-ar50lt-v8-0-6597c08cea6f@oss.qualcomm.com>
+ <20260730-iris-ar50lt-v8-14-6597c08cea6f@oss.qualcomm.com>
+ <20260730155444.C30F01F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260722-contrib-pg-pixel10-initial-dts-v2-0-3abae9717feb@linaro.org>
- <20260722-contrib-pg-pixel10-initial-dts-v2-1-3abae9717feb@linaro.org>
-In-Reply-To: <20260722-contrib-pg-pixel10-initial-dts-v2-1-3abae9717feb@linaro.org>
-From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 30 Jul 2026 16:33:22 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=X32DiN2X26AutA97cpmywW9C3-76p-crT8sSQ+XqZNZw@mail.gmail.com>
-X-Gm-Features: AUfX_mwLrAK1Nx-rPTyOqhPQSXAd6QqwkRvKOTa5fFmS8RMZbaeNFVMG8HEBq6M
-Message-ID: <CAD=FV=X32DiN2X26AutA97cpmywW9C3-76p-crT8sSQ+XqZNZw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/5] dt-bindings: arm: google: Add dt bindings for frankel/blazer/mustang
-To: Peter Griffin <peter.griffin@linaro.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
-	Tudor Ambarus <tudor.ambarus@linaro.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Jiri Slaby <jirislaby@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Linus Walleij <linusw@kernel.org>, 
-	Drew Fustini <fustini@kernel.org>, Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-samsung-soc@vger.kernel.org, linux-serial@vger.kernel.org, 
-	soc@lists.linux.dev, Juan Yescas <jyescas@google.com>, RD Babiera <rdbabiera@google.com>, 
-	Brian Norris <briannorris@google.com>, William McVicker <willmcvicker@google.com>, 
-	kernel-team@android.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260730155444.C30F01F00A3D@smtp.kernel.org>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDE2NyBTYWx0ZWRfX06vaACJtkf3d
+ 9BcHk76KKK9kEFbqebLQSnMwt3yhOmQJM7XlW2swzZp1RPXLFlaHC73DBveMdmx4Dcp4nJXQHvr
+ 4O/MwVBYm0eZD2WZm5oMrkC9KRmof03UDz79w/EJcuPRJITsoVjhOh5piit5N/hz9UJ66lQe8Oo
+ YwodBvWy6XqFpyOZhL0/GPLRDDcK7qbdtwH47ahrJcXuOnvoXjNon1ynPDSZGSykmCUeH0GZgo/
+ 0hpY6K+rrx/I7kIMDHc3nBPI7ejbPsrezUfsJl7Igf8Jo2FfBirrkbydNvgPcw/jQbpQHdb7WVa
+ iei0wwUwlViNPGgCePwoXYTVQO07MAMbPTKSuC5zCh3hTSRueIgKoHq/Urb15hsgs0D0oH2aYlu
+ /zfZ9q+7YDiJAfwDqLe3yi1ohyAv2ssmQgXZj8i5bMdtOENHoUTYGyw0c4KYE3Tw1OpVviEAfE/
+ Qh44eDvzNi7jvnPZ9sg==
+X-Proofpoint-GUID: ClrH0D1GRuFCouZkzz9EA-zlh-LIoFW7
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDE2NyBTYWx0ZWRfX4U1z04L41gIQ
+ mLmG34ccbP9lvhK1Psizykm0xYn3HktZ+WI+JYN223aypxZAKa6mN7kvnLzfknXLLmJrE9UOXH8
+ Ei9tTytm028TxGeykMtfZ9IvM9vAUJA=
+X-Authority-Analysis: v=2.4 cv=FLorAeos c=1 sm=1 tr=0 ts=6a6be02b cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=VwQbUJbxAAAA:8
+ a=LqHTJALFuVLZQZMk1bwA:9 a=CjuIK1q_8ugA:10 a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-ORIG-GUID: ClrH0D1GRuFCouZkzz9EA-zlh-LIoFW7
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-30_07,2026-07-30_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0 impostorscore=0
+ malwarescore=0 phishscore=0 suspectscore=0 bulkscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607300167
 
-Hi,
+On Thu, Jul 30, 2026 at 03:54:44PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 4 potential issue(s) to consider:
+> - [Critical] Mismatch between statically calculated vb2 buffer size and the firmware's requested buffer size causes a potential buffer overflow when the firmware writes to external buffers.
 
-On Wed, Jul 22, 2026 at 2:56=E2=80=AFAM Peter Griffin <peter.griffin@linaro=
-.org> wrote:
->
-> -  # Bootloader requires empty ect node to be present
-> +      # Google Tensor G5 AKA lga (laguna) SoC and boards
-> +      - description:
-> +          Google Pixel 10, 10 Pro, 10 Pro XL (Frankel, Blazer,
-> +          Mustang).
-> +        items:
-> +          - enum:
-> +              - google,lga-blazer
-> +              - google,lga-frankel
-> +              - google,lga-mustang
-> +          - const: google,lga
+I think the implementation is correct
 
-I'm not sure I really want to make a big stink here since I'm
-certainly interested in getting something landed. That being said, I
-at least want to ask about the "google,lga" entry in the above
-snippet. "google,lga" represents the SoC and I don't think that's
-technically required in the top-level compatible string.
+> - [High] Querying buffer requirements for AR50Lt overwrites the DPB buffer count (fw_min_count) with the display output buffer count.
 
-I had a previous email about this that essentially went nowhere [1],
-but I'm hoping to continue the discussion (along with other similar
-topics) and Plumbers. The essence of the question is: how much data do
-we really want to jam into the top-level compatible string, and is the
-top-level compatible string truly the best place to indicate which SoC
-is present in the system? While many boards put the SoC here, I don't
-think anything in the DT spec requires it, and I'm hoping that we can
-stop doing it for new boards. When/if we need the SoC info in the
-device tree, it seems like we could put it somewhere better...
+This is expected
 
-[1] https://lore.kernel.org/r/CAD=3DFV=3DW+jE_L_LLgAhD8K_4+CtivSD9-9t7Xe63X=
-uKrKjfyfeQ@mail.gmail.com/
+> - [High] The AR50LT platform uses `iris_vpu2_calculate_frequency` but provides capability fields intended for `iris_vpu3x_vpu4x_calculate_frequency`, resulting in severely under-calculated clock scaling.
+
+No, See codec_freq_data_lite, it also uses 0 for vsp
+
+> - [Medium] The hierarchical layer bitrates (LAYER0_BITRATE_H264 to LAYER5_BITRATE_H264) in `inst_fw_cap_gen1_ar50lt_enc` use the global `BITRATE_MAX` (160Mbps) instead of the AR50LT-specific limit.
+
+Corrected this one
+
+> --
+> 
+
+-- 
+With best wishes
+Dmitry
