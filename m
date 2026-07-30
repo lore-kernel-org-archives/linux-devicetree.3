@@ -1,159 +1,189 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012008.outbound.protection.outlook.com [52.101.66.8])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 518F3443A89;
-	Thu, 30 Jul 2026 15:21:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.8
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785424905; cv=fail; b=D3siD/nWBRey4ZP05m6HjChKpvVb8P/N9fnJb1cKtvYHjYNabHs25Id96yVaG6MLWYIGoLf64MeWfd5WfyIVNSb0zB9eL+rJuJ9ZcMtuLM470xiScRhc0SROGaVdfZqJ88nbvlaLeJDlubXvluH24bZ621ntH7/Q0IXOw62r3vo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785424905; c=relaxed/simple;
-	bh=y28s1iOsNXaYCSbNSlhvYcaQGjp7lzg9049LZOzK1PQ=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=r9tQAbTQkg9MqFqVMWtAsqIDQwRIS9nXaKQFKQM/JPgCOCa7OnGCoNsP8UFGBIdnsekUF4Uv+VUipflnrYMknFU7GB0f3hbZq5YgfxQkIvCQTPv8m7HUZspKxAZAYiDUqZQgBpcnefxUNtuKJVSMX1g2Vv4AVncB1FW36ry++2Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cherry.de; spf=pass smtp.mailfrom=cherry.de; dkim=pass (1024-bit key) header.d=cherry.de header.i=@cherry.de header.b=QF2z09a1; arc=fail smtp.client-ip=52.101.66.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cherry.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherry.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD79C44AB84
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 15:31:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785425486; cv=none; b=uw41y8tdlDipRWB2kHAr25Zed4LRynW67F3N1e6eD5EZxYjf/4sV1XmHCp2+RRZl9bbDYXBlhAro9TRvQITwEXdniTeLB5j7be3zLtPZSO9yx0l3X1bj2d9p0WasjwZ+Z5gWKkYHWO2QOB3U0S4DuwQyMjxHmHdjrAIg5Vuqkvg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785425486; c=relaxed/simple;
+	bh=au0TMt0cGNITV+D2h/bO2AzfGBawEZAt1u+9aWshTCQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=QYDSADsLLQP64S8rZhkcmy/XzvU8Fs6EbLMvg7+9LXTN+j4NMPULtl0MaYMY7zzuqlIgUGUtUsdXqu535kn1uZBkiDo78gSHdwGG3jz51xJrWFJXoo7QPJZNwG3JxZlS5IZhAnTlErB5pLonQE+sHjXiOzn5OQhDo2zArVo7ZFg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XwxsrGA8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cherry.de header.i=@cherry.de header.b="QF2z09a1"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hfKtTjcDtrnQDGMHn5iadomKUFFFKBuyjlfQcIRXM+vbubPdHg4m/q9j0CxIRQChKkh7HKqcFvsBUIfTh74oMMhHsVSa40oJDvnaizpG7lZC083NZ3uBzi+hmc/dXfTbQYedFxYX+FfvHekjZR7fspQD82cKcB4AWZyZwXlKWXi7/e8S+wqw0zCfUYU4KPsDELBkO7jK/BDIUCcfyvyG5PtbQl54YbIeVECjzmH94azX5AslnNnetU1AZJx+7qe6b3B+6/fLnRdyL6tmHFGyrhvZScdhydgS+DZ5kJO5LZYmwsxe20wB9zg6q4Syqx7GZqktL4wE2myb9KSebdKwrA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gurVjpa+FxGcc5JDGH4iqrszVOvSbB78c2N1hLBEYJ0=;
- b=KtEZmhPc9AHHF+7grFrPRS7Byg6JwjVBRVhcJVrXod7DdxD4dWDFrncRkE9xcIavOGk8EDpsjUIWjYLbNy1Q18/zjrQ1FlhjyxWbY5ka4otHfEuVCk1v85ZKDvj7crItgfpEtr/vZk5vIdLYsCGChjy5rp1TTM8SL6ysJnv0W0dpYp9H+pl/07dfZ4i2qbLbqqfeg8KDA8X4XrOOgSRrzU2noWiBG1ijQwc6bIBoXXXIhqx/L5VcHe37mFQeCVlTFqwRJW1EAnSJYXzgaJsZffuJPSClWJzbUV1ofcda5iSkSBkcIyFYOI9YDrxsW57DQfz+wRTwqYFZIbKDaV6fqg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=cherry.de; dmarc=pass action=none header.from=cherry.de;
- dkim=pass header.d=cherry.de; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cherry.de;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gurVjpa+FxGcc5JDGH4iqrszVOvSbB78c2N1hLBEYJ0=;
- b=QF2z09a1EBYquni5w+6oOo1nYtJeE/LOGJvc4gjZwMTdLYsLgNY1RbAIR9oiVAq7KjvibfxmXAo25rc9t/XppzG/lYGo4GBUsL0ke7TW5RjuZkzQlmF/Jcv4zND4g8p96rgVWbPAOH5yuGQibS3jb5aZjRDFeHKx0afclbw4NfY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=cherry.de;
-Received: from PA4PR04MB7743.eurprd04.prod.outlook.com (2603:10a6:102:b8::20)
- by GV1PR04MB10558.eurprd04.prod.outlook.com (2603:10a6:150:20f::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.15; Thu, 30 Jul
- 2026 15:21:36 +0000
-Received: from PA4PR04MB7743.eurprd04.prod.outlook.com
- ([fe80::9a4e:252f:2fd:97b7]) by PA4PR04MB7743.eurprd04.prod.outlook.com
- ([fe80::9a4e:252f:2fd:97b7%6]) with mapi id 15.21.0270.012; Thu, 30 Jul 2026
- 15:21:36 +0000
-Message-ID: <d83d2d39-7c58-44e6-9454-6d8e38511bf5@cherry.de>
-Date: Thu, 30 Jul 2026 17:21:35 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 4/4] arm64: dts: rockchip: Enable CAN controller on
- RK3588-Tiger-Haikou
-To: Cunhao Lu <1579567540@qq.com>, Marc Kleine-Budde <mkl@pengutronix.de>,
- kernel@pengutronix.de, Vincent Mailhol <mailhol@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: linux-can@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, Heiko Stuebner <heiko.stuebner@cherry.de>
-References: <20260730-master-v6-0-dfb63e234775@qq.com>
- <tencent_A982C9885A401DE2AB5F405336CDA14C7C06@qq.com>
-Content-Language: en-US
-From: Quentin Schulz <quentin.schulz@cherry.de>
-In-Reply-To: <tencent_A982C9885A401DE2AB5F405336CDA14C7C06@qq.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM0P309CA0028.EURP309.PROD.OUTLOOK.COM
- (2603:10a6:20b:28f::6) To PA4PR04MB7743.eurprd04.prod.outlook.com
- (2603:10a6:102:b8::20)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XwxsrGA8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FA9C1F00A3A;
+	Thu, 30 Jul 2026 15:31:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785425484;
+	bh=8wBn0iSrweF5+d7fzXGLatIBfmARioYQt1Df5wDOmvw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XwxsrGA8R23xto/2LgHGiM+2u3MAqmfR0khriBwEPVDqs2yOQsVE9DhM0jl8sQlnE
+	 +pxKyYZkwtOngIhRH/nbWETG4Guh37I6Sgpb6IhePHL4UY7XVBf0FMZabrUtlLe/og
+	 A6B8RgLcNS9B24cRjNaoMBWB1gf2YQvryXbAlH9kY+hVfhZ8wdzPPQoYSmReM26iq+
+	 TrOMSP1F1BVO+Z4IkGDuFYgTdG7IosofMLWRYT8x8UpeZFwa/poSwefko5DFr8IMng
+	 MB+cQT+6aw4olkb89utz2Uvx+l3+oLmgOZvBl+fJfipnRSv1RBkS4lfNWp7DxD9PLW
+	 V7hOX1FVPaLIQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 3/3] arm64: dts: qcom: sm8250: Add JPEG encoder node
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Atanas Filipov" <atanas.filipov@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, media-ci@linuxtv.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260730150524.2659577-4-atanas.filipov@oss.qualcomm.com>
+References: <20260730150524.2659577-1-atanas.filipov@oss.qualcomm.com>
+ <20260730150524.2659577-4-atanas.filipov@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 30 Jul 2026 15:31:23 +0000
+Message-Id: <20260730153124.3FA9C1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB7743:EE_|GV1PR04MB10558:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3717e1d6-5921-40b7-f494-08deee4e3eec
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|7416014|10067099003|4143699003|11063799006|6133799003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	QNa3dnXJ2BwR0OnRaQ2ilFqYnVT9rpynNo/1Yx7r5+212hXVgFkemQrXXEa7qX5ssm+uw/pMbDYzsWLGuQOh08xVpF9LzUFYO6hm/L8p8On4WrXkDKWFNVUyh/IBA74wS6vEv00YxxmLSNlGDdas/aA9xqy1HYNFopmeolZReaCZlDmQ8+ulvNPa3tOFiqmNQu6C7Zsnea5yvUGKuCfzlplAfssAcme55x5lE3Ui2pDP7fyLUaX2AeHeJBJ+ymgejE2dh2VTRJFnEqH7PDVCEO/697U1fIpVuTchwzqfWG6+UvoTUmJdCSbEtnB3KTitBFfOQfpc9PBuZOvDqG4REeuQAnqbgTnKe9HJRPv8RQbawEPCBz/vnMhdcaAmnPX2kMw0x0YqQJ2/pYxqkpBzeCp9EHHUXbl3YOg2owqn0qtNgAECPnrYqthrQ4A+AVBu9a8uJ1upR77bNtdBScD/EMjqmVCA/8qg7QQObhDRP93hpAN1qH5HEWt3RTfMQ/cO9Px3s3A0xrkBxlda+/NTv41BdyyZVULTEAz4lND8/YIvpYk4zcDuaFk5KEWjC6pHXXdtagmaIrfaCqD4bzGU5SJpHpvLzNTRm00MstZWWh59bo+WD/+aS7qT/nFxYBUNL/f3FQMNTu8/YkCr6TkAbL9GH+c9cqqa7zxiU3+xTqo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB7743.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(7416014)(10067099003)(4143699003)(11063799006)(6133799003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VW9jZzQ5T0NQWDZIcTdvUU9POTRqRDBjb3R1dVg3RlltQW9PalBFOWhjODRo?=
- =?utf-8?B?QjErZ3JZb3o3VWE4OWhmU0dkaTliTHgwY0RyUUkzalh5ZFFOcDA4aGl1UHJV?=
- =?utf-8?B?Q0tudFJtaGdVVW5tQTAySFQ3QjlzVlRmekxVVCtsc2JQMFNESmg3ekhYbTBh?=
- =?utf-8?B?RElHNHFwRTRuN21VeXRKM3dKUHd1L09sclVrY1ZkZmhBTnBzMUd0NFJGeXIw?=
- =?utf-8?B?M0JtM3dISmNQYmJxSjVyeG1XYzV4MmVQVkVkZjM2ZWdXbjQxYnR6YUdwODlL?=
- =?utf-8?B?VGdCM2YxLzJWYkM2cDBXcmorUHUyZ1AyU3hyRk5nWVNVem82d0ZtRWtmSVho?=
- =?utf-8?B?UEZSM25QNmE5QmgwcnRta3hZUUc3THFQK09NcjVwQ01ROGozYk9YeU1UdUNa?=
- =?utf-8?B?Z0lFdjZPZTVQVlcyR0FES0tONjJqRjFGWjRsWTV1YU5ZVmlxSDBjN3BPQVp0?=
- =?utf-8?B?Z3U5R0JTWGFVV2IrRlYwM1lyUm5ONm9ILzU4WU5zUlRuVVBDUTY2ZHgwMloy?=
- =?utf-8?B?Y1FVeTk1NXF3TitSMWNsYmpXYWg0THVvQ0kyMWdiSDVtMTJQbUJJY0x3dmFo?=
- =?utf-8?B?Zmt2ODBtUkh1a1gwTWUzN0dQck9Lbk5RYStnQnBwVnJjSFVFSnY3ZTIybmNl?=
- =?utf-8?B?MlJsZkszb1Y0SzNjN3dsV3crb0NIZmQ0b0dNTnQ1MUhlTUs3SmtOclNNMXZC?=
- =?utf-8?B?bFQ4a1kxZnJKeHptWUNjWmpIT0I5UmxmZmczdUJLK0lzVXZxVDBmeU1LR2cx?=
- =?utf-8?B?bnRtWGtZOGYyUXBMQVlNTnFwOGh6YXRuTS9oWk5QOTEvQ0IzUy80QVhPN2V4?=
- =?utf-8?B?T1g3ZmsyWEtyRHZVN2FpRE9jay9VaFR6SHhzZFhjdEFSWXJlME9QbnRuV1Uz?=
- =?utf-8?B?SVVpTHpkSkhESUhoTVhuR3RiaHRRYjRhVXRXdDlGdXB2RlhEYmh0a3BKMFNV?=
- =?utf-8?B?a0dUMk5HSXlLVXBPOXl3VFZVZ3VZZ2JMa292WkVkeDdEZEtNMGxWbTVIR0I3?=
- =?utf-8?B?NHE1eEVhK3E2KzlaYndvM1NPUEF0UlIxNHk3dnFiUGlQeXB2MkgxeElGbTNt?=
- =?utf-8?B?cUhyYUJWQmt5TU1idHF3c1ZGNmRBb1loL3FZOWdxenk0aWMvSEZtRHEwWlZO?=
- =?utf-8?B?WHVXUDNPbWp5UG96TFRzYW5SNlQrTUZmcVVwZitqKzlkUVd1THd4ak13ZjhL?=
- =?utf-8?B?c1QxMEtxeEozMm9xUEJmcEduN0FqNkw4aEtQMW1uVmkrS2x2UExlNjhwOXpP?=
- =?utf-8?B?ZCt2TVkwNkNiT01VNHhCZms2ankvTDcrY05JWVlzbENTNDdCZHBCVHVDdmJG?=
- =?utf-8?B?d3QyYlkxVFl2Ylk2RG9OYkp1c3Rtdzh4VE0rQytQS1phN21KQndQVGk2V0Q1?=
- =?utf-8?B?NDRDQ0tkUTZUTkJtRVZXMW1keXdxM2tSc3F0alMwck9FR24zOEVWS3J0cE9v?=
- =?utf-8?B?bC9QVjgvOWREUVhWMWRxbGNxRnJLeHc2VGdIc1dMWHc5MjlZOWpJbmluMmRw?=
- =?utf-8?B?dUZRa09vMVIxYWRITCtUQU9hQkJxV2l2ZmxVTE5WeWRLT3Y0SXdDMndMMjJi?=
- =?utf-8?B?TUZZWnRqK0ZtYUxCTVBVN1Z4cXd1MCtFVzdEMkNCMHZ6OXJNQ3dLblhlSjU1?=
- =?utf-8?B?Qnp5dk94d3lqK3puOHlHekpJMS9ETFNwNVZFblN1Rll1bmpFNzh5YWpnNit4?=
- =?utf-8?B?UGpTSkhoWkMvRDZLSHRITlQweUtWYVVlSk9NYXpwTWZoN1dmWXQyK3FHOVJD?=
- =?utf-8?B?NkJESkJCVG12em1rVStaVlJXUnNVcUt6RDVrTEpwNDBXeHdBMzlWL09sNU1T?=
- =?utf-8?B?Yk54TlZPM2pXODh0OWdTWnh4T29WQU4xL0Nja1M3TWhTbjluYi9FVVVXT0sv?=
- =?utf-8?B?WkVqQS9yQkdOMk83eWNjaDhZQVJFb1I4SXV3N0V0dlVXaHEvNmpDWjdMNFVX?=
- =?utf-8?B?b1ByRTVrSE1NU1FRUnU2ZEgzRGk5ejkwTndoMU8ydk1hODRISytwMHFTZUxC?=
- =?utf-8?B?SmVKbFRScm8vK3J0ZlZZQnAwQkRTQlg0VUJXRjNORklkcDVaWmxRVlNQblNp?=
- =?utf-8?B?UXVYZzQ0bnZKOWxoRUVmMVpJSGxRd21FMDd4ZUhFRTByMkk1bW9EQzBPZnNT?=
- =?utf-8?B?Zy9vSVhyNjhyS3g1b0lWaXZKbVR4eVpJVmZZSCtVWTJSM3dTbXhxemRSTk83?=
- =?utf-8?B?NitpYzlGOExKQTg5RFMxT1VFZWxTZzRzT2ZwTEt2Mm1KYWVQeDdaT0RUeEx1?=
- =?utf-8?B?bmFPODJzL3R1RlNES2VVRHdDL0ZnWkQzSVFSZ083S25HYjF1YU00dEVjSlIr?=
- =?utf-8?B?WFEvWnY1czhBODNCdThlM0hlTkVoNC9TWnBISEV0WkJLOTl2YXpNZz09?=
-X-OriginatorOrg: cherry.de
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3717e1d6-5921-40b7-f494-08deee4e3eec
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB7743.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2026 15:21:36.7018
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 5e0e1b52-21b5-4e7b-83bb-514ec460677e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LOkG2YI2QZQe3bUpgYJ/m/4YoTg3h+/YILTqr2QVv3zi7l4NCvaZe2EZKYLVusgzg7niXgTctJF+PJ9uyVenBzGBMQNGF0ApZ7zIaFI1P+o=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10558
 
-Hi Cunhao,
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-On 7/30/26 4:34 PM, Cunhao Lu wrote:
-> From: Heiko Stuebner <heiko.stuebner@cherry.de>
-> 
-> CAN0 is piped through the Q7 connector to the CAN header on the Haikou
-> baseboard, so enable support for it there.
-> 
-> At least on RK3588 Tiger, the CAN clocks default to 99 MHz, limiting
-> usable CAN bitrates without skew. The RK3568 errata documentation
-> mentions 300 MHz as the default frequency, so request the same rate to
-> allow more bitrates.
-> 
-> The CAN clock setup is common to the Tiger SoM regardless of which
-> carrier board exposes CAN0, so place it in rk3588-tiger.dtsi. Keep CAN0
-> disabled by default and enable it in rk3588-tiger-haikou.dts, where the
-> carrier board routes it to a transceiver.
-> 
+New issues:
+- [Critical] Unmanaged Interconnect Bandwidth / DT Misconfiguration
+- [High] Incomplete / Ambiguous OPP Performance State Mapping
 
-Reviewed-by: Quentin Schulz <quentin.schulz@cherry.de>
+Pre-existing issues:
+- [Critical] Missing Power Domain Attachment Logic (Driver)
+- [High] Clock Ordering and Unconfigured Clocks
+--
 
-Thanks!
-Quentin
+--- Patch [3]: [PATCH v6 3/3] arm64: dts: qcom: sm8250: Add JPEG encoder no=
+de ---
+commit 78bc4a1419802a831ed1f485f610899cf6a592a5
+Author: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+
+arm64: dts: qcom: sm8250: Add JPEG encoder node
+
+Add the JPEG encoder hardware node to the SM8250 device tree so the
+qcom-jpeg V4L2 encoder driver can bind and operate on this platform.
+
+> diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/q=
+com/sm8250.dtsi
+> index f11da2ca41818..d42b294193202 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+
+[ ... ]
+
+> +		jpeg-encoder@ac53000 {
+> +			compatible =3D "qcom,sm8250-jpeg-enc";
+> +			status =3D "disabled";
+> +
+> +			reg =3D <0x0 0x0ac53000 0x0 0x1000>;
+> +
+> +			interrupts =3D <GIC_SPI 474 IRQ_TYPE_EDGE_RISING>;
+> +
+> +			power-domains =3D <&camcc TITAN_TOP_GDSC>,
+> +					<&rpmhpd RPMHPD_MMCX>,
+> +					<&rpmhpd RPMHPD_MX>;
+
+[Severity: High]
+Will the OPP framework map performance states to the correct domain here?
+
+The device node lists three power domains, but the jpeg_opp_table
+provides only a single required-opps entry per OPP. The OPP framework
+maps required-opps entries sequentially to attached genpd domains.
+
+It looks like this maps the single entry to the first domain
+(TITAN_TOP_GDSC), which does not support performance states, while the
+scalable MMCX and MX domains receive no performance scaling mapping. Could
+this lead to voltage scaling silently failing?
+
+> +			power-domain-names =3D "titan_top", "mmcx", "mx";
+
+[ ... ]
+
+> +			jpeg_opp_table: opp-table {
+> +				compatible =3D "operating-points-v2";
+> +
+> +				opp-100000000 {
+> +					opp-hz =3D /bits/ 64 <400000000>,
+> +						 /bits/ 64 <100000000>;
+> +					required-opps =3D <&rpmhpd_opp_min_svs>;
+> +				};
+
+[Severity: Critical]
+Are we missing the opp-peak-kBps arrays required for interconnect bandwidth
+voting?
+
+The DT node defines interconnects, but the OPP table omits opp-peak-kBps.
+If the driver relies entirely on the OPP framework for interconnect managem=
+ent,
+without opp-peak-kBps the framework votes for 0 kBps when an OPP is set.
+
+Could this cause a synchronous external abort when the JPEG hardware access=
+es
+memory through unclocked or unpowered NoC paths?
+
+[ ... ]
+
+[Severity: Critical]
+This isn't a bug introduced by this patch, but does the qcom-jpeg driver
+have the necessary logic to attach and manage multiple power domains?
+
+The new device tree node specifies three power domains:
+
+power-domains =3D <&camcc TITAN_TOP_GDSC>,
+		<&rpmhpd RPMHPD_MMCX>,
+		<&rpmhpd RPMHPD_MX>;
+
+Looking at the driver's probe function:
+
+drivers/media/platform/qcom/jpeg/qcom_jenc_dev.c:qcom_jpeg_probe() {
+    ...
+    rc =3D devm_pm_runtime_enable(jenc->dev);
+    if (rc)
+        goto err_free_jenc;
+    ...
+}
+
+The driver relies solely on the driver core, which automatically attaches
+only the first domain (TITAN_TOP_GDSC). Because the probe function does
+not explicitly call devm_pm_domain_attach_list(), the MMCX and MX domains
+are never powered on.
+
+Will this result in unhandled page faults when accessing unpowered hardware
+registers?
+
+[Severity: High]
+This is a pre-existing issue, but is the clock ordering correct when resumi=
+ng
+or during active transitions?
+
+Looking at the driver's clock enablement logic:
+
+drivers/media/platform/qcom/jpeg/qcom_jenc_dev.c:qcom_jpeg_clk_on() {
+    ...
+    rc =3D clk_bulk_prepare_enable(jenc->num_clks, jenc->clks);
+    if (rc)
+        return rc;
+
+    /* setup the OPP according to the calculated optimal frequency */
+    opp =3D dev_pm_opp_find_freq_ceil_indexed(jenc->dev, &jenc->opt_freq, J=
+PEG_OPP_CORE_IDX);
+    ...
+    rc =3D dev_pm_opp_set_opp(jenc->dev, opp);
+    ...
+}
+
+Clocks are explicitly enabled before the OPP framework handles the required
+voltage scaling constraints via dev_pm_opp_set_opp(). If the bootloader left
+clocks at a high frequency, enabling them before voltage is scaled up could
+violate hardware voltage constraints.
+
+Additionally, three of the five provided clocks (sf_axi, core_ahb, cpas_ahb)
+are never rate-configured by the driver, leaving them at arbitrary unmanaged
+rates. Could this lead to hardware instability?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730150524.2659=
+577-1-atanas.filipov@oss.qualcomm.com?part=3D3
