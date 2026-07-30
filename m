@@ -1,132 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AAD5407CF6
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 11:11:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785409910; cv=none; b=VKfQky2YBd5khdY7AY2Ge0TX2TLhf957F5WuP0+ISyvhal6YdJV4n4o2FjUl6PvqOnab7bu1NlsHnaYonwelpijtac5BOlapUF7o7gUCNwFqZclOgd54kSKPU1SZHxdh76cpw6c3oPs2F62pCYMm9CKNQfiXihH5Zm6GrvzeW1A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785409910; c=relaxed/simple;
-	bh=lE7jYHdCoJCymPc5N6qKNLtT7AlxwASSmyMUcJXxCTU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AmcyglrY4edrktoMXjvn0AhKr8oIQ3Y57UhSdBkxvRycEQAYFDER5qHJ/8KRLtLb8D30akeT4RTAgQsUsUsY2JNTrBeHwyfDMUDzbfSjYl73VaDh7dR/JYBAWa4sEjvEbrUA9uPNBqeep1XGzVsg9yH1TMpY3lw4x4BmKwEYMGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DH+dPdzA; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C858221FB4
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 11:12:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785409944; cv=pass; b=JHDQLuu3AaCMsDQy0v735Hew0RwKoq6pisD0M6M8RzR0+3SYvR1Z8K8mMSm7meZJkexFh77wN9UjEHSyxEvybcRzKHhSaTaPL5qHvMih75q8DVZmARQNfjiva8zgFwkSyaMpiO9xi5BW4QQ3sqEsKD+lVLZOH+kEZ9gM+Qa1mWE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785409944; c=relaxed/simple;
+	bh=sLN/8L1y06cQ6KWA4CLKB+Y1mIYSPe3mmBiGBLZ+Ins=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=asCHNk+JFkTQjZk+rQLlpSAYe531bHbwLmp9+sGTBJkS3antzRh4n5pGk6z8A/er39hZffdHW9IiS1NeJJbHuJE4d/mISbrVIOc3l7Po+/rugkSVIlzXvCtMJ3Xf71cbDm/RSft1DePwtCAFa8y2XKDNNqDA/OK2X5D7YRR492o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=PXyW+AXA; arc=pass smtp.client-ip=209.85.161.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DH+dPdzA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3BA11F000E9;
-	Thu, 30 Jul 2026 11:11:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785409905;
-	bh=fNEl68DN/uNa+L4AqvfuOkEmAsvcUUAhRCmbq3Pcr7w=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DH+dPdzAkG0FNMnMa6YGDYFBFdjM4Vj3meRVwWo6IAnWi2oxG+vtiSkGTVe6lnVWt
-	 F3W5VrxEw4R7L3B2J2/zQU44xuZgVpcSx4HV+VERQz7jJqCkV7iJKahLnBwoDaPHTB
-	 xjtuLvBPKkR9EByeaaovxyGS4Uk74kZ11m/3TOE6/O5KlcnXJ2+6O12O/LJgaFr8Zh
-	 5CjxOTxewgz+oGid3RiA/pxRsl8Hn3XmE6QIp/jUwu9Sn2FvvwWJQcp9U+RwX7Efl8
-	 HHKdJv4DCdMN9+6raINBGn8budmiTzuE+K6zAz8ihYkKEC1itgZeghLsxHAxmi27cQ
-	 MHAO0MyPghDmA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND v3 3/4] firmware: raspberrypi: Add reboot mode
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Gregor Herburger" <gregor.herburger@linutronix.de>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260730-rpi-tryboot-v3-3-849c001d67f8@linutronix.de>
-References: <20260730-rpi-tryboot-v3-0-849c001d67f8@linutronix.de>
- <20260730-rpi-tryboot-v3-3-849c001d67f8@linutronix.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 11:11:44 +0000
-Message-Id: <20260730111144.E3BA11F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="PXyW+AXA"
+Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-6ab08d289d1so1228874eaf.3
+        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 04:12:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785409938; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Ukx5edRoJPAXHrLiEpDvlu60HgBukhudtdVq3ATZ/cohmOrG7N618d9JFWRE8MPdLJ
+         ObyebOGd5u5kBtXw7hQd5ZHCzIbuTPPYyKuYhdErXNJ3u46lDTp5M/QPHH8giyGeFW8p
+         BobUnxxhWP0Ru1aniY4ja/DPclUieSthKkKNLSaOwmqqCDr9BgJyHL3ESU50zhDkCmlN
+         mb8NMxB9jftgf5CpFdwnTtumKa8XhQnXVZaqR4XwFhhkqfRLGGSKDbO47+mOWpTw8IvT
+         ObLjEsARRFZm8AswXAWy3tvHqAQQsdULnSYcP+juZR9mEi3ogw5hcoVFYyzjVjaxVPIs
+         sB9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=NUBLC7I5kJZ00fPSEGgwcR4RGiMCMioSkU56rCYLaVU=;
+        fh=BDVLQKxLgBrnar9YMnu1Ly9o8ZFNmWBkn6ScNkXK4O4=;
+        b=J7J8eTU4eBhMNQ8Cqhv0xYi/IK8PUBccMrznEqBNS8TeXpXWD/RJyEp8rf+Ei5DKoL
+         lQlkVjccPOvISkSPDNH6bwPuGmQP5wFPgYKpRVSb0zGRqK8/6hDvzD/xUNRkpPxexMF9
+         Av3v9PWKTD3OsgPKcLV+AKaZrutC9qqH5/5jW/vyCJJ7LyHtFFse/3cBqFLDYEhvmnnF
+         cZK/N5U8nfklu+kY+49mx/AOZDaNQS59nLWJJZOjHOnIItkvjokq9QkRvUcn/YBlLX7a
+         WWXJLm1IgAapSm9W9iGq3Hmh6hgQs5N085wQEBPNzv8iqtTuZc42teFTu1WUB4xp6vbb
+         iISQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1785409938; x=1786014738; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NUBLC7I5kJZ00fPSEGgwcR4RGiMCMioSkU56rCYLaVU=;
+        b=PXyW+AXANS3ydiN/LP3CDYr8822XsQ2Eas0p2c7hq8DNiI4s2KOsJCI/XN4vQ7lALJ
+         qcM/nlUYI05Q6HmLTHvHc2gCnxxtnt/VM1vfy/xnHHNnzK+o5UwH2lz0aLsZg3x799v/
+         WzkBM5y9NCzW3bGxoT6dA4ERz5fTfwjjkjluadPVlax2F7ThlIGCYKrjD1rkNOZnzD3T
+         qWK0xOFl7dweMkgQ7UJMNWve71q1LI7AcSo2fK+GJmntWsgh573E4qB9vT7BtSb5ED1h
+         vwvdjDKLtmKS2WwKWM6bV4F05N5MnjkBbzcl92hfteiDx0wyN0AcSIGMJ+Uffkm1kFYM
+         O8LA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785409938; x=1786014738;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=NUBLC7I5kJZ00fPSEGgwcR4RGiMCMioSkU56rCYLaVU=;
+        b=L5iy7jYA97+IuRbXabUMq8OPrHmZayLttaG6mjMrKBSLPW0DtkjgFwTRCyHRPGKfHI
+         jIGTbauLku16KJXwi4M+y6m/Ed/qvRMJ8gqtxsUcUrKzRpOsTt+0zpadTVsjFpxjaOOQ
+         6CkobSEpWOwEPOegYiFZeLzg8E+QYEh12l0uuzL4v+CBnIUTwQ55j2p2q34vYWLyTEoH
+         3rqjRbHnj1LCj8hfT/nik+xVIfYz8DSNPAtf9bMLaRjXO2itPRGYrsdHrKneFOM04cym
+         ufbXBuyRtnLkrH24T/uPEECh9KmfD5aqgHYjkiV4oEDBRSU3lzQxliADiuIOVdXqHLKp
+         fAUA==
+X-Forwarded-Encrypted: i=1; AHgh+RqbjizJezP8ZK+E0MAHjpi/uiSpmfs8MUq3BQT2FzhzEuNA/RECUOd0u0mMuHfh9lFgsTZeeXNOg+L2@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy2EI4ySeFBBqLE5oBqy7LMy/oZMXqU7/n6MO09A3EAn7M17PqQ
+	MhdlVss0sYO5TGo8MLxCRpfkshodRE4atbqKOyEAIAW0dfODfPLQN6VYUxtwQsWuTUV4B12pzF3
+	kGwPzdg+Tw3lq6epQtiOJZewek7BlK68c8HPqxFH0kA==
+X-Gm-Gg: AR+sD12vqBRrkpoIxMVUxv9FADsaA2aWRQZ/l/bQYeBJvnUPCA1HO0mk3zSBbu7pTiJ
+	Pp358Bg58ohWoyoA8KBwkNtYPZPDJFxdGucUXExTvbz0BXD0z/AV7WZMeYd8t09apg0TceSN1ST
+	lrUWoK8aIlCuF0zM4HZdm2ZSUGX9S7Y4NTGEjhVLSXghbT48Jozqj2SxtV+Sq1ojIJBtr4YoCrB
+	HUBZjkscS4+HP6E0Cr9zYlBShVrzl85Lea9LnptjlZopX74zRv13BaM4CosOEu43pdYVym/DxTt
+	jCn3tvrlSkiZQiNu2kq4dyP88aJlkYNZfw9cqb2ut6+T9g/UANon22rYfMAbf2XKSMRi/C8vNfE
+	2cNFwSBHGn2OsIImrqcoTXKgfTwXNpEkILswByk6qQnzwPfpIUz7DHHeMlxWdoQ==
+X-Received: by 2002:a05:6820:1c9b:b0:6a1:9a5c:b60d with SMTP id
+ 006d021491bc7-6acbc15dddbmr1193434eaf.65.1785409938066; Thu, 30 Jul 2026
+ 04:12:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260312150437.1091195-1-eagle.alexander923@gmail.com>
+ <20260312150437.1091195-3-eagle.alexander923@gmail.com> <CAPY8ntAf9TjgW-E6WeJuMdsHy8pV8-CvqQJriWEFpgLB-brD5A@mail.gmail.com>
+ <178455866124.1426769.18237320419273419942@freya> <CAPY8ntCvB9ij=rMwwBmBDfe_gWQboX9Xbt0ZB6WPVyFvc2CLZw@mail.gmail.com>
+ <178461038136.1426769.8068222330738680407@freya>
+In-Reply-To: <178461038136.1426769.8068222330738680407@freya>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Thu, 30 Jul 2026 12:12:01 +0100
+X-Gm-Features: AUfX_myGTmVBH34m2Jz8-C-my113aiV1VSAYpXPgOIiCRDk6IfxzvOQH-m-YR4A
+Message-ID: <CAPY8ntDk+4aseGqijPz8Y9cGFzN=4zHPEj3HiHgetn=O_ufh_Q@mail.gmail.com>
+Subject: Re: [PATCH 2/2] media: i2c: Add driver for Sony IMX662 sensor
+To: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: Alexander Shiyan <eagle.alexander923@gmail.com>, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Hans Verkuil <hverkuil@kernel.org>, 
+	Hans de Goede <hansg@kernel.org>, Tetsuya Nomura <tetsuya.nomura@soho-enterprise.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Hi Jai
 
-Pre-existing issues:
-- [High] fw->cl.dev becomes a dangling pointer if the firmware device is de=
-stroyed while a consumer holds a reference to fw.
-- [High] fw can be accessed after it is freed because drvdata is not cleare=
-d before freeing fw during driver unbind or probe failure.
---
+On Tue, 21 Jul 2026 at 06:06, Jai Luthra <jai.luthra@ideasonboard.com> wrote:
+>
+> Hi Dave,
 
---- Patch [3]: [PATCH RESEND v3 3/4] firmware: raspberrypi: Add reboot mode=
- support ---
-commit 7622e7ef47694e51ed746363fd587b5883406973
-Author: Gregor Herburger <gregor.herburger@linutronix.de>
+<snip>
 
-firmware: raspberrypi: Add reboot mode support
+> > > and implement
+> > > it using the common raw sensor model directly?
+> > >
+> > > I did it for IMX678 [1] on Sakari's suggestion [2]. The two sensors are
+> > > quite similar, so I'm happy to help in whatever way I can on getting this
+> > > working with the new model too :-)
 
-The Raspberry Pi firmware has a tryboot mode where it tries to boot from
-another partition. This commit enables this by registering a reboot mode
-driver. It also replaces the manual rpi_firmware_put() with a
-devres-managed call to safely register the reboot mode.
+I'd also noticed that all the Starvis 2 sensors are very similar, to
+the extent that it seemed worth a very quick test to see how much
+needed to change for the imx678 driver to work with imx662.
 
-> diff --git a/drivers/firmware/raspberrypi.c b/drivers/firmware/raspberryp=
-i.c
-> index 0aa322e9a2e73..2a0c40b8052e5 100644
-> --- a/drivers/firmware/raspberrypi.c
-> +++ b/drivers/firmware/raspberrypi.c
-[ ... ]
-> @@ -302,9 +331,14 @@ static int rpi_firmware_probe(struct platform_device=
- *pdev)
-> =20
->  	platform_set_drvdata(pdev, fw);
-> =20
-> +	ret =3D devm_add_action_or_reset(dev, devm_rpi_firmware_put, fw);
-> +	if (ret)
-> +		return ret;
+The answer turned out to be really not much:
+- PIXEL_RATE
+- PIX_PER_CLK
+- ID
+- native and active areas
+- min_hmax
+- common_regs (culled nearly all of them, although I do have the
+spreadsheet from Sony which needs to be added to my next version)
+- VMAX_DEFAULT setup if you want the full frame rate.
 
-[Severity: High]
-This is a pre-existing issue, but can fw be accessed after it is freed
-because drvdata is not explicitly cleared?
+Those would all parameterise quite easily.
 
-During unbind, devm_rpi_firmware_put is executed by devres, which drops the
-kref and frees fw. However, the driver core does not clear drvdata until
-device_unbind_cleanup completes (which happens after devres actions).
+I also have an IMX675 module from Soho Enterprises which is a 5MPix
+Starvis 2 sensor. I don't have a datasheet for it at present.
+That streams OK at the requested rates by just updating the active
+area to 2608x1960 and ignoring the ID. However I can only receive test
+patterns as all the active images I get are pure black :( I'm hoping
+it's a faulty module, but will keep poking.
 
-If rpi_firmware_get() is called concurrently by another thread, would it
-fetch the uncleared but freed fw pointer via platform_get_drvdata(pdev) and
-call kref_get_unless_zero(&fw->consumers), resulting in a use-after-free?
+There is also IMX585 as an 8MPix Starvis2 sensor. I'd hoped Naush had
+one to test, but it seems not. In the meantime I've compared against
+the driver Will Whang sent to linux-media a while back [1] and that
+also looks largely the same.
 
+And the imx908 Starvis 3 driver that has just been posted [2] is also
+looking incredibly similar.
 
-[Severity: High]
-This isn't a bug introduced by this patch, but wouldn't fw->cl.dev become a
-dangling pointer if the firmware device is destroyed while a consumer holds=
- a
-reference to fw?
+So the big question is whether it is better to have separate drivers
+for all these sensors, or one combined Starvis2/3 driver? Do we shoot
+ourselves in the foot when we come to add functionality and find that
+it only applies to some models?
+The awkward part would be testing all variants when patches are
+submitted, as I suspect there won't be one person that has access to
+all of them.
 
-In rpi_firmware_get(), the consumer retrieves the firmware context and
-increments its kref (fw->consumers), but then drops the reference to the
-platform device itself:
+Thoughts appreciated.
 
-drivers/firmware/raspberrypi.c:rpi_firmware_get() {
-    ...
-    put_device(&pdev->dev);
-    ...
-}
+  Dave
 
-If the device is subsequently unregistered (e.g., via DT overlay removal), =
-the
-device struct is freed, but the consumer still holds a reference to fw.
-
-Any subsequent failing mailbox transaction will call dev_err(fw->cl.dev, ..=
-.)
-in rpi_firmware_transaction() and dereference the freed device pointer.
-
->  	rpi_firmware_print_firmware_revision(fw);
->  	rpi_register_hwmon_driver(dev, fw);
->  	rpi_register_clk_driver(dev);
-> +	rpi_register_reboot_mode(dev, fw);
-> =20
->  	return 0;
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-rpi-tryboo=
-t-v3-0-849c001d67f8@linutronix.de?part=3D3
+[1] https://lore.kernel.org/linux-media/20250816055432.131912-1-will@willwhang.com/
+[2] https://lore.kernel.org/linux-media/20260730021525.166811-1-lachlan.michael@sony.com/T/#t
