@@ -1,91 +1,132 @@
-Received: from smtpfb1-g21.free.fr (smtpfb1-g21.free.fr [212.27.42.9])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5E1CC3B52E1;
-	Thu, 30 Jul 2026 06:56:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.9
+Received: from mail-m15574.qiye.163.com (mail-m15574.qiye.163.com [101.71.155.74])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B58783B8412;
+	Thu, 30 Jul 2026 06:57:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785394578; cv=none; b=FH1nHHhAVniY3FSnYLMQIiUMhzXeUKmjqNRlOt0wDXX+2iV+CyyEyw2+pb+8OiYuJFNmNhIK6u+VZ8DP/leQLlkPwsqfmH4PdNt05nSx1ky4G8XhKRUnochYABLs4uT9m0tiBm6eUVk1M8kOQpjVi+x+0qZlUsfFviT9bz01Jak=
+	t=1785394660; cv=none; b=dkgauk6/E3ijBQGGou1hbeqdFFgRI5MWz3xi/pdKbGivnRcXj5O9NnvpKYX1AcIHa8bXwRq9lv30MlzfQ7BBemcWiuG5PpZ4jvbNwE5oSO2j2uBIsw+EewSutGnL3eso3TvIJ5OwYctyoq60xKdfBOHW7mr52IWJcxsbNFJ/fHI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785394578; c=relaxed/simple;
-	bh=N0Q20xcsT6sAisGEunQvQbOSX5UY4V8QKRtuYENnRh0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VgHvoqaQqqSF8Qt2LK0G8Fy11IIFoDITiO10QZmJFitUX6Wq/Fms8zYSAo5CtpDieucM4nmvhfuXV5MWVbMYVhjdSFiUmVDGVKBH/IRs6Ke4prdjnTGUwND4zelvaBc+WHVrr2v/o9QQAwUPckBSZgds9vBA0wwRPvLrBnYUUlw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=C3hTgQx/; arc=none smtp.client-ip=212.27.42.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+	s=arc-20240116; t=1785394660; c=relaxed/simple;
+	bh=iQQraIX2R/eSNcCd+92PzjuBC1PDwefamqHSldfYo3k=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=kS5THaV3EHTKd7dmGMnm/F83LcWs33J6YCPVm5w6QbrQDNX6GoqutST04LP9jNjfqUqAkwXg91/Oy1yAbup9jMudtUboPOt4Kt/QTHwzMartRgYaZGbl4cJS52a0ZiYFQhW7TMWEorewyVEBGNnizLOKeWkWVDUQqz3aPeqL9+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=Mca5uDRS; arc=none smtp.client-ip=101.71.155.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="C3hTgQx/"
-Received: from smtp1-g21.free.fr (smtp1-g21.free.fr [212.27.42.1])
-	by smtpfb1-g21.free.fr (Postfix) with ESMTP id EC25FDF86B5;
-	Thu, 30 Jul 2026 08:56:00 +0200 (CEST)
-Received: from L30177.local (unknown [81.201.198.134])
-	(Authenticated sender: vjardin@free.fr)
-	by smtp1-g21.free.fr (Postfix) with ESMTPSA id 5BEBEB00563;
-	Thu, 30 Jul 2026 08:55:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1785394553;
-	bh=N0Q20xcsT6sAisGEunQvQbOSX5UY4V8QKRtuYENnRh0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=C3hTgQx/yI/p+TtjkZiM8hDtcdAQRjk31eI5S6lC5VXl96QDOK8j6n+W/R8vYQRm0
-	 c4VM/ZUB94vdxGODGQc13I8NuKIQs0nD/6gpKOLwA2d7YG7pIp+1XusqP14CfpGat+
-	 ae08vZgljs68U+pKCWwLeFQmPdChKHVyF3SdlSFTnf1Q6DhP4iglKfCWU7Dgo/xLuG
-	 OCmNmariJmlftP2Y7E4m9S4g2UYDtjvt3GjeK2FVEANSbkG7XqmaxV8SnYVU1pRR+G
-	 mbO0RADWfkMVuiPFx8a61EmnYygoKH2nhhahZIHuX9hXINYR5UvqEnXcKDX8NchxBN
-	 iVrE/rtou0d1w==
-Date: Thu, 30 Jul 2026 08:55:38 +0200
-From: Vincent Jardin <vjardin@free.fr>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Charles Hsu <ythsu0511@gmail.com>,
-	Markus Elfring <Markus.Elfring@web.de>, linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v6 2/4] dt-bindings: hwmon: pmbus: add MPS MPQ8646
-Message-ID: <amr1ar1eLeZ69oGY@L30177.local>
-References: <20260729-mpq8646_v0-v6-0-98848151cdb4@free.fr>
- <20260729-mpq8646_v0-v6-2-98848151cdb4@free.fr>
- <44db442e-95c8-47f0-92b6-81279710ff33@roeck-us.net>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="Mca5uDRS"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 481c5dbda;
+	Thu, 30 Jul 2026 11:28:01 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Andy Yan <andy.yan@rock-chips.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v1 5/7] drm/bridge: analogix_dp: Simplify analogix_dp_config_interrupt()
+Date: Thu, 30 Jul 2026 11:27:42 +0800
+Message-Id: <20260730032744.381566-6-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260730032744.381566-1-damon.ding@rock-chips.com>
+References: <20260730032744.381566-1-damon.ding@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <44db442e-95c8-47f0-92b6-81279710ff33@roeck-us.net>
+X-HM-Tid: 0a9fb110950f03a8kunm040f79123746f8
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSUtJVkMdGh9KGkwaQkofTVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=Mca5uDRSaes9/7HjpZKjiKF5k4WJu0Wll7jSbl0AvqQMijECQl9mZH1eQg3VvYv/58dxuLyRRJNrbsIZUYdgoSCPpmCRjXQnZVkGEWxTVs5igELr13dvZ+EbGdhZt6BbsviUCDEtaIYjbFrEvUV9U9l0HON0PasDAZwdOxSVI3Q=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=2pOneZc7dpt16hg70UmlDabGGhoDjNds+kJxO+jHrek=;
+	h=date:mime-version:subject:message-id:from;
 
-Hi Guenter,
+Remove local COMMON_INT_MASK and INT_STA_MASK macros. These constants
+are only used once inside this function and bring no reuse benefit.
 
-Le 29/07/26 21:10, Guenter Roeck a écrit :
-> On 7/29/26 14:51, Vincent Jardin via B4 Relay wrote:
-> > From: Vincent Jardin <vjardin@free.fr>
-> > 
-> > The MPS MPQ8646 PMBus step-down converter uses the same
-> > mps,vout-fb-divider-ratio-permille property with the same constraints
-> > (maximum 2047, default 706) as the mps,mpq8785, so add its compatible
-> > to the existing schema.
-> > 
-> 
-> The driver is a separate driver, making this a bit unusual.
-> I'll leave it up to the devicetree maintainers to decide if
-> this should be a new bindings file or not.
+Replace open-coded register writes for COMMON_INT_MASK_1~3 with
+direct writel(0) calls.
 
-Because of Krzysztof's review of v5: he asked exactly for it
-since mps,mpq8785.yaml already carries the same property, the same
-constraints and the same defaults:
+Leverage analogix_dp_unmute_hpd_interrupt() using the full HPD_IRQ
+mask to initialize HPD interrupt state, removing duplicated register
+handling.
 
-  see  https://lore.kernel.org/all/20260727-sceptical-finicky-waxbill-d7ecbf@quoll/
-  "...Everything is the same as mps,mpq8785.yam, so why it cannot be added
-  there? Just grow the list of if:then: to cover your specific
-  constraints."
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+---
+ .../gpu/drm/bridge/analogix/analogix_dp_reg.c | 25 +++----------------
+ 1 file changed, 4 insertions(+), 21 deletions(-)
 
-v5 had it as a separate mps,mpq8646.yaml file. I'll follow whatever
-the DT maintainers prefer, but so should we consider that it complies
-with Krzysztof's argument ?
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+index 816be79a8da6..42463e18f392 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+@@ -18,12 +18,6 @@
+ #include "analogix_dp_core.h"
+ #include "analogix_dp_reg.h"
+ 
+-#define COMMON_INT_MASK_1	0
+-#define COMMON_INT_MASK_2	0
+-#define COMMON_INT_MASK_3	0
+-#define COMMON_INT_MASK_4	(HOTPLUG_CHG | HPD_LOST | PLUG)
+-#define INT_STA_MASK		INT_HPD
+-
+ #define HPD_IRQ			(DP_IRQ_TYPE_HP_CABLE_IN | DP_IRQ_TYPE_HP_CABLE_OUT | \
+ 				 DP_IRQ_TYPE_HP_CHANGE | DP_IRQ_TYPE_IRQ_HPD)
+ #define COMMON_INT_4_HPD_IRQ	(DP_IRQ_TYPE_HP_CABLE_IN | DP_IRQ_TYPE_HP_CABLE_OUT | \
+@@ -178,23 +172,12 @@ void analogix_dp_swreset(struct analogix_dp_device *dp)
+ 
+ void analogix_dp_config_interrupt(struct analogix_dp_device *dp)
+ {
+-	u32 reg;
+-
+ 	/* 0: mask, 1: unmask */
+-	reg = COMMON_INT_MASK_1;
+-	writel(reg, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_1);
+-
+-	reg = COMMON_INT_MASK_2;
+-	writel(reg, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_2);
+-
+-	reg = COMMON_INT_MASK_3;
+-	writel(reg, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_3);
+-
+-	reg = COMMON_INT_MASK_4;
+-	writel(reg, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_4);
++	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_1);
++	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_2);
++	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_3);
+ 
+-	reg = INT_STA_MASK;
+-	writel(reg, dp->reg_base + ANALOGIX_DP_INT_STA_MASK);
++	analogix_dp_unmute_hpd_interrupt(dp, HPD_IRQ);
+ }
+ 
+ void analogix_dp_mute_hpd_interrupt(struct analogix_dp_device *dp, u32 irq_type)
+-- 
+2.34.1
 
-Best regards,
-  Vincent
