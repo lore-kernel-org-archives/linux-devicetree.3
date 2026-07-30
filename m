@@ -1,120 +1,175 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18E793769FD
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 15:52:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A631D439359
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 15:54:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785426775; cv=none; b=NO3PcKp4rGRg5lPlJzBON2yZD2ciUi/zBA9JA29ZcKdwquQbPxu0IO80cXS0b0BrzvZrgCbJY4y6vwFjMWoL8g6/MuIspPKXJMqSQmERgW4FSkhDuPUA7JrBGaBBWD33l+APB96We6SPfDf7nAqRcml86mbIGF/X+CETWVmpxZg=
+	t=1785426868; cv=none; b=ZlqjEXtyjH7X5Cud3DRhc9/h5F9Hi0i6sru1q/n3cCZRPAQZ23Zux7rCMlpXKyn/1abK27Y0HrYmNhIEkS2YQJcIusQYY02XaZNZJaRrfIG+rbHaE8hwvdl3BdT+EfYFa6EGP3+gginSWNucLakpcB5J+IfS/UIvZaeECIWiXvw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785426775; c=relaxed/simple;
-	bh=F+y4m7VibDZOEtIg5Nrqpu2L5RBbpNVyEcj93wj/2mI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gM0wC2QMvEz4oXMm0n2JMXsgDWmYIk43r9t9El82htw9c4aC33M5nj06KirsQl6zutCWkD23MPgdyY8ZOvOKqyl+mSrJnWWmH1Qm7QpLnJ6upMf67THHp7j+ygsFvPUJrD+B+PVRlc49Wk4fqrwEns0VdJ+KEJ7z9dxhMkxvYow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=apTx3aZv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785426868; c=relaxed/simple;
+	bh=lBNtrU7nqo2LGdziFUJ+g+Dshswg7sI8Cx8mBe+2I0g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LnhOQTly3mP2VZes5iIrX6bztOiS2qH64BOfCApx5jvnuG02PWZ/P6ZH4nFXSPp1AXLTVn8y7z2laba8uz+pzsZ8UXvY4PoWs2TzOk4mQ/k/6mxbC/p0u/w/psHWQn4BsyfLvFPHjiBwH1muZLaESaR0xCoMKs4Jvl28T/DsQCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CU2CuQod; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="apTx3aZv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6D921F00A3A;
-	Thu, 30 Jul 2026 15:52:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785426774;
-	bh=H6ma4n4K3QQhV4hJbi560Dr1iQEsNPL1hEFBXFQ4CwM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=apTx3aZvlrUee8yO3C1RmduJbncFzLmnD0udxTLasyP/7fa3jceKT0Z2VFCpheocj
-	 hwhiFaFCYhZHJOZjN5IDiXuQRv7jQ2BSP+K0yUv7EGgweqHduPbCEDGB2WHNb2WWCs
-	 R18Tn4kegsi63O/BMmy2AnFxpeRYoCRVtQuQmkyA0Mb4hknM9KAXBNNdqNAtMHc6M2
-	 akgtmeCFyNc/Zo7CDBuwnbcSTno1UXHMjxFlbBkq7gytsUmGKSCo2lm5b0OBjysTPF
-	 xAG2BSRlEcYLtasDsH7F7nehqSPHS4MI0meyXtDtYLWb4J0kkLz06fC4uYE7wpcXIa
-	 JiMp9SRaaaQjw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 13/18] media: iris: update buffer requirements based
- on received info
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20260730-iris-ar50lt-v8-13-6597c08cea6f@oss.qualcomm.com>
-References: <20260730-iris-ar50lt-v8-0-6597c08cea6f@oss.qualcomm.com>
- <20260730-iris-ar50lt-v8-13-6597c08cea6f@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 15:52:53 +0000
-Message-Id: <20260730155253.A6D921F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CU2CuQod"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-38759bcd877so19482a91.2
+        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 08:54:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785426867; x=1786031667; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3mbcUXH2UkXsg3GtsdQpN1QpKfGFyO9S1J1v/052T+U=;
+        b=CU2CuQodpLAa9HH0gNxxoLUj9gmYk6OKojA0Z1dJdlsePoZtfTz4RWlWy9d8pxTSzx
+         r+YCtafE0CI1PKw4jJp48LgguLelRaAji3uxr3Fenrvi1Vh+MKTpfdEjC6Zgif9vxmm5
+         w4WY+MH2o+OK69K3aU77SSWftlHnzwiYdQA9qEMFyFAJbe19taQJAWqma+e7462Ia/eD
+         nSly4+HVQaAwxCNCwtTFVqQzlNnwU0hIE6dWpVETcJ4hYruYFqFN1aizTGbSfJBtIboM
+         85JAc5n1bf79C8LDI/vE/fqasvFo+R3P3JMss1DeMscDmWmk4Ods9cW7Goz4pcdEVVIj
+         HVog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785426867; x=1786031667;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=3mbcUXH2UkXsg3GtsdQpN1QpKfGFyO9S1J1v/052T+U=;
+        b=Eppg94XuJdunCp7CgsKaa+xgRWAEa8TJ+wm+DDbcOu9B43kcLE3thbxJ5B2cJXl4/e
+         q2Oh1NDw6aApCZq9gH0QW9YtSliG0QhQLQApGKcOlxlErN8GszKubHHDdc3OOEDqWuVo
+         YolZRn+sXH8V0hFygUmygBH/THeI9F625m2kgYVGl8L2RQaPdA+FTZVatDzKT03URpIQ
+         Q5kBkXH7oTpG0xX21IHrQa+zDl2iZKxqtlNb5+4KYNNbwciL4IYTEEdWUyHkvodRv3i2
+         JGrIAj117VsYJZPtGjpltGtjUy4eb2XfXlcvw84min5qzeebqJNob1oAK1rlSUPTpGau
+         d+0w==
+X-Forwarded-Encrypted: i=1; AHgh+RpfQ+cYDoeEZTWyNhXNZZpHy2w5ma2Yh8XPvosasDftpckYtdDk4uy9wNlYt42iVcGcjqyjKjR+K6pA@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyk/IZqPiwJaRXdWfge/xie+F0DEKKWAuJAcBi746UW1Ectm1z6
+	kI1/V26n3cNxWEB9quVpXf/2jfkOktACuJYDV24e/t+jfB8ZSpYL95AS
+X-Gm-Gg: AR+sD111pMHEqKbZT1BcAoyZfTQ2YguEUKxFMUMXFlEO+RsonjKG5oAfy5WbTIvJ9+J
+	S8rFErd8avrPQiG3KCqCnF/GHJKoLoGdzNIkF/8LMWULmPd7+ysDv1PYd6ogz5oM635YcM+sLTO
+	ZMD4S6BZrCHKepUF18tPsij4hVRLdvW+NiJyvoZNCuXCTBt4NmFC19jR1EaB66n/m3spBe+x2gr
+	AZbMd9YCMd+zYd5GedC0FS4uZYvHWvDC7+tMuTiYBNCh+zZVfhisBZfYahpLmBbs/bqdue74dlw
+	FzH+wirPzJS+eQzbCSoieaCLnSGKTPhjWMzTywlFx7owqCjym+ankA1ocd2lwovrOR92pt/XMtk
+	iEOPEoZIV49XdMpNi6qmIPre23iz7nAs5AG1sRwGN+M6QTAUOwy2jLP+lTo5gZTHHyzIhO1+tXd
+	JTcrNYUXETS1Lehq/ruWYpgCt61ltnlT6vuqLiuhUWjlO1q2Xo7Dh3Mi72hdroF/bgc1t8/TAfF
+	t47eWKKhDFNgBIv3050TZj86PlwOERhgaCfSQ==
+X-Received: by 2002:a17:90a:e7d0:b0:381:cef1:11ac with SMTP id 98e67ed59e1d1-38f9be67c0amr2707979a91.10.1785426866937;
+        Thu, 30 Jul 2026 08:54:26 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f9b72c596sm1313465a91.9.2026.07.30.08.54.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 30 Jul 2026 08:54:26 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <6287e749-04f5-4a03-a91c-fcc705df269c@roeck-us.net>
+Date: Thu, 30 Jul 2026 08:54:25 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/5] hwmon: (pmbus/core) Add mapping function to
+ pmbus_read_block_data()
+To: =?UTF-8?Q?Nuno_S=C3=A1?= <noname.nuno@gmail.com>
+Cc: nuno.sa@analog.com, linux-hwmon@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Alan Tull <atull@opensource.altera.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20260728-hwmon-max20826-support-v1-0-224766e0acd1@analog.com>
+ <20260728-hwmon-max20826-support-v1-3-224766e0acd1@analog.com>
+ <c3e143ed-af08-4a0f-a630-96a255df838d@roeck-us.net> <amtewh9lOgWz0-Nh@nsa>
+ <e37df572-1ca9-4c56-a16e-faa44f1ff1cd@roeck-us.net> <amtqPQSM6zsiCh4B@nsa>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <amtqPQSM6zsiCh4B@nsa>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On 7/30/26 08:19, Nuno Sá wrote:
+> On Thu, Jul 30, 2026 at 07:47:37AM -0700, Guenter Roeck wrote:
+>> On 7/30/26 07:27, Nuno Sá wrote:
+>>> On Tue, Jul 28, 2026 at 02:05:53PM -0700, Guenter Roeck wrote:
+>>>> On 7/28/26 09:03, Nuno Sá via B4 Relay wrote:
+>>>>> From: Nuno Sá <nuno.sa@analog.com>
+>>>>>
+>>>>> This is in preparation for adding support to a device which needs to
+>>>>> use it's own read_block implementation.
+>>>>>
+>>>>
+>>>> The chip-specific implementation calls i2c_smbus_read_i2c_block_data().
+>>>> I'll need to know if this is a chip limit or a controller limit.
+>>>> If it is a controller limit, a chip specific override would be
+>>>> inappropriate.
+>>>
+>>> I'll reply from top of my head (did not looked at the driver again).
+>>> IIRC, the biggest reason we need the chip-specific implementation is because of
+>>> the RAIL selection logic (mainly when not in page mode).
+>>>
+>>
+>> Yes, I have seen that. Question is why you use i2c_smbus_read_i2c_block_data()
+>> instead of i2c_smbus_read_block_data(). The rail selection logic would not
+>> require that.
+> 
+> IIRC the reason was because the i2c controller on the raspberry pie does not
+> support i2c_smbus_read_block_data(). So I guess this:
+> 
+> https://elixir.bootlin.com/linux/v7.1.4/source/drivers/i2c/i2c-core-smbus.c#L220
+> 
 
-Pre-existing issues:
-- [High] Use-After-Free in threaded IRQ handler due to missing reference co=
-unting on iris_inst
---
+Hmm, I think we really need a common solution for that problem. Not all
+controllers support i2c_smbus_read_i2c_block_data(), so you are just moving
+the problem from one controller to another.
 
---- Patch [13]: [PATCH v8 13/18] media: iris: update buffer requirements ba=
-sed on received info ---
-commit eebc551c83e572d39b479f0c60f9705bbd9fe71d
-Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+One key example is the PIIX4 driver. Your new driver does not support the
+majority of PC style systems with AMD CPUs.
 
-media: iris: update buffer requirements based on received info
-   =20
-Upon receiving data for HFI_PROPERTY_CONFIG_BUFFER_REQUIREMENTS the
-driver should update buffer sizes and counts from the received data.
-Implement corresponding functionality updating buffers data. This will
-be used for upcoming support of AR50Lt platforms with Gen1 firmware.
+Guenter
 
-> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c b/=
-drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
-> index 23fc7194b1e3a..7ad6f0bb46770 100644
-> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
-> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
-> [ ... ]
-> @@ -657,7 +731,7 @@ static void iris_hfi_gen1_handle_response(struct iris=
-_core *core, void *response
->  		} else if (hdr->pkt_type =3D=3D HFI_MSG_SESSION_FILL_BUFFER) {
->  			iris_hfi_gen1_session_ftb_done(inst, hdr);
->  		} else if (hdr->pkt_type =3D=3D HFI_MSG_SESSION_PROPERTY_INFO) {
-> -			complete(&inst->completion);
-> +			iris_hfi_gen1_session_property_info(inst, hdr);
-
-[Severity: High]
-This is a pre-existing issue, but could this inst dereference lead to a
-use-after-free if the IRQ thread races with userspace calling close(fd)?
-
-Looking at iris_get_instance() in
-drivers/media/platform/qcom/iris/iris_utils.c, it drops core->lock and
-returns a raw instance pointer without incrementing a reference count:
-
-drivers/media/platform/qcom/iris/iris_utils.c:iris_get_instance() {
-    ...
-	mutex_lock(&core->lock);
-	list_for_each_entry(inst, &core->instances, list) {
-		if (inst->session_id =3D=3D session_id) {
-			mutex_unlock(&core->lock);
-			return inst;
-		}
-	}
-
-	mutex_unlock(&core->lock);
-	return NULL;
-}
-
-Concurrently, if a userspace thread calls close(fd), iris_close() in
-drivers/media/platform/qcom/iris/iris_vidc.c calls iris_remove_session(inst)
-and then kfree(inst), without synchronizing with concurrent readers in the =
-IRQ
-thread.
-
-If the threaded IRQ handler gets preempted after iris_get_instance()
-returns but before acquiring inst->lock, would it wake up and
-dereference the freed inst pointer when calling mutex_lock(&inst->lock)
-earlier in this function?
-
->  		} else {
->  			struct hfi_msg_session_hdr_pkt *shdr;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-iris-ar50l=
-t-v8-0-6597c08cea6f@oss.qualcomm.com?part=3D13
