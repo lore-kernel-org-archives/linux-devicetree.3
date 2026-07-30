@@ -1,242 +1,172 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49641376A1A
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 07:42:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6A753CBE66
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 07:42:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785397340; cv=none; b=GV7A64Xcrf16SS7ingWlQN1cLSfMhR3S3+gYFRLiUFmwQDUOloZoiru1n1ZfpSwigiy0H8H/xTGdl2YNP7E+X0xBEX4MrtXKH6888A6HAPRk9v6nTkq+542KT814RWmkNPkytVF/MI4+sD53C0CL088ufdLykbLQebI0rIKT/Hs=
+	t=1785397357; cv=none; b=dkt/r/ECmxgMRcmvZmdboMki/ozH2uSocVCJMIluoni+mmUNd/cBl474gd172Pcw3lbUSOamcsi0UT75TZuqL3307Ao0tv8t+w6tOQazEXShzcJ+8zzKloJfqtz9giR5hp6Z+adZf33kdj9H09wkAf08Dwp6wB9TQwn85Qg015c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785397340; c=relaxed/simple;
-	bh=KLTBxf0M69S8Pk3jTonJf5J/5MBZXc+AGWjWgFkP2es=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kEEbbjRISZjUTujcRZVLvcm23BKb6bhWmM61DeNqzrkBfS6QwvfStXE9aoI3MUhpaPrDy4lLCMthoWTe4uMn5bxag5DAvKh/p9lIq/yjmkCJH0lcJc+a3k+wG/AJ9AFvYSN/aqSE+gzztZ2CEqPDUZxMJEXXBokd4eEe1SjAZaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IFEHTAiO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785397357; c=relaxed/simple;
+	bh=28ZLWM/pIAuHM+vAC8WI2Vv9H2XW6bKXry8d3aIER/4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=N/OlxZ54QEzTYVIIUk7ZAzeMH69F1n6ppK+HNHZHCb/bFX6DxjFevV8QCSfYDFB8/Vp9ImZ7wLIW7KiintWxahTGUAGB1vBopEGB7SI4WpZ6tENU/ELclXGDaenIOT8heiPx+Ipcsb7eu/IYqF7VB/ryAOgL4jYEx00xoy7wx6k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cMpM2Llx; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Vjb/y4ah; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IFEHTAiO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0E711F000E9;
-	Thu, 30 Jul 2026 07:42:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785397339;
-	bh=hidy1DeoRY+clSVabRNj5bhzMp/AyXbCGjG8aqgFvpU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IFEHTAiOgnkuUtREsjCu043+cqvoyLzVqX070dV3XY1Q/G3w33P2eVVdBaZfinn0T
-	 0bNLzqrMAENOPqW01DFW9h2g42G0bYRWvv54H9h5mtcHDczSzevbO5mMZXJ0y3wh6N
-	 Hcx5VtChgCyc2FzZ27mK9qFiI+Rfyd7TpkiFAmJxGFOQFXlGiUtySW23VhS59VFvb3
-	 vskOhRJ3hAnIpbzOwxYqUJKFOOGcOuUhZB/RQt8J6R0umJQ1o5IJ2WvgqwfZgS9lmm
-	 lv4uURwyk5oGaORWVvI2r+yBaDG618vRM1Si7P5tr0EPKqVOWs46VP2PTxyNYjOcZ3
-	 QxjUqoyPJfPog==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/3] i2c: nt72676: Add Novatek NT72676 I2C controller
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: nina_kuo@novatek.com.tw
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260730072529.492398-3-nina_kuo@novatek.com.tw>
-References: <20260730072529.492398-1-nina_kuo@novatek.com.tw>
- <20260730072529.492398-3-nina_kuo@novatek.com.tw>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 07:42:18 +0000
-Message-Id: <20260730074218.D0E711F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cMpM2Llx";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Vjb/y4ah"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66U7TT0e148576
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 07:42:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	o8hNYcnTlO2sEp+wOOaNROgXRLuhpC/AD2RNYMOE4VU=; b=cMpM2Llx/3TaRzEk
+	5n/xZ4RN8j/H7gFGCXJEZ8I49KPSnIb++JFW5DNcuJJT2p+ucWozOi4sAAKoVWHQ
+	vvFCVdgYc7c7rTa19I3axMmNWGn/xJ7i+DnDiQSPcTWlUNvm8t+dPxHCJGKTsmdi
+	5DzJxzl77JdCQrGkiYEI3FtxD/WQBGmBNQ3Rx0idWXJdv3d2I71Rc6gHnYM6JRtm
+	xNz9e33mHuNIEISjNAR2JOvJqtfQvDVTU/mnQxywqYtEXyIt+wCv3aClpvcyRQmC
+	LSlvFvnGXOAxFJ9bWYN+C9EqG4glFT/Lpu7myP3dcvoU+v86WnA4O8va/01RgL2N
+	uxmTpQ==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fr29581st-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 07:42:34 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-903694fd3bfso3806436d6.1
+        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 00:42:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785397354; x=1786002154; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=o8hNYcnTlO2sEp+wOOaNROgXRLuhpC/AD2RNYMOE4VU=;
+        b=Vjb/y4ahmXKxpafbYC6+1yMAG8hM1+SvYOGsnZdOzARbZLPe/AoM5cSx6wtJYNE8pP
+         6B9JgEtprXg8KWCTc8zD+Wj8JCdEypzSRr7S0D7EJHnZy89QzGuCwiFPTCbt32nbp6iq
+         VWefYidUvHbG8KTCpFzXr16zeDdmROOiPy6buD8ICx4vzz/evxH8c6G0nr2NtIftM1OP
+         MWJ2gRD067bZSFzAaD8AsKSpnrGKB9xj932+RekS4Btaml3fvDFrDVy+L9aGaDm9ayxb
+         lh+7nuC9uFbqxsUecwNkk9ldGFJb6naNOOspHsnaDiea0sAlRTtVsJRDy7YtCGPpDRtw
+         UFrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785397354; x=1786002154;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=o8hNYcnTlO2sEp+wOOaNROgXRLuhpC/AD2RNYMOE4VU=;
+        b=pWJTO+SS6C2H2hORhczvURL1Q44bP4csNm8rZTbUO8xLFmRNkbGCvnaZv1AVtJ5n72
+         gavxK0ueVMvurSb/68fGChRM/U6icaFfVJWgMZDXsiS6GQ91vQyqTiME1w5a4EE+k3CU
+         vkNUHyFNeUQWBWLpIj4o1h6/T60Ib6BoY4tZ8SsWaYIkOVlkQzU6Kqmnxh5Oy1bYxVlq
+         wKNumTMg3nX9lgnuRRBWGySwnIHhrY79erpE/4lrtTKuQcp6HaaHLOQbDPQnt0dyhV2X
+         pYGkQKJxoRgW5ft+pV61x12cn9U2kyGeQDqjOWGGEalEuHD6mvBnwCvNmyWPOAV3zAIl
+         LAcQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqLN5Cde7J0TNfa5V7kz3+HzU9O9ZWM5niegwLaY7Y3bK5P/naC5788zlH18vEaQQzQfVQQxzqdnZ9Y@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw6eIbl9ETPaNG9AJMcg8TkCVKVac3txRvTCcFdn89LiHUq16Bv
+	TV8x8Wgcx1K2/qrmH2lEcpSpuId3m+/kdTcztvoFRAUJ//Uh4zmL7l9APj0g1A/LyZij65ktp8P
+	927bZMjeZf/ks28wqm76YE2MJ1SFZjUTtd+B6kVLrKrnDE2AtHKgeRcoOOYkI1WTJ
+X-Gm-Gg: AR+sD13oXUdr58xopVaPftXcV2BZH3pyMvgoktBYjtWWdgSFlHSN+gLxq1LmnnJzs4e
+	7QltaHukzv5VaNCHL854Pm939MRvSzB+CmYH7bQBiLqVkSpopfCu4gWfg7UhOokyvimNOrIi6nQ
+	dTFnWCYkmHyXM/CNisUc6CoiwOXGypRjYCSLue33NHeONArPm1fHrnqiUUxYac4nAG6wO/Rxr2N
+	BWGdCFZ+DoVQK6il/hvL/EUo7BQuRx1bagwQP8g/wlbVZh+7H33oN3Ych6rwpQQMkFFSxpwUvrX
+	NCiALi0ZWdZXFazAP1n7AR/Y1ypzYgSFTiyuTeY47OW7Z1AUUzfvrhVvQi3NKSDZChUaBEaK7FV
+	HXF70ozU7NbA98CygtnKybHL5
+X-Received: by 2002:a05:620a:a21a:b0:931:23a:83ca with SMTP id af79cd13be357-93486f06b41mr187326585a.4.1785397353741;
+        Thu, 30 Jul 2026 00:42:33 -0700 (PDT)
+X-Received: by 2002:a05:620a:a21a:b0:931:23a:83ca with SMTP id af79cd13be357-93486f06b41mr187322385a.4.1785397353313;
+        Thu, 30 Jul 2026 00:42:33 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1fa851b322sm34493866b.7.2026.07.30.00.42.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 30 Jul 2026 00:42:32 -0700 (PDT)
+Message-ID: <9a042817-3a3d-4637-8df7-466ffa380403@oss.qualcomm.com>
+Date: Thu, 30 Jul 2026 09:42:29 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 3/3] arm64: dts: qcom: eliza-evk: Add PCIe1 with TC9563
+ PCIe switch
+To: Manivannan Sadhasivam <mani@kernel.org>,
+        Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-pci@vger.kernel.org, linux-pm@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>
+References: <20260730-eliza_evk-v6-0-40ece2d33114@oss.qualcomm.com>
+ <20260730-eliza_evk-v6-3-40ece2d33114@oss.qualcomm.com>
+ <ofkvwrvfpyhjflrmbyi43gd4mltrqdmf3pzdvxwitrqshtttvo@r3xpfq3m42ha>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <ofkvwrvfpyhjflrmbyi43gd4mltrqdmf3pzdvxwitrqshtttvo@r3xpfq3m42ha>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=PYfPQChd c=1 sm=1 tr=0 ts=6a6b006a cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=FQzAjSPMhRWCFvqDWQYA:9 a=QEXdDO2ut3YA:10
+ a=OIgjcC2v60KrkQgK7BGD:22
+X-Proofpoint-GUID: w2YSeFPOM4eY49rV_7xMbDws1cUsikKH
+X-Proofpoint-ORIG-GUID: w2YSeFPOM4eY49rV_7xMbDws1cUsikKH
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDA1NCBTYWx0ZWRfX1RLsmrwqRQ3r
+ y+7TGsCc8LTF+yfzYCfPiv+pIzt0RpvjgDNL+TnPZSA7k/V76ATIu5kykdf5PhIlliY3FdWcgbM
+ X3Uw4nlxNkt4ExGUSRDPtifHRHBubqM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDA1NCBTYWx0ZWRfX8S3R5aU5t4ZI
+ lWDYnxMZtwOWs1fDOMpoJp7/TL0hiZMJq9Ee6yEywBC/zmbWQJFVitTFYFYRLmViyP7kK8uLNGa
+ UAYRB2ROswk6r7NwkoedE2Gng5pcaxjNolh4fqEgTFZhbykqBaoABc8XiLNQ+I0HcCPHzkPftnJ
+ KwMiG6PKYBtJ917/o6MKmNczHwRbB9UsFPavfi+pkzPkhOyJEaFM16yzOYfoRmSNoTvLhdufgsX
+ hBi1W0xdH+zcxHdKQH9xUNYfVKKPzd3fcdarwFdheZVUlAFakjD3Hy3E3LvFKSn3fimvo3lv5aU
+ JG5tm44BYRC6/o/UvOYt7wkBA6Z12iTeGdaubNk91tWcLCU8PCtfI4+vUjFT4NcS4nR/yZtxoS8
+ iFl4lZnM5d1dosbNFRj2K3tTp2/4DiQ018TgebaWoU/F2c9AiRJ+KKo0r5oYd8NFIT4esqHV//m
+ sZ/c+k1Uzth8WS70y5w==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-30_02,2026-07-29_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 adultscore=0 malwarescore=0 phishscore=0
+ lowpriorityscore=0 suspectscore=0 clxscore=1015 priorityscore=1501
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607300054
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [High] The driver unconditionally treats any 2-message transfer as a suba=
-ddress operation, breaking I2C protocol semantics and leaking memory.
-- [High] The interrupt handler improperly handles flags and active transfer=
-s, causing unacknowledged hardware interrupts and infinite interrupt storms.
-- [High] Incorrect teardown order in `nvt_i2c_remove()` disables the I2C co=
-ntroller hardware before unregistering the adapter.
-- [High] The driver fails to clear previous address and operation bits in `=
-I2C_REG_CTRL` across multiple messages, corrupting I2C target addresses and=
- read/write commands.
-- [High] A race condition between the transfer timeout path and the interru=
-pt handler leads to a Use-After-Free (UAF) of the I2C message buffer.
-- [Medium] The driver fails to disable hardware interrupts in the probe err=
-or path, risking unhandled interrupts on a shared line.
-- [Medium] The driver unconditionally dereferences the result of `of_device=
-_get_match_data()` without checking for `NULL`, leading to a kernel crash o=
-n non-Device Tree platforms.
---
+On 7/30/26 7:25 AM, Manivannan Sadhasivam wrote:
+> On Thu, Jul 30, 2026 at 10:18:55AM +0530, Krishna Chaitanya Chundru wrote:
+>> The Eliza EVK board connects PCIe1 (8GT/s x2) to a Toshiba TC9563
+>> PCIe switch. Enable PCIe1 and its QMP PHY nodes.
+>>
+>> TC9563 uses I2C (at address 0x77 on I2C4) for its management interface.
 
---- Patch [2]: [PATCH v4 2/3] i2c: nt72676: Add Novatek NT72676 I2C control=
-ler driver ---
-commit 24e2f090fd92d0b0a276a1df0dc4a6e78c1ccda9
-Author: Ben Huang <Ben_Huang@novatek.com.tw>
+[...]
 
-i2c: nt72676: Add Novatek NT72676 I2C controller driver
+>> +		pcie@3,0 {
+>> +			reg = <0x21800 0x0 0x0 0x0 0x0>;
+>> +			#address-cells = <3>;
+>> +			#size-cells = <2>;
+>> +			device_type = "pci";
+>> +			ranges;
+>> +			bus-range = <0x5 0xff>;
+>> +
+>> +			pcie@0,0 {
+>> +				reg = <0x50000 0x0 0x0 0x0 0x0>;
+>> +				#address-cells = <3>;
+>> +				#size-cells = <2>;
+>> +				device_type = "pci";
+>> +				ranges;
+> 
+> Sashiko pointed out that you are using bridge specific properties in EP node:
+> https://lore.kernel.org/linux-pci/20260730051031.20D8E1F000E9@smtp.kernel.org
 
-This commit adds the I2C controller driver for the Novatek NT72676 SoC.
-It supports Standard-mode and Fast-mode I2C operations as a bus master.
+Can we harden the bindings here?
 
-> diff --git a/drivers/i2c/busses/i2c-nt72676.c b/drivers/i2c/busses/i2c-nt=
-72676.c
-> new file mode 100644
-> index 0000000000000..138b01dd98a7f
-> --- /dev/null
-> +++ b/drivers/i2c/busses/i2c-nt72676.c
-> @@ -0,0 +1,683 @@
-[ ... ]
-> +static irqreturn_t nvt_i2c_isr(int irq, void *dev_id)
-> +{
-> +	struct nvt_i2c_bus *i2c =3D dev_id;
-> +	struct i2c_msg *msg =3D i2c->current_msg;
-> +	unsigned int status =3D nt72676_i2c_readl(i2c, I2C_REG_INTR);
-> +	unsigned int clr =3D 0;
-> +	int do_complete =3D 0;
-> +
-> +	if (!(status & I2C_IRQ_FLAG) || !i2c->current_msg)
-> +		return IRQ_NONE;
-
-[Severity: High]
-Will this cause an interrupt storm?
-
-If a spurious interrupt occurs or an interrupt fires after a timeout when
-current_msg is NULL, the handler returns IRQ_NONE without clearing the
-interrupt flags.
-
-Since the interrupt is requested with IRQF_TRIGGER_HIGH, failing to clear t=
-he
-hardware state will leave the interrupt line continuously asserted.
-
-[ ... ]
-> +static int nvt_i2c_write(struct nvt_i2c_bus *i2c, struct i2c_msg *msg)
-> +{
-[ ... ]
-> +	ctrl_mask =3D nt72676_i2c_readl(i2c, I2C_REG_CTRL);
-> +	ctrl_mask |=3D (((msg->addr << 1) << 8) | I2C_ENABLE |
-> +			I2C_CLOCK_DUTY_ENABLE | I2C_CLOCK_STRETCH_ENABLE |
-> +			I2C_MASTER_CLK_STRETCH_ENABLE | I2C_TRIGGER);
-> +	nt72676_i2c_writel(ctrl_mask, i2c, I2C_REG_CTRL);
-
-[Severity: High]
-Does this construct a valid control mask for subsequent messages?
-
-The new address and flags are bitwise-ORed onto the existing I2C_REG_CTRL
-value without clearing the previous bits.
-
-In a multi-message transfer where subsequent messages have different addres=
-ses
-or read/write directions, the accumulated bits might corrupt the target
-address and operation commands.
-
-> +
-> +	ret =3D wait_for_completion_timeout(&i2c->msg_complete, i2c->adapter.ti=
-meout);
-> +	if (ret =3D=3D 0) {
-> +		i2c->error_code =3D -ETIMEDOUT;
-> +		nvt_i2c_reset(i2c);
-> +	}
-
-[Severity: High]
-Is there a race condition between this timeout path and the interrupt handl=
-er?
-
-If a transfer times out exactly as the hardware interrupt fires, the timeout
-path resets the hardware and returns to the caller, which may then free the
-message buffer.
-
-Because this does not synchronize with the ISR (for instance, by disabling =
-the
-interrupt or taking a lock), the ISR can concurrently access i2c->current_m=
-sg
-and dereference a freed buffer when handling the late interrupt.
-
-[ ... ]
-> +static int nvt_i2c_xfer(struct i2c_adapter *adap,
-> +			struct i2c_msg msgs[],
-> +			int num)
-> +{
-> +	struct nvt_i2c_bus *i2c =3D i2c_get_adapdata(adap);
-> +	int ret =3D 0, i =3D 0;
-> +	struct i2c_msg *msg =3D NULL;
-> +
-> +	nvt_i2c_ctrl_init(i2c);
-> +
-> +	if (num =3D=3D 2) {
-> +		nvt_i2c_set_subaddr(i2c, &msgs[0]);
-> +		msg =3D &msgs[1];
-
-[Severity: High]
-Does this correctly handle all two-message transfers?
-
-The driver unconditionally treats any 2-message transfer as a subaddress
-write operation. It reads from msgs[0].buf to populate the subaddress
-register and then drops msgs[0].
-
-If a client initiates a standard two-message sequence (like a sequential
-read), the first message buffer might be uninitialized, and the first messa=
-ge
-will be dropped, breaking standard I2C protocol semantics.
-
-[ ... ]
-> +static int nvt_i2c_parse_dts(struct nvt_i2c_bus *i2c)
-> +{
-> +	int ret;
-> +	struct device *dev =3D i2c->dev;
-> +	struct device_node *np =3D dev->of_node;
-> +
-> +	i2c->comp_data =3D of_device_get_match_data(dev);
-> +
-> +	/* read DTS(novatek,stbc-syscon) for STBC I2C */
-> +	if (i2c->comp_data->stbc_i2c) {
-
-[Severity: Medium]
-Can of_device_get_match_data() return NULL here?
-
-If the driver is instantiated via sysfs bind or legacy platform matching
-on a non-Device-Tree platform, this will return NULL.
-
-Dereferencing i2c->comp_data immediately after will cause a NULL pointer
-dereference.
-
-[ ... ]
-> +static int nvt_i2c_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	ret =3D i2c_add_adapter(&i2c->adapter);
-> +	if (ret) {
-> +		dev_err(&pdev->dev, "Failed to add adapter\n");
-> +		return ret;
-> +	}
-
-[Severity: Medium]
-Should the hardware interrupts be disabled before returning here?
-
-If i2c_add_adapter() fails, the probe function returns an error without
-disabling the I2C interrupts in the hardware.
-
-The devres cleanup will free the interrupt handler, but the hardware might
-still be enabled and assert the shared IRQ line, resulting in an unhandled
-interrupt storm.
-
-[ ... ]
-> +static void nvt_i2c_remove(struct platform_device *pdev)
-> +{
-> +	struct nvt_i2c_bus *i2c =3D platform_get_drvdata(pdev);
-> +
-> +	nt72676_i2c_writel(I2C_IRQ_DISABLE_SETTING, i2c, I2C_REG_INTR);
-> +	nt72676_i2c_writel(nt72676_i2c_readl(i2c, I2C_REG_CTRL) & ~I2C_ENABLE,
-> +			   i2c, I2C_REG_CTRL);
-> +	i2c_del_adapter(&i2c->adapter);
-> +}
-
-[Severity: High]
-Is this teardown order correct?
-
-The hardware is disabled before i2c_del_adapter() unregisters the clients.
-
-Many client drivers need to perform I2C transfers in their remove() functio=
-ns
-to gracefully power down devices. Disabling the controller hardware first
-guarantees that these shutdown transfers will fail.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730072529.4923=
-98-1-nina_kuo@novatek.com.tw?part=3D2
+Konrad
