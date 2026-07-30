@@ -1,44 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 471AD39DBCB;
-	Thu, 30 Jul 2026 07:23:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71E6C3BBA0D;
+	Thu, 30 Jul 2026 07:26:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785396214; cv=none; b=UaJtWmmpmYCQwj5Pd6uO9js7+KsNkphqUqEcJfSYSZuptFQzIOvrIvU6XfYC3C7HnbkvKIaARbIVqnhXX+xfYXuOhQFIVlYmeLKTaCXvRaGpO0kyxqQiM+MR7U1D0UEIRqv3qeL/FKao0+0oFMxtEUvU/EOUwUeb5y341CrhPkM=
+	t=1785396368; cv=none; b=SJEURz1Y5JIDSd0EZ2v/NRTRQyXwNFOnesa4RpO/DiSghn8g4GWcgu1vqbgY7HQOECZAL1kYgcLrZwciKQz6Cb6LtjZmbtkFt2aYsrO2acvheVVOJh3goLOUO2WM7u7YQYZwoe7a7lPvoCg5pMWzeZrjucqdT7Cm8m/AjnuJN0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785396214; c=relaxed/simple;
-	bh=ui6LNEccLcic6JsDj59kBXxaGpZPEVN4OabyL3Uu/IQ=;
+	s=arc-20240116; t=1785396368; c=relaxed/simple;
+	bh=5mt58Mqgcg8dTMXBsjqAq9D9PZ+HM7NV+UQcQyR72e8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Mp9T0qARdI70s8lqqhVuCMNtzEk02Pcjsi/10n9QhNd5cm/rC5rQ3DTUlqvwvgCmZvIEdQjAyUc07bweYRMiw1zR/q9ou8JXQx1kQO/+/GtKMRizSrvhm1V1s7eHL6SDVHB1D/3NmP2hR9+wOQuzKkm1pdsejy9YKDV3jRpmoFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=anhmuc1R; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=afUjNZgS3vp6aSIEEKLdlLLHQH+3/dPkfmdnoMt1d+sji1zmNBG+DE5ELgeNk8gH3L3levrhS8OYTs3fm5XZxuoDJ9i5H8D8LuNJ3b57d/p6SpKhZZKiRBtiFNwYuruNOb32hqbWDSmTS+o9tnIs+B4soGIUP2nsuqFENIs9HBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kzgw2Pzt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="anhmuc1R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C006B1F00A3A;
-	Thu, 30 Jul 2026 07:23:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kzgw2Pzt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63CAC1F00A3A;
+	Thu, 30 Jul 2026 07:26:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785396212;
-	bh=zWfbnroXbU+DAUIBdFgGrJNP/ekemFI8iQT3ohNHtPs=;
+	s=k20260515; t=1785396367;
+	bh=W3ATJZYuimYI7I2vIDgoLUhLLq/ceSR+UrM/XTui16Y=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=anhmuc1RO5/HvCd4AJ37iT9vssw/NYzy3+k77mR5AmyjP6J231YVu9yaLqi2myuOH
-	 6Fei5mwXHHgV74Zmml0+7VWRkiBYbI+kwgN7ZrmRziO1cFewUJtUMoxZRwazKu26h6
-	 s52hBbASYe8yHK6sclpRQT+qaMJYjrzkX1Mix4j3opxPIsBZmE7V9LUPzKE3yomMBr
-	 YedCv43uz0oLFk+gtYKHnUMT2WjmkQyy08flx2b3vRCxvvUI9pI06aB64oxUeQUPkl
-	 Su1YUSOtu9xvxAtkbnEZgN8MAcBTi9GcxH3CySgebkXkCAswRepPtJ+513Q43LPduP
-	 cQTdz1WwKa9Ng==
-Date: Thu, 30 Jul 2026 09:23:28 +0200
+	b=Kzgw2PztcbMlPlRKEScjEKgBTxbyWn8US3ni383zK83sQdwYhAvVyFQEap0uvHN/Y
+	 ttjR1QxY7f/Lynp7MFoy3SpU0z89bpz9pcVnKQD3Jv+byUBWNOmofy7LyYhBYnKNrI
+	 vM8V3sNKRaDYfE+wOWCQEKBDAvu27wiQLNoZQeVASrVzkyvKBNAARvlzzOpLoW4s3O
+	 92XHm3Sx04H88G0GprSrbJa641i4Kqu/8I2Ew6GTgbL1HW+cxhAXnbahWghFeFcCTF
+	 VPtAHI9wrb+xmd7E9h4mhDtTPq4l7cLBMSn2TwEt7ddTczGi/0ioaPRG65akVmWol1
+	 94TikwPmIXe4g==
+Date: Thu, 30 Jul 2026 09:26:01 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
+To: Aurelien Jarno <aurelien@aurel32.net>
+Cc: linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Kumar Patro <bibek.patro@oss.qualcomm.com>, Komal Bajaj <komal.bajaj@oss.qualcomm.com>, 
-	linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-Subject: Re: [PATCH v2] dt-bindings: remoteproc: qcom,shikra-pas: Allow
- bam-dmux subnode
-Message-ID: <20260730-organic-chimpanzee-of-excellence-ebbcca@quoll>
-References: <20260729-shikra-pas-bam-dmux-binding-v2-1-d85fea84c141@oss.qualcomm.com>
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Yixun Lan <dlan@kernel.org>, 
+	Guodong Xu <guodong@riscstar.com>, Yangyu Chen <cyy@cyyself.name>, 
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, 
+	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>, 
+	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>
+Subject: Re: [PATCH v2 3/4] dt-bindings: riscv: spacemit: add Milk-V Jupiter
+ M1 compatible
+Message-ID: <20260730-unnatural-spectacular-pelican-1c21db@quoll>
+References: <20260729160749.1621415-1-aurelien@aurel32.net>
+ <20260729160749.1621415-4-aurelien@aurel32.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,29 +50,17 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260729-shikra-pas-bam-dmux-binding-v2-1-d85fea84c141@oss.qualcomm.com>
+In-Reply-To: <20260729160749.1621415-4-aurelien@aurel32.net>
 
-On Wed, Jul 29, 2026 at 02:21:01PM +0530, Vishnu Santhosh wrote:
-> The BAM-DMUX node lives as a direct child of the modem PAS remoteproc
+On Wed, Jul 29, 2026 at 06:00:30PM +0200, Aurelien Jarno wrote:
+> Add a compatible for the M1 version of the Milk-V Jupiter board, which
+> use a CPU with a different packaging with improved cooling performance.
+> It enables the CPU to run at up to 1.8 GHz instead of 1.6 GHz.
+> 
+> Note that the K1 vendor kernel doesn't provide any compatible entry for
+> the boards, so use "milkv,jupiter-m1".
 
-No, it does not. Look:
-
-  $  git describe
-  next-20260729
-  $ git grep bam-dmux
-  No child node shown
-
-Why isn't this part of Shikra remoteproc commit/patch? How any code
-could pass validation otherwise?
-
-> node, but qcom,shikra-pas.yaml has unevaluatedProperties: false and
-> does not list bam-dmux, so any DT adding this subnode fails schema
-> validation.
-
-Fails how? How can I reproduce the error?
-
-There is no bam-dma in this binding example.
-
+Looks like should be compatible with milkv,jupiter as well.
 
 Best regards,
 Krzysztof
