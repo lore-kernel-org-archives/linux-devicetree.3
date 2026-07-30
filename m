@@ -1,118 +1,240 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1F9E2E7F17
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 16:36:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 556743839B8
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 16:37:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785429363; cv=none; b=uFYmxNaQ7kdWeswEr4nR+unyHhp8iO9Bf1V03MEOKajKAPfsy7ZL+V7qens53sYdq4a+Il2X1oHfV1Nemt4vm2JAND+wZWvt0retptf4Z8ULcHEU0LFNceOpFg6VFK0b2CRyTKhN5uyfYMfpShrXBKA1IiWE74I9FoyuP4YOcG8=
+	t=1785429479; cv=none; b=hlval/q9/d3MununZ4DqnzdTEE4JPWXlNaKdZf8raeFmxXCclkRwAYB3a+Yrzw7wcrd//cPl21uIxujFFTAgu3DMHPJ/q7TXNQvHak8mgiBIkDs5CyOaSdOxWDarMpbfv15j83EB4O328g966t3XYMMfzhGq3c4u2rEG4SaZ0so=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785429363; c=relaxed/simple;
-	bh=RNgBBgIglK+por2zoH73JKpLlK9pZIRRYloNJpDc6/Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rLUbESQcXesrJxNLSxlNneejbTEDgVJx8rBIGf1OPFz7dZom/SzJzKuZmsyZRUJBq8qXNnyn9nilZ3pPPXHNtejsrWCtf0WczvbkODP5Omc+LoqzsKE7UVQO+nNX9PwNlAzA/RdKTZJV4eq4Voj0nF39VIJgoo2Uf/W9VNlnJrI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=blmqyeLQ; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=p6FQ1HXr; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1785429479; c=relaxed/simple;
+	bh=5dIlJGKv0W+3Qcagf4SMrVe4dyUOsrEASrpZL78kU9o=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=urnEgXzRMofoBOdq/1VNAAia8zSG4uH4CqH5l5DMfYCeqyGeFaX+1ofFTqsbJ1ZgJd9TxeD1BjEZrA9mGBHU4+r5lzHBd0LFoC3qtNHKuzBKH58a0iFq3rJ3sRakuKupR6BGuEWOss4d7Y7U06oRfuLFjWg7MzpELsfhskjPKRE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y+7iSvPl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="blmqyeLQ";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="p6FQ1HXr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1785429360;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KQK0UZKoyz2ZGITRCV0MZEm4Z1Ggizwl/51xOSw6Qsg=;
-	b=blmqyeLQ7ccuaXzbIoYXwbLO9xkffpCe+6hGgiLb9DRjSPjWnKOORNNwUfL9yapOfUh6nF
-	ELGb/J18CPyVaYufjWrmqkwn6ATflIH5NT9DolG08SqWaqcxsn9NQkqq3qBoYDp2UiC5o8
-	vTTxc3JHAoNqRI8QIompJk9Zxgu3OSY=
-Received: from mail-yx1-f70.google.com (mail-yx1-f70.google.com
- [74.125.224.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-449-Uf13i4W6PXisXWq3_GFHFA-1; Thu, 30 Jul 2026 12:35:59 -0400
-X-MC-Unique: Uf13i4W6PXisXWq3_GFHFA-1
-X-Mimecast-MFC-AGG-ID: Uf13i4W6PXisXWq3_GFHFA_1785429358
-Received: by mail-yx1-f70.google.com with SMTP id 956f58d0204a3-66850cde3a8so6812624d50.2
-        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 09:35:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1785429358; x=1786034158; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=KQK0UZKoyz2ZGITRCV0MZEm4Z1Ggizwl/51xOSw6Qsg=;
-        b=p6FQ1HXr0Q7jPwvWwQ8VOtm0o3j/6fEHN7xzTukF9ey1i4xrfXCodW78BwYc8k2CrK
-         7PghtcH1mTlVLJEufICfeMD2AlAOtaeMrHFgBU5uu8gusExOiIvn2Hl9hIIfAd9p+yHK
-         IZHERX/FmvFvH3xrf5KzlZ3fLXZVmsnMn/3+u1QLOMJ7RRQRMQ3f9neTjQ0Ql5UFThM9
-         QnA38YMA4p5XKeu6teHLAcrr5gPgWLZAAtcSoUsaP1lYjpussxgwojqv5Ili728VIMYP
-         6MX2MZkNk7kKHVKih1tuByGsmRmfzqU7kXKtkkIZ350N7y1BR+1nP2bOJihz56xb+/nn
-         zArg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785429358; x=1786034158;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KQK0UZKoyz2ZGITRCV0MZEm4Z1Ggizwl/51xOSw6Qsg=;
-        b=ZjDzNGSPB1kr19k3y70mNKlq4kBHu5/nIjDGvL7hfs0e3BlUS5987rsrzHFgs9W+hs
-         tJqhfldmNTzRIvHxmzOF8bZY+Lv52WP3hYIqSS/+4rCA00Ob/GMtp4W39Xr2Nj5UZVHv
-         RlxBbVg5JrRKOmaVFWBeDPauUYFxiP/2X9UI67NpnxR0+VIZszLhb0dmh3HwyVXSyNDF
-         mt9CaBFSXINfEGSZNL20UJv2xWor1wsdMiuNUeMStl8YC2fV7yPdqVH7RnVItHJqPTsY
-         IRILTyUyPZt40iBz6/P+87wikd1lIlMRCJLmrcbrv+QUsf0vYV00Waeqes7Pw+D1IcyH
-         wKGQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqxqQl1DE2eUFAEhtjlmcNRUkXdmOZwIxpVylxeiq0jyIi/w6JrlzsoriqGGun2sqYCTX0EiHtIjtVg@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw0ZLmjCeAv0O9Yazo5dObMLOR14M8hxwQ+Q9lH9lZAlCdSoqov
-	j46PWdNPHrJ+bb3PnsZH3chBc0VNzjMGArIuMd0XgivLU8tKDlieUYM2BYrcMt49162wGRr5GYz
-	bUKUBuCDJKN1SJ8+hVX2r7dSymi80/nXTKm/liHgZP5ePx8alhxKJrAjf3krYw2U=
-X-Gm-Gg: AR+sD10nKk9i32Ti7L0wZ824bhP2ixFRvEo9jHqiT24Qi0/5lAjui/uq/jt/FcXaBUu
-	kxwP1GvSCpMHAe2PO125Licatu9EnDzDuCgbFdZGoMX3/Mjdj2h3Yx2pAAbK76VwztNz1dgGgLZ
-	l+Bo/BqTMJj0dNUXbZTSHAtKo2xXGTXqpx2VYXJMeYrTQSjwHaWvJaRwiemCtUMU9T0dY/Uqgt+
-	9di4SbRo7Fcn91Tto4Wk/QKFi5YrHoDQIujhtx6gVKfD2mJaon4vTvjYosITndfg+/SiTiv1JIY
-	m7PtuMAeW/LedANBr9/SXQGWFrLQ79ppUe+4FTGfV4J9n2h6u2SEe6cS72oiLFr1/T9tUODB5j9
-	m4Ls64Vo2mbfNZP99UdcoljthOvaJqjNjwL0=
-X-Received: by 2002:a05:690e:4844:b0:665:e31:fd8d with SMTP id 956f58d0204a3-6692f477c6fmr1754703d50.13.1785429358422;
-        Thu, 30 Jul 2026 09:35:58 -0700 (PDT)
-X-Received: by 2002:a05:690e:4844:b0:665:e31:fd8d with SMTP id 956f58d0204a3-6692f477c6fmr1754670d50.13.1785429357912;
-        Thu, 30 Jul 2026 09:35:57 -0700 (PDT)
-Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6693b131342sm358314d50.19.2026.07.30.09.35.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 09:35:56 -0700 (PDT)
-Date: Thu, 30 Jul 2026 12:35:54 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Yu-Chun Lin <eleanor.lin@realtek.com>
-Cc: mturquette@baylibre.com, sboyd@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, p.zabel@pengutronix.de,
-	cylee12@realtek.com, jyanchou@realtek.com, afaerber@suse.com,
-	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-realtek-soc@lists.infradead.org, james.tai@realtek.com,
-	cy.huang@realtek.com, stanley_chang@realtek.com
-Subject: Re: [PATCH v11 07/11] clk: realtek: Add support for mux clock
-Message-ID: <amt9avQReRq_hWtJ@redhat.com>
-References: <20260728142806.1954638-1-eleanor.lin@realtek.com>
- <20260728142806.1954638-8-eleanor.lin@realtek.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y+7iSvPl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B40901F00A3E;
+	Thu, 30 Jul 2026 16:37:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785429478;
+	bh=6gBO+6iEg3mdhM5nX/mczsPQWJTdtf8v0QFDHX+3unU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Y+7iSvPlj56HxNIebHKcZOk/Cv7iVaos+AoJf1wYWsb1Z69WwdoEAtlzW1DVlosBd
+	 9Y5ueAdVs1vux3jPDHQF1jOHFYnnqjozeEAdkZAht1ASLDITzO0/S2W5IKtJuC22kS
+	 iUv8RKzqJmD8rKsNz2KNy6zMBNb6uOMybAVPmO0N4pBBBnhz9nv8b51qLLXqoB5KnU
+	 gJTBFF1GsKGCgOV3XVPkV4a9NKZ3PueTHGMpm1pNw9QgAbP5tdK7fqArSE+AloAEEC
+	 /8hUJb2SM63/Oj/bR+fBfW1xBczkVzZuDKzxlHC+4+a2w9FreIR3ePk1Rvb751yuNI
+	 vSQySco8om4tA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/4] dt-bindings: net: dsa: Add SoC-e switch IP and DSA
+ bindings
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vasilij Strassheim" <v.strassheim@linutronix.de>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260729-devel-vstrassheim-soce-dsa-ml-v1-2-be569dae1b20@linutronix.de>
+References: <20260729-devel-vstrassheim-soce-dsa-ml-v1-0-be569dae1b20@linutronix.de>
+ <20260729-devel-vstrassheim-soce-dsa-ml-v1-2-be569dae1b20@linutronix.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 30 Jul 2026 16:37:57 +0000
+Message-Id: <20260730163757.B40901F00A3E@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260728142806.1954638-8-eleanor.lin@realtek.com>
-User-Agent: Mutt/2.4.0 (2026-06-19)
 
-On Tue, Jul 28, 2026 at 10:28:02PM +0800, Yu-Chun Lin wrote:
-> From: Cheng-Yu Lee <cylee12@realtek.com>
-> 
-> Add a simple regmap-based clk_ops implementation for Realtek mux clocks.
-> 
-> The implementation supports parent selection and rate determination through
-> regmap-backed register access.
-> 
-> Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
-> Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
-> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+s) to consider:
+- [Medium] The `mdio` bus models a Linux software-synthetic topology rather=
+ than the actual hardware layout, misusing `reg` and inventing custom physi=
+cal address properties.
+- [Medium] Setting `unevaluatedProperties: false` on the child `ethernet-ph=
+y` node breaks validation for vendor-specific PHY properties.
+- [Low] The device tree example in `soce,switch-dsa.yaml` fails to compile =
+because it references undefined phandle labels (`&soce_switch_ip` and `&gem=
+3`).
+- [Low] The device tree example in `soce,switch-ip.yaml` provides a 4-cell =
+`reg` property without a parent node specifying `#address-cells` and `#size=
+-cells`, leading to validation failures.
+- [Low] The `ports` sub-node pattern property description claims to define =
+vendor-specific properties, but none are actually listed or defined.
+- [Low] Unnecessary `#address-cells` and `#size-cells` defined at the root =
+node level, causing dtc warnings.
+- [Low] The `soce,num-ports` property is missing constraints that are expli=
+citly stated in its description.
+--
 
-Reviewed-by: Brian Masney <bmasney@redhat.com>
+--- Patch [2]: [PATCH 2/4] dt-bindings: net: dsa: Add SoC-e switch IP and D=
+SA bindings ---
+commit 28c590589436788e107ab82bf7fbd0fdcad40087
+Author: Vasilij Strassheim <v.strassheim@linutronix.de>
+Subject: dt-bindings: net: dsa: Add SoC-e switch IP and DSA bindings
 
+This commit adds DT schema documentation for SoC-e FPGA switch devices.
+The binding is split into a switch IP node describing the MMIO register
+block and a DSA MDIO node describing the DSA-facing switch instance.
+
+> diff --git a/Documentation/devicetree/bindings/net/dsa/soce,switch-dsa.ya=
+ml b/Documentation/devicetree/bindings/net/dsa/soce,switch-dsa.yaml
+> new file mode 100644
+> index 0000000000000..a04e2838d14eb
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/dsa/soce,switch-dsa.yaml
+> @@ -0,0 +1,195 @@
+
+[ ... ]
+
+> +properties:
+> +  '#address-cells':
+> +    const: 1
+> +
+> +  '#size-cells':
+> +    const: 0
+
+[Severity: Low]
+Are #address-cells and #size-cells necessary at the root node level?
+Since the only allowed sub-nodes (ports and mdio) do not use a @
+unit-address, compiling device trees conforming to this schema might emit
+avoid_unnecessary_addr_size dtc warnings.
+
+[ ... ]
+
+> +  mdio:
+> +    $ref: /schemas/net/mdio.yaml#
+> +    description: |
+> +      Optional child MDIO bus exposing PHY devices attached to switch us=
+er
+> +      ports. PHY nodes referenced by port "phy-handle" properties should=
+ be
+> +      placed here. The PHY address seen by Linux on this bus is the swit=
+ch port
+> +      index, not necessarily the hardware PHY address selected internall=
+y by
+> +      the switch IP.
+
+[Severity: Medium]
+Does this model a Linux software-synthetic topology rather than the actual
+hardware layout? Device tree bindings are expected to describe the hardware,
+rather than modeling internal software abstractions like Linux's synthetic
+MDIO bus mapping. Using custom properties for the hardware bus index instead
+of natural mdio subnodes might violate core DT design principles.
+
+> +    unevaluatedProperties: false
+> +
+> +    patternProperties:
+> +      "^ethernet-phy@[0-9a-f]+$":
+> +        type: object
+> +        $ref: /schemas/net/ethernet-phy.yaml#
+> +        unevaluatedProperties: false
+
+[Severity: Medium]
+Will setting unevaluatedProperties: false on the child ethernet-phy node
+break validation for valid vendor-specific PHY properties? Device trees usi=
+ng
+specific PHY hardware with valid vendor properties (like ti,rx-internal-del=
+ay)
+might fail schema validation because the parent schema strictly forbids the=
+m.
+
+[ ... ]
+
+> +  ports:
+> +    type: object
+> +    description: Container node for the switch port sub-nodes.
+> +    properties:
+> +      '#address-cells':
+> +        const: 1
+> +      '#size-cells':
+> +        const: 0
+> +
+> +    patternProperties:
+> +      "^port@[0-9a-f]+$":
+> +        $ref: dsa-port.yaml#
+> +        unevaluatedProperties: false
+> +        description: |
+> +          Switch port. In addition to the standard DSA port properties
+> +          (label, phy-mode, ethernet, fixed-link) the following
+> +          vendor-specific properties are used for data ports connected to
+> +          external PHYs.
+
+[Severity: Low]
+Could this description be updated? It claims to define vendor-specific
+properties used for data ports connected to external PHYs, but the descript=
+ion
+abruptly ends and no such properties are actually listed or defined.
+
+[ ... ]
+
+> +examples:
+> +  - |
+> +    /* Excerpt from a Xilinx ZynqMP design (ARM64) */
+> +    mdio {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        soce_switch: switch@10 {
+> +            #address-cells =3D <1>;
+> +            #size-cells =3D <0>;
+> +            compatible =3D "soce,switch-dsa";
+> +            reg =3D <0x10>;
+> +            soce,switch-ip =3D <&soce_switch_ip>;
+
+[Severity: Low]
+Does this example fail to compile? The phandle label &soce_switch_ip
+does not appear to be defined in this example snippet, which might cause
+dt_binding_check to fail when dtc attempts to resolve it.
+
+[ ... ]
+
+> +                port@2 {
+> +                    reg =3D <0x2>;
+> +                    label =3D "INTERNAL_PORT";
+> +                    ethernet =3D <&gem3>;
+
+[Severity: Low]
+Similar to &soce_switch_ip, the &gem3 ethernet controller label also
+appears to be undefined in this example.
+
+> diff --git a/Documentation/devicetree/bindings/net/dsa/soce,switch-ip.yam=
+l b/Documentation/devicetree/bindings/net/dsa/soce,switch-ip.yaml
+> new file mode 100644
+> index 0000000000000..ba9bb396235f2
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/dsa/soce,switch-ip.yaml
+> @@ -0,0 +1,54 @@
+
+[ ... ]
+
+> +  soce,num-ports:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: |
+> +      Total number of switch ports (external/user ports plus the CPU upl=
+ink
+> +      port). Must be greater than zero and not exceed the selected IP va=
+riant.
+
+[Severity: Low]
+Should there be explicit JSON schema constraints (such as minimum: 1)
+added for this property? The description mentions it must be greater than
+zero, but invalid device trees specifying soce,num-ports =3D <0>; might
+pass validation without the constraint.
+
+[ ... ]
+
+> +examples:
+> +  - |
+> +    switch_ip: switch@80020000 {
+> +        compatible =3D "soce,mrs-24-01";
+> +        reg =3D <0x0 0x80020000 0x0 0x10000>;
+
+[Severity: Low]
+Will this 4-cell reg property cause a validation failure? The implicit
+parent provides #address-cells =3D <1>, so this might parse as 2 items and
+exceed the maxItems: 1 constraint. It likely requires a parent node
+(e.g., a bus node) defining #address-cells =3D <2> and #size-cells =3D <2>.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729-devel-vstr=
+assheim-soce-dsa-ml-v1-0-be569dae1b20@linutronix.de?part=3D2
