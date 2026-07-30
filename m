@@ -1,117 +1,111 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59DBA3750CF
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 16:31:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785429101; cv=none; b=gf3ataerQ/I4I+TJv1QCkzjHUW8tNre5IfHH0xQR1JVlr0qBK7Atqp60WhR5IOLrrFPEJaUtB3ixsDc5w+IZ5Kf5JSitPkb/2FHw+Fa/bIkYjIH9lK7L9V176fhWyUTP+4od4j0FZVWj31gq3BC2HAoHLQgRrf+vmbj5kQOxJAk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785429101; c=relaxed/simple;
-	bh=4DEOhG/gAL2tFwgrO17fUGpYKuc98k4IngdS7c+uNb8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VYxDyhPi7uoPofFsFKXUv0D/s9q5A0FN3Lp4+A2SqMwaLIr6NkEasW4PjeTJp0LyaKw7bsJ8dJsKnUNdkGIqg6h8CzMAVGCczwBAwyYM239chNXZEnG1e7QGBLcu/qDTLoaDMBWty8TFEDcWzGPZlTIWLLuT22bGrLmZAMIXXCU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=c8O4hzDd; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Sm8fZ2JU; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 930273A9631
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 16:32:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.173
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785429160; cv=pass; b=lcsmZxoht/po+Z4dMJsd9Ua4Kc5BM9EGhzWxkZ05jsx17n/8qMd8Cgr9oC+FCtXGwzuPD5J/Mh75wrdee9WAxXDYsIT2lyvrf6PdSfkr87TzxULWd19XVvmJ2evYMPxorPlt3+Nni485Qakx8CObx01Qf+1hul8BFlmAH9My4qY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785429160; c=relaxed/simple;
+	bh=IPweQa939gd7nIqWfEjM0QcoU+Zhyc9RPuy6U7q0p2g=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=E2TCxbEXFHTERFWXmDzm6LHQnRUpxIvaRyBZzMHuhI2PFh68g3oZc6obZA1W3M0l6L7i/JIXgVyTD9KXQ6OvRB85r5LZE+KytLQ8/adIufKUrDTJLbdJDvwdhqjss3r4Dn2a6vU4WVYyFWmaT2KFNsQ7aXouC1oAIzrqCLlWe0c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lI+d4iU7; arc=pass smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="c8O4hzDd";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Sm8fZ2JU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1785429099;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XjO18nbJbiIjdwy1Ooeo07xeKl9j1Vrh8YDkz9Zjps4=;
-	b=c8O4hzDdluaQ8yCLSRjdgDhxXUTQbOcw/7VaE7gZprzLfjzzA36Eh7xop7PVKJTDGcJyms
-	IDTPHn80+vbAGQTLfWcGx2vmTPh9BNi9cNB02tMFvXqcalBwZS9qPIgV57fDwqrAX7M0/Q
-	rC6KOA7xyfUz/jDIE+phwkieaq6a7bc=
-Received: from mail-yx1-f70.google.com (mail-yx1-f70.google.com
- [74.125.224.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-275-vcnk-F1qPPKo--DKMN5zPQ-1; Thu, 30 Jul 2026 12:31:37 -0400
-X-MC-Unique: vcnk-F1qPPKo--DKMN5zPQ-1
-X-Mimecast-MFC-AGG-ID: vcnk-F1qPPKo--DKMN5zPQ_1785429096
-Received: by mail-yx1-f70.google.com with SMTP id 956f58d0204a3-66799e7a177so6451213d50.1
-        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 09:31:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lI+d4iU7"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2d004f135b1so31842175ad.3
+        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 09:32:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785429159; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GciA5p4Xk8+y6I6po1YQpvhbX6GTsmr6s5Xvnc+IYcqEf+iVZf6S73EbtJiFPsHcgB
+         uyEN0vTVycyqfzUEtqrOnxPRlP3UvcAPQgIQS9tIgoxsiQalxGBBHquHyXpJ9o0wsp0x
+         9gVkv5Ja8F7ydnz8v81TGUAf70Rd0P28Hc5qwLOM9aNF/umNCCRm7kA7jnWucEFOk0Fz
+         pcD/3ep7FtOLeC7Z/rDtvV8yaCHDJylGRn81OsJytx10QF9q8SCMELTM7TPygskqtFm0
+         OPfrOgh1JbTzJghFsTdRuBZ6whvBisrQPVV41JLiBW1Nsh867au2gcGMFLcT4aH9vL3o
+         EY3Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=IPweQa939gd7nIqWfEjM0QcoU+Zhyc9RPuy6U7q0p2g=;
+        fh=0QyrSDZv56tsgF8Eew0an6sZcJ+f3DuDBN/nvdGBn1Y=;
+        b=Vy9RMuB1ciy0N1BouLul0H47F6+G+5KZGhIwnlwCed0gFHksSvHhXo2Xizq1zOEiZH
+         40bjSSrYt1THjZ3q5xUpgoZp/tdvQqLayhCDawDgHYu7tcuTFH/DeDpjGkU4BrJ2UoB/
+         8pi+l+HjYE2FTGaRGuouyZbhLm37Ox06emNRkwYPUJnhpdTE6Qh03YTDfuOAlU0ao6GQ
+         hdZpkGqFHlo/teayy9iVOB0Y3SeTO8qzyByzK6TGp71InbTbqEftl6x7ZyIic/s3wZV8
+         cP01OL4/IPoJtD7gFGjWStetnTo9xvMKv0ob5MDoNh4u/D+BxWViG0uRGAxdXmaPwNnj
+         kgGA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1785429096; x=1786033896; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=XjO18nbJbiIjdwy1Ooeo07xeKl9j1Vrh8YDkz9Zjps4=;
-        b=Sm8fZ2JUq5/0+nLOwRTZt1cwSorDk7k7eGR0aHfzMAXpPqk5v73i+mLB/O0bQjWbQb
-         rgpstkGBIKPfQZRcbAOJpgh0DP8pXB8qw9l0gWJvik5C+0gAeLUeWGFBywa2uMAiMLVa
-         A/4OvBCCDl6pqUCzFhIzzEEmOHVqjIqpYCxQ0U7z3iPpCT0eHhkshwpPeEN5nuecUMYO
-         1Lr+iIQJ4STfTkb3PayxZnbSuixWCUK6t7HC/cz8tPG0VvyOS8qSBXZfphpffclZYQzh
-         RGcGS7hul1Icwbl1qChqfG8bS9HiCkk40Oy/Gjj8C4clJsDlG7GceKHOEeG7S6623iOV
-         wxHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785429096; x=1786033896;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1785429159; x=1786033959; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XjO18nbJbiIjdwy1Ooeo07xeKl9j1Vrh8YDkz9Zjps4=;
-        b=dPD1V3KehvSDByja5DwKGnzehDEoJVg2R0UOtuCS3Tngdf1UUwNhxcZCZvmri3PDdu
-         bTXGPyteNddXwFePHkOp3xLZHSdmdHuOPpV3UX9exRo9MZmdqL0Ld6FH6pHb26vDfQBz
-         mTAtuQ7iValbWbkJOJGNu1v8PmiM53Hjru2FdlrhlgMI1IxjHWKLI2LG8xOWrcz5jV1f
-         mZqgQbz7+jqcP/bsuyPpjUGQAUHWtTNFOwTFH4q2+QTbtjQyVJelLnrO1MXLudwp3ns9
-         gCNYv69UeTzi+sBqpEkMrXeVyubw7Dm212dVM/X9gHD1P6z/usvpgFvkJhj3Z0Ge+VY2
-         xb6Q==
-X-Forwarded-Encrypted: i=1; AHgh+Rq6bVITa7JlOit9zhwX3+8ZJtr5+R7UFcNwUbEC1dmkFN0wklW4sYU1O2Nhei/oQya1sKjdWnvQglgC@vger.kernel.org
-X-Gm-Message-State: AOJu0YweK0st6YI+4GsV8/F2VqovTi1i3JZfm0Gya/tWRdigVDOVKgEg
-	gMc3QoOTiKkCI92rc4ckPkQk5ACdQEckhTX0VNJEQPZX2wKlqxcznxgJqFwjcTFnMdsDnIEHF3f
-	bq/YWhQmlEcFTHRpCig2QMmVN/8ytuXTL/eT9na51LGiDF6qK9fTJvFM1GROhGFM=
-X-Gm-Gg: AR+sD101Cvy/UGC+1nv4E5dxC8NfSmE2ZpwIQRlx9E+b+RbkylxBbM+49km2np33vQ6
-	Wfkb4nOHIaFqii6Hn17eC59h5J+Xum8pjxk6gmKcFGPgduuEHo2+XzPtWRH+YACPIzD3dWqQ85c
-	2U69cBFP5PcroAF1B71MrJIv7BCa8n4W1cb0JsC6zFhka4ExbjjfB6z/IXiglC9xQm3xtKTtVt3
-	7Msv91t2f8oQw/ZjKYnGxTZiaWLS/GQyOxHiaXjkKZqQ3HjVG8+b3/UxO5GFwMf9mtghv0glMHd
-	bp01Em2cyh4z3hD0WlBU/wVW4LgHkAw62yGPnKAADPlqVQUqAkZcVSGIY5rBA/1Sa0QfzoJnbgS
-	cFtKx9PlytsEBj18QZLMQoxhevvEddu8rFro=
-X-Received: by 2002:a05:690e:4809:b0:667:e8a3:ebd4 with SMTP id 956f58d0204a3-6693a328de2mr569825d50.4.1785429095987;
-        Thu, 30 Jul 2026 09:31:35 -0700 (PDT)
-X-Received: by 2002:a05:690e:4809:b0:667:e8a3:ebd4 with SMTP id 956f58d0204a3-6693a328de2mr569786d50.4.1785429095425;
-        Thu, 30 Jul 2026 09:31:35 -0700 (PDT)
-Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6692c8e57f2sm1632516d50.13.2026.07.30.09.31.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 09:31:34 -0700 (PDT)
-Date: Thu, 30 Jul 2026 12:31:31 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Yu-Chun Lin <eleanor.lin@realtek.com>
-Cc: mturquette@baylibre.com, sboyd@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, p.zabel@pengutronix.de,
-	cylee12@realtek.com, jyanchou@realtek.com, afaerber@suse.com,
-	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-realtek-soc@lists.infradead.org, james.tai@realtek.com,
-	cy.huang@realtek.com, stanley_chang@realtek.com
-Subject: Re: [PATCH v11 05/11] clk: realtek: Add support for phase locked
- loops (PLLs)
-Message-ID: <amt8Y84Z0O3ZEVnk@redhat.com>
-References: <20260728142806.1954638-1-eleanor.lin@realtek.com>
- <20260728142806.1954638-6-eleanor.lin@realtek.com>
+        bh=IPweQa939gd7nIqWfEjM0QcoU+Zhyc9RPuy6U7q0p2g=;
+        b=lI+d4iU7n4QzMPjvovE5o4pavwrDuEmPw0kWYZjhzOVal2vgUNdbJ9U8kZKPrLLtb9
+         ws766XjCpoRheUY54d4PCT4I3Npf0usqWQDSNmm3eKL/YVwR2MRgmpZjLK0lImFp7BwI
+         NK8OHiZiaYFdvsEtit4MU3gTr76AZ1/z+D/0VBB1BjI2qg1zA2XK9k+Ia4y31uhiTNor
+         b0/5Gu2I0PtkqozUq8lYiQJicLT5ves91SJKmPjd7KFKYgn0oiPzsBRcJn4kOyWGMvEh
+         BgI6fEhqHTLsvhyM+gmS4QWC5Ej8fRfTlmTkyqzb8wnA7Iv9FGQlmy/kRqkQ7xAUB7SN
+         gyVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785429159; x=1786033959;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=IPweQa939gd7nIqWfEjM0QcoU+Zhyc9RPuy6U7q0p2g=;
+        b=c7RPu8M99Nz8Dycrts1wWpqfYXKVqTzFYgjAOnEIN3RlNfXJK9f4dlzFcrFKnN340k
+         0Fhzexz50MlMGKWDaHc8ExFoWUERB4avXVs8idJyV9329/FpbIjrc3hUZJzFLlla5SKo
+         Zs6Fyf+M9vBBBcIBqgrWtmS2n1zkjg2cICzV+PLQdFdyT8vyZfGUgaMBEZYoVq8jOTy0
+         4I9AKpXTdvXXeT5tVa5YiTBsHXggj/HvrJ4BREP24gEJqzFlPfRpumz1WKv/LWxuJ/wG
+         FSC+aAlpGZfzFruGtMDfqmbk8E1wlPd84RKdpUDC3z0anjgKtgwaS0K65Kf3G0e/XPrm
+         YXqA==
+X-Forwarded-Encrypted: i=1; AHgh+RpIs0o8XaBhlZEja8jk5fpVg2YIgGgDkxH84bgBOVdXkwLedwb4bRlWN+CL7KJJU+yZBOFPr1gBprWJ@vger.kernel.org
+X-Gm-Message-State: AOJu0YwYJS4sXpGd1gcJdhPgygdhHT4/ZhNxeR1WsIcYr953XlXImpjo
+	/a4KapKXr8v1Y7kl3rhBAZCB5JwN92Pe6/7yGEizIfGmOCJudL0MH8v52VGlKetI6pI+QYdrUPT
+	i11VQoEnPBdIPMcpvBz+BEWy3XE9TkJzLdjLndkYoWoOT
+X-Gm-Gg: AR+sD12V3BPt/R7LyqcyeXXoe1V4dW3oaadxowFc5eDRKUKJ4lmOnT6G+P8erUrKyvs
+	PgvWjHvlp7gNBI8zJN3HwuSitlsSXIwP/KYDBOUfRoiN/BzXaSOBOaoE9I6Xyw0RLPIC7NSuLYP
+	Nn6+i+yyzMtK7qhf/WyCQxyEU5opnyjlbaJYLlnOl6lKGwD4PLxvdhEqRZQ0T8ugCvF8qnA9NOp
+	04FgX8x6ypqMmgY7jy4jKHQBO/C7aPM8GWQh6sAHtmRG1Fh5HblZL9AysQPw13dzd36KECiPN8l
+	CjBPKXWitObUIMZQzjAG+Eo/oyG0N8arqwY2jqEFuQogyJSRXHpVXnoknj+8xuvLuYZrrXnVFae
+	sAw==
+X-Received: by 2002:a05:6a21:339f:b0:3c0:9c1a:8936 with SMTP id
+ adf61e73a8af0-3c90d6aa817mr1084696637.62.1785429158796; Thu, 30 Jul 2026
+ 09:32:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260728142806.1954638-6-eleanor.lin@realtek.com>
-User-Agent: Mutt/2.4.0 (2026-06-19)
+References: <20260724-sensible-flamingo-of-experiment-5a389f@quoll>
+ <20260729204308.21562-1-rounakdas2025@gmail.com> <d580900f-d880-4ede-ab74-a83fc0c71be9@kernel.org>
+ <20260730-gopher-of-unnatural-leadership-968ec0@quoll>
+In-Reply-To: <20260730-gopher-of-unnatural-leadership-968ec0@quoll>
+From: Rounak Das <rounakdas2025@gmail.com>
+Date: Thu, 30 Jul 2026 22:02:26 +0530
+X-Gm-Features: AUfX_mwOeAWKmxBCapFH8OO9BAgQcC-KTiMT2iLqxqLFMwzUP1ftIsgRaivSSA0
+Message-ID: <CAPYTKoPQczv-9bcEkNbUitcP91FXqyGo187JW_Ld+DpDfaZJeg@mail.gmail.com>
+Subject: Re: [PATCH 1/2] dt-bindings: altera-sdram: Add Agilex5 ECC manager compatible
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: bp@alien8.de, conor+dt@kernel.org, devicetree@vger.kernel.org, 
+	dinguyen@kernel.org, krzk+dt@kernel.org, linux-edac@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, niravkumar.l.rabara@altera.com, robh@kernel.org, 
+	tony.luck@intel.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Jul 28, 2026 at 10:28:00PM +0800, Yu-Chun Lin wrote:
-> From: Cheng-Yu Lee <cylee12@realtek.com>
-> 
-> Provide a full set of PLL operations for programmable PLLs and a read-only
-> variant for fixed or hardware-managed PLLs.
-> 
-> Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
-> Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
-> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+Hi Krzysztof,
 
-Reviewed-by: Brian Masney <bmasney@redhat.com>
+Sorry for the noise, both were my mistakes. These were reworks of Dinh's
+1/4 and 2/4 based on top of his series, but I sent them as standalone
+patches replying to your review, which is confusing and not parseable by
+tooling. The subject didn't make things clear either.
 
+I'll send the changes to Dinh instead so he can fold them into the v2.
+
+Thanks,
+Rounak
