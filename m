@@ -1,189 +1,216 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12BF7314D05;
-	Thu, 30 Jul 2026 07:09:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C4D1314D05
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 07:13:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785395396; cv=none; b=T0/dcra4ihZmAXl2DJ3cGOIiravLJOpbcoIQzGUxwHszAE7GhstGIfEqBSOPCdtwYeDmFdVQtCjp1fMinv3uSEaDDhbAc4zWLvjqPRn7yjw/8TUSQXQmCvcMFLIvlSG9OhZRowbgxSw2fgMrJ0/8d0i7T5SviIF+2XS9T0jZW6k=
+	t=1785395605; cv=none; b=ek0vFrmVlSGnLGgC8Y/GfLymoqPQg6HoCuqp62SYFv3Jp85uDXAzT3DHNDDP135qJXqnoPocw6w7tRopg8yxBMrGRxYp/cg4EVqY6lIhhxvu5sSWuKDbMHm02naHTeJSNQmuPiubTgsoLFJKbxLTmSYbXuWM64uUCFboQi0ofUI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785395396; c=relaxed/simple;
-	bh=DwHii/TCjfACQ2hcLKmC/pMUgoDRvVj1IsepB7dsXeo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MZKe0w5tnUHQXkaZ6w0J9I1HOmcfHWF0Ef47UpmzhaqVu/GfLeeufjps07bZ5yGbqu8B1VLWIN0053poV1BkG05zGqE/l/VE7+j3L5tjhbdd0hNHB01DHHPv4BIn0wVx2GrkDuKDilwq5FuI1fdqea+l4O7RMuvgvaXQTvVr9y4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L6coiKBZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785395605; c=relaxed/simple;
+	bh=1qOUB0XJVc1BD5gDr2l5v9Rc+y5MzXuBkKqIna6SG9E=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=GxGq0fCIJh0NURSuReL7EyjLJ/iz3Wwq06szBcXT83/2B2/3XInLzodO7a9rglBnB7rJ9RWsRXroddd8AZRALC2AYwA25Jfio/Ulpo520DvKZT0NN7i/PuJSWsQpd00+BpcxQ4MPMzW24Pqf6zmhxguRMkONKawOxpE9NHxSh5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KRolR4BU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L6coiKBZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 536151F000E9;
-	Thu, 30 Jul 2026 07:09:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KRolR4BU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 758E61F000E9;
+	Thu, 30 Jul 2026 07:13:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785395392;
-	bh=TdBa5gJdt4RW3EXFtB3u3DLjwb7jjzjVJg81cZzqSys=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=L6coiKBZWnXLbige9UdRTTDRZROT7jhlJUktTVbJkepB7UHeM+8BkEVCjYrvgAlRu
-	 beORMfif4At+e9eZlQGQMWzjSQDPlpDiPvpzyXwFUvc5LA6PU9MW0crtoYdx14xBap
-	 1WZSwt7avxG7Sm9C5nx5H9P7BNIBdxdBdH1Qh5EgkqhFUxEKHfaR+kvfRSHcjOWcIs
-	 liJw7PFKczt2rk6M60T2PrkqBj+SOA0D8cp982SSgdVtqSk5cRDsA/tUkx3Oj7CRRB
-	 OhK1SD/SSiXQaiBtw3+CCoO8cudUUoUW2FWVgENleaK9xB/nsKSM9NxA4lGWVqLvwy
-	 0/wkNFOfj8Dag==
-Date: Thu, 30 Jul 2026 09:09:48 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-Cc: Mark Brown <broonie@kernel.org>, 
-	Srinivas Kandagatla <srini@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, Julian Braha <julianbraha@gmail.com>, 
-	Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>, 
-	Luca Weiss <luca.weiss@fairphone.com>, Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>, 
-	Ravi Hothi <ravi.hothi@oss.qualcomm.com>, linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] ASoC: dt-bindings: add the Qualcomm WCD9378 audio
- codec
-Message-ID: <20260730-impartial-angelic-harrier-ab9192@quoll>
-References: <20260729000649.263426-1-jorijnvdgraaf@catcrafts.net>
- <20260729000649.263426-2-jorijnvdgraaf@catcrafts.net>
+	s=k20260515; t=1785395603;
+	bh=SSLr9Gd95sXI3DA/5R0odxkM2MFj25sHM4TtjpBwE0w=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=KRolR4BUGFgyn9+WT5p3O+ffyAbdhQPtYzVJhMHp+Df9GPNzjPKEq33zFMoAjOb0H
+	 FjGp+l7SkuG7d+lNm/ajiREp7ctkYYBLlgl9T8QTkEQCC5AmX/U1UVSKsumyvFrnfx
+	 ASZjtpcjJ7JTuobqGazTNSa+/LxXaHh1B+0BM7Lp4dWaeRysEAkr/EIoTEPTx+jvIV
+	 PSjsL2bTomfISKQBSxS/6lSBBx1QdR/OuBPpzWSTRB+/sc6KZpdhwcdYGJm0C+69tb
+	 jYA0joTlJpRUwc56TCuQoynLSFiLn4qmVqKBvEmGCk8zRDFnKPUIX2An5ERfpQJu5k
+	 1Q/CEGU3iZ0mw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 2/2] media: i2c: add driver for ITE IT6625/IT6626
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Hermes Wu" <Hermes.wu@ite.com.tw>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org, conor+dt@kernel.org
+In-Reply-To: <20260730-upstream-it6625-it6626-v9-2-e7725db2b92f@ite.com.tw>
+References: <20260730-upstream-it6625-it6626-v9-0-e7725db2b92f@ite.com.tw>
+ <20260730-upstream-it6625-it6626-v9-2-e7725db2b92f@ite.com.tw>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 30 Jul 2026 07:13:22 +0000
+Message-Id: <20260730071323.758E61F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260729000649.263426-2-jorijnvdgraaf@catcrafts.net>
 
-On Wed, Jul 29, 2026 at 02:06:48AM +0200, Jorijn van der Graaf wrote:
-> The Qualcomm WCD9378 is a standalone audio codec IC found on SM7635
-> boards such as the Fairphone 6. Like the WCD937x/938x/939x codecs it
-> presents RX and TX SoundWire slave devices controlled by a common
-> parent node, so the parent binding references qcom,wcd93xx-common.yaml.
-> The WCD9378 has three ADCs and three mic bias supplies and thus no
-> qcom,micbias4-microvolt, which the common schema required: move that
-> requirement into the current users, keeping their status quo, and
-> reject the property here.
-> 
-> The slave devices enumerate with manufacturer ID 0x0217 and part ID
-> 0x0110, hence the sdw20217011000 compatible. Compute platforms wire
-> the same chip as a single aggregated slave in SDCA mode, which owns
-> the codec resources itself and has no parent node. The slave binding
-> covers both presentations: qcom,compute-mode marks the aggregated
-> slave and gates the properties for the resources it owns,
-> qcom,control-device marks the slave owning the control register space
-> (the TX slave in mobile mode), and qcom,port-mapping carries the port
-> map of either kind of slave.
-> 
-> The -codec suffix in the parent compatible follows the existing
-> qcom,wcd93xx/pm4125 family compatibles and matches the compatible
-> shipped by production devicetrees for this chip.
-> 
-> Assisted-by: Claude:claude-fable-5
-> Signed-off-by: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-> ---
-> v2:
-> - squashed v1's separate qcom,wcd93xx-common patch into this one, as
->   Krzysztof asked; no changes to that part.
-> - one slave binding for both chip presentations, as agreed in the
->   review of Srinivas's SDCA class series (link in the cover letter);
->   Srinivas added as binding maintainer. The aggregated SDCA-mode slave
->   is marked qcom,compute-mode, which gates the properties for the
->   resources it owns (supplies, reset GPIO, mic-bias voltages,
->   #sound-dai-cells).
-> - the split qcom,{tx,rx}-port-mapping properties are replaced by a
->   single qcom,port-mapping; with one name for both slaves, the new
->   qcom,control-device flag marks the slave that owns the control
->   register space. The mapping stays optional and loses the per-item
->   enum, following qcom,wcd938x-sdw.yaml.
-> - qcom,{tx,rx}-channel-mapping dropped, answering Srinivas's v1
->   question: the slave-side map is fixed in the driver and no board
->   needs to remap the master side; they can return with a board that
->   does.
-> - the codec binding's example drops the two slave-node examples
->   duplicated from qcom,wcd9378-sdw.yaml, as Rob asked.
-> - qcom,port-mapping length pinned per mode (5 mobile / 8 SDCA)
->   through the existing if/then block.
-> 
->  .../bindings/sound/qcom,wcd9378-codec.yaml    |  54 ++++++
->  .../bindings/sound/qcom,wcd9378-sdw.yaml      | 182 ++++++++++++++++++
->  .../bindings/sound/qcom,wcd937x.yaml          |   1 +
->  .../bindings/sound/qcom,wcd938x.yaml          |   1 +
->  .../bindings/sound/qcom,wcd939x.yaml          |   1 +
->  .../bindings/sound/qcom,wcd93xx-common.yaml   |   1 -
->  6 files changed, 239 insertions(+), 1 deletion(-)
->  create mode 100644 Documentation/devicetree/bindings/sound/qcom,wcd9378-codec.yaml
->  create mode 100644 Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/qcom,wcd9378-codec.yaml b/Documentation/devicetree/bindings/sound/qcom,wcd9378-codec.yaml
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] devm-allocated state is freed and mutex is destroyed in it6625_rem=
+ove() while V4L2 ioctls may still be executing, leading to Use-After-Free.
+- [Medium] Missing .init_cfg pad operation results in invalid TRY format on=
+ fresh file handles.
+- [Medium] Missing function-level serialization in it6625_s_edid causes inc=
+onsistent hardware and software state on concurrent ioctl calls.
+- [Medium] Incorrect CEC logical address hardware configuration and failure=
+ to clear invalid addresses.
+- [Medium] Hardcoding the interrupt trigger polarity overrides the board-sp=
+ecific Devicetree configuration.
+--
+
+--- Patch [2]: [PATCH v9 2/2] media: i2c: add driver for ITE IT6625/IT6626 =
+---
+commit 9486ba94c24373b516c1402da3bd1eb976b4cc82
+Author: Hermes Wu <Hermes.wu@ite.com.tw>
+
+media: i2c: add driver for ITE IT6625/IT6626
+
+Adds a V4L2 subdevice driver for the ITE IT6625/IT6626 HDMI-to-MIPI CSI-2
+bridge chips. The bridge is configured over I2C, exposes an HDMI CEC adapte=
+r,
+and supports EDID and HPD control via standard V4L2 operations.
+
+> diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
 > new file mode 100644
-> index 000000000000..0b9d3394f77e
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/qcom,wcd9378-codec.yaml
-> @@ -0,0 +1,54 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/qcom,wcd9378-codec.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +++ b/drivers/media/i2c/it6625.c
+[ ... ]
+> +static int it6625_get_fmt(struct v4l2_subdev *sd,
+> +			  struct v4l2_subdev_state *sd_state,
+> +			  struct v4l2_subdev_format *format)
+> +{
+[ ... ]
+> +	if (format->which =3D=3D V4L2_SUBDEV_FORMAT_TRY) {
+> +		struct v4l2_mbus_framefmt *fmt;
 > +
-> +title: Qualcomm WCD9378 Audio Codec
-> +
-> +maintainers:
-> +  - Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-> +
-> +description:
-> +  The Qualcomm WCD9378 is a standalone Hi-Fi audio codec IC with three
-> +  ADCs, three mic bias supplies, headphone/earpiece/line outputs and
-> +  MBHC. This node describes the mobile presentation, where the codec
-> +  appears as two SoundWire slaves on separate masters and this node owns
-> +  the resources they share; the control registers live in the SDCA control
-> +  address space reached through the TX slave. In SDCA mode the codec is a
-> +  single aggregated slave with no node of its own, see
-> +  qcom,wcd9378-sdw.yaml.
-> +
-> +allOf:
-> +  - $ref: dai-common.yaml#
-> +  - $ref: qcom,wcd93xx-common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: qcom,wcd9378-codec
-> +
-> +  qcom,micbias4-microvolt: false
-> +
-> +required:
-> +  - compatible
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +    audio-codec {
-> +        compatible = "qcom,wcd9378-codec";
-> +        reset-gpios = <&tlmm 162 GPIO_ACTIVE_LOW>;
-> +        vdd-buck-supply = <&vreg_l8b>;
-> +        vdd-rxtx-supply = <&vreg_l7b>;
-> +        vdd-io-supply = <&vreg_l7b>;
-> +        vdd-mic-bias-supply = <&vreg_bob>;
-> +        qcom,micbias1-microvolt = <1800000>;
-> +        qcom,micbias2-microvolt = <1800000>;
-> +        qcom,micbias3-microvolt = <1800000>;
-> +        qcom,rx-device = <&wcd9378_rx>;
-> +        qcom,tx-device = <&wcd9378_tx>;
-> +        #sound-dai-cells = <1>;
-> +    };
+> +		fmt =3D v4l2_subdev_state_get_format(sd_state, format->pad);
+> +		format->format.code =3D fmt->code;
+> +		format->format.colorspace =3D fmt->colorspace;
 
-As pointed out by RFC from Srini, this binding/node is not correct. It
-is a fake node to solve (real) power sequencing issues, but Srini's SDCA
-patchset points that this should be part of TX.
+[Severity: Medium]
+Could this return an invalid zero-initialized format to userspace?
 
-Bindings should be complete. It is fine to have them incomplete of
-missing features and extend later, but it is not fine to have them with
-incorrect and incompatible solution.
+If a userspace process opens the subdev device node and immediately calls
+VIDIOC_SUBDEV_G_FMT for the TRY format, v4l2_subdev_state_get_format() may
+read uninitialized memory.
 
-Therefore this needs to be sorted out for both patchset - this and SDCA
-version of WCD9378 codec.
+[ ... ]
+> +static const struct v4l2_subdev_pad_ops it6625_pad_ops =3D {
+> +	.enum_mbus_code =3D it6625_enum_mbus_code,
+> +	.set_fmt =3D it6625_set_fmt,
 
-Best regards,
-Krzysztof
+Is the .init_cfg callback missing from the pad operations? Adding it would
+ensure the TRY state is properly populated on fresh file handles.
 
+[ ... ]
+> +static int it6625_cec_adap_log_addr(struct cec_adapter *adap, u8 log_add=
+r)
+> +{
+> +	struct it6625 *it6625 =3D adap->priv;
+> +
+> +	dev_dbg(it6625->dev, "%s: la=3D%d", __func__, log_addr);
+> +
+> +	if (log_addr !=3D CEC_LOG_ADDR_INVALID) {
+> +		u8 cmds[2] =3D {CMD_SET_CEC_LA, log_addr};
+> +
+> +		guard(mutex)(&it6625->it6625_lock);
+> +		it6625_write_command(it6625, cmds, sizeof(cmds));
+> +	}
+
+[Severity: Medium]
+Does this code properly release logical addresses?
+
+When the CEC framework requests to clear a logical address by passing
+CEC_LOG_ADDR_INVALID, the callback ignores it. This could cause the
+device to keep ACKing messages meant for a released address.
+
+[ ... ]
+> +static int it6625_s_edid(struct v4l2_subdev *sd,
+> +			 struct v4l2_subdev_edid *edid)
+> +{
+> +	struct it6625 *it6625 =3D sd_to_6625(sd);
+> +	int err =3D 0;
+> +	u16 pa;
+> +	int pa_err;
+[ ... ]
+> +	it6625_disable_hpd(it6625);
+[ ... ]
+> +	err =3D it6625_write_edid(it6625, edid->edid,
+> +				edid->start_block, edid->blocks);
+
+[Severity: Medium]
+Should it6625_s_edid() hold a lock across its entire execution?
+
+Currently, locks are only held briefly inside sub-functions like
+it6625_write_edid(). If multiple threads call VIDIOC_SUBDEV_S_EDID
+concurrently on the same file descriptor, the sequence could interleave.
+
+This could result in inconsistent states, for example, leaving the hardware
+programmed with one EDID while the CEC subsystem operates with the physical
+address of another.
+
+[ ... ]
+> +	if (hdmi_5v_power_present(it6625)) {
+> +		it6625_enable_hpd(it6625);
+
+[Severity: High]
+Can this cause a use-after-free during driver teardown?
+
+If a concurrent VIDIOC_SUBDEV_S_EDID ioctl is executing when the driver is
+unbound via sysfs, v4l2_device_unregister_subdev() won't wait for the
+ioctl to finish.
+
+[ ... ]
+> +static void it6625_remove(struct i2c_client *client)
+> +{
+[ ... ]
+> +	cancel_delayed_work_sync(&it6625->hpd_delayed_work);
+> +	debugfs_remove_recursive(it6625->debugfs_dir);
+> +	cec_unregister_adapter(it6625->cec_adap);
+> +	mutex_destroy(&it6625->it6625_lock);
+
+This means the in-flight ioctl could access the devm-allocated state after
+it has been freed in it6625_remove().
+
+Furthermore, since the ioctl schedules hpd_delayed_work, this work could
+get scheduled right after cancel_delayed_work_sync() has already completed,
+triggering a use-after-free when the work finally runs.
+
+[ ... ]
+> +static int it6625_probe(struct i2c_client *client)
+> +{
+[ ... ]
+> +	if (client->irq) {
+> +		err =3D devm_request_threaded_irq(&client->dev, client->irq,
+> +						NULL, it6625_irq_handler,
+> +						IRQF_TRIGGER_LOW |
+> +						IRQF_ONESHOT |
+> +						IRQF_NO_AUTOEN,
+
+[Severity: Medium]
+Would it be safer to omit IRQF_TRIGGER_LOW here?
+
+Hardcoding the interrupt trigger polarity overrides the board-specific
+configuration provided by the Devicetree. This might cause the driver to
+fail to probe or experience interrupt storms on platforms where the
+hardware design requires an active-high interrupt line.
+
+[ ... ]
+> +	it6625->cec_adap =3D cec_allocate_adapter(&it6625_cec_adap_ops,
+> +						it6625, dev_name(it6625->dev),
+> +						CEC_CAP_DEFAULTS |
+> +						CEC_CAP_MONITOR_ALL |
+> +						CEC_CAP_PHYS_ADDR,
+> +						CEC_MAX_LOG_ADDRS);
+
+[Severity: Medium]
+Does the driver actually support multiplexing multiple CEC logical addresse=
+s?
+
+It requests CEC_MAX_LOG_ADDRS here, but the logical address assignment in
+it6625_cec_adap_log_addr() appears to simply overwrite the active address
+rather than managing multiple addresses in hardware.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-upstream-i=
+t6625-it6626-v9-0-e7725db2b92f@ite.com.tw?part=3D2
