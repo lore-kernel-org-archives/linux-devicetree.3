@@ -1,110 +1,123 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A16E83C1D59
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 10:47:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95C1C3F86E6;
+	Thu, 30 Jul 2026 10:48:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785408461; cv=none; b=c/qvhRg4u+4GoiDDTtD22/GCh+0dc3oMwOT/43dDqUaGrzB5ECJArfvB6OAEOOPuxqUPIt3etJ+HbLSxfHWxL3L5E4KkVh7jrPhFSGrGEZnQ7TenoWIAXtUOtDI80c31uf2fEW6dOSXkTkFC0/r4YJu9sFkSA5gRBLRgea9Sc/A=
+	t=1785408503; cv=none; b=jRi56ULVpC5iZTNFz0WCSjVb9ZH6hIw2d/imb9OJ0HBNh+5FG56zq3xFd8FBh6JZITt5RTRqOPCGxAVf1fpEYgB6rrTK/nE8t5sex8bglUZBvnYOUkGEo8ZPuRTbmoSeuJp4iQ/Bixsf5TnoLndu4PWQoQq9F79r7O6++9bds1s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785408461; c=relaxed/simple;
-	bh=eWPJJyUhu/hI3UrEsWU1lGQ2pE+KsKj8mIl3dUmIXOI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EFPTbWNK7jcR8w1shwbf+h1V0OixQVVSkyzR0KIvjisYgs6pilNnvtqPPRD7Uxsjiz6IkHD9fVb43pGj0e2RiMRSBBrGPaHThUkNVbh95/QGIKHaNXgkkFy0Ya2YRc2p4D4qJN2VbSFaLq6hp84M9zqqVDYENc40zRc0wrbWzdA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SwZAH9ir; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785408503; c=relaxed/simple;
+	bh=+gJKbKNn43Fk0RGDwq3n3eHs4VPbGyQ9iZkC0dGnIF8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=X/k7KVJX/rY+fFnYJW2F4nwcOMOW0pUHCTLGqNEPhdcrz0t2X/h6+4ZwZa65FQOYQC4qx2W8qLWLMAQIde185uhxFtgKy2fh0rUTESR+n7EcyzBtYd6K5QhVfKWtq/lEuPcyXpPTtgTqSEgs4IQrYAmYvhXNyT5nVSketR1hGek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xu6/QUX/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SwZAH9ir"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6F6B1F000E9;
-	Thu, 30 Jul 2026 10:47:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xu6/QUX/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F4851F000E9;
+	Thu, 30 Jul 2026 10:48:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785408460;
-	bh=cR1c6byXUG+QlEmoRQ+lShCfULyibeZGgf2X7rXwjH8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SwZAH9irtoF6n9ankIUPUnmlgcEZyJmu5+d1VeBqJKXlIQCnfqT5BsZVJXkhG+l/q
-	 VvPNLna+S6ZX4sNNk77Yd9gaav5Y1zsOfz0a6jfKHRmJ2651WCAwOFLftOh1asLCz6
-	 h8eUrCYAgqVP435VVKQdrTQLOTzsxc8Xnkxb35+D4N86hMBkE99HaXEAo/502bJVH6
-	 MGy/YCsIEQrR/Sy/h5PzGK5Oi1Vupih1fd9ByhLwKsa/XfFM+MO/vquk1E0FWAHlHk
-	 VvELdQgGxiE0QjdBisPZXUL71IunNy8agRAKrPV2E6xTHdyyjbvbNL0gCkmrrrsh1s
-	 5ZIW2TxN+QDhw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 4/5] arm64: dts: renesas: add support for solidrun
- rzv2l som and hb-iiot evb
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Josua Mayer" <josua@solid-run.com>
-Cc: wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260730-rzg2-sr-boards-v4-4-08bc459578dc@solid-run.com>
-References: <20260730-rzg2-sr-boards-v4-0-08bc459578dc@solid-run.com>
- <20260730-rzg2-sr-boards-v4-4-08bc459578dc@solid-run.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 10:47:39 +0000
-Message-Id: <20260730104739.A6F6B1F000E9@smtp.kernel.org>
+	s=k20260515; t=1785408502;
+	bh=LQIam8Lk/rhF6Lm0HgQ3emsXNkYF4X/I9Zk8Ot6vu/0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Xu6/QUX/oYydCHTvPQ/A3cSkpBcfjLGjdI8g/Y+41jhXN40Gg0UAiujEcIvC1ehJl
+	 lYz7cWerr2Dtpftv15hLuy17PRMWhBuQk1kbePC8HNjxmRfELyavcoIPB0wtUy+CHz
+	 bDW4kxs9sQDdVAoxyfeC8Uz/mgtUicj/OlVCpADHH0SuDsPEHNqiVL4b944ysfC/ND
+	 nbKehVfpQ+PQsSuUQCFzXRVAhbZjpvDLqlN8z/MeMqComHi5ppUvJJZi7E3POkEW8E
+	 uqDdvwDmpd0f/aHhJPPXPnJccb/awCQ2ILSZqmlxfjo9C7sEGpOLc7HHThmOu40FYt
+	 bDX6DGX6cF4ZQ==
+Message-ID: <0fce6943-0d4b-4f3f-ae5f-277633577774@kernel.org>
+Date: Thu, 30 Jul 2026 12:48:12 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/10] Ambarella CV75 SoC minimal bring-up
+To: Long Zhao <longzhao@ambarella.com>, Arnd Bergmann <arnd@arndb.de>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, linux-clk@vger.kernel.org,
+ Linus Walleij <linusw@kernel.org>, linux-gpio@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, linux-serial@vger.kernel.org,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ linux-kernel@vger.kernel.org
+References: <20260730104330.81367-1-longzhao@ambarella.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <20260730104330.81367-1-longzhao@ambarella.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The standalone `rzg2l-sr-som-emmc.dtbo` and `rzg2l-hummingboard-=
-iiot-microsd.dtbo` overlay files are omitted from the `dtb-y` targets for `=
-CONFIG_ARCH_R9A07G054`.
---
+On 30/07/2026 12:43, Long Zhao wrote:
+> 
+> NOTE: This email (including attachments) contain Ambarella Proprietary and/or Confidential Information and is intended solely for the use of the individual(s) to whom it is addressed. Any unauthorized review, use, disclosure, distribute, copy, or print is prohibited. If you are not an intended recipient, please contact the sender by reply email and destroy all copies of the original message. Thank you.
 
---- Patch [4]: [PATCH v4 4/5] arm64: dts: renesas: add support for solidrun=
- rzv2l som and hb-iiot evb ---
-commit e8396d770c29ff4a18cf3e6df93a8aacf55d42b9
-Author: Josua Mayer <josua@solid-run.com>
+Maybe I am the intended recipient of your message, maybe not. I don't
+want to have any legal questions regarding upstream, public
+collaboration, thus probably I should just remove your messages.
 
-arm64: dts: renesas: add support for solidrun rzv2l som and hb-iiot evb
+Please talk with your IT that such disclaimers in open-source are not
+desired (and maybe even harmful).
+If you do not understand why, please also see:
+https://www.youtube.com/live/fMeH7wqOwXA?si=GY7igfbda6vnjXlJ&t=835
 
-This commit adds support for the SolidRun RZ/V2L SoM on the Hummingboard
-IIoT. The RZ-V2L SoM shares its PCB with the RZ/G2L, differing primarily in
-the SoC and the addition of a DRP-AI NPU.
+If you need to go around company SMTP server, then consider using b4
+web-relay: https://b4.docs.kernel.org/en/latest/contributor/send.html
 
-> diff --git a/arch/arm64/boot/dts/renesas/Makefile b/arch/arm64/boot/dts/r=
-enesas/Makefile
-> index e2af196e18bf6..5242eff76ef54 100644
-> --- a/arch/arm64/boot/dts/renesas/Makefile
-> +++ b/arch/arm64/boot/dts/renesas/Makefile
-> @@ -189,6 +189,17 @@ dtb-$(CONFIG_ARCH_R9A07G044) +=3D r9a07g044l2-smarc-=
-cru-csi-ov5645.dtbo
->  r9a07g044l2-smarc-cru-csi-ov5645-dtbs :=3D r9a07g044l2-smarc.dtb r9a07g0=
-44l2-smarc-cru-csi-ov5645.dtbo
->  dtb-$(CONFIG_ARCH_R9A07G044) +=3D r9a07g044l2-smarc-cru-csi-ov5645.dtb
-> =20
-> +dtb-$(CONFIG_ARCH_R9A07G054) +=3D r9a07g054l2-hummingboard-iiot.dtb
-> +r9a07g054l2-hummingboard-iiot-emmc-dtbs :=3D r9a07g054l2-hummingboard-ii=
-ot.dtb rzg2l-sr-som-emmc.dtbo
-> +dtb-$(CONFIG_ARCH_R9A07G054) +=3D r9a07g054l2-hummingboard-iiot-emmc.dtb
-> +r9a07g054l2-hummingboard-iiot-microsd-dtbs :=3D r9a07g054l2-hummingboard=
--iiot.dtb rzg2l-hummingboard-iiot-microsd.dtbo
-> +dtb-$(CONFIG_ARCH_R9A07G054) +=3D r9a07g054l2-hummingboard-iiot-microsd.=
-dtb
+Please be informed that by responding to this email you agree that all
+communications from you and/or your company is made public. In other
+words, all messages originating from you and/or your company will be
+made public.
 
-[Severity: Medium]
-Should the standalone rzg2l-sr-som-emmc.dtbo and=20
-rzg2l-hummingboard-iiot-microsd.dtbo overlay files be explicitly added
-to the dtb-y targets here?
-
-While Kbuild will correctly build the .dtbo dependencies for the composite
-.dtb, make dtbs_install determines which files to install by strictly
-including targets explicitly added to the dtb-y variable.=20
-
-If a user compiles a kernel strictly with CONFIG_ARCH_R9A07G054=3Dy and
-CONFIG_ARCH_R9A07G044=3Dn, it appears these two overlays will be built as
-intermediate objects but won't be installed by make dtbs_install,
-leaving them unavailable for a bootloader to apply dynamically.
-
-> +dtb-$(CONFIG_ARCH_R9A07G054) +=3D rzg2l-hummingboard-iiot-rs485-a.dtbo
-> +r9a07g054l2-hummingboard-iiot-rs485-a-dtbs :=3D r9a07g054l2-hummingboard=
--iiot.dtb rzg2l-hummingboard-iiot-rs485-a.dtbo
-> +dtb-$(CONFIG_ARCH_R9A07G054) +=3D r9a07g054l2-hummingboard-iiot-rs485-a.=
-dtb
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-rzg2-sr-bo=
-ards-v4-0-08bc459578dc@solid-run.com?part=3D4
+Best regards,
+Krzysztof
