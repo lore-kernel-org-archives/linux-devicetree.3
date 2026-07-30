@@ -1,23 +1,24 @@
-Received: from mail-m15588.qiye.163.com (mail-m15588.qiye.163.com [101.71.155.88])
+Received: from mail-m49244.qiye.163.com (mail-m49244.qiye.163.com [45.254.49.244])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1196A2DB791;
-	Thu, 30 Jul 2026 03:33:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.88
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2897F34D3BE;
+	Thu, 30 Jul 2026 03:33:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.244
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785382398; cv=none; b=Byj+Ez4Ds0R8UkrDHLApNl9Rr/aqbLTtFyUCu7D+YgoZNc01Z0iyRsnwz2a+vmwljrUuasb6qgWM4qY9Blsk9B/lI2uBVaho2Hs3naTnEYIZuY5NgFbceoJe1hw66SUNmK5aNGuuyrn3URqKHIlXPmQVBDJHBw1anFFmVu/EzgU=
+	t=1785382399; cv=none; b=rRhgqAsUgGkiPrNpiQyn/oMAb5AXjNeEGBSjlWaCFunq4YBy8/d5TsSa/a2vxomxnXNBXsaVYRuLJIBDACaIr76SJ9AZs3wJ2yA8wt89bf+92O2AotfWnYo741n1UbVwyjxeVK2w9o3x7Dr7N3ODIjJA10o9qAZGehWhQtx6PcE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785382398; c=relaxed/simple;
-	bh=CQhB/N5Cfn11eW7/tbfG1+zZRdmLqmyKfD+omnfPmY8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=cQPECYwaElUauMnjhkCqsGLCcatQPSGKaUovXZRZUJZLi+A9gspRZcnHrX3hy8L3nEB2Fr56amG4DK4rUCkSLQwGmBctCsbtEx5iym4bGn03fSzxczfmrLjtP19haL4kQV5uD95xePAAqxX1EAA15vH28dHyUBDpjg4+Gm9J6C0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=M5jPIv6U; arc=none smtp.client-ip=101.71.155.88
+	s=arc-20240116; t=1785382399; c=relaxed/simple;
+	bh=/h56AHrfTJ1lm69JMwxex5Dm/jod5Al1BDFsCer4yhM=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=smkIWqHbfyECEues4QQzGHVyTUxNw/aR6hpdJRRdk+w7DzoUHKfIUZWGV5tdcvN+kV4AxfdS+wIo8Lm6y/EoDEXs62uHh3uWeqxrH8Q8+cll0PsBq7upn7f8JJyeQpBY4crB+ocZ9Kk1noehE94024QyAJ1T62a6fSE17u6U4uY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=iN22kAvV; arc=none smtp.client-ip=45.254.49.244
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="M5jPIv6U"
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="iN22kAvV"
 Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 481c5dbc2;
-	Thu, 30 Jul 2026 11:27:56 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 481c5dbc6;
+	Thu, 30 Jul 2026 11:27:57 +0800 (GMT+08:00)
 From: Damon Ding <damon.ding@rock-chips.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
 	Neil Armstrong <neil.armstrong@linaro.org>,
@@ -42,10 +43,12 @@ Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
 	linux-rockchip@lists.infradead.org,
 	linux-arm-kernel@lists.infradead.org,
 	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v1 0/7] Add HPD support for Rockchip Analogix DP
-Date: Thu, 30 Jul 2026 11:27:37 +0800
-Message-Id: <20260730032744.381566-1-damon.ding@rock-chips.com>
+Subject: [PATCH v1 1/7] drm/bridge: analogix_dp: Manage pm runtime and IRQ for native HPD pin detection
+Date: Thu, 30 Jul 2026 11:27:38 +0800
+Message-Id: <20260730032744.381566-2-damon.ding@rock-chips.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260730032744.381566-1-damon.ding@rock-chips.com>
+References: <20260730032744.381566-1-damon.ding@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -53,99 +56,97 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9fb1107efc03a8kunm040f79123746ca
+X-HM-Tid: 0a9fb110839103a8kunm040f79123746d0
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSxlPVhpDQkNIQk1NS0kdHVYVFA
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTUpDVhkfTx9KThoYSRlOHVYVFA
 	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
 	9PT0hVSktLVUpCS0tZBg++
 DKIM-Signature: a=rsa-sha256;
-	b=M5jPIv6UdHfbkWzCY96X6Pj0bLzAEZZRcyH61ovgYl9m3kd9ON0PPhp7nVeMAfIbeNn3EgNmfjz0Hv1QAsxV2LWOi+rNXJD6QDNCo+8Gga3dnOGM+R/mSBJm7XUcsZM5LPZ9SeLeyfS4nHe78t5M+QzivXqdBrCvm24vY5aGM4o=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=2DTb8Z0TivZDfrZk89jRLneek8ISpVFxvHsaLnCrg2Q=;
+	b=iN22kAvV7y9P3Y4nkAsRqaTHyg9Fnsmxj+NKbYFGlbJTivI+FhlKAaonlRq6saPIelsRuKKfNR775t+Rxj8hJ/V6F3p+qPpJy3movN6X+toIEIeYL7EPjUy+wwQTzj8RmDzsIdfrLcUfBwW90UA8rFfZJFo/V8fRbpuUya7aSx8=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=ZOGfkFQw9P09ICYq3dP7Cmnkm3UbspD2UKIejaJKRIY=;
 	h=date:mime-version:subject:message-id:from;
 
-This series improves the HPD (Hotplug Detect) interrupt handling in
-the Analogix DP driver to enable reliable native HPD pin detection on
-Rockchip platforms, and introduces platform-specific HPD detection
-schemes with fine-grained interrupt control.
+On Rockchip platforms, the Analogix DP native HPD pin IRQ functionality
+requires the DP controller to be powered, clocked and initialized to
+generate plug/unplug interrupts correctly.
 
-On Rockchip platforms, the Analogix DP native HPD pin IRQ requires the
-DP controller to remain powered, clocked and initialized to generate
-plug/unplug interrupts. The previous driver enabled/disabled IRQ during
-bridge enable/disable, which left no HPD detection when the display
-pipeline was inactive. Additionally, the interrupt mute/unmute/clear
-routines operated on all HPD interrupt bits unconditionally, lacking
-the granularity needed for per-event control.
+To keep HPD detection active, move enable_irq()/disable_irq() from
+bridge enabling/disabling handlers into analogix_dp_bind() and
+analogix_dp_unbind(). Call pm_runtime_resume_and_get() before enabling
+IRQ and pm_runtime_put_sync() after disabling IRQ for symmetric power
+management.
 
-The series reorganizes IRQ and pm_runtime management into bind/unbind,
-converts the interrupt type detection to a bitmask-based scheme for
-fine-grained mute/unmute/clear operations, and configures Rockchip
-platforms to use the HOTPLUG_CHG interrupt with a 2ms HPD deglitch
-setting, which provides better stability than the PLUG + HPD_LOST
-pair.
+Persistent power is only necessary for native HPD pin mode. It is not
+required for force-HPD or GPIO HPD modes. Add helper to handle this
+special case exclusively for Rockchip native HPD pin configurations.
 
-Tested on RK3576 with both native HPD pin and GPIO HPD configurations.
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+---
+ .../drm/bridge/analogix/analogix_dp_core.c    | 22 ++++++++++++++++---
+ 1 file changed, 19 insertions(+), 3 deletions(-)
 
-Native HPD pin mode:
-
-  &edp {
-      status = "okay";
-      pinctrl-names = "default";
-      pinctrl-0 = <&edp_txm0_pins>;
-  };
-
-GPIO HPD mode:
-
-  &edp {
-      status = "okay";
-      pinctrl-names = "default";
-      pinctrl-0 = <&edp0_hpd>;
-      hpd-gpios = <&gpio4 RK_PC1 GPIO_ACTIVE_HIGH>;
-  };
-
-  &pinctrl {
-      edp {
-          edp0_hpd: edp0-hpd {
-              rockchip,pins = <4 RK_PC1 0 &pcfg_pull_none>;
-          };
-      };
-  };
-
-Both configurations detect cable plug/unplug events correctly.
-
-Patch 1: Move enable_irq()/disable_irq() to bind/unbind and hold a
-         pm_runtime reference for Rockchip native HPD pin mode.
-Patch 2: Convert analogix_dp_get_irq_type() to return a u32 bitmask
-         instead of an enum, accumulating all pending interrupt flags.
-Patch 3: Extend mute/unmute helpers to accept an irq_type bitmask for
-         per-event interrupt masking.
-Patch 4: Extend clear_hotplug_interrupts() to accept an irq_type
-         bitmask for per-event pending interrupt clearing.
-Patch 5: Simplify analogix_dp_config_interrupt() by removing redundant
-         local macros and leveraging the unmute helper.
-Patch 6: Configure Rockchip platforms to use HOTPLUG_CHG interrupt with
-         2ms HPD deglitch; other platforms keep PLUG + HPD_LOST pair.
-Patch 7: Skip native HPD interrupt register operations for GPIO HPD
-         mode, where hotplug is detected through an external GPIO.
-
-Damon Ding (7):
-  drm/bridge: analogix_dp: Manage pm runtime and IRQ for native HPD pin
-    detection
-  drm/bridge: analogix_dp: Return bitmask from
-    analogix_dp_get_irq_type()
-  drm/bridge: analogix_dp: Extend mute/unmute HPD interrupts to accept
-    irq bitmask
-  drm/bridge: analogix_dp: Extend clear_hotplug_interrupts to accept IRQ
-    bitmask
-  drm/bridge: analogix_dp: Simplify analogix_dp_config_interrupt()
-  drm/bridge: analogix_dp: Use platform-specific HPD detection scheme
-  drm/bridge: analogix_dp: Skip native HPD interrupt ops for GPIO HPD
-
- .../drm/bridge/analogix/analogix_dp_core.c    |  46 ++++--
- .../drm/bridge/analogix/analogix_dp_core.h    |  10 +-
- .../gpu/drm/bridge/analogix/analogix_dp_reg.c | 146 ++++++++++++------
- 3 files changed, 134 insertions(+), 68 deletions(-)
-
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index 8d3d4a6e6ca2..d414f4ff40c8 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -40,6 +40,12 @@
+ 
+ static const bool verify_fast_training;
+ 
++static bool analogix_dp_require_pm_for_hpd_irq(struct analogix_dp_device *dp)
++{
++	return analogix_dp_is_rockchip(dp->plat_data->dev_type) && !dp->hpd_gpiod &&
++	       !dp->force_hpd;
++}
++
+ static void analogix_dp_init_dp(struct analogix_dp_device *dp)
+ {
+ 	analogix_dp_reset(dp);
+@@ -1014,7 +1020,6 @@ static int analogix_dp_set_bridge(struct analogix_dp_device *dp)
+ 		goto out_dp_init;
+ 	}
+ 
+-	enable_irq(dp->irq);
+ 	return 0;
+ 
+ out_dp_init:
+@@ -1156,8 +1161,6 @@ static void analogix_dp_bridge_disable(struct drm_bridge *bridge)
+ 	if (dp->dpms_mode != DRM_MODE_DPMS_ON)
+ 		return;
+ 
+-	disable_irq(dp->irq);
+-
+ 	analogix_dp_set_analog_power_down(dp, POWER_ALL, 1);
+ 
+ 	pm_runtime_put_sync(dp->dev);
+@@ -1504,6 +1507,14 @@ int analogix_dp_bind(struct analogix_dp_device *dp, struct drm_device *drm_dev)
+ 		goto err_unregister_aux;
+ 	}
+ 
++	if (analogix_dp_require_pm_for_hpd_irq(dp)) {
++		ret = pm_runtime_resume_and_get(dp->dev);
++		if (ret)
++			goto err_unregister_aux;
++	}
++
++	enable_irq(dp->irq);
++
+ 	return 0;
+ 
+ err_unregister_aux:
+@@ -1515,6 +1526,11 @@ EXPORT_SYMBOL_GPL(analogix_dp_bind);
+ 
+ void analogix_dp_unbind(struct analogix_dp_device *dp)
+ {
++	disable_irq(dp->irq);
++
++	if (analogix_dp_require_pm_for_hpd_irq(dp))
++		pm_runtime_put_sync(dp->dev);
++
+ 	drm_dp_aux_unregister(&dp->aux);
+ }
+ EXPORT_SYMBOL_GPL(analogix_dp_unbind);
 -- 
 2.34.1
 
