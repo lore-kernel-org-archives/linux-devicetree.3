@@ -1,238 +1,302 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 122633AB496
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 17:32:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD6583AFD08;
+	Thu, 30 Jul 2026 17:34:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785432722; cv=none; b=kn9PBxvIWOr7O1zz5I+EPDB09HF4qyaj/vbk7/pr4BcyWFqC2UeQEoObxUzg4MaMl5ARZBWCJ8TYPg+911M6g+sPesgL44+/h/VPCYH4QFdDav46joREvXMhbdCaTTVN2BshNELt5XDI7X3pSRAQT28lqrzcXfljGY3vFGTYWi8=
+	t=1785432872; cv=none; b=Y7phijTIYkmYgz3wvdPdLqt+DjQMcI2JrzvWSGKfPcIqCHVTE4Q8P9XC9HAI2uYc9DcZFGWJi3kNiH2CoS8XCW3dOSQZAboV2ofj5qjjtzmRolcUtcMxU27boVULlAXMn80kDvB2lND9wCLvXcYgt8jpD6WUVhlgjEgqHCd45fs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785432722; c=relaxed/simple;
-	bh=eFb5eOwbXr6jWfO7MObkxGWPL5If/wsM7suYFIvjVTE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=giNs2ZE16N6bBfIxR4P8vcI1h+ZicPvIrItAc2nL9NHHbHK94jIVyswYov12ezD0Xf7RUHzWdDG+l2w1vam24iglZzpv/JCI3jkwU7Dm4bnwgH5l4U9MxScDHBwOVKBnGdNxO0Xyy08fqMhp7nnM3bc3kCygCwLqbuJur4lCBls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UataWm6G; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785432872; c=relaxed/simple;
+	bh=wVCHEiB4jfgGm4pZxUP0mkHcMrjil6cNQBNLsE11hUQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=FTqQ08MguVwexcAD/7Fo/S7B5TJNfwKLYvkKzQ3+bwyXPq78TtaI2mEl4LRuoamS9azYC6VIVkllNvAPt+yAfHf1jZ8cTb5z0DO0V3riei7cA/MLzNvr2WHLM8u1pNLX8hvZAZE/2NaAdaK6/MILM0Q733CY0ZXqCqw9Bh2FlII=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZRmYqDNJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UataWm6G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15B6D1F000E9;
-	Thu, 30 Jul 2026 17:31:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZRmYqDNJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEAFD1F000E9;
+	Thu, 30 Jul 2026 17:34:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785432720;
-	bh=2frrfW3181LKyK3fiozB/GHo+GJ+LYol3EwZKQouEv8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UataWm6GTtPTQsvVoPmqNOKpUOtBvT3T3DJU5NuSfpMttJR1catQeq6JRc72X34FF
-	 LIV10+6QXqwZKgCkY6I1dvuwnyNtJJsH5yQtH8nKsC5By/4CNi+OmOLkhG6+S8dV9x
-	 SkSsobU5IDTzUtLCKkpKexpgQfhvaVwoyTbGaxRAnFUg5p+NwS5la+h2UikIbmSfHA
-	 1qkhMgVHrSyDQLzPsksuWRddKydOw7MdNcLTkErac0f7Xr8aWuhMsIYGxyUP5/vC6q
-	 ai2e1TIZak7hTPNOIDQV8sypF8iAk4KdpxdqvzCqwRe+6A3IiiQuzhicsw9XfftDXd
-	 O+nFIAhIVmITg==
-Date: Thu, 30 Jul 2026 18:31:56 +0100
-From: Conor Dooley <conor@kernel.org>
-To: E Shattow <e@freeshell.de>
-Cc: devicetree@vger.kernel.org, Ilya Sorochan <k0tran@altlinux.org>,
-	Conor Dooley <mail@conchuod.ie>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	linux-riscv@lists.infradead.org, heinrich.schuchardt@canonical.com,
-	hal.feng@starfivetech.com
-Subject: Re: [PATCH] riscv: dts: starfive: jh7110-common: fix jh7110 SoC boot
- from SD-card.
-Message-ID: <20260730-rockslide-depict-5edb03f8efc1@spud>
-References: <20260306171939.84568-1-k0tran@altlinux.org>
- <178526175795.1708098.11834005845749245101.b4-ty@conchuod.ie>
- <a32646aa-446a-4f95-9293-40001aeedae5@freeshell.de>
- <20260729-electable-remake-1b8c94a452b7@spud>
- <b1f10fad-e5ad-40a6-b37b-6e950736c1d2@freeshell.de>
+	s=k20260515; t=1785432870;
+	bh=wFd/U3+bJJzWJa3YP6HFnPKazM7hBVF6VDlozGeiPbQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ZRmYqDNJews0kLUI8EyKKf+rvLW4Zg8UqwachQ+sdUKw4y4pPK3wDQeDtTTjfvU6R
+	 qK080T53q70LBdhHe7hJA5Ymqcpl+HLTlo1c3v+RUd7LR3GyOwWxPnRE4eohRF4P3E
+	 VhbAhG2/zp4KxvnXyl5J4ts0/0sLLXqY8dhRMM+RNfWtH3ROEcusxBrvufY3NP9JGx
+	 loZfoKSJAZYyYjbR/NR22avpYwMxkkZMfz/qRF+U9Va2fze9ErZMeNjfqWaZKcb7od
+	 0uobfcZHYUQo3w1rf4a8lQQVQDsq+DjdGaVt4XDaZGeIDQfpDZotY9hbbkFRHFa0Jo
+	 DMxqzTBEHdlkw==
+Date: Thu, 30 Jul 2026 18:34:25 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Nuno =?UTF-8?B?U8Oh?= <noname.nuno@gmail.com>
+Cc: Conor Dooley <conor@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ Janani Sunil <janani.sunil@analog.com>, Lars-Peter Clausen
+ <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Mark Brown <broonie@kernel.org>, Marius Cristea
+ <marius.cristea@microchip.com>, Marcus Folkesson
+ <marcus.folkesson@gmail.com>, Kent Gustavsson <kent@minoris.se>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, Janani Sunil
+ <jan.sun97@gmail.com>, linux-spi@vger.kernel.org, Kent Gustavsson
+ <nedo80@gmail.com>
+Subject: Re: [PATCH v7 2/7] dt-bindings: iio: adc: microchip,mcp3564: Add
+ spi-device-addr
+Message-ID: <20260730183425.22f2ba8c@jic23-huawei>
+In-Reply-To: <amslUWahHYtwXuCG@nsa>
+References: <20260722-ad5529r-driver-v7-0-7781cd74ad75@analog.com>
+	<20260722-ad5529r-driver-v7-2-7781cd74ad75@analog.com>
+	<cb4098c1-4bad-4a11-9a6f-a833e554f197@baylibre.com>
+	<20260725230739.63ff7000@jic23-huawei>
+	<20260728-patronize-thwarting-56fab2e11077@spud>
+	<20260728221719.7f668a73@jic23-huawei>
+	<20260729-hundredth-suffice-f28afa67bc06@spud>
+	<20260730000929.2ec20cf8@jic23-huawei>
+	<amslUWahHYtwXuCG@nsa>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="XGIKtqsdaLV2K/Bw"
-Content-Disposition: inline
-In-Reply-To: <b1f10fad-e5ad-40a6-b37b-6e950736c1d2@freeshell.de>
-
---XGIKtqsdaLV2K/Bw
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jul 29, 2026 at 02:07:07PM -0700, E Shattow wrote:
->=20
-> On 7/29/26 03:59, Conor Dooley wrote:
-> > On Wed, Jul 29, 2026 at 02:39:50AM -0700, E Shattow wrote:
-> >>
-> >>
-> >> On 7/28/26 11:02, Conor Dooley wrote:
-> >>> From: Conor Dooley <mail@conchuod.ie>
-> >>>
-> >>> On Fri, 06 Mar 2026 20:19:39 +0300, Ilya Sorochan wrote:
-> >>>> Add bootph-pre-ram to mmc1_pins clk-pins.
-> >>>>
-> >>>> U-Boot pruned their overrides recently in favor of Linux which broke=
- booting
-> >>>> from sd-card for me and Heinrich Schuchardt [1]. Pruning commit:
-> >>>> 27f617019dd070cb61f2 ("riscv: dts: starfive: prune redundant jh7110-=
-common overrides")
-> >>>>
-> >>>> [1]  https://lore.kernel.org/all/ffdfc550-559b-4c59-9873-3f040fc3bb0=
-e@canonical.com/
-> >>>>
-> >>>> [...]
-> >>>
-> >>> Right, I am going to try this again. I don't think there's actually a
-> >>> valid technical argument against it, since it just affects the stage =
+On Thu, 30 Jul 2026 11:25:34 +0100
+Nuno S=C3=A1 <noname.nuno@gmail.com> wrote:
+
+> On Thu, Jul 30, 2026 at 12:09:29AM +0100, Jonathan Cameron wrote:
+> > On Wed, 29 Jul 2026 21:47:45 +0100
+> > Conor Dooley <conor@kernel.org> wrote:
+> >  =20
+> > > On Tue, Jul 28, 2026 at 10:17:19PM +0100, Jonathan Cameron wrote: =20
+> > > > On Tue, 28 Jul 2026 17:00:55 +0100
+> > > > Conor Dooley <conor@kernel.org> wrote:
+> > > >    =20
+> > > > > On Sat, Jul 25, 2026 at 11:07:39PM +0100, Jonathan Cameron wrote:=
+   =20
+> > > > > > On Sat, 25 Jul 2026 15:57:07 -0500
+> > > > > > David Lechner <dlechner@baylibre.com> wrote:
+> > > > > >      =20
+> > > > > > > On 7/22/26 2:54 AM, Janani Sunil wrote:     =20
+> > > > > > > > Add the generic spi-device-addr property to the binding and=
+ deprecate
+> > > > > > > > the existing vendor specific microchip,hw-device-address pr=
+operty.
+> > > > > > > >=20
+> > > > > > > > Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+> > > > > > > > ---
+> > > > > > > >  .../devicetree/bindings/iio/adc/microchip,mcp3564.yaml    =
+     | 10 ++++++++--
+> > > > > > > >  1 file changed, 8 insertions(+), 2 deletions(-)
+> > > > > > > >=20
+> > > > > > > > diff --git a/Documentation/devicetree/bindings/iio/adc/micr=
+ochip,mcp3564.yaml b/Documentation/devicetree/bindings/iio/adc/microchip,mc=
+p3564.yaml
+> > > > > > > > index 675319276197..de1ea289e7f5 100644
+> > > > > > > > --- a/Documentation/devicetree/bindings/iio/adc/microchip,m=
+cp3564.yaml
+> > > > > > > > +++ b/Documentation/devicetree/bindings/iio/adc/microchip,m=
+cp3564.yaml
+> > > > > > > > @@ -80,6 +80,7 @@ properties:
+> > > > > > > >      $ref: /schemas/types.yaml#/definitions/uint32
+> > > > > > > >      minimum: 0
+> > > > > > > >      maximum: 3
+> > > > > > > > +    deprecated: true
+> > > > > > > >      description:
+> > > > > > > >        The address is set on a per-device basis by fuses in=
+ the factory,
+> > > > > > > >        configured on request. If not requested, the fuses a=
+re set for 0x1.
+> > > > > > > > @@ -91,6 +92,12 @@ properties:
+> > > > > > > >        clocking of the device address (BITS[7:6] - top two =
+bits of COMMAND BYTE
+> > > > > > > >        which is first one on the wire).
+> > > > > > > > =20
+> > > > > > > > +  spi-device-addr:
+> > > > > > > > +    maxItems: 1       =20
+> > > > > > >=20
+> > > > > > > Does it not make sense to all for more than once device conne=
+cted
+> > > > > > > to the same CS here? I would expect maxItems to be 4 to match=
+ the
+> > > > > > > number of possible addresses.
+> > > > > > >      =20
+> > > > > >=20
+> > > > > > I think for this part their isn't a reason to aggregate.
+> > > > > > No magic accesses that touch them all at once.  So this hits
+> > > > > > exactly the point you raised about how we set the address for
+> > > > > > more than one of them.     =20
+> > > > >=20
+> > > > > No David is actually right here, and maxitems should be 4.
+> > > > > Setting the address for multiple was already discussed I thought,=
+ with
+> > > > > the property being an array and each compatible being used to det=
+ermine
+> > > > > the "stride" between entries based on the number of supported cha=
+nnels?   =20
+> > > >=20
+> > > > I don't think that applies for this device or at least to do so
+> > > > is a major driver rewrite, not a simple binding change.  Probably w=
+e'd   =20
+> > >=20
+> > > Whether or not it is a big driver change, the binding should represent
+> > > what the hardware is capable of.
+> > >  =20
+> > > > just add a bus and hang the 4 instances off it. They are running on=
+ own
+> > > > timing etc so we can't grab data across all of them in any sort of
+> > > > synchronous way - the clocks will probably drift over time etc.   =
+=20
+> > >=20
+> > > Did I miss something about the ADI devices in this thread where they
+> > > have some multicast ability to read all devices at once? I thought th=
 at
-> >>> which configuration is applied rather than configuration itself.
-> >>> If the configuration is wrong, and more devices don't use this config=
-uration
-> >>> than do, people need to move the node to where they think should be. =
-That
-> >>> shall be done separately.
-> >>>
-> >>> I don't want to hear about the politics about whether or not Starfive=
- want
-> >>> to support it or reverse engineering of binaries etc. All that I care=
- about
-> >>> is discussion of the hardware itself and which boards need this and w=
-hich do
-> >>> not.
-> >>>
-> >>> Applied to riscv-dt-fixes, thanks!
-> >>>
-> >>> [1/1] riscv: dts: starfive: jh7110-common: fix jh7110 SoC boot from S=
-D-card.
-> >>>       https://git.kernel.org/conor/c/42c57c049054
-> >>>
-> >>> Thanks,
-> >>> Conor.
-> >>
-> >> Second NAK to this being applied, again, do not apply as-is.
-> >>
-> >> As you're not interested in the technical discussion, then you won't
-> >> have one.
+> > > that was a different series where each device had dedicated mosi and
+> > > miso lines, rather than the shared ones here. I didn't think the ad55=
+29r
+> > > did anything special from my reading of the datasheet but I'm not the
+> > > expert in this area! =20
 > >=20
-> > I am interested in technical discussion of the hardware configuration. =
-I'm
-> > not interested in reverse engineering of binaries, GPL compliance or
-> > whether Starfive want this to work or not because I don't see how they
-> > relate to the correctness of the hardware description.
+> > It's a DAC so other way around but yes they have exactly that in the se=
+ction:
+> > https://www.analog.com/media/en/technical-documentation/data-sheets/ad5=
+529r.pdf
+> >=20
+> > 	Register Details: Hotpath DAC registermap.
+> >=20
+> > The is a brief description earlier of the whole feature that might
+> > serve for this discussion:
+> >=20
+> > "DAC HOTPATH
+> > The DAC hotpath is a dedicated register region that optimizes
+> > DAC updates in multidevice configurations where several AD5529R
+> > devices share a common SPI bus. It reduces the number of SPI
+> > frames required to write DAC data and supports synchronized
+> > output updates across devices. In single device systems, the hotpath
+> > offers no advantage over the standard register map and can be
+> > disregarded."
+> >=20
+> > As an example
+> > MULTI DEVICE SW LDAC MODE 0 REGISTER
+> > "This register sends a software LDAC update to the selected devices
+> > that share the SPI lines but have different addresses, using the ID0
+> > and ID1 pins. The selection is done on a per-device basis corresponding
+> > to the configured bit field."
+> >=20
+> > This one triggers all selected DACs (there is bit corresponding to
+> > each address) to update in sync. (Lets put aside normal systems
+> > where an LDAC gpio is wired to multiple devices as that is a whole
+> > different problem).
+> >=20
+> >=20
+> > It is this part that is driving the suggestion of having
+> > a combined device representation for multiple physical devices.
+> > In practice it is very similar to chained devices where we do that
+> > already in that a longer access sequence is used to talk to multiple
+> > devices at once.
+> >=20
+> > Those SPI messages do not carry the address (or they are ignored - I di=
+dn't
+> > dig into the mechanism).
+> >=20
+> >  =20
+> > >  =20
+> > > > They are independent devices (think of them using spi-device-address
+> > > > like an i2c address) -  so why have one DT node for up to 4 of
+> > > > them?  Note this is different from the AD5529R where the design
+> > > > is intended for them to operate as one single larger device.   =20
+> > >=20
+> > > I don't buy this argument, I just don't see what differs between the
+> > > devices. The microchip datasheet I read talked about using 3 devices =
+to
+> > > measure 3 phase power setups (I think that's what it was) which is, in
+> > > my book, evidence that they're not just intended to be used
+> > > independently. =20
+> >=20
+> > Sure but that could just as easily be done with normal SPI and 3 chip
+> > selects. For these devices there is no broadcast write magic (I think
+> > anyway!)
+> >  =20
+> > >=20
+> > > That said, the more this discussion goes on, the more I think that
+> > > merging the devices into a single node is a mistake. Logically there =
+may
+> > > be one device, but really there are one to four devices. Doing the
+> > > logical device thing is nice maybe for software but I no longer think
+> > > that it represents the hardware correctly. I know this will cause
+> > > problems with registration of devices in the SPI core, but we need to
+> > > pick one representation for these devices that fits in all usecases
+> > > and with the things brought up in the other mail I am having a lot of
+> > > doubts. =20
+> >=20
+> > This wasn't about use cases as such but the broadcast like facilities t=
+he
+> > ADI parts have which to me smell like the main reason you'd put them on
+> > a single bus and use this feature in the first place - you are making
+> > one big DAC from multiple chips.
+> >  =20
+> > >=20
+> > > Only going to reply to this for now, I'll reply to the other thread of
+> > > this conversation later so as not to end up duplicating discussion, b=
+ut
+> > > I am thinking of things like what if someone puts a mcp3654r and an
+> > > ad5529r on the same chip select? I think that's actually perfectly
+> > > functional on a hardware level, provided the fuses/pins are set up
+> > > correctly (and if it is not, mixing the microchip devices is possible
+> > > and probably mixing future ADI ones will be too). =20
+> >=20
+> > The broadcast stuff is what breaks this.  Otherwise I fully agree they
+> > should be independent and we should have SPI allow that.
+> >  =20
 >=20
-> The commit message suggesting "...broke booting from sd-card..." is
-> missing information or should be clearer i.e. "The bootph-pre-ram
-> hint(s) allow that following the SD Boot mode of StarFive loader in
-> MaskROM the U-Boot SPL will have all necessary devicetree nodes to
-> initialize the MMC driver and continue booting U-Boot Main from SD
-> card". It has not to do with booting Linux from SD card, and is for want
-> of a more generalized description affecting any SPL that filters on the
-> patterns of bootph-* hints but U-Boot seems to be one-of-one the only
-> consumer of this that I am aware of.
->=20
-> Placement of this bootph-pre-ram hint in jh7110-common is (probably?)
-> not appropriate, as SD Card is not valid on all boards or even at that
-> mmc device, namely StarFive VisionFive 2 Lite eMMC, Milk-V Mars CM, and
-> requires testing to know if it breaks existing functionality on boards
-> with swapped arrangement of mmc0 and mmc1 with respect to SDIO module
-> and eMMC (i.e. OrangePi RV ? It has been awhile I may misremember this).
+> Exactly! The idea of having the devices as separate nodes always felts
+> really appealing to me given that's what we have (strictly sepaking) in
+> HW. But as you stated, the big reason to pack multiple devices (for the
+> ADI case) is to basically increase the number of channels and so
+> aggregate the devices together.
 
-This kinda comes back to the point I was making about it not changing the
-configuration, just the point at which the configuration is applied. All
-boards get this configuration eventually, it just seems to be that this
-particular boot method needs it earlier?
-I'm not sure that applying it earlier would break any boards (although
-of course it could), I'd be more likely to think that having the
-configuration at all is probably harmful in the cases where it is
-harmful.
+Key detail is not just aggregate devices but have them act as one device
+from an interface point of view (just like SPI chaining).  One message
+affects multiple devices.
 
-The other thing I don't really get is why the clk-pins node is needed at
-the pre-ram stage but not the mmc-pins node. Surely both are needed? I
-suppose it may be the case that the latter matches the default
-configuration for the pins but not the former? If that's the case, the
-node mmc-pins should get the property too IMO. I've added Hal into the
-thread, maybe he can clear stuff up somewhat in that regard.
+> But taking on David's suggestion,
+> couldn't we somehow reuse that for AD5529R such that the additional
+> DAC's would be child nodes?
 
-> The functionality of adding this hint is not even possible for more than
-> half the boards, and no new boards will have it.
 
-Ignoring the rest of this for now, these are the supported boards and
-inferring sd from cd-gpios:
+If they were child nodes that just means we have a device specific binding
+and in practice ends up the same as a binding that just makes it one device.
 
-jh7110-deepcomputing-fml13v01.dts
+adc@cs {
 
-Looks like sd on 1
+	adc@spi-device-addr0 {
+		spi-device-addr =3D spi-device-addr0;
+	};
+	adc@spidevice-addr1 {
+		spi-device-addr =3D spi-device-addr1;
+	};
+}
 
-jh7110-milkv-marscm-emmc.dts
-jh7110-milkv-marscm-lite.dts
+Fun question of where we do the xlate for references to channels so
+does a consumer point at the outer node or the inner one?
 
-looks like sd on 0
-
-jh7110-milkv-mars.dts
-
-looks like sd on 1
-
-jh7110-orangepi-rv.dts
-
-ditto
-
-jh7110-pine64-star64.dts
-
-ditto
-
-jh7110-starfive-visionfive-2-lite.dts
-
-looks like sd on 0
-
-jh7110-starfive-visionfive-2-lite-emmc.dts
-jh7110-starfive-visionfive-2-v1.2a.dts
-
-looks like sd on 1
-
-jh7110-starfive-visionfive-2-v1.3b.dts
-
-ditto
-
-Would you be happier if only the boards with sd on mmc1 got the
-property?
-
-I'd like to say I will read the decompliation, but I look after this
-platform as a favour and I just don't have the time to dedicate to
-understanding it. There's a reason it took me ages to even circle back
-to this.
+I'm not seeing a gain over having an array of spi-device-addr in the
+top level node.
 
 >=20
-> Repeating myself, Hal offered a description of the boot process but I
-> find that does not exactly match the hardware based on my
-> reverse-engineering effort. More eyes should be on this to explain what
-> the hardware does in context of the patch commit message. Are we
-> correctly describing this hardware, or not?
+> I agree that we should just pick one representation and it feels
+> to me that device@cs,spi-addr (or something like it) is the more
+> flexible approach.
 
-> The "reverse engineering of binaries" is the StarFive loader in hardware
-> MaskROM that immediately precedes the supposed consumer of this proposed
-> bootph-pre-ram hint as stated in the patch commit message. It is the
-> hardware specifically the functionality that we are purporting to
-> describe. So there it is an excerpt and if you want an explanation of
-> what that all does to save you the trouble of reading it I am sorry to
-> disappoint as I don't I don't understand a line of it. What are we
-> describing and are there more bootph-pre-ram hints needed?
+Agreed though if there is an array it will be first spi-addr.  That
+should be fine.
 
-In theory, the state of the hardware prior to the boot loader stage
-consuming bootph-pre-ram shouldn't even matter, any node needed by the
-stage should be marked with it even if that node matches the default
-state of the pinctrl hardware. What the prior stage is or does shouldn't
-matter, although of course people tend to only add pinctrl nodes or
-annotations when software requirements/expecations don't match the state
-it finds the hardware in.
+>=20
+> - Nuno S=C3=A1
+>=20
 
---XGIKtqsdaLV2K/Bw
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCamuKiQAKCRB4tDGHoIJi
-0pnYAP0eZc5ITM2q9B1D5VwtvQqQnzQQJW5o1r6FHHXYY88VBAD9GNRQPP2lMtlK
-v7kBYqJXlEV9sOZkwRDGGK82oiyT/gA=
-=y0/s
------END PGP SIGNATURE-----
-
---XGIKtqsdaLV2K/Bw--
