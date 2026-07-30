@@ -1,205 +1,250 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mx0b-00622301.pphosted.com (mx0b-00622301.pphosted.com [205.220.175.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75FD5407CCF
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 11:06:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F0AB40B100;
+	Thu, 30 Jul 2026 11:06:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.175.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785409568; cv=none; b=jJqUvMLCM0YCpfKaJesSNUedZ1istDG6lKPaYHdBCiWdo9qotl2CpkulHED/yIYyW9TE47lW/Sw8vveI3mOPWPGkVoJa1Yem8fxYxGZsrgEi0fj+sQUFs5aX1lnDHIcWkLNLlFPyBeZ/S+x3T92jD623w20TRURWqTg3HlHyZ4o=
+	t=1785409594; cv=none; b=E7K96HE9zom4havGlTfykbsREys8+XQ/Id41pnyBOf40O3QyQ42ywHBZG1neam826sXOKbz6TtLu2wxwniTurXd2quPSIw0hr5xWtkUIz0oXcwqrrt/GcsMMONeYrpKUA+wvXnecUV2sZOj2lZuK4bcChXY/wIUQcV9vrbJeXOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785409568; c=relaxed/simple;
-	bh=fCbAzFePgojQUkvK1CnhcTwwVtnn/mTUFllwRqxoRG4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B8/4RrO1sTtFfFEN1G9RDAaUXYMy+bq5Wv3DOPzZK5PIW3dthTmhuhfQgpbovcXpf0r8axNHL+5mCzVRiCbLRkHwM2HLSlaII4wC8DiOI2p3NjBmPTXxmXyfxqhZtDMJrdaXT+j4dmJVTV4g6PnpzZjkH9w2i2PERModIey7C3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=jKbvJ0Hd; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=OlrhI+hU; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1785409594; c=relaxed/simple;
+	bh=wxo+wEhTv2IAYfktngquPtze0J4jYp5Iv09zO3fi2lc=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ldVr7GNIG9BAoRQxeQIzqOZy8+eCnclx4eQayEC7OCMjnG3duEipkeh6kJVREw8ZMdWK37nCEbL8TbJe4whXvLVzLcb60Kvxuow7rlBQHLK2/xc/060IzVps30NF1CrwOOGIxCjbfToOzU6Ps46sRjp4RRDPExkySFaZj9YSfjQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ambarella.com; spf=pass smtp.mailfrom=ambarella.com; dkim=pass (2048-bit key) header.d=ambarella.com header.i=@ambarella.com header.b=W9Qlskbn; arc=none smtp.client-ip=205.220.175.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ambarella.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ambarella.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="jKbvJ0Hd";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="OlrhI+hU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1785409565;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1HWoRuuEQ7zJ3vpj2jIwSgIRqCCpU7QeZRVoWtE84e0=;
-	b=jKbvJ0HdzF/Hdl0dG7ADEhOwMVzoUR6D1J/Eugd/DXIIUEWtye0AVff+53bpodAqfqRryW
-	6kqyihG2lZcOim8NtSAIbrU1FdCjOveTbd/+L7vUZcsAFEaB+qRvW7BIesRXB+3QXU95nM
-	mfz2s50kRsGLRJ++OeHEwlCNa4zddA8=
-Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com
- [209.85.128.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-333-GThV_PN4MU-bOTSS91eh9A-1; Thu, 30 Jul 2026 07:06:03 -0400
-X-MC-Unique: GThV_PN4MU-bOTSS91eh9A-1
-X-Mimecast-MFC-AGG-ID: GThV_PN4MU-bOTSS91eh9A_1785409563
-Received: by mail-yw1-f198.google.com with SMTP id 00721157ae682-81ebb5e11caso63914697b3.2
-        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 04:06:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1785409563; x=1786014363; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-transfer-encoding
-         :content-disposition:content-type:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1HWoRuuEQ7zJ3vpj2jIwSgIRqCCpU7QeZRVoWtE84e0=;
-        b=OlrhI+hUuiwigki2u77Uqjh5qrzcFmAuLRrlz0p+IfP4z08qh/hwB8K2zLpYzheiWi
-         7HAR6KoBSlFoREmmScYoOD8r+29tXgxL+J9tto5BqOgXw1TpMyONHW7xQkJYn/15HBBe
-         wOmGepGNiAcNB0lcjLcz7CxZzU4xjlaJM/48RJ5o3zf1w2XUvVnnTy7ioXmzK7jC5ne5
-         Uiid4K6EJPdhtmtKfnSyAfBQJL8Ctr/+xU553DAMWiaYTdEUILvBY2FigaAdkyy7hc9z
-         kPmTwHY80fYOJ9pnUlV1YBBV9JvthijoJYHb6ymfZhnrhois5/aAFQVEmc913H2GLk4i
-         NTPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785409563; x=1786014363;
-        h=user-agent:in-reply-to:content-transfer-encoding
-         :content-disposition:content-type:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=1HWoRuuEQ7zJ3vpj2jIwSgIRqCCpU7QeZRVoWtE84e0=;
-        b=ZV7X+o88jHVRGj9KKx50mKlw0Egcv39lLEpiIJNfBQXh0q1sspk8HoooChISKz1fmf
-         W5P/wWL1q0H5RF0WO8zxao0b4ZdlmL0rE8owwxsGrbdN436hFsB79599LJYzvVPavT2b
-         dnNN+Nj6T+hiXmQWzVziefY7BXzTyLfn01dzmyRijVhtD4AepV6rY0EsJtMn5hULC4PI
-         qrQ75McMyDcP8bVBTrtTaICD3gUK3WVf6P+bABgtJTRlEWrdNjtGXaYtNjAaDvIvLJmQ
-         gHBFaMxhBVtqmUNBLsZZfimSFX/ygp1Mxo2EzW1iFTQYJheX6qmK+iQHV+iY4swix6Rz
-         6RhA==
-X-Forwarded-Encrypted: i=1; AHgh+Rowz3YhLnFmZCabYTjXrFV/Q/2jroj+6Eulx+XmodMd0e4G24mjdrlCjHAFyn5aBz1W9dPZ7XxlwUJi@vger.kernel.org
-X-Gm-Message-State: AOJu0YzK/XAaQzB5ObYzneoH3JlEw6I5Ut/ufHT+oMB291s+qVuYnWAo
-	WxOXtDKd0EMyP7dO0VLMyja+EGhjXYpVu28PDi+5kwT+I4ghCeQzQDTgoxXr7Jw8CBOl3wKVj3N
-	Ae7RyXJQ6ETF/XZfYSnachxH2H9YyQD2B87qx8gZEcG8MH+6a951z/hQwqLF6qPg=
-X-Gm-Gg: AR+sD12lzw8Tx47jiCEQezRQnN14VgzN4o+TxsJUVH126LTdoD+EvIZq6OfzbVNa1vC
-	uykf3IvagfazA03AQV8K9zFcbyv9XcLIQXSVVk9riVUnDNSoD+/BUjcF+4WkMWkMFwpM6/Gfwaw
-	qwTZTpeLtDvimpmvdzrxVT0VgqWXK3fwmlRWQSUrca0FttkP5lEkVDXzva42ZXA8cokPSXUCWOu
-	eHW0rSuVCzy28yO28vIu88PeFFQE1L0g9Xt11sFHYdKKxb6b1NscQ5SDiEfg0viEx9gX9hb0HIY
-	QpFUf7y9DEr135dBM6BQUYKtIVogu/20OrXOuUNHS8bapFH0kSMvDvYIvd6DVFIevZvLc1B3KEQ
-	Z4gHwbIEPWs1IqmEPJxPS9w6OcJ6VqaFs700=
-X-Received: by 2002:a05:690c:6802:b0:7ff:1a06:472 with SMTP id 00721157ae682-81fb8953b7dmr15182187b3.4.1785409563152;
-        Thu, 30 Jul 2026 04:06:03 -0700 (PDT)
-X-Received: by 2002:a05:690c:6802:b0:7ff:1a06:472 with SMTP id 00721157ae682-81fb8953b7dmr15181697b3.4.1785409562604;
-        Thu, 30 Jul 2026 04:06:02 -0700 (PDT)
-Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-81fb8b2975csm7687837b3.48.2026.07.30.04.05.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 04:06:01 -0700 (PDT)
-Date: Thu, 30 Jul 2026 07:05:58 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Chen-Yu Tsai <wenst@chromium.org>
-Cc: Stephen Boyd <sboyd@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	Alessio Belle <alessio.belle@imgtec.com>,
-	Luigi Santivetti <luigi.santivetti@imgtec.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Icenowy Zheng <zhengxingda@iscas.ac.cn>,
-	YoungJoon Lee <getfeus@gmail.com>
-Subject: Re: [PATCH v4 0/5] powervr: MT8173 GPU support
-Message-ID: <amswFn2qWkvypMH8@redhat.com>
-References: <20260728091804.382753-1-wenst@chromium.org>
- <amiqKRkFItYwD6oL@redhat.com>
- <CAGb2v64zUO-azpTuei6LCypad2noGFbg+EmaBC1iidoZ2stQzw@mail.gmail.com>
- <c1048eae-72c5-4e2e-ac49-25e2c4297018@collabora.com>
- <CAGXv+5EgGYFVt4TJCysQgRqA1J5=Qz9c0oWY5YTxgc5PnNC_AQ@mail.gmail.com>
- <36f2775a-d332-4913-8e9e-ca0429c3f713@collabora.com>
+	dkim=pass (2048-bit key) header.d=ambarella.com header.i=@ambarella.com header.b="W9Qlskbn"
+Received: from pps.filterd (m0241925.ppops.net [127.0.0.1])
+	by mx0a-00622301.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66UA6Egj3332841;
+	Thu, 30 Jul 2026 10:43:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ambarella.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:in-reply-to:message-id:mime-version:references:subject:to; s=
+	com20210415pp; bh=3FjhVKwJ1XMv+MKR1tO/UwEroy8aNNlMHT7UD5upsSE=; b=
+	W9QlskbnjmMJO2H76xiu4r0bXDM/adNhCBwmVbNDEAtL4n5O6eYPuyKkaGsVJR50
+	WkIVUzgrLMuPtwW2fMbM17APIzfjzeORSmNTeLMVTUUEKz/jnmtg1BxM8mNHVdrR
+	PktAjKOJGxqCsthrQ3RYY0jihpZl5lhQLOHNmoFFlOcjpCzi1avzAru9i6kmMDhb
+	iE+PCHA6UmZch/nbu2GKAejRa8rMISSlk+vimDm1VkFCW1SPU7UvRQussFDTwfLp
+	1IjCdD4iKrv9QYYYDUBq5/rc2sBpCR+jlI4g/BvtesIMUtB5bHvU2AkWYLvuCmro
+	VMt4SPIt1cpxK6Q+ZJ1xUg==
+Received: from webmail.ambarella.com ([12.30.244.130])
+	by mx0a-00622301.pphosted.com (PPS) with ESMTPS id 4fq8twhnb3-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 30 Jul 2026 10:43:44 +0000 (GMT)
+Received: from ambtw-cas2.ambarella.net (10.2.4.227) by
+ ambus-ex-se1.ambarella.net (10.1.4.9) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 30 Jul 2026 03:43:42 -0700
+Received: from ambtw-cas3.ambarella.net (10.2.4.228) by
+ ambtw-cas2.ambarella.net (10.2.4.227) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.58; Thu, 30 Jul 2026 18:43:41 +0800
+Received: from shbuild7.ambarella.net (10.4.8.70) by ambtw-cas3.ambarella.net
+ (10.2.4.228) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Thu, 30 Jul 2026 18:43:39 +0800
+From: Long Zhao <longzhao@ambarella.com>
+To: Arnd Bergmann <arnd@arndb.de>,
+        Alexandre Belloni
+	<alexandre.belloni@bootlin.com>,
+        <linux-arm-kernel@lists.infradead.org>, <soc@lists.linux.dev>
+CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
+        "Michael
+ Turquette" <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, <linux-clk@vger.kernel.org>,
+        Linus Walleij <linusw@kernel.org>, <linux-gpio@vger.kernel.org>,
+        Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>,
+        Jiri Slaby <jirislaby@kernel.org>, <linux-serial@vger.kernel.org>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Will Deacon <will@kernel.org>, <linux-kernel@vger.kernel.org>,
+        Long Zhao
+	<longzhao@ambarella.com>
+Subject: [PATCH 03/10] dt-bindings: clock: add Ambarella CV75 RCT clock controller
+Date: Thu, 30 Jul 2026 18:43:23 +0800
+Message-ID: <20260730104330.81367-4-longzhao@ambarella.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260730104330.81367-1-longzhao@ambarella.com>
+References: <20260730104330.81367-1-longzhao@ambarella.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <36f2775a-d332-4913-8e9e-ca0429c3f713@collabora.com>
-User-Agent: Mutt/2.4.0 (2026-06-19)
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
+X-Proofpoint-GUID: v5OtzRC0y0EF7qlAgSF6BzZa8N8WIv51
+X-Proofpoint-ORIG-GUID: v5OtzRC0y0EF7qlAgSF6BzZa8N8WIv51
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDA4MCBTYWx0ZWRfX+e/w4Tt7Dgx2
+ KVVn/3u0CfLRWnWSv7Bh6QOtUo01zphnrO92z4CU86BhGXwK9U+Us7QHyMD0Gpyz/DaCo6e0j0H
+ kWFYr5+RmIoE7sQZkBTDzA1xIcE4FPiXc/PtcfIrOaMdmC7qIhmi+bnxIzR6KU6PgOkmOPfTvff
+ CBSqlmYpKpQINyEeeKOeOCVX5vM6pg4lP1e9YmOubLXzJkhw3txc1s79ccXZIVWALIc7Ysy8ni9
+ 2Xsh3M/Xwm5B1ewKSSG1wgl8d5QCqjH1ODYFlMI5Arbk2E/m+LxljavYh+V2Y4t6vaN74/43pFo
+ vcDxtNoF2oeDloDXtjhVgwwIGq3yWlVbZWtWlyPoUkAj4xy5csok17ADZVP2+r5M1MOF+t8Icv1
+ QfgBD7DSPcsabrfQ2UxNjkfC9mKFVIhGa5+i6FEJUtlbrxwak5aI6r6kQrsgKlbkFHzgZWoDuag
+ 3vkB4QGwiK+wzTqxjcw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDA4MCBTYWx0ZWRfX2ofOcpAFCXOJ
+ MxcXM34eyHhbtsHz8cKzqEh/aMPRWq2deLQm+UKf8hvEeCXlwp/UiReNAQbAY5wbaA+eb7OhgQp
+ UNJvRTB5n160Gb+xLNwXzmoLXBirvhsgStQnaWRqHo5GqE65dcDd
+X-Authority-Analysis: v=2.4 cv=PNE/P/qC c=1 sm=1 tr=0 ts=6a6b2ae0 cx=c_pps
+ a=DgnZYc2JwZ3KnY28M5UqXQ==:117 a=DgnZYc2JwZ3KnY28M5UqXQ==:17
+ a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=yXVIz-0bn9infC194UBj:22
+ a=KblO7da7ppA7TBl3N-nE:22 a=gEfo2CItAAAA:8 a=ppJngBeKAAAA:8
+ a=W2yGB2T19Uwhg7ofRhQA:9 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-30_03,2026-07-29_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 adultscore=0 malwarescore=0 clxscore=1011
+ phishscore=0 suspectscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607300080
 
-Hi Angelo and Chen-Yu,
+Add the CV75 RCT clock controller binding and clock ID header.
 
-On Thu, Jul 30, 2026 at 10:23:14AM +0200, AngeloGioacchino Del Regno wrote:
-> On 7/30/26 06:51, Chen-Yu Tsai wrote:
-> > On Tue, Jul 28, 2026 at 10:33 PM AngeloGioacchino Del Regno
-> > <angelogioacchino.delregno@collabora.com> wrote:
-> > > 
-> > > On 7/28/26 15:13, Chen-Yu Tsai wrote:
-> > > > On Tue, Jul 28, 2026 at 9:10 PM Brian Masney <bmasney@redhat.com> wrote:
-> > > > > On Tue, Jul 28, 2026 at 05:17:58PM +0800, Chen-Yu Tsai wrote:
-> > > > > > Hi everyone,
-> > > > > > 
-> > > > > > This is v4 of my MT8173 PowerVR GPU support series.
-> > > > > > 
-> > > > > > This time around Mesa was ready for basic testing, using both vulkanmark
-> > > > > > and glmark2-es2-drm (with Zink). Details below.
-> > > > > > 
-> > > > > > Changes since v3 (all in the clk driver patch):
-> > > > > > - Changed pm_runtime_put() to pm_runtime_put_sync()
-> > > > > > - Added missing of_node_put() in remove function
-> > > > > > 
-> > > > > > Changes since v2 (all in the clk driver patch):
-> > > > > > - Made COMMON_CLK_MT8173_MFGTOP depend on PM
-> > > > > >     - Needed since the driver implements PM domains using the generic PM
-> > > > > >       domain library, which also depends on PM
-> > > > > >     - Fixes build breakage (kernel test robot)
-> > > > > > - Fixed "RST_DELAY_CNT" name (Brian)
-> > > > > > - Dropped unused mfg_desc (Brian)
-> > > > > > - Added check of clk_prepare_enable()'s return value in
-> > > > > >     clk_mt8173_mfgtop_power_on() (Brian)
-> > > > > > - Saved error value for return in IS_ERR(data->clk_26m) branch
-> > > > > >     (Dan Carpenter / kernel test robot w/ smatch)
-> > > > > > 
-> > > > > > Changes since v1:
-> > > > > > - Adapted to changed DT bindings
-> > > > > > - Dropped driver change
-> > > > > > - Use same power domain for "a" and "b" GPU power domains
-> > > > > > 
-> > > > > > 
-> > > > > > This series enables the PowerVR GPU found in the MT8173 SoC, found in
-> > > > > > some Chromebooks.
-> > > > > 
-> > > > > I'm making a pull for Stephen for the clk changes. Should patches 1,2,4
-> > > > > go through the clk tree? Patches 3,5 go through the DRM tree?
-> > > > 
-> > > > Only patches 1 and 2 should go through the clock tree.
-> > > > 
-> > > > Patch 3, 4, 5 can all go through the soc tree if Angelo wants to pick up
-> > > > DT binding patches. Otherwise I can push patch 3 through drm-misc.
-> > > > 
-> > > 
-> > > Not sure if I can really take the DRM bindings patch through soc.
-> > > 
-> > > I will take the devicetree ones exactly right now, even though it's going to
-> > > give warnings.
-> > 
-> > Apologies for missing this, but the first DT patch depends on the clk DT
-> > bindings patch for the clk ID macros. This is causing build errors in
-> > linux-next right now.
-> > 
-> > Not sure how we can fix this right now.
-> > 
-> > Brian, would it be possible for you to split out that patch into a
-> > separate immutable branch for Angelo to merge?
+Signed-off-by: Long Zhao <longzhao@ambarella.com>
+---
+ .../bindings/clock/ambarella,cv75-rct.yaml    | 94 +++++++++++++++++++
+ .../dt-bindings/clock/ambarella,cv75-clock.h  | 17 ++++
+ 2 files changed, 111 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/clock/ambarella,cv75-=
+rct.yaml
+ create mode 100644 include/dt-bindings/clock/ambarella,cv75-clock.h
 
-Yes, I can split things out and make an immutable branch this morning.
-But it sounds too late for that.
+diff --git a/Documentation/devicetree/bindings/clock/ambarella,cv75-rct.yam=
+l b/Documentation/devicetree/bindings/clock/ambarella,cv75-rct.yaml
+new file mode 100644
+index 000000000000..5ff5b6a4a0b9
+--- /dev/null
++++ b/Documentation/devicetree/bindings/clock/ambarella,cv75-rct.yaml
+@@ -0,0 +1,94 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/clock/ambarella,cv75-rct.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Ambarella CV75 RCT Clock Controller
++
++maintainers:
++  - Long Zhao <longzhao@ambarella.com>
++
++description: |
++  The RCT (Reset and Clock Tree) block on the Ambarella CV75 SoC provides
++  PLLs, clock muxes and dividers for on-chip peripherals.
++
++  The same register region is also exposed as a syscon for other drivers
++  (e.g. pin drive-strength), hence the "syscon" compatible.
++
++  Clock indices are defined in
++  include/dt-bindings/clock/ambarella,cv75-clock.h:
++
++  - CV75_GCLK_UART0: UART0 mux/div clock
++  - CV75_GCLK_CORE: Core PLL (gclk_core)
++  - CV75_GCLK_AHB: AHB bus clock (core / 2)
++  - CV75_GCLK_APB: APB bus clock (core / 4)
++
++allOf:
++  - $ref: /schemas/mfd/syscon-common.yaml#
++
++properties:
++  $nodename:
++    pattern: "^clock-controller(@.*)?$"
++
++  compatible:
++    items:
++      - const: ambarella,cv75-rct
++      - const: syscon
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    description: Reference crystal oscillator (typically 24 MHz)
++    maxItems: 1
++
++  clock-names:
++    const: osc
++
++  "#clock-cells":
++    const: 1
++
++  assigned-clocks: true
++
++  assigned-clock-parents: true
++
++  assigned-clock-rates: true
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - "#clock-cells"
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/ambarella,cv75-clock.h>
++
++    / {
++        compatible =3D "ambarella,cv75-evk", "ambarella,cv75";
++        #address-cells =3D <2>;
++        #size-cells =3D <2>;
++
++        osc: oscillator {
++            compatible =3D "fixed-clock";
++            #clock-cells =3D <0>;
++            clock-output-names =3D "osc";
++            clock-frequency =3D <24000000>;
++        };
++
++        rct: clock-controller@ed080000 {
++            compatible =3D "ambarella,cv75-rct", "syscon";
++            reg =3D <0xff 0xed080000 0x0 0x1000>;
++            clocks =3D <&osc>;
++            clock-names =3D "osc";
++            #clock-cells =3D <1>;
++
++            assigned-clocks =3D <&rct CV75_GCLK_UART0>;
++            assigned-clock-parents =3D <&osc>;
++            assigned-clock-rates =3D <24000000>;
++        };
++    };
+diff --git a/include/dt-bindings/clock/ambarella,cv75-clock.h b/include/dt-=
+bindings/clock/ambarella,cv75-clock.h
+new file mode 100644
+index 000000000000..3d3314446e75
+--- /dev/null
++++ b/include/dt-bindings/clock/ambarella,cv75-clock.h
+@@ -0,0 +1,17 @@
++/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
++/*
++ * Copyright (C) 2026 Ambarella, Inc.
++ */
++
++#ifndef _DT_BINDINGS_CLOCK_AMBARELLA_CV75_CLOCK_H
++#define _DT_BINDINGS_CLOCK_AMBARELLA_CV75_CLOCK_H
++
++/* Boot / bus clocks */
++#define CV75_GCLK_UART0                0
++#define CV75_GCLK_CORE         1
++#define CV75_GCLK_AHB          2
++#define CV75_GCLK_APB          3
++
++#define CV75_CLK_NUM           4
++
++#endif
+--
+2.34.1
 
-> > 
-> > Otherwise Angelo might need to drop the DT patches until the next cycle.
->
-> Yeah, that's so bad.
-> I'd be happy to be able to resolve this, but it's too late on my side.
-> 
-> I should've checked the DT patches more carefully, my bad: I got a bit too excited
-> to finally see this PowerVR stuff working on MT8173 and going upstream.
-> 
-> Sadly, I have to drop the devicetree patches :-(
-
-Chen-Yu: Could Angelo add an Acked-by to the three patches, and then I send
-Stephen an additional pull with just those patches? Do you think he'd
-pull that?
-
-Brian
-
+NOTE: This email (including attachments) contain Ambarella Proprietary and/=
+or Confidential Information and is intended solely for the use of the indiv=
+idual(s) to whom it is addressed. Any unauthorized review, use, disclosure,=
+ distribute, copy, or print is prohibited. If you are not an intended recip=
+ient, please contact the sender by reply email and destroy all copies of th=
+e original message. Thank you.
