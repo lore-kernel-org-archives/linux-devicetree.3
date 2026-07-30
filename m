@@ -1,200 +1,177 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B2B7392821;
-	Thu, 30 Jul 2026 21:19:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8DBE3D5222
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 21:30:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785446363; cv=none; b=sYhXXUWJnNHriJ5WPx0n7Fkv4thTNmPBF5VzrmhY6VfIxSjw4FLmTKp5Qa+g8hZe+D39j8wK6ykhWbIiXhjxQDPj3+BFyzHq4Ltrd8CVU0fGVKFrbibfJK2vfactJTofP7OD8zkcfQ9ui2gO699yqO2qmnsH4s4jRpvWwDuAtBY=
+	t=1785447020; cv=none; b=K0rYsGEYnFz99SYK+Vfc7XaUeLivqA0xdiE/EbVYuqKdDvtP385uyHVcVBQrxael3gYULnF2uyVkaI8kYiAoVksyGmn6KwBuJXLeXAl6Gg6hjjudEnZ9CwZ19d8I/fTHd4MR7ymB/HmJmvQKnjEEPwKxQYH2KRk8LUcAH9GEd34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785446363; c=relaxed/simple;
-	bh=9TGxkH0AFNeaL0LTtJiIhAnsHh0NSM/jsZbn4Z9CCwU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=r7u77i/pkXjP8Lx6kRS5+9YCq4KMVUfVdWMP4Tp8/u8mw5h2cIVrXCYMTFPBth8Yu2whIWQ4F0bnLH9sU1qANCg131fmgUkqJ5nSeD+WBqf69Zf9bU1oHjDHrEuRRICa2+JFf1YYRBDDoZU5gkYL7XUEZfpK/mSvZL3tKggAI94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LFpTOth2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785447020; c=relaxed/simple;
+	bh=62lcbR9+Va1j0R9nZb47tv42cOYtl5ojtrYnuKAsAyk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=nVV3WnuZpRDeFIK5YpqMhkkKyJgTLI10OQ29KaOjdm+q5cszWCpPksDrxbl7Zu2gyVNBIlRe04qJG3pWiRG81yjMN6/AcfeZ4xmQWcbpV4e57tRbAmZTsg3PwtBZxyJJNTNUnY/N6hk2kjYggLM+VJhaApVXZo2g4H712TcK9k0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WrL6Qn0V; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LFpTOth2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9E6C1F000E9;
-	Thu, 30 Jul 2026 21:19:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785446360;
-	bh=O4ztPFUflL40uyuABOr+tVKUzpAc+WnbAwLCt9/Z4HA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LFpTOth2g/S+0Qzpp+KUojTfsJFxriH/2pH9IVwe6z0U4GkTVXF9Di3HZD1pCP+AX
-	 H475A6nc+OltOXZHQYS7b5TEitO8l5KBVLoHYiXzJQ4a3ULIaeAqBTym2/hFfPczZU
-	 DW0mAj7geCYI/7IGDmOzYcS0ml806RqNo1Ngw/ds/dzgTjVHupZSltMsUETBaZSbbp
-	 hWMWTIowiODjsqVMF54rHUEduAzPIDqq/okVrCD5xBoIAuh7skiaRYaZBykKBq+ANo
-	 ZaXBmzzS1QG/Pq9sJp5FNJOVgGruq+GDXKSGHwNFtUlWOKAN/rxQ2ReeSJfS4FUYbz
-	 gTkSq6ZSQlELg==
-Date: Thu, 30 Jul 2026 16:19:17 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	chris.lew@oss.qualcomm.com, Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-Subject: Re: [PATCH] arm64: dts: qcom: shikra: Add qcom,vmid to BAM-DMA node
-Message-ID: <amu9hfJQ3VhRZ6PR@baldur>
-References: <20260714-b4-qcom-shikra-dts-bam-dmux-vmid-ext-v1-1-5b19da8d7735@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WrL6Qn0V"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38ec1402b05so261068a91.2
+        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 14:30:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785447017; x=1786051817; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=bwpLtkucjUT6I4TmAoZ2ORiRbxHjHtLbtFrl1jewPys=;
+        b=WrL6Qn0V6+Z3zD68YAhL70UD3WVF+Dqt8hHFvvsyHKUnTGeh1sGzxufaKhTsz82w/5
+         4ojJ+aD34vqS8DOl3+GAs8YjoGxO5qva3sIIpu0xlvgJNhRCrKiD45aXfUa1zHjvgrAu
+         8LZJeVF2w/3tUGZGPbPhqC6GsQVPH6XaxuueDSaH55OKGLJK44caJQ3iU9Q99IWkumaS
+         IKRcgWqehI8ykKLMmYe4akjf7RpqeWUsJoLFEA2aQPAkcCKPsalEEpokYTkFGKZ6t8o+
+         SquWweYhIMvR0b2s2A9ZJ1p3ZBOz7EpwZ65iqorNFT+KJB/S+htheQALLSvYy7xWnLyJ
+         XRcw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785447017; x=1786051817;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=bwpLtkucjUT6I4TmAoZ2ORiRbxHjHtLbtFrl1jewPys=;
+        b=B/FDger5dgfNoUQrYE8LsUZykSxol0GrmbzqYeXMl+yoj/LbHHGssjk6UAiP8UuHfp
+         nlsRLH0vX3xD2fBBnNkH+5J1m0G4J0TgrhNf7qNHgWpRs2ffPqrVDaKBMoVBQfCvocAN
+         rFsbYzK1SkKqN8hH+MsM6RWZgqa+O9tUaCpkjYQmzDZYVFORTHmTqO24esnfMI3/B7Y5
+         +QDMJRkWZHaJqzhVvXVDjEQwZ4zbL+DYvyP2QKyrvDmsNmFX66cxBNWcbF3F3fnxJprC
+         dyVfar9mNpajptniwomhol3X+gtcMXvqDAAirb267wKLH64hftPyxIkNO+mdTgrJZ1zK
+         cBQQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqgmfvXc3HuxiTEn7MNCmoNPUEyZMB016kwpo+RQ/3L/LBUtnvuV/A+YGmyazBM1vDFymS493hDSd9h@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy9waYz8F3qZK8NXj1PLuPXhQtxzFtzSc2kA7ZjC9gcpl9yXJBC
+	favq2ORs01ZUeQIhDEkptfM0Y/KIe80fz1XX1YB+UxZJX42dWpt4ZoTN
+X-Gm-Gg: AR+sD122CBkDdJVI4dUOAaDhS+5lf63+alJ5G6CqA6t4iMthJGXafGJFG2zKZ0u0p8m
+	XgwVwu/ti26VyAJ3KHOdp8TlML/xgiF9T+Fy0NQ/zvDwHmDZU79Td7sXUIvOem8CrAkAnWW/RJk
+	qLpQwk5V0slBjr3959p2d9NqPGPjjxaATcePnUua6NSjOeYlqySyMLqKntkXd/HuCy3xMKvAf0o
+	bAiLpOeyQAYwQ+wfJwTPYDz0uf45xsgSlY/6RIgeg3jaOK1NZ4DDlaZcw2y5+eL9SNpNTsPrB22
+	Qklj/a3eybR7NnyBtBrF9wIt43FSDDzs+IrwNu6X6myRV9vch40YSo0QyrQ0JmdrHZ1cm02YJ28
+	Sue+wcaD46OClAkXyJDLWjk2rAxcADNjBd0oiNhNnFdfp+YQ7y7xLTn4xcpMV9OQuvhpd51Qlie
+	SWBhx2oj2Yt0i9io5NQ995j/TNJxVzHFRH/aq/M9Nh4lQU6ShE0ggHvL4YNpGKNZnAhaqUzB93t
+	laU
+X-Received: by 2002:a17:90b:394b:b0:387:e0db:bc24 with SMTP id 98e67ed59e1d1-38f9c09984fmr3332390a91.36.1785447016666;
+        Thu, 30 Jul 2026 14:30:16 -0700 (PDT)
+Received: from tresc054937.tre-sc.gov.br ([187.65.210.13])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31504d2ec2asm28584728eec.21.2026.07.30.14.30.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 30 Jul 2026 14:30:15 -0700 (PDT)
+From: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+Subject: [hwmon-next PATCH v5 0/4] hwmon: (adt7470) Add PWM provider and
+ thermal sensor support
+Date: Thu, 30 Jul 2026 18:29:55 -0300
+Message-Id: <20260730-adt7470_thermalzone-v5-0-42995a6bb8c5@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260714-b4-qcom-shikra-dts-bam-dmux-vmid-ext-v1-1-5b19da8d7735@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAFPCa2oC/33RS27DIBAA0KtErEMFGAzuqveooorAOCaKoQXip
+ o1892B7Y0VWliNm3ny4owTRQULvuzuKMLjkgi+B2O+Q6bQ/AXa2xIgRVhNJa6xtllySr9xB7PX
+ lP3jAotGUMCaVlQyVyu8IrbvN6ifqfvvgsYdbRoflLV2PZzB5YqfszqUc4t88wkDnmpfdBooJN
+ kYIaCsB1sLHqdfu8mZCP3cY2NqQ2wYrhhaCctkI1Wr7bFQrg6ltoyqG5ULVXCpjj/rZ4Guj2Tb
+ 4tAvlpGpsqwnUa2NczhXh51r+JS/3PIzjA3yxf9e1AQAA
+X-Change-ID: 20260716-adt7470_thermalzone-59a102278d72
+To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Chris Packham <chris.packham@alliedtelesis.co.nz>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ "Darrick J. Wong" <djwong@us.ibm.com>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Luiz Angelo Daros de Luca <luizluca@gmail.com>, linux-pwm@vger.kernel.org
+X-Mailer: b4 0.15.2
 
-On Tue, Jul 14, 2026 at 02:01:53PM +0530, Vishnu Santhosh wrote:
-> On the Qualcomm Shikra SoC the mDSP (VMID 43 / QCOM_SCM_VMID_NAV) is
-> the AXI master for BAM descriptor FIFO accesses. The XPU enforces
-> per-region access control; without an SCM assignment granting NAV
-> access, the first DMA transfer triggers an XPU violation.
-> 
+The ADT7470 is a temperature monitor and PWM fan controller capable of
+monitoring up to ten external temperature sensors and controlling up to
+four PWM outputs.
 
-I'm a bit puzzled about your plan here.
+Currently, the driver exposes these sensors and PWM controls only
+through the hwmon sysfs interface. This patch series integrates the
+ADT7470 driver with the kernel's thermal and PWM subsystems. This allows
+temperature sensors to participate in Device Tree thermal zones while
+exposing the PWM outputs as generic PWM providers for consumers such as
+pwm-fan.
 
-You posted this on July 14th, that's 3 days after I asked you to rebase
-patch [1]. This patch literally says that [1] is broken and untested.
+Patch 1 adds the YAML device tree binding documentation.
+Patch 2 introduces the ADT7470_PWM_MAX macro.
+Patch 3 registers the four PWM channels as a generic PWM provider.
+Patch 4 registers the external temperature sensors with the thermal
+framework.
 
-> Add qcom,vmid = <QCOM_SCM_VMID_NAV> to the bam_dmux_dma controller
-> node so bam_dma SCM-assigns each channel descriptor FIFO at
-> allocation. BAM-DMUX itself is a singleton and no longer needs a DT
-> property for its destination VMID: the driver now selects
-> QCOM_SCM_VMID_NAV internally via the qcom,shikra-bam-dmux compatible's
-> match data.
-> 
-> Co-developed-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-> Signed-off-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-> ---
-> This depends on three separate series:
-> 
-> - "arm64: dts: qcom: shikra: Add BAM-DMUX support" [1], which adds
->   the bam_dmux and bam_dmux_dma nodes this series modifies.
-> - "arm64: dts: qcom: Extend Shikra device tree with CDSP, LPAICP,
->   MPSS remoteproc PAS and peripherals" [2], which is still under
->   review and adds the "remoteproc_mpss" node that [1] attaches
->   bam_dmux to.
-> - "dt-bindings: dma: qcom,bam-dma: Add optional qcom,vmid property" [3]
->   and "dt-bindings: net: qcom,bam-dmux: Add qcom,shikra-bam-dmux
->   compatible" [4], which introduce the qcom,shikra-bam-dma and
->   qcom,shikra-bam-dmux compatibles this series relies on for the
->   qcom,vmid property to validate under dt-schema.
-> 
-> [1] https://lore.kernel.org/all/20260711-qcom-shikra-dts-bam-dmux-v2-1-d5b33ee32138@oss.qualcomm.com/
+Signed-off-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
 
-Changes was requested on July 11th
+---
+Changes in v5:
+- Hide hwmon PWM sysfs attributes if "#pwm-cells" is present in DT.
+- Register PWM chip before hwmon in probe() to correctly initialize 
+  sysfs visibility.
+- Fix waveform rounding math to strictly satisfying CONFIG_PWM_DEBUG
+  expectations.
+- Return 1 in round_waveform_tohw when the requested period is too 
+  short for the hardware.
+- Link to v4: https://patch.msgid.link/20260729-adt7470_thermalzone-v4-0-c14039dfa0e6@gmail.com
 
-> [2] https://lore.kernel.org/all/20260714-shikra-dt-m1-v6-0-bee265d3499b@oss.qualcomm.com/
+Changes in v4:
+- dt-bindings: Dropped redundant descriptions for standard properties
+  (#pwm-cells and #thermal-sensor-cells).
+- dt-bindings: Conditionally referenced thermal-sensor.yaml to preserve
+  ABI compatibility.
+- dt-bindings: Switched to unevaluatedProperties due to the imported $ref.
+- Link to v3: https://patch.msgid.link/20260728-adt7470_thermalzone-v3-0-d4586478cdba@gmail.com
 
-Changes was requested on July 13th
+Changes in v3:
+- Migrated from the `.apply` callback to the PWM Waveform API.
+- Moved fixes to another patch series:
+  20260727-adt7470_thermalzone-v3-0-21424d550c3d@gmail.com
+- Use guard(mutex) for simpler locking.
+- Link to v2: https://patch.msgid.link/20260717-adt7470_thermalzone-v2-0-a55147958fad@gmail.com
 
-> [3] https://lore.kernel.org/all/20260714-qcom-bam-dma-vmid-ext-v1-0-cef87c57b7dc@oss.qualcomm.com/
-> [4] https://lore.kernel.org/all/20260714-qcom-bam-dmux-vmid-ext-v1-0-3f29da7cca76@oss.qualcomm.com/
+Changes in v2:
+- Fixed 2 previous bugs uncovered by Sashiko-bot during review.
+- Dropped the thermal cooling device registration for the PWM channels.
+- Implemented generic PWM provider support using the PWM subsystem.
+- Updated Kconfig to safely handle the PWM subsystem dependency (depends on PWM || PWM=n).
+- Updated Device Tree bindings to require #pwm-cells instead of #cooling-cells.
+- Link to v1: https://patch.msgid.link/20260716-adt7470_thermalzone-v1-0-cc55ef35edde@gmail.com
 
-Might be wrong on the timezones, but I think you had change requests in
-your inbox by the time you posted this series.
+To: Guenter Roeck <linux@roeck-us.net>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+To: Chris Packham <chris.packham@alliedtelesis.co.nz>
+To: Andrew Morton <akpm@linux-foundation.org>
+To: "Darrick J. Wong" <djwong@us.ibm.com>
+To: Uwe Kleine-König <ukleinek@kernel.org>
+Cc: linux-hwmon@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-pwm@vger.kernel.org
 
+---
+Luiz Angelo Daros de Luca (4):
+      dt-bindings: hwmon: add adi,adt7470
+      hwmon: (adt7470) Add ADT7470_PWM_MAX macro
+      hwmon: (adt7470) Expose fan control via PWM framework
+      hwmon: (adt7470) Add thermal zone sensor support
 
-What do you want me to do with this patch?
+ .../devicetree/bindings/hwmon/adi,adt7470.yaml     |  58 ++++++
+ drivers/hwmon/Kconfig                              |   1 +
+ drivers/hwmon/adt7470.c                            | 203 ++++++++++++++++++++-
+ 3 files changed, 258 insertions(+), 4 deletions(-)
+---
+base-commit: 4c2e8c377915496fbe9cc1c9d91a7297aaa01783
+change-id: 20260716-adt7470_thermalzone-59a102278d72
 
-> ---
->  arch/arm64/boot/dts/qcom/shikra.dtsi | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/qcom/shikra.dtsi
-> index 246ea74d1fb1e293f0428d342301886dc52cb179..cb824da1757921edf0befe5480bf489ee1d8c727 100644
-> --- a/arch/arm64/boot/dts/qcom/shikra.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
-> @@ -5,6 +5,7 @@
->  
->  #include <dt-bindings/clock/qcom,rpmcc.h>
->  #include <dt-bindings/clock/qcom,shikra-gcc.h>
-> +#include <dt-bindings/firmware/qcom,scm.h>
->  #include <dt-bindings/interconnect/qcom,icc.h>
->  #include <dt-bindings/interconnect/qcom,osm-l3.h>
->  #include <dt-bindings/dma/qcom-gpi.h>
-> @@ -1888,7 +1889,7 @@ glink-edge {
->  			};
->  
->  			bam_dmux: bam-dmux {
-> -				compatible = "qcom,bam-dmux";
-> +				compatible = "qcom,shikra-bam-dmux", "qcom,bam-dmux";
->  
->  				interrupts-extended = <&modem_smsm 1 IRQ_TYPE_EDGE_BOTH>,
->  						      <&modem_smsm 11 IRQ_TYPE_EDGE_BOTH>;
-> @@ -2030,7 +2031,7 @@ glink-edge {
->  		};
->  
->  		bam_dmux_dma: dma-controller@6044000 {
-> -			compatible = "qcom,bam-v1.7.0";
-> +			compatible = "qcom,shikra-bam-dma", "qcom,bam-v1.7.0";
->  			reg = <0x0 0x06044000 0x0 0x19000>;
->  			interrupts = <GIC_SPI 74 IRQ_TYPE_EDGE_RISING 0>;
->  			#dma-cells = <1>;
-> @@ -2039,6 +2040,7 @@ bam_dmux_dma: dma-controller@6044000 {
->  			num-channels = <6>;
->  			qcom,num-ees = <1>;
->  			qcom,powered-remotely;
-> +			qcom,vmid = <QCOM_SCM_VMID_NAV>;
->  		};
->  
->  		sram@c11e000 {
-> 
-> ---
-> base-commit: 3b029c035b34bbc693405ddf759f0e9b920c27f1
-> change-id: 20260714-b4-qcom-shikra-dts-bam-dmux-vmid-ext-1b4f793e035c
-> prerequisite-change-id: 20260525-shikra-dt-m1-082dec382e7f:v6
-> prerequisite-patch-id: 48ecd66c06c4fad81f91283c26ec57d95bbde29d
-> prerequisite-patch-id: 7d92e5a301d09616840e54dc9e4a81f30a64383c
-> prerequisite-patch-id: be1a16f53e23dd5ab90210a056c9da3559c6186d
-> prerequisite-patch-id: 3eff04500c55100c763aeac1f1f8c5768d500500
-> prerequisite-patch-id: ab22c5fdb2fa65b78ffef76bbe4459c8d5ffe7b2
-> prerequisite-patch-id: cb24efedb648271ef5c60ace96e2366d89254e8f
-> prerequisite-patch-id: 8be7df0395c5847a988c7e814c7db878b5932b11
-> prerequisite-patch-id: 0510992d022cef7317b6efee6765ac78c0225356
-> prerequisite-patch-id: de4327fcbe81f92a337f429b74e8220969a5b79f
-> prerequisite-patch-id: e13435365cba0b6ecfcea6d9e5ab72838fba23a7
-> prerequisite-patch-id: 90f78668eb969c16ed8c2485d75a60a183fc4b8e
-> prerequisite-change-id: 20260603-qcom-shikra-dts-bam-dmux-7fdcbb6fb662:v2
-> prerequisite-patch-id: 59bb0a7828e41f546f734f127d81da83c0adcda9
-> prerequisite-patch-id: 197da6bcb15cadc47869dba88c8020987b25c335
-> prerequisite-patch-id: 8ec9c1eb03f052ae232ed54117abed38672c23f6
-> prerequisite-patch-id: 350db4f4bcdfc0fad9ed57cd5b1723f85ad44f5d
-> prerequisite-patch-id: b5d7f75df02fde56181f576a936baf09d0a72276
-> prerequisite-patch-id: 3ce52e07ae57139c2e2b71a29ed7d7250f6fcc87
-> prerequisite-patch-id: 3a689e8dda5fd2755b689d94d095806b3f2e6eed
-> prerequisite-patch-id: ac83151a889855498d36288ddd36216d451340c8
-> prerequisite-patch-id: 2357cac636e019eaf14d6a493a1c72bca56fe405
-> prerequisite-patch-id: 2885f299e711582da312ca9d13983d296a3dd5dc
-> prerequisite-patch-id: 91af5f3c01e766a53ce8de69aa21847a2d6bbbf8
-> prerequisite-patch-id: 48ecd66c06c4fad81f91283c26ec57d95bbde29d
-> prerequisite-patch-id: 7d92e5a301d09616840e54dc9e4a81f30a64383c
-> prerequisite-patch-id: be1a16f53e23dd5ab90210a056c9da3559c6186d
-> prerequisite-patch-id: 3eff04500c55100c763aeac1f1f8c5768d500500
-> prerequisite-patch-id: ab22c5fdb2fa65b78ffef76bbe4459c8d5ffe7b2
-> prerequisite-patch-id: cb24efedb648271ef5c60ace96e2366d89254e8f
-> prerequisite-patch-id: 8be7df0395c5847a988c7e814c7db878b5932b11
-> prerequisite-patch-id: 0510992d022cef7317b6efee6765ac78c0225356
-> prerequisite-patch-id: de4327fcbe81f92a337f429b74e8220969a5b79f
-> prerequisite-patch-id: 968bffc36646412f8289b917f37e762a4297bcc8
-> prerequisite-patch-id: 35944403bd4480caad12657342da15ea71c6afbd
-> prerequisite-patch-id: 65b485474126f4a2ab3f69a0b8e146b3b04c2c1a
-> prerequisite-change-id: 20260714-qcom-bam-dma-vmid-ext-8a3bd3c5c00e:v1
-> prerequisite-patch-id: b61d337d6c8fc4b20bff5a057b3f3335d89c57c3
-> prerequisite-patch-id: 91d3d344ec3e35ef7a3cec0a2ef90fefaf10a039
-> prerequisite-patch-id: 9e23abde2db60a3ad3a00d060bfb91f68c0aa798
-> prerequisite-patch-id: 4fa3350725e5b9d442247756d2b51d03f99b86bc
+Best regards,
+--  
+Luiz Angelo Daros de Luca <luizluca@gmail.com>
 
-So this patch has almost been tested upstream, only 38 patches delta?
-
-Regards,
-Bjorn
-
-> 
-> Best regards,
-> -- 
-> Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-> 
