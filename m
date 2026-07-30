@@ -1,104 +1,76 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F3743B71CB
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 07:04:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96973386425;
+	Thu, 30 Jul 2026 07:06:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785395056; cv=none; b=e2vuTLaHp8JANIdoqQcfxDKa2kYXOvzA9MEpeXdxcqw6djqW3jkLuF1VdHVqhZvafToPGjUP5+VbJOz2TNXeRTS8/LhPV+oUwFLwm0CSJGWEwq/uvz/nbPHAXIAGHn1nEZ8goksfq4pbvxDCub48SL6szJbBq6ShmN+q3dzsPRo=
+	t=1785395176; cv=none; b=FLXARfV9licMze91YaKCSHoPZI0J8EJniu1mGuQ+2YD7eV8b3exnw6ufP5nGHbYIejcFmrLg194fhBWSIc0Y3JYbICmqaUq0sqQm5PzObglcuHHAY4NI0Xy/ASsEcOvaf3rNk2PoSw/ycmWmoutFF9ubeAvq/G0xLR5hjp9YNnE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785395056; c=relaxed/simple;
-	bh=tO0bwDk4KhrqnsYS6lRXMRLastlX/L+lMIDSzGeWyTo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Vnd0UoZhktQjKrULsWUl3fwWIGpdwLnu94JG14Y0rtYbiK5VKBG9sHBJHI7GpiK82m9rMCui+W0n3bxmSwo0Pp5SNzxdZi178cLAca0rkfIvAzDXBlhP0g7JPyuVK67SdbFHv02X7WfFtHrAwc21bnkpkNyyPJy6nPAirIdN4bs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CfzMonwL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785395176; c=relaxed/simple;
+	bh=1/LJLBMa52xIklA0bVlgj9j3gGxT98c7XDHEXVMGDYA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fPk6dr0wBABa/wcCtj/YWuh4Cw72YQ+Nuxb+59NvR7yn77/89/QCoKLfxdOXG4OhqjP1/UkStKBC390V4N/yFfljxYW87pRBW0ieRIGBzzLEkEwW/LauJh8QhdcdpC6US8QA0umjx9o3uWMz+oEXXtAMOhg1VH0VfV5QQXtRtcE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c7zwg3YV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CfzMonwL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C033E1F000E9;
-	Thu, 30 Jul 2026 07:04:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c7zwg3YV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71C391F000E9;
+	Thu, 30 Jul 2026 07:06:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785395053;
-	bh=HbtfMbK2cHV9ho+jZQ3BXejqBFb/j63UkqKfMoCj/Y0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CfzMonwLNcL+0CSy34MElLoUI3hXkcqmElK+B7nWVBMZudszFVyi27dOLHC3I36HJ
-	 oONvWoZmQoWM9jDAGNuPlB/GH5n7So1ud2cQcBGL5AJ80wcRLmZs4HVxAfuTTCpDes
-	 lIry/eJjiym03E6NZF8yVuFnegvNPOn2JCke5qoc0x0b+6JdWSPWFFKQcqNEbwr8Ey
-	 9UkpIVyRgp0wMve8EyWZ5dFcbk1CE7QfEMmbOTjMEodQAJk2gmRYROpPfJQT1QMtAa
-	 uklImLSr2Yp/OdRcn35grbejc0F112n7oyfnKciqKG+cEUekM6zKLTSrBk1Xptp7sM
-	 +Kwl+cnr7talA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 1/2] dt-bindings: media: add ITE IT6625/IT6626 HDMI
- bridge
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Hermes Wu" <Hermes.wu@ite.com.tw>
-Cc: conor+dt@kernel.org, media-ci@linuxtv.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260730-upstream-it6625-it6626-v9-1-e7725db2b92f@ite.com.tw>
-References: <20260730-upstream-it6625-it6626-v9-0-e7725db2b92f@ite.com.tw>
- <20260730-upstream-it6625-it6626-v9-1-e7725db2b92f@ite.com.tw>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 07:04:12 +0000
-Message-Id: <20260730070412.C033E1F000E9@smtp.kernel.org>
+	s=k20260515; t=1785395175;
+	bh=Zix8LjF5UhuiY4ZYBd5W4c2txY75qw5wnv/OZ7u41fQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=c7zwg3YVWW30jGL8GIhjHPJDcsQPZwsgPFLSIKBGXMNbwZuGEuJ2q1po3UpKDAPb4
+	 ot8iBuF2EaoD0ND65kgNplGNkFMKcKRulQfdV7qvusUW4ll2Z5gpu0Ysj/5rj1TqVa
+	 5NPrDOw1bPbGCdJBF3JrjX+96OpTkczQ4g2aBVwP10wJU00EPHqvP6NY8duPffbpIL
+	 UD29pkmwzyi+pU6VVm57OqDioBGzWgBMQajh0s44wecetiTY/iUdH8Ovf++yLFAE7o
+	 +0uTUQ850yhUtz27cWm9qLI09SriqWpr4SaOBJS6TCqvab5FRn/dxCwPgnJbnX1bZF
+	 Dhv9hVw+Ot0oQ==
+Date: Thu, 30 Jul 2026 09:06:11 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, usb4-upstream@oss.qualcomm.com, 
+	Raghavendra Thoorpu <rthoorpu@qti.qualcomm.com>, Mika Westerberg <westeri@kernel.org>, 
+	Sven Peter <sven@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v2 1/5] dt-bindings: phy: qcom,qmp-usb3-dp: Extend X1E
+ description for USB4
+Message-ID: <20260730-logical-bustard-of-infinity-af2fff@quoll>
+References: <20260728-topic-usb4phy-v2-0-5d9dd5149ec7@oss.qualcomm.com>
+ <20260728-topic-usb4phy-v2-1-5d9dd5149ec7@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260728-topic-usb4phy-v2-1-5d9dd5149ec7@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The schema permits `bus-type =3D <1>` (C-PHY) for the `ite,it6625` =
-compatible, despite the hardware only supporting D-PHY.
---
+On Tue, Jul 28, 2026 at 12:10:12PM +0200, Konrad Dybcio wrote:
+> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> 
+> Some instances of the QMP combo PHY (called USB43DP) feature a third
+> functional sub-block, responsible for USB4/Thunderbolt 3 communication.
+> 
+> Compared to the today's state of the binding, one more clock (P2RR2P -
+> PHY-to-Router, Router-to-PHY) needs to be enabled for the PHY to be
+> able to switch to USB4 mode. Allow that for X1E.
+> 
+> Also, add a bindings define to let consumers access it.
+> 
+> Assisted-by: Claude Code:Sonnet 5
 
---- Patch [1]: [PATCH v9 1/2] dt-bindings: media: add ITE IT6625/IT6626 HDM=
-I bridge ---
-commit f6d61ed9f4634ce06509b6b075bb232fb04aed05
-Author: Hermes Wu <Hermes.wu@ite.com.tw>
+This has checkpatch warnings.
 
-dt-bindings: media: add ITE IT6625/IT6626 HDMI bridge
+With this fixed:
 
-This commit adds the device tree binding schema for the ITE IT6625 and IT66=
-26=20
-HDMI to MIPI CSI-2 bridges. It documents the supported properties, including
-the required I2C configuration, power supplies, and port endpoints for CSI-2
-outputs and HDMI input.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-> diff --git a/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml =
-b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
-> new file mode 100644
-> index 0000000000000..756fe655f534f
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
+Best regards,
+Krzysztof
 
-[ ... ]
-
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: ite,it6626
-
-[Severity: Low]
-Does omitting an if block for ite,it6625 here permit invalid device trees to
-pass validation?
-
-Without a constraint for ite,it6625, it appears a configuration specifying=
-=20
-bus-type =3D <1> (C-PHY) would silently pass schema validation, despite the
-hardware only supporting D-PHY.
-
-> +    then:
-> +      properties:
-> +        ports:
-> +          properties:
-> +            port@0:
-> +              properties:
-> +                endpoint:
-> +                  required:
-> +                    - bus-type
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-upstream-i=
-t6625-it6626-v9-0-e7725db2b92f@ite.com.tw?part=3D1
