@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E945320010A
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 05:04:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2ED53A7F4D;
+	Thu, 30 Jul 2026 05:06:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785387898; cv=none; b=RfZ8ElBq+nw9WQJFMj1cpHQGZaNr8/kC4IG3W/a7+yby/Ihi+8aEwLzff115OQIe2a1+QJl4ZnAe/1plDqXuZdVdH7QKLc4+d3SS5GYCpUNGyE36CcE42fN7j/BP8pEtcXFuri4z6QnOdt502vUowZt7smaoDKwCnzlmrHS/5N4=
+	t=1785388020; cv=none; b=eezQK4hDHAiYAjCATx89Sr4a3O4C3dZI+fW89iPz0xaK+Z7HwQTwgH2XoOa4A4cfaOBnbFDK8o3pbhJVCINekmuv8Qvf+xvm2HWt8IDph7vaM756IxJAta7pPN2ILb/RP0z6+bJk4ZVWR5ZGx8veHW1PwXd+KrZg9qnopiGVUoA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785387898; c=relaxed/simple;
-	bh=x3wEUPJUZIgWIQn+snJAsjDIs7rJEK53E1zEICPkhgs=;
+	s=arc-20240116; t=1785388020; c=relaxed/simple;
+	bh=HFF402LdV8VqDDuDQePhu4xuN8mla+Ngn4fmk4lvLKI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=J/GS5B8gSywjF95PFZ1DOlkRs8FHJRnWVsA8yuV4taVrfA9dTe8W80HQiVfh6JjJIibQVnTJa/zXvlYWDXLpq3brbdC3CixcvMqfiAstUnalYUn1Eca+z0zLbLtNLcdmulDESQGbdjXZ/ya87tc7g5e6u4OnL2YE02RaKOZq5Gs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SzsSN/ll; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ceq54SBxzjh+Qy1PuNjjo+UEO+Z/SCpTKNnZdCGuJg9LhDwETZ7PSv5r31OUArhvlL+SYNTjo7QdHszvRv95mDMCuor/y1nxU1LXqdsAOidTOpOnV7xF26keVEdcbc4AfsaVEF1HOdbNoBP7NufP3EzN8a0+Psj3isolXcN6a2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ViBvFcto; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SzsSN/ll"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CC471F000E9;
-	Thu, 30 Jul 2026 05:04:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ViBvFcto"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B44661F000E9;
+	Thu, 30 Jul 2026 05:06:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785387897;
-	bh=sd/12zOcIVzM7gXLkhk6ICHzD5XnXUqeU9cytUbKCfU=;
+	s=k20260515; t=1785388019;
+	bh=E1oyoCJAJQ40RnShV/CaxTj8u5weqsgoRSQNHdy9Ncw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SzsSN/ll0Q/srsdeuY9Ochsip+x7QbRJzXNOcbaRq5qa6bgRw/N9tyJSMIRTQQuUE
-	 zOKhy2kiTg3Y7RCSrEYL7wqCczAXzjsgvVM32nMFjDAOtnxgFlACPJNXxH9VCxSQ7O
-	 vMnXoSQ72h1m0KIsytp2jQxFKlgLrQfhpoKPHM7UysbO7Ct0L1lt4oqcIjN57oN7Zt
-	 1PgBpRsdlfH8Vu2Or1E8PwqZOjRhcPX8gqJp5jmroZ0zxyppz3/sghtEbcxu1Q0PYM
-	 Rh79P3h4d6fXk+C7djDRVCOnQr+r7ysWBN/zAwujWc6EgYf/rgrvWYrL3PhvzMPm/V
-	 /wNkOI3jlKQBw==
+	b=ViBvFctoNmPYU5JUdgwtnN2WcfxPW2W5teQ474XUGGEuBnIDwpKlJIWbqYXVpP/pp
+	 zsJQhqU7hvxdbVBFTtFc9bNjWADdFF1P01wKQEhf5DeB5Ijgu2xd3gnMlUbl5GNwPz
+	 tQzhHCMFe62aAVq0Gb2tjRWeOwPQRWwcJNXguteSwlVVFrlZS7pmYW2E3MGMYqefbV
+	 GHqiEKPhyLprA8cslB8wJdMhoq1BKmLaIFjd1oKG0AaYgD9/7A0GNzTZFugajWD0LX
+	 GMX0p5E9QYLXzxOSaBanzHVN/VYd7h0J12crexdZmLsG3eBj2VmDPj8jBphMmfT1vK
+	 O/6wd9vOO3c8g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: arm: rockchip: Add Vicharak Vaaman
- board
+Subject: Re: [PATCH v6 2/3] arm64: dts: qcom: eliza-evk: Add PCIe0 with M.2
+ E key connector
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Hrushiraj Gandhi" <hrushirajg23@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260730045947.388660-2-hrushirajg23@gmail.com>
-References: <20260730045947.388660-1-hrushirajg23@gmail.com>
- <20260730045947.388660-2-hrushirajg23@gmail.com>
+To: "Krishna Chaitanya Chundru" <krishna.chundru@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, linux-pci@vger.kernel.org
+In-Reply-To: <20260730-eliza_evk-v6-2-40ece2d33114@oss.qualcomm.com>
+References: <20260730-eliza_evk-v6-0-40ece2d33114@oss.qualcomm.com>
+ <20260730-eliza_evk-v6-2-40ece2d33114@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 05:04:56 +0000
-Message-Id: <20260730050457.3CC471F000E9@smtp.kernel.org>
+Date: Thu, 30 Jul 2026 05:06:58 +0000
+Message-Id: <20260730050658.B44661F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,49 +47,53 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] The commit introduces a new compatible string 'vicharak,vaaman' but=
- fails to document the 'vicharak' vendor prefix in vendor-prefixes.yaml, vi=
-olating device tree binding requirements.
+- [Medium] W_DISABLE2# GPIO polarity is inconsistently configured as GPIO_A=
+CTIVE_HIGH, likely inverting the intended PCIe M.2 power sequencing logic.
 --
 
---- Patch [1]: [PATCH v3 1/2] dt-bindings: arm: rockchip: Add Vicharak Vaam=
-an board ---
-commit 002a19e13723e85ef3d5de1114afcf5868a4c28e
-Author: Hrushiraj Gandhi <hrushirajg23@gmail.com>
+--- Patch [2]: [PATCH v6 2/3] arm64: dts: qcom: eliza-evk: Add PCIe0 with M=
+.2 E key connector ---
+commit b91f81c61ce6e56f3f53636edf8015143cf5ed8b
+Author: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
 
-dt-bindings: arm: rockchip: Add Vicharak Vaaman board
+arm64: dts: qcom: eliza-evk: Add PCIe0 with M.2 E key connector
 
-This commit documents the compatible string for the Vicharak Vaaman, an
-RK3399-based single-board computer.
+The Eliza EVK board features an M.2 E key connector connected to PCIe0.
+This commit enables the PCIe0 root port and its QMP PHY with the necessary
+RPMH regulator supplies. It models the connector using the pcie-m2-e-connec=
+tor
+binding to support a WLAN card and a Bluetooth device.
 
-> diff --git a/Documentation/devicetree/bindings/arm/rockchip.yaml b/Docume=
-ntation/devicetree/bindings/arm/rockchip.yaml
-> index 1a9dde18626d0..7cfd3687768cf 100644
-> --- a/Documentation/devicetree/bindings/arm/rockchip.yaml
-> +++ b/Documentation/devicetree/bindings/arm/rockchip.yaml
-> @@ -1306,6 +1306,11 @@ properties:
->            - const: turing,rk1
->            - const: rockchip,rk3588
-> =20
-> +      - description: Vicharak Vaaman
-> +        items:
-> +          - const: vicharak,vaaman
+> diff --git a/arch/arm64/boot/dts/qcom/eliza-evk.dtsi b/arch/arm64/boot/dt=
+s/qcom/eliza-evk.dtsi
+> index e47b24f8b8277..b35fffb509765 100644
+> --- a/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
+[ ... ]
+> +	connector-0 {
+> +		compatible =3D "pcie-m2-e-connector";
+> +		vpcie3v3-supply =3D <&vreg_pcie_m_3p3>;
+> +		w-disable1-gpios =3D <&tlmm 35 GPIO_ACTIVE_LOW>;
+> +		w-disable2-gpios =3D <&pm8550vs_g_gpios 4 GPIO_ACTIVE_HIGH>;
 
-[Severity: Low]
-Does this new compatible string require an update to vendor-prefixes.yaml?
+[Severity: Medium]
+Is the GPIO_ACTIVE_HIGH polarity for w-disable2-gpios correct here?
 
-Since the "vicharak" vendor prefix is newly introduced here, running
-dt_binding_check will likely report a schema validation warning because
-"vicharak" is not documented in
-Documentation/devicetree/bindings/vendor-prefixes.yaml.=20
+The pwrseq-pcie-m2 driver attempts to enable the Bluetooth UART interface
+by setting the logical value of w-disable2-gpios to 0. Unless there is an
+inverting level shifter involved for this specific PMIC GPIO, wouldn't an
+active-high configuration invert the intended PCIe M.2 power sequencing log=
+ic?
 
-Should it be added there as well to ensure schema validation passes?
+This could cause the Bluetooth device to be disabled during the power-on
+sequence and enabled when it should be disabled, which would break Bluetooth
+functionality.
 
-> +          - const: rockchip,rk3399
 > +
->        - description: WolfVision PF5 mainboard
->          items:
+> +		pinctrl-0 =3D <&m2_w_disable1>, <&m2_w_disable2>;
+> +		pinctrl-names =3D "default";
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730045947.3886=
-60-1-hrushirajg23@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-eliza_evk-=
+v6-0-40ece2d33114@oss.qualcomm.com?part=3D2
