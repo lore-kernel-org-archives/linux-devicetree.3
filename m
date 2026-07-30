@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1485E39F16B
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 10:48:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F53E402444
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 10:49:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785408538; cv=none; b=fPAU0TVehOjrgbLOf+f2DO7az/ecCGYtzdBoLN2MHX7iRBluq6t1hudLPPUUyjd7W1yPdFaCarllv/c+LCk0Db81tswIBaPBJGlsZD6feZMrkmA/uDvNjvSnu93+m420OOk2HfkgZs1cpr4Jdm+Zd3urmUR7YTJMXCfW3G0Hajo=
+	t=1785408579; cv=none; b=pFSenMKIJdnGhw258Db1K+h2zTbnNVid0FRq9e+p+A6PPAIuEMgiD7xD8ibCuqMtPWlPInP5/LPG9pm3+JRXHsaZWcGPd+yWx8e21bo2Ffn6ntb2Phf5iqGJlRZ5iOdeWoGg29H3pBIFFF20FWmCB/Ni3g/0Aa9YrwP/B98t3O0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785408538; c=relaxed/simple;
-	bh=+VxtLkCMpVWpxg2e0TTsB7sevAJ7AN28yqm0Bjv6+T8=;
+	s=arc-20240116; t=1785408579; c=relaxed/simple;
+	bh=s/EaBjuTXhwcJt4L4udwmondIxAq4qkunZGdJ649I58=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tX/zFzNB/wSAgCdBiIWfUcndWyYXtWlm8VshdAXnTH4fZKbHNqg8M3EZzRCxpu2O74+vQcMgij9DkfKTjBdZjhwHL0JOwmbM47Ma9OPTCEGt4gKYoQTQVCpG5Ddu8rRnNdVhz5bY7Dxrub4VrXuyTaW2s0SEsmMJhEMzyldlJyw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kSnqwQOi; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Uop5WhB1dyCmyNuzeb2H9Yngd58Ug6op3woctxieD8wNER1sKIXQKM101xyBwXDy2DWSjucOVyEgPN/UIMdgUMecfoA3CLCTaTFi4Bf2Q1TatYrt5/Og8v/vuaZrLzVkUCztLG7rEVzCzN7RCzKiCHsf2lzN71iZFUrvn/FAlgE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kBohSHw5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kSnqwQOi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A190E1F000E9;
-	Thu, 30 Jul 2026 10:48:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kBohSHw5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4AE31F000E9;
+	Thu, 30 Jul 2026 10:49:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785408537;
-	bh=BNSpfg1dD65k9M27JZgfUR+wpB8oHyjCK72xBZwAGyQ=;
+	s=k20260515; t=1785408578;
+	bh=Zs8TKF1W7Z8Vhgoa6saVEXri5T8KEk8eXGcXhBRkPp0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kSnqwQOirOzfR/GtFM+fY1D5Z6A44QEzY0S017dyeLnejR6mgv1ztsN6J7x/IBcjc
-	 XOdM3z3bYX+QdD5x1oOGSp/kyNz1jTrug0kqQS4UUGncpEzQUfFpxCcKjpvv6guPYX
-	 64PEFjfarV81aKseX28LkNYE+NQSk1fQhq35VqBFUO18EV3HS0EW9GkPKFRUPvvqnJ
-	 nCmQ1Z8YDcOtVrML//mi1wwLAO0TcM8MydRI1ZKtjN+wYCqE4gu2TXezXaMiTjeo86
-	 4bXkQ4uoL9aFU83DBF+gnaTBsG+SY4L48krYNVG7VXto2BfHsFn6OABsFyX92vzRBK
-	 VabTViAf+GgBQ==
+	b=kBohSHw5PO6ZhPDM/V1WCy5vRA9PWOoNBr/q3Oy+f/auUon4nmahU3VG7r7R135Pt
+	 nR+I7ucz92XNaI6xKmY0IBkG7nJCRQMuWrB0qCi+Ia02YRGefZwmnLvvzgeS1jlggq
+	 1jcaxN0dswJbdZTVPEAyGTIDxMz5EbutNW7CgKUiGMm/uDoloo6nsk5KypEQHnfcxa
+	 SJuQnw4+Il0CyOrE4hM8U4Y7nfRZId27IESLbCxIqF55k1jsJC0xuaS7l9Wut5SeW/
+	 myc7/AxnuiX/Nb6HKWbMAkg6KujNfL5kazI5HIsQj6CHLg4gbLFumalBDHgdlU1Kgt
+	 vKmLnE/xPSkHQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/5] dt-bindings: soc: renesas: Add various SolidRun
- RZ/G2 based boards
+Subject: Re: [PATCH v4 5/5] arm64: dts: renesas: add support for solidrun
+ rzg2lc som and hb-iiot evb
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Josua Mayer" <josua@solid-run.com>
-Cc: devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260730-rzg2-sr-boards-v4-1-08bc459578dc@solid-run.com>
+Cc: robh@kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260730-rzg2-sr-boards-v4-5-08bc459578dc@solid-run.com>
 References: <20260730-rzg2-sr-boards-v4-0-08bc459578dc@solid-run.com>
- <20260730-rzg2-sr-boards-v4-1-08bc459578dc@solid-run.com>
+ <20260730-rzg2-sr-boards-v4-5-08bc459578dc@solid-run.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 10:48:56 +0000
-Message-Id: <20260730104856.A190E1F000E9@smtp.kernel.org>
+Date: Thu, 30 Jul 2026 10:49:37 +0000
+Message-Id: <20260730104937.A4AE31F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,74 +47,91 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The bindings for SolidRun SoMs fail schema validation when used =
-standalone, as they omit the 3-item compatible string configurations.
+- [High] The SDHI0 mux logical state mapping and GPIO polarity are inverted=
+ relative to the shared device tree overlays, breaking both eMMC and microS=
+D routing.
 --
 
---- Patch [1]: [PATCH v4 1/5] dt-bindings: soc: renesas: Add various SolidR=
-un RZ/G2 based boards ---
-commit 5a8377d33a57f9f7e33e7aca8fc9422f672bf72b
+--- Patch [5]: [PATCH v4 5/5] arm64: dts: renesas: add support for solidrun=
+ rzg2lc som and hb-iiot evb ---
+commit 5989cde52b0b479fb2863119947d3305e7ea28ea
 Author: Josua Mayer <josua@solid-run.com>
 
-dt-bindings: soc: renesas: Add various SolidRun RZ/G2 based boards
+arm64: dts: renesas: add support for solidrun rzg2lc som and hb-iiot evb
 
-Add bindings for various SolidRun boards and System on Module built
-around Renesas RZ/G2 family of SoCs.
+Add support for the SolidRun RZ/G2LC SoM on Hummingboard IIoT.
 
-> diff --git a/Documentation/devicetree/bindings/soc/renesas/renesas.yaml b=
-/Documentation/devicetree/bindings/soc/renesas/renesas.yaml
-> index eeef34e3d7d07..1673005a3d930 100644
-> --- a/Documentation/devicetree/bindings/soc/renesas/renesas.yaml
-> +++ b/Documentation/devicetree/bindings/soc/renesas/renesas.yaml
-> @@ -508,6 +508,14 @@ properties:
-
-[ ... ]
-
-> +      - description: SolidRun RZ/G2UL based boards
-> +        items:
-> +          - enum:
-> +              - solidrun,rzg2ul-hummingboard-ripple # SolidRun RZ/G2UL H=
-ummingBoard Ripple
-> +          - const: solidrun,rzg2ul-sr-som
-> +          - const: renesas,r9a07g043u12 # RZ/G2UL Type-2
-> +          - const: renesas,r9a07g043
-> +
-
-[Severity: Medium]
-Will this schema definition break validation for standalone SolidRun SoMs?
-
-The current schema items block mandates exactly 4 compatible strings, with =
-the
-first string being one of the carrier board enum values.
-
-If a standalone SoM device tree is defined with 3 compatible strings (e.g.,
-"solidrun,rzg2ul-sr-som", "renesas,r9a07g043u12", "renesas,r9a07g043"), it
-appears it will fail validation because there is no matching 3-item array
-block for the standalone SoM.
+> diff --git a/arch/arm64/boot/dts/renesas/Makefile b/arch/arm64/boot/dts/r=
+enesas/Makefile
+> index 5242eff76ef54..79c06db9ab138 100644
+> --- a/arch/arm64/boot/dts/renesas/Makefile
+> +++ b/arch/arm64/boot/dts/renesas/Makefile
+> @@ -165,6 +165,15 @@ dtb-$(CONFIG_ARCH_R9A07G043) +=3D r9a07g043u11-smarc=
+-du-adv7513.dtb
+>  r9a07g043u11-smarc-pmod-dtbs :=3D r9a07g043u11-smarc.dtb r9a07g043-smarc=
+-pmod.dtbo
+>  dtb-$(CONFIG_ARCH_R9A07G043) +=3D r9a07g043u11-smarc-pmod.dtb
+> =20
+> +dtb-$(CONFIG_ARCH_R9A07G044) +=3D r9a07g044c2-hummingboard-iiot.dtb
+> +r9a07g044c2-hummingboard-iiot-emmc-dtbs :=3D r9a07g044c2-hummingboard-ii=
+ot.dtb rzg2l-sr-som-emmc.dtbo
+> +dtb-$(CONFIG_ARCH_R9A07G044) +=3D r9a07g044c2-hummingboard-iiot-emmc.dtb
+> +r9a07g044c2-hummingboard-iiot-microsd-dtbs :=3D r9a07g044c2-hummingboard=
+-iiot.dtb rzg2l-hummingboard-iiot-microsd.dtbo
 
 [ ... ]
 
-> +      - description: SolidRun RZ/G2L based boards
-> +        items:
-> +          - enum:
-> +              - solidrun,rzg2l-hummingboard-iiot   # SolidRun RZ/G2L Hum=
-mingBoard IIoT
-> +              - solidrun,rzg2l-hummingboard-pro    # SolidRun RZ/G2L Hum=
-mingBoard Pro
-> +              - solidrun,rzg2l-hummingboard-ripple # SolidRun RZ/G2L Hum=
-mingBoard Ripple
-> +          - const: solidrun,rzg2l-sr-som
-> +          - const: renesas,r9a07g044l2 # Dual Cortex-A55 RZ/G2L
-> +          - const: renesas,r9a07g044
-> +
+> diff --git a/arch/arm64/boot/dts/renesas/rzg2lc-sr-som.dtsi b/arch/arm64/=
+boot/dts/renesas/rzg2lc-sr-som.dtsi
+> new file mode 100644
+> index 0000000000000..59635ac842d36
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/renesas/rzg2lc-sr-som.dtsi
+> @@ -0,0 +1,374 @@
+> +// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +/*
+> + * Device Tree Source for the RZ/G2LC Solidrun SOM
+> + *
+> + * Copyright 2023 SolidRun Ltd.
+> + * Copyright 2025 Josua Mayer <josua@solid-run.com>
+> + */
 
-[Severity: Medium]
-Does the standalone RZ/G2L SoM also require its own 3-item validation block
-for the same reason?
+[ ... ]
 
-Without it, standalone SoM configurations will likely fail dt_binding_check
-and dtbs_check validation.
+> +	sdhi0_mux: mux-controller-0 {
+> +		compatible =3D "gpio-mux";
+> +		#mux-control-cells =3D <0>;
+> +		#mux-state-cells =3D <1>;
+> +		/*
+> +		 * Mux switches SD0_DATA[0-3], SD0_CMD & SD0_CLK between
+> +		 * on-SoM eMMC and board-to-board connector using one gpio:
+> +		 * 0 =3D connector, 1 =3D eMMC.
+> +		 */
+> +		mux-gpios =3D <&pinctrl RZG2L_GPIO(22, 1) GPIO_ACTIVE_HIGH>;
+
+[Severity: High]
+Does this inverted mux logical state mapping break the eMMC and microSD rou=
+ting?
+
+The Makefile applies shared overlays (rzg2l-sr-som-emmc.dtbo and
+rzg2l-hummingboard-iiot-microsd.dtbo) to this base DT.
+
+The shared eMMC overlay hardcodes mux-states =3D <&sdhi0_mux 0>, and the
+microSD overlay hardcodes mux-states =3D <&sdhi0_mux 1>.
+
+Since this file defines the mux with GPIO_ACTIVE_HIGH and a logical mapping
+of 0 =3D connector, 1 =3D eMMC (which is inverted from the G2L base DT that=
+ uses
+GPIO_ACTIVE_LOW and 0 =3D eMMC, 1 =3D connector), the shared overlays will =
+request
+the wrong logical states.
+
+Will this cause the eMMC overlay to incorrectly route SDHI0 to the connecto=
+r,
+and the microSD overlay to incorrectly route it to the eMMC?
+
+> +	};
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-rzg2-sr-bo=
-ards-v4-0-08bc459578dc@solid-run.com?part=3D1
+ards-v4-0-08bc459578dc@solid-run.com?part=3D5
