@@ -1,218 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1296643E9DF
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 14:44:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6101F3750CF;
+	Thu, 30 Jul 2026 14:46:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785422656; cv=none; b=IXkNwyvkt0nFMBLo0QXTOo0n/8FfLaXJOtxnx7rDir7iopplqPE6KY4gep6RPH3uclbU58dfSWhM1vhhOqS9uYan+DPbOq6cdQMHSKpNiRxelwZKM3kXIbSm2HVZQCsREBkZsGviwOQw6jxm7X7Z88JfLfujA/+bzEIiEPmL2Uc=
+	t=1785422767; cv=none; b=JUA9q8sAJUmFyhbFBGIIn4ZU7yumdHp+6WCJWfzxjy1ePEx4pEDjnIqY/6CBdZ+n7F8+sWuJ59nyIpANycioBTvQaEtNT04znivfthftRFkBwAULoCIj/5n75WIbyK+mc4FbCDIaS12T29/1Qh1NC5h3NkOBLCtpJSu96Ai2yQ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785422656; c=relaxed/simple;
-	bh=XS52QAQ2bEHKxSH/Kjzy270LCFOy3uretPxqdztZKRc=;
+	s=arc-20240116; t=1785422767; c=relaxed/simple;
+	bh=cyO4k1UBkIgwI0/RC7RFnxuCHLFkt4asQTwVlKrIiT4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=UTL9mCd950EIvV0sWXkW9BBfvb3mI4gSCSuXrIBQQGljZDp4K9oc6Z4LDNApykmm1cwTMDBeH6f1HmFTbONCdk/01wlZyC34/O0N7sHp6WG25/wdmohi3JFCRgBD96Jpu1CfPaJG4TEXA97GNuDpReOhQMn3vxJTrh29AX/U3hQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G5l2MhOA; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=RMW3boWckqfRiyHVf6PSpO4dTUGg+OQyCiHv2S/O1FBZvNXjatr2k0vhSBeIcgPNA6XAPREG6AIm8FIB5E+orUinwWOhhsDaqgg1FnDmHVMTYu1SYqP8WrmdL7kv3cKy5rVXu55mKAx01Pt5IxH3fmqjIZv3Ltx48saEEcBsrtc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bZ5vSK0c; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G5l2MhOA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FFC81F000E9;
-	Thu, 30 Jul 2026 14:44:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bZ5vSK0c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A68E41F000E9;
+	Thu, 30 Jul 2026 14:46:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785422654;
-	bh=oXA7eNEE4kJ3LKFfEMb0sQdmSsbvIZKBPe2ae4fiWOU=;
+	s=k20260515; t=1785422766;
+	bh=lMQfa+l4JWKa1zXCGmv8pzcu5cAGN8/KzhDC1914/7w=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=G5l2MhOAAjvu7qkulXgUUfUXXw7VOmpxphpC8mr8uLcAh5XSXt51L1Wt4mFY4IpGJ
-	 ytTz0YHxaU1qiJVbLFHdE/WDB6VgdRe2WVDBx+zmQInu875pLTsDGQ60b0gMkVebMK
-	 +pCMuT2TcBdal1ksXRyHQ6yv66cCY7icnpvKvzJFc0+MXp6WygNHcpC8QliwqV4dbj
-	 hVm4ErpvNZdV2iPlCUAR5Bap+rTvufBTjH/+XOMAQpfVhG4IMmz0dVRF1ffibLWbeN
-	 dgva7fDcHqanRh8n/RWKKPzj80AkqeIsvvOsYWjjn27qgOZMWcNc+5JcEdH83XiINq
-	 xL2QodwXcknXQ==
+	b=bZ5vSK0cfLp31D9ORtYy5q6kPM1vSHCA5mtLcU1n1p8+hXX3psU70Z+8w7mPjTHHs
+	 6H1btTDSV21Bhb6nlLoixzoldg6/rjrFrnpMeaiXP4aHW9EXqm91Q54Bn6EYvV041r
+	 P89YtWC3SWdBMLUb03npDtcdzN86SMJnd0WdaF8nNomxd/ioZi3CDoRDzu++j2y+Yh
+	 WnnqydWSONVT6c2ZAJVxiByvRxCV03buomEgaO8yNhZ5mSX/xrNIOCqdvblTqWkFJG
+	 LJqZn7H9BVTmR43tYm2oYiLPwA1sjxoPn4HavrQoPWwCLhEq+9UzHPE+WYM7q+mdCT
+	 8Wm6EVaySvoSA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/5] phy: qualcomm: qmp-combo: Add USB4/TBT3
- configuration data for Hamoa
+Subject: Re: [PATCH v6 2/4] can: rockchip: add RK3588 CAN support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Konrad Dybcio" <konradybcio@kernel.org>
-Cc: robh@kernel.org, vkoul@kernel.org, devicetree@vger.kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org, neil.armstrong@linaro.org, conor+dt@kernel.org
-In-Reply-To: <20260730-topic-usb4phy-v3-4-ccf0f7ea98b5@oss.qualcomm.com>
-References: <20260730-topic-usb4phy-v3-0-ccf0f7ea98b5@oss.qualcomm.com>
- <20260730-topic-usb4phy-v3-4-ccf0f7ea98b5@oss.qualcomm.com>
+To: "Cunhao Lu" <1579567540@qq.com>
+Cc: "Marc Kleine-Budde" <mkl@pengutronix.de>, "Oleksij Rempel" <o.rempel@pengutronix.de>, robh@kernel.org, linux-can@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, "Oliver
+ Hartkopp" <socketcan@hartkopp.net>, "Vincent Mailhol" <mailhol@kernel.org>
+In-Reply-To: <tencent_207E464D12344B3228096E23A001D6882508@qq.com>
+References: <20260730-master-v6-0-dfb63e234775@qq.com>
+ <tencent_207E464D12344B3228096E23A001D6882508@qq.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 14:44:14 +0000
-Message-Id: <20260730144414.5FFC81F000E9@smtp.kernel.org>
+Date: Thu, 30 Jul 2026 14:46:05 +0000
+Message-Id: <20260730144605.A68E41F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Missing clk_disable_unprepare() for p2rr2p_pipe_clk on error paths=
- in qmp_combo_usb4_init().
-- [High] Double initialization of the PHY in qmp_combo_usb4_init() when swi=
-tching from USB3 mode.
-- [Medium] Silent replacement of USB3 configuration values.
-- [Medium] Unchecked usage of `pcs_aon` during USB4 initialization.
-- [Low] UCDR registers are incorrectly prefixed with TX instead of RX.
+
+Pre-existing issues:
+- [High] The rockchip_canfd driver unconditionally enables CAN-FD mode in t=
+he hardware, even if the user only requests Classic CAN mode. However, the =
+data bit timing registers are only initialized if the user explicitly reque=
+sts CAN-FD. This leaves the hardware configured to process CAN-FD frames bu=
+t with uninitialized data bit timing, causing it to lose synchronization an=
+d transmit error frames, which disrupts valid CAN-FD traffic on the bus.
 --
 
---- Patch [4]: [PATCH v3 4/5] phy: qualcomm: qmp-combo: Add USB4/TBT3 confi=
-guration data for Hamoa ---
-commit 49d296c106dd364ca64df2721ab78171f96275ce
-Author: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: phy: qualcomm: qmp-combo: Add USB4/TBT3 configuration data for Ham=
-oa
+--- Patch [2]: [PATCH v6 2/4] can: rockchip: add RK3588 CAN support ---
+commit c9bd120b397e60634c9f6a44ebe7ae2f872b4274
+Author: Cunhao Lu <1579567540@qq.com>
 
-Add the offsets and configuration tables to support USB4 and
-Thunderbolt 3 operation on the USB4-capable PHYs found on Hamoa chips.
+can: rockchip: add RK3588 CAN support
 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qual=
-comm/phy-qcom-qmp-combo.c
-> index b80eac9d71401..419668e014906 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+Add support for the RK3588 CAN controller by introducing a dedicated
+model ID and OF match entry. Enable existing erratum 5 and 6 workarounds
+and enable CAN-FD for RK3588.
 
+> diff --git a/drivers/net/can/rockchip/rockchip_canfd-core.c b/drivers/net=
+/can/rockchip/rockchip_canfd-core.c
+> index 29de0c01e4edc..37c1c22c40c9f 100644
+> --- a/drivers/net/can/rockchip/rockchip_canfd-core.c
+> +++ b/drivers/net/can/rockchip/rockchip_canfd-core.c
 [ ... ]
-
-> +static const struct qmp_phy_init_tbl x1e80100_usb3dp_serdes_tbl[] =3D {
->  	QMP_PHY_INIT_CFG(QSERDES_V6_COM_SSC_EN_CENTER, 0x01),
->  	QMP_PHY_INIT_CFG(QSERDES_V6_COM_SSC_PER1, 0x62),
-
-[Severity: Medium]
-Does this introduce a silent functional change to the USB3 SerDes
-initialization sequence?
-
-The patch renames the original x1e80100_usb43dp_serdes_tbl to
-x1e80100_usb4_serdes_tbl for USB4, and introduces this new table for USB3
-operations.
-
-However, this new table contains distinctly different tuning parameters
-(e.g., QSERDES_V6_COM_SSC_STEP_SIZE1_MODE0 changes from 0xd9 to 0xc2, and
-LOCK_CMP1_MODE0 changes from 0x1a to 0x08).
-
-Since this change is not documented in the commit message, is there a risk =
-of
-regression for USB3 operations?
-
-[ ... ]
-
-> +static const struct qmp_phy_init_tbl x1e80100_usb4_rx_tbl[] =3D {
-> +	QMP_PHY_INIT_CFG(QSERDES_V6_N4_RX_SIGDET_CNTRL, 0x04),
-> +	QMP_PHY_INIT_CFG(QSERDES_V6_N4_RX_SIGDET_DEGLITCH_CNTRL, 0x0e),
-
-[ ... ]
-
-> +	QMP_PHY_INIT_CFG(QSERDES_V6_N4_TX_UCDR_FASTLOCK_COUNTER_LOW_RATE2, 0x30=
-),
-
-[Severity: Low]
-This isn't a bug, but should these UCDR macros use an RX prefix instead of =
-TX?
-
-UCDR (Universal Clock and Data Recovery) is strictly an RX feature, and the=
-se
-offsets belong to the RX block. They are populated correctly in this RX tab=
-le,
-but the misleading _TX_ prefix could pose a maintainability risk.
-
-[ ... ]
-
-> @@ -2689,11 +2864,11 @@ static const struct qmp_phy_cfg sc8280xp_usb43dpp=
-hy_cfg =3D {
->  	.regs			=3D qmp_v5_5nm_usb3phy_regs_layout,
->  };
+> @@ -148,6 +156,12 @@ static int rkcanfd_set_bittiming(struct rkcanfd_priv=
+ *priv)
 > =20
-> -static const struct qmp_phy_cfg x1e80100_usb3dpphy_cfg =3D {
-> -	.offsets		=3D &qmp_combo_offsets_v5,
-> +static const struct qmp_phy_cfg x1e80100_usb43dpphy_cfg =3D {
-> +	.offsets		=3D &qmp_combo_offsets_v6_n4,
-
-[Severity: Medium]
-Does supporting USB4 introduce a latent bug in qmp_combo_com_init()?
-
-In qmp_combo_com_init(), if qmp->qmpphy_mode =3D=3D QMPPHY_MODE_USB4, the d=
-river
-directly executes:
-
-qmp_combo_com_init() {
-    ...
-    if (qmp->qmpphy_mode =3D=3D QMPPHY_MODE_USB4)
-        qphy_setbits(pcs_aon, cfg->regs[QPHY_PCS_USB4_CLAMP_ENABLE], CLAMP_=
-EN);
-    ...
-}
-
-Unlike other instances where pcs_aon is strictly checked (if (pcs_aon)) bef=
-ore
-dereferencing, this assumes pcs_aon is populated. While this works on
-x1e80100 because its layout defines .usb3_pcs_aon (in qmp_combo_offsets_v6_=
-n4),
-any future configuration supporting USB4 but omitting usb3_pcs_aon (e.g.,
-sc8280xp which uses qmp_combo_offsets_v5) would trigger a NULL pointer
-dereference.
+>  	rkcanfd_write(priv, RKCANFD_REG_FD_DATA_BITTIMING, reg_dbt);
+> =20
+> +	/* RK3588 CAN-FD BRS works with TDC disabled. */
+> +	if (priv->devtype_data.model =3D=3D RKCANFD_MODEL_RK3588) {
+> +		rkcanfd_write(priv, RKCANFD_REG_TRANSMIT_DELAY_COMPENSATION, 0);
+> +		return 0;
+> +	}
+> +
 
 [Severity: High]
-Does enabling USB4 expose resource leaks in qmp_combo_usb4_init()?
+This isn't a bug introduced by this patch, but it appears there is a
+pre-existing issue with how CAN-FD is enabled that affects both RK3568 and
+the newly added RK3588 controllers.
 
-If a failure occurs during initialization, qmp_combo_usb4_init() immediately
-returns the error code:
+In drivers/net/can/rockchip/rockchip_canfd-core.c:rkcanfd_chip_start(), the
+hardware is unconditionally configured to enable CAN-FD mode by setting
+RKCANFD_REG_MODE_CAN_FD_MODE_ENABLE.
 
-qmp_combo_usb4_init() {
-    ...
-    ret =3D qmp_combo_com_init(qmp, false);
-    if (ret)
-        return ret;
-    ...
-}
+However, in rkcanfd_set_bittiming() (just above the changes in this hunk),
+if the user configures the interface in Classic CAN mode, the initialization
+of data bit timing registers is skipped:
 
-However, it fails to call clk_disable_unprepare(qmp->p2rr2p_pipe_clk), which
-was successfully enabled earlier in the function. Does this result in a
-resource leak on the error paths for qmp_combo_com_init(),
-qmp_combo_reconfigure_phy(), and qmp_combo_usb_power_on()?
+	if (!(priv->can.ctrlmode & CAN_CTRLMODE_FD))
+		return 0;
 
-[Severity: High]
-Can switching from USB3 mode cause a double initialization of the PHY?
+Does this leave the hardware configured to process CAN-FD frames but with
+uninitialized data bit timing?
 
-When qmp_combo_usb4_init() executes and USB3 is already active
-(qmp->usb_init_count > 0), it calls:
-
-qmp_combo_usb4_init() {
-    ...
-    ret =3D qmp_combo_reconfigure_phy(qmp, QMPPHY_MODE_USB4);
-    if (ret)
-        return ret;
-
-    ret =3D qmp_combo_usb_power_on(phy);
-    ...
-}
-
-Inside qmp_combo_reconfigure_phy(), if qmp->usb_init_count is non-zero, it
-explicitly calls qmp_combo_usb_power_on(qmp->usb_phy).
-
-After returning successfully, qmp_combo_usb4_init() proceeds to call
-qmp_combo_usb_power_on(phy) a second time. Could writing the entire
-configuration sequence (tuning parameters, clearing resets, setting
-SERDES_START | PCS_START) to an actively running PHY cause hardware lockups
-or polling timeouts?
-
-[ ... ]
-
-> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-qserdes-txrx-v6_n4.h b/dri=
-vers/phy/qualcomm/phy-qcom-qmp-qserdes-txrx-v6_n4.h
-> index d37cc0d4fd365..e72ae2cb460ac 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-qmp-qserdes-txrx-v6_n4.h
-> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-qserdes-txrx-v6_n4.h
-> @@ -23,27 +23,63 @@
-
-[ ... ]
-
-> +#define QSERDES_V6_N4_TX_UCDR_FASTLOCK_COUNTER_LOW_RATE1	0x224
-
-[Severity: Low]
-This isn't a bug, but as mentioned above, these UCDR macros are prefixed wi=
-th
-TX instead of RX despite UCDR being an RX feature.
+If a valid CAN-FD frame with BRS is sent by another node on the bus, could
+this controller attempt to switch to the uninitialized data bit timing, fai=
+l,
+and actively transmit an error frame, disrupting valid CAN-FD traffic?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-topic-usb4=
-phy-v3-0-ccf0f7ea98b5@oss.qualcomm.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-master-v6-=
+0-dfb63e234775@qq.com?part=3D2
