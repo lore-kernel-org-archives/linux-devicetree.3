@@ -1,83 +1,83 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C2DC38BF81
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 16:29:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59DBA3750CF
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 16:31:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785428943; cv=none; b=NPprTBgYAEXUfzLxz76jGIcg+1nYnwjZ1x8fVUALsMTK/ZnGVYrRML8/KJpnAGrWlbgBZXXJyYUio6hucsYZAX3gGIGRc4Vv+7269zDsDyAh9p6/jQBb6wvQwxo4blBKI699WsNDy+PxZ+ux7ACb1bDtOwxQkEycw/VH1UmKdEQ=
+	t=1785429101; cv=none; b=gf3ataerQ/I4I+TJv1QCkzjHUW8tNre5IfHH0xQR1JVlr0qBK7Atqp60WhR5IOLrrFPEJaUtB3ixsDc5w+IZ5Kf5JSitPkb/2FHw+Fa/bIkYjIH9lK7L9V176fhWyUTP+4od4j0FZVWj31gq3BC2HAoHLQgRrf+vmbj5kQOxJAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785428943; c=relaxed/simple;
-	bh=8S+TWKatXbX5wujIAAzGp39n4pQcsk+sM8ipb22/aEQ=;
+	s=arc-20240116; t=1785429101; c=relaxed/simple;
+	bh=4DEOhG/gAL2tFwgrO17fUGpYKuc98k4IngdS7c+uNb8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=f/wdulqRYOSn6PTbVZHExchsqc4dvA+y8OGopbdLs9bxft8peUjuaEaU32pX4ip/ABqHTbnqj/X/FnhIGdRQJPJrnqZGhSS8NSw03iXp90+Lh8JZ/qWaiozxEAw3wxz4VekcvYH0iQ+aKKwFYHwyARmdwLvgVm1Nth2OiHVg9NA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=chW2OVNu; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=M71WIobj; arc=none smtp.client-ip=170.10.133.124
+	 Content-Type:Content-Disposition:In-Reply-To; b=VYxDyhPi7uoPofFsFKXUv0D/s9q5A0FN3Lp4+A2SqMwaLIr6NkEasW4PjeTJp0LyaKw7bsJ8dJsKnUNdkGIqg6h8CzMAVGCczwBAwyYM239chNXZEnG1e7QGBLcu/qDTLoaDMBWty8TFEDcWzGPZlTIWLLuT22bGrLmZAMIXXCU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=c8O4hzDd; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Sm8fZ2JU; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="chW2OVNu";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="M71WIobj"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="c8O4hzDd";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Sm8fZ2JU"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1785428939;
+	s=mimecast20190719; t=1785429099;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=YWnL5VleVaqHnf4WDlOmR61fSZ2iE1J6L7mVb4UvJLk=;
-	b=chW2OVNuwiMJ5FdTDDC4E/CW1qsc3l3HORqD+G1pI+BJSlD4CEXF4eU+Yhxbq4MPhpYGJi
-	xeQq0uSSoJoBshk714wUB1gnd8j+0Qy/3x5tx+NA2Sz7NVsViNcHPKpbSdBbdcb0050258
-	w+DaQZTpq/keCZaLV+5ECEufQ1GXe5I=
-Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com
- [209.85.128.200]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=XjO18nbJbiIjdwy1Ooeo07xeKl9j1Vrh8YDkz9Zjps4=;
+	b=c8O4hzDdluaQ8yCLSRjdgDhxXUTQbOcw/7VaE7gZprzLfjzzA36Eh7xop7PVKJTDGcJyms
+	IDTPHn80+vbAGQTLfWcGx2vmTPh9BNi9cNB02tMFvXqcalBwZS9qPIgV57fDwqrAX7M0/Q
+	rC6KOA7xyfUz/jDIE+phwkieaq6a7bc=
+Received: from mail-yx1-f70.google.com (mail-yx1-f70.google.com
+ [74.125.224.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-628-BCL9BkyXMyu5rFyaNVMM1w-1; Thu, 30 Jul 2026 12:28:56 -0400
-X-MC-Unique: BCL9BkyXMyu5rFyaNVMM1w-1
-X-Mimecast-MFC-AGG-ID: BCL9BkyXMyu5rFyaNVMM1w_1785428936
-Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-81cb01c07b2so177747b3.1
-        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 09:28:56 -0700 (PDT)
+ us-mta-275-vcnk-F1qPPKo--DKMN5zPQ-1; Thu, 30 Jul 2026 12:31:37 -0400
+X-MC-Unique: vcnk-F1qPPKo--DKMN5zPQ-1
+X-Mimecast-MFC-AGG-ID: vcnk-F1qPPKo--DKMN5zPQ_1785429096
+Received: by mail-yx1-f70.google.com with SMTP id 956f58d0204a3-66799e7a177so6451213d50.1
+        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 09:31:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1785428936; x=1786033736; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1785429096; x=1786033896; darn=vger.kernel.org;
         h=user-agent:in-reply-to:content-disposition:content-type
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=YWnL5VleVaqHnf4WDlOmR61fSZ2iE1J6L7mVb4UvJLk=;
-        b=M71WIobjLcSRkZYmyRuWDhi6RkQ5L5SPpQxZl9utPY540t0PHJR+ejQ28Ji8vWQKYt
-         ZQXs+ntAl3X8PwI4gT8Ov+y5oBKS1pDrHiSeRNb0dL/Ws5e9WBa6KP3BKobUjeWWUUTy
-         ebvaqAjUmHQqZhqxYKN+/HJ8P8ql3mndrjiS0KrN6z3RfF939OgMKfmyFCIdfUAttAUQ
-         A1u1lQjGG+ufs3z7Fd1rA/k/Or4n3FD9CXbFoaUZ98UyisayC7UqiXNXUgNcHUwhcSPG
-         hoOs6KqCap5tIXW2g3IFu/LgWF7lvE6AG+IzT00mhRWFoCH+sjTG/RkbZmpYBHhvCxCx
-         MU9w==
+        bh=XjO18nbJbiIjdwy1Ooeo07xeKl9j1Vrh8YDkz9Zjps4=;
+        b=Sm8fZ2JUq5/0+nLOwRTZt1cwSorDk7k7eGR0aHfzMAXpPqk5v73i+mLB/O0bQjWbQb
+         rgpstkGBIKPfQZRcbAOJpgh0DP8pXB8qw9l0gWJvik5C+0gAeLUeWGFBywa2uMAiMLVa
+         A/4OvBCCDl6pqUCzFhIzzEEmOHVqjIqpYCxQ0U7z3iPpCT0eHhkshwpPeEN5nuecUMYO
+         1Lr+iIQJ4STfTkb3PayxZnbSuixWCUK6t7HC/cz8tPG0VvyOS8qSBXZfphpffclZYQzh
+         RGcGS7hul1Icwbl1qChqfG8bS9HiCkk40Oy/Gjj8C4clJsDlG7GceKHOEeG7S6623iOV
+         wxHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785428936; x=1786033736;
+        d=1e100.net; s=20251104; t=1785429096; x=1786033896;
         h=user-agent:in-reply-to:content-disposition:content-type
          :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=YWnL5VleVaqHnf4WDlOmR61fSZ2iE1J6L7mVb4UvJLk=;
-        b=J0Xuo1pghdnJWwKvc/WWILrJO/4qTj9RML2BmpiH0NBZxfW1Fk0wqCd3H9lvC712Uu
-         tN7EJb2zlUONSHybfzplrflVBkAIKNHP43Ed/zXMoVhvrGGdA2KSaG0jgySaJPJTNON5
-         t11O5JGsdsv1hpjQ3ZBZKLOTVYOoHFFLbAhP/exhV7kSNvEuzZFOFbgOxioSWI2umahF
-         2y00lnl3WLaeIvrClfvCVnLq6EdLu/raQ21uY9QJx5sySjqMhXN/sV8bHoxsi0AN3Wf0
-         wV7/tNZxKitPkTazE1dHjpZlpaPQAXx3lfT/RoGwiR7Td6/gSY2YfHQt5c7PatreBbx6
-         uGcw==
-X-Forwarded-Encrypted: i=1; AHgh+RropXBxnUdxLMEQd/Rc6i6PI85QjQqV8Z/oqdvzzfzDsDrSL4HekmJPC7soBwAut1oBxjK8ZUfHyqoy@vger.kernel.org
-X-Gm-Message-State: AOJu0YxQLrDTPMVfyx0TzdlwoIRrfaOKcZ+7jbZ54fy0KB+hk8dkCDbD
-	NCMA2dJBgifhEeJjTs3HNROJ8U0hFmtqzsmxESqwSXJwRPnNtcKw8eCFaPGseRV8lWwdsiEAZJl
-	CLhBRx16d8u87dBF70RwwDWsOzuMJtzrzQxSzd4pyGVQtq89hUabTl8tha0hmAoE=
-X-Gm-Gg: AR+sD105jWkLeUCdojOOqX6J5Z9iXxqCo5AA2DiPe3JSMkcmw/ECnUUCzcGr6hpzt29
-	WewX9z7SZ27Kiwcwl9QmWDe0Hy3n6feUqnznmz5Axn24G0VhL9b2V9SvWso7iovW3SvB1PYl8nM
-	Dy6zEm+r65iT1Cm98GV7OamOUazAUbhnniqnQglVb/xtKoZhfQ0I8i9BREn4Np58t2XcDIUj/Rb
-	5LUn5pfZtRljezIPJlxPFGnLuLkqwY3UNuzFR2HZX4pwucFOlZoJq9+z+vjkchlOBeDOQ6+W532
-	ukp2rjpfzxPS0dCh1Wa9MtaDG53Kj+Soz5G5/t4rd3hBRYVV+ql+sFCEfOjl9arg+Bj0oMnIPQD
-	E50RcMiRvjzq+fmo57H2l+CHH9g3c1AtYgW4=
-X-Received: by 2002:a05:690c:3503:b0:81e:6c2e:f114 with SMTP id 00721157ae682-81fb895416fmr21778887b3.30.1785428935668;
-        Thu, 30 Jul 2026 09:28:55 -0700 (PDT)
-X-Received: by 2002:a05:690c:3503:b0:81e:6c2e:f114 with SMTP id 00721157ae682-81fb895416fmr21778617b3.30.1785428935253;
-        Thu, 30 Jul 2026 09:28:55 -0700 (PDT)
+        bh=XjO18nbJbiIjdwy1Ooeo07xeKl9j1Vrh8YDkz9Zjps4=;
+        b=dPD1V3KehvSDByja5DwKGnzehDEoJVg2R0UOtuCS3Tngdf1UUwNhxcZCZvmri3PDdu
+         bTXGPyteNddXwFePHkOp3xLZHSdmdHuOPpV3UX9exRo9MZmdqL0Ld6FH6pHb26vDfQBz
+         mTAtuQ7iValbWbkJOJGNu1v8PmiM53Hjru2FdlrhlgMI1IxjHWKLI2LG8xOWrcz5jV1f
+         mZqgQbz7+jqcP/bsuyPpjUGQAUHWtTNFOwTFH4q2+QTbtjQyVJelLnrO1MXLudwp3ns9
+         gCNYv69UeTzi+sBqpEkMrXeVyubw7Dm212dVM/X9gHD1P6z/usvpgFvkJhj3Z0Ge+VY2
+         xb6Q==
+X-Forwarded-Encrypted: i=1; AHgh+Rq6bVITa7JlOit9zhwX3+8ZJtr5+R7UFcNwUbEC1dmkFN0wklW4sYU1O2Nhei/oQya1sKjdWnvQglgC@vger.kernel.org
+X-Gm-Message-State: AOJu0YweK0st6YI+4GsV8/F2VqovTi1i3JZfm0Gya/tWRdigVDOVKgEg
+	gMc3QoOTiKkCI92rc4ckPkQk5ACdQEckhTX0VNJEQPZX2wKlqxcznxgJqFwjcTFnMdsDnIEHF3f
+	bq/YWhQmlEcFTHRpCig2QMmVN/8ytuXTL/eT9na51LGiDF6qK9fTJvFM1GROhGFM=
+X-Gm-Gg: AR+sD101Cvy/UGC+1nv4E5dxC8NfSmE2ZpwIQRlx9E+b+RbkylxBbM+49km2np33vQ6
+	Wfkb4nOHIaFqii6Hn17eC59h5J+Xum8pjxk6gmKcFGPgduuEHo2+XzPtWRH+YACPIzD3dWqQ85c
+	2U69cBFP5PcroAF1B71MrJIv7BCa8n4W1cb0JsC6zFhka4ExbjjfB6z/IXiglC9xQm3xtKTtVt3
+	7Msv91t2f8oQw/ZjKYnGxTZiaWLS/GQyOxHiaXjkKZqQ3HjVG8+b3/UxO5GFwMf9mtghv0glMHd
+	bp01Em2cyh4z3hD0WlBU/wVW4LgHkAw62yGPnKAADPlqVQUqAkZcVSGIY5rBA/1Sa0QfzoJnbgS
+	cFtKx9PlytsEBj18QZLMQoxhevvEddu8rFro=
+X-Received: by 2002:a05:690e:4809:b0:667:e8a3:ebd4 with SMTP id 956f58d0204a3-6693a328de2mr569825d50.4.1785429095987;
+        Thu, 30 Jul 2026 09:31:35 -0700 (PDT)
+X-Received: by 2002:a05:690e:4809:b0:667:e8a3:ebd4 with SMTP id 956f58d0204a3-6693a328de2mr569786d50.4.1785429095425;
+        Thu, 30 Jul 2026 09:31:35 -0700 (PDT)
 Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-81fb88c4a57sm13093077b3.8.2026.07.30.09.28.52
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6692c8e57f2sm1632516d50.13.2026.07.30.09.31.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 09:28:54 -0700 (PDT)
-Date: Thu, 30 Jul 2026 12:28:51 -0400
+        Thu, 30 Jul 2026 09:31:34 -0700 (PDT)
+Date: Thu, 30 Jul 2026 12:31:31 -0400
 From: Brian Masney <bmasney@redhat.com>
 To: Yu-Chun Lin <eleanor.lin@realtek.com>
 Cc: mturquette@baylibre.com, sboyd@kernel.org, robh@kernel.org,
@@ -86,13 +86,12 @@ Cc: mturquette@baylibre.com, sboyd@kernel.org, robh@kernel.org,
 	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
 	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
 	linux-realtek-soc@lists.infradead.org, james.tai@realtek.com,
-	cy.huang@realtek.com, stanley_chang@realtek.com,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v11 01/11] dt-bindings: clock: Add Realtek RTD1625 Clock
- & Reset Controller
-Message-ID: <amt7w327inR5rZrU@redhat.com>
+	cy.huang@realtek.com, stanley_chang@realtek.com
+Subject: Re: [PATCH v11 05/11] clk: realtek: Add support for phase locked
+ loops (PLLs)
+Message-ID: <amt8Y84Z0O3ZEVnk@redhat.com>
 References: <20260728142806.1954638-1-eleanor.lin@realtek.com>
- <20260728142806.1954638-2-eleanor.lin@realtek.com>
+ <20260728142806.1954638-6-eleanor.lin@realtek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -101,37 +100,18 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260728142806.1954638-2-eleanor.lin@realtek.com>
+In-Reply-To: <20260728142806.1954638-6-eleanor.lin@realtek.com>
 User-Agent: Mutt/2.4.0 (2026-06-19)
 
-Hi Yu-Chun,
+On Tue, Jul 28, 2026 at 10:28:00PM +0800, Yu-Chun Lin wrote:
+> From: Cheng-Yu Lee <cylee12@realtek.com>
+> 
+> Provide a full set of PLL operations for programmable PLLs and a read-only
+> variant for fixed or hardware-managed PLLs.
+> 
+> Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
+> Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
 
-On Tue, Jul 28, 2026 at 10:27:56PM +0800, Yu-Chun Lin wrote:
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 2f9472c1a090..65dd2be63903 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -22741,6 +22741,16 @@ S:	Maintained
->  F:	Documentation/devicetree/bindings/net/dsa/realtek.yaml
->  F:	drivers/net/dsa/realtek/*
->  
-> +REALTEK SOC CLOCK AND RESET DRIVERS
-> +M:	Cheng-Yu Lee <cylee12@realtek.com>
-> +M:	Yu-Chun Lin <eleanor.lin@realtek.com>
-> +L:	devicetree@vger.kernel.org
-
-You add drivers to this list later in the series.
-devicetree@vger.kernel.org shouldn't be listed here so that the list is
-not CCed for just driver changes. It'll get picked up if someone is
-making changes to the dt-bindings via the "OPEN FIRMWARE AND FLATTENED
-DEVICE TREE BINDINGS" entry.
-
-Brian
-
-
-> +L:	linux-clk@vger.kernel.org
-> +S:	Supported
-> +F:	Documentation/devicetree/bindings/clock/realtek*
-> +F:	include/dt-bindings/clock/realtek*
-> +F:	include/dt-bindings/reset/realtek*
+Reviewed-by: Brian Masney <bmasney@redhat.com>
 
