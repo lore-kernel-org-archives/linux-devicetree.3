@@ -1,133 +1,304 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E7D3403EB9
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 10:57:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E814285CAE
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 10:59:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785409071; cv=none; b=qATBXEP6wkoe3B/Ks9n8rF8CtoGsMN80RaEREo+JxiMCzVHW5nVuh6AMzTd5lrbMk8cN1EjF8Ky1i+fNYOyWaIrgkCBq8dakhNVbhgd2gtKXmyPR3pMwM09UAegoGYN3QClkIOGNtXzk1ynu+1vEvpip+3o2chePBec5UTkrZ8o=
+	t=1785409145; cv=none; b=T/fouxkacZ6KbRSbbbJa8xL58Mlzvl+Kb+nOurc1ssy10FBrzw9aGZkuypcc+SzwNNeLd8rulyT9x16lEbU4TadVgB9EB9IE8Xr1ns3UxghZc7QEvOUB2a9cZB9yzWrmwz3yU5scBYC023tfP4UsgmPpXBPVg7T67i4Flx2zXfw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785409071; c=relaxed/simple;
-	bh=Et0MYsLF5el2hWETaePn5JkolcyqJFrf+bUJ5sz/XWc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=YBeLFgqT8xeyezMYplQN5a3ShkTe1SZuq6dmWuDyVwjwMa2ePxViazY+D+FVF67TVt1e1pYbc7oDaWZqHktrDslXSjdxJBfUibITMtWTTKHp0z39eMZHMuLZ8RBCJLfsTEO2wPjv0b9i5Z9FWV7XO1MQHK/lI/F99wbDw1ZwRWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XXom8PEr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785409145; c=relaxed/simple;
+	bh=IlR0H9+SlG9P5g6Vqx0YNOsYeeXosbjupRt+YlFtkiE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=edAyZiw190QrvDCEwmCCsyOwsRj5ivKSpVgKs1ycWRt8WrMIWduREtxDeC1L3wBofYS4/DSaMoBRnav6E9ZRaU9p69woyu+rXieMYlTvYDdfCqaWRgKai/b5btp+68+RVv8TuYlX22nFmj7hG7Xw9H4X/Um2dDjFKITo0WE3rSQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jtixZeiH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Xs1GrBIe; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XXom8PEr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ACFB1F000E9;
-	Thu, 30 Jul 2026 10:57:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785409069;
-	bh=CGLTH8mLSMmzXrI3yoJvMERWFLuy10MQLMjg4nlctmM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XXom8PErtyXu7adJIbant5z3YlPAkJBpc8mJg2fL6IzAkihCFwvpDZB1R6GWI7DDq
-	 T2KfdPIjK1eINbJrKzW+EC8DflHYkVlWk/I7cRJuO0HdiJpqubrSgQc2yGdfJgLkFq
-	 iKO3M1RjY2PapcBm6ndh6Ya2oq3BdBy5Zq6u3KwJl69PGtjDcoLq5oca3Q+xXq0Rvj
-	 4sNFa9P044dkXIUsVBVC6IdSuN6EpD8IUd4itTO02OOS8b9W5f2wcdS6/TglpzNdUH
-	 +Hfn8r6ewPmGoSTPhZLHh6xIoLpZVuKglJu+vT2dyg28kuu9k5kNzvLxsuiIipAXKM
-	 RwK+/zcqSPV0g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/5] arm64: dts: renesas: add support for solidrun
- rzg2l som and hb-iiot evb
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Josua Mayer" <josua@solid-run.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org
-In-Reply-To: <20260730-rzg2-sr-boards-v4-3-08bc459578dc@solid-run.com>
-References: <20260730-rzg2-sr-boards-v4-0-08bc459578dc@solid-run.com>
- <20260730-rzg2-sr-boards-v4-3-08bc459578dc@solid-run.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 10:57:48 +0000
-Message-Id: <20260730105749.5ACFB1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jtixZeiH";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Xs1GrBIe"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66UA2RkC1663958
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 10:59:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	zp8lw42EXOlwez2wJnomFrYBAsJerM17eoLuQHR6avI=; b=jtixZeiHcTfxacps
+	P/PSsts6/tJifAkxWTPo+K9d9kbZA0mXRBgI0S4wI9Ts5r6hJQORPwghzOZId9Nq
+	qbwzDbrAbUWF3FadpBmE8LkGvmqeg/N+ywlFqqJ1uacmDukFSaofiaD9kwiTBL80
+	4ScL9pCH8hzlLEkgGtF7/YjdEqd+1eo0/jZGVDcJqgGgtOITGoFiewN7v0Jh5Rs4
+	lLYnlWUms4tbRRTYJBh9zsaHwy1lGWF3DUjusq1huVPRUqOOxYXLx+rJUc1COdMI
+	aPX19VdvuiaqakDZZWO2VzmTmWX5rh5mtdsutn5gRZHj1MIBQ3Pfbt33L6SAcppp
+	BJ0www==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fr3h1rjfn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 10:59:02 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8488ac68185so4723258b3a.2
+        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 03:59:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785409142; x=1786013942; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zp8lw42EXOlwez2wJnomFrYBAsJerM17eoLuQHR6avI=;
+        b=Xs1GrBIe4Aw+0dCw4V7IzYfDunNvhKqWexfkx05/vgFOl/8M0LK0O8TA+TSUTNw7jM
+         9NG3QHM+3S25T47Ku0ZfbYAneW+dYwK+743x5X/NJzwHXCrEy3Tb/mbCjgEVYq1cf4bJ
+         fTrRNAHVHK35OFnMaA5FHjcFk6I9MBF9iY64GOn2vlJ8tfhpoPS35cDdIp4h+O+2AUBW
+         uJTt+KQqLOGuEcrsXxwXpHZXR86bQxrr0GgZ9pA7nZCynb3ISxGYgwC92Yqk1aY80TLP
+         3i4loDnLTIHiL4jlFQ1bhXz2ElfFzB9WiAOxAalpCeOdhIFfvhyiyHFQVC0KyW3K558t
+         T39A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785409142; x=1786013942;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zp8lw42EXOlwez2wJnomFrYBAsJerM17eoLuQHR6avI=;
+        b=fR6wmnNK/4ayJKcFUIepMyzClsBmyCe2tqRWVqWHe/FBnkfzWatKBxbJxxltoAEh7z
+         31j/Yc2Vqe4l5b8k7Bu2qR+DCqyhr1qiCFY2GrJVHWY3Xhle69F3VNej5b2jb7fd6XKA
+         hl2HaejfJXnZyACqv48s4idzYtwazmPJPv5jGA73NjI8SgcyeKS8iV7JdZiy8xTTzK6K
+         doMiK0oLwSh0rnJrzxBoKL9e6CYM+FAe0e/srdueyss3evIuFHehDJjRnu404qaUHVxh
+         q4QrGhEUpjW9E4FsY2PrhtZ6c7R+LoWcvNp6O02ftBhHRvGLQFpBmXec9qOfNdh5honk
+         CJgw==
+X-Forwarded-Encrypted: i=1; AHgh+Rqctda5S6QHg/noPgNPD/4n3oIWUlhsYVhgPIIqW1LUKzWE2RoHHeDtOoYd2MnLbtz/3lAkGbmZvu6I@vger.kernel.org
+X-Gm-Message-State: AOJu0YwJ8bDh4oC+3JM5G1w7qNiBTR/kHQsU9HVgruXw88khqMtM9fJC
+	n1N9pdbsHsZY0QKICPHUuP9cslTZRGIXGFWUXiXQIi2MovU0DRyvzdh/vuYSj8twR5kbTbmzVSs
+	VSfGKZF8om0x9EBLKRos/ciEYpI+FOuw1g/GFW68wx4w1ZG/JForfMPCuBkVN4xif
+X-Gm-Gg: AR+sD11a+qZqcxYMgFIr/sw0PKqIvcHdpMB+L+qi3P6qnwI3EENgcNAE9F5qq0HMm1s
+	ik0wmDCDxsmAEpOj7PR9Fwky2IdR1TXNat3MQdoICNw7QGIgTGGE7+vCza8N18sGcfRS+QOa7/a
+	Yu7mAAGiuXcONxo+TKA4egr3vw5fd42atbbqZXx4rbWXO7ffFn+0KNQIxopkgG1l1sA1apVOvU5
+	c7PbipyolmcC7/Drk2caFYcu9zl0jcnS/x6FE8T11KwA+z2jLe7c7jt1AjyXGdN4ubG0Ro9cUWE
+	cUB1k/vHs6/hZO3mMi3lA4hM67cxV6DMMZgLyRPQX5gBvYDQFj6AAwxMGbKvKBcDfNu/em+XiaH
+	F8D0R0sppOsOA8PDTr5Gp5vT/twk=
+X-Received: by 2002:a05:6a00:cc9:b0:848:3e74:85eb with SMTP id d2e1a72fcca58-84ebc1f5cbfmr2260641b3a.1.1785409142360;
+        Thu, 30 Jul 2026 03:59:02 -0700 (PDT)
+X-Received: by 2002:a05:6a00:cc9:b0:848:3e74:85eb with SMTP id d2e1a72fcca58-84ebc1f5cbfmr2260608b3a.1.1785409141911;
+        Thu, 30 Jul 2026 03:59:01 -0700 (PDT)
+Received: from [10.218.5.114] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84ea03d0675sm2892952b3a.61.2026.07.30.03.58.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 30 Jul 2026 03:59:01 -0700 (PDT)
+Message-ID: <a1894c1e-6e32-42a7-91c4-720e2634b1de@oss.qualcomm.com>
+Date: Thu, 30 Jul 2026 16:28:54 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/6] ptp: qcom: Add PTP driver for the Qualcomm TSC
+ hardware
+To: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Richard Cochran <richardcochran@gmail.com>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller"
+ <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+References: <20260727-tscss-v1-0-beed14e72510@oss.qualcomm.com>
+ <20260727-tscss-v1-3-beed14e72510@oss.qualcomm.com>
+ <c2a7c6fe-60bb-49b7-b877-20fbf948b5de@kernel.org>
+Content-Language: en-US
+From: Imran Shaik <imran.shaik@oss.qualcomm.com>
+In-Reply-To: <c2a7c6fe-60bb-49b7-b877-20fbf948b5de@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: 3dMZFTuTsKRZXvoi4s5bhkbPJMaofOu5
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDA4MSBTYWx0ZWRfX8obr9JiqlSOp
+ ZgTdbytlu/78neleGAdy9k5qK8IwF4VoQgfPfNXEFChBeRcaolZGPLbtirSd4MAZLD5ZSEklBYE
+ +AgD+QA9hYMJk1VRN/39gmnRUrRc6mjKcpShQrE0EHOdJSjgQugehAc+jLf0IgECfdqsgkkExN8
+ WWKWYVd8a+CR5sXX9ed1blrloMuJ8fxR9hZMs+OAnmmnDy2rYNONC5o9sFHRWtv90UoXzYvwbtv
+ HE0gPmDBrMiP4lxpULjqb41tsF5hNBHPCm+sYbhg/4Sz0RUTgfOWWyKD2x0MUPVWkOQ1uyiJgN6
+ jMr04KtyhNl2ueFQxvUUqr/MpzynFPYbEVDVfZPsGobxego96rTLPmsg14Zsq3MF9nhi7j+qqq2
+ qH15PwCqEfplx7xyIxbam0xwpJdn3k36I0RuHo9yyUHMnMNGUyQB+47Ff6+oDffPky4QdUsHDgI
+ RM62KuXuzAMmkW1Umfg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDA4MSBTYWx0ZWRfXweW+AkfF6m4x
+ zKTE6uqt3WzXGq6DB4UrvoDNpRy2y0Y5T6pETawU8tBqySQEpFhe3gaHDHmGjSlnPs0eKyPhV4h
+ 9zJsXIIHucgXRtmrk1z/lnnO8/UsDsk=
+X-Proofpoint-GUID: 3dMZFTuTsKRZXvoi4s5bhkbPJMaofOu5
+X-Authority-Analysis: v=2.4 cv=K/QS2SWI c=1 sm=1 tr=0 ts=6a6b2e77 cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=d1WRJkdEJf9Lhp5XSbkA:9 a=QEXdDO2ut3YA:10
+ a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-30_03,2026-07-29_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 impostorscore=0 phishscore=0 adultscore=0
+ bulkscore=0 lowpriorityscore=0 spamscore=0 suspectscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607300081
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Applying the microSD overlay causes a 3.3V overvoltage on the eMMC=
-'s 1.8V domain pins.
-- [Medium] Misplaced `dr_mode` property in USB PHY nodes.
---
 
---- Patch [3]: [PATCH v4 3/5] arm64: dts: renesas: add support for solidrun=
- rzg2l som and hb-iiot evb ---
-commit 7f057d700942e2cb41ff7819702c96b1aa651144
-Author: Josua Mayer <josua@solid-run.com>
-arm64: dts: renesas: add support for solidrun rzg2l som and hb-iiot evb
 
-Add support for the SolidRun RZ/G2L SoM on Hummingboard IIoT. The SoM
-features Ethernet, eMMC, DDR, WiFi/Bluetooth, and SDHI Mux.
+On 27-07-2026 09:23 pm, Krzysztof Kozlowski wrote:
+> On 27/07/2026 16:10, Imran Shaik wrote:
+>> Add a PTP Hardware Clock driver for the Qualcomm Timestamp Counter (TSC)
+>> hardware found on Qualcomm Lemans and QDU1000 SoCs. The TSC is a free
+>> running hardware counter used for time synchronization, clocked by an AHB
+>> configuration clock and a global counter clock, with the counter resolution
+>> varying across SoCs.
+>>
+>> Co-developed-by: Taniya Das <taniya.das@oss.qualcomm.com>
+>> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+>> Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
+>> ---
+>>   drivers/ptp/Kconfig        |  10 ++
+>>   drivers/ptp/Makefile       |   1 +
+>>   drivers/ptp/ptp_qcom_tsc.c | 413 +++++++++++++++++++++++++++++++++++++++++++++
+>>   3 files changed, 424 insertions(+)
+>>
+>> diff --git a/drivers/ptp/Kconfig b/drivers/ptp/Kconfig
+>> index b93640ca08b7286fd4298519a17d1daf19056498..d3ceb1ee01a505cdd0bd056649d245308fc9f140 100644
+>> --- a/drivers/ptp/Kconfig
+>> +++ b/drivers/ptp/Kconfig
+>> @@ -263,4 +263,14 @@ config PTP_NETC_V4_TIMER
+>>   	  synchronization. It also supports periodic output signal (e.g. PPS)
+>>   	  and external trigger timestamping.
+>>   
+>> +config PTP_QCOM_TSC
+>> +	tristate "Qualcomm TSC as PTP clock"
+> 
+> Missing depensd on ARCH_QCOM
+> 
 
-Link: https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/r=
-z-g2l-som/
-Link: https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/h=
-ummingboard-rz-series-sbcs/hummingboard-rz-g2l-iot-sbc/
+Will fix it in the next series.
 
-> diff --git a/arch/arm64/boot/dts/renesas/rzg2l-hummingboard-iiot-common.d=
-tsi b/arch/arm64/boot/dts/renesas/rzg2l-hummingboard-iiot-common.dtsi
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/renesas/rzg2l-hummingboard-iiot-common.dtsi
-[ ... ]
-> +&usb2_phy0 {
-> +	dr_mode =3D "host";
-> +	vbus-supply =3D <&vbus1>;
-> +};
-> +
-> +&usb2_phy1 {
-> +	dr_mode =3D "host";
-> +};
+>> +	depends on COMMON_CLK && PTP_1588_CLOCK
+>> +	help
+>> +	  This driver adds support for using the Qualcomm Timestamp Counter
+>> +	  Subsystem (TSCSS) as a PTP clock.
+>> +
+>> +	  To compile this driver as a module, choose M here: the module
+>> +	  will be called ptp_qcom_tsc.
+>> +
+>>   endmenu
+> 
+> ...
+> 
+>> +
+>> +static const struct of_device_id qcom_tsc_of_match[] = {
+>> +	{ .compatible = "qcom,lemans-tscss", .data = &qcom_tsc_lemans },
+>> +	{ .compatible = "qcom,qdu1000-tscss", .data = &qcom_tsc_qdu1000 },
+>> +	{ }
+>> +};
+>> +MODULE_DEVICE_TABLE(of, qcom_tsc_of_match);
+>> +
+>> +static void qcom_ptp_tsc_remove(struct platform_device *pdev)
+> 
+> Completely broken order of ID table, remove() and probe(). Remove ALWAYS
+> follows probe. Table is next to them. Please look at other drivers.
+> 
 
-[Severity: Medium]
-Does setting dr_mode directly on the PHY nodes work as intended here?
+Sure, will correct the order in the next series.
 
-The phy-rcar-gen3-usb2.c driver calls of_usb_get_dr_mode_by_phy() to extract
-this property, which iterates over the PHY's consumers (the controller node=
-s).
+>> +{
+>> +	struct qcom_tsc *tsc = platform_get_drvdata(pdev);
+>> +
+>> +	if (tsc && tsc->ptp) {
+>> +		ptp_clock_unregister(tsc->ptp);
+>> +		tsc->ptp = NULL;
+>> +	}
+>> +}
+>> +
+>> +static int qcom_ptp_tsc_probe(struct platform_device *pdev)
+>> +{
+>> +	const struct qcom_tsc_soc_data *soc;
+>> +	struct qcom_tsc *tsc;
+>> +	struct resource *r_mem;
+>> +	int ret;
+>> +
+>> +	soc = of_device_get_match_data(&pdev->dev);
+>> +	if (!soc)
+>> +		return -ENODEV;
+>> +
+>> +	tsc = devm_kzalloc(&pdev->dev, sizeof(*tsc), GFP_KERNEL);
+>> +	if (!tsc)
+>> +		return -ENOMEM;
+>> +
+>> +	tsc->dev = &pdev->dev;
+>> +	tsc->soc = soc;
+>> +
+>> +	ret = devm_mutex_init(&pdev->dev, &tsc->lock);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	r_mem = platform_get_resource_byname(pdev, IORESOURCE_MEM, "tsc");
+>> +	if (!r_mem) {
+>> +		dev_err(&pdev->dev, "no IO resource defined\n");
+>> +		return -ENXIO;
+>> +	}
+>> +
+>> +	tsc->base = devm_ioremap_resource(&pdev->dev, r_mem);
+>> +	if (IS_ERR(tsc->base))
+>> +		return PTR_ERR(tsc->base);
+>> +
+>> +	tsc->ahb_clk = devm_clk_get_enabled(&pdev->dev, "ahb");
+>> +	if (IS_ERR(tsc->ahb_clk))
+>> +		return PTR_ERR(tsc->ahb_clk);
+>> +
+>> +	tsc->cntr_clk = devm_clk_get_enabled(&pdev->dev, "cntr");
+>> +	if (IS_ERR(tsc->cntr_clk))
+>> +		return PTR_ERR(tsc->cntr_clk);
+>> +
+>> +	/* ETU clock is optional, only required when the ETU block is used */
+>> +	tsc->etu_clk = devm_clk_get_optional_enabled(&pdev->dev, "etu");
+>> +	if (IS_ERR(tsc->etu_clk))
+>> +		return PTR_ERR(tsc->etu_clk);
+>> +
+>> +	tsc->ptp_info = qcom_ptp_info;
+>> +
+>> +	tsc->ptp = ptp_clock_register(&tsc->ptp_info, &pdev->dev);
+>> +	if (IS_ERR(tsc->ptp)) {
+>> +		ret = PTR_ERR(tsc->ptp);
+>> +		dev_err(&pdev->dev, "Failed to register ptp clock\n");
+>> +		return ret;
+> 
+> Why aren't you using dev_err_probe?
+> 
 
-Because dr_mode is placed on the PHY node instead of the consumer controller
-nodes, it appears it will return USB_DR_MODE_UNKNOWN, skipping OTG
-initialization. Should this property be moved to the appropriate controller
-nodes?
+Sure, will use the dev_err_probe in the next series.
 
-> diff --git a/arch/arm64/boot/dts/renesas/rzg2l-hummingboard-iiot-microsd.=
-dtso b/arch/arm64/boot/dts/renesas/rzg2l-hummingboard-iiot-microsd.dtso
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/renesas/rzg2l-hummingboard-iiot-microsd.dtso
-[ ... ]
-> +&sdhi0 {
-> +	bus-width =3D <4>;
-> +	full-pwr-cycle;
-> +	mux-states =3D <&sdhi0_mux 1>;
-> +	pinctrl-0 =3D <&sdhi0_pins>, <&sdhi0_cd_pins>;
-> +	pinctrl-1 =3D <&sdhi0_uhs_pins>, <&sdhi0_cd_pins>;
+Thanks,
+Imran
 
-[Severity: High]
-Could applying the sdhi0_pins group here cause a 3.3V overvoltage on the
-eMMC's 1.8V pins?
+>> +	}
+>> +
+>> +	platform_set_drvdata(pdev, tsc);
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static struct platform_driver qcom_ptp_tsc_driver = {
+>> +	.probe  = qcom_ptp_tsc_probe,
+>> +	.remove = qcom_ptp_tsc_remove,
+>> +	.driver = {
+>> +		.name = "qcom_ptp_tsc",
+>> +		.of_match_table = qcom_tsc_of_match,
+>> +	},
+>> +};
+>> +module_platform_driver(qcom_ptp_tsc_driver);
+>> +
+>> +MODULE_DESCRIPTION("PTP QCOM TSC driver");
+>> +MODULE_LICENSE("GPL");
+>>
+> 
+> 
+> Best regards,
+> Krzysztof
 
-The hardware mux sdhi0_mux only switches SD0_DATA0 through SD0_DATA3,
-SD0_CMD, and SD0_CLK. This leaves SD0_DATA4 through SD0_DATA7 permanently
-connected to the eMMC, which operates on a fixed 1.8V domain.
-
-However, sdhi0_pins configures all 8 pins (including SD0_DATA4 through
-SD0_DATA7) with power-source =3D <3300>:
-
-arch/arm64/boot/dts/renesas/rzg2l-sr-som.dtsi:
-    sdhi0_pins: sdhi0 {
-        pins =3D "SD0_DATA0", "SD0_DATA1", "SD0_DATA2", "SD0_DATA3",
-               "SD0_DATA4", "SD0_DATA5", "SD0_DATA6", "SD0_DATA7",
-               "SD0_CLK", "SD0_CMD";
-        power-source =3D <3300>;
-    };
-
-When this microSD overlay is loaded and the controller operates at 3.3V, do=
-es
-this apply 3.3V to the 1.8V eMMC pins? Should there be a dedicated 4-bit
-pinctrl group for microSD mode that excludes DAT4-7?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-rzg2-sr-bo=
-ards-v4-0-08bc459578dc@solid-run.com?part=3D3
