@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 609BA3DCDAD;
-	Thu, 30 Jul 2026 12:24:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 508DD42A79B
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 12:25:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785414267; cv=none; b=aIurPI68WM7Y/P9DnsIjtLwKK1/mLFr3ZrChYB0Ug/PeKMnOayKTCV7kdYofgK9J4XcFsSdpBfGueMcVMMKbCneZpAnlJTxf/DuEtB/1Zs0ReyMVgRbGAomQyL/iF92s7kurCz9cSTR56BY3yga4U+3e4r/DIdFDjFNSBJ1ojhc=
+	t=1785414318; cv=none; b=qcSaCm87/eBzhWyXB8iVPR/UmS9Cn4KYFtadqGr8S9JW3PQGv7epqpBpIYcQ8SG5Liuziv5RovVB/cuqk4sthcjWXEsRF+rsTtAWuCVybOATVWbr/D5L7t4rEIRAAFps7AF/spN/jCtzyrl6YjWm+X9ej4Hh0n51ANvlS7FxI2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785414267; c=relaxed/simple;
-	bh=UviIQxvgtKFFSW3oftrOqRuY1rhBOm+3A4h9KHMHt/I=;
+	s=arc-20240116; t=1785414318; c=relaxed/simple;
+	bh=IjI+3/Y6WTLyzE92kTT1YQnJcPqrcJvatvkGO+NMM1o=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jZNCv9Khdj+6BAwpedi1w3sJzI9S/cKeIKhadTS6DF/5f0Q/ZH8BucTPJ4OdwI9bhzjUBa6Psr3bl1iJI6Q1ogaJyLvuX1XjZAp69tYkqE7GGsn9F/6pHZVD9i+kfgPGtUtTvAQqJFKzKuMSBzELSHPcBfNHKX3uwlfuDn0U8MM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BPTkLQ7T; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=PSBZs1BHocqCWqnJvZyqKvBWRqiDENowDDPNDg3eGAzu2caMUxHSc7k7uSgiQdFTpN/Via3w06wl2kAONtvJcJQHDnfQOgsJbOgSjh0us4dwvhpZV7UnpFBW4AcC4ijjcOcKmIJ6b1GzITFb5bm7wXW/57GkEE7s4Hljqj/GH50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h9TmmAr/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BPTkLQ7T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF3441F000E9;
-	Thu, 30 Jul 2026 12:24:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h9TmmAr/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB6641F00A3A;
+	Thu, 30 Jul 2026 12:25:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785414266;
-	bh=JW/+m7nP9jt8LI6+VJqIAEQu/MJ9gQeroSdIO2wTu30=;
+	s=k20260515; t=1785414317;
+	bh=pdM4LcpNR0jZfkpAFHDAREcS1+qfYrl4I1ObZjMGXTQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BPTkLQ7TBSLiVwsl9exRf9s6ew9+Dmot094NwK+oXOfBgk7dshD6ZjHJCLf7vin7H
-	 VRxw6sqPVtjxHloCf6x9dbU81BGd0b/PSI5MmZHebAOmISxOm96n5LxzHebaO1mdaZ
-	 Zn/wqM6AsP3INCUK7zxRb7lD1TXcXswDSWFmIxTZPtaeTmGvi8AadfTJJfhvjeQHCe
-	 eQPhTDidyAKIK6s0T9cOJC+UhSqbnICel+HTx6M860rrlQ5vDQjsv90KlbvUS8SFIc
-	 16TYS4gLsdQZKq+mFu7DOGj6Q2vyF3Of4Xi5WJX1fZ+FhAFE7PRVNNvfByVuT7GuKK
-	 U5hWAhfdQD1jA==
+	b=h9TmmAr/ozIX6t532MVJE0YKRswk2YaRossEp01giZNZ85Iw9gixcBKU2DLuwJkty
+	 hfm7NGTbRF8AFHsBJ/eYV3/6jnahylXXr0MIqpviaPlSBdNv9JPMEV52JadC75koiN
+	 Dj0K0dSGiEvMsxmf7Lir7v0DxIca5imNZOuYrdc4f46/zBQfs9VsxmFa7y2iXQaS99
+	 GnDES6mSi1nXE8YaqxQfsmY8FYGLUoljM9uA+YJczVmb+Y8EXsRU7SA8Bwk6/QWoxR
+	 yMEHEJCUWmn7eJsEA0JAWzhODszfZqaoA++5DasUZWn8/WqJ/PR9tHerjLRey+Byk5
+	 EHGysozB9dKCQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 3/3] arm64: dts: qcom: eliza-evk: Add PCIe1 with
- TC9563 PCIe switch
+Subject: Re: [PATCH 15/22] arm64: dts: qcom: monaco: Fix the PCIe iommu-map
+ entries
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Krishna Chaitanya Chundru" <krishna.chundru@oss.qualcomm.com>
-Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260730-eliza_evk-v7-3-7ac7b66a3e6d@oss.qualcomm.com>
-References: <20260730-eliza_evk-v7-0-7ac7b66a3e6d@oss.qualcomm.com>
- <20260730-eliza_evk-v7-3-7ac7b66a3e6d@oss.qualcomm.com>
+To: "Manivannan Sadhasivam" <manivannan.sadhasivam@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260730-iommu-map-fix-v1-15-83405d37ba41@oss.qualcomm.com>
+References: <20260730-iommu-map-fix-v1-0-83405d37ba41@oss.qualcomm.com>
+ <20260730-iommu-map-fix-v1-15-83405d37ba41@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 12:24:25 +0000
-Message-Id: <20260730122425.AF3441F000E9@smtp.kernel.org>
+Date: Thu, 30 Jul 2026 12:25:16 +0000
+Message-Id: <20260730122516.BB6641F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,60 +47,60 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The `iommu-map` entries use 5 cells per entry, but the QCOM PCIe d=
-river statically expects 4 cells, leading to misaligned array parsing and c=
-orrupted BDF-to-SID hardware programming.
+
+Pre-existing issues:
+- [Medium] Incomplete fix for malformed `iommu-map` entries. The patch seri=
+es fixes base DTSI files (e.g., `monaco.dtsi`, `lemans.dtsi`) to provide 5-=
+cell `iommu-map` entries when targeting an IOMMU with `#iommu-cells =3D <2>=
+`. However, it misses board and overlay files that explicitly override `iom=
+mu-map` with the old broken 4-cell format. Because these overrides shadow t=
+he base DT configuration, compiling these specific boards will still result=
+ in the exact same `of: Respect #{iommu,msi}-cells in maps` warning the ser=
+ies intends to resolve.
 --
 
---- Patch [3]: [PATCH v7 3/3] arm64: dts: qcom: eliza-evk: Add PCIe1 with T=
-C9563 PCIe switch ---
-commit c160148a8023cba78403658572ab0eddfe6fb1b7
-Author: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+--- Patch [15]: [PATCH 15/22] arm64: dts: qcom: monaco: Fix the PCIe iommu-=
+map entries ---
+commit fe3050666c02dc7e846b1c3b4ae001c0063dea37
+Author: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-arm64: dts: qcom: eliza-evk: Add PCIe1 with TC9563 PCIe switch
+arm64: dts: qcom: monaco: Fix the PCIe iommu-map entries
 
-This commit enables PCIe1 on the Eliza EVK board connected to a TC9563
-PCIe switch. It configures the management interface over I2C and overrides
-the base iommu-map to cover the downstream ports.
+This patch updates the PCIe iommu-map entries in monaco.dtsi to use 5 cells,
+adding the missing SID mask. This matches the IOMMU provider's
+#iommu-cells =3D <2> property and prevents a warning from the OF core.
 
-> diff --git a/arch/arm64/boot/dts/qcom/eliza-evk.dtsi b/arch/arm64/boot/dt=
-s/qcom/eliza-evk.dtsi
-> index b35fffb509765..ccd6f01135132 100644
-> --- a/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
-
-[ ... ]
-
-> @@ -99,6 +119,91 @@ pcieport0_ep: endpoint {
->  	};
->  };
+> diff --git a/arch/arm64/boot/dts/qcom/monaco.dtsi b/arch/arm64/boot/dts/q=
+com/monaco.dtsi
+> index e4c8466f941bd..799d13d7558f3 100644
+> --- a/arch/arm64/boot/dts/qcom/monaco.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/monaco.dtsi
+> @@ -2349,8 +2349,8 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
+>  			interconnect-names =3D "pcie-mem",
+>  					     "cpu-pcie";
 > =20
-> +&pcie1 {
-> +	iommu-map =3D <0x0 &apps_smmu 0x1400 0x0 0x1>,
-> +		    <0x100 &apps_smmu 0x1401 0x0 0x1>,
+> -			iommu-map =3D <0x0 &pcie_smmu 0x0000 0x1>,
+> -				    <0x100 &pcie_smmu 0x0001 0x1>;
+> +			iommu-map =3D <0x0 &pcie_smmu 0x0000 0x0 0x1>,
+> +				    <0x100 &pcie_smmu 0x0001 0x0 0x1>;
 
-[Severity: High]
-Will this iommu-map configuration cause corrupted BDF-to-SID hardware
-programming?
+[Severity: Medium]
+This isn't a bug introduced by this patch, but this fix appears to be
+incomplete. Board and overlay files explicitly override iommu-map using the
+old 4-cell format, which will shadow this base DT fix and still trigger the
+OF core warning.
 
-Looking at qcom_pcie_config_sid_1_9_0() in pcie-qcom.c, the driver reads the
-iommu-map property directly into a structure that statically expects exactly
-4 fields (bdf, phandle, smmu_sid, smmu_sid_len).
+For example, in arch/arm64/boot/dts/qcom/monaco-monza-som.dtsi:&pcie0:
+    iommu-map =3D <0x0 &pcie_smmu 0x0000 0x1>,
 
-Because these new entries provide 5 cells per tuple (to satisfy apps_smmu
-expecting 2 cells), the array parsing will become misaligned after the
-first tuple. The second tuple's bdf value will erroneously read the length
-field of the first tuple (0x1) instead of 0x100.
+In arch/arm64/boot/dts/qcom/monaco-evk-ifp-mezzanine.dtso:&pcie0:
+    iommu-map =3D <0x0   &pcie_smmu 0x0 0x1>,
 
-This misalignment corrupts the subsequent entries programmed into the
-PARF_BDF_TO_SID_TABLE, which leads to SMMU faults for all downstream
-devices connected to the switch.
+And in arch/arm64/boot/dts/qcom/lemans-evk-ifp-mezzanine.dtso:&pcie0:
+    iommu-map =3D <0x0 &pcie_smmu 0x0 0x1>,
 
-> +		    <0x208 &apps_smmu 0x1402 0x0 0x1>,
-> +		    <0x210 &apps_smmu 0x1403 0x0 0x1>,
-
-[ ... ]
+Should these files also be updated to use the 5-cell format?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-eliza_evk-=
-v7-0-7ac7b66a3e6d@oss.qualcomm.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-iommu-map-=
+fix-v1-0-83405d37ba41@oss.qualcomm.com?part=3D15
