@@ -1,159 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6B722FE05C;
-	Thu, 30 Jul 2026 05:59:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8950738C437;
+	Thu, 30 Jul 2026 06:12:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785391181; cv=none; b=ro+LAXG7sVf5BWjOEg2UcW5XkvVAV+BxukFg+wHuOgrPOdf/uaQbtp3RyZk+U7Aj5cJHDwHiKIwQf+g2Guwv3WFS2WF8ZIyw+efPKJtERw4p751Z+mbmgyB/2Se/2XIyedNUWwYCeKeC4IuYTFvswrEyYSIb6At+Lon0dLG5p8Y=
+	t=1785391988; cv=none; b=o71RgVsVe7idEanZex4PsZanW3ad6HyRHIVUi+j53pSVYjHd1Bn5hAM6gj1yY+FXfaGW22uC0S2jS521wyBRRDMFmRumWH0v5Xun+oWfgWsZgyNKg2tj9xXiJRcWipVpX7bqQp21bDfpB6z0BJZCj+CNppcFhQNTmuIr7X0A/mw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785391181; c=relaxed/simple;
-	bh=NdfX3FdbOCpYqarMXlzZGZ6EShuWGY1mEzJqOUopHek=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IsvrMzBTHLPwyA6XVxU08zjDnjt/H7n+z4IIexD1IGlAOgJPqQIgEXnlTq/cEjIcJ0dk0QjFQpYZpBb5/8GmAtC9KhPvTDTvz9OGfiTp9E2hmNhXUuT4aHwlulC/IDbL5YFFaI4BOvrzGDq7I4/PtEAT19PbHxp9R3symIo88Ss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q62su0Qs; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q62su0Qs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75A031F000E9;
-	Thu, 30 Jul 2026 05:59:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785391178;
-	bh=Elrrmn657Rbg3UfKcwkLutUo3t2jwMQx9G6/NT4Wnow=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Q62su0QsxlhhEaAZd0h4YZHWaeUAkzjx4ToR4PHTrvnBsj+iX6Wx3KzTWbbsbo4Xq
-	 iPd0wIseoXw3mtww01Jsc+CnZ5bR8gQepeMDOyXY/kgWEmyd05L0oEWba9xw71YUJ9
-	 zQubMxrBgzFnLhTezvNqYFm75/jBALLebtgq7MUH7AXpxJH6tLLtVFD6FE+b0rhp12
-	 AVXDyCFpCPwxIhBa7ZjUvCZGZkMVH9DHnjokS3vjSb9uNRAAlj3Ct8IMHqRehYXpkA
-	 e+y+SLkXCAw0+ooJpkMDsrZ6pnwTNyjUvK5tMAAuzcNOvJOX4nuZCLL72TE0pIJwkZ
-	 zwHhBxbdnl5/g==
-Message-ID: <c8faf721-b3fe-43a7-943a-99b82a36e116@kernel.org>
-Date: Thu, 30 Jul 2026 07:59:31 +0200
+	s=arc-20240116; t=1785391988; c=relaxed/simple;
+	bh=oXwzlkQ5reAxnefWPDhQIUAXrMLkP6IQPSWG+fSVhik=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=W3g9YPkrZJ8gqslUsZRq5MY7Gl14YXmrucwTTHdWl0OLOWWK1gacnoB9z7x8ih+teH57Q53VML0Sa37Voj2OyQJWrMqmslUV9dQRloG9raeJwhLc58B/e/qEkhmTccYJs0J2U5J47FUh4GlkZ20BF2tCeyfTg6oLJRaXY5+LvvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id B2953201DCE;
+	Thu, 30 Jul 2026 08:12:47 +0200 (CEST)
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1wpK0d-0020Cb-21;
+	Thu, 30 Jul 2026 08:12:47 +0200
+Received: from pengutronix.de (p4ffb2dc6.dip0.t-ipconnect.de [79.251.45.198])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 4142957698A;
+	Thu, 30 Jul 2026 06:12:47 +0000 (UTC)
+Date: Thu, 30 Jul 2026 08:12:46 +0200
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: haibo.chen@oss.nxp.com
+Cc: Vincent Mailhol <mailhol@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, linux-can@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+	imx@lists.linux.dev, Haibo Chen <haibo.chen@nxp.com>, qijian.guo@nxp.com
+Subject: Re: [PATCH 1/3] phy: phy-can-transceiver: default silent GPIO to
+ high during probe
+Message-ID: <20260730-debonair-artificial-meerkat-0a5ea2-mkl@pengutronix.de>
+References: <20260730-can-share-silent-v1-0-63fd603f943d@nxp.com>
+ <20260730-can-share-silent-v1-1-63fd603f943d@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: mailbox: add Axiado AX3005 mailbox
-To: Swark Yang <syang@axiado.com>, Krishnakumar Kesavan
- <kkesavan@axiado.com>, Prasad Bolisetty <pbolisetty@axiado.com>,
- Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Tzu-Hao Wei <twei@axiado.com>,
- Karthikeyan Mitran <kmitran@axiado.com>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-References: <20260729-upstream-axiado-ax3005-mailbox-upstream-v1-0-8961b7350338@axiado.com>
- <20260729-upstream-axiado-ax3005-mailbox-upstream-v1-1-8961b7350338@axiado.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260729-upstream-axiado-ax3005-mailbox-upstream-v1-1-8961b7350338@axiado.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-On 30/07/2026 06:36, Swark Yang wrote:
-
-> +  - Krishnakumar Kesavan <kkesavan@axiado.com>
-> +  - Prasad Bolisetty <pbolisetty@axiado.com>
-> +  - Swark Yang <syang@axiado.com>
-> +
-> +description: |
-
-Do not need '|' unless you need to preserve formatting.
-
-> +  The Axiado mailbox controller provides inter-processor communication
-> +  channels between subsystems within the Axiado SoC. The hardware has
-> +  separate TX and RX register regions. Only the RX channels (channels 8-15)
-> +  generate interrupts; TX channels are purely poll/write-based.
-> +
-> +properties:
-> +  compatible:
-> +    const: axiado,ax3005-mailbox
-> +
-> +  reg:
-> +    items:
-> +      - description: TX mailbox register region
-> +      - description: RX mailbox register region
-> +
-> +  reg-names:
-> +    items:
-> +      - const: tx
-> +      - const: rx
-> +
-> +  interrupts:
-> +    description: |
-
-Do not need '|' unless you need to preserve formatting.
-
-> +      One interrupt per RX channel. The hardware exposes eight RX interrupt
-> +      lines corresponding to channels 8 through 15.
-> +    minItems: 8
-
-Drop
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="cv6imrgcjwgjm3dq"
+Content-Disposition: inline
+In-Reply-To: <20260730-can-share-silent-v1-1-63fd603f943d@nxp.com>
 
 
-> +            reg-names = "tx", "rx";
-> +            /* Only RX channels (8-15) have IRQs */
-> +            interrupts = <GIC_SPI 242 IRQ_TYPE_LEVEL_HIGH>,
-> +                         <GIC_SPI 243 IRQ_TYPE_LEVEL_HIGH>,
-> +                         <GIC_SPI 244 IRQ_TYPE_LEVEL_HIGH>,
-> +                         <GIC_SPI 245 IRQ_TYPE_LEVEL_HIGH>,
-> +                         <GIC_SPI 246 IRQ_TYPE_LEVEL_HIGH>,
-> +                         <GIC_SPI 247 IRQ_TYPE_LEVEL_HIGH>,
-> +                         <GIC_SPI 248 IRQ_TYPE_LEVEL_HIGH>,
-> +                         <GIC_SPI 249 IRQ_TYPE_LEVEL_HIGH>;
-> +            interrupt-names = "ch8", "ch9", "ch10", "ch11",
-> +                              "ch12", "ch13", "ch14", "ch15";
-> +            interrupt-parent = <&gic500>;
-> +            #mbox-cells = <1>;
-> +            status = "okay";
+--cv6imrgcjwgjm3dq
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 1/3] phy: phy-can-transceiver: default silent GPIO to
+ high during probe
+MIME-Version: 1.0
 
-Drop
+On 30.07.2026 12:33:26, haibo.chen@oss.nxp.com wrote:
+> From: Haibo Chen <haibo.chen@nxp.com>
+>
+> The silent pin of the CAN transceiver is active high, asserting it puts
+> the transceiver into silent (listen-only) mode where the transmitter is
+> disabled.
+>
+> At probe time, and before the PHY is powered on, the transceiver should
+> default to silent mode. This is the correct and lower-power state: the
+> transceiver should not actively drive the CAN bus until the PHY is
+> explicitly powered on. Requesting the silent GPIO as GPIOD_OUT_LOW leaves
+> the transceiver in normal mode by default, which is both incorrect and
+> wastes power.
+>
+> Request the silent GPIO as GPIOD_OUT_HIGH so the transceiver starts in
+> silent mode, and let the power_on/power_off callbacks manage the mode
+> afterwards.
+>
+> Signed-off-by: Haibo Chen <haibo.chen@nxp.com>
 
+Reviewed-by: Marc Kleine-Budde <mkl@pengutronix.de>
 
-Best regards,
-Krzysztof
+regards,
+Marc
+
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+
+--cv6imrgcjwgjm3dq
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCamrrWwAKCRDMOmT6rpmt
+0u8cAP9IaDtkB+9JcxG6xg6iqgxUcAFmEOBlmqkqjP4MmECpEAD/Z7sg4KtbWKiz
+yFHLst8QIG+JGAxoKnUMPsx2stUMxws=
+=NLw1
+-----END PGP SIGNATURE-----
+
+--cv6imrgcjwgjm3dq--
