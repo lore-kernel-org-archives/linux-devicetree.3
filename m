@@ -1,146 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD0233B1EC8;
-	Thu, 30 Jul 2026 08:35:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DE943A8FE8
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 08:36:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785400501; cv=none; b=jWb7AlCD7ZAxpjzxLsNKiJiID3n0N6YYYUxt/Yf1CTGkfiJIdVTRHHLYGWMI3u3dcMhO9siLC2S+UJgq5eGM8QAxCiQhOElxMN/dhalrer7u+GQVcRFEghRMVK2r5+XmTexhY5ZMV/B6TyYitvuYxxgpWr7VMkgfKdyNYDMO9ic=
+	t=1785400587; cv=none; b=N1jME2ncoiJ2zgUcE7mKSquJPcIzMkZf7P7UX4MvMWWMXNZ+Y2AEGYAdmIZ0N98mj1Dx30b7vm939plh6OaLuAIAe0AGQg1b8mCUSs1NMW93YBz8eP3pNgt6rbDK1cZjw0oWvL/ylARCjd3c5QpKCAdR0B/gV9HCOF5i1S5ZuiQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785400501; c=relaxed/simple;
-	bh=kZutcbweUt6v7QjWlxQA00/uuYFO/XJNm3iPcBOuyYw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=uHmnOpNYMn2NWyUUoRmfvnQR1e3hgT7sF5FiaFEqxiN5evK4dSF4cn7608CaUbuU+W8NAHUj2Gf0BqF3AsMgW1RpVZmsCjJpHQ0Uj8vKY80fqiit2rhXOQkyLOuUzBhAfTfaOXwIuHDdk/YFia4oe8ADHuvTWFON3g7jOiUV9us=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=s3hax5Y6; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1785400587; c=relaxed/simple;
+	bh=uk2rHcPWwHaq86DKl2I9EVluVmQzDush8QYmKX3PjqU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=qf6fL5Nlu1wUjmAa50kl/eaHzzfUMF0rWNWbsZ/TO6EkRel5ru757gCZ3Kkwi4Jvd3nqu9r70xTqio41xa7GlXFejgXyq8C7LNdHHgmTS2dfvlg5OoWMZHL+GjmkUW9RZKonSpeh+b/jDszTYiJa2/g2VQoYMRUdGDVQfS84syM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fZNbxhAv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="s3hax5Y6"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id AB496C2BCB3;
-	Thu, 30 Jul 2026 08:35:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1785400500;
-	bh=kZutcbweUt6v7QjWlxQA00/uuYFO/XJNm3iPcBOuyYw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=s3hax5Y6WxHdP9oxPs+cSmWhD/YShxIPr3/pHVFgdm8LsRwnLM4SSvA2sYrrUj7Zz
-	 StRAPzUQCLYGJC98lS7Oe71PKm7/yrOP6yEn9ke6H6py6Uyk3J7HnXIBNADdPZ8GfV
-	 bfKlZRPIXCf+do43mcfBzqxBg4ak6H2RCx/EX7pb4PQ6IZyIEz2DiiXazqsWip0qPc
-	 QCG1NJb99vz4/PCRot3icd5DOzXDppcDUTKJJb5R0zqS2+ZDYVlTN8KYiolCa7eNig
-	 XuypgiY9LoMMYNqkw3Cbd+2e57t3zDrpjNOm2aN/qiwufeH7Z3K6GP0j5BC2Gr9CkU
-	 caUALnEJaUSeA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8B009C55162;
-	Thu, 30 Jul 2026 08:35:00 +0000 (UTC)
-From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
-Date: Thu, 30 Jul 2026 08:34:37 +0000
-Subject: [PATCH 1/2] dt-bindings: thermal: amlogic: Add A9 thermal bindings
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fZNbxhAv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FABD1F00A3A;
+	Thu, 30 Jul 2026 08:36:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785400586;
+	bh=lpA91RcI/Fw8y1UJXgKSaJFVtEFhtC6jq5g/lxK0I18=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=fZNbxhAvizxV1jYbrEiHqw/4L8UOTenYwutOiiP1ukONVY4biNgzQTMINdNZUHHjN
+	 aOoglmsON5vHN1KeVVqsybGRtypl8OS2rZHmdy7wgNSwF0XWVS3ncPXBJ4wDDmnTY+
+	 U8LGb18y5841WhpnROTuZTczdLdwjjoCbv7JMyTge/vyDeWEEwFYJPQGXzFo02ckEU
+	 49M1zf+JiDBWhX5oSXwl9HXsN6b2uCJMzehazG/iCFSYVj/Juj06K1dMpJ37PF4NEO
+	 2keq1JRBYMb7hxtmapDHI/L0TnbpXk8TCXxL8niZtklBr0S4NFKrROFFMZUJ2Lygv9
+	 +XbUDoUnDUsPQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] dt-bindings: clock: ti: Convert APLL clock to DT schema
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Eduard Bostina" <egbostina@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260730083019.29998-1-egbostina@gmail.com>
+References: <20260730083019.29998-1-egbostina@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 30 Jul 2026 08:36:25 +0000
+Message-Id: <20260730083626.1FABD1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260730-a9-thermal-v1-1-d786d37cba58@amlogic.com>
-References: <20260730-a9-thermal-v1-0-d786d37cba58@amlogic.com>
-In-Reply-To: <20260730-a9-thermal-v1-0-d786d37cba58@amlogic.com>
-To: Guillaume La Roque <glaroque@baylibre.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-pm@vger.kernel.org, linux-amlogic@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Xianwei Zhao <xianwei.zhao@amlogic.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785400497; l=2032;
- i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
- bh=a2jDBBmn4Im07LAaY1RPp+SwGvK+6Pv6kYhWR+NQIKY=;
- b=5JXLh377xnZAYCkjTOkmo9Amu8ZrBVMLJbqzx0+yVYyODdrh310hP4MJiZA6/Ks+DkT8G86mf
- wL62TLUnu/VCPLkhvreP6/c9OrkpDKkpBmp/r5KBke+mJFpgegMJe9D
-X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
- pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
-X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
- auth_id=578
-X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
-Reply-To: xianwei.zhao@amlogic.com
 
-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The YAML conversion fails to conditionally enforce variant-speci=
+fic requirements for OMAP2 vs DRA7 hardware variants.
+--
 
-Document the thermal controller compatibles for the Amlogic A9 SoC.
+--- Patch [1]: [PATCH] dt-bindings: clock: ti: Convert APLL clock to DT sch=
+ema ---
+commit ae216da14737ed29efd003eb0159b573f9308b0f
+Author: Eduard Bostina <egbostina@gmail.com>
 
-Describe the required "core" and "plck" clocks, add the optional
-"amlogic,hw-reset-temp" property, and update the schema constraints for
-A9-specific thermal controllers.
+dt-bindings: clock: ti: Convert APLL clock to DT schema
 
-Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
----
- .../bindings/thermal/amlogic,thermal.yaml          | 29 +++++++++++++++++++++-
- 1 file changed, 28 insertions(+), 1 deletion(-)
+This commit converts the Texas Instruments APLL clock bindings from a plain
+text file to a DT schema.
 
-diff --git a/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml b/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
-index 8cfa44dcda58..5f5dc6f12851 100644
---- a/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
-+++ b/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
-@@ -23,6 +23,7 @@ properties:
-           - const: amlogic,g12a-thermal
-       - enum:
-           - amlogic,a1-cpu-thermal
-+          - amlogic,a9-thermal
-           - amlogic,t7-thermal
- 
-   reg:
-@@ -32,7 +33,13 @@ properties:
-     maxItems: 1
- 
-   clocks:
--    maxItems: 1
-+    minItems: 1
-+    maxItems: 2
-+
-+  clock-names:
-+    items:
-+      - const: core
-+      - const: pclk
- 
-   power-domains:
-     maxItems: 1
-@@ -52,6 +59,10 @@ properties:
-           - description: phandle to the secure monitor
-           - description: sensor index to get specific calibration data
- 
-+  amlogic,hw-reset-temp:
-+    description: The hardware-controlled reset temperature value.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
- required:
-   - compatible
-   - reg
-@@ -73,6 +84,22 @@ allOf:
-       required:
-         - amlogic,secure-monitor
- 
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - amlogic,a9-thermal
-+    then:
-+      required:
-+        - clock-names
-+    else:
-+      properties:
-+        clocks:
-+          maxItems: 1
-+        clocks-names: false
-+        amlogic,hw-reset-temp: false
-+
- unevaluatedProperties: false
- 
- examples:
+> diff --git a/Documentation/devicetree/bindings/clock/ti/ti,apll-clock.yam=
+l b/Documentation/devicetree/bindings/clock/ti/ti,apll-clock.yaml
+> new file mode 100644
+> index 0000000000000..e14a76254ce77
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/ti/ti,apll-clock.yaml
+[ ... ]
+> +  clocks:
+> +    minItems: 1
+> +    maxItems: 2
+> +    description: Link phandles of parent clocks (clk-ref and clk-bypass)
+> +
+> +  reg:
+> +    minItems: 2
+> +    maxItems: 3
+[ ... ]
+> +  ti,clock-frequency:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: static clock frequency for the clock (OMAP2 only)
+> +
+> +  ti,idlest-shift:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: bit-shift for the idlest field (OMAP2 only)
+> +
+> +  ti,bit-shift:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: bit-shift for enable and autoidle fields (OMAP2 only)
+> +
+> +required:
+> +  - compatible
+> +  - "#clock-cells"
+> +  - clocks
+> +  - reg
+> +
+> +unevaluatedProperties: false
 
--- 
-2.52.0
+[Severity: Medium]
+Does this YAML conversion fail to enforce the OMAP2-specific required
+properties that were described in the original text binding?
 
+The original text binding indicated that ti,clock-frequency, ti,idlest-shif=
+t,
+and ti,bit-shift were required for the OMAP2 hardware variant. By dropping
+these properties from the required list entirely and leaving clocks and reg
+with loose bounds, device trees with incomplete OMAP2 configurations will
+now silently pass schema validation.
 
+Should this schema include an allOf conditional block matching the
+ti,omap2-apll-clock compatible string to properly enforce these properties
+and the specific minItems/maxItems constraints for each generation?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730083019.2999=
+8-1-egbostina@gmail.com?part=3D1
