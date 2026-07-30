@@ -1,64 +1,64 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20AA0401A00
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 09:23:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE606402429
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 09:23:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785403392; cv=none; b=VVVBr4WfyYcoJ73SYJMunwKx0yhWAVApTsQOHvI+9TcYZVj7Eavy3XEIDiK2VLrA0cIaAtoiBY5Gz1g9E09elfBhGSbiU/oEblzLsYYpqhDXmxM1w0sepV7XbCV0wIVQ0bgoHvGiLms5nT+hb6DjdnoCaOQFSLg4USQ5H4NveAI=
+	t=1785403394; cv=none; b=rfhWUyfrKi4AN8j3dSvFH7Cqh89xJhE+vU0ZWy/VmqgU8bcN1D6MJqebKDVSpu840zaglUfiXpl4n1ljBWQ2B7j727THkCTzobb7X0Gp68Zl+Z/WVhek6Y+r1Si3rJMi5herE5aZX7EcYdVEI1MZ+xot6b/Y5hqweWjl/Qd7B5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785403392; c=relaxed/simple;
-	bh=zGMk33ptHlq4xCsWE/m/Shh7bJRW3ysBOv42NGnt1mI=;
+	s=arc-20240116; t=1785403394; c=relaxed/simple;
+	bh=4rDf13OrEejhabHPDOf8r8is5XO9Y71faY+r2M0nbCs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Xlk7tUjvlkCbcBZJqImU3srGm1/CMLGgrrYqnN0CzbTRBVXb0FsFg7pR69ttuwgrEEn9KRmzsepN7Da+6l3HtRa//z5+2Esz1IQP8pe9I9mf4i+RJHxZSZRuEkBLNN7U+ANjoGdriS5Z5LP/z5pjlJ2uLt2Z6NnFrYHT19h14N8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gXYM1MdG; arc=none smtp.client-ip=209.85.128.41
+	 MIME-Version; b=f9UZc3b3q9DTxuSswzKYqqV7VvrQx564uwOZ31iyWHsSxIoC6AQkAY+zR6gQ+hVyngtPKwa5nhsDManOERt3dv3EIKkIy2XnvBcOPdvn6K3i7610aTgfbPhfM+s0jpJ1YvoQFXb3CvIYAmnWzwYlEIqqAVg0Pb7RIPGdPt+VAFY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=StIMeeA3; arc=none smtp.client-ip=209.85.221.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gXYM1MdG"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49558ce01afso12640905e9.1
-        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 02:23:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="StIMeeA3"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-47f3b39f2a1so1790818f8f.2
+        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 02:23:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785403389; x=1786008189; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785403391; x=1786008191; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=51WDwBX8UuHOu3YfsGA9ozMS4JtSAKzLcDeFZmmn9U8=;
-        b=gXYM1MdGHGKB8su/sKrTuV1a46AJkb4Yk5TLkmTGg63xpWGRT+8rByYmaYcqxCCTNa
-         nuzhC0+ygeKoGNvc9LksCatwInjrdFtHf7rLTPGBoJEvaJEbdJCyRLTV/LxODZJObtu5
-         gQVdijSVyH1MaXKI6mWo91jmTpMeefY4m3QvWgxnEcWhuv40UmA3YPRrdis15hQbDKF5
-         yA702JW/6713l3HPO9KWApVm92aJVBk2nTF/3fo2QqXnkK7eSb269LGD6wOzwKxgI2ry
-         5dYg2DaBAqxS/luv0CUxusgjski+y++4y38Pe0TAv8UIFX8Xdu4NNlgbptTcLMN6w4vy
-         xL/Q==
+        bh=19dWbdtDz3PuL5QLyRHvpa2qFjaBjIFM+A1PtZ3dpCg=;
+        b=StIMeeA3Dhz+znVjUooqTw49hfnyCNc4N0O8jiWthV7W0/Xbbz08up/PQFvtIAoGpr
+         me6HEWAfBlngXzIpbZx4s9dv7cI3aXISXTw35/ub5BJCNfQYwzX6WS/wCQamQxqa6uyT
+         sIMR5MnEWqBeaM5cCNfnErdvXt61K7S+/pu3+/E6eZudyUcLGODnfHWzn9wOoWTIpMZW
+         n2XbgeId4SqEbi9HP6w6Zdd4AEMkisfbo6Sra0P1ZlKBBSXvwGLTYqp5gyMu+xrWN0j0
+         jCASVIyEocPnRDuzAL6Kd1ebTJ80YO2bendH1DpmoPUZLSavb7aXGi3ETtfbuX5Md35s
+         wA7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785403389; x=1786008189;
+        d=1e100.net; s=20251104; t=1785403391; x=1786008191;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=51WDwBX8UuHOu3YfsGA9ozMS4JtSAKzLcDeFZmmn9U8=;
-        b=VZ1U67n1x40EVTq5dOsWzcFJD6G4VC8rnvSDKvYcue5lL5KkMy2PBfBUrrurw4p1bf
-         rjUVPlCiGHoU1O6R9y5RrGOO1IM9P8I49mQO5kMirc4zk5s+N+hoLWdpGoL39lcL6AyH
-         iviblchepdAJovSsMdVPeqcpeAw0NYYEdj+TLbr8p9eamYwm3vEbr0D4JD+MPukorBj8
-         rAC+XgqHYoOFopvcIFaeFFMuOarvLLt1x0OT46bziFXCq0D1aHEhkIpwE4G4r/T+vjcu
-         9Q2NOrkEF2AU7VHPmXSQSCY4VhUAyvzYqmW8GqQxchcMur8YtgykSQGWqsqIPwRor9yv
-         YgTg==
-X-Forwarded-Encrypted: i=1; AHgh+Rp5pyMA2xYXtXS5qpvFNhTbsW4GcQXj27D6/lnbkhlpswTUnV2iKAcFDgjDNiS7BtwmbNiYzMJLB/Kz@vger.kernel.org
-X-Gm-Message-State: AOJu0YwfSKF4e0MAEbgaZ1P7CrdDLy7doUFsMnDQ3o+ECnKG22LVs59C
-	9r9UHqXj0ikTN71q1rfAMDKGHa+kW2+jcVdvV0uEnXx9g0KtTz8YW/kE
-X-Gm-Gg: AR+sD13Sl9bumJSUAGO5dgQg7dq3NVJWwVxInJVcbT9KWBTShgUfmRqDAeHa33Hl45k
-	Spm6yUtwOgirzGHptRRcHMcbaejDU276EwJDi4WRBwSG5OuHegMsXiogIRcRLq5AbHBHUEg/xXy
-	OMeqvcasqYpDb1ZZOG13BhW4Bwoo9DnNxQ0k1Mhgxtku0g08JeO1rpRO0u+UQHrgDrJBPHGQzNw
-	9n6JAZmrhvy9OAKRgjNsniiEl+rXTK4NSsBz3s5Z+QloAfpLZu5IChsl0P9A2HW6MQrEqT0mNAT
-	tuq8kO0vkQeknx4R6ogu7WBKAcuAGvYAj8tvRDjd9Kvyaoc6/k2Zir8KBNGcICHK4xt83uhl3Xt
-	be8DIaoN4t67vG7WrfCclGn9a8dXzXb25gJSl5+mboEhtXdxmnRaDg4WYglTImvTLowtUK5AwCr
-	Wcl8o7uBJ4KklRf8+YOA1qI2TLS5O1/E1sBkni7efMujtaIWcW6ToJlGrnbIGqIRuBXpTcmB+gA
-	ZpBSP5APapYPyGsbBk5y7XFYJcqYT3tuA==
-X-Received: by 2002:a05:600c:8b66:b0:495:7379:17b1 with SMTP id 5b1f17b1804b1-49800ebb8a2mr21092445e9.30.1785403388303;
-        Thu, 30 Jul 2026 02:23:08 -0700 (PDT)
+        bh=19dWbdtDz3PuL5QLyRHvpa2qFjaBjIFM+A1PtZ3dpCg=;
+        b=GujznuXVEnT39joE9jdw7Lsm26vHQvPFCvK5t3UNTtBv9Ev6NctNe8gzfxxe6l3fDC
+         0DEbifUJOdt4u9vLHtiPIsKwcA2NyvZKtSaziffEzdj0omVEKoukcE/mRpU5I811TVi8
+         n0ZgEC4i64MtBmCJl6VbDBOcCJUvbKpLONYREM3pKqe9nw9FEjiwQd/6bX7ZgksaehTn
+         glMjunoFUtY/C54mIDt0/370ZPxiQR+tb/jlPBzaBQjMnn1tcnf5zal1xy7HIviWN6cf
+         79lK31qd76Nwrknk2BflZbmBgj3CzWPHYDiEIYGExmQZp0Q+OwK82d6Snp+DVXqy6zIQ
+         C+nw==
+X-Forwarded-Encrypted: i=1; AHgh+RoL8xkZQ9AC5377ksnBOiQq3hG6OZWov1gq3SSOPy2EG/g90Yz47SxPSV3fudfJV0NfVNt3fKEPexXl@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz56EqviZP2ewilIL44RMMui0wF62PJfYoGPIsj8MLBdBrviw77
+	rEM4/6eHqDCcOa20lA2nJ6Jy0MFsSADJ21LMx+SZuy/HgrOVbUHX5jlz
+X-Gm-Gg: AR+sD10xEfreeHCntp0wPKILOgOVej2thb2mjJ2r+NAyGsmL00PORtHHGA9LBrSW1dY
+	H4O6+O/QEdxxntywOkt9dwmc53eC3hoD23vfWVyuOwOMan3uYoGRQLIJ2gpNloeRQJJzgnlA3Gw
+	IhZ8siAe0y7PFGsb0di0bLlP/1bpHS9QaigXnJuWzY7FjZXZE5ecMI9cwhz0VNr55/fROxsGgEe
+	/5Bxj0lqzyXR4trbZ8e57P1EXvdEJhSeChjYkqbuxay0ReWiCnYkmzhMphh4P3I1FLn1Kyw1Bug
+	QKrxx/aiQwg7u/1Nn0V7PM6/PFsXQgABF9wOCSePJjKz8KqQA6ZeraYCO6QpbxHJ6/CZrFhC0XP
+	jgfKbnuB6Ej8rWVNVOMdFhr9est61Di9Y5QxWOkF4mJ1BAAsLOp95wNSGYkQKxLw3tYBVZrhcph
+	0yxjujyOz73Oh9zy+N/OcjiFV/olFW+C8Hs6KrZedgimg4TUYK75JGI0Q4jppE4pE03IBaSJq01
+	qtvJWoapKsThanSbk1LHSxQ8tQJQkmZxA==
+X-Received: by 2002:a05:6000:1a89:b0:47b:5f25:7c59 with SMTP id ffacd0b85a97d-47fc822dcf5mr2420000f8f.38.1785403390868;
+        Thu, 30 Jul 2026 02:23:10 -0700 (PDT)
 Received: from fedora.tail6d6c39.ts.net ([82.77.79.56])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-47fc88e64d5sm4308425f8f.15.2026.07.30.02.23.06
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-47fc88e64d5sm4308425f8f.15.2026.07.30.02.23.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 02:23:07 -0700 (PDT)
+        Thu, 30 Jul 2026 02:23:10 -0700 (PDT)
 From: Eduard Bostina <egbostina@gmail.com>
 To: Aaro Koskinen <aaro.koskinen@iki.fi>,
 	Andreas Kemnade <andreas@kemnade.info>,
@@ -83,9 +83,9 @@ Cc: daniel.baluta@nxp.com,
 	simona.toaca@nxp.com,
 	goledhruva@gmail.com,
 	m-chawdhry@ti.com
-Subject: [PATCH 1/2] dt-bindings: display: ti: Convert ti,tpd12s015 to DT schema
-Date: Thu, 30 Jul 2026 12:22:44 +0300
-Message-ID: <20260730092245.52034-2-egbostina@gmail.com>
+Subject: [PATCH 2/2] ARM: dts: ti: omap: Fix TPD12S015 node and endpoint names
+Date: Thu, 30 Jul 2026 12:22:45 +0300
+Message-ID: <20260730092245.52034-3-egbostina@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260730092245.52034-1-egbostina@gmail.com>
 References: <20260730092245.52034-1-egbostina@gmail.com>
@@ -97,158 +97,81 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Convert the Texas Instruments TPD12S015 HDMI level shifter and
-ESD protection chip bindings to DT schema.
+The TPD12S015 node and its internal endpoint nodes are currently named
+with unit addresses ('encoder@0', 'endpoint@0') but lack corresponding
+'reg' properties.
 
-During the conversion, the following updates were made:
-- Added the 'ti,tpd12s016' compatible string, which is used in
-  am57xx device trees.
-- The 'gpios' property now allows up to 5 items, as the
-  omap5-igep0050 device tree routes additional control pins
-  beyond the standard 3 documented in the old text file.
+Remove the unit addresses from these nodes to resolve the warnings and
+align with the core schemas.
 
 Signed-off-by: Eduard Bostina <egbostina@gmail.com>
 ---
- .../bindings/display/ti/ti,tpd12s015.txt      | 44 -----------
- .../bindings/display/ti/ti,tpd12s015.yaml     | 78 +++++++++++++++++++
- 2 files changed, 78 insertions(+), 44 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
- create mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
+ arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts | 6 +++---
+ arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi  | 6 +++---
+ 2 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
-deleted file mode 100644
-index 26e6d32e3..000000000
---- a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
-+++ /dev/null
-@@ -1,44 +0,0 @@
--TPD12S015 HDMI level shifter and ESD protection chip
--====================================================
--
--Required properties:
--- compatible: "ti,tpd12s015"
--
--Optional properties:
--- gpios: CT CP HPD, LS OE and HPD gpios
--
--Required nodes:
--- Video port 0 for HDMI input
--- Video port 1 for HDMI output
--
--Example
---------
--
--tpd12s015: encoder@1 {
--	compatible = "ti,tpd12s015";
--
--	gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,	/* 60, CT CP HPD */
--		<&gpio2 9 GPIO_ACTIVE_HIGH>,	/* 41, LS OE */
--		<&gpio2 31 GPIO_ACTIVE_HIGH>;	/* 63, HPD */
--
--	ports {
--		#address-cells = <1>;
--		#size-cells = <0>;
--
--		port@0 {
--			reg = <0>;
--
--			tpd12s015_in: endpoint@0 {
--				remote-endpoint = <&hdmi_out>;
--			};
--		};
--
--		port@1 {
--			reg = <1>;
--
--			tpd12s015_out: endpoint@0 {
--				remote-endpoint = <&hdmi_connector_in>;
--			};
--		};
--	};
--};
-diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-new file mode 100644
-index 000000000..bda4bbab7
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-@@ -0,0 +1,78 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/ti/ti,tpd12s015.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Texas Instruments TPD12S015 HDMI level shifter and ESD protection
-+
-+maintainers:
-+  - Eduard Bostina <egbostina@gmail.com>
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - const: ti,tpd12s015
-+      - items:
-+          - const: ti,tpd12s016
-+          - const: ti,tpd12s015
-+
-+  gpios:
-+    minItems: 3
-+    maxItems: 5
-+    description: CT CP HPD, LS OE, HPD, and optional supplementary control gpios
-+
-+  ports:
-+    $ref: /schemas/graph.yaml#/properties/ports
-+
-+    properties:
-+      port@0:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: Video port for HDMI input
-+
-+      port@1:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: Video port for HDMI output
-+
-+    required:
-+      - port@0
-+      - port@1
-+
-+required:
-+  - compatible
-+  - ports
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    encoder {
-+        compatible = "ti,tpd12s015";
-+
-+        gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>, /* 60, CT CP HPD */
-+                <&gpio2 9 GPIO_ACTIVE_HIGH>,  /* 41, LS OE */
-+                <&gpio2 31 GPIO_ACTIVE_HIGH>; /* 63, HPD */
-+
-+        ports {
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            port@0 {
-+                reg = <0>;
-+
-+                tpd12s015_in: endpoint {
-+                    remote-endpoint = <&hdmi_out>;
-+                };
-+            };
-+
-+            port@1 {
-+                reg = <1>;
-+
-+                tpd12s015_out: endpoint {
-+                    remote-endpoint = <&hdmi_connector_in>;
-+                };
-+            };
-+        };
-+    };
+diff --git a/arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts b/arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts
+index 46270ed87..1ac9c13dc 100644
+--- a/arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts
++++ b/arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts
+@@ -152,7 +152,7 @@ hdmi_connector_in: endpoint {
+ 		};
+ 	};
+ 
+-	hdmi_enc: encoder@0 {
++	hdmi_enc: encoder {
+ 		/* "ti,tpd12s016" software compatible with "ti,tpd12s015"
+ 		 *  no need for individual driver
+ 		 */
+@@ -168,7 +168,7 @@ ports {
+ 			port@0 {
+ 				reg = <0x0>;
+ 
+-				hdmi_encoder_in: endpoint@0 {
++				hdmi_encoder_in: endpoint {
+ 					remote-endpoint = <&hdmi_out>;
+ 				};
+ 			};
+@@ -176,7 +176,7 @@ hdmi_encoder_in: endpoint@0 {
+ 			port@1 {
+ 				reg = <0x1>;
+ 
+-				hdmi_encoder_out: endpoint@0 {
++				hdmi_encoder_out: endpoint {
+ 					remote-endpoint = <&hdmi_connector_in>;
+ 				};
+ 			};
+diff --git a/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi b/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi
+index a2a654ef4..ed8d3eebf 100644
+--- a/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi
++++ b/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi
+@@ -121,7 +121,7 @@ hdmi_connector_in: endpoint {
+ 		};
+ 	};
+ 
+-	tpd12s015: encoder@0 {
++	tpd12s015: encoder {
+ 		compatible = "ti,tpd12s016", "ti,tpd12s015";
+ 
+ 		gpios = <0>, /* optional CT_CP_HPD */
+@@ -135,7 +135,7 @@ ports {
+ 			port@0 {
+ 				reg = <0>;
+ 
+-				tpd12s015_in: endpoint@0 {
++				tpd12s015_in: endpoint {
+ 					remote-endpoint = <&hdmi_out>;
+ 				};
+ 			};
+@@ -143,7 +143,7 @@ tpd12s015_in: endpoint@0 {
+ 			port@1 {
+ 				reg = <1>;
+ 
+-				tpd12s015_out: endpoint@0 {
++				tpd12s015_out: endpoint {
+ 					remote-endpoint = <&hdmi_connector_in>;
+ 				};
+ 			};
 -- 
 2.54.0
 
