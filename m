@@ -1,109 +1,154 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6324141F370
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 12:07:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64AA23B3896
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 12:08:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785413251; cv=none; b=fJcDOTFVW0X11m/YEt3O2BtWFQYRC0YGfHkm5nfVNpXGXMJguFjV2JxHZg95yfOKUdZjXMrx0DoJKE1Ff5NR9Bp260MY4JK75neCOl0F+732YNX09jqKjKhFkq6o2LE7tKrv/Mp/uBuRstKriGgsQngOVumSzqI+szSOhA86sR8=
+	t=1785413287; cv=none; b=ZpSK2f8omj6u3lOQXF26aJF4vj8uOORo9RMxUUO9luTNR/C8Xw9w6K1NBYooX8j/g7okI4UjC22Lz7s0aSqP4N0ZKnWctBis2Gy5ATjM2I5NELsGGWjIlj8NFitn0yJ05UH4cC2UxVvHmvaUgBSF57H8Ekk4cvsC7PP59xiCr3c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785413251; c=relaxed/simple;
-	bh=4c6K0Axrr63mbb/Kj9aegxtnXsqjeU47iuXayFcRuEc=;
+	s=arc-20240116; t=1785413287; c=relaxed/simple;
+	bh=6wOTYvcN9qJirPOxKMIbupz9xGwN5gwK2qV/iG+aJKg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AIjBppMZBrgZFTF1/UVIZiOxtdCBipbwxIitgCHlWSk2hsZzCDfNfDg5kpFuvPRXoc2D79cXq9cOMqGJ6yX2EDzAMte05diLF73OmcTNkuicsSSQrlEAeX7fy0DtaoJAaw25r6sAVLkzfok/h5Os0gc7kM3hfeRNhGmh1AMg/ho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kO1RYmSf; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=AyFLCa65qQK4CFzVP8mjwgeGaV3P1NwsH3EHPQJwK/uLkn6s7Da/6kEAElqOueN5NjpjSSPzVXAAZ8e0sTZaBsyzjptjqQxfEQbdAsCUK3Gg1g/jijxKoTwD5tSzewah9OYAYDwMe13M1ayCb5gnOHTfmE20Yr25Xq0N6dDnxQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OqxW7SRY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kO1RYmSf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 894DE1F000E9;
-	Thu, 30 Jul 2026 12:07:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OqxW7SRY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAF6B1F00A3A;
+	Thu, 30 Jul 2026 12:08:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785413250;
-	bh=otYAXF05yNIwj7CK83US0QyOGaUi899SyYJNSmAuIcA=;
+	s=k20260515; t=1785413286;
+	bh=jsgxiSJX7eXQZeXb1n4d0SDu27ZWr1IenJzLyp/hMI4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kO1RYmSfQZYHZknF5AJlUvNjIrOO7zgmjB2BZqgU9IpHhuBOk3xqkiD11h+orXSsR
-	 RKZTh8wW8FGtzmnOpSiv83rdROQ5/F3JmHuBHhERZ3rh5oH39+2xkPbJ0D42BYLPFy
-	 mTszmVVQHpjHGOo+2Fw0j2q1Ry/9ASceOzucMpLA6/bEQa7voscY7XTEFkFZNWS2lS
-	 SCyt9d9UftIhldoalreHuXRPhrwgpIo0KKexAeEz5/f1KYVT4hFfFWfucgQr1hloIA
-	 thqWo8WHIoqh0jyKIQ1tQSfgPZ5o0qcyfIYqN62JpPPfOX0QMNeOdjNKYTBX/MhaV+
-	 q47fjREJR/Ilw==
+	b=OqxW7SRYJUKi+dGkmj4NVIEaqnA6tFpUR+JYy4bD1OWvA1/G0bTXf2sfMwAR+3auf
+	 Kswbi92PZf7NUnnTRSllnHXZrGOPagpkOb1bEVfL6ywr80PG1ml0nHuEvcNDeMXE3V
+	 buzJ/EYLCMB6SBKIW2OULUIWTm2Hx2K2eIMLLiNP+eogtyl7oy/K7PveoWmak6iI31
+	 2WE6o4YPK4D0obrlA7LMZyFJBLrdhPetjTi0f0Jd1dWfZoVnGJRGmE1bqBFLm6RfHu
+	 tg5igIHkon6+ztsRgB0Sh8qu4nfUWd7mIh2Hdcg0pXAeReuPLkFeCPZcDqKZ0dJ0W/
+	 Ztj1vMt5q5UIA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 13/22] arm64: dts: qcom: talos: Fix the PCIe iommu-map
+Subject: Re: [PATCH 02/22] arm64: dts: qcom: kodiak: Fix the PCIe iommu-map
  entries
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Manivannan Sadhasivam" <manivannan.sadhasivam@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260730-iommu-map-fix-v1-13-83405d37ba41@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260730-iommu-map-fix-v1-2-83405d37ba41@oss.qualcomm.com>
 References: <20260730-iommu-map-fix-v1-0-83405d37ba41@oss.qualcomm.com>
- <20260730-iommu-map-fix-v1-13-83405d37ba41@oss.qualcomm.com>
+ <20260730-iommu-map-fix-v1-2-83405d37ba41@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 12:07:29 +0000
-Message-Id: <20260730120729.894DE1F000E9@smtp.kernel.org>
+Date: Thu, 30 Jul 2026 12:08:05 +0000
+Message-Id: <20260730120805.DAF6B1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Adding the SID mask to `iommu-map` changes the entry size to 5 cel=
-ls, which misaligns with the PCIe driver's hardcoded 4-cell parsing struct,=
- causing incorrect hardware configuration.
+
+New issues:
+- [High] Changing the `iommu-map` entries from 4 cells to 5 cells breaks th=
+e manual parsing logic in the QCOM PCIe driver, resulting in corrupted BDF-=
+to-SID hardware configurations.
+
+Pre-existing issues:
+- [Medium] The patch corrects an incorrectly formatted 4-cell `iommu-map` p=
+roperty by adding the missing SID mask cell to match the 2-cell `apps_smmu`=
+ provider in `kodiak.dtsi`. However, it fails to address the exact same def=
+ect present in numerous other Qualcomm SoC device trees and their YAML bind=
+ings.
 --
 
---- Patch [13]: [PATCH 13/22] arm64: dts: qcom: talos: Fix the PCIe iommu-m=
+--- Patch [2]: [PATCH 02/22] arm64: dts: qcom: kodiak: Fix the PCIe iommu-m=
 ap entries ---
-commit 398a25f1ebfa492fb313949f16b10fc5fb1ad185
+commit 3a1ab560afad0b97b3e224b3201d2ab8bc8cd668
 Author: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-arm64: dts: qcom: talos: Fix the PCIe iommu-map entries
+arm64: dts: qcom: kodiak: Fix the PCIe iommu-map entries
+   =20
+The IOMMU provider apps_smmu uses '#iommu-cells =3D <2>', but the PCIe
+iommu-map entries specify only one cell for the SID, omitting the SID
+mask. This went unnoticed until the OF core started warning with commit
+ccb2fd725d41. This patch fixes the entries to match the provider's
+'#iommu-cells' property.
 
-This commit modifies the PCIe iommu-map entries to add an extra cell (the
-SID mask) to match the apps_smmu provider's #iommu-cells property. This
-addresses an OF core warning about 1-cell entries targeting 2-cell outputs.
-
-> diff --git a/arch/arm64/boot/dts/qcom/talos.dtsi b/arch/arm64/boot/dts/qc=
-om/talos.dtsi
-> index fb1bbc51bb8a4..76b1e86b57b07 100644
-> --- a/arch/arm64/boot/dts/qcom/talos.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/talos.dtsi
-> @@ -1349,8 +1349,8 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
->  					 &config_noc SLAVE_PCIE_0 QCOM_ICC_TAG_ACTIVE_ONLY>;
->  			interconnect-names =3D "pcie-mem", "cpu-pcie";
+> diff --git a/arch/arm64/boot/dts/qcom/kodiak.dtsi b/arch/arm64/boot/dts/q=
+com/kodiak.dtsi
+> index fa540d8c2615d..2eb613dd67165 100644
+> --- a/arch/arm64/boot/dts/qcom/kodiak.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/kodiak.dtsi
+> @@ -2278,8 +2278,8 @@ pcie0: pcie@1c00000 {
+>  				      "aggre0",
+>  				      "aggre1";
 > =20
-> -			iommu-map =3D <0x0 &apps_smmu 0x400 0x1>,
-> -				    <0x100 &apps_smmu 0x401 0x1>;
-> +			iommu-map =3D <0x0 &apps_smmu 0x400 0x0 0x1>,
-> +				    <0x100 &apps_smmu 0x401 0x0 0x1>;
+> -			iommu-map =3D <0x0   &apps_smmu 0x1c00 0x1>,
+> -				    <0x100 &apps_smmu 0x1c01 0x1>;
+> +			iommu-map =3D <0x0   &apps_smmu 0x1c00 0x0 0x1>,
+> +				    <0x100 &apps_smmu 0x1c01 0x0 0x1>;
 
 [Severity: High]
-Does adding the SID mask cause a regression in the PCIe controller driver's
-parsing of this property?
+Will changing this to 5 cells break the manual parsing logic in the QCOM
+PCIe driver?
 
-Looking at drivers/pci/controller/dwc/pcie-qcom.c:qcom_pcie_config_sid_1_9_=
-0(),
-the driver appears to expect each iommu-map entry to be exactly 4 u32 cells:
+Looking at drivers/pci/controller/dwc/pcie-qcom.c,
+qcom_pcie_config_sid_1_9_0() manually casts the raw iommu-map property into
+a 4-u32 struct array:
 
-	struct {
-		u32 bdf;
-		u32 phandle;
-		u32 smmu_sid;
-		u32 smmu_sid_len;
-	} *map;
+struct {
+	u32 bdf;
+	u32 phandle;
+	u32 smmu_sid;
+	u32 smmu_sid_len;
+} *map;
 
-When it reads the property into this array via of_property_read_u32_array(),
-the new 5-cell entries will cause the parsing to misalign.
+If the device tree format is updated to 5 cells, will reading this array
+cause out-of-sync reads? For the second entry, map[1].bdf would read the
+length cell of the first entry (0x1), and map[1].smmu_sid would read the
+phandle of the second entry. This could result in corrupted BDF-to-SID
+hardware configurations, causing PCIe devices to use invalid SIDs for DMA.
 
-For the second entry (BDF 0x100), the driver will read the previous entry's
-length (0x1) as the BDF, the rid-base (0x100) as the phandle, and the phand=
-le
-as the smmu_sid. Could this result in corrupted hardware programming for do=
-wnstream
-PCIe devices?
+[Severity: Medium]
+This is a pre-existing issue, but does this fix need to be applied to other
+Qualcomm SoCs as well?
+
+This patch corrects an incorrectly formatted 4-cell iommu-map property by
+adding the missing SID mask cell to match the 2-cell apps_smmu provider in
+kodiak.dtsi, but fails to address the exact same defect present in numerous
+other Qualcomm SoC device trees.
+
+For example, in arch/arm64/boot/dts/qcom/sm8550.dtsi, pcie0 contains:
+
+iommu-map =3D <0x0   &apps_smmu 0x1400 0x1>,
+
+Other SoCs like sm8650 and sc8180x also seem to omit the SID mask. The OF
+core warning will continue to be generated for all other affected Qualcomm
+SoCs until they are updated.
+
+(Note that fixing these DTs directly would also break the driver as mention=
+ed
+above, so the driver must likely be updated first to handle variable-length
+cells or use standard OF core parsing before applying these DT changes).
+
+> =20
+>  			resets =3D <&gcc GCC_PCIE_0_BCR>;
+>  			reset-names =3D "pci";
 
 [ ... ]
 
+> @@ -2424,8 +2424,8 @@ pcie1: pcie@1c08000 {
+> =20
+>  			dma-coherent;
+> =20
+> -			iommu-map =3D <0x0 &apps_smmu 0x1c80 0x1>,
+> -				    <0x100 &apps_smmu 0x1c81 0x1>;
+> +			iommu-map =3D <0x0 &apps_smmu 0x1c80 0x0 0x1>,
+> +				    <0x100 &apps_smmu 0x1c81 0x0 0x1>;
+> =20
+>  			status =3D "disabled";
+>
+
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-iommu-map-=
-fix-v1-0-83405d37ba41@oss.qualcomm.com?part=3D13
+fix-v1-0-83405d37ba41@oss.qualcomm.com?part=3D2
