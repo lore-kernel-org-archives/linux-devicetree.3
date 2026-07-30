@@ -1,302 +1,254 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010010.outbound.protection.outlook.com [52.101.69.10])
+Received: from mx07-001d1705.pphosted.com (mx07-001d1705.pphosted.com [185.132.183.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADE7A36A342;
-	Thu, 30 Jul 2026 02:16:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785377771; cv=fail; b=a3cWlr93E/q8XlHDAgmSsJh3ahd62vXR8RGpup2Usq8VTajVRl4D5o08pS1INwbWVr3AYsLRi0f1u8VSpXyCiHLOcoqbJ9L3VsbadF86PN83FJTZt6gmwP4+GjUg717ylzsFDRtyTW10roj83u/wU3k6k2wML3CEgaf8nne9tyo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785377771; c=relaxed/simple;
-	bh=g/tspJdnIjaYPLnhYruDKhmk89UURmZxtfy22fiiEOA=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=A6W8J8Xd+VLo5COHC2B17X176PrvCGFu1O0n5hEtJnUJBk7MBquRv0oMqnUO7FH65aXVrK78+gzIwKTUf0UqUyBGJ8QRteKMNRueqZoNVBeOVwvbsNEfS74oSc4z89B1YOLlIHoeg0sW+hu3y9yIkGi7xCZdsQGpzSooGzgfKIQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=FOImaW12; arc=fail smtp.client-ip=52.101.69.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4C173603D7;
+	Thu, 30 Jul 2026 02:16:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.132.183.11
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785377776; cv=none; b=YeYRkay4nCAfEBznWbTsqHTYv92FqbeToTeTZsezsRy4ZbLt7lni/rrcQNDZpw0Fg7kKHluqs00gxf8bSPDkT9vrDyPBOZi3at2PxF9OW4bBYGLQkFpwfM7PgySn4BgxeefJRC3hCvI6aNexFHJeLW7nbHYn4QPfD9fJa9ezTy0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785377776; c=relaxed/simple;
+	bh=KhDPfYEKlTAAUBH8oPwbjp+jajJfnmmj1OWJKoay0tc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QamXHE7IjPT2gBnJmvDRBbAiJ2/hu815hCt7sQNC4hpnGgjJSFdBG673euoj0FPNh4tlFxhVXf7/elM1Clyz6KgWwB3jcFTaTOvq2WvpYr8pWFDqSVHO5HXqJWxgK/Js0tkHhp+TM9WXlcbDolf+6hYJtCfa59fARP4CvspxUfc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com; spf=pass smtp.mailfrom=sony.com; dkim=pass (2048-bit key) header.d=sony.com header.i=@sony.com header.b=q3v9I+Ol; arc=none smtp.client-ip=185.132.183.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sony.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="FOImaW12"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=L7b4sgDtcp6XlsPYj5CXfRo3zQ2UJvkReGcG/R0i9I5SCOvTc+rpmVlY4G7mbBh1TIvc9s8RX1Y8ritjlS0R8Imiv+fkoLXjf/5N5jZpe6pcJTl3HwpI5ZTTxXvHLasFDxLNw2v3/aIh34S0Sx0M1SpQRV7Zb0ll6WptihoHEotUisG44piYtPaZlN0VJtEfX7yAkjBRZoyIgJzIw8WoLnkTpV224tqzTZz9Z7jvyLkDqB/les1l6XJauMWZFl8RgcFCfH3rsUbWH5bMLLYB5u951zxE9cb0QMyhkDhsDzExrMBi2frfHOIIls3UyI3v79wZDxKgq8PW5aGLYLDDvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=v0gFZIF2db8KJGG1tEkguhOHK5K/jZjmuXvyiKIoMp0=;
- b=b7BrDzbPe+8a0MUeslbl1oa4T0TMrGW6bYIjoAICON6akBKL74mRBfne+rWxC0yaPkoLIiYBuesP38iAGDeMqQromypSWduv/U81bqh1PGtDTJvH910xPeA+UWrCBVf3nUeGQ98xNFGQH04kgwn1TyI2VhFqHVko45vXtzYAevhozhfLH2A5gO9QqdiPbNA1efwv0ErbituiuZlVpqSU6KBFLDc41nNEhRFQwBhsZRfpMffOVsw2tEbXfsZAtlovCEy7q4ppWzN8o1h5wEKIQPcpXZSEHTMv1ZTUkXfmFuYnKI0oNYJ2lniks+shkmGnOw79eZHzv0amBK8cmLyqmQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=v0gFZIF2db8KJGG1tEkguhOHK5K/jZjmuXvyiKIoMp0=;
- b=FOImaW12uTnad1DSgFsGJMTLLv5WyhvD0csTtxNuydHrZfdzM5xmlnMF1DHu145LnaXUVUJCb4qzZqTcrkvgVQutmkEYmoa31CQaXM5rayaU6lpv1g8hJ9YLNQ97ZKzeFVSpvx+50vlsri/V3cADJb03WVvVLpBirHWjePjeXNR3arDxZgtQFJha6uu81OdPz+7LNqwYcd6PqEyRV/7RIrD/VlaCCe4KFeBlnH0jhc/9TxvQ1XP1BPvlLZfYaqLm8+VNHkAjkR7EthlE0RqxELVgOxzKBZm3CTFYNMKnKEdR66WXGIU7HJe+Hhyff/rM4YbC9Q3GNJFvGSe0urZIrA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM9PR04MB8469.eurprd04.prod.outlook.com (2603:10a6:20b:414::15)
- by GVXPR04MB12313.eurprd04.prod.outlook.com (2603:10a6:150:318::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12; Thu, 30 Jul
- 2026 02:16:05 +0000
-Received: from AM9PR04MB8469.eurprd04.prod.outlook.com
- ([fe80::1f31:d3d0:6150:b49c]) by AM9PR04MB8469.eurprd04.prod.outlook.com
- ([fe80::1f31:d3d0:6150:b49c%4]) with mapi id 15.21.0270.012; Thu, 30 Jul 2026
- 02:16:05 +0000
-From: pankaj.gupta@oss.nxp.com
-Date: Thu, 30 Jul 2026 08:36:29 +0530
-Subject: [PATCH v32 1/7] Documentation/firmware: add imx/se to
- other_interfaces
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260730-imx-se-if-v32-1-95f56dff4ba9@nxp.com>
-References: <20260730-imx-se-if-v32-0-95f56dff4ba9@nxp.com>
-In-Reply-To: <20260730-imx-se-if-v32-0-95f56dff4ba9@nxp.com>
-To: Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Pankaj Gupta <pankaj.gupta@nxp.com>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785380794; l=7403;
- i=pankaj.gupta@nxp.com; s=20240523; h=from:subject:message-id;
- bh=ZSAmXRvPjYNeGEa/I9hefXFuALx9geFcXzYMsSoJmHQ=;
- b=9N+Eq891jZLXqUXnvpp+XYCEcGkgZxTMfkhcSU8bvBDMpntGaLwryecX8T2aE5yb16plQivtM
- TeGqXNE+XhzBpWZiaY+whFa9od9N2guzsqp83eWGude6uJtgPkdNpUT
-X-Developer-Key: i=pankaj.gupta@nxp.com; a=ed25519;
- pk=OA0pBQoupy5lV0XfKzD8B0OOBVB6tpAoIf+0x1bYGRg=
-X-ClientProxiedBy: MA5P287CA0046.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:175::12) To AM9PR04MB8469.eurprd04.prod.outlook.com
- (2603:10a6:20b:414::15)
+	dkim=pass (2048-bit key) header.d=sony.com header.i=@sony.com header.b="q3v9I+Ol"
+Received: from pps.filterd (m0209326.ppops.net [127.0.0.1])
+	by mx08-001d1705.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66U1taPJ2512008;
+	Thu, 30 Jul 2026 02:15:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sony.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=p1; bh=obKeNLJzOCINSgZdFR
+	382XBeAtX6irrbnV5qn/weOaE=; b=q3v9I+Olmfhx2c5Ud4oLiOLl0L0OHycd6c
+	hX6bHotbeha0ljUCA9ZyQ16cMMSapeb8sO/RrOnIEVsClhC7cvjc1lFnCG2ugZ1Z
+	1012QsfHZcq8a6kRiRkbk67mbelyv/Lx0FvJu94pWHAFckXpCIlxOUzGaLSqKx+t
+	iIeT55kx83x/bcpP54LBED5Tm7HWh0xYZ59d27KJucvMkPV6VlIDWThXEtvLHJR5
+	AOD79UeiKqlQb3S2A0OnGhuoJNhEboKSXTMbdPXeL167ZxCtk71dJATDnXWNqFlj
+	tz2NQnDanS+x1ZCoUR/eLS5vivXO9YOMKKhoqGMce33R0mJLrYPQ==
+Received: from sgppsea02v.sg.gdce.sony.com.sg ([121.100.43.226])
+	by mx08-001d1705.pphosted.com (PPS) with ESMTPS id 4fmnbg5ge4-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+	Thu, 30 Jul 2026 02:15:51 +0000 (GMT)
+Received: from pps.filterd (SGPPSEA02v.sg.gdce.sony.com.sg [127.0.0.1])
+	by SGPPSEA02v.sg.gdce.sony.com.sg (8.18.1.7/8.18.1.7) with ESMTP id 66U0iNZd028281;
+	Thu, 30 Jul 2026 02:15:49 GMT
+Received: from sgppsba01v.s.gdce.sony.com.sg ([146.215.113.218])
+	by SGPPSEA02v.sg.gdce.sony.com.sg (PPS) with ESMTPS id 4fmp7h8m89-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 30 Jul 2026 02:15:49 +0000 (GMT)
+Received: from pps.filterd (SGPPSBA01v.s.gdce.sony.com.sg [127.0.0.1])
+	by SGPPSBA01v.s.gdce.sony.com.sg (8.18.1.7/8.18.1.7) with ESMTP id 66U0jOYj009148;
+	Thu, 30 Jul 2026 02:15:49 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by SGPPSBA01v.s.gdce.sony.com.sg (PPS) with ESMTPS id 4fprhxbxjy-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+	Thu, 30 Jul 2026 02:15:48 +0000 (GMT)
+Received: from SGPPSBA01v.s.gdce.sony.com.sg (SGPPSBA01v.s.gdce.sony.com.sg [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 66U2FfVN002867;
+	Thu, 30 Jul 2026 02:15:48 GMT
+Received: from localhost.localdomain ([146.215.113.251])
+	by SGPPSBA01v.s.gdce.sony.com.sg (PPS) with ESMTP id 4fprhxbxjn-2;
+	Thu, 30 Jul 2026 02:15:48 +0000 (GMT)
+From: Lachlan Michael <lachlan.michael@sony.com>
+To: mchehab@kernel.org, sakari.ailus@linux.intel.com,
+        hverkuil+cisco@kernel.org, laurent.pinchart@ideasonboard.com,
+        linux-media@vger.kernel.org, devicetree@vger.kernel.org
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        kieran.bingham@ideasonboard.com, jai.luthra@ideasonboard.com,
+        Ryuichi.Tadano@sony.com, Kengo.Hayasaka@sony.com, Tim.Bird@sony.com,
+        Kazumi.A.Sato@sony.com, linux-kernel@vger.kernel.org,
+        Lachlan Michael <lachlan.michael@sony.com>
+Subject: [PATCH 1/2] media: dt-bindings: imx908: Add Sony IMX908 sensor bindings
+Date: Thu, 30 Jul 2026 11:15:24 +0900
+Message-ID: <20260730021525.166811-2-lachlan.michael@sony.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260730021525.166811-1-lachlan.michael@sony.com>
+References: <20260730021525.166811-1-lachlan.michael@sony.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM9PR04MB8469:EE_|GVXPR04MB12313:EE_
-X-MS-Office365-Filtering-Correlation-Id: 430dadbe-62bd-41f6-3c1c-08deede08299
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|19092799006|366016|1800799024|921020|6133799003|56012099006|11063799006|10067099003|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	aAHentyTNGBp/0Icxyu9aUkiD/vObuy8Vax3M0rTthiOqdabT9UqQXBChBwnDSqT09EQ++q1Dbtxs78q6HWEMaEqwSdWYisIfs5rDauJkZJBAkqGEUl/lzC3cmuIzYZ/UR125HBXVxri4OyeELYJIR1JijcRTyyBGOFAsrhNVqeVqLbAXA/XCsBChDuzGJ/SY7CMQoVyWkUstt0CZJbAGqfWluH49hXhrj++jApa5lWzYGiakJgyArJslLisNVpK3EegTLxj0bmhpCEyu/mqAsGr2dlldejaNV62FvX33INl9h9qGQzbWbIwh4nybhnukX5dvt3t/HDir8jrMOtYq9rIvV2zJmlqWh/McizTb2vFHGZ3ec3HCeuBX6rooX6ltcbeBK71S9iL6I9ps4FH4bBGmK8U8nNLrrZFrs03a7J1/JnQfYS7SLNf7bjFXuuKxil6boPLV5+h3dqX02vs5T+4SOOyMz2wM253c91ahNqc/rgsFDUlAMMeiLclpYoZr13oGDV5HLwZpTe1YvWmiqyUR4jZNTvc+cYkhkgi/uQZWLCd2BVaiOWbcMwEjKTjXSCZVeWMvrM9pJ+MF6yBQ+SQWPH1iSqVJUdRzGdbVqyz0J6UR2pM9yYZdP0U1rDHGmJS9rMz2dEf3///aYh1o/lIJQmtxs/+b4BjnCShovlCC71jzgyJ7sgPOtAzf03aRQwp0idiodtlZ967aJ2nqQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR04MB8469.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(19092799006)(366016)(1800799024)(921020)(6133799003)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eHVBdUtxVFhwV0tXNkJaSEwxd29MaExEbEFsakZYeVBPQkdGbERQZUhiYU1t?=
- =?utf-8?B?WkRKaGZjdzhXUzBaRENiOHY0WjBITjRBL3hQbXRKalpaUGFqcFpuKzVhNy9D?=
- =?utf-8?B?a0wxaEhvbDhQZ0VuR0ZtQTdHbUpPL0tQb0hQWnQzb3pMT2FQMGJ0UW5YeEFu?=
- =?utf-8?B?cTExMmwyMVpIaC94dDBjZSs1QzVBUGJDZzI5TXUzbjI3UEhRU2ZuaUFQVVE2?=
- =?utf-8?B?SnNET0FEeEw4Z1lwUVMwNHk4YkNOeVJaR2oya0R6WlpNOHhWcjRDckZFajIv?=
- =?utf-8?B?TzV3N1cxWVBVenV0UlFGTUp1S3FoQXdIV0dOd1FCaldCT1hNUzkyaVlpSlRk?=
- =?utf-8?B?bnRsR1ZvcHF6cFBEZmlDVVJMc0ttdmdaTmxkc3loZWMzaFdMcFBITGthTVhC?=
- =?utf-8?B?QVVCeUhxMEJmTUVKQjdsekdPQSt1bzVCKzBFSFpDQnBnWDJFakYyMWNyaGhL?=
- =?utf-8?B?Vm5VZmNraTRVYk9iZTJtRVo1YXhKM0Q2eVMxMWY5bEJxWnFtRG1lS0JQTE1w?=
- =?utf-8?B?SFZiUkZJQUVMaE1qdjBsTHdUdFJLVmZXZlpVdW14RlVpRkErTExMZ1VLKzBu?=
- =?utf-8?B?bmFGZThQK1VqSkhBYzd5WU1ocEExWjF5WG9pWXJPWlM3Z2lDajQ4NXB4Qmc4?=
- =?utf-8?B?S1JYTnJOM0t5VGRnS1E1NS9jWHZ3YnJ0WE9ZaUF5THN2MkZJRjNmcE5Fd3ZZ?=
- =?utf-8?B?ZlBxaVVOQ2tvaGVFSXhUSG82aVFXWmRNN3pmQTh2V2RxZStJL0VMQWJCbUdR?=
- =?utf-8?B?Sm0wOXZPd3ZFYnVRd3p2RnBhWnNycXlsRm5NazhwTzVPRmg0Z2kwUXVEMHFi?=
- =?utf-8?B?SWhyVUU5MHdmZGZIZStPS0tCRCtCaE1DOEZlTVhaMlRDWHU0WXZhMk9YUmZk?=
- =?utf-8?B?RHNYME1LT2F1VFRmSTdrK0xxeUxvUFlTSEtIdk5ibU9Ua2k0WHRpemJkclZk?=
- =?utf-8?B?RTIwdFU0clBabm9UQTcxRXRqQTNFcEZ2UThYem10bXRabnRQTnh5RktyeGhK?=
- =?utf-8?B?a2xxbnVDRW5DRUplU2VlSEd3Z3BWKzlpQUt2endmeTgvVjZoWXptRWZmbTZy?=
- =?utf-8?B?SVhOVWNFcmpxY1ZGRm5BQ29JQ0dKa1FmMnVvZjlGK2prZ1Z6Mjh4YkE3Rm50?=
- =?utf-8?B?R1JPRUFMTlFMamVodHNYOGxEQ2xDN0p5ejI1RVgxY1JZdk5PUysrZitETWtZ?=
- =?utf-8?B?d2RKaTUvcTdrL0ZLSzVBanJsOURPV1VXbXJpWWxmTW8xYWRiekt6YVpSbHY5?=
- =?utf-8?B?bkZUTURSMFM5eG8rek1tY0dYR0xIdnBSTnVMazlNaHJJRWxyY01KL2t3Y3JG?=
- =?utf-8?B?TisycnRTdmFWa05DYndoSGR1cXRtY3BraWxqcG1ZN08rTzB3dG5FMW52R0hz?=
- =?utf-8?B?MnhQeW9zNC9jL1g3VDlpcXM0SC9zTEtndkljcTZrV1pIMHdSQmdoUGZEWHVR?=
- =?utf-8?B?Rjk3WTVuTXhMOW15UEwvSCtTR0F5Zms5Q0lENmNEbWVwaW51ZjZSamFLUEZ4?=
- =?utf-8?B?MkI0UUZTOEZLOTBKV1RUUWh6RWM4YXp4YUc4L2FnUTZvYWtzVXR4aTJ2RlBh?=
- =?utf-8?B?cjU5am1EWUF0MXRyUVJFN1BSNVR3WDdaanFuZndaWmMyUWVHRlM0WXI4bzQ5?=
- =?utf-8?B?cU1PSGs0ejJBekM1L25WeDBiamhrWklTRm5FdTAxS2hYTTl4SU9GcitaVkRY?=
- =?utf-8?B?Q21jNVdCL2cyUCs1U0VwcktqY3VpYVc3QkZpSGZ5V2dUM0pWNG5Td3pnNmxn?=
- =?utf-8?B?ZHlDT2RzbFQzY2F6UGtzNGV0VDRDbWE5cjhiMUlSWFhCVE14ZU1RMDhVZTJ0?=
- =?utf-8?B?clJOUDFhWEFtMWFFRkJaL2Y4VGswdjk1VUUrRE8vdXhLSjg2QWEyUDMvdDFt?=
- =?utf-8?B?V1o0bHhtTC8vR3pGUit0Y3RReUpJcCtTQk5aSjZRU2o1bWhIU2xKZGJwRENJ?=
- =?utf-8?B?dGlRMFBub0l3SHpHRlpXelNWQ2M4dEM5b3Q3c3JqNlRWVk10YnlHVWJXRFB2?=
- =?utf-8?B?YVE0Tkkydk9xOFd3TUFtU1FxR1htUzhvUzBaL0hHRy9Ia0pTZms0UE1BYldp?=
- =?utf-8?B?dzBIQmJ4OFhBM3d3VXFvRi9meUxmdVl1R3dxelc0RDdJWUs3UXlwVUFCV3o3?=
- =?utf-8?B?WWRqQ2o0cFh6dTRDSlgyM1d1VU94Z0VFV3JaZmJaaWNoYjhZekN0dUVON0Zo?=
- =?utf-8?B?U2wwVm5pOHZGOWEwNmNqQTRmbURtbzNMYjdMMVhXY3FGV0lYSjRYbW94S0dD?=
- =?utf-8?B?OFdqK2tuNTRrZGNOTFM1VFM5M3ZCVktKTlgrZjAxbmxKNno5OWUySFRTVU4z?=
- =?utf-8?B?N2ExSkhFYlN6NmwrWGNkc3BiYkRYSlF6Z2lycXNhQU1TL3Y3aCsveDFrem9T?=
- =?utf-8?Q?hxVRNC40HD5NPEkastVmBz0jTRZsCMC4D+YNv?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 430dadbe-62bd-41f6-3c1c-08deede08299
-X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8469.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2026 02:16:05.4214
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rGZ8+3r5XIB2P5v8xjJQIrI1LiOvSigddKPLyy9i6lrGO3Zui6vr8oGS26nsq5HKyeF0iriB0j3TplaTy9Td0RwARQvW5u1XM5jYX9KHalGHYXIWnTBsV+7Zyv3rZc5w
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB12313
+Content-Transfer-Encoding: 8bit
+X-Sony-BusinessRelay-GUID: Kj4gvZ4QCvC0-2cQ45Wz3E3kh7WaQu0p
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-29_09,2026-07-29_01,2025-10-01_01
+X-Sony-EdgeRelay-GUID: Wm8G1hNJWTT45rNtOP95PbX-WcyfRtQp
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-29_09,2026-07-29_01,2025-10-01_01
+X-Proofpoint-ORIG-GUID: 9pXu2xYG1D_dswelVIhq8pc8uSR8iwuv
+X-Authority-Analysis: v=2.4 cv=O7MJeh9W c=1 sm=1 tr=0 ts=6a6ab3d7 cx=c_pps
+ a=6mgWUpd4vGE96FGw1JXD8A==:117 a=6mgWUpd4vGE96FGw1JXD8A==:17
+ a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=KAb5x4SsHD3PzxGk7EmX:22
+ a=lmptg-Pxpg44AF-n8Qp9:22 a=gEfo2CItAAAA:8 a=z6gsHLkEAAAA:8 a=xq3W2uTSAAAA:8
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=CjxXgO3LAAAA:8 a=NTLQiP0OeAUCudzpKyMA:9
+ a=sptkURWiP4Gy88Gu7hUp:22 a=P5L7wpMTXyg1GfFA3Gwx:22
+X-Proofpoint-GUID: 9pXu2xYG1D_dswelVIhq8pc8uSR8iwuv
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDAxMiBTYWx0ZWRfX6ZqUJ8SqUFK3
+ 0kIsP/oWF185FXfVJf4Dl1Fjmm9V3AedFD5OwROKsbs02kYuT4dTDkKV6x3FuIlaWndkAy0E4CU
+ KJgLp7RlzPa+yzkRURslXII7Z1AwAkI5YbWle+7s1XSshtslNaWN
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDAxMiBTYWx0ZWRfX6FdgJGBiEs+o
+ jObfgezvqYJd+PwCwCovd6La2cCJvKoFBXTj8ABFfC6XpuSpLVFNPKXHzn5uTMTMZztZ/J/LR5w
+ 7No98ptIP/GQlq6f1+bmJWxh3to961wHe8L9CJAHcdIc4VnpxTpeovpZWm2SXCuq5Gfl1/gm3cy
+ 6ne7Q0lwhhrBjYeS1TCFJJEtzp4GiF6SvC3dWzMM5g1eFFBE7brGvgL0T5pX5OU/wkCLTgGzY+e
+ KQzAuQrTekX12Y2iE9N4mbU/dVtRy+L604msnkPVoIcqJlAn7LModDN5U1REhIaSIM/q7Qpk2YD
+ ngUZoXezyCWj4yUTtVCayAND7D3klANEOw0+jHxoYEIzsxMrkRTsR3RknBmUbqBZ8vAOz7nnTQg
+ wUJbHPCFYKEcpUzSWG/4e93ekZpeBol+A7nnTV3vgYVyoVmvvPMMXEoYfzPiqJuZak15YdU33ef
+ RUQRL0aNz9E7QXPtLhw==
+X-Sony-Outbound-GUID: 9pXu2xYG1D_dswelVIhq8pc8uSR8iwuv
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-29_09,2026-07-29_01,2025-10-01_01
 
-From: Pankaj Gupta <pankaj.gupta@nxp.com>
+The Sony IMX908 is an 8.39 megapixel (3856x2176) CMOS image sensor
+with a MIPI CSI-2 output interface.
 
-Documents i.MX SoC's Service layer and C_DEV driver for selected SoC(s)
-that contains the NXP hardware IP(s) for Secure Enclaves(se) like:
-- NXP EdgeLock Enclave on i.MX93 & i.MX8ULP
+Add device tree bindings for the sensor.
 
-Signed-off-by: Pankaj Gupta <pankaj.gupta@nxp.com>
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: Lachlan Michael <lachlan.michael@sony.com>
 ---
- .../driver-api/firmware/other_interfaces.rst       | 133 +++++++++++++++++++++
- 1 file changed, 133 insertions(+)
+ .../bindings/media/i2c/sony,imx908.yaml       | 107 ++++++++++++++++++
+ MAINTAINERS                                   |   7 ++
+ 2 files changed, 114 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
 
-diff --git a/Documentation/driver-api/firmware/other_interfaces.rst b/Documentation/driver-api/firmware/other_interfaces.rst
-index 06ac89adaafb..6c6fa9a0ba1d 100644
---- a/Documentation/driver-api/firmware/other_interfaces.rst
-+++ b/Documentation/driver-api/firmware/other_interfaces.rst
-@@ -49,3 +49,136 @@ of the requests on to a secure monitor (EL3).
+diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
+new file mode 100644
+index 000000000000..6ab382d1cf34
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
+@@ -0,0 +1,107 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++# Copyright 2026 Sony Semiconductor Solutions
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/sony,imx908.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Sony IMX908 CMOS Image Sensor
++
++maintainers:
++  - Lachlan Michael <Lachlan.Michael@sony.com>
++
++description:
++  Sony IMX908 diagonal 6.42 mm (Type 1/2.8) CMOS active pixel type
++  solid-state image sensor with a square pixel array and 8.39 M
++  (3856x2176) pixels, supporting MIPI CSI-2 output with
++  RAW10 and RAW12 formats, configured as either 2 or 4 data lanes.
++  The I2C address is fixed to 0x1A as per sensor data sheet.
++
++properties:
++  compatible:
++    const: sony,imx908
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    description: Input clock (24 MHz, 27 MHz, 37.125 MHz, 72 MHz or 74.25 MHz)
++    maxItems: 1
++
++  dvdd-supply:
++    description: Digital supply voltage (1.1V)
++
++  ovdd-supply:
++    description: Interface supply voltage (1.8V)
++
++  avdd-supply:
++    description: Analog supply voltage (3.3V)
++
++  reset-gpios:
++    description: Sensor reset (XCLR) GPIO. Active low.
++    maxItems: 1
++
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    unevaluatedProperties: false
++
++    properties:
++      endpoint:
++        $ref: /schemas/media/video-interfaces.yaml#
++        additionalProperties: false
++
++        properties:
++          data-lanes:
++            oneOf:
++              - items:
++                  - const: 1
++                  - const: 2
++              - items:
++                  - const: 1
++                  - const: 2
++                  - const: 3
++                  - const: 4
++
++          link-frequencies: true
++
++        required:
++          - data-lanes
++          - link-frequencies
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - dvdd-supply
++  - ovdd-supply
++  - avdd-supply
++  - port
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++         camera@1a {
++            compatible = "sony,imx908";
++            reg = <0x1a>;
++            clocks = <&cdce913_cam0 0>;
++            dvdd-supply = <&cam_dvdd_1r1v>;
++            ovdd-supply = <&cam_ovdd_1r8v>;
++            avdd-supply = <&cam_avdd_3r3v>;
++            reset-gpios = <&tca6416_cam0 5 GPIO_ACTIVE_LOW>;
++
++            port {
++                imx908_out: endpoint {
++                    data-lanes = <1 2 3 4>;
++                    link-frequencies = /bits/ 64 <720000000>;
++                    remote-endpoint = <&csi0_in>;
++                };
++            };
++        };
++    };
++
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 1ab8736850ea..41b39aa24bda 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -25264,6 +25264,13 @@ T:	git git://linuxtv.org/media.git
+ F:	Documentation/devicetree/bindings/media/i2c/sony,imx415.yaml
+ F:	drivers/media/i2c/imx415.c
  
- .. kernel-doc:: drivers/firmware/stratix10-svc.c
-    :export:
++SONY IMX908 SENSOR DRIVER
++M:	Lachlan Michael <lachlan.michael@sony.com>
++L:	linux-media@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
++F:	drivers/media/i2c/imx908.c
 +
-+NXP Secure Enclave Firmware Interface
-+=====================================
-+
-+Introduction
-+------------
-+The NXP's i.MX HW IP like EdgeLock Enclave, V2X etc., creates an embedded secure
-+enclave within the SoC boundary to enable features like:
-+
-+- Hardware Security Module (HSM)
-+- Security Hardware Extension (SHE)
-+- Vehicular to Anything (V2X)
-+
-+Each of the above features is enabled through dedicated NXP H/W IP on the SoC.
-+On a single SoC, multiple hardware IP (or can say more than one secure enclave)
-+can exist.
-+
-+NXP SoCs enabled with the such secure enclaves(SEs) IPs are:
-+i.MX93, i.MX8ULP
-+
-+To communicate with one or more co-existing SE(s) on SoC, there is/are dedicated
-+messaging units(MU) per SE. Each co-existing SE can have one or multiple exclusive
-+MUs, dedicated to itself. None of the MU is shared between two SEs. Communication
-+of the MU is realized using the mailbox driver. Each secure enclave can cater to
-+multiple clients by virtue of these exclusive MUs. Also, they can distinguish
-+transactions originating from these clients based on the MU used and core security
-+state. The communication between the clients and secure enclaves is in the form of
-+a command/response mechanism. Each client could expose a specific set of secure enclave
-+features to the higher layers, based on the commands supported by that client. For
-+example, the secure enclave could simultaneously support an OPTEE TA and Linux
-+middleware as clients. Each of these clients can expose a specific set of secure
-+enclave features based on the command set supported by them.
-+
-+NXP Secure Enclave(SE) Interface
-+--------------------------------
-+MU(s) is/are not shared between SE(s). But for an SoC like i.MX95 which has
-+multiple SE(s) like HSM, V2X-HSM, V2X-SHE, all the SE(s) and their interfaces 'se-if'
-+that is/are dedicated to a particular SE will be enumerated and provisioned using the
-+single compatible node("fsl,imx95-se").
-+
-+Each 'se-if' comprises two layers:
-+
-+- (C_DEV Layer) User-Space software-access interface.
-+- (Service Layer) OS-level software-access interface.
-+
-+::
-+
-+   +--------------------------------------------+
-+   |            Character Device(C_DEV)         |
-+   |                                            |
-+   |   +---------+ +---------+     +---------+  |
-+   |   | misc #1 | | misc #2 | ... | misc #n |  |
-+   |   |  dev    | |  dev    |     | dev     |  |
-+   |   +---------+ +---------+     +---------+  |
-+   |        +-------------------------+         |
-+   |        | Misc. Dev Synchr. Logic |         |
-+   |        +-------------------------+         |
-+   |                                            |
-+   +--------------------------------------------+
-+
-+   +--------------------------------------------+
-+   |               Service Layer                |
-+   |                                            |
-+   |      +-----------------------------+       |
-+   |      | Message Serialization Logic |       |
-+   |      +-----------------------------+       |
-+   |          +---------------+                 |
-+   |          |  imx-mailbox  |                 |
-+   |          |   mailbox.c   |                 |
-+   |          +---------------+                 |
-+   |                                            |
-+   +--------------------------------------------+
-+
-+- service layer:
-+  This layer is responsible for ensuring the communication protocol that is defined
-+  for communication with firmware.
-+
-+  FW Communication protocol ensures two things:
-+
-+  - Serializing the messages to be sent over an MU.
-+  - FW can handle one command message at a time.
-+
-+- c_dev:
-+  This layer offers character device contexts, created as '/dev/<se>_mux_chx'.
-+  Using these multiple device contexts that are multiplexed over a single MU,
-+  userspace application(s) can call fops like write/read to send the command message,
-+  and read back the command response message to/from Firmware.
-+  fops like read & write use the above defined service layer API(s) to communicate with
-+  Firmware.
-+
-+  Misc-device(/dev/<se>_mux_chn) synchronization protocol::
-+
-+                                Non-Secure               +   Secure
-+                                                         |
-+                                                         |
-+                +-----------+      +-------------+       |
-+                | se_ctrl.c +<---->+imx-mailbox.c|       |
-+                |           |      |  mailbox.c  +<-->+------+    +------+
-+                +-----+-----+      +-------------+    | MU X +<-->+ ELE |
-+                      |                               +------+    +------+
-+                      +----------------+                 |
-+                      |                |                 |
-+                      v                v                 |
-+                  logical           logical              |
-+                  receiver          waiter               |
-+                     +                 +                 |
-+                     |                 |                 |
-+                     |                 |                 |
-+                     |            +----+------+          |
-+                     |            |           |          |
-+                     |            |           |          |
-+              device_ctx     device_ctx     device_ctx   |
-+                                                         |
-+                User 0        User 1       User Y        |
-+                +------+      +------+     +------+      |
-+                |misc.c|      |misc.c|     |misc.c|      |
-+   kernel space +------+      +------+     +------+      |
-+                                                         |
-+   +---------------------------------------------------- |
-+                    |             |           |          |
-+   userspace   /dev/ele_muXch0    |           |          |
-+                          /dev/ele_muXch1     |          |
-+                                        /dev/ele_muXchY  |
-+                                                         |
-+
-+When a user sends a command to the firmware, it registers its device_ctx
-+as waiter of a response from firmware.
-+
-+Enclave's Firmware owns the storage management over a Linux filesystem.
-+For this c_dev provisions a dedicated slave device called "receiver".
-+
-+.. kernel-doc:: drivers/firmware/imx/se_ctrl.c
-+   :export:
-
+ SONY MEMORYSTICK SUBSYSTEM
+ M:	Maxim Levitsky <maximlevitsky@gmail.com>
+ M:	Alex Dubov <oakad@yahoo.com>
 -- 
-2.43.0
+2.47.3
 
