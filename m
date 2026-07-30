@@ -1,191 +1,206 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66D29373C1A
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 15:41:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F52737F011;
+	Thu, 30 Jul 2026 15:44:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785426113; cv=none; b=TBnLqDt7Jl8Ord2xU2LmpbDbJrFqjixXqomaV+jg19DIf1BM6YkpQa4hSdbI5EjzyUr+AnliCozequH02irt3ZvNTEeHMIWlD7Vh2jf5pv1OazJ1K1e9KKPzgI42RUs5gt254+AZ+qWrStsC4OY1ZNx+tvU30IGJnVPsMY6/U7A=
+	t=1785426246; cv=none; b=Tb/VCs0YxnYNo+2fBg7pXd101icyhkMwDTSMrtRoPSPHHcv7mLDIDw8VzKiYd1CLuIPQymGhOcmKd/lXP2kZF75KLyTu5NSGclqaFo+s2MbZu2rC43SckcaFPrkoNqkcM0+RpTyW+VvAOBL+SdDPZ1D2+SwPxJMPQXroWciMxDc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785426113; c=relaxed/simple;
-	bh=p2LLxDh+WfS0Yn01yHZLegh4Odas0zv8U2Poc7pSVrY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=d30QsOZ0mkCCwk/YHnhzqlGNMM9hQCCO8miuuv/G3TxnrkRwD8P/NpM8a9OiUGR9v6sJnVgyhdaGHwryPFtDXzATCrJx7l93RvDgiJNJPZKjqRaqXC7uwyIlnsJ6s4RLjaQKY/KZdw5MvigNMyvyVwmnsrSaJlbd9qxz1SLCP5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RK0ISmwj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785426246; c=relaxed/simple;
+	bh=3iDUiCnsFYnzTLKv3nb+4gpu8mkR6j8++KHr1PvRxP0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=EtUD7Oy8pTzB7g2R6jjmA9hMbfhG+5pcB9GBEaWqIytYKENBNrsxBCpLGmZusQuJ+uCYAyy0zpBIATKqrp007joxI1pAVydBQ5JTBk01hvqknFaVsLEunb6ZsbRH36gLkOYgmBKQ5WleqRh6+nfFR4cIRzUVrbV94RSCR2PmAIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VEYEouEb; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RK0ISmwj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 302B91F00A3A;
-	Thu, 30 Jul 2026 15:41:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785426112;
-	bh=whrul3qqnj9A/3I1tfsn3VfO/EoXnU8Z0yQNO63PBh4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RK0ISmwjRtgpEt/AhNOdmT/QaWNyQ9geaDk5OxEwUrgAzjj9qQ4RiqGo2hz/MqvBA
-	 1BqX+IsIGraz6nxXEvIQNMERa0C238rKqh3H9JHyaleovHYzWhh6/OokzKyGP6Oy/O
-	 CCzDhrevf1WgiJbkdsy/jWT8f6OsPq2f0M1E9Ziz6qzjiL6GCGZygB2DmNZe2TVZxt
-	 mjMpQUaN6weJL+2ChSwIPqyU+MAwf4wAnHx9zXe7fAXh3c+lVIwpAJt2eeS9RVKoaM
-	 qyumhRN5tQqFR8DqX2S6f2dL3SOx7MLmIHUjptU3g7ZUY2QMjTLTaWHJIPAFQk+FaZ
-	 To33y9W81B2WQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 07/18] media: iris: add vpu op hook to disable ARP
- buffer
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, devicetree@vger.kernel.org
-In-Reply-To: <20260730-iris-ar50lt-v8-7-6597c08cea6f@oss.qualcomm.com>
-References: <20260730-iris-ar50lt-v8-0-6597c08cea6f@oss.qualcomm.com>
- <20260730-iris-ar50lt-v8-7-6597c08cea6f@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 15:41:49 +0000
-Message-Id: <20260730154150.302B91F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VEYEouEb"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 38923C2BCB9;
+	Thu, 30 Jul 2026 15:44:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1785426246;
+	bh=3iDUiCnsFYnzTLKv3nb+4gpu8mkR6j8++KHr1PvRxP0=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=VEYEouEbQbVgcLaqJ1XYFEzvPwtS0HR/a/qHnDPUIfZ+af2KBw5mfdowbYKkCNL4k
+	 gDoMrIS58Q6Ymu2gJKMbFdoyd+YlJLTCJzpPINpgyp7QCGCNJmAwzGGAjiqikLa3sz
+	 8ReCaMu5sZ3Pe3bznnhAXJW4JgeSMVOE7rSLpCQHCoL5qmb300F7twwqcXCVD5l6Zn
+	 bTPzH9sFEsnkADR1nIwb7DbNd3FP4f1GJIPzIfstbj6mVCRdZQjC1VLKUl797hLe75
+	 mr1lBG1Jyrs1zkTPssN+Wgvdz7Baas5xhONThlT1eDGGpZr6CbjXPpjJHmnCNXkbqh
+	 Q9Cv59+1g6cSw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 12268C55160;
+	Thu, 30 Jul 2026 15:44:06 +0000 (UTC)
+From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
+Subject: [PATCH v7 0/4] hwmon: pmbus: add MPS MPQ8646 support
+Date: Thu, 30 Jul 2026 17:43:58 +0200
+Message-Id: <20260730-mpq8646_v0-v7-0-e7c7ad768d5d@free.fr>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAD5xa2oC/3XPTW4DIQwF4KtErEsFGAOTVe8RVRW/DYsmKROhV
+ tHcvZ6sBqmzfJa+Z/vB5txqntnx8GAt9zrX64WCfTmwePaXz8xrosyUUEZYBfzr9u2MNh9dcAA
+ HMaDVyXpG4NZyqT/PstM75XOd79f2++zucp3+W9MlF1xqMBAtTtKUt9Jyfi2NrSVd7UNFEKKOw
+ cqiIIoRwj6EdaMvskAC57Qbod6HmmAwoCBhiaj0CHEL9QCRID2HAX2evFcjNFs4DdAQnNYbJcq
+ Ywmbjsix/1TwnAb8BAAA=
+To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, Charles Hsu <ythsu0511@gmail.com>
+Cc: Markus Elfring <Markus.Elfring@web.de>, linux-hwmon@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-doc@vger.kernel.org, Vincent Jardin <vjardin@free.fr>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785426244; l=6925;
+ i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
+ bh=3iDUiCnsFYnzTLKv3nb+4gpu8mkR6j8++KHr1PvRxP0=;
+ b=0BS/v/XurP/AYzHoBTHPNMpvbz/ZLq61vXjTPMb744ZA4VMP/2z791HTiLQpM4wIy75Ca3/Us
+ tCHimB0pDzvDNDiQETIryg6u4w0djwrVYn8vlCZ8R/9hBzGbWlKLmp0
+X-Developer-Key: i=vjardin@free.fr; a=ed25519;
+ pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
+X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
+ auth_id=871
+X-Original-From: Vincent Jardin <vjardin@free.fr>
+Reply-To: vjardin@free.fr
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Add support for the Monolithic Power Systems MPQ8646 step-down
+converter as a PMBus device.
 
-Pre-existing issues:
-- [High] Race conditions and data races in `iris_core_init` state machine a=
-llow concurrent callers to bypass initialization wait and modify `core->sta=
-te` unprotected.
-- [High] The `iris_core_init()` function fails to clean up initialized reso=
-urces (such as DMA memory for queues, firmware mappings, and VPU power) if =
-the hardware fails to respond in time.
---
+  1/4 pmbus core: export pmbus_check_and_notify_faults() so a chip
+      driver can run the SMBALERT# path check and notify sequence
+      from a polling work item when the chip's SMBALERT# pin is
+      unavailable to the CPU.
+  2/4 dt-bindings: add the MPQ8646 compatible to the existing
+      mps,mpq8785 schema (same mps,vout-fb-divider-ratio-permille
+      property, same constraints).
+  3/4 the MPQ8646 driver: PMBus telemetry
+  4/4 the provisioning/NVM write entries, compiled out by default
+      thanks to SENSORS_MPQ8646_DEBUG_UNSAFE.
 
---- Patch [7]: [PATCH v8 07/18] media: iris: add vpu op hook to disable ARP=
- buffer ---
-commit 53560a9c747444f7e2c1b9214a99baec4904f498
-Author: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+To: Guenter Roeck <linux@roeck-us.net>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Jonathan Corbet <corbet@lwn.net>
+To: Shuah Khan <skhan@linuxfoundation.org>
+To: Charles Hsu <ythsu0511@gmail.com>
+Cc: Markus Elfring <Markus.Elfring@web.de>
+Cc: linux-hwmon@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-doc@vger.kernel.org
+Signed-off-by: Vincent Jardin <vjardin@free.fr>
 
-media: iris: add vpu op hook to disable ARP buffer
+Changes in v7:
+- driver: named initializer for the i2c_device_id table (reported by
+  the Sashiko AI, confirmed by Guenter Roeck it is a real issue)
+- add pmbus_lock in every debugfs accessor that touches, so reads cannot
+  race the pmbus core and no write can slip through while
+  clear_protection_last_force temporarily lowers WRITE_PROTECT
+  (reported by the Sashiko AI, confirmed by Guenter Roeck)
+- propagate the i2c error codes from the debugfs write handlers instead
+  of returning success
+- explicit Kconfig and documentation warnings, and add a WARNING banner
+  at probing of the device. (requested by Guenter Roeck)
+- reword some commit logs (reported by Markus Elfring)
+- Link to v6: https://lore.kernel.org/r/20260729-mpq8646_v0-v6-0-98848151cdb4@free.fr
 
-This patch adds a disable_arp callback to the VPU operations for the iris
-driver. This optional callback is invoked during core initialization and
-resume paths to disable ARP routing on AR50LT platforms, allowing the
-firmware to configure the ARP internal buffer as non-secure for encoder
-usage.
+Changes in v6:
+- core: replace the pmbus_get_hwmon_device() accessor with an exported
+  pmbus_check_and_notify_faults() (suggested by Guenter Roeck on v5)
+- driver: drop the bring-up probe/instrumentation debugfs entries
+  (challenged by Guenter Roeck on v4)
+- new patch 4/4: move the write/provisioning debugfs entries
+  behind a new default-n SENSORS_MPQ8646_DEBUG_UNSAFE
+- move the debugfs files into the client's pmbus debugfs directory
+  (pmbus_get_debugfs_dir()), mask using VOUT_MODE checks, MPQ8646_DEBUG()
+  using dev_dbg(), drop the 0xFF VOUT_MODE probe check and the
+  source-attribution comments (many inline reviews reported
+  by Guenter Roeck on v5)
+- driver: drop the WRITE_PROTECT read shim: the HW implements the
+  register (reads back 0x00, unprotected), so the core handles write
+  protection as designed (reported by Guenter Roeck on v5)
+- dt-bindings: fold the MPQ8646 into the existing mps,mpq8785.yaml
+  (suggested by Krzysztof Kozlowski on v5)
+- scope locking, guard() and scoped_guard() (suggested by Markus
+  Elfring on v5)
+- XXX TBD: should pmbus_check_and_notify_faults() also update
+  the pmbus registered thermal zones, or is that follow-up material ?
+  Currently, neither the SMBALERT# path nor this helper does it.
+- Link to v5: https://lore.kernel.org/r/20260724-mpq8646_v0-v5-0-5915b5ae9aa2@free.fr
 
-> diff --git a/drivers/media/platform/qcom/iris/iris_core.c b/drivers/media=
-/platform/qcom/iris/iris_core.c
-> index 6dbe18be5b495..526f925752646 100644
-> --- a/drivers/media/platform/qcom/iris/iris_core.c
-> +++ b/drivers/media/platform/qcom/iris/iris_core.c
-> @@ -46,6 +46,7 @@ static int iris_wait_for_system_response(struct iris_co=
-re *core)
-> =20
->  int iris_core_init(struct iris_core *core)
->  {
-> +	const struct vpu_ops *vpu_ops =3D core->iris_platform_data->vpu_ops;
->  	int ret;
-> =20
->  	mutex_lock(&core->lock);
+Changes in v5:
+- driver: fix the hwmon channel indices used by the in*_alarm poll
+  notifications (thanks Sashiko AI, v4)
+- driver: remove the shared debugfs root on module unload, by creating
+  it in module_init() and removing it in module_exit(). It also drops
+  the v4 per-probe root mutex and debugfs_lookup()
+  (Sashiko AI review of v4)
+- doc: add Documentation/hwmon/mpq8646.rst to the toctree (kernel test robot)
+- doc: fix a malformed table and drop the stale probe_page_write row
+  (removed since v3) and fix typo
+- Link to v4: https://lore.kernel.org/r/20260723-mpq8646_v0-v4-0-b6323d5fc524@free.fr
 
-[Severity: High]
-This isn't a bug introduced by this patch, but is there a race condition in
-the state machine of iris_core_init()?
+Changes in v4 (all reported by the Sashiko AI review on v3):
+- driver: register debugfs only after a successful pmbus_do_probe() --
+  the debugfs handlers take pmbus_lock() and rely on the pmbus clientdata
+  that pmbus_do_probe() installs (NULL-deref window in v3)
+- driver: in remove(), unregister debugfs before cancel_delayed_work_sync()
+  so a debugfs write cannot re-arm the poll worker after it is cancelled
+- driver: serialise the shared debugfs root create against concurrent
+  probes with a static mutex
+- driver: move the remaining last_probe_* updates (clear_protection_last,
+  store_all, restore_all) inside mps_lock
+- dt-bindings: describe the hardware, not the driver, in the description
+- Link to v3: https://lore.kernel.org/r/20260723-mpq8646_v0-v3-0-1af1f3d38848@free.fr
 
-If one thread calls iris_core_init(), it takes core->lock, sets
-core->state =3D IRIS_CORE_INIT, drops the lock, and blocks in
-iris_wait_for_system_response():
+Changes in v3 (all reported by the Sashiko AI review on v2):
+- driver: alarm_poll_interval_ms is now a debugfs fops
+- driver: pmbus_lock() around the async raw i2c accesses: the poll
+  worker and the CLEAR_LAST_FAULT force sequence, the nvmem snapshot read
+  keeps mps_lock (read-only, no chip-state change)
+- driver: update last_probe_rc/last_probe_data under mps_lock to avoid
+  torn diagnostics
+- driver: remove the dead PMBUS_PAGE swallow in write_byte
+- driver: remove the probe_page_write debugfs hook
+- Link to v2: https://lore.kernel.org/r/20260723-mpq8646_v0-v2-0-3c4cb71f23c0@free.fr
 
-drivers/media/platform/qcom/iris/iris_core.c:iris_core_init() {
-    ...
-    core->state =3D IRIS_CORE_INIT;
-    ...
-    mutex_unlock(&core->lock);
+Changes in v2:
+- driver: register debugfs only after the DT-property validation, to
+  avoid an early probe error to avoid dangling debugfs entries
+- driver: do not schedule the alarm-poll worker when SMBALERT# (irq)
+  is wired, and do not re-arm it from the worker in that case
+- driver: dput() the dentry returned by debugfs_lookup()
+- driver: hold mps_lock around the nvmem snapshot reads
+- driver: fix VID coefficients comment
+- dt-bindings: fix typo of the commit message
+- Link to v1: https://lore.kernel.org/r/20260723-mpq8646_v0-v1-0-14363c75916f@free.fr
 
-    return iris_wait_for_system_response(core);
-}
+---
+Vincent Jardin (4):
+      hwmon: (pmbus/core) export pmbus_check_and_notify_faults()
+      dt-bindings: hwmon: pmbus: add MPS MPQ8646
+      hwmon: pmbus: add MPQ8646 driver
+      hwmon: pmbus: mpq8646: gate the writes
 
-Concurrently, if another thread calls iris_core_init(), it can see
-core->state =3D=3D IRIS_CORE_INIT and return success immediately without wa=
-iting
-for firmware readiness:
+ .../bindings/hwmon/pmbus/mps,mpq8785.yaml          |   5 +-
+ Documentation/hwmon/index.rst                      |   1 +
+ Documentation/hwmon/mpq8646.rst                    | 300 +++++++
+ MAINTAINERS                                        |   7 +
+ drivers/hwmon/pmbus/Kconfig                        |  31 +
+ drivers/hwmon/pmbus/Makefile                       |   1 +
+ drivers/hwmon/pmbus/mpq8646.c                      | 976 +++++++++++++++++++++
+ drivers/hwmon/pmbus/pmbus.h                        |   1 +
+ drivers/hwmon/pmbus/pmbus_core.c                   |  14 +-
+ 9 files changed, 1332 insertions(+), 4 deletions(-)
+---
+base-commit: 248951ddc14de84de3910f9b13f51491a8cd91df
+change-id: 20260723-mpq8646_v0-3383cb574d7a
 
-drivers/media/platform/qcom/iris/iris_core.c:iris_core_init() {
-    mutex_lock(&core->lock);
-    if (core->state =3D=3D IRIS_CORE_INIT) {
-        ret =3D 0;
-        goto exit;
-    }
-    ...
-}
+Best regards,
+-- 
+Vincent Jardin <vjardin@free.fr>
 
-Additionally, if the first thread's wait times out,
-iris_wait_for_system_response() modifies core->state without holding
-core->lock:
 
-drivers/media/platform/qcom/iris/iris_core.c:iris_wait_for_system_response(=
-) {
-    ...
-    if (!ret) {
-        core->state =3D IRIS_CORE_ERROR;
-        return -ETIMEDOUT;
-    }
-    ...
-}
-
-Can this lead to a data race with other threads checking or modifying the
-state, and allow threads to bypass initialization wait?
-
-[Severity: High]
-This is a pre-existing issue, but does iris_core_init() fail to clean up
-initialized resources if the hardware fails to respond in time?
-
-In iris_core_init(), if iris_wait_for_system_response() returns an error
-(e.g., -ETIMEDOUT), it doesn't trigger the teardown labels:
-
-drivers/media/platform/qcom/iris/iris_core.c:iris_core_init() {
-    ...
-    mutex_unlock(&core->lock);
-
-    return iris_wait_for_system_response(core);
-    ...
-}
-
-If wait_for_completion_timeout() expires, iris_wait_for_system_response()
-returns -ETIMEDOUT and sets core->state to IRIS_CORE_ERROR:
-
-drivers/media/platform/qcom/iris/iris_core.c:iris_wait_for_system_response(=
-) {
-    ...
-    if (!ret) {
-        core->state =3D IRIS_CORE_ERROR;
-        return -ETIMEDOUT;
-    }
-    ...
-}
-
-If user space retries, the next call to iris_core_init() sees
-core->state =3D=3D IRIS_CORE_ERROR, jumps to the error label, and sets the
-state to IRIS_CORE_DEINIT without releasing the resources leaked in the
-first attempt:
-
-drivers/media/platform/qcom/iris/iris_core.c:iris_core_init() {
-    ...
-    } else if (core->state =3D=3D IRIS_CORE_ERROR) {
-        ret =3D -EINVAL;
-        goto error;
-    }
-    ...
-error:
-    core->state =3D IRIS_CORE_DEINIT;
-    ...
-}
-
-A third attempt would then see IRIS_CORE_DEINIT, re-run initialization,
-allocate new DMA memory (via iris_hfi_queues_init), and overwrite the
-previous pointers, resulting in a permanent memory leak.
-
-Does this sequence cause a memory leak when the firmware hangs?
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-iris-ar50l=
-t-v8-0-6597c08cea6f@oss.qualcomm.com?part=3D7
