@@ -1,255 +1,189 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010006.outbound.protection.outlook.com [52.101.56.6])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC77138C2DE;
-	Thu, 30 Jul 2026 07:07:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.6
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785395260; cv=fail; b=Fpx2i30hc+6sUp5yrf9faz9T9PKuY3MpxbrFGD3AcZG1ZJg1Ekn/vvI267reX8jMxLzsqu1T9ybO2wkc6LWHe1OwTAQaHn+AG/1v+Ee3nhGMwZzXzu5wzYFJkvW0wiYIL4qz4MsAE0e50q3jSaYOCjN2785H2HEPpKAalf/TkNs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785395260; c=relaxed/simple;
-	bh=zoURmAaunvH3DwNF8oCV14c7+2bvID4Yw+97HcKemZU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=BliIBTh62/jxHJjHFpJPbznAl3gFVrAestb9KOV6mDSBxgV7sJpRYyA58w8JGeBGS9vT5oxQ+bekcqFEXW7em2DeYZGZzK/H+RQKOOGKE5zktp/7GVTQ84HI+dhMlL5gZfCqF90h0dAGqy0AyNTZQH2ZoTF6Y/RQlj6wNrD+5Ag=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=azOyiLOj; arc=fail smtp.client-ip=52.101.56.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12BF7314D05;
+	Thu, 30 Jul 2026 07:09:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785395396; cv=none; b=T0/dcra4ihZmAXl2DJ3cGOIiravLJOpbcoIQzGUxwHszAE7GhstGIfEqBSOPCdtwYeDmFdVQtCjp1fMinv3uSEaDDhbAc4zWLvjqPRn7yjw/8TUSQXQmCvcMFLIvlSG9OhZRowbgxSw2fgMrJ0/8d0i7T5SviIF+2XS9T0jZW6k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785395396; c=relaxed/simple;
+	bh=DwHii/TCjfACQ2hcLKmC/pMUgoDRvVj1IsepB7dsXeo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MZKe0w5tnUHQXkaZ6w0J9I1HOmcfHWF0Ef47UpmzhaqVu/GfLeeufjps07bZ5yGbqu8B1VLWIN0053poV1BkG05zGqE/l/VE7+j3L5tjhbdd0hNHB01DHHPv4BIn0wVx2GrkDuKDilwq5FuI1fdqea+l4O7RMuvgvaXQTvVr9y4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L6coiKBZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="azOyiLOj"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=N5do0U17S+p9FhEBEWZQ7+u0hui2Na0l6XXg45SbI7cICe/Ib0RezPW+IotO9etB8AQgG0O32HJcUC01rLdWSvG6T7MIMfJCir74WoBp9RL7OITtqnG0qjnBN/yNxczmIVkPxFAKqW0OmBBtHUv55AvWN1Y5ySsOBv7CYjLb4knpXG8FKcALSwTNgR3U458NU/dXlQG683D+FJACvSJzOOLhaKYoxtg6Yax0hJWECtxMbNakPYPcOgRUy5ihJyWTHD2RcwJ3eTgLNOBNYHqNgpTpt4mlojp4rEwROEOXisBiuWyjpuxbnLxREv7lFq/Mtcvl9HzgSxPoRTE++e8Hcw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IeYgo4HsQQ2JfbILWbOClUZSdLozPBxkLKUfxa9ZI80=;
- b=kA6q4wqPpkTKprMM/eItTlqmAN2CA4jmxIBP9INdKDBnWvFsTCwYf6I5XP41VQWfeXBboyc8fWOjlXbqPTYvspr6ozCXSQ7LcdyVYvXlQs/10zCaynP4cS9TgLTLQo/VeaI45Kb85v4oI8l8Djsie2ekiszvAiX1z4eYJDwHXaw0xmeD1pbaFPkp2F1Mdwvbb4wU9eVVJHbX6VSSSZlR+S9YMfTC+rvRaUpERQNKsCwSSLyNZREry/7PfAfvc8aGf/Z53zJuboZU/sjsmd854B7qN9VS/ESiibJ58yM/ldwOXO426RmhciIRSQlS0tl5LTD924osh75ee5EzkRzqzw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IeYgo4HsQQ2JfbILWbOClUZSdLozPBxkLKUfxa9ZI80=;
- b=azOyiLOjS2IR7Ic6OHh/+yOznyFkFDw1eq2AzmDEIAT3lOCdl+CZBGANKJhGyeEM7WNt0nM5ocglhAVPj7I1iC2fRQdqxPiDT5cRmKw/77u/I2Z5nUiviIEe4tg5f6zWXUf3kxMUsFQXck94e0kEo383horE8MijVC2s6ecVEek9Yi3jKE4F1zCoPj6ca3Qn6Fm0hpR9JBXu/c126gW+mBo7ULyfO5qcLRq3Pn59kUcXy2fpMgqnptUmyL4n6xUCC/13vHnBXgHKuEnefnsyWQpKXESKdIVxFah05iEfI4Rr9DY475tyj8IXIvKbF4PSRYwovDIbiUz7AHEC7JE58Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by CY8PR12MB8215.namprd12.prod.outlook.com (2603:10b6:930:77::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.13; Thu, 30 Jul
- 2026 07:07:31 +0000
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017%6]) with mapi id 15.21.0270.012; Thu, 30 Jul 2026
- 07:07:31 +0000
-From: Mikko Perttunen <mperttunen@nvidia.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Svyatoslav Ryhel <clamor95@gmail.com>, Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject:
- Re: [PATCH v2 05/10] ARM: tegra: tf701t: Add thermal zones for nct1008 sensor
-Date: Thu, 30 Jul 2026 16:07:27 +0900
-Message-ID: <nNMjoMjdT-Guv3By3VWZWw@nvidia.com>
-In-Reply-To: <20260721101059.451699-6-clamor95@gmail.com>
-References:
- <20260721101059.451699-1-clamor95@gmail.com>
- <20260721101059.451699-6-clamor95@gmail.com>
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-ClientProxiedBy: TY6PR01CA0039.jpnprd01.prod.outlook.com
- (2603:1096:405:3bd::12) To SJ2PR12MB9161.namprd12.prod.outlook.com
- (2603:10b6:a03:566::20)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L6coiKBZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 536151F000E9;
+	Thu, 30 Jul 2026 07:09:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785395392;
+	bh=TdBa5gJdt4RW3EXFtB3u3DLjwb7jjzjVJg81cZzqSys=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=L6coiKBZWnXLbige9UdRTTDRZROT7jhlJUktTVbJkepB7UHeM+8BkEVCjYrvgAlRu
+	 beORMfif4At+e9eZlQGQMWzjSQDPlpDiPvpzyXwFUvc5LA6PU9MW0crtoYdx14xBap
+	 1WZSwt7avxG7Sm9C5nx5H9P7BNIBdxdBdH1Qh5EgkqhFUxEKHfaR+kvfRSHcjOWcIs
+	 liJw7PFKczt2rk6M60T2PrkqBj+SOA0D8cp982SSgdVtqSk5cRDsA/tUkx3Oj7CRRB
+	 OhK1SD/SSiXQaiBtw3+CCoO8cudUUoUW2FWVgENleaK9xB/nsKSM9NxA4lGWVqLvwy
+	 0/wkNFOfj8Dag==
+Date: Thu, 30 Jul 2026 09:09:48 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+Cc: Mark Brown <broonie@kernel.org>, 
+	Srinivas Kandagatla <srini@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, Julian Braha <julianbraha@gmail.com>, 
+	Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>, 
+	Luca Weiss <luca.weiss@fairphone.com>, Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>, 
+	Ravi Hothi <ravi.hothi@oss.qualcomm.com>, linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] ASoC: dt-bindings: add the Qualcomm WCD9378 audio
+ codec
+Message-ID: <20260730-impartial-angelic-harrier-ab9192@quoll>
+References: <20260729000649.263426-1-jorijnvdgraaf@catcrafts.net>
+ <20260729000649.263426-2-jorijnvdgraaf@catcrafts.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|CY8PR12MB8215:EE_
-X-MS-Office365-Filtering-Correlation-Id: 29428bc2-35a0-4c62-00de-08deee09391e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|376014|23010399003|366016|1800799024|18002099003|22082099003|56012099006|11063799006|4143699003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	T55hHYv1QstuzQ3tI5yqnHR1zyckapcVhQmPFrKvOEms/M/XpLFDpDJ5TmMG/SqcxfDzaffY6cPZmagUgoV8hO8DXhEuyjQlF7Hjehl+T8f9i4YLn/9hZLr3nnF3rfNJYMsiiGcEkiGDCbCQLz+kmK3T+jH9k0BB5YTzYCX86gYNbLCdr6blXWCUkxrzxDRRgR/eUGDRgz61uXaJB72uEve7fX4f4ozmDzWdftbBiSjXeTw7Oug1MJuNR+tuHecg2bb5ziYSwC3iMcrR6nZ+NEiVe3Swn8E6O3p/+ymOjrWdEAcmSKfPajRtI6rdnV6aR7liYLRFmORKJB3IiBZY16Hz8FZ/EOEH48eJOQ4j7LAuXLgyFCe3CFTJFWrUuMRjD1jR3fWDwUieyBnssMLh/27uR/9Vptvq+yUc5BNhW8uljsiH8LhK837EGCXKiHS1llAnnAvqSEsUmCFg3na3MHQ1CebUwY0WSNAiCN3kZe3v0pR7ZjBz0nkLVtoo97IUfWSkxmH0Ajf1LKAn9/8ulcaHH6AgzKbhgOEY8XAEUW6HsgbRKQtQ6ebrWorvkbDyGJtOvTk9Y7mUZrrBSr3ggzAc7zuD0ft3i/lcSJiP+gv3/cSwK4mpMxSV9sLT6gpJ+nz9A92fBer1qaMUq5Rha/sOgx/x5t0P976Z4t9YB/U=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(376014)(23010399003)(366016)(1800799024)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NzJxa3NLMTREenpFQkFhS3EwQXFkbFNXTElUNDMwWUI0WWVrWEpQWGFUN1dC?=
- =?utf-8?B?Mm95Z3NLRkZ1dlZUa3pBcWtIb21tdTdrZFRZdkorNE1MZVVVSFZzRFBobTlF?=
- =?utf-8?B?MmdYVjdmVlI4R1d1ZlR2a1hVbjlpbmJvWjFFdnBSdVh1T1JhcHRPcFhheUk2?=
- =?utf-8?B?OUl0Si9BRENNRERPUkJ2YXZzUjVOYXRYaTRPT3lHa1JCWWMvVmhVN2xUUHIz?=
- =?utf-8?B?QTlHYlQ0VGJBNi9QeGJydDVBOHMvRzBDdm9QU0Z3SHIreURnejZUbFJ1cWtK?=
- =?utf-8?B?d1pndWUzekFkSE9wd0Yrc1A5NUFkT3dRL21Vc0NINDdta3dFQkthUkhLOEFj?=
- =?utf-8?B?RGF1elJiWElCaHFkb2F5eVdrMk1sTDhsWTZ2SWtTbyt6Y1JUbHl5QVh0MXI2?=
- =?utf-8?B?RlhzL0pMQkE0TUk1ZDRRcGZ6VGNubGI4cW94UGVRK1pQZmpHQ0MzcDNnMm95?=
- =?utf-8?B?d0JSU01nTWg0SmNrUSs2RjhkL0xMaHhCT0lyRDFoczl0SUcwS3NXTjF3Z3h1?=
- =?utf-8?B?aWVyTVdBWis1QjNtTm05Vk5zUnZkaVRTR3lCMkF6REhqemt0OUlUbkVtd29h?=
- =?utf-8?B?dWJNdnpIODNjS1UrZmhTMHBFUkNsS3gyMWc3cWxMV1FqTXVMSmgzMUk1bzN0?=
- =?utf-8?B?dDJpQ0l3cTR6NHRYdm1XT1ZnTEhQOTlWUm1OR2JLcGNIeFVzSkFhc3ZCWVNp?=
- =?utf-8?B?bUhpU1JlUTRoWHJHWFhSRkJDVkkrc0pzYldmNGRuZWZ2Q1JndGJTUDBsaGFi?=
- =?utf-8?B?SE9TR041UllYOUJndVJnQWM4ZGh2RlU2T09xNDZ0amNBVldhdUhxSm93TzVF?=
- =?utf-8?B?WUxPQS95dHBZckl6WGFYMmRYTGQ1V0pwMXlwUFJveDFnazV0N0xiK1k5Vktw?=
- =?utf-8?B?OXZqS3VYQXFFa1NUQ1BIa0I0T2hYOUFCVzN2Um4zaHBjOVUrSWlYSXNuM05y?=
- =?utf-8?B?M3ZhZmRNVGJQcExMMW50NFhLMEdyeDR2aVI1WDdtb1dMWG1yVExBMGNraWk2?=
- =?utf-8?B?RGh1VXhWeW5KTTkrTjJoTFluWnVFcVRaL1BibFZET1FkcytPYWxpK3hKTXBj?=
- =?utf-8?B?UzFPd3hHUVhCbjNtTDhOb1lnR1VSNm01N2JDaWFNM0Z0a2ljU0RhSjhaWkZ1?=
- =?utf-8?B?WUMwek1LQm41dHZ2dFpSUmN3UDdOU3Q5WENiRG5ROHM0dlNEM21OWG9pdWZ1?=
- =?utf-8?B?UHVSYU80bXdYcmpwbFh1ajhxemVOTWFBcVhlYk1kamFFWlpWeEtXNGhZQzBT?=
- =?utf-8?B?emF5aXAzV0V6WTNrYXlLUFdLczBZOStPYUdFUFZ1UE0rdndzbUQ3bmhoWTI4?=
- =?utf-8?B?Q1M3Z2FWOEtKQ1dUb1ZtLzYzVzhzS2tjN2JLZ3MwdjJtQjg1bm9qTFc1WHJp?=
- =?utf-8?B?Rk5keW9JbWRrQ1czbVNWRXhwRDJrb2RiV0VhNTJSVi85VjRxK2RFcG5NZ2pU?=
- =?utf-8?B?SVBLbE42ZmNMaHFMUGFLMDdnY3ErSmlkOUV0azRJSWQzbEdLNE9ITmVlL1N0?=
- =?utf-8?B?UDZBdkFPSnJEaWJiRGVuZExYMVVqaFFRT3owaFNCNzNqbjA4ME5mVjZPS0k2?=
- =?utf-8?B?ZzZYbUxWMWw0YTJySXgwa3FnK0poeVlJRm53ZFp4dG5XNG5TaXQvTHl6aytR?=
- =?utf-8?B?bFByME81R0J4UmJlTWNDQnI5MCtDWXdlS3VraW9xR2dRcHNhKzVvbWhpT2ts?=
- =?utf-8?B?V3JoeXFEWVFRdi9VWDVmVDRLcnV0VnJiYXJYbG80dG82SGZ5WHlJMXN0RzJO?=
- =?utf-8?B?Y2trdFdvbEJ2YlhqNS9uUzhCS2s4ZytjUVZhWU12amlwNUg3SWdXVXg3ZmZ4?=
- =?utf-8?B?cXBNMEc0cFZUQXZkR0JhdW5qUlJ1UGpUNHRsQTdIN3VsdW1xTWd6dWZFZHB4?=
- =?utf-8?B?RldvV3A0L0wwLy8yUDBiOU52aEtkUzJ1cDFvd0JGTGgveEZvS3hCaTNrU1c0?=
- =?utf-8?B?RWJwTWtJcS9JaWNIRkhtZmdiYXFPL0xLczN1blNhT1E4Vmk3QTRUcllqQUU1?=
- =?utf-8?B?QnFWTWJaWHZKNjBtd1UzQ3N4MzZrUXBlQnRPWGdIOEw5WkRIemVKd1krOVFq?=
- =?utf-8?B?bisvSWwvL004bDVJTW9oeEhIODZ4VGtkUjdRbU4reGEyWUFRZjlvT3NQWUgx?=
- =?utf-8?B?VXp6enF0Z3NhMjFnV2VTdkc1OWxlTTdZL1B0VUZYY0tHckM4T0NHdnRyNk53?=
- =?utf-8?B?dDcwd2V2T1M2Y3BqSXE3bVpXTll0aWRiTEJMb1J3MDRtM05Cd24yREpiV2pn?=
- =?utf-8?B?alBWWTVzRjRWcUJ4NmZLRm5BZk0zd0I1cDJ1b1dZWm1zZEpoblNGdkZld0R1?=
- =?utf-8?B?MWlGRk9OQ2R5ZFJ6NmNtWDB1ZXJKdERtc1Q2UlJEK1B6YldmYnlIOEkrR002?=
- =?utf-8?Q?46YXofmMSoV2CpMldOodmF3BSZS3ppaqzHyz73bH25Epp?=
-X-MS-Exchange-AntiSpam-MessageData-1: eRMWBk6lzpvphA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 29428bc2-35a0-4c62-00de-08deee09391e
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2026 07:07:31.5935
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DfvHeAClOB3obUJ4wJ/rV+aTo7eQEiMZ5/dvnF92neqPGk940PPyqU053FOU4Eb87nAaC0sDEqJXhK3w3+OmRA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8215
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260729000649.263426-2-jorijnvdgraaf@catcrafts.net>
 
-On Tuesday, July 21, 2026 7:10=E2=80=AFPM Svyatoslav Ryhel wrote:
-> ASUS TF701T has an additional thermal sensor for more accurate readings.
-> Add thermal zones for this sensor.
->=20
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+On Wed, Jul 29, 2026 at 02:06:48AM +0200, Jorijn van der Graaf wrote:
+> The Qualcomm WCD9378 is a standalone audio codec IC found on SM7635
+> boards such as the Fairphone 6. Like the WCD937x/938x/939x codecs it
+> presents RX and TX SoundWire slave devices controlled by a common
+> parent node, so the parent binding references qcom,wcd93xx-common.yaml.
+> The WCD9378 has three ADCs and three mic bias supplies and thus no
+> qcom,micbias4-microvolt, which the common schema required: move that
+> requirement into the current users, keeping their status quo, and
+> reject the property here.
+> 
+> The slave devices enumerate with manufacturer ID 0x0217 and part ID
+> 0x0110, hence the sdw20217011000 compatible. Compute platforms wire
+> the same chip as a single aggregated slave in SDCA mode, which owns
+> the codec resources itself and has no parent node. The slave binding
+> covers both presentations: qcom,compute-mode marks the aggregated
+> slave and gates the properties for the resources it owns,
+> qcom,control-device marks the slave owning the control register space
+> (the TX slave in mobile mode), and qcom,port-mapping carries the port
+> map of either kind of slave.
+> 
+> The -codec suffix in the parent compatible follows the existing
+> qcom,wcd93xx/pm4125 family compatibles and matches the compatible
+> shipped by production devicetrees for this chip.
+> 
+> Assisted-by: Claude:claude-fable-5
+> Signed-off-by: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
 > ---
->  .../boot/dts/nvidia/tegra114-asus-tf701t.dts  | 83 +++++++++++++++++++
->  1 file changed, 83 insertions(+)
->=20
-> diff --git a/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts b/arch/arm=
-/boot/dts/nvidia/tegra114-asus-tf701t.dts
-> index a27d3c4f2c63c..83f8dd84d28a2 100644
-> --- a/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
-> +++ b/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
-> @@ -4,6 +4,7 @@
-> =20
->  #include <dt-bindings/input/gpio-keys.h>
->  #include <dt-bindings/input/input.h>
-> +#include <dt-bindings/thermal/thermal.h>
-> =20
->  #include "tegra114.dtsi"
-> =20
-> @@ -2682,4 +2683,86 @@ vdd_1v8_touch: regulator-touch-vio {
->  		enable-active-high;
->  		vin-supply =3D <&vdd_3v3_sys>;
->  	};
+> v2:
+> - squashed v1's separate qcom,wcd93xx-common patch into this one, as
+>   Krzysztof asked; no changes to that part.
+> - one slave binding for both chip presentations, as agreed in the
+>   review of Srinivas's SDCA class series (link in the cover letter);
+>   Srinivas added as binding maintainer. The aggregated SDCA-mode slave
+>   is marked qcom,compute-mode, which gates the properties for the
+>   resources it owns (supplies, reset GPIO, mic-bias voltages,
+>   #sound-dai-cells).
+> - the split qcom,{tx,rx}-port-mapping properties are replaced by a
+>   single qcom,port-mapping; with one name for both slaves, the new
+>   qcom,control-device flag marks the slave that owns the control
+>   register space. The mapping stays optional and loses the per-item
+>   enum, following qcom,wcd938x-sdw.yaml.
+> - qcom,{tx,rx}-channel-mapping dropped, answering Srinivas's v1
+>   question: the slave-side map is fixed in the driver and no board
+>   needs to remap the master side; they can return with a board that
+>   does.
+> - the codec binding's example drops the two slave-node examples
+>   duplicated from qcom,wcd9378-sdw.yaml, as Rob asked.
+> - qcom,port-mapping length pinned per mode (5 mobile / 8 SDCA)
+>   through the existing if/then block.
+> 
+>  .../bindings/sound/qcom,wcd9378-codec.yaml    |  54 ++++++
+>  .../bindings/sound/qcom,wcd9378-sdw.yaml      | 182 ++++++++++++++++++
+>  .../bindings/sound/qcom,wcd937x.yaml          |   1 +
+>  .../bindings/sound/qcom,wcd938x.yaml          |   1 +
+>  .../bindings/sound/qcom,wcd939x.yaml          |   1 +
+>  .../bindings/sound/qcom,wcd93xx-common.yaml   |   1 -
+>  6 files changed, 239 insertions(+), 1 deletion(-)
+>  create mode 100644 Documentation/devicetree/bindings/sound/qcom,wcd9378-codec.yaml
+>  create mode 100644 Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/qcom,wcd9378-codec.yaml b/Documentation/devicetree/bindings/sound/qcom,wcd9378-codec.yaml
+> new file mode 100644
+> index 000000000000..0b9d3394f77e
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/qcom,wcd9378-codec.yaml
+> @@ -0,0 +1,54 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/qcom,wcd9378-codec.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +	thermal-zones {
-> +		/*
-> +		 * NCT72 has two sensors:
-> +		 *
-> +		 *	0: internal that monitors ambient/skin temperature
-> +		 *	1: external that is connected to the CPU's diode
-> +		 *
-> +		 * Ideally we should use userspace thermal governor,
-> +		 * but it's a much more complex solution. The "skin"
-> +		 * zone exists as a simpler solution which prevents
-> +		 * Transformer from getting too hot from a user's
-> +		 * tactile perspective. The CPU zone is intended to
-> +		 * protect silicon from damage.
-> +		 */
+> +title: Qualcomm WCD9378 Audio Codec
 > +
-> +		nct72-skin-thermal {
-> +			polling-delay-passive =3D <1000>; /* milliseconds */
-> +			polling-delay =3D <5000>; /* milliseconds */
+> +maintainers:
+> +  - Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
 > +
-> +			thermal-sensors =3D <&temp_sensor 0>;
+> +description:
+> +  The Qualcomm WCD9378 is a standalone Hi-Fi audio codec IC with three
+> +  ADCs, three mic bias supplies, headphone/earpiece/line outputs and
+> +  MBHC. This node describes the mobile presentation, where the codec
+> +  appears as two SoundWire slaves on separate masters and this node owns
+> +  the resources they share; the control registers live in the SDCA control
+> +  address space reached through the TX slave. In SDCA mode the codec is a
+> +  single aggregated slave with no node of its own, see
+> +  qcom,wcd9378-sdw.yaml.
 > +
-> +			trips {
-> +				skin_alert_trip: skin-alert {
-> +					/* throttle at 57C until temperature drops to 56.5C */
-> +					temperature =3D <57000>;
-> +					hysteresis =3D <500>;
-> +					type =3D "passive";
-> +				};
+> +allOf:
+> +  - $ref: dai-common.yaml#
+> +  - $ref: qcom,wcd93xx-common.yaml#
 > +
-> +				skin-crit {
-> +					/* shut down at 65C */
-> +					temperature =3D <65000>;
-> +					hysteresis =3D <2000>;
-> +					type =3D "critical";
-> +				};
-> +			};
+> +properties:
+> +  compatible:
+> +    const: qcom,wcd9378-codec
 > +
-> +			cooling-maps {
-> +				map-skin {
-> +					trip =3D <&skin_alert_trip>;
-> +					cooling-device =3D <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-> +				};
-> +			};
-> +		};
+> +  qcom,micbias4-microvolt: false
 > +
-> +		nct72-cpu-thermal {
-> +			polling-delay-passive =3D <1000>; /* milliseconds */
-> +			polling-delay =3D <5000>; /* milliseconds */
+> +required:
+> +  - compatible
 > +
-> +			thermal-sensors =3D <&temp_sensor 1>;
+> +unevaluatedProperties: false
 > +
-> +			trips {
-> +				cpu_alert_trip: cpu-alert {
-> +					/* throttle at 75C until temperature drops to 74.5C */
-> +					temperature =3D <75000>;
-> +					hysteresis =3D <500>;
-> +					type =3D "passive";
-> +				};
-> +
-> +				cpu-crit {
-> +					/* shut down at 105C */
-> +					temperature =3D <105000>;
-> +					hysteresis =3D <2000>;
-> +					type =3D "critical";
-> +				};
-> +			};
-> +
-> +			cooling-maps {
-> +				map-cpu {
-> +					trip =3D <&cpu_alert_trip>;
-> +					cooling-device =3D <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-> +				};
-> +			};
-> +		};
-> +	};
->  };
-> --=20
-> 2.53.0
->=20
->=20
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +    audio-codec {
+> +        compatible = "qcom,wcd9378-codec";
+> +        reset-gpios = <&tlmm 162 GPIO_ACTIVE_LOW>;
+> +        vdd-buck-supply = <&vreg_l8b>;
+> +        vdd-rxtx-supply = <&vreg_l7b>;
+> +        vdd-io-supply = <&vreg_l7b>;
+> +        vdd-mic-bias-supply = <&vreg_bob>;
+> +        qcom,micbias1-microvolt = <1800000>;
+> +        qcom,micbias2-microvolt = <1800000>;
+> +        qcom,micbias3-microvolt = <1800000>;
+> +        qcom,rx-device = <&wcd9378_rx>;
+> +        qcom,tx-device = <&wcd9378_tx>;
+> +        #sound-dai-cells = <1>;
+> +    };
 
-Reviewed-by: Mikko Perttunen <mperttunen@nvidia.com>
+As pointed out by RFC from Srini, this binding/node is not correct. It
+is a fake node to solve (real) power sequencing issues, but Srini's SDCA
+patchset points that this should be part of TX.
 
+Bindings should be complete. It is fine to have them incomplete of
+missing features and extend later, but it is not fine to have them with
+incorrect and incompatible solution.
 
+Therefore this needs to be sorted out for both patchset - this and SDCA
+version of WCD9378 codec.
+
+Best regards,
+Krzysztof
 
