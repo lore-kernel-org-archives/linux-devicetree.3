@@ -1,111 +1,121 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 930273A9631
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 16:32:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785429160; cv=pass; b=lcsmZxoht/po+Z4dMJsd9Ua4Kc5BM9EGhzWxkZ05jsx17n/8qMd8Cgr9oC+FCtXGwzuPD5J/Mh75wrdee9WAxXDYsIT2lyvrf6PdSfkr87TzxULWd19XVvmJ2evYMPxorPlt3+Nni485Qakx8CObx01Qf+1hul8BFlmAH9My4qY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785429160; c=relaxed/simple;
-	bh=IPweQa939gd7nIqWfEjM0QcoU+Zhyc9RPuy6U7q0p2g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=E2TCxbEXFHTERFWXmDzm6LHQnRUpxIvaRyBZzMHuhI2PFh68g3oZc6obZA1W3M0l6L7i/JIXgVyTD9KXQ6OvRB85r5LZE+KytLQ8/adIufKUrDTJLbdJDvwdhqjss3r4Dn2a6vU4WVYyFWmaT2KFNsQ7aXouC1oAIzrqCLlWe0c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lI+d4iU7; arc=pass smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A15243F0A7
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 16:33:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785429207; cv=none; b=APW3gMY6v3MJbj0A1jaEuUASePct0NLUQcdofIpX3u+RreSMVQ6GGrAKuVjuVip0deTw2fkM8D5+zg/JI5bHaMrV59rVWqK6TH6v/636NHUo7fb7zYx3wlisxjTPjkGLt9q/awRsVn/YzrnGr+F2+5bWGoTIcdQuJlSXFhp0CjE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785429207; c=relaxed/simple;
+	bh=l1ohcCiL2vtbHTs0waGuxxnEle8Z8bbukG23s4TXt2k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HdbIuYwFYcTivJsbdgIhabsFxCe6Q/cHnRZGwRMQ4GZSNFFeA0JHEqaAYKFb82beLPMS68ljMAfR2BOCd+n/+bSDqs/T3UnkfJcjLs2AZ9zMPmp29pMmJVr8CuPu7sbcKpMBHITYNGo24RvBhubj8CsIcApkfHGk0vype5fWqrM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fqoI2D0Y; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=d8ZrPY7p; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lI+d4iU7"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2d004f135b1so31842175ad.3
-        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 09:32:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785429159; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GciA5p4Xk8+y6I6po1YQpvhbX6GTsmr6s5Xvnc+IYcqEf+iVZf6S73EbtJiFPsHcgB
-         uyEN0vTVycyqfzUEtqrOnxPRlP3UvcAPQgIQS9tIgoxsiQalxGBBHquHyXpJ9o0wsp0x
-         9gVkv5Ja8F7ydnz8v81TGUAf70Rd0P28Hc5qwLOM9aNF/umNCCRm7kA7jnWucEFOk0Fz
-         pcD/3ep7FtOLeC7Z/rDtvV8yaCHDJylGRn81OsJytx10QF9q8SCMELTM7TPygskqtFm0
-         OPfrOgh1JbTzJghFsTdRuBZ6whvBisrQPVV41JLiBW1Nsh867au2gcGMFLcT4aH9vL3o
-         EY3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=IPweQa939gd7nIqWfEjM0QcoU+Zhyc9RPuy6U7q0p2g=;
-        fh=0QyrSDZv56tsgF8Eew0an6sZcJ+f3DuDBN/nvdGBn1Y=;
-        b=Vy9RMuB1ciy0N1BouLul0H47F6+G+5KZGhIwnlwCed0gFHksSvHhXo2Xizq1zOEiZH
-         40bjSSrYt1THjZ3q5xUpgoZp/tdvQqLayhCDawDgHYu7tcuTFH/DeDpjGkU4BrJ2UoB/
-         8pi+l+HjYE2FTGaRGuouyZbhLm37Ox06emNRkwYPUJnhpdTE6Qh03YTDfuOAlU0ao6GQ
-         hdZpkGqFHlo/teayy9iVOB0Y3SeTO8qzyByzK6TGp71InbTbqEftl6x7ZyIic/s3wZV8
-         cP01OL4/IPoJtD7gFGjWStetnTo9xvMKv0ob5MDoNh4u/D+BxWViG0uRGAxdXmaPwNnj
-         kgGA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fqoI2D0Y";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="d8ZrPY7p"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1785429205;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7dR3ZygedUQjRGCKUSRpWTl4Te1l6Y9QC4qZxoalTtM=;
+	b=fqoI2D0YPolh+zoCVdXByhJnbNeYzI0VOp2pZxj9A/LqWYIZ9yV2x2S7FR+CEbZLmqr/dz
+	s9Xl8pVVFJi9Tzgj45M1bJIxqQgYCTlOtUzfp7hn2b9V8pUQz7kB/uAKkh9nf1Ow9V3Eq8
+	1fw4yJEAM0QfdzZlmzW0GoLkWKNE8Wo=
+Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com
+ [209.85.128.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-615-6XSgaXQ6MSqYZWGpHInYNQ-1; Thu, 30 Jul 2026 12:33:23 -0400
+X-MC-Unique: 6XSgaXQ6MSqYZWGpHInYNQ-1
+X-Mimecast-MFC-AGG-ID: 6XSgaXQ6MSqYZWGpHInYNQ_1785429203
+Received: by mail-yw1-f198.google.com with SMTP id 00721157ae682-81e6fce9ed7so176397b3.3
+        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 09:33:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785429159; x=1786033959; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IPweQa939gd7nIqWfEjM0QcoU+Zhyc9RPuy6U7q0p2g=;
-        b=lI+d4iU7n4QzMPjvovE5o4pavwrDuEmPw0kWYZjhzOVal2vgUNdbJ9U8kZKPrLLtb9
-         ws766XjCpoRheUY54d4PCT4I3Npf0usqWQDSNmm3eKL/YVwR2MRgmpZjLK0lImFp7BwI
-         NK8OHiZiaYFdvsEtit4MU3gTr76AZ1/z+D/0VBB1BjI2qg1zA2XK9k+Ia4y31uhiTNor
-         b0/5Gu2I0PtkqozUq8lYiQJicLT5ves91SJKmPjd7KFKYgn0oiPzsBRcJn4kOyWGMvEh
-         BgI6fEhqHTLsvhyM+gmS4QWC5Ej8fRfTlmTkyqzb8wnA7Iv9FGQlmy/kRqkQ7xAUB7SN
-         gyVg==
+        d=redhat.com; s=google; t=1785429203; x=1786034003; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=7dR3ZygedUQjRGCKUSRpWTl4Te1l6Y9QC4qZxoalTtM=;
+        b=d8ZrPY7pyn6MctXg+MUJlIK3iAhBGN9meHyUsdCa7UQvhZrkYOL/nHvuBboVRpCpjF
+         7zGCvoqrXKaamNJTOEbUiFGDFHIvy6/1Y2SHottCmXa88K79PpINtQaiGH3q2xsTMoQZ
+         oheGRn/+4qhD/QABR66oibKpIsGemzKBVaZ73wF3x+CXr3FFpF2+WMLnHa3y56/KUzmm
+         8IC62un/Ood1ZG9DtlP+InNYZ3+IKITdV1vfQtL/7GCWS9RnYPipYeDYTyzIMbA5Sg35
+         Su1ZHIzcP9rOXcs0cglXo0iWdrPLAT27dbknhTmQ0InZOa9oi3Vdk4kJDtvwBTQJR4/x
+         lxBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785429159; x=1786033959;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=IPweQa939gd7nIqWfEjM0QcoU+Zhyc9RPuy6U7q0p2g=;
-        b=c7RPu8M99Nz8Dycrts1wWpqfYXKVqTzFYgjAOnEIN3RlNfXJK9f4dlzFcrFKnN340k
-         0Fhzexz50MlMGKWDaHc8ExFoWUERB4avXVs8idJyV9329/FpbIjrc3hUZJzFLlla5SKo
-         Zs6Fyf+M9vBBBcIBqgrWtmS2n1zkjg2cICzV+PLQdFdyT8vyZfGUgaMBEZYoVq8jOTy0
-         4I9AKpXTdvXXeT5tVa5YiTBsHXggj/HvrJ4BREP24gEJqzFlPfRpumz1WKv/LWxuJ/wG
-         FSC+aAlpGZfzFruGtMDfqmbk8E1wlPd84RKdpUDC3z0anjgKtgwaS0K65Kf3G0e/XPrm
-         YXqA==
-X-Forwarded-Encrypted: i=1; AHgh+RpIs0o8XaBhlZEja8jk5fpVg2YIgGgDkxH84bgBOVdXkwLedwb4bRlWN+CL7KJJU+yZBOFPr1gBprWJ@vger.kernel.org
-X-Gm-Message-State: AOJu0YwYJS4sXpGd1gcJdhPgygdhHT4/ZhNxeR1WsIcYr953XlXImpjo
-	/a4KapKXr8v1Y7kl3rhBAZCB5JwN92Pe6/7yGEizIfGmOCJudL0MH8v52VGlKetI6pI+QYdrUPT
-	i11VQoEnPBdIPMcpvBz+BEWy3XE9TkJzLdjLndkYoWoOT
-X-Gm-Gg: AR+sD12V3BPt/R7LyqcyeXXoe1V4dW3oaadxowFc5eDRKUKJ4lmOnT6G+P8erUrKyvs
-	PgvWjHvlp7gNBI8zJN3HwuSitlsSXIwP/KYDBOUfRoiN/BzXaSOBOaoE9I6Xyw0RLPIC7NSuLYP
-	Nn6+i+yyzMtK7qhf/WyCQxyEU5opnyjlbaJYLlnOl6lKGwD4PLxvdhEqRZQ0T8ugCvF8qnA9NOp
-	04FgX8x6ypqMmgY7jy4jKHQBO/C7aPM8GWQh6sAHtmRG1Fh5HblZL9AysQPw13dzd36KECiPN8l
-	CjBPKXWitObUIMZQzjAG+Eo/oyG0N8arqwY2jqEFuQogyJSRXHpVXnoknj+8xuvLuYZrrXnVFae
-	sAw==
-X-Received: by 2002:a05:6a21:339f:b0:3c0:9c1a:8936 with SMTP id
- adf61e73a8af0-3c90d6aa817mr1084696637.62.1785429158796; Thu, 30 Jul 2026
- 09:32:38 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1785429203; x=1786034003;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7dR3ZygedUQjRGCKUSRpWTl4Te1l6Y9QC4qZxoalTtM=;
+        b=EclGu+ic2qJKNtxd4S3xx3gBQ45J0PaWpLUx/F4hRn3Hrji4MRZRr4yd3LslLNYSJz
+         K6JuxkWoVB3U+jXwZ9wNnmbVJ4huuCzFxF9hjh4dm20V5Ovb/6vZJcgKtJe1/ZoLINMl
+         RXm82+SVuZx2l+S22n0x6jIVAK9DJwLNBufFY5hBBtHACM7ITF0Gh9ckqBnOm4mKGl3G
+         245J3HyAZl374K+wt9jrpYMu9KipFPa0iBTn4erRelFteFjcWXnn+r1DNMoAPEuJEBU7
+         3ek6wM1SGxC3lSuuisJYaybLiy/QgHQ2xVG+MnXNBgA7xNiu/FrLqig0DltlCnCruNBx
+         COGg==
+X-Forwarded-Encrypted: i=1; AHgh+RpGB/LOTXEsZ4OpB5Qy+waw7iHUBLKDKtPQHt0Aj0J4O6OXFow8GmJjkUo3gBTOmMgd9uDSVcCn1ft6@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw987OrtQ4K1TIeNQL079LvXbWxMgVzKyEby4Y06EqRxDVnNSwJ
+	mI1diNAdrJRY/l30sK/LSAHx+0b+jcNieCTYZ609IKcfkr/bGn7NttYV3tLgPrcNMyxBdB0+V+S
+	4oqY5QA3CHJ0mRS0Jhdaq44oRK5NGNv9nRvBJgMKmU4P1qDT2YJNaRTaeIXy6EHQ=
+X-Gm-Gg: AR+sD10AHmifVUfje6NrcT4UAtzG+IyKrroyp9ZMxG9hSRwtkzM3M8sTJAzvgvK+Nr7
+	npXrPhsANnHlCgEEc2jkFX3Ax4bHtvQ1fNoV0nfDpcpeSeJXSaH7x+qWdZyI6PoV2WEQ58EduVQ
+	zOPqYFrrJbdRSwU+Bu7es//G4rjR+H2xYL8fCqWL6OdhWvNmprcZDkQ3zoCG4VwBekntuUoutfH
+	+raUH2Rb91FP6ThXxIL3SFYX5PDrNpMUC6f39vLU7LZD2dwOoL6qhbjRaJcwHMgLo3sGd0cz8JT
+	crg04fL9AoNaX8Byzn7B90Fhojp/02HNiuTC2tAHxsyZu6TDwSzL2rD7iiuUFz0gfPDjm9/HFo/
+	pjurXHGGZXl29FjsvExHwBBLMgQxOBUs1JEo=
+X-Received: by 2002:a05:690c:9c05:b0:81e:68f6:f842 with SMTP id 00721157ae682-81fc1dfc3f0mr7119817b3.3.1785429203077;
+        Thu, 30 Jul 2026 09:33:23 -0700 (PDT)
+X-Received: by 2002:a05:690c:9c05:b0:81e:68f6:f842 with SMTP id 00721157ae682-81fc1dfc3f0mr7119457b3.3.1785429202515;
+        Thu, 30 Jul 2026 09:33:22 -0700 (PDT)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-81fb8ac228csm12990017b3.35.2026.07.30.09.33.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 30 Jul 2026 09:33:21 -0700 (PDT)
+Date: Thu, 30 Jul 2026 12:33:19 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Yu-Chun Lin <eleanor.lin@realtek.com>
+Cc: mturquette@baylibre.com, sboyd@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, p.zabel@pengutronix.de,
+	cylee12@realtek.com, jyanchou@realtek.com, afaerber@suse.com,
+	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-realtek-soc@lists.infradead.org, james.tai@realtek.com,
+	cy.huang@realtek.com, stanley_chang@realtek.com
+Subject: Re: [PATCH v11 04/11] clk: realtek: Introduce a common probe()
+Message-ID: <amt8z3G8lIitanMm@redhat.com>
+References: <20260728142806.1954638-1-eleanor.lin@realtek.com>
+ <20260728142806.1954638-5-eleanor.lin@realtek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260724-sensible-flamingo-of-experiment-5a389f@quoll>
- <20260729204308.21562-1-rounakdas2025@gmail.com> <d580900f-d880-4ede-ab74-a83fc0c71be9@kernel.org>
- <20260730-gopher-of-unnatural-leadership-968ec0@quoll>
-In-Reply-To: <20260730-gopher-of-unnatural-leadership-968ec0@quoll>
-From: Rounak Das <rounakdas2025@gmail.com>
-Date: Thu, 30 Jul 2026 22:02:26 +0530
-X-Gm-Features: AUfX_mwOeAWKmxBCapFH8OO9BAgQcC-KTiMT2iLqxqLFMwzUP1ftIsgRaivSSA0
-Message-ID: <CAPYTKoPQczv-9bcEkNbUitcP91FXqyGo187JW_Ld+DpDfaZJeg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] dt-bindings: altera-sdram: Add Agilex5 ECC manager compatible
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: bp@alien8.de, conor+dt@kernel.org, devicetree@vger.kernel.org, 
-	dinguyen@kernel.org, krzk+dt@kernel.org, linux-edac@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, niravkumar.l.rabara@altera.com, robh@kernel.org, 
-	tony.luck@intel.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260728142806.1954638-5-eleanor.lin@realtek.com>
+User-Agent: Mutt/2.4.0 (2026-06-19)
 
-Hi Krzysztof,
+On Tue, Jul 28, 2026 at 10:27:59PM +0800, Yu-Chun Lin wrote:
+> From: Cheng-Yu Lee <cylee12@realtek.com>
+> 
+> Add rtk_clk_probe() to set up the shared regmap, register clock hardware,
+> and add the clock provider.
+> 
+> Additionally, if the "#reset-cells" property is present in the device tree,
+> it creates and registers an auxiliary device using the provided aux_name.
+> This allows the dedicated reset driver to bind to this device, enabling
+> both clock and reset drivers to share the same regmap.
+> 
+> Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
+> Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
 
-Sorry for the noise, both were my mistakes. These were reworks of Dinh's
-1/4 and 2/4 based on top of his series, but I sent them as standalone
-patches replying to your review, which is confusing and not parseable by
-tooling. The subject didn't make things clear either.
+Reviewed-by: Brian Masney <bmasney@redhat.com>
 
-I'll send the changes to Dinh instead so he can fold them into the v2.
-
-Thanks,
-Rounak
