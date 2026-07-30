@@ -1,203 +1,118 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DCAA44C657
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 16:35:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1F9E2E7F17
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 16:36:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785429333; cv=none; b=ZG62LGYdtYb+Xe9VA+B3JmEr5Ydie+sqtjugyIo5gPOBc0Nmu3b9A72ULvNUD3dI2AIq5usV32fOerO6NiiV25DczHHl6DPptdmDmr/+V86cQQYqFSu11yK2cMoYcfiWZuQn+Z0C0pkNhR36BOOya9927TVe9wtIjZjX9LugkNY=
+	t=1785429363; cv=none; b=uFYmxNaQ7kdWeswEr4nR+unyHhp8iO9Bf1V03MEOKajKAPfsy7ZL+V7qens53sYdq4a+Il2X1oHfV1Nemt4vm2JAND+wZWvt0retptf4Z8ULcHEU0LFNceOpFg6VFK0b2CRyTKhN5uyfYMfpShrXBKA1IiWE74I9FoyuP4YOcG8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785429333; c=relaxed/simple;
-	bh=kuGy2C+TsQWsScNzk2IT+jSBO4cKZ8il/wZBfLzIWXM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CRpl6i5+BRTWp3o5Td1D39zod0erO+ZbnKQR2FX70PDGj+/mDVb/G64VqpaDJ5cXgo5d1X6N2IK5RZODAoaJglFW4Pb360MTsGxA40k7Nt0POWlQq48Ls210uQ08KPXl9wkGI1g3sltWfLP0mMLdIlK6bmDn4P85A0LHpe8rdrI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=grKteX1Z; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785429363; c=relaxed/simple;
+	bh=RNgBBgIglK+por2zoH73JKpLlK9pZIRRYloNJpDc6/Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rLUbESQcXesrJxNLSxlNneejbTEDgVJx8rBIGf1OPFz7dZom/SzJzKuZmsyZRUJBq8qXNnyn9nilZ3pPPXHNtejsrWCtf0WczvbkODP5Omc+LoqzsKE7UVQO+nNX9PwNlAzA/RdKTZJV4eq4Voj0nF39VIJgoo2Uf/W9VNlnJrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=blmqyeLQ; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=p6FQ1HXr; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="grKteX1Z"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4956242332dso20210475e9.2
-        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 09:35:31 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="blmqyeLQ";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="p6FQ1HXr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1785429360;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KQK0UZKoyz2ZGITRCV0MZEm4Z1Ggizwl/51xOSw6Qsg=;
+	b=blmqyeLQ7ccuaXzbIoYXwbLO9xkffpCe+6hGgiLb9DRjSPjWnKOORNNwUfL9yapOfUh6nF
+	ELGb/J18CPyVaYufjWrmqkwn6ATflIH5NT9DolG08SqWaqcxsn9NQkqq3qBoYDp2UiC5o8
+	vTTxc3JHAoNqRI8QIompJk9Zxgu3OSY=
+Received: from mail-yx1-f70.google.com (mail-yx1-f70.google.com
+ [74.125.224.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-449-Uf13i4W6PXisXWq3_GFHFA-1; Thu, 30 Jul 2026 12:35:59 -0400
+X-MC-Unique: Uf13i4W6PXisXWq3_GFHFA-1
+X-Mimecast-MFC-AGG-ID: Uf13i4W6PXisXWq3_GFHFA_1785429358
+Received: by mail-yx1-f70.google.com with SMTP id 956f58d0204a3-66850cde3a8so6812624d50.2
+        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 09:35:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785429330; x=1786034130; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kJhL3RsYBYDwWZhud+U9+49c/408+YK8Ri5w8J9rOB0=;
-        b=grKteX1Zv/LDvHEUXexeuWA2siZxDUaoha0wjGAtsNS0PUvkoQ9wd0PMqz1nrhkZgX
-         DXxKwffkJlke8L0044puQOx0On0nYUf1PQk25fOu61WLpQR8b796Z4DCT5u0ndSbgopA
-         dWY2UsPmiiOD8Pcsxs6SR4x/ljjI9fpHkD5XyvDVf7O+2G5HqLxLWSMZnsVOzCZ1W3BB
-         /icpQyE1daCuyWHv8QP3C4773+YcZAsnxY//2ZB8afPHbGqqO9pV+KXY0PffYVSh16V3
-         6HxsHxGR/bu04J/AzsUB3j00yE5rEB+GMYH7cFShxsMCLPEkVCFT/arMFtFKO6keG3i1
-         CHiA==
+        d=redhat.com; s=google; t=1785429358; x=1786034158; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=KQK0UZKoyz2ZGITRCV0MZEm4Z1Ggizwl/51xOSw6Qsg=;
+        b=p6FQ1HXr0Q7jPwvWwQ8VOtm0o3j/6fEHN7xzTukF9ey1i4xrfXCodW78BwYc8k2CrK
+         7PghtcH1mTlVLJEufICfeMD2AlAOtaeMrHFgBU5uu8gusExOiIvn2Hl9hIIfAd9p+yHK
+         IZHERX/FmvFvH3xrf5KzlZ3fLXZVmsnMn/3+u1QLOMJ7RRQRMQ3f9neTjQ0Ql5UFThM9
+         QnA38YMA4p5XKeu6teHLAcrr5gPgWLZAAtcSoUsaP1lYjpussxgwojqv5Ili728VIMYP
+         6MX2MZkNk7kKHVKih1tuByGsmRmfzqU7kXKtkkIZ350N7y1BR+1nP2bOJihz56xb+/nn
+         zArg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785429330; x=1786034130;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kJhL3RsYBYDwWZhud+U9+49c/408+YK8Ri5w8J9rOB0=;
-        b=qme3k+futqgWyiSDadJXKF86x+7BluGan8U2b6MA1qUQ6lyioedVv6D3wSDAYK8qMv
-         Walj/3wHA0iv6iKtnEKhIxWIMqcC7DGxYTShjElPVwHqXKzrlQq/THlPKf6HxC0WnJ+6
-         iyOp1417GZeXYW0MRuE7kXXhJnikR65IGwWVrWMMS+wRXF8DOGR94301IKbGZjiBCgvy
-         0XIDRXu3jIuKuLLA3+ucQL0ZNPHVtVRdtKvEbBC8YG7lJzvaDfGQDU+dX9BrsSmLGC/D
-         A2wLMUlWS0igsVBeB14ZtqROz/KI6ZOjuNgURndj+63xBHjqQw2wm3bLZGCpBdZafmXq
-         xiKA==
-X-Forwarded-Encrypted: i=1; AHgh+RqgD3HML2qnvCtbI7N5+3PioBnuiYPH46HSx4JQubBrDwzqeDgjEk4VqGjvxgHB3+vXrv23JPraGajL@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxr6ZYZ1QLS93MijsswnHxwQCyUOJRf2NqSpdhqKYHe5/hn4/Om
-	TG5T5zCAc7BsXSdsdztmkQdK6XPxAHwSYFVZtqvZ+X0v9qKjxe7MRsYZ
-X-Gm-Gg: AR+sD137IPrFiQecMDZNx0uHX5z2ZsXPgOm2YV3YcYUSzBr9RHgUOm+zPbLZKCvkmUU
-	dn/33HtVGqAWyoCmA53xMTmc6Lw69X4Um3GZ+NpSnfgCEp41ovqs5itDY1a7NmDn9aWILhQxMai
-	cXbOXA2mWzWj8beCW9+ZRo92mb6JH49ThGGms1ePKnWeAMxTBG71srkG7/9FlQfeEzkv5JpmJJ/
-	BMz7ZG7oaDRHgBsNU3+/9LrsDar/BA1Yg7qsxu7iUcAm9LaWDsjdCspoe/HKQJbRYyS6a/G8k6Q
-	FG+O3CV8pAiwQ8X5hNSRRsDTM4fx71lWln0GiVnX0Ul2GxYsgAWm8D4VTJ5qmpTorKnAasbnA5s
-	ACQhEGrLD+u16+HOxPbDanNuPt00Hyu3X3dIesabDh81Wnbi+ypkDuxSt/VtSHGSSz9w1f6kIWV
-	cl2wothekfMPI8ZtWtgGdhMblC8eDJpKagRI3mHq9rFl6hMZz67APpa2EMBc7tjAtiGidns2Ii6
-	ClA+ses72tEPg==
-X-Received: by 2002:a05:600c:1987:b0:493:a438:7f98 with SMTP id 5b1f17b1804b1-49800ea99b0mr45414735e9.18.1785429329577;
-        Thu, 30 Jul 2026 09:35:29 -0700 (PDT)
-Received: from SMW024614.wbi.nxp.com ([128.77.115.158])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fc892cdeasm7758445f8f.22.2026.07.30.09.35.27
+        d=1e100.net; s=20251104; t=1785429358; x=1786034158;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KQK0UZKoyz2ZGITRCV0MZEm4Z1Ggizwl/51xOSw6Qsg=;
+        b=ZjDzNGSPB1kr19k3y70mNKlq4kBHu5/nIjDGvL7hfs0e3BlUS5987rsrzHFgs9W+hs
+         tJqhfldmNTzRIvHxmzOF8bZY+Lv52WP3hYIqSS/+4rCA00Ob/GMtp4W39Xr2Nj5UZVHv
+         RlxBbVg5JrRKOmaVFWBeDPauUYFxiP/2X9UI67NpnxR0+VIZszLhb0dmh3HwyVXSyNDF
+         mt9CaBFSXINfEGSZNL20UJv2xWor1wsdMiuNUeMStl8YC2fV7yPdqVH7RnVItHJqPTsY
+         IRILTyUyPZt40iBz6/P+87wikd1lIlMRCJLmrcbrv+QUsf0vYV00Waeqes7Pw+D1IcyH
+         wKGQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqxqQl1DE2eUFAEhtjlmcNRUkXdmOZwIxpVylxeiq0jyIi/w6JrlzsoriqGGun2sqYCTX0EiHtIjtVg@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw0ZLmjCeAv0O9Yazo5dObMLOR14M8hxwQ+Q9lH9lZAlCdSoqov
+	j46PWdNPHrJ+bb3PnsZH3chBc0VNzjMGArIuMd0XgivLU8tKDlieUYM2BYrcMt49162wGRr5GYz
+	bUKUBuCDJKN1SJ8+hVX2r7dSymi80/nXTKm/liHgZP5ePx8alhxKJrAjf3krYw2U=
+X-Gm-Gg: AR+sD10nKk9i32Ti7L0wZ824bhP2ixFRvEo9jHqiT24Qi0/5lAjui/uq/jt/FcXaBUu
+	kxwP1GvSCpMHAe2PO125Licatu9EnDzDuCgbFdZGoMX3/Mjdj2h3Yx2pAAbK76VwztNz1dgGgLZ
+	l+Bo/BqTMJj0dNUXbZTSHAtKo2xXGTXqpx2VYXJMeYrTQSjwHaWvJaRwiemCtUMU9T0dY/Uqgt+
+	9di4SbRo7Fcn91Tto4Wk/QKFi5YrHoDQIujhtx6gVKfD2mJaon4vTvjYosITndfg+/SiTiv1JIY
+	m7PtuMAeW/LedANBr9/SXQGWFrLQ79ppUe+4FTGfV4J9n2h6u2SEe6cS72oiLFr1/T9tUODB5j9
+	m4Ls64Vo2mbfNZP99UdcoljthOvaJqjNjwL0=
+X-Received: by 2002:a05:690e:4844:b0:665:e31:fd8d with SMTP id 956f58d0204a3-6692f477c6fmr1754703d50.13.1785429358422;
+        Thu, 30 Jul 2026 09:35:58 -0700 (PDT)
+X-Received: by 2002:a05:690e:4844:b0:665:e31:fd8d with SMTP id 956f58d0204a3-6692f477c6fmr1754670d50.13.1785429357912;
+        Thu, 30 Jul 2026 09:35:57 -0700 (PDT)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6693b131342sm358314d50.19.2026.07.30.09.35.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 09:35:29 -0700 (PDT)
-From: Laurentiu Mihalcea <laurentiumihalcea111@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Peng Fan <peng.fan@nxp.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Fabio Estevam <festevam@gmail.com>,
-	Daniel Baluta <daniel.baluta@oss.nxp.com>,
-	Francesco Dolcini <francesco@dolcini.it>
-Cc: linux-remoteproc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 4/4] arm64: dts: freescale: add DT overlay for MX95-15x15-FRDM RPMSG usage
-Date: Thu, 30 Jul 2026 09:34:12 -0700
-Message-ID: <20260730163412.1145-5-laurentiumihalcea111@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260730163412.1145-1-laurentiumihalcea111@gmail.com>
-References: <20260730163412.1145-1-laurentiumihalcea111@gmail.com>
+        Thu, 30 Jul 2026 09:35:56 -0700 (PDT)
+Date: Thu, 30 Jul 2026 12:35:54 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Yu-Chun Lin <eleanor.lin@realtek.com>
+Cc: mturquette@baylibre.com, sboyd@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, p.zabel@pengutronix.de,
+	cylee12@realtek.com, jyanchou@realtek.com, afaerber@suse.com,
+	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-realtek-soc@lists.infradead.org, james.tai@realtek.com,
+	cy.huang@realtek.com, stanley_chang@realtek.com
+Subject: Re: [PATCH v11 07/11] clk: realtek: Add support for mux clock
+Message-ID: <amt9avQReRq_hWtJ@redhat.com>
+References: <20260728142806.1954638-1-eleanor.lin@realtek.com>
+ <20260728142806.1954638-8-eleanor.lin@realtek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260728142806.1954638-8-eleanor.lin@realtek.com>
+User-Agent: Mutt/2.4.0 (2026-06-19)
 
-From: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
+On Tue, Jul 28, 2026 at 10:28:02PM +0800, Yu-Chun Lin wrote:
+> From: Cheng-Yu Lee <cylee12@realtek.com>
+> 
+> Add a simple regmap-based clk_ops implementation for Realtek mux clocks.
+> 
+> The implementation supports parent selection and rate determination through
+> regmap-backed register access.
+> 
+> Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
+> Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
 
-Add RPMSG DT overlay for the MX95-15x15-FRDM board. This overlay is meant
-to be used with the mx95evkrpmsg system manager configuration for
-remoteproc and audio over rpmsg-usecases.
-
-Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
-Signed-off-by: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
----
- arch/arm64/boot/dts/freescale/Makefile        |  3 +
- .../dts/freescale/imx95-15x15-frdm-rpmsg.dtso | 67 +++++++++++++++++++
- 2 files changed, 70 insertions(+)
- create mode 100644 arch/arm64/boot/dts/freescale/imx95-15x15-frdm-rpmsg.dtso
-
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index 95ae85ab4adf..3f98132f5a32 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -707,6 +707,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx943-evk-sdwifi.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-15x15-ab2.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-15x15-evk.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-15x15-frdm.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx95-15x15-frdm-rpmsg.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-19x19-evk.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-19x19-evk-sof.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-19x19-frdm-pro.dtb
-@@ -729,6 +730,8 @@ dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-wifi-mallow.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-wifi-yavia.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-wifi-zinnia.dtb
- 
-+imx95-15x15-frdm-rpmsg-dtbs = imx95-15x15-frdm.dtb imx95-15x15-frdm-rpmsg.dtbo
-+
- imx95-15x15-evk-pcie-dtbs += imx95-15x15-evk.dtb imx-m2-pcie.dtbo
- dtb-$(CONFIG_ARCH_MXC) += imx95-15x15-evk-pcie.dtb
- 
-diff --git a/arch/arm64/boot/dts/freescale/imx95-15x15-frdm-rpmsg.dtso b/arch/arm64/boot/dts/freescale/imx95-15x15-frdm-rpmsg.dtso
-new file mode 100644
-index 000000000000..bc02864c6f88
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx95-15x15-frdm-rpmsg.dtso
-@@ -0,0 +1,67 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Copyright 2026 NXP
-+ *
-+ * This DT overlay is meant to be used alongside the mx95evkrpmsg SM
-+ * configuration for remoteproc and audio over rpmsg.
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+&{/} {
-+	remoteproc-cm7 {
-+		compatible = "fsl,imx95-cm7";
-+		mboxes = <&mu7 0 1>, <&mu7 1 1>, <&mu7 3 1>;
-+		mbox-names = "tx", "rx", "rxdb";
-+		memory-region = <&vdev0buffer>, <&vdev0vring0>,
-+				<&vdev0vring1>, <&rsc_table>;
-+		memory-region-names = "vdev0buffer", "vdev0vring0",
-+				      "vdev0vring1", "rsc-table";
-+	};
-+
-+	reserved-memory {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+
-+		vdev0vring0: memory@88000000 {
-+			reg = <0 0x88000000 0 0x8000>;
-+			no-map;
-+		};
-+
-+		vdev0vring1: memory@88008000 {
-+			reg = <0 0x88008000 0 0x8000>;
-+			no-map;
-+		};
-+
-+		vdev0buffer: memory@88020000 {
-+			compatible = "shared-dma-pool";
-+			reg = <0 0x88020000 0 0x100000>;
-+			no-map;
-+		};
-+
-+		rsc_table: memory@88220000 {
-+			reg = <0 0x88220000 0 0x1000>;
-+			no-map;
-+		};
-+	};
-+
-+	sound-micfil {
-+		status = "disabled";
-+	};
-+};
-+
-+&edma1 {
-+	/* reserved for M7 */
-+	dma-channel-mask = <0x40>;
-+};
-+
-+&edma2 {
-+	/* reserved for M7 and V2X */
-+	dma-channel-mask = <0xf>;
-+};
-+
-+&micfil {
-+	/* reserved for M7 */
-+	status = "reserved";
-+};
--- 
-2.53.0
+Reviewed-by: Brian Masney <bmasney@redhat.com>
 
