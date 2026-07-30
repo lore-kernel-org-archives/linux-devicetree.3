@@ -1,64 +1,64 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79BA5403E8E
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 10:25:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BECB04052AB
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 10:25:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785407108; cv=none; b=eXDAIVa7Pm8dzMi3exTv6y6x12CifyQrxSNzGFN28KpGdCJXZED3Z4I43bJnHqe9EeZRJjaC5H7FPgmIBCEQE15YStlqfUK4uurRCly5u1hLnl8nJCb6fRAcqYcXxMa/2hscEeSwqohD6YxE1/N/6XkgRH/9fUIBsl+SQSsDuQ8=
+	t=1785407111; cv=none; b=XkoUie90zqBAd0DjIbaQ2Sr828F6LHvHiWTvE4Hl2kmkOqZr18P415jjlDm2wJCODvcMNp+/hdgI8tyX1VdIVSF9J1KY+2UjC5ct8tEFHwxBpczOx2Tetf0MMYKfI4b91KL+aRrOpFWm2ImqEmoUxZRcQLwxieWqqyPfZw46sjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785407108; c=relaxed/simple;
-	bh=P+fn6CTbzkidI+GaDqnWzA8/iOrnpzcijYAKpGs0CRQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hHosJC9PJ66ue7M0Z5qajEnUE9DfWWUctrL1MUGS0bOkIp+TSnZJYozOOvHlD3HrtCDas06zYugD+fYKnaRPr/DeQkeULVlb2Gsl4K0zW6/OPr9/Ih/q2fav/5ZPADjVSlG9bD+9/j/17K4Js1fxM9c6tRmbbEhItd6Te95jdFU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jyMdZR6s; arc=none smtp.client-ip=209.85.128.46
+	s=arc-20240116; t=1785407111; c=relaxed/simple;
+	bh=xBRx4nU+Q+o/8/p+KCuQFmd/7/h0WdyvKVWwmf/wBh4=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YXcDOS4rM2aeaUuCXqgt5TYqBdivNx2ZF5etknNVGYBdjtBQZ6lThE6gvyAtkH6wrRVZns+y4LXdb65PrPMxUd9Bje8aZU07GxGCD7uhrT/P1iNoLe3aNKaB3xntPMUVzuN4DMaG/FD/t9q8T0G9KKvRCnTiAiHtqTzGJ9m8cww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LFGW5ZFl; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jyMdZR6s"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4956242332dso16797075e9.2
-        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 03:25:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LFGW5ZFl"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4955aa106b1so17829335e9.0
+        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 03:25:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785407104; x=1786011904; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785407106; x=1786011906; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ygLCcEH9Kw2h3BH8ouS5V8px5nNHCFAB+/RAPvnQGdM=;
-        b=jyMdZR6sCpeP+xnyvGfm7gkg5edobDS7NCEDKEB/j7uarmJMhVzu6we4yKPgboe07m
-         tFJQb9oVOXA628nrfY6jkPV9/ghNJTZhUekLWdLY/up1imlO8h/WVtOoaRF+cQlAA4yT
-         EDV121/N/PHRWgxSRmXes6vXIgeoLH8yjZQvg31mjCmj4K01JNc0MSfD3HKGCO2mFUT6
-         nkFZY1iKH2wcF4EAP2lDspFWAbGZ/cAF8He4Bsk7BZ/qQsLVzA1Ef/+nJurs74FDHB30
-         yAZw578EAS3qnMi2pLt9kG1GGhNyYxSZdwaWSvN1Uly+7LGjQVR9nDSHirbpm2KSpBie
-         2G1w==
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=5M6b8h2Qx7uz2S7lrJX2+QvSSsq1tSsAAn6JVK5UB6A=;
+        b=LFGW5ZFlZFcCKBYIDXEf3sL/xlQ7M2WrwUfbXVhV8NVozVerX2SYn6YvLV033SDicj
+         u6ofP/CTXxoq47BqIQZ6huSvsT7wLO4b7hps+0k4Xg5/h2aLsc7ergxm8TS6vmDGQCKn
+         ypPFe8gd4wivmkS77pUVg4Xb0xzrMYOb/Pzt9l6zM1wguO51IzEdc0pGBdartKUmP77L
+         6PV2kkIGY3zAwUt/d+PjWWIS+zltnS/SPmwVzagFd9chJpFE/u9qMfqT9BZ4xzhImUEy
+         kY7iyJVgmaxn/luDLYqX4fVN4Vne9UJzT5IFEwN+xr+iKHJ8OOwIuIDwd+KO7OhzP48Z
+         fDZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785407104; x=1786011904;
+        d=1e100.net; s=20251104; t=1785407106; x=1786011906;
         h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ygLCcEH9Kw2h3BH8ouS5V8px5nNHCFAB+/RAPvnQGdM=;
-        b=cKPqSGebUijjvQqN1cozG3SS/bcwEBdDE3dgD+ZwvUvahLmqgXbz4R5Ry7AQt5dBXg
-         CY3OncWgEuiw7FDNgZQeNqRvVwP5WM5QeWdiSwgyBnBJl6NlZWmjF2UU0IL684gkPwNC
-         ruQKuDDNAui7jLFwuwADeYdPlx1SkH55cOVdeyDPSGBXynNYHCSISrGsgUDNGW8kbdXq
-         E7wecSb9e1gpVvO86ICIzXovaKWin3ccUADpbmVhCxRhI7MQljYyII4WWFcEoTtnMchL
-         bgU6Pq4uoJrgld7ZQUgKbjbaxS7YVEIxnWjJSFKxlrtV4S9Ko1XMOfTUbuqyb6QSRIvv
-         Gf4A==
-X-Forwarded-Encrypted: i=1; AHgh+RqpQkAIQS1HVb+hsQ0nCIp7XBRiKi5q+0t4Mh850v+alaEm8PBESGT5xSk71osAMjhU8KBOQZNUaZiK@vger.kernel.org
-X-Gm-Message-State: AOJu0YwAYWZZ8xJhGbwJUqso2t2VIZ1vyqyR2f/J/2ee2kpDNyBG5EHj
-	g1r7ImPXR39lWZBQR0d7mtq3W1K2u4wEmS4NYxjcpcX8AuxGx7v3iJvW
-X-Gm-Gg: AR+sD134ZV+uR+gZl16QiG88cXCChvR7FhY8KBFv0uKwFrX5xi62UYlvWTA8qam0D6J
-	jRJ63BgSTMhecESDSU9w5me9TcAr4eqWZjMeoQ26Y6DNH5LAX286d+7L4eKqe8fH1k/Vn/L95AR
-	v5bR2+SBjA0gvwfz3CJGA6nVgSIBauYWa0SGZSZMTeplWq0GG6V5+grnjI054Kje59TrzdOV6Ar
-	8MptOw8NrpG+lfZJmjPeXFl+o9Buu/QUS2GgpUZKmKUkyj8uL6mAfipJ4npJuvptIJXuB5jWDI0
-	KPruSNxCX5xKbNUvtSM2Gyo+06OerrX2Y++NHbClq7l3YPpHd2zqbZ7+QToN737miDXSkLqOluc
-	1+aJ6jOIv4t184FSPT3NDLURoPxSRwovmadkSICEhsOMpjzuXusus//zipbONiJMJC4HpD+EcSh
-	nMEiraJIix6Es4RSjh9Xe8r63H1tiKgbKNMzp0TF9MA+iQ5DdKF/SzdmfM69LtoIfzXtuwUPQfR
-	Bo/BsFlO3SViUyk1jlG690z+Iz+xUOQJXS3HG52iYzdl9+wz6elVg==
-X-Received: by 2002:a05:600c:8105:b0:495:641a:bd3f with SMTP id 5b1f17b1804b1-49800e7afa1mr25944545e9.13.1785407103441;
-        Thu, 30 Jul 2026 03:25:03 -0700 (PDT)
+         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=5M6b8h2Qx7uz2S7lrJX2+QvSSsq1tSsAAn6JVK5UB6A=;
+        b=PcYAVKXr94Pt/jbM23ADzD0RieWx+SR17ENqyeO0KZ/MTR64Qr7FPbXJGUgWrrAFUE
+         +vqWaDl3+0/9HTIhDhUdX/FZQMQLw1GHvcN4w3k04idXbHZm2cDTCALpe5jTTWPYKcGi
+         KBCyWTa4BgnilnUuzrHrYANR33F3/dIqwZQwln/vNi8GsBgkXwBj495TqvpZn5KA+z64
+         O+6p50eLMQvOUvWDwKKA2xXFQ7Xldb6MzhbE8d36oTwUUZmJM9IDxe/b/h4VK8d3X9WE
+         E2aGrw+uJ0rvOZd/c9V/6A9HFSQYD5rbwohfeyqtoVJR2COjGjjRfjD4JZLPPRKkfijl
+         YJ5g==
+X-Forwarded-Encrypted: i=1; AHgh+RpjwEceuyCf1JkZaf6GFYthPNY3dN7Rufg4qzyMxAgepAKso+bglF3vMvezQw+IdPudFnrEZ4qclfK/@vger.kernel.org
+X-Gm-Message-State: AOJu0YwpKUPiHrZ6rr0Qj6NDpJea8HCHHjI4hm1P4cWP66gTINcdRtx1
+	+XAZ1mOb0FVX+uHePfdS0xQMk+ccBd3XOrDQPWhr+pEOqzBiqWfVzujc
+X-Gm-Gg: AR+sD1325dISL03Z44DsTNQCX3qwXvaBzptcx238Ms//0hlQnU3wFUJkpuZC/qh07Ye
+	q7upJDHAeiJV4QIzZtlp5lkyLC+vOT5P2Cg5NBnDrE4dcytW36JRPuQFzCfAIR/2Na5LVJlyxMg
+	tRLs+pq7CZlvt3Gu9PUCtftamNp8dhpFDMK4dQ3/YfVW5SDeNN7NSLlEt8rA0cbUzWajZWc/D7z
+	fFlAYcUijCx2emmsPCDiYvEpkw050+35Ky8AwgpK6szhHxvqhnHbfwo5gzC/QVK0Kjth33k5Qe1
+	kO9TeTmtWIREyWU9hdHpMiZwVrWXBgBy6CK21rb82WbPrQD/oX41fkaUZiqyoxq9XDsuwGMIYam
+	bGUj3oyCZEYF24MIL21QdfB0upKCxwyM8tqDvOaor+Tp/ViII5Xiv1Zz2LOEissrOf0a/OtkJsV
+	sI2SapwO3r4Z4VRVnWJAC7vj9iDYxVjTpkJyWr50LKSZUsHLyjIet83DeuCaQ+bb35IH5TUtIub
+	LvCYg0Jxgum+QFvHeCbVj0GPl/RaHhrbgT3wlmxmDML6Rj4mKkn5g==
+X-Received: by 2002:a05:600c:1d8c:b0:495:6713:9a40 with SMTP id 5b1f17b1804b1-49800ea2aecmr25646785e9.18.1785407105759;
+        Thu, 30 Jul 2026 03:25:05 -0700 (PDT)
 Received: from Ansuel-XPS24.localdomain (host-87-11-254-126.retail.telecomitalia.it. [87.11.254.126])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-498011fd5fesm44720295e9.7.2026.07.30.03.25.01
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-498011fd5fesm44720295e9.7.2026.07.30.03.25.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 03:25:03 -0700 (PDT)
+        Thu, 30 Jul 2026 03:25:05 -0700 (PDT)
 From: Christian Marangi <ansuelsmth@gmail.com>
 To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
 	Andrew Lunn <andrew+netdev@lunn.ch>,
@@ -88,10 +88,9 @@ To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org,
 	llvm@lists.linux.dev
-Cc: Daniel Golle <daniel@makrotopia.org>
-Subject: [PATCH net-next v10 04/11] net: pcs: implement Firmware node support for PCS driver
-Date: Thu, 30 Jul 2026 12:24:15 +0200
-Message-ID: <20260730102444.1967900-5-ansuelsmth@gmail.com>
+Subject: [PATCH net-next v10 05/11] net: phylink: support late PCS provider attach
+Date: Thu, 30 Jul 2026 12:24:16 +0200
+Message-ID: <20260730102444.1967900-6-ansuelsmth@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260730102444.1967900-1-ansuelsmth@gmail.com>
 References: <20260730102444.1967900-1-ansuelsmth@gmail.com>
@@ -103,433 +102,371 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Implement the foundation of Firmware node support for PCS driver.
+Add support for late PCS provider attachment to a phylink instance.
+This works by creating a global notifier for the PCS provider and
+making each phylink instance that makes use of fwnode subscribe to
+this notifier.
 
-To support this, implement a simple Provider API where a PCS driver can
-expose multiple PCS with an xlate .get function.
+The PCS notifier will emit the event FWNODE_PCS_PROVIDER_ADD every time
+a new PCS provider is added.
 
-PCS driver will have to call fwnode_pcs_add_provider() and pass the
-firmware node pointer and a xlate function to return the correct PCS for
-the passed #pcs-cells.
+phylink will then react to this event and will call the new function
+fwnode_phylink_pcs_get_from_fwnode() that will check if the PCS fwnode
+provided by the event is present in the pcs-handle property of the
+phylink instance.
 
-This will register the PCS in a global list of providers so that
-consumer can access it.
+If a related PCS is found, then such PCS is added to the phylink
+instance PCS list.
 
-The consumer will then use fwnode_pcs_get() to get the actual PCS by
-passing the firmware node pointer and the index for #pcs-cells.
+Then we link the PCS to the phylink instance and we refresh the supported
+interfaces of the phylink instance.
 
-For a simple implementation where #pcs-cells is 0 and the PCS driver
-expose a single PCS, the xlate function fwnode_pcs_simple_get() is
-provided.
+Finally we check if we are in a major_config_failed scenario and trigger
+an interface reconfiguration in the next phylink resolve.
 
-For an advanced implementation a custom xlate function is required.
+In the example scenario where the link was previously torn down due to
+removal of PCS, the link will be established again as the PCS came back
+and is now available to phylink.
 
-On removal the PCS driver should first delete itself from the provider
-list using fwnode_pcs_del_provider() and then call phylink_release_pcs()
-on every PCS the driver provides.
-
-Generic functions fwnode_phylink_pcs_count() and fwnode_phylink_pcs_parse()
-are provided for MAC driver that will declare PCS in DT (or ACPI).
-
-Function fwnode_phylink_pcs_count() will parse "pcs-handle" property and
-will return the number of PCS entries described in the passed firmware
-node.
-
-Function fwnode_phylink_pcs_parse() will parse "pcs-handle" property and
-fill the passed available_pcs array with the available PCS found up to
-passed num_pcs value. It's worth to mention that this function will ignore
-PCS that still needs to be probed (returning -ENODEV) and such PCS won't be
-added to the available_pcs array.
-
-Co-developed-by: Daniel Golle <daniel@makrotopia.org>
-Signed-off-by: Daniel Golle <daniel@makrotopia.org>
 Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 ---
- drivers/net/pcs/Kconfig          |   6 +
- drivers/net/pcs/Makefile         |   1 +
- drivers/net/pcs/pcs.c            | 212 +++++++++++++++++++++++++++++++
- include/linux/pcs/pcs-provider.h |  41 ++++++
- include/linux/pcs/pcs.h          |  75 +++++++++++
- 5 files changed, 335 insertions(+)
- create mode 100644 drivers/net/pcs/pcs.c
- create mode 100644 include/linux/pcs/pcs-provider.h
- create mode 100644 include/linux/pcs/pcs.h
+ drivers/net/pcs/pcs.c     | 49 +++++++++++++++++++++
+ drivers/net/phy/phylink.c | 93 ++++++++++++++++++++++++++++++++++++---
+ include/linux/pcs/pcs.h   | 65 +++++++++++++++++++++++++++
+ 3 files changed, 201 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/net/pcs/Kconfig b/drivers/net/pcs/Kconfig
-index e417fd66f660..2ce89d4bff6b 100644
---- a/drivers/net/pcs/Kconfig
-+++ b/drivers/net/pcs/Kconfig
-@@ -5,6 +5,12 @@
- 
- menu "PCS device drivers"
- 
-+config FWNODE_PCS
-+	bool "PCS Firmware Node"
-+	depends on (ACPI || OF)
-+	help
-+		Firmware node PCS accessors
-+
- config PCS_XPCS
- 	tristate "Synopsys DesignWare Ethernet XPCS"
- 	select PHYLINK
-diff --git a/drivers/net/pcs/Makefile b/drivers/net/pcs/Makefile
-index 4f7920618b90..3005cdd89ab7 100644
---- a/drivers/net/pcs/Makefile
-+++ b/drivers/net/pcs/Makefile
-@@ -1,6 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0
- # Makefile for Linux PCS drivers
- 
-+obj-$(CONFIG_FWNODE_PCS)	+= pcs.o
- pcs_xpcs-$(CONFIG_PCS_XPCS)	:= pcs-xpcs.o pcs-xpcs-plat.o \
- 				   pcs-xpcs-nxp.o pcs-xpcs-wx.o
- 
 diff --git a/drivers/net/pcs/pcs.c b/drivers/net/pcs/pcs.c
-new file mode 100644
-index 000000000000..fa8ab67076e2
---- /dev/null
+index fa8ab67076e2..ec0409909955 100644
+--- a/drivers/net/pcs/pcs.c
 +++ b/drivers/net/pcs/pcs.c
-@@ -0,0 +1,212 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
+@@ -22,6 +22,19 @@ struct fwnode_pcs_provider {
+ 
+ static LIST_HEAD(fwnode_pcs_providers);
+ static DEFINE_MUTEX(fwnode_pcs_mutex);
++static BLOCKING_NOTIFIER_HEAD(fwnode_pcs_notify_list);
 +
-+#include <linux/mutex.h>
-+#include <linux/property.h>
-+#include <linux/phylink.h>
-+#include <linux/pcs/pcs.h>
-+#include <linux/pcs/pcs-provider.h>
-+
-+MODULE_DESCRIPTION("PCS library");
-+MODULE_AUTHOR("Christian Marangi <ansuelsmth@gmail.com>");
-+MODULE_LICENSE("GPL");
-+
-+struct fwnode_pcs_provider {
-+	struct list_head link;
-+
-+	struct fwnode_handle *fwnode;
-+	struct phylink_pcs *(*get)(struct fwnode_reference_args *pcsspec,
-+				   void *data);
-+
-+	void *data;
-+};
-+
-+static LIST_HEAD(fwnode_pcs_providers);
-+static DEFINE_MUTEX(fwnode_pcs_mutex);
-+
-+struct phylink_pcs *fwnode_pcs_simple_get(struct fwnode_reference_args *pcsspec,
-+					  void *data)
++int register_fwnode_pcs_notifier(struct notifier_block *nb)
 +{
-+	return data;
++	return blocking_notifier_chain_register(&fwnode_pcs_notify_list, nb);
 +}
-+EXPORT_SYMBOL_GPL(fwnode_pcs_simple_get);
++EXPORT_SYMBOL_GPL(register_fwnode_pcs_notifier);
 +
-+int fwnode_pcs_add_provider(struct fwnode_handle *fwnode,
-+			    struct phylink_pcs *(*get)(struct fwnode_reference_args *pcsspec,
-+						       void *data),
-+			    void *data)
++int unregister_fwnode_pcs_notifier(struct notifier_block *nb)
 +{
-+	struct fwnode_pcs_provider *pp;
-+
-+	if (!fwnode)
-+		return 0;
-+
-+	pp = kzalloc_obj(*pp);
-+	if (!pp)
-+		return -ENOMEM;
-+
-+	pp->fwnode = fwnode_handle_get(fwnode);
-+	pp->data = data;
-+	pp->get = get;
-+
-+	mutex_lock(&fwnode_pcs_mutex);
-+	list_add(&pp->link, &fwnode_pcs_providers);
-+	mutex_unlock(&fwnode_pcs_mutex);
-+	pr_debug("Added pcs provider from %pfwf\n", fwnode);
-+
-+	fwnode_dev_initialized(fwnode, true);
-+
-+	return 0;
++	return blocking_notifier_chain_unregister(&fwnode_pcs_notify_list, nb);
 +}
-+EXPORT_SYMBOL_GPL(fwnode_pcs_add_provider);
++EXPORT_SYMBOL_GPL(unregister_fwnode_pcs_notifier);
+ 
+ struct phylink_pcs *fwnode_pcs_simple_get(struct fwnode_reference_args *pcsspec,
+ 					  void *data)
+@@ -55,6 +68,10 @@ int fwnode_pcs_add_provider(struct fwnode_handle *fwnode,
+ 
+ 	fwnode_dev_initialized(fwnode, true);
+ 
++	blocking_notifier_call_chain(&fwnode_pcs_notify_list,
++				     FWNODE_PCS_PROVIDER_ADD,
++				     fwnode);
 +
-+void fwnode_pcs_del_provider(struct fwnode_handle *fwnode)
-+{
-+	struct fwnode_pcs_provider *pp;
-+
-+	if (!fwnode)
-+		return;
-+
-+	mutex_lock(&fwnode_pcs_mutex);
-+	list_for_each_entry(pp, &fwnode_pcs_providers, link) {
-+		if (pp->fwnode == fwnode) {
-+			list_del(&pp->link);
-+			fwnode_dev_initialized(pp->fwnode, false);
-+			fwnode_handle_put(pp->fwnode);
-+			kfree(pp);
-+			break;
-+		}
-+	}
-+	mutex_unlock(&fwnode_pcs_mutex);
-+}
-+EXPORT_SYMBOL_GPL(fwnode_pcs_del_provider);
-+
-+static int fwnode_parse_pcsspec(const struct fwnode_handle *fwnode,
-+				int index, const char *name,
-+				struct fwnode_reference_args *out_args)
-+{
-+	int ret;
-+
-+	if (!fwnode)
-+		return -EINVAL;
-+
-+	if (name) {
-+		index = fwnode_property_match_string(fwnode, "pcs-names",
-+						     name);
-+		if (index < 0)
-+			return index;
-+	}
-+
-+	ret = fwnode_property_get_reference_args(fwnode, "pcs-handle",
-+						 "#pcs-cells", 0, index,
-+						 out_args);
-+	if (ret || (name && index < 0))
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static struct phylink_pcs *
-+fwnode_pcs_get_from_pcsspec(struct fwnode_reference_args *pcsspec)
-+{
-+	struct fwnode_pcs_provider *provider;
-+	struct phylink_pcs *pcs = ERR_PTR(-ENODEV);
-+
-+	if (!pcsspec)
-+		return ERR_PTR(-EINVAL);
-+
-+	mutex_lock(&fwnode_pcs_mutex);
-+	list_for_each_entry(provider, &fwnode_pcs_providers, link) {
-+		if (provider->fwnode == pcsspec->fwnode) {
-+			pcs = provider->get(pcsspec, provider->data);
-+			if (!IS_ERR(pcs))
-+				break;
-+		}
-+	}
-+	mutex_unlock(&fwnode_pcs_mutex);
-+
-+	return pcs;
-+}
-+
-+static struct phylink_pcs *__fwnode_pcs_get(struct fwnode_handle *fwnode,
-+					    unsigned int index, const char *con_id)
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(fwnode_pcs_add_provider);
+@@ -150,6 +167,38 @@ struct phylink_pcs *fwnode_pcs_get(struct fwnode_handle *fwnode, unsigned int in
+ }
+ EXPORT_SYMBOL_GPL(fwnode_pcs_get);
+ 
++struct phylink_pcs *
++fwnode_phylink_pcs_get_from_fwnode(struct fwnode_handle *fwnode,
++				   struct fwnode_handle *pcs_fwnode)
 +{
 +	struct fwnode_reference_args pcsspec;
-+	struct phylink_pcs *pcs;
-+	int ret;
-+
-+	ret = fwnode_parse_pcsspec(fwnode, index, con_id, &pcsspec);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
-+	pcs = fwnode_pcs_get_from_pcsspec(&pcsspec);
-+	fwnode_handle_put(pcsspec.fwnode);
-+
-+	return pcs;
-+}
-+
-+struct phylink_pcs *fwnode_pcs_get(struct fwnode_handle *fwnode, unsigned int index)
-+{
-+	return __fwnode_pcs_get(fwnode, index, NULL);
-+}
-+EXPORT_SYMBOL_GPL(fwnode_pcs_get);
-+
-+unsigned int fwnode_phylink_pcs_count(struct fwnode_handle *fwnode)
-+{
-+	struct fwnode_reference_args out_args;
 +	int index = 0;
 +	int ret;
 +
++	/* Loop until we find a matching PCS node or
++	 * fwnode_parse_pcsspec() returns error
++	 * if we don't have any other PCS reference to check.
++	 */
 +	while (true) {
-+		ret = fwnode_property_get_reference_args(fwnode, "pcs-handle",
-+							 "#pcs-cells", 0, index,
-+							 &out_args);
-+		/* We expect to reach an -ENOENT error while counting */
++		ret = fwnode_parse_pcsspec(fwnode, index, NULL, &pcsspec);
 +		if (ret)
-+			break;
++			return ERR_PTR(ret);
 +
-+		fwnode_handle_put(out_args.fwnode);
++		/* Exit loop if we found the matching PCS node */
++		if (pcsspec.fwnode == pcs_fwnode) {
++			fwnode_handle_put(pcsspec.fwnode);
++			break;
++		}
++
++		/* Check the next PCS reference */
++		fwnode_handle_put(pcsspec.fwnode);
 +		index++;
 +	}
 +
-+	return index;
++	return fwnode_pcs_get(fwnode, index);
 +}
-+EXPORT_SYMBOL_GPL(fwnode_phylink_pcs_count);
++EXPORT_SYMBOL_GPL(fwnode_phylink_pcs_get_from_fwnode);
 +
-+int fwnode_phylink_pcs_parse(struct fwnode_handle *fwnode,
-+			     struct phylink_pcs **available_pcs,
-+			     unsigned int num_pcs)
+ unsigned int fwnode_phylink_pcs_count(struct fwnode_handle *fwnode)
+ {
+ 	struct fwnode_reference_args out_args;
+diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+index 562e09d1838b..d38820543ae4 100644
+--- a/drivers/net/phy/phylink.c
++++ b/drivers/net/phy/phylink.c
+@@ -12,6 +12,7 @@
+ #include <linux/netdevice.h>
+ #include <linux/of.h>
+ #include <linux/of_mdio.h>
++#include <linux/pcs/pcs.h>
+ #include <linux/phy.h>
+ #include <linux/phy_fixed.h>
+ #include <linux/phylink.h>
+@@ -62,6 +63,7 @@ struct phylink {
+ 
+ 	/* List of available PCS */
+ 	struct list_head pcs_list;
++	struct notifier_block fwnode_pcs_nb;
+ 
+ 	/* What interface are supported by the current link.
+ 	 * Can change on removal or addition of new PCS.
+@@ -1965,6 +1967,27 @@ int phylink_set_fixed_link(struct phylink *pl,
+ }
+ EXPORT_SYMBOL_GPL(phylink_set_fixed_link);
+ 
++static void phylink_add_pcs(struct phylink *pl, struct phylink_pcs *pcs)
 +{
-+	unsigned int i, found = 0;
++	struct phylink_pcs *tmp;
 +
-+	if (!available_pcs)
-+		return -EINVAL;
++	/*
++	 * Make sure state mutex is locked to protect concurrent
++	 * access to phylink instance PCS list from
++	 * initial fill_available_pcs and late PCS attach
++	 */
++	lockdep_assert_held(&pl->state_mutex);
 +
-+	if (!fwnode_property_present(fwnode, "pcs-handle"))
-+		return -ENODEV;
++	list_for_each_entry(tmp, &pl->pcs_list, list)
++		if (tmp == pcs)
++			return;
 +
-+	for (i = 0; i < num_pcs; i++) {
-+		struct phylink_pcs *pcs;
++	list_add_tail(&pcs->list, &pl->pcs_list);
 +
-+		pcs = fwnode_pcs_get(fwnode, i);
-+		if (IS_ERR(pcs)) {
-+			/* Exit early if no PCS remain.*/
-+			if (PTR_ERR(pcs) == -ENOENT)
-+				break;
++	/* Link PCS to phylink */
++	pcs->phylink = pl;
++}
 +
-+			/*
-+			 * Ignore -ENODEV error for PCS that still
-+			 * needs to probe.
-+			 */
-+			if (PTR_ERR(pcs) == -ENODEV)
-+				continue;
+ static int phylink_fill_available_pcs(struct phylink *pl,
+ 				      struct phylink_config *config)
+ {
+@@ -1988,21 +2011,70 @@ static int phylink_fill_available_pcs(struct phylink *pl,
+ 	if (ret < 0)
+ 		goto out;
+ 
++	mutex_lock(&pl->state_mutex);
 +
-+			return PTR_ERR(pcs);
-+		}
+ 	for (i = 0; i < config->num_possible_pcs; i++) {
+ 		struct phylink_pcs *pcs = pcss[i];
+ 
+ 		if (!pcs)
+ 			continue;
+ 
+-		list_add_tail(&pcs->list, &pl->pcs_list);
++		phylink_add_pcs(pl, pcs);
+ 	}
+ 
++	mutex_unlock(&pl->state_mutex);
 +
-+		available_pcs[found] = pcs;
-+		found++;
+ out:
+ 	kfree(pcss);
+ 
+ 	return ret;
+ }
+ 
++static int pcs_provider_notify(struct notifier_block *self,
++			       unsigned long val, void *data)
++{
++	struct phylink *pl = container_of(self, struct phylink, fwnode_pcs_nb);
++	struct fwnode_handle *pcs_fwnode = data;
++	struct phylink_pcs *pcs;
++
++	rtnl_lock();
++
++	/* Check if the just added PCS provider is
++	 * in the phylink instance pcs-handle property.
++	 */
++	pcs = fwnode_phylink_pcs_get_from_fwnode(dev_fwnode(pl->config->dev),
++						 pcs_fwnode);
++	if (IS_ERR(pcs)) {
++		rtnl_unlock();
++		return NOTIFY_DONE;
 +	}
 +
-+	return found;
++	/* Add the PCS */
++	mutex_lock(&pl->state_mutex);
++
++	phylink_add_pcs(pl, pcs);
++
++	/* Refresh supported interfaces */
++	phy_interface_copy(pl->supported_interfaces,
++			   pl->config->supported_interfaces);
++	list_for_each_entry(pcs, &pl->pcs_list, list)
++		phy_interface_or(pl->supported_interfaces,
++				 pl->supported_interfaces,
++				 pcs->supported_interfaces);
++
++	/* Force an interface reconfig if major config fail */
++	if (pl->major_config_failed)
++		pl->force_major_config = true;
++
++	mutex_unlock(&pl->state_mutex);
++
++	rtnl_unlock();
++
++	phylink_run_resolve(pl);
++
++	return NOTIFY_OK;
 +}
-+EXPORT_SYMBOL_GPL(fwnode_phylink_pcs_parse);
-diff --git a/include/linux/pcs/pcs-provider.h b/include/linux/pcs/pcs-provider.h
-new file mode 100644
-index 000000000000..ae51c108147e
---- /dev/null
-+++ b/include/linux/pcs/pcs-provider.h
-@@ -0,0 +1,41 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+#ifndef __LINUX_PCS_PROVIDER_H
-+#define __LINUX_PCS_PROVIDER_H
 +
-+/**
-+ * fwnode_pcs_simple_get - Simple xlate function to retrieve PCS
-+ * @pcsspec: reference arguments
-+ * @data: Context data (assumed assigned to the single PCS)
-+ *
-+ * Returns: the PCS pointed by data.
-+ */
-+struct phylink_pcs *fwnode_pcs_simple_get(struct fwnode_reference_args *pcsspec,
-+					  void *data);
+ /**
+  * phylink_create() - create a phylink instance
+  * @config: a pointer to the target &struct phylink_config
+@@ -2047,15 +2119,21 @@ struct phylink *phylink_create(struct phylink_config *config,
+ 	INIT_WORK(&pl->resolve, phylink_resolve);
+ 	INIT_LIST_HEAD(&pl->pcs_list);
+ 
++	/*
++	 * First register notifier for late PCS attach to catch
++	 * any possible provider that registers while we fill
++	 * the available PCS.
++	 */
++	if (!phy_interface_empty(config->pcs_interfaces)) {
++		pl->fwnode_pcs_nb.notifier_call = pcs_provider_notify;
++		register_fwnode_pcs_notifier(&pl->fwnode_pcs_nb);
++	}
 +
-+/**
-+ * fwnode_pcs_add_provider - Registers a new PCS provider
-+ * @fwnode: Firmware node
-+ * @get: xlate function to retrieve the PCS
-+ * @data: Context data
-+ *
-+ * Register and add a new PCS to the global providers list
-+ * for the firmware node. A function to get the PCS from
-+ * firmware node with the use fwnode reference arguments.
-+ * To the get function is also passed the interface type
-+ * requested for the PHY. PCS driver will use the passed
-+ * interface to understand if the PCS can support it or not.
-+ *
-+ * Returns: 0 on success or -ENOMEM on allocation failure.
-+ */
-+int fwnode_pcs_add_provider(struct fwnode_handle *fwnode,
-+			    struct phylink_pcs *(*get)(struct fwnode_reference_args *pcsspec,
-+						       void *data),
-+			    void *data);
+ 	/* Fill the PCS list with available PCS from phylink config */
+ 	ret = phylink_fill_available_pcs(pl, config);
+ 	if (ret < 0)
+ 		goto free_pl;
+ 
+-	/* Link available PCS to phylink */
+-	list_for_each_entry(pcs, &pl->pcs_list, list)
+-		pcs->phylink = pl;
+-
+ 	phy_interface_copy(pl->supported_interfaces,
+ 			   config->supported_interfaces);
+ 
+@@ -2151,10 +2229,13 @@ void phylink_destroy(struct phylink *pl)
+ 	if (pl->link_gpio)
+ 		gpiod_put(pl->link_gpio);
+ 
++	/* Unregister notifier for late PCS attach */
++	if (pl->fwnode_pcs_nb.notifier_call)
++		unregister_fwnode_pcs_notifier(&pl->fwnode_pcs_nb);
 +
-+/**
-+ * fwnode_pcs_del_provider - Removes a PCS provider
-+ * @fwnode: Firmware node
-+ */
-+void fwnode_pcs_del_provider(struct fwnode_handle *fwnode);
-+
-+#endif /* __LINUX_PCS_PROVIDER_H */
+ 	cancel_work_sync(&pl->resolve);
+ 
+ 	/* Drop link between PCS and phylink */
+-	/* Remove every PCS from phylink PCS list */
+ 	list_for_each_entry_safe(pcs, tmp, &pl->pcs_list, list) {
+ 		pcs->phylink = NULL;
+ 		list_del(&pcs->list);
 diff --git a/include/linux/pcs/pcs.h b/include/linux/pcs/pcs.h
-new file mode 100644
-index 000000000000..b7cfdd680b2a
---- /dev/null
+index b7cfdd680b2a..45e8f96662db 100644
+--- a/include/linux/pcs/pcs.h
 +++ b/include/linux/pcs/pcs.h
-@@ -0,0 +1,75 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+#ifndef __LINUX_PCS_H
-+#define __LINUX_PCS_H
+@@ -4,7 +4,36 @@
+ 
+ #include <linux/phylink.h>
+ 
++enum fwnode_pcs_notify_event {
++	FWNODE_PCS_PROVIDER_ADD,
++};
 +
-+#include <linux/phylink.h>
-+
-+#if IS_ENABLED(CONFIG_FWNODE_PCS)
+ #if IS_ENABLED(CONFIG_FWNODE_PCS)
 +/**
-+ * fwnode_pcs_get - Retrieves a PCS from a firmware node
-+ * @fwnode: firmware node
-+ * @index: index fwnode PCS handle in firmware node
++ * register_fwnode_pcs_notifier - Register a notifier block for fwnode
++ *				  PCS events
++ * @nb: pointer to the notifier block
 + *
-+ * Get a PCS from the firmware node at index.
++ * Registers a notifier block to the fwnode_pcs_notify_list blocking
++ * notifier chain. This allows phylink instance to subscribe for
++ * PCS provider events.
++ *
++ * Returns: 0 or a negative error.
++ */
++int register_fwnode_pcs_notifier(struct notifier_block *nb);
++
++/**
++ * unregister_fwnode_pcs_notifier - Unregister a notifier block for fwnode
++ *				    PCS events
++ * @nb: pointer to the notifier block
++ *
++ * Unregisters a notifier block to the fwnode_pcs_notify_list blocking
++ * notifier chain.
++ *
++ * Returns: 0 or a negative error.
++ */
++int unregister_fwnode_pcs_notifier(struct notifier_block *nb);
++
+ /**
+  * fwnode_pcs_get - Retrieves a PCS from a firmware node
+  * @fwnode: firmware node
+@@ -20,6 +49,25 @@
+ struct phylink_pcs *fwnode_pcs_get(struct fwnode_handle *fwnode,
+ 				   unsigned int index);
+ 
++/**
++ * fwnode_phylink_pcs_get_from_fwnode - Retrieves the PCS provided
++ *					by the firmware node from a
++ *					firmware node
++ * @fwnode: firmware node
++ * @pcs_fwnode: PCS firmware node
++ *
++ * Parse 'pcs-handle' in 'fwnode' and get the PCS that match
++ * 'pcs_fwnode' firmware node.
 + *
 + * Returns: a pointer to the phylink_pcs or a negative
-+ * error pointer. Can return -ENODEV if the PCS is not
++ * error pointer. Can return -EPROBE_DEFER if the PCS is not
 + * present in global providers list (either due to driver
-+ * still needs to be probed or it failed to probe/removed).
++ * still needs to be probed or it failed to probe/removed)
 + */
-+struct phylink_pcs *fwnode_pcs_get(struct fwnode_handle *fwnode,
-+				   unsigned int index);
++struct phylink_pcs *
++fwnode_phylink_pcs_get_from_fwnode(struct fwnode_handle *fwnode,
++				   struct fwnode_handle *pcs_fwnode);
 +
-+/**
-+ * fwnode_phylink_pcs_count - count PCS entries described in firmware node
-+ * @fwnode: firmware node
-+ *
-+ * Helper function to count the number of PCS entries referenced by the
-+ * "pcs-handle" property in a firmware node.
-+ *
-+ * Note that this function counts all PCS references in the firmware node,
-+ * regardless of whether the corresponding PCS devices are already probed.
-+ *
-+ * Returns: number of PCS entries described in the firmware node.
-+ */
-+unsigned int fwnode_phylink_pcs_count(struct fwnode_handle *fwnode);
+ /**
+  * fwnode_phylink_pcs_count - count PCS entries described in firmware node
+  * @fwnode: firmware node
+@@ -53,12 +101,29 @@ int fwnode_phylink_pcs_parse(struct fwnode_handle *fwnode,
+ 			     struct phylink_pcs **available_pcs,
+ 			     unsigned int num_pcs);
+ #else
++static inline int register_fwnode_pcs_notifier(struct notifier_block *nb)
++{
++	return -EOPNOTSUPP;
++}
 +
-+/**
-+ * fwnode_phylink_pcs_parse - parse available PCS from firmware node
-+ * @fwnode: firmware node
-+ * @available_pcs: pointer to preallocated array of PCS
-+ * @num_pcs: maximum number of PCS entries to scan
-+ *
-+ * Helper function that parses PCS references from the "pcs-handle"
-+ * property of a firmware node and fills @available_pcs with PCS that are
-+ * currently available up to @num_pcs.
-+ *
-+ * Only PCS that are currently available are stored in @available_pcs.
-+ * PCS that returns -ENODEV are skipped.
-+ *
-+ * Returns: number of PCS stored in @available_pcs, or negative error code.
-+ */
-+int fwnode_phylink_pcs_parse(struct fwnode_handle *fwnode,
-+			     struct phylink_pcs **available_pcs,
-+			     unsigned int num_pcs);
-+#else
-+static inline struct phylink_pcs *fwnode_pcs_get(struct fwnode_handle *fwnode,
-+						 unsigned int index)
++static inline int unregister_fwnode_pcs_notifier(struct notifier_block *nb)
++{
++	return -EOPNOTSUPP;
++}
++
+ static inline struct phylink_pcs *fwnode_pcs_get(struct fwnode_handle *fwnode,
+ 						 unsigned int index)
+ {
+ 	return ERR_PTR(-ENOENT);
+ }
+ 
++static inline struct phylink_pcs *
++fwnode_phylink_pcs_get_from_fwnode(struct fwnode_handle *fwnode,
++				   struct fwnode_handle *pcs_fwnode)
 +{
 +	return ERR_PTR(-ENOENT);
 +}
 +
-+static inline unsigned int fwnode_phylink_pcs_count(struct fwnode_handle *fwnode)
-+{
-+	return 0;
-+}
-+
-+static inline int fwnode_phylink_pcs_parse(struct fwnode_handle *fwnode,
-+					   struct phylink_pcs **available_pcs,
-+					   unsigned int num_pcs)
-+{
-+	return -EOPNOTSUPP;
-+}
-+#endif
-+
-+#endif /* __LINUX_PCS_H */
+ static inline unsigned int fwnode_phylink_pcs_count(struct fwnode_handle *fwnode)
+ {
+ 	return 0;
 -- 
 2.53.0
 
