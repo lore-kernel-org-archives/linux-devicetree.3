@@ -1,268 +1,342 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 874F23DD520
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 10:24:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 514D333F8AA
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 10:24:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785407070; cv=none; b=WQYVUcWB4pAvYZctaOkc3HMAI5wCGNi1GiM80oQUd6Vdr/zA4GA4Q/iUaJJgY7yaCiJoLULtum/w2l19qciVkhDr+Zxuz3g7ZAE4Pa9CM4JNJ3KfgbPcuJTeKANNGdl0CyPUJRjDzT629nCeWsLtIeZNyqTNIHf13O0r5vE7K/o=
+	t=1785407098; cv=none; b=lTqIRf0UFIxeaJxQ3xUvVLG0gY3g1NC+3vKTE4wRGVIsyBO1U5sRgerUkg8zYYZCCjcykQmoSKBwTuLjtYOwkQi5QtVV6jKyM39KndqFxDlMHHgkrsE/sog6KRdYtKYg/HkdERSXONYMHjMXA56QBUaGyFzLY8RnZ1+mlMj7/gQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785407070; c=relaxed/simple;
-	bh=ryRoqNw+KYJrSos8wF7UjAgwStgLCweG1ktqkQR3D0E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=p7JnKf9JlpD5c64swV4kAubvwoF3/dmdJWnppOcOvr4pXJBmxlF9/PXqPHQZUY7ajKwZnrxUMYY1yzpXnsZKp3jP8P14li3av9nmnX2dQC9onLDGA97a9rx+j+TknPZAzoE2H4tBBNmzhOQOdp5/yL3NVn/Dvj8q6THy8HzprDc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vh0uazMl; arc=none smtp.client-ip=209.85.128.53
+	s=arc-20240116; t=1785407098; c=relaxed/simple;
+	bh=Rbqnyu7KDqxxtJcHXVfu/dBIcWavmhc8dU1FiBf24RY=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=Vcx6ta8tp51H/7lg19TWFXVt+h1fg1Tsx1KrVyGK1lwxss3Eyn8ys6/jeZOdVrZus99uf+opDl43jydobDxeKLPPK5RNNuAd+w6qKBNmbaQGaqe6dEVZIXsYPOGqIhJyRvXeL/9eL1jrp0itpHupWf/T3ye8hiTLpA6qfgMa3q8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CDJaC5Il; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vh0uazMl"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4921eed3fa2so13081325e9.0
-        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 03:24:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CDJaC5Il"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4954a9e8490so3246105e9.1
+        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 03:24:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785407066; x=1786011866; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CAWvJN+SGaOBuUoQOgGvMnR1bvpJIHhWB64yh9RTVdk=;
-        b=Vh0uazMlIptSoZKEqWFPNO5g4b4ajfX2GjMim1US8zMXar7e9/bgXkNSMHlsV49ETw
-         kLrGmVbqBwlNShCBGMoThZB9q9a/98awqQ3PxoZ1UscVnDnYr/b+vJWv34cTGY3XUsmF
-         1uzO6tHVWPUqsQwgMgaKuYSqRGQsxd1o/HymcGjebGxCeHwWyCW02vOnNXaHqKXEdu4d
-         bgdn2UqrURGGC+8uEGmD70/N0/EgY9XVX2HPvtuXSm8y+dc0x5k9Z5GVxLfTTHQQBzHR
-         RAl70KjmuCg6nUXNBYm1/bkvnG4eb4x6+kO3i6fjeo55XZwWuobA+XJsSgRRugmS8A7f
-         cv9A==
+        d=gmail.com; s=20251104; t=1785407094; x=1786011894; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=j9o/vxMtMhtXFaXnsLrQ+83DAJubIBgfYSkBzEC6NfQ=;
+        b=CDJaC5IlKZqPLcIoqbrNvxtXjGpTz2u+9Ek7XbRltAcFLj6Ak1/4DiJqbIJsGl+Fh5
+         E+gzGz9ZbNWrOshw4XnKqjJq86foi0doaYxBEhE80ec7xu09TslJyl1B2LxOamQq9oJW
+         /9GjU7nx+NMT4axAHnueHYpUroXh2JbfWjsgHxw9Kly1StksXkYGJ8Xx5KDg449EwyZm
+         B9ppRjyMT1fDME41CKYFtb8bsDSBoc35gg6UD1nZKQsPbghvYGB+j3qFMgNK3Zbk7D7m
+         lcqhDlK3qESS1AlNpRbaTL+iQsKSemhvA8STlI401WWaSJkd0r0q3Z32dHdfo6FVUho+
+         G1Mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785407066; x=1786011866;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20251104; t=1785407094; x=1786011894;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=CAWvJN+SGaOBuUoQOgGvMnR1bvpJIHhWB64yh9RTVdk=;
-        b=lsM9E4CvmIHuslPZiAgmIDgwFOsZexB5ot0X8EMRnzeCpwkMs5KMQmXqZbdB5QPea+
-         7mlbc4F9N5KrF/zdyEzYsdENhMjVaITvy/uvtZ5jDzZ3xJ4WyGjlkAwHx97SyieOmyCu
-         plIrQR3/upCLLTtYeZ2uI1rExBJpcp6s6dp8ndpQSNE+3FXAHSL3aTkR6Tn5oNT+4OGe
-         HjrTXTtltv2von8xpeWMWG6S6pkQGIWpSpVQPmnwC+Ugx1oktg+w5HFBo3WSy/Ibnelc
-         3hElI9hKYm/A1GFb4XFsICk8k0R/SUot2nuFtnp0ocYcLip8TMnIy9DRwzeVzRrsGFIp
-         TfQw==
-X-Forwarded-Encrypted: i=1; AHgh+Rq7lXrgKqX/8ipz45ltGWr9vDp6g6Z7TKfGXcm/pGN7uMxoYGtCzunOsda/GximTkmAP3ukwwBGCD/+@vger.kernel.org
-X-Gm-Message-State: AOJu0YzO3WDPPmko/IVsJdpTuLIaB+bqp4vSzDCRdLkBwD1pqm38l5n6
-	ndGOG/SP+pnWil/c0HqGRCj9wYopZCVbouHjfKnCFkIyEybhVnvF8nNI
-X-Gm-Gg: AR+sD108TLtNKmyLjxZw2o+hBxsqNKEgibluNXUEZQMPktEq+H3St6Kb023QfZLwdpo
-	i40rYCAxRQ1GT1EO7/I12ZKMBlivD3oNvCDG4AHEtCxXsvArnLriNN3YwQ2PMMVBkP+JZj1X6og
-	Ws5hMjvRlTHFIFiRqyKRBS9db/Psd36qMWUOrcWzgkCvnCjCW71hPO8dX66G6aun/Bvoq3Pxo/G
-	5yOMPkZrS9WcohxMMKTyhM01q2mrsPEl/nGqHtWjcc5PcXUenB2V918FStZ2VTY/RRi+KvqFSxY
-	amV01lU0MDHFHjbWw/SWDpDAJQVIOVaG+FmfxKinQSPEQIld4fPsWqxQMLirnIbclbtDVxWpEpO
-	lrjKnOR8GCeNfPyagnwoG1tpYrsqBiCyPoPOkuh2zPaMxDO2ilAeX+343bY3pGbdw/6Sgd4WrN+
-	ZDvxYRHMwxpW7xZP4DwV7bOYZNs0it3pLOOzATxestgyE22z7kSmZt
-X-Received: by 2002:a05:600c:8715:b0:495:607e:5ed6 with SMTP id 5b1f17b1804b1-49800eac0f8mr24981855e9.31.1785407065366;
-        Thu, 30 Jul 2026 03:24:25 -0700 (PDT)
-Received: from nsa ([148.63.225.166])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-498011fec37sm47420055e9.9.2026.07.30.03.24.23
+        bh=j9o/vxMtMhtXFaXnsLrQ+83DAJubIBgfYSkBzEC6NfQ=;
+        b=qKDJV10euo266GWadunN8441hP4pxuYrguCFn6NiPxLlsGHYbTwkrEHi61vwusFJQa
+         ayvaU/CV/YYg2qh6tDACEbH/zjN2X3Iu8dGHi4dro8Qx+HDH5NPg4BQEO7yWLyfaquQx
+         7N65u0V4QjAWAZmTpr/qll2MzN/blJMNK4KRC3xlxeliIXOM4gmf4k/FOCRuMhk/FJtV
+         Dpz6SSXd8o3uBSF6Zw/ZsjCnI4T+4hosZEPRg3ukrYdo38PFPfyjnmLYlqtZi5mlUxK4
+         UCwy5elQhr5GsN0lmVpRZ7hGwgteruP6r9gQiXxolyPVEARPXLbnd8knUGcA/rYWJF/e
+         WMAg==
+X-Forwarded-Encrypted: i=1; AHgh+RqpSEv3SYpH/juwqwH5nsf3pcuUEZgbGxydygtLuj/DRsgh+QQD3y73B12AN/riY2cIFDueZNUJ20H6@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx4ZWZytLm4pxrafXMEd8LZFVw3vlEwb4BX2MASYYlKTNskcHST
+	Xvis4Bozf4ULNZUHSvQ4vwmBjYrf36MCOTzPW/bCbZTkhQD2EIU7iKw1
+X-Gm-Gg: AR+sD10ZYLV5ELjQNpL6nDdNmbDkVrGYJ5w30hpMGgcrXWDppRvLD+ct9OY4B6/mXyc
+	ySTztBnb+cXCdQZ0h4gNo6jOeJ0PEIM5XU4j8J4L0oIwk3QIp1m3C1t9UWzmcCpnvNMEw4V0+Rm
+	32OAhefEONNvB1FWldp+atk61ms3Ir120SwcmXHTKfDBO8gxKp0HKhWJIX8p9DI6mbYNVv2LsCF
+	BqbIXIla4wPrRniNxLpZmOzHVQDy8xXkZr9jiTKqlR16EhFls6yKQbH7dtUrMoTPGm7VMgkfHkN
+	Gm+G5a+11HAZDhXjVBNlmUKr/PuR946Rzm9YkdV+CCYD4Jn9Sz6BH6VrTBFEpRjL59adduNut9b
+	vMyg6aj7IQDwfH/Nfgdg1YNekJrUdGRj/GdGAwyC8F8IKiLPs/dsH75qJTA23MwkS/HoeWhxobp
+	KMVR2OKMA85fQHE0QwO3fO0wFb+TKjaHOD1FPElclPMzOtZXPVFocOZWW+sm2JYAXIEjzcPKWbu
+	e86pYMIjMmX3Vh7xEy/Ct26n7ZDOw2IeMlihqfWBu+oMzIOqFKZQA==
+X-Received: by 2002:a05:600c:45d5:b0:495:6022:5a23 with SMTP id 5b1f17b1804b1-49801f2b8c2mr20921145e9.19.1785407094205;
+        Thu, 30 Jul 2026 03:24:54 -0700 (PDT)
+Received: from Ansuel-XPS24.localdomain (host-87-11-254-126.retail.telecomitalia.it. [87.11.254.126])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-498011fd5fesm44720295e9.7.2026.07.30.03.24.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 03:24:25 -0700 (PDT)
-Date: Thu, 30 Jul 2026 11:25:34 +0100
-From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Conor Dooley <conor@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	Janani Sunil <janani.sunil@analog.com>, Lars-Peter Clausen <lars@metafoo.de>, 
-	Michael Hennerich <Michael.Hennerich@analog.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Mark Brown <broonie@kernel.org>, 
-	Marius Cristea <marius.cristea@microchip.com>, Marcus Folkesson <marcus.folkesson@gmail.com>, 
-	Kent Gustavsson <kent@minoris.se>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, Janani Sunil <jan.sun97@gmail.com>, 
-	linux-spi@vger.kernel.org, Kent Gustavsson <nedo80@gmail.com>
-Subject: Re: [PATCH v7 2/7] dt-bindings: iio: adc: microchip,mcp3564: Add
- spi-device-addr
-Message-ID: <amslUWahHYtwXuCG@nsa>
-References: <20260722-ad5529r-driver-v7-0-7781cd74ad75@analog.com>
- <20260722-ad5529r-driver-v7-2-7781cd74ad75@analog.com>
- <cb4098c1-4bad-4a11-9a6f-a833e554f197@baylibre.com>
- <20260725230739.63ff7000@jic23-huawei>
- <20260728-patronize-thwarting-56fab2e11077@spud>
- <20260728221719.7f668a73@jic23-huawei>
- <20260729-hundredth-suffice-f28afa67bc06@spud>
- <20260730000929.2ec20cf8@jic23-huawei>
+        Thu, 30 Jul 2026 03:24:53 -0700 (PDT)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	llvm@lists.linux.dev
+Subject: [PATCH net-next v10 00/11] net: pcs: Introduce support for fwnode PCS
+Date: Thu, 30 Jul 2026 12:24:11 +0200
+Message-ID: <20260730102444.1967900-1-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260730000929.2ec20cf8@jic23-huawei>
 
-On Thu, Jul 30, 2026 at 12:09:29AM +0100, Jonathan Cameron wrote:
-> On Wed, 29 Jul 2026 21:47:45 +0100
-> Conor Dooley <conor@kernel.org> wrote:
-> 
-> > On Tue, Jul 28, 2026 at 10:17:19PM +0100, Jonathan Cameron wrote:
-> > > On Tue, 28 Jul 2026 17:00:55 +0100
-> > > Conor Dooley <conor@kernel.org> wrote:
-> > >   
-> > > > On Sat, Jul 25, 2026 at 11:07:39PM +0100, Jonathan Cameron wrote:  
-> > > > > On Sat, 25 Jul 2026 15:57:07 -0500
-> > > > > David Lechner <dlechner@baylibre.com> wrote:
-> > > > >     
-> > > > > > On 7/22/26 2:54 AM, Janani Sunil wrote:    
-> > > > > > > Add the generic spi-device-addr property to the binding and deprecate
-> > > > > > > the existing vendor specific microchip,hw-device-address property.
-> > > > > > > 
-> > > > > > > Signed-off-by: Janani Sunil <janani.sunil@analog.com>
-> > > > > > > ---
-> > > > > > >  .../devicetree/bindings/iio/adc/microchip,mcp3564.yaml         | 10 ++++++++--
-> > > > > > >  1 file changed, 8 insertions(+), 2 deletions(-)
-> > > > > > > 
-> > > > > > > diff --git a/Documentation/devicetree/bindings/iio/adc/microchip,mcp3564.yaml b/Documentation/devicetree/bindings/iio/adc/microchip,mcp3564.yaml
-> > > > > > > index 675319276197..de1ea289e7f5 100644
-> > > > > > > --- a/Documentation/devicetree/bindings/iio/adc/microchip,mcp3564.yaml
-> > > > > > > +++ b/Documentation/devicetree/bindings/iio/adc/microchip,mcp3564.yaml
-> > > > > > > @@ -80,6 +80,7 @@ properties:
-> > > > > > >      $ref: /schemas/types.yaml#/definitions/uint32
-> > > > > > >      minimum: 0
-> > > > > > >      maximum: 3
-> > > > > > > +    deprecated: true
-> > > > > > >      description:
-> > > > > > >        The address is set on a per-device basis by fuses in the factory,
-> > > > > > >        configured on request. If not requested, the fuses are set for 0x1.
-> > > > > > > @@ -91,6 +92,12 @@ properties:
-> > > > > > >        clocking of the device address (BITS[7:6] - top two bits of COMMAND BYTE
-> > > > > > >        which is first one on the wire).
-> > > > > > >  
-> > > > > > > +  spi-device-addr:
-> > > > > > > +    maxItems: 1      
-> > > > > > 
-> > > > > > Does it not make sense to all for more than once device connected
-> > > > > > to the same CS here? I would expect maxItems to be 4 to match the
-> > > > > > number of possible addresses.
-> > > > > >     
-> > > > > 
-> > > > > I think for this part their isn't a reason to aggregate.
-> > > > > No magic accesses that touch them all at once.  So this hits
-> > > > > exactly the point you raised about how we set the address for
-> > > > > more than one of them.    
-> > > > 
-> > > > No David is actually right here, and maxitems should be 4.
-> > > > Setting the address for multiple was already discussed I thought, with
-> > > > the property being an array and each compatible being used to determine
-> > > > the "stride" between entries based on the number of supported channels?  
-> > > 
-> > > I don't think that applies for this device or at least to do so
-> > > is a major driver rewrite, not a simple binding change.  Probably we'd  
-> > 
-> > Whether or not it is a big driver change, the binding should represent
-> > what the hardware is capable of.
-> > 
-> > > just add a bus and hang the 4 instances off it. They are running on own
-> > > timing etc so we can't grab data across all of them in any sort of
-> > > synchronous way - the clocks will probably drift over time etc.  
-> > 
-> > Did I miss something about the ADI devices in this thread where they
-> > have some multicast ability to read all devices at once? I thought that
-> > that was a different series where each device had dedicated mosi and
-> > miso lines, rather than the shared ones here. I didn't think the ad5529r
-> > did anything special from my reading of the datasheet but I'm not the
-> > expert in this area!
-> 
-> It's a DAC so other way around but yes they have exactly that in the section:
-> https://www.analog.com/media/en/technical-documentation/data-sheets/ad5529r.pdf
-> 
-> 	Register Details: Hotpath DAC registermap.
-> 
-> The is a brief description earlier of the whole feature that might
-> serve for this discussion:
-> 
-> "DAC HOTPATH
-> The DAC hotpath is a dedicated register region that optimizes
-> DAC updates in multidevice configurations where several AD5529R
-> devices share a common SPI bus. It reduces the number of SPI
-> frames required to write DAC data and supports synchronized
-> output updates across devices. In single device systems, the hotpath
-> offers no advantage over the standard register map and can be
-> disregarded."
-> 
-> As an example
-> MULTI DEVICE SW LDAC MODE 0 REGISTER
-> "This register sends a software LDAC update to the selected devices
-> that share the SPI lines but have different addresses, using the ID0
-> and ID1 pins. The selection is done on a per-device basis corresponding
-> to the configured bit field."
-> 
-> This one triggers all selected DACs (there is bit corresponding to
-> each address) to update in sync. (Lets put aside normal systems
-> where an LDAC gpio is wired to multiple devices as that is a whole
-> different problem).
-> 
-> 
-> It is this part that is driving the suggestion of having
-> a combined device representation for multiple physical devices.
-> In practice it is very similar to chained devices where we do that
-> already in that a longer access sequence is used to talk to multiple
-> devices at once.
-> 
-> Those SPI messages do not carry the address (or they are ignored - I didn't
-> dig into the mechanism).
-> 
-> 
-> > 
-> > > They are independent devices (think of them using spi-device-address
-> > > like an i2c address) -  so why have one DT node for up to 4 of
-> > > them?  Note this is different from the AD5529R where the design
-> > > is intended for them to operate as one single larger device.  
-> > 
-> > I don't buy this argument, I just don't see what differs between the
-> > devices. The microchip datasheet I read talked about using 3 devices to
-> > measure 3 phase power setups (I think that's what it was) which is, in
-> > my book, evidence that they're not just intended to be used
-> > independently.
-> 
-> Sure but that could just as easily be done with normal SPI and 3 chip
-> selects. For these devices there is no broadcast write magic (I think
-> anyway!)
-> 
-> > 
-> > That said, the more this discussion goes on, the more I think that
-> > merging the devices into a single node is a mistake. Logically there may
-> > be one device, but really there are one to four devices. Doing the
-> > logical device thing is nice maybe for software but I no longer think
-> > that it represents the hardware correctly. I know this will cause
-> > problems with registration of devices in the SPI core, but we need to
-> > pick one representation for these devices that fits in all usecases
-> > and with the things brought up in the other mail I am having a lot of
-> > doubts.
-> 
-> This wasn't about use cases as such but the broadcast like facilities the
-> ADI parts have which to me smell like the main reason you'd put them on
-> a single bus and use this feature in the first place - you are making
-> one big DAC from multiple chips.
-> 
-> > 
-> > Only going to reply to this for now, I'll reply to the other thread of
-> > this conversation later so as not to end up duplicating discussion, but
-> > I am thinking of things like what if someone puts a mcp3654r and an
-> > ad5529r on the same chip select? I think that's actually perfectly
-> > functional on a hardware level, provided the fuses/pins are set up
-> > correctly (and if it is not, mixing the microchip devices is possible
-> > and probably mixing future ADI ones will be too).
-> 
-> The broadcast stuff is what breaks this.  Otherwise I fully agree they
-> should be independent and we should have SPI allow that.
-> 
+This series introduce a most awaited feature that is correctly
+provide PCS with fwnode without having to use specific export symbol
+and additional handling of PCS in phylink.
 
-Exactly! The idea of having the devices as separate nodes always felts
-really appealing to me given that's what we have (strictly sepaking) in
-HW. But as you stated, the big reason to pack multiple devices (for the
-ADI case) is to basically increase the number of channels and so
-aggregate the devices together. But taking on David's suggestion,
-couldn't we somehow reuse that for AD5529R such that the additional
-DAC's would be child nodes?
+At times there were 2 different implementation (this and the one
+from Sean) but Sean agreed that this can be picked and used in favor
+of his implementation as long as his case with race condition is
+correctly handled.
 
-I agree that we should just pick one representation and it feels
-to me that device@cs,spi-addr (or something like it) is the more
-flexible approach.
+---
+First the PCS fwnode:
 
-- Nuno Sá
+The concept is to implement a producer-consumer API similar to other
+subsystem like clock or PHY.
+
+That seems to be the best solution to the problem as PCS driver needs
+to be detached from phylink and implement a simple way to provide a
+PCS while maintaining support for probe defer or driver removal.
+
+To keep the implementation simple, the PCS driver devs needs some
+collaboration to correctly implement this. This is O.K. as helper
+to correctly implement this are provided hence it's really a matter
+of following a pattern to correct follow removal of a PCS driver.
+
+A PCS provider have to implement and call fwnode_pcs_add_provider() in
+probe function and define an xlate function to define how the PCS
+should be provided based on the requested interface and phandle spec
+defined in fwnode (based on the #pcs-cells)
+
+fwnode_pcs_get() is provided to provide a specific PCS declared in
+fwnode at index.
+
+A simple xlate function is provided for simple single PCS
+implementation, fwnode_pcs_simple_get.
+
+A PCS provider on driver removal should first call
+fwnode_pcs_del_provider() to delete itself as a provider and then
+release the PCS from phylink with phylink_release_pcs() under rtnl
+lock.
+
+---
+Second PCS handling in phylink:
+
+We have the PCS problem for the only reason that in initial
+implementation, we permitted way too much flexibility to MAC driver
+and things started to deviate. At times we couldn't think SoC
+would start to put PCS outside the MAC hence it was OK to assume
+they would live in the same driver. With the introduction of
+10g in more consumer devices, we are observing a rapid growth
+of this pattern with multiple PCS external to MAC.
+
+To put a stop on this, the only solution is to give back to phylink
+control on PCS handling and enforce more robust supported interface
+definition from both MAC and PCS side.
+
+It's suggested to read patch 0003 of this series for more info, here
+a brief explaination of the idea:
+
+This series introduce handling of PCS in phylink and try to deprecate
+.mac_select_pcs.
+
+Phylink now might contain a linked list of available PCS and
+those will be used for PCS selection on phylink_major_config.
+
+MAC driver needs to define pcs_interfaces mask in phylink_config
+for every interface that needs a dedicated PCS.
+
+These PCS needs to be provided to phylink at phylink_create time
+by setting the .fill_available_pcs and .num_possible_pcs in phylink_config.
+Helpers to parse PCS from fwnode are provided
+fwnode_phylink_pcs_count() that will return the count of PCS entries
+described in the firmware node and fwnode_phylink_pcs_parse() that will
+fill a preallocated array of PCS pointer with the actual available PCS
+(ignoring the one that still needs to be probed).
+
+phylink_create() will fill the internal PCS list with the passed
+array of PCS. phylink_major_config and other user of .mac_select_pcs
+are adapted to make use of this new PCS list.
+
+The supported interface value is also moved internally to phylink
+struct. This is to handle late removal and addition of PCS.
+(the bonus effect to this is giving phylink a clear idea of what
+is actually supported by the MAC and his constraint with PCS)
+
+The supported interface mask in phylink is done by OR the
+supported_interfaces in phylink_config with every PCS in PCS list.
+
+PCS removal is supported by forcing a mac_config, refresh the
+supported interfaces and run a phy_resolve().
+
+PCS late addition is supported by introducing a global notifier
+for PCS provider. If a phylink have the pcs_interfaces mask not
+zero, it's registered to this notifier.
+
+PCS provider will emit a global PCS add event to signal any
+interface that a new PCS might be available.
+
+The function will then check if the PCS is related to the MAC
+fwnode and add it accordingly.
+
+A user for this new implementation is provided as an Airoha PCS
+driver. This was also tested downstream with the IPQ95xx QCOM SoC
+and with the help of Daniel also on the various Mediatek MT7988
+SoC with both SFP cage implementation and DSA attached.
+
+Lots of tests were done with driver unbind/bind and with interface
+up/down also by adding print to make sure major_config_fail gets
+correctly triggered and reset once the PCS comes back.
+
+The dedicated commits have longer description on the implementation
+so it's suggested to also check there for additional info.
+
+It's worth to mention that OpenWrt is currently using this on
+Mediatek SoC and QCOM ipq807x/ipq60xx/ipq50xx and Airoha are
+already ported in staging tree for testing.
+
+---
+
+Changes v10:
+- Minor code cleanup and fixes as suggested by bot
+- Drop devlink patch
+- Add reviewed by tag
+- Configure old_link_state on PCS release
+- Unlink PCS on error in phylink_create()
+- Use list_add_tail
+- Fix typo in Airoha PCS driver
+- Update phylink migration guide
+- Better handle late PCS attach (idempotent function and
+  add unser state_mutex)
+- Use dedicated lock in Airoha ethernet driver
+Changes v9:
+- Rebase on top of net-next/main
+- Drop early verification of supported_interface
+  (it can also be provided by get_capabilites MAC OP)
+Changes v8:
+- Back to RFC (net-next closed)
+- Address additional bug reported by Sashiko bot
+  - Better handle priv interface for Airoha PCS driver
+  - Better handle locking for modifying the PCS list in
+    phylink code
+  - Improve fwnode_phylink_pcs_parse() parsing on -ENOENT
+  - Better handle error condition in phylink_create()
+  - Turn down the link when current PCS is released
+- Fix compilation warning caused by copy paste error
+Changes v7:
+- Address all the bug from the Sashiko bot
+- Rename .num_available_pcs to .num_possible_pcs
+- Link PCS in phylink_create()
+- Correctly unregister the notifier on phylink_destroy()
+- Introduce fwnode_phylink_pcs_count()
+- Better handle locking in phylink for PCS handling
+- Better handle unavailable PCS at phylink_create() time
+- Improve Documentation file
+- Other minor fixes to address suggestion from bot
+- Rebase on top of net-next
+Changes v6:
+- Rebase on top of net-next
+- Add Documentation files
+- Add fw_devlink patch
+- Fix some comments typo
+- Rework the airoha_eth.c implementation with new multi serdes code
+- Extend PCS code with PCIe and USB support
+- Align schema to new property
+Changes v5:
+- Rebase on top of net-next
+- Use the new force_major_config
+- Reword some comments and commit description
+- Return -ENODEV instead of -EPROBE_DEFER to perevent race condition
+- Drop phy_interface_copy patch (Russell pushed an equivalent version)
+Changes v4:
+- Move patch 0002 phy_interface_copy to 0002 (fix bisectability
+  problem)
+- Address review from Lorenzo for Airoha ethernet driver
+- Fix kdoc error with missing Return (actually missing : before Return)
+- Fix UNMET dependency reported error for CONFIG_FWNODE_PCS
+- Revert to pcs.c instead of core.c (due to name conflict with other kmod)
+- Fix clang compilation error for Airoha PCS driver
+- Add missing inline function to pcs.h function
+Changes v3:
+- Out of RFC
+- Fix various spelling mistake
+- Drop circular dependency patch
+- Complete Airoha Ethernet phylink integration
+- Introduce .pcs_link_down PCS OP
+Changes v2:
+- Switch to fwnode
+- Implement PCS provider notifier
+- Better split changes
+- Move supported_interfaces to phylink
+- Add circular dependency patch
+- Rework handling with indirect addition/removal and
+  trigger of phylink_resolve()
+
+Christian Marangi (11):
+  net: phylink: keep and use MAC supported_interfaces in phylink struct
+  net: phylink: introduce internal phylink PCS handling
+  net: phylink: add phylink_release_pcs() to externally release a PCS
+  net: pcs: implement Firmware node support for PCS driver
+  net: phylink: support late PCS provider attach
+  net: Document PCS subsystem
+  MAINTAINERS: add myself as PCS subsystem maintainer
+  net: phylink: add .pcs_link_down PCS OP
+  dt-bindings: net: pcs: Document support for Airoha Ethernet PCS
+  net: pcs: airoha: add PCS driver for Airoha AN7581 SoC
+  net: airoha: add phylink support
+
+ .../bindings/net/pcs/airoha,pcs.yaml          |  261 ++
+ Documentation/networking/index.rst            |    1 +
+ Documentation/networking/pcs.rst              |  240 ++
+ Documentation/networking/sfp-phylink.rst      |   35 +-
+ MAINTAINERS                                   |    9 +
+ drivers/net/ethernet/airoha/Kconfig           |    1 +
+ drivers/net/ethernet/airoha/airoha_eth.c      |  189 +-
+ drivers/net/ethernet/airoha/airoha_eth.h      |    5 +
+ drivers/net/ethernet/airoha/airoha_regs.h     |   12 +
+ drivers/net/pcs/Kconfig                       |    8 +
+ drivers/net/pcs/Makefile                      |    3 +
+ drivers/net/pcs/airoha/Kconfig                |   12 +
+ drivers/net/pcs/airoha/Makefile               |    7 +
+ drivers/net/pcs/airoha/pcs-airoha-common.c    | 1323 +++++++++++
+ drivers/net/pcs/airoha/pcs-airoha.h           | 1311 +++++++++++
+ drivers/net/pcs/airoha/pcs-an7581.c           | 2093 +++++++++++++++++
+ drivers/net/pcs/pcs.c                         |  261 ++
+ drivers/net/phy/phylink.c                     |  398 +++-
+ include/linux/pcs/pcs-provider.h              |   41 +
+ include/linux/pcs/pcs.h                       |  140 ++
+ include/linux/phylink.h                       |   30 +
+ 21 files changed, 6309 insertions(+), 71 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/pcs/airoha,pcs.yaml
+ create mode 100644 Documentation/networking/pcs.rst
+ create mode 100644 drivers/net/pcs/airoha/Kconfig
+ create mode 100644 drivers/net/pcs/airoha/Makefile
+ create mode 100644 drivers/net/pcs/airoha/pcs-airoha-common.c
+ create mode 100644 drivers/net/pcs/airoha/pcs-airoha.h
+ create mode 100644 drivers/net/pcs/airoha/pcs-an7581.c
+ create mode 100644 drivers/net/pcs/pcs.c
+ create mode 100644 include/linux/pcs/pcs-provider.h
+ create mode 100644 include/linux/pcs/pcs.h
+
+-- 
+2.53.0
 
