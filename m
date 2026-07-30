@@ -1,99 +1,109 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A9F370D4F
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 02:42:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBAFE37A85A;
+	Thu, 30 Jul 2026 02:45:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785379332; cv=none; b=ktn47fwUShy1Dq4kfMYrSFcE4710PbmOY21eJP3wCdiOCQguCpcWk42L510dLvOgVrf0vUQcVCfjtFW2P2v1iLw+sYrRu5KhTOYsXolpgi/XJX665ZLBw74EppyL8u42l5rZK7FUgcxMrzlYf7ZpnGhKW2ujXXGCff8hH93qoqA=
+	t=1785379506; cv=none; b=m3QNzyY7xrEK/vylWrfnI/rrjTka95tRt9eqTU5f5YKYEidUXVWGfJzdoEl92cSTM1dne/kY70qiDcTPNcaqqVCTFiORvvwAQ8+lJvIOwmixMZe7aUS5pJbRxG59ST7XgF/Rzv3X9do3qVK3OTRDsKKQdtd5T59ObFF+HgM6TAE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785379332; c=relaxed/simple;
-	bh=on3VzepDs/3MHHs0RRL/UeEpFoiTSFv8jJib0SgDcnc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Actm0CCNdmHeu0+poqneZVlQ0bgvQdvms2fkTfw3yXzhH0hftthjsQ5QqQF4RpkKtan9o0/M9Q/iih1Q7acHgAXl6I3Yd27Oz47Z8QWGd9g78LymbNEycDzVm+srem0PKtf2YqpZ7AWxrmqdSZZKfENEAo7QfABpT31eV3q7RZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eWBgPn3P; arc=none smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785379506; c=relaxed/simple;
+	bh=KxweY5QazvchqS4xRFGU9jjXJLeCYRh7hVVlntO6MvA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Rj+rc4D4f88AWOR/6vaWcwNq6NIy+C8NHLjiOcXdB9/HdGtw4LPEXhWDa41r1TD2ae6cLdcSKB1KXDsQBFF8I2MO3vgGrxS1HJUtWJaoPsX5bAbRJwACUAZC5zv6MyJJqr71p4QHQYFygMFxtVK84KvoLaS7sk0fycBJ0Wmyi60=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BJKAiKxK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eWBgPn3P"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-381b831d535so1840907a91.0
-        for <devicetree@vger.kernel.org>; Wed, 29 Jul 2026 19:42:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785379331; x=1785984131; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=JY27cQNaqzGYLZOQbmnzVq1JmgnQdsEEv2ezwPRKfII=;
-        b=eWBgPn3PrZkmAc5r/IYJ7sPVoPhEed9Y2fKWWjjHpixcVfVyEdgdSoiBJ8q7t6WjZz
-         Hm39s1jTW9W1lpVUscoLMztLdaNKh1Ge6zGp+9fzqUC5n9vW/eKPDlgjcx/F1wghqOIa
-         bkcloqaYEmSDGc0C1fbik5MTfamYDqQSqanFyQ87vyqwybzTFBuvH2/g7LK+5NMa9Cp6
-         PxbpRvPZoKOq+nICqNR3UiC8j1QJr2q4KBgRedUvPkSOcVy6K9kg6Fojw3907Zlj8Q1d
-         lxbsx1cuYzYoYSJhsLFMYwX0cksXNTzAV8ekV5pRrJU/5NLZW4i3Zdr3PnCJl01DR20L
-         3fig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785379331; x=1785984131;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JY27cQNaqzGYLZOQbmnzVq1JmgnQdsEEv2ezwPRKfII=;
-        b=qLS3sysjda6ojmnA39GMHzuLGaFBO1VrvMaIaQFL08HRL6IzPumkD8B5jPCQUm0zh6
-         6P4pk5OpGZrEw/P0RvywfdKm6PMQ8ZPzxcBci1C+M+/u+yHA3jJht02iLJKs2LI7Pw9J
-         nbCbrUnN8Ay0jkQtx3fukENWieqidbLcZ68LObsmfd8KPubbZvHg9Pn84tXugljudVtZ
-         UBFfbm+jXkdSHK/dsrSVkWtuhPVEJ/Eu8/HB9JySJGoWON/usxcGBubhDscEVkA8Sxcs
-         EZTj23Eo3ixotMsXdBaNEPxG5pmVMBRNq/2vrE6VYzqyJ59zOtcSt5niAPGLl5ZcGPWe
-         T+Kw==
-X-Forwarded-Encrypted: i=1; AHgh+RpDh7fHO8PHILJAZgISxaCWcPq5en7qwLXZ1t6WF7ubDs4KiTXxdHZ0V4kx2UXuwBuEOCY8I+LJ3K/p@vger.kernel.org
-X-Gm-Message-State: AOJu0YxKJKR3ZlHhIxAtp8Ahee0uZ8zQ3sEa1QW6GABr+x5jHn+DkPaW
-	8V1+CFa66fsS39Lb66VUex6qOU5HFh1L/khdz/4v2iKup7Z7gwlorLMR
-X-Gm-Gg: AR+sD10wustavJdytLh2NTqtzIi90fUI+j80EtBc3jWN6pNEXnKkegmh9CZaJicWL5G
-	C4326lg1YW42fe3LTnqZnlBNGkxmQVHTAMfYKA6FVYCHTtTCzk816KQ+Sw8Z/bvchMtk12EQTOV
-	NFOiSFOPH7GIRlB6LKDUMPYnTvUunveRdZSjLXjTSFV/5tEzP0jHmFEUctu2AL0tGAlOGZXpNyG
-	9DeMPzUPhtS5BEbvRjZdM6fRRMEMM0wNa0FCQ84KAjvCdoUBybCvJNuw7pCF1OQU72IM/Ay6gjD
-	JezsVivfgp/Y4W3z6SQGfdDhDyZ661SGfqLyDZhO66lZNzG35AY0jZ326jF0CNAkRuYhS3ZD2Xr
-	V4f5LftJUGSZOymeVo6gFTst9jcWs3elVJQTntTnR3e2iv8ELNIsr120jkZiBTBF8xn1ZLNcZP7
-	I8pBNAyaALSiGKb1c65sEMc5Pw2zZ+6wAdY1IDIHRownRnO2tlVwln+xdDhZqPzfyjNaqVaGDI1
-	Q==
-X-Received: by 2002:a17:90b:1a88:b0:38e:49c0:75a7 with SMTP id 98e67ed59e1d1-38f9bd73f03mr782178a91.8.1785379330453;
-        Wed, 29 Jul 2026 19:42:10 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31504cc63fesm14037037eec.15.2026.07.29.19.42.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Jul 2026 19:42:09 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Wed, 29 Jul 2026 19:42:09 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v5 4/4] hwmon: (pmbus/max20830): add support for
- max20830c and max20840c
-Message-ID: <82c06175-35e4-48a9-9ddb-e60d3dcb974c@roeck-us.net>
-References: <20260730-dev-max20830c-v5-0-a7553f84ee74@analog.com>
- <20260730-dev-max20830c-v5-4-a7553f84ee74@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BJKAiKxK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 078AD1F000E9;
+	Thu, 30 Jul 2026 02:45:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785379505;
+	bh=YHikEDKMXzM4BJgO7EOlTW1Sq4J46aU+vGdZdSQplWo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=BJKAiKxKyArjHcun7cRAgla2vAltWL9PwTl9dFzY53n48R+I7MBQJ1sm1Uuyof7Oh
+	 32Pts6jMaAaWMdhvxjeSoUir0igDqBVLeYX31LI99EQC4rupH8qYZaJjjs2OLmgQPg
+	 zeWhpCxzVGCPr/LMGDW5gDzfmrJrl3XYIEhWkQtWKuW2Asz6Rdp/3APaxNFfpL3MYv
+	 B4hEYAKSD2yfMxarShNH0E1WfaEDHksyES1dUGS7GYrZniIkm7eePBrUsoCEN7yUmu
+	 k6ozRfG0qwUJiIM3lypyY1dmaIZbBRGpc2+xVI7wKevEU60YiNK7+cnHv5aJsqf7dz
+	 UoG8F2GG44FNg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v32 6/7] arm64: dts: imx8ulp: add secure enclave node
+Reply-To: sashiko-reviews@lists.linux.dev
+To: pankaj.gupta@oss.nxp.com
+Cc: robh@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev, Frank.Li@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260730-imx-se-if-v32-6-95f56dff4ba9@nxp.com>
+References: <20260730-imx-se-if-v32-0-95f56dff4ba9@nxp.com>
+ <20260730-imx-se-if-v32-6-95f56dff4ba9@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 30 Jul 2026 02:45:04 +0000
+Message-Id: <20260730024505.078AD1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260730-dev-max20830c-v5-4-a7553f84ee74@analog.com>
 
-On Thu, Jul 30, 2026 at 09:03:36AM +0800, Alexis Czezar Torreno wrote:
-> Add support for MAX20830C and MAX20840 step-down DC-DC switching
-> regulator with PMBus interface. MAX20830C is a different packaging
-> for MAX20830, and MAX20840C supports 40A regulation compared to
-> MAX20830 that is only 30A.
-> 
-> Signed-off-by: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Devicetree Schema Violation for disabled secure-enclave node
+--
 
-Applied.
+--- Patch [6]: [PATCH v32 6/7] arm64: dts: imx8ulp: add secure enclave node=
+ ---
+commit 9ea23a325f779943e0d6ff5ef6459ab8d6494416
+Author: Pankaj Gupta <pankaj.gupta@nxp.com>
 
-Thanks,
-Guenter
+arm64: dts: imx8ulp: add secure enclave node
+
+This patch adds the EdgeLock Enclave (ELE) secure-enclave node to the
+i.MX8ULP SoC dtsi. The node is kept disabled by default so it does not
+impose a reserved-memory requirement on every board.
+
+Closes: https://sashiko.dev/#/patchset/20260724-imx-se-if-v30-0-ce8ba256692=
+c@nxp.com?part=3D6
+
+> diff --git a/arch/arm64/boot/dts/freescale/imx8ulp.dtsi b/arch/arm64/boot=
+/dts/freescale/imx8ulp.dtsi
+> index c6d1bb9edf388..38233dd74ee33 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8ulp.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/imx8ulp.dtsi
+
+[ ... ]
+
+> @@ -185,6 +185,14 @@ scmi_sensor: protocol@15 {
+>  				#thermal-sensor-cells =3D <1>;
+>  			};
+>  		};
+> +
+> +		hsm0: secure-enclave {
+> +			compatible =3D "fsl,imx8ulp-se-ele-hsm";
+> +			mbox-names =3D "tx", "rx";
+> +			mboxes =3D <&s4muap 0 0>, <&s4muap 1 0>;
+> +			sram =3D <&sram0>;
+> +			status =3D "disabled";
+> +		};
+
+[Severity: Low]
+Will this cause a devicetree schema validation warning during dtbs_check?
+
+Because the dt-binding schema requires the 'memory-region' property for the=
+=20
+"fsl,imx8ulp-se-ele-hsm" compatible string, omitting it here means any boar=
+d=20
+that includes imx8ulp.dtsi without enabling the enclave will fail validatio=
+n,=20
+even though the node is disabled.=20
+
+Could we avoid validation warnings by defining a dummy memory-region, or by=
+=20
+restructuring how this node is included for boards that do not use the encl=
+ave?
+
+>  	};
+> =20
+>  	cm33: remoteproc-cm33 {
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-imx-se-if-=
+v32-0-95f56dff4ba9@nxp.com?part=3D6
