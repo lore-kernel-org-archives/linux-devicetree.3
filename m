@@ -1,245 +1,314 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010040.outbound.protection.outlook.com [52.101.69.40])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34B454052DC;
-	Thu, 30 Jul 2026 14:51:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.40
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785423082; cv=fail; b=gvdBryWh2I4askGnMQudo3iLh5MaUhairUC/ijr2q1tIK2PIm1zh05NgPDGtEOjU5pGlLitIo6kzB1Xm4zLBGY1fVFwFLo9q9ic08rzlGAZTRQCsyg5ssSMo1CvAN0EGW4EKfG8sGaXQqNRdAx82E+Pc/vpJMazg95aiN+bN7NI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785423082; c=relaxed/simple;
-	bh=d+MV7t2o23TnaFR/Ak9LlS5bCrlsBXwiU+gFY2B8Xic=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=apfvzk7hDolXb0x/TSvb4qYnqH7cf3CiUGbLtAStbo0p+CON0/eOQqzbOk5hvrQcYhMAVK0tBvF1rymIgZQpkqat+MhIATnUxeZ3yiXjCQji0AACEYG9eFBAJRb1rBxJiXIa9pHOo3pYQ2jS5ZlZMYkUzrpjjeYC7rneUoBVn68=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=RBrhGPe0; arc=fail smtp.client-ip=52.101.69.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FCE039C00E
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 15:05:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785423931; cv=none; b=b3hzEr/1hcyjcJ+SOR5QQHqLToCrK9NBAqkvacKYYabhoF+WgGL9bRdL22Aorh//LqGdxKSRfnPiCStiRXZnblDNu9Qnrd0j3F0i5SXx/BSUoGVDnpg7ToXnsH5ReAo1BKLc1B2MYenfZi9H8JfIlGc2kqqsM3r8SQvvaW2i1oQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785423931; c=relaxed/simple;
+	bh=ix+RjGMTFu/RsD1GKAUl8ke3Cvt8fbFhsPIgvsxo5rg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=kEtpoz8W7f9y/LY/ENJi2LkRyQ4F30qDDUe+C8qBEfVqoEZRotHNk0Tv9GBC/Impd0J92538FiQjQqcgu41iOrgZ8pqUBTc3m5BBSJkfqsmGmbIjNr49IAxGoiV8mX5ctmp1C4XsoKYcG91Tj0imXt9sTESqpVSs4XkDykGEYmk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TWMKhKNb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=C8uSb6o+; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="RBrhGPe0"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=u87Zt2btGpaXQmcGiUjX9JRdJR4oUOI5oVPczOCfI8SyjBOHVh/jCG4SVN3VtrU2nAQwIsUH+JswtY4XiI0S9jYkME4rV6IJulEVkwhj1EUF8Brp0IEBF4+xd6383i95jHrCJ4kLj6YZ5BJ2jeiYh+jGB0uxLyhgo6hmyeO1Ms9UAiDdmt55Ri3JVDO9ZvIiPf30cRDKJQAO+cZ80scWeG/8dIvsoq/wyaIcrG8iiCIaDpU3p1izcrEt56oNLwEJlCGtLzr0mtYicHFzYmmne9Bqecp1FrPXeJiVFA05wPk8M33LkhiMpoanqPEHqwQJWBkgX/erC9H1oSFXhPRfGg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H3CdtuI8tz7+skFn9ch4nMgYwYMvHoPyHAjfV9QPMzk=;
- b=NxwA1CVHxvQqgU8t2wGK940l6yiksiZFQ7ChUjFLt/PGfcQIENh63w77zy/Hq1W9iN7wlx9xNRa2sBzmoBEF+gBoADHP6cIargWEmaYuqsO4pEGi0nj1/wRQXz2XY/39ZNd61Txg9Agv/U0/gD3PAo5Xb4iNCow7WGRD60XiBpO0RNR/fuB2/7KiXEAh+ermUTi24ic3e5AFm7xKvSTtvX1j28kRYLUT28QrHjAR3bloh9zmpDiO/FrT3+32kCK3bqGt3I9M72ijDjHncfJWwSjVuwwJzQRq9r643s5sJ0EWf/TV5JGVe3OIU8+IDPoFL3yf2n/O1Yr6p0CO/1wOZQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H3CdtuI8tz7+skFn9ch4nMgYwYMvHoPyHAjfV9QPMzk=;
- b=RBrhGPe0Lk+SVfPV+5ATCSLo3Jymlx4MMjCUQzL/zwExqLFbO57IXfaAsTiyEM3dI7EGQqlbMpt7Qo/dBlvBrpJY7rueWQXTJG1VUmN1S6/S5LCNjw1/l8ymykaL2w7Fp9B/mAFB8ABafP9vC/A+Vbn9xe5XRyQEm7Wj0dR9tOzf9GQLcUHFzIq/bLPm+NFBtGeV4b3ee2ERSFnt+YqDl7y9ceAFPSwn7d6u5o2h/7zNN4BO2zxEbK+HH13h8zmxo4rMkarsxRyKq3w7JBY74fdhqJFoSGFTEWMbWWWxK26s+wqBzmx/91s6YOn2rLUu+sXJsHiYitatUH5ydF8eYw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by VE1PR04MB7439.eurprd04.prod.outlook.com (2603:10a6:800:1ab::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.14; Thu, 30 Jul
- 2026 14:51:14 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0270.012; Thu, 30 Jul 2026
- 14:51:14 +0000
-Date: Thu, 30 Jul 2026 09:51:04 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Peng Fan <peng.fan@nxp.com>
-Cc: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <frank.li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Francesco Valla <francesco@valla.it>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
-Subject: Re: [PATCH v2 00/12] arm64: dts: freescale: fix reserved memory node
- names for remoteproc
-Message-ID: <amtk2Lp_u9VAXMKa@SMW015318>
-References: <20260729-rproc-dts-v2-0-debbe0816202@nxp.com>
- <amozP57T9CUYWAmk@SMW015318>
- <MRWPR04MB12330D5FC8F5B3FABF23572AF88C92@MRWPR04MB12330.eurprd04.prod.outlook.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <MRWPR04MB12330D5FC8F5B3FABF23572AF88C92@MRWPR04MB12330.eurprd04.prod.outlook.com>
-X-ClientProxiedBy: SN7PR04CA0066.namprd04.prod.outlook.com
- (2603:10b6:806:121::11) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TWMKhKNb";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="C8uSb6o+"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66UEckOk615549
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 15:05:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=HmVjUb4JTfmUvkHsT8y3djVv3OXH8nRRMGe
+	kIVJn1wo=; b=TWMKhKNb6HapA0mQnqxM8UuNlKBWkQZ66xInyzD8u1/vzhOpIIx
+	3uEux8H+kH5YuBmKEl1cDkRiyoSPT+H6C/EuTVsJlucWWUri6Uo+v/6hUmFLs81l
+	ggT90SMXXr40CvptNaDl6oZJ7mYUAauyz1/E5ZDqOWNesWDYDlnzGo3kB2lmwHKG
+	aJ305RmLeJjbhRXBfEHUN+hXvJEPJ664iUfVULBFA0cJAxPLfB1NQDGDWxOi40lO
+	XP5iicITj9Qc3IspGERjFYBb55VZg11Xm8EqXyI5H+WHcfiuK8Ax91Gjf6IAOobU
+	VR3UxZCie4kuAgQzE2PAamxt1Ir0cSeuiuA==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fr8j7r54j-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 15:05:28 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-75116a48926so1978639137.3
+        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 08:05:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785423928; x=1786028728; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HmVjUb4JTfmUvkHsT8y3djVv3OXH8nRRMGekIVJn1wo=;
+        b=C8uSb6o+s3i7fzhfllPoSzdR6gUEfyEd1/aZDwB7AqtyMKZttVJg2gz2QM7bX968az
+         XWQJagQvfwU02wVWTXODnalJCXTwlIIDdA8aUlG4IsJWXQZGkRVhYAD4YRtlMCnbeeEC
+         2Paqyp1V3UfUPtKKhlyRPh3ykqS/BZz16flvK2ksSkgt96kjfoDSRvEJLsx/s/aSMpx2
+         i9FMABlSrLxoTLf1lJwSCZBNnqL2yZ3imS75iKVHTkcViNHl9pmhZROWAm3v6Sgl/khI
+         eDxMMfvJH824fokzTOjovgdqDKCKhj6QOPcu8Yl5acVhd9nNsymyBP9LGsBWOLS3LZv0
+         AO1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785423928; x=1786028728;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HmVjUb4JTfmUvkHsT8y3djVv3OXH8nRRMGekIVJn1wo=;
+        b=Cvg77YQ8rLzMIFiGBCTFT57RLwMrPri7ZMQH2XrFwjKqKI+D402sEJllTPH9vNbhra
+         mOyovSmj7xjIbZqFJCVjrjCYniygmmDPeLb8GKlZ+S8iQ9087VfAmjIUv3k232DFSlQ+
+         I24aSwMNxxQOoQgYxiqTN20fgIZA0WFkPi47JF3NmiG8AEMcmHIjsmy292Ef5GLU4rXb
+         KsPqhHtnt3ggxN0KlfLIUwgcHyQt8pf1/B1fE/qCJ3k7owsA3Emc63/xzAGGma3ZLDv3
+         1Uw6EzcfgUgKVtCbZx9rCVWCqCJY4qwyB9xm3rYKbtrOXGXgDIC9lWMwEUtEKAF43VbA
+         tNCQ==
+X-Forwarded-Encrypted: i=1; AHgh+Roe/5XRjjhAAf6ueLCESDCdFZRRRehxkTmASwpq05h2CLhXtbr2OZDiZahCVIpyvVpjDcNZmzLnMdzK@vger.kernel.org
+X-Gm-Message-State: AOJu0YwSXnJNYZ3BAcKhV+RBrnSniV49otyHS7o3019FQ5To3Hkya+pB
+	4If2Y10NR5Sf00j7tXc06AeZoV/9PFmPGycYPbi76EpMOPMQBmZDXO10TzGp/6Avw0B89++HYQ6
+	mam/5xl4HbPt95/hb/3F59Bx7F/vpSkE1aO7AdwEyhv/FGlJfHIs1eVHCJUZwuSNi
+X-Gm-Gg: AR+sD10nTnFEht7oB+2d3lcZGE94wyCKeN6rEpG5H7Kf2NsFE+iYO+LVXbV1g/gLqmQ
+	fPULjgxEj8dqJT4iZ1jrRNqj8bkwPD6z3X8DKYnSBKKHJitra/URQyEejpdQXG2Ozbx/2GjvQLO
+	qctf21w9LLR4EXOgpYa1IS7gOTXo5diyrU/sDrRLRswvLLUbqEfD00BXo1Agdr4qN446c1il94I
+	9RtEtvmllj6z7qXqVRtyJkLzodX16BKzEkZbTD7fWIbcspPhrcmFver0Ulm4z3Bd00pwZlZ+1gG
+	JVepPCErsjmzlH9GPDUgjDV4FnGq3Nbgn26GT0keUfnhyHq/EvZKmPqt6dPRqsqYeAs4RYDZ58G
+	gw/lkO42X0Nn+sPKmzUHq+sie
+X-Received: by 2002:a05:6102:26c5:b0:729:1a8d:b2d9 with SMTP id ada2fe7eead31-757507909f5mr1159606137.22.1785423927491;
+        Thu, 30 Jul 2026 08:05:27 -0700 (PDT)
+X-Received: by 2002:a05:6102:26c5:b0:729:1a8d:b2d9 with SMTP id ada2fe7eead31-757507909f5mr1159562137.22.1785423926828;
+        Thu, 30 Jul 2026 08:05:26 -0700 (PDT)
+Received: from lin-0772.qualcomm.com ([212.136.9.4])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1fa8bf2417sm75211166b.59.2026.07.30.08.05.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 30 Jul 2026 08:05:26 -0700 (PDT)
+From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+To: linux-media@vger.kernel.org
+Cc: bod@kernel.org, mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+        loic.poulain@linaro.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v6 0/3] Add Qualcomm JPEG V4L2 encoder for SM8250
+Date: Thu, 30 Jul 2026 18:05:21 +0300
+Message-Id: <20260730150524.2659577-1-atanas.filipov@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VE1PR04MB7439:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4e72f479-c101-4551-e1c5-08deee4a0076
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|7416014|19092799006|10067099003|4143699003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	ftvn5UBXD6mrKLIxkzozU85eqpA3w6l/VK01SpNYFzvwCAUT94CtN5opfnxzfNhlGD+Iiogl/QTuM+RI1fYgnRgIMVUeiKbufBH7Wmwxxaoc+OnEZX9K7hX4jSbaQdoSYbtfp/8al5d0VJQtdolhB5CLFJ2hpxtg50ezXtcHc0qNWh5+HZxQjqPDJw+cHaTuKiPx4LsifB6MIPODUqAxXmZ188+728ZY1YJIVyejnRXGKjPEslJgVJMvivtOL4eO6lk2zJ9Bosq+9ntvLMnJAHZvKPXRRs51bt1RPojBNc2GIAqchw6JIpbZ36MOb/+l2BU1m218eoL5uubvzLs8tR1iPGsW1vUFtaTupBZVcfmD7kKzgxdy/IlwArYqV/0j7sIqd6qg5f+Nfn5KydrUCRg9HI/9OM2GpFHSM4GnakwzaCnrrbH4V/PCab9WFqxV/owjSsX6D7i+0Jym4pvZ4M5tJZX5cXsvNBgrjpH1Jj1lKbxRPcKOFX1ie3gEiwjqAVLhOFNaBAfyPhPrDla37OOBC472rTfZoSYGQRkozXIFjFjCfdMKb7c4L8kORDtXeLyfIflUn1ZFQaoZp6FKLIepRosl151KM7cn1PNkBOz4vdSXX+dlEEbj0c1Fwxb/iiMHSRngGykuUu+uP0Us28c7M2UpX9qwpTDy1GDB2nQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(7416014)(19092799006)(10067099003)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?w3rlEmW74Y0bTVjx9Ec1bi5A09KJu+X3COooH75umrxb6ItmlkL3/vjIl+St?=
- =?us-ascii?Q?h1xOSBjQikd53fnxm4wr9xTxFRYe9Y9q/CnzIP5eKgCQ2KmeefFc83KBxTCs?=
- =?us-ascii?Q?5BItL4sWiQdGSwOHj9YH2n1ggqAq7wdP4SmvAGDU4xEOifLwh5VKQubsAcy2?=
- =?us-ascii?Q?P5o/0L96kErvYcCEuDb/jDHapv+ZeF4uNgzCwlpTZ1EAoyIm51OaU9DZ3ic2?=
- =?us-ascii?Q?+CLIgFxUVutGl/WgK4dtfbuSq7trjv3diGHIYxX0ZVzXayPl1hY4JOjT/vEv?=
- =?us-ascii?Q?M+tMnXljCZeQ0m8xnCpt4e4RgmKRGZTR+U4EHsZsebEi0V+VREmixWFizmt2?=
- =?us-ascii?Q?0Aof55gWIqFGONlUITTw0LSgY6Ty/wuT1/D7Pz/TbR0vHANMO/mlUAx+nmoC?=
- =?us-ascii?Q?2p1HJ8xyLSQNNPnsvWrtxXqpfGe6j+aWkoUcE5DNtbNDYLS/uj4zav0qQK6f?=
- =?us-ascii?Q?HtnlvIRiyVson4y/9xuahODMKSgb5nNAm4aODzvrconXfJ7rbMQp58fzTHnD?=
- =?us-ascii?Q?ukWNaZnxmNkhP4amXHPzy17Bf6ODROPzHrD+8LXf76y1dg9ho2jJ8wWEgjHy?=
- =?us-ascii?Q?juewkHcCzYRcUKt4ZpbAe2kihI/6Z+VVU4Sh2E0KpU58U62Jgm2qEa2n88qT?=
- =?us-ascii?Q?bITNV8xfR6x91iyN4uTmAyzyPMovTFuMKxwDuxyn99ahLmxSyD2kQiJyDp5P?=
- =?us-ascii?Q?vjRNe2yhNftlvnjIfHpur1LF13VJBpkJPNA6w+25jqE8t0RoCohmV3ibSGWT?=
- =?us-ascii?Q?kYXrnNamoTO9tThqzYbPpA8f+RAR6bV+Z3j1UGE8qb7J9e9A2LkiZ61STWck?=
- =?us-ascii?Q?bst3Bfhf/gPAPvcCVUaxjNzfIuQInTIJJmoc1lrOd6ulBmOAzb1WksP7fzRY?=
- =?us-ascii?Q?5C5czlG0nzH+PmB5s3QIgf0YJZp8xJs4pnE2HKYj/vRcSuQ8iewi/XvJJLbo?=
- =?us-ascii?Q?OI0NFG2BuKyaCyTfU7WOic5+zAlTdhXMu5gzLGYW/wIcI47gDTSemLyHQIjK?=
- =?us-ascii?Q?KBQqwnTr30fbdvmF+BqFaGv9O/rndwg8hiSsjbhLjiKQCEoxlB+AFwBD3s3/?=
- =?us-ascii?Q?BMCvCVxDTS8WwvoxEkPoTQVZwEt8xQO9i2WRhwieHmEYmcJc6s9z7bP5rv08?=
- =?us-ascii?Q?zo/6yxDLkyoC6ByLFYICvxrGd/4pa0pb2EoTKj1q85cJsESw0zccBEcwRd0a?=
- =?us-ascii?Q?h2+811D8t1wX/oYyC8vniA9t9Pmu/eYjlM3H4iG5O0IZSP3bQ8tQPNs2IYSC?=
- =?us-ascii?Q?R9yblYSio5sl2UfqQ3rP+idlhvIlxFLyImI1FjJLmSbUnHRY3sHvSBqoA4b1?=
- =?us-ascii?Q?7GqhbeTPqeh2M2Q2/uXoq6FmIIHNBTX1Ud7d1NwiZkQZzmCR0RLUKOfXeAJY?=
- =?us-ascii?Q?M6/nMuZNeKa6LvbIl6TkdNiBDqHoLnfgVRQqfdw78uH/laAkCyRbJwr289w7?=
- =?us-ascii?Q?Dvcva6Tse2t1MswDj264aS8Dbrct88I6H3zpHtCNI8vrqlemVrEp8aaNZvpd?=
- =?us-ascii?Q?CqQWLumdYFD89KQ3XOLXmGa5qnYHV0efDZxD4nrZYmlSOBRMKI3dPbfTD8o3?=
- =?us-ascii?Q?vQ1UvxHOFJW+BC4YVqaEMqYIzpf1sD856zZ/rxPfiUgpx+GyMthEuDr4QcyK?=
- =?us-ascii?Q?1qoy+q07/OSFaD46LCx773GyEkkZH4DyzPqj73whQQMpli9qwPoLSIzZgQvc?=
- =?us-ascii?Q?zzNmYWVWolu17MQD+4NAwcEYA88cx9+yBCMPZAB3Q/+cre/ltu9TBdE3H3d1?=
- =?us-ascii?Q?OUC7OR0IPUc/B2Z/MkWcVt8jEfkEN43MnwhsxwAloQdo42yHa+aT?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4e72f479-c101-4551-e1c5-08deee4a0076
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2026 14:51:14.0166
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 351pBPIl4NytWu2UdC7of5AcYIU3BMWRwbETAhUVv35xhjV1HfH60xeRZgWod3aNujU0PfwJwLBRQaKKXeh486yFQM/saWXWV8B1BSz+CBbG6lHt4khN8S1WH4qeUIiH
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB7439
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDExNCBTYWx0ZWRfX31uuqbEL5ZA+
+ /lFAs1I7ZCcJGIsvXzqadAFb71vyBP4+6yF8ULmXKqVX0qzc1QjXHqpRHyssscedu2A+f6+n+JL
+ 3YCr7RcTEe9VkCFIz9VpqDbTrb2oqgiI1hyNUjcTeYx45IRaQ8BeynfhUvfRfNawsc5ttWu3dgr
+ JHPAHvs2ajQq3sVw5L2CJyPZKQ6iF8+hcUtt7hSXTqddT6c6IYYcTwqV7QbAIB2JOUEqVgr4ENe
+ /I+Ll3NGz3Qa9SMTT06hVmNsJdnusjMXTLJHl6Xtpbo9YADhAsq9G+fqcNRuh0YNl4neX/XDuhN
+ neMDGOwJrvlKgQEuSxHg/DUvLRGLvcxv/YHfBkjN0vyPxX1++m8Y3BxfvQaxmNZbaRW6VVpsoKF
+ c8LtHFOIyskSRdg4Kv+Kp4rOX4kwq9IGg0MqP9oy+mTFhDj+N7sGWeqygmRE4u38uJvt9l1rUSE
+ iF8d0D9KxmfW372EDfQ==
+X-Proofpoint-GUID: wX8MN7CE4YVEMPV_Qorzj3BAX2c5Kabb
+X-Proofpoint-ORIG-GUID: wX8MN7CE4YVEMPV_Qorzj3BAX2c5Kabb
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDExNCBTYWx0ZWRfX5goket+J93I3
+ C0FFCPKxC9Fpu02eo9As9Uv5DSoYNSuGpd6CASByprltXIxPlG1MhWLoVwVeVfODNbUtr4L0Hs3
+ C+/4siZqo0WacCkXa6ErixrpMqCaA0o=
+X-Authority-Analysis: v=2.4 cv=LraiDHdc c=1 sm=1 tr=0 ts=6a6b6838 cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=fvEfv-lMOMBzJYUFIVYA:9
+ a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-30_04,2026-07-29_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 adultscore=0 spamscore=0 bulkscore=0
+ priorityscore=1501 malwarescore=0 impostorscore=0 clxscore=1015
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607300114
 
-On Thu, Jul 30, 2026 at 03:26:24AM +0000, Peng Fan wrote:
-> > Subject: Re: [PATCH v2 00/12] arm64: dts: freescale: fix reserved
-> > memory node names for remoteproc
-> >
-> > On Wed, Jul 29, 2026 at 09:07:56PM +0800, Peng Fan (OSS) wrote:
-> > > The imx_rproc driver uses node names to identify reserved memory
-> > regions.
-> > > It checks for "vdev0buffer" to skip mapping, "rsc-table" to locate the
-> > > resource table, and "vdev" prefix to filter vdev regions. Several i.MX
-> > > board dts files used incorrect node names (e.g. "vdevbuffer",
-> > > "memory-rsc-table", "memory@..."), causing the driver to fail these
-> > > checks.
-> > >
-> > > This series renames the reserved memory nodes across all affected
-> > > boards to use the expected names.
-> > >
-> > > Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> > > ---
-> > > Changes in v2:
-> > > - Also fix vring, rsc-table, and dsp buffer node names in imx8dxl-evk,
-> > > imx8qm-mek, imx8qxp-mek
-> > > - Add fixes for imx8dxl-sr-som, imx93-11x11-evk, imx95-15x15-frdm
-> > > - Update commit messages to reflect expanded scope
-> > > - Link to v1:
-> > > https://patch.msgid.link/20260729-rproc-dts-v1-0-
-> > 368bca0b309f@nxp.com
-> >
-> > I hope Laurentiu Mihalcea's
-> > https://lore.kernel.org/imx/20260605113621.1479-1-
-> > laurentiumihalcea111@gmail.com/
-> >
-> > move forwards,  by use memory-region-names to fix these problem
->
-> I thought DT maintainers rejected the idea to use
-> memory-region-names.
+The goal is to upstream a standards-based JPEG encode path using the V4L2 M2M
+framework, with DT-described hardware resources and SoC DTS integration.
 
-They agree we wrong use node name as ABI. but commit message need be
-improved. wait for larentiu post new version.
+The JPEG encoder is a standalone hardware IP within the camera subsystem.
+It is modelled as a peer node of CAMSS directly under the SoC bus, with all
+resources self-described in its own device tree node (power-domains, clocks,
+interconnects, iommus). This follows the consensus reached in the v4 review
+thread (Bryan O'Donoghue, Konrad Dybcio, Gjorgji Rosikopulos).
 
-Frank
+Supported compatibles:
+- qcom,sm8250-jpeg-enc
 
->
-> Regards
-> Peng.
->
-> >
-> > Frank
-> >
-> > >
-> > > To: Rob Herring <robh@kernel.org>
-> > > To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> > > To: Conor Dooley <conor+dt@kernel.org>
-> > > To: Frank Li <Frank.Li@nxp.com>
-> > > To: Sascha Hauer <s.hauer@pengutronix.de>
-> > > To: Pengutronix Kernel Team <kernel@pengutronix.de>
-> > > To: Fabio Estevam <festevam@gmail.com>
-> > > To: Peng Fan <peng.fan@nxp.com>
-> > > Cc: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
-> > > Cc: devicetree@vger.kernel.org
-> > > Cc: imx@lists.linux.dev
-> > > Cc: linux-arm-kernel@lists.infradead.org
-> > > Cc: linux-kernel@vger.kernel.org
-> > >
-> > > ---
-> > > Peng Fan (12):
-> > >       arm64: dts: imx8dxl-evk: fix reserved memory node names for
-> > remoteproc
-> > >       arm64: dts: imx8qm-mek: fix reserved memory node names for
-> > remoteproc
-> > >       arm64: dts: imx8qm-mek: fix dsp reserved memory node names
-> > for remoteproc
-> > >       arm64: dts: imx8qxp-mek: fix reserved memory node names for
-> > remoteproc
-> > >       arm64: dts: imx8qxp-mek: fix dsp reserved memory node names
-> > for remoteproc
-> > >       arm64: dts: imx8ulp-evk: fix reserved memory node names for
-> > remoteproc
-> > >       arm64: dts: imx93-11x11-frdm: fix reserved memory node names
-> > for remoteproc
-> > >       arm64: dts: imx93-14x14-evk: fix reserved memory node names
-> > for remoteproc
-> > >       arm64: dts: imx93-9x9-qsb: fix reserved memory node names for
-> > remoteproc
-> > >       arm64: dts: imx8dxl-sr-som: fix reserved memory node names for
-> > remoteproc
-> > >       arm64: dts: imx93-11x11-evk: fix reserved memory node names
-> > for remoteproc
-> > >       arm64: dts: imx95-15x15-frdm: fix reserved memory node names
-> > for
-> > > remoteproc
-> > >
-> > >  arch/arm64/boot/dts/freescale/imx8dxl-evk.dts      | 14 +++++-----
-> > >  arch/arm64/boot/dts/freescale/imx8dxl-sr-som.dtsi  | 14 +++++-----
-> > >  arch/arm64/boot/dts/freescale/imx8qm-mek.dts       | 32
-> > +++++++++++-----------
-> > >  arch/arm64/boot/dts/freescale/imx8qxp-mek.dts      | 20 +++++++----
-> > ---
-> > >  arch/arm64/boot/dts/freescale/imx8ulp-evk.dts      |  4 +--
-> > >  .../boot/dts/freescale/imx93-11x11-evk-common.dtsi |  4 +--
-> > > arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts |  4 +--
-> > > arch/arm64/boot/dts/freescale/imx93-14x14-evk.dts  |  4 +--
-> > >  arch/arm64/boot/dts/freescale/imx93-9x9-qsb.dts    |  4 +--
-> > >  arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts | 12 ++++----
-> > >  10 files changed, 56 insertions(+), 56 deletions(-)
-> > > ---
-> > > base-commit: 0d33d21e47d9dc66f91e44da3fc9220c74d93df7
-> > > change-id: 20260728-rproc-dts-3f331df7ceaa
-> > >
-> > > Best regards,
-> > > --
-> > > Peng Fan <peng.fan@nxp.com>
-> > >
-> > >
+Driver scope and design choices:
+- uses the standard V4L2 mem2mem + vb2 workflow
+- maps runtime resources from DT (clocks/interconnects/iommu/power-domains)
+- PM managed via power-domains (TITAN_TOP_GDSC, MMCX, MX) and OPP framework
+
+Note on CAMNOC AXI clock (cnoc_axi): this clock is shared across camera IP
+clients. In downstream a dedicated CPAS driver aggregates AHB/AXI clock votes
+from all camera IP clients. No equivalent exists upstream. The OPP table
+ensures cnoc_axi is at the correct frequency when JPEG runs standalone.
+
+Functional validation:
+- tested with v4l2-ctl and GStreamer (v4l2jpegenc)
+- V4L2 compliance test (v4l2-compliance) passed
+
+Known limitations:
+- scaling is not supported
+- width and height must be aligned to 16 pixels
+- cnoc_axi clock voting is not aggregated (see note above)
+
+Changes since v5:
+
+  Binding (dt-bindings: media: qcom,sm8250-jpeg-enc):
+  - Removed GCC_CAMERA_HF_AXI_CLK (hf_axi) clock and hf-mnoc interconnect
+    path. The JPEG encoder uses only the SF CAMNOC port; the HF port is for
+    real-time capture pipelines. (Loic Poulain)
+  - Added RPMHPD_MMCX and RPMHPD_MX to power-domains. (bod)
+  - Added power-domain-names property with entries "titan_top", "mmcx", "mx".
+  - Added power-domain-names to the required list.
+
+  DTS (arm64: dts: qcom: sm8250):
+  - Removed GCC_CAMERA_HF_AXI_CLK (hf_axi) clock and hf-mnoc interconnect
+    path from jpeg-encoder node. (Loic Poulain)
+  - Added RPMHPD_MMCX and RPMHPD_MX to power-domains. (bod)
+  - Added power-domain-names = "titan_top", "mmcx", "mx".
+
+Changes since v4:
+
+  Architecture:
+  - Dropped patch 1/5 (devm_of_platform_populate in camss.c) entirely.
+    JPEG is now a peer node of CAMSS, not a child node. (bod)
+  - Dropped patch 2/5 (camss binding unevaluatedProperties). (krzk, bod)
+  - Moved jpeg-encoder DTS node from camss@ to soc@ level. (bod)
+
+  Binding (dt-bindings: media: qcom,sm8250-jpeg-enc):
+  - Renamed binding file from qcom,jpeg-encoder.yaml to
+    qcom,sm8250-jpeg-enc.yaml to match compatible string convention.
+  - Renamed compatible from qcom,sm8250-jenc to qcom,sm8250-jpeg-enc
+    for readability. (Bjorn Andersson)
+  - Added power-domains property and required entry. (bod)
+  - Added iommus description with SID value 0x2040 for SM8250. (bod)
+  - Dropped soc{} wrapper from example; node is directly under soc. (Dmitry)
+  - Added Gjorgji Rosikopulos as co-maintainer.
+  - Patch order corrected: binding before driver before DTS. (krzk)
+
+  Driver (media: qcom: jpeg):
+  - Removed <linux/mod_devicetable.h> include. (Uwe Kleine-Koenig)
+  - Removed dev_dbg calls from OPP clock selection path. (Dmitry)
+  - Removed camss_dev field and pm_runtime_resume_and_get(camss_dev);
+    PM is now managed independently via power-domains. (Dmitry)
+  - Removed incorrect device_link_add() to parent; not needed in peer
+    node model.
+  - Moved file-local defines out of qcom_jenc_defs.h to their respective
+    .c files. (Dmitry)
+  - Fixed dev_pm_opp_put() placement: called before rc check. (Dmitry)
+  - Replaced _DEFINE_DEV_PM_OPS() with SYSTEM_SLEEP_PM_OPS() +
+    RUNTIME_PM_OPS() macros, consistent with other media drivers. (Frank Li)
+  - Fixed Kconfig source order to alphabetical. (krzk)
+  - Updated compatible string in driver match table to qcom,sm8250-jpeg-enc.
+
+  DTS (arm64: dts: qcom: sm8250):
+  - Added status = "disabled" to jpeg-encoder node.
+  - Used 0x0 instead of bare 0 for zero cells in reg property. (Dmitry)
+  - Dropped opp-peak-kBps and opp-avg-kBps from OPP table; no upstream
+    aggregation mechanism available yet.
+
+Changes since v3:
+
+  CAMSS binding (dt-bindings: media: qcom,sm8250-camss):
+  - Added as new patch 2/5; allows #address-cells, #size-cells, ranges,
+    and child nodes using unevaluatedProperties: false.
+
+  Binding (dt-bindings: media: qcom,jpeg-encoder):
+  - Dropped soc and camss wrapper nodes from example. (Dmitry)
+  - Removed opp-level from all OPP table entries. (Dmitry)
+
+  CAMSS (media: qcom: camss):
+  - Replaced patch 1/4 with Bryan O'Donoghue's original upstream commit.
+
+  Driver (media: qcom: jpeg):
+  - Cleaned up driver patch commit. (bod)
+
+  DTS (arm64: dts: qcom: sm8250):
+  - Restored camss interconnect-names to original values.
+
+Changes since v2:
+
+  Binding (dt-bindings: media: qcom,jpeg-encoder):
+  - IOMMU stream IDs documented in binding description. (bod)
+  - Dropped "Properties documented:" section from commit message. (krzk)
+  - Dropped clocks minItems constraint. (krzk)
+  - Renamed clock-names to match hardware signal names. (krzk)
+  - Renamed interconnect-names to reflect path topology. (krzk, Dmitry)
+
+  DTS (arm64: dts: qcom: sm8250):
+  - Removed cell-index; use lowercase hex. (Dmitry)
+  - Moved jpeg-encoder node into the camss block as a child node. (bod)
+
+  Driver (media: qcom: jpeg):
+  - Sort obj-y entries alphabetically in qcom/Makefile. (krzk)
+  - Use devm_mutex_init() instead of mutex_init(). (Frank Li)
+
+Changes since v1:
+
+  Binding (dt-bindings: media: qcom,jpeg-encoder):
+  - Removed qcm6490 and sm8550 compatible strings; SM8250 only.
+  - Fixed clock-names block in the binding example.
+  - Dropped reg-names: with a single reg entry it is unnecessary.
+  - Removed description literal block scalar (|).
+  - Dropped _clk suffix from clock-names.
+  - Added iommus description in the properties section.
+
+  Driver (media: qcom: jpeg):
+  - Migrated to devm_clk_bulk_get_all().
+  - Migrated to the OPP framework for clock rate management.
+  - Switched to RUNTIME_PM_OPS() and SYSTEM_SLEEP_PM_OPS() macros.
+  - platform_set_drvdata() moved to immediately after allocation.
+  - .pm uses pm_ptr().
+
+Atanas Filipov (3):
+  dt-bindings: media: qcom: Add JPEG encoder binding
+  media: qcom: jpeg: Add Qualcomm JPEG V4L2 encoder
+  arm64: dts: qcom: sm8250: Add JPEG encoder node
+
+Atanas Filipov (3):
+  dt-bindings: media: qcom: Add JPEG encoder binding
+  media: qcom: jpeg: Add Qualcomm JPEG V4L2 encoder
+  arm64: dts: qcom: sm8250: Add JPEG encoder node
+
+ .../bindings/media/qcom,sm8250-jpeg-enc.yaml  |  156 ++
+ arch/arm64/boot/dts/qcom/sm8250.dtsi          |   72 +
+ drivers/media/platform/qcom/Kconfig           |    1 +
+ drivers/media/platform/qcom/Makefile          |    1 +
+ drivers/media/platform/qcom/jpeg/Kconfig      |   15 +
+ drivers/media/platform/qcom/jpeg/Makefile     |    9 +
+ .../media/platform/qcom/jpeg/qcom_jenc_defs.h |   23 +
+ .../media/platform/qcom/jpeg/qcom_jenc_dev.c  |  284 +++
+ .../media/platform/qcom/jpeg/qcom_jenc_dev.h  |  108 ++
+ .../media/platform/qcom/jpeg/qcom_jenc_hdr.c  |  331 ++++
+ .../media/platform/qcom/jpeg/qcom_jenc_hdr.h  |  119 ++
+ .../media/platform/qcom/jpeg/qcom_jenc_ops.c  | 1629 +++++++++++++++++
+ .../media/platform/qcom/jpeg/qcom_jenc_ops.h  |   52 +
+ .../media/platform/qcom/jpeg/qcom_jenc_res.c  |   15 +
+ .../media/platform/qcom/jpeg/qcom_jenc_res.h  |   19 +
+ .../qcom/jpeg/qcom_jenc_v420_hw_info.h        |  410 +++++
+ .../media/platform/qcom/jpeg/qcom_jenc_v4l2.c | 1163 ++++++++++++
+ .../media/platform/qcom/jpeg/qcom_jenc_v4l2.h |   23 +
+ include/media/jpeg.h                          |   33 +
+ include/uapi/linux/v4l2-controls.h            |   21 +
+ 20 files changed, 4484 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/qcom,sm8250-jpeg-enc.yaml
+ create mode 100644 drivers/media/platform/qcom/jpeg/Kconfig
+ create mode 100644 drivers/media/platform/qcom/jpeg/Makefile
+ create mode 100644 drivers/media/platform/qcom/jpeg/qcom_jenc_defs.h
+ create mode 100644 drivers/media/platform/qcom/jpeg/qcom_jenc_dev.c
+ create mode 100644 drivers/media/platform/qcom/jpeg/qcom_jenc_dev.h
+ create mode 100644 drivers/media/platform/qcom/jpeg/qcom_jenc_hdr.c
+ create mode 100644 drivers/media/platform/qcom/jpeg/qcom_jenc_hdr.h
+ create mode 100644 drivers/media/platform/qcom/jpeg/qcom_jenc_ops.c
+ create mode 100644 drivers/media/platform/qcom/jpeg/qcom_jenc_ops.h
+ create mode 100644 drivers/media/platform/qcom/jpeg/qcom_jenc_res.c
+ create mode 100644 drivers/media/platform/qcom/jpeg/qcom_jenc_res.h
+ create mode 100644 drivers/media/platform/qcom/jpeg/qcom_jenc_v420_hw_info.h
+ create mode 100644 drivers/media/platform/qcom/jpeg/qcom_jenc_v4l2.c
+ create mode 100644 drivers/media/platform/qcom/jpeg/qcom_jenc_v4l2.h
+
+
+base-commit: 78bc8af4affb9a732504eb22eeac7d1e50883853
+-- 
+2.34.1
+
