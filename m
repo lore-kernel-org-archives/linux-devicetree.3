@@ -1,28 +1,28 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11020140.outbound.protection.outlook.com [52.101.193.140])
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11021124.outbound.protection.outlook.com [52.101.52.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D11972D8DC4;
-	Thu, 30 Jul 2026 04:37:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29AC93793B3;
+	Thu, 30 Jul 2026 04:37:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.124
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785386252; cv=fail; b=HQGq4itsZhTzMp7s9Lh+bz1Q8MmfzszT2R9NjgOvhgDEBmY9g0LYnrahBbHGhqE5ObFBbFCJo6ybih8JEJIR0xyzHZQdG9jASp3NqJJOARZO9MnUVlOQh0mx5zLj23p+52QbRMWHbUkzk5pfumbKYmBasGcFAq/Am43f2JTVhAY=
+	t=1785386253; cv=fail; b=O+ccA5Gi572QVOho2nZ7D/VVRd+Ki2lZNgMe8IHhtlfVQNM2ah9gkWhaoYubyrjZtcnDve0Uceg3Cw4YS3OJuyPXBT46RhrFCcPb9pszDF0sayFd7mt7rLznZWIuvXKDc95zss+t7db12ebbbMWhMwuxbNPxTwTuOlPNu5SMxtE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785386252; c=relaxed/simple;
-	bh=miUf6MuomL/h3PtXzDabhBoWxYVv6oR4q0WFNl4dH20=;
+	s=arc-20240116; t=1785386253; c=relaxed/simple;
+	bh=TduEoIE41mqQKiOiL2cbXZ7x+p4K8mbzePWindp1VJs=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ewwZ2KWUj2nbnXv7SF52tTBuN+CBbNVCIt370Q+q+D20nkgx+dK67X9YCHo+C900Xe9lhi6SRhfuVwzA9xcqqNCccDcqmclSNhAiWd7cD3bRlAve4fXSp8u73/+JquFQ0T8RzOp+Fl7UAtg/mnLlH7nCyYCwUq2EIJTsnk/zv0w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com; spf=pass smtp.mailfrom=axiado.com; dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b=pSFkPLl9; arc=fail smtp.client-ip=52.101.193.140
+	 In-Reply-To:To:Cc; b=QIaJn6F1khRJ3IIUOjn3LWZOL/fFI9hjnqpASQuEFTEQakaRZgf12rUCiQdVvna0hSQdNEyPjYIOx5sT6FC1ep/s+L6k11NnOwdAJ8GtSQeB5tBYfZelOtvO1oRYE638xfeVCRrbjiv3Nuii1efPMYzVyTele9qudHzATvA/rVc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com; spf=pass smtp.mailfrom=axiado.com; dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b=hBoz3koy; arc=fail smtp.client-ip=52.101.52.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axiado.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b="pSFkPLl9"
+	dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b="hBoz3koy"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eM2j/SzdUqIq0gMDbu/DmQ/QgiBRFupsrTMFN5eDEn6FlFEJMXnODe9slg+qheL9k0VU5R2Kv3uJQeYMS+qT4Zf+mwLXYuyC7GlQJ2qUR+6EHLFIpBS3FBjmD+06X33JBEQp74mTEZOVtqHJWQym5Cy61jyl7FKaBGQu4jLFSThCpjD7uCIk3B4EFYA5DSOxz6a4143r45lPcbv74Kyi4Ot2c5WBj7RhslOU24Qn08/Ut4QaQhKAgjJ+xyE/Y6uQkuUKZCRve1MjB6+WLWW1EryTP2ckK5hZ9gxjaGUWJiDpw5upa1jfB07kNoI35XGE0J5fDThvvPlaWzd3OToYGg==
+ b=mn0R1gyqkJ17H9/6Q3LapndgKEl6UGrozSH4okwnH/GfAjQC87VhgbzWKvVNEDCwpZB5uclIxQOpjHXcT6VtJ8N1+6rwvIu6OwY125ezDOiY2g10+lQa7cyMz5VA1ZAdbyVlluftite3BhrQZ1A4m99qdYrHBc8D2jWg9xf2eybzH31uQa+lm7Dl5dzBRhpJVqdHR3Z122HDUG8xsNzvc/7QKWoa07S1m5uvVTQjUkQDKjVqBwYT18XqLutyNq1kUiH1GIikLAJqUmBdvBfY4ueVySeHAR1sI5fKBaz8S8HsbB0IxnRKsyzFTB46YwJEyRvsuFgdfQfIBGSLGR6XIw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5pJj2WPW5ZxW09Xh/QQ5F3xrCfhNtf9l+lmkdi/pLSE=;
- b=jFep/hxBZmju6CuPl1xjMQh1ajQfYWpBv+AA5HlbudKJMH2G/8p0sEcm9PqBEyx4WYqQ44eoytBsVw5ISyY4Fl+cWOWjk+a1ixx+HxlchrY01V9Ke6yVAZzze6/vEpVszc4qYnB86ZZGBLqrYXbZmTYuhGuerLnk6qog3IEw8WZ1vNg+0psIUZQCAQJuV7/cEfUGHm1SmPc8B1WXJB0ojCiNclBpuEcojg2iONxmlClvW0m4vV4l235yAdoBZfhH0xFh3IkROIWWbJ83H0+qEdGMs+tMclRe7c31YOUO31rJmYdFC9Qx+9EFjJHj3ZYAtQ5HsCbNUG9ZuP/IXMJcfA==
+ bh=yai/FK5olmzpvGIXsNjJr6yDRTp8/ppSubXsW3pbopk=;
+ b=ROgRhslIWn8xmxyiOAAzQMy4gqN9sSsJCervWyV5D6u4/pkzn9anz9T23l9WFMUeQkJyvvq/SfrWfcyjEtqPmWV20TEgDZWaezZO8ZqXZaGVBGIDhqBBL0jVdhH80m00n7Y3tffAPiBFJ+mmrV0nsnyRS3BJHlfouo+WjMm+geEKBzOdrcLH+GXk45X0K3kX8Rh5vBrYoY1qXeKx221RRj7v6Fn9v16GvG2wRzSNDVsTyTISKtOiIi4cuEYZKfrTt/LURcw6qImaALZ1P6jkb8Zfy9doQ7E3kILuD7KaJP9dkjMPypELIGFl1XUWk3v+4aJyN1YbZJ8Lh0uiDAyHDg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
  64.62.143.114) smtp.rcpttodomain=axiado.com smtp.mailfrom=axiado.com;
  dmarc=none action=none header.from=axiado.com; dkim=none (message not
@@ -30,16 +30,16 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5pJj2WPW5ZxW09Xh/QQ5F3xrCfhNtf9l+lmkdi/pLSE=;
- b=pSFkPLl9u4L/XQwWD9SfwAi+EOZbyPc8t7TeVy088L6hf70zapNeH+vlsZm0Xt9zvMfZKphnZWrXd3+js3bhsSV6HNGzmysBOFDHaShj1caP8RBVr30jMq8mcgQQKOcxH61BIqzL6H2jaiijtNfVlQOQOipbuOJZ06mJ5Xxz2ULT2XHKDgVtshZUDHAahzErksDQSeiE89tKiMOUHVa6Jun0gDHqflgR9S+rSECdHxeeRM6YaQPhn+5zRqw32TXVlGlTAV28KSj2xfh7H5GdgqcHWbf4PhWpb11dLF+/PAoW7g6KXtk+JJCPpEuB3EajQobBBhJxLZH3ifdzZHQmgg==
-Received: from BN9PR03CA0060.namprd03.prod.outlook.com (2603:10b6:408:fb::35)
- by SA1PR18MB4712.namprd18.prod.outlook.com (2603:10b6:806:1db::16) with
+ bh=yai/FK5olmzpvGIXsNjJr6yDRTp8/ppSubXsW3pbopk=;
+ b=hBoz3koyrMPrIX17bFkVKdmJ6akXASOyf6X2UkTChML+UozdgEGsSaRUzXF6ZHzzPLfmWkj9qZfzZP6NHtWfSpT+cgQs4DIHmRO1XIxymvCFAQCdFxkd2VRyC+cXXJAet7qeNxL5CTtRosjrr0RCe6yfvD3Fysbm3KtoJq/7jwGUV1oELBXgqSMCttL6JeRhcbUdKJXG+Y43KJtrK/p8Q08Klw+bRIvmQhgpzq+uqtBjGDBN6Vv1c7j/lcJNlGk+L89USXR7AOnA8SK5Btk3z34IhZ8CwsyMr5nUssNscyHNRINTKRU/fJ6y2tZk4clvKinMMz5KdXlOkz1UHKZWtg==
+Received: from CH0P220CA0026.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:ef::22)
+ by DSWPR18MB988406.namprd18.prod.outlook.com (2603:10b6:8:3a1::19) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12; Thu, 30 Jul
  2026 04:37:24 +0000
-Received: from BN2PEPF000055DC.namprd21.prod.outlook.com
- (2603:10b6:408:fb:cafe::9e) by BN9PR03CA0060.outlook.office365.com
- (2603:10b6:408:fb::35) with Microsoft SMTP Server (version=TLS1_3,
+Received: from DS2PEPF000061C6.namprd02.prod.outlook.com
+ (2603:10b6:610:ef:cafe::6c) by CH0P220CA0026.outlook.office365.com
+ (2603:10b6:610:ef::22) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.13 via Frontend Transport; Thu,
  30 Jul 2026 04:37:24 +0000
 X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 64.62.143.114)
@@ -49,15 +49,15 @@ Received-SPF: Fail (protection.outlook.com: domain of axiado.com does not
  designate 64.62.143.114 as permitted sender) receiver=protection.outlook.com;
  client-ip=64.62.143.114; helo=smtp.corp.axiado.com;
 Received: from smtp.corp.axiado.com (64.62.143.114) by
- BN2PEPF000055DC.mail.protection.outlook.com (10.167.245.6) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.1
+ DS2PEPF000061C6.mail.protection.outlook.com (10.167.23.73) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.8
  via Frontend Transport; Thu, 30 Jul 2026 04:37:23 +0000
 Received: from axz-uw1-build-vm02.corp.axiado.com (unknown [10.14.1.22])
-	by smtp.corp.axiado.com (Postfix) with ESMTPS id 1961C4186B53;
+	by smtp.corp.axiado.com (Postfix) with ESMTPS id 22A1F4186B5D;
 	Wed, 29 Jul 2026 21:37:23 -0700 (PDT)
 From: Swark Yang <syang@axiado.com>
-Date: Wed, 29 Jul 2026 21:36:50 -0700
-Subject: [PATCH 1/2] dt-bindings: mailbox: add Axiado AX3005 mailbox
+Date: Wed, 29 Jul 2026 21:36:51 -0700
+Subject: [PATCH 2/2] mailbox: add Axiado AX3005 mailbox driver
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -65,8 +65,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260729-upstream-axiado-ax3005-mailbox-upstream-v1-1-8961b7350338@axiado.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260729-upstream-axiado-ax3005-mailbox-upstream-v1-2-8961b7350338@axiado.com>
 References: <20260729-upstream-axiado-ax3005-mailbox-upstream-v1-0-8961b7350338@axiado.com>
 In-Reply-To: <20260729-upstream-axiado-ax3005-mailbox-upstream-v1-0-8961b7350338@axiado.com>
 To: Krishnakumar Kesavan <kkesavan@axiado.com>, 
@@ -78,176 +78,487 @@ To: Krishnakumar Kesavan <kkesavan@axiado.com>,
 Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, Swark Yang <syang@axiado.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4488; i=syang@axiado.com;
- h=from:subject:message-id; bh=miUf6MuomL/h3PtXzDabhBoWxYVv6oR4q0WFNl4dH20=;
- b=owGbwMvMwCHWlWK8+EozbyzjabUkhqysq0z7zXxjW/ms5mxRdLuaZPTn4O+m1stHN+jvzKhra
- tbsmszUUcrCIMbBICumyPJV51v+yVzte517V5bCzGFlAhnCwMUpABOZ9JOR4cV7/fUOMtK/H3+Z
- m59/vSrvkxWLncAzNd8mjsoj+1d6XmH4n8l659g3zn0bg5WUJnAfWCIjsUhuz6+72jV7P/Fk/kp
- KYgYA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=13061; i=syang@axiado.com;
+ h=from:subject:message-id; bh=TduEoIE41mqQKiOiL2cbXZ7x+p4K8mbzePWindp1VJs=;
+ b=owGbwMvMwCHWlWK8+EozbyzjabUkhqysq0z8zSKfNdIuPRNI+mRx5v/UDM006z3RUp3/dx4/3
+ fqfOfFxRykLgxgHg6yYIstXnW/5J3O173XuXVkKM4eVCWQIAxenAEzE4x8jw1P5LuYnZmufFB/c
+ fWYzY8I29oUZVeWbptge0xGpC1or+4uRYZvcS8Xw2PN/Lv1peFFS6jmvRGzaiZfBnrHnRK/M2BL
+ 4lw8A
 X-Developer-Key: i=syang@axiado.com; a=openpgp;
  fpr=F52CF66FC96D2BDE89BDA9758A6433A3D4830D5D
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055DC:EE_|SA1PR18MB4712:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3a690040-96bf-4c0e-93f2-08deedf44046
+X-MS-TrafficTypeDiagnostic: DS2PEPF000061C6:EE_|DSWPR18MB988406:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6892a920-5e2c-49b3-f406-08deedf4402e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|36860700016|1800799024|23010399003|13003099007|6133799003|3023799007|56012099006|22082099003|18002099003|10067099003;
+	BCL:0;ARA:13230040|376014|82310400026|36860700016|1800799024|23010399003|56012099006|22082099003|18002099003|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	Px50ulF9U8ph9ud/fDj23dG7419/xDa3EMlPQOZoVmpvEUncm0mlcQW7i1wvB9AkVc3kT1pblr37sWVJih5bMDgfCPx9PyTgoqe2i0wcSBszaOgBELxs0GIM0sM+6lGMaBgRtQboCKE6znLDrYQrX8h74rgDnzaouPB3UnqJofKrOhVH182nSEI+rf/Ovau0+t1G3HcmLkgF5gLCdp91l8OVOk1OosM3kMNBy6wMzu5s7nLXbZMavnsFbb+HC5fZIHf+3DQ02PRyimdWMW1q8oL+T0aDXszcFRheMBSM7AjYOkhAedWUcv5uJMShe/d0gooCABlaEhsu6/PfJqYAG2ivITBFaSOdo+Vrn4KKxBZHWAYatUtP26dLo/Q/rJ1CwmLFSsYjg3vxA8mBSWgGRAOR7y3gBFhC2BHPjE7ZxZ6OTxPSRxiWbEsERPTlUuJzI44xzvXgrY9EBGYRNsGJNk4M2lBZyIuYemT4Z6mD5oqGWHyQpJumZAs2kn4GOlbzGpHxBsH82hy7UfDpjoBFomHtUkBABT18vFsHSLbz2XZ2hNAIEWVVuBDsYimR3k27zHo/qnheR01kLsLOto8lJ0POXp2yh1TpJYAba1mQOaglipOKSGhBcdly3gBltZkpmp+HH/BvLqBY3yRKGUkZAw==
+	op6T3v+5MLahSE1qtgyK/7iOHRNlgJHudfnN7Hz1TpDBDJQw1fwXfWtYlg2V4DapB5bvH1ARg3rdmkMI04y4Cfvb8GXdHSuvAJ8uTQNHT/F8dfv6njLVETavX06uK9wdWirK9InGeFKZ9cY7NJn/SIjdxrgWRG+MGjQ7nACMg0Go5vqm+fIrJ4ZbZPbW3JDEUwQ6snehozZj8p6+p0wAvkYWRmPjjOdxNTPXySui6efzaxIJT/M2Y2F8H5zuIpliN/MnE78pxMDh5NXFSp6gu4mx0U32Moba6qEMjYDuo4s7S2tR+8xCwAUunHO5/HfTTdZ/PrslN2bHybwJvQP9cAp94Ew9+11Kg5CIVifV+XHziDjViJApf2+w7wwE7q+O1ia/Dr5lONGHTUHLyzXjX24GAGTTA3/cQO8jDN63uLF2n1CYfYnWenuDzhh/Jjgi6Jh/bDZxpZdb2XtI8r1gcDhZ/6Cdrk0fEw1UwdEw5M230GUHNaVuin5/LhLBLwT1hWGdsywYHEEcC1/3VbGFR4+CQJ3goZ1+PVVDfDeRfKG0uNjV4fUJY1CihwiKcorXoD7PLTzavdN08Ldszw6uAy+GaR7iq3ajBnJI0xTLS1b/8B5UXXg7hMTaBJJ3s/tHonZmF5IhYBvNvdzo6Jgsd9J9yqRDMFFIHqQ45FBeuLjGFPytKEf/uNVRnTX9iZb1T4DBiJoWnVgq2ovkjqLMVQ==
 X-Forefront-Antispam-Report:
-	CIP:64.62.143.114;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtp.corp.axiado.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(23010399003)(13003099007)(6133799003)(3023799007)(56012099006)(22082099003)(18002099003)(10067099003);DIR:OUT;SFP:1102;
+	CIP:64.62.143.114;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtp.corp.axiado.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(23010399003)(56012099006)(22082099003)(18002099003)(10067099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	DeQyfOyd0aDD4iVfR+UwZzlNEwpG12W5PrugvM3zXCFYgFiNciiHvBh0Pau49qMSG+7gcRb1TTb+AW/8XyFQlJsPq+riEtyiKW07Hf5EfmWpBLnq5v0fRR89OK6xFcomR0+hgU/oxxI0AUDwoSBYJmcheB6/4KcvntyCxcfRTHs1kD5XepbRhscesABwIbYtlVY7JlZGNtCtZMTiCz6iZjfVMV5GS/Ze3pWhTlupO5IhxZFmHXrbxgIsEmrtxYtlDl7KL+G6EfXnLg/3jiYkyYJoi8C3Frx2wLtxH5YXbEAvS0auPixbv9qOj//hjtN52VwRrOysYH3OicvnIyBhrk1w/cxBgPTRzsiAho0RcNPPBHyF2xHShJDVOgQHtx34OLrhaSUxp5LCDDhVoAuDq27HaCcdyM5/qM+r92mKmzGZYbc0pwDugtv9Ms8RyI+D
+	RzheKI4mqJMpyiOzhTi5Z9opHmHu0I2Da6vy6GZATgV8CRPtAQ/nz94TvpWltgI6aHIaklAqRs7KxGNwtZ2ZXiUr0pkC1pjsTcsjp5rlHElv42kzkWnZ9l3Lb3dUcdX+adKRKKameM+nyviJ0xWSMVHN6ZAdcFwZT2SCbxniWYTVbsITeezMFQsUA21ftgDAsRySqgE99DvnM4waGx8yW+/hVx8rzEiEShk+N696Z9Bt4m7xgqTGb4fHZ+n+eclab6yiwBNH36WNzLflUtaiQuqc/ORITWicVQKjij44L0qRbpVoZ43kufseG/l4ygFqXRY48atnud8KBsCUTOJMtWiKIijshmUi92AuzkdTJgcxFKGfbPn4Xt5XfscqRGL9Elc5nKeDCgDFe3j4FB3ecWZGqxoBa4kP9puEjE+cITSDsvHDftQvlqIEzCHGCJdH
 X-OriginatorOrg: axiado.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2026 04:37:23.7623
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2026 04:37:23.6135
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a690040-96bf-4c0e-93f2-08deedf44046
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6892a920-5e2c-49b3-f406-08deedf4402e
 X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=ff2db17c-4338-408e-9036-2dee8e3e17d7;Ip=[64.62.143.114];Helo=[smtp.corp.axiado.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000055DC.namprd21.prod.outlook.com
+	DS2PEPF000061C6.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR18MB4712
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSWPR18MB988406
 
-Add a devicetree binding for the Axiado AX3005 mailbox controller.
-The controller provides inter-processor communication channels
-between the host CPU and the coprocessor, with separate TX and RX
-register regions.
+Add a mailbox controller driver for the Axiado AX3005 SoC.
+The controller provides communication channels between
+the host CPU and the coprocessor.
 
-Add the corresponding MAINTAINERS entry covering the binding.
+The hardware provides 8 TX channels and 8 RX channels
+through separate register regions. RX channels use
+per-channel interrupts, while TX completion is detected by
+polling the FIFO status.
+
+Add the driver path to the existing Axiado mailbox entry in
+MAINTAINERS.
 
 Signed-off-by: Swark Yang <syang@axiado.com>
 ---
- .../bindings/mailbox/axiado,ax3005-mailbox.yaml    | 98 ++++++++++++++++++++++
- MAINTAINERS                                        |  7 ++
- 2 files changed, 105 insertions(+)
+ MAINTAINERS                      |   1 +
+ drivers/mailbox/Kconfig          |  10 ++
+ drivers/mailbox/Makefile         |   2 +
+ drivers/mailbox/axiado-mailbox.c | 379 +++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 392 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/mailbox/axiado,ax3005-mailbox.yaml b/Documentation/devicetree/bindings/mailbox/axiado,ax3005-mailbox.yaml
-new file mode 100644
-index 000000000000..b4fab96356c1
---- /dev/null
-+++ b/Documentation/devicetree/bindings/mailbox/axiado,ax3005-mailbox.yaml
-@@ -0,0 +1,98 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/mailbox/axiado,ax3005-mailbox.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Axiado AX3005 Mailbox Controller
-+
-+maintainers:
-+  - Krishnakumar Kesavan <kkesavan@axiado.com>
-+  - Prasad Bolisetty <pbolisetty@axiado.com>
-+  - Swark Yang <syang@axiado.com>
-+
-+description: |
-+  The Axiado mailbox controller provides inter-processor communication
-+  channels between subsystems within the Axiado SoC. The hardware has
-+  separate TX and RX register regions. Only the RX channels (channels 8-15)
-+  generate interrupts; TX channels are purely poll/write-based.
-+
-+properties:
-+  compatible:
-+    const: axiado,ax3005-mailbox
-+
-+  reg:
-+    items:
-+      - description: TX mailbox register region
-+      - description: RX mailbox register region
-+
-+  reg-names:
-+    items:
-+      - const: tx
-+      - const: rx
-+
-+  interrupts:
-+    description: |
-+      One interrupt per RX channel. The hardware exposes eight RX interrupt
-+      lines corresponding to channels 8 through 15.
-+    minItems: 8
-+    maxItems: 8
-+
-+  interrupt-names:
-+    description: |
-+      Named interrupt lines for each RX channel, from ch8 to ch15.
-+    items:
-+      - const: ch8
-+      - const: ch9
-+      - const: ch10
-+      - const: ch11
-+      - const: ch12
-+      - const: ch13
-+      - const: ch14
-+      - const: ch15
-+
-+  "#mbox-cells":
-+    description: |
-+      Number of cells in a mailbox specifier. A single cell encodes the
-+      channel index as seen by the client.
-+    const: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - reg-names
-+  - interrupts
-+  - interrupt-names
-+  - "#mbox-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+    soc {
-+        #address-cells = <2>;
-+        #size-cells = <2>;
-+
-+        mailbox@330f2000 {
-+            compatible = "axiado,ax3005-mailbox";
-+            reg = <0x0 0x330f2000 0x0 0x2000>,
-+                  <0x0 0x331b0000 0x0 0x1000>;
-+            reg-names = "tx", "rx";
-+            /* Only RX channels (8-15) have IRQs */
-+            interrupts = <GIC_SPI 242 IRQ_TYPE_LEVEL_HIGH>,
-+                         <GIC_SPI 243 IRQ_TYPE_LEVEL_HIGH>,
-+                         <GIC_SPI 244 IRQ_TYPE_LEVEL_HIGH>,
-+                         <GIC_SPI 245 IRQ_TYPE_LEVEL_HIGH>,
-+                         <GIC_SPI 246 IRQ_TYPE_LEVEL_HIGH>,
-+                         <GIC_SPI 247 IRQ_TYPE_LEVEL_HIGH>,
-+                         <GIC_SPI 248 IRQ_TYPE_LEVEL_HIGH>,
-+                         <GIC_SPI 249 IRQ_TYPE_LEVEL_HIGH>;
-+            interrupt-names = "ch8", "ch9", "ch10", "ch11",
-+                              "ch12", "ch13", "ch14", "ch15";
-+            interrupt-parent = <&gic500>;
-+            #mbox-cells = <1>;
-+            status = "okay";
-+        };
-+    };
 diff --git a/MAINTAINERS b/MAINTAINERS
-index a674e36529f7..af6c3571c9f2 100644
+index af6c3571c9f2..80db69111889 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -4437,6 +4437,13 @@ F:	Documentation/devicetree/bindings/phy/axiado,ax3000-emmc-phy.yaml
- F:	drivers/phy/axiado/Kconfig
- F:	drivers/phy/axiado/phy-axiado-emmc.c
+@@ -4443,6 +4443,7 @@ M:	Prasad Bolisetty <pbolisetty@axiado.com>
+ M:	Swark Yang <syang@axiado.com>
+ S:	Supported
+ F:	Documentation/devicetree/bindings/mailbox/axiado,ax3005-mailbox.yaml
++F:	drivers/mailbox/axiado-mailbox.c
  
-+AXIADO MAILBOX DRIVER
-+M:	Krishnakumar Kesavan <kkesavan@axiado.com>
-+M:	Prasad Bolisetty <pbolisetty@axiado.com>
-+M:	Swark Yang <syang@axiado.com>
-+S:	Supported
-+F:	Documentation/devicetree/bindings/mailbox/axiado,ax3005-mailbox.yaml
-+
  AXI SPI ENGINE
  M:	Michael Hennerich <michael.hennerich@analog.com>
- M:	Nuno Sá <nuno.sa@analog.com>
+diff --git a/drivers/mailbox/Kconfig b/drivers/mailbox/Kconfig
+index 3062ee352f78..ab869769e278 100644
+--- a/drivers/mailbox/Kconfig
++++ b/drivers/mailbox/Kconfig
+@@ -399,4 +399,14 @@ config RISCV_SBI_MPXY_MBOX
+ 	  or HS-mode hypervisor). Say Y here, unless you are sure you do not
+ 	  need this.
+ 
++config AXIADO_MAILBOX
++	tristate "Axiado mailbox driver"
++	depends on ARCH_AXIADO || COMPILE_TEST
++	depends on OF
++	help
++	  Enable support for the Axiado mailbox controller. The driver provides
++	  communication channels between the host CPU and the coprocessor on
++	  Axiado SoCs.
++	  If unsure, say N.
++
+ endif
+diff --git a/drivers/mailbox/Makefile b/drivers/mailbox/Makefile
+index 944d8ea39f34..45dc59bb3e7f 100644
+--- a/drivers/mailbox/Makefile
++++ b/drivers/mailbox/Makefile
+@@ -84,3 +84,5 @@ obj-$(CONFIG_CIX_MBOX)	+= cix-mailbox.o
+ obj-$(CONFIG_BCM74110_MAILBOX)	+= bcm74110-mailbox.o
+ 
+ obj-$(CONFIG_RISCV_SBI_MPXY_MBOX)	+= riscv-sbi-mpxy-mbox.o
++
++obj-$(CONFIG_AXIADO_MAILBOX)	+= axiado-mailbox.o
+diff --git a/drivers/mailbox/axiado-mailbox.c b/drivers/mailbox/axiado-mailbox.c
+new file mode 100644
+index 000000000000..4f1daf394a27
+--- /dev/null
++++ b/drivers/mailbox/axiado-mailbox.c
+@@ -0,0 +1,379 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2021-2026 Axiado Corporation (or its affiliates).
++ */
++
++#include <linux/interrupt.h>
++#include <linux/io.h>
++#include <linux/bitfield.h>
++#include <linux/iopoll.h>
++#include <linux/mailbox_controller.h>
++#include <linux/math.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
++#include <linux/property.h>
++#include <linux/slab.h>
++#include <linux/unaligned.h>
++
++#define AXIADO_MBOX_TX_CHANS		8	/* 0-7 */
++#define AXIADO_MBOX_RX_CHANS		8	/* 8-15 */
++#define AXIADO_MBOX_CHAN_STRIDE	0x4
++#define AXIADO_MBOX_TX_REG_STRIDE	0x40
++#define AXIADO_MBOX_RX_REG_STRIDE	0x30
++#define AXIADO_MBOX_RX_POLL_US		10
++#define AXIADO_MBOX_RX_TIMEOUT_US	500
++
++/* Mailbox CSR bit definitions */
++#define AXIADO_MBOX_CSR_EMPTY		BIT(0) /* 1 = FIFO empty; 0 = data available */
++#define AXIADO_MBOX_CSR_OVERFLOW	BIT(2) /* write 1 to clear (W1C) */
++#define AXIADO_MBOX_CSR_UNDERFLOW	BIT(3) /* write 1 to clear (W1C) */
++#define AXIADO_MBOX_CSR_FLUSH		BIT(4) /* W1TRG flush; startup/shutdown */
++#define AXIADO_MBOX_CSR_LEVEL		GENMASK(11, 5)
++
++#define AXIADO_MBOX_CSR_ERRORS		(AXIADO_MBOX_CSR_OVERFLOW | \
++					 AXIADO_MBOX_CSR_UNDERFLOW)
++
++struct axiado_mbox_data {
++	u8 num_chans;
++	u16 msg_size;
++};
++
++struct axiado_channel_data {
++	void __iomem *mbox_reg;
++	void __iomem *csr_reg;
++	void *rx_buffer;
++	u8 channel_num;
++	int irq;
++	struct mbox_chan *chan;
++	u16 chan_msg_size;
++	bool active;
++};
++
++/* mailbox side */
++struct axiado_mbox {
++	struct mbox_controller mbox;
++	const struct axiado_mbox_data *drv_data;
++	void __iomem *tx_base;
++	void __iomem *rx_base;
++};
++
++/*
++ * Checks OVERFLOW/UNDERFLOW, logs and W1C-clears them if set. Shared by the
++ * TX and RX paths; RX additionally flushes the FIFO afterwards to resync
++ * framing, which TX must not do since it could discard data the peer has
++ * not read yet.
++ */
++static bool axiado_mbox_clear_fifo_errors(struct axiado_channel_data *priv)
++{
++	struct device *dev = priv->chan->mbox->dev;
++	u32 errors;
++
++	errors = readl(priv->csr_reg) & AXIADO_MBOX_CSR_ERRORS;
++	if (!errors)
++		return false;
++
++	writel(errors, priv->csr_reg);
++
++	dev_warn_ratelimited(dev, "Channel %u FIFO error: %#x\n",
++			     priv->channel_num, errors);
++
++	return true;
++}
++
++static int axiado_mbox_send_data(struct mbox_chan *chan, void *data)
++{
++	struct axiado_mbox *mb = dev_get_drvdata(chan->mbox->dev);
++	struct axiado_channel_data *priv = chan->con_priv;
++	unsigned int idx = priv->channel_num;
++	u8 tail[sizeof(u32)] = { 0 };
++	const u8 *buf = data;
++	unsigned int tail_len;
++	unsigned int offset;
++	u32 msg_len;
++
++	if (priv->channel_num >= AXIADO_MBOX_TX_CHANS)
++		return -EINVAL;
++
++	if (!data)
++		return -EINVAL;
++
++	/*
++	 * The Axiado mailbox message ABI stores the total message length,
++	 * including this length word, as a little-endian byte count in the
++	 * first word of every message.
++	 */
++	msg_len = get_unaligned_le32(data);
++	if (msg_len < sizeof(u32) || msg_len > mb->drv_data->msg_size)
++		return -EINVAL;
++
++	/* Only touch the hardware after validating the message. */
++	axiado_mbox_clear_fifo_errors(priv);
++
++	if (!(readl(priv->csr_reg) & AXIADO_MBOX_CSR_EMPTY)) {
++		dev_warn(mb->mbox.dev, "Channel %u is busy\n", idx);
++		return -EBUSY;
++	}
++
++	for (offset = 0; offset + sizeof(u32) <= msg_len;
++	     offset += sizeof(u32))
++		writel(get_unaligned_le32(buf + offset), priv->mbox_reg);
++
++	tail_len = msg_len - offset;
++	if (tail_len) {
++		memcpy(tail, buf + offset, tail_len);
++		writel(get_unaligned_le32(tail), priv->mbox_reg);
++	}
++
++	dev_dbg(mb->mbox.dev, "%s: Ch-%u sent\n", __func__, idx);
++
++	return 0;
++}
++
++static bool axiado_mbox_handle_rx_error(struct axiado_channel_data *priv)
++{
++	if (!axiado_mbox_clear_fifo_errors(priv))
++		return false;
++
++	/* Errors leave RX framing out of sync; flush and resync. */
++	writel(AXIADO_MBOX_CSR_FLUSH, priv->csr_reg);
++
++	return true;
++}
++
++static irqreturn_t axiado_rx_thread(int irq, void *dev_id)
++{
++	struct axiado_channel_data *priv = dev_id;
++	struct mbox_chan *chan = priv->chan;
++	u8 *buf = priv->rx_buffer;
++	unsigned int num_words;
++	unsigned int remaining;
++	unsigned int i;
++	u32 msg_len;
++	u32 word;
++	u32 csr;
++	int ret;
++
++	if (axiado_mbox_handle_rx_error(priv))
++		return IRQ_HANDLED;
++
++	csr = readl(priv->csr_reg);
++	if (csr & AXIADO_MBOX_CSR_EMPTY)
++		return IRQ_NONE;
++
++	/*
++	 * The first word contains the total message length in bytes,
++	 * including the length word itself.
++	 */
++	word = readl(priv->mbox_reg);
++	msg_len = word;
++	put_unaligned_le32(word, buf);
++
++	if (msg_len < sizeof(u32) ||
++	    msg_len > priv->chan_msg_size)
++		goto invalid_message;
++
++	num_words = DIV_ROUND_UP(msg_len, sizeof(u32));
++	remaining = num_words - 1;
++
++	/*
++	 * The not-empty interrupt may occur as soon as the first DW enters
++	 * the FIFO. Wait until all remaining DWs of this message arrive.
++	 */
++	if (remaining) {
++		ret = readl_poll_timeout(priv->csr_reg, csr,
++				(csr & AXIADO_MBOX_CSR_ERRORS) ||
++				FIELD_GET(AXIADO_MBOX_CSR_LEVEL, csr) >=
++					remaining,
++				AXIADO_MBOX_RX_POLL_US,
++				AXIADO_MBOX_RX_TIMEOUT_US);
++		if (ret)
++			goto incomplete_message;
++
++		if (axiado_mbox_handle_rx_error(priv))
++			return IRQ_HANDLED;
++	}
++
++	for (i = 1; i < num_words; i++) {
++		word = readl(priv->mbox_reg);
++		put_unaligned_le32(word,
++				   buf + i * sizeof(u32));
++	}
++
++	if (axiado_mbox_handle_rx_error(priv))
++		return IRQ_HANDLED;
++
++	if (READ_ONCE(priv->active))
++		mbox_chan_received_data(chan, priv->rx_buffer);
++
++	return IRQ_HANDLED;
++
++incomplete_message:
++	dev_warn_ratelimited(chan->mbox->dev,
++			     "Channel %u received an incomplete message\n",
++			     priv->channel_num);
++
++invalid_message:
++	writel(AXIADO_MBOX_CSR_FLUSH, priv->csr_reg);
++
++	return IRQ_HANDLED;
++}
++
++static int axiado_mbox_startup(struct mbox_chan *chan)
++{
++	struct axiado_channel_data *priv = chan->con_priv;
++
++	writel(AXIADO_MBOX_CSR_FLUSH, priv->csr_reg);
++	writel(AXIADO_MBOX_CSR_ERRORS, priv->csr_reg);
++	WRITE_ONCE(priv->active, true);
++
++	if (priv->channel_num >= AXIADO_MBOX_TX_CHANS)
++		enable_irq(priv->irq);
++
++	return 0;
++}
++
++static void axiado_mbox_shutdown(struct mbox_chan *chan)
++{
++	struct axiado_channel_data *priv = chan->con_priv;
++
++	WRITE_ONCE(priv->active, false);
++
++	if (priv->channel_num >= AXIADO_MBOX_TX_CHANS)
++		disable_irq(priv->irq);
++
++	writel(AXIADO_MBOX_CSR_FLUSH, priv->csr_reg);
++}
++
++static bool axiado_mbox_last_tx_done(struct mbox_chan *chan)
++{
++	struct axiado_channel_data *priv = chan->con_priv;
++
++	return !!(readl(priv->csr_reg) & AXIADO_MBOX_CSR_EMPTY);
++}
++
++static const struct mbox_chan_ops axiado_mbox_chan_ops = {
++	.send_data	= axiado_mbox_send_data,
++	.startup	= axiado_mbox_startup,
++	.shutdown	= axiado_mbox_shutdown,
++	.last_tx_done	= axiado_mbox_last_tx_done,
++};
++
++static int axiado_mbox_probe(struct platform_device *pdev)
++{
++	const struct axiado_mbox_data *drv_data;
++	struct axiado_channel_data *ch_data;
++	struct device *dev = &pdev->dev;
++	struct axiado_mbox *mb;
++	unsigned int irq_idx = 0;
++	unsigned int rx_chan;
++	unsigned int i;
++	int ret;
++
++	drv_data = device_get_match_data(dev);
++	if (!drv_data)
++		return -ENODEV;
++
++	mb = devm_kzalloc(dev, sizeof(*mb), GFP_KERNEL);
++	if (!mb)
++		return -ENOMEM;
++
++	mb->mbox.dev = dev;
++	mb->mbox.num_chans = drv_data->num_chans;
++
++	mb->mbox.chans = devm_kcalloc(&pdev->dev,
++				      drv_data->num_chans,
++				      sizeof(*mb->mbox.chans),
++				      GFP_KERNEL);
++	if (!mb->mbox.chans)
++		return -ENOMEM;
++
++	mb->tx_base = devm_platform_ioremap_resource_byname(pdev, "tx");
++	if (IS_ERR(mb->tx_base))
++		return PTR_ERR(mb->tx_base);
++
++	mb->rx_base = devm_platform_ioremap_resource_byname(pdev, "rx");
++	if (IS_ERR(mb->rx_base))
++		return PTR_ERR(mb->rx_base);
++
++	ch_data = devm_kcalloc(&pdev->dev,
++			       drv_data->num_chans,
++			       sizeof(*ch_data),
++			       GFP_KERNEL);
++	if (!ch_data)
++		return -ENOMEM;
++
++	for (i = 0; i < drv_data->num_chans; i++) {
++		ch_data[i].channel_num = i;
++		ch_data[i].chan = &mb->mbox.chans[i];
++		ch_data[i].chan_msg_size = drv_data->msg_size;
++
++		mb->mbox.chans[i].con_priv = &ch_data[i];
++
++		if (i < AXIADO_MBOX_TX_CHANS) {
++			ch_data[i].mbox_reg = mb->tx_base + (i * AXIADO_MBOX_CHAN_STRIDE);
++			ch_data[i].csr_reg = mb->tx_base + AXIADO_MBOX_TX_REG_STRIDE +
++					       (i * AXIADO_MBOX_CHAN_STRIDE);
++			ch_data[i].irq = -1;
++			continue;
++		}
++
++		ch_data[i].rx_buffer = devm_kmalloc(dev, drv_data->msg_size,
++						    GFP_KERNEL);
++		if (!ch_data[i].rx_buffer)
++			return -ENOMEM;
++
++		rx_chan = i - AXIADO_MBOX_TX_CHANS;
++		ch_data[i].mbox_reg = mb->rx_base +
++				       (rx_chan * AXIADO_MBOX_CHAN_STRIDE);
++		ch_data[i].csr_reg = mb->rx_base + AXIADO_MBOX_RX_REG_STRIDE +
++				      (rx_chan * AXIADO_MBOX_CHAN_STRIDE);
++		ch_data[i].irq = platform_get_irq(pdev, irq_idx++);
++		if (ch_data[i].irq < 0)
++			return dev_err_probe(dev, ch_data[i].irq,
++					     "Failed to get IRQ for channel %u\n", i);
++
++		ret = devm_request_threaded_irq(dev, ch_data[i].irq, NULL,
++						axiado_rx_thread,
++						IRQF_ONESHOT | IRQF_NO_AUTOEN,
++						dev_name(dev), &ch_data[i]);
++		if (ret)
++			return dev_err_probe(dev, ret,
++					     "Failed to request IRQ for channel %u\n", i);
++
++		dev_dbg(dev, "RX chan %u -> irq %d\n", i, ch_data[i].irq);
++	}
++
++	platform_set_drvdata(pdev, mb);
++	mb->drv_data = drv_data;
++	mb->mbox.ops = &axiado_mbox_chan_ops;
++	mb->mbox.txdone_irq = false;
++	mb->mbox.txdone_poll = true;
++	mb->mbox.txpoll_period = 5;
++
++	return devm_mbox_controller_register(dev, &mb->mbox);
++}
++
++static const struct axiado_mbox_data axiado_drv_data = {
++	.num_chans = AXIADO_MBOX_TX_CHANS + AXIADO_MBOX_RX_CHANS,
++	.msg_size = 256,
++};
++
++static const struct of_device_id axiado_mbox_of_match[] = {
++	{ .compatible = "axiado,ax3005-mailbox", .data = &axiado_drv_data },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, axiado_mbox_of_match);
++
++static struct platform_driver axiado_mbox_driver = {
++	.driver = {
++		.name = "axiado-mailbox",
++		.of_match_table = axiado_mbox_of_match,
++	},
++	.probe = axiado_mbox_probe,
++};
++module_platform_driver(axiado_mbox_driver);
++
++MODULE_AUTHOR("AXIADO CORPORATION");
++MODULE_DESCRIPTION("Axiado Mailbox driver");
++MODULE_LICENSE("GPL");
 
 -- 
 2.34.1
