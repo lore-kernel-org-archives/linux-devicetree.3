@@ -1,115 +1,120 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A5093B3896
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 12:11:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD52741F7D7
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 12:12:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785413483; cv=none; b=oHZmQerDVfXBfixtufjBmloEeJ/UWcKzrUdpGlwaK1+foKJIr8l8CIfZi1c3675UjcbqYUr+6+I8YL+15tO8dgN+RjvfVBT0j96OBnl5DdQ0vN+5f9KynfY+P5nAz0fXSlyis1jLhjK9kHWQmNAGpWzOPULFbtpgjk9bYRGhjlg=
+	t=1785413539; cv=none; b=Mfwb2LQiOyiNDWJcTaLbym6nWlIVxgFoFL+5xhJPhpDW1P9Uevgk7EBfWaQYAYNGVkMBXj7GBOx2XX+BmuOjNmg89z9upyZJGTlskBdgahQ7lEk2MaAhZaGhMR08KY/BpyhOPYsOp7rjjSvbVj1wglZ8a3JrfWhWOLABNacw/JI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785413483; c=relaxed/simple;
-	bh=UsQqr3uoQq0t4TVlaZjkGOzyS+DyNat+T+K1C1Loa6U=;
+	s=arc-20240116; t=1785413539; c=relaxed/simple;
+	bh=pmIiM8bvMfTPWvAmAoVZrzMGeOTSSwbfaLWTI1qS4mU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CHv8w74UTmXTv//o1lbmBOrvdOIZP9yYOYEZvkTfetAJ7yoFk1M6qS7YFeKdFUYib3kltH/bS84y76Xwjh0fMBpdc2E/Qc9idSrNnH0zb3Ce/m82Q/1QczpWsbkzFwuC7xCCV+KzULMic06q6s0ffRkboSmi/n4iSmigY73Hnh8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z0oNbWPh; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=DLwPQMOE307XHyWW60DbrNPlDveK7FvOSUA9vGFxsFm3d/Inyg2juUB7zvMYTyWndwJdH1PyjNzQ2taqMIlMoqZbmDh5jPbDUZKiyiRUOWKcs6hdOWMYgwO4UOfx/BBZ7Y4LvOpU5OVAzHwzzeT+OVI2XhZ5rSOSSrzRvQVyWwI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jx2DIk+l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z0oNbWPh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EA651F000E9;
-	Thu, 30 Jul 2026 12:11:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jx2DIk+l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 399761F000E9;
+	Thu, 30 Jul 2026 12:12:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785413481;
-	bh=bxKwsVoaVKzXqUAOiXQPuCsMyMrgcNCkLlTURv7wLNQ=;
+	s=k20260515; t=1785413538;
+	bh=wTUjmaE2w/SKECfbH4HneFELyDhu6TtTVC7H7s/hvzs=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Z0oNbWPh3p4Bu6tFje412cjeTtq0rqW86dMCV+rgEuhRaxk+faIPkAdcW2yo/zWBK
-	 f+c+luX6IuwBxmlll7DdJdqc73+BCMmcFhHC+75TDfU+trXO+JjvZ1DztYYQEhkRji
-	 nlI9GfA3rd6qdihJSdgaCfvI4YXxdT7fGxr4W9il38cDfKj08JD9PJxEI1JtsjMrS8
-	 HjOI5uhjo+ooizTzShlz4onaoPieiN7YiLBgdyAFxiu+isxxCPDphq8R68FwpZjWQf
-	 D7RcbGv8YZU98nSBXy0bLAe/6eO5vz0YORBc3XuPuYKDzNgTJm3f8wFEJwHfJeRHyq
-	 nQ/4D+VFZx1pw==
+	b=jx2DIk+lPD7Ad+NRl8ZQ/qad2awNajx4yILNmGwDUerN+aL7lfkbzeXktwIYH/OVp
+	 aRZePM8nxh3HRphwwHDS1OuMVnnxKg/AXLdkIFTouWz9W9Xiwi04/mZCFXquDHogNE
+	 9OaI4+ib8zmUeiIx+/D8d0bI4nFEGIAvZXj0GW3+S4dkDK/fzd8MSt31d9dKUA/w6C
+	 hzawq0N68EkusJyjuVRm4b/OA5ty3V/szmXeGywtjOslIo9jyv/NqfXTW99rAPVczx
+	 iqByXhZfDpORJGoN+wSNbOyp0MLFL2hnIta22EUsxmpDFbG03qlFDweUwAB7hvA0Hj
+	 WRPHxNuKSbJOA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 04/22] arm64: dts: qcom: sc8180x: Fix the PCIe iommu-map
- entries
+Subject: Re: [PATCH v15 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY
+ schema
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Manivannan Sadhasivam" <manivannan.sadhasivam@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260730-iommu-map-fix-v1-4-83405d37ba41@oss.qualcomm.com>
-References: <20260730-iommu-map-fix-v1-0-83405d37ba41@oss.qualcomm.com>
- <20260730-iommu-map-fix-v1-4-83405d37ba41@oss.qualcomm.com>
+To: =?utf-8?b?QnJ5YW4gTydEb25vZ2h1ZQ==?= <bryan.odonoghue@linaro.org>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, linux-phy@lists.infradead.org, neil.armstrong@linaro.org, media-ci@linuxtv.org, olteanv@gmail.com, conor+dt@kernel.org
+In-Reply-To: <20260730-x1e-csi2-phy-v15-1-f284131de1fa@linaro.org>
+References: <20260730-x1e-csi2-phy-v15-0-f284131de1fa@linaro.org>
+ <20260730-x1e-csi2-phy-v15-1-f284131de1fa@linaro.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 12:11:21 +0000
-Message-Id: <20260730121121.6EA651F000E9@smtp.kernel.org>
+Date: Thu, 30 Jul 2026 12:12:17 +0000
+Message-Id: <20260730121218.399761F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] Fixing `iommu-map` to use 5 cells breaks rigid 4-cell parsing in t=
-he `pcie-qcom.c` driver, corrupting PCIe SID translation.
+- [Medium] The schema explicitly permits the CPHY bus-type, contradicting t=
+he commit message.
+- [Medium] The `data-lanes` property lacks an `items: maximum: 3` constrain=
+t to restrict physical lane indexes.
+- [Medium] The `clock-lanes` property is implicitly allowed in the schema d=
+espite being unsupported by hardware.
 --
 
---- Patch [4]: [PATCH 04/22] arm64: dts: qcom: sc8180x: Fix the PCIe iommu-=
-map entries ---
-commit 2707161425e0efca5af00d7a068414771d8112e9
-Author: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+--- Patch [1]: [PATCH v15 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY =
+schema ---
+commit 2ff6f092cd049b723d7a175d8013e50897b62b79
+Author: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-arm64: dts: qcom: sc8180x: Fix the PCIe iommu-map entries
+dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
 
-This commit fixes the PCIe iommu-map entries to match the apps_smmu
-provider's #iommu-cells =3D <2> property. It adds the missing SID mask cell=
- to
-prevent warnings from the OF core about 1-cell entries targeting 2-cell
-outputs.
+Add a base schema for the MIPI CSI2 PHYs on Qualcomm SoCs. This PHY
+supports both DPHY and CPHY operation. A special mode of DPHY operation -
+called variously split-mode or combo-mode also allows for two sensors to be
+connected to one PHY.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sc8180x.dtsi b/arch/arm64/boot/dts/=
-qcom/sc8180x.dtsi
-> --- a/arch/arm64/boot/dts/qcom/sc8180x.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc8180x.dtsi
-> @@ -1767,8 +1767,8 @@ pcie0: pcie@1c00000 {
->  			assigned-clocks =3D <&gcc GCC_PCIE_0_AUX_CLK>;
->  			assigned-clock-rates =3D <19200000>;
-> =20
-> -			iommu-map =3D <0x0   &apps_smmu 0x1d80 0x1>,
-> -				    <0x100 &apps_smmu 0x1d81 0x1>;
-> +			iommu-map =3D <0x0   &apps_smmu 0x1d80 0x0 0x1>,
-> +				    <0x100 &apps_smmu 0x1d81 0x0 0x1>;
+> diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy=
+.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+> new file mode 100644
+> index 0000000000000..8aa6ad2723988
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+> @@ -0,0 +1,202 @@
+[ ... ]
+> +        patternProperties:
+> +          "^endpoint(@[01])?$":
+> +            $ref: /schemas/media/video-interfaces.yaml#
+> +            unevaluatedProperties: false
+> +            properties:
 
-[Severity: High]
-Does this change break the manual iommu-map parsing in the PCIe driver?
+[Severity: Medium]
+Since this endpoint includes a reference to video-interfaces.yaml, the
+clock-lanes property is implicitly evaluated and permitted. The description
+below notes "The dedicated clock lane is not described", so should
+clock-lanes: false be added here to explicitly forbid it?
 
-Looking at qcom_pcie_config_sid_1_9_0() in
-drivers/pci/controller/dwc/pcie-qcom.c, the driver assumes a rigid 4-cell
-length for iommu-map entries:
+> +              bus-type:
+> +                enum:
+> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
+> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
 
-drivers/pci/controller/dwc/pcie-qcom.c:qcom_pcie_config_sid_1_9_0() {
-    ...
-	struct {
-		u32 bdf;
-		u32 phandle;
-		u32 smmu_sid;
-		u32 smmu_sid_len;
-	} *map;
-    ...
-	of_property_read_u32_array(dev->of_node, "iommu-map", (u32 *)map,
-				   size / sizeof(u32));
-    ...
-}
+[Severity: Medium]
+The commit message explicitly states "CPHY is left to future work", but the
+schema permits the CPHY bus-type here.=20
 
-By increasing the iommu-map property to 5 cells per entry, will this misali=
-gn
-the array when the driver parses multiple entries?
+Does this allow device trees with incomplete or invalid CPHY configurations
+to silently pass schema validation?
 
-For the second entry here, map[1].bdf would read the 5th cell of the first
-entry (length), map[1].phandle would read the BDF of the second entry, and
-map[1].smmu_sid would read the phandle pointer.
+> +
+> +              data-lanes:
+> +                minItems: 1
+> +                maxItems: 4
+> +                description:
+> +                  An array of physical data lane indexes, 0-3, following=
+ the
 
-Does this corrupt the SID translation and lead to IOMMU faults for downstre=
-am
-PCIe endpoints?
+[Severity: Medium]
+Should there be an explicit items constraint (e.g., items: { maximum: 3 })
+added to enforce the 0-3 range for physical lane indexes?
+
+Without it, the array values fall back to the /schemas/media/video-interfac=
+es.yaml#
+default constraint, which allows physical lane values up to 8.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-iommu-map-=
-fix-v1-0-83405d37ba41@oss.qualcomm.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-x1e-csi2-p=
+hy-v15-0-f284131de1fa@linaro.org?part=3D1
