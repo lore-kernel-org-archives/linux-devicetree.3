@@ -1,125 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 443FC3D16EF
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 10:05:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0919F23909F;
+	Thu, 30 Jul 2026 10:06:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.154.119.183
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785405936; cv=none; b=oCdIXUS/jOnNPlvk5Fu0cPRBdreipx3n1m36Hk3BonMH/+NkX9ye6uKqtMoyroW7WinBS7EgcnsUH3agi+tCezT2+ZdefZQn/gTeNXTzH1c66D2jTl/qvDWAfOwkNXVhSUSrGwLzQf32nJJBPlEKzjdvIBzG8c5qPV82AnwAd/c=
+	t=1785406004; cv=none; b=DXX+LpJlrsAC1/7mEmklbXnixEZhQQVQIbtIPnbPAF5+6Sv+1FZB/UVAqrF3jWw5k4+I/0+UEGomYSnXt9KrodG9WADohzhuGHhDcrPxfnKJSuncVJcRwf3nQZ6gsa4vO7VT2pkEIODQXHWBjqHHmZb029ofiTCRJW4XNv40l9c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785405936; c=relaxed/simple;
-	bh=3860ngiMkGQ/P8mVkX92CwEwLrVukyOzZC2wblkwsn4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nhsQ2qfPEuUJJT8Zivyvnau1FjjtHo0ayJCXvleLLNpo1SnJCdmp8SB73b3P+Z7AVSLwuos0+lF/dhUk0/vohxSnN/bpXOXZgb7gYh7gtUiXnpOn2aVoFEzTaABgKVMdpwGraggKzn5C9W+0PjA82sdwcPRgj/57i/rU+wuaRzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iuDGAlh+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785406004; c=relaxed/simple;
+	bh=WZ/dfcecrshIlD15fO2HcleI/OFR9mxw1MkDyPYZowQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hvU47ZKYuHu8+sDxjF01CjvO/6yw+/fMbBGcRJaSZgDfVcZkA7HlJilntlQIRgLdW9AJ8hfwhVAPE5g/fZZTWGk4MFpHxOx6mQMRDWojh9Mpfyjt3+cHRSA7n9IumakR81rl+Kchr2i1uhGGy/h6G88JbeVL2PQFXM/yTwqlWOk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net; spf=pass smtp.mailfrom=aurel32.net; dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b=zA/UEhuy; arc=none smtp.client-ip=195.154.119.183
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iuDGAlh+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE4EA1F00A3A;
-	Thu, 30 Jul 2026 10:05:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785405935;
-	bh=Z/QsGkqDD0KDUSh1QTFAM1jVQWIap5royB5p0E3adY4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=iuDGAlh+/beE3cGfatpNcgYgJoXsv6hGSKs7oWroytbzmbYuCGXVC8ZBWxW4Eilpc
-	 /A/MinbpI5WqibwQ+lLvoM87cZ+4xcIXwiLVYYMJne0oBqOxznU4CsnocIicuEnZi/
-	 O7zTaJIt4+6SOT65pJ4sowGJg1SoD94SZF/O22QH23KbrAXatJkCeJ6gzMJd3Jbw1v
-	 nSWiziMnqKV4ZWikDJdfqdSgCPWK60aZWyz/LIn2FJmcyWAKmVYIosJD6hN1Hm0BNJ
-	 1Sore8QtPqG2q7+oTH0Lf8KhQLzMSh/gLZAzYj4Mz4ofyhqCB7LwEKoKbqUnPC9fii
-	 nGBeJ4xPddSNA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 24/24] clk: mediatek: Add MT8189 ufs clock support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260729-mt8189-clocks-system-base-v4-24-e356b813a64c@collabora.com>
-References: <20260729-mt8189-clocks-system-base-v4-0-e356b813a64c@collabora.com>
- <20260729-mt8189-clocks-system-base-v4-24-e356b813a64c@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 10:05:34 +0000
-Message-Id: <20260730100534.DE4EA1F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b="zA/UEhuy"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
+	; s=202004.hall; h=In-Reply-To:Content-Type:MIME-Version:References:
+	Message-ID:Subject:Cc:To:From:Date:Content-Transfer-Encoding:From:Reply-To:
+	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
+	bh=KcmLOWVvN/7d541vlBTEHuDWksSNPbRNgmm7FsDP6Ps=; b=zA/UEhuyC49HukyX/QWi6RfN0S
+	TiEntt5ce/y3OkGxjcq/Q80zmQ7qx4vUEkkrJLcnj+W/vfRZP0vlELl45svTiZTIMqucP0pE0EZnO
+	jdW75WxM7lB73avjKRRT99ToeTmhKVCntPGW85y0/hmqh+ArVW8Ot2aHaqDuXaPD9hrTqXirXAoo9
+	OpMiDeEbeWQSjieScvhEqBpgzF13ucW/5gxbQw5jrN/L211voBKa77fe/IET5qghBTXPmc6cQtDpR
+	4tIeoF6l+liA1vD5OjLRZ7oQLSMSZvyvTPJ31LHXbInqmUq8z+ANLYkvRDOR502163NPEjEIALxkR
+	a7KHi0nQ==;
+Received: from authenticated user
+	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <aurelien@aurel32.net>)
+	id 1wpNep-00000003zU5-0sJ4;
+	Thu, 30 Jul 2026 12:06:31 +0200
+Date: Thu, 30 Jul 2026 12:06:25 +0200
+From: Aurelien Jarno <aurelien@aurel32.net>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Yixun Lan <dlan@kernel.org>, Guodong Xu <guodong@riscstar.com>,
+	Yangyu Chen <cyy@cyyself.name>,
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
+	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>
+Subject: Re: [PATCH v2 3/4] dt-bindings: riscv: spacemit: add Milk-V Jupiter
+ M1 compatible
+Message-ID: <amsiIVakPFWGwcTM@aurel32.net>
+Mail-Followup-To: Krzysztof Kozlowski <krzk@kernel.org>,
+	linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Yixun Lan <dlan@kernel.org>, Guodong Xu <guodong@riscstar.com>,
+	Yangyu Chen <cyy@cyyself.name>,
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
+	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>
+References: <20260729160749.1621415-1-aurelien@aurel32.net>
+ <20260729160749.1621415-4-aurelien@aurel32.net>
+ <20260730-unnatural-spectacular-pelican-1c21db@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260730-unnatural-spectacular-pelican-1c21db@quoll>
+User-Agent: Mutt/2.2.13 (2024-03-09)
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On 2026-07-30 09:26, Krzysztof Kozlowski wrote:
+> On Wed, Jul 29, 2026 at 06:00:30PM +0200, Aurelien Jarno wrote:
+> > Add a compatible for the M1 version of the Milk-V Jupiter board, which
+> > use a CPU with a different packaging with improved cooling performance.
+> > It enables the CPU to run at up to 1.8 GHz instead of 1.6 GHz.
+> > 
+> > Note that the K1 vendor kernel doesn't provide any compatible entry for
+> > the boards, so use "milkv,jupiter-m1".
+> 
+> Looks like should be compatible with milkv,jupiter as well.
 
-Pre-existing issues:
-- [High] Missing `of_clk_del_provider()` in the error path of `__mtk_clk_si=
-mple_probe()` when reset controller registration fails, leading to a Use-Af=
-ter-Free.
---
+You are correct, I'll fix that in v3.
 
---- Patch [24]: [PATCH v4 24/24] clk: mediatek: Add MT8189 ufs clock suppor=
-t ---
-commit 73843c3d7b6ae3d2d34edc45116556bb9d3c1e8b
-Author: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Regards
+Aurelien
 
-clk: mediatek: Add MT8189 ufs clock support
-
-Add support for the MT8189 ufs clock controller, which provides clock
-gate control for Universal Flash Storage.
-
-> --- /dev/null
-> +++ b/drivers/clk/mediatek/clk-mt8189-ufs.c
-
-[ ... ]
-
-> +static const struct mtk_clk_desc ufscfg_ao_reg_mcd =3D {
-> +	.clks =3D ufscfg_ao_reg_clks,
-> +	.num_clks =3D ARRAY_SIZE(ufscfg_ao_reg_clks),
-> +	.rst_desc =3D &ufscfg_ao_rst_desc,
-> +};
-
-[ ... ]
-
-> +static struct platform_driver clk_mt8189_ufs_drv =3D {
-> +	.probe =3D mtk_clk_simple_probe,
-> +	.remove =3D mtk_clk_simple_remove,
-> +	.driver =3D {
-> +		.name =3D "clk-mt8189-ufs",
-> +		.of_match_table =3D of_match_clk_mt8189_ufs,
-> +	},
-> +};
-
-[Severity: High]
-This isn't a bug introduced by this patch, but since this new driver uses
-mtk_clk_simple_probe() and registers a reset controller (rst_desc), it
-exposes a pre-existing issue in the error handling path of
-__mtk_clk_simple_probe().
-
-If mtk_register_reset_controller_with_dev() fails, the code jumps to
-unregister_clks:
-
-drivers/clk/mediatek/clk-mtk.c:__mtk_clk_simple_probe() {
-    ...
-    if (mcd->rst_desc) {
-        r =3D mtk_register_reset_controller_with_dev(&pdev->dev,
-                                                   mcd->rst_desc);
-        if (r)
-            goto unregister_clks;
-    }
-    ...
-unregister_clks:
-    ...
-free_data:
-    mtk_free_clk_data(clk_data);
-}
-
-Does this cleanup path leave a dangling pointer in the OF clock provider li=
-st?
-
-It appears to free clk_data but fails to call of_clk_del_provider() to remo=
-ve
-the successfully registered clock provider.
-
-If another driver attempts to look up a clock via the device tree after
-probe failure, could of_clk_hw_onecell_get() dereference the freed clk_data
-and cause a use-after-free?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729-mt8189-clo=
-cks-system-base-v4-0-e356b813a64c@collabora.com?part=3D24
+-- 
+Aurelien Jarno                          GPG: 4096R/1DDD8C9B
+aurelien@aurel32.net                     http://aurel32.net
