@@ -1,79 +1,166 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52D2E33D4E2;
-	Thu, 30 Jul 2026 14:33:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04B90441600
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 14:33:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785422006; cv=none; b=W5d33PhW31HeECKgm1kInEAiPzOiBhD8jX6dnZSEnzAzYtpjfGCsJo7/ju4TzlMP53Deiy/nj49c7xsejZZwHde0aCqMZDN/gajStpDRk/fDwGOtYDp72tS04UfFI0DyKYlHiJDmgwflSEjJHp1Etx3xHuyoknqn1ir2XYa9U9U=
+	t=1785422008; cv=none; b=nh3IwPGb7xI7KGdW+kLA+J+OG77HoJVHggJ8W8gp094acX82kyrswAW4NBVx0Yh6dJha3c0Ad/fAuxXxUwTXkMa/3IAnXDGrc+t4NUggFmHEjPdDcwhF4PzFkrn+nadf94eDNhKcoigEhR/XIieRiH6j4g5URydRnCj1AcB6vgU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785422006; c=relaxed/simple;
-	bh=WFgaMd8gJZDQqTxhn4+WkvrlEtBIC9KAlLECNlyVwWQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YRZkTuAwsPSMj/uVdFRL4ji2BgcVqeJ77KpIlO7XT2fbjOXvk4Gb8IcaB5gEO8QOo3SjGYXtJyQ2WOc/HwF0yVsrN+vv4WQOf2oPKMXtttzF2za1iFRavgEiDvLE/JageBFVfUXLpmU2TOSZSzcjSuCTCYzBQ5JoJgd3MxoF21E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=z9Oc/gM0; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1785422008; c=relaxed/simple;
+	bh=53dUPOGtMTdKmDexw5aAa5qqfcFZRfWYTJMbXsvu+mQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=kbDWIX3y9CTF2nES0Hu7bqJ3VtglHrLbWDIz+GpGF4qIpQy1bytopSl1lM74elQozO15W07Ie8ycV06scG4RapiwGIBxyVuiEDjo/YYCsuqAICJZZ6q6/MVyQ7X3vKs2HioU9sHOHPctr0ZWhzyy1Xycy1I/KvlC0cmD44emVAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ChklVWRH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="z9Oc/gM0"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 691764E41005;
-	Thu, 30 Jul 2026 14:33:20 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3C02B602B8;
-	Thu, 30 Jul 2026 14:33:20 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3C59E11C15D06;
-	Thu, 30 Jul 2026 16:33:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1785421998; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=mfA+QB9rWd3etPgxphn/JIAS9tjAN+8oo8iyiuZepxw=;
-	b=z9Oc/gM0gxr7ET4b9zJ9I5+4u06/ium0hAYYxNZOycRvAiobjn0Bc1jlsg6UGemiyy1gvx
-	+VHgcnA0+9BTG4vZgHE47u3WkXXnsP+vwoyp+IVJ0xTCgb/P9sn5npjIRheLgiZcR1/fb0
-	6L+BCFjQo4gvI+MZ5nwjdKoo9eR3lv9lUvsatG6388lJpxjo6LEHFKNCmU3cheWf4W9VmA
-	xmALTUiGn2ttWIx6JaZ4vbHX39GV4ilf+R68H93iG/EhFC25s2xTHlCvlggh2U6JRZ7Xdg
-	R0nMdKpr3NgWv+6GAFRB+ZAQZEwb7Pm/VwiaTR7NSjVXNk3Ste4jJULr1DYsLw==
-Date: Thu, 30 Jul 2026 16:33:15 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Frank.Li@nxp.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, Shubham Patil <shubhamsanjay.patil@amd.com>
-Cc: linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, michal.simek@amd.com,
-	radhey.shyam.pandey@amd.com
-Subject: Re: [PATCH v2 0/2] i3c: dw: Document optional core reset and drop
- redundant name
-Message-ID: <178542198409.1790758.601925059498244846.b4-ty@b4>
-References: <20260720073510.1869623-1-shubhamsanjay.patil@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ChklVWRH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 368671F000E9;
+	Thu, 30 Jul 2026 14:33:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785422006;
+	bh=jDGqA9OLIzwP/f6D/7b6USQ0/qeaV30b9h4d0Wxh8N0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ChklVWRHIVvAl+fMRxnmcnvPQ0TWZqkx29afSnNgJgD0c5WieZ1PFwBZAGHbrgzrN
+	 IkyD8r66xQhaL5+GXlwvjuIa+kHQ6lQQl4JH/DLvfESh/HoXhoB7b96j1ENRabrXtv
+	 3zVedvoTvBu7rirq+F6iIvPfbzrIJBUnhOUHawJikIJucL7fhKThHA7zBZIs97gKpp
+	 RbMtyNggLKz9w6fFC/ToiaZr1E8VGt0Vo4AJu2p1Q+RQQpPXXG5CJMHTz6iYUrfw9X
+	 O0ivppxz022oyiggvJbJoAh6PNhvL10EoxR8GLV1cmMyNCDKHUA5xQ0hGNOQcvkbWD
+	 skWmBM1fcFdKg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/5] dt-bindings: phy: qcom,qmp-usb3-dp: Extend X1E
+ description for USB4
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Konrad Dybcio" <konradybcio@kernel.org>
+Cc: olteanv@gmail.com, vkoul@kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20260730-topic-usb4phy-v3-1-ccf0f7ea98b5@oss.qualcomm.com>
+References: <20260730-topic-usb4phy-v3-0-ccf0f7ea98b5@oss.qualcomm.com>
+ <20260730-topic-usb4phy-v3-1-ccf0f7ea98b5@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 30 Jul 2026 14:33:25 +0000
+Message-Id: <20260730143326.368671F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260720073510.1869623-1-shubhamsanjay.patil@amd.com>
-X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, 20 Jul 2026 13:05:08 +0530, Shubham Patil wrote:
-> This series documents the optional core reset for the Synopsys
-> DesignWare I3C master and updates the driver to match the binding.
-> The DesignWare I3C master IP has a single core reset input. The
-> binding never documented this reset, and the driver looked it up by
-> the "core_rst" name even though a name is redundant for a single
-> reset line.
-> 
-> [...]
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The `clock-names` definition for `qcom,x1e80100-qmp-usb3-dp-phy` i=
+mplicitly makes the 5th clock mandatory, breaking validation for existing d=
+evice trees.
+- [Medium] The `p2rr2p_pipe` clock is artificially restricted to the X1E So=
+C, preventing other USB4-capable SoCs in the same binding from modeling the=
+ir hardware correctly.
+--
 
-Applied, thanks!
+--- Patch [1]: [PATCH v3 1/5] dt-bindings: phy: qcom,qmp-usb3-dp: Extend X1=
+E description for USB4 ---
+commit 86283e120a292e73e741d8fc0d233382e691770a
+Author: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-[1/2] dt-bindings: i3c: dw: Document missing optional core reset
-      https://git.kernel.org/i3c/c/904473e58db7
-[2/2] i3c: master: dw: Drop redundant core reset name
-      https://git.kernel.org/i3c/c/283e91b86613
+dt-bindings: phy: qcom,qmp-usb3-dp: Extend X1E description for USB4
 
-Best regards,
+This commit extends the X1E USB3/DP PHY bindings to support USB4 mode by
+allowing an additional clock (P2RR2P). It adds conditionals to handle the
+differences in clock requirements between earlier generations and X1E.
 
--- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+> diff --git a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb4=
+3dp-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb4=
+3dp-phy.yaml
+> index 4eff92343ce4f..18930eb96bdfe 100644
+> --- a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy=
+.yaml
+> +++ b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy=
+.yaml
+
+[ ... ]
+
+> @@ -187,21 +182,59 @@ allOf:
+>    - if:
+>        properties:
+>          compatible:
+> -          enum:
+> -            - qcom,sc7180-qmp-usb3-dp-phy
+> -            - qcom,sdm845-qmp-usb3-dp-phy
+> +          contains:
+> +            enum:
+> +              - qcom,x1e80100-qmp-usb3-dp-phy
+>      then:
+>        properties:
+>          clocks:
+>            maxItems: 5
+>          clock-names:
+> +          items:
+> +            - const: aux
+> +            - const: ref
+> +            - const: com_aux
+> +            - const: usb3_pipe
+> +            - const: p2rr2p_pipe
+
+[Severity: High]
+Will this break device tree validation for existing x1e80100 device trees
+that only provide 4 clocks? Since minItems is not explicitly set in this
+local subschema, dt-schema will automatically set minItems to 5 to match
+the length of the items array. Should minItems: 4 be added to this block to
+preserve backward compatibility?
+
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - qcom,sc7180-qmp-usb3-dp-phy
+> +              - qcom,sdm845-qmp-usb3-dp-phy
+> +    then:
+> +      properties:
+> +        clocks:
+>            maxItems: 5
+> -    else:
+> +        clock-names:
+> +          items:
+> +            - const: aux
+> +            - const: ref
+> +            - const: com_aux
+> +            - const: usb3_pipe
+> +            - const: cfg_ahb
+> +
+> +  - if:
+> +      not:
+> +        properties:
+> +          compatible:
+> +            contains:
+> +              enum:
+> +                - qcom,x1e80100-qmp-usb3-dp-phy
+> +                - qcom,sc7180-qmp-usb3-dp-phy
+> +                - qcom,sdm845-qmp-usb3-dp-phy
+
+[Severity: Medium]
+Does this artificial restriction to maxItems: 4 for all other compatibles
+prevent other USB4-capable SoCs (like sc8280xp) from correctly modeling
+their hardware?
+
+If they share the same USB43DP hardware capabilities and available clock
+lines, they will fail validation if a developer attempts to add the
+p2rr2p_pipe clock to them in the future.
+
+Could this be structured to allow the 5th clock on other identical hardware
+variants?
+
+> +    then:
+>        properties:
+>          clocks:
+>            maxItems: 4
+>          clock-names:
+> -          maxItems: 4
+> +          items:
+> +            - const: aux
+> +            - const: ref
+> +            - const: com_aux
+> +            - const: usb3_pipe
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-topic-usb4=
+phy-v3-0-ccf0f7ea98b5@oss.qualcomm.com?part=3D1
