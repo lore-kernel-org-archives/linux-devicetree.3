@@ -1,177 +1,282 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012032.outbound.protection.outlook.com [40.93.195.32])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 453162EC090;
-	Thu, 30 Jul 2026 09:17:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.32
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785403060; cv=fail; b=nW/Ik5lPX9fowLTJGBFRTXsqWV7Pn7fppmSmuxEqQ6KXBu5GjjX+rtg4XAn41r6jjKCPBRBtOLtp0Xm7T/B6P1m5Jn9o01qN51XUKSNGdJoE87J969+UErX16QyaxXsF+xoq1WmbpecZltcPMTp3bLWK/dI1SLIvYaCv0dn+SAU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785403060; c=relaxed/simple;
-	bh=YFMzn4sICdJN5pO7pAl5RgFTiXhtreGgFkLHx/9Lqzo=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=ppAicGYHLdeXxn6zXlGseWHqQqbg4RUufcxT/5sXoxmHrp/4bwZ5rMgd1S+yZ7x6K4Dhxn0EnY5CmsDO0TjsJfY5+GNjdEqTKqykWWwHJKitdne4SGqLRPn1RrCZ/1Ki0qxJTp4AhWMPcQ0mfXMX41HTEos0EHRNfPJEt2phszw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=D/ulws+V; arc=fail smtp.client-ip=40.93.195.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A25F03EF670
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 09:18:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785403100; cv=none; b=pp5mWMpWcq74Wg0jtQOaqZjI+PVhITSqi2z2pfl7sd+KjKYhyVoEGq6FEiPyOSZWLHZ8vgKvAxPfGQhccBSHGhqbPerlteeEP0UAhbkJ1i0jYFtE3JWCcIF31+oAbTWcT1xiONWqMjz0Ffqna3tavM/X9syHopxsD/EfOdaXFb8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785403100; c=relaxed/simple;
+	bh=J3fl//mqSV8IcvXoBQv5UDQvckPuvtYXyIMtKx+eDVY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Nzuecrm9fGEzXTM9ZE/6Kwh0eHEeeSAye35ZP1YeSXm19OYUbokxzXlVrlQR5Lo6nhFj7+/cUw4WOxaMzFrz617YwVu5ZiyrQ+WFkP4TO2PYNTWZ5nvzlfJGXzlbb9JuHCgSdB0o9HsJAsoiCLSZCBDW6mWe9SBiyFbuH1IH0tg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LCM0Lqgo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UUCNd2QM; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="D/ulws+V"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vikEiYrSQYb0vj1wVt91EJjXJ3tidsQWQGNKW7bcK2GLqi9llLVUu0+wZyStiDnsqcFL6LpJnRG8wPCf/SRBUt7vJ/uBe8nmV+I4gRJ4HFkzFdhlZgYwS1q+FoJZAwkHLimJ1LaEXow5wS/hcIUxzMuvjuX+tbc7uM8FT0pZ+vzT6pLtrBpCydWsTkQu+U3uUIEpRRmfr3LMacL9lYMitZb7pRpabCBqIJON98qVagVV9tBGGMgWsF+AWkxi+WxOCKzB37Kib+OmVgixyrgTMuJzKQDrfadv52ZGsVBiICqDc5W8uOjzHQfefvtrm8RtKe/uCiw7C1PXrwGheTl5DQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PS9TT5FbzMduAr9H/GAcmvpajEkEy7sx5OzeFSHA/lw=;
- b=xqc+lkFAnpG0PbBYi31akjcqq9Gf47/Vfz39pUsdwjk7cAT+VSe5SHHPj2iUGom6jxFu+deCdw+2GtUczDzZ2+t/zmjQ369X5cgUGWvSK2cMSLMYVOYzFqMA9EHAaBBkKywmWBZc2pUsS4v9qmaRUPTwmqEmxW/47u4Wm0xfJTZhlcfC7T7WA+f8hWT+MI5TQzgyZ1nLxrdpv8fOL3s47usqIaJH9/g40jFTwjHlYJtNna/rU4i1zT69pgSoiaRVBmxnFLO0YmQKRjudqQhSdba20ScdqCUXXz35PxqmsGLALQJ6zA4e5VKJgdZSPS1vUxSkVEDnUDpEvhYPjs/t7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PS9TT5FbzMduAr9H/GAcmvpajEkEy7sx5OzeFSHA/lw=;
- b=D/ulws+VgDdfXnH9VelAPIu2B6y9I86kISMDDDprC2T/eveR2iXPxhiD4gYWUmfThwW9fkeMf/jHRIujcauAVIbDY6pCGxh6nceYlf9DKHKPtMuToxS9KdaF4yvZC46g4nESISpCAMU14uHhwg/NZcMjjUow3z3Gr802o+/8OznDb8CdnFK0Y5PLFTSpKb704Cd7InYDN6Bv6AWnxyBDLmAhH+s7NCbmuyWN2uJxw1tkA5aMqTEiCzfnQ6OkgFDJvDQF2hRoUYsHdu5s2viCpzWZzCixiMTfvaVuLiNmK+cbzQQ6Oy0ujxxbHjHfsXVm91leBVjnRNyPYN/tpJiPEA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM4PR12MB6063.namprd12.prod.outlook.com (2603:10b6:8:b1::19) by
- CH3PR12MB9249.namprd12.prod.outlook.com (2603:10b6:610:1bc::7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.270.15; Thu, 30 Jul 2026 09:17:34 +0000
-Received: from DM4PR12MB6063.namprd12.prod.outlook.com
- ([fe80::c06b:5df:6a68:1b06]) by DM4PR12MB6063.namprd12.prod.outlook.com
- ([fe80::c06b:5df:6a68:1b06%3]) with mapi id 15.21.0270.012; Thu, 30 Jul 2026
- 09:17:34 +0000
-Message-ID: <d981adbf-5667-40b7-8652-02f4acef2d29@nvidia.com>
-Date: Thu, 30 Jul 2026 10:17:29 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RESEND V2 1/2] dt-bindings: pinctrl: tegra264: fix DAP2 DIN/DOUT
- pin names
-To: Prathamesh Shete <pshete@nvidia.com>, linusw@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, thierry.reding@kernel.org
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260727141121.772110-1-pshete@nvidia.com>
-Content-Language: en-US
-From: Jon Hunter <jonathanh@nvidia.com>
-In-Reply-To: <20260727141121.772110-1-pshete@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MI0P293CA0014.ITAP293.PROD.OUTLOOK.COM
- (2603:10a6:290:44::14) To DM4PR12MB6063.namprd12.prod.outlook.com
- (2603:10b6:8:b1::19)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LCM0Lqgo";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UUCNd2QM"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66U9HNYL834524
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 09:18:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=m7D6CIAxG2VxuD/7lWVUh+sF
+	Bcex9ieNa67C58ZvSVk=; b=LCM0Lqgo/VO/dh0bjt9RRFxsJInm3cQkhuUvlf8/
+	i9NuLZu5lWLbCn9MCvhBsjqdZ+rK6aovyJFylIEYvT/j9pZ9kqNa7ofq44P/XTH2
+	+9nu6bwd/3gFENAC9IGtt3ejxJCd3Iv+sktjlw3YVEwzqtOBQcuBzV+Dj3rWLxvd
+	FgNH7B6W/uM4Hd6tS7St7sGK+Jijw4L3RVhbVBl7SYMOIKXrzB+EgOfvGX0HtxPH
+	lSVCdHg4C0gxMIo5lC+aA06HYQjV2Y6rfuLgEWAinvJFCev/UQeFIwDG0FxMe6a+
+	nJsQ+xguY6LLwYQ0VTjN6Rmv26rwladL0LwW4+5pVhxiSw==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fr3uqr04e-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 09:18:17 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cfa4e4684bso50034075ad.2
+        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 02:18:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785403097; x=1786007897; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=m7D6CIAxG2VxuD/7lWVUh+sFBcex9ieNa67C58ZvSVk=;
+        b=UUCNd2QMFrBt/+rFNvOK9JKDzJrde0RfCnlUa/S+cDRxQBUSC0zaMlUQg6t9vVPEfr
+         VZ/BX46cCsfIWWtNFktnZA6S2kw8d1tze0Mt/d6JOtQqBamHHB7ID+hzcNEzImGZEbQp
+         Qi/6ppumfmWtNTqvIGZU+ZVP977HWRijA/tiAUmp8l6ABCR3QBIrjcqNBF4z0lhEk9sM
+         OFzqrgvTnstFRYO94CMmqeu5F7h8KfyktWwSNEhcITCrV3uLx0fCY29kCCE+hUvoDoyy
+         s4AJ1s1WYQjoFG0KCOPx5TrzDI9CiEsa/OQ+BhvvyxikDZgChMR7ef/KAdq5gAdl9WD3
+         eM6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785403097; x=1786007897;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=m7D6CIAxG2VxuD/7lWVUh+sFBcex9ieNa67C58ZvSVk=;
+        b=HLFmquIOrqBn7VL+IHE5sBPVe5S/2m3EN7ZJD16pZIor7VqzCz3scw/SSTA7Ia1muW
+         8rTmSGMC/LYyOcbSSnOd9t4xc47L0NA+P5QrW0bdIUAq9r+TbtHGFMe8GlZgKeQb1tJm
+         rl2c8Ej5bMbGL9HGzbIMWdReQh9Wzf2lgBWBg6uSsg9Ks0+BHRyMV2ewLjW/9ngb3TR9
+         EbzSUSW5Vbzb8rgKBLnjB5EspLmygTpgBFP5i7yT/Zb59SYwtg8ryXECl4O/fiuHidW2
+         M2QAnO/ZC8qed/WhsDGCilJD2azdrC2Thv65si2OVZ2sNCLMCmd6bcjQzPdjRwvghrvG
+         fhKQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpSIONhciroB5qujFNei5RHBkLsPPUbR1Sr45Jlq97a+kqSTgGhZYHsO7BxhjGt2ULwN9EBoMFZpP+L@vger.kernel.org
+X-Gm-Message-State: AOJu0YwapQv4fYJQKFuJS7r5Hhi4l8UUZKWRVBUdmDYV6YdWPoAzhK5l
+	m3TYWnRhvCvaK+Gb6wwEciCqJFeuyFl+Qmpkb5VK5YR9HnIn3BJY3ujOmJ2Ib3wbXO/4NpDFVMT
+	8HJDi6xMnZzLnrDcI9nL22Nt6FWQSpspafQTniODCz5DXHmfij/Xyg/Dv2su/hii8
+X-Gm-Gg: AR+sD117RZv4bGAkcr26L9dmqrkd4Huta8O6YRdlXXBZnKhV2C7uFXw0yPax2sVJ3j1
+	KL7nGh8q/dRpyoomjn4IfW/bInhD3/7hyqEpAkI3oZz0F+4I3ZiDYlOrItTUm8TAOx8qgMClofB
+	iIbuwu4r+aEHETTh9ze1dskzX/1ZLBSvSbZLrL/N4epufST4+jwEreb7ipwHNeCM6HXqj1O2QwL
+	q1/X+eQd+qAtrVbo/udkxW6QkHDhQxwY4KWoGywXs+eWBJ/XdcocmXT+M7aI+mGZMuB/f1Lsaqt
+	aOZyBUQ3ZIOO2KtpTHlPkh3sLFwt0Ho2WWvWZTR+bnDY3UwUxa15WcKfFau5ENJkMF6NV2qU7kF
+	tNLpPivUU83w+EBG93otI3Oi4jtW0PWqO+ZGqZ6a0N69I4RQ=
+X-Received: by 2002:a17:902:ecc5:b0:2cf:ca89:4990 with SMTP id d9443c01a7336-2d035be854cmr19138235ad.17.1785403096658;
+        Thu, 30 Jul 2026 02:18:16 -0700 (PDT)
+X-Received: by 2002:a17:902:ecc5:b0:2cf:ca89:4990 with SMTP id d9443c01a7336-2d035be854cmr19137645ad.17.1785403095691;
+        Thu, 30 Jul 2026 02:18:15 -0700 (PDT)
+Received: from hu-qianyu-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d022bc6d70sm23702795ad.39.2026.07.30.02.18.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 30 Jul 2026 02:18:15 -0700 (PDT)
+Date: Thu, 30 Jul 2026 02:18:12 -0700
+From: Qiang Yu <qiang.yu@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+        Philipp Zabel <p.zabel@pengutronix.de>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Manivannan Sadhasivam <mani@kernel.org>
+Subject: Re: [PATCH v7 2/6] phy: qcom: qmp-pcie: Add QMP PCIe Multi-PHY driver
+Message-ID: <amsW1Efw7vXDqLrw@hu-qianyu-lv.qualcomm.com>
+References: <20260724-glymur_linkmode_0724-v7-0-65c8469c6b65@oss.qualcomm.com>
+ <20260724-glymur_linkmode_0724-v7-2-65c8469c6b65@oss.qualcomm.com>
+ <3b0166c0-e1e7-4746-bcb9-ef78b9a86c8c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6063:EE_|CH3PR12MB9249:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8ebe6966-7b81-4ec9-1d76-08deee1b63c1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|18002099003|22082099003|10067099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	mH2qvpcbJDqXA07RP3ipKcM9YKJ2zlXAAMpRpBR5SGSeJ6l98me5DaIq/spSvZW7lTFUZk5EFpXvtKXQM768+TJB5h4YFgkIWvujlzwmlUtNFOzJzsN/pooALmxXB/n/GQw3AbUtXVsjmNb2TGPEBGSR4qZ9tHlrXaO6xbRAcEzs8kzNVLVqA3RFzRtOCOpy5s3dCZCFvCeIsowIyRss7CUgcg/eFm5KAZ9F3chSlVx7tDmKSUQkUk9wmeflZM43Fi5pGr4CrNykNxdZvPYlkHd4ehUvIX5DeEUyupNgL1FVuKPhETLG+p0eW+j6pJOW1HSRILaFxSzpaHI/Ph4PUhezE5JBOiKWLRl9+oT60vfh/6Td68KCgJYDhmOYq8rRrggG/A3wOPF23SQT8nxuYpynOefHFnic6iKhjKza5e1cndQWKMPSXbf2NcxTiqnZl3Q34Iv6TFRuilC//fYNAXVGnoP/h6XxELV5nMBJARb2BXwlPvFXJdi0chucqaxX7jZWYoiEweB6ZepnSLzCVeh2GnH+51fSeaHxOdBKUPNc0ikdV0n1WK7CCv614lnGne5dkmYu3HDprtb4Wsa66W+Qd4ETi9MUjF/svcwKEb3qSigXwiUI+/u6zS7380aV4xuF+WeWJ0aNU9ImxIkru2KsD1bruF43q6DuddnZUI8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6063.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(18002099003)(22082099003)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VGs1aTZuVmZ0NTArdWF3TmlqYk9BK1NjZEV1WmZSNm1mSDRnY0xKdGhId2lX?=
- =?utf-8?B?d2NzY2s3VHhPVncwSzNTVU5oUGtsZU9CNWVmZmFLRkZEZWlTMWdEUkpORXp2?=
- =?utf-8?B?ZVdvZjRwa2wrMUVaSituOFhncHpIS1ZGRlRvQ1ZnamNxWDdLcFVva1Y2bk9R?=
- =?utf-8?B?L1hVY3NyM2MyVm5SeGJtN0d4U3BoSjgyTndvUk5hY1lOK0pQckVsbzMvWkJS?=
- =?utf-8?B?TlBEWlNwNDVjb1FaVHFiUEhqZGNnYytZYWN6WHJsbExWTTFoN0xGNWpjdURI?=
- =?utf-8?B?Y3cwQnhwTnBqR0hXVjVWSHNtV0RNNUVUVk9GMGgrZ2tQbE92dTBTSFJiRWp3?=
- =?utf-8?B?R24wMmtlaGphaERsZkZ5NGJtKzVqUHBmVXdPcUxjeWErZFJFcWdoWXI3aDZM?=
- =?utf-8?B?bGJ6dmFKT3Fsb2NZVmwxRCtSTGFoMUFDNkxRTkErZ2pFcGF0WGZjYXlNTEsr?=
- =?utf-8?B?UTQ0YnpXOERMQzdDOGZHd0pxNGxNREh0cjcvZVVMUEhVK3Q3ZGwyNDJ4SUF3?=
- =?utf-8?B?STYza1ZWV2NScEx4YkRtQjFCQk41V1RtMlR1blZBMTdLLzlmUG84RTdCNkht?=
- =?utf-8?B?QTVRZGlyelgxbGhuQ1dPeEhpSnU1R2FvVTlBMFIyTWxWOW01OCtWMExlUFUx?=
- =?utf-8?B?OWxwTTgxUHV5TFlqVW9mUm9qUFgyMmlYYjBZekswU21PNUs1OFRwTXFxTVY4?=
- =?utf-8?B?eXVzbEEzZ0wzSk41eklYTlBESFkzc2RtZXdSVndlM3VNYlNLdnhkdVBieE1y?=
- =?utf-8?B?dUUxVGo2MEtHeC90RUdrZjNsNnJlTURkRS80SnhtN3FvQjJ6NGZkc0NtRzhi?=
- =?utf-8?B?RTlmWFlMSTBUekhNVUV5Z1NBNDUrSzRpMWk3MFhQMk5EVkZ1a28zN2pOSVcv?=
- =?utf-8?B?Y2k1dEdMYW9FeDFObC9zVVhVN1ZpaDdUNkVUZGtsc0RpbThmSmtRVEMzZ3Jl?=
- =?utf-8?B?bEdvQUVhVyszQjArM1FpbExwTzVSSFVCOU9MaUE5aVc1MmtZcUlwWEdCV05a?=
- =?utf-8?B?cnNSQ0s5OElpK25GMEx3cncyVGVDYWFvK0ZoVERHeThQNldZVm9PMjJKUnls?=
- =?utf-8?B?VVRqY0pkeENscVRlVGNzcGRlV1JMQzMyb2I4WFVUZHNtY3R2cUlkOW1VM2tu?=
- =?utf-8?B?K1BCV2k2UUkrc0dnWDZFZERudFkrVVNvZ0I1MHpybk1NbThwWGJsOFBVckdV?=
- =?utf-8?B?Z1UreDZXRFRPcWxBVDllanp2d1d5VXBia1o5elg0TGluakV3bUpPWGoyd0F0?=
- =?utf-8?B?ZDdGUzZmT29jWTZQVFZ4U3UwK3VnMFE2K1oxdFM4akRKRnRlL09FTWZkL2Ri?=
- =?utf-8?B?ZHE3QlVqY2xtZ2FybHkyYm1iUEpMRFh3MGFWZHZtWmlYa0VUWnZJSkFsQ25x?=
- =?utf-8?B?SnZsSitnOTVIamxQKzJOWEJXeGxZdWFhK0hTU1ZHSWxKWTNPa3JQTkY5c1Fy?=
- =?utf-8?B?c3NaSTZscnJwME5UcEp2cU85TTdyM3dWbndKdXo5cDNucU5nSXk4b053cmI5?=
- =?utf-8?B?djBJRDB1Q2pLMHV2NlJyTDYrTmV6bmtDUEVXYkdUYlhEWjVtUXlzUTZRZGJY?=
- =?utf-8?B?TXkwdjl4QlJTRHNoV2NyNGt0bXlTWG5tYVJKSDIwcFZrSnB4WUtkdFY5T04v?=
- =?utf-8?B?NTVUUW9SN0FGY0ZJQVcvbHNMTFVoYTJES3ZUMlp4eDNEYnN0ME9pOXB1a1d6?=
- =?utf-8?B?UU9Zb1pEZUV4REFCUGZ2cXA1K1hVb0N6M200cENXN2l6eEF4dmd0ZHRJR0Fu?=
- =?utf-8?B?cHNsRWpKL1NXaGl1Z3RtZXYvOTBYVWNOakdVMStybFhmT29yY3FJSnBnNnZk?=
- =?utf-8?B?YmdRSFRUNC9KYmRHUTZ0NkcramtqdXpDdnZHbW9DVUhsVlhRUEZFaDJZZE84?=
- =?utf-8?B?OGd6RFJMeERZclNlTmdKK1BNa3FKS1RGcmJxMHlGb202cDlEYk1nN0c2eG9Z?=
- =?utf-8?B?Y0pBZWtmb0N0dCtJY1RkMGlVU3hUMHpST3lmd3NqenZYdVVHdndkbVVvdjRM?=
- =?utf-8?B?dHZ4ZUpWSUVYQldCOHhaOFQ3eFVUOEhRK2NwMDB4Mi9icEZKSjdiUUh0VWhQ?=
- =?utf-8?B?WCsyeXF1K0NhL0RzMkw0QnRVWDF0NGVqZUpQNEZ3TFBycnNtV1pGVEtTVXNO?=
- =?utf-8?B?WXF0MFhTUlVjRk8zMzFFM3JPaU5iNVBOZHJVTHE5QU5vUTZ1VkdpMUVadEla?=
- =?utf-8?B?bk5VdXFDQlZRcWJtS09TYVZYc2NxbFZTTjRESWlTc1p6TmlYZUpUTXRNOW5p?=
- =?utf-8?B?UEw5Q3h1TEFqdHBibFFnMFQwNHYwb0RHRHc3ZVM3ZkMxNG4xUFBUTmlhSm4r?=
- =?utf-8?B?di8yeDk3SXcwRVBtaWJXKzUwY0hYdTM3U0xyaXVqVnNGYldiaGp6UT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8ebe6966-7b81-4ec9-1d76-08deee1b63c1
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6063.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2026 09:17:34.0889
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5RMIAWeR+NOv2q4TOYjNlspB6hbblpXwfoJKfCpe6hupwIYTCrTez3NjEPEnuu2OxVyTF4Vq4TPXAayhivAz6Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9249
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3b0166c0-e1e7-4746-bcb9-ef78b9a86c8c@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDA2OCBTYWx0ZWRfX8bJP5A6Dywe+
+ 0nL3oODalGFjOTjJfgGu8JhOc4oDfYmPIhdNEg2fiK5HsTeFqXE/wNUsFVbUzMhXW/Pn39jtNgM
+ L5wtvNn2XqArGgzRYF1khA4ZM1oOcrQ=
+X-Proofpoint-GUID: eeZHA1S6HzbPcXyThG5CvfVArzmY_2lQ
+X-Authority-Analysis: v=2.4 cv=Do9mPm/+ c=1 sm=1 tr=0 ts=6a6b16d9 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=B5iJy24gySRdRLL-o9UA:9 a=CjuIK1q_8ugA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-ORIG-GUID: eeZHA1S6HzbPcXyThG5CvfVArzmY_2lQ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDA2OCBTYWx0ZWRfXyRIZwFctuMdp
+ zyNhvQjgMdagU9NNBoFNGMTQdzpfvsbhjKlGo5B2Dge4rkoqH/prMD6j4NrEWhBvfm32nQaOdfZ
+ 3jDbULhUmssIYwwrGH3rZ4qMPlzHktMWSzgdtMARgP75qJNrJkoQWPDOFZbp9MFLRzkJ+Uwptxs
+ NIvGSHSk0Hw+FOxADyzijqo89Iu8l2+s8wCmCAoJSQmY0u8MNZSzwbJmc5LKZ6CEvXcS21isdvZ
+ LQ/zahDLKjoFyS0RbnRKuzfzGMcOncGyIucw/aS2XxIBwCTxg9ZSRFYY65qLWLy8nu1etPZNSz1
+ jrXIAlzPLdjqMusiET1XU8bTsRaDfVAEMCb3/NPPUBry9am87zMrKDW24d6nhk/ABR2VOlqmlss
+ k/Vc5Usr1iZR05xnFEyxZajWm47ufBiQgxL6ww+g/cidxwBh2HMUI3VlzJJBClmLEtyDsBhZHpG
+ r+25z69BJoB7LyOFX+g==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-30_02,2026-07-29_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 adultscore=0 priorityscore=1501 bulkscore=0
+ suspectscore=0 lowpriorityscore=0 spamscore=0 clxscore=1015 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607300068
 
-
-On 27/07/2026 15:11, Prathamesh Shete wrote:
-> The DAP2_DIN and DAP2_DOUT pins were listed with swapped ball suffixes:
-> DAP2_DIN as PV7 and DAP2_DOUT as PW0. On silicon DAP2_DIN is on ball PW0
-> and DAP2_DOUT is on ball PV7. Correct the pin and drive group names to
-> dap2_din_pw0 and dap2_dout_pv7.
+On Mon, Jul 27, 2026 at 03:56:53PM +0200, Konrad Dybcio wrote:
+> On 7/24/26 12:01 PM, Qiang Yu wrote:
+> > Some QMP PCIe PHY hardware blocks support multiple link topologies (e.g.
+> > x8 or x4+x4) selected via a TCSR register. The existing single-instance
+> > QMP PCIe PHY driver has no way to model this: it assumes a single cfg per
+> > DT node and instantiates exactly one PHY.
+> > 
+> > Add a dedicated driver for this class of PHY. Match data carries a
+> > per-mode cfg table; qmp_pcie_multiphy_probe() reads the current link
+> > mode from the TCSR register pointed to by "qcom,link-mode", looks up the
+> > corresponding cfg array, and instantiates one qmp_pcie per sub-PHY
+> > required by that link mode, registering the clock and #phy-cells = <1> phy
+> > providers so consumers can address individual sub-PHYs by index.
+> > 
+> > The driver inherits the phy setting and link-mode programmed by firmware,
+> > so only the no_csr reset is used and no phy setting tables are provided.
+> > 
+> > Add the first match data and compatible, qcom,glymur-qmp-gen5x8-pcie-phy,
+> > for the Glymur Gen5 PCIe PHY that can bifurcate into two x4 links or
+> > operate as a single x8 link.
+> > 
+> > Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
+> > Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
+> > ---
 > 
-> Fixes: 30a9d5162f25 ("dt-bindings: pinctrl: Document Tegra264 pin controllers")
-> Signed-off-by: Prathamesh Shete <pshete@nvidia.com>
-> ---
->   .../bindings/pinctrl/nvidia,tegra264-pinmux-main.yaml       | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
+> This looks really good, couple of follow-up improvement suggestions
 > 
-> diff --git a/Documentation/devicetree/bindings/pinctrl/nvidia,tegra264-pinmux-main.yaml b/Documentation/devicetree/bindings/pinctrl/nvidia,tegra264-pinmux-main.yaml
-> index c40409d3263c..01db762e82bc 100644
-> --- a/Documentation/devicetree/bindings/pinctrl/nvidia,tegra264-pinmux-main.yaml
-> +++ b/Documentation/devicetree/bindings/pinctrl/nvidia,tegra264-pinmux-main.yaml
-> @@ -44,7 +44,7 @@ patternProperties:
->                       soc_gpio173_pu3, soc_gpio174_pu4, soc_gpio175_pu5,
->                       soc_gpio176_pu6, soc_gpio177_pu7, soc_gpio178_pv0,
->                       pwm10_pv1, uart4_tx_pv2, uart4_rx_pv3, uart4_rts_n_pv4,
-> -                    uart4_cts_n_pv5, dap2_clk_pv6, dap2_din_pv7, dap2_dout_pw0,
-> +                    uart4_cts_n_pv5, dap2_clk_pv6, dap2_din_pw0, dap2_dout_pv7,
->                       dap2_fs_pw1, gen1_i2c_scl_pw2, gen1_i2c_sda_pw3,
->                       gen0_i2c_scl_pw4, gen0_i2c_sda_pw5, pwr_i2c_scl_pw6,
->                       pwr_i2c_sda_pw7, soc_gpio138_pp0, soc_gpio139_pp1,
-> @@ -111,8 +111,8 @@ patternProperties:
->                       drive_soc_gpio351_ps1, drive_gen0_i2c_scl_pw4,
->                       drive_gen0_i2c_sda_pw5, drive_gen1_i2c_scl_pw2,
->                       drive_gen1_i2c_sda_pw3, drive_dap2_fs_pw1,
-> -                    drive_dap2_clk_pv6, drive_dap2_din_pv7,
-> -                    drive_dap2_dout_pw0, drive_pwm10_pv1,
-> +                    drive_dap2_clk_pv6, drive_dap2_din_pw0,
-> +                    drive_dap2_dout_pv7, drive_pwm10_pv1,
->                       drive_soc_gpio170_pu0, drive_soc_gpio171_pu1,
->                       drive_soc_gpio172_pu2, drive_soc_gpio173_pu3,
->                       drive_soc_gpio174_pu4, drive_soc_gpio175_pu5,
+> [...]
+> 
+> > +static const char * const glymur_pciephy_a_reg_l[] = {
+> > +	"port_a",
+> > +};
+> > +
+> > +static const char * const glymur_pciephy_b_reg_l[] = {
+> > +	"port_b",
+> > +};
+> > +
+> > +static const char * const glymur_pciephy_reg_l[] = {
+> > +	"port_a", "port_b",
+> > +};
+> 
+> I think we could construct these names at the call sites, with
+> essentially something like
+> 
+> for (i = 0; i < qmp->num_ports; i++) {
+> 	sprintf(buf, "port_%c\n", 'a' + i);
+> }
+> 
+> (is that too cheesy?)
+> 
+> [...]
+> 
+> > +err_power_off:
+> > +	while (--i >= 0)
+> > +		pm_runtime_put(qmp->pd_devs[i]);
+> 
+> This probably can stay non-sync
+> 
+> > +
+> > +	return ret;
+> > +}
+> > +
+> > +static void qmp_pcie_pd_power_off(struct qmp_pcie *qmp)
+> > +{
+> > +	const struct qmp_phy_cfg *cfg = qmp->cfg;
+> > +	int i;
+> > +
+> > +	for (i = cfg->num_pds - 1; i >= 0; i--)
+> > +		pm_runtime_put(qmp->pd_devs[i]);
+> 
+> This should probably be _sync() as phy init/exit may be called in
+> quick succession
 
-Reviewed-by: Jon Hunter <jonathanh@nvidia.com>
+I'd prefer to keep the async put here. The generic PHY core does the same
+in phy_power_off() (phy_pm_runtime_put() -> pm_runtime_put()), and the
+async behaviour is actually what helps the quick init/exit case: the
+idle/suspend request queued by pm_runtime_put() gets cancelled by the
+following pm_runtime_resume_and_get in rpm_resume() before the worker
+runs, so the power domain doesn't actually toggle. With _sync() the exit
+would drop the domain immediately and a closely following init would have
+to power it back up again.
 
-Thanks!
-Jon
-
--- 
-nvpublic
-
+- Qiang Yu
+> 
+> [...]
+> 
+> > +static int __phy_pipe_clk_register(struct device *dev, struct device_node *np,
+> > +				   int idx, struct clk_fixed_rate *fixed)
+> > +{
+> > +	struct clk_init_data init = { };
+> > +	int ret;
+> > +
+> > +	ret = of_property_read_string_index(np, "clock-output-names", idx,
+> > +					    &init.name);
+> > +	if (ret) {
+> > +		dev_err(dev, "%pOFn: No clock-output-names\n", np);
+> > +		return ret;
+> > +	}
+> > +
+> > +	init.ops = &clk_fixed_rate_ops;
+> > +
+> > +	if (!fixed->fixed_rate)
+> > +		fixed->fixed_rate = 125000000;
+> 
+> I think this always happens to be true in this driver
+> 
+> [...]
+> 
+> > +	num_pipe_outputs = of_property_count_strings(np, "clock-output-names");
+> > +	if (num_pipe_outputs < 0)
+> > +		num_pipe_outputs = 1;
+> 
+> This can't happen (clock-output-names is required via bindings)
+> 
+> [...]
+> 
+> > +static int qmp_pcie_read_link_mode(struct device *dev, unsigned int *link_mode)
+> > +{
+> > +	struct regmap *map;
+> > +	unsigned int args[1];
+> > +	int ret;
+> > +
+> > +	map = syscon_regmap_lookup_by_phandle_args(dev->of_node, "qcom,link-mode",
+> > +						   ARRAY_SIZE(args), args);
+> > +	if (IS_ERR(map))
+> > +		return PTR_ERR(map);
+> > +
+> > +	ret = regmap_read(map, args[0], link_mode);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	return 0;
+> 
+> ret = xxx()
+> if (ret)
+> 	return ret;
+> 
+> return 0;
+> 
+> can be collapsed to simply return regmap_read()
+> 
+> with or without all that,
+> 
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> 
+> Konrad
+> 
