@@ -1,292 +1,256 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B29C388E49;
-	Thu, 30 Jul 2026 18:02:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B81F93AAF65
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 18:02:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785434536; cv=none; b=qZvWziwQ1pkJ4nZBHXqKCunbePI9eYevBIzC95N6NrHUhOmgDiiKvs/X8ZgWf8qAfM/9c42d00fFq4Hhi4nl0wKpFYS1Fa15t91A0qu+4FpHQ/D+0D0LQMKcvRyFycXObBplzOUH3lKGqeyMzmyuQBWYMeKXYWKYgB3dcouhejA=
+	t=1785434554; cv=none; b=Ars9GQhEoqG84y4Xw/WVuEfUo7kRP2+3zZ4LZZp34XWGAjoLlJ/cCKvqANBKnTDxd98415T2wW+gtXI1FCnj3s4QGNXXShNf9Wsfq85TluxdJrXL8ZFSvacddRs+e4la4YEX7CEFNmLQFBzGnCBlNrjuCHPGDTVP1gwMyzsd8yk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785434536; c=relaxed/simple;
-	bh=Yj0QMHocc9aTaPcCvlBNYypGystoTrAhdkNiel0r9tE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OKWADVj7vSF0nWDSfhCXjBXF2iiRpTb6TJ9iLGDnqnDNauO+4OLixRVd11IChWq7vTRn0lmKz7LhPGyDpdFxsfE1gHnyr7KHhH8nXoB6+ja/F3fQnd0bVX4oDPQhAlFjWrvIarZDSX9K9Qbd6Xm1T5k+ZIoC7oiA7OHnwAh2+ig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ORWjC9i5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785434554; c=relaxed/simple;
+	bh=BJ/4rtxLJ3OUT8j1IeHIi1+42TYtIAWMAyf8v5atvH4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qAh1tTjOUkPTCMF2IWvXr/yAKRaVw/4Qi9M5QhFNX/g7LWwpivtcWs/ZPu6xX5fg4XgNQabnVjKE/5DWBH3FC3aNbqH5P1GodJLZVPSuuD5TRwbV9ufoKy6GOQ7ABaiCMILDu5qeYNAhRyzJ3SqoZY02LQblz/RSXIsoLHaQPr8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hPW+HIhA; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dKLmiJiw; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ORWjC9i5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A480E1F000E9;
-	Thu, 30 Jul 2026 18:02:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785434535;
-	bh=UJtAlxCLZK+CMU2qX4oKdPEiUKAw+wOclZpIGOAen1w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ORWjC9i583+tYjXwRuBspPO2aFbmCPzEp8lJRJkBo32w/nRcFpEmoxJGZlag2ITNS
-	 ZWDM19w6yRoXtJ12cjegYIWg5cYPE5gTuNqCzjgicUJkEXYwN/iGHHTMWgjjf0n8mu
-	 xvciCqq7pHvWYmjqmKfdVYvv0XR2i4XxIDp6NBym5squ5J4UvVHpMwm4nK+7wJm67u
-	 sffvCwdPV4BGwC8San5VB0FU9FzduGY/lMtB9w8zv0J/1/zlYaQ7YMzWwfRsgWSaj6
-	 bxzAe4pa7uYksHwPsMYQ1bAbsinRGqWiMducJ3ClbT6j98mQzcFCfJ1vrTem2sw2MO
-	 0rFyJ3c9esClw==
-Date: Thu, 30 Jul 2026 19:02:08 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>,
-	Janani Sunil <janani.sunil@analog.com>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Mark Brown <broonie@kernel.org>,
-	Marius Cristea <marius.cristea@microchip.com>,
-	Marcus Folkesson <marcus.folkesson@gmail.com>,
-	Kent Gustavsson <kent@minoris.se>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, Janani Sunil <jan.sun97@gmail.com>,
-	linux-spi@vger.kernel.org, Kent Gustavsson <nedo80@gmail.com>
-Subject: Re: [PATCH v7 2/7] dt-bindings: iio: adc: microchip,mcp3564: Add
- spi-device-addr
-Message-ID: <20260730-impaired-protector-b58ae56ae3f6@spud>
-References: <20260722-ad5529r-driver-v7-0-7781cd74ad75@analog.com>
- <20260722-ad5529r-driver-v7-2-7781cd74ad75@analog.com>
- <cb4098c1-4bad-4a11-9a6f-a833e554f197@baylibre.com>
- <20260725230739.63ff7000@jic23-huawei>
- <20260728-patronize-thwarting-56fab2e11077@spud>
- <20260728221719.7f668a73@jic23-huawei>
- <20260729-hundredth-suffice-f28afa67bc06@spud>
- <20260730000929.2ec20cf8@jic23-huawei>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hPW+HIhA";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dKLmiJiw"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66UGXVel1571690
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 18:02:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	FmpZDlvYo4bIIHmIKcULNpFvjwTYQhKuozzyEdxOXis=; b=hPW+HIhAFVnfK6kc
+	CvMOuB14DfgJNPj2spVU74+ZUZuo0QrBSTskJUVN1KMHMamhP/Pyq1fyCkdlh35/
+	g0cGMZzvMDTShb1KlpVPnW9Ys5PMgUWHoOY/R0Lv7XZtomPjwgcMJah6/k8gb8/a
+	KV+FOb4iJLb/bde7RIXB96PbIS2nCM4EmRzaAhJ779hpnFc3UzfPcZHigXmNmhE2
+	PV1J7JS9JPZUuf1OgU06wk788toSZToaVlcy3BMSjZCo9ZRITbktterZpBSOLdfj
+	RxRvNelnH7zkTXTU/+7sZpZ67xd/IOlWsjI2p8I0Dl0beOv/ZygRxPfLs9g1ZxTq
+	dWKNAQ==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fr891h7k9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 18:02:32 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-73760a7cd83so105983137.1
+        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 11:02:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785434551; x=1786039351; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FmpZDlvYo4bIIHmIKcULNpFvjwTYQhKuozzyEdxOXis=;
+        b=dKLmiJiwnJab6MkllE/qLIe7ZCabO2XJllk2fFhL2WASHuH0eP0Yvt6zUPai+/C+Yu
+         gMBx6WaXDGEMYVgD7Mow65Ix8nNtSfZQ7v0/U1oqni7mVZPIE9GQybLj/O2QxJ5gvfNy
+         t+ZOjvN3aIHFaRMuOlGbUVSFiE5TarA0cBmwSRKPMqpomym2OnEWx1SHtgvmCoATAFT0
+         QEuXdDblsPmgTcgou2b0Skbc6f1jAWyv17Pk3AQqcl7TajNhSN1p3dX3DtYotrWOFuHZ
+         jHgVbZwXgwKuVLR3FDKG6jrcZWGvMuQjmMMANUxhaw1Ts5YoldF8UNGSpjFmF/U6W/yd
+         QiiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785434551; x=1786039351;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FmpZDlvYo4bIIHmIKcULNpFvjwTYQhKuozzyEdxOXis=;
+        b=oKkqr6GKjlmAyu1TO1jvy32BT/ZYGLAaS9dtCtDaVkAIN0Mn2EVhw7BGaWJKufE/nX
+         dFUCObWqYTxzgQK/lB7e4PIDvZmrIUAEEJTvQx7n1U60Ch1sj0PuOi05LZu4c6UQZ0IB
+         C/V9koWiZGg3O/nELcE/mcDlmDfhXIn9kQIsOjPWngNbD/NS9van4kBAer8oi0wQ9sHd
+         e2USeirKR69K68+hIc3RwNN8sfxKYx8ODIO2+MWkkYqgFbHbHjjiV1NqBtb/EdcZeNr2
+         SqO86jg65svj73/VIVRsGYx76FsBVqMiEyx95vlrUxixRvtjpwCYL1jzY6pUUyTUrNtC
+         FXGQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqEq5JmyDLQpP7jT5XEGJnsFdHAg0SPhgr3Guka6ofk7NqP4YCM9aWhNWnIJiyA6TxxZc0j9d1s4Q5/@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzf6EaPO+ciMSKvbevXYmWIx01xudbCQUAqjMroEUPS225IoOfc
+	opN4htqvTbCH47vKJOmJQZhxIpm/cLBFni2LZbbdoIuhakgqWJ08XG+EypCtLYpVGc7Tt4ldDEf
+	VSfxI3rxwna8xfEGj51mctOl/q4FY8itOUSfzhnlfZH/jBZKkmjQLXh4303AxTq9N
+X-Gm-Gg: AR+sD12+88nPPiYBGkcW+bzQW+p2/TROjV9aBKDm6HbM/ma/+9+D/0SulZ4tYuyJ05Q
+	kP1edm8XYTfDgT2m1rhl1b13CKfEXW32o0SicF8CUr66Vu5xBCAMQWWZlkw6nhrnx5ha1IP4NoB
+	NZc6VDlyDmfYKBgokXYofgLHRpwIuDXOadIVLG3QAP0qr2LcTFXVrF5DX0bQifMeuXlKedsQ5fs
+	XZtq8Ey3tyD/W/zKz9JFXZGwVz9JiOwJ9h5IwwAPH0uIGR7b6glm8GpEqeOM3wQBFfochs9Nkzg
+	LBfurQ57PJbL0FhtPfxmMG9iMZIn+FQakNsWevc7i7N0hC5BPtpLDeJz4z8rf/46qmq34P5ao5b
+	R3h/zTPzokRdv8dl1oXuJvQqYZPWrZ/Ga
+X-Received: by 2002:a05:6102:4415:b0:740:2d40:a234 with SMTP id ada2fe7eead31-7574e4dcc08mr1462817137.9.1785434550594;
+        Thu, 30 Jul 2026 11:02:30 -0700 (PDT)
+X-Received: by 2002:a05:6102:4415:b0:740:2d40:a234 with SMTP id ada2fe7eead31-7574e4dcc08mr1462740137.9.1785434550047;
+        Thu, 30 Jul 2026 11:02:30 -0700 (PDT)
+Received: from [192.168.1.73] ([92.247.57.178])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1fa8577e83sm98649166b.17.2026.07.30.11.02.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 30 Jul 2026 11:02:29 -0700 (PDT)
+Message-ID: <ce631db2-8e8b-4b97-8164-c701a1b0dc1c@oss.qualcomm.com>
+Date: Thu, 30 Jul 2026 21:02:26 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ySe+qNYy9FceFUoD"
-Content-Disposition: inline
-In-Reply-To: <20260730000929.2ec20cf8@jic23-huawei>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 3/3] arm64: dts: qcom: sm8250: Add JPEG encoder node
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: linux-media@vger.kernel.org, bod@kernel.org, mchehab@kernel.org,
+        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        andersson@kernel.org, konradybcio@kernel.org, loic.poulain@linaro.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260730150524.2659577-1-atanas.filipov@oss.qualcomm.com>
+ <20260730150524.2659577-4-atanas.filipov@oss.qualcomm.com>
+ <ln6tr2vwv6zmoo3kcivjjf3rqjxqm2fltwcpn4kk3iphc4rzlb@qdpop32fjm5l>
+Content-Language: en-US
+From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+In-Reply-To: <ln6tr2vwv6zmoo3kcivjjf3rqjxqm2fltwcpn4kk3iphc4rzlb@qdpop32fjm5l>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDEzNCBTYWx0ZWRfX2MxShBBWy+Vs
+ fL6lrodi5WdWGR9Omxjxyru8NNtNh/N6G5auLgK5KYZCQglHBC2jl3eV20njOAVumxKIGSwSKLx
+ G/0S+rHbyHYhU6wjbsyacFuoLekcyYDDxvBgTuCzsUG+R4FHELLPwMBy8ceioL9SLp8GUHJrl4g
+ 9NU7+2Y88BtJMiEDC1zIHzAazMM3z+6UbdBzD/42+I96Ly7Uzl+TqjAniEd94h6IGwbzv4Q8s6k
+ +SUumwm1Klal8hFOgKopgkuY2e2QhCRA1ThbvQoXpxMfZyzZueXCDJZ8/CcNouM6WIZtyL53ENN
+ oqv5Zlptv+ic8RkMuTSG50dv+5f5dEGDN5nDX7A9QRB08NRaHVfG3JOtu+Cyuf9nkMrLh5xEccc
+ fLMvnTrUIhK4larNZf0gmEjd/JoJg86bIV0vL0H4rEhRKfkb9MEA/XS76i4qgb5Y12PvguqN13R
+ HsiC1Mg9I2JHdZj2CDA==
+X-Proofpoint-ORIG-GUID: J-zoCzAXTm1h2eMQUIouQt1307TF6fhl
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDEzNCBTYWx0ZWRfX5Aye2fdDXtHq
+ 4pHZWhdOBxAfs34ftscmP7XVOWUK1ySryg6u0DqniHbtz3qp62M2JprJTIaIf1DtwhKoV7mt3jX
+ Q+nTvsCqLlZDzote1AAXXT6j9V3n82M=
+X-Authority-Analysis: v=2.4 cv=PdzPQChd c=1 sm=1 tr=0 ts=6a6b91b8 cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=ybD9qRDIDfZaXNPQ7Ca20A==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=O0DfClCy2XHIW_CjMjMA:9 a=QEXdDO2ut3YA:10
+ a=crWF4MFLhNY0qMRaF8an:22
+X-Proofpoint-GUID: J-zoCzAXTm1h2eMQUIouQt1307TF6fhl
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-30_05,2026-07-30_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0 clxscore=1015 bulkscore=0 lowpriorityscore=0
+ adultscore=0 phishscore=0 impostorscore=0 spamscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607300134
 
---ySe+qNYy9FceFUoD
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 7/30/2026 7:01 PM, Dmitry Baryshkov wrote:
+> On Thu, Jul 30, 2026 at 06:05:24PM +0300, Atanas Filipov wrote:
+>> Add the JPEG encoder hardware node to the SM8250 device tree so the
+>> qcom-jpeg V4L2 encoder driver can bind and operate on this platform.
+>>
+>> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+>> ---
+>>   arch/arm64/boot/dts/qcom/sm8250.dtsi | 72 ++++++++++++++++++++++++++++
+>>   1 file changed, 72 insertions(+)
+>>
+>> diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+>> index f11da2ca4181..d42b29419320 100644
+>> --- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+>> @@ -13,6 +13,7 @@
+>>   #include <dt-bindings/firmware/qcom,scm.h>
+>>   #include <dt-bindings/gpio/gpio.h>
+>>   #include <dt-bindings/interconnect/qcom,osm-l3.h>
+>> +#include <dt-bindings/interconnect/qcom,icc.h>
+>>   #include <dt-bindings/interconnect/qcom,sm8250.h>
+>>   #include <dt-bindings/mailbox/qcom-ipcc.h>
+>>   #include <dt-bindings/phy/phy-qcom-qmp.h>
+>> @@ -4486,6 +4487,77 @@ cci1_i2c1: i2c-bus@1 {
+>>   			};
+>>   		};
+>>   
+>> +		jpeg-encoder@ac53000 {
+>> +			compatible = "qcom,sm8250-jpeg-enc";
+>> +			status = "disabled";
+>> +
+>> +			reg = <0x0 0x0ac53000 0x0 0x1000>;
+>> +
+>> +			interrupts = <GIC_SPI 474 IRQ_TYPE_EDGE_RISING>;
+>> +
+>> +			power-domains = <&camcc TITAN_TOP_GDSC>,
+>> +					<&rpmhpd RPMHPD_MMCX>,
+> 
+> Is TITAN_TOP a part of the MMCX or CX domain? In the former case,
+> please drop separate mmcx vote here and let it come through the
+> titan_top (it might require camcc driver and node modifications).
+> 
 
-On Thu, Jul 30, 2026 at 12:09:29AM +0100, Jonathan Cameron wrote:
-> On Wed, 29 Jul 2026 21:47:45 +0100
-> Conor Dooley <conor@kernel.org> wrote:
->=20
-> > On Tue, Jul 28, 2026 at 10:17:19PM +0100, Jonathan Cameron wrote:
-> > > On Tue, 28 Jul 2026 17:00:55 +0100
-> > > Conor Dooley <conor@kernel.org> wrote:
-> > >  =20
-> > > > On Sat, Jul 25, 2026 at 11:07:39PM +0100, Jonathan Cameron wrote: =
-=20
-> > > > > On Sat, 25 Jul 2026 15:57:07 -0500
-> > > > > David Lechner <dlechner@baylibre.com> wrote:
-> > > > >    =20
-> > > > > > On 7/22/26 2:54 AM, Janani Sunil wrote:   =20
-> > > > > > > Add the generic spi-device-addr property to the binding and d=
-eprecate
-> > > > > > > the existing vendor specific microchip,hw-device-address prop=
-erty.
-> > > > > > >=20
-> > > > > > > Signed-off-by: Janani Sunil <janani.sunil@analog.com>
-> > > > > > > ---
-> > > > > > >  .../devicetree/bindings/iio/adc/microchip,mcp3564.yaml      =
-   | 10 ++++++++--
-> > > > > > >  1 file changed, 8 insertions(+), 2 deletions(-)
-> > > > > > >=20
-> > > > > > > diff --git a/Documentation/devicetree/bindings/iio/adc/microc=
-hip,mcp3564.yaml b/Documentation/devicetree/bindings/iio/adc/microchip,mcp3=
-564.yaml
-> > > > > > > index 675319276197..de1ea289e7f5 100644
-> > > > > > > --- a/Documentation/devicetree/bindings/iio/adc/microchip,mcp=
-3564.yaml
-> > > > > > > +++ b/Documentation/devicetree/bindings/iio/adc/microchip,mcp=
-3564.yaml
-> > > > > > > @@ -80,6 +80,7 @@ properties:
-> > > > > > >      $ref: /schemas/types.yaml#/definitions/uint32
-> > > > > > >      minimum: 0
-> > > > > > >      maximum: 3
-> > > > > > > +    deprecated: true
-> > > > > > >      description:
-> > > > > > >        The address is set on a per-device basis by fuses in t=
-he factory,
-> > > > > > >        configured on request. If not requested, the fuses are=
- set for 0x1.
-> > > > > > > @@ -91,6 +92,12 @@ properties:
-> > > > > > >        clocking of the device address (BITS[7:6] - top two bi=
-ts of COMMAND BYTE
-> > > > > > >        which is first one on the wire).
-> > > > > > > =20
-> > > > > > > +  spi-device-addr:
-> > > > > > > +    maxItems: 1     =20
-> > > > > >=20
-> > > > > > Does it not make sense to all for more than once device connect=
-ed
-> > > > > > to the same CS here? I would expect maxItems to be 4 to match t=
-he
-> > > > > > number of possible addresses.
-> > > > > >    =20
-> > > > >=20
-> > > > > I think for this part their isn't a reason to aggregate.
-> > > > > No magic accesses that touch them all at once.  So this hits
-> > > > > exactly the point you raised about how we set the address for
-> > > > > more than one of them.   =20
-> > > >=20
-> > > > No David is actually right here, and maxitems should be 4.
-> > > > Setting the address for multiple was already discussed I thought, w=
-ith
-> > > > the property being an array and each compatible being used to deter=
-mine
-> > > > the "stride" between entries based on the number of supported chann=
-els? =20
-> > >=20
-> > > I don't think that applies for this device or at least to do so
-> > > is a major driver rewrite, not a simple binding change.  Probably we'=
-d =20
-> >=20
-> > Whether or not it is a big driver change, the binding should represent
-> > what the hardware is capable of.
-> >=20
-> > > just add a bus and hang the 4 instances off it. They are running on o=
-wn
-> > > timing etc so we can't grab data across all of them in any sort of
-> > > synchronous way - the clocks will probably drift over time etc. =20
-> >=20
-> > Did I miss something about the ADI devices in this thread where they
-> > have some multicast ability to read all devices at once? I thought that
-> > that was a different series where each device had dedicated mosi and
-> > miso lines, rather than the shared ones here. I didn't think the ad5529r
-> > did anything special from my reading of the datasheet but I'm not the
-> > expert in this area!
->=20
-> It's a DAC so other way around but yes they have exactly that in the sect=
-ion:
-> https://www.analog.com/media/en/technical-documentation/data-sheets/ad552=
-9r.pdf
->=20
-> 	Register Details: Hotpath DAC registermap.
->=20
-> The is a brief description earlier of the whole feature that might
-> serve for this discussion:
->=20
-> "DAC HOTPATH
-> The DAC hotpath is a dedicated register region that optimizes
-> DAC updates in multidevice configurations where several AD5529R
-> devices share a common SPI bus. It reduces the number of SPI
-> frames required to write DAC data and supports synchronized
-> output updates across devices. In single device systems, the hotpath
-> offers no advantage over the standard register map and can be
-> disregarded."
->=20
-> As an example
-> MULTI DEVICE SW LDAC MODE 0 REGISTER
-> "This register sends a software LDAC update to the selected devices
-> that share the SPI lines but have different addresses, using the ID0
-> and ID1 pins. The selection is done on a per-device basis corresponding
-> to the configured bit field."
->=20
-> This one triggers all selected DACs (there is bit corresponding to
-> each address) to update in sync. (Lets put aside normal systems
-> where an LDAC gpio is wired to multiple devices as that is a whole
-> different problem).
->=20
->=20
-> It is this part that is driving the suggestion of having
-> a combined device representation for multiple physical devices.
-> In practice it is very similar to chained devices where we do that
-> already in that a longer access sequence is used to talk to multiple
-> devices at once.
+The change was requested by Brian, most likely in connection with 
+upcoming migrations. I think he would be able to explain the exact 
+reasons. As far as the facts are concerned, this is not currently 
+necessary for the driver to be functional.
 
-Ah I see. I definitely missed this section.
+Regards,
+Atanas
+>> +					<&rpmhpd RPMHPD_MX>;
+>> +			power-domain-names = "titan_top", "mmcx", "mx";
+>> +
+>> +			clocks = <&gcc GCC_CAMERA_SF_AXI_CLK>,
+>> +				 <&camcc CAM_CC_CORE_AHB_CLK>,
+>> +				 <&camcc CAM_CC_CPAS_AHB_CLK>,
+>> +				 <&camcc CAM_CC_CAMNOC_AXI_CLK>,
+>> +				 <&camcc CAM_CC_JPEG_CLK>;
+>> +
+>> +			clock-names = "sf_axi",
+>> +				      "core_ahb",
+>> +				      "cpas_ahb",
+>> +				      "cnoc_axi",
+>> +				      "jpeg";
+>> +
+>> +			interconnects = <&gem_noc MASTER_AMPSS_M0 QCOM_ICC_TAG_ACTIVE_ONLY
+>> +					 &config_noc SLAVE_CAMERA_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
+>> +					<&mmss_noc MASTER_CAMNOC_SF QCOM_ICC_TAG_ALWAYS
+>> +					 &mc_virt SLAVE_EBI_CH0 QCOM_ICC_TAG_ALWAYS>;
+>> +			interconnect-names = "cpu-cfg",
+>> +					     "sf-mnoc";
+>> +
+>> +			iommus = <&apps_smmu 0x2040 0x400>;
+>> +
+>> +			operating-points-v2 = <&jpeg_opp_table>;
+>> +
+>> +			jpeg_opp_table: opp-table {
+>> +				compatible = "operating-points-v2";
+>> +
+>> +				opp-100000000 {
+>> +					opp-hz = /bits/ 64 <400000000>,
+>> +						 /bits/ 64 <100000000>;
+>> +					required-opps = <&rpmhpd_opp_min_svs>;
+> 
+> This looks a bit strange. Are you sure that PLL levels match the MMCX /
+> internal clock levels? I think you need to vote on both domains.
+> 
+>> +				};
+>> +
+>> +				opp-200000000 {
+>> +					opp-hz = /bits/ 64 <400000000>,
+>> +						 /bits/ 64 <200000000>;
+>> +					required-opps = <&rpmhpd_opp_low_svs>;
+>> +				};
+>> +
+>> +				opp-400000000 {
+>> +					opp-hz = /bits/ 64 <400000000>,
+>> +						 /bits/ 64 <400000000>;
+>> +					required-opps = <&rpmhpd_opp_svs>;
+>> +				};
+>> +
+>> +				opp-480000000 {
+>> +					opp-hz = /bits/ 64 <400000000>,
+>> +						 /bits/ 64 <480000000>;
+>> +					required-opps = <&rpmhpd_opp_svs_l1>;
+>> +				};
+>> +
+>> +				opp-600000000 {
+>> +					opp-hz = /bits/ 64 <400000000>,
+>> +						 /bits/ 64 <600000000>;
+>> +					required-opps = <&rpmhpd_opp_nom>;
+>> +				};
+>> +			};
+>> +		};
+>> +
+>>   		camss: camss@ac6a000 {
+>>   			compatible = "qcom,sm8250-camss";
+>>   			status = "disabled";
+>> -- 
+>> 2.34.1
+>>
+> 
 
-> Those SPI messages do not carry the address (or they are ignored - I didn=
-'t
-> dig into the mechanism).
-
-It's definitely hard to tell this at a glance, nor does it really
-matter.
-
-> > > They are independent devices (think of them using spi-device-address
-> > > like an i2c address) -  so why have one DT node for up to 4 of
-> > > them?  Note this is different from the AD5529R where the design
-> > > is intended for them to operate as one single larger device. =20
-> >=20
-> > I don't buy this argument, I just don't see what differs between the
-> > devices. The microchip datasheet I read talked about using 3 devices to
-> > measure 3 phase power setups (I think that's what it was) which is, in
-> > my book, evidence that they're not just intended to be used
-> > independently.
->=20
-> Sure but that could just as easily be done with normal SPI and 3 chip
-> selects. For these devices there is no broadcast write magic (I think
-> anyway!)
-
-I don't think there's any magic, and yes I do buy the argument that it
-could be done normally.
-Quite frankly, I don't know why the device works like this other than
-pin saving. Probably some customer asked for it rather than there being
-a generic use case.
-
-> > That said, the more this discussion goes on, the more I think that
-> > merging the devices into a single node is a mistake. Logically there may
-> > be one device, but really there are one to four devices. Doing the
-> > logical device thing is nice maybe for software but I no longer think
-> > that it represents the hardware correctly. I know this will cause
-> > problems with registration of devices in the SPI core, but we need to
-> > pick one representation for these devices that fits in all usecases
-> > and with the things brought up in the other mail I am having a lot of
-> > doubts.
->=20
-> This wasn't about use cases as such but the broadcast like facilities the
-> ADI parts have which to me smell like the main reason you'd put them on
-> a single bus and use this feature in the first place - you are making
-> one big DAC from multiple chips.
-
-No, I think the use case bit is important. The representation (in dt)
-shouldn't change because someone wants to use the device as one big dac
-or 4 smaller dacs. The multicast thing does certainly lend a lot of
-weight to treating the dacs as one device, so I guess that would be the
-designated representation for this dac.
-But then I don't see why the microchip devices couldn't be dealt with in
-the same way, even if they don't have multicast, in order to create a
-single consistent way of describing the devices.
-
-> > Only going to reply to this for now, I'll reply to the other thread of
-> > this conversation later so as not to end up duplicating discussion, but
-
-One of the arguments in the other part of the discussion was about "what
-if regulators aren't shared", but I don't think that's a big deal? It's
-easy to just add additional "vcc1-supply" (or whatever name) regulators
-to the node.
-
-> > I am thinking of things like what if someone puts a mcp3654r and an
-> > ad5529r on the same chip select? I think that's actually perfectly
-> > functional on a hardware level, provided the fuses/pins are set up
-> > correctly (and if it is not, mixing the microchip devices is possible
-> > and probably mixing future ADI ones will be too).
->=20
-> The broadcast stuff is what breaks this.  Otherwise I fully agree they
-> should be independent and we should have SPI allow that.
-
-And hopefully we can be blissfully ignorant and nobody actually mixes
-and matches devices in this way anyway so we never have to deal with
-it.
-
-
---ySe+qNYy9FceFUoD
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCamuRoAAKCRB4tDGHoIJi
-0jo+AQDQIYwhUTINlc5q2xh0WcrK3oZnmfX9+2iuHTNFIBXniAEA+ShubVt5juXt
-RcwiOaiYIsInHBbkUlUyQne6sGz/Gg8=
-=xOT/
------END PGP SIGNATURE-----
-
---ySe+qNYy9FceFUoD--
