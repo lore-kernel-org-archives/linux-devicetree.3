@@ -1,200 +1,375 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D71AD3B5DEE
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 15:20:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32B783B0598
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 15:20:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785424810; cv=none; b=nqwLQcpN5WtmzfOHA+kRi5p7giC5tk+O97JHbjVGquL0HYBRAduPHb0AAvGjD7pRdK/70ys8Gl2TR1Tcp5eXtZS8tBXB5TynJxmaOhLWWLYKs5ypLFm65g1XIERYTmPVMKKlS5Q/eOrDSIu4IYOCwv460X0eU/jeDdyLY9moJSg=
+	t=1785424827; cv=none; b=Sw/h7397BDbpSZCXQCyLu7rB124q6aOcMzcLk9DXloqKt2IuOnZDBfMLlPcXbPu60XiT5hG+DtylvyFxoqiXIKS74whW+sJ2wT10jwZNW3CMCzoBBj25Gq47fBu12LNRXdjo/jBwvUIAs3ylJZgIPjwLNYXyJarlZS1R+W1vJ88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785424810; c=relaxed/simple;
-	bh=4UwuheMNuKFG5cXp/o7N0kc1T5pw59f1tSxPt6f2HVk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UMSLOcRXg6mkrqbRa6eo6uhS3fGYIw+0LCsJo1Q2SsfmfheWHWC5bcFqZR2BdCiXXBKufJkFfVOGgoAGwy0Gt0SlYj+Izjkaa076FnNdbzVjwuFTOWyLZkVjf5ntKAo7aiUNmSAiuPITVAnxtCxdzrfl57MnBZH1n0NHB04C4Mc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=D4AGZnhk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Avk5eB6U; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785424827; c=relaxed/simple;
+	bh=w95qZ7h6DDRNlMkjj17MV9Sh4gwqHSZuAjOtbTVEcIA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=HvZLRKBHVQ0d8U2rvLGIJzKrJshG8Ev1AuMHbmq9Ozo2bMAP3NnbE+D/crjWyitBpRZblvb0eZEQaT9Qln9Z2ISSVBJglxbzntygfSb4zdGz9eBkky2Nn4G3akns12wiTfW5e6gxCD+F5sNEVwvnJZ0BuJt0IyFY4kDbnirSko8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=otI8Kg/C; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="D4AGZnhk";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Avk5eB6U"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66UDDIbW1062904
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 15:20:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	z2e2OCzan7EyEJ0ZEQwZXLj9oRLJAD1e6T4kgplKI8o=; b=D4AGZnhkRuV937e8
-	Sb5c0n1TQJLhHUL+5zp/vxVU9dxraxT3vlDWWO23GPQtxIl12NuPU62+B0DaDfhD
-	Y8ofbflqZWuypKS5mk7mkDDUHuWEXLi4uu761ivHQoPdSpWghKteoy4zClveVA/T
-	xMSjKnOGzH5o2jVibCwKKKTD+F8AR12OsFe0jOMH2nwS+kcYNogQOGcPkDxb2GnW
-	jUvdL8gZ2LypRuih8M9cWccMbk712yCa9XmScaKk6LqojPMaEPJePZ/moTNo4/zo
-	AUjj01X9mnIDlbr7kccEHtfg7xOtNFCLPyhUB2TZf233nbGIOyM6ODzUFo4BLidh
-	sBHWjQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fr6yfrr3s-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 15:20:07 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92ef13b61bcso323736885a.1
-        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 08:20:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785424807; x=1786029607; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=z2e2OCzan7EyEJ0ZEQwZXLj9oRLJAD1e6T4kgplKI8o=;
-        b=Avk5eB6UL7DQ+fmr5IHu4g71et8E13rXR2/9p6FyHhS0NXUKamFpxVaDCrqGrnY73V
-         kHifwZmiIRvdHhzJfHVrNaeMUZE/NdEjQ/EJkQbWkK4Z3nOleywCfA4k41NKYLeP+TcW
-         3NZt+HN8+Pslmj+b4TDMOPaLSnjgozOE3Unc0Rshp2B54PkcWDADMg9Tlg1kbLQ3ea5a
-         sO8QQ4KyXBegrMJnUvMUbtLVc5Zf+9JoY5lnUgxZjGwbfiynBz+R8EYn2Pwl/jO8fHmz
-         kI5RUhvZbldjnKO6XB4lKBS5+bGP+3cXgdCI9SuzMrOq3ClC2RUVz+EVPJKDhl6yGZ2M
-         lsRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785424807; x=1786029607;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=z2e2OCzan7EyEJ0ZEQwZXLj9oRLJAD1e6T4kgplKI8o=;
-        b=j5hWaN3s8VYV1y3nvgb7uzu2zQMjDK7SUkZfoJ6bJhyJUPki/UXp7QBR9IFtNX03xA
-         fIST9uAj69thMOu4WaM2zWHqGWaawSZFiBIXBcgpeCT3mg5LGR8CizfNdbLZ+9sooZ67
-         7sNNwtgqmjye7xXGjNfmBvsn++DEq277UAUZcfPN/B8vc23Rv2/a+0UvVvR5BXx+Zb7l
-         CbfyW+f+h7q7bd7uCU6nV/Do4NIc/chZtCfJ5YjrLCVyegFKO+h5yyO0vg+3CuqxyVAi
-         iSSskhHk8vxMtvruZ+tS959nETB3CB1S7pOqVmkJQpIT4mESyqozZ8wJSZmlNeXsxz08
-         TXSg==
-X-Forwarded-Encrypted: i=1; AHgh+RpiZ7kDU+P2way77mYGFpcuEnSWDHFTQLaNGeP2gSYJFg8pIutkJD8cBj+jDmJ/ycNdsFRnZSrVAefw@vger.kernel.org
-X-Gm-Message-State: AOJu0YzIeGy3Z4JPAs6FskLDgnOcMCcCQvtuRh2pcsWjGrMNAvK8r/YT
-	VxcwhVx0zo1Xoai4MEx9XW6zBatUNBhhOOE1RupefBCpRjNLtzfNpQc9jZCr7bepui5pMWertR7
-	qf3MEiQgfunZcGJTM5tL21qq2plxxf8effZsDH8HRC7dhDNxNi/7dlOKeZpIv94dJ
-X-Gm-Gg: AR+sD13phhCnBI74QgMYLAdpyERlzVw0sGdxk55i+8x7lE4mrX/kEetjeVJhicrYFQV
-	yVbJhy+3jfyCPAzRXZFNO430aAPnHTbJuLWqsKqtTqryd2blBViW2Y2FCO2O6WqxgbtoQVV9Yy6
-	tTp5kf8uQ0+qdZKwH6tCsf7O+Cfz24CNbtdt+vzHmdEXsAw2AQf51yL0fWhaX/1C8W/mg9xoUca
-	MsbalKgsMZZHxOnv2388hnjDFia3bqAMyLrMrQ8KqvtjkUwW94IrlkdCQc7DsvPMmpqE9vJHpDc
-	7DCVIcaJy62Vt0Shp97LDu4sHjM1rQjJ4OS1bMDH9cHM/SDDq7bJ2KLN+IUkBwYPTdDL+RmK0Hy
-	2Je9Y2LXKa5zNd0i9pQXHvyIcHibM20mjJqo9poGVLw==
-X-Received: by 2002:a05:620a:a183:20b0:92e:c118:18b1 with SMTP id af79cd13be357-93486f080b7mr230423185a.80.1785424806993;
-        Thu, 30 Jul 2026 08:20:06 -0700 (PDT)
-X-Received: by 2002:a05:620a:a183:20b0:92e:c118:18b1 with SMTP id af79cd13be357-93486f080b7mr230418285a.80.1785424806397;
-        Thu, 30 Jul 2026 08:20:06 -0700 (PDT)
-Received: from [10.44.237.143] ([157.51.226.244])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-933d3225b17sm431211785a.8.2026.07.30.08.19.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 30 Jul 2026 08:20:05 -0700 (PDT)
-Message-ID: <fdf4e885-8f36-432f-9247-80f216ba353e@oss.qualcomm.com>
-Date: Thu, 30 Jul 2026 20:49:57 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="otI8Kg/C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B36251F00A3A;
+	Thu, 30 Jul 2026 15:20:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785424826;
+	bh=H1Smc34SlQBMxmgRjLWA6z5wAnLvv0FihAUDn3wm8bM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=otI8Kg/C3ElV7t4OjQADjB7ZR0DUukDjG4x9SFAQfLgvhrLRo2iShLYxlMDhECZkq
+	 9Gm0e5gMjE0DeLCfJLGNFLPtP1GvrGDv/PT23RCWyqENJw9SOqRBw8OJAbMwM5eCTG
+	 21Gy/cK57eRqZLrWMDKcou6tbvd+mx7W5H8YLjOdLLkPMQqRGwXbqam8aQKtWduRzY
+	 y15QhUu71oTmhMKsPLVfPlJxqikri3ldVkb5HI9AD94RuYKYNT8K9t3foqAB4kdjqW
+	 B//8X4uR0czu9fTwynZmE6wlYufswDjXnKhi30qduVeRY/APh2uFyfPFJRPUNkYPGd
+	 RKjCn3Bfoxv/Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 2/3] media: qcom: jpeg: Add Qualcomm JPEG V4L2
+ encoder
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Atanas Filipov" <atanas.filipov@oss.qualcomm.com>
+Cc: media-ci@linuxtv.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260730150524.2659577-3-atanas.filipov@oss.qualcomm.com>
+References: <20260730150524.2659577-1-atanas.filipov@oss.qualcomm.com>
+ <20260730150524.2659577-3-atanas.filipov@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 30 Jul 2026 15:20:25 +0000
+Message-Id: <20260730152025.B36251F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/10] dt-bindings: hwmon: Describe Qualcomm BCL
- hardware
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
-        Stephen Boyd <sboyd@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-hwmon@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
-        Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-References: <20260722-qcom-bcl-hwmon-v2-0-febe2805e17b@oss.qualcomm.com>
- <20260722-qcom-bcl-hwmon-v2-1-febe2805e17b@oss.qualcomm.com>
- <20260723-radiant-scorpion-of-hurricane-cbed57@quoll>
- <63b4c911-d1a4-42b0-a66f-b0c84308d5dc@oss.qualcomm.com>
-Content-Language: en-US
-From: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
-In-Reply-To: <63b4c911-d1a4-42b0-a66f-b0c84308d5dc@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDExNiBTYWx0ZWRfX4UQ42sHo4Z9r
- r2uYvAOaUoPcGT90f27eWY0yM3CKMHxs9qHvICNqZ9ryQqJGFauaXL6plUwk5gira/Wwm0/3KI2
- zutCyleH7BHM0dg9THCnsFc4AdX2G2GAfgblC5+US3YyIn+Jx6eof7GL+3rvhwaRn34LNL1ai9N
- gsW0X2lQkKRY1M5J2+Tt85zxX0d1AAbYmeWhdAW+twD8eHC6AZlx5UkoXqUDYZD3A8yrOwWC7vY
- U1zDTiOwkHApyDfdMW28iQpziGUb7vXJk9MQYmZCK3SFy5zlt5NgDvUF/iceWAlytqeQhexIjgE
- TQzwqAaaD1E6rQJtMzek8/bRiSHIROMMqnnEIK1z2DjVTVY4TyT4GFBZGzGxvxChJDzgL7aIBCz
- CwbNCWh9jXV+2NfSL1kggEzuwOJxXW9FSII/XYv9nq3OV3yber+yEBhj3amqE6ugGdytSqIQvyF
- STjVQWpXDUN4W3RB2Rg==
-X-Proofpoint-GUID: Jd_5PJGUqdLT20H_7QqXZXDcsyEnf2dH
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDExNiBTYWx0ZWRfX2jtqDdUAbrDC
- V/2GV8A8/imy6hiwhXetYXZmy2Lo2x8m5M4i/hP9HsIFeMYDb9T9vFo2hhw3VUPIHJLy0W9HqPx
- Vbw6KGJqBGjP0alR3jxU+hj9ycD7YPc=
-X-Authority-Analysis: v=2.4 cv=Tv3WQjXh c=1 sm=1 tr=0 ts=6a6b6ba7 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=cCWIhcq3vK99OmWhR8wnPg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=VXrKn6nlqrV7Eejcd_EA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-ORIG-GUID: Jd_5PJGUqdLT20H_7QqXZXDcsyEnf2dH
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-30_04,2026-07-29_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0
- spamscore=0 phishscore=0 priorityscore=1501 bulkscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607300116
 
-Hi Daniel,
+Thank you for your contribution! Sashiko AI review found 12 potential issue=
+(s) to consider:
+- [Critical] Job abort and `stop_streaming` return buffers to userspace wit=
+hout stopping the hardware, causing DMA into freed or repurposed memory.
+- [High] The driver lacks a `.remove` callback and performs an illegal devm=
+ `kfree()` in the `v4l2_dev.release` callback, leaking `/dev/videoX` and ca=
+using a SLUB crash.
+- [High] The driver configures its videobuf2 queues with `vb2_dma_sg_memops=
+` but only programs the hardware with the first scatterlist chunk's DMA add=
+ress, leading to Out-Of-Bounds memory accesses.
+- [High] Race condition between the threaded IRQ handler and `fop_jpeg_file=
+_release` leads to a Use-After-Free of `jenc_context`.
+- [High] Calling `VIDIOC_CREATE_BUFS` overwrites the JPEG header cache with=
+ zeroes without resetting `quality_programmed`, leading to a divide-by-zero=
+ panic in `jpeg_upload_dmi_table`.
+- [High] Unsynchronized hardware power and clock transitions during concurr=
+ent `start_streaming` and `stop_streaming` cause a race condition.
+- [High] The context is freed while a work item is actively queued, leading=
+ to a Use-After-Free in the workqueue handler.
+- [High] `jpeg_stop` is invoked in the threaded IRQ handler after completin=
+g the previous job, creating a race that halts the newly started job.
+- [High] The hardware write engine limits are not adjusted for the JPEG hea=
+der offset, allowing DMA to write past the end of the destination buffer.
+- [Medium] Buffers are permanently leaked to the driver if `start_streaming=
+` fails to acquire the hardware.
+- [Medium] The driver synchronizes the capture buffer with `DMA_BIDIRECTION=
+AL` while it was mapped as `DMA_FROM_DEVICE`, violating the DMA API.
+- [Medium] The write engine's DMA pointer is programmed with an unaligned a=
+ddress, risking AXI/AHB burst access faults.
+--
 
-On 7/30/2026 5:05 PM, Daniel Lezcano wrote:
-> 
-> Hi Krzystof,
-> 
-> 
-> On 7/23/26 10:11, Krzysztof Kozlowski wrote:
->> On Wed, Jul 22, 2026 at 12:00:06AM +0530, Manaf Meethalavalappu 
->> Pallikunhi wrote:
->>> +properties:
->>> +  compatible:
->>> +    enum:
->>> +      - qcom,pm7250b-bcl
->>> +      - qcom,pm8350c-bcl
->>> +      - qcom,pm8550-bcl
->>> +      - qcom,pmh0101-bcl
->>> +      - qcom,pmih0108-bcl
->>> +      - qcom,smb2360-bcl
->>> +      - qcom,smb2370-bcl
->>> +
->>> +  reg:
->>> +    maxItems: 1
->>> +
->>> +  interrupts:
->>> +    maxItems: 2
->>> +
->>> +  interrupt-names:
->>> +    items:
->>> +      - const: max-min
->>> +      - const: critical
->>> +
->>
->> Binding looks in general ok, but feels incomplete. If this is battery
->> limiting hardware, does it actually need any battery data through
->> monitored-battery property?
-> 
-> I'm not sure it is relevant here. The BCL is not a power supply neither 
-> a charger. It monitors a power supply output which can be a battery or 
-> another source of power AFAIU.
-> 
-> The monitored-battery property is used by chargers or fuel gauges if I 
-> refer to the documentation.
-> 
-> The BCL monitors the output of the power supply while the chargers 
-> monitors the input for the battery.
-> 
-> Manaf, does it sound correct ?
+--- Patch [2]: [PATCH v6 2/3] media: qcom: jpeg: Add Qualcomm JPEG V4L2 enc=
+oder ---
+commit edb4e8b505654235a8ee08242db0afd01b3b3cca
+Author: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 
-Yes, that is correct. BCL monitors the current drawn by the system from 
-the battery, as well as low VBAT or low VPH conditions. It is not 
-involved in monitoring the charging path. PMICs such as PM8350C, PM8550, 
-and PMH0101 do not even have charger or fuel-gauge peripherals where BCL 
-is still supported to monitor low VPH condition.
+media: qcom: jpeg: Add Qualcomm JPEG V4L2 encoder
 
-Thanks,
-Manaf
+Add a Qualcomm JPEG encoder driver implemented on top of the V4L2 mem2mem=20
+framework.
 
+> diff --git a/drivers/media/platform/qcom/jpeg/qcom_jenc_dev.c b/drivers/m=
+edia/platform/qcom/jpeg/qcom_jenc_dev.c
+> index e4472a30b412d..0000000000000 100644
+> --- a/drivers/media/platform/qcom/jpeg/qcom_jenc_dev.c
+> +++ b/drivers/media/platform/qcom/jpeg/qcom_jenc_dev.c
+> @@ -267,8 +267,7 @@ static const struct of_device_id qcom_jpeg_of_match[]=
+ =3D {
+>  MODULE_DEVICE_TABLE(of, qcom_jpeg_of_match);
+> =20
+>  static struct platform_driver qcom_jpeg_platform_driver =3D {
+>  	.probe  =3D qcom_jpeg_probe,
+>  	.driver =3D {
+
+[Severity: High]
+Does this leave the video device registered after module unload?=20
+It appears the platform driver lacks a .remove callback, which means
+video_unregister_device() might never be called when the module is removed,
+leaving a stale device node.
+
+> diff --git a/drivers/media/platform/qcom/jpeg/qcom_jenc_ops.c b/drivers/m=
+edia/platform/qcom/jpeg/qcom_jenc_ops.c
+> index b756cf10e5c03..0000000000000 100644
+> --- a/drivers/media/platform/qcom/jpeg/qcom_jenc_ops.c
+> +++ b/drivers/media/platform/qcom/jpeg/qcom_jenc_ops.c
+> @@ -348,6 +348,6 @@ static int jpeg_store_fe_next(struct jenc_context *ec=
+tx, struct vb2_buffer *vb2)
+>  		buff->plns[pln].sgt =3D vb2_dma_sg_plane_desc(vb2, pln);
+>  		if (!buff->plns[pln].sgt || !buff->plns[pln].sgt->sgl)
+>  			return -EINVAL;
+> =20
+>  		buff->plns[pln].dma =3D sg_dma_address(buff->plns[pln].sgt->sgl);
+
+[Severity: High]
+By using vb2_dma_sg_memops during initialization, we allow fragmented buffe=
+rs,
+but here we only extract the DMA address of the very first scatterlist chun=
+k.
+Will the hardware assume a contiguous physical buffer and perform out-of-bo=
+unds
+DMA past the first fragment?
+
+[ ... ]
+
+> @@ -487,6 +487,6 @@ static void jpeg_upload_dmi_table(struct jenc_context=
+ *ectx)
+>  	/* DMI Luma upload - values are stored in zigzag order in hdr_cache */
+>  	for (i =3D 0; i < ARRAY_SIZE(t81k1_dct_luma_table); i++) {
+>  		reg_val =3D div_u64(U16_MAX + 1U, luma_qt[i]);
+
+[Severity: High]
+Can this lead to a divide-by-zero panic? If a user triggers VIDIOC_CREATE_B=
+UFS
+after a frame is encoded, it re-initializes the header cache with zeroes.=20
+When the next frame encodes, if quality_programmed matches quality_requeste=
+d,=20
+the cache update is skipped, and luma_qt[i] would be zero when used as a=20
+denominator here.
+
+[ ... ]
+
+> @@ -612,12 +612,12 @@ static int jpeg_apply_we_addr(struct jenc_context *=
+ectx, struct qcom_jenc_queue
+> =20
+>  	header_size =3D min_t(size_t, vb->planes[0].length, ectx->hdr_cache.siz=
+e);
+>  	header_size =3D qcom_jenc_header_emit(&ectx->hdr_cache, mptr,
+>  					    (u32)header_size, (u16)q->vf.width,
+>  					    (u16)q->vf.height);
+> =20
+>  	dma +=3D header_size;
+
+[Severity: Medium]
+Since the size of the emitted JPEG header is added directly to the DMA base
+address, the resulting pointer might not be cache-line or burst aligned. If
+the hardware performs burst writes, could this unaligned address cause AXI =
+or
+AHB bus faults?
+
+>  	qcom_jenc_dqts_emit(&ectx->hdr_cache, mptr);
+> =20
+>  	/*
+>  	 * Flush CPU writes to the header before handing the buffer to the
+>  	 * hardware DMA engine.
+>  	 */
+>  	jpeg_sync_sg(jenc->dev, frame, DMA_BIDIRECTIONAL, true);
+
+[Severity: Medium]
+The queue initializes the capture buffer without the bidirectional flag, so=
+ it
+is implicitly mapped for DMA_FROM_DEVICE. Synchronizing the buffer explicit=
+ly
+with DMA_BIDIRECTIONAL here violates the DMA API. Could this trigger kernel
+warnings if CONFIG_DMA_API_DEBUG is enabled?
+
+[ ... ]
+
+> @@ -665,6 +665,6 @@ static int jpeg_setup_we_size(struct jenc_context *ec=
+tx, struct qcom_jenc_queue
+>  	for (pln =3D 0; pln < QCOM_JPEG_MAX_PLANES; pln++)
+>  		jpeg_rw_bits(jenc, jpeg_v420_we_stride[pln], JPEG_V420_PLN_WR_STRIDE_S=
+TRIDE_MSK, 0);
+> =20
+>  	jpeg_io_write(jenc, JPEG_V420_REG_WE_BSIZE_0, dfmt->plane_fmt[0].sizeim=
+age);
+
+[Severity: High]
+Will this allow the hardware to write past the end of the destination buffe=
+r?
+The DMA pointer was advanced by header_size in jpeg_apply_we_addr(), but th=
+e=20
+hardware's buffer size limit is programmed with the full original sizeimage=
+,=20
+potentially extending the write by header_size bytes beyond the allocation.
+
+[ ... ]
+
+> @@ -806,12 +806,12 @@ static irqreturn_t op_jpeg_irq_bot(int irq, void *d=
+ata)
+> =20
+>  		if (ctx && ctx->bufq[JENC_DST_QUEUE].buff_id >=3D 0) {
+>  			struct qcom_jenc_queue *dq =3D &ctx->bufq[JENC_DST_QUEUE];
+>  			struct qcom_jpeg_buff *frame =3D &dq->buff[dq->buff_id];
+>  			size_t out_size =3D jpeg_rd_bits(jenc, JPEG_V420_REG_ENC_OUT_SIZE,
+>  						       JPEG_V420_STATUS_OUT_SIZE_BYTES_MSK);
+> =20
+>  			dev_dbg(jenc->dev, "complete idx:%d addr=3D%pad size=3D%zu\n",
+>  				dq->buff_id, &frame->plns[0].dma, out_size);
+> =20
+>  			jenc->enc_hw_irq_cb(ctx, VB2_BUF_STATE_DONE,
+>  					    out_size + ctx->hdr_cache.size);
+>  		}
+
+[Severity: High]
+Can this result in a use-after-free? The threaded IRQ handler drops the
+spinlock right before invoking enc_hw_irq_cb(), so fop_jpeg_file_release()
+could run concurrently, acquire the lock, see actx is already NULL, and free
+the context while the IRQ handler is still using it.
+
+>  		jpeg_stop(jenc);
+
+[Severity: High]
+Does this unconditionally stop the hardware even if the next job has already
+started? The enc_hw_irq_cb() schedules a worker that could immediately subm=
+it
+a new job via jpeg_exec(). If this threaded IRQ handler resumes and blindly
+calls jpeg_stop(), it might halt the newly started job mid-flight.
+
+[ ... ]
+
+> @@ -912,6 +912,6 @@ static int op_jpeg_queue_setup(struct jenc_context *e=
+ctx, enum qcom_enc_qid id)
+>  	if (id =3D=3D JENC_SRC_QUEUE) {
+>  		struct qcom_jenc_queue *q =3D &ectx->bufq[id];
+> =20
+>  		rc =3D qcom_jenc_header_init(&ectx->hdr_cache, q->vf.pixelformat);
+
+[Severity: High]
+Is it intentional that VIDIOC_CREATE_BUFS calls queue_setup, which resets=20
+the header cache with zeroes, but doesn't reset quality_programmed? This se=
+ems
+to be what later causes the divide-by-zero panic in the DMI upload.
+
+[ ... ]
+
+> @@ -1556,6 +1556,6 @@ static int op_jpeg_acquire(struct jenc_context *ect=
+x, struct vb2_queue *q)
+>  		}
+> =20
+>  		enable_irq(jenc->irq);
+> =20
+>  		rc =3D jpeg_init(jenc);
+
+[Severity: High]
+Is it safe for this hardware enablement to potentially race with teardown?=
+=20
+If another thread concurrently stops a stream and calls hw_release() withou=
+t=20
+holding dev_mutex, it could lead to hardware initialization running at the =
+same=20
+time as teardown, clobbering the state and causing unbalanced IRQ enablemen=
+t.
+
+> diff --git a/drivers/media/platform/qcom/jpeg/qcom_jenc_v4l2.c b/drivers/=
+media/platform/qcom/jpeg/qcom_jenc_v4l2.c
+> index 6cb162f8eef90..0000000000000 100644
+> --- a/drivers/media/platform/qcom/jpeg/qcom_jenc_v4l2.c
+> +++ b/drivers/media/platform/qcom/jpeg/qcom_jenc_v4l2.c
+> @@ -338,12 +338,12 @@ static void jpeg_v4l2_work_stop(struct jenc_context=
+ *ctx, enum vb2_buffer_state
+>  	while ((vb =3D v4l2_m2m_dst_buf_remove(ctx->fh.m2m_ctx))) {
+>  		if (was_stopping && !v4l2_m2m_last_dst_buf(ctx->fh.m2m_ctx)) {
+>  			vb2_set_plane_payload(&vb->vb2_buf, 0, 0);
+>  			v4l2_m2m_last_buffer_done(ctx->fh.m2m_ctx, vb);
+>  		} else {
+>  			v4l2_m2m_buf_done(vb, buff_state);
+>  		}
+>  	}
+
+[Severity: Critical]
+Do we return the buffers to userspace before the underlying hardware has
+actually stopped? If v4l2_m2m_buf_done() is called here during a streamoff,=
+=20
+the buffer might be reused by userspace, but the hardware may still be acti=
+vely=20
+executing the job and corrupting that repurposed memory.
+
+>  	while ((vb =3D v4l2_m2m_src_buf_remove(ctx->fh.m2m_ctx)))
+>  		v4l2_m2m_buf_done(vb, buff_state);
+> =20
+>  	/* Always call job_finish to let m2m schedule the next job. */
+>  	schedule_work(&ctx->finish_work);
+
+[Severity: High]
+Could this lead to a use-after-free in the workqueue? The release function
+cancels finish_work and then calls v4l2_m2m_ctx_release(), which eventually
+invokes jpeg_v4l2_work_stop(). Re-queuing finish_work right here leaves a=20
+pending work item on memory that is about to be freed.
+
+[ ... ]
+
+> @@ -796,6 +796,6 @@ static int bop_jpeg_vb2_start_streaming(struct vb2_qu=
+eue *q, unsigned int count)
+>  	} else {
+>  		rc =3D 0;
+>  	}
+> =20
+>  	mutex_unlock(&jenc->dev_mutex);
+> =20
+>  	return rc;
+
+[Severity: Medium]
+If hw_acquire() fails above, the error is returned immediately. Doesn't this
+permanently leak the buffers to the driver since they are not returned to t=
+he
+vb2 framework using vb2_buffer_done() with VB2_BUF_STATE_QUEUED?
+
+[ ... ]
+
+> @@ -837,12 +837,12 @@ static void bop_jpeg_vb2_stop_streaming(struct vb2_=
+queue *q)
+> =20
+>  	mutex_lock(&jenc->dev_mutex);
+> =20
+>  	jpeg_v4l2_work_stop(ectx, VB2_BUF_STATE_ERROR);
+> =20
+>  	do_release =3D ectx->hw_acquired;
+>  	ectx->hw_acquired =3D false;
+> =20
+>  	mutex_unlock(&jenc->dev_mutex);
+> =20
+>  	/*
+>  	 * hw_release() calls jpeg_deinit() which issues HW_STOP and waits for
+>  	 * the STOP_ACK interrupt completion.  It must be called outside
+>  	 * dev_mutex to avoid a deadlock: the threaded IRQ handler acquires
+>  	 * dev_mutex before signalling the completion.
+>  	 */
+>  	if (do_release)
+>  		hw->hw_release(ectx, q);
+
+[Severity: High]
+Is it safe to drop dev_mutex before invoking hw_release()? If another thread
+concurrently starts a stream and calls hw_acquire() under the lock, it coul=
+d=20
+run hardware enablement at the same time as teardown, potentially clobberin=
+g=20
+hardware state and causing unbalanced IRQ enablement.
+
+[ ... ]
+
+> @@ -1105,6 +1105,6 @@ static void jenc_v4l2_dev_release(struct v4l2_devic=
+e *v4l2_dev)
+>  	struct qcom_jenc_dev *jenc =3D container_of(v4l2_dev, struct qcom_jenc_=
+dev, v4l2_dev);
+> =20
+>  	v4l2_device_unregister(&jenc->v4l2_dev);
+>  	v4l2_m2m_put(jenc->m2m_dev);
+>  	kfree(jenc);
+
+[Severity: High]
+Is it safe to manually kfree(jenc) here when the structure was originally=20
+allocated using devm_kzalloc() during probe? It looks like this would trigg=
+er
+a double-free SLUB violation.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730150524.2659=
+577-1-atanas.filipov@oss.qualcomm.com?part=3D2
