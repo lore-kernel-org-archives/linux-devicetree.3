@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9A083D34BB
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 10:05:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A685E3D8914
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 10:05:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785405934; cv=none; b=fQJSVzoJpjzMncfAY4q/DD2ksn3MfDHLgF1ye9faeeJTJlcK7TXfGiGf4uSnUHwV05eKUsp++wRd7fk7FMuMJESdjL+9Mor0ouCwoBkHg0iYKSfGCyJRY8xxBS7Z7D2zSBqgNW5rlazt6C/clUCg/9TyZlnc+81o0WHeZxO50s8=
+	t=1785405934; cv=none; b=pXlv5pymQ0y6sdPGXMVdV8YSFBdn1g1j9rvpXWph7YwjDVBTX0AAyZfEYjzGt5wpCHKS9L4KArM5/k//YZCvk4/H0tyIH0+NRF9RXYrOHhn17tS4AQ+DRYYrcgZhhV+GOpRLmyAiIAiFDh2tC2ZQsRyWRRfzcLA2kqADWL3xjRI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785405934; c=relaxed/simple;
-	bh=KYsw9z7iSn6Vg7P72Cq7tlTX5g/RidSfRz7K7lDjKh8=;
+	bh=sk0Dg/1TpIFEMrVAkb1TmdQUb0YsFaW/zvP6u7cQp/w=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ob6N3iZC7vCpIPSv1bi2nwADxwn1YkuJft2QVIGgQx9cKw7pD6N9BT2P+ZEQ/fKZh1PPkAbH42l0yC7kaqx6tB7tJk5znSyaZwDYknHzToLIHq5clOOjNaFlbJ8LFaICEyQeciEtWrZyxsI46TaHW78oqZNEbcagsaC7cQ94qtY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JprOU/u5; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=brnZj0zVMatcE1Kue6IzU3yjU0HgdZHPJ9BtHAj14uIYxvQ9eN/kdHGkuLgaTJ68WLNFYSfcF4Stlol5JIkWpmfVkB7oqHGTPZF7olE4Ed8C+B6WVfygpoWsdzBT4B2XNTY22WUJBI/0lgr0+KD+vkh/XWks4ujN4+XqMMTXqZs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oND4+X7o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JprOU/u5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 923221F000E9;
-	Thu, 30 Jul 2026 10:05:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oND4+X7o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C4791F00A3A;
+	Thu, 30 Jul 2026 10:05:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785405932;
-	bh=ieUhxos9/QoJBt685JJCVpqkVQp5ynQlDHKJjPwZXOA=;
+	s=k20260515; t=1785405933;
+	bh=Dg0pvk+4YxD20VvIGpiG8ufx2A23hJhox8oTuwlTGfg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JprOU/u5Q9sOtIUhBaGWC/yV+W8mTTX0tvRsrU0gO8dA7w5OLF5+3JWef+KsWUjss
-	 mT2OW7tDTesRyxJ2/MMMzZLi0HIL0cWU1CuKV5oMQDfN1gLOagKdoz3iBqqR3ce8V4
-	 SksRaUPtfCzoL8ZYni9Lw9XFzx+lsyH9TFz9qm0+tYM8Y74b5nrq8AjWkTdREcO8+Z
-	 kOFPieQ63+r3CDwMWUXZftQuYKFM1yI+PiRQnKg6qL6NQyNUqUdT1XsTBCCugvxIH3
-	 5FVtfi6KA3ho6nrJeGv+36eHVPCd4oXsHLiWO+eFhPQLHxSiSgLHxaI8JmjsTQ4kwb
-	 45s4ntaxteAig==
+	b=oND4+X7o78DeZP+eukBe+YndLxu9kF23dBztyR6ICXRG/coJLFruYjNgCBQINzocZ
+	 Vytj1J0T6v/YZdGGXm4TqiHOTJQz3bK/nYj4S3wiyJhQs8e96zU1VDCGvXzlyCeYpa
+	 LwQ1hs9GpEC4bR89k6OaeM/9SKoI2cx9iwUh5NZovHYL6mM/aeFpROWh+FEbth5vZK
+	 80CiLuzu9MS6XMIHZBXMlglambkFW57Ul7HCTTzxLik3lYGvcyFJIEB3nj71VDnPEO
+	 Ka81wMJhmAnlvnBDkR2PPmaU3VWLR1ROAhpEtNlJ68256e/ViF20WgacaO90N+CLI6
+	 fB4yIt+M1FV5Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 14/24] clk: mediatek: pllfh: Add ops for PLLs using
- set/clr regs
+Subject: Re: [PATCH v4 15/24] clk: mediatek: Add MT8189 apmixedsys clock
+ support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260729-mt8189-clocks-system-base-v4-14-e356b813a64c@collabora.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260729-mt8189-clocks-system-base-v4-15-e356b813a64c@collabora.com>
 References: <20260729-mt8189-clocks-system-base-v4-0-e356b813a64c@collabora.com>
- <20260729-mt8189-clocks-system-base-v4-14-e356b813a64c@collabora.com>
+ <20260729-mt8189-clocks-system-base-v4-15-e356b813a64c@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 Date: Thu, 30 Jul 2026 10:05:32 +0000
-Message-Id: <20260730100532.923221F000E9@smtp.kernel.org>
+Message-Id: <20260730100533.4C4791F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,64 +47,72 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Missing rollback on error path in `mtk_pll_prepare_setclr` leads=
- to permanent PLL power leak.
+- [High] Reusing `mtk_pll_unprepare_common()` with a CLR register breaks PL=
+L disable logic, either accidentally clearing other active PLLs or failing =
+to disable the target PLL.
 --
 
---- Patch [14]: [PATCH v4 14/24] clk: mediatek: pllfh: Add ops for PLLs usi=
-ng set/clr regs ---
-commit 6499dae9fef2cef096ef23a01c06293418528fef
+--- Patch [15]: [PATCH v4 15/24] clk: mediatek: Add MT8189 apmixedsys clock=
+ support ---
+commit 5a8d4164915ab1ef9117354d41ec7d48062de00e
 Author: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 
-clk: mediatek: pllfh: Add ops for PLLs using set/clr regs
+clk: mediatek: Add MT8189 apmixedsys clock support
    =20
-Add new set of PLL FHCTL clock operations, that uses the new prepare
-and unprepare methods, added in PLL for MT8189 SoC to support this
-logic.
+This commit adds support for the MT8189 apmixedsys clock controller,
+which provides PLLs generated from the SoC 26m.
 
-> diff --git a/drivers/clk/mediatek/clk-pllfh.c b/drivers/clk/mediatek/clk-=
-pllfh.c
-> index 4878ac6da7da0..8dc50461c485b 100644
-> --- a/drivers/clk/mediatek/clk-pllfh.c
-> +++ b/drivers/clk/mediatek/clk-pllfh.c
+> diff --git a/drivers/clk/mediatek/clk-mt8189-apmixedsys.c b/drivers/clk/m=
+ediatek/clk-mt8189-apmixedsys.c
+> new file mode 100644
+> index 0000000000000..a50a8979b8495
+> --- /dev/null
+> +++ b/drivers/clk/mediatek/clk-mt8189-apmixedsys.c
+> @@ -0,0 +1,203 @@
 [ ... ]
-> @@ -47,6 +47,16 @@ static const struct clk_ops mtk_pllfh_ops =3D {
->  	.set_rate	=3D mtk_fhctl_set_rate,
->  };
-> =20
-> +const struct clk_ops mtk_pllfh_setclr_ops =3D {
-> +	.is_prepared	=3D mtk_pll_is_prepared,
-> +	.prepare	=3D mtk_pll_prepare_setclr,
-[Severity: Medium]
-Could mtk_pll_prepare_setclr() leak power on the error path?
+> +#define MT8189_INTEGER_BITS	8
+> +
+> +#define PLL_SETCLR(_id, _name, _reg, _pwr_reg, _en_setclr_bit,		\
+> +			_rstb_setclr_bit, _flags, _pd_reg,	\
+> +			_pd_shift, _tuner_reg, _tuner_en_reg,	\
+> +			_tuner_en_bit, _pcw_reg, _pcw_shift,	\
+> +			_pcwbits) {				\
+> +		.id =3D _id,					\
+> +		.name =3D _name,					\
+[ ... ]
+> +		.pcw_shift =3D _pcw_shift,			\
+> +		.pcwbits =3D _pcwbits,				\
+> +		.pcwibits =3D MT8189_INTEGER_BITS,		\
+> +		.ops =3D &mtk_pll_setclr_ops,			\
 
-Looking at drivers/clk/mediatek/clk-pll.c:mtk_pll_prepare_setclr() which was
-introduced earlier in this series:
+[Severity: High]
+Will using mtk_pll_setclr_ops here cause system instability when disabling
+PLLs?
 
-	mtk_pll_prepare_common(pll, pll->en_set_addr);
+Looking at mtk_pll_unprepare_setclr() (which is called by these ops), it
+delegates to mtk_pll_unprepare_common(pll, pll->en_clr_addr). That common
+function performs a read-modify-write:
 
-	if (pll->data->flags & HAVE_RST_BAR) {
-		writel(pll->data->rst_bar_mask, pll->rst_bar_set_addr);
+    r =3D readl(en_addr) & ~BIT(pll->data->pll_en_bit);
+    writel(r, en_addr);
 
-		ret =3D readl_poll_timeout(pll->rst_bar_addr, val,
-					(val & pll->data->rst_bar_mask), 1,
-					RST_BAR_TIMEOUT);
-		if (ret)
-			return ret;
-	}
+If reading the CLR register returns the current PLL status, 'r' will contain
+1s for all other active PLLs and 0 for the target PLL. Writing this back to
+the CLR register would clear all other active PLLs and leave the target PLL
+enabled.
 
-If readl_poll_timeout() fails, it returns the error directly without calling
-mtk_pll_unprepare_common() to undo the state change.
+If the CLR register returns 0 (write-only), 'r' becomes 0, and writing 0
+does nothing, meaning the target PLL is never disabled.
 
-Since the Common Clock Framework won't call .unprepare() on a clock that
-failed to prepare, wouldn't the PLL be left permanently powered on?
+Should this use a direct write instead of a read-modify-write on a CLR
+register, similar to how the reset bar CLR register is handled?
 
-> +	.unprepare	=3D mtk_pll_unprepare_setclr,
-> +	.recalc_rate	=3D mtk_pll_recalc_rate,
-> +	.determine_rate =3D mtk_pll_determine_rate,
-> +	.set_rate	=3D mtk_fhctl_set_rate,
-> +};
+> +	}
+> +
+> +static const struct mtk_pll_data apmixed_plls[] =3D {
+> +	PLL_SETCLR(CLK_APMIXED_ARMPLL_LL, "armpll-ll", 0x204, 0x210, 18,
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729-mt8189-clo=
-cks-system-base-v4-0-e356b813a64c@collabora.com?part=3D14
+cks-system-base-v4-0-e356b813a64c@collabora.com?part=3D15
