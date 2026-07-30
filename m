@@ -1,153 +1,106 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A578379C2A
-	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 11:52:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F48D379C2A
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 11:52:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785412332; cv=none; b=DOV2VT+fXI/e741Pc8BoJDxWN9sDhztg4lz4x1a6H0OJyuFPIKeIwnuDbd2oeeEf6AbqqsNo/Fr4gpvbXC/c5sndgu8oVEh7Jk348B0QOBzHiCm1lZDAn2I3m2+Wjsv37HCkW077Q7DQ+nCzmdAEitKkWfTvWEp+AEn9aDRhge8=
+	t=1785412350; cv=none; b=iORqTtIp9wONKBeE+BNXcZ5DR7fXl+hPcwNn9ejENkU/O6xhNtBL0B0wa3HbKEiP9bNQ1BXrWcRg5lJE2Qk5+fbaonw0ufO5UJfDHKT2rQ7V2mjfes+U1roPjrJjMDp2p+1n3PexQVE6yHGMPFRCejvj7tDOLo42F6eJE9otCmU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785412332; c=relaxed/simple;
-	bh=SkzsL5mRw6RZgHXZbWWXBnr9taTbICoDE5MYJxaX/b0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=l0VUfPjfvC1x5fJE3S02bBGWt+b5la3F5m2DJoEr8Yy6hMX8tj3TALTJ0ByddOCKsFxfXEycwWos6QZE2F0CAhQqdVXYveSPwBsM61C5MVMzjap1pHGA1xpIZt6Sxi9T+oKEHzFMKeb+X+AJ1Qb2JR19Tl4ATwe0n5O0knz1tzs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=23gJB//b; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=s7QK8uHR; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1785412350; c=relaxed/simple;
+	bh=vNCEXxMJi83DVyaNH3OB9K0a5+xaxjyt+qpLgxkeLXM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=GqyxL4EXaYULOOHyX0g+PcRaGwsUGry8dFYst5JEYy0z2jXDaFI/LpEYI+mpCyFAapwyqByuaZrXipE07Rtsp+W9HZkskLD3RtRW4Rbwwl7gLntTPUGGAYc2y4Fc/ZW1hc7t8qPymeu7KoJOW7J+/TSoEpIK0nguciLNrD0UJ3c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NBQebuQG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="23gJB//b";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="s7QK8uHR"
-Date: Thu, 30 Jul 2026 13:52:07 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1785412329;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=P+lT3r9XsY1cExyrPjSaWHwrxfpVm1heZbwS3MhfIwQ=;
-	b=23gJB//bZDqyVvdPiE8MVezVH3vPaQuqFCrm3NoKttdYR+umj9VPgHhyFJVkkRvxSkjkUk
-	J+essnQSc7CdetWjMezmwOew0WHKXw7pF75gtUJwYsE9U+VScUyOQE5EqsYjmypkDpcjRQ
-	qM5bwj+KRBzLP6jRNuqbloRDRaYAUApkt1dCabigxNaihgGWcVEvkxdjvBZhaR8smv/LJF
-	PWWQBJyT8A9kAGVu+R94YtEcUWIn5VNW7gVbtxszknzbcNoPbl+Rff/BYq6LXTl+xBopkE
-	cRbm79ufMFcOuXgZNejr6wUZWFPoHxQLiCEfxm60K3bcAZmWIRe/+mYgwYBYEw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1785412329;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=P+lT3r9XsY1cExyrPjSaWHwrxfpVm1heZbwS3MhfIwQ=;
-	b=s7QK8uHRqjsJN2+qYNd3kJ5Vi64e5RJAgVyxsdmueGRpeHZo3fMKUZOKSczhm+RJ+JYEXn
-	fyXdiqy91jUr9xBg==
-From: Gregor Herburger <gregor.herburger@linutronix.de>
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH RESEND v3 3/4] firmware: raspberrypi: Add reboot mode
- supporty
-Message-ID: <6cqlfucbdzd23kn5indpgejxkj5dooiat6bhwdqboilyrlbzsr@ii62uqu677kg>
-References: <20260730-rpi-tryboot-v3-0-849c001d67f8@linutronix.de>
- <20260730-rpi-tryboot-v3-3-849c001d67f8@linutronix.de>
- <20260730111144.E3BA11F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NBQebuQG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 145411F000E9;
+	Thu, 30 Jul 2026 11:52:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785412349;
+	bh=vUutGb6boGJUvNztm0BTwA9Rp3FdAi/JFT+Bq51nGJY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=NBQebuQGRb5SjkmuK/2NnJNLnmVAnNPbgQ55mNsFf9BX2/dGex5VWY61zQF5ogLfK
+	 gdw6umup6v48t0OHPohv3iWlkC3S48ApD4ioxZb4n7CyKUsgPls3+oduK6IgkO8RQn
+	 p+yiXTQiKsLhnMdaLUtXo9SJlyxRUM15FQsAHJK5MrHnm+du0V3KExmpNubOUXO7D6
+	 2FNM2gn1qGzzGVdMKQc8Wsq5hr1GNSsJvjDYNBhuJBbCy/jhcOH6pnIPs5+tkl+spo
+	 a4Abma4t4vcDt5KJQA1TE5so/fgdW9IGt0EV6MgM5NIrmWVviIQe5iWGL2cMCb3/Zz
+	 JrYWB8WUToRoA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v14 5/5] clocksource: dw_apb_timer: Use reset array API
+ to handle all resets
+Reply-To: sashiko-reviews@lists.linux.dev
+To: dongxuyang@eswincomputing.com
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260730111628.1990-1-dongxuyang@eswincomputing.com>
+References: <20260730111425.1680-1-dongxuyang@eswincomputing.com>
+ <20260730111628.1990-1-dongxuyang@eswincomputing.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 30 Jul 2026 11:52:28 +0000
+Message-Id: <20260730115229.145411F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260730111144.E3BA11F000E9@smtp.kernel.org>
 
-On Thu, Jul 30, 2026 at 11:11:44AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> 
-> Pre-existing issues:
-> - [High] fw->cl.dev becomes a dangling pointer if the firmware device is destroyed while a consumer holds a reference to fw.
-> - [High] fw can be accessed after it is freed because drvdata is not cleared before freeing fw during driver unbind or probe failure.
-> --
-Yes they are real issues, I started to work on a patch for this. But as these
-are pre-existing issues i will send a separate patch for this issues.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Exclusive acquisition of a shared bus reset blocks other devices o=
+n the bus from probing and may inadvertently reset the entire bus.
+--
 
-> 
-> --- Patch [3]: [PATCH RESEND v3 3/4] firmware: raspberrypi: Add reboot mode support ---
-> commit 7622e7ef47694e51ed746363fd587b5883406973
-> Author: Gregor Herburger <gregor.herburger@linutronix.de>
-> 
-> firmware: raspberrypi: Add reboot mode support
-> 
-> The Raspberry Pi firmware has a tryboot mode where it tries to boot from
-> another partition. This commit enables this by registering a reboot mode
-> driver. It also replaces the manual rpi_firmware_put() with a
-> devres-managed call to safely register the reboot mode.
-> 
-> > diff --git a/drivers/firmware/raspberrypi.c b/drivers/firmware/raspberrypi.c
-> > index 0aa322e9a2e73..2a0c40b8052e5 100644
-> > --- a/drivers/firmware/raspberrypi.c
-> > +++ b/drivers/firmware/raspberrypi.c
-> [ ... ]
-> > @@ -302,9 +331,14 @@ static int rpi_firmware_probe(struct platform_device *pdev)
-> >  
-> >  	platform_set_drvdata(pdev, fw);
-> >  
-> > +	ret = devm_add_action_or_reset(dev, devm_rpi_firmware_put, fw);
-> > +	if (ret)
-> > +		return ret;
-> 
-> [Severity: High]
-> This is a pre-existing issue, but can fw be accessed after it is freed
-> because drvdata is not explicitly cleared?
-> 
-> During unbind, devm_rpi_firmware_put is executed by devres, which drops the
-> kref and frees fw. However, the driver core does not clear drvdata until
-> device_unbind_cleanup completes (which happens after devres actions).
-> 
-> If rpi_firmware_get() is called concurrently by another thread, would it
-> fetch the uncleared but freed fw pointer via platform_get_drvdata(pdev) and
-> call kref_get_unless_zero(&fw->consumers), resulting in a use-after-free?
-> 
-> 
-> [Severity: High]
-> This isn't a bug introduced by this patch, but wouldn't fw->cl.dev become a
-> dangling pointer if the firmware device is destroyed while a consumer holds a
-> reference to fw?
-> 
-> In rpi_firmware_get(), the consumer retrieves the firmware context and
-> increments its kref (fw->consumers), but then drops the reference to the
-> platform device itself:
-> 
-> drivers/firmware/raspberrypi.c:rpi_firmware_get() {
->     ...
->     put_device(&pdev->dev);
->     ...
-> }
-> 
-> If the device is subsequently unregistered (e.g., via DT overlay removal), the
-> device struct is freed, but the consumer still holds a reference to fw.
-> 
-> Any subsequent failing mailbox transaction will call dev_err(fw->cl.dev, ...)
-> in rpi_firmware_transaction() and dereference the freed device pointer.
-> 
-> >  	rpi_firmware_print_firmware_revision(fw);
-> >  	rpi_register_hwmon_driver(dev, fw);
-> >  	rpi_register_clk_driver(dev);
-> > +	rpi_register_reboot_mode(dev, fw);
-> >  
-> >  	return 0;
-> >  }
-> 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260730-rpi-tryboot-v3-0-849c001d67f8@linutronix.de?part=3
+--- Patch [5]: [PATCH v14 5/5] clocksource: dw_apb_timer: Use reset array A=
+PI to handle all resets ---
+commit 66ef3e54cc1daa673ec2f6b658e0a17fb7f358ab
+Author: Xuyang Dong <dongxuyang@eswincomputing.com>
 
--- 
-Gregor Herburger
-Linutronix GmbH | Bahnhofstrasse 3 | D-88690 Uhldingen-Mühlhofen
-Phone: +49 7556 25 999 35; Fax.: +49 7556 25 999 99
+clocksource: dw_apb_timer: Use reset array API to handle all resets
 
-Hinweise zum Datenschutz finden Sie hier (Informations on data privacy 
-can be found here): https://linutronix.de/legal/data-protection.php
+This commit updates the timer initialization to fetch and trigger all
+reset lines listed in the device tree using the array variant of the
+reset API. It intentionally holds exclusive references to these lines
+to keep them deasserted while the timer runs.
 
-Linutronix GmbH | Firmensitz (Registered Office): Uhldingen-Mühlhofen | 
-Registergericht (Registration Court): Amtsgericht Freiburg i.Br., HRB700 
-806 | Geschäftsführer (Managing Directors): Dr. Wilfried Wessner, 
-Katharina Kopp, Alexander Gieringer
+> diff --git a/drivers/clocksource/dw_apb_timer_of.c b/drivers/clocksource/=
+dw_apb_timer_of.c
+> --- a/drivers/clocksource/dw_apb_timer_of.c
+> +++ b/drivers/clocksource/dw_apb_timer_of.c
+> @@ -29,9 +29,14 @@ static int __init timer_get_base_and_rate(struct devic=
+e_node *np,
+> =20
+>  	/*
+>  	 * Reset the timer if the reset control is available, wiping
+> -	 * out the state the firmware may have left it
+> +	 * out the state the firmware may have left it.
+> +	 * Use the array variant to fetch and trigger all reset lines
+> +	 * (e.g., timer and APB interface resets) together, without
+> +	 * ordering requirements.
+> +	 * The exclusive references are intentionally held to keep the
+> +	 * resets deasserted while the timer is running.
+>  	 */
+> -	rstc =3D of_reset_control_get(np, NULL);
+> +	rstc =3D of_reset_control_array_get_optional_exclusive(np);
+
+[Severity: High]
+If any of these reset lines are shared bus resets, does acquiring them
+exclusively lock out other devices that share the same reset line?
+
+The commit message mentions APB interface resets, which are typically shared
+across multiple peripherals. If this driver holds a shared reset line
+exclusively, subsequent reset_control_get() calls from other drivers sharing
+the bus will fail with -EBUSY, preventing them from probing.
+
+Furthermore, unconditionally asserting a shared bus reset here in
+timer_get_base_and_rate() might inadvertently reset other peripherals on the
+same bus that are already initialized. Does the timer driver need to use a
+shared reset API to avoid disrupting other devices on the bus?
+
+>  	if (!IS_ERR(rstc)) {
+>  		reset_control_assert(rstc);
+>  		reset_control_deassert(rstc);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730111425.1680=
+-1-dongxuyang@eswincomputing.com?part=3D5
