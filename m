@@ -1,110 +1,95 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4148D3F8257;
-	Thu, 30 Jul 2026 09:50:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C05E3F9A15
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 09:53:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785405038; cv=none; b=WsNGWWGXC4qOVLvUM3v4u9qbmzUX0NMaqdEysg7IGn93QeglHvt5FXMumSdNlYSJNEIQWBv/yxk1DL+gy2TZ3sZUBfskRRFAObE8TsXJO9JqYxkRhMtrbw+mSBfssK/+cXXiUARvuMWofUct2Jf1aQRn3LVOgStUB+gTUzJnjEg=
+	t=1785405190; cv=none; b=DOPgB2k5yJi0NsP0ZgTlVAadMDSrk12HjLkfUujSfbz+dTePyREdHTYeqLZdV/ZtCOnH2t5He8Jki7deYYxsek0bwXVdo5PjjsdmWhoNL2/PnTJyJO/n1RoAl2tpzuQgkjgWJ3hWOXpFVBisbPymu23kCHDVMJt4aVPKGNRKJwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785405038; c=relaxed/simple;
-	bh=Iy+VUNXDXW8cWtqhoAcajkOwEmooMeEJCbxXu8rQQOs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=clI7anLNu6f3mWkLb3gw8hjR2bcgJXZsTfH8rdjrfOMqE6foLtTRhGb5C7OErRJHLaQKJXylrIO8KMRpLUBpezLE7xFJA43UQQLmopj3xHprh2rAI2xPA3QDpHmmsviKKRalOBDRWmF4OEDRRCaSMQWCk8AdINa1P5A4fVt4vz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=M6A4pMj0; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1785405190; c=relaxed/simple;
+	bh=XbGTrmA40a6T5kyyU/HkgOp2oMCxuKbGseIOuZV9q1M=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=GPvPpiLt+vC2sdbGXbtVP7RlcDdpDD5qkm1NzBNnRLQiV1QZ5GlHThhz95v+AJ4ptWF5XCk/5qFwA+5PFE3SmMwBtaWeZi9PQ4ibztdXhIw4gtQ4F2Hvm4hR6ofslxacpN103sJN+oZkehXaKsrJtwrQwYHafOBpLUjycZDb5rI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IIzAdCYu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="M6A4pMj0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1785405035;
-	bh=Iy+VUNXDXW8cWtqhoAcajkOwEmooMeEJCbxXu8rQQOs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=M6A4pMj0Y651VoP4qsk/HDYB/ouyltMMEHBOvKK9lHthj5nv8IXPVDFRk2bgEvAzh
-	 TLtG9k348dUPiIVbZM32DdvpJp9IcAX/l16UunCDOA8WGXCrp18n1N4oyZeZwFBKeY
-	 JI1BQKsk+4xzPS3oD6bkHO9sFlGPUg9cauj7xHUpecWIpCTWHZA8AL1XwYmL67/jQd
-	 mqfTNGP9z35Y0DMxSeKdyR4v/Gtt59r4WtfUcZXgnMCsSdUUz1Q7lWRHIVOaOYJh7v
-	 4ruu9sqUGRvGVdm5H3aAGcnxhbHT9nRNQpai1qBqFu1W/PixDtYetazgXaC/TVKUI8
-	 6USFxtDjvJVMg==
-Received: from yukiji.home (unknown [100.64.0.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: laeyraud)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 9F4B917E098E;
-	Thu, 30 Jul 2026 11:50:33 +0200 (CEST)
-From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Date: Thu, 30 Jul 2026 11:49:22 +0200
-Subject: [PATCH v10 26/26] arm64: dts: mediatek: mt8395-radxa-nio-12l:
- Complete UFS power supplies
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IIzAdCYu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D27F1F000E9;
+	Thu, 30 Jul 2026 09:53:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785405188;
+	bh=xBQ33JxPx5+g5mmX36W920GU1XVfvl4gkayUcbyQ7uY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=IIzAdCYupap8+onZ6iW1c1PIMwA8khr2YVNb+3jDnDX18APWBcxW/5QcQiv8IEFuP
+	 mDy1DPU42PTHU0pJECw+GtFYR7G9WkDm5D0K6PMpIaqsAw6LIJinhmjCoObzaGiTy5
+	 rof1l8y9DF5yBhc9Rls6Tm6BuuEEhvAjN3qD29RqHHt13uVOGnJs6/fSLyBIaJZvWL
+	 KgL1ddOHDmlLJgR3/Lirt/tKL5yfVBNorUr+Ca2dIkCmHQsS5ms4lEJV0XqP2VLhvA
+	 aXiA016IIGmu33XrpOG4B0z8ddNBdVJ+rr0pZdtK/S4Eh/8VgBza6g3/NiXpqgAc57
+	 ITE+mN+TxgWMg==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH 1/3] dt-bindings: soc: qcom: add
+ xiaomi,taoyao-pmic-glink compatible
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Stanislav Zaikin" <zstaseg@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260730093502.689505-2-zstaseg@gmail.com>
+References: <20260730093502.689505-1-zstaseg@gmail.com>
+ <20260730093502.689505-2-zstaseg@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 30 Jul 2026 09:53:07 +0000
+Message-Id: <20260730095308.0D27F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260730-mt8196-ufs-v10-26-bc5ecef202dc@collabora.com>
-References: <20260730-mt8196-ufs-v10-0-bc5ecef202dc@collabora.com>
-In-Reply-To: <20260730-mt8196-ufs-v10-0-bc5ecef202dc@collabora.com>
-To: Chunfeng Yun <chunfeng.yun@mediatek.com>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Peter Wang <peter.wang@mediatek.com>, 
- Chaotian Jing <chaotian.jing@mediatek.com>, 
- Alim Akhtar <alim.akhtar@samsung.com>, 
- Avri Altman <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>, 
- Stanley Jhu <chu.stanley@gmail.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <martin.petersen@oracle.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>
-Cc: kernel@collabora.com, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, linux-phy@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-scsi@vger.kernel.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785404993; l=1050;
- i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
- bh=Iy+VUNXDXW8cWtqhoAcajkOwEmooMeEJCbxXu8rQQOs=;
- b=nfGWRi3J0wIO/+Y7GAM+mdM1gCNAi3C9pUwoyTTwK7WSjCpqpHJvmMMAKGcHa72Wmt1UJfVur
- t2UKOFrQ/cyAjk+U/ua73w5EYRl9WXBbbX0XvsHxQdcwIDscy6XTe8V
-X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
- pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
 
-The MT8195 UFS host controller dt binding now describes the power supplies
-feeding the host controller, that were previously missing from supply
-description.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The schema change enforces an incorrect, truncated fallback chai=
+n that skips the intermediate SoC compatible string.
+--
 
-So, add in the Radxa NIO-12L board devicetree the regulators used to
-power MT8395 UFS controller on the board.
+--- Patch [1]: [RFC PATCH 1/3] dt-bindings: soc: qcom: add xiaomi,taoyao-pm=
+ic-glink compatible ---
+commit 52fb33657926ca90fb558df9e2cd09cb2c215e6e
+Author: Stanislav Zaikin <zstaseg@gmail.com>
 
-Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
----
- arch/arm64/boot/dts/mediatek/mt8395-radxa-nio-12l.dts | 3 +++
- 1 file changed, 3 insertions(+)
+dt-bindings: soc: qcom: add xiaomi,taoyao-pmic-glink compatible
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8395-radxa-nio-12l.dts b/arch/arm64/boot/dts/mediatek/mt8395-radxa-nio-12l.dts
-index 9cf0315da035..7e9cabdd2825 100644
---- a/arch/arm64/boot/dts/mediatek/mt8395-radxa-nio-12l.dts
-+++ b/arch/arm64/boot/dts/mediatek/mt8395-radxa-nio-12l.dts
-@@ -1184,6 +1184,9 @@ &uart1 {
- };
- 
- &ufshci {
-+	avdd12-supply = <&mt6359_vrf12_ldo_reg>;
-+	avdd12-ckbuf-supply = <&mt6359_vbbck_ldo_reg>;
-+	avdd18-supply = <&mt6359_vio18_ldo_reg>;
- 	vcc-supply = <&mt6359_vemc_1_ldo_reg>;
- 	vccq2-supply = <&mt6359_vufs_ldo_reg>;
- 	status = "okay";
+This commit adds the xiaomi,taoyao-pmic-glink compatible string for the
+Xiaomi 12 Lite 5G. This allows its battery manager to be matched to a
+device-specific variant in qcom_battmgr.
 
--- 
-2.55.0
+> diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.y=
+aml b/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
+> index 16ad4f5698fc3..8ca057c4e3e61 100644
+> --- a/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
+> +++ b/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
+> @@ -41,6 +41,7 @@ properties:
+>        - items:
+>            - enum:
+>                - qcom,sm7325-pmic-glink
+> +              - xiaomi,taoyao-pmic-glink
+>            - const: qcom,qcm6490-pmic-glink
+>            - const: qcom,pmic-glink
 
+[Severity: Medium]
+Does this schema change enforce an incorrect, truncated fallback chain that
+skips the intermediate SoC compatible string?
+
+By grouping the board-specific string (xiaomi,taoyao-pmic-glink) in an enum
+alongside the SoC string (qcom,sm7325-pmic-glink), the schema restricts the
+compatible list to exactly 3 items. This forces device tree authors to omit
+the SoC-level fallback (qcom,sm7325-pmic-glink) in order to pass dtbs_check.
+
+Should this instead be defined with a 4-item list so the board compatible
+can properly fall back to the sm7325 SoC compatible before falling back to
+the generic qcm6490 and pmic-glink ones?
+
+>        - items:
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730093502.6895=
+05-1-zstaseg@gmail.com?part=3D1
