@@ -1,63 +1,157 @@
-Received: from mail-10629.protonmail.ch (mail-10629.protonmail.ch [79.135.106.29])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDD82367B68;
-	Thu, 30 Jul 2026 02:24:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.29
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FA1437475C;
+	Thu, 30 Jul 2026 02:27:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785378285; cv=none; b=syzFH2ePLLB2uxsq41CXZ2FQfeUUgoYi/L9uku9PktK17CChvZlpcy9ZScI0bxZ8jk4NXln/WmMulimVH6wEnryPsS5aazQkUsdjzLFFleyYZAncbI8yNx6oRdHqJNJk4/9s74EYkXWLhwrjM0N+7s2LJiXOreKcVVhxh6nRYC0=
+	t=1785378428; cv=none; b=ISaKIAPr6QxPcu6SLHYNacK9nVwRpRvhRy+ozL1UA6LwL5jv7XrRRuANnjhpXK2RDu1KcuioNnJmKuyK5rouWraG9wWNRaqqfK4/1hV2/POv0HhMaaH3IFLVaZDHES0hwXC30znuW64TTifD/gyVncSPWkaq9rMfgQxUZoVHzS0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785378285; c=relaxed/simple;
-	bh=faQGHyzsqOboMyGKSXdPzb5LA7GJgulr+Q/mJtOt/5I=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Im4BEpImLUpoVNKlEhTm0nds9WWAAC/SePKnkoHdfYazUqA5c3kvggbt0p5hb6lQJaT3gL7NqJNG++mM03BNlhS0uOxF5gYK+UpmfH4/10Smt2tW0H9ydE6/t9sAeBrTQCB1Fv+F/u0B0CNnh380n65QbPxLt9tbvyJZYameT5I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=R8hWTNgY; arc=none smtp.client-ip=79.135.106.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1785378428; c=relaxed/simple;
+	bh=ucF37PuxDjtDarj4nGsqVd90e657DDTe0vDBbjFa8nM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=l7m230UqPaNyOqtiuiM/G0YOcmw/acPRZdaFgWOXui1ByWYWXdmznywsNx3rcJPF1V04Jr6lFuYbXFaoQtQZfpkW4FHqiaDlXOdiNtvnfrP1+y3olsgiUqau4RmLEuQ1cRFAO+oT6NRU+BK0MLqOG86m/Zv6Kk7UYqYN6dRbmeE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aIEwwtE9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="R8hWTNgY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1785378272; x=1785637472;
-	bh=faQGHyzsqOboMyGKSXdPzb5LA7GJgulr+Q/mJtOt/5I=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=R8hWTNgY4o5V2ugRjgcRGOiMxZyywm9BYcMOdu1w89fAw60rwk5WE29BANpwZb43F
-	 +kfRMgQUjW5B4xQawbdm0ZVQx9rRekLiIdBd6VU/rWJAZglkXRg5jUpwMJP3LIRSd9
-	 FaHwa1lxYYWe6sD7duAgVyVySi/x4fDlyKVhBNhfwT3/fYMXQdqRR4Oj9ABx5q8/0d
-	 1xyxEesD1SikADLXTT6wKvRWx2aCnEk05aq/oK6UvFNHGnWxsXMrcgeQYLTU3oR8vJ
-	 pCYoplnIdj8dxGmSF3j2Sa0XrSxDjItC4jKkrvxOaqPSTJfTo+WtXhXECrRn09BmPR
-	 qjLD5/CnQyd6A==
-Date: Thu, 30 Jul 2026 02:24:27 +0000
-To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, Srinivas Kandagatla <srini@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-From: Esteban Urrutia <esteuwu@proton.me>
-Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-Subject: Re: [PATCH 2/2] ASoC: qcom: sc8280xp: Add support for SM8475
-Message-ID: <32d3c172-8210-4553-8dad-9b1b5d7fee5b@proton.me>
-In-Reply-To: <667133b5-10c9-4007-b5db-27e553dd5034@oss.qualcomm.com>
-References: <20260729-sm8475-asoc-v1-0-3edad8aa7628@proton.me> <20260729-sm8475-asoc-v1-2-3edad8aa7628@proton.me> <667133b5-10c9-4007-b5db-27e553dd5034@oss.qualcomm.com>
-Feedback-ID: 147889766:user:proton
-X-Pm-Message-ID: bace4fb72e50feb96fc72ccd2cd4ea6d6bba9f26
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aIEwwtE9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41AE91F000E9;
+	Thu, 30 Jul 2026 02:27:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785378426;
+	bh=PzwI2dSz1vlPWv2Q3x3tTn0YOFhV0qODZFEeoVAXpU8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=aIEwwtE9kh5Yd/Hp1xSROlErOB1gE7I9tjuQk6AJbEAPHMh7NwNFI1LZjtdfedpLK
+	 xroMGsqpKxhZz2kAUNUP5FXuGYyfIH99i3cSeUn0Gcw7yW8ACj+itsuipNuhrtMQVq
+	 LeDPQPYq0rvbwAxj9h1PNrthSyKBgPJDdEr0vYrfkF32tSxUotZigm7w6IKtPfXkSg
+	 TkNGokzwYyYoKdSgM5v/jt80mYvB8+BULDV9wFWDt5K7ntfAwVSjdw3fYJfjslixDa
+	 Q3j+E7e7JUvo+VYGpj/FJdheczb8W+4xXbDSXWiXznG/nRmMNtyMhuyQ9b2rHvcdsh
+	 yr7Y1gtKaRYCw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v32 3/7] firmware: imx: add driver for NXP EdgeLock
+ Enclave
+Reply-To: sashiko-reviews@lists.linux.dev
+To: pankaj.gupta@oss.nxp.com
+Cc: imx@lists.linux.dev, conor+dt@kernel.org, Frank.Li@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260730-imx-se-if-v32-3-95f56dff4ba9@nxp.com>
+References: <20260730-imx-se-if-v32-0-95f56dff4ba9@nxp.com>
+ <20260730-imx-se-if-v32-3-95f56dff4ba9@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 30 Jul 2026 02:27:05 +0000
+Message-Id: <20260730022706.41AE91F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-On 7/29/26 7:11 PM, Srinivas Kandagatla wrote:
-> Patch itself looks sane to me, but the commit log needs bit more love.
-> Its too short and does not explain what this is platform is supporting.
->=20
->=20
-> Once fixed.
->=20
-> Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Freeing the DMA buffer on timeout in `ele_get_info` allows the fir=
+mware to corrupt memory if it completes the transaction late.
+- [High] A time-of-check to time-of-use (TOCTOU) race on the volatile `jiff=
+ies` variable can cause an arithmetic underflow, leading to an infinite wai=
+t.
+--
 
-Will fix in v2, thanks.
+--- Patch [3]: [PATCH v32 3/7] firmware: imx: add driver for NXP EdgeLock E=
+nclave ---
+commit a0eb4a58fa2ae5b51f82478e8f3c91165237467e
+Author: Pankaj Gupta <pankaj.gupta@nxp.com>
 
-Regards,
-Esteban
+firmware: imx: add driver for NXP EdgeLock Enclave
 
+Add MU-based communication interface for secure enclave. NXP hardware
+IP(s) for secure-enclaves like Edgelock Enclave(ELE), are embedded in the
+SoC to support features like HSM, SHE & V2X using message based
+communication interface.
+
+> diff --git a/drivers/firmware/imx/ele_base_msg.c b/drivers/firmware/imx/e=
+le_base_msg.c
+> index 0000000000000..724f6e913ce79 100644
+> --- a/drivers/firmware/imx/ele_base_msg.c
+> +++ b/drivers/firmware/imx/ele_base_msg.c
+
+[ ... ]
+
+> @@ -65,15 +65,15 @@ int ele_get_info(struct se_if_priv *priv, struct ele_=
+dev_info *s_info)
+>  	se_fill_cmd_msg_hdr(priv, (struct se_msg_hdr *)&tx_msg->header,
+>  			    ELE_GET_INFO_REQ, ELE_GET_INFO_REQ_MSG_SZ, true);
+> =20
+>  	tx_msg->data[0] =3D upper_32_bits(get_info_addr);
+>  	tx_msg->data[1] =3D lower_32_bits(get_info_addr);
+>  	tx_msg->data[2] =3D sizeof(*s_info);
+>  	ret =3D ele_msg_send_rcv(priv, tx_msg, ELE_GET_INFO_REQ_MSG_SZ, rx_msg,
+>  			       ELE_GET_INFO_RSP_MSG_SZ);
+>  	if (ret < 0) {
+>  		ele_get_info_cleanup(priv, get_info_data, get_info_addr, get_info_len);
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^=
+^^^^^^^^^^^^
+
+[Severity: High]
+If the transaction times out and ele_msg_send_rcv() returns -ETIMEDOUT, does
+freeing the DMA buffer here risk memory corruption?
+
+The commit message mentions that "DMA free on timeout: -ETIMEDOUT means FW =
+is
+fenced by fw_busy, so the free is safe", but while fw_busy prevents the host
+from sending new commands, it does not stop the firmware from finishing the
+current command late and writing to the DMA address.
+
+If the buffer is freed and reallocated elsewhere, a late DMA write could
+silently corrupt memory.
+
+>  		return ret;
+>  	}
+> =20
+>  	ret =3D se_val_rsp_hdr_n_status(priv, rx_msg, ELE_GET_INFO_REQ,
+>  				      ELE_GET_INFO_RSP_MSG_SZ, true);
+
+[ ... ]
+
+> diff --git a/drivers/firmware/imx/ele_common.c b/drivers/firmware/imx/ele=
+_common.c
+> index 0000000000000..f40eb4a07982d 100644
+> --- a/drivers/firmware/imx/ele_common.c
+> +++ b/drivers/firmware/imx/ele_common.c
+
+[ ... ]
+
+> @@ -61,16 +61,16 @@ int ele_msg_rcv(struct se_if_priv *priv, struct se_cl=
+bk_handle *se_clbk_hdl)
+> =20
+>  	do {
+>  		if (is_rsp_wait_with_timeout) {
+>  			if (time_after_eq(jiffies, deadline_jiffies)) {
+>  				/* Deadline hit: fence hung FW, like the ret=3D=3D0 path. */
+>  				spin_lock_irqsave(&se_clbk_hdl->clbk_rx_lock, flags);
+>  				se_clbk_hdl->rx_msg =3D NULL;
+>  				if (!completion_done(&se_clbk_hdl->done))
+>  					atomic_set(&priv->fw_busy, 1);
+>  				spin_unlock_irqrestore(&se_clbk_hdl->clbk_rx_lock, flags);
+>  				ret =3D -ETIMEDOUT;
+>  				break;
+>  			}
+>  			remaining_jiffies =3D deadline_jiffies - jiffies;
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+[Severity: High]
+Since jiffies is volatile, the compiler will read it again here after the
+time_after_eq() check. If a timer tick increments jiffies exactly between t=
+hese
+two reads, could this subtraction underflow?
+
+An underflow would result in a massive timeout value near ULONG_MAX being
+passed to the completion wait functions below, hanging the thread indefinit=
+ely.
+
+>  		}
+> =20
+>  		if (wait_uninterruptible)
+>  			ret =3D wait_for_completion_timeout(&se_clbk_hdl->done,
+>  							  remaining_jiffies);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-imx-se-if-=
+v32-0-95f56dff4ba9@nxp.com?part=3D3
