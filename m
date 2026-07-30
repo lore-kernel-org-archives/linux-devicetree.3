@@ -1,246 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8570738BF81;
-	Thu, 30 Jul 2026 17:36:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C137E43E4AC
+	for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 17:38:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785432996; cv=none; b=fPKaSvxrB+CVEt9AAWDIcerzl/wTVb46fWYeA2O6oAL9y6uQLuoTj3rs6V2mDlKfhxkKLIIKtOfQusSodSLH2YoNEw9ypE8qMLgjwmLBR7SQS39CC3hi6Grk2xqHVHSdNHfeF7riaBDeUbE4i04so7q8wKWt/07mBJJ4yCAde+Y=
+	t=1785433097; cv=none; b=k7XuLxfRhNx5Vfs0eJ/nLSpzrxdDv5zw1ZmPfyY31catNQjTlrA5QsHQ0zLxiWToK9hFV0p1Ij1NToKXYqjnx+jkRIqKrgfEj8s8qPu5Z5RZORrPerpcPU7PFrM8TIzUNO7i0qMys2GrqG+91iL0fuZN8BY9yb9g0kP0aU2+TZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785432996; c=relaxed/simple;
-	bh=v0V/ZjIWO7h+qmHMCVvrEAUvWPRxMtTQbw63DUxaglk=;
+	s=arc-20240116; t=1785433097; c=relaxed/simple;
+	bh=tcCAaJdWJcVjCNXkGXLQhu11kXbWbdF1H1Q7waoPhQI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=c7F+dEpi3msYXXSs0iwK4RHcsoKKhP2ZnG8GeFLAtgU+rbpjm3Zl/+bLuF0bSRe/G9LFI+d8mJhliVIhIEE9Gp4WDzqOMho0Hfcq1Y+BD3ExGvVV63Hv+ZK602EpniecWzWECB7HMKsBF2yMEKipQBaJMOedc8nc8vhCL0QCBNU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HjYQr3Ev; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=nv8X6BBL+ebr+84mH5nrYoIaH1GK4SDcdUIVYUyQPWeaZndQnKma5GE/vnqC5TmZXXGfe/oPrPzxMXbhMxiIaxtdP4NLeSoC0MlocAikFhl0z3/QqNb807isA18gBIXVBuHy37ejFh+qbcBsyZGHy7WuiNoIbU02zi6qSaUjGd8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MAx9AqKi; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Qmv4/Aed; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HjYQr3Ev"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 632C61F000E9;
-	Thu, 30 Jul 2026 17:36:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785432995;
-	bh=G5N2M9ts2TJDTBWqs3Txx171CrTwFynnWbrFmo7/RPA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HjYQr3EvxzJljYB64jSSrsAYZoMDOKXYlJAc5dVBGeU0I2HTlGiFu7rsNngDxI8Pq
-	 +uHMl4ZSq/stuyU8CkQLGnFo9R1Th+m/kXDcvRVfeJCAegW3UE8RY5pFHeSiAr0GCu
-	 2ho1kxh2eGmXYGrVb4QD5NkSECyNQ6Sj0KAIZCip33jYUoiRfIwcD7I5h/hdI9rwVH
-	 GH+jnxldDX08t5mH/Zf+Wk5tGuzHPVt/XqDKDJQIspU9KuqNUxik6zkqHZVf8Xe0rY
-	 YaGRU6ETpzT0xXpR22PYN7/ccGsOBgg5FYJ4iAlzVgZ57N9mq2ggMqdj00vqA4q9Qz
-	 9BcVZN7gYtKjw==
-Date: Thu, 30 Jul 2026 18:36:27 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Yu-Chien Peter Lin <peter.lin@sifive.com>, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
-	alex@ghiti.fr, samuel.holland@sifive.com, dlan@kernel.org,
-	guodong@riscstar.com, dfustini@oss.tenstorrent.com,
-	michal.simek@amd.com, junhui.liu@pigmoral.tech,
-	darshan.prajapati@einfochips.com, akpm@linux-foundation.org,
-	zhangchunyan@iscas.ac.cn, luxu.kernel@bytedance.com,
-	pincheng.plct@isrc.iscas.ac.cn, nick.hu@sifive.com,
-	jim.shu@sifive.com, zong.li@sifive.com, greentime.hu@sifive.com,
-	robin.randhawa@sifive.com, scott@riscstar.com,
-	dave.patel@riscstar.com, raymond.mao@riscstar.com,
-	anup@brainfault.org, pawandeep.oza@oss.qualcomm.com
-Subject: Re: [PATCH v2 3/3] dt-bindings: sifive: Add WorldGuard Checker
-Message-ID: <20260730-component-wake-80840a196f8d@spud>
-References: <20260729163908.249838-1-peter.lin@sifive.com>
- <20260729163908.249838-4-peter.lin@sifive.com>
- <20260730-towering-modest-horse-ccbdcc@quoll>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MAx9AqKi";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Qmv4/Aed"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1785433094;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PRVLUAMqt9btSYcKLPYN+Dg017FHNaeUxumso8uAL/U=;
+	b=MAx9AqKikPvn6iGcLjQRe1I8PVTczFfauGZlO2+upx1zr2ppAySmazVzPigFDSfY7T5nl8
+	6/iUNA0G9BU2d4Q3xe7U0koYmw9RLYl7N+M7B/cx+ikbKu+w/V5+DAFC0vy9YydWDCsu3v
+	6S5wInLcL4L0gYfsQ+4EAGl58wuWrpM=
+Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com
+ [209.85.128.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-251-gfUdc1hWPPqPYKyqT5iqrQ-1; Thu, 30 Jul 2026 13:38:12 -0400
+X-MC-Unique: gfUdc1hWPPqPYKyqT5iqrQ-1
+X-Mimecast-MFC-AGG-ID: gfUdc1hWPPqPYKyqT5iqrQ_1785433092
+Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-81e8a76a273so2899747b3.1
+        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 10:38:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1785433092; x=1786037892; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-transfer-encoding
+         :content-disposition:content-type:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PRVLUAMqt9btSYcKLPYN+Dg017FHNaeUxumso8uAL/U=;
+        b=Qmv4/Aedan7hcQz8zdo06qi5nF2HNxgwap8nyZp7bAn8QBUXc3TOzbpUdal1eFiUML
+         C0zklhtMi0rR5A4m1KlyOi54aCNThRh8/1nCR0poZuqEpAMZWpI1k/DAz59nd8p+IaMY
+         tcDhI1OybMqq/BZhZQAQEUClDgzELJ/OmpAQ7zz1XpJpsyyMRqmE9+HU9O65nNnsBSrH
+         BWhkVFtHlc85dNdGdzJX7tyBC+ue+SZOH37guVAEXzPs1KZKGve+ATqOcWuo0ej0lQLC
+         PXEBIFcsfmPmaxWRLYgZNRJi9fHbAS5xw681j6aOK0IiCdUBfa5K2YKQ60ft7Ur+VwzO
+         OLVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785433092; x=1786037892;
+        h=user-agent:in-reply-to:content-transfer-encoding
+         :content-disposition:content-type:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=PRVLUAMqt9btSYcKLPYN+Dg017FHNaeUxumso8uAL/U=;
+        b=Ct95bkL9HdfubXs3DJqiPgl83yHphqG6YSTI4ecckASbYiKPONtzDgMD2coQJtJZ3L
+         b59yLsBfFKPTLYqTaarBKr9bPkw0mmNW0WWf58gxs473SWC9s1QR044NDDiJxgq9fSFs
+         oWfRKTCx8D1XlgYVMtxTeDfhTkrk0AugK96sSksyCjgFuaxHWno/0a6c95apcF9a1AMu
+         XGfnWQE5UvdVmyxYhI4MzvdslTX+UgasGP/eLRnyo5J4rrY6+fZvi2Sd9oF169zuW6SZ
+         FnbmIEBvkRhYZ+WkH3vv28pDpts1U0yTLAExw0ovIWm2YQwGSKJa1BpLtT1NoKOCgDwJ
+         jFNw==
+X-Forwarded-Encrypted: i=1; AHgh+RpzmYv03a/FV6impcE0UHxQqIM1y11ldiXfO0Iw1c/9kXDlIEeeVZ2SYp5cUlCehBdZvGSnPtEDAqbG@vger.kernel.org
+X-Gm-Message-State: AOJu0YxMbnFnzvb83IG4qGmXpj0BuvQoKVL///hiimcEH1X+dEoYetdi
+	sKPlecIzBo8SutZEjJZFTVPtwt8cDKUaCQWPtIxQUw1Ckg/QAS1JEQqJU2p8TA0hswJJx7/P5h8
+	EA4/yso00G2xINDbsC43NQLI97ZxR/XWbLaMFn58Gdp1wGDhF0+mGi/O45KmUkJE=
+X-Gm-Gg: AR+sD11vWiKpviX4ha6n1cXipwsGWcHtknHyNnjR5NObH2zZDMOmVsAeiuHmKjfQs+n
+	kN71Akh5zRHYqNjQJR7OqLohnEWVEwA0m2BmdB05/ANJCPXij08huSo/TjkduZ1zsffqrNHsXrg
+	J88RfaICvsLdyLwZWQKw1UFJq5aAG4AHokJNMiZ5T3pzAiUsVCRAOWmODqsWyIPoJcJa4I+WOBJ
+	PBg/FL3dB0r4oNGjNAshvceqtz0QPtGtIZvY/DFNc62YP5dFgR9+IWvfvUX4ubEC7izTKtYGOfb
+	0q/I/TDxl/o6d7rp13lForb4/8aehhTq0FhdgRNCinUWrf4ENJEDZXkNtA2swtk9TbsrKfFRuux
+	XuzfZ32IZp9JeOUR/O9JQKVGx5VL5a1GzWxw=
+X-Received: by 2002:a05:690c:698f:b0:81e:fd36:ff73 with SMTP id 00721157ae682-81fb891d54cmr25018707b3.5.1785433091941;
+        Thu, 30 Jul 2026 10:38:11 -0700 (PDT)
+X-Received: by 2002:a05:690c:698f:b0:81e:fd36:ff73 with SMTP id 00721157ae682-81fb891d54cmr25018367b3.5.1785433091480;
+        Thu, 30 Jul 2026 10:38:11 -0700 (PDT)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-81fb87315cdsm14274757b3.0.2026.07.30.10.38.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 30 Jul 2026 10:38:10 -0700 (PDT)
+Date: Thu, 30 Jul 2026 13:38:08 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Stefan =?iso-8859-1?Q?D=F6singer?= <stefandoesinger@gmail.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Russell King <linux@armlinux.org.uk>, Lee Jones <lee@kernel.org>,
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-phy@lists.infradead.org, mfd@lists.linux.dev
+Subject: Re: [PATCH v8 05/12] clk: zte: Add Clock registration infrastructure
+Message-ID: <amuMADxexEuJJG44@redhat.com>
+References: <20260727-zx29clk-v8-0-7a107b00f1dd@gmail.com>
+ <amiw7mfPfSPjLHLH@redhat.com>
+ <ami0TaY84IslWZyo@redhat.com>
+ <MwDLqBgXR7G6dGkTtCaRrQ@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="IWgYDhvHWKCgUhK2"
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20260730-towering-modest-horse-ccbdcc@quoll>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <MwDLqBgXR7G6dGkTtCaRrQ@gmail.com>
+User-Agent: Mutt/2.4.0 (2026-06-19)
 
---IWgYDhvHWKCgUhK2
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Stefan,
 
-On Thu, Jul 30, 2026 at 09:35:02AM +0200, Krzysztof Kozlowski wrote:
-> On Thu, Jul 30, 2026 at 12:39:08AM +0800, Yu-Chien Peter Lin wrote:
-> > Add YAML binding schema for the SiFive wgChecker, a programmable
->=20
-> There is no "YAML" binding schema.
->=20
-> > access controller integrated in the interconnect fabric of RISC-V
-> > Worlds-capable SoCs.
-> >=20
-> > wgChecker enforces World ID (WID) based access control on downstream
-> > bus transactions. Each checker slot encodes a 2-bit permission field
-> > per WID (read/write), enabling fine-grained memory partitioning and
-> > device isolation between execution contexts. Violations are reported
-> > via bus errors, interrupts, or both, selectable and lockable per slot.
-> >=20
-> > The binding registers wgChecker as an access-controllers provider.
-> > Consumers (i.e. its protected device) reference it via the standard
-> > access-controllers phandle to declare their access requirements.
-> >=20
-> > Also document the sifive,trustedwid property for the /cpus node,
-> > identifying the privileged WID authorized to configure all checkers
-> > on the platform.
-> >=20
-> > Link: https://github.com/riscvarchive/security/blob/main/papers/worldgu=
-ard%20proposal.pdf
-> > Signed-off-by: Yu-Chien Peter Lin <peter.lin@sifive.com>
-> > Reviewed-by: Zong Li <zong.li@sifive.com>
-> > Reviewed-by: Jim Shu <jim.shu@sifive.com>
->=20
-> What exactly these reviews pointed out?
->=20
-> > ---
-> >  .../devicetree/bindings/riscv/worlds.yaml     |   9 +
-> >  .../bindings/sifive/sifive,wgchecker2.yaml    | 356 ++++++++++++++++++
-> >  2 files changed, 365 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/sifive/sifive,wgc=
-hecker2.yaml
-> >=20
-> > diff --git a/Documentation/devicetree/bindings/riscv/worlds.yaml b/Docu=
-mentation/devicetree/bindings/riscv/worlds.yaml
-> > index cc8b3747591e..c39a06c2dd8d 100644
-> > --- a/Documentation/devicetree/bindings/riscv/worlds.yaml
-> > +++ b/Documentation/devicetree/bindings/riscv/worlds.yaml
-> > @@ -34,6 +34,14 @@ properties:
-> >      minimum: 2
-> >      maximum: 64
-> > =20
-> > +  sifive,trustedwid:
->=20
-> No, for the same reasons.
+On Wed, Jul 29, 2026 at 12:25:34AM +0300, Stefan Dösinger wrote:
+> Thanks for the review!
+> 
+> Am Dienstag, 28. Juli 2026, 16:53:17 Ostafrikanische Zeit schrieben Sie:
+> > Looking into the other patches. There's more mixing of the clk provider
+> > calling the clk consumer APIs here. It looks like this just takes a
+> > reference and holds them. Would moving to parent_data address this?
+> 
+> I think so. parent_data::fw_name is indeed something I have been looking for 
+> and didn't stumble across myself. And I suspect when you say "use 
+> parent_data", you don't mean "use parent_data.name everywhere".
+> 
+> But it raises the question of how to handle internal clocks, e.g. foo_gate-
+> >foo_div->foo_mux->clock-26m. Only "clock-26m" is passed through the DT and 
+> found via fw_name, and only foo_gate is exported.
+> 
+> For the other clocks I currently rely on the string matching to resolve the 
+> parent named in the static init data to an actual registered clk_hw. The 
+> alternative I see is storing the struct clk_hw * in a table by index and pass 
+> it in parent_data.hw, but that'd require managing the extra indices. Or build 
+> a clock-local name->clk_hw lookup, but then I am just reinventing the old name 
+> matching.
+> 
+> Am I missing something obvious? Is there a canonical implementation somewhere 
+> that implements modern best practices? I learned that looking at existing 
+> drivers isn't always a reliable guide.
 
-I am not entirely sure that this is defined by the platform compatible,
-if you've got something like a FPGA with lots of configurability then it
-may be needed. Then again, yeah maybe it can just come from the platform
-compatible unlike a device shows up that actually needs it.
-This is especially true if the consumer of the property is the SBI
-firmware.
+You'll want to register all of the clocks with the subsystem. Take a
+look at drivers/clk/qcom/gcc-sa8775p.c and here's an example I picked
+at random that shows how you can reference the parents with the
+parent_data:
 
-(that's assuming "same reason" follows on from your comment on the
-prior binding)
+static const struct clk_parent_data gcc_parent_data_8[] = {
+        { .index = DT_BI_TCXO },
+        { .hw = &gcc_gpll7.clkr.hw },
+        { .index = DT_RXC1_REF_CLK },
+        { .hw = &gcc_gpll0_out_even.clkr.hw },
+};
 
->=20
-> > +    $ref: /schemas/types.yaml#/definitions/uint32
-> > +    maximum: 31
-> > +    description: |
-> > +      The World ID (WID) designated as the trusted WID for this platfo=
-rm.
-> > +      Transactions tagged with this WID are authorized to access and c=
-onfigure
-> > +      WorldGuard blocks, including wgCheckers and wgMarkers.
-> > +
-> >  additionalProperties: true
-> > =20
-> >  examples:
-> > @@ -44,6 +52,7 @@ examples:
-> >          #size-cells =3D <0>;
-> >          timebase-frequency =3D <1000000>;
-> >          riscv,nworlds =3D <4>;
-> > +        sifive,trustedwid =3D <3>;
-> > =20
-> >          cpu@0 {
-> >              device_type =3D "cpu";
-> > diff --git a/Documentation/devicetree/bindings/sifive/sifive,wgchecker2=
-=2Eyaml b/Documentation/devicetree/bindings/sifive/sifive,wgchecker2.yaml
-> > new file mode 100644
-> > index 000000000000..c025a4765cb3
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/sifive/sifive,wgchecker2.yaml
->=20
-> No, you do not get per vendor directory. NAK.
->=20
-> Do you see Qcom? Or TI? Or NXP?
->=20
-> Place it in appropriate directory matching the hardware.
+static struct clk_rcg2 gcc_emac1_rgmii_clk_src = {
+	...
+        .clkr.hw.init = &(const struct clk_init_data){
+                .name = "gcc_emac1_rgmii_clk_src",
+                .parent_data = gcc_parent_data_8,
+                .num_parents = ARRAY_SIZE(gcc_parent_data_8),
+                .ops = &clk_rcg2_shared_ops,
+        },
+};      
 
-Which would be access-controllers.
+Brian
 
->=20
->=20
-> > @@ -0,0 +1,356 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +# Copyright (C) 2026 SiFive, Inc.
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/sifive/sifive,wgchecker2.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: SiFive WorldGuard Checker
-> > +
-> > +maintainers:
-> > +  - Yu-Chien Peter Lin <peter.lin@sifive.com>
-> > +
-> > +description: |
-> > +  The RISC-V Worlds ISA extension defines World IDs (WIDs) as architec=
-tural
-> > +  identifiers that tag each system transaction with its originating co=
-ntext.
-> > +  System integrators assign WIDs to execution contexts such as privile=
-ge modes,
-> > +  trusted execution environments, or other isolation boundaries.
-> > +
-> > +  The SiFive WorldGuard Checker is a hardware firewall positioned in t=
-he
-> > +  system interconnect fabric. It inspects every transaction, evaluatin=
-g the
-> > +  WID against access control policies encoded in checker slots for each
-> > +  protected resource. Transactions from unauthorized WIDs are blocked =
-and
-> > +  reported as bus errors, interrupts, or both.
-> > +
-> > +  This enables spatial partitioning of memory regions and memory-mappe=
-d devices
-> > +  across execution contexts. Different address ranges can enforce dist=
-inct
-> > +  policies, allowing isolated workloads to coexist with hardware-enfor=
-ced
-> > +  protection.
-> > +
-> > +  The wgChecker acts as an access-controller provider as defined in the
-> > +  access-controllers framework. Protected devices are consumers that d=
-eclare
-> > +  their access policy via the access-controllers property. The hardware
-> > +  supports up to 32 World IDs.
-> > +
-> > +  The World ID authorized to configure WorldGuard blocks is specified =
-by the
-> > +  sifive,trustedwid property in the /cpus node.
-> > +
-> > +allOf:
-> > +  - $ref: /schemas/access-controllers/access-controllers.yaml#
-> > +
-> > +properties:
-> > +  compatible:
-> > +    oneOf:
-> > +      - items:
-> > +          - const: qemu,wgchecker2
-> > +          - const: sifive,wgchecker2
-> > +      - const: sifive,wgchecker2
->=20
-> You need soc specific compatibles.
->=20
-> I do not believe the two review tags did any actual real review. They
-> would tell you to read writing bindings document, wouldn't they?
-
-I did okay the qemu compatible FWIW, the standalone sifive one though I
-did not.
-
-
---IWgYDhvHWKCgUhK2
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCamuLmwAKCRB4tDGHoIJi
-0sbyAQDQO5jGKNXxvfcLYlj8WTRy61IS4cHNIJ0RysdjVYOA0wEA5MvlcYB3Kugh
-0Na4V6sle17yOIH2Zwdkv6HLWtyFRgI=
-=/dkV
------END PGP SIGNATURE-----
-
---IWgYDhvHWKCgUhK2--
