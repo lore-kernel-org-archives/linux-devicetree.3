@@ -1,44 +1,44 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43EEE4322E7;
-	Fri, 31 Jul 2026 14:42:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9704D437858;
+	Fri, 31 Jul 2026 14:42:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785508941; cv=none; b=BJsTqFrxc9ejsAoKFsXxk8jaTuh8yNzje/fYiFQZNRYJJCPlQVPA2x+JdYYP+zbAhyGTTF0SbCXv/NsR0dSAOUH71NpLjZpn5DgbaCwjTbIBRSJICtu58Gz+PpzHJXw1NdlG/19cXnfQ5tpSmkDbQvQ0XGkw2iwcBQjUKQmro3Y=
+	t=1785508941; cv=none; b=bnw45O/JnkfuWskPcZ6gCQq0pIvlPO4hyqwUFdh3PD/TF3MMNKNQzPAP/klfCRedulOmEz3ymErFL7Kj0XPwKl3VU7eKre3E/lDRnIWcIcxRuXrAyXWtX2Jca9rlgqFBMMD2hirDwAEA24eMT+0WChMmkynJJBS/DENV7ARjPRU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785508941; c=relaxed/simple;
-	bh=xnajaehGeKqaSKIiYJaOEGQ01W5URX41oCYdG+inSws=;
+	bh=SwF3VHoRiI4Zsf33YHjX0UHR9rjLn/pkIELQ2nyar2c=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nLzbbGFRbbbjphQLczE/T1uRUJptyM72KgVyaqXMFEonmBY7w4ocqm6V9TdmswdzkD5ds5QRQoH1N3l9y1b0w6kYE66MEAc8STSnmx+Y4NblnTFZsSWwdcgMw5rLcYoigk35R0TZD24lN479fTW5L7Gl43UcxBu6L8OO2FykfYA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=iWBZ9U48; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=m0FZCwcTZVMF9Se7yuSCsBnk8jj4+mz3AQZ7ZyVOruvXiZzC6SlQgqcD0zkr2foT7kjt1ZLeL9jFHmimPwde7/nn6Xtue5LWcinujI3dqO3U8dNffOQP8aJwr6u80RVUsWGoowtzLWH3lApM6VTsg/JTg3jp/rz7IK7FrLXLO/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=PGDQJE1w; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="iWBZ9U48"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="PGDQJE1w"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1785508929;
-	bh=xnajaehGeKqaSKIiYJaOEGQ01W5URX41oCYdG+inSws=;
+	s=mail; t=1785508930;
+	bh=SwF3VHoRiI4Zsf33YHjX0UHR9rjLn/pkIELQ2nyar2c=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=iWBZ9U48IBmQ+EunYX6JEJrXwp/0+0vrsYnpy1J9I9dqHmVLEJWeVCLo+A8nrYHR9
-	 3qXYo7ImnGLb8Amiw+de0txge5GZiLuBqf3EPPd1sKKyFwZXRU8mV8Mu6nq56mmqzj
-	 9Pf564FY23HCqDemuRbP8xBzyOs5n+PrbIdmoBz96wfvk6SRruT29nMWStm255k8Ab
-	 +Gia+SothP1qSQe0SrOo6xRbObSO9FquGkmHX4xBWh4VEXSdMiqikg1EIlgaefqyxY
-	 /OBmY+4yAhgkl8/9geZHcetdawWsQngF4ajCxqU3qdTGmukZdQrHYU9vBRzWvmnKuL
-	 doOS3wPQkIIZg==
+	b=PGDQJE1wu2rTNVK74o1BVXRR3bMbRPM5Bioi046QI8KtxOQRgnjeuHnd1BZfSCAxG
+	 4HgbnQOtPHnu0lXnde4KqnT1TnKQJTFMQBpHdaMBLuMb6mch1keS6X6dy+MgB3asKz
+	 pl+lEnkJzV38935Y/bD5UyXBmLw4CJSGYgESB3zefxNo5xkxYqYCl5/5nlmG2Y8ok+
+	 4GCeRmHI5yGbMbw1rXeI/DSv9dthUcfS1ZkVMiDHCxG1nYtRv3Ux1lg8RqQ2K8vLWo
+	 ulIlQEGAM+SrM7FKYBQOwAo/bnz+i2ddBYpxyt/AkdDhp0OJohTVItwfobSShFxRSU
+	 qvki9UvBwB3kQ==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id A6A5317E091F;
-	Fri, 31 Jul 2026 16:42:09 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 11EBB17E0943;
+	Fri, 31 Jul 2026 16:42:10 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 0995C48003D; Fri, 31 Jul 2026 16:42:09 +0200 (CEST)
+	id 1A515480066; Fri, 31 Jul 2026 16:42:09 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Fri, 31 Jul 2026 16:42:14 +0200
-Subject: [PATCH v8 09/21] drm/bridge: synopsys: dw-dp: Support
- MEDIA_BUS_FMT_FIXED
+Date: Fri, 31 Jul 2026 16:42:25 +0200
+Subject: [PATCH v8 20/21] dt-bindings: display: rockchip: dw-dp: Fix sound
+ DAI cells
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,7 +47,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-synopsys-dw-dp-improvements-v8-9-ac1e6a75782f@collabora.com>
+Message-Id: <20260731-synopsys-dw-dp-improvements-v8-20-ac1e6a75782f@collabora.com>
 References: <20260731-synopsys-dw-dp-improvements-v8-0-ac1e6a75782f@collabora.com>
 In-Reply-To: <20260731-synopsys-dw-dp-improvements-v8-0-ac1e6a75782f@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -71,111 +71,107 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
  devicetree@vger.kernel.org, kernel@collabora.com, 
  linux-arm-kernel@lists.infradead.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3804;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3153;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=xnajaehGeKqaSKIiYJaOEGQ01W5URX41oCYdG+inSws=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpstEDF/O6nFlXMYotmPi7Paj6gydxBGAsAO
- cht73WLYlT1n4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqbLRAAAoJENju1/PI
- O/qaLFcP/1NC9hlZH+xFFCRuPhGo40b81NgQEFjg7VgSzHTOlAX7cm/aDlzbW+MOhEhSzmrRlh3
- wkhlZVDKHv+rDvT1/7XM2Z1k+S3jL3W/DZRPhlNljW8H90QThXOG2UAgUJFRDiccO9+eq28lWNF
- qF68qxLGuM3EXcqXASkqkyVnQhc59ji0eIYfR25tQIGSNjtQ0jRyujdQSwtYKClawWnyMQnkyCZ
- djhNrcygXjBd3yosDHEfoqUkaPW7UmQzfi5f1d9fPN4HGTUuLhc0ziRqM5UTfEqFSAkyS+4Il7j
- ujwXiN/l7ergMQfziHbmCzRmvUosCiRx0ukoVejCVteNC7jrcKGvvfXOrGtgiXS6vGnL7WBGXHu
- U3wUQLkIhYzB28oyrIExfBLEbbsxXqpnQvIG/do6uBBod1VJ9DI5dkjocgrNVzQV8WA3plYPkP0
- TfmM4Tsh/QogHJfEddh8KpI/vZw0rVGJqq9J8g5IWTZ2A19e7gy0SuaLiLPOTYtdcM/a9BYqLgo
- t9bT98mk9+/MdyG0g8mqoAZ9Yf7XGtorN5jlOFFOC9uadvEf9wVMAMHaZTbsoBiQyCgYnCWJaue
- /k0J00we/MKM2ZB5+PIw2+KbMTpqAq02NDDdmSb+j2vq7gq2JMBFjsf2Sch7ThJ06y4ZEXY9iup
- JvuwrAqldq1BtzQf7FxwySQ==
+ bh=SwF3VHoRiI4Zsf33YHjX0UHR9rjLn/pkIELQ2nyar2c=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpstEBuVYmo/gc1yooRF7Q5pSqVy6ElAigaE
+ 1JVGu8Ic88DK4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqbLRAAAoJENju1/PI
+ O/qahrEP/2S/ojkgdjhY+A+syYFVUzDN01FYSgajyDOj9MoPlp+tQ6lb1Ig+z5a3jgqm27nP5BS
+ AVhF2Ca4uK4NmKt82ZGHFuZun8tIky7tkqNgbt0h3A4IFS/OOoIXYZN1UkaFHzGcjL1ip7vpODZ
+ KRmmyoi87GRpMppXv5zPhWSgMjYtjDJDx5ZUCOnr1YWbgXOZc4fFky7VxX4N6j9AG/NJCgFGis2
+ OudqwDCScH8d+HDsubNnTdQrfv74rcHSwSfn6hT3wzfQduD+BXWz5mBfgaKMc3FjKCVDC9O5hDb
+ b/F7B//giitBCnYvAf+ncP2UerKbskD2bFc+psk87AaiZcu6GywsXWwQAH95rsvyqqO9jC/B+0S
+ wU+uqBzFs5p1wcH6nJB7NoklGiR3qf0bIRf5plyZ4ZzQvlJn5VrjdZzqNSWjEJht/0p00HI6pdx
+ n/rlez2VkFAsMeNkNO39D0omxpz27RXp+OJYux96BfpCQiA/D9UZAm3/kTNndkmVnDvIsLLYvhq
+ q4H1CSrP2mgJJnAMR6MTXJajtAQPvMHIfrjpEWYjCrck6LofVJ45V4gYvWh8y1h2ZhiLKuuVefs
+ 4aDbvgkoGj/Z5KWpM6HkCJwX3pODMoL4r0gRdGuJJh1qvi7vdBYdYNvVu7rQLaIILvuNLWYf/QP
+ 09v22i26WMSpmityxKxAvwg==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Add support for MEDIA_BUS_FMT_FIXED, which is e.g. requested for USB-C
-DP chains as the last bridge in the chain (aux-hpd-bridge) does not
-implement atomic_get_output_bus_fmts(), which results in the generic
-drm_atomic_bridge_chain_select_bus_fmts() code using MEDIA_BUS_FMT_FIXED
-instead. For decent support of this, two areas are changed:
+The RK3588 and RK3576 DesignWare DisplayPort controllers both have two
+possible DAI interfaces: I2S and S/PDIF. Thus an argument is needed to
+to select the right interface.
 
-1. In atomic_check, resolving MEDIA_BUS_FMT_FIXED output format by
-   using the negotiated input format.
+In addition to that the RK3576 DisplayPort controller is configured
+with Multi Stream Transport (MST) enabled for up to 3 displays and
+thus has a total of 6 DAI interfaces (I2S and S/PDIF for each possible
+stream). Meanwhile the RK3588 does not support MST and thus has only 2
+DAI interfaces.
 
-2. Implementing a custom .atomic_get_input_bus_fmts hook that, on
-   MEDIA_BUS_FMT_FIXED, advertises all bandwidth-validated formats
-   from dw_dp_bridge_atomic_get_output_bus_fmts(). This lets the
-   upstream encoder negotiate the best mutually supported format.
+The binding update from this patch has only been tested with the simple
+single stream transport (SST) setup as the Linux driver does not yet
+support MST. Once MST support is added, the plan is to simply add more
+numbers to the argument, so that it looks like this for RK3576:
 
+0 = I2S on stream 0,
+1 = S/PDIF on stream 0
+2 = I2S on stream 1,
+3 = S/PDIF on stream 1
+4 = I2S on stream 2,
+5 = S/PDIF on stream 2
+
+As the arguments are not part of the binding itself the audio side
+is also ready for MST after this change.
+
+Switching '#sound-dai-cells' from 0 to 1 without keeping compatibility
+is an ABI break. The rationale for going that way is, that there is not
+a single known driver implementation for the current binding. It's also
+unclear how the current binding would be used (only support I2S or
+S/PDIF for stream 0?). The mainline rk3588 DTS include sets it to 0, but
+does not have any soundcard using the DAI. This will be fixed up
+separately. The RK3576 does not set it at all.
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 34 +++++++++++++++++++++++++++++++--
- 1 file changed, 32 insertions(+), 2 deletions(-)
+ .../devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml     | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index 7127928c2650..42927335f0fd 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -1537,6 +1537,7 @@ static int dw_dp_bridge_atomic_check(struct drm_bridge *bridge,
- 				     struct drm_connector_state *conn_state)
- {
- 	struct drm_display_mode *adjusted_mode = &crtc_state->adjusted_mode;
-+	unsigned int out_bus_format = bridge_state->output_bus_cfg.format;
- 	struct dw_dp *dp = bridge_to_dp(bridge);
- 	struct dw_dp_bridge_state *state;
- 	const struct dw_dp_output_format *fmt;
-@@ -1547,7 +1548,10 @@ static int dw_dp_bridge_atomic_check(struct drm_bridge *bridge,
- 	state = to_dw_dp_bridge_state(bridge_state);
- 	mode = &state->mode;
+diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
+index 2b0d9e23e943..c4f8959dd65d 100644
+--- a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
++++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
+@@ -25,7 +25,7 @@ description: |
+   * Supports up to 8/10 bits per color component
+   * Supports RBG, YCbCr4:4:4, YCbCr4:2:2, YCbCr4:2:0
+   * Pixel clock up to 594MHz
+-  * I2S, SPDIF audio interface
++  * I2S, S/PDIF audio interface
  
--	fmt = dw_dp_get_output_format(bridge_state->output_bus_cfg.format);
-+	if (out_bus_format == MEDIA_BUS_FMT_FIXED)
-+		out_bus_format = bridge_state->input_bus_cfg.format;
-+
-+	fmt = dw_dp_get_output_format(out_bus_format);
- 	if (!fmt)
- 		return -EINVAL;
+ properties:
+   compatible:
+@@ -46,7 +46,7 @@ properties:
+       - description: DisplayPort AUX clock
+       - description: HDCP clock
+       - description: I2S interface clock
+-      - description: SPDIF interfce clock
++      - description: S/PDIF interfce clock
  
-@@ -1814,6 +1818,32 @@ static u32 *dw_dp_bridge_atomic_get_output_bus_fmts(struct drm_bridge *bridge,
- 	return output_fmts;
- }
+   clock-names:
+     minItems: 3
+@@ -83,7 +83,8 @@ properties:
+     maxItems: 1
  
-+static u32 *
-+dw_dp_bridge_atomic_get_input_bus_fmts(struct drm_bridge *bridge,
-+				       struct drm_bridge_state *bridge_state,
-+				       struct drm_crtc_state *crtc_state,
-+				       struct drm_connector_state *conn_state,
-+				       u32 output_fmt,
-+				       unsigned int *num_input_fmts)
-+{
-+	/*
-+	 * MEDIA_BUS_FMT_FIXED means the downstream bridge does not constrain
-+	 * the bus format. In that case, advertise all formats supported by the
-+	 * DP link so the upstream encoder can negotiate the best match.
-+	 */
-+	if (output_fmt == MEDIA_BUS_FMT_FIXED)
-+		return dw_dp_bridge_atomic_get_output_bus_fmts(bridge,
-+							       bridge_state,
-+							       crtc_state,
-+							       conn_state,
-+							       num_input_fmts);
-+
-+	return drm_atomic_helper_bridge_propagate_bus_fmt(bridge, bridge_state,
-+							 crtc_state, conn_state,
-+							 output_fmt,
-+							 num_input_fmts);
-+}
-+
- static struct drm_bridge_state *dw_dp_bridge_atomic_duplicate_state(struct drm_bridge *bridge)
- {
- 	struct dw_dp_bridge_state *state;
-@@ -1860,7 +1890,7 @@ static const struct drm_bridge_funcs dw_dp_bridge_funcs = {
- 	.atomic_duplicate_state = dw_dp_bridge_atomic_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
- 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
--	.atomic_get_input_bus_fmts = drm_atomic_helper_bridge_propagate_bus_fmt,
-+	.atomic_get_input_bus_fmts = dw_dp_bridge_atomic_get_input_bus_fmts,
- 	.atomic_get_output_bus_fmts = dw_dp_bridge_atomic_get_output_bus_fmts,
- 	.atomic_check = dw_dp_bridge_atomic_check,
- 	.mode_valid = dw_dp_bridge_mode_valid,
+   "#sound-dai-cells":
+-    const: 0
++    const: 1
++    description: 0 for I2S, 1 for S/PDIF
+ 
+ required:
+   - compatible
+@@ -144,7 +145,7 @@ examples:
+         resets = <&cru SRST_DP0>;
+         phys = <&usbdp_phy0 PHY_TYPE_DP>;
+         power-domains = <&power RK3588_PD_VO0>;
+-        #sound-dai-cells = <0>;
++        #sound-dai-cells = <1>;
+ 
+         ports {
+           #address-cells = <1>;
 
 -- 
 2.53.0
