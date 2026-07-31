@@ -1,39 +1,69 @@
-Received: from ixit.cz (static-84-42-129-46.bb.vodafone.cz [84.42.129.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com [209.85.210.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D264A449B1C;
-	Fri, 31 Jul 2026 16:46:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1557544C649
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 16:46:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785516386; cv=none; b=lNW1vQ9vcfCj6bH9JrevHCsnANOwmEvnp0udIwB755J7UWMB+LkKV8ZhI/9S4H1uowvzBHU3EpKM4Zp2qJzOjJCgNKHtQP/dltEg0LXLNg5h4/qHo7OIAocdluBpZ126Leczr1+SYMfxZdR6P1m795NQ/bHI0oeuwE9221Y7brA=
+	t=1785516394; cv=none; b=iV6sw72AJVa3Qx7hUBFMcGcyAS1KPa2aEzyN35OP4+lvHl+AuNl9ezBDtBOA7NmcwnlG2Y7+f1atmnoCnV+dKC5fz+9bE3W4kOKct+6It0u6qSYfVRqxdUbGSNUqTX2+LuB6PqkU5w9oSe3nRVzfAwNUS04DYVQy6kj5pitzTic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785516386; c=relaxed/simple;
-	bh=EgHKssWS2IHEXnxUIZmtbiWHpOQgMwWncHCs0HiDZD4=;
+	s=arc-20240116; t=1785516394; c=relaxed/simple;
+	bh=buDpFU+GRsJj1Ss2NH8S/x5Gkmd8OPD78dUkFqERDL8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PeZ5ixec0jhKgmytkUupg5XTrDTRmYCw8gWCHiwBJPZntZdypLujSjVkBoWMUo0QUYxncVQt6k6Bhh5T6r6aAxdPW5irvQAMJTlqejiNafjb7KBTwcxpvOT3JWsbsb6KUmDM2yQgEKsHuQGg2cYqAs/BWfT9llCXSQeUNYPC3lo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=js9CfTCX; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	 In-Reply-To:Content-Type; b=bu8U2oAmURg78+bveHvEVNN7LzH/MnnPzjfZ1R0qr8QeNPvSWgpHwezMnohW7mKCPOuujXEx+nWVwwNoUusqJrQEkOlbAWJhiK3V/aLTYcMWzTrDJeTM0FMLS/1bVwqrE3Uay7/3gMrndaS7xDM7m1VbrEW1L2py1OqWqj7uXcw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aRKAxDLw; arc=none smtp.client-ip=209.85.210.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="js9CfTCX"
-Received: from [10.0.0.182] (unknown [10.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id D2BD45340464;
-	Fri, 31 Jul 2026 18:46:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1785516378;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=yTnhZR+RH3H49Tzpp/p53oE4c6zUUfnXbDUgm/T7+84=;
-	b=js9CfTCXnQ845E+2EUMHYeYyInsISOG10dFJzpDoAiwg22i2ehcrvQoxRkzaIqjc8TpBPF
-	nbljwfQUx2wAbyOgRzn5pd/OG4SlTt1AKc857c8H/utLfECJoP2zn2+b4RzyUSeb3kPgL0
-	dI7LxaNc/w5pO5sNJ8Zhdr/oeeBA0gk=
-Message-ID: <b9afe038-dfa3-4927-adf3-5b99885fb911@ixit.cz>
-Date: Fri, 31 Jul 2026 18:46:18 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aRKAxDLw"
+Received: by mail-ot1-f45.google.com with SMTP id 46e09a7af769-7eb9b427da2so1576526a34.0
+        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 09:46:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785516392; x=1786121192; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CKl76hhPWbrBZzJWAtDQCvA60aTLZqaBfqh0JSfu/Gs=;
+        b=aRKAxDLwKaXLTHTr+xMfBBeoV+91VFN5uyFoqCVOzJF89Ezy90b685e5jfEPH5HnyC
+         B27wTT1aJyeZbarbiu19TsvtzxcUxdQDMHPUbZD9UWNbAw+A+6NCyVubu3k+tLPyQby8
+         o3OsnTX3cIRto4dq1et4FyfexsTNJ0e/SSIdwWZreYPawDja9YT9XMFXRP0vZTxbHkDo
+         T69GiYiZZiGE9SB5reKSTLGrMtLTaXb457b/j+nU+Wb1w+Hhe6NixW90q67IyQqWszMu
+         IgsQaswiqAtZgLaCKNsKSwm1qA0J+0dg1u/2qlPnEqKkKcaCVQZIm8ix7tQh+nlcejEl
+         DUsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785516392; x=1786121192;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=CKl76hhPWbrBZzJWAtDQCvA60aTLZqaBfqh0JSfu/Gs=;
+        b=WR4w2xPOgf7ulBSRrUgGXsB3g5nk48vItZsJlGAQuix1i+DuTT3Z6med7wqE5dK7MD
+         hGLd5JqwKbGZWX66e9mN9iu26DlY8IB1eADdfSkb7HgBO+jbRCk3jaWyzQQbXygVWgbh
+         a9F5eqLJuXxLD26kVCKi4KL1r6y2bhjJOOWbLEKidmq3tfdxF8ETwwXD4X65oCtFzrCD
+         HUSVSsLMdRh2lwWqvX1budbM/FvorZXee7Bko06XUtLThpW2mxKL7eQVHfba3HuBv5x5
+         wrjnAujz0CKQaPSSbkhrvZ3ymsXs29vRLeA6UrVrlihEsuhCB2Qru+soA3P2zG/EGn60
+         eMtA==
+X-Forwarded-Encrypted: i=1; AHgh+RpOhWFfGVMZnWpIM1S8X1TJItgmLYvLJNGphotgXfasVpMnvcEoIywHZZ5uZAtuAMQHrZerjYUw4OTl@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz7us3JxQBhF45Oze/rq8Redovs/u9FsC8mGYUHLESp7BQ+Zt/g
+	2Ck6BJfPFwGtI8QM+Xax3Obn1nsjKcCwxrieMz/pG3evj4I/1h4I/yfg
+X-Gm-Gg: AR+sD103gtyyK80hNALrnuXsPJEd6M2iWqbKDhaRtw+SVOhi3OqtSuGJkZGLE+0Rq3p
+	7vJhGkR3hxaM7rByzSkNsimmeigUHPoP6HdoHWL1nYARASSnAP6Ho67NIC9UrolS17itX8R7UGU
+	H05VHBfTGJjgVbq/wxW9XlIkGLMZLIpBhRgxTLdAZpFG6WEgrHqI1WzCGQFs/X0sNLbd451STGM
+	9o7r1hFAyfOYWV91gV4EpJiJbggdld/b5nUzDrC1V1FxWoUyE5/Bk0/sRPmjARhSkfk5s82V2Ga
+	4agbRwcypxQ5MR8/e3gx+8dQCTp3RvbWLEBinebioMT9uZGGIgkRuowDg1pwVEehoXeoZ4vmCEV
+	Z75nF/CS+VhqgpAV8R5xkQixpM8VApapv3TZ4iLEpOOOkU+5l0xK3cYbaR7YsN3RF3kxg65XFvm
+	nM54V3V6C4tmIkQb7nZ2glUA1IO59QWBdLBOYqet5UZmBEFWxH0oJAw1fumxvVJa029SUao4qKa
+	vFPKhr/cLiBY69VqlL47DPsbByhx6i49WDZgVZsSlvkpIXW
+X-Received: by 2002:a05:6820:818e:b0:6aa:e3dc:25cd with SMTP id 006d021491bc7-6ae4493c058mr907765eaf.0.1785516391848;
+        Fri, 31 Jul 2026 09:46:31 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6ae39db1c5bsm1256542eaf.5.2026.07.31.09.46.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 31 Jul 2026 09:46:31 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <b48636b8-33d1-425f-93a7-d0b9c4dd86ca@roeck-us.net>
+Date: Fri, 31 Jul 2026 09:46:29 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,147 +71,153 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: sdm845-shift-axolotl: Add
- actuator for main rear camera
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Alexander Martinz <amartinz@shiftphones.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
-References: <20260730-dw9714v-v2-0-d5da19e6c60b@ixit.cz>
- <20260730-dw9714v-v2-2-d5da19e6c60b@ixit.cz>
- <3ac4eb1b-348b-444a-bba0-e4c64d5b57bb@oss.qualcomm.com>
+Subject: Re: [PATCH 3/5] hwmon: (pmbus/core) Add mapping function to
+ pmbus_read_block_data()
+To: =?UTF-8?Q?Nuno_S=C3=A1?= <noname.nuno@gmail.com>
+Cc: nuno.sa@analog.com, linux-hwmon@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Alan Tull <atull@opensource.altera.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20260728-hwmon-max20826-support-v1-0-224766e0acd1@analog.com>
+ <20260728-hwmon-max20826-support-v1-3-224766e0acd1@analog.com>
+ <c3e143ed-af08-4a0f-a630-96a255df838d@roeck-us.net> <amtewh9lOgWz0-Nh@nsa>
+ <e37df572-1ca9-4c56-a16e-faa44f1ff1cd@roeck-us.net> <amtqPQSM6zsiCh4B@nsa>
+ <6287e749-04f5-4a03-a91c-fcc705df269c@roeck-us.net> <amzB2aw_4y6ji9zs@nsa>
 Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <3ac4eb1b-348b-444a-bba0-e4c64d5b57bb@oss.qualcomm.com>
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <amzB2aw_4y6ji9zs@nsa>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-
-On 31/07/2026 17:41, Konrad Dybcio wrote:
-> On 7/30/26 12:20 AM, David Heidelberg via B4 Relay wrote:
->> From: David Heidelberg <david@ixit.cz>
+On 7/31/26 08:42, Nuno Sá wrote:
+> On Thu, Jul 30, 2026 at 08:54:25AM -0700, Guenter Roeck wrote:
+>> On 7/30/26 08:19, Nuno Sá wrote:
+>>> On Thu, Jul 30, 2026 at 07:47:37AM -0700, Guenter Roeck wrote:
+>>>> On 7/30/26 07:27, Nuno Sá wrote:
+>>>>> On Tue, Jul 28, 2026 at 02:05:53PM -0700, Guenter Roeck wrote:
+>>>>>> On 7/28/26 09:03, Nuno Sá via B4 Relay wrote:
+>>>>>>> From: Nuno Sá <nuno.sa@analog.com>
+>>>>>>>
+>>>>>>> This is in preparation for adding support to a device which needs to
+>>>>>>> use it's own read_block implementation.
+>>>>>>>
+>>>>>>
+>>>>>> The chip-specific implementation calls i2c_smbus_read_i2c_block_data().
+>>>>>> I'll need to know if this is a chip limit or a controller limit.
+>>>>>> If it is a controller limit, a chip specific override would be
+>>>>>> inappropriate.
+>>>>>
+>>>>> I'll reply from top of my head (did not looked at the driver again).
+>>>>> IIRC, the biggest reason we need the chip-specific implementation is because of
+>>>>> the RAIL selection logic (mainly when not in page mode).
+>>>>>
+>>>>
+>>>> Yes, I have seen that. Question is why you use i2c_smbus_read_i2c_block_data()
+>>>> instead of i2c_smbus_read_block_data(). The rail selection logic would not
+>>>> require that.
+>>>
+>>> IIRC the reason was because the i2c controller on the raspberry pie does not
+>>> support i2c_smbus_read_block_data(). So I guess this:
+>>>
+>>> https://elixir.bootlin.com/linux/v7.1.4/source/drivers/i2c/i2c-core-smbus.c#L220
+>>>
 >>
->> Main rear camera uses Dongwoon DW9714V actuator. Add regulator and
->> actuator node.
+>> Hmm, I think we really need a common solution for that problem. Not all
+>> controllers support i2c_smbus_read_i2c_block_data(), so you are just moving
+>> the problem from one controller to another.
+> 
+> Yikes. I actually though i2c_smbus_read_i2c_block_data(9 was more widely
+> supported (if not always). Not sure if you have something in mind but
+> one straight way would be to choose different implementations (for
+> read_block) depending on i2c_check_functionality()
+> 
+
+Handling it in pmbus_read_block_data() would be straightforward. Actually, I
+wonder why it isn't handled as fallback in i2c_smbus_read_block_data(),
+but I assume there must be a reason.
+
+Either case, I don't understand how the existing calls to i2c_smbus_read_i2c_block_data()
+work. For example, in drivers/hwmon/pmbus/max20830.c, the assumption is that the
+first returned data byte would be the length field. However, that is already done
+in i2c_smbus_read_i2c_block_data():
+
+/* Returns the number of read bytes */
+s32 i2c_smbus_read_i2c_block_data(const struct i2c_client *client, u8 command,
+                                   u8 length, u8 *values)
+{
+         union i2c_smbus_data data;
+         int status;
+
+         if (length > I2C_SMBUS_BLOCK_MAX)
+                 length = I2C_SMBUS_BLOCK_MAX;
+         data.block[0] = length;
+         status = i2c_smbus_xfer(client->adapter, client->addr, client->flags,
+                                 I2C_SMBUS_READ, command,
+                                 I2C_SMBUS_I2C_BLOCK_DATA, &data);
+         if (status < 0)
+                 return status;
+
+         memcpy(values, &data.block[1], data.block[0]);
+         return data.block[0];
+}
+
+Does the command return the length twice ?
+
+Thanks,
+Guenter
+
 >>
->> Signed-off-by: David Heidelberg <david@ixit.cz>
->> ---
+>> One key example is the PIIX4 driver. Your new driver does not support the
+>> majority of PC style systems with AMD CPUs.
+>>
 > 
-> [...]
+> I see!
 > 
->> +	/* SGM2036-2.8YUDH4G/TR */
->> +	cam_bus_2p8: regulator-cam-bus-2p8 {
->> +		compatible = "regulator-fixed";
->> +
->> +		regulator-name = "cam_bus_2p8";
->> +		regulator-min-microvolt = <2800000>;
->> +		regulator-max-microvolt = <2800000>;
->> +		regulator-enable-ramp-delay = <100>;
->> +
->> +		gpio = <&tlmm 8 GPIO_ACTIVE_HIGH>;
->> +		enable-active-high;
->> +
->> +		pinctrl-0 = <&cam_bus_avdd_default_state>;
->> +		pinctrl-1 = <&cam_bus_avdd_sleep_state>;
->> +		pinctrl-names = "default", "sleep";
->> +
->> +		vin-supply = <&vreg_bob>;
->> +
->> +		/*
->> +		 * TODO: This node represent bus supply to the cam i2c module.
->> +		 * Others DT do in similar fashion, but should be addressed
->> +		 * by the bus-supply in the future
->> +		 */
+> - Nuno Sá
 > 
-> I can't quite parse the second sentence..
-
-I'll rephrase, I noticed that other device-trees where there is also i2c 
-level-shifter also introduce always-on regulator. I let clanker check impact on 
-power consumption, it's likely irrelevant, but in the future would be nice to 
-have proper bus-supply property in use instead of always-on.
-
-> 
-> [...]
-> 
->> +&cci_i2c0 {
->> +	rear_camera_actuator: actuator@c {
->> +		compatible = "dongwoon,dw9714v", "dongwoon,dw9714a", "dongwoon,dw9714";
-> 
-> 1 a line would be neater
-> 
-> [...]
-> 
->> +	cam_bus_avdd_default_state: cam-bus-avdd-default-state {
->> +		pins = "gpio8";
->> +		function = "gpio";
->> +		bias-disable;
->> +		drive-strength = <2>;
-> 
-> Other nodes have drive-strength first, then bias
-> 
->> +	};
->> +
->> +	cam_bus_avdd_sleep_state: cam-bus-avdd-sleep-state {
->> +		pins = "gpio8";
->> +		function = "gpio";
->> +		bias-disable;
->> +		drive-strength = <2>;
->> +		output-low;
-> 
-> Drop output-low, the regulator driver will set that
-
-Sure, all noted and next version will include these changes.>
-> Konrad
-
--- 
-David Heidelberg
 
