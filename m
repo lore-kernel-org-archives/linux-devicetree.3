@@ -1,139 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from flow-b6-smtp.messagingengine.com (flow-b6-smtp.messagingengine.com [202.12.124.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13590404BE8
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 10:14:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA03440F72B;
+	Fri, 31 Jul 2026 10:17:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785492857; cv=none; b=rv9a3w/rvdwH/J2JkSNomuI6dpVYbccI7+eLO+7He/l7NDEw19uMVqK+0a6Gr2H7h6dYxmf32qjJK/ZurmDYrU7rZKl0Ew/MjqbOZpeU6GfPY3HsIj4IQJ/B+qQUJntIB6JiI7xmLBV7XptiTc8Bb2iaVpPeDMGRJW1i/jsTLAU=
+	t=1785493056; cv=none; b=MNN5QA4vYphnVGZc4YjtoZ6OgPVGMu+qicE4athphONETMO60TpMXiT0p6m+XMA2benYYB8Jj/BlIdx5W2G8W/nbpA888yKc/QmnI6whjcuCrrsrKcaUrqch3cKj6V2o5cHTDT5mW7GaZ/mSFgmpwBX+VCxIRgce1lwQMReiQro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785492857; c=relaxed/simple;
-	bh=2MrliWXxz1m1usVurvL7PCBzQ0anzMDRtAE8yxPCjv8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bdij5PR4DuJKVF7oV9rGwOdwhA9yeosCKYBqtgJYNBSESW7iS3fNVQsekCWEW9LMTeJFWmwMJsEMcBAAL0LVtn1Rf7nwqgvutBK47Omin7iE8m8cJcLhl3kLM+ypHj3+DEE95XZz6bf3L7g9zWSEr0Mj+jkPtVq5tvGf2gkYj48=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P+YzpzJ9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785493056; c=relaxed/simple;
+	bh=ryUIrfwLhwmOaFyadnky7X8MCgTqNwrP15Ps6HbJRew=;
+	h=Date:Message-Id:To:Cc:Subject:From:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=HrNL3n3q+FAYcrbtnYCU/JRewm4ku9E+3TvU8MHxSyflhdc0rnLnTYUi+J0o/6G6DbZq3/M1jCFuaFqnmtDRCjkSmZK6OobxTQTXKJuh2NPGJxo6eSrlq6sMQNYSi5UG1mlG+QeqzeoWsAobTei+hHlvFXvXajRB32J80FZo70I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org; spf=pass smtp.mailfrom=flapping.org; dkim=pass (2048-bit key) header.d=flapping.org header.i=@flapping.org header.b=IVW8HFTb; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=EcAf9nM/; arc=none smtp.client-ip=202.12.124.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flapping.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P+YzpzJ9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D5291F000E9;
-	Fri, 31 Jul 2026 10:13:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785492838;
-	bh=PJ63S5U6+YebaRGh6tGzteT4oIZYn3EekMrWIKfBlBA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=P+YzpzJ9nJWvVv9weWNLmQuBnmQMKQjde+27CkuLTKQIzURhsWF1AhZ7bdjl1Ozs2
-	 1AnFfivi3ehY9v53Zc8oNoRnjC2rlr5uIpxdGMP0wssooL8N85MdUiGnhM4Uc62sUy
-	 5ZXyQnQ+C/TawnRy0XfUF1l4yN4/Vu51C2wnlee9hxFAV5V7g7c5pbiXmNOx4Jz1SM
-	 KTGKNhU9f7Kb6Ca8USZgygKJc7Ici/gw8ski8zOXLIFXB+FdN50LLkRIDFubb1GHlA
-	 MecoaDla3ARJGaNx940H+cX8OIXTyKQRf+Fn003epPsJpRJLDspuCONs/tY8OFsPGI
-	 NjWKokHrdD+PQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/2] usb: typec: ucsi: Add ITE IT8851/IT8853 Type-C
- PD controller driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Amber Kao" <amber.kao@ite.com.tw>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260731-ucsi-itepd-v6-2-d25ae12b181f@ite.com.tw>
-References: <20260731-ucsi-itepd-v6-0-d25ae12b181f@ite.com.tw>
- <20260731-ucsi-itepd-v6-2-d25ae12b181f@ite.com.tw>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 31 Jul 2026 10:13:57 +0000
-Message-Id: <20260731101358.2D5291F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=flapping.org header.i=@flapping.org header.b="IVW8HFTb";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="EcAf9nM/"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailflow.stl.internal (Postfix) with ESMTP id D43F9130007B;
+	Fri, 31 Jul 2026 06:17:17 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Fri, 31 Jul 2026 06:17:19 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flapping.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1785493037;
+	 x=1785496637; bh=GK3P8P19kG8dXqY7osPQDP/iPoqGbBmtaXA7tO2dwhk=; b=
+	IVW8HFTbbVEeFIw4IKo/saEqH8ptOlB1vDBuvZp6QQcinyktarELLiXP02UB5ZSc
+	dRfZOM9CseWYhlYsMYEtpLrdGzoS2Ci2O+3fJBTj6B3oKsT3DV1nselK77aKZZ/M
+	lsoabYUm9oFf2ucYTE76IGweptLHuRsYXVUvOBV7PJqPFI2wnlfZuEzsdbSmDHc8
+	U/0XzzWNzbyG+4U3w50E1kMDdFTJ8G2LkSCjDI2fq0WwXzSw/7TUM+WHjY+5SZQ0
+	PkvsHb6FD+4uyx+jMTTd+DbtPIlUNpN1gUceKb+463oznUfBhSvKHMZuW8s4YJnO
+	Gs/J3tANeahs3hd5ntD9zA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1785493037; x=
+	1785496637; bh=GK3P8P19kG8dXqY7osPQDP/iPoqGbBmtaXA7tO2dwhk=; b=E
+	cAf9nM/mr49QV3OsKrZes0K1n8ngTKGd7Lxc7mEcQHCKJMeYtJOupDFh7C2A4uzF
+	e2NX5xzsrCiGMlM3Qq+VMA0qyywz0ltMWDoePQ9SiIgnXfb0w9w/q7Jfu7CHrl5u
+	v3SOXl+Vg6xdzO+sBbKvV1MBaf+NMT1mZu80nKSAgfDocOPjenzif1GXDqrqlI+x
+	5PSQbMDzulOIVUdAjdfriV2s9YPr0wN6yh5UN5LtQ3RUvWQaEseD16Bh1/bNdm8i
+	dV/dgGtYcT1KZusEsx7yW+xek2Esme0cfD6jgbG2155nipWjBB9ylY2y6bbnOXRW
+	S1Obl0gmiRgzKu5Qwwaog==
+X-ME-Sender: <xms:LHZsauShn8mGFCBuzq4_3YtOHd463pJuoe67EelvbJPVY2G1uMlmsA>
+    <xme:LHZsat_EgCrb3ej7iUCs4U1KllQMytjiHTNl5bKTcAfZbB3wVk9MTLm8pANNXkvJh
+    2I6vVKbOPMqZRTlWu7Mu6QzeHW7DzQV_DL5yUR4XwbAUgQ2x_zYWGk>
+X-ME-Received: <xmr:LHZsagdLKjIoDE1t5h_c7McrnjAesBaTDcOfF_3W7yuNmT4yE1ngt7rw6Mo7oqV7kcy2o6yPsV1ft0xyleTfcOtW>
+X-ME-Proxy-Cause: dmFkZTGxdK/tDV8VBNof2Hwu53b8KvHPCYjs9XaeFidCuyISaxjRqGVq+n3C7bA9+5sHpb
+    LCVWu1bA2cgrHl+YI5p2wukXY79TwzXEfH0aQVSK+ECk31Mx/Qut1UhvX14kTvB0cat/9F
+    klapUXPtOnJXJy80ECRgMDUxqUYtLXv0GQZiElMq8mOdIFjlyYg1HipJwZ6E91jPe1EJZe
+    xR9APzJgxE+KWIpFKucjXA76vslaUWLYenUcUOJf0Uf92d05S8XhlqgTXqrzXn76b5/7yG
+    Yq2yZmBObo3AXVSwn2b08Bq/2OQPrE2OkQ3HOdn1TfL5WmeoAByXUC3SrdK3HdgCJNojBu
+    D34tKBwU0vdLVRDubLweHmqH0xaE8BLVk7w6XxyF5aeaKXCNss4RmSqanPKFCqEsPuHZ53
+    yLyqzrwUZz8yDiSDZLbNEmFUaM+nhag/lnVfHPFl3h3wdnUUlk0tJjUUEO+xXh5y+EQpgq
+    xjb1uhEe5BEVD0n2Cty22Xq/R090ZFTqFxhoodpUALfQbT7Ng14rtFYXWVVz6zX582m9zJ
+    t2IB2MQDXayKiEfBCHfy9W7RLS4aEt8HndKwHnN8iW7SHWFren+5qHQVGXSCslkyEc5Oc/
+    CMLxSiTdXHGP3Am2+ziJksV4aCMbllhTNA5ai2YGfGb/8N5cbR8Y0S/R7Ppg
+X-ME-Proxy: <xmx:LHZsaqnEO53AFzAEMmVwAew5Js5b4uh-Gs6pngewQIFPEYsbYA6OgQ>
+    <xmx:LHZsarzXJSD6C5JAG86e7rj2TO0DsuQmMGKauAUWRPgPy27L3KH1gw>
+    <xmx:LHZsaqjMHrFZZ0tDEJr20PuwzSv_LQxCqtiZEMd-sodWdnSc3nL3qQ>
+    <xmx:LHZsaqCS40YyiCR9tcWAf8XngC43cHCkPDBLsRu4-2OjGN8j6bUZkw>
+    <xmx:LXZsatpdL4STtOM5NbrYjkX2mgbV-eFXCZ-uRmFTDolsykFW1gpTjVLL>
+Feedback-ID: i51fe4b43:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 31 Jul 2026 06:17:06 -0400 (EDT)
+Date: Fri, 31 Jul 2026 19:17:02 +0900 (JST)
+Message-Id: <20260731.191702.2195123016093141361.tomo@flapping.org>
+To: gary@garyguo.net
+Cc: gregkh@linuxfoundation.org, rafael@kernel.org, dakr@kernel.org,
+ ojeda@kernel.org, boqun@kernel.org, bjorn3_gh@protonmail.com,
+ lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com,
+ tmgross@umich.edu, daniel.almeida@collabora.com, tamird@kernel.org,
+ acourbot@nvidia.com, work@onurozkan.dev, fujita.tomonori@gmail.com,
+ airlied@gmail.com, simona@ffwll.ch, bhelgaas@google.com,
+ kwilczynski@kernel.org, abdiel.janulgue@gmail.com, robin.murphy@arm.com,
+ david.m.ertman@intel.com, iweiny@kernel.org, leon@kernel.org,
+ lenb@kernel.org, igor.korotin@linux.dev, robh@kernel.org,
+ saravanak@kernel.org, viresh.kumar@linaro.org, m.wilczynski@samsung.com,
+ fustini@kernel.org, guoren@kernel.org, wefu@redhat.com,
+ ukleinek@kernel.org, driver-core@lists.linux.dev,
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org,
+ linux-acpi@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-pwm@vger.kernel.org,
+ linux-usb@vger.kernel.org
+Subject: Re: [PATCH v2 05/11] rust: net/phy: remove expansion from doc
+From: FUJITA Tomonori <tomo@flapping.org>
+In-Reply-To: <20260629-id_info-v2-5-56fccbe9c5ef@garyguo.net>
+References: <20260629-id_info-v2-0-56fccbe9c5ef@garyguo.net>
+	<20260629-id_info-v2-5-56fccbe9c5ef@garyguo.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+Content-Type: Text/Plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Potential Use-After-Free in `itepd_remove` due to tearing down the=
- IRQ handler after `ucsi_unregister`.
-- [Low] The `itepd_id_table` array does not use named initializers.
---
+On Mon, 29 Jun 2026 13:39:39 +0100
+Gary Guo <gary@garyguo.net> wrote:
 
---- Patch [2]: [PATCH v6 2/2] usb: typec: ucsi: Add ITE IT8851/IT8853 Type-=
-C PD controller driver ---
-commit d3337d48cd9d0171c8064301690b4facc2758392
-Author: Amber Kao <amber.kao@ite.com.tw>
+> The expansion serves little purpose and it can easily diverge.
+> 
+> Signed-off-by: Gary Guo <gary@garyguo.net>
+> ---
+>  rust/kernel/net/phy.rs | 56 --------------------------------------------------
+>  1 file changed, 56 deletions(-)
 
-usb: typec: ucsi: Add ITE IT8851/IT8853 Type-C PD controller driver
+Agreed, it has already diverged, so let's drop it.
 
-This commit adds a UCSI driver for the ITE IT8851 and IT8853 I2C-based
-USB Type-C Power Delivery controllers. It implements the necessary UCSI
-operations and uses a shared interrupt line to process events.
-
-diff --git a/drivers/usb/typec/ucsi/ucsi_itepd.c b/drivers/usb/typec/ucsi/u=
-csi_itepd.c
-new file mode 100644
-index 0000000000000..a639b3d32535f
---- /dev/null
-+++ b/drivers/usb/typec/ucsi/ucsi_itepd.c
-[ ... ]
-> +static void itepd_remove(struct i2c_client *client)
-> +{
-> +	struct itepd *itepd =3D i2c_get_clientdata(client);
-> +
-> +	ucsi_unregister(itepd->ucsi);
-> +	free_irq(client->irq, itepd);
-
-[Severity: High]
-Could this teardown order cause a use-after-free if an interrupt fires befo=
-re
-the IRQ is freed?
-
-When ucsi_unregister() is called, it frees the ucsi->connector array. If a
-hardware interrupt triggers right after that, but before free_irq() complet=
-es,
-the interrupt handler will call ucsi_notify_common().
-
-Inside ucsi_notify_common(), the freed array is accessed:
-
-drivers/usb/typec/ucsi/ucsi.c:ucsi_notify_common() {
-    ...
-    if (UCSI_CCI_CONNECTOR(cci)) {
-        if (!ucsi->cap.num_connectors || ...)
-            ucsi_connector_change(ucsi, UCSI_CCI_CONNECTOR(cci));
-    }
-    ...
-}
-
-And ucsi_connector_change() uses the dangling pointer:
-
-drivers/usb/typec/ucsi/ucsi.c:ucsi_connector_change() {
-    ...
-    con =3D &ucsi->connector[num - 1];
-
-    if (!test_and_set_bit(EVENT_PENDING, &ucsi->flags))
-        schedule_work(&con->work);
-    ...
-}
-
-Should free_irq() be called before ucsi_unregister() to ensure the handler
-is fully disabled first?
-
-> +	ucsi_destroy(itepd->ucsi);
-> +}
-> +
-> +static const struct of_device_id itepd_of_match_table[] =3D {
-> +	{ .compatible =3D "ite,it8851" },
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(of, itepd_of_match_table);
-> +
-> +static const struct i2c_device_id itepd_id_table[] =3D {
-> +	{ "ucsi_itepd", 0 },
-
-[Severity: Low]
-Does this array need to use named initializers?
-
-The I2C subsystem guidelines request that initialized arrays of type
-struct i2c_device_id use named initializers, such as:
-{ .name =3D "ucsi_itepd", .driver_data =3D 0 }
-
-> +	{}
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-ucsi-itepd=
--v6-0-d25ae12b181f@ite.com.tw?part=3D2
+Acked-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
