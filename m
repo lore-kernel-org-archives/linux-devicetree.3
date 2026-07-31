@@ -1,122 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BDF33F1AC4
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 12:02:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DB9341D633;
+	Fri, 31 Jul 2026 12:03:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785499330; cv=none; b=MKlnbvo02qEBhjF4SX25Tey+YU/x+ZldnoMujMrDBFJrW0ByjP/V/9l2/WppMyhiSAZ+AdZHoSQx2fbfwBvdXyberqdbPX0nCG6yK+VztQuH4Y4bvi5etGUeFLLMwWCmnfYGVyo42rNUDVx8tpgKgQa/0SmnGIa0H1O05V0Gnsg=
+	t=1785499387; cv=none; b=UasYWE/TyRdnptMJjiqAwY6hSSaBgkZAwOL2rFcWbf5+VMGl078gVOpmOWdIZ4g+CPbZgqsXdotv20JsaFjfwtPjt1pmZFwViEAG+Km7fKrt59aK0kQqfk9JK4bB1s0B+KMPTj29xZvfAGSU/yGdHr8+4ofmyvn/U9XWARbf7E8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785499330; c=relaxed/simple;
-	bh=FaqMyd1q7DnrcVayhqe6eLmpnyBZKCzp+xOrs+Y49PI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=h4C8t8BDfdMTgVLAM+ejeEG25ysFwjORnnHySwOrW7Wwc3totKwviAvYKnQuDT1GcpgNpiUbUe0B01tuIsHpHdAVPNqTbgb9vQs5iLSCeMN/11uy4A7l/aXwOT8esAwJMcxPqHJaWXUyvC4W1ptNj21O4rYkJwFEY4y/HVVaSZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EDVS30sI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785499387; c=relaxed/simple;
+	bh=xNaZeiPFlSdRWL2F61KGoKs8oj9Gs/W/njM/6+afD/M=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=fw4j4iCSFYiNE/VFn0PFLs6zKhqTbCvNGmF89FIXS7szhDpWq+WqU3ZeSowjlU+xdhcs1+ACwkvHKfYiZvh749TC7QACgErJR+L/VrnMtSglOxkGAgnPvZT52vAT2e+r0+LnekqedEZk1llgH1l9tXKM4vmrIuhXycxnmWBxbmk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=cL4dxrkq; arc=none smtp.client-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EDVS30sI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53B971F000E9;
-	Fri, 31 Jul 2026 12:02:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785499329;
-	bh=H/pLGKLIo4GV4p/pdh8LV7o1L/6FdHHgxE21YPdLD10=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EDVS30sIYimNVykIcbsIsHuAAVvh0mVisQHViX6FEsvepfZWvMTvWPOIFzXh4qhta
-	 rLj4fleGdFYlJOWIfzuJ2m1bKlPvShk6nn7W9a0kqRkXGQn2TLydDlfnIEehrpRxF/
-	 8JL/HjzwRyXFJ8i5ieZQmTr7PjbnZ7yeOA4tdjcIEyrkZ+rk9HFu5mJ2eRpT7HT6tI
-	 grOu3vw9zMI4pt5HJm2oeZbSRE4VAdMgWPtKVmvtZuKMx68LCGOn51JUZ+ERDT6fvn
-	 P72UjwWXIbF0Yn2y7eVCAoP92G9dkojDpLSVmk4696C5x4CimCppDnEAkUOm/r7akg
-	 PG/UM5sf53BHg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 03/10] ARM: tegra: tf701t: Add MC and EMC timing
- nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260731114106.169398-4-clamor95@gmail.com>
-References: <20260731114106.169398-1-clamor95@gmail.com>
- <20260731114106.169398-4-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 31 Jul 2026 12:02:07 +0000
-Message-Id: <20260731120208.53B971F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="cL4dxrkq"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 02C8C11FB16;
+	Fri, 31 Jul 2026 14:02:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1785499376; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=KhylFLxnrNbE0730AWRi4WzqyXx6+yLmFoVpwVVN3No=;
+	b=cL4dxrkqyedrHCOF95MQxgeXGZ70MJUl5DQo1+UfrkH+VDWCb4lwlmpyXuyPTlUcKiBXnS
+	m6x6cIpawpBJIm1OU5MtcQ1L5u6MHsTcjEwGzMpP3hG/WDSSqDXpeD2oJiPsRsZXsoxUG2
+	lJ6lZ9VAQ6SfYV8dQVjLzRBWe/olidW93hkiT6rG3V/kd55Vb9NYYxcMbFEzLZPiqAXmaD
+	X92rA3rmKvj2Gm0ToV/VAXYgUBf7i3Thn5suErlML980qpHGD4yRL6LdyRJozOD/xjg9UQ
+	9rt73EaExWzsDwsWgCZxd95eya35ARmqaXyyDwiywW3+ob6wf/LSDQnAHMYyUQ==
+From: Caleb James DeLisle <cjd@cjdns.fr>
+To: linux-mips@vger.kernel.org
+Cc: conor+dt@kernel.org,
+	daniel.lezcano@kernel.org,
+	devicetree@vger.kernel.org,
+	krzk+dt@kernel.org,
+	linux-kernel@vger.kernel.org,
+	naseefkm@gmail.com,
+	robh@kernel.org,
+	tglx@kernel.org,
+	grandmaster@al2klimov.de,
+	Caleb James DeLisle <cjd@cjdns.fr>
+Subject: [PATCH v7 0/5] clocksource/timer-econet-en751221: Support irq number per timer
+Date: Fri, 31 Jul 2026 12:02:41 +0000
+Message-Id: <20260731120246.1296955-1-cjd@cjdns.fr>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+This timer appears on both the EcoNet EN751221 (34Kc) and on the
+EN751627 / EN7528 (1004Kc) SoCs. On the 34Kc the interrupt controller
+uses a percpu interrupt while on the others it uses an individual
+IRQ number for each CPU timer. Add support for EN751627 and EN7528.
+Add support for IRQ number for each CPU timer under the
+econet,en751627-timer compatible.
 
-Pre-existing issues:
-- [Critical] The tegra114-emc driver causes a heap out-of-bounds write by c=
-alling tegra124_clk_set_emc_callbacks(), which incorrectly casts the Tegra1=
-14 "emc" GATE clock to a struct tegra_clk_emc.
---
+Changes since v6:
+* Rebase to tip/timers/core (base-commit below)
 
---- Patch [3]: [PATCH v3 03/10] ARM: tegra: tf701t: Add MC and EMC timing n=
-odes ---
-commit 0da36cf6ac395d6c7a0f9761226778f6cf5ac2ed
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+Changes since v5:
+* Integrate patch fix refcount leak from:
+Link: https://lore.kernel.org/linux-mips/20260526184105.18962-3-grandmaster@al2klimov.de/
+* NULL econet_timer.membase after unmapping
+* NULL check dev->event_handler in case clockevents_config_and_register
+  failed to fully register.
+* v5: https://lore.kernel.org/linux-mips/20260516233943.49502-1-cjd@cjdns.fr/
 
-ARM: tegra: tf701t: Add MC and EMC timing nodes
+Changes from v4:
+* Fixed incorrect compatible in DT schema
+* Bracing in out_irq_free if statement
+* I did not move cpuhp_setup_state past the point of no return
+* v4: https://lore.kernel.org/linux-mips/20260516215720.4160831-1-cjd@cjdns.fr
 
-This commit configures the Memory Controllers for the ASUS TF701T by adding
-the required EMC and MC timing nodes to the device tree.
+Changes from v3:
+* off-by-one in out_irq_free
+* Gracefully fail if too many address resources are provided in the DT
+* Allow fewer actual timers than num_possible_cpus, as long as they
+never start
+* v3: https://lore.kernel.org/linux-mips/20260516182648.3987792-1-cjd@cjdns.fr
 
-> diff --git a/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts b/arch/arm=
-/boot/dts/nvidia/tegra114-asus-tf701t.dts
-> --- a/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
-> +++ b/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
-> @@ -1610,6 +1693,636 @@ i2c-thermtrip {
->  		};
->  	};
-> =20
-> +	memory-controller@70019000 {
-> +		emc-timings-0 {
-> +			/* Mozart Rev B Hynix DDR3 792MHz */
-> +			nvidia,ram-code =3D <0>;
+v3 note:
 
-[Severity: Critical]
-This isn't a bug introduced by this patch, but it appears that enabling the=
-se
-nodes causes the tegra114-emc driver to probe, which triggers a pre-existing
-heap out-of-bounds write.
+I decided to take this patchset in a slightly different direction from
+v2. There is a certain amount of initialization that once it has run,
+it cannot be reverted in case of error. The original driver init was a
+mixture of revertible and non-revertible code which made it too easy
+for code which is designed with best practices in mind to in fact
+introduce a bug. Therefore I start by making the init process more
+legible but without any business logic changes, then fix a race
+condition by keeping IRQ disabled until after cevt is setup, then
+finally add non-percpu IRQ support.
 
-During probe, drivers/memory/tegra/tegra114-emc.c:tegra114_emc_probe() calls
-tegra124_clk_set_emc_callbacks(). That function retrieves the "emc" clock a=
-nd
-blindly casts it to struct tegra_clk_emc to assign the callbacks:
+* v2: https://lore.kernel.org/linux-mips/20260514000601.3430262-1-cjd@cjdns.fr
 
-drivers/clk/tegra/clk-tegra124-emc.c:tegra124_clk_set_emc_callbacks() {
-    ...
-    hw =3D __clk_get_hw(clk);
-    tegra =3D container_of(hw, struct tegra_clk_emc, hw);
+Changes from v1:
+* Split changes over 3 refactoring patches + main patch
+* Remove driver discussion from dt commit message
+* v1: https://lore.kernel.org/linux-mips/20260416175101.958073-1-cjd@cjdns.fr/
 
-    tegra->prepare_timing_change =3D prep_cb;
-    tegra->complete_timing_change =3D complete_cb;
-    ...
-}
 
-However, on Tegra114, the "emc" clock is registered as a much smaller
-struct tegra_clk_periph_gate, not a struct tegra_clk_emc:
+Alexander A. Klimov (1):
+  clocksource/timer-econet-en751221: fix refcount leak
 
-drivers/clk/tegra/clk-tegra-periph.c:gate_clks() {
-    ...
-    GATE("emc", "emc_mux", 57, 0, tegra_clk_emc, CLK_IS_CRITICAL),
-    ...
-}
+Caleb James DeLisle (4):
+  dt-bindings: timer: econet: Update EN751627 for multi-IRQ
+  clocksource/timer-econet-en751221: Init teardown on error if possible
+  clocksource/timer-econet-en751221: Disable IRQ until cevt registered
+  clocksource/timer-econet-en751221: Support EN751627 without percpu IRQ
 
-Writing to tegra->prepare_timing_change and tegra->complete_timing_change
-overwrites adjacent memory past the end of the tegra_clk_periph_gate struct=
-ure.
+ .../bindings/timer/econet,en751221-timer.yaml |  31 +--
+ drivers/clocksource/timer-econet-en751221.c   | 181 ++++++++++++++----
+ 2 files changed, 159 insertions(+), 53 deletions(-)
 
-Should the clock registration in Tegra114 be updated to use tegra_clk_emc,
-or does the EMC driver need a different way to handle callbacks on this
-platform before these nodes are enabled?
 
-[ ... ]
+base-commit: ecc330e3096173f433659aa64ab3674d0d48440e
+-- 
+2.39.5
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731114106.1693=
-98-1-clamor95@gmail.com?part=3D3
