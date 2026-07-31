@@ -1,59 +1,91 @@
-Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch [79.135.106.28])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11415432317;
-	Fri, 31 Jul 2026 14:49:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FCB13D9026
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 14:53:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785509345; cv=none; b=ttwzFwWnyEi4GH3etiMXec3pbpaC9/xSCGs0OEAG6h4MQzOZlYD7qAWlCjqBpy4aCL97zMUIk14gYaYT/0QDGJkkvJGnCHBtQsn66LpzucsDK0cGmRIaBjY6jGIC0sRHtukG6Hjza8knq+98z2qaVeIPn8kQYQtMRif6BKYdkS4=
+	t=1785509583; cv=none; b=C+iAq384hnECPXzISYMvMjn8nepgqOl+9vmiLDXms4igILT2zh0SbCxmWu5nmKod1uA1CCAW/ZmW/4CYhtsq0k7CjMyHYfZuu5OrUR4jX0ESOBIsCcGz55FuHvVjNl+k+WvBnPNCIuN1UfB0BtW18M3ZZU4OWLL0bzXBmYmQDw4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785509345; c=relaxed/simple;
-	bh=nmb4mCgvryFrwNA2mwZKsK8uMaWetaN8jhYb7byYB5g=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JWTamROOJ6nZ+cNS0ZzJWj47LUr0Fl2DhG+izC/EO07l3dcn/BoIMp4+PofO500WDUQF7WsN2eTTGwP0UHqkt7oMSjKmnTtCPARV1ExS+ZPf/DnSUk9PKHIr/5Rd230+1fwxj8qsXuAT8V6m18UZK17ZvP0ettoHnL8g7Th7D7o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=ii74OcCx; arc=none smtp.client-ip=79.135.106.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1785509583; c=relaxed/simple;
+	bh=doOpRezCxX4+my/8RIHKmMicJnNlyx9YVSTWkI/sCYc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=lczURSYQU0iBxb3YpUp7/eI0lgh0ng3v2kbIcvSVjs83Yyu7hJuvxEmMoACIZPRXzGYiRD0+k5g8z6gY7u8bs09fg911dXh6NVIX+FypoDNIJVR4mJAm2GfqQIzklFbpzJAXLax1aPIKXEFA4gewO7B5ozWcTaemO20bKA59tEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EtUtUAxr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="ii74OcCx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=lwe32szhdba3zjd6qy5f25tcxm.protonmail; t=1785509333; x=1785768533;
-	bh=nmb4mCgvryFrwNA2mwZKsK8uMaWetaN8jhYb7byYB5g=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=ii74OcCxTqNUwOeEg/8dfA5CdcanGsk0hrqWrhQWS1cAQi/9fLpv00TKze2reydfj
-	 KLBfYJ7NSuJTLQqYBRqPobcDaqy9KskWDXhwyocvq5vK24CHKfw7AIvmCwsZ73oD+x
-	 QeAen0xVPjtABKpImNcw0ME0J8vtCD53ms7CHgNPs1lq2oGQcFbsyYp2xwdKV53J5+
-	 WceDlZAtc+JzCiW9hpT2T5G+FnRbKe4zrwJfspjGlfAjdkB9xftfd5DcMq1SxZPUpc
-	 X8oPzWtHj/y+4jmvBjosqsJ8SPfZoAyTEebfsoL9yjOueIY0R408Mf9tp6JRaHT5rR
-	 KOACRTFhPpqPw==
-Date: Fri, 31 Jul 2026 14:48:47 +0000
-To: Krzysztof Kozlowski <krzk@kernel.org>
-From: Esteban Urrutia <esteuwu@proton.me>
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, phone-devel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] usb: typec: ucsi: ucsi_glink: Add compatible string for SM8475
-Message-ID: <562c2302-34f6-4d2c-b60e-39726601ba7a@proton.me>
-In-Reply-To: <20260731-light-kelpie-of-will-8b71bb@quoll>
-References: <20260731-sm8475-pmic-glink-v2-0-28c04928ef22@proton.me> <20260731-sm8475-pmic-glink-v2-2-28c04928ef22@proton.me> <20260731-light-kelpie-of-will-8b71bb@quoll>
-Feedback-ID: 147889766:user:proton
-X-Pm-Message-ID: 3d0f6338d01d99fb3dbcd1ea68e555399928b881
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EtUtUAxr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A12671F00A3A;
+	Fri, 31 Jul 2026 14:53:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785509582;
+	bh=NVZVVg881wEhIuki0uvo5lydh8o76ndv1w4xGolCc68=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EtUtUAxrNKjBBJt/oCbH6DU+Ortyzf9nUMJb2A12jF48guu3FiIdzYe/M3qRrlgmK
+	 RGudbxtPP/uTmHEI79hy6ItbOb6PWY6Jd8ZhY5bN330XtC0L1h3nPHcbyNiEIulCC0
+	 bmfVRyZjKPXtm7g00kjWpA6cV6cNgTmuazITUB2FNSTGifiHg6yjwHfi1yntc+3Knf
+	 4OVjaGNntnqyk3k0i8tM2my/m2PWccNNCKBSLGAbkIr9YhB5zJL7SKJ2WP4Z+9FxQ2
+	 EKoirmKJKCBPpYvAHbeTfKyXLsmgU87BSX3id7TAbOgrbaymHday4ajbCT4eU296zZ
+	 bJf49CmSWuo2g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 4/5] mfd: axp20x: Add support for AXP318W PMIC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jerome Brunet" <jbrunet@baylibre.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260731-axp318-regulator-v6-4-b4e745552a35@baylibre.com>
+References: <20260731-axp318-regulator-v6-0-b4e745552a35@baylibre.com>
+ <20260731-axp318-regulator-v6-4-b4e745552a35@baylibre.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 31 Jul 2026 14:53:01 +0000
+Message-Id: <20260731145301.A12671F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-On 7/31/26 5:59 AM, Krzysztof Kozlowski wrote:
-> Really, you just wrote IT IS DIFFERENT in the bindings, so how can it be =
-the same data?
-No. I said "different process design", not that they were different.
-Other SoCs also use older data despite being newer, such as QCM6490
-which uses SC8280XP data.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The `axp318_cells` array defines the `axp20x-regulator` cell wit=
+h a hard-coded ID of 1 instead of using `PLATFORM_DEVID_AUTO`, violating MF=
+D subsystem guidelines.
+--
 
-Regards,
-Esteban
+--- Patch [4]: [PATCH v6 4/5] mfd: axp20x: Add support for AXP318W PMIC ---
+commit a5dbdb5469c59acc76c36e5d6f37cd6f060e0f47
+Author: Andre Przywara <andre.przywara@arm.com>
 
+mfd: axp20x: Add support for AXP318W PMIC
+
+This commit adds support for the AXP318W PMIC to the axp20x MFD core and
+I2C driver. It exposes the device's regulators and interrupts.
+
+> diff --git a/drivers/mfd/axp20x.c b/drivers/mfd/axp20x.c
+> --- a/drivers/mfd/axp20x.c
+> +++ b/drivers/mfd/axp20x.c
+[ ... ]
+> @@ -1061,6 +1129,10 @@ static const struct mfd_cell axp313a_cells[] =3D {
+>  	MFD_CELL_RES("axp313a-pek", axp313a_pek_resources),
+>  };
+> =20
+> +static const struct mfd_cell axp318_cells[] =3D {
+> +	MFD_CELL_BASIC("axp20x-regulator", NULL, NULL, 0, 1),
+
+[Severity: Medium]
+Does this hard-coded ID of 1 risk sysfs naming collisions?
+
+The MFD subsystem guidelines recommend using PLATFORM_DEVID_AUTO for
+automatic cell indexing. If multiple devices share this explicit ID, it cou=
+ld
+lead to duplicate device names in sysfs (e.g., axp20x-regulator.1) and
+subsequent driver load failures.
+
+> +};
+> +
+>  static const struct mfd_cell axp717_cells[] =3D {
+>  	MFD_CELL_NAME("axp20x-regulator"),
+>  	MFD_CELL_RES("axp20x-pek", axp717_pek_resources),
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-axp318-reg=
+ulator-v6-0-b4e745552a35@baylibre.com?part=3D4
