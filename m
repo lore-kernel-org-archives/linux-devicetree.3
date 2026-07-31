@@ -1,111 +1,164 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97A7D42A155
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 11:41:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C8C9381B0E;
+	Fri, 31 Jul 2026 11:42:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785498104; cv=none; b=rzkFn1EbDMjkN4VgBmGrLrZWhRDIAfQIF6uEIFUJey07AllOm7/sxaTrQQS4N3NDMRWhFva7R+c4LP/Bp7Qcrg/DClLtjFbHDYa6sMthTNXvW5QkKYgf+gXd1C5prnhEHrJwnWvmgS5Z6u/RuArw6F1HKU9bLMqoP1GbYofqi/Y=
+	t=1785498177; cv=none; b=LKa6/0z2I6UHuGib+mf8bU6Dckj5e40ol4PYa1geRpejs8qinY2mtz7tzbOgsQBiERsemRJ1PYPLsVudGJpKt68xFrQhMeTLzy6F9B6qxJflWeCn1y/aifU/GRfW0o/xLv82LoMbAaCQx9kPcoZDuovWTukB20fv7UkjgRC5B84=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785498104; c=relaxed/simple;
-	bh=gXNJqaf+zTctXL5WLgdpGYeFG2qxNG2Vh2hV85r/k1Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KQxAvpyQRA2naiIDDKk+SPH3Xa9aVGoG6tA9+3WYanWTd5KoBfYQo1uA2l2gEnjgmvRuyV60jWyzmJxk16oXx6vjaz+TNdQ+wbD8d7XOuCtWxkUGvBYljSsh4gQjMYrDRuLdPbVxGUYWKAWg8sW3lI+Mh69IqOAfzCrTLxDY6Hs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dmx4XRlS; arc=none smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785498177; c=relaxed/simple;
+	bh=wdNKCjACD38n4XPMHFkGxjFksGgvJWvF6bSKId6TdTA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=X/AGfpa28EQn0nw2KYOWQCSmy4r1dEQ77tfuKQ66oCsGEfPPpgsgHwW8E3ZWDNkxcYqAnuWzixja5lV8V6NJQ7+txUGkeq4a6QBk6GsEOj1HqKwrRE63OguER0IYwUTyt20FCDxNPKaFYn2BlnlZya0BZVF5gvAx5HWtewnku+k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fkigvcZC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dmx4XRlS"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-47f71156e1aso479242f8f.3
-        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 04:41:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785498101; x=1786102901; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GL48HhqEqA89OWX1SNNRwvNWdwLXSktQBg9CSPlO8sc=;
-        b=dmx4XRlSwrwYQ9JJGfXoK6iFhWb0NhH7vW3efgdwihdmTj4tyy5HhJch3eHZgiCIOy
-         S5cuGAzo15pFtGWfxQU4v7NLsEPRechFMjj4gp5kF8pfgYFjuBWz45y2j/ldfj5kskbW
-         XtRSgeZflQv0x6sDdOWowvagnmlbDgEaKZUtzpqdxfzST4QNSwxZzifAtYOrczF6djI8
-         szCXDm8DeMmIL8/iN0jA1YAGc04fIe/BKqLNxnDQyBY/Wez2dPfp4YNhQvVcmbzTlBHQ
-         SGm5UOzQWxcTNXMcuhdqr5BB3hZ3AolOkA/wKUpyyU78rquoBAfQ8U0NzbzNAGj8/7Vs
-         D8Rw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785498101; x=1786102901;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GL48HhqEqA89OWX1SNNRwvNWdwLXSktQBg9CSPlO8sc=;
-        b=QMlUgg1/5A3t5oCLN78a4dKNz7vT/BcTFtc5j3Vx9+cWejhxhbgnV7rtsCAPAz07hE
-         QEoRqcERvZzfsVE8J7P3p3s1N7Q4agjnx+9H5rEWUdt5Fz68yJ968G01vKuUkC7C+2wS
-         DPby9wlo4Ngq30fHrAnRqBoFejE8WneOTkdqKFdb4DYPJoWeIEo+5A6QXZmAi6dl+54E
-         8fd5/elE5xmwigoPI+QrMf96Gs5WiC3B6lViZ1EEZAXUhjBYQh8kMKW+wOExgtiq4zqW
-         jBVkoOX/NB/4SEaL4c29rQhIVZM0aKy+uF/OlXPFp3NPaluAMeIICrFrTSg+wSm7fp2x
-         g2lA==
-X-Gm-Message-State: AOJu0YzKxPjtVnQBofc4rCz2DGvCYEnFaXwBCT6+A1RB+/6O8Hy6Oe4L
-	xe6pADTCfat1E32cCgQmUWSVabymo54C3EuoHHHvoTo6MOTeLAlyOzlu
-X-Gm-Gg: AR+sD13vP3CHvTHhTYs1jDRc1mTQ9PPTn+U23I3HdbstIfza4Gjcr2v8GBFtcc2ycT+
-	GxBrVggAvz5kIhGizY12shg8xgp1zIJnCZmeID/wVNNNx+OTB7lOD+gOAEglIX8ZD9UWXXUIOE0
-	0NM/yzKQ8/WZYy5FQkZzvXwYQ0SNAVhGpaURK+GZnPWLbYm1dVToYgavU3igGvQbwsKKISIb9xp
-	WHzwXVCpt14xpo2+65u1r+zs3PkmZ6oL2XVgbwaz8ILIlPIs4MwkaIHHJ02kjLGN00E2NTM3XZs
-	hcVtLf/70tf8njlFYSQI8Zo4aAYdSdb7Gr7rCBimEDQ8Xjm7cWV4DPTszA8rQTJCM/n9gtRgQi1
-	6JBo+tf+5tBkrf+gg+iCxIOCPgpAl/IC8oRHflNnPyA1XynDvStEPnW17f8F36l7UTzGQfEdQb9
-	dvkWk0JNqCbm2tnIB3DiUb8JBY5DGY5UbiQmzu+qzqCXuYquI05CX7DjJicKZHA79aqcbDuABB3
-	A+QZRdygg==
-X-Received: by 2002:a05:6000:18a4:b0:47f:778a:6587 with SMTP id ffacd0b85a97d-47fd2b53c48mr3813169f8f.40.1785498100849;
-        Fri, 31 Jul 2026 04:41:40 -0700 (PDT)
-Received: from xeon ([188.163.112.51])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd41d0064sm3769336f8f.5.2026.07.31.04.41.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 31 Jul 2026 04:41:40 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Mikko Perttunen <mperttunen@nvidia.com>,
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: devicetree@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 10/10] ARM: tegra: tf701t: Add chosen node
-Date: Fri, 31 Jul 2026 14:41:06 +0300
-Message-ID: <20260731114106.169398-11-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260731114106.169398-1-clamor95@gmail.com>
-References: <20260731114106.169398-1-clamor95@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fkigvcZC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E175D1F000E9;
+	Fri, 31 Jul 2026 11:42:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785498176;
+	bh=ofWj8oNH3vGN+KN3dtNp5IyYVff6izMtUknjVnqbTSQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=fkigvcZCc5lWVLfo7PvY/I23A5CPLlvVLRMZ6gy6aDYkhCdXEvaZkb6MrqQYTvm+d
+	 QNZIX6+avL2Rz4U4ouHT8tjZ31ztYkn4KvMPyq8u7WPRbkyhmxpXsLrLddUfXGIAb5
+	 1VgZdNCCohEAn5fWABP7yKD0q7OQXf1fOPxt9DLAeN0uWseCY0CG79tMNypBj9pMi/
+	 JfR3tcRKKSI3oeYfG1J7JML6ZwPVJcjIzY8ufX5IFeL/S1oTlJYTPusbaOEVlegpD1
+	 6/PkrapgPJHtG9uCLc0jysT47WeIUAVwWqbgeov9ffIaZ1Y8h3AKwGcrqJA6Iutvgi
+	 1F1ZN8cyYKn3w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 1/3] dt-bindings: hwmon: Document SMSC
+ EMC1402/1403/1404/1428
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+Cc: conor+dt@kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260731113007.145322-2-clamor95@gmail.com>
+References: <20260731113007.145322-1-clamor95@gmail.com>
+ <20260731113007.145322-2-clamor95@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 31 Jul 2026 11:42:55 +0000
+Message-Id: <20260731114255.E175D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add chosen node since some bootloaders may require it and add stdout link
-to UART-D to simplify getting kernel log via console.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Schema Constraint Bypass via incorrect `items` nesting for `reg`=
+ property bounds
+--
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts | 4 ++++
- 1 file changed, 4 insertions(+)
+--- Patch [1]: [PATCH v4 1/3] dt-bindings: hwmon: Document SMSC EMC1402/140=
+3/1404/1428 ---
+commit 370ec6fbb759eebe7152f9544892c617f0745163
+Author: Svyatoslav Ryhel <clamor95@gmail.com>
 
-diff --git a/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts b/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
-index 0d182fa5c1af2..1b9839a855610 100644
---- a/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
-+++ b/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
-@@ -26,6 +26,10 @@ aliases {
- 		serial2 = &uartb; /* GPS */
- 	};
- 
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
- 	firmware {
- 		trusted-foundations {
- 			compatible = "tlm,trusted-foundations";
--- 
-2.53.0
+dt-bindings: hwmon: Document SMSC EMC1402/1403/1404/1428
 
+This commit documents the basic hardware layout of SMSC (now Microchip)
+EMC1402/1403/1404/1428 thermal sensors and introduces a new YAML device tree
+binding schema.
+
+> diff --git a/Documentation/devicetree/bindings/hwmon/smsc,emc1403.yaml b/=
+Documentation/devicetree/bindings/hwmon/smsc,emc1403.yaml
+> new file mode 100644
+> index 0000000000000..d7873a37c3295
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/hwmon/smsc,emc1403.yaml
+> @@ -0,0 +1,203 @@
+
+[ ... ]
+
+> +patternProperties:
+> +  "^channel@([0-7])$":
+> +    type: object
+> +    description: Represents channels of the device and their specific co=
+nfiguration.
+> +
+> +    properties:
+> +      reg:
+> +        description: The channel number. 0 is local channel, 1-7 are rem=
+ote channels.
+> +        items:
+> +          minimum: 0
+> +          maximum: 7
+
+[Severity: Medium]
+Does nesting the minimum/maximum bounds inside items for the reg property b=
+ypass
+dt-schema validation?
+
+Since dt-schema decodes reg into an array of regions, numeric bounds placed
+under items like this apply to the array element itself and are ignored.
+Could these bounds be specified differently so they are correctly enforced
+during make dtbs_check?
+
+[ ... ]
+
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - smsc,emc1402
+> +    then:
+> +      patternProperties:
+> +        "^channel@([0-7])$":
+> +          properties:
+> +            reg:
+> +              items:
+> +                maximum: 1
+
+[Severity: Medium]
+Will this stricter bound also be ignored during schema validation due to the
+items nesting?=20
+
+This could allow an invalid device tree, such as one defining channel@5 for
+smsc,emc1402, to silently pass validation checks.
+
+[ ... ]
+
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - smsc,emc1403
+> +    then:
+> +      patternProperties:
+> +        "^channel@([0-7])$":
+> +          properties:
+> +            reg:
+> +              items:
+> +                maximum: 2
+
+[Severity: Medium]
+Does this maximum bound for smsc,emc1403 suffer from the same nesting issue?
+
+[ ... ]
+
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - smsc,emc1404
+> +    then:
+> +      patternProperties:
+> +        "^channel@([0-7])$":
+> +          properties:
+> +            reg:
+> +              items:
+> +                maximum: 3
+
+[Severity: Medium]
+Does the maximum bound for smsc,emc1404 also need to be adjusted to avoid
+being ignored by dt-schema?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731113007.1453=
+22-1-clamor95@gmail.com?part=3D1
