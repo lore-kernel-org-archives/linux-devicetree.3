@@ -1,133 +1,135 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A466A3DEFE7
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 13:02:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 367EC2BF002;
+	Fri, 31 Jul 2026 13:08:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785502967; cv=none; b=oDzuLSL3Xz3dd69E42srIUpGVDcmgYoXRjZllY/AuQXDfDywuTs36TlHNga12f+g7XQ4FbdpCc53Krro3PrvbfqiAr78zar/nlRyqva9ffjHseL8U9psJqcpeZWzS5L6do9IqGmOhpGijeJkLUQo9KlaRh3EgNmY3sf7zhCz5vw=
+	t=1785503317; cv=none; b=GaD4VZJY37/wz8s1mS5ZCYmB7ju0cOG7YT6Uukq4oEYUklj5UrQFpT4f673LrMkuIg/YhOx/0be5WU4CKsYRcSvotW6VLzzRhSEiZpK8aTAVVCoRN7KYpKcX8x9vNGPH2MX3m7Jp2dHAxuC6YLzY6Oi1YPwJLLndLZ7YRyhZqMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785502967; c=relaxed/simple;
-	bh=jyLfUDRKUGR+QzdlDRg/ygdwuaQOjB35r20qE6JtzlE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=jppEqYgf4j8Tka4JfgRkn7um/hqdM5Mf3J2QDEZa9eTdUQe9NOtlGbbgTAqA8YQprrvDj7h6rlcToRfJNy2mAHwbMvRh8vf/aQ0etUnuY8BMMEdAk9uaM0ZCw+U/MsK5JV6uIoTxKD4q7KrhLHZXMhA0gfG+cITmQHeGH3Ki+8Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=anwmx18Q; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=X/XhCbmF; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1785503317; c=relaxed/simple;
+	bh=nrcar04cvFJC+ca/pCx8J0BMjodvp6Ms01tyJ+xahhM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bu7Xr9+L0QhVXXfLCOXFp8oB9JIb8FjW5OixskDeuCpQkCkyooJ9zs0sxhmXm/iPBzwGddl7NXQ51za72PZ6QbB6VoudBODKWghoMMbVB+Jq3TVnupmrO8BwyNTii9pyipj+JS3XL2sIt/hXsjqo/eQGu1nkOeHxbazmlrYckEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=luulRorD; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="anwmx18Q";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="X/XhCbmF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1785502963;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=63z+74IiNXo7CtWiuSgL8tkqVXTD4W+l7gvHsFCZ+/I=;
-	b=anwmx18Qw8L8a13qXSoIirE9R0iGUZ3EAA2iGG+WawzB3YS8rct2m5A+cmbUV1CRFy3BEG
-	DxUmFZQTj6jOwcrrM9BXTN/URqe8QyQlPtHVDhHN8cRNTMQvcpOs3g7RSEC+fYegG3OAve
-	J9hiCK+Z3krALqzfPj2Bsxqq+Os+f8A=
-Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
- [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-204-NeI-Xc0tMu6NUn_WoAQZ4g-1; Fri, 31 Jul 2026 09:02:42 -0400
-X-MC-Unique: NeI-Xc0tMu6NUn_WoAQZ4g-1
-X-Mimecast-MFC-AGG-ID: NeI-Xc0tMu6NUn_WoAQZ4g_1785502961
-Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c1f548718d0so126448566b.0
-        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 06:02:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1785502961; x=1786107761; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=63z+74IiNXo7CtWiuSgL8tkqVXTD4W+l7gvHsFCZ+/I=;
-        b=X/XhCbmF9i7BCC2OBdzMb58AEBYPM7wzwt7jDqwk99EgqdmO4P17jdkrtBIlbmyuDy
-         mTYHyflZRgUyclydSlxfUznLg5Xqut3/ERV6IRTMmmHxq8W69xNFKQQqdxclEf7W0m3s
-         RYSIIxZfJ1bCn9xWEdcZLTuLaIAhuvb8kQq0guA1BDpt40xTh0xgDKhAv2im4bXVfvQe
-         77Q0FGeS/SIKeWuvC4eeRcTpBChjnZf/oWMqrG+N+E/GtHPOGMp78NyVxIWAFO8Tr2FJ
-         /evnIHSENvkEtqlzrnH4ztepuWj2rZmptD+77HRoD7yA19QDRDCWncg5SKPybgOeK6BG
-         ejAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785502961; x=1786107761;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=63z+74IiNXo7CtWiuSgL8tkqVXTD4W+l7gvHsFCZ+/I=;
-        b=L+msmtFek9rS9TVy9rg7BRBxx/e9Sct1oTL2Z3gnI+I7EaFbrPGZmHMUpjs1OBNz6f
-         YZjpcethsjGGqB1b8C78/OeiLG1uPg6wZDHJfCDycjaRPQKPWc6TIb+7vbITS+qERhOX
-         zE9AVe69ZCGl2YpmfMLEA7euruyI76IVmQZcXK++Hk+1qrARkzfjTvbZU99ZVdz+dJSI
-         UYlT6/dgJRpKbZnj8A2vR5hO0BDBrRFj4Izn4oifxX6KUG91eTLGqcWAy3W9gmblY8e/
-         jT+KvZflmtzwRvftXSy3DiBI11DUII+GmagfF2X4XP11V29GINuxo8weGfImShsn4Bq4
-         L1qw==
-X-Forwarded-Encrypted: i=1; AHgh+RrDSzZIAytikOEwA2QXENbUuHVs+80tYwqL5wh7lMcMN/a8uvcaLlp7w74NnF24YR6J4pjvfzpIZV16@vger.kernel.org
-X-Gm-Message-State: AOJu0YzH2ZDiZdCVVj1DLfmKdGbYvYYWt5ceH+I7fBl9aO1Vx7BJYkjQ
-	bmmIRfhVP+p8jGfgFR+p0WK8O2jNyoHj3CifXSN5Amog8Mof6Gc//KzA4itRvPsyAQKry2JFH4F
-	gaH2TJgOm5YDR3mfFv9y5yX6QuT/PqsV0ngx67hZgtIbK7Ze1j9KsuoUFqgN3TuY=
-X-Gm-Gg: AR+sD11add0LwYl0IvlXciRwDG41cjZ+26FJcY9xkFYH4g9HPOEv3PrxycrimnTpv9M
-	80v3RaYdS+oaR1gGAObebvH2waYMbIMr6GpoKykAd5VIbEcNid3gUD4VP9gMSBiFhLZcXp5uPWd
-	sH5/3uC47GKqTQIj22+lTwMF2AwBo0nEBwf/KOdy/t/P73YhWxmDMNndHbKOdOMColpKj8C4lp8
-	UFPdtN0cA7Hmei/0inDeEo/FYRK99a3gMCRAvvntV7CFtSiT7MeV4izdckww1cvLNN40w+AGl05
-	bbUoIipBWYV0dEOR/yyW8IDoBB6/V6g6Pvbh33WWySBjUJ+Sjbw55si7AsBmnqZcG99Er84xO8s
-	GM2mz+8XFvZA93DB7uf6rXZ2M/2kgEWXvumfSs8ogfNPR+wFHLsSssrqhCcg=
-X-Received: by 2002:a17:907:3e90:b0:c16:8adf:f183 with SMTP id a640c23a62f3a-c1fd23c59c7mr119264966b.14.1785502960621;
-        Fri, 31 Jul 2026 06:02:40 -0700 (PDT)
-X-Received: by 2002:a17:907:3e90:b0:c16:8adf:f183 with SMTP id a640c23a62f3a-c1fd23c59c7mr119260966b.14.1785502960034;
-        Fri, 31 Jul 2026 06:02:40 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd4562a38sm4399507f8f.21.2026.07.31.06.02.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 31 Jul 2026 06:02:38 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Jakub Turek <jakub.turek@elsta.tech>, Helge Deller <deller@gmx.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, Jakub Turek
- <jakub.turek@elsta.tech>
-Subject: Re: [PATCH 1/2] fbdev: ssd1307fb: add support for Sino Wealth
- SH1107 controller
-In-Reply-To: <20260731-feat-sh1107-v1-1-e10977f76e6b@elsta.tech>
-References: <20260731-feat-sh1107-v1-0-e10977f76e6b@elsta.tech>
- <20260731-feat-sh1107-v1-1-e10977f76e6b@elsta.tech>
-Date: Fri, 31 Jul 2026 15:02:36 +0200
-Message-ID: <871pcje2hf.fsf@ocarina.mail-host-address-is-not-set>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="luulRorD"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4F9F3204C;
+	Fri, 31 Jul 2026 06:08:30 -0700 (PDT)
+Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id AB6083F7B4;
+	Fri, 31 Jul 2026 06:08:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1785503314; bh=nrcar04cvFJC+ca/pCx8J0BMjodvp6Ms01tyJ+xahhM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=luulRorDkUZw5bQbnYOwknuhMOVqwtfWZBwjZS1beSAGvPqWlCk/AKViaAV8nJFDd
+	 X/oZdIAdREdxYv9/Biq/AMVH1r/LHDRzneFlfUYeuAgYU2/qAG2KwTlYI+PnQa3pUy
+	 xiSbpk/pvpG9HohXT7O6Ai0dUX7NZGPnIlf6BnFo=
+Message-ID: <c539e5c4-f21e-49a1-b0e3-d35f42893fc4@arm.com>
+Date: Fri, 31 Jul 2026 15:08:31 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] pinctrl: sunxi: A523: fix voltage withstand encoding
+To: Juan Manuel <juanmanuellopezcarrillo@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260721223956.13665-1-andre.przywara@arm.com>
+ <20260722172356.2509190-1-juanmanuellopezcarrillo@gmail.com>
+ <20260723002319.2793cdaf@ryzen.lan>
+ <CA+c=wxVB-cEncgBE12S2YgXhL7DVgRyg12_4jJ-CjxzBjK62kw@mail.gmail.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <CA+c=wxVB-cEncgBE12S2YgXhL7DVgRyg12_4jJ-CjxzBjK62kw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Jakub Turek <jakub.turek@elsta.tech> writes:
+Hi Juan,
 
-Hello Jakub,
+On 7/30/26 19:40, Juan Manuel wrote:
+> Hi Andre,
+> 
+>> There is more to enabling Ethernet on the box, though, right? The
+>> EMAC25M pin needs to be configured correctly - not even sure that
+>> works cleanly with mainline? And what are the delay values that work
+>> for you?
+> 
+> Right, the withstand fix alone isn't enough. Three things were needed to
+> get GMAC1 up on the OPi 4A:
 
-> The SH1107 display controller is very similar to SSD1307 but the main
-> difference is that SH1107 has different memory layout and uses page mode
-> adressation only.
->
-> The SH1107 relies primarily on vertical page addressing mode where the
-> internal 128x128 GDDRAM is split into 16 vertical pages, rather than
-> the horizontal/tile addressing modes natively utilized by the
-> SSD1306/SSD1307.
->
-> Signed-off-by: Jakub Turek  <jakub.turek@elsta.tech>
-> ---
+Sorry, there might be some confusion here: I think Chen-Yu already 
+mentioned that Ethernet works on his OPi 4A, with just the withstanding fix.
+I think I was mixing this up with the X96QPro+ TV box when asking, which 
+also uses the second MAC, but has a different setup.
+So are you talking about the Orange Pi 4A? Because ...
 
+> 1) The PJ pinmux. Mainline's rgmii1 group was missing PJ10, which left
+>     one RX signal unmapped, so I got rx_packets=0. The BSP muxes the full
+>     PJ0..PJ15 (16 pins) as function "gmac1" (mux 5); with all 16 mapped,
+>     RX comes alive. I don't mux any separate/dedicated 25 MHz clock-out
+>     pin beyond that gmac1 group, and the link is rock solid, so on this
+>     board the PHY's 25 MHz reference isn't provided by an extra SoC pin.
 
-The fbdev driver is obsolete and likely to be removed soon. Instead please
-use the KMS driver (drivers/gpu/drm/solomon/ssd130x*). This already has
-support for the sh1106, so adding ssh1307 support should be trivial
+I think there is some misunderstanding here, probably caused by 
+Allwinner's naming of that pin. Pin PJ10 (and PH13, inside the GMAC0 
+group) are mere clock fanouts, they connect internally to two gated 
+divider clocks, with the main peripheral PLL as their parent. They 
+produce a 25 MHz clock signal, which is simply routed out to those pins. 
+They work independently of the MACs, and could be even used for 
+something else.
 
-(basically just adding an entry to the device ID tables I believe).
+On boards which do not use a crystal oscillator to clock the PHY (most 
+boards, including the OPi 4A, have an oscillator!), the pin is not 
+needed, hence we didn't include it in the pinmux. According to the 
+schematic, PJ10 is not even connected on the OPi 4A, so whether you 
+include it in the pinmux or not doesn't matter.
 
--- 
-Best regards,
+So can you please double check this? For PJ10 to have any effect, it 
+also would need the associated clock enabled.
 
-Javier Martinez Canillas
-Core Platforms
-Red Hat
+And for the records: I think I found now the proper solution to enable 
+Ethernet on the X96QPro+: the pinmux for PJ10 gets added, either in the 
+PHY, or the MAC DT node. The associated EPHY_25M clock must then be 
+referenced by the PHY node. And the respective PHY driver needs to 
+enable that clock (some do, others don't).
+With those things in place, Ethernet works on the X96QPro+ board, which 
+does not feature a crystal oscillator, hence relies on that 25 MHz clock 
+output to step in.
+
+> 2) RGMII clock delays. The board has a Motorcomm YT8531 PHY:
+>       - phy-mode          = "rgmii-rxid"
+>       - PHY node          : rx-internal-delay-ps = 1900  (YT8531
+> RXC_DLY_EN, ~1.9ns)
+>       - MAC syscon        : tx-internal-delay-ps = 100
+>                             rx-internal-delay-ps = 0
+>     That combo gives a stable 1 Gbps / full-duplex link, 0% packet loss.
+
+Those settings differ from what's in mainline. What are the results with 
+those delays? Does it work as well, and those are just other settings 
+that happen to work, because the math works out the same?
+
+Cheers,
+Andre
+
+> 3) Your withstand encoding fix. Before it, the PJ bank was driven at 1.8V
+>     while the receiver sat in 3.3V mode, so RX was effectively deaf. With
+>     your patch RX reads correctly.
+> 
+> All of the above is validated on my board (2026-07-08): link up at
+> 1 Gbps/full, ping 0% loss over a sustained transfer.
+> 
+> Thanks again for the withstand fix - glad the POW_MOD_SEL patch helped
+> connect the dots.
+> 
+> Cheers,
+> Juan
 
