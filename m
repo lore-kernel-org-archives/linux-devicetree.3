@@ -1,132 +1,204 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013055.outbound.protection.outlook.com [52.101.83.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCDD3411F97;
-	Fri, 31 Jul 2026 10:18:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785493138; cv=none; b=Uw8qy85dLlrUeZGL2iT4dcnYZtUU9pFs8u/cBAjpOOGp9Qd0ArQa6ELGDC3AzfaHgd8WrTsiJXixtKLb3I7HaQEfngVU7hg2Ih+INM/VIeVO3wMAP65JHiSZjt2cPgE7XW9A/i9Iylm0dVUI19OZ3CIBZk4VCgofKI3ZH1nmcLc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785493138; c=relaxed/simple;
-	bh=X2EeniwApockyGOlFrGtDe+3zVWE2EEHZwPsdH0Cjtg=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=hKbdKNlAcKGZdKctdpSBun/bkRXBdB2YV705UjmdaC5gzX7C5bjwJ5/WQuKaUj7wXbna02NfOUt2P8gse3sNOvMVZZcfTVeLCjzVSZT6X/4LRe0QuDzlpumZo7aKPAPUTgjndEEzlNAe91RGcbPgP0zG+vaEcV/tpoS7BnTdcHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kXHhpqJ3; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7743F40D592;
+	Fri, 31 Jul 2026 10:18:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.55
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785493137; cv=fail; b=dwQC5YZHL3TXsApfwc6jsbhAXHwCuMSoa549u348rSRqOOVbDixP6Atg+U6nraFKvCiqc/FCZlgIWgNaU4ooxKq9dUKIFCfCCIf0iRWyoY489Zyfm5XbHf7B1y1IAFefK8EQ9Qt1CiyUZaBXh/dUv1PXhoE7aPRPFf2knoxI2WE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785493137; c=relaxed/simple;
+	bh=Sc8pDPMOI1Bo9vBRoIk04q7gb+MCmLrg79dQNBNe7H0=;
+	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
+	 To:Cc:MIME-Version; b=Ln3xchy7XOC9hlZqpegmUzdV7qugv/6fqVvXmJK4eJQYWWUPPb+wvRpPyfY5W95NT444ylVvs/RQXrCcNkirnq1bWsP4QQxTEVguUjSG6kCAsY5Zqxdv7f21awXWRsTC+ryGXzPVRHf2qwQvbYrbMPLsCoFvpWknJPDcLjQOpNI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=QQAK/sgg; arc=fail smtp.client-ip=52.101.83.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kXHhpqJ3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21EF71F00A3D;
-	Fri, 31 Jul 2026 10:18:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785493127;
-	bh=6TndT5ZqPbf3/gWWwhB7gB0t2oRikWVf2rtwe4bd34Q=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=kXHhpqJ3au4m6EgOlas5iD+FQiGqt+yQ3dcBaiVyBk+d1JM0VidyGggUdiAPvpclK
-	 Ug5TSQ80hL9FNEu94fAiWSlgE+FB+8ogCBWJ7Yvb5QysZWLOywwwf3QSB2TU1F2wRt
-	 u6uIOSlCKgWMiUSOWz4PxJyFHLo3EuB7nL7TmUJkIcL7RpTOVHaD6EGpKiVKQ27Ee2
-	 PZfIYON+7PYhVWEqW6BJdN942xnijfWyUP/fOrmEwa1Xumg/lZ2zulkU+8C20mgoIX
-	 5IIMnUAo1UniqgyJI6zUKSuaPPqxuN0UoxY2TT8DWWDYrscRVi6wsntKLO2yTOPw7T
-	 ZsoNMDN7YAPVA==
-Date: Fri, 31 Jul 2026 05:18:46 -0500
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="QQAK/sgg"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Xm4Dsq1utjzofhkvE54S3CbZleA7WEiy2+H313S1tqWUoLKQU7R3AaAfp1HLANOYAArrDi+wsNZoEfeYRztB6JTKm/NaYowqs7NKUZmH5hPEctqtWH5VJSf+8Es5uSOOHsC23FZDEi+ej6y6AwOfwzBjhDVAFoA4NxL9I52vMCA5R7ZNZqvkhzyObtGC88wCBWPH57kXZm83MDUXl64xilfWHLjCQFaKVY0I9OPkE1zPvjBetOAFS0iuofnKkN7OfkaDQFtjX5QMI+1X4dJdvYhvNDxc5HzyMroQCYlBgR8rnfcEXeu5B0dWNbZHNDfXll+396W0QK0fe4CxVOUrxA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=To26xpiXsl7xNPrRJHvA8xa8f6Px7ityV/3/+uHGRiA=;
+ b=ujZrlzmHmDZhN4AxozbKRmcUfEHhUEGammuIjLtYhFXi1I5ohTV79aY9fyZULL0YmIwaM9qLuGmpGId/lQjIgOc7gvVa11p0F1e/2MaNNXD1A01ucTJL4FQ4OGN68pBHqURKPrvT84QnNVclGxKJwoEcMxYXBiCIgAgmgJe30IaOq+zgrz7B/vVzryBtf/mVrfXCXWj1vwRPh3ueMhVcStITVzTiyoA6cOX0mzAsDSGAo7w4p2QR9vITmIsweaMtHNgj2iJ8+54DklPmOaYSGk1dXv6aT+4zoav+R69TB0nJWV5ediiqeCJGuO4yllUHpjEt+7dWhiRAOe1oMfJw7Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=To26xpiXsl7xNPrRJHvA8xa8f6Px7ityV/3/+uHGRiA=;
+ b=QQAK/sggIfMA809uCk9CGKYmYm/osud2pcguTAh3KWiP2UIXf+s7BL3r9WR0r0iRcFoafHPXZZr8kEAUJnZT1xsBiIj18AZB1DokyTb6IFVxXYgLZXXnx+up9uk3OtPskXhbjz12WGao3RFRKsIVp0JD9YK4y3azi8ES8QqM7EH4gSGh/lph36E2nApYcMTBG8eqH/28f4REpTbVxj31U5CZODtngkI1AEi4YBUDmCMXIIn0UCPxqXjxMtfS8dYYrBaozL5OYwANnNP0bRBVGfVDv0qHvyFxyznzGfIrrmdIK4S/ZQfWcRHw9INp5Kwz6tf1hF9+Binz2xX5Q10xbg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from VI1PR04MB5807.eurprd04.prod.outlook.com (2603:10a6:803:ec::21)
+ by PA1PR04MB10179.eurprd04.prod.outlook.com (2603:10a6:102:460::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.15; Fri, 31 Jul
+ 2026 10:18:24 +0000
+Received: from VI1PR04MB5807.eurprd04.prod.outlook.com
+ ([fe80::3da4:2827:d637:37de]) by VI1PR04MB5807.eurprd04.prod.outlook.com
+ ([fe80::3da4:2827:d637:37de%4]) with mapi id 15.21.0270.012; Fri, 31 Jul 2026
+ 10:18:24 +0000
+From: Joy Zou <joy.zou@oss.nxp.com>
+Date: Fri, 31 Jul 2026 18:21:44 +0800
+Subject: [PATCH v2 2/3] regulator: pfuze100: add set_suspend_disable for
+ LDO ops
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260731-b4-regulator-pf01-v2-2-a406c8737fdb@oss.nxp.com>
+References: <20260731-b4-regulator-pf01-v2-0-a406c8737fdb@oss.nxp.com>
+In-Reply-To: <20260731-b4-regulator-pf01-v2-0-a406c8737fdb@oss.nxp.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Ye Li <ye.li@nxp.com>, 
+ Jacky Bai <ping.bai@nxp.com>, Peng Fan <peng.fan@nxp.com>, 
+ Dong Aisheng <aisheng.dong@nxp.com>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ Joy Zou <joy.zou@oss.nxp.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: SI2PR02CA0039.apcprd02.prod.outlook.com
+ (2603:1096:4:196::9) To VI1PR04MB5807.eurprd04.prod.outlook.com
+ (2603:10a6:803:ec::21)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, devicetree@vger.kernel.org, 
- linux-media@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>
-To: Alexander Shiyan <eagle.alexander923@gmail.com>
-In-Reply-To: <20260731073505.2278769-2-eagle.alexander923@gmail.com>
-References: <20260731073505.2278769-1-eagle.alexander923@gmail.com>
- <20260731073505.2278769-2-eagle.alexander923@gmail.com>
-Message-Id: <178549312642.3460743.16636467858799088531.robh@kernel.org>
-Subject: Re: [PATCH 1/2] dt-bindings: media: i2c: Add onsemi AR0234 image
- sensor binding
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VI1PR04MB5807:EE_|PA1PR04MB10179:EE_
+X-MS-Office365-Filtering-Correlation-Id: 37750d48-f498-4bb2-6692-08deeeed0deb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|19092799006|23010399003|7416014|376014|18002099003|22082099003|56012099006|11063799006|3023799007|10067099003|921020;
+X-Microsoft-Antispam-Message-Info:
+	oi2CIhGv134jtV7FdrXC6jVxhoekOnQUxauZ/DncPkXRIzFzidWkEG48anaifxpu7QORNP3psYHQ+uHFAXyHEaNlszgf86wOlageM9YQ6ZRHgLGIA3653nCcvhIXC5pxno/wS2m0FqUAtD+kGmFzNCZ6eFclKLZrl3fJsVSEWFcJa37F85SPFwbqFWhC92v3dDwT2n39bkAN3B3LZLHkWaSaSVRCOI4Surt/P594+w1rHg/sjt8eIg+4C2Spz/6qcKo0db9Y+Mqr55yTbJH8nMmVVGLdoLSdAHgBRqoevrUR4l5P1TnB+VE+QUDT2M3Bc2ejf4srhLs5/RfoqezbsfBXFrY8hL3/B21iljHuV0tBujs/P7TKRcoNsN1e1JY4tt+PGYYnxhJ2qQNQhUk6qWOKOn9BYb3VyGpZomc971oiEfjEaOt15h4fcQVKiY+lNa1s7EhLruQ97V2KsS4u/4yQOUTrWZE16BCjR5cSuojxZecfE5PI4NtQ/Cn+kM8maCrYF1x44VY85XImMeYS06zFOvY23oql1Sip5b4NXyQvGgPDqHJZP5mfLTVajuORqsVTGb3v+t+EqKw+fDNTg+KjFc6rRo+RDuy7sQe2huXoeW3zDnMlPFolK/dDf5Ke9i6DId7T+Y3HrN0epvvL8dvr28f8snMDTRYXpdVrl2o=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5807.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(19092799006)(23010399003)(7416014)(376014)(18002099003)(22082099003)(56012099006)(11063799006)(3023799007)(10067099003)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?R09ibTRDczFlTW9uSzNxZEpmT2FpRzY5SGcvcmw4QTF1NWlSZmZYVHloT1lz?=
+ =?utf-8?B?VXdBK215enl3Y1B3dUNINDRPTkRUTE9xMVhBcjd1czF0ZmhmdmZYbjh5TUJz?=
+ =?utf-8?B?aTdEMkdkRFZjY3FaNG5pemU0VWl5bThpd3BSQ0l2TnVvRzh0eUpldzU4STFV?=
+ =?utf-8?B?eVE4K2xOcmpsckFKODkyYXg5MkptdDFQNUF5dGtzak91SFN3enhUSjY2R0lr?=
+ =?utf-8?B?MWdHdlNacTM1bWVQRlJmS1JQZ2doYzhCa2Y5NDBSZ1dSZkdHbjZSclQ0Y2pq?=
+ =?utf-8?B?U2I5aGgrbkIyZkRjU2JqZ25ZbEhpbjNrSmpMVFBuMkdVNzNvejM0ZWsyaUxL?=
+ =?utf-8?B?T2NYWmhoOTE2ekZoTE9sQlBFRTB1VkN5dU8wQVBtZDNUVnBQVEJlZWNFRFVI?=
+ =?utf-8?B?dm9GbkxVNkdhMVJwNGRyS2NWTDJ6bE1UUVBIWXZrQmttN1ZIaTEwRWFCT1R3?=
+ =?utf-8?B?RWZGcFVkL1UxbjMvK0IxaVhFYTMrQmx3YVNIMVNCczlaQTNOSDdNajgrRno4?=
+ =?utf-8?B?STh5U0ZmY2V2SlBQT3dMbTJ0cGhaRDRhc1pwSTNmMHhlWXh4a3ZZWmp1cHky?=
+ =?utf-8?B?TjhqQnIralFoMldjVnMxZzdlK3pCQVNDRHRKSms3TTNNa25oQ2tnT0k4b1hG?=
+ =?utf-8?B?dFA1RDBHK3JBNmloeXVrVmxOYVp3OE14aFhxSWRLYWwydForRCs2NGQreEpM?=
+ =?utf-8?B?bWJvSzJJejNaVkkzeDhYL1JJZjhzcDVvTEpqampFeExwcTBKcmR3M0xCZk0z?=
+ =?utf-8?B?SHNyQzZDQmV0RHE1b2JTRU5WanZXSndXWlRucG9nVDNwYjRGL09wWXJFelpx?=
+ =?utf-8?B?NmNLcmg1ZXVFekhnRTExUlQzc2NvSnhWWDZ2VDNTQ3NrNGxpNG1JdisyaTJF?=
+ =?utf-8?B?YXlsZFZUbGd3eEtTMGZjdklkVGg1NEgvWDVKaVhtNzB1RXBRMFBSeThKU3g2?=
+ =?utf-8?B?a3RtK3JZb3paZVROcmRhQ2EreXhxTktJOTQ2VGNkcks5azE0c053Uk43VTkv?=
+ =?utf-8?B?QzF3bmd0d1UzL1VkRXdpVnpaNTFzdG5BU0pSejJZOFJ4NFRsMjFEWXkvZjJC?=
+ =?utf-8?B?cFgyTXBiT1V6OGNDdFBiTXdlcXVCWXMyQm03cjhTTkN2aWM0TUZ5RzVjTlQz?=
+ =?utf-8?B?UTJqbnRNK0xNNmVSMTE5UVlMTUljb05wYU5GYVVJZVAyNUtuYkljcC9vd2xr?=
+ =?utf-8?B?M0NvdkFQdU4rV3picG5iZlp2RXFoMXBOa0kwNHJrZTgrYVdhcnRNQldGSFNQ?=
+ =?utf-8?B?cTBWaHZGdTVRdkpOSS9TUXViOTF5Qk91QWhza1VTS2RJbWZjckphRjE1bE9N?=
+ =?utf-8?B?TDVaeEU2eWt1MnVRbU1DOUpNUWM2SGliTDRjRGRERm9aWXZ1TE1vVy9TQ2lw?=
+ =?utf-8?B?eWEzMFJpc0FZYzdXUktUOVVmQ04yazBnbmlCNTBlZnRBUHRvV1ArT2ZsMWhD?=
+ =?utf-8?B?MlpnR0RlTnJneGEzTTQ0V1M4ZVFYRkwwbUVha2JlWWgyQWU1WUdib3hzK1hs?=
+ =?utf-8?B?RC8wWjVHTHVLcWFXdWFOcHBMb1BGUlZ3elp0TGxtblpIdUFCdUkzbmFHODJV?=
+ =?utf-8?B?Q3VRbS83a0JpZ2xHUHFEVC9ROFVsRW9RV2pnVnFZa0xMdUxVWVl5YzA5Q0FN?=
+ =?utf-8?B?d3libnloMDBxNlVtYkd2MVQyQys5RlJ3ckQ5RXZzMTRLSlpudEhvd0hUR01D?=
+ =?utf-8?B?cGtuT1E2SVNwN1JjK2haNmdIRlR3U0ZOdm9zdUxMVms3cjBHb0czckk3N3dD?=
+ =?utf-8?B?OUJDN1A0WDJYUU51NE5mRHd3dnBNQ3BaeHNFN1A3NTlDOFY2NTdaWVdoVlFL?=
+ =?utf-8?B?dEgycloxNFRjNHhZazFFSER5YmxEbWNZNWF4ckdxMVZvZnQ4UVF4TTVCbGF0?=
+ =?utf-8?B?MjFYdnpvQjdjQWJsQzhoWElZSzUzWEtRTnFKSUgzalVpYUx2dmV5SXJNNmdm?=
+ =?utf-8?B?Vi9ocUVWL01vbzNDcG85c2xyTWx5RHZPaGVIbVE0WHNlNDNYTWM0aU10Z3lT?=
+ =?utf-8?B?NnFFUnFGWHBqQ1dWMnJNalFaNU13c2UrZnlOKzFVcEVOT3oyN0hodU9jYUNi?=
+ =?utf-8?B?OFpSUldkeGR6Tmo1VU1xZFhrZDBDN0VabE9TTDUwaGVGVUVtUFcvdGEwQlFM?=
+ =?utf-8?B?RTJRK3dzN0kyaWp0SUdqazdIYkxlcG93VGgxbUlQSERBZVlYZ0dWV2J0cUJP?=
+ =?utf-8?B?Q3BXckR3M2o1ZW13SmZIWWYyM1lDZ1pvQmpleTN3b1FMcmxDbWtzRG9MMmxS?=
+ =?utf-8?B?cW1ObEJTc1lBVjB4a2ZZUlFhQmpmWHcvWkRTd2V0Qy8rNTYwdFo2M3JISDgy?=
+ =?utf-8?B?VnBKb2xXbkpjblpFamt5S2VJSGlIcm5EQ1FzSC9lc1dEaXFUZ3F1bCtEQy9O?=
+ =?utf-8?Q?cJxALKrZA9G9JVS7iN59xJARgDMVrCILBAG7A?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 37750d48-f498-4bb2-6692-08deeeed0deb
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5807.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 10:18:24.4544
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: W3BHejSjfVeKurR/t7491blnw63Nxb3+dU27cUs4LRfc25R9RfaCwUw6/trnUVMVz6X+Mj5YfDfbbReiQcfSw6ckLUH6AIoyEu//Oa0FAo1AQe+n35fqcSEbJOJxOMSA
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10179
 
+Add a set_suspend_disable callback to pfuze100_ldo_regulator_ops to
+support the regulator-off-in-suspend DTS property for the VGEN LDO
+regulators. This allows unused LDO regulators to be properly disabled
+during system suspend, reducing power consumption.
 
-On Fri, 31 Jul 2026 10:35:04 +0300, Alexander Shiyan wrote:
-> Add devicetree binding for the onsemi AR0234 CMOS image sensor.
-> 
-> Signed-off-by: Alexander Shiyan <eagle.alexander923@gmail.com>
-> ---
->  .../bindings/media/i2c/onnn,ar0234.yaml       | 123 ++++++++++++++++++
->  1 file changed, 123 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml
-> 
+The callback is only used by the LDO ops, so name it accordingly:
+pfuze100_ldo_set_suspend_disable. It uses the per-regulator
+stby_reg/stby_mask that already describe the standby control for
+each LDO, so it works for every LDO covered by these ops.
 
-My bot found errors running 'make dt_binding_check' on your patch:
+Signed-off-by: Joy Zou <joy.zou@oss.nxp.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+---
+Changes in v2:
+- Rename the callback to pfuze100_ldo_set_suspend_disable since it is
+  only wired into the LDO ops.
+- Use the per-regulator stby_reg/stby_mask instead of a hardcoded
+  VGENxSTBY/VGENxLPWR bit.
+- Link to v1: https://patch.msgid.link/20260716-b4-regulator-pf01-v1-0-8c1519d54bd4@oss.nxp.com
+---
+ drivers/regulator/pfuze100-regulator.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-yamllint warnings/errors:
+diff --git a/drivers/regulator/pfuze100-regulator.c b/drivers/regulator/pfuze100-regulator.c
+index 7d56c22b5e40..d3a0e2505524 100644
+--- a/drivers/regulator/pfuze100-regulator.c
++++ b/drivers/regulator/pfuze100-regulator.c
+@@ -158,6 +158,25 @@ static int pfuze100_set_ramp_delay(struct regulator_dev *rdev, int ramp_delay)
+ 	return ret;
+ }
+ 
++static int pfuze100_ldo_set_suspend_disable(struct regulator_dev *rdev)
++{
++	struct pfuze_chip *pfuze100 = rdev_get_drvdata(rdev);
++	int id = rdev_get_id(rdev);
++	struct pfuze_regulator *desc = &pfuze100->regulator_descs[id];
++
++	/*
++	 * Set the standby bit so the LDO output is turned off when the PMIC
++	 * receives a STANDBY event, using the per-regulator stby_reg/stby_mask
++	 * that describe the standby control for each LDO.
++	 *
++	 * The stby_mask only covers the VGENxSTBY bit. The VGENxLPWR stays at
++	 * its reset value of 0, so the LDO is switched off rather than put
++	 * into low-power mode.
++	 */
++	return regmap_update_bits(pfuze100->regmap, desc->stby_reg,
++				  desc->stby_mask, desc->stby_mask);
++}
++
+ static const struct regulator_ops pfuze100_ldo_regulator_ops = {
+ 	.enable = regulator_enable_regmap,
+ 	.disable = regulator_disable_regmap,
+@@ -165,6 +184,7 @@ static const struct regulator_ops pfuze100_ldo_regulator_ops = {
+ 	.list_voltage = regulator_list_voltage_linear,
+ 	.set_voltage_sel = regulator_set_voltage_sel_regmap,
+ 	.get_voltage_sel = regulator_get_voltage_sel_regmap,
++	.set_suspend_disable = pfuze100_ldo_set_suspend_disable,
+ };
+ 
+ static const struct regulator_ops pfuze100_fixed_regulator_ops = {
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml: ignoring, error in schema: properties: compatible: oneOf
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml: properties:compatible:oneOf: {'const': 'onnn,ar0234cs', 'items': {'enum': 'onnn,ar0234cssc onnn,ar0234cssm', 'const': 'onnn,ar0234cs'}} should not be valid under {'items': {'propertyNames': {'const': 'const'}, 'required': ['const']}}
-	hint: Use 'enum' rather than 'oneOf' + 'const' entries
-	from schema $id: http://devicetree.org/meta-schemas/keywords.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml: properties:compatible:oneOf: {'const': 'onnn,ar0234cs', 'items': {'enum': 'onnn,ar0234cssc onnn,ar0234cssm', 'const': 'onnn,ar0234cs'}} is not of type 'array'
-	from schema $id: http://devicetree.org/meta-schemas/string-array.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml: properties:compatible:oneOf: {'const': 'onnn,ar0234cs', 'items': {'enum': 'onnn,ar0234cssc onnn,ar0234cssm', 'const': 'onnn,ar0234cs'}} is not of type 'array'
-Traceback (most recent call last):
-  File "/usr/local/bin/dt-doc-validate", line 8, in <module>
-    sys.exit(main())
-             ~~~~^^
-  File "/usr/local/lib/python3.13/dist-packages/dtschema/doc_validate.py", line 66, in main
-    ret |= check_doc(f)
-           ~~~~~~~~~^^^
-  File "/usr/local/lib/python3.13/dist-packages/dtschema/doc_validate.py", line 37, in check_doc
-    dtsch.check_schema_refs()
-    ~~~~~~~~~~~~~~~~~~~~~~~^^
-  File "/usr/local/lib/python3.13/dist-packages/dtschema/schema.py", line 242, in check_schema_refs
-    self._check_schema_refs(resolver, self)
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.13/dist-packages/dtschema/schema.py", line 212, in _check_schema_refs
-    self._check_schema_refs(resolver, v, parent=k, is_common=is_common,
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                            has_constraint=has_constraint)
-                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.13/dist-packages/dtschema/schema.py", line 212, in _check_schema_refs
-    self._check_schema_refs(resolver, v, parent=k, is_common=is_common,
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                            has_constraint=has_constraint)
-                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.13/dist-packages/dtschema/schema.py", line 203, in _check_schema_refs
-    ref_sch = resolver.lookup(schema['$ref']).contents
-              ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 682, in lookup
-    retrieved = self._registry.get_or_retrieve(uri)
-  File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 422, in get_or_retrieve
-    registry = self.crawl()
-  File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 500, in crawl
-    id = resource.id()
-  File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 231, in id
-    id = self._specification.id_of(self.contents)
-  File "/usr/local/lib/python3.13/dist-packages/referencing/jsonschema.py", line 50, in _dollar_id
-    return contents.get("$id")
-           ^^^^^^^^^^^^
-AttributeError: 'str' object has no attribute 'get'
-Documentation/devicetree/bindings/media/i2c/onnn,ar0234.example.dtb: /example-0/i2c/camera@18: failed to match any schema with compatible: ['onnn,ar0234cssc', 'onnn,ar0234cs']
-Documentation/devicetree/bindings/media/i2c/onnn,ar0234.example.dtb: /example-0/i2c/camera@18: failed to match any schema with compatible: ['onnn,ar0234cssc', 'onnn,ar0234cs']
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20260731073505.2278769-2-eagle.alexander923@gmail.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+-- 
+2.34.1
 
