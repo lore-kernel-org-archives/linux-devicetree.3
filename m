@@ -1,164 +1,122 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2FFD3F823F
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 11:59:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BDF33F1AC4
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 12:02:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785499149; cv=none; b=oaUU1C+a3QOjyQr6SBCeAyx3DOlC6xCPRqoVOluWH8ScZYi5aTGPTxBhbcDLDLoDck5QCEc9nHCf9WZKC/UyTq5vd3tVsTCL0yHTdVMRIb50vVBaDe6wmaKWerZRAVzjAigNx7RrxSYJDhqadBc8TwaQ/HQC7ZLXfvOHQIaYA4Q=
+	t=1785499330; cv=none; b=MKlnbvo02qEBhjF4SX25Tey+YU/x+ZldnoMujMrDBFJrW0ByjP/V/9l2/WppMyhiSAZ+AdZHoSQx2fbfwBvdXyberqdbPX0nCG6yK+VztQuH4Y4bvi5etGUeFLLMwWCmnfYGVyo42rNUDVx8tpgKgQa/0SmnGIa0H1O05V0Gnsg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785499149; c=relaxed/simple;
-	bh=GELpTNNQJlbU2tl+wAZ0cQdnJgR+XPFVoYc2iOtYqcM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DETreXS731McxpootEpgf4saCA06lg344kGwelN89ccHVfynpt6FxazmCbzFMA5Vxb5jgPVdrY37M1kMRLQzMsMjSJkTuahXlLs0MQefSOFHRiQYcTS6KY25P5Phzbavs1foTVo0AHhvJrB+sGFrJvB6sqybIrRcO8ymouhoLL8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Gawz+7qI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KqmDNup3; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785499330; c=relaxed/simple;
+	bh=FaqMyd1q7DnrcVayhqe6eLmpnyBZKCzp+xOrs+Y49PI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=h4C8t8BDfdMTgVLAM+ejeEG25ysFwjORnnHySwOrW7Wwc3totKwviAvYKnQuDT1GcpgNpiUbUe0B01tuIsHpHdAVPNqTbgb9vQs5iLSCeMN/11uy4A7l/aXwOT8esAwJMcxPqHJaWXUyvC4W1ptNj21O4rYkJwFEY4y/HVVaSZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EDVS30sI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Gawz+7qI";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KqmDNup3"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66VBdBX23371064
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 11:59:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	M0deU4TNX6fHxv9J0oFHoUXvgfYFVyrZJE+0KzVtFN4=; b=Gawz+7qItjp6JBG4
-	wSZFtXV1r/8lDCem7/WneX55pR5DsP5IgR2DBJcb8TDx5PDGjU625+zPx6tKUInV
-	bR72gzJbsg8LvXnGgUVwnTQBvA/usttj6SK3vC0RA2+UtSjwIQPiPgvX6h6CY/UH
-	t8ScB06S8QsC+IKuD5CCTRPTt4ySIE4GXRGunyqpMK4ZlMcht+Txh72m0kMkDzMQ
-	lXmlwk9gQGyNavFuxOIQH89B3h7AILhdJDwNSkx1g4Q/7doHozLD1/04c6ZdAFCJ
-	3Kd804ctHFVuqUgMASBgyRYYGcCIw1xmTv/+y8hoEsmB2Sde+uhOt96fl2VBuwmm
-	xiow5Q==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fru0y027p-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 11:59:06 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51c1d137a68so15521781cf.3
-        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 04:59:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785499145; x=1786103945; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=M0deU4TNX6fHxv9J0oFHoUXvgfYFVyrZJE+0KzVtFN4=;
-        b=KqmDNup3IOlZq+NKpDSTR6kQRcHHpVyMqsKlrROjRvbzUo4hFXiOkpYlwQ+MMgWP3n
-         +LtwTo/ZlS9/4xmFwR93Pm6y1fxm+v9DWIECsXtcKvkgqYfYf/x+gFJ70DaJrX1xblEc
-         P/GuD+bVbn+SoyASahi4xU5+HuTbnJ2hZrRexAhBWbsXLYW2A6f6YX8zX4f3lwPs6i8v
-         zWHbCEqzfsQV81Id2+1urG1QpZVPp9I4L21t3vDvU62tsV2/OoJYT2YE9rWUAGhryrz2
-         qqQ/L821w+mJZ1CWDGrrafgJHkZT6zsRWzLSK5Gq7lTcrDKqVyVZBru9TJM8UROiEOiH
-         L8xQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785499145; x=1786103945;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=M0deU4TNX6fHxv9J0oFHoUXvgfYFVyrZJE+0KzVtFN4=;
-        b=g2XdRUHB3XZOLMIt3ZTcSXeVfTi0XwmVMIcnfPAJunIKVVxUuIYM4/f8oELhvaeBcX
-         c4MexnatBkblcaWK8lDGJAF/tXri8io4UHNtjAGgVxcWvwa9fqZXOs0zs7M+fVCoDOSO
-         KP1sjxnuzonieWxwIGZkAr0jI0pRaHvSYSNToF8h/OD63iRnug38/bzXJi06KPCNd4Xd
-         16+zgO4Asawa9MT2mYx+Ux3bKDrUumpIWo8YTl/NaIa3aUjfIfWaPOTAql+wrfgecCZV
-         a7DOf1kQu6Arlcvfihz5n3rfCQL/mJn3eFFROK17cObnl8aMBV/nTWq6Kf6XOzDLE6EJ
-         b5Dw==
-X-Forwarded-Encrypted: i=1; AHgh+RpaPLXH9p+dZJSsxYOLIF8/kpdU7B5x7Lj/Ha65hq8xrZJpM/SVo9Xl/1qcLcSw/D9J1FpK68tVHqD4@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzt76P3SIW0bQ6HEqVwUKMPR7/fbWwcw9KRtBxO8MOwEk8qAzwc
-	Zdt/JygIwo/Iej7S6fuUnEhUl3PzDqIxarSBedI6BYxnHpNcSli8HvYPIRhjnYbwgHY2LMZ48aC
-	iJXVMCEBGpf+5Wfyru1M2Ntv56Hvn3DUfuTdpKODp1wOVYHv6h6Z+olOIcK99z0rX
-X-Gm-Gg: AR+sD13BV/7PwCEfKVMcz05cEuOaj9Qxmt/QBa3mRtwsSvhBfXwmuED31LKOiSEu63C
-	pQj4c1959/PlgenmyuxLhIA/tqDu1ztZCfjNdN0hn4NqyOhmXslveyzvowV62nAq3z+M4G8g713
-	a5W7dV8Iz/8C5iFg7k0IpVVT3SqQ3+vEtvDX+gQdmfukeYYC+YZB+Di2D5QcNi9e+hPUWsqODlU
-	gcDt2caQs92SwlQE316Xq+uLtcF6Eg2+/S3s9xMH4ZhvlCM8jseIuJj8PnHzCB7BOIYRSgSE15S
-	cBTbWAPPjYT7jVeX3cWlK8/GsF66N1jeQ1tDSrCV7y0qUqZSPBacGTM5qiHn3b5RBPY3wo/Q53d
-	Dc2CEEGS+sNXUG6g=
-X-Received: by 2002:a05:622a:5593:b0:517:5bc1:e1f0 with SMTP id d75a77b69052e-52b4aa0c880mr23329241cf.0.1785499144730;
-        Fri, 31 Jul 2026 04:59:04 -0700 (PDT)
-X-Received: by 2002:a05:622a:5593:b0:517:5bc1:e1f0 with SMTP id d75a77b69052e-52b4aa0c880mr23328911cf.0.1785499144278;
-        Fri, 31 Jul 2026 04:59:04 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.163.114])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd4068fb7sm4618924f8f.0.2026.07.31.04.59.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 31 Jul 2026 04:59:03 -0700 (PDT)
-Date: Fri, 31 Jul 2026 14:59:00 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
-        Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        Manivannan Sadhasivam <mani@kernel.org>, Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-hardening@vger.kernel.org, manaf.pallikunhi@oss.qualcomm.com,
-        Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v7 9/9] arm64: dts: qcom: hamoa: Enable CDSP cooling
-Message-ID: <aljdjmmenszu2gtdeqy47sblo7cfz2hg2rxvaedie2s27e7gcv@jdzrzzdxrwbg>
-References: <20260731-b4-qmi-tmd-v7-0-3befd44403d5@oss.qualcomm.com>
- <20260731-b4-qmi-tmd-v7-9-3befd44403d5@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EDVS30sI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53B971F000E9;
+	Fri, 31 Jul 2026 12:02:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785499329;
+	bh=H/pLGKLIo4GV4p/pdh8LV7o1L/6FdHHgxE21YPdLD10=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EDVS30sIYimNVykIcbsIsHuAAVvh0mVisQHViX6FEsvepfZWvMTvWPOIFzXh4qhta
+	 rLj4fleGdFYlJOWIfzuJ2m1bKlPvShk6nn7W9a0kqRkXGQn2TLydDlfnIEehrpRxF/
+	 8JL/HjzwRyXFJ8i5ieZQmTr7PjbnZ7yeOA4tdjcIEyrkZ+rk9HFu5mJ2eRpT7HT6tI
+	 grOu3vw9zMI4pt5HJm2oeZbSRE4VAdMgWPtKVmvtZuKMx68LCGOn51JUZ+ERDT6fvn
+	 P72UjwWXIbF0Yn2y7eVCAoP92G9dkojDpLSVmk4696C5x4CimCppDnEAkUOm/r7akg
+	 PG/UM5sf53BHg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 03/10] ARM: tegra: tf701t: Add MC and EMC timing
+ nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260731114106.169398-4-clamor95@gmail.com>
+References: <20260731114106.169398-1-clamor95@gmail.com>
+ <20260731114106.169398-4-clamor95@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 31 Jul 2026 12:02:07 +0000
+Message-Id: <20260731120208.53B971F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260731-b4-qmi-tmd-v7-9-3befd44403d5@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMxMDA5MSBTYWx0ZWRfX9WJazNp35iQ0
- P19zZqOcOdip5ZujZx02Z7iKQme5DTKNIw4+XE3YTYmDFbNo8uaRAHXCvihTK91/kjinj9O6LlO
- pV4n3O4XO8wDOERLHNGK8p8Ca44DqcI=
-X-Authority-Analysis: v=2.4 cv=TcamcxQh c=1 sm=1 tr=0 ts=6a6c8e0a cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=6dw9+iwJWV8PcCi9M4lOBg==:17
- a=8nJEP1OIZ-IA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=_nN_CDt7C_a4776dohAA:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMxMDA5MSBTYWx0ZWRfX6W0vCEy0sibS
- ojBHzxxdp8cSGLp4sjPr39b75TVP/23VCXteGz/PCe3EloaJ+xlz5b335LognXIP/vXnOkZh/OM
- 855etTPh8E2HcuJT5hGdgsPrMg9+iF0/sSi0MpdzQD1tG/mTQy+MhftlJyFsZEsK356LqsoA23Z
- DWeRZ+8E9P1j8vbHdR9SJl/FCJTFQ15EjlUlSKwVsUO2fivzvAIpN7uiPC1OCvRv5ciWz627Pdp
- xaexYPXLUuQt2137Q++tdmo+FwZcT5tMhQAiSHhO1N33a1t1qkF034qXsCPEmMgCUM1fmg0HXIR
- 3VSlD5gX4GsHsXIEclqkUB4S8Ds/vfdVEeqvE1loVnVWEF5IbInh3JndbQs0d8+1LTa6Z3V/cHJ
- y3mI/GAwkxJlG2lAulI0ahLuMq143XAUxUb43ts13G+l6wkttZHBnqcxvZtdItMgQf+IWbHh43B
- FI1cNgy4+VF1d5KwhLw==
-X-Proofpoint-ORIG-GUID: ATBRZF-ppEI3XUppokoxJtayyHeuGH7D
-X-Proofpoint-GUID: ATBRZF-ppEI3XUppokoxJtayyHeuGH7D
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-31_04,2026-07-30_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 malwarescore=0 phishscore=0 priorityscore=1501
- suspectscore=0 spamscore=0 adultscore=0 clxscore=1015 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607310091
 
-On 26-07-31 16:03:49, Gaurav Kohli wrote:
-> From: Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>
-> 
-> Unlike the CPU, the CDSP does not throttle its speed automatically
-> when it reaches high temperatures in hamoa.
-> 
-> Set up CDSP cooling by throttling the cdsp, when it reaches 95°C.
-> 
-> Add polling-delay-passive so the governor periodically evaluates
-> the zone during passive cooling and steps up cooling levels when
-> temperature stabilizes below the next trip.
-> 
-> Signed-off-by: Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-With comments from Stephan addressed, patch looks good to me:
+Pre-existing issues:
+- [Critical] The tegra114-emc driver causes a heap out-of-bounds write by c=
+alling tegra124_clk_set_emc_callbacks(), which incorrectly casts the Tegra1=
+14 "emc" GATE clock to a struct tegra_clk_emc.
+--
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+--- Patch [3]: [PATCH v3 03/10] ARM: tegra: tf701t: Add MC and EMC timing n=
+odes ---
+commit 0da36cf6ac395d6c7a0f9761226778f6cf5ac2ed
+Author: Svyatoslav Ryhel <clamor95@gmail.com>
+
+ARM: tegra: tf701t: Add MC and EMC timing nodes
+
+This commit configures the Memory Controllers for the ASUS TF701T by adding
+the required EMC and MC timing nodes to the device tree.
+
+> diff --git a/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts b/arch/arm=
+/boot/dts/nvidia/tegra114-asus-tf701t.dts
+> --- a/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
+> +++ b/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
+> @@ -1610,6 +1693,636 @@ i2c-thermtrip {
+>  		};
+>  	};
+> =20
+> +	memory-controller@70019000 {
+> +		emc-timings-0 {
+> +			/* Mozart Rev B Hynix DDR3 792MHz */
+> +			nvidia,ram-code =3D <0>;
+
+[Severity: Critical]
+This isn't a bug introduced by this patch, but it appears that enabling the=
+se
+nodes causes the tegra114-emc driver to probe, which triggers a pre-existing
+heap out-of-bounds write.
+
+During probe, drivers/memory/tegra/tegra114-emc.c:tegra114_emc_probe() calls
+tegra124_clk_set_emc_callbacks(). That function retrieves the "emc" clock a=
+nd
+blindly casts it to struct tegra_clk_emc to assign the callbacks:
+
+drivers/clk/tegra/clk-tegra124-emc.c:tegra124_clk_set_emc_callbacks() {
+    ...
+    hw =3D __clk_get_hw(clk);
+    tegra =3D container_of(hw, struct tegra_clk_emc, hw);
+
+    tegra->prepare_timing_change =3D prep_cb;
+    tegra->complete_timing_change =3D complete_cb;
+    ...
+}
+
+However, on Tegra114, the "emc" clock is registered as a much smaller
+struct tegra_clk_periph_gate, not a struct tegra_clk_emc:
+
+drivers/clk/tegra/clk-tegra-periph.c:gate_clks() {
+    ...
+    GATE("emc", "emc_mux", 57, 0, tegra_clk_emc, CLK_IS_CRITICAL),
+    ...
+}
+
+Writing to tegra->prepare_timing_change and tegra->complete_timing_change
+overwrites adjacent memory past the end of the tegra_clk_periph_gate struct=
+ure.
+
+Should the clock registration in Tegra114 be updated to use tegra_clk_emc,
+or does the EMC driver need a different way to handle callbacks on this
+platform before these nodes are enabled?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731114106.1693=
+98-1-clamor95@gmail.com?part=3D3
