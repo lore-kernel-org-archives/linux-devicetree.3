@@ -1,883 +1,151 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19A14582E7
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 18:08:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81559446078
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 18:09:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785521310; cv=none; b=npb2fq86vJaWL1laQsDqR/uQl7M+6fMxc+EzpV1rNZovQKJvzfiNFhuS8mKMio644ye37l4LWPfIEeJO14B06JlQX5hlxE0B7IsIUNo/aDo+E9nu9KY4NrGmAJb5asqi7QEDWarGdX1TajsqAKcfj0g77lH824TvbPHeqY0VVPw=
+	t=1785521371; cv=none; b=PFFlT+Nj65CGC+RJMLqJMbD2iqbJbVu77lqDBY79RyDLzW6CYoRKV6g6ADI7Lpz/136ozt87tv+/7wR7uWDCSikq9f9wpE7I7M5iKIVzX0QIdxHwRbstJnwC1Rjq3TnYiuG8uKM2/skRx4X82F1K1eNExu0kjyavfKD31R2vInQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785521310; c=relaxed/simple;
-	bh=mO+gDYYOZlpsCThsUuBoelFkdhsSXI+BY4fE278O65U=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=BVszyMInuCxrEtgHrD0bR/vrGEDLLgRXBF4UD/9XN/lEMLtPbiodhnxQCh6c8z1F94mawmj+LAAswYUh53C2J2JNJuboojQXcHKmYY0Mth6lHg90Tn7xNkoyWd7XQAyPD9F+rsT3SjZffT/HjmWGdzVblyH2ZJg1zvgtYN8SSwo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ERK/nvUp; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KoZ/VKR/; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785521371; c=relaxed/simple;
+	bh=6E3S2WhkR2n+jVoOAXPY9VBjD6tIxrlEFWXKTMrymWY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=pjB9Sidtkp7WbUoa75QxfLvaK63TgQNt3SSU1tfn8Pn+j0UKMGGK6Wk+RCC+LJFWyicVOO7ZfQ9exo0Getm05EiJoegnKTEeqk0Yi9Gxnn7E2Kh53CGiFcOpS45RVud4Ij16v4HpvVLihZWDs/gu5lg9BQA7Gtqv2Y0+2bGEEfo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VP3dMfCQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ERK/nvUp";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KoZ/VKR/"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66VFOl7K404153
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 18:08:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	rA6ZQIWHiF7qqcfR+J75sTkMZyZ9Cf4arjw2D7g9ICc=; b=ERK/nvUp7ENbBrW+
-	tC9ilCdIJXd8reBjxq9xGETLAKO64LNZbSIqcEEVEMCuxRvjZye39bd1g0KOlGjh
-	cBy90mUPRZJSNqdI7yPc8wN/gHUfmD75/HmLRqLUsZvUmIqQSTG7Tzxw/BncaFw2
-	82Woyt8prQgvzbaiUBgcm8aqHLKaTQHhalIJrl9OUA5ZYBQ7CcGYz+CIEATPw74n
-	PQyEuZtKkbko5j8FUPsA2vyLEdE6tgStANbcqFcdzoU2rEYB2hEK2e00qVHO/7r0
-	LTJI2eY9D1rio1xLIU+nJJ0iO8zo8doqyTJ1WofKYd7Dxz7q1vvruinYiarKE4lX
-	DBhNiw==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4frufkhnhp-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 18:08:28 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cb5cc1e139bso805909a12.3
-        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 11:08:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785521307; x=1786126107; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rA6ZQIWHiF7qqcfR+J75sTkMZyZ9Cf4arjw2D7g9ICc=;
-        b=KoZ/VKR/I+yLsGsNuPnqL5yqaXhTUYSujaYXg3VafHNo/PT2J5d7hEW41yhZvjY/r6
-         wBRFechfsD2EXE+ujCOovoslHFNz2eyCKpSr9SUDZs0YcbOrTARknBnj/pRVs+V1kbiH
-         rRzBS1nj8Ck2Hdujw/nXudxB4f3zd9K9XLUS0qBlzz8h4m+G+uwqvPEIEfw/I5cplGEA
-         qUlV9ZfOSCvYOKyvGdAyZrA3qW6iH5tM2KAQzYitGwqS1mWnu9gZohdfaT+wyb7O2y8E
-         VoQQa5rqjz+E9iRN1aRAkC1JFng3wba5b1LwFFnFu5J9nZ1eU+/GKUNyg7J09tAi9MLT
-         lwsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785521307; x=1786126107;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rA6ZQIWHiF7qqcfR+J75sTkMZyZ9Cf4arjw2D7g9ICc=;
-        b=C1+kwA1b8Xq4y987Qu7IHMnb1uJIdl7tE/P6KBXZYjsCwvQDzqt6r+SlTITDxTdpzF
-         C5H6bmiENoyyYzNUA+GkC9zbRnal1isJ2vsU0VNVxkkoSh1feBO2Oc/tUAh/6jn4ERAR
-         pW1lQqWcVwkWW+goDByv/cvek0ldI2Sa1vSGk+p1G9XDlsM+av7UR6TFFVKwUodJZtKI
-         AZGj30kj4SiX61YkSC0WAdOkFkV4X8emp2JX2aGrcbcnesXmOH44Zq5PmCrBCqGYDFaY
-         0T6SJbFy2Oa9obSpl0d2vGA2WhCffpzl8XQHFbqSDJ+TUPzkfRiKxOKbTZk7O3X+EYFv
-         GsTA==
-X-Forwarded-Encrypted: i=1; AHgh+RpHSLrPa9xKPSc7mXGe6F0bWOz2KQi7noE3woOuo3VrhRy+n9m3R3MD3RIhcgTqoe3Cr1qzHgCxiBhM@vger.kernel.org
-X-Gm-Message-State: AOJu0YyXCz/OTi/ZqpWxSRmXHTRhCW4ea9sRxbauhWK58Xr3hGnaMw2n
-	f/a6sDC99FvXCqfepcQU1+ie5JyLqAO+9iEu4Y4vcHdT+1VU1a/7PUWNiKE4lpLRQrvLG+hpnDj
-	hc9ZDFjK7S7qDeYBawSGChLnAxA24ju4P2pmJ1lbiil5yECf3ga5TmkHOMZ7pZTTe
-X-Gm-Gg: AR+sD104krjr+1X6WmI3pWI29Aa3+mD9q4ZJYPTU+SmfPjfDwZpRhQ2ZUCMgpuqtmtc
-	SfTTaqF5V1vHU1xsEsUB9Ks70HgcndflM3lR3diH6oMbkovTsUMGQHEqOv91jfc+f4xLPbW3znf
-	B4yXdkHZ0XgjDrooVo1+FnbwLFV3EpBYSN+8+q7Hg/LK9Lg9u8hsjlrveGk23wkF5UdVJ2BcmBE
-	gGLzhhTOlQQJaCE4ZZsuWyNWC3zwSf3smLocUNGTV03/ehoKnOXoW3kS3SchxLnv/1nj8MDLUtM
-	hLe4rxUYl1uNGZjFMBWYbJA0hww5xjZMFcjS58ZKmO2mcNUAnmAD7H4mrMjn+ylVYLTanzp6+OR
-	cet9ALF9CKpp9rlc44sE=
-X-Received: by 2002:a05:6a20:4309:b0:3bf:b68f:4685 with SMTP id adf61e73a8af0-3c92a5e1636mr780922637.23.1785521307197;
-        Fri, 31 Jul 2026 11:08:27 -0700 (PDT)
-X-Received: by 2002:a05:6a20:4309:b0:3bf:b68f:4685 with SMTP id adf61e73a8af0-3c92a5e1636mr780875637.23.1785521306714;
-        Fri, 31 Jul 2026 11:08:26 -0700 (PDT)
-Received: from [10.213.109.130] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153e06fe9fsm7069923eec.25.2026.07.31.11.08.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 31 Jul 2026 11:08:26 -0700 (PDT)
-From: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-Date: Fri, 31 Jul 2026 23:36:20 +0530
-Subject: [PATCH 7/7] arm64: dts: qcom: kaanapali: Add ADC support for
- Kaanapali boards
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VP3dMfCQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E15061F00AC4;
+	Fri, 31 Jul 2026 18:09:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785521370;
+	bh=ojNdvUhX5+FIN9OpIb23oVh1d3WS9iHSbY+Myk4Z0fo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VP3dMfCQ5higcPpPwWBIHN+uEvf0EqJ8qpzDth/AsoP5ZCwZws3Twv8dJOsCd7ZhL
+	 uJhxhGsUmIM7qdwU+TNxs3bUIp8dN4asUj01+55Zit0jjmO+NNDctslgEQOQOrSp9i
+	 FYtEyZ536hrizCO54b6im/KDmqCchZJ27IW1g3twmSDFrnwRCMXj/bdUxlE8lqayg7
+	 BdreMCc0DA4MDUCKSxvyarJOL3i2eyd5E5XDXYQvO/7HO+AE+hJnXKDawt5p2el4L2
+	 SKJf3BcY9mMPE9p8yEoo/Ra8RLYmiIT6/0humH35zXL/qZYIs4cOHTzLuNGHTP4BUA
+	 czW1S05SpAldA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 17/21] drm/bridge: synopsys: dw-dp: Drop useless
+ reservation of first slot
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org
+In-Reply-To: <20260731-synopsys-dw-dp-improvements-v8-17-ac1e6a75782f@collabora.com>
+References: <20260731-synopsys-dw-dp-improvements-v8-0-ac1e6a75782f@collabora.com>
+ <20260731-synopsys-dw-dp-improvements-v8-17-ac1e6a75782f@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 31 Jul 2026 18:09:29 +0000
+Message-Id: <20260731180929.E15061F00AC4@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-pmic5_gen4_adc-v1-7-9c49b2eea6f9@oss.qualcomm.com>
-References: <20260731-pmic5_gen4_adc-v1-0-9c49b2eea6f9@oss.qualcomm.com>
-In-Reply-To: <20260731-pmic5_gen4_adc-v1-0-9c49b2eea6f9@oss.qualcomm.com>
-To: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
-        =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
-        Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Amit Kucheria <amitk@kernel.org>,
-        Thara Gopinath <thara.gopinath@gmail.com>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-pm@vger.kernel.org, Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-        Anjelique Melendez <anjelique.melendez@oss.qualcomm.com>,
-        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
-        Priyansh Jain <priyansh.jain@oss.qualcomm.com>,
-        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785521244; l=15724;
- i=jishnu.prakash@oss.qualcomm.com; s=20251014; h=from:subject:message-id;
- bh=mO+gDYYOZlpsCThsUuBoelFkdhsSXI+BY4fE278O65U=;
- b=EFTeLqmSx1yGoO6t8ls2EKL+GhTNvI7RXj0a2ZMC8/Z7MTaKFhCR8HSfiQTkUt9/CGOXxdFpR
- sZixAzZT0jfDmMrjiuKE1nCLBR3gDmxNyzh5TBSLixbR8RWCfH6IWMf
-X-Developer-Key: i=jishnu.prakash@oss.qualcomm.com; a=ed25519;
- pk=g89pXdLVwRjdTeQ+uX1QzvBO346E3hQAc1N7fcTXgmk=
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMxMDEzOSBTYWx0ZWRfX5hkbFQY0sTmV
- OxrRE/s31UIqrnPlSa8IjZMucrOjbUs5as7+5noTnQjMPadA88dHNiuJrg4fyeA79Ii1612+n6Y
- 62GZxkbqEzmzS8hAEH+RtRSA7k07TyY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMxMDEzOSBTYWx0ZWRfX2wL+ANLYQs4I
- 6cf0cGOrn81qvWBWd5kfULTRqIo177ERiBIWr19Dmnq9AS6PIvfxdMgq/94PkLsLfWnxtDldt56
- CIg0kmPGxrriGrxCUUkUhiJg9onfcWo/YFm3PpDfrUUL7X9i5rvwwlRfkm7lTL1srCTKxFRJBlF
- TWPCapq20lVzmmqD/ZXxAmiNCCufmj9yr6xG7gDcseQdcAry9FYqOv8jw2s8H2rVNzjlf06MfV2
- jFgMFhDdjCWpx+bFwZkt47OknRQc61xipAcRM4ZMVOsZJ4STOwGzLRte+tUn2D+7NPXJHn69mCK
- pJVu6GuGOjiA0+Ieoj8dQpo3ZsWLqSLF7PJPQ87Ttb0sT6loL4vT1hh4um3/ONoX3dHSxySFw+Q
- eFesSh3uG4zGtH2Qf3A0+ppA/SOM9r3q8VClxNeMh5x46Z2gmDgKWHc608EgYPMNGartsttprcL
- wiL98OgkRYCAIxXMr7A==
-X-Proofpoint-GUID: 8oJ_8tvRVZbMywZDUh9sYuGRd6HHbNeT
-X-Authority-Analysis: v=2.4 cv=BpOtB4X5 c=1 sm=1 tr=0 ts=6a6ce49c cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=suU82zYbK_tq1bt87swA:9 a=F6syS2wt7qVtwVF1:21
- a=QEXdDO2ut3YA:10 a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-ORIG-GUID: 8oJ_8tvRVZbMywZDUh9sYuGRd6HHbNeT
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-31_05,2026-07-30_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 clxscore=1015 bulkscore=0 spamscore=0 lowpriorityscore=0
- impostorscore=0 phishscore=0 adultscore=0 priorityscore=1501 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607310139
 
-Add the ADC channels under the PMK8850 ADC node for the
-other PMICS on the board with ADC peripherals. This includes
-die temperature and VPH power channels per PMIC and channels
-for available system thermistors.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Add thermal zones corresponding to the thermistor channels
-to enable temperature monitoring.
+New issues:
+- [Critical] Missing bounds check and integer underflow in DP AUX read allo=
+ws a malicious DP sink to overflow the kernel stack.
 
-Also add io-channels and io-channel-names properties to the
-temp_alarm nodes so that they can get temperature reading
-from the newly added ADC die_temp channels.
+Pre-existing issues:
+- [High] Infinite loop in `dw_dp_link_clock_recovery()` triggered by oscill=
+ating sink requests.
+--
 
-Signed-off-by: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/kaanapali-mtp.dts | 312 +++++++++++++++++++++++++++++
- arch/arm64/boot/dts/qcom/kaanapali-qrd.dts | 312 +++++++++++++++++++++++++++++
- 2 files changed, 624 insertions(+)
+--- Patch [17]: [PATCH v8 17/21] drm/bridge: synopsys: dw-dp: Drop useless =
+reservation of first slot ---
+commit 1a405fda22c71ea438c7181332eedd3948880f18
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-diff --git a/arch/arm64/boot/dts/qcom/kaanapali-mtp.dts b/arch/arm64/boot/dts/qcom/kaanapali-mtp.dts
-index f9b5b5718b90..41636641f1ce 100644
---- a/arch/arm64/boot/dts/qcom/kaanapali-mtp.dts
-+++ b/arch/arm64/boot/dts/qcom/kaanapali-mtp.dts
-@@ -8,8 +8,10 @@
- #include <dt-bindings/gpio/gpio.h>
- #include <dt-bindings/input/linux-event-codes.h>
- #include <dt-bindings/leds/common.h>
-+#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
- #include "kaanapali.dtsi"
-+#include "qcom-adc5-gen4.h"
- 
- #include "pm8010-kaanapali.dtsi"     /* SPMI1: SID-12/13   */
- #include "pmd8028-kaanapali.dtsi"    /* SPMI1: SID-4       */
-@@ -163,6 +165,152 @@ platform {
- 		};
- 	};
- 
-+	thermal-zones {
-+		sys-0-thermal {
-+			thermal-sensors = <&pmk8850_vadc ADC5_GEN4_AMUX1_THM_100K_PU(0, 0)>;
-+
-+			trips {
-+				trip0 {
-+					temperature = <70000>;
-+					hysteresis = <2000>;
-+					type = "hot";
-+				};
-+
-+				trip1 {
-+					temperature = <90000>;
-+					hysteresis = <2000>;
-+					type = "hot";
-+				};
-+			};
-+		};
-+
-+		sys-1-thermal {
-+			thermal-sensors = <&pmk8850_vadc ADC5_GEN4_AMUX1_THM_100K_PU(0, 1)>;
-+
-+			trips {
-+				trip0 {
-+					temperature = <70000>;
-+					hysteresis = <2000>;
-+					type = "hot";
-+				};
-+
-+				trip1 {
-+					temperature = <90000>;
-+					hysteresis = <2000>;
-+					type = "hot";
-+				};
-+			};
-+		};
-+
-+		sys-2-thermal {
-+			thermal-sensors = <&pmk8850_vadc ADC5_GEN4_AMUX2_THM_100K_PU(0, 1)>;
-+
-+			trips {
-+				trip0 {
-+					temperature = <70000>;
-+					hysteresis = <2000>;
-+					type = "hot";
-+				};
-+
-+				trip1 {
-+					temperature = <90000>;
-+					hysteresis = <2000>;
-+					type = "hot";
-+				};
-+			};
-+		};
-+
-+		sys-3-thermal {
-+			thermal-sensors = <&pmk8850_vadc ADC5_GEN4_AMUX3_THM_100K_PU(0, 1)>;
-+
-+			trips {
-+				trip0 {
-+					temperature = <70000>;
-+					hysteresis = <2000>;
-+					type = "hot";
-+				};
-+
-+				trip1 {
-+					temperature = <90000>;
-+					hysteresis = <2000>;
-+					type = "hot";
-+				};
-+			};
-+		};
-+
-+		sys-4-thermal {
-+			thermal-sensors = <&pmk8850_vadc ADC5_GEN4_AMUX4_THM_100K_PU(0, 1)>;
-+
-+			trips {
-+				trip0 {
-+					temperature = <70000>;
-+					hysteresis = <2000>;
-+					type = "hot";
-+				};
-+
-+				trip1 {
-+					temperature = <90000>;
-+					hysteresis = <2000>;
-+					type = "hot";
-+				};
-+			};
-+		};
-+
-+		sys-5-thermal {
-+			thermal-sensors = <&pmk8850_vadc ADC5_GEN4_AMUX6_THM_100K_PU(0, 1)>;
-+
-+			trips {
-+				trip0 {
-+					temperature = <70000>;
-+					hysteresis = <2000>;
-+					type = "hot";
-+				};
-+
-+				trip1 {
-+					temperature = <90000>;
-+					hysteresis = <2000>;
-+					type = "hot";
-+				};
-+			};
-+		};
-+
-+		sys-6-thermal {
-+			thermal-sensors = <&pmk8850_vadc ADC5_GEN4_AMUX4_THM_100K_PU(1, 7)>;
-+
-+			trips {
-+				trip0 {
-+					temperature = <70000>;
-+					hysteresis = <2000>;
-+					type = "hot";
-+				};
-+
-+				trip1 {
-+					temperature = <90000>;
-+					hysteresis = <2000>;
-+					type = "hot";
-+				};
-+			};
-+		};
-+
-+		sys-7-thermal {
-+			thermal-sensors = <&pmk8850_vadc ADC5_GEN4_AMUX4_GPIO_100K_PU(1, 7)>;
-+
-+			trips {
-+				trip0 {
-+					temperature = <70000>;
-+					hysteresis = <2000>;
-+					type = "hot";
-+				};
-+
-+				trip1 {
-+					temperature = <90000>;
-+					hysteresis = <2000>;
-+					type = "hot";
-+				};
-+			};
-+		};
-+	};
-+
- 	wcd939x: audio-codec {
- 		compatible = "qcom,wcd9395-codec", "qcom,wcd9390-codec";
- 
-@@ -981,6 +1129,14 @@ led-1 {
- 	};
- };
- 
-+&pmh0101_gpios {
-+	sys_therm_5_gpio3: sys-therm-5-gpio3-state {
-+		pins = "gpio3";
-+		function = PMIC_GPIO_FUNC_NORMAL;
-+		bias-high-impedance;
-+	};
-+};
-+
- &pmh0101_pwm {
- 	status = "okay";
- 
-@@ -1008,6 +1164,11 @@ led@3 {
- 	};
- };
- 
-+&pmh0101_temp_alarm {
-+	io-channels = <&pmk8850_vadc ADC5_GEN4_DIE_TEMP(0, 1)>;
-+	io-channel-names = "thermal";
-+};
-+
- &pmh0104_j_e1_gpios {
- 	bt_default: bt-default-state {
- 		pins = "gpio5";
-@@ -1038,6 +1199,11 @@ sde_mdp_vsync_p_1p8_active: sde-mdp-vsync-p-1p8-active-state {
- 	};
- };
- 
-+&pmh0110_d_e0_temp_alarm {
-+	io-channels = <&pmk8850_vadc ADC5_GEN4_DIE_TEMP(0, 3)>;
-+	io-channel-names = "thermal";
-+};
-+
- &pmh0110_f_e0_gpios {
- 	sde_disp0_rst_1p2_active: sde-disp0-rst-1p2-active-state {
- 		pins = "gpio9";
-@@ -1056,6 +1222,152 @@ sde_disp0_rst_1p8_active: sde-disp0-rst-1p8-active-state {
- 	};
- };
- 
-+&pmh0110_f_e0_temp_alarm {
-+	io-channels = <&pmk8850_vadc ADC5_GEN4_DIE_TEMP(0, 5)>;
-+	io-channel-names = "thermal";
-+};
-+
-+&pmh0110_g_e0_temp_alarm {
-+	io-channels = <&pmk8850_vadc ADC5_GEN4_DIE_TEMP(0, 6)>;
-+	io-channel-names = "thermal";
-+};
-+
-+&pmh0110_i_e0_temp_alarm {
-+	io-channels = <&pmk8850_vadc ADC5_GEN4_DIE_TEMP(0, 8)>;
-+	io-channel-names = "thermal";
-+};
-+
-+&pmih0108_e1_temp_alarm {
-+	io-channels = <&pmk8850_vadc ADC5_GEN4_DIE_TEMP(1, 7)>;
-+	io-channel-names = "thermal";
-+};
-+
-+&pmk8850_vadc {
-+	pinctrl-0 = <&sys_therm_5_gpio3>;
-+	pinctrl-names = "default";
-+
-+	channel@103 {
-+		reg = <ADC5_GEN4_DIE_TEMP(0, 1)>;
-+		label = "pmh0101_die_temp";
-+	};
-+
-+	channel@18e {
-+		reg = <ADC5_GEN4_VPH_PWR(0, 1)>;
-+		label = "pmh0101_vph_pwr";
-+	};
-+
-+	channel@303 {
-+		reg = <ADC5_GEN4_DIE_TEMP(0, 3)>;
-+		label = "pmh0110_3_die_temp";
-+	};
-+
-+	channel@38e {
-+		reg = <ADC5_GEN4_VPH_PWR(0, 3)>;
-+		label = "pmh0110_3_vph_pwr";
-+	};
-+
-+	channel@503 {
-+		reg = <ADC5_GEN4_DIE_TEMP(0, 5)>;
-+		label = "pmh0110_5_die_temp";
-+	};
-+
-+	channel@58e {
-+		reg = <ADC5_GEN4_VPH_PWR(0, 5)>;
-+		label = "pmh0110_5_vph_pwr";
-+	};
-+
-+	channel@603 {
-+		reg = <ADC5_GEN4_DIE_TEMP(0, 6)>;
-+		label = "pmh0110_6_die_temp";
-+	};
-+
-+	channel@68e {
-+		reg = <ADC5_GEN4_VPH_PWR(0, 6)>;
-+		label = "pmh0110_6_vph_pwr";
-+	};
-+
-+	channel@803 {
-+		reg = <ADC5_GEN4_DIE_TEMP(0, 8)>;
-+		label = "pmh0110_8_die_temp";
-+	};
-+
-+	channel@88e {
-+		reg = <ADC5_GEN4_VPH_PWR(0, 8)>;
-+		label = "pmh0110_8_vph_pwr";
-+	};
-+
-+	channel@2703 {
-+		reg = <ADC5_GEN4_DIE_TEMP(1, 7)>;
-+		label = "pmih0108_e1_die_temp";
-+	};
-+
-+	channel@278e {
-+		reg = <ADC5_GEN4_VPH_PWR(1, 7)>;
-+		label = "pmih0108_e1_vph_pwr";
-+	};
-+
-+	channel@278f {
-+		reg = <ADC5_GEN4_VBAT_SNS_QBG(1, 7)>;
-+		label = "pmih0108_e1_vbat_sns_qbg";
-+	};
-+
-+	channel@144 {
-+		reg = <ADC5_GEN4_AMUX1_THM_100K_PU(0, 1)>;
-+		label = "pmh0101_therm_1";
-+		qcom,ratiometric;
-+		qcom,hw-settle-time = <200>;
-+		qcom,adc-tm;
-+	};
-+
-+	channel@145 {
-+		reg = <ADC5_GEN4_AMUX2_THM_100K_PU(0, 1)>;
-+		label = "pmh0101_therm_2";
-+		qcom,ratiometric;
-+		qcom,hw-settle-time = <200>;
-+		qcom,adc-tm;
-+	};
-+
-+	channel@146 {
-+		reg = <ADC5_GEN4_AMUX3_THM_100K_PU(0, 1)>;
-+		label = "pmh0101_therm_3";
-+		qcom,ratiometric;
-+		qcom,hw-settle-time = <200>;
-+		qcom,adc-tm;
-+	};
-+
-+	channel@147 {
-+		reg = <ADC5_GEN4_AMUX4_THM_100K_PU(0, 1)>;
-+		label = "pmh0101_therm_4";
-+		qcom,ratiometric;
-+		qcom,hw-settle-time = <200>;
-+		qcom,adc-tm;
-+	};
-+
-+	channel@149 {
-+		reg = <ADC5_GEN4_AMUX6_THM_100K_PU(0, 1)>;
-+		label = "pmh0101_therm_5";
-+		qcom,ratiometric;
-+		qcom,hw-settle-time = <200>;
-+		qcom,adc-tm;
-+	};
-+
-+	channel@2747 {
-+		reg = <ADC5_GEN4_AMUX4_THM_100K_PU(1, 7)>;
-+		label = "pmih0108_e1_therm_6";
-+		qcom,ratiometric;
-+		qcom,hw-settle-time = <200>;
-+		qcom,adc-tm;
-+	};
-+
-+	channel@274d {
-+		reg = <ADC5_GEN4_AMUX4_GPIO_100K_PU(1, 7)>;
-+		label = "pmih0108_e1_therm_7";
-+		qcom,ratiometric;
-+		qcom,hw-settle-time = <200>;
-+		qcom,adc-tm;
-+	};
-+};
-+
- &pon_resin {
- 	linux,code = <KEY_VOLUMEDOWN>;
- 
-diff --git a/arch/arm64/boot/dts/qcom/kaanapali-qrd.dts b/arch/arm64/boot/dts/qcom/kaanapali-qrd.dts
-index 55d02219ef4e..303e7b316901 100644
---- a/arch/arm64/boot/dts/qcom/kaanapali-qrd.dts
-+++ b/arch/arm64/boot/dts/qcom/kaanapali-qrd.dts
-@@ -8,8 +8,10 @@
- #include <dt-bindings/gpio/gpio.h>
- #include <dt-bindings/input/linux-event-codes.h>
- #include <dt-bindings/leds/common.h>
-+#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
- #include "kaanapali.dtsi"
-+#include "qcom-adc5-gen4.h"
- 
- #include "pm8010-kaanapali.dtsi"     /* SPMI1: SID-12/13   */
- #include "pmd8028-kaanapali.dtsi"    /* SPMI1: SID-4       */
-@@ -80,6 +82,152 @@ key-volume-up {
- 			wakeup-source;
- 		};
- 	};
-+
-+	thermal-zones {
-+		sys-0-thermal {
-+			thermal-sensors = <&pmk8850_vadc ADC5_GEN4_AMUX1_THM_100K_PU(0, 0)>;
-+
-+			trips {
-+				trip0 {
-+					temperature = <70000>;
-+					hysteresis = <2000>;
-+					type = "hot";
-+				};
-+
-+				trip1 {
-+					temperature = <90000>;
-+					hysteresis = <2000>;
-+					type = "hot";
-+				};
-+			};
-+		};
-+
-+		sys-1-thermal {
-+			thermal-sensors = <&pmk8850_vadc ADC5_GEN4_AMUX1_THM_100K_PU(0, 1)>;
-+
-+			trips {
-+				trip0 {
-+					temperature = <70000>;
-+					hysteresis = <2000>;
-+					type = "hot";
-+				};
-+
-+				trip1 {
-+					temperature = <90000>;
-+					hysteresis = <2000>;
-+					type = "hot";
-+				};
-+			};
-+		};
-+
-+		sys-2-thermal {
-+			thermal-sensors = <&pmk8850_vadc ADC5_GEN4_AMUX2_THM_100K_PU(0, 1)>;
-+
-+			trips {
-+				trip0 {
-+					temperature = <70000>;
-+					hysteresis = <2000>;
-+					type = "hot";
-+				};
-+
-+				trip1 {
-+					temperature = <90000>;
-+					hysteresis = <2000>;
-+					type = "hot";
-+				};
-+			};
-+		};
-+
-+		sys-3-thermal {
-+			thermal-sensors = <&pmk8850_vadc ADC5_GEN4_AMUX3_THM_100K_PU(0, 1)>;
-+
-+			trips {
-+				trip0 {
-+					temperature = <70000>;
-+					hysteresis = <2000>;
-+					type = "hot";
-+				};
-+
-+				trip1 {
-+					temperature = <90000>;
-+					hysteresis = <2000>;
-+					type = "hot";
-+				};
-+			};
-+		};
-+
-+		sys-4-thermal {
-+			thermal-sensors = <&pmk8850_vadc ADC5_GEN4_AMUX4_THM_100K_PU(0, 1)>;
-+
-+			trips {
-+				trip0 {
-+					temperature = <70000>;
-+					hysteresis = <2000>;
-+					type = "hot";
-+				};
-+
-+				trip1 {
-+					temperature = <90000>;
-+					hysteresis = <2000>;
-+					type = "hot";
-+				};
-+			};
-+		};
-+
-+		sys-5-thermal {
-+			thermal-sensors = <&pmk8850_vadc ADC5_GEN4_AMUX6_THM_100K_PU(0, 1)>;
-+
-+			trips {
-+				trip0 {
-+					temperature = <70000>;
-+					hysteresis = <2000>;
-+					type = "hot";
-+				};
-+
-+				trip1 {
-+					temperature = <90000>;
-+					hysteresis = <2000>;
-+					type = "hot";
-+				};
-+			};
-+		};
-+
-+		sys-6-thermal {
-+			thermal-sensors = <&pmk8850_vadc ADC5_GEN4_AMUX4_THM_100K_PU(1, 7)>;
-+
-+			trips {
-+				trip0 {
-+					temperature = <70000>;
-+					hysteresis = <2000>;
-+					type = "hot";
-+				};
-+
-+				trip1 {
-+					temperature = <90000>;
-+					hysteresis = <2000>;
-+					type = "hot";
-+				};
-+			};
-+		};
-+
-+		sys-7-thermal {
-+			thermal-sensors = <&pmk8850_vadc ADC5_GEN4_AMUX4_GPIO_100K_PU(1, 7)>;
-+
-+			trips {
-+				trip0 {
-+					temperature = <70000>;
-+					hysteresis = <2000>;
-+					type = "hot";
-+				};
-+
-+				trip1 {
-+					temperature = <90000>;
-+					hysteresis = <2000>;
-+					type = "hot";
-+				};
-+			};
-+		};
-+	};
- };
- 
- &apps_rsc {
-@@ -717,6 +865,14 @@ led-1 {
- 	};
- };
- 
-+&pmh0101_gpios {
-+	sys_therm_5_gpio3: sys-therm-5-gpio3-state {
-+		pins = "gpio3";
-+		function = PMIC_GPIO_FUNC_NORMAL;
-+		bias-high-impedance;
-+	};
-+};
-+
- &pmh0101_pwm {
- 	status = "okay";
- 
-@@ -744,11 +900,167 @@ led@3 {
- 	};
- };
- 
-+&pmh0101_temp_alarm {
-+	io-channels = <&pmk8850_vadc ADC5_GEN4_DIE_TEMP(0, 1)>;
-+	io-channel-names = "thermal";
-+};
-+
-+&pmh0110_d_e0_temp_alarm {
-+	io-channels = <&pmk8850_vadc ADC5_GEN4_DIE_TEMP(0, 3)>;
-+	io-channel-names = "thermal";
-+};
-+
-+&pmh0110_f_e0_temp_alarm {
-+	io-channels = <&pmk8850_vadc ADC5_GEN4_DIE_TEMP(0, 5)>;
-+	io-channel-names = "thermal";
-+};
-+
-+&pmh0110_g_e0_temp_alarm {
-+	io-channels = <&pmk8850_vadc ADC5_GEN4_DIE_TEMP(0, 6)>;
-+	io-channel-names = "thermal";
-+};
-+
-+&pmh0110_i_e0_temp_alarm {
-+	io-channels = <&pmk8850_vadc ADC5_GEN4_DIE_TEMP(0, 8)>;
-+	io-channel-names = "thermal";
-+};
-+
- &pmih0108_e1_eusb2_repeater {
- 	vdd18-supply = <&vreg_l15b_1p8>;
- 	vdd3-supply = <&vreg_l5b_3p1>;
- };
- 
-+&pmih0108_e1_temp_alarm {
-+	io-channels = <&pmk8850_vadc ADC5_GEN4_DIE_TEMP(1, 7)>;
-+	io-channel-names = "thermal";
-+};
-+
-+&pmk8850_vadc {
-+	pinctrl-0 = <&sys_therm_5_gpio3>;
-+	pinctrl-names = "default";
-+
-+	channel@103 {
-+		reg = <ADC5_GEN4_DIE_TEMP(0, 1)>;
-+		label = "pmh0101_die_temp";
-+	};
-+
-+	channel@18e {
-+		reg = <ADC5_GEN4_VPH_PWR(0, 1)>;
-+		label = "pmh0101_vph_pwr";
-+	};
-+
-+	channel@303 {
-+		reg = <ADC5_GEN4_DIE_TEMP(0, 3)>;
-+		label = "pmh0110_3_die_temp";
-+	};
-+
-+	channel@38e {
-+		reg = <ADC5_GEN4_VPH_PWR(0, 3)>;
-+		label = "pmh0110_3_vph_pwr";
-+	};
-+
-+	channel@503 {
-+		reg = <ADC5_GEN4_DIE_TEMP(0, 5)>;
-+		label = "pmh0110_5_die_temp";
-+	};
-+
-+	channel@58e {
-+		reg = <ADC5_GEN4_VPH_PWR(0, 5)>;
-+		label = "pmh0110_5_vph_pwr";
-+	};
-+
-+	channel@603 {
-+		reg = <ADC5_GEN4_DIE_TEMP(0, 6)>;
-+		label = "pmh0110_6_die_temp";
-+	};
-+
-+	channel@68e {
-+		reg = <ADC5_GEN4_VPH_PWR(0, 6)>;
-+		label = "pmh0110_6_vph_pwr";
-+	};
-+
-+	channel@803 {
-+		reg = <ADC5_GEN4_DIE_TEMP(0, 8)>;
-+		label = "pmh0110_8_die_temp";
-+	};
-+
-+	channel@88e {
-+		reg = <ADC5_GEN4_VPH_PWR(0, 8)>;
-+		label = "pmh0110_8_vph_pwr";
-+	};
-+
-+	channel@2703 {
-+		reg = <ADC5_GEN4_DIE_TEMP(1, 7)>;
-+		label = "pmih0108_e1_die_temp";
-+	};
-+
-+	channel@278e {
-+		reg = <ADC5_GEN4_VPH_PWR(1, 7)>;
-+		label = "pmih0108_e1_vph_pwr";
-+	};
-+
-+	channel@278f {
-+		reg = <ADC5_GEN4_VBAT_SNS_QBG(1, 7)>;
-+		label = "pmih0108_e1_vbat_sns_qbg";
-+	};
-+
-+	channel@144 {
-+		reg = <ADC5_GEN4_AMUX1_THM_100K_PU(0, 1)>;
-+		label = "pmh0101_therm_1";
-+		qcom,ratiometric;
-+		qcom,hw-settle-time = <200>;
-+		qcom,adc-tm;
-+	};
-+
-+	channel@145 {
-+		reg = <ADC5_GEN4_AMUX2_THM_100K_PU(0, 1)>;
-+		label = "pmh0101_therm_2";
-+		qcom,ratiometric;
-+		qcom,hw-settle-time = <200>;
-+		qcom,adc-tm;
-+	};
-+
-+	channel@146 {
-+		reg = <ADC5_GEN4_AMUX3_THM_100K_PU(0, 1)>;
-+		label = "pmh0101_therm_3";
-+		qcom,ratiometric;
-+		qcom,hw-settle-time = <200>;
-+		qcom,adc-tm;
-+	};
-+
-+	channel@147 {
-+		reg = <ADC5_GEN4_AMUX4_THM_100K_PU(0, 1)>;
-+		label = "pmh0101_therm_4";
-+		qcom,ratiometric;
-+		qcom,hw-settle-time = <200>;
-+		qcom,adc-tm;
-+	};
-+
-+	channel@149 {
-+		reg = <ADC5_GEN4_AMUX6_THM_100K_PU(0, 1)>;
-+		label = "pmh0101_therm_5";
-+		qcom,ratiometric;
-+		qcom,hw-settle-time = <200>;
-+		qcom,adc-tm;
-+	};
-+
-+	channel@2747 {
-+		reg = <ADC5_GEN4_AMUX4_THM_100K_PU(1, 7)>;
-+		label = "pmih0108_e1_therm_6";
-+		qcom,ratiometric;
-+		qcom,hw-settle-time = <200>;
-+		qcom,adc-tm;
-+	};
-+
-+	channel@274d {
-+		reg = <ADC5_GEN4_AMUX4_GPIO_100K_PU(1, 7)>;
-+		label = "pmih0108_e1_therm_7";
-+		qcom,ratiometric;
-+		qcom,hw-settle-time = <200>;
-+		qcom,adc-tm;
-+	};
-+};
-+
- &pon_resin {
- 	linux,code = <KEY_VOLUMEDOWN>;
- 
+drm/bridge: synopsys: dw-dp: Drop useless reservation of first slot
 
--- 
-2.43.0
+This commit drops the useless reservation of the first SDP slot in the
+atomic_enable code. It resolves a potential race condition with audio SDP
+reservation once that feature is added.
 
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
+idge/synopsys/dw-dp.c
+> index 4d4af6a388b19..193816126e44e 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> @@ -1697,9 +1697,6 @@ static void dw_dp_bridge_atomic_enable(struct drm_b=
+ridge *bridge,
+>  		return;
+>  	}
+> =20
+> -	scoped_guard(mutex, &dp->sdp_lock)
+> -		set_bit(0, dp->sdp_reg_bank);
+> -
+>  	ret =3D dw_dp_link_enable(dp);
+>  	if (ret < 0) {
+>  		dev_err(dp->dev, "failed to enable link: %d\n", ret);
+
+[ ... ]
+
+> static int dw_dp_link_clock_recovery(struct dw_dp *dp)
+> {
+[ ... ]
+> 	for (;;) {
+[ ... ]
+> 		adj_changed =3D dw_dp_link_get_adjustments(link, status);
+> 		if (!adj_changed)
+> 			tries++;
+> 		else
+> 			tries =3D 0;
+>=20
+> 		if (tries =3D=3D 5)
+> 			break;
+> 	}
+>=20
+> 	return 0;
+> }
+
+[Severity: High]
+This is a pre-existing issue, but does this code allow an infinite loop if a
+non-compliant DP sink continuously alternates its requested voltage or
+pre-emphasis levels?
+
+Since there is no hard iteration limit, if the sink changes requests without
+achieving clock recovery, adj_changed remains true and resets tries to 0.
+
+Could this trap the kernel thread executing the atomic commit in an infinite
+loop, leading to a permanent hung task?
+
+[ ... ]
+
+> @@ -1513,7 +1513,7 @@ static ssize_t dw_dp_aux_transfer(struct drm_dp_aux=
+ *aux,
+>  		if (msg->request & DP_AUX_I2C_READ) {
+>  			size_t count =3D FIELD_GET(AUX_BYTES_READ, value) - 1;
+> =20
+> -			if (count !=3D msg->size)
+> +			if (!count)
+>  				return -EBUSY;
+> =20
+>  			ret =3D dw_dp_aux_read_data(dp, msg->buffer, count);
+
+[Severity: Critical]
+Does this change remove the bounds check against msg->size, introducing an
+integer underflow and a potential buffer overflow?
+
+If the hardware reports 0 bytes read, count =3D 0 - 1 underflows to SIZE_MA=
+X.
+This would cause !count to evaluate to false and dw_dp_aux_read_data() to
+execute an effectively infinite write loop.
+
+Even without underflow, if the hardware reports a size larger than msg->siz=
+e,
+could it write past the end of msg->buffer?
+
+Since msg->buffer is frequently allocated on the stack by the DRM core for
+small reads, this might grant an external device the ability to corrupt
+kernel stack memory.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-synopsys-d=
+w-dp-improvements-v8-0-ac1e6a75782f@collabora.com?part=3D17
