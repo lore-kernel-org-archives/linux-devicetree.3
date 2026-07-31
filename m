@@ -1,143 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6185B318EE2;
-	Fri, 31 Jul 2026 09:08:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09946360EE4
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 09:19:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785488910; cv=none; b=d9tD9QTEwf0hb+tH+VSoSuvTAcuD5XkQoXaK/aOEGllObob15Nb5VaoIdu8m3H3FVNI1G7gu7os3pnvGMypCTjI3jh4NkCb2Pvotx+M7x4IA9RMVY47DrjzFaPLVDMPULfpao19o5QjOQL528lCDpFQBf9RacOY446sEcwvi5PI=
+	t=1785489576; cv=none; b=cCgnENljUWmKaOlEuZnFH8MWzF/6Y7/fNGofFzm6FIiv+Uxolx85UmjhQxVtKNOHw9tYWZMQVZ+tZ4kfG3TbDuZpoDjmsM9IiCppVea51Jue9UQVN6w5MfQ0eHTAkaVpMZFYl6euoghJ5dkmbSGIopfrx675fsnUI4AQhhm4JUc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785488910; c=relaxed/simple;
-	bh=Mmb3oMAuheR21ckKDdPOPrg5ggrRiQ6j9iZ1meDpgMQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=CD3jJo3aoGTmy1KiCrzY5xEgmyvUaj5OXCqkaLth7TGTuviA8NhzOjxOB3895N+zkek4ywbxZ5cZbEpAi5m4nWe8yMnJi2/OGEcCKx+QTRWN4g8Ka/mr10wjT19T1nssIvm6Z9Z3CJmPjRH1SLeBf+8nx+xuIHF6MgDuH6W3wHo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ud8y8e/r; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1785489576; c=relaxed/simple;
+	bh=KOJOwWMtbdpAQvYQxrdr1lTEZO//myUeqvr1kzuO2zs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=TfJagS3zz7NpaBNAHtNJjvMRpTwOY/fgfstemCdwJJ5pnyM5JEAjmub3WMybwQ+2GhApP83UwWDqQBGtefQmgDPKWSAa68oQA+aD2E0DWjYvVQ6ml/SptlBVczXeaXjQ2qg/FXxSjUjUW0WTYCdob+Xzbp7JUWcI3KHvUTxdhcY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gmj5KKFd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ud8y8e/r"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 011C3C2BCF4;
-	Fri, 31 Jul 2026 09:08:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1785488910;
-	bh=Mmb3oMAuheR21ckKDdPOPrg5ggrRiQ6j9iZ1meDpgMQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=ud8y8e/rOWlmmYP4+3ZmilFqCfz4oLvEn+kEJ+jiYL6k4qWiOjwb/Ygwjd5Pwot//
-	 kDJhgdzY9GnC76gOftXclMlvNjE8YYEnpIgdpBSo+goFPPJu4w1JMmaRTwaZb2oUV3
-	 jvYLjqxBQg+D7QTpBTmafxMuHnzHuerK1Pgh+5MKL9p5Lv0GVw/7DqJUbZylUd19u7
-	 o9dTcpoJio5etOiCr36nDHzM55lrCdLq4SAFAqdr9F0Eva2+T46y0eNsTfIVr58lU+
-	 +PNerP3W7B85PMAXDGCWPAFI5UYR3WZAj1if0buuM+afVkdZhVatrkQIvIS9eb7mEd
-	 SjN+G37LyyxSA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D6698C5516D;
-	Fri, 31 Jul 2026 09:08:29 +0000 (UTC)
-From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
-Date: Fri, 31 Jul 2026 09:08:25 +0000
-Subject: [PATCH v3 1/4] spi: dt-bindings: amlogic: spisg: Document
- A9-specific properties
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gmj5KKFd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 061EA1F000E9;
+	Fri, 31 Jul 2026 09:19:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785489574;
+	bh=s0LgA4ZggyyRiIGyTRqtWpzT50vbTO1Z5/UaIUJdhXo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=gmj5KKFdniNE1iPe7RsV9DSU50VD7QG7UiVw+44io9awS1cehGRrGHEtd1VMZFRSF
+	 Ks4b1OufMPMtaaUtjGGjlkIvY0th7jk1in+sl0wKv/oq34N8S53+lG8tHVeb3Yfl1f
+	 J3Wlh3TDxOYFNLHGTqXZzkCPe6bws0onzOFeQxxW401ROGD9arH07LW8FArQM1v2IN
+	 5VC9F0/Mez/ipOeCHQ+pzw01uNAK/0f03dt+itN/PVD4rGiMFWyycZMGvqDRs9CsxN
+	 cqxBgItmz7kkBt2TXFyCBqJ7bZohcaEPiAVg/LuF5L8kP+xrxonJ5LTZi9LpM2OVN+
+	 jHEHuMmWliSHA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 4/4] spi: amlogic: spisg: Add support for A9
+ controller features
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Xianwei Zhao" <xianwei.zhao@amlogic.com>
+Cc: linux-amlogic@lists.infradead.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20260731-a9-spisg-v3-4-a15da3f70029@amlogic.com>
+References: <20260731-a9-spisg-v3-0-a15da3f70029@amlogic.com>
+ <20260731-a9-spisg-v3-4-a15da3f70029@amlogic.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 31 Jul 2026 09:19:33 +0000
+Message-Id: <20260731091934.061EA1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-a9-spisg-v3-1-a15da3f70029@amlogic.com>
-References: <20260731-a9-spisg-v3-0-a15da3f70029@amlogic.com>
-In-Reply-To: <20260731-a9-spisg-v3-0-a15da3f70029@amlogic.com>
-To: Sunny Luo <sunny.luo@amlogic.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-amlogic@lists.infradead.org, linux-spi@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Xianwei Zhao <xianwei.zhao@amlogic.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785488907; l=1955;
- i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
- bh=QmBAAmHCz75ak/gTg3Z9nJO6Jq52E/H1aEusSVZgdR4=;
- b=6bqBPyY+DBxWpopJLpgnlBtH3rVrZ5+pz5Wlt8IJ1ilczXy3WgZjCdg9Gjx4dtyQzwq4Fyv+6
- yK3E5ed6SLFBwOJq2eLWHDSc2TherqH/VVAuog4cO1XYJs5L8vxb1U8
-X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
- pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
-X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
- auth_id=578
-X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
-Reply-To: xianwei.zhao@amlogic.com
 
-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Ignored transfer-specific word_delay causes hardware gap to be mis=
+configured by reading msg->spi->word_delay instead of xfer->word_delay.
+--
 
-Document the Amlogic A9 SPISG controller and its additional Device Tree
-properties.
+--- Patch [4]: [PATCH v3 4/4] spi: amlogic: spisg: Add support for A9 contr=
+oller features ---
+commit ecee00fa5a6dbd8a553a6c4d9ef9bf2089d1bdd9
+Author: Xianwei Zhao <xianwei.zhao@amlogic.com>
 
-Add the "amlogic,a9-spisg" compatible string and define the A9-specific
-"amlogic,mo-idle-output" property, which configure the MOSI idle output
-level.
+spi: amlogic: spisg: Add support for A9 controller features
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
----
- .../devicetree/bindings/spi/amlogic,a4-spisg.yaml  | 30 +++++++++++++++++++---
- 1 file changed, 26 insertions(+), 4 deletions(-)
+This commit extends the Amlogic A9 SPISG controller with additional
+configuration options. It adds support for extended CS setup/hold
+timing, MOSI idle output configuration, and configurable word delays.
 
-diff --git a/Documentation/devicetree/bindings/spi/amlogic,a4-spisg.yaml b/Documentation/devicetree/bindings/spi/amlogic,a4-spisg.yaml
-index 9bfb8089f7ea..427d8883009c 100644
---- a/Documentation/devicetree/bindings/spi/amlogic,a4-spisg.yaml
-+++ b/Documentation/devicetree/bindings/spi/amlogic,a4-spisg.yaml
-@@ -11,12 +11,11 @@ maintainers:
-   - Xianwei Zhao <xianwei.zhao@amlogic.com>
-   - Sunny Luo <sunny.luo@amlogic.com>
- 
--allOf:
--  - $ref: spi-controller.yaml#
--
- properties:
-   compatible:
--    const: amlogic,a4-spisg
-+    enum:
-+      - amlogic,a4-spisg
-+      - amlogic,a9-spisg
- 
-   reg:
-     maxItems: 1
-@@ -35,6 +34,16 @@ properties:
-   resets:
-     maxItems: 1
- 
-+  amlogic,mo-idle-output:
-+    description: |
-+      Controls the MOSI output level when the controller is idle.
-+      0 - Drive MOSI low
-+      1 - Drive MOSI high
-+      2 - Follow the last transmitted bit
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum: [0, 1, 2]
-+    default: 0
-+
- required:
-   - compatible
-   - reg
-@@ -42,6 +51,19 @@ required:
-   - clocks
-   - clock-names
- 
-+allOf:
-+  - $ref: spi-controller.yaml#
-+  - if:
-+      not:
-+        properties:
-+          compatible:
-+            contains:
-+              enum:
-+                - amlogic,a9-spisg
-+    then:
-+      properties:
-+        amlogic,mo-idle-output: false
-+
- unevaluatedProperties: false
- 
- examples:
+> diff --git a/drivers/spi/spi-amlogic-spisg.c b/drivers/spi/spi-amlogic-sp=
+isg.c
+> index 2d66f00dccd45..729da11bc539e 100644
+> --- a/drivers/spi/spi-amlogic-spisg.c
+> +++ b/drivers/spi/spi-amlogic-spisg.c
 
--- 
-2.52.0
+[ ... ]
 
+> @@ -524,10 +548,20 @@ static int aml_spisg_transfer_one_message(struct sp=
+i_controller *ctlr,
+>  			goto end;
+>  		}
+> =20
+> -		/* calculate cs-setup delay with the first xfer speed */
+> -		if (list_is_first(&xfer->transfer_list, &msg->transfers))
+> -			desc->cfg_bus |=3D FIELD_PREP(CFG_CS_SETUP,
+> -				spi_delay_to_sclk(xfer->effective_speed_hz, &msg->spi->cs_setup));
+> +		/* calculate cs-setup delay with the first xfer speed  and word dealy*/
+> +		if (list_is_first(&xfer->transfer_list, &msg->transfers)) {
+> +			val =3D spi_delay_to_sclk(xfer->effective_speed_hz, &msg->spi->cs_set=
+up);
+> +			if (data && data->cs_setup_extend_ctrl) {
+> +				val =3D min_t(u32, 0xFF, val);
+> +				desc->cfg_bus |=3D FIELD_PREP(CFG_CS_SETUP, val & 0xF);
+> +				FIELD_MODIFY(CFG_CS_SETUP_EXTEND, &spisg->cfg_spi, val >> 4);
+> +			} else {
+> +				val =3D min_t(u32, 0xF, val);
+> +				desc->cfg_bus |=3D FIELD_PREP(CFG_CS_SETUP, val);
+> +			}
+> +
+> +			delay =3D spi_delay_to_sclk(xfer->effective_speed_hz, &msg->spi->word=
+_delay);
 
+[Severity: High]
+Should this be reading xfer->word_delay instead of msg->spi->word_delay?
+
+When an SPI client driver submits a transfer with a specific word_delay set,
+the SPI core evaluates and populates xfer->word_delay. By reading the
+device-level default delay from msg->spi->word_delay here in
+aml_spisg_transfer_one_message(), it appears any transfer-specific delay
+overrides requested by the client will be ignored.
+
+> +		}
+> =20
+>  		/* calculate cs-hold delay with the last xfer speed */
+>  		if (list_is_last(&xfer->transfer_list, &msg->transfers)) {
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-a9-spisg-v=
+3-0-a15da3f70029@amlogic.com?part=3D4
