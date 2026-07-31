@@ -1,97 +1,179 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from flow-a8-smtp.messagingengine.com (flow-a8-smtp.messagingengine.com [103.168.172.143])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D3761D5CFE;
-	Fri, 31 Jul 2026 04:32:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A129F33939D;
+	Fri, 31 Jul 2026 04:35:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.143
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785472343; cv=none; b=sVHloJs/QKuZDlAAdpMzBNk6iJ/7G0ZxGfvtmlryil4EGpUbgcpEgJpj/H/6Hlhj8bYk3lk5+vqTrbtxA+/kwX/n2D6VsQhfCmj253o7S1IC7JXOeGT26tDpgAdXLe+BoWNm9qRM8iG0tLay+KWIbNLIiJ6H/ZIfIMnp4dYykZU=
+	t=1785472519; cv=none; b=omj+302X1XmlOYobjxkQaVwk4w4Z+oTgu9SYYg1k7sFup0n4x/W1CkSv1A7uMfaj5mdpICzVIT5J/7rpwLzDWs8HkaNIeKXgV9nrJS4s/nDbmlFXdVAWenZn7lBkD5XULaoRoRkAv2XYydMF3pGQtEax+tCy0wC95MbNuOHI2kc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785472343; c=relaxed/simple;
-	bh=X+roWFSN9q9wAMDayMWUsz/I5RDfVwLQZrg3X5E3EpM=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=F1wrS+q7pUkOAMcNlW3lozNFxUytDlqDWFC1GTSTGjdZkeXg8g5TO1Z+4anMUIgCI8DbFYo2rt9R+4EbLC9hdIR30FTr+8KsppDuU+NAY1cy4KSHaNdGfolXLkMgXwbDQsDLsFmjx7KP27iDu7k0u0ioQSPhmG8IoJZBig4R+hw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QsVvs3JS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785472519; c=relaxed/simple;
+	bh=r3zaKWBgJ5apVjeIbzuZzw1Ogo8heRKVvs0VmSK6pU4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=K1tzU42wGVfCj16GA4BvL1lneQHvuwAmVDi2GrgK+9PWJCWWshgb7zRFKIO6ZFrVYS9WNZ3sExkTWR4KJjexu/EPENMv9/jijYBTCc9yyT9d6iy5VTh/pGQPHhrEIUptR5YMDO6IyRLq8I0n07s2kyE6MYyINFWaCOkQZyukS00=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com; spf=pass smtp.mailfrom=gahingwoo.com; dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b=ujQlHwNi; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=pEM5+QH9; arc=none smtp.client-ip=103.168.172.143
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QsVvs3JS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBCA81F000E9;
-	Fri, 31 Jul 2026 04:32:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785472342;
-	bh=PghJxRzb05xscJ08yhU/aH3P/ezQ8OakJRmokm95+PY=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=QsVvs3JSvAvWXngKT35/yW6dX22OmEWW4mKYPMoWaPsDZ2gSqjpFvB/T4OsOlDEEe
-	 U/HTfqTRecGajxAiFH0S1PhbwdiZ1UgIgkubyRIkzYIYs9mI5pM27bpL6zAlmiu/kZ
-	 6dT6tJatQu1HmfOxeUwTl9HaBz/0hZ5N/GHn3ru3VK4ul5yBBe/5wHzkggyzcssAxp
-	 fw76hadWnNmAjO/zx3M/ISOKj4nFRxhC+McuesmafzPxhwioYJSsUA570Gefi9JQQy
-	 HFoW6tlbNeC24Bs2ibuMnlRRpfS7P6d/uHw+eZk4+F9QyqGN1bawZI2z29jN9jx3MB
-	 ttUIgTjStDN8g==
-Date: Thu, 30 Jul 2026 23:32:21 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="ujQlHwNi";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="pEM5+QH9"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailflow.phl.internal (Postfix) with ESMTP id 9DD321380308;
+	Fri, 31 Jul 2026 00:35:16 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Fri, 31 Jul 2026 00:35:16 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm1; t=1785472516; x=1785476116; bh=HBZ0PI9Kx2
+	BDg8KIBvCsbOsLelayJjLAffDdhXgWrMw=; b=ujQlHwNi1FkUXB19FUPSwVHBs8
+	yHmS8MV4wkl+0GO0YbXRw/pmcW4c82wmhRUOovYn5IdCv/k4xl7P+zx8rpUTNnz+
+	0TWyeuoQUeoS1iS69cwCgoL55Tnyrftbsku7CZkdzLafnhwmh+ZPmRGYMO9bwsFj
+	ONk3msLZ7XnqAcYq8Ag2kTabLEDeb23Xaq26OPsmczabp5Ll9qYaivMf0f10zUWk
+	xDcMzp0csu/pVeDOcIuaY2iDV1AAjvCNOWk0ANVBrpDTZ+4fc+wgoToe8dV3eMtR
+	KqmgUa/SKItWjsSHW8lMnqwmK7u5UdebDziJBXFFVe55mcT8JBUanNG4T1HQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1785472516; x=1785476116; bh=HBZ0PI9Kx2BDg8KIBvCsbOsLelayJjLAffD
+	dhXgWrMw=; b=pEM5+QH9dEZw6VbPCIqwETzekR0OyhSsxklevyac76YcIc9LJKD
+	WE+5cgKf2xff52gSudIzQAuWaiJ7V1F9OfBW2rtmAozegFdPaqxvxVxittjSviOj
+	uzf6bsZEVLfBruGYaqncAtGB06vl1ySvfeJGjQPcdB13MTMxmatUtYSnzjHWIBOs
+	3KW+C70glhTe4bkjjx3I9l304tKHe+sFUvXNWw2ZrGSVYLnuEU5C5SGa+sNtgx6v
+	5ZP7u7y0iFVHhOnDvcDDa4ODiyy36rRJcLa8UjGSK1AiDLbMBaYPKBVgJyHBum8J
+	EDrL/26WfzglI/fP6tSVZ9J2QY4gj2eBqUg==
+X-ME-Sender: <xms:AyZsajlTCFhcuIlAjky8KcEKJ0JErXeVNhsNGi9oeFVwGVfLn7NhZg>
+    <xme:AyZsauxb0yB34J_l2HTvFzBp9RYzFRrKSPjsOHokmZilqjNcCqdLbH4unhDE5902n
+    TgGkob2S1OXxPrGrNeEp9jlTljweIoMzxb9NdvcWDCSgdKQ7AZirHRm>
+X-ME-Received: <xmr:AyZsag01ylllcsQS39_YaG3p4W3lSgiUQv632EbvzHYDvhZ3HgUguHqr_Rj3TLssoZrtNvvHnw>
+X-ME-Proxy-Cause: dmFkZTFf3vNCnhJuQgx1o21yUwSr2x5bxnz+C1F7MVpuc8/JZg0jQjit481jp5ZGHAH7/A
+    Gl/cQNt7NhXuLvtypIMu8YZAxqu1wUKZVIXtCw53Jc1S7+h0N6O9K3Oqcu3VLiLrVWyPM/
+    buoWQG5orEcor3+iszRD134oXff6i7GnPlOVgUZsAaEtrcudnQ4mdE8CC69A3edRQhtXer
+    aAHvUQ19UVgBiTcTnrPXMOuQX+Y57MU/+WoewWVmcWHZeTzfkA45eDqQAYfh33bb6Jgmw5
+    z8xqs8uLWxxwLjUnpxyznMlvlj+rmwOuwbkBjrKCofBHLu+SmXMEkqvHuvnOgapiRc6cZj
+    KeRYZqAzy4Hii6vgUpJKjFBwST891ayt02Y2F3qaFnThan9pSWxLKRCg8yk/pM8Su51L7t
+    Ud3vU58RjUWjQy2P4Ye32wO6/MqbN+lpUDzdAi202eXIOvguZwEt0GMFYW50Bqb0WxPqWA
+    5+wmBlnLP49mYvjIlhQ8s8YdOQhI0Wdrm3v4SP+yXT/MDzBXQL94KYIVmT2U7KzUJJbHir
+    wO9b5MGzl8i85McfOBHfLfDBWQFfteos2XIy0oB3ZQBDyMQUYlC20t/kqNEI1WeL+lUysT
+    D/Sfwoj1ulyamlXJ2ppVnZF46oofjYmuXsUaW2Gv00dRKLFKjLYxy0x4IRvA
+X-ME-Proxy: <xmx:AyZsaiCioSkF1iovHjw0qxZ7XtdFC5XN6nlKvX_DGFtRuAA8cBGLcg>
+    <xmx:AyZsat8Z6tj456IyWf6T22UnUV4xX0guaZhiNDf3vhhVvHqkMP7DOw>
+    <xmx:AyZsag-WNQ_aDYjy23K7136dX1TcoDzoYYkStO1MC816MOAAKzRWSQ>
+    <xmx:AyZsat1S1RCVU-3bSxjE7ZLWGYyt4KgA6gHpa_ntxVV0g-qo_TJDOw>
+    <xmx:BCZsahrfrsgGMoToj_c0jc1FOL6l_zpVjDEn-S92nFUMPbFm9Iqepw58>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 31 Jul 2026 00:35:09 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: tomeu@tomeuvizoso.net,
+	heiko@sntech.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	ulfh@kernel.org,
+	p.zabel@pengutronix.de,
+	ogabbay@kernel.org
+Cc: chaoyi.chen@rock-chips.com,
+	alchark@flipper.net,
+	royalnet026@gmail.com,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jiaxing Hu <gahing@gahingwoo.com>
+Subject: [RFC PATCH v3 0/6] accel/rocket: RK3576 NPU (RKNN) enablement
+Date: Fri, 31 Jul 2026 16:35:01 +1200
+Message-ID: <20260731043507.1832277-1-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-iio@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>
-To: Kyle Hsieh <kylehsieh1995@gmail.com>
-In-Reply-To: <20260731-ti-ads112c04-driver-v2-1-aab0168c3c01@gmail.com>
-References: <20260731-ti-ads112c04-driver-v2-0-aab0168c3c01@gmail.com>
- <20260731-ti-ads112c04-driver-v2-1-aab0168c3c01@gmail.com>
-Message-Id: <178547234112.2038676.6805487929501076296.robh@kernel.org>
-Subject: Re: [PATCH v2 1/2] dt-bindings: iio: adc: ti,ads112c04: Add
- binding for ADS112C04
+Content-Transfer-Encoding: 8bit
 
+This adds RK3576 NPU support to accel/rocket. Still RFC: the NPU brings up
+and runs, but inference is not correct yet. The open bug moved a long way
+since v2, so it is worth describing.
 
-On Fri, 31 Jul 2026 10:58:24 +0800, Kyle Hsieh wrote:
-> Add device tree binding documentation for Texas Instruments ADS112C04
-> I2C Analog-to-Digital Converters.
-> 
-> These devices provide 4-channel, 16-bit delta-sigma ADCs with an I2C
-> interface, programmable gain amplifier (PGA), and data-ready (DRDY)
-> interrupt output.
-> 
-> The binding uses child nodes to dynamically define the connected
-> single-ended or differential channels.
-> 
-> Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
-> ---
->  .../devicetree/bindings/iio/adc/ti,ads112c04.yaml  | 122 +++++++++++++++++++++
->  1 file changed, 122 insertions(+)
-> 
+Tested on a Radxa ROCK 4D, on next-20260730.
 
-My bot found errors running 'make dt_binding_check' on your patch:
+The two iommu patches from v2 are gone from this series. Will picked them
+up and they are in linux-next as 841363ebb508 and b10d5920cafa.
 
-yamllint warnings/errors:
+What is still wrong
+===================
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/iio/adc/ti,ads112c04.yaml: properties:ti,refp-refn-resistor-ohms: '$ref' should not be valid under {'const': '$ref'}
-	hint: Standard unit suffix properties don't need a type $ref
-	from schema $id: http://devicetree.org/meta-schemas/core.yaml
+A single convolution is byte exact. Running that same convolution again,
+six times in one power session, is byte exact every time. What fails is
+running a different one after it: the second configuration loaded into the
+block computes nothing and writes out a zero point surface, while the one
+already resident keeps working. Going back to it is byte exact again, and
+the same holds with the two models swapped, so it is not about which model
+is which.
 
-doc reference errors (make refcheckdocs):
+The register command list is identical in both positions, byte for byte, so
+it is not what we program. A full NPU reset clears it. With one before every
+op, per layer input and weight fetch return at the graph's real shapes and
+the DPU writes back, but what lands is still zero point. So dispatch, DMA
+and write back are all fine, and the multiply accumulate is what produces
+nothing.
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260731-ti-ads112c04-driver-v2-1-aab0168c3c01@gmail.com
+That is as far as I have got. If anyone knows the RK3576 NPU internals, the
+question is what a second configuration load has to do that the first does
+not.
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
+Changes in v3
+=============
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
+  * dt-bindings: reject sram-supply on non-rk3588 via an allOf else, and
+    drop the commit message paragraph explaining the schema (Krzysztof)
 
-pip3 install dtschema --upgrade
+  * pmdomain: rename DOMAIN_M_O_R_G to DOMAIN_M_O_R_G_W rather than
+    extending it, since the suffixes name the fields it sets and RK3576 is
+    its only user (Heiko). Drop a stray whitespace hunk.
 
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+  * accel/rocket: v2 said PC_DONE could not be routed to the GIC and polled
+    it instead. That reason was wrong, and the bits it polled turn out to be
+    permanently latched, so the poll condition was always already true.
+    RK3576 now arms the same DPU completion as RK3588 and samples
+    INTERRUPT_RAW_STATUS for it, because on this SoC the interrupt does not
+    reach the GIC. Verified on hardware: without the sampling every job sits
+    until the scheduler timeout (525 ms per job, 195 timeouts in one run);
+    with it, jobs finish in 10.8 ms and six repeats are byte exact.
+
+  * iommu: both patches dropped, now in linux-next.
+
+Note on overlap: patch 4 sets core->clks[].id for all six clocks. Igor
+Paunovic has a standalone fix for the first four in flight
+(20260729092939.118779-1-royalnet026@gmail.com). Once that lands this hunk
+reduces to the two CBUF entries.
+
+I used Claude Opus 4.8 to help prepare this series and its diffs.
+
+Jiaxing Hu (6):
+  dt-bindings: npu: rockchip: add rockchip,rk3576-rknn-core
+  pmdomain/rockchip: add optional per-domain power-on settle delay
+  pmdomain/rockchip: cycle optional power-domain resets on power-on
+  accel/rocket: add RK3576 NPU (RKNN) support
+  arm64: dts: rockchip: rk3576: add NPU (RKNN) nodes
+  arm64: dts: rockchip: rk3576-rock-4d: enable NPU
+
+ .../npu/rockchip,rk3588-rknn-core.yaml        | 15 +++-
+ .../boot/dts/rockchip/rk3576-rock-4d.dts      | 16 ++++
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi      | 78 ++++++++++++++++++-
+ drivers/accel/rocket/rocket_core.c            | 26 ++++++-
+ drivers/accel/rocket/rocket_core.h            | 17 +++-
+ drivers/accel/rocket/rocket_device.c          |  4 +
+ drivers/accel/rocket/rocket_drv.c             | 22 +++++-
+ drivers/accel/rocket/rocket_job.c             | 55 +++++++++++++
+ drivers/pmdomain/rockchip/pm-domains.c        | 71 +++++++++++------
+ 9 files changed, 273 insertions(+), 31 deletions(-)
+
+-- 
+2.43.0
 
