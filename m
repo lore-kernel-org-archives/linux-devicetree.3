@@ -1,361 +1,171 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 704133DEAC0;
-	Fri, 31 Jul 2026 10:30:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39F983C3789;
+	Fri, 31 Jul 2026 10:31:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785493863; cv=none; b=bcOG2tEZRfC6y05GKGveqpeBDAOEXFpA36lZUHoDnGOXAv9l+jenbJK/04KfmQzom7Uhivfkhu0oOyPlaEzAYSgL/kw/IRWVyrW79gLCb3C/JW4p6P7tqUTJZAfwi90A4a47mlJ7pnD0GnJa6ZA0/xZ5bPgWWhI4TRnodXUbO4Q=
+	t=1785493879; cv=none; b=gttkVchHM/mR98Dkfr2n3fWb5O0y2mK+hiqh7p6REPbqTx2g7y0vQMi9UhbFzSht6HKkogwb8eryn8gH3YFU2LnMzhGTzDUaA1n/2Xm60evyKWlwZmxhw/uDgaQBIg97PIDc+hBxUH1NLf0k71nDIT+2qlRNm8VUq5Y1sNp5WKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785493863; c=relaxed/simple;
-	bh=luDP0A1g6nV9PckaRs3wNVskfd++p042hrmxONvQu1g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mPgo4UiL+0MNVWcGQ2l+JqPCB5Hba7iA6njgf0t5ycupLebskqR3tIZ6Z0GG8iyqhOgjOlw5+0HkmTnovz4EBeXtTkBJBF+5a1uJVhJo3bBwJGTVvLEIJE8KZ3i4dIxpupel1L7Mzss0tTH1i/LDc1/Mc+ROzIMLfEu+UZ2rsnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=tcimYze/; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1785493879; c=relaxed/simple;
+	bh=IC3ireqBsGWEK+cIfQL6mSXn4zKUpiRizS+9rPexqs4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=sW581i89NNLDlWjmxXBqdoUAYEU/CJ5MtVL3wgTQQxqHAMcfUvRAI6PX+mfGYRwdC02pFbMu8yiRncSFH8r1Z5KtvttFYuNn7T+hxBCotL91ymcHjIiE5zgZb1CNeXJZs6iGpVWiGjOmQGMfbqIALItqEDre9TOcOZU56HlftFY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G0xE0J4I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="tcimYze/"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=PO5HApjpuCTFoG6dK7eT7+HEMHe6ytFiN3RSifQM+mc=; b=tcimYze/jo5hh4bufcOgKeQjX0
-	wyD85SoNiH2b0XUX9aEL+MXU+3z+SdA36ny2eU1ECanI6IXsLOe0NBSp/aX8ISgIwU5qYagsXzEbw
-	fEfYU99LsS4ckdkphfm6y2XOZ3Gklbu7qCKM/g5cdMl8vNJZRwydqGO7kcwjYa8XYmwA+2/zppYtO
-	4gJJzMXF4qEXt7gGAE1/Ia30GUClhfTMQR3f6+qJw/WdNOr9wAvic+YvSC9hPRtJQJkxrQTD7XNGd
-	bRwsooAb0jqRs5cY7R+GK74PY92b4sQrg+naxB7RATVk7BLqA1n+CYGOnRUMSqzUEWpx9UksLSA3g
-	WIWEA4rQ==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andy Yan <andy.yan@rock-chips.com>, Damon Ding <damon.ding@rock-chips.com>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v1 0/7] Add HPD support for Rockchip Analogix DP
-Date: Fri, 31 Jul 2026 12:30:03 +0200
-Message-ID: <5209243.oAaWjsssbx@diego>
-In-Reply-To: <44ff5316-43cc-46be-b947-ea6e1f5da1bb@rock-chips.com>
-References:
- <20260730032744.381566-1-damon.ding@rock-chips.com>
- <24131962.ssLaC8jLEa@diego>
- <44ff5316-43cc-46be-b947-ea6e1f5da1bb@rock-chips.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G0xE0J4I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0C871F000E9;
+	Fri, 31 Jul 2026 10:30:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785493859;
+	bh=9cnpHXNfb/HB/PG5lDmW5IElrZfF2Ajx8Jg8BP+iQnk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=G0xE0J4IB0x6h9nNg+2EJczmwL5AHcVLlGD2aV7/KwePesO8Ort0mwr1vcVuGudSl
+	 HtHwiyqzwxB/zhdtsNZ3iFnAnSyCPeRprhL+o5WvqD9GOlq/Qs5fEv5s8ro+fUxdeS
+	 kJgB9hkXBPHZkBjRe5Py/kvd1iySIUKepDHuRKQKmpkI0MhbzCU2zzFgfJBm1dvPSf
+	 Nn2N7nWtweS7wSzcQHuhRii/WdCgNJ2zJD3R+gBwkUE2MI4GkhMZvlXiTWNCypSOm5
+	 fjhDMJQutE5HcFUInqbzGoPHyycYWQjf8XjS+x4fNNyJhxcYVlVnYuRBgkfDe6QfMJ
+	 xfywAYnljQ8CA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/3] regulator: core: use system_freezable_wq for
+ init complete work
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Joy Zou" <joy.zou@oss.nxp.com>
+Cc: conor+dt@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260731-b4-regulator-pf01-v2-1-a406c8737fdb@oss.nxp.com>
+References: <20260731-b4-regulator-pf01-v2-0-a406c8737fdb@oss.nxp.com>
+ <20260731-b4-regulator-pf01-v2-1-a406c8737fdb@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 31 Jul 2026 10:30:59 +0000
+Message-Id: <20260731103059.B0C871F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
 
-Hi Damon,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Am Freitag, 31. Juli 2026, 11:55:42 Mitteleurop=C3=A4ische Sommerzeit schri=
-eb Damon Ding:
-> On 7/31/2026 5:23 PM, Heiko St=C3=BCbner wrote:
-> > Am Freitag, 31. Juli 2026, 05:08:45 Mitteleurop=C3=A4ische Sommerzeit s=
-chrieb Damon Ding:
-> >> On 7/31/2026 2:49 AM, Heiko St=C3=BCbner wrote:
-> >>> Am Donnerstag, 30. Juli 2026, 05:27:37 Mitteleurop=C3=A4ische Sommerz=
-eit schrieb Damon Ding:
-> >>>> This series improves the HPD (Hotplug Detect) interrupt handling in
-> >>>> the Analogix DP driver to enable reliable native HPD pin detection on
-> >>>> Rockchip platforms, and introduces platform-specific HPD detection
-> >>>> schemes with fine-grained interrupt control.
-> >>>
-> >>> [...]
-> >>>
-> >>>> Tested on RK3576 with both native HPD pin and GPIO HPD configuration=
-s.
-> >>>>
-> >>>> Native HPD pin mode:
-> >>>>
-> >>>>     &edp {
-> >>>>         status =3D "okay";
-> >>>>         pinctrl-names =3D "default";
-> >>>>         pinctrl-0 =3D <&edp_txm0_pins>;
-> >>>>     };
-> >>>>
-> >>>> GPIO HPD mode:
-> >>>>
-> >>>>     &edp {
-> >>>>         status =3D "okay";
-> >>>>         pinctrl-names =3D "default";
-> >>>>         pinctrl-0 =3D <&edp0_hpd>;
-> >>>>         hpd-gpios =3D <&gpio4 RK_PC1 GPIO_ACTIVE_HIGH>;
-> >>>>     };
-> >>>>
-> >>>>     &pinctrl {
-> >>>>         edp {
-> >>>>             edp0_hpd: edp0-hpd {
-> >>>>                 rockchip,pins =3D <4 RK_PC1 0 &pcfg_pull_none>;
-> >>>>             };
-> >>>>         };
-> >>>>     };
-> >>>
-> >>> Yay and thanks a lot for working on that.
-> >>>
-> >>> If I roll my display-port carrier board back to the analogix-dp being
-> >>> the endpoint, this works exactly as expected :-) .
-> >>>
-> >>> I can plug in the display at some point after the boot and have it
-> >>> detected and setup correctly. Same with unplugging it while
-> >>> the system is running. The connection status is correctly reported
-> >>> in sysfs.
-> >>>
-> >>>
-> >>> Though there is a caveat. When the eDP is not the last part, this doe=
-s not
-> >>> work anymore. The detect function always returns "connected" if there=
- is
-> >>> a next bridge available.
-> >>>
-> >>> My board [0] has a physical DP connector on it, so models it as
-> >>> dp-connector, but in that case the Analogix driver always reports bei=
-ng
-> >>> connected.
-> >>>
-> >>>
-> >>> [0] https://lore.kernel.org/linux-rockchip/20251009225050.88192-3-hei=
-ko@sntech.de/
-> >>> ... same effect with hpd-gpios in either the edp node or dp-connector=
- node
-> >>>
-> >>>
-> >>
-> >> My previous tests were carried out on the modified RK3576 IOTEST board
-> >> DTS based on RK3576 EVB1, which includes dp-connector by default. I al=
-so
-> >> did extra verification without dp-connector, and HPD detection works
-> >> correctly in both cases.
-> >>
-> >> I've taken a look at the Tiger board DT configuration. The pinctrl
-> >> settings for the eDP HPD GPIO may need adjustment:
-> >>
-> >> &pinctrl {
-> >> 	edp0 {
-> >> 		edp0_hpd_l: edp0-hpd-l-pin {
-> >> 			rockchip,pins =3D <4 RK_PB5 RK_FUNC_GPIO &pcfg_pull_down>;
-> >> 		};
-> >> 	};
-> >> };
-> >>
-> >> It is recommended to configure GPIO4B5 as pull-down or pll-none. Pull-=
-up
-> >> configuration may prevent GPIO interrupts from being triggered properl=
-y,
-> >> resulting in a permanent "connected" status.
-> >=20
-> > At least on that DP-carrier the pin direction is different.
-> > I.e. it is active-low, meaning 0 for plugged in.
-> >=20
-> > In the schematics I do see a hw pull up too - so pull-none in the pinco=
-nfig
-> > would also be possible, but pull-down is definitly wrong on _this_ boar=
-d.
-> >=20
-> > So we're talking about the same code, I put the dts up on [0] .
-> >=20
-> > I'm currently running with a printk diff [1] to showcase the issue.
-> >=20
-> > So on boot, with the display unplugged I get:
-> > [   14.757911] ---> drm_bridge_connector_detect: detect
-> > [   14.757914] ---> analogix_dp_bridge_detect a
-> > [   14.757918] ---> drm_bridge_connector_detect: detect
-> > [   14.773779] ---> analogix_dp_bridge_detect a
-> > [   14.838658] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
-> > [   14.838662] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ER=
-ROR* dp commit error, ret =3D -110
-> > [   14.838670] rockchip-dp fdec0000.edp: failed to set bridge, retry: 0
-> > [   14.884791] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
-> > [   14.884793] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ER=
-ROR* dp commit error, ret =3D -110
-> > [   14.884796] rockchip-dp fdec0000.edp: failed to set bridge, retry: 1
-> > [   14.930925] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
-> > [   14.930927] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ER=
-ROR* dp commit error, ret =3D -110
-> > [   14.930930] rockchip-dp fdec0000.edp: failed to set bridge, retry: 2
-> > [   14.977032] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
-> > [   14.977034] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ER=
-ROR* dp commit error, ret =3D -110
-> > [   14.977037] rockchip-dp fdec0000.edp: failed to set bridge, retry: 3
-> > [   15.023150] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
-> > [   15.023152] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ER=
-ROR* dp commit error, ret =3D -110
-> > [   15.023155] rockchip-dp fdec0000.edp: failed to set bridge, retry: 4
-> > [   15.023168] rockchip-dp fdec0000.edp: too many times retry set bridg=
-e, give it up
-> > [   15.052485] Console: switching to colour frame buffer device 80x30
-> > [   15.210457] rockchip-drm display-subsystem: [drm] fb0: rockchipdrmfb=
- frame buffer device
-> > [   15.223444] ---> drm_bridge_connector_detect: detect
-> > [   15.231974] ---> analogix_dp_bridge_detect a
-> > [   15.239587] ---> drm_bridge_connector_detect: detect
-> > [   15.245341] ---> analogix_dp_bridge_detect a
-> >=20
-> > So analogix_dp_bridge_detect() is called and always returns connected.
-> >=20
-> > Plugging in the the display, I get:
-> > [  290.592096] ---> display_connector_detect gpio value is 1   {display=
-=2Dconnector returning connected}
-> > [  290.598648] ---> drm_bridge_connector_detect: detect
-> > [  290.604637] ---> analogix_dp_bridge_detect a
-> > [  290.609826] ---> drm_bridge_connector_detect: detect
-> > [  290.615784] ---> analogix_dp_bridge_detect a
-> >=20
-> > Unplugging the display, I get:
-> > [  302.081444] ---> display_connector_detect gpio value is 0   {display=
-=2Dconnector returning disconnected}
-> > [  302.087996] ---> drm_bridge_connector_detect: detect
-> > [  302.093945] ---> analogix_dp_bridge_detect a
-> > [  302.099131] ---> drm_bridge_connector_detect: detect
-> > [  302.105090] ---> analogix_dp_bridge_detect a
-> > [  302.144834] ---> drm_bridge_connector_detect: detect
-> > [  302.150784] ---> analogix_dp_bridge_detect a
-> > [  302.155933] ---> drm_bridge_connector_detect: detect
-> > [  302.161859] ---> analogix_dp_bridge_detect a
-> >=20
-> >=20
-> > So it looks like on the gpio-side the detection is correct and/but
-> > analogix_dp_bridge_detect() is always returning a connected state
-> > ("b" output is never reached).
-> >=20
-> > I'm still working on understanding how the whole detection logic works
-> > in drm ;-) .
-> >=20
-> >=20
->=20
-> I think I've spotted the environmental difference between our setups.
-> Your DTS places the hpd-gpios property under the dp-connector node,
-> which is a scenario I haven't covered yet. I will reproduce and test=20
-> this case locally.
->=20
-> As a quick experiment, could you try removing hpd-gpios from=20
-> dp-connector and move it under the edp node instead? As expected, GPIO=20
-> HPD should work properly with that configuration.
+Pre-existing issues:
+- [High] regulator_unregister() uses flush_work() on a delayed_work, failin=
+g to cancel pending timers and leading to Use-After-Free.
+- [High] Delayed work 'oc_work' is never canceled on unbind in mt6363-regul=
+ator, risking timer list corruption or Use-After-Free.
+- [High] Delayed works 'sc_recovery_work' and 'ocp_recovery_work' are never=
+ canceled on unbind in qcom-labibb-regulator.
+--
 
-I've updated the branch in [0] with that hpd move to the edp node, but
-the result is similar:
+--- Patch [1]: [PATCH v2 1/3] regulator: core: use system_freezable_wq for =
+init complete work ---
+commit 7f543933219647c14311f3aa93aefaa15b1b5acf
+Author: Joy Zou <joy.zou@oss.nxp.com>
 
-With the panel _disconnected_ on boot I see
-[   12.887555] ---> drm_bridge_connector_detect: detect
-[   12.893104] ---> analogix_dp_bridge_detect a
-[   12.897881] ---> drm_bridge_connector_detect: detect
-[   12.903424] ---> analogix_dp_bridge_detect a
-[   14.124848] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR*=
- failed to get hpd single ret =3D -110
-[   14.124891] rockchip-dp fdec0000.edp: failed to set bridge, retry: 0
-[   14.236031] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR*=
- failed to get hpd single ret =3D -110
-[   14.236074] rockchip-dp fdec0000.edp: failed to set bridge, retry: 1
-[   14.346940] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR*=
- failed to get hpd single ret =3D -110
-[   14.346990] rockchip-dp fdec0000.edp: failed to set bridge, retry: 2
-[   14.458590] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR*=
- failed to get hpd single ret =3D -110
-[   14.458638] rockchip-dp fdec0000.edp: failed to set bridge, retry: 3
-[   14.570262] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR*=
- failed to get hpd single ret =3D -110
-[   14.570312] rockchip-dp fdec0000.edp: failed to set bridge, retry: 4
-[   14.570328] rockchip-dp fdec0000.edp: too many times retry set bridge, g=
-ive it up
-[   14.751371] ---> drm_bridge_connector_detect: detect
-[   14.757207] ---> analogix_dp_bridge_detect a
+regulator: core: use system_freezable_wq for init complete work
 
-So with the diff from earlier, analogix_dp_bridge_detect() still runs,
-finds its next bridge and returns "connected".
+This patch fixes a race condition between the delayed regulator init
+completion work and system suspend. By switching from system_wq to
+system_freezable_wq, the init work is now frozen during suspend,
+preventing it from running when the I2C adapter is already suspended.
 
-I.e. the
-> >          if (dp->plat_data->next_bridge)
-> >                  return connector_status_connected;
+> diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
+> index 2e61606fc1d05..6a4008f387b5e 100644
+> --- a/drivers/regulator/core.c
+> +++ b/drivers/regulator/core.c
+[ ... ]
+> @@ -6899,8 +6900,9 @@ static int __init regulator_init_complete(void)
+>  	 * we'd only do this on systems that need it, and a kernel
+>  	 * command line option might be useful.
+>  	 */
+> -	schedule_delayed_work(&regulator_init_complete_work,
+> -			      msecs_to_jiffies(30000));
+> +	queue_delayed_work(system_freezable_wq,
+> +			   &regulator_init_complete_work,
+> +			   msecs_to_jiffies(30000));
+> =20
+>  	return 0;
+>  }
 
-part.
+[Severity: High]
+This isn't a bug introduced by this patch, but while reviewing the use of
+workqueues and timers in the regulator subsystem, I noticed that
+regulator_unregister() uses flush_work() on a delayed_work instead of
+cancel_delayed_work_sync():
 
+drivers/regulator/core.c:regulator_unregister() {
+...
+	if (rdev->supply) {
+		regulator_unregister_notifier(rdev->supply,
+					      &rdev->supply_fwd_nb);
 
-Heiko
+		while (rdev->use_count--)
+			regulator_disable(rdev->supply);
+		regulator_put(rdev->supply);
+	}
 
+	flush_work(&rdev->disable_work.work);
+...
+}
 
+Because flush_work() returns immediately if the delayed_work timer is
+pending but not yet queued on a workqueue, this fails to cancel the pending
+timer.
 
-> > [0] https://github.com/mmind/linux-rockchip/blob/dev/v7.3/rk3588-tiger-=
-dp-carrier-v5/arch/arm64/boot/dts/rockchip/rk3588-tiger-displayport-carrier=
-=2Edts
-> > [1]
-> > diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drive=
-rs/gpu/drm/bridge/analogix/analogix_dp_core.c
-> > index 7a89548a7a885..0accdf62637ae 100644
-> > --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> > +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> > @@ -915,8 +915,10 @@ analogix_dp_bridge_detect(struct drm_bridge *bridg=
-e, struct drm_connector *conne
-> >          struct analogix_dp_device *dp =3D to_dp(bridge);
-> >          enum drm_connector_status status =3D connector_status_disconne=
-cted;
-> >  =20
-> > +printk("---> %s a\n", __func__);
-> >          if (dp->plat_data->next_bridge)
-> >                  return connector_status_connected;
-> > +printk("---> %s b\n", __func__);
-> >  =20
-> >          if (!analogix_dp_detect_hpd(dp))
-> >                  status =3D connector_status_connected;
-> > diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/d=
-rm/bridge/display-connector.c
-> > index 16c0631adeb18..b0c07694b82e3 100644
-> > --- a/drivers/gpu/drm/bridge/display-connector.c
-> > +++ b/drivers/gpu/drm/bridge/display-connector.c
-> > @@ -45,6 +45,7 @@ static enum drm_connector_status display_connector_de=
-tect(struct drm_bridge *bri
-> >          struct display_connector *conn =3D to_display_connector(bridge=
-);
-> >  =20
-> >          if (conn->hpd_gpio) {
-> > +printk("---> %s gpio value is %d\n", __func__, gpiod_get_value_canslee=
-p(conn->hpd_gpio));
-> >                  if (gpiod_get_value_cansleep(conn->hpd_gpio))
-> >                          return connector_status_connected;
-> >                  else
-> > @@ -84,6 +85,7 @@ static enum drm_connector_status display_connector_de=
-tect(struct drm_bridge *bri
-> >   static enum drm_connector_status
-> >   display_connector_bridge_detect(struct drm_bridge *bridge, struct drm=
-_connector *connector)
-> >   {
-> > +printk("---> %s\n", __func__);
-> >          return display_connector_detect(bridge);
-> >   }
-> >  =20
-> > diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/g=
-pu/drm/display/drm_bridge_connector.c
-> > index 649969fca1413..8816d837c9a77 100644
-> > --- a/drivers/gpu/drm/display/drm_bridge_connector.c
-> > +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-> > @@ -218,6 +218,7 @@ drm_bridge_connector_detect(struct drm_connector *c=
-onnector, bool force)
-> >          enum drm_connector_status status;
-> >  =20
-> >          if (detect) {
-> > +printk("---> %s: detect\n", __func__);
-> >                  status =3D detect->funcs->detect(detect, connector);
-> >  =20
-> >                  if (hdmi)
-> >=20
-> >=20
-> >=20
-> >=20
-> >=20
->=20
->=20
+When the timer eventually expires, it dereferences the freed rdev memory.
 
+Can this lead to a use-after-free during hardware removal or module unloadi=
+ng?
 
+[Severity: High]
+This isn't a bug introduced by this patch, but I also noticed missing
+teardown for delayed work in the mt6363-regulator driver:
 
+drivers/regulator/mt6363-regulator.c:mt6363_regulator_probe() {
+...
+		config.driver_data =3D info;
+		INIT_DELAYED_WORK(&info->oc_work, mt6363_oc_irq_enable_work);
 
+		rdev =3D devm_regulator_register(dev, &info->desc, &config);
+...
+}
+
+The delayed work 'oc_work' is initialized on a static array but is never
+canceled on unbind.
+
+If an overcurrent interrupt fires and schedules oc_work, and the device is
+unbound before the timer expires, the timer remains pending.
+
+If unbound and re-bound quickly, could the subsequent INIT_DELAYED_WORK()
+overwrite the active timer's list node and corrupt the timer tree?
+
+Or, if the module is unloaded, could the timer fire and execute code in
+unmapped memory, causing a use-after-free?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but there is a similar missing
+teardown issue in the qcom-labibb-regulator driver:
+
+drivers/regulator/qcom-labibb-regulator.c:qcom_labibb_regulator_probe() {
+...
+		INIT_DELAYED_WORK(&vreg->sc_recovery_work,
+				  qcom_labibb_sc_recovery_worker);
+
+		if (vreg->ocp_irq > 0)
+			INIT_DELAYED_WORK(&vreg->ocp_recovery_work,
+					  qcom_labibb_ocp_recovery_worker);
+...
+}
+
+The delayed works 'sc_recovery_work' and 'ocp_recovery_work' point to a
+devm-allocated structure.
+
+Since there is no devm action or explicit teardown to cancel these delayed
+works on unbind, devres will automatically free the vreg structure.
+
+If the device unbinds while these timers are active, will the timers expire
+and dereference the freed vreg pointer, causing a use-after-free?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-b4-regulat=
+or-pf01-v2-0-a406c8737fdb@oss.nxp.com?part=3D1
