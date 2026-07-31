@@ -1,345 +1,203 @@
-Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B1EF4508EB;
-	Fri, 31 Jul 2026 16:27:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FD18456E0B
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 16:28:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785515282; cv=none; b=LO4qwcugr+M12JzFyBEtfEeeKbHybjQ83hIk1tuqtSILsUUm4LpgRMJE38dw7VWkxoaapUyAUm04iduGCOUYBiXqBSxiLTyYx9NxAJ6f2Zska8pb0A3yV+2uWbTBOL066YtIG9JSN2IbBcMYk8pidAFVXzANZb3l2R2NLR7zFVg=
+	t=1785515329; cv=none; b=RNmrRiRDDVTJTg/Dk5RbHc96ZdVnb6Hgq9K5Q1R9R7X0dyWMOpZ6UH0HGV7Zjc54X8tIdCmMAYUzVOLGPLtC52xYNsY0A2OEJjwFzgXPHXvzsdJJVkz4RkvVrwDnFxsF3P8alvXrTCPcWwvQ4GDD7HKMs9zyGuTnlNVpXZFpmOw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785515282; c=relaxed/simple;
-	bh=79WnKnmlwUieqZ8sU7dL38///FPa2eNTv6xm5BkH4gc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=blEBQzTE7HBDJsrICeAzrBVtV3eNV461lF42TgdOrAguWuH4A384iIQNPehqM64cyGfZDVABAflHjLgNPXShgSYoGdT56z5Qt6DqqtuDzb13jW0JnSXJ4F+cvgaly5amQGIKl5A3OSMGzy2Vowop29a/bipVltTMMY3E4QXSbsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jaseg.de; spf=pass smtp.mailfrom=jaseg.de; dkim=pass (2048-bit key) header.d=jaseg.de header.i=@jaseg.de header.b=YUz5MR51; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=cE7SOqoa; arc=none smtp.client-ip=202.12.124.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jaseg.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaseg.de
+	s=arc-20240116; t=1785515329; c=relaxed/simple;
+	bh=tdIckQhLNbQNSl5V3HKeuTWwIdJ326oXapW+yHipcXo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DKRuESlFKU2B3Bwwa4rjvNquCCRRiG3lPe/Uf76+n9A+H0peLeu6WWZQf5xbESqIudri7k7KjGW5nwz47ZZNr7I/6slifwC696b+ivtVyy10LdR2hDdh2d5sOnBnDEbFkcJbicAnV5dhe56rW5hup1dkyeyai5+tianCyDFFiNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OZ8qIkc1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ij+QHXfM; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jaseg.de header.i=@jaseg.de header.b="YUz5MR51";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="cE7SOqoa"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 230AA7A0112;
-	Fri, 31 Jul 2026 12:27:55 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Fri, 31 Jul 2026 12:27:55 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaseg.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1785515274;
-	 x=1785601674; bh=6RJPYbBdKyVevokLLvrFaLY6IOxzeT8FvabNtZpBPjM=; b=
-	YUz5MR510i+WmXGI7a4kC5uqawHagcWlThX/znOeuRjkIJrcn2zxv0EsYGbM20lb
-	i5yjscraNBNQfufT3LtYFRxnI0PCj5X76beHrvcmSIEU1d2fHZrUWO6XIAi7OWDU
-	rpE2w0joPx55gGeemOiiqSM0bOSu6EgZj9K2NvJ0uJI8fg0aS8KZhGS1sXhk9EeU
-	Xn3a0nNO7LYe5vFb9ipY8TccSzGCc1jNGae7Ncb+VoA+eEMurDBLCM1RyDXi/jwi
-	Bl1clFSRw9/MyZyGuTc3fleqXsSSmVHhcMZQUkkwkNP7Myvg7pMS4n7PX8M9XHTS
-	KeJ2d49aUOJSd3kt7vIPeg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1785515274; x=
-	1785601674; bh=6RJPYbBdKyVevokLLvrFaLY6IOxzeT8FvabNtZpBPjM=; b=c
-	E7SOqoa3Otd7WsGDI1EXvQLZ5uj79zcwLoXFNNZ3ZhmOiWo8vcAxHQw5MA8dqUYd
-	7DQvxudJBbVDkploQoBg1qu3X/W/4umdXLFrwfFlzY9Gf//CeCIvl0yiml7ROhqK
-	Qb2QCGMeNGxi351dOwLvEtDB3+vChBbKO2cVaF4xTLljSb95UrLr61C3cvwvbfaq
-	yV2E5czozC/kxvDeddrTSmn9PJhduC5uBwqKjjcfB0L8sEZ5+HD/gFVbI7SZmjQd
-	HKX+jX74c1FBv7HDt74zfE5RrnOw/PFTwFKQ6yAlkc64gKUEGtkzrLebYsnfwT0l
-	HKxWtXy94CSDS2JuLZp7A==
-X-ME-Sender: <xms:Cs1satSBbfOd5V4gUyUINnwX63sniqRsL39wsvZbMSb8ReT1uXuZjA>
-    <xme:Cs1sanN1VqGgZOIupESPczHmDCi9ELzVTDg_oyfjOkAt8OrUn1Qdm_XDDpdmHmA5P
-    94VhUC5fDOq_Iub07-oNk7ukA63xCj8BGCxiruX9M4v8oEEsw>
-X-ME-Received: <xmr:Cs1sajhQYCi0Mnkba_3eGu5hrPNFMNXz0awEOQDqEtx1YIG7kB5AUgvQ-_poB9Jn1Xk1jMz5h2k3Qa8VAQ>
-X-ME-Proxy-Cause: dmFkZTFK/nfZ71g8ktujuuoyrF9Ty3Awc1kurrPu2o1v6nhgMM6NL3zj5ESd/fiJ+lq6Fq
-    Z3OuJgsO9Fs2GPtTwEyFZyDKihsNiiEsnOWMvsOfBTFOP9roQM0mTP8MtpTOtxDCDWThhp
-    R6cquw+SMl49Oku+QQXCkKW+TrFunMbAzDZTMwRiMkrGaoNe0GLi6W90Q6fubhxR5onr5q
-    JMP4yfob1UtqZ4XCQdoJfvSelSRy/3zTBtxj7H4AUAz0Xtt/lL1/4chym5iL4gRXLFaWSQ
-    TqzwgVHkZuxaKP3mHZdHzlPw99hzi3gU4xKCX1rRjxCDxKjnlHRIs9asJOBHpx9Xtx82Wu
-    KfYE0fXzVTV12FAmSzQyjawktIBVNf4pTw9FSHRBmhVSjR/DfddoxPl4utqYB4lxLjouzt
-    oXC5NAFahcYIV6iVTmqO7YcRb0qN1Q5SAf4H5gLw4tfLgIBe6suNECZv0viYMaX8RmL/Z0
-    mWD0jSZEDPOu6r2LNzYFAaUhaglPqA+u4ArkGHwvjPud20jbUikr0ul60+KyV5NudeSHon
-    KHKewFBLzNSRafof6rP0ltLpAIe7339yDePtxqrF1sw2mIchka9xTpJ9ZDEige5ZTrIo+b
-    18pexHS4+MVejnDnuk3GvyPN1lshEFrhRooCzfsWwDeVqxpuffogHi3ECxTA
-X-ME-Proxy: <xmx:Cs1saslegLST0-gsTkB5-p18Ku1qz0IyhLW-wYMdgGyJ7XjG9lhAGw>
-    <xmx:Cs1sangqw1JoL-Ck0bsQC6_eSKmfdimsb0W_NzX-6EjHN9RLoQB6tA>
-    <xmx:Cs1sanHmVfwlldNF4dU0ggflyCSnThJ2uNwuBWQcJ6ZpzB5WRv2RnA>
-    <xmx:Cs1saht85mcRortAW_wQRTuOsbRlvA_i2e5JLpnogrdyosGQie9K0g>
-    <xmx:Cs1satiZNxv4hfCDXMPVhjHZo0p_fv3_qL751cUjqulMQmct8Ey4o9i3>
-Feedback-ID: i60a14417:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 31 Jul 2026 12:27:53 -0400 (EDT)
-From: =?UTF-8?q?Jan=20Sebastian=20G=C3=B6tte?= <linux@jaseg.de>
-To: =?UTF-8?q?Jan=20Sebastian=20G=C3=B6tte?= <linux@jaseg.de>
-Cc: devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	kexec@lists.infradead.org,
-	keyrings@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-security-module@vger.kernel.org,
-	linux-integrity@vger.kernel.org
-Subject: [PATCH 4/4] security/keys: zeroize key payloads before kdump
-Date: Fri, 31 Jul 2026 18:27:39 +0200
-Message-ID: <20260731162739.158320-5-linux@jaseg.de>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260731162739.158320-1-linux@jaseg.de>
-References: <20260731162739.158320-1-linux@jaseg.de>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OZ8qIkc1";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ij+QHXfM"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66VFOOMx215387
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 16:28:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	odqlC2FoPgYqgWEtEvIgQYwkoAQU4wo/OhJb44epMDs=; b=OZ8qIkc1cHBlefwq
+	b3qjVnJ8PnTRnT34MU6TTLI1d9MoAw85if6r6CQ0NNPsGxay+j7cvZOyCdLN4hGU
+	r6urCOKM+LE9QgfStgCLq2U9Q8cPMBqyavVsGP2daCwZ4ckwdHiTapyf6Hj6euWX
+	8pG1Y3O3rGwW6ZsuVHCud2J6RV3aIQKvAs7mZiTij1wAdLYwrM52hCK8CMn+BZTy
+	GdMnIMLjy+XL9Hg76VRNpGPraAAmswRz7/flMZYVKpTENLRFTl3MZQpHEV6fMZjr
+	vhKVdXT70XhcpO63gDAfuj6oAPdwqskwSgXaevdhCojU0d/4vYUYhXvYqCQuhWuw
+	KVr1mg==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4frujus5av-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 16:28:46 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51cab6f7517so1669211cf.0
+        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 09:28:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785515326; x=1786120126; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=odqlC2FoPgYqgWEtEvIgQYwkoAQU4wo/OhJb44epMDs=;
+        b=ij+QHXfMm3ZugorQqwNO0wvUt3HGu+157KxGKVszUKpY2lMjMTMpZrR593Ngfpadlf
+         QEVdt8mrUsEjNpyg6leYkVdmLhS42kqI8CwCsLhh+ZYCsLacS/JjJjkhqx7rV5whUNRR
+         HlBwe+1RIgzKKB+Fp/pGOi4+TNdcgftvSD90xk2rF7L973oV4udF6KH9qr3RoeHurBAH
+         Qnt2DHsubb9/o4uJJcuqAXyeMo4N1iGPu+x09EQSS3DM1STZXVs2IYOAGu2EIqAI+pLF
+         RPP+Ad6b7IrWNse2qjBCw96Bz7jWu65tBKXdYZwPgEQ0H72ZmhgVSUdI1H9XrF60TMJG
+         SGRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785515326; x=1786120126;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=odqlC2FoPgYqgWEtEvIgQYwkoAQU4wo/OhJb44epMDs=;
+        b=qumHavAbA9scgCat4CVAX0xtD/DC+a0JJ8KUZw7uE3wzqe0xoolxpmjjVgmNll0de3
+         F9/n5Wpd/0cKgrVBHDzDxeZhkNLhPKUz94yljxEXp72hGIqLtEWI38OULdYB0uNMH987
+         TEAsBS9JY8rpfhXmzfNIwKZ+Bm59BESUkO4wzGsKhQHH+LzhuANiZpP8WwbmerGi/mR1
+         kXzqSe7+BWXpzkUFlbICLrMymevqXmk48Qj6ny7ajtUgHKCtUPJMvW/kraWuefXndcUj
+         toluyq7trO9GeMbuMT6g9EQYQMpu6VLfYX2KAkXyFDe2vlTDNcUqigWIbhPh8X37L7xZ
+         58cg==
+X-Forwarded-Encrypted: i=1; AHgh+Rp6/qoMO+mRh8P3gTKIY/VBn3M/blnr+6iPPPq7X+5JAO2nH4WAdG8uakIUL7cRPzvKN9wJUUJtmBoh@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzoj2Bn/rxwCTs2uiM8zgcAbwAu8wy1rpuFLPtEog/lDvskVw7n
+	KCRVzx7Pr+i27nLL/7gJlLBifMmqJCSxvsovn1UB5JBZctRONTGAzGDgUMWbBBW2RNiLwtpZv8w
+	9Ev6Z3GU6mR/v1a3ntTVxqfrsYc6ZUexeal+nZ2Cu5VhnkEjUaMet+TXkZDQlq4pY
+X-Gm-Gg: AR+sD13BgHZbxJ/6PQ/dwXm4BuYCDC3pCAb3udYkjIMjotqbr9zRplB4pwloix5KgHB
+	uZTeJlUHV9YuKC7BEHTIvrbglD+hQkZS0EICbcZ0NEgyidAypx8GUVNWm+tf+LCWFmOlT9N/lXD
+	qKD9LDWex1zFncdzmboE5LTaHr6RdPQ8xjdbD8+GwuI/HZnqNyjpxDfn6j7XfA3VTvnUz/ZCsrd
+	zfi04ydjEbmhSQRGB6UfYYf7QPBgBz5WpBHHMsZnpYKfJFaINeZS9Lj0bkibhotEjuGTvK5CV6s
+	TNAE9rzYe9RZti0zhIv4T47M0cW/xiqY3/dvY/4ygBYXsC0be7ywxERjzMwCMX7wl+lNYEkU3IR
+	Baf39UbLuEcskyIZ99j3t1Fbz
+X-Received: by 2002:ac8:7e81:0:b0:51c:845b:ac4 with SMTP id d75a77b69052e-52b567f85bamr10459891cf.3.1785515326273;
+        Fri, 31 Jul 2026 09:28:46 -0700 (PDT)
+X-Received: by 2002:ac8:7e81:0:b0:51c:845b:ac4 with SMTP id d75a77b69052e-52b567f85bamr10459421cf.3.1785515325767;
+        Fri, 31 Jul 2026 09:28:45 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1fd44542d2sm229079466b.35.2026.07.31.09.28.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 31 Jul 2026 09:28:44 -0700 (PDT)
+Message-ID: <2ace2703-79cb-4046-a2b3-8fdeb9b2c99e@oss.qualcomm.com>
+Date: Fri, 31 Jul 2026 18:28:42 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] dt-bindings: soc: qcom: qcom,pmic-glink: Add
+ compatible string for SM8475
+To: Esteban Urrutia <esteuwu@proton.me>, Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+        phone-devel@vger.kernel.org
+References: <20260731-sm8475-pmic-glink-v2-0-28c04928ef22@proton.me>
+ <20260731-sm8475-pmic-glink-v2-1-28c04928ef22@proton.me>
+ <20260731-savvy-piquant-chowchow-f516f2@quoll>
+ <9718d7b8-7303-47a2-9d75-58bbde6385e9@proton.me>
+ <c4ceda32-d4c8-4fd9-b0d6-3f4519485bde@oss.qualcomm.com>
+ <6fc5165c-95b5-475a-a0a6-e1d7b9721222@proton.me>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <6fc5165c-95b5-475a-a0a6-e1d7b9721222@proton.me>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=U6Giy+ru c=1 sm=1 tr=0 ts=6a6ccd3e cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=P4BrIvBfxGhJqZf7NZgA:9 a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-ORIG-GUID: Y1rORzFWVJY7dlwngTSHU36YnqXLVt9s
+X-Proofpoint-GUID: Y1rORzFWVJY7dlwngTSHU36YnqXLVt9s
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMxMDEyNSBTYWx0ZWRfX9psZWuj4NEdb
+ voRH8JqXAsl+0DJ5KK7A4OAYID266ARKu/07xtGcd1hE/0VqVZ1triQGwRf7CD8CpnUwdW0dlED
+ yFMCemKSj09p0E+Q4muNs74rlpMeMsKZ1eXN+kklXEDbUCQEtl2QfYiONglBT+ac8505b+uFTYF
+ 1h91okPgfAhOCpuljErk6cVsS2LuUcdlh4KnmC83MRnCQ7qn3rbtnmMvhsZkmwWawZmP84Pd6BD
+ 28IPWHYWxGIhMFbqlmFK0+dsfM79SUWPh9wUPa4EPDJKo2VUqCh8xhsMB3yTk9TLjBY21mczzGp
+ lI1/oToZE/+1nwn5lC2ZmQKNjEHY0+lY5sra57x+WG4widRwvLVrjkQ2MPKNEXQpopQJJQqpoqK
+ pyfN0VTBEYijt3+GFpLgXU5bqtDunRlvLOhFasXHFMI7XkLAeYP3VOEAjfqoLqL7mA/k2uWneH4
+ 7E2xnzPWRdv2129OsSw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMxMDEyNSBTYWx0ZWRfX2YiNjW0TqsB7
+ USr1uE4w4DFQxOfjYuMQfVvfa2ooVTIJtoyGAbO9qMDAigGCD8iA2lY9ygs8dZdVU2GYMuoQKIE
+ fUq8FQPbOrtVHHCEVtGAlohWC6Eh8eE=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-31_05,2026-07-30_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 phishscore=0 priorityscore=1501 malwarescore=0
+ lowpriorityscore=0 adultscore=0 spamscore=0 bulkscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607310125
 
-When CONFIG_CRASH_ZEROIZE is set, try to erase key payloads on panic
-before jumping to the kdump kernel.
+On 7/31/26 5:54 PM, Esteban Urrutia wrote:
+> On 7/31/26 11:30 AM, Konrad Dybcio wrote:
+>> On 7/31/26 4:44 PM, Esteban Urrutia wrote:
+>>> On 7/31/26 5:58 AM, Krzysztof Kozlowski wrote:
+>>>> On Fri, Jul 31, 2026 at 01:00:08AM -0400, Esteban Urrutia wrote:
+>>>>> Due to a different process design, SM8475 (4 nm) SoC takes things from both
+>>>>> SM8450 (4 LPX) and SM8550 (4 nm) SoCs.
+>>>>
+>>>> What things? This is just unspecific and not useful. And I doubt that it
+>>>> is even "different process design", because how one would know that?
+>>>
+>>>
+>>> The process design is specified on the corresponding datasheets for
+>>> these SoCs, which are flying somewhere around the internet.
+>>> Also [1].
+>>>
+>>>>> Add a separate compatible string for this SoC to avoid possible confusions.
+>>>>
+>>>> No, explain the hardware compatibility.
+>>>>
+>>>> Add foo bar, which is not compatible with baz because it uses bam bam in
+>>>> different setup (difference in registers, e.g. XYZ and ABC),
+>>>
+>>> How does this commit message based on what was said in [1] sound to you?
+>>
+>> That made more sense because the electrical differences are what made
+>> the PHY init sequence changes necessary. Here, Krzysztof is trying to
+>> express that the pmic-glink interface found on SM8475 is likely no
+>> different than the one found on SM8450 (and SM8350 and so on)
+>>
+>> Then, since it's the same, it can reuse the same driver match data,
+>> so patch 2 is unnecessary, since the driver binds said match data
+>> on the fallback "qcom,pmic-glink" compatible
+> 
+> 
+> I don't understand. You're implying that the pmic-glink interface found
+> on SM8350 and SM8450 is not that different but they both have different
+> quirks on ucsi_glink.c.
+> No quirks would be applied on SM8475 if patch 2 is not in place either.
 
-CRASH_ZEROIZE notifiers run during panic() with other CPUs stopped and
-preemption disabled. In this state, we can't rely on free()'ing being
-safe, so we define a new zeroize key op.
+Somehow I confabulated the generic compatible being present in the
+driver... I was trying to explain that 
 
-Implement the zeroize op for the user/logon, encrypted, trusted, and
-big_key types.
+And yes I didn't notice the 8350/8450 difference. But anyway, the
+resolution will be one of:
 
-Signed-off-by: Jan Sebastian Götte <linux@jaseg.de>
----
- include/linux/key-type.h                  |  9 +++++
- security/keys/big_key.c                   | 15 ++++++++
- security/keys/encrypted-keys/encrypted.c  | 12 +++++++
- security/keys/key.c                       | 44 +++++++++++++++++++++++
- security/keys/trusted-keys/trusted_core.c | 14 ++++++++
- security/keys/user_defined.c              | 11 ++++++
- 6 files changed, 105 insertions(+)
+// 8450 is fully compatible
+"qcom,sm8475-pmic-glink",
+"qcom,sm8450-pmic-glink",
+"qcom,pmic-glink"
 
-diff --git a/include/linux/key-type.h b/include/linux/key-type.h
-index bb97bd3e5af4..ff0944ce368f 100644
---- a/include/linux/key-type.h
-+++ b/include/linux/key-type.h
-@@ -122,6 +122,15 @@ struct key_type {
- 	/* clear the data from a key (optional) */
- 	void (*destroy)(struct key *key);
- 
-+	/* scrub the key material without free'ing (optional)
-+	 * - used from CONFIG_CRASH_ZEROIZE during panic to keep keys out of
-+	 *   crash dumps
-+	 * - called from the panic path with other CPUs stopped and preemption
-+	 *   disabled
-+	 * - must not sleep, allocate, free or take locks
-+	 */
-+	void (*zeroize)(struct key *key);
-+
- 	/* describe a key */
- 	void (*describe)(const struct key *key, struct seq_file *p);
- 
-diff --git a/security/keys/big_key.c b/security/keys/big_key.c
-index 268f702df380..ad8537dda70f 100644
---- a/security/keys/big_key.c
-+++ b/security/keys/big_key.c
-@@ -35,6 +35,8 @@ struct big_key_payload {
-  */
- #define BIG_KEY_FILE_THRESHOLD (sizeof(struct inode) + sizeof(struct dentry))
- 
-+static void big_key_zeroize(struct key *key);
-+
- /*
-  * big_key defined keys take an arbitrary string as the description and an
-  * arbitrary blob of data as the payload
-@@ -46,6 +48,7 @@ struct key_type key_type_big_key = {
- 	.instantiate		= generic_key_instantiate,
- 	.revoke			= big_key_revoke,
- 	.destroy		= big_key_destroy,
-+	.zeroize		= big_key_zeroize,
- 	.describe		= big_key_describe,
- 	.read			= big_key_read,
- 	.update			= big_key_update,
-@@ -279,6 +282,18 @@ long big_key_read(const struct key *key, char *buffer, size_t buflen)
- 	return ret;
- }
- 
-+static void big_key_zeroize(struct key *key)
-+{
-+	struct big_key_payload *payload = to_big_key_payload(key->payload);
-+
-+	if (payload->data) {
-+		if (payload->length > BIG_KEY_FILE_THRESHOLD)
-+			memzero_explicit(payload->data, CHACHA20POLY1305_KEY_SIZE);
-+		else
-+			memzero_explicit(payload->data, payload->length);
-+	}
-+}
-+
- /*
-  * Register key type
-  */
-diff --git a/security/keys/encrypted-keys/encrypted.c b/security/keys/encrypted-keys/encrypted.c
-index 59cb77b237b3..9f56fa9b4aaf 100644
---- a/security/keys/encrypted-keys/encrypted.c
-+++ b/security/keys/encrypted-keys/encrypted.c
-@@ -970,11 +970,23 @@ static void encrypted_destroy(struct key *key)
- 	kfree_sensitive(key->payload.data[0]);
- }
- 
-+static void encrypted_zeroize(struct key *key)
-+{
-+	struct encrypted_key_payload *epayload = key->payload.data[0];
-+
-+	if (!epayload)
-+		return;
-+
-+	memzero_explicit(epayload->payload_data,
-+			 epayload->payload_datalen + epayload->datablob_len);
-+}
-+
- struct key_type key_type_encrypted = {
- 	.name = "encrypted",
- 	.instantiate = encrypted_instantiate,
- 	.update = encrypted_update,
- 	.destroy = encrypted_destroy,
-+	.zeroize = encrypted_zeroize,
- 	.describe = user_describe,
- 	.read = encrypted_read,
- };
-diff --git a/security/keys/key.c b/security/keys/key.c
-index b34a64d81d47..5673dcc8c5d2 100644
---- a/security/keys/key.c
-+++ b/security/keys/key.c
-@@ -12,6 +12,7 @@
- #include <linux/slab.h>
- #include <linux/security.h>
- #include <linux/workqueue.h>
-+#include <linux/crash_core.h>
- #include <linux/random.h>
- #include <linux/err.h>
- #include "internal.h"
-@@ -1268,6 +1269,44 @@ void unregister_key_type(struct key_type *ktype)
- }
- EXPORT_SYMBOL(unregister_key_type);
- 
-+#ifdef CONFIG_CRASH_ZEROIZE
-+/* Called far into vpanic from crash_core.c with other CPUs stopped and
-+ * preemption disabled
-+ */
-+static int key_crash_zeroize(struct notifier_block *nb, unsigned long action,
-+		void *data)
-+{
-+	struct rb_node *node;
-+
-+	/* If we can't acquire the lock, the rbtree might be in an inconsistent
-+	 * state. That's all we can do then, as there's no point to waiting
-+	 * at this stage.
-+	 */
-+	if (!spin_trylock(&key_serial_lock)) {
-+		pr_crit("crash_zeroize: can't acquire key_serial_lock. skipping keyrings.\n");
-+		return NOTIFY_DONE;
-+	}
-+
-+	for (node = rb_first(&key_serial_tree); node; node = rb_next(node)) {
-+		struct key *key = rb_entry(node, struct key, serial_node);
-+
-+		if (key->type == &key_type_keyring ||
-+		    key->state == KEY_IS_UNINSTANTIATED)
-+			continue;
-+
-+		/* custom zeroize since free'ing isn't safe at this point */
-+		if (key->type->zeroize)
-+			key->type->zeroize(key);
-+	}
-+	/* off to kexec()! */
-+	return NOTIFY_DONE;
-+}
-+
-+static struct notifier_block key_crash_zeroize_nb = {
-+	.notifier_call = key_crash_zeroize
-+};
-+#endif /* CONFIG_CRASH_ZEROIZE */
-+
- /*
-  * Initialise the key management state.
-  */
-@@ -1290,4 +1329,9 @@ void __init key_init(void)
- 
- 	rb_insert_color(&root_key_user.node,
- 			&key_user_tree);
-+
-+#ifdef CONFIG_CRASH_ZEROIZE
-+	atomic_notifier_chain_register(&crash_zeroize_notifier_list,
-+			&key_crash_zeroize_nb);
-+#endif
- }
-diff --git a/security/keys/trusted-keys/trusted_core.c b/security/keys/trusted-keys/trusted_core.c
-index 0509d9955f2a..f159faeafe23 100644
---- a/security/keys/trusted-keys/trusted_core.c
-+++ b/security/keys/trusted-keys/trusted_core.c
-@@ -325,11 +325,25 @@ static void trusted_destroy(struct key *key)
- 	kfree_sensitive(key->payload.data[0]);
- }
- 
-+static void trusted_zeroize(struct key *key)
-+{
-+	struct trusted_key_payload *p = key->payload.data[0];
-+
-+	if (!p)
-+		return;
-+
-+	memzero_explicit(p->key, sizeof(p->key));
-+	memzero_explicit(p->blob, sizeof(p->blob));
-+	p->key_len = 0;
-+	p->blob_len = 0;
-+}
-+
- struct key_type key_type_trusted = {
- 	.name = "trusted",
- 	.instantiate = trusted_instantiate,
- 	.update = trusted_update,
- 	.destroy = trusted_destroy,
-+	.zeroize = trusted_zeroize,
- 	.describe = user_describe,
- 	.read = trusted_read,
- };
-diff --git a/security/keys/user_defined.c b/security/keys/user_defined.c
-index 6f88b507f927..ade95dc2481d 100644
---- a/security/keys/user_defined.c
-+++ b/security/keys/user_defined.c
-@@ -15,6 +15,7 @@
- #include "internal.h"
- 
- static int logon_vet_description(const char *desc);
-+static void user_zeroize(struct key *key);
- 
- /*
-  * user defined keys take an arbitrary string as the description and an
-@@ -28,6 +29,7 @@ struct key_type key_type_user = {
- 	.update			= user_update,
- 	.revoke			= user_revoke,
- 	.destroy		= user_destroy,
-+	.zeroize		= user_zeroize,
- 	.describe		= user_describe,
- 	.read			= user_read,
- };
-@@ -48,6 +50,7 @@ struct key_type key_type_logon = {
- 	.update			= user_update,
- 	.revoke			= user_revoke,
- 	.destroy		= user_destroy,
-+	.zeroize		= user_zeroize,
- 	.describe		= user_describe,
- 	.vet_description	= logon_vet_description,
- };
-@@ -152,6 +155,14 @@ void user_destroy(struct key *key)
- 
- EXPORT_SYMBOL_GPL(user_destroy);
- 
-+static void user_zeroize(struct key *key)
-+{
-+	struct user_key_payload *upayload = key->payload.data[0];
-+
-+	if (upayload)
-+		memzero_explicit(upayload->data, upayload->datalen);
-+}
-+
- /*
-  * describe the user key
-  */
--- 
-2.53.0
+or
 
+// 8475 is special
+"qcom,sm8475-pmic-glink",
+"qcom,pmic-glink"
+
+depending on what you believe is more correct. I think the first
+one fits better.
+
+Konrad
