@@ -1,366 +1,172 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1744346EC66
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 16:30:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98956473C9F
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 16:35:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785515460; cv=none; b=GEnl8/XQuLWF4bNacBqKKv1GQ6EUJfQteeOusZl7TSo8QFQfz2S8coHXczpiaQ5hy00kR5Dd+Suc9hV0vpKJNmei/j5O5gJT2rerzl10NZ+DWo3eYovgS04fou6z6soRFuzRJXvBxcQXYoNce4J4CKBEmPGkKnyI0ADFexrzwxU=
+	t=1785515709; cv=none; b=lQpKnhOP3kwBkankX0aFEYFs3OehttQ0KS1mefjZNiicCnCVuE8Kf3QYakG544WCF9tiSbFDIiIvDm23v/xYH7+kWwmuNW5Dg1a3hZbFhXO20xnYZDpGeJgKVqP6ZvOU2ot3E05poGzMmX08g+HX8rA/yFSCxDnLMtCE5MtjshE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785515460; c=relaxed/simple;
-	bh=R6z60t6FDjDvLZiOQXYefYIG0bNfh9SKw55q0G81SGM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qdwaZ+TQg+BAUvuq12NQMcWHfdq/QsP6pVSpiBcvGIDcF19tKVpPm2q4rf20e6hP0qDCQdCubHGF1ZK1gJZguzkH53alHk1kh9v41e7hK39HgWQrREWUKxB3M6oUvIUPvY1NYubzP8zY5604IFH9NXjHT2WsUKdbusfy02f8Kdg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=jIRxpunw; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1785515709; c=relaxed/simple;
+	bh=sLY9QtTFmjdWnbDJY+V57QCyAY272NXTrQK8lg4QgtA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=nz3d6VOPad+/eQO3HadX90CLUAiLEgCkRBe95DlZU0S0mafb00IXePDrfutbVnwLStb9Qp0t8fUJrZ0Eg7GMFB0QO3oF6THvobc3Mi/gQrctn6UOA5GymZM0tTNATJ1gdlLA0eYhH9OzmvtT3IjXwHgDwESh4YOK2khhj3ZEpCw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=auP6JJea; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="jIRxpunw"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-47de008b020so849094f8f.1
-        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 09:30:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1785515455; x=1786120255; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=djWGAgZFPMEwkPACC0SH0yA3REA4ghQKhBwTkhJwSTQ=;
-        b=jIRxpunwGF/JlJq7POWfYun28f8D1tN4c2NGItPbrcgkWL5hF3le0bzcZiG5tevgWi
-         LFnsMzXDkS46/QEKxSCgnHG1a50kzSWPHpOn1hWVpdVu6jBeUXyNZMMGj38tcKG409W+
-         fyXjXzXV/k1t0+Ggb3j11EmfwfRlJW2lYD6fQbcym+wM2qWOyfO3PR54olFRdTFUl0dR
-         BxrZ/+qjF1yMDDmRcxFdGTVhIme+/6dpF2RP9eyhk2HKNPfo0QhypgWj1DRpSm/xfUtC
-         zGOOApY7eCoADVBNIEMt1fio0pVPLz72H4H4pnuivCooqM1/uaAYCo+gXvelIVw9lknh
-         8xow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785515455; x=1786120255;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=djWGAgZFPMEwkPACC0SH0yA3REA4ghQKhBwTkhJwSTQ=;
-        b=mOMLum4F+RCcmJwYJRlaKQkXvpq1+ligJqe/3nF//vY/QeNGkNzCeQNjqrNH3ULIYB
-         TTZ54ZENhEVYug+iTqh509Wi9fn1MuW4D9aSQ742s3LF5KPoiMki18n5zh4OJXHHcVJO
-         sErXKlSkVQsIxM7wtRtF8neNGcg1iK3m0oEz1XhxLESry7mUcb6ijqWBo23QeIBIhuFl
-         AEUWHHBc56ifWFTzsBS9/LC+3dloW3vEr6MK+og/wZPbmtkUb7ueMfmpfseitaxqZJFm
-         oLKEfqORLAcRXaf685PRJkxG6XOx7aMR4SChi+po4oGYJt0VYOMz9b2XiAlrnKCYdekE
-         eiDg==
-X-Forwarded-Encrypted: i=1; AHgh+RoqWLzqAWwI154bk8AdbQ93vGIurKIAc4wbWSz2MblDEg/IvPF85YgYyeZhcjsS2LnMfHu7V03kYKOA@vger.kernel.org
-X-Gm-Message-State: AOJu0Yze7uy9R2D6DoxlYwBba2svazU/GW2adcG0B/vYeFRVChwzGeex
-	WfCl6Vg3SD373zUWfr980e9rw1IdZHpTO1T2eQMq5VGrYcddcAPozegwop4nR7txy3s=
-X-Gm-Gg: AR+sD13RlQIRXk0uxJU/V08RWmiD9vEPew7xKxe3gZuirls3SI2z1btmPfvdHtnEDYI
-	LrOcdJAifqfsAj0vsua+PmCLjAkdMcwb3Ooy1U7HCFcOYmPKQ1t7s1nw5Tn2ajdUx8J2mMojXeu
-	tz5SKkw/+nhMaK6H6d1PBXMfSdJkvfopQCBPG27L1r3k/HqX70SfYrwiB+Aa2xq9ltTZ7DYr5hB
-	u/L3yOF/PNRDFnp2s0PWKiYKukN4shJvDMfxLu6ZbvmGlxxidXWrVU6Yo3UPGkRUgZV6fVhkM9p
-	aShlkA5/gvUl2wrp8GHioKLcCz7kzWES1A5rRF8eM4g+HhXQwFtoHNGTqdvO3jfLTXI2I4J+UPD
-	TnKMUcipuyeBRWhHrj0m5V8XVGymDSihk7X9KJXdXg0PqBE9X3jmlKQM1a5qPBOjurt+dJIYAhC
-	DnXJvLmjXMg9HLGXRGO3BCs/PiB7SC/EVqyFpPBu0ivn/b4m/UrTqQzinTYw==
-X-Received: by 2002:a05:6000:1846:b0:47f:6e8b:699c with SMTP id ffacd0b85a97d-47fd729208fmr726837f8f.14.1785515455179;
-        Fri, 31 Jul 2026 09:30:55 -0700 (PDT)
-Received: from localhost ([2a01:e0a:3c5:5fb1:d00b:bc94:65a:a73d])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-47fd4562667sm6935966f8f.24.2026.07.31.09.30.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 31 Jul 2026 09:30:54 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-Date: Fri, 31 Jul 2026 18:30:27 +0200
-Subject: [PATCH RFC/RFT 2/2] net: stmmac: Add support for Allwinner A733
- GMAC210
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="auP6JJea"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24AC31F00ACA;
+	Fri, 31 Jul 2026 16:35:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785515707;
+	bh=a5ovXw79ggC5An12m+nghpdczW1y4nKfM4lgu7CjUms=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=auP6JJeaYmKFBjcrFNC8QM7jx44VOcMo4SAkhfI1vIStfpWedCz/tSkwZ8AIM7qva
+	 x/NUVrPZZRPRxjiDrqPwxSCMZiV2m60ovHZARhjzlZI5fKgiJf4f6paCP4OV4PCmY5
+	 rcdYTO2obXKPfXjwpGmZyguwI/bxjOQXZ3u/RcYw1qMPLFqDQ5HFzfS+t2owDEoz96
+	 H3P3UI21VHaMBFtzt2dSUPEDmzmhByGeFqwzgvlM+98jrPFhmzRRoM8nsRxIinbTid
+	 SDsrWbk7gJvXkLPO2r8AhVJFdca5KipGKzGEhKdqRKbICrvT2t4TAS0EumOFPvzbSx
+	 Qapc56rdo5VLw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/4] kexec: add CRASH_ZEROIZE to wipe secrets before
+ kdump
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?SmFuIFNlYmFzdGlhbiBHw7Z0dGU=?= <linux@jaseg.de>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260731162739.158320-3-linux@jaseg.de>
+References: <20260731162739.158320-1-linux@jaseg.de>
+ <20260731162739.158320-3-linux@jaseg.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 31 Jul 2026 16:35:06 +0000
+Message-Id: <20260731163507.24AC31F00ACA@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-allwinner-a733-gmac-support-v1-2-d0a8732bfa82@baylibre.com>
-References: <20260731-allwinner-a733-gmac-support-v1-0-d0a8732bfa82@baylibre.com>
-In-Reply-To: <20260731-allwinner-a733-gmac-support-v1-0-d0a8732bfa82@baylibre.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, 
- Richard Cochran <richardcochran@gmail.com>, 
- Maxime Ripard <mripard@kernel.org>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
- Jerome Brunet <jbrunet@baylibre.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8196; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=R6z60t6FDjDvLZiOQXYefYIG0bNfh9SKw55q0G81SGM=;
- b=owEBbQKS/ZANAwAKAeb8Dxw38tqFAcsmYgBqbM2yrm2AuGpFLVpemVLX90B3DnBbzHrGoGWqT
- xiLTieBOeuJAjMEAAEKAB0WIQT04VmuGPP1bV8btxvm/A8cN/LahQUCamzNsgAKCRDm/A8cN/La
- hegtD/wPspDO73Xa87akPckAschP4dgHAyp7127Gd1baf5ZpC5mHrFkJXQpW9DiH5scwiM465l+
- /kS8Z8F/V8xxYrn6InOmmg/dw3Im+JiNr+W1C1xOiEAwzmTNPdfFLIOAv0V8tsjCj9bpgFecs+P
- QOPV3JtzpAvELG9QPOWIxEnOYwEdvP7uKtEK5GdqccTQd4ICtdKau1GlPaXRKjaPxhv960YnUWl
- jJrW3w/jXAcgMkwJLB/y0OVjiziU5HKrnCmrAHcvvMDjeYRs+q6rO5kmTcaBBNPdfWrmCAKjfAx
- t+JIUu1mHbWuFIG4S78NQNN6J4X9I89doMc8xQ6/2LW68RfiEJQJzKVp2Q5E4XxUwYs8XSxBSZC
- vTzp79KWSngh19GFNZy8KDFx2Bp1kPSDKFxY2xuTFMGhyTj+JNeJ1hlPV9m1rTkesoKvhBiUSVx
- N4x+SYbDcm497L01W8ONCfXmClBY+JNsPFNjefBlt6MfBGSPl3z26CioYv8WRKxavAamQWnaXt8
- AIKw2rFOKWxIf0i8jV6PHQgag5tkp+byybxhFHvdnTU9YQCshdOpxxtcZyFC9qMNxgDlq2qdx44
- X/NwUNm2POmlNsmBFMBLdKzYyjYJOlByszNC50hS74Bz0CHcBhBoU0gNs649jNUCrhb/KUjN7h7
- Zma6cXT7h4ab0HQ==
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-The A733 GMAC210 is a DesignWare MAC 5.20 using an Allwinner glue close to
-the A523 GMAC200 already supported by this driver, with the following
-differences to handle:
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-* The glue configuration registers are a dedicated MMIO region of the
-  controller instead of a syscon register. This new register region
-  appears to be in the reset domain of stmmac's main reset. This requires
-  the glue driver to handle the reset rather than letting stmmac deal with
-  it.
-* The TX clock delay value is 5 bits wide, split over 2 register fields,
-  allowing delays up to 3100ps.
-* The DMA channels have their own interrupt lines, so the per-DMA-channel
-  interrupt mode is enabled, as the vendor SDK does.
-* TX LPI clock gating is supported, as the vendor SDK indicates. Follow
-  the PHY capability with STMMAC_FLAG_EN_TX_LPI_CLK_PHY_CAP rather than
-  forcing it on with the deprecated 'snps,en-tx-lpi-clockgating' DT
-  property.
+New issues:
+- [High] Deadlock in `crash_zeroize()` due to `ktime_get()` during kdump pa=
+nic path
+- [Low] Missing registration wrapper for conditionally compiled `crash_zero=
+ize_notifier_list`
 
-Unlike the A523, both GMAC instances are supported by the same driver.
+Pre-existing issues:
+- [High] Pre-existing deadlock risk in `crash_save_vmcoreinfo` on 32-bit pl=
+atforms
+--
 
-Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-sun55i.c | 145 ++++++++++++++++++---
- 1 file changed, 127 insertions(+), 18 deletions(-)
+--- Patch [2]: [PATCH 2/4] kexec: add CRASH_ZEROIZE to wipe secrets before =
+kdump ---
+commit 3005bf8ed21843217c4ae3efeb7db1241b960e62
+Author: Jan Sebastian G=C3=B6tte <linux@jaseg.de>
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun55i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun55i.c
-index 862df173d963..3d434a52fb02 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun55i.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun55i.c
-@@ -10,21 +10,22 @@
-  */
- 
- #include <linux/bitfield.h>
-+#include <linux/bitops.h>
- #include <linux/bits.h>
- #include <linux/mfd/syscon.h>
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/phy.h>
- #include <linux/platform_device.h>
-+#include <linux/property.h>
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
-+#include <linux/reset.h>
- #include <linux/stmmac.h>
- 
- #include "stmmac.h"
- #include "stmmac_platform.h"
- 
--#define SYSCON_REG		0x34
--
- /* RMII specific bits */
- #define SYSCON_RMII_EN		BIT(13) /* 1: enable RMII (overrides EPIT) */
- /* Generic system control EMAC_CLK bits */
-@@ -37,17 +38,99 @@
- #define SYSCON_ETCS_EXT_GMII	0x1
- #define SYSCON_ETCS_INT_GMII	0x2
- 
--static int sun55i_gmac200_set_syscon(struct device *dev,
--				     struct plat_stmmacenet_data *plat)
-+struct sun55i_gmac_data {
-+	struct regmap *(*get_regmap)(struct platform_device *pdev,
-+				     struct plat_stmmacenet_data *plat);
-+	unsigned int flags;
-+	u32 etxdc_ext_mask;
-+	u32 offset;
-+};
-+
-+static struct regmap *sun55i_gmac200_get_regmap(struct platform_device *pdev,
-+						struct plat_stmmacenet_data *plat)
-+{
-+	struct regmap *map =
-+		syscon_regmap_lookup_by_phandle(pdev->dev.of_node, "syscon");
-+
-+	if (IS_ERR(map))
-+		dev_err_probe(&pdev->dev, PTR_ERR(map), "Unable to map syscon\n");
-+
-+	return map;
-+}
-+
-+static const struct regmap_config sun60i_a733_regmap_cfg = {
-+	.reg_bits = 32,
-+	.val_bits = 32,
-+	.reg_stride = 4,
-+};
-+
-+static void sun60i_gmac210_reset_assert(void *data)
- {
--	struct device_node *node = dev->of_node;
-+	struct reset_control *rst = data;
-+
-+	reset_control_assert(rst);
-+}
-+
-+static struct regmap *sun60i_gmac210_get_regmap(struct platform_device *pdev,
-+						struct plat_stmmacenet_data *plat)
-+{
-+	struct device *dev = &pdev->dev;
-+	void __iomem *base;
-+	int ret;
-+
-+	base = devm_platform_ioremap_resource(pdev, 1);
-+	if (IS_ERR(base)) {
-+		dev_err_probe(dev, PTR_ERR(base), "unable to get glue memory region\n");
-+		return ERR_CAST(base);
-+	}
-+
-+	if (!plat->stmmac_rst || !plat->stmmac_ahb_rst) {
-+		dev_err(dev, "missing required reset controls\n");
-+		return ERR_PTR(-EINVAL);
-+	}
-+
-+	/*
-+	 * The configuration registers are inside the controller
-+	 * reset domain, so the reset must happen before any write to them
-+	 * and should not be done again by stmmac or the configuration will
-+	 * be lost.
-+	 */
-+	ret = reset_control_assert(plat->stmmac_rst);
-+	if (!ret)
-+		ret = reset_control_deassert(plat->stmmac_rst);
-+
-+	if (ret) {
-+		dev_err_probe(dev, ret, "device reset failed\n");
-+		return ERR_PTR(ret);
-+	}
-+
-+	ret = devm_add_action_or_reset(dev, sun60i_gmac210_reset_assert,
-+				       plat->stmmac_rst);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
-+	plat->stmmac_rst = NULL;
-+
-+	return devm_regmap_init_mmio(&pdev->dev, base, &sun60i_a733_regmap_cfg);
-+}
-+
-+static int sun55i_gmac200_setup(struct platform_device *pdev,
-+				struct plat_stmmacenet_data *plat,
-+				const struct sun55i_gmac_data *data)
-+{
-+	unsigned int lo_bits = hweight32(SYSCON_ETXDC_MASK);
-+	struct device_node *node = pdev->dev.of_node;
-+	struct device *dev = &pdev->dev;
- 	struct regmap *regmap;
- 	u32 val, reg = 0;
-+	u32 max_delay;
- 	int ret;
- 
--	regmap = syscon_regmap_lookup_by_phandle(node, "syscon");
-+	max_delay = (1U << (lo_bits + hweight32(data->etxdc_ext_mask))) - 1;
-+
-+	regmap = data->get_regmap(pdev, plat);
- 	if (IS_ERR(regmap))
--		return dev_err_probe(dev, PTR_ERR(regmap), "Unable to map syscon\n");
-+		return PTR_ERR(regmap);
- 
- 	if (!of_property_read_u32(node, "tx-internal-delay-ps", &val)) {
- 		if (val % 100)
-@@ -55,12 +138,15 @@ static int sun55i_gmac200_set_syscon(struct device *dev,
- 					     "tx-delay must be a multiple of 100ps\n");
- 		val /= 100;
- 		dev_dbg(dev, "set tx-delay to %x\n", val);
--		if (!FIELD_FIT(SYSCON_ETXDC_MASK, val))
-+		if (val > max_delay)
- 			return dev_err_probe(dev, -EINVAL,
--					     "TX clock delay exceeds maximum (%u00ps > %lu00ps)\n",
--					     val, FIELD_MAX(SYSCON_ETXDC_MASK));
-+					     "TX clock delay exceeds maximum (%u00ps > %u00ps)\n",
-+					     val, max_delay);
- 
--		reg |= FIELD_PREP(SYSCON_ETXDC_MASK, val);
-+		reg |= field_prep(SYSCON_ETXDC_MASK, val);
-+		if (data->etxdc_ext_mask)
-+			reg |= field_prep(data->etxdc_ext_mask,
-+					  val >> lo_bits);
- 	}
- 
- 	if (!of_property_read_u32(node, "rx-internal-delay-ps", &val)) {
-@@ -95,21 +181,29 @@ static int sun55i_gmac200_set_syscon(struct device *dev,
- 				     phy_modes(plat->phy_interface));
- 	}
- 
--	ret = regmap_write(regmap, SYSCON_REG, reg);
-+	ret = regmap_write(regmap, data->offset, reg);
- 	if (ret < 0)
- 		return dev_err_probe(dev, ret, "Failed to write to syscon\n");
- 
-+	plat->flags |= data->flags;
-+	plat->host_dma_width = 32;
-+
- 	return 0;
- }
- 
- static int sun55i_gmac200_probe(struct platform_device *pdev)
- {
- 	struct plat_stmmacenet_data *plat_dat;
-+	const struct sun55i_gmac_data *data;
- 	struct stmmac_resources stmmac_res;
- 	struct device *dev = &pdev->dev;
- 	struct clk *clk;
- 	int ret;
- 
-+	data = device_get_match_data(dev);
-+	if (!data)
-+		return -EINVAL;
-+
- 	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
- 	if (ret)
- 		return ret;
-@@ -118,11 +212,7 @@ static int sun55i_gmac200_probe(struct platform_device *pdev)
- 	if (IS_ERR(plat_dat))
- 		return PTR_ERR(plat_dat);
- 
--	/* BSP disables it */
--	plat_dat->flags |= STMMAC_FLAG_SPH_DISABLE;
--	plat_dat->host_dma_width = 32;
--
--	ret = sun55i_gmac200_set_syscon(dev, plat_dat);
-+	ret = sun55i_gmac200_setup(pdev, plat_dat, data);
- 	if (ret)
- 		return ret;
- 
-@@ -138,8 +228,27 @@ static int sun55i_gmac200_probe(struct platform_device *pdev)
- 	return devm_stmmac_pltfr_probe(pdev, plat_dat, &stmmac_res);
- }
- 
-+static const struct sun55i_gmac_data sun55i_a523_gmac200_data = {
-+	.get_regmap = sun55i_gmac200_get_regmap,
-+	.flags = STMMAC_FLAG_SPH_DISABLE,
-+	.offset = 0x34,
-+	.etxdc_ext_mask = 0,
-+};
-+
-+static const struct sun55i_gmac_data sun60i_a733_gmac210_data = {
-+	.get_regmap = sun60i_gmac210_get_regmap,
-+	.flags = (STMMAC_FLAG_SPH_DISABLE |
-+		  STMMAC_FLAG_MULTI_MSI_EN |
-+		  STMMAC_FLAG_EN_TX_LPI_CLK_PHY_CAP),
-+	.offset = 0x0,
-+	.etxdc_ext_mask = GENMASK(17, 16),
-+};
-+
- static const struct of_device_id sun55i_gmac200_match[] = {
--	{ .compatible = "allwinner,sun55i-a523-gmac200" },
-+	{ .compatible = "allwinner,sun55i-a523-gmac200",
-+	  .data = &sun55i_a523_gmac200_data },
-+	{ .compatible = "allwinner,sun60i-a733-gmac210",
-+	  .data = &sun60i_a733_gmac210_data },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, sun55i_gmac200_match);
+kexec: add CRASH_ZEROIZE to wipe secrets before kdump
 
--- 
-2.47.3
+When kdump is used to capture system memory after a panic(), any secret
+keys currently in RAM end up in the dump. Add an opt-in atomic notifier
+chain, crash_zeroize_notifier_list, invoked late into __crash_kexec().
+Subsystems holding secrets can register a callback to scrub them.
 
+> diff --git a/include/linux/crash_core.h b/include/linux/crash_core.h
+> --- a/include/linux/crash_core.h
+> +++ b/include/linux/crash_core.h
+
+[ ... ]
+
+> @@ -34,6 +35,10 @@ static inline void arch_kexec_protect_crashkres(void) =
+{ }
+>  static inline void arch_kexec_unprotect_crashkres(void) { }
+>  #endif
+> =20
+> +#ifdef CONFIG_CRASH_ZEROIZE
+> +extern struct atomic_notifier_head crash_zeroize_notifier_list;
+> +#endif
+
+[Severity: Low]
+Is it possible to provide a registration wrapper instead of exporting the
+list directly?=20
+
+If developers try to register a callback using=20
+atomic_notifier_chain_register() when CONFIG_CRASH_ZEROIZE is disabled, they
+will encounter a build failure unless they wrap the call in #ifdef guards.
+Adding a wrapper like register_crash_zeroize_notifier() with a static inline
+stub for the !CONFIG case would avoid this.
+
+> +
+>  #ifndef arch_crash_handle_hotplug_event
+>  static inline void arch_crash_handle_hotplug_event(struct kimage *image,=
+ void *arg) { }
+>  #endif
+
+[ ... ]
+
+> diff --git a/kernel/crash_core.c b/kernel/crash_core.c
+> --- a/kernel/crash_core.c
+> +++ b/kernel/crash_core.c
+
+[ ... ]
+
+> @@ -33,6 +34,22 @@
+>  /* Per cpu memory for storing cpu states in case of system crash. */
+>  note_buf_t __percpu *crash_notes;
+> =20
+> +#ifdef CONFIG_CRASH_ZEROIZE
+> +ATOMIC_NOTIFIER_HEAD(crash_zeroize_notifier_list);
+> +EXPORT_SYMBOL_GPL(crash_zeroize_notifier_list);
+> +
+> +static void crash_zeroize(void)
+> +{
+> +	ktime_t zeroize_start =3D ktime_get();
+
+[Severity: High]
+Can this ktime_get() call cause a deadlock?=20
+
+When panic() triggers kdump, it calls machine_crash_shutdown() to stop all
+other CPUs. Since crash_zeroize() executes immediately after this shutdown
+step, if any other CPU was executing a timekeeping update and holding
+tk_core.seq for writing when it was permanently stopped by an NMI/IPI, the
+panicking CPU will spin forever in read_seqcount_begin().
+
+This would entirely prevent the crash dump from being collected. Should this
+use a lockless accessor like ktime_get_mono_fast_ns() instead?
+
+> +
+> +	pr_info("Wiping sensitive secrets...\n");
+> +	atomic_notifier_call_chain(&crash_zeroize_notifier_list, 0, NULL);
+> +	pr_info("Done in %lld us\n", ktime_us_delta(ktime_get(), zeroize_start)=
+);
+> +}
+> +#else
+> +static inline void crash_zeroize(void) { }
+> +#endif /* CONFIG_CRASH_ZEROIZE */
+> +
+
+[ ... ]
+
+> @@ -142,6 +159,7 @@ void __noclone __crash_kexec(struct pt_regs *regs)
+>  			crash_save_vmcoreinfo();
+
+[Severity: High]
+This is a pre-existing issue, but does crash_save_vmcoreinfo() carry a
+similar deadlock risk on 32-bit platforms?
+
+Looking at crash_save_vmcoreinfo(), it calls ktime_get_real_seconds(), which
+relies on the tk_core.seq sequence lock on 32-bit architectures.=20
+
+If the panicking CPU interrupted a timekeeping update, or if another CPU was
+stopped while holding the lock, this call will spin forever and block kdump.
+Using __ktime_get_real_seconds() would bypass the sequence lock.
+
+>  			machine_crash_shutdown(&fixed_regs);
+>  			crash_cma_clear_pending_dma();
+> +			crash_zeroize();
+>  			machine_kexec(kexec_crash_image);
+>  		}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731162739.1583=
+20-1-linux@jaseg.de?part=3D2
