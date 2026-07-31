@@ -1,346 +1,291 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F098D37B032;
-	Fri, 31 Jul 2026 20:34:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41BCE369D59;
+	Fri, 31 Jul 2026 20:35:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785530062; cv=none; b=TfFhIJWsrDSumBD29ktegkxx0MXyFdBN4kOkT9pg4QiUsaMFTnNx+EBjEW1U49FnMbJfSFA3iUIJ4UI+C0RkAMgjZ31wATLxawVkRKO9ZGeIglytbF29XpgDoV2KkmVCcfTz4g7dqkn1SBq7dcph9GaPRasxXhTwbzEaPrndS9Y=
+	t=1785530117; cv=none; b=OKXdS3UOJjPpgBe1kWyultqW9YCIxVcEgpWzJUR6odzC5zn/q6JLSN09sWpTCf7iNq+k/7zwty5Hbb/vpwjNokkewyY2RKpFJtdjsG9Xgx+EcQvw0WO0XxqSPDTlXCb0RFVON7kSDo5iV4M58hSD9OgGuqw+GaLkX3pBfdjGNhM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785530062; c=relaxed/simple;
-	bh=oZUebJj3CUYHrhXP9UjDxB8MkIwn4Y04a2b4+t3YuYY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=KgSPongGRKckIKovVGO/pU6iAjhVcsAZWWDd/SktDYm+TdCAjezG0yXM7wD6nrYEI3LLArYFde/q/NANuF1m/WLC7agztaWIzFWYuJV1QgmKR1BDu3p4xNdc/LjWDK3EuqWxzVGHNMzM1XKMV/2EAn1e3C4Vy9fdakyAmrS4gMs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sx/BFpXP; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1785530117; c=relaxed/simple;
+	bh=uA9qyBlrPYYjPC2CTTIGFM0Fv+fwiQo0Q5cdWC2o3Jk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=peazTKbxcvgOpuGNmqzMq42nPfYjt6tAIAVgBv08Nv9IQPnBArkmzzQVn5jSvrNB2lD6hADZDx02005irxgFe+v8WnLt4f9aX0yWZT5pxPFgVFBMKVNQwycemJPQtJtktB3plNHRf2KEFrtt33GefquIqF7TTVlkjL8uxUgFn/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MAnlS0XC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sx/BFpXP"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 95723C2BCFF;
-	Fri, 31 Jul 2026 20:34:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1785530061;
-	bh=oZUebJj3CUYHrhXP9UjDxB8MkIwn4Y04a2b4+t3YuYY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=sx/BFpXPjKkBoaUX60Q+rhq1JIAyKU1EniqVNHIjwKmFbKvFUnpL8ZxSmuSA2rF8S
-	 0h0Z9xUR+Wbk8ySdLzyizBVw2liyYnOT7wY/yCanbD9S644IKgiRXUNAuad1OpYhp5
-	 tOtRNNEEv2gxBRsDD0Oc0bJZWN45rG5SJjXeJwRoSjzcfoxpYWaHlt6D01oTjg26c1
-	 9+EwOkHke9P+s+Y+fGECIh2pDZz+zPd9ay4ORfe9XwrUMWcwBocTRZ50FOAJNu7vGv
-	 zCOA0ImZIj9XyinY+HY8RvgdLdp5I0bxyzggTKPd1gsC4GCKNuUmHOek+4kwJGMaye
-	 aN7ESxc5whj/Q==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 80AA3C55177;
-	Fri, 31 Jul 2026 20:34:21 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Fri, 31 Jul 2026 22:34:16 +0200
-Subject: [PATCH v9 5/5] Input: synaptics-rmi4 - support fallback values for
- PDT descriptor bytes
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MAnlS0XC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AED4B1F00AC4;
+	Fri, 31 Jul 2026 20:35:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785530115;
+	bh=1b7OOK1ydfjojKAeVm00aLNWdWN8CVli0QWCGJGGJH4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MAnlS0XCeeG+IAX/DZqY8aetmPZb9L9iC68UYljTTm34OpK/T93OaKcoaWl9zDNlh
+	 qfS3qG4bG0a/935rvi1QLUI64nC7w4TZ+f2cZIQSKsLCdTY9izrFbigFcQ9NBCQ1z6
+	 IWGutnQJ3FiEYxA8SviAJheFFfSNnqA6V89hkE6axDb5jIcaUsHD0pIXRyuR1q1tPj
+	 zkfQjMVrLUPIP6nzoWlQ+HmsipDG4EdYUFtdrptG22DwTY8mrFEGOf9FGQ0sOkqjAq
+	 mlSn1vQL84YLakUibYG9bJuMBeyvIrfg8Vb0RyJx+vUOk/BnNVIP5+n86MG1itqxaP
+	 SSeejGJ0poq4Q==
+Date: Fri, 31 Jul 2026 15:35:15 -0500
+From: Rob Herring <robh@kernel.org>
+To: Umang Chheda <umang.chheda@oss.qualcomm.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Ruidong Tian <tianruidong@linux.alibaba.com>,
+	Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, linux-acpi@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-edac@vger.kernel.org,
+	faruque.ansari@oss.qualcomm.com, avaneesh.dwivedi@oss.qualcomm.com
+Subject: Re: [PATCH v2 1/4] dt-bindings: arm: ras: Introduce bindings for ARM
+ RAS error sources
+Message-ID: <20260731203515.GA1619665-robh@kernel.org>
+References: <20260720081954.1858180-1-umang.chheda@oss.qualcomm.com>
+ <20260720081954.1858180-2-umang.chheda@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-synaptics-rmi4-v9-5-f088c47af6c5@ixit.cz>
-References: <20260731-synaptics-rmi4-v9-0-f088c47af6c5@ixit.cz>
-In-Reply-To: <20260731-synaptics-rmi4-v9-0-f088c47af6c5@ixit.cz>
-To: Kaustabh Chakraborty <kauschluss@disroot.org>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, "Jason A. Donenfeld" <Jason@zx2c4.com>, 
- Matthias Schiffer <matthias.schiffer@ew.tq-group.com>, 
- Vincent Huang <vincent.huang@tw.synaptics.com>, 
- Marcus Ramberg <marcus@means.no>, 
- Casey Connolly <casey.connolly@linaro.org>
-Cc: David Heidelberg <david@ixit.cz>, linux-input@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8394; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=VT8TqHstCB13MOIEZKScbmgMfHxX/aBtoMoj8AVgz1U=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqbQbLYCH85x470qignNeRtHqHSpeLX1zBIYo36
- HtaEIOvm1yJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCam0GywAKCRBgAj/E00kg
- chbiEACi51t1O1LIBouUqUYMob8colomKQr/xm30fx4f/7e5otQT2Y3oBMv0CTJTWNzuEtDmzbc
- DWC3Bba9q44387xMuUrOCv/IQj+Yzb3ltVGvkQzLCuyGKSCphw88n3C8fq65utK5kiLAE5+pYqd
- h6L6EbTxmkDARYXjnW7/dp/lryGa0BY9tb/+YPykQPlIW0YDND9j+4pkHTnhh/1mAqKE9XFjloW
- 3OWG4SgrZ8QXZM14n+qwI5G2b5QOisLqeio8CpPPkjRIIyr+P2e5lfAzPxOkNVhq7juwhOdNhYF
- 8Uiy8hqtxmEGsYjcUyFH99lYudIXYcRp24mJ0b9To23O/Ie34dXrLfycsr/zdgVyTpvhPeYsMBX
- 7pVwYLg0ucg55shSCQF1QAs+9fTXygBAtELStH9ofOx/gnAXp3pcvSUJ0pvPLhyTSaIJZlDnj+0
- kJj/j9cEvr+ytKBejGCI3OhiEaUjE28F9TYaLjCOyqKMTQEqHrZCana6ypJStqP21IEPadMw6gt
- rGmPiJRqdzdiSHv1cZ7A9PAFdF0OHBwtXyZwwf+cbflfSb3+tyiD2zlEuXDNesn0dNC1e/oaBmw
- rz07wSTQBleaAnQQffhWmBVL9IPIVqXUxLjEq9yDcLl0yQ6WKOIwjrIS9OFXXlzScsycmP4ABxc
- mQNnBCFHf2hs8kA==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260720081954.1858180-2-umang.chheda@oss.qualcomm.com>
 
-From: Kaustabh Chakraborty <kauschluss@disroot.org>
+On Mon, Jul 20, 2026 at 01:49:51PM +0530, Umang Chheda wrote:
+> ARMv8 and later processors implement the RAS (Reliability,
+> Availability and Serviceability) extensions, exposing hardware
+> error records through a standardised register interface.
+> 
+> Add Device Tree bindings to describe RAS error sources.
+> 
+> Signed-off-by: Umang Chheda <umang.chheda@oss.qualcomm.com>
+> ---
+>  .../bindings/arm/arm,ras-error-source.yaml    | 330 ++++++++++++++++++
+>  include/dt-bindings/arm/arm-ras.h             |  11 +
+>  2 files changed, 341 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/arm/arm,ras-error-source.yaml
+>  create mode 100644 include/dt-bindings/arm/arm-ras.h
+> 
+> diff --git a/Documentation/devicetree/bindings/arm/arm,ras-error-source.yaml b/Documentation/devicetree/bindings/arm/arm,ras-error-source.yaml
+> new file mode 100644
+> index 000000000000..add7063a1a62
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/arm/arm,ras-error-source.yaml
+> @@ -0,0 +1,330 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/arm/arm,ras-error-source.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: ARM RAS error source
+> +
+> +maintainers:
+> +  - Umang Chheda <umang.chheda@oss.qualcomm.com>
+> +
+> +description: |
+> +  ARMv8 and later processors implement the Reliability, Availability and
+> +  Serviceability (RAS) extensions.  Hardware blocks that support RAS expose
+> +  one or more error records through a standardised register interface.  Each
+> +  error record captures information about a detected hardware error (cache
+> +  ECC fault, TLB parity error, interconnect error, etc.) and can optionally
+> +  signal the OS via an interrupt.
+> +
+> +  Each DT node described by this binding represents one RAS error source —
+> +  a hardware block that exposes a set of error records.  Error records are
+> +  accessed either through system registers (for processor-local resources
+> +  such as L1/L2 caches and TLBs) or through a memory-mapped register window
+> +  (for shared or off-core resources such as L3 caches, SMMUs and GICs).
+> +
+> +properties:
+> +  compatible:
+> +    description:
+> +      Identifies the class of hardware block this error source belongs to.
+> +      arm,ras-processor covers processor error sources (cache, TLB, etc.).
+> +      arm,ras-smmu covers SMMU error sources.
+> +      arm,ras-gic covers GIC error sources.
+> +    enum:
+> +      - arm,ras-processor
+> +      - arm,ras-smmu
+> +      - arm,ras-gic
+> +
+> +  reg:
+> +    description:
+> +      Register windows for this error source.  When absent the error records
+> +      are accessed through system registers (ERRSELR_EL1 + ERX*_EL1).
+> +      When present, the first range is the primary error-record window;
+> +      additional named ranges are identified by reg-names.
+> +    minItems: 1
+> +    maxItems: 4
+> +
+> +  reg-names:
+> +    description:
+> +      Names for the optional additional register windows beyond the primary
+> +      error-record window.  err-group is the error group status register
+> +      window (ERRGSR).  fault-inject is the fault injection register window
+> +      (ERXPFG*).  irq-config is the interrupt routing configuration window.
+> +    minItems: 1
+> +    maxItems: 3
+> +    items:
+> +      enum:
+> +        - err-group
+> +        - fault-inject
+> +        - irq-config
 
-Some replacement displays include third-party touch ICs which do not
-expose the function number and the interrupt status in its PDT entries.
+reg and reg-names must be the same number of entries.
 
-OnePlus 6 (original touch IC)
-  rmi4_i2c 12-0020: read 6 bytes at 0x00e3: 0 (2b 22 0d 06 01 01)
+> +
+> +  interrupts:
+> +    description:
+> +      Interrupts signalled by this error source.  The first interrupt is the
+> +      Fault Handling Interrupt (FHI), fired when a corrected error counter
+> +      overflows or a deferred error is detected.  The optional second
+> +      interrupt is the Error Recovery Interrupt (ERI), fired when an
+> +      uncorrected recoverable error is detected.
+> +    minItems: 1
+> +    maxItems: 2
 
-OnePlus 6 (aftermarket touch IC)
-  rmi4_i2c 12-0020: read 6 bytes at 0x00e3: 0 (2c 23 0d 06 00 00)
+Replace description with:
 
-Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
-[codeflow adjustments, checkpatch fixes, wording]
-Signed-off-by: Casey Connolly <casey.connolly@linaro.org>
-Co-developed-by: David Heidelberg <david@ixit.cz>
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- drivers/input/rmi4/rmi_driver.c | 64 +++++++++++++++++++++++++++++++++++------
- drivers/input/rmi4/rmi_driver.h |  3 ++
- include/linux/rmi.h             |  3 ++
- 3 files changed, 62 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/input/rmi4/rmi_driver.c b/drivers/input/rmi4/rmi_driver.c
-index 5e7766363aa23..dac26458f0937 100644
---- a/drivers/input/rmi4/rmi_driver.c
-+++ b/drivers/input/rmi4/rmi_driver.c
-@@ -461,29 +461,45 @@ static int rmi_driver_reset_handler(struct rmi_device *rmi_dev)
- 
- 	error = rmi_driver_process_config_requests(rmi_dev);
- 	if (error < 0)
- 		return error;
- 
- 	return 0;
- }
- 
--static int rmi_read_pdt_entry(struct rmi_device *rmi_dev,
--			      struct pdt_entry *entry, u16 pdt_address)
-+static int rmi_read_pdt_entry(struct rmi_device *rmi_dev, struct pdt_entry *entry,
-+			      struct pdt_scan_state *state, u16 pdt_address)
- {
-+	const struct rmi_device_platform_data *pdata = rmi_get_platform_data(rmi_dev);
- 	u8 buf[RMI_PDT_ENTRY_SIZE];
- 	int error;
- 
- 	error = rmi_read_block(rmi_dev, pdt_address, buf, RMI_PDT_ENTRY_SIZE);
- 	if (error) {
- 		dev_err(&rmi_dev->dev, "Read PDT entry at %#06x failed, code: %d.\n",
- 				pdt_address, error);
- 		return error;
- 	}
- 
-+	if (pdata->pdt_fallback_size > state->pdt_count * RMI_OF_PDT_DESC_CELLS + 1) {
-+		/* Use the description bytes from the driver */
-+		buf[5] = pdata->pdt_fallback_desc[state->pdt_count * RMI_OF_PDT_DESC_CELLS];
-+		buf[4] = pdata->pdt_fallback_desc[state->pdt_count * RMI_OF_PDT_DESC_CELLS + 1];
-+
-+		error = rmi_read_block(rmi_dev, pdt_address, buf,
-+				RMI_PDT_ENTRY_SIZE - 2);
-+		if (error) {
-+			dev_err(&rmi_dev->dev,
-+					"Read PDT entry at %#06x failed, code: %d.\n",
-+					pdt_address, error);
-+			return error;
-+		}
-+	}
-+
- 	entry->page_start = pdt_address & RMI4_PAGE_MASK;
- 	entry->query_base_addr = buf[0];
- 	entry->command_base_addr = buf[1];
- 	entry->control_base_addr = buf[2];
- 	entry->data_base_addr = buf[3];
- 	entry->interrupt_source_count = buf[4] & RMI_PDT_INT_SOURCE_COUNT_MASK;
- 	entry->function_version = (buf[4] & RMI_PDT_FUNCTION_VERSION_MASK) >> 5;
- 	entry->function_number = buf[5];
-@@ -521,16 +537,17 @@ static bool rmi_pdt_entry_is_valid(struct rmi_device *rmi_dev,
- 		break;
- 	default:
- 		rmi_dbg(RMI_DEBUG_CORE, &rmi_dev->dev,
- 			"PDT has unknown function number %#02x\n", fn);
- 		return false;
- 	}
- 
- 	state->pdts[fn] = true;
-+	state->pdt_count++;
- 	return true;
- }
- 
- #define RMI_SCAN_CONTINUE	0
- #define RMI_SCAN_DONE		1
- 
- static int rmi_scan_pdt_page(struct rmi_device *rmi_dev,
- 			     int page,
-@@ -545,17 +562,17 @@ static int rmi_scan_pdt_page(struct rmi_device *rmi_dev,
- 	u16 page_start = RMI4_PAGE_SIZE * page;
- 	u16 pdt_start = page_start + PDT_START_SCAN_LOCATION;
- 	u16 pdt_end = page_start + PDT_END_SCAN_LOCATION;
- 	u16 addr;
- 	int error;
- 	int retval;
- 
- 	for (addr = pdt_start; addr >= pdt_end; addr -= RMI_PDT_ENTRY_SIZE) {
--		error = rmi_read_pdt_entry(rmi_dev, &pdt_entry, addr);
-+		error = rmi_read_pdt_entry(rmi_dev, &pdt_entry, state, addr);
- 		if (error)
- 			return error;
- 
- 		if (RMI4_END_OF_PDT(pdt_entry.function_number))
- 			break;
- 
- 		if (!rmi_pdt_entry_is_valid(rmi_dev, state, pdt_entry.function_number))
- 			continue;
-@@ -1062,31 +1079,62 @@ static int rmi_driver_remove(struct device *dev)
- 
- 	irq_domain_remove(data->irqdomain);
- 	data->irqdomain = NULL;
- 
- 	return 0;
- }
- 
- #ifdef CONFIG_OF
--static int rmi_driver_of_probe(struct device *dev,
--				struct rmi_device_platform_data *pdata)
-+static const u8 rmi_s3706_fallback_pdt[] = {0x34, 0x41, 0x01,
-+					    0x01, 0x12, 0x01};
-+
-+static int rmi_driver_of_probe(struct rmi_device *rmi_dev,
-+			       struct rmi_device_platform_data *pdata)
- {
-+	struct device *dev = rmi_dev->xport->dev;
-+	u8 buf[RMI_PDT_ENTRY_SIZE];
- 	int retval;
- 
- 	retval = rmi_of_property_read_u32(dev, &pdata->reset_delay_ms,
- 					"syna,reset-delay-ms", 1);
- 	if (retval)
- 		return retval;
- 
-+	/*
-+	 * In some aftermerket touch ICs, the first PDT entry is empty and
-+	 * the function number register is 0. If so, the driver
-+	 * may have provide backup PDT entries.
-+	 */
-+
-+	retval = rmi_read_block(rmi_dev, PDT_START_SCAN_LOCATION,
-+			buf, RMI_PDT_ENTRY_SIZE);
-+	if (retval) {
-+		dev_err(dev, "Read PDT entry at %#06x failed, code: %d.\n",
-+			PDT_START_SCAN_LOCATION, retval);
-+		return retval;
-+	}
-+
-+	if (!RMI4_END_OF_PDT(buf[5]))
-+		return 0;
-+
-+	/* List of known PDT entries per compatible. */
-+	if (of_device_is_compatible(dev->of_node, "syna,rmi4-s3706b")) {
-+		pdata->pdt_fallback_desc = rmi_s3706_fallback_pdt;
-+		pdata->pdt_fallback_size = ARRAY_SIZE(rmi_s3706_fallback_pdt);
-+	} else {
-+		dev_err(dev, "First PDT entry is empty and no backup values provided.\n");
-+		return -EINVAL;
-+	}
-+
- 	return 0;
- }
- #else
--static inline int rmi_driver_of_probe(struct device *dev,
--					struct rmi_device_platform_data *pdata)
-+static inline int rmi_driver_of_probe(struct rmi_device *rmi_dev,
-+				      struct rmi_device_platform_data *pdata)
- {
- 	return -ENODEV;
- }
- #endif
- 
- int rmi_probe_interrupts(struct rmi_driver_data *data)
- {
- 	struct rmi_device *rmi_dev = data->rmi_dev;
-@@ -1197,17 +1245,17 @@ static int rmi_driver_probe(struct device *dev)
- 
- 	rmi_dev = to_rmi_device(dev);
- 	rmi_driver = to_rmi_driver(dev->driver);
- 	rmi_dev->driver = rmi_driver;
- 
- 	pdata = rmi_get_platform_data(rmi_dev);
- 
- 	if (rmi_dev->xport->dev->of_node) {
--		retval = rmi_driver_of_probe(rmi_dev->xport->dev, pdata);
-+		retval = rmi_driver_of_probe(rmi_dev, pdata);
- 		if (retval)
- 			return retval;
- 	}
- 
- 	data = devm_kzalloc(dev, sizeof(struct rmi_driver_data), GFP_KERNEL);
- 	if (!data)
- 		return -ENOMEM;
- 
-diff --git a/drivers/input/rmi4/rmi_driver.h b/drivers/input/rmi4/rmi_driver.h
-index 6de8faed08917..f69337510c333 100644
---- a/drivers/input/rmi4/rmi_driver.h
-+++ b/drivers/input/rmi4/rmi_driver.h
-@@ -26,16 +26,18 @@
- #define RMI_PDT_PROPS_HAS_BSR 0x02
- 
- #define NAME_BUFFER_SIZE 256
- 
- #define RMI_PDT_ENTRY_SIZE 6
- #define RMI_PDT_FUNCTION_VERSION_MASK   0x60
- #define RMI_PDT_INT_SOURCE_COUNT_MASK   0x07
- 
-+#define RMI_OF_PDT_DESC_CELLS 2
-+
- #define PDT_START_SCAN_LOCATION 0x00e9
- #define PDT_END_SCAN_LOCATION	0x0005
- #define RMI4_END_OF_PDT(id) ((id) == 0x00 || (id) == 0xff)
- 
- struct pdt_entry {
- 	u16 page_start;
- 	u8 query_base_addr;
- 	u8 command_base_addr;
-@@ -48,16 +50,17 @@ struct pdt_entry {
- 
- #define RMI_REG_DESC_PRESENCE_BITS	(32 * BITS_PER_BYTE)
- #define RMI_REG_DESC_PRESENCE_REGS_MAX	(3 + RMI_REG_DESC_PRESENCE_BITS / 8)
- #define RMI_REG_DESC_SUBPACKET_BITS	(37 * BITS_PER_BYTE)
- #define RMI_PDT_MAX 0x55
- 
- struct pdt_scan_state {
- 	u8 empty_pages;
-+	u8 pdt_count;
- 	bool pdts[RMI_PDT_MAX + 1];
- };
- 
- 
- /* describes a single packet register */
- struct rmi_register_desc_item {
- 	u32 reg_size;
- 	u16 reg;
-diff --git a/include/linux/rmi.h b/include/linux/rmi.h
-index ab7eea01ab427..4ba2cefac8558 100644
---- a/include/linux/rmi.h
-+++ b/include/linux/rmi.h
-@@ -209,16 +209,19 @@ struct rmi_device_platform_data_spi {
-  * driver waits a few milliseconds to give the firmware a chance to
-  * re-initialize.  You can override the default wait period here.
-  * @irq: irq associated with the attn gpio line, or negative
-  */
- struct rmi_device_platform_data {
- 	int reset_delay_ms;
- 	int irq;
- 
-+	unsigned int pdt_fallback_size;
-+	const u8 *pdt_fallback_desc;
-+
- 	struct rmi_device_platform_data_spi spi_data;
- 
- 	/* function handler pdata */
- 	struct rmi_2d_sensor_platform_data sensor_pdata;
- 	struct rmi_f01_power_management power_management;
- 	struct rmi_gpio_data gpio_data;
- };
- 
-
--- 
-2.53.0
+minItems: 1
+items:
+  - description:
+      Fault Handling Interrupt (FHI), fired when a corrected error 
+      counter overflows or a deferred error is detected.
+  - description: 
+      Error Recovery Interrupt (ERI), fired when an uncorrected 
+      recoverable error is detected.
 
 
+Seems backwards to me that corrected errors is required and uncorrected 
+errors is optional. Should be fine to not care about corrected errors, 
+but uncorrected errors can't really be ignored.
+
+> +
+> +  interrupt-names:
+> +    description:
+> +      Names identifying the interrupts.  "fhi" is the Fault Handling
+> +      Interrupt; "eri" is the optional Error Recovery Interrupt.
+> +    minItems: 1
+> +    maxItems: 2
+> +    items:
+> +      enum:
+> +        - fhi
+> +        - eri
+
+Define the order.
+
+> +
+> +  arm,group-format:
+> +    description:
+> +      Page granularity of the memory-mapped error record group register
+> +      window.  Determines the ioremap size and the number of error group
+> +      status registers (ERRGSR) available.  Required when reg is present.
+
+Don't state constraints which are expressed as schemas.
+
+> +      Use the ARM_RAS_GROUP_* constants from <dt-bindings/arm/arm-ras.h>.
+> +      0 (ARM_RAS_GROUP_4K) is a 4 KiB window with 1 ERRGSR supporting up
+> +      to 64 records.  1 (ARM_RAS_GROUP_16K) is 16 KiB with 4 ERRGSRs and
+> +      up to 256 records.  2 (ARM_RAS_GROUP_64K) is 64 KiB with 14 ERRGSRs
+> +      and up to 896 records.
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    enum: [0, 1, 2]
+> +
+> +  arm,num-records:
+> +    description:
+> +      Total number of error records in this error source, including both
+> +      implemented and unimplemented slots.
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    minimum: 1
+> +
+> +  arm,record-impl:
+> +    description:
+> +      Bitmap of implemented error records.  Bit N set to 1 means error
+> +      record N is present and active in this error source.  Bit N set to 0
+> +      means record N is not implemented and must be skipped.  The array
+> +      length must equal the number of ERRGSRs implied by arm,group-format
+> +      (1 element for 4K, 4 for 16K, 14 for 64K).  For system-register
+> +      nodes (no reg property) a single u64 element is used.
+> +    $ref: /schemas/types.yaml#/definitions/uint64-array
+> +    minItems: 1
+> +    maxItems: 14
+> +
+> +  arm,status-reporting:
+> +    description:
+> +      Bitmap indicating which implemented error records must be polled
+> +      directly by the OS.  Bit N set to 1 means record N does not report
+> +      through the ERRGSR and must be polled by reading its ERX_STATUS
+> +      register directly in the interrupt handler.  Bit N set to 0 means
+> +      record N reports its status through the ERRGSR and will be discovered
+> +      via the ERRGSR scan path.  For system-register nodes (no reg property)
+> +      there is no ERRGSR, so every implemented record must be polled
+> +      directly; arm,status-reporting must equal arm,record-impl for all
+> +      system-register nodes.  Array length as for arm,record-impl.
+> +    $ref: /schemas/types.yaml#/definitions/uint64-array
+> +    minItems: 1
+> +    maxItems: 14
+> +
+> +  arm,addressing-mode:
+> +    description:
+> +      Bitmap indicating the type of address reported in the error address
+> +      register (ERX_ADDR) for each error record.  Bit N set to 0 means
+> +      record N reports a System Physical Address (SPA) that the OS can use
+> +      directly.  Bit N set to 1 means record N reports a node-specific
+> +      Logical Address (LA) that requires platform-specific translation to
+> +      obtain a SPA.  Array length as for arm,record-impl.
+> +    $ref: /schemas/types.yaml#/definitions/uint64-array
+> +    minItems: 1
+> +    maxItems: 14
+> +
+> +  # Processor error source properties (arm,ras-processor only)
+> +
+> +  cache:
+> +    description:
+> +      Phandle to the cache node (L1, L2, or L3) that this processor error
+> +      source monitors.  The referenced node must have compatible = "cache"
+> +      and a cache-level property identifying the level in the hierarchy.
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +
+> +  # SMMU error source properties (arm,ras-smmu only)
+> +
+> +  iommus:
+> +    description:
+> +      Phandle to the SMMU node that this error source monitors.
+
+If the iommu has #iommu-cells >0, then this property must match the cell 
+size. You can't have your own definition of 'iommus'.
+
+> +    maxItems: 1
+> +
+> +  # GIC error source properties (arm,ras-gic only)
+> +
+> +  arm,gic-ref:
+> +    description:
+> +      Phandle to the GIC node that this error source monitors.
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +
+> +required:
+> +  - compatible
+> +  - arm,num-records
+> +  - arm,record-impl
+> +  - arm,status-reporting
+> +
+> +allOf:
+> +  - if:
+> +      required:
+> +        - reg
+> +    then:
+> +      required:
+> +        - arm,group-format
+
+Better expressed as:
+
+dependentRequired:
+  reg: [ 'arm,group-format' ]
+
+Rob
