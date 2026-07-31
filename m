@@ -1,122 +1,133 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC4222FD1DA;
-	Fri, 31 Jul 2026 12:56:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785502566; cv=pass; b=huwHM8dw6hSCfEB1u1D375elV+woBqFgYeOpLnDMe3SUCkP/u+3hL3ChfJxe1wjfiW3RMX5GgkL3riUs7KwIb029yQIeCdXPAuRW7Rp/RoByqMfaTMMU55Hq5+8dqpfXOKv7ndbSyrqhdWyh3I2gRnwXdK7VJ+2hYvaCWs0mUVY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785502566; c=relaxed/simple;
-	bh=zAhwrWMY6PvLC/P8M84L7525EvKre07drBqR9LRCx8A=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=l4qcQWF7K2MxDCVl1p0fRwgDr9+9/BbVNVFdhbJQzRzInMyH9pnG1eIroXj5LMnZ2X9TVkvl6XgmR2RA+n91H8UtssmytXbm20aZxbJepT2Usmhb8BEpHBIQaCZgMKUVamdDEECCVv9Ep0xQNzeTfPHABd4txV/n8Dd4hNHV8Eg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=louisalexis.eyraud@collabora.com header.b=E5hGGX8n; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A466A3DEFE7
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 13:02:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785502967; cv=none; b=oDzuLSL3Xz3dd69E42srIUpGVDcmgYoXRjZllY/AuQXDfDywuTs36TlHNga12f+g7XQ4FbdpCc53Krro3PrvbfqiAr78zar/nlRyqva9ffjHseL8U9psJqcpeZWzS5L6do9IqGmOhpGijeJkLUQo9KlaRh3EgNmY3sf7zhCz5vw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785502967; c=relaxed/simple;
+	bh=jyLfUDRKUGR+QzdlDRg/ygdwuaQOjB35r20qE6JtzlE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=jppEqYgf4j8Tka4JfgRkn7um/hqdM5Mf3J2QDEZa9eTdUQe9NOtlGbbgTAqA8YQprrvDj7h6rlcToRfJNy2mAHwbMvRh8vf/aQ0etUnuY8BMMEdAk9uaM0ZCw+U/MsK5JV6uIoTxKD4q7KrhLHZXMhA0gfG+cITmQHeGH3Ki+8Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=anwmx18Q; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=X/XhCbmF; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=louisalexis.eyraud@collabora.com header.b="E5hGGX8n"
-ARC-Seal: i=1; a=rsa-sha256; t=1785502536; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=NAceC1nZ03Z8OJtT3c/AkcqWZgr6iyrkBVJVptqz1VI1XwcNZa5DUKJu2CuJO8K/6aH+uUpXT8xMYH0MA0kYdHATwK7tlzsgyozc/uiGdQYHzU71iVpB32hC91kPKVKU08a6HR2iZZnug91O2geOadZ7E65Uc7zB2Iy1jRwaCNc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1785502536; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=zAhwrWMY6PvLC/P8M84L7525EvKre07drBqR9LRCx8A=; 
-	b=ex6DKoFlliJOmgcPdpT8RNRN+jpjfYz+mbeqTHrF3BFMyXYN2691fJROBKkKZaW5LOS0Xq34KSoe1b5HJkWtoW7LQ21D+v8L+xJg8pR5G0L2WFPZ0xAm6b5E38EDijVKIzNBZPe1F2uQnbiPI3agEnbkcLR8y1KrwkNkOpF8NX0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=louisalexis.eyraud@collabora.com;
-	dmarc=pass header.from=<louisalexis.eyraud@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785502536;
-	s=zohomail; d=collabora.com; i=louisalexis.eyraud@collabora.com;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
-	bh=zAhwrWMY6PvLC/P8M84L7525EvKre07drBqR9LRCx8A=;
-	b=E5hGGX8nJlFV4riMFbzQfwVYLjS+jFZyeZtpkU8eqm8AHTNUVc3Nk5lYPYk/G20m
-	uRZPT2CBMnSHVw4riWDfmAw3RHLX3ib58YjKzTibCNPgZlbdWvLIL4bMUMnwZ1B+9zs
-	w8BEK0diuqrVdbbMbZVulLYAM9BLKWAdGxBaaG0U=
-Received: by mx.zohomail.com with SMTPS id 1785502535132267.4450717048104;
-	Fri, 31 Jul 2026 05:55:35 -0700 (PDT)
-Message-ID: <d418ce620a6128d7dac0c8e56f2a07653e5d035e.camel@collabora.com>
-Subject: Re: [PATCH v10 24/26] arm64: dts: mediatek: mt8195: Align ufshci
- node to dt-bindings changes
-From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Chunfeng Yun <chunfeng.yun@mediatek.com>, Vinod Koul <vkoul@kernel.org>,
-  Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger	 <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno	 <angelogioacchino.delregno@collabora.com>,
- Peter Wang <peter.wang@mediatek.com>,  Chaotian Jing
- <chaotian.jing@mediatek.com>, Alim Akhtar <alim.akhtar@samsung.com>, Avri
- Altman	 <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>,
- Stanley Jhu	 <chu.stanley@gmail.com>, "James E.J. Bottomley"	
- <James.Bottomley@hansenpartnership.com>, "Martin K. Petersen"	
- <martin.petersen@oracle.com>, Philipp Zabel <p.zabel@pengutronix.de>, Liam
- Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- kernel@collabora.com, 	linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, 	linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, 	linux-kernel@vger.kernel.org,
- linux-scsi@vger.kernel.org, Nicolas Frattaroli	
- <nicolas.frattaroli@collabora.com>
-Date: Fri, 31 Jul 2026 14:55:28 +0200
-In-Reply-To: <20260731-curious-unnatural-octopus-cef3e9@quoll>
-References: <20260730-mt8196-ufs-v10-0-bc5ecef202dc@collabora.com>
-	 <20260730-mt8196-ufs-v10-24-bc5ecef202dc@collabora.com>
-	 <20260731-curious-unnatural-octopus-cef3e9@quoll>
-Organization: Collabora Ltd
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="anwmx18Q";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="X/XhCbmF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1785502963;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=63z+74IiNXo7CtWiuSgL8tkqVXTD4W+l7gvHsFCZ+/I=;
+	b=anwmx18Qw8L8a13qXSoIirE9R0iGUZ3EAA2iGG+WawzB3YS8rct2m5A+cmbUV1CRFy3BEG
+	DxUmFZQTj6jOwcrrM9BXTN/URqe8QyQlPtHVDhHN8cRNTMQvcpOs3g7RSEC+fYegG3OAve
+	J9hiCK+Z3krALqzfPj2Bsxqq+Os+f8A=
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
+ [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-204-NeI-Xc0tMu6NUn_WoAQZ4g-1; Fri, 31 Jul 2026 09:02:42 -0400
+X-MC-Unique: NeI-Xc0tMu6NUn_WoAQZ4g-1
+X-Mimecast-MFC-AGG-ID: NeI-Xc0tMu6NUn_WoAQZ4g_1785502961
+Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c1f548718d0so126448566b.0
+        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 06:02:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1785502961; x=1786107761; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=63z+74IiNXo7CtWiuSgL8tkqVXTD4W+l7gvHsFCZ+/I=;
+        b=X/XhCbmF9i7BCC2OBdzMb58AEBYPM7wzwt7jDqwk99EgqdmO4P17jdkrtBIlbmyuDy
+         mTYHyflZRgUyclydSlxfUznLg5Xqut3/ERV6IRTMmmHxq8W69xNFKQQqdxclEf7W0m3s
+         RYSIIxZfJ1bCn9xWEdcZLTuLaIAhuvb8kQq0guA1BDpt40xTh0xgDKhAv2im4bXVfvQe
+         77Q0FGeS/SIKeWuvC4eeRcTpBChjnZf/oWMqrG+N+E/GtHPOGMp78NyVxIWAFO8Tr2FJ
+         /evnIHSENvkEtqlzrnH4ztepuWj2rZmptD+77HRoD7yA19QDRDCWncg5SKPybgOeK6BG
+         ejAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785502961; x=1786107761;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=63z+74IiNXo7CtWiuSgL8tkqVXTD4W+l7gvHsFCZ+/I=;
+        b=L+msmtFek9rS9TVy9rg7BRBxx/e9Sct1oTL2Z3gnI+I7EaFbrPGZmHMUpjs1OBNz6f
+         YZjpcethsjGGqB1b8C78/OeiLG1uPg6wZDHJfCDycjaRPQKPWc6TIb+7vbITS+qERhOX
+         zE9AVe69ZCGl2YpmfMLEA7euruyI76IVmQZcXK++Hk+1qrARkzfjTvbZU99ZVdz+dJSI
+         UYlT6/dgJRpKbZnj8A2vR5hO0BDBrRFj4Izn4oifxX6KUG91eTLGqcWAy3W9gmblY8e/
+         jT+KvZflmtzwRvftXSy3DiBI11DUII+GmagfF2X4XP11V29GINuxo8weGfImShsn4Bq4
+         L1qw==
+X-Forwarded-Encrypted: i=1; AHgh+RrDSzZIAytikOEwA2QXENbUuHVs+80tYwqL5wh7lMcMN/a8uvcaLlp7w74NnF24YR6J4pjvfzpIZV16@vger.kernel.org
+X-Gm-Message-State: AOJu0YzH2ZDiZdCVVj1DLfmKdGbYvYYWt5ceH+I7fBl9aO1Vx7BJYkjQ
+	bmmIRfhVP+p8jGfgFR+p0WK8O2jNyoHj3CifXSN5Amog8Mof6Gc//KzA4itRvPsyAQKry2JFH4F
+	gaH2TJgOm5YDR3mfFv9y5yX6QuT/PqsV0ngx67hZgtIbK7Ze1j9KsuoUFqgN3TuY=
+X-Gm-Gg: AR+sD11add0LwYl0IvlXciRwDG41cjZ+26FJcY9xkFYH4g9HPOEv3PrxycrimnTpv9M
+	80v3RaYdS+oaR1gGAObebvH2waYMbIMr6GpoKykAd5VIbEcNid3gUD4VP9gMSBiFhLZcXp5uPWd
+	sH5/3uC47GKqTQIj22+lTwMF2AwBo0nEBwf/KOdy/t/P73YhWxmDMNndHbKOdOMColpKj8C4lp8
+	UFPdtN0cA7Hmei/0inDeEo/FYRK99a3gMCRAvvntV7CFtSiT7MeV4izdckww1cvLNN40w+AGl05
+	bbUoIipBWYV0dEOR/yyW8IDoBB6/V6g6Pvbh33WWySBjUJ+Sjbw55si7AsBmnqZcG99Er84xO8s
+	GM2mz+8XFvZA93DB7uf6rXZ2M/2kgEWXvumfSs8ogfNPR+wFHLsSssrqhCcg=
+X-Received: by 2002:a17:907:3e90:b0:c16:8adf:f183 with SMTP id a640c23a62f3a-c1fd23c59c7mr119264966b.14.1785502960621;
+        Fri, 31 Jul 2026 06:02:40 -0700 (PDT)
+X-Received: by 2002:a17:907:3e90:b0:c16:8adf:f183 with SMTP id a640c23a62f3a-c1fd23c59c7mr119260966b.14.1785502960034;
+        Fri, 31 Jul 2026 06:02:40 -0700 (PDT)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd4562a38sm4399507f8f.21.2026.07.31.06.02.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 31 Jul 2026 06:02:38 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Jakub Turek <jakub.turek@elsta.tech>, Helge Deller <deller@gmx.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, Jakub Turek
+ <jakub.turek@elsta.tech>
+Subject: Re: [PATCH 1/2] fbdev: ssd1307fb: add support for Sino Wealth
+ SH1107 controller
+In-Reply-To: <20260731-feat-sh1107-v1-1-e10977f76e6b@elsta.tech>
+References: <20260731-feat-sh1107-v1-0-e10977f76e6b@elsta.tech>
+ <20260731-feat-sh1107-v1-1-e10977f76e6b@elsta.tech>
+Date: Fri, 31 Jul 2026 15:02:36 +0200
+Message-ID: <871pcje2hf.fsf@ocarina.mail-host-address-is-not-set>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ZohoMailClient: External
+Content-Type: text/plain
 
-Hi Krzysztof,
+Jakub Turek <jakub.turek@elsta.tech> writes:
 
-On Fri, 2026-07-31 at 10:28 +0200, Krzysztof Kozlowski wrote:
-> On Thu, Jul 30, 2026 at 11:49:20AM +0200, Louis-Alexis Eyraud wrote:
-> > The MT8195 UFS host controller dt bindings now describe several
-> > extra
-> > required clocks that were previously missing from clock description
-> > and deprecates the freq-table-hz property use in favour of
-> > operating-points-v2 instead.
-> >=20
-> > Currently, the ufshci node declares the freq-table-hz property but
-> > all
-> > values contained in the array are zero, thus converting it to an
-> > OPP
-> > table is not needed.
-> >=20
-> > So, add in ufshci node the rx_symbol clocks in clock list and
-> > remove
-> > freq-table-hz property.
-> > Also reorder properties in node.
-> >=20
-> > Signed-off-by: Louis-Alexis Eyraud
-> > <louisalexis.eyraud@collabora.com>
-> > ---
-> > =C2=A0arch/arm64/boot/dts/mediatek/mt8195.dtsi | 21 ++++++++++---------=
--
-> > -
-> > =C2=A01 file changed, 10 insertions(+), 11 deletions(-)
->=20
-> DTS must not be combined with patchset targetting SCSI/UFS, because
-> UFS
-> folks were grabbing entire thread. Please follow the same rules as
-> when
-> submitting to USB, serial etc.
->=20
-Ack.
-I'll drop the 3 devicetree patches in the next revision and send them
-in a new series.
+Hello Jakub,
 
+> The SH1107 display controller is very similar to SSD1307 but the main
+> difference is that SH1107 has different memory layout and uses page mode
+> adressation only.
+>
+> The SH1107 relies primarily on vertical page addressing mode where the
+> internal 128x128 GDDRAM is split into 16 vertical pages, rather than
+> the horizontal/tile addressing modes natively utilized by the
+> SSD1306/SSD1307.
+>
+> Signed-off-by: Jakub Turek  <jakub.turek@elsta.tech>
+> ---
+
+
+The fbdev driver is obsolete and likely to be removed soon. Instead please
+use the KMS driver (drivers/gpu/drm/solomon/ssd130x*). This already has
+support for the sh1106, so adding ssh1307 support should be trivial
+
+(basically just adding an entry to the device ID tables I believe).
+
+-- 
 Best regards,
-Louis-Alexis
 
-> Best regards,
-> Krzysztof
->=20
+Javier Martinez Canillas
+Core Platforms
+Red Hat
+
