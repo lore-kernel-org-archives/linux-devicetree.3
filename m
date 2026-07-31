@@ -1,142 +1,115 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F3DF453A2E
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 16:21:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D866E469829;
+	Fri, 31 Jul 2026 16:27:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785514914; cv=none; b=jR7evJo+ODC9avSo51c+PuGEcNVxwiCEDRb83uUOt4E2FcINXhjOSjFFeq0xa01taLbaCbYC5lOiyW4MjrlEHBPuaBmaNj7aJX7YJXVW2Hlu2qFmqcbBxh0vx5Egq+qIoAzGjFN4Dy6xvtvW+d79ryJG+j0wZNAn76a+6veOBpA=
+	t=1785515274; cv=none; b=MsjVKLp8k1VjPyOa+R6hZB7qfKzUjDwBcNxAfGrn7Hu7fOFW3ZWKAYsjQCjF/9yJYe/bLXu+RlS6N0SNIl+2qIoLqYElPzGEcBYR6tQqLrYrLtBglaZlfds6qMGfzKJu+rLCtJTpXfEmCDjAUU61YwMNvuKarz0K4UZKbYpK08A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785514914; c=relaxed/simple;
-	bh=XxPxlj15S9GHxpbr6kayVJohduiQuJOZXJICcGUo5pk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=iLOK33pdZ4yrgdv1B4R77nUbzhErDbnuOPXjFNuljyE40CFWKhA81n2xs5qaJvIjiWbI2bUTjKfvZIMciZGl/gNOhRNWzHqslwZVdxngNy2a6MoO6FdudfGS//WCdqyzSSeJAX1umutZxF+e5EJQA3DQrnI25CJmUcDGSobJ1XI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=aI1guHNR; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1785515274; c=relaxed/simple;
+	bh=oQakT4tZTZ26yYuWUyxmknYxLRV5Ax8XxkRik07misk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=aU7ogxYRAQZfibPOwBwQw69+5zz4TaEGJIXhIsVF6WWCPg8LHCaXBBRW+PvT18CMTHivhlBFr8c2z0VQPiNupm12EfsrGptrz/4VdwfRTbFqHJzU2zmUHpGi98ZBok6TX4yjhVNJ6P8pAScUyeSK0E8D5H8ApnPXdPYAGxGXHtI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jaseg.de; spf=pass smtp.mailfrom=jaseg.de; dkim=pass (2048-bit key) header.d=jaseg.de header.i=@jaseg.de header.b=b5nCQHhm; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=aQa0aJKS; arc=none smtp.client-ip=202.12.124.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jaseg.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaseg.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="aI1guHNR"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-47c6e9a694bso775344f8f.1
-        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 09:21:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1785514910; x=1786119710; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=uJ1sTQDdzGH3L1I7c5cySgVgb/wH3f6ziWC+LNjIF5Y=;
-        b=aI1guHNRJprcHVYaZDag0eJX7ZB+82dfKJCf7YgZ1k9pgdAzeK8oki9YG+2iegX+vp
-         Smaq8mM0YfhbtQ8vUqdvwiO114sU76wpao2ffOSSaoIlLA/G0BwyVbtKuvbDgQWeepCs
-         Lla+gKtU3yh3SIxBeA5DRz7vHp5sLdAR1Ps1L4lTmb+cWxHaFjH6/DiMEZnisV48AtcN
-         DjLqYaD9drWuVde72grzdPRrNqb6d74xk++w8fpVx46dM8Lalr5jr5TwuWVhFF65y2sN
-         lv7RTU8XVdWZFVsIn9+c5kDwV+WrJXTlcn6IJxQyhh+ayiVAbt3MMOYJr6aFj4IzpAe4
-         +Hyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785514910; x=1786119710;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=uJ1sTQDdzGH3L1I7c5cySgVgb/wH3f6ziWC+LNjIF5Y=;
-        b=rSIFHTUF/PZY13L08k5zd+8biahWBpVmu2AKMuJ8jgyN6uHDURb3gKl2ns+K1pWcN+
-         i6/S8iV2XR7+f8uHm6RGm0ckdaQWrTbJ/ezQe68mw9quIuuwXSn0i1o2pbP3dHU6md2h
-         M41ZdsO8jG4YdDokMQ0XRJLuZHRtJczv/n5uPmhizNzjjiESWrEcJc8W8h5fCTtVA1AN
-         Yw5yz+912qUmngoSu74cLkMXiHC9+j3xJBJbuqFi1t2umbXswSgc2BfbLKfeearvVp4w
-         khs540YjAXXCUQrN1wErzbEtOKYLNVNQCRP4uW69/11X4gqtc0Qucp1PO1jmYIlq8lN3
-         FBSw==
-X-Forwarded-Encrypted: i=1; AHgh+Rq/K818BsxIIk5IL+VP9ZmDqv8P3L7aYTQHBEC8wKjIIUFi/Dzi9F1fF94TARKuJ2yJbrWleC7jti9B@vger.kernel.org
-X-Gm-Message-State: AOJu0YzuU305tJxadEeCFPftAv/L08dsD18uAo1OWh1ckZAexWnli6KC
-	kvucAMmQVw0nXx7J17klFxdglsGAHtQ6kCQNl3Iyr5DYwyJfPcEaSyNConG8JZCzwWg=
-X-Gm-Gg: AR+sD10nzX7IQncjA1bopp5Rf2xZ4rHgzLLfRB4HNVU8SldqISO6wrKN2Y9ybu2kphk
-	zhBW6t0AXWC2719pNRjJ9P1lgF6Yf8okvQZJNKh6946HVxlQwbkteAj971PEquhnDKMuZ4qYTij
-	J6+4NwPZPTHCJG/80DnfA45I2ZPdFIdW2GN7tv19TG4Pa6+8LhnLWxO/koH0zl8BYQJy9j7KWMl
-	kNyKR2IW10xuqUbqC9Ib6EMa1YtX93d7MPNSRX4q7dQFdSjsECm6OygbGObi3efuZTU2Ju3WZUZ
-	UF57FjzNIVjPUfNk2NWbIogiFp4Uqn+vkpPPqMXlQcbMaWxwvfctUNI0tTHt9tjtGf3wa6Czqpf
-	i8FUkJ76lwDPwufUdsNM2SS5q1oHZwwYe8+FuX0DLi7SAJsbBPfeVCyUKj+XAEV8kdZHjW3ZRMn
-	ZtE++AOWhujEx45Bh1jWcQvT1qloLYGHTYNZa4R9PaFicOg9nwyhCYNQYcE0zoakFpK8Dk
-X-Received: by 2002:a05:6000:110d:b0:47f:59ef:bbb2 with SMTP id ffacd0b85a97d-47fd72b904fmr539478f8f.17.1785514909845;
-        Fri, 31 Jul 2026 09:21:49 -0700 (PDT)
-Received: from localhost ([2a01:e0a:3c5:5fb1:d00b:bc94:65a:a73d])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-47fd41e296csm6440334f8f.12.2026.07.31.09.21.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 31 Jul 2026 09:21:49 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-Date: Fri, 31 Jul 2026 18:21:45 +0200
-Subject: [PATCH] dt-bindings: mmc: sunxi: add compatible string for
- Allwinner A733 MMC0/1/2
+	dkim=pass (2048-bit key) header.d=jaseg.de header.i=@jaseg.de header.b="b5nCQHhm";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="aQa0aJKS"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 4D71A7A00C2;
+	Fri, 31 Jul 2026 12:27:49 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Fri, 31 Jul 2026 12:27:49 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaseg.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1785515269;
+	 x=1785601669; bh=J5nIrNoSMiFUIl5DH8xWdANuglVgj8cbxwTsb9rwYoA=; b=
+	b5nCQHhm0J+Bh4qWMlYQ+VsiYMqE3pkfp60xUmMoRloMX0iNUYrevWKmbbyiOWGv
+	C8A4jONRfkjwdqa4UDoPf2/VFB+0CJDYxlfdIuwSFIxZ1y5yisj6t0jPZSM4VxsH
+	pqOYwrh8rjbx+0D9GGSdTnnVK18qbw6BQAVphQpwLDfz4mV8GxmENU1812Qmh5Mh
+	Ai8uEnYo6JS6yVNNqsya7j+iQ9tZbapAF0QAWYlNV4Tj9LskF3Mp8dVvKMe/e6jt
+	bPcW0IZ8vzdsMlpLkaVB7E1912BAhzHsum9haIOY48eNaYCmPLEPkjirpl8oGvVO
+	BCNwOK0df5Nv7Fh7gsl1uQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1785515269; x=
+	1785601669; bh=J5nIrNoSMiFUIl5DH8xWdANuglVgj8cbxwTsb9rwYoA=; b=a
+	Qa0aJKSLM9u3cdJFxgBm0tbxdbLzGB4URrat1wcWTbAgoDVihHaOx1FvOk5GIiQR
+	/9p0LgUh2oyils3n7tYpJKvL79ebLZhQB0aghE1ZC1j4GhFSfbj859ouesVQHpTR
+	21iCK7tU/bndrfcMO96y43oh9nCedWbYQwwgEDW3Ng2xKkth4bK/CclGpjKqfrNr
+	6g3aqGKku+hEg9VOusp0tbXKRRX9+w2lHNgEwF9ea2ZOoWk1yP9DpQEtpDwF+IsT
+	OVW5dLG/FN5Eg5QFY7GFd4Cg0P0hlhUvEJGbgcnZD7AL/LonmXWVSSdE+vPlk7K8
+	GD2+mOHKnOpxl9PcfPyJA==
+X-ME-Sender: <xms:Bc1sakFa6ckKoqrFLAzPC3TUrv5WJxH6ldYcow49AmwJFyn0bT91aw>
+    <xme:Bc1satyJ_0I47EPzXiqmmi1_m9TXVwaQcCgTvfFud_seRcZqPon_9myIfXvEIVnvh
+    xtv3nMfz-y1XKLyXPeBF10jKdZoRdIgT3vmq_Ar_VFPFuD_TdrOvvI>
+X-ME-Received: <xmr:Bc1sau1WgMT4nRpp1Fsg_3S3JEfCzTecw1KWURrEtAPSWNnCnA_fvP2WfJtWoMcWgnExcfRUem-PM7qFwQ>
+X-ME-Proxy-Cause: dmFkZTGGTelZmm0/EhQAYArVTdDhZzjnmAPb6bZI2uOfRhcPRz2TI2oV8V45PSh9LdLr+9
+    dOlgXoBfEoyyFAhrcqXPD5Q9hVEjtJXoIhF2MoKd1yKDTw2ea5Nuq/+/AmFYSUo339o9zZ
+    H/at4LG3KrzxwoyaKUbXnTAmsLw8u8bstL0n0Hm+zeS6dtuk4WBOYvxR1KeM91qs9pbTHn
+    V5Yj6ph4RyA95kbMawVJDFVjaiGwugJQQV6H1QnRSnyH1rCnmQnAGiB4dMHKZak/Asn8tO
+    F/0oy0n4YeNO9MT0ImsCVvnJvFB1zR3ciQwN/2JEWm+YOztTqwzq31OHYrU6wne+Cpi3K5
+    TTD8qnOBAfOaIb/KCcnmwKr8TGm24y8rMJ8KNnshmEvBNvcrVA3lZ/fsqnabQ+bcEZvCxK
+    jVF6kNhPnROpmUpXsT9cQQ9WQAmvp3ChKXD/51Kcb96H3pMPJzDNcq1KfaKpkTZ8t4KfO5
+    AZsrHKXNbdf8Go9a0FfJSzKbdlEWCCQe6tUIEj8/1faJjDnVbgdenfwqKItxhfUu5xB2KJ
+    wGozjEql6w4pzgqozJiilyeInEsR6qujBgBrWFTgx+kdN6tGchhD24yAmJ/Q5c67/RvrEs
+    wT/Jm4IWcIvL3Yzv1SN3Sy2S1UiUxCs+GGRjhmkWjnngDVFojYXuBC16Bqmg
+X-ME-Proxy: <xmx:Bc1satrXBRkLfy7bBimN3F5eqR7idEanWT0Vno0Sk7EwpK5or2MGVw>
+    <xmx:Bc1sarX8CGRGgs6ptGjh4hnHVpC5Hyl-vlRHZqdDlvC7PuwwdIO5XA>
+    <xmx:Bc1samo4L8h--wHiXNuzz4IIByBgWUAUm6bNzU9kzfDiV70sIy9muA>
+    <xmx:Bc1saiAZoPLmVSYE-iqXwOXEVnDxMd99-Vrj7I2Y-e1HY64J7oPTWw>
+    <xmx:Bc1sahVxvqUHa0FML2utnkaBiC0hBDSUqJQDNS2wNexZYmN7JiE2vwDI>
+Feedback-ID: i60a14417:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 31 Jul 2026 12:27:47 -0400 (EDT)
+From: =?UTF-8?q?Jan=20Sebastian=20G=C3=B6tte?= <linux@jaseg.de>
+To: =?UTF-8?q?Jan=20Sebastian=20G=C3=B6tte?= <linux@jaseg.de>
+Cc: devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kexec@lists.infradead.org,
+	keyrings@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-security-module@vger.kernel.org,
+	linux-integrity@vger.kernel.org
+Subject: [PATCH 1/4] of/kexec: fix typo in comment (usable-memory-range)
+Date: Fri, 31 Jul 2026 18:27:36 +0200
+Message-ID: <20260731162739.158320-2-linux@jaseg.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260731162739.158320-1-linux@jaseg.de>
+References: <20260731162739.158320-1-linux@jaseg.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-allwinner-a733-mmc-support-v1-1-e9209e3f9761@baylibre.com>
-X-B4-Tracking: v=1; b=H4sIAJjLbGoC/yXMSwrCQAwA0KuUrA3MByx6FXExjalG2umQtFUov
- bujLt/mbWCswgbnZgPlVUymXOEPDdAj5Tuj3KohuHB0bfSYhuElObNiamPEcSS0pZRJZ6ST8x1
- FH5h7qEFR7uX9yy/Xv23pnkzzd4R9/wAckiuRfgAAAA==
-X-Change-ID: 20260731-allwinner-a733-mmc-support-c901bc312eef
-To: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>
-Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- linux-kernel@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1531; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=XxPxlj15S9GHxpbr6kayVJohduiQuJOZXJICcGUo5pk=;
- b=owEBbQKS/ZANAwAKAeb8Dxw38tqFAcsmYgBqbMuaGBEtOXw6eyEAQdb4ueNcKXVnLyzMw+3Ow
- a8chhWa/IaJAjMEAAEKAB0WIQT04VmuGPP1bV8btxvm/A8cN/LahQUCamzLmgAKCRDm/A8cN/La
- hR1PD/sEk5V/TmB+PixkJKTl+qwb33DuOqRp0owY1d0HZF7hDO+R6nDvpCaUe5T2Ggv5kjSICDO
- 5oxaZsYafCk8FDT2kEjEMVEt8ip2q5IaCNCvU6wrOr8XntnbCJV7UAW7QDPEOxhuKET4J7lLL/k
- fdajXh53to6Jb7TnZUnws/ji73UQpptTVgcj2iowcc0/yzxYjENuvx4jh4FNKpvhjYLS+JwvL2w
- MJgvjIB3YVTHyHxFvhC+3rdf6XA47PuIuX1Njj2xn1hKoFsdRvISZedaOWqdENe2dPHcQsDw6BP
- 8hJQb9pMAgorYFy53+c0SwdLz/2yS+272cUOGW4mkFY5zUfngSLFhCcA/ObOorfsTtG72l0MOi6
- Jdxe9ZOsWt77g/zNj6nNh+9L+o/Z2r6iIRv2BDJsEZe/JQkVev1vUIeoGQ7mQz1Gk1nv+Ug4vV+
- PCmxP4HikD+k3uaDOeN/tTYB5+GI7Nf4aEN5cwjt9VuXl8Q6474tnY99TqB5abiMt/zikW4vVhN
- ZT96Hz9gCkVJXSeCFxyMFimDrJb/WWhH9e5afLEsy0oPV3hRt+souELk+e/igMJfaqBNYmjgJGo
- EkeOqbsv+NOEiAHdV2BCYd/basqgQB/C27NOMLgF1N9AVz5A4EADDZdnHVBhN4vebI6e6obgoDR
- If7GJB/TYksUT/w==
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The A733 MMC0/1/2 controllers are compatible with the D1 ones.
-Add an A733-specific compatible string, with the D1 as fallback.
-
-Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+Signed-off-by: Jan Sebastian Götte <linux@jaseg.de>
 ---
-Like the A523, the A733 3 first MMC controllers share the same IP block.
-The 4th is known to be incompatible with 3 first.
+ drivers/of/kexec.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Unlike the A523, the A733 4th controller is not dedicated to eMMC.
-This 4th controller access the memory through a different bus. This is not
-supported (or tested) yet. It will require a different compatible when the
-time comes.
----
- Documentation/devicetree/bindings/mmc/allwinner,sun4i-a10-mmc.yaml | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/Documentation/devicetree/bindings/mmc/allwinner,sun4i-a10-mmc.yaml b/Documentation/devicetree/bindings/mmc/allwinner,sun4i-a10-mmc.yaml
-index 9f3b1edacaa0..9e9610bb1eda 100644
---- a/Documentation/devicetree/bindings/mmc/allwinner,sun4i-a10-mmc.yaml
-+++ b/Documentation/devicetree/bindings/mmc/allwinner,sun4i-a10-mmc.yaml
-@@ -56,7 +56,9 @@ properties:
-           - const: allwinner,sun50i-h616-mmc
-           - const: allwinner,sun50i-a100-mmc
-       - items:
--          - const: allwinner,sun55i-a523-mmc
-+          - enum:
-+              - allwinner,sun55i-a523-mmc
-+              - allwinner,sun60i-a733-mmc
-           - const: allwinner,sun20i-d1-mmc
+diff --git a/drivers/of/kexec.c b/drivers/of/kexec.c
+index 029903b986cb..36635f6cb900 100644
+--- a/drivers/of/kexec.c
++++ b/drivers/of/kexec.c
+@@ -24,7 +24,7 @@
  
-   reg:
-
----
-base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
-change-id: 20260731-allwinner-a733-mmc-support-c901bc312eef
-
-Best regards,
---  
-Jerome
+ /*
+  * Additional space needed for the FDT buffer so that we can add initrd,
+- * bootargs, kaslr-seed, rng-seed, useable-memory-range and elfcorehdr.
++ * bootargs, kaslr-seed, rng-seed, usable-memory-range and elfcorehdr.
+  */
+ #define FDT_EXTRA_SPACE 0x1000
+ 
+-- 
+2.53.0
 
