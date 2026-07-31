@@ -1,128 +1,161 @@
-Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.48])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483742DC79F;
-	Fri, 31 Jul 2026 13:17:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=43.163.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25D242DEA89
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 13:20:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785503841; cv=none; b=BwBY/xrLQyE5jGA5Xp/h2FXyPw+1r2FxakxEStnyNxJaUzBl+ifOQVkhptUCE8JstWoCrti6nlydkajeHHRzz2ScV0kwQZwq4720DkrJanzdRWKfDdvN8bm+TrYT4PcrWkIZeDnsL2PQ28kRznNLd+PSosNgytFD2VTtJJS6b+E=
+	t=1785504024; cv=none; b=pP/oig+AKm5Gmu4v8EQtA0Hc7U7W5unwYdWlUZifU2TF5lnvdD9/gaM+0qlc9ChaD9AFkt78PYN1/p5E6XAx5jGH+AjBOh8Ho2f3abtEWm7gVr7PnhpCKpF2JQgKBlDBXaUDV6stNNJZ2eWOyJSf2y2CByqhgWFB8/jroY+jRaw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785503841; c=relaxed/simple;
-	bh=gW+tvRQPk481HdTwPz8zkkWSMpWsfa6tS8dyetXXOrU=;
-	h=From:To:Cc:Subject:Mime-Version:Content-Type:Date:Message-ID:
-	 References:In-Reply-To; b=Azw91NbN15UMqic5Wp2K10zR2RsNNhHCpdetryRMsdtroeczP1kZmMEbIcLOw3xznRKqlWV3h3WgclcN4OGAag7HWqsb3HOXT2pDrFIaYqgmpSFJ3wpR5YWwwqvhK9cg4iwMqbvdD2JHyR58B/smC8+wY8Zho+C01uc4yoDxvSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=ewV+8ARl; arc=none smtp.client-ip=43.163.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1785504024; c=relaxed/simple;
+	bh=fXZc1e3H5OLeGezkYIfE84IWuVtHGqDROsWo1lIXLb4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cdMspMJD8JmdtjS45EIh8Vf5MOX37VyYBvdQeVpQjGpFQXQYECu0oXvm/TBbq7StfZU4XHSubggR4lIQoCL0punwx7ItqlG3VNz5BPT1ljpAWLVytZLYxiSF/Ls8PieYDRNZT4dYU37DWbeOwwO/XEtjpSEW4B0rXeRCuU9efNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aDTOX6ug; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="ewV+8ARl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1785503832; bh=gW+tvRQPk481HdTwPz8zkkWSMpWsfa6tS8dyetXXOrU=;
-	h=From:To:Cc:Subject:Date:References:In-Reply-To;
-	b=ewV+8ARlCn7ZAMKcE79lizjisbfeU2oczTzpc0TFED9y8m2W5Q9/Sq0Wrs36zYZrc
-	 3KprUZeCURqox5ekUEh57UwE1pr//ENACRGlP1R3xkcvtfF4RxWEQf78d4TQIyv10p
-	 oIpqCvlVFU1JsSWvz2CdzmS/FEQOpiNblyhtLYfI=
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-X-QQ-XMAILINFO: MhgqsjsLyB9lgglpvTRWkq4RtQwA360U8xUnh2PTRxSK+CQBsNgNq1J1FIRxgq
-	 r218z1HFIuJ9IRcNN5zmmaMt/+Swh/pTr+m/FmKmAGPYysj39rXWqFCEG9LDTiz/QS0L5Mt5TDq12
-	 hK8AZIhchdjCP3Y10d3BrioMfVynEtIteUUrAJiEbx36wL1yuA4tr38v1xSg9J7UUf1Ph5rDVJocu
-	 S6a9oD38B8YhsvvwpOCwbJ0ru4XfWofU59ZHPAeP6AylfuSJ12t2gbay4LCiC8XwWLe+g6Vi2xqdn
-	 JYy2A4ISNpdjEcdoKmWT2gTo9aKVmZ3rNFqtnFOd015HhD8uqW/btnIuxVBiaBD1fK3slEOiya8QP
-	 /Os9yMk4OvS+HTRwyI/WWIf+GQ8vyyt8p/gOiAimMRtVh6g0oOztKvqd/VlWM+hxGtpglIfa9U7aa
-	 7Q0AoYrM0EzA9A0jqNO9IFtTr+m6ZzpV40hmGYh06zr49fvC+ri5ridNtnHELqCFSf1YxxZWNzx4t
-	 1s/g6FdM8Mj7tzrqc5yKJJMu9TSMyFUCcme2wdjPZoHq2vZw2zgq01YMDjKrR/KLF9Ijm5V7WuaCq
-	 fW04sxTl5GSnFtdwlK/6uRAx/UkQwWDt+GqomKu8rjDu59JJPVRTbcLP5kLn1q2/TzuVyL0XnVBJe
-	 9rfEdH/l1xFLif18WpiWQXP4mvFIdnR60a7wrKY+xZ0M5pV74OBX4QC6nP5H8L1E8Y7FB4EB6lrk+
-	 HmMzyPoe8rq+3thLJUbXhMtf87Ho+akGM06EE0d/kC52iRq/pEmQmwyupb7BTcMlD31DNapja5TPH
-	 8LFV1Eg/QqmyhzBhJUSuSN6ZpLJEzgUN5s3Ex7lbSNBJmrrJHS4P1ewnVzJHkxck0rrHt7r/p4d9G
-	 kERH+8anl8MLPpkrwcCnsS/tdDnL9YXtZEDChwvx3W+p1rxxb3DUG9GNrlvp+w9GJxSOU4cGxAa4Q
-	 O1wHEbJ4Q29JHduTzjfV24N/6YaJc5OAzeS490Y2lDYDP/jXcAq6Jh3Dbn3iyP9uOWHRUZDUFFKvy
-	 vzpgMqmCwmtuZWjMOuk/9eRMhA9ajLpmh5waTNNmqut1OxsvFQDd0YfNaVutwqokygINboFFp86cn
-	 9D8=
-From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
-To: "=?utf-8?B?TWFyYyBLbGVpbmUtQnVkZGU=?=" <mkl@pengutronix.de>
-Cc: "=?utf-8?B?a2VybmVs?=" <kernel@pengutronix.de>, "=?utf-8?B?VmluY2VudCBNYWlsaG9s?=" <mailhol@kernel.org>, "=?utf-8?B?Um9iIEhlcnJpbmc=?=" <robh@kernel.org>, "=?utf-8?B?S3J6eXN6dG9mIEtvemxvd3NraQ==?=" <krzk+dt@kernel.org>, "=?utf-8?B?Q29ub3IgRG9vbGV5?=" <conor+dt@kernel.org>, "=?utf-8?B?SGVpa28gU3R1ZWJuZXI=?=" <heiko@sntech.de>, "=?utf-8?B?bGludXgtY2Fu?=" <linux-can@vger.kernel.org>, "=?utf-8?B?ZGV2aWNldHJlZQ==?=" <devicetree@vger.kernel.org>, "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, "=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?SGVpa28gU3R1ZWJuZXI=?=" <heiko.stuebner@cherry.de>
-Subject: Re: [PATCH v6 2/4] can: rockchip: add RK3588 CAN support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aDTOX6ug"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E452A1F00ADB
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 13:20:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785504022;
+	bh=aCl9K/obc/qaBcU2SXRis+1PiCbpcZjSV6qqaO7YKoo=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=aDTOX6ug8z2gMz6azpLB55TzWkpUJSTbavBYEnANaXkUDCowmzcjvePmKbQwSbSnx
+	 //M7fpAS/X1zZcgZlVuMOMq8MDogmqGPtHen2i3U6iw0QhpcDNqmxneo6/l5ZWudyj
+	 zqUGkER39Xzt2n7AhUxPoDOS+IRdlw21AgpEps1fUBf7oyIRuRvfsvRV3pcwkTZ/9H
+	 8pYVUncx3TN6W0aE+70nlN8jAEjb8AO1lA15wytedRXBH8QsnIqkVg59QbG26qP0u2
+	 88xslNRXfyJnftHpCqQtfRKUC6al8yLgOfuaQliHOZXQjhCBXAxbIlfKWoQ6jPyuao
+	 L/Q+eSr/YGxow==
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-39c8ee87f7eso8618061fa.3
+        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 06:20:22 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrxFQ0ZV/vgFXTIraPQPKsHOC52VtJpeZI7Id78JcVSFp5mTLQz61e5yuGOAATFfq8EkPykUCdWcdJn@vger.kernel.org
+X-Gm-Message-State: AOJu0YyYfov6Lfe67rNTri8ORfwjnDXllISgBV/bYyXiHJ2y0YX6RNM1
+	4qdg65BlO+PL7Vvg7DqIctFyiFzYf41K6PcawHHW4brAAUBeG+JJ9v4jPtNjAU3jzjr0F9fs/4x
+	oBirlVCoQC02IAStMKFE/kTqgSgSIsNY=
+X-Received: by 2002:a2e:be20:0:b0:39b:3018:e5e8 with SMTP id
+ 38308e7fff4ca-39f7e399a84mr4063191fa.12.1785504021258; Fri, 31 Jul 2026
+ 06:20:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Fri, 31 Jul 2026 21:17:10 +0800
-X-Priority: 3
-Message-ID: <tencent_5AC853C017A2AE1F5B13110D854C79C2FF06@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <tencent_7BAA0052C402BFFD26291A64198084E39107@qq.com>
- <tencent_207E464D12344B3228096E23A001D6882508@qq.com>
- <20260731-tall-camouflaged-earthworm-e1a7d0-mkl@pengutronix.de>
- <tencent_A3698A465C4621E164443B0005D1CC6FAE05@qq.com>
-	<20260731-precise-functional-lobster-cd779f-mkl@pengutronix.de>
-In-Reply-To: <20260731-precise-functional-lobster-cd779f-mkl@pengutronix.de>
-X-QQ-mid: xmsezb41-0t1785503830tg7jpmm29
+MIME-Version: 1.0
+References: <20260721223956.13665-1-andre.przywara@arm.com>
+ <20260722172356.2509190-1-juanmanuellopezcarrillo@gmail.com>
+ <20260723002319.2793cdaf@ryzen.lan> <CA+c=wxVB-cEncgBE12S2YgXhL7DVgRyg12_4jJ-CjxzBjK62kw@mail.gmail.com>
+ <c539e5c4-f21e-49a1-b0e3-d35f42893fc4@arm.com>
+In-Reply-To: <c539e5c4-f21e-49a1-b0e3-d35f42893fc4@arm.com>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Fri, 31 Jul 2026 22:20:22 +0900
+X-Gmail-Original-Message-ID: <CAGb2v67CGcaQmSz_tTbSTQ7dzfCV2+7i5t_34iHKmyU05h-yRQ@mail.gmail.com>
+X-Gm-Features: AUfX_mwhrLD5Q1QX9sADUb1-mA4bFhX0ct_Zhama9EUbjG0lVP36L811sJeDsZ0
+Message-ID: <CAGb2v67CGcaQmSz_tTbSTQ7dzfCV2+7i5t_34iHKmyU05h-yRQ@mail.gmail.com>
+Subject: Re: [PATCH] pinctrl: sunxi: A523: fix voltage withstand encoding
+To: Andre Przywara <andre.przywara@arm.com>
+Cc: Juan Manuel <juanmanuellopezcarrillo@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-SGkgTWFyYywKCj4gPsKgPsKgQ2FuwqB5b3XCoGF0dGFjaMKgdGhlwqBUREPCoHRvwqB0aGXC
-oENBTsKgZnJhbWV3b3JrP8KgU2VlwqBjb21taXTCoDVlMTY2MzgxMGUxMQo+ID7CoD7CoCgi
-Y2FuOsKgbWNwMjUxeGZkOsKgZml4wqBUREPCoHNldHRpbmfCoGZvcsKgbG93wqBkYXRhwqBi
-aXTCoHJhdGVzIikuwqBBbmTCoGNoZWNrwqBpZgo+ID7CoD7CoENBTi1GRMKgd29ya3PCoG9u
-wqB0aGXCoHJrMzU4OMKgd29ya3M/Cj4gPgo+ID7CoENvdWxkwqB3ZcKgbGVhdmXCoHRoZcKg
-UkszNTg4wqBUREPCoHN1cHBvcnTCoG91dMKgb2bCoHRoaXPCoHBhdGNowqBzZXJpZXPCoGZv
-csKgbm93Pwo+IAo+IC4uYW5kwqBtYXJrwqB0aGXCoHJrMzU4OMKgYXPCoFJLQ0FORkRfUVVJ
-UktfQ0FORkRfQlJPS0VOwqBmb3LCoG5vdz/CoEZpbmXCoHdpdGjCoG1lLgoKSSBoYXZlIGZp
-bmlzaGVkIHRlc3RpbmcgdGhlIENBTi1GRCBUREMgaW50ZWdyYXRpb24gb24gUkszNTg4LgoK
-RW5hYmxpbmcgVERDIG1ha2VzIHRoZSB0cmFuc21pdHRlciBlbnRlciBidXMtb2ZmIGZvciBl
-dmVyeSBURENPIHZhbHVlCnRlc3RlZC4gVGhpcyBpbmNsdWRlcyB0aGUgZnJhbWV3b3JrIHZh
-bHVlIChURENPPTQ4KSwgVERDTz0wLCBhbmQgdGhlCm5vbi16ZXJvIHZhbHVlcyAxLCA4LCAx
-NiwgMjQsIDMyLCA0MCwgNDggYW5kIDU2LiBXaXRoIFREQ089NjMsIG9ubHkgb25lCmZyYW1l
-IHdhcyByZWNlaXZlZCBkdXJpbmcgYSAxMCBzZWNvbmQgdGVzdCwgc28gdGhhdCBzZXR0aW5n
-IGlzIG5vdCB1c2FibGUuCgpJIGNoZWNrZWQgdGhlIHJlZ2lzdGVyIGRlZmluaXRpb24gYWdh
-aW5zdCBSb2NrY2hpcCBSSzM1ODggVFJNClYxLjAtUGFydDEtMjAyMjAzMDkucGRmLiBUaGUg
-ZHJpdmVyIHVzZXMgQ0FOX1RSQU5TTUlUX0RFTEFZX0NPTVBFTlNBVElPTiBhdApvZmZzZXQg
-MHgxMDgsIHdpdGggdGRjX29mZnNldCBpbiBiaXRzIDY6MSBhbmQgdGRjX2VuYWJsZSBpbiBi
-aXQgMCwgd2hpY2gKbWF0Y2hlcyB0aGUgVFJNLiBUaHVzLCB0aGUgZmFpbHVyZSBpcyBub3Qg
-ZXhwbGFpbmVkIGJ5IGFuIGluY29ycmVjdCByZWdpc3RlcgphZGRyZXNzIG9yIGZpZWxkIGRl
-ZmluaXRpb24uCgpUaGUgdGVzdCBzZXR1cCB3YXM6CgogIEJvYXJkOiAgICAgICAgICAgICBl
-bWJlZGZpcmUscmszNTg4LWx1YmFuY2F0LTVpbwogIENBTiBjbG9jazogICAgICAgICAzMDAg
-TUh6CiAgTm9taW5hbCBiaXRyYXRlOiAgIDUwMCBrYml0L3MKICBEYXRhIGJpdHJhdGU6ICAg
-ICAgNSBNYml0L3MKICBTYW1wbGUgcG9pbnRzOiAgICAgODAlIG5vbWluYWwsIDgwJSBkYXRh
-CiAgQnVzOiAgICAgICAgICAgICAgIGNhbjAgYW5kIGNhbjEgZGlyZWN0bHkgY29ubmVjdGVk
-LCA2MCBPaG0gdGVybWluYXRpb24KCldpdGggVERDIGRpc2FibGVkLCBhYm91dCAyOSw3NzUg
-ZnJhbWVzIHdlcmUgcmVjZWl2ZWQgaW4gdGhyZWUgc2Vjb25kcyB3aXRoCm5vIGJ1cyBlcnJv
-cnMuIFdpdGggVERDIGVuYWJsZWQsIGNhbjAgdHlwaWNhbGx5IHJlYWNoZWQgYnVzLW9mZiBh
-ZnRlciBhYm91dAoxNS0zMSBidXMgZXJyb3JzLgoKVGhpcyBpcyBhIHByZWxpbWluYXJ5IGlu
-ZGljYXRpb24gb2YgYSBwcm9ibGVtIGluIHRoZSBSSzM1ODggQ0FOIElQIFREQwpwYXRoLCBh
-bHRob3VnaCBpdCBpcyBub3Qgc3VmZmljaWVudCB0byBwcm92ZSBhIHNpbGljb24gZGVmZWN0
-LiBJbgpwYXJ0aWN1bGFyLCB0aGUgaGFyZHdhcmUtbWVhc3VyZWQgdHJhbnNtaXR0ZXIgZGVs
-YXkgKFREQ1YpIGlzIG5vdCBvYnNlcnZhYmxlCnRocm91Z2ggdGhlIHJlZ2lzdGVycyBkZXNj
-cmliZWQgYnkgdGhlIFRSTSwgc28gdGhlIFREQyBvZmZzZXQgc2VtYW50aWNzCnN0aWxsIG5l
-ZWQgdG8gYmUgdmVyaWZpZWQgaW5kZXBlbmRlbnRseS4KClREQyBpcyBub3QgYSBtYW5kYXRv
-cnkgZmVhdHVyZSBmb3IgYSBDQU4tRkQgaW1wbGVtZW50YXRpb24uIEl0IGNvbXBlbnNhdGVz
-CnRoZSBUWC10by1SWCBsb29wIGRlbGF5IHdoZW4gdGhhdCBkZWxheSB3b3VsZCBvdGhlcndp
-c2UgY29uc3VtZSB0aGUgdGltaW5nCm1hcmdpbiBiZWZvcmUgdGhlIG5vcm1hbCBzYW1wbGUg
-cG9pbnQuIFdoZXRoZXIgaXQgbXVzdCBiZSBlbmFibGVkIGRlcGVuZHMgb24KdGhlIGNvbXBs
-ZXRlIGhhcmR3YXJlIHBhdGgsIGluY2x1ZGluZyB0aGUgY29udHJvbGxlciwgdHJhbnNjZWl2
-ZXIsIFBDQiBhbmQKYnVzLiBJdCBpcyB0aGVyZWZvcmUgbm90IHJlcXVpcmVkIHNvbGVseSBi
-ZWNhdXNlIENBTi1GRCBvciBhIHBhcnRpY3VsYXIKZGF0YSBiaXRyYXRlIGlzIHVzZWQuCgpP
-biB0aGUgYm9hcmQgdXNlZCBmb3IgdGhpcyB0ZXN0LCBDQU4tRkQgcnVucyByZWxpYWJseSBh
-dCA1IE1iaXQvcyB3aXRoIFREQwpkaXNhYmxlZCBhbmQgbm8gbG9zdCBmcmFtZXMuIFRoaXMg
-ZGVtb25zdHJhdGVzIHRoYXQgUkszNTg4IHN1cHBvcnRzIENBTi1GRCwKd2hpbGUgdGhlIG1h
-eGltdW0gdXNhYmxlIGRhdGEgYml0cmF0ZSBzdGlsbCBkZXBlbmRzIG9uIHRoZSBib2FyZCBk
-ZXNpZ24gYW5kCml0cyBUWC10by1SWCBkZWxheS4gQm9hcmRzIHdpdGggYSBsb25nZXIgZGVs
-YXkgbWF5IG5lZWQgYSBsb3dlciBkYXRhIGJpdHJhdGUsCmp1c3QgYXMgZGlmZmVyZW50IENB
-TiB0cmFuc2NlaXZlcnMgaGF2ZSBkaWZmZXJlbnQgbWF4aW11bSBkYXRhLXJhdGUKc3BlY2lm
-aWNhdGlvbnMgKGZvciBleGFtcGxlLCA4IE1iaXQvcyBmb3Igc29tZSBkZXZpY2VzIGFuZCA1
-IE1iaXQvcyBmb3IKb3RoZXJzKS4KCkluIG15IG9waW5pb24sIGVuYWJsaW5nIENBTi1GRCBz
-dXBwb3J0IG9uIFJLMzU4OCBpcyBpbmRlcGVuZGVudCBvZiBUREMuClREQyBpcyBhbiBvcHRp
-bWl6YXRpb24gZm9yIGhhcmR3YXJlIHBhdGhzIHRoYXQgbmVlZCBhZGRpdGlvbmFsIFRYLXRv
-LVJYCmRlbGF5IGNvbXBlbnNhdGlvbiwgcmF0aGVyIHRoYW4gYSBwcmVyZXF1aXNpdGUgZm9y
-IENBTi1GRCBvcGVyYXRpb24uIEkgd291bGQKdGhlcmVmb3JlIHN0aWxsIGxpa2UgdG8gZW5h
-YmxlIENBTi1GRCBzdXBwb3J0IGZvciBSSzM1ODggaW4gdGhpcyBzZXJpZXMgd2hpbGUKa2Vl
-cGluZyBUREMgZGlzYWJsZWQuIFREQyBzdXBwb3J0IGNhbiBiZSBpbnZlc3RpZ2F0ZWQgc2Vw
-YXJhdGVseSBpbiBhCmZvbGxvdy11cCBwYXRjaCBvbmNlIGl0cyBiZWhhdmlvciBoYXMgYmVl
-biB1bmRlcnN0b29kLgoKQmVzdCByZWdhcmRzLApDdW5oYW8K
+On Fri, Jul 31, 2026 at 10:08=E2=80=AFPM Andre Przywara <andre.przywara@arm=
+.com> wrote:
+>
+> Hi Juan,
+>
+> On 7/30/26 19:40, Juan Manuel wrote:
+> > Hi Andre,
+> >
+> >> There is more to enabling Ethernet on the box, though, right? The
+> >> EMAC25M pin needs to be configured correctly - not even sure that
+> >> works cleanly with mainline? And what are the delay values that work
+> >> for you?
+> >
+> > Right, the withstand fix alone isn't enough. Three things were needed t=
+o
+> > get GMAC1 up on the OPi 4A:
+>
+> Sorry, there might be some confusion here: I think Chen-Yu already
+> mentioned that Ethernet works on his OPi 4A, with just the withstanding f=
+ix.
+> I think I was mixing this up with the X96QPro+ TV box when asking, which
+> also uses the second MAC, but has a different setup.
+> So are you talking about the Orange Pi 4A? Because ...
 
+I only said the patch fixes eMMC. Ethernet already worked before. Though
+to be honest, ethernet on the A523 has other problems. The performance
+is really bad (even RX), and there are errors or packet drops.
+
+ChenYu
+
+> > 1) The PJ pinmux. Mainline's rgmii1 group was missing PJ10, which left
+> >     one RX signal unmapped, so I got rx_packets=3D0. The BSP muxes the =
+full
+> >     PJ0..PJ15 (16 pins) as function "gmac1" (mux 5); with all 16 mapped=
+,
+> >     RX comes alive. I don't mux any separate/dedicated 25 MHz clock-out
+> >     pin beyond that gmac1 group, and the link is rock solid, so on this
+> >     board the PHY's 25 MHz reference isn't provided by an extra SoC pin=
+.
+>
+> I think there is some misunderstanding here, probably caused by
+> Allwinner's naming of that pin. Pin PJ10 (and PH13, inside the GMAC0
+> group) are mere clock fanouts, they connect internally to two gated
+> divider clocks, with the main peripheral PLL as their parent. They
+> produce a 25 MHz clock signal, which is simply routed out to those pins.
+> They work independently of the MACs, and could be even used for
+> something else.
+>
+> On boards which do not use a crystal oscillator to clock the PHY (most
+> boards, including the OPi 4A, have an oscillator!), the pin is not
+> needed, hence we didn't include it in the pinmux. According to the
+> schematic, PJ10 is not even connected on the OPi 4A, so whether you
+> include it in the pinmux or not doesn't matter.
+>
+> So can you please double check this? For PJ10 to have any effect, it
+> also would need the associated clock enabled.
+>
+> And for the records: I think I found now the proper solution to enable
+> Ethernet on the X96QPro+: the pinmux for PJ10 gets added, either in the
+> PHY, or the MAC DT node. The associated EPHY_25M clock must then be
+> referenced by the PHY node. And the respective PHY driver needs to
+> enable that clock (some do, others don't).
+> With those things in place, Ethernet works on the X96QPro+ board, which
+> does not feature a crystal oscillator, hence relies on that 25 MHz clock
+> output to step in.
+>
+> > 2) RGMII clock delays. The board has a Motorcomm YT8531 PHY:
+> >       - phy-mode          =3D "rgmii-rxid"
+> >       - PHY node          : rx-internal-delay-ps =3D 1900  (YT8531
+> > RXC_DLY_EN, ~1.9ns)
+> >       - MAC syscon        : tx-internal-delay-ps =3D 100
+> >                             rx-internal-delay-ps =3D 0
+> >     That combo gives a stable 1 Gbps / full-duplex link, 0% packet loss=
+.
+>
+> Those settings differ from what's in mainline. What are the results with
+> those delays? Does it work as well, and those are just other settings
+> that happen to work, because the math works out the same?
+>
+> Cheers,
+> Andre
+>
+> > 3) Your withstand encoding fix. Before it, the PJ bank was driven at 1.=
+8V
+> >     while the receiver sat in 3.3V mode, so RX was effectively deaf. Wi=
+th
+> >     your patch RX reads correctly.
+> >
+> > All of the above is validated on my board (2026-07-08): link up at
+> > 1 Gbps/full, ping 0% loss over a sustained transfer.
+> >
+> > Thanks again for the withstand fix - glad the POW_MOD_SEL patch helped
+> > connect the dots.
+> >
+> > Cheers,
+> > Juan
+>
