@@ -1,177 +1,87 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46D79377543
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 20:22:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 316B3378D98;
+	Fri, 31 Jul 2026 20:28:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785529367; cv=none; b=NAb5wt5Thyfl2gSzkWHp8b9q6u4oEupmPwh9NHWSACWFfZy3R92x/viSDxya0KjIYWhoZPK4vrZUoha5YSgaOTiQFXPmZguDmELsYM9OyN72Zp+VXb/HE/6iwusNMuOMtNZ2jq0HyYcmSwX1j6u0xFbqhXMMJ6co0vWSOmWv1U0=
+	t=1785529705; cv=none; b=GOe1nftpwUW39Bz96G2mA634CacHJpBo32FSZi39/Pgzt8BGrQx6bsXKKJ4XMon3Y6Vna0s0j795uxn5R7RlwHSmU233HkDjlzgRKxQsiGiywgxGyEppdmTpkrH4lTgd9Mp+xE4RDU0P22Y8k/R68pEgIL5bxZhlDCRqK5SgWYM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785529367; c=relaxed/simple;
-	bh=ODFxmISHVX8EchUHZB7K9XrBqrp4gzoOkBwwuVYI1Xc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Gf0eCsmcotShzS0DxR8n3Ha6W5PlHx/L1xKAsaCjn8JCfcSm0M77koSZ4Pc3kLZsn+iegslfHJoNoCCNhPW+2Rk7DKKY2j9NCtsvp2GVTn/Ij71yUaBwIbzDKs8JmqTns58jCGvYNgAhmB8JJatl3wighVDPP5E5jnjKcHZFxYo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reactivated.net; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reactivated.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-4758bd3731bso1512853f8f.0
-        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 13:22:46 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785529364; x=1786134164;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=D3E8q6SLFA2ZLcc8B4L7d4FJiaa1UbNh29dUR+fF9fY=;
-        b=SO7OgnTNuVWP0biv0dmYdBWdAYIWISESY5bfcdjCTYITDqiRn4AZu/qe0xU6mb6FqO
-         yVKZBGJ9a2YNgYH1PA/skSAuZofuw/oETassIQchw8Hq/75mh3Q1ESTbCMjLOidlUVcs
-         wWuo3ejcfP276+ywspF3gHBEoUw7ZL11fOVz7pj0lD8Ik1R8XKX79darlj4vjHYtrB8n
-         BBtC4Gavm+S7+mCftRSD1CguIuqKigvNOhOksT6b/ITShGwb1CQIszHQa4ppxGK412LS
-         Bl9GH3NSM0CmcFykW0q0lq8MRvoo4I4CWiCyqK8pbuZa6gRAaNlpXjPxrL94hB68yK4t
-         LVeA==
-X-Forwarded-Encrypted: i=1; AHgh+RoUeLCLbACQHlyxuphkF+/Eq7RPbwcvZPaLqx/YSPg76t9HOPkC/2bWBVBmfRBX9jIVQEWBFH7538XS@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx8dWmExZ0oVTR6juthE+7UNAZ8yEeULhdC+aktscAeeXBTNTwi
-	pBoV0dsGOmFzpJOKj+CCqBCgp/RXrRMGu6GNq6D9xGUwAVXT0S40wuyQ
-X-Gm-Gg: AR+sD11st6OOrCdn7u8RFH3FgF1MnrGE2uAyWxbytdM+cbNa1PrX5d4og+9yV+Yw/sa
-	y9A3lAm5ZRrC2tEQk7q1LrJr8sxZyIAW6anH3m38i5w6eWt7dSNy+ZEyx7Jux35YhLipzD8C+Fm
-	N6l7OOz3P2cm+7F+aFxs5SsTUI0hqiHCzfXjPNy69RgAPg/bAtjpg2mlXRDa8xUwC2CyT81GW1/
-	Od3NDxpa+BZG5DMmmSjppcdL/s5TXvY5eTiEfDVRBuLdgHPStnf6onoVZOeydp3g22s0j5qVUXA
-	4PWkoUqL9Z7nlWHXkGqvg6LO1YK4shyOO87gyglSGZWqYjYJHPqiXyH11wWN4WOXG9s3vwNz+g+
-	FjNvGeo3GpCJFOJRVaEm5ySqC8wVIhtndAZx3Xt8vb2wLfUfB86cGCGievTtghqPDXXvzRpaSwW
-	7AKPNut1Tnnpzn/F2AKMBsuATwOfnyXbSA//mP6HRdjRx/Tk3tqUU6+pibcosSzHFer2K07qS3X
-	JZ8CfH5ta7qp+VNOC1Z2TDGTn42yh0URbTZOGGI7h58C3S71kBTBxLIMELwHR5xo0W4
-X-Received: by 2002:a05:6000:25f3:b0:47f:90f1:68c8 with SMTP id ffacd0b85a97d-47fd32b19d0mr7598242f8f.1.1785529364463;
-        Fri, 31 Jul 2026 13:22:44 -0700 (PDT)
-Received: from ?IPV6:2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183? ([2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd4562a38sm9066484f8f.21.2026.07.31.13.22.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 31 Jul 2026 13:22:43 -0700 (PDT)
-Message-ID: <d6bb859e-c1e7-428e-b765-7b471e1ce005@reactivated.net>
-Date: Fri, 31 Jul 2026 21:22:42 +0100
+	s=arc-20240116; t=1785529705; c=relaxed/simple;
+	bh=UlfLHhsfVRRA2IXK/jiVHmYps1AcbvBZLryo0bq3ryA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=t1qbjWaRTSh7h3OQ4m3XCWdZUaH94PqgOy7PrngRjCR/7xo8/oProBpBlEN7vEdIO9+jFmLeHoaaVzdU8DLP3E8tbUMGKlTV0peYMRx8PIzRb3EM3frWZRzOZfcNeBEG8rcqpCEWoU23V++17U6K4kOg92Cd0F5qUO50z5sfLwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RocqfHZ4; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RocqfHZ4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B46341F00AC4;
+	Fri, 31 Jul 2026 20:28:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785529703;
+	bh=YwfwtYedoAYnXW3RFF0QQ984O9NKILCL29Vuw4RagBI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RocqfHZ4DdmBRsHm0GYmpWyjw3R2lD2KQ3rujjOaUt+3YXjFAmK/ehdX/+kZw0BNc
+	 yn3JnvxAJt0IhCyFSSbTwDcxhojvaq83/WaANL++PXuQfxAlcpycaPD/uchKxQgBaR
+	 3LNa71E2G+h9Tc3ALO7YjTH4BxR3C87QI9bxVAetjZ47R/q8AAAY5MRTIf9zjSQpdD
+	 vkFD6/XtYtacAMhVrZe7XyCBgCYI2G2m4mdvpaZ/zgr470MFztOUSr4i4/aq+9qNPF
+	 QGGxIpZy6PIaSz0e3Q036Byhdt1rv/YRo4PVSaZGyiuvdeM5uB2DFWVOvAFmp/o5Rx
+	 yu7FdbDZZkzgg==
+Date: Fri, 31 Jul 2026 21:28:19 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Chi-Wen Weng <cwweng.linux@gmail.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	cwweng@nuvoton.com,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v5 1/2] dt-bindings: spi: nuvoton,ma35d1-qspi: Add
+ Nuvoton MA35D1 QSPI
+Message-ID: <5769eae0-1b40-419f-8311-0d919bf619fa@sirena.org.uk>
+References: <20260731023818.1626075-1-cwweng.linux@gmail.com>
+ <20260731023818.1626075-2-cwweng.linux@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/5] iommu: Add Broadcom BCM2712 IOMMU driver
-To: Jason Gunthorpe <jgg@ziepe.ca>, Robin Murphy <robin.murphy@arm.com>
-Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- nick.hollinghurst@raspberrypi.com
-References: <20260727-bcm2712-iommu-submit-v2-0-0247b5c03de8@reactivated.net>
- <20260727-bcm2712-iommu-submit-v2-4-0247b5c03de8@reactivated.net>
- <3e7ba95b-51e7-48e4-aea5-f86db1739ac2@arm.com> <amlE8rEgryPqrUZd@ziepe.ca>
-Content-Language: en-US
-From: Daniel Drake <dan@reactivated.net>
-In-Reply-To: <amlE8rEgryPqrUZd@ziepe.ca>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Cs5fTReg+qQ322w5"
+Content-Disposition: inline
+In-Reply-To: <20260731023818.1626075-2-cwweng.linux@gmail.com>
+X-Cookie: No shirt, no shoes, no service.
 
-On 29/07/2026 01:10, Jason Gunthorpe wrote:
-> If paging is attached then it sets MMMU_CTRL_OPERATING_FLAGS and
-> places the aperture at 40G. Based on the comments about blocking I
-> wonder if the "bypass" even works when paging is on?
-> 
-> If blocking is attached then it sets MMMU_CTRL_OPERATING_FLAGS with
-> some 0 address cap which aborts everything?
 
-The hardware lets two regions be configured:
+--Cs5fTReg+qQ322w5
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-1. Bypass window
-Configured as BYPASS_START_OFFSET..BYPASS_END_OFFSET
-Any device access to addresses in this range go straight through to the 
-same addresses in physical memory. There is no PT translation.
+On Fri, Jul 31, 2026 at 10:38:17AM +0800, Chi-Wen Weng wrote:
+> From: Chi-Wen Weng <cwweng@nuvoton.com>
+>=20
+> Add a devicetree binding for the Quad SPI controller found in
+> Nuvoton MA35D1 SoCs.
 
-2. IOVA Aperture
-Configured as BYPASS_END_OFFSET..ADDR_CAP_OFFSET
-Any device access to addresses in this region go through page table 
-translation before reaching physical memory.
+This leaves the generic binding's support for GPIO chip selects enabled
+but the driver doesn't set use_gpio_descriptors so they don't actually
+work.  Either the binding or the driver needs an update.  Otherwise
+things seem mostly OK so I'll apply, please send an incremental patch
+for this.
 
-The bypass must come before the aperture.
+--Cs5fTReg+qQ322w5
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Access to any address above ADDR_CAP_OFFSET will abort.
+-----BEGIN PGP SIGNATURE-----
 
-So the blocking domain is implemented by setting both of those ranges to 
-0, which means ADDR_CAP_OFFSET=0 as part of that. (I'm going with the 
-interpretation that a blocking domain is like a killswitch and should 
-abort all memory accesses.)
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmptBWIACgkQJNaLcl1U
+h9Bvdwf+IyO6Hu9Z5099OlvPR/gx0z5P+A2YPrWyLLDOKaffMb1GC8evhY20FanO
+e/xY0SsVy0K4M5UwbfvOBfK4eBfMujZO48FaFx/7eSWrs9H2pHytLSdJfN6DXrFr
+93XpW0f0gafiU8vxRMu2mY7fnqR3B7VtdhsjIW09gCG44LxWi3YbIE4s/IQVCQT1
+QnUB6DSjDB6e7YNDha19LVEqjdp/vxZgmpsEt43xs9TvZqC5iyOn3Ycuuxy7/eLm
+y66Vr4vMVCTkkQ9jbR0orEdJzKY5I1QKcrJUc0+0/kX1FTrXPp5QcxCH2/ex6yGk
+UWID0/HT7/b3Vv5M3v3M3QyVljIl2A==
+=GnHY
+-----END PGP SIGNATURE-----
 
-However, the blocking domain implementation should be removed (see below).
-
-The bypass works fine when paging is on - did you spot something that 
-makes you suspect otherwise?
-
-> It looks to me like some of those comments and choices don't reflect
-> what the driver actually does. Since there is only ever one
-> translation we never need to be worried about where the aperture is,
-> it could be anything so long as the HW gives it priority to bypass.
-> 
-> Could the aperture be placed at 0 with the bypass fully disabled? Then
-> it would basically be a normal iommu.
-Please let me know which comments/choices you are finding unclear, I 
-tried to make this driver readable and would like to fix that.
-
-The aperture could be placed anywhere, but the key idea in the current 
-driver structure is that we deliberately place it above physical memory, 
-so that we can have the bypass window operational for all regular 
-physical addresses, meaning that iommu-unaware devices can operate as 
-normal.
-
-Each of the 3-4 IOMMUs has around 5 devices hardwired into it. When the 
-IOMMU is switched on (effectively via setting CTRL_OPERATING_FLAGS), 
-*all* of the hardwired devices are subject to the IOMMU operation, 
-uniformly. There is no gating where you can have one of the devices in 
-standard passthrough mode and the rest using the IOMMU. Also there is no 
-Stream ID in the transactions, there is no way to configure per-device 
-page tables.
-
-Among the devices hardwired to the IOMMUs we might have:
-  - Devices already set up by the firmware and relying on regular access
-    to physical memory
-  - Devices that don't require large contiguous DMA allocations and would
-    prefer not to have the translation overhead of the iommu
-  - Devices that handle scatter-gather natively and prefer not to have
-    the translation overhead of the iommu
-  - & devices that want to use the IOMMU :) so that they can work with
-    large contiguous allocations which are actually scattered in
-    underlying physical memory
-
-So we have multiple needs to tend to, which is why the driver currently 
-sets up the bypass in the regular address space (serving the first 3 
-above), and the IOMMU aperture in a high, unused part of the address 
-space (for the devices that do want to take advantage of the IOMMU).
-
-Are those good enough reasons to set up the driver in this way? Or are 
-there other approaches to consider?
-
-Let's take an example where the aperture gets placed at address 0 (and 
-hence there is no bypass window). Now it is operating more like a 
-"normal" IOMMU (except without per-device configurable behaviour, stream 
-IDs, etc). The system boots and the firmware sets up the display 
-controller rendering some early boot screens. Then the kernel boots and 
-takes over the framebuffer using efifb or simpledrm. Then it loads a 
-device driver for, let's say, an image processor. This turns on one of 
-the iommus and puts it in paging mode. The aperture gets placed at 
-address 0, no bypass window. But, whoops, that iommu happened to *also* 
-have the display controller hardwared into it. Now we have a big visual 
-glitch and the display output has stopped. And maybe the kernel doesn't 
-even have the vc4 display driver available to correct that later, 
-because the expectation was just to use the simple fw-configured 
-framebuffer.
-
-This is also why I think the blocking domain implementation should be 
-removed. It causes collateral damage to all the devices which might not 
-have had any idea they were influenced by an iommu.
-
-Thanks for your help!
-
-Daniel
-
+--Cs5fTReg+qQ322w5--
