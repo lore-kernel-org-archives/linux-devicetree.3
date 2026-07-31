@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73B1D2EEE9D
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 12:16:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 551C330C157
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 12:17:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785500219; cv=none; b=T5Rqc188TuDRx1tf5Uk482xu3RMB3pVHZty6TI7t96Ll4NOK9+VwExZN2Ei+K+czY190D/uHJ/zLUR/sunYvHZKG6qPht9OLwK8FYIl1Ptj3NIR4gKKTXOsaJ/8lRQKtWulV29SluS3ZaQ4IY+clDMN2JiPc2I1XIhB9vqWC30k=
+	t=1785500255; cv=none; b=NLlexK70j6mGirDaJYcLPW3GGZi48rLqmiy4lKwe0r0dwY7NxTC770JxhD1FY9deuvzsFOKj0zvaI9wS2/YAuJ941LjbG1OoMIpONOWIzzuCHWJ/Y2vl6yKfCcXmPn6zDdroCldKDMoW4b+AVnvqJY4zGAAdUffzZSNoKmaMakA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785500219; c=relaxed/simple;
-	bh=oQ29ZKh2lgABwXWg+q8gXB6vUh9rPdqQiuX9ITX6gxY=;
+	s=arc-20240116; t=1785500255; c=relaxed/simple;
+	bh=ziTvCR3bdOPdzQp5TDkMyq2u690XI/Ih7N3OF+Noy/E=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GttIcuCvw1KS8UE8aF85E5sVfkkFbwYCprJLbAFGDeKwwc3As/I8cOMX2lwZhVHHaC+qQi0SLT+ahiUqsQePktzEthIdgzPlU4eoPBp8RacYDC4a4ZISrkoZVD5yzFLKKl9jmMFeQqi7bJ5fXfT8SHwjYuqFmf1l/Sk3EdRL+4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JvJablTb; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=MksQJkcOJZ1gnec/i+q8EHGAXs1H6qPKX4/g0INP/PobZrVGlJACVm4E+wdBpTllN4riqAYI7qg14dap0o64G2e+VdEVD8c2hcYPpspJAO3ftWZUZ0qTIF04iMNss+vUHr4ILuETb/cRezjJbG/mTtrjasWZIJQwdIRF7Nlu4oU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dXWE/rTd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JvJablTb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6C641F000E9;
-	Fri, 31 Jul 2026 12:16:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dXWE/rTd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0140C1F00A3A;
+	Fri, 31 Jul 2026 12:17:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785500218;
-	bh=0PiBkuc+eiCSeTMyXy450RropfjerGxEuupkVIzFiFs=;
+	s=k20260515; t=1785500254;
+	bh=DOokuPBpSUo5T7wJ5eGMAdo99IbBR9C5XYJi4gdqIvU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JvJablTb49DJS85qvfVCXTzfA+A3mlKu+Lp64JfWb+aPFLjPOoYSTU6Ylwhef13RI
-	 bIgRfDtBuBGHuhKOxiD/V9un6vu8cyq9yiqPgLIwWtoruZgA8kQkzxJ9qiKifcZeSH
-	 y+9Jz99oCX52mGe1DCuCQL0Cfb6ODSRG4zeVut55r5yCVhAeZHwvvKLH5I+ead7qsK
-	 GO5QTqYjl6gWlx11vRGf6slecO8UcZ7th2RQ5ImQK4EBGLjgEiu5gkw08d6lqWEF54
-	 QJXH1R0A7W7C0MgAuYhLfUdFlyPlYwihorxd6iCTHT9aEbZ0Cf79cLPf1TahbcD0Us
-	 frg+O0xliISQQ==
+	b=dXWE/rTdOODO10QGQsOBSczFaTMnSDy9w+kLmBRdZdiNWtkxTo6Hp2NuOJN1eRGIv
+	 STURTzweyBvzcvcB6Hsolr9FDPWnOEJQNxSfuJFyhL08HfOxAM+UA8YA+jjU8muPIX
+	 fl/nSXdKKEZlLSB2Oy4X6nDEdEZUxLndXnXjIzCozB8M9Up5hP8mHjUdKs2bcC7Pqc
+	 9iWrV/K3LPMNxyX2SDiG1eyeNSMbdcsHhgn3mB/j1r+PZX93w9IUNuD+J1wtqTnIQh
+	 R603GLGJXGafUYH7euqOYIY1+yYHALSBlGxAaWH+l/sRwzCaHKlPB4hRlewrK2MZmL
+	 1FnYM1Ub04xyQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 4/5] clocksource/timer-econet-en751221: Disable IRQ
- until cevt registered
+Subject: Re: [PATCH v7 5/5] clocksource/timer-econet-en751221: Support
+ EN751627 without percpu IRQ
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Caleb James DeLisle" <cjd@cjdns.fr>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260731120246.1296955-5-cjd@cjdns.fr>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260731120246.1296955-6-cjd@cjdns.fr>
 References: <20260731120246.1296955-1-cjd@cjdns.fr>
- <20260731120246.1296955-5-cjd@cjdns.fr>
+ <20260731120246.1296955-6-cjd@cjdns.fr>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 31 Jul 2026 12:16:57 +0000
-Message-Id: <20260731121657.B6C641F000E9@smtp.kernel.org>
+Date: Fri, 31 Jul 2026 12:17:33 +0000
+Message-Id: <20260731121734.0140C1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,101 +47,137 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Sparse CPU IDs cause unmapped memory access due to relying on `num=
-_possible_cpus()` instead of actual CPU IDs.
-- [Medium] The driver is missing a CPU hotplug teardown callback to disable=
- the hardware timer and mask the per-CPU interrupt when a CPU goes offline.
+- [High] Missing CPU hotplug teardown callback and missing IRQ_PER_CPU flag=
+ causes an interrupt storm and unbalanced enable_irq warnings on CPU offlin=
+e/online.
+- [High] Timer driver completely fails to probe if the kernel is compiled w=
+ith an `NR_CPUS` smaller than the hardware's core count.
 --
 
---- Patch [4]: [PATCH v7 4/5] clocksource/timer-econet-en751221: Disable IR=
-Q until cevt registered ---
-commit e765af368a9556d25b3d5747a77b95b97cf2a3b9
+--- Patch [5]: [PATCH v7 5/5] clocksource/timer-econet-en751221: Support EN=
+751627 without percpu IRQ ---
+commit 4d23ebf2434d347d3628c6259b6442637444c87f
 Author: Caleb James DeLisle <cjd@cjdns.fr>
 
-clocksource/timer-econet-en751221: Disable IRQ until cevt registered
-
-This commit eliminates a race condition where the interrupt may trigger
-before the event handler is registered. It also adds a NULL check for the
-event handler in the interrupt callback just in case configuration fails.
+clocksource/timer-econet-en751221: Support EN751627 without percpu IRQ
+   =20
+EN751627 is based on the 1004Kc which uses a different interrupt number
+for each CPU timer. Support both this and the EN751221 which uses a
+single percpu interrupt.
 
 > diff --git a/drivers/clocksource/timer-econet-en751221.c b/drivers/clocks=
 ource/timer-econet-en751221.c
-> index 714702b9ef128..f2c4c1ee0a56b 100644
+> index f2c4c1ee0a56b..040386ded132a 100644
 > --- a/drivers/clocksource/timer-econet-en751221.c
 > +++ b/drivers/clocksource/timer-econet-en751221.c
+
 [ ... ]
-> @@ -104,12 +107,11 @@ static int cevt_init_cpu(uint cpu)
->  	reg =3D ioread32(reg_ctl(cpu)) | ctl_bit_enabled(cpu);
->  	iowrite32(reg, reg_ctl(cpu));
-> =20
-> -	enable_percpu_irq(cd->irq, IRQ_TYPE_NONE);
-> -
-> -	/* Do this last because it synchronously configures the timer */
+
+> @@ -110,7 +131,10 @@ static int cevt_init_cpu(uint cpu)
 >  	clockevents_config_and_register(cd, econet_timer.freq_hz,
 >  					ECONET_MIN_DELTA, ECONET_MAX_DELTA);
 > =20
-> +	enable_percpu_irq(cd->irq, IRQ_TYPE_NONE);
-> +
->  	return 0;
->  }
-
-[Severity: Medium]
-This is a pre-existing issue, but I noticed there isn't a corresponding
-teardown path for CPU hotplug.
-
-When offlining a CPU, the hardware timer is left running because
-set_state_shutdown is not implemented for the clock_event_device.
-Additionally, the hotplug state is registered with a NULL teardown callback
-in timer_init():
-
-timer_init() {
-        ...
-        ret =3D cpuhp_setup_state(CPUHP_AP_ONLINE_DYN,
-                                "clockevents/econet/timer:starting",
-                                cevt_init_cpu, NULL);
-        ...
-}
-
-This leaves the per-CPU interrupt unmasked on an offlined CPU.
-
-Could this lead to spurious interrupts that might wedge the interrupt
-controller when the CPU is brought back online?
-
-[ ... ]
-> @@ -178,6 +180,8 @@ static int __init timer_init(struct device_node *np)
->  		goto out_membase;
->  	}
-> =20
-> +	irq_set_status_flags(econet_timer.irq, IRQ_NOAUTOEN);
-> +
->  	ret =3D request_percpu_irq(econet_timer.irq, cevt_interrupt, np->name,
->  				 &econet_timer_pcpu);
-> =20
+> -	enable_percpu_irq(cd->irq, IRQ_TYPE_NONE);
+> +	if (econet_timer.is_percpu)
+> +		enable_percpu_irq(cd->irq, IRQ_TYPE_NONE);
+> +	else
+> +		enable_irq(cd->irq);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but while looking at
-timer_init(), I noticed how the memory blocks are mapped.
+Since cpuhp_setup_state() is registered in timer_init() with a NULL
+teardown callback, disable_irq() is never called when a CPU goes offline.
 
-Does this code handle sparse CPU IDs correctly?
+Does this mean that onlining the CPU again will call enable_irq() on an IRQ
+that was never disabled, triggering an unbalanced enable kernel warning?
 
-In timer_init(), the number of blocks is bounded by the count of possible
-CPUs rather than the maximum CPU ID:
+[ ... ]
 
-timer_init() {
-        ...
-        int num_blocks =3D DIV_ROUND_UP(num_possible_cpus(), 2);
-        ...
-}
+> @@ -141,19 +165,52 @@ static void __init cevt_init(struct device_node *np)
+...
+>  static int __init timer_init(struct device_node *np)
+>  {
+> -	int num_blocks =3D DIV_ROUND_UP(num_possible_cpus(), 2);
+> +	int num_blocks =3D of_address_count(np);
+> +	int num_irqs =3D of_irq_count(np);
+>  	struct clk *clk;
+> -	int ret;
+> +	int ret, i;
+> +
+> +	econet_timer.is_percpu =3D of_device_is_compatible(np, "econet,en751221=
+-timer");
+> +
+> +	if (econet_timer.is_percpu && num_irqs !=3D 1) {
+> +		pr_err("%pOFn: EN751221 clock must have 1 IRQ not %d\n", np,
+> +		       num_irqs);
+> +		return -EINVAL;
+> +	}
+> +	if (num_irqs > ARRAY_SIZE(econet_timer.irqs)) {
+> +		pr_err("%pOFn: Too many IRQs max %d got %d\n", np,
+> +		       ARRAY_SIZE(econet_timer.irqs), num_irqs);
+> +		return -EINVAL;
+> +	}
+> +	if (num_blocks > ARRAY_SIZE(econet_timer.membase)) {
+> +		pr_err("%pOFn: Too many regs: max %d got %d\n", np,
+> +		       ARRAY_SIZE(econet_timer.membase), num_blocks);
+> +		return -EINVAL;
+> +	}
 
-If CPU IDs are sparse, for example if CPUs 0 and 4 are possible, meaning
-num_possible_cpus() evaluates to 2, membase[cpu >> 1] in reg_ctl() will
-access an index beyond the mapped num_blocks.
+[Severity: High]
+Does this code prevent the system from booting if the kernel is compiled
+with an NR_CPUS limit smaller than the actual hardware core count?
 
-Since the unmapped membase index contains NULL, could this cause a NULL
-pointer dereference in cevt_init_cpu() when it calls ioread32(reg_ctl(cpu))?
+If the Device Tree exposes more IRQs or register blocks than the
+compile-time NR_CPUS bound allows, returning -EINVAL here will cause the
+timer probe to fail entirely.
+
+Would it be safer to gracefully bound the resource counts with min() and
+initialize up to NR_CPUS timers instead of erroring out?
+
+[ ... ]
+
+> -	irq_set_status_flags(econet_timer.irq, IRQ_NOAUTOEN);
+> -
+> -	ret =3D request_percpu_irq(econet_timer.irq, cevt_interrupt, np->name,
+> -				 &econet_timer_pcpu);
+> -
+> -	if (ret < 0) {
+> -		pr_err("%pOFn: IRQ %d setup failed (%d)\n", np,
+> -		       econet_timer.irq, ret);
+> -		goto out_irq_mapping;
+> +	for (i =3D 0; i < num_irqs; i++) {
+> +		irq_set_status_flags(econet_timer.irqs[i], IRQ_NOAUTOEN);
+> +
+> +		if (econet_timer.is_percpu)
+> +			ret =3D request_percpu_irq(econet_timer.irqs[i],
+> +						 cevt_interrupt, np->name,
+> +						 &econet_timer_pcpu);
+> +		else
+> +			ret =3D request_irq(econet_timer.irqs[i], cevt_interrupt,
+> +					  IRQF_TIMER | IRQF_NOBALANCING,
+> +					  np->name, NULL);
+
+[Severity: High]
+Does this non-percpu path need to set the IRQ_PER_CPU flag on the interrupt?
+
+When a CPU is offlined, irq_migrate_all_off_this_cpu() will forcibly migrate
+this interrupt to a surviving CPU because it isn't marked as a per-CPU
+interrupt.
+
+When the hardware timer interrupts the new CPU, cevt_interrupt() uses
+this_cpu_ptr() to check the new CPU's timer pending bit. That evaluates
+to false, causing it to return IRQ_NONE without acknowledging the original
+CPU's timer interrupt.
+
+Could this lead to an unhandled interrupt storm that hangs the system?
+
+> +
+> +		if (ret < 0) {
+> +			pr_err("%pOFn: IRQ %d setup failed: %pe\n", np,
+> +			       i, ERR_PTR(ret));
+> +			goto out_irq_free;
+> +		}
+>  	}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731120246.1296=
-955-1-cjd@cjdns.fr?part=3D4
+955-1-cjd@cjdns.fr?part=3D5
