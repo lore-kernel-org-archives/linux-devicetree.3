@@ -1,134 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61EBD46D2DB
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 16:30:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AED11451987
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 16:30:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785515409; cv=none; b=K/ranMYxWyOTyj2UB5HPlOyZi1WZdbaMtEQQP3KSGxqfgRGTJiQkptTnyeTYnnx3DGEzSBaVgVeymd9sLvgrfn7vrdEiwfSs6ZtVPzMCOS4zWe2kqieVLzCcaVsgahlh6FEOvlt2UTrevnWn050+hFQbmNoTxRVrcx2y+cd1cX8=
+	t=1785515450; cv=none; b=GTpjRm8L3eGpGwM1VEgH95C+P2S+uctSR08va4bDWtJokplKm956+KGTurBNgBfByQDzOHLIWtkN1CEUW9FTxiB6K2MuCBq8i/KxpDlIXNb6wWNjw3XCBG55tr4mrB3d9mpckJpsy3HpymUady0tAP49KrY45uF/TkHjHUdgUCY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785515409; c=relaxed/simple;
-	bh=sDrXjnP1L9JVto8k+Y3vWPU1GO8bMdkSJyg8e7DPhao=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nqJScCeHczpSaVLZNxs8c+GOOR/YHoN7Wn4gveWHnrmBM2XfzyECJt/rqvQFngxQ9hsFRUJ/HqknRb7M3YzQnOhqr8RYDF3K7F/sPp0TB41t2Jn+brwelHlc8gQ8F221OCxQe7kETjPSLBr2sWciBAYcCrr6jClphBictSGkfDw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TeFkwCrK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785515450; c=relaxed/simple;
+	bh=w35lwaZM5Jhv5tWlfxuQgAkqn1ey5k+A/02M2sV6IqQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=pBPpiQTGkpgXozDcG1sasR6OexiAYZlx0nrh/0iRkZZzPGkhuuso7D71aTihmA0S0UYgJxQ0NPrPO417Vc/TkvoSR/4RcU22K2NhOQYvt7PcIXIek2nNcr7uXnCC26MHmsSZIzu21I+2WOIILNJ4KWEuN8O8HqdQpXXKp0+YMoQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Awsyaxfi; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TeFkwCrK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9FA81F00ACA;
-	Fri, 31 Jul 2026 16:30:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785515408;
-	bh=wc3Lv+IkzPJ5w9srUtZfHSRdaMtbBfmRfgTfV0kDU6k=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TeFkwCrKcZk31zFULrqjUQ4hAURsxzrmqpeIRo6e7Oo5VSrEi7jFGS+na7TAzTD/u
-	 0I/toMyvlJhcjWYQIrUr9E0Mn2bh9xS5moGDEAE5qY81suzlfdkshkhZfBOAEw/Fdz
-	 oimdaWYoOzlFyguSmJGabLEGogYC7jLHRgP7D4fsJhx9AC3CtoZJyrldoGi9JuR/tB
-	 cmNt5Vo+seSA4g5/l5Ga+bm6f/lAKA9Uw3LaVGmdYSHjToRABKFbq9OmCA6pm66BVb
-	 aG5V/zRvY9UZrzVzUun4PFIH3Fsxyu8XoNk5wseBGpNGlJcTW6weFY5iTTA2WmGbJk
-	 2+IEUt1P4TlhA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 08/21] drm/bridge: synopsys: dw-dp: Free output_fmts
- when none are valid
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260731-synopsys-dw-dp-improvements-v8-8-ac1e6a75782f@collabora.com>
-References: <20260731-synopsys-dw-dp-improvements-v8-0-ac1e6a75782f@collabora.com>
- <20260731-synopsys-dw-dp-improvements-v8-8-ac1e6a75782f@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 31 Jul 2026 16:30:07 +0000
-Message-Id: <20260731163007.E9FA81F00ACA@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Awsyaxfi"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-476a130c138so1453413f8f.0
+        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 09:30:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1785515446; x=1786120246; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=B01D71Y0rA5zgk1TYOrIFEwTDt7QQ32kG9Mc4Wkc7Jw=;
+        b=Awsyaxfi3zyDGyTgYhX0zFV86wpnDNb68K8rwbrQ5ZxVR8w54qnBlQo9UMiutEU4L5
+         pHSpDfnWh8/sM0PPqq86haNWdO9zOamICgDFYJ8+xRAIi24JqN9jMWGny7LMLC/nvS4X
+         TAw93zJ9wtOG85tW0Ja8bNtpqUYv+SWSbQ+WM5EDpTeCf0qJ/+4vVrriukVTgOfxYmY6
+         9HtuWM9ttAAZ+MLWkfc9ow9yGMg3IbIbEHq51I+dDXtXBA+ow5NpjqWUDRx5ShWqf1IH
+         NeqVOmZ1l3cYcpEEeqGtWxVob632yvDu6g15p+pQtCudal8ikYwJ3JcJa+FSZVvvKBtz
+         GV8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785515446; x=1786120246;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=B01D71Y0rA5zgk1TYOrIFEwTDt7QQ32kG9Mc4Wkc7Jw=;
+        b=SdMWYv5gol6499pGyIjX3tjkAQtTmtd64xTG2MbRHI4vJI0QNEHVtIS56w9yH4aDUT
+         Gdc0xHmlVrG1h59i51D/nZBJ23O18bCAcwmHtq8dfaMO3oja/zlwGnSqDhCWJdYtEm+u
+         mBHgJjkp2cJcAHCJUX1PYQUjIonZlu1rUDjIyR4kV8KdDyjnHwXLS1Dt+dBekd/HXH8g
+         EIjM7wQNqZHEHqMDePyLRecsWNXjiKQN9L2hIZmxgba/pec4dXKz8HIRJg0ziDbSxQO/
+         zzmefHsyvrK7oFiCpsZwr6eXBeY0aBzsOowglKLgCg3we7C0trjlepL4DazGc9JZf0Et
+         TF5g==
+X-Forwarded-Encrypted: i=1; AHgh+RoUEeO9cD8MgRTQGmGQCFwFt+/3I4qmciFDZSk8D7uO47+yUloGMrQV9kaYfiODse0nhlwmoP5NMX3L@vger.kernel.org
+X-Gm-Message-State: AOJu0YzvKRoW2wfGShy9iS5KzBlr/ZtTyVBgISiPF4T4/Vr+0bB6Dfhw
+	+Hp/MFDvVK2QAKj+Gc4MRqNFRNGp033ob13z+V8HQg6Khom1pRyoGqv6tsxKPiElytg=
+X-Gm-Gg: AR+sD11898wbI41ER70pK0xYgd1IFpZSqolTRgdyhHsjWUcyaMTv19n7D10EyznbBhB
+	GpKVFjGMidvBQWWkeOUY8IhrmLrquYQSr6MRxokQcO1W1YWbjTeRDrrVzrdTNXx5BZCzKUyFag/
+	tgA+sKfTbg+SwEc5+7EUoP7L2vmH9AGbxrFFiPKOgts6KwtKzrt4c2ZvUm4W4musLd9S0Me7wPP
+	i5x4NPGMMGYuqbOIzMtbiLW9u/1ruGI81uyf+68md5me+W2sRdm3/x6mP1+QoJcv9yS5Yd8Iwuq
+	J0qSvFLTZ0SfC1SArG3Z7T7cSuKcjLrjfUqs0MkRB4VhCJF5xGlHJ80wBc2YUQwtn/pPu/lvtmI
+	B1ZvSvjCJD5V9nr/sVjRSRvXWOknva47PSkIU3uBu3s7mOKK11KwAGt3VXf/OF+csOOPohKTSHZ
+	IywSuGEtDv16JwdTAtAlbDpTXSAtDswGnKy5giLZD62bFKtEz24QpxZQm5yA==
+X-Received: by 2002:a05:6000:615:b0:47f:762f:32a9 with SMTP id ffacd0b85a97d-47fd72a8f3fmr672008f8f.12.1785515445887;
+        Fri, 31 Jul 2026 09:30:45 -0700 (PDT)
+Received: from localhost ([2a01:e0a:3c5:5fb1:d00b:bc94:65a:a73d])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-47fd456262bsm5900050f8f.17.2026.07.31.09.30.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 31 Jul 2026 09:30:45 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+Subject: [PATCH RFC/RFT 0/2] net: stmmac: Add support for Allwinner A733
+ GMAC210
+Date: Fri, 31 Jul 2026 18:30:25 +0200
+Message-Id: <20260731-allwinner-a733-gmac-support-v1-0-d0a8732bfa82@baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKHNbGoC/yXMzwqCQBCA8VeROTe0f0iha+ADiLfosK6TTdi67
+ GgF4ru31fHjg98KQolJ4FiskOjJwlPIoXcF+JsLAyH3ucEoU6rKanTj+OIQKKGrrMXh4TzKEuO
+ UZtSl7XrSyuuDgSzERFd+//QzNPVp39QtXP5Dlu5Ofv7asG0fT1HmGogAAAA=
+X-Change-ID: 20260731-allwinner-a733-gmac-support-163bde10c152
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, 
+ Richard Cochran <richardcochran@gmail.com>, 
+ Maxime Ripard <mripard@kernel.org>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+ Jerome Brunet <jbrunet@baylibre.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1899; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=w35lwaZM5Jhv5tWlfxuQgAkqn1ey5k+A/02M2sV6IqQ=;
+ b=owEBbQKS/ZANAwAKAeb8Dxw38tqFAcsmYgBqbM2wWoLP6AQ9cI4VA8q5m/5+1cKrwSXpM2W6M
+ e/cJohJsgKJAjMEAAEKAB0WIQT04VmuGPP1bV8btxvm/A8cN/LahQUCamzNsAAKCRDm/A8cN/La
+ hVL6D/4331XwVduIAIJWF+PeOpvRZZDsSD9BtI2hgcNm6X2vDunqVGtocqmr56Jkh2ndnuyheam
+ AFy0FMb5r1OfNFGb4MM4mA06458dALYQ1wwTE2cJm2MfDm84tsnEs8wZE6Q+4FJfOalOsTvRJeA
+ FnZq8tRRhMa8DwM+lqd8jiRwOrOWoEXqZWh/6GAufDFGT3Kdwsff+h7hBT6D2SYixP9xdOHjaMz
+ hEBBm20A+US5YRsSqVpNiplu5yQcPU1yjOoSIead3uK7OW7L/fcfkYraoH+R/8OTrneEMY8l4si
+ TobSWyrQJYZU2N9pASoqLqHs0YECoOJ64Ip6U2LAv0t5PzG96h9tVr0bpSUfBcaf39VwIKfA3ys
+ dD2ewdOB80Uz4FmanIWRFHcQRlbLFxvcy/4DQzDjIShGbrbo5p5Wrztv0vf2phHY7lDlUtTTLwA
+ Tz5u/7zqA0l3ElKWPlugOpTWx3lOmcOcuSY1kKb//Yn5oiv4omwKcMN5PYQZhy6gygtDowA0uVT
+ dAcbNSws2YqesuL60imTCz0PgGcWrz3yQV717FFKg7rSdBodLwXwA9D5M0pvaccOmz+SQgzxAMg
+ E+7rQnDLEnEiSIGlV+warlyT649gI9lDTHgmDPStcy0IR8EawQlVN+SMzvFSm9XG9AKMlsVxJ24
+ Q1BqcpuHSlezGCQ==
+X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
+ fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+The A733 GMAC210 is a DesignWare MAC 5.20 with an Allwinner glue close to
+the A523 GMAC200 already supported by dwmac-sun55i, but with a few
+significant differences:
 
-Pre-existing issues:
-- [High] Unbalanced phy_power_off() and regulator_disable() if phy_power_on=
-() fails in dw_dp_link_enable().
-- [High] NULL pointer dereference in dw_dp_hpd_work() and dw_dp_link_retrai=
-n() due to missing bridge.dev check.
---
+ * The glue configuration registers are a dedicated MMIO region of the
+   controller instead of a syscon register.
+ * That region is inside the controller reset domain, so the reset must be
+   released before the configuration is written, and must not be asserted
+   again afterwards or the configuration is lost.
+ * The DMA channels have their own interrupt lines.
+ * A PTP reference clock and an AHB reset are needed.
+ * The controllers do not require a power domain (AFAIK).
+ * The TX clock delay value is 5 bits wide instead of 3, split over 2
+   register fields.
 
---- Patch [8]: [PATCH v8 08/21] drm/bridge: synopsys: dw-dp: Free output_fm=
-ts when none are valid ---
-commit 749c8cb81f0227b8f3795cdf2bcba3b9e0038179
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+The DT changes for the A733 and the Cubie A7A board are not part of this
+series and will be sent separately through the sunxi tree.
 
-drm/bridge: synopsys: dw-dp: Free output_fmts when none are valid
+Tested on a Cubie A7A, RGMII with an external PHY on GMAC0.
 
-If dw_dp_bandwidth_ok() returns false for all formats, *num_output_fmts
-might end up becoming 0. This commit frees output_fmts within the function
-in that case to avoid leaking memory.
+Full disclosure: at the moment there is a problem with EEE/LPI while
+testing on the Cubie A7A. If the device stays in LPI mode long enough, the
+link sometimes (but not always) goes down, coming back up when the device
+exits LPI mode.
 
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
-idge/synopsys/dw-dp.c
-> index 760e1e0f8234b..7127928c26506 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> @@ -1804,6 +1804,11 @@ static u32 *dw_dp_bridge_atomic_get_output_bus_fmt=
-s(struct drm_bridge *bridge,
->  		output_fmts[j++] =3D fmt->bus_format;
->  	}
-> =20
-> +	if (j =3D=3D 0) {
-> +		kfree(output_fmts);
-> +		output_fmts =3D NULL;
-> +	}
-> +
->  	*num_output_fmts =3D j;
-> =20
->  	return output_fmts;
+I'm currently working around the problem by adding the following
+properties to the PHY node:
 
-[Severity: High]
-This isn't a bug introduced by this patch, but could there be an unbalanced
-phy_power_off() if phy_power_on() fails during dw_dp_link_enable()?
+	eee-broken-100tx;
+	eee-broken-1000t;
 
-In dw_dp_link_enable(), if phy_power_on() fails:
+Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+---
+Jerome Brunet (2):
+      dt-bindings: net: sun8i-emac: Add A733 GMAC210 compatible
+      net: stmmac: Add support for Allwinner A733 GMAC210
 
-    ret =3D phy_power_on(dp->phy);
-    if (ret)
-        return ret;
+ .../bindings/net/allwinner,sun8i-a83t-emac.yaml    | 130 +++++++++++++++---
+ drivers/net/ethernet/stmicro/stmmac/dwmac-sun55i.c | 145 ++++++++++++++++++---
+ 2 files changed, 242 insertions(+), 33 deletions(-)
+---
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+change-id: 20260731-allwinner-a733-gmac-support-163bde10c152
 
-It returns without incrementing the PHY's power_count. However, if the DRM
-core continues tracking the bridge as enabled, it will eventually call
-dw_dp_link_disable() when the bridge is disabled.
+Best regards,
+--  
+Jerome
 
-dw_dp_link_disable() does:
-
-    phy_power_off(dp->phy);
-
-Because the power_count was not incremented earlier, does this cause
-phy_power_off() to decrement it to -1 and unconditionally call
-regulator_disable(), potentially dropping power for other shared devices?
-
-[Severity: High]
-This is also a pre-existing issue, but can dw_dp_hpd_work() or
-dw_dp_link_retrain() trigger a NULL pointer dereference if the bridge is
-detached?
-
-If the DRM encoder is unbound, drm_bridge_detach() explicitly sets
-bridge->dev =3D NULL. If a physical hotplug event occurs before the bridge
-device itself is unbound, the IRQ can fire and schedule dw_dp_hpd_work().
-
-In dw_dp_hpd_work():
-
-    drm_helper_hpd_irq_event(dp->bridge.dev);
-
-And in dw_dp_link_retrain():
-
-    struct drm_device *dev =3D dp->bridge.dev;
-    ...
-    ret =3D drm_modeset_lock(&dev->mode_config.connection_mutex, &ctx);
-
-Since neither function checks if dp->bridge.dev is NULL, could a hotplug
-event after encoder unbind cause a kernel panic here?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-synopsys-d=
-w-dp-improvements-v8-0-ac1e6a75782f@collabora.com?part=3D8
