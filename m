@@ -1,221 +1,160 @@
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 529D042E8C2
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 17:11:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785517895; cv=pass; b=RhXHzTr1h1et1Lh2OtNlo4XhDLjpoFfL3HnuXAWqn19iLda4m3NW+lkAR8kOKuizqKd+g+MFuZQZPFB7kHqiYrV+qJW+w6GUBYSXJvkffCJWQ+Jks5uEPdFduCvg2lI2k6HRP6cV8IyXNk8BaXrBUXjRT3Gs3qnwQiqoaSauY0E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785517895; c=relaxed/simple;
-	bh=Uhh8q41hmOlByjiX1nPXF362Jh+d49ZbfzvIl+Q5Sug=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VjePa0P1pl+kM8lcRQfa6PAFb1a+dQ4NEInNAGFHoKRsu4gHFQyR7LX3Ql3o56vD20jS7RVHeVm5UYYcNPWLgi1Xbu3P6VmFKwjbtYoloM8RDipO7onN0uE9tI/oiX92Lh/vb5VTQ30kb6oNnzmcYa3YKlhPR2K6Elg+u1XE6Uo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Exy5EQ16; arc=pass smtp.client-ip=209.85.208.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED2F9449992
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 17:23:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785518591; cv=none; b=HJtSrMrfrK00mJPW6VfSBqsvlnzliwHpJfINmjRNXAPNb5G0/veRDa0Kt1HfkhxGceBY3+ay596FREd0AEB8e+mrYiQd/0eXhISSKriNULrBurnI0wgXhKP+GBSqgXHXsLEO8+YxMVW6leAvHB0qEYE216Jb3e+cCRYc4jZmJbk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785518591; c=relaxed/simple;
+	bh=VeuLp4Ff3ieDDGqSOzPc5CxXHmiG7eksIyhGnAzfg/w=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=MSJUBH9g4aQ0WX2QHzUSHDXpWPGvIsrOXcdBi1LxUhV3l5x0NkEhOzdNdBq1FyIJP0YBEMKJDmMWpFzZnV8S8umO8TwXzl4a+auV7Oqf+Uk9BBQ+zagatXQSJos5JLWCI6B/xM/IhOpxLaDo7TbpZrBbMMExnSfU6vjmZFpWxXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fxS+il1m; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Exy5EQ16"
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-69f2c67650aso2054106a12.2
-        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 10:11:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785517890; cv=none;
-        d=google.com; s=arc-20260327;
-        b=N+YJaVLdG8gNg/Nk8Xd+7w/ojN//HqBcpZNN5k9AuhERWf02PFCvGleKk+Dnbtw8gi
-         N5ViNPOj4bPuX3WCmQA4pnLbLRlzgUkK7e43FAx1yqEcboH0jgI5bnB6bvf/+5LDvDJX
-         z7pjeQnzZSy544rqadb91xA8Zybna0WR1oaXVuoh+iEwxkmVos7+2nr69gGQ0aedc1Ce
-         7N3b44/loT3I0kwIuL5muXvV4Pypt806yVNDRr2/bFeybGEdDZBOhapoZmbOLHDt/4dv
-         WjwFGisnTUqQngC7EhwNm3GYe8wT+Q3cKsX2yOBFwmnQSVyHOeBd3eCZNdPge0YnoZ1J
-         XqSQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=tfzdRxKMzAqp/+9ZSx+vlyqKp24vqwGUERSU+Y5G+a0=;
-        fh=SzzmBkZPXAkW1VjGVgS1R0oyiN1kavicWv9xCNQYOWU=;
-        b=ejwR6rg+enJceSQrXW1fPnA9WU4GUmKbZSXl4QWHjvz56cn89MvO7NKfR3t+cY+j+K
-         dQPMiqy6SazTID1UGBZfoIlxiWQBkzk1lOHtLAHdhVAjCVUPOJeSNTEdH1RlEnyT0EJH
-         ss+TBPu72gn8sZk6ZYs5jIuwiMrGT3Oav794B5RD6yL/zS8qsOlEvJBSFEuRx9A8O5nP
-         KHw8mH3ZYfZA3WMRNqgu2+2MHsCfnRq131NQhz5Rh4GJajVH4vwQPUxrvPcoSHwe8fVi
-         LX7FuNS7QuuNaKMh1AQUFKUgTWaRExYbzzjr5824uwdMZ8dHSK3E15cw513amGRCSi7o
-         cYQQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1785517890; x=1786122690; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tfzdRxKMzAqp/+9ZSx+vlyqKp24vqwGUERSU+Y5G+a0=;
-        b=Exy5EQ162dvgPIB46DJfZCIj898OhNHYTDXIQagaTUngdPry8jW88hSxi6aVeP31S7
-         YzgozmElj0AURbi6rlolpsPiLByD3Dd4Ii6jY6wqjM621Fqqa0b22PEBuASgo8mAw4De
-         q9L3mNgaXd9xOA1YKaScbjzyuSCFbwu3UiiXTk2ghLdVxl1k256wj9vTvGHuymhzwrX5
-         N1QWFADLLAUwVNfVysAJrQvM98upHj4eMDVgmRkgOseJP/GEExxCmGqFNrQL6nBDdWuh
-         5q9mOh7bcYV0Wbl5Q5V2ykhADYOUtuUfmzcCHvOZ5sPgDDKDntg7uK7b27OmDy1F3uAo
-         XHEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785517890; x=1786122690;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tfzdRxKMzAqp/+9ZSx+vlyqKp24vqwGUERSU+Y5G+a0=;
-        b=U7kRdZZ/Rx9Dzysr2PdIaJ0idTSuf1vRfpaLyoHusHU0X4C1L+G1PeE8nGjj0ulEBa
-         ohBfx/8BSmMAK+KLtQuyCbPqj79yNWOlnrKrJtyI1nAOxPnSIBddXrPh1XPXg1G1AXz+
-         tv/00TWGqMtzVQXaOcIJv1yv0BdmpsvNgMEenEU8hQ5WhqxdyqVDHVXmGKcw01gv1emv
-         7AdOaIctQhH/M9x6UZJSNwa6NL03GifeGJ/OjNzVMBhZDE4L9DYP4UxSRtQ5wxWiD3Gk
-         5h10og/G7rqwAVKLW3hAHZE/SeNmPbe/hDNuemGhte7zHkbF3fe5AIczgV2CyZBBo+bV
-         LNMg==
-X-Forwarded-Encrypted: i=1; AHgh+Rpxdam1qKqtPaqnwjKLGrIeP2V1a9UeyWTUHpfZcQQX1og8Oi6Fb2isx8+GsQWWPmnLXwTwXhuHpmy+@vger.kernel.org
-X-Gm-Message-State: AOJu0YxVcZ4T6sF+xq4i5Tb0w2s6xTyhXw6KucbVa001whVUubs6QF+l
-	vMj038s54FJOmrUl/N7hcSvcSf8vuSKQjbILvs79TLHCmTnQcrBdFgdrDadjlLcWLh3voeESOa9
-	55VZJg0YQcO0iV/lLk8uDsKcvf8qh1Mv+VGop+QPO6w==
-X-Gm-Gg: AR+sD12Dn9mot4kSqu2A54o8VbNQkeMZqzuLY+m5S0Kb4YgEAVYjt2fIeSDhjE/G4Va
-	2dqkZtmOQqdN7me+gjmqIFvKoEZp30AzH4+KoNLVB3pgUaB8ltuqyYWx6HM3GiH/EVfg5iImizO
-	QaJWbDwmLuRvQBa9keHDigJYI/V49L9Dwk3/3NB7kZFNfODyiOHEz4siMc7szRhaEQXa7NDioY+
-	a0yeL2fT8FirIMBErt7VNriV5QoBFFBWW4xE2N3Q2orbI/B4r3Eo4Kdte1NPeFzC1k7Lg7lDWy7
-	84CalKpm1fFZ7DfOX2gAtafq1nedEabFHTWhUkyBR9s7omhnDBv3uFb+2pkmRwHvi/JfrGS5Zv2
-	y3Xx+7Tg8e9bO0Q==
-X-Received: by 2002:a05:6402:449a:b0:697:de29:c802 with SMTP id
- 4fb4d7f45d1cf-6a0a7ccb364mr275774a12.18.1785517889487; Fri, 31 Jul 2026
- 10:11:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fxS+il1m"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 523B01F00AC4;
+	Fri, 31 Jul 2026 17:23:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785518589;
+	bh=3QUPjHQoA2jPBqgJA9n6F3HRhE+YyFCYjdLaWBs9pWU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=fxS+il1mKsR4ZNObNC4xXfXFGB5UN3R3UWe9OgU+1BvMQ5mI7aQPDE8ynITYzYWcu
+	 Wev8o7fxGqWGOBP4Ntzm9g6WUomgLSQ7jpt9gFhnVCajH/LbFP9X+/Laju/xE240z8
+	 iuWPMtqAxNJ5IjON9FFGb40DO+Cqykzd3zujaeUCPvKrtXv26n/jGy8CIhTzXbAfwx
+	 kOhb3bVuHFply/wXUkA8rLiKXPWdyut7YnXcoXU8rUGNHeN9X5o2aE6tqudBcx0v0Q
+	 BwPMYv0XjComcL9qcC4FEzUA1jC6kF0p5dtyUvZ7LZmJzybfv1HIOkApjFOILYF9We
+	 5SluLmdKEt72A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 14/21] drm/bridge: synopsys: dw-dp: Add Runtime PM
+ support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260731-synopsys-dw-dp-improvements-v8-14-ac1e6a75782f@collabora.com>
+References: <20260731-synopsys-dw-dp-improvements-v8-0-ac1e6a75782f@collabora.com>
+ <20260731-synopsys-dw-dp-improvements-v8-14-ac1e6a75782f@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 31 Jul 2026 17:23:08 +0000
+Message-Id: <20260731172309.523B01F00AC4@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260721204704.400781-1-shenwei.wang@oss.nxp.com>
-In-Reply-To: <20260721204704.400781-1-shenwei.wang@oss.nxp.com>
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-Date: Fri, 31 Jul 2026 11:11:17 -0600
-X-Gm-Features: AUfX_mwyptmYyOf4p0ZyWTJXkdByXi3n4edVXueGHxTjG-w_nq_PAPMefUUmQKw
-Message-ID: <CANLsYkyJ=qOz_7x8igcwkiHsJQWP8JizB4-q5QV5gv-s+e6eVA@mail.gmail.com>
-Subject: Re: [PATCH v15 0/5] Enable Remote GPIO over RPMSG on i.MX Platform
-To: Shenwei Wang <shenwei.wang@oss.nxp.com>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Shuah Khan <skhan@linuxfoundation.org>, 
-	linux-gpio@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Shenwei Wang <shenwei.wang@nxp.com>, Peng Fan <peng.fan@nxp.com>, 
-	devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-imx@nxp.com, 
-	Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>, b-padhi@ti.com, Andrew Lunn <andrew@lunn.ch>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-I won't be able to review this patchset until the week starting August 17th=
-.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Asynchronous pm_runtime_put_autosuspend() during driver teardown a=
+nd error paths is cancelled by pm_runtime_disable(), leaving the device per=
+manently active and leaking clock resources.
+- [High] phy_init() is called while the device is in its initial RPM_SUSPEN=
+DED state with APB and AUX clocks disabled, risking a bus hang.
+--
 
-On Tue, 21 Jul 2026 at 14:48, Shenwei Wang <shenwei.wang@oss.nxp.com> wrote=
-:
->
-> Support the remote devices on the remote processor via the RPMSG bus on
-> i.MX platform.
->
-> Changes in v15:
->  - Update Kconfig description per AndrewD and Julian's feedback
->  - Enable the GPIO driver even without a DT node per AndrewD's feedback
->  - Update gpio-rpmsg.rst per Mathieu=E2=80=99s feedback
->  - Code cleanup according the new gpio-rpmsg.rst and sashiko-bot's review
->    feedback
->
-> Changes in v14:
->  - Update gpio-rpmsg.rst per Mathieu=E2=80=99s feedback.
->  - Align the rpmsg-gpio driver with the revised gpio-rpmsg.rst.
->  - Modify rpmsg-core to enable prefix-based matching of RPMSG device IDs.
->
-> Changes in v13:
->  - drop the support for legacy NXP firmware.
->  - remove the fixed_up hooks from the rpmsg gpio driver.
->  - code cleanup.
->
-> Changes in v12:
->  - Fixed the "underline" warning reported by Randy.
->
-> Changes in v11:
->  - Expand RPMSG for the first time per Shuah's review comment.
->
-> Changes in v10:
->  - Update gpio-rpmsg.rst according to Daniel Baluta's review comments.
->  - Add a kernel CONFIG for fixed up handlers and only enable it on
->    i.MX products.
->  - Fixed bugs reported by kernel test robot.
->
-> Changes in v9:
->  - Reuse the gpio-virtio design for command and IRQ type definitions.
->  - Remove msg_id, version, and vendor fields from the generic protocol.
->  - Add fixed-up handlers to support legacy firmware.
->
-> Changes in v8:
->  - Add "depends on REMOTEPROC" in Kconfig to fix the build error reported
->    by the kernel test robot.
->  - Move the .rst patch before the .yaml patch.
->  - Handle the "ngpios" DT property based on Andrew's feedback.
->
-> Changes in v7:
->  - Reworked the driver to use the rpmsg_driver framework instead of
->    platform_driver, based on feedback from Bjorn and Arnaud.
->  - Updated gpio-rpmsg.yaml and imx_rproc.yaml according to comments from
->    Rob and Arnaud.
->  - Further refinements to gpio-rpmsg.yaml per Arnaud's feedback.
->
-> Changes in v6:
->  - make the driver more generic with the actions below:
->      rename the driver file to gpio-rpmsg.c
->      remove the imx related info in the function and variable names
->      rename the imx_rpmsg.h to rpdev_info.h
->      create a gpio-rpmsg.yaml and refer it in imx_rproc.yaml
->  - update the gpio-rpmsg.rst according to the feedback from Andrew and
->    move the source file to driver-api/gpio
->  - fix the bug reported by Zhongqiu Han
->  - remove the I2C related info
->
-> Changes in v5:
->  - move the gpio-rpmsg.rst from admin-guide to staging directory after
->    discussion with Randy Dunlap.
->  - add include files with some code improvements per Bartosz's comments.
->
-> Changes in v4:
->  - add a documentation to describe the transport protocol per Andrew's
->    comments.
->  - add a new handler to get the gpio direction.
->
-> Changes in v3:
->  - fix various format issue and return value check per Peng 's review
->    comments.
->  - add the logic to also populate the subnodes which are not in the
->    device map per Arnaud's request. (in imx_rproc.c)
->  - update the yaml per Frank's review comments.
->
-> Changes in v2:
->  - re-implemented the gpio driver per Linus Walleij's feedback by using
->    GPIOLIB_IRQCHIP helper library.
->  - fix various format issue per Mathieu/Peng 's review comments.
->  - update the yaml doc per Rob's feedback
->
-> Shenwei Wang (5):
->   docs: driver-api: gpio: rpmsg gpio driver over rpmsg bus
->   dt-bindings: remoteproc: imx_rproc: Add "rpmsg" subnode support
->   rpmsg: core: match rpmsg device IDs by prefix
->   gpio: rpmsg: add generic rpmsg GPIO driver
->   arm64: dts: imx8ulp: Add rpmsg node under imx_rproc
->
->  .../devicetree/bindings/gpio/gpio-rpmsg.yaml  |  55 ++
->  .../bindings/remoteproc/fsl,imx-rproc.yaml    |  53 ++
->  Documentation/driver-api/gpio/gpio-rpmsg.rst  | 242 ++++++++
->  Documentation/driver-api/gpio/index.rst       |   1 +
->  arch/arm64/boot/dts/freescale/imx8ulp.dtsi    |  25 +
->  drivers/gpio/Kconfig                          |  17 +
->  drivers/gpio/Makefile                         |   1 +
->  drivers/gpio/gpio-rpmsg.c                     | 587 ++++++++++++++++++
->  drivers/rpmsg/rpmsg_core.c                    |   4 +-
->  9 files changed, 984 insertions(+), 1 deletion(-)
->  create mode 100644 Documentation/devicetree/bindings/gpio/gpio-rpmsg.yam=
-l
->  create mode 100644 Documentation/driver-api/gpio/gpio-rpmsg.rst
->  create mode 100644 drivers/gpio/gpio-rpmsg.c
->
-> --
-> 2.43.0
->
+--- Patch [14]: [PATCH v8 14/21] drm/bridge: synopsys: dw-dp: Add Runtime P=
+M support ---
+commit e3dd87d799174b12a4a2ad492ab236cf0e86bc18
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+Subject: drm/bridge: synopsys: dw-dp: Add Runtime PM support
+
+This commit adds runtime PM stubs to the Synopsys DesignWare DisplayPort
+bridge driver. It splits the early parts of dw_dp_probe into dw_dp_alloc
+to allow platform drivers to assign it before probing.
+
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
+idge/synopsys/dw-dp.c
+> index b21c2016dbd29..c24a5436e8fe8 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+[ ... ]
+> @@ -2108,76 +2162,125 @@ static void dw_dp_phy_exit(void *data)
+>  	phy_exit(dp->phy);
+>  }
+> =20
+> -struct dw_dp *dw_dp_probe(struct platform_device *pdev, const struct dw_=
+dp_plat_data *plat_data)
+> +static void dw_dp_manual_suspend(void *data)
+> +{
+> +	struct dw_dp *dp =3D data;
+> +
+> +	dw_dp_runtime_suspend(dp);
+> +}
+> +
+> +static void dw_dp_irq_free(void *data)
+> +{
+> +	struct dw_dp *dp =3D data;
+> +
+> +	/* ignore error as the interrupt needs to be free'd in any case */
+> +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dp->dev, pm);
+> +
+> +	free_irq(dp->irq, dp);
+> +	dp->irq =3D -1;
+> +}
+
+[Severity: High]
+Will this asynchronous autosuspend be cancelled by pm_runtime_disable() dur=
+ing
+device removal?
+
+When this devm teardown action runs, it releases the PM runtime reference
+asynchronously via the PM_RUNTIME_ACQUIRE_AUTOSUSPEND scope guard. Immediat=
+ely
+afterward, the devm_pm_runtime_enable cleanup callback executes
+pm_runtime_disable().
+
+As documented in the PM subsystem rules, pm_runtime_disable() cancels pendi=
+ng
+autosuspend work, meaning dw_dp_runtime_suspend() will never be called. Wou=
+ld
+it be safer to use a synchronous suspend operation like pm_runtime_put_sync=
+()
+here to ensure the clocks do not remain permanently enabled?
+
+[ ... ]
+> +	if (dp->plat_data.autosuspend_delay > 0) {
+> +		pm_runtime_use_autosuspend(dev);
+> +		pm_runtime_set_autosuspend_delay(dev, dp->plat_data.autosuspend_delay);
+> +		ret =3D devm_pm_runtime_enable(dev);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	if (!pm_runtime_enabled(dev)) {
+> +		dw_dp_runtime_resume(dp);
+> +
+> +		ret =3D devm_add_action_or_reset(dev, dw_dp_manual_suspend, dp);
+> +		if (ret)
+> +			return ret;
+> +	}
+> =20
+>  	ret =3D phy_init(dp->phy);
+>  	if (ret) {
+>  		dev_err_probe(dev, ret, "phy init failed\n");
+> -		return ERR_PTR(ret);
+> +		return ret;
+>  	}
+
+[Severity: High]
+Could this phy_init() call trigger a bus hang if the device is still suspen=
+ded?
+
+Prior to this patch, the APB and AUX clocks were explicitly enabled before
+phy_init() was called. Now, clock enablement is delegated to
+dw_dp_runtime_resume().
+
+If autosuspend_delay > 0, devm_pm_runtime_enable() is called but the device=
+ is
+left in its default RPM_SUSPENDED state. Since phy_init() is called without
+first waking the device via pm_runtime_get_sync(), the DP controller's APB
+and AUX clocks are still disabled.
+
+If the external PHY shares the APB bus or relies on the controller being
+clocked to access its registers, will this unclocked access cause a
+synchronous external abort?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-synopsys-d=
+w-dp-improvements-v8-0-ac1e6a75782f@collabora.com?part=3D14
