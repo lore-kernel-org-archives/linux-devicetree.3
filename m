@@ -1,503 +1,212 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A78173546C3;
-	Fri, 31 Jul 2026 14:47:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2799517A314
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 14:48:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785509223; cv=none; b=NoOcAhWnUnonnLukKt9qGw+Xq2+m9f8JpyBa/uHe70pkcO8fZz5g0/WmAumnDuQurbWeGwIxNK48p0oiBLI0NYcEvYyLBQNAPh3EcFeXzQk7uhXMwEy8KpHsDq4Mx4YRi4uFmvjbQTpGLd1CbRSEkcz1i4dOVgeoFaCWATVKrGw=
+	t=1785509302; cv=none; b=t6+2TINsUwzv68UppVxXtwpdaLK+j3GRZ+e1ICxtndFrVT2RkBor1kLWezNx50UQp8a861pPV4iLkTqV9Rocr/ny+wwcght6ZgUhbSP3ZKvfpbtj3/VBI3MUjt4urku4M00jITqw3ET/WsHIdIEnbM8+vKO4J2sMl1mpBzxnbYA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785509223; c=relaxed/simple;
-	bh=+s2j1RmaFG+GnT5Tf+KSig25vVLZBCaUGSWzNu7tZN0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lDpKqh4HOE9avm4mbd6J4uSmjKNf0iFPpUat5nzAKcFYHgtx24HeKYzMWG95yEeRzHK64fDJE8bwnJqUI2xYCngoeft/mjzcyVFJByZVz0GQFaGmtK5hOmf6nJBSHwVNVLKKpmq6QPJ/n2WVUwxsdxkcSUabBxTXpiUznYk/RmA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=GlKEIfzk; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1785509302; c=relaxed/simple;
+	bh=7HQEZsOlKVsHUcXR0CkTKsFAkwWBvpZRVOVqYNUlxsA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TECIX8d+DM6EzMUSL7Qv4kRx0mCQuvtnj9SBn0qtKf1uxeHnrhwsKPBb6AfnklqZ7iBpeorqhkOqTRD9u3c+iROwf9+N/MQCWpdp8ZgFQk6nCBSg5zov6HqvZDSeSBdA7Va+QV4KCMf3g4BaGwCWBLYKr7Pqwo07ChRSzDc31mk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pBnjN8sw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=i56e9jCQ; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="GlKEIfzk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1785509219;
-	bh=+s2j1RmaFG+GnT5Tf+KSig25vVLZBCaUGSWzNu7tZN0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=GlKEIfzkIOd1T7zeGsFu6eaHpTLc7DR+sPo40SXpuJOgCcechu88XLgcljF4rDVTI
-	 iw4BCQciIR35rrgJRJA8kAuncwfoIc8caGropdhyoPlzLuWuRpJHM02y+x6gG59zkI
-	 e5NuPB3cWkzFfYE2xnWQg4wTPSgRIWX1dR1FxCyEtkjo1So8D2quJTg/50VtKfA4V0
-	 rOzEGj5GalpTFjhZqwOOhxP54gCFasE7uZFFBPETK+xYmcKoUe2deszQIU0i7zQUN4
-	 viYgC4jPp9BXWms8JKvdIDvC/IcBSX5ZAGbbcobuKXvBMB4igoYemyP2PHimIYXg5D
-	 LBvyl2fTc/OtA==
-Received: from jupiter.universe (unknown [100.64.1.62])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 982CE17E063E;
-	Fri, 31 Jul 2026 16:46:59 +0200 (CEST)
-Received: by jupiter.universe (Postfix, from userid 1000)
-	id 1BE9F480067; Fri, 31 Jul 2026 16:42:09 +0200 (CEST)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Fri, 31 Jul 2026 16:42:26 +0200
-Subject: [PATCH v8 21/21] drm/bridge: synopsys: dw-dp: Add audio support
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pBnjN8sw";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="i56e9jCQ"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66VBgejR3797903
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 14:48:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	q/Zio3QWGmnJick6iHRgb9kHOYoqIHzuKlZBC+YA5SE=; b=pBnjN8sw8Y/Y1Oq7
+	BPQ6o1Rtn1Z1foPn4XKR6mgF3Qo5M7ArmpbLaogC0OzEf79FlP7RgSrmBxaQPI7x
+	BLpeATtwEheE/nw+a22ahga3dzE6qLlITTjexa9tFEyD7fq8ikOPQU+iYSXafHbF
+	HSC6GZSPLMlpNlLBbHKrK6rctbJgbS0AXh1WjT25Iu+xntqD5X577zqj3k1i0ODm
+	blUJoju2cemfDd8VUtz2ce1NaAoUPNCU6NMQaURClIgIwSmGM6pin7qdJU4eOKj9
+	4Syqz6lCIn9PGuCoK0Kon1Rk4KDsXmcMP/2xhM16k8VPprlppx/1iOL+dVlCYH/+
+	5mULIQ==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fru2u0sga-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 14:48:20 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-8eac2620cb0so11070896d6.3
+        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 07:48:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785509299; x=1786114099; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=q/Zio3QWGmnJick6iHRgb9kHOYoqIHzuKlZBC+YA5SE=;
+        b=i56e9jCQ3aOPcdSCFMBuCQZQ6Vy62z0GjW7LumIwVlk/S/bGeDffetLe5Q3xKHFL76
+         u+kZjFSH7FHcU31V6QQjlbzRo+QnbEB2N+jR7UIi08y2YCOWaG7qpR5VEZD2lghB7wuG
+         jDhrVBCoOZcMdfl4+BtHIfgQ+UUozHTOujRNemF81qsptSX+Y+mSC8vJwhGzh8ljB+/w
+         1ThlaYjpYMTjsfIh7FhEY91pvbIcbpO/SzfNAxegfl+LL+RIz9HcgkELY1fjTpJBo1ET
+         dMIm1RIlH7YofOT5K/8sFG7F6HZ1d+JCD3q+pKHITa/6TCzPSkDmRP/TcpaCC3vUzsfK
+         D6zA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785509299; x=1786114099;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=q/Zio3QWGmnJick6iHRgb9kHOYoqIHzuKlZBC+YA5SE=;
+        b=Y9OKVmn/po6hhmwP0YXkhl00BAN/TMJzegIFshgO3F1dOEZ1uUDH67Kg+db6FSHITp
+         g8rFC1lEIaoFLOVQYswRxplXtf/D6ThmyRVlnSI50Rfh43W6cRWY49veEUZSJJoVQxdU
+         qzcBSPIoCZ+A6y3DifQXFHO2pAw4z4uQneeoRp1qdI5+SqGs5ajPuqOPK2QzKnXbnMLX
+         ma7M38HpM//UpEJUkEIPdgdh3+Ar6+wUU1ap0ZJj1gxPfJAFqNkqmydATGMsMfmPdUoX
+         OpMImA5tJ3Y1VWuOyIzsen0lHK3+TZferMuwkr47EPg149tJepb2bFQuWk8Xg2PaSHC+
+         Sfcg==
+X-Forwarded-Encrypted: i=1; AHgh+Rrvb72OO6KsW6PfAnQ5bDij059/3JQYyzJR+X0juABwFa5v2Otl4g7hgk62yqERsqqRFtONbbw07IRi@vger.kernel.org
+X-Gm-Message-State: AOJu0YyUZ9e/YMcSMY54v2ppQECyNBPsx5xjF2mjPp6B5uu4XNlYVJFS
+	h+YsUJDdUT7YtvkUGRsvgCKl4cYYz/Yr/Aw88XFIgrrQg141w2pDxU17xszuYsP90JyD90j+ri5
+	oXlORgobd5ojAPkiiXUKcY84Nntaw6vLPJlZVwEffGb112t8j8TxIQBx4G0Gw10Mb
+X-Gm-Gg: AR+sD12CtpD2WxCjrKZQng26G7aJfNMO8MvqV2gZAr92sHmbhvVM87pzIm/+8ICYTXM
+	S/EGZAaSzSRiEw+gE9czqcaywNL4bwScTV3gLHpTUDbOHGJG28mGtdIxbx5VULhlWR6v8yt3T2r
+	hPlQLh9rqMqvYssVvDrNW9SVNhPEx+8pJL+/DHTXUYR+YzzxslaSUt0XvwbGNvv8sLaAqSprQBd
+	9Awk8rjIMD5qyO9t0fHDNnjiF1b3xH/QvP4A2NKIJnxV3yPGyn1up/J20XDioAK+EBQXzb2u41H
+	HGlccxB5qsX+wjjtWmOwmqOWYi75MMOlN4o2C2veT8X/wi/iS49xeJlKP7j7GWrzlkRyteyRmp/
+	eSJPovOAGgWGQAEtE3z5k5zscS8emlfne
+X-Received: by 2002:a05:6214:449f:b0:8f3:e97:59b8 with SMTP id 6a1803df08f44-908496af620mr580556d6.29.1785509299340;
+        Fri, 31 Jul 2026 07:48:19 -0700 (PDT)
+X-Received: by 2002:a05:6214:449f:b0:8f3:e97:59b8 with SMTP id 6a1803df08f44-908496af620mr579456d6.29.1785509298665;
+        Fri, 31 Jul 2026 07:48:18 -0700 (PDT)
+Received: from [192.168.1.10] ([122.177.247.168])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-908432a0cdasm11912986d6.3.2026.07.31.07.48.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 31 Jul 2026 07:48:18 -0700 (PDT)
+Message-ID: <b47345f1-1c7b-4424-9c6b-3dd02c0f4ab6@oss.qualcomm.com>
+Date: Fri, 31 Jul 2026 20:18:07 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 6/6] arm64: dts: qcom: rb3gen2: add Industrial BT UART
+ overlay
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Marcel Holtmann
+ <marcel@holtmann.org>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
+        Rocky Liao <quic_rjliao@quicinc.com>,
+        Manivannan Sadhasivam
+ <mani@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Bartosz Golaszewski <brgl@bgdev.pl>, linux-arm-msm@vger.kernel.org,
+        linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
+        linux-pm@vger.kernel.org, quic_mohamull@quicinc.com,
+        quic_hbandi@quicinc.com, quic_anubhavg@quicinc.com
+References: <20260727-rb3-industrial-bt-uart-v2-0-2d100f30e202@oss.qualcomm.com>
+ <20260727-rb3-industrial-bt-uart-v2-6-2d100f30e202@oss.qualcomm.com>
+ <794424df-4714-43a4-b4b8-e960998ad1f1@oss.qualcomm.com>
+ <ce283ef7-2460-4fa4-a1f5-9757fd6b42b5@oss.qualcomm.com>
+ <6d61d749-440f-40ad-82e5-e1e909afad06@oss.qualcomm.com>
+Content-Language: en-US
+From: Rahul Samana <rahul.samana@oss.qualcomm.com>
+In-Reply-To: <6d61d749-440f-40ad-82e5-e1e909afad06@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-synopsys-dw-dp-improvements-v8-21-ac1e6a75782f@collabora.com>
-References: <20260731-synopsys-dw-dp-improvements-v8-0-ac1e6a75782f@collabora.com>
-In-Reply-To: <20260731-synopsys-dw-dp-improvements-v8-0-ac1e6a75782f@collabora.com>
-To: Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
- Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Alexey Charkov <alchark@flipper.net>, dri-devel@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, kernel@collabora.com, 
- linux-arm-kernel@lists.infradead.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=11879;
- i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=+s2j1RmaFG+GnT5Tf+KSig25vVLZBCaUGSWzNu7tZN0=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpstEAl02NzUAiPWbbrQNABr1BYUPZvJj2oG
- jxY3jyDYVMwtIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqbLRAAAoJENju1/PI
- O/qaqEkP/3H7Rq6clIK5p0OU5xGBlly+DX7I/Ik1KWKiV0X8u2NY7xdx28Ti2I4yFtP2a/2ZQzO
- NHas32Jo0JxERNzcoMc49KGipA1FIzDsD3EYNh1JdHEqVETKmbQyz01yTCLyiBvo/tz3u3UpW76
- OA8Tsq0sXE3gcjjFOUBVmwk2GVJcO6qCkLlgx5+B/nFxvSLW6trLuayIBOnSkdICZ9zy5QgI2Yg
- q6vAO3GUFPvr5X/uQfuSPgi5DrYueDY5a4JbcyHxmH9+57GQTZJ92wx6kJsrTeJkVX/gYMY97F/
- MJUViH16AdKW7l6lWS0t7Fn1V4BZMSjki0VYEydstCE6QhN4rhyhPSCdyx4wnHeiC1lhsm06RMy
- MSf4JwHFFuRuF6PP72ydX0bDSflnKAR1F1C/3mOlWmcBylxWf3tZNYqPnKRkMGJitVTL+uUF82S
- n4EEVgMjMOMA9Svh7GBWWuOMC8Ayuxzdi/QRPtK4yumgTTjc6L2hMIipTM06GZ4CSZn6lopzPEE
- H1fThIjWbuE2cAKfkzZw1OJ0N/vhezksOQFSt+EE5xABN6iNLY4ji+UfU+UJksyZcW8X6g03rpJ
- 39xo6hFWk5C4eB4Aec1zpbRgi8/EDGkYV6ftnYKHM6Xu/48+w1kIYVizmYgoevTFuvQgrp05USD
- rfdCJcTyPMcZTgTen3uUoJg==
-X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
- fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
+X-Proofpoint-ORIG-GUID: DecToG-DV0P3gAof0L72aK93zFsAm9pR
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMxMDExMyBTYWx0ZWRfX0cHLoc2/Cih0
+ GspPZZqOAwL3NBvA1vJmjJJb40Dd2/V9CDQpXi3PvwaI8K7jy/kncDSx8VAwYfZ8+RA9Tw27GKp
+ Q4JSRLMsqrNHijSvLBUqPkk9ZVewM3kTJ1BJox5eMXPrB1wrpdQIF6AOuOZHexOeOdUL5jSVEzJ
+ FpZZHsM9IDSa6A8hfsTm+1mym4KNnzCKrqgyGnyK9dYoV3l3R8CwI8F0B/oRBL1thMbgJ/2Q6DI
+ PhdxLYZWBC8leUu8i76IKWCm6lQozQDgyigW8+Q438jilvyfzrCFZPdwxJU+O6azxH2VlWb4HGO
+ zG6ZTGCc8Od3TS/4OoXUHLr4n1yxD4rMG6ptRcutMygh0qlidkLRjVD7a9Q8jmHJJcIdCcc3zWv
+ P7P1pvmozq3lti56n4oJ6eUI3cnZZHyTprJJEXZalSL0zk8di5DDo6ribRKqxLWzauRsQ1R4ItE
+ jVtoZ29Qs+iUcH4GMJA==
+X-Proofpoint-GUID: DecToG-DV0P3gAof0L72aK93zFsAm9pR
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMxMDExMyBTYWx0ZWRfXxjvJb0x7Z0Bg
+ jTjnfFjt+Z7fDBqBgon9JPiacUOA5gwcVsQdpDNsyik3PitidDkOlmAY/aTrXu/cbV+rJ0GJGUQ
+ Zq6xSGnXiAwMEx8es2TBpcCdMZI1tAI=
+X-Authority-Analysis: v=2.4 cv=b+uCJNGx c=1 sm=1 tr=0 ts=6a6cb5b4 cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=wVA5pQU3D6HtJETKl3oCcQ==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=OkEJUsIZQkPH8Uu3lZgA:9 a=QEXdDO2ut3YA:10 a=iYH6xdkBrDN1Jqds4HTS:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-31_04,2026-07-30_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 adultscore=0 priorityscore=1501 impostorscore=0
+ lowpriorityscore=0 malwarescore=0 phishscore=0 clxscore=1015 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607310113
 
-Implement audio support for the Synopsys DesignWare DisplayPort
-controller.
 
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
----
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 305 +++++++++++++++++++++++++++++++-
- 1 file changed, 304 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index a39007f13a05..a62fca20ac2f 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -24,17 +24,21 @@
- #include <drm/drm_bridge.h>
- #include <drm/drm_bridge_connector.h>
- #include <drm/display/drm_dp_helper.h>
-+#include <drm/display/drm_hdmi_audio_helper.h>
- #include <drm/drm_edid.h>
- #include <drm/drm_of.h>
- #include <drm/drm_print.h>
- #include <drm/drm_probe_helper.h>
- #include <drm/drm_simple_kms_helper.h>
- 
-+#include <sound/hdmi-codec.h>
-+
- #define DW_DP_VERSION_NUMBER			0x0000
- #define DW_DP_VERSION_TYPE			0x0004
- #define DW_DP_ID				0x0008
- 
- #define DW_DP_CONFIG_REG1			0x0100
-+#define AUDIO_SELECT				GENMASK(2, 1)
- #define DW_DP_CONFIG_REG2			0x0104
- #define DW_DP_CONFIG_REG3			0x0108
- 
-@@ -111,6 +115,10 @@
- #define HBR_MODE_ENABLE				BIT(10)
- #define AUDIO_DATA_WIDTH			GENMASK(9, 5)
- #define AUDIO_DATA_IN_EN			GENMASK(4, 1)
-+#define AUDIO_DATA_IN_EN_CHANNEL12		BIT(0)
-+#define AUDIO_DATA_IN_EN_CHANNEL34		BIT(1)
-+#define AUDIO_DATA_IN_EN_CHANNEL56		BIT(2)
-+#define AUDIO_DATA_IN_EN_CHANNEL78		BIT(3)
- #define AUDIO_INF_SELECT			BIT(0)
- 
- #define DW_DP_SDP_VERTICAL_CTRL			0x0500
-@@ -254,6 +262,8 @@
- 
- #define SDP_REG_BANK_SIZE			16
- 
-+#define DW_DP_SDP_VERSION			0x12
-+
- struct dw_dp_link_caps {
- 	bool enhanced_framing;
- 	bool tps3_supported;
-@@ -306,6 +316,19 @@ struct dw_dp_hotplug {
- 	bool long_hpd;
- };
- 
-+enum dw_dp_audio_interface_support {
-+	DW_DP_AUDIO_I2S_ONLY = 0,
-+	DW_DP_AUDIO_SPDIF_ONLY = 1,
-+	DW_DP_AUDIO_I2S_AND_SPDIF = 2,
-+	DW_DP_AUDIO_NONE = 3,
-+};
-+
-+enum dw_dp_audio_interface {
-+	DW_DP_AUDIO_I2S = 0,
-+	DW_DP_AUDIO_SPDIF = 1,
-+	DW_DP_AUDIO_UNUSED,
-+};
-+
- struct dw_dp {
- 	struct drm_bridge bridge;
- 	struct device *dev;
-@@ -321,10 +344,18 @@ struct dw_dp {
- 	int irq;
- 	struct work_struct hpd_work;
- 	struct dw_dp_hotplug hotplug;
-+	enum dw_dp_audio_interface audio_interface;
-+	int audio_channels;
-+	int audio_channel_allocation;
-+	int audio_sample_width;
-+	bool audio_muted;
-+	int audio_sdp_nr;
- 	/* Serialize hpd status access */
- 	struct mutex irq_lock;
- 	/* Serialize sdp_reg_bank access */
- 	struct mutex sdp_lock;
-+	/* Serialize audio state */
-+	struct mutex audio_lock;
- 
- 	struct drm_dp_aux aux;
- 
-@@ -1681,6 +1712,252 @@ static int dw_dp_link_enable(struct dw_dp *dp)
- 	return ret;
- }
- 
-+static int dw_dp_audio_infoframe_send(struct dw_dp *dp)
-+{
-+	struct hdmi_audio_infoframe frame;
-+	struct dw_dp_sdp sdp;
-+	int ret;
-+
-+	ret = hdmi_audio_infoframe_init(&frame);
-+	if (ret < 0)
-+		return ret;
-+
-+	frame.coding_type = HDMI_AUDIO_CODING_TYPE_STREAM;
-+	frame.sample_frequency = HDMI_AUDIO_SAMPLE_FREQUENCY_STREAM;
-+	frame.sample_size = HDMI_AUDIO_SAMPLE_SIZE_STREAM;
-+	frame.channels = dp->audio_channels;
-+	frame.channel_allocation = dp->audio_channel_allocation;
-+
-+	ret = hdmi_audio_infoframe_pack_for_dp(&frame, &sdp.base, DW_DP_SDP_VERSION);
-+	if (ret < 0)
-+		return ret;
-+
-+	sdp.flags = DW_DP_SDP_VERTICAL_INTERVAL;
-+
-+	return dw_dp_send_sdp(dp, &sdp);
-+}
-+
-+static void __dw_dp_audio_disable(struct dw_dp *dp)
-+{
-+	if (dp->audio_sdp_nr >= 0) {
-+		dw_dp_clear_sdp(dp, dp->audio_sdp_nr);
-+		dp->audio_sdp_nr = -1;
-+	}
-+
-+	regmap_clear_bits(dp->regmap, DW_DP_SDP_VERTICAL_CTRL,
-+			  EN_AUDIO_STREAM_SDP | EN_AUDIO_TIMESTAMP_SDP);
-+	regmap_clear_bits(dp->regmap, DW_DP_SDP_HORIZONTAL_CTRL,
-+			  EN_AUDIO_STREAM_SDP);
-+
-+	regmap_clear_bits(dp->regmap, DW_DP_AUD_CONFIG1, AUDIO_DATA_IN_EN);
-+
-+	if (dp->audio_interface == DW_DP_AUDIO_SPDIF)
-+		clk_disable_unprepare(dp->spdif_clk);
-+	else if (dp->audio_interface == DW_DP_AUDIO_I2S)
-+		clk_disable_unprepare(dp->i2s_clk);
-+
-+	dp->audio_interface = DW_DP_AUDIO_UNUSED;
-+}
-+
-+static int __dw_dp_audio_enable(struct dw_dp *dp)
-+{
-+	u8 audio_data_in_en;
-+
-+	switch (dp->audio_channels) {
-+	case 1:
-+	case 2:
-+		audio_data_in_en = AUDIO_DATA_IN_EN_CHANNEL12;
-+		break;
-+	case 8:
-+		audio_data_in_en = AUDIO_DATA_IN_EN_CHANNEL12 |
-+				   AUDIO_DATA_IN_EN_CHANNEL34 |
-+				   AUDIO_DATA_IN_EN_CHANNEL56 |
-+				   AUDIO_DATA_IN_EN_CHANNEL78;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	regmap_update_bits(dp->regmap, DW_DP_AUD_CONFIG1,
-+			   AUDIO_DATA_IN_EN | NUM_CHANNELS | AUDIO_DATA_WIDTH |
-+			   AUDIO_INF_SELECT | HBR_MODE_ENABLE | AUDIO_MUTE,
-+			   FIELD_PREP(AUDIO_DATA_IN_EN, audio_data_in_en) |
-+			   FIELD_PREP(NUM_CHANNELS, dp->audio_channels - 1) |
-+			   FIELD_PREP(AUDIO_DATA_WIDTH, dp->audio_sample_width) |
-+			   FIELD_PREP(AUDIO_INF_SELECT, dp->audio_interface) |
-+			   FIELD_PREP(HBR_MODE_ENABLE, 0) |
-+			   FIELD_PREP(AUDIO_MUTE, dp->audio_muted));
-+
-+	/* Wait for inf switch */
-+	usleep_range(20, 40);
-+
-+	/*
-+	 * Send audio stream during vertical and horizontal blanking periods.
-+	 * Send out audio timestamp SDP once per video frame during the vertical
-+	 * blanking period
-+	 */
-+	regmap_update_bits(dp->regmap, DW_DP_SDP_VERTICAL_CTRL,
-+			   EN_AUDIO_STREAM_SDP | EN_AUDIO_TIMESTAMP_SDP,
-+			   FIELD_PREP(EN_AUDIO_STREAM_SDP, 1) |
-+			   FIELD_PREP(EN_AUDIO_TIMESTAMP_SDP, 1));
-+	regmap_update_bits(dp->regmap, DW_DP_SDP_HORIZONTAL_CTRL,
-+			   EN_AUDIO_STREAM_SDP,
-+			   FIELD_PREP(EN_AUDIO_STREAM_SDP, 1));
-+
-+	if (dp->audio_sdp_nr >= 0) {
-+		dw_dp_clear_sdp(dp, dp->audio_sdp_nr);
-+		dp->audio_sdp_nr = -1;
-+	}
-+
-+	dp->audio_sdp_nr = dw_dp_audio_infoframe_send(dp);
-+	if (dp->audio_sdp_nr < 0)
-+		return dp->audio_sdp_nr;
-+
-+	return 0;
-+}
-+
-+static int dw_dp_audio_startup(struct drm_bridge *bridge,
-+			       struct drm_connector *connector)
-+{
-+	struct dw_dp *dp = bridge_to_dp(bridge);
-+
-+	dev_dbg(dp->dev, "audio startup\n");
-+
-+	return pm_runtime_get_active(dp->dev, RPM_TRANSPARENT);
-+}
-+
-+static void dw_dp_audio_unprepare(struct drm_bridge *bridge,
-+				  struct drm_connector *connector)
-+{
-+	struct dw_dp *dp = bridge_to_dp(bridge);
-+
-+	guard(mutex)(&dp->audio_lock);
-+
-+	__dw_dp_audio_disable(dp);
-+}
-+
-+static int dw_dp_audio_prepare(struct drm_bridge *bridge,
-+			       struct drm_connector *connector,
-+			       struct hdmi_codec_daifmt *daifmt,
-+			       struct hdmi_codec_params *params)
-+{
-+	struct dw_dp *dp = bridge_to_dp(bridge);
-+	u8 supported_audio_interfaces;
-+	enum dw_dp_audio_interface audio_interface;
-+	u32 cfg1;
-+	int ret;
-+
-+	guard(mutex)(&dp->audio_lock);
-+
-+	/*
-+	 * prepare might be called multiple times, so release the clocks
-+	 * from previous calls to keep the calls in balance.
-+	 */
-+	if (dp->audio_interface != DW_DP_AUDIO_UNUSED)
-+		__dw_dp_audio_disable(dp);
-+
-+	/* The hardware is limited to 1,2 or 8 channels */
-+	switch (params->cea.channels) {
-+	case 1:
-+	case 2:
-+	case 8:
-+		break;
-+	default:
-+		dev_err(dp->dev, "invalid audio channels %d\n", params->cea.channels);
-+		return -EINVAL;
-+	}
-+
-+	if (params->sample_width < 16 || params->sample_width > 24) {
-+		dev_err(dp->dev, "invalid data sample width %d\n", params->sample_width);
-+		return -EINVAL;
-+	}
-+
-+	switch (daifmt->fmt) {
-+	case HDMI_SPDIF:
-+		audio_interface = DW_DP_AUDIO_SPDIF;
-+		break;
-+	case HDMI_I2S:
-+		/*
-+		 * It is recommended to use SPDIF instead of I2S, since I2S mode requires
-+		 * manually inserting PCUV control bits from userspace and this is done
-+		 * automatically in hardware for SPDIF mode.
-+		 */
-+		audio_interface = DW_DP_AUDIO_I2S;
-+		break;
-+	default:
-+		dev_err(dp->dev, "invalid DAI format %d\n", daifmt->fmt);
-+		return -EINVAL;
-+	}
-+
-+	regmap_read(dp->regmap, DW_DP_CONFIG_REG1, &cfg1);
-+	supported_audio_interfaces = FIELD_GET(AUDIO_SELECT, cfg1);
-+
-+	if (supported_audio_interfaces != DW_DP_AUDIO_I2S_AND_SPDIF &&
-+	    supported_audio_interfaces != audio_interface) {
-+		dev_err(dp->dev, "unsupported DAI %d\n", daifmt->fmt);
-+		return -EINVAL;
-+	}
-+
-+	ret = clk_prepare_enable(dp->spdif_clk);
-+	if (ret)
-+		return ret;
-+
-+	ret = clk_prepare_enable(dp->i2s_clk);
-+	if (ret) {
-+		clk_disable_unprepare(dp->spdif_clk);
-+		return ret;
-+	}
-+
-+	if (audio_interface == DW_DP_AUDIO_I2S)
-+		clk_disable_unprepare(dp->spdif_clk);
-+	else if (audio_interface == DW_DP_AUDIO_SPDIF)
-+		clk_disable_unprepare(dp->i2s_clk);
-+
-+	dp->audio_channels = params->cea.channels;
-+	dp->audio_channel_allocation = params->cea.channel_allocation;
-+	dp->audio_sample_width = params->sample_width;
-+	dp->audio_interface = audio_interface;
-+
-+	ret = __dw_dp_audio_enable(dp);
-+	if (ret < 0) {
-+		dev_err(dp->dev, "failed to enable audio\n");
-+		__dw_dp_audio_disable(dp);
-+		return ret;
-+	}
-+
-+	dev_dbg(dp->dev, "audio prepare with %d channels using DAI=%d\n",
-+		dp->audio_channels, dp->audio_interface);
-+
-+	return 0;
-+}
-+
-+static void dw_dp_audio_shutdown(struct drm_bridge *bridge,
-+				 struct drm_connector *connector)
-+{
-+	struct dw_dp *dp = bridge_to_dp(bridge);
-+
-+	dev_dbg(dp->dev, "audio shutdown\n");
-+
-+	dw_dp_audio_unprepare(bridge, connector);
-+	pm_runtime_put_autosuspend(dp->dev);
-+}
-+
-+static int dw_dp_audio_mute_stream(struct drm_bridge *bridge,
-+				   struct drm_connector *connector,
-+				   bool enable, int direction)
-+{
-+	struct dw_dp *dp = bridge_to_dp(bridge);
-+
-+	dev_dbg(dp->dev, "audio %smute\n", enable ? "" : "un");
-+
-+	dp->audio_muted = enable;
-+
-+	regmap_update_bits(dp->regmap, DW_DP_AUD_CONFIG1, AUDIO_MUTE,
-+			   FIELD_PREP(AUDIO_MUTE, enable));
-+
-+	return 0;
-+}
-+
- static void dw_dp_bridge_atomic_enable(struct drm_bridge *bridge,
- 				       struct drm_atomic_commit *state)
- {
-@@ -1719,6 +1996,14 @@ static void dw_dp_bridge_atomic_enable(struct drm_bridge *bridge,
- 		dev_err(dp->dev, "failed to enable video: %d\n", ret);
- 		return;
- 	}
-+
-+	scoped_guard(mutex, &dp->audio_lock) {
-+		if (dp->audio_interface != DW_DP_AUDIO_UNUSED) {
-+			ret = __dw_dp_audio_enable(dp);
-+			if (ret < 0)
-+				dev_err(dp->dev, "failed to restore audio: %d\n", ret);
-+		}
-+	}
- }
- 
- static void dw_dp_reset(struct dw_dp *dp)
-@@ -1964,6 +2249,11 @@ static const struct drm_bridge_funcs dw_dp_bridge_funcs = {
- 	.detect = dw_dp_bridge_detect,
- 	.edid_read = dw_dp_bridge_edid_read,
- 	.oob_notify = dw_dp_bridge_oob_notify,
-+
-+	.dp_audio_startup = dw_dp_audio_startup,
-+	.dp_audio_prepare = dw_dp_audio_prepare,
-+	.dp_audio_shutdown = dw_dp_audio_shutdown,
-+	.dp_audio_mute_stream = dw_dp_audio_mute_stream,
- };
- 
- static int dw_dp_link_retrain(struct dw_dp *dp)
-@@ -2259,6 +2549,10 @@ int dw_dp_probe(struct dw_dp *dp)
- 	if (ret)
- 		return ret;
- 
-+	ret = devm_mutex_init(dev, &dp->audio_lock);
-+	if (ret)
-+		return ret;
-+
- 	res = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(res))
- 		return PTR_ERR(res);
-@@ -2342,12 +2636,21 @@ int dw_dp_probe(struct dw_dp *dp)
- 		return ret;
- 
- 	dp->vsc_sdp_nr = -1;
-+	dp->audio_interface = DW_DP_AUDIO_UNUSED;
-+	dp->audio_sdp_nr = -1;
- 
- 	bridge = &dp->bridge;
- 	bridge->of_node = dev->of_node;
--	bridge->ops = DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_HPD;
-+	bridge->ops = DRM_BRIDGE_OP_DP_AUDIO |
-+		      DRM_BRIDGE_OP_DETECT |
-+		      DRM_BRIDGE_OP_EDID |
-+		      DRM_BRIDGE_OP_HPD;
- 	bridge->type = DRM_MODE_CONNECTOR_DisplayPort;
- 	bridge->ycbcr_420_allowed = true;
-+	bridge->hdmi_audio_dev = dev;
-+	bridge->hdmi_audio_max_i2s_playback_channels = 8;
-+	bridge->hdmi_audio_dai_port = 1;
-+	bridge->hdmi_audio_spdif_playback = true;
- 
- 	ret = devm_drm_bridge_add(dev, bridge);
- 	if (ret)
+On 31-07-2026 18:20, Konrad Dybcio wrote:
+> On 7/31/26 8:53 AM, Rahul Samana wrote:
+>>
+>>
+>> On 29-07-2026 18:01, Konrad Dybcio wrote:
+>>> On 7/27/26 5:45 PM, Rahul Samana wrote:
+>>>> The reworked RB3 Gen 2 Industrial mezzanine keeps the common Industrial
+>>>> mezzanine hardware description but routes QCC2072 Bluetooth over UART4
+>>>> instead of the default Bluetooth-over-USB path.
+>>>>
+>>>> Build this variant by applying the common Industrial mezzanine overlay
+>>>> first, followed by the BT UART overlay. The overlay models the M.2 E-key
+>>>> connector graph endpoints for PCIe and UART, and disables the on-board
+>>>> WCN6750 PMU and UART7 path so the M.2 QCC2072 Bluetooth controller can be
+>>>> used instead.
+>>>
+>>> So is the onboard module disabled? Can we not just use two in parallel?
+>>>
+>>
+>> The Industrial mezzanine variants do not support the on-board WCN6750
+>> wireless path. The common Industrial mezzanine overlay already disables
+>> the on-board Wi-Fi node.
+> 
+> What does 'do not support' it mean here? They are physically present
+> as part of the SoM, so unless the lanes are somehow diverted away,
+> why is it not?
+> 
+> Konrad
 
--- 
-2.53.0
+Hi Konrad,
+
+The WCN6750 module is physically present on the SoM. What I meant is that
+the current Industrial mezzanine devicetree already disables the on-board
+Wi-Fi path, and this BT UART variant followed the same board-level policy
+for the on-board Bluetooth UART/PMU path.
+
+For the endpoint labels, I can move the UART endpoint to the SoC DTSI,
+kodiak.dtsi, as uart4_ep.
+
+For the PCIe endpoint, the PCIe path to the M.2 QCC2072 device is not the
+PCIe0 root port in kodiak.dtsi. In the composed devicetree, it is
+behind the Industrial mezzanine PCIe switch, under:
+
+    /soc@0/pcie@1c00000/pcie@0/pcie@0,0/pcie@2,0
+
+
+So placing pcie0_port0_ep in kodiak.dtsi would not describe the actual
+topology.
+
+I tried adding a generic label/endpoint to that downstream port in the
+Industrial mezzanine overlay and referencing it from the BT UART overlay.
+However, when the overlays are compiled separately and then composed, that
+label is not available while applying the BT UART overlay, so the composed
+DTB build fails with FDT_ERR_NOTFOUND.
+
+Could you please suggest how you would prefer the PCIe endpoint to be
+modelled for this case?
+
+Regards,
+Rahul
 
