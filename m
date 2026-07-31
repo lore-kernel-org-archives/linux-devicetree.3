@@ -1,187 +1,155 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013049.outbound.protection.outlook.com [40.93.196.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49497385D96;
-	Fri, 31 Jul 2026 07:18:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785482289; cv=none; b=awsUFeQZsYoMxS0JwqFuF6Q7TlrXFFcykDzqrNqDvbrEmUSyCjFkY93ZevI8xSzolNSRKJKs0/6Hx4Hm+ZWuqXcfDqSitAtU+qS/q6GSg2HfVC2klkRFL80iywfYaLfU8S8+5U3N0edudoGtEDQulgvXKQCKNjwtw8Ubgk+7Uc4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785482289; c=relaxed/simple;
-	bh=w65ABpDtQYeVpxMjhXN2XWCU5581eQKLmdm+rHUKvH0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CBG2UNxWMjFaO0eyv36cXy4IYvnsN8dbJcCU6Jd81QpjjctVIr2Z++i1PKlpKumapACkyWyA/C6FOVCmq5nMPLM2MU615RHYYxlsBTdvxhRu0G5qBa9s9HYrSTtmB6ivrm+NJONFRx8avWrZRepBInMTCkwFfVsFhLohyGc+kgY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 0DEAB202C5D;
-	Fri, 31 Jul 2026 09:18:05 +0200 (CEST)
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1wphVM-002Ajk-33;
-	Fri, 31 Jul 2026 09:18:04 +0200
-Received: from pengutronix.de (p4ffb2dc6.dip0.t-ipconnect.de [79.251.45.198])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id A0F0B577C44;
-	Fri, 31 Jul 2026 07:18:04 +0000 (UTC)
-Date: Fri, 31 Jul 2026 09:18:04 +0200
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: Cunhao Lu <1579567540@qq.com>
-Cc: kernel@pengutronix.de, Vincent Mailhol <mailhol@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, linux-can@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Heiko Stuebner <heiko.stuebner@cherry.de>
-Subject: Re: [PATCH v6 2/4] can: rockchip: add RK3588 CAN support
-Message-ID: <20260731-tall-camouflaged-earthworm-e1a7d0-mkl@pengutronix.de>
-References: <tencent_7BAA0052C402BFFD26291A64198084E39107@qq.com>
- <tencent_207E464D12344B3228096E23A001D6882508@qq.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16D3F384CFF;
+	Fri, 31 Jul 2026 07:20:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785482463; cv=fail; b=cTZjubYQXz13DX2dCB07NpJPU+XAZ9e3tpJpjtz7XRlev4N55Mm2RLqBj/VkTxB9uDkCGViKJ1014S6k1Ka317eudriUoM49302661Ymmpj0QwP+jy3vI6ckl0Cx924I6efzvMdqP/vXyRW1LxsGf57TDsZmQPTNneSjMNU4abo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785482463; c=relaxed/simple;
+	bh=b3DwY/8cnn0VcMlKIXvcJd/QBvcjakGRN9Psw0+7jzk=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=EhC5GHQX42E1P2HxUfh+CZfjjPdhRGQk/C8nYloGHpT1ILE/BFWeWoKvjSCFT6016EKD+rke9sev5Dm0P9nnNouiEZLZlzmNP8xRzbNqn3RwaPASwpcJ4lX4duAHr/PDtHz7+8s0bG9nhfWjwztDwepIOcD7zyg/UVzyfhjoBFo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=rfxMRjeq; arc=fail smtp.client-ip=40.93.196.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="rfxMRjeq"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bymWxdnr8yybnU2JTka9lPBnbly4Xr/iSF/jMnvbqSWePOiPz/Ak56zQDy6lg/gZwmdzaiCR/f0iaTD3s+sGzVPMSz8Dp885HRF9GDLn5FCjTE96lw55VwDCiYve/N2bMca7Eh7YzsxkwV/ph1DkZD86VWqaRGRFgAvAePrj4HE1I7lc4v82d/S5KVGaq1PZEixRpClbCTkPwxFSf3XUoZYUgHLCnOz11zIeEgtf7DEupfvJ9aIqh1gewtmyeLNN+sEPoSQI77wdwRU5NHxllqp4Qg6b41RSa+EHs/39Pt8Kg+Xqfr7aoWUOy/nv7Gr4OrOgaX6YEJ6G6rD0tJoBZw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/WXSmQIkZwA8kpGBysD8TEOloYnmHXNqgA/ChosqDxE=;
+ b=B93fy1CXb2G4RhdFJpeJIgFkdijL4COtZai/jac47oImnBcG6FhU3kuT1rGG1WAYaU5jUAwNkvgAM33FayaKITXyO20czKokTT1xK6ehmi4qpEIIYHVGhrkX2YLhfiPbYNhueFoKmN7VTn4z+OcIfz1Eo7nODNiL67XMSbLpOejj808dpMBLobmWGHLYN5Z4tGUfi51H2qGgNf3L84Wpajxj0iPEy0IYKUvJtY3lx0unQ3wE7Ix0X1g677zIHZxSo9okK5+AOQveBsoK1ENFUlOplKIdDMnRVZa5H3bXQ5A2LHaAGPjQ+DOxnIb9ASQfrUcTqj0Q+w1mJRJgYV3VRQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/WXSmQIkZwA8kpGBysD8TEOloYnmHXNqgA/ChosqDxE=;
+ b=rfxMRjeqTPxEkIP8VwjR48nQIVBObQs2ceXkqLMZjTpVG+KE6aPAl0V1D+fH4TmOJLcmuAyYwxXPIV8dFz/TSOvrhSVKtewQ6y45W6PRYGxGdnPU+BjReWG4MjjAv6u0SDkIlT15qSk6WGVHaXu7dMn2AvNpJfvGbuJw5FUIzbw=
+Received: from BL1PR13CA0427.namprd13.prod.outlook.com (2603:10b6:208:2c3::12)
+ by SA1PR12MB7269.namprd12.prod.outlook.com (2603:10b6:806:2be::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.15; Fri, 31 Jul
+ 2026 07:20:55 +0000
+Received: from BL6PEPF00022570.namprd02.prod.outlook.com
+ (2603:10b6:208:2c3:cafe::14) by BL1PR13CA0427.outlook.office365.com
+ (2603:10b6:208:2c3::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.9 via Frontend Transport; Fri, 31
+ Jul 2026 07:20:55 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BL6PEPF00022570.mail.protection.outlook.com (10.167.249.38) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.292.8 via Frontend Transport; Fri, 31 Jul 2026 07:20:55 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 31 Jul
+ 2026 02:20:54 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 31 Jul
+ 2026 02:20:54 -0500
+Received: from xhdshubhraj40.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Fri, 31 Jul 2026 02:20:50 -0500
+From: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
+To: <linux-clk@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+CC: <git@amd.com>, <shubhrajyoti.datta@gmail.com>, Michael Turquette
+	<mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Michal Simek <michal.simek@amd.com>, "Shubhrajyoti
+ Datta" <shubhrajyoti.datta@amd.com>, <devicetree@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>
+Subject: [PATCH v3 0/8]  clk: clocking-wizard: Add static-config clock provider support
+Date: Fri, 31 Jul 2026 12:50:41 +0530
+Message-ID: <20260731072049.957624-1-shubhrajyoti.datta@amd.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="a5nhk727xcrd5z4s"
-Content-Disposition: inline
-In-Reply-To: <tencent_207E464D12344B3228096E23A001D6882508@qq.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF00022570:EE_|SA1PR12MB7269:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9a5ba91d-a9a1-4b33-e20d-08deeed442b5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|82310400026|36860700016|23010399003|1800799024|56012099006|5023799004|10067099003|11063799006|3023799007|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	mVcBNgocGv9MAfT3K7zhUqtJqNOnYuYSxOiAtoc50OPqadZAg04IXkQMshSL6fZkEuSCTFqpJTxTUHByITLODngmiBUpzk7J6hpOIcJafCK2Hi9QQx9O1hZnhykmVMJuClY/tWwKfggz8u0OsjWPLsCytAwkRC9Ryh6XsWbmVCIMtIYPMS6TvTFQrt2RA1X+BlE9X0ncKtDlDvlAcCHvXllpUMOfGI/RdbpZPy8D38GoDoBfpAg1AO4YpwOFK4Bg5QpoO06QmHxlx4om58jQMc0q0hSgRNrouHYppZvQOZaVwE7DFqLxK9ophATcF6ZLAFv+tFGol0iO4FHnpxNRUz/efocQ5gaT4R7mL3NKZ7Z5lzt6gbAbhv/05P4YwPYmp0cLp9xl4VQv7ZpgfjQPeKRWARPkWOXs83n5V19NRGhqV8gQaP18prYnmm6tlfwCgQvPF7t83gpAwKkekXhw7ye1fngkjUryaEZcm54zWsAsd0/3nC6koGfzL3T3B+LB31n6usI0j+LXUx1t1Kjx7TkwweHuPNHd87HFAm12W6EkAMgS2Ni/unyoUvKWtPe2EFBQn6P7ZDSfcBqll9H04IxxZQjfDQdzc8k770zWlprf4N672PSlgqt9fr4sOcfDuttwRLNhqs5MPwDd5Y2MxI3eS/g4WA/nXhYmMoLeSIIYlS3TVe75iQSV0IBe8xXzj+VNxGmFeXsiMSw41trS8Q==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(82310400026)(36860700016)(23010399003)(1800799024)(56012099006)(5023799004)(10067099003)(11063799006)(3023799007)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	hEMBBjLWD0TIWonV7MZGwGhL+nuQtohLCo1sIETJ/sf+PGAjGi7g4fI1jdeBDQ3L/9+RWSiOsji42wLwO6E0GZp8lj4jcVRxO2pn8VsmXlJq1pjReQd+5pFJvZnHO32zoNb238OEG99taQuSLKpO1cE66pjKnaJGgTinl9d5ebI+lFB+ws5ZOuw1WCh1/f5xnYNsxLZxAupoqjst+ThQAk5qK8NidlySHx1cy+ihb+rS4yAeCSOmdXcUS1I/thyXZUjL9osF5FKb9UlerS02k0y6O5KmDr6eG/rJ3sFyB1aiOVpDCm4lDazSj1iQ3t8Ev57Yxg31bUqQyJqnkzRdVPGvOU0LGRXhpX/yClT2kDhPthRENEhuIxUfsDWKmCHhOIxzTStPQ6TTYE6mPVNl/OQhUHEj9tF0P1VRtbgJV95kIbfiMLJHM4AauID+vj7g
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 07:20:55.2454
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9a5ba91d-a9a1-4b33-e20d-08deeed442b5
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL6PEPF00022570.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7269
 
 
---a5nhk727xcrd5z4s
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v6 2/4] can: rockchip: add RK3588 CAN support
-MIME-Version: 1.0
+ The Xilinx clocking-wizard IP can be used in a static-config mode
+ where the hardware is pre-programmed at boot and no dynamic register
+ access is required. In that case the driver should skip ioremap,
+ read the fixed multiplier/divisor pairs from the device tree, and
+ register fixed-factor clocks derived from clk_in1.
 
-On 30.07.2026 22:34:03, Cunhao Lu wrote:
-> Add support for the RK3588 CAN controller by introducing a dedicated
-> model ID and OF match entry.
->
-> The block is closely related to the existing RK3568 variants, but it
-> cannot reuse their match data unchanged. In particular, RK3588
-> encodes RX_FIFO_CNT in bits 7:5 instead of 6:4, so the RX path needs
-> SoC-specific handling.
->
-> The RX FIFO count bitfield difference was found by comparing Rockchip's
-> vendor kernel 6.1 CAN support for RK3568 and RK3588. Runtime testing on
-> RK3588 also confirms that bits 7:5 are needed.
->
-> Enable the existing erratum 5 empty-FIFO workaround for RK3588.
-> Heiko reproduced erratum 6 on RK3588, so enable that workaround as
-> well.
->
-> CAN-FD is enabled for RK3588. The BRS bus-off issue seen in earlier
-> testing was caused by the transmit delay compensation setting. With
-> RKCANFD_REG_TRANSMIT_DELAY_COMPENSATION programmed to 0 on RK3588,
-> CAN-FD with BRS works in local testing.
->
-> Tested on an embedfire,rk3588-lubancat-5io board with can0/can1
-> directly connected, no other device on the bus, 60 Ohm bus
-> termination, and a 300 MHz CAN clock. Runtime testing used 500 kbit/s
-> arbitration bitrate and 1, 3 and 5 Mbit/s data bitrates. The 5 Mbit/s
-> data phase test ran for 15 minutes with cangen using BRS and
-> cansequence on the receiver. Both interfaces reported 9528377 packets
-> and 150667356 bytes, with 0 bus-errors, 0 error-warn, 0 error-pass and
-> 0 bus-off events.
->
-> Co-developed-by: Heiko Stuebner <heiko.stuebner@cherry.de>
-> Signed-off-by: Heiko Stuebner <heiko.stuebner@cherry.de>
-> Tested-by: Heiko Stuebner <heiko@sntech.de>
-> Reviewed-by: Heiko Stuebner <heiko@sntech.de>
-> Signed-off-by: Cunhao Lu <1579567540@qq.com>
-> ---
-> v3 -> v4:
-> - Disable TDC on RK3588 by programming
->   RKCANFD_REG_TRANSMIT_DELAY_COMPENSATION to 0.
-> - Drop RKCANFD_QUIRK_CANFD_BROKEN for RK3588 and enable CAN-FD support.
-> - Document successful RK3588 CAN-FD/BRS testing.
-> v2 -> v3:
-> - Use Co-developed-by for Heiko's RK3588 contributions and add his
->   Signed-off-by
-> - Collect Heiko's Reviewed-by and Tested-by tags
-> ---
->  drivers/net/can/rockchip/rockchip_canfd-core.c | 17 +++++++++++++++++
->  drivers/net/can/rockchip/rockchip_canfd-rx.c   |  5 ++++-
->  drivers/net/can/rockchip/rockchip_canfd.h      | 14 +++++++++++++-
->  3 files changed, 34 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/net/can/rockchip/rockchip_canfd-core.c b/drivers/net=
-/can/rockchip/rockchip_canfd-core.c
-> index 29de0c01e4ed..37c1c22c40c9 100644
-> --- a/drivers/net/can/rockchip/rockchip_canfd-core.c
-> +++ b/drivers/net/can/rockchip/rockchip_canfd-core.c
-> @@ -50,6 +50,12 @@ static const struct rkcanfd_devtype_data rkcanfd_devty=
-pe_data_rk3568v3 =3D {
->  		RKCANFD_QUIRK_CANFD_BROKEN,
->  };
->
-> +static const struct rkcanfd_devtype_data rkcanfd_devtype_data_rk3588 =3D=
- {
-> +	.model =3D RKCANFD_MODEL_RK3588,
-> +	.quirks =3D RKCANFD_QUIRK_RK3568_ERRATUM_5 |
-> +		RKCANFD_QUIRK_RK3568_ERRATUM_6,
-> +};
-> +
->  static const char *__rkcanfd_get_model_str(enum rkcanfd_model model)
->  {
->  	switch (model) {
-> @@ -57,6 +63,8 @@ static const char *__rkcanfd_get_model_str(enum rkcanfd=
-_model model)
->  		return "rk3568v2";
->  	case RKCANFD_MODEL_RK3568V3:
->  		return "rk3568v3";
-> +	case RKCANFD_MODEL_RK3588:
-> +		return "rk3588";
->  	}
->
->  	return "<unknown>";
-> @@ -148,6 +156,12 @@ static int rkcanfd_set_bittiming(struct rkcanfd_priv=
- *priv)
->
->  	rkcanfd_write(priv, RKCANFD_REG_FD_DATA_BITTIMING, reg_dbt);
->
-> +	/* RK3588 CAN-FD BRS works with TDC disabled. */
-> +	if (priv->devtype_data.model =3D=3D RKCANFD_MODEL_RK3588) {
-> +		rkcanfd_write(priv, RKCANFD_REG_TRANSMIT_DELAY_COMPENSATION, 0);
-> +		return 0;
-> +	}
-> +
+ This series:
+   - adds the xlnx,clk-mul-div binding to carry mul/div pairs
+   - makes the reg property optional for static-config nodes
+   - skips ioremap when xlnx,static-config is present
+   - moves clk_in1 acquisition before the static-config check so it
+     is available in both code paths
+   - registers fixed-factor output clocks in static-config mode
 
-Can you attach the TDC to the CAN framework? See commit 5e1663810e11
-("can: mcp251xfd: fix TDC setting for low data bit rates"). And check if
-CAN-FD works on the rk3588 works?
 
-Marc
+Changes in v3:
+Added reviewed tag
+the number of outputs duplication removed
+Split notifier into per-clock callbacks
 
->  	tdco =3D (priv->can.clock.freq / dbt->bitrate) * 2 / 3;
->  	tdco =3D min(tdco, FIELD_MAX(RKCANFD_REG_TRANSMIT_DELAY_COMPENSATION_TD=
-C_OFFSET));
+Changes in v2:
+Merged the similar patches
+Allow check for current dt even if it is unused.
+Patch added
 
---
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+Shubhrajyoti Datta (8):
+  dt-bindings: clock: clocking-wizard: Add static-config mode support
+  clk: clocking-wizard: Do not map the memory for static-config
+  clk: clocking-wizard: Move clk_in1 acquisition before static-config
+    check
+  clk: clocking-wizard: Add static-config clock provider support
+  clk: clocking-wizard: Skip s_axi_aclk for static-config
+  clk: clocking-wizard: Use dev_err_probe() when mapping registers
+  clk: clocking-wizard: Fix division by zero and unbounded register
+    write
+  clk: clocking-wizard: Use separate notifier_block for each clock
 
---a5nhk727xcrd5z4s
-Content-Type: application/pgp-signature; name="signature.asc"
+ .../bindings/clock/xlnx,clocking-wizard.yaml  |  53 +++-
+ drivers/clk/xilinx/clk-xlnx-clock-wizard.c    | 229 +++++++++++++++---
+ 2 files changed, 246 insertions(+), 36 deletions(-)
 
------BEGIN PGP SIGNATURE-----
+-- 
+2.34.1
 
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCamxMKgAKCRDMOmT6rpmt
-0vXBAQDoBlfSjZe9dMhr9BurTP9gPUC5Y4L9MHxvMgzlVhRtaAEA0Wp6yKbuMIkW
-a5YDShjRsc4DOMnQFcPUpi7oM9UkJQQ=
-=EqJg
------END PGP SIGNATURE-----
-
---a5nhk727xcrd5z4s--
