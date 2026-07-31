@@ -1,26 +1,87 @@
-Received: from mail-m49214.qiye.163.com (mail-m49214.qiye.163.com [45.254.49.214])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43F24443E3C;
-	Fri, 31 Jul 2026 15:38:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.214
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAA8043D4F5
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 15:41:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785512340; cv=none; b=ERO5A/OazFD9wtddXHhYsWFVqCL86QiWZcLNlJLhBdr3gIwMvNs771T6ZdR59KguiBbHgYP/9bTPHtfBUZ3rZY65nB9HxmSimEpthjshSOv+2d8v1cgrL7qIwxSPX+2dFSPL+3QjcCb+46JQ4Xf4KrxcickztuaIi5JOcNQ2Xy4=
+	t=1785512474; cv=none; b=ly4sT8pkottR3mGgczjT1Zf9pQnPaSftl2I2Peo9wLPsO2IAuGmCTVvlSDjKtj9FrKk2strPgmjGyJXepZi1yXxGUaay5FrtMYUEnXcvQ6G/1pTrWmwExM2/dwwz/C1SplwulxgleyDIKQzCfH3kKz+u+TmGXECXe1UusRsu2tc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785512340; c=relaxed/simple;
-	bh=/swAdY52KLm47PoKdR9lSogTzqm0QqjdPAbyLzY89GU=;
+	s=arc-20240116; t=1785512474; c=relaxed/simple;
+	bh=w44NQ7CGfCjEIC77H9KkwhhTGq6i+jRPjW0DFv4GItQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZEOS/z+J/XW9ShT65I7gpGbX4ppgf0Am7erzslsqizVp9jzMRcf1MrWGUdNABwZmo343Pk6W0sWbJF/8W+IH7hYto8k9OhNHDoJaUo6ayO3O3hVNkIZA95/H0NWCM6VfuPmMBJhcQXi7H0W/ZgT4l+5OfvjKJN4bn5mv09rWfZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=T2j7X27H; arc=none smtp.client-ip=45.254.49.214
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	 In-Reply-To:Content-Type; b=inunKRnEDwFc3/Bl2LgOGbKpL8g0XwESOraywCDZTCdZWPeuxKWeZ+pqRREyq4aXjvDldB6x3zfe9rJZhXx2Jx9iFHzwER0Pa3Y0IMihspuKskxZx0bUAzfpSKkv2a5EcC3k1oCwJk/Y7uDwEpiuIcGGYswFftijefYQHyHeiR4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Njx/jRnW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cRIcKPmn; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="T2j7X27H"
-Received: from [172.16.12.74] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 48503fdf9;
-	Fri, 31 Jul 2026 17:55:42 +0800 (GMT+08:00)
-Message-ID: <44ff5316-43cc-46be-b947-ea6e1f5da1bb@rock-chips.com>
-Date: Fri, 31 Jul 2026 17:55:42 +0800
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Njx/jRnW";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cRIcKPmn"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66VFOM3E215253
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 15:41:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	R6LlL2aWIX7N9cP3QSxIY897bTTboUlJ4EFUK8JK0Pk=; b=Njx/jRnWrkqDys70
+	M9noEftidN4lnaa7xOGlOSNDBe9WrXoRwnnWE7ec2vstTXqv1Z9nd1H2zGje47az
+	QzGjSsVILfIHvaebLo7G8Cz1U5We4cZ/q78XiZwqoFqL+TxbXnmv9I2hW8bt4h+x
+	Z75jfO31ChCAbFTebhkNn0EfmPDt30LvCc4DHNwGw3j6HOsNTStu6kecRdU8K+hu
+	VwQV61TfyyOxSvTx9aVDjVX7RIJ4Zlcr0Ewh3W3+kjEG8Kl8PmoqvxZpcMAO0Pa+
+	nS3UK44QX6kYxgCGIX/45tTBS+/SOaCx96PIaWGdOuI+KCMYWXeR8uVSRm9NmZWA
+	QEp2/g==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4frujurx3x-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 15:41:11 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93495488976so16236985a.3
+        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 08:41:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785512471; x=1786117271; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=R6LlL2aWIX7N9cP3QSxIY897bTTboUlJ4EFUK8JK0Pk=;
+        b=cRIcKPmnOcMyjk7LH0xtQjIaKUa1MBJYbNX0VyLAbT4nEx7RmSmqiG6IakNY/u/NGC
+         250MnJ2nC2xgZhod1PdkySkS0B6QrJHaPyFxOlmUjZeksk69W6FZ1ZsupZofhviviarY
+         43OpQ5Jrm+Hliq3Yn6FbCMaIOVrczXwNllo6qt+0GbKHJ1o0JF9uCZDf9MoxzDd4k/cb
+         mzb2mMr5h7J/H8gLXnZo+GlSPMcVE+B49O5hDGjbJSixcw7lmeCsgcSf2CPQ+dhqrR4D
+         RKkQp990FsO4wlnaXfkdw1xcUnnRHp7wVqywWnxjaZU7TptUaIxtRdyydG/WMA7kD86C
+         ttTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785512471; x=1786117271;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=R6LlL2aWIX7N9cP3QSxIY897bTTboUlJ4EFUK8JK0Pk=;
+        b=aQ4aT87kA+6x/RWjIL13/RvIYm8ZekXtPaFnFUi67YcJNR/7gyX7mrZjf3kDdD7QDl
+         HNcHkI+HgjeNyfnt02rMhLdulnx/7Jk+nragpsa9cvNUZb8vjrkxnqgoPuCC5EdncXZw
+         qVRUH9LUxCxZUyjitR7xhwRxst29YMiY0lyR3+23oP2LWxpEtApHOWOAnbLCLKvHJutO
+         oy5sAYGkn2mzd2VDq6ekwbpPcle9tcCziXFvOd7id/pzLP1VyUI6UsSBCwS5ORLpN8XM
+         EyNq5Wc1x5dbuqzW3NzxtJUjZKBuaPctN3RBcJMK5emYUfTYQ8l6zerafIdPbvpg88kW
+         o0vw==
+X-Forwarded-Encrypted: i=1; AHgh+RoZ49z69GmCo2w9G0bWorBT/akEdkVAvS83f3qMc6iOZEK1ARNQCyNwKgyvIYGNzyvZfqnLXOBQ+zAt@vger.kernel.org
+X-Gm-Message-State: AOJu0YzDG5OsX3SY97hfWuMxrjYmfUjin8t01WpDFR3Pq90Q9Woof82T
+	E9KZxyf+Kynbb7LUI19dKcmFgFu1h0VQPdjM87P+MSpe6Bg4BDWgozpZamHT+62z5XGSWUx/NCU
+	zxS9brfrNRxTTqlHHGG6YUDE/B8EL2/kkODE9cJoKXQxqaw4AoI9/S3VITQZSQLck
+X-Gm-Gg: AR+sD10TWD/oGJT5d4NZA94dBXrq9bheSjQVr3/71QLvbOMODOHJazxmP+/UmOGnaL+
+	8oQD6RtHiObr4nI4QJ84xSxelcxcugBUNIVCzNpUWOzDC8ZDUEMOLDHYxB9uaM2VKteZuHLyibV
+	XkYGuZO9P7IHd0tsbwDkXDRT4ncJ4oxPw/AJPrCdcC42PDMxzJ3WKOvAqer5yWcoycalWHWfmiB
+	+Hjosyu4beIwzclFu51PJVuvtF8HagNdJPqjEEGpamBxbMu0wwKDaEfFuLlHEEiKI79KriF4jdG
+	4t9GBcyEse9JZPCMAuGgmdXNFGLqGD2QoO63QOssO2ZabvV9iZbklIwe8uKLiRuaCVudtO5G5ea
+	QZkWNCQ6aqcwY6C1o6VpcBI3G
+X-Received: by 2002:ac8:5a51:0:b0:51b:ff78:f229 with SMTP id d75a77b69052e-52b5684f9a8mr7597251cf.5.1785512471014;
+        Fri, 31 Jul 2026 08:41:11 -0700 (PDT)
+X-Received: by 2002:ac8:5a51:0:b0:51b:ff78:f229 with SMTP id d75a77b69052e-52b5684f9a8mr7596751cf.5.1785512470484;
+        Fri, 31 Jul 2026 08:41:10 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1fd44542ddsm218339866b.29.2026.07.31.08.41.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 31 Jul 2026 08:41:09 -0700 (PDT)
+Message-ID: <3ac4eb1b-348b-444a-bba0-e4c64d5b57bb@oss.qualcomm.com>
+Date: Fri, 31 Jul 2026 17:41:06 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -28,264 +89,118 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 0/7] Add HPD support for Rockchip Analogix DP
-To: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andy Yan <andy.yan@rock-chips.com>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org
-References: <20260730032744.381566-1-damon.ding@rock-chips.com>
- <2014349.VZ3vTMCxA0@diego>
- <f0bec6c2-5bc9-4c06-abe0-cf6189382314@rock-chips.com>
- <24131962.ssLaC8jLEa@diego>
+Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: sdm845-shift-axolotl: Add
+ actuator for main rear camera
+To: david@ixit.cz, Sakari Ailus <sakari.ailus@linux.intel.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Alexander Martinz <amartinz@shiftphones.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20260730-dw9714v-v2-0-d5da19e6c60b@ixit.cz>
+ <20260730-dw9714v-v2-2-d5da19e6c60b@ixit.cz>
 Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <24131962.ssLaC8jLEa@diego>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9fb799df1903a8kunm9c7fd6a043b8bf
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZShlKVh9MSUwfHxoYSUtPTlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=T2j7X27HYtjAWW4o20v0+5UDqSqE/WwfWaMehWBW70qp721NPeY28++miQ+glaDp3ABci8X2ZdHwHYrLf6apvAgUZUue0S8LUx9H/TlUjXSWpiZyj+ii1l0Tmv/MnZrWtqwAiur/jZ0hry4MmjviIgCZtNaeNdduxrtRbEUAZaQ=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=zGIHZsEACYaSirFT7cPZzzvNNQj09PGnO9eQHvTAFAo=;
-	h=date:mime-version:subject:message-id:from;
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260730-dw9714v-v2-2-d5da19e6c60b@ixit.cz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=U6Giy+ru c=1 sm=1 tr=0 ts=6a6cc217 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=olqSXg431-K1-hY-Iw0A:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-ORIG-GUID: qKeplGl-WOqZIr9et60D06McWTLTxG53
+X-Proofpoint-GUID: qKeplGl-WOqZIr9et60D06McWTLTxG53
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMxMDExOSBTYWx0ZWRfXy3jQn9r50Rh0
+ uLX+SI/KWodi3w+jOMqu1ZT9GNwmF+YCtsL1HSDV1Pr6dWpfpjjgmIV/BI3V5rdeeYk3nW7q2I1
+ JOUBEn5oti9oPm7vhYVruiePtvZ2wP8Yac+dvO4LB1LbNT7XMexODe+aEnUCWluINeYPJrjbP/M
+ /aDnUDfuOAajdcBoog2XVPCQAG1vWayc/pT5VurBzr6llg43zXYh0UVeT/JFnqhIBqX7qW6KTKd
+ B+MgmNmY8cFI2Qo0Bn2HT4ftvlT1XNtvWtZgSM/z+OUnybFNxNv3ccTwiwVMxb+alDiAkLL8yFM
+ MmQDOAIJFqiBFKYHB1SfHEkMsdL71nsMbwYPvm56ZSZ2knfXybkqaheVj7MEby1xf/+Ga9Ihs5s
+ gU6tXEESySTdaaTtcNhZVV5J9n0F4iTdzWx4jbN6Bjw9zS0o4szpi+KLtq9vxHqdNuiTTBvKxOJ
+ mtsMgIhynXNRrfGruiA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMxMDExOSBTYWx0ZWRfX/b0dpbnyrChv
+ h1jX6NXdWk/ZdcSxDO6iV2GxRupwyPf4p9pwghAN8LX1/LSADl6CH0zwfhyl2DBBLgGip5Pqho1
+ DgXE8z8+gSZcfDhFPT2rISfSSKwsTj8=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-31_05,2026-07-30_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 phishscore=0 priorityscore=1501 malwarescore=0
+ lowpriorityscore=0 adultscore=0 spamscore=0 bulkscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607310119
 
-Hi Heiko,
+On 7/30/26 12:20 AM, David Heidelberg via B4 Relay wrote:
+> From: David Heidelberg <david@ixit.cz>
+> 
+> Main rear camera uses Dongwoon DW9714V actuator. Add regulator and
+> actuator node.
+> 
+> Signed-off-by: David Heidelberg <david@ixit.cz>
+> ---
 
-On 7/31/2026 5:23 PM, Heiko Stübner wrote:
-> Hi Damon,
-> 
-> Am Freitag, 31. Juli 2026, 05:08:45 Mitteleuropäische Sommerzeit schrieb Damon Ding:
->> On 7/31/2026 2:49 AM, Heiko Stübner wrote:
->>> Am Donnerstag, 30. Juli 2026, 05:27:37 Mitteleuropäische Sommerzeit schrieb Damon Ding:
->>>> This series improves the HPD (Hotplug Detect) interrupt handling in
->>>> the Analogix DP driver to enable reliable native HPD pin detection on
->>>> Rockchip platforms, and introduces platform-specific HPD detection
->>>> schemes with fine-grained interrupt control.
->>>
->>> [...]
->>>
->>>> Tested on RK3576 with both native HPD pin and GPIO HPD configurations.
->>>>
->>>> Native HPD pin mode:
->>>>
->>>>     &edp {
->>>>         status = "okay";
->>>>         pinctrl-names = "default";
->>>>         pinctrl-0 = <&edp_txm0_pins>;
->>>>     };
->>>>
->>>> GPIO HPD mode:
->>>>
->>>>     &edp {
->>>>         status = "okay";
->>>>         pinctrl-names = "default";
->>>>         pinctrl-0 = <&edp0_hpd>;
->>>>         hpd-gpios = <&gpio4 RK_PC1 GPIO_ACTIVE_HIGH>;
->>>>     };
->>>>
->>>>     &pinctrl {
->>>>         edp {
->>>>             edp0_hpd: edp0-hpd {
->>>>                 rockchip,pins = <4 RK_PC1 0 &pcfg_pull_none>;
->>>>             };
->>>>         };
->>>>     };
->>>
->>> Yay and thanks a lot for working on that.
->>>
->>> If I roll my display-port carrier board back to the analogix-dp being
->>> the endpoint, this works exactly as expected :-) .
->>>
->>> I can plug in the display at some point after the boot and have it
->>> detected and setup correctly. Same with unplugging it while
->>> the system is running. The connection status is correctly reported
->>> in sysfs.
->>>
->>>
->>> Though there is a caveat. When the eDP is not the last part, this does not
->>> work anymore. The detect function always returns "connected" if there is
->>> a next bridge available.
->>>
->>> My board [0] has a physical DP connector on it, so models it as
->>> dp-connector, but in that case the Analogix driver always reports being
->>> connected.
->>>
->>>
->>> [0] https://lore.kernel.org/linux-rockchip/20251009225050.88192-3-heiko@sntech.de/
->>> ... same effect with hpd-gpios in either the edp node or dp-connector node
->>>
->>>
->>
->> My previous tests were carried out on the modified RK3576 IOTEST board
->> DTS based on RK3576 EVB1, which includes dp-connector by default. I also
->> did extra verification without dp-connector, and HPD detection works
->> correctly in both cases.
->>
->> I've taken a look at the Tiger board DT configuration. The pinctrl
->> settings for the eDP HPD GPIO may need adjustment:
->>
->> &pinctrl {
->> 	edp0 {
->> 		edp0_hpd_l: edp0-hpd-l-pin {
->> 			rockchip,pins = <4 RK_PB5 RK_FUNC_GPIO &pcfg_pull_down>;
->> 		};
->> 	};
->> };
->>
->> It is recommended to configure GPIO4B5 as pull-down or pll-none. Pull-up
->> configuration may prevent GPIO interrupts from being triggered properly,
->> resulting in a permanent "connected" status.
-> 
-> At least on that DP-carrier the pin direction is different.
-> I.e. it is active-low, meaning 0 for plugged in.
-> 
-> In the schematics I do see a hw pull up too - so pull-none in the pinconfig
-> would also be possible, but pull-down is definitly wrong on _this_ board.
-> 
-> So we're talking about the same code, I put the dts up on [0] .
-> 
-> I'm currently running with a printk diff [1] to showcase the issue.
-> 
-> So on boot, with the display unplugged I get:
-> [   14.757911] ---> drm_bridge_connector_detect: detect
-> [   14.757914] ---> analogix_dp_bridge_detect a
-> [   14.757918] ---> drm_bridge_connector_detect: detect
-> [   14.773779] ---> analogix_dp_bridge_detect a
-> [   14.838658] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
-> [   14.838662] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR* dp commit error, ret = -110
-> [   14.838670] rockchip-dp fdec0000.edp: failed to set bridge, retry: 0
-> [   14.884791] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
-> [   14.884793] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR* dp commit error, ret = -110
-> [   14.884796] rockchip-dp fdec0000.edp: failed to set bridge, retry: 1
-> [   14.930925] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
-> [   14.930927] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR* dp commit error, ret = -110
-> [   14.930930] rockchip-dp fdec0000.edp: failed to set bridge, retry: 2
-> [   14.977032] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
-> [   14.977034] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR* dp commit error, ret = -110
-> [   14.977037] rockchip-dp fdec0000.edp: failed to set bridge, retry: 3
-> [   15.023150] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
-> [   15.023152] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR* dp commit error, ret = -110
-> [   15.023155] rockchip-dp fdec0000.edp: failed to set bridge, retry: 4
-> [   15.023168] rockchip-dp fdec0000.edp: too many times retry set bridge, give it up
-> [   15.052485] Console: switching to colour frame buffer device 80x30
-> [   15.210457] rockchip-drm display-subsystem: [drm] fb0: rockchipdrmfb frame buffer device
-> [   15.223444] ---> drm_bridge_connector_detect: detect
-> [   15.231974] ---> analogix_dp_bridge_detect a
-> [   15.239587] ---> drm_bridge_connector_detect: detect
-> [   15.245341] ---> analogix_dp_bridge_detect a
-> 
-> So analogix_dp_bridge_detect() is called and always returns connected.
-> 
-> Plugging in the the display, I get:
-> [  290.592096] ---> display_connector_detect gpio value is 1   {display-connector returning connected}
-> [  290.598648] ---> drm_bridge_connector_detect: detect
-> [  290.604637] ---> analogix_dp_bridge_detect a
-> [  290.609826] ---> drm_bridge_connector_detect: detect
-> [  290.615784] ---> analogix_dp_bridge_detect a
-> 
-> Unplugging the display, I get:
-> [  302.081444] ---> display_connector_detect gpio value is 0   {display-connector returning disconnected}
-> [  302.087996] ---> drm_bridge_connector_detect: detect
-> [  302.093945] ---> analogix_dp_bridge_detect a
-> [  302.099131] ---> drm_bridge_connector_detect: detect
-> [  302.105090] ---> analogix_dp_bridge_detect a
-> [  302.144834] ---> drm_bridge_connector_detect: detect
-> [  302.150784] ---> analogix_dp_bridge_detect a
-> [  302.155933] ---> drm_bridge_connector_detect: detect
-> [  302.161859] ---> analogix_dp_bridge_detect a
-> 
-> 
-> So it looks like on the gpio-side the detection is correct and/but
-> analogix_dp_bridge_detect() is always returning a connected state
-> ("b" output is never reached).
-> 
-> I'm still working on understanding how the whole detection logic works
-> in drm ;-) .
-> 
-> 
+[...]
 
-I think I've spotted the environmental difference between our setups.
-Your DTS places the hpd-gpios property under the dp-connector node,
-which is a scenario I haven't covered yet. I will reproduce and test 
-this case locally.
+> +	/* SGM2036-2.8YUDH4G/TR */
+> +	cam_bus_2p8: regulator-cam-bus-2p8 {
+> +		compatible = "regulator-fixed";
+> +
+> +		regulator-name = "cam_bus_2p8";
+> +		regulator-min-microvolt = <2800000>;
+> +		regulator-max-microvolt = <2800000>;
+> +		regulator-enable-ramp-delay = <100>;
+> +
+> +		gpio = <&tlmm 8 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +
+> +		pinctrl-0 = <&cam_bus_avdd_default_state>;
+> +		pinctrl-1 = <&cam_bus_avdd_sleep_state>;
+> +		pinctrl-names = "default", "sleep";
+> +
+> +		vin-supply = <&vreg_bob>;
+> +
+> +		/*
+> +		 * TODO: This node represent bus supply to the cam i2c module.
+> +		 * Others DT do in similar fashion, but should be addressed
+> +		 * by the bus-supply in the future
+> +		 */
 
-As a quick experiment, could you try removing hpd-gpios from 
-dp-connector and move it under the edp node instead? As expected, GPIO 
-HPD should work properly with that configuration.
+I can't quite parse the second sentence..
 
-Best regards,
-Damon
+[...]
 
-> 
-> 
-> [0] https://github.com/mmind/linux-rockchip/blob/dev/v7.3/rk3588-tiger-dp-carrier-v5/arch/arm64/boot/dts/rockchip/rk3588-tiger-displayport-carrier.dts
-> [1]
-> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> index 7a89548a7a885..0accdf62637ae 100644
-> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> @@ -915,8 +915,10 @@ analogix_dp_bridge_detect(struct drm_bridge *bridge, struct drm_connector *conne
->          struct analogix_dp_device *dp = to_dp(bridge);
->          enum drm_connector_status status = connector_status_disconnected;
->   
-> +printk("---> %s a\n", __func__);
->          if (dp->plat_data->next_bridge)
->                  return connector_status_connected;
-> +printk("---> %s b\n", __func__);
->   
->          if (!analogix_dp_detect_hpd(dp))
->                  status = connector_status_connected;
-> diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm/bridge/display-connector.c
-> index 16c0631adeb18..b0c07694b82e3 100644
-> --- a/drivers/gpu/drm/bridge/display-connector.c
-> +++ b/drivers/gpu/drm/bridge/display-connector.c
-> @@ -45,6 +45,7 @@ static enum drm_connector_status display_connector_detect(struct drm_bridge *bri
->          struct display_connector *conn = to_display_connector(bridge);
->   
->          if (conn->hpd_gpio) {
-> +printk("---> %s gpio value is %d\n", __func__, gpiod_get_value_cansleep(conn->hpd_gpio));
->                  if (gpiod_get_value_cansleep(conn->hpd_gpio))
->                          return connector_status_connected;
->                  else
-> @@ -84,6 +85,7 @@ static enum drm_connector_status display_connector_detect(struct drm_bridge *bri
->   static enum drm_connector_status
->   display_connector_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector)
->   {
-> +printk("---> %s\n", __func__);
->          return display_connector_detect(bridge);
->   }
->   
-> diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-> index 649969fca1413..8816d837c9a77 100644
-> --- a/drivers/gpu/drm/display/drm_bridge_connector.c
-> +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-> @@ -218,6 +218,7 @@ drm_bridge_connector_detect(struct drm_connector *connector, bool force)
->          enum drm_connector_status status;
->   
->          if (detect) {
-> +printk("---> %s: detect\n", __func__);
->                  status = detect->funcs->detect(detect, connector);
->   
->                  if (hdmi)
-> 
-> 
-> 
-> 
-> 
+> +&cci_i2c0 {
+> +	rear_camera_actuator: actuator@c {
+> +		compatible = "dongwoon,dw9714v", "dongwoon,dw9714a", "dongwoon,dw9714";
 
+1 a line would be neater
+
+[...]
+
+> +	cam_bus_avdd_default_state: cam-bus-avdd-default-state {
+> +		pins = "gpio8";
+> +		function = "gpio";
+> +		bias-disable;
+> +		drive-strength = <2>;
+
+Other nodes have drive-strength first, then bias
+
+> +	};
+> +
+> +	cam_bus_avdd_sleep_state: cam-bus-avdd-sleep-state {
+> +		pins = "gpio8";
+> +		function = "gpio";
+> +		bias-disable;
+> +		drive-strength = <2>;
+> +		output-low;
+
+Drop output-low, the regulator driver will set that
+
+Konrad
