@@ -1,171 +1,171 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 601EE446078
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 18:41:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4274D47A0D4
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 18:43:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785523287; cv=none; b=Mm82i2ZfteaTN5m04bFFxqEvAFTOMTaZJlNm1SUL88GeOobrhNKh/ssHlUWfIgMhh8yNkrcvi4trNQkZe7l6JnA/B6bn+iJeppiDPmNfyf5sxYfXCl+O4IPHBCoSNtWHfhj25nvopS+qOZUeodTb+qiL2mXgk4WCsfG2avP3b/E=
+	t=1785523432; cv=none; b=Om1ahBjVZqI9msv/EWzSpwmwBsYqwbx1UTkbJHRArKu4D4rNjRq0Vv6bFevWj08EJSg9WTjo0ueUlkqn1aTepF11SuHv21K4n6wNreS6jm4PhOwnVh8tm+wVPNI2AC667iIdx9iTY+ZsUGrbipN0hHti42Ovuz4C4xg7A5KTcLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785523287; c=relaxed/simple;
-	bh=blAii82+Lu+iwapwDLUW7lRyif5eXPz2+gobwdw6g9U=;
+	s=arc-20240116; t=1785523432; c=relaxed/simple;
+	bh=nrwQH2kvBmzxSvSNBmzwHzhfvbe6lZZDoxtl22EBbN0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=MNL4DiI6qryn3jCt80Grj1Y6O2T5KJtv+rpuIFvv+wvuRYSGAdt2tM5hyABq3/6zfAGQUEORLNI+kJ1eR5MgtKbSlHLyn51wiI4bu0/4dIsVf1WS4zMDrqQ83cD2um17c4RbtieZXNB0ewf5eqIf9+VGvCJe07mKmFzj6HDnWhM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WsyRJmY+; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=WmArcb0FZPLGCxvoMxZO2KwGzLqyFbappsaopPM3FdDC/UlSUiMLl8Rx1d8aEP62MQL+HSQKpWsKCDi0fKU3Htz8RZ4VDeooY+AzSwh5+hO0AbjmSJXw06SaJy7YFA4/KNYOGbKWKTVwYV9NKejGq5TVBchk0MBr3IYkpP00ePI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RzTih+y2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WsyRJmY+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94ED61F00AC4;
-	Fri, 31 Jul 2026 18:41:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RzTih+y2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7ADE1F00AC4;
+	Fri, 31 Jul 2026 18:43:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785523285;
-	bh=OV5EHwb5NM3HAQ4JWEPX0z3FIi225APGExPNADCiQF8=;
+	s=k20260515; t=1785523429;
+	bh=DJm7usT5xW5aQxaB6/8MOzRk859amRXmlDADFIa0GpI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WsyRJmY+AeenjbdZLDE7mHlYaOYf1rgmKgDmgohgpYZnU1qNUQLANFMFDJcNxjA4+
-	 TqbUDBM69if/TYsFjPWozbhltFCMS+jEDKhrFIQukmQglQJ48FwOHAZOsy4R1Uhm05
-	 4fHOHWxZuNzk+5gCNCNzmfrOR/Mma4TBtO36RW2NDxXS96+lHsVMuXhGswe0SFUPrV
-	 n7CowUMbwH2WjduWIGTB5/JPsT5QtU9kFnTzQsdEjMWb55uFSBP6/i6msQKiN+2hWL
-	 U9VP808EZ2C47fIbNwdUSelytFwySC9MYDD6NzXfqq/R/gYyOqyk2RgOXenUQSfQiK
-	 bLSljmvegxPkQ==
+	b=RzTih+y207RmvfpZg8dIxnstVAb/8KzqCEih6IBVosSwYt5N9Uz0+2e/xrecbkmJz
+	 5bDe0PP/DeJUULE8dFSKQniRmOcJgRX6DX+pNCW2tbG5S9S+bPl9qgUgoLoM5sLmUv
+	 EBYwDl0FzNeoIkb3PJHJawqftnWNYCdemevnzuGCnwqlvpfJHC+w7xaUUVUPlzoiO5
+	 Ekdf3mrkTkfprie0T6JoclppZVmu4JeS81b2ogJeWgRHHaJCBdvri21gBzN1j8Ucx4
+	 Nw+hIeCsAeQcVSZETMzOSej5gYR/nXyjIcqexDVyPOGL9Nrfe9fAjsx/7mehsw5J6l
+	 xdHfqe6LeHKaw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 07/12] media: iris: Create pixel and non-pixel
- context banks on VPU3x
+Subject: Re: [PATCH v2 06/12] media: iris: Skip DMA mask setup when the core
+ device has no IOMMU
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Vikash Garodia" <vikash.garodia@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, media-ci@linuxtv.org, conor+dt@kernel.org
-In-Reply-To: <20260731-vpu_iommu_iova_handling-v2-7-da52b5228dbd@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20260731-vpu_iommu_iova_handling-v2-6-da52b5228dbd@oss.qualcomm.com>
 References: <20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com>
- <20260731-vpu_iommu_iova_handling-v2-7-da52b5228dbd@oss.qualcomm.com>
+ <20260731-vpu_iommu_iova_handling-v2-6-da52b5228dbd@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 31 Jul 2026 18:41:25 +0000
-Message-Id: <20260731184125.94ED61F00AC4@smtp.kernel.org>
+Date: Fri, 31 Jul 2026 18:43:49 +0000
+Message-Id: <20260731184349.A7ADE1F00AC4@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 New issues:
-- [High] Unregistered and freed platform devices (p_dev, np_dev) can be use=
-d by concurrent ioctls during driver removal, leading to Use-After-Free.
-- [High] Context bank platform devices are missing DMA configuration, causi=
-ng fatal SMMU faults.
+- [High] Silent DMA allocation fallback causing hardware breakage on update=
+d device trees.
 
 Pre-existing issues:
-- [High] Missing cancellation of delayed work sys_error_handler causes Use-=
-After-Free on module removal.
+- [High] Race condition exposing uninitialized device leading to NULL point=
+er dereference or DMA misconfiguration.
 --
 
---- Patch [7]: [PATCH v2 07/12] media: iris: Create pixel and non-pixel con=
-text banks on VPU3x ---
-commit 6bf8596f13d0c7afe5ee94339e572204b2a9c6df
+--- Patch [6]: [PATCH v2 06/12] media: iris: Skip DMA mask setup when the c=
+ore device has no IOMMU ---
+commit 91265093c9bc3bb22f1e175614f1dde24649bf5b
 Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
 
-media: iris: Create pixel and non-pixel context banks on VPU3x
+media: iris: Skip DMA mask setup when the core device has no IOMMU
 
-This commit implements context bank hooks for VPU3x to create "non-pixel"
-and "pixel" devices from matching device tree subnodes. It wires these hooks
-into the ops for relevant platforms and handles device registration and
-unregistration.
+This commit skips calling dma_set_mask_and_coherent() on the parent iris
+device if it has no IOMMU mapped. It sets the DMA mask only when
+device_iommu_mapped() reports an IOMMU on the core device, preventing
+probe failures on newer platforms where "iommus" is on context bank subnode=
+s.
 
-> diff --git a/drivers/media/platform/qcom/iris/iris_vpu3x.c b/drivers/medi=
-a/platform/qcom/iris/iris_vpu3x.c
-> index 3dad47be78b58..623a0f8a7982c 100644
-> --- a/drivers/media/platform/qcom/iris/iris_vpu3x.c
-> +++ b/drivers/media/platform/qcom/iris/iris_vpu3x.c
+Cc: stable@vger.kernel.org
 
-[ ... ]
-
-> @@ -254,6 +254,40 @@ static void iris_vpu35_power_off_hw(struct iris_core=
- *core)
-
-[ ... ]
-
-> +static int iris_vpu3x_init_cb_devs(struct iris_core *core)
-> +{
-> +	struct device *dev;
-> +
-> +	dev =3D iris_create_cb_dev(core, "non-pixel");
-
-[Severity: High]
-Does this new device need explicit DMA configuration?
-
-Since iris_create_cb_dev() creates dummy platform devices for the IOMMU
-context banks without a driver, the kernel driver core never calls
-really_probe() and never invokes platform_dma_configure(). Without an
-explicit call to of_dma_configure() in the driver, the device lacks an IOMMU
-domain.
-
-When iris_get_cb_dev() returns these devices for buffer allocation, will the
-DMA API return raw physical addresses instead of IOVA, triggering an IOMMU
-context fault when the VPU's enabled SMMU streams access this memory?
-
-> +	if (IS_ERR(dev))
-> +		return PTR_ERR(dev);
-> +
-> +	core->np_dev =3D dev;
-> +
-> +	dev =3D iris_create_cb_dev(core, "pixel");
-> +	if (IS_ERR(dev))
-> +		goto unreg_np_dev;
-> +
-> +	core->p_dev =3D dev;
-> +
-> +	return 0;
-> +
-> +unreg_np_dev:
-> +	if (core->np_dev)
-> +		platform_device_unregister(to_platform_device(core->np_dev));
-> +	core->np_dev =3D NULL;
-> +
-> +	return PTR_ERR(dev);
-> +}
-> +
-> +static void iris_vpu3x_deinit_cb_devs(struct iris_core *core)
-> +{
-> +	if (core->p_dev)
-> +		platform_device_unregister(to_platform_device(core->p_dev));
-> +	if (core->np_dev)
-> +		platform_device_unregister(to_platform_device(core->np_dev));
+> diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/medi=
+a/platform/qcom/iris/iris_probe.c
+> index 2594f5a67378a..c40c4ec44e83e 100644
+> --- a/drivers/media/platform/qcom/iris/iris_probe.c
+> +++ b/drivers/media/platform/qcom/iris/iris_probe.c
+> @@ -310,9 +310,11 @@ static int iris_probe(struct platform_device *pdev)
+> =20
+>  	dma_mask =3D core->iris_platform_data->dma_mask;
+> =20
+> -	ret =3D dma_set_mask_and_coherent(dev, dma_mask);
+> -	if (ret)
+> -		goto err_vdev_unreg_enc;
+> +	if (device_iommu_mapped(dev)) {
+> +		ret =3D dma_set_mask_and_coherent(dev, dma_mask);
+> +		if (ret)
+> +			goto err_vdev_unreg_enc;
+> +	}
 
 [Severity: High]
-Can concurrent ioctls access these devices after they are unregistered?
+Does this change introduce a silent DMA allocation fallback that could
+cause SMMU faults or memory corruption at runtime?
 
-If iris_remove() is called while userspace holds a file descriptor open and
-executes an ioctl (like VIDIOC_QBUF), this function unregisters and frees
-p_dev and np_dev. The pointers in core are not cleared, and there doesn't
-appear to be synchronization with active file handles.
+If the new device tree bindings are used (where the "iommus" property is
+moved to context bank subnodes), device_iommu_mapped(dev) returns false
+and probe skips dma_set_mask_and_coherent().
 
-Could a concurrent ioctl call iris_get_cb_dev(), retrieve the freed p_dev or
-np_dev pointer, and pass it to the DMA API, resulting in a use-after-free of
-the device structure?
+However, if no platform actually implements the .init_cb_devs hook,
+iris_init_cb_devs() will silently return success without creating the
+context bank subdevices:
 
-> +}
+drivers/media/platform/qcom/iris/iris_probe.c:iris_init_cb_devs() {
+	if (core->iris_platform_data->vpu_ops->init_cb_devs)
+		return core->iris_platform_data->vpu_ops->init_cb_devs(core);
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does the module removal path
-leave delayed work running?
-
-Looking at the removal path, iris_remove() destroys the lock and exits with=
-out
-cancelling the sys_error_handler delayed work:
-
-drivers/media/platform/qcom/iris/iris_probe.c:iris_remove() {
-    ...
-    mutex_destroy(&core->lock);
+	return 0;
 }
 
-If a hardware error schedules core->sys_error_handler with a delay, and
-iris_remove() executes immediately after, the devres manager frees the core
-structure. When the delayed work executes, it will call
-iris_sys_error_handler(), attempting to access the freed core memory.
+When DMA allocations occur, iris_get_cb_dev() falls back to the parent
+core device which now has no IOMMU and an unconfigured DMA mask:
 
-Should cancel_delayed_work_sync() be called during removal to prevent a
-use-after-free of the core structure?
+drivers/media/platform/qcom/iris/iris_resources.c:iris_get_cb_dev() {
+	...
+	return dev ? dev : core->dev;
+}
+
+[Severity: High]
+This isn't a bug introduced by this patch, but there is a race condition
+where device nodes are exposed to userspace before critical hardware setup
+like DMA masks and PM runtime initialization occurs.
+
+Earlier in iris_probe(), the video devices are registered:
+
+drivers/media/platform/qcom/iris/iris_probe.c:iris_probe() {
+	...
+	ret =3D iris_register_video_device(core, DECODER);
+	...
+	ret =3D iris_register_video_device(core, ENCODER);
+	...
+}
+
+Inside iris_register_video_device(), video_register_device() makes the
+device accessible to userspace before video_set_drvdata() sets the driver
+data:
+
+drivers/media/platform/qcom/iris/iris_probe.c:iris_register_video_device() {
+	...
+	ret =3D video_register_device(vdev, VFL_TYPE_VIDEO, -1);
+	if (ret)
+		goto err_vdev_release;
+
+	video_set_drvdata(vdev, core);
+	...
+}
+
+If a userspace application like udev immediately opens the device,
+iris_open() will retrieve a NULL pointer and trigger a NULL pointer
+dereference when accessing core->dev:
+
+drivers/media/platform/qcom/iris/iris_vidc.c:iris_open() {
+	struct iris_core *core =3D video_drvdata(filp);
+	...
+	ret =3D pm_runtime_resume_and_get(core->dev);
+	...
+}
+
+Even if video_set_drvdata() completes in time, iris_probe() registers the
+video devices before executing dma_set_mask_and_coherent() and
+devm_pm_runtime_enable(). Could this allow iris_open() to initiate PM/DMA
+operations on an uninitialized hardware state?
+
+> =20
+>  	dma_set_max_seg_size(&pdev->dev, DMA_BIT_MASK(32));
+>  	dma_set_seg_boundary(&pdev->dev, DMA_BIT_MASK(32));
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-vpu_iommu_=
-iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com?part=3D7
+iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com?part=3D6
