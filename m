@@ -1,164 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C8C9381B0E;
-	Fri, 31 Jul 2026 11:42:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 297C33FD129
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 11:54:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785498177; cv=none; b=LKa6/0z2I6UHuGib+mf8bU6Dckj5e40ol4PYa1geRpejs8qinY2mtz7tzbOgsQBiERsemRJ1PYPLsVudGJpKt68xFrQhMeTLzy6F9B6qxJflWeCn1y/aifU/GRfW0o/xLv82LoMbAaCQx9kPcoZDuovWTukB20fv7UkjgRC5B84=
+	t=1785498863; cv=none; b=rMEQzjNk650jGYZVRWjJPvvz7Z4wEAEDgCMsAVa4mzqDmLk3uSnx+f3+mn8tdH2sS0xywwd3ktNG5yFvxYE7J9isc6c45Z9hWAku+PQdGi32EsbyXKgHMBaKOrgWWpGaCNlP1iJt0+DO1aw9xT6V9zczjkVwI1pF1AkcX5UnKUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785498177; c=relaxed/simple;
-	bh=wdNKCjACD38n4XPMHFkGxjFksGgvJWvF6bSKId6TdTA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=X/AGfpa28EQn0nw2KYOWQCSmy4r1dEQ77tfuKQ66oCsGEfPPpgsgHwW8E3ZWDNkxcYqAnuWzixja5lV8V6NJQ7+txUGkeq4a6QBk6GsEOj1HqKwrRE63OguER0IYwUTyt20FCDxNPKaFYn2BlnlZya0BZVF5gvAx5HWtewnku+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fkigvcZC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785498863; c=relaxed/simple;
+	bh=IzQXO4bw1znijVvOeuLNjQtxOwXSBx2VmnEvTIcRN84=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VapmF89ZdliEcTHwokRdpoV0rz7wTzbX6PDryRhoA+1ybKnFbqFejw/RQ7TolmassUmXDyhXTqn2I9W7h/iMvTBxkf317v/zIr0LWVI4gavjAtvU/teCx8YaHQ3rxMicNbK+8EkeQ4J9p67fA/WgxzLaS5M+BmJFOqNXNOUpHh4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eBMy9otJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Dq4EkvQD; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fkigvcZC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E175D1F000E9;
-	Fri, 31 Jul 2026 11:42:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785498176;
-	bh=ofWj8oNH3vGN+KN3dtNp5IyYVff6izMtUknjVnqbTSQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fkigvcZCc5lWVLfo7PvY/I23A5CPLlvVLRMZ6gy6aDYkhCdXEvaZkb6MrqQYTvm+d
-	 QNZIX6+avL2Rz4U4ouHT8tjZ31ztYkn4KvMPyq8u7WPRbkyhmxpXsLrLddUfXGIAb5
-	 1VgZdNCCohEAn5fWABP7yKD0q7OQXf1fOPxt9DLAeN0uWseCY0CG79tMNypBj9pMi/
-	 JfR3tcRKKSI3oeYfG1J7JML6ZwPVJcjIzY8ufX5IFeL/S1oTlJYTPusbaOEVlegpD1
-	 6/PkrapgPJHtG9uCLc0jysT47WeIUAVwWqbgeov9ffIaZ1Y8h3AKwGcrqJA6Iutvgi
-	 1F1ZN8cyYKn3w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/3] dt-bindings: hwmon: Document SMSC
- EMC1402/1403/1404/1428
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: conor+dt@kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260731113007.145322-2-clamor95@gmail.com>
-References: <20260731113007.145322-1-clamor95@gmail.com>
- <20260731113007.145322-2-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 31 Jul 2026 11:42:55 +0000
-Message-Id: <20260731114255.E175D1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eBMy9otJ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Dq4EkvQD"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66VBmAZU3905281
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 11:54:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=CNN38XzctMaiPX+j0ATyIw20
+	wZmKlDeQciUomHjio7c=; b=eBMy9otJpU+sv26D+q88s0EhkStAT5WQ59Wmv6Kr
+	gT1+57qszhC3zKisiqV2sVjw0NqxYndvMWSXA9HqQYUWmMwqqtyXPZusvsS8b9yc
+	GgqqceFzgtOfQ7M8r1mjr0ww65elnoPhK9IDS+Eggx1f4uI/CCXzt8ToFZIWOLTU
+	g537dJOdMNHKJdFZrBQhg04n0TTWyd3AR66qfZxMwvk6KLZu+cb6pqBcC4+YAw5X
+	5nZU008NiUsr1fNphTxwuPrNuuGfOk2JQ6uBAczk8qcaGAkIQCqtKzOaRBnNMiWn
+	oMB50OvkGScj8zmjp2/pZ88kRfqCC1Iz3USOr0vmfuHqVQ==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fru5dg0tf-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 11:54:16 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-934963b2bc0so53954885a.3
+        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 04:54:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785498856; x=1786103656; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CNN38XzctMaiPX+j0ATyIw20wZmKlDeQciUomHjio7c=;
+        b=Dq4EkvQDe/sasJdLR2ugvYMhMybKB1Qp5kmlzxbiCTKtnynH9mJXdn4fqsQNYuR2rc
+         IJx7uJ/le1eaX8WamoLcRJGut/LL5SRKF8c9BU9VCn9wzQpBrPok8djiF6kYl4OSL1Pm
+         frQdNN2w6OyfzU0af2XNlceh1GT2/rWp9SLAdqy3mBMyIDt4c3BJ6Zw25SNXruleZxgz
+         m8EKpJ3YAoNhfOi7KB+A2rPfgK1tK5pXEsmIsrrCgB+y0zDpP4ZLv7OzInd2z6SQjshE
+         mupmqEzfDQjMBn6bugzVdBvDWSiMKduk8lUJBNddF751UloWH5/Ndmu6RCFub2r7GMLM
+         TeHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785498856; x=1786103656;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CNN38XzctMaiPX+j0ATyIw20wZmKlDeQciUomHjio7c=;
+        b=Oc3Ew6BQn7a+aUV1FikpEex3t9rBrYEvV4c/+Kpb+G9MMOOjytfIJoWjNo5+xMHtsy
+         JMuvF/F7A6C2lHU3gHFKmmLqiTFFT1gfKERntFOYLaSl376k8LwB1BZN4EPEzSyt2AWQ
+         GxKwIe5/efGS+IYqcW5ih39rES5VRs90lV5BXZszR6YwvrkMIVX+KnYuqaAo5Kzmpz1f
+         /8YiGryLKQl+6+yuzxjBv8zspEbSiTITyab9VLW4HK97PCvJ9oFFj7wh2X6evXajuBq3
+         cFoDDXpIMehWlFC+NhG00uvLq2mA/rFqGL1vAj4lSv22zpk81SVemPC+OkGMHaNLYN6s
+         blDw==
+X-Forwarded-Encrypted: i=1; AHgh+RpLKWiOM2GPOH2Qkx/zoaSWTKsW8wj7669SV66jsB2ldVgoHiKNbLBo4b7kZG3ZjpMzghxie8jhR4xu@vger.kernel.org
+X-Gm-Message-State: AOJu0YxdLtL0XgOkQxrTSStLqArohVfDAiPzAYfxXUNwlilXP+/HcWAI
+	wwfurkK8MCfFVK7tuo6SoID/0p9xW+HMhMy0GYBsu2KJ4KBWjxutG3t6a/wPIQLCb5OhJDfYUjR
+	esg6o1un6Hb+Q/C7T33Wf0aXA3Gp8MoZBVAWVOVyw9UsOrEEppuCAcYdv1hzj5gc+
+X-Gm-Gg: AR+sD10dmdW47+YGV75ZDCxuQ14ggv06QEj4lcQTCxTwC6mi/FIQ0umvzgkgqbLx+Cj
+	G0k0qX5bCrxCzttHwaKdCim2GBcYiTEsdOsn4VJYvpa947RF+fzZfvB0pvTFIZ897QroCjifJWv
+	8waserAv2T5DPeXNkzfnewHXbljPSZqRl5l57fk0Xzdgb1HD4ceVB9Nlzql1kNXe2Uk5r8Dwhkr
+	nJyXaDIqNLy0JIs2vAnYSdAZpre8hi5/N/fvgBi31k3SvJC9suuf7qzlJtP24JQPiG+HPWmn0ZG
+	gyu67NcQUHbF/w+YkUoULUm5XQXC0kDhEnQ0yRQWUTanOiUghlvZo8e0yd82JEluS0EHXW6/iKN
+	p3LhRy/E6NmVeef0=
+X-Received: by 2002:a05:622a:4a8b:b0:517:5b2c:6aae with SMTP id d75a77b69052e-52b4aeef489mr22970171cf.13.1785498856193;
+        Fri, 31 Jul 2026 04:54:16 -0700 (PDT)
+X-Received: by 2002:a05:622a:4a8b:b0:517:5b2c:6aae with SMTP id d75a77b69052e-52b4aeef489mr22969411cf.13.1785498855423;
+        Fri, 31 Jul 2026 04:54:15 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.163.114])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd42d91bfsm4467318f8f.15.2026.07.31.04.54.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 31 Jul 2026 04:54:13 -0700 (PDT)
+Date: Fri, 31 Jul 2026 14:54:11 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Ravi Hothi <ravi.hothi@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        mohammad.rafi.shaik@oss.qualcomm.com, ajay.nandam@oss.qualcomm.com,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v4 1/2] arm64: dts: qcom: eliza: Add LPASS macro and
+ SoundWire support
+Message-ID: <vqft4aoqantmkymrosiikk7agnl63bbb7o5nq7iwuxul2qry2m@oz52ozo53fnb>
+References: <20260731084032.3106477-1-ravi.hothi@oss.qualcomm.com>
+ <20260731084032.3106477-2-ravi.hothi@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260731084032.3106477-2-ravi.hothi@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: JiDTT-4Q7g8YdA5JD_LYEIiSClAlqcPR
+X-Proofpoint-GUID: JiDTT-4Q7g8YdA5JD_LYEIiSClAlqcPR
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMxMDA5MCBTYWx0ZWRfX9NlHpbpMucnU
+ NXrO908LY/YX2ieyUC5O1KEbxl/CqotynM/+uQbWAed1QW6v4N9juaNWDEzIt6wDwpcTRMTCDk+
+ pDBD1KmS5Zn7+dqbVSLK9pEBiSmZv5r0k2Z7fhkgncZHHAcDbY6+9j+cUFjGCYaCQZ/dXfkat3x
+ /94NeiymhQHvh/hbj/8LFCj4EFq4nrNO/zQOyimidyZGC9HFjyTUMiLnu+rNoedj4PwTRQBmZum
+ cAD1VCdSsunQzpCLlm4R4LPe9lovCouZ795SWRgQS/KjSoZQ7T2qcTJb2rHB3n8iQbN86w7yRo1
+ q+jHJ/8O+MmYaQrtDV09K9egnsGAPhRjdmG4n5kYMuH02AbhEvhi9U4JNAizOhZEWMSybpcwGxl
+ jesRxsVd4eCdrczzDg1m0fN+NmEF4raMCS9v/9CvzTxjkYnboeJmQJRm+88lAvBVsCqK6FohuKy
+ 9IBO8ucAv87nF91nEHg==
+X-Authority-Analysis: v=2.4 cv=SKZykuvH c=1 sm=1 tr=0 ts=6a6c8ce8 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=6dw9+iwJWV8PcCi9M4lOBg==:17
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=QXUQ5p6r880U3D8F7JkA:9 a=CjuIK1q_8ugA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMxMDA5MCBTYWx0ZWRfXyY8ny+2WWDRC
+ LNDPlgEpjTCAojwg9JqM4K3+ylBq0TDi4F0Ll6fHFBv9a9F4lFS0JA6GD7mfVQ2RRqXIIAlAC3+
+ r9FBayI/K+Y0QWfdmnPQs40qXnjsrRQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-31_04,2026-07-30_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
+ adultscore=0 impostorscore=0 spamscore=0 suspectscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607310090
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Schema Constraint Bypass via incorrect `items` nesting for `reg`=
- property bounds
---
+On 26-07-31 14:10:31, Ravi Hothi wrote:
+> Add SoC-level LPASS WSA macro, VA macro, SoundWire controller and LPASS
+> LPI pin controller nodes. DMIC and WSA SoundWire pinctrl states are
+> defined inside the LPASS LPI pin controller node. The hardware is similar
+> to the SM8750 platform.
+> 
+> The SoundWire controller is kept disabled so board DTS files can
+> selectively enable and configure it.
+> 
+> Signed-off-by: Ravi Hothi <ravi.hothi@oss.qualcomm.com>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
---- Patch [1]: [PATCH v4 1/3] dt-bindings: hwmon: Document SMSC EMC1402/140=
-3/1404/1428 ---
-commit 370ec6fbb759eebe7152f9544892c617f0745163
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
-
-dt-bindings: hwmon: Document SMSC EMC1402/1403/1404/1428
-
-This commit documents the basic hardware layout of SMSC (now Microchip)
-EMC1402/1403/1404/1428 thermal sensors and introduces a new YAML device tree
-binding schema.
-
-> diff --git a/Documentation/devicetree/bindings/hwmon/smsc,emc1403.yaml b/=
-Documentation/devicetree/bindings/hwmon/smsc,emc1403.yaml
-> new file mode 100644
-> index 0000000000000..d7873a37c3295
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/hwmon/smsc,emc1403.yaml
-> @@ -0,0 +1,203 @@
-
-[ ... ]
-
-> +patternProperties:
-> +  "^channel@([0-7])$":
-> +    type: object
-> +    description: Represents channels of the device and their specific co=
-nfiguration.
-> +
-> +    properties:
-> +      reg:
-> +        description: The channel number. 0 is local channel, 1-7 are rem=
-ote channels.
-> +        items:
-> +          minimum: 0
-> +          maximum: 7
-
-[Severity: Medium]
-Does nesting the minimum/maximum bounds inside items for the reg property b=
-ypass
-dt-schema validation?
-
-Since dt-schema decodes reg into an array of regions, numeric bounds placed
-under items like this apply to the array element itself and are ignored.
-Could these bounds be specified differently so they are correctly enforced
-during make dtbs_check?
-
-[ ... ]
-
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - smsc,emc1402
-> +    then:
-> +      patternProperties:
-> +        "^channel@([0-7])$":
-> +          properties:
-> +            reg:
-> +              items:
-> +                maximum: 1
-
-[Severity: Medium]
-Will this stricter bound also be ignored during schema validation due to the
-items nesting?=20
-
-This could allow an invalid device tree, such as one defining channel@5 for
-smsc,emc1402, to silently pass validation checks.
-
-[ ... ]
-
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - smsc,emc1403
-> +    then:
-> +      patternProperties:
-> +        "^channel@([0-7])$":
-> +          properties:
-> +            reg:
-> +              items:
-> +                maximum: 2
-
-[Severity: Medium]
-Does this maximum bound for smsc,emc1403 suffer from the same nesting issue?
-
-[ ... ]
-
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - smsc,emc1404
-> +    then:
-> +      patternProperties:
-> +        "^channel@([0-7])$":
-> +          properties:
-> +            reg:
-> +              items:
-> +                maximum: 3
-
-[Severity: Medium]
-Does the maximum bound for smsc,emc1404 also need to be adjusted to avoid
-being ignored by dt-schema?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731113007.1453=
-22-1-clamor95@gmail.com?part=3D1
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
