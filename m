@@ -1,156 +1,187 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFD6733AD8B;
-	Fri, 31 Jul 2026 07:06:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49497385D96;
+	Fri, 31 Jul 2026 07:18:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785481606; cv=none; b=KTK83D+q/LOApxYcVUaiZ773+2fixptzgN7sZQTbFTmDtbg3/oeeypsylcsZlYJRwYK77GmwRikBISTn4U9N6TOg4r47jSlS5zk6+OUGzIRwjt5lGGxGwHQnmhNdPA/pVMEFRI3tHyx34Ix/3SHISXEiVhU69SwOVhuZNuozGkA=
+	t=1785482289; cv=none; b=awsUFeQZsYoMxS0JwqFuF6Q7TlrXFFcykDzqrNqDvbrEmUSyCjFkY93ZevI8xSzolNSRKJKs0/6Hx4Hm+ZWuqXcfDqSitAtU+qS/q6GSg2HfVC2klkRFL80iywfYaLfU8S8+5U3N0edudoGtEDQulgvXKQCKNjwtw8Ubgk+7Uc4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785481606; c=relaxed/simple;
-	bh=FVqvsKe/n2dYeThJDHcpjCZ9n//kHlaTzT9mHseqK1I=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=l4Y/urSRh4JCHaVTNDC/zTDmEimuc43aH/aUgbt7QB0MlPBSukO2m7znig5wrAsyLcdczLVcV3S9Xp7oAq490FkpXdvrQPSJGrri7WwvNCurYZ5XkssLK/Owqta/DdjB81fwNvSr3Ta3c06nr4ptLw550C07Mx/chY4r/8DiTlE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HJy9rmAG; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HJy9rmAG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF17F1F000E9;
-	Fri, 31 Jul 2026 07:06:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785481604;
-	bh=YXpVRawU4eKqO1E5kHdvQATW/LnGM3EvAkC4h7gA85Q=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=HJy9rmAGp+SLNVmA8FzS09mlNWwpiDc/dJLJq31DbdrmN+NgRBxxjsTq+Pl6a5Ji9
-	 SLgVEK6L6+Yb2f/2nfVXONsjzOxFMWVl58Y4WsjNzMzBGXv8Go9QRqrHi5YY/tmy8s
-	 1LOS48JbwTqd3b10uROXFW7Lrxfk7spMcnpbpfew+9urRFJ8syGimlHGTbddOjXZ8j
-	 UowduSq4zN6cODohTakgTdA47Krw18WxuadTEWxu5Oh8A+3sZfi57jcw+f9pGoWwee
-	 jg4P/hgSyBdPY+6d3a/7kTI7fhQzK43J3IcHpvOkC1xuIOO+IisqI2IG1dc8j71i33
-	 TJDSiFj0IJxJw==
-Message-ID: <f0ec8d8e-b7fe-4620-a715-65af36166e05@kernel.org>
-Date: Fri, 31 Jul 2026 09:06:36 +0200
+	s=arc-20240116; t=1785482289; c=relaxed/simple;
+	bh=w65ABpDtQYeVpxMjhXN2XWCU5581eQKLmdm+rHUKvH0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CBG2UNxWMjFaO0eyv36cXy4IYvnsN8dbJcCU6Jd81QpjjctVIr2Z++i1PKlpKumapACkyWyA/C6FOVCmq5nMPLM2MU615RHYYxlsBTdvxhRu0G5qBa9s9HYrSTtmB6ivrm+NJONFRx8avWrZRepBInMTCkwFfVsFhLohyGc+kgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 0DEAB202C5D;
+	Fri, 31 Jul 2026 09:18:05 +0200 (CEST)
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1wphVM-002Ajk-33;
+	Fri, 31 Jul 2026 09:18:04 +0200
+Received: from pengutronix.de (p4ffb2dc6.dip0.t-ipconnect.de [79.251.45.198])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id A0F0B577C44;
+	Fri, 31 Jul 2026 07:18:04 +0000 (UTC)
+Date: Fri, 31 Jul 2026 09:18:04 +0200
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Cunhao Lu <1579567540@qq.com>
+Cc: kernel@pengutronix.de, Vincent Mailhol <mailhol@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, linux-can@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Heiko Stuebner <heiko.stuebner@cherry.de>
+Subject: Re: [PATCH v6 2/4] can: rockchip: add RK3588 CAN support
+Message-ID: <20260731-tall-camouflaged-earthworm-e1a7d0-mkl@pengutronix.de>
+References: <tencent_7BAA0052C402BFFD26291A64198084E39107@qq.com>
+ <tencent_207E464D12344B3228096E23A001D6882508@qq.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/2] dt-bindings: iio: adc: add adi,max40080
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Stefan Popa <stefan.popa@analog.com>
-Cc: linux-iio@vger.kernel.org, linux-hwmon@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, jic23@kernel.org,
- andy@kernel.org, nuno.sa@analog.com, linux@roeck-us.net, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, dlechner@baylibre.com,
- ciprian.hegbeli@analog.com, siratul.islam@linux.dev,
- u.kleine-koenig@baylibre.com, joshua.crofts1@gmail.com
-References: <20260730131738.822405-1-stefan.popa@analog.com>
- <20260730131738.822405-2-stefan.popa@analog.com>
- <20260731-steadfast-peculiar-bee-33fec4@quoll>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260731-steadfast-peculiar-bee-33fec4@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="a5nhk727xcrd5z4s"
+Content-Disposition: inline
+In-Reply-To: <tencent_207E464D12344B3228096E23A001D6882508@qq.com>
 
-On 31/07/2026 09:04, Krzysztof Kozlowski wrote:
-> On Thu, Jul 30, 2026 at 04:17:37PM +0300, Stefan Popa wrote:
->> +  vdd-supply:
->> +    description: Power supply for the device.
->> +
->> +  interrupts:
->> +    maxItems: 1
->> +    description: ALERT output for overcurrent/undervoltage threshold events.
->> +
->> +  shunt-resistor-micro-ohms:
->> +    description:
->> +      Value of the current-sense shunt resistor connected between the IN+ and
->> +      IN- inputs. Used to scale the reported current.
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +  - shunt-resistor-micro-ohms
-> 
-> Supply is required
-> 
->> +
->> +additionalProperties: false
->> +
->> +examples:
->> +  - |
->> +    i2c {
->> +        #address-cells = <1>;
->> +        #size-cells = <0>;
->> +
->> +        adc@20 {
->> +            compatible = "adi,max40080";
->> +            reg = <0x20>;
->> +            #io-channel-cells = <1>;
->> +            shunt-resistor-micro-ohms = <100000>;
->> +        };
->> +    };
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index e087673237636..e1170230c4bb2 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -28893,3 +28893,11 @@ S:	Buried alive in reporters
->>  T:	git git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
->>  F:	*
->>  F:	*/
->> +
->> +MAXIM MAX40080 CURRENT SENSE AMPLIFIER DRIVER
-> 
-> Honestly, how did it appear at the end? Do you see any other
-> commit/patchset adding it there? No, so this should raise questions on
-> your side.
 
-And this is quite different than v5 and nothing explains that change in
-the changelog.
+--a5nhk727xcrd5z4s
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 2/4] can: rockchip: add RK3588 CAN support
+MIME-Version: 1.0
 
-Use b4 prep to see what you did between revisions.
+On 30.07.2026 22:34:03, Cunhao Lu wrote:
+> Add support for the RK3588 CAN controller by introducing a dedicated
+> model ID and OF match entry.
+>
+> The block is closely related to the existing RK3568 variants, but it
+> cannot reuse their match data unchanged. In particular, RK3588
+> encodes RX_FIFO_CNT in bits 7:5 instead of 6:4, so the RX path needs
+> SoC-specific handling.
+>
+> The RX FIFO count bitfield difference was found by comparing Rockchip's
+> vendor kernel 6.1 CAN support for RK3568 and RK3588. Runtime testing on
+> RK3588 also confirms that bits 7:5 are needed.
+>
+> Enable the existing erratum 5 empty-FIFO workaround for RK3588.
+> Heiko reproduced erratum 6 on RK3588, so enable that workaround as
+> well.
+>
+> CAN-FD is enabled for RK3588. The BRS bus-off issue seen in earlier
+> testing was caused by the transmit delay compensation setting. With
+> RKCANFD_REG_TRANSMIT_DELAY_COMPENSATION programmed to 0 on RK3588,
+> CAN-FD with BRS works in local testing.
+>
+> Tested on an embedfire,rk3588-lubancat-5io board with can0/can1
+> directly connected, no other device on the bus, 60 Ohm bus
+> termination, and a 300 MHz CAN clock. Runtime testing used 500 kbit/s
+> arbitration bitrate and 1, 3 and 5 Mbit/s data bitrates. The 5 Mbit/s
+> data phase test ran for 15 minutes with cangen using BRS and
+> cansequence on the receiver. Both interfaces reported 9528377 packets
+> and 150667356 bytes, with 0 bus-errors, 0 error-warn, 0 error-pass and
+> 0 bus-off events.
+>
+> Co-developed-by: Heiko Stuebner <heiko.stuebner@cherry.de>
+> Signed-off-by: Heiko Stuebner <heiko.stuebner@cherry.de>
+> Tested-by: Heiko Stuebner <heiko@sntech.de>
+> Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+> Signed-off-by: Cunhao Lu <1579567540@qq.com>
+> ---
+> v3 -> v4:
+> - Disable TDC on RK3588 by programming
+>   RKCANFD_REG_TRANSMIT_DELAY_COMPENSATION to 0.
+> - Drop RKCANFD_QUIRK_CANFD_BROKEN for RK3588 and enable CAN-FD support.
+> - Document successful RK3588 CAN-FD/BRS testing.
+> v2 -> v3:
+> - Use Co-developed-by for Heiko's RK3588 contributions and add his
+>   Signed-off-by
+> - Collect Heiko's Reviewed-by and Tested-by tags
+> ---
+>  drivers/net/can/rockchip/rockchip_canfd-core.c | 17 +++++++++++++++++
+>  drivers/net/can/rockchip/rockchip_canfd-rx.c   |  5 ++++-
+>  drivers/net/can/rockchip/rockchip_canfd.h      | 14 +++++++++++++-
+>  3 files changed, 34 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/net/can/rockchip/rockchip_canfd-core.c b/drivers/net=
+/can/rockchip/rockchip_canfd-core.c
+> index 29de0c01e4ed..37c1c22c40c9 100644
+> --- a/drivers/net/can/rockchip/rockchip_canfd-core.c
+> +++ b/drivers/net/can/rockchip/rockchip_canfd-core.c
+> @@ -50,6 +50,12 @@ static const struct rkcanfd_devtype_data rkcanfd_devty=
+pe_data_rk3568v3 =3D {
+>  		RKCANFD_QUIRK_CANFD_BROKEN,
+>  };
+>
+> +static const struct rkcanfd_devtype_data rkcanfd_devtype_data_rk3588 =3D=
+ {
+> +	.model =3D RKCANFD_MODEL_RK3588,
+> +	.quirks =3D RKCANFD_QUIRK_RK3568_ERRATUM_5 |
+> +		RKCANFD_QUIRK_RK3568_ERRATUM_6,
+> +};
+> +
+>  static const char *__rkcanfd_get_model_str(enum rkcanfd_model model)
+>  {
+>  	switch (model) {
+> @@ -57,6 +63,8 @@ static const char *__rkcanfd_get_model_str(enum rkcanfd=
+_model model)
+>  		return "rk3568v2";
+>  	case RKCANFD_MODEL_RK3568V3:
+>  		return "rk3568v3";
+> +	case RKCANFD_MODEL_RK3588:
+> +		return "rk3588";
+>  	}
+>
+>  	return "<unknown>";
+> @@ -148,6 +156,12 @@ static int rkcanfd_set_bittiming(struct rkcanfd_priv=
+ *priv)
+>
+>  	rkcanfd_write(priv, RKCANFD_REG_FD_DATA_BITTIMING, reg_dbt);
+>
+> +	/* RK3588 CAN-FD BRS works with TDC disabled. */
+> +	if (priv->devtype_data.model =3D=3D RKCANFD_MODEL_RK3588) {
+> +		rkcanfd_write(priv, RKCANFD_REG_TRANSMIT_DELAY_COMPENSATION, 0);
+> +		return 0;
+> +	}
+> +
 
-Best regards,
-Krzysztof
+Can you attach the TDC to the CAN framework? See commit 5e1663810e11
+("can: mcp251xfd: fix TDC setting for low data bit rates"). And check if
+CAN-FD works on the rk3588 works?
+
+Marc
+
+>  	tdco =3D (priv->can.clock.freq / dbt->bitrate) * 2 / 3;
+>  	tdco =3D min(tdco, FIELD_MAX(RKCANFD_REG_TRANSMIT_DELAY_COMPENSATION_TD=
+C_OFFSET));
+
+--
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+
+--a5nhk727xcrd5z4s
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCamxMKgAKCRDMOmT6rpmt
+0vXBAQDoBlfSjZe9dMhr9BurTP9gPUC5Y4L9MHxvMgzlVhRtaAEA0Wp6yKbuMIkW
+a5YDShjRsc4DOMnQFcPUpi7oM9UkJQQ=
+=EqJg
+-----END PGP SIGNATURE-----
+
+--a5nhk727xcrd5z4s--
