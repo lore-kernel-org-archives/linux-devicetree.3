@@ -1,185 +1,121 @@
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 822113ED5C3
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 11:20:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA7BB3ECBE3
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 11:30:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785496856; cv=none; b=K6LuaF9EXR4l1GeSVY1NkF0ToJc1WHRHafv2y2/NlVGL23u7bk0udkhlhYlBljSFsa4RXxXZYk3w7E5bYPaV8tS8c2G5TcWfphC6zm3QFtWtb0eRgAk3yDHPqfgXeSUDLf5YHc8PNoe6Nir1IZjb8VVE/e4Ca5o48o/eEvOoVZE=
+	t=1785497439; cv=none; b=X4M/GRPzBBV6DvB0qJFzv2e9M7DGg0uZN1gc1K2z4kqF5twxO//fKNtT36h/Q+FIj6ziOssGWntKGITY9JzfQsmCRv0koVgTDX9j/F2HRoXjulLgiYPsC3qyEvA7bumVmyAIJFEK8fuxKUjujSuALDtHgz4dxp0wT7ZYlF1bHpU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785496856; c=relaxed/simple;
-	bh=bhq3MzeqOsauBzIWfBC+LweuxxY/XXQ4w63ZT64jvPM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Bs+G+xY3nOLN+Js+6cFgoZEpW3cxQBYL4Tt34ildIcuB5h9wzLQHZ6WhPoiqdsdh+/0l+BwN948Jzd0hJGmVLFI9m54DxDNK/REsObBCMWa14pEIIvYloSvI7CvmRx7RTzoChCJisc7hI7RkE/nrbJk+v9QHziAs7Vw/pvin1EM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=dmVncrkE; arc=none smtp.client-ip=209.85.218.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1785497439; c=relaxed/simple;
+	bh=PeMDpAvSc5FYx4ZkkGcmikFJZ8r3hndPMUQlaqdD8jI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=jpGAMBozPzKJUhDOcJKQOXiK5guNCeD2bPTxiriRUFfWYKA0dWuBvV/77Md+PXyP/q6cgMnf+ZFpSy4yB/f4gOPFnyBpSQy870fKJiQxhiFqHNeVPNCs3Obt8yxQgtRv8fKwSB7q7dpi4hpoxA8nNzUn0c+FBiwPJyud2/UJbMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gzFR4OLf; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="dmVncrkE"
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c15f47e6297so89372166b.0
-        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 04:20:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gzFR4OLf"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-4758bd3731bso867293f8f.0
+        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 04:30:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1785496853; x=1786101653; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bzkNS7AH3AQpIYPHQeQ9hpg4r1cVjOJtrFQ4q2xajzU=;
-        b=dmVncrkEQMeZ3LCEtrYL7CKtvI9z3zNHGLiZrU4uVjApYP+2LAbk6nesi/bE8VH9Ku
-         Pdz+s/ZWQKVRlwGNRKxLlmHqvoId39fwxRp+ju/k9w0tkNvwwKw/7k2dsvnFByGknyb5
-         6ZSHtJkGMFJsfKI2lJLXqGC/ewN7t/2+vW1qB3/JLlnXq2MUQQZLbipQGZNVs1HmSTre
-         s6GdXVTtawgh+wv3dZMEad0Q5zl5IYOmgRGOFFKo6XHOIeOApbMioQ8axdw3b+VDGGSG
-         nxVqUhpg+LqSTbjjrNFu3XUItIdvf0jz5CNbQ/h6l+UoGwQTlAZFnr9umE3F/oaF+Yhs
-         sseA==
+        d=gmail.com; s=20251104; t=1785497432; x=1786102232; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3c4L/MJdU0lTNZCQtFNIqJoMYY64q68vh+MgKlRHtjQ=;
+        b=gzFR4OLfiLykFqtMqrkXcG1BbL/fk5y9BuhSGj+pGercqmm9N6XCIIC9mocgWqDGxt
+         pe6Ht3mz0rRhlq7lNnoLIDH2cTunEOfbg2QfmsdOEDxbcNi2NQhLApzezqKlQwoLVpL4
+         QWc4FThUBXFpUYGpX1Bg9mKpT2GgLaSzUd4FVUlRLemYZTk0xZYKHd9zIbDBbOZOYk2Q
+         eRKdLw5TVDeLVcqWxOKPIPC8l9SXr3t0YnLcYQED3FY5P0RcAK/ds5gbXQrlO+knrbKJ
+         mlUQOV1DZg0MSVTJZIGQl92sV2S8bMbfo0Wn0HJgOWfm9udq/RJ3XP+jwMEwUxmOteeZ
+         nFhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785496853; x=1786101653;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=bzkNS7AH3AQpIYPHQeQ9hpg4r1cVjOJtrFQ4q2xajzU=;
-        b=hL3H0WqFYm+XdNJ+Rwnk7BzrhkVkPQpqRqPSlk1vuq+whV+InjEFenbrHp+SrVILE+
-         CxdqgbYHAejvzpHrbygdEvYEZpHJvyXICkTbxW7DS8ACaIP+Wa185kRJFBNtWX9Ei2AA
-         8mTd5KTmzSXE8wT4tUMxJWvnERZqCkaZr0eLT9mMeRbmsJM4qVqC2Ej2mDu3UXIENJwp
-         aK37k+1PDqs5VtY/FVcC1zmVzOoL0uKTyut7gyE23Z8UAxSITpsGN7EIvLf6Jxl/dbtq
-         q22U2OCzfm5poghQLb/2dIYAF/R2egk8bhgOmNU2nrLNclWuGLd8gwEoJ2WzRaQE58rF
-         VEWA==
-X-Forwarded-Encrypted: i=1; AHgh+RrkMVZ99F2zZkr3q9ltASPmKBpeyvjtf9fWy76/xR19mONchfK1MDgbyTxaelwX7aX6vhV8sfGecEPl@vger.kernel.org
-X-Gm-Message-State: AOJu0YzbW+GKaikO/IoKDijdisD+YePOwgBWq247VgQUuNRg7o7BKSHI
-	doaS+YkSNbNQg5lX8oELArxH7x2jwLUvV0sUEAq2K6+ICCgfuDFwjRxP/2jiagBR9QM=
-X-Gm-Gg: AR+sD12WT/Hv8H5aYV8lGi8SH32AZK/4FJxiW/1cJBn7HW1L84h1QCO/g4p6CWmJl1n
-	85N9B1vkR6sfFlPgAMhM/ADEuI6lIi85AiRIrPUrJcYiJzPAOYPflg6e+yVuw3FPzJC2jKQaMbx
-	DLs2fuIWpKQIE3RB3PnnQz0ihhWRv/Nl/qYq2u/cs4tIkKii6sHX1Fg8wV+S88iAHbFr7PzZscS
-	Eu6bM9zLFcBONqo4ZjYchU9nNBiXKAXdCc901ZKmI/W38H9V/PbKb1FrwXsSCTbaek/iIYGPsf9
-	L/H60z6sBYsXQzqUWb179v+f3EwGo5MW/PXAeZWjvpgCrwgsH+2D0piDF8qUOs8v0/O3/ukt+FW
-	dJnrvslgruQv8FClBzTJbxo3EEEGP9XcFi/x6s7xcT0+F3pJOOr5TI6gCv/gtCahi+JniN74taU
-	Shzb1THT0a2RCVFMFEfoHL7/R7fCxOdcLLE9HtWBJbpbLY1czt+y9kTUNQKN87R91vtwliq6Wp
-X-Received: by 2002:a17:907:1ca4:b0:c12:6dbf:4a80 with SMTP id a640c23a62f3a-c1fd295ec35mr86137366b.63.1785496852551;
-        Fri, 31 Jul 2026 04:20:52 -0700 (PDT)
-Received: from linaro.org ([2a02:2454:ff24:7210:4eea:ae3f:f2e0:1952])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1fd3cc331fsm128489966b.28.2026.07.31.04.20.51
+        d=1e100.net; s=20251104; t=1785497432; x=1786102232;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3c4L/MJdU0lTNZCQtFNIqJoMYY64q68vh+MgKlRHtjQ=;
+        b=Sp8B5MwBhT1HQiI89cHSFtOhC/Ux9V3hBy4vbw9mM7PDVki4eTrnZxC2wwTC262npO
+         242fdj8oJTC3ggzq+Lb7Jvqfr3zFmvR63Vx8SdVxF8MqcAHr77PDSIZ6w6gr+oo4H4iI
+         Cb67W01NIchzBnOStt50SLg1dneS5qbPrfWhvS0FMr2WtAREkVU6pTj9GCBeUQ1YGxRz
+         MtbGCcg5lLAKlCfG+YXMEGuqGPQZEXJ4HczGzSsVWni/C8svePLlKw9vad++JeiBXxTc
+         //rk97d99g/njHY0lwBT1Ksj1TOG1qosbV2AIWSdiiW2sF1sGL+mtlO53c8zuOKBHiIL
+         nSVg==
+X-Forwarded-Encrypted: i=1; AHgh+RqfdOiIMxFUTyiHvkinvOcKJddnaiFukcEugYl3kNruQHjncWPxbVHLOdPXCE8xEwhwp5iKbg47LzXs@vger.kernel.org
+X-Gm-Message-State: AOJu0YxXxN2RFTT8ss9Cylkk529+Wiqq8dVjlHyx5w+PTV+G2pbCq467
+	pEYEn4K1kBxDmSgPfF8AvsQSBn/6vB30xWrs0jqe0t9qZz9bC+G4N+Tn
+X-Gm-Gg: AR+sD12rDpuJJcqMNMAJNMAwLwa6m83L1XVL0ATHXgGw9WkOgshPrRa8hSEVA22Pmoc
+	CLIBfbV99DndkzV5H5uWh5PpLkoWmKVzxpVzV+aRSi8O3PoR0fX2WB5+IqhTtWZmHxofexNI48u
+	krIdRWfylQZo8UyrkeKPCC0tbtdbpeyEnpF07aUjFbPCnDSYLCkNSr36Hn8S4wv+Lttu1kkZaN7
+	EA44zmngd6kxAvv4xrinAGVagNtrcB8zrLNkrodp2t8lBLAMBss84awFwR2dzsV1y2haHlk/efl
+	2bspX8C5o6Ia1eA8IEBnLPcE1rnIr9wGZph0kQRksUJCNgFKbN+fHFHfNyyKSe52GwcxBt++ixv
+	3mNPV7nIwTB3EozWS1Ma9RKGSd4OqtQErZdZLK1XoPUFWuj5SDk1lOaz1zGQyribZGNwlWRB3cj
+	3rY05Hq6K7PKMXtnl3e1eejohbd/I8FVlTQllkGhHTXrPKCAh7CBAMSq3uDCsTbK/04Uak5m6aH
+	A9WimOUIA==
+X-Received: by 2002:a05:6000:220c:b0:470:8e2b:9c84 with SMTP id ffacd0b85a97d-47fd32b8f8emr3398881f8f.7.1785497432068;
+        Fri, 31 Jul 2026 04:30:32 -0700 (PDT)
+Received: from xeon ([188.163.112.51])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd456a6besm3823656f8f.22.2026.07.31.04.30.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 31 Jul 2026 04:20:52 -0700 (PDT)
-Date: Fri, 31 Jul 2026 13:20:48 +0200
-From: Stephan Gerhold <stephan.gerhold@linaro.org>
-To: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Fri, 31 Jul 2026 04:30:30 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Guenter Roeck <linux@roeck-us.net>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
-	Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
-	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-hardening@vger.kernel.org, manaf.pallikunhi@oss.qualcomm.com,
-	Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v7 9/9] arm64: dts: qcom: hamoa: Enable CDSP cooling
-Message-ID: <amyFARId5K-Izco1@linaro.org>
-References: <20260731-b4-qmi-tmd-v7-0-3befd44403d5@oss.qualcomm.com>
- <20260731-b4-qmi-tmd-v7-9-3befd44403d5@oss.qualcomm.com>
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/3] hwmon: emc1403: Convert to use OF bindings and add regulator support
+Date: Fri, 31 Jul 2026 14:30:04 +0300
+Message-ID: <20260731113007.145322-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260731-b4-qmi-tmd-v7-9-3befd44403d5@oss.qualcomm.com>
 
-On Fri, Jul 31, 2026 at 04:03:49PM +0530, Gaurav Kohli wrote:
-> From: Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>
-> 
-> Unlike the CPU, the CDSP does not throttle its speed automatically
-> when it reaches high temperatures in hamoa.
-> 
-> Set up CDSP cooling by throttling the cdsp, when it reaches 95∞C.
-> 
-> Add polling-delay-passive so the governor periodically evaluates
-> the zone during passive cooling and steps up cooling levels when
-> temperature stabilizes below the next trip.
-> 
+Document, add OF and regulator support to EMC14XX thermal sensor family.
 
-Would be good to mention why you are treating hamoa-iot-evk differently.
+Schema file was separated from LM90 since according to Guenter Roeck[1]
+these sensors are incompatible with LM90. Proposed schema has basic
+hardware description. All registers Guenter Roeck mentioned may be added
+later on, when/if driver would need to work with them. As for now driver
+successfully works as is.
 
-> Signed-off-by: Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts | 32 +++++++++++++++
->  arch/arm64/boot/dts/qcom/hamoa.dtsi        | 63 ++++++++++++++++++++++++++++++
->  2 files changed, 95 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts b/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
-> index 9fa86bb6438e..a146be1cb5fb 100644
-> --- a/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
-> +++ b/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
-> @@ -1684,4 +1684,36 @@ trip-point0 {
->  			};
->  		};
->  	};
-> +
-> +	nsp0-thermal {
-> +		trips {
-> +			trip-point1 {
-> +				temperature = <105000>;
-> +			};
-> +		};
-> +	};
-> +
-> +	nsp1-thermal {
-> +		trips {
-> +			trip-point1 {
-> +				temperature = <105000>;
-> +			};
-> +		};
-> +	};
-> +
-> +	nsp2-thermal {
-> +		trips {
-> +			trip-point1 {
-> +				temperature = <105000>;
-> +			};
-> +		};
-> +	};
-> +
-> +	nsp3-thermal {
-> +		trips {
-> +			trip-point1 {
-> +				temperature = <105000>;
-> +			};
-> +		};
-> +	};
->  };
+[1] https://lore.kernel.org/lkml/a0c5c1e8-9a36-4835-a5d9-7bafda79c36f@roeck-us.net/
 
-Please avoid overriding node values like this... One quick rename of one
-of the involved nodes and this will be silently broken without compile
-error. Nowadays dtbs_check will *probably* catch these, but if you
-override values using the label reference you would notice it
-immediately when compiling.
+---
+Changes in v2:
+- schema separated into a dedicated file
+- dropped chip id check
+- fixed match data casting
+- adjusted regulator name
 
-All those nodes already have a label you can use:
+Changes in v3:
+- fixed number on channels for sensors in schema
 
-&nsp0_alert0 {
-	temperature = <105000>;
-};
+Changes in v4:
+- removed redundant line
+---
 
-&nsp1_alert0 {
-	temperature = <105000>;
-};
+Jonas Schw√∂bel (1):
+  hwmon: (emc1403) Convert to use OF bindings
 
-If the same pattern is already used for other thermal overrides in
-hamoa-iot-evk.dts, it would be good to prepend a patch to fix those too.
+Svyatoslav Ryhel (2):
+  dt-bindings: hwmon: Document SMSC EMC1402/1403/1404/1428
+  hwmon: (emc1403) Add regulator support
 
-Thanks,
-Stephan
+ .../bindings/hwmon/smsc,emc1403.yaml          | 203 ++++++++++++++++++
+ drivers/hwmon/emc1403.c                       |  21 +-
+ 2 files changed, 222 insertions(+), 2 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/hwmon/smsc,emc1403.yaml
+
+-- 
+2.53.0
+
