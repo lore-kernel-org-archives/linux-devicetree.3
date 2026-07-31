@@ -1,148 +1,95 @@
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE25834575A
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 06:41:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.42
+Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E0EE42EBBA9;
+	Fri, 31 Jul 2026 06:41:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785480088; cv=none; b=RCAOFShWERhngGEKvTpaLy27s2/qFsoeb7UUf9UdzqvYJ+Y0BhdggggrVxYTJcMHDVz3JVG205EbzxRfYsWoKaDvx4mokmkXSUEAxnTgZkx2j+bK5P1WAnErjK3UGPMK7b3Hpfxk3qlnrGS7qLpA4YVbWVvzvyXt+Dc07KgB2No=
+	t=1785480090; cv=none; b=vAljOBZPEoKXNBBD6CVxeYU10x42DMOexAjoxOGdEDOBaetTBtvFp9jjvpyosL/+wRLq0mxargpleaD71pyE9xoJLXtzsgPdzwHYYZGQvDY4/ebdzB407pXrIAW7u4xh3ArvWhAx84afB+Zk15ibTTBqE6QsO/fvdb+DtLUCt4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785480088; c=relaxed/simple;
-	bh=Z8Wzwu/qDjVLAbj5sVnInzz8cWKjNC5ww219jZP0Gec=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SwZDn3ELIMheD8zndbY7pKEZKVR3we1aUZwoh+z5QdelI2Xvo/TeVioLzytXrTNc4g/VMt+PVh0/eC0MzhTeFKiRox6EbJcPxCoUn0soiX2jmZkYVBw3TvEJfWWLjDCQMMKqc6oG4TZk0PJlXRCzMt3Rys1rd9zawqHrtxLR684=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Q5aWuhdr; arc=none smtp.client-ip=209.85.167.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Q5aWuhdr"
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5aeb36c46bbso74604e87.3
-        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 23:41:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1785480085; x=1786084885; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=h7FkhS32NSyO09VeQz2XUFxWjFmOBtNNLtYtgPqX4Ro=;
-        b=Q5aWuhdrqTzMeBY37qduGDlCJ0jRMwAIgfPZFPZ3qKFiYQyUJhsRdeq2jGQ9AgYAKs
-         /w63K4Gq6B8kmC0F6Jf2OOI2hLBZmUb76gXJsvTjJSIxsid6Uwid/e0DLWwqmSw2i3fx
-         +ix2IodMqlk8srXKsF1/HUKlKRdMaBtd9ah8spK731SIzy59/2G0R50X9mlgXzRwP0oB
-         QrwvsFaLhPUHRdaq2CzQHWxj2W+yxCe0lLfk1D1tK8MAKzhJBl02iToLDHejbUpBuJin
-         QqwRgjktqAEUdQQ25CFPPzVxyF+OwReYGr/07laedOLC4EMtKi8cS/bOvIdTyT5gNhQJ
-         CEXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785480085; x=1786084885;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=h7FkhS32NSyO09VeQz2XUFxWjFmOBtNNLtYtgPqX4Ro=;
-        b=hxW+mUduQjXwZ90O/SPbk1xxa+vEXpA3WJxyxAR7yBMTtg1XEjhcfHsy0CBaJpvU+W
-         uf3jMNiWu2Nqpv8FHJMEWEu+0H+B+oMfLxuHQZY5HUFq/BWq/sia/YdOysEBFlOxiUEj
-         UNQzoJi4h6WB0BHXAAkunNP5IQ2SB8C0XmmZARHU4cGb080CObKFOYl49+4qmyYJfRfv
-         uQ8e8nJlUbeRl5VpEXLlVxarrKFCfh83AN5y0a+AB006YJFig3CDwrELSyRWAgEKFESy
-         jMQDyeYxj0znBdtR3NPY07M3qt9q04BaccwKhPalvcDl9wSPr/xS1RfYS87vI355m67s
-         grCA==
-X-Forwarded-Encrypted: i=1; AHgh+RqhIe/4c3R/iLw/ZdjiL7DDhot7hX+r7dIDlVYTG2it/ai/PT4l9omwEFB1L9vIAvyu0ko3rrE+7bMC@vger.kernel.org
-X-Gm-Message-State: AOJu0YzT1zEbCOBhPqCb3L4DdLYX8V7lt6veH6NqIeevHL9eivPV8XI/
-	tUHrolkdM3YnCRyavp1Lj6BVW0PC43uFb/YiflejOnbAb+38WxySJ/bwSEwoX9NCDJ0wc60rjX4
-	188bv/8Cglg==
-X-Gm-Gg: AR+sD10YX5Pt4C8N9jFMzgiuRyq79RhDIks1AtrD0PN/lPMlpok+du9mRJKxhN40Oi7
-	vRJ4u5vJoVj7hTbppq5XVTipKMSBqSTjKo//nRiqy6g7e4pTiQ4ouimL3kxSgXZu9BUzok4NA+/
-	YqI7LT2rn1KERD8NiI1tDKU27A8SLrbgmkwvKCupZc0xqtLiign7bDsLnFe7gwjBdHXnLBTEMxB
-	OxotGY98QfpS+t3lubVeF+FCFU8GiES9zeu0AwaMcG/BipEem9g0okWkMteFVPFPWzW78tquwtI
-	hxAoqDERRaWipBu/vUE8Eubzp0MfRmNXRHxs8n5Kl0dIsDjbNPTRLR4gbq39Vllm8WeDWfvlb+/
-	yExUBtxtzaBvRNXs31/dWI7neSONyk/FhQ/u5TVbaU3qhwimBAeNLgIRUPm/MBdx9iNKCcJon2+
-	/MFgydMgOZ/IQJXe9N+zq4u4MHWbkRwtKE1A8g9IBY9fpD7wUsaDs56SsL+zwANjd6YEJL6KYQN
-	dQZ0ACavIeNeAwhuw/CGDppfCG99flrEjc7poxxGUwK6Z4cUxdbUA==
-X-Received: by 2002:a05:6512:2395:b0:5b1:5c72:2f0d with SMTP id 2adb3069b0e04-5b2e1fe7701mr220391e87.4.1785480084698;
-        Thu, 30 Jul 2026 23:41:24 -0700 (PDT)
-Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2e2456506sm106050e87.68.2026.07.30.23.41.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 30 Jul 2026 23:41:24 -0700 (PDT)
-Message-ID: <b44872a8-dd59-4f0a-8665-c4f23a6b86bc@linaro.org>
-Date: Fri, 31 Jul 2026 09:41:23 +0300
+	s=arc-20240116; t=1785480090; c=relaxed/simple;
+	bh=E3lxYceNke53WS6IbZJ5f1DRimD+ZbDt1yVJxiCHGzo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=bG55P0YIPOQOLB8WWoIQaiMZDJb7rCEZqCATd7t9PKJFMR7sM+OzSnRnhGt9U9hk+qryZbypCYUgbTJvGmKsrdJUVXB1J13isF137mgkP+1RxIMcvXDPPJ0QcAjT7k2DyxtTU9gqbcclYjZCyJZYR4tzzpr+HH5C5XpTDSKrtYw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=162.243.161.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from dongxuyang$eswincomputing.com ( [10.12.96.41] ) by
+ ajax-webmail-app2 (Coremail) ; Fri, 31 Jul 2026 14:41:12 +0800 (GMT+08:00)
+Date: Fri, 31 Jul 2026 14:41:12 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: "Xuyang Dong" <dongxuyang@eswincomputing.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: ukleinek@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, ben-linux@fluff.org, ben.dooks@codethink.co.uk,
+	linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, p.zabel@pengutronix.de,
+	daniel.lezcano@kernel.org, tglx@kernel.org,
+	ningyu@eswincomputing.com, linmin@eswincomputing.com,
+	xuxiang@eswincomputing.com, wangguosheng@eswincomputing.com,
+	pinkesh.vaghela@einfochips.com
+Subject: Re: Re: [PATCH v14 3/5] pwm: dwc: add of/platform support
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
+ 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
+ mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
+In-Reply-To: <20260730113930.8FC151F000E9@smtp.kernel.org>
+References: <20260730111425.1680-1-dongxuyang@eswincomputing.com>
+ <20260730111553.1886-1-dongxuyang@eswincomputing.com>
+ <20260730113930.8FC151F000E9@smtp.kernel.org>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: monaco: Fix CSI I2C controllers default bus
- frequency
-To: Hans de Goede <johannes.goede@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Conor Dooley <conor+dt@kernel.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org
-References: <20260723114844.63093-1-johannes.goede@oss.qualcomm.com>
- <111bfc31-7f02-4875-ab58-e92bf1ccc44d@oss.qualcomm.com>
- <b690426c-94fa-43b8-a805-7413e45f2849@oss.qualcomm.com>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <b690426c-94fa-43b8-a805-7413e45f2849@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Message-ID: <2f87d06f.8eed.19fb6e7ce66.Coremail.dongxuyang@eswincomputing.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:TQJkCgAnPJ+IQ2xqEfA3AA--.8298W
+X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/1tbiAQEFAmprfKgUQ
+	wABsE
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
 
-On 7/24/26 17:22, Hans de Goede wrote:
-> Hi,
-> 
-> On 24-Jul-26 1:42 PM, Konrad Dybcio wrote:
->> On 7/23/26 1:48 PM, Hans de Goede wrote:
->>> 1 MHz is quite fast for an I2C bus and not necessarly reliable, change this
->>> to 400 KHz which is a more reasonable default.
->>>
->>> Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
->>
->>
->> I guess this is a question of what's more common among client
->> devices. I assume you have some that aren't happy with 1 MHz?
-> 
-> Looking at ACPI tables for many x86 devices 400 KHz is the standard,
-> with some devices going down to 100 KHz. 1 MHz is pretty much
-> unheard off.
-> 
-> Note the official I2C spec is limited to 100 KHz anything faster then
-> that is an extension.
-> 
-> My specific reason for submitting this patch is imx219 sensors on
-> Mona sometimes failing to initialize at 1MHz which is kinda to
-> be expected when going for 10x the I2C specification max value.
-> 
-
-1 MHz I2C bus speed is in the v3 of the I2C specification dated 2007,
-its name is Fast-mode Plus (Fm+), thus the statement above is invalid.
-
-As it's been said on the list recently likely the problem with sensor
-controls on a number of platforms is due to invalid setting of I2C bus
-speeds, e.g. out-of-spec 512 KHz I2C bus speed instead of wanted 1 MHz,
-or 204.8 KHz I2C bus speed instead of 400 KHz, which is done by this
-applied change.
-
-The list of affected platform .dtsi files is:
-* kodiak.dtsi
-* lemans.dtsi
-* milos.dtsi
-* monaco.dtsi
-* sc8280xp.dtsi
-* sdm670.dtsi
-* sm8250.dtsi
-* sm8450.dtsi
-* sm8550.dtsi
-* sm8650.dtsi
-* talos.dtsi
-
-An example of a "fix" (it's not a fix, but a simple workaround of
-the flaw in the driver) for SM8650 and other platforms can be like
-the one recently published:
-
-https://lore.kernel.org/linux-arm-msm/20260729112719.1151700-1-vladimir.zapolskiy@linaro.org
-
--- 
-Best wishes,
-Vladimir
+PiAKPiBUaGFuayB5b3UgZm9yIHlvdXIgY29udHJpYnV0aW9uISBTYXNoaWtvIEFJIHJldmlldyBm
+b3VuZCAxIHBvdGVudGlhbCBpc3N1ZShzKSB0byBjb25zaWRlcjoKPiAtIFtNZWRpdW1dIGR3Y19w
+d21fcnVudGltZV9yZXN1bWUoKSB3cml0ZXMgdGhlIEVOIGJpdCBhbmQgdGltZXIgY29uZmlndXJh
+dGlvbiBzaW11bHRhbmVvdXNseSwgdmlvbGF0aW5nIHRoZSBoYXJkd2FyZSBzcGVjaWZpY2F0aW9u
+Lgo+IC0tCj4gCj4gLS0tIFBhdGNoIFszXTogW1BBVENIIHYxNCAzLzVdIHB3bTogZHdjOiBhZGQg
+b2YvcGxhdGZvcm0gc3VwcG9ydCAtLS0KPiBjb21taXQgYjQ0MTIzMWRlMmZjYzg5ZTQxODdiNjcy
+YmRlMTkxOTYyMmFjNzM0Nwo+IEF1dGhvcjogWHV5YW5nIERvbmcgPGRvbmd4dXlhbmdAZXN3aW5j
+b21wdXRpbmcuY29tPgo+IAo+IHB3bTogZHdjOiBhZGQgb2YvcGxhdGZvcm0gc3VwcG9ydAo+IAo+
+IFRoaXMgY29tbWl0IGFkZHMgcGxhdGZvcm0gYW5kIE9GIGRldmljZSB0cmVlIHN1cHBvcnQgZm9y
+IHRoZSBEZXNpZ25XYXJlIFBXTQo+IGNvbnRyb2xsZXIsIGVuYWJsaW5nIGl0cyB1c2UgaW4gbm9u
+LVBDSSBzeXN0ZW1zLiBJdCBhbHNvIGltcGxlbWVudHMgcG9sYXJpdHkKPiBjb250cm9sIHVzaW5n
+IGR1YWwgbG9hZCByZWdpc3RlcnMgYW5kIGFkZHMgcnVudGltZSBQTSBjYWxsYmFja3MgdG8gc2F2
+ZSBhbmQKPiByZXN0b3JlIGhhcmR3YXJlIHN0YXRlLgo+IAo+ID4gZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvcHdtL3B3bS1kd2Mtb2YuYyBiL2RyaXZlcnMvcHdtL3B3bS1kd2Mtb2YuYwo+ID4gbmV3IGZp
+bGUgbW9kZSAxMDA2NDQKPiA+IGluZGV4IDAwMDAwMDAwMDAwMDAuLmU5NmU1NTY5ZWI4MWUKPiA+
+IC0tLSAvZGV2L251bGwKPiA+ICsrKyBiL2RyaXZlcnMvcHdtL3B3bS1kd2Mtb2YuYwo+IFsgLi4u
+IF0KPiA+ICtzdGF0aWMgaW50IGR3Y19wd21fcnVudGltZV9yZXN1bWUoc3RydWN0IGRldmljZSAq
+ZGV2KQo+ID4gK3sKPiBbIC4uLiBdCj4gPiArCWZvciAoaWR4ID0gMDsgaWR4IDwgY2hpcC0+bnB3
+bTsgaWR4KyspIHsKPiA+ICsJCWR3Y19wd21fd3JpdGVsKGR3YywgZHdjLT5jdHhbaWR4XS5jbnQs
+IERXQ19USU1fTERfQ05UKGlkeCkpOwo+ID4gKwkJZHdjX3B3bV93cml0ZWwoZHdjLCBkd2MtPmN0
+eFtpZHhdLmNudDIsIERXQ19USU1fTERfQ05UMihpZHgpKTsKPiA+ICsJCWR3Y19wd21fd3JpdGVs
+KGR3YywgZHdjLT5jdHhbaWR4XS5jdHJsLCBEV0NfVElNX0NUUkwoaWR4KSk7Cj4gCj4gW1NldmVy
+aXR5OiBNZWRpdW1dCj4gRG9lcyB3cml0aW5nIHRoZSBzYXZlZCBjb250cm9sIHJlZ2lzdGVyIGRp
+cmVjdGx5IGluIGR3Y19wd21fcnVudGltZV9yZXN1bWUoKQo+IHZpb2xhdGUgdGhlIGhhcmR3YXJl
+IGluaXRpYWxpemF0aW9uIHNlcXVlbmNlPwo+IAoKSGkgU2FzaGlrbywKCk5vLCBiZWNhdXNlIGlm
+IHRoZSBMb2FkIENvdW50IHJlZ2lzdGVyIGlzIHdyaXR0ZW4gYWZ0ZXIgdGhlIGNvbnRyb2zCoApy
+ZWdpc3RlciwgaXQgd2lsbCBiZSB1cGRhdGVkIGFmdGVyIHRoZSB0aW1lciBpcyBlbmFibGVkLgoK
+PiBUaGUgZHJpdmVyIG5vdGVzIGluIF9fZHdjX3B3bV9jb25maWd1cmVfdGltZXIoKSB0aGF0IHRo
+ZSBzcGVjaWZpY2F0aW9uCj4gcmVxdWlyZXMgZGlzYWJsaW5nIHRoZSB0aW1lciwgcHJvZ3JhbW1p
+bmcgaXQsIGFuZCB0aGVuIGVuYWJsaW5nIGl0Lgo+IAo+IFNpbmNlIGN0eFtpZHhdLmN0cmwgbWF5
+IGhhdmUgdGhlIERXQ19USU1fQ1RSTF9FTiBiaXQgc2V0IGZyb20gd2hlbiB0aGUgZGV2aWNlCj4g
+d2FzIGFjdGl2ZSwgZG9lcyB0aGlzIHNpbmdsZSB3cml0ZSBhdHRlbXB0IHRvIGNvbmZpZ3VyZSBh
+bmQgZW5hYmxlIHRoZSB0aW1lcgo+IHNpbXVsdGFuZW91c2x5PyBDb3VsZCB0aGlzIGNhdXNlIHVu
+cHJlZGljdGFibGUgYmVoYXZpb3IgdXBvbiByZXN1bWU/Cj4gCgpBbHRob3VnaCB0aGUgc2luZ2xl
+IHdyaXRlIGF0dGVtcHRzIHRvIGNvbmZpZ3VyZSBhbmQgZW5hYmxlIHRoZSB0aW1lcsKgCnNpbXVs
+dGFuZW91c2x5LCB0aGUgTG9hZCBDb3VudCByZWdpc3RlcnMgYXJlIHVwZGF0ZWQgYmVmb3JlIHRo
+ZSB0aW1lciBpc8KgCmVuYWJsZWQuIFRoZXJlZm9yZSwgdGhpcyBhcHByb2FjaCB3aWxsIG5vdCBj
+YXVzZSB1bnByZWRpY3RhYmxlIGJlaGF2aW9yLgoKQmVzdCByZWdhcmRzLApYdXlhbmcgRG9uZwoK
+PiA+ICsJfQo+ID4gKwo+ID4gKwlyZXR1cm4gMDsKPiA+ICt9Cj4gCj4gLS0gCj4gU2FzaGlrbyBB
+SSByZXZpZXcgwrcgaHR0cHM6Ly9zYXNoaWtvLmRldi8jL3BhdGNoc2V0LzIwMjYwNzMwMTExNDI1
+LjE2ODAtMS1kb25neHV5YW5nQGVzd2luY29tcHV0aW5nLmNvbT9wYXJ0PTMK
