@@ -1,148 +1,224 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01A1D2F12AC
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 15:47:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B20ED445AE3
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 15:49:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785512830; cv=none; b=WvtYsFr3e6d7+rhiLBjQqUDJEr32tdVW4Iez1aeiB+edeMUIwHfE0pBrg46E0QhFjR40J/+gNJDo8+ZlzKXRoCpLH+LLCAvN5pYOlkHp0GoKaO1ONlf9cfkXRnCTKFxIoxAeFdc8N2fEC7JNTfQWXYwcxk0+EhwOeaoZFz1dN3k=
+	t=1785512961; cv=none; b=oQUHTdWBY766+Z4bdPVBzbKqOY83U6u7CdaN1YVFHGajW8ZG2GTZGRCAoKcwuRxHdc7/YPw2ZvxDNjFIOFMXqAx4JeqaElOqPvZsZ3IZDSIK0D+8GHAP9dxXTSWwf/AKxTM0MEC1PPglN9l3M0e4O90YgT8QwLue8a443kGeh+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785512830; c=relaxed/simple;
-	bh=qNvklQmQESrL4OKo6SMRxbE1gJpPrA0joNLXG7VF3WM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=P5+63k7Px/gehOehYMI7IIBDZSqWbviQuegrtNKuvJrNvsmkKn30xVks5PA7H88HW2B3iXBbXOzd55mPZCnScERlQ6Mqw8C4/MIrlyfjMDX+SnbzCBkJAboIWPyIN6J70CxCFFP4Db5eDPPlHqLAn0r6WwmsUjHsZEqMq9x14Rs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kuPNaQXQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785512961; c=relaxed/simple;
+	bh=HZaAOxwe4QyhS10RuHhDJoaegy/tHhrBOSj7SpXmDTc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eoG9DE377a40mgoMb2NdZ6PPC8KJthghBkfVCAuXVu2BFhtTZMWnvkGPGixeWaHmyJDOSn+/HS62N6Pr0aLIJOjNc3Ns9ihN2Jxw5byY1GhbAsjYCX+efxNkHnMlX0QixGyPkWsYA3AbcKDGy7gRkLwc7eL0adj75g/ze0QrS+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ARcSqjOH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZB9tx6f9; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kuPNaQXQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41E071F000E9;
-	Fri, 31 Jul 2026 15:47:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785512828;
-	bh=37p1aU76EjP8d0R5f4fv/3cl2yM1K7/Q1Laozpm2gIA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kuPNaQXQXtRQ/S/PO/kNgYHB43Gfn7xxWpM1pDv4gfaEivpxpffFR6oMqXvfsgWt+
-	 zFndOROdqqfv5z5ktJTlPTGQ1yfNdDQikvB6NAl3j0HR66h0t+dAYHJoTbYkxUlFmc
-	 sCntuwmvvrsJ+94dqZnrZ9O8/CaSOI7aAyHRMP8Tcl+KkEsyXTAaS99RkB6czzCSdI
-	 pti6Q36SgCrAhU6o8FaC7Tnn2CrF0DB1MdJo+NTB2yXXDg8HnexB/uVJzJFf7gizny
-	 +K+LdIvRPw0V0vJ3kluEWfK/erfKoEVC87BdIxeradbYOL6MHbbcgaZlcwT7yi4o7U
-	 zg74mK8UB14Fw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 2/2] media: i2c: Add driver for AMS-OSRAM Mira220
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jacopo Mondi" <jacopo.mondi@ideasonboard.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20260731-mira220-v11-2-1295fe17021d@ideasonboard.com>
-References: <20260731-mira220-v11-0-1295fe17021d@ideasonboard.com>
- <20260731-mira220-v11-2-1295fe17021d@ideasonboard.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 31 Jul 2026 15:47:07 +0000
-Message-Id: <20260731154708.41E071F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ARcSqjOH";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZB9tx6f9"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66VFONQI205390
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 15:49:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	GOcjZ3U0RmFKdMeop8+F+Smw624ct0apDXeG6oe9Uic=; b=ARcSqjOHh86wjwhh
+	+Mxr45oXSYBEbOXDn+NyYgKS0JR1h5975DSE3QcJApeNVxrANkceZL4+XnOwe3D5
+	ZZkIUPLhgwHDLdPlt6o+k1nRxpvQeUofvP9+CDEuy2jDD4KY4PZMuDojTg/Dyc38
+	p+LiEu8DuwecJOT8YKdLafdcEAbfIgQLdYb9Wl/7Y/mhzehfq43W2nN8UYd9jrEv
+	u5nrhWPhF5ezwnFmpkh4ABilASL6hs8owyDdjxILPAqVN1yBTyDBvNxffIDs8LP9
+	eZ5Y+9S+o0OJ4/Rdix1uliOQt+P40t7FLGF09KRaeSAPLO2xmVch5eXADIUvA89i
+	fuwbug==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fru5dh2tu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 15:49:16 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-9310484c005so17750185a.3
+        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 08:49:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785512956; x=1786117756; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GOcjZ3U0RmFKdMeop8+F+Smw624ct0apDXeG6oe9Uic=;
+        b=ZB9tx6f9ss+QG/GIWXGqRWQlTv31tJb4MJf6DqycAz1hQX98UxXtMWrqmzrFS8IcKJ
+         VXYbwBQ15wXL6eeLgiBDhHiw/0Y5ARtaEspjT0hEqHXREPX5sDXpysd71XziAPo7eQU5
+         QQUqe2/KPmEysfulol53QFSucdDnkP5xHnol6j8xiXahrCImitUM0MKxqPTYzYrwDhzO
+         rKgEKG1DsyHh1R4AS24pB5eiPOMiZ33EXXe1HjE+RI4u4RXblDA+DqZPdobjU4Y9fMhf
+         t+v+rdrMu/uIwoF2T1oSBjSixEbTv1sLMgn4N5EYfcth4DGfw2Hj1wN+oZQ6kCx0s+1C
+         xQgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785512956; x=1786117756;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GOcjZ3U0RmFKdMeop8+F+Smw624ct0apDXeG6oe9Uic=;
+        b=n1+pp7WGiWUwa+oOCN+QuLKgtuJXst91dLdZMTU3cLa4B3k/P4W+1AI8tSeKe9OTCz
+         5hZuPLhyMocWH2IYuWwICn3TKPienvxeKGLiBQXtM4HxRbzYhIpvDzcan/N2sYOPhLYB
+         TjVqro1cpZWPcRqX19W4lGdP2L6z4huZeKJLUsWjzMWihkVBfCUoxlYz047v+bTI+xUI
+         ZlP2MKEBEI3SQdaVa//H4SC9QlGOpkPlQx5x3ZPHwTdiYVZzIR1C2lAmDqug5aMe23wI
+         kP15GzFjkYgF0KMGc1Gus6XpYw0uc0falQi6AThjzMFpx/IBObPl7Rg2Y49ODKVNp+Py
+         s1+w==
+X-Forwarded-Encrypted: i=1; AHgh+RpS8qifq1IotR1OOCb/A+j44tvNDGEWdwppJ9CJQBgH6mVvp8zuQweTVvp6lBvjnM+r/Sl2WmsoYpqD@vger.kernel.org
+X-Gm-Message-State: AOJu0YwBnqqRiCSFemXhG0vJkRY01WKHhTvStUQlWQJaOhVkZ01rf6MW
+	T0xfazxCri/jPRpmT616GswAy34iqhSLWa4Vx1G5e5N1Hho4+ZYF5y1M3/ybq8bdEcnSuVmAUuV
+	Op2YrAMlvQSBPprWtvoqfOrLODniQp+px6PgjkZLWtu08/nlkcNDdfvxx+WDk/bue
+X-Gm-Gg: AR+sD12Ivt/7gzLYwLt6xRJ792HLBfY5RN9jndx6bJKtflMQjKLcpBOQnBwJy/DYsgi
+	MsN90Owl+5Moj6d+3U+xgEv6FK5M5eYwkBGLb+r8brKUqEM6OTaT2/EVBnqFuaTQgWYBdrq+qml
+	uJXIdrfoknurqSLkot2XAt6Xc7HOzg6BQ7YCbNROeHtQUOX/IIpMybg0rXOFoWwrsM3YEG992MX
+	h8Nb/dZCZajQEh5+s6cbVeuGM15VQCz2VJDVzVyUWj8CjUUvnxGvSmeCrUfUORm0P5H9it3wypR
+	RvbRFC/AGF9t0OBlxsMlK9AYbX6MY7i9h0zirqjOA8idunh90YsDnM68bTF4GoZmcNbNxp/ttwz
+	MKkGkdLCVdVLegEWbnT7Flp6Q
+X-Received: by 2002:a05:620a:458e:b0:92e:9cb3:3f67 with SMTP id af79cd13be357-934a0951926mr67451785a.2.1785512955613;
+        Fri, 31 Jul 2026 08:49:15 -0700 (PDT)
+X-Received: by 2002:a05:620a:458e:b0:92e:9cb3:3f67 with SMTP id af79cd13be357-934a0951926mr67446685a.2.1785512955053;
+        Fri, 31 Jul 2026 08:49:15 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a09c63dca6sm2157711a12.16.2026.07.31.08.49.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 31 Jul 2026 08:49:14 -0700 (PDT)
+Message-ID: <bf7821a2-d813-4f89-b891-9c26d228ae67@oss.qualcomm.com>
+Date: Fri, 31 Jul 2026 17:49:11 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 6/6] arm64: dts: qcom: rb3gen2: add Industrial BT UART
+ overlay
+To: Rahul Samana <rahul.samana@oss.qualcomm.com>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Marcel Holtmann
+ <marcel@holtmann.org>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
+        Rocky Liao <quic_rjliao@quicinc.com>,
+        Manivannan Sadhasivam
+ <mani@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Bartosz Golaszewski <brgl@bgdev.pl>, linux-arm-msm@vger.kernel.org,
+        linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
+        linux-pm@vger.kernel.org, quic_mohamull@quicinc.com,
+        quic_hbandi@quicinc.com, quic_anubhavg@quicinc.com
+References: <20260727-rb3-industrial-bt-uart-v2-0-2d100f30e202@oss.qualcomm.com>
+ <20260727-rb3-industrial-bt-uart-v2-6-2d100f30e202@oss.qualcomm.com>
+ <794424df-4714-43a4-b4b8-e960998ad1f1@oss.qualcomm.com>
+ <ce283ef7-2460-4fa4-a1f5-9757fd6b42b5@oss.qualcomm.com>
+ <6d61d749-440f-40ad-82e5-e1e909afad06@oss.qualcomm.com>
+ <b47345f1-1c7b-4424-9c6b-3dd02c0f4ab6@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <b47345f1-1c7b-4424-9c6b-3dd02c0f4ab6@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: fEZUA0mRs6A7x6YQnLoNdd11cvoGgo8K
+X-Proofpoint-GUID: fEZUA0mRs6A7x6YQnLoNdd11cvoGgo8K
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMxMDEyMCBTYWx0ZWRfX1WXcy1Uk8ufr
+ M3DDnq1FRJYn/JwcGmQqk+THhJrwujh7CJYJ88Eq8Rm6qWuKrde3P7O8HrSIpRpHMIJrIGRfS5+
+ FlztIwk0PfcnREF5gJsiedXhioxQsUwr/vfe0q4U6WmM0GpEoy8DEE0Y+KmI+KacRo3mKlD3X8P
+ Gn202KlMSEzX5Y4YP6RwwIYP7Uf8knBjzAXShvFibw06ffLWIZVQiVW092oFIIzoZxKA+A71BQg
+ yNumbz/MByo+vH0FPcDLHrUnpsbbShuc0tcM+QHfHJGpLy89M4km7btg2zTI7XuqrfB8ajkSCVl
+ QSo2kvGSzIdLIWZXXXBMNWZbWoocC1LU3Txy6lgyKRTKmBo9hnXZJw5Qc/7IZ4a78AVxDlWCrUb
+ EOCol8ue2IF6IA8ZXrbDWQaeLG5shbN6POu/Lx4fgJcwbcZlPMskqncuKBWU6+rvL67N9FFqOTx
+ bkVGM8Yx8XfKMTKheCQ==
+X-Authority-Analysis: v=2.4 cv=SKZykuvH c=1 sm=1 tr=0 ts=6a6cc3fc cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=0iSonUdn8zqV-Tj254UA:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMxMDEyMCBTYWx0ZWRfX04oLE5UN7h2t
+ de0rmFvFK+BLtuuFbUOvCTAmMOC9LS9hvQRNGTp9fao/WhVpG8aJhGmLglCCqjcwBiYbDjDWx/4
+ 1FvNBx2REdVEVngqnlf+T+hgAYBmPRM=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-31_05,2026-07-30_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
+ adultscore=0 impostorscore=0 spamscore=0 suspectscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607310120
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Incorrect check of `pm_runtime_get_if_in_use()` return value leads=
- to an unbalanced decrement of the runtime PM usage counter when runtime PM=
- is disabled.
-- [Medium] Claimed dynamic frame windowing is unreachable dead code due to =
-fixed formats and a missing `.set_selection` pad operation.
---
+On 7/31/26 4:48 PM, Rahul Samana wrote:
+> 
+> 
+> On 31-07-2026 18:20, Konrad Dybcio wrote:
+>> On 7/31/26 8:53 AM, Rahul Samana wrote:
+>>>
+>>>
+>>> On 29-07-2026 18:01, Konrad Dybcio wrote:
+>>>> On 7/27/26 5:45 PM, Rahul Samana wrote:
+>>>>> The reworked RB3 Gen 2 Industrial mezzanine keeps the common Industrial
+>>>>> mezzanine hardware description but routes QCC2072 Bluetooth over UART4
+>>>>> instead of the default Bluetooth-over-USB path.
 
---- Patch [2]: [PATCH v11 2/2] media: i2c: Add driver for AMS-OSRAM Mira220=
- ---
-commit 77f5d42d3080baefabb9e7bc7b1e2214656823e4
-Author: Philippe Baetens <philippebaetens@gmail.com>
+I only noticed this now - are there 2 variants of the industrial
+mezz being sold concurrently? Is the already-in-kernel one some
+sort of a prototype SKU? i.e. should we support both?
 
-media: i2c: Add driver for AMS-OSRAM Mira220
+>>>>>
+>>>>> Build this variant by applying the common Industrial mezzanine overlay
+>>>>> first, followed by the BT UART overlay. The overlay models the M.2 E-key
+>>>>> connector graph endpoints for PCIe and UART, and disables the on-board
+>>>>> WCN6750 PMU and UART7 path so the M.2 QCC2072 Bluetooth controller can be
+>>>>> used instead.
+>>>>
+>>>> So is the onboard module disabled? Can we not just use two in parallel?
+>>>>
+>>>
+>>> The Industrial mezzanine variants do not support the on-board WCN6750
+>>> wireless path. The common Industrial mezzanine overlay already disables
+>>> the on-board Wi-Fi node.
+>>
+>> What does 'do not support' it mean here? They are physically present
+>> as part of the SoM, so unless the lanes are somehow diverted away,
+>> why is it not?
+>>
+>> Konrad
+> 
+> Hi Konrad,
+> 
+> The WCN6750 module is physically present on the SoM. What I meant is that
+> the current Industrial mezzanine devicetree already disables the on-board
+> Wi-Fi path, and this BT UART variant followed the same board-level policy
+> for the on-board Bluetooth UART/PMU path.
 
-Add a V4L2 subdev driver for driver for the AMS-OSRAM Mira220 image sensor.
-The driver implements support for mono and RGB 12, 10 and 8 bits formats.
+Okay, and do we know why that's the case in the first place?
 
-> diff --git a/drivers/media/i2c/mira220.c b/drivers/media/i2c/mira220.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/media/i2c/mira220.c
-[ ... ]
-> +static int mira220_set_ctrl(struct v4l2_ctrl *ctrl)
-> +{
-[ ... ]
-> +	/* Update the format code to adjust it to the new flip state. */
-> +	if (ctrl->id =3D=3D V4L2_CID_VFLIP || ctrl->id =3D=3D V4L2_CID_HFLIP)
-> +		format->code =3D mira220_get_format_code(mira220, format->code);
-> +
-> +	if (!pm_runtime_get_if_in_use(&client->dev))
-> +		return 0;
+> For the endpoint labels, I can move the UART endpoint to the SoC DTSI,
+> kodiak.dtsi, as uart4_ep.
 
-[Severity: High]
-Can this lead to an unbalanced decrement of the runtime PM usage counter?
+Please do
 
-When pm_runtime_get_if_in_use() is called while the device's runtime PM is
-disabled, it returns -EINVAL. Because -EINVAL is non-zero, the check here
-evaluates to false and the function proceeds to the switch statement.
+> For the PCIe endpoint, the PCIe path to the M.2 QCC2072 device is not the
+> PCIe0 root port in kodiak.dtsi. In the composed devicetree, it is
+> behind the Industrial mezzanine PCIe switch, under:
+> 
+>     /soc@0/pcie@1c00000/pcie@0/pcie@0,0/pcie@2,0
+> 
+> 
+> So placing pcie0_port0_ep in kodiak.dtsi would not describe the actual
+> topology.
 
-This causes the function to unconditionally call pm_runtime_put_autosuspend=
-()
-at the end, decrementing the usage counter and potentially causing an
-underflow. Would it be safer to explicitly check for positive values, such =
-as
-if (pm_runtime_get_if_in_use(&client->dev) <=3D 0)?
+Yes, that was an omission from my side
 
-> +
-> +	switch (ctrl->id) {
-[ ... ]
-> +	}
-> +
-> +	pm_runtime_put_autosuspend(&client->dev);
-> +
-> +	return ret;
-> +}
-[ ... ]
-> +static int mira220_set_framefmt(struct mira220 *mira220,
-> +				struct v4l2_subdev_state *state)
-> +{
-[ ... ]
-> +	/*
-> +	 * Program the ROI area, centered in the sensor's pixel array.
-> +	 *
-> +	 * TODO: Use the crop rectangle sizes once the driver is ported to the
-> +	 * new RAW camera sensor model.
-> +	 */
-> +	top =3D (MIRA220_PIXEL_ARRAY_HEIGHT - format->height) / 2;
-> +	left =3D (MIRA220_PIXEL_ARRAY_WIDTH - format->width) / 2;
-> +
-> +	cci_write(mira220->regmap, MIRA220_VSTART_REG, top, &ret);
 
-[Severity: Medium]
-Is this dynamic windowing logic currently unreachable?
+> I tried adding a generic label/endpoint to that downstream port in the
+> Industrial mezzanine overlay and referencing it from the BT UART overlay.
+> However, when the overlays are compiled separately and then composed, that
+> label is not available while applying the BT UART overlay, so the composed
+> DTB build fails with FDT_ERR_NOTFOUND.
 
-The patch description mentions that the driver dynamically programs frame
-windowing. However, looking at mira220_update_pad_format(), the format width
-and height are hardcoded to MIRA220_PIXEL_ARRAY_WIDTH and
-MIRA220_PIXEL_ARRAY_HEIGHT.
+I think this generic description is simply not achievable today without
+a bigger plan in place
 
-Since mira220_pad_ops below doesn't implement a .set_selection callback,
-userspace cannot configure the crop rectangle. Does this mean the top and
-left offsets calculated here will always evaluate to zero, making this
-calculation dead code for now?
-
-> +	cci_write(mira220->regmap, MIRA220_HSTART_REG,
-> +		  left & MIRA220_HSTART_MASK, &ret);
-[ ... ]
-> +static const struct v4l2_subdev_pad_ops mira220_pad_ops =3D {
-> +	.enum_mbus_code =3D mira220_enum_mbus_code,
-> +	.get_fmt =3D v4l2_subdev_get_fmt,
-> +	.set_fmt =3D mira220_set_pad_format,
-> +	.get_selection =3D mira220_get_selection,
-> +	.enum_frame_size =3D mira220_enum_frame_size,
-> +	.enable_streams =3D mira220_enable_streams,
-> +	.disable_streams =3D mira220_disable_streams,
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-mira220-v1=
-1-0-1295fe17021d@ideasonboard.com?part=3D2
+Konrad
