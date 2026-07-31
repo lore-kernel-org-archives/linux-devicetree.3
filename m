@@ -1,114 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.elsta.tech (mail.elsta.tech [194.150.96.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6872C40DB5E
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 10:52:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95E243F12F0;
+	Fri, 31 Jul 2026 10:52:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.150.96.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785495161; cv=none; b=N5rdk8t38Q3QMzOth9Vovw1+XtQnoeg/BIYKs/pc4i7OupUdbVwZI5ttbijECggVbVKwF+CdItjDLF/VwRhiafaNpMJqXhrdHQzEEojbNpD4mrxiQLTY8AKvZxpRuKiHCcINsY4tCuj2xmtoDcOcHhouLdSV+seCw9gDD1WAt3k=
+	t=1785495175; cv=none; b=tfJoqLOqTdLJZvyCTrV+YQwiBWKdLotYvbdu37l9l36ldmpzZPrgR7pt99NRMra4MkYfPZdvAeAI6HPHU0R/F4+P5WbOvQNx+7c6eBoFUC8FV4BOscLyLEG+2VVMjGsSCntRlSK9jI17yAERFQcIoGufG6utUJIw86fjTyX1OXM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785495161; c=relaxed/simple;
-	bh=ZPdThiDhH1A63iD9l9Qkom9Sl/tyG/cboObxZet6OF4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CG3goVtsGNCdExtdxhVsUtF8jawmj8HBwN9s8LpCf/DfuIojQNiRDfXTCZ0ob2tj1M0ll8lHDHJRoQkgyqJ6mUlXmkG3ZaKUbquTyfZYHDvMv65oPypn9QRgI9OjN9BgKuooz8lnlr3lUOQPjxeBUO9xZjqV4wQdRsQKIQ+wXhg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HuWRnCp+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785495175; c=relaxed/simple;
+	bh=SyH2q9vmycLZI/swJsr2rVqoKZXRwUBo6NMiaIM18DM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=km8PmVbh8TYs2gEax1gHsCDR5Xf6ymgBtzIGseMSRP/iTKwtbJEd502yVJywjXN1Z94zTbh4A+pJ1likw7wQLnWvfU7xPA4/M4hiZBYaC5BHYJuNiJDOFEZqPlCYOhMvKfIS0bps3asJsfabMmfILz+u3Hq4u8LStXMnPVDyfeg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=elsta.tech; spf=pass smtp.mailfrom=elsta.tech; dkim=pass (2048-bit key) header.d=elsta.tech header.i=@elsta.tech header.b=uFIKBSaB; arc=none smtp.client-ip=194.150.96.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=elsta.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=elsta.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HuWRnCp+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CCCD1F000E9;
-	Fri, 31 Jul 2026 10:52:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785495155;
-	bh=XGLTtULwT4XNGu7drjbLhz541hAuZU7IU5heEpp/rOM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HuWRnCp+QHWU/6e6QGSj77+Q2r20+agzd4EBlBm/1u+7YHDBYF1auzuTipCHZgjzb
-	 cjNT826nXJQyPvVdOBAd2i5AInD5A3Z8CLsNlQt1pIYPsMKC7nvIY7dsIQhK/V4q+v
-	 A0TOI8pQqWrR9yrHZuVN4Vi2YyrojPLiEPZK5aC6KwRNm2nh77v50L6LWN15lujgQt
-	 5TSOL+Kd/ODsjWS5Sa9YpQs86ehjdnbRG/HCeofITMMKRbXz+fzX+wDH+G4nuUSt4H
-	 3LsOyDdBBjmlCGjA9nZGjE82clXO5lAFRq3i6xCsxcPXPaJgXQV7G+iZgzbQNuP3EL
-	 pm7MMlckbecJg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 5/9] arm64: dts: qcom: kodiak: Enable CDSP & Modem
- cooling
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Gaurav Kohli" <gaurav.kohli@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260731-b4-qmi-tmd-v7-5-3befd44403d5@oss.qualcomm.com>
-References: <20260731-b4-qmi-tmd-v7-0-3befd44403d5@oss.qualcomm.com>
- <20260731-b4-qmi-tmd-v7-5-3befd44403d5@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 31 Jul 2026 10:52:34 +0000
-Message-Id: <20260731105235.7CCCD1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=elsta.tech header.i=@elsta.tech header.b="uFIKBSaB"
+Received: from localhost (localhost [127.0.0.1])
+	by mail.elsta.tech (Postfix) with ESMTP id ACE5D8D53B3;
+	Fri, 31 Jul 2026 12:46:33 +0200 (CEST)
+Authentication-Results: mail.elsta.tech (amavis); dkim=pass (2048-bit key)
+ header.d=elsta.tech
+Received: from mail.elsta.tech ([127.0.0.1])
+ by localhost (mail.elsta.tech [127.0.0.1]) (amavis, port 10032) with ESMTP
+ id iVg-pCXs99Nj; Fri, 31 Jul 2026 12:46:33 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.elsta.tech (Postfix) with ESMTP id 769268D53B4;
+	Fri, 31 Jul 2026 12:46:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.elsta.tech 769268D53B4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=elsta.tech;
+	s=0883730E-C77C-11E9-9DA4-0BE9876769AA; t=1785494793;
+	bh=a9WFruF+jsbK+yzittr0qjwlm/b207TqVHPmsDedzSA=;
+	h=From:Date:MIME-Version:Message-Id:To;
+	b=uFIKBSaBP7PGdlR3G0JgPThh/DPXGqlmxk3c/VId7bQwoQ+WtAXzbl/PTo3tKjZjc
+	 fv1YYwQn60YR5wOobZN0GZhz2o2VbyMRwOd0iOvDNfHLXWLGmNaBGlP8Nz8cS2GmNX
+	 heFH/VMt/0WS5YKUjqkong5mzgJXp7VEtq1VINmDM11ltBWabfuDMRJbJUp72MThjm
+	 R5314p1iP0TG9AhBW8ieFUpRMYSYYB2Ch0GIR7/5wBDsgP1PPUOnwF3yTWr/mf21Yw
+	 Le1TWtkWrbk3c4Kp9x15F6a2ZMqSqp3Iefp5Gmn642oBCiwc5VmnpJhCumiaEB/hbX
+	 Xw+xmzzYLvLDA==
+X-Virus-Scanned: amavis at elsta.tech
+Received: from mail.elsta.tech ([127.0.0.1])
+ by localhost (mail.elsta.tech [127.0.0.1]) (amavis, port 10026) with ESMTP
+ id PaCv2EAx1WZP; Fri, 31 Jul 2026 12:46:33 +0200 (CEST)
+Received: from [127.0.1.1] (unknown [172.31.0.125])
+	by mail.elsta.tech (Postfix) with ESMTPSA id 3EA758D53B2;
+	Fri, 31 Jul 2026 12:46:33 +0200 (CEST)
+From: Jakub Turek <jakub.turek@elsta.tech>
+Date: Fri, 31 Jul 2026 12:46:17 +0200
+Subject: [PATCH 2/2] dt-bindings: display: solomon,ssd1307fb: add SH1107
+ compatible
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260731-feat-sh1107-v1-2-e10977f76e6b@elsta.tech>
+References: <20260731-feat-sh1107-v1-0-e10977f76e6b@elsta.tech>
+In-Reply-To: <20260731-feat-sh1107-v1-0-e10977f76e6b@elsta.tech>
+To: Helge Deller <deller@gmx.de>, 
+ Javier Martinez Canillas <javierm@redhat.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ Jakub Turek <jakub.turek@elsta.tech>
+X-Mailer: b4 0.15.2
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Meaningful code and commit message mismatch regarding cooling ma=
-p removals on modem boards.
---
+Update the device tree documentation to include "sinowealth,sh1107" as a
+recognized compatible string.
 
---- Patch [5]: [PATCH v7 5/9] arm64: dts: qcom: kodiak: Enable CDSP & Modem=
- cooling ---
-commit 8e78187a5b8612e6bf1ed1720f537ae83abca9c8
-Author: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+Signed-off-by: Jakub Turek  <jakub.turek@elsta.tech>
+---
+ .../devicetree/bindings/display/solomon,ssd1307fb.yaml  | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-arm64: dts: qcom: kodiak: Enable CDSP & Modem cooling
+diff --git a/Documentation/devicetree/bindings/display/solomon,ssd1307fb.yaml b/Documentation/devicetree/bindings/display/solomon,ssd1307fb.yaml
+index 153ff86fb405..6b17a701bbaa 100644
+--- a/Documentation/devicetree/bindings/display/solomon,ssd1307fb.yaml
++++ b/Documentation/devicetree/bindings/display/solomon,ssd1307fb.yaml
+@@ -22,6 +22,7 @@ properties:
+         deprecated: true
+       - enum:
+           - sinowealth,sh1106
++          - sinowealth,sh1107
+           - solomon,ssd1305
+           - solomon,ssd1306
+           - solomon,ssd1307
+@@ -140,6 +141,22 @@ allOf:
+         solomon,dclk-frq:
+           default: 5
+ 
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: sinowealth,sh1107
++    then:
++      properties:
++        solomon,width:
++          default: 128
++        solomon,height:
++          default: 64
++        solomon,dclk-div:
++          default: 1
++        solomon,dclk-frq:
++          default: 8
++
+   - if:
+       properties:
+         compatible:
 
-This commit sets up cooling maps for the CDSP and Modem on kodiak, throttli=
-ng
-them at 100 degrees C and 95 degrees C respectively. It also deletes the
-inherited cooling maps on non-modem boards to prevent compilation errors
-since they lack the remoteproc_mpss node.
+-- 
+2.34.1
 
-> diff --git a/arch/arm64/boot/dts/qcom/sc7280-herobrine-lte-sku.dtsi b/arc=
-h/arm64/boot/dts/qcom/sc7280-herobrine-lte-sku.dtsi
-> index ac89724ee0993..891941906a467 100644
-> --- a/arch/arm64/boot/dts/qcom/sc7280-herobrine-lte-sku.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc7280-herobrine-lte-sku.dtsi
-
-[ ... ]
-
-> @@ -28,8 +28,18 @@ &ipa {
->  	status =3D "okay";
->  };
-> =20
-> +/delete-node/ &mdmss0_pa_cooling_map;
-> +/delete-node/ &mdmss0_modem_cooling_map;
-> +/delete-node/ &mdmss1_pa_cooling_map;
-> +/delete-node/ &mdmss1_modem_cooling_map;
-> +/delete-node/ &mdmss2_pa_cooling_map;
-> +/delete-node/ &mdmss2_modem_cooling_map;
-> +/delete-node/ &mdmss3_pa_cooling_map;
-> +/delete-node/ &mdmss3_modem_cooling_map;
-> +
->  &remoteproc_mpss {
->  	compatible =3D "qcom,sc7280-mss-pil";
-> +	/delete-property/ #cooling-cells;
-
-[Severity: Medium]
-The commit message states that inherited mdmss cooling-map nodes are removed
-because the remoteproc_mpss node doesn't exist on non-modem boards. However,
-this code deletes the cooling maps and the #cooling-cells property from
-sc7280-herobrine-lte-sku.dtsi, which is an LTE board with a modem.
-
-Is the description in the commit message accurate?
-
-It appears the actual reason for the deletion in the LTE SKU is that it
-overrides the compatible string to qcom,sc7280-mss-pil, which does not supp=
-ort
-the #cooling-cells property.=20
-
-Could the commit message be updated to be more precise about why the nodes
-are removed from this specific modem-enabled board?
-
->  	reg =3D <0 0x04080000 0 0x10000>, <0 0x04180000 0 0x48>;
->  	reg-names =3D "qdsp6", "rmb";
->
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-b4-qmi-tmd=
--v7-0-3befd44403d5@oss.qualcomm.com?part=3D5
