@@ -1,117 +1,169 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C6627E792
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECEFD23EAAA
 	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 12:48:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785502096; cv=none; b=eAI9mTpyvV4IVHAv3TOrgdDjf6oBIjWTMzUHAGSHcr6hZW6J1RyfEfC1NV2Gevns6DXJp1qUvu+52862Yro7MmYfN9oYlZ4qrtmBty9+UQt5NA7JHbTcdnSI4L/GAqiAFStUxdwzR6Hf7n0j473O8fLPJHgXjqEhR/gZIByKKd4=
+	t=1785502097; cv=none; b=WKSejVEe1JKHL+9JFgCoLSA5Y/lUC3CvGvcJF2net7sFdcHG/ccpa7FfLXqfeThyDHw7gswgNXsqJ+YBgnI24dAi3WI7Eemv9Ba6iFtlRLsvnhhDBLz9BbIKKyNdtL9o/L61jZM5aQ/X28jPT1+rUGS0x/PoWFJ6TUNPcuz8QMg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785502096; c=relaxed/simple;
-	bh=Hwms4iOqHy2Nf4HR+vNO72wtKMQ2Eum3A0bTIG0X0mE=;
+	s=arc-20240116; t=1785502097; c=relaxed/simple;
+	bh=bsa0t8obpIrdC1231wh9KHSGZBQqqI1kvreoXpV5HGw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=qNDRBf1rYCCpdVYCXsxpz8ZvnTb61b56uPTHhqLFHi25hw++4offUVgcMJDcJRSabcSr4Bj2eatyL3x6eg8GDGIM3CxQR0fj1I1yv6NegsVcTo5xDq6VbCLbDBqZCdz95o3mzjKQ29zuyhImbt5PQ1YxG0RSGJltK8d7WLTSims=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G848S7jk; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=lK0Uz8nkUXEoyaoh9gCcUaiq2wwCK5/mj2jk7Ba8O+95zINQ1iYHKsxEako97AJwhFKiWfHlsHAckaA/SvVcZBUHv9CwIN8JF0lSpbYwSV6oMbEmYGm+D85mdoE049Av6Qp7JJvnacCG3A3jtmxaM+1TOAzYxzEtVxsiGLPFWdA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G/1MY9rD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G848S7jk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E5561F000E9;
-	Fri, 31 Jul 2026 12:48:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G/1MY9rD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97F9D1F00A3A;
+	Fri, 31 Jul 2026 12:48:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785502094;
-	bh=Y1Ry1pQk+AJwfa+pe1Iv+03wUTZrEEdmF6epQ/08J0Y=;
+	s=k20260515; t=1785502095;
+	bh=suhU/skwUWLRnBA5QWz03mUs+Y4vrybF/YwLUBsvZKk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=G848S7jkAh5VAVOyHr1oRc1nkWE6r5mbbt0xBN99gHLLEJgkfRG+VbhiZeoqNMDJx
-	 vcBYG0h+1gYLQYlSC337/JPSilC+IKW+tElH06kpkqpKx529TyZ0ZPFWjZvedVGj5O
-	 XrgwoCOUZqlt9DbTpv+lr6/UO7uEctZjVhWOjycvP2v1Uv4WuDLd7FVSzJsebnDHnf
-	 wh1b4AShH3epe61izA0e8zQbYJBz31Q4po6TOW2ex74q6nLprBOIQuTzQ1zr7rg6Js
-	 rbLWLqnqZwKFRm8KLvHmQYnngJsnQiMkjPjvSCJ6wKphRurE80jNEi5HbVT4zurPPn
-	 S6iL7cGuoOf6w==
+	b=G/1MY9rD+DxD63F8ICjVUpADRodHOrx48KYw7+YyD9UPI3xJXc0RY9Pg2UH+g0atW
+	 LIWj4rRv3jgZZSVZAu+CfKDKdNdiQWd9Ymw7S1ov6d6sIIcxGKe1oVp2lLKtP5+Fqk
+	 RJSROeeLo0qYQETHII4p4txp21pwmYckUskwwvLwuevkY1yAjzEiu8xlsqyyPuZRwL
+	 2gOacB/Lw4A+Rbg3a7P24HTpLkaLewFAAPgbzc77tzmOkylIiiKtfKOzQ3+0J4tG6l
+	 oYX6w5gGz42vWpJ5kGsm1toUxeCBx6cLCCFJ6c+P8pD1lfYxhvj7ag8dLmHtARSYDQ
+	 KpFPbgNAU7Xbg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v10 02/11] net: phylink: introduce internal
- phylink PCS handling
+Subject: Re: [PATCH net-next v10 03/11] net: phylink: add
+ phylink_release_pcs() to externally release a PCS
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Christian Marangi" <ansuelsmth@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260730102444.1967900-3-ansuelsmth@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260730102444.1967900-4-ansuelsmth@gmail.com>
 References: <20260730102444.1967900-1-ansuelsmth@gmail.com>
- <20260730102444.1967900-3-ansuelsmth@gmail.com>
+ <20260730102444.1967900-4-ansuelsmth@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 31 Jul 2026 12:48:14 +0000
-Message-Id: <20260731124814.8E5561F000E9@smtp.kernel.org>
+Date: Fri, 31 Jul 2026 12:48:15 +0000
+Message-Id: <20260731124815.97F9D1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] phylink_validate_mac_and_pcs() incorrectly validates unsupported=
- interfaces when a required PCS is missing.
+- [High] phylink_release_pcs() unconditionally calls phylink_link_down(), l=
+eading to unbalanced and duplicate mac_link_down() calls if the link is alr=
+eady down.
+- [Medium] The polling timer `pl->link_poll` is stopped using non-synchrono=
+us `timer_delete()`, allowing it to leak and endlessly poll if racing with =
+the timer callback.
+- [Low] Missing WRITE_ONCE() when updating pl->pcs to NULL, causing a data =
+race with concurrent readers.
 --
 
---- Patch [2]: [PATCH net-next v10 02/11] net: phylink: introduce internal =
-phylink PCS handling ---
-commit 523b36754a7978492b9869c650925bee50a978c5
+--- Patch [3]: [PATCH net-next v10 03/11] net: phylink: add phylink_release=
+_pcs() to externally release a PCS ---
+commit ccb6652ab082daee833a77e32118d4a3d55ac68e
 Author: Christian Marangi <ansuelsmth@gmail.com>
 
-net: phylink: introduce internal phylink PCS handling
+net: phylink: add phylink_release_pcs() to externally release a PCS
 
-Introduce internal handling of PCS for phylink. This is an alternative
-way to .mac_select_pcs that moves the selection logic of the PCS entirely
-to phylink with the usage of the supported_interface value in the PCS
-struct.
+This commit adds phylink_release_pcs() to externally release a PCS from a
+phylink instance. It removes the PCS from the internal list, reparses the
+supported interfaces, and triggers a phylink resolve to handle the removal.
 
 > diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-> index 3464e3ec56997..a5e2d342a92e1 100644
+> index a5e2d342a92e1..562e09d1838b0 100644
 > --- a/drivers/net/phy/phylink.c
 > +++ b/drivers/net/phy/phylink.c
 [ ... ]
-> @@ -530,9 +552,24 @@ static int phylink_validate_mac_and_pcs(struct phyli=
-nk *pl,
->  		pcs =3D pl->mac_ops->mac_select_pcs(pl->config, state->interface);
->  		if (IS_ERR(pcs))
->  			return PTR_ERR(pcs);
-> +
-> +		pcs_found =3D !!pcs;
-> +	/*
-> +	 * Find a PCS in available PCS list for the requested interface.
-> +	 *
-> +	 * Skip searching if the MAC doesn't require a dedicated PCS for
-> +	 * the requested interface.
-> +	 */
-> +	} else if (test_bit(state->interface, pl->config->pcs_interfaces)) {
-> +		list_for_each_entry(pcs, &pl->pcs_list, list) {
-> +			if (!phylink_validate_pcs_interface(pcs, state->interface)) {
-> +				pcs_found =3D true;
-> +				break;
-> +			}
-> +		}
+> @@ -917,6 +920,63 @@ static void phylink_resolve_an_pause(struct phylink_=
+link_state *state)
 >  	}
+>  }
 > =20
-> -	if (pcs) {
-> +	if (pcs_found) {
+> +/**
+> + * phylink_release_pcs - Removes a PCS from the phylink PCS available li=
+st
+> + * @pcs: a pointer to the phylink_pcs struct to be released
+> + *
+> + * This function release a PCS from the phylink PCS available list if
+> + * actually in use. It also refreshes the supported interfaces of the
+> + * phylink instance by copying the supported interfaces from the phylink
+> + * conf and merging the supported interfaces of the remaining available =
+PCS
+> + * in the list and trigger a resolve.
+> + */
+> +void phylink_release_pcs(struct phylink_pcs *pcs)
+> +{
+[ ... ]
+> +	/*
+> +	 * Check if we are removing the PCS currently
+> +	 * in use by phylink. If this is the case, tear down
+> +	 * the link, force phylink resolve to reconfigure the
+> +	 * interface mode, disable the current PCS and set the
+> +	 * phylink PCS to NULL.
+> +	 */
+> +	if (pl->pcs =3D=3D pcs) {
+> +		phylink_link_down(pl);
+
+[Severity: High]
+Could this call phylink_link_down() when the link is already down?
+
+If phylink_release_pcs() is called while the link is already administrative=
+ly
+or physically down, we might invoke mac_link_down() a second time. Other
+phylink core functions protect against this by checking pl->old_link_state
+before tearing down the link:
+
+    if (pl->old_link_state) {
+        phylink_link_down(pl);
+        pl->old_link_state =3D false;
+    }
+
+Will calling mac_link_down() twice cause unbalanced reference counts or
+disable clocks multiple times?
+
+> +		pl->old_link_state =3D false;
+> +		phylink_pcs_poll_stop(pl);
 
 [Severity: Medium]
-If the interface requires a dedicated PCS (the test_bit check is true)
-but no matching PCS is found in the list, pcs_found will remain false.
-Does this inadvertently skip PCS validation and fall through to MAC
-validation?
+Does this leave the link_poll timer running if it races with the timer
+callback?
 
-It appears this allows phylink to incorrectly report that an interface
-mode is supported even if the mandatory PCS is missing. Any subsequent
-attempt to configure the link with this mode will then fail at runtime
-in phylink_major_config(), which correctly aborts if the required PCS
-isn't found.=20
+Looking at phylink_pcs_poll_stop(), it stops the timer using a
+non-synchronous timer_delete():
 
-Should phylink_validate_mac_and_pcs() return -EINVAL when a required=20
-PCS is missing?
+static void phylink_pcs_poll_stop(struct phylink *pl)
+{
+    if (pl->cfg_link_an_mode =3D=3D MLO_AN_INBAND)
+        timer_delete(&pl->link_poll);
+}
 
->  		/* The PCS, if present, must be setup before phylink_create()
->  		 * has been called. If the ops is not initialised, print an
->  		 * error and backtrace rather than oopsing the kernel.
+If phylink_release_pcs() runs concurrently with the timer callback on
+another CPU, timer_delete() returns immediately. The timer callback
+unconditionally re-arms itself with mod_timer(), which would allow the
+timer to run indefinitely after the PCS is removed.
+
+Should this use timer_delete_sync() or otherwise ensure the timer is fully
+stopped?
+
+> +		phylink_pcs_disable(pl->pcs);
+> +
+> +		pl->force_major_config =3D true;
+> +		pl->pcs =3D NULL;
+
+[Severity: Low]
+Should this update to pl->pcs use WRITE_ONCE()?
+
+phylink_pcs_change() reads pl->pcs locklessly from asynchronous contexts:
+       =20
+    if (!pl || READ_ONCE(pl->pcs) !=3D pcs)
+
+Doing a plain store here could cause a data race with concurrent readers
+and trigger KCSAN warnings.
+
+> +	}
+> +
+> +	mutex_unlock(&pl->state_mutex);
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730102444.1967=
-900-1-ansuelsmth@gmail.com?part=3D2
+900-1-ansuelsmth@gmail.com?part=3D3
