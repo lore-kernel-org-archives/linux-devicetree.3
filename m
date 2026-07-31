@@ -1,100 +1,70 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EB5348987C;
-	Fri, 31 Jul 2026 22:51:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 451202E974D;
+	Fri, 31 Jul 2026 22:53:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785538267; cv=none; b=LrHSIA6BFuhuGatI1uYcL5CCDiu6xayRfsG3YssaqFJA1EBHzZc6zbMbvmJh9K60HQE2fB6ONM58GjsrBru06Fk0eDtPBjJl6ozPHhPW8dkhFftPGgVzuQ2eGxhSPQGeQYi6GPUJ/MylCnqDnlI3Uaqfh8lDgGrFAGxlg2ij4GE=
+	t=1785538394; cv=none; b=TijtvX4IFmANREaH9Jm9gXJ62GOTaWiL5SIzMaFbQ6FtAFTxk34BKF914GJkxHK/GcEBEvzjJozN/LUy9OZjlA2muqaocFbtS9kfJoxbpl8YWAzHmBrcodnHAm/p2vR3waPyVkmO1Hh7WuFVR6228TyBH4+p1jnlDcTGs1YDsxI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785538267; c=relaxed/simple;
-	bh=cz7lRihMnkawiNil9H4gtJP9gFF4jfLX+34GTKV4XWQ=;
+	s=arc-20240116; t=1785538394; c=relaxed/simple;
+	bh=RMGBvSlymPrwRwCTFLWYvKx8tvr81bh3sjfDFMH38S0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Vkma6gmIcYE5I/LrFsWNU6svqSNQ6eCJ36y25QV400BqRULYgILKxYJh/bSmVwFfc83jSCBQ9DxnRhqdk90Sh43x24WmmcKX0fV1wTj+hDUmCDk45PgrTXxp0I6JU94WESx7e1yQhS9KYRjlrOhUSSjyw5k/eDtX5RoyBa6yQi0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OcuVJaQJ; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=YJudu384EUdaBfyrtUbVh5dScTrVXcXREGthT6wuRojmsKmgfKBg9gllqr5SmEYYK55B+le++KxBvEN+OHTO/HTwRECC8VrthymUmu1TTPEXUCNib8V5LQFWQXqqzldSETKzo0k2dnbIeNpECl5X90xq5mJISlDC8SC+lFf/6ag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OLonS8js; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OcuVJaQJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B62ED1F00AC4;
-	Fri, 31 Jul 2026 22:51:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OLonS8js"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B78E01F00AC4;
+	Fri, 31 Jul 2026 22:53:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785538265;
-	bh=WVKewVt6jU8PO8TNBGUDNql/WkOfmdCohX/gNa/Duyo=;
+	s=k20260515; t=1785538392;
+	bh=M0c1Ce+dtyoHDLG8T3KU81xzpKWn4K94rECOvEzT1lQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OcuVJaQJ2gso9gBzoXTyT5UXsLZpk8k7ygVvJlwz+k9rYRlJ0G3qyeHiomxOmH00J
-	 fqdkrWcFq+t+DLlublLUvZE3OotdTU1TUyaSxt0aNs3G8qxONF5mCI+OcXD+jRkNpS
-	 3bNNFUfWbkDelwpActv6QxyT+pc/SYltjq1P2YYWOopqYkWOo8uJ7kMBKy1rRYAG5V
-	 b7FpoHmJ1xKr2/HRpdQv2sUxuAlLd1gDLmD20RYNUOlz2RLdLFeQtoj/KQ8hBIQEj/
-	 OQstNVBi6HInhD3fryq+1AVdvFIb8hjZMKC3/Q1TAyLsi6BmmzBq6nUAoHB54d9cJU
-	 eoh1jOAcjwHXg==
-Date: Fri, 31 Jul 2026 23:51:01 +0100
-From: Mark Brown <broonie@kernel.org>
-To: xianwei.zhao@amlogic.com
-Cc: Sunny Luo <sunny.luo@amlogic.com>, Rob Herring <robh@kernel.org>,
+	b=OLonS8jsGvJbP3MHsKianCYEW4AEJA440IeWy/cfPgnE7zQHnxaQsyWpwC8NhqYpv
+	 R4hAO9JPmqRMGs6ngLFXhJ3wyWvq8EaQYd083KHWjCoOn/+qGh7coWcxIRreRLKx6J
+	 0+4cwBgrG/nGOccKUaceWCFxR0jqA9hdE/B4TMWCZWoS5u7MRpMVpavhsZXFmP2lGv
+	 9C2VvPtd7z57jC0O4t/9QzCbu2LBOjsQuSEHzFw60WiWqdtWOC970SbXtaSl5fECDQ
+	 yzxFZUasZPhIPvljuHLJFnSOCNU3KhB2tdWb7zgYFMfCKBp/G8dPyRCRxpqyaAc4an
+	 rdmA3N0e8t3qQ==
+Date: Fri, 31 Jul 2026 17:53:11 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Hongyang Zhao <hongyang.zhao@163.com>
+Cc: linux-usb@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+	Roger Shimizu <rosh@debian.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	linux-amlogic@lists.infradead.org, linux-spi@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v3 1/4] spi: dt-bindings: amlogic: spisg: Document
- A9-specific properties
-Message-ID: <b09ba781-9042-4199-a7bf-126d07e97408@sirena.org.uk>
-References: <20260731-a9-spisg-v3-0-a15da3f70029@amlogic.com>
- <20260731-a9-spisg-v3-1-a15da3f70029@amlogic.com>
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Mark Brown <broonie@kernel.org>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Subject: Re: [PATCH 1/3] dt-bindings: usb: Add Hynetek HUSB320 Type-C
+ controller
+Message-ID: <178553839083.2097911.2444017921812331593.robh@kernel.org>
+References: <20260720-husb320-v1-0-4a1e259d7dc8@163.com>
+ <20260720-husb320-v1-1-4a1e259d7dc8@163.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qWk8ktmf4xBbOZ3h"
-Content-Disposition: inline
-In-Reply-To: <20260731-a9-spisg-v3-1-a15da3f70029@amlogic.com>
-X-Cookie: No shirt, no shoes, no service.
-
-
---qWk8ktmf4xBbOZ3h
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260720-husb320-v1-1-4a1e259d7dc8@163.com>
 
-On Fri, Jul 31, 2026 at 09:08:25AM +0000, Xianwei Zhao via B4 Relay wrote:
-> From: Xianwei Zhao <xianwei.zhao@amlogic.com>
->=20
-> Document the Amlogic A9 SPISG controller and its additional Device Tree
-> properties.
->=20
-> Add the "amlogic,a9-spisg" compatible string and define the A9-specific
-> "amlogic,mo-idle-output" property, which configure the MOSI idle output
-> level.
 
-> +  amlogic,mo-idle-output:
-> +    description: |
-> +      Controls the MOSI output level when the controller is idle.
-> +      0 - Drive MOSI low
-> +      1 - Drive MOSI high
-> +      2 - Follow the last transmitted bit
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    enum: [0, 1, 2]
-> +    default: 0
+On Mon, 20 Jul 2026 16:17:11 +0800, Hongyang Zhao wrote:
+> The HUSB320 is an autonomous USB Type-C Configuration Channel
+> controller supporting source, sink, and dual-role port operation.
+> 
+> Document its two I2C addresses, active-low interrupt, optional supplies
+> and enable GPIO, and managed USB-C connector.
+> 
+> Signed-off-by: Hongyang Zhao <hongyang.zhao@163.com>
+> ---
+>  .../devicetree/bindings/usb/hynetek,husb320.yaml   | 171 +++++++++++++++++++++
+>  1 file changed, 171 insertions(+)
+> 
 
-This looks like the standard SPI_MOSI_IDLE_{LOW,HIGH} we have in the
-kernel, plus one new option.  Usually the client driver would control
-this.  Why do something different here?
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
---qWk8ktmf4xBbOZ3h
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmptJtQACgkQJNaLcl1U
-h9A3qQf/X4NBWrjUXdjd5pQUpvotXq++6lKv73KQ1S09OkFsnDohDY0i/0KYiioM
-EmC+GEO0NlyJjgcV21jaWiqqgGtpP0ApoNbt/gw4UgU6KPSzVUTgNGa+1z9WfuzP
-2xHyPwI+OcRdVA1XrvlX81jRAM07NFiZFUY07KEL4A6xxXnIhDsA+3UDHIvJ7w3S
-x6PiApjV/07YkDYA329ke6gKW4JuRzjlhjjvUZ7qUUS7luKD7P9bgzZi/GWhw8Li
-AAGQpM9deg0TcO0WeKDrIEZgxwCXKet1Za+iKoMBUiFKdQpD49FPYuFvKYetWjoz
-y1BPChJzQRvvK/awXFouQBzf3mqnNw==
-=Dttr
------END PGP SIGNATURE-----
-
---qWk8ktmf4xBbOZ3h--
