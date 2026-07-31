@@ -1,84 +1,103 @@
-Received: from mail-244123.protonmail.ch (mail-244123.protonmail.ch [109.224.244.123])
+Received: from mail.elsta.tech (mail.elsta.tech [194.150.96.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C43D23E358;
-	Fri, 31 Jul 2026 14:44:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92577430CE9;
+	Fri, 31 Jul 2026 14:45:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.150.96.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785509084; cv=none; b=tvvxnSP3WYk7nE+gxPFwJF7j76pJbDI7Y/GOsg9aD8Cbu1qOvR8FOujwaHpj6AXMgsauv2R7IUkY5kCRYU0+He3H4W2FMJA59Z9k+i147Lc/NAtlPP4xusOK08oANuTB7oagpx10E/nxnxfLcYrTLDuh9p2HnCuT92iAtYWAf44=
+	t=1785509128; cv=none; b=BIZXv2OHF6PZ/Jer02nlrPm7sXiSxvyjYsI45al/LeSr1r2Yyg0AynTJlsDrDTYiT3ejWRxMsrMRvaW/e/uypL61yqOHawYtdLbhKhYsi1TZYd5PegdV6H7Uflslz/rKqXDtzNYM2XDA9CdBQalJBlyH5lE52wTBNrxVfjXCNgI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785509084; c=relaxed/simple;
-	bh=Ay8la0chgyHStaJ9wYfubI9jVZzbFrfF5RLTStX8Ioc=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JoxEa0lfjAELrPk9H43xukcm4mEhnOwte7eieGxViaM4pxRS4ueY5J/u501+SNjRWoAT5Nz51fvwI1NHa62cEAJa/xRe30GkaOeVeRe6h296HGDqoye1tEFQ33ZAgSf7Th6ZS5LzjchTpuTwRB6urlM9j41qOFLbUaZ+8/LSVi0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=mX4/R+Vm; arc=none smtp.client-ip=109.224.244.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1785509128; c=relaxed/simple;
+	bh=uCs7PTUAAJGsUASMMiVztX189sok921HLyGAywFmXxg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=EUBt9hs5aKFM18SgKBE2sDOIj1rJefe23w9qD1bXVdEYdXQKhJH7sFAqEqPaNUnrQd8u3p1VrFvSkfy1+ZAv1AbWazVbJFR6du2boVzR1jsVB5M6AClCOqwtcJnqtm9+nZi29Uo3+hVXJ/V07j4lUJIV6gFUqYSK4JxYTW8W6M0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=elsta.tech; spf=pass smtp.mailfrom=elsta.tech; dkim=pass (2048-bit key) header.d=elsta.tech header.i=@elsta.tech header.b=JJg6Nkky; arc=none smtp.client-ip=194.150.96.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=elsta.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=elsta.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="mX4/R+Vm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1785509077; x=1785768277;
-	bh=Ay8la0chgyHStaJ9wYfubI9jVZzbFrfF5RLTStX8Ioc=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=mX4/R+Vm7atfQkOY0H8s709FvtkjrZMA5mo4BQ0/q/j0Vt8qmECT9p6/oD4CqztX2
-	 hOAzIhayD8nNzL8uuHBGgW5jq3m9CLEvBo0nOOVC1KT4KbiF1bL1iHLNtqo1f1Qi1g
-	 yyyP/CSToVX2vvPmeIpe9+eVEesKNyg9zZYsuNOcyeT0+jCD7CikloB8NxzwHAxz2c
-	 2l9xrLVaLMwGycz10XlPre4Wl3dTipkLuQVhee9DPQf1069Uw5JvJ9eWoEU4bI50jB
-	 dPppNAuZStJFF6FArxofKw2x3JRQlyXY2fnB+jfJHMtBbonHxoiktv3fZsrLA0pFT0
-	 qUiVRuyX0CTKA==
-Date: Fri, 31 Jul 2026 14:44:30 +0000
-To: Krzysztof Kozlowski <krzk@kernel.org>
-From: Esteban Urrutia <esteuwu@proton.me>
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, phone-devel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: soc: qcom: qcom,pmic-glink: Add compatible string for SM8475
-Message-ID: <9718d7b8-7303-47a2-9d75-58bbde6385e9@proton.me>
-In-Reply-To: <20260731-savvy-piquant-chowchow-f516f2@quoll>
-References: <20260731-sm8475-pmic-glink-v2-0-28c04928ef22@proton.me> <20260731-sm8475-pmic-glink-v2-1-28c04928ef22@proton.me> <20260731-savvy-piquant-chowchow-f516f2@quoll>
-Feedback-ID: 147889766:user:proton
-X-Pm-Message-ID: 03a346cc16caabb6151e5a5e35776a974e2e0a0d
+	dkim=pass (2048-bit key) header.d=elsta.tech header.i=@elsta.tech header.b="JJg6Nkky"
+Received: from localhost (localhost [127.0.0.1])
+	by mail.elsta.tech (Postfix) with ESMTP id 4F9C38D54A4;
+	Fri, 31 Jul 2026 16:45:22 +0200 (CEST)
+Authentication-Results: mail.elsta.tech (amavis); dkim=pass (2048-bit key)
+ header.d=elsta.tech
+Received: from mail.elsta.tech ([127.0.0.1])
+ by localhost (mail.elsta.tech [127.0.0.1]) (amavis, port 10032) with ESMTP
+ id Gl-KCpIJaSGg; Fri, 31 Jul 2026 16:45:22 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.elsta.tech (Postfix) with ESMTP id 0C71A8D54A2;
+	Fri, 31 Jul 2026 16:45:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.elsta.tech 0C71A8D54A2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=elsta.tech;
+	s=0883730E-C77C-11E9-9DA4-0BE9876769AA; t=1785509122;
+	bh=a3oX5Y9vckIJeDx5jb2nrEOVorfbmSUri7o0WdMM75w=;
+	h=From:Date:Message-Id:MIME-Version:To;
+	b=JJg6NkkybOeBnqfHO26lHJnWUZH8urp7FURDaC2453l1GnaJXFT52nbDcLNtJd05t
+	 PlOt9ommnXMkK9XO7nKcVBO/+BWIBj2l7eAF7lrdDbvs78CwePKIzlrzoEDSrN7bnG
+	 nnvhoENgRDYH75QJ6ekHzxl/oT3jzfVSBZi4WZ9E0bF92S4cTToeNJN7bVT1boDu15
+	 EsHDSPz3kOK8QDgJ2DyW6Do89LMr/FrC+MCdL/UclDXv5EhJrTo1eth4QILsEQDpII
+	 tncEukZ4FaSGmblICW9vva/XnKd5hobJWveWCyJpB0AJF+xgecki34SbTUmYlU8+9A
+	 bBp+JJ1A95L+Q==
+X-Virus-Scanned: amavis at elsta.tech
+Received: from mail.elsta.tech ([127.0.0.1])
+ by localhost (mail.elsta.tech [127.0.0.1]) (amavis, port 10026) with ESMTP
+ id L_nV2XvecfPl; Fri, 31 Jul 2026 16:45:21 +0200 (CEST)
+Received: from [127.0.1.1] (unknown [172.31.0.125])
+	by mail.elsta.tech (Postfix) with ESMTPSA id BA4148D549D;
+	Fri, 31 Jul 2026 16:45:21 +0200 (CEST)
+From: Jakub Turek <jakub.turek@elsta.tech>
+Subject: [PATCH v2 0/2] fbdev: ssd1307fb: add SH1107 support
+Date: Fri, 31 Jul 2026 16:45:12 +0200
+Message-Id: <20260731-feat-sh1107-v2-0-0d2893e44ebd@elsta.tech>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAPi0bGoC/yXMQQ5AMBBA0avIrDVpRyiuIhbFYCyQDiIRd1cs3
+ +L/C4Q8k0AZXeDpYOFlDsA4gnZ080CKu2BAjZm2iVE9uU3JaIy2Kk8LjRbzFAsDoVg99Xx+t6r
+ +LXszUbu9C7jvB4seMQRvAAAA
+X-Change-ID: 20260731-feat-sh1107-859027285291
+To: Helge Deller <deller@gmx.de>, 
+ Javier Martinez Canillas <javierm@redhat.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ Jakub Turek <jakub.turek@elsta.tech>
+X-Mailer: b4 0.15.2
 
-On 7/31/26 5:58 AM, Krzysztof Kozlowski wrote:
-> On Fri, Jul 31, 2026 at 01:00:08AM -0400, Esteban Urrutia wrote:
->> Due to a different process design, SM8475 (4 nm) SoC takes things from b=
-oth
->> SM8450 (4 LPX) and SM8550 (4 nm) SoCs.
->=20
-> What things? This is just unspecific and not useful. And I doubt that it
-> is even "different process design", because how one would know that?
+This series adds support for the Sino Wealth SH1107 OLED controller
+to the ssd1307fb driver.
 
+Patch 1 implements SH1107 support in the ssd1307 driver.
+Patch 2 adds the device tree compatible string.
 
-The process design is specified on the corresponding datasheets for
-these SoCs, which are flying somewhere around the internet.
-Also [1].
+Changes in v2:
+- Removed unrelated whitespace cleanups from the driver patch.
+- Kept only functional SH1107 changes.
 
->> Add a separate compatible string for this SoC to avoid possible confusio=
-ns.
->=20
-> No, explain the hardware compatibility.
->=20
-> Add foo bar, which is not compatible with baz because it uses bam bam in
-> different setup (difference in registers, e.g. XYZ and ABC),
+Signed-off-by: Jakub Turek <jakub.turek@elsta.tech>
 
-How does this commit message based on what was said in [1] sound to you?
+Signed-off-by: Jakub Turek <jakub.turek@elsta.tech>
+---
+Jakub Turek (2):
+      fbdev: ssd1307fb: add support for Sino Wealth SH1107 controller
+      dt-bindings: display: solomon,ssd1307fb: add SH1107 compatible
 
-SM8475 is a respin of SM8450 on a different process node, which probably
-forced some electrical changes.
-Document the SM8475 compatible used to describe the PMIC GLINK on this
-platform.
+ .../bindings/display/solomon,ssd1307fb.yaml        | 17 +++++
+ drivers/video/fbdev/ssd1307fb.c                    | 87 +++++++++++++++++++---
+ 2 files changed, 93 insertions(+), 11 deletions(-)
+---
+base-commit: 8ba098e6b6ff0db8edf28528d1552be261af30d4
+change-id: 20260731-feat-sh1107-859027285291
 
-Regards,
-Esteban
-
-[1] https://lore.kernel.org/linux-arm-msm/afcbb668-ab9e-4f97-9014-ecbd5170a=
-b92@linaro.org/
+Best regards,
+--  
+Jakub Turek <jakub.turek@elsta.tech>
 
