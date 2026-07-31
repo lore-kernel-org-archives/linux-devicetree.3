@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1BB5471CEC
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 18:29:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 904CB42C504
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 18:31:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785522575; cv=none; b=WQplABvGU6A5bRgh1wdz08FjANuRresHE51NpXavJIPzbPNME0Xgg2EOe04J+s1f0AtCscSBiO0jJ9VEwsr2aOAYAjutBrT3Ra1A0jreACbwYqy1Mj+IOLbyCcaphROxiFXh2zRpr9rgu4ljFnZjaXh2SwCqO2IS4qabInAtFps=
+	t=1785522709; cv=none; b=mFf7IrCXzvXReL9GTDXq+NrxKmfNMBJxGXAoAGr4QGdesdtjFDjXqszqcC5vGn0DRp66zufkcqVGq1teFjbEZTX96BSsLjL6uGaj+MTWbiWdp6dyYVK58aqGQOAI0bd+3zRSnQvHP8z8GfeRqaE4APWzw6ZDzwCJDUsCAR4nYqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785522575; c=relaxed/simple;
-	bh=iKaLlrcL5FJcDZMeCe5GsSVaKTbr3DEW/iPGDr4PCw4=;
+	s=arc-20240116; t=1785522709; c=relaxed/simple;
+	bh=5ACYsM4TU19/cd5Ollxgbc2pEM8fqM34v5MmkaDn7ps=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DwCRxkrF4yUKC5Wcgqd1pDPCy/2H8T/aK568y3914qN1X/8lxc802w6BAtN6LthUAx4kXIqYD90/yhtq/XzOKzKCH36npN0d1EvazhWDQT1xkm94UfEgfIdzvE0uRgJV6lWp2cAVJGsZW24ka4Xm0bBpR3p+zxUIzQElYwi0/vU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NtgeFNcB; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=nkGPtR/dqFxtTwAxIxTWns2elEl7MzXrMrqddiRiEe3E4fCwhYQcn4NuCmDnpwf6OjJtyzYyj6f4fSXl9cobcT6FApk/z5tnb0i691qXYGUeQ905WeHEP/RzhDP/5/ytboSDJEHj8vkKGa5yNAW4AdDTPGB+Z5pLh7Gaklx1YK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UZyn6dTp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NtgeFNcB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAF081F00AC4;
-	Fri, 31 Jul 2026 18:29:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UZyn6dTp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAE391F00AC4;
+	Fri, 31 Jul 2026 18:31:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785522574;
-	bh=HBY+A5rlhzdFyquEWiYW2ZRVN2OC91gRWqsnex5DLOE=;
+	s=k20260515; t=1785522708;
+	bh=GejRzRaYmiUeaIr+2QqNWVULaUTpH7v76EimkJp15ug=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NtgeFNcBUGKfkQGB93yJSf0l24rk6sCsJ+cJGsC9Sc3pygSFgLXCvMK3ovyTdo6VQ
-	 tDsNyatzQAM6Pw+yNSfdbcX0JNS+H8YwFGJjfgLOevUYQgqQNgg8QdsHRTpjf/eevL
-	 DRgZR+cUfHTKwDX07qTRAM/6OyW+30sf9gDp02HFvqwavrw9j1QuDk4CbfDT4bHAQh
-	 FBd/zRUFsc96lxQ7GV1o0tcKbjPJAwOgVCcVTSkG3OT/wRilPgCdZ76hyrJDi07HBP
-	 ryjFb+liD8367XW5UYcO8gBQBLfUMFaWoQd7UK1XTS43aF3D8OKSnItgbshr0SGyka
-	 7MTvqiYyGGu9A==
+	b=UZyn6dTpoXwA4EkIQGVmVBxE3fFXVQV0b1puVSVSxm+2w9hOhBu4SAospWxlDPfJS
+	 dTyjfVh3R4C60iIiF2ohHjtFtfSelh1NR/BCcYOYl9kl1q+Id9Eds9bYeTULE5QzhB
+	 CVBbYmbpPQqgl0p5KrkzjfazD8kmADYGehQzkwhM6vDt/2yQbTfIEuxQTUwvipiKRi
+	 aFk34QSpoZ0Nnrk11WnK93hbCsV299BLj/k8hlBwd2hyQtTTHuTk8IJrK3TQxqJt8Z
+	 48IfeCFo2clXb++MR+PvpnbQcGlBuRUJvaXVqD2bsMFJIwWIPRyqAA4S5E7WQ61RgS
+	 8Cx+dd6lA8cHQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 19/21] drm/bridge: synopsys: dw-dp: Use
- regmap_set_bits in dw_dp_send_sdp
+Subject: Re: [PATCH v2 02/12] dt-bindings: media: qcom,sm8550-iris: Add
+ context bank subnodes
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260731-synopsys-dw-dp-improvements-v8-19-ac1e6a75782f@collabora.com>
-References: <20260731-synopsys-dw-dp-improvements-v8-0-ac1e6a75782f@collabora.com>
- <20260731-synopsys-dw-dp-improvements-v8-19-ac1e6a75782f@collabora.com>
+To: "Vikash Garodia" <vikash.garodia@oss.qualcomm.com>
+Cc: media-ci@linuxtv.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260731-vpu_iommu_iova_handling-v2-2-da52b5228dbd@oss.qualcomm.com>
+References: <20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com>
+ <20260731-vpu_iommu_iova_handling-v2-2-da52b5228dbd@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 31 Jul 2026 18:29:32 +0000
-Message-Id: <20260731182933.EAF081F00AC4@smtp.kernel.org>
+Date: Fri, 31 Jul 2026 18:31:47 +0000
+Message-Id: <20260731183147.CAE391F00AC4@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,63 +47,62 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] A mutex is acquired in dw_dp_send_sdp(), which is called from the =
-bridge's atomic enable path, violating atomic context rules.
+- [Medium] The schema fails to require `#address-cells`, `#size-cells`, and=
+ `dma-ranges` on the parent node when the `non-pixel` and `pixel` subnodes =
+are used.
 --
 
---- Patch [19]: [PATCH v8 19/21] drm/bridge: synopsys: dw-dp: Use regmap_se=
-t_bits in dw_dp_send_sdp ---
-commit fbf6588f46fe1b8bc7ef347644cccb5c7a752410
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+--- Patch [2]: [PATCH v2 02/12] dt-bindings: media: qcom,sm8550-iris: Add c=
+ontext bank subnodes ---
+commit ba9132c7e393d239aeadc5fc3b8d92905c2ec775
+Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
 
-drm/bridge: synopsys: dw-dp: Use regmap_set_bits in dw_dp_send_sdp
+dt-bindings: media: qcom,sm8550-iris: Add context bank subnodes
 
-This commit simplifies dw_dp_send_sdp() by making use of regmap_set_bits
-instead of regmap_update_bits. No functional change is intended.
+This commit updates the sm8550-iris device tree binding to support per-stre=
+am
+context bank subnodes by referencing qcom,venus-common.yaml. It drops the f=
+lat
+"iommus" property from the required list and updates the example to use the=
+ new
+"non-pixel" and "pixel" subnodes along with their supporting bus properties.
 
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
-idge/synopsys/dw-dp.c
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> @@ -1070,14 +1070,12 @@ static int dw_dp_send_sdp(struct dw_dp *dp, struc=
-t dw_dp_sdp *sdp)
-
-[Severity: High]
-Does this function sleep in an atomic context?
-
-Looking at dw_dp_send_sdp(), it acquires a sleeping lock via
-scoped_guard(mutex, &dp->sdp_lock) earlier in the function. However, this
-is called from the bridge's atomic enable path:
-
-drm_atomic_helper_commit_tail()
-  -> dw_dp_bridge_atomic_enable()
-    -> dw_dp_video_enable()
-      -> dw_dp_send_vsc_sdp()
-        -> dw_dp_send_sdp()
-
-Can this sequence cause a kernel splat ("BUG: sleeping function called from
-invalid context") or potential deadlocks when modesetting, since it executes
-within drm_atomic_helper_commit_tail() where sleeping is forbidden?
-
->  			     FIELD_PREP(SDP_REGS, get_unaligned_le32(payload)));
+> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yam=
+l b/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
+> index 0400ca1bff05d..3d8ff5677bd4f 100644
+> --- a/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
+> +++ b/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
+> @@ -98,10 +98,10 @@ required:
+>    - interconnect-names
+>    - resets
+>    - reset-names
+> -  - iommus
+>    - dma-coherent
 > =20
->  	if (sdp->flags & DW_DP_SDP_VERTICAL_INTERVAL)
-> -		regmap_update_bits(dp->regmap, DW_DP_SDP_VERTICAL_CTRL,
-> -				   EN_VERTICAL_SDP << nr,
-> -				   EN_VERTICAL_SDP << nr);
-> +		regmap_set_bits(dp->regmap, DW_DP_SDP_VERTICAL_CTRL,
-> +				EN_VERTICAL_SDP << nr);
-> =20
->  	if (sdp->flags & DW_DP_SDP_HORIZONTAL_INTERVAL)
-> -		regmap_update_bits(dp->regmap, DW_DP_SDP_HORIZONTAL_CTRL,
-> -				   EN_HORIZONTAL_SDP << nr,
-> -				   EN_HORIZONTAL_SDP << nr);
-> +		regmap_set_bits(dp->regmap, DW_DP_SDP_HORIZONTAL_CTRL,
-> +				EN_HORIZONTAL_SDP << nr);
-> =20
->  	return nr;
->  }
+>  allOf:
+> +  - $ref: qcom,venus-common.yaml#
+
+[Severity: Medium]
+When referencing qcom,venus-common.yaml to support the new non-pixel and
+pixel subnodes, is it possible for incomplete device trees to silently pass
+validation?
+
+In Documentation/devicetree/bindings/media/qcom,venus-common.yaml, the oneOf
+check requires the non-pixel and pixel subnodes:
+
+  - required:
+      - non-pixel
+      - pixel
+
+However, it doesn't appear to enforce the presence of #address-cells,
+#size-cells, and dma-ranges on the parent node when those subnodes are used.
+
+If a device tree writer implements the new subnode configuration but forgets
+to include these supporting bus properties in the parent node, could this
+defective configuration pass dt_binding_check and dtbs_check, ultimately
+leading to the DMA translation failures and SMMU page faults described in
+the commit message?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-synopsys-d=
-w-dp-improvements-v8-0-ac1e6a75782f@collabora.com?part=3D19
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-vpu_iommu_=
+iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com?part=3D2
