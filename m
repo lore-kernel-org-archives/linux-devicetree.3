@@ -1,63 +1,63 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BCB047D448
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 18:50:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6835346EF60
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 18:50:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785523818; cv=none; b=fHzXTYYIciQJTQBnlfwJAr7HY9eQp7YgarFcOO2Gp9bzkfhaygYtmcB/jcw0wdyceV8ftN0I7/BlK8Is7SgD9zQt2LOL2ZiJtUtENuuLMoZ6t0Tn2z/OC/siaxu/76ddP12BiKFGy8gOoL1NbaFK851+t37fN1//5EX1zU6qvFQ=
+	t=1785523819; cv=none; b=u3vN6N0yM1mJJomAzRjdfQDYYuQd76xWRdPtullprca9CrKJ8mX8Ag14d0wr+iX07S7HyMnMr3lCm0wYidxB7ISM6EYxEvxm/C4F85GgD98tQe0o2Xk7pn26RP+C9IHSFJQFYnhUWkp9GcJmXxF/nvuvU/ehI600v3e89arHrwM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785523818; c=relaxed/simple;
-	bh=SOmEnp6pfII2o6j9zw5e/e8nP0AC+vDaMLCtBMnrToc=;
+	s=arc-20240116; t=1785523819; c=relaxed/simple;
+	bh=443eWXg5FjQPj4trLApqnDHq69yrp6EdIljcAeoVzFg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Cag3ilxavbkqjdt0ZEgIq/QNl3GQ72me9ERMbLaFFZ7Dg6w40ARpSfjSnDVWS2C8iQv9ozE5JiUAUuXx+UP5NnJytwXzd/6hsXR3Uwvx/1nFulcm4nrA34k8TEwX4WFYJ7oS5eJFhiAwUSs7NVy/68dLtr/608nzeqI6GUXBTFg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N2i52AqP; arc=none smtp.client-ip=209.85.221.44
+	 MIME-Version; b=DUR+JYtJp8YvP03O0be/mZUVkXqzkfGhjYNSEaLLQQM8B3rJhipsfExqDo0qwcVKtA4FY1eG8u1yL32W1/5WuFF+lAGGZeaNTYR7qsgdyc+2SLirI/k0sSdMSUzrb8U3JDr68imFLcq4QmtfX9VptGnN8+XSN6ESzIKrTYhXDMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MUIMMAKW; arc=none smtp.client-ip=209.85.221.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N2i52AqP"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-47fd66a094eso237712f8f.3
-        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 11:50:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MUIMMAKW"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-47f752b3423so1217551f8f.3
+        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 11:50:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785523814; x=1786128614; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785523816; x=1786128616; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NKr5A5/ii5kP6rNYEAJZsRAcGmJBesXhE1ggd65HDrA=;
-        b=N2i52AqPtIw1m/PpXSCmImqJaPP6iRsnIDD5ZfCX+yGNUEyFmMbbeDZmHlopkP1UYR
-         uP91JEaE/aNMyWqH6ISAfqN7Ty3lhF/DJdaBfqphxAH/JgDhU7sl6u5xxdIRcwgL3vLn
-         OJIGtyHRFlH0R92R9JOvuitq4wQ5iZ8kTSbDnZIpsVHjMtIucW5lTk8vjOPv/GDU8J2T
-         24Z7502v261ktbGv32TSA5tXRDG1IcdFZeu5VujIdLhx9aufffe6bBDqq97kHwCITV2m
-         +xzuTFv2XZiUXAw4rzoE9NDEFgTcW6Eudrh2cQoc+PHfcaI5mMOzZfc9WVRrzKv4CUae
-         ggrQ==
+        bh=btuhTN+ZZ/Hk7oFpgCvWRIlgckbrnHIqKNkWEKSD9wc=;
+        b=MUIMMAKWYleX6UV72y3ftE8Vr+/CMQSGcm1sAVBgS/a6RVqbIdRGg5+ZHD7IfEDaCF
+         4Is3rg84c3IB+ImbvvFfcloAEMZJEdiSUktqsHuLkBzFfVIPvovF09JDSOwcNV1r1TPp
+         fNDOutyjzO5byrS0NKel6I7+Gwcl6kun/J3zjr/4CigUBKrGPZFTO+kbv5cZW6vJJROw
+         +B+OF6Y8R8kUHzFOH4/QZFVPAPCWuNybYj6RIfEe3MVSrRCydvFYwxNHptzdf/xh9kHv
+         Qqf5ZTb59aEp28mdSSIkfARC0DMXL5P2j0g7K89QJKzyhAelIYz6UdXMIxSJJmx7fKR8
+         sqAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785523814; x=1786128614;
+        d=1e100.net; s=20251104; t=1785523816; x=1786128616;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NKr5A5/ii5kP6rNYEAJZsRAcGmJBesXhE1ggd65HDrA=;
-        b=ZLdOfmzZxRcSJd0U5/t6fdGEzEXLgI/Vx/LiznqxUH9Pc0L4DSSnAmHM9MeF+zGIJK
-         Tg7QCwRNXkoLlAr1v8Ov8jb1bT429i82JHsbNwQ3+nJVQX/JH5+BKfvIIsGZ6S1rEhV4
-         R4rkuhsXlcMtcce9E7g7D9lv1ywcIf16YQGZuGfk/xDex9UpFHiGBydBerLCq7Hzxr4Z
-         AZADsUK+cLiEwR880/HXalBe7eGDxN9wmOC5jrJuieFCOGxmqBSIgBv/kfXfdhywORVD
-         kkGPiuDtY0W+rvN7FPStBdEVHSQ31SOTcNtW26x2Wy0FMGyz4+/TKz/G+UIayTNkNXZd
-         QKpA==
-X-Forwarded-Encrypted: i=1; AHgh+RqNBlOOaO3DAdB/qCw/NjQ8Ss2JzFJV/31qB4sXz9V/Vku5n6jbcyMmp8xx+epmwc1g0jugEcPrXC3P@vger.kernel.org
-X-Gm-Message-State: AOJu0YzPBu6xjsyOhJupeXs8V80BLqwyyNhHf4z/OrmiXzAank8Df2LT
-	moJKt/YS8yV1FVCNfQrXvs6Yu26G7jAKNnISRCd5MUZwXJjXe9D3nbQm
-X-Gm-Gg: AR+sD13QiahM2zdLXtz8wGM/bMHAkfgZz+MP7E/dLLoTwYyOvqn1M+WkZAhkU8G5yWx
-	rUusFmIFOKdzdn6lCkuOLAq+hQgjmmLSR1xSxdO3hGWTVyyZgu+RqbsZqaqIJHWU6cLabvxGwBE
-	PHHGtfhFVlrYWQwgj/Ndzj2427uomYrtBNEz/wdZqILJCgdrlc4OHJ3EuB6SyKjWJOCRCpjBo30
-	5XApPesET5DzcEhW4bXzi8sHFGLN42tw9lC/UgoT0ntZEImboMChUoLk55pPDgcdwpGMG3MUIqm
-	t2RnSGRwxbMcd6CiTCISGQBCoLcT9P8QOL8sKQqDcX8IVyueKRO/xsakDaO1LlFsI6QIYvnag/p
-	0G1+45EviO7TLoRNNdwvYHag6B8Gcb6a0bEHjle0vZHksUFIBYbOpX4xdoMGokdvPrgGYeKuCSt
-	ZHipS23SOkPwd0b/e4B1/0ruFBW7DIOY2CVc6ZVfvzqK5ST1PBrpGh7G3/X0dZ05EM
-X-Received: by 2002:a5d:4992:0:b0:47f:81fe:12fb with SMTP id ffacd0b85a97d-47fd7307a2amr1069138f8f.47.1785523814019;
-        Fri, 31 Jul 2026 11:50:14 -0700 (PDT)
+        bh=btuhTN+ZZ/Hk7oFpgCvWRIlgckbrnHIqKNkWEKSD9wc=;
+        b=Vjz7bTn0NDQSBhL0rRNebW0EnT8UD3YPjuNyy338kUinC3ZgVZtKAQ+4Af5XgaUjq7
+         YFcbglCWLxC5Jl1H5LLYoQSEdUllK+aBF2m/aZMFdfuUDYAJBYfH2cf+aR5Js/is+xSC
+         4MvB8zcQWbBjxJWA3uU6ZWED/4G1ZOVaF3aUE59LgMEEdFtsZZ3T3jU0mKyTTPZt/8mC
+         7e7zHoRP2qIAi4KDD6x/eeFszig08DRyd0Xdp5wuXiVuJEdyFH6tCz+IfgyuKxzHMUml
+         +PBGyt7oicL6GXk1mTBNArNz664tdpTvE6fg/Kg4RUpJc9Nx3u6VDVuZOwVQMVvKI2pn
+         xonw==
+X-Forwarded-Encrypted: i=1; AHgh+Rp1E9f6EsiGHWu4ApiG1VvKUVsUvM15zZmfh4UPFJ3rQyAHVxgBTvb3/n8zHik0o5xIjqwby0wHHLGU@vger.kernel.org
+X-Gm-Message-State: AOJu0YxTcfX2GfPEFcTehEbC6HQ+CmGDYFuv9V91WJazxlWv/0xqDGI+
+	wjIIZPs+0fY30f479hlTigFOc+Q/uzy71cdW0XQwRb5EvLKcxbUkumOO
+X-Gm-Gg: AR+sD12cl/spv1TjmwEvJukMdShChGT+pVLHj5ZjjsT5/7PY6YQ7bV5VTpbcJH/QnM7
+	n6WPPihxXNLUk5uoo3BwqEQDtnUsYlcmUtMkyzJwG2F5rOYt2tTtk2BMOGitOUGotonQq7nNfYZ
+	478M8GjSPt/QCA8vgsFg3F1M5LvRRZIr+NkqJNdyj+PQp27PNZEgwFs5pC2Bn7IAsUrwYEjhxKq
+	XiQX3PuvXqWCrDIMbGPX7Z9DLA4vPRiTdAQo5bayrSBNTEHN1dkfHY8P/4YOlgr+/SrD3HX3vKR
+	oXBgnC88sNeuEX3c2if3KRhnM2vFh3HOml7oJMq+y6WC9lTa+eS0KlLwGh10mi3U8G32e9hCBc6
+	ywhbLACVi15Dg1CwQtDP58M49aV/BizYwvvEBKrPF+qzoXfFJe5uPMMsDvWPeRQTaRxe0sd+E1s
+	CUBYxWtDwsycYYHtIBja4zfQJfEVma+p/b0kKczSADbwJ6u+w9ZP1zwCBoLvWOBdAv
+X-Received: by 2002:adf:ed87:0:b0:47f:4919:d5b2 with SMTP id ffacd0b85a97d-47fd72bafffmr1193108f8f.1.1785523815514;
+        Fri, 31 Jul 2026 11:50:15 -0700 (PDT)
 Received: from antoniarch ([78.211.133.142])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd42d91b3sm8741488f8f.14.2026.07.31.11.50.12
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd42d91b3sm8741488f8f.14.2026.07.31.11.50.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 31 Jul 2026 11:50:13 -0700 (PDT)
+        Fri, 31 Jul 2026 11:50:15 -0700 (PDT)
 From: Antoni Pokusinski <apokusinski01@gmail.com>
 To: alexandre.belloni@bootlin.com,
 	robh@kernel.org,
@@ -66,9 +66,9 @@ To: alexandre.belloni@bootlin.com,
 Cc: linux-rtc@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	Antoni Pokusinski <apokusinski01@gmail.com>
-Subject: [PATCH v3 7/8] rtc: abx80x: create abx80x_i2c_probe()
-Date: Fri, 31 Jul 2026 20:48:30 +0200
-Message-ID: <20260731184831.44037-8-apokusinski01@gmail.com>
+Subject: [PATCH v3 8/8] rtc: abx80x: add support for ABX81X
+Date: Fri, 31 Jul 2026 20:48:31 +0200
+Message-ID: <20260731184831.44037-9-apokusinski01@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260731184831.44037-1-apokusinski01@gmail.com>
 References: <20260731184831.44037-1-apokusinski01@gmail.com>
@@ -80,317 +80,214 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Move the I2C-specific code from abx80x_probe() to the newly created
-function. This is a preparation for introducing the support for
-ABX81X RTCs which use SPI interface.
+Abracon ABX81X is a family of RTCs with SPI interface featuring
+the same functionalities as the ABX80X I2C clocks.
 
 Signed-off-by: Antoni Pokusinski <apokusinski01@gmail.com>
 ---
- drivers/rtc/rtc-abx80x.c | 167 ++++++++++++++++++++++++---------------
- 1 file changed, 103 insertions(+), 64 deletions(-)
+ drivers/rtc/Kconfig      |  26 +++++-----
+ drivers/rtc/rtc-abx80x.c | 106 +++++++++++++++++++++++++++++++++++++--
+ 2 files changed, 115 insertions(+), 17 deletions(-)
 
+diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
+index 4d14bcba616e..d35221f81024 100644
+--- a/drivers/rtc/Kconfig
++++ b/drivers/rtc/Kconfig
+@@ -212,18 +212,6 @@ config RTC_DRV_ABEOZ9
+ 	  This driver can also be built as a module. If so, the module
+ 	  will be called rtc-ab-e0z9.
+ 
+-config RTC_DRV_ABX80X
+-	tristate "Abracon ABx80x"
+-	select WATCHDOG_CORE if WATCHDOG
+-	select REGMAP_I2C
+-	help
+-	  If you say yes here you get support for Abracon AB080X and AB180X
+-	  families of ultra-low-power  battery- and capacitor-backed real-time
+-	  clock chips.
+-
+-	  This driver can also be built as a module. If so, the module
+-	  will be called rtc-abx80x.
+-
+ config RTC_DRV_AC100
+ 	tristate "X-Powers AC100"
+ 	depends on MFD_AC100
+@@ -955,6 +943,20 @@ config RTC_I2C_AND_SPI
+ 
+ comment "SPI and I2C RTC drivers"
+ 
++config RTC_DRV_ABX80X
++	tristate "Abracon ABx80x"
++	depends on RTC_I2C_AND_SPI
++	select WATCHDOG_CORE if WATCHDOG
++	select REGMAP_I2C if I2C
++	select REGMAP_SPI if SPI_MASTER
++	help
++	  If you say yes here you get support for Abracon AB080X, AB180X,
++	  AB081X and AB181X families of ultra-low-power  battery- and
++	  capacitor-backed real-time clock chips.
++
++	  This driver can also be built as a module. If so, the module
++	  will be called rtc-abx80x.
++
+ config RTC_DRV_DS3232
+ 	tristate "Dallas/Maxim DS3232/DS3234"
+ 	depends on RTC_I2C_AND_SPI
 diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
-index 52f958e2aecd..6583e097af68 100644
+index 6583e097af68..e5116c034d04 100644
 --- a/drivers/rtc/rtc-abx80x.c
 +++ b/drivers/rtc/rtc-abx80x.c
-@@ -773,73 +773,38 @@ static const struct regmap_access_table abx80x_write_table = {
- 	.n_no_ranges = ARRAY_SIZE(abx80x_no_write_ranges),
+@@ -1,7 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0
+ /*
+- * A driver for the I2C members of the Abracon AB x8xx RTC family,
+- * and compatible: AB 1805 and AB 0805
++ * A driver for the I2C and SPI members of the Abracon AB x8xx RTC family,
++ * and compatible: AB 1805, AB 0805, AB 1815 and AB 0815
+  *
+  * Copyright 2014-2015 Macq S.A.
+  *
+@@ -19,6 +19,7 @@
+ #include <linux/of.h>
+ #include <linux/regmap.h>
+ #include <linux/rtc.h>
++#include <linux/spi/spi.h>
+ #include <linux/watchdog.h>
+ 
+ #define ABX8XX_REG_HTH		0x00
+@@ -103,8 +104,8 @@
+ 
+ static u8 trickle_resistors[] = {0, 3, 6, 11};
+ 
+-enum abx80x_chip {AB0801, AB0803, AB0804, AB0805,
+-	AB1801, AB1803, AB1804, AB1805, RV1805, ABX80X};
++enum abx80x_chip {AB0801, AB0803, AB0804, AB0805, AB0815,
++	AB1801, AB1803, AB1804, AB1805, AB1815, RV1805, ABX80X};
+ 
+ struct abx80x_cap {
+ 	u16 pn;
+@@ -117,10 +118,12 @@ static struct abx80x_cap abx80x_caps[] = {
+ 	[AB0803] = {.pn = 0x0803},
+ 	[AB0804] = {.pn = 0x0804, .has_tc = true, .has_wdog = true},
+ 	[AB0805] = {.pn = 0x0805, .has_tc = true, .has_wdog = true},
++	[AB0815] = {.pn = 0x0815, .has_tc = true, .has_wdog = true},
+ 	[AB1801] = {.pn = 0x1801},
+ 	[AB1803] = {.pn = 0x1803},
+ 	[AB1804] = {.pn = 0x1804, .has_tc = true, .has_wdog = true},
+ 	[AB1805] = {.pn = 0x1805, .has_tc = true, .has_wdog = true},
++	[AB1815] = {.pn = 0x1815, .has_tc = true, .has_wdog = true},
+ 	[RV1805] = {.pn = 0x1805, .has_tc = true, .has_wdog = true},
+ 	[ABX80X] = {.pn = 0}
  };
+@@ -1049,14 +1052,107 @@ static void abx80x_unregister_driver(void)
  
--static const struct regmap_config abx80x_regmap_config_i2c = {
--	.reg_bits = 8,
--	.val_bits = 8,
--	.max_register = ABX8XX_SRAM_BASE + ABX8XX_SRAM_WIN_SIZE - 1,
--
--	.rd_table = &abx80x_read_table,
--	.wr_table = &abx80x_write_table,
--};
--
--static const struct i2c_device_id abx80x_id[] = {
--	{ .name = "abx80x", .driver_data = ABX80X },
--	{ .name = "ab0801", .driver_data = AB0801 },
--	{ .name = "ab0803", .driver_data = AB0803 },
--	{ .name = "ab0804", .driver_data = AB0804 },
--	{ .name = "ab0805", .driver_data = AB0805 },
--	{ .name = "ab1801", .driver_data = AB1801 },
--	{ .name = "ab1803", .driver_data = AB1803 },
--	{ .name = "ab1804", .driver_data = AB1804 },
--	{ .name = "ab1805", .driver_data = AB1805 },
--	{ .name = "rv1805", .driver_data = RV1805 },
--	{ }
--};
--MODULE_DEVICE_TABLE(i2c, abx80x_id);
--
--static int abx80x_probe(struct i2c_client *client)
-+static int abx80x_probe(struct device *dev, struct regmap *regmap, int irq,
-+			struct device_node *np, unsigned int part)
- {
--	struct regmap *regmap;
--	struct device_node *np = client->dev.of_node;
- 	struct abx80x_priv *priv;
- 	int i, err, trickle_cfg = -EINVAL;
- 	char buf[7];
--	unsigned int part = (uintptr_t)i2c_get_match_data(client);
- 	unsigned int partnumber;
- 	unsigned int majrev, minrev;
- 	unsigned int lot;
- 	unsigned int wafer;
- 	unsigned int uid;
+ #endif /* IS_ENABLED(CONFIG_I2C) */
  
--	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
--		return -ENODEV;
--
--	regmap = devm_regmap_init_i2c(client, &abx80x_regmap_config_i2c);
--	if (IS_ERR(regmap)) {
--		dev_err(&client->dev, "Unable to allocate regmap\n");
--		return PTR_ERR(regmap);
--	}
--
--	priv = devm_kzalloc(&client->dev, sizeof(*priv), GFP_KERNEL);
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
- 	if (priv == NULL)
- 		return -ENOMEM;
- 
--	priv->rtc = devm_rtc_allocate_device(&client->dev);
-+	priv->rtc = devm_rtc_allocate_device(dev);
- 	if (IS_ERR(priv->rtc))
- 		return PTR_ERR(priv->rtc);
- 
- 	priv->rtc->ops = &abx80x_rtc_ops;
--	priv->irq = client->irq;
-+	priv->irq = irq;
- 	priv->regmap = regmap;
--	err = devm_mutex_init(&client->dev, &priv->lock);
-+	err = devm_mutex_init(dev, &priv->lock);
- 	if (err)
- 		return err;
- 
--	dev_set_drvdata(&client->dev, priv);
-+	dev_set_drvdata(dev, priv);
- 
- 	err = regmap_bulk_read(regmap, ABX8XX_REG_ID0, buf, sizeof(buf));
- 	if (err < 0) {
--		dev_err(&client->dev, "Unable to read partnumber\n");
-+		dev_err(dev, "Unable to read partnumber\n");
- 		return -EIO;
- 	}
- 
-@@ -849,14 +814,14 @@ static int abx80x_probe(struct i2c_client *client)
- 	lot = ((buf[4] & 0x80) << 2) | ((buf[6] & 0x80) << 1) | buf[3];
- 	uid = ((buf[4] & 0x7f) << 8) | buf[5];
- 	wafer = (buf[6] & 0x7c) >> 2;
--	dev_info(&client->dev, "model %04x, revision %u.%u, lot %x, wafer %x, uid %x\n",
-+	dev_info(dev, "model %04x, revision %u.%u, lot %x, wafer %x, uid %x\n",
- 		 partnumber, majrev, minrev, lot, wafer, uid);
- 
- 	err = regmap_update_bits(regmap, ABX8XX_REG_CTRL1,
- 				 ABX8XX_CTRL_12_24 | ABX8XX_CTRL_ARST | ABX8XX_CTRL_WRITE,
- 				 ABX8XX_CTRL_WRITE);
- 	if (err < 0) {
--		dev_err(&client->dev, "Unable to write control register\n");
-+		dev_err(dev, "Unable to write control register\n");
- 		return -EIO;
- 	}
- 
-@@ -871,7 +836,7 @@ static int abx80x_probe(struct i2c_client *client)
- 		err = regmap_update_bits(regmap, ABX8XX_REG_CTRL2,
- 					 ABX8XX_CTRL2_RSVD, 0);
- 		if (err < 0) {
--			dev_err(&client->dev, "Unable to write control2 register\n");
-+			dev_err(dev, "Unable to write control2 register\n");
- 			return -EIO;
- 		}
- 
-@@ -879,7 +844,7 @@ static int abx80x_probe(struct i2c_client *client)
- 		 * Write the configuration key register to enable access to
- 		 * the config2 register
- 		 */
--		if (abx80x_write_config_key(&client->dev, ABX8XX_CFG_KEY_MISC) < 0)
-+		if (abx80x_write_config_key(dev, ABX8XX_CFG_KEY_MISC) < 0)
- 			return -EIO;
- 
- 		/*
-@@ -891,7 +856,7 @@ static int abx80x_probe(struct i2c_client *client)
- 					ABX8XX_OUT_CTRL_EXDS,
- 					ABX8XX_OUT_CTRL_EXDS);
- 		if (err < 0) {
--			dev_err(&client->dev,
-+			dev_err(dev,
- 				"Unable to write output control register\n");
- 			return -EIO;
- 		}
-@@ -903,26 +868,24 @@ static int abx80x_probe(struct i2c_client *client)
- 			if (partnumber == abx80x_caps[i].pn)
- 				break;
- 		if (abx80x_caps[i].pn == 0) {
--			dev_err(&client->dev, "Unknown part: %04x\n",
--				partnumber);
-+			dev_err(dev, "Unknown part: %04x\n", partnumber);
- 			return -EINVAL;
- 		}
- 		part = i;
- 	}
- 
- 	if (partnumber != abx80x_caps[part].pn) {
--		dev_err(&client->dev, "partnumber mismatch %04x != %04x\n",
-+		dev_err(dev, "partnumber mismatch %04x != %04x\n",
- 			partnumber, abx80x_caps[part].pn);
- 		return -EINVAL;
- 	}
- 
- 	if (np && abx80x_caps[part].has_tc)
--		trickle_cfg = abx80x_dt_trickle_cfg(&client->dev);
-+		trickle_cfg = abx80x_dt_trickle_cfg(dev);
- 
- 	if (trickle_cfg > 0) {
--		dev_info(&client->dev, "Enabling trickle charger: %02x\n",
--			 trickle_cfg);
--		abx80x_enable_trickle_charger(&client->dev, trickle_cfg);
-+		dev_info(dev, "Enabling trickle charger: %02x\n", trickle_cfg);
-+		abx80x_enable_trickle_charger(dev, trickle_cfg);
- 	}
- 
- 	err = regmap_write(regmap, ABX8XX_REG_CD_TIMER_CTL, BIT(2));
-@@ -930,7 +893,7 @@ static int abx80x_probe(struct i2c_client *client)
- 		return err;
- 
- 	if (abx80x_caps[part].has_wdog) {
--		err = abx80x_setup_watchdog(&client->dev);
-+		err = abx80x_setup_watchdog(dev);
- 		if (err)
- 			return err;
- 	}
-@@ -940,14 +903,14 @@ static int abx80x_probe(struct i2c_client *client)
- 		return err;
- 
- 	if (priv->irq > 0) {
--		dev_info(&client->dev, "IRQ %d supplied\n", priv->irq);
--		err = devm_request_threaded_irq(&client->dev, priv->irq, NULL,
-+		dev_info(dev, "IRQ %d supplied\n", priv->irq);
-+		err = devm_request_threaded_irq(dev, priv->irq, NULL,
- 						abx80x_handle_irq,
- 						IRQF_SHARED | IRQF_ONESHOT,
- 						"abx8xx",
--						&client->dev);
-+						dev);
- 		if (err) {
--			dev_err(&client->dev, "unable to request IRQ, alarms disabled\n");
-+			dev_err(dev, "unable to request IRQ, alarms disabled\n");
- 			priv->irq = 0;
- 		}
- 	}
-@@ -956,14 +919,39 @@ static int abx80x_probe(struct i2c_client *client)
- 
- 	err = rtc_add_group(priv->rtc, &rtc_calib_attr_group);
- 	if (err) {
--		dev_err(&client->dev, "Failed to create sysfs group: %d\n",
--			err);
-+		dev_err(dev, "Failed to create sysfs group: %d\n", err);
- 		return err;
- 	}
- 
- 	return devm_rtc_register_device(priv->rtc);
- }
- 
-+#if IS_ENABLED(CONFIG_I2C)
++#if IS_ENABLED(CONFIG_SPI_MASTER)
 +
-+static const struct regmap_config abx80x_regmap_config_i2c = {
++static const struct regmap_config abx80x_regmap_config_spi = {
 +	.reg_bits = 8,
 +	.val_bits = 8,
 +	.max_register = ABX8XX_SRAM_BASE + ABX8XX_SRAM_WIN_SIZE - 1,
 +
 +	.rd_table = &abx80x_read_table,
 +	.wr_table = &abx80x_write_table,
++
++	.write_flag_mask = BIT(7),
 +};
 +
-+static const struct i2c_device_id abx80x_id[] = {
-+	{ .name = "abx80x", .driver_data = ABX80X },
-+	{ .name = "ab0801", .driver_data = AB0801 },
-+	{ .name = "ab0803", .driver_data = AB0803 },
-+	{ .name = "ab0804", .driver_data = AB0804 },
-+	{ .name = "ab0805", .driver_data = AB0805 },
-+	{ .name = "ab1801", .driver_data = AB1801 },
-+	{ .name = "ab1803", .driver_data = AB1803 },
-+	{ .name = "ab1804", .driver_data = AB1804 },
-+	{ .name = "ab1805", .driver_data = AB1805 },
-+	{ .name = "rv1805", .driver_data = RV1805 },
++static const struct spi_device_id abx81x_id[] = {
++	{ "ab0815", AB0815 },
++	{ "ab1815", AB1815 },
 +	{ }
 +};
-+MODULE_DEVICE_TABLE(i2c, abx80x_id);
++MODULE_DEVICE_TABLE(spi, abx81x_id);
 +
- #ifdef CONFIG_OF
- static const struct of_device_id abx80x_of_match[] = {
- 	{
-@@ -1011,16 +999,67 @@ static const struct of_device_id abx80x_of_match[] = {
- MODULE_DEVICE_TABLE(of, abx80x_of_match);
- #endif
- 
-+static int abx80x_i2c_probe(struct i2c_client *client)
++#ifdef CONFIG_OF
++static const struct of_device_id abx81x_of_match[] = {
++	{
++		.compatible = "abracon,ab0815",
++		.data = (void *)AB0815
++	},
++	{
++		.compatible = "abracon,ab1815",
++		.data = (void *)AB1815
++	},
++	{ }
++};
++MODULE_DEVICE_TABLE(of, abx81x_of_match);
++#endif
++
++static int abx81x_spi_probe(struct spi_device *spi)
 +{
-+	unsigned int part = (uintptr_t)i2c_get_match_data(client);
++	unsigned int part = (uintptr_t)spi_get_device_match_data(spi);
 +	struct regmap *regmap;
 +
-+	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
-+		return -ENODEV;
-+
-+	regmap = devm_regmap_init_i2c(client, &abx80x_regmap_config_i2c);
++	regmap = devm_regmap_init_spi(spi, &abx80x_regmap_config_spi);
 +	if (IS_ERR(regmap)) {
-+		dev_err(&client->dev, "Unable to allocate regmap\n");
++		dev_err(&spi->dev, "Unable to allocate regmap\n");
 +		return PTR_ERR(regmap);
 +	}
 +
-+	return abx80x_probe(&client->dev, regmap, client->irq,
-+			    client->dev.of_node, part);
++	return abx80x_probe(&spi->dev, regmap, spi->irq,
++			    spi->dev.of_node, part);
 +}
 +
- static struct i2c_driver abx80x_driver = {
- 	.driver		= {
- 		.name	= "rtc-abx80x",
- 		.of_match_table = of_match_ptr(abx80x_of_match),
- 	},
--	.probe		= abx80x_probe,
-+	.probe		= abx80x_i2c_probe,
- 	.id_table	= abx80x_id,
- };
- 
--module_i2c_driver(abx80x_driver);
-+static int abx80x_register_driver(void)
++static struct spi_driver abx81x_driver = {
++	.driver		= {
++		.name	= "rtc-abx81x",
++		.of_match_table = of_match_ptr(abx81x_of_match),
++	},
++	.probe		= abx81x_spi_probe,
++	.id_table	= abx81x_id,
++};
++
++static int abx81x_register_driver(void)
 +{
-+	return i2c_add_driver(&abx80x_driver);
++	return spi_register_driver(&abx81x_driver);
 +}
 +
-+static void abx80x_unregister_driver(void)
++static void abx81x_unregister_driver(void)
 +{
-+	i2c_del_driver(&abx80x_driver);
++	spi_unregister_driver(&abx81x_driver);
 +}
 +
 +#else
 +
-+static int abx80x_register_driver(void)
++static int abx81x_register_driver(void)
 +{
 +	return 0;
 +}
 +
-+static void abx80x_unregister_driver(void)
++static void abx81x_unregister_driver(void)
 +{
 +}
 +
-+#endif /* IS_ENABLED(CONFIG_I2C) */
++#endif /* IS_ENABLED(CONFIG_SPI_MASTER) */
 +
-+static int __init abx80x_init(void)
-+{
-+	return abx80x_register_driver();
-+}
-+module_init(abx80x_init);
+ static int __init abx80x_init(void)
+ {
+-	return abx80x_register_driver();
++	int ret;
 +
-+static void __exit abx80x_exit(void)
-+{
-+	abx80x_unregister_driver();
-+}
-+module_exit(abx80x_exit);
++	ret = abx80x_register_driver();
++	if (ret)
++		return ret;
++
++	ret = abx81x_register_driver();
++	if (ret)
++		abx80x_unregister_driver();
++
++	return ret;
+ }
+ module_init(abx80x_init);
  
- MODULE_AUTHOR("Philippe De Muyter <phdm@macqel.be>");
- MODULE_AUTHOR("Alexandre Belloni <alexandre.belloni@bootlin.com>");
+ static void __exit abx80x_exit(void)
+ {
++	abx81x_unregister_driver();
+ 	abx80x_unregister_driver();
+ }
+ module_exit(abx80x_exit);
 -- 
 2.55.0
 
