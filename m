@@ -1,106 +1,85 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D3202E7367
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 14:53:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BA2B42E8FF;
+	Fri, 31 Jul 2026 14:54:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785509620; cv=none; b=DspkzVCgNyH4GZsygFiszw8Q9dtsNSdjgU3oCdqRh7XWCP0XDKENfbvxKzXz88Gn7etgJI4SgPKrn4vjK06Y477y+vFtvYV9JJsLaNX6iSaqvnzn9OvfW+uj7o6MRKVNgT95iou59DP2SiU9UuIklQfmH/7aPAYZ/MgHXewbd/g=
+	t=1785509646; cv=none; b=jyuai/GiiKI0vBaveJyKtv+aCibiUdA9L+R+Ob1+gjzQZC3aUkRO/JWlxzvNAT4iN4dohgKdTPOJcWm0dAdLbw38qoNQhB8Gp+g/Xbut1otuW9MKiG51knZNTDCrzVOQlBKTng9TV7VnF/Y75e2eq2ek7ZM1cEWXlV4RKJBYSb4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785509620; c=relaxed/simple;
-	bh=0kyD+6cxKLXvg8dmQ7olFyYB4x4Qr/h1llWPOYGrWkM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JGF9ab2x73capOXcCngnd3nnTfhufbD+JxqaJnbkoqY/NJ2AeapPVjruldSzpTlApCD25neoZfvoCGrAGS+Z0b4u0kQjwnmH48JB/37KT4GEgq9dDeVN0lrxOmxlKahwy20i2izqlTMHviNPfjjhv2VZ9ZCjeep/eE5rg0wOYQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m2WH51jY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785509646; c=relaxed/simple;
+	bh=S3oGBtrmBUnlFSzk8cavyiVCzS8t4CDwXDGY1YqLfBg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mmQ71LtdjgmXIRoZtikfNacUwiUGXcrJYGgweMkhJrsIjG8+8zYk/cY0DiMit+upaNoXWMp8oL3SzJjDwsmiirX1BKEP6JSJ8ZDsAkIf61Qp5sjxfbiTZnv4ZrMUARLEU+rwxuHBnStrDaMCTKVwGcWeXh4q4Do4wBE7Vd687QQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HE7KUako; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m2WH51jY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4479A1F000E9;
-	Fri, 31 Jul 2026 14:53:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HE7KUako"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F5FC1F000E9;
+	Fri, 31 Jul 2026 14:54:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785509618;
-	bh=HZURHhSenVkA9tbK/c8ENpdnOheRQBgcBgL1m8ydzyI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=m2WH51jYnemAIv++AIltVm26UbhpDVDARvnpMxx3sEAZAYZ8R4VZpbsyjNHbOsDP2
-	 X/rr42h7xjqiTmdftsxJ9kZ3Q1aMugVnYLz1itx5mY+M9EnT4l1y0gEvA9UndASTXv
-	 RymkOxg0xe+VW1LMUVXWRCUcOo/9WYkm9BimL5a4ReRpjIf1bkNs7+nCPMpU5MNofh
-	 pV0DfaqFLxaplWHKyfhhlMFl//L4s89DH9prdDLuc+dQno+wm8MN6XTADsbn9F37EQ
-	 Hm9wbgjn2bcn3Bgpq2cULEpfQLXVJGsviHOK8TdNWXhYIGqMX4MqOP0PhO1Cg1cMiz
-	 G8xANvwRSSUJA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 3/5] dt-bindings: mfd: x-powers,axp152: Document
- AXP318W
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jerome Brunet" <jbrunet@baylibre.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260731-axp318-regulator-v6-3-b4e745552a35@baylibre.com>
-References: <20260731-axp318-regulator-v6-0-b4e745552a35@baylibre.com>
- <20260731-axp318-regulator-v6-3-b4e745552a35@baylibre.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 31 Jul 2026 14:53:37 +0000
-Message-Id: <20260731145338.4479A1F000E9@smtp.kernel.org>
+	s=k20260515; t=1785509645;
+	bh=1J69KhrZi+tCUCTcy0KQGCVDYT0irf6FmuwqoFPRASE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HE7KUakoPHqF/jJchSfHyZVglb2stswvwg9SFFTnxJV1Ce362pfu8smnPr5il6VZg
+	 wJJ99NXPd7nqvcc8GrZbbheT5M9nHjuk8XwbI8+oQUW0/Y8yogB5oCEeZurx1FuGpl
+	 XYIOcDGNv1KreKU39qtXkK4Ws9v8xu9g+EW9+d0DXrcHCS9L/07IGv0hqVD9ABoH2S
+	 26uwVrY1TxAlEoFSk2c6Wr2F9zyHa8ftHKIWJdzGa5g6nLQ8/RCeEfN9cDjb5FgAXt
+	 pWQKlOOER2mV6Aj9C1VOQvY5HemaKciEw1vprloTQPw6bbqQa5kS5U3HHX6z68mWe7
+	 bzZIV3bE6A0mQ==
+Received: from johan by xi.lan with local (Exim 4.99.4)
+	(envelope-from <johan@kernel.org>)
+	id 1wpocc-00000000Xpm-2yrU;
+	Fri, 31 Jul 2026 16:54:02 +0200
+Date: Fri, 31 Jul 2026 16:54:02 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
+	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH v5 06/14] mfd: lm3533-core: Remove redundant pdata helpers
+Message-ID: <amy3CuqWFS8ra89r@hovoldconsulting.com>
+References: <20260617080031.99156-1-clamor95@gmail.com>
+ <20260617080031.99156-7-clamor95@gmail.com>
+ <akeHfV45fs_wabFl@hovoldconsulting.com>
+ <CAPVz0n1groC-4MxU-sjyPEDHYWqAweyBmVNC+iX4mVa_D3SnDA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAPVz0n1groC-4MxU-sjyPEDHYWqAweyBmVNC+iX4mVa_D3SnDA@mail.gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The compatible string `x-powers,axp318w` is omitted from the con=
-ditional block that makes the `interrupts` property optional.
---
+On Tue, Jul 14, 2026 at 04:32:40PM +0300, Svyatoslav Ryhel wrote:
+> пт, 3 лип. 2026 р. о 12:57 Johan Hovold <johan@kernel.org> пише:
+> >
+> > On Wed, Jun 17, 2026 at 11:00:23AM +0300, Svyatoslav Ryhel wrote:
+> > > The lm3533_set_boost_freq() and lm3533_set_boost_ovp() functions are used
+> > > only in lm3533_device_setup(), which in turn is only called by
+> > > lm3533_device_init(). Incorporate their code directly into
+> > > lm3533_device_init() to simplify driver readability.
+> >
+> > Again, this isn't needed. Why are you removing abstraction that improve
+> > readability?
+> >
+> 
+> Adding helpers to wrap custom regmap wrappers seems redundant. Regmap
+> operations are pretty self explanatory without need in one-time-use
+> helpers.
 
---- Patch [3]: [PATCH v6 3/5] dt-bindings: mfd: x-powers,axp152: Document A=
-XP318W ---
-commit 0a2fd6c8b0d8fd1a45bf4a464bf3e71df8fa62f6
-Author: Andre Przywara <andre.przywara@arm.com>
+They are clearly not as easy to read so this obscures what is being done
+and makes lm3533_device_init() harder to read.
 
-dt-bindings: mfd: x-powers,axp152: Document AXP318W
-
-This commit documents the AXP318W PMIC in the x-powers,axp152 bindings.
-It adds the new compatible string to the lists of PMICs that lack PWM
-frequency properties, and adds new input supply properties.
-
-> diff --git a/Documentation/devicetree/bindings/mfd/x-powers,axp152.yaml b=
-/Documentation/devicetree/bindings/mfd/x-powers,axp152.yaml
-> index 45f015d63df16..38556c32417b3 100644
-> --- a/Documentation/devicetree/bindings/mfd/x-powers,axp152.yaml
-> +++ b/Documentation/devicetree/bindings/mfd/x-powers,axp152.yaml
-> @@ -83,6 +83,7 @@ allOf:
-
-[Severity: Medium]
-Was the x-powers,axp318w compatible string intentionally omitted from the
-interrupt requirement conditional block earlier in this file?
-
-Looking at the block just above this hunk:
-
-  - if:
-      not:
-        properties:
-          compatible:
-            contains:
-              enum:
-                - x-powers,axp15060
-                - x-powers,axp305
-                - x-powers,axp313a
-                - x-powers,axp323
-    then:
-      required:
-        - interrupts
-
-Since x-powers,axp318w is missing from this exclusion list, the interrupts
-property will be strictly enforced during schema validation. Does
-this match the expected configuration for this PMIC?
-
->            contains:
->              enum:
->                - x-powers,axp313a
-> +              - x-powers,axp318w
->                - x-powers,axp323
->                - x-powers,axp15060
->                - x-powers,axp717
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-axp318-reg=
-ulator-v6-0-b4e745552a35@baylibre.com?part=3D3
+Johan
