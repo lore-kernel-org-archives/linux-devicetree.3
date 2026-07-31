@@ -1,116 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A55383546FC
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 06:27:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DA65365A1D
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 06:28:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.24
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785479223; cv=none; b=sHq4rj2KKDtyYRQRHtbyEvA/45spErtW7+ejXpvhmIp9Pg1YMWIMOYpcWo44iajK6OqrVa4elmmJrW4WQ8rIkhGw6XULDCdNYc7eV2gM/Syj7kwHj9r4p185sG4+agBBoLhMm/1TCT0NYnP5JTtHraTZj03NfsGKHGv5D3HqdYM=
+	t=1785479294; cv=none; b=ilwwnjyvGMliMY5N69Ftie72fYUgnQtwHZUJxBJ8l0wEEFPMT0yGC45r53VqhNLP87I52IUo6kSS2IYF4JAsBNcbn6wNi4EbdkILwQ1CjCRXKrCR3YYZCx2Qfw7VVvRaW2OzG3SurSyZEabz8oYkhlPKZ0tWLrNRMjohddkEjTk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785479223; c=relaxed/simple;
-	bh=TaQ/Pv1Z2EWfDyvJIULKXcg5MIZ4DR0BVfDP+9gfR1s=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AHbtMBsqqIfYnXneMmIIoVsvSl1p2t50rMEZQ3p1L1svxSj2evl0WszpS2s1IbD39ZvEOjcVLW7P08ILMcSE7Yf7ie8Q1qHB+UFCajJ8EhP7lxa/RJVqWPkadajIIHEH3tk8KPXoesWwieEpzP0qWK8TLj0GRXjASkyfITEglco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aTnc1z/b; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785479294; c=relaxed/simple;
+	bh=zGYch3/BJvWeKvc1uvKnWDwR/Z7lp+PLPQTFHRhzmao=;
+	h=From:To:Cc:In-Reply-To:Subject:Date:Message-ID:MIME-Version:
+	 Content-Type:References; b=jwQK3S9iznpsD/ZofVpgdipmHWAnTHcTW7lEocoPc3sT5Chip4XVSGDBsZGacclAQu4BEFoku+s12AxP0Wociv9QR1u2BB/lpVz3wN796T0Ro1BpH9FucFmL6k24docdfSbA1owHi3KEwJP1+zOX75BMZLFswnYi4O9Oygpc1ac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=U69aHvAn; arc=none smtp.client-ip=203.254.224.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aTnc1z/b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD74C1F000E9;
-	Fri, 31 Jul 2026 06:27:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785479222;
-	bh=2dMuTHt5Y38T7JwctG1JKdAxIUIWYLxyze3Oi0HZhas=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=aTnc1z/bjOxIih6ifMz2t9YkTNd5fZ65RopDmjFEYQUCgqIajLxEOfSjbvwfdzaI+
-	 nHmpH04UCthCV4oUkf+6777fmHiwBkAS68dZMPvnTekzIPhHHALQQxScfICh7v9xBG
-	 6MICduzLWZzEsvZtPQymenCICcZqfsjGJrn0Urie84BonahAbqG4u6jn4Dnr9o2dyu
-	 hmih0wCXNeyIQmFG+5Vmwc9av2FnvHqjOdlpKla8kpiGeCC8lZa/qzRghsQwGaUlJO
-	 bIvp9wOHyl6BGIK/9mAvahY1Y01TVIqJv18TSk72+RHfNEuvw9E9WZHvFoi6KYqrT2
-	 HT6G+v19gtrwQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/5] dt-bindings: arm: qcom: Document Kalambo SoC and
- board
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Gopikrishna Garmidi" <gopikrishna.garmidi@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260730-b4-kalambo-crd-v4-1-e458f8b08114@oss.qualcomm.com>
-References: <20260730-b4-kalambo-crd-v4-0-e458f8b08114@oss.qualcomm.com>
- <20260730-b4-kalambo-crd-v4-1-e458f8b08114@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 31 Jul 2026 06:27:01 +0000
-Message-Id: <20260731062701.BD74C1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="U69aHvAn"
+Received: from epcas5p3.samsung.com (unknown [182.195.41.41])
+	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20260731062808epoutp0182fbc9e435bc0285d2e6f721ea72aa23~HS-Ps0wwg0970509705epoutp01_
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 06:28:08 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20260731062808epoutp0182fbc9e435bc0285d2e6f721ea72aa23~HS-Ps0wwg0970509705epoutp01_
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1785479288;
+	bh=TIfe/G3y8DznxsDg++Y9/l5+8bOWnAYzQhK3ZnU/dY4=;
+	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
+	b=U69aHvAnKAtBK9qtGTDrEGYHgHJXa/vMuXh1ZamM1XXsz4RRFOt6TVWQ4/+bx6Ghp
+	 4HDGJ5wR+dgW7FgIUBbOLNwrCuQTFNH/DaSQ4QrrBQBwrstHEseZHcL7vjtzocPewq
+	 FVhc3MpFpBK2OUQf3a0carmDifmuIBmsgeQrKLfo=
+Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPS id
+	20260731062807epcas5p39055173e7a2aa9259b60a6fb35fae4a8~HS-Ov_lO21472214722epcas5p3E;
+	Fri, 31 Jul 2026 06:28:07 +0000 (GMT)
+Received: from epcas5p4.samsung.com (unknown [182.195.38.87]) by
+	epsnrtp02.localdomain (Postfix) with ESMTP id 4hBGN63z7kz2SSKn; Fri, 31 Jul
+	2026 06:28:06 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
+	20260731062805epcas5p284b192877ee85610e28157dba8593c14~HS-NOPIvb2967729677epcas5p2F;
+	Fri, 31 Jul 2026 06:28:05 +0000 (GMT)
+Received: from INBRO002198 (unknown [107.122.5.156]) by epsmtip1.samsung.com
+	(KnoxPortal) with ESMTPA id
+	20260731062802epsmtip1ccfd7a2dcd6f7a7cc90e30e2c0431977~HS-KqhvVn0207602076epsmtip1W;
+	Fri, 31 Jul 2026 06:28:02 +0000 (GMT)
+From: "Raghav Sharma" <raghav.s@samsung.com>
+To: "'Krzysztof Kozlowski'" <krzk@kernel.org>, <s.nawrocki@samsung.com>,
+	<cw00.choi@samsung.com>, <peter.griffin@linaro.org>,
+	<alim.akhtar@samsung.com>, <mturquette@baylibre.com>, <sboyd@kernel.org>,
+	<bmasney@redhat.com>, <robh@kernel.org>, <conor+dt@kernel.org>
+Cc: <linux-samsung-soc@vger.kernel.org>, <linux-clk@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <hajun.sung@samsung.com>,
+	<is.gandhi@samsung.com>, <ts.amit@samsung.com>, <pokala.reddy@samsung.com>
+In-Reply-To: <b2c668f3-addb-4c82-91c6-56651a601318@kernel.org>
+Subject: RE: [PATCH 01/13] clk: samsung: clk-pll: Add supoprt for pll_4313
+Date: Fri, 31 Jul 2026 11:58:01 +0530
+Message-ID: <04ad01dd20b5$bea55aa0$3bf00fe0$@samsung.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQIRARWKMB8/axP+0I5R2y9G0OYjygKrecYYAnZw0bcBYDpv3rXrUEDQ
+Content-Language: en-us
+X-CMS-MailID: 20260731062805epcas5p284b192877ee85610e28157dba8593c14
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-543,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20260728115245epcas5p2ffe1f7c31c6dd85161445d61a94e82e6
+References: <20260728121111.2077860-1-raghav.s@samsung.com>
+	<CGME20260728115245epcas5p2ffe1f7c31c6dd85161445d61a94e82e6@epcas5p2.samsung.com>
+	<20260728121111.2077860-2-raghav.s@samsung.com>
+	<b2c668f3-addb-4c82-91c6-56651a601318@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The dt-bindings introduce the Kalambo SoC as a derivative of Mahua=
- but omit the `qcom,mahua` fallback string, causing core driver initializat=
-ion failures.
---
 
---- Patch [1]: [PATCH v4 1/5] dt-bindings: arm: qcom: Document Kalambo SoC =
-and board ---
-commit 0b31003941ba4b70a8690af4bfa949f21d29c3f3
-Author: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
 
-dt-bindings: arm: qcom: Document Kalambo SoC and board
+> -----Original Message-----
+> From: Krzysztof Kozlowski <krzk@kernel.org>
+> Sent: Tuesday, July 28, 2026 5:29 PM
+> To: raghav.s <raghav.s@samsung.com>; s.nawrocki@samsung.com;
+> cw00.choi@samsung.com; peter.griffin@linaro.org;
+> alim.akhtar@samsung.com; mturquette@baylibre.com; sboyd@kernel.org;
+> bmasney@redhat.com; robh@kernel.org; conor+dt@kernel.org
+> Cc: linux-samsung-soc@vger.kernel.org; linux-clk@vger.kernel.org;
+> devicetree@vger.kernel.org; linux-arm-kernel@lists.infradead.org; linux-
+> kernel@vger.kernel.org; hajun.sung@samsung.com;
+> is.gandhi@samsung.com; ts.amit@samsung.com;
+> pokala.reddy@samsung.com
+> Subject: Re: [PATCH 01/13] clk: samsung: clk-pll: Add supoprt for pll_4313
+> 
+> On 28/07/2026 14:10, raghav.s wrote:
+> > From: Alim Akhtar <alim.akhtar@samsung.com>
+> >
+> > PLLs 4313 are found in the Exynos8855 SoC and it is similar to
+> > pll_531x except for CON8 offset, so re-using code for
+> > pll_4313
+> >
+> > Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
+> > Signed-off-by: raghav.s <raghav.s@samsung.com>
+> 
+> Looks like name duplicates login.
+> 
+> Best regards,
+> Krzysztof
 
-Qualcomm Kalambo is a derivative of the Mahua SoC with CPU cluster 0
-removed, leaving it with just cluster 1. Document the compatible strings
-for the Kalambo SoC and the Compute Reference Device (CRD) board based
-on it.
+Hi Krzysztof
+Looks like this was an issue with my gitconfig, will fix this
+Thanks for pointing out
 
-> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentat=
-ion/devicetree/bindings/arm/qcom.yaml
-> index c7c9a92796846..b0c07a57bda69 100644
-> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
-> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-> @@ -174,6 +174,11 @@ properties:
->                - qcom,kaanapali-qrd
->            - const: qcom,kaanapali
-> =20
-> +      - items:
-> +          - enum:
-> +              - qcom,kalambo-crd
-> +          - const: qcom,kalambo
-> +
+Regards
+Raghav
 
-[Severity: High]
-Since Kalambo is a derivative of Mahua, should this binding include the
-"qcom,mahua" fallback compatible string?
-
-By forcing an exact two-item compatible list, it prohibits using "qcom,mahu=
-a"
-as a fallback in the device tree. Because core drivers were not updated to
-match the new "qcom,kalambo" strings in this series, they will fail to prob=
-e.
-
-For example, qcom_pdm_domains in drivers/soc/qcom/qcom_pd_mapper.c requires:
-
-	{ .compatible =3D "qcom,mahua", .data =3D glymur_domains, },
-
-And qcom_ubwc_configs in drivers/soc/qcom/ubwc_config.c matches against:
-
-	{ .compatible =3D "qcom,mahua", .data =3D &glymur_data },
-
-Similarly, qcom_scm_qseecom_allowlist in drivers/firmware/qcom/qcom_scm.c:
-
-	{ .compatible =3D "qcom,mahua-crd" },
-
-Will these drivers fail to configure the hardware on this board without eit=
-her
-a fallback in the DT binding, or explicit updates to the respective drivers=
- to
-recognize the new Kalambo SoC strings?
-
->        - items:
->            - enum:
->                - qcom,mahua-crd
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-b4-kalambo=
--crd-v4-0-e458f8b08114@oss.qualcomm.com?part=3D1
