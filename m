@@ -1,33 +1,68 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F11D92DC32C;
-	Fri, 31 Jul 2026 13:39:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 496D52253EB
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 13:52:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785505201; cv=none; b=ON05Zc44+fXt+BoL//vjR+BcQdv+pNSZlsJy+ZTTqPHgKpzGh/QYi52t/GxJEoJMY6LEKlyWqUD9cE07Gfu2YsPcPN4Teb3AU66MlCStQvoACz4GF+cwVURBQZgXdSMz0Nn1ij/oUC84Eydsf0I/I1lwtwa0hqM+2J1LtUQ9We0=
+	t=1785505958; cv=none; b=bGkYi3PB+VPSk2b/pSJDt85D03amsoroSDC9ArdROu47lmfd0AyCL/L0k3yF1SneAFerCauf6jwoYZqZJV4jt4Q7pq41cxAW1vKX9T9reNJA269KDoYayHz4dU3ONmEjrDMTFsvDgrpjES0qMm39liOQ+NQVSJ2B1D4m25elAj4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785505201; c=relaxed/simple;
-	bh=kF5eobvMMIr1uQGSeGooDYUoyGsCtaEwZYm5hxXfR7s=;
+	s=arc-20240116; t=1785505958; c=relaxed/simple;
+	bh=lSZ+/tv9wX7w51bK6R7N7Sqsdlr7yLBGjQShbkEuqZY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QPompDr4zdcrwFKdY72cStD25Mny245mUreaxw0k1X5xBKGV2leJBo47TbWk/LPcqZv/8Apuy+YCOs+8QsZa9rsRjlKpunqLbmWK1YH+e3dxTW7sc1SYcZJfSTyqLZNMfaBGZsoJWRNSaNZgKzsrkfu9btyRM+aRZfopLj4WMBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M2VkTPIg; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=oJkkY/PY7uivsYGITkJLg+XnZyvR2efB+EPrWnTEOGUN8yS5ryBkIIogpV7wkfNem2zSFRLNGypEtoiPj0Cn0O3SS0h80dTcAxJfCd7J0TUcUQhztWF1N/j5MVgQ2+AJkYxxfvcMB71mMMAHLnfTzQ24Bc0g3Xc6ZgUfcbk+caA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=lmmWoqP1; arc=none smtp.client-ip=209.85.210.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M2VkTPIg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E23521F000E9;
-	Fri, 31 Jul 2026 13:39:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785505199;
-	bh=71GsCQtibyr0EC95XRW46BEuwQ9xc1aBpYh6h+8L0K4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=M2VkTPIgDxUI/vUy9WfjSmZXfoCjVwscvX7fXo3ceVAe3ffW/C41n+gKmM1kTpVEL
-	 KfCRvhTEz7fJ/Y7Mnk1v6IRAupqpWJntqyxCKMdXaMfncCDCi7sIH2TRwFHgJTZHTh
-	 EinV2XWLYUQLCfZ1SPLeeYEbJw9P/UHYiLKqcmp8MA4f8ugy8FFlWA6X/rD8fyEKX2
-	 wxG93Gq1Xr1S1TLIV0H9s/AlOsHLSAEh/j+8OuY38jxZ76rZrRaGqxeBh+H+szAyEi
-	 y0EsdnRcr5dFkeTpQxyqGVsfJFs+r5pUe9SrsxFr7qXEe7FDv4/ke21YT0TUw5YkzT
-	 63BvEfqmK6pCA==
-Message-ID: <543f447c-bd6a-41ae-a413-fa2eb74be9a0@kernel.org>
-Date: Fri, 31 Jul 2026 14:39:54 +0100
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="lmmWoqP1"
+Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-7eb787dec99so751625a34.0
+        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 06:52:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1785505954; x=1786110754; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JsZfkDKXnNJmRKluxq/2lt4f+eKCbGLQWu+itVq10m8=;
+        b=lmmWoqP1KgsDx3pYF+Keo8N13MBpcUFNNbKDJq74TJkzPQrqizqy9c/w+PLZi+h2qm
+         We0bz/bT2+m2IS8g2crmvQvf0swQ149nUMfEbM1sJZd3Dq5mxYvk13mZjz5ZW71wgGPA
+         hune1U8ZiAq3i76z4bmeGxFIA4OYMS/3M12LwiRBjWOKkZyAYCUf14e9plwTrvZTo0zU
+         RYgprHlckkRhvXMjqRJ6dtWvmi/2FVd9xZDqw+J0d1tP9wEtLPzd6RHvZSdJRqf4kPld
+         4UuLP6/26572oRaMCjV1pHBy3hZdhchqJWhANaZVUC/qwqZgZG2HWbySN0QEnz9HE5gS
+         C6mA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785505954; x=1786110754;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JsZfkDKXnNJmRKluxq/2lt4f+eKCbGLQWu+itVq10m8=;
+        b=m98XfIFDg/uxr+DqNVKV4eJhsjSOxr282mSJSXdjIIGYaZvm2UFlz0kAsNQZj79vnz
+         6G6phCZasvSW6wJhqG9EEYBhi7T8wKPF4SUnFw55v2yk3WEZXnvACwvLPuRtMdisA5Go
+         MLqztBV/mZFa0HplxO1syuJVxNQ0ZQiQFi73v7cfCVRNcOnkbY5uVaSUe9RkRwrE93r6
+         uMV5+ExqXtvQf1YelEZZuT7NxZI0xH3UkrRn+TUZHdXN16jXQoR/7FPUUFawC3Xcdqqv
+         FkrPRqinlvY5KybtU0/NFpKRmfauEY7w4vUiVHJdGbhsivrpsbb+ukXpUk4quBm0yNX1
+         cG1w==
+X-Forwarded-Encrypted: i=1; AHgh+Rp7N85QhfS6RnJL7chFXv7kqMsL34vohD3wBg/u8Wnyi6gImOKMIlWNP4vLO3n9orgSLiR0vQBMnnsS@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy3wTTooML9gLYdMYxvhplui7eUuRJPt5O5buHZeIxpqG3KnS42
+	s6sE6o8Da6mxLpNBoxjs68reshQA+q5BkhSi2n/Lj2d1/O41hlG143OdDQBUvxetcTQ=
+X-Gm-Gg: AR+sD10eUMICB4F/0EeHL0vscTKu+dtg96J4AuI/b/3m98C5tZfK3tIax0e6xfe1rqM
+	ruqsJxXI1vkmZS2zkSy1Cn8lXSjltr3h7bAf+WiB4s8blR03Gdpkwa62pUBU9LB6Is+UqAdozgQ
+	KltGHGkApfqsYWDMZuXuH1lQsdmDEvnXRj9uPXT59sC29cmXqyNpK9GZMUhTok+melmgzve1yvC
+	lvoYNfG1vfAoprAwn6+5vTn7p9iLmvsydeG87wY+P6mK6OKhISnDxZk9YmoK+/RLzATq+vZ6EZO
+	Dns7BLDMrf8tGde04lmC2LfzdxzvZepXvVWfR6ki90fOt/sLvkEKrZ1C4CVPyFeomh8lrFoDcww
+	ut1NpKK3eCRxCeQigsSx254YndGMQ6zSA9UTe2eCIMmNG169+baaSMb+4TxHnC6qV56agzK7/Wp
+	uvakd/7Y8U8cXPE3zB18srQ9yITgQOkeJrH3df8tFReTGZrL7biLVeaZqda7DkGlmfMOZ/LrX52
+	QCVJnvI2xNNPhVAP4yXkAXiOO/Y5fBPaY2uFcY=
+X-Received: by 2002:a05:6830:4983:b0:7dc:df37:844b with SMTP id 46e09a7af769-7f189afca30mr3300344a34.4.1785505954129;
+        Fri, 31 Jul 2026 06:52:34 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:fa40:746f:401a:3b75? ([2600:8803:e7e4:500:fa40:746f:401a:3b75])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f18ed9af83sm653269a34.10.2026.07.31.06.52.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 31 Jul 2026 06:52:32 -0700 (PDT)
+Message-ID: <b2297241-e0ae-4058-a406-348440798e38@baylibre.com>
+Date: Fri, 31 Jul 2026 08:52:31 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,116 +70,132 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] dt-bindings: media: qcom,qcm2290-venus: document
- shikra Iris compatible
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+Subject: Re: [PATCH v2 1/2] dt-bindings: iio: adc: ti,ads112c04: Add binding
+ for ADS112C04
+To: Kyle Hsieh <kylehsieh1995@gmail.com>, Jonathan Cameron
+ <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
- Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-References: <20260721-shikra_vpu-v4-0-6dc5a8999b73@oss.qualcomm.com>
- <mFvFwhQszGFrmshFXIYuZ91Cp8BgbKaIBxeQtsJD1IOsPNjLaXD8DwNsshTiIbtUFQo_rCFFyu497tLirPBJvQ==@protonmail.internalid>
- <20260721-shikra_vpu-v4-1-6dc5a8999b73@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20260721-shikra_vpu-v4-1-6dc5a8999b73@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260731-ti-ads112c04-driver-v2-0-aab0168c3c01@gmail.com>
+ <20260731-ti-ads112c04-driver-v2-1-aab0168c3c01@gmail.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260731-ti-ads112c04-driver-v2-1-aab0168c3c01@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 21/07/2026 18:32, Vikash Garodia wrote:
-> diff --git a/Documentation/devicetree/bindings/media/qcom,venus-common.yaml b/Documentation/devicetree/bindings/media/qcom,venus-common.yaml
-> index 59a3fde846d2196ab1e4588eb396012ba6860712..0be2f9119e78233928d23af86836ac294aa769ee 100644
-> --- a/Documentation/devicetree/bindings/media/qcom,venus-common.yaml
-> +++ b/Documentation/devicetree/bindings/media/qcom,venus-common.yaml
-> @@ -37,7 +37,10 @@ properties:
->       maxItems: 20
+On 7/30/26 9:58 PM, Kyle Hsieh wrote:
+> Add device tree binding documentation for Texas Instruments ADS112C04
+> I2C Analog-to-Digital Converters.
 > 
->     memory-region:
-> -    maxItems: 1
-> +    minItems: 1
-> +    items:
-> +      - description: Firmware-loaded codec carveout
-> +      - description: IOMMU IOVA reservation region
+> These devices provide 4-channel, 16-bit delta-sigma ADCs with an I2C
+> interface, programmable gain amplifier (PGA), and data-ready (DRDY)
+> interrupt output.
+> 
+> The binding uses child nodes to dynamically define the connected
+> single-ended or differential channels.
+> 
+> Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
+> ---
+>  .../devicetree/bindings/iio/adc/ti,ads112c04.yaml  | 122 +++++++++++++++++++++
+>  1 file changed, 122 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads112c04.yaml b/Documentation/devicetree/bindings/iio/adc/ti,ads112c04.yaml
+> new file mode 100644
+> index 000000000000..6a5ffda84b80
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/adc/ti,ads112c04.yaml
+> @@ -0,0 +1,122 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/adc/ti,ads112c04.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Texas Instruments ADS112C04 ADC
+> +
+> +maintainers:
+> +  - Kyle Hsieh <kylehsieh1995@gmail.com>
+> +
+> +description: |
 
-So we discussed separately the pixel and non-pixel sub-nodes as well as 
-this basically alternate means of memory delination.
+The | isn't needed in this case. (It is only needed if we needed
+to preserve formatting, or if there is a : in the text that would
+be interpreted as a dict key.)
 
-What I'd like is a clear statement
+> +  The ADS112C04 (16-bit) are precision analog-to-digital converters (ADCs)
+> +  with an I2C interface. They feature a flexible input multiplexer, a
+> +  low-noise programmable gain amplifier (PGA), two programmable excitation
+> +  current sources, a voltage reference, and a precision temperature sensor.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - ti,ads112c04
+> +
+> +  reg:
+> +    maxItems: 1
+> +    description: I2C address of the device.
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +    description: Data ready (DRDY) interrupt output.
+> +
+> +  "#address-cells":
+> +    const: 1
+> +
+> +  "#size-cells":
+> +    const: 0
+> +
+> +  reset-gpios:
+> +    maxItems: 1
+> +    description: GPIO connected to the RESET pin. Active low.
+> +
+> +  avdd-supply: true
+> +  dvdd-supply: true
+> +
+> +  refp-supply: true
+> +  refn-supply: true
+> +
+> +  ti,refp-refn-resistor-ohms:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
 
-- Committing to this scheme for existing platforms
-- Adding the pixel and sub-pixel to the shared
-- Backporting at least one method to -stable
+As the bot said, don't need $ref here because it is a standard unit.
+(So don't forget to run `make dt_binding_check DT_SCHEMA_FILES=ads112c04`
+before sending.)
 
-For that reason this extension should at a minimum be its own commit 
-with a well articulated commit log.
+> +    description: Resistance of the external resistor between REFP and REFN.
+> +
+> +patternProperties:
+> +  "^channel@[0-9a-f]$":
+> +    $ref: adc.yaml
+> +    unevaluatedProperties: false
+> +    properties:
+> +      reg:
+> +        items:
+> +          - maximum: 15
 
-Since this is minItems: 1 it is conceviable to land both this and the 
-sub-node into the same file.
+This chip doesn't allow arbitrary combinations, so there
+are actually only 12 possible single-channel + diff-channels
+values. So maximum: 11 and channel@[0-9a-b] would make sense.
 
-But my continued feedback and objection is not being clear about what's 
-being done and having two separate methods without a clear roadmap.
+> +
+> +      single-channel:
+> +        maximum: 3
+> +
+> +      diff-channels:
+> +        items:
+> +          maximum: 3
 
-You have your sub-node RFC and this change - I won't say sneaking in 
-here but, its a surreptitious change as given as-is.
+For this chip, we should also have excitation-channels, excitation-current-nanoamp,
+and reference-sources.
 
-- Which method
-- Both ? Then what goes to -stable
-
-We also discussed offline the fact that right-now the lack of a means of 
-addressing this in upstream means we are in effect leaving a known 
-critical bug open to the vagaries of IOVA allocation @ runtime across 
-every single venus and iris there is.
-
-So to me minItems: 1 for -stable _in_this_kernel_cycle_ is warranted.
-
----
-bod
+> +
+> +    oneOf:
+> +      - required: [ single-channel ]
+> +      - required: [ diff-channels ]
+> +
