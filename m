@@ -1,71 +1,122 @@
-Received: from ms1.novatek.com.tw (ms2.novatek.com.tw [210.202.87.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D3FD39D6E8;
-	Fri, 31 Jul 2026 10:25:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.202.87.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 715DC3B7B66;
+	Fri, 31 Jul 2026 10:30:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785493505; cv=none; b=LWpGBkS3l/eC1eB3Goqq/byCMnWQpJz5YSG7LlE2bqiyWTyzTAS8GfWDHrUj3gGXcGXbPO0BIsG8yK5fFyGcMvSPxX60/7/gTEum6JDv3piDATiZTCLMKdWEPCbQaP88teIeT/EuBJiOCXRsvMMA3eW+DJz9dQi/+xzirM9w8A4=
+	t=1785493832; cv=none; b=rNrHB8NizzpcIAiMPAVFBoPQcnpOP6UztZ/PNuiT+mYUOvyYwCB2S+2DMbCvvdV7mZhphXVszfM2NhgPacqQ8xmtnh+MzIQGC4qtjDXFlZrF078QnefFVoR4jYl3BduvqmsmEfkjtKIFItnK0O0GtMHjmSqMLCtWLwP6vu54U/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785493505; c=relaxed/simple;
-	bh=CDhyAlQ8LlxFwM5ei8KjmtqKsphfSEYnEQigdSFJSyA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=EIdMxNJNu0rNgrRRSMr3TB1eDfknChL0UjUyktFNxuHT3TlPQO6au8hL2Ez2dlPPCqAtXKRMcWoZpOYsCsQFUqjQyRNcGQjNFjMF1KZ0butHxtFztQTEtKdrUSeA43yCmkeSviJ878NdUJS/vuqJKx7+X5oiCsS2dDAOEI9mvTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=novatek.com.tw; spf=pass smtp.mailfrom=novatek.com.tw; dkim=pass (1024-bit key) header.d=novatek.com.tw header.i=@novatek.com.tw header.b=vIJhoSjG; arc=none smtp.client-ip=210.202.87.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=novatek.com.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=novatek.com.tw
+	s=arc-20240116; t=1785493832; c=relaxed/simple;
+	bh=uVmergoTWylFr2Uw2vAI4u8rIXft244541362EoLcKg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ROUz0RK2hI61fz2MSpFzG5AauUJjjqYxJvTgEk0jwv5plDdani0840Nt7R7Iin7u8Te9R4M2Lqvb1psR2/pktY3rEb+DsM+dig89KkIgazv4xXfaFInfpTVZ5f9jmES857p7a+JdO8/mmeIxIpdXbb6ZlR/l0VkkoiZrLbgsWaY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T5FYpbxl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=novatek.com.tw header.i=@novatek.com.tw header.b="vIJhoSjG"
-X-UUID: 12b9902c8cca11f181a149c3f3c08161-20260731
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=novatek.com.tw; s=dk;
-	h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From; bh=CDhyAlQ8LlxFwM5ei8KjmtqKsphfSEYnEQigdSFJSyA=;
-	b=vIJhoSjGTOrCKew+ztRyupSX309Tj+Pme23kS0c+JYvnKfwww7WzdgEaBGWIgi2V4uoNQgpMPS0H57z9KhWvHZUbyzEqx8qRkawfZnYt9a1DYmEXZC+tDRhSu9ae7r1yKTHJ5R+dXSOd4B+bVgwbGPtFR6lxEptZ7aGR0sJbutw=;
-X-UUID: 12b9902c8cca11f181a149c3f3c08161-20260731
-Received: from spmgt1 [(172.20.13.10)] by ms1.novatek.com.tw
-	(envelope-from <sp_isw1_at@novatek.com.tw>)
-	(Generic MTA)
-	with ESMTP id 424491802; Fri, 31 Jul 2026 18:24:55 +0800
-Received: from oabuild50.novatek.com.tw (oabuild50.novatek.com.tw [172.20.13.160])
-	by spmgt1 (Postfix) with ESMTP id 0D46A1A1E1C;
-	Fri, 31 Jul 2026 18:24:55 +0800 (CST)
-Received: by oabuild50.novatek.com.tw (Postfix, from userid 1005)
-	id E201BC600CF; Fri, 31 Jul 2026 18:24:54 +0800 (CST)
-From: nina_kuo@novatek.com.tw
-To: krzk@kernel.org
-Cc: andi.shyti@kernel.org,
-	ben_huang@novatek.com.tw,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	krzk+dt@kernel.org,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	robh@kernel.org,
-	shihpei_hsu@novatek.com.tw,
-	toby_chui@novatek.com.tw,
-	Ben Huang <Ben_Huang@novatek.com.tw>
-Subject: Re: [PATCH v4 1/3] dt-bindings: i2c: Add Novatek NT72676 I2C controller
-Date: Fri, 31 Jul 2026 18:24:27 +0800
-Message-Id: <20260731102426.600500-1-nina_kuo@novatek.com.tw>
-X-Mailer: git-send-email 2.26.1
-In-Reply-To: <a59c01f3-e930-41b6-bf6a-3cce92f301e6@kernel.org>
-References: <a59c01f3-e930-41b6-bf6a-3cce92f301e6@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T5FYpbxl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABB581F00A3A;
+	Fri, 31 Jul 2026 10:30:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785493819;
+	bh=6cMgcqCGqjp50nWT3F/7rUXq2znbQG+0MwA8SBTXNQo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=T5FYpbxlh4dj2JEaAcVltR84vy68F2CGJRzvMNeWRmR3Ltq+Sx7RGWEDy/cu3vX6b
+	 6hImdylkB5cslt1aWri2RIPAZU2rSt3zLYhi80bOiBoT0LW0cg+8swntuocLAWet7B
+	 v3J6YMP/U1hb0GUc/LujtU1le4SvnbzDj508xACh9Niw+7DUXkb3yHUysbakkzQsMd
+	 /9icsPlS3DduC+E9zH2RhgIbkI5QwFXDUIsuo/Mvu4qOPT2OAOnOROBBu3hR4dm5gS
+	 O92dp9IYZ1vtIYKCdNtdcDK2hdTTJpS0G5MMrui//LuCZpvqoUx4dBisGHDo8UBTUT
+	 iDNXpJG1lPmaw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/3] regulator: pfuze100: add set_suspend_disable for
+ LDO ops
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Joy Zou" <joy.zou@oss.nxp.com>
+Cc: imx@lists.linux.dev, robh@kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260731-b4-regulator-pf01-v2-2-a406c8737fdb@oss.nxp.com>
+References: <20260731-b4-regulator-pf01-v2-0-a406c8737fdb@oss.nxp.com>
+ <20260731-b4-regulator-pf01-v2-2-a406c8737fdb@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 31 Jul 2026 10:30:18 +0000
+Message-Id: <20260731103018.ABB581F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Ben Huang <Ben_Huang@novatek.com.tw>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The callback `pfuze100_ldo_set_suspend_disable` does not explici=
+tly clear the Low Power mode bit (`VGENxLPWR`), relying on the fragile assu=
+mption that the bootloader left it at its reset value of 0. If it is 1, the=
+ LDO enters low-power mode instead of powering off.
+--
 
-On Friday, July 31, 2026 6:18 PM, Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> Driver is irrelevant here.
+--- Patch [2]: [PATCH v2 2/3] regulator: pfuze100: add set_suspend_disable =
+for LDO ops ---
+commit b5ef15eff59cfdbe79ee9305f34ea04f79252ea1
+Author: Joy Zou <joy.zou@oss.nxp.com>
 
-Understood.
-The clock property will be added in DT binding for the next iteration.
+regulator: pfuze100: add set_suspend_disable for LDO ops
 
-Thank you very much!
+This commit adds a set_suspend_disable callback to pfuze100_ldo_regulator_o=
+ps.
+This supports the regulator-off-in-suspend DTS property for the VGEN LDO
+regulators, allowing unused LDO regulators to be properly disabled during
+system suspend.
 
-Sincerely,
-Ben Huang
+> diff --git a/drivers/regulator/pfuze100-regulator.c b/drivers/regulator/p=
+fuze100-regulator.c
+> index 7d56c22b5e400..d3a0e25055248 100644
+> --- a/drivers/regulator/pfuze100-regulator.c
+> +++ b/drivers/regulator/pfuze100-regulator.c
+
+[ ... ]
+
+> @@ -158,6 +158,25 @@ static int pfuze100_set_ramp_delay(struct regulator_=
+dev *rdev, int ramp_delay)
+>  	return ret;
+>  }
+> =20
+> +static int pfuze100_ldo_set_suspend_disable(struct regulator_dev *rdev)
+> +{
+> +	struct pfuze_chip *pfuze100 =3D rdev_get_drvdata(rdev);
+> +	int id =3D rdev_get_id(rdev);
+> +	struct pfuze_regulator *desc =3D &pfuze100->regulator_descs[id];
+> +
+> +	/*
+> +	 * Set the standby bit so the LDO output is turned off when the PMIC
+> +	 * receives a STANDBY event, using the per-regulator stby_reg/stby_mask
+> +	 * that describe the standby control for each LDO.
+> +	 *
+> +	 * The stby_mask only covers the VGENxSTBY bit. The VGENxLPWR stays at
+> +	 * its reset value of 0, so the LDO is switched off rather than put
+> +	 * into low-power mode.
+> +	 */
+> +	return regmap_update_bits(pfuze100->regmap, desc->stby_reg,
+> +				  desc->stby_mask, desc->stby_mask);
+
+[Severity: Medium]
+Will this sequence reliably turn off the regulator if the bootloader has
+previously set the VGENxLPWR bit to 1?
+
+Since this only updates the VGENxSTBY bit defined in stby_mask, it relies on
+the VGENxLPWR bit remaining at its reset value of 0.
+
+If the bootloader modified this bit, does the LDO enter low-power mode
+instead of completely powering off during system suspend?
+
+Could the VGENxLPWR bit be explicitly cleared here to guarantee the regulat=
+or
+turns off, similar to how it is handled in pfuze_power_off_prepare()?
+
+> +}
+> +
+>  static const struct regulator_ops pfuze100_ldo_regulator_ops =3D {
+>  	.enable =3D regulator_enable_regmap,
+>  	.disable =3D regulator_disable_regmap,
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-b4-regulat=
+or-pf01-v2-0-a406c8737fdb@oss.nxp.com?part=3D2
