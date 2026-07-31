@@ -1,76 +1,76 @@
-Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com [209.85.160.50])
+Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com [209.85.160.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7773442FAA
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 17:46:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8818840A94A
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 17:47:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785519978; cv=none; b=HUuHttkzA/yfD9rBF+dVM46AjZSt5HMlG4X7oi/BnntMQWqa+FM1uk9+QpZTk2fqybJlSSXgz8WVSCbmc/TXYuf1AUQCFC2n4yQhIKmzQzF7LS6YJLMz8XAaQscNgA7ZnrDMw2iTYQP1RzXlfI11WEbXe4PeyMWhhRHbknmc2jc=
+	t=1785520081; cv=none; b=cM9TW/4ul2x8Ai3pKvF0RBLTtrTU9pXS9DV0aKI6z7B+RQ8yYO7LWJgRXPCPJcRcjKRsVKiTp7ia8RSiI7JwNjAI6y3zB/MqOSPCSAlqhF03IEkcxw4OKp7J0ANC0p4Qvu9ECKr1ysSDLZbV+v4cCfIX58SQynjOtbnMearIrdk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785519978; c=relaxed/simple;
-	bh=z6WTJdkFIeXrgFaezQL1WS00nRLmZJBKUbnxCznPukc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=B0bcdfC5G5X2GVPDQnEN1oomNuCj4E8bA9luH9BXh7EFT8KIjf4inG8MQSakwYSzapTLVZRjZ2CeBKPi7DnII9PUf4AyEZApuKrI3ma3t88ZNX9UO9HU8Eq+SNh7Q3zktwk8A0hB/g93SBnadp3Mxwb57R7WLOXOMDrRvFIb1CA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aBj+Dfyp; arc=none smtp.client-ip=209.85.160.50
+	s=arc-20240116; t=1785520081; c=relaxed/simple;
+	bh=0yNn6UCEpfxiasWFtsI4EcNwcryZJo4lBKG5Svutmh8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=jknN22dyaVvc3lFZhhuN6GdJ71vcYhOFLyDzuh91p+OXY9bhTt8u2jLAtUohumsBBP755nTR3/Fr5qscYBhhDOmnnFpW4HeDAeKHdpHhbNkoYBLDx7d/BPoe1DHGD7pROVNuigdrZeSZFBn8EWB9+KJHxqal8HJoijEvgv3II3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UtmjwvRR; arc=none smtp.client-ip=209.85.160.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aBj+Dfyp"
-Received: by mail-oa1-f50.google.com with SMTP id 586e51a60fabf-4563ac048f4so787308fac.0
-        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 10:46:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UtmjwvRR"
+Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-455ca262ccbso880789fac.1
+        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 10:47:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785519975; x=1786124775; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785520078; x=1786124878; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/7Xbtur0sVUBQodD8WJmY/6tMjdHBar4IEaj9jQofJo=;
-        b=aBj+DfypxklPrEhOs6kfBhCkLhmaLRItLHQjPSh9VRdZ6cJtxUeL0KXpwUg4Tb1rrB
-         XeFRjf8suFKvOt1WwmCWRyOJXrFYxTlzEh2zC+iQgyhKi8ZHhcEwRmpCiLOSqNopPgED
-         VhBPmTXNKSpOC+8EGMAbtbF0BkpO4dpw1dkxI7o4Z2Xw/cbZAcLMoCw/8FvnbG0ejweM
-         dj0+Ley2NTqnPYcv2KHBIYuluqj5DeFB3cQ9P/Rcz9eRZzDxfNAbfdJde8Rc8EUaHVWr
-         d0dQ5FhPKi8i2phXPl4hvknlpox1+0g3GvTHePkD+N3g70W/VSNqIWUP/KEhNqhC8AlA
-         zxgg==
+        bh=N+XQUCg6wdOzJjQ9gmJVOhDWO1BvviUjv32Kg81AE2k=;
+        b=UtmjwvRR8LdBz7N0kMvgX+0sCkqj/LASGn/vSjM4zLcpLwz8fC98Ox6oTFfaqKTZyd
+         WqLqg6tqukuLU+ESQIGllfW75q67A9gHd667yHAgCp20n196FCFHieuXudJ9gXSKIsTj
+         x4ZGwnBsMu4QBgprdxgninsxTbulmhOkMm9Z8MtUs/vINQVT5D9jYt1BqUbF+zR1wg5R
+         eCoiBqhxS27cidcnTwNF7vywkO3MvL6XU9nbF7QBhbNEahulhXWOy5VVhVUM3b54jt4x
+         ANHM3wrvEP5ZFdxDxOto0jVOLRDxqqGuefsNPTwTF3FErcmV30exfTR8EuXwDU6ToFZB
+         UnUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785519975; x=1786124775;
+        d=1e100.net; s=20251104; t=1785520078; x=1786124878;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/7Xbtur0sVUBQodD8WJmY/6tMjdHBar4IEaj9jQofJo=;
-        b=dK+XSAwUd4qRT+6niC14iDHzMsEz5EzYpDcMwO+VURdrIZL+QOV0P5ku8AV1hQeUcj
-         CfG8vkgMqn+zkVqTKv7FhtH7hCy1HzqwyMikUNhiYg9MLMVgGcHmEy7UGzlj5LSssXuJ
-         6XXD+SaRmYG8bghOXS5xJvNMaF4U5HqO1QIvQIc8DrsAgT4yVbbtQf/nkBJDD3ltsxnB
-         RD3oYnEl8vlW62w1IqC0Dl/IcY78ZEvU8j4LCOjfxtwfPcEIZ4KmMzRTP/hAp6EOax4y
-         hznaK2cFcy70oa+TtAuV6dcHNPTKJeYHfb38SdHoRVmdM1s8f5EMjz3634gAfH9rx4OM
-         rQOQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rp2XhxDByRM5C8pdCc/J2h9FxPFSX8XowDzxfs62xKxZYzFkCOGECIhcNig2M9a+3ts0McH6Q6N9Tyw@vger.kernel.org
-X-Gm-Message-State: AOJu0YzawwTh2Q8A//PLt6RFSdp6AuYSwobGs0nf9BvPq+m++CWNSStL
-	zQUK6a28o/eTnIu+PIW/FmuLO7sX97ILOO/rsYwVz9lHeQO7BHIp6sODgNOWya3hAjI=
-X-Gm-Gg: AR+sD10eLuzqBgobdhYhkrYNpOJtBNOaWECpevWqA0N5cZdR16ovyJC6Oji083QomYQ
-	1C8AUsDfOxM+g9b3YAn0iDXbyoXtn3WlR8H0eDdAh4UyH3hQFHOuNJJdCQtDMZcrPxxXAZD7Ali
-	5e+x5nSdK2FBEjXZt8Vk4fK5cRj/GUc4BBJCL5v/iblWAVj7X3IWjTxDT1oN7xbHr9qcoZ54lIK
-	iOeEEaVHp81Gp7j26Nme1hviXv2pi5XJn+jCHr6b1JHD55AVQjE4t3Q516bVO2U7WPyJex/RMaE
-	nEE9i3Eoz8MdbuKm7QZjE2w2eN3+MGqvTx0hwC7/OWTlb2gnVlLzyNUEiWJdAON8MwFr7Bu/DMN
-	tRWVj2CtQHh2vyoj+Cf4neubJ13HHEkFiFQT81p3iu5MemWk2FAxFVluWFEQvgoaDyWyOTRZryS
-	5e8l/Bet9xU+Fp5rtPS6jxhfWdkiVb5zyhG4GB2GcZaH2q5MMPgT/a5hRb8V2r/NxpuO69C1GqZ
-	Yq6MlU=
-X-Received: by 2002:a05:6808:1201:b0:496:1ca:e437 with SMTP id 5614622812f47-4af5e338314mr1392810b6e.12.1785519975540;
-        Fri, 31 Jul 2026 10:46:15 -0700 (PDT)
+        bh=N+XQUCg6wdOzJjQ9gmJVOhDWO1BvviUjv32Kg81AE2k=;
+        b=JbzqBNTTiNYQ0DviqNHi9bBf3/LG17RJAmctFNl05/MsQu7BAsEFTrcFow2P/pLJoD
+         MFkDyAbhWTR9MTzLnkK+x52b1S1Y4GawJOfbaiv3uyCfCABGWmh1NPhrUieC+xZlhWTo
+         HPFeILrAVVVT2ie+3y0luk/AW2NdaefIrhHZ/kNg9nBlzHjG9hAn8QKb1Ghj6GAALXOO
+         bIY8aOWrUwI0KE18IKaRMH1taImkZO79Td0TtuTMl/nJrC3vcZWY1j+GIiazIMOVZurD
+         ckAnAtwr5KLEBV2TaAQZv29BU1A7XLi8HR4NahPisfP8nUNNKJBi3ZeHKS5DlEPYAY5z
+         RILQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpuaJpi2OCjV2/p52pRyryYbeVv8ZYajlLv/yqmzjFkmscdNSpaAx4v4rGjAGWoxFrngSThX0TYIGkI@vger.kernel.org
+X-Gm-Message-State: AOJu0YwnL9vUMY/ytXp2Z3zBKwdc4fxYdbjLyQOj/Jl06mINzCz5PLVn
+	eFgwV61M6G0Qsk3sxiyAbb2DOlFsJjOXlcYfJcksIxryHX6A3V1ejQfL
+X-Gm-Gg: AR+sD13H6IqZY+aLZ6tqflHYtDkBCw8SW4dDnuuGt9qkuSMnZFRN5FNk+2j18/buVks
+	KhxYqSnGedIgL+ld0Aa36gvqO+4b7g1D8vPN+E4edzqJY6GjjVepdCwf3iRJdNKscAWMOd6csC6
+	kaMggAGQmvxZWUdr3U292whKhSTF0gSFVcRutZTu10xLONSpAQXyCQwo8ACFPdvIaiU9rR2eUWN
+	MqhbxV/ucuou5+LqzjFvcr0XoO4wN7dhpV4EuFWlOylukLTp8K3EAjxOKMLxKojI8A8NapkaznY
+	r2rRCfQ/w+PQX5ChZUi5pBcK0evMd6Ifbb0PlfBnPw/sQHqKjopfPbwopvSUo6h2v6fh530/lAK
+	eRVumX4IvPoMBMURjLTSeRJ1aE2a/bH2z31JJ+EY9lqvBpO1baXEtGc58vXsjyhS1GsKEkcLhuu
+	FAsMLbX5K1D/yGIC8DIpvVV7Cqm9en+FhtIYsbFPPlFW2q8D8knoEPGp2tIlP5DQsrf8nm1x3tN
+	Yt+CZpGZAnSHNcxbw==
+X-Received: by 2002:a05:6870:c228:b0:448:a3d6:c2d2 with SMTP id 586e51a60fabf-459059caa56mr2000761fac.10.1785520078354;
+        Fri, 31 Jul 2026 10:47:58 -0700 (PDT)
 Received: from inhnjlux1020.ls.ege.ds ([49.204.164.242])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4af58ce0a1bsm1156853b6e.2.2026.07.31.10.46.11
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-458f664d812sm1845122fac.9.2026.07.31.10.47.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 31 Jul 2026 10:46:15 -0700 (PDT)
+        Fri, 31 Jul 2026 10:47:58 -0700 (PDT)
 From: Udaya Kiran Challa <challauday369@gmail.com>
-To: linusw@kernel.org,
+To: tsbogend@alpha.franken.de,
 	robh@kernel.org,
 	krzk+dt@kernel.org,
 	conor+dt@kernel.org
 Cc: skhan@linuxfoundation.org,
 	me@brighamcampbell.com,
-	linux-gpio@vger.kernel.org,
+	linux-mips@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Udaya Kiran Challa <challauday369@gmail.com>
-Subject: [PATCH v5 1/2] dt-bindings: pinctrl: microchip,pic32mzda-pinctrl: Convert to DT schema
-Date: Fri, 31 Jul 2026 23:15:51 +0530
-Message-Id: <20260731174551.86367-1-challauday369@gmail.com>
+Subject: [PATCH v5 2/2] mips: dts: pic32: pic32mzda: Remove unused address-cells, size-cells property
+Date: Fri, 31 Jul 2026 23:17:51 +0530
+Message-Id: <20260731174751.86819-1-challauday369@gmail.com>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -80,233 +80,28 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Convert Microchip PIC32 Pin Controller devicetree binding
-from legacy text format to DT schema.
+The #address-cells and #size-cells properties are not strictly
+needed since the child nodes don't have reg properties
 
+Suggested-by: Rob Herring <robh@kernel.org>
 Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
 ---
-Changelog:
-Changes since v4:
-- Add reference to pincfg-node.yaml
+ arch/mips/boot/dts/pic32/pic32mzda.dtsi | 2 --
+ 1 file changed, 2 deletions(-)
 
-Link to v4:https://lore.kernel.org/all/20260722123243.341346-1-challauday369@gmail.com/
-
-Changes since v3:
-- Drop "|" from description fields
-- Remove '#address-cells' and '#size-cells' properties from the schema
-- Consolidate repeated pin-node property definitions into a single
-  $defs/pin-node entry
-- Replace the two patternProperties blocks with additionalProperties
-  using oneOf to allow either:
-  - container nodes holding nested pin configuration nodes, or
-  - direct pin configuration nodes.
-- Update $ref to use the absolute schema path
-  /schemas/pinctrl/pinmux-node.yaml#
-
-Link to v3:https://lore.kernel.org/all/20260719183431.124061-1-challauday369@gmail.com/
-
-Changes since v2:
-- Add container node for grouped pin configuration sub-nodes
-- Correct regex patterns of direct and nested child nodes
-- Fix interrupts values in uart2 example
-
-Link to v2:https://lore.kernel.org/all/20260707144223.120417-1-challauday369@gmail.com/
-
-Changes since v1:
-- Add interrupts and clocks to uart2 example to satisfy uart schema validation
-- Corect regex patterns to accept standard DT node naming conventions
-- Add function property to top-level pin configuration nodes
-- Remove restrictive enum from function property to support all mux functions
-
-Link to v1:https://lore.kernel.org/all/20260705132521.159522-1-challauday369@gmail.com/
----
- .../pinctrl/microchip,pic32-pinctrl.txt       |  60 ----------
- .../pinctrl/microchip,pic32mzda-pinctrl.yaml  | 109 ++++++++++++++++++
- 2 files changed, 109 insertions(+), 60 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/pinctrl/microchip,pic32-pinctrl.txt
- create mode 100644 Documentation/devicetree/bindings/pinctrl/microchip,pic32mzda-pinctrl.yaml
-
-diff --git a/Documentation/devicetree/bindings/pinctrl/microchip,pic32-pinctrl.txt b/Documentation/devicetree/bindings/pinctrl/microchip,pic32-pinctrl.txt
-deleted file mode 100644
-index 51efd2085113..000000000000
---- a/Documentation/devicetree/bindings/pinctrl/microchip,pic32-pinctrl.txt
-+++ /dev/null
-@@ -1,60 +0,0 @@
--* Microchip PIC32 Pin Controller
--
--Please refer to pinctrl-bindings.txt, ../gpio/gpio.txt, and
--../interrupt-controller/interrupts.txt for generic information regarding
--pin controller, GPIO, and interrupt bindings.
--
--PIC32 'pin configuration node' is a node of a group of pins which can be
--used for a specific device or function. This node represents configurations of
--pins, optional function, and optional mux related configuration.
--
--Required properties for pin controller node:
-- - compatible: "microchip,pic32mada-pinctrl"
-- - reg: Address range of the pinctrl registers.
-- - clocks: Clock specifier (see clock bindings for details)
--
--Required properties for pin configuration sub-nodes:
-- - pins: List of pins to which the configuration applies.
--
--Optional properties for pin configuration sub-nodes:
------------------------------------------------------
-- - function: Mux function for the specified pins.
-- - bias-pull-up: Enable weak pull-up.
-- - bias-pull-down: Enable weak pull-down.
-- - input-enable: Set the pin as an input.
-- - output-low: Set the pin as an output level low.
-- - output-high: Set the pin as an output level high.
-- - microchip,digital: Enable digital I/O.
-- - microchip,analog: Enable analog I/O.
--
--Example:
--
--pic32_pinctrl: pinctrl@1f801400{
--	#address-cells = <1>;
--	#size-cells = <1>;
--	compatible = "microchip,pic32mzda-pinctrl";
--	reg = <0x1f801400 0x400>;
--	clocks = <&rootclk PB1CLK>;
--
--	pinctrl_uart2: pinctrl_uart2 {
--		uart2-tx {
--			pins = "G9";
--			function = "U2TX";
--			microchip,digital;
--			output-low;
--		};
--		uart2-rx {
--			pins = "B0";
--			function = "U2RX";
--			microchip,digital;
--			input-enable;
--		};
--	};
--};
--
--uart2: serial@1f822200 {
--	compatible = "microchip,pic32mzda-uart";
--	reg = <0x1f822200 0x50>;
--	pinctrl-names = "default";
--	pinctrl-0 = <&pinctrl_uart2>;
--};
-diff --git a/Documentation/devicetree/bindings/pinctrl/microchip,pic32mzda-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/microchip,pic32mzda-pinctrl.yaml
-new file mode 100644
-index 000000000000..dcaa87d9a30b
---- /dev/null
-+++ b/Documentation/devicetree/bindings/pinctrl/microchip,pic32mzda-pinctrl.yaml
-@@ -0,0 +1,109 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/pinctrl/microchip,pic32mzda-pinctrl.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Microchip PIC32 Pin Controller
-+
-+maintainers:
-+  - Linus Walleij <linusw@kernel.org>
-+
-+description:
-+  PIC32 pin configuration node is a node of a group of pins which can be used
-+  for a specific device or function. This node represents configurations of
-+  pins, optional function, and optional mux related configuration.
-+
-+properties:
-+  compatible:
-+    const: microchip,pic32mzda-pinctrl
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+$defs:
-+  pin-node:
-+    type: object
-+    allOf:
-+      - $ref: /schemas/pinctrl/pincfg-node.yaml#
-+      - $ref: /schemas/pinctrl/pinmux-node.yaml#
-+
-+    properties:
-+      pins:
-+        description: List of pins to which the configuration applies.
-+        items:
-+          type: string
-+        minItems: 1
-+
-+      function: true
-+
-+      bias-pull-up: true
-+      bias-pull-down: true
-+      input-enable: true
-+      output-low: true
-+      output-high: true
-+
-+      microchip,digital:
-+        description: Enable digital I/O.
-+        type: boolean
-+
-+      microchip,analog:
-+        description: Enable analog I/O.
-+        type: boolean
-+
-+    required:
-+      - pins
-+
-+    unevaluatedProperties: false
-+
-+additionalProperties:
-+  oneOf:
-+    - additionalProperties:
-+        $ref: '#/$defs/pin-node'
-+    - $ref: '#/$defs/pin-node'
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/microchip,pic32-clock.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    pic32_pinctrl: pinctrl@1f801400 {
-+        compatible = "microchip,pic32mzda-pinctrl";
-+        reg = <0x1f801400 0x400>;
-+        clocks = <&rootclk PB1CLK>;
-+
-+        pinctrl_uart2: pinctrl_uart2 {
-+            uart2-tx {
-+                pins = "G9";
-+                function = "U2TX";
-+                microchip,digital;
-+                output-low;
-+            };
-+
-+            uart2-rx {
-+                pins = "B0";
-+                function = "U2RX";
-+                microchip,digital;
-+                input-enable;
-+            };
-+        };
-+    };
-+
-+    uart2: serial@1f822200 {
-+        compatible = "microchip,pic32mzda-uart";
-+        reg = <0x1f822200 0x50>;
-+        interrupts = <145 IRQ_TYPE_LEVEL_HIGH>,
-+                     <146 IRQ_TYPE_LEVEL_HIGH>,
-+                     <147 IRQ_TYPE_LEVEL_HIGH>;
-+        clocks = <&rootclk PB2CLK>;
-+        pinctrl-names = "default";
-+        pinctrl-0 = <&pinctrl_uart2>;
-+    };
+diff --git a/arch/mips/boot/dts/pic32/pic32mzda.dtsi b/arch/mips/boot/dts/pic32/pic32mzda.dtsi
+index feca35ba56a4..433dff3cf14f 100644
+--- a/arch/mips/boot/dts/pic32/pic32mzda.dtsi
++++ b/arch/mips/boot/dts/pic32/pic32mzda.dtsi
+@@ -76,8 +76,6 @@ evic: interrupt-controller@1f810000 {
+ 	};
+ 
+ 	pic32_pinctrl: pinctrl@1f801400 {
+-		#address-cells = <1>;
+-		#size-cells = <1>;
+ 		compatible = "microchip,pic32mzda-pinctrl";
+ 		reg = <0x1f801400 0x400>;
+ 		clocks = <&rootclk PB1CLK>;
 -- 
 2.34.1
 
