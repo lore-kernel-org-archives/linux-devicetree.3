@@ -1,129 +1,137 @@
-Received: from flow-b6-smtp.messagingengine.com (flow-b6-smtp.messagingengine.com [202.12.124.141])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB07B41CB5E;
-	Fri, 31 Jul 2026 10:45:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E4B74119F4
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 10:49:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785494739; cv=none; b=kEcfhl0PULzuNN7ovWLrvVRnUXDPWZJlhlfZu9EC2oIpk+iXKw8HKW9XwJE3Zrjhijss2RNEyRJ9D8Q7Vjf0KdLFAtADqqElNhtYWuAwdXhuLJgIKFawOo8IBRYpaooMwbuUZWgfe6h16yHfkGuSgiQV+DYkv5DFBgNqpus9MC0=
+	t=1785494953; cv=none; b=BrM2sx8HGXSB8v0wju0RT1DsNttc3FiLMiMwM5CjcKOL+U20xSYCfhA6mnXBihbSOTM7hRvnct8Hpa/A8LRt18z/3Q5A2IXb1C2HpOkyOkoib4qOD/+tZUdDGb3U1uEISMblZvR8Qtk7QPHiFDgSTrX+SB6CsPhskm2kS5GmWak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785494739; c=relaxed/simple;
-	bh=+kbXW/8CiVNgQ583Y+L3XXnyC+DLZttFI2fL4zNLjCo=;
-	h=Date:Message-Id:To:Cc:Subject:From:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=Mb632eQSp+6fp0yjn1QXr5TIB+REBiPtPVHLGnpiT1qyWPENKoEQYUZNzRb0pDH8vU3CZbeRAEbhjNFyjfyc2pAe3kMc4xYn56nGw5fPQEDb7RlLuNVx4cQP4aZGS/3XWk43ONfYAZOksd27EkSIxafVfUv4nIPkmWno+Pe9zFM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org; spf=pass smtp.mailfrom=flapping.org; dkim=pass (2048-bit key) header.d=flapping.org header.i=@flapping.org header.b=ONehS35z; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=XGVbakgg; arc=none smtp.client-ip=202.12.124.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flapping.org
+	s=arc-20240116; t=1785494953; c=relaxed/simple;
+	bh=jIwUgujFOLxiUPExPARVN//gOzynpnYFjr1JQeEBRQg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=AeTk8arHc10Cudzf4aXMIEK4aLeuInUUtFH444SYw8mfnEPm6cVAEPuSHBCc4teMVxzRmBeprUQLYJE+2QERV7idUeInN5y0GclM9X6U5pwdl+wWC5BbxMmtWAYQ1BsfqSUzhWC48vfxyqon6b7aQaFJ6ZohvVdvqh0gwnMt2Fc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZAbB2ou/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flapping.org header.i=@flapping.org header.b="ONehS35z";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="XGVbakgg"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailflow.stl.internal (Postfix) with ESMTP id 8440F13000DE;
-	Fri, 31 Jul 2026 06:45:22 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Fri, 31 Jul 2026 06:45:23 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flapping.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1785494722;
-	 x=1785498322; bh=9cYRjbKynmrdZ6ZOmjPzFzuKEmKJ7o6czSt4sOVcJu0=; b=
-	ONehS35z/NuNbZaHLGNCl+zUbNYQieVo3LvwKS2He3tXuvDALIjKgf2mHpgi5Rbt
-	nK3Y2WDr6boesSgVxRkeScN/0UqJmsg8D/ajYDwnJSMMdMxf1dbwjSAjaMbx4C0T
-	k/mAMltdhQo3iCZL8fdopraAlJzj5+dkAKn22eKLAWIq7FIJhf8yZjBfNmquoT0b
-	V09BLQIC/NJ8uUDGPcGPXp3JgNm/G6166yKOiv703HIhHZDJu08NdS27LXVhJ+ct
-	qjjfPY+dcPwDOZ1XTFzzCs9jE+22SLAR2HfR+/e1fgRYoR4EnIe0+6MEDoFNdMrH
-	BDEEbyKrAeWczqJAYFZ3Pg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1785494722; x=
-	1785498322; bh=9cYRjbKynmrdZ6ZOmjPzFzuKEmKJ7o6czSt4sOVcJu0=; b=X
-	GVbakggSPLxEevBHEbNFNOQ4fjcQiha6yuDzeKjOeHdC7Sr+jkACWTO85OvAAfzT
-	NAk3a8Qc6aQSOSWiyLDlOfnnc1jYruJ/lcquYFXWMlExVIZJWU0hsYpF3lQ5xWQE
-	q5+aR1Cq+fd5fRypRwsQiWXSihZTOdCdKFlvqZ8flJ44KXWtlQQKGc4EdPNr84+X
-	B1dYLN2Lk175ydXKrrC1RqSpQQHhwmaH0wlflk75r0CPX7LZ1xUHjVylhvSRLMwR
-	MVSPFGTfjte/x42ggkLY+yFeRpXo1vfLBc9NhWfM5F6zkQ2moW98V/aXsrU9sa2L
-	XDBRNyQEDmSUGaIZfmYLg==
-X-ME-Sender: <xms:wXxsavqS9NXSdZwLIbjTuGTsn3GGyYSvXMvchKYz8pbQMe4oB0bIkw>
-    <xme:wXxsaj0vjQ8OVTgRre8XjOzcaHURdJhgE0VbcS_E8B_yq1jnMvqih0fYYRcOI3n6u
-    YX3sxUsB97xLsrc0RPXRPBjrK0sjQeJYcmLX8S08BDMNX229paPalO0>
-X-ME-Received: <xmr:wXxsag0JrHIp23tbfQcNF8wWp9xYfCG9UqOAYNIrgXuj2piKN_oHonBW1kN_xGTOIQqTZHn7ZX_7vERFBEHRr28o>
-X-ME-Proxy-Cause: dmFkZTESiYr64BfODGRGPxARRYeKhSgda2bNED5mgnDDVRjzB/sHQAz8QPP74HyW+BeHzE
-    GOSDzxGIQ5lNwHDJMdTOfhQyDL6oLccVwDnPlSVY3RQPV6w0eqxndBDI72OaT/IQWEfZIZ
-    DgX8bp/QOYX4jUwYTX9SycpbLYA29cpSUNxd0sd8897NhsFyBBfKV0JGMLwt2LLSkewFmM
-    z1nB1cDeod8Qbs4I0h4ydQA75LjqZaj2xFg8SALv4KssNLLrtPIZeMWYyc8IHKvkGwQVjn
-    2oc6L2wSy8ixq83mQk3/c8amyXviL0Ydf2VqWh1X0SrRo+NliZU/aZrW6gnx6JrGuV4nht
-    ChzoU4J70ojSSkDfdwfmesqq8xnGusLFp08gp5YoUIT9gD+HmWUWnQYCMJWw5qSuCwpI09
-    23BIvYrgPptd3W60UNyf4bo+x0+dhn/5OJtm16HPfFEdFMkLnUDsapXqJ8O0cxCoCaYLnV
-    82wxzPdF7ygva8dWVYy90jfDoDJptOPzmmk0hPyB4zTJR+smoSPY/CvouZDb7m1AkndN6D
-    u0RD4OAlEIQwiSYbsSomKG4BedEMc7dlsFNY98xi39XaKzPHLWhD+kb9x9YclgI7VrjLQb
-    AllVK6JFGErSnUSnTO3OouUxocCHFG9a5DIYJRV1KBzxVtvNKqtPNA+IP0tQ
-X-ME-Proxy: <xmx:wXxsajcRuwaAHqDvuj2cCXYdePEZ3pI_iZdo_az4JBVv57fVOpzfHg>
-    <xmx:wXxsajIECSGcr3g-dwRrtQ_glJu60iBHbLq1nWfui3wDHi5G-b0riw>
-    <xmx:wXxsaua-kny0ZAfBqv1NsbhiC02tGvPa1pkoJYH6L3Y7TWY9ha3MYQ>
-    <xmx:wXxsagZrDShaAUf7ahxGOxIrPNjn3JLlfNhjII3IVa7idYXyE2wc_w>
-    <xmx:wnxsajC42RPpL2VPiHvHr2JOxhX6PuDYsyJa2YVO9m68CfbHvN5A3qKj>
-Feedback-ID: i51fe4b43:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 31 Jul 2026 06:45:12 -0400 (EDT)
-Date: Fri, 31 Jul 2026 19:45:09 +0900 (JST)
-Message-Id: <20260731.194509.1672759045396477102.tomo@flapping.org>
-To: dakr@kernel.org
-Cc: gary@garyguo.net, fujita.tomonori@gmail.com, gregkh@linuxfoundation.org,
- rafael@kernel.org, ojeda@kernel.org, boqun@kernel.org,
- bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
- aliceryhl@google.com, tmgross@umich.edu, daniel.almeida@collabora.com,
- tamird@kernel.org, acourbot@nvidia.com, work@onurozkan.dev,
- airlied@gmail.com, simona@ffwll.ch, bhelgaas@google.com,
- kwilczynski@kernel.org, abdiel.janulgue@gmail.com, robin.murphy@arm.com,
- david.m.ertman@intel.com, iweiny@kernel.org, leon@kernel.org,
- lenb@kernel.org, igor.korotin@linux.dev, robh@kernel.org,
- saravanak@kernel.org, viresh.kumar@linaro.org, m.wilczynski@samsung.com,
- fustini@kernel.org, guoren@kernel.org, wefu@redhat.com,
- ukleinek@kernel.org, driver-core@lists.linux.dev,
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org,
- linux-acpi@vger.kernel.org, devicetree@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-pwm@vger.kernel.org,
- linux-usb@vger.kernel.org
-Subject: Re: [PATCH v2 05/11] rust: net/phy: remove expansion from doc
-From: FUJITA Tomonori <tomo@flapping.org>
-In-Reply-To: <DKC7J1TB8TZN.1LT1GJ0WP9LR0@kernel.org>
-References: <20260629-id_info-v2-0-56fccbe9c5ef@garyguo.net>
-	<20260629-id_info-v2-5-56fccbe9c5ef@garyguo.net>
-	<DKC7J1TB8TZN.1LT1GJ0WP9LR0@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZAbB2ou/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 098D11F000E9;
+	Fri, 31 Jul 2026 10:49:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785494943;
+	bh=yZBFbHq/UJhnvBqMciznh3+YDSK75R5gU7J7Wppfqds=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZAbB2ou/sf3Fz6iHdbcvCmMy7eTiZ2jQqUU0f05NYT13+bvEntNaZ1nBw/UkmGjXG
+	 d/fM0P1w2F2vbxGR+T66VLtzrdM/ATodC3Gu8FOGEm15zEGTGMfY5oK6vwEHTRQ4mr
+	 X0p8X4JFynT2g0BtY935saEn735WIsbGJNpcCsvpiKeaRknHQgrHWOjQVq/FwwJYkT
+	 Cy68DQmXW18HDKPC0jCl/nbT+Q/lLwAzW2ZZsI0/0yRgvRJt2J9bt+Qim4twNuQTvo
+	 7BzvzAOtxvGE+E4K9QWtAvVA11yq/UZgCLMy9LXTfHX1nB7lBPeGHvAlcsXEdO5GKv
+	 8YD+nUQskCH/Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 3/9] remoteproc: qcom: pas: add support for TMD
+ thermal cooling devices
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Gaurav Kohli" <gaurav.kohli@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260731-b4-qmi-tmd-v7-3-3befd44403d5@oss.qualcomm.com>
+References: <20260731-b4-qmi-tmd-v7-0-3befd44403d5@oss.qualcomm.com>
+ <20260731-b4-qmi-tmd-v7-3-3befd44403d5@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 31 Jul 2026 10:49:02 +0000
+Message-Id: <20260731104903.098D11F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: Text/Plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
 
-On Thu, 30 Jul 2026 23:01:18 +0200
-"Danilo Krummrich" <dakr@kernel.org> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] TOCTOU race in qmi_tmd_register and disconnected state desynchroni=
+zation.
+--
 
-> On Mon Jun 29, 2026 at 2:39 PM CEST, Gary Guo wrote:
->> The expansion serves little purpose and it can easily diverge.
->>
->> Signed-off-by: Gary Guo <gary@garyguo.net>
-> 
-> I did not pick this one up, as it is not necessarily needed by this series.
-> 
-> However, I agree with the intend and I think it did diverge already before this
-> series.
-> 
-> FUJITA, please consider to pick this one up, or let me know if you want me to
-> take it.
+--- Patch [3]: [PATCH v7 3/9] remoteproc: qcom: pas: add support for TMD th=
+ermal cooling devices ---
+commit 89eed46353741313ceea667539ac871767ff067e
+Author: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
 
-net/phy changes normally go through netdev, but this one just removes
-documentation that is already obsolete, so I think taking it via
-driver-core as part of this series is the least work for everyone.
+remoteproc: qcom: pas: add support for TMD thermal cooling devices
 
-So please take it with the series, unless the netdev folks object.
+This commit registers Thermal Mitigation Devices (TMDs) for PAS-managed
+remote processors to enable thermal throttling through QMI. It allows the
+thermal framework to request mitigation when remote subsystems such as modem
+and CDSP contribute to thermal pressure.
 
-Thanks,
+> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom=
+_q6v5_pas.c
+> index 25599d7282083..b9c01ce5024ed 100644
+> --- a/drivers/remoteproc/qcom_q6v5_pas.c
+> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
+[ ... ]
+> @@ -798,6 +817,64 @@ static void qcom_pas_unassign_memory_region(struct q=
+com_pas *pas)
+>  	}
+>  }
+> =20
+> +static int qcom_pas_setup_tmd(struct qcom_pas *pas, const struct qcom_pa=
+s_data *desc)
+> +{
+[ ... ]
+> +	tmd_inst =3D qmi_tmd_init(pas->dev, desc->tmd_instance_id, tmd_names,
+> +				desc->num_tmd);
+
+[Severity: High]
+Does this expose a TOCTOU race condition and state desynchronization in the
+underlying QMI TMD driver?
+
+Looking at qmi_tmd_register() in drivers/soc/qcom/qmi_tmd.c, tmd->cur_state
+is read locklessly before invoking qmi_tmd_send_state_request():
+
+drivers/soc/qcom/qmi_tmd.c:qmi_tmd_register() {
+	...
+	if (tmd->cdev)
+		return qmi_tmd_send_state_request(tmd, tmd->cur_state);
+	...
+}
+
+A concurrent call to qmi_tmd_set_cur_state() by the thermal core can execute
+between this read and the QMI request, meaning the workqueue could send the
+old state to the hardware and overwrite the thermal core's newly requested
+state.
+
+Additionally, when qmi_tmd_send_state_request() is called while the
+connection is not active (e.g., during a remote subsystem restart), it
+returns 0 without updating the state:
+
+drivers/soc/qcom/qmi_tmd.c:qmi_tmd_send_state_request() {
+	guard(mutex)(&qmi_tmd_cli->mutex);
+
+	if (!qmi_tmd_cli->connection_active)
+		return 0;
+	...
+}
+
+The thermal core assumes the update was successful, but the old state is
+retained. When the connection is restored, qmi_tmd_register() restores the
+old state, permanently dropping the thermal core's requested state.
+
+Can this cause the thermal core and the remote hardware mitigation state to
+become permanently desynchronized?
+
+> +	if (IS_ERR(tmd_inst)) {
+> +		ret =3D PTR_ERR(tmd_inst);
+> +		if (ret =3D=3D -ENODEV)
+> +			return 0;
+> +
+> +		return ret;
+> +	}
+> +
+> +	pas->tmd_inst =3D tmd_inst;
+> +
+> +	return 0;
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-b4-qmi-tmd=
+-v7-0-3befd44403d5@oss.qualcomm.com?part=3D3
