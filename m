@@ -1,47 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBC2E2BCF4C;
-	Fri, 31 Jul 2026 03:23:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 894A1353A7E;
+	Fri, 31 Jul 2026 03:23:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785468238; cv=none; b=kvpNK7uZfPVrisbWUx02Z7dHN9qO6kMTWkl5Jb7hluACmAXxDt503tzw/VtDv0US+0avqfRkDPxrRpdKZzVAW8XUFie7wJqF5kOn5Egg+MCNzvyLAmTcrm7J0Mh55b/HRxyrGHKYfevMlIQxXA7hH4C6Uh+mbkV8lZrmgo3PUyE=
+	t=1785468240; cv=none; b=gaevg1oXBdbBmrk80PWFXSaktvDLA7Lw47IfHWCCD22jzfCgxcS5m6AyWpRxbyjLj6wByq5DDLcT63xCxE8dM3tqHhvFkNlaq4BMpLqT1je//R16izMfKFLFEw/hL//usKik3JPQ/tpOg5waJ1UQk8D+a31xuCPDEdVtRcEA4cY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785468238; c=relaxed/simple;
-	bh=A308PpICQ+54/LFb+BM2iQmP05Y//8MrL4Tz+p8d6F0=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=k19OaLTfxDKlJZzehiCOXcYCZzeSfuOxM0iuDRwXEcPhqJx6cD1GpBGhk/7PjpEP1uNL8FQMamwX8svz8FOa+71PSOx8QwuKmJHIC93RHHEVcqiyNIXdZm/qaNyoCk7sC2e/GN2/DKQQQtYpkzeulMFB8hiGPWYKVRBMBX+esWU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZqqcRCnb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785468240; c=relaxed/simple;
+	bh=1UWE9ioJCWGP+i2XsZfSXLizGHck6Ck5D651kBihC70=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KV4YzzF/LvZrrprhYX/Mj5v4cNd8hj9cQ3UpgFxURoFA5T6yb+DSbAuAVlna+ceew0iJjVNNGk9CO+nkulsxAfvO7wG/gUX7ODjQX6g4ugxoUJgtGgH0TvI4FxuZGJwCMDeQ8z3KRunoSv6RbFH3mEEoTJZCW6L43Bbm5HqNiTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eK7m+x5s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZqqcRCnb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0349F1F00A3A;
-	Fri, 31 Jul 2026 03:23:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eK7m+x5s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A8261F00A3E;
+	Fri, 31 Jul 2026 03:23:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785468237;
-	bh=Hs0lPEJppu6pKgczF2HxrjvHLyHsVZn9IWdTmrUvyss=;
-	h=From:To:Subject:Date:In-Reply-To:References;
-	b=ZqqcRCnbms4xSCnTHZk+3xJKtd/EXGa0XixXAVpz7vDk6nsONVoQ3W7r2eF2CENwy
-	 vnAkxaF0bMmtgVdzcQk6m07vtnOJLqHAp37m2EIJ4OKU5tODB4Bt28c6mNe8pwdUUX
-	 QHSmRKPLRRpNwZRYMPqEabsFtbFB4i24QhT5UAb+gMVRo9XKnmQImX5f3Ue3TYBsvp
-	 twcQY8q5usNkOpS5Pow7gXdInJ2kxn7RXyE7VofVvGKNVfgkh4DG1IFLkAb4/O1Z0/
-	 MegGxyjrmtbXsRvuaK9W/yDxtE8DY7AJ4+ru1/v7p9M6rmNOYNPPptQN6D9IhZGtdk
-	 uCoxmLQ+HO7gQ==
+	s=k20260515; t=1785468239;
+	bh=ZWNkMrli2LzyarLKyk+vpxDKWzTUTEwAce2K0maUavk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=eK7m+x5s6z16RrZhne4mQzgF7hFqVx+oXJ8jXahZYDnxjcJGbd1iD1iwAe3p3cMoD
+	 TlkMufoDnsmcbHsWI/Z69h31JV3AAk7h2CSfcvq7+46gRWBzZqHvDEDt1m6niVVUXy
+	 8bRt2pSUAKCW1ZpHMD8I8xqgyHbIoXXqNUImZ9r2t17JUPTaJEQhTLetg1OLhVabCv
+	 Q7oDZykVoL8l/ljisWWAQ5xUWYIf2cyHwcvOw+Gy2AiRLJpiZuTCdXg2Em8439SROC
+	 rQ/ehEFLr1YZ26/62n6kW2UQRhD01dVY27UQXFq4HIGMHoxAAhLfoZ3l5d+OX8w1vd
+	 b8uvh1TgYkSyw==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Andy Gross <agross@kernel.org>,
+	Robert Marko <robimarko@gmail.com>,
+	Guru Das Srinagesh <linux@gurudas.dev>,
+	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: cros-qcom-dts-watchers@chromium.org,
 	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v2] dt-bindings: soc: qcom,wcnss: Drop redundant $ref of firmware-name property
-Date: Thu, 30 Jul 2026 22:23:44 -0500
-Message-ID: <178546821238.316167.2806379161870951045.b4-ty@kernel.org>
+	linux-kernel@vger.kernel.org
+Subject: Re: (subset) [PATCH v4 00/19] firmware: qcom: scm: Add minidump SRAM destination support
+Date: Thu, 30 Jul 2026 22:23:46 -0500
+Message-ID: <178546821260.316167.9201924841087925172.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260712162212.184592-2-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260712162212.184592-2-krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260624190830.3131112-1-mukesh.ojha@oss.qualcomm.com>
+References: <20260624190830.3131112-1-mukesh.ojha@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,18 +54,21 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Sun, 12 Jul 2026 18:22:13 +0200, Krzysztof Kozlowski wrote:
-> The DT schema core defines the type ($ref) of 'firmware-name' property
-> as string-array, so individual schemas do not need to.  They also should
-> not redefine it to a single string, but instead just set number of
-> expected firmware names.
+On Thu, 25 Jun 2026 00:38:11 +0530, Mukesh Ojha wrote:
+> On most Qualcomm SoCs where minidump is supported, a word in
+> always-on SRAM is shared between the operating system (OS) and
+> boot firmware.  Before DDR is initialised on the warm reset
+> following a crash, firmware reads this word to decide if minidump
+> is enabled and collect a minidump and where to deliver it:
+> destination (USB upload to a host, or save to local storage) and
+> OS is expected to select one destination.
 > 
-> 
+> [...]
 
 Applied, thanks!
 
-[1/1] dt-bindings: soc: qcom,wcnss: Drop redundant $ref of firmware-name property
-      commit: 3fd6a04e5bf863a8c02c150d584f42c7b9ae5f8c
+[02/19] dt-bindings: sram: qcom,imem: Add minidump-sram pattern property
+        commit: a20f7b1fe71167b34b77b748eed6a2476d6206c0
 
 Best regards,
 -- 
