@@ -1,83 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5215A352037;
-	Fri, 31 Jul 2026 03:23:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBC2E2BCF4C;
+	Fri, 31 Jul 2026 03:23:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785468238; cv=none; b=bCN9dAhRXDNzekfJGvcTTQGe82TaSPGnRh1NiMtF8B4GrbBQ/xgtIK3QfxvjcYw1Et5Eh8NHEahEFDJ3yx8ZqMoaGPeP6b/xreOC+ZBpoM3AIdcAOHCiVXlQdErYk1PbDKgX56iLY3l12yZvYB03uDdsWtTIPLalvSEkuybOCKY=
+	t=1785468238; cv=none; b=kvpNK7uZfPVrisbWUx02Z7dHN9qO6kMTWkl5Jb7hluACmAXxDt503tzw/VtDv0US+0avqfRkDPxrRpdKZzVAW8XUFie7wJqF5kOn5Egg+MCNzvyLAmTcrm7J0Mh55b/HRxyrGHKYfevMlIQxXA7hH4C6Uh+mbkV8lZrmgo3PUyE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785468238; c=relaxed/simple;
-	bh=dd3SFkqtrpytAgWPYZYMeaDQckIPDHmDiNEo7Pq2hqM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=e3dQ0yYsZ9SgVVMbMMYn/Ao5Lmx4jrQVGlXJA8/HPtzt86gCrlW1ClfzpbFIfz+AE/zivgCrc/+XGoTaIAvYL99VNbm8ZHfm8D3fMajahmIhLIz2rYeMAWFjyhdvsRj50Y/k6g5MG7ynIjWOwqB2qD+p9+QYUeNqOyehjS/jsnY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=alJPz710; arc=none smtp.client-ip=100.103.45.18
+	bh=A308PpICQ+54/LFb+BM2iQmP05Y//8MrL4Tz+p8d6F0=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=k19OaLTfxDKlJZzehiCOXcYCZzeSfuOxM0iuDRwXEcPhqJx6cD1GpBGhk/7PjpEP1uNL8FQMamwX8svz8FOa+71PSOx8QwuKmJHIC93RHHEVcqiyNIXdZm/qaNyoCk7sC2e/GN2/DKQQQtYpkzeulMFB8hiGPWYKVRBMBX+esWU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZqqcRCnb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="alJPz710"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F4FA1F00A3D;
-	Fri, 31 Jul 2026 03:23:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZqqcRCnb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0349F1F00A3A;
+	Fri, 31 Jul 2026 03:23:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785468236;
-	bh=ExYIItcDEZWrDnj18MKrsQX+GnPewakLGGldn9zFVCQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=alJPz710ds45M32sC/W4EDR1+q0unwltstCOWbnGaG6ro0iMcmbnQtoip8c8VaS9x
-	 ucunAffa0RGqITe9ralEA5C8L9d13xx3fChUikErBa6niEP8a0BFzEcB05S35Q/1/2
-	 1UFyndof2hw2Kau7xmVNSRKQRuzNuN582osWVF/C+PDDv2GUXij6aDfXH6eui0f3D7
-	 cL6fOvwE4GtNUfPpna/rRL5r3qKYZUh8Ra7Ca74SqJd80LQ9HhpE4EvImKKPLv7m1r
-	 fH9bifgptxWsZVifHaG6cyE2ohO49GEnwg7hJeZoduwMm3zEAx/5fx/2COa05v/hg8
-	 b48DbmwT4DuTg==
+	s=k20260515; t=1785468237;
+	bh=Hs0lPEJppu6pKgczF2HxrjvHLyHsVZn9IWdTmrUvyss=;
+	h=From:To:Subject:Date:In-Reply-To:References;
+	b=ZqqcRCnbms4xSCnTHZk+3xJKtd/EXGa0XixXAVpz7vDk6nsONVoQ3W7r2eF2CENwy
+	 vnAkxaF0bMmtgVdzcQk6m07vtnOJLqHAp37m2EIJ4OKU5tODB4Bt28c6mNe8pwdUUX
+	 QHSmRKPLRRpNwZRYMPqEabsFtbFB4i24QhT5UAb+gMVRo9XKnmQImX5f3Ue3TYBsvp
+	 twcQY8q5usNkOpS5Pow7gXdInJ2kxn7RXyE7VofVvGKNVfgkh4DG1IFLkAb4/O1Z0/
+	 MegGxyjrmtbXsRvuaK9W/yDxtE8DY7AJ4+ru1/v7p9M6rmNOYNPPptQN6D9IhZGtdk
+	 uCoxmLQ+HO7gQ==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Rob Clark <robin.clark@oss.qualcomm.com>,
-	Sean Paul <sean@poorly.run>,
-	Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Avri Altman <avri.altman@sandisk.com>,
-	Bart Van Assche <bvanassche@acm.org>,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mike Leach <mike.leach@arm.com>,
-	James Clark <james.clark@linaro.org>,
-	Leo Yan <leo.yan@arm.com>,
+To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
-	Mao Jinlong <jinlong.mao@oss.qualcomm.com>,
-	Jie Gan <jie.gan@oss.qualcomm.com>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
+	Andy Gross <agross@kernel.org>,
 	linux-arm-msm@vger.kernel.org,
-	linux-hardening@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	linux-scsi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	coresight@lists.linaro.org,
 	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org
-Subject: Re: [PATCH v5 0/3] Retrieve information about DDR from SMEM
-Date: Thu, 30 Jul 2026 22:23:43 -0500
-Message-ID: <178546821257.316167.5256445385425936604.b4-ty@kernel.org>
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v2] dt-bindings: soc: qcom,wcnss: Drop redundant $ref of firmware-name property
+Date: Thu, 30 Jul 2026 22:23:44 -0500
+Message-ID: <178546821238.316167.2806379161870951045.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260727-topic-smem_dramc-v5-0-66188b3e338d@oss.qualcomm.com>
-References: <20260727-topic-smem_dramc-v5-0-66188b3e338d@oss.qualcomm.com>
+In-Reply-To: <20260712162212.184592-2-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260712162212.184592-2-krzysztof.kozlowski@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,27 +52,18 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 27 Jul 2026 11:59:26 +0200, Konrad Dybcio wrote:
-> SMEM allows the OS to retrieve information about the DDR memory.
-> Among that information, is a semi-magic value called 'HBB', or Highest
-> Bank address Bit, which multimedia drivers (for hardware like Adreno
-> and MDSS) must retrieve in order to program the IP blocks correctly.
+On Sun, 12 Jul 2026 18:22:13 +0200, Krzysztof Kozlowski wrote:
+> The DT schema core defines the type ($ref) of 'firmware-name' property
+> as string-array, so individual schemas do not need to.  They also should
+> not redefine it to a single string, but instead just set number of
+> expected firmware names.
 > 
-> This series introduces an API to retrieve that value, uses it in the
-> aforementioned programming sequences and exposes available DDR
-> frequencies in debugfs (to e.g. pass to aoss_qmp debugfs). More
-> information can be exposed in the future, as needed.
 > 
-> [...]
 
 Applied, thanks!
 
-[1/3] soc: qcom: smem: Use 'unsigned int' instead of 'unsigned'
-      commit: 80350cdc5f7e2ddc6739987a78f04b9b7788e593
-[2/3] soc: qcom: smem: Expose DDR data from SMEM
-      commit: 1d234eeafc56af8c9af6eee857f41a4310615e78
-[3/3] soc: qcom: ubwc: Get HBB from SMEM
-      commit: 1b445022d1d0ec7431b6f8fe0054ae8ccf33d60a
+[1/1] dt-bindings: soc: qcom,wcnss: Drop redundant $ref of firmware-name property
+      commit: 3fd6a04e5bf863a8c02c150d584f42c7b9ae5f8c
 
 Best regards,
 -- 
