@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FCB13D9026
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 14:53:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D3202E7367
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 14:53:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785509583; cv=none; b=C+iAq384hnECPXzISYMvMjn8nepgqOl+9vmiLDXms4igILT2zh0SbCxmWu5nmKod1uA1CCAW/ZmW/4CYhtsq0k7CjMyHYfZuu5OrUR4jX0ESOBIsCcGz55FuHvVjNl+k+WvBnPNCIuN1UfB0BtW18M3ZZU4OWLL0bzXBmYmQDw4=
+	t=1785509620; cv=none; b=DspkzVCgNyH4GZsygFiszw8Q9dtsNSdjgU3oCdqRh7XWCP0XDKENfbvxKzXz88Gn7etgJI4SgPKrn4vjK06Y477y+vFtvYV9JJsLaNX6iSaqvnzn9OvfW+uj7o6MRKVNgT95iou59DP2SiU9UuIklQfmH/7aPAYZ/MgHXewbd/g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785509583; c=relaxed/simple;
-	bh=doOpRezCxX4+my/8RIHKmMicJnNlyx9YVSTWkI/sCYc=;
+	s=arc-20240116; t=1785509620; c=relaxed/simple;
+	bh=0kyD+6cxKLXvg8dmQ7olFyYB4x4Qr/h1llWPOYGrWkM=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=lczURSYQU0iBxb3YpUp7/eI0lgh0ng3v2kbIcvSVjs83Yyu7hJuvxEmMoACIZPRXzGYiRD0+k5g8z6gY7u8bs09fg911dXh6NVIX+FypoDNIJVR4mJAm2GfqQIzklFbpzJAXLax1aPIKXEFA4gewO7B5ozWcTaemO20bKA59tEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EtUtUAxr; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=JGF9ab2x73capOXcCngnd3nnTfhufbD+JxqaJnbkoqY/NJ2AeapPVjruldSzpTlApCD25neoZfvoCGrAGS+Z0b4u0kQjwnmH48JB/37KT4GEgq9dDeVN0lrxOmxlKahwy20i2izqlTMHviNPfjjhv2VZ9ZCjeep/eE5rg0wOYQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m2WH51jY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EtUtUAxr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A12671F00A3A;
-	Fri, 31 Jul 2026 14:53:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m2WH51jY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4479A1F000E9;
+	Fri, 31 Jul 2026 14:53:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785509582;
-	bh=NVZVVg881wEhIuki0uvo5lydh8o76ndv1w4xGolCc68=;
+	s=k20260515; t=1785509618;
+	bh=HZURHhSenVkA9tbK/c8ENpdnOheRQBgcBgL1m8ydzyI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EtUtUAxrNKjBBJt/oCbH6DU+Ortyzf9nUMJb2A12jF48guu3FiIdzYe/M3qRrlgmK
-	 RGudbxtPP/uTmHEI79hy6ItbOb6PWY6Jd8ZhY5bN330XtC0L1h3nPHcbyNiEIulCC0
-	 bmfVRyZjKPXtm7g00kjWpA6cV6cNgTmuazITUB2FNSTGifiHg6yjwHfi1yntc+3Knf
-	 4OVjaGNntnqyk3k0i8tM2my/m2PWccNNCKBSLGAbkIr9YhB5zJL7SKJ2WP4Z+9FxQ2
-	 EKoirmKJKCBPpYvAHbeTfKyXLsmgU87BSX3id7TAbOgrbaymHday4ajbCT4eU296zZ
-	 bJf49CmSWuo2g==
+	b=m2WH51jYnemAIv++AIltVm26UbhpDVDARvnpMxx3sEAZAYZ8R4VZpbsyjNHbOsDP2
+	 X/rr42h7xjqiTmdftsxJ9kZ3Q1aMugVnYLz1itx5mY+M9EnT4l1y0gEvA9UndASTXv
+	 RymkOxg0xe+VW1LMUVXWRCUcOo/9WYkm9BimL5a4ReRpjIf1bkNs7+nCPMpU5MNofh
+	 pV0DfaqFLxaplWHKyfhhlMFl//L4s89DH9prdDLuc+dQno+wm8MN6XTADsbn9F37EQ
+	 Hm9wbgjn2bcn3Bgpq2cULEpfQLXVJGsviHOK8TdNWXhYIGqMX4MqOP0PhO1Cg1cMiz
+	 G8xANvwRSSUJA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 4/5] mfd: axp20x: Add support for AXP318W PMIC
+Subject: Re: [PATCH v6 3/5] dt-bindings: mfd: x-powers,axp152: Document
+ AXP318W
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Jerome Brunet" <jbrunet@baylibre.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260731-axp318-regulator-v6-4-b4e745552a35@baylibre.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260731-axp318-regulator-v6-3-b4e745552a35@baylibre.com>
 References: <20260731-axp318-regulator-v6-0-b4e745552a35@baylibre.com>
- <20260731-axp318-regulator-v6-4-b4e745552a35@baylibre.com>
+ <20260731-axp318-regulator-v6-3-b4e745552a35@baylibre.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 31 Jul 2026 14:53:01 +0000
-Message-Id: <20260731145301.A12671F00A3A@smtp.kernel.org>
+Date: Fri, 31 Jul 2026 14:53:37 +0000
+Message-Id: <20260731145338.4479A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,46 +47,60 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The `axp318_cells` array defines the `axp20x-regulator` cell wit=
-h a hard-coded ID of 1 instead of using `PLATFORM_DEVID_AUTO`, violating MF=
-D subsystem guidelines.
+- [Medium] The compatible string `x-powers,axp318w` is omitted from the con=
+ditional block that makes the `interrupts` property optional.
 --
 
---- Patch [4]: [PATCH v6 4/5] mfd: axp20x: Add support for AXP318W PMIC ---
-commit a5dbdb5469c59acc76c36e5d6f37cd6f060e0f47
+--- Patch [3]: [PATCH v6 3/5] dt-bindings: mfd: x-powers,axp152: Document A=
+XP318W ---
+commit 0a2fd6c8b0d8fd1a45bf4a464bf3e71df8fa62f6
 Author: Andre Przywara <andre.przywara@arm.com>
 
-mfd: axp20x: Add support for AXP318W PMIC
+dt-bindings: mfd: x-powers,axp152: Document AXP318W
 
-This commit adds support for the AXP318W PMIC to the axp20x MFD core and
-I2C driver. It exposes the device's regulators and interrupts.
+This commit documents the AXP318W PMIC in the x-powers,axp152 bindings.
+It adds the new compatible string to the lists of PMICs that lack PWM
+frequency properties, and adds new input supply properties.
 
-> diff --git a/drivers/mfd/axp20x.c b/drivers/mfd/axp20x.c
-> --- a/drivers/mfd/axp20x.c
-> +++ b/drivers/mfd/axp20x.c
-[ ... ]
-> @@ -1061,6 +1129,10 @@ static const struct mfd_cell axp313a_cells[] =3D {
->  	MFD_CELL_RES("axp313a-pek", axp313a_pek_resources),
->  };
-> =20
-> +static const struct mfd_cell axp318_cells[] =3D {
-> +	MFD_CELL_BASIC("axp20x-regulator", NULL, NULL, 0, 1),
+> diff --git a/Documentation/devicetree/bindings/mfd/x-powers,axp152.yaml b=
+/Documentation/devicetree/bindings/mfd/x-powers,axp152.yaml
+> index 45f015d63df16..38556c32417b3 100644
+> --- a/Documentation/devicetree/bindings/mfd/x-powers,axp152.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/x-powers,axp152.yaml
+> @@ -83,6 +83,7 @@ allOf:
 
 [Severity: Medium]
-Does this hard-coded ID of 1 risk sysfs naming collisions?
+Was the x-powers,axp318w compatible string intentionally omitted from the
+interrupt requirement conditional block earlier in this file?
 
-The MFD subsystem guidelines recommend using PLATFORM_DEVID_AUTO for
-automatic cell indexing. If multiple devices share this explicit ID, it cou=
-ld
-lead to duplicate device names in sysfs (e.g., axp20x-regulator.1) and
-subsequent driver load failures.
+Looking at the block just above this hunk:
 
-> +};
-> +
->  static const struct mfd_cell axp717_cells[] =3D {
->  	MFD_CELL_NAME("axp20x-regulator"),
->  	MFD_CELL_RES("axp20x-pek", axp717_pek_resources),
+  - if:
+      not:
+        properties:
+          compatible:
+            contains:
+              enum:
+                - x-powers,axp15060
+                - x-powers,axp305
+                - x-powers,axp313a
+                - x-powers,axp323
+    then:
+      required:
+        - interrupts
+
+Since x-powers,axp318w is missing from this exclusion list, the interrupts
+property will be strictly enforced during schema validation. Does
+this match the expected configuration for this PMIC?
+
+>            contains:
+>              enum:
+>                - x-powers,axp313a
+> +              - x-powers,axp318w
+>                - x-powers,axp323
+>                - x-powers,axp15060
+>                - x-powers,axp717
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-axp318-reg=
-ulator-v6-0-b4e745552a35@baylibre.com?part=3D4
+ulator-v6-0-b4e745552a35@baylibre.com?part=3D3
