@@ -1,108 +1,137 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 220B042DFEA
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 14:31:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8C2F2F7EE1;
+	Fri, 31 Jul 2026 14:32:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785508317; cv=none; b=Oou3Z3L3UQdzHLY5qI3201P1mL1Nh60ZEdCM57vmbRNLFPGoFv59m+dwxLkQWM3HOE5zloK5BwVmxTujyzjIO3X1o9BtyrJKABYPFlBeXcs3hRXvbLTaK2jaq6D/oTQ9soSxU9QW6JXBws2E9LFG3AWOt/h+aHPKKLWEu2J0OCc=
+	t=1785508327; cv=none; b=Ar3fO4o78xeoxQtevShtng3cx03jqD7J6H7nJrfzmfbCN9ezSaHFJPzD2QpdwUd+Vi2LlRI5V0Yzu/epopGyA4pWDAbG2tuQWHELmszTfYo5+T+8RX4ZwdUAwK0dgLQCgbwpIZ56LIzPtEGRAApMLqArFPjli+gzY5Nt804+FkA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785508317; c=relaxed/simple;
-	bh=l9fwqzHxeMnBKlvaOPLHoKvNOlfOY6llkdvXG3LCTf4=;
+	s=arc-20240116; t=1785508327; c=relaxed/simple;
+	bh=T5RhjFZzgEButpOEGJDjcZHiIdh+pcSEWjHBSncMAxw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nMxLwM2jgOVrECjka/2UZUXLh3HV4XNbBZNW9Yjpw1jklkgqoRJTqAnzYcc1GjPvNrEOMclPBdMj9irohQTVLFdPE09SHKP9ofwZdjfEmNeT5abAt2G+9R6NyTsgyNyK34h/kprZnn/iV4s0TOP7la98qWJq336GLgcolmT22PM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QWA9cIfp; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=l40RJPLpzH78CNtf0Mk6qvgtc2kbSUeUTckEKEHsjuGWrJkHXM3NPzxwyon3BfUnhTHowhcAj4STqiLotGXZeIGtyXB7nm3RaIsrT+wkKg2F3LPZa4IIDdmsZH6c1DxJDK2M/sJPyXIenZ9ihVMyt8tg+DZXrbB+4+jWc0NyYIs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=A67lDIFN; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QWA9cIfp"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2cab973140bso12069975ad.3
-        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 07:31:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785508313; x=1786113113; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=sCV7rUk4XsmSK/bBAvmYQSxoopJ6iff6FRBs63f8X+o=;
-        b=QWA9cIfpnby4d1/84sLFxJK9JV8nt+TRDZomsA7ycxz7l+dpWy3QQT+lvbf56t1z6b
-         LAYvy7SGmuA8rYkAarHg4nC5nQBGMZOlvrNlF1ywz6edbiKhSjkEhSrXBmOfWuysu6aM
-         dr+UUMi85z208OYSLNN+S/yfWtga+mXw30x7Irnz+mFW+WBfB7ogXsHeFtL5jeONHj0t
-         54KZcTvBLxdKo+fUC1DuojcU7/6dTlxNG3IhiIgPm3QTGGNMrJnxTPmZiIPC9Y4zpi2D
-         NZf79/UUSdVKIDcW8IFLRZG21KdnBPHs6dLP8wtOq3/DwLvTXQX9+Z4MLQMFretrH6bg
-         bhWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785508313; x=1786113113;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sCV7rUk4XsmSK/bBAvmYQSxoopJ6iff6FRBs63f8X+o=;
-        b=tUxzEEOU7Czdsm+++rp4VJ5Jfrv8jtXawheDgY/zvx16J0G5ZBmakhMl08aZkn0O6b
-         HLDKA4/+6sNWYpjj9ijKiA5TroXw1TNeCHEI4nC6QejhfvKMvaLWI4bxZRAAV7OL180N
-         Rcl2PSHP6/m087gWIYMNuX6n5JmP24cmqBP6p8HuWnd7IgJfr8mgeAq9CpJcjJeNsmCa
-         oPlu5Vs8Q+Ft74GBw4DsG0X8GkGV8jJA5Wkqx40+zBFo9RvLXPMYkMB84hfxnpD2cxh4
-         0+GZyJ3/jIspNrCHR0KTj7LZsshj30ZyBJH4vcJS3Nqc4TKSX0e7M4ILC+QKYI0M4XGx
-         gcnw==
-X-Forwarded-Encrypted: i=1; AHgh+RrLxjMuX0D7lKSVyROPP7lZFEjNKMPhJcJ6/Epdjh4Waz52h7DtCCbAuBZYabPzBcpfQ1npxoj/4Rsc@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyquk7EH/I4X4lRRwzG28TKZLpEs40KEMaRirhb+w4rn4KOodvE
-	SH6inBGj6fjJjDBLMQQchK4dlOG7NJ/kjwX680bI3HbBuW+pp/eGbFZ1
-X-Gm-Gg: AR+sD11V0hFZZF4mT0NQ9komRXeDiAspTkHWYCeSVbZ+HoElwGdU6VZaohJqhDtlecV
-	XUplpylzYSTUBtmEpPZxesZdG/5NKuFRMOtml9vpWfbfSUIcmHlZhMprwTR5xJ6xmwz21ccYu14
-	nXa3vXRyMvqMKnO6bGctQkEvL/s4bdx5rxN4SM0W2a3NPQ66Sd1hp6Krupu02XWZ0wxnrGVKfey
-	PcBp64/vZKyUKE+gbeMdmZRAN5wxdnEEnWdBABN0+QFYknDz4j9BaDvFnZlOysMaaYAJHJrRgae
-	zAC/0B7q/q5IH6sFhhEKYyA7Y4vINe8JOr20NQ9LD8JXrgePG5568ts//NUigvMpFBM9e03TXub
-	+/rq+sL2BkcjCbEBw8RYPYCwUE9ePlAxbReSQnN8xSZwT4udJhysoTWgN7nTaN6a3cYb19dbz0n
-	csAps+xCG1NdfvB//wD4vKswUzakMQiYpUaGSvXygCbUFc7kq2b1OABV91NAK92S8ySFmaCOJ61
-	g==
-X-Received: by 2002:a17:902:e5cd:b0:2ca:d7a0:1312 with SMTP id d9443c01a7336-2d05229a2a8mr2499625ad.25.1785508312949;
-        Fri, 31 Jul 2026 07:31:52 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d04b0eb7c3sm6097115ad.54.2026.07.31.07.31.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 31 Jul 2026 07:31:52 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Fri, 31 Jul 2026 07:31:51 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Vincent Jardin <vjardin@free.fr>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Charles Hsu <ythsu0511@gmail.com>,
-	Markus Elfring <Markus.Elfring@web.de>, linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v7 4/4] hwmon: pmbus: mpq8646: gate the writes
-Message-ID: <179a2f2f-b932-4a27-ab6c-cb70f821cdc1@roeck-us.net>
-References: <20260730-mpq8646_v0-v7-0-e7c7ad768d5d@free.fr>
- <20260730-mpq8646_v0-v7-4-e7c7ad768d5d@free.fr>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="A67lDIFN"
+Received: from ideasonboard.com (mob-109-113-25-35.net.vodafone.it [109.113.25.35])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 95EB522E;
+	Fri, 31 Jul 2026 16:30:55 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1785508255;
+	bh=T5RhjFZzgEButpOEGJDjcZHiIdh+pcSEWjHBSncMAxw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=A67lDIFNxlBpP/U53pNEY4vzUEeGAFeckqoI2tIrXOYlQYGfNf3or9HtcqlBRLdJB
+	 CA5IW7IfpWwqttEpz3MvCDjo1j2T9f/dxWs7YlomU4C4VVYjV2TkKMpmy35qfTgbH7
+	 XlOqVmv0x+eIA1VU3hocCi59qU1+5pGbIl/mPftA=
+Date: Fri, 31 Jul 2026 16:31:58 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Philippe Baetens <philippebaetens@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+	Jai Luthra <jai.luthra@ideasonboard.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v10 1/2] dt-bindings: media: i2c: Add mira220 image sensor
+Message-ID: <amyxp_U9V1y4gSJ3@zed>
+References: <20260727-mira220-v10-0-8825794e6095@ideasonboard.com>
+ <20260727-mira220-v10-1-8825794e6095@ideasonboard.com>
+ <amjAKhNIt0_UIZqt@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260730-mpq8646_v0-v7-4-e7c7ad768d5d@free.fr>
+In-Reply-To: <amjAKhNIt0_UIZqt@kekkonen.localdomain>
 
-On Thu, Jul 30, 2026 at 05:44:02PM +0200, Vincent Jardin wrote:
-> From: Vincent Jardin <vjardin@free.fr>
-> 
-> The write cases of debugfs entries are provisioning and bench
-> helpers. By designs the MPQ8646 powers the CPU core rail,
-> so a wrong write can brown out the board or persist a bad
-> setpoint into finite-cycle NVM.
-> Said differently: some wrong register writes can and likely
-> will physically damage or destroy the chip and/or the board.
-> 
-> To be safe, it is disabled by default behind a
-> CONFIG_SENSORS_MPQ8646_DEBUG_UNSAFE and we print an explicit warning
-> banner at probe time when they are built in.
-> 
-> Signed-off-by: Vincent Jardin <vjardin@free.fr>
+Hi Sakari
 
-Applied.
+On Tue, Jul 28, 2026 at 05:43:54PM +0300, Sakari Ailus wrote:
+> Hi Jacopo,
+>
+> On Mon, Jul 27, 2026 at 10:56:30AM +0200, Jacopo Mondi wrote:
+> > From: Philippe Baetens <philippebaetens@gmail.com>
+> >
+> > Add bindings for the AMSOSRAM Mira220 image sensor.
+> >
+> > Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> > Signed-off-by: Philippe Baetens <philippebaetens@gmail.com>
+> > Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> >
+> > ---
+> > v8->v9:
+> > - Make link-frequencies required
+> >
+> > v7->v8:
+> > - Add Conor's tag
+> >
+> > v5->v6:
+> > - sashiko: use 'unevaluatedProperties: false' at the top level to allow
+> >   properties from video-interface-devices.yaml
+> >
+> > v4->v5:
+> > - reflow description to 80 cols and drop |-
+> > - remove 'reg' description
+> > - remove 'anyOf' from data-lanes
+> > - remove 'link-frequencies' from required properties
+> > - remove 'clock-continuous: true' as we already allow all properties
+> >   from 'video-interfaces.yaml'
+> > - remove tabs from the example
+> > ---
+> >  .../devicetree/bindings/media/i2c/ams,mira220.yaml | 102 +++++++++++++++++++++
+> >  MAINTAINERS                                        |   7 ++
+> >  2 files changed, 109 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/media/i2c/ams,mira220.yaml b/Documentation/devicetree/bindings/media/i2c/ams,mira220.yaml
+> > new file mode 100644
+> > index 000000000000..fa6fec0072ef
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/media/i2c/ams,mira220.yaml
+> > @@ -0,0 +1,102 @@
+> > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/media/i2c/ams,mira220.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: AMS 2.2 MP NIR enhanced global shutter image sensor
+> > +
+> > +maintainers:
+> > +  - Philippe Baetens <philippebaetens@gmail.com>
+> > +
+> > +description:
+> > +  2.2 MP NIR enhanced global shutter image sensor designed for 2D and 3D
+> > +  consumer and industrial machine vision applications. Due to its small size,
+> > +  configurability and high sensitivity both in visual as well as NIR, the
+> > +  Mira220 is well suited for 2D and 3D applications, which include Active Stereo
+> > +  Vision, Structured Light Vision for Robotics and AR/VR.
+> > +
+> > +allOf:
+> > +  - $ref: /schemas/media/video-interface-devices.yaml#
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: ams,mira220
+>
+> I haven't read the discussion on all versions of the set, but this way
+> you'll have to power on the device to fully recognise it, further meaning
+> the possible hardwired privacy LED will be lit at that time. Maybe it's not
+> an issue. You'd likely have it with a CCS sensor, too...
 
-Thanks,
-Guenter
+Yes, we run-time identify the sensor.
+
+I don't think it's an issue, and it ends up being one, we can add a
+compatible for the mono or ir variants and use this one a the generic
+fallback ?
+
+>
+> --
+> Regards,
+>
+> Sakari Ailus
