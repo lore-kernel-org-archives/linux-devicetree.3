@@ -1,158 +1,69 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 497693DA7D4;
-	Fri, 31 Jul 2026 09:57:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D8473E49D9;
+	Fri, 31 Jul 2026 09:58:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785491835; cv=none; b=doR9KEzc3nsaWso8kZj04DhWPYsulWwNjncEjLv+FQ5zO95xz1SLAdcIhRosbzC/5kkhhAxpYp466bsBPGVmfh/vxNBs6dxiQshP/l+2liSr0OiDgjyp8KTVAewbzJUOKbNvKjfV+I9YNDDXtSkD1ypciohyytijUfoERFJKjyM=
+	t=1785491957; cv=none; b=rsc9UO2vEXbeuHF9j7mSV/E72apTLr1XFCm+2djFuExiXLG7v+zsE1bqb9oMx3RgDiySyqUprMsW1UPa0SiDlYkNuPkY7q2dTHxZHOiF4Z6JIs6SMYzuSjrtmVKLG7CznCG4vT9nPRs856K2/5m7Rfgk2djht97fDpsCWzO4dAQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785491835; c=relaxed/simple;
-	bh=KIiTMsdQmfP+2TWdGD1PrwmpE4nvAnwGsbfzgamyYPE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=PQ9IJ0BuBKrtbk1V2ePX90AdHwhJYVHqZfhjaeZteElzTeXgHMBXeUk0PmyuJvDBrgTA0GnP7Ksk3xK8yuJ555u4yd71IRS0SjOJuYo34uzZ1nCJZzr4XNCMzxaokMJK1cCqbEMU1cn/KDrkETA1qXGFLj+7N1GYoiMp9pbIIPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GuNpB39d; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785491957; c=relaxed/simple;
+	bh=5edyTaIA4fin1umP6uA3kB1KbdiPRP4h4MhGwuuATXM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KQwsWUDlhLwmzv+lYnbY9iOSw1jXxHiozlLe2RCmY9SHsLsD8WVH3xLlbEYL9t4r4KUJf/Ls+GuuVkhZrlomcYTq15qKLZDKriN9VXAINkSZItHmSA24UVvq11SC7be2U+p/EF4muG6XRqe59ytMQtgR9DuoFPdB14mgOrDeC8o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UoyLtRJY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GuNpB39d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B2771F000E9;
-	Fri, 31 Jul 2026 09:57:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UoyLtRJY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 776161F000E9;
+	Fri, 31 Jul 2026 09:58:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785491821;
-	bh=WivR7iJEHJ9l/OVbLNALYgsFd9a51WZOQLpMWpX5fXc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=GuNpB39dll+MEgDBc+D9wle9XbT2t7+nkMd1UEOApC669lVJ6mbkcElMN3JwAVr0h
-	 NqUiRkOF0HrA9B75J0Ldjdes/0hqn9qYPi0FnxBoj1M11DefjE/ZWYc+WMfju0Sxly
-	 XefIqWnkf4x5dGlh6M4CKa0INDO5/G27wATqekiMphrb7BZRXYjiADy79ho1g9Xwiz
-	 zYMRqTKXZiumIAAnqBfNomCrj7R7OT6trUa3q+o6IMImH+us/fffg4IOt3YeVXTSDs
-	 1TKoJN3SKx9rt+Zn0BaSLRtm4zuMcKlOXYD95NNWuw5MQUE6qxD0KJZ4fetFBEZud8
-	 Lbq+bd+IfgUjQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/5] dt-bindings: thermal: loongson,ls2k-thermal: Add
- compatible for Loongson-2K0300
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Binbin Zhou" <zhoubinbin@loongson.cn>
-Cc: robh@kernel.org, mfd@lists.linux.dev, lee@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <5c6f32c841d34a9f370b5a0981a71cb23bc6e62a.1785480242.git.zhoubinbin@loongson.cn>
-References: <cover.1785480242.git.zhoubinbin@loongson.cn>
- <5c6f32c841d34a9f370b5a0981a71cb23bc6e62a.1785480242.git.zhoubinbin@loongson.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 31 Jul 2026 09:57:00 +0000
-Message-Id: <20260731095701.1B2771F000E9@smtp.kernel.org>
+	s=k20260515; t=1785491935;
+	bh=5edyTaIA4fin1umP6uA3kB1KbdiPRP4h4MhGwuuATXM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UoyLtRJYAYFwh82RO5jpcHABMz/mnzZhfUmDKxldN3m1mMqaPbMEdYNV87LhpEqkL
+	 nLaT4ZTgi2h0uwEAC2efe2n/RcI1U5c66ZD3Ur8PiO3r/BZcrqrUnA90gqX/bbQGZA
+	 7YhMxVqSD3CFrFwcy5TmQusRvMm3U8Ij0f3VKAQ9BNfT6p6aBJdQPs/CTB56fgEWHN
+	 nNsiFrc34SGqAmVDq9JrnrgQkQaPuz1G23Nk5fijIFtzLbWQkHWCTuUMmabBv3E9Xw
+	 j//rUeIBRSBuJu8pbSy1uE80J+YRvVYJYWQ0UJ8bKhY1NcOjn2MwokodL1E8G8D3Dr
+	 8uqChxbeFJdBw==
+Date: Fri, 31 Jul 2026 11:58:51 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Esteban Urrutia <esteuwu@proton.me>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-usb@vger.kernel.org, phone-devel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: soc: qcom: qcom,pmic-glink: Add
+ compatible string for SM8475
+Message-ID: <20260731-savvy-piquant-chowchow-f516f2@quoll>
+References: <20260731-sm8475-pmic-glink-v2-0-28c04928ef22@proton.me>
+ <20260731-sm8475-pmic-glink-v2-1-28c04928ef22@proton.me>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260731-sm8475-pmic-glink-v2-1-28c04928ef22@proton.me>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Fri, Jul 31, 2026 at 01:00:08AM -0400, Esteban Urrutia wrote:
+> Due to a different process design, SM8475 (4 nm) SoC takes things from both
+> SM8450 (4 LPX) and SM8550 (4 nm) SoCs.
 
-Pre-existing issues:
-- [High] Missing NULL check for `device_get_match_data()` return value in p=
-robe.
-- [High] The driver registers a thermal sensor found at an arbitrary device=
- tree index but completely ignores this index during hardware configuration=
-, hardcoding register operations to sensor 0.
---
+What things? This is just unspecific and not useful. And I doubt that it
+is even "different process design", because how one would know that?
 
---- Patch [4]: [PATCH v3 4/5] dt-bindings: thermal: loongson,ls2k-thermal: =
-Add compatible for Loongson-2K0300 ---
-commit 52153439c55d2e646aae8a83ae212f55c09dcf24
-Author: Binbin Zhou <zhoubinbin@loongson.cn>
+> Add a separate compatible string for this SoC to avoid possible confusions.
 
-dt-bindings: thermal: loongson,ls2k-thermal: Add compatible for Loongson-2K=
-0300
+No, explain the hardware compatibility.
 
-This commit adds the loongson,ls2k0300-thermal compatible string to the
-device tree bindings. It mandates the loongson,chipid property for this new
-SoC variant to provide a syscon phandle for temperature calculation.
+Add foo bar, which is not compatible with baz because it uses bam bam in
+different setup (difference in registers, e.g. XYZ and ABC),
 
-> diff --git a/Documentation/devicetree/bindings/thermal/loongson,ls2k-ther=
-mal.yaml b/Documentation/devicetree/bindings/thermal/loongson,ls2k-thermal.=
-yaml
-> index 79e691b08341c..d312e27737a20 100644
-> --- a/Documentation/devicetree/bindings/thermal/loongson,ls2k-thermal.yaml
-> +++ b/Documentation/devicetree/bindings/thermal/loongson,ls2k-thermal.yaml
-> @@ -10,13 +10,11 @@ maintainers:
->    - zhanghongchen <zhanghongchen@loongson.cn>
->    - Yinbo Zhu <zhuyinbo@loongson.cn>
-> =20
-> -allOf:
-> -  - $ref: /schemas/thermal/thermal-sensor.yaml#
-> -
->  properties:
->    compatible:
->      oneOf:
->        - enum:
-> +          - loongson,ls2k0300-thermal
->            - loongson,ls2k1000-thermal
->            - loongson,ls2k2000-thermal
->        - items:
+Best regards,
+Krzysztof
 
-[ ... ]
-
-[Severity: High]
-This is a pre-existing issue, but can this code result in a null pointer
-dereference?
-
-If the driver is bound to a device via the sysfs bind interface without a
-matching device tree node, device_get_match_data() returns null:
-
-drivers/thermal/loongson2_thermal.c:loongson2_thermal_probe() {
-    ...
-	data->chip_data =3D device_get_match_data(dev);
-
-	data->ctrl_reg =3D devm_platform_ioremap_resource(pdev, 0);
-	if (IS_ERR(data->ctrl_reg))
-		return PTR_ERR(data->ctrl_reg);
-
-	/* The temperature output register is separate for Loongson-2K2000 */
-	if (data->chip_data->flags & LS2K2000_THSENS_OUT_FLAG) {
-    ...
-}
-
-Does this path blindly dereference data->chip_data via
-data->chip_data->flags before any validation?
-
-Could this allow a root user or privileged process writing to sysfs to crash
-the kernel?
-
-[Severity: High]
-This is a pre-existing issue, but does this driver ignore the dynamically
-discovered sensor index during hardware configuration?
-
-The probe loop successfully registers the first available sensor index found
-in the device tree, but doesn't store it to update the internal sensor
-selection state:
-
-drivers/thermal/loongson2_thermal.c:loongson2_thermal_probe() {
-    ...
-	for (i =3D 0; i <=3D LOONGSON2_MAX_SENSOR_SEL_NUM; i++) {
-		tzd =3D devm_thermal_of_zone_register(dev, i, data, data->chip_data->ther=
-mal_ops);
-		if (!IS_ERR(tzd))
-			break;
-    ...
-}
-
-Later, the hardware operations calculate the offset using the statically
-hardcoded thermal_sensor_sel from the constant match data:
-
-drivers/thermal/loongson2_thermal.c:loongson2_set_ctrl_regs() {
-    ...
-	int reg_off  =3D data->chip_data->thermal_sensor_sel * 2;
-    ...
-}
-
-Will this always configure temperature thresholds and read temperatures for
-sensor 0, even if a thermal zone was registered for a different sensor inde=
-x?
-
-A related patch in this series (thermal/drivers/loongson2: Correct thermal
-sensor registration loop) actively enables this buggy path to be reached by
-continuing on -ENODEV instead of aborting.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1785480242.gi=
-t.zhoubinbin@loongson.cn?part=3D4
