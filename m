@@ -1,78 +1,120 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3515B3BC69D
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 15:56:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37E312D7DD4
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 16:01:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785513389; cv=none; b=VOSUkpbMzUPixcBx45r/LOWUrGWeQPmdbCF8meSrT9SksuxS37J+WTysoIE8xYAHDEEcwb1hmeQdU8/jAQR3omtjJn9S2Cuk9pZuDMaYAGetFUAXg+UmNPb0kDyeXHogAL+ob7DGhfXfibUf1jIbpVQ6aF/XvIC5/A8jm84l0pk=
+	t=1785513682; cv=none; b=aeL+q7n3vtQV9OZ91W59xsCIqGy0CrJufivNm6uc+xr9RwvV+46WSgQifIgjN2dMYSfqHuTw61l/KCdn6cEJRztLiIaPxim9Xd4iIU+aiIZuznVPqfd1ldH4x9k7m4PDzjsVwoCz46moxXBWoMw2Gc6VY7QNNApd7xM0blyUKO4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785513389; c=relaxed/simple;
-	bh=wxYLT89ZumPuz99b6PJmN0odN0KfoDn/BWbg6Q8a92g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qZhbA5K462yaw5ICN8BOVL+6ZaBvPxDKVFEmMDVr9ZLAscM0ZZUxx0nSV1JBqr7IWScZAmgJMV7NWHWXSDXjBdwPiMGCTlEnaqGng+Dn2B5TArv5So5I+SYAYXeW1kxqUYADIje7cxn36snSKmgN9H+jcvxS94vrBE22IUw2q8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=jn+plKJB; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1785513682; c=relaxed/simple;
+	bh=tOTdNeNjYvV+S1Sl/oFZIUbe312XWCO0JJe6b8PVaxc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=KKuQxtyjRx11yJKlRWri3sSH6XTIqQLREZKJe1rSMlTsyDDThXdNB+YqKuASd+QuTkOtrcbtjUSrD7ZWuV8sd+MDr7KJjvXfs5BP76eN83uBxgXRmSZqOjdZT86HAfhYqorjLIB5vK2fTUvxXn7dwD0otUhqWMz/PyUiaZv1V9o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fpyUVNC3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="jn+plKJB"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9FD4111B7FA;
-	Fri, 31 Jul 2026 17:56:20 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1785513381;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=fibExNx3GiA/92TUygQyn1q09jl45LUKbgRtFxXvShU=;
-	b=jn+plKJBqOLswiPSRrTWLctYK+08CpElZQDOpQK1SdsTrm8vbSZ57WwERGfuOTT/L/JhK0
-	ObvOTtsTSnM02vNpHOrGARhT7YYX6mP9nbzuDx1VaZxiDcmj4CPlsLltxQrpJrYKDFL8+W
-	7zNoTEsWjyIa0N5tJpUWGso5WdP+fy+ZESV3gxdCr3+ESKi0QXI+M/KKwaQxz/gPTkz2Xc
-	E4AUJkoNOfQpcgEbnctCOEpuP3kTF+ODaItSIquzNFRFPxCGks7R9Ked+zlu2/fohwoB3K
-	yo57MD7V2Nr5ZXZ/VS5Q49j3WeNyx+JoekgF6+OW2r4zf/2QYfqamHbMombaSg==
-Message-ID: <a5bab69f-22db-46f4-a039-cc20fe428abf@nabladev.com>
-Date: Fri, 31 Jul 2026 17:56:19 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fpyUVNC3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E9B81F00AC4;
+	Fri, 31 Jul 2026 16:01:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785513680;
+	bh=MS163L7aHyuRkSDy7K7mi8+CMIQoWpWbYyGIGDJiNj4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=fpyUVNC3UTCrOlk1cScuG0Bzbd+A3c8+tWGvPXGfnUYmr7cPhrWX3fJzE3hNkUbrm
+	 CtY7ZyADwwFiGktNYsKIZpO3G1eyRLSfqnQFyiAMmIgZ3jZP9s++V+hc0hbDRaQYlj
+	 ZgOKjeeCITocB3Bs0tF8p/3wfhZshGLIlEFpV+vQYJzfR9NGzgnhmCEZKzk+oXVGWM
+	 UFX8IE8K1gWcO7yWU3X5+RVIoz/6k6LVQ8i/kX/tW+fTK285ngFZtervOGSsBWZz7+
+	 eHiZ7oNE6wf73LG5vrhPSwnsEweDf1H6/TXVzqIuzHSwvaTJ1lmkTUFr+NSj2WRAYy
+	 PdoOhC3BDrC/g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 04/10] nvmem: layouts: Support fixed-layout as the
+ nvmem device node itself
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260730-block-as-nvmem-v9-4-f72935817dbf@oss.qualcomm.com>
+References: <20260730-block-as-nvmem-v9-0-f72935817dbf@oss.qualcomm.com>
+ <20260730-block-as-nvmem-v9-4-f72935817dbf@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 31 Jul 2026 16:01:19 +0000
+Message-Id: <20260731160120.9E9B81F00AC4@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 7/7] arm64: dts: imx8mm: imx8mp: Add FIO1-Audio DTOs
- for Data Modul i.MX8M Mini and Plus eDM SBC
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: sashiko-reviews@lists.linux.dev, Frank.Li@kernel.org,
- imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org
-References: <20260729214723.557461-1-marex@nabladev.com>
- <20260729214723.557461-7-marex@nabladev.com>
- <20260729221033.3CDB41F000E9@smtp.kernel.org> <amtq-Ukw_dyvavxJ@SMW015318>
- <e4f9ef42-d752-4563-a86b-4c62f47e43ac@nabladev.com>
- <amy96HmlzdtBz4nl@SMW015318>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <amy96HmlzdtBz4nl@SMW015318>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-On 7/31/26 5:23 PM, Frank Li wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Double-parsing of nvmem cells causes device probe failure when the=
+ provider node has `compatible =3D "fixed-layout"`.
+--
 
-Hello Frank,
+--- Patch [4]: [PATCH v9 04/10] nvmem: layouts: Support fixed-layout as the=
+ nvmem device node itself ---
+commit d3f11032479fe63790d2e2a677a2a7e3ebc199dc
+Author: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
->>> at imx8mm.dts, 30050000 is SAI5, here you change to to use clock-controller
->>>
->>> Suppose address here is wrong.
->> This is correct and we already discussed this in V4, the SAI here is not
->> used as an audio controller (not using sound/soc/fsl/fsl_sai.c driver), but
->> as a clock controller (yes using drivers/clk/clk-fsl-sai.c driver), the
->> bindings differ, hence this node.
-> 
-> Thanks, I forget it. Now, may not allow this method. The same hardware
-> have to use one compatible string.
-This was already discussed at length when the drivers/clk/clk-fsl-sai.c 
-was upstreamed, it is clear the two drivers are not ideal. The rationale 
-for having two separate drivers, one for SAI as audio device and one for 
-SAI as clock controller, with separate compatible strings, is to make 
-sound/soc/fsl/fsl_sai.c maintainable. The sound/soc/fsl/fsl_sai.c is 
-already complex enough and folding a clock driver into it would make it 
-difficult to maintain, hence the separate clock driver.
+nvmem: layouts: Support fixed-layout as the nvmem device node itself
+
+This commit allows of_nvmem_layout_get_container() to fall back to the nvmem
+device node itself if it is compatible with "fixed-layout". This enables the
+cells to be parsed directly by nvmem_add_cells_from_fixed_layout() when no
+child layout node is present.
+
+> diff --git a/drivers/nvmem/layouts.c b/drivers/nvmem/layouts.c
+> index b90584e1b99ea..efa631ce7283b 100644
+> --- a/drivers/nvmem/layouts.c
+> +++ b/drivers/nvmem/layouts.c
+> @@ -167,7 +167,18 @@ static int nvmem_layout_bus_populate(struct nvmem_de=
+vice *nvmem,
+> =20
+>  struct device_node *of_nvmem_layout_get_container(struct nvmem_device *n=
+vmem)
+>  {
+> -	return of_get_child_by_name(nvmem->dev.of_node, "nvmem-layout");
+> +	struct device_node *np;
+> +
+> +	/* Search for nvmem-layout child */
+> +	np =3D of_get_child_by_name(nvmem->dev.of_node, "nvmem-layout");
+> +	if (np)
+> +		return np;
+> +
+> +	/* The nvmem of_node is itself a fixed-layout node */
+> +	if (of_device_is_compatible(nvmem->dev.of_node, "fixed-layout"))
+> +		return of_node_get(nvmem->dev.of_node);
+
+[Severity: High]
+Will returning the provider's own device node here cause a double-parsing
+issue and device probe failure due to sysfs attribute collisions?
+
+In drivers/nvmem/core.c:nvmem_register(), both legacy parsing and
+fixed-layout parsing are executed consecutively without checking for
+duplication:
+
+    if (config->add_legacy_fixed_of_cells) {
+        rval =3D nvmem_add_cells_from_legacy_of(nvmem);
+        if (rval)
+            goto err_remove_cells;
+    }
+
+    rval =3D nvmem_add_cells_from_fixed_layout(nvmem);
+    if (rval)
+        goto err_remove_cells;
+
+If a provider sets config->add_legacy_fixed_of_cells =3D true for backwards
+compatibility, but the device tree uses the new "fixed-layout" compatible on
+the provider node, both functions will parse the same of_node children.
+
+Could this lead to duplicate cells being added to nvmem->cells, causing
+nvmem_populate_sysfs_cells() to fail with -EEXIST?
+
+> +
+> +	return NULL;
+>  }
+>  EXPORT_SYMBOL_GPL(of_nvmem_layout_get_container);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-block-as-n=
+vmem-v9-0-f72935817dbf@oss.qualcomm.com?part=3D4
