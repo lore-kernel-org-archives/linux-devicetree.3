@@ -1,107 +1,159 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11C9E3AA4F9;
-	Fri, 31 Jul 2026 07:57:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21EE233ADB9
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 07:57:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785484655; cv=none; b=QWgArcLwHn1ua7sy51y4MXfywmRFxJ1KqJeTda5px1OSQqaH82ZQvzeNxnFZ8nE07lwrdTxdvTcI8/2tpDr/sgSrhsl2f8eNK8oo4F5lXb8aFzRYTi/hENYhAg1x5P6PH24S+irJ76CWvti31IUt0qeIn25BWr4JcRok4IonVmw=
+	t=1785484674; cv=none; b=b+KwNTfx41ATWDYVReUWKKTqtVLo3qd+m2S2I4HXtaA/cToYufcLGwHXuWKgp/Pl8gaov3PAhgJRnGvExph7l/JbMNMpfOQfozUngj/Xd2kUsBPZ2PZ4j/IbHqgIXZD4LQqHVADbycsGo9mglqKkeNEuQ4fzerGFsRmxeQr2bWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785484655; c=relaxed/simple;
-	bh=dpAuLGDSZJturAo8ygRPYqJ9xibibf7Bd/SqwDGiaaw=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=g2H0fQ0yZEQ/uQZPJFJJw5QVlvDtFg/3Cf1Gt+t5XBlgXxARWU0UsGfwF/rkFzc36U7NC+PuzyTcsMqZejmMKvpjc5QwQ72L+HJDiUnRxTWwubjElFUA+4+TR6XcAK/DO8rBQVDm42SihU67JbrYXZFp0JkLe4pqd9z/9CneAoI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=wmRqjR0X; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1785484674; c=relaxed/simple;
+	bh=0HBlKBF9zL5J6Q7jKGB+oj3M5HCxfntMGCpeDJrEoiw=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=W0BDPvDXcIYixiqTPsOa361GVYTrJ3UNIGDb+5neEzl+aCTZGR1JpWGRW37/0Kz04Z06xFxdV+42iwffxXc1vVO311R5gYxDaHI7ZgM9LwZuFTCfOSb8ytgEHf6j2AHL1KxAg/szaRx7t6vb4tX9WV7gXY9TCvOO4SbnmqSUJ7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=mF76Z0Aq; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="wmRqjR0X"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 66V7uScY51752431, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1785484588; bh=dpAuLGDSZJturAo8ygRPYqJ9xibibf7Bd/SqwDGiaaw=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=wmRqjR0XKNMVoyhvCXY3hfXS94bgSGSLF2LwtXmTa+UYmj1CETi+omC+QjJ7MMK4/
-	 6wpZpCjqpQYI+Zk72kMuv7zPfRLXZSBkN5CH56Pt/4he3191NKEtHsR/kXdcW7V4WI
-	 CjonKPqsgeWLwzedJYlCqs7ocYadwB6zbw6VZ/2VTAcv+PPR/rvsoI5xwrv+gi4AZd
-	 9VW8PxpC4z79JMsbx17cOH2dVA2+lVPMLBr//RBt7UiFSslu+tygt49xQHeBzyVRRf
-	 9dVlk/sAtfxTzVXMCXeVu0q5XB24gApVsKQvXuwplvhoI88/rurBoAa3kdnkz8+ef5
-	 6bYorTyQGh1Gg==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 66V7uScY51752431
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 31 Jul 2026 15:56:28 +0800
-Received: from RTKEXHMBS01.realtek.com.tw (172.21.6.40) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Fri, 31 Jul 2026 15:56:28 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS01.realtek.com.tw (172.21.6.40) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Fri, 31 Jul 2026 15:56:28 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::e6fd:5a3f:8946:92c4%10]) with mapi id
- 15.02.2562.017; Fri, 31 Jul 2026 15:56:28 +0800
-From: =?utf-8?B?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?= <eleanor.lin@realtek.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Brian Masney
-	<bmasney@redhat.com>
-CC: "mturquette@baylibre.com" <mturquette@baylibre.com>, "sboyd@kernel.org"
-	<sboyd@kernel.org>, "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
-	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
-	=?utf-8?B?RWRnYXIgTGVlIFvmnY7mib/oq61d?= <cylee12@realtek.com>,
-	=?utf-8?B?SnlhbiBDaG91IFvlkajoirflrold?= <jyanchou@realtek.com>,
-	"afaerber@suse.com" <afaerber@suse.com>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-clk@vger.kernel.org"
-	<linux-clk@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>,
-	"linux-realtek-soc@lists.infradead.org"
-	<linux-realtek-soc@lists.infradead.org>,
-	=?utf-8?B?SmFtZXMgVGFpIFvmiLTlv5fls7Bd?= <james.tai@realtek.com>,
-	=?utf-8?B?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?= <cy.huang@realtek.com>,
-	=?utf-8?B?U3RhbmxleSBDaGFuZ1vmmIzogrLlvrdd?= <stanley_chang@realtek.com>
-Subject: RE: [PATCH v11 01/11] dt-bindings: clock: Add Realtek RTD1625 Clock &
- Reset Controller
-Thread-Topic: [PATCH v11 01/11] dt-bindings: clock: Add Realtek RTD1625 Clock
- & Reset Controller
-Thread-Index: AQHdHp1OTHbsvktC/EW4g15O79pg0raFvauAgADk/4CAAKQq0A==
-Date: Fri, 31 Jul 2026 07:56:28 +0000
-Message-ID: <28ab6e21cba54e839595352e3e1f31c8@realtek.com>
-References: <20260728142806.1954638-1-eleanor.lin@realtek.com>
- <20260728142806.1954638-2-eleanor.lin@realtek.com>
- <amt7w327inR5rZrU@redhat.com>
- <d986debd-fc19-4e42-9470-79b0da2fcd2d@oss.qualcomm.com>
-In-Reply-To: <d986debd-fc19-4e42-9470-79b0da2fcd2d@oss.qualcomm.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="mF76Z0Aq"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-47ddf7b09e5so796256f8f.1
+        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 00:57:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1785484671; x=1786089471; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0uPTfL+vKx+OflOxVTQ1Xmh8r/udQsPx2gi6DfG+i2k=;
+        b=mF76Z0AqR3DXDJ+4ZM9q66smvWuci/w+v/Ybx2gfSIWUpNBH1yq+n9maZnYBbkw/Xm
+         i6qkeZEKAZNaHM9n0B97HVEBwXh1z3QnmWrxkhBS7tsghWZx36cdJidYOFj2y7+maanX
+         lm2AgrLi5AIYi9+11xElMS8cZGfzpfyDNW6ofHkrVav01dPZUZHG0fEc+yzF0ziyC80B
+         +n6uFPAWo4qPnnsQ5Hsi7650Q8caYUJT3MS5anD38F7cBjoxz7IuMHlvXRg42TIZeODs
+         z2ojlEOqw2Gy1BVo/5O7vQca12CMFFYnE/CHQUpk8/j50kebYiZRBAxnyyRpCAvMwJJ0
+         AWJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785484671; x=1786089471;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0uPTfL+vKx+OflOxVTQ1Xmh8r/udQsPx2gi6DfG+i2k=;
+        b=BNbERJ0P6qAelIrjfqlovl+bozrbCictvg+OAqNtb5O6RRK/Up1vWfwE3ysAxu2BuC
+         8rc5lPQSWhZqJu9QGRz8Jm+6vTlpDxlUulrmgIQEuWL97WTpO1Ipui+GKuxunj54/DXJ
+         QkkdDVgO4LPgDFzjdysmssE7q7taYPVyjTzONEbq34L28eDa2dKf5cB2hQIhsFKZI3Bz
+         64DpcuHeaPTtJ9pE+JQmVYuDQ4FrUFrjOcHocf9ETVfNNKUY0jhIPLQtXX78YBBLNBqc
+         YriFdOzv6jzqEYgS7/NH3JZ36+ri5SXRA9sh0zLi0Ly7YBiqfW1ESe15ypY9dSJObIse
+         eipQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rq5FAqtKEwCc51qXG6AyIMJyejWh9MG3P4F61nXJLcV3LI1czDuHol4lI8V4xq1Y0KamVLf9gd3ygNU@vger.kernel.org
+X-Gm-Message-State: AOJu0YytGZNUXNHv3ELn4YtZu020k8YSCtroMqtyv2hj82AM01T3c7ku
+	prCAQ5rzHCW10Qs75pZ8SdfBTS5k0KqGoHbxSK9uMWemCJqrvhXTe0j5dEvNvmlM1DU=
+X-Gm-Gg: AR+sD11ZzIdMEbD4YmJWG/P2ffBkcQ2qnFvNMdyxvWsBgSWjaIBXoLtXYwkNMM4Am3M
+	5dYUqzzor6WCjIx1DxImSOCuhbWiGSPFR4ZwyqykPMxZddiedJUwpY0Haq0BulaorOJ7MR4Y9RR
+	symtBS54tnVKptwIheFyEvJP0151JFtegNk53i9i4wJFGKSxKfF73a3ugC6sna34J868T6BNNlb
+	vdHEiXbADzOAVnz0h4zKzCFUz2laqumA2zXpLDdy6hVdB3ga6p5z9wN36au2folH/XOxKOK6/R6
+	URvtKORofiqchDwrQzBI7Q/YD4xiFKvKlxl+uuB3x/GDOPbqTBNwtgbaFoFWGmJhvUN0djzuelz
+	t7gQxKPTcBX3U9mBJi7wtgrLKqaR8fRXM60KARh7L/sOa3LrjDzCfng9+9L8iUvovIBOdkdEmKh
+	Z8azwI4Yo6AEsOoogDW+GxZljFMuPSfchs6ze+k5dfM/Wh2g+OmOkpW3Z+S2J1bzsw8ekmmJGIo
+	PMpxTDLinNzpULuPlQz11xLYt+KxYtNPG1ls08Ikw==
+X-Received: by 2002:a5d:5f81:0:b0:473:6e8d:7f3 with SMTP id ffacd0b85a97d-47fd2ab9b0cmr2799659f8f.1.1785484671231;
+        Fri, 31 Jul 2026 00:57:51 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:6c49:d2f1:f94:1fb2? ([2a01:e0a:106d:1080:6c49:d2f1:f94:1fb2])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd4562667sm1967400f8f.24.2026.07.31.00.57.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 31 Jul 2026 00:57:50 -0700 (PDT)
+Message-ID: <b95b15f8-147e-43d2-b821-6aa92061aaed@linaro.org>
+Date: Fri, 31 Jul 2026 09:57:50 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v3 3/3] ASoC: qcom: sc8280xp: add Ayaneo Pocket S2 card
+ with special WSA channel mapping
+To: Mark Brown <broonie@kernel.org>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, kancy2333@outlook.com, linux-sound@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org,
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+References: <20260728-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v3-0-b29f44720178@linaro.org>
+ <20260728-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v3-3-b29f44720178@linaro.org>
+ <69d28133-29d2-4b80-ae69-20117474d364@sirena.org.uk>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <69d28133-29d2-4b80-ae69-20117474d364@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-SGkgQnJpYW4gYW5kIEtyenlzenRvZg0KDQo+IE9uIDMwLzA3LzIwMjYgMTg6MjgsIEJyaWFuIE1h
-c25leSB3cm90ZToNCj4gPiBIaSBZdS1DaHVuLA0KPiA+DQo+ID4gT24gVHVlLCBKdWwgMjgsIDIw
-MjYgYXQgMTA6Mjc6NTZQTSArMDgwMCwgWXUtQ2h1biBMaW4gd3JvdGU6DQo+ID4+IGRpZmYgLS1n
-aXQgYS9NQUlOVEFJTkVSUyBiL01BSU5UQUlORVJTIGluZGV4DQo+ID4+IDJmOTQ3MmMxYTA5MC4u
-NjVkZDJiZTYzOTAzIDEwMDY0NA0KPiA+PiAtLS0gYS9NQUlOVEFJTkVSUw0KPiA+PiArKysgYi9N
-QUlOVEFJTkVSUw0KPiA+PiBAQCAtMjI3NDEsNiArMjI3NDEsMTYgQEAgUzogIE1haW50YWluZWQN
-Cj4gPj4gIEY6ICBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbmV0L2RzYS9yZWFs
-dGVrLnlhbWwNCj4gPj4gIEY6ICBkcml2ZXJzL25ldC9kc2EvcmVhbHRlay8qDQo+ID4+DQo+ID4+
-ICtSRUFMVEVLIFNPQyBDTE9DSyBBTkQgUkVTRVQgRFJJVkVSUw0KPiA+PiArTTogIENoZW5nLVl1
-IExlZSA8Y3lsZWUxMkByZWFsdGVrLmNvbT4NCj4gPj4gK006ICBZdS1DaHVuIExpbiA8ZWxlYW5v
-ci5saW5AcmVhbHRlay5jb20+DQo+ID4+ICtMOiAgZGV2aWNldHJlZUB2Z2VyLmtlcm5lbC5vcmcN
-Cj4gPg0KPiA+IFlvdSBhZGQgZHJpdmVycyB0byB0aGlzIGxpc3QgbGF0ZXIgaW4gdGhlIHNlcmll
-cy4NCj4gPiBkZXZpY2V0cmVlQHZnZXIua2VybmVsLm9yZyBzaG91bGRuJ3QgYmUgbGlzdGVkIGhl
-cmUgc28gdGhhdCB0aGUgbGlzdA0KPiA+IGlzIG5vdCBDQ2VkIGZvciBqdXN0IGRyaXZlciBjaGFu
-Z2VzLiBJdCdsbCBnZXQgcGlja2VkIHVwIGlmIHNvbWVvbmUgaXMNCj4gPiBtYWtpbmcgY2hhbmdl
-cyB0byB0aGUgZHQtYmluZGluZ3MgdmlhIHRoZSAiT1BFTiBGSVJNV0FSRSBBTkQNCj4gRkxBVFRF
-TkVEDQo+ID4gREVWSUNFIFRSRUUgQklORElOR1MiIGVudHJ5Lg0KPiANCj4gQm90aCBsaXN0cyBz
-aG91bGQgbm90IGJlIGxpc3RlZC4gQm90aCBhcmUgcG9pbnRsZXNzLCBidXQgb2YgY291cnNlIERU
-IGxpc3QgaXMgcGxhaW4NCj4gd3JvbmcuDQo+IA0KPiBCZXN0IHJlZ2FyZHMsDQo+IEtyenlzenRv
-Zg0KDQpUaGFua3MgZm9yIGV4cGxhaW5pbmcuIFdpbGwgcmVtb3ZlIHRoZW0uDQoNCkJlc3QgcmVn
-YXJkcywNCll1LUNodW4NCg==
+On 7/28/26 19:28, Mark Brown wrote:
+> On Tue, Jul 28, 2026 at 10:46:45AM +0200, Neil Armstrong wrote:
+>> The WSA Speakers are connected on the WSA2 interface, but the
+>> WSA and WSA2 links are handled as a single dai and DSP interface, so
+>> we need to specify the channel mapping of the Ayaneo Pocket S2 for the
+>> WSA dai in order to have functional playback and avoid DSP errors.
+> 
+>> Let's add a special entry for the Ayaneo Pocket S2 adding a prepare
+>> callback in order to set the proper channel mapping.
+> 
+>> +static int ayaneo_ps2_snd_prepare(struct snd_pcm_substream *substream)
+>> +{
+>> +	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
+>> +	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
+>> +	unsigned int channels = substream->runtime->channels;
+>> +
+>> +	if (cpu_dai->id != WSA_CODEC_DMA_RX_0)
+>> +		return 0;
+>> +
+>> +	if (channels != 2)
+>> +		return -EINVAL;
+> 
+> Do we need some constraints somewhere (perhaps it's already taken care
+> of and I didn't notice)?
+
+Yes channels are already constrained to 2 in the card driver:
+
+132 static int sc8280xp_be_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
+133                                      struct snd_pcm_hw_params *params)
+134 {
+...
+142         rate->min = rate->max = 48000;
+143         snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S16_LE);
+144         channels->min = 2;
+145         channels->max = 2;
+...
+158         return 0;
+159 }
+
+Neil
