@@ -1,231 +1,94 @@
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6A9A3C5546
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 08:06:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56C1D3BFAE7;
+	Fri, 31 Jul 2026 08:06:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785485162; cv=none; b=WUBH0lsRVryRTGImkA5MtLaqqI5gEUar+VB58Vy1lMhXv5iDCcdiB3tb4L0vrD1ZuNpH584BxL5Z0xSmldS6McD1ZkQwdvCpYQF+8ukkuwt3TmjnZ7/q4xtJXcKqiE8mQHUJm5aEXq7Ww+/OYe51ZzkbFwcrsOrtJKhbpNTEIGk=
+	t=1785485166; cv=none; b=j5vC1nv6VR0n7urBYafWp8Io2DRYWl05mMG2aq9rJQ7AWQ4LA1SyLbjCb15uMfR7dxVrttcc/U4W00w/WWo/CNwP+GsfsSEER4+lufUmPn0kxdybngFghiK6IB3L3E7ui39JBGqh2U2NwXVrDXH7o9dYcNbWvfcWb3CvaH+deXs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785485162; c=relaxed/simple;
-	bh=wvTrVwmH9PzRt8PVRzaJLv6T8Kz+y20pDJY1266M/fk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Hbtx0/EB31MvT6H0Ftydkx8xdoRQ/+0voI6K/4PIMtCqFsjfRo3YnPAe38SaWuPVc5RpQ5GgDbos5sLzrm73hmaqDczOWFNFlLWFMBrUGQzbn/iHIJQ2lIihlBbEzSzr4vpDMbuqTMHpTZ+88iJGdxz6pNCPzZQ2BD2om0ioNMA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=VynqhCNq; arc=none smtp.client-ip=209.85.208.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1785485166; c=relaxed/simple;
+	bh=MOlTbE4hEy34g8RNe+LcisliDOqQjoDLJEiOxltqoBo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ulXXoiCxNXaMz/g5swtn/MaWVyq0gxTudfN4kIt8XLQ03MVIE8Dlo8QABWCPiHfhgjknrbmQ/gcKvf/40tC7yFPuj9mX/i81tZi21+LunGNhixYoSmpEE9IpUp6h6k0vlEVyfHs0q5qNpmg8UFNE3x3cyyIxsB2gnIIyoZKWsoE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qq0bplfa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="VynqhCNq"
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6a08a2b7e5bso1062007a12.1
-        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 01:06:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1785485159; x=1786089959; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=U2NxtTeKIysLSdcICKOUJvlj8GihwdekyZDL7YHECjE=;
-        b=VynqhCNqkBx/4b0qMnCJaMgySNrMLH/qjkFl0YRvWWGGLoMSY+uj+/ZyB/pb29ynaU
-         U4lfP21tvNWxYBv/rhLbFQNuRhXgfThFsxeNLnzQEHNAXDrGHPZ1VCD9FUjlZiezQWLA
-         Nd0L+bsDcK/voUL5AKAQZKdWYUs+VEBUeQh46sK6EWHpnB5GbZMpdneb2e/bZiZoywAn
-         nXaMT0cz+PieUhoqlcCSDLjdB0mizNcj2I57X4Nah9YU+q5AeBr6dWnNlfDOLiYv4mMy
-         i5jELsqKdU6ijeQP2HhkN/bFMuABrIzJMKmU7nl+9VNFx7pWA/DHsgTgsmQMBSym/sKM
-         XX6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785485159; x=1786089959;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=U2NxtTeKIysLSdcICKOUJvlj8GihwdekyZDL7YHECjE=;
-        b=DrtDTM0+7p6UBt++bNbUVqn6jC4o9HSj59N84z9QnE8Zb25KNObmZl4clkXUthiKZk
-         Mjc6BPiLq2ovLlwuicEfjzyRzuCjjxg6U9mtBsHP8jEXA6lhkpQKW+VcCpascsyAMLJM
-         Htk3nooNVIb8kArI2E7VFBOFasX24bsCvpDbDWjAshxD3KNe3w4lkbnVymXvOAz0pG1U
-         eNvdHDnX0UA6LO6t37SCz8YTFZMwx712LWdUkbM4Lp/NBPsriJE3NVcEqwIK8u9Glz1n
-         BOu0ehTfFUAf0wdUkoTJDIGk+ezvyHSrmDeHZVf/m3ZFVmZaE+pHtkuHdwiYy6PwAwTx
-         5CBw==
-X-Forwarded-Encrypted: i=1; AHgh+RreBTFksazbk9CLy/0lUP4o6jtWj+uHXtzOZX4vhbrxZ5TY/wcNVhKW2v81QOIuE3sDk+E8q7Ile4Ia@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw+gIfwN7sNGf1Q1KOONvU/cA1wtjSImjFjz7cR1e47w3etLgw6
-	JkzMj09yCRs3qrNgBmSTmbe7d/xDowZjYefaxMVBEFAAj5VPr2/TeA50h93Yf8lbqVU=
-X-Gm-Gg: AR+sD12Ybr8qbyImcNwtzMLwKBw3Z5fd5KM7mx78vqDzpBA+8/j0+GRXsf7BBmU+t5h
-	KBuhRM2A3mz2mZaexcZQUyg6nFKlbI3bgyshAdH1g7prubUOGKK0PlFze0unZ1Hp35GSQbX/UnW
-	DIkhDnZJLt0YiOeJmj8NTQO0dHPv2m0j8Ru4by3YLF2hW6IHlmO1F7HyTJ0ccX64HJiu06Y8IHv
-	awZwrRO6Bg3dztJmGO1roecvcFkio5l4MxXHMGJmASMhUe96SbRYKFIjcIbNdBI2AYp8Izsoxha
-	/4cGVILMJf9GjcF8Dqt4TNkwjW9HXhadFW97IhDBYvK/vlzCMzVwKcWk13Pvt84y35fLn1birHx
-	0Mi6yRvOZ1yXok5rOiMKiqPLDHXAGZLCvVXTF+MUFPT+YOdz91yj9jebz5xYQoe58TmibmlAzO4
-	g+ILaR9iFH81H7UX+1nTsnAp+HPHxwMcojZSG7M0wc2HK68Ods5c+A7MZT6sJ3FmENP8Xv+fOFs
-	lHIVyGa0Q==
-X-Received: by 2002:a05:6402:20c7:20b0:698:8857:9ff0 with SMTP id 4fb4d7f45d1cf-6a09b1428f3mr321027a12.16.1785485156783;
-        Fri, 31 Jul 2026 01:05:56 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd45a1abfsm1689589f8f.37.2026.07.31.01.05.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 31 Jul 2026 01:05:56 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Fri, 31 Jul 2026 10:05:52 +0200
-Subject: [PATCH v2 3/3] arm64: dts: qcom: sm8650-hdk: Enable I2S for HDMI
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qq0bplfa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61E821F00A3A;
+	Fri, 31 Jul 2026 08:06:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785485165;
+	bh=cIjBkD7yCEKhRZ/Xal8jFs2t7PdXu7Ex415r/aPCl6Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Qq0bplfay3V+vLv7SvCoYco9ZyQZf7VyxSOI7hqfxBZhPK1gnuCsj5d9pt1h+dFAQ
+	 M2cvZ0aAtSuxAtr5fUvCrz9L0hLNgk7YCp4i5armMKT2FpSgDkp+ONw74bRvqSBm7V
+	 tBJo3UMVGiX03w9GGC4CHFd75ku3lX05rET83H3OyDpg9M9uR+77SShQJCHCIJ5XxJ
+	 y03Wt9r9CW4gtpCMfk3i2c+Y5RQRqm+4mqws+2aBQ1Dhx95BMl46F9uWW0x4de8muP
+	 7ZUk3Ph5LPYQaVsyURxS7RQCGp85ISfW/EWhBi+ZiQZ7GUJJtfPlT3unCfZqci3Qbg
+	 GeYhdZfqtlvWw==
+Date: Fri, 31 Jul 2026 10:06:02 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Prathamesh Shete <pshete@nvidia.com>
+Cc: linusw@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, jonathanh@nvidia.com, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [RESEND V2 1/2] dt-bindings: pinctrl: tegra264: fix DAP2
+ DIN/DOUT pin names
+Message-ID: <amxXYyfyzeuudR1x@orome>
+References: <20260727141121.772110-1-pshete@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-topic-sm8x50-next-hdk-i2s-v2-3-42c1acee5a2d@linaro.org>
-References: <20260731-topic-sm8x50-next-hdk-i2s-v2-0-42c1acee5a2d@linaro.org>
-In-Reply-To: <20260731-topic-sm8x50-next-hdk-i2s-v2-0-42c1acee5a2d@linaro.org>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3243;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=wvTrVwmH9PzRt8PVRzaJLv6T8Kz+y20pDJY1266M/fk=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqbFdhqLmhQOBIHy9X+uWB/OSkmL1Vf1JLCWPaXh4/
- e0RNd8SJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCamxXYQAKCRB33NvayMhJ0R+ZD/
- wOt7pLLryDSKIv25KYPFZA7c3R694uJO6Bb3nVRFhZAMPKRtYtYhmbskVmBIPF/h3eQQbOdbIqOU4i
- biv9UWT4DT6gnXKAn+o74GIozHEO27raFzdzyF5oE1z5DTxW4cS5ozSmH6b7HUbPeDjbKCOy/WZjkX
- UXK/a3HjLttlR3dC8kaOGc21VYfdkCKLui6DStU3XgBJDCgphsywLlsuIAj0+m8VVYSPD1Kal/qNX/
- cv41+3hqOX9GLrSZgNB+pSj3ZIowhRDJzvh7bVJB9KX//sR6ALNwKHH738yelrFIRJghAos4AIona4
- OQR+lkVM5kPKFAAEgik4bzubfBhFb/Rai5tx77pZHpnPEjsP07kOvZUpwlal16m+CP7vg4HMLGRtE+
- toDOBOuuxCGbsUV1J1+8Oe/Jpfv3y3kdwgphowSholGclhzK7TgLQleeCIjoFwWlpC3OyTKMQ5RS3K
- 9GMghgeiGOBZI79DYrWQ03wSxVawu6hSo5Ay8zARwaRacm35UL1UQSgvVO8WRw8vdD35j91ie6/ERH
- LcjQe4jsXI83ASBMJ6oD/HQcvW4705LvDJhhIN15dQjJbI7B87QP+WQm2QiYMrdzuvcrxs1WQF3hp9
- 0Yf5KxcN0J+iLGfRcDKcMG6TKx77I6tUApCLwY18z5h/EnFMl79dLvpYG1QQ==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="iwpufnrdag23qqng"
+Content-Disposition: inline
+In-Reply-To: <20260727141121.772110-1-pshete@nvidia.com>
 
-Add the necessary nodes to configure the right I2S interface
-to output audio via the DSI HDMI bridge.
 
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
- arch/arm64/boot/dts/qcom/sm8650-hdk.dts | 35 ++++++++++++++++++++++++++++-
- arch/arm64/boot/dts/qcom/sm8650.dtsi    | 40 +++++++++++++++++++++++++++++++++
- 2 files changed, 74 insertions(+), 1 deletion(-)
+--iwpufnrdag23qqng
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [RESEND V2 1/2] dt-bindings: pinctrl: tegra264: fix DAP2
+ DIN/DOUT pin names
+MIME-Version: 1.0
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8650-hdk.dts b/arch/arm64/boot/dts/qcom/sm8650-hdk.dts
-index eabc828c05b4..b62d387b9afa 100644
---- a/arch/arm64/boot/dts/qcom/sm8650-hdk.dts
-+++ b/arch/arm64/boot/dts/qcom/sm8650-hdk.dts
-@@ -218,6 +218,22 @@ platform {
- 				sound-dai = <&q6apm>;
- 			};
- 		};
-+
-+		pri-mi2s-dai-link {
-+			link-name = "HDMI Playback";
-+
-+			cpu {
-+				sound-dai = <&q6apmbedai PRIMARY_MI2S_RX>;
-+			};
-+
-+			codec {
-+				sound-dai = <&lt9611_codec 0>;
-+			};
-+
-+			platform {
-+				sound-dai = <&q6apm>;
-+			};
-+		};
- 	};
- 
- 	vph_pwr: regulator-vph-pwr {
-@@ -853,6 +869,7 @@ &i2c6 {
- 	lt9611_codec: hdmi-bridge@2b {
- 		compatible = "lontium,lt9611uxc";
- 		reg = <0x2b>;
-+		#sound-dai-cells = <1>;
- 
- 		interrupts-extended = <&tlmm 85 IRQ_TYPE_EDGE_FALLING>;
- 
-@@ -861,7 +878,10 @@ lt9611_codec: hdmi-bridge@2b {
- 		vdd-supply = <&lt9611_1v2>;
- 		vcc-supply = <&lt9611_3v3>;
- 
--		pinctrl-0 = <&lt9611_irq_pin>, <&lt9611_rst_pin>;
-+		pinctrl-0 = <&lt9611_irq_pin>,
-+			    <&lt9611_rst_pin>,
-+			    <&i2s0_default_state>,
-+			    <&audio_mclk0_default_state>;
- 		pinctrl-names = "default";
- 
- 		ports {
-@@ -1072,6 +1092,19 @@ &pon_resin {
- 	status = "okay";
- };
- 
-+&q6apmbedai {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	dai@16 {
-+		reg = <PRIMARY_MI2S_RX>;
-+		clocks = <&q6prmcc LPASS_CLK_ID_PRI_MI2S_IBIT LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
-+			 <&q6prmcc LPASS_CLK_ID_MCLK_1 LPASS_CLK_ATTRIBUTE_COUPLE_NO>;
-+		clock-names = "bclk",
-+			      "mclk";
-+	};
-+};
-+
- &qup_i2c3_data_clk {
- 	/* Use internal I2C pull-up */
- 	bias-pull-up = <2200>;
-diff --git a/arch/arm64/boot/dts/qcom/sm8650.dtsi b/arch/arm64/boot/dts/qcom/sm8650.dtsi
-index 160ead25ecf7..c1beda2442c9 100644
---- a/arch/arm64/boot/dts/qcom/sm8650.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8650.dtsi
-@@ -6540,6 +6540,46 @@ wake-pins {
- 				};
- 			};
- 
-+			audio_mclk0_default_state: audio-mclk0-default-state {
-+				pins = "gpio125";
-+				function = "audio_ext_mclk0";
-+				drive-strength = <8>;
-+				bias-disable;
-+				output-high;
-+			};
-+
-+			i2s0_default_state: i2s0-default-state {
-+				sck-pins {
-+					pins = "gpio126";
-+					function = "i2s0_sck";
-+					drive-strength = <8>;
-+					bias-disable;
-+					output-high;
-+				};
-+
-+				data0-pins {
-+					pins = "gpio127";
-+					function = "i2s0_data0";
-+					drive-strength = <8>;
-+					bias-disable;
-+				};
-+
-+				data1-pins {
-+					pins = "gpio128";
-+					function = "i2s0_data1";
-+					drive-strength = <8>;
-+					bias-disable;
-+				};
-+
-+				ws-pins {
-+					pins = "gpio129";
-+					function = "i2s0_ws";
-+					drive-strength = <8>;
-+					bias-disable;
-+					output-high;
-+				};
-+			};
-+
- 			qup_i2c0_data_clk: qup-i2c0-data-clk-state {
- 				/* SDA, SCL */
- 				pins = "gpio32", "gpio33";
+On Mon, Jul 27, 2026 at 02:11:20PM +0000, Prathamesh Shete wrote:
+> The DAP2_DIN and DAP2_DOUT pins were listed with swapped ball suffixes:
+> DAP2_DIN as PV7 and DAP2_DOUT as PW0. On silicon DAP2_DIN is on ball PW0
+> and DAP2_DOUT is on ball PV7. Correct the pin and drive group names to
+> dap2_din_pw0 and dap2_dout_pv7.
+>=20
+> Fixes: 30a9d5162f25 ("dt-bindings: pinctrl: Document Tegra264 pin control=
+lers")
+> Signed-off-by: Prathamesh Shete <pshete@nvidia.com>
+> ---
+>  .../bindings/pinctrl/nvidia,tegra264-pinmux-main.yaml       | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
 
--- 
-2.34.1
+Acked-by: Thierry Reding <treding@nvidia.com>
 
+--iwpufnrdag23qqng
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmpsV2oACgkQ3SOs138+
+s6HsiBAAhUFENwyzdD/kqOdTkHA1KoQDaV/ETaeKD4rCgAr3pQYnleWeQY4mnZlw
+z33xvmg+dhO5lR6xdWzjIequlXZB3SfQDR8kWOS2lnoYTqXViQuVoNlC9GJo4DxR
+vlnrDEVtfqVY4j/Aj6o+/sVTNb20hmJ2t5GzFBDoZI9rHGiZL2X2ng/LwWUyrZnR
+DApc/2zWu4R9u+6PDOkFcxrvDqV++g2poURfaIMsGWsoYniukuJOkFXGRle6ZZ7n
+q4jDS8JxhIENH0uCWvQzQrcf/aZa8A8K8oQEC+s5rnSyP8Ng/BVWkri0XoJC30Z6
+PbSDEu0qoMhO0flON65E3I+WUOwUpsvtC5L7Ig4fWgMJEecAqRUMyMvIVbrZXkOH
+K+F/1hRyLlT4JmK5rCEM3i39iD3ofqgbCcs1Ndz+Y9I7BKDyAkmmituexZv6rxZN
+gI1q8mkxoB1V2GttPxnXX5GuAt/Lj5CzQTFUegB1Rz/OgvSIW3n+pV91iC4HthnZ
+JHSmz5lOeJ6BAyTl4X0kpQv0+R4w/4Jt2mX9zSZuO7vOi80Q6GYv/vuyQh6YiPg9
+U8g75m17+LgC/rme/uhDN38wu6dqbuJ/XgHd0tDFqGwSifvinz7eLsROJlJlxeWy
+wciviEfBi944szIdCzZTdPIq4z2KoC1mEiKfj+V48ptap15F7ew=
+=y9G7
+-----END PGP SIGNATURE-----
+
+--iwpufnrdag23qqng--
