@@ -1,135 +1,218 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89125414A2C
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 12:36:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94E423EC81C;
+	Fri, 31 Jul 2026 12:43:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785501416; cv=none; b=d8cBPfrW2My6i5Pib5S7RfqewqaS/+/X/SwmlvDKNugh9A/QJjMyWuaEWBx9/i8/OcJZGcAUeYRMoCssOi+g0hSb4QfDll3thHyOxYnHwEfdlwfd8GRm+ezZ11ohDtU4+9ouP0pTB+D7HXnk1gEY8VsUeCiI50p5W7KwMKticnM=
+	t=1785501813; cv=none; b=N/42an+adoSxJKesQz0Z1uu00cVQDP0QTjPP6HmKXCeARXuqycKqfWnD363klNLGxNy/lXCIUEHKgkK6w1tjZbCUS7GUmF/o2S743WeAQUR4oWgA8fzms6LyFVa49jtzKmTKTRd8xusc8VO1BinGVkDcs5NnnlF2SWZmEzrtcXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785501416; c=relaxed/simple;
-	bh=Uv4Ftzy+pfmd4rSI1jdfh8oGUuCq8Mla1mYTsPyoLK8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=jgS1VF0KpeFaALs03GOPKsMr4fkUsuhBaN+x/8guY9LKsjgLEkfnZmnZIN3dukqMKa1B9hiM/OELNBiJjE25MoqgythRJ8LIHuAFjTJy59XQ5GcHz7NcI75rz1u4RkKt2iSSv24xgS4ZVtZZBgmqndU3Cik8mXEh2b8ye2BuzvQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=RdSNHqO+; arc=none smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1785501813; c=relaxed/simple;
+	bh=x2CYhRebWVA4pSiOuTk68F95nCFATGjlol1qApFKXAA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=D7GCSYGzCf8uGEdZvcByP6mKIekolSNXmZdMl04SErA3xPQ7nmLl5CuPvv0hVVr2C1wLnoI3gG6/dgfg8KbsHJ/riSMJchnb4AAv9Y6S/dj1GRIwncZby4ch2eXNPPlhhwxW00soTHp8f3JcwZmMo+3zc15VGzl5iNARw5fFle0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=deller@gmx.de header.b=cQJOznIA; arc=none smtp.client-ip=212.227.15.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="RdSNHqO+"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-47c6e9a694bso587224f8f.1
-        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 05:36:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1785501412; x=1786106212; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=aHPCW7QrTZifoRdq8eeL66i1GHgUMkno/jbs1U+f7jw=;
-        b=RdSNHqO+o5uGw2XfbJ2sdwEvn/TCs4UgajBCG7qADwVWnOao8Eaq7PKLSuHw/8xZ+B
-         hb4tptt2X6ofrnc+tKsDkLHI4USuzklLNgI5rzJwkGyRZlVOCZ2+y1vs7FN1+RhR07P9
-         +h/GJ+B0F8RPlIStUd4MIhyZ8BttkmgYa/tB00eMdrSL9b3IH8Go9J6KZCOj6ugVmpXX
-         4ujZ9iKuZ+4mGsGX4USvQ7MEYSU7W/tPcohopr1gE7NqNE8lAHgrgHoCw7CTAYJRbg2z
-         NPE/zPTIgTl7BfSOqw5/NZEayAI6NqEtygMlDWJpVLIndqpXMv9SVi5JUk8XHpXPNApc
-         /qhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785501412; x=1786106212;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=aHPCW7QrTZifoRdq8eeL66i1GHgUMkno/jbs1U+f7jw=;
-        b=fxuL22ElPYEq113hL8Q04pD7HnFt2at4jx4wp6Im5FDos6RKbYZYeTQiPYc3n4h4tT
-         cRDRU/G5NMbA3ABC/Mkixm/PBF+wEHM76axpw49EBDX7DU6jKw0jKMzo4mKOhZ90AZLi
-         I22A7LNap1j65di0ZUrm8ta+WGGR8OorabyvwaQSOa8f+GJpuWjUCtaZ89FpmMmL27op
-         QAvjBFfNuitjAqYmNzyEj1jw4lJRFQilafyk6MiW86oR/w2qT3Z/MIkbfSf8qYYstKVg
-         gGbSxTSOKfX2vbXFc6yvy4kiHmLOCUycc00GqnlVcnrwCM4CwU6OnmjeUUDiTnJVAupj
-         TyLw==
-X-Forwarded-Encrypted: i=1; AHgh+RoNALkRb7V4vD7VLETndbgRMxfySSlxhJ4AWXttK2UmfPVX7mkUhZpxbczmAFfBlZb/0FO8ivH2+Dsn@vger.kernel.org
-X-Gm-Message-State: AOJu0YzcB0LIBJxpHbnDQcCE0m7jVIJC77nfUYzTaQJZPcCy9Je4sTNC
-	PL37hN0YUvvnNTLZShhD/kipgU2WGRxZRFazhaVWfYe7+l9VPSJE0Zolpg01ak6QX7A=
-X-Gm-Gg: AR+sD13KbqO+eQ8OjHLtHEgb/CduGmvvmHhWPdHmUj1MNHzlOTL60b/3so13ZyswFWJ
-	+y9bLawmZW30Lfu/Ns//wX9hAqZiXlG8I66Qn1cfHErjVoBXZGjuQDT7UKIhuHoq5seT6Zb7USf
-	q74nGtQ6Y8htKnPuVOubzkljvvIlnowvilQRRx73Ryzj6r+BVfMddyDOQ1Ovqg6j5pGQEwst4uX
-	uEY+H8oZkFBEeVETu5eoyhb7QnaEZP4P0ggNGfE5m2IUCj+liI5JrMc1MPsL9rKWgUcYHvn8QOv
-	GqGdMv51iLjcM8QuA+ao9U2CsKJyTx3v0oE4ubolXGL08EsrWNi165+8M45lxtz9SRgwbgzAUTi
-	uDXcHHyNFsiTK66cg2aLpNWI5BL1GC8D+FDce4JDGQwwWpD1DqYw+hM26PC8bTgyG2cWItWmD/P
-	6I6bjDPu6VUmpAEU3tYK0igIfxMx2ytoy3uqNlDkTkRiDJ6F6Ab5kIiY4D8xvRHYYt/+OE0jbcK
-	Lzbtazdrg==
-X-Received: by 2002:a05:6000:40cd:b0:47f:6dcb:3737 with SMTP id ffacd0b85a97d-47fd2b3f8abmr4259971f8f.29.1785501411887;
-        Fri, 31 Jul 2026 05:36:51 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd41cfdc6sm4457262f8f.8.2026.07.31.05.36.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 31 Jul 2026 05:36:51 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Fri, 31 Jul 2026 14:36:49 +0200
-Subject: [PATCH] arm64: dts: qcom: sm8650-ayaneo-pocket-s2: switch sound
- card to ayaneo,pocket-s2-sndcard
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=deller@gmx.de header.b="cQJOznIA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1785501803; x=1786106603; i=deller@gmx.de;
+	bh=S8g3/1oY9YczeNuRH1/sjOi6A1yDMSFibS2nQnYNERU=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=cQJOznIAfWhvsLAljZui1oIjS/c7fm5zCpc1uUVSW4DMuURdsUmZ2PpS8CfgBiE5
+	 U05Q94m0wAEIGQnE5LC3IymXSLdR4fqv0mQxgmiN9vFYC9eZO5OYnw7T1TseakPl8
+	 5uHrftpOe5Z6YDbDgoynNP0L0ZxsWncQr50ylkh7p4ngMrJGn8mlQvFenw9rXt3vY
+	 jA3teJLX9nke5ufTaW9/+iRPH4cax5my+33yKM0gddKeATZ+SqmkgEvIeR93ym76X
+	 9eL+GURwCU/yAy8fuw342ZoZCuXe8CbenReSkCEhz7fK+2F5jqsGd4xWdZQQ+fAQf
+	 GB357Sbs7vop3gzgBw==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1Mi2Jn-1xTVBi376P-00oxvY; Fri, 31
+ Jul 2026 14:43:23 +0200
+Message-ID: <580fd486-ec67-4db3-8235-e835f0c40eab@gmx.de>
+Date: Fri, 31 Jul 2026 14:43:19 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-dt-v1-1-0528ff6ffe38@linaro.org>
-X-B4-Tracking: v=1; b=H4sIAOCWbGoC/yXNywrCMBCF4Vcps3YgSbEpvoq4SNOpjmISMqkXS
- t/dtC4/Dpx/AaHMJHBqFsj0YuEYKvShAX9z4UrIYzUYZTplW40lJvYoz747KnRfFyhiiv5BBcX
- gW5zBiT84FrQ09NZpM7Xkof6lTHXZW+fL3zIPd/JlC8C6/gBUlCfbjQAAAA==
-X-Change-ID: 20260731-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-dt-7eb87a12f3ec
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] fbdev: ssd1307fb: add support for Sino Wealth SH1107
+ controller
+To: Jakub Turek <jakub.turek@elsta.tech>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1390;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=Uv4Ftzy+pfmd4rSI1jdfh8oGUuCq8Mla1mYTsPyoLK8=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqbJbiTjpW9UHPd2POKTYML7jZQbHVCmgCQjWD6Dgq
- kyMaTxmJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCamyW4gAKCRB33NvayMhJ0UxsD/
- 9WlfpxCZBc7UK0ep0xLN43ECEwFLDcai5s0tm7zydq+5NO1vQceFSw1QpUBQ3B3I18aX7nqYL8ce9M
- 3tZUnnb13DswUfumttxbsj8JuUoD9OUCuVLoES+NyFR8USqNZf7yOZYTn3jCOCN0d40CwnJICmaFJA
- 6/vSEdq3wZs3Sw1KHHQlCTegpu/EyS9N2V2crrmT0fUj1II8Tit4wxqNcmvFoKItt8tYy2zJ13VMnE
- P0DMMc10n+cveiVBKVyQdbLKmXFddOaxal0m5XrpRylPcztoei8ELh2c8ZImegwvbW2eK08zyxzF50
- She7MA/jE1SQMDO2YFRFhkKCQgmmTgiTmkH/hx8N55NyzCLhY3miUcYw2bPXNbckPUnYXDyBRQkay0
- +RQlkE2mV0QvDmnfKUOLbdR7wbaklGw3YB0bQcJDd9q2252o29SXtoqmXLJvNHzBCcLxG9WGO/0WqS
- ZOj/fR4vmZk7yV81MdMC5+mw+Y2gC1/tvopJgAV2Tv1eigIyoKzFy2IOeC1p4NhCb9tyZVRNhHtOmx
- MWJwjMnQUsM/p7Rm1RqWGb7m50yfjnYipUX1un29E2JpLK/GWr8SnH+KwGewZza1RtEM6O/09ikua6
- UZ4M3q3/uK3Wp/8J0XSL16IRfdyv1unE38/aoopqHtgN3r23bhZsEanXQA9g==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260731-feat-sh1107-v1-0-e10977f76e6b@elsta.tech>
+ <20260731-feat-sh1107-v1-1-e10977f76e6b@elsta.tech>
+Content-Language: en-US
+From: Helge Deller <deller@gmx.de>
+Autocrypt: addr=deller@gmx.de; keydata=
+ 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
+In-Reply-To: <20260731-feat-sh1107-v1-1-e10977f76e6b@elsta.tech>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:9PfcIixWq08u1vVVI/4kluavRxebcXpoXDl7arytL6LCr08eFiP
+ b78cepSCkfK+ZSvyNd2pPCxQJ0nnaZnOljsJ5aOvwV2Q2vLgljMtta4PH9k4J2bD5XsVvi4
+ MyJIJ81uYPqYLcgrbj7v37jeOZ4v/ghgWbEDSietywo1ayutBMOHXY79+QGJ3riaH+Duu0L
+ bgUwENjrOXqWz8kjGx0kQ==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:Lx/PPNpEm60=;GMhrhohgrwOOe4SdXCaFKZKUK48
+ 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
+ FvAjCEDZ1LUIVOmUK2/29QDZJo75BYsOgA==
 
-Switch to the ayaneo,pocket-s2-sndcard since the hardware connection
-of the WSA speakers on the WSA2 port only makes it is incompatible
-with the default SM8650 generic sound card.
+On 7/31/26 12:46, Jakub Turek wrote:
+> The SH1107 display controller is very similar to SSD1307 but the main
+> difference is that SH1107 has different memory layout and uses page mode
+> adressation only.
+>=20
+> The SH1107 relies primarily on vertical page addressing mode where the
+> internal 128x128 GDDRAM is split into 16 vertical pages, rather than
+> the horizontal/tile addressing modes natively utilized by the
+> SSD1306/SSD1307.
+>=20
+> Signed-off-by: Jakub Turek  <jakub.turek@elsta.tech>
+> ---
+>   drivers/video/fbdev/ssd1307fb.c | 234 ++++++++++++++++++++++++++------=
+=2D-------
+>   1 file changed, 155 insertions(+), 79 deletions(-)
 
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
-[1] https://lore.kernel.org/all/20260702-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v2-0-1ef8ceb8c9ec@linaro.org/
-[2] https://lore.kernel.org/all/20260728-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v3-0-b29f44720178@linaro.org/
----
- arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This patch has many unnecessary white space cleanups.
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts b/arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts
-index 0dc994f4e48d..508d1445bf21 100644
---- a/arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts
-+++ b/arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts
-@@ -221,7 +221,7 @@ upd720201_vdd33_reg: upd720201-vdd33-regulator {
- 	};
- 
- 	sound {
--		compatible = "qcom,sm8650-sndcard", "qcom,sm8450-sndcard";
-+		compatible = "ayaneo,pocket-s2-sndcard";
- 		model = "SM8650-APS2";
- 		audio-routing = "SpkrLeft IN", "WSA_SPK1 OUT",
- 				"SpkrRight IN", "WSA_SPK2 OUT",
+Please split it up in at least two patches: One with real code additions a=
+nd fixes,
+the other (if you like) a patch to clean up indenting and such.
 
----
-base-commit: c50ed4627e333934aaf0473a822169786c83dce5
-change-id: 20260731-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-dt-7eb87a12f3ec
-
-Best regards,
---  
-Neil Armstrong <neil.armstrong@linaro.org>
-
+Helge
