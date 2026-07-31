@@ -1,159 +1,105 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F7613D9DBA
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 08:55:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 618E631B823;
+	Fri, 31 Jul 2026 09:08:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785488119; cv=none; b=kOIsR2hkNb9B/tpQXXUItTCHqQQkusghOgdeql0LxU14pPRE9w/U8VfiuCFezxZEscPtbbLC3Htwxyxbv53asL9WGknDKJ+zdxXTnTqh2lIuN07y4wTJdQK3dS3dSzMke7y4d1wFvBCmv89qQ1g+p7GHNbHms9BEbdaxhQxX22E=
+	t=1785488910; cv=none; b=IMqEr2z/vlP1YkSf37dZvdk01XuCQ/v9yAoPJX6LvxHCzA7LertraAwMYtYmGX3V+5bk7WaxDEor5TutPMa2wyTxiBzECCHXhnh2w9MTy5+DzCG6CYaaw5V498X0LaBks6EsNK3WD85VrgoQkNRhmaoCuM8YLc0wry1E2FlUgmQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785488119; c=relaxed/simple;
-	bh=yIpEzvjKVOlYYV/ZI/h1Drlk6YvOIqNwrObuWA/sS8M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PJLtJ4Ex9X5OiA3oOMq95JKJNvyI4AvCyetRUBnTDGpr46GnfiiX3Qw7Mh7b9o/xtiAhc1QZi/ZRIhdkjj9fOCGj++pTzm/GlTOhsdnJMvlm6qINYVl2donX772F1VQOwLo3KuzXr0WSjjzGORFFBLm6ZOxKymWSU06/McD74no=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=qgG72Ui5; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1785488910; c=relaxed/simple;
+	bh=bvV/rM0nI+620wZ/+v/nwmaJtEmXb5qVlKP3MmQr9lY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Dw6FWrW1p35UYr8wR1Tp9NpkjO3pZiQjpCL5YX4PUbHnhKEXt+qk7j7DHR/rDoP+Ulvu32wOMpZqyOwsjheVUOsAI9KmNoAYYPbdr8QeJch9JuEctxDq4NfU49IrqBm5FbMmao4xUud/dZx22z0zq/waTeUmuEjWQ9twXiFmu4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VJc0ovEu; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="qgG72Ui5"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-47f59f25ec4so310138f8f.2
-        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 01:55:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1785488114; x=1786092914; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:from:references:cc:to:subject:reply-to
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fkKzcL3RL55Va2wcGsVulbs5kxhckxkItU6uV2P+1l4=;
-        b=qgG72Ui5UTjTwxE2CpyF4iAszRHTIfR8E9CMDd2PIxVp7x0ZowUJZiwk/Gjhc3BKbJ
-         jXoJNbnnTXvd0DvgVbCteyDfVvgfK2ITaUgWzXcCCXeBziaIqBFNYjTqNFQsu9X+D57A
-         kYCIuOPHgRCJiPKRSZCC1HiKJ/zffTzfzKj8MsA0pys8CkQGVHJDfMk/xKcAa54Ap6cD
-         n7T+MUzPODDLdfjNBUmt7Jo3PAG1ZtffqtW52NRu25dClFg5NEoXzOxRXvTXJA3xHzLv
-         +dU2rkYlIT8svlXTExftOco7jpq29QpZTomkSRH/CR0P+oDLJ2VPxGtJr6u6Ud17/Vce
-         oH3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785488114; x=1786092914;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:from:references:cc:to:subject:reply-to
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fkKzcL3RL55Va2wcGsVulbs5kxhckxkItU6uV2P+1l4=;
-        b=Uo7K67lXo1+oGy5R7Z4sW8ZyhDPZWedEEfXG84R9MY5QFASNlIVr6GYgCFJY95uufl
-         cwuKEc3jivW+fg1cg3QGE+bWBUtk8C6tsEfAuQE/jPTydEvdzEyqIsR1Ym11h+8THZg+
-         NRxAhsmH+FO87OAetHxb977BJeGQqAdB5q3oRQh4/NnIA3jpc2jbMNKJzexvL7c1YqhA
-         ZwNQWPPWpEHg1CLUFjdYz9UWon9fwg0mHOdyuYlSHDJtlECqyQHisoWgUshysMYnduXb
-         5qr70J+2nVX4tVyaUcTGqJkrV5Xdf430jdhu2ObGfgKV0oNmzAk3yqH7QpvCt4BFpazl
-         2VvQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rpwq1oKMbMR5lYB/Ky+sPmu08p1PMOElNeE+Ppj9lHe4fEGNiGjYt/ZnD967V3B1CaKPpKyDlcEW5Tt@vger.kernel.org
-X-Gm-Message-State: AOJu0YzJfywUWG+fOtX3nPefqT6TcEGU7r8UqFVIOfjhm865YPbxerPI
-	MHtajVca0rOG+5COjSjBOa/kcCvWN+DEHCXCixRzliW0O3Ap9GSHJ1m4C/u+TATPeCbGvbnEXK7
-	Hfwn9
-X-Gm-Gg: AR+sD12bXOA3osrYkb8kT04RYnjGLqa3jzIHUXyb/6tgRXuwNb9VlOfmsklmMGiyxTP
-	fV2LjLUtUTP9H2plf7OyW1j0dRXUWVUajm7bIWjUf7iqOJxo7f3LuCBjDxS/EeeaX3ZHz6ORBNw
-	VjwoTDAsn143njgq0aL12RiLI7QizxafNOhp0Dpsm5jZ2DpmXWDI6sIhoXvdnLAKHgQmznw56Wf
-	gyRqRJwN8S4BvLtChtl1X26pi720V742GrT3JVxW4DUJjU0Jj6fu/JH2IWVgXRIOnVkrXB0Lc3Y
-	Du3/YZpf7CDwLQ3hLtd5cQB/P1dM81fUHmorR1N0c5aai4u7w5SJ36MfSFg5NBxFLuXoM5lVTx4
-	ZmC14g+6YsFHc0Byoaz3YWoKVUmIEXghd9bIyO+dzfYhNZ/VHY9wf0VqZpFpJkoXu9/SflA38wJ
-	y136D4FzPP8hCgPkkU8PdoLk/kjEDMuqnM9GZOJOXtsgY2bEOYmpapz5m57F4TrGGdInf48m/19
-	W08DzoPnyxREq+bLEaEDAm3NIX3CNThTzNS5dkNxw==
-X-Received: by 2002:a05:6000:70e:b0:47f:91eb:342 with SMTP id ffacd0b85a97d-47fd2ac9f82mr3008798f8f.13.1785488113613;
-        Fri, 31 Jul 2026 01:55:13 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:6c49:d2f1:f94:1fb2? ([2a01:e0a:106d:1080:6c49:d2f1:f94:1fb2])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd458ab61sm2254023f8f.25.2026.07.31.01.55.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 31 Jul 2026 01:55:13 -0700 (PDT)
-Message-ID: <34d2df7e-1754-4c0c-a685-c1b511161702@linaro.org>
-Date: Fri, 31 Jul 2026 10:55:12 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VJc0ovEu"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id EB6AAC2BCB9;
+	Fri, 31 Jul 2026 09:08:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1785488910;
+	bh=bvV/rM0nI+620wZ/+v/nwmaJtEmXb5qVlKP3MmQr9lY=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=VJc0ovEu96/XGt43BVnIUuZZ9Qee2/eqG3NAova1Or4Two9pujpckvPV8bdXgRjLZ
+	 wbHDtsCpvkeDJKshfAeUGzrTnuwhm5czFve1E+2e8n1bAyQXz4cp6HXuqU3tKOsZt+
+	 u43CP4PQ82My1HPMUNem3bWI2JI1CrLgjOg2YZUFGaE/vycOWdbH373z/93OW8kOsr
+	 br3IeBDKv7m2DSZpf9Pro2EuCrcJVd9pcW28zHaBfJA9jmbd58D806RTkXGRYPgjLV
+	 CjYrdx7Afg4v9V1XFbBe3+ORXS0Dixv3PCBIufCRTo67/JFsrHGcdvrZtR9IXv+wW0
+	 I9sfwRkeLwB9w==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C5EC7C54F54;
+	Fri, 31 Jul 2026 09:08:29 +0000 (UTC)
+From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
+Subject: [PATCH v3 0/4] spi: add support for Amlogic A9
+Date: Fri, 31 Jul 2026 09:08:24 +0000
+Message-Id: <20260731-a9-spisg-v3-0-a15da3f70029@amlogic.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH] arm64: dts: qcom: sm8650: Assign CCI clock rates to
- 37.5MHz
-To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20260729112719.1151700-1-vladimir.zapolskiy@linaro.org>
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260729112719.1151700-1-vladimir.zapolskiy@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAhmbGoC/1WMwQrCMBAFf6XkbGST2IZ48j/EQxo37YJtSiJBK
+ f1304JYj/N4MzNLGAkTO1czi5gpURgLqEPFXG/HDjndCzMJsgEtam4NTxOljnthHMIJlK2Blfs
+ U0dNrS11vhXtKzxDfWzmLdf1G9C+SBQcuEdFq3aIw/mKHR+jIHV0Y2JrJcqdKtVNlUY13yghoW
+ o3yX12W5QOVxzoh3QAAAA==
+X-Change-ID: 20260715-a9-spisg-f19ce0403a50
+To: Sunny Luo <sunny.luo@amlogic.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-amlogic@lists.infradead.org, linux-spi@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Xianwei Zhao <xianwei.zhao@amlogic.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785488907; l=1506;
+ i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
+ bh=bvV/rM0nI+620wZ/+v/nwmaJtEmXb5qVlKP3MmQr9lY=;
+ b=SdQy3BS98tF3sFP+q+xnLU/GSSdFyQs9HgENdgmZKFHmierrxjzMQG3KiuhF7b9VSJjSn5r+V
+ BrYZZ8CRcO/A/v5412XiLu9mRtVN7bIZIPTwft0onk1U7zrLxL6zaod
+X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
+ pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
+X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
+ auth_id=578
+X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Reply-To: xianwei.zhao@amlogic.com
 
-On 7/29/26 13:27, Vladimir Zapolskiy wrote:
-> Setting CCI supply clock rate to higher value of 37.5MHz allows to
-> program the controller to configure its I2C bus speed to Fast-mode plus.
-> 
-> Signed-off-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-> ---
->   arch/arm64/boot/dts/qcom/sm8650.dtsi | 6 ++++++
->   1 file changed, 6 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8650.dtsi b/arch/arm64/boot/dts/qcom/sm8650.dtsi
-> index a64922c21267..a14e11d81488 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8650.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8650.dtsi
-> @@ -5615,6 +5615,8 @@ cci0: cci@ac15000 {
->   			clock-names = "camnoc_axi",
->   				      "cpas_ahb",
->   				      "cci";
-> +			assigned-clocks = <&camcc CAM_CC_CCI_0_CLK>;
-> +			assigned-clock-rates = <37500000>;
->   			pinctrl-0 = <&cci0_0_default &cci0_1_default>;
->   			pinctrl-1 = <&cci0_0_sleep &cci0_1_sleep>;
->   			pinctrl-names = "default", "sleep";
-> @@ -5648,6 +5650,8 @@ cci1: cci@ac16000 {
->   			clock-names = "camnoc_axi",
->   				      "cpas_ahb",
->   				      "cci";
-> +			assigned-clocks = <&camcc CAM_CC_CCI_1_CLK>;
-> +			assigned-clock-rates = <37500000>;
->   			pinctrl-0 = <&cci1_0_default &cci1_1_default>;
->   			pinctrl-1 = <&cci1_0_sleep &cci1_1_sleep>;
->   			pinctrl-names = "default", "sleep";
-> @@ -5681,6 +5685,8 @@ cci2: cci@ac17000 {
->   			clock-names = "camnoc_axi",
->   				      "cpas_ahb",
->   				      "cci";
-> +			assigned-clocks = <&camcc CAM_CC_CCI_2_CLK>;
-> +			assigned-clock-rates = <37500000>;
->   			pinctrl-0 = <&cci2_0_default &cci2_1_default>;
->   			pinctrl-1 = <&cci2_0_sleep &cci2_1_sleep>;
->   			pinctrl-names = "default", "sleep";
+Add bindings for A9 with some features, and driver for A9 base on A4.
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Fix the incorrect keep_ss of the last descriptor.
 
-Thanks,
-Neil
+Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
+---
+Changes in v3:
+- Re-wrap binding commit msg and drop "amlogic,word-gap" property.
+- Handle the hardware word gap through the existing word_delay mechanism in the transfer path instead.
+- Link to v2: https://lore.kernel.org/r/20260723-a9-spisg-v2-0-9fc39106b7e2@amlogic.com
+
+Changes in v2:
+- Move the added properties defined to top-level and then reestrict them  in bindings.
+- Fix some pre-exiting bug reported by Sashiko AI review that as a separate submission.
+- Limit the value that will be writed to CFG_CS_HOLD.
+- Link to v1: https://lore.kernel.org/r/20260717-a9-spisg-v1-0-2eeea77be19f@amlogic.com
+
+---
+Sunny Luo (1):
+      spi: amlogic: spisg: Fix the incorrect keep_ss of the last descriptor
+
+Xianwei Zhao (3):
+      spi: dt-bindings: amlogic: spisg: Document A9-specific properties
+      spi: amlogic: spisg: Fix transfer size limit and timeout handling
+      spi: amlogic: spisg: Add support for A9 controller features
+
+ .../devicetree/bindings/spi/amlogic,a4-spisg.yaml  | 30 ++++++-
+ drivers/spi/spi-amlogic-spisg.c                    | 99 +++++++++++++++++++---
+ 2 files changed, 111 insertions(+), 18 deletions(-)
+---
+base-commit: d0b5dd16226814e5c73ba8daf88d3d91c990a38f
+change-id: 20260715-a9-spisg-f19ce0403a50
+
+Best regards,
+-- 
+Xianwei Zhao <xianwei.zhao@amlogic.com>
+
+
