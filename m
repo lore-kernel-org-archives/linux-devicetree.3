@@ -1,221 +1,150 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7195C19E968
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 02:48:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8B9F314A60
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 02:56:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785466099; cv=none; b=XXs/V+0mkmodLgLExMcSXUWvBikBrWRTVc9tZ6l7FO+AZbSHHkjxvaehVCPnjLzNbxaLo1wEnX2/UqWfuY/cF1qXjmd2xvNM91d7S7n9ZrRqvNKD8eEsrlPoH0XUMch8/6O0QM7TE6h1cF2r/77SYzXzhWTAyoWvphLtB3R12T4=
+	t=1785466593; cv=none; b=cUIR43OvS4qRpjZ9oDLb7ckIQAlHV3j3sjhnC7FNk+I0g4ih81tTxUQAhBash9p+bqfvT+HND3iQPgm+6z2WrOZ56Vz0QU/+FpES0bSIcrgokIxoER4IjcxPl0GZe2f1dVwo/bz6c+AgfYduTzdQYm+j5T/iaMqkk8tX1CByLzQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785466099; c=relaxed/simple;
-	bh=ZgwiyRj7FLmHtrjyUzYaLeGUpC30Q31E4oVMlIii8Yw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sny6yBoAWm63BJUu9Prdn/M3SNCjSLwSQcFT2LerJLiJ0DaWWHfpy+bGLAy/JrmyQtrrYIkoBsw8m0LGk8MtryGvNjsBjU0np77tBdhjAAg/Hpe0kVCX4SOWHPPfLWZlD3trfTdBmLWbLrSrcnLpl6Px0bhEQ8UEN2obgzcFSBM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Glqe1lM9; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YtFDfm4p; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785466593; c=relaxed/simple;
+	bh=KjZ+uACRxumlfzhanLvQ89GnZNvCbEi1KvNHScewSgg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=AVSxVLNQsvkOet7gwqVl7lcpDGWbLP+afMnXJoeFlb2lpcaPjmhbnlmR1fvmyFXMXbO9lQ8oKsAZw5gIN5aa3X8HnQtSeO5wazG79cOqmlBDY95wsv4ls1jInV+dvd8owQ6KNIuXL1cxIGkWOfATrAEMImmu/nAfuHlIwKhwmyM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oS5arSxX; arc=none smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Glqe1lM9";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YtFDfm4p"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66V2Mfcr2509275
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 02:48:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Qt/5MatpNOCdKRPB1kLriXHjIY6fXa5r1g6k9xmfSwE=; b=Glqe1lM9Ja8PpnbQ
-	ipKc+IlP8oSWM8P6FBi0jplvttBdKkaGqxLhbx7w8wJoahhDm9Fk7eW/wEPGH5tf
-	Vlg+6LmKlx3U4B+s47pvSGjm8c0ltwJtPHER883kAUSi0Bjal0Mo0Ipfvqn8jEj9
-	hzal9kWvXL0jDibHavPl5FtBK0WdmZoMlK0K3j/LYliIqtVpwDHpa2jsDS5HCalQ
-	CqUO5jPyr6b442+EnQUg1P1SAZ1RnuaTpT7GfcBr27RxqTNypWdzlmFHG08kP2zU
-	e7lBesF4TkYzOU9TKDDoc0b9pJWck/kqRf7+0yxifGqzydU3oSDCG7nhA89VNflu
-	EZpbsg==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4frjv9r2j1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 02:48:17 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2cacf17c7e0so5817135ad.0
-        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 19:48:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oS5arSxX"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2cc97653887so4953825ad.1
+        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 19:56:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785466096; x=1786070896; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Qt/5MatpNOCdKRPB1kLriXHjIY6fXa5r1g6k9xmfSwE=;
-        b=YtFDfm4pOEzHAxChbrkVklWN4BVEnL5gMPTMWEKTVgfV/PaGCZpYoSduEOzL79ADzH
-         AHm4kQ1NN4wF0xbT17RKvoh5tphsDi/3WaUHYPdQI1EATJuupz7oJvn/H7atwoq+CuiH
-         gARNRNrn/VXr4KMTEZgSDvu/wq0jKseSnYmWb8BPjLTyK6l708N4Yd1AG6V6dsdmQGnw
-         E8MVPxc/RbZCz+MeRxT6GydXJSkEQ8ccKchTii9jwjnl0IoJUQagMuYUiTqk2tBzZYFD
-         KSb//b4lOxPBMNHHvrQ4muRkM0i/XYYNiyTC3i2rb3JPG5DV1j8mVIwuPaZYQSDwVWLr
-         Utag==
+        d=gmail.com; s=20251104; t=1785466591; x=1786071391; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=w0g6HPpKwMIM98vY4Fw9uAXjnXbrYgnR7YtUXIf+Ruo=;
+        b=oS5arSxXcvumUQ5AaHMLJeHJsOJLgbjJ0S0le8ZON/DT1cfs5Ukhotg6h4XbbdoPUi
+         6vbqJBdPOXgH7+tSF/YK+RWVg6C7EUo3ZyVC02NtRkPAWD5U+O4xwFwKw2tYiIpPPUtQ
+         3uBWZfwil4ihuOQQB7Q7DJ6nH1PuXG4KuDHT8UYFu0QbYf3wqYDosbz3AFrL0ILkYEfL
+         nOOblqM9+kMVHI2tBgNTfiPN7Ld7SnTGX3WGUdWHYZwaSIszKumGdvt9sU8iGJGqfR3m
+         l2W492JtGMm6c/xB31/B7guD3i47cfgqIZ93177NnncIdT+hrhl7RSQdx6mXQMCSmL8J
+         zrVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785466096; x=1786070896;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Qt/5MatpNOCdKRPB1kLriXHjIY6fXa5r1g6k9xmfSwE=;
-        b=YXne6YZODE2EXhsUSMshVUy0JZ1tWV2Wu/7COVk6Gq8P37iiQyI/j8gVE5AF1U00FA
-         P/VCAxxFYkzV0M7uVXnWxWAOwKkfz7NShM71KHqW4JcS+oAByLc8HDxJU/MRojHZ7DN5
-         sSV9x766Jyw8raypqVRhYb11+ArGRO7vqPhCRmRuQZqeCoUtW8vADEBq8XiGw2cxXIYq
-         Tl67+UGPmJRbXYoeggAdHruRtVonQq2Zix9zV+jWt/ThfJZaFu4IreynBjk704nM22z8
-         szLEbHIpShqeklByUXCIMyAkHZJB5xned548FESofRubtQ849WECUVknbJpBO6z3j0dl
-         AzKA==
-X-Gm-Message-State: AOJu0YysQe6ZNvQo9RfxWSFzuCZuimZk3/EHAJX0GqNy1cTpOV7yGlip
-	XpO0VVUNZk1yhjfAD1lYvpWBdhNT6ARM315B0h1BeX/NRGVVh3AoXJDvDDLinUVnTUeI1PDPSm5
-	a6OKoq8kHR43NBeDKsbf5c/5Mhn3hiJPLVRl6KBrE4i7ahCPaxfYYjjKt8zUaeDMeLIe2GeiU8U
-	o=
-X-Gm-Gg: AR+sD11zLz2q5JMXqRs5HzVo9SK+/94Mt+NtM9/NLM35RrKSUK1QzS/U+W2JHcaxxQ3
-	CvSFCaCHs33LncRjWbVdcS/RRP1kfxJYCgRh2Fe7zo4ZBNiS4VJmgWUM2Ogoo2n7gDTotNo5Ohz
-	1VcHgJ/hMlfwaoEqKoR1mP5870jltU6cwoRzWtkuP9gNOnpeTqIXHiu07daMlX9gmwqIpT8Z8kW
-	0b/dJTYcX+X6+07683OgaKWFRUBPB8Ghfo9BtIzIclY4X1gpjMfMb9CqBlydupqCQ1bW7tUB+wI
-	9y413dbZTz2tNOeOf+E4wd95Rhgufo25uwsga2wQQepVeBZOn/UYoWl5t0sUD6V3sWl+y+3UJge
-	9hMQIuCghFgV6MI0A07gk20r87/LQQWAEvvH+91K7l7IR2StGKEqjzSBefzm32fT78oXJ5vo=
-X-Received: by 2002:a17:902:f602:b0:2c0:b6c7:227e with SMTP id d9443c01a7336-2d046d67890mr3472165ad.5.1785466096071;
-        Thu, 30 Jul 2026 19:48:16 -0700 (PDT)
-X-Received: by 2002:a17:902:f602:b0:2c0:b6c7:227e with SMTP id d9443c01a7336-2d046d67890mr3471975ad.5.1785466095585;
-        Thu, 30 Jul 2026 19:48:15 -0700 (PDT)
-Received: from [10.133.33.90] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d047abcadasm588365ad.51.2026.07.30.19.48.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 30 Jul 2026 19:48:15 -0700 (PDT)
-Message-ID: <e6906c57-d17f-475f-89d3-d2e8550735ff@oss.qualcomm.com>
-Date: Fri, 31 Jul 2026 10:48:12 +0800
+        d=1e100.net; s=20251104; t=1785466591; x=1786071391;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=w0g6HPpKwMIM98vY4Fw9uAXjnXbrYgnR7YtUXIf+Ruo=;
+        b=NQa85Vm5GG4++D1JDvkDucFLcKzvvAY1zoMvGC+HTY3FDkBjnL/XuDRgz+akRXQmEl
+         D3NWJhg08NscutG3mwbbS8PWW9qFq3oASEWdMSEbeZpxer+8uRVrI7WSIwOaFx22ObkG
+         cKqlfvMW6qp5pxaN443ts/aZ6h99oS8abdQREjFjebFi9i8qCr0nHyqlAeDhOZ/bvAci
+         pI9pXf7noxdyclSrM8O6Yvn54BRmt1a+VzFMRJ+YtQ4szE3kMO+e61O0vXPNnNm404bI
+         U2TInjiyu9Jg9BtZ/X+tBp2sQMQ5GyUYYHJKPaNL4XaIOxT+gwT8sKqigv24mgB74JRm
+         iNhw==
+X-Forwarded-Encrypted: i=1; AHgh+RrBi2h5qxIL0d8+zPQ04kRs1O5B1vgkRaVtd7Tdizz224u26H+FnraV6lLfybWff1a9iCzYiyqov+Em@vger.kernel.org
+X-Gm-Message-State: AOJu0YzKQbIhPeYVUX5OKrkQwIEd2xr3Zy1fassP+tTOlWgoT7mg+5/i
+	TT3zl2tHf1x1GG1QnvdP29xcoMDpicFju4NdNmRHrJdcvqWj+NM1W+zJ
+X-Gm-Gg: AR+sD10n+JMWHUTB38waSauFqfEEC9ZBKxeGrsdNelrO8qd0f5+rKlxvqNUqPwSmwJt
+	X6UX9mE1GMI06qeomrZ0sUuL6giB/RrqL5SUezhqYvq6vlJndBDSE9yq1hCrm2DMq/Q4Hcp4lY2
+	6tSGum97fov3E4EfeqN2hYXgOE9jgn8Pl44Mt3RUqUeQiDUMH5sJ6IxpbyVaoQg1rRhG86SuYop
+	C+wo3//ckXslMy1b2A/DLMuMp/fui6XkDLG4UyCxzdEpmmoOzaPIcdXetI9DSuVZI7tumJ3O+R0
+	DjKmYi/MwEOuPTOLBl0SaILF96z4g/oELru8b23BwNQ2NHcW4HvtMIK97eTyitwfIwbKCfokaCn
+	QpeM4NGh7t/mCAcg2uLWpgkO2slqDc5OjIBnZaNv48kaKX4NfZKvOtgPjqE9WqV75QJvBmw4sS/
+	KOnRpnd7YNvEuFqUKV1OdBEmVl/DfB5pwLYjzmaBDUY4cqYZsZeNLhgwobLW4Dd8tTo+HyohVVh
+	urp4pG1K2ZW5JI3UJRfKheYLLKW
+X-Received: by 2002:a17:903:2449:b0:2cf:906c:7d1 with SMTP id d9443c01a7336-2d046db7f95mr4374975ad.20.1785466591024;
+        Thu, 30 Jul 2026 19:56:31 -0700 (PDT)
+Received: from [127.0.1.1] (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d0478d9da2sm753915ad.7.2026.07.30.19.56.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 30 Jul 2026 19:56:29 -0700 (PDT)
+From: Kyle Hsieh <kylehsieh1995@gmail.com>
+Subject: [PATCH v2 0/2] iio: adc: Add support for Texas Instruments
+ ADS112C04
+Date: Fri, 31 Jul 2026 10:58:23 +0800
+Message-Id: <20260731-ti-ads112c04-driver-v2-0-aab0168c3c01@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v16 1/7] dt-bindings: arm: Add support for Qualcomm TGU
- trace
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-References: <20260730080704.2903540-1-songwei.chai@oss.qualcomm.com>
- <20260730080704.2903540-2-songwei.chai@oss.qualcomm.com>
- <20260730081507.B1F911F000E9@smtp.kernel.org>
-Content-Language: en-US
-From: "Songwei.Chai" <songwei.chai@oss.qualcomm.com>
-In-Reply-To: <20260730081507.B1F911F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=Iokutr/g c=1 sm=1 tr=0 ts=6a6c0cf1 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=FA5ksZJBM4DXSn_ndQAA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-GUID: HTwUEiX0-B5iT7jAeQ8gLqtNsHWUGgbm
-X-Proofpoint-ORIG-GUID: HTwUEiX0-B5iT7jAeQ8gLqtNsHWUGgbm
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMxMDAxNSBTYWx0ZWRfX9pbI/ZYJWn06
- pXBcJk9xXl9qfFs1Ymfg6vAXLTa+qdakwtpOclgYfCCZzVQa1eRy5XFtKxxkKiLA19U4anlWJsM
- +Tp91K3m5ChAwlyhFXWIQzLUnD7qv2g=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMxMDAxNSBTYWx0ZWRfXyC10zx3n1Xy2
- LNj0JQba7jTIQNntFD4wNuVTlLkkrpm4lVcGX242zuhq2igs2ph8KJq6oDB7R/sN7jv3qeu8Dta
- Nm1Ja8zXrRZz8kExq2dhHgB24r0b0FMUweSJPC3AzqDZWENZ1Tk77GKxK7Yo7k5HEXNHHRg/NAE
- HjDrkKN4c9feVIqeOUlt9WWdp6/1P9xIjgFFcwTnMKhhoJVdisrs9rIfG5pjoAurZIjYfk6Yqs/
- vKV7/Zc04Njkt7B/ghfFYHs7UlaHq7U1q+THx/wWxzazBAVoYuigAD6A75IqmJPAgbKGJCmqjNy
- VKUYQKsiUlmIhAeYKzVPSmZVVZHg/qE6YG2lHiDa1AD6FSLBs1JC5QRBMan61oFQCxJHxx0FqTM
- hGCn/YtjFiFRrwRF8Z24TYYuNjueS1LMU260u1tGxOg4PUUTycks72Vf0QoZvkuYo9T8et84psJ
- H7ZJW9SExDTULVqmWNQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-31_01,2026-07-30_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 bulkscore=0 suspectscore=0 adultscore=0
- spamscore=0 malwarescore=0 impostorscore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607310015
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAE8PbGoC/22NQQ6CMBBFr0Jm7Zi2VltdeQ/DotABJhFKWtJoC
+ He3krhz+V7y318hUWRKcKtWiJQ5cZgKqEMF7eCmnpB9YVBCXYRRGhdG55OUqhUafeRMERsyZK9
+ CG3vSUJZzpI5fe/VRFx44LSG+95Msv/bXs397WaJAbc7UkSbVGHvvR8fPYxtGqLdt+wAhsuPmt
+ gAAAA==
+X-Change-ID: 20260724-ti-ads112c04-driver-be7e89047834
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Mark Brown <broonie@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Kyle Hsieh <kylehsieh1995@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2243;
+ i=kylehsieh1995@gmail.com; h=from:subject:message-id;
+ bh=KjZ+uACRxumlfzhanLvQ89GnZNvCbEi1KvNHScewSgg=;
+ b=owEBbQGS/pANAwAKAaWDQrcJVsSBAcsmYgBqbA9T8AWiWNqXcFaY47LrIpNPX5EHoLvgSa1br
+ O9uveQDc+CJATMEAAEKAB0WIQTJHsaNZOdY+THGqJelg0K3CVbEgQUCamwPUwAKCRClg0K3CVbE
+ gdlJCACOO3helD+XRRW279Sak7M4XJUADoFQT9V0a6+COMit3kC6bYAgtdA+ZldlMX8zZF+A3ad
+ In8Aa5ZJLMXen/evkpiHTGUzwy68OfT1ppJWH1DhvndTlRAhel+VZl0AP2bc1CqgZjJQNS0l6nq
+ y6YKgLcRRqTj5MypHQTYrO7n4tRBu9ff3CbXhl3OdK6MGSWbxPgfcVAGDi4A9lKfq0nFU95lvef
+ tAZMZYhPsfkyZWSf/qAcfGtkFjGa7Q6QRa2VD3o0EOjMpwC4RNoh9iAF/rfCEluMX6yzjvG5H4I
+ jO6I9dZ2C33cW795f8QU0LbXfM4lds+4qlCCfiHe54EcTXMD
+X-Developer-Key: i=kylehsieh1995@gmail.com; a=openpgp;
+ fpr=C91EC68D64E758F931C6A897A58342B70956C481
 
+This patch series introduces support for the Texas Instruments ADS112C04
+Analog-to-Digital Converters.
 
-On 7/30/2026 4:15 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [Medium] The binding schema omits the `interrupts` property despite the hardware description explicitly stating it can generate interrupts.
+The ADS112C04 (16-bit) is precision, low-power, delta-sigma ADCs with
+an I2C interface. They feature a flexible input multiplexer supporting
+single-ended and differential measurements, a programmable gain amplifier,
+and an internal voltage reference.
 
-Clarification：
+Note: While this chip shares similarities with the ADS112C14 (currently 
+being upstreamed by David Lechner), the register maps and feature sets 
+are sufficiently different to warrant a separate driver. However, the
+DT bindings and channel parsing logic have been aligned with the
+ADS112C14 conventions.
 
-The current driver/DTS does not actually use an interrupt line (it only 
-uses CTI trigger outputs), so there is no need for the binding to define 
-an |interrupts| property.
+This initial submission provides a minimal feature set (single-shot 
+conversions and basic DRDY interrupt) covering current use cases.
 
-> - [Low] The schema claims `arm,primecell` compatibility but uses `additionalProperties: false` without referencing the standard Primecell schema, incorrectly blocking valid Primecell properties.
-> --
+Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
+---
+Changes in v2:
+- Replaced `vref-supply` with `refp-supply` and `refn-supply` to accurately reflect hardware.
+- Refactored the driver to dynamically parse channel configurations and routing from DT child nodes.
+- Modernized the driver using kernel macros.
+- Handled endianness elegantly.
+- Added hardware reset fallback logic.
+- Inherited IRQ trigger type from device tree instead of hardcoding.
+- Fixed a bug where the MUX software cache could desync from hardware if the I2C write failed.
+- Added strict return value checking for all I2C writes during probe.
+- Updated the `i2c_device_id` array to use C99 named initializers.
+- Link to v1: https://lore.kernel.org/r/20260728-ti-ads112c04-driver-v1-0-475efe4e2b78@gmail.com
 
-Clarification:
+---
+Kyle Hsieh (2):
+      dt-bindings: iio: adc: ti,ads112c04: Add binding for ADS112C04
+      iio: adc: ti-ads112c04: Add support for TI ADS112C04
 
- 1. I checked the format of the |arm,coresight-*.yaml| files under
-    |Documentation/devicetree/bindings/arm/| and found that they all
-    claim |arm,primecell| compatibility, yet none of them reference
-    |/schemas/arm/primecell.yaml|.
- 2. In actual DTS files, properties defined by the PrimeCell schema,
-    such as |arm,primecell-periphid|, do not normally appear. Therefore,
-    referencing |/schemas/arm/primecell.yaml| is not mandatory.
+ .../devicetree/bindings/iio/adc/ti,ads112c04.yaml  | 122 +++++++
+ drivers/iio/adc/Kconfig                            |  10 +
+ drivers/iio/adc/Makefile                           |   1 +
+ drivers/iio/adc/ti-ads112c04.c                     | 378 +++++++++++++++++++++
+ 4 files changed, 511 insertions(+)
+---
+base-commit: 4539944e515183668109bdf4d0c3d7d228383d88
+change-id: 20260724-ti-ads112c04-driver-be7e89047834
 
->
-> --- Patch [1]: [PATCH v16 1/7] dt-bindings: arm: Add support for Qualcomm TGU trace ---
-> commit 1cb0b1557ad8efca643aa36dee2d1b84f9c415b0
-> Author: Songwei Chai <songwei.chai@oss.qualcomm.com>
->
-> dt-bindings: arm: Add support for Qualcomm TGU trace
->
-> This commit introduces the device tree binding schema for the Qualcomm
-> Trigger Generation Unit (TGU). The TGU monitors signals to identify issues
-> and can generate a trigger into the CTI or interrupts to processors.
->
->> diff --git a/Documentation/devicetree/bindings/arm/qcom,tgu.yaml b/Documentation/devicetree/bindings/arm/qcom,tgu.yaml
->> new file mode 100644
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/arm/qcom,tgu.yaml
-> [ ... ]
->> +description: |
->> +  The Trigger Generation Unit (TGU) is a Data Engine which can be utilized
->> +  to sense a plurality of signals and create a trigger into the CTI or
->> +  generate interrupts to processors. The TGU is like the trigger circuit
-> [ ... ]
->> +  preprogrammed state/sequence and then produce a trigger or interrupt.
-> [ ... ]
->> +properties:
->> +  compatible:
->> +    items:
->> +      - const: qcom,tgu
->> +      - const: arm,primecell
-> [Severity: Low]
-> Since this device claims arm,primecell compatibility, shouldn't there be a
-> schema reference to /schemas/arm/primecell.yaml# included to properly
-> inherit standard PrimeCell properties?
->
->> +
->> +  reg:
->> +    maxItems: 1
->> +
->> +  clocks:
->> +    maxItems: 1
->> +
->> +  clock-names:
->> +    items:
->> +      - const: apb_pclk
-> [Severity: Medium]
-> The description above mentions the hardware can "produce a trigger or
-> interrupt", but an interrupts property is missing from this list.
->
-> Will device trees that legitimately specify the hardware's interrupt line
-> fail schema validation when additionalProperties: false is enforced below?
->
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +  - clocks
->> +  - clock-names
->> +
->> +additionalProperties: false
-> [Severity: Low]
-> Because arm,primecell compatibility is claimed, should this use
-> unevaluatedProperties: false instead?
->
-> Using additionalProperties: false without inheriting the PrimeCell schema
-> will block valid inherited properties like arm,primecell-periphid from
-> being used in the device tree without validation errors.
->
+Best regards,
+-- 
+Kyle Hsieh <kylehsieh1995@gmail.com>
+
