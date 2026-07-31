@@ -1,143 +1,171 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F0C0348898
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 18:38:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 601EE446078
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 18:41:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785523092; cv=none; b=i0TFj3z/tSiS+6K7jOveDrasUVk7xdvTDrr0YbC81Pkfx4b/JVxScS6NafhBhiivB7AjwqbUWP5+7W1hRjQKHPBosKdZQuWUCMEsfc/ESTe6pf94/Gl3n81MN+PWQ/BtaYq80pfYWnCA70zvuXrFfnDI68ZJ2z6Zp78qYm7aWKc=
+	t=1785523287; cv=none; b=Mm82i2ZfteaTN5m04bFFxqEvAFTOMTaZJlNm1SUL88GeOobrhNKh/ssHlUWfIgMhh8yNkrcvi4trNQkZe7l6JnA/B6bn+iJeppiDPmNfyf5sxYfXCl+O4IPHBCoSNtWHfhj25nvopS+qOZUeodTb+qiL2mXgk4WCsfG2avP3b/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785523092; c=relaxed/simple;
-	bh=KuFPQd5bHhpnCiQprOt/6dOVFalg69678704cHUK0yw=;
+	s=arc-20240116; t=1785523287; c=relaxed/simple;
+	bh=blAii82+Lu+iwapwDLUW7lRyif5eXPz2+gobwdw6g9U=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=B6l959FmjTF+iVIeL9/MAr69gS0Ig+IyBUtCgSBcmsJqSpX2mHa7d9LHugJE57CJmCXQKbHOMgx1u+O7PyfGexcCqjKmfROkSDimiGTJkf7do4KhAlQMTjPjkSlJduLlAoCp4dqtrelMyylIRc2mWRHemSTg+OIS9zQlpyKAsmQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=af4PJGUb; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=MNL4DiI6qryn3jCt80Grj1Y6O2T5KJtv+rpuIFvv+wvuRYSGAdt2tM5hyABq3/6zfAGQUEORLNI+kJ1eR5MgtKbSlHLyn51wiI4bu0/4dIsVf1WS4zMDrqQ83cD2um17c4RbtieZXNB0ewf5eqIf9+VGvCJe07mKmFzj6HDnWhM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WsyRJmY+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="af4PJGUb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECD0F1F00AC4;
-	Fri, 31 Jul 2026 18:38:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WsyRJmY+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94ED61F00AC4;
+	Fri, 31 Jul 2026 18:41:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785523091;
-	bh=tAvSiRGEta8Slm1aGtOws2rC5Ck9FYO9+iwSMO54AkU=;
+	s=k20260515; t=1785523285;
+	bh=OV5EHwb5NM3HAQ4JWEPX0z3FIi225APGExPNADCiQF8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=af4PJGUbDVgbAF7Bdh6aI6Wbvt9mCr2T855i2D67+Y8H5QsWNwiW+Z5ZcLElhx0Ry
-	 R1gaf/J1qGTgfJpP3hvD0TG/Fg65bYf1SWoibv3TIpj6z4zJmakLAXMFZilvkmQECP
-	 A9a4fC6gge6vweFTGJkgYWPYN8Rcup9p7xqzXk4qUmMd/0zNCYABGqXgoL91h+Hf2H
-	 xws0jwo82Dsqz81P5R8OJJnQfzUOkaYf2/+Vs9bSKlyUPI69HnXYgsrlAW40pTeGrI
-	 BE6rf7FKjZZ6+GqoKGDuMCjy0QVcnmyCSubo0Jwgb8+h1NpzbcFS9CyLTyMPY98uvR
-	 OVZSqqKhn1rOA==
+	b=WsyRJmY+AeenjbdZLDE7mHlYaOYf1rgmKgDmgohgpYZnU1qNUQLANFMFDJcNxjA4+
+	 TqbUDBM69if/TYsFjPWozbhltFCMS+jEDKhrFIQukmQglQJ48FwOHAZOsy4R1Uhm05
+	 4fHOHWxZuNzk+5gCNCNzmfrOR/Mma4TBtO36RW2NDxXS96+lHsVMuXhGswe0SFUPrV
+	 n7CowUMbwH2WjduWIGTB5/JPsT5QtU9kFnTzQsdEjMWb55uFSBP6/i6msQKiN+2hWL
+	 U9VP808EZ2C47fIbNwdUSelytFwySC9MYDD6NzXfqq/R/gYyOqyk2RgOXenUQSfQiK
+	 bLSljmvegxPkQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 09/12] arm64: dts: qcom: sm8550: Add Iris context
- bank subnodes
+Subject: Re: [PATCH v2 07/12] media: iris: Create pixel and non-pixel
+ context banks on VPU3x
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Vikash Garodia" <vikash.garodia@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org, conor+dt@kernel.org
-In-Reply-To: <20260731-vpu_iommu_iova_handling-v2-9-da52b5228dbd@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, media-ci@linuxtv.org, conor+dt@kernel.org
+In-Reply-To: <20260731-vpu_iommu_iova_handling-v2-7-da52b5228dbd@oss.qualcomm.com>
 References: <20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com>
- <20260731-vpu_iommu_iova_handling-v2-9-da52b5228dbd@oss.qualcomm.com>
+ <20260731-vpu_iommu_iova_handling-v2-7-da52b5228dbd@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 31 Jul 2026 18:38:09 +0000
-Message-Id: <20260731183809.ECD0F1F00AC4@smtp.kernel.org>
+Date: Fri, 31 Jul 2026 18:41:25 +0000
+Message-Id: <20260731184125.94ED61F00AC4@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
+New issues:
+- [High] Unregistered and freed platform devices (p_dev, np_dev) can be use=
+d by concurrent ioctls during driver removal, leading to Use-After-Free.
+- [High] Context bank platform devices are missing DMA configuration, causi=
+ng fatal SMMU faults.
+
 Pre-existing issues:
-- [High] In `of_iommu_get_resv_regions()`, the code fails to advance the `m=
-aps` pointer past a node's specifier cells if the node does not match `dev-=
->of_node`, causing the parser to fall out of sync.
-- [High] If `of_translate_dma_region()` fails to translate the address, it =
-returns `NULL`, which is assigned to `maps` without a NULL check, leading t=
-o a guaranteed kernel panic on the next loop iteration.
+- [High] Missing cancellation of delayed work sys_error_handler causes Use-=
+After-Free on module removal.
 --
 
---- Patch [9]: [PATCH v2 09/12] arm64: dts: qcom: sm8550: Add Iris context =
-bank subnodes ---
-commit d594fb5947e7e4fe6f238d480eadd3c2b7770369
+--- Patch [7]: [PATCH v2 07/12] media: iris: Create pixel and non-pixel con=
+text banks on VPU3x ---
+commit 6bf8596f13d0c7afe5ee94339e572204b2a9c6df
 Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
 
-arm64: dts: qcom: sm8550: Add Iris context bank subnodes
+media: iris: Create pixel and non-pixel context banks on VPU3x
 
-The VPU issues DMA through several SMMU streams, and the hardware does
-not give every stream the same addressable range. The non-pixel stream
-is restricted to use 0-600MB of IOVA space, while the pixel stream can
-address the full range. This commit separates the streams into two
-subnodes, pointing the non-pixel subnode to a reserved-memory node to
-exclude the lower 600 MB from its IOVA allocator.
+This commit implements context bank hooks for VPU3x to create "non-pixel"
+and "pixel" devices from matching device tree subnodes. It wires these hooks
+into the ops for relevant platforms and handles device registration and
+unregistration.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/q=
-com/sm8550.dtsi
-> index 7599b7b7e645f..4c8ad7f026fe5 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-> @@ -1087,6 +1087,10 @@ hyp_ext_reserved_mem: hyp-ext-reserved-region@ff70=
-0000 {
->  			reg =3D <0 0xff700000 0 0x100000>;
->  			no-map;
->  		};
+> diff --git a/drivers/media/platform/qcom/iris/iris_vpu3x.c b/drivers/medi=
+a/platform/qcom/iris/iris_vpu3x.c
+> index 3dad47be78b58..623a0f8a7982c 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vpu3x.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vpu3x.c
+
+[ ... ]
+
+> @@ -254,6 +254,40 @@ static void iris_vpu35_power_off_hw(struct iris_core=
+ *core)
+
+[ ... ]
+
+> +static int iris_vpu3x_init_cb_devs(struct iris_core *core)
+> +{
+> +	struct device *dev;
 > +
-> +		iris_resv: reservation-iris {
-> +			iommu-addresses =3D <&iris_non_pixel 0x0 0x0 0x0 0x25800000>;
+> +	dev =3D iris_create_cb_dev(core, "non-pixel");
 
 [Severity: High]
-This isn't a bug introduced by this patch, but adding this property exposes
-a pre-existing issue in of_iommu_get_resv_regions().
+Does this new device need explicit DMA configuration?
 
-If a memory-region specifies an iommu-addresses list with multiple devices,
-the parsing breaks for all entries after the first one because the code fai=
-ls
-to advance the maps pointer past a node's specifier cells if the node does
-not match dev->of_node:
+Since iris_create_cb_dev() creates dummy platform devices for the IOMMU
+context banks without a driver, the kernel driver core never calls
+really_probe() and never invokes platform_dma_configure(). Without an
+explicit call to of_dma_configure() in the driver, the device lacks an IOMMU
+domain.
 
-drivers/iommu/of_iommu.c:of_iommu_get_resv_regions() {
-    ...
-			if (np =3D=3D dev->of_node) {
-				int prot =3D IOMMU_READ | IOMMU_WRITE;
-    ...
-			}
-    ...
-}
+When iris_get_cb_dev() returns these devices for buffer allocation, will the
+DMA API return raw physical addresses instead of IOVA, triggering an IOMMU
+context fault when the VPU's enabled SMMU streams access this memory?
 
-There is no else branch to compute the specifier size and advance the maps
-pointer over it. The next iteration incorrectly reads the first cell of the
-specifier as the next phandle, throwing the parser out of sync.
-
-Will this be an issue if additional devices are added to this list in the
-future?
+> +	if (IS_ERR(dev))
+> +		return PTR_ERR(dev);
+> +
+> +	core->np_dev =3D dev;
+> +
+> +	dev =3D iris_create_cb_dev(core, "pixel");
+> +	if (IS_ERR(dev))
+> +		goto unreg_np_dev;
+> +
+> +	core->p_dev =3D dev;
+> +
+> +	return 0;
+> +
+> +unreg_np_dev:
+> +	if (core->np_dev)
+> +		platform_device_unregister(to_platform_device(core->np_dev));
+> +	core->np_dev =3D NULL;
+> +
+> +	return PTR_ERR(dev);
+> +}
+> +
+> +static void iris_vpu3x_deinit_cb_devs(struct iris_core *core)
+> +{
+> +	if (core->p_dev)
+> +		platform_device_unregister(to_platform_device(core->p_dev));
+> +	if (core->np_dev)
+> +		platform_device_unregister(to_platform_device(core->np_dev));
 
 [Severity: High]
-This is a pre-existing issue, but adding this property could trigger a kern=
-el
-panic if the device tree is ever misconfigured.
+Can concurrent ioctls access these devices after they are unregistered?
 
-If of_translate_dma_region() fails to translate the address (for example,
-due to a missing dma-ranges property), it returns NULL. This NULL is direct=
-ly
-assigned to maps without a check:
+If iris_remove() is called while userspace holds a file descriptor open and
+executes an ioctl (like VIDIOC_QBUF), this function unregisters and frees
+p_dev and np_dev. The pointers in core are not cleared, and there doesn't
+appear to be synchronization with active file handles.
 
-drivers/iommu/of_iommu.c:of_iommu_get_resv_regions() {
+Could a concurrent ioctl call iris_get_cb_dev(), retrieve the freed p_dev or
+np_dev pointer, and pass it to the DMA API, resulting in a use-after-free of
+the device structure?
+
+> +}
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the module removal path
+leave delayed work running?
+
+Looking at the removal path, iris_remove() destroys the lock and exits with=
+out
+cancelling the sys_error_handler delayed work:
+
+drivers/media/platform/qcom/iris/iris_probe.c:iris_remove() {
     ...
-				maps =3D of_translate_dma_region(np, maps, &iova, &length);
-    ...
+    mutex_destroy(&core->lock);
 }
 
-Because length is uninitialized, the loop eventually proceeds to the next
-iteration where the condition while (maps < end) evaluates to true since ma=
-ps
-is NULL. Dereferencing maps with be32_to_cpup(maps++) then causes a kernel
-panic.
+If a hardware error schedules core->sys_error_handler with a delay, and
+iris_remove() executes immediately after, the devres manager frees the core
+structure. When the delayed work executes, it will call
+iris_sys_error_handler(), attempting to access the freed core memory.
 
-Should we add a NULL check in of_iommu_get_resv_regions() to prevent this?
-
-> +		};
->  	};
+Should cancel_delayed_work_sync() be called during removal to prevent a
+use-after-free of the core structure?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-vpu_iommu_=
-iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com?part=3D9
+iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com?part=3D7
