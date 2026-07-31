@@ -1,33 +1,68 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5174326ED40;
-	Fri, 31 Jul 2026 15:04:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC5152E9729
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 15:09:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785510272; cv=none; b=u5nQl3R6FeE/T7tZ/HbIxgegMs/boSTUBmlOts8iUjjV7vSeoGxnERVKP0xY4KTzxUGBiFMYSEqttfLnszBH7Et8BTQnSqEiGE6mn14JGi0zCz1J8zPi6HJgmzZX28nsIQf74eDTMLVO4BBpAs18a5lHF1Hh330Y+Sfpccmz888=
+	t=1785510571; cv=none; b=H8usxc4/7Y2LuBxTcrjRu4oGHTENLdofZn+7h8N+P+8qdlIZp/9aMJWR5WmMiKyWYO75h7F/dklbIg4lmXUtSblSa4fWJ075HfkaBeWevCT3sgLYiyrwboHEVEq1nJlrBDbd2wOnrMydK3OmUoenGJwHvGEp6UZiZM8IJPknR+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785510272; c=relaxed/simple;
-	bh=9laigUYa2MuN3S0z+86S/Z86VEXed6Dh+13S+CpbPXc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EWyJBVZRlkJQVGIac3Yamx/qt1Cxs0TIKkWIqTgSB6/Orlz+7XuV0P2dCnY+NEP6uU0dv5RP/4ps5QoBgr1a3l/t/Xx2juE+5farlqXtZfBy3oVvEfUAmpo7qbNGXwnthLxm/d9BHsDv3THpDbgPUYr0JxTK1TJE0l7HpZIJUdM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AcO8yj5F; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785510571; c=relaxed/simple;
+	bh=H0PtDtMH7fhKXYVLHdaggAQU9rhUC69jlh+BkXkBf9g=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=Cy7UpvisaRGb65OlTPYmF+zDmhdXUM/w8NMclt/KA6bhadL2A/MOC2GLxZBr66idEm1nD8qJimpw5Bo0j5RNzGd1L7TqVNcLM5Uggf6e1dmxzhb+raPaP8HYR3Iwy5x6vwsU9/ELCnAxFpubuRZLw9wMh+Q8f6clY9XCch6NfNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=bUvjqg6T; arc=none smtp.client-ip=209.85.210.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AcO8yj5F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A6631F000E9;
-	Fri, 31 Jul 2026 15:04:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785510271;
-	bh=JceEsEO2ao4jf6YgYLdNuBy0baoWJQllCmkuVRmvxPg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=AcO8yj5FxPea/QlOLuAR3Fu+Ire3V3klQFPZI5IUuPIX70VeocDEp5EysBbtDXjDY
-	 +6GFTGv+7lqSIs/SQG2wkqUt0iknNqaQjFGaot6QH4tkxo78HXh8kaTXs3WlzBH9EI
-	 E3/oR51sEaA7Y2/aRGneWBaAPO/Wwm3+EDtHUjwX/KiSkuV5WrjUY8qRahYwIKmjky
-	 D/CH2lzO11CCR+mf3pTQbr5C15Iumk5jrwHc5nA+aQKNjOvvKQPujtB7prE+m1orGp
-	 DXzbWrnE59LzSO/Q6uoc8GsKSpmw0N5TEnPrEF0b949grvNaq6FWEKXCX0uP8AA/5p
-	 nmGTItwLNEB3A==
-Message-ID: <c1875dd6-fe3a-4a69-a6fd-b461c8fba6e4@kernel.org>
-Date: Fri, 31 Jul 2026 17:04:21 +0200
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="bUvjqg6T"
+Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-7eb787dec99so811424a34.0
+        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 08:09:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1785510559; x=1786115359; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Q7B/qtQQs7zBLF1wHpifwjnC8NO3TVJxvfEFMj9bRfo=;
+        b=bUvjqg6TJ19WEzFCXJsl+kt5Zb3Ppxgv/JgEzHlfLWB8jlT60ChmpBGNE/s542p32T
+         XT5vkPKx5LRCyuBYxqbV85xvb0kBM1IAqiDw3qQgwCTddCJjnyXRLL6xuviMkJvESvPR
+         sZwBUn8I2vV1m42PCbzGg2vtwv0Rqbx4WbXyR9qf8fH+7kRch0WJFlVq8IoSFUb2i+nE
+         GC8o4tWzQs+YQ08+n0Gz4tI3thbK812bAy8Fa9mcvIJbmHjYfRHYWVTyrSrdCp9trdYh
+         UB0vunTMOdsz77oOXBY2jz6Lc0T5a9ReuKAV0j0JIqbnGwl5cc+5t8wD+DvzNZqPlol0
+         4l6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785510559; x=1786115359;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Q7B/qtQQs7zBLF1wHpifwjnC8NO3TVJxvfEFMj9bRfo=;
+        b=gWR0QAL2OzqM1pUmMJ12sGzC9YnmjN6ajpERAaL3/sOTwA4w+AONBXzQsutiAWsU94
+         at6V7BXA2aMR4VJn187pC3fVIaN1SJvWJyD5MHtI80ww/aBgZAGZsZVos5Vf9ST6pT5y
+         TfIQFWWujqiE5lHfYB8d7R2mfF9SoE+zuZw+0+QHDwhKG8h22qIS/Pt62I0zXEMxyhFg
+         M/zAIWjWybPwgXfGRFOQUFvd7fOeKSUTSRTC6hHk6o4UuClSN93Y/0wMNhVMU0GkAq6d
+         wM4XQhMgZJe2gLEUjDf+F7EN8EUB5jwODISXZ09xdEYW5MHRiwDFXLZZPqnO3dlq5PpS
+         xc0A==
+X-Forwarded-Encrypted: i=1; AHgh+Rqc/4HmBiufrXE2DUZvoc5eSO6rzS2jsUtnntCH+nWhK4zh6OwEFWQqaBOWfa6s32LcAPdCkLo4ABg4@vger.kernel.org
+X-Gm-Message-State: AOJu0YwVD15wclLm4QwQmOmNEoftYE6kQR0XnYMg76oKm8nvbU3SzHza
+	doi7d4YiTnRGJTBBp/yLE73bJTm8sKmBLlVtVBqbOljLb1dlOq20TYrJXrea+iN5XoJ17SzTkcP
+	0ZpHO
+X-Gm-Gg: AR+sD11pOFDPPBqWF2T4eIJjZ8RHRRITI0fhEGQMPPBYm4mRWQCMxOEw3PlNFRAThUF
+	WKlpmuU1MFnrIhDkN6J5voIUqHMYhbgZlBXqKiPZzdeO7Dt7veZpLqID/lFBWvZTfcZ4vMeHNnE
+	N3TWndJGsF78A/XtETWlUJnYVVy0X81sN/oySGMkMY3shqsX4JIEda5gaoexzOWxbNsT8DK5olY
+	ejlPYO521+eYndqMVjgfElwDUtebXWs5mj7quJkO/JujPdpu3kUCpCHaYesXq5mZY+pg44e+9+H
+	kIHMv5nhqDlTCjImU7cKz9JMsRXNY1BSQi4+o6rLIMrNFjWq5in4isXBUHr85EbTcjLSHeZOy4s
+	UISg+AlqF3+nMipm5t2IjVrubFe+Oqdx6xw1od+lCXo4c1XD2KE/9IToS4H+/EP29EbbfFLWAxb
+	8+3wtYbqBVsSnfiuthoXSrMqsoRQQR1nK8+IFUuvmfuLm8xvjwzRewtOkft3Uodg8cho9uv3KpM
+	yRigNuWzK4EwW7EeyBiSqxELGvMpNrPYknwZcl+gC6IqpgG6eA=
+X-Received: by 2002:a05:6808:198d:b0:485:48da:133d with SMTP id 5614622812f47-4af5e29c73bmr445224b6e.10.1785510559180;
+        Fri, 31 Jul 2026 08:09:19 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:fa40:746f:401a:3b75? ([2600:8803:e7e4:500:fa40:746f:401a:3b75])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4af58f2a635sm795191b6e.16.2026.07.31.08.09.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 31 Jul 2026 08:09:18 -0700 (PDT)
+Message-ID: <feb422c5-a1c2-427b-9585-1f796d61fb3d@baylibre.com>
+Date: Fri, 31 Jul 2026 10:09:16 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,144 +70,40 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/6] dt-bindings: bluetooth: qca: add QCC2072
-To: Rahul Samana <rahul.samana@oss.qualcomm.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
- Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
- Rocky Liao <quic_rjliao@quicinc.com>, Manivannan Sadhasivam
- <mani@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Bartosz Golaszewski <brgl@bgdev.pl>,
- linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-pm@vger.kernel.org,
- quic_mohamull@quicinc.com, quic_hbandi@quicinc.com, quic_anubhavg@quicinc.com
-References: <20260727-rb3-industrial-bt-uart-v2-0-2d100f30e202@oss.qualcomm.com>
- <20260727-rb3-industrial-bt-uart-v2-1-2d100f30e202@oss.qualcomm.com>
- <20260731-first-righteous-bear-dd72ed@quoll>
- <712f8a14-d2a1-4a90-82f9-05cd694f2658@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v2 2/2] iio: adc: ti-ads112c04: Add support for TI
+ ADS112C04
+From: David Lechner <dlechner@baylibre.com>
+To: Kyle Hsieh <kylehsieh1995@gmail.com>, Jonathan Cameron
+ <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260731-ti-ads112c04-driver-v2-0-aab0168c3c01@gmail.com>
+ <20260731-ti-ads112c04-driver-v2-2-aab0168c3c01@gmail.com>
+ <0f092382-416e-43ac-b58f-b915165e29ba@baylibre.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <712f8a14-d2a1-4a90-82f9-05cd694f2658@oss.qualcomm.com>
+In-Reply-To: <0f092382-416e-43ac-b58f-b915165e29ba@baylibre.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 31/07/2026 16:45, Rahul Samana wrote:
-> 
-> 
-> On 31-07-2026 15:16, Krzysztof Kozlowski wrote:
->> On Mon, Jul 27, 2026 at 09:15:01PM +0530, Rahul Samana wrote:
->>> QCC2072 can be used on M.2 E-key cards where the card power resources are
->>> described by the pcie-m2-e-connector node. In that setup, the M.2 power
->>> sequencing provider creates the Bluetooth serdev child after matching the
->>> QCC2072 PCI function.
->>>
->>> Integrated non-M.2 designs need board-specific power resources. Document
->>> only the compatible for now and leave those properties to be added with
->>> matching driver support.
->>>
->>> Document the qcom,qcc2072-bt compatible used for QCC2072 Bluetooth
->>> controllers connected over UART.
->>>
->>> Signed-off-by: Rahul Samana <rahul.samana@oss.qualcomm.com>
+On 7/31/26 9:54 AM, David Lechner wrote:
+> On 7/30/26 9:58 PM, Kyle Hsieh wrote:
+>> Add IIO driver support for the Texas Instruments ADS112C04 (16-bit)
+>> delta-sigma ADCs.
 >>
->> NAK, exactly same comments as before.
->>
->> Nothing got improved, although what is weird - original SoB is gone, so
->> this is legally dubious work.
->>
->> Best regards,
->> Krzysztof
->>
-> 
-> Hi Krzysztof,
-> 
-> Thanks for the review.
-> 
-> For the binding contents, I tried to capture the current scope in the binding
-> description itself. This series supports QCC2072 only as an M.2 E-key card,
-> where the card power resources are described by the pcie-m2-e-connector node
-> and the M.2 pwrseq provider creates the Bluetooth serdev child.
-> 
-> The binding also says:
-> 
->   Integrated non-M.2 designs require board-specific power resources. Those
->   properties, together with a static devicetree example, should be added when
->   integrated non-M.2 support is added.
 
-Bindings must be complete and your driver support is irrelevant here.
+...
 
-If you claim this is a PCI device thus you do not need any resources,
-then the binding is not needed either. PCI devices are enumerable. And
-to prove it: look at your DTS. Do you see qcom,qcc2072-bt being used? No.
+>> +	st->config0 = 0x01;
+> 
+> Needs a macro and FIELD_PREP().
+
+Correction: This one is a bit, so FIELD_PREP() is not needed.
 
 > 
-> We do not currently have an integrated non-M.2 QCC2072 design, so I do not
-> have board-specific regulator supplies to document for that topology.
+> Also, since we are parsing channels now, can/should we leave PGA enabled
+> for diff-channels? Otherwise add a comment explaining current choice.
 > 
-> Could you please suggest how you would prefer this binding to be handled for
-> the current M.2-only use case? 
-
-Drop the binding, you do not need it.
-
-Anyway the problem is that more comments were ignored.
-
-And why this is sent so many times?
-
-https://lore.kernel.org/all/20260218114955.3970974-2-vivek.sahu@oss.qualcomm.com/
-
-https://lore.kernel.org/all/20260529175342.3363935-1-yepuri.siddu@oss.qualcomm.com/
-
-and now by you.
-
-How many times this will be sent in separate patchsets and asking for
-separate review ignoring previous review?
-
-Best regards,
-Krzysztof
